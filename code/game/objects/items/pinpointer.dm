@@ -226,7 +226,7 @@
 		user.visible_message("<span class='notice'>[user]'s pinpointer fails to detect a signal.</span>", "<span class='notice'>Your pinpointer fails to detect a signal.</span>")
 		return
 
-	var/A = input(user, "Person to track", "Pinpoint") in sortList(names)
+	var/A = input(user, "Person to track", "Pinpoint") in sort_list(names)
 	if(!A || QDELETED(src) || !user || !user.is_holding(src) || user.incapacitated())
 		return
 
@@ -277,7 +277,7 @@
 	B.other_pair = A
 
 /obj/item/pinpointer/shuttle
-	name = "fugitive pinpointer"
+	name = "hunter shuttle pinpointer"
 	desc = "A handheld tracking device that locates the bounty hunter shuttle for quick escapes."
 	icon_state = "pinpointer_hunter"
 	icon_suffix = "-hunter"

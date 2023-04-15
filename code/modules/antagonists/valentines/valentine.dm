@@ -3,11 +3,12 @@
 	roundend_category = "valentines" //there's going to be a ton of them so put them in separate category
 	show_in_antagpanel = FALSE
 	prevent_roundtype_conversion = FALSE
+	replace_banned = FALSE
 	var/datum/mind/date
 	count_against_dynamic_roll_chance = FALSE
 
 /datum/antagonist/valentine/proc/forge_objectives()
-	var/datum/objective/protect/protect_objective = new /datum/objective/protect
+	var/datum/objective/protect/protect_objective = new
 	protect_objective.owner = owner
 	protect_objective.set_target(date)
 	if(!ishuman(date.current))
@@ -18,29 +19,27 @@
 
 /datum/antagonist/valentine/on_gain()
 	forge_objectives()
-	if(isliving(owner))
-		var/mob/living/L = owner
-		L.apply_status_effect(STATUS_EFFECT_INLOVE, date)
+	if(isliving(owner.current) && isliving(date.current))
+		var/mob/living/L = owner.current
+		L.apply_status_effect(STATUS_EFFECT_INLOVE, date.current)
 		//Faction assignation
 		L.faction |= "[REF(date.current)]"
 		L.faction |= date.current.faction
-	if(issilicon(owner))
-		var/mob/living/silicon/S = owner
-		var/laws = list("Protect your date and do not allow them to come to harm.", "Ensure your date has a good time.")
-		S.set_valentines_laws(laws)
+		if(issilicon(owner.current))
+			var/mob/living/silicon/S = owner.current
+			var/laws = list("Protect your date and do not allow them to come to harm.", "Ensure your date has a good time.")
+			S.set_valentines_laws(laws)
 	. = ..()
 
 /datum/antagonist/valentine/on_removal()
 	. = ..()
-	if(isliving(owner))
-		var/mob/living/L = owner
+	if(isliving(owner.current))
+		var/mob/living/L = owner.current
 		L.remove_status_effect(STATUS_EFFECT_INLOVE)
 		L.faction -= "[REF(date.current)]"
 
 /datum/antagonist/valentine/greet()
-	to_chat(owner, "<span class='clown'><B>You're on a date with [date.name]! Protect [date.p_them()] at all costs. This takes priority over all other loyalties.</B></span>")
-	owner.current.client?.tgui_panel?.give_antagonist_popup("You are on a date with [date.name]",
-		"Protect your date no matter the cost. Your loyalities are insignificant compared to your true love, you may do whatever you can to help and protect them!")
+	to_chat(owner, "<span class='big bold clown'>You're on a date with [date.name]! Protect [date.current.p_them()] at all costs. This takes priority over all other loyalties, you may do whatever you can to help and protect them.</span>")
 
 //Squashed up a bit
 /datum/antagonist/valentine/roundend_report()
@@ -52,6 +51,22 @@
 				break
 
 	if(objectives_complete)
-		return "<span class='greentext big'>[owner.name] protected [owner.p_their()] date</span>"
+		return "<span class='greentext big'>[owner.name] protected their date, [date.name]!</span>"
 	else
-		return "<span class='redtext big'>[owner.name] date failed!</span>"
+		return "<span class='redtext big'>[owner.name] failed to protect their date, [date.name]!</span>"
+
+/datum/antagonist/valentine/apply_innate_effects(mob/living/mob_override)
+	. = ..()
+	//Give valentine appearance on hud (If they are not an antag already)
+	var/datum/atom_hud/antag/valhud = GLOB.huds[ANTAG_HUD_VALENTINE]
+	valhud.join_hud(owner.current)
+	if(!owner.antag_hud_icon_state)
+		set_antag_hud(owner.current, "valentine")
+
+/datum/antagonist/valentine/remove_innate_effects(mob/living/mob_override)
+	. = ..()
+	//Clear the hud if they haven't become something else and had the hud overwritten
+	var/datum/atom_hud/antag/valhud = GLOB.huds[ANTAG_HUD_VALENTINE]
+	valhud.leave_hud(owner.current)
+	if(owner.antag_hud_icon_state == "valentine")
+		set_antag_hud(owner.current, null)

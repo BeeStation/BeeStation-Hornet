@@ -992,12 +992,12 @@
 	result = /obj/item/clothing/accessory/poppy_pin
 	time = 5
 	reqs = list(/obj/item/stack/rods = 1,
-				/obj/item/reagent_containers/food/snacks/grown/poppy = 1)
+				/obj/item/reagent_containers/food/snacks/grown/flower/poppy = 1)
 	category = CAT_MISC
 
 /datum/crafting_recipe/poppy_pin_removal
 	name = "Poppy Pin Removal"
-	result = /obj/item/reagent_containers/food/snacks/grown/poppy
+	result = /obj/item/reagent_containers/food/snacks/grown/flower/poppy
 	time = 5
 	reqs = list(/obj/item/clothing/accessory/poppy_pin = 1)
 
@@ -1151,3 +1151,11 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH, TOOL_WELDER)
 	category = CAT_STRUCTURE
 	dangerous_craft = TRUE
+
+/datum/crafting_recipe/mirror
+	name = "Wall Mirror Frame"
+	result = /obj/item/wallframe/mirror
+	time = 4 SECONDS
+	reqs = list(/obj/item/stack/sheet/mineral/silver = 1, /obj/item/stack/sheet/glass = 2)
+	tools = list(TOOL_WRENCH)
+	category = CAT_STRUCTURE

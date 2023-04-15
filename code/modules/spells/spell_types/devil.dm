@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/targeted/conjure_item/summon_pitchfork
 	name = "Summon Pitchfork"
 	desc = "A devil's weapon of choice.  Use this to summon/unsummon your pitchfork."
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	include_user = TRUE
 	range = -1
 	clothes_req = FALSE
@@ -23,7 +23,7 @@
 /obj/effect/proc_holder/spell/targeted/conjure_item/violin
 	item_type = /obj/item/instrument/violin/golden
 	desc = "A devil's instrument of choice.  Use this to summon/unsummon your golden violin."
-	invocation_type = "whisper"
+	invocation_type = INVOCATION_WHISPER
 	invocation = "I ain't have this much fun since Georgia."
 	action_icon_state = "golden_violin"
 	name = "Summon golden violin"
@@ -33,7 +33,7 @@
 /obj/effect/proc_holder/spell/targeted/summon_contract
 	name = "Summon infernal contract"
 	desc = "Skip making a contract by hand, just do it by magic."
-	invocation_type = "whisper"
+	invocation_type = INVOCATION_WHISPER
 	invocation = "Just sign on the dotted line."
 	include_user = FALSE
 	range = 5
@@ -54,7 +54,7 @@
 					user.put_in_hands(contract)
 			else
 				var/obj/item/paper/contract/infernal/contract  // = new(user.loc, C.mind, contractType, user.mind)
-				var/contractTypeName = input(user, "What type of contract?") in sortList(list("Power", "Wealth", "Prestige", "Magic", "Knowledge", "Friendship"))
+				var/contractTypeName = input(user, "What type of contract?") in sort_list(list("Power", "Wealth", "Prestige", "Magic", "Knowledge", "Friendship"))
 				switch(contractTypeName)
 					if("Power")
 						contract = new /obj/item/paper/contract/infernal/power(C.loc, C.mind, user.mind)
@@ -81,7 +81,7 @@
 	charge_max = 80
 	clothes_req = FALSE
 	invocation = "Your very soul will catch fire!"
-	invocation_type = "shout"
+	invocation_type = INVOCATION_SHOUT
 	range = 2
 
 	projectile_type = /obj/item/projectile/magic/fireball/infernal
@@ -107,7 +107,7 @@
 		if(istype(user.loc, /obj/effect/dummy/phased_mob/slaughter/))
 			if(valid_location(user))
 				to_chat(user, "<span class='warning'>You are now phasing in.</span>")
-				if(do_mob(user,user,150))
+				if(do_after(user, 15 SECONDS))
 					if(valid_location(user))
 						user.infernalphasein()
 					else
@@ -121,7 +121,7 @@
 			user.notransform = TRUE
 			user.fakefire()
 			to_chat(src, "<span class='warning'>You begin to phase back into sinful flames.</span>")
-			if(do_mob(user,user,150))
+			if(do_after(user, 15 SECONDS))
 				user.infernalphaseout()
 			else
 				to_chat(user, "<span class='warning'>You must remain still while exiting.</span>")
@@ -161,7 +161,7 @@
 	client.eye = src
 	visible_message("<span class='warning'><B>[src] appears in a fiery blaze!</B></span>")
 	playsound(get_turf(src), 'sound/magic/exit_blood.ogg', 100, 1, -1)
-	addtimer(CALLBACK(src, .proc/fakefireextinguish), 15, TIMER_UNIQUE)
+	addtimer(CALLBACK(src, PROC_REF(fakefireextinguish)), 15, TIMER_UNIQUE)
 
 /obj/effect/proc_holder/spell/targeted/sintouch
 	name = "Sin Touch"
@@ -181,7 +181,7 @@
 	random_target_priority = TARGET_RANDOM
 	max_targets = 3
 	invocation = "TASTE SIN AND INDULGE!!"
-	invocation_type = "shout"
+	invocation_type = INVOCATION_SHOUT
 
 /obj/effect/proc_holder/spell/targeted/sintouch/ascended
 	name = "Greater sin touch"

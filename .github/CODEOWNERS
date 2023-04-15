@@ -31,3 +31,17 @@ Dockerfile @crossedfall
 
 /code/game/gamemodes/dynamic @itsmeow
 /code/modules/modular_computers @itsmeow
+/tools/MapTileAggregator.py @itsmeow
+/code/modules/admin/player_panel.dm @itsmeow
+/code/modules/tgui/ @itsmeow
+/code/modules/tgui_input/ @itsmeow
+/code/modules/tgui_panel/ @itsmeow
+/tgui/ @itsmeow
+/tgui/packages/tgui/interfaces/PlayerPanel.js @itsmeow
+
+# itsmeow (explicitly disowned)
+
+/tgui/packages/tgui/interfaces/
+/tgui/packages/tgui/styles/interfaces/
+/tgui/packages/tgui-panel/styles/tgchat/chat-dark.scss
+/tgui/packages/tgui-panel/styles/tgchat/chat-light.scss

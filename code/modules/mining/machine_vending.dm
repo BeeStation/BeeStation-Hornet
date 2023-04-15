@@ -10,9 +10,16 @@
 	var/obj/item/card/id/inserted_id
 	var/list/prize_list = list()
 
+	/// if it's declared, the vendor will only use this account, not the account from your card
+	var/datum/bank_account/bound_bank_account
+	var/currency_type = ACCOUNT_CURRENCY_MINING
+
 /obj/machinery/vendor/Initialize(mapload)
 	. = ..()
 	build_inventory()
+
+	if(bound_bank_account && !istype(bound_bank_account))
+		bound_bank_account = SSeconomy.get_budget_account(bound_bank_account, force=TRUE) // grabbing united budget will be bad for this. "force=TRUE" will always grab the correct budget.
 
 /obj/machinery/vendor/proc/build_inventory()
 	for(var/p in prize_list)
@@ -58,47 +65,79 @@
 
 /obj/machinery/vendor/ui_data(mob/user)
 	. = list()
-	var/mob/living/carbon/human/H
-	var/obj/item/card/id/C
-	.["user"] = null
-	if(ishuman(user))
-		H = user
-		C = H.get_idcard(TRUE)
-		if(C)
-			.["user"] = list()
-			.["user"]["points"] = get_points(C)
-			if(C.registered_account)
-				.["user"]["name"] = C.registered_account.account_holder
-				var/datum/data/record/R = find_record("name", C.registered_account.account_holder, GLOB.data_core.general)
-				if(R)
-					.["user"]["job"] = R.fields["rank"]
-				else if(C.registered_account.account_job)
-					.["user"]["job"] = C.registered_account.account_job.title
-				else
-					.["user"]["job"] = "No Job"
+	var/datum/bank_account/target_account = bound_bank_account
+	.["user"] = list()
+	.["user"]["name"] = "Unknown"
+	.["user"]["job"] = "No Job"
+	.["user"]["points"] = 0
+	.["user"]["currency_type"] = currency_type
+
+	if(isliving(user))
+		var/mob/living/carbon/human/H = user
+		var/obj/item/card/id/id_card = H?.get_idcard(TRUE)
+		if(!target_account)
+			target_account = id_card?.registered_account
+		if(target_account)
+			.["user"]["access_valid"] = TRUE
+			.["user"]["points"] = target_account.report_currency(currency_type)
+			if(bound_bank_account)
+				.["user"]["name"] = target_account.account_holder
+				.["user"]["job"] = "the Budget Account"
+		if(id_card)
+			.["user"]["card_found"] = TRUE
+			.["user"]["name"] = id_card.registered_name || id_card.registered_account?.account_holder || "Unknown"
+			var/datum/data/record/R = find_record("name", id_card.registered_name, GLOB.data_core.general)
+			if(!R)
+				R = find_record("name", id_card.registered_account.account_holder, GLOB.data_core.general)
+			if(R)
+				.["user"]["job"] = R.fields["rank"]
+			else if(id_card.assignment)
+				.["user"]["job"] = id_card.assignment
+			else if(id_card.registered_account?.account_job)
+				.["user"]["job"] = id_card.registered_account.account_job.title
+
+	else if(isobserver(user)) // let ghosts see explo points
+		if(target_account)
+			.["user"]["observer"] = TRUE
+			.["user"]["points"] = target_account.report_currency(currency_type)
+			.["user"]["name"] = target_account.account_holder
+			.["user"]["job"] = "the Budget Account"
+
 
 /obj/machinery/vendor/ui_act(action, params)
 	if(..())
 		return
+	var/mob/M = usr
+	if(isobserver(M))
+		return
 
 	switch(action)
 		if("purchase")
-			var/mob/M = usr
-			var/obj/item/card/id/I = M.get_idcard(TRUE)
-			if(!istype(I))
-				to_chat(usr, "<span class='alert'>Error: An ID is required!</span>")
+			var/datum/bank_account/target_account = bound_bank_account
+			if(!target_account) // if bound_bank_account is null, it means you need to get a new account
+				var/obj/item/card/id/I = M.get_idcard(TRUE)
+				if(!istype(I))
+					to_chat(usr, "<span class='alert'>Error: An ID is required!</span>")
+					flick(icon_deny, src)
+					return
+				if(!I.registered_account)
+					to_chat(usr, "<span class='alert'>Error: Bank account is required on your card!</span>")
+					flick(icon_deny, src)
+					return
+				target_account = I.registered_account
+			if(!target_account)
+				to_chat(usr, "<span class='alert'>Error: Something's bugged. Tell a coder!</span>")
 				flick(icon_deny, src)
-				return
+				CRASH("the mining vendor failed to find a target account for purchase.")
 			var/datum/data/vendor_equipment/prize = locate(params["ref"]) in prize_list
 			if(!prize || !(prize in prize_list))
 				to_chat(usr, "<span class='alert'>Error: Invalid choice!</span>")
 				flick(icon_deny, src)
 				return
-			if(prize.cost > get_points(I))
-				to_chat(usr, "<span class='alert'>Error: Insufficient points for [prize.equipment_name] on [I]!</span>")
+			if(!target_account.adjust_currency(currency_type, -prize.cost)) // this checks if you can buy it first. if you have points, you buy it. if not, this error message comes.
+				to_chat(usr, "<span class='alert'>Error: Insufficient points for [prize.equipment_name] on [target_account.account_holder]'s bank account!</span>")
 				flick(icon_deny, src)
 				return
-			subtract_points(I, prize.cost)
 			to_chat(usr, "<span class='notice'>[src] clanks to life briefly before vending [prize.equipment_name]!</span>")
 			new prize.equipment_path(loc)
 			SSblackbox.record_feedback("nested tally", "mining_equipment_bought", 1, list("[type]", "[prize.equipment_path]"))
@@ -116,12 +155,6 @@
 	if(prob(50 / severity) && severity < 3)
 		qdel(src)
 
-/obj/machinery/vendor/proc/subtract_points(obj/item/card/id/I, amount)
-	I.mining_points -= amount
-
-/obj/machinery/vendor/proc/get_points(obj/item/card/id/I)
-	return I.mining_points
-
 /obj/machinery/vendor/mining
 	name = "mining equipment vendor"
 	desc = "An equipment vendor for miners, points collected at an ore redemption machine can be spent here."
@@ -138,7 +171,7 @@
 		new /datum/data/vendor_equipment("Mining Conscription Kit",		/obj/item/storage/backpack/duffelbag/mining_conscript,				1000),
 		new /datum/data/vendor_equipment("Plasma Cutter", 				/obj/item/gun/energy/plasmacutter,									2000),
 		new /datum/data/vendor_equipment("Advanced Plasma Cutter", 		/obj/item/gun/energy/plasmacutter/adv,								4000),
-	//Assorted other equipment		
+	//Assorted other equipment
 		new /datum/data/vendor_equipment("Explorer's Webbing",			/obj/item/storage/belt/mining,										500),
 		new /datum/data/vendor_equipment("Survival Knife",				/obj/item/kitchen/knife/combat/survival,							500),
 		new	/datum/data/vendor_equipment("Seclite", 					/obj/item/flashlight/seclite,										500),
@@ -156,7 +189,7 @@
 		new /datum/data/vendor_equipment("Lazarus Injector",			/obj/item/lazarus_injector,											1000),
 		new /datum/data/vendor_equipment("Survival Medipen",			/obj/item/reagent_containers/hypospray/medipen/survival,			1000),
 		new /datum/data/vendor_equipment("Skeleton Key",				/obj/item/skeleton_key,												1200),
-	//Shelters	
+	//Shelters
 		new /datum/data/vendor_equipment("Shelter Capsule",				/obj/item/survivalcapsule,											400),
 		new /datum/data/vendor_equipment("Luxury Shelter Capsule",		/obj/item/survivalcapsule/luxury,									3000),
 		new /datum/data/vendor_equipment("Mining Outpost Capsule",		/obj/item/survivalcapsule/encampment,								5000),
@@ -214,7 +247,7 @@
 /obj/machinery/vendor/mining/proc/RedeemVoucher(obj/item/mining_voucher/voucher, mob/redeemer)
 	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Crusher Kit", "Mining Conscription Kit")
 
-	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in sortList(items)
+	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in sort_list(items)
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
 		return
 	var/drop_location = drop_location()
@@ -252,7 +285,7 @@
 	. = ..()
 	desc += "\nIt seems a few selections have been added."
 	prize_list += list(
-		new /datum/data/vendor_equipment("Extra Id",       				/obj/item/card/id/mining, 				                   		250),
+		new /datum/data/vendor_equipment("Extra Id",       				/obj/item/card/id/golem, 				                   		250),
 		new /datum/data/vendor_equipment("Science Goggles",       		/obj/item/clothing/glasses/science,								250),
 		new /datum/data/vendor_equipment("Monkey Cube",					/obj/item/reagent_containers/food/snacks/monkeycube,        	300),
 		new /datum/data/vendor_equipment("Toolbelt",					/obj/item/storage/belt/utility,	    							350),
@@ -285,8 +318,11 @@
 	if(istype(I, /obj/item/card/id))
 		if(points)
 			var/obj/item/card/id/C = I
-			C.mining_points += points
-			to_chat(user, "<span class='info'>You transfer [points] points to [C].</span>")
+			if(!C.registered_account)
+				to_chat(user, "<span class='info'>[C] has no registered account!</span>")
+				return ..()
+			C.registered_account.adjust_currency(ACCOUNT_CURRENCY_MINING, points)
+			to_chat(user, "<span class='info'>You transfer [points] points to [C.registered_account.account_holder]'s bank account.</span>")
 			points = 0
 		else
 			to_chat(user, "<span class='info'>There's no points left on [src].</span>")

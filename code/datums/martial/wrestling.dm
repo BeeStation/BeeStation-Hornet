@@ -139,18 +139,18 @@
 					"<span class='userdanger'>[A] starts spinning around with you!</span>")
 	A.emote("scream")
 
-	for (var/i = 0, i < 20, i++)
+	for (var/i in 1 to 20)
 		var/delay = 5
 		switch (i)
-			if (17 to INFINITY)
+			if (18 to INFINITY)
 				delay = 0.25
-			if (14 to 16)
+			if (15 to 17)
 				delay = 0.5
-			if (9 to 13)
+			if (10 to 14)
 				delay = 1
-			if (5 to 8)
+			if (6 to 9)
 				delay = 2
-			if (0 to 4)
+			if (1 to 5)
 				delay = 3
 
 		if (A && D)
@@ -195,7 +195,7 @@
 		if (T && isturf(T))
 			if (!D.stat)
 				D.emote("scream")
-			D.throw_at(T, 10, 4, A, TRUE, TRUE, callback = CALLBACK(D, /mob/living/carbon/human.proc/Paralyze, 20))
+			D.throw_at(T, 10, 4, A, TRUE, TRUE, callback = CALLBACK(D, TYPE_PROC_REF(/mob/living/carbon/human, Paralyze), 20))
 	log_combat(A, D, "has thrown with wrestling")
 	return 0
 
@@ -222,7 +222,7 @@
 
 	FlipAnimation()
 
-	for (var/i = 0, i < 3, i++)
+	for (var/i in 1 to 3)
 		if (A && D)
 			A.pixel_y += 3
 			D.pixel_y += 3
@@ -326,11 +326,11 @@
 		return
 	var/turf/T = get_turf(A)
 	if (T && isturf(T) && D && isturf(D.loc))
-		for (var/i = 0, i < 4, i++)
+		for (var/i in 1 to 4)
 			A.setDir(turn(A.dir, 90))
 
 		A.forceMove(D.loc)
-		addtimer(CALLBACK(src, .proc/CheckStrikeTurf, A, T), 4)
+		addtimer(CALLBACK(src, PROC_REF(CheckStrikeTurf), A, T), 4)
 
 		D.visible_message("<span class='danger'><B>[A] headbutts [D]!</B></span>", \
 						"<span class='userdanger'>[A] headbutts you!</span>", null, COMBAT_MESSAGE_RANGE)

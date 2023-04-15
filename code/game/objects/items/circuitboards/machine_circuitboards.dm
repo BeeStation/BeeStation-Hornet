@@ -398,6 +398,14 @@
 	. = ..()
 	. += "<span class='notice'>It is set to layer [pipe_layer].</span>"
 
+/obj/item/circuitboard/machine/suit_storage_unit
+	name = "Suit Storage Unit (Machine Board)"
+	icon_state = "generic"
+	build_path = /obj/machinery/suit_storage_unit/
+	req_components = list(
+		/obj/item/stock_parts/matter_bin = 1,
+		/obj/item/stock_parts/micro_laser = 1)
+
 //Generic
 
 
@@ -606,6 +614,7 @@
 	req_components = list(
 		/obj/item/stack/sheet/glass = 1,
 		/obj/item/vending_refill/donksoft = 1)
+
 
 
 //Medical
@@ -1241,6 +1250,19 @@
 	req_components = list(
 		/obj/item/stack/sheet/glass = 2,
 		/obj/item/stack/cable_coil = 5)
+
+/obj/item/circuitboard/machine/processing_unit
+	name = "furnace (Machine Board)"
+	build_path = /obj/machinery/mineral/processing_unit
+	req_components = list(
+		/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/stock_parts/matter_bin = 2,
+		/obj/item/assembly/igniter = 1)
+
+/obj/item/circuitboard/machine/processing_unit_console
+	name = "furnace console (Machine Board)"
+	build_path = /obj/machinery/mineral/processing_unit_console
+	req_components = list()
 
 
 //Misc

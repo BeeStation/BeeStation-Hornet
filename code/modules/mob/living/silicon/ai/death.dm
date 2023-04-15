@@ -31,7 +31,7 @@
 
 	if(explosive)
 		var/T = get_turf(src)
-		addtimer(CALLBACK(GLOBAL_PROC, .proc/explosion, T, 3, 6, 12, 15), 10)
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(explosion), T, 3, 6, 12, 15), 10)
 
 	if(src.key)
 		for(var/each in GLOB.ai_status_displays) //change status

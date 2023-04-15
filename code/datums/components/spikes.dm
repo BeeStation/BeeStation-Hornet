@@ -10,23 +10,23 @@
 	spikedamage = damage
 	armor = spikearmor
 	id = diseaseid
-	RegisterSignal(parent, COMSIG_MOVABLE_BUMP, .proc/prick_collide)
-	RegisterSignal(parent, COMSIG_ATOM_ENTERED, .proc/prick_crossed)
-	RegisterSignal(parent, COMSIG_DISEASE_END, .proc/checkdiseasecure)
+	RegisterSignal(parent, COMSIG_MOVABLE_BUMP, PROC_REF(prick_collide))
+	RegisterSignal(parent, COMSIG_ATOM_ENTERED, PROC_REF(prick_crossed))
+	RegisterSignal(parent, COMSIG_DISEASE_END, PROC_REF(checkdiseasecure))
 	if(ishuman(parent))
 		if(armor)
 			setarmor(parent)
-			RegisterSignal(parent, COMSIG_CARBON_SPECIESCHANGE, .proc/setarmor)
-			RegisterSignal(parent, COMSIG_COMPONENT_REMOVING, .proc/removearmor)
-		RegisterSignal(parent, COMSIG_MOB_ATTACK_HAND, .proc/prick_touch)
-		RegisterSignal(parent, COMSIG_MOB_HAND_ATTACKED, .proc/prick_touched)
+			RegisterSignal(parent, COMSIG_CARBON_SPECIESCHANGE, PROC_REF(setarmor))
+			RegisterSignal(parent, COMSIG_COMPONENT_REMOVING, PROC_REF(removearmor))
+		RegisterSignal(parent, COMSIG_MOB_ATTACK_HAND, PROC_REF(prick_touch))
+		RegisterSignal(parent, COMSIG_MOB_HAND_ATTACKED, PROC_REF(prick_touched))
 
 
 /datum/component/spikes/proc/prick(mob/living/carbon/C, damage_mod = 1)
 	var/netdamage = spikedamage * damage_mod
 	if(istype(C) && cooldown <= world.time)
 		var/atom/movable/P = parent
-		var/def_check = C.getarmor(type = "melee")
+		var/def_check = C.getarmor(type = MELEE)
 		C.apply_damage(netdamage, BRUTE, blocked = def_check)
 		P.visible_message("<span class='warning'>[C.name] is pricked on [P.name]'s spikes.</span>")
 		playsound(get_turf(P), 'sound/weapons/slice.ogg', 50, 1)

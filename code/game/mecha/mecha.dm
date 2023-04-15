@@ -25,7 +25,7 @@
 	var/overload_step_energy_drain_min = 100
 	max_integrity = 300 //max_integrity is base health
 	var/deflect_chance = 10 //chance to deflect the incoming projectiles, hits, or lesser the effect of ex_act.
-	armor = list("melee" = 20, "bullet" = 10, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 20,  BULLET = 10, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0)
 	var/list/facing_modifiers = list(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)
 	var/equipment_disabled = 0 //disabled due to EMP
 	var/obj/item/stock_parts/cell/cell ///Keeps track of the mech's cell
@@ -448,7 +448,7 @@
 		for(var/mob/M as() in hearers(7,src))
 			if(M.client)
 				speech_bubble_recipients.Add(M.client)
-		INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, image('icons/mob/talk.dmi', src, "machine[say_test(raw_message)]",MOB_LAYER+1), speech_bubble_recipients, 30)
+		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay), image('icons/mob/talk.dmi', src, "machine[say_test(raw_message)]",MOB_LAYER+1), speech_bubble_recipients, 30)
 
 /obj/mecha/on_emag(mob/user)
 	..()
@@ -457,7 +457,7 @@
 	dna_lock = null
 	equipment_disabled = TRUE
 	log_message("System emagged detected", LOG_MECHA, color="red")
-	addtimer(CALLBACK(src, /obj/mecha/proc/restore_equipment), 15 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/mecha, restore_equipment)), 15 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 
 ////////////////////////////
 ///// Action processing ////
@@ -622,6 +622,8 @@
 
 /obj/mecha/proc/mechstep(direction)
 	var/current_dir = dir
+	if(!isturf(get_step_multiz(src, direction))) // verify the turf we intend to step into is actually valid
+		direction = direction & ~(UP|DOWN)
 	var/result = step(src,direction)
 	if(strafe)
 		setDir(current_dir)
@@ -667,11 +669,11 @@
 		if(isobj(obstacle))
 			var/obj/O = obstacle
 			if(!O.anchored && O.move_resist <= move_force)
-				step(obstacle, dir)
+				step(obstacle, dir & ~(UP|DOWN))
 		else if(ismob(obstacle))
 			var/mob/M = obstacle
 			if(M.move_resist <= move_force)
-				step(obstacle, dir)
+				step(obstacle, dir & ~(UP|DOWN))
 
 
 

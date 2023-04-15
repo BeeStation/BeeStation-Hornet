@@ -41,17 +41,20 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/ipc_antennas, GLOB.ipc_antennas_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/ipc_chassis, GLOB.ipc_chassis_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/insect_type, GLOB.insect_type_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/apid_antenna, GLOB.apid_antenna_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/apid_stripes, GLOB.apid_stripes_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/apid_headstripes, GLOB.apid_headstripes_list)
 
 	//Species
 	for(var/spath in subtypesof(/datum/species))
 		var/datum/species/S = new spath()
 		GLOB.species_list[S.id] = spath
-	sortList(GLOB.species_list)
+	sort_list(GLOB.species_list)
 
 	//Surgeries
 	for(var/path in subtypesof(/datum/surgery))
 		GLOB.surgeries_list += new path()
-	sortList(GLOB.surgeries_list)
+	sort_list(GLOB.surgeries_list)
 	GLOB.emote_list = init_emote_list()
 
 	// Hair Gradients - Initialise all /datum/sprite_accessory/hair_gradient into an list indexed by gradient-style name
@@ -71,7 +74,7 @@
 		GLOB.keybinding_list_by_key[initial(instance.key)] += instance.name
 	// Sort all the keybindings by their weight
 	for(var/key in GLOB.keybinding_list_by_key)
-		GLOB.keybinding_list_by_key[key] = sortList(GLOB.keybinding_list_by_key[key])
+		GLOB.keybinding_list_by_key[key] = sort_list(GLOB.keybinding_list_by_key[key])
 
 
 	init_subtypes(/datum/crafting_recipe, GLOB.crafting_recipes)

@@ -23,12 +23,12 @@ handles linking back and forth.
 	src.category = category
 	src.allow_standalone = allow_standalone
 
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, .proc/OnAttackBy)
-	RegisterSignal(parent, COMSIG_MOVABLE_Z_CHANGED, .proc/check_z_disconnect)
+	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(OnAttackBy))
+	RegisterSignal(parent, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(check_z_disconnect))
 
 	var/turf/T = get_turf(parent)
 	if (force_connect || (mapload && is_station_level(T.z)))
-		addtimer(CALLBACK(src, .proc/LateInitialize))
+		addtimer(CALLBACK(src, PROC_REF(LateInitialize)))
 	else if (allow_standalone)
 		_MakeLocal()
 
@@ -181,7 +181,7 @@ handles linking back and forth.
 	silo = new_silo
 
 	if(!QDELETED(silo))
-		RegisterSignal(silo, COMSIG_MATERIAL_CONTAINER_CHANGED, .proc/propagate_signal)
+		RegisterSignal(silo, COMSIG_MATERIAL_CONTAINER_CHANGED, PROC_REF(propagate_signal))
 
 /datum/component/remote_materials/proc/propagate_signal()
 	SIGNAL_HANDLER

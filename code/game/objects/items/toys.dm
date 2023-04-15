@@ -97,9 +97,9 @@
 		else
 			T = get_turf(src)
 		T.visible_message("<span class='danger'>[src] bursts!</span>","<span class='italics'>You hear a pop and a splash.</span>")
-		reagents.expose(T)
+		reagents.reaction(T)
 		for(var/atom/A in T)
-			reagents.expose(A)
+			reagents.reaction(A)
 		icon_state = "burst"
 		qdel(src)
 
@@ -151,6 +151,7 @@
 	desc = "\"Singulo\" brand spinning toy."
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "singularity_s1"
+	item_flags = NO_PIXEL_RANDOM_DROP
 
 /*
  * Toy gun: Why isn't this an /obj/item/gun?
@@ -345,7 +346,7 @@
 		active = TRUE
 		playsound(src, 'sound/effects/pope_entry.ogg', 100)
 		Rumble()
-		addtimer(CALLBACK(src, .proc/stopRumble), 600)
+		addtimer(CALLBACK(src, PROC_REF(stopRumble)), 600)
 	else
 		to_chat(user, "[src] is already active.")
 
@@ -446,7 +447,7 @@
 /obj/item/toy/snappop/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -468,7 +469,7 @@
 
 /obj/effect/decal/cleanable/ash/snappop_phoenix/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, .proc/respawn), respawn_time)
+	addtimer(CALLBACK(src, PROC_REF(respawn)), respawn_time)
 
 /obj/effect/decal/cleanable/ash/snappop_phoenix/proc/respawn()
 	new /obj/item/toy/snappop/phoenix(get_turf(src))
@@ -671,6 +672,7 @@
 /obj/item/toy/cards
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
+	item_flags = ISWEAPON
 	var/parentdeck = null
 	var/deckstyle = "nanotrasen"
 	var/card_hitsound = null
@@ -1135,6 +1137,7 @@
 	name = "beach ball"
 	item_state = "beachball"
 	w_class = WEIGHT_CLASS_BULKY //Stops people from hiding it in their bags/pockets
+	item_flags = NO_PIXEL_RANDOM_DROP
 
 /*
  * Clockwork Watch
@@ -1519,6 +1522,7 @@
 	desc = "Hah. You thought it was the real deal!"
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "pierced_illusion"
+	item_flags = NO_PIXEL_RANDOM_DROP
 
 /obj/item/storage/box/heretic_asshole
 	name = "box of pierced realities"

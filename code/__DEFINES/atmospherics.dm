@@ -217,6 +217,14 @@
 #define ATMOS_GAS_MONITOR_OUTPUT_SM "sm_out"
 #define ATMOS_GAS_MONITOR_SENSOR_SM "sm_sense"
 
+#define ATMOS_GAS_MONITOR_INPUT_SM_WASTE "sm_waste_in"
+#define ATMOS_GAS_MONITOR_OUTPUT_SM_WASTE "sm_waste_out"
+#define ATMOS_GAS_MONITOR_SENSOR_SM_WASTE "sm_waste_sense"
+
+#define ATMOS_GAS_MONITOR_INPUT_TOXINS_WASTE "toxins_waste_in"
+#define ATMOS_GAS_MONITOR_OUTPUT_TOXINS_WASTE "toxins_waste_out"
+#define ATMOS_GAS_MONITOR_SENSOR_TOXINS_WASTE "toxins_waste_sense"
+
 //AIRLOCK CONTROLLER TAGS
 
 //RnD toxins burn chamber
@@ -307,7 +315,7 @@ GLOBAL_LIST_INIT(atmos_adjacent_savings, list(0,0))
 #define CALCULATE_ADJACENT_TURFS(T) SSadjacent_air.queue[T] = 1
 #endif
 
-GLOBAL_LIST_INIT(pipe_paint_colors, sortList(list(
+GLOBAL_LIST_INIT(pipe_paint_colors, sort_list(list(
 		"amethyst" = rgb(130,43,255), //supplymain
 		"blue" = rgb(0,0,255),
 		"brown" = rgb(178,100,56),
