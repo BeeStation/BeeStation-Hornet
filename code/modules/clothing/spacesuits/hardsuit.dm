@@ -340,12 +340,12 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator)
 	actions_types = list(
 		/datum/action/item_action/toggle_helmet_light,
-		/datum/action/item_action/toggle_beacon_hud
+		/datum/action/item_action/toggle_beacon_hud/explorer
 		)
 
 /obj/item/clothing/head/helmet/space/hardsuit/exploration/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/team_monitor, "expl", -1)
+	AddComponent(/datum/component/team_monitor, EXPLORATION_TRACKING, -1)
 
 /obj/item/clothing/suit/space/hardsuit/exploration
 	icon_state = "hardsuit-exploration"

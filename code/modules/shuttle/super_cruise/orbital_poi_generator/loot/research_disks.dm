@@ -12,16 +12,26 @@
 
 /obj/item/disk/tech_disk/research/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/tracking_beacon, "expl", null, null, TRUE, "#e7a3e4", TRUE, TRUE)
+	AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#e7a3e4", TRUE, TRUE)
 	//After 15 minutes the tracking beacon turns off
 	addtimer(CALLBACK(src, .proc/signal_decay), 15 MINUTES)
 
 /obj/item/disk/tech_disk/research/proc/signal_decay()
 	var/datum/component/tracking_beacon/component = GetComponent(/datum/component/tracking_beacon)
-	qdel(component)
+	if(component)
+		qdel(component)
+
+/obj/item/disk/tech_disk/research/pickup(mob/user)
+	. = ..()
+	var/datum/component/tracking_beacon/component = GetComponent(/datum/component/tracking_beacon)
+	if(component)
+		qdel(component)
 
 /obj/item/disk/tech_disk/research/Destroy()
 	SSorbits.research_disks -= src
+	var/datum/component/tracking_beacon/component = GetComponent(/datum/component/tracking_beacon)
+	if(component)
+		qdel(component)
 	. = ..()
 
 /obj/item/disk/tech_disk/research/random/Initialize(mapload)
