@@ -205,16 +205,6 @@ GLOBAL_LIST_INIT(uplink_spawn_loc_list_save, list(
 	//Female Uniforms
 GLOBAL_LIST_EMPTY(female_clothing_icons)
 
-	//radical shit
-GLOBAL_LIST_INIT(hit_appends, list(
-	"-ACK",
-	"-GLORF",
-	"-HRNK",
-	"-HURGH",
-	"-OOF",
-	"-UGH",
-))
-
 GLOBAL_LIST_INIT(scarySounds, list(
 	'sound/effects/clownstep1.ogg',
 	'sound/effects/clownstep2.ogg',

@@ -2,11 +2,11 @@
 
 /datum/heretic_knowledge/reroll_targets
 	name = "The Relentless Heartbeat"
-	desc = "Allows you transmute a harebell, a book, and a jumpsuit while standing over a rune \
+	desc = "Allows you transmute a flower, a book, and a jumpsuit while standing over a rune \
 		to reroll your sacrifice targets."
 	gain_text = "The heart is the principle that continues and preserves."
 	required_atoms = list(
-		/obj/item/reagent_containers/food/snacks/grown/harebell = 1,
+		/obj/item/reagent_containers/food/snacks/grown/flower = 1,
 		/obj/item/book = 1,
 		/obj/item/clothing/under = 1,
 	)

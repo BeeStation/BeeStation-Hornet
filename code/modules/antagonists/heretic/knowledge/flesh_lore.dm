@@ -132,7 +132,7 @@
 
 /datum/heretic_knowledge/limited_amount/flesh_ghoul
 	name = "Imperfect Ritual"
-	desc = "Allows you to transmute a corpse and a poppy to create a Voiceless Dead. \
+	desc = "Allows you to transmute a corpse and a flower to create a Voiceless Dead. \
 		Voiceless Dead are mute ghouls and only have 50 health, but can use Bloody Blades effectively. \
 		You can only create two at a time. "
 	gain_text = "I found notes of a dark ritual, unfinished... yet still, I pushed forward."
@@ -144,7 +144,7 @@
 	)
 	required_atoms = list(
 		/mob/living/carbon/human = 1,
-		/obj/item/reagent_containers/food/snacks/grown/poppy = 1,
+		/obj/item/reagent_containers/food/snacks/grown/flower = 1,
 	)
 	limit = 2
 	cost = 1

@@ -23,6 +23,7 @@
 /obj/machinery/plumbing/patch_dispenser/Initialize(mapload, bolt)
 	. = ..()
 	AddComponent(/datum/component/plumbing/simple_demand, bolt)
+	update_appearance() //so the input/output pipes will overlay properly during init
 
 /obj/machinery/plumbing/patch_dispenser/process()
 	if(machine_stat & NOPOWER)

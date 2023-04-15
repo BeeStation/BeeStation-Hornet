@@ -9253,6 +9253,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"tgui-say@workspace:packages/tgui-say":
+  version: 0.0.0-use.local
+  resolution: "tgui-say@workspace:packages/tgui-say"
+  dependencies:
+    common: "workspace:*"
+    dompurify: ^3.0.1
+    inferno: ^8.0.6
+    tgui: "workspace:*"
+    tgui-dev-server: "workspace:*"
+    tgui-polyfill: "workspace:*"
+  languageName: unknown
+  linkType: soft
+
 "tgui-workspace@workspace:.":
   version: 0.0.0-use.local
   resolution: "tgui-workspace@workspace:."
