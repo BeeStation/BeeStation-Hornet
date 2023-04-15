@@ -19758,14 +19758,14 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai)
 "eYB" = (
-/obj/item/reagent_containers/food/snacks/grown/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
 /obj/structure/table/wood,
 /obj/machinery/button/massdriver{
 	id = "chapelgun";
 	name = "Chapel Mass Driver";
 	pixel_y = -24
 	},
-/obj/item/reagent_containers/food/snacks/grown/poppy{
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
 	pixel_y = 2
 	},
 /obj/effect/turf_decal/siding/wideplating/dark/corner{
@@ -84244,11 +84244,11 @@
 /area/engine/engine_room)
 "vmD" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/poppy/geranium{
+/obj/item/reagent_containers/food/snacks/grown/flower/geranium{
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/snacks/grown/poppy/lily,
+/obj/item/reagent_containers/food/snacks/grown/flower/lily,
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
