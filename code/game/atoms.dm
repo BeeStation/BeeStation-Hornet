@@ -574,7 +574,7 @@
 	if(desc)
 		. += desc
 
-	if(user.z != z) // Z-mimic
+	if(z && user.z != z) // Z-mimic
 		var/diff = abs(user.z - z)
 		. += "<span class='bold notice'>[p_theyre(TRUE)] [diff] level\s below you.</span>"
 
