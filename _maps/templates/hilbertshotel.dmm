@@ -106,7 +106,7 @@
 /area/hilbertshotel)
 "s" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/grown/poppy,
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy,
 /turf/open/indestructible/hotelwood,
 /area/hilbertshotel)
 "t" = (
