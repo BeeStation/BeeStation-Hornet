@@ -123,7 +123,7 @@
 	..()
 	// death of this mob means the destruction of the original stuff of the copied mob.
 	// but the destruction of an item is cringe.
-	if(itype(original_of_this, /obj/machine/vending))
+	if(istype(original_of_this, /obj/machine/vending))
 		original_of_this.take_damage(original_of_this.obj_integrity, BRUTE, 0, FALSE)
 		// currently do this to vending machines only.
 
