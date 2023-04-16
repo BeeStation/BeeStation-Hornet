@@ -32,6 +32,8 @@
 
 	discovery_points = 4000
 
+	var/spawaning_obj_type = /obj/structure/closet/crate
+
 // Aggro when you try to open them. Will also pickup loot when spawns and drop it when dies.
 /mob/living/simple_animal/hostile/mimic/crate
 	attacktext = "bites"
@@ -44,10 +46,21 @@
 // Pickup loot
 /mob/living/simple_animal/hostile/mimic/crate/Initialize(mapload)
 	. = ..()
-	if(mapload)	//eat shit
-		for(var/obj/item/I in loc)
-			I.forceMove(src)
+	if(mapload)
+		for(var/obj/each_obj in loc)
+			if(!CheckObject(each_obj))
+				continue
+			each_obj.forceMove(src)
 	add_overlay("[icon_state]_door")
+
+/mob/living/simple_animal/hostile/mimic/Destroy()
+	var/turf_to_spawn = get_turf(src)
+	// spawns a crate or an obj to spawn. Don't specify `spawaning_obj_type` to copy stuff
+	if(spawaning_obj_type)
+		new spawaning_obj_type(turf_to_spawn)
+	pop_out_stuff()
+	. = ..()
+
 
 /mob/living/simple_animal/hostile/mimic/crate/DestroyPathToTarget()
 	..()
@@ -87,12 +100,21 @@
 	cut_overlays()
 	add_overlay("[icon_state]_door")
 
-/mob/living/simple_animal/hostile/mimic/crate/death()
-	var/obj/structure/closet/crate/C = new(get_turf(src))
-	// Put loot in crate
-	for(var/obj/O in src)
-		O.forceMove(C)
+
+
+/mob/living/simple_animal/hostile/mimic/proc/pop_out_stuff()
+	var/turf_to_spawn = get_turf(src)
+	for(var/atom/movable/each_atom in src)
+		each_atom.forceMove(turf_to_spawn)
+		// for a copied mob, its original version is inside of the mob. This will let it out
+
+
+/mob/living/simple_animal/hostile/mimic/copy/pop_out_stuff()
 	..()
+	// death of this mob means the destruction of the original stuff of the copied mob.
+	// but the destruction of an item is cringe. only does this to machines. so, if(!istype(each_atom, /obj/item))
+	if(isobj(original_of_this) && !istype(original_of_this, /obj/item)) // don't use CheckObject() here
+		original_of_this.take_damage(original_of_this.obj_integrity, sound_effect=FALSE)
 
 GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/cable, /obj/structure/window))
 
@@ -100,18 +122,20 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 	health = 100
 	maxHealth = 100
 	var/mob/living/creator = null // the creator
-	var/destroy_objects = 0
 	var/knockdown_people = 0
 	var/static/mutable_appearance/googly_eyes = mutable_appearance('icons/mob/mob.dmi', "googly_eyes")
 	var/overlay_googly_eyes = TRUE
 	var/idledamage = TRUE
 	gold_core_spawnable = NO_SPAWN
+	spawaning_obj_type = null // it poops out itself
+	var/obj/original_of_this = null
 
-/mob/living/simple_animal/hostile/mimic/copy/Initialize(mapload, obj/copy, mob/living/creator, destroy_original = 0, no_googlies = FALSE)
+/mob/living/simple_animal/hostile/mimic/copy/Initialize(mapload, obj/original, mob/living/creator, destroy_original = 0, no_googlies = FALSE)
 	. = ..()
 	if (no_googlies)
 		overlay_googly_eyes = FALSE
-	CopyObject(copy, creator, destroy_original)
+	if(!CopyObject(original, creator, destroy_original))
+		stack_trace("something's wrong to create a mimic. It failed to copy something.")
 
 /mob/living/simple_animal/hostile/mimic/copy/Life()
 	..()
@@ -119,11 +143,6 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 		adjustBruteLoss(1)
 	for(var/mob/living/M in contents) //a fix for animated statues from the flesh to stone spell
 		death()
-
-/mob/living/simple_animal/hostile/mimic/copy/death()
-	for(var/atom/movable/M in src)
-		M.forceMove(get_turf(src))
-	..()
 
 /mob/living/simple_animal/hostile/mimic/copy/ListTargets()
 	. = ..()
@@ -135,14 +154,14 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 		creator = owner
 		faction |= "[REF(owner)]"
 
-/mob/living/simple_animal/hostile/mimic/copy/proc/CheckObject(obj/O)
-	if((isitem(O) || isstructure(O)) && !is_type_in_list(O, GLOB.protected_objects))
-		return 1
+/mob/living/simple_animal/hostile/proc/CheckObject(obj/O)
+	if(isitem(O) || isstructure(O) || ismachinery(O))
+		if(!is_type_in_list(O, GLOB.protected_objects))
+			return 1
 	return 0
 
 /mob/living/simple_animal/hostile/mimic/copy/proc/CopyObject(obj/O, mob/living/user, destroy_original = 0)
-	if(destroy_original || CheckObject(O))
-		O.forceMove(src)
+	if(CheckObject(O) || destroy_original)
 		name = O.name
 		desc = O.desc
 		icon = O.icon
@@ -153,7 +172,6 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 			add_overlay(googly_eyes)
 		if(isstructure(O) || ismachinery(O))
 			health = (anchored * 50) + 50
-			destroy_objects = 1
 			if(O.density && O.anchored)
 				knockdown_people = 1
 				melee_damage *= 2
@@ -168,11 +186,10 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 			faction += "[REF(creator)]" // very unique
 		if(destroy_original)
 			qdel(O)
-		return 1
-
-/mob/living/simple_animal/hostile/mimic/copy/DestroySurroundings()
-	if(destroy_objects)
-		..()
+		else
+			O.forceMove(src) // the original item will be hidden inside of this mob
+			original_of_this = O
+		return TRUE
 
 /mob/living/simple_animal/hostile/mimic/copy/AttackingTarget()
 	. = ..()
@@ -230,6 +247,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 			var/selectfiresetting = Zapgun.select
 			var/obj/item/ammo_casing/energy/E = Zapgun.ammo_type[selectfiresetting]
 			projectiletype = initial(E.projectile_type)
+		return TRUE
 
 /mob/living/simple_animal/hostile/mimic/copy/ranged/OpenFire(the_target)
 	if(Zapgun)
