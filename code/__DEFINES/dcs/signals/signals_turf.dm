@@ -7,3 +7,4 @@
 #define COMSIG_TURF_HAS_GRAVITY "turf_has_gravity"				//! from base of atom/has_gravity(): (atom/asker, list/forced_gravities)
 #define COMSIG_TURF_MULTIZ_NEW "turf_multiz_new"				//! from base of turf/New(): (turf/source, direction)
 #define COMSIG_TURF_AFTER_SHUTTLE_MOVE "turf_after_shuttle_move"	//! from base of turf/proc/afterShuttleMove: (turf/new_turf)
+#define COMSIG_TURF_RESERVATION_RELEASED "turf_reservation_released"//! from base of /datum/turf_reservation/proc/Release: (datum/turf_reservation/reservation)

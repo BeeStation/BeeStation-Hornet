@@ -18,6 +18,8 @@
 	for(var/i in reserved_turfs)
 		reserved_turfs -= i
 		SSmapping.used_turfs -= i
+	for(var/turf/reserved_turf as anything in v)
+		SEND_SIGNAL(reserved_turf, COMSIG_TURF_RESERVATION_RELEASED, src)
 	SSmapping.reserve_turfs(v)
 
 /datum/turf_reservation/proc/Reserve(width, height, zlevel)
