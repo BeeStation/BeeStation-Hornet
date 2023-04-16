@@ -122,10 +122,10 @@
 /mob/living/simple_animal/hostile/mimic/copy/pop_out_stuff()
 	..()
 	// death of this mob means the destruction of the original stuff of the copied mob.
-	// but the destruction of an item is cringe.
-	if(istype(original_of_this, /obj/machine/vending))
+	if(istype(original_of_this, /obj/machinery/vending))
 		original_of_this.take_damage(original_of_this.obj_integrity, BRUTE, 0, FALSE)
 		// currently do this to vending machines only.
+		// because the destruction of stuff (especially items) is annoying.
 
 GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/cable, /obj/structure/window, /obj/structure/grille))
 
