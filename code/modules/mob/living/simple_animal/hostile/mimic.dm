@@ -32,7 +32,7 @@
 
 	discovery_points = 4000
 
-	var/spawaning_obj_type = /obj/structure/closet/crate
+	var/spawaning_obj_type = null
 
 // Aggro when you try to open them. Will also pickup loot when spawns and drop it when dies.
 /mob/living/simple_animal/hostile/mimic/crate
@@ -41,23 +41,33 @@
 	stop_automated_movement = 1
 	wander = FALSE
 	var/attempt_open = FALSE
+	spawaning_obj_type = /obj/structure/closet/crate
 	gold_core_spawnable = HOSTILE_SPAWN
 
 // Pickup loot
 /mob/living/simple_animal/hostile/mimic/crate/Initialize(mapload)
 	. = ..()
-	if(mapload)
-		for(var/obj/each_obj in loc)
-			if(!CheckObject(each_obj))
-				continue
-			each_obj.forceMove(src)
+	var/ate_something = list()
+	for(var/obj/each_obj in loc)
+		if(!isitem(each_obj))
+			continue
+		if(!mapload)
+			ate_something += "[each_obj.name]"
+		each_obj.forceMove(src) // nom nom
+	if(!mapload && length(ate_something))
+		visible_message("<span class='warning'>[src] ate some stuff!</span>")
+		log_game("Newly created mimic-crate ate item(s): [english_list(ate_something)] in [AREACOORD(src)]")
+		message_admins("Newly created mimic-crate ate item(s): [english_list(ate_something)] in [ADMIN_VERBOSEJMP(src)]")
 	add_overlay("[icon_state]_door")
 
 /mob/living/simple_animal/hostile/mimic/Destroy()
 	var/turf_to_spawn = get_turf(src)
 	// spawns a crate or an obj to spawn. Don't specify `spawaning_obj_type` to copy stuff
-	if(spawaning_obj_type)
-		new spawaning_obj_type(turf_to_spawn)
+	if(spawaning_obj_type && ispath(spawaning_obj_type, /obj/structure/closet))
+		var/obj/structure/closet/crate = new spawaning_obj_type(turf_to_spawn)
+		crate.opened = TRUE
+		crate.locked = FALSE
+		crate.update_icon()
 	pop_out_stuff()
 	. = ..()
 
@@ -114,7 +124,7 @@
 	// death of this mob means the destruction of the original stuff of the copied mob.
 	// but the destruction of an item is cringe. only does this to machines. so, check `!isitem()`
 	if(isobj(original_of_this) && !isitem(original_of_this)) // don't use CheckObject() here
-		original_of_this.take_damage(original_of_this.obj_integrity, sound_effect=FALSE)
+		original_of_this.take_damage(original_of_this.obj_integrity, BRUTE, 0, FALSE)
 
 GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/cable, /obj/structure/window))
 
@@ -127,7 +137,6 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 	var/overlay_googly_eyes = TRUE
 	var/idledamage = TRUE
 	gold_core_spawnable = NO_SPAWN
-	spawaning_obj_type = null // it poops out itself
 	var/obj/original_of_this = null
 
 /mob/living/simple_animal/hostile/mimic/copy/Initialize(mapload, obj/original, mob/living/creator, destroy_original = 0, no_googlies = FALSE)
