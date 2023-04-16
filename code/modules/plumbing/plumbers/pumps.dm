@@ -24,6 +24,7 @@
 	. = ..()
 	create_reagents(volume)
 	AddComponent(/datum/component/plumbing/simple_supply, TRUE)
+	update_appearance() //so the input/output pipes will overlay properly during init
 
 /obj/machinery/power/liquid_pump/attackby(obj/item/W, mob/user, params)
 	if(!powered)

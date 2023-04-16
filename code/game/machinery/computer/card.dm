@@ -661,17 +661,23 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					log_id("[key_name(usr)] unassigned and stripped all access from [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
 
 				else
-					var/datum/job/jobdatum = SSjob.GetJob(t1)
-					if(!jobdatum)
-						to_chat(usr, "<span class='error'>No log exists for this job.</span>")
-						stack_trace("bad job string '[t1]' is given through HoP console by '[ckey(usr)]'")
-						updateUsrDialog()
-						return
+					var/datum/job/jobdatum
+					if(!istype(src, /obj/machinery/computer/card/centcom)) // station level
+						jobdatum = SSjob.GetJob(t1)
+						if(!jobdatum)
+							to_chat(usr, "<span class='warning'>No log exists for this job.</span>")
+							stack_trace("bad job string '[t1]' is given through HoP console by '[ckey(usr)]'")
+							updateUsrDialog()
+							return
 
-					inserted_modify_id.access = ( istype(src, /obj/machinery/computer/card/centcom) ? get_centcom_access(t1) : jobdatum.get_access() )
+						inserted_modify_id.access -= get_all_accesses()
+						inserted_modify_id.access += jobdatum.get_access()
+					else // centcom level
+						inserted_modify_id.access -= get_all_centcom_access()
+						inserted_modify_id.access += get_centcom_access(t1)
 
 					// Step 1: reseting theirs first
-					if(B) // 1-A: reseting bank payment
+					if(B && jobdatum) // 1-A: reseting bank payment
 						for(var/each in inserted_modify_id.registered_account.payment_per_department)
 							if(SSeconomy.is_nonstation_account(each))
 								continue
@@ -679,7 +685,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 							B.payment_per_department[each] = 0
 							B.bonus_per_department[each] = 0
 						B.active_departments &= ~SSeconomy.get_budget_acc_bitflag(ACCOUNT_COM_ID) // micromanagement
-					if(R) // 1-B: reseting crew manifest
+					if(R && jobdatum) // 1-B: reseting crew manifest
 						for(var/each in available_paycheck_departments)
 							if(SSeconomy.is_nonstation_account(each))
 								continue
@@ -687,16 +693,16 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						R.fields["active_dept"] &= ~DEPT_BITFLAG_COM  // micromanagement2
 						// Note: `fields["active_dept"] = NONE` is a bad idea because you should keep VIP_BITFLAG.
 					// Step 2: giving the job info into their bank and record
-					if(B) // 2-A: setting bank payment
+					if(B && jobdatum) // 2-A: setting bank payment
 						for(var/each in jobdatum.payment_per_department)
 							if(SSeconomy.is_nonstation_account(each))
 								continue
 							B.payment_per_department[each] = jobdatum.payment_per_department[each]
 						B.active_departments |= jobdatum.bank_account_department
-					if(R) // 2-B: setting crew manifest
+					if(R && jobdatum) // 2-B: setting crew manifest
 						R.fields["active_dept"] |= jobdatum.departments
 
-					log_id("[key_name(usr)] assigned [jobdatum] job to [inserted_modify_id], overriding all previous access using [inserted_scan_id] at [AREACOORD(usr)].")
+					log_id("[key_name(usr)] assigned [jobdatum || t1] job to [inserted_modify_id], manipulating it to the default access of the job using [inserted_scan_id] at [AREACOORD(usr)].")
 
 				if (inserted_modify_id)
 					inserted_modify_id.assignment = t1
