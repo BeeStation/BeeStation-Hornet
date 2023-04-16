@@ -48,12 +48,6 @@
 
 	update_state(parent) //otherwise we'll get moved 1 tile before we can correct ourselves, which isnt super bad but just looks jank
 
-///This is just for signals and doesn't run for most removals, so dont add behaviour here expecting it to do much
-/datum/component/shuttle_cling/proc/do_remove()
-	SIGNAL_HANDLER
-
-	qdel(src)
-
 ///Check if we're in hyperspace and our state in hyperspace
 /datum/component/shuttle_cling/proc/update_state()
 	SIGNAL_HANDLER
@@ -120,10 +114,6 @@
 		return TRUE
 	return FALSE
 
-///Launch the atom very hard, away from hyperspace
-/datum/component/shuttle_cling/proc/launch_very_hard(atom/movable/byebye)
-	byebye.safe_throw_at(get_edge_target_turf(byebye, direction), 7, 1, spin = TRUE, force = MOVE_FORCE_NORMAL)
-
 ///Check if we arent just being blocked, and if we are give us some diagonal push so we cant just infinitely cling to the front
 /datum/component/shuttle_cling/proc/update_drift_direction(atom/movable/clinger)
 	var/turf/potential_blocker = get_step(clinger, direction)
@@ -157,6 +147,12 @@
 		if(blocker.density)
 			return TRUE
 	return FALSE
+
+///This is just for signals and doesn't run for most removals, so dont add behaviour here expecting it to do much
+/datum/component/shuttle_cling/proc/do_remove()
+	SIGNAL_HANDLER
+
+	qdel(src)
 
 /datum/component/shuttle_cling/Destroy(force, silent)
 	REMOVE_TRAIT(parent, TRAIT_HYPERSPACED, src)
