@@ -739,7 +739,7 @@
 
 /datum/design/surgery/revival
 	name = "Revival"
-	desc = "An experimental surgical procedure which involves reconstruction and reactivation of the patient's brain even long after death. The body must still be able to sustain life."
+	desc = "An experimental surgical procedure which involves reconstruction and reactivation of the patient's brain even long after death. The body must still be able to sustain life and cannot be in stasis."
 	id = "surgery_revival"
 	surgery = /datum/surgery/advanced/revival
 	research_icon_state = "surgery_head"
