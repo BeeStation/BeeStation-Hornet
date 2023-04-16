@@ -62,7 +62,7 @@
 
 /mob/living/simple_animal/hostile/mimic/Destroy()
 	var/turf_to_spawn = get_turf(src)
-	// spawns a crate or an obj to spawn. Don't specify `spawaning_obj_type` to copy stuff
+	// spawns a crate/a closet/a locker, whatever
 	if(spawaning_obj_type && ispath(spawaning_obj_type, /obj/structure/closet))
 		var/obj/structure/closet/crate = new spawaning_obj_type(turf_to_spawn)
 		crate.opened = TRUE
