@@ -122,11 +122,12 @@
 /mob/living/simple_animal/hostile/mimic/copy/pop_out_stuff()
 	..()
 	// death of this mob means the destruction of the original stuff of the copied mob.
-	// but the destruction of an item is cringe. only does this to machines. so, check `!isitem()`
-	if(isobj(original_of_this) && !isitem(original_of_this)) // don't use CheckObject() here
+	// but the destruction of an item is cringe.
+	if(itype(original_of_this, /obj/machine/vending))
 		original_of_this.take_damage(original_of_this.obj_integrity, BRUTE, 0, FALSE)
+		// currently do this to vending machines only.
 
-GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/cable, /obj/structure/window))
+GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/cable, /obj/structure/window, /obj/structure/grille))
 
 /mob/living/simple_animal/hostile/mimic/copy
 	health = 100
@@ -144,7 +145,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 	if (no_googlies)
 		overlay_googly_eyes = FALSE
 	if(!CopyObject(original, creator, destroy_original))
-		stack_trace("something's wrong to create a mimic. It failed to copy something.")
+		stack_trace("something's wrong to create a mimic. It failed to mimic something - [original].")
 
 /mob/living/simple_animal/hostile/mimic/copy/Life()
 	..()
