@@ -112,8 +112,8 @@
 /mob/living/simple_animal/hostile/mimic/copy/pop_out_stuff()
 	..()
 	// death of this mob means the destruction of the original stuff of the copied mob.
-	// but the destruction of an item is cringe. only does this to machines. so, if(!istype(each_atom, /obj/item))
-	if(isobj(original_of_this) && !istype(original_of_this, /obj/item)) // don't use CheckObject() here
+	// but the destruction of an item is cringe. only does this to machines. so, check `!isitem()`
+	if(isobj(original_of_this) && !isitem(original_of_this)) // don't use CheckObject() here
 		original_of_this.take_damage(original_of_this.obj_integrity, sound_effect=FALSE)
 
 GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/cable, /obj/structure/window))
@@ -187,7 +187,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 		if(destroy_original)
 			qdel(O)
 		else
-			O.forceMove(src) // the original item will be hidden inside of this mob
+			O.forceMove(src) // the original object will be hidden inside of this mob
 			original_of_this = O
 		return TRUE
 
