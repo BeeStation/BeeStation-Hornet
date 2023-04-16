@@ -182,6 +182,17 @@
 		H.gib()
 		return
 
+/datum/species/oozeling/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	. = ..()
+	if(. && target != user && (target.mobility_flags & MOBILITY_STAND) && user.zone_selected == BODY_ZONE_CHEST && target.on_fire)
+		to_chat(user, "<span class='notice'>We begin to closely hug [target] to extinguish them...</span>")
+		target.visible_message("<span class='notice'>[user] begins to closely hug [target]...</span>", "<span class='boldnotice'>[user] holds you closely in a tight hug!</span>")
+		if(do_after(user, 1 SECONDS, target, IGNORE_HELD_ITEM))
+			target.visible_message("<span class='notice'>[user] extingushes [target] with a hug!</span>", "<span class='boldnotice'>[user] extingushes you with a hug!</span>", "<span class='italics'>You hear a fire sizzle out.</span>")
+			target.ExtinguishMob()
+		else
+			target.visible_message("<span class='notice'>[target] wriggles out of [user]'s close hug!</span>", "<span class='notice'>You wriggle out of [user]'s close hug.</span>")
+
 /datum/species/oozeling/get_cough_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_COUGH_SOUND(user)
 
