@@ -6,6 +6,7 @@
 	opacity = 0
 	density = TRUE
 	CanAtmosPass = ATMOS_PASS_DENSITY
+	obj_flags = CAN_BE_HIT | BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 	var/timeleft = 300 //Set to 0 for permanent forcefields (ugh)
 
 /obj/effect/forcefield/Initialize(mapload, ntimeleft)
