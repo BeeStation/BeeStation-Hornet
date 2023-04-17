@@ -110,12 +110,18 @@
 		if (length(inserted_vials) >= max_vials)
 			to_chat(user, "<span class='warning'>[src] cannot hold any more!</span>")
 			return
+		user.visible_message("<span class='notice'>[user] inserts \the [I] into \the [src]</span>", "<span class='notice'>You insert \the [I] into \the [src]</span>")
 		user.temporarilyRemoveItemFromInventory(I)
 		I.forceMove(null)
 		inserted_vials += I
 		ui_update()
 		return
 	. = ..()
+
+/obj/machinery/sleeper/on_deconstruction()
+	for(var/atom/movable/A as anything in inserted_vials)
+		A.forceMove(drop_location())
+	return ..()
 
 /obj/machinery/sleeper/container_resist(mob/living/user)
 	visible_message("<span class='notice'>[occupant] emerges from [src]!</span>",
