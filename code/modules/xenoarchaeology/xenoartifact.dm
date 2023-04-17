@@ -3,6 +3,7 @@
 	icon = 'icons/obj/xenoarchaeology/xenoartifact.dmi'
 	icon_state = "map_editor"
 	w_class = WEIGHT_CLASS_NORMAL
+	item_flags = ISWEAPON
 	light_color = LIGHT_COLOR_FIRE
 	desc = "A strange alien device. What could it possibly do?"
 	throw_range = 3
