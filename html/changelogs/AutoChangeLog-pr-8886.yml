@@ -1,4 +1,0 @@
-author: Wisemonster
-delete-after: true
-changes:
-  - bugfix: Fixed medibots ignoring patients that stepped away from them.
