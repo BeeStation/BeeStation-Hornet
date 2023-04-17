@@ -105,7 +105,7 @@
 				add_overlay("pinon[alert ? "alert" : ""]z[icon_suffix]")
 				return
 		else // TRUE: z-levels are in the same group (i.e. multi-floored station)
-			z_level_direction = "located at a floor [pin_z_result] here"
+			z_level_direction = "located [abs(there_zlevel - here_zlevel)] floors [pin_z_result]"
 	if(!tracks_grand_z)
 		z_level_direction = ""
 
