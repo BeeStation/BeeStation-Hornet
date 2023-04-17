@@ -202,7 +202,7 @@
 		return
 	. += "It is currently tracking <b>[target]</b>."
 	if(z_level_direction)
-		. += "Pinpointer informs its target is [z_level_direction]."
+		. += "A display reads that the target is [z_level_direction]."
 
 /obj/item/pinpointer/crew/trackable(mob/living/L)
 	return checks_trackable_lifeline(src, L, tracks_grand_z, jamming_resistance)
