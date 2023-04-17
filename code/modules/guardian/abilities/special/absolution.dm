@@ -128,14 +128,14 @@
 	return ..()
 
 /mob/living/carbon/human/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
-	if(HAS_TRAIT(src, TRAIT_ONEWAYROAD))
+	if(throwingdatum?.thrower && HAS_TRAIT(src, TRAIT_ONEWAYROAD))
 		visible_message("<span class='danger'>The air around [src] diverts \the [AM] back towards [throwingdatum.thrower]!</span>")
 		AM.throw_at(throwingdatum.thrower, throwingdatum.maxrange * 2, throwingdatum.speed * 2, src, TRUE)
 		return
 	return ..()
 
 /mob/living/simple_animal/hostile/guardian/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
-	if(HAS_TRAIT(src, TRAIT_ONEWAYROAD))
+	if(throwingdatum?.thrower && HAS_TRAIT(src, TRAIT_ONEWAYROAD))
 		visible_message("<span class='danger'>The air around [src] diverts \the [AM] back towards [throwingdatum.thrower]!</span>")
 		AM.throw_at(throwingdatum.thrower, throwingdatum.maxrange * 2, throwingdatum.speed * 2, src, TRUE)
 		return
