@@ -43,3 +43,24 @@
 
 ## Password for the hub page
 #MEDAL_HUB_PASSWORD defaultpass
+
+## Webhook link to send OOC or adminhelps to via HTTP POST, using RUSTG.
+## Data is sent as a JSON payload: {"content": "[message]"}
+#OOC_WEBHOOK https://example.com/webhook/ooc
+#ADMINHELP_WEBHOOK https://example.com/webhook/adminhelp_channel
+
+## A list of allowed mention types, as unique entries
+## (equivalent to "parse": https://discord.com/developers/docs/resources/channel#allowed-mentions-object-allowed-mention-object)
+## Do note, these are *mutually exclusive* with WEBHOOK_ALLOWED_MENTION_USERS/ROLES. Listing the type means that ALL mentions of the type are allowed.
+## Including both will cause this response:
+## {"allowed_mentions": ["parse:[\"users\"] and users: [ids...] are mutually exclusive.", "parse:[\"roles\"] and roles: [ids...] are mutually exclusive."]}
+#WEBHOOK_ALLOWED_MENTION_TYPES roles
+#WEBHOOK_ALLOWED_MENTION_TYPES users
+
+## A list of allowed mention users, as unique entries
+## (equivalent to "users": https://discord.com/developers/docs/resources/channel#allowed-mentions-object-allowed-mention-object)
+#WEBHOOK_ALLOWED_MENTION_USERS 123
+
+## A list of allowed mention roles, as unique entries
+## (equivalent to "roles": https://discord.com/developers/docs/resources/channel#allowed-mentions-object-allowed-mention-object)
+#WEBHOOK_ALLOWED_MENTION_ROLES 123

@@ -32,13 +32,13 @@
 				if(biome_noise > 0.5)
 					T.ChangeTurf(biome.plains_type, list(biome.river_type), CHANGETURF_IGNORE_AIR)
 					if(prob(20) && length(biome.plains_decoration))
-						var/type_to_spawn = pickweight(biome.plains_decoration)
+						var/type_to_spawn = pick_weight(biome.plains_decoration)
 						if(ispath(type_to_spawn))
 							new type_to_spawn(T)
 				else
 					T.ChangeTurf(biome.jungle_type, list(biome.river_type), CHANGETURF_IGNORE_AIR)
 					if(prob(60) && length(biome.plains_decoration))
-						var/type_to_spawn = pickweight(biome.jungle_decoration)
+						var/type_to_spawn = pick_weight(biome.jungle_decoration)
 						if(ispath(type_to_spawn))
 							new type_to_spawn(T)
 			//beach

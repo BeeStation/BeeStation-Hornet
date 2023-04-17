@@ -91,6 +91,27 @@
 	SEND_SIGNAL(src, COMSIG_IMPLANT_IMPLANTED, target, user, silent, force)
 	return TRUE
 
+/obj/item/implant/proc/transfer_implant(mob/living/user, mob/living/target)
+	if(SEND_SIGNAL(src, COMSIG_IMPLANT_IMPLANTING, args) & COMPONENT_STOP_IMPLANTING)
+		return
+	LAZYINITLIST(target.implants)
+	if(!force && (!target.can_be_implanted() || !can_be_implanted_in(target)))
+		return FALSE
+	forceMove(target)
+	user.implants -= src
+	imp_in = target
+	target.implants += src
+	if(activated)
+		for(var/X in actions)
+			var/datum/action/A = X
+			A.Grant(target)
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		H.sec_hud_set_implants()
+	on_implanted(target)
+	SEND_SIGNAL(src, COMSIG_IMPLANT_IMPLANTED, target, user, TRUE, FALSE)
+	return TRUE
+
 /obj/item/implant/proc/removed(mob/living/source, silent = FALSE, special = 0)
 	moveToNullspace()
 	imp_in = null

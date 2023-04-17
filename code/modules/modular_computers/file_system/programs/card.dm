@@ -214,23 +214,25 @@
 			else
 				if(minor && !(target in head_subordinates))
 					return
-				var/list/new_access = list()
-				if(is_centcom)
-					new_access = get_centcom_access(target)
-				else
-					var/datum/job/job
-					for(var/jobtype in subtypesof(/datum/job))
-						var/datum/job/J = new jobtype
-						if(J.title == target)
-							job = J
-							break
-					if(!job)
-						to_chat(user, "<span class='warning'>No class exists for this job: [target].</span>")
+				var/datum/job/jobdatum
+				if(!is_centcom) // station level
+					jobdatum = SSjob.GetJob(target)
+					if(!jobdatum)
+						to_chat(usr, "<span class='warning'>No log exists for this job.</span>")
+						stack_trace("bad job string '[target]' is given through a portable ID console program by '[ckey(usr)]'")
+						playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 						return
-					new_access = job.get_access()
-				log_id("[key_name(usr)] changed [target_id_card] assignment to '[target]', overriding all previous access using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
-				target_id_card.access -= get_all_centcom_access() + get_all_accesses()
-				target_id_card.access |= new_access
+
+					target_id_card.access -= get_all_accesses()
+					target_id_card.access += jobdatum.get_access()
+				else // centcom level
+					target_id_card.access -= get_all_centcom_access()
+					target_id_card.access += get_centcom_access(target)
+
+				// tablet program doesn't change bank/manifest status. check 'card.dm' for the detail
+
+				log_id("[key_name(usr)] changed [target_id_card] assignment to '[target]', manipulating it to the default access of the job using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
+
 				target_id_card.assignment = target
 				target_id_card.update_label()
 

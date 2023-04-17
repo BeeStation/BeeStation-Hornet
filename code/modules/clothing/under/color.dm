@@ -18,6 +18,7 @@
 	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
 	icon_state = "jumpskirt"
+	desc = "A standard issue colored jumpskirt. Variety is the spice of life!"
 
 /obj/item/clothing/under/color/random
 	icon_state = "random_jumpsuit"
@@ -83,7 +84,7 @@
 	can_adjust = FALSE
 
 /obj/item/clothing/under/color/grey/glorf/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	owner.forcesay(GLOB.hit_appends)
+	owner.force_say(hitby)
 	return 0
 
 /obj/item/clothing/under/color/blue

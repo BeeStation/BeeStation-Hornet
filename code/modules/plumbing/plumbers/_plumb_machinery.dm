@@ -27,6 +27,7 @@
 	anchored = bolt
 	create_reagents(buffer, reagent_flags)
 	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, PROC_REF(can_be_rotated)))
+	update_appearance() //so the input/output pipes will overlay properly during init
 
 /obj/machinery/plumbing/proc/can_be_rotated(mob/user, rotation_type)
 	if(anchored)
@@ -73,6 +74,7 @@
 /obj/machinery/plumbing/input/Initialize(mapload, bolt)
 	. = ..()
 	AddComponent(/datum/component/plumbing/simple_supply, bolt)
+	update_appearance() //so the input/output pipes will overlay properly during init
 
 ///We can fill beakers in here and everything. we dont inheret from input because it has nothing that we need
 /obj/machinery/plumbing/output
@@ -86,6 +88,7 @@
 /obj/machinery/plumbing/output/Initialize(mapload, bolt)
 	. = ..()
 	AddComponent(/datum/component/plumbing/simple_demand, bolt)
+	update_appearance() //so the input/output pipes will overlay properly during init
 
 /obj/machinery/plumbing/tank
 	name = "chemical tank"
@@ -98,3 +101,4 @@
 /obj/machinery/plumbing/tank/Initialize(mapload, bolt)
 	. = ..()
 	AddComponent(/datum/component/plumbing/tank, bolt)
+	update_appearance() //so the input/output pipes will overlay properly during init

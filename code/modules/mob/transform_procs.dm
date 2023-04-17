@@ -1,16 +1,8 @@
 #define TRANSFORMATION_DURATION 22
 
-/mob/living/carbon/proc/monkeyize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI), skip_animation = FALSE)
+/mob/living/carbon/proc/monkeyize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI), skip_animation = FALSE, original_species = /datum/species/human)
 	if (notransform || transformation_timer)
 		return
-
-	var/list/stored_implants = list()
-
-	if (tr_flags & TR_KEEPIMPLANTS)
-		for(var/X in implants)
-			var/obj/item/implant/IMP = X
-			stored_implants += IMP
-			IMP.removed(src, 1, 1)
 
 	var/list/missing_bodyparts_zones = get_missing_limbs()
 	var/list/int_organs = list()
@@ -40,6 +32,9 @@
 
 	var/mob/living/carbon/monkey/O = new /mob/living/carbon/monkey( loc )
 
+	// Make it be able to be turned back into a human with mutadone
+	O.natural = FALSE
+	O.check_if_natural()
 	// hash the original name?
 	if(tr_flags & TR_HASHNAME)
 		O.name = "monkey ([copytext_char(rustg_hash_string(RUSTG_HASH_MD5, real_name), 2, 6)])"
@@ -50,6 +45,11 @@
 	O.set_species(/datum/species/monkey)
 	O.dna.set_se(TRUE, GET_INITIALIZED_MUTATION(RACEMUT))
 	O.updateappearance(icon_update=0)
+
+	//store original species
+	for(var/datum/mutation/race/M in O.dna.mutations)
+		M.original_species = original_species
+		break //Can't be more than one monkified in a DNA set so, no need to continue the loop
 
 	if(suiciding)
 		O.set_suicide(suiciding)
@@ -74,11 +74,10 @@
 		O.updatehealth()
 		O.radiation = radiation
 
-	//re-add implants to new mob
-	if (tr_flags & TR_KEEPIMPLANTS)
-		for(var/Y in implants)
-			var/obj/item/implant/IMP = Y
-			IMP.implant(O, null, 1)
+	//move implants to new mob
+	if(tr_flags & TR_KEEPIMPLANTS)
+		for(var/obj/item/implant/IMP as anything in implants)
+			IMP.transfer_implant(src, O)
 
 	//re-add organs to new mob. this order prevents moving the mind to a brain at any point
 	if(tr_flags & TR_KEEPORGANS)
@@ -158,16 +157,8 @@
 		return
 	//Handle items on mob
 
-	//first implants & organs
-	var/list/stored_implants = list()
+	//first organs
 	var/list/int_organs = list()
-
-	if (tr_flags & TR_KEEPIMPLANTS)
-		for(var/X in implants)
-			var/obj/item/implant/IMP = X
-			stored_implants += IMP
-			IMP.removed(src, 1, 1)
-
 	var/list/missing_bodyparts_zones = get_missing_limbs()
 
 	var/obj/item/cavity_object
@@ -232,11 +223,10 @@
 		O.updatehealth()
 		O.radiation = radiation
 
-	//re-add implants to new mob
-	if (tr_flags & TR_KEEPIMPLANTS)
-		for(var/Y in implants)
-			var/obj/item/implant/IMP = Y
-			IMP.implant(O, null, 1)
+	//move implants to new mob
+	if(tr_flags & TR_KEEPIMPLANTS)
+		for(var/obj/item/implant/IMP as anything in implants)
+			IMP.transfer_implant(src, O)
 
 	//re-add organs to new mob. this order prevents moving the mind to a brain at any point
 	if(tr_flags & TR_KEEPORGANS)
@@ -304,18 +294,11 @@
 //////////////////////////           Humanize               //////////////////////////////
 //Could probably be merged with monkeyize but other transformations got their own procs, too
 
-/mob/living/carbon/proc/humanize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI))
+/mob/living/carbon/proc/humanize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI), original_species = /datum/species/human)
 	if (notransform || transformation_timer)
 		return
 
-	var/list/stored_implants = list()
 	var/list/int_organs = list()
-
-	if (tr_flags & TR_KEEPIMPLANTS)
-		for(var/X in implants)
-			var/obj/item/implant/IMP = X
-			stored_implants += IMP
-			IMP.removed(src, 1, 1)
 
 	var/list/missing_bodyparts_zones = get_missing_limbs()
 
@@ -348,7 +331,6 @@
 		if(C.anchored)
 			continue
 		O.equip_to_appropriate_slot(C)
-
 	dna.transfer_identity(O, tr_flags & TR_KEEPSE)
 	O.dna.set_se(FALSE, GET_INITIALIZED_MUTATION(RACEMUT))
 	//Reset offsets to match human settings, in-case they have been changed
@@ -385,11 +367,10 @@
 		O.updatehealth()
 		O.radiation = radiation
 
-	//re-add implants to new mob
-	if (tr_flags & TR_KEEPIMPLANTS)
-		for(var/Y in implants)
-			var/obj/item/implant/IMP = Y
-			IMP.implant(O, null, 1)
+	//move implants to new mob
+	if(tr_flags & TR_KEEPIMPLANTS)
+		for(var/obj/item/implant/IMP as anything in implants)
+			IMP.transfer_implant(src, O)
 
 	if(tr_flags & TR_KEEPORGANS)
 		for(var/X in O.internal_organs)
@@ -449,12 +430,12 @@
 	if(O.dna.species && !istype(O.dna.species, /datum/species/monkey))
 		O.set_species(O.dna.species)
 	else
-		O.set_species(/datum/species/human)
+		O.set_species(original_species)
 
 
 	O.a_intent = INTENT_HELP
 	if (tr_flags & TR_DEFAULTMSG)
-		to_chat(O, "<B>You are now a human.</B>")
+		to_chat(O, "<B>You are now \a [original_species].</B>")
 
 	transfer_observers_to(O)
 
@@ -647,7 +628,7 @@
 /mob/living/carbon/human/Animalize()
 
 	var/list/mobtypes = typesof(/mob/living/simple_animal)
-	var/mobpath = input("Which type of mob should [src] turn into?", "Choose a type") in sortList(mobtypes, GLOBAL_PROC_REF(cmp_typepaths_asc))
+	var/mobpath = input("Which type of mob should [src] turn into?", "Choose a type") in sort_list(mobtypes, GLOBAL_PROC_REF(cmp_typepaths_asc))
 
 	if(!mobpath)
 		to_chat(usr, "<span class='danger'>Sorry but this mob type is currently unavailable.</span>")
@@ -668,7 +649,7 @@
 
 /mob/proc/Animalize()
 	var/list/mobtypes = typesof(/mob/living/simple_animal)
-	var/mobpath = input("Which type of mob should [src] turn into?", "Choose a type") in sortList(mobtypes, GLOBAL_PROC_REF(cmp_typepaths_asc))
+	var/mobpath = input("Which type of mob should [src] turn into?", "Choose a type") in sort_list(mobtypes, GLOBAL_PROC_REF(cmp_typepaths_asc))
 
 	if(!mobpath)
 		to_chat(usr, "<span class='danger'>Sorry but this mob type is currently unavailable.</span>")

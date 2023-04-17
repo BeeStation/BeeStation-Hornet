@@ -129,7 +129,7 @@
 		create_random_books(books_to_load, src, FALSE, random_category)
 		load_random_books = FALSE
 	if(contents.len)
-		var/obj/item/book/choice = input(user, "Which book would you like to remove from the shelf?") as null|obj in sortNames(contents)
+		var/obj/item/book/choice = input(user, "Which book would you like to remove from the shelf?") as null|obj in sort_names(contents)
 		if(choice)
 			if(!(user.mobility_flags & MOBILITY_USE) || user.stat || user.restrained() || !in_range(loc, user))
 				return
@@ -197,6 +197,7 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = WEIGHT_CLASS_NORMAL		 //upped to three because books are, y'know, pretty big. (and you could hide them inside eachother recursively forever)
+	item_flags = ISWEAPON
 	drop_sound = 'sound/items/handling/book_drop.ogg'
 	pickup_sound =  'sound/items/handling/book_pickup.ogg'
 	attack_verb = list("bashed", "whacked", "educated")

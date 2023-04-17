@@ -48,12 +48,13 @@
 		for(var/mob/living/obstacle in srcturf) //Stop people from using this as a shield
 			opening = FALSE
 			return
-	addtimer(CALLBACK(src, /obj/structure/falsewall/proc/toggle_open), 5)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/structure/falsewall, toggle_open)), 5)
 
 /obj/structure/falsewall/proc/toggle_open()
 	if(!QDELETED(src))
 		set_density(!density)
 		set_opacity(density)
+		obj_flags &= density ? (BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP) : ~(BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP)
 		opening = FALSE
 		update_icon()
 		air_update_turf(TRUE)
@@ -264,7 +265,7 @@
 	if(W.is_hot() > 300)
 		if(plasma_ignition(6, user))
 			new /obj/structure/girder/displaced(loc)
-			
+
 	else
 		return ..()
 
@@ -272,7 +273,7 @@
 	if(exposed_temperature > 300)
 		if(plasma_ignition(6))
 			new /obj/structure/girder/displaced(loc)
-			
+
 
 /obj/structure/falsewall/plasma/bullet_act(obj/item/projectile/Proj)
 	if(!(Proj.nodamage) && Proj.damage_type == BURN)
