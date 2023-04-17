@@ -6,7 +6,7 @@
 	icon_state = "0"
 	desc = "The framework for an artificial intelligence core."
 	max_integrity = 500
-	obj_flags = CAN_BE_HIT | BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
+	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	var/state = EMPTY_CORE
 	var/datum/ai_laws/laws
 	var/obj/item/circuitboard/aicore/circuit
