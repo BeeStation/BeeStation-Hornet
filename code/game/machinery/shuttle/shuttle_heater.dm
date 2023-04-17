@@ -21,6 +21,7 @@
 	circuit = /obj/item/circuitboard/machine/shuttle/heater
 
 	density = TRUE
+	obj_flags = CAN_BE_HIT | BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 	max_integrity = 400
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 30, STAMINA = 0)
 	layer = OBJ_LAYER
