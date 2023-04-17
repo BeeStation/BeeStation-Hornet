@@ -45,6 +45,7 @@
 	desc = "A coniferous pine tree."
 	icon = 'icons/obj/flora/pinetrees.dmi'
 	icon_state = "pine_1"
+	zmm_flags = ZMM_WIDE_LOAD
 	var/list/icon_states = list("pine_1", "pine_2", "pine_3")
 
 /obj/structure/flora/tree/pine/Initialize(mapload)
@@ -97,11 +98,13 @@
 	icon = 'icons/obj/flora/deadtrees.dmi'
 	desc = "A dead tree. How it died, you know not."
 	icon_state = "tree_1"
+	zmm_flags = ZMM_WIDE_LOAD
 
 /obj/structure/flora/tree/palm
 	icon = 'icons/misc/beach2.dmi'
 	desc = "A tree straight from the tropics."
 	icon_state = "palm1"
+	zmm_flags = ZMM_WIDE_LOAD
 
 /obj/structure/flora/tree/palm/Initialize(mapload)
 	. = ..()
@@ -113,6 +116,7 @@
 	icon = 'icons/obj/flora/pinetrees.dmi'
 	icon_state = "festivus_pole"
 	desc = "During last year's Feats of Strength the Research Director was able to suplex this passing immobile rod into a planter."
+	zmm_flags = ZMM_LOOKAHEAD
 
 /obj/structure/festivus/anchored
 	name = "suplexed rod"
@@ -131,6 +135,7 @@
 	icon = 'icons/obj/flora/jungletrees.dmi'
 	pixel_x = -48
 	pixel_y = -20
+	zmm_flags = ZMM_WIDE_LOAD
 
 /obj/structure/flora/tree/jungle/Initialize(mapload)
 	icon_state = "[icon_state][rand(1, 6)]"
