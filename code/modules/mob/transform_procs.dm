@@ -3,13 +3,6 @@
 /mob/living/carbon/proc/monkeyize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI), skip_animation = FALSE, original_species = /datum/species/human)
 	if (notransform || transformation_timer)
 		return
-	var/list/stored_implants = list()
-
-	if (tr_flags & TR_KEEPIMPLANTS)
-		for(var/X in implants)
-			var/obj/item/implant/IMP = X
-			stored_implants += IMP
-			IMP.removed(src, 1, 1)
 
 	var/list/missing_bodyparts_zones = get_missing_limbs()
 	var/list/int_organs = list()
@@ -39,6 +32,9 @@
 
 	var/mob/living/carbon/monkey/O = new /mob/living/carbon/monkey( loc )
 
+	// Make it be able to be turned back into a human with mutadone
+	O.natural = FALSE
+	O.check_if_natural()
 	// hash the original name?
 	if(tr_flags & TR_HASHNAME)
 		O.name = "monkey ([copytext_char(rustg_hash_string(RUSTG_HASH_MD5, real_name), 2, 6)])"
@@ -78,11 +74,10 @@
 		O.updatehealth()
 		O.radiation = radiation
 
-	//re-add implants to new mob
-	if (tr_flags & TR_KEEPIMPLANTS)
-		for(var/Y in implants)
-			var/obj/item/implant/IMP = Y
-			IMP.implant(O, null, 1)
+	//move implants to new mob
+	if(tr_flags & TR_KEEPIMPLANTS)
+		for(var/obj/item/implant/IMP as anything in implants)
+			IMP.transfer_implant(src, O)
 
 	//re-add organs to new mob. this order prevents moving the mind to a brain at any point
 	if(tr_flags & TR_KEEPORGANS)
@@ -162,16 +157,8 @@
 		return
 	//Handle items on mob
 
-	//first implants & organs
-	var/list/stored_implants = list()
+	//first organs
 	var/list/int_organs = list()
-
-	if (tr_flags & TR_KEEPIMPLANTS)
-		for(var/X in implants)
-			var/obj/item/implant/IMP = X
-			stored_implants += IMP
-			IMP.removed(src, 1, 1)
-
 	var/list/missing_bodyparts_zones = get_missing_limbs()
 
 	var/obj/item/cavity_object
@@ -236,11 +223,10 @@
 		O.updatehealth()
 		O.radiation = radiation
 
-	//re-add implants to new mob
-	if (tr_flags & TR_KEEPIMPLANTS)
-		for(var/Y in implants)
-			var/obj/item/implant/IMP = Y
-			IMP.implant(O, null, 1)
+	//move implants to new mob
+	if(tr_flags & TR_KEEPIMPLANTS)
+		for(var/obj/item/implant/IMP as anything in implants)
+			IMP.transfer_implant(src, O)
 
 	//re-add organs to new mob. this order prevents moving the mind to a brain at any point
 	if(tr_flags & TR_KEEPORGANS)
@@ -312,14 +298,7 @@
 	if (notransform || transformation_timer)
 		return
 
-	var/list/stored_implants = list()
 	var/list/int_organs = list()
-
-	if (tr_flags & TR_KEEPIMPLANTS)
-		for(var/X in implants)
-			var/obj/item/implant/IMP = X
-			stored_implants += IMP
-			IMP.removed(src, 1, 1)
 
 	var/list/missing_bodyparts_zones = get_missing_limbs()
 
@@ -388,11 +367,10 @@
 		O.updatehealth()
 		O.radiation = radiation
 
-	//re-add implants to new mob
-	if (tr_flags & TR_KEEPIMPLANTS)
-		for(var/Y in implants)
-			var/obj/item/implant/IMP = Y
-			IMP.implant(O, null, 1)
+	//move implants to new mob
+	if(tr_flags & TR_KEEPIMPLANTS)
+		for(var/obj/item/implant/IMP as anything in implants)
+			IMP.transfer_implant(src, O)
 
 	if(tr_flags & TR_KEEPORGANS)
 		for(var/X in O.internal_organs)

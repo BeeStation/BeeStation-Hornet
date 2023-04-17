@@ -13,6 +13,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/toolbox_righthand.dmi'
 	icon = 'icons/obj/items_and_weapons.dmi'
 	w_class = WEIGHT_CLASS_GIGANTIC
+	item_flags = ISWEAPON
 	force = 12
 	block_upgrade_walk = 1
 	attack_verb = list("robusted")

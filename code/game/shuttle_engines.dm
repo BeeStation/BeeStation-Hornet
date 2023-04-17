@@ -15,6 +15,7 @@
 	desc = "A bluespace engine used to make shuttles move."
 	density = TRUE
 	anchored = TRUE
+	obj_flags = CAN_BE_HIT | BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 	var/engine_power = 1
 	var/state = ENGINE_WELDED //welding shmelding
 
