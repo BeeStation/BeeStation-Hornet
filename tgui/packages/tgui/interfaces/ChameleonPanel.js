@@ -319,8 +319,7 @@ const Disguises = (props, context) => {
           act('disguise', {
             ref: selectedChameleon.ref,
             type: disguise.type,
-          })
-        }>
+          })}>
         <ChameleonIcon assetClass={disguise_icon} />
       </Button>
     );
@@ -349,8 +348,7 @@ const DisguisesCompact = (props, context) => {
                 act('disguise', {
                   ref: selectedChameleon.ref,
                   type: disguise.type,
-                })
-              }>
+                })}>
               {selectedChameleon.current_disguise === disguise.type
                 ? 'Disguised'
                 : 'Disguise'}
