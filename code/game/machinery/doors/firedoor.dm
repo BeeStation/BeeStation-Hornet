@@ -13,7 +13,7 @@
 	icon_state = "door_open"
 	opacity = FALSE
 	density = FALSE
-	obj_flags = CAN_BE_HIT // allow z-pass
+	obj_flags = CAN_BE_HIT // reset zblock
 	max_integrity = 300
 	resistance_flags = FIRE_PROOF
 	heat_proof = TRUE
