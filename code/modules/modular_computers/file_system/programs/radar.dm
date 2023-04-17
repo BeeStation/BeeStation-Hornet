@@ -254,7 +254,7 @@
 	program_icon = "heartbeat"
 
 /datum/computer_file/program/radar/lifeline/find_atom()
-	return locate(selected) in GLOB.suit_sensors_list //currently we dont have a list of humanoids so this'll have to do
+	return locate(selected) in GLOB.suit_sensors_list
 
 /datum/computer_file/program/radar/lifeline/scan()
 	if(!COOLDOWN_FINISHED(src, last_scan))
