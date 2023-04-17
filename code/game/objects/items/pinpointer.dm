@@ -28,7 +28,7 @@
 	/// if this is declared (like JAMMER_PROTECTION_SENSOR_NETWORK), it will be not usable when it's jammed
 	var/jamming_resistance = null
 
-	/// Lets you to know where you should go to whne you examine
+	/// Lets you to know where you should go to when you examine
 	var/z_level_direction = ""
 
 /obj/item/pinpointer/Initialize(mapload)
@@ -40,6 +40,13 @@
 	GLOB.pinpointer_list -= src
 	target = null
 	return ..()
+
+/obj/item/pinpointer/examine(mob/user)
+	. = ..()
+	if(!active || !target)
+		return
+	if(z_level_direction)
+		. += "A display reads that the target is [z_level_direction]."
 
 /obj/item/pinpointer/attack_self(mob/living/user)
 	if(!process_scan) //since it's not scanning on process, it scans here.
@@ -124,7 +131,7 @@
 
 
 	// building overlays with sprite components
-	add_overlay(alert ? "pincomp_base_alert" : "pincomp_base")
+	add_overlay(alert ? "pincomp_base_alert[icon_suffix]" : "pincomp_base[icon_suffix]")
 	if(pin_z_result)
 		add_overlay("pincomp_z_[pin_z_result][icon_suffix]")
 	add_overlay("pincomp_arrow_[pin_xy_result][icon_suffix]")
@@ -201,8 +208,6 @@
 	if(!active || !target)
 		return
 	. += "It is currently tracking <b>[target]</b>."
-	if(z_level_direction)
-		. += "A display reads that the target is [z_level_direction]."
 
 /obj/item/pinpointer/crew/trackable(mob/living/L)
 	return checks_trackable_lifeline(src, L, tracks_grand_z, jamming_resistance)
