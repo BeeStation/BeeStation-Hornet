@@ -77,18 +77,22 @@
 		return
 	var/turf/here = get_turf(src)
 	var/turf/there = get_turf(target)
+
+	// these two variables are used to update icon based on its string
 	var/pin_xy_result = "direct"
 	var/pin_z_result = ""
 
 
 	// getting z result first
-	if(here.get_virtual_z_level() > there.get_virtual_z_level()) // target is at below
+	var/here_zlevel = here.get_virtual_z_level()
+	var/there_zlevel = there.get_virtual_z_level()
+	if(here_zlevel > there_zlevel) // target is at below
 		pin_z_result = "below"
-	else if(here.get_virtual_z_level() < there.get_virtual_z_level()) // target is at above
+	else if(here_zlevel < there_zlevel) // target is at above
 		pin_z_result = "above"
 
 	if(pin_z_result)
-		var/result = compare_z(here.get_virtual_z_level(), there.get_virtual_z_level())
+		var/result = compare_z(here_zlevel, there_zlevel)
 		if(isnull(result)) // null: no good to track z levels
 			add_overlay("pinon[alert ? "alert" : ""]null[icon_suffix]")
 			return
@@ -97,7 +101,7 @@
 				add_overlay("pinon[alert ? "alert" : ""]null[icon_suffix]")
 				return
 			else
-				z_level_direction = "located at [SSorbits.get_orbital_map_name_from_z(there.get_virtual_z_level()) || scramble_message_replace_chars("???????", replaceprob=85)]"
+				z_level_direction = "located at [SSorbits.get_orbital_map_name_from_z(there_zlevel) || scramble_message_replace_chars("???????", replaceprob=85)]"
 				add_overlay("pinon[alert ? "alert" : ""]z[icon_suffix]")
 				return
 		else // TRUE: z-levels are in the same group (i.e. multi-floored station)
@@ -128,6 +132,9 @@
 		pin_xy_result = pin_xy_result=="direct" ? "direct_" : ""
 		add_overlay("pincomp_arrow_[pin_xy_result]alert[icon_suffix]")
 
+/obj/item/pinpointer/proc/trackable(atom/target)
+	return checks_trackable_core(src, target, tracks_grand_z, jamming_resistance)
+
 /// compares if get_virtual_z_level() of two parameters is the same orbital map. this can be used in lifeline app too
 /proc/compare_z(here_z, there_z)
 	var/here_map = SSorbits.get_orbital_map_name_from_z(here_z)
@@ -138,6 +145,47 @@
 		return TRUE
 	else
 		return FALSE
+
+/// checks if it's basically trackable - used by pinpointer item and a radar
+/proc/checks_trackable_core(atom/given_here, atom/given_there, powerful_z_check=FALSE, jam_level=JAMMER_PROTECTION_SENSOR_NETWORK)
+	if(!given_here || !given_there)
+		return FALSE
+	var/turf/here = get_turf(given_here)
+	var/turf/there = get_turf(given_there)
+	if(!here || !there)
+		return FALSE
+
+	if(there.is_jammed(jam_level))
+		return FALSE
+
+	if(!powerful_z_check) // z-check will be only limited within the same area (i.e. multi-floor'ed station)
+		if(!compare_z(here.get_virtual_z_level(), there.get_virtual_z_level()))
+			return FALSE
+
+	return TRUE
+
+/proc/checks_trackable_lifeline(atom/given_here, atom/given_there, powerful_z_check=FALSE, jam_level=JAMMER_PROTECTION_SENSOR_NETWORK, ignore_suit_sensor_level=FALSE)
+	// do the core thing first
+	if(!checks_trackable_core(given_here, given_there, powerful_z_check, jam_level))
+		return FALSE
+
+	var/mob/living/L = given_there
+
+	if(HAS_TRAIT(L, TRAIT_NANITE_SENSORS) && (ishuman(L) || L.mind)) // they should be fakehuman with no mind, or be a mob with mind. Nanites spam to mobs will be annoying
+		return TRUE
+
+	if(!ishuman(L)) // now human-only part. non-humans should have passed this from above already.
+		return FALSE
+
+	var/mob/living/carbon/human/H = L
+	if(!H.w_uniform) // clothless humans should have passed this already
+		return FALSE
+
+	var/obj/item/clothing/under/U = H.w_uniform
+	if(!U.has_sensor || (U.sensor_mode < SENSOR_COORDS && !ignore_suit_sensor_level))
+		return FALSE
+
+	return TRUE
 
 /obj/item/pinpointer/crew // A replacement for the old crew monitoring consoles
 	name = "crew pinpointer"
@@ -156,32 +204,8 @@
 	if(z_level_direction)
 		. += "Pinpointer informs its target is [z_level_direction]."
 
-/obj/item/pinpointer/crew/proc/trackable(mob/living/L)
-	var/turf/here = get_turf(src)
-	var/turf/there = get_turf(L)
-
-	if(there.is_jammed(JAMMER_PROTECTION_SENSOR_NETWORK))
-		return FALSE
-
-	if(!tracks_grand_z)
-		if(!compare_z(here.get_virtual_z_level(), there.get_virtual_z_level()))
-			return FALSE
-
-	if(HAS_TRAIT(L, TRAIT_NANITE_SENSORS) && (ishuman(L) || L.mind)) // they should be fakehuman with no mind, or be a mob with mind. Nanites spam to mobs will be annoying
-		return TRUE
-
-	if(!ishuman(L)) // now human only code
-		return FALSE
-
-	var/mob/living/carbon/human/H = L
-	if(!H.w_uniform)
-		return FALSE
-
-	var/obj/item/clothing/under/U = H.w_uniform
-	if(!U.has_sensor || (U.sensor_mode < SENSOR_COORDS && !ignore_suit_sensor_level))
-		return FALSE
-
-	return TRUE
+/obj/item/pinpointer/crew/trackable(mob/living/L)
+	return checks_trackable_lifeline(src, L, tracks_grand_z, jamming_resistance)
 
 
 /obj/item/pinpointer/crew/attack_self(mob/living/user)
@@ -201,8 +225,6 @@
 	var/list/names = list()
 
 	for(var/mob/living/L in GLOB.suit_sensors_list)
-		if(user.is_jammed(JAMMER_PROTECTION_SENSOR_NETWORK))
-			break
 		if(!trackable(L))
 			continue
 
