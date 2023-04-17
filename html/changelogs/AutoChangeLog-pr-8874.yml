@@ -1,5 +1,0 @@
-author: RKz
-delete-after: true
-changes:
-  - bugfix: Fixes AI icon mimicing not working
-  - bugfix: Fixed cult targets showing improperly on the action HUD
