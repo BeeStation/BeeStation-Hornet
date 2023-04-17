@@ -120,7 +120,7 @@
 
 	if (myturf.above)
 		if(myturf.above.shadower)
-			myturf.above.shadower.copy_lighting(src)
+			myturf.above.shadower.copy_lighting(src, myturf.loc)
 		else
 			myturf.above.update_mimic()
 

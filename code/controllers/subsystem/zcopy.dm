@@ -334,7 +334,7 @@ SUBSYSTEM_DEF(zcopy)
 				continue
 
 			if(istype(object, /atom/movable/lighting_object))
-				T.shadower.copy_lighting(T.below.lighting_object)
+				T.shadower.copy_lighting(T.below.lighting_object, T.below.loc)
 				continue
 
 			if (!object.bound_overlay)	// Generate a new overlay if the atom doesn't already have one.

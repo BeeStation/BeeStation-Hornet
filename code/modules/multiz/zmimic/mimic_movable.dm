@@ -102,7 +102,7 @@
 
 	return ..()
 
-/atom/movable/openspace/multiplier/proc/copy_lighting(atom/movable/lighting_object/LO)
+/atom/movable/openspace/multiplier/proc/copy_lighting(atom/movable/lighting_object/LO, area/A)
 	ASSERT(LO != null)
 	// Underlay lighting stuff, if it gets ported: appearance = LO.current_underlay
 	appearance = LO
@@ -114,23 +114,40 @@
 	if (islist(color))
 		// We're using a color matrix, so just darken the colors across the board.
 		var/list/c_list = color
-		c_list[CL_MATRIX_RR] *= SHADOWER_DARKENING_FACTOR
-		c_list[CL_MATRIX_RG] *= SHADOWER_DARKENING_FACTOR
-		c_list[CL_MATRIX_RB] *= SHADOWER_DARKENING_FACTOR
-		c_list[CL_MATRIX_GR] *= SHADOWER_DARKENING_FACTOR
-		c_list[CL_MATRIX_GG] *= SHADOWER_DARKENING_FACTOR
-		c_list[CL_MATRIX_GB] *= SHADOWER_DARKENING_FACTOR
-		c_list[CL_MATRIX_BR] *= SHADOWER_DARKENING_FACTOR
-		c_list[CL_MATRIX_BG] *= SHADOWER_DARKENING_FACTOR
-		c_list[CL_MATRIX_BB] *= SHADOWER_DARKENING_FACTOR
-		c_list[CL_MATRIX_AR] *= SHADOWER_DARKENING_FACTOR
-		c_list[CL_MATRIX_AG] *= SHADOWER_DARKENING_FACTOR
-		c_list[CL_MATRIX_AB] *= SHADOWER_DARKENING_FACTOR
+		if(A?.lighting_overlay)
+			c_list[CL_MATRIX_CR] = A.lighting_overlay_matrix_cr
+			c_list[CL_MATRIX_CG] = A.lighting_overlay_matrix_cg
+			c_list[CL_MATRIX_CB] = A.lighting_overlay_matrix_cb
+		c_list = color_matrix_multiply_fixed(c_list, SHADOWER_DARKENING_FACTOR)
 		color = c_list
 	else
 		// Not a color matrix, so we can just use the color var ourselves.
-		color = SHADOWER_DARKENING_COLOR
+		if(A?.lighting_overlay)
+			if(!islist(A.lighting_overlay_cached_darkening_matrix))
+				var/list/c_list = color_hex2color_matrix(SHADOWER_DARKENING_COLOR)
+				c_list[CL_MATRIX_CR] = A.lighting_overlay_matrix_cr
+				c_list[CL_MATRIX_CG] = A.lighting_overlay_matrix_cg
+				c_list[CL_MATRIX_CB] = A.lighting_overlay_matrix_cb
+				A.lighting_overlay_cached_darkening_matrix = c_list
+			color = A.lighting_overlay_cached_darkening_matrix
+		else
+			color = SHADOWER_DARKENING_COLOR
 	UPDATE_OO_IF_PRESENT
+
+/proc/color_matrix_multiply_fixed(list/c_list, factor)
+	c_list[CL_MATRIX_RR] *= factor
+	c_list[CL_MATRIX_RG] *= factor
+	c_list[CL_MATRIX_RB] *= factor
+	c_list[CL_MATRIX_GR] *= factor
+	c_list[CL_MATRIX_GG] *= factor
+	c_list[CL_MATRIX_GB] *= factor
+	c_list[CL_MATRIX_BR] *= factor
+	c_list[CL_MATRIX_BG] *= factor
+	c_list[CL_MATRIX_BB] *= factor
+	c_list[CL_MATRIX_AR] *= factor
+	c_list[CL_MATRIX_AG] *= factor
+	c_list[CL_MATRIX_AB] *= factor
+	return c_list
 
 //! -- OPENSPACE MIMIC --
 /// Object used to hold a mimiced atom's appearance.
