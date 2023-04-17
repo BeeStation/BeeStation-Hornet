@@ -32,6 +32,14 @@ export const Sleeper = (props, context) => {
     },
   ];
 
+  const ELLIPSIS_STYLE = { // enforces overflow ellipsis
+    "max-width": "1px",
+    "white-space": "nowrap",
+    "text-overflow": "ellipsis",
+    "overflow": "hidden",
+  };
+
+
   return (
     <Window
       width={310}
@@ -109,15 +117,28 @@ export const Sleeper = (props, context) => {
               onClick={() => act('door')} />
           )}>
           <Table>
+            <style>{`
+              .Button--fluid.button-ellipsis {
+                max-width: 100%;
+              }
+              .button-ellipsis .Button__content {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+              }
+            `}
+            </style>
             {chems.map(chem => (
               <Table.Row
                 key={chem.id} >
-                <Table.Cell>
+                <Table.Cell style={ELLIPSIS_STYLE}>
                   <Button
                     key={chem.id}
                     icon="flask"
-                    width="100%"
+                    className="button-ellipsis"
+                    fluid
                     content={chem.name + ' (' + chem.amount + 'u)'}
+                    tooltip={chem.amount + 'u'}
                     disabled={!(occupied && chem.allowed)}
                     onClick={() => act('inject', {
                       chem: chem.id,
