@@ -63,7 +63,7 @@
 			victim.mind.remove_antag_datum(/datum/antagonist/brainwashed)
 		QDEL_LIST(removed_objectives)
 	else
-		log_admin("[key_name(victim)] had all of their brainwashing objective[length(brainwash.objectives) > 1 ? "s" : ""] removed: [english_list(brainwash.objectives)].")
+		log_admin("[key_name(victim)] had all of their brainwashing objectives removed: [english_list(brainwash.objectives)].")
 		QDEL_LIST(brainwash.objectives)
 		victim.mind.remove_antag_datum(/datum/antagonist/brainwashed)
 
