@@ -160,6 +160,10 @@ Class Procs:
 	if(occupant_typecache)
 		occupant_typecache = typecacheof(occupant_typecache)
 
+	if((resistance_flags & INDESTRUCTIBLE) && component_parts){ //Prevents indestructible machinery from blowing up due to spaghetti (propagate_blastwave)
+		flags_1 |= PREVENT_CONTENTS_EXPLOSION_1
+	}
+
 	if(!seller_department)
 		seller_department = dept_req_for_free
 
