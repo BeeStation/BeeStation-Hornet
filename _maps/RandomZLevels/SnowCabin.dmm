@@ -2730,7 +2730,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /mob/living/simple_animal/hostile/hivebot/range{
 	desc = "Looks like he's been left behind.";
-	facton = list("russian")
+	faction = list("russian");
 	maxHealth = 5;
 	name = "soviet machine"
 	},
