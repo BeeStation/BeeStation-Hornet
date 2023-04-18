@@ -115,7 +115,9 @@
 #define EXP_TYPE_ANTAG			"Antag"
 #define EXP_TYPE_SPECIAL		"Special"
 #define EXP_TYPE_DEPRECATED     "Deprecated" // deprecated roles
-#define EXP_TYPE_GHOST			"Ghost"
+#define EXP_TYPE_DEAD			"Dead"
+#define EXP_TYPE_OBSERVER		"Observer"
+#define EXP_TYPE_GHOST			"Ghost" // deprecated, but remained because it's been used for years
 #define EXP_TYPE_ADMIN			"Admin"
 
 //Flags in the players table in the db

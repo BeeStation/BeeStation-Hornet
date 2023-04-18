@@ -175,13 +175,20 @@ GLOBAL_PROTECT(exp_to_update)
 				if(announce_changes)
 					to_chat(src,"<span class='notice'>You got: [minutes] Admin EXP!</span>")
 			else
-				play_records[EXP_TYPE_GHOST] += minutes
+				play_records[EXP_TYPE_DEAD] += minutes // they're in a dead body
 				if(announce_changes)
-					to_chat(src,"<span class='notice'>You got: [minutes] Ghost EXP!</span>")
+					to_chat(src,"<span class='notice'>You got: [minutes] Dead EXP!</span>")
 	else if(isobserver(mob))
-		play_records[EXP_TYPE_GHOST] += minutes
+		if(mob.mind)
+			play_records[EXP_TYPE_DEAD] += minutes // mind-having ghost would mean they're dead
+		else
+			play_records[EXP_TYPE_OBSERVER] += minutes // mindless ghost would mean they're just an observer
 		if(announce_changes)
-			to_chat(src,"<span class='notice'>You got: [minutes] Ghost EXP!</span>")
+			to_chat(src,"<span class='notice'>You got: [minutes] Observer EXP!</span>")
+		if(holder && !holder.deadmined)
+			play_records[EXP_TYPE_ADMIN] += minutes
+			if(announce_changes)
+				to_chat(src,"<span class='notice'>You got: [minutes] Admin EXP!</span>")
 	else if(minutes)	//Let "refresh" checks go through
 		return
 

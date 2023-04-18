@@ -52,32 +52,36 @@
 #define ROLE_KEY_TERATOMA        "Teratoma"
 #define ROLE_KEY_SWARMER         "Swarmer"
 #define ROLE_KEY_SPIDER	         "Spider"
+#define ROLE_KEY_FUGITIVE_RUNNER  "Fugitive" // fugitive and hunter aren't really against crews. Let them be here.
+#define ROLE_KEY_FUGITIVE_CHASER  "Fugitive Hunter"
+
 #define ROLE_KEY_SANTA           "Santa"
 #define ROLE_KEY_VALENTINE_HATER "Heartbreaker" // this is not in GLOB role list since it's quite seasonal
 #define ROLE_KEY_HIGHLANDER      "Highlander" // this is not in GLOB role list since it's not for standard games
 
 #define ROLE_KEY_UNDEFINED_ANTAG_ROLE "Undefined Antagonist Role" // default for all antag datum
 
-// mid-spawn NON-antags
+// ghost-self-spawnable roles
 #define ROLE_KEY_POSIBRAIN          "Positronic Brain"
 #define ROLE_KEY_PAI                "pAI"
 #define ROLE_KEY_ASHWALKER          "Ashwalker Lizard" // well, let them be here... as they usually don't interfere a round much
 #define ROLE_KEY_LAVALAND_DOCTOR    "Translocated Veterinarian"
 #define ROLE_KEY_LAVALAND_LIFEBRINGER "Lifebringer"
-#define ROLE_KEY_EXPERIMENTAL_CLONE   "Experimental Clone"
-#define ROLE_KEY_GOLEM               "Sentient Golem"
 #define ROLE_KEY_BEACH_BUM        "Beach Bum"
-#define ROLE_KEY_EXPLORATION_VIP  "Exploration VIP"
+#define ROLE_KEY_GOLEM               "Sentient Golem"
 #define ROLE_KEY_MAROONED_CREW    "Marooned Crew"
-#define ROLE_KEY_FUGITIVE_RUNNER  "Fugitive" // fugitive and hunter aren't really against crews. Let them be here.
-#define ROLE_KEY_FUGITIVE_CHASER  "Fugitive Hunter"
+#define ROLE_KEY_EXPLORATION_VIP  "Exploration VIP"
+#define ROLE_KEY_UNDEAD           "Undead" // I am not sure if it's a thing evne, but I added it anyawy
+
+// ghost-notifying roles
 #define ROLE_KEY_SENTIENT         "Sentient Beings" // This one can possibly antag (i.e. lava elite mobs)
+#define ROLE_KEY_EXPERIMENTAL_CLONE   "Experimental Clone"
+#define ROLE_KEY_DRONE            "Drone"
 #define ROLE_KEY_SPLITPERSONALITY "Split Personality"
 #define ROLE_KEY_IMAGINARY_FRIEND "Imaginary Friend"
 #define ROLE_KEY_MENTOR_RAT       "Mentor Rat (mentor player only)" // TO-DO: we'll change this someday that only mentors can see toggle this
-#define ROLE_KEY_DRONE            "Drone"
-#define ROLE_KEY_UNDEAD           "Undead" // I am not sure if it's a thing evne, but I added it anyawy
 #define ROLE_KEY_LIVING_LEGEND    "The Living Legend" // only use this when a mob role is a legendary person in SS13. (i.e. Yender the Archwizard, Doctor Hilbert, or a member of Nanotrasen Family like "Random_name d'Nanotrasen")
+
 
 #define ROLE_KEY_UNDEFINED_SPECIAL_ROLE "Undefied Special Role" // default for all ghost roles
 
@@ -160,18 +164,6 @@ GLOBAL_LIST_INIT(midround_antag_list, list(
 	ROLE_KEY_FUGITIVE_CHASER,
 ))
 
-
-// ghost roles that send a notification to ghosts for candidates
-GLOBAL_LIST_INIT(ghost_special_roles__notifying, list(
-	ROLE_KEY_SENTIENT,
-	ROLE_KEY_EXPERIMENTAL_CLONE,
-	ROLE_KEY_DRONE,
-	ROLE_KEY_SPLITPERSONALITY,
-	ROLE_KEY_IMAGINARY_FRIEND,
-	ROLE_KEY_MENTOR_RAT, // TO-DO: we'll change this someday that only mentors can see toggle of this
-	ROLE_KEY_LIVING_LEGEND
-))
-
 // ghost roles that are spawnable by ghosts themselves
 GLOBAL_LIST_INIT(ghost_special_roles__spawnable, list(
 	ROLE_KEY_POSIBRAIN,
@@ -183,6 +175,16 @@ GLOBAL_LIST_INIT(ghost_special_roles__spawnable, list(
 	ROLE_KEY_GOLEM,
 	ROLE_KEY_MAROONED_CREW,
 	ROLE_KEY_EXPLORATION_VIP,
+	ROLE_KEY_UNDEAD
+))
+// ghost roles that send a notification to ghosts for candidates
+GLOBAL_LIST_INIT(ghost_special_roles__notifying, list(
+	ROLE_KEY_SENTIENT,
+	ROLE_KEY_EXPERIMENTAL_CLONE,
+	ROLE_KEY_DRONE,
+	ROLE_KEY_SPLITPERSONALITY,
+	ROLE_KEY_IMAGINARY_FRIEND,
+	ROLE_KEY_LIVING_LEGEND
 ))
 
 //Job defines for what happens when you fail to qualify for any job during job selection

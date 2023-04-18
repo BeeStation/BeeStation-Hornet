@@ -21,7 +21,7 @@ export const NotificationPreferences = (props, context) => {
   return (
     <Window
       theme="generic"
-      width={270}
+      width={335}
       height={360}>
       <Window.Content scrollable>
         <Section title="Ghost Role Notifications">

@@ -766,7 +766,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			// --------------------------------------------
 			// Midround antagonists + ghostspawn roles
 			dat += "<td width='400px' height='300px' valign='top'>"
-			var/static/ghost_roles_list = list(GLOB.midround_antag_list, GLOB.ghost_special_roles__notifying)
+			var/static/ghost_roles_list = list(GLOB.midround_antag_list, GLOB.ghost_special_roles__notifying+ROLE_KEY_MENTOR_RAT)
 			for (var/count in 1 to length(ghost_roles_list))
 				if(count == 1)
 					dat += "<h2>Midround antagonists</h2>"

@@ -51,7 +51,9 @@
 		data["outdatedPlaytimes"][outdated_role_name] = playtime
 
 	data["livingTime"] = play_records[EXP_TYPE_LIVING]
-	data["ghostTime"] = play_records[EXP_TYPE_GHOST]
+	data["deadTime"] = play_records[EXP_TYPE_DEAD]
+	data["observerTime"] = play_records[EXP_TYPE_OBSERVER]
+	data["ghostTime"] = play_records[EXP_TYPE_GHOST] // it's deprecated, but still here because it's been used for years. the real ghost time is tracked by above two
 
 	return data
 

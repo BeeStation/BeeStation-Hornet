@@ -67,6 +67,7 @@ GLOBAL_LIST_INIT(nonhuman_positions, list(
 
 
 
+// Note: ghost/living time is hardcoded in `job_report.dm`
 GLOBAL_LIST_INIT(exp_jobsmap, list(
 	EXP_TYPE_CREW = list("titles" = command_positions | engineering_positions | medical_positions | science_positions | supply_positions | security_positions | civilian_positions | nonhuman_positions), // crew positions
 	EXP_TYPE_COMMAND = list("titles" = command_positions),
@@ -80,75 +81,14 @@ GLOBAL_LIST_INIT(exp_jobsmap, list(
 ))
 
 GLOBAL_LIST_INIT(exp_specialmap, list(
-	EXP_TYPE_LIVING = list(), // all living mobs
-	EXP_TYPE_GHOST = list(), // dead people, observers
-	EXP_TYPE_ANTAG = list(
-		ROLE_KEY_TRAITOR,
-		ROLE_KEY_BROTHER,
-		ROLE_KEY_OPERATIVE,
-		ROLE_KEY_MALF,
-		ROLE_KEY_INCURSION,
-		ROLE_KEY_EXCOMM,
-		ROLE_KEY_CHANGELING,
-		ROLE_KEY_HERETIC,
-		ROLE_KEY_WIZARD,
-		ROLE_KEY_CULTIST,
-		ROLE_KEY_SERVANT_OF_RATVAR,
-		ROLE_KEY_HIVE,
-		ROLE_KEY_REVOLUTION,
-		//ROLE_KEY_OVERTHROW, // these 4 are quite outdated. let's put them commented
-		//ROLE_KEY_DEVIL,
-		//ROLE_KEY_INTERNAL_AFFAIRS,
-		//ROLE_KEY_GANG,
-
-		// mid-spawn antags
-		ROLE_KEY_ERT,
-		ROLE_KEY_OBSESSED,
-		ROLE_KEY_EXT_SYNDI_AGENT,
-		ROLE_KEY_SPACE_PIRATE,
-		ROLE_KEY_ABDUCTOR,
-		ROLE_KEY_SURVIVALIST,
-		ROLE_KEY_NINJA,
-		ROLE_KEY_NIGHTMARE,
-		ROLE_KEY_XENOMORPH,
-		ROLE_KEY_REVENANT,
-		ROLE_KEY_SLAUGHTER_DEMON,
-		ROLE_KEY_SPACE_DRAGON,
-		ROLE_KEY_MORPH,
-		ROLE_KEY_BLOB,
-		ROLE_KEY_HOLOPARASITE,
-		ROLE_KEY_TERATOMA,
-		ROLE_KEY_SWARMER,
-		ROLE_KEY_FUGITIVE_RUNNER,
-		ROLE_KEY_FUGITIVE_CHASER,
-	),
-	EXP_TYPE_SPECIAL = list(
-		// notifying ghost roles
-		ROLE_KEY_POSIBRAIN,
-		ROLE_KEY_PAI,
-		ROLE_KEY_ASHWALKER,
-		ROLE_KEY_LAVALAND_DOCTOR,
-		ROLE_KEY_LAVALAND_LIFEBRINGER,
-		ROLE_KEY_BEACH_BUM,
-		ROLE_KEY_GOLEM,
-		ROLE_KEY_MAROONED_CREW,
-		ROLE_KEY_EXPLORATION_VIP,
-
-		// spawnable ghost roles
-		ROLE_KEY_SENTIENT,
-		ROLE_KEY_EXPERIMENTAL_CLONE,
-		ROLE_KEY_DRONE,
-		ROLE_KEY_SPLITPERSONALITY,
-		ROLE_KEY_IMAGINARY_FRIEND,
-		ROLE_KEY_MENTOR_RAT,
-		ROLE_KEY_LIVING_LEGEND
-	),
+	EXP_TYPE_ANTAG = GLOB.roundstart_antag_prefs|GLOB.midround_antag_list|list(ROLE_KEY_VALENTINE_HATER), // some roles should be added manually
+	EXP_TYPE_SPECIAL = GLOB.ghost_special_roles__spawnable|GLOB.ghost_special_roles__notifying|list(ROLE_KEY_MENTOR_RAT),
 	EXP_TYPE_DEPRECATED = list(
 		"Lavaland Syndicate", // renamed as ROLE_KEY_EXT_SYNDI_AGENT
 		"Ash Walker",        // renamed as "Ashwalker Lizard"
 		"Translocated Vet",  // renamed as "Translocated Veterinarian" (ROLE_KEY_LAVALAND_DOCTOR)
 		"Space Syndicate",   // deprecated
-		"Hotel Staff",       // no point to be a main role. it's still used, but it's bad
+		"Hotel Staff",       // no point to be a main role. it's still used, but it's bad.
 		"Space Bar Patron",  // same above
 		"Space Bartender",   // same above
 		"Skeleton",          // merged into ROLE_KEY_UNDEAD

@@ -54,6 +54,8 @@ export const TrackedPlaytime = (props, context) => {
     specialPlaytimes,
     outdatedPlaytimes,
     livingTime,
+    deadTime,
+    observerTime,
     ghostTime,
   } = data;
   const SCREEN_MODE_JOB = 1;
@@ -77,8 +79,10 @@ export const TrackedPlaytime = (props, context) => {
             <Section title="Total">
               <PlaytimeSection
                 playtimes={{
-                  "Ghost": ghostTime,
                   "Living": livingTime,
+                  "Dead": deadTime,
+                  "Observing": observerTime,
+                  "(Old) Ghost": ghostTime,
                 }}
               />
             </Section>
