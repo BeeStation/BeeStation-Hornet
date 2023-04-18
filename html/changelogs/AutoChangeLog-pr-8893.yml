@@ -1,0 +1,4 @@
+author: ss13-beebot
+delete-after: true
+changes:
+  - server: TGS DMAPI bumped to 6.4.1
