@@ -423,7 +423,7 @@
 				max_limb_loss = 1
 				probability = 20
 			if(EXPLODE_LIGHT)
-				mex_limb_loss = 2
+				max_limb_loss = 2
 				probability = 30
 			if(EXPLODE_HEAVY)
 				max_limb_loss = 3

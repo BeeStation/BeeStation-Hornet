@@ -116,20 +116,20 @@
 /obj/machinery/pdapainter/contents_explosion(severity, target)
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
-			if(stored_pda)
-				SSexplosions.high_mov_atom += stored_pda
-			if(stored_id_card)
-				SSexplosions.high_mov_atom += stored_id_card
+			if(storedpda)
+				SSexplosions.high_mov_atom += storedpda
+			if(storedid)
+				SSexplosions.high_mov_atom += storedid
 		if(EXPLODE_HEAVY)
-			if(stored_pda)
-				SSexplosions.med_mov_atom += stored_pda
-			if(stored_id_card)
-				SSexplosions.med_mov_atom += stored_id_card
+			if(storedpda)
+				SSexplosions.med_mov_atom += storedpda
+			if(storedid)
+				SSexplosions.med_mov_atom += storedid
 		if(EXPLODE_LIGHT)
-			if(stored_pda)
-				SSexplosions.low_mov_atom += stored_pda
-			if(stored_id_card)
-				SSexplosions.low_mov_atom += stored_id_card
+			if(storedpda)
+				SSexplosions.low_mov_atom += storedpda
+			if(storedid)
+				SSexplosions.low_mov_atom += storedid
 
 /obj/machinery/pdapainter/handle_atom_del(atom/A)
 	if(A == storedpda)

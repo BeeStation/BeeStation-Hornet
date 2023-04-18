@@ -133,22 +133,22 @@
 				SSexplosions.high_mov_atom += equipment
 			if(trackers)
 				SSexplosions.high_mov_atom += trackers
-			if(occupants)
-				SSexplosions.high_mov_atom += occupants
+			if(occupant)
+				SSexplosions.high_mov_atom += occupant
 		if(EXPLODE_HEAVY)
 			if(equipment)
 				SSexplosions.med_mov_atom += equipment
 			if(trackers)
 				SSexplosions.med_mov_atom += trackers
-			if(occupants)
-				SSexplosions.med_mov_atom += occupants
+			if(occupant)
+				SSexplosions.med_mov_atom += occupant
 		if(EXPLODE_LIGHT)
 			if(equipment)
 				SSexplosions.low_mov_atom += equipment
 			if(trackers)
 				SSexplosions.low_mov_atom += trackers
-			if(occupants)
-				SSexplosions.low_mov_atom += occupants
+			if(occupant)
+				SSexplosions.low_mov_atom += occupant
 
 /obj/mecha/handle_atom_del(atom/A)
 	if(A == occupant)

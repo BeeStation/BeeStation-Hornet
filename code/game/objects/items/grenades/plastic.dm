@@ -225,7 +225,7 @@
 		return FALSE
 	if(dud_flags)
 		active = FALSE
-		update_icon()
+		update_appearance()
 		return FALSE
 
 	. = ..()
@@ -235,11 +235,15 @@
 			location = get_turf(target)
 			target.cut_overlay(plastic_overlay)
 			if(!ismob(target) || full_damage_on_mobs)
-				target.ex_act(2, target)
+				EX_ACT(target, EXPLODE_HEAVY, target)
 	else
 		location = get_turf(src)
 	if(location)
-		explosion(location,0,0,3)
+		if(directional && target?.density)
+			var/turf/turf = get_step(location, aim_dir)
+			explosion(get_step(turf, aim_dir), devastation_range = boom_sizes[1], heavy_impact_range = boom_sizes[2], light_impact_range = boom_sizes[3])
+		else
+			explosion(location, devastation_range = boom_sizes[1], heavy_impact_range = boom_sizes[2], light_impact_range = boom_sizes[3])
 	qdel(src)
 
 /obj/item/grenade/plastic/c4/attack(mob/M, mob/user, def_zone)

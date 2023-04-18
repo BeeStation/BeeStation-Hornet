@@ -352,7 +352,7 @@
 		playsound(destination, "sparks", 50, TRUE)
 		playsound(destination, "sound/magic/disintegrate.ogg", 50, TRUE)
 		to_chat(user, "<span class='userdanger'>You teleport into the wall, the teleporter tries to save you, but-</span>")
-		destination.ex_act(2) //Destroy the wall
+		EX_ACT(destination, EXPLODE_HEAVY) //Destroy the wall
 		user.gib()
 
 /obj/item/teleporter/proc/telefrag(turf/fragging_location, mob/user)

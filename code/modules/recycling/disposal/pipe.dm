@@ -105,7 +105,8 @@
 
 // pipe affected by explosion
 /obj/structure/disposalpipe/contents_explosion(severity, target)
-	for(var/obj/structure/disposalholder/H in src)
+	//uses locate() because it doesnt doesnt call correctly otherwise
+	var/obj/structure/disposalholder/H = locate() in src
 	H?.contents_explosion(severity, target)
 
 
