@@ -85,6 +85,9 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	var/old_lighting_corner_SE = lighting_corner_SE
 	var/old_lighting_corner_SW = lighting_corner_SW
 	var/old_lighting_corner_NW = lighting_corner_NW
+	var/old_explosion_throw_details = explosion_throw_details
+	// We get just the bits of explosive_resistance that aren't the turf
+	var/old_explosive_resistance = explosive_resistance - get_explosive_block()
 
 	var/old_bp = blueprint_data
 	blueprint_data = null
@@ -99,28 +102,30 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	//We do this here so anything that doesn't want to persist can clear itself
 	var/list/old_comp_lookup = comp_lookup?.Copy()
 	var/list/old_signal_procs = signal_procs?.Copy()
-	var/turf/W = new path(src)
+	var/turf/new_turf = new path(src)
 
 	// WARNING WARNING
 	// Turfs DO NOT lose their signals when they get replaced, REMEMBER THIS
 	// It's possible because turfs are fucked, and if you have one in a list and it's replaced with another one, the list ref points to the new turf
 	if(old_comp_lookup)
-		LAZYOR(W.comp_lookup, old_comp_lookup)
+		LAZYOR(new_turf.comp_lookup, old_comp_lookup)
 	if(old_signal_procs)
-		LAZYOR(W.signal_procs, old_signal_procs)
+		LAZYOR(new_turf.signal_procs, old_signal_procs)
 
 	for(var/datum/callback/callback as anything in post_change_callbacks)
-		callback.InvokeAsync(W)
+		callback.InvokeAsync(new_turf)
 
 	if(new_baseturfs)
-		W.baseturfs = new_baseturfs
+		new_turf.baseturfs = new_baseturfs
 	else
-		W.baseturfs = old_baseturfs
+		new_turf.baseturfs = old_baseturfs
 
 	if(!(flags & CHANGETURF_DEFER_CHANGE))
-		W.AfterChange(flags)
+		new_turf.AfterChange(flags)
 
-	W.blueprint_data = old_bp
+	new_turf.blueprint_data = old_bp
+	new_turf.explosion_throw_details = old_explosion_throw_details
+	new_turf.explosive_resistance += old_explosive_resistance
 
 	lighting_corner_NE = old_lighting_corner_NE
 	lighting_corner_SE = old_lighting_corner_SE
@@ -143,7 +148,7 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 		for(var/turf/open/space/S in RANGE_TURFS(1, src)) //RANGE_TURFS is in code\__HELPERS\game.dm
 			S.update_starlight()
 
-	return W
+	return new_turf
 
 /turf/open/ChangeTurf(path, list/new_baseturfs, flags)
 	if ((flags & CHANGETURF_INHERIT_AIR) && ispath(path, /turf/open))

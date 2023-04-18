@@ -64,6 +64,3 @@
 #define GIBTONITE_STABLE 2
 /// Gibtonite will now explode
 #define GIBTONITE_DETONATE 3
-
-/// For object explosion block calculation
-#define EXPLOSION_BLOCK_PROC -1

@@ -13,7 +13,7 @@
 	sheet_type = /obj/item/stack/sheet/plasteel
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/reinforced
-	explosion_block = 2
+	explosive_resistance = 2
 	rad_insulation = RAD_HEAVY_INSULATION
 	FASTDMM_PROP(\
 		pipe_astar_cost = 50 \
@@ -251,7 +251,7 @@
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SYNDICATE_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_PLASTITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
-	explosion_block = 20
+	explosive_resistance = 20
 	sheet_type = /obj/item/stack/sheet/mineral/plastitanium
 
 /turf/closed/wall/r_wall/syndicate/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)

@@ -738,7 +738,7 @@ RLD
 							if(istype(O))
 								var/x0 = O.x
 								var/y0 = O.y
-								var/contender = cheap_hypotenuse(start.x, start.y, x0, y0)
+								var/contender = CHEAP_HYPOTENUSE(start.x, start.y, x0, y0)
 								if(!winner)
 									winner = O
 									winning_dist = contender
