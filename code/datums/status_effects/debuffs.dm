@@ -1106,11 +1106,11 @@
 	apply_dna(original_dna)
 	to_chat(owner, "<span class='notice'>You feel like yourself again!</span>")
 
-/datum/status_effect/ling_transformation/tick(delta_time)
+/datum/status_effect/ling_transformation/tick()
 	. = ..()
 	if(owner.reagents.has_reagent(/datum/reagent/medicine/clonexadone))
-		charge_left -= delta_time
-		if(DT_PROB(4, delta_time))
+		charge_left--
+		if(prob(4))
 			to_chat(owner, "<span class='notice'>You begin to feel slightly more like yourself...</span>")
 	if(charge_left <= 0)
 		qdel(src)

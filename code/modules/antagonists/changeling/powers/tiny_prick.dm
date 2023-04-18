@@ -1,3 +1,5 @@
+#define TRANSFORM_STING_COOLDOWN	1 MINUTES
+
 /datum/action/changeling/sting//parent path, not meant for users afaik
 	name = "Tiny Prick"
 	desc = "Stabby stabby"
@@ -70,9 +72,10 @@
 	desc = "We silently sting a human, injecting a retrovirus that forces them to transform. Costs 50 chemicals."
 	helptext = "The victim will transform much like a changeling would. Does not provide a warning to others. Mutations will not be transferred, and monkeys will become human."
 	button_icon_state = "sting_transform"
-	chemical_cost = 50
+	chemical_cost = 20
 	dna_cost = 3
 	var/datum/changelingprofile/selected_dna = null
+	COOLDOWN_DECLARE(next_sting)
 
 /datum/action/changeling/sting/transformation/Trigger()
 	var/mob/user = usr
@@ -93,8 +96,11 @@
 		return
 	if((HAS_TRAIT(target, TRAIT_HUSK)) || !iscarbon(target) || (NOTRANSSTING in target.dna.species.species_traits))
 		to_chat(user, "<span class='warning'>Our sting appears ineffective against its DNA.</span>")
-		return 0
-	return 1
+		return FALSE
+	if(!COOLDOWN_FINISHED(src, next_sting))
+		to_chat(user, "<span class='warning'>Our retrovirus is not ready yet!</span>")
+		return FALSE
+	return TRUE
 
 /datum/action/changeling/sting/transformation/sting_action(mob/user, mob/target)
 	log_combat(user, target, "stung", "transformation sting", " new identity is '[selected_dna.dna.real_name]'")
@@ -107,8 +113,9 @@
 	if(istype(C))
 		if(ismonkey(C))
 			C = C.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI)
-		var/datum/status_effect/ling_transformation/previous_transformation = C.has_status_effect(/datum/status_effect/ling_transformation)
-		C.apply_status_effect(/datum/status_effect/ling_transformation, new_dna, previous_transformation ? previous_transformation.original_dna : null)
+		var/datum/status_effect/ling_transformation/previous_transformation = C.has_status_effect(STATUS_EFFECT_LING_TRANSFORMATION)
+		C.apply_status_effect(STATUS_EFFECT_LING_TRANSFORMATION, new_dna, previous_transformation?.original_dna)
+	COOLDOWN_START(src, next_sting, TRANSFORM_STING_COOLDOWN)
 
 
 /datum/action/changeling/sting/false_armblade
@@ -249,3 +256,5 @@
 	if(target.reagents)
 		target.reagents.add_reagent(/datum/reagent/consumable/frostoil, 20)
 	return TRUE
+
+#undef TRANSFORM_STING_COOLDOWN
