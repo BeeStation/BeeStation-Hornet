@@ -49,7 +49,7 @@ GLOBAL_LIST_INIT(poll_ignore_desc, list( // TO-DO: some ghost notifications are 
 	POLL_IGNORE_SPIDER = "Creation: Spiders eggs",
 	POLL_IGNORE_ASHWALKER = "Creation: Ashwalker eggs",
 	POLL_IGNORE_DRONE = "Creation: Drone shells",
-	POLL_IGNORE_SWARMER = "Creation: Swarmer shells"
+	POLL_IGNORE_SWARMER = "Creation: Swarmer shells",
 	POLL_IGNORE_GOLEM = "Creation: Golems shells"
 ))
 GLOBAL_LIST_INIT(poll_ignore, init_poll_ignore())
