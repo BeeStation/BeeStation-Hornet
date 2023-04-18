@@ -2730,7 +2730,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /mob/living/simple_animal/hostile/hivebot/range{
 	desc = "Looks like he's been left behind.";
-	dmm_handler = /datum/dmm_change_handler/faction_changer/russian;
+	facton = list("russian")
 	maxHealth = 5;
 	name = "soviet machine"
 	},
@@ -3937,7 +3937,7 @@
 	},
 /mob/living/simple_animal/hostile/statue{
 	desc = "Just a snowman. Just a snowman. Oh god, it's just a snowman.";
-	dmm_handler = /datum/dmm_change_handler/faction_changer/snowman_statue;
+	faction = list("statue","mining");
 	health = 5000;
 	icon_dead = "snowman";
 	icon_living = "snowman";
@@ -4861,7 +4861,7 @@
 /mob/living/simple_animal/hostile/skeleton{
 	desc = "Oh shit!";
 	dir = 1;
-	dmm_handler = /datum/dmm_change_handler/faction_changer/sewer;
+	faction = list("sewer");
 	name = "sewer skeleton";
 	wander = 0
 	},
@@ -4870,7 +4870,7 @@
 "nH" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/mouse{
-	dmm_handler = /datum/dmm_change_handler/faction_changer/sewer
+	faction = list("sewer");
 	},
 /turf/open/indestructible/hoteltile,
 /area/awaymission/cabin/caves/mountain)

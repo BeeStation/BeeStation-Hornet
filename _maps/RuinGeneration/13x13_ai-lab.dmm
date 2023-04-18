@@ -390,7 +390,7 @@
 /obj/effect/turf_decal/bot_red,
 /mob/living/simple_animal/bot/secbot{
 	emagged = 1;
-	dmm_handler = /datum/dmm_change_handler/faction_changer/silicon_turret;
+	faction = list("silicon", "turret");
 	name = "Officer Buzzsky"
 	},
 /turf/open/floor/plasteel/tech/grid,

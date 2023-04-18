@@ -190,14 +190,14 @@
 /area/shuttle/escape)
 "J" = (
 /mob/living/simple_animal/hostile/carp/eyeball{
-	dmm_handler = /datum/dmm_change_handler/faction_changer/bloodcult;
+	faction = list("bloodcult");
 	name = "left eyeball"
 	},
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "K" = (
 /mob/living/simple_animal/hostile/carp/eyeball{
-	dmm_handler = /datum/dmm_change_handler/faction_changer/bloodcult;
+	faction = list("bloodcult");
 	name = "right eyeball"
 	},
 /turf/open/floor/plasteel/cult,

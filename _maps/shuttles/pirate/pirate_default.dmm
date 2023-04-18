@@ -192,13 +192,13 @@
 "aQ" = (
 /obj/machinery/porta_turret/syndicate/pod{
 	dir = 1;
-	dmm_handler = /datum/dmm_change_handler/faction_changer/pirate
+	faction = list("pirate");
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/pirate)
 "aR" = (
 /obj/machinery/porta_turret/syndicate/pod{
-	dmm_handler = /datum/dmm_change_handler/faction_changer/pirate
+	faction = list("pirate");
 	},
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/pirate)
@@ -443,7 +443,7 @@
 "df" = (
 /obj/machinery/porta_turret/syndicate/pod{
 	dir = 4;
-	dmm_handler = /datum/dmm_change_handler/faction_changer/pirate
+	faction = list("pirate");
 	},
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/pirate)
@@ -754,7 +754,7 @@
 "wR" = (
 /obj/machinery/porta_turret/syndicate/pod{
 	dir = 8;
-	dmm_handler = /datum/dmm_change_handler/faction_changer/pirate
+	faction = list("pirate");
 	},
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/pirate)

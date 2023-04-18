@@ -61,7 +61,7 @@
 "eL" = (
 /obj/machinery/porta_turret/syndicate/pod{
 	dir = 10;
-	dmm_handler = /datum/dmm_change_handler/faction_changer/pirate
+	faction = list("pirate");
 	},
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/caravan/pirate)
@@ -186,7 +186,7 @@
 /obj/structure/rack,
 /obj/item/storage/bag/money/vault,
 /mob/living/simple_animal/parrot{
-	dmm_handler = /datum/dmm_change_handler/faction_changer/pirate;
+	faction = list("pirate");
 	name = "Pegwing"
 	},
 /obj/effect/turf_decal/tile/blue{
@@ -204,7 +204,7 @@
 "le" = (
 /obj/machinery/porta_turret/syndicate/pod{
 	dir = 5;
-	dmm_handler = /datum/dmm_change_handler/faction_changer/pirate
+	faction = list("pirate");
 	},
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/caravan/pirate)
@@ -341,7 +341,7 @@
 "qo" = (
 /obj/machinery/porta_turret/syndicate/pod{
 	dir = 6;
-	dmm_handler = /datum/dmm_change_handler/faction_changer/pirate
+	faction = list("pirate");
 	},
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/caravan/pirate)
@@ -900,7 +900,7 @@
 "Yj" = (
 /obj/machinery/porta_turret/syndicate/pod{
 	dir = 9;
-	dmm_handler = /datum/dmm_change_handler/faction_changer/pirate
+	faction = list("pirate");
 	},
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/caravan/pirate)

@@ -2445,7 +2445,7 @@
 /mob/living/simple_animal/bot/secbot/beepsky{
 	desc = "A beefy variant of the standard securitron model.";
 	emagged = 1;
-	dmm_handler = /datum/dmm_change_handler/faction_changer/hostile_nanotrasen;
+	facton = list("hostile_nanotrasen")
 	health = 50;
 	maxHealth = 50;
 	name = "Officer Genesky"

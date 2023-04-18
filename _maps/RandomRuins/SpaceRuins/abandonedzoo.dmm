@@ -531,7 +531,7 @@
 /area/ruin/space/has_grav/abandonedzoo)
 "bJ" = (
 /mob/living/simple_animal/crab{
-	dmm_handler = /datum/dmm_change_handler/faction_changer/carp
+	faction = list("carp");
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/abandonedzoo)
