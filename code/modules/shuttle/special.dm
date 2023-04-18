@@ -47,7 +47,7 @@
 	return
 
 /obj/machinery/power/emitter/energycannon/magical/ex_act(severity)
-	return
+	return FALSE
 
 /obj/structure/table/abductor/wabbajack
 	name = "wabbajack altar"

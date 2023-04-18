@@ -366,7 +366,7 @@
 
 /obj/machinery/mineral/ore_redemption/ex_act(severity, target)
 	do_sparks(5, TRUE, src)
-	..()
+	return ..()
 
 /obj/machinery/mineral/ore_redemption/power_change()
 	..()

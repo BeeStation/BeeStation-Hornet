@@ -260,11 +260,15 @@ Burning extracts:
 	effect_desc = "Creates an explosion after a few seconds."
 
 /obj/item/slimecross/burning/oil/do_effect(mob/user)
-	user.visible_message("<span class='danger'>[src] begins to shake with rapidly increasing force!</span>")
+	user.visible_message("<span class='danger'>[user] activates [src]. It begins to shake with rapidly increasing force!</span>")
 	addtimer(CALLBACK(src, PROC_REF(boom)), 50)
 
 /obj/item/slimecross/burning/oil/proc/boom()
-	explosion(get_turf(src), 2, 4, 4) //Same area as normal oils, but increased high-impact values by one each, then decreased light by 2.
+	var/turf/T = get_turf(src)
+	playsound(T, 'sound/effects/explosion2.ogg', 200, TRUE)
+	for(var/mob/living/target in range(2, T))
+		new /obj/effect/temp_visual/explosion(get_turf(target))
+		SSexplosions.med_mov_atom += target
 	qdel(src)
 
 /obj/item/slimecross/burning/black

@@ -114,10 +114,22 @@
 		storedid = null
 
 /obj/machinery/pdapainter/contents_explosion(severity, target)
-	if(storedpda)
-		storedpda.ex_act(severity, target)
-	if(storedid)
-		storedid.ex_act(severity, target)
+	switch(severity)
+		if(EXPLODE_DEVASTATE)
+			if(stored_pda)
+				SSexplosions.high_mov_atom += stored_pda
+			if(stored_id_card)
+				SSexplosions.high_mov_atom += stored_id_card
+		if(EXPLODE_HEAVY)
+			if(stored_pda)
+				SSexplosions.med_mov_atom += stored_pda
+			if(stored_id_card)
+				SSexplosions.med_mov_atom += stored_id_card
+		if(EXPLODE_LIGHT)
+			if(stored_pda)
+				SSexplosions.low_mov_atom += stored_pda
+			if(stored_id_card)
+				SSexplosions.low_mov_atom += stored_id_card
 
 /obj/machinery/pdapainter/handle_atom_del(atom/A)
 	if(A == storedpda)

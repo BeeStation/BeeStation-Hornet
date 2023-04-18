@@ -24,10 +24,9 @@
 		recursive_organ_check(src)
 
 /obj/structure/closet/secure_closet/freezer/ex_act()
-	if(!jones)
-		jones = TRUE
-	else
-		..()
+	if(jones)
+		return ..()
+	jones = TRUE
 
 /obj/structure/closet/secure_closet/freezer/kitchen
 	name = "kitchen cabinet"

@@ -180,7 +180,7 @@ FLOOR SAFES
 	return
 
 /obj/structure/safe/ex_act(severity, target)
-	if(((severity == 2 && target == src) || severity == 1) && explosion_count < 3)
+	if(((severity == EXPLODE_HEAVY && target == src) || severity == EXPLODE_DEVASTATE) && explosion_count < 3)
 		explosion_count++
 		switch(explosion_count)
 			if(1)

@@ -23,14 +23,13 @@
 	return ..()
 
 /obj/structure/big_delivery/contents_explosion(severity, target)
-	for(var/thing in contents)
-		switch(severity)
-			if(EXPLODE_DEVASTATE)
-				SSexplosions.high_mov_atom += thing
-			if(EXPLODE_HEAVY)
-				SSexplosions.med_mov_atom += thing
-			if(EXPLODE_LIGHT)
-				SSexplosions.low_mov_atom += thing
+	switch(severity)
+		if(EXPLODE_DEVASTATE)
+			SSexplosions.high_mov_atom += contents
+		if(EXPLODE_HEAVY)
+			SSexplosions.med_mov_atom += contents
+		if(EXPLODE_LIGHT)
+			SSexplosions.low_mov_atom += contents
 
 /obj/structure/big_delivery/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/dest_tagger))
@@ -99,14 +98,13 @@
 	var/sortTag = 0
 
 /obj/item/small_delivery/contents_explosion(severity, target)
-	for(var/thing in contents)
-		switch(severity)
-			if(EXPLODE_DEVASTATE)
-				SSexplosions.high_mov_atom += thing
-			if(EXPLODE_HEAVY)
-				SSexplosions.med_mov_atom += thing
-			if(EXPLODE_LIGHT)
-				SSexplosions.low_mov_atom += thing
+	switch(severity)
+		if(EXPLODE_DEVASTATE)
+			SSexplosions.high_mov_atom += contents
+		if(EXPLODE_HEAVY)
+			SSexplosions.med_mov_atom += contents
+		if(EXPLODE_LIGHT)
+			SSexplosions.low_mov_atom += contents
 
 /obj/item/small_delivery/attack_self(mob/user)
 	user.temporarilyRemoveItemFromInventory(src, TRUE)

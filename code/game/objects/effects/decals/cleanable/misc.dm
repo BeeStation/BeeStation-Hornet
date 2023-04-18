@@ -81,7 +81,7 @@
 	light_color = LIGHT_COLOR_GREEN
 
 /obj/effect/decal/cleanable/greenglow/ex_act()
-	return
+	return FALSE
 
 /obj/effect/decal/cleanable/greenglow/filled/Initialize(mapload)
 	. = ..()

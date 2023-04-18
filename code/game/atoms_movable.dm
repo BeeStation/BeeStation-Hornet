@@ -32,7 +32,6 @@
 	var/atom/movable/moving_from_pull		//attempt to resume grab after moving instead of before.
 	///Holds information about any movement loops currently running/waiting to run on the movable. Lazy, will be null if nothing's going on
 	var/datum/movement_packet/move_packet
-	var/list/acted_explosions	//for explosion dodging
 	glide_size = 8
 	appearance_flags = TILE_BOUND|PIXEL_SCALE
 	var/datum/forced_movement/force_moving = null	//handled soley by forced_movement.dm
@@ -942,15 +941,6 @@
 		if(!removee)
 			return
 		remove_emitter(removee)
-
-/atom/movable/proc/ex_check(ex_id)
-	if(!ex_id)
-		return TRUE
-	LAZYINITLIST(acted_explosions)
-	if(ex_id in acted_explosions)
-		return FALSE
-	acted_explosions += ex_id
-	return TRUE
 
 //TODO: Better floating
 /atom/movable/proc/float(on)

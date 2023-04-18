@@ -171,14 +171,14 @@
 
 /mob/living/silicon/robot/ex_act(severity, target)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			gib()
 			return
-		if(2)
+		if(EXPLODE_HEAVY)
 			if (stat != DEAD)
 				adjustBruteLoss(60)
 				adjustFireLoss(60)
-		if(3)
+		if(EXPLODE_LIGHT)
 			if (stat != DEAD)
 				adjustBruteLoss(30)
 

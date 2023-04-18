@@ -158,4 +158,4 @@
 	lightr = max(lightr - 1, 0)
 
 /obj/item/projectile/blastwave/ex_act()
-	return
+	return FALSE

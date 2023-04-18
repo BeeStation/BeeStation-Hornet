@@ -123,30 +123,32 @@
 	if(prob(deflect_chance))
 		severity--
 		log_message("Armor saved, changing severity to [severity]", LOG_MECHA)
-	. = ..()
+	return ..()
 
 /obj/mecha/contents_explosion(severity, target)
 	severity--
-	for(var/X in equipment)
-		var/obj/item/mecha_parts/mecha_equipment/ME = X
-		switch(severity)
-			if(EXPLODE_DEVASTATE)
-				SSexplosions.high_mov_atom += ME
-			if(EXPLODE_HEAVY)
-				SSexplosions.med_mov_atom += ME
-			if(EXPLODE_LIGHT)
-				SSexplosions.low_mov_atom += ME
-	for(var/Y in trackers)
-		var/obj/item/mecha_parts/mecha_tracking/MT = Y
-		switch(severity)
-			if(EXPLODE_DEVASTATE)
-				SSexplosions.high_mov_atom += MT
-			if(EXPLODE_HEAVY)
-				SSexplosions.med_mov_atom += MT
-			if(EXPLODE_LIGHT)
-				SSexplosions.low_mov_atom += MT
-	if(occupant)
-		occupant.ex_act(severity,target)
+	switch(severity)
+		if(EXPLODE_DEVASTATE)
+			if(equipment)
+				SSexplosions.high_mov_atom += equipment
+			if(trackers)
+				SSexplosions.high_mov_atom += trackers
+			if(occupants)
+				SSexplosions.high_mov_atom += occupants
+		if(EXPLODE_HEAVY)
+			if(equipment)
+				SSexplosions.med_mov_atom += equipment
+			if(trackers)
+				SSexplosions.med_mov_atom += trackers
+			if(occupants)
+				SSexplosions.med_mov_atom += occupants
+		if(EXPLODE_LIGHT)
+			if(equipment)
+				SSexplosions.low_mov_atom += equipment
+			if(trackers)
+				SSexplosions.low_mov_atom += trackers
+			if(occupants)
+				SSexplosions.low_mov_atom += occupants
 
 /obj/mecha/handle_atom_del(atom/A)
 	if(A == occupant)

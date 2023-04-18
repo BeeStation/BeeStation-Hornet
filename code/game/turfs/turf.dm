@@ -31,8 +31,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	/// For the station blueprints, images of objects eg: pipes
 	var/list/image/blueprint_data
 
-	var/explosion_level = 0	//for preventing explosion dodging
-	var/explosion_id = 0
 	var/list/explosion_throw_details
 
 	var/requires_activation	//add to air processing after initialize?
@@ -579,8 +577,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		if(!QDELETED(atom_thing))
 			if(ismovable(atom_thing))
 				var/atom/movable/movable_thing = atom_thing
-				if(!movable_thing.ex_check(explosion_id))
-					continue
 				switch(severity)
 					if(EXPLODE_DEVASTATE)
 						SSexplosions.high_mov_atom += movable_thing

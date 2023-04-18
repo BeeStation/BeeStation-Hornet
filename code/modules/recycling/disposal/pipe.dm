@@ -106,7 +106,7 @@
 // pipe affected by explosion
 /obj/structure/disposalpipe/contents_explosion(severity, target)
 	for(var/obj/structure/disposalholder/H in src)
-		H.contents_explosion(severity, target)
+	H?.contents_explosion(severity, target)
 
 
 /obj/structure/disposalpipe/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)

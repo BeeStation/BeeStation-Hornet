@@ -42,7 +42,7 @@
 		mobility_flags = NONE
 
 /mob/living/brain/ex_act() //you cant blow up brainmobs because it makes transfer_to() freak out when borgs blow up.
-	return
+	return FALSE
 
 /mob/living/brain/blob_act(obj/structure/blob/B)
 	return

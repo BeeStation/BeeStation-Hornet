@@ -363,8 +363,8 @@
 
 /mob/living/carbon/human/ex_act(severity, target, origin)
 	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
-		return
-	..()
+		return FALSE
+	. = ..()
 	if (!severity || QDELETED(src))
 		return
 	var/brute_loss = 0
@@ -419,6 +419,12 @@
 		var/max_limb_loss = 0
 		var/probability = 0
 		switch(severity)
+			if(EXPLODE_NONE)
+				max_limb_loss = 1
+				probability = 20
+			if(EXPLODE_LIGHT)
+				mex_limb_loss = 2
+				probability = 30
 			if(EXPLODE_HEAVY)
 				max_limb_loss = 3
 				probability = 40

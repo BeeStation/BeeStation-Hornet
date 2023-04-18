@@ -332,7 +332,7 @@
 /turf/closed/wall/mineral/plastitanium/explosive/ex_act(severity)
 	var/obj/item/bombcore/large/bombcore = new(get_turf(src))
 	bombcore.detonate()
-	..()
+	return ..()
 
 //have to copypaste this code
 /turf/closed/wall/mineral/plastitanium/interior/copyTurf(turf/T)

@@ -64,7 +64,7 @@ STACKSIZE_MACRO(/obj/item/stack/ore/iron)
 	qdel(src)
 
 /obj/item/stack/ore/glass/ex_act(severity, target)
-	if(severity)
+	if(severity != EXPLODE_NONE)
 		qdel(src)
 
 GLOBAL_LIST_INIT(sand_recipes, list(\

@@ -86,8 +86,6 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	var/old_lighting_corner_SW = lighting_corner_SW
 	var/old_lighting_corner_NW = lighting_corner_NW
 
-	var/old_exl = explosion_level
-	var/old_exi = explosion_id
 	var/old_bp = blueprint_data
 	blueprint_data = null
 
@@ -118,9 +116,6 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 		W.baseturfs = new_baseturfs
 	else
 		W.baseturfs = old_baseturfs
-
-	W.explosion_id = old_exi
-	W.explosion_level = old_exl
 
 	if(!(flags & CHANGETURF_DEFER_CHANGE))
 		W.AfterChange(flags)

@@ -48,21 +48,21 @@
 	return ..()
 
 /turf/open/floor/ex_act(severity, target)
-	var/shielded = is_shielded()
-	..()
-	if(severity < EXPLODE_DEVASTATE && shielded)
-		return
+	. = ..()
 	if(target == src)
 		ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
-		return
-	if(target != null)
-		severity = 3
+		return TRUE
+	if(severity != EXPLODE_DEVASTATE && is_shielded())
+		return FALSE
+
+	if(target)
+		severity = EXPLODE_LIGHT
 
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			ScrapeAway(2, flags = CHANGETURF_INHERIT_AIR)
-		if(2)
-			switch(pick(1,2;75,3))
+		if(EXPLODE_HEAVY)
+			switch(rand(1, 3))
 				if(1)
 					if(!length(baseturfs) || !ispath(baseturfs[baseturfs.len-1], /turf/open/floor))
 						ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
@@ -81,7 +81,7 @@
 					hotspot_expose(1000,CELL_VOLUME)
 					if(prob(33))
 						new /obj/item/stack/sheet/iron(src)
-		if(3)
+		if(EXPLODE_LIGHT)
 			if (prob(50))
 				src.break_tile()
 				src.hotspot_expose(1000,CELL_VOLUME)

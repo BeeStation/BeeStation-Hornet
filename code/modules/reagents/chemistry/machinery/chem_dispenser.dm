@@ -152,14 +152,16 @@
 
 /obj/machinery/chem_dispenser/contents_explosion(severity, target)
 	..()
-	if(beaker)
-		switch(severity)
-			if(EXPLODE_DEVASTATE)
-				SSexplosions.high_mov_atom += beaker
-			if(EXPLODE_HEAVY)
-				SSexplosions.med_mov_atom += beaker
-			if(EXPLODE_LIGHT)
-				SSexplosions.low_mov_atom += beaker
+	if(!beaker)
+		return
+
+	switch(severity)
+		if(EXPLODE_DEVASTATE)
+			SSexplosions.high_mov_atom += beaker
+		if(EXPLODE_HEAVY)
+			SSexplosions.med_mov_atom += beaker
+		if(EXPLODE_LIGHT)
+			SSexplosions.low_mov_atom += beaker
 
 /obj/machinery/chem_dispenser/handle_atom_del(atom/A)
 	..()
@@ -180,6 +182,7 @@
 			//Seems like a pretty bad way to do it, but I think a better one would deserve a wider refactor including at least sleeper
 		else
 			ui.set_autoupdate(TRUE) // Cell charge
+			
 		ui.open()
 
 /obj/machinery/chem_dispenser/ui_data(mob/user)

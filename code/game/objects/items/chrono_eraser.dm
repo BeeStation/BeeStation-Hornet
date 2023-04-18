@@ -274,7 +274,7 @@
 	return
 
 /obj/structure/chrono_field/ex_act()
-	return
+	return FALSE
 
 /obj/structure/chrono_field/blob_act(obj/structure/blob/B)
 	return
