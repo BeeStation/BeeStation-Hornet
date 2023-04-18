@@ -192,13 +192,13 @@
 "aQ" = (
 /obj/machinery/porta_turret/syndicate/pod{
 	dir = 1;
-	faction = list("pirate");
+	faction = list("pirate")
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/pirate)
 "aR" = (
 /obj/machinery/porta_turret/syndicate/pod{
-	faction = list("pirate");
+	faction = list("pirate")
 	},
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/pirate)
@@ -443,7 +443,7 @@
 "df" = (
 /obj/machinery/porta_turret/syndicate/pod{
 	dir = 4;
-	faction = list("pirate");
+	faction = list("pirate")
 	},
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/pirate)
@@ -754,7 +754,7 @@
 "wR" = (
 /obj/machinery/porta_turret/syndicate/pod{
 	dir = 8;
-	faction = list("pirate");
+	faction = list("pirate")
 	},
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/pirate)

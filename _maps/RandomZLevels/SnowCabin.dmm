@@ -4870,7 +4870,7 @@
 "nH" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/mouse{
-	faction = list("sewer");
+	faction = list("sewer")
 	},
 /turf/open/indestructible/hoteltile,
 /area/awaymission/cabin/caves/mountain)
