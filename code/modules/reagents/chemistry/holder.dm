@@ -681,16 +681,15 @@
 			return TRUE
 
 	//otherwise make a new one
-	var/datum/reagent/R = new D.type(data)
-	cached_reagents += R
-	R.holder = src
-	R.volume = amount
-	if(data)
-		R.data = data
-		R.on_new(data)
+	var/datum/reagent/new_reagent = new D.type(data)
+	cached_reagents += new_reagent
+	new_reagent.holder = src
+	new_reagent.volume = amount
+	new_reagent.on_new(data)
 
 	if(isliving(my_atom))
-		R.on_mob_add(my_atom) //Must occur befor it could posibly run on_mob_delete
+		new_reagent.on_mob_add(my_atom) //Must occur befor it could posibly run on_mob_delete
+
 	update_total()
 	if(my_atom)
 		my_atom.on_reagent_change(ADD_REAGENT)

@@ -8,6 +8,14 @@
 /// The default explosion severity used to mark that an object is beyond the impact range of the explosion.
 #define EXPLODE_NONE 0
 
+/// A wrapper for [/atom/proc/ex_act] to ensure that the explosion propagation and attendant signal are always handled.
+#define EX_ACT(target, args...)\
+	if(!(target.flags_1 & PREVENT_CONTENTS_EXPLOSION_1)) { \
+		target.contents_explosion(##args);\
+	};\
+	SEND_SIGNAL(target, COMSIG_ATOM_EX_ACT, ##args);\
+	target.ex_act(##args);
+
 // Internal explosion argument list keys.
 // Must match the arguments to [/datum/controller/subsystem/explosions/proc/propagate_blastwave]
 /// The origin atom of the explosion.
@@ -38,6 +46,14 @@
 #define EXARG_KEY_CAP_MODIFIER STRINGIFY(cap_modifier)
 /// Whether the explosion should effect z levels
 #define EXARG_KEY_EXPLODE_Z STRINGIFY(explode_z)
+
+// Explodable component deletion values
+/// Makes the explodable component queue to reset its exploding status when it detonates.
+#define EXPLODABLE_NO_DELETE 0
+/// Makes the explodable component delete itself when it detonates.
+#define EXPLODABLE_DELETE_SELF 1
+/// Makes the explodable component delete its parent when it detonates.
+#define EXPLODABLE_DELETE_PARENT 2
 
 //gibtonite state defines
 /// Gibtonite has not been mined

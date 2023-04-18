@@ -82,7 +82,7 @@
 		if(!QDELETED(target))
 			location = get_turf(target)
 			target.cut_overlay(plastic_overlay)
-			target.ex_act(EXPLODE_HEAVY, target)
+			EX_ACT(target, EXPLODE_HEAVY, target)
 	else
 		location = get_turf(src)
 	if(location)
