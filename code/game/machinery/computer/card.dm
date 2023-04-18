@@ -700,7 +700,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			else
 				to_chat(usr, "<span class='error'>You are not authorized to demote this position.</span>")
 			update_modify_manifest()
-			*/.
+			*/
 
 		if ("reg")
 			if (authenticated)
