@@ -1,4 +1,4 @@
-#define TRANSFORM_STING_COOLDOWN	1 MINUTES
+#define TRANSFORM_STING_COOLDOWN	2 MINUTES
 
 /datum/action/changeling/sting//parent path, not meant for users afaik
 	name = "Tiny Prick"
@@ -69,7 +69,7 @@
 
 /datum/action/changeling/sting/transformation
 	name = "Transformation Sting"
-	desc = "We silently sting a human, injecting a retrovirus that forces them to transform. Costs 20 chemicals."
+	desc = "We silently sting a human, injecting a retrovirus that forces them to transform. Costs 20 chemicals, and can only be used once every two minutes."
 	helptext = "The victim will transform much like a changeling would. Does not provide a warning to others. Mutations will not be transferred, and monkeys will become human. The transformation can be reversed through being exposed to clonexadone for about a minute."
 	button_icon_state = "sting_transform"
 	chemical_cost = 20
