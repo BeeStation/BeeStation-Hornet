@@ -30,7 +30,7 @@
 	ShutOffDoomsdayDevice()
 
 	if(explosive)
-		addtimer(CALLBACK(GLOBAL_PROC, .proc/explosion, loc, 3, 6, 12, null, 15), 1 SECONDS)
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(explosion), loc, 3, 6, 12, null, 15), 1 SECONDS)
 
 	if(src.key)
 		for(var/each in GLOB.ai_status_displays) //change status

@@ -73,10 +73,10 @@
 		return
 	going_kaboom = TRUE
 	visible_message("<span class='danger'>\The [src] lets out a shower of sparks as it starts to lose stability!</span>",\
-		"<span class='italics'>You hear a loud electrical crack!</span>")
+		"<span class='hear'>You hear a loud electrical crack!</span>")
 	playsound(src.loc, 'sound/magic/lightningshock.ogg', 100, 1, extrarange = 5)
 	tesla_zap(src, 5, power_gen * 0.05)
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/explosion, src, 2, 3, 4, null, 8), 10 SECONDS) // Not a normal explosion.
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(explosion), src, 2, 3, 4, null, 8), 10 SECONDS) // Not a normal explosion.
 
 /obj/machinery/power/rtg/abductor/bullet_act(obj/item/projectile/Proj)
 	. = ..()
