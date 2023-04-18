@@ -5,7 +5,6 @@ Assistant
 	jkey = JOB_KEY_ASSISTANT
 	jtitle = JOB_NAME_ASSISTANT
 	job_bitflags = JOB_BITFLAG_SELECTABLE | JOB_BITFLAG_MANAGE_LOCKED
-	supervisors = "absolutely everyone"
 	faction = "station"
 	total_positions = 5
 	spawn_positions = 5
@@ -27,6 +26,10 @@ Assistant
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman
 	)
+
+/datum/job/assistant/notify_your_supervisor()
+	return "absolutely everyone"
+
 /datum/job/assistant/get_access()
 	if(CONFIG_GET(flag/assistants_have_maint_access) || !CONFIG_GET(flag/jobs_have_minimal_access)) //Config has assistant maint access set
 		. = ..()

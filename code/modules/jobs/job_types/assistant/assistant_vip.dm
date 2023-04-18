@@ -3,7 +3,6 @@
 	g_jtitle = JOB_NAME_VIP
 	job_bitflags = JOB_BITFLAG_GIMMICK | JOB_BITFLAG_MANAGE_LOCKED
 	department_head = list()
-	supervisors = "yourself"
 	antag_rep = 3 // you're having fun with shitton of money already
 	total_positions = 0
 	spawn_positions = 0
@@ -21,6 +20,9 @@
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/vip
 	)
+
+/datum/job/assistant/vip/notify_your_supervisor()
+	return "yourself"
 
 /datum/outfit/job/vip
 	name = JOB_KEY_VIP

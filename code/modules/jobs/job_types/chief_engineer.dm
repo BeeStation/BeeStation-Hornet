@@ -4,7 +4,6 @@
 	job_bitflags = JOB_BITFLAG_SELECTABLE | JOB_BITFLAG_MANAGE_LOCKED
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD
 	department_head = list(JOB_NAME_CAPTAIN)
-	supervisors = "the captain"
 	head_announce = list("Engineering")
 	faction = "station"
 	total_positions = 1

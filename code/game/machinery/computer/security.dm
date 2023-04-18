@@ -909,7 +909,7 @@ What a mess.*/
 							temp += "<li><a href='?src=[REF(src)];choice=Change Criminal Status;criminal2=paroled'>Paroled</a></li>"
 							temp += "<li><a href='?src=[REF(src)];choice=Change Criminal Status;criminal2=released'>Discharged</a></li>"
 							temp += "</ul>"
-					if("rank") // This code is bad practice from past, but not right time to fix it. TO-DO: allow it to edit someone's job by input box like how HoP console does
+					if("rank")
 						if(istype(active1, /datum/data/record) && allowed_to_edit)
 							temp = "<h5>Rank:</h5>"
 							temp += "<ul>"

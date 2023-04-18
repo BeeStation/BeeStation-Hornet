@@ -43,9 +43,6 @@
 	///How many players have this job
 	var/current_positions = 0
 
-	///Supervisors, who this person answers to directly
-	var/supervisors = ""
-
 	///Selection screen color
 	var/selection_color = "#ffffff"
 
@@ -300,6 +297,10 @@
 
 /datum/job/proc/radio_help_message(mob/M)
 	to_chat(M, "<b>Prefix your message with :h to speak on your department's radio. To see other prefixes, look closely at your headset.</b>")
+
+/// returns the value of `department_head`. some jobs overrided the proc to output different texts (i.e. AI "your laws")
+/datum/job/proc/notify_your_supervisor()
+	return length(department_head) ? lowertext(english_list(department_head)) : "nobody"
 
 /datum/outfit/job
 	name = "Standard Gear"

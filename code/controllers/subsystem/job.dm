@@ -144,13 +144,14 @@ SUBSYSTEM_DEF(job)
 	return J.departments
 
 /// returns a job's current title
-/datum/controller/subsystem/job/proc/get_current_jobname(job_key)
+/datum/controller/subsystem/job/proc/get_current_jobname(job_key, ignore_error=FALSE)
 	if(!job_key)
 		CRASH("The proc has taken a null value")
 
-	var/datum/job/job = GetJob(job_key)
+	var/datum/job/job = name_occupations[job_key]
 	if(!job)
-		stack_trace("[job_key] is not a valid job key")
+		if(!ignore_error)
+			stack_trace("[job_key] is not a valid job key")
 		return job_key
 
 	return job.get_title()
@@ -567,7 +568,7 @@ SUBSYSTEM_DEF(job)
 				M.client.holder.auto_deadmin()
 			else
 				handle_auto_deadmin_roles(M.client, job_key)
-		to_chat(M, "<b>As the [displaying_job_title] you answer directly to [job.supervisors]. Special circumstances may change this.</b>")
+		to_chat(M, "<b>As the [displaying_job_title] you answer directly to [job.notify_your_supervisor()]. Special circumstances may change this.</b>")
 		job.radio_help_message(M)
 		if(job.req_admin_notify)
 			to_chat(M, "<b>You are playing a job that is important for Game Progression. If you have to disconnect, please notify the admins via adminhelp.</b>")

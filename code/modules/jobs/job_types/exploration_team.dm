@@ -3,7 +3,6 @@
 	jtitle = JOB_NAME_EXPLORATIONCREW
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
-	supervisors = "the research director"
 	faction = "station"
 	total_positions = 3
 	spawn_positions = 3

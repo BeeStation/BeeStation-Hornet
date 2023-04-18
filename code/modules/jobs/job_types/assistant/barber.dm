@@ -3,7 +3,6 @@
 	g_jtitle = JOB_NAME_BARBER
 	job_bitflags = JOB_BITFLAG_GIMMICK
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
-	supervisors = "the head of personnel"
 	total_positions = 0
 	spawn_positions = 0
 

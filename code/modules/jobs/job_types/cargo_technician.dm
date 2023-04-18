@@ -3,7 +3,6 @@
 	jtitle = JOB_NAME_CARGOTECHNICIAN
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
-	supervisors = "the quartermaster and the head of personnel"
 	faction = "station"
 	total_positions = 3
 	spawn_positions = 2
@@ -26,6 +25,9 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/cargo_technician
 	)
 	biohazard = 25
+
+/datum/job/cargo_technician/notify_your_supervisor()
+	return "[SSjob.get_current_jobname(JOB_KEY_QUARTERMASTER)], and [SSjob.get_current_jobname(JOB_KEY_HEADOFPERSONNEL)]"
 
 /datum/outfit/job/cargo_technician
 	name = JOB_KEY_CARGOTECHNICIAN

@@ -40,7 +40,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/obj/item/card/id/inserted_modify_id
 	var/list/region_access = null
 	var/region_access_payment = NONE
-	var/list/head_subordinates = null
 
 	light_color = LIGHT_COLOR_BLUE
 
@@ -553,10 +552,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				if (check_access(inserted_scan_id))
 					region_access = list()
 					region_access_payment = NONE
-					head_subordinates = list()
 					if(ACCESS_CHANGE_IDS in inserted_scan_id.access)
 						if(target_dept)
-							head_subordinates = get_all_jobs()
 							region_access |= target_dept
 							region_access_payment = ALL
 							authenticated = 1
@@ -570,30 +567,24 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 							region_access |= DEPT_GEN
 							region_access |= DEPT_SUP //Currently no seperation between service/civillian and supply
 							region_access_payment |= ACCOUNT_COM_BITFLAG | ACCOUNT_CIV_BITFLAG | ACCOUNT_SRV_BITFLAG | ACCOUNT_CAR_BITFLAG
-							get_subordinates(JOB_KEY_HEADOFPERSONNEL)
 						if((ACCESS_HOS in inserted_scan_id.access) && ((target_dept==DEPT_SEC) || !target_dept))
 							region_access |= DEPT_SEC
 							region_access_payment |= ACCOUNT_SEC_BITFLAG
-							get_subordinates(JOB_KEY_HEADOFSECURITY)
 						if((ACCESS_CMO in inserted_scan_id.access) && ((target_dept==DEPT_MED) || !target_dept))
 							region_access |= DEPT_MED
 							region_access_payment |= ACCOUNT_MED_BITFLAG
-							get_subordinates(JOB_KEY_CHIEFMEDICALOFFICER)
 						if((ACCESS_RD in inserted_scan_id.access) && ((target_dept==DEPT_SCI) || !target_dept))
 							region_access |= DEPT_SCI
 							region_access_payment |= ACCOUNT_SCI_BITFLAG
-							get_subordinates(JOB_KEY_RESEARCHDIRECTOR)
 						if((ACCESS_CE in inserted_scan_id.access) && ((target_dept==DEPT_ENG) || !target_dept))
 							region_access |= DEPT_ENG
 							region_access_payment |= ACCOUNT_ENG_BITFLAG
-							get_subordinates(JOB_KEY_CHIEFENGINEER)
 						if(region_access)
 							authenticated = 1
 			else if ((!( authenticated ) && issilicon(usr)) && (!inserted_modify_id))
 				to_chat(usr, "<span class='warning'>You can't modify an ID without an ID inserted to modify! Once one is in the modify slot on the computer, you can log in.</span>")
 		if ("logout")
 			region_access = null
-			head_subordinates = null
 			authenticated = 0
 			playsound(src, 'sound/machines/terminal_off.ogg', 50, FALSE)
 
@@ -693,13 +684,23 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				update_modify_manifest()
 
 		if ("demote")
-			if(inserted_modify_id.assignment in head_subordinates || (inserted_modify_id.assignment in list(SSjob.get_current_jobname(JOB_KEY_ASSISTANT), JOB_KEY_ASSISTANT)))
+			// temporarily disable demote system until it gets better code
+			// TO-DO: remove head_subordinates code. `department_head` var in each job should be refactors
+			say("This system is currently disabled. Please demote a person manually.")
+			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
+			update_modify_manifest()
+			return
+
+			/*
+			TO-DO: demote should be done by checking your crew manifest status rather than checking job name
+			if((inserted_modify_id.assignment in list(SSjob.get_current_jobname(JOB_KEY_ASSISTANT), JOB_KEY_ASSISTANT)))
 				inserted_modify_id.assignment = JOB_DEMOTED
 				log_id("[key_name(usr)] demoted [inserted_modify_id], unassigning the card without affecting access, using [inserted_scan_id] at [AREACOORD(usr)].")
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			else
 				to_chat(usr, "<span class='error'>You are not authorized to demote this position.</span>")
 			update_modify_manifest()
+			*/.
 
 		if ("reg")
 			if (authenticated)
@@ -926,11 +927,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	if (inserted_modify_id)
 		inserted_modify_id.update_label()
 	updateUsrDialog()
-
-/obj/machinery/computer/card/proc/get_subordinates(rank)
-	for(var/datum/job/job in SSjob.occupations)
-		if(rank in job.department_head)
-			head_subordinates += job.get_jkey()
 
 /// Returns if auth id has head access that is eligible to adjust payment
 /obj/machinery/computer/card/proc/check_auth_payment()

@@ -24,6 +24,7 @@
 	var/minor = FALSE
 	var/authenticated = FALSE
 	var/list/region_access
+	/// TO-DO: this should be changed with HOP console
 	var/list/head_subordinates
 	///Which departments this computer has access to. Defined as access regions. null = all departments
 	var/target_dept

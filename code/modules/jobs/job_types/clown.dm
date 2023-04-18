@@ -3,7 +3,6 @@
 	jtitle = JOB_NAME_CLOWN
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
-	supervisors = "the head of personnel"
 	faction = "station"
 	total_positions = 1
 	spawn_positions = 1

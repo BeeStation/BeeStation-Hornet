@@ -4,7 +4,6 @@
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
-	supervisors = "the head of security, and the head of your assigned department (if applicable)"
 	faction = "station"
 	total_positions = 5 //Handled in /datum/controller/occupations/proc/setup_officer_positions()
 	spawn_positions = 5 //Handled in /datum/controller/occupations/proc/setup_officer_positions()
@@ -33,6 +32,9 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/security_officer
 	)
 	biohazard = 25 //clean your baton, man
+
+/datum/job/security_officer/notify_your_supervisor()
+	return "[SSjob.get_current_jobname(JOB_KEY_HEADOFSECURITY)], and head of your assigned department (if applicable)"
 
 /datum/job/security_officer/get_access()
 	var/list/L = list()
