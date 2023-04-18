@@ -50,6 +50,9 @@
 	icon_state = "diagonal_edge"
 	name = "white diagonal edge"
 
+/obj/effect/turf_decal/tile/white/carat
+	icon_state = "tile_carat"
+	name = "white carat decal"
 
 /// Blue tiles
 
@@ -93,6 +96,10 @@
 	icon_state = "diagonal_edge"
 	name = "blue diagonal edge"
 
+/obj/effect/turf_decal/tile/blue/carat
+	icon_state = "tile_carat"
+	name = "blue carat decal"
+
 /// Dark blue tiles
 
 /obj/effect/turf_decal/tile/dark_blue
@@ -135,6 +142,9 @@
 	icon_state = "diagonal_edge"
 	name = "dark blue diagonal edge"
 
+/obj/effect/turf_decal/tile/dark_blue/carat
+	icon_state = "tile_carat"
+	name = "dark blue carat decal"
 
 // Black tiles
 
@@ -178,6 +188,10 @@
 	icon_state = "diagonal_edge"
 	name = "black diagonal edge"
 
+/obj/effect/turf_decal/tile/black/carat
+	icon_state = "tile_carat"
+	name = "black carat decal"
+
 /// Green tiles
 
 /obj/effect/turf_decal/tile/green
@@ -219,6 +233,10 @@
 /obj/effect/turf_decal/tile/green/diagonal_edge
 	icon_state = "diagonal_edge"
 	name = "green diagonal edge"
+
+/obj/effect/turf_decal/tile/green/carat
+	icon_state = "tile_carat"
+	name = "green carat decal"
 
 /// Dark green tiles
 
@@ -262,6 +280,10 @@
 	icon_state = "diagonal_edge"
 	name = "dark green diagonal edge"
 
+/obj/effect/turf_decal/tile/dark_green/carat
+	icon_state = "tile_carat"
+	name = "dark green carat decal"
+
 /// Yellow tiles
 
 /obj/effect/turf_decal/tile/yellow
@@ -303,6 +325,10 @@
 /obj/effect/turf_decal/tile/yellow/diagonal_edge
 	icon_state = "diagonal_edge"
 	name = "yellow diagonal edge"
+
+/obj/effect/turf_decal/tile/yellow/carat
+	icon_state = "tile_carat"
+	name = "yellow carat decal"
 
 /// Red tiles
 
@@ -346,6 +372,10 @@
 	icon_state = "diagonal_edge"
 	name = "red diagonal edge"
 
+/obj/effect/turf_decal/tile/red/carat
+	icon_state = "tile_carat"
+	name = "red carat decal"
+
 /// Dark red tiles
 
 /obj/effect/turf_decal/tile/dark_red
@@ -387,6 +417,10 @@
 /obj/effect/turf_decal/tile/dark_red/diagonal_edge
 	icon_state = "diagonal_edge"
 	name = "dark red diagonal edge"
+
+/obj/effect/turf_decal/tile/dark_red/carat
+	icon_state = "tile_carat"
+	name = "dark red carat decal"
 
 /// Bar tiles
 
@@ -431,6 +465,10 @@
 	icon_state = "diagonal_edge"
 	name = "bar diagonal edge"
 
+/obj/effect/turf_decal/tile/bar/carat
+	icon_state = "tile_carat"
+	name = "bar carat decal"
+
 /// Purple tiles
 
 /obj/effect/turf_decal/tile/purple
@@ -473,6 +511,10 @@
 	icon_state = "diagonal_edge"
 	name = "bar diagonal edge"
 
+/obj/effect/turf_decal/tile/purple/carat
+	icon_state = "tile_carat"
+	name = "purple carat decal"
+
 /// Brown tiles
 
 /obj/effect/turf_decal/tile/brown
@@ -513,6 +555,10 @@
 /obj/effect/turf_decal/tile/brown/diagonal_edge
 	icon_state = "diagonal_edge"
 	name = "brown diagonal edge"
+
+/obj/effect/turf_decal/tile/brown/carat
+	icon_state = "tile_carat"
+	name = "brown carat decal"
 
 /// Neutral tiles
 
@@ -557,6 +603,10 @@
 	icon_state = "diagonal_edge"
 	name = "neutral diagonal edge"
 
+/obj/effect/turf_decal/tile/neutral/carat
+	icon_state = "tile_carat"
+	name = "neutral carat decal"
+
 /// Dark tiles
 
 /obj/effect/turf_decal/tile/dark
@@ -599,6 +649,10 @@
 	icon_state = "diagonal_edge"
 	name = "dark diagonal edge"
 
+/obj/effect/turf_decal/tile/dark/carat
+	icon_state = "tile_carat"
+	name = "dark carat decal"
+
 /// Random tiles
 
 /obj/effect/turf_decal/tile/random // so many colors
@@ -640,6 +694,10 @@
 /obj/effect/turf_decal/tile/random/diagonal_edge
 	icon_state = "diagonal_edge"
 	name = "colorful diagonal edge"
+
+/obj/effect/turf_decal/tile/random/carat
+	icon_state = "tile_carat"
+	name = "dark carat decal"
 
 /obj/effect/turf_decal/tile/random/Initialize(mapload)
 	color = "#[random_short_color()]"

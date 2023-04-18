@@ -431,6 +431,7 @@
 		list("Trimline Fill", "trimline_fill"),
 		list("Trimline Fill L", "trimline_fill__8"), // This is a hack that lives in the spritesheet builder and paint_floor
 		list("Trimline End", "trimline_end_fill"),
+		list("carat", "tile_carat"), // :^)
 		list("Trimline Box", "trimline_box_fill"),
 	)
 	nondirectional_decals = list(
