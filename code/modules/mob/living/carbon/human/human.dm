@@ -637,7 +637,7 @@
 	cut_overlay(MA)
 
 /mob/living/carbon/human/can_interact_with(atom/A, treat_mob_as_adjacent)
-	return ..() || (dna.check_mutation(TK) && tkMaxRangeCheck(src, M))
+	return ..() || (dna.check_mutation(TK) && tkMaxRangeCheck(src, A))
 
 /mob/living/carbon/human/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
 	if(!(mobility_flags & MOBILITY_UI))
