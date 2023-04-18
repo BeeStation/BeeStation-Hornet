@@ -1,0 +1,6 @@
+author: Absolucy
+delete-after: true
+changes:
+  - rscadd: You can now link stasis beds to operating computers with a multitool!
+  - tweak: Surgery tables and stasis beds will now only try to link to unused operating
+      computers.
