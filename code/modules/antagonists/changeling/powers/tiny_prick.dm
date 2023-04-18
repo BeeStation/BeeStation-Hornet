@@ -69,8 +69,8 @@
 
 /datum/action/changeling/sting/transformation
 	name = "Transformation Sting"
-	desc = "We silently sting a human, injecting a retrovirus that forces them to transform. Costs 50 chemicals."
-	helptext = "The victim will transform much like a changeling would. Does not provide a warning to others. Mutations will not be transferred, and monkeys will become human."
+	desc = "We silently sting a human, injecting a retrovirus that forces them to transform. Costs 20 chemicals."
+	helptext = "The victim will transform much like a changeling would. Does not provide a warning to others. Mutations will not be transferred, and monkeys will become human. The transformation can be reversed through being exposed to clonexadone for about a minute."
 	button_icon_state = "sting_transform"
 	chemical_cost = 20
 	dna_cost = 3
