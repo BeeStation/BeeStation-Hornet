@@ -63,9 +63,8 @@
 				trimmed_list.Remove(M)
 				continue
 		if (M.mind)
-			if (restrict_ghost_roles && (M.mind.get_display_special_role() in GLOB.exp_specialmap[EXP_TYPE_SPECIAL])) // Are they playing a ghost role?
-				trimmed_list.Remove(M)
-				continue
+			// there was a code that checks `Are they playing a ghost role?`, and it is removed because it doesn't make sense
+			// add back here if you find out what `if(M.mind.get_display_special_role() in GLOB.exp_specialmap[EXP_TYPE_SPECIAL])` means
 			if (M.mind.has_job(restricted_roles)) // Does their job allow it?
 				trimmed_list.Remove(M)
 				continue
