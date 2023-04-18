@@ -314,7 +314,7 @@
 		for(var/datum/data/record/R as() in GLOB.data_core.locked)
 			var/datum/mind/M = R.fields["mindref"]
 			if(target == M)
-				reshape = R.fields["image"]
+				reshape = R.fields["character_appearance"]
 				break
 	if(!reshape)
 		reshape = icon('icons/mob/mob.dmi', "ghost", SOUTH)
@@ -336,7 +336,7 @@
 		for(var/datum/mind/possible_target in get_crewmember_minds())
 			if(is_valid_target(possible_target) && !(possible_target in blacklist))
 				target_candidates += possible_target
-	listclearnulls(target_candidates)
+	list_clear_nulls(target_candidates)
 	if(LAZYLEN(target_candidates))
 		set_target(pick(target_candidates))
 	else

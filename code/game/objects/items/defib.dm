@@ -302,6 +302,7 @@
 	throwforce = 6
 	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = INDESTRUCTIBLE
+	item_flags = ISWEAPON
 
 	var/revivecost = 1000
 	var/cooldown = FALSE
