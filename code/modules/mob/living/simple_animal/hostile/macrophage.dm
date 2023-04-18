@@ -12,7 +12,7 @@
 	maxHealth = 6
 	health = 6
 	spacewalk = TRUE
-	faction = list(FACTION_HOSTILE)
+	faction = list("hostile")
 	move_to_delay = 0
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE

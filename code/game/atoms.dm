@@ -199,13 +199,6 @@
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
 
-	if(dmm_handler) // changes mob info based on dmm handler datum. (i.e. wizard's medibot)
-		var/temp = dmm_handler
-		dmm_handler = new dmm_handler
-		dmm_handler.on_mapload(src)
-		qdel(dmm_handler)
-		dmm_handler = temp // keeping the dmm handler path, so we can know if it's used ever.
-
 	if(loc)
 		SEND_SIGNAL(loc, COMSIG_ATOM_CREATED, src) /// Sends a signal that the new atom `src`, has been created at `loc`
 

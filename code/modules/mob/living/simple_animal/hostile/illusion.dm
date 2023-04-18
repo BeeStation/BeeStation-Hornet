@@ -13,7 +13,7 @@
 	maxHealth = 100
 	health = 100
 	speed = 0
-	faction = list(FACTION_ILLUSION)
+	faction = list("illusion")
 	var/life_span = INFINITY //how long until they despawn
 	var/mob/living/parent_mob
 	var/multiply_chance = 0 //if we multiply on hit
@@ -35,7 +35,7 @@
 	health = hp
 	melee_damage = damage
 	multiply_chance = replicate
-	faction -= FACTION_NEUTRAL
+	faction -= "neutral"
 	transform = initial(transform)
 	pixel_y = initial(pixel_y)
 	pixel_x = initial(pixel_x)

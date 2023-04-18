@@ -4,7 +4,7 @@
 	job_bitflags = JOB_BITFLAG_MANAGE_LOCKED
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security"
-	faction = FACTION_STATION
+	faction = "station"
 	total_positions = 0
 	spawn_positions = 0
 	selection_color = "#ffeeee"

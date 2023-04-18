@@ -11,7 +11,7 @@
 	emote_hear = list("trills.")
 	emote_see = list("sniffs.", "burps.")
 	weather_immunities = list("lava","ash")
-	faction = list(FACTION_MINING, FACTION_ASHWALKER)
+	faction = list("mining", "ashwalker")
 	density = FALSE
 	speak_chance = 1
 	turns_per_move = 8

@@ -19,7 +19,7 @@
 	hud_type = /datum/hud/monkey
 	mobchatspan = "monkeyhive"
 	ai_controller = /datum/ai_controller/monkey
-	faction = list(FACTION_NEUTRAL, FACTION_MONKEY)
+	faction = list("neutral", "monkey")
 	///Item reference for jumpsuit
 	var/obj/item/clothing/w_uniform = null
 
@@ -178,7 +178,7 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	ai_controller = /datum/ai_controller/monkey/angry
 
 /mob/living/carbon/monkey/syndicate_experiment
-	faction = list(FACTION_NEUTRAL, FACTION_MONKEY, FACTION_SYNDICATE)
+	faction = list("neutral", "monkey", "syndicate")
 
 /mob/living/carbon/monkey/angry/Initialize(mapload)
 	. = ..()

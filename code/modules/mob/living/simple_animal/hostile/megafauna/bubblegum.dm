@@ -577,7 +577,7 @@ Difficulty: Hard
 	attacktext = "pierces"
 	color = "#C80000"
 	density = FALSE
-	faction = list(FACTION_NEUTRAL, FACTION_BOSS)
+	faction = list("neutral", "boss")
 	weather_immunities = list("lava","ash")
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/slaughter/CanAllowThrough(atom/movable/mover, turf/target)

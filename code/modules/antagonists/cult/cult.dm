@@ -111,7 +111,7 @@
 	var/mob/living/current = owner.current
 	if(mob_override)
 		current = mob_override
-	current.faction |= FACTION_BLOODCULT
+	current.faction |= "bloodcult"
 	current.grant_language(/datum/language/narsie, TRUE, TRUE, LANGUAGE_CULTIST)
 	if(!cult_team.cult_master)
 		vote.Grant(current)
@@ -129,7 +129,7 @@
 	var/mob/living/current = owner.current
 	if(mob_override)
 		current = mob_override
-	current.faction -= FACTION_BLOODCULT
+	current.faction -= "bloodcult"
 	current.remove_language(/datum/language/narsie, TRUE, TRUE, LANGUAGE_CULTIST)
 	vote.Remove(current)
 	communion.Remove(current)

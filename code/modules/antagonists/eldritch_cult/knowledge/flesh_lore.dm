@@ -59,7 +59,7 @@
 	humie.setMaxHealth(MUTE_MAX_HEALTH)
 	humie.health = MUTE_MAX_HEALTH // Voiceless dead are much tougher than ghouls
 	humie.become_husk()
-	humie.faction |= FACTION_HERETICS
+	humie.faction |= "heretics"
 	humie.apply_status_effect(/datum/status_effect/ghoul)
 
 	var/datum/antagonist/heretic_monster/heretic_monster = humie.mind.add_antag_datum(/datum/antagonist/heretic_monster)
@@ -124,7 +124,7 @@
 	human_target.health = GHOUL_MAX_HEALTH
 	human_target.become_husk()
 	human_target.apply_status_effect(/datum/status_effect/ghoul)
-	human_target.faction |= FACTION_HERETICS
+	human_target.faction |= "heretics"
 	var/datum/antagonist/heretic_monster/heretic_monster = human_target.mind.add_antag_datum(/datum/antagonist/heretic_monster)
 	var/datum/antagonist/heretic/master = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	heretic_monster.set_owner(master)

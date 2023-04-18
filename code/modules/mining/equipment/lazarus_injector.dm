@@ -26,12 +26,12 @@
 				to_chat(user, "<span class='info'>[src] does not work on this sort of creature.</span>")
 				return
 			if(M.stat == DEAD)
-				M.faction = list(FACTION_NEUTRAL)
+				M.faction = list("neutral")
 				M.revive(full_heal = 1, admin_revive = 1)
 				if(ishostile(target))
 					var/mob/living/simple_animal/hostile/H = M
 					if(malfunctioning)
-						H.faction |= list(FACTION_HOSTILE, "[REF(user)]")
+						H.faction |= list("hostile", "[REF(user)]")
 						H.robust_searching = 1
 						H.friends += user
 						H.attack_same = 1

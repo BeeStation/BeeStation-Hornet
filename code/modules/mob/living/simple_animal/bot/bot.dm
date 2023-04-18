@@ -20,7 +20,7 @@
 	initial_language_holder = /datum/language_holder/synthetic
 	bubble_icon = "machine"
 	speech_span = SPAN_ROBOT
-	faction = list(FACTION_NEUTRAL, FACTION_SILICON , FACTION_TURRET)
+	faction = list("neutral", "silicon" , "turret")
 	hardattacks = TRUE
 	light_system = MOVABLE_LIGHT
 	light_range = 3
@@ -1070,7 +1070,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		ejectpai(0)
 
 /mob/living/simple_animal/bot/sentience_act()
-	faction -= FACTION_SILICON
+	faction -= "silicon"
 
 /mob/living/simple_animal/bot/proc/set_path(list/newpath)
 	path = newpath ? newpath : list()

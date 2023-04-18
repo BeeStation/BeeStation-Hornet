@@ -7,7 +7,7 @@
 	speak_emote = list("hisses")
 	health = 5
 	maxHealth = 5
-	faction = list(FACTION_LIZARD)
+	faction = list("lizard")
 	attacktext = "bites"
 	melee_damage = 1
 	response_help  = "pets"

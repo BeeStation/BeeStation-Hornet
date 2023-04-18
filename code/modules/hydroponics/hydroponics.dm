@@ -949,7 +949,7 @@
 	var/list/livingplants = list(/mob/living/simple_animal/hostile/tree, /mob/living/simple_animal/hostile/killertomato)
 	var/chosen = pick(livingplants)
 	var/mob/living/simple_animal/hostile/C = new chosen
-	C.faction = list(FACTION_PLANT)
+	C.faction = list("plant")
 
 /obj/machinery/hydroponics/proc/become_self_sufficient() // Ambrosia Gaia effect
 	visible_message("<span class='boldnotice'>[src] begins to glow with a beautiful light!</span>")

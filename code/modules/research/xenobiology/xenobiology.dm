@@ -116,7 +116,7 @@
 			user.visible_message("<span class='warning'>[user] starts shaking!</span>","<span class='notice'>Your [name] starts pulsing gently...</span>")
 			if(do_after(user, 4 SECONDS, target = user))
 				var/mob/living/simple_animal/S = create_random_mob(user.drop_location(), FRIENDLY_SPAWN)
-				S.faction |= FACTION_NEUTRAL
+				S.faction |= "neutral"
 				playsound(user, 'sound/effects/splat.ogg', 50, 1)
 				user.visible_message("<span class='warning'>[user] spits out [S]!</span>", "<span class='notice'>You spit out [S]!</span>")
 				return 30 SECONDS
@@ -126,9 +126,9 @@
 			if(do_after(user, 5 SECONDS, target = user))
 				var/mob/living/simple_animal/S = create_random_mob(user.drop_location(), HOSTILE_SPAWN)
 				if(user.a_intent != INTENT_HARM)
-					S.faction |= FACTION_NEUTRAL
+					S.faction |= "neutral"
 				else
-					S.faction |= FACTION_SLIME
+					S.faction |= "slime"
 				playsound(user, 'sound/effects/splat.ogg', 50, 1)
 				user.visible_message("<span class='warning'>[user] spits out [S]!</span>", "<span class='warning'>You spit out [S]!</span>")
 				return 60 SECONDS

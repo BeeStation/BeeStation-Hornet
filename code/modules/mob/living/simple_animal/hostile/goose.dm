@@ -22,7 +22,7 @@
 	attacktext = "pecks"
 	attack_sound = "goose"
 	speak_emote = list("honks")
-	faction = list(FACTION_NEUTRAL)
+	faction = list("neutral")
 	attack_same = TRUE
 	gold_core_spawnable = HOSTILE_SPAWN
 	var/random_retaliate = TRUE

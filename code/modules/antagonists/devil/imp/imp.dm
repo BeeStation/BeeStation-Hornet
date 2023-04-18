@@ -22,7 +22,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 250 //Weak to cold
 	maxbodytemp = INFINITY
-	faction = list(FACTION_HELL)
+	faction = list("hell")
 	attacktext = "wildly tears into"
 	maxHealth = 200
 	health = 200

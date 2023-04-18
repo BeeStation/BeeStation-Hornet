@@ -23,7 +23,7 @@
 	minbodytemp = 0
 	maxbodytemp = INFINITY
 	healable = 0
-	faction = list(FACTION_BLOODCULT)
+	faction = list("bloodcult")
 	movement_type = FLYING
 	pressure_resistance = 100
 	unique_name = 1

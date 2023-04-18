@@ -12,7 +12,7 @@
 	var/spawn_time = 300 //30 seconds default
 	var/mob_types = list(/mob/living/simple_animal/hostile/carp)
 	var/spawn_text = "emerges from"
-	var/faction = list(FACTION_HOSTILE)
+	var/faction = list("hostile")
 	var/spawner_type = /datum/component/spawner
 
 /obj/structure/spawner/Initialize(mapload)
@@ -31,7 +31,7 @@
 	icon_state = "syndbeacon"
 	spawn_text = "warps in from"
 	mob_types = list(/mob/living/simple_animal/hostile/syndicate/ranged)
-	faction = list(FACTION_SYNDICATE)
+	faction = list("syndicate")
 
 /obj/structure/spawner/skeleton
 	name = "bone pit"
@@ -43,7 +43,7 @@
 	spawn_time = 150
 	mob_types = list(/mob/living/simple_animal/hostile/skeleton)
 	spawn_text = "climbs out of"
-	faction = list(FACTION_UNDEAD)
+	faction = list("undead")
 
 /obj/structure/spawner/clown
 	name = "Laughing Larry"
@@ -55,7 +55,7 @@
 	spawn_time = 150
 	mob_types = list(/mob/living/simple_animal/hostile/retaliate/clown, /mob/living/simple_animal/hostile/retaliate/clown/fleshclown, /mob/living/simple_animal/hostile/retaliate/clown/clownhulk, /mob/living/simple_animal/hostile/retaliate/clown/longface, /mob/living/simple_animal/hostile/retaliate/clown/clownhulk/chlown, /mob/living/simple_animal/hostile/retaliate/clown/clownhulk/honcmunculus, /mob/living/simple_animal/hostile/retaliate/clown/mutant/blob, /mob/living/simple_animal/hostile/retaliate/clown/banana, /mob/living/simple_animal/hostile/retaliate/clown/honkling, /mob/living/simple_animal/hostile/retaliate/clown/lube)
 	spawn_text = "climbs out of"
-	faction = list(FACTION_CLOWN)
+	faction = list("clown")
 
 /obj/structure/spawner/mining
 	name = "monster den"
@@ -66,7 +66,7 @@
 	icon = 'icons/mob/nest.dmi'
 	spawn_text = "crawls out of"
 	mob_types = list(/mob/living/simple_animal/hostile/asteroid/goldgrub, /mob/living/simple_animal/hostile/asteroid/goliath, /mob/living/simple_animal/hostile/asteroid/hivelord, /mob/living/simple_animal/hostile/asteroid/basilisk, /mob/living/simple_animal/hostile/asteroid/fugu)
-	faction = list(FACTION_MINING)
+	faction = list("mining")
 
 /obj/structure/spawner/mining/goldgrub
 	name = "goldgrub den"

@@ -5,7 +5,7 @@
 	default_color = "59CE00"
 	species_traits = list(MUTCOLORS,EYECOLOR)
 	inherent_traits = list(TRAIT_ALWAYS_CLEAN, TRAIT_BEEFRIEND, TRAIT_NONECRODISEASE)
-	inherent_factions = list(FACTION_PLANT, FACTION_VINES)
+	inherent_factions = list("plant", "vines")
 	fixed_mut_color = "59CE00"
 	attack_verb = "slash"
 	attack_sound = 'sound/weapons/slice.ogg'

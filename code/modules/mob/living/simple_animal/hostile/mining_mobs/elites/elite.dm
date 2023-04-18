@@ -7,7 +7,7 @@
 	name = "elite"
 	desc = "An elite monster, found in one of the strange tumors on lavaland."
 	icon = 'icons/mob/lavaland/lavaland_elites.dmi'
-	faction = list(FACTION_BOSS)
+	faction = list("boss")
 	robust_searching = TRUE
 	ranged_ignores_vision = TRUE
 	ranged = TRUE
@@ -311,7 +311,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		if(E.stat != DEAD || E.sentience_type != SENTIENCE_BOSS || !E.key)
 			user.visible_message("<span class='notice'>It appears [E] is unable to be revived right now.  Perhaps try again later.</span>")
 			return
-		E.faction = list(FACTION_NEUTRAL)
+		E.faction = list("neutral")
 		E.revive(full_heal = TRUE, admin_revive = TRUE)
 		user.visible_message("<span class='notice'>[user] stabs [E] with [src], reviving it.</span>")
 		E.playsound_local(get_turf(E), 'sound/effects/magic.ogg', 40, 0)

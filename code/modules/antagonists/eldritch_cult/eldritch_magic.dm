@@ -193,7 +193,7 @@
 	damage_type = TOX
 	hitsound = 'sound/weapons/punch3.ogg'
 	trigger_range = 0
-	ignored_factions = list(FACTION_HERETICS)
+	ignored_factions = list("heretics")
 	range = 15
 	speed = 1
 

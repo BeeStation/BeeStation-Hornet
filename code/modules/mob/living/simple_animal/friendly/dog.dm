@@ -9,7 +9,7 @@
 	speak_emote = list("barks", "woofs")
 	emote_hear = list("barks!", "woofs!", "yaps.","pants.")
 	emote_see = list("shakes its head.", "chases its tail.","shivers.")
-	faction = list(FACTION_NEUTRAL)
+	faction = list("neutral")
 	see_in_dark = 5
 	speak_chance = 1
 	turns_per_move = 10
@@ -518,7 +518,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	icon_state = "narsian"
 	icon_living = "narsian"
 	icon_dead = "narsian_dead"
-	faction = list(FACTION_NEUTRAL, FACTION_BLOODCULT)
+	faction = list("neutral", "bloodcult")
 	gold_core_spawnable = NO_SPAWN
 	nofur = TRUE
 	unique_pet = TRUE

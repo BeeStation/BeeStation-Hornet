@@ -270,7 +270,7 @@
 /datum/religion_sect/carp_sect/sect_bless(mob/living/L, mob/living/user)
 	if(!isliving(L))
 		return FALSE
-	L.faction |= FACTION_CARP
+	L.faction |= "carp"
 	user.visible_message("<span class='notice'>[user] blessed [L] with the power of [GLOB.deity]! They are now protected from Space Carps, Although carps will still fight back if attacked.</span>")
 	SEND_SIGNAL(L, COMSIG_ADD_MOOD_EVENT, "blessing", /datum/mood_event/blessing)
 	return TRUE

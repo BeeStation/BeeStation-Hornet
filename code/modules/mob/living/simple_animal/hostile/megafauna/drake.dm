@@ -564,7 +564,7 @@ Difficulty: Medium
 	name = "lesser ash drake"
 	maxHealth = 200
 	health = 200
-	faction = list(FACTION_NEUTRAL)
+	faction = list("neutral")
 	obj_damage = 80
 	melee_damage = 30
 	mouse_opacity = MOUSE_OPACITY_ICON

@@ -133,12 +133,12 @@
 
 /obj/item/organ/heart/gland/slime/Insert(mob/living/carbon/M, special = 0)
 	..()
-	owner.faction |= FACTION_SLIME
+	owner.faction |= "slime"
 	owner.grant_language(/datum/language/slime, TRUE, TRUE, LANGUAGE_GLAND)
 
 /obj/item/organ/heart/gland/slime/Remove(mob/living/carbon/M, special = 0)
 	..()
-	owner.faction -= FACTION_SLIME
+	owner.faction -= "slime"
 	owner.remove_language(/datum/language/slime, TRUE, TRUE, LANGUAGE_GLAND)
 
 /obj/item/organ/heart/gland/slime/activate()
@@ -271,7 +271,7 @@
 
 /obj/item/organ/heart/gland/spiderman/activate()
 	to_chat(owner, "<span class='warning'>You feel something crawling in your skin.</span>")
-	owner.faction |= FACTION_SPIDER
+	owner.faction |= "spider"
 	new /obj/structure/spider/spiderling(owner.drop_location())
 
 /obj/item/organ/heart/gland/egg

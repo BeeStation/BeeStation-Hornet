@@ -255,7 +255,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	to_chat(owner.current, "<span class='warning'>You feel as though your current form is about to shed.  You will soon turn into a true devil.</span>")
 	sleep(50)
 	var/mob/living/carbon/true_devil/A = new /mob/living/carbon/true_devil(owner.current.loc)
-	A.faction |= FACTION_HELL
+	A.faction |= "hell"
 	owner.current.forceMove(A)
 	A.oldform = owner.current
 	owner.transfer_to(A)
@@ -468,7 +468,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 			H.regenerate_icons()
 			if(SOULVALUE >= TRUE_THRESHOLD) //Yes, BOTH this and the above if statement are to run if soulpower is high enough.
 				var/mob/living/carbon/true_devil/A = new /mob/living/carbon/true_devil(targetturf)
-				A.faction |= FACTION_HELL
+				A.faction |= "hell"
 				H.forceMove(A)
 				A.oldform = H
 				owner.transfer_to(A, TRUE)

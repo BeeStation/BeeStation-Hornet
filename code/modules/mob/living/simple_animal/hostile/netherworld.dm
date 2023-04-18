@@ -10,7 +10,7 @@
 	melee_damage = 35
 	attacktext = "slashes"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
-	faction = list(FACTION_UNDEAD)
+	faction = list("undead")
 	speak_emote = list("screams")
 	gold_core_spawnable = HOSTILE_SPAWN
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -73,7 +73,7 @@
 	icon = 'icons/mob/nest.dmi'
 	spawn_text = "crawls through"
 	mob_types = list(/mob/living/simple_animal/hostile/netherworld/migo, /mob/living/simple_animal/hostile/netherworld, /mob/living/simple_animal/hostile/netherworld/blankbody)
-	faction = list(FACTION_UNDEAD)
+	faction = list("undead")
 
 /obj/structure/spawner/nether/Initialize(mapload)
 	.=..()

@@ -67,7 +67,7 @@
 
 	var/on = TRUE				//determines if the turret is on
 
-	var/list/faction = list(FACTION_TURRET) // Same faction mobs will never be shot at, no matter the other settings
+	var/list/faction = list("turret") // Same faction mobs will never be shot at, no matter the other settings
 
 	var/datum/effect_system/spark_spread/spark_system	//the spark system, used for generating... sparks?
 
@@ -427,7 +427,7 @@
 
 				if(iscyborg(sillycone))
 					var/mob/living/silicon/robot/sillyconerobot = A
-					if((FACTION_SYNDICATE in faction) && sillyconerobot.emagged == TRUE)
+					if(("syndicate" in faction) && sillyconerobot.emagged == TRUE)
 						continue
 
 			else if(iscarbon(A))
@@ -681,7 +681,7 @@
 	stun_projectile_sound = 'sound/weapons/gunshot.ogg'
 	icon_state = "syndie_off"
 	base_icon_state = "syndie"
-	faction = list(FACTION_SYNDICATE)
+	faction = list("syndicate")
 	desc = "A ballistic machine gun auto-turret."
 
 /obj/machinery/porta_turret/syndicate/ComponentInitialize()
@@ -717,7 +717,7 @@
 /obj/machinery/porta_turret/syndicate/energy/raven
 	stun_projectile =  /obj/item/projectile/beam/laser
 	stun_projectile_sound = 'sound/weapons/laser.ogg'
-	faction = list(FACTION_NEUTRAL, FACTION_SILICON, FACTION_TURRET)
+	faction = list("neutral", "silicon", "turret")
 
 
 /obj/machinery/porta_turret/syndicate/pod
@@ -749,7 +749,7 @@
 		return TRUE
 
 /obj/machinery/porta_turret/ai
-	faction = list(FACTION_SILICON)
+	faction = list("silicon")
 	var/emp_proofing = FALSE
 
 /obj/machinery/porta_turret/ai/emp_act(severity)
@@ -769,7 +769,7 @@
 	lethal_projectile = /obj/item/projectile/plasma/turret
 	lethal_projectile_sound = 'sound/weapons/plasma_cutter.ogg'
 	mode = TURRET_LETHAL //It would be useless in stun mode anyway
-	faction = list(FACTION_NEUTRAL, FACTION_SILICON, FACTION_TURRET) //Minebots, medibots, etc that should not be shot.
+	faction = list("neutral", "silicon", "turret") //Minebots, medibots, etc that should not be shot.
 
 /obj/machinery/porta_turret/aux_base/assess_perp(mob/living/carbon/human/perp)
 	return 0 //Never shoot humanoids. You are on your own if Ashwalkers or the like attack!
@@ -798,7 +798,7 @@
 	stun_projectile_sound = 'sound/weapons/plasma_cutter.ogg'
 	icon_state = "syndie_off"
 	base_icon_state = "syndie"
-	faction = list(FACTION_NEUTRAL, FACTION_SILICON, FACTION_TURRET)
+	faction = list("neutral", "silicon", "turret")
 	mode = TURRET_LETHAL
 
 /obj/machinery/porta_turret/centcom_shuttle/ComponentInitialize()
@@ -818,7 +818,7 @@
 	desc = "A turret built with substandard parts and run down further with age. Still capable of delivering lethal lasers to the odd space carp, but not much else."
 	stun_projectile = /obj/item/projectile/beam/weak/penetrator
 	lethal_projectile = /obj/item/projectile/beam/weak/penetrator
-	faction = list(FACTION_NEUTRAL, FACTION_SILICON, FACTION_TURRET)
+	faction = list("neutral", "silicon", "turret")
 
 ////////////////////////
 //Turret Control Panel//

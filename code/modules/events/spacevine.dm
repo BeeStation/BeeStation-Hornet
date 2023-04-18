@@ -583,5 +583,5 @@
 	. = FALSE
 	if(isliving(A))
 		var/mob/living/M = A
-		if((FACTION_VINES in M.faction) || (FACTION_PLANT in M.faction))
+		if(("vines" in M.faction) || ("plant" in M.faction))
 			. = TRUE

@@ -18,7 +18,7 @@
 	response_harm   = "squishes"
 	density = FALSE
 	ventcrawler = VENTCRAWLER_ALWAYS
-	faction = list(FACTION_HOSTILE)
+	faction = list("hostile")
 	attack_sound = 'sound/effects/blobattack.ogg'
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mob_size = MOB_SIZE_TINY

@@ -2523,8 +2523,6 @@
 #include "code\modules\mapping\reader.dm"
 #include "code\modules\mapping\ruins.dm"
 #include "code\modules\mapping\verify.dm"
-#include "code\modules\mapping\dmm_change_handler\_dmm_change_handler.dm"
-#include "code\modules\mapping\dmm_change_handler\faction_change.dm"
 #include "code\modules\mapping\mapping_items\armoury_spawners.dm"
 #include "code\modules\mapping\mapping_items\job_scaling_loot_spawners.dm"
 #include "code\modules\mapping\mapping_items\medical_spawners.dm"

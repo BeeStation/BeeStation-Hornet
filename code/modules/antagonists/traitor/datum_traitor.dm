@@ -286,13 +286,13 @@
 
 /datum/antagonist/traitor/proc/assign_exchange_role()
 	//set faction
-	var/faction = FACTION_RED
+	var/faction = "redteam"
 	if(owner == SSticker.mode.exchange_blue)
-		faction = FACTION_BLUE
+		faction = "blueteam"
 
 	//Assign objectives
 	var/datum/objective/steal/exchange/exchange_objective = new
-	exchange_objective.set_faction(faction,((faction == FACTION_RED) ? SSticker.mode.exchange_blue : SSticker.mode.exchange_red))
+	exchange_objective.set_faction(faction,((faction == "redteam") ? SSticker.mode.exchange_blue : SSticker.mode.exchange_red))
 	exchange_objective.owner = owner
 	add_objective(exchange_objective)
 

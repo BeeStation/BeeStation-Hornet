@@ -1187,7 +1187,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 /mob/living/simple_animal/hostile/syndicate/ranged/smg/orion
 	name = "spaceport security"
 	desc = "Premier corporate security forces for all spaceports found along the Orion Trail."
-	faction = list(FACTION_ORION)
+	faction = list("orion")
 	loot = list()
 	del_on_death = TRUE
 

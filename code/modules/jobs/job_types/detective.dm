@@ -5,7 +5,7 @@
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security"
-	faction = FACTION_STATION
+	faction = "station"
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#ffeeee"

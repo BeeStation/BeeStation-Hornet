@@ -24,7 +24,7 @@
 	speak_emote = list("hisses", "squeaks")
 	emote_hear = list("hisses", "squeaks")
 	emote_see = list("pounces")
-	faction = list(FACTION_LIZARD)
+	faction = list("lizard")
 	health = 15
 	maxHealth = 15
 	minbodytemp = 50

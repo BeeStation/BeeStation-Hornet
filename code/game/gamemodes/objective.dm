@@ -758,9 +758,9 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 
 /datum/objective/steal/exchange/proc/set_faction(faction, datum/mind/otheragent)
 	set_target(otheragent)
-	if(faction == FACTION_RED)
+	if(faction == "redteam")
 		targetinfo = new/datum/objective_item/unique/docs_blue
-	else if(faction == FACTION_BLUE)
+	else if(faction == "blueteam")
 		targetinfo = new/datum/objective_item/unique/docs_red
 	explanation_text = "Acquire [targetinfo.name] held by [target.current.real_name], the [target.get_display_station_role()] and syndicate agent"
 	steal_target = targetinfo.targetitem
@@ -778,9 +778,9 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	name = "prevent exchange"
 
 /datum/objective/steal/exchange/backstab/set_faction(faction)
-	if(faction == FACTION_RED)
+	if(faction == "redteam")
 		targetinfo = new/datum/objective_item/unique/docs_red
-	else if(faction == FACTION_BLUE)
+	else if(faction == "blueteam")
 		targetinfo = new/datum/objective_item/unique/docs_blue
 	explanation_text = "Do not give up or lose [targetinfo.name]."
 	steal_target = targetinfo.targetitem

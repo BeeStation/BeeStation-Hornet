@@ -12,7 +12,7 @@
 	response_help = "brushes"
 	response_disarm = "pushes"
 	response_harm = "hits"
-	faction = list(FACTION_PLANT)
+	faction = list("plant")
 	speed = 1
 	maxHealth = 250
 	health = 250
@@ -32,7 +32,7 @@
 	minbodytemp = 0
 	maxbodytemp = 1200
 
-	faction = list(FACTION_HOSTILE)
+	faction = list("hostile")
 	deathmessage = "is hacked into pieces!"
 	loot = list(/obj/item/stack/sheet/wood)
 	gold_core_spawnable = HOSTILE_SPAWN

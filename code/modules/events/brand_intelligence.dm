@@ -61,7 +61,7 @@
 		for(var/obj/machinery/vending/upriser in infectedMachines)
 			if(prob(70) && !QDELETED(upriser))
 				var/mob/living/simple_animal/hostile/mimic/copy/M = new(upriser.loc, upriser, null, 1) // it will delete upriser on creation and override any machine checks
-				M.faction = list(FACTION_HOSTILE)
+				M.faction = list("hostile")
 				M.speak = rampant_speeches.Copy()
 				M.speak_chance = 7
 			else

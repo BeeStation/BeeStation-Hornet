@@ -3,7 +3,7 @@
 	jtitle = JOB_NAME_CYBORG
 	job_bitflags = JOB_BITFLAG_SELECTABLE | JOB_BITFLAG_MANAGE_LOCKED
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SILICON
-	faction = FACTION_STATION
+	faction = "station"
 	total_positions = 0
 	spawn_positions = 1
 	supervisors = "your laws and the AI"	//Nodrak

@@ -5,7 +5,7 @@
 	response_help = "pets"
 	response_disarm = "bops"
 	response_harm = "kicks"
-	faction = list(FACTION_GONDOLA)
+	faction = list("gondola")
 	turns_per_move = 10
 	icon = 'icons/obj/supplypods.dmi'
 	icon_state = "gondola"

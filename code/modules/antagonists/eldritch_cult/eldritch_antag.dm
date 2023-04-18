@@ -143,7 +143,7 @@
 		current = mob_override
 	add_antag_hud(antag_hud_type, antag_hud_name, current)
 	handle_clown_mutation(current, mob_override ? null : "Knowledge described in the book allowed you to overcome your clownish nature, allowing you to use complex items effectively.")
-	current.faction |= FACTION_HERETICS
+	current.faction |= "heretics"
 
 /datum/antagonist/heretic/remove_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -152,7 +152,7 @@
 		current = mob_override
 	remove_antag_hud(antag_hud_type, current)
 	handle_clown_mutation(current, removing = FALSE)
-	current.faction -= FACTION_HERETICS
+	current.faction -= "heretics"
 
 /datum/antagonist/heretic/get_admin_commands()
 	. = ..()

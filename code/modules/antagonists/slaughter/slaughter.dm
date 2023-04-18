@@ -23,7 +23,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
-	faction = list(FACTION_DEMON)
+	faction = list("demon")
 	attacktext = "wildly tears into"
 	maxHealth = 200
 	health = 200
@@ -120,7 +120,7 @@
 	emote_hear = list("guffaws","laughs")
 	response_help  = "hugs"
 	attacktext = "wildly tickles"
-	faction = list(FACTION_DEMON, FACTION_CLOWN)
+	faction = list("demon", "clown")
 
 	attack_sound = 'sound/items/bikehorn.ogg'
 	feast_sound = 'sound/spookoween/scary_horn2.ogg'

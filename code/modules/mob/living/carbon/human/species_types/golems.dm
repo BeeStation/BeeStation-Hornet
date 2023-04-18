@@ -309,7 +309,7 @@
 	special_names = list("Bark", "Willow", "Catalpa", "Woody", "Oak", "Sap", "Twig", "Branch", "Maple", "Birch", "Elm", "Basswood", "Cottonwood", "Larch", "Aspen", "Ash", "Beech", "Buckeye", "Cedar", "Chestnut", "Cypress", "Fir", "Hawthorn", "Hazel", "Hickory", "Ironwood", "Juniper", "Leaf", "Mangrove", "Palm", "Pawpaw", "Pine", "Poplar", "Redwood", "Redbud", "Sassafras", "Spruce", "Sumac", "Trunk", "Walnut", "Yew")
 	human_surname_chance = 0
 	special_name_chance = 100
-	inherent_factions = list(FACTION_PLANT, FACTION_VINES)
+	inherent_factions = list("plant", "vines")
 
 /datum/species/golem/wood/spec_life(mob/living/carbon/human/H)
 	if(H.stat == DEAD)
@@ -617,7 +617,7 @@
 	prefix = "Runic"
 	special_names = null
 	random_eligible = FALSE //Zesko claims runic golems break the game
-	inherent_factions = list(FACTION_BLOODCULT)
+	inherent_factions = list("bloodcult")
 	species_language_holder = /datum/language_holder/golem/runic
 	var/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/golem/phase_shift
 	var/obj/effect/proc_holder/spell/targeted/abyssal_gaze/abyssal_gaze
@@ -688,7 +688,7 @@
 	damage_overlay_type = "synth"
 	prefix = "Clockwork"
 	special_names = list("Remnant", "Relic", "Scrap", "Vestige") //RIP Ratvar
-	inherent_factions = list(FACTION_CLOCKIES)
+	inherent_factions = list("clockcult")
 	mutanttongue = /obj/item/organ/tongue/golem/clockwork
 	var/has_corpse
 

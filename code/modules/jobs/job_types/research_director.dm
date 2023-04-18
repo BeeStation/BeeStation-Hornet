@@ -6,7 +6,7 @@
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	head_announce = list("Science")
-	faction = FACTION_STATION
+	faction = "station"
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#ffddff"

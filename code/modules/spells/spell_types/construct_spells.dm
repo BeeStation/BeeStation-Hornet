@@ -290,14 +290,14 @@
 		return
 
 	S.add_atom_colour("#990000", FIXED_COLOUR_PRIORITY)
-	S.faction = list(FACTION_BLOODCULT)
+	S.faction = list("bloodcult")
 	playsound(get_turf(S), 'sound/effects/ghost.ogg', 100, 1)
 	new /obj/effect/temp_visual/cult/sac(get_turf(S))
 
 /obj/effect/proc_holder/spell/targeted/dominate/can_target(mob/living/target)
 	if(!isanimal(target) || target.stat)
 		return FALSE
-	if(FACTION_BLOODCULT in target.faction)
+	if("bloodcult" in target.faction)
 		return FALSE
 	return TRUE
 
@@ -328,7 +328,7 @@
 	hitsound = 'sound/weapons/punch3.ogg'
 	trigger_range = 0
 	check_holy = TRUE
-	ignored_factions = list(FACTION_BLOODCULT)
+	ignored_factions = list("bloodcult")
 	range = 15
 	speed = 7
 

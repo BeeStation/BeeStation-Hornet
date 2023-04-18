@@ -5,7 +5,7 @@
 	var/spawn_delay = 0
 	var/max_mobs = 5
 	var/spawn_text = "emerges from"
-	var/list/faction = list(FACTION_MINING)
+	var/list/faction = list("mining")
 
 
 

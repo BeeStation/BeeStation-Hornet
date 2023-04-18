@@ -36,7 +36,7 @@
 	minbodytemp = 0
 	maxbodytemp = 1500
 
-	faction = list(FACTION_RUSSIAN)
+	faction = list("russian")
 	gold_core_spawnable = HOSTILE_SPAWN
 
 	do_footstep = TRUE
@@ -61,7 +61,7 @@
 	icon_state = "combatbear"
 	icon_living = "combatbear"
 	icon_dead = "combatbear_dead"
-	faction = list(FACTION_RUSSIAN)
+	faction = list("russian")
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/bear = 5, /obj/item/clothing/head/bearpelt = 1, /obj/item/bear_armor = 1)
 	melee_damage = 30
 	armour_penetration = 20
@@ -115,7 +115,7 @@
 	icon_living = "butterbear"
 	icon_dead = "butterbear_dead"
 	desc = "I can't believe its not a bear!"
-	faction = list(FACTION_NEUTRAL, FACTION_RUSSIAN)
+	faction = list("neutral", "russian")
 	obj_damage = 11
 	melee_damage = 1
 	armour_penetration = 0

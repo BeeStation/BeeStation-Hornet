@@ -4,7 +4,7 @@
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	supervisors = "the research director"
-	faction = FACTION_STATION
+	faction = "station"
 	total_positions = 3
 	spawn_positions = 3
 	minimal_player_age = 3

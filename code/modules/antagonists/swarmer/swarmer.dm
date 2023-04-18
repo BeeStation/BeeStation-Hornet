@@ -76,7 +76,7 @@
 	attack_sound = 'sound/effects/empulse.ogg'
 	friendly = "pinches"
 	speed = 0
-	faction = list(FACTION_SWARMER)
+	faction = list("swarmer")
 	AIStatus = AI_OFF
 	pass_flags = PASSTABLE
 	mob_size = MOB_SIZE_TINY

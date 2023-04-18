@@ -44,7 +44,7 @@
 
 	if(isliving(AM))
 		var/mob/living/L = AM
-		if(!(FACTION_VINES in L.faction))
+		if(!("vines" in L.faction))
 			L.adjustBruteLoss(5)
 			to_chat(L, "<span class='alert'>You cut yourself on the thorny vines.</span>")
 
@@ -62,7 +62,7 @@
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 0
-	faction = list(FACTION_HOSTILE, FACTION_VINES, FACTION_PLANT)
+	faction = list("hostile", "vines", "plant")
 	var/list/grasping = list()
 	var/list/tethers = list()
 	var/max_grasps = 4

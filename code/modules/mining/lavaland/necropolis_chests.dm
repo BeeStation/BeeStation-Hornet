@@ -718,7 +718,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	sharpness = IS_SHARP
 	faction_bonus_force = 45
-	nemesis_factions = list(FACTION_MINING, FACTION_BOSS)
+	nemesis_factions = list("mining", "boss")
 	var/transform_cooldown
 	var/swiping = FALSE
 

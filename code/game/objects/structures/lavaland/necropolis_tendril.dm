@@ -6,7 +6,7 @@
 	icon = 'icons/mob/nest.dmi'
 	icon_state = "tendril"
 
-	faction = list(FACTION_MINING)
+	faction = list("mining")
 	max_mobs = 3
 	max_integrity = 125
 	mob_types = list(/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril)

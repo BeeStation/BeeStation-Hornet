@@ -4,7 +4,7 @@
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	department_head = list(JOB_NAME_CHIEFENGINEER)
 	supervisors = "the chief engineer"
-	faction = FACTION_STATION
+	faction = "station"
 	total_positions = 5
 	spawn_positions = 5
 	selection_color = "#fff5cc"

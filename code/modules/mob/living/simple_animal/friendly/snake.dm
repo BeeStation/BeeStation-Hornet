@@ -23,7 +23,7 @@
 	response_help  = "pets"
 	response_disarm = "shoos"
 	response_harm   = "steps on"
-	faction = list(FACTION_HOSTILE)
+	faction = list("hostile")
 	ventcrawler = VENTCRAWLER_ALWAYS
 	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB

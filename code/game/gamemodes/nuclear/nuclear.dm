@@ -158,7 +158,7 @@
 	E.implant(H)
 	var/obj/item/implant/weapons_auth/W = new/obj/item/implant/weapons_auth(H)
 	W.implant(H)
-	H.faction |= FACTION_SYNDICATE
+	H.faction |= "syndicate"
 	H.update_icons()
 
 /datum/outfit/syndicate/full

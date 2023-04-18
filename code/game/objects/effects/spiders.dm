@@ -59,7 +59,7 @@
 	var/enriched_spawn_prob = 25
 	// Team info
 	var/datum/team/spiders/spider_team
-	var/list/faction = list(FACTION_SPIDER)
+	var/list/faction = list("spider")
 	// Whether or not a ghost can use the cluster to become a spider.
 	var/ghost_ready = FALSE
 	var/grow_time = 60 // Grow time (in seconds because delta-time)
@@ -200,7 +200,7 @@
 	var/grow_as = null
 	var/obj/machinery/atmospherics/components/unary/vent_pump/entry_vent
 	var/travelling_in_vent = 0
-	var/list/faction = list(FACTION_SPIDER)
+	var/list/faction = list("spider")
 
 /obj/structure/spider/spiderling/Destroy()
 	new/obj/item/reagent_containers/food/snacks/spiderling(get_turf(src))

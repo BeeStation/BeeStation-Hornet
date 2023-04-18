@@ -436,7 +436,7 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 	var/mob/living/carbon/human/H = AM
 	if(H.stat != CONSCIOUS || !H.mind || !H.mind.get_display_station_role()) //mint condition only
 		return 0
-	else if(FACTION_PIRATE in H.faction) //can't ransom your fellow pirates to CentCom!
+	else if("pirate" in H.faction) //can't ransom your fellow pirates to CentCom!
 		return 0
 	else
 		if(H.mind.has_job(GLOB.command_positions))
