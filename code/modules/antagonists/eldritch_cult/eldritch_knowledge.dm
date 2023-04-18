@@ -146,7 +146,7 @@
 	for(var/X in atoms)
 		var/atom/A = X
 		fingerprints |= A.return_fingerprints()
-	listclearnulls(fingerprints)
+	list_clear_nulls(fingerprints)
 	if(fingerprints.len == 0)
 		return FALSE
 	return TRUE
@@ -165,7 +165,7 @@
 		to_chat(user, "<span class='warning'>These items don't possess the required fingerprints or DNA.</span>")
 		return FALSE
 
-	var/chosen_mob = input("Select the person you wish to curse","Your target") as null|anything in sortList(compiled_list, GLOBAL_PROC_REF(cmp_mob_realname_dsc))
+	var/chosen_mob = input("Select the person you wish to curse","Your target") as null|anything in sort_list(compiled_list, GLOBAL_PROC_REF(cmp_mob_realname_dsc))
 	if(!chosen_mob)
 		return FALSE
 	var/mob/living/living_mob = chosen_mob
@@ -304,10 +304,10 @@
 
 /datum/eldritch_knowledge/living_heart
 	name = "Living Heart"
-	desc = "Allows you to create additional living hearts, using a heart, a pool of blood and a poppy. Living hearts when used on a transmutation rune will grant you a person to hunt and sacrifice on the rune. Every sacrifice gives you an additional charge in the book."
+	desc = "Allows you to create additional living hearts, using a heart, a pool of blood and a flower. Living hearts when used on a transmutation rune will grant you a person to hunt and sacrifice on the rune. Every sacrifice gives you an additional charge in the book."
 	gain_text = "The Gates of Mansus open up to your mind."
 	cost = 0
-	required_atoms = list(/obj/item/organ/heart,/obj/effect/decal/cleanable/blood,/obj/item/reagent_containers/food/snacks/grown/poppy)
+	required_atoms = list(/obj/item/organ/heart,/obj/effect/decal/cleanable/blood,/obj/item/reagent_containers/food/snacks/grown/flower)
 	result_atoms = list(/obj/item/living_heart)
 	route = "Start"
 

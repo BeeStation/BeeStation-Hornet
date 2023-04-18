@@ -401,13 +401,13 @@ Thresholds
 				done = TRUE
 			if(H.pulling && iscarbon(H.pulling)) //grabbing is handled with the disease instead of the component, so the component doesn't have to be processed
 				var/mob/living/carbon/C = H.pulling
-				var/def_check = C.getarmor(type = "melee")
+				var/def_check = C.getarmor(type = MELEE)
 				C.apply_damage(1*power, BRUTE, blocked = def_check)
 				C.visible_message("<span class='warning'>[C.name] is pricked on [H.name]'s spikes.</span>")
 				playsound(get_turf(C), 'sound/weapons/slice.ogg', 50, 1)
 			for(var/mob/living/carbon/C in ohearers(1, H))
 				if(C.pulling && C.pulling == H)
-					var/def_check = C.getarmor(type = "melee")
+					var/def_check = C.getarmor(type = MELEE)
 					C.apply_damage(3*power, BRUTE, blocked = def_check)
 					C.visible_message("<span class='warning'>[C.name] is pricked on [H.name]'s spikes.</span>")
 					playsound(get_turf(C), 'sound/weapons/slice.ogg', 50, 1)
@@ -523,7 +523,7 @@ Thresholds
 	speed = 5
 	damage_type = TOX
 	icon_state = "energy2"
-	flag = "bio"
+	armor_flag = BIO
 	var/list/diseases
 
 /obj/item/projectile/pimple/on_hit(atom/target, blocked)

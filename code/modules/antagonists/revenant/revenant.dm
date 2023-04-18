@@ -386,7 +386,13 @@
 	..()
 
 /mob/living/simple_animal/revenant/proc/check_orbitable(atom/A)
-	if(revealed || notransform || inhibited || !Adjacent(A) || !incorporeal_move_check(A))
+	if(revealed)
+		to_chat(src, "<span class='warning'>You can't orbit while you're revealed!</span>")
+		return
+	if(!Adjacent(A))
+		to_chat(src, "<span class='warning'>You can only orbit things that are next to you!</span>")
+		return
+	if(notransform || inhibited || !incorporeal_move_check(A))
 		return
 	var/icon/I = icon(A.icon, A.icon_state, A.dir)
 	var/orbitsize = (I.Width()+I.Height())*0.5
