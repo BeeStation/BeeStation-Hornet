@@ -338,7 +338,7 @@
 			output += "</div></div>"
 
 		var/static/antag_ban_list = list(BANCHECK_ROLE_MAJOR_ANTAGONIST)|GLOB.roundstart_antag_prefs|GLOB.midround_antag_list|GLOB.misc_antag_ban_list
-		var/static/ghost_ban_list = list(BANCHECK_ROLE_MAJOR_GHOSTSPAWN)|GLOB.ghost_special_roles|GLOB.misc_behavior_ban_list
+		var/static/ghost_ban_list = list(BANCHECK_ROLE_MAJOR_GHOSTSPAWN)|GLOB.ghost_special_roles__notifying|GLOB.ghost_special_roles__spawnable|GLOB.misc_behavior_ban_list
 		var/static/list/long_job_lists = list(("Civilian" = GLOB.civilian_positions),
 									"Antagonist Positions" = antag_ban_list,
 									"Ghost and Other Roles" = ghost_ban_list)

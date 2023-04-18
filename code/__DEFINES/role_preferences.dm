@@ -136,7 +136,7 @@ GLOBAL_LIST_INIT(roundstart_antag_prefs, list(
 	ROLE_KEY_GANG = /datum/game_mode/gang,
 ))
 
-// this is 'midround' antagonists. These are also ghost roles.
+// this is 'midround' antagonists. These typically need to send a notification to ghosts
 GLOBAL_LIST_INIT(midround_antag_list, list(
 	ROLE_KEY_ERT,
 	ROLE_KEY_OBSESSED,
@@ -160,35 +160,29 @@ GLOBAL_LIST_INIT(midround_antag_list, list(
 	ROLE_KEY_FUGITIVE_CHASER,
 ))
 
-// ghost roles without antag objective
-GLOBAL_LIST_INIT(ghost_special_roles, list(
+
+// ghost roles that send a notification to ghosts for candidates
+GLOBAL_LIST_INIT(ghost_special_roles__notifying, list(
+	ROLE_KEY_SENTIENT,
+	ROLE_KEY_EXPERIMENTAL_CLONE,
+	ROLE_KEY_DRONE,
+	ROLE_KEY_SPLITPERSONALITY,
+	ROLE_KEY_IMAGINARY_FRIEND,
+	ROLE_KEY_MENTOR_RAT, // TO-DO: we'll change this someday that only mentors can see toggle of this
+	ROLE_KEY_LIVING_LEGEND
+))
+
+// ghost roles that are spawnable by ghosts themselves
+GLOBAL_LIST_INIT(ghost_special_roles__spawnable, list(
 	ROLE_KEY_POSIBRAIN,
 	ROLE_KEY_PAI,
-	ROLE_KEY_SENTIENT,
 	ROLE_KEY_ASHWALKER,
 	ROLE_KEY_LAVALAND_DOCTOR,
 	ROLE_KEY_LAVALAND_LIFEBRINGER,
 	ROLE_KEY_BEACH_BUM,
 	ROLE_KEY_GOLEM,
-	ROLE_KEY_EXPERIMENTAL_CLONE,
-	ROLE_KEY_EXPLORATION_VIP,
 	ROLE_KEY_MAROONED_CREW,
-	ROLE_KEY_DRONE,
-	ROLE_KEY_SPLITPERSONALITY,
-	ROLE_KEY_IMAGINARY_FRIEND,
-	ROLE_KEY_MENTOR_RAT, // TO-DO: we'll change this someday that only mentors can see toggle this
-	ROLE_KEY_LIVING_LEGEND
-))
-
-// identical to `ghost_special_roles` but only with pinging roles. This should be used in preference option instead of using `ghost_special_roles`, because, as an example, 'ashwalker' isn't a ghost role that needs a candidate.
-// So, Only put roles that pinging people here.
-GLOBAL_LIST_INIT(notifying_ghost_roles, list(
-	ROLE_KEY_PAI,
-	ROLE_KEY_SENTIENT,
-	ROLE_KEY_EXPERIMENTAL_CLONE,
 	ROLE_KEY_EXPLORATION_VIP,
-	ROLE_KEY_DRONE,
-	ROLE_KEY_LIVING_LEGEND
 ))
 
 //Job defines for what happens when you fail to qualify for any job during job selection

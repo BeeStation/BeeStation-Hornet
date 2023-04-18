@@ -26,7 +26,7 @@
 
 /datum/antagonist/hypnotized
 	name = "Hypnotized Victim"
-	antag_major_bancheck_type = BANCHECK_ROLE_BRAINWASHED
+	antag_major_bancheck_type = BANCHECK_ROLE_BRAINWASHED // nothing different
 	roundend_category = "hypnotized victims"
 	show_in_antagpanel = TRUE
 	antagpanel_category = "Other"

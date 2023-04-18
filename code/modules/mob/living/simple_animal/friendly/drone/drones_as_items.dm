@@ -20,12 +20,13 @@
 	mob_type = /mob/living/simple_animal/drone
 	var/seasonal_hats = TRUE //If TRUE, and there are no default hats, different holidays will grant different hats
 	var/static/list/possible_seasonal_hats //This is built automatically in build_seasonal_hats() but can also be edited by admins!
+	var/main_ignore_key = POLL_IGNORE_DRONE
 
 /obj/effect/mob_spawn/drone/Initialize(mapload)
 	. = ..()
 	var/area/A = get_area(src)
 	if(A)
-		notify_ghosts("A drone shell has been created in \the [A.name].", source = src, action=NOTIFY_ATTACK, flashwindow = FALSE, ignore_key = POLL_IGNORE_DRONE, notify_suiciders = FALSE)
+		notify_ghosts("A drone shell has been created in \the [A.name].", source = src, action=NOTIFY_ATTACK, flashwindow = FALSE, ignore_key = main_ignore_key, notify_suiciders = FALSE)
 	GLOB.poi_list |= src
 	if(isnull(possible_seasonal_hats))
 		build_seasonal_hats()

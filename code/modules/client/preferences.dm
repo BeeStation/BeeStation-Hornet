@@ -766,12 +766,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			// --------------------------------------------
 			// Midround antagonists + ghostspawn roles
 			dat += "<td width='400px' height='300px' valign='top'>"
-			var/static/ghost_roles_list = list(GLOB.midround_antag_list, GLOB.notifying_ghost_roles)
+			var/static/ghost_roles_list = list(GLOB.midround_antag_list, GLOB.ghost_special_roles__notifying)
 			for (var/count in 1 to length(ghost_roles_list))
 				if(count == 1)
 					dat += "<h2>Midround antagonists</h2>"
 				else if(count == 2)
-					dat += "<h2>Ghost spawning roles</h2>"
+					dat += "<h2>Ghost-notifying roles</h2>"
 				for (var/each_role in ghost_roles_list[count])
 					if(is_banned_from(user.ckey, each_role))
 						dat += "<b>Be [capitalize(each_role)]:</b> <a href='?_src_=prefs;bancheck=[each_role]'>BANNED</a><br>"
