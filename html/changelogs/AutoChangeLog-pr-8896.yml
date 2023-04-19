@@ -1,0 +1,8 @@
+author: tiramisuapimancer
+delete-after: true
+changes:
+  - tweak: IPC antennas will now be hidden by things that hide ears and frills, rather
+      than things that hide hair
+  - tweak: added some FRONT layer states for some of the IPC antennas, which were
+      previously all ADJ, this means they'll layer over hats and things where they
+      would make sense to
