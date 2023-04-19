@@ -55,7 +55,7 @@ export const ChemDispenser = (props, context) => {
                   <Button
                     color="transparent"
                     content="Clear recipes"
-                    onClick={() => act('clear_recipes')} />
+                    onClick={() => act('clear_all_recipes')} />
                 </Box>
               )}
               {!recording && (
