@@ -1,7 +1,7 @@
 import { toFixed } from 'common/math';
 import { toTitleCase } from 'common/string';
 import { useBackend } from '../backend';
-import { AnimatedNumber, Box, Button, Icon, LabeledList, ProgressBar, Section } from '../components';
+import { AnimatedNumber, Box, Button, Flex, Icon, LabeledList, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 
 export const ChemDispenser = (props, context) => {
@@ -82,22 +82,40 @@ export const ChemDispenser = (props, context) => {
             </>
           )}>
           <Box mr={-1}>
-            {recipes.map(recipe => (
-              <Button
-                key={recipe.name}
-                icon="tint"
-                width="129.5px"
-                lineHeight="21px"
-                content={recipe.name}
-                onClick={() => act('dispense_recipe', {
-                  recipe: recipe.name,
-                })} />
+            {recipes.map((recipe) => (
+              <Flex key={recipe.name}>
+                <Flex.Item>
+                  <Button
+                    icon="tint"
+                    width="129.5px"
+                    lineHeight="21px"
+                    content={recipe.name}
+                    style={{
+                      'border-radius': '0.16em 0 0 0.16em',
+                    }}
+                    onClick={() =>
+                      act('dispense_recipe', {
+                        recipe: recipe.name,
+                      })}
+                  />
+                </Flex.Item>
+                <Flex.Item>
+                  <Button
+                    icon="trash"
+                    lineHeight="21px"
+                    color="bad"
+                    style={{
+                      'border-radius': '0 0.16em 0.16em 0',
+                    }}
+                    onClick={() =>
+                      act('delete_recipe', {
+                        recipe: recipe.name,
+                      })}
+                  />
+                </Flex.Item>
+              </Flex>
             ))}
-            {recipes.length === 0 && (
-              <Box color="light-gray">
-                No recipes.
-              </Box>
-            )}
+            {recipes.length === 0 && <Box color="light-gray">No recipes.</Box>}
           </Box>
         </Section>
         <Section
