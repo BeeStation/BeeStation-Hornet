@@ -105,7 +105,7 @@
 	display_name = "Improved Wound-Tending Surgery"
 	description = "Who would have known being more gentle with a hemostat decreases patient pain?"
 	prereq_ids = list("adv_biotech")
-	design_ids = list("surgery_heal_brute_upgrade","surgery_heal_burn_upgrade")
+	design_ids = list("surgery_heal_brute_upgrade","surgery_heal_burn_upgrade","surgery_filter_upgrade")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
 	export_price = 1000
 
@@ -116,7 +116,7 @@
 	display_name = "Advanced Surgery"
 	description = "When simple medicine doesn't cut it."
 	prereq_ids = list("imp_wt_surgery")
-	design_ids = list("surgery_lobotomy","surgery_heal_brute_upgrade_femto","surgery_heal_burn_upgrade_femto","surgery_heal_combo","surgery_exp_dissection")
+	design_ids = list("surgery_lobotomy","surgery_heal_brute_upgrade_femto","surgery_heal_burn_upgrade_femto","surgery_heal_combo","surgery_filter_upgrade_femto","surgery_exp_dissection")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 4000
 
