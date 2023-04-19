@@ -304,9 +304,7 @@
 			saved_recipes -= recipe_name
 			. = TRUE
 		if("clear_all_recipes")
-			var/yesno = alert("Clear all recipes?",, "Yes","No")
-			if(yesno == "Yes")
-				saved_recipes = list()
+			saved_recipes.Cut()
 			. = TRUE
 		if("record_recipe")
 			recording_recipe = list()
