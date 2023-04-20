@@ -2231,7 +2231,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 /// Returns a list of strings representing features this species has.
 /// Used by the preferences UI to know what buttons to show.
-/// Should only need to override if the feature is not attached to an organ or trait
+/// Should only need to override if the feature is not attached to a mutant bodypart or trait
 /datum/species/proc/get_features()
 	var/cached_features = GLOB.features_by_species[type]
 	if (!isnull(cached_features))
@@ -2247,11 +2247,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			|| (preference.relevant_species_trait in species_traits) \
 		)
 			features += preference.db_key
-
-	for (var/obj/item/organ/external/organ_type as anything in external_organs)
-		var/preference = initial(organ_type.preference)
-		if (!isnull(preference))
-			features += preference
 
 	GLOB.features_by_species[type] = features
 
