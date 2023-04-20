@@ -442,7 +442,7 @@
 	popup.open(FALSE) // 0 is passed to open so that it doesn't use the onclose() proc
 
 /// Creates, assigns and returns the new_character to spawn as. Assumes a valid mind.assigned_role exists.
-/mob/dead/new_player/proc/create_character(atom/destination)
+/mob/dead/new_player/proc/create_character(transfer_after)
 	spawning = TRUE
 	close_spawn_windows()
 

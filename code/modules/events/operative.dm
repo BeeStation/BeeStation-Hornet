@@ -23,10 +23,8 @@
 	if(!spawn_locs.len)
 		return MAP_ERROR
 
-	var/mob/living/carbon/human/operative = new(pick(spawn_locs))
-	// TODO tgui-prefs
-	//var/datum/character_save/CS = new
-	//CS.copy_to(operative)
+	var/mob/living/carbon/human/operative = new (pick(spawn_locs))
+	operative.randomize_human_appearance(~RANDOMIZE_SPECIES)
 	operative.dna.update_dna_identity()
 	var/datum/mind/Mind = new /datum/mind(selected.key)
 	Mind.assigned_role = "Lone Operative"

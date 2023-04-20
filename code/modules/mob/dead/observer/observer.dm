@@ -800,14 +800,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		name = real_name
 
 /mob/dead/observer/proc/set_ghost_appearance()
-	if((!client) || (!client.prefs))
+	if(!client?.prefs)
 		return
 
-	// TODO tgui-prefs
-	//if(client.prefs.active_character.be_random_name)
-	//	client.prefs.active_character.real_name = random_unique_name(gender)
-	//if(client.prefs.active_character.be_random_body)
-	//	client.prefs.active_character.randomise(gender)
+	client.prefs.apply_character_randomization_prefs()
 
 	var/species_type = client.prefs.read_character_preference(/datum/preference/choiced/species)
 	var/datum/species/species = new species_type

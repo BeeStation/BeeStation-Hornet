@@ -48,7 +48,7 @@
 
 	if(preview_job)
 		mannequin.job = preview_job.title
-		mannequin.dress_up_as_job(preview_job, TRUE)
+		preview_job.equip(mannequin, TRUE, preference_source = parent)
 
 	COMPILE_OVERLAYS(mannequin)
 	return mannequin.appearance

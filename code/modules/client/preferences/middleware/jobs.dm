@@ -75,9 +75,9 @@
 
 /datum/preference_middleware/jobs/proc/get_job_bans(mob/user)
 	var/list/data = list()
-// TODO tgui-prefs
-	//for (var/datum/job/job as anything in SSjob.all_occupations)
-	//	if (is_banned_from(user.client?.ckey, job.title))
-	//		data += job.title
+
+	for (var/datum/job/job as anything in SSjob.occupations)
+		if (is_banned_from(user.client?.ckey, job.title))
+			data += job.title
 
 	return data

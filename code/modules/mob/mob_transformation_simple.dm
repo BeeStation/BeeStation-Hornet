@@ -47,8 +47,7 @@
 		D.updateappearance(mutcolor_update=1, mutations_overlay_update=1)
 	else if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		// TODO tgui-prefs
-		//client.prefs.active_character.copy_to(H)
+		H.randomize_human_appearance(~RANDOMIZE_SPECIES)
 		H.dna.update_dna_identity()
 
 	if(mind && isliving(M))

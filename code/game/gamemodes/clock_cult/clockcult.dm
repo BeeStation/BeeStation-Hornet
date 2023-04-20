@@ -66,7 +66,7 @@ GLOBAL_VAR(clockcult_eminence)
 		selected_servants += clockie
 		clockie.assigned_role = BAN_ROLE_SERVANT_OF_RATVAR
 		clockie.special_role = BAN_ROLE_SERVANT_OF_RATVAR
-		GLOB.pre_setup_antags += servant
+		GLOB.pre_setup_antags += clockie
 	generate_clockcult_scriptures()
 	return TRUE
 
