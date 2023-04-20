@@ -14,11 +14,7 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 	var/list/quirk_objects = list()	//A list of all quirk objects in the game, since some may process
 	var/list/quirk_blacklist = list() //A list of quirks that can not be used with each other. Format: list(quirk1,quirk2),list(quirk3,quirk4)
 
-/datum/controller/subsystem/processing/quirks/Initialize(timeofday)
-	if(!length(quirks))
-		SetupQuirks()
-
-	quirk_blacklist = list(
+	var/static/list/quirks_blacklist = list(
 		list("Blind","Nearsighted"),
 		list("Jolly","Depression","Apathetic","Hypersensitive"),
 		list("Ageusia","Vegetarian","Deviant Tastes"),
@@ -26,7 +22,17 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 		list("Alcohol Tolerance","Light Drinker"),
 		list("Social Anxiety","Mute"),
 	)
+
+/datum/controller/subsystem/processing/quirks/Initialize(timeofday)
+	get_quirks()
 	return ..()
+
+/// Returns the list of possible quirks
+/datum/controller/subsystem/processing/quirks/proc/get_quirks()
+	RETURN_TYPE(/list)
+	if (!quirks.len)
+		SetupQuirks()
+	return quirks
 
 /datum/controller/subsystem/processing/quirks/proc/SetupQuirks()
 	// Sort by Positive, Negative, Neutral; and then by name
