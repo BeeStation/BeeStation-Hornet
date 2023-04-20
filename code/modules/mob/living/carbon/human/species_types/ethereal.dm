@@ -185,10 +185,9 @@
 /datum/species/ethereal/get_sniff_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_SNIFF_SOUND(user)
 
-// TODO tgui-prefs
-/*/datum/species/ethereal/get_features()
+/datum/species/ethereal/get_features()
 	var/list/features = ..()
 
 	features += "feature_ethcolor"
 
-	return features*/
+	return features
