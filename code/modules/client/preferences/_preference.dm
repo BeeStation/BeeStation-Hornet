@@ -279,12 +279,12 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	SHOULD_CALL_PARENT(TRUE)
 	SHOULD_NOT_SLEEP(TRUE)
 
-//	if (!isnull(relevant_mutant_bodypart) || !isnull(relevant_species_trait))
-//		var/species_type = preferences.read_character_preference(/datum/preference/choiced/species)
+	if (!isnull(relevant_mutant_bodypart) || !isnull(relevant_species_trait))
+		var/species_type = preferences.read_character_preference(/datum/preference/choiced/species)
 
-//		var/datum/species/species = new species_type
-// TODO tgui-prefs 		if (!(db_key in species.get_features()))
-//			return FALSE
+		var/datum/species/species = new species_type
+		if (!(db_key in species.get_features()))
+			return FALSE
 
 	if (!should_show_on_page(preferences.current_window))
 		return FALSE

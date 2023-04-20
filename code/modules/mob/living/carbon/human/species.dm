@@ -110,6 +110,14 @@ GLOBAL_LIST_EMPTY(features_by_species)
 // PROCS //
 ///////////
 
+/// Gets a list of all species available to choose in roundstart.
+/proc/get_selectable_species()
+	RETURN_TYPE(/list)
+
+	if (!GLOB.roundstart_races.len)
+		GLOB.roundstart_races = generate_selectable_species()
+
+	return GLOB.roundstart_races
 
 /proc/generate_selectable_species()
 	var/list/selectable_species = list()

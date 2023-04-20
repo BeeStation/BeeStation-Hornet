@@ -111,7 +111,8 @@
 		choosable_races = sort_list(choosable_races)
 
 /obj/structure/mirror/magic/lesser/Initialize(mapload)
-	choosable_races = GLOB.roundstart_races.Copy()
+	var/list/selectable = get_selectable_species()
+	choosable_races = selectable.Copy()
 	return ..()
 
 /obj/structure/mirror/magic/badmin/Initialize(mapload)

@@ -379,7 +379,7 @@
 
 				//Spawn the body
 				var/mob/living/carbon/human/ERTOperative = new ertemplate.mobtype(spawnloc)
-				chosen_candidate.client.prefs.apply_prefs_to(ERTOperative)
+				chosen_candidate.client.prefs.safe_transfer_prefs_to(ERTOperative, is_antag = TRUE)
 				ERTOperative.key = chosen_candidate.key
 				log_objective(ERTOperative, missionobj.explanation_text)
 

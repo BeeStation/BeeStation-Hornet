@@ -400,23 +400,20 @@
 	if(!player_client)
 		return // Disconnected while checking for the appearance ban.
 
-	var/require_human = FALSE//CONFIG_GET(flag/enforce_human_authority) && (job.departments_bitflags & DEPARTMENT_BITFLAG_COMMAND)
+	var/require_human = CONFIG_GET(flag/enforce_human_authority) && (job.departments & DEPT_BITFLAG_COM)
 
 	if(fully_randomize)
-		/*if(require_human)
+		if(require_human)
 			player_client.prefs.randomise_appearance_prefs(~RANDOMIZE_SPECIES)
 		else
-			player_client.prefs.randomise_appearance_prefs()*/
+			player_client.prefs.randomise_appearance_prefs()
 
 		player_client.prefs.apply_prefs_to(src)
 
 		if (require_human)
 			set_species(/datum/species/human)
-
-		//if(GLOB.current_anonymous_theme)
-		//	fully_replace_character_name(null, GLOB.current_anonymous_theme.anonymous_name(src))
 	else
-		var/is_antag = FALSE//(player_client.mob.mind in GLOB.pre_setup_antags)
+		var/is_antag = (player_client.mob.mind in GLOB.pre_setup_antags)
 		if(require_human)
 			player_client.prefs.randomise["species"] = FALSE
 		player_client.prefs.safe_transfer_prefs_to(src, TRUE, is_antag)

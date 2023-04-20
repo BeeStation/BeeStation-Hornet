@@ -21,7 +21,7 @@
 /datum/preference/choiced/species/init_possible_values()
 	var/list/values = list()
 
-	for (var/species_id in GLOB.roundstart_races)
+	for (var/species_id in get_selectable_species())
 		values += GLOB.species_list[species_id]
 
 	return values
@@ -34,7 +34,7 @@
 
 	var/list/food_flags = FOOD_FLAGS
 
-	for (var/species_id in GLOB.roundstart_races)
+	for (var/species_id in get_selectable_species())
 		var/species_type = GLOB.species_list[species_id]
 		var/datum/species/species = new species_type
 
@@ -54,7 +54,7 @@
 			"use_skintones" = species.use_skintones,
 			"sexes" = species.sexes,
 
-			"enabled_features" = list()//TODO tgui-prefs species.get_features(),
+			"enabled_features" = species.get_features(),
 		) + diet
 
 	return data

@@ -21,64 +21,6 @@
 		if (should_randomize(preference, antag_override))
 			write_preference(preference, preference.create_random_value(src))
 
-// TODO tgui-prefs
-
-///Setup the random hardcore quirks and give the character the new score prize.
-/datum/preferences/proc/hardcore_random_setup(mob/living/carbon/human/character)
-	//var/next_hardcore_score = select_hardcore_quirks()
-	//character.hardcore_survival_score = next_hardcore_score ** 1.2  //30 points would be about 60 score
-
-
-/**
- * Goes through all quirks that can be used in hardcore mode and select some based on a random budget.
- * Returns the new value to be gained with this setup, plus the previously earned score.
- **/
-/datum/preferences/proc/select_hardcore_quirks()
-// TODO tgui-prefs
-/*	. = 0
-
-	var/quirk_budget = rand(8, 35)
-
-	all_quirks = list() //empty it out
-
-	var/list/available_hardcore_quirks = SSquirks.hardcore_quirks.Copy()
-
-	while(quirk_budget > 0)
-		for(var/i in available_hardcore_quirks) //Remove from available quirks if its too expensive.
-			var/datum/quirk/available_quirk = i
-			if(available_hardcore_quirks[available_quirk] > quirk_budget)
-				available_hardcore_quirks -= available_quirk
-
-		if(!available_hardcore_quirks.len)
-			break
-
-		var/datum/quirk/picked_quirk = pick(available_hardcore_quirks)
-
-		var/picked_quirk_blacklisted = FALSE
-		for(var/bl in SSquirks.quirk_blacklist) //Check if the quirk is blacklisted with our current quirks. quirk_blacklist is a list of lists.
-			var/list/blacklist = bl
-			if(!(picked_quirk in blacklist))
-				continue
-			for(var/iterator_quirk in all_quirks) //Go through all the quirks we've already selected to see if theres a blacklist match
-				if((iterator_quirk in blacklist) && !(iterator_quirk == picked_quirk)) //two quirks have lined up in the list of the list of quirks that conflict with each other, so return (see quirks.dm for more details)
-					picked_quirk_blacklisted = TRUE
-					break
-			if(picked_quirk_blacklisted)
-				break
-
-		if(picked_quirk_blacklisted)
-			available_hardcore_quirks -= picked_quirk
-			continue
-
-		if(initial(picked_quirk.mood_quirk) && CONFIG_GET(flag/disable_human_mood)) //check for moodlet quirks
-			available_hardcore_quirks -= picked_quirk
-			continue
-
-		all_quirks += initial(picked_quirk.name)
-		quirk_budget -= available_hardcore_quirks[picked_quirk]
-		. += available_hardcore_quirks[picked_quirk]
-		available_hardcore_quirks -= picked_quirk
-*/
 /// Returns what job is marked as highest
 /datum/preferences/proc/get_highest_priority_job()
 	var/datum/job/preview_job
@@ -106,7 +48,7 @@
 
 	if(preview_job)
 		mannequin.job = preview_job.title
-		// TODO tgui-prefs mannequin.dress_up_as_job(preview_job, TRUE)
+		mannequin.dress_up_as_job(preview_job, TRUE)
 
 	COMPILE_OVERLAYS(mannequin)
 	return mannequin.appearance
