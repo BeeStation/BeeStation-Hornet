@@ -7,14 +7,14 @@
 	maximum = 240
 
 /datum/preference/numeric/fps/create_default_value()
-	return -1
+	return -1 // use the default
 
 /datum/preference/numeric/fps/apply_to_client(client/client, value)
-	client.fps = (value < 0) ? 20 : value
+	client.fps = (value < 0) ? 40 : value
 
 /datum/preference/numeric/fps/compile_constant_data()
 	var/list/data = ..()
 
-	data["recommended_fps"] = 20
+	data["recommended_fps"] = 40
 
 	return data

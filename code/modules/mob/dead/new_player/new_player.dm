@@ -448,7 +448,7 @@
 
 	var/mob/living/carbon/human/H = new(loc)
 
-	H.apply_prefs_job(H.client, SSjob.GetJob(mind.assigned_role))
+	H.apply_prefs_job(client, SSjob.GetJob(mind.assigned_role))
 	if(QDELETED(src) || !client)
 		return // Disconnected while checking for the appearance ban.
 	if(mind)
