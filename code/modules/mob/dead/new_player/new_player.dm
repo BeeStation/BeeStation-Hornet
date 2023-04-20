@@ -448,17 +448,9 @@
 
 	var/mob/living/carbon/human/H = new(loc)
 
-	var/frn = CONFIG_GET(flag/force_random_names)
-	if(!frn)
-		frn = is_banned_from(ckey, "Appearance")
-		if(QDELETED(src))
-			return
-	if(frn) // TODO tgui-prefs
-		//client.prefs..
-		//client.prefs.apply_prefs_to(H)
-		client.prefs.active_character.real_name = client.prefs.active_character.pref_species.random_name(gender,1)
-	client.prefs.active_character.apply_all_
-	H.dna.update_dna_identity()
+	H.apply_prefs_job(H.client, SSjob.GetJob(mind.assigned_role))
+	if(QDELETED(src) || !client)
+		return // Disconnected while checking for the appearance ban.
 	if(mind)
 		if(transfer_after)
 			mind.late_joiner = TRUE
