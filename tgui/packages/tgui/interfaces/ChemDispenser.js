@@ -6,6 +6,7 @@ import { Window } from '../layouts';
 
 const RecipeOptions = (_props, context) => {
   const { act, data } = useBackend(context);
+  const [deletingRecipes, setDeletingRecipes] = useLocalState(context, 'deletingRecipes', false);
   const [_clearingRecipes, setClearingRecipes] = useLocalState(context, 'clearingRecipes', false);
   const recording = !!data.recordingRecipe;
   return (
@@ -17,6 +18,13 @@ const RecipeOptions = (_props, context) => {
             content="Clear recipes"
             onClick={() => setClearingRecipes(true)} />
         </Box>
+      )}
+      {!recording && (
+        <Button
+          icon="trash"
+          color={deletingRecipes ? "red" : "transparent"}
+          content={deletingRecipes ? "Deleting" : "Delete"}
+          onClick={() => setDeletingRecipes(!deletingRecipes)} />
       )}
       {!recording && (
         <Button
@@ -40,53 +48,6 @@ const RecipeOptions = (_props, context) => {
           onClick={() => act('save_recording')} />
       )}
     </>
-  );
-};
-
-const RecipeDeleteDimmer = (props, context) => {
-  const { act } = useBackend(context);
-  const { recipe } = props;
-  const [_, setDeletingRecipe] = useLocalState(context, 'deletingRecipe');
-  return (
-    <Dimmer>
-      <Stack align="baseline" vertical>
-        <Stack.Item>
-          <Stack ml={-2}>
-            <Stack.Item>
-              <Icon
-                color="red"
-                name="trash"
-                size={10}
-              />
-            </Stack.Item>
-          </Stack>
-        </Stack.Item>
-        <Stack.Item fontSize="18px">
-          Are you sure you want to delete the <b>{recipe}</b> recipe?
-        </Stack.Item>
-        <Stack.Item>
-          <Stack>
-            <Stack.Item>
-              <Button
-                color="good"
-                content="Keep"
-                onClick={() => {
-                  setDeletingRecipe(null);
-                }} />
-            </Stack.Item>
-            <Stack.Item>
-              <Button
-                color="bad"
-                content="Delete"
-                onClick={() => {
-                  act('delete_recipe', { recipe });
-                  setDeletingRecipe(null);
-                }} />
-            </Stack.Item>
-          </Stack>
-        </Stack.Item>
-      </Stack>
-    </Dimmer>
   );
 };
 
@@ -140,42 +101,26 @@ const RecipeClearAllDimmer = (_props, context) => {
 const RecipeButton = (props, context) => {
   const { act } = useBackend(context);
   const { recipe } = props;
-  const [_deletingRecipe, setDeletingRecipe] = useLocalState(context, 'deletingRecipe');
+  const [deletingRecipes] = useLocalState(context, 'deletingRecipes', false);
   return (
-    <Flex>
-      <Flex.Item>
-        <Button
-          icon="tint"
-          width="129.5px"
-          lineHeight="21px"
-          content={recipe.name}
-          style={{
-            'border-radius': '0.16em 0 0 0.16em',
-          }}
-          onClick={() =>
-            act('dispense_recipe', {
-              recipe: recipe.name,
-            })}
-        />
-      </Flex.Item>
-      <Flex.Item>
-        <Button
-          icon="trash"
-          lineHeight="21px"
-          color="bad"
-          style={{
-            'border-radius': '0 0.16em 0.16em 0',
-          }}
-          onClick={() => setDeletingRecipe(recipe.name)} />
-      </Flex.Item>
-    </Flex>
+    <Button
+      icon="tint"
+      width="129.5px"
+      lineHeight="21px"
+      content={recipe.name}
+      color={!!deletingRecipes && "red"}
+      onClick={() => {
+        act(deletingRecipes ? 'delete_recipe' : 'dispense_recipe', {
+          recipe: recipe.name,
+        });
+      }}
+    />
   );
 };
 
 export const ChemDispenser = (_props, context) => {
   const { act, data } = useBackend(context);
   const recording = !!data.recordingRecipe;
-  const [deletingRecipe] = useLocalState(context, 'deletingRecipe');
   const [clearingRecipes] = useLocalState(context, 'clearingRecipes', false);
   // TODO: Change how this piece of shit is built on server side
   // It has to be a list, not a fucking OBJECT!
@@ -198,9 +143,6 @@ export const ChemDispenser = (_props, context) => {
     <Window
       width={565}
       height={620}>
-      {!!deletingRecipe && (
-        <RecipeDeleteDimmer recipe={deletingRecipe} />
-      )}
       {!!clearingRecipes && (
         <RecipeClearAllDimmer />
       )}
