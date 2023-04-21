@@ -69,8 +69,14 @@ const RecipeClearAllDimmer = (_props, context) => {
           </Stack>
         </Stack.Item>
         <Stack.Item fontSize="18px">
-          Are you sure you want to delete <b>all of your recipes</b>?
-          This is <b>irreversible</b>!
+          <Stack vertical textAlign="center">
+            <Stack.Item>
+              Are you sure you want to delete <b>all of your recipes</b>?
+            </Stack.Item>
+            <Stack.Item>
+              This is <b>irreversible</b>!
+            </Stack.Item>
+          </Stack>
         </Stack.Item>
         <Stack.Item>
           <Stack>
