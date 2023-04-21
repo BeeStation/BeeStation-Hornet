@@ -100,6 +100,8 @@
 	icon_state = "magic_mirror"
 	var/list/choosable_races = list()
 	magical = TRUE
+	var/uses_preference = TRUE
+	var/changes_mind_name = TRUE
 
 /obj/structure/mirror/magic/Initialize(mapload)
 	. = ..()
@@ -109,6 +111,10 @@
 			if(initial(S.changesource_flags) & MIRROR_MAGIC)
 				choosable_races += initial(S.id)
 		choosable_races = sort_list(choosable_races)
+
+// clockcult one
+/obj/structure/mirror/magic/lesser
+	changes_mind_name = FALSE
 
 /obj/structure/mirror/magic/lesser/Initialize(mapload)
 	choosable_races = GLOB.roundstart_races.Copy()
@@ -129,8 +135,21 @@
 		return
 
 	var/mob/living/carbon/human/H = user
+	if(H.health <= H.maxHealth-10) // Exploit: magic mirror can fully heal you. 10 damage is a grace.
+		to_chat(H, "<span class='warning'>You must be in full condition before using the mirror!</span>")
+		return
 
-	var/choice = input(user, "Something to change?", "Magical Grooming") as null|anything in list("name", "race", "gender", "hair", "eyes")
+	var/available_choicse = list("name", "race", "gender", "hair", "eyes")
+	var/list/character_list = list()
+	for(var/do_only_once in 1 to uses_preference)
+		character_list = user.client.prefs.get_character_list()
+		if(!length(character_list))
+			break
+		available_choicse += "-----------"
+		available_choicse += character_list
+
+
+	var/choice = input(user, "Something to change?", "Magical Grooming") as null|anything in available_choicse
 
 	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
@@ -147,8 +166,10 @@
 			H.name = newname
 			if(H.dna)
 				H.dna.real_name = newname
-			if(H.mind)
+			if(H.mind && changes_mind_name)
 				H.mind.name = newname
+
+			who_are_you()
 
 		if("race")
 			var/newrace
@@ -240,12 +261,32 @@
 				H.eye_color = sanitize_hexcolor(new_eye_color)
 				H.dna.update_ui_block(DNA_EYE_COLOR_BLOCK)
 				H.update_body()
+
+		// become a character from your prefs that you choose
+		else
+			if(!character_list[choice])
+				choice = "" // curse-safe
+				return
+
+			if(user.client.prefs.apply_pref_to_character(H, character_list[choice], changes_mind_name))
+				who_are_you()
+			else
+				choice = "" // something's wrong to copy. curse-safe 2
+				return
+
 	if(choice)
 		curse(user)
 
 /obj/structure/mirror/magic/proc/curse(mob/living/user)
 	return
 
+/obj/structure/mirror/magic/proc/who_are_you(mob/living/H, full_change=FALSE)
+	if(!changes_mind_name)
+		to_chat(H, "<span class='notice'>You find yourself to be a different person, but you're still [H.mind.name].</span>")
+	else if(full_change)
+		to_chat(H, "<span class='notice'>You are now [H.mind.name] in body, mind and soul!</span>")
+	else
+		to_chat(H, "<span class='notice'>You are now [H.mind.name] in body, mind and soul!</span>")
 
 //basically stolen from human_defense.dm
 /obj/structure/mirror/bullet_act(obj/item/projectile/P)

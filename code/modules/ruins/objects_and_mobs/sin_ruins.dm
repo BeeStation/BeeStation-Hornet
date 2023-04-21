@@ -101,6 +101,7 @@
 	name = "pride's mirror"
 	desc = "Pride cometh before the..."
 	icon_state = "magic_mirror"
+	changes_mind_name = FALSE
 
 /obj/structure/mirror/magic/pride/New()
 	for(var/speciestype in subtypesof(/datum/species))
