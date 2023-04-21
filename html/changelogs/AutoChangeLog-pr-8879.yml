@@ -1,0 +1,5 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - admin: The recipient of an attack now has their current stamina damage logged
+      alongside their current HP within attack logs.
