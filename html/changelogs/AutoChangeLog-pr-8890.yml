@@ -1,0 +1,5 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - rscadd: Added a text for inserting an item into the sleeper
+  - tweak: made the sleeper drop its contents upon being deconstructed
