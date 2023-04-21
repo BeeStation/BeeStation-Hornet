@@ -1443,7 +1443,7 @@
 
 	var/mob/living/living_target = target
 	var/hp = istype(living_target) ? " (NEWHP: [living_target.health]) " : ""
-	var/stam = ""
+	var/stam
 	if(iscarbon(living_target))
 		var/mob/living/carbon/C = living_target
 		stam = "(STAM: [C.getStaminaLoss()]) "
