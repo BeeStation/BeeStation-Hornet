@@ -280,11 +280,9 @@
 /obj/structure/mirror/magic/proc/curse(mob/living/user)
 	return
 
-/obj/structure/mirror/magic/proc/who_are_you(mob/living/H, full_change=FALSE)
+/obj/structure/mirror/magic/proc/who_are_you(mob/living/H)
 	if(!changes_mind_name)
 		to_chat(H, "<span class='notice'>You find yourself to be a different person, but you're still [H.mind.name].</span>")
-	else if(full_change)
-		to_chat(H, "<span class='notice'>You are now [H.mind.name] in body, mind and soul!</span>")
 	else
 		to_chat(H, "<span class='notice'>You are now [H.mind.name] in body, mind and soul!</span>")
 
