@@ -97,4 +97,3 @@
 
 /datum/surgery_step/filter_blood/femto
 	time = 1 SECONDS
-	tox_heal_factor = 0.15
