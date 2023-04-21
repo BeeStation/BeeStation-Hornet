@@ -265,14 +265,12 @@
 		// become a character from your prefs that you choose
 		else
 			if(!character_list[choice])
-				choice = "" // curse-safe
 				return
 
 			if(user.client.prefs.apply_pref_to_character(H, character_list[choice], changes_mind_name))
 				who_are_you()
 			else
-				choice = "" // something's wrong to copy. curse-safe 2
-				return
+				return // something's wrong to copy. curse-safe 2
 
 	if(choice)
 		curse(user)
