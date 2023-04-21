@@ -270,7 +270,7 @@
 			if(user.client.prefs.apply_pref_to_character(H, character_list[choice], changes_mind_name))
 				who_are_you()
 			else
-				return // something's wrong to copy. curse-safe 2
+				return // something's wrong to copy
 
 	if(choice)
 		curse(user)
