@@ -314,8 +314,6 @@ SUBSYSTEM_DEF(zclear)
 
 	if(!length(possible_transitions))
 		possible_transitions = list(SSmapping.empty_space)
-		if(!length(possible_transitions)) //Just throw them back on station, if not just runtime.
-			possible_transitions = SSmapping.levels_by_trait(ZTRAIT_STATION)
 
 	var/_z = pick(possible_transitions)
 
