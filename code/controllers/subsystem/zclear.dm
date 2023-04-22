@@ -307,15 +307,17 @@ SUBSYSTEM_DEF(zclear)
 	var/max = world.maxx-TRANSITIONEDGE
 	var/min = 1+TRANSITIONEDGE
 
-	var/list/possible_transtitons = list()
+	var/list/possible_transitions = list()
 	for(var/datum/space_level/D as() in SSmapping.z_list)
 		if (D.linkage == CROSSLINKED)
-			possible_transtitons += D.z_value
+			possible_transitions += D.z_value
 
-	if(!length(possible_transtitons))
-		possible_transtitons = list(SSmapping.empty_space)
+	if(!length(possible_transitions))
+		possible_transitions = list(SSmapping.empty_space)
+		if(!length(possible_transitions)) //Just throw them back on station, if not just runtime.
+			possible_transitions = SSmapping.levels_by_trait(ZTRAIT_STATION)
 
-	var/_z = pick(possible_transtitons)
+	var/_z = pick(possible_transitions)
 
 	//now select coordinates for a border turf
 	var/_x = rand(min,max)
