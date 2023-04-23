@@ -92,7 +92,7 @@
 
 /datum/addiction/maintenance_drugs
 	name = "maintenance drug"
-	withdrawal_stage_messages = list()
+	withdrawal_stage_messages = null
 
 /datum/addiction/maintenance_drugs/withdrawal_enters_stage_1(mob/living/carbon/affected_carbon)
 	. = ..()
