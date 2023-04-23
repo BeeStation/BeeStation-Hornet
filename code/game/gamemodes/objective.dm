@@ -291,6 +291,25 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	if(target && !target.current)
 		explanation_text = "Assassinate [target.name], who was obliterated"
 
+/datum/objective/assassinate/once
+	name = "assasinate once"
+	var/start_time = 0
+
+/datum/objective/assassinate/once/find_target(list/dupe_search_range, list/blacklist)
+	. = ..()
+	if(.)
+		start_time = world.time
+
+/datum/objective/assassinate/once/update_explanation_text()
+	..()
+	if(target?.current)
+		explanation_text = "Assassinate [target.name], the [!target_role_type ? target.assigned_role : target.special_role], at least once, regardless of subsequent revival."
+	else
+		explanation_text = "Free Objective"
+
+/datum/objective/assassinate/once/check_completion()
+	return ..() || (target && target.last_death >= start_time)
+
 /datum/objective/mutiny
 	name = "mutiny"
 	var/target_role_type=FALSE

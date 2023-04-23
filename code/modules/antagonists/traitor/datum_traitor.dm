@@ -161,7 +161,11 @@
 			maroon_objective.find_target()
 			add_objective(maroon_objective)
 		else
-			var/datum/objective/assassinate/kill_objective = new
+			var/datum/objective/assassinate/kill_objective
+			if(prob(60))
+				kill_objective = new /datum/objective/assassinate/once
+			else
+				kill_objective = new /datum/objective/assassinate
 			kill_objective.owner = owner
 			kill_objective.find_target()
 			add_objective(kill_objective)
