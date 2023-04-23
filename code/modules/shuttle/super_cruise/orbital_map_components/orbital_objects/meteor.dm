@@ -30,7 +30,7 @@
 	if(!QDELETED(target))
 		end_x = target.position.x
 		end_y = target.position.y
-	var/current_tick = SSorbits.times_fired
+	var/current_tick = SSorbits.times_fired * SSorbits.wait
 	var/tick_proportion = min((current_tick - start_tick) / (end_tick - start_tick), 1)
 	//stop when reached the target
 	if(tick_proportion == 1)
