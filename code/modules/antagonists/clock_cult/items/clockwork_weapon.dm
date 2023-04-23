@@ -67,7 +67,7 @@
 		var/mob/living/target = hit_atom
 		if(!.)
 			if(!target.anti_magic_check(magic=FALSE,holy=TRUE) && !is_servant_of_ratvar(target))
-				hit_effect(target, throwingdatum.thrower, TRUE)
+				hit_effect(target, throwingdatum?.thrower, TRUE)
 
 /obj/item/clockwork/weapon/proc/hit_effect(mob/living/target, mob/living/user, thrown=FALSE)
 	return
