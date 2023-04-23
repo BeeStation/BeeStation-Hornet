@@ -221,6 +221,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	///Icon for monkey
 	var/icon/monkey_icon
 
+
 /obj/item/Initialize(mapload)
 
 	materials =	typelist("materials", materials)
@@ -361,6 +362,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			. += "[src] is made of cold-resistant materials."
 		if(resistance_flags & FIRE_PROOF)
 			. += "[src] is made of fire-retardant materials."
+	if(!(item_flags & NOBLUDGEON) && !(item_flags & ISWEAPON) && force != 0)
+		. += "<span class='notice'>You'll have to apply a <b>conscious effort</b> to harm someone with [src].</span>"
 	if(block_level || block_upgrade_walk)
 		if(block_upgrade_walk == 1 && !block_level)
 			. += "While walking, [src] can block attacks in a <b>narrow</b> arc."

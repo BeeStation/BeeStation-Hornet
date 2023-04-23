@@ -22,6 +22,7 @@
 			return FALSE
 		new /obj/effect/dumpeetTarget(targetturf, user)
 		activated = TRUE
+		log_game("[key_name(user)] has activated the Crab-17 protocol at [AREACOORD(src)]")
 
 #define RUN_AWAY_THRESHOLD_HP 140
 #define RUN_AWAY_DELAYED_HP 30
@@ -43,6 +44,9 @@
 	var/canwalk = FALSE
 	var/static/existing_machines = 0
 	var/protected_accounts = list()
+	var/victim_accounts = list()
+	/// the less player you have, the less crab-17 will toxic. maximum at 20 pop
+	var/player_modifier = 1
 
 
 /obj/structure/checkoutmachine/Initialize(mapload, mob/living/user)
@@ -51,7 +55,11 @@
 	add_overlay("hatch")
 	add_overlay("legs_retracted")
 	addtimer(CALLBACK(src, PROC_REF(startUp)), 50)
-	next_health_to_teleport = max_integrity - RUN_AWAY_THRESHOLD_HP
+	player_modifier = length(GLOB.player_list)
+	max_integrity = min(300+player_modifier*15, 600)
+	obj_integrity = max_integrity
+	calculate_runaway_condition()
+
 	existing_machines++
 	. = ..()
 
@@ -78,6 +86,15 @@
 	else
 		return ..()
 
+/obj/structure/checkoutmachine/proc/calculate_runaway_condition()
+	next_health_to_teleport = obj_integrity - RUN_AWAY_THRESHOLD_HP - clamp((20-player_modifier)*10, 0, 100)
+	/* the less player you have, it will less run away:
+		[1 pop] 315-75-dead
+		[5 pop] 375-135-dead
+		[10 pop] 450-210-dead
+		[15 pop] 525-335-145-dead
+		[20 pop] 600-460-320-180-40-dead (same with more pop)
+	*/
 
 /obj/structure/checkoutmachine/proc/startUp() //very VERY snowflake code that adds a neat animation when the pod lands.
 	start_dumping() //The machine doesnt move during this time, giving people close by a small window to grab their funds before it starts running around
@@ -160,32 +177,45 @@
 	dump()
 
 /obj/structure/checkoutmachine/proc/dump()
+	if(QDELETED(src) || !src)
+		return
 	var/percentage_lost = (rand(10, 30) / 1000) // 1~3% randomly chosen. the value is nerfed since the market machine will run away
-	var/datum/bank_account/crab_account = bogdanoff.get_bank_account()
+	var/datum/bank_account/crab_account = bogdanoff?.get_bank_account()
 	var/total_credits_stolen = 0
 	var/victim_count = 0
 	for(var/datum/bank_account/B in SSeconomy.bank_accounts)
 		if(protected_accounts["[B.account_id]"])
 			continue
+		B.withdrawDelay += 30 SECONDS // we apologize for the extended maintenance, but we need to steal your credits
+
 		var/amount = 0
 		if(B.account_balance)
-			amount = max(round(B.account_balance * percentage_lost), 1) // we'll steal at least 1 credit
+			amount = round(max(B.account_balance * percentage_lost, 1)) // we'll steal at least 1 credit
+		if(!amount)
+			B.bank_card_talk("A spacecoin credit deposit machine is located at: [get_area(src)].")
+			continue
 		if(crab_account)
-			if(amount)
-				crab_account.transfer_money(B, amount)
-				total_credits_stolen += amount
-				victim_count += 1
-				B.bank_card_talk("You have lost [percentage_lost * 100]% of your funds! A spacecoin credit deposit machine is located at: [get_area(src)].")
+			if(!crab_account.transfer_money(B, amount))
+				B.bank_card_talk("A spacecoin credit deposit machine is located at: [get_area(src)].")
+				continue
 		else
-			if(amount)
-				B.adjust_money(-amount)
-				total_credits_stolen += amount
-				victim_count += 1
-				B.bank_card_talk("You have lost [percentage_lost * 100]% of your funds! A spacecoin credit deposit machine is located at: [get_area(src)].")
-		B.withdrawDelay += 30 SECONDS // we apologize for the extended maintenance, but we need to steal your credits
+			if(!B.adjust_money(-amount))
+				B.bank_card_talk("A spacecoin credit deposit machine is located at: [get_area(src)].")
+				continue
+		total_credits_stolen += amount
+		victim_count += 1
+		B.bank_card_talk("You have lost [percentage_lost * 100]% of your funds! A spacecoin credit deposit machine is located at: [get_area(src)].")
+
+	if(crab_account)
+		crab_account.bank_card_talk("You have stolen [total_credits_stolen] credits, and the machine is located at [get_area(src)].")
 	for(var/M in GLOB.dead_mob_list)
 		var/link = FOLLOW_LINK(M, src)
 		to_chat(M, "<span class='deadsay'>[link] [name] [total_credits_stolen ? "siphons total [total_credits_stolen] credits from [victim_count] bank accounts." : "tried to siphon bank accounts, but there're no victims."] location: [get_area(src)]</span>")
+
+	if(obj_integrity>25)
+		next_health_to_teleport -= round(max_integrity/60)
+		take_damage(round(max_integrity/60)) // self-damage for self-destruction
+
 	addtimer(CALLBACK(src, PROC_REF(dump)), 150) //Drain every 15 seconds
 
 /obj/structure/checkoutmachine/process()
@@ -195,8 +225,12 @@
 
 	// Oh no, it RUNS AWAY!!!
 	if(obj_integrity && obj_integrity < next_health_to_teleport) // checks if obj_integrity is positive first
-		next_health_to_teleport -= RUN_AWAY_THRESHOLD_HP
-		var/turf/targetturf = get_safe_random_station_turfs()
+		calculate_runaway_condition()
+		var/turf/targetturf
+		for(var/i in 1 to 100) // teleporting across z-levels is painful
+			targetturf = get_safe_random_station_turfs()
+			if(targetturf.get_virtual_z_level() == src.get_virtual_z_level())
+				break
 		if(targetturf)
 			var/turf/message_turf = get_turf(src) // 'visible_message' from teleported mob will be visible after it's teleported...
 			if(do_teleport(src, targetturf, 0, channel = TELEPORT_CHANNEL_BLUESPACE))

@@ -43,7 +43,6 @@
 				blood_type = B.data["blood_type"]
 				features = B.data["features"]
 				factions = B.data["factions"]
-				quirks = B.data["quirks"]
 				sampleDNA = B.data["blood_DNA"]
 				contains_sample = TRUE
 				visible_message("<span class='notice'>The [src] is injected with a fresh blood sample.</span>")
