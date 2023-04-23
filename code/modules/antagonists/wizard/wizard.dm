@@ -65,7 +65,7 @@
 		return
 	switch(rand(1,100))
 		if(1 to 30)
-			var/datum/objective/assassinate/kill_objective = new
+			var/datum/objective/assassinate/kill_objective = prob(60) ? new /datum/objective/assassinate/once : new /datum/objective/assassinate
 			kill_objective.owner = owner
 			kill_objective.find_target()
 			objectives += kill_objective

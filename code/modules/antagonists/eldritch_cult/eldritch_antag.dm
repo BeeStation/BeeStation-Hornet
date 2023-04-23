@@ -122,7 +122,7 @@
 				objectives += S
 				log_objective(owner, S.explanation_text)
 			else
-				var/datum/objective/assassinate/A = new()
+				var/datum/objective/assassinate/A = prob(60) ? new /datum/objective/assassinate/once : new /datum/objective/assassinate
 				A.owner = owner
 				var/list/owners = A.get_owners()
 				A.find_target(owners,protection)

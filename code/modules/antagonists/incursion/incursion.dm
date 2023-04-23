@@ -171,7 +171,7 @@
 				add_objective(new/datum/objective/destroy, TRUE)
 			else if(prob(32))						//~26%
 				//Kill head
-				var/datum/objective/assassinate/killchosen = new
+				var/datum/objective/assassinate/killchosen = prob(40) ? new /datum/objective/assassinate/once : new /datum/objective/assassinate
 				var/list/current_heads = SSjob.get_all_heads()
 				if(!current_heads.len)
 					generate_traitor_kill_objective(restricted_jobs)
