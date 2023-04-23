@@ -281,7 +281,7 @@
 		return FALSE
 
 	if(recipe.on_floor)
-		if(!isfloorturf(dest_turf))
+		if(!isanyfloor(dest_turf))
 			to_chat(usr, "<span class='warning'>\The [recipe.title] must be constructed on the floor!</span>")
 			return FALSE
 
