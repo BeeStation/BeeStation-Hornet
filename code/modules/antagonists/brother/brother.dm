@@ -172,7 +172,7 @@
 		else if(prob(30))
 			add_objective(new/datum/objective/maroon, TRUE)
 		else
-			add_objective(prob(60) ? new /datum/objective/assassinate : new /datum/objective/assassinate/once, TRUE)
+			add_objective(prob(60) ? new /datum/objective/assassinate/once : new /datum/objective/assassinate, TRUE)
 	else
 		add_objective(new/datum/objective/steal, TRUE)
 
