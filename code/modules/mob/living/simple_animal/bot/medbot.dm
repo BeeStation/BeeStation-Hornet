@@ -134,6 +134,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 /mob/living/simple_animal/bot/medbot/proc/soft_reset() //Allows the medibot to still actively perform its medical duties without being completely halted as a hard reset does.
 	path = list()
 	set_patient(null)
+	oldpatient = null
 	mode = BOT_IDLE
 	last_found = world.time
 	update_icon()

@@ -253,6 +253,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "metalfoam"
 	density = TRUE
+	obj_flags = CAN_BE_HIT | BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 	opacity = 1 	// changed in New()
 	anchored = TRUE
 	layer = EDGED_TURF_LAYER

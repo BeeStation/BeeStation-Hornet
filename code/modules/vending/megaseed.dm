@@ -28,7 +28,7 @@
 					/obj/item/seeds/orange = 3,
 					/obj/item/seeds/pineapple = 3,
 					/obj/item/seeds/potato = 3,
-					/obj/item/seeds/poppy = 3,
+					/obj/item/seeds/flower/poppy = 3,
 					/obj/item/seeds/pumpkin = 3,
 					/obj/item/seeds/replicapod = 3,
 					/obj/item/seeds/wheat/rice = 3,

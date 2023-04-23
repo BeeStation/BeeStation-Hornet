@@ -72,7 +72,7 @@
 
 /mob/living/carbon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	var/hurt = TRUE
-	if(throwingdatum.force <= MOVE_FORCE_WEAK)
+	if(!throwingdatum || throwingdatum.force <= MOVE_FORCE_WEAK)
 		hurt = FALSE
 
 	if(iscarbon(hit_atom) && hit_atom != src)
