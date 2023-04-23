@@ -9,6 +9,7 @@
 	layer = OPEN_DOOR_LAYER
 	power_channel = AREA_USAGE_ENVIRON
 	pass_flags_self = PASSDOORS
+	obj_flags = CAN_BE_HIT | BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 	max_integrity = 350
 	armor = list(MELEE = 30,  BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 80, ACID = 70, STAMINA = 0)
 	CanAtmosPass = ATMOS_PASS_DENSITY
@@ -308,6 +309,7 @@
 	set_opacity(0)
 	sleep(open_speed)
 	set_density(FALSE)
+	obj_flags &= ~(BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP)
 	sleep(open_speed)
 	layer = initial(layer)
 	update_appearance()
@@ -338,8 +340,10 @@
 	layer = closingLayer
 	if(air_tight)
 		set_density(TRUE)
+		obj_flags |= BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 	sleep(open_speed)
 	set_density(TRUE)
+	obj_flags |= BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 	sleep(open_speed)
 	update_icon()
 	if(visible && !glass)

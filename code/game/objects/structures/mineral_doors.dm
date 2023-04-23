@@ -6,6 +6,7 @@
 	density = TRUE
 	anchored = TRUE
 	opacity = TRUE
+	obj_flags = CAN_BE_HIT | BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 
 	icon = 'icons/obj/doors/mineral_doors.dmi'
 	icon_state = "metal"
@@ -90,6 +91,7 @@
 	flick("[initial(icon_state)]opening",src)
 	sleep(1 SECONDS)
 	set_density(FALSE)
+	obj_flags &= ~(BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP)
 	door_opened = TRUE
 	air_update_turf(1)
 	update_appearance()
@@ -109,6 +111,7 @@
 	flick("[initial(icon_state)]closing",src)
 	sleep(1 SECONDS)
 	set_density(TRUE)
+	obj_flags |= (BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP)
 	set_opacity(TRUE)
 	door_opened = FALSE
 	air_update_turf(1)

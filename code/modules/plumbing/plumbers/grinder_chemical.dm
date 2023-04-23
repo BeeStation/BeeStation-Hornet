@@ -17,6 +17,7 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+	update_appearance() //so the input/output pipes will overlay properly during init
 
 /obj/machinery/plumbing/grinder_chemical/setDir(newdir)
 	. = ..()
