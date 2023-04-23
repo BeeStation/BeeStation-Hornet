@@ -117,3 +117,6 @@
 			if(istype(I))
 				usr.examinate(I)
 				. = TRUE
+
+/obj/item/folder/ui_state(mob/user)
+	return logic_state(STATE_OR, list(GLOB.default_state, GLOB.observer_state))

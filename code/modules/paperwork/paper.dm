@@ -157,7 +157,7 @@
 	. += "<span class='warning'>You cannot read it!</span>"
 
 /obj/item/paper/ui_status(mob/user,/datum/ui_state/state)
-		// Are we on fire?  Hard ot read if so
+	// Are we on fire?  Hard ot read if so
 	if(resistance_flags & ON_FIRE)
 		return UI_CLOSE
 	if(!in_range(user,src))
@@ -175,7 +175,7 @@
 /obj/item/paper/ui_state(mob/user)
 	if(istype(loc, /obj/item/modular_computer))
 		return GLOB.reverse_contained_state
-	return ..()
+	return logic_state(STATE_OR, list(..(), GLOB.observer_state))
 
 
 /obj/item/paper/can_interact(mob/user)
