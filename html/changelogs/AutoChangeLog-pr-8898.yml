@@ -1,0 +1,5 @@
+author: Absolucy
+delete-after: true
+changes:
+  - tweak: Telekinesis can now be properly used with more objects, including anchored
+      item-objects like intercoms!
