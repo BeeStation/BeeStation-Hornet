@@ -412,7 +412,7 @@
 					return
 			else
 				return
-		else if(user.hallucinating() && ishuman(user) && prob(1) && !operating)
+		else if(user.hallucinating() && iscarbonhuman(user) && prob(1) && !operating)
 			var/mob/living/carbon/human/H = user
 			if(H.gloves)
 				var/obj/item/clothing/gloves/G = H.gloves
@@ -840,7 +840,7 @@
 			if(shock(user, 100))
 				return
 
-	if(ishuman(user) && prob(40) && density)
+	if(iscarbonhuman(user) && prob(40) && density)
 		var/mob/living/carbon/human/H = user
 		if((HAS_TRAIT(H, TRAIT_DUMB)) && Adjacent(user))
 			playsound(src, 'sound/effects/bang.ogg', 25, TRUE)

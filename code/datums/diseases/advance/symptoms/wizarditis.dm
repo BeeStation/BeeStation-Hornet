@@ -64,7 +64,7 @@
 
 
 /datum/symptom/wizarditis/proc/spawn_wizard_clothes(chance = 0, datum/disease/advance/A)
-	if(ishuman(A.affected_mob))
+	if(iscarbonhuman(A.affected_mob))
 		var/mob/living/carbon/human/H = A.affected_mob
 		var/obj/item/clothing/C
 		if(prob(chance))
@@ -100,7 +100,7 @@
 
 
 /datum/symptom/wizarditis/End(datum/disease/advance/A)
-	if(ishuman(A.affected_mob))
+	if(iscarbonhuman(A.affected_mob))
 		var/mob/living/carbon/human/H = A.affected_mob
 		if(istype(H.head, /obj/item/clothing/head/wizard))
 			REMOVE_TRAIT(H.head, TRAIT_NODROP, DISEASE_TRAIT)

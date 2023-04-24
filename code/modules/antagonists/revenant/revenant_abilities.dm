@@ -15,7 +15,7 @@
 		CtrlClickOn(A)
 		return
 
-	if(ishuman(A))
+	if(iscarbonhuman(A))
 		if(A in drained_mobs)
 			to_chat(src, "<span class='revenwarning'>[A]'s soul is dead and empty.</span>" )
 		else if(in_range(src, A))
@@ -387,7 +387,7 @@
 			continue
 		new /obj/effect/temp_visual/revenant(mob.loc)
 		if(iscarbon(mob))
-			if(ishuman(mob))
+			if(iscarbonhuman(mob))
 				var/mob/living/carbon/human/H = mob
 				if(H.dna?.species)
 					H.dna.species.handle_hair(H,"#1d2953") //will be reset when blight is cured
