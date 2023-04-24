@@ -158,7 +158,7 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 			continue
 
 		// Check their humanity.
-		if(!ishuman(tracked_human))
+		if(!iscarbonhuman(tracked_human))
 			stack_trace("Non-human mob is in suit_sensors_list: [tracked_human] ([tracked_human.type])")
 			continue
 

@@ -36,7 +36,7 @@ I am begging someone to remake this to be more like the paper UI, it's so bad.
 	return TOXLOSS
 
 /obj/item/newspaper/attack_self(mob/user)
-	if(!ishuman(user))
+	if(!iscarbonhuman(user))
 		to_chat(user, "<span class='warning'>The paper is full of unintelligible symbols!</span>")
 		return
 	var/mob/living/carbon/human/human_user = user

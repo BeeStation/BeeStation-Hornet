@@ -89,6 +89,6 @@
 	mind.grab_ghost(TRUE)
 	body.flash_act()
 
-	if(ishuman(body) && istype(outfit))
+	if(iscarbonhuman(body) && istype(outfit))
 		outfit.equip(body)
 	playsound(T, respawn_sound, 50, 1)

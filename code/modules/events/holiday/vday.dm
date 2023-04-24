@@ -46,7 +46,7 @@ GLOBAL_LIST(valentine_mobs)
 	for(var/mob/living/M in GLOB.player_list)
 		if(M.stat == DEAD || !M.mind || !M.mind.assigned_role || !SSjob.GetJob(M.mind.assigned_role) || M.mind.has_antag_datum(/datum/antagonist/valentine))
 			continue
-		if(!ishuman(M) && !issilicon(M)) // allow borgs!
+		if(!iscarbonhuman(M) && !issilicon(M)) // allow borgs!
 			continue
 
 		valentines += M

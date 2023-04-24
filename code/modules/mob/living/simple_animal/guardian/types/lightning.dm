@@ -103,7 +103,7 @@
 				if(successfulshocks > 4)
 					if(iscarbon(L))
 						var/mob/living/carbon/C = L
-						if(ishuman(C))
+						if(iscarbonhuman(C))
 							var/mob/living/carbon/human/H = C
 							H.electrocution_animation(20)
 						C.jitteriness += 1000

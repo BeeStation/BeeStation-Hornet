@@ -13,7 +13,7 @@
 
 /obj/item/organ/wings/Initialize(mapload)
 	. = ..()
-	if(ishuman(owner))
+	if(iscarbonhuman(owner))
 		var/mob/living/carbon/human/H = owner
 		Refresh(H)
 
@@ -86,7 +86,7 @@
 
 /obj/item/organ/wings/cybernetic/emp_act(severity)
 	. = ..()
-	if(ishuman(owner))
+	if(iscarbonhuman(owner))
 		var/mob/living/carbon/human/H = owner
 		var/datum/species/S = H.dna.species
 		var/outofcontrol = ((rand(1, 10)) * severity)
@@ -133,7 +133,7 @@
 
 /obj/item/organ/wings/moth/on_life()
 	. = ..()
-	if(ishuman(owner))
+	if(iscarbonhuman(owner))
 		var/mob/living/carbon/human/H = owner
 		if(flight_level >= WINGS_FLIGHTLESS && H.bodytemperature >= 800 && H.fire_stacks > 0)
 			flight_level = WINGS_COSMETIC

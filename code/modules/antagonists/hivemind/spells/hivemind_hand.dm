@@ -20,7 +20,7 @@
 	if(!proximity_flag || target == user)
 		return FALSE
 	var/use_charge = FALSE
-	if(ishuman(target))
+	if(iscarbonhuman(target))
 		playsound(user, 'sound/items/welder.ogg', 75, TRUE)
 		var/mob/living/carbon/human/tar = target
 		var/datum/antagonist/hivemind/foe = IS_HIVEHOST(tar)

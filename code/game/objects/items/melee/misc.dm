@@ -243,7 +243,7 @@
 		user.adjustStaminaLoss(stamina_damage)
 
 		additional_effects_carbon(user) // user is the target here
-		if(ishuman(user))
+		if(iscarbonhuman(user))
 			var/mob/living/carbon/human/H = user
 			H.apply_damage(2*force, BRUTE, BODY_ZONE_HEAD)
 		else
@@ -278,7 +278,7 @@
 			return
 	else
 		if(cooldown_check <= world.time)
-			if(ishuman(target))
+			if(iscarbonhuman(target))
 				var/mob/living/carbon/human/H = target
 				if (H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
 					return
@@ -480,7 +480,7 @@
 		user.adjustStaminaLoss(stamina_damage)
 
 		additional_effects_carbon(user) // user is the target here
-		if(ishuman(user))
+		if(iscarbonhuman(user))
 			var/mob/living/carbon/human/H = user
 			H.apply_damage(2*force, BRUTE, BODY_ZONE_HEAD)
 		else
@@ -515,7 +515,7 @@
 			return
 	else
 		if(cooldown_check <= world.time)
-			if(ishuman(target))
+			if(iscarbonhuman(target))
 				var/mob/living/carbon/human/H = target
 				if (H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
 					return
@@ -705,7 +705,7 @@
 
 /obj/item/melee/curator_whip/attack(mob/living/target, mob/living/user)
 	. = ..()
-	if(!ishuman(target))
+	if(!iscarbonhuman(target))
 		return
 
 	switch(user.zone_selected)

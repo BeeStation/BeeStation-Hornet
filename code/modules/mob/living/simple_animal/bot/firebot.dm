@@ -207,7 +207,7 @@
 	// Target reached ENGAGE WATER CANNON
 	if(target_fire && (get_dist(src, target_fire) <= (emagged == 2 ? 1 : 2))) // Make the bot spray water from afar when not emagged
 		if((speech_cooldown + SPEECH_INTERVAL) < world.time)
-			if(ishuman(target_fire))
+			if(iscarbonhuman(target_fire))
 				speak("Stop, drop and roll!")
 				playsound(src, "sound/voice/firebot/stopdropnroll.ogg", 50, 0)
 			else

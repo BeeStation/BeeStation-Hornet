@@ -70,7 +70,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	return ..()
 
 /obj/item/radio/headset/can_receive(freq, level, AIuser)
-	if(ishuman(src.loc))
+	if(iscarbonhuman(src.loc))
 		var/mob/living/carbon/human/H = src.loc
 		if(H.ears == src)
 			return ..(freq, level)

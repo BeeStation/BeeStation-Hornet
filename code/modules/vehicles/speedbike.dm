@@ -76,7 +76,7 @@
 			A.throw_at(throw_target, 4, 3)
 			visible_message("<span class='danger'>[src] crashes into [A]!</span>")
 			playsound(src, 'sound/effects/bang.ogg', 50, 1)
-		if(ishuman(A))
+		if(iscarbonhuman(A))
 			var/mob/living/carbon/human/H = A
 			H.Paralyze(100)
 			H.adjustStaminaLoss(30)

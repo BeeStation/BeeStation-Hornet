@@ -102,7 +102,7 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_icon()
 	update_overlays()
-	if(ishuman(loc))
+	if(iscarbonhuman(loc))
 		var/mob/living/carbon/human/H = loc
 		H.update_inv_head()
 

@@ -8,13 +8,13 @@
 
 /datum/nanite_program/nervous/enable_passive_effect()
 	. = ..()
-	if(ishuman(host_mob))
+	if(iscarbonhuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
 		H.physiology.stun_mod *= 0.5
 
 /datum/nanite_program/nervous/disable_passive_effect()
 	. = ..()
-	if(ishuman(host_mob))
+	if(iscarbonhuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
 		H.physiology.stun_mod *= 2
 
@@ -43,14 +43,14 @@
 
 /datum/nanite_program/hardening/enable_passive_effect()
 	. = ..()
-	if(ishuman(host_mob))
+	if(iscarbonhuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
 		H.physiology.armor.melee += 30
 		H.physiology.armor.bullet += 30
 
 /datum/nanite_program/hardening/disable_passive_effect()
 	. = ..()
-	if(ishuman(host_mob))
+	if(iscarbonhuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
 		H.physiology.armor.melee -= 30
 		H.physiology.armor.bullet -= 30
@@ -63,14 +63,14 @@
 
 /datum/nanite_program/refractive/enable_passive_effect()
 	. = ..()
-	if(ishuman(host_mob))
+	if(iscarbonhuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
 		H.physiology.armor.laser += 30
 		H.physiology.armor.energy += 30
 
 /datum/nanite_program/refractive/disable_passive_effect()
 	. = ..()
-	if(ishuman(host_mob))
+	if(iscarbonhuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
 		H.physiology.armor.laser -= 30
 		H.physiology.armor.energy -= 30
@@ -83,13 +83,13 @@
 
 /datum/nanite_program/coagulating/enable_passive_effect()
 	. = ..()
-	if(ishuman(host_mob))
+	if(iscarbonhuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
 		H.physiology.bleed_mod *= 0.1
 
 /datum/nanite_program/coagulating/disable_passive_effect()
 	. = ..()
-	if(ishuman(host_mob))
+	if(iscarbonhuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
 		H.physiology.bleed_mod *= 10
 

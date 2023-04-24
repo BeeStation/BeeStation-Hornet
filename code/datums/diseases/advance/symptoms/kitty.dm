@@ -1,5 +1,5 @@
 /datum/symptom/toxoplasmosis //my take on the adminbus disease added a year ago. I wanted to make it an actual symptom instead of a simple idea, and i dont want it to call set_species()
-	name = "Toxoplasmosis Sapiens" 
+	name = "Toxoplasmosis Sapiens"
 	desc = "A parasitic symptom that causes a humanoid host to feel slightly happier around cats and cat people."
 	stealth = 1
 	resistance = -2
@@ -11,7 +11,7 @@
 	symptom_delay_max = 60
 	prefixes = list("Feline ", "Anime ")
 	suffixes = list(" Madness", " Mania") //However, I want this virus to be a bit grimmer than the funny uwu cat disease
-	var/mania = FALSE 
+	var/mania = FALSE
 	var/uwu = FALSE
 	var/dnacounter = 0
 	threshold_desc = "<b>Transmission 4:</b>The symptom mutates the language center of the host's brain, causing them to speak in an infuriating dialect. Known to drive hosts to suicide.<br>\
@@ -35,7 +35,7 @@
 /datum/symptom/toxoplasmosis/Activate(datum/disease/advance/A)
 	if(!..())
 		return
-	if(!ishuman(A.affected_mob))
+	if(!iscarbonhuman(A.affected_mob))
 		return
 	var/mob/living/carbon/human/M = A.affected_mob
 	if(A.stage >= 4)
@@ -95,7 +95,7 @@
 	else if(H.throw_at(cat, 7, 2))
 		if(get_dist(cat, H) > 1)
 			return
-		if(ishuman(cat))
+		if(iscarbonhuman(cat))
 			var/mob/living/carbon/human/target = cat
 			var/obj/item/organ/ears/cat/targetears = target.getorgan(/obj/item/organ/ears/cat)
 			var/obj/item/organ/tail/cat/targettail = target.getorgan(/obj/item/organ/tail/cat)
@@ -150,7 +150,7 @@
 			continue
 		if(istype(L, /mob/living/simple_animal/pet/cat))
 			return L
-		if(ishuman(L))
+		if(iscarbonhuman(L))
 			var/mob/living/carbon/human/H = L
 			var/ears = H.getorgan(/obj/item/organ/ears/cat)
 			var/tail = H.getorgan(/obj/item/organ/tail/cat)

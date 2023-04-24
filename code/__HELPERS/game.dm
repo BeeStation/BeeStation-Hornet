@@ -340,7 +340,7 @@
 	if(M?.current)
 		if(enforce_human)
 			var/mob/living/carbon/human/H
-			if(ishuman(M.current))
+			if(iscarbonhuman(M.current))
 				H = M.current
 			return M.current.stat != DEAD && !issilicon(M.current) && !isbrain(M.current) && (!H || H.dna.species.id != "memezombies" && H.dna.species.id != "memezombiesfast")
 		else if(isliving(M.current))
@@ -389,7 +389,7 @@
 				continue
 			else if(afk_check && M.client.is_afk())
 				continue
-			else if(human_check && !ishuman(M))
+			else if(human_check && !iscarbonhuman(M))
 				continue
 			else if(isnewplayer(M)) // exclude people in the lobby
 				continue

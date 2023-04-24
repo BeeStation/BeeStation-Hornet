@@ -50,7 +50,7 @@
 		return
 
 	// Crossed didn't like people lying down.
-	if(ishuman(AM))
+	if(iscarbonhuman(AM))
 		// Only humans can enter from the west side, while lying down.
 		var/move_dir = get_dir(loc, AM.loc)
 		var/mob/living/carbon/human/H = AM
@@ -62,7 +62,7 @@
 	. = ..()
 	// Allows items to go through,
 	// to stop them from blocking the conveyor belt.
-	if(!ishuman(mover))
+	if(!iscarbonhuman(mover))
 		if(get_dir(src, mover) == EAST)
 			return
 	return FALSE

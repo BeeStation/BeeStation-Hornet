@@ -12,7 +12,7 @@
 
 /obj/item/borg/stun/attack(mob/living/M, mob/living/user)
 	var/armor_block = M.run_armor_check(attack_flag = STAMINA)
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.check_shields(src, 0, "[M]'s [name]", MELEE_ATTACK))
 			playsound(M, 'sound/weapons/genhit.ogg', 50, 1)
@@ -75,7 +75,7 @@
 									"<span class='notice'>You playfully boop [M] on the head!</span>")
 					user.do_attack_animation(M, ATTACK_EFFECT_BOOP)
 					playsound(loc, 'sound/weapons/tap.ogg', 50, 1, -1)
-				else if(ishuman(M))
+				else if(iscarbonhuman(M))
 					if(!(user.mobility_flags & MOBILITY_STAND))
 						user.visible_message("<span class='notice'>[user] shakes [M] trying to get [M.p_them()] up!</span>", \
 										"<span class='notice'>You shake [M] trying to get [M.p_them()] up!</span>")
@@ -90,7 +90,7 @@
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 		if(1)
 			if(M.health >= 0)
-				if(ishuman(M))
+				if(iscarbonhuman(M))
 					if(!(M.mobility_flags & MOBILITY_STAND))
 						user.visible_message("<span class='notice'>[user] shakes [M] trying to get [M.p_them()] up!</span>", \
 										"<span class='notice'>You shake [M] trying to get [M.p_them()] up!</span>")
@@ -110,7 +110,7 @@
 		if(2)
 			if(scooldown < world.time)
 				if(M.health >= 0)
-					if(ishuman(M)||ismonkey(M))
+					if(iscarbonhuman(M)||ismonkey(M))
 						M.electrocute_act(5, "[user]", safety = 1)
 						user.visible_message("<span class='userdanger'>[user] electrocutes [M] with [user.p_their()] touch!</span>", \
 							"<span class='danger'>You electrocute [M] with your touch!</span>")
@@ -129,7 +129,7 @@
 		if(3)
 			if(ccooldown < world.time)
 				if(M.health >= 0)
-					if(ishuman(M))
+					if(iscarbonhuman(M))
 						user.visible_message("<span class='userdanger'>[user] crushes [M] in [user.p_their()] grip!</span>", \
 							"<span class='danger'>You crush [M] in your grip!</span>")
 					else

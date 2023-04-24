@@ -49,7 +49,7 @@
 	H.update_body()
 
 /datum/species/human/felinid/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
-	if(ishuman(C))
+	if(iscarbonhuman(C))
 		var/mob/living/carbon/human/H = C
 		if(!pref_load)			//Hah! They got forcefully purrbation'd. Force default felinid parts on them if they have no mutant parts in those areas!
 			if(H.dna.features["tail_human"] == "None")
@@ -173,7 +173,7 @@
 		. = FALSE
 
 /proc/purrbation_apply(mob/living/carbon/human/H, silent = FALSE)
-	if(!ishuman(H) || iscatperson(H))
+	if(!iscarbonhuman(H) || iscatperson(H))
 		return
 	H.set_species(/datum/species/human/felinid)
 
@@ -182,7 +182,7 @@
 		playsound(get_turf(H), 'sound/effects/meow1.ogg', 50, 1, -1)
 
 /proc/purrbation_remove(mob/living/carbon/human/H, silent = FALSE)
-	if(!ishuman(H) || !iscatperson(H))
+	if(!iscarbonhuman(H) || !iscatperson(H))
 		return
 
 	H.set_species(/datum/species/human)

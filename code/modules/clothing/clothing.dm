@@ -336,7 +336,7 @@ BLIND     // can't see anything
 						 "<span class='notice'>[user] turns your remote sensors to maximum.</span>", null, COMBAT_MESSAGE_RANGE)
 			update_sensors(sensor_selection)
 			log_combat(user, wearer, "changed sensors to [switchMode]")
-	if(ishuman(loc) || ismonkey(loc))
+	if(iscarbonhuman(loc) || ismonkey(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.w_uniform == src)
 			H.update_suit_sensors()
@@ -378,7 +378,7 @@ BLIND     // can't see anything
 		to_chat(usr, "<span class='notice'>You adjust the suit to wear it more casually.</span>")
 	else
 		to_chat(usr, "<span class='notice'>You adjust the suit back to normal.</span>")
-	if(ishuman(usr))
+	if(iscarbonhuman(usr))
 		var/mob/living/carbon/human/H = usr
 		H.update_inv_w_uniform()
 		H.update_body()

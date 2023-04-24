@@ -151,7 +151,7 @@ The console is located at computer/gulag_teleporter.dm
 		linked_reclaimer.ui_update()
 
 /obj/machinery/gulag_teleporter/proc/handle_prisoner(obj/item/id, datum/data/record/R)
-	if(!ishuman(occupant))
+	if(!iscarbonhuman(occupant))
 		return
 	strip_occupant()
 	var/mob/living/carbon/human/prisoner = occupant

@@ -58,7 +58,7 @@
 		to_chat(user, "<span class='warning'>[C] doesn't have \a [parse_zone(user.zone_selected)]!</span>")
 		return
 
-	if(ishuman(C)) //apparently only humans bleed? funky.
+	if(iscarbonhuman(C)) //apparently only humans bleed? funky.
 		var/mob/living/carbon/human/H = C
 		if(stop_bleeding)
 			if(!H.bleed_rate)

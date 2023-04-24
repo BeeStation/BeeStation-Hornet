@@ -216,7 +216,7 @@
 		if(HAS_TRAIT(L, TRAIT_PUSHIMMUNE))
 			return TRUE
 	//If they're a human, and they're not in help intent, block pushing
-	if(ishuman(M) && (M.a_intent != INTENT_HELP))
+	if(iscarbonhuman(M) && (M.a_intent != INTENT_HELP))
 		return TRUE
 	//anti-riot equipment is also anti-push
 	for(var/obj/item/I in M.held_items)
@@ -310,7 +310,7 @@
 
 	if(!supress_message)
 		var/sound_to_play = 'sound/weapons/thudswoosh.ogg'
-		if(ishuman(src))
+		if(iscarbonhuman(src))
 			var/mob/living/carbon/human/H = src
 			if(H.dna.species.grab_sound)
 				sound_to_play = H.dna.species.grab_sound
@@ -1315,7 +1315,7 @@
 	L.put_in_hands(holder)
 
 /mob/living/proc/mob_try_pickup(mob/living/user)
-	if(!ishuman(user))
+	if(!iscarbonhuman(user))
 		return
 	if(user.get_active_held_item())
 		to_chat(user, "<span class='warning'>Your hands are full!</span>")

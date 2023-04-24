@@ -80,7 +80,7 @@
 	..()
 	to_chat(user, "<span class='notice'>You pick a snap pop from the cob.</span>")
 	var/obj/item/toy/snappop/S = new /obj/item/toy/snappop(user.loc)
-	if(ishuman(user))
+	if(iscarbonhuman(user))
 		user.put_in_hands(S)
 	snap_pops -= 1
 	if(!snap_pops)

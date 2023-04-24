@@ -61,7 +61,7 @@
 	pinned_target.nullPinnedLoc()
 	nullPinnedTarget()
 	handle_density()
-	if(ishuman(user))
+	if(iscarbonhuman(user))
 		if(!user.get_active_held_item())
 			user.put_in_hands(pinned_target)
 			to_chat(user, "<span class='notice'>You take the target out of the stake.</span>")

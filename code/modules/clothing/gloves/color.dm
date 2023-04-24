@@ -197,7 +197,7 @@
 
 /obj/item/clothing/gloves/color/latex/obj_break()
 	..()
-	if(ishuman(loc))
+	if(iscarbonhuman(loc))
 		REMOVE_TRAIT(loc, carrytrait, CLOTHING_TRAIT)
 
 /obj/item/clothing/gloves/color/latex/nitrile

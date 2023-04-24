@@ -25,7 +25,7 @@
 		return
 	if(!Adjacent(user))//no tele-grooming
 		return
-	if(ishuman(user))
+	if(iscarbonhuman(user))
 		var/mob/living/carbon/human/H = user
 
 		if(H.dna && H.dna.species && (NO_UNDERWEAR in H.dna.species.species_traits))

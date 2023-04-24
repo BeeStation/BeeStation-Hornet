@@ -45,7 +45,7 @@
 		var/list/data_entry = list()
 		if(isliving(player))
 			if(iscarbon(player))
-				if(ishuman(player))
+				if(iscarbonhuman(player))
 					var/mob/living/carbon/human/tracked_human = player
 					data_entry["job"] = player.job
 					var/obj/item/card/id/I = tracked_human.wear_id?.GetID()
@@ -84,7 +84,7 @@
 			continue
 		data_entry["last_ip"] = player.lastKnownIP
 		data_entry["is_antagonist"] = is_special_character(player)
-		if(ishuman(player))
+		if(iscarbonhuman(player))
 			var/mob/living/carbon/human/tracked_human = player
 			data_entry["oxydam"] = round(tracked_human.getOxyLoss(), 1)
 			data_entry["toxdam"] = round(tracked_human.getToxLoss(), 1)
@@ -136,7 +136,7 @@
 			data_entry["is_cyborg"] = iscyborg(player)
 			data_entry["mob_type"] = player.type
 			data_entry["antag_rep"] = SSpersistence.antag_rep[ckey]
-			if(ishuman(player))
+			if(iscarbonhuman(player))
 				var/mob/living/carbon/human/tracked_human = player
 				// no replacing ?. or I will end you
 				if(tracked_human.dna?.species?.name)

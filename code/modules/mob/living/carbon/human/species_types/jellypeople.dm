@@ -34,7 +34,7 @@
 
 /datum/species/jelly/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
-	if(ishuman(C))
+	if(iscarbonhuman(C))
 		regenerate_limbs = new
 		regenerate_limbs.Grant(C)
 
@@ -147,7 +147,7 @@
 
 /datum/species/jelly/slime/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
-	if(ishuman(C))
+	if(iscarbonhuman(C))
 		slime_split = new
 		slime_split.Grant(C)
 		swap_body = new

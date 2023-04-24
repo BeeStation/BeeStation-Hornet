@@ -121,7 +121,7 @@
 	set name = "Flip Card"
 	set category = "Object"
 	set src in range(1)
-	if(!ishuman(usr) || !usr.canUseTopic(src, BE_CLOSE))
+	if(!iscarbonhuman(usr) || !usr.canUseTopic(src, BE_CLOSE))
 		return
 	if(!flipped)
 		name = "CAS card"
@@ -131,7 +131,7 @@
 	update_icon()
 
 /obj/item/toy/cards/singlecard/cas/AltClick(mob/living/user)
-	if(!ishuman(user) || !user.canUseTopic(src, BE_CLOSE))
+	if(!iscarbonhuman(user) || !user.canUseTopic(src, BE_CLOSE))
 		return
 	Flip()
 

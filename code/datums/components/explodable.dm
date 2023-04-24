@@ -89,7 +89,7 @@
 	if(iscarbon(L))
 		var/mob/living/carbon/C = L
 		equipment_items += list(C.head, C.wear_mask, C.back, C.gloves, C.shoes, C.glasses, C.ears)
-		if(ishuman(C))
+		if(iscarbonhuman(C))
 			var/mob/living/carbon/human/H = C
 			equipment_items += list(H.wear_suit, H.w_uniform, H.belt, H.s_store, H.wear_id)
 		if(ismonkey(C))

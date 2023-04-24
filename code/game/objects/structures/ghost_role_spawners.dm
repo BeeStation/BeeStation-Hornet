@@ -23,7 +23,7 @@
 	var/plant_name = pick("Tomato", "Potato", "Broccoli", "Carrot", "Ambrosia", "Pumpkin", "Ivy", "Kudzu", "Banana", "Moss", "Flower", "Bloom", "Root", "Bark", "Glowshroom", "Petal", "Leaf", \
 	"Venus", "Sprout","Cocoa", "Strawberry", "Citrus", "Oak", "Cactus", "Pepper", "Juniper")
 	new_spawn.fully_replace_character_name(null,plant_name)
-	if(ishuman(new_spawn))
+	if(iscarbonhuman(new_spawn))
 		var/mob/living/carbon/human/H = new_spawn
 		H.underwear = "Nude" //You're a plant, partner
 		H.update_body()
@@ -60,7 +60,7 @@
 
 	new_spawn.mind.add_antag_datum(/datum/antagonist/ashwalker, team)
 
-	if(ishuman(new_spawn))
+	if(iscarbonhuman(new_spawn))
 		var/mob/living/carbon/human/H = new_spawn
 		H.underwear = "Nude"
 		H.update_body()
@@ -158,7 +158,7 @@
 		new_spawn.mind.enslave_mind_to_creator(owner)
 		log_game("[key_name(new_spawn)] possessed a golem shell enslaved to [key_name(owner)].")
 		log_admin("[key_name(new_spawn)] possessed a golem shell enslaved to [key_name(owner)].")
-	if(ishuman(new_spawn))
+	if(iscarbonhuman(new_spawn))
 		var/mob/living/carbon/human/H = new_spawn
 		if(has_owner)
 			var/datum/species/golem/G = H.dna.species

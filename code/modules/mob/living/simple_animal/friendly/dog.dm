@@ -457,14 +457,14 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 		turns_since_scan++
 		if(turns_since_scan > 5)
 			turns_since_scan = 0
-			if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc) ))
+			if((movement_target) && !(isturf(movement_target.loc) || iscarbonhuman(movement_target.loc) ))
 				movement_target = null
 				stop_automated_movement = 0
 			if(!movement_target || !(src in viewers(3, movement_target.loc)))
 				movement_target = null
 				stop_automated_movement = 0
 				for(var/obj/item/reagent_containers/food/snacks/S in oview(3, src))
-					if(isturf(S.loc) || ishuman(S.loc))
+					if(isturf(S.loc) || iscarbonhuman(S.loc))
 						movement_target = S
 						break
 			if(movement_target)
@@ -495,7 +495,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 
 					if(isturf(movement_target.loc) )
 						movement_target.attack_animal(src)
-					else if(ishuman(movement_target.loc) )
+					else if(iscarbonhuman(movement_target.loc) )
 						if(prob(20))
 							INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "me", 1, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face")
 

@@ -86,7 +86,7 @@
 			return
 		if(!usr.canUseTopic(src, BE_CLOSE) || !open)
 			return
-		if(ishuman(usr))
+		if(iscarbonhuman(usr))
 			if(!usr.put_in_hands(O))
 				O.forceMove(get_turf(src))
 			update_appearance()

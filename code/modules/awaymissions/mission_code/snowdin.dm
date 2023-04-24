@@ -202,7 +202,7 @@
 			if(L)
 				L.adjust_fire_stacks(20) //dipping into a stream of plasma would probably make you more flammable than usual
 				L.adjust_bodytemperature(-rand(50,65)) //its cold, man
-				if(ishuman(L))//are they a carbon?
+				if(iscarbonhuman(L))//are they a carbon?
 					var/list/plasma_parts = list()//a list of the organic parts to be turned into plasma limbs
 					var/list/robo_parts = list()//keep a reference of robotic parts so we know if we can turn them into a plasmaman
 					var/mob/living/carbon/human/PP = L

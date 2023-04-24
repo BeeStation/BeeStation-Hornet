@@ -338,7 +338,7 @@
 
 ///Used for hand-holding secret technique. Pulling entities swaps them for you in the target list.
 /obj/item/xenoartifact/proc/process_target(atom/target)
-	if(ishuman(target)) //early return if deflect chance
+	if(iscarbonhuman(target)) //early return if deflect chance
 		var/mob/living/carbon/human/H = target
 		if(H.wear_suit && H.head && isclothing(H.wear_suit) && isclothing(H.head))
 			if(H.anti_artifact_check())

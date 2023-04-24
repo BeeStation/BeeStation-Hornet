@@ -64,13 +64,13 @@
 
 /datum/symptom/lubefeet/End(datum/disease/advance/A)
 	..()
-	if(ishuman(A.affected_mob))
+	if(iscarbonhuman(A.affected_mob))
 		var/mob/living/carbon/human/M = A.affected_mob
 		if(istype(M.shoes, /obj/item/clothing/shoes/clown_shoes))
 			REMOVE_TRAIT(M.shoes, TRAIT_NODROP, DISEASE_TRAIT)
 
 /datum/symptom/lubefeet/proc/give_clown_shoes(datum/disease/advance/A)
-	if(ishuman(A.affected_mob))
+	if(iscarbonhuman(A.affected_mob))
 		var/mob/living/carbon/human/M = A.affected_mob
 		if(!istype(M.shoes, /obj/item/clothing/shoes/clown_shoes))
 			if(!M.dropItemToGround(M.shoes))

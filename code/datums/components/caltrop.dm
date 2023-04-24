@@ -35,7 +35,7 @@
 	if(!prob(probability))
 		return
 
-	if(ishuman(arrived))
+	if(iscarbonhuman(arrived))
 		var/mob/living/carbon/human/H = arrived
 		if(HAS_TRAIT(H, TRAIT_PIERCEIMMUNE))
 			return

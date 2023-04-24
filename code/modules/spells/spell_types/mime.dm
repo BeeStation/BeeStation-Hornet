@@ -124,7 +124,7 @@
 /obj/effect/proc_holder/spell/targeted/mime/speak/Click()
 	if(!usr)
 		return
-	if(!ishuman(usr))
+	if(!iscarbonhuman(usr))
 		return
 	var/mob/living/carbon/human/H = usr
 	if(H.mind.miming)
@@ -197,7 +197,7 @@
 /obj/effect/proc_holder/spell/targeted/mime/finger_guns/Click()
 	if(!usr)
 		return
-	if(!ishuman(usr))
+	if(!iscarbonhuman(usr))
 		return
 	if(usr?.mind)
 		if(!usr.mind.miming)

@@ -238,7 +238,7 @@
 			to_chat(user, "<span class='warning'>A mechanism prevents you from shooting anyone but yourself!</span>")
 		return
 
-	if(ishuman(user))
+	if(iscarbonhuman(user))
 		var/mob/living/carbon/human/H = user
 		if(!spun)
 			to_chat(user, "<span class='warning'>You need to spin \the [src]'s chamber first!</span>")

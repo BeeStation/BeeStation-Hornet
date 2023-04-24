@@ -71,14 +71,14 @@
 	if(!A.affected_mob.job == JOB_NAME_CLOWN)
 		to_chat(A.affected_mob, "<span class='notice'>You feel less dumb.</span>")
 		REMOVE_TRAIT(A.affected_mob, TRAIT_CLUMSY, DISEASE_TRAIT)
-	if(ishuman(A.affected_mob))
+	if(iscarbonhuman(A.affected_mob))
 		var/mob/living/carbon/human/M = A.affected_mob
 		if(istype(M.wear_mask, /obj/item/clothing/mask/gas/clown_hat))
 			REMOVE_TRAIT(M.wear_mask, TRAIT_NODROP, DISEASE_TRAIT)
 
 
 /datum/symptom/pierrot/proc/give_clown_mask(datum/disease/advance/A)
-	if(ishuman(A.affected_mob))
+	if(iscarbonhuman(A.affected_mob))
 		var/mob/living/carbon/human/M = A.affected_mob
 		if(!istype(M.wear_mask, /obj/item/clothing/mask/gas/clown_hat))
 			if(!M.dropItemToGround(M.wear_mask))

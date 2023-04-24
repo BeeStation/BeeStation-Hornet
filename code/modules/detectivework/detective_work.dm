@@ -36,7 +36,7 @@
 	var/datum/component/forensics/D = AddComponent(/datum/component/forensics)
 	. = D?.add_fingerprint(M, ignoregloves)
 
-	if(!ishuman(M))
+	if(!iscarbonhuman(M))
 		return
 	var/mob/living/carbon/human/H = M
 	///the current amount of blood on the thing

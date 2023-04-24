@@ -92,7 +92,7 @@ FLOOR SAFES
 	user << browse("<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><title>[name]</title></head><body>[dat]</body></html>", "window=safe;size=350x300")
 
 /obj/structure/safe/Topic(href, href_list)
-	if(!ishuman(usr))
+	if(!iscarbonhuman(usr))
 		return
 	var/mob/living/carbon/human/user = usr
 

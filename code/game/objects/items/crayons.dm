@@ -271,7 +271,7 @@
 		cost = 5
 	if(istype(target, /obj/item/canvas))
 		cost = 0
-	if(ishuman(user))
+	if(iscarbonhuman(user))
 		var/mob/living/carbon/human/H = user
 		if (HAS_TRAIT(H, TRAIT_TAGGER))
 			cost *= 0.5
@@ -669,7 +669,7 @@
 		if(!C.is_eyes_covered()) // no eye protection? ARGH IT BURNS.
 			C.confused = max(C.confused, 3)
 			C.Paralyze(60)
-		if(ishuman(C) && actually_paints)
+		if(iscarbonhuman(C) && actually_paints)
 			var/mob/living/carbon/human/H = C
 			H.lip_style = "spray_face"
 			H.lip_color = paint_color
@@ -691,7 +691,7 @@
 						C.tint += 2
 						to_chat(usr, "<span class='warning'>You spray the [C] down, making it harder to see through!</span>")
 						ADD_TRAIT(C, TRAIT_SPRAYPAINTED, CRAYON_TRAIT)
-						if(ishuman(usr))
+						if(iscarbonhuman(usr))
 							var/mob/living/carbon/human/H = usr
 							H.update_tint()
 					else

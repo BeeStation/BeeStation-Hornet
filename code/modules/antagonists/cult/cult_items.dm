@@ -189,7 +189,7 @@ Striking a noncultist, however, will tear their flesh."}
 		jaunt.Teleport(user, target)
 		return
 	if(proximity)
-		if(ishuman(target))
+		if(iscarbonhuman(target))
 			var/mob/living/carbon/human/H = target
 			if(H.stat != CONSCIOUS)
 				var/obj/item/soulstone/SS = new /obj/item/soulstone(src)
@@ -771,7 +771,7 @@ Striking a noncultist, however, will tear their flesh."}
 	var/turf/T = get_turf(target)
 	playsound(T, 'sound/effects/splat.ogg', 50, TRUE)
 	if(iscultist(target))
-		if(ishuman(target))
+		if(iscarbonhuman(target))
 			var/mob/living/carbon/human/H = target
 			if(H.stat != DEAD)
 				H.reagents.add_reagent(/datum/reagent/fuel/unholywater, 4)
@@ -810,7 +810,7 @@ Striking a noncultist, however, will tear their flesh."}
 	if(firing || charging)
 		return
 	var/C = user.client
-	if(ishuman(user) && C)
+	if(iscarbonhuman(user) && C)
 		angle = get_angle(get_turf(src), get_turf(A))
 	else
 		qdel(src)
@@ -874,7 +874,7 @@ Striking a noncultist, however, will tear their flesh."}
 			for(var/mob/living/target in T.contents)
 				if(iscultist(target))
 					new /obj/effect/temp_visual/cult/sparks(T)
-					if(ishuman(target))
+					if(iscarbonhuman(target))
 						var/mob/living/carbon/human/H = target
 						if(H.stat != DEAD)
 							H.reagents.add_reagent(/datum/reagent/fuel/unholywater, 7)

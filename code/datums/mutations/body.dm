@@ -253,14 +253,14 @@
 /datum/mutation/fire/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
-	if(ishuman(owner))
+	if(iscarbonhuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.physiology.burn_mod *= 0.5
 
 /datum/mutation/fire/on_losing(mob/living/carbon/owner)
 	if(..())
 		return
-	if(ishuman(owner))
+	if(iscarbonhuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.physiology.burn_mod *= 2
 

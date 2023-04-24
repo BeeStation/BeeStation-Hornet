@@ -55,6 +55,6 @@
 
 /datum/symptom/braindamage/proc/givetrauma(datum/disease/advance/A, chance)
 	if(prob(chance))
-		if(ishuman(A.affected_mob))
+		if(iscarbonhuman(A.affected_mob))
 			var/mob/living/carbon/human/M = A.affected_mob
 			M?.gain_trauma(BRAIN_TRAUMA_MILD)

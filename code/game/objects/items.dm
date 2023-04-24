@@ -774,7 +774,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	var/is_human_victim
 	var/obj/item/bodypart/affecting = M.get_bodypart(BODY_ZONE_HEAD)
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		if(!affecting) //no head!
 			return
 		is_human_victim = TRUE

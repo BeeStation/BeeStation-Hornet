@@ -17,7 +17,7 @@
 
 /datum/reagent/consumable/on_mob_life(mob/living/carbon/M)
 	current_cycle++
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		var/mob/living/carbon/human/H = M
 		if(!HAS_TRAIT(H, TRAIT_NOHUNGER) && !HAS_TRAIT(H, TRAIT_POWERHUNGRY))
 			H.adjust_nutrition(nutriment_factor)
@@ -288,7 +288,7 @@
 	taste_description = "scorching agony"
 
 /datum/reagent/consumable/condensedcapsaicin/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
-	if(!ishuman(M) && !ismonkey(M))
+	if(!iscarbonhuman(M) && !ismonkey(M))
 		return
 
 	var/mob/living/carbon/victim = M
@@ -418,7 +418,7 @@
 			to_chat(M, "<span class='danger'>You can't get the scent of garlic out of your nose! You can barely think...</span>")
 			M.Paralyze(10)
 			M.Jitter(10)
-	else if(ishuman(M))
+	else if(iscarbonhuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.job == JOB_NAME_COOK)
 			if(prob(20)) //stays in the system much longer than sprinkles/banana juice, so heals slower to partially compensate

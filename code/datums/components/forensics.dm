@@ -77,7 +77,7 @@
 				return
 			M = ai_camera.ai
 	add_hiddenprint(M)
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		var/mob/living/carbon/human/H = M
 		add_fibers(H)
 		if(H.gloves) //Check if the gloves (if any) hide fingerprints
@@ -151,7 +151,7 @@
 	if(!M.key)
 		return
 	var/hasgloves = ""
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.gloves)
 			hasgloves = "(gloves)"

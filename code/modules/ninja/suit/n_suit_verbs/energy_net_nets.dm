@@ -50,7 +50,7 @@ It is possible to destroy the net by the occupant or someone else.
 
 	success = TRUE
 	qdel(src)
-	if(ishuman(affecting))
+	if(iscarbonhuman(affecting))
 		var/mob/living/carbon/human/H = affecting
 		for(var/obj/item/W in H)
 			if(W == H.w_uniform)

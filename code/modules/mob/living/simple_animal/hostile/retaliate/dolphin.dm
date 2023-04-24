@@ -37,6 +37,6 @@
 
 /mob/living/simple_animal/hostile/retaliate/dolphin/AttackingTarget()
 	..()
-	if(ishuman(target))
+	if(iscarbonhuman(target))
 		var/mob/living/carbon/human/H = target
 		H.adjustStaminaLoss(8)

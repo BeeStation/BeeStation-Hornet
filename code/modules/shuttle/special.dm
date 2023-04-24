@@ -205,7 +205,7 @@
 
 /obj/structure/table/wood/bar/proc/is_barstaff(mob/living/user)
 	. = FALSE
-	if(ishuman(user))
+	if(iscarbonhuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.mind?.assigned_role == JOB_NAME_BARTENDER)
 			return TRUE
@@ -271,7 +271,7 @@
 		payees[AM] += H.credits
 		counted_money += H
 
-	if(ishuman(AM))
+	if(iscarbonhuman(AM))
 		var/mob/living/carbon/human/H = AM
 		if(H.get_bank_account())
 			var/datum/bank_account/account = H.get_bank_account()
@@ -291,7 +291,7 @@
 		say("<span class='robot'>Welcome aboard, [AM]!</span>")
 		approved_passengers += AM
 
-		if(payees[AM] > 0 && ishuman(AM))
+		if(payees[AM] > 0 && iscarbonhuman(AM))
 			var/mob/living/carbon/human/H = AM
 			if(H.get_bank_account())
 				var/datum/bank_account/account = H.get_bank_account()

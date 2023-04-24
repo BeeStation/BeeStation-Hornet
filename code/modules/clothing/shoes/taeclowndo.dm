@@ -10,7 +10,7 @@
 
 /obj/item/clothing/shoes/clown_shoes/taeclowndo/equipped(mob/user, slot)
 	. = ..()
-	if(!ishuman(user))
+	if(!iscarbonhuman(user))
 		return
 	var/mob/living/carbon/human/H = user
 	if(slot == ITEM_SLOT_FEET)
@@ -24,7 +24,7 @@
 
 /obj/item/clothing/shoes/clown_shoes/taeclowndo/dropped(mob/user)
 	..()
-	if(!ishuman(user))
+	if(!iscarbonhuman(user))
 		return
 	var/mob/living/carbon/human/H = user
 	if(H.get_item_by_slot(ITEM_SLOT_FEET) == src)

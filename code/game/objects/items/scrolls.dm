@@ -32,7 +32,7 @@
 	..()
 	if (usr.stat || usr.restrained() || src.loc != usr)
 		return
-	if (!ishuman(usr))
+	if (!iscarbonhuman(usr))
 		return 1
 	var/mob/living/carbon/human/H = usr
 	if(H.is_holding(src))

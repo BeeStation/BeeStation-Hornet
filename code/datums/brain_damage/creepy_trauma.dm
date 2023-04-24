@@ -99,7 +99,7 @@
 		if(Player.mind && Player.stat != DEAD && !isnewplayer(Player) && !isbrain(Player) && Player.client && Player != owner && SSjob.GetJob(Player.mind.assigned_role))
 			viable_minds += Player.mind
 	for(var/datum/mind/possible_target in viable_minds)
-		if(possible_target != owner && ishuman(possible_target.current))
+		if(possible_target != owner && iscarbonhuman(possible_target.current))
 			possible_targets += possible_target.current
 	if(possible_targets.len > 0)
 		chosen_victim = pick(possible_targets)

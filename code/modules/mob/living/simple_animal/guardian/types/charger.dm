@@ -57,7 +57,7 @@
 			var/blocked = FALSE
 			if(hasmatchingsummoner(hit_atom)) //if the summoner matches don't hurt them
 				blocked = TRUE
-			if(ishuman(hit_atom))
+			if(iscarbonhuman(hit_atom))
 				var/mob/living/carbon/human/H = hit_atom
 				if(H.check_shields(src, 90, "[name]", attack_type = THROWN_PROJECTILE_ATTACK))
 					blocked = TRUE

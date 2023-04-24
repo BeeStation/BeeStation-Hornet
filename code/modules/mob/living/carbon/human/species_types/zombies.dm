@@ -112,7 +112,7 @@
 /datum/species/human/krokodil_addict/replace_body(mob/living/carbon/C, datum/species/new_species)
 	..()
 	var/skintone
-	if(ishuman(C))
+	if(iscarbonhuman(C))
 		var/mob/living/carbon/human/H = C
 		skintone = H.skin_tone
 

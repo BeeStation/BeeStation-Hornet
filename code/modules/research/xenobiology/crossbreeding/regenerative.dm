@@ -112,7 +112,7 @@ Regenerative extracts:
 	effect_desc = "Heals the target and fireproofs their clothes."
 
 /obj/item/slimecross/regenerative/darkblue/core_effect(mob/living/target, mob/user)
-	if(!ishuman(target))
+	if(!iscarbonhuman(target))
 		return
 	var/mob/living/carbon/human/H = target
 	var/fireproofed = FALSE

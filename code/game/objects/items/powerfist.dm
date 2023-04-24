@@ -89,7 +89,7 @@
 		playsound(loc, 'sound/weapons/punch1.ogg', 50, 1)
 		target.visible_message("<span class='danger'>[user]'s powerfist lets out a dull thunk as [user.p_they()] punch[user.p_es()] [target.name]!</span>", \
 			"<span class='userdanger'>[user]'s punches you!</span>")
-		if(ishuman(target))
+		if(iscarbonhuman(target))
 			var/mob/living/carbon/human/H = target
 			if(H.check_shields(src, force))
 				return
@@ -101,14 +101,14 @@
 		attack_weight = 1
 		target.visible_message("<span class='danger'>[user]'s powerfist lets out a weak hiss as [user.p_they()] punch[user.p_es()] [target.name]!</span>", \
 			"<span class='userdanger'>[user]'s punch strikes with force!</span>")
-		if(ishuman(target))
+		if(iscarbonhuman(target))
 			var/mob/living/carbon/human/H = target
 			if(H.check_shields(src, force))
 				return
 		return ..()
 	force = (baseforce * fisto_setting)
 	attack_weight = fisto_setting
-	if(ishuman(target))
+	if(iscarbonhuman(target))
 		var/mob/living/carbon/human/H = target
 		if(H.check_shields(src, force))
 			return

@@ -35,7 +35,7 @@
 		return 5000
 	else if(ismonkey(target))
 		return 1000
-	else if(ishuman(target))
+	else if(iscarbonhuman(target))
 		var/mob/living/carbon/human/H = target
 		if(H.dna?.species)
 			if(isabductor(H))

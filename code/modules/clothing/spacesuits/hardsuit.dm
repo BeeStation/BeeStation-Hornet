@@ -78,7 +78,7 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/proc/display_visor_message(var/msg)
 	var/mob/wearer = loc
-	if(msg && ishuman(wearer))
+	if(msg && iscarbonhuman(wearer))
 		wearer.show_message("[icon2html(src, wearer)]<b><span class='robot'>[msg]</span></b>", MSG_VISUAL)
 
 /obj/item/clothing/head/helmet/space/hardsuit/rad_act(amount)
@@ -501,7 +501,7 @@
 	slowdown = 1
 	clothing_flags |= STOPSPRESSUREDAMAGE
 	cold_protection |= CHEST | GROIN | LEGS | FEET | ARMS | HANDS
-	if(ishuman(loc))
+	if(iscarbonhuman(loc))
 		var/mob/living/carbon/H = loc
 		H.update_equipment_speed_mods()
 		H.update_inv_wear_suit()
@@ -513,7 +513,7 @@
 	slowdown = 0
 	clothing_flags &= ~STOPSPRESSUREDAMAGE
 	cold_protection &= ~(CHEST | GROIN | LEGS | FEET | ARMS | HANDS)
-	if(ishuman(loc))
+	if(iscarbonhuman(loc))
 		var/mob/living/carbon/H = loc
 		H.update_equipment_speed_mods()
 		H.update_inv_wear_suit()
@@ -777,7 +777,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/clown
 
 /obj/item/clothing/suit/space/hardsuit/clown/mob_can_equip(mob/M, mob/living/equipper, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE)
-	if(!..() || !ishuman(M))
+	if(!..() || !iscarbonhuman(M))
 		return FALSE
 	var/mob/living/carbon/human/H = M
 	if(H.mind.assigned_role == JOB_NAME_CLOWN)

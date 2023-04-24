@@ -86,7 +86,7 @@
 //checks if we already have an organic suit and casts it off.
 /datum/action/changeling/suit/proc/check_suit(mob/user)
 	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
-	if(!ishuman(user) || !changeling)
+	if(!iscarbonhuman(user) || !changeling)
 		return 1
 	var/mob/living/carbon/human/H = user
 	if(istype(H.wear_suit, suit_type) || istype(H.head, helmet_type))
@@ -412,7 +412,7 @@
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/suit/space/changeling/process(delta_time)
-	if(ishuman(loc))
+	if(iscarbonhuman(loc))
 		var/mob/living/carbon/human/H = loc
 		H.reagents.add_reagent(salbutamol, initial(salbutamol.metabolization_rate) * (delta_time / SSMOBS_DT))
 

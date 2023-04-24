@@ -61,7 +61,7 @@ GLOBAL_VAR(antag_prototypes)
 
 /datum/mind/proc/get_common_admin_commands()
 	var/common_commands = "<span>Common Commands:</span>"
-	if(ishuman(current))
+	if(iscarbonhuman(current))
 		common_commands += "<a href='?src=[REF(src)];common=undress'>undress</a>"
 	else if(iscyborg(current))
 		var/mob/living/silicon/robot/R = current
@@ -192,7 +192,7 @@ GLOBAL_VAR(antag_prototypes)
 	out += "<br>"
 
 	//Uplink
-	if(ishuman(current))
+	if(iscarbonhuman(current))
 		var/uplink_info = "<i><b>Uplink</b></i>:"
 		var/datum/component/uplink/U = find_syndicate_uplink()
 		if(U)

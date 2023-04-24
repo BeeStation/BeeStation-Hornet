@@ -51,7 +51,7 @@
 
 //attacking/catifying code
 /mob/living/simple_animal/hostile/cat_butcherer/AttackingTarget()
-	if(ishuman(target))
+	if(iscarbonhuman(target))
 		var/mob/living/carbon/human/L = target
 		if(!L.getorgan(/obj/item/organ/ears/cat) && L.stat) //target doesnt have cat ears
 			visible_message("[src] slices off [L]'s ears, and replaces them with cat ears!", "<span class='notice'>You replace [L]'s ears with cat ears'.</span>")
@@ -137,7 +137,7 @@
 
 /mob/living/simple_animal/hostile/cat_butcherer/MoveToTarget(list/possible_targets)
 	if(target)
-		if(ishuman(target))
+		if(iscarbonhuman(target))
 			var/mob/living/carbon/human/L = target
 			if(L.health <=30 || L.stat || !L.can_inject(null, FALSE)) // base health to move in to attack is 30, not 40, as it accounts for armor somewhat
 				retreat_distance = 0
@@ -159,7 +159,7 @@
 				Targets -= A
 	for(var/pos_targ in Targets)
 		Targets[pos_targ] = 1
-		if(ishuman(pos_targ))
+		if(iscarbonhuman(pos_targ))
 			var/mob/living/carbon/human/H = pos_targ
 			if(!CanAttack(H))
 				Targets -= H

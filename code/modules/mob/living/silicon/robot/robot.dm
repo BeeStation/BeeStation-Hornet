@@ -632,7 +632,7 @@
 	//check if it doesn't require any access at all
 	if(check_access(null))
 		return 1
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		var/mob/living/carbon/human/H = M
 		//if they are holding or wearing a card that has access, that works
 		if(check_access(H.get_active_held_item()) || check_access(H.wear_id))

@@ -21,7 +21,7 @@
 	return dat
 
 /obj/item/implant/gang/implant(mob/living/target, mob/user, silent = 0)
-	if(!target || !target.mind  || target.stat == DEAD || !ishuman(target) || !..())
+	if(!target || !target.mind  || target.stat == DEAD || !iscarbonhuman(target) || !..())
 		return FALSE
 	if (HAS_TRAIT(target, TRAIT_MINDSHIELD))
 		target.visible_message("<span class='warning'>[target] seems to resist the implant!</span>", "<span class='warning'>You resist the gang implant. You are reminded of the anti-gang PSA instead.</span>")

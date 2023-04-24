@@ -157,7 +157,7 @@
 
 /obj/item/clothing/neck/eldritch_amulet/equipped(mob/user, slot)
 	. = ..()
-	if(ishuman(user) && user.mind && slot == ITEM_SLOT_NECK && IS_HERETIC(user) )
+	if(iscarbonhuman(user) && user.mind && slot == ITEM_SLOT_NECK && IS_HERETIC(user) )
 		ADD_TRAIT(user, trait, CLOTHING_TRAIT)
 		user.update_sight()
 
@@ -227,7 +227,7 @@
 
 /obj/item/clothing/mask/void_mask/equipped(mob/user, slot)
 	. = ..()
-	if(slot == ITEM_SLOT_MASK && ishuman(user) && user.mind)
+	if(slot == ITEM_SLOT_MASK && iscarbonhuman(user) && user.mind)
 		local_user = user
 		START_PROCESSING(SSobj,src)
 

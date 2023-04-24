@@ -570,7 +570,7 @@
 
 /datum/reagents/proc/reaction_check(mob/living/M, datum/reagent/R)
 	var/can_process = FALSE
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		var/mob/living/carbon/human/H = M
 		//Check if this mob's species is set and can process this type of reagent
 		if(H.dna && H.dna.species.reagent_tag)

@@ -40,7 +40,7 @@
 				return -1
 		if(IS_ORGANIC_LIMB(BP))
 			organ_rejection_dam = 10
-			if(ishuman(target))
+			if(iscarbonhuman(target))
 				if(BP.animal_origin)
 					to_chat(user, "<span class='warning'>[BP] doesn't match the patient's morphology.</span>")
 					return -1

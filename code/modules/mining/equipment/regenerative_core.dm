@@ -73,7 +73,7 @@
 
 ///Handles applying the core, logging and status/mood events.
 /obj/item/organ/regenerative_core/proc/applyto(atom/target, mob/user)
-	if(ishuman(target))
+	if(iscarbonhuman(target))
 		var/mob/living/carbon/human/H = target
 		if(inert)
 			to_chat(user, "<span class='notice'>[src] has decayed and can no longer be used to heal.</span>")

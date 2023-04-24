@@ -28,7 +28,7 @@
 		var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1)
 
 		if(ismob(target))
-			if(ishuman(target))
+			if(iscarbonhuman(target))
 				var/mob/living/carbon/human/victim = target
 
 				var/obj/item/safe_thing = victim.is_eyes_covered()

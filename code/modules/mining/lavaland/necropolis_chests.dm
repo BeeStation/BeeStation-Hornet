@@ -188,7 +188,7 @@
 /datum/action/item_action/hands_free/memento_mori/Trigger()
 	var/obj/item/clothing/neck/necklace/memento_mori/MM = target
 	if(!MM.active_owner)
-		if(ishuman(owner))
+		if(iscarbonhuman(owner))
 			MM.memento(owner)
 	else
 		to_chat(owner, "<span class='warning'>You try to free your lifeforce from the pendant...</span>")
@@ -622,7 +622,7 @@
 			if(method == INGEST && show_message)
 				to_chat(C, "<span class='notice'><i>You feel nothing but a terrible aftertaste.</i></span>")
 			return ..()
-		if(ishuman(C))
+		if(iscarbonhuman(C))
 			var/mob/living/carbon/human/H = C
 			var/obj/item/organ/wings/wings = H.getorganslot(ORGAN_SLOT_WINGS)
 			if(H.getorgan(/obj/item/organ/wings))

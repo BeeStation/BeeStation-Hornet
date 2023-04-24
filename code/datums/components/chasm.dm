@@ -80,7 +80,7 @@
 				return FALSE
 		if(M.is_flying())
 			return FALSE
-		if(ishuman(AM))
+		if(iscarbonhuman(AM))
 			var/mob/living/carbon/human/H = AM
 			if(istype(H.belt, /obj/item/wormhole_jaunter))
 				var/obj/item/wormhole_jaunter/J = H.belt

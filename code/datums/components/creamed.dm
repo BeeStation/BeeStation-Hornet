@@ -20,7 +20,7 @@ GLOBAL_LIST_INIT(creamable, typecacheof(list(
 
 	creamface = mutable_appearance('icons/effects/creampie.dmi')
 
-	if(ishuman(parent))
+	if(iscarbonhuman(parent))
 		var/mob/living/carbon/human/H = parent
 		if(islizard(H))
 			creamface.icon_state = "creampie_lizard"
@@ -41,7 +41,7 @@ GLOBAL_LIST_INIT(creamable, typecacheof(list(
 	var/atom/A = parent
 	A.cut_overlay(creamface)
 	qdel(creamface)
-	if(ishuman(A))
+	if(iscarbonhuman(A))
 		SEND_SIGNAL(A, COMSIG_CLEAR_MOOD_EVENT, "creampie")
 	return ..()
 

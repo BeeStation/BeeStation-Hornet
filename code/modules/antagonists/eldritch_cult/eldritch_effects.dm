@@ -171,7 +171,7 @@
 	QDEL_IN(src, 15 SECONDS)
 
 /obj/effect/broken_illusion/attack_hand(mob/living/user)
-	if(!ishuman(user))
+	if(!iscarbonhuman(user))
 		return ..()
 	var/mob/living/carbon/human/human_user = user
 	if(IS_HERETIC(human_user))
@@ -186,7 +186,7 @@
 			to_chat(human_user,"<span class='danger'>You pull your hand away from the hole as the eldritch energy flails trying to latch onto existence itself!</span>")
 
 /obj/effect/broken_illusion/attack_tk(mob/user)
-	if(!ishuman(user))
+	if(!iscarbonhuman(user))
 		return
 	var/mob/living/carbon/human/human_user = user
 	if(IS_HERETIC(human_user))

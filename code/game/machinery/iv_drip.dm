@@ -78,7 +78,7 @@
 
 /obj/machinery/iv_drip/MouseDrop(mob/living/target)
 	. = ..()
-	if(!ishuman(usr) || !usr.canUseTopic(src, BE_CLOSE) || !isliving(target))
+	if(!iscarbonhuman(usr) || !usr.canUseTopic(src, BE_CLOSE) || !isliving(target))
 		return
 
 	if(attached)
@@ -169,7 +169,7 @@
 	. = ..()
 	if(.)
 		return
-	if(!ishuman(user))
+	if(!iscarbonhuman(user))
 		return
 	if(attached)
 		visible_message("[attached] is detached from \the [src].")

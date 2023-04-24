@@ -19,7 +19,7 @@
 /obj/item/implant/abductor/implant(mob/living/target, mob/user, silent = FALSE, force = FALSE)
 	if(..())
 		var/obj/machinery/abductor/console/console
-		if(ishuman(target))
+		if(iscarbonhuman(target))
 			var/datum/antagonist/abductor/A = target.mind?.has_antag_datum(/datum/antagonist/abductor)
 			if(A)
 				console = get_abductor_console(A.team.team_number)

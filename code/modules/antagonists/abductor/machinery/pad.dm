@@ -19,7 +19,7 @@
 		to_chat(target, "<span class='warning'>The instability of the warp leaves you disoriented!</span>")
 		target.SetSleeping(60)
 		//If the target is wearing an abductor vest, increase the stimulant cooldown
-		if (ishuman(target))
+		if (iscarbonhuman(target))
 			var/mob/living/carbon/human/abductor = target
 			var/obj/item/clothing/suit/armor/abductor/vest/abductor_vest = abductor.wear_suit
 			if (istype(abductor_vest))

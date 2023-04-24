@@ -99,6 +99,6 @@
 		if(iscarbon(M))
 			var/mob/living/carbon/L = M
 			L.Paralyze(60)
-			if(ishuman(L))
+			if(iscarbonhuman(L))
 				shake_camera(L, 20, 1)
 				addtimer(CALLBACK(L, TYPE_PROC_REF(/mob/living/carbon, vomit)), 40)

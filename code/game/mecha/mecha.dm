@@ -315,7 +315,7 @@
 			. += "[src] appears to be piloting itself..."
 		else if(occupant && occupant != user) //!silicon_pilot implied
 			. += "You can see [occupant] inside."
-			if(ishuman(user))
+			if(iscarbonhuman(user))
 				var/mob/living/carbon/human/H = user
 				for(var/O in H.held_items)
 					if(istype(O, /obj/item/gun))
@@ -897,7 +897,7 @@
 /obj/mecha/MouseDrop_T(mob/M, mob/user)
 	if((user != M) || user.incapacitated() || !Adjacent(user))
 		return
-	if(!ishuman(user)) // no silicons or drones in mechas.
+	if(!iscarbonhuman(user)) // no silicons or drones in mechas.
 		return
 	log_message("[user] tries to move in.", LOG_MECHA)
 	if (occupant)
@@ -1051,7 +1051,7 @@
 	var/atom/movable/mob_container
 	occupant.clear_alert("charge")
 	occupant.clear_alert("mech damage")
-	if(ishuman(occupant))
+	if(iscarbonhuman(occupant))
 		mob_container = occupant
 		RemoveActions(occupant, human_occupant=1)
 	else if(isbrain(occupant))

@@ -75,7 +75,7 @@
 	var/mob/living/carbon/human/user = src.loc
 	switch(severity)
 		if(1)
-			if(activated && user && ishuman(user) && (user.wear_suit == src))
+			if(activated && user && iscarbonhuman(user) && (user.wear_suit == src))
 				to_chat(user, "<span class='danger'>E:FATAL:RAM_READ_FAIL\nE:FATAL:STACK_EMPTY\nE:FATAL:READ_NULL_POINT\nE:FATAL:PWR_BUS_OVERLOAD</span>")
 				to_chat(user, "<span class='userdanger'>An electromagnetic pulse disrupts your [name] and violently tears you out of time-bluespace!</span>")
 				user.emote("scream")
@@ -168,7 +168,7 @@
 /obj/item/clothing/suit/space/chronos/process()
 	if(activated)
 		var/mob/living/carbon/human/user = src.loc
-		if(user && ishuman(user) && (user.wear_suit == src))
+		if(user && iscarbonhuman(user) && (user.wear_suit == src))
 			if(camera && (user.remote_control == camera))
 				if(!teleporting)
 					if(camera.loc != user && ((camera.x != user.x) || (camera.y != user.y) || (camera.get_virtual_z_level() != user.get_virtual_z_level())))
@@ -185,7 +185,7 @@
 	if(!activating && !activated && !teleporting)
 		activating = 1
 		var/mob/living/carbon/human/user = src.loc
-		if(user && ishuman(user) && user.wear_suit == src)
+		if(user && iscarbonhuman(user) && user.wear_suit == src)
 			to_chat(user, "\nChronosuitMK4 login: root")
 			to_chat(user, "Password:\n")
 			to_chat(user, "root@ChronosuitMK4# chronowalk4 --start\n")
@@ -218,7 +218,7 @@
 		activated = 0
 		activating = 0
 		finish_chronowalk()
-		if(user && ishuman(user))
+		if(user && iscarbonhuman(user))
 			teleport_now.Remove(user)
 			if(user.wear_suit == src)
 				if(hard_landing)

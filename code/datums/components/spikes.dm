@@ -13,7 +13,7 @@
 	RegisterSignal(parent, COMSIG_MOVABLE_BUMP, PROC_REF(prick_collide))
 	RegisterSignal(parent, COMSIG_ATOM_ENTERED, PROC_REF(prick_crossed))
 	RegisterSignal(parent, COMSIG_DISEASE_END, PROC_REF(checkdiseasecure))
-	if(ishuman(parent))
+	if(iscarbonhuman(parent))
 		if(armor)
 			setarmor(parent)
 			RegisterSignal(parent, COMSIG_CARBON_SPECIESCHANGE, PROC_REF(setarmor))
@@ -55,7 +55,7 @@
 	var/atom/movable/P = parent
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
-		if(ishuman(C))
+		if(iscarbonhuman(C))
 			var/mob/living/carbon/human/H = C
 			var/feetCover = (H.wear_suit && (H.wear_suit.body_parts_covered & FEET)) || (H.w_uniform && (H.w_uniform.body_parts_covered & FEET))
 			if((H.movement_type & FLYING) || !(H.mobility_flags & MOBILITY_STAND)|| H.buckled || H.shoes || feetCover)
@@ -70,7 +70,7 @@
 /datum/component/spikes/proc/setarmor(datum/source, datum/species/S) //this is a proc used to make sure a change in species won't fuck up the armor bonus.
 	SIGNAL_HANDLER
 
-	if(ishuman(parent))
+	if(iscarbonhuman(parent))
 		var/mob/living/carbon/human/H = parent
 		finalarmor = armor
 		if(H.dna.species.armor + armor > 35) //anything higher than this seems a bit much for a level 0 symptom
@@ -88,6 +88,6 @@
 
 	if(C != src)
 		return
-	if(ishuman(parent) && armor)
+	if(iscarbonhuman(parent) && armor)
 		var/mob/living/carbon/human/H = parent
 		H.dna.species.armor -= finalarmor

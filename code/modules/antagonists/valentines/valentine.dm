@@ -11,7 +11,7 @@
 	var/datum/objective/protect/protect_objective = new
 	protect_objective.owner = owner
 	protect_objective.set_target(date)
-	if(!ishuman(date.current))
+	if(!iscarbonhuman(date.current))
 		protect_objective.human_check = FALSE
 	protect_objective.explanation_text = "Protect [date.name], your date."
 	objectives += protect_objective

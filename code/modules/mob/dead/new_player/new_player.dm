@@ -328,7 +328,7 @@
 	SSticker.minds += character.mind
 
 	var/mob/living/carbon/human/humanc
-	if(ishuman(character))
+	if(iscarbonhuman(character))
 		humanc = character	//Let's retypecast the var to be human,
 
 	if(humanc)	//These procs all expect humans

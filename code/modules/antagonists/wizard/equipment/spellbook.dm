@@ -782,7 +782,7 @@
 
 	if(H.stat || H.restrained())
 		return
-	if(!ishuman(H))
+	if(!iscarbonhuman(H))
 		return TRUE
 
 	if(H.mind.special_role == "apprentice")

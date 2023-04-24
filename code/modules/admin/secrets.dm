@@ -403,7 +403,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				chosenPlayers.Add(chosenPlayer)
 			//Make the antags
 			for(var/mob/living/H in chosenPlayers)
-				if(!(ishuman(H)||istype(H, /mob/living/silicon/)))
+				if(!(iscarbonhuman(H)||istype(H, /mob/living/silicon/)))
 					continue
 				if(H.stat == DEAD || !H.client || !H.mind || ispAI(H))
 					continue
@@ -847,7 +847,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				chosen.client.prefs.active_character.copy_to(spawnedMob)
 				spawnedMob.key = chosen.key
 			players -= chosen
-		if (ishuman(spawnedMob) && ispath(humanoutfit, /datum/outfit))
+		if (iscarbonhuman(spawnedMob) && ispath(humanoutfit, /datum/outfit))
 			var/mob/living/carbon/human/H = spawnedMob
 			H.equipOutfit(humanoutfit)
 	var/turf/T = get_step(loc, SOUTHWEST)

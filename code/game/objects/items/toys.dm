@@ -453,7 +453,7 @@
 
 /obj/item/toy/snappop/proc/on_entered(datum/source, H as mob|obj)
 	SIGNAL_HANDLER
-	if(ishuman(H) || issilicon(H)) //i guess carp and shit shouldn't set them off
+	if(iscarbonhuman(H) || issilicon(H)) //i guess carp and shit shouldn't set them off
 		var/mob/living/carbon/M = H
 		if(issilicon(H) || M.m_intent == MOVE_INTENT_RUN)
 			to_chat(M, "<span class='danger'>You step on the snap pop!</span>")
@@ -851,7 +851,7 @@
 /obj/item/toy/cards/cardhand/Topic(href, href_list)
 	if(..())
 		return
-	if(usr.stat || !ishuman(usr))
+	if(usr.stat || !iscarbonhuman(usr))
 		return
 	var/mob/living/carbon/human/cardUser = usr
 	if(!(cardUser.mobility_flags & MOBILITY_USE))
@@ -937,7 +937,7 @@
 
 /obj/item/toy/cards/singlecard/examine(mob/user)
 	. = ..()
-	if(ishuman(user))
+	if(iscarbonhuman(user))
 		var/mob/living/carbon/human/cardUser = user
 		if(cardUser.is_holding(src))
 			cardUser.visible_message("<span class='notice'>[cardUser] checks [cardUser.p_their()] card.</span>", "<span class='notice'>The card reads: [cardname].</span>")
@@ -949,7 +949,7 @@
 	set name = "Flip Card"
 	set category = "Object"
 	set src in range(1)
-	if(!ishuman(usr) || !usr.canUseTopic(src, BE_CLOSE))
+	if(!iscarbonhuman(usr) || !usr.canUseTopic(src, BE_CLOSE))
 		return
 	if(!flipped)
 		src.flipped = 1
@@ -996,7 +996,7 @@
 		return ..()
 
 /obj/item/toy/cards/singlecard/attack_self(mob/living/carbon/human/user)
-	if(!ishuman(user) || !(user.mobility_flags & MOBILITY_USE))
+	if(!iscarbonhuman(user) || !(user.mobility_flags & MOBILITY_USE))
 		return
 	Flip()
 
@@ -1686,7 +1686,7 @@
 
 /obj/item/dance_trance/proc/flip_mobs(mob/living/carbon/M, mob/user)
 	for(M in ohearers(7, get_turf(src)))
-		if(ishuman(M) && M.can_hear())
+		if(iscarbonhuman(M) && M.can_hear())
 			var/mob/living/carbon/human/H = M
 			if(istype(H.ears, /obj/item/clothing/ears/earmuffs))
 				continue

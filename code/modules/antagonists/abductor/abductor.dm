@@ -123,7 +123,7 @@
 	.["Equip"] = CALLBACK(src,PROC_REF(admin_equip))
 
 /datum/antagonist/abductor/proc/admin_equip(mob/admin)
-	if(!ishuman(owner.current))
+	if(!iscarbonhuman(owner.current))
 		to_chat(admin, "<span class='warning'>This only works on humans!</span>")
 		return
 	var/mob/living/carbon/human/H = owner.current

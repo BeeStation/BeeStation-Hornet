@@ -45,7 +45,7 @@
 
 /datum/species/oozeling/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
-	if(ishuman(C))
+	if(iscarbonhuman(C))
 		regenerate_limbs = new
 		regenerate_limbs.Grant(C)
 

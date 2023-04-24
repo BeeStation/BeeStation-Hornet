@@ -58,7 +58,7 @@
 	if(.)
 		if(iscarbon(owner)) //to avoid repeated istypes
 			carbon_owner = owner
-		if(ishuman(owner))
+		if(iscarbonhuman(owner))
 			human_owner = owner
 
 /datum/status_effect/incapacitating/sleeping/Destroy()
@@ -818,7 +818,7 @@
 	effect_sprite = "emark1"
 
 /datum/status_effect/eldritch/flesh/on_effect()
-	if(!ishuman(owner))
+	if(!iscarbonhuman(owner))
 		return
 	var/mob/living/carbon/human/H = owner
 	H.bleed_rate += 5
@@ -872,7 +872,7 @@
 
 /datum/status_effect/corrosion_curse/tick()
 	. = ..()
-	if(!ishuman(owner))
+	if(!iscarbonhuman(owner))
 		return
 	var/mob/living/carbon/human/H = owner
 	if (H.IsSleeping())

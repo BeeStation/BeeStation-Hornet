@@ -625,7 +625,7 @@
 			prefixes += "Deadly "
 			bodies += "Death"
 	if(diseasesource)
-		if(ishuman(diseasesource))
+		if(iscarbonhuman(diseasesource))
 			var/mob/living/carbon/human/H = diseasesource
 			prefixes += pick("[H.first_name()]'s", "[H.name]'s", "[H.job]'s", "[H.dna.species]'s")
 			bodies += pick("[H.first_name()]", "[H.job]", "[H.dna.species]")

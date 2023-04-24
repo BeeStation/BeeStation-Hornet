@@ -161,7 +161,7 @@
 	if(user.grab_state < GRAB_KILL)
 		user.changeNext_move(CLICK_CD_GRABBING)
 		var/sound_to_play = 'sound/weapons/thudswoosh.ogg'
-		if(ishuman(user))
+		if(iscarbonhuman(user))
 			var/mob/living/carbon/human/H = user
 			if(H.dna.species.grab_sound)
 				sound_to_play = H.dna.species.grab_sound

@@ -353,7 +353,7 @@ Consuming extracts:
 	taste = "the contents of your stomach"
 
 /obj/item/slime_cookie/green/do_effect(mob/living/M, mob/user)
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		var/mob/living/carbon/human/H = M
 		H.vomit(25)
 	M.reagents.remove_all()

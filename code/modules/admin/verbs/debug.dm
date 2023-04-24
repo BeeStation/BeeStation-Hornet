@@ -44,7 +44,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(!SSticker.HasRoundStarted())
 		alert("Wait until the game starts")
 		return
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		log_admin("[key_name(src)] has robotized [M.key].")
 		var/mob/living/carbon/human/H = M
 		spawn(0)
@@ -60,7 +60,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(!SSticker.HasRoundStarted())
 		alert("Wait until the game starts")
 		return
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		log_admin("[key_name(src)] has blobized [M.key].")
 		var/mob/living/carbon/human/H = M
 		H.become_overmind()
@@ -121,7 +121,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(!SSticker.HasRoundStarted())
 		alert("Wait until the game starts")
 		return
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		INVOKE_ASYNC(M, /mob/living/carbon/human/proc/Alienize)
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Alien") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		log_admin("[key_name(usr)] made [key_name(M)] into an alien at [AREACOORD(M)].")
@@ -136,7 +136,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(!SSticker.HasRoundStarted())
 		alert("Wait until the game starts")
 		return
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		INVOKE_ASYNC(M, /mob/living/carbon/human/proc/slimeize)
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Slime") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		log_admin("[key_name(usr)] made [key_name(M)] into a slime at [AREACOORD(M)].")
@@ -185,7 +185,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(!SSticker.HasRoundStarted())
 		alert("Wait until the game starts")
 		return
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/worn = H.wear_id
 		var/obj/item/card/id/id = null
@@ -490,7 +490,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 /client/proc/cmd_admin_dress(mob/M in GLOB.mob_list)
 	set category = "Fun"
 	set name = "Select equipment"
-	if(!(ishuman(M) || isobserver(M)))
+	if(!(iscarbonhuman(M) || isobserver(M)))
 		alert("Invalid mob")
 		return
 

@@ -48,7 +48,7 @@
 		track.names.Add(name)
 		track.namecounts[name] = 1
 
-		if(ishuman(L))
+		if(iscarbonhuman(L))
 			track.humans[name] = WEAKREF(L)
 		else
 			track.others[name] = WEAKREF(L)

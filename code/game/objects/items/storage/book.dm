@@ -124,7 +124,7 @@
 /obj/item/storage/book/bible/proc/bless(mob/living/L, mob/living/user)
 	if(GLOB.religious_sect)
 		return GLOB.religious_sect.sect_bless(L,user)
-	if(!ishuman(L))
+	if(!iscarbonhuman(L))
 		return
 
 	var/mob/living/carbon/human/H = L

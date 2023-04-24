@@ -418,7 +418,7 @@
 	..()
 
 /obj/item/tank/jetpack/suit/turn_on(mob/user)
-	if(!istype(loc, /obj/item/clothing/suit/space/hardsuit) || !ishuman(loc.loc) || loc.loc != user)
+	if(!istype(loc, /obj/item/clothing/suit/space/hardsuit) || !iscarbonhuman(loc.loc) || loc.loc != user)
 		return
 	var/mob/living/carbon/human/H = user
 	tank = H.s_store
@@ -435,7 +435,7 @@
 	..()
 
 /obj/item/tank/jetpack/suit/process()
-	if(!istype(loc, /obj/item/clothing/suit/space/hardsuit) || !ishuman(loc.loc))
+	if(!istype(loc, /obj/item/clothing/suit/space/hardsuit) || !iscarbonhuman(loc.loc))
 		turn_off(cur_user)
 		return
 	var/mob/living/carbon/human/H = loc.loc

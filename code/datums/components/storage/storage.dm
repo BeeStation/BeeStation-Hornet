@@ -780,7 +780,7 @@
 	if(rustle_sound)
 		playsound(A, "rustle", 50, 1, -5)
 
-	if(ishuman(user))
+	if(iscarbonhuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.l_store == A && !H.get_active_held_item())	//Prevents opening if it's in a pocket.
 			. = COMPONENT_NO_ATTACK_HAND

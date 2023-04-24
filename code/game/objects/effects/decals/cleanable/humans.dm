@@ -205,7 +205,7 @@
 
 /obj/effect/decal/cleanable/blood/footprints/on_entered(datum/source, atom/movable/O)
 	. = ..()
-	if(ishuman(O))
+	if(iscarbonhuman(O))
 		var/mob/living/carbon/human/H = O
 		var/obj/item/clothing/shoes/S = H.shoes
 		if(S && S.bloody_shoes[blood_state])
@@ -217,7 +217,7 @@
 
 /obj/effect/decal/cleanable/blood/footprints/on_uncrossed(datum/source, atom/movable/O)
 	. = ..()
-	if(ishuman(O))
+	if(iscarbonhuman(O))
 		var/mob/living/carbon/human/H = O
 		var/obj/item/clothing/shoes/S = H.shoes
 		if(S && S.bloody_shoes[blood_state])

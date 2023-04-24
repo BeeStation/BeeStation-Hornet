@@ -325,7 +325,7 @@
 		M.adjustOxyLoss(-2, 0)
 		M.adjustBruteLoss(-2, 0)
 		M.adjustFireLoss(-2, 0)
-		if(ishuman(M) && M.blood_volume < BLOOD_VOLUME_NORMAL)
+		if(iscarbonhuman(M) && M.blood_volume < BLOOD_VOLUME_NORMAL)
 			M.blood_volume += 3
 	else  // Will deal about 90 damage when 50 units are thrown
 		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3, 150)
@@ -389,7 +389,7 @@
 	taste_description = "sour oranges"
 
 /datum/reagent/spraytan/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		if(method == PATCH || method == VAPOR)
 			var/mob/living/carbon/human/N = M
 			if(N.dna.species.id == SPECIES_HUMAN)
@@ -455,7 +455,7 @@
 /datum/reagent/spraytan/overdose_start(mob/living/M)
 	metabolization_rate = 1 * REAGENTS_METABOLISM
 
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		var/mob/living/carbon/human/N = M
 		N.hair_style = "Spiky"
 		N.facial_hair_style = "Shaved"
@@ -471,7 +471,7 @@
 	..()
 
 /datum/reagent/spraytan/overdose_process(mob/living/M)
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		var/mob/living/carbon/human/N = M
 		if(prob(7))
 			if(N.w_uniform)
@@ -758,7 +758,7 @@
 	taste_description = "bitterness"
 
 /datum/reagent/serotrotium/on_mob_life(mob/living/carbon/M)
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		if(prob(7))
 			M.emote(pick("twitch","drool","moan","gasp"))
 	..()
@@ -1135,7 +1135,7 @@
 		M.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 		if(iscarbon(M))
 			var/mob/living/carbon/C = M
-			if(ishuman(M))
+			if(iscarbonhuman(M))
 				var/mob/living/carbon/human/H = M
 				if(H.lip_style)
 					H.lip_style = null
@@ -1145,7 +1145,7 @@
 			if(C.wear_mask)
 				if(SEND_SIGNAL(C.wear_mask, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD))
 					C.update_inv_wear_mask()
-			if(ishuman(M))
+			if(iscarbonhuman(M))
 				var/mob/living/carbon/human/H = C
 				if(H.head)
 					if(SEND_SIGNAL(H.head, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD))
@@ -1343,7 +1343,7 @@
 
 /datum/reagent/nitrous_oxide/on_mob_life(mob/living/carbon/M)
 	M.drowsyness += 2
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		var/mob/living/carbon/human/H = M
 		H.blood_volume = max(H.blood_volume - 10, 0)
 	if(prob(20))
@@ -1693,7 +1693,7 @@
 
 /datum/reagent/hair_dye/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(method == TOUCH || method == VAPOR)
-		if(M && ishuman(M))
+		if(M && iscarbonhuman(M))
 			var/mob/living/carbon/human/H = M
 			H.hair_color = pick(potential_colors)
 			H.facial_hair_color = pick(potential_colors)
@@ -1709,7 +1709,7 @@
 
 /datum/reagent/barbers_aid/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(method == TOUCH || method == VAPOR)
-		if(M && ishuman(M))
+		if(M && iscarbonhuman(M))
 			var/mob/living/carbon/human/H = M
 			var/datum/sprite_accessory/hair/picked_hair = pick(GLOB.hair_styles_list)
 			var/datum/sprite_accessory/facial_hair/picked_beard = pick(GLOB.facial_hair_styles_list)
@@ -1727,7 +1727,7 @@
 
 /datum/reagent/concentrated_barbers_aid/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(method == TOUCH || method == VAPOR)
-		if(M && ishuman(M))
+		if(M && iscarbonhuman(M))
 			var/mob/living/carbon/human/H = M
 			H.hair_style = "Very Long Hair"
 			H.facial_hair_style = "Beard (Very Long)"
@@ -1886,7 +1886,7 @@
 
 /datum/reagent/magillitis/on_mob_life(mob/living/carbon/M)
 	..()
-	if((ismonkey(M) || ishuman(M)) && current_cycle >= 10)
+	if((ismonkey(M) || iscarbonhuman(M)) && current_cycle >= 10)
 		M.gorillize()
 
 /datum/reagent/growthserum
@@ -2090,7 +2090,7 @@
 		M.adjustOxyLoss(-2, FALSE)
 		M.adjustBruteLoss(-2, FALSE)
 		M.adjustFireLoss(-2, FALSE)
-		if(ishuman(M) && M.blood_volume < BLOOD_VOLUME_NORMAL)
+		if(iscarbonhuman(M) && M.blood_volume < BLOOD_VOLUME_NORMAL)
 			M.blood_volume += 3
 	else
 		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3, 150)

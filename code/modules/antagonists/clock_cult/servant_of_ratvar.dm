@@ -41,7 +41,7 @@
 	GLOB.all_servants_of_ratvar |= owner
 	if(counts_towards_total)
 		GLOB.servants_of_ratvar |= owner
-		if(ishuman(owner.current))
+		if(iscarbonhuman(owner.current))
 			GLOB.human_servants_of_ratvar |= owner
 		else if(iscyborg(owner.current))
 			GLOB.cyborg_servants_of_ratvar |= owner
@@ -61,7 +61,7 @@
 	owner.current.faction |= "ratvar"
 	transmit_spell = new()
 	transmit_spell.Grant(owner.current)
-	if(GLOB.gateway_opening && ishuman(owner.current))
+	if(GLOB.gateway_opening && iscarbonhuman(owner.current))
 		var/mob/living/carbon/owner_mob = owner.current
 		forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
 		owner_mob.add_overlay(forbearance)
@@ -75,7 +75,7 @@
 	owner.current.clear_alert("clockinfo")
 	transmit_spell.Remove(transmit_spell.owner)
 	SSticker.mode.update_clockcult_icons_removed(owner)
-	if(forbearance && ishuman(owner.current))
+	if(forbearance && iscarbonhuman(owner.current))
 		var/mob/living/carbon/owner_mob = owner.current
 		owner_mob.remove_overlay(forbearance)
 		qdel(forbearance)

@@ -49,11 +49,11 @@
 	for(var/atom/movable/A as mob|obj in orange(5,pull))
 		if(A == wielder)
 			continue
-		if(A && !A.anchored && !ishuman(A))
+		if(A && !A.anchored && !iscarbonhuman(A))
 			step_towards(A,pull)
 			step_towards(A,pull)
 			step_towards(A,pull)
-		else if(ishuman(A))
+		else if(iscarbonhuman(A))
 			var/mob/living/carbon/human/H = A
 			if(istype(H.shoes, /obj/item/clothing/shoes/magboots))
 				var/obj/item/clothing/shoes/magboots/M = H.shoes

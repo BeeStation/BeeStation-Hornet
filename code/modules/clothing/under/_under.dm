@@ -59,7 +59,7 @@
 
 /obj/item/clothing/under/Destroy()
 	. = ..()
-	if(ishuman(loc))
+	if(iscarbonhuman(loc))
 		update_sensors(SENSOR_OFF)
 
 /obj/item/clothing/under/emp_act()
@@ -79,7 +79,7 @@
 		if(!alt_covers_chest)
 			body_parts_covered |= CHEST
 
-	if(ishuman(user) || ismonkey(user))
+	if(iscarbonhuman(user) || ismonkey(user))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_w_uniform()
 	if(slot == ITEM_SLOT_ICLOTHING)
@@ -89,7 +89,7 @@
 		freshly_laundered = FALSE
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "fresh_laundry", /datum/mood_event/fresh_laundry)
 
-	if(attached_accessory && slot != ITEM_SLOT_HANDS && ishuman(user))
+	if(attached_accessory && slot != ITEM_SLOT_HANDS && iscarbonhuman(user))
 		var/mob/living/carbon/human/H = user
 		attached_accessory.on_uniform_equip(src, user)
 		if(attached_accessory.above_suit)
@@ -100,10 +100,10 @@
 	var/mob/living/carbon/human/H = user
 	if(attached_accessory)
 		attached_accessory.on_uniform_dropped(src, user)
-		if(ishuman(H) && attached_accessory.above_suit)
+		if(iscarbonhuman(H) && attached_accessory.above_suit)
 			H.update_inv_wear_suit()
 
-	if(ishuman(H) || ismonkey(H))
+	if(iscarbonhuman(H) || ismonkey(H))
 		if(H.w_uniform == src)
 			if(!HAS_TRAIT(user, TRAIT_SUIT_SENSORS))
 				return
@@ -136,7 +136,7 @@
 			accessory_overlay.alpha = attached_accessory.alpha
 			accessory_overlay.color = attached_accessory.color
 
-			if(ishuman(loc))
+			if(iscarbonhuman(loc))
 				var/mob/living/carbon/human/H = loc
 				H.update_inv_w_uniform()
 				H.update_inv_wear_suit()
@@ -160,7 +160,7 @@
 		else
 			to_chat(user, "<span class='notice'>You detach [A] from [src] and it falls on the floor.</span>")
 
-		if(ishuman(loc))
+		if(iscarbonhuman(loc))
 			var/mob/living/carbon/human/H = loc
 			H.update_inv_w_uniform()
 			H.update_inv_wear_suit()
@@ -174,7 +174,7 @@
 	sensor_mode = new_mode
 	if(!forced && (old_mode == new_mode || (old_mode != SENSOR_OFF && new_mode != SENSOR_OFF)))
 		return
-	if(!ishuman(loc) || istype(loc, /mob/living/carbon/human/dummy))
+	if(!iscarbonhuman(loc) || istype(loc, /mob/living/carbon/human/dummy))
 		return
 
 	if(has_sensor >= HAS_SENSORS && sensor_mode > SENSOR_OFF)

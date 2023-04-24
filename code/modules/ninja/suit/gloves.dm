@@ -41,7 +41,7 @@
 /obj/item/clothing/gloves/space_ninja/Touch(atom/A,proximity)
 	if(!candrain || draining)
 		return FALSE
-	if(!ishuman(loc))
+	if(!iscarbonhuman(loc))
 		return FALSE	//Only works while worn
 
 	var/mob/living/carbon/human/H = loc

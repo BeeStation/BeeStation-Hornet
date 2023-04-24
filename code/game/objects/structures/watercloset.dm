@@ -59,7 +59,7 @@
 			to_chat(user, "<span class='notice'>The cistern is empty.</span>")
 		else
 			var/obj/item/I = pick(contents)
-			if(ishuman(user))
+			if(iscarbonhuman(user))
 				user.put_in_hands(I)
 			else
 				I.forceMove(drop_location())
@@ -148,7 +148,7 @@
 		if(!hiddenitem)
 			to_chat(user, "<span class='notice'>There is nothing in the drain holder.</span>")
 		else
-			if(ishuman(user))
+			if(iscarbonhuman(user))
 				user.put_in_hands(hiddenitem)
 			else
 				hiddenitem.forceMove(get_turf(src))
@@ -278,7 +278,7 @@
 						"<span class='notice'>You wash your [washing_face ? "face" : "hands"] using [src].</span>")
 	if(washing_face)
 		SEND_SIGNAL(user, COMSIG_COMPONENT_CLEAN_FACE_ACT, CLEAN_STRENGTH_BLOOD)
-		if(ishuman(user))
+		if(iscarbonhuman(user))
 			var/mob/living/carbon/human/H = user
 			H.lip_style = null //Washes off lipstick
 			H.lip_color = initial(H.lip_color)

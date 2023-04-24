@@ -85,7 +85,7 @@
 	var/mob/living/L
 	if(isliving(target))
 		L = target
-		if(ishuman(L))
+		if(iscarbonhuman(L))
 			var/mob/living/carbon/human/H = L
 			if(!H.can_inject(user, TRUE, penetrate_thick = proj_piercing))
 				return
@@ -155,7 +155,7 @@
 				return
 
 			if(L) //living mob
-				if(ishuman(L))
+				if(iscarbonhuman(L))
 					var/mob/living/carbon/human/H = L
 					if(!H.can_inject(user, TRUE, penetrate_thick = proj_piercing))
 						return

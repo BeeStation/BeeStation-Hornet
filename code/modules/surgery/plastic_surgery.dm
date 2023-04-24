@@ -39,7 +39,7 @@
 		display_results(user, target, "<span class='notice'>You alter [oldname]'s appearance completely, [target.p_they()] is now [newname].</span>",
 			"[user] alters [oldname]'s appearance completely, [target.p_they()] is now [newname]!",
 			"[user] finishes the operation on [target]'s face.")
-	if(ishuman(target))
+	if(iscarbonhuman(target))
 		var/mob/living/carbon/human/H = target
 		H.sec_hud_set_ID()
 	return TRUE

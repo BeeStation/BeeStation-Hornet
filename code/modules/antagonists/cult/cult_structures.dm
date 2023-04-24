@@ -166,7 +166,7 @@
 			if(!iscultist(L) && !isshade(L) && !isconstruct(L))
 				continue
 			new /obj/effect/temp_visual/heal(get_turf(src), "#960000")
-			if(ishuman(L))
+			if(iscarbonhuman(L))
 				L.adjustBruteLoss(-5*delta_time, 0)
 				L.adjustFireLoss(-5*delta_time, 0)
 				L.updatehealth()

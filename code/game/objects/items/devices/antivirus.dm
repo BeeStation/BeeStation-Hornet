@@ -5,7 +5,7 @@
 	icon_state = "antivirus4"
 
 /obj/item/disk/antivirus/attack(mob/M, mob/user, def_zone)
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		var/mob/living/carbon/human/H = M
 		var/cured = 0
 		if(MOB_ROBOTIC in H.mob_biotypes)

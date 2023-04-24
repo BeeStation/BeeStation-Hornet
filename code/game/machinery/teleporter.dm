@@ -79,7 +79,7 @@
 		if(do_teleport(M, target, channel = TELEPORT_CHANNEL_BLUESPACE))
 			use_power(7500)
 			if(!calibrated && prob(40 - ((accuracy) * 10))) //oh dear a problem
-				if(ishuman(M))//don't remove people from the round randomly you jerks
+				if(iscarbonhuman(M))//don't remove people from the round randomly you jerks
 					var/mob/living/carbon/human/human = M
 					if(human.dna && !isflyperson(human) && !HAS_TRAIT(M, TRAIT_RADIMMUNE))
 						log_game("[M] ([key_name(M)]) was turned into a fly person")

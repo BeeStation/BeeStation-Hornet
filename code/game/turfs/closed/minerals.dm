@@ -106,7 +106,7 @@
 
 /turf/closed/mineral/Bumped(atom/movable/AM)
 	..()
-	if(ishuman(AM))
+	if(iscarbonhuman(AM))
 		var/mob/living/carbon/human/H = AM
 		var/obj/item/I = H.is_holding_tool_quality(TOOL_MINING)
 		if(I)

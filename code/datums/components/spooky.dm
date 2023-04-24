@@ -7,7 +7,7 @@
 /datum/component/spooky/proc/spectral_attack(datum/source, mob/living/carbon/C, mob/user)
 	SIGNAL_HANDLER
 
-	if(ishuman(user)) //this weapon wasn't meant for mortals.
+	if(iscarbonhuman(user)) //this weapon wasn't meant for mortals.
 		var/mob/living/carbon/human/U = user
 		if(!istype(U.dna.species, /datum/species/skeleton))
 			U.adjustStaminaLoss(35) //Extra Damage
@@ -18,7 +18,7 @@
 				INVOKE_ASYNC(src, PROC_REF(spectral_change), U)
 			return
 
-	if(ishuman(C))
+	if(iscarbonhuman(C))
 		var/mob/living/carbon/human/H = C
 		if(istype(H.dna.species, /datum/species/skeleton))
 			return //undeads are unaffected by the spook-pocalypse.

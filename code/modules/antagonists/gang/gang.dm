@@ -31,7 +31,7 @@
 		"You rule the streets, assist your gang in taking over the station.")
 
 /datum/antagonist/gang/farewell()
-	if(ishuman(owner.current))
+	if(iscarbonhuman(owner.current))
 		owner.current.visible_message("<span class='deconversion_message'>[owner.current] looks like [owner.current.p_theyve()] just remembered [owner.current.p_their()] real allegiance!</span>", null, null, null, owner.current)
 		to_chat(owner, "<span class='userdanger'>You are no longer a gangster!</span>")
 
@@ -410,7 +410,7 @@
 	//Count swag on gangsters
 	var/swag = 0
 	for(var/datum/mind/gangmind in members)
-		if(ishuman(gangmind.current))
+		if(iscarbonhuman(gangmind.current))
 			swag+=check_gangster_swag(gangmind.current)
 	return swag
 

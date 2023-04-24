@@ -91,7 +91,7 @@
 
 /datum/eldritch_knowledge/flesh_grasp/on_mansus_grasp(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(!ishuman(target) || target == user)
+	if(!iscarbonhuman(target) || target == user)
 		return
 	var/mob/living/carbon/human/human_target = target
 
@@ -141,7 +141,7 @@
 
 /datum/eldritch_knowledge/flesh_grasp/on_eldritch_blade(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(!ishuman(target))
+	if(!iscarbonhuman(target))
 		return
 	var/mob/living/carbon/C = target
 	var/datum/status_effect/eldritch/E = C.has_status_effect(/datum/status_effect/eldritch/rust) || C.has_status_effect(/datum/status_effect/eldritch/ash) || C.has_status_effect(/datum/status_effect/eldritch/flesh)
@@ -174,7 +174,7 @@
 
 /datum/eldritch_knowledge/flesh_blade_upgrade/on_eldritch_blade(target,user,proximity_flag,click_parameters)
 	. = ..()
-	if(ishuman(target))
+	if(iscarbonhuman(target))
 		var/mob/living/carbon/human/H = target
 		H.bleed_rate+= 2
 
@@ -210,7 +210,7 @@
 	. = ..()
 	priority_announce("$^@&#*$^@(#&$(@&#^$&#^@# Ever coiling vortex. Reality unfolded. THE LORD OF ARMS, [user.real_name] has ascended! Fear the ever twisting hand! $^@&#*$^@(#&$(@&#^$&#^@#","#$^@&#*$^@(#&$(@&#^$&#^@#", ANNOUNCER_SPANOMALIES)
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shed_human_form)
-	if(!ishuman(user))
+	if(!iscarbonhuman(user))
 		return
 	var/mob/living/carbon/human/H = user
 	H.physiology.brute_mod *= 0.5

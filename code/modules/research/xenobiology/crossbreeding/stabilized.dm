@@ -25,9 +25,9 @@ Stabilized extracts:
 
 /obj/item/slimecross/stabilized/process()
 	var/humanfound = null
-	if(ishuman(loc))
+	if(iscarbonhuman(loc))
 		humanfound = loc
-	if(ishuman(loc.loc)) //Check if in backpack.
+	if(iscarbonhuman(loc.loc)) //Check if in backpack.
 		humanfound = (loc.loc)
 	if(!humanfound)
 		return

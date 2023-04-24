@@ -280,7 +280,7 @@ Behavior that's still missing from this component that original food items had t
 /datum/component/edible/proc/check_liked(fraction, mob/eater)
 	if(last_check_time + 50 > world.time)
 		return FALSE
-	if(!ishuman(eater))
+	if(!iscarbonhuman(eater))
 		return FALSE
 	var/mob/living/carbon/human/human_eater = eater
 	var/obj/item/organ/tongue/tongue = human_eater.getorganslot(ORGAN_SLOT_TONGUE)

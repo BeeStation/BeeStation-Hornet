@@ -126,7 +126,7 @@
 		return
 	playsound(get_turf(target), on_use_sound,100,1)
 	for(var/mob/living/carbon/M in (hearers(1, target) - user)) //3x3 around the target, not affecting the user
-		if(ishuman(M))
+		if(iscarbonhuman(M))
 			var/mob/living/carbon/human/H = M
 			if(istype(H.ears, /obj/item/clothing/ears/earmuffs))
 				continue

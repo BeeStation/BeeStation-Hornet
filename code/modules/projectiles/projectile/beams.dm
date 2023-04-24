@@ -148,7 +148,7 @@
 
 /obj/item/projectile/beam/lasertag/on_hit(atom/target, blocked = FALSE)
 	. = ..()
-	if(ishuman(target))
+	if(iscarbonhuman(target))
 		var/mob/living/carbon/human/M = target
 		if(istype(M.wear_suit))
 			if(M.wear_suit.type in suit_types)

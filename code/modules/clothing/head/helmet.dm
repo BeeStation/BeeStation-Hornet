@@ -62,7 +62,7 @@
 	if(attached_light)
 		icon_state = "[initial(icon_state)][attached_light.on ? "-flight-on" : "-flight"]"
 
-	if(ishuman(loc))
+	if(iscarbonhuman(loc))
 		var/mob/living/carbon/human/H = loc
 		H.update_inv_head()
 

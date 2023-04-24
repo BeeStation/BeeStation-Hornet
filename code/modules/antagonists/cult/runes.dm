@@ -152,7 +152,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 				if(L.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST) && !allow_ghosts)
 					L.visible_message("<span class='warning'>[L] appears to shudder as they fail to perform the ritual, their soul is too fragile!</span>", "<span class='narsie'>You do not possess a strong enough physical binding to activate this rune!</span>")
 					continue
-				if(ishuman(L))
+				if(iscarbonhuman(L))
 					var/mob/living/carbon/human/H = L
 					if((HAS_TRAIT(H, TRAIT_MUTE)) || H.silent)
 						continue
@@ -283,7 +283,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	and something evil takes root.</b></span>")
 	to_chat(convertee, "<span class='cult italic'><b>Assist your new compatriots in their dark dealings. Your goal is theirs, and theirs is yours. You serve the Geometer above all else. Bring it back.\
 	</b></span>")
-	if(ishuman(convertee))
+	if(iscarbonhuman(convertee))
 		var/mob/living/carbon/human/H = convertee
 		H.uncuff()
 		H.stuttering = 0
@@ -300,7 +300,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 
 	var/big_sac = FALSE
-	if((((ishuman(sacrificial) || iscyborg(sacrificial)) && sacrificial.stat != DEAD) || C.cult_team.is_sacrifice_target(sacrificial.mind)) && invokers.len < 3)
+	if((((iscarbonhuman(sacrificial) || iscyborg(sacrificial)) && sacrificial.stat != DEAD) || C.cult_team.is_sacrifice_target(sacrificial.mind)) && invokers.len < 3)
 		for(var/M in invokers)
 			to_chat(M, "<span class='cult italic'>[sacrificial] is too greatly linked to the world! You need three acolytes!</span>")
 		log_game("Offer rune failed - not enough acolytes and target is living or sac target")
@@ -320,7 +320,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		if(big_sac)
 			to_chat(M, "<span class='cultlarge'>\"Yes! This is the one I desire! You have done well.\"</span>")
 		else
-			if(ishuman(sacrificial) || iscyborg(sacrificial))
+			if(iscarbonhuman(sacrificial) || iscyborg(sacrificial))
 				to_chat(M, "<span class='cultlarge'>\"I accept this sacrifice.\"</span>")
 			else
 				to_chat(M, "<span class='cultlarge'>\"I accept this meager sacrifice.\"</span>")
@@ -425,7 +425,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		if(ismob(A))
 			if(!isliving(A)) //Let's not teleport ghosts and AI eyes.
 				continue
-			if(ishuman(A))
+			if(iscarbonhuman(A))
 				new /obj/effect/temp_visual/dir_setting/cult/phase/out(T, A.dir)
 				new /obj/effect/temp_visual/dir_setting/cult/phase(target, A.dir)
 		if(A == user)
@@ -1023,7 +1023,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	for(var/mob/living/M in GLOB.alive_mob_list)
 		if(M.get_virtual_z_level() != zmatch)
 			continue
-		if(ishuman(M))
+		if(iscarbonhuman(M))
 			if(!iscultist(M))
 				AH.remove_hud_from(M)
 				addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(hudFix), M), duration)

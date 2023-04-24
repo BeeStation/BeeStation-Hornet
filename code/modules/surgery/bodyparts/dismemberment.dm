@@ -334,7 +334,7 @@
 	if(eyes)
 		eyes = null
 
-	if(ishuman(C))
+	if(iscarbonhuman(C))
 		var/mob/living/carbon/human/H = C
 		H.hair_color = hair_color
 		H.hair_style = hair_style

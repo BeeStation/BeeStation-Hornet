@@ -25,7 +25,7 @@
 		return FALSE
 	if(inUse)
 		to_chat(user, "<span class='notice'>Someone else is reading it.</span>")
-	if(ishuman(user))
+	if(iscarbonhuman(user))
 		var/mob/living/carbon/human/U = user
 		if(U.check_acedia())
 			to_chat(user, "<span class='notice'>None of this matters, why are you reading this? You put [title] down.</span>")
@@ -41,7 +41,7 @@
 	inUse = TRUE
 	var/speed = 300
 	var/correctness = 85
-	if(ishuman(user))
+	if(iscarbonhuman(user))
 		var/mob/living/carbon/human/U = user
 		if(U.job in list(JOB_NAME_CURATOR)) // the curator is both faster, and more accurate than normal crew members at research
 			speed = 100

@@ -79,7 +79,7 @@
 /obj/effect/decal/cleanable/proc/on_entered(datum/source, atom/movable/O)
 	SIGNAL_HANDLER
 
-	if(ishuman(O))
+	if(iscarbonhuman(O))
 		var/mob/living/carbon/human/H = O
 		if(H.shoes && blood_state && bloodiness && !HAS_TRAIT(H, TRAIT_LIGHT_STEP))
 			var/obj/item/clothing/shoes/S = H.shoes

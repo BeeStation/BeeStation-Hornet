@@ -3,7 +3,7 @@
 	weight = WEIGHT_MOB
 
 /datum/keybinding/human/can_use(client/user)
-	return ishuman(user.mob) && !user.mob.incapacitated()
+	return iscarbonhuman(user.mob) && !user.mob.incapacitated()
 
 
 /datum/keybinding/human/quick_equip

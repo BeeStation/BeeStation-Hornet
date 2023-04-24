@@ -27,7 +27,7 @@
 
 /mob/living/simple_animal/hostile/guardian/fire/AttackingTarget()
 	. = ..()
-	if(. && ishuman(target) && target != summoner)
+	if(. && iscarbonhuman(target) && target != summoner)
 		new /datum/hallucination/delusion(target,TRUE,"custom",200,0, icon_state,icon)
 
 /mob/living/simple_animal/hostile/guardian/fire/proc/on_entered(datum/source, AM as mob|obj)

@@ -202,7 +202,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
 	var/removed_id = (card_slot2?.try_eject() || card_slot?.try_eject())
 	if(removed_id)
-		if(ishuman(loc))
+		if(iscarbonhuman(loc))
 			var/mob/living/carbon/human/human_wearer = loc
 			if(human_wearer.wear_id == src)
 				human_wearer.sec_hud_set_ID()
@@ -221,7 +221,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		return FALSE
 
 	if((card_slot?.try_insert(inserting_id)) || (card_slot2?.try_insert(inserting_id)))
-		if(ishuman(loc))
+		if(iscarbonhuman(loc))
 			var/mob/living/carbon/human/human_wearer = loc
 			if(human_wearer.wear_id == src)
 				human_wearer.sec_hud_set_ID()

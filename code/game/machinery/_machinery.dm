@@ -340,7 +340,7 @@ Class Procs:
 	if(!SSeconomy.full_ancap)
 		return TRUE
 	if(occupant && !state_open)
-		if(ishuman(occupant))
+		if(iscarbonhuman(occupant))
 			var/mob/living/carbon/human/H = occupant
 			var/obj/item/card/id/I = H.get_idcard(TRUE)
 			if(I)

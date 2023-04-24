@@ -152,7 +152,7 @@
 	if(istype(ML))
 		var/dam_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 		var/obj/item/bodypart/affecting = null
-		if(ishuman(ML))
+		if(iscarbonhuman(ML))
 			var/mob/living/carbon/human/H = ML
 			affecting = H.get_bodypart(ran_zone(dam_zone))
 		var/armor = ML.run_armor_check(affecting, MELEE)

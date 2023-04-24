@@ -105,7 +105,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 		set_suicide(body.suiciding) // Transfer whether they committed suicide.
 
-		if(ishuman(body))
+		if(iscarbonhuman(body))
 			var/mob/living/carbon/human/body_human = body
 			if(!body_human.real_name)
 				name = body_human.dna.species.random_name(body.gender, TRUE)

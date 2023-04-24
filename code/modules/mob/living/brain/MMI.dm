@@ -127,7 +127,7 @@
 		C.dna.copy_dna(brainmob.stored_dna)
 	brainmob.container = src
 
-	if(ishuman(L))
+	if(iscarbonhuman(L))
 		var/mob/living/carbon/human/H = L
 		var/obj/item/organ/brain/newbrain = H.getorgan(/obj/item/organ/brain)
 		newbrain.forceMove(src)

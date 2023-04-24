@@ -141,7 +141,7 @@ Maintenance panel panel is [open ? "opened" : "closed"]"},
 		update_icon()
 
 /mob/living/simple_animal/bot/honkbot/bullet_act(obj/item/projectile/Proj)
-	if((istype(Proj,/obj/item/projectile/beam)) || (istype(Proj,/obj/item/projectile/bullet) && (Proj.damage_type == BURN))||(Proj.damage_type == BRUTE) && (!Proj.nodamage && Proj.damage < health && ishuman(Proj.firer)))
+	if((istype(Proj,/obj/item/projectile/beam)) || (istype(Proj,/obj/item/projectile/bullet) && (Proj.damage_type == BURN))||(Proj.damage_type == BRUTE) && (!Proj.nodamage && Proj.damage < health && iscarbonhuman(Proj.firer)))
 		retaliate(Proj.firer)
 	return ..()
 
@@ -197,7 +197,7 @@ Maintenance panel panel is [open ? "opened" : "closed"]"},
 		playsound(src, 'sound/items/AirHorn.ogg', 100, TRUE, -1) //HEEEEEEEEEEEENK!!
 		sensor_blink()
 	if(spam_flag == 0)
-		if(ishuman(C))
+		if(iscarbonhuman(C))
 			C.stuttering = 20
 			C.adjustEarDamage(0, 5) //far less damage than the H.O.N.K.
 			C.Jitter(50)

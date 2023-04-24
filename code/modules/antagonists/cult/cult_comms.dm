@@ -37,7 +37,7 @@
 	if(user.mind && user.mind.has_antag_datum(/datum/antagonist/cult/master))
 		span = "cultlarge"
 		title = "Master"
-	else if(!ishuman(user))
+	else if(!iscarbonhuman(user))
 		title = "Construct"
 	if(CHAT_FILTER_CHECK(message))
 		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
@@ -81,7 +81,7 @@
 
 /datum/action/innate/cult/mastervote/IsAvailable()
 	var/datum/antagonist/cult/C = owner.mind.has_antag_datum(/datum/antagonist/cult,TRUE)
-	if(!C || C.cult_team.cult_vote_called || !ishuman(owner))
+	if(!C || C.cult_team.cult_vote_called || !iscarbonhuman(owner))
 		return FALSE
 	return ..()
 

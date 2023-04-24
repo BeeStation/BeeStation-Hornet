@@ -55,7 +55,7 @@
 		return
 
 	var/mob/living/carbon/H = owner.current
-	if(!ishuman(H) && !ismonkey(H))
+	if(!iscarbonhuman(H) && !ismonkey(H))
 		return
 
 	var/obj/item/gun/energy/disabler/T = new(H)

@@ -174,11 +174,11 @@
 	..()
 	switch(stage)
 		if(1)
-			if(ishuman(affected_mob) && affected_mob.dna)
+			if(iscarbonhuman(affected_mob) && affected_mob.dna)
 				if(affected_mob.dna.species.id == "slime" || affected_mob.dna.species.id == "stargazer" || affected_mob.dna.species.id == "lum")
 					stage = 5
 		if(3)
-			if(ishuman(affected_mob))
+			if(iscarbonhuman(affected_mob))
 				var/mob/living/carbon/human/human = affected_mob
 				if(human.dna.species.id != "slime" && affected_mob.dna.species.id != "stargazer" && affected_mob.dna.species.id != "lum")
 					human.set_species(/datum/species/jelly/slime)
@@ -355,7 +355,7 @@
 	spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_SKIN | DISEASE_SPREAD_CONTACT_FLUIDS
 
 /datum/disease/transformation/felinid/contagious/form_mutagen(mob/living/affected_mob)
-	if(ishuman(affected_mob))
+	if(iscarbonhuman(affected_mob))
 		var/mob/living/carbon/human/affected_human = affected_mob
 		if(iscatperson(affected_human))
 			if (prob(10))

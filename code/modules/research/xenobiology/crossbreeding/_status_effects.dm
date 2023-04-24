@@ -42,7 +42,7 @@
 /datum/status_effect/slimeskin/on_apply()
 	originalcolor = owner.color
 	owner.color = "#3070CC"
-	if(ishuman(owner))
+	if(iscarbonhuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.physiology.damage_resistance += 10
 	owner.visible_message("<span class='warning'>[owner] is suddenly covered in a strange, blue-ish gel!</span>",
@@ -51,7 +51,7 @@
 
 /datum/status_effect/slimeskin/on_remove()
 	owner.color = originalcolor
-	if(ishuman(owner))
+	if(iscarbonhuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.physiology.damage_resistance -= 10
 	owner.visible_message("<span class='warning'>[owner]'s gel coating liquefies and dissolves away.</span>",
@@ -279,13 +279,13 @@
 	duration = 100
 
 /datum/status_effect/metalcookie/on_apply()
-	if(ishuman(owner))
+	if(iscarbonhuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.physiology.brute_mod *= 0.9
 	return ..()
 
 /datum/status_effect/metalcookie/on_remove()
-	if(ishuman(owner))
+	if(iscarbonhuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.physiology.brute_mod /= 0.9
 
@@ -297,14 +297,14 @@
 	var/original_coeff
 
 /datum/status_effect/sparkcookie/on_apply()
-	if(ishuman(owner))
+	if(iscarbonhuman(owner))
 		var/mob/living/carbon/human/H = owner
 		original_coeff = H.physiology.siemens_coeff
 		H.physiology.siemens_coeff = 0
 	return ..()
 
 /datum/status_effect/sparkcookie/on_remove()
-	if(ishuman(owner))
+	if(iscarbonhuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.physiology.siemens_coeff = original_coeff
 
@@ -423,13 +423,13 @@
 	duration = 100
 
 /datum/status_effect/adamantinecookie/on_apply()
-	if(ishuman(owner))
+	if(iscarbonhuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.physiology.burn_mod *= 0.9
 	return ..()
 
 /datum/status_effect/adamantinecookie/on_remove()
-	if(ishuman(owner))
+	if(iscarbonhuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.physiology.burn_mod /= 0.9
 
@@ -633,13 +633,13 @@
 	colour = "silver"
 
 /datum/status_effect/stabilized/silver/on_apply()
-	if(ishuman(owner))
+	if(iscarbonhuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.physiology.hunger_mod *= 0.8 //20% buff
 	return ..()
 
 /datum/status_effect/stabilized/silver/on_remove()
-	if(ishuman(owner))
+	if(iscarbonhuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.physiology.hunger_mod /= 0.8
 
@@ -773,7 +773,7 @@
 
 /datum/status_effect/stabilized/green/on_apply()
 	to_chat(owner, "<span class='warning'>You feel different...</span>")
-	if(ishuman(owner))
+	if(iscarbonhuman(owner))
 		var/mob/living/carbon/human/H = owner
 		originalDNA = new H.dna.type
 		originalname = H.real_name
@@ -790,7 +790,7 @@
 
 /datum/status_effect/stabilized/green/on_remove()
 	to_chat(owner, "<span class='notice'>You feel more like yourself.</span>")
-	if(ishuman(owner))
+	if(iscarbonhuman(owner))
 		var/mob/living/carbon/human/H = owner
 		originalDNA.transfer_identity(H)
 		H.real_name = originalname
@@ -953,13 +953,13 @@
 		qdel(familiar)
 
 /datum/status_effect/stabilized/adamantine/on_apply()
-	if(ishuman(owner))
+	if(iscarbonhuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.physiology.damage_resistance += 5
 	return ..()
 
 /datum/status_effect/stabilized/adamantine/on_remove()
-	if(ishuman(owner))
+	if(iscarbonhuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.physiology.damage_resistance -= 5
 

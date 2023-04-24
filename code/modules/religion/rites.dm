@@ -120,7 +120,7 @@
 		rite_target = user
 	else
 		for(var/buckled in movable_reltool.buckled_mobs)
-			if(ishuman(buckled))
+			if(iscarbonhuman(buckled))
 				rite_target = buckled
 				break
 	if(!rite_target)
@@ -194,7 +194,7 @@
 		rite_target = user
 	else
 		for(var/buckled in movable_reltool.buckled_mobs)
-			if(ishuman(buckled))
+			if(iscarbonhuman(buckled))
 				rite_target = buckled
 				break
 	if(!rite_target)
@@ -764,7 +764,7 @@
 		rite_target = user
 	else
 		for(var/buckled in movable_reltool.buckled_mobs)
-			if(ishuman(buckled))
+			if(iscarbonhuman(buckled))
 				rite_target = buckled
 				break
 	if(!rite_target)

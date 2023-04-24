@@ -105,7 +105,7 @@
 			L[DNA_GENDER_BLOCK] = construct_block(G_FEMALE, 3)
 		else
 			L[DNA_GENDER_BLOCK] = construct_block(G_PLURAL, 3)
-	if(ishuman(holder))
+	if(iscarbonhuman(holder))
 		var/mob/living/carbon/human/H = holder
 		if(!GLOB.hair_styles_list.len)
 			init_sprite_accessory_subtypes(/datum/sprite_accessory/hair,GLOB.hair_styles_list, GLOB.hair_styles_male_list, GLOB.hair_styles_female_list)
@@ -183,7 +183,7 @@
 	return .
 
 /datum/dna/proc/update_ui_block(blocknumber)
-	if(!blocknumber || !ishuman(holder))
+	if(!blocknumber || !iscarbonhuman(holder))
 		return
 	var/mob/living/carbon/human/H = holder
 	switch(blocknumber)
@@ -328,7 +328,7 @@
 		dna.species = new_race
 		dna.species.on_species_gain(src, old_species, pref_load)
 		SEND_SIGNAL(src, COMSIG_CARBON_SPECIESCHANGE, new_race)
-		if(ishuman(src))
+		if(iscarbonhuman(src))
 			qdel(language_holder)
 			var/species_holder = initial(mrace.species_language_holder)
 			language_holder = new species_holder(src)
@@ -618,7 +618,7 @@
 				to_chat(src, "<span class='notice'>Oh, I actually feel quite alright!</span>")
 			if(4)
 				to_chat(src, "<span class='notice'>Oh, I actually feel quite alright!</span>") //you thought
-				if(ishuman(src))
+				if(iscarbonhuman(src))
 					var/mob/living/carbon/human/H = src
 					H.physiology.damage_resistance = -20000
 			if(5)

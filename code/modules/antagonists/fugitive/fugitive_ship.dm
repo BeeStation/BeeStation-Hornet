@@ -135,7 +135,7 @@
 	data["linked"] = istype(chamber)
 	data["locked"] = chamber?.locked
 	data["open"] = chamber?.state_open
-	if(chamber && (chamber.occupant && ishuman(chamber.occupant)))
+	if(chamber && (chamber.occupant && iscarbonhuman(chamber.occupant)))
 		var/mob/living/carbon/human/prisoner = chamber.occupant
 		data["prisoner_valid"] = !!prisoner.mind?.has_antag_datum(/datum/antagonist/fugitive)
 		data["prisoner_ref"] = REF(prisoner.mind)

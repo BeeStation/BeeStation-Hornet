@@ -229,7 +229,7 @@ GLOBAL_LIST_EMPTY(species_list)
  *
  * Checks that `user` does not move, change hands, get stunned, etc. for the
  * given `delay`. Returns `TRUE` on success or `FALSE` on failure.
- * 
+ *
  * Arguments:
  * * user - the primary "user" of the do_after.
  * * delay - how long the do_after takes. Defaults to 3 SECONDS.
@@ -315,7 +315,7 @@ GLOBAL_LIST_EMPTY(species_list)
 
 /proc/is_species(A, species_datum)
 	. = FALSE
-	if(ishuman(A))
+	if(iscarbonhuman(A))
 		var/mob/living/carbon/human/H = A
 		if(H.dna && istype(H.dna.species, species_datum))
 			. = TRUE

@@ -150,13 +150,13 @@
 	. = ..()
 	if(force_allaccess)
 		return TRUE
-	if(ishuman(mover))
+	if(iscarbonhuman(mover))
 		return CheckHuman(mover)
 
 /obj/structure/holosign/barrier/medical/Bumped(atom/movable/AM)
 	. = ..()
 	icon_state = "holo_medical"
-	if(ishuman(AM) && !CheckHuman(AM))
+	if(iscarbonhuman(AM) && !CheckHuman(AM))
 		if(buzzcd < world.time)
 			playsound(get_turf(src),'sound/machines/buzz-sigh.ogg',65,TRUE,4)
 			buzzcd = (world.time + 60)

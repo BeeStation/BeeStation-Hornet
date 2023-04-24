@@ -108,7 +108,7 @@
 /datum/ai_behavior/eat_snack/perform(delta_time, datum/ai_controller/controller)
 	. = ..()
 	var/obj/item/snack = controller.current_movement_target
-	if(!istype(snack) || !istype(snack, /obj/item/reagent_containers/food) || !(isturf(snack.loc) || ishuman(snack.loc)))
+	if(!istype(snack) || !istype(snack, /obj/item/reagent_containers/food) || !(isturf(snack.loc) || iscarbonhuman(snack.loc)))
 		finish_action(controller, FALSE)
 
 	var/mob/living/living_pawn = controller.pawn

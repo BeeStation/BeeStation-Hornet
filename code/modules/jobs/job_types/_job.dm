@@ -104,7 +104,7 @@
 		for(var/t in mind_traits)
 			ADD_TRAIT(H.mind, t, JOB_TRAIT)
 
-	if(!ishuman(H))
+	if(!iscarbonhuman(H))
 		return
 	var/mob/living/carbon/human/human = H
 	var/list/gear_leftovers = list()

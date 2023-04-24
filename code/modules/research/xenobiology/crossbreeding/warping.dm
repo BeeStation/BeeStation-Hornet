@@ -530,7 +530,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	remove_on_activation = FALSE
 
 /obj/effect/warped_rune/redspace/on_entered(datum/source, atom/movable/AM, oldloc)
-	if(ishuman(AM))
+	if(iscarbonhuman(AM))
 		var/mob/living/carbon/human/H = AM
 		add_blood_DNA(list("Non-human DNA" = random_blood_type()))
 		for(var/obj/item/I in H.get_equipped_items(TRUE))
@@ -554,7 +554,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	remove_on_activation = FALSE
 
 /obj/effect/warped_rune/greenspace/on_entered(datum/source, atom/movable/AM, oldloc)
-	if(ishuman(AM))
+	if(iscarbonhuman(AM))
 		randomize_human(AM)
 		activated_on_step = TRUE
 	. = ..()

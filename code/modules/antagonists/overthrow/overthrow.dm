@@ -97,7 +97,7 @@
 
 // Gives the storage implant with a random item. They're sleeping agents, after all.
 /datum/antagonist/overthrow/proc/equip_overthrow()
-	if(!owner || !owner.current || !ishuman(owner.current)) // only equip existing human overthrow members. This excludes the AI, in particular.
+	if(!owner || !owner.current || !iscarbonhuman(owner.current)) // only equip existing human overthrow members. This excludes the AI, in particular.
 		return
 	var/obj/item/implant/storage/S = locate(/obj/item/implant/storage) in owner.current
 	if(!S)
@@ -110,7 +110,7 @@
 
 // Equip the initial overthrow agent. Manually called in overthrow gamemode, when the initial agents are chosen. Gives uplink, AI module board and the converter.
 /datum/antagonist/overthrow/proc/equip_initial_overthrow_agent()
-	if(!owner || !owner.current || !ishuman(owner.current))
+	if(!owner || !owner.current || !iscarbonhuman(owner.current))
 		return
 	var/mob/living/carbon/human/H = owner.current
 	// Give uplink

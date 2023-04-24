@@ -696,7 +696,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 	var/mob/living/carbon/human/H
 	var/obj/item/card/id/C
 	.["user"] = null
-	if(ishuman(user))
+	if(iscarbonhuman(user))
 		H = user
 		C = H.get_idcard(TRUE)
 		if(C?.registered_account)
@@ -751,7 +751,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 				flick(icon_deny,src)
 				vend_ready = TRUE
 				return
-			if(onstation && ishuman(usr))
+			if(onstation && iscarbonhuman(usr))
 				var/mob/living/carbon/human/H = usr
 				var/obj/item/card/id/C = H.get_idcard(TRUE)
 
@@ -947,7 +947,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 	. = FALSE
 	var/mob/living/carbon/human/H
 	var/obj/item/card/id/C
-	if(ishuman(user))
+	if(iscarbonhuman(user))
 		H = user
 		C = H.get_idcard(FALSE)
 		if(C?.registered_account && C.registered_account == private_a)
@@ -1003,7 +1003,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 			var/N = params["item"]
 			var/obj/S
 			vend_ready = FALSE
-			if(ishuman(usr))
+			if(iscarbonhuman(usr))
 				var/mob/living/carbon/human/H = usr
 				var/obj/item/card/id/C = H.get_idcard(TRUE)
 
@@ -1054,7 +1054,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 	if(!private_a)
 		var/mob/living/carbon/human/H
 		var/obj/item/card/id/C
-		if(ishuman(user))
+		if(iscarbonhuman(user))
 			H = user
 			C = H.get_idcard(TRUE)
 			if(C?.registered_account)

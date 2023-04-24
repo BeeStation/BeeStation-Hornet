@@ -152,7 +152,7 @@
 	var/mob/living/mob_occupant = occupant
 	var/sourcename = mob_occupant.real_name
 	var/sourcejob
-	if(ishuman(occupant))
+	if(iscarbonhuman(occupant))
 		var/mob/living/carbon/human/gibee = occupant
 		sourcejob = gibee.job
 	var/sourcenutriment = mob_occupant.nutrition / 15
@@ -164,7 +164,7 @@
 	var/obj/item/stack/sheet/animalhide/skin
 	var/list/datum/disease/diseases = mob_occupant.get_static_viruses()
 
-	if(ishuman(occupant))
+	if(iscarbonhuman(occupant))
 		var/mob/living/carbon/human/gibee = occupant
 		if(gibee.dna?.species)
 			typeofmeat = gibee.dna.species.meat

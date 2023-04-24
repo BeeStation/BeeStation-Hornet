@@ -26,7 +26,7 @@
 			if(ismob(I.loc))
 				var/mob/M = I.loc
 				M.regenerate_icons()
-		else if(ishuman(A))
+		else if(iscarbonhuman(A))
 			var/mob/living/carbon/human/cleaned_human = A
 			if(!(cleaned_human.mobility_flags & MOBILITY_STAND))
 				if(cleaned_human.head)

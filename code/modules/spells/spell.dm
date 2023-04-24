@@ -205,7 +205,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 		to_chat(user, "<span class='notice'>[name] cannot be cast unless you are completely manifested in the material plane.</span>")
 		return FALSE
 
-	if(ishuman(user))
+	if(iscarbonhuman(user))
 
 		var/mob/living/carbon/human/H = user
 
@@ -563,7 +563,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	action.UpdateButtonIcon(status_only, force)
 
 /obj/effect/proc_holder/spell/proc/can_be_cast_by(mob/caster)
-	if((human_req || clothes_req) && !ishuman(caster))
+	if((human_req || clothes_req) && !iscarbonhuman(caster))
 		return 0
 	return 1
 
@@ -592,7 +592,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	if(!antimagic_allowed && user.anti_magic_check(TRUE, FALSE, major = FALSE, self = TRUE))
 		return FALSE
 
-	if(!ishuman(user))
+	if(!iscarbonhuman(user))
 		if(clothes_req || human_req)
 			return FALSE
 		if(nonabstract_req && (isbrain(user) || ispAI(user)))

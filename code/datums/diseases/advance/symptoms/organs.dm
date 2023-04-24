@@ -40,7 +40,7 @@
 		M.confused = max(0, M.confused - 2)
 		if(purge_alcohol)
 			M.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 3)
-			if(ishuman(M))
+			if(iscarbonhuman(M))
 				var/mob/living/carbon/human/H = M
 				H.drunkenness = max(H.drunkenness - 5, 0)
 
@@ -160,7 +160,7 @@
 			if(M.undergoing_cardiac_arrest())
 				M.set_heartattack(FALSE)
 		if(regenorgans) //regenerate missing organs that this disease cures, other than the brain
-			if(ishuman(M))
+			if(iscarbonhuman(M))
 				var/mob/living/carbon/human/H = M
 				var/datum/species/S = H.dna.species
 				if(!M.getorgan(/obj/item/organ/appendix) && !((TRAIT_NOHUNGER in S.inherent_traits) || (TRAIT_POWERHUNGRY in S.inherent_traits)))

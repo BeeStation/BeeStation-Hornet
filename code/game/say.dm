@@ -57,7 +57,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	var/freqpart = radio_freq ? "\[[get_radio_name(radio_freq)]\] " : ""
 	//Speaker name
 	var/namepart = "[speaker.GetVoice()][speaker.get_alt_name()]"
-	if(ishuman(speaker))
+	if(iscarbonhuman(speaker))
 		var/mob/living/carbon/human/H = speaker
 		if(face_name)
 			namepart = "[H.get_face_name()]" //So "fake" speaking like in hallucinations does not give the speaker away if disguised
@@ -211,7 +211,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/virtualspeaker)
 		verb_yell = M.verb_yell
 
 	// The mob's job identity
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		// Humans use their job as seen on the crew manifest. This is so the AI
 		// can know their job even if they don't carry an ID.
 		var/datum/data/record/findjob = find_record("name", name, GLOB.data_core.general)

@@ -33,7 +33,7 @@
 		I.Remove(user, 1)
 
 	for(var/mob/living/A in view(2,user))
-		if(ishuman(A))
+		if(iscarbonhuman(A))
 			var/mob/living/carbon/human/H = A
 			var/obj/item/organ/eyes/eyes = H.getorganslot(ORGAN_SLOT_EYES)
 			to_chat(H, "<span class='userdanger'>You are blinded by a shower of blood!</span>")

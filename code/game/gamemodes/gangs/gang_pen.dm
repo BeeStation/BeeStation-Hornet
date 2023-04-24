@@ -12,7 +12,7 @@
 /obj/item/pen/gang/attack(mob/living/M, mob/user, stealth = TRUE)
 	if(!istype(M))
 		return
-	if(!ishuman(M) || !ishuman(user) || M.stat == DEAD)
+	if(!iscarbonhuman(M) || !iscarbonhuman(user) || M.stat == DEAD)
 		return ..()
 	var/datum/antagonist/gang/boss/L = user.mind.has_antag_datum(/datum/antagonist/gang/boss)
 	if(!L)

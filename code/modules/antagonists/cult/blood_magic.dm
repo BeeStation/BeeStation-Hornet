@@ -73,7 +73,7 @@
 		to_chat(owner, "<span class='cultitalic'>You are already invoking blood magic!")
 		return
 	if(do_after(owner, 100 - rune*60, target = owner))
-		if(ishuman(owner))
+		if(iscarbonhuman(owner))
 			var/mob/living/carbon/human/H = owner
 			H.bleed(40 - rune*32)
 		var/datum/action/innate/cult/blood_spell/new_spell = new BS(owner)
@@ -261,7 +261,7 @@
 	if(!isturf(T))
 		return FALSE
 	if(ranged_ability_user in viewers(7, get_turf(target)))
-		if(!ishuman(target) || iscultist(target))
+		if(!iscarbonhuman(target) || iscultist(target))
 			return
 		var/mob/living/carbon/human/H = target
 		H.hallucination = max(H.hallucination, 120)
@@ -680,7 +680,7 @@
 
 /obj/item/melee/blood_magic/manipulator/afterattack(atom/target, mob/living/carbon/human/user, proximity)
 	if(proximity)
-		if(ishuman(target))
+		if(iscarbonhuman(target))
 			var/mob/living/carbon/human/H = target
 			if(NOBLOOD in H.dna.species.species_traits)
 				to_chat(user,"<span class='warning'>Blood rites do not work on species with no blood!</span>")

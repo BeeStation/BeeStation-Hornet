@@ -1030,7 +1030,7 @@
 		M.drowsyness = 0
 		M.slurring = 0
 		M.confused = 0
-		if(ishuman(M))
+		if(iscarbonhuman(M))
 			var/mob/living/carbon/human/H = M
 			H.drunkenness = max(H.drunkenness - 10, 0)
 	M.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 3*REM, 0, 1)
@@ -1698,7 +1698,7 @@
 	M.adjustOrganLoss(ORGAN_SLOT_LUNGS, -0.25)
 	M.adjustBruteLoss(-0.35, 0)
 	if(prob(50))
-		if(ishuman(M))
+		if(iscarbonhuman(M))
 			var/mob/living/carbon/human/H = M
 			H.bleed_rate = max(H.bleed_rate - 1, 0)
 	..()
@@ -1706,7 +1706,7 @@
 
 /datum/reagent/medicine/polypyr/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(method == TOUCH || method == VAPOR)
-		if(M && ishuman(M) && reac_volume >= 0.5)
+		if(M && iscarbonhuman(M) && reac_volume >= 0.5)
 			var/mob/living/carbon/human/H = M
 			H.hair_color = "92f"
 			H.facial_hair_color = "92f"

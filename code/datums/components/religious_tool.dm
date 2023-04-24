@@ -176,7 +176,7 @@
  */
 /datum/component/religious_tool/proc/generate_available_sects(mob/user)
 	var/list/sects_to_pick = list()
-	var/human_highpriest = ishuman(user)
+	var/human_highpriest = iscarbonhuman(user)
 	var/mob/living/carbon/human/highpriest = user
 	for(var/path in subtypesof(/datum/religion_sect))
 		if(human_highpriest && initial(easy_access_sect.invalidating_qualities))

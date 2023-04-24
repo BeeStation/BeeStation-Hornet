@@ -35,7 +35,7 @@
 /obj/item/clothing/suit/hooded/proc/RemoveHood()
 	src.icon_state = "[initial(icon_state)]"
 	suittoggled = FALSE
-	if(ishuman(hood.loc))
+	if(iscarbonhuman(hood.loc))
 		var/mob/living/carbon/H = hood.loc
 		H.transferItemToLoc(hood, src, TRUE)
 		H.update_inv_wear_suit()
@@ -51,7 +51,7 @@
 
 /obj/item/clothing/suit/hooded/proc/ToggleHood()
 	if(!suittoggled)
-		if(ishuman(src.loc))
+		if(iscarbonhuman(src.loc))
 			var/mob/living/carbon/human/H = src.loc
 			if(H.wear_suit != src)
 				to_chat(H, "<span class='warning'>You must be wearing [src] to put up the hood!</span>")
@@ -168,7 +168,7 @@
 	if(!helmet)
 		return
 	suittoggled = FALSE
-	if(ishuman(helmet.loc))
+	if(iscarbonhuman(helmet.loc))
 		var/mob/living/carbon/H = helmet.loc
 		if(helmet.on)
 			helmet.attack_self(H)
@@ -190,7 +190,7 @@
 	if(!helmet)
 		return
 	if(!suittoggled)
-		if(ishuman(src.loc))
+		if(iscarbonhuman(src.loc))
 			if(H.wear_suit != src)
 				to_chat(H, "<span class='warning'>You must be wearing [src] to engage the helmet!</span>")
 				return

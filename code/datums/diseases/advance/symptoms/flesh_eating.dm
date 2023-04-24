@@ -59,7 +59,7 @@ Bonus
 /datum/symptom/flesh_eating/proc/Flesheat(mob/living/M, datum/disease/advance/A)
 	if(damage)
 		M.take_overall_damage(brute = rand(15,25), required_status = BODYTYPE_ORGANIC)
-	if(!ishuman(M))
+	if(!iscarbonhuman(M))
 		return
 	var/mob/living/carbon/human/H = M
 	H.bleed_rate += 2 * power //bleeding is quite strong. this is more than enough

@@ -25,7 +25,7 @@
 
 /datum/surgery_step/remove_object/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(L)
-		if(ishuman(target))
+		if(iscarbonhuman(target))
 			var/mob/living/carbon/human/H = target
 			var/objects = 0
 			for(var/obj/item/I in L.embedded_objects)

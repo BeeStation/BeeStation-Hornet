@@ -300,7 +300,7 @@
 	actions_types = list(/datum/action/item_action/switch_hud)
 
 /obj/item/clothing/glasses/hud/toggle/attack_self(mob/user)
-	if(!ishuman(user))
+	if(!iscarbonhuman(user))
 		return
 	var/mob/living/carbon/human/wearer = user
 	if (wearer.glasses != src)
@@ -367,7 +367,7 @@
 	var/xray = TRUE
 
 /obj/item/clothing/glasses/hud/debug/attack_self(mob/user)
-	if(!ishuman(user))
+	if(!iscarbonhuman(user))
 		return
 	if(xray)
 		vision_flags -= SEE_MOBS|SEE_OBJS

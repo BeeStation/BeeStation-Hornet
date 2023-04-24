@@ -33,7 +33,7 @@ BONUS
 /datum/symptom/vitiligo/Start(datum/disease/advance/A)
 	. = ..()
 	var/mob/living/M = A.affected_mob
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.dna.species.use_skintones)
 			cachedcolor = H.skin_tone
@@ -44,7 +44,7 @@ BONUS
 	if(!..())
 		return
 	var/mob/living/M = A.affected_mob
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.skin_tone == "albino")
 			return
@@ -63,7 +63,7 @@ BONUS
 /datum/symptom/vitiligo/End(datum/disease/advance/A)
 	. = ..()
 	var/mob/living/M = A.affected_mob
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.dna.species.use_skintones)
 			H.skin_tone = cachedcolor
@@ -105,7 +105,7 @@ BONUS
 /datum/symptom/revitiligo/Start(datum/disease/advance/A)
 	. = ..()
 	var/mob/living/M = A.affected_mob
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.dna.species.use_skintones)
 			cachedcolor = H.skin_tone
@@ -116,7 +116,7 @@ BONUS
 	if(!..())
 		return
 	var/mob/living/M = A.affected_mob
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.skin_tone == "african2")
 			return
@@ -135,7 +135,7 @@ BONUS
 /datum/symptom/revitiligo/End(datum/disease/advance/A)
 	. = ..()
 	var/mob/living/M = A.affected_mob
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.dna.species.use_skintones)
 			H.skin_tone = cachedcolor

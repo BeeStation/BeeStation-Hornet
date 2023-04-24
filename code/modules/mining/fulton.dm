@@ -105,7 +105,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 			sleep(10)
 			playsound(holder_obj.loc, 'sound/items/fultext_launch.ogg', 50, 1, -3)
 			animate(holder_obj, pixel_z = 1000, time = 30)
-			if(ishuman(A))
+			if(iscarbonhuman(A))
 				var/mob/living/carbon/human/L = A
 				L.SetUnconscious(0)
 				L.drowsyness = 0

@@ -141,7 +141,7 @@
 	RegisterSignal(source, COMSIG_PARENT_EXAMINE, PROC_REF(do_effect))
 
 /datum/artifact_effect/inducespasm/proc/do_effect(datum/source, mob/observer, list/examine_text)
-	if(ishuman(observer))
+	if(iscarbonhuman(observer))
 		var/mob/living/carbon/human/H = observer
 		H.gain_trauma(/datum/brain_trauma/mild/muscle_spasms, TRAUMA_RESILIENCE_BASIC)
 

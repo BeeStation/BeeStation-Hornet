@@ -68,7 +68,7 @@
 /datum/emote/living/carbon/human/moth/can_run_emote(mob/user, status_check = TRUE, intentional)
 	if(!..())
 		return FALSE
-	if(ishuman(user))
+	if(iscarbonhuman(user))
 		return ismoth(user)
 	return istype(user, /mob/living/simple_animal/mothroach)
 
@@ -96,7 +96,7 @@
 	vary = TRUE
 
 /datum/emote/living/carbon/human/scream/get_sound(mob/living/user)
-	if(!ishuman(user) || user.mind?.miming)
+	if(!iscarbonhuman(user) || user.mind?.miming)
 		return
 	var/mob/living/carbon/H = user
 	return H.dna?.species?.get_scream_sound(H)
@@ -206,12 +206,12 @@
 	vary = TRUE
 
 /datum/emote/living/carbon/human/fart/get_sound(mob/living/user)
-	if(!ishuman(user))
+	if(!iscarbonhuman(user))
 		return
 	return 'sound/misc/fart1.ogg'
 
 /datum/emote/living/carbon/human/fart/run_emote(mob/user, params, type_override, intentional)
-	if(ishuman(user))
+	if(iscarbonhuman(user))
 		var/mob/living/carbon/human/fartee = user
 		if(COOLDOWN_FINISHED(fartee, special_emote_cooldown))
 			..()

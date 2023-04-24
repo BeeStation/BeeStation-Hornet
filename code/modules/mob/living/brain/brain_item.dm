@@ -229,7 +229,7 @@
 
 /obj/item/organ/brain/positron/Insert(mob/living/carbon/C, special = 0, drop_if_replaced = 0)
 	..()
-	if(ishuman(C))
+	if(iscarbonhuman(C))
 		var/mob/living/carbon/human/H = C
 		if(H.dna?.species)
 			if(REVIVESBYHEALING in H.dna.species.species_traits)

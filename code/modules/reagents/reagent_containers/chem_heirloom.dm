@@ -35,7 +35,7 @@
 	rand_cont = get_random_reagent_id(CHEMICAL_RNG_FUN)
 	name ="hard locked bottle of [initial(rand_cont.name)]"
 	var/datum/component/heirloom/H = GetComponent(/datum/component/heirloom)
-	desc = H ? "[ishuman(H.owner) ? "The [H.family_name]" : "[H.owner.name]'s"] family's long-cherished wish is to open this bottle and get its chemical outside. Can you make that wish come true?" : "A hard locked bottle of [initial(rand_cont.name)]."
+	desc = H ? "[iscarbonhuman(H.owner) ? "The [H.family_name]" : "[H.owner.name]'s"] family's long-cherished wish is to open this bottle and get its chemical outside. Can you make that wish come true?" : "A hard locked bottle of [initial(rand_cont.name)]."
 
 /obj/item/reagent_containers/glass/chem_heirloom/proc/unlock()
 	if(!locked) //A little bird said this would be an issue if a goober-min tried to call this twice.

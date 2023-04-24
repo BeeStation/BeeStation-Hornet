@@ -75,7 +75,7 @@
 	. = ..()
 	if(flag)
 		return // too close
-	if(ishuman(user))
+	if(iscarbonhuman(user))
 		if(!can_trigger_gun(user))
 			return
 	if(user && user.get_active_held_item() == src) // Make sure our user is still holding us

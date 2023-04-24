@@ -49,7 +49,7 @@
 
 /mob/living/simple_animal/hostile/zombie/AttackingTarget()
 	. = ..()
-	if(. && ishuman(target) && prob(infection_chance))
+	if(. && iscarbonhuman(target) && prob(infection_chance))
 		try_to_zombie_infect(target)
 
 /mob/living/simple_animal/hostile/zombie/drop_loot()

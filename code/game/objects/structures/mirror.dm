@@ -24,7 +24,7 @@
 	if(broken || !Adjacent(user))
 		return
 
-	if(ishuman(user) && !magical)
+	if(iscarbonhuman(user) && !magical)
 		var/mob/living/carbon/human/H = user
 
 		//see code/modules/mob/dead/new_player/preferences.dm at approx line 545 for comments!
@@ -125,7 +125,7 @@
 	. = ..()
 	if(.)
 		return
-	if(!ishuman(user))
+	if(!iscarbonhuman(user))
 		return
 
 	var/mob/living/carbon/human/H = user

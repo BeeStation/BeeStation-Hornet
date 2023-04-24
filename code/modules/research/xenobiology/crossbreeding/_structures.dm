@@ -545,7 +545,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 
 /obj/structure/slime_crystal/gold/attack_hand(mob/user)
 	. = ..()
-	if(!ishuman(user))
+	if(!iscarbonhuman(user))
 		return
 	var/mob/living/carbon/human/human_mob = user
 	var/mob/living/simple_animal/pet/chosen_pet = pick(/mob/living/simple_animal/pet/dog/corgi,/mob/living/simple_animal/pet/dog/pug,/mob/living/simple_animal/pet/dog/bullterrier,/mob/living/simple_animal/pet/fox,/mob/living/simple_animal/pet/cat/kitten,/mob/living/simple_animal/pet/cat/space,/mob/living/simple_animal/pet/penguin/emperor)
@@ -574,7 +574,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	colour = "black"
 
 /obj/structure/slime_crystal/black/on_mob_effect(mob/living/affected_mob)
-	if(!ishuman(affected_mob) || isjellyperson(affected_mob))
+	if(!iscarbonhuman(affected_mob) || isjellyperson(affected_mob))
 		return
 
 	if(affected_mobs[affected_mob] < 60) //Around 2 minutes
@@ -603,7 +603,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	colour = "adamantine"
 
 /obj/structure/slime_crystal/adamantine/on_mob_enter(mob/living/affected_mob)
-	if(!ishuman(affected_mob))
+	if(!iscarbonhuman(affected_mob))
 		return
 
 	var/mob/living/carbon/human/human = affected_mob
@@ -611,7 +611,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	human.dna.species.burnmod -= 0.1
 
 /obj/structure/slime_crystal/adamantine/on_mob_leave(mob/living/affected_mob)
-	if(!ishuman(affected_mob))
+	if(!iscarbonhuman(affected_mob))
 		return
 
 	var/mob/living/carbon/human/human = affected_mob

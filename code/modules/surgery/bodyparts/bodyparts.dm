@@ -105,7 +105,7 @@
 	return ..()
 
 /obj/item/bodypart/attack(mob/living/carbon/C, mob/user)
-	if(ishuman(C))
+	if(iscarbonhuman(C))
 		var/mob/living/carbon/human/H = C
 		if(HAS_TRAIT(C, TRAIT_LIMBATTACHMENT))
 			if(!H.get_bodypart(body_zone) && !animal_origin)
@@ -348,7 +348,7 @@
 	if(!is_creating)
 		return
 
-	if(!animal_origin && ishuman(C))
+	if(!animal_origin && iscarbonhuman(C))
 		var/mob/living/carbon/human/H = C
 
 		var/datum/species/S = H.dna.species

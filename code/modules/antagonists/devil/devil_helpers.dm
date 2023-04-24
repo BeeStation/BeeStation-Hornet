@@ -2,7 +2,7 @@
 	var/datum/antagonist/devil/devilInfo = mind.has_antag_datum(/datum/antagonist/devil)
 	switch(devilInfo.bane)
 		if(BANE_WHITECLOTHES)
-			if(ishuman(attacker))
+			if(iscarbonhuman(attacker))
 				var/mob/living/carbon/human/H = attacker
 				if(H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under))
 					var/obj/item/clothing/under/U = H.w_uniform

@@ -29,7 +29,7 @@
 		var/mob/living/carbon/C = LM
 		if(!C.get_bodypart(BODY_ZONE_L_LEG) && !C.get_bodypart(BODY_ZONE_R_LEG))
 			return
-		if(ishuman(C) && C.m_intent == MOVE_INTENT_WALK)
+		if(iscarbonhuman(C) && C.m_intent == MOVE_INTENT_WALK)
 			return // stealth
 	steps++
 
@@ -79,13 +79,13 @@
 
 	//for (simple) humanoid mobs (clowns, russians, pirates, etc.)
 	if(isshoefoot(LM))
-		if(!ishuman(LM))
+		if(!iscarbonhuman(LM))
 			playsound(T, pick(GLOB.footstep[T.footstep][1]),
 				GLOB.footstep[T.footstep][2] * v,
 				TRUE,
 				GLOB.footstep[T.footstep][3] + e)
 			return
-		if(ishuman(LM)) //for proper humans, they're special
+		if(iscarbonhuman(LM)) //for proper humans, they're special
 			var/mob/living/carbon/human/H = LM
 			var/feetCover = (H.wear_suit && (H.wear_suit.body_parts_covered & FEET)) || (H.w_uniform && (H.w_uniform.body_parts_covered & FEET))
 

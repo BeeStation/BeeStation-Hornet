@@ -99,7 +99,7 @@
 
 			if (iscarbon(M))
 				for(var/obj/item/W in M)
-					if (ishuman(M))
+					if (iscarbonhuman(M))
 						var/mob/living/carbon/human/H = M
 						if(W == H.w_uniform)
 							continue //So all they're left with are shoes and uniform.
@@ -115,7 +115,7 @@
 			// Handle the pod returning
 			pod.startExitSequence(pod)
 
-			if (ishuman(M))
+			if (iscarbonhuman(M))
 				var/mob/living/carbon/human/target = M
 
 				// After we remove items, at least give them what they need to live.
@@ -147,7 +147,7 @@
 	if (status == CONTRACT_STATUS_COMPLETE)
 		var/mob/living/carbon/human/H
 		var/obj/item/card/id/C
-		if(ishuman(contract.owner.current))
+		if(iscarbonhuman(contract.owner.current))
 			H = contract.owner.current
 			C = H.get_idcard(TRUE)
 
@@ -211,7 +211,7 @@
 		M.visible_message("<span class='notice'>[M] vanishes...</span>")
 
 		for(var/obj/item/W in M)
-			if (ishuman(M))
+			if (iscarbonhuman(M))
 				var/mob/living/carbon/human/H = M
 				if(W == H.w_uniform)
 					continue //So all they're left with are shoes and uniform.

@@ -82,7 +82,7 @@
 	var/turf/here = get_turf(src)
 	for(var/V in get_antag_minds(/datum/antagonist/nukeop))
 		var/datum/mind/M = V
-		if(ishuman(M.current) && M.current.stat != DEAD)
+		if(iscarbonhuman(M.current) && M.current.stat != DEAD)
 			possible_targets |= M.current
 	var/mob/living/closest_operative = get_closest_atom(/mob/living/carbon/human, possible_targets, here)
 	if(closest_operative)

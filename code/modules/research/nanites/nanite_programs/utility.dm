@@ -35,7 +35,7 @@
 
 	. = ..()
 
-	if(!ishuman(host_mob))
+	if(!iscarbonhuman(host_mob))
 		return
 
 	ADD_TRAIT(host_mob, TRAIT_NANITE_SENSORS, TRACKED_SENSORS_TRAIT)
@@ -47,7 +47,7 @@
 
 	. = ..()
 
-	if(!ishuman(host_mob))
+	if(!iscarbonhuman(host_mob))
 		return
 
 	REMOVE_TRAIT(host_mob, TRAIT_NANITE_SENSORS, TRACKED_SENSORS_TRAIT)
@@ -227,7 +227,7 @@
 	current_item = host_mob.get_inactive_held_item()
 	if(current_item)
 		new_access += current_item.GetAccess()
-	if(ishuman(host_mob))
+	if(iscarbonhuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
 		current_item = H.wear_id
 		if(current_item)

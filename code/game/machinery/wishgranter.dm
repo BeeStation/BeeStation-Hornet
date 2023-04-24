@@ -18,7 +18,7 @@
 		to_chat(user, "The Wish Granter lies silent.")
 		return
 
-	else if(!ishuman(user))
+	else if(!iscarbonhuman(user))
 		to_chat(user, "You feel a dark stirring inside of the Wish Granter, something you want nothing of. Your instincts are better than any man's.")
 		return
 

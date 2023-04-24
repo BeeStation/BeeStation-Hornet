@@ -85,7 +85,7 @@
 			if (hard_drive.traitor_data.contractor_hub.contract_TC_to_redeem)
 				var/obj/item/stack/sheet/telecrystal/crystals = new /obj/item/stack/sheet/telecrystal(get_turf(user),
 															hard_drive.traitor_data.contractor_hub.contract_TC_to_redeem)
-				if(ishuman(user))
+				if(iscarbonhuman(user))
 					var/mob/living/carbon/human/H = user
 					if(H.put_in_hands(crystals))
 						to_chat(H, "<span class='notice'>Your payment materializes into your hands!</span>")

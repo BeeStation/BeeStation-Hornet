@@ -32,7 +32,7 @@
 /datum/weather/rad_storm/weather_act(mob/living/L)
 	var/resist = L.getarmor(null, RAD)
 	if(prob(40))
-		if(ishuman(L))
+		if(iscarbonhuman(L))
 			var/mob/living/carbon/human/H = L
 			if(H.dna && !HAS_TRAIT(H, TRAIT_RADIMMUNE))
 				if(prob(max(0,100-resist)))

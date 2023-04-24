@@ -32,7 +32,7 @@
 	if(!proximity_flag)
 		return
 	else if(isliving(target))
-		if(ishuman(target))
+		if(iscarbonhuman(target))
 			var/mob/living/carbon/human/H = target
 			var/flesh_wound = ran_zone(user.zone_selected)
 			if(H.check_shields(src, 0))

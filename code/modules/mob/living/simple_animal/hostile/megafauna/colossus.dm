@@ -166,7 +166,7 @@ Difficulty: Very Hard
 	ranged_cooldown = world.time + 30
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/enrage(mob/living/L)
-	if(ishuman(L))
+	if(iscarbonhuman(L))
 		var/mob/living/carbon/human/H = L
 		if(H.mind)
 			if(H.mind.martial_art && prob(H.mind.martial_art.deflection_chance))
@@ -527,7 +527,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	activation_sound = 'sound/items/bikehorn.ogg'
 
 /obj/machinery/anomalous_crystal/honk/ActivationReaction(mob/user)
-	if(..() && ishuman(user) && !(user in affected_targets))
+	if(..() && iscarbonhuman(user) && !(user in affected_targets))
 		var/mob/living/carbon/human/H = user
 		for(var/obj/item/W in H)
 			H.dropItemToGround(W)
@@ -649,7 +649,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 			if(isturf(i))
 				new /obj/effect/temp_visual/cult/sparks(i)
 				continue
-			if(ishuman(i))
+			if(iscarbonhuman(i))
 				var/mob/living/carbon/human/H = i
 				if(H.stat == DEAD)
 					H.set_species(/datum/species/shadow, 1)
@@ -790,7 +790,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 
 /obj/machinery/anomalous_crystal/possessor/ActivationReaction(mob/user, method)
 	if(..())
-		if(ishuman(user))
+		if(iscarbonhuman(user))
 			var/mobcheck = FALSE
 			for(var/mob/living/simple_animal/A in viewers(1, src))
 				if(A.melee_damage > 5 || A.mob_size >= MOB_SIZE_LARGE || A.ckey || A.stat)

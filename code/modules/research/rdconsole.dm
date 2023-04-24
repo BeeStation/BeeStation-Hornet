@@ -150,7 +150,7 @@ Nothing else in the console has ID requirements.
 				var/obj/item/card/id/idcard = user.get_active_held_item()
 				if(istype(idcard))
 					logname = "User: [idcard.registered_name]"
-			if(ishuman(user))
+			if(iscarbonhuman(user))
 				var/mob/living/carbon/human/H = user
 				var/obj/item/I = H.wear_id
 				if(istype(I))

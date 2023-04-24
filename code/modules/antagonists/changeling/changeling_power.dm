@@ -53,9 +53,9 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 //Fairly important to remember to return 1 on success >.<
 
 /datum/action/changeling/proc/can_sting(mob/living/user, mob/target)
-	if(!ishuman(user) && !ismonkey(user)) //typecast everything from mob to carbon from this point onwards
+	if(!iscarbonhuman(user) && !ismonkey(user)) //typecast everything from mob to carbon from this point onwards
 		return 0
-	if(req_human && !ishuman(user))
+	if(req_human && !iscarbonhuman(user))
 		to_chat(user, "<span class='warning'>We cannot do that in this form!</span>")
 		return 0
 	var/datum/antagonist/changeling/c = user.mind.has_antag_datum(/datum/antagonist/changeling)
@@ -79,8 +79,8 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 /datum/action/changeling/proc/can_be_used_by(mob/user)
 	if(!user || QDELETED(user))
 		return 0
-	if(!ishuman(user) && !ismonkey(user))
+	if(!iscarbonhuman(user) && !ismonkey(user))
 		return FALSE
-	if(req_human && !ishuman(user))
+	if(req_human && !iscarbonhuman(user))
 		return FALSE
 	return TRUE

@@ -113,7 +113,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 
 /datum/antagonist/devil/can_be_owned(datum/mind/new_owner)
 	. = ..()
-	return . && (ishuman(new_owner.current) || iscyborg(new_owner.current))
+	return . && (iscarbonhuman(new_owner.current) || iscyborg(new_owner.current))
 
 /datum/antagonist/devil/get_admin_commands()
 	. = ..()
@@ -213,7 +213,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 
 /datum/antagonist/devil/proc/regress_humanoid()
 	to_chat(owner.current, "<span class='warning'>Your powers weaken, have more contracts be signed to regain power.</span>")
-	if(ishuman(owner.current))
+	if(iscarbonhuman(owner.current))
 		var/mob/living/carbon/human/H = owner.current
 		H.set_species(/datum/species/human, 1)
 		H.regenerate_icons()
@@ -236,7 +236,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 /datum/antagonist/devil/proc/increase_blood_lizard()
 	to_chat(owner.current, "<span class='warning'>You feel as though your humanoid form is about to shed.  You will soon turn into a blood lizard.</span>")
 	sleep(50)
-	if(ishuman(owner.current))
+	if(iscarbonhuman(owner.current))
 		var/mob/living/carbon/human/H = owner.current
 		H.set_species(/datum/species/lizard, 1)
 		H.underwear = "Nude"
@@ -411,7 +411,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 				return 0
 			return 1
 		if(BANISH_FUNERAL_GARB)
-			if(ishuman(body))
+			if(iscarbonhuman(body))
 				var/mob/living/carbon/human/H = body
 				if(H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under/misc/burial))
 					return 1

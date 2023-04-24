@@ -104,7 +104,7 @@
 					morph.throwatom = null
 				to_chat(morph, "<span class='danger'>You begin digesting [L]</span>")
 				if(do_after(morph, L.maxHealth))
-					if(ishuman(L) || ismonkey(L) || isalienadult(L) || istype(L, /mob/living/simple_animal/pet/dog) || istype(L, /mob/living/simple_animal/parrot))
+					if(iscarbonhuman(L) || ismonkey(L) || isalienadult(L) || istype(L, /mob/living/simple_animal/pet/dog) || istype(L, /mob/living/simple_animal/parrot))
 						var/list/turfs_to_throw = view(2, morph)
 						for(var/obj/item/I in L.contents)
 							L.dropItemToGround(I, TRUE)

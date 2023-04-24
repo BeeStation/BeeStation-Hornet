@@ -192,7 +192,7 @@
 	if((HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
 		to_chat(user, "<span class ='warning'>You club yourself over the head with [src].</span>")
 		user.Paralyze(60)
-		if(ishuman(user))
+		if(iscarbonhuman(user))
 			var/mob/living/carbon/human/H = user
 			H.apply_damage(2*force, BRUTE, BODY_ZONE_HEAD)
 		else
@@ -209,7 +209,7 @@
 	if(user.a_intent == INTENT_DISARM)
 		if(!ISWIELDED(src))
 			return ..()
-		if(!ishuman(target))
+		if(!iscarbonhuman(target))
 			return ..()
 		var/mob/living/carbon/human/H = target
 		var/list/fluffmessages = list("[user] clubs [H] with [src]!", \

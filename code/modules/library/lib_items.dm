@@ -133,7 +133,7 @@
 		if(choice)
 			if(!(user.mobility_flags & MOBILITY_USE) || user.stat || user.restrained() || !in_range(loc, user))
 				return
-			if(ishuman(user))
+			if(iscarbonhuman(user))
 				if(!user.get_active_held_item())
 					user.put_in_hands(choice)
 			else

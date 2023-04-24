@@ -304,14 +304,14 @@
 	if(locate(/mob/living/simple_animal/hostile/floor_cluwne) in range(5, src))
 		cluwne = TRUE
 	if(!cluwne && !iscultist(user))
-		if(ishuman(user))
+		if(iscarbonhuman(user))
 			var/mob/living/carbon/human/H = user
 			if(HAS_TRAIT(H, TRAIT_CLUMSY) || H.job == JOB_NAME_CLOWN || H.dna.check_mutation(CLUWNEMUT))
 				to_chat(user, "<span class='warning'>We need a connection! One of the honkmother's manifested forms!</span>")
 			else
 				to_chat(user, "<span class='warning'>You touch the crayon drawing, and feel somewhat foolish.</span>")
 		return
-	if(ishuman(user))
+	if(iscarbonhuman(user))
 		var/mob/living/carbon/human/H = user
 		if((HAS_TRAIT(H, TRAIT_MUTE)) || H.silent)// NO MIMES
 			to_chat(user, "<span class='warning'>The quiet cannot comprehend [src].</span>")

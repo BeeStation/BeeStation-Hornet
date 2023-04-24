@@ -116,7 +116,7 @@
 	if(!cult_team.cult_master)
 		vote.Grant(current)
 	communion.Grant(current)
-	if(ishuman(current))
+	if(iscarbonhuman(current))
 		magic.Grant(current)
 	current.throw_alert("bloodsense", /atom/movable/screen/alert/bloodsense)
 	if(cult_team.cult_risen)
@@ -135,7 +135,7 @@
 	communion.Remove(current)
 	magic.Remove(current)
 	current.clear_alert("bloodsense")
-	if(ishuman(current))
+	if(iscarbonhuman(current))
 		var/mob/living/carbon/human/H = current
 		H.eye_color = initial(H.eye_color)
 		H.dna.update_ui_block(DNA_EYE_COLOR_BLOCK)
@@ -235,7 +235,7 @@
 	current.update_action_buttons_icon()
 	current.remove_status_effect(/datum/status_effect/cult_master)
 
-	if(ishuman(current))
+	if(iscarbonhuman(current))
 		var/mob/living/carbon/human/H = current
 		H.eye_color = initial(H.eye_color)
 		H.dna.update_ui_block(DNA_EYE_COLOR_BLOCK)
@@ -287,7 +287,7 @@
 
 
 /datum/team/cult/proc/rise(cultist)
-	if(ishuman(cultist))
+	if(iscarbonhuman(cultist))
 		var/mob/living/carbon/human/H = cultist
 		H.eye_color = "f00"
 		H.dna.update_ui_block(DNA_EYE_COLOR_BLOCK)
@@ -295,7 +295,7 @@
 		H.update_body()
 
 /datum/team/cult/proc/ascend(cultist)
-	if(ishuman(cultist))
+	if(iscarbonhuman(cultist))
 		var/mob/living/carbon/human/H = cultist
 		new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
 		var/istate = pick("halo1","halo2","halo3","halo4","halo5","halo6")

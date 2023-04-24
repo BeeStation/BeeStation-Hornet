@@ -18,7 +18,7 @@
 			qdel(owner.wear_mask)
 		owner.equip_to_slot_or_del(new /obj/item/clothing/mask/cluwne(owner), ITEM_SLOT_MASK)
 
-	if(ishuman(owner))
+	if(iscarbonhuman(owner))
 		var/mob/living/carbon/human/H = owner
 		if(!istype(H.w_uniform, /obj/item/clothing/under/cluwne))
 			if(!H.doUnEquip(H.w_uniform))

@@ -158,7 +158,7 @@
 
 ///////HUDs///////
 	if(href_list["hud"])
-		if(!ishuman(usr))
+		if(!iscarbonhuman(usr))
 			return
 		var/mob/living/carbon/human/human_user = usr
 		var/perpname = get_face_name(get_id_name(""))
@@ -866,7 +866,7 @@
 
 /mob/living/carbon/human/MouseDrop(mob/over)
 	. = ..()
-	if(ishuman(over))
+	if(iscarbonhuman(over))
 		var/mob/living/carbon/human/T = over  // curbstomp, ported from PP with modifications
 		if(!src.is_busy && (src.zone_selected == BODY_ZONE_HEAD || src.zone_selected == BODY_ZONE_PRECISE_GROIN) && get_turf(src) == get_turf(T) && !(T.mobility_flags & MOBILITY_STAND) && src.a_intent != INTENT_HELP && !HAS_TRAIT(src, TRAIT_PACIFISM)) //all the stars align, time to curbstomp
 			src.is_busy = TRUE
@@ -950,7 +950,7 @@
 	return (istype(target) && target.stat == CONSCIOUS && (target.mobility_flags & MOBILITY_STAND))
 
 /mob/living/carbon/human/proc/can_be_firemanned(mob/living/carbon/target)
-	return ((ishuman(target) || ismonkey(target)) && !(target.mobility_flags & MOBILITY_STAND))
+	return ((iscarbonhuman(target) || ismonkey(target)) && !(target.mobility_flags & MOBILITY_STAND))
 
 /mob/living/carbon/human/proc/fireman_carry(mob/living/carbon/target)
 	var/carrydelay = 50 //if you have latex you are faster at grabbing

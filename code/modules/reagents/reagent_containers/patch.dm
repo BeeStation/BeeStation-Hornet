@@ -11,7 +11,7 @@
 	dissolvable = FALSE
 
 /obj/item/reagent_containers/pill/patch/attack(mob/living/L, mob/user, obj/item/bodypart/affecting)
-	if(!ishuman(L))
+	if(!iscarbonhuman(L))
 		return ..()
 	affecting = L.get_bodypart(check_zone(user.zone_selected))
 	if(!affecting)

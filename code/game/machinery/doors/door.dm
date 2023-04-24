@@ -368,7 +368,7 @@
 		if(isalien(L))  //For xenos
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE * 1.5) //Xenos go into crit after aproximately the same amount of crushes as humans.
 			L.emote("roar")
-		else if(ishuman(L)) //For humans
+		else if(iscarbonhuman(L)) //For humans
 			var/armour = L.run_armor_check(BODY_ZONE_CHEST, MELEE)
 			var/multiplier = CLAMP(1 - (armour * 0.01), 0, 1)
 			L.adjustBruteLoss(multiplier * DOOR_CRUSH_DAMAGE)

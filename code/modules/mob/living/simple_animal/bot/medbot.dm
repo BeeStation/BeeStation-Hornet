@@ -432,7 +432,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	if(HAS_TRAIT(C,TRAIT_MEDIBOTCOMINGTHROUGH) && !HAS_TRAIT_FROM(C,TRAIT_MEDIBOTCOMINGTHROUGH,medibot_counter)) //someone is healing them already sweetie
 		return FALSE
 
-	if(ishuman(C))
+	if(iscarbonhuman(C))
 		var/mob/living/carbon/human/H = C
 		if (H.wear_suit && H.head && isclothing(H.wear_suit) && isclothing(H.head))
 			var/obj/item/clothing/CS = H.wear_suit

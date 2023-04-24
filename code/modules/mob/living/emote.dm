@@ -109,7 +109,7 @@
 
 /datum/emote/living/flap/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
-	if(. && ishuman(user))
+	if(. && iscarbonhuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.Togglewings())
 			addtimer(CALLBACK(H,TYPE_PROC_REF(/mob/living/carbon/human, Togglewings)), wing_time)
@@ -218,7 +218,7 @@
 
 /datum/emote/living/point/run_emote(mob/user, params, type_override, intentional)
 	message_param = initial(message_param) // reset
-	if(ishuman(user))
+	if(iscarbonhuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.get_num_arms() == 0)
 			if(H.get_num_legs() != 0)
@@ -602,7 +602,7 @@
 	return ..() && !HAS_TRAIT(user, TRAIT_SOOTHED_THROAT)
 
 /datum/emote/living/must_breathe/cough/get_sound(mob/living/user)
-	if(!ishuman(user))
+	if(!iscarbonhuman(user))
 		return
 	var/mob/living/carbon/human/H = user
 	return H?.dna?.species?.get_cough_sound(H)
@@ -613,7 +613,7 @@
 	message = "gasps!"
 
 /datum/emote/living/must_breathe/gasp/get_sound(mob/living/user)
-	if(!ishuman(user))
+	if(!iscarbonhuman(user))
 		return
 	var/mob/living/carbon/human/H = user
 	return H?.dna?.species?.get_gasp_sound(H)
@@ -633,7 +633,7 @@
 	overlay_icon_state = "sigh"
 
 /datum/emote/living/must_breathe/sigh/get_sound(mob/living/user)
-	if(!ishuman(user))
+	if(!iscarbonhuman(user))
 		return
 	var/mob/living/carbon/human/H = user
 	return H?.dna?.species?.get_sigh_sound(H)
@@ -644,7 +644,7 @@
 	message = "sneezes!"
 
 /datum/emote/living/must_breathe/sneeze/get_sound(mob/living/user)
-	if(!ishuman(user))
+	if(!iscarbonhuman(user))
 		return
 	var/mob/living/carbon/human/H = user
 	return H?.dna?.species?.get_sneeze_sound(H)
@@ -655,7 +655,7 @@
 	message = "sniffs."
 
 /datum/emote/living/must_breathe/sniff/get_sound(mob/living/user)
-	if(!ishuman(user))
+	if(!iscarbonhuman(user))
 		return
 	var/mob/living/carbon/human/H = user
 	return H?.dna?.species?.get_sniff_sound(H)

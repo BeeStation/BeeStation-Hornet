@@ -88,7 +88,7 @@
 				if(is_type_in_typecache(M, trigger_mobs))
 					freak_out(M)
 
-				else if(ishuman(M)) //check their species
+				else if(iscarbonhuman(M)) //check their species
 					var/mob/living/carbon/human/H = M
 
 					if(LAZYLEN(trigger_species) && H.dna && H.dna.species && is_type_in_typecache(H.dna.species, trigger_species))

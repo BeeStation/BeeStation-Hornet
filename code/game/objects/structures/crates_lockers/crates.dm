@@ -134,7 +134,7 @@
 	playsound(src, 'sound/items/poster_ripped.ogg', 75, 1)
 
 	manifest.forceMove(loc)
-	if(ishuman(user))
+	if(iscarbonhuman(user))
 		user.put_in_hands(manifest)
 	manifest = null
 	update_icon()

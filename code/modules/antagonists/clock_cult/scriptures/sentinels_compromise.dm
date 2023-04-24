@@ -13,7 +13,7 @@
 /datum/clockcult/scripture/slab/sentinelscompromise/click_on(atom/A)
 	if(!(invoker in viewers(7, get_turf(A))))
 		return
-	if(!ishuman(invoker))
+	if(!iscarbonhuman(invoker))
 		to_chat(invoker, "<span class='warning'>Non humanoid servants can't use this power!</span>")
 		return
 	var/mob/living/M = A

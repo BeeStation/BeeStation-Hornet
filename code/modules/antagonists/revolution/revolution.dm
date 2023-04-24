@@ -223,7 +223,7 @@
 	if (announce_victorious())
 		return
 
-	if(ishuman(owner.current))
+	if(iscarbonhuman(owner.current))
 		owner.current.visible_message("<span class='deconversion_message'>[owner.current] looks like [owner.current.p_theyve()] just remembered [owner.current.p_their()] real allegiance!</span>", null, null, null, owner.current)
 		to_chat(owner, "<span class='userdanger'>You are no longer a brainwashed revolutionary! Your memory is hazy from the time you were a rebel...the only thing you remember is the name of the one who brainwashed you...</span>")
 	else if(issilicon(owner.current))
@@ -234,7 +234,7 @@
 	if (announce_victorious())
 		return
 
-	if((ishuman(owner.current)))
+	if((iscarbonhuman(owner.current)))
 		if(owner.current.stat != DEAD)
 			owner.current.visible_message("<span class='deconversion_message'>[owner.current] looks like [owner.current.p_theyve()] just remembered [owner.current.p_their()] real allegiance!</span>", null, null, null, owner.current)
 			to_chat(owner, "<span class ='deconversion_message bold'>You have given up your cause of overthrowing the command staff. You are no longer a Head Revolutionary.</span>")
@@ -261,7 +261,7 @@
 
 /datum/antagonist/rev/head/equip_rev()
 	var/mob/living/carbon/H = owner.current
-	if(!ishuman(H) && !ismonkey(H))
+	if(!iscarbonhuman(H) && !ismonkey(H))
 		return
 
 	if(remove_clumsy)
@@ -343,7 +343,7 @@
 			for(var/datum/mind/khrushchev in non_heads)
 				if(khrushchev.current && !khrushchev.current.incapacitated() && !khrushchev.current.restrained() && khrushchev.current.client && khrushchev.current.stat != DEAD)
 					if(ROLE_REV in khrushchev.current.client.prefs.be_special)
-						if(ishuman(khrushchev.current))
+						if(iscarbonhuman(khrushchev.current))
 							promotable += khrushchev
 						else
 							nonhuman_promotable += khrushchev
@@ -372,7 +372,7 @@
 	for(var/datum/mind/rev_mind in head_revolutionaries())
 		var/turf/rev_turf = get_turf(rev_mind.current)
 		if(!considered_afk(rev_mind) && considered_alive(rev_mind) && is_station_level(rev_turf.z))
-			if(ishuman(rev_mind.current))
+			if(iscarbonhuman(rev_mind.current))
 				return FALSE
 	return TRUE
 

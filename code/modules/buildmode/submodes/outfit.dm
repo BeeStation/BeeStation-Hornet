@@ -26,7 +26,7 @@
 	var/right_click = pa.Find("right")
 
 
-	if(!ishuman(object))
+	if(!iscarbonhuman(object))
 		return
 	var/mob/living/carbon/human/dollie = object
 

@@ -34,7 +34,7 @@
 	var/list/possible_targets = list()
 	for(var/datum/mind/M in SSticker.minds)
 		if(M.current && M.current.stat != DEAD)
-			if(ishuman(M.current))
+			if(iscarbonhuman(M.current))
 				if(M.special_role)
 					possible_targets[M] = 0						//bad-guy
 				else if(M.assigned_role in GLOB.command_positions)

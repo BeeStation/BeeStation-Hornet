@@ -209,7 +209,7 @@
 				to_chat(owner, "<span class='warning'>Your heart skips a beat.</span>")
 				owner.adjustOxyLoss(8)
 			else
-				if(prob(15) && ishuman(owner))
+				if(prob(15) && iscarbonhuman(owner))
 					var/mob/living/carbon/human/H = owner
 					H.set_heartattack(TRUE)
 					to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your heart!</span>")

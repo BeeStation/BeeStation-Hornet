@@ -139,7 +139,7 @@
 		facial_hair_style = "Shaved"
 		lip_style = null
 
-	else if(!animal_origin && ishuman(C))
+	else if(!animal_origin && iscarbonhuman(C))
 		var/mob/living/carbon/human/H = C
 		var/datum/species/S = H.dna.species
 

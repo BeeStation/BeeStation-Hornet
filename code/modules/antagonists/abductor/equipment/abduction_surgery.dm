@@ -5,7 +5,7 @@
 	ignore_clothes = 1
 
 /datum/surgery/organ_extraction/can_start(mob/user, mob/living/carbon/target)
-	if(!ishuman(user))
+	if(!iscarbonhuman(user))
 		return 0
 	var/mob/living/carbon/human/H = user
 	if(H.dna.species.id == "abductor")

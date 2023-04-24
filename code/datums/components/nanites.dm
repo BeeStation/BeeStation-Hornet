@@ -331,7 +331,7 @@
 
 /datum/component/nanites/proc/add_research()
 	var/research_value = NANITE_BASE_RESEARCH
-	if(!ishuman(host_mob))
+	if(!iscarbonhuman(host_mob))
 		if(!iscarbon(host_mob))
 			research_value *= 0.4
 		else

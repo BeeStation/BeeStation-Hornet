@@ -164,7 +164,7 @@
 
 /obj/item/pinpointer/crew/scan_for_target()
 	if(target)
-		if(ishuman(target))
+		if(iscarbonhuman(target))
 			var/mob/living/carbon/human/H = target
 			if(!trackable(H))
 				target = null

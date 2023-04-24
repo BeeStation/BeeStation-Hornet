@@ -125,7 +125,7 @@
 			covered_locations |= I.body_parts_covered
 			face_covered |= I.flags_inv
 			eyesmouth_covered |= I.flags_cover
-		if(ishuman(C))
+		if(iscarbonhuman(C))
 			var/mob/living/carbon/human/H = C
 			for(var/obj/item/I in list(H.wear_suit, H.w_uniform, H.shoes, H.belt, H.gloves, H.glasses, H.ears))
 				covered_locations |= I.body_parts_covered

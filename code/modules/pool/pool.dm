@@ -118,7 +118,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 	var/zap = 0
 	if(issilicon(user)) //Do not throw brick in a pool. Brick begs.
 		zap = 1 //Sorry borgs! Swimming will come at a cost.
-	if(ishuman(user))
+	if(iscarbonhuman(user))
 		var/mob/living/carbon/human/F = user
 		var/datum/species/SS = F.dna.species
 		if(MOB_ROBOTIC in SS.inherent_biotypes)  //ZAP goes the IPC!

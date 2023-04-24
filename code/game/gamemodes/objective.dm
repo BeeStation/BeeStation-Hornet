@@ -41,7 +41,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	var/list/possible_targets = list()
 	var/def_value
 	for(var/datum/mind/possible_target as() in SSticker.minds)
-		if ((possible_target != src) && ishuman(possible_target.current))
+		if ((possible_target != src) && iscarbonhuman(possible_target.current))
 			possible_targets += possible_target.current
 
 
@@ -182,7 +182,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/proc/is_valid_target(datum/mind/possible_target)
 	if(possible_target in get_owners())
 		return FALSE
-	if(!ishuman(possible_target.current))
+	if(!iscarbonhuman(possible_target.current))
 		return FALSE
 	if(possible_target.current.stat == DEAD)
 		return FALSE
@@ -218,7 +218,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/proc/give_special_equipment(list/special_equipment)
 	var/datum/mind/receiver = pick(get_owners())
 	if(receiver && receiver.current)
-		if(ishuman(receiver.current))
+		if(iscarbonhuman(receiver.current))
 			var/mob/living/carbon/human/H = receiver.current
 			var/static/list/slots = list(
 				"backpack" = ITEM_SLOT_BACKPACK,
@@ -520,7 +520,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
 		return TRUE
 	for(var/mob/living/player in GLOB.player_list)
-		if((get_area(player) in SSshuttle.emergency.shuttle_areas) && player.mind && player.stat != DEAD && ishuman(player))
+		if((get_area(player) in SSshuttle.emergency.shuttle_areas) && player.mind && player.stat != DEAD && iscarbonhuman(player))
 			var/mob/living/carbon/human/H = player
 			if(H.dna.species.id != SPECIES_HUMAN)
 				return ..()
@@ -586,7 +586,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		target_real_name = target.current.real_name
 		explanation_text = "Escape on the shuttle or an escape pod with the identity of [target_real_name], the [target.assigned_role]"
 		var/mob/living/carbon/human/H
-		if(ishuman(target.current))
+		if(iscarbonhuman(target.current))
 			H = target.current
 		if(H && H.get_id_name() != target_real_name)
 			target_missing_id = 1
@@ -600,7 +600,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	if(!target || !target_real_name)
 		return TRUE
 	for(var/datum/mind/M as() in get_owners())
-		if(!ishuman(M.current) || !considered_escaped(M))
+		if(!iscarbonhuman(M.current) || !considered_escaped(M))
 			continue
 		var/mob/living/carbon/human/H = M.current
 		if(H.dna.real_name == target_real_name && (H.get_id_name() == target_real_name || target_missing_id))
@@ -803,7 +803,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	for(var/datum/mind/owner as() in get_owners())
 		if(ismob(owner.current))
 			var/mob/M = owner.current			//Yeah if you get morphed and you eat a quantum tech disk with the RD's latest backup good on you soldier.
-			if(ishuman(M))
+			if(iscarbonhuman(M))
 				var/mob/living/carbon/human/H = M
 				if(H && (H.stat != DEAD) && istype(H.wear_suit, /obj/item/clothing/suit/space/space_ninja))
 					var/obj/item/clothing/suit/space/space_ninja/S = H.wear_suit

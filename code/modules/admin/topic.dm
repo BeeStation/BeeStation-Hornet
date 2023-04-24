@@ -986,7 +986,7 @@
 		for(var/obj/item/I in L)
 			L.dropItemToGround(I, TRUE)
 
-		if(ishuman(L))
+		if(iscarbonhuman(L))
 			var/mob/living/carbon/human/observer = L
 			observer.equip_to_slot_or_del(new /obj/item/clothing/under/suit/black(observer), ITEM_SLOT_ICLOTHING)
 			observer.equip_to_slot_or_del(new /obj/item/clothing/shoes/sneakers/black(observer), ITEM_SLOT_FEET)
@@ -1222,7 +1222,7 @@
 			return
 
 		var/mob/living/carbon/human/H = locate(href_list["adminspawncookie"])
-		if(!ishuman(H))
+		if(!iscarbonhuman(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human.")
 			return
 

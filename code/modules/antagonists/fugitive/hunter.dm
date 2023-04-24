@@ -103,7 +103,7 @@
 /datum/team/fugitive_hunters/proc/all_hunters_dead()
 	var/dead_boys = 0
 	for(var/datum/mind/hunter_mind in members)
-		if(!(ishuman(hunter_mind.current) || (hunter_mind.current.stat == DEAD)))
+		if(!(iscarbonhuman(hunter_mind.current) || (hunter_mind.current.stat == DEAD)))
 			dead_boys++
 	return dead_boys >= members.len
 

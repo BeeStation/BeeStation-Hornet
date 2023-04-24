@@ -23,7 +23,7 @@
 
 /obj/item/reagent_containers/food/proc/checkLiked(var/fraction, mob/M)
 	if(last_check_time + 50 < world.time)
-		if(ishuman(M))
+		if(iscarbonhuman(M))
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
 

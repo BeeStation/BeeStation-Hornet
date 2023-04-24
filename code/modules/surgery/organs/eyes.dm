@@ -33,7 +33,7 @@
 
 /obj/item/organ/eyes/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = FALSE, initialising)
 	. = ..()
-	if(ishuman(owner))
+	if(iscarbonhuman(owner))
 		var/mob/living/carbon/human/HMN = owner
 		old_eye_color = HMN.eye_color
 		if(eye_color)
@@ -45,12 +45,12 @@
 			lighting_alpha = LIGHTING_PLANE_ALPHA_NV_TRAIT
 	M.update_tint()
 	owner.update_sight()
-	if(M.has_dna() && ishuman(M))
+	if(M.has_dna() && iscarbonhuman(M))
 		M.dna.species.handle_body(M) //updates eye icon
 
 /obj/item/organ/eyes/Remove(mob/living/carbon/M, special = 0)
 	..()
-	if(ishuman(M) && eye_color)
+	if(iscarbonhuman(M) && eye_color)
 		var/mob/living/carbon/human/HMN = M
 		HMN.eye_color = old_eye_color
 		HMN.regenerate_icons()
@@ -263,7 +263,7 @@
 	eye_color = RGB2EYECOLORSTRING(current_color_string)
 	sync_light_effects()
 	cycle_mob_overlay()
-	if(!QDELETED(owner) && ishuman(owner))		//Other carbon mobs don't have eye color.
+	if(!QDELETED(owner) && iscarbonhuman(owner))		//Other carbon mobs don't have eye color.
 		owner.dna.species.handle_body(owner)
 
 /obj/item/organ/eyes/robotic/glow/proc/cycle_mob_overlay()

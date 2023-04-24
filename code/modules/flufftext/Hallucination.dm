@@ -993,7 +993,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 			slots_free -= l
 		if(r_hand)
 			slots_free -= r
-		if(ishuman(target))
+		if(iscarbonhuman(target))
 			var/mob/living/carbon/human/H = target
 			if(!H.belt)
 				slots_free += ui_belt

@@ -52,7 +52,7 @@
 	var/datum/martial_art/boxing/style = new
 
 /obj/item/clothing/gloves/boxing/equipped(mob/user, slot)
-	if(!ishuman(user))
+	if(!iscarbonhuman(user))
 		return
 	if(slot == ITEM_SLOT_GLOVES)
 		var/mob/living/carbon/human/H = user
@@ -61,7 +61,7 @@
 
 /obj/item/clothing/gloves/boxing/dropped(mob/user)
 	..()
-	if(!ishuman(user))
+	if(!iscarbonhuman(user))
 		return
 	var/mob/living/carbon/human/H = user
 	if(H.get_item_by_slot(ITEM_SLOT_GLOVES) == src)

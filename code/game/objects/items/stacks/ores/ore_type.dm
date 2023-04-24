@@ -51,7 +51,7 @@ STACKSIZE_MACRO(/obj/item/stack/ore/iron)
 	. = ..()
 
 /obj/item/stack/ore/glass/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	if(..() || !ishuman(hit_atom))
+	if(..() || !iscarbonhuman(hit_atom))
 		return
 	var/mob/living/carbon/human/C = hit_atom
 	if(C.is_eyes_covered())

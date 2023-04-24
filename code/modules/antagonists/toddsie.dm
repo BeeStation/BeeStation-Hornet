@@ -27,7 +27,7 @@
 		return
 	to_chat(singularity_component?.target, "<span class='cultsmall'>TODD'SIE HAS LOST INTEREST IN YOU.</span>")
 	singularity_component?.target = food
-	if(ishuman(singularity_component?.target))
+	if(iscarbonhuman(singularity_component?.target))
 		to_chat(singularity_component?.target, "<span class ='cult'>TODD'SIE HUNGERS FOR YOUR SOUL.</span>")
 	else
 		to_chat(singularity_component?.target, "<span class ='cult'>TODD'SIE HAS CHOSEN YOU TO LEAD HIM TO HIS NEXT MEAL.</span>")

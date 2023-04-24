@@ -57,7 +57,7 @@
 
 /obj/item/clothing/head/hardhat/cakehat/process()
 	var/turf/location = loc
-	if(ishuman(location))
+	if(iscarbonhuman(location))
 		var/mob/living/carbon/human/M = location
 		if(M.is_holding(src) || M.head == src)
 			location = M.loc
@@ -212,7 +212,7 @@
 
 /obj/item/clothing/head/cardborg/equipped(mob/living/user, slot)
 	..()
-	if(ishuman(user) && slot == ITEM_SLOT_HEAD)
+	if(iscarbonhuman(user) && slot == ITEM_SLOT_HEAD)
 		var/mob/living/carbon/human/H = user
 		if(istype(H.wear_suit, /obj/item/clothing/suit/cardborg))
 			var/obj/item/clothing/suit/cardborg/CB = H.wear_suit
@@ -288,7 +288,7 @@
 	. = ..()
 
 /obj/item/clothing/head/wig/natural/equipped(mob/living/carbon/human/user, slot)
-	if(ishuman(user) && slot == ITEM_SLOT_HEAD)
+	if(iscarbonhuman(user) && slot == ITEM_SLOT_HEAD)
 		hair_color = "#[user.hair_color]"
 		update_icon()
 		user.update_inv_head()

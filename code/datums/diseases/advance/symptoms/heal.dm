@@ -517,7 +517,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				M.Immobilize(5)
 				M.add_splatter_floor()
 				playsound(get_turf(M), 'sound/effects/splat.ogg', 50, 1)
-				if(prob(60) && M.mind && ishuman(M))
+				if(prob(60) && M.mind && iscarbonhuman(M))
 					if(tetsuo && prob(15))
 						if(A.affected_mob.job == JOB_NAME_CLOWN)
 							new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)
@@ -527,7 +527,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 					new /obj/effect/spawner/lootdrop/teratoma/minor(M.loc)
 				if(tetsuo)
 					var/list/missing = M.get_missing_limbs()
-					if(prob(35) && M.mind && ishuman(M))
+					if(prob(35) && M.mind && iscarbonhuman(M))
 						new /obj/effect/decal/cleanable/blood/gibs(M.loc) //yes. this is very messy. very, very messy.
 						new /obj/effect/spawner/lootdrop/teratoma/major(M.loc)
 					if(missing.len) //we regrow one missing limb
@@ -549,7 +549,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 											break
 										if(owner == M) //they're already in control of this body, probably because their brain isn't in the head!
 											break
-									if(ishuman(M))
+									if(iscarbonhuman(M))
 										var/mob/living/carbon/human/H = M
 										H.dna.species.regenerate_organs(H, replace_current = FALSE) //get head organs, including the brain, back
 									ownermind.transfer_to(M)
@@ -619,7 +619,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		vampire = TRUE
 		maxbloodpoints += 50
 		power += 1
-	if(ishuman(A.affected_mob) && A.affected_mob.get_blood_id() == /datum/reagent/blood)
+	if(iscarbonhuman(A.affected_mob) && A.affected_mob.get_blood_id() == /datum/reagent/blood)
 		var/mob/living/carbon/human/H = A.affected_mob
 		bloodtypearchive = H.dna.blood_type
 		H.dna.blood_type = "U"
@@ -647,7 +647,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				bloodpoints += max(0, grabbedblood)
 			for(var/I in 1 to power)//power doesnt increase efficiency, just usage.
 				if(bloodpoints > 0)
-					if(ishuman(M))
+					if(iscarbonhuman(M))
 						var/mob/living/carbon/human/H = M
 						if(H.bleed_rate >= 2 && bruteheal && bloodpoints)
 							bloodpoints -= 1
@@ -669,7 +669,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /datum/symptom/vampirism/End(datum/disease/advance/A)
 	. = ..()
 	REMOVE_TRAIT(A.affected_mob, TRAIT_DRINKSBLOOD, DISEASE_TRAIT)
-	if(bloodtypearchive && ishuman(A.affected_mob))
+	if(bloodtypearchive && iscarbonhuman(A.affected_mob))
 		var/mob/living/carbon/human/H = A.affected_mob
 		H.dna.blood_type = bloodtypearchive
 
@@ -677,7 +677,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	var/gainedpoints = 0
 	if(bloodbag && !bloodbag.blood_volume) //we've exsanguinated them!
 		bloodbag = null
-	if(ishuman(M) && M.stat == DEAD && vampire)
+	if(iscarbonhuman(M) && M.stat == DEAD && vampire)
 		var/mob/living/carbon/human/H = M
 		var/possibledist = power + 1
 		if(M.get_blood_id() != /datum/reagent/blood)
@@ -737,7 +737,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 						candidates += C
 				for(var/prospect in candidates)
 					candidates[prospect] = 1
-					if(ishuman(prospect))
+					if(iscarbonhuman(prospect))
 						var/mob/living/carbon/human/candidate = prospect
 						candidates[prospect] += (candidate.stat - 1)
 						candidates[prospect] += (3 - get_dist(candidate, H)) * 2
@@ -746,9 +746,9 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 
 	if(bloodpoints >= maxbloodpoints)
 		return 0
-	if(ishuman(M) && aggression) //first, try to suck those the host is actively grabbing
+	if(iscarbonhuman(M) && aggression) //first, try to suck those the host is actively grabbing
 		var/mob/living/carbon/human/H = M
-		if(H.pulling && ishuman(H.pulling)) //grabbing is handled with the disease instead of the component, so the component doesn't have to be processed
+		if(H.pulling && iscarbonhuman(H.pulling)) //grabbing is handled with the disease instead of the component, so the component doesn't have to be processed
 			var/mob/living/carbon/human/C = H.pulling
 			if(!C.bleed_rate && vampire && C.can_inject() && H.grab_state && C.get_blood_id() == H.get_blood_id() && !(NOBLOOD in C.dna.species.species_traits))//aggressive grab as a "vampire" starts the target bleeding
 				C.bleed_rate += 1
@@ -794,7 +794,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			playsound(M.loc, 'sound/magic/exit_blood.ogg', 50, 1)
 			M.visible_message("<span class='warning'>Blood flows from the floor into [M.name]!</span>", "<span class='warning'>You consume the errant blood</span>")
 		return CLAMP(gainedpoints, 0, maxbloodpoints - bloodpoints)
-	if(ishuman(M) && aggression)//finally, attack mobs touching the host.
+	if(iscarbonhuman(M) && aggression)//finally, attack mobs touching the host.
 		var/mob/living/carbon/human/H = M
 		for(var/mob/living/carbon/human/C in ohearers(1, H))
 			if(NOBLOOD in C.dna.species.species_traits)

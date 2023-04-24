@@ -68,7 +68,7 @@
 	for(var/M in late_joining_list)
 		if(istype(M, /datum/mind))
 			var/datum/mind/agent_mind = M
-			if(ishuman(agent_mind.current))
+			if(iscarbonhuman(agent_mind.current))
 				var/mob/living/carbon/human/H = agent_mind.current
 				if(H.stat != DEAD)
 					if(H.client)

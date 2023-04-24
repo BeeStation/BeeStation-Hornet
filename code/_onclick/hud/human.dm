@@ -10,7 +10,7 @@
 	var/mob/targetmob = usr
 
 	if(isobserver(usr))
-		if(ishuman(usr.client.eye) && (usr.client.eye != usr))
+		if(iscarbonhuman(usr.client.eye) && (usr.client.eye != usr))
 			var/mob/M = usr.client.eye
 			targetmob = M
 

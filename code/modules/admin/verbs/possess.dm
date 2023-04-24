@@ -39,7 +39,7 @@
 		usr.real_name = usr.name_archive
 		usr.name_archive = ""
 		usr.name = usr.real_name
-		if(ishuman(usr))
+		if(iscarbonhuman(usr))
 			var/mob/living/carbon/human/H = usr
 			H.name = H.get_visible_name()
 

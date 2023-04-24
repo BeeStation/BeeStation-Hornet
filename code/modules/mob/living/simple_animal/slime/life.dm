@@ -160,7 +160,7 @@
 			if(last_to_hurt && last_to_hurt != M && prob(50))
 				add_friendship(last_to_hurt, 1)
 		//we go rabid after finishing to feed on a human with a client.
-		if(M.client && ishuman(M))
+		if(M.client && iscarbonhuman(M))
 			rabid = 1
 
 		if(transformeffects & SLIME_EFFECT_GREEN)
@@ -277,7 +277,7 @@
 				if((locate(/mob/living/simple_animal/slime) in L.buckled_mobs || issilicon(L)) && !(attacked || rabid))
 					continue
 
-				if(ishuman(L))
+				if(iscarbonhuman(L))
 					if(!Discipline && prob(5) || attacked || rabid)
 						set_target(L)
 				else

@@ -896,7 +896,7 @@
 						if(!regenerate_limb(result))
 							to_chat(usr, "[src] cannot have such bodypart.")
 				if("augment")
-					if(ishuman(src))
+					if(iscarbonhuman(src))
 						if(BP)
 							BP.change_bodypart_status(BODYTYPE_ROBOTIC, TRUE, TRUE)
 						else

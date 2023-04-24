@@ -26,7 +26,7 @@
 
 /obj/item/pool/rubber_ring/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
-	if(ishuman(hit_atom))
+	if(iscarbonhuman(hit_atom))
 		var/mob/living/carbon/human/H = hit_atom
 		//Make sure they are in a pool
 		if(!istype(get_turf(H), /turf/open/indestructible/sound/pool))

@@ -121,7 +121,7 @@
 
 /datum/species/golem/plasma/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
-	if(ishuman(C))
+	if(iscarbonhuman(C))
 		ignite = new
 		ignite.Grant(C)
 
@@ -137,7 +137,7 @@
 	button_icon_state = "sacredflame"
 
 /datum/action/innate/ignite/Activate()
-	if(ishuman(owner))
+	if(iscarbonhuman(owner))
 		var/mob/living/carbon/human/H = owner
 		if(H.fire_stacks)
 			to_chat(owner, "<span class='notice'>You ignite yourself!</span>")
@@ -476,7 +476,7 @@
 
 /datum/species/golem/bluespace/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
-	if(ishuman(C))
+	if(iscarbonhuman(C))
 		unstable_teleport = new
 		unstable_teleport.Grant(C)
 		last_teleport = world.time
@@ -1043,7 +1043,7 @@
 
 /datum/species/golem/bone/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
-	if(ishuman(C))
+	if(iscarbonhuman(C))
 		bonechill = new
 		bonechill.Grant(C)
 
@@ -1085,7 +1085,7 @@
 	last_use = world.time
 	if(prob(snas_chance))
 		playsound(get_turf(owner),'sound/magic/RATTLEMEBONES2.ogg', 100)
-		if(ishuman(owner))
+		if(iscarbonhuman(owner))
 			var/mob/living/carbon/human/H = owner
 			var/mutable_appearance/badtime = mutable_appearance('icons/mob/human_parts.dmi', "b_golem_eyes", -FIRE_LAYER-0.5)
 			badtime.appearance_flags = RESET_COLOR

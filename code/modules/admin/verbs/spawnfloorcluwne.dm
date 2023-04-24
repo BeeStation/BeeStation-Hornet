@@ -9,7 +9,7 @@
 
 	var/turf/T = get_turf(usr)
 	target = input("Any specific target in mind? Please note only live, non cluwned, human targets are valid.", "Target", target) as null|anything in GLOB.player_list
-	if(target && ishuman(target))
+	if(target && iscarbonhuman(target))
 		var/mob/living/carbon/human/H = target
 		var/mob/living/simple_animal/hostile/floor_cluwne/FC = new /mob/living/simple_animal/hostile/floor_cluwne(T)
 		FC.force_target(H)

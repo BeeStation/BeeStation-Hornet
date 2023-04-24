@@ -118,7 +118,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	return ..()
 
 /obj/item/claymore/highlander/process()
-	if(ishuman(loc))
+	if(iscarbonhuman(loc))
 		var/mob/living/carbon/human/H = loc
 		loc.layer = LARGE_MOB_LAYER //NO HIDING BEHIND PLANTS FOR YOU, DICKWEED (HA GET IT, BECAUSE WEEDS ARE PLANTS)
 		H.bleedsuppress = TRUE //AND WE WON'T BLEED OUT LIKE COWARDS
@@ -802,7 +802,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	var/table_smacks_left = 3
 
 /obj/item/slapper/attack(mob/living/M, mob/living/carbon/human/user)
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		var/mob/living/carbon/human/L = M
 		if(L && L.dna && L.dna.species)
 			L.dna.species.stop_wagging_tail(M)
@@ -893,7 +893,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/highfive/attack(mob/target, mob/user)
 	if(target == user)
 		to_chat(user, "<span class='notice'>You can't high-five yourself! Go get a friend!</span>")
-	else if(ishuman(target) && (target.stat == CONSCIOUS) && (istype(target.get_active_held_item(), /obj/item/highfive)) )
+	else if(iscarbonhuman(target) && (target.stat == CONSCIOUS) && (istype(target.get_active_held_item(), /obj/item/highfive)) )
 		var/obj/item/highfive/downlow = target.get_active_held_item()
 		user.visible_message("[user] and [target] high five!", "<span class='notice'>You high five with [target]!</span>", "<span class='italics'>You hear a slap!</span>")
 		user.do_attack_animation(target)
@@ -920,7 +920,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	var/stamforce = 15
 
 /obj/item/club/attack(mob/living/M, mob/living/user)
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.check_shields(src, breakforce))
 			return

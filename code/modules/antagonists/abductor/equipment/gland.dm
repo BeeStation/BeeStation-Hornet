@@ -28,7 +28,7 @@
 		. += "<span class='notice'>It is \a [true_name].</span>"
 
 /obj/item/organ/heart/gland/proc/ownerCheck()
-	if(ishuman(owner))
+	if(iscarbonhuman(owner))
 		return TRUE
 	if(!human_only && iscarbon(owner))
 		return TRUE

@@ -16,7 +16,7 @@
 		to_chat(user, "<span class='userdanger'>You feel a shock of energy surge through your body!</span>")
 		user.dropItemToGround(src, TRUE)
 		var/mob/living/carbon/C = user
-		if(ishuman(C))
+		if(iscarbonhuman(C))
 			var/mob/living/carbon/human/H = C
 			H.electrocution_animation(20)
 		C.jitteriness += 1000
@@ -76,7 +76,7 @@
 		to_chat(user, "<span class='userdanger'>You feel a shock of energy surge through your body!</span>")
 		user.dropItemToGround(src, TRUE)
 		var/mob/living/carbon/C = user
-		if(ishuman(C))
+		if(iscarbonhuman(C))
 			var/mob/living/carbon/human/H = C
 			H.electrocution_animation(20)
 		C.jitteriness += 1000

@@ -455,7 +455,7 @@
 	var/datum/martial_art/wrestling/style = new
 
 /obj/item/storage/belt/champion/wrestling/equipped(mob/user, slot)
-	if(!ishuman(user))
+	if(!iscarbonhuman(user))
 		return
 	if(slot == ITEM_SLOT_BELT)
 		var/mob/living/carbon/human/H = user
@@ -464,7 +464,7 @@
 
 /obj/item/storage/belt/champion/wrestling/dropped(mob/user)
 	..()
-	if(!ishuman(user))
+	if(!iscarbonhuman(user))
 		return
 	var/mob/living/carbon/human/H = user
 	if(H.get_item_by_slot(ITEM_SLOT_BELT) == src)

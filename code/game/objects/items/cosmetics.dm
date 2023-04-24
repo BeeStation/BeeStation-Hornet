@@ -50,7 +50,7 @@
 	if(!ismob(M))
 		return
 
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.is_mouth_covered())
 			to_chat(user, "<span class='warning'>Remove [ H == user ? "your" : "[H.p_their()]" ] mask!</span>")
@@ -82,7 +82,7 @@
 		if(!ismob(M))
 			return
 
-		if(ishuman(M))
+		if(iscarbonhuman(M))
 			var/mob/living/carbon/human/H = M
 			if(H == user)
 				to_chat(user, "<span class='notice'>You wipe off the lipstick with [src].</span>")
@@ -125,7 +125,7 @@
 
 
 /obj/item/razor/attack(mob/M, mob/user)
-	if(ishuman(M) && extended == 1 && user.a_intent != INTENT_HARM)
+	if(iscarbonhuman(M) && extended == 1 && user.a_intent != INTENT_HARM)
 		var/mob/living/carbon/human/H = M
 		var/location = user.zone_selected
 		var/mirror = FALSE
@@ -260,7 +260,7 @@
 
 /obj/item/razor/attack(mob/M, mob/user)
 	. = ..()
-	if(ishuman(M) && extended == 1 && (user.a_intent == INTENT_HARM))
+	if(iscarbonhuman(M) && extended == 1 && (user.a_intent == INTENT_HARM))
 		var/mob/living/carbon/human/H = M
 		var/def_check = H.getarmor(MELEE)
 		H.bleed_rate += ((force * 10) - def_check)/30 //sharp blade causes a shitload of blood loss if on harm intent

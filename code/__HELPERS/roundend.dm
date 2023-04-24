@@ -39,7 +39,7 @@
 				var/mob/living/L = M
 				mob_data["location"] = get_area(L)
 				mob_data["health"] = L.health
-				if(ishuman(L))
+				if(iscarbonhuman(L))
 					var/mob/living/carbon/human/H = L
 					category = "humans"
 					if(H.mind)
@@ -70,7 +70,7 @@
 		if(count_only)
 			var/list/npc_nest = file_data["[escape_status]"]["npcs"]
 			var/name_to_use = initial(M.name)
-			if(ishuman(M))
+			if(iscarbonhuman(M))
 				name_to_use = "Unknown Human" //Monkeymen and other mindless corpses
 			if(npc_nest.Find(name_to_use))
 				file_data["[escape_status]"]["npcs"][name_to_use] += 1

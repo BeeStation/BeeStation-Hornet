@@ -35,7 +35,7 @@
 			to_chat(M, "<span class='userdanger'>You are impaled by [src]!</span>")
 			M.emote("scream")
 			M.apply_damage(5, BRUTE, BODY_ZONE_CHEST)
-			if(ishuman(M))
+			if(iscarbonhuman(M))
 				var/mob/living/carbon/human/H = M
 				if(!H.bleed_rate)
 					H.bleed(30)

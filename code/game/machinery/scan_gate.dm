@@ -106,7 +106,7 @@
 		if(SCANGATE_NONE)
 			return
 		if(SCANGATE_WANTED)
-			if(ishuman(M))
+			if(iscarbonhuman(M))
 				var/mob/living/carbon/human/H = M
 				var/perpname = H.get_face_name(H.get_id_name())
 				var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
@@ -129,7 +129,7 @@
 				if(get_disease_danger_value(C.check_virus()) >= get_disease_danger_value(disease_threshold))
 					beep = TRUE
 		if(SCANGATE_SPECIES)
-			if(ishuman(M))
+			if(iscarbonhuman(M))
 				var/mob/living/carbon/human/H = M
 				var/datum/species/scan_species = /datum/species/human
 				switch(detect_species)
@@ -162,7 +162,7 @@
 					beep = TRUE
 					break
 		if(SCANGATE_NUTRITION)
-			if(ishuman(M))
+			if(iscarbonhuman(M))
 				var/mob/living/carbon/human/H = M
 				if(H.nutrition <= detect_nutrition && detect_nutrition == NUTRITION_LEVEL_STARVING)
 					beep = TRUE

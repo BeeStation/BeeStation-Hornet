@@ -178,7 +178,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(!ishuman(usr))
+	if(!iscarbonhuman(usr))
 		return
 
 	if(anchored)

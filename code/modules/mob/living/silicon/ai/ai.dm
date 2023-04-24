@@ -949,7 +949,7 @@
 	var/hrefpart = "<a href='?src=[REF(src)];track=[html_encode(namepart)]'>"
 	var/jobpart = "Unknown"
 
-	if (ishuman(speaker))
+	if (iscarbonhuman(speaker))
 		var/mob/living/carbon/human/S = speaker
 		if(S.wear_id)
 			var/obj/item/card/id/I = S.wear_id.GetID()

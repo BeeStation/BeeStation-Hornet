@@ -64,7 +64,7 @@
 			if(origami_action?.active) //if they're a master of origami and have the ability turned on, force throwmode on so they'll automatically catch the plane.
 				C.throw_mode_on(THROW_MODE_TOGGLE)
 
-	if(..() || !ishuman(hit_atom))//if the plane is caught or it hits a nonhuman
+	if(..() || !iscarbonhuman(hit_atom))//if the plane is caught or it hits a nonhuman
 		return
 	var/mob/living/carbon/human/H = hit_atom
 	var/obj/item/organ/eyes/eyes = H.getorganslot(ORGAN_SLOT_EYES)

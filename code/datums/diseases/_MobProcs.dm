@@ -61,7 +61,7 @@
 	else
 		target_zone = check_zone(target_zone)
 
-	if(ishuman(src))
+	if(iscarbonhuman(src))
 		var/mob/living/carbon/human/H = src
 
 		switch(target_zone)

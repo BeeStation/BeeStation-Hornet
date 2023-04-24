@@ -441,7 +441,7 @@
 					continue
 
 				//if the target is a human and not in our faction, analyze threat level
-				if(ishuman(C) && !in_faction(C))
+				if(iscarbonhuman(C) && !in_faction(C))
 					if(assess_perp(C) >= 4)
 						targets += C
 
@@ -1115,7 +1115,7 @@
 
 /obj/machinery/porta_turret/lasertag/ui_interact(mob/user)
 	. = ..()
-	if(ishuman(user))
+	if(iscarbonhuman(user))
 		var/mob/living/carbon/human/H = user
 		if(team_color == "blue" && istype(H.wear_suit, /obj/item/clothing/suit/redtag))
 			return

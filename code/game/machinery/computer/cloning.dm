@@ -499,7 +499,7 @@
 /obj/machinery/computer/cloning/proc/clone_occupant(occupant, mob/user)
 	var/mob/living/mob_occupant = get_mob_or_brainmob(occupant)
 	var/datum/dna/dna
-	if(ishuman(mob_occupant))
+	if(iscarbonhuman(mob_occupant))
 		var/mob/living/carbon/C = mob_occupant
 		dna = C.has_dna()
 	if(isbrain(mob_occupant))
@@ -572,7 +572,7 @@
 	var/mob/living/carbon/C = mob_occupant
 	var/mob/living/brain/B = mob_occupant
 
-	if(ishuman(mob_occupant))
+	if(iscarbonhuman(mob_occupant))
 		dna = C.has_dna()
 		var/obj/item/card/id/I = C.get_idcard(TRUE)
 		if(I)
@@ -611,7 +611,7 @@
 
 	if(isbrain(mob_occupant)) //We'll detect the brain first because trauma is from the brain, not from the body.
 		R.fields["traumas"] = B.get_traumas()
-	else if(ishuman(mob_occupant))
+	else if(iscarbonhuman(mob_occupant))
 		R.fields["traumas"] = C.get_traumas()
 	//Traumas will be overriden if the brain transplant is made because '/obj/item/organ/brain/Insert' does that thing. This should be done since we want a monkey yelling to people with 'God voice syndrome'
 

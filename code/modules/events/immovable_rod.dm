@@ -149,14 +149,14 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 /obj/effect/immovablerod/proc/penetrate(mob/living/L)
 	L.visible_message("<span class='danger'>[L] is penetrated by an immovable rod!</span>" , "<span class='userdanger'>The rod penetrates you!</span>" , "<span class ='danger'>You hear a CLANG!</span>")
-	if(ishuman(L))
+	if(iscarbonhuman(L))
 		var/mob/living/carbon/human/H = L
 		H.adjustBruteLoss(160)
 	if(L && (L.density || prob(10)))
 		L.ex_act(EXPLODE_HEAVY)
 
 /obj/effect/immovablerod/attack_hand(mob/living/user)
-	if(ishuman(user))
+	if(iscarbonhuman(user))
 		var/mob/living/carbon/human/U = user
 		if(U.job in list(JOB_NAME_RESEARCHDIRECTOR))
 			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)

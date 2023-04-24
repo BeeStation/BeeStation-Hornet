@@ -107,7 +107,7 @@
 	chem_recharge_slowdown = initial(chem_recharge_slowdown)
 
 /datum/antagonist/changeling/proc/remove_changeling_powers()
-	if(ishuman(owner.current) || ismonkey(owner.current))
+	if(iscarbonhuman(owner.current) || ismonkey(owner.current))
 		reset_properties()
 		for(var/datum/action/changeling/p in purchasedpowers)
 			purchasedpowers -= p
@@ -192,7 +192,7 @@
 	thepower.on_purchase(owner.current)//Grant() is ran in this proc, see changeling_powers.dm
 
 /datum/antagonist/changeling/proc/readapt()
-	if(!ishuman(owner.current))
+	if(!iscarbonhuman(owner.current))
 		to_chat(owner.current, "<span class='danger'>We can't remove our evolutions in this form!</span>")
 		return
 	if(isabsorbing)
@@ -254,7 +254,7 @@
 		if(verbose)
 			to_chat(user, "<span class='warning'>[target]'s body is ruined beyond usability!</span>")
 		return
-	if(!ishuman(target))//Absorbing monkeys is entirely possible, but it can cause issues with transforming. That's what lesser form is for anyway!
+	if(!iscarbonhuman(target))//Absorbing monkeys is entirely possible, but it can cause issues with transforming. That's what lesser form is for anyway!
 		if(verbose)
 			to_chat(user, "<span class='warning'>We could gain no benefit from absorbing a lesser creature.</span>")
 		return
@@ -370,7 +370,7 @@
 				E.fields["photo_front"]	= photo_front
 				E.fields["photo_side"]	= photo_side
 				E.fields["sex"] = C.gender
-	if(ishuman(C))
+	if(iscarbonhuman(C))
 		add_new_profile(C)
 
 /datum/antagonist/changeling/apply_innate_effects()

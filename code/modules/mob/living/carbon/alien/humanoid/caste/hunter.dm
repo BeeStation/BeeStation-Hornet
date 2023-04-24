@@ -62,7 +62,7 @@
 		if(isliving(hit_atom))
 			var/mob/living/L = hit_atom
 			var/blocked = FALSE
-			if(ishuman(hit_atom))
+			if(iscarbonhuman(hit_atom))
 				var/mob/living/carbon/human/H = hit_atom
 				if(H.check_shields(src, 0, "the [name]", attack_type = LEAP_ATTACK))
 					blocked = TRUE

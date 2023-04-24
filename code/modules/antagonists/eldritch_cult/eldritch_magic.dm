@@ -56,7 +56,7 @@
 		remove_rune(target,user)
 		return FALSE
 	playsound(user, 'sound/items/welder.ogg', 75, TRUE)
-	if(ishuman(target))
+	if(iscarbonhuman(target))
 		var/mob/living/carbon/human/tar = target
 		if(tar.check_shields(src,10, "the [tar.name]"))
 			return ..()
@@ -153,7 +153,7 @@
 	if(!proximity_flag)
 		return
 	playsound(user, 'sound/magic/demon_attack1.ogg', 75, TRUE)
-	if(ishuman(target))
+	if(iscarbonhuman(target))
 		var/mob/living/carbon/human/tar = target
 		if(tar.anti_magic_check(magic=FALSE,holy=TRUE))
 			tar.visible_message("<span class='danger'>Spell bounces off of [target]!</span>","<span class='danger'>The spell bounces off of you!</span>")
@@ -164,7 +164,7 @@
 		L.adjustBruteLoss(20)
 		C2.adjustBruteLoss(-20)
 
-	if(ishuman(target))
+	if(iscarbonhuman(target))
 		var/mob/living/carbon/human/C1 = target
 		C1.bleed_rate -= 5
 		C2.bleed_rate += 5
@@ -482,7 +482,7 @@
 	action_icon_state = "smoke"
 
 /obj/effect/proc_holder/spell/targeted/fiery_rebirth/cast(list/targets, mob/user)
-	if(!ishuman(user))
+	if(!iscarbonhuman(user))
 		return
 	var/mob/living/carbon/human/human_user = user
 	for(var/mob/living/carbon/target in ohearers(7,user))

@@ -899,7 +899,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_desc = "Barefoot and pregnant."
 
 /datum/reagent/consumable/ethanol/barefoot/on_mob_life(mob/living/carbon/M)
-	if(ishuman(M)) //Barefoot causes the imbiber to quickly regenerate brute trauma if they're not wearing shoes.
+	if(iscarbonhuman(M)) //Barefoot causes the imbiber to quickly regenerate brute trauma if they're not wearing shoes.
 		var/mob/living/carbon/human/H = M
 		if(!H.shoes)
 			H.adjustBruteLoss(-3, 0)
@@ -1210,7 +1210,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_desc = "A drink from Clown Heaven."
 
 /datum/reagent/consumable/ethanol/bananahonk/on_mob_life(mob/living/carbon/M)
-	if((ishuman(M) && M.job == JOB_NAME_CLOWN) || ismonkey(M))
+	if((iscarbonhuman(M) && M.job == JOB_NAME_CLOWN) || ismonkey(M))
 		M.heal_bodypart_damage(1,1)
 		. = 1
 	return ..() || .
@@ -1230,7 +1230,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/silencer/on_mob_life(mob/living/carbon/M)
 	M.silent = max(M.silent, 1.25)
-	if(ishuman(M) && M.job == JOB_NAME_MIME)
+	if(iscarbonhuman(M) && M.job == JOB_NAME_MIME)
 		M.heal_bodypart_damage(1 , 1)
 		. = 1
 	return ..() || .
@@ -1770,7 +1770,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	var/obj/item/shield/mighty_shield
 
 /datum/reagent/consumable/ethanol/alexander/on_mob_metabolize(mob/living/L)
-	if(ishuman(L))
+	if(iscarbonhuman(L))
 		var/mob/living/carbon/human/thehuman = L
 		for(var/obj/item/shield/theshield in thehuman.contents)
 			mighty_shield = theshield
@@ -1950,7 +1950,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/blank_paper/on_mob_life(mob/living/carbon/M)
 	M.silent = max(M.silent, MIMEDRINK_SILENCE_DURATION)
-	if(ishuman(M) && M.job == JOB_NAME_MIME)
+	if(iscarbonhuman(M) && M.job == JOB_NAME_MIME)
 		M.heal_bodypart_damage(1,1)
 		. = 1
 	return ..()
@@ -2172,7 +2172,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/old_timer/on_mob_life(mob/living/carbon/M)
 	if(prob(20))
-		if(ishuman(M))
+		if(iscarbonhuman(M))
 			var/mob/living/carbon/human/N = M
 			N.age += 1
 			if(N.age > 70)

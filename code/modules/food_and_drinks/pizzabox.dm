@@ -331,7 +331,7 @@
 
 /obj/item/pizzabox/infinite/attack_self(mob/living/user)
 	QDEL_NULL(pizza)
-	if(ishuman(user))
+	if(iscarbonhuman(user))
 		attune_pizza(user)
 	. = ..()
 

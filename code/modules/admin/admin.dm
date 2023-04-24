@@ -87,7 +87,7 @@
 		body += "<a href='?_src_=holder;[HrefToken()];borgpanel=[REF(M)]'>BP</a> "
 	body += "<a href='?priv_msg=[M.ckey]'>PM</a> "
 	body += "<a href='?_src_=holder;[HrefToken()];subtlemessage=[REF(M)]'>SM</a> "
-	if (ishuman(M) && M.mind)
+	if (iscarbonhuman(M) && M.mind)
 		body += "<a href='?_src_=holder;[HrefToken()];HeadsetMessage=[REF(M)]'>HM</a> "
 	body += "<a href='?_src_=holder;[HrefToken()];adminplayerobservefollow=[REF(M)]'>FLW</a> "
 	//Default to client logs if available
@@ -135,7 +135,7 @@
 			body += "<br>"
 
 			//Human
-			if(ishuman(M))
+			if(iscarbonhuman(M))
 				body += "<B>Human</B> "
 			else
 				body += "<A href='?_src_=holder;[HrefToken()];humanone=[REF(M)]'>Humanize</A> "
@@ -155,7 +155,7 @@
 			//AI / Cyborg
 			if(isAI(M))
 				body += "<B>Is an AI</B> "
-			else if(ishuman(M))
+			else if(iscarbonhuman(M))
 				body += "<A href='?_src_=holder;[HrefToken()];makeai=[REF(M)]'>Make AI</A> "
 				body += "<A href='?_src_=holder;[HrefToken()];makepai=[REF(M)]'>Make PAI</A> "
 				body += "<A href='?_src_=holder;[HrefToken()];makerobot=[REF(M)]'>Make Robot</A> "
@@ -165,7 +165,7 @@
 
 			if(istype(M, /mob/living/simple_animal/cluwne))
 				body += "<B>Is a Cluwne</B> "
-			else if(ishuman(M))
+			else if(iscarbonhuman(M))
 				body += "<A href='?_src_=holder;[HrefToken()];makecluwne=[REF(M)]'>Make Cluwne</A> "
 
 			//Simple Animals

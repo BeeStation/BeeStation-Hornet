@@ -82,7 +82,7 @@
 			/datum/brain_trauma/severe/pacifism, /datum/brain_trauma/special/beepsky))
 
 /datum/xenoartifact_trait/malfunction/trauma/activate(obj/item/xenoartifact/X, atom/target, atom/user)
-	if(ishuman(target))
+	if(iscarbonhuman(target))
 		var/mob/living/carbon/human/H = target
 		H.Unconscious(0.3 SECONDS)
 		H.gain_trauma(trauma, TRAUMA_RESILIENCE_BASIC)

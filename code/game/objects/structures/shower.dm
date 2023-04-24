@@ -197,7 +197,7 @@
 		if(M.gloves && !(obscured & ITEM_SLOT_GLOVES))
 			washgloves = TRUE
 
-		if(ishuman(M))
+		if(iscarbonhuman(M))
 			var/mob/living/carbon/human/H = M
 
 			if(H.wear_suit && wash_obj(H.wear_suit))

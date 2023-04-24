@@ -203,7 +203,7 @@ GLOBAL_LIST_EMPTY(employmentCabinets)
 		if(!G)
 			continue
 		var/datum/mind/M = G.fields["mindref"]
-		if(M && ishuman(M.current))
+		if(M && iscarbonhuman(M.current))
 			addFile(M.current)
 
 

@@ -144,7 +144,7 @@ GENE SCANNER
 		mob_status = "<span class='alert'><b>Deceased</b></span>"
 		oxy_loss = max(rand(1, 40), oxy_loss, (300 - (tox_loss + fire_loss + brute_loss))) // Random oxygen loss
 
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.undergoing_cardiac_arrest() && H.stat != DEAD)
 			message += "<span class='alert'>Subject suffering from heart attack: Apply defibrillation or other electric shock immediately!</span>"
@@ -278,7 +278,7 @@ GENE SCANNER
 
 
 	//Organ damages report
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		var/mob/living/carbon/human/H = M
 		var/minor_damage
 		var/major_damage
@@ -334,7 +334,7 @@ GENE SCANNER
 			message += "\t<span class='info'>Genetic Stability: [H.dna.stability]%.</span>"
 
 	// Species and body temperature
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		var/mob/living/carbon/human/H = M
 		var/datum/species/S = H.dna.species
 		var/mutant = FALSE
@@ -381,7 +381,7 @@ GENE SCANNER
 		var/mob/living/carbon/C = M
 		var/blood_id = C.get_blood_id()
 		if(blood_id)
-			if(ishuman(C))
+			if(iscarbonhuman(C))
 				var/mob/living/carbon/human/H = C
 				if(H.bleed_rate)
 					message += "<span class='alert'><b>Subject is bleeding!</b></span>"

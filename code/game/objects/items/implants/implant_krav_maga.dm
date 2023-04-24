@@ -17,7 +17,7 @@
 /obj/item/implant/krav_maga/activate()
 	. = ..()
 	var/mob/living/carbon/human/H = imp_in
-	if(!ishuman(H))
+	if(!iscarbonhuman(H))
 		return
 	if(!H.mind)
 		return

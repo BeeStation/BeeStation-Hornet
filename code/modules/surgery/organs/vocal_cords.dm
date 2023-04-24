@@ -146,7 +146,7 @@
 
 			if(L == user && !include_speaker)
 				continue
-			if(ishuman(L))
+			if(iscarbonhuman(L))
 				var/mob/living/carbon/human/H = L
 				if(istype(H.ears, /obj/item/clothing/ears/earmuffs))
 					continue

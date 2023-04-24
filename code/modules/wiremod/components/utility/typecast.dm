@@ -58,4 +58,4 @@
 		if(COMP_TYPECAST_MOB)
 			return ismob(input_val) ? input_val : null
 		if(COMP_TYPECAST_HUMAN)
-			return ishuman(input_val) ? input_val : null
+			return iscarbonhuman(input_val) ? input_val : null

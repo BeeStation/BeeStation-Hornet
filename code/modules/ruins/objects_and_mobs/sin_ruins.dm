@@ -87,7 +87,7 @@
 
 /obj/effect/gluttony/CanAllowThrough(atom/movable/mover, turf/target)//So bullets will fly over and stuff.
 	. = ..()
-	if(ishuman(mover))
+	if(iscarbonhuman(mover))
 		var/mob/living/carbon/human/H = mover
 		if(H.nutrition >= NUTRITION_LEVEL_FAT)
 			H.visible_message("<span class='warning'>[H] pushes through [src]!</span>", "<span class='notice'>You've seen and eaten worse than this.</span>")
@@ -145,7 +145,7 @@
 		return
 	if(!istype(user))
 		return
-	if(ishuman(AM))
+	if(iscarbonhuman(AM))
 		var/mob/living/carbon/human/H = AM
 		if(user.real_name != H.dna.real_name)
 			user.real_name = H.dna.real_name

@@ -25,7 +25,7 @@
 
 /obj/item/clothing/glasses/examine(mob/user)
 	. = ..()
-	if(glass_colour_type && ishuman(user))
+	if(glass_colour_type && iscarbonhuman(user))
 		. += "<span class='notice'>Alt-click to toggle its colors.</span>"
 
 /obj/item/clothing/glasses/visor_toggling()
@@ -44,7 +44,7 @@
 
 //called when thermal glasses are emped.
 /obj/item/clothing/glasses/proc/thermal_overload()
-	if(ishuman(src.loc))
+	if(iscarbonhuman(src.loc))
 		var/mob/living/carbon/human/H = src.loc
 		var/obj/item/organ/eyes/eyes = H.getorganslot(ORGAN_SLOT_EYES)
 		if(!H.is_blind())
@@ -67,12 +67,12 @@
 
 /obj/item/clothing/glasses/meson/equipped(mob/user, slot)
 	. = ..()
-	if(ishuman(user) && slot == ITEM_SLOT_EYES)
+	if(iscarbonhuman(user) && slot == ITEM_SLOT_EYES)
 		ADD_TRAIT(user, TRAIT_MADNESS_IMMUNE, CLOTHING_TRAIT)
 
 /obj/item/clothing/glasses/meson/dropped(mob/living/carbon/human/user)
 	..()
-	if(ishuman(user))
+	if(iscarbonhuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.glasses != src)
 			return
@@ -248,7 +248,7 @@
 
 /obj/item/clothing/glasses/sunglasses/advanced/reagent/equipped(mob/user, slot)
 	. = ..()
-	if(ishuman(user) && slot == ITEM_SLOT_EYES)
+	if(iscarbonhuman(user) && slot == ITEM_SLOT_EYES)
 		ADD_TRAIT(user, TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
 
 /obj/item/clothing/glasses/sunglasses/advanced/reagent/dropped(mob/user)
@@ -373,19 +373,19 @@
 	var/colored_before = FALSE
 
 /obj/item/clothing/glasses/blindfold/white/equipped(mob/living/carbon/human/user, slot)
-	if(ishuman(user) && slot == ITEM_SLOT_EYES)
+	if(iscarbonhuman(user) && slot == ITEM_SLOT_EYES)
 		update_icon(user)
 		user.update_inv_glasses() //Color might have been changed by update_icon.
 	..()
 
 /obj/item/clothing/glasses/blindfold/white/update_icon(mob/living/carbon/human/user)
-	if(ishuman(user) && !colored_before)
+	if(iscarbonhuman(user) && !colored_before)
 		add_atom_colour("#[user.eye_color]", FIXED_COLOUR_PRIORITY)
 		colored_before = TRUE
 
 /obj/item/clothing/glasses/blindfold/white/worn_overlays(mutable_appearance/standing, isinhands = FALSE, file2use)
 	. = list()
-	if(!isinhands && ishuman(loc) && !colored_before)
+	if(!isinhands && iscarbonhuman(loc) && !colored_before)
 		var/mob/living/carbon/human/H = loc
 		var/mutable_appearance/M = mutable_appearance('icons/mob/eyes.dmi', "blindfoldwhite")
 		M.appearance_flags |= RESET_COLOR
@@ -516,7 +516,7 @@
 /obj/item/clothing/glasses/AltClick(mob/user)
 	if(!user.canUseTopic(src, BE_CLOSE))
 		return
-	if(glass_colour_type && !force_glass_colour && ishuman(user))
+	if(glass_colour_type && !force_glass_colour && iscarbonhuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.client)
 			if(H.client.prefs)

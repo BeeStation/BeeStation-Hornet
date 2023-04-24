@@ -69,7 +69,7 @@
 /obj/structure/closet/body_bag/MouseDrop(over_object, src_location, over_location)
 	. = ..()
 	if(over_object == usr && Adjacent(usr) && (in_range(src, usr) || usr.contents.Find(src)))
-		if(!ishuman(usr))
+		if(!iscarbonhuman(usr))
 			return
 		if(opened)
 			to_chat(usr, "<span class='warning'>You wrestle with [src], but it won't fold while unzipped.</span>")
@@ -95,7 +95,7 @@
 /obj/structure/closet/body_bag/bluespace/MouseDrop(over_object, src_location, over_location)
 	. = ..()
 	if(over_object == usr && Adjacent(usr) && (in_range(src, usr) || usr.contents.Find(src)))
-		if(!ishuman(usr))
+		if(!iscarbonhuman(usr))
 			return
 		if(opened)
 			to_chat(usr, "<span class='warning'>You wrestle with [src], but it won't fold while unzipped.</span>")

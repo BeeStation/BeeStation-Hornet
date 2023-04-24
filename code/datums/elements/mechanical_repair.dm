@@ -6,7 +6,7 @@
 
 /datum/element/mechanical_repair/Attach(datum/target)
 	. = ..()
-	if(!ishuman(target))
+	if(!iscarbonhuman(target))
 		return ELEMENT_INCOMPATIBLE
 	RegisterSignal(target, COMSIG_PARENT_ATTACKBY, PROC_REF(try_repair))
 

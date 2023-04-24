@@ -81,7 +81,7 @@
 	return
 
 /obj/item/clothing/shoes/sneakers/orange/allow_attack_hand_drop(mob/user)
-	if(ishuman(user))
+	if(iscarbonhuman(user))
 		var/mob/living/carbon/human/hummie = user
 		if(hummie.shoes == src && chained)
 			to_chat(hummie, "<span class='warning'>You start taking off your [src]!</span>")
@@ -91,7 +91,7 @@
 
 /obj/item/clothing/shoes/sneakers/orange/MouseDrop(atom/over)
 	var/mob/m = usr
-	if(ishuman(m))
+	if(iscarbonhuman(m))
 		var/mob/living/carbon/human/hummie = m
 		if(hummie.shoes == src && chained)
 			to_chat(hummie, "<span class='warning'>You start taking off your [src]!</span>")

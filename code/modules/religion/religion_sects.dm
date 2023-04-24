@@ -99,7 +99,7 @@
 
 /// Replaces the bible's bless mechanic. Return TRUE if you want to not do the brain hit.
 /datum/religion_sect/proc/sect_bless(mob/living/target, mob/living/chap)
-	if(!ishuman(target))
+	if(!iscarbonhuman(target))
 		return FALSE
 	var/mob/living/carbon/human/blessed = target
 	for(var/obj/item/bodypart/bodypart as anything in blessed.bodyparts)
@@ -155,7 +155,7 @@
 		SEND_SIGNAL(R, COMSIG_ADD_MOOD_EVENT, "blessing", /datum/mood_event/blessing)
 		playsound(chap, 'sound/effects/bang.ogg', 25, TRUE, -1)
 		return TRUE
-	if(!ishuman(target))
+	if(!iscarbonhuman(target))
 		return
 	var/mob/living/carbon/human/blessed = target
 

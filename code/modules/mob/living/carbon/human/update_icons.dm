@@ -705,7 +705,7 @@ generate/load female uniform sprites matching all previously decided variables
 /obj/item/proc/get_held_offsets()
 	var/list/L
 	if(ismob(loc))
-		if(ishuman(loc))
+		if(iscarbonhuman(loc))
 			var/mob/living/carbon/human/H = loc
 			L = H.dna?.species.get_item_offsets_for_index(src)
 			if(L)

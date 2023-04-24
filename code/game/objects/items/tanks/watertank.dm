@@ -418,7 +418,7 @@
 		to_chat(loc, "<span class='notice'>[src] turns off.</span>")
 
 /obj/item/reagent_containers/chemtank/process(delta_time)
-	if(!ishuman(loc))
+	if(!iscarbonhuman(loc))
 		turn_off()
 		return
 	if(!reagents.total_volume)

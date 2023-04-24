@@ -50,7 +50,7 @@
 			front_id = I
 		LAZYINITLIST(combined_access)
 		combined_access |= I.access
-	if(ishuman(loc))
+	if(iscarbonhuman(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.wear_id == src)
 			H.sec_hud_set_ID()

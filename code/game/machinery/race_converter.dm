@@ -27,7 +27,7 @@
 	return ..()
 
 /obj/machinery/species_converter/can_be_occupant(atom/movable/am)
-	return ishuman(am)
+	return iscarbonhuman(am)
 
 /obj/machinery/species_converter/close_machine(mob/user)
 	if(panel_open)

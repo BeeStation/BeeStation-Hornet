@@ -312,7 +312,7 @@
 	if(dist_check)
 		if(!in_range(source,M))
 			return 0
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.gloves)
 			var/obj/item/clothing/gloves/G = H.gloves

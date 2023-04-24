@@ -32,7 +32,7 @@
 
 /datum/antagonist/heretic/on_gain()
 	var/mob/living/current = owner.current
-	if(ishuman(current))
+	if(iscarbonhuman(current))
 		forge_primary_objectives()
 		gain_knowledge(/datum/eldritch_knowledge/spell/basic)
 		gain_knowledge(/datum/eldritch_knowledge/living_heart)

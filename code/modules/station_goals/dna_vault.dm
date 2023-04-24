@@ -110,7 +110,7 @@
 		to_chat(user, "<span class='notice'>Animal data added to local storage.</span>")
 
 	//humans
-	if(ishuman(target))
+	if(iscarbonhuman(target))
 		var/mob/living/carbon/human/H = target
 		if(dna[H.dna.uni_identity])
 			to_chat(user, "<span class='notice'>Humanoid data already present in local storage.</span>")

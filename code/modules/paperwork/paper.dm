@@ -93,7 +93,7 @@
 	update_icon_state()
 
 /obj/item/paper/pickup(user)
-	if(contact_poison && ishuman(user))
+	if(contact_poison && iscarbonhuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/clothing/gloves/G = H.gloves
 		if(!istype(G) || G.transfer_prints)
@@ -123,7 +123,7 @@
 
 	if(!usr.can_read(src) || usr.incapacitated(TRUE, TRUE) || (isobserver(usr) && !IsAdminGhost(usr)))
 		return
-	if(ishuman(usr))
+	if(iscarbonhuman(usr))
 		var/mob/living/carbon/human/H = usr
 		if(HAS_TRAIT(H, TRAIT_CLUMSY) && prob(25))
 			to_chat(H, "<span class='warning'>You cut yourself on the paper! Ahhhh! Ahhhhh!</span>")

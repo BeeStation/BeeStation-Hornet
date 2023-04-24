@@ -257,7 +257,7 @@
 /obj/item/firing_pin/paywall/pin_auth(mob/living/user)
 	if(!istype(user))//nice try commie
 		return FALSE
-	if(ishuman(user))
+	if(iscarbonhuman(user))
 		var/datum/bank_account/credit_card_details
 		var/mob/living/carbon/human/H = user
 		if(H.get_bank_account())
@@ -302,7 +302,7 @@
 	var/tagcolor = ""
 
 /obj/item/firing_pin/tag/pin_auth(mob/living/user)
-	if(ishuman(user))
+	if(iscarbonhuman(user))
 		var/mob/living/carbon/human/M = user
 		if(istype(M.wear_suit, suit_requirement))
 			return TRUE

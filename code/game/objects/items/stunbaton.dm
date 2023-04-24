@@ -142,7 +142,7 @@
 		return ..()
 
 
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		var/mob/living/carbon/human/L = M
 		if(check_martial_counter(L, user))
 			return
@@ -163,7 +163,7 @@
 /obj/item/melee/baton/proc/baton_stun(mob/living/target, mob/living/user)
 	if(obj_flags & OBJ_EMPED)
 		return FALSE
-	if(ishuman(target))
+	if(iscarbonhuman(target))
 		var/mob/living/carbon/human/H = target
 		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK)) //No message; check_shields() handles that
 			playsound(H, 'sound/weapons/genhit.ogg', 50, TRUE)
@@ -193,7 +193,7 @@
 
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 
-	if(ishuman(target))
+	if(iscarbonhuman(target))
 		var/mob/living/carbon/human/H = target
 		H.force_say(user)
 

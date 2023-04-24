@@ -11,7 +11,7 @@
 
 /obj/item/clothing/head/Initialize(mapload)
 	. = ..()
-	if(ishuman(loc) && dynamic_hair_suffix)
+	if(iscarbonhuman(loc) && dynamic_hair_suffix)
 		var/mob/living/carbon/human/H = loc
 		H.update_hair()
 

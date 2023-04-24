@@ -150,7 +150,7 @@
 	// Get the chat color
 	if(!tgt_color)		//in case we have color predefined
 		if(isliving(target))		//target is living, thus we have preset color for him
-			if(ishuman(target))
+			if(iscarbonhuman(target))
 				var/mob/living/carbon/human/H = target
 				if(H.wear_id?.GetID())
 					var/obj/item/card/id/idcard = H.wear_id.GetID()

@@ -34,7 +34,7 @@
 			B.decoy_override = TRUE
 			B.Insert(C)
 		C.regenerate_organs()
-	if(ishuman(user))
+	if(iscarbonhuman(user))
 		var/mob/living/carbon/human/H = user
 		H.restore_blood()
 		H.remove_all_embedded_objects()

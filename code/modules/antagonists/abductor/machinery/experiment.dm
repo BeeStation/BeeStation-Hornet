@@ -17,7 +17,7 @@
 
 /obj/machinery/abductor/experiment/MouseDrop_T(mob/target, mob/user)
 	var/mob/living/L = user
-	if(user.stat || (isliving(user) && (!(L.mobility_flags & MOBILITY_STAND) || !(L.mobility_flags & MOBILITY_UI))) || !Adjacent(user) || !target.Adjacent(user) || !ishuman(target))
+	if(user.stat || (isliving(user) && (!(L.mobility_flags & MOBILITY_STAND) || !(L.mobility_flags & MOBILITY_UI))) || !Adjacent(user) || !target.Adjacent(user) || !iscarbonhuman(target))
 		return
 	if(isabductor(target))
 		return

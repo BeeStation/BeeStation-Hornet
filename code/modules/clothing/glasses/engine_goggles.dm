@@ -46,7 +46,7 @@
 			darkness_view = 2
 			lighting_alpha = null
 
-	if(ishuman(user))
+	if(iscarbonhuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.glasses == src)
 			H.update_sight()
@@ -60,7 +60,7 @@
 	toggle_mode(user, TRUE)
 
 /obj/item/clothing/glasses/meson/engine/process()
-	if(!ishuman(loc))
+	if(!iscarbonhuman(loc))
 		return
 	var/mob/living/carbon/human/user = loc
 	if(user.glasses != src || !user.client)

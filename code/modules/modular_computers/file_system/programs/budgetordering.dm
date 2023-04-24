@@ -29,7 +29,7 @@
 
 /datum/computer_file/program/budgetorders/proc/get_buyer_id(mob/user) //gets access from id on person or inserted one
 	var/obj/item/card/id/id
-	if(ishuman(user))
+	if(iscarbonhuman(user))
 		var/mob/living/carbon/human/U = user
 		id = U.get_idcard(TRUE)
 	else if(computer)
@@ -180,7 +180,7 @@
 			var/name = "*None Provided*"
 			var/rank = "*None Provided*"
 			var/ckey = usr.ckey
-			if(ishuman(usr))
+			if(iscarbonhuman(usr))
 				var/mob/living/carbon/human/H = usr
 				name = H.get_authentification_name()
 				rank = H.get_assignment(hand_first = TRUE)
@@ -189,7 +189,7 @@
 				rank = "Silicon"
 
 			var/datum/bank_account/account
-			if(self_paid && ishuman(usr))
+			if(self_paid && iscarbonhuman(usr))
 				var/obj/item/card/id/id_card = get_buyer_id(usr)
 				if(!istype(id_card))
 					computer.say("No ID card detected.")
@@ -208,7 +208,7 @@
 				if(isnull(reason) || ..())
 					return
 
-			if(!self_paid && ishuman(usr) && !account)
+			if(!self_paid && iscarbonhuman(usr) && !account)
 				var/obj/item/card/id/id_card = get_buyer_id(usr)
 				if(!istype(id_card))
 					computer.say("No ID card detected.")

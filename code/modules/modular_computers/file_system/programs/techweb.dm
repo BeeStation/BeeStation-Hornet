@@ -206,7 +206,7 @@
 				var/obj/item/card/id/idcard = user.get_active_held_item()
 				if(istype(idcard))
 					logname = "User: [idcard.registered_name]"
-			if(ishuman(user))
+			if(iscarbonhuman(user))
 				var/mob/living/carbon/human/human_user = user
 				var/obj/item/worn = human_user.wear_id
 				if(istype(worn))

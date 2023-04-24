@@ -67,7 +67,9 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 //Carbon mobs
 #define iscarbon(A) (istype(A, /mob/living/carbon))
 
-#define ishuman(A) (istype(A, /mob/living/carbon/human))
+#define iscarbonhuman(A) (istype(A, /mob/living/carbon/human))
+// ishuman() is intentionally being avoid to be used because not a few coders misunderstand the check
+// when someone wants a thing to human-species, they use ishuman(), but it actually does to every species
 
 //Human sub-species
 #define isabductor(A) (is_species(A, /datum/species/abductor))

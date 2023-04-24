@@ -62,7 +62,7 @@ Bonus
 			if(prob(base_message_chance) && !suppress_warning)
 				to_chat(M, "<span class='warning'>[pick("Your throat hurts.", "You clear your throat.")]</span>")
 		else
-			if(ishuman(M))
+			if(iscarbonhuman(M))
 				var/mob/living/carbon/human/H = M
 				H.SetSpecialVoice(H.dna.species.random_name(H.gender))
 				if(scramble_language && !current_language)	// Last part prevents rerolling language with small amounts of cure.
@@ -72,7 +72,7 @@ Bonus
 
 /datum/symptom/voice_change/End(datum/disease/advance/A)
 	..()
-	if(ishuman(A.affected_mob))
+	if(iscarbonhuman(A.affected_mob))
 		var/mob/living/carbon/human/H = A.affected_mob
 		H.UnsetSpecialVoice()
 	if(scramble_language)

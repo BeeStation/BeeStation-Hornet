@@ -468,7 +468,7 @@
 	. = FALSE
 	if(istype(target, /obj/structure/barricade/security/ctf))
 		. = TRUE
-	if(ishuman(target))
+	if(iscarbonhuman(target))
 		var/mob/living/carbon/human/H = target
 		if(istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit/shielded/ctf))
 			. = TRUE
@@ -651,7 +651,7 @@
 	reload(AM)
 
 /obj/effect/ctf/ammo/proc/reload(mob/living/M)
-	if(!ishuman(M))
+	if(!iscarbonhuman(M))
 		return
 	for(var/obj/machinery/capture_the_flag/CTF in GLOB.machines)
 		if(M in CTF.spawned_mobs)

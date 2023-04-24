@@ -208,7 +208,7 @@ Auto Patrol: []"},
 /mob/living/simple_animal/bot/secbot/bullet_act(obj/item/projectile/Proj)
 	if(istype(Proj , /obj/item/projectile/beam)||istype(Proj, /obj/item/projectile/bullet))
 		if((Proj.damage_type == BURN) || (Proj.damage_type == BRUTE))
-			if(!Proj.nodamage && Proj.damage < src.health && ishuman(Proj.firer))
+			if(!Proj.nodamage && Proj.damage < src.health && iscarbonhuman(Proj.firer))
 				retaliate(Proj.firer)
 	return ..()
 
@@ -228,7 +228,7 @@ Auto Patrol: []"},
 	if(istype(AM, /obj/item))
 		var/obj/item/I = AM
 		var/mob/thrown_by = I.thrownby?.resolve()
-		if(I.throwforce < src.health && thrown_by && ishuman(thrown_by))
+		if(I.throwforce < src.health && thrown_by && iscarbonhuman(thrown_by))
 			var/mob/living/carbon/human/H = thrown_by
 			retaliate(H)
 	..()
@@ -252,7 +252,7 @@ Auto Patrol: []"},
 /mob/living/simple_animal/bot/secbot/proc/stun_attack(mob/living/carbon/C)
 	var/judgment_criteria = judgment_criteria()
 	var/threat = 5
-	if(ishuman(C))
+	if(iscarbonhuman(C))
 		var/mob/living/carbon/human/H = C
 		if(H.check_shields(src, 0))
 			return

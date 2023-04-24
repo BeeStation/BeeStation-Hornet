@@ -282,7 +282,7 @@
 		return
 
 	for(var/X in spooky_scaries)
-		if(!ishuman(X))
+		if(!iscarbonhuman(X))
 			spooky_scaries.Remove(X)
 			continue
 		var/mob/living/carbon/human/H = X

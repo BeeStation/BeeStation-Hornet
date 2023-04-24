@@ -54,7 +54,7 @@
 
 	. = ..()
 
-	if(!ishuman(C))
+	if(!iscarbonhuman(C))
 		return
 	var/mob/living/carbon/human/ethereal = C
 	default_color = "#[ethereal.dna.features["ethcolor"]]"

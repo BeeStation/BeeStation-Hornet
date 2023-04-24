@@ -33,7 +33,7 @@
 	REMOVE_TRAIT(owner, TRAIT_DISK_VERIFIER, NUKEOP_TRAIT)
 
 /datum/antagonist/nukeop/proc/equip_op()
-	if(!ishuman(owner.current))
+	if(!iscarbonhuman(owner.current))
 		return
 	var/mob/living/carbon/human/H = owner.current
 
@@ -297,7 +297,7 @@
 /datum/team/nuclear/proc/operatives_dead()
 	for(var/I in members)
 		var/datum/mind/operative_mind = I
-		if(ishuman(operative_mind.current) && (operative_mind.current.stat != DEAD))
+		if(iscarbonhuman(operative_mind.current) && (operative_mind.current.stat != DEAD))
 			return FALSE
 	return TRUE
 

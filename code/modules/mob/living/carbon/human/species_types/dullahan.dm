@@ -71,7 +71,7 @@
 	modifies_speech = TRUE
 
 /obj/item/organ/tongue/dullahan/handle_speech(datum/source, list/speech_args)
-	if(ishuman(owner))
+	if(iscarbonhuman(owner))
 		var/mob/living/carbon/human/H = owner
 		if(H.dna.species.id == SPECIES_DULLAHAN)
 			var/datum/species/dullahan/D = H.dna.species
@@ -101,7 +101,7 @@
 	else
 		DE.tint = INFINITY
 
-	if(ishuman(owner))
+	if(iscarbonhuman(owner))
 		var/mob/living/carbon/human/H = owner
 		if(H.dna.species.id == SPECIES_DULLAHAN)
 			var/datum/species/dullahan/D = H.dna.species

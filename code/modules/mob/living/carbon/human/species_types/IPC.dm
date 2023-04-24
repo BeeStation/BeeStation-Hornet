@@ -67,11 +67,11 @@
 	if(L)
 		L.Remove(C)
 		QDEL_NULL(L)
-	if(ishuman(C) && !change_screen)
+	if(iscarbonhuman(C) && !change_screen)
 		change_screen = new
 		change_screen.Grant(C)
 
-	if(ishuman(C))
+	if(iscarbonhuman(C))
 		var/mob/living/carbon/human/H = C
 		H.physiology.bleed_mod *= 0.1
 
@@ -80,7 +80,7 @@
 	if(change_screen)
 		change_screen.Remove(C)
 
-	if(ishuman(C))
+	if(iscarbonhuman(C))
 		var/mob/living/carbon/human/H = C
 		H.physiology.bleed_mod *= 10
 
@@ -112,7 +112,7 @@
 		return
 	if(!color_choice)
 		return
-	if(!ishuman(owner))
+	if(!iscarbonhuman(owner))
 		return
 	var/mob/living/carbon/human/H = owner
 	H.dna.features["ipc_screen"] = screen_choice
@@ -126,7 +126,7 @@
 	icon_state = "wire1"
 
 /obj/item/apc_powercord/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	if((!istype(target, /obj/machinery/power/apc) && !isethereal(target)) || !ishuman(user) || !proximity_flag)
+	if((!istype(target, /obj/machinery/power/apc) && !isethereal(target)) || !iscarbonhuman(user) || !proximity_flag)
 		return ..()
 	user.changeNext_move(CLICK_CD_MELEE)
 	var/mob/living/carbon/human/H = user

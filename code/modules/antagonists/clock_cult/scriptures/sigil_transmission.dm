@@ -51,7 +51,7 @@
 			GB.update_power()
 
 /obj/structure/destructible/clockwork/sigil/transmission/can_affect(atom/movable/AM)
-	return (istype(AM, /obj/mecha) || iscyborg(AM) || ishuman(AM))
+	return (istype(AM, /obj/mecha) || iscyborg(AM) || iscarbonhuman(AM))
 
 /obj/structure/destructible/clockwork/sigil/transmission/apply_effects(atom/movable/AM)
 	if(istype(AM, /obj/mecha))
@@ -82,7 +82,7 @@
 			if(C.charge > C.chargerate)
 				C.give(-C.chargerate)
 				GLOB.clockcult_power += 40
-	else if(ishuman(AM))
+	else if(iscarbonhuman(AM))
 		var/mob/living/carbon/human/H = AM
 		var/list/L = H.get_contents()
 		var/applied_charge = FALSE

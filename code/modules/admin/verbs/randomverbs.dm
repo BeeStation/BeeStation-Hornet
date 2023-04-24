@@ -1106,7 +1106,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(iscarbon(target))
 		punishment_list += ADMIN_PUNISHMENT_COOKIE
 		punishment_list += ADMIN_PUNISHMENT_NUGGET
-	if(ishuman(target))
+	if(iscarbonhuman(target))
 		punishment_list += ADMIN_PUNISHMENT_FLOORCLUWNE
 		punishment_list += ADMIN_PUNISHMENT_FLOORCLUWNE_STALKER
 		punishment_list += ADMIN_PUNISHMENT_STALKER
@@ -1172,7 +1172,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			new /obj/effect/temp_visual/target(get_turf(target))
 
 		if(ADMIN_PUNISHMENT_FLOORCLUWNE)
-			if(!ishuman(target))
+			if(!iscarbonhuman(target))
 				to_chat(usr,"<span class='warning'>You may only floorcluwne humans!</span>")
 				return
 
@@ -1214,7 +1214,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			var/turf/T = get_step(get_step(target, NORTH), NORTH)
 			T.Beam(target, icon_state="lightning[rand(1,12)]", time = 5)
 			target.adjustFireLoss(75)
-			if(ishuman(target))
+			if(iscarbonhuman(target))
 				var/mob/living/carbon/human/H = target
 				H.electrocution_animation(40)
 			to_chat(target, "<span class='userdanger'>The gods have punished you for your sins!</span>")
@@ -1311,7 +1311,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 /mob/living/carbon/proc/give_cookie(var/client/admin_client)
 	var/obj/item/reagent_containers/food/snacks/cookie/cookie = new(src)
 	if(src.put_in_hands(cookie))
-		if(ishuman(src))
+		if(iscarbonhuman(src))
 			src.update_inv_hands()
 		log_admin("[key_name(src)] got their cookie, spawned by [key_name(admin_client)].")
 		message_admins("[key_name_admin(src)] got their cookie, spawned by [ADMIN_LOOKUPFLW(admin_client)].")

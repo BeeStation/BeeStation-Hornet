@@ -217,7 +217,7 @@
 		if(turns_since_scan > 5)
 			SSmove_manager.stop_looping(src)
 			turns_since_scan = 0
-			if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc) ))
+			if((movement_target) && !(isturf(movement_target.loc) || iscarbonhuman(movement_target.loc) ))
 				movement_target = null
 				stop_automated_movement = 0
 			if(!movement_target || !(src in viewers(3, movement_target.loc)))

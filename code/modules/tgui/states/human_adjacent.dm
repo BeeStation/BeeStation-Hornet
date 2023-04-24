@@ -14,6 +14,6 @@ GLOBAL_DATUM_INIT(human_adjacent_state, /datum/ui_state/human_adjacent_state, ne
 	. = user.default_can_use_topic(src_object)
 
 	var/dist = get_dist(src_object, user)
-	if((dist > 1) || (!ishuman(user)))
+	if((dist > 1) || (!iscarbonhuman(user)))
 		// Can't be used unless adjacent and human, even with TK
 		. = min(., UI_UPDATE)

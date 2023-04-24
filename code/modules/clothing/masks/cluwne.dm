@@ -83,7 +83,7 @@
         play_laugh1()
 
 /obj/item/clothing/mask/cluwne/happy_cluwne/equipped(mob/user, slot)
-    if(!ishuman(user))
+    if(!iscarbonhuman(user))
         return
     var/mob/living/carbon/human/H = user
     if(slot == ITEM_SLOT_MASK)

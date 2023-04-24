@@ -230,7 +230,7 @@
 /obj/machinery/atmospherics/proc/unsafe_pressure_release(mob/living/carbon/user, pressures = null)
 	if(!user)
 		return
-	if(ishuman(user)) //other carbons like monkeys can unwrench but cant wear magboots
+	if(iscarbonhuman(user)) //other carbons like monkeys can unwrench but cant wear magboots
 		if(istype(user.shoes, /obj/item/clothing/shoes/magboots))
 			var/obj/item/clothing/shoes/magboots/M = user.shoes
 			if(M.negates_gravity())

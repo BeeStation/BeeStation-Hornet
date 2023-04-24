@@ -82,7 +82,7 @@
 /mob/living/simple_animal/mouse/proc/on_entered(datum/source, AM as mob|obj)
 	SIGNAL_HANDLER
 
-	if( ishuman(AM) )
+	if( iscarbonhuman(AM) )
 		if(!stat)
 			var/mob/M = AM
 			to_chat(M, "<span class='notice'>[icon2html(src, M)] Squeak!</span>")

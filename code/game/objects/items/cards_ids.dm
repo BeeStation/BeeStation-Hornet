@@ -473,7 +473,7 @@ update_label("John Doe", "Clowny")
 			if(!assignment)
 				assignment = "Assistant"
 
-			var/input_name = stripped_input(user, "What name would you like to put on this card? Leave blank to randomise.", "Agent card name", registered_name ? registered_name : (ishuman(user) ? user.real_name : user.name), MAX_NAME_LEN)
+			var/input_name = stripped_input(user, "What name would you like to put on this card? Leave blank to randomise.", "Agent card name", registered_name ? registered_name : (iscarbonhuman(user) ? user.real_name : user.name), MAX_NAME_LEN)
 			input_name = reject_bad_name(input_name)
 			if(!input_name)
 				// Invalid/blank names give a randomly generated one.
@@ -508,7 +508,7 @@ update_label("John Doe", "Clowny")
 
 			// First time use automatically sets the account id to the user.
 			if (first_use && !registered_account)
-				if(ishuman(user))
+				if(iscarbonhuman(user))
 					var/mob/living/carbon/human/accountowner = user
 
 					for(var/bank_account in SSeconomy.bank_accounts)

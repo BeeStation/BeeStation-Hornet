@@ -7,7 +7,7 @@
 
 /datum/round_event/wizard/imposter/start()
 	for(var/datum/mind/M in SSticker.mode.wizards)
-		if(!ishuman(M.current))
+		if(!iscarbonhuman(M.current))
 			continue
 		var/mob/living/carbon/human/W = M.current
 		var/list/candidates = pollGhostCandidates("Would you like to be an imposter wizard?", ROLE_WIZARD)

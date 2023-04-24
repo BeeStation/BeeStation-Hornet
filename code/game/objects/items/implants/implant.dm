@@ -79,7 +79,7 @@
 		for(var/X in actions)
 			var/datum/action/A = X
 			A.Grant(target)
-	if(ishuman(target))
+	if(iscarbonhuman(target))
 		var/mob/living/carbon/human/H = target
 		H.sec_hud_set_implants()
 
@@ -105,7 +105,7 @@
 		for(var/X in actions)
 			var/datum/action/A = X
 			A.Grant(target)
-	if(ishuman(target))
+	if(iscarbonhuman(target))
 		var/mob/living/carbon/human/H = target
 		H.sec_hud_set_implants()
 	on_implanted(target)
@@ -119,7 +119,7 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.Grant(source)
-	if(ishuman(source))
+	if(iscarbonhuman(source))
 		var/mob/living/carbon/human/H = source
 		H.sec_hud_set_implants()
 

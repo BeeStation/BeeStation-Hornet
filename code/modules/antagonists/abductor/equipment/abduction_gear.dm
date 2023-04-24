@@ -54,7 +54,7 @@
 			mode = VEST_STEALTH
 			armor = stealth_armor
 			icon_state = "vest_stealth"
-	if(ishuman(loc))
+	if(iscarbonhuman(loc))
 		var/mob/living/carbon/human/H = loc
 		H.update_inv_wear_suit()
 	for(var/X in actions)
@@ -72,7 +72,7 @@
 	if(disguise == null)
 		return
 	stealth_active = 1
-	if(ishuman(loc))
+	if(iscarbonhuman(loc))
 		var/mob/living/carbon/human/M = loc
 		new /obj/effect/temp_visual/dir_setting/ninja/cloak(get_turf(M), M.dir)
 		M.name_override = disguise.name
@@ -86,7 +86,7 @@
 	if(!stealth_active)
 		return
 	stealth_active = 0
-	if(ishuman(loc))
+	if(iscarbonhuman(loc))
 		var/mob/living/carbon/human/M = loc
 		new /obj/effect/temp_visual/dir_setting/ninja(get_turf(M), M.dir)
 		M.name_override = null
@@ -110,7 +110,7 @@
 				ActivateStealth()
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/Adrenaline()
-	if(ishuman(loc))
+	if(iscarbonhuman(loc))
 		if(combat_cooldown < initial(combat_cooldown))
 			to_chat(loc, "<span class='warning'>Combat injection is still recharging.</span>")
 			return
@@ -219,7 +219,7 @@
 			mark(target, user)
 
 /obj/item/abductor/gizmo/proc/scan(atom/target, mob/living/user)
-	if(ishuman(target))
+	if(iscarbonhuman(target))
 		console.AddSnapshot(target)
 		to_chat(user, "<span class='notice'>You scan [target] and add [target.p_them()] to the database.</span>")
 
@@ -227,7 +227,7 @@
 	if(marked == target)
 		to_chat(user, "<span class='warning'>This specimen is already marked!</span>")
 		return
-	if(ishuman(target))
+	if(iscarbonhuman(target))
 		if(isabductor(target))
 			marked = target
 			to_chat(user, "<span class='notice'>You mark [target] for future retrieval.</span>")
@@ -478,7 +478,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 	user.do_attack_animation(L)
 
-	if(ishuman(L))
+	if(iscarbonhuman(L))
 		var/mob/living/carbon/human/H = L
 		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
 			playsound(H, 'sound/weapons/genhit.ogg', 50, TRUE)
@@ -515,7 +515,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 							"<span class='userdanger'>[user] has stunned you with [src]!</span>")
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 
-	if(ishuman(L))
+	if(iscarbonhuman(L))
 		var/mob/living/carbon/human/H = L
 		H.force_say(user)
 
@@ -573,7 +573,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	var/species = "<span class='warning'>Unknown species</span>"
 	var/helptext = "<span class='warning'>Species unsuitable for experiments.</span>"
 
-	if(ishuman(L))
+	if(iscarbonhuman(L))
 		var/mob/living/carbon/human/H = L
 		species = "<span class='notice'>[H.dna.species.name]</span>"
 		if(L.mind && L.mind.has_antag_datum(/datum/antagonist/changeling))

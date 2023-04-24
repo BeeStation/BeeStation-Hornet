@@ -35,7 +35,7 @@ BONUS
 	if(!..())
 		return
 	var/mob/living/M = A.affected_mob
-	if(ishuman(M))
+	if(iscarbonhuman(M))
 		var/mob/living/carbon/human/H = M
 		switch(A.stage)
 			if(1)

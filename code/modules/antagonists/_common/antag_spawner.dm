@@ -49,7 +49,7 @@
 
 	if(H.stat || H.restrained())
 		return
-	if(!ishuman(H))
+	if(!iscarbonhuman(H))
 		return 1
 
 	if(loc == H || (in_range(src, H) && isturf(loc)))

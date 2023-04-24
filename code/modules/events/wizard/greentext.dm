@@ -9,7 +9,7 @@
 
 	var/list/holder_canadates = GLOB.player_list.Copy()
 	for(var/mob/M in holder_canadates)
-		if(!ishuman(M))
+		if(!iscarbonhuman(M))
 			holder_canadates -= M
 	if(!holder_canadates) //Very unlikely, but just in case
 		return 0

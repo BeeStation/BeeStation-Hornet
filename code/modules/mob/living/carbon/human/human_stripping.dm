@@ -59,7 +59,7 @@ GLOBAL_LIST_INIT(strippable_human_layout, list(
 	if(user.pulling != src || user.grab_state != GRAB_AGGRESSIVE)
 		return TRUE
 
-	if(ishuman(user))
+	if(iscarbonhuman(user))
 		var/mob/living/carbon/human/human_user = user
 		return !human_user.can_be_firemanned(src)
 
@@ -110,7 +110,7 @@ GLOBAL_LIST_INIT(strippable_human_layout, list(
 	if(.)
 		return
 
-	if(!ishuman(source))
+	if(!iscarbonhuman(source))
 		return
 
 	var/mob/living/carbon/human/human = source
@@ -131,7 +131,7 @@ GLOBAL_LIST_INIT(strippable_human_layout, list(
 	if(.)
 		return
 
-	if(!ishuman(source))
+	if(!iscarbonhuman(source))
 		return
 
 	var/mob/living/carbon/human/human = source

@@ -707,7 +707,7 @@
 		RemoveSpell(S)
 
 /datum/mind/proc/transfer_martial_arts(mob/living/new_character)
-	if(!ishuman(new_character))
+	if(!iscarbonhuman(new_character))
 		return
 	if(martial_art)
 		if(martial_art.base) //Is the martial art temporary?

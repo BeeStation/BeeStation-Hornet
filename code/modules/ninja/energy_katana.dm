@@ -60,7 +60,7 @@
 //Works for if the Ninja throws it or it throws itself or someone tries
 //To throw it at the ninja
 /obj/item/energy_katana/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	if(ishuman(hit_atom))
+	if(iscarbonhuman(hit_atom))
 		var/mob/living/carbon/human/H = hit_atom
 		if(istype(H.wear_suit, /obj/item/clothing/suit/space/space_ninja))
 			var/obj/item/clothing/suit/space/space_ninja/SN = H.wear_suit

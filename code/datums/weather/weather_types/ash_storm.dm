@@ -66,7 +66,7 @@
 	while (L && !isturf(L))
 		if(ismecha(L)) //Mechs are immune
 			return TRUE
-		if(ishuman(L)) //Are you immune?
+		if(iscarbonhuman(L)) //Are you immune?
 			var/mob/living/carbon/human/H = L
 			var/thermal_protection = H.get_thermal_protection()
 			if(thermal_protection >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
