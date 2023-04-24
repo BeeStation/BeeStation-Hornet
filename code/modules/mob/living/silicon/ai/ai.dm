@@ -138,7 +138,7 @@
 	create_modularInterface()
 	create_eye()
 	if(client)
-		INVOKE_ASYNC(src, .proc/apply_pref_name, /datum/preference/name/ai, client)
+		INVOKE_ASYNC(src, PROC_REF(apply_pref_name), /datum/preference/name/ai, client)
 
 	INVOKE_ASYNC(src, PROC_REF(set_core_display_icon))
 

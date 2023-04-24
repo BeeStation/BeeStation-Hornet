@@ -87,7 +87,7 @@ import { CheckboxInput, FeatureToggle } from "../base";
 export const enable_breathing: FeatureToggle = {
 	name: "Enable breathing",
 	component: CheckboxInput,
-}
+};
 ```
 
 ## Choiced preferences
@@ -360,7 +360,7 @@ Middleware can hijack actions by specifying `action_delegations`:
 ```dm
 /datum/preference_middleware/congratulations
 	action_delegations = list(
-		"congratulate_me" = .proc/congratulate_me,
+		"congratulate_me" = PROC_REF(congratulate_me),
 	)
 
 /datum/preference_middleware/congratulations/proc/congratulate_me(list/params, mob/user)
