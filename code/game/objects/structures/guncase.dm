@@ -155,7 +155,7 @@
 	. = ..()
 	//Add in signal handling for alert level changes
 	if (unlock_alert_level)
-		RegisterSignal(SSdcs, COMSIG_GLOB_SECURITY_ALERT_CHANGE, .proc/handle_alert)
+		RegisterSignal(SSdcs, COMSIG_GLOB_SECURITY_ALERT_CHANGE, PROC_REF(handle_alert))
 
 /// React to the alert level by making a noise
 /obj/structure/guncase/locked/proc/handle_alert(datum/source, new_alert)
