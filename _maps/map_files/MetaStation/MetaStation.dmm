@@ -5179,7 +5179,6 @@
 	pixel_x = 1;
 	pixel_y = 5
 	},
-/obj/item/restraints/handcuffs,
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "azV" = (
@@ -6642,7 +6641,7 @@
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
 "aGv" = (
-/obj/structure/closet/secure_closet/detective,
+/obj/structure/guncase/locked/detective,
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
 "aGw" = (
@@ -56420,7 +56419,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/item/clothing/glasses/hud/security/sunglasses,
+/obj/item/clothing/glasses/sunglasses/advanced,
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "ozo" = (
@@ -69883,7 +69882,6 @@
 	name = "Test Range";
 	pixel_x = 25;
 	pixel_y = -6;
-	req_access = null;
 	req_access_txt = "49"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -71670,7 +71668,6 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/virology/glass{
-	id_tag = null;
 	name = "Virology Reception";
 	req_access_txt = "39"
 	},
@@ -74151,7 +74148,6 @@
 	name = "Test Range";
 	pixel_x = -7;
 	pixel_y = 26;
-	req_access = null;
 	req_access_txt = "49"
 	},
 /obj/effect/turf_decal/trimline/purple/filled/line{

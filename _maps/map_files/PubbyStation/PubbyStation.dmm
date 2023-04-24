@@ -4163,11 +4163,7 @@
 /turf/open/floor/wood,
 /area/lawoffice)
 "aCi" = (
-/obj/structure/table/wood,
-/obj/item/kirbyplants{
-	icon_state = "plant-18";
-	pixel_y = 12
-	},
+/obj/structure/guncase/locked/detective,
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
 "aCj" = (
@@ -4491,7 +4487,7 @@
 	pixel_y = 2
 	},
 /obj/item/storage/fancy/cigarettes,
-/obj/item/clothing/glasses/hud/security/sunglasses,
+/obj/item/clothing/glasses/sunglasses/advanced,
 /turf/open/floor/carpet,
 /area/security/detectives_office)
 "aEo" = (
@@ -37539,9 +37535,7 @@
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
@@ -57460,7 +57454,6 @@
 	},
 /obj/item/taperecorder,
 /obj/item/restraints/handcuffs,
-/obj/item/assembly/flash/handheld,
 /obj/structure/disposalpipe/segment,
 /obj/structure/closet/secure_closet/detective,
 /obj/item/hand_labeler,

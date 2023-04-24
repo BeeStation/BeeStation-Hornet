@@ -10806,11 +10806,11 @@
 /turf/closed/wall,
 /area/quartermaster/storage)
 "dow" = (
-/obj/machinery/computer/security{
-	dir = 8
-	},
 /obj/machinery/newscaster{
 	pixel_x = 32
+	},
+/obj/machinery/computer/med_data{
+	dir = 8
 	},
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
@@ -32632,11 +32632,9 @@
 /area/security/brig)
 "kDo" = (
 /obj/structure/table/wood,
-/obj/item/storage/box/evidence,
-/obj/item/melee/classic_baton/police,
+/obj/item/paper_bin,
+/obj/item/pen/fountain,
 /obj/item/reagent_containers/food/drinks/flask/det,
-/obj/item/clothing/glasses/hud/security/sunglasses,
-/obj/item/clothing/glasses/hud/security/sunglasses,
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "kDs" = (
@@ -61649,11 +61647,7 @@
 	dir = 1
 	},
 /obj/structure/table/wood,
-/obj/item/paper_bin,
-/obj/item/pen/fountain,
-/obj/item/poster/random_official,
-/obj/item/poster/random_official,
-/obj/item/poster/random_official,
+/obj/machinery/computer/security/wooden_tv,
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "ugr" = (
@@ -69636,12 +69630,10 @@
 /obj/structure/sign/poster/random{
 	pixel_x = 32
 	},
-/obj/machinery/computer/med_data{
-	dir = 8
-	},
 /obj/effect/turf_decal/siding/wood/end{
 	dir = 4
 	},
+/obj/structure/guncase/locked/detective,
 /turf/open/floor/wood,
 /area/security/detectives_office)
 "wKh" = (

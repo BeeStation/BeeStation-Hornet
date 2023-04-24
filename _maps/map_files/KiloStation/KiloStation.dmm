@@ -30593,7 +30593,6 @@
 "cpR" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
-	id_tag = null;
 	name = "Brig";
 	req_access_txt = "63"
 	},
@@ -39681,7 +39680,6 @@
 "cOS" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
-	id_tag = null;
 	name = "Brig";
 	req_access_txt = "63"
 	},
@@ -46438,7 +46436,6 @@
 /obj/item/storage/box/evidence{
 	pixel_y = 5
 	},
-/obj/item/restraints/handcuffs/cable/zipties,
 /obj/item/flashlight/seclite,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/plasteel/dark,
@@ -50759,8 +50756,7 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/computer/shuttle_flight/mining{
 	dir = 4;
-	req_access = null;
-	req_one_access = null
+	req_access = null
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
@@ -65312,8 +65308,7 @@
 "nTo" = (
 /obj/machinery/computer/shuttle_flight/mining{
 	dir = 8;
-	req_access = null;
-	req_one_access = null
+	req_access = null
 	},
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
@@ -80611,12 +80606,10 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/structure/guncase/locked/detective,
 /turf/open/floor/plasteel/dark,
 /area/security/detectives_office)
 "unF" = (
