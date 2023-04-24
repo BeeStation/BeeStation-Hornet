@@ -256,7 +256,7 @@
 
 /obj/structure/closet/secure_closet/detective/Initialize(mapload)
 	. = ..()
-	RegisterSignal(SSdcs, COMSIG_GLOB_POST_START, .PROC_REF(add_spare_scanner))
+	RegisterSignal(SSdcs, COMSIG_GLOB_POST_START, PROC_REF(add_spare_scanner))
 
 /obj/structure/closet/secure_closet/detective/PopulateContents()
 	..()
