@@ -34,8 +34,7 @@ const QuirkList = (props: {
             tabIndex="1"
             onClick={() => {
               props.onClick(quirkKey, quirk);
-            }}
-          >
+            }}>
             <Stack fill>
               <Stack.Item align="center" style={{
                 "min-width": "15%",
@@ -68,8 +67,7 @@ const QuirkList = (props: {
                     style={{
                       "border-bottom": "1px solid black",
                       "padding": "2px",
-                    }}
-                  >
+                    }}>
                     <Stack fill style={{
                       "font-size": "1.2em",
                     }}>
@@ -97,7 +95,7 @@ const QuirkList = (props: {
 
         if (quirk.failTooltip) {
           return (
-            <Tooltip content={quirk.failTooltip}>
+            <Tooltip key={`${quirkKey}-tooltip`} content={quirk.failTooltip}>
               {child}
             </Tooltip>
           );
@@ -117,8 +115,7 @@ const StatDisplay: Inferno.StatelessComponent<{}> = (props) => {
       color="black"
       fontSize="1.2em"
       px={3}
-      py={0.5}
-    >
+      py={0.5}>
       {props.children}
     </Box>
   );

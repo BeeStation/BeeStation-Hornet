@@ -119,8 +119,7 @@ class KeybindingButton extends Component<{
         textAlign="center"
         captureKeys={typingHotkey === undefined}
         onClick={onClick}
-        selected={typingHotkey !== undefined}
-      >
+        selected={typingHotkey !== undefined}>
         {typingHotkey || currentHotkey || "Unbound"}
       </Button>
     );
@@ -147,8 +146,7 @@ const KeybindingName = (props: {
     ? (
       <Tooltip
         content={keybinding.description}
-        position="bottom"
-      >
+        position="bottom">
         <Box as="span" style={{
           "border-bottom": "2px dotted rgba(255, 255, 255, 0.8)",
         }}>
@@ -178,8 +176,7 @@ const ResetToDefaultButton = (props: {
         act("reset_keybinds_to_defaults", {
           keybind_name: props.keybindingId,
         });
-      }}
-    >
+      }}>
       Reset to Defaults
     </Button>
   );
@@ -190,15 +187,15 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
   keybindingOnClicks: Record<string, (() => void)[]> = {};
   lastKeybinds?: PreferencesMenuData["keybindings"];
 
-  state: KeybindingsPageState = {
-    lastKeyboardEvent: undefined,
-    keybindings: undefined,
-    selectedKeybindings: undefined,
-    rebindingHotkey: undefined,
-  };
-
   constructor() {
     super();
+
+    this.state = {
+      lastKeyboardEvent: undefined,
+      keybindings: undefined,
+      selectedKeybindings: undefined,
+      rebindingHotkey: undefined,
+    };
 
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);
