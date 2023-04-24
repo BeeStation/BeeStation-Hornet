@@ -191,7 +191,7 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
     keybindings: undefined,
     selectedKeybindings: undefined,
     rebindingHotkey: undefined,
-  }
+  };
 
   constructor() {
     super();
@@ -291,7 +291,7 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
       keyEvent.event.preventDefault();
     }
 
-    if(this.state == null) {
+    if (this.state === null) {
       return;
     }
 
