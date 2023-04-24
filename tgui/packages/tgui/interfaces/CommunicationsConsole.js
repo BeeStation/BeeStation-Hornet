@@ -182,27 +182,40 @@ const PageBuyingShuttle = (props, context) => {
                       </span>
                     )}
                     buttons={(
-                      <Button
-                        content={
-                          `${shuttle.creditCost.toLocaleString()} credits`
-                        }
-                        color={shuttle.illegal ? "red" : "default"}
-                        disabled={
-                          !canBuyShuttles || data.budget < shuttle.creditCost
-                        }
-                        onClick={() => act("purchaseShuttle", {
-                          shuttle: shuttle.ref,
-                        })}
-                        tooltip={
-                          data.budget < shuttle.creditCost ? (`You need ${
-                            shuttle.creditCost - data.budget
-                          } more credits.`
-                          ) : (shuttle.illegal
-                            ? ILLEGAL_SHUTTLE_NOTICE
-                            : undefined)
-                        }
-                        tooltipPosition="left"
-                      />
+                      <>
+                        {shuttle.danger === 1 ? (
+                          <Tooltip content="According to our analysis, this shuttle will not properly fulfill the duties of a typical escape shuttle.">
+                            <Icon mr={1} name="exclamation-triangle" color="yellow" />
+                          </Tooltip>
+                        ) : (
+                          shuttle.danger === 2 ? (
+                            <Tooltip content="According to our analysis, this shuttle has a high risk potential, and may result in the death of large amounts of crew.">
+                              <Icon mr={1.25} name="exclamation" color="red" />
+                            </Tooltip>
+                          ) : null
+                        )}
+                        <Button
+                          content={
+                            `${shuttle.creditCost.toLocaleString()} credits`
+                          }
+                          color={shuttle.illegal ? "red" : "default"}
+                          disabled={
+                            !canBuyShuttles || data.budget < shuttle.creditCost
+                          }
+                          onClick={() => act("purchaseShuttle", {
+                            shuttle: shuttle.ref,
+                          })}
+                          tooltip={
+                            data.budget < shuttle.creditCost ? (`You need ${
+                              shuttle.creditCost - data.budget
+                            } more credits.`
+                            ) : (shuttle.illegal
+                              ? ILLEGAL_SHUTTLE_NOTICE
+                              : undefined)
+                          }
+                          tooltipPosition="left"
+                        />
+                      </>
                     )}>
                     <Box textAlign="justify">{shuttle.description}</Box>
                     {

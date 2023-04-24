@@ -46,7 +46,7 @@
 	var/dynamic_fhair_suffix = ""//mask > head for facial hair
 
 	var/high_pressure_multiplier = 1
-	var/static/list/high_pressure_multiplier_types = list("melee", "bullet", "laser", "energy", "bomb")
+	var/static/list/high_pressure_multiplier_types = list(MELEE, BULLET, LASER, ENERGY, BOMB)
 	///These are armor values that protect the wearer, taken from the clothing's armor datum. List updates on examine because it's currently only used to print armor ratings to chat in Topic().
 	var/list/armor_list = list()
 	///These are armor values that protect the clothing, taken from its armor datum. List updates on examine because it's currently only used to print armor ratings to chat in Topic().
@@ -79,7 +79,7 @@
 	foodtype = CLOTH
 
 /obj/item/clothing/attack(mob/M, mob/user, def_zone)
-	if(user.a_intent != INTENT_HARM && ismoth(M) && !(clothing_flags & NOTCONSUMABLE) && !(resistance_flags & INDESTRUCTIBLE) && (armor.getRating("melee") == 0))
+	if(user.a_intent != INTENT_HARM && ismoth(M) && !(clothing_flags & NOTCONSUMABLE) && !(resistance_flags & INDESTRUCTIBLE) && (armor.getRating(MELEE) == 0))
 		var/obj/item/reagent_containers/food/snacks/clothing/clothing_as_food = new
 		clothing_as_food.name = name
 		if(clothing_as_food.attack(M, user, def_zone))
@@ -155,6 +155,7 @@
 
 /obj/item/clothing/Topic(href, href_list)
 	. = ..()
+
 	if(href_list["list_armor"])
 		if(length(armor_list))
 			armor_list.Cut()
@@ -171,7 +172,7 @@
 		if(armor.magic)
 			armor_list += list("MAGIC" = armor.magic)
 		if(armor.melee)
-			armor_list += list("MELEE" = armor.melee)
+			armor_list += list(MELEE = armor.melee)
 		if(armor.rad)
 			armor_list += list("RADIATION" = armor.rad)
 		if(armor.stamina)
@@ -241,11 +242,19 @@
 		var/mob/M = loc
 		to_chat(M, "<span class='warning'>Your [name] starts to fall apart!</span>")
 
+
+//This mostly exists so subtypes can call appriopriate update icon calls on the wearer.
 /obj/item/clothing/proc/update_clothes_damaged_state(damaging = TRUE)
-	var/index = "[REF(icon)]-[icon_state]"
-	var/static/list/damaged_clothes_icons = list()
 	if(damaging)
 		damaged_clothes = 1
+	else
+		damaged_clothes = 0
+
+/obj/item/clothing/update_overlays()
+	. = ..()
+	if(damaged_clothes)
+		var/index = "[REF(initial(icon))]-[initial(icon_state)]"
+		var/static/list/damaged_clothes_icons = list()
 		var/icon/damaged_clothes_icon = damaged_clothes_icons[index]
 		if(!damaged_clothes_icon)
 			damaged_clothes_icon = icon(icon, icon_state, null, 1)
@@ -253,10 +262,7 @@
 			damaged_clothes_icon.Blend(icon('icons/effects/item_damage.dmi', "itemdamaged"), ICON_MULTIPLY) //adds damage effect and the remaining white areas become transparant
 			damaged_clothes_icon = fcopy_rsc(damaged_clothes_icon)
 			damaged_clothes_icons[index] = damaged_clothes_icon
-		add_overlay(damaged_clothes_icon, 1)
-	else
-		damaged_clothes = 0
-		cut_overlay(damaged_clothes_icons[index], TRUE)
+		. += damaged_clothes_icon
 
 
 /*
@@ -314,7 +320,7 @@ BLIND     // can't see anything
 		var/mob/living/carbon/human/wearer = src.loc
 		wearer.visible_message("<span class='notice'>[user] tries to set [wearer]'s sensors.</span>", \
 						 "<span class='warning'>[user] is trying to set your sensors.</span>", null, COMBAT_MESSAGE_RANGE)
-		if(do_mob(user, wearer, SENSOR_CHANGE_DELAY))
+		if(do_after(user, SENSOR_CHANGE_DELAY, wearer))
 			switch(sensor_selection)
 				if(SENSORS_OFF)
 					wearer.visible_message("<span class='warning'>[user] disables [wearer]'s remote sensing equipment.</span>", \
@@ -439,7 +445,7 @@ BLIND     // can't see anything
 
 
 /obj/item/clothing/obj_destruction(damage_flag)
-	if(damage_flag == "bomb" || damage_flag == "melee")
+	if(damage_flag == BOMB || damage_flag == MELEE)
 		var/turf/T = get_turf(src)
 		spawn(1) //so the shred survives potential turf change from the explosion.
 			var/obj/effect/decal/cleanable/shreds/Shreds = new(T)

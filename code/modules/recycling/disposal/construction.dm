@@ -9,7 +9,6 @@
 	anchored = FALSE
 	density = FALSE
 	pressure_resistance = 5*ONE_ATMOSPHERE
-	level = 2
 	max_integrity = 200
 	var/obj/pipe_type = /obj/structure/disposalpipe/segment
 	var/pipename
@@ -37,6 +36,8 @@
 
 	update_icon()
 
+	AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE)
+
 /obj/structure/disposalconstruct/Move()
 	var/old_dir = dir
 	..()
@@ -48,10 +49,8 @@
 	if(is_pipe())
 		icon_state = "con[icon_state]"
 		if(anchored)
-			level = initial(pipe_type.level)
 			layer = initial(pipe_type.layer)
 		else
-			level = initial(level)
 			layer = initial(layer)
 
 	else if(ispath(pipe_type, /obj/machinery/disposal/bin))
@@ -60,13 +59,6 @@
 			icon_state = "disposal"
 		else
 			icon_state = "condisposal"
-
-
-// hide called by levelupdate if turf intact status changes
-// change visibility status and force update of icon
-/obj/structure/disposalconstruct/hide(var/intact)
-	invisibility = (intact && level==1) ? INVISIBILITY_MAXIMUM: 0	// hide if floor is intact
-	update_icon()
 
 /obj/structure/disposalconstruct/proc/get_disposal_dir()
 	if(!is_pipe())
@@ -92,7 +84,7 @@
 
 /obj/structure/disposalconstruct/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_FLIP | ROTATION_VERBS ,null,CALLBACK(src, .proc/can_be_rotated), CALLBACK(src, .proc/after_rot))
+	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_FLIP | ROTATION_VERBS ,null,CALLBACK(src, PROC_REF(can_be_rotated)), CALLBACK(src, PROC_REF(after_rot)))
 
 /obj/structure/disposalconstruct/proc/after_rot(mob/user,rotation_type)
 	if(rotation_type == ROTATION_FLIP)
@@ -122,8 +114,10 @@
 
 		var/turf/T = get_turf(src)
 		if(T.intact && isfloorturf(T))
-			to_chat(user, "<span class='warning'>You can only attach the [pipename] if the floor plating is removed!</span>")
-			return TRUE
+			var/obj/item/crowbar/held_crowbar = user.is_holding_item_of_type(/obj/item/crowbar)
+			if(!held_crowbar || !T.crowbar_act(user, held_crowbar))
+				to_chat(user, "<span class='warning'>You can only attach the [pipename] if the floor plating is removed!</span>")
+				return TRUE
 
 		if(!ispipe && iswallturf(T))
 			to_chat(user, "<span class='warning'>You can't build [pipename]s on walls, only disposal pipes!</span>")
@@ -136,8 +130,11 @@
 				if(istype(CP, /obj/structure/disposalpipe/broken))
 					pdir = CP.dir
 				if(pdir & dpdir)
-					to_chat(user, "<span class='warning'>There is already a disposal pipe at that location!</span>")
-					return TRUE
+					if(istype(CP, /obj/structure/disposalpipe/broken))
+						qdel(CP)
+					else
+						to_chat(user, "<span class='warning'>There is already a disposal pipe at that location!</span>")
+						return TRUE
 
 		else	// Disposal or outlet
 			var/found_trunk = FALSE

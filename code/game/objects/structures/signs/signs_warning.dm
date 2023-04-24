@@ -47,6 +47,12 @@
 	icon_state = "fire"
 	resistance_flags = FIRE_PROOF
 
+/obj/structure/sign/warning/cold
+	name = "\improper DANGER: Extreme cold"
+	desc = "A warning sign which reads 'DANGER: Extreme cold'."
+	icon_state = "cold"
+	resistance_flags = FIRE_PROOF
+
 /obj/structure/sign/warning/nosmoking
 	name = "\improper NO SMOKING"
 	desc = "A warning sign which reads 'NO SMOKING'."
@@ -68,7 +74,6 @@
 /obj/structure/sign/warning/xeno_mining
 	name = "\improper DANGEROUS ALIEN LIFE"
 	desc = "A sign that warns would-be travellers of hostile alien life in the vicinity."
-	icon = 'icons/obj/mining.dmi'
 	icon_state = "xeno_warning"
 
 /obj/structure/sign/warning/enginesafety

@@ -10,15 +10,15 @@
 /datum/element/firestacker/Attach(datum/target, amount)
 	. = ..()
 
-	if(!ismovableatom(target))
+	if(!ismovable(target))
 		return ELEMENT_INCOMPATIBLE
 
 	src.amount = amount
 
-	RegisterSignal(target, COMSIG_MOVABLE_IMPACT, .proc/impact, override = TRUE)
+	RegisterSignal(target, COMSIG_MOVABLE_IMPACT, PROC_REF(impact), override = TRUE)
 	if(isitem(target))
-		RegisterSignal(target, COMSIG_ITEM_ATTACK, .proc/item_attack)
-		RegisterSignal(target, COMSIG_ITEM_ATTACK_SELF, .proc/item_attack_self)
+		RegisterSignal(target, COMSIG_ITEM_ATTACK, PROC_REF(item_attack))
+		RegisterSignal(target, COMSIG_ITEM_ATTACK_SELF, PROC_REF(item_attack_self))
 
 /datum/element/firestacker/Detach(datum/source)
 	. = ..()

@@ -194,11 +194,11 @@
 		return
 
 	if(href_list["viewpoll"])
-		var/datum/poll_question/poll = locate(href_list["viewpoll"]) in GLOB.polls
+		var/datum/poll_question/poll = locate(href_list["viewpoll"]) in GLOB.active_polls
 		poll_player(poll)
 
 	if(href_list["votepollref"])
-		var/datum/poll_question/poll = locate(href_list["votepollref"]) in GLOB.polls
+		var/datum/poll_question/poll = locate(href_list["votepollref"]) in GLOB.active_polls
 		vote_on_poll_handler(poll, href_list)
 
 //When you cop out of the round (NB: this HAS A SLEEP FOR PLAYER INPUT IN IT)
@@ -365,7 +365,7 @@
 						SSticker.mode.make_special_antag_chance(humanc)
 
 	if(humanc && CONFIG_GET(flag/roundstart_traits))
-		SSquirks.AssignQuirks(humanc, humanc.client, TRUE)
+		SSquirks.AssignQuirks(character.mind, humanc.client, TRUE)
 
 	log_manifest(character.mind.key,character.mind,character,latejoin = TRUE)
 

@@ -1,6 +1,6 @@
 /obj/machinery/door/window
-	name = "interior door"
-	desc = "A strong door."
+	name = "windoor"
+	desc = "A thin door with translucent glass paneling."
 	icon = 'icons/obj/doors/windoor.dmi'
 	icon_state = "left"
 	layer = ABOVE_WINDOW_LAYER
@@ -9,14 +9,16 @@
 	var/base_state = "left"
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
 	integrity_failure = 0
-	armor = list("melee" = 20, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 70, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 20,  BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 70, ACID = 100, STAMINA = 0)
 	visible = FALSE
 	flags_1 = ON_BORDER_1
 	opacity = FALSE
-	pass_flags_self = PASSGLASS
+	pass_flags_self = PASSTRANSPARENT
 	CanAtmosPass = ATMOS_PASS_PROC
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
 	network_id = NETWORK_DOOR_AIRLOCKS
+	obj_flags = CAN_BE_HIT // reset zblock
+	var/operationdelay = 5
 	var/obj/item/electronics/airlock/electronics = null
 	var/reinf = 0
 	var/shards = 2
@@ -39,14 +41,14 @@
 		debris += new /obj/item/stack/cable_coil(src, cable)
 
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_EXIT = .proc/on_exit,
+		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
 	)
 
 	AddElement(/datum/element/connect_loc, loc_connections)
-	RegisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE, .proc/ntnet_receive)
+	RegisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE, PROC_REF(ntnet_receive))
 
 /obj/machinery/door/window/Destroy()
-	density = FALSE
+	set_density(FALSE)
 	air_update_turf(1)
 	QDEL_LIST(debris)
 	if(obj_integrity == 0)
@@ -72,9 +74,9 @@
 		close()
 
 /obj/machinery/door/window/Bumped(atom/movable/AM)
-	if( operating || !density )
+	if(operating || !density)
 		return
-	if (!( ismob(AM) ))
+	if(!ismob(AM))
 		if(ismecha(AM))
 			var/obj/mecha/mecha = AM
 			if(mecha.occupant && allowed(mecha.occupant))
@@ -82,7 +84,7 @@
 			else
 				do_animate("deny")
 		return
-	if (!( SSticker ))
+	if(!SSticker)
 		return
 	var/mob/M = AM
 	if(M.restrained() || ((isdrone(M) || iscyborg(M)) && M.stat))
@@ -90,7 +92,7 @@
 	bumpopen(M)
 
 /obj/machinery/door/window/bumpopen(mob/user)
-	if( operating || !density )
+	if(operating || !density)
 		return
 	add_fingerprint(user)
 	// Cutting WIRE_IDSCAN disables normal entry... or it would, if we could hack windowdoors.
@@ -132,7 +134,7 @@
 /obj/machinery/door/window/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
 
-	if(istype(leaving) && (leaving.pass_flags & PASSGLASS))
+	if(istype(leaving) && (leaving.pass_flags & PASSTRANSPARENT))
 		return
 
 	if(direction == dir && density)
@@ -140,7 +142,7 @@
 		return COMPONENT_ATOM_BLOCK_EXIT
 
 /obj/machinery/door/window/open(forced=FALSE)
-	if (operating) //doors can still open when emag-disabled
+	if(operating) //doors can still open when emag-disabled
 		return 0
 	if(!forced)
 		if(!hasPower())
@@ -153,9 +155,9 @@
 	do_animate("opening")
 	playsound(src, 'sound/machines/windowdoor.ogg', 100, 1)
 	icon_state ="[base_state]open"
-	sleep(10)
+	sleep(operationdelay)
 
-	density = FALSE
+	set_density(FALSE)
 	air_update_turf(1)
 	update_freelook_sight()
 
@@ -164,7 +166,7 @@
 	return 1
 
 /obj/machinery/door/window/close(forced=FALSE)
-	if (operating)
+	if(operating)
 		return 0
 	if(!forced)
 		if(!hasPower())
@@ -177,10 +179,10 @@
 	playsound(src, 'sound/machines/windowdoor.ogg', 100, 1)
 	icon_state = base_state
 
-	density = TRUE
+	set_density(TRUE)
 	air_update_turf(1)
 	update_freelook_sight()
-	sleep(10)
+	sleep(operationdelay)
 
 	operating = FALSE
 	return 1
@@ -214,16 +216,23 @@
 		take_damage(round(exposed_volume / 200), BURN, 0, 0)
 	..()
 
-/obj/machinery/door/window/emag_act(mob/user)
-	if(!operating && density && !(obj_flags & EMAGGED))
-		obj_flags |= EMAGGED
-		operating = TRUE
-		flick("[base_state]spark", src)
-		playsound(src, "sparks", 75, 1)
-		sleep(6)
-		operating = FALSE
-		desc += "<BR><span class='warning'>Its access panel is smoking slightly.</span>"
-		open(2)
+/obj/machinery/door/window/should_emag(mob/user)
+	// Don't allow emag if the door is currently open or moving
+	return !operating && density && ..()
+
+/obj/machinery/door/window/on_emag(mob/user)
+	..()
+	operating = TRUE
+	flick("[base_state]spark", src)
+	playsound(src, "sparks", 75, 1)
+	addtimer(CALLBACK(src, PROC_REF(after_emag)), 6)
+
+/obj/machinery/door/window/proc/after_emag()
+	if(QDELETED(src))
+		return
+	operating = FALSE
+	desc += "<BR><span class='warning'>Its access panel is smoking slightly.</span>"
+	open(2)
 
 /obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)
 
@@ -294,17 +303,25 @@
 	try_to_activate_door(null, user)
 
 /obj/machinery/door/window/try_to_activate_door(obj/item/I, mob/user)
-	if (..())
+	if(..())
 		autoclose = FALSE
 
 /obj/machinery/door/window/try_to_crowbar(obj/item/I, mob/user)
-	if(!hasPower())
-		if(density)
-			open(2)
+	if(density)
+		if(!HAS_TRAIT(I, TRAIT_DOOR_PRYER) && hasPower())
+			to_chat(user, "<span class='warning'>The windoor's motors resist your efforts to force it!</span>")
+			return
+		else if(!hasPower())
+			to_chat(user, "<span class='warning'>You begin forcing open \the [src], the motors don't resist...</span>")
+			if(!do_after(user, 1 SECONDS, TRUE, src))
+				return
 		else
-			close(2)
+			to_chat(user, "<span class='warning'>You begin forcing open \the [src]...</span>")
+			if(!do_after(user, 5 SECONDS, TRUE, src))
+				return
+		open(2)
 	else
-		to_chat(user, "<span class='warning'>The door's motors resist your efforts to force it!</span>")
+		close(2)
 
 /obj/machinery/door/window/do_animate(animation)
 	switch(animation)
@@ -325,7 +342,7 @@
 		return
 
 	//Check radio signal jamming
-	if(is_jammed())
+	if(is_jammed(JAMMER_PROTECTION_WIRELESS))
 		return
 
 
@@ -341,11 +358,11 @@
 				return
 
 			if(density)
-				INVOKE_ASYNC(src, .proc/open)
+				INVOKE_ASYNC(src, PROC_REF(open))
 			else
-				INVOKE_ASYNC(src, .proc/close)
+				INVOKE_ASYNC(src, PROC_REF(close))
 		if("touch")
-			INVOKE_ASYNC(src, .proc/open_and_close)
+			INVOKE_ASYNC(src, PROC_REF(open_and_close))
 
 /obj/machinery/door/window/brigdoor
 	name = "secure door"
@@ -373,8 +390,9 @@
 	shards = 0
 	rods = 0
 	max_integrity = 50
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 70, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 100, RAD = 100, FIRE = 70, ACID = 100, STAMINA = 0)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	operationdelay = 10
 	var/made_glow = FALSE
 
 /obj/machinery/door/window/clockwork/Initialize(mapload, set_dir)
@@ -410,7 +428,7 @@
 		var/previouscolor = color
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
-		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
 
 /obj/machinery/door/window/clockwork/ratvar_act()
 	return FALSE

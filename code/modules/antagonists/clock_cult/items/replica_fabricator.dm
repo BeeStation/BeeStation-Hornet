@@ -19,17 +19,17 @@
 	. = ..()
 	if(!proximity_flag || !is_servant_of_ratvar(user))
 		return
-	if(istype(target, /obj/item/stack/tile/brass/cyborg))	//nooooO!!!! you can't just suck up your cyborg brass!!! nooooo!!!!!!
+	if(istype(target, /obj/item/stack/sheet/brass/cyborg))	//nooooO!!!! you can't just suck up your cyborg brass!!! nooooo!!!!!!
 		return
-	if(istype(target, /obj/item/stack/tile/brass))
-		var/obj/item/stack/tile/brass/B = target
+	if(istype(target, /obj/item/stack/sheet/brass))
+		var/obj/item/stack/sheet/brass/B = target
 		qdel(B)
 		GLOB.clockcult_power += B.amount * BRASS_POWER_COST
 		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 		to_chat(user, "<span class='nzcrentr'>You convert [B.amount] brass into [B.amount * BRASS_POWER_COST] watts of power.</span>")
 	else if(istype(target, /obj/item/stack/sheet))
 		var/obj/item/stack/S = target
-		var/obj/item/stack/tile/brass/B = new(get_turf(S))
+		var/obj/item/stack/sheet/brass/B = new(get_turf(S))
 		B.amount = FLOOR(S.amount * 0.5, 1)
 		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 		to_chat(user, "<span class='nzcrentr'>You convert [S.amount] [S] into [S.amount] brass.</span>")
@@ -66,6 +66,6 @@
 	if(sheets == 0)
 		return
 	GLOB.clockcult_power -= sheets * BRASS_POWER_COST
-	new /obj/item/stack/tile/brass(target, sheets)
+	new /obj/item/stack/sheet/brass(target, sheets)
 	playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 	to_chat(user, "<span class='brass'>You fabricate [sheets] brass.</span>")

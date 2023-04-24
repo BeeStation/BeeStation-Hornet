@@ -75,8 +75,8 @@
 	var/side = zone == BODY_ZONE_R_ARM ? 2 : 1
 	hand = owner.hand_bodyparts[side]
 	if(hand)
-		RegisterSignal(hand, COMSIG_ITEM_ATTACK_SELF, .proc/on_item_attack_self) //If the limb gets an attack-self, open the menu. Only happens when hand is empty
-		RegisterSignal(M, COMSIG_KB_MOB_DROPITEM_DOWN, .proc/dropkey) //We're nodrop, but we'll watch for the drop hotkey anyway and then stow if possible.
+		RegisterSignal(hand, COMSIG_ITEM_ATTACK_SELF, PROC_REF(on_item_attack_self)) //If the limb gets an attack-self, open the menu. Only happens when hand is empty
+		RegisterSignal(M, COMSIG_KB_MOB_DROPITEM_DOWN, PROC_REF(dropkey)) //We're nodrop, but we'll watch for the drop hotkey anyway and then stow if possible.
 
 /obj/item/organ/cyberimp/arm/Remove(mob/living/carbon/M, special = 0)
 	Retract()
@@ -87,7 +87,7 @@
 
 /obj/item/organ/cyberimp/arm/proc/on_item_attack_self()
 	SIGNAL_HANDLER
-	INVOKE_ASYNC(src, .proc/ui_action_click)
+	INVOKE_ASYNC(src, PROC_REF(ui_action_click))
 
 /**
   * Called when the mob uses the "drop item" hotkey
@@ -230,21 +230,25 @@
 /obj/item/organ/cyberimp/arm/toolset
 	name = "integrated toolset implant"
 	desc = "A stripped-down version of the engineering cyborg toolset, designed to be installed on subject's arm. Contains advanced versions of every tool."
-	items_to_create = list(/obj/item/screwdriver/cyborg, /obj/item/wrench/cyborg, /obj/item/weldingtool/largetank/cyborg,
+	items_to_create = list(/obj/item/screwdriver/cyborg, /obj/item/wrench/cyborg, /obj/item/weldingtool/cyborg,
 		/obj/item/crowbar/cyborg, /obj/item/wirecutters/cyborg, /obj/item/multitool/cyborg)
 
 /obj/item/organ/cyberimp/arm/toolset/l
 	zone = BODY_ZONE_L_ARM
 
-/obj/item/organ/cyberimp/arm/toolset/emag_act(mob/user)
+/obj/item/organ/cyberimp/arm/toolset/should_emag(mob/user)
+	if(!..())
+		return FALSE
 	for(var/datum/weakref/created_item in items_list)
 		var/obj/potential_blade = created_item.resolve()
 		if(istype(/obj/item/melee/hydraulic_blade, potential_blade))
 			return FALSE
+	return TRUE
 
+/obj/item/organ/cyberimp/arm/toolset/on_emag(mob/user)
+	..()
 	to_chat(user, "<span class='notice'>You unlock [src]'s integrated blade!</span>")
 	items_list += WEAKREF(new /obj/item/melee/hydraulic_blade(src))
-	return TRUE
 
 /obj/item/organ/cyberimp/arm/esword
 	name = "arm-mounted energy blade"
@@ -338,7 +342,8 @@
 	desc = "A set of janitorial tools on the user's arm."
 	items_to_create = list(/obj/item/lightreplacer/cyborg, /obj/item/holosign_creator/janibarrier, /obj/item/soap/nanotrasen, /obj/item/reagent_containers/spray/cyborg/drying_agent, /obj/item/mop/advanced/cyborg, /obj/item/paint/paint_remover, /obj/item/reagent_containers/spray/cleaner)
 
-/obj/item/organ/cyberimp/arm/janitor/emag_act(mob/user)
+/obj/item/organ/cyberimp/arm/janitor/on_emag(mob/user)
+	..()
 	to_chat(usr, "<span class='notice'>You unlock [src]'s integrated deluxe cleaning supplies!</span>")
 	items_list += WEAKREF(new /obj/item/soap/syndie(src)) //We add not replace.
 	items_list += WEAKREF(new /obj/item/reagent_containers/spray/cyborg/lube(src))

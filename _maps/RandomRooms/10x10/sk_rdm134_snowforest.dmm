@@ -3,33 +3,9 @@
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"b" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
-"c" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
 "d" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
-"e" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
@@ -44,15 +20,6 @@
 /obj/structure/flora/bush,
 /turf/open/floor/plating/asteroid/snow,
 /area/template_noop)
-"i" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
 "j" = (
 /obj/structure/flora/tree/pine,
 /turf/open/floor/plating/asteroid/snow,
@@ -61,31 +28,9 @@
 /obj/effect/spawner/lootdrop/gloves,
 /turf/open/floor/plating/asteroid/snow,
 /area/template_noop)
-"l" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
 "m" = (
 /obj/item/dnainjector/geladikinesis,
 /turf/open/floor/plating/asteroid/snow,
-/area/template_noop)
-"n" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
 /area/template_noop)
 "o" = (
 /obj/item/soap,
@@ -121,25 +66,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"w" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
-"x" = (
-/obj/machinery/light,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
 "y" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -167,21 +93,75 @@
 /obj/item/nullrod/chainsaw,
 /turf/open/floor/plating/asteroid/snow,
 /area/template_noop)
+"G" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"L" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"M" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"O" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"P" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"S" = (
+/obj/machinery/light,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"T" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"Z" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
 
 (1,1,1) = {"
 a
-e
-e
-l
-e
-e
-l
-e
-e
+G
+G
+L
+G
+G
+L
+G
+G
 v
 "}
 (2,1,1) = {"
-b
+Z
 f
 f
 h
@@ -190,10 +170,10 @@ f
 f
 f
 z
-w
+M
 "}
 (3,1,1) = {"
-b
+Z
 g
 j
 f
@@ -202,10 +182,10 @@ f
 q
 j
 f
-w
+M
 "}
 (4,1,1) = {"
-c
+O
 s
 f
 m
@@ -214,10 +194,10 @@ p
 f
 f
 h
-x
+S
 "}
 (5,1,1) = {"
-b
+Z
 C
 f
 f
@@ -226,10 +206,10 @@ h
 r
 s
 f
-w
+M
 "}
 (6,1,1) = {"
-b
+Z
 z
 h
 f
@@ -238,10 +218,10 @@ f
 f
 t
 h
-w
+M
 "}
 (7,1,1) = {"
-c
+O
 h
 f
 D
@@ -250,10 +230,10 @@ j
 f
 f
 u
-x
+S
 "}
 (8,1,1) = {"
-b
+Z
 f
 f
 s
@@ -262,10 +242,10 @@ f
 B
 j
 f
-w
+M
 "}
 (9,1,1) = {"
-b
+Z
 f
 k
 j
@@ -274,17 +254,17 @@ f
 f
 f
 f
-w
+M
 "}
 (10,1,1) = {"
 d
-i
-i
-n
-i
-i
-n
-i
-i
+T
+T
+P
+T
+T
+P
+T
+T
 y
 "}

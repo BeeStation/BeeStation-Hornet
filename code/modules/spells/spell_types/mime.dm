@@ -92,7 +92,7 @@
 	for (var/obj/item/storage/box/mime/B in T)
 		user.put_in_hands(B)
 		B.alpha = 255
-		addtimer(CALLBACK(B, /obj/item/storage/box/mime/.proc/emptyStorage, FALSE), (summon_lifespan - 1))
+		addtimer(CALLBACK(B, TYPE_PROC_REF(/obj/item/storage/box/mime, emptyStorage), FALSE), (summon_lifespan - 1))
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/mime_box/Click()
 	if(usr && usr.mind)
@@ -142,6 +142,8 @@
 		else
 			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "vow", /datum/mood_event/broken_vow)
 			to_chat(H, "<span class='notice'>You break your vow of silence.</span>")
+			for(var/datum/objective/crew/vow/obj in H.mind.crew_objectives)
+				obj.broken = TRUE
 
 // These spells can only be gotten from the "Guide for Advanced Mimery series" for Mime Traitors.
 

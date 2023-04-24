@@ -37,7 +37,7 @@
 	playsound(src, 'sound/machines/click.ogg', 50)
 	if(occupant)
 		to_chat(occupant, "<span class='notice'>You enter [src]</span>")
-		addtimer(CALLBACK(src, .proc/begin_conversion), 20, TIMER_OVERRIDE|TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(begin_conversion)), 20, TIMER_OVERRIDE|TIMER_UNIQUE)
 		update_icon()
 
 /obj/machinery/species_converter/open_machine(mob/user)
@@ -138,11 +138,9 @@
 		changed = TRUE
 		to_chat(user, "<span class='notice'>You change \the [src]'s desired race setting to [initial(desired_race.name)].</span>")
 
-/obj/machinery/species_converter/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
+/obj/machinery/species_converter/on_emag(mob/user)
+	..()
 	dangerous = TRUE
 	brainwash = prob(30)
 	changed = FALSE
-	obj_flags |= EMAGGED
 	to_chat(user, "<span class='warning'>You quitely disable \the [src]'s safety measures.</span>")

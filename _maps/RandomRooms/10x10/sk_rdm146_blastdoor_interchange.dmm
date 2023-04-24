@@ -1,4 +1,10 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"at" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
 "aC" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/four,
@@ -110,6 +116,13 @@
 	dir = 9
 	},
 /turf/open/floor/plating,
+/area/template_noop)
+"jp" = (
+/obj/machinery/vending/cigarette,
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
 /area/template_noop)
 "kf" = (
 /obj/machinery/button/door{
@@ -223,16 +236,6 @@
 	icon_state = "platingdmg1"
 	},
 /area/template_noop)
-"xF" = (
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
 "xK" = (
 /obj/effect/turf_decal/stripes{
 	dir = 8
@@ -254,18 +257,29 @@
 /obj/effect/turf_decal/stripes,
 /turf/open/floor/plating,
 /area/template_noop)
-"Bi" = (
-/obj/effect/turf_decal/tile/red{
+"At" = (
+/obj/effect/turf_decal/stripes{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
 	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"BA" = (
+/obj/structure/barricade/security/ctf,
+/obj/effect/turf_decal/tile/red/anticorner/contrasted,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "Cq" = (
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/plating,
+/area/template_noop)
+"HP" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
 /area/template_noop)
 "IK" = (
 /obj/machinery/light/small,
@@ -276,31 +290,6 @@
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/template_noop)
-"LZ" = (
-/obj/machinery/vending/cigarette,
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
-"Nt" = (
-/obj/effect/turf_decal/stripes{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
 /area/template_noop)
 "Nx" = (
 /obj/effect/turf_decal/stripes/red/line{
@@ -336,17 +325,6 @@
 /obj/machinery/light/small,
 /turf/open/floor/plating,
 /area/template_noop)
-"Sn" = (
-/obj/structure/barricade/security/ctf,
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
 "Va" = (
 /obj/structure/closet/toolcloset,
 /turf/open/floor/plasteel,
@@ -369,8 +347,8 @@ hM
 fn
 hZ
 hM
-LZ
-Bi
+jp
+HP
 wg
 "}
 (2,1,1) = {"
@@ -381,7 +359,7 @@ hM
 iv
 zD
 hh
-Nt
+At
 hZ
 wy
 "}
@@ -393,9 +371,9 @@ bd
 go
 bH
 hM
-xF
+at
 wd
-Sn
+BA
 "}
 (4,1,1) = {"
 hh

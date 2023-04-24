@@ -5,8 +5,6 @@
 /// Within given range, but not counting z-levels
 #define IN_GIVEN_RANGE(source, other, given_range) (get_dist(source, other) <= given_range && (get_step(source, 0)?:z) == (get_step(other, 0)?:z))
 
-#define ismovableatom(A) ismovable(A)
-
 #define isatom(A) (isloc(A))
 
 #define isdatum(thing) (istype(thing, /datum))
@@ -37,6 +35,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define isfloorturf(A) (istype(A, /turf/open/floor))
 
+#define isanyfloor(A) (isfloorturf(A) || isindestructiblefloor(A))
+
 #define isclosedturf(A) (istype(A, /turf/closed))
 
 #define isindestructiblewall(A) (istype(A, /turf/closed/indestructible))
@@ -50,6 +50,11 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define ischasm(A) (istype(A, /turf/open/chasm))
 
 #define isplatingturf(A) (istype(A, /turf/open/floor/plating))
+
+// Temporary, but the code needs a way to differentiate if transparent turfs are added in the future.
+#define istransparentturf(A) (istype(A, /turf/open/openspace))
+
+#define isopenspace(A) (istype(A, /turf/open/openspace))
 
 //Mobs
 #define isliving(A) (istype(A, /mob/living))
@@ -137,6 +142,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define iscat(A) (istype(A, /mob/living/simple_animal/pet/cat))
 
 #define iscorgi(A) (istype(A, /mob/living/simple_animal/pet/dog/corgi))
+
+#define isdog(A) (istype(A, /mob/living/simple_animal/pet/dog))
 
 #define ishostile(A) (istype(A, /mob/living/simple_animal/hostile))
 
@@ -284,6 +291,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define isblobmonster(O) (istype(O, /mob/living/simple_animal/hostile/blob))
 
 #define isshuttleturf(T) (length(T.baseturfs) && (/turf/baseturf_skipover/shuttle in T.baseturfs))
+
+#define IS_EDIBLE(O) (O.GetComponent(/datum/component/edible))
 
 /// isnum() returns TRUE for NaN. Also, NaN != NaN. Checkmate, BYOND.
 #define isnan(x) ( (x) != (x) )

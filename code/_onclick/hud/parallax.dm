@@ -2,19 +2,16 @@
 /client
 	var/list/parallax_layers
 	var/list/parallax_layers_cached
-	var/atom/movable/movingmob
 	var/turf/previous_turf
-	var/dont_animate_parallax //world.time of when we can state animate()ing parallax again
-	var/last_parallax_shift //world.time of last update
-	var/parallax_throttle = 0 //ds between updates
 	var/parallax_movedir = 0
 	var/parallax_layers_max = 4
 	var/parallax_animate_timer
+	var/frozen_parallax
 
 /datum/hud/proc/create_parallax(mob/viewmob)
 	var/mob/screenmob = viewmob || mymob
 	var/client/C = screenmob.client
-	if (!apply_parallax_pref(viewmob)) //don't want shit computers to crash when specing someone with insane parallax, so use the viewer's pref
+	if (!C || !apply_parallax_pref(viewmob)) //don't want shit computers to crash when specing someone with insane parallax, so use the viewer's pref
 		return
 
 	if(!length(C.parallax_layers_cached))
@@ -65,17 +62,14 @@
 			pref = PARALLAX_HIGH
 		switch(C.prefs.parallax)
 			if (PARALLAX_INSANE)
-				C.parallax_throttle = FALSE
 				C.parallax_layers_max = 5
 				return TRUE
 
 			if (PARALLAX_MED)
-				C.parallax_throttle = PARALLAX_DELAY_MED
 				C.parallax_layers_max = 3
 				return TRUE
 
 			if (PARALLAX_LOW)
-				C.parallax_throttle = PARALLAX_DELAY_LOW
 				C.parallax_layers_max = 1
 				return TRUE
 
@@ -83,7 +77,6 @@
 				return FALSE
 
 	//This is high parallax.
-	C.parallax_throttle = PARALLAX_DELAY_DEFAULT
 	C.parallax_layers_max = 4
 	return TRUE
 
@@ -108,7 +101,6 @@
 			var/T = PARALLAX_LOOP_TIME / L.speed
 			if (T > animate_time)
 				animate_time = T
-		C.dont_animate_parallax = world.time + min(animate_time, PARALLAX_LOOP_TIME)
 		animatedir = C.parallax_movedir
 
 	var/matrix/newtransform
@@ -141,7 +133,7 @@
 	C.parallax_movedir = new_parallax_movedir
 	if (C.parallax_animate_timer)
 		deltimer(C.parallax_animate_timer)
-	var/datum/callback/CB = CALLBACK(src, .proc/update_parallax_motionblur, C, animatedir, new_parallax_movedir, newtransform)
+	var/datum/callback/CB = CALLBACK(src, PROC_REF(update_parallax_motionblur), C, animatedir, new_parallax_movedir, newtransform)
 	if(skip_windups)
 		CB.Invoke()
 	else
@@ -170,8 +162,28 @@
 		animate(L, transform = matrix(), time = T, loop = -1)
 		animate(transform = newtransform, time = 0, loop = -1)
 
+/datum/hud/proc/freeze_parallax()
+	var/client/C = mymob.client
+	var/turf/posobj = get_turf(C.eye)
+	if(!posobj)
+		return
+	var/area/areaobj = posobj.loc
+
+	// Update the movement direction of the parallax if necessary (for shuttles)
+	set_parallax_movedir(areaobj.parallax_movedir, FALSE)
+
+	for(var/atom/movable/screen/parallax_layer/L as() in C.parallax_layers)
+		if (L.view_sized != C.view)
+			L.update_o(C.view)
+		L.update_status(mymob)
+		if(!C.frozen_parallax)
+			L.screen_loc = "CENTER-7:0,CENTER-7:0"
+			C.frozen_parallax = TRUE
+
 /datum/hud/proc/update_parallax()
 	var/client/C = mymob.client
+	if(!C)
+		return
 	var/turf/posobj = get_turf(C.eye)
 	if(!posobj)
 		return
@@ -185,9 +197,6 @@
 		C.previous_turf = posobj
 		force = TRUE
 
-	if (!force && world.time < C.last_parallax_shift+C.parallax_throttle)
-		return
-
 	//Doing it this way prevents parallax layers from "jumping" when you change Z-Levels.
 	var/offset_x = posobj.x - C.previous_turf.x
 	var/offset_y = posobj.y - C.previous_turf.y
@@ -195,10 +204,7 @@
 	if(!offset_x && !offset_y && !force)
 		return
 
-	var/last_delay = world.time - C.last_parallax_shift
-	last_delay = min(last_delay, C.parallax_throttle)
 	C.previous_turf = posobj
-	C.last_parallax_shift = world.time
 
 	for(var/thing in C.parallax_layers)
 		var/atom/movable/screen/parallax_layer/L = thing
@@ -210,8 +216,12 @@
 		var/change_y
 
 		if(L.absolute)
-			L.offset_x = -(posobj.x - SSparallax.planet_x_offset) * L.speed
-			L.offset_y = -(posobj.y - SSparallax.planet_y_offset) * L.speed
+			var/new_offset_x = -(posobj.x - SSparallax.planet_x_offset) * L.speed
+			var/new_offset_y = -(posobj.y - SSparallax.planet_y_offset) * L.speed
+			change_x = new_offset_x - L.offset_x
+			change_y = new_offset_y - L.offset_y
+			L.offset_x = new_offset_x
+			L.offset_y = new_offset_y
 		else
 			change_x = offset_x * L.speed
 			L.offset_x -= change_x
@@ -227,18 +237,11 @@
 			if(L.offset_y < -240)
 				L.offset_y += 480
 
-
-		if(!areaobj.parallax_movedir && C.dont_animate_parallax <= world.time && (offset_x || offset_y) && abs(offset_x) <= max(C.parallax_throttle/world.tick_lag+1,1) && abs(offset_y) <= max(C.parallax_throttle/world.tick_lag+1,1) && (round(abs(change_x)) > 1 || round(abs(change_y)) > 1))
+		if(L.smooth_movement && !areaobj.parallax_movedir && (offset_x || offset_y))
 			L.transform = matrix(1, 0, offset_x*L.speed, 0, 1, offset_y*L.speed)
-			animate(L, transform=matrix(), time = last_delay)
+			animate(L, transform=matrix(), time = SSparallax.wait, flags = ANIMATION_PARALLEL)
 
 		L.screen_loc = "CENTER-7:[round(L.offset_x,1)],CENTER-7:[round(L.offset_y,1)]"
-
-/atom/movable/proc/update_parallax_contents()
-	if(length(client_mobs_in_contents))
-		for(var/mob/client_mob as anything in client_mobs_in_contents)
-			if(length(client_mob?.client?.parallax_layers) && client_mob.hud_used)
-				client_mob.hud_used.update_parallax()
 
 /mob/proc/update_parallax_teleport()	//used for arrivals shuttle
 	if(client && client.eye && hud_used && length(client.parallax_layers))
@@ -252,6 +255,7 @@
 	var/offset_y = 0
 	var/view_sized
 	var/absolute = FALSE
+	var/smooth_movement = FALSE
 	blend_mode = BLEND_ADD
 	plane = PLANE_SPACE_PARALLAX
 	screen_loc = "CENTER-7,CENTER-7"
@@ -303,7 +307,7 @@
 
 /atom/movable/screen/parallax_layer/random
 	blend_mode = BLEND_OVERLAY
-	speed = 3
+	speed = 2.6
 	layer = 3
 
 /atom/movable/screen/parallax_layer/random/space_gas
@@ -314,6 +318,7 @@
 
 /atom/movable/screen/parallax_layer/random/asteroids
 	icon_state = "random_layer2"
+	smooth_movement = TRUE
 
 /atom/movable/screen/parallax_layer/planet
 	icon_state = "planet"
@@ -321,6 +326,7 @@
 	absolute = TRUE //Status of seperation
 	speed = 3
 	layer = 30
+	smooth_movement = TRUE
 
 /atom/movable/screen/parallax_layer/planet/update_status(mob/M)
 	var/turf/T = get_turf(M)

@@ -9,11 +9,13 @@
 	var/allow_silicons = FALSE
 	var/allow_emag = FALSE
 
-/obj/machinery/computer/shuttle_flight/ferry/emag_act(mob/user)
+/obj/machinery/computer/shuttle_flight/ferry/should_emag(mob/user)
+	if(!..())
+		return FALSE
 	if(!allow_emag)
 		to_chat(user, "<span class='warning'>[src]'s security firewall is far too powerful for you to bypass.</span>")
 		return FALSE
-	return ..()
+	return TRUE
 
 /obj/machinery/computer/shuttle_flight/ferry/attack_ai()
 	return allow_silicons ? ..() : FALSE

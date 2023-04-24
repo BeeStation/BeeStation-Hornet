@@ -149,7 +149,7 @@
 		if(user.buckled && isobj(user.buckled) && !user.buckled.anchored)
 			var/obj/B = user.buckled
 			var/movementdirection = turn(direction,180)
-			addtimer(CALLBACK(src, /obj/item/extinguisher/proc/move_chair, B, movementdirection), 1)
+			addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/extinguisher, move_chair), B, movementdirection), 1)
 
 		else
 			user.newtonian_move(turn(direction, 180))
@@ -165,7 +165,7 @@
 			the_targets.Add(T3,T4)
 
 		var/list/water_particles = list()
-		for(var/a=0, a<5, a++)
+		for(var/a in 1 to 5)
 			var/obj/effect/particle_effect/water/extinguisher/water = new /obj/effect/particle_effect/water/extinguisher(get_turf(src))
 			var/my_target = pick(the_targets)
 			water_particles[water] = my_target
@@ -188,18 +188,28 @@
 
 //Chair movement loop
 /obj/item/extinguisher/proc/move_chair(obj/buckled_object, movementdirection)
+	//Only move things with weak move resist
+	if (buckled_object.move_resist > MOVE_FORCE_NORMAL)
+		return
 	var/datum/move_loop/loop = SSmove_manager.move(buckled_object, movementdirection, 1, timeout = 9, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
 	//This means the chair slowing down is dependant on the extinguisher existing, which is weird
 	//Couldn't figure out a better way though
-	RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, .proc/manage_chair_speed)
+	RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(manage_chair_speed))
 
 /obj/item/extinguisher/proc/manage_chair_speed(datum/move_loop/move/source)
 	SIGNAL_HANDLER
+	var/multiplier = 3
+	if (source.moving.move_resist <= MOVE_FORCE_VERY_WEAK)
+		multiplier = 1
+	else if(source.moving.move_resist <= MOVE_FORCE_WEAK)
+		multiplier = 2
 	switch(source.lifetime)
-		if(5 to 4)
-			source.delay = 2
-		if(3 to 1)
-			source.delay = 3
+		if(6 to INFINITY)
+			source.delay = multiplier
+		if(4 to 5)
+			source.delay = multiplier + 1
+		if(1 to 3)
+			source.delay = multiplier + 2
 
 /obj/item/extinguisher/AltClick(mob/user)
 	if(!user.canUseTopic(src, BE_CLOSE, ismonkey(user)))

@@ -391,7 +391,7 @@
 			. = TRUE
 		if("remove")
 			. = TRUE
-			if(usr && alert(usr, "Are you sure?", "Unlink Launchpad", "I'm Sure", "Abort") != "Abort")
+			if(usr && alert(usr, "Are you sure?", "Unlink Launchpad", "I'm Sure", "Abort") == "I'm Sure")
 				pad = null
 		if("launch")
 			sending = TRUE

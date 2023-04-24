@@ -50,8 +50,8 @@ Everything else should be handled for you. Good luck soldier.
 	. = ..()
 	if(!istype(parent, /obj/item/gun)) //Needs at least this base prototype.
 		return COMPONENT_INCOMPATIBLE
-	RegisterSignal(parent, COMSIG_AUTOFIRE_END, .proc/unset_target) //Called when they mouse up on their gun.
-	RegisterSignal(parent, COMSIG_ITEM_DROPPED, .proc/unset_target) //If you unequip your weapon
+	RegisterSignal(parent, COMSIG_AUTOFIRE_END, PROC_REF(unset_target)) //Called when they mouse up on their gun.
+	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(unset_target)) //If you unequip your weapon
 
 /datum/component/full_auto/proc/set_target(atom/target)
 	//Preconditions: Parent has prototype "gun", the gun stand user is a living mob.

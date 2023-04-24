@@ -125,7 +125,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	var/antimagic_allowed = FALSE // If false, the spell cannot be cast while under the effect of antimagic
 	var/invocation = "HURP DURP" //what is uttered when the wizard casts the spell
 	var/invocation_emote_self = null
-	var/invocation_type = "none" //can be none, whisper, emote and shout
+	var/invocation_type = INVOCATION_NONE //can be none, whisper, emote and shout
 	var/range = 7 //the range of the spell; outer radius for aoe spells
 	var/message = "" //whatever it says to the guy affected by it
 	var/selection_type = "view" //can be "range" or "view"
@@ -360,7 +360,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 			spell.icon = overlay_icon
 			spell.icon_state = overlay_icon_state
 			spell.anchored = TRUE
-			spell.density = FALSE
+			spell.set_density(FALSE)
 			QDEL_IN(spell, overlay_lifespan)
 
 /obj/effect/proc_holder/spell/proc/after_cast(list/targets)
@@ -497,7 +497,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 				if(!can_target(target))
 					continue
 				possible_targets += target
-			for(var/i=1,i<=max_targets,i++)
+			for(var/i in 1 to max_targets)
 				if(!possible_targets.len)
 					break
 				if(target_ignore_prev)
@@ -617,7 +617,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	timer_overlay.alpha = 180
 
 	if(!text_overlay)
-		text_overlay = image(loc = action.button, layer=ABOVE_HUD_LAYER)
+		text_overlay = image(loc = action.button)
 		text_overlay.maptext_width = 64
 		text_overlay.maptext_height = 64
 		text_overlay.maptext_x = -8
@@ -627,7 +627,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	if(action.owner?.client)
 		action.owner.client.images += text_overlay
 
-	action.button.add_overlay(timer_overlay, TRUE)
+	action.button.add_overlay(timer_overlay)
 	action.has_cooldown_timer = TRUE
 	update_timer_animation()
 
@@ -645,7 +645,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	timer_overlay_active = FALSE
 	if(action.owner?.client)
 		action.owner.client.images -= text_overlay
-	action.button.cut_overlay(timer_overlay, TRUE)
+	action.button.cut_overlays(timer_overlay)
 	timer_overlay = null
 	qdel(text_overlay)
 	text_overlay = null
@@ -672,7 +672,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	charge_max = 100
 	cooldown_min = 50
 	invocation = "Victus sano!"
-	invocation_type = "whisper"
+	invocation_type = INVOCATION_WHISPER
 	school = "restoration"
 	sound = 'sound/magic/staff_healing.ogg'
 

@@ -23,7 +23,7 @@
 	refill_canister = /obj/item/vending_refill/robotics
 	default_price = 50
 	extra_price = 75
-	payment_department = ACCOUNT_SCI
+	dept_req_for_free = ACCOUNT_SCI_BITFLAG
 
 /obj/item/vending_refill/robotics
 	machine_name = "Robotech Deluxe"

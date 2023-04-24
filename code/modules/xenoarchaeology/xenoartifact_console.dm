@@ -14,13 +14,18 @@
 		/obj/item/stack/cable_coil = 1)
 	def_components = list(/obj/item/stack/ore/bluespace_crystal = /obj/item/stack/ore/bluespace_crystal/artificial)
 
+///Stability lost on purchase
+#define STABILITY_COST 30
+///Stability gained on-tick
+#define STABILITY_GAIN 5
+
 /obj/machinery/computer/xenoartifact_console
 	name = "research and development listing console"
 	desc = "A science console used to source sellers, and buyers, for various blacklisted research objects."
 	icon_screen = "xenoartifact_console"
 	icon_keyboard = "rd_key"
 	circuit = /obj/item/circuitboard/computer/xenoartifact_console
-	
+
 	///Sellers give artifacts
 	var/list/sellers = list()
 	///Buyers take artifacts
@@ -33,17 +38,19 @@
 	var/obj/machinery/xenoartifact_inbox/linked_inbox
 	///List of linked machines for UI purposes
 	var/list/linked_machines = list()
-	///Which science server recieves points
+	///Which science server receives points
 	var/datum/techweb/linked_techweb
 	///Actually just a general list of items you've sold
 	var/list/sold_artifacts = list()
-	///Which department's budget recieves profit
+	///Which department's budget receives profit
 	var/datum/bank_account/budget
+	///Stability - lowers as people buy artifacts, stops spam buying
+	var/stability = 100
 
 /obj/machinery/computer/xenoartifact_console/Initialize()
 	. = ..()
 	linked_techweb = SSresearch.science_tech
-	budget = SSeconomy.get_dep_account(ACCOUNT_SCI)
+	budget = SSeconomy.get_budget_account(ACCOUNT_SCI_ID)
 	sync_devices()
 	for(var/I in 1 to XENOA_MAX_VENDORS) //Add initial buyers and sellers
 		var/datum/xenoartifact_seller/S = new
@@ -53,6 +60,22 @@
 		var/datum/xenoartifact_seller/buyer/B = new
 		buyers += B
 		B.generate()
+	//Start processing to gain stability
+	START_PROCESSING(SSobj, src)
+
+/obj/machinery/computer/xenoartifact_console/Destroy()
+	. = ..()
+	on_inbox_del()
+	qdel(sellers)
+	qdel(buyers)
+	qdel(sold_artifacts)
+	STOP_PROCESSING(SSobj, src)
+
+/obj/machinery/computer/xenoartifact_console/process()
+	stability = min(100, stability + STABILITY_GAIN)
+	//Update UI every 3 seconds, may be delayed
+	if(world.time % 3 == 0)
+		ui_update()
 
 /obj/machinery/computer/xenoartifact_console/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -85,11 +108,12 @@
 			"main" = E.main, //Sold time
 			"gain" = E.gain, //Profits
 			"traits" = E.traits //traits
-		))	
+		))
 	data["tab_index"] = tab_index
 	data["current_tab"] = current_tab
 	data["tab_info"] = current_tab_info
 	data["linked_machines"] = linked_machines
+	data["stability"] = stability
 
 	return data
 
@@ -115,27 +139,31 @@
 					current_tab_info = "Sell any export your department produces through open bluespace strings. Anonymously trade and sell ancient alien bombs, explosive slime cores, or just regular bombs."
 				if("Linking")
 					current_tab_info = "Link machines to the Listing Console."
-		else if(current_tab == t)
-			current_tab = ""
-			current_tab_info = ""
 		return
 	else //Buy xenoartifact
 		var/datum/xenoartifact_seller/S = locate(action)
+
+		if(stability < STABILITY_COST)
+			say("Error. Insufficient thread stability.")
+			return
 		if(!linked_inbox)
 			say("Error. No linked hardware.")
+			return
 		else if(budget.account_balance-S.price < 0)
 			say("Error. Insufficient funds.")
-		else if(linked_inbox && budget.account_balance-S.price >= 0)
+			return
+
+		if(linked_inbox && budget.account_balance-S.price >= 0)
 			var/obj/item/xenoartifact/A = new (get_turf(linked_inbox.loc), S.difficulty)
 			var/datum/component/xenoartifact_pricing/X = A.GetComponent(/datum/component/xenoartifact_pricing)
 			if(X)
 				X.price = S.price //dont bother trying to use internal singals for this
 				sellers -= S
+				stability = max(0, stability - STABILITY_COST)
 				budget.adjust_money(-1*S.price)
 				say("Purchase complete. [budget.account_balance] credits remaining in Research Budget")
-				addtimer(CALLBACK(src, .proc/generate_new_seller), (rand(1,3)*60) SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(generate_new_seller)), (rand(1,3)*60) SECONDS)
 				A = null
-
 	update_icon()
 
 //Auto sells item on pad, finds seller for you
@@ -148,7 +176,7 @@
 		for(var/datum/xenoartifact_seller/buyer/B as() in buyers)
 			if(istype(I, B.buying))
 				buyers -= B
-				addtimer(CALLBACK(src, .proc/generate_new_buyer), (rand(1,3)*60) SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(generate_new_buyer)), (rand(1,3)*60) SECONDS)
 				selling_item = I
 				break
 		if(selling_item)
@@ -165,8 +193,8 @@
 				//Give rewards
 				final_price = max(X.modifier*X.price, 1)
 				budget.adjust_money(final_price)
-				linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, (final_price*2.3) * (final_price >= X.price))
-				linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, (XENOA_SOLD_DP*(final_price/X.price)) * (final_price >= X.price))
+				linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, (final_price*XENOA_RP) * (final_price >= X.price))
+				linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, ((XENOA_SOLD_DP*(final_price/X.price)) * max(1, final_price/1000)) * (final_price >= X.price))
 
 				//Handle player info
 				entry.main = "[selling_item.name] sold at [station_time_timestamp()] for [final_price] credits, bought for [X.price]."
@@ -192,7 +220,7 @@
 			budget.adjust_money(final_price)
 			sold_artifacts += info
 			qdel(selling_item)
-	if(info)	
+	if(info)
 		say(info)
 
 
@@ -217,7 +245,7 @@
 			linked_machines += I.name
 			I.linked_console = src
 			I.RegisterSignal(src, COMSIG_PARENT_QDELETING, /obj/machinery/xenoartifact_inbox/proc/on_machine_del)
-			RegisterSignal(I, COMSIG_PARENT_QDELETING, .proc/on_inbox_del)
+			RegisterSignal(I, COMSIG_PARENT_QDELETING, PROC_REF(on_inbox_del))
 			say("Successfully linked [I].")
 			return
 	say("Unable to find linkable hadrware.")
@@ -227,12 +255,8 @@
 	UnregisterSignal(linked_inbox, COMSIG_PARENT_QDELETING)
 	linked_inbox = null
 
-/obj/machinery/computer/xenoartifact_console/Destroy()
-	. = ..()
-	on_inbox_del()
-	qdel(sellers)
-	qdel(buyers)
-	qdel(sold_artifacts)
+#undef STABILITY_COST
+#undef STABILITY_GAIN
 
 /obj/machinery/xenoartifact_inbox
 	name = "bluespace straythread pad" //Science words
@@ -271,21 +295,21 @@
 		if(701 to 800)
 			difficulty = XENOA_BANANIUM
 	price = price * rand(1.0, 1.5) //Measure of error for no particular reason
-	addtimer(CALLBACK(src, .proc/change_item), (rand(1,3)*60) SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(change_item)), (rand(1,3)*60) SECONDS)
 
 /datum/xenoartifact_seller/proc/change_item()
 	generate()
 
-/datum/xenoartifact_seller/buyer //Buyer off shoot, for player-selling 
+/datum/xenoartifact_seller/buyer //Buyer off shoot, for player-selling
 	var/obj/buying
 
 /datum/xenoartifact_seller/buyer/generate()
 	name = pick(GLOB.xenoa_seller_names)
 	buying = pick(/obj/item/xenoartifact)
 	if(buying == /obj/item/xenoartifact) //Don't bother trying to use istype here
-		dialogue = "[name] is requesting: Anomoly : Class : Artifact"
-	addtimer(CALLBACK(src, .proc/change_item), (rand(1,3)*60) SECONDS)
-	
+		dialogue = "[name] is requesting: Anomaly : Class : Artifact"
+	addtimer(CALLBACK(src, PROC_REF(change_item)), (rand(1,3)*60) SECONDS)
+
 //Used to hold information about artifact transactions. Might get standrardized sooner or later.
 /datum/xenoartifact_info_entry
 	var/main =""

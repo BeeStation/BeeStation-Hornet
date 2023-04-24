@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
+GLOBAL_LIST_EMPTY(tgui_panels)
+
 /**
  * tgui_panel datum
  * Hosts tgchat and other nice features.
@@ -12,11 +14,15 @@
 	var/datum/tgui_window/window
 	var/broken = FALSE
 	var/initialized_at
+	/// Owner of this tgui panel's CKEY, so it can be looked up later via GLOB.tgui_panels
+	var/owner_ckey
 
-/datum/tgui_panel/New(client/client)
+/datum/tgui_panel/New(client/client, id)
 	src.client = client
-	window = new(client, "browseroutput")
-	window.subscribe(src, .proc/on_message)
+	owner_ckey = ckey(client.ckey)
+	window = new(client, id)
+	window.subscribe(src, PROC_REF(on_message))
+	GLOB.tgui_panels += src
 
 /datum/tgui_panel/Del()
 	window.unsubscribe(src)
@@ -42,7 +48,8 @@
 	sleep(1)
 	initialized_at = world.time
 	// Perform a clean initialization
-	window.initialize(inline_assets = list(
+	window.initialize(assets = list(
+		strict_mode = TRUE,
 		get_asset_datum(/datum/asset/simple/tgui_panel),
 	))
 	window.send_asset(get_asset_datum(/datum/asset/simple/namespaced/fontawesome))
@@ -57,7 +64,7 @@
 	request_telemetry()
 	// Send verbs
 	set_verb_infomation(client)
-	addtimer(CALLBACK(src, .proc/on_initialize_timed_out), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(on_initialize_timed_out)), 5 SECONDS)
 
 /**
  * private

@@ -25,10 +25,16 @@ GLOBAL_PROTECT(href_token)
 
 	var/deadmined
 
+	var/ooc_confirmation_enabled = TRUE
+
 	//Admin help manager
-	var/datum/admin_help_ui/admin_interface
+	var/datum/help_ui/admin/admin_interface
 
 	var/datum/filter_editor/filteriffic
+	var/datum/particle_editor/particool
+
+	/// Player panel
+	var/datum/admin_player_panel/player_panel
 
 /datum/admins/New(datum/admin_rank/R, ckey, force_active = FALSE, protected)
 	if(IsAdminAdvancedProcCall())

@@ -19,19 +19,46 @@
 	var/map_path = "map_files/BoxStation"
 	var/map_file = "BoxStation.dmm"
 
+	//This should probably be refactored into a system like the regular configuration
+
 	var/traits = null
 	var/space_ruin_levels = 4	//Keep this low, as new ones are created dynamically when needed.
 	var/space_empty_levels = 1
 
+	///Type of the mining level to use
 	var/minetype = "lavaland"
 
+	///Does the map allow custom shuttles to be purchased
 	var/allow_custom_shuttles = TRUE
-	var/allow_night_lighting = TRUE
+	///Default list of json shuttles. Not all shuttles use this system; most use the template variable.
 	var/shuttles = list(
 		"cargo" = "cargo_box",
 		"ferry" = "ferry_fancy",
 		"whiteship" = "whiteship_box",
 		"emergency" = "emergency_box")
+
+	/// Is night lighting allowed to occur on this station?
+	var/allow_night_lighting = TRUE
+
+	//======
+	// planetary Settings
+	//======
+
+	/// Is this station considered a planet for the supercruise map
+	var/planetary_station = FALSE
+	/// The name of the planet on the supercruise map
+	var/planet_name = ""
+	/// Radius of the planet
+	var/planet_radius = 300
+	/// Supercruise planet gravity
+	var/planet_mass = 15000
+
+	//======
+	// Performance Settings
+	//======
+
+	/// Disable station level parallax. For levels which have no parallax background
+	var/no_station_parallax = FALSE
 
 /proc/load_map_config(filename = "next_map", foldername = DATA_DIRECTORY, default_to_box, delete_after, error_if_missing = TRUE)
 	if(IsAdminAdvancedProcCall())
@@ -132,14 +159,17 @@
 	if ("minetype" in json)
 		minetype = json["minetype"]
 
-	if("map_link" in json)						
+	if("map_link" in json)
 		map_link = json["map_link"]
 	else
 		log_world("map_link missing from json!")
 
 	allow_custom_shuttles = json["allow_custom_shuttles"] != FALSE
-
 	allow_night_lighting = json["allow_night_lighting"] != FALSE
+	planetary_station = !isnull(json["planetary_station"]) && json["planetary_station"] != FALSE
+	planet_name = json["planet_name"]
+	planet_mass = text2num(json["planet_mass"]) || planet_mass
+	planet_radius = text2num(json["planet_radius"]) || planet_radius
 
 	defaulted = FALSE
 	return TRUE

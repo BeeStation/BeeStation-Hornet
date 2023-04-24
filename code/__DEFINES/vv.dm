@@ -84,6 +84,9 @@
 #define VV_HK_TRIGGER_EXPLOSION "explode"
 #define VV_HK_AUTO_RENAME "auto_rename"
 #define VV_HK_EDIT_FILTERS "edit_filters"
+#define VV_HK_EDIT_PARTICLES "edit_particles"
+#define VV_HK_ADD_EMITTER "add_emitter"
+#define VV_HK_REMOVE_EMITTER "remove_emitter"
 #define VV_HK_ADD_AI "add_ai"
 
 // /datum/gas_mixture
@@ -100,6 +103,10 @@
 
 // /obj/item/card/id
 #define VV_ID_PAYDAY "id_payday"
+#define VV_ID_GIVE_MINING_POINT "id_give_mining_points"
+
+// /obj/machinery/vendor/exploration
+#define VV_ID_GIVE_EXPLO_POINT "id_give_explo_points"
 
 // /mob
 #define VV_HK_GIB "gib"

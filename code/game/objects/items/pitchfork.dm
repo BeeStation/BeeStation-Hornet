@@ -9,11 +9,12 @@
 	block_level = 1
 	block_upgrade_walk = 1
 	w_class = WEIGHT_CLASS_BULKY
+	item_flags = ISWEAPON
 	attack_verb = list("attacked", "impaled", "pierced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP
 	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30, STAMINA = 0)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/pitchfork/ComponentInitialize()

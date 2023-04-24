@@ -4,14 +4,14 @@
 	icon = 'icons/obj/machines/research.dmi'
 	icon_state = "ecto_sniffer"
 	density = FALSE
-	anchored = FALSE
+	anchored = TRUE
 	pass_flags = PASSTABLE
 	circuit = /obj/item/circuitboard/machine/ecto_sniffer
 	///determines if the device if the power switch is turned on or off. Useful if the ghosts are too annoying.
 	var/on = TRUE
 	///If this var set to false the ghosts will not be able interact with the machine, say if the machine is silently disabled by cutting the internal wire.
 	var/sensor_enabled = TRUE
-	///List of ckeys containing players who have recently activated the device, players on this list are prohibited from activating the device untill their residue decays.
+	///List of ckeys containing players who have recently activated the device, players on this list are prohibited from activating the device until their residue decays.
 	var/list/ectoplasmic_residues = list()
 
 /obj/machinery/ecto_sniffer/Initialize()
@@ -38,7 +38,8 @@
 	use_power(10)
 	if(activator?.ckey)
 		ectoplasmic_residues[activator.ckey] = TRUE
-		addtimer(CALLBACK(src, .proc/clear_residue, activator.ckey), 30 SECONDS)
+		activator.log_message("activated an ecto sniffer", LOG_ATTACK)
+		addtimer(CALLBACK(src, PROC_REF(clear_residue), activator.ckey), 30 SECONDS)
 
 /obj/machinery/ecto_sniffer/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
@@ -57,7 +58,8 @@
 
 
 /obj/machinery/ecto_sniffer/wrench_act(mob/living/user, obj/item/tool)
-	return default_unfasten_wrench(user, tool)
+	to_chat(user, "<span class='notice'>You need to deconstruct the [src] before moving it.</span>")
+	return TRUE
 
 /obj/machinery/ecto_sniffer/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()

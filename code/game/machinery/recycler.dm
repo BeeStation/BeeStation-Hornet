@@ -67,10 +67,8 @@
 		return
 	return ..()
 
-/obj/machinery/recycler/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+/obj/machinery/recycler/on_emag(mob/user)
+	..()
 	if(safety_mode)
 		safety_mode = FALSE
 		update_icon()
@@ -158,7 +156,7 @@
 	safety_mode = TRUE
 	update_icon()
 	L.forceMove(loc)
-	addtimer(CALLBACK(src, .proc/reboot), SAFETY_COOLDOWN)
+	addtimer(CALLBACK(src, PROC_REF(reboot)), SAFETY_COOLDOWN)
 
 /obj/machinery/recycler/proc/reboot()
 	playsound(src, 'sound/machines/ping.ogg', 50, 0)

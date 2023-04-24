@@ -22,6 +22,8 @@
 
 /datum/dynamic_ruleset/roundstart/traitor/pre_execute(population)
 	. = ..()
+	if (population < CONFIG_GET(number/malf_ai_minimum_pop))
+		restricted_roles |= JOB_NAME_AI
 	var/num_traitors = get_antag_cap(population) * (scaled_times + 1)
 	for (var/i = 1 to num_traitors)
 		if(candidates.len <= 0)
@@ -696,7 +698,7 @@
 	weight = 3
 	cost = 30
 	requirements = list(100,90,80,60,40,30,10,10,10,10)
-	flags = HIGH_IMPACT_RULESET
+	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET
 
 /datum/dynamic_ruleset/roundstart/hivemind/pre_execute(population)
 	. = ..()

@@ -3,7 +3,7 @@
 	desc = "Syndicate operatives can use a series of codewords to convey complex information, while sounding like random concepts and drinks to anyone listening in."
 	key = "t"
 	default_priority = 0
-	flags = TONGUELESS_SPEECH | LANGUAGE_HIDE_ICON_IF_NOT_UNDERSTOOD
+	flags = TONGUELESS_SPEECH | LANGUAGE_HIDE_ICON_IF_NOT_UNDERSTOOD_WITH_LINGUIST_TRAIT
 	icon_state = "codespeak"
 
 /datum/language/codespeak/scramble(input)
@@ -35,6 +35,7 @@
 	desc = "The book's cover reads: \"Codespeak(tm) - Secure your communication with metaphors so elaborate, they seem randomly generated!\""
 	icon = 'icons/obj/library.dmi'
 	icon_state = "book2"
+	item_flags = ISWEAPON
 	var/charges = 1
 
 /obj/item/codespeak_manual/attack_self(mob/living/user)

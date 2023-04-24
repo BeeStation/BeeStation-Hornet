@@ -147,6 +147,12 @@
 	outfit = /datum/outfit/centcom_intern/leader
 	role = "Head Intern"
 
+/datum/antagonist/ert/lawyer
+	name = "CentCom Attorney"
+	outfit = /datum/outfit/centcom_attorney
+	role = "Attorney"
+	plasmaman_outfit = /datum/outfit/plasmaman/centcom_attorney
+
 /datum/antagonist/ert/doomguy
 	name = "The Juggernaut"
 	outfit = /datum/outfit/death_commando/doomguy
@@ -202,10 +208,10 @@
 	else
 		missiondesc += " Follow orders given to you by your squad leader."
 
-		missiondesc += "Avoid civilian casualites when possible."
+		missiondesc += " Avoid civilian casualites when possible."
 
-	missiondesc += "<BR><B>Your Mission</B> : [ert_team.mission.explanation_text]"
-	missiondesc += "<BR><b>Your Shared Tracking Frequency</b> : <i>[ert_team.ert_frequency]</i>"
+	missiondesc += "<BR><B>Your Mission</B>: [ert_team.mission.explanation_text]"
+	missiondesc += "<BR><b>Your Shared Tracking Frequency</b>: <i>[ert_team.ert_frequency]</i>"
 
 	to_chat(owner,missiondesc)
 

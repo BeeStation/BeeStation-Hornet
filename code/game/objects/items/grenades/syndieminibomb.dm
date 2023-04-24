@@ -4,7 +4,6 @@
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "syndicate"
 	item_state = "flashbang"
-	ex_dev = 1
 	ex_heavy = 2
 	ex_light = 4
 	ex_flame = 2

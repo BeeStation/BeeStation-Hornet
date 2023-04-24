@@ -73,7 +73,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/start_cooldown()
 	set_ready_state(0)
 	chassis.use_power(energy_drain*get_shot_amount())
-	addtimer(CALLBACK(src, .proc/set_ready_state, 1), equip_cooldown)
+	addtimer(CALLBACK(src, PROC_REF(set_ready_state), 1), equip_cooldown)
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser
 	equip_cooldown = 8
@@ -94,13 +94,11 @@
 	projectile = /obj/item/projectile/beam/disabler
 	fire_sound = 'sound/weapons/taser2.ogg'
 
-/obj/item/mecha_parts/mecha_equipment/weapon/energy/disabler/emag_act(mob/user)
-	if(!(obj_flags & EMAGGED))
-		obj_flags |= EMAGGED
-		to_chat(user, "<span class='notice'>You disable [src]'s safety procedures, making it shoot harmful lasers.</span>")
-		projectile = /obj/item/projectile/beam/laser
-		harmful = TRUE
-
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/disabler/on_emag(mob/user)
+	..()
+	to_chat(user, "<span class='notice'>You disable [src]'s safety procedures, making it shoot harmful lasers.</span>")
+	projectile = /obj/item/projectile/beam/laser
+	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy
 	equip_cooldown = 15
@@ -364,7 +362,7 @@
 	var/turf/T = get_turf(src)
 	message_admins("[ADMIN_LOOKUPFLW(chassis.occupant)] fired a [src] in [ADMIN_VERBOSEJMP(T)]")
 	log_game("[key_name(chassis.occupant)] fired a [src] in [AREACOORD(T)]")
-	addtimer(CALLBACK(F, /obj/item/grenade/flashbang.proc/prime), det_time)
+	addtimer(CALLBACK(F, TYPE_PROC_REF(/obj/item/grenade/flashbang, prime)), det_time)
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/flashbang/clusterbang //Because I am a heartless bastard -Sieve //Heartless? for making the poor man's honkblast? - Kaze
 	name = "\improper SOB-3 grenade launcher"
@@ -455,7 +453,7 @@
 
 /obj/item/punching_glove/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(!..())
-		if(ismovableatom(hit_atom))
+		if(ismovable(hit_atom))
 			var/atom/movable/AM = hit_atom
 			AM.safe_throw_at(get_edge_target_turf(AM,get_dir(src, AM)), 7, 2)
 		qdel(src)

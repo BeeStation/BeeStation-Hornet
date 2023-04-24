@@ -24,7 +24,7 @@
 				I.forceMove(src)
 			if(contents.len >= capacity)
 				break
-	update_icon()
+	update_appearance()
 
 /obj/structure/guncase/update_icon()
 	cut_overlays()
@@ -49,7 +49,7 @@
 			if(!user.transferItemToLoc(I, src))
 				return
 			to_chat(user, "<span class='notice'>You place [I] in [src].</span>")
-			update_icon()
+			update_appearance()
 		else
 			to_chat(user, "<span class='warning'>[src] is full.</span>")
 		return
@@ -57,7 +57,7 @@
 	else if(user.a_intent != INTENT_HARM)
 		if (can_use() || open)
 			open = !open
-			update_icon()
+			update_appearance()
 		else
 			to_chat(user, "<span class='warning'>[src] is locked, the door won't budge!</span>")
 	else
@@ -83,7 +83,7 @@
 		return
 	if (can_use() || open)
 		open = !open
-		update_icon()
+		update_appearance()
 
 /obj/structure/guncase/proc/ShowWindow(mob/user)
 	var/dat = {"<div class='block'>
@@ -119,10 +119,10 @@
 		if(ishuman(usr))
 			if(!usr.put_in_hands(O))
 				O.forceMove(get_turf(src))
-			update_icon()
+			update_appearance()
 
 /obj/structure/guncase/handle_atom_del(atom/A)
-	update_icon()
+	update_appearance()
 
 /obj/structure/guncase/contents_explosion(severity, target)
 	for(var/thing in contents)

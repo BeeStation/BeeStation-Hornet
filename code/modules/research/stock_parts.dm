@@ -14,24 +14,59 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 	var/pshoom_or_beepboopblorpzingshadashwoosh = 'sound/items/rped.ogg'
 	var/alt_sound = null
 
-/obj/item/storage/part_replacer/pre_attack(obj/machinery/T, mob/living/user, params)
-	if(!istype(T) || !T.component_parts)
+/obj/item/storage/part_replacer/pre_attack(obj/attacked_object, mob/living/user, params)
+	if(!istype(attacked_object, /obj/machinery) && !istype(attacked_object, /obj/structure/frame/machine))
 		return ..()
-	if(user.Adjacent(T)) // no TK upgrading.
-		if(works_from_distance)
-			user.Beam(T, icon_state = "rped_upgrade", time = 5)
-		T.exchange_parts(user, src)
-		return FALSE
-	return ..()
 
-/obj/item/storage/part_replacer/afterattack(obj/machinery/T, mob/living/user, adjacent, params)
-	if(adjacent || !istype(T) || !T.component_parts)
+	if(!user.Adjacent(attacked_object)) // no TK upgrading.
+		return ..()
+
+	if(istype(attacked_object, /obj/machinery))
+		var/obj/machinery/attacked_machinery = attacked_object
+
+		if(!attacked_machinery.component_parts)
+			return ..()
+
+		if(works_from_distance)
+			user.Beam(attacked_machinery, icon_state = "rped_upgrade", time = 5)
+		attacked_machinery.exchange_parts(user, src)
+		return FALSE
+
+	var/obj/structure/frame/machine/attacked_frame = attacked_object
+
+	if(!attacked_frame.components)
 		return ..()
 	if(works_from_distance)
-		user.Beam(T, icon_state = "rped_upgrade", time = 5)
-		T.exchange_parts(user, src)
+		user.Beam(attacked_frame, icon_state = "rped_upgrade", time = 5)
+	attacked_frame.attackby(src, user)
+	return TRUE
+
+/obj/item/storage/part_replacer/afterattack(obj/attacked_object, mob/living/user, adjacent, params)
+	if(!istype(attacked_object, /obj/machinery) && !istype(attacked_object, /obj/structure/frame/machine))
+		return ..()
+
+	if(adjacent)
+		return ..()
+
+	if(istype(attacked_object, /obj/machinery))
+		var/obj/machinery/attacked_machinery = attacked_object
+
+		if(!attacked_machinery.component_parts)
+			return ..()
+
+		if(works_from_distance)
+			user.Beam(attacked_machinery, icon_state = "rped_upgrade", time = 5)
+			attacked_machinery.exchange_parts(user, src)
 		return
-	return ..()
+
+	var/obj/structure/frame/machine/attacked_frame = attacked_object
+
+	if(!attacked_frame.components)
+		return ..()
+
+	if(works_from_distance)
+		user.Beam(attacked_frame, icon_state = "rped_upgrade", time = 5)
+	attacked_frame.attackby(src, user)
 
 /obj/item/storage/part_replacer/proc/play_rped_sound()
 	//Plays the sound for RPED exhanging or installing parts.

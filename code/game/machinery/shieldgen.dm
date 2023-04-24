@@ -4,6 +4,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "shield-old"
 	density = TRUE
+	obj_flags = CAN_BE_HIT | BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 	move_resist = INFINITY
 	opacity = 0
 	anchored = TRUE
@@ -29,7 +30,7 @@
 		if(1)
 			qdel(src)
 		if(2)
-			take_damage(50, BRUTE, "energy", 0)
+			take_damage(50, BRUTE, ENERGY, 0)
 
 /obj/structure/emergency_shield/play_attack_sound(damage, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -197,11 +198,8 @@
 	else
 		return ..()
 
-/obj/machinery/shieldgen/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		to_chat(user, "<span class='warning'>The access controller is damaged!</span>")
-		return
-	obj_flags |= EMAGGED
+/obj/machinery/shieldgen/on_emag(mob/user)
+	..()
 	locked = FALSE
 	playsound(src, "sparks", 100, 1)
 	to_chat(user, "<span class='warning'>You short out the access controller.</span>")
@@ -234,7 +232,7 @@
 
 /obj/machinery/shieldwallgen/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_ATOM_SINGULARITY_TRY_MOVE, .proc/block_singularity_if_active)
+	RegisterSignal(src, COMSIG_ATOM_SINGULARITY_TRY_MOVE, PROC_REF(block_singularity_if_active))
 
 /obj/machinery/shieldwallgen/xenobiologyaccess		//use in xenobiology containment
 	name = "xenobiology shield wall generator"
@@ -398,11 +396,8 @@
 		update_activity()
 	add_fingerprint(user)
 
-/obj/machinery/shieldwallgen/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		to_chat(user, "<span class='warning'>The access controller is damaged!</span>")
-		return
-	obj_flags |= EMAGGED
+/obj/machinery/shieldwallgen/on_emag(mob/user)
+	..()
 	locked = FALSE
 	playsound(src, "sparks", 100, 1)
 	to_chat(user, "<span class='warning'>You short out the access controller.</span>")
@@ -414,6 +409,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "shieldwall"
 	density = TRUE
+	obj_flags = CAN_BE_HIT | BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	light_range = 3
 	var/needs_power = FALSE
@@ -430,7 +426,7 @@
 	for(var/mob/living/L in get_turf(src))
 		visible_message("<span class='danger'>\The [src] is suddenly occupying the same space as \the [L]!</span>")
 		L.gib()
-	RegisterSignal(src, COMSIG_ATOM_SINGULARITY_TRY_MOVE, .proc/block_singularity)
+	RegisterSignal(src, COMSIG_ATOM_SINGULARITY_TRY_MOVE, PROC_REF(block_singularity))
 
 /obj/machinery/shieldwall/Destroy()
 	gen_primary = null
@@ -470,7 +466,7 @@
 
 /obj/machinery/shieldwall/CanAllowThrough(atom/movable/mover, turf/target)
 	. = ..()
-	if(istype(mover) && (mover.pass_flags & PASSGLASS))
+	if(istype(mover) && (mover.pass_flags & PASSTRANSPARENT))
 		return prob(20)
 	else
 		if(istype(mover, /obj/item/projectile))

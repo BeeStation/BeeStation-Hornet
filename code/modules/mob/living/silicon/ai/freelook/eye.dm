@@ -89,7 +89,6 @@
 		if(ai.client && !ai.multicam_on)
 			ai.client.eye = src
 		update_ai_detect_hud()
-		update_parallax_contents()
 		//Holopad
 		if(istype(ai.current, /obj/machinery/holopad))
 			var/obj/machinery/holopad/H = ai.current
@@ -100,22 +99,23 @@
 			ai.master_multicam.refresh_view()
 
 //it uses setLoc not forceMove, talks to the sillycone and not the camera mob
-/mob/camera/ai_eye/zMove(dir, feedback = FALSE)
+/mob/camera/ai_eye/zMove(dir, feedback = FALSE, feedback_to = ai)
 	if(dir != UP && dir != DOWN)
 		return FALSE
+	var/turf/source = get_turf(src)
 	var/turf/target = get_step_multiz(src, dir)
 	if(!target)
 		if(feedback)
-			to_chat(ai, "<span class='warning'>There's nowhere to go in that direction!</span>")
+			to_chat(feedback_to, "<span class='warning'>There's nowhere to go in that direction!</span>")
 		return FALSE
-	if(!canZMove(dir, target))
+	if(!canZMove(dir, source, target))
 		if(feedback)
-			to_chat(ai, "<span class='warning'>You couldn't move there!</span>")
+			to_chat(feedback_to, "<span class='warning'>You couldn't move there!</span>")
 		return FALSE
 	setLoc(target, TRUE)
 	return TRUE
 
-/mob/camera/ai_eye/canZMove(direction, turf/target) //cameras do not respect these FLOORS you speak so much of
+/mob/camera/ai_eye/canZMove(direction, turf/source, turf/target, pre_move = TRUE) //cameras do not respect these FLOORS you speak so much of
 	return TRUE
 
 /mob/camera/ai_eye/Move()

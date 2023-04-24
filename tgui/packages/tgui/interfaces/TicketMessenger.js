@@ -1,8 +1,10 @@
-import { multiline, decodeHtmlEntities } from 'common/string';
-import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Flex, Input, Section, Table, Tabs, NoticeBox, Collapsible, BlockQuote, Slider, Divider } from '../components';
-import { Window, Layout } from '../layouts';
+import { decodeHtmlEntities } from 'common/string';
+import { useBackend } from '../backend';
+import { Box, Button, Input, Section, Table, Divider } from '../components';
+import { Window } from '../layouts';
 import { round } from 'common/math';
+import { ButtonConfirm } from '../components/Button';
+import { Component, createRef } from 'inferno';
 
 export const TicketMessenger = (props, context) => {
   return (
@@ -28,27 +30,29 @@ export const TicketActionBar = (props, context) => {
   const {
     disconnected,
     time_opened,
-    time_closed,
     world_time,
-    ticket_state,
-    claimee,
     claimee_key,
     antag_status,
     id,
     sender,
+    is_admin_type,
+    open,
   } = data;
   return (
     <Box>
       <Box
         bold
         inline>
-        Admin Help Ticket #{id} : {sender}
+        {is_admin_type ? "Admin" : "Mentor"} Help Ticket #{id} by {sender}
       </Box>
-      <Box
-        inline
-        color={antag_status==="None"?"green":"red"}>
-        Antag: {antag_status}
-      </Box>
+      {antag_status ? (
+        <>
+        &nbsp;|&nbsp;
+          <Box inline color={antag_status === 'None' ? 'green' : 'red'}>
+            Antag: {antag_status}
+          </Box>
+        </>
+      ) : null}
       <Box />
       <Box
         inline
@@ -58,7 +62,7 @@ export const TicketActionBar = (props, context) => {
       </Box>
       <Box
         inline>
-        |
+        &nbsp;|&nbsp;
       </Box>
       <Box
         inline
@@ -67,30 +71,32 @@ export const TicketActionBar = (props, context) => {
       </Box>
       <Box
         inline>
-        {" |"}
+        &nbsp;|&nbsp;
         <Button
-          color="transparent"
           content="Re-title"
           onClick={() => act("retitle")} />
-        |
-        <Button
-          color="transparent"
-          content="Reopen"
-          onClick={() => act("reopen")} />
-        |
+        {!open ? (
+          <>
+            &nbsp;|&nbsp;
+            <Button
+              content="Reopen"
+              onClick={() => act("reopen")} />
+          </>
+        ) : null}
       </Box>
+
       <Divider />
       <Box>
-        {disconnected
+        {is_admin_type ? (disconnected
           ? "DISCONNECTED"
-          : <TicketFullMonty /> }
-        <TicketClosureStates />
+          : <TicketFullMonty />) : null}
+        <TicketClosureStates admin={is_admin_type} />
       </Box>
     </Box>
   );
 };
 
-export const TicketFullMonty = (props, context) => {
+export const TicketFullMonty = (_, context) => {
   const { act } = useBackend(context);
   return (
     <Box inline>
@@ -130,30 +136,34 @@ export const TicketFullMonty = (props, context) => {
   );
 };
 
-export const TicketClosureStates = (props, context) => {
+export const TicketClosureStates = ({ admin }, context) => {
   const { act } = useBackend(context);
   return (
     <Box inline>
-      <Button
+      <ButtonConfirm
         content="REJT"
         onClick={() => act("reject")} />
-      <Button
-        content="IC"
-        onClick={() => act("markic")} />
-      <Button
-        content="CLOSE"
-        onClick={() => act("close")} />
+      {admin ? (
+        <>
+          <ButtonConfirm
+            content="IC"
+            onClick={() => act("markic")} />
+          <ButtonConfirm
+            content="CLOSE"
+            onClick={() => act("close")} />
+        </>
+      ): null}
       <Button
         content="RSLVE"
         onClick={() => act("resolve")} />
-      <Button
-        content="MHELP"
-        onClick={() => act("mentorhelp")} />
+      <ButtonConfirm
+        content={admin ? "MHELP" : "AHELP"}
+        onClick={() => act(`${admin ? "mentor" : "admin"}help`)} />
     </Box>
   );
 };
 
-export const TicketChatWindow = (props, context) => {
+export const TicketChatWindow = (_, context) => {
   const { act, data } = useBackend(context);
   const {
     messages = [],
@@ -164,37 +174,7 @@ export const TicketChatWindow = (props, context) => {
         overflowY="scroll"
         height="315px">
         <Table>
-          {messages.map(message => (
-            <Section independent
-              key={message.time}>
-              <Table.Row>
-                <Table.Cell>
-                  {message.time}
-                </Table.Cell>
-                <Table.Cell
-                  color={message.color}>
-                  <Box>
-                    <Box
-                      inline
-                      bold>
-                      {message.from && message.to
-                        ? "PM from " + decodeHtmlEntities(message.from)
-                        + " to " + decodeHtmlEntities(message.to)
-                        : decodeHtmlEntities(message.from)
-                          ? "Reply PM from " + decodeHtmlEntities(message.from)
-                          : decodeHtmlEntities(message.to)
-                            ? "PM to " + decodeHtmlEntities(message.to)
-                            : ""}
-                    </Box>
-                    <Box
-                      inline>
-                      {decodeHtmlEntities(message.message)}
-                    </Box>
-                  </Box>
-                </Table.Cell>
-              </Table.Row>
-            </Section>
-          ))}
+          <TicketMessages messages={messages} />
         </Table>
       </Box>
       <Divider />
@@ -207,3 +187,62 @@ export const TicketChatWindow = (props, context) => {
     </Box>
   );
 };
+
+class TicketMessages extends Component {
+
+  constructor(props) {
+    super(props);
+    this.messagesEndRef = createRef();
+  }
+
+  componentDidMount() {
+    this.scrollToBottom();
+  }
+
+  componentDidUpdate(oldProps) {
+    if (oldProps.messages.length !== this.props.messages.length) {
+      this.scrollToBottom();
+    }
+  }
+
+  scrollToBottom = () => {
+    this.messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  render() {
+    const { messages } = this.props;
+    return (
+      <>
+        {messages.map(message => (
+          <Section independent
+            key={message.time}>
+            <Table.Row>
+              <Table.Cell>
+                {message.time}
+              </Table.Cell>
+              <Table.Cell
+                color={message.color}>
+                <Box>
+                  <Box bold>
+                    {message.from && message.to
+                      ? "PM from " + decodeHtmlEntities(message.from)
+                        + " to " + decodeHtmlEntities(message.to)
+                      : decodeHtmlEntities(message.from)
+                        ? "Reply PM from " + decodeHtmlEntities(message.from)
+                        : decodeHtmlEntities(message.to)
+                          ? "PM to " + decodeHtmlEntities(message.to)
+                          : ""}
+                  </Box>
+                  <Box>
+                    {decodeHtmlEntities(message.message)}
+                  </Box>
+                </Box>
+              </Table.Cell>
+            </Table.Row>
+          </Section>
+        ))}
+        <div ref={this.messagesEndRef} />
+      </>
+    );
+  }
+}

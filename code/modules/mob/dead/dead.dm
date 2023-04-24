@@ -31,13 +31,6 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 /mob/dead/gib()		//ghosts can't be gibbed.
 	return
 
-/mob/dead/abstract_move(atom/destination)
-	var/turf/old_turf = get_turf(src)
-	var/turf/new_turf = get_turf(destination)
-	if (old_turf?.z != new_turf?.z)
-		onTransitZ(old_turf?.z, new_turf?.z)
-	return ..()
-
 /mob/dead/get_stat_tab_status()
 	var/list/tab_data = ..()
 	if(!SSticker.hide_mode)
@@ -126,3 +119,7 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 /mob/dead/onTransitZ(old_z,new_z)
 	..()
 	update_z(new_z)
+
+// Ghosts cannot fall
+/mob/dead/has_gravity(turf/T)
+	return FALSE

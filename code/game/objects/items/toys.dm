@@ -24,7 +24,6 @@
  *		Toy Daggers
  *		Eldrich stuff
  *		Batong
- *		Fake captains card
  */
 
 
@@ -152,6 +151,7 @@
 	desc = "\"Singulo\" brand spinning toy."
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "singularity_s1"
+	item_flags = NO_PIXEL_RANDOM_DROP
 
 /*
  * Toy gun: Why isn't this an /obj/item/gun?
@@ -335,6 +335,8 @@
 	var/active = FALSE
 	icon = 'icons/obj/items_and_weapons.dmi'
 	hitsound = 'sound/weapons/smash.ogg'
+	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
+	pickup_sound = 'sound/items/handling/toolbox_pickup.ogg'
 	attack_verb = list("robusted")
 
 /obj/item/toy/windupToolbox/attack_self(mob/user)
@@ -344,7 +346,7 @@
 		active = TRUE
 		playsound(src, 'sound/effects/pope_entry.ogg', 100)
 		Rumble()
-		addtimer(CALLBACK(src, .proc/stopRumble), 600)
+		addtimer(CALLBACK(src, PROC_REF(stopRumble)), 600)
 	else
 		to_chat(user, "[src] is already active.")
 
@@ -445,7 +447,7 @@
 /obj/item/toy/snappop/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -467,7 +469,7 @@
 
 /obj/effect/decal/cleanable/ash/snappop_phoenix/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, .proc/respawn), respawn_time)
+	addtimer(CALLBACK(src, PROC_REF(respawn)), respawn_time)
 
 /obj/effect/decal/cleanable/ash/snappop_phoenix/proc/respawn()
 	new /obj/item/toy/snappop/phoenix(get_turf(src))
@@ -670,6 +672,7 @@
 /obj/item/toy/cards
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
+	item_flags = ISWEAPON
 	var/parentdeck = null
 	var/deckstyle = "nanotrasen"
 	var/card_hitsound = null
@@ -1134,6 +1137,7 @@
 	name = "beach ball"
 	item_state = "beachball"
 	w_class = WEIGHT_CLASS_BULKY //Stops people from hiding it in their bags/pockets
+	item_flags = NO_PIXEL_RANDOM_DROP
 
 /*
  * Clockwork Watch
@@ -1257,6 +1261,7 @@
 	desc = null
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "nuketoy"
+	w_class = WEIGHT_CLASS_TINY
 	var/cooldown = 0
 	var/toysay = "What the fuck did you do?"
 	var/toysound = 'sound/machines/click.ogg'
@@ -1517,6 +1522,7 @@
 	desc = "Hah. You thought it was the real deal!"
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "pierced_illusion"
+	item_flags = NO_PIXEL_RANDOM_DROP
 
 /obj/item/storage/box/heretic_asshole
 	name = "box of pierced realities"
@@ -1525,26 +1531,6 @@
 /obj/item/storage/box/heretic_asshole/PopulateContents()
 	for(var/i in 1 to rand(1,4))
 		new /obj/item/toy/reality_pierce(src)
-
-/*
- * Fake captains card
- */
-
-/obj/item/toy/allaccess
-	name = "captain's spare ID"
-	desc = "A replica of the glorious captain's card. Issued to annoying greytiders as a joke."
-	icon = 'icons/obj/card.dmi'
-	icon_state = "gold"
-
-/obj/item/toy/allaccess/afterattack()
-	. = ..()
-	playsound(src, 'sound/items/bikehorn.ogg', 50, TRUE)
-
-/obj/item/toy/allaccess/attack_self(mob/user) // flex
-	. = ..()
-	if(Adjacent(user))
-		user.visible_message("<span class='notice'>[user] shows you: [icon2html(src, viewers(user))] [src.name].</span>", "<span class='notice'>You show \the [src.name].</span>")
-	add_fingerprint(user)
 
 // Serviceborg items
 

@@ -6,6 +6,7 @@
 	icon_state = "0"
 	desc = "The framework for an artificial intelligence core."
 	max_integrity = 500
+	obj_flags = CAN_BE_HIT | BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 	var/state = EMPTY_CORE
 	var/datum/ai_laws/laws
 	var/obj/item/circuitboard/aicore/circuit
@@ -255,8 +256,7 @@
 
 			if(AI_READY_CORE)
 				if(istype(P, /obj/item/aicard))
-					P.transfer_ai("INACTIVE", "AICARD", src, user)
-					return
+					return //handled by /obj/structure/ai_core/transfer_ai()
 
 				if(P.tool_behaviour == TOOL_SCREWDRIVER)
 					P.play_tool_sound(src)

@@ -183,8 +183,6 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 	if(!(machine_stat & (NOPOWER|BROKEN)) && !(. & EMP_PROTECT_SELF))
 		act_up()
 
-/obj/machinery/announcement_system/emag_act()
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+/obj/machinery/announcement_system/on_emag(mob/user)
+	..()
 	act_up()

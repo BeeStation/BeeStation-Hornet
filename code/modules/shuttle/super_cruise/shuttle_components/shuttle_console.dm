@@ -415,7 +415,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 					//Hold the shuttle in the docking position until ready.
 					mobile_port.setTimer(INFINITY)
 					say("Waiting for hyperspace lane...")
-					INVOKE_ASYNC(src, .proc/unfreeze_shuttle, mobile_port, SSmapping.get_level(target_port.z))
+					INVOKE_ASYNC(src, PROC_REF(unfreeze_shuttle), mobile_port, SSmapping.get_level(target_port.z))
 				if(1)
 					to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
 				else
@@ -507,7 +507,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 				//Hold the shuttle in the docking position until ready.
 				shuttle_dock.setTimer(INFINITY)
 				say("Waiting for hyperspace lane...")
-				INVOKE_ASYNC(src, .proc/unfreeze_shuttle, shuttle_dock, target_spacelevel)
+				INVOKE_ASYNC(src, PROC_REF(unfreeze_shuttle), shuttle_dock, target_spacelevel)
 				return TRUE
 			if(1)
 				say("Invalid shuttle requested")
@@ -526,11 +526,9 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		log_mapping("CAUTION: SHUTTLE [shuttleId] REACHED THE GENERATION TIMEOUT OF 3 MINUTES. THE ASSIGNED Z-LEVEL IS STILL MARKED AS GENERATING, BUT WE ARE DOCKING ANYWAY.")
 	shuttle_dock.setTimer(20)
 
-/obj/machinery/computer/shuttle_flight/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
+/obj/machinery/computer/shuttle_flight/on_emag(mob/user)
+	..()
 	req_access = list()
-	obj_flags |= EMAGGED
 	to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")
 
 /obj/machinery/computer/shuttle_flight/allowed(mob/M)

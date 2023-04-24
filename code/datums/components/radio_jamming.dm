@@ -5,11 +5,14 @@
 	var/active = FALSE
 	/// The range of this radio jammer
 	var/range
+	/// The intensity level of this jammer
+	var/intensity = 1
 
-/datum/component/radio_jamming/Initialize(_range = 12)
+/datum/component/radio_jamming/Initialize(_range = 12, _intensity = RADIO_JAMMER_TRAITOR_LEVEL)
 	//Set the range
 	range = _range
-	RegisterSignal(parent, COMSIG_TOGGLE_JAMMER, .proc/toggle)
+	intensity = _intensity
+	RegisterSignal(parent, COMSIG_TOGGLE_JAMMER, PROC_REF(toggle))
 
 /datum/component/radio_jamming/Destroy(force, silent)
 	disable()

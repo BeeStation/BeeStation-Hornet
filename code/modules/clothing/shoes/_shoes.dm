@@ -19,7 +19,7 @@
 
 /obj/item/clothing/shoes/ComponentInitialize()
 	. = ..()
-	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, .proc/clean_blood)
+	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(clean_blood))
 
 /obj/item/clothing/shoes/suicide_act(mob/living/carbon/user)
 	if(rand(2)>1)
@@ -35,7 +35,7 @@
 		return BRUTELOSS
 	else//didnt realize this suicide act existed (was in miscellaneous.dm) and didnt want to remove it, so made it a 50/50 chance. Why not!
 		user.visible_message("<span class='suicide'>[user] is bashing [user.p_their()] own head in with [src]! Ain't that a kick in the head?</span>")
-		for(var/i = 0, i < 3, i++)
+		for(var/i in 1 to 3)
 			sleep(3)
 			playsound(user, 'sound/weapons/genhit2.ogg', 50, 1)
 		return(BRUTELOSS)

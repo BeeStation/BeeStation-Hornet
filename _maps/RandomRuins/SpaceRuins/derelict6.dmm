@@ -155,39 +155,11 @@
 /obj/machinery/light/broken,
 /turf/open/floor/plasteel/airless,
 /area/ruin/unpowered)
-"aD" = (
-/obj/item/stack/sheet/iron,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plating/airless{
-	icon_state = "platingdmg2"
-	},
-/area/ruin/unpowered)
 "aE" = (
 /obj/structure/door_assembly/door_assembly_mhatch{
 	name = "broken airlock"
 	},
 /turf/open/floor/plating/airless,
-/area/ruin/unpowered)
-"aF" = (
-/obj/machinery/door/airlock/public/glass,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel/airless,
-/area/ruin/unpowered)
-"aG" = (
-/obj/structure/door_assembly/door_assembly_public{
-	name = "broken airlock"
-	},
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel/airless,
 /area/ruin/unpowered)
 "aH" = (
 /turf/open/floor/plating/airless,
@@ -213,29 +185,6 @@
 /obj/structure/closet/secure_closet/freezer/kitchen,
 /turf/open/floor/plasteel/airless/cafeteria,
 /area/ruin/unpowered)
-"aM" = (
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel/airless,
-/area/ruin/unpowered)
-"aN" = (
-/obj/item/trash/plate,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel/airless,
-/area/ruin/unpowered)
-"aO" = (
-/obj/item/chair,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel/airless,
-/area/ruin/unpowered)
 "aP" = (
 /obj/machinery/light/broken{
 	dir = 1
@@ -255,14 +204,6 @@
 /obj/structure/table_frame,
 /turf/open/floor/plasteel/airless/cafeteria,
 /area/ruin/unpowered)
-"aT" = (
-/obj/item/kitchen/fork,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel/airless,
-/area/ruin/unpowered)
 "aU" = (
 /obj/structure/table/wood,
 /obj/item/shard,
@@ -280,14 +221,6 @@
 "aW" = (
 /obj/structure/table,
 /turf/open/floor/plasteel/airless/cafeteria,
-/area/ruin/unpowered)
-"aX" = (
-/obj/item/chair/stool/bar,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel/airless,
 /area/ruin/unpowered)
 "aY" = (
 /obj/structure/lattice,
@@ -311,14 +244,6 @@
 /obj/structure/table,
 /obj/item/shard,
 /turf/open/floor/plasteel/airless/cafeteria,
-/area/ruin/unpowered)
-"bd" = (
-/obj/structure/chair/stool/bar,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel/airless,
 /area/ruin/unpowered)
 "be" = (
 /turf/open/floor/plating/airless{
@@ -502,6 +427,54 @@
 	dir = 8
 	},
 /turf/template_noop,
+/area/ruin/unpowered)
+"dd" = (
+/obj/item/trash/plate,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel/airless,
+/area/ruin/unpowered)
+"ig" = (
+/obj/structure/chair/stool/bar,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel/airless,
+/area/ruin/unpowered)
+"pc" = (
+/obj/machinery/door/airlock/public/glass,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel/airless,
+/area/ruin/unpowered)
+"vo" = (
+/obj/item/kitchen/fork,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel/airless,
+/area/ruin/unpowered)
+"vS" = (
+/obj/item/stack/sheet/iron,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plating/airless{
+	icon_state = "platingdmg2"
+	},
+/area/ruin/unpowered)
+"QT" = (
+/obj/item/chair,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel/airless,
+/area/ruin/unpowered)
+"Rs" = (
+/obj/item/chair/stool/bar,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel/airless,
+/area/ruin/unpowered)
+"WX" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel/airless,
+/area/ruin/unpowered)
+"Yq" = (
+/obj/structure/door_assembly/door_assembly_public{
+	name = "broken airlock"
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel/airless,
 /area/ruin/unpowered)
 
 (1,1,1) = {"
@@ -814,13 +787,13 @@ ag
 ag
 ag
 ai
-aM
-aM
-aX
-bd
-aM
-aX
-aM
+WX
+WX
+Rs
+ig
+WX
+Rs
+WX
 ai
 ac
 ac
@@ -836,12 +809,12 @@ ai
 ag
 ag
 ag
-aF
-aN
-aT
+pc
+dd
+vo
 ah
-aM
-aT
+WX
+vo
 au
 be
 ai
@@ -859,8 +832,8 @@ ai
 ag
 ag
 ag
-aG
-aO
+Yq
+QT
 bI
 ac
 be
@@ -883,7 +856,7 @@ ag
 ag
 ag
 ai
-aM
+WX
 aU
 aB
 ap
@@ -906,7 +879,7 @@ ag
 ag
 aC
 ai
-aM
+WX
 ap
 ap
 ap
@@ -954,7 +927,7 @@ ag
 ai
 ap
 aV
-aD
+vS
 ap
 ac
 ac

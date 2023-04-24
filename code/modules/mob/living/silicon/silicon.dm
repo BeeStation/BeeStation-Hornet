@@ -26,8 +26,8 @@
 
 	var/obj/item/radio/borg/radio = null //All silicons make use of this, with (p)AI's creating headsets
 
-	var/list/alarm_types_show = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
-	var/list/alarm_types_clear = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
+	var/list/alarm_types_show = list("Motion" = 0, FIRE = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
+	var/list/alarm_types_clear = list("Motion" = 0, FIRE = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
 
 	var/lawcheck[1]
 	var/ioncheck[1]
@@ -64,7 +64,6 @@
 		diag_hud.add_to_hud(src)
 	diag_hud_set_status()
 	diag_hud_set_health()
-	add_sensors()
 	create_access_card(default_access_list)
 	default_access_list = null
 
@@ -82,13 +81,13 @@
 	modularInterface.saved_identification = real_name || name
 	if(iscyborg(src))
 		modularInterface.saved_job = JOB_NAME_CYBORG
-		modularInterface.install_component(new /obj/item/computer_hardware/hard_drive/small/robot)
+		modularInterface.install_component(new /obj/item/computer_hardware/hard_drive/small/pda/robot)
 	if(isAI(src))
 		modularInterface.saved_job = JOB_NAME_AI
-		modularInterface.install_component(new /obj/item/computer_hardware/hard_drive/small/ai)
+		modularInterface.install_component(new /obj/item/computer_hardware/hard_drive/small/pda/ai)
 	if(ispAI(src))
 		modularInterface.saved_job = JOB_NAME_PAI
-		modularInterface.install_component(new /obj/item/computer_hardware/hard_drive/small/ai)
+		modularInterface.install_component(new /obj/item/computer_hardware/hard_drive/small/pda/ai)
 
 /mob/living/silicon/robot/model/syndicate/create_modularInterface()
 	if(!modularInterface)
@@ -107,6 +106,7 @@
 /mob/living/silicon/Destroy()
 	radio = null
 	aicamera = null
+	modularInterface = null
 	QDEL_NULL(builtInCamera)
 	QDEL_NULL(internal_id_card)
 	GLOB.silicon_mobs -= src
@@ -134,7 +134,7 @@
 		alarm_types_clear[type] += 1
 
 	if(!in_cooldown)
-		addtimer(CALLBACK(src, .proc/handle_alarms), 30) //3 second cooldown
+		addtimer(CALLBACK(src, PROC_REF(handle_alarms)), 30) //3 second cooldown
 
 /mob/living/silicon/proc/handle_alarms()
 	if(alarms_to_show.len < 5)
@@ -288,7 +288,7 @@
 			total_laws_count++
 			sleep(10)
 
-	for (var/index = 1, index <= laws.hacked.len, index++)
+	for (var/index in 1 to laws.hacked.len)
 		var/law = laws.hacked[index]
 		var/num = ion_num()
 		if (length(law) > 0)
@@ -298,7 +298,7 @@
 				total_laws_count++
 				sleep(10)
 
-	for (var/index = 1, index <= laws.ion.len, index++)
+	for (var/index in 1 to laws.ion.len)
 		var/law = laws.ion[index]
 		var/num = ion_num()
 		if (length(law) > 0)
@@ -308,7 +308,7 @@
 				total_laws_count++
 				sleep(10)
 
-	for (var/index = 1, index <= laws.inherent.len, index++)
+	for (var/index in 1 to laws.inherent.len)
 		var/law = laws.inherent[index]
 
 		if (length(law) > 0)
@@ -319,7 +319,7 @@
 				number++
 				sleep(10)
 
-	for (var/index = 1, index <= laws.supplied.len, index++)
+	for (var/index in 1 to laws.supplied.len)
 		var/law = laws.supplied[index]
 
 		if (length(law) > 0)
@@ -462,10 +462,6 @@
 		return
 	add_sensors()
 	to_chat(src, "Sensor overlay activated.")
-
-/mob/living/silicon/proc/GetPhoto(mob/user)
-	if (aicamera)
-		return aicamera.selectpicture(user)
 
 /mob/living/silicon/update_transform()
 	var/matrix/ntransform = matrix(transform) //aka transform.Copy()

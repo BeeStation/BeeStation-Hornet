@@ -398,6 +398,14 @@
 	. = ..()
 	. += "<span class='notice'>It is set to layer [pipe_layer].</span>"
 
+/obj/item/circuitboard/machine/suit_storage_unit
+	name = "Suit Storage Unit (Machine Board)"
+	icon_state = "generic"
+	build_path = /obj/machinery/suit_storage_unit/
+	req_components = list(
+		/obj/item/stock_parts/matter_bin = 1,
+		/obj/item/stock_parts/micro_laser = 1)
+
 //Generic
 
 
@@ -558,7 +566,7 @@
 		/obj/machinery/vending/hydroseeds = "MegaSeed Servitor",
 		/obj/machinery/vending/sustenance = "Sustenance Vendor",
 		/obj/machinery/vending/dinnerware = "Plasteel Chef's Dinnerware Vendor",
-		/obj/machinery/vending/cart = "PTech",
+		/obj/machinery/vending/job_disk = "PTech",
 		/obj/machinery/vending/robotics = "Robotech Deluxe",
 		/obj/machinery/vending/engineering = "Robco Tool Maker",
 		/obj/machinery/vending/sovietsoda = "BODA",
@@ -608,6 +616,7 @@
 		/obj/item/vending_refill/donksoft = 1)
 
 
+
 //Medical
 
 
@@ -626,6 +635,7 @@
 
 /obj/item/circuitboard/machine/chem_dispenser/botany				//probably should be generic but who cares
 	name = "minor botanical chem dispenser (Machine Board)"
+	icon_state = "service"
 	build_path = /obj/machinery/chem_dispenser/mutagensaltpetersmall
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 2,
@@ -1241,6 +1251,19 @@
 		/obj/item/stack/sheet/glass = 2,
 		/obj/item/stack/cable_coil = 5)
 
+/obj/item/circuitboard/machine/processing_unit
+	name = "furnace (Machine Board)"
+	build_path = /obj/machinery/mineral/processing_unit
+	req_components = list(
+		/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/stock_parts/matter_bin = 2,
+		/obj/item/assembly/igniter = 1)
+
+/obj/item/circuitboard/machine/processing_unit_console
+	name = "furnace console (Machine Board)"
+	build_path = /obj/machinery/mineral/processing_unit_console
+	req_components = list()
+
 
 //Misc
 
@@ -1279,11 +1302,3 @@
 /obj/item/circuitboard/machine/clockwork
 	name = "clockwork board (Report This)"
 	icon_state = "clock_mod"
-
-/obj/item/circuitboard/machine/allaccess
-	name = "all access dispenser"
-	icon_state = "generic"
-	build_path = /obj/machinery/allaccess
-	req_components = list(
-		/obj/item/stock_parts/manipulator = 1,
-		/obj/item/stock_parts/micro_laser = 1)

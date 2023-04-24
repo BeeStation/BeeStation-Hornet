@@ -15,7 +15,7 @@
 
 /obj/item/target/proc/nullPinnedLoc()
 	pinnedLoc = null
-	density = FALSE
+	set_density(FALSE)
 
 /obj/item/target/proc/removeOverlays()
 	cut_overlays()

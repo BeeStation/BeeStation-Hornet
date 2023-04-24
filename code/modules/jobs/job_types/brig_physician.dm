@@ -2,26 +2,26 @@
 	title = JOB_NAME_BRIGPHYSICIAN
 	flag = BRIG_PHYS
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
-	department_flag = ENGSEC
+	supervisors = "chief medical officer"
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "chief medical officer"
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
-
 	outfit = /datum/outfit/job/brig_physician
 
 	access = list(ACCESS_SEC_DOORS, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_MEDICAL, ACCESS_BRIGPHYS)
 	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_MEDICAL, ACCESS_BRIGPHYS)
-	paycheck = PAYCHECK_MEDIUM
-	paycheck_department = ACCOUNT_MED
+
+	department_flag = ENGSEC
+	departments = DEPT_BITFLAG_MED | DEPT_BITFLAG_SEC
+	bank_account_department = ACCOUNT_MED_BITFLAG
+	payment_per_department = list(ACCOUNT_MED_ID = PAYCHECK_MEDIUM)
 	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_BRIG_PHYS
-	departments = DEPARTMENT_BITFLAG_MEDICAL | DEPARTMENT_BITFLAG_SECURITY
 	rpg_title = "Battle Cleric"
 
 	species_outfits = list(
@@ -41,8 +41,8 @@
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
 	suit = /obj/item/clothing/suit/hazardvest/brig_physician
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile
-	suit_store = /obj/item/flashlight/seclite
-	l_hand = /obj/item/storage/firstaid/medical
+	suit_store = /obj/item/storage/firstaid/medical
+	l_pocket = /obj/item/flashlight/seclite
 	head = /obj/item/clothing/head/soft/sec/brig_physician
 
 	backpack = /obj/item/storage/backpack/medic

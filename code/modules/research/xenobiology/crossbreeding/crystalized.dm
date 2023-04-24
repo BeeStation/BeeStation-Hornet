@@ -17,7 +17,7 @@
 
 	var/user_turf = get_turf(user)
 
-	if(!do_after(user,15 SECONDS,FALSE,user_turf))
+	if(!do_after(user, 15 SECONDS, user_turf, timed_action_flags = IGNORE_HELD_ITEM))
 		return
 
 	new crystal_type(user_turf)
@@ -30,6 +30,7 @@
 /obj/item/slimecross/crystalline/orange
 	crystal_type = /obj/structure/slime_crystal/orange
 	colour = "orange"
+	dangerous = TRUE
 
 /obj/item/slimecross/crystalline/purple
 	crystal_type = /obj/structure/slime_crystal/purple
@@ -82,6 +83,7 @@
 /obj/item/slimecross/crystalline/green
 	crystal_type = /obj/structure/slime_crystal/green
 	colour = "green"
+	dangerous = TRUE
 
 /obj/item/slimecross/crystalline/pink
 	crystal_type = /obj/structure/slime_crystal/pink

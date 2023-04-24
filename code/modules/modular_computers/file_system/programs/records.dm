@@ -47,7 +47,7 @@
 				current_record["id"] = person.fields["id"]
 				current_record["name"] = person.fields["name"]
 				current_record["rank"] = person.fields["rank"]
-				current_record["sex"] = person.fields["sex"]
+				current_record["gender"] = person.fields["gender"]
 				current_record["age"] = person.fields["age"]
 				current_record["species"] = person.fields["species"]
 				current_record["fingerprint"] = person.fields["fingerprint"]
@@ -60,14 +60,14 @@
 				current_record["id"] = person.fields["id"]
 				current_record["name"] = person.fields["name"]
 				current_record["rank"] = person.fields["rank"]
-				current_record["sex"] = person.fields["sex"]
+				current_record["gender"] = person.fields["gender"]
 				current_record["age"] = person.fields["age"]
 				current_record["species"] = person.fields["species"]
-				current_record["fingerprint"] = person.fields["fingerprint"]
 
 				var/datum/data/record/medical_person = find_record("id", person.fields["id"], GLOB.data_core.medical)
 
 				if(medical_person)
+					current_record["b_dna"] = medical_person.fields["b_dna"]
 					current_record["bloodtype"] = medical_person.fields["blood_type"]
 					current_record["mi_dis"] = medical_person.fields["mi_dis"]
 					current_record["ma_dis"] = medical_person.fields["ma_dis"]
@@ -81,7 +81,7 @@
 
 
 /datum/computer_file/program/records/ui_data(mob/user)
-	var/list/data = get_header_data()
+	var/list/data = list()
 	data["records"] = GetRecordsReadable()
 	data["mode"] = mode
 	return data

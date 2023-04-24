@@ -1,3 +1,6 @@
+#define TTV_NO_CASING_MOD 0.25
+#define REACTIONS_BEFORE_EXPLOSION 3
+
 /obj/item/tank
 	name = "tank"
 	icon = 'icons/obj/tank.dmi'
@@ -13,7 +16,7 @@
 	throw_range = 4
 	materials = list(/datum/material/iron = 500)
 	actions_types = list(/datum/action/item_action/set_internals)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 30, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 80, ACID = 30, STAMINA = 0)
 	var/datum/gas_mixture/air_contents = null
 	var/distribute_pressure = ONE_ATMOSPHERE
 	var/integrity = 3
@@ -143,11 +146,7 @@
 
 /obj/item/tank/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)
-	if(istype(W, /obj/item/assembly_holder))
-		bomb_assemble(W,user)
-	else
-		. = ..()
-
+	return ..()
 
 /obj/item/tank/ui_state(mob/user)
 	return GLOB.hands_state
@@ -260,18 +259,20 @@
 	var/temperature = air_contents.return_temperature()
 
 	if(pressure > TANK_FRAGMENT_PRESSURE)
+		var/explosion_mod = 1
 		if(!istype(src.loc, /obj/item/transfer_valve))
-			log_bomber(get_mob_by_ckey(fingerprintslast), "was last key to touch", src, "which ruptured explosively")
+			log_bomber("[src.fingerprintslast], was last key to touch [src], which ruptured explosively")
+		else if(!istype(src.loc?.loc, /obj/machinery/syndicatebomb))
+			explosion_mod = TTV_NO_CASING_MOD
 		//Give the gas a chance to build up more pressure through reacting
-		air_contents.react(src)
-		air_contents.react(src)
-		air_contents.react(src)
+		for(var/i in 1 to REACTIONS_BEFORE_EXPLOSION)
+			air_contents.react(src)
 		pressure = air_contents.return_pressure()
 		var/range = (pressure-TANK_FRAGMENT_PRESSURE)/TANK_FRAGMENT_SCALE
 		var/turf/epicenter = get_turf(loc)
 
 
-		explosion(epicenter, round(range*0.25), round(range*0.5), round(range), round(range*1.5))
+		explosion(epicenter, round(range*0.25), round(range*0.5), round(range), round(range*1.5), cap_modifier = explosion_mod)
 		if(istype(src.loc, /obj/item/transfer_valve))
 			qdel(src.loc)
 		else
@@ -300,3 +301,6 @@
 
 	else if(integrity < 3)
 		integrity++
+
+#undef TTV_NO_CASING_MOD
+#undef REACTIONS_BEFORE_EXPLOSION

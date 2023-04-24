@@ -36,7 +36,7 @@
 		X.process_type = PROCESS_TYPE_LIT
 		sleep(1.8 SECONDS) //Give them a chance to escape
 		START_PROCESSING(SSobj, X)
-		log_game("[key_name_admin(user)] lit [X] at [world.time] using [thing]. [X] located at [X.x] [X.y] [X.z].")
+		log_game("[key_name_admin(user)] lit [X] at [world.time] using [thing]. [X] located at [AREACOORD(X)].")
 
 ///============
 /// Timed activator, activates on a timer. Timer is turned on when used, has a chance to turn off.
@@ -54,7 +54,7 @@
 	X.max_range += 1
 	X.malfunction_mod = 0.5
 
-/datum/xenoartifact_trait/activator/clock/on_item(obj/item/xenoartifact/X, atom/user, atom/item) 
+/datum/xenoartifact_trait/activator/clock/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/clothing/neck/stethoscope))
 		to_chat(user, "<span class='info'>The [X.name] ticks deep from within.\n</span>")
 		return TRUE
@@ -64,14 +64,14 @@
 	var/obj/item/xenoartifact/X = source
 	X.process_type = PROCESS_TYPE_TICK
 	START_PROCESSING(SSobj, X)
-	log_game("[key_name_admin(user)] set clock on [X] at [world.time] using [thing]. [X] located at [X.x] [X.y] [X.z].")
+	log_game("[key_name_admin(user)] set clock on [X] at [world.time] using [thing]. [X] located at [AREACOORD(X)].")
 
 ///============
 /// Signal activator, responds to respective signals sent through signallers
 ///============
 /datum/xenoartifact_trait/activator/signal
 	label_name = "Signal"
-	label_desc = "Signal: The material recieves radio frequencies and reacts when a matching code is delivered."
+	label_desc = "Signal: The material receives radio frequencies and reacts when a matching code is delivered."
 	charge = 25
 	signals = list(XENOA_SIGNAL)
 	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
@@ -92,7 +92,7 @@
 /datum/xenoartifact_trait/activator/signal/pass_input(datum/source, obj/item/thing, mob/user, atom/target, params)
 	var/obj/item/xenoartifact/X = source
 	X.default_activate(charge, user, target)
-	log_game("[key_name_admin(user)] signalled [X] at [world.time]. [X] located at [X.x] [X.y] [X.z].")
+	log_game("[key_name_admin(user)] signalled [X] at [world.time]. [X] located at [AREACOORD(X)].")
 
 ///============
 /// Battery activator, needs a cell to activate
@@ -131,15 +131,12 @@
 /datum/xenoartifact_trait/activator/weighted/pass_input(datum/source, obj/item/thing, mob/living/carbon/user, mob/living/carbon/human/target)
 	var/obj/item/clothing/gloves/artifact_pinchers/P
 	//Grab ref to gloves for check
-	if(istype(target))
-		P = target.get_item_by_slot(ITEM_SLOT_GLOVES)
-	if(istype(user) && !P)
+	if(istype(user))
 		P = user.get_item_by_slot(ITEM_SLOT_GLOVES)
-	
-	if(P?.safety) //This trait is a special tism
-		return
+		if(istype(P) && P?.safety) //This trait is a special tism
+			return
 	var/obj/item/xenoartifact/X = source
-	X.default_activate(charge, user, target)
+	X.default_activate(charge, user, user)
 
 ///============
 /// Pitch activator, artifact activates when thrown. Credit to EvilDragon#4532
@@ -154,4 +151,22 @@
 
 /datum/xenoartifact_trait/activator/pitch/pass_input(datum/source, obj/item/thing, mob/user, atom/target)
 	var/obj/item/xenoartifact/X = source
+	X.default_activate(charge, user, target)
+
+///============
+/// Honk, activated when honked or used by a clown
+///============
+/datum/xenoartifact_trait/activator/honk
+	desc = "Honked"
+	label_desc = "Honked: The material is squishy & humorous. Perhaps the clown would know how to use it?"
+	charge = 25
+	signals = list(COMSIG_PARENT_ATTACKBY, COMSIG_MOVABLE_IMPACT, COMSIG_ITEM_ATTACK_SELF, COMSIG_ITEM_AFTERATTACK)
+	weight = 25
+
+/datum/xenoartifact_trait/activator/honk/pass_input(datum/source, obj/item/thing, mob/user, atom/target)
+	var/obj/item/xenoartifact/X = source
+	//Make sure we're being silly before we activate it - isclown( ) refers to the simplemob
+	if(!(istype(thing, /obj/item/bikehorn) || istype(thing, /obj/item/bikehorn/golden) || isclown(target) || HAS_TRAIT(user, TRAIT_NAIVE) || HAS_TRAIT(target, TRAIT_NAIVE)))
+		return
+	charge = charge*((thing?.force || 10)*0.1)
 	X.default_activate(charge, user, target)

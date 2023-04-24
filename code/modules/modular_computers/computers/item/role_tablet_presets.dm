@@ -9,10 +9,11 @@
 	var/list/slip_victims = list()
 	init_ringtone = "honk"
 	device_theme = THEME_NTOS_CLOWN_PINK // Give the clown the best theme
+	ignore_theme_pref = TRUE
 
 /obj/item/modular_computer/tablet/pda/clown/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/slippery, 7 SECONDS, NO_SLIP_WHEN_WALKING, CALLBACK(src, .proc/AfterSlip), 5 SECONDS)
+	AddComponent(/datum/component/slippery, 7 SECONDS, NO_SLIP_WHEN_WALKING, CALLBACK(src, PROC_REF(AfterSlip)), 5 SECONDS)
 
 /obj/item/modular_computer/tablet/pda/clown/proc/AfterSlip(mob/living/carbon/human/M)
 	if (istype(M) && (M.real_name != saved_identification))
@@ -199,6 +200,13 @@
 	device_theme = THEME_SYNDICATE
 	theme_locked = TRUE
 
+/obj/item/modular_computer/tablet/pda/syndicate/Initialize(mapload)
+	. = ..()
+	var/obj/item/computer_hardware/network_card/network_card = all_components[MC_NET]
+	if(istype(network_card))
+		forget_component(network_card)
+		install_component(new /obj/item/computer_hardware/network_card/advanced/norelay)
+
 /obj/item/modular_computer/tablet/pda/chaplain
 	name = "chaplain PDA"
 	icon_state = "pda-chaplain"
@@ -269,5 +277,5 @@
 	name = "unlicensed PDA"
 	desc = "A shitty knockoff of a portable microcomputer by Thinktronic Systems, LTD. Complete with a cracked operating system."
 	note = "Error: Unlicensed software detected. Please contact your supervisor."
-	default_disk = /obj/item/computer_hardware/hard_drive/role/unlicensed
+	default_disk = /obj/item/computer_hardware/hard_drive/role/maint
 	icon_state = "pda-knockoff"

@@ -32,7 +32,6 @@
 	var/atom/movable/moving_from_pull		//attempt to resume grab after moving instead of before.
 	///Holds information about any movement loops currently running/waiting to run on the movable. Lazy, will be null if nothing's going on
 	var/datum/movement_packet/move_packet
-	var/list/client_mobs_in_contents // This contains all the client mobs within this container
 	var/list/acted_explosions	//for explosion dodging
 	glide_size = 8
 	appearance_flags = TILE_BOUND|PIXEL_SCALE
@@ -66,9 +65,8 @@
 	. = ..()
 	switch(blocks_emissive)
 		if(EMISSIVE_BLOCK_GENERIC)
-			var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, EMISSIVE_BLOCKER_LAYER, EMISSIVE_BLOCKER_PLANE)
+			var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, 0 , EMISSIVE_BLOCKER_PLANE)
 			gen_emissive_blocker.dir = dir
-			gen_emissive_blocker.alpha = alpha
 			gen_emissive_blocker.appearance_flags |= appearance_flags
 			add_overlay(list(gen_emissive_blocker))
 		if(EMISSIVE_BLOCK_UNIQUE)
@@ -87,9 +85,8 @@
 	if(!blocks_emissive)
 		return
 	else if (blocks_emissive == EMISSIVE_BLOCK_GENERIC)
-		var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, EMISSIVE_BLOCKER_LAYER, EMISSIVE_BLOCKER_PLANE)
+		var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, 0, EMISSIVE_BLOCKER_PLANE)
 		gen_emissive_blocker.dir = dir
-		gen_emissive_blocker.alpha = alpha
 		gen_emissive_blocker.appearance_flags |= appearance_flags
 		return gen_emissive_blocker
 	else if(blocks_emissive == EMISSIVE_BLOCK_UNIQUE)
@@ -102,7 +99,7 @@
 	. = ..()
 	. += update_emissive_block()
 
-/atom/movable/proc/can_zFall(turf/source, levels = 1, turf/target, direction)
+/atom/movable/proc/can_zFall(turf/source, turf/target, direction)
 	if(!direction)
 		direction = DOWN
 	if(!source)
@@ -122,11 +119,11 @@
 		if(!A.density)
 			continue
 		if(isobj(A) || ismob(A))
-			if(A.layer > highest.layer)
+			if(!highest || A.layer > highest.layer)
 				highest = A
-	INVOKE_ASYNC(src, .proc/SpinAnimation, 5, 2)
+	INVOKE_ASYNC(src, PROC_REF(SpinAnimation), 5, 2)
 	if(highest)
-		throw_impact(highest)
+		throw_impact(highest, new /datum/thrownthing(src, highest, DOWN, levels, min(5, levels), null, FALSE, MOVE_FORCE_STRONG, null, BODY_ZONE_HEAD))
 	return TRUE
 
 //For physical constraints to travelling up/down.
@@ -374,9 +371,8 @@
 	if(!loc || !newloc)
 		return FALSE
 	var/atom/oldloc = loc
-
+	var/flat_direct = direct & ~(UP|DOWN)
 	if(loc != newloc)
-		var/flat_direct = direct & ~(UP|DOWN)
 		if (!(flat_direct & (flat_direct - 1))) //Cardinal move
 			. = ..()
 		else //Diagonal move, split it into cardinal moves
@@ -449,17 +445,21 @@
 			check_pulling()
 
 	last_move = direct
-	setDir(direct)
+	if(flat_direct)
+		setDir(flat_direct)
 	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc,direct)) //movement failed due to buckled mob(s)
 		return FALSE
 
 //Called after a successful Move(). By this point, we've alrefady moved
 /atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
+	if(OldLoc)
+		var/turf/old_turf = get_turf(OldLoc)
+		var/turf/new_turf = get_turf(src)
+		if(old_turf && new_turf && old_turf.z != new_turf.z)
+			onTransitZ(old_turf.z, new_turf.z)
 	if (!inertia_moving)
 		newtonian_move(Dir)
-	if (length(client_mobs_in_contents))
-		update_parallax_contents()
 
 	move_stacks--
 	if(move_stacks > 0) //we want only the first Moved() call in the stack to send this signal, all the other ones have an incorrect old_loc
@@ -487,7 +487,6 @@
 		loc.handle_atom_del(src)
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
-	LAZYCLEARLIST(client_mobs_in_contents)
 	moveToNullspace()
 	invisibility = INVISIBILITY_ABSTRACT
 	if(pulledby)
@@ -520,7 +519,7 @@
 
 /**
  * `Uncross()` is a default BYOND proc that is called when something is *going*
- * to exit this atom's turf. It is prefered over `Uncrossed` when you want to
+ * to exit this atom's turf. It is preferred over `Uncrossed` when you want to
  * deny that movement, such as in the case of border objects, objects that allow
  * you to walk through them in any direction except the one they block
  * (think side windows).
@@ -597,12 +596,6 @@
 				oldloc.Exited(src, destination)
 				if(old_area && old_area != destarea)
 					old_area.Exited(src, destination)
-			var/turf/oldturf = get_turf(oldloc)
-			var/turf/destturf = get_turf(destination)
-			var/old_z = (oldturf ? oldturf.z : null)
-			var/dest_z = (destturf ? destturf.z : null)
-			if (old_z != dest_z)
-				onTransitZ(old_z, dest_z)
 			destination.Entered(src, oldloc)
 			if(destarea && old_area != destarea)
 				destarea.Entered(src, old_area)
@@ -905,6 +898,51 @@
 	. += "<option value='?_src_=holder;[HrefToken()];adminplayerobservefollow=[REF(src)]'>Follow</option>"
 	. += "<option value='?_src_=holder;[HrefToken()];admingetmovable=[REF(src)]'>Get</option>"
 
+	VV_DROPDOWN_OPTION(VV_HK_EDIT_PARTICLES, "Edit Particles")
+	VV_DROPDOWN_OPTION(VV_HK_ADD_EMITTER, "Add Emitter")
+	VV_DROPDOWN_OPTION(VV_HK_REMOVE_EMITTER, "Remove Emitter")
+
+/atom/movable/vv_do_topic(list/href_list)
+	. = ..()
+	if(href_list[VV_HK_EDIT_PARTICLES])
+		if(!check_rights(R_VAREDIT))
+			return
+		var/client/interacted_client = usr.client
+		interacted_client?.open_particle_editor(src)
+
+
+	if(href_list[VV_HK_ADD_EMITTER])
+		if(!check_rights(R_VAREDIT))
+			return
+
+		var/key = stripped_input(usr, "Enter a key for your emitter", "Emitter Key")
+		var/lifetime = input("How long should this live for in deciseconds? 0 for infinite, -1 for a single burst.", "Lifespan") as null|num
+
+		if(!key)
+			return
+		switch(alert("Should this be a pre-filled emitter (empty emitters don't support timers)?",,"Yes","No","Cancel"))
+			if("Yes")
+				var/choice = input(usr, "Choose an emitter to add", "Choose an Emitter") as null|anything in subtypesof(/obj/emitter)
+				var/should_burst = FALSE
+				if(lifetime == -1)
+					should_burst = TRUE
+				if(choice)
+					add_emitter(choice, key, lifespan = lifetime, burst_mode = should_burst)
+			if("No")
+				add_emitter(/obj/emitter, key)
+			else
+				return
+
+	if(href_list[VV_HK_REMOVE_EMITTER])
+		if(!check_rights(R_VAREDIT))
+			return
+		if(!master_holder?.emitters.len)
+			return
+		var/removee = input(usr, "Choose an emitter to remove", "Choose an Emitter") as null|anything in master_holder?.emitters
+		if(!removee)
+			return
+		remove_emitter(removee)
+
 /atom/movable/proc/ex_check(ex_id)
 	if(!ex_id)
 		return TRUE
@@ -1054,13 +1092,57 @@
 	else if(direction & WEST)
 		to_x = -32
 	if(!direction)
-		to_y = 16
+		to_y = 10
+		I.pixel_x += 6 * (prob(50) ? 1 : -1) //6 to the right or left, helps break up the straight upward move
 	flick_overlay(I, GLOB.clients, 6)
-	var/matrix/M = new
+	var/matrix/M = new(I.transform)
 	M.Turn(pick(-30, 30))
 	animate(I, alpha = 175, pixel_x = to_x, pixel_y = to_y, time = 3, transform = M, easing = CUBIC_EASING)
 	sleep(1)
 	animate(I, alpha = 0, transform = matrix(), time = 1)
+
+/obj/item/proc/do_drop_animation(atom/moving_from)
+	set waitfor = FALSE
+	if(item_flags & WAS_THROWN)
+		return
+	if(movement_type & THROWN)
+		return
+	if(!istype(loc, /turf))
+		return
+
+	var/turf/current_turf = get_turf(src)
+	var/direction = get_dir(moving_from, current_turf)
+	var/from_x = 0
+	var/from_y = 0
+
+	if(direction & NORTH)
+		from_y -= 32
+	else if(direction & SOUTH)
+		from_y += 32
+	if(direction & EAST)
+		from_x -= 32
+	else if(direction & WEST)
+		from_x += 32
+	if(!direction)
+		from_y += 10
+		from_x += 6 * (prob(50) ? 1 : -1) //6 to the right or left, helps break up the straight upward move
+
+	//We're moving from these chords to our current ones
+	var/old_x = pixel_x
+	var/old_y = pixel_y
+	var/old_alpha = alpha
+	var/matrix/old_transform = transform
+	var/matrix/M = new
+	M.Turn(pick(-30, 30))
+	M.Scale(0.7) // Shrink to start, end up normal sized
+
+	pixel_x = from_x
+	pixel_y = from_y
+	alpha = 0
+	transform = M
+
+	// This is instant on byond's end, but to our clients this looks like a quick drop
+	animate(src, alpha = old_alpha, pixel_x = old_x, pixel_y = old_y, transform = old_transform, time = 3, easing = CUBIC_EASING)
 
 /atom/movable/proc/get_spawner_desc()
 	return name
@@ -1078,7 +1160,7 @@
 ///allows this movable to hear and adds itself to the important_recursive_contents list of itself and every movable loc its in
 /atom/movable/proc/become_hearing_sensitive(trait_source = TRAIT_GENERIC)
 	if(!HAS_TRAIT(src, TRAIT_HEARING_SENSITIVE))
-		RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_HEARING_SENSITIVE), .proc/on_hearing_sensitive_trait_loss)
+		RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_HEARING_SENSITIVE), PROC_REF(on_hearing_sensitive_trait_loss))
 		for(var/atom/movable/location as anything in get_nested_locs(src) + src)
 			LAZYADDASSOCLIST(location.important_recursive_contents, RECURSIVE_CONTENTS_HEARING_SENSITIVE, src)
 	ADD_TRAIT(src, TRAIT_HEARING_SENSITIVE, trait_source)

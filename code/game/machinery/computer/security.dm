@@ -295,7 +295,7 @@
 <th>Criminal Status</th>
 </tr>"}
 					if(!isnull(GLOB.data_core.general))
-						for(var/datum/data/record/R in sortRecord(GLOB.data_core.general, sortBy, order))
+						for(var/datum/data/record/R in sort_record(GLOB.data_core.general, sortBy, order))
 							var/crimstat = ""
 							for(var/datum/data/record/E in GLOB.data_core.security)
 								if((E.fields["name"] == R.fields["name"]) && (E.fields["id"] == R.fields["id"]))
@@ -340,16 +340,18 @@
 				if(3)
 					dat += "<font size='4'><b>Security Record</b></font><br>"
 					if(istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1))
-						if(istype(active1.fields["photo_front"], /obj/item/photo))
-							var/obj/item/photo/P1 = active1.fields["photo_front"]
-							user << browse_rsc(P1.picture.picture_image, "photo_front")
-						if(istype(active1.fields["photo_side"], /obj/item/photo))
-							var/obj/item/photo/P2 = active1.fields["photo_side"]
-							user << browse_rsc(P2.picture.picture_image, "photo_side")
+						var/front_photo = active1.get_front_photo()
+						if(istype(front_photo, /datum/picture))
+							var/datum/picture/photo_front = front_photo
+							user << browse_rsc(photo_front.picture_image, "photo_front")
+						var/side_photo = active1.get_side_photo()
+						if(istype(side_photo, /datum/picture))
+							var/datum/picture/photo_side = side_photo
+							user << browse_rsc(photo_side.picture_image, "photo_side")
 						dat += {"<table><tr><td><table>
 						<tr><td>Name:</td><td><A href='?src=[REF(src)];choice=Edit Field;field=name'>&nbsp;[active1.fields["name"]]&nbsp;</A></td></tr>
 						<tr><td>ID:</td><td><A href='?src=[REF(src)];choice=Edit Field;field=id'>&nbsp;[active1.fields["id"]]&nbsp;</A></td></tr>
-						<tr><td>Sex:</td><td><A href='?src=[REF(src)];choice=Edit Field;field=sex'>&nbsp;[active1.fields["sex"]]&nbsp;</A></td></tr>
+						<tr><td>Gender:</td><td><A href='?src=[REF(src)];choice=Edit Field;field=gender'>&nbsp;[active1.fields["gender"]]&nbsp;</A></td></tr>
 						<tr><td>Age:</td><td><A href='?src=[REF(src)];choice=Edit Field;field=age'>&nbsp;[active1.fields["age"]]&nbsp;</A></td></tr>"}
 						dat += "<tr><td>Species:</td><td><A href ='?src=[REF(src)];choice=Edit Field;field=species'>&nbsp;[active1.fields["species"]]&nbsp;</A></td></tr>"
 						dat += {"<tr><td>Rank:</td><td><A href='?src=[REF(src)];choice=Edit Field;field=rank'>&nbsp;[active1.fields["rank"]]&nbsp;</A></td></tr>
@@ -357,10 +359,10 @@
 						<tr><td>Physical Status:</td><td>&nbsp;[active1.fields["p_stat"]]&nbsp;</td></tr>
 						<tr><td>Mental Status:</td><td>&nbsp;[active1.fields["m_stat"]]&nbsp;</td></tr>
 						</table></td>
-						<td><table><td align = center><a href='?src=[REF(src)];choice=Edit Field;field=show_photo_front'><img src=photo_front height=80 width=80 border=4></a><br>
+						<td><table><td align = center><img src=photo_front height=96 width=96 border=4 style="-ms-interpolation-mode:nearest-neighbor"><br>
 						<a href='?src=[REF(src)];choice=Edit Field;field=print_photo_front'>Print photo</a><br>
 						<a href='?src=[REF(src)];choice=Edit Field;field=upd_photo_front'>Update front photo</a></td>
-						<td align = center><a href='?src=[REF(src)];choice=Edit Field;field=show_photo_side'><img src=photo_side height=80 width=80 border=4></a><br>
+						<td align = center><img src=photo_side height=96 width=96 border=4 style="-ms-interpolation-mode:nearest-neighbor"><br>
 						<a href='?src=[REF(src)];choice=Edit Field;field=print_photo_side'>Print photo</a><br>
 						<a href='?src=[REF(src)];choice=Edit Field;field=upd_photo_side'>Update side photo</a></td></table>
 						</td></tr></table></td></tr></table>"}
@@ -554,7 +556,7 @@ What a mess.*/
 					var/obj/item/paper/P = new /obj/item/paper( loc )
 					P.info = "<CENTER><B>Security Record - (SR-[GLOB.data_core.securityPrintCount])</B></CENTER><BR>"
 					if((istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1)))
-						P.info += text("Name: [] ID: []<BR>\nSex: []<BR>\nAge: []<BR>", active1.fields["name"], active1.fields["id"], active1.fields["sex"], active1.fields["age"])
+						P.info += text("Name: [] ID: []<BR>\nGender: []<BR>\nAge: []<BR>", active1.fields["name"], active1.fields["id"], active1.fields["gender"], active1.fields["age"])
 						P.info += "\nSpecies: [active1.fields["species"]]<BR>"
 						P.info += text("\nFingerprint: []<BR>\nPhysical Status: []<BR>\nMental Status: []<BR>", active1.fields["fingerprint"], active1.fields["p_stat"], active1.fields["m_stat"])
 					else
@@ -611,7 +613,7 @@ What a mess.*/
 
 								sleep(30)
 								if((istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1)))//make sure the record still exists.
-									var/obj/item/photo/photo = active1.fields["photo_front"]
+									var/obj/item/photo/photo = active1.get_front_photo()
 									new /obj/item/poster/wanted(loc, photo.picture.picture_image, wanted_name, info, headerText)
 							printing = 0
 			if("Print Missing")
@@ -629,7 +631,7 @@ What a mess.*/
 								playsound(loc, 'sound/items/poster_being_created.ogg', 100, 1)
 								sleep(30)
 								if((istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1)))//make sure the record still exists.
-									var/obj/item/photo/photo = active1.fields["photo_front"]
+									var/obj/item/photo/photo = active1.get_front_photo()
 									new /obj/item/poster/wanted/missing(loc, photo.picture.picture_image, missing_name, info, headerText)
 							printing = 0
 
@@ -657,7 +659,7 @@ What a mess.*/
 				var/counter = 1
 				while(active2.fields[text("com_[]", counter)])
 					counter++
-				active2.fields[text("com_[]", counter)] = text("Made by [] ([]) on [] [], []<BR>[]", src.authenticated, src.rank, station_time_timestamp(), time2text(world.realtime, "MMM DD"), GLOB.year_integer+540, t1)
+				active2.fields[text("com_[]", counter)] = text("Made by [] ([]) on [] [], []<BR>[]", src.authenticated, src.rank, station_time_timestamp(), time2text(world.realtime, "MMM DD"), GLOB.year_integer+YEAR_OFFSET, t1)
 
 			if("Delete Record (ALL)")
 				if(active1)
@@ -694,7 +696,9 @@ What a mess.*/
 				G.fields["name"] = "New Record"
 				G.fields["id"] = "[num2hex(rand(1, 1.6777215E7), 6)]"
 				G.fields["rank"] = "Unassigned"
-				G.fields["sex"] = "Male"
+				G.fields["hud"] = JOB_HUD_UNKNOWN
+				G.fields["active_dept"]	= NONE
+				G.fields["gender"] = "Male"
 				G.fields["age"] = "Unknown"
 				G.fields["species"] = "Human"
 				G.fields["photo_front"] = new /icon()
@@ -765,12 +769,12 @@ What a mess.*/
 							if(!canUseSecurityRecordsConsole(usr, t1, a1))
 								return
 							active1.fields["fingerprint"] = t1
-					if("sex")
+					if("gender")
 						if(istype(active1, /datum/data/record))
-							if(active1.fields["sex"] == "Male")
-								active1.fields["sex"] = "Female"
-							else
-								active1.fields["sex"] = "Male"
+							var/t1 = input(usr, "Select gender", "Secure. records", active1.fields["gender"]) as null|anything in list(MALE, FEMALE, "other")
+							if(!canUseSecurityRecordsConsole(usr, t1, a1))
+								return
+							active1.fields["gender"] = capitalize(t1)
 					if("age")
 						if(istype(active1, /datum/data/record))
 							var/t1 = input("Please input age:", "Secure. records", active1.fields["age"], null) as num
@@ -783,50 +787,42 @@ What a mess.*/
 							if(!canUseSecurityRecordsConsole(usr, t1, a1))
 								return
 							active1.fields["species"] = t1
-					if("show_photo_front")
-						if(active1.fields["photo_front"])
-							if(istype(active1.fields["photo_front"], /obj/item/photo))
-								var/obj/item/photo/P = active1.fields["photo_front"]
-								P.show(usr)
 					if("upd_photo_front")
-						var/obj/item/photo/photo = get_photo(usr)
-						if(photo)
+						var/datum/picture/picture = get_picture(usr)
+						if(picture)
 							qdel(active1.fields["photo_front"])
 							//Lets center it to a 32x32.
-							var/icon/I = photo.picture.picture_image
+							var/icon/I = picture.picture_image
 							var/w = I.Width()
 							var/h = I.Height()
 							var/dw = w - 32
 							var/dh = w - 32
 							I.Crop(dw/2, dh/2, w - dw/2, h - dh/2)
-							active1.fields["photo_front"] = photo
+							var/obj/item/photo/new_photo = new
+							new_photo.picture = picture
+							active1.fields["photo_front"] = new_photo
 					if("print_photo_front")
 						if(active1.fields["photo_front"])
-							if(istype(active1.fields["photo_front"], /obj/item/photo))
-								var/obj/item/photo/P = active1.fields["photo_front"]
-								print_photo(P.picture.picture_image, active1.fields["name"])
-					if("show_photo_side")
-						if(active1.fields["photo_side"])
-							if(istype(active1.fields["photo_side"], /obj/item/photo))
-								var/obj/item/photo/P = active1.fields["photo_side"]
-								P.show(usr)
+							if(istype(active1.fields["photo_front"], /datum/picture))
+								var/datum/picture/P = active1.fields["photo_front"]
+								print_photo(P.picture_image, active1.fields["name"])
 					if("upd_photo_side")
-						var/obj/item/photo/photo = get_photo(usr)
-						if(photo)
+						var/datum/picture/picture = get_picture(usr)
+						if(picture)
 							qdel(active1.fields["photo_side"])
 							//Lets center it to a 32x32.
-							var/icon/I = photo.picture.picture_image
+							var/icon/I = picture.picture_image
 							var/w = I.Width()
 							var/h = I.Height()
 							var/dw = w - 32
 							var/dh = w - 32
 							I.Crop(dw/2, dh/2, w - dw/2, h - dh/2)
-							active1.fields["photo_side"] = photo
+							active1.fields["photo_side"] = picture
 					if("print_photo_side")
 						if(active1.fields["photo_side"])
-							if(istype(active1.fields["photo_side"], /obj/item/photo))
-								var/obj/item/photo/P = active1.fields["photo_side"]
-								print_photo(P.picture.picture_image, active1.fields["name"])
+							if(istype(active1.fields["photo_side"], /datum/picture))
+								var/datum/picture/P = active1.fields["photo_side"]
+								print_photo(P.picture_image, active1.fields["name"])
 					if("crim_add")
 						if(istype(active1, /datum/data/record))
 							var/t1 = stripped_input(usr, "Please input crime name:", "Secure. records", "", null)
@@ -976,16 +972,16 @@ What a mess.*/
 	updateUsrDialog()
 	return
 
-/obj/machinery/computer/secure_data/proc/get_photo(mob/user)
-	var/obj/item/photo/P = null
+/obj/machinery/computer/secure_data/proc/get_picture(mob/user)
+	var/datum/picture/P = null
 	if(issilicon(user))
 		var/mob/living/silicon/tempAI = user
-		var/datum/picture/selection = tempAI.GetPhoto(user)
-		if(selection)
-			P = new(null, selection)
+		var/datum/picture/selection = tempAI.aicamera?.selectpicture(user)
+		P = selection
 	else if(istype(user.get_active_held_item(), /obj/item/photo))
-		P = user.get_active_held_item()
-	return P
+		var/obj/item/photo/held = user.get_active_held_item()
+		P = held.picture
+	return P?.Copy()
 
 /obj/machinery/computer/secure_data/proc/print_photo(icon/temp, person_name)
 	if (printing)
@@ -1014,7 +1010,7 @@ What a mess.*/
 					else
 						R.fields["name"] = "[pick(pick(GLOB.first_names_male), pick(GLOB.first_names_female))] [pick(GLOB.last_names)]"
 				if(2)
-					R.fields["sex"] = pick("Male", "Female")
+					R.fields["gender"] = pick("Male", "Female", "Other")
 				if(3)
 					R.fields["age"] = rand(5, 85)
 				if(4)

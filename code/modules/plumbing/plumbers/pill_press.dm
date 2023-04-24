@@ -13,9 +13,9 @@
 	///pill name
 	var/pill_name = "factory pill"
 	///the icon_state number for the pill.
-	var/pill_number = RANDOM_PILL_STYLE
+	var/chosen_pill_style = "pill_shape_capsule_purple_pink"
 	///list of id's and icons for the pill selection of the ui
-	var/list/pill_styles
+	var/static/list/pill_styles = list()
 	///list of pills stored in the machine, so we dont have 610 pills on one tile
 	var/list/stored_pills = list()
 	var/max_stored_pills = 3
@@ -34,13 +34,13 @@
 	AddComponent(/datum/component/plumbing/simple_demand, bolt)
 
 	//expertly copypasted from chemmasters
-	var/datum/asset/spritesheet/simple/assets = get_asset_datum(/datum/asset/spritesheet/simple/pills)
-	pill_styles = list()
-	for (var/x in 1 to PILL_STYLE_COUNT)
-		var/list/SL = list()
-		SL["id"] = x
-		SL["class_name"] = assets.icon_class_name("pill[x]")
-		pill_styles += list(SL)
+	if(!length(pill_styles))
+		for (var/each_pill_shape in PILL_SHAPE_LIST_WITH_DUMMY)
+			var/list/style_list = list()
+			style_list["id"] = each_pill_shape
+			style_list["pill_icon_name"] = each_pill_shape
+			pill_styles += list(style_list)
+	update_appearance() //so the input/output pipes will overlay properly during init
 
 /obj/machinery/plumbing/pill_press/process()
 	if(machine_stat & NOPOWER)
@@ -50,11 +50,11 @@
 		reagents.trans_to(P, pill_size)
 		P.name = pill_name
 		stored_pills += P
-		if(pill_number == RANDOM_PILL_STYLE)
-			P.icon_state = "pill[rand(1,21)]"
+		if(chosen_pill_style == "pill_random_dummy")
+			P.icon_state = pick(PILL_SHAPE_LIST)
 		else
-			P.icon_state = "pill[pill_number]"
-		if(P.icon_state == "pill4") //mirrored from chem masters
+			P.icon_state = chosen_pill_style
+		if(P.icon_state == "pill_shape_capsule_bloodred") //mirrored from chem masters
 			P.desc = "A tablet or capsule, but not just any, a red one, one taken by the ones not scared of knowledge, freedom, uncertainty and the brutal truths of reality."
 	if(stored_pills.len)
 		var/pill_amount = 0
@@ -69,7 +69,7 @@
 
 /obj/machinery/plumbing/pill_press/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/simple/pills),
+		get_asset_datum(/datum/asset/spritesheet/simple/medicine_containers),
 	)
 
 
@@ -84,9 +84,9 @@
 
 /obj/machinery/plumbing/pill_press/ui_data(mob/user)
 	var/list/data = list()
-	data["pill_style"] = pill_number
 	data["pill_size"] = pill_size
 	data["pill_name"] = pill_name
+	data["chosen_pill_style"] = chosen_pill_style
 	data["pill_styles"] = pill_styles
 	return data
 
@@ -95,7 +95,7 @@
 		return
 	switch(action)
 		if("change_pill_style")
-			pill_number = CLAMP(text2num(params["id"]), 1 , PILL_STYLE_COUNT)
+			chosen_pill_style = "[params["id"]]"
 			. = TRUE
 		if("change_pill_size")
 			pill_size = CLAMP(text2num(params["volume"]), minimum_pill, maximum_pill)

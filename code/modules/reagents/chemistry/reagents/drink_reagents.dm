@@ -771,6 +771,62 @@
 	glass_name = "blue cherry shake"
 	glass_desc = "An exotic blue milkshake."
 
+
+/datum/reagent/consumable/vanillashake
+	name = "Vanilla Shake"
+	description = "A vanilla flavored milkshake. The basics are still good."
+	color = "#E9D2B2"
+	quality = DRINK_VERYGOOD
+	nutriment_factor = 8 * REAGENTS_METABOLISM
+	taste_description = "sweet creamy vanilla"
+	glass_icon_state = "vanillashake"
+	glass_name = "vanilla shake"
+	glass_desc = "A vanilla flavored milkshake."
+
+/datum/reagent/consumable/caramelshake
+	name = "Salted Caramel Shake"
+	description = "A salted caramel flavored milkshake."
+	color = "#E17C00"
+	quality = DRINK_VERYGOOD
+	nutriment_factor = 10 * REAGENTS_METABOLISM
+	taste_description = "salty caramel"
+	glass_icon_state = "caramelshake"
+	glass_name = "salted caramel shake"
+	glass_desc = "A salted caramel flavored milkshake."
+
+/datum/reagent/consumable/choccyshake
+	name = "Chocolate Shake"
+	description = "A frosty chocolate milkshake."
+	color = "#541B00"
+	quality = DRINK_VERYGOOD
+	nutriment_factor = 8 * REAGENTS_METABOLISM
+	taste_description = "sweet creamy chocolate"
+	glass_icon_state = "choccyshake"
+	glass_name = "chocolate shake"
+	glass_desc = "A chocolate flavored milkshake."
+
+/datum/reagent/consumable/strawberryshake
+	name = "Strawberry Shake"
+	description = "A strawberry milkshake."
+	color = "#ff7b7b"
+	quality = DRINK_VERYGOOD
+	nutriment_factor = 8 * REAGENTS_METABOLISM
+	taste_description = "sweet strawberries and milk"
+	glass_icon_state = "strawberryshake"
+	glass_name = "strawberry shake"
+	glass_desc = "A strawberry flavored milkshake."
+
+/datum/reagent/consumable/bananashake
+	name = "Banana Shake"
+	description = "A banana milkshake. Stuff that clowns drink at their honkday parties."
+	color = "#f2d554"
+	quality = DRINK_VERYGOOD
+	nutriment_factor = 8 * REAGENTS_METABOLISM
+	taste_description = "thick banana"
+	glass_icon_state = "bananashake"
+	glass_name = "banana shake"
+	glass_desc = "A banana flavored milkshake."
+
 /datum/reagent/consumable/pumpkin_latte
 	name = "Pumpkin Latte"
 	description = "A mix of pumpkin juice and coffee."

@@ -134,7 +134,7 @@ Stabilized extracts:
 	generate_mobtype()
 
 /obj/item/slimecross/stabilized/gold/attack_self(mob/user)
-	var/choice = input(user, "Which do you want to reset?", "Familiar Adjustment") as null|anything in sortList(list("Familiar Location", "Familiar Species", "Familiar Sentience", "Familiar Name"))
+	var/choice = input(user, "Which do you want to reset?", "Familiar Adjustment") as null|anything in sort_list(list("Familiar Location", "Familiar Species", "Familiar Sentience", "Familiar Name"))
 	if(!user.canUseTopic(src, BE_CLOSE))
 		return
 	if(isliving(user))
@@ -162,6 +162,7 @@ Stabilized extracts:
 /obj/item/slimecross/stabilized/oil
 	colour = "oil"
 	effect_desc = "The owner will violently explode when they die while holding this extract."
+	dangerous = TRUE
 
 /obj/item/slimecross/stabilized/black
 	colour = "black"

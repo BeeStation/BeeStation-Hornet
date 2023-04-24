@@ -38,7 +38,7 @@
 	return ..()
 
 /obj/item/circuit_component/scanner/register_shell(atom/movable/shell)
-	RegisterSignal(shell, COMSIG_ITEM_PRE_ATTACK, .proc/send_trigger)
+	RegisterSignal(shell, COMSIG_ITEM_PRE_ATTACK, PROC_REF(send_trigger))
 
 /obj/item/circuit_component/scanner/unregister_shell(atom/movable/shell)
 	UnregisterSignal(shell, COMSIG_ITEM_PRE_ATTACK)

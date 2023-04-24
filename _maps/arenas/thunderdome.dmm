@@ -11,53 +11,8 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/tdome/arena)
-"d" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/tdome/arena)
 "e" = (
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel,
-/area/tdome/arena)
-"f" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/tdome/arena)
-"g" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/tdome/arena)
-"h" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/tdome/arena)
-"i" = (
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
 "j" = (
@@ -110,15 +65,39 @@
 /obj/effect/turf_decal/tile/green,
 /turf/open/floor/plasteel,
 /area/tdome/arena)
+"v" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/tdome/arena)
+"H" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/tdome/arena)
+"J" = (
+/obj/effect/turf_decal/tile/green/half/contrasted,
+/turf/open/floor/plasteel,
+/area/tdome/arena)
+"T" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/tdome/arena)
+"Z" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/turf/open/floor/plasteel,
+/area/tdome/arena)
 
 (1,1,1) = {"
 a
-d
+H
 j
 l
 l
 q
-d
+H
 a
 "}
 (2,1,1) = {"
@@ -143,92 +122,92 @@ c
 "}
 (4,1,1) = {"
 b
-f
-f
-f
-f
-f
-f
+Z
+Z
+Z
+Z
+Z
+Z
 b
 "}
 (5,1,1) = {"
 b
-g
-g
-g
-g
-g
-g
+v
+v
+v
+v
+v
+v
 b
 "}
 (6,1,1) = {"
 b
-g
-g
-g
-g
-g
-g
+v
+v
+v
+v
+v
+v
 b
 "}
 (7,1,1) = {"
 b
-g
-g
+v
+v
 m
 m
-g
-g
+v
+v
 b
 "}
 (8,1,1) = {"
 b
-g
-g
+v
+v
 n
 p
-g
-g
+v
+v
 b
 "}
 (9,1,1) = {"
 b
-g
-g
+v
+v
 m
 m
-g
-g
+v
+v
 b
 "}
 (10,1,1) = {"
 b
-g
-g
-g
-g
-g
-g
+v
+v
+v
+v
+v
+v
 b
 "}
 (11,1,1) = {"
 b
-g
-g
-g
-g
-g
-g
+v
+v
+v
+v
+v
+v
 b
 "}
 (12,1,1) = {"
 b
-h
-h
-h
-h
-h
-h
+T
+T
+T
+T
+T
+T
 b
 "}
 (13,1,1) = {"
@@ -253,11 +232,11 @@ b
 "}
 (15,1,1) = {"
 a
-i
+J
 k
 o
 o
 r
-i
+J
 a
 "}

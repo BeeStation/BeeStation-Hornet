@@ -138,6 +138,10 @@
 	if (CONFIG_GET(flag/log_say))
 		WRITE_LOG(GLOB.world_game_log, "SAY: [text]")
 
+/proc/log_radio_emote(text)
+	if (CONFIG_GET(flag/log_emote))
+		WRITE_LOG(GLOB.world_game_log, "RADIOEMOTE: [text]")
+
 /proc/log_ooc(text)
 	if (CONFIG_GET(flag/log_ooc))
 		WRITE_LOG(GLOB.world_game_log, "OOC: [text]")
@@ -176,6 +180,10 @@
 	if (CONFIG_GET(flag/log_vote))
 		WRITE_LOG(GLOB.world_game_log, "VOTE: [text]")
 
+/// Logging for speech indicators.
+/proc/log_speech_indicators(text)
+	if (CONFIG_GET(flag/log_speech_indicators))
+		WRITE_LOG(GLOB.world_speech_indicators_log, "SPEECH INDICATOR: [text]")
 
 /proc/log_topic(text)
 	WRITE_LOG(GLOB.world_game_log, "TOPIC: [text]")
@@ -196,9 +204,9 @@
 	if (CONFIG_GET(flag/log_job_debug))
 		WRITE_LOG(GLOB.world_job_debug_log, "JOB: [text]")
 
-/proc/log_href_exploit(atom/user)
-	WRITE_LOG(GLOB.href_exploit_attempt_log, "HREF: [key_name(user)] has potentially attempted an href exploit.")
-	message_admins("[key_name_admin(user)] has potentially attempted an href exploit.")
+/proc/log_href_exploit(atom/user, data = "")
+	WRITE_LOG(GLOB.href_exploit_attempt_log, "HREF: [key_name(user)] has potentially attempted an href exploit.[data]")
+	message_admins("[key_name_admin(user)] has potentially attempted an href exploit.[data]")
 
 /* Log to both DD and the logfile. */
 /proc/log_world(text)
@@ -246,7 +254,7 @@
 	rustg_log_close_all()
 
 /* Helper procs for building detailed log lines */
-/proc/key_name(whom, include_link = null, include_name = TRUE)
+/proc/key_name(whom, include_link = null, include_name = TRUE, href = "priv_msg")
 	var/mob/M
 	var/client/C
 	var/key
@@ -303,11 +311,11 @@
 	if(key)
 		if(C?.holder?.fakekey && !include_name)
 			if(include_link)
-				. += "<a href='?priv_msg=[C.findStealthKey()]'>"
+				. += "<a href='?[href]=[C.findStealthKey()]'>"
 			. += "Administrator"
 		else
 			if(include_link)
-				. += "<a href='?priv_msg=[ckey]'>"
+				. += "<a href='?[href]=[ckey]'>"
 			. += key
 		if(!C)
 			. += "\[DC\]"

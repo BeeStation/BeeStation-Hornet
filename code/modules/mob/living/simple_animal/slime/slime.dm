@@ -129,7 +129,8 @@
 	coretype = text2path("/obj/item/slime_extract/[sanitizedcolour]")
 	regenerate_icons()
 
-/mob/living/simple_animal/slime/proc/update_name()
+/mob/living/simple_animal/slime/update_name()
+	. = ..()
 	if(slime_name_regex.Find(name))
 		number = rand(1, 1000)
 		name = "[colour] [is_adult ? "adult" : "baby"] slime ([number])"
@@ -282,7 +283,7 @@
 			Feedon(Food)
 	return ..()
 
-/mob/living/simple_animal/slime/doUnEquip(obj/item/W, was_thrown = FALSE)
+/mob/living/simple_animal/slime/doUnEquip(obj/item/W, was_thrown = FALSE, silent = FALSE)
 	return
 
 /mob/living/simple_animal/slime/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
@@ -400,7 +401,7 @@
 			if(applied >= SLIME_EXTRACT_CROSSING_REQUIRED)
 				to_chat(user, "<span class='notice'>You feed the slime as many of the extracts from the bag as you can, and it mutates!</span>")
 				playsound(src, 'sound/effects/attackblob.ogg', 50, 1)
-				spawn_corecross()
+				spawn_corecross(user)
 				hasOutput = TRUE
 				break
 		if(!hasOutput)
@@ -412,17 +413,25 @@
 		return
 	..()
 
-/mob/living/simple_animal/slime/proc/spawn_corecross()
+/mob/living/simple_animal/slime/proc/spawn_corecross(mob/living/user)
 	var/static/list/crossbreeds = subtypesof(/obj/item/slimecross)
 	visible_message("<span class='danger'>[src] shudders, its mutated core consuming the rest of its body!</span>")
 	playsound(src, 'sound/magic/smoke.ogg', 50, 1)
 	var/crosspath
+	var/crosspath_dangerous = FALSE
+	var/crosspath_name = "crossbred slime extract"
 	for(var/X in crossbreeds)
 		var/obj/item/slimecross/S = X
 		if(initial(S.colour) == colour && initial(S.effect) == effectmod)
 			crosspath = S
+			if(initial(S.dangerous))
+				crosspath_dangerous = TRUE
+			crosspath_name =  initial(S.effect) + " " + initial(S.colour) + " extract"
 			break
 	if(crosspath)
+		log_game("A [crosspath_name] was created at [AREACOORD(src)] by [key_name(user)]")
+		if(crosspath_dangerous)
+			message_admins("A [crosspath_name] was created at [ADMIN_VERBOSEJMP(src)] by [ADMIN_LOOKUPFLW(user)]")
 		new crosspath(loc)
 	else
 		visible_message("<span class='warning'>The mutated core shudders, and collapses into a puddle, unable to maintain its form.</span>")
@@ -491,7 +500,7 @@
 	if(user)
 		step_away(src,user,15)
 
-	addtimer(CALLBACK(src, .proc/slime_move, user), 3)
+	addtimer(CALLBACK(src, PROC_REF(slime_move), user), 3)
 
 /mob/living/simple_animal/slime/proc/slime_move(mob/user)
 	if(user)
@@ -548,7 +557,7 @@
 	if(old_target && !SLIME_CARES_ABOUT(old_target))
 		UnregisterSignal(old_target, COMSIG_PARENT_QDELETING)
 	if(Target)
-		RegisterSignal(Target, COMSIG_PARENT_QDELETING, .proc/clear_memories_of, override = TRUE)
+		RegisterSignal(Target, COMSIG_PARENT_QDELETING, PROC_REF(clear_memories_of), override = TRUE)
 
 /mob/living/simple_animal/slime/proc/set_leader(new_leader)
 	var/old_leader = Leader
@@ -556,19 +565,19 @@
 	if(old_leader && !SLIME_CARES_ABOUT(old_leader))
 		UnregisterSignal(old_leader, COMSIG_PARENT_QDELETING)
 	if(Leader)
-		RegisterSignal(Leader, COMSIG_PARENT_QDELETING, .proc/clear_memories_of, override = TRUE)
+		RegisterSignal(Leader, COMSIG_PARENT_QDELETING, PROC_REF(clear_memories_of), override = TRUE)
 
 /mob/living/simple_animal/slime/proc/add_friendship(new_friend, amount = 1)
 	if(!Friends[new_friend])
 		Friends[new_friend] = 0
 	Friends[new_friend] += amount
 	if(new_friend)
-		RegisterSignal(new_friend, COMSIG_PARENT_QDELETING, .proc/clear_memories_of, override = TRUE)
+		RegisterSignal(new_friend, COMSIG_PARENT_QDELETING, PROC_REF(clear_memories_of), override = TRUE)
 
 /mob/living/simple_animal/slime/proc/set_friendship(new_friend, amount = 1)
 	Friends[new_friend] = amount
 	if(new_friend)
-		RegisterSignal(new_friend, COMSIG_PARENT_QDELETING, .proc/clear_memories_of, override = TRUE)
+		RegisterSignal(new_friend, COMSIG_PARENT_QDELETING, PROC_REF(clear_memories_of), override = TRUE)
 
 /mob/living/simple_animal/slime/proc/remove_friend(friend)
 	Friends -= friend

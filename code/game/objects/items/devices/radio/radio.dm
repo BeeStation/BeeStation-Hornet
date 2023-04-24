@@ -33,9 +33,6 @@
 	var/use_command = FALSE  // If true, broadcasts will be large and BOLD.
 	var/command = FALSE  // If true, use_command can be toggled at will.
 
-	var/use_honken = FALSE
-	var/honken = FALSE  // same as command voice but HONK
-
 	///makes anyone who is talking through this anonymous.
 	var/anonymize = FALSE
 
@@ -167,8 +164,6 @@
 	data["subspace"] = subspace_transmission
 	data["subspaceSwitchable"] = subspace_switchable
 	data["headset"] = FALSE
-	data["honk"] = honken
-	data["useHonk"] = use_honken
 
 	return data
 
@@ -214,8 +209,6 @@
 				channels[channel] |= FREQ_LISTENING
 			. = TRUE
 		if("command")
-			if(!command)
-				return
 			use_command = !use_command
 			. = TRUE
 		if("subspace")
@@ -226,11 +219,6 @@
 				else
 					recalculateChannels()
 				. = TRUE
-		if("honk")  // if i ever make a radio key for this it wont be broken :)
-			if(!honken)
-				return
-			use_honken = !use_honken
-			. = TRUE
 
 /obj/item/radio/talk_into(atom/movable/M, message, channel, list/spans, datum/language/language, list/message_mods)
 	if(!spans)
@@ -238,7 +226,7 @@
 	if(!language)
 		language = M.get_selected_language()
 	SEND_SIGNAL(src, COMSIG_RADIO_MESSAGE, M, message, channel)
-	INVOKE_ASYNC(src, .proc/talk_into_impl, M, message, channel, spans.Copy(), language, message_mods)
+	INVOKE_ASYNC(src, PROC_REF(talk_into_impl), M, message, channel, spans.Copy(), language, message_mods)
 	return ITALICS | REDUCE_RANGE
 
 /obj/item/radio/proc/talk_into_impl(atom/movable/M, message, channel, list/spans, datum/language/language, list/message_mods)
@@ -284,7 +272,7 @@
 		channel = null
 
 	// Nearby active jammers prevent the message from transmitting
-	if(is_jammed())
+	if(is_jammed(freq == FREQ_CENTCOM || freq == FREQ_SYNDICATE ? JAMMER_PROTECTION_RADIO_ADVANCED : JAMMER_PROTECTION_RADIO_BASIC))
 		return
 
 	// Determine the identity information which will be attached to the signal.
@@ -310,7 +298,7 @@
 
 	// Non-subspace radios will check in a couple of seconds, and if the signal
 	// was never received, send a mundane broadcast (no headsets).
-	addtimer(CALLBACK(src, .proc/backup_transmission, signal), 20)
+	addtimer(CALLBACK(src, PROC_REF(backup_transmission), signal), 20)
 
 /obj/item/radio/proc/backup_transmission(datum/signal/subspace/vocal/signal)
 	var/turf/T = get_turf(src)
@@ -328,6 +316,11 @@
 	if(radio_freq || !broadcasting || get_dist(src, speaker) > canhear_range)
 		return
 
+	var/filtered_mods = list()
+	if(message_mods[MODE_CUSTOM_SAY_EMOTE])
+		filtered_mods[MODE_CUSTOM_SAY_EMOTE] = message_mods[MODE_CUSTOM_SAY_EMOTE]
+		filtered_mods[MODE_CUSTOM_SAY_ERASE_INPUT] = message_mods[MODE_CUSTOM_SAY_ERASE_INPUT]
+
 	if(message_mods[RADIO_EXTENSION] == MODE_L_HAND || message_mods[RADIO_EXTENSION] == MODE_R_HAND)
 		// try to avoid being heard double
 		if (loc == speaker && ismob(speaker))
@@ -337,7 +330,7 @@
 			if (idx && (idx % 2) == (message_mods[RADIO_EXTENSION] == MODE_L_HAND))
 				return
 
-	talk_into(speaker, raw_message, , spans, language=message_language)
+	talk_into(speaker, raw_message, , spans, language=message_language, message_mods=filtered_mods)
 
 // Checks if this radio can receive on the given frequency.
 /obj/item/radio/proc/can_receive(freq, level)
@@ -399,7 +392,7 @@
 	for (var/ch_name in channels)
 		channels[ch_name] = 0
 	on = FALSE
-	addtimer(CALLBACK(src, .proc/end_emp_effect, curremp), 200)
+	addtimer(CALLBACK(src, PROC_REF(end_emp_effect), curremp), 200)
 
 /obj/item/radio/proc/end_emp_effect(curremp)
 	if(emped != curremp) //Don't fix it if it's been EMP'd again
@@ -468,3 +461,5 @@
 /obj/item/radio/off	// Station bounced radios, their only difference is spawning with the speakers off, this was made to help the lag.
 	listening = 0			// And it's nice to have a subtype too for future features.
 	dog_fashion = /datum/dog_fashion/back
+
+

@@ -146,6 +146,7 @@
 		flavour_text = "You move slowly, but are highly resistant to heat and cold as well as blunt trauma. You are unable to wear clothes, but can still use most tools."
 		important_info = "Serve [creator], and assist [creator.p_them()] in completing [creator.p_their()] goals at any cost."
 		owner = creator
+		id = null // just in case (because adamantine golems get id card on their spawn)
 
 /obj/effect/mob_spawn/human/golem/special(mob/living/new_spawn, name)
 	var/datum/species/golem/X = mob_species
@@ -174,6 +175,10 @@
 		new_spawn.mind.assigned_role = "Servant Golem"
 	else
 		new_spawn.mind.assigned_role = "Free Golem"
+		var/obj/item/card/id/I = new_spawn.get_idcard()
+		if(I)
+			I.registered_name = new_spawn.name
+			I.update_label()
 
 /obj/effect/mob_spawn/human/golem/attack_hand(mob/user)
 	. = ..()
@@ -198,7 +203,6 @@
 	mob_name = "a servant golem"
 	use_cooldown = FALSE
 
-
 /obj/effect/mob_spawn/human/golem/adamantine
 	name = "dust-caked free golem shell"
 	desc = "A humanoid shape, empty, lifeless, and full of potential."
@@ -206,6 +210,7 @@
 	can_transfer = FALSE
 	mob_species = /datum/species/golem/adamantine
 	use_cooldown = TRUE	//Only the roundstart free golems are
+	id = /obj/item/card/id/golem/spawner
 
 //Malfunctioning cryostasis sleepers: Spawns in makeshift shelters in lavaland. Ghosts become hermits with knowledge of how they got to where they are now.
 /obj/effect/mob_spawn/human/hermit
@@ -403,7 +408,7 @@
 		id.update_label()
 	else
 		to_chat(L, "<span class='userdanger'>Your owner is already dead!  You will soon perish.</span>")
-		addtimer(CALLBACK(L, /mob.proc/dust, 150)) //Give em a few seconds as a mercy.
+		addtimer(CALLBACK(L, TYPE_PROC_REF(/mob, dust), 150)) //Give em a few seconds as a mercy.
 
 /datum/outfit/demonic_friend
 	name = "Demonic Friend"
@@ -583,7 +588,8 @@
 	show_flavour = FALSE //Flavour only exists for spawners menu
 	short_desc = "You are a space pirate."
 	flavour_text = "The station refused to pay for your protection, protect the ship, siphon the credits from the station and raid it for even more loot."
-	assignedrole = "Space Pirate"
+	assignedrole = ROLE_SPACE_PIRATE
+	banType = ROLE_SPACE_PIRATE
 	var/rank = "Mate"
 
 /obj/effect/mob_spawn/human/pirate/special(mob/living/new_spawn)
@@ -602,6 +608,11 @@
 /obj/effect/mob_spawn/human/pirate/captain
 	rank = "Captain"
 	outfit = /datum/outfit/pirate/space/captain
+	assignedrole = "Space Pirate Captain"
+
+/obj/effect/mob_spawn/human/pirate/captain/special(mob/living/new_spawn)
+	new_spawn.fully_replace_character_name(new_spawn.real_name,generate_pirate_name())
+	new_spawn.mind.add_antag_datum(/datum/antagonist/pirate/captain)
 
 /obj/effect/mob_spawn/human/pirate/gunner
 	rank = "Gunner"

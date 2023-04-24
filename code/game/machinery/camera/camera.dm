@@ -13,7 +13,7 @@
 	layer = WALL_OBJ_LAYER
 	resistance_flags = FIRE_PROOF
 
-	armor = list("melee" = 50, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 50, "stamina" = 0)
+	armor = list(MELEE = 50,  BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 50, STAMINA = 0)
 	max_integrity = 100
 	integrity_failure = 50
 	var/default_camera_icon = "camera" //the camera's base icon used by update_icon - icon_state is primarily used for mapping display purposes.
@@ -161,7 +161,7 @@
 		if(can_use())
 			GLOB.cameranet.addCamera(src)
 		emped = 0 //Resets the consecutive EMP count
-		addtimer(CALLBACK(src, .proc/cancelCameraAlarm), 100)
+		addtimer(CALLBACK(src, PROC_REF(cancelCameraAlarm)), 100)
 
 /obj/machinery/camera/ex_act(severity, target)
 	if(invuln)
@@ -297,15 +297,10 @@
 			bug.bugged_cameras[src.c_tag] = WEAKREF(src)
 		return
 
-	else if(istype(I, /obj/item/pai_cable))
-		var/obj/item/pai_cable/cable = I
-		cable.plugin(src, user)
-		return
-
 	return ..()
 
 /obj/machinery/camera/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == "melee" && damage_amount < 12 && !(machine_stat & BROKEN))
+	if(damage_flag == MELEE && damage_amount < 12 && !(machine_stat & BROKEN))
 		return 0
 	. = ..()
 
@@ -360,7 +355,7 @@
 	if(status)
 		change_msg = "reactivates"
 		triggerCameraAlarm()
-		addtimer(CALLBACK(src, .proc/cancelCameraAlarm), 100)
+		addtimer(CALLBACK(src, PROC_REF(cancelCameraAlarm)), 100)
 	if(displaymessage)
 		if(user)
 			visible_message("<span class='danger'>[user] [change_msg] [src]!</span>")
@@ -395,7 +390,7 @@
 		return FALSE
 	if(machine_stat & EMPED)
 		return FALSE
-	if(is_jammed())
+	if(is_jammed(JAMMER_PROTECTION_CAMERAS))
 		return FALSE
 	return TRUE
 
@@ -407,30 +402,6 @@
 	else
 		see = get_hear(view_range, pos)
 	return see
-
-/atom/proc/auto_turn()
-	//Automatically turns based on nearby walls.
-	var/turf/closed/wall/T = null
-	for(var/i in GLOB.cardinals)
-		T = get_ranged_target_turf(src, i, 1)
-		if(istype(T))
-			setDir(turn(i, 180))
-			break
-
-//Return a working camera that can see a given mob
-//or null if none
-/proc/seen_by_camera(var/mob/M)
-	for(var/obj/machinery/camera/C in oview(4, M))
-		if(C.can_use())	// check if camera disabled
-			return C
-	return null
-
-/proc/near_range_camera(var/mob/M)
-	for(var/obj/machinery/camera/C in range(4, M))
-		if(C.can_use())	// check if camera disabled
-			return C
-
-	return null
 
 /obj/machinery/camera/proc/Togglelight(on=0)
 	for(var/mob/living/silicon/ai/A in GLOB.ai_list)

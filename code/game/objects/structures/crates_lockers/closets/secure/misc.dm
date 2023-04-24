@@ -60,7 +60,7 @@
 	new /obj/item/stack/sheet/plasteel(src, 50)
 	new /obj/item/stack/sheet/iron(src, 50)
 	new /obj/item/stack/sheet/glass(src, 50)
-	new /obj/item/stack/sheet/mineral/sandbags(src, 30)
+	new /obj/item/stack/sheet/sandbags(src, 30)
 	new /obj/item/clothing/shoes/magboots(src)
 	new /obj/item/storage/box/smart_metal_foam(src)
 	for(var/i in 1 to 3)

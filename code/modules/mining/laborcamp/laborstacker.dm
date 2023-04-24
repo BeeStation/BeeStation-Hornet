@@ -30,7 +30,7 @@ GLOBAL_LIST(labor_sheet_values)
 			if(!initial(sheet.point_value) || (initial(sheet.merge_type) && initial(sheet.merge_type) != sheet_type)) //ignore no-value sheets and x/fifty subtypes
 				continue
 			sheet_list += list(list("ore" = initial(sheet.name), "value" = initial(sheet.point_value)))
-		GLOB.labor_sheet_values = sortList(sheet_list, /proc/cmp_sheet_list)
+		GLOB.labor_sheet_values = sort_list(sheet_list, GLOBAL_PROC_REF(cmp_sheet_list))
 
 /obj/machinery/mineral/labor_claim_console/Destroy()
 	QDEL_NULL(integrated_radio)
@@ -127,10 +127,9 @@ GLOBAL_LIST(labor_sheet_values)
 	if(stacking_machine)
 		stacking_machine.console = src
 
-/obj/machinery/mineral/labor_claim_console/emag_act(mob/user)
-	if(!(obj_flags & EMAGGED))
-		obj_flags |= EMAGGED
-		to_chat(user, "<span class='warning'>PZZTTPFFFT</span>")
+/obj/machinery/mineral/labor_claim_console/on_emag(mob/user)
+	..()
+	to_chat(user, "<span class='warning'>PZZTTPFFFT</span>")
 
 /**********************Prisoner Collection Unit**************************/
 

@@ -10,6 +10,7 @@
 	det_time = 10
 	display_timer = 0
 	w_class = WEIGHT_CLASS_SMALL
+	item_flags = ISWEAPON
 	var/atom/target = null
 	var/mutable_appearance/plastic_overlay
 	var/obj/item/assembly_holder/nadeassembly = null
@@ -24,7 +25,7 @@
 	. = ..()
 	plastic_overlay = mutable_appearance(icon, "[item_state]2", HIGH_OBJ_LAYER)
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -69,7 +70,7 @@
 		if(!QDELETED(target))
 			location = get_turf(target)
 			density_check = target.density //since turfs getting exploded makes this a bit fucky wucky we need to assert whether we should go directional before that part
-			target.cut_overlay(plastic_overlay, TRUE)
+			target.cut_overlay(plastic_overlay)
 			if(!ismob(target) || full_damage_on_mobs)
 				target.ex_act(EXPLODE_HEAVY, target)
 	else
@@ -141,10 +142,10 @@
 		else if(istype(AM, /mob/living))
 			plastic_overlay.layer = FLOAT_LAYER
 
-		target.add_overlay(plastic_overlay, TRUE)
+		target.add_overlay(plastic_overlay)
 		if(!nadeassembly)
 			to_chat(user, "<span class='notice'>You plant the bomb. Timer counting down from [det_time].</span>")
-			addtimer(CALLBACK(src, .proc/prime), det_time*10)
+			addtimer(CALLBACK(src, PROC_REF(prime)), det_time*10)
 		else
 			qdel(src)	//How?
 
@@ -232,7 +233,7 @@
 	if(target)
 		if(!QDELETED(target))
 			location = get_turf(target)
-			target.cut_overlay(plastic_overlay, TRUE)
+			target.cut_overlay(plastic_overlay)
 			if(!ismob(target) || full_damage_on_mobs)
 				target.ex_act(2, target)
 	else

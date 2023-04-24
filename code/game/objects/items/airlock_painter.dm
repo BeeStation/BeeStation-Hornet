@@ -62,7 +62,7 @@
 		if(PAINTER_MOST to INFINITY)
 			icon_state = base
 		else
-			icon_state = "[base]_crit"
+			icon_state = "[base]_empty"
 
 
 //This proc doesn't just check if the painter can be used, but also uses it.

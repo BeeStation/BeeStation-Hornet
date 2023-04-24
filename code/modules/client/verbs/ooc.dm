@@ -1,3 +1,4 @@
+
 GLOBAL_VAR_INIT(OOC_COLOR, null)//If this is null, use the CSS for OOC. Otherwise, use a custom colour.
 GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
@@ -25,6 +26,14 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 		if(prefs.muted & MUTE_OOC)
 			to_chat(src, "<span class='danger'>You cannot use OOC (muted).</span>")
 			return
+	else
+		if(SSticker.current_state == GAME_STATE_PLAYING && holder.ooc_confirmation_enabled)
+			var/choice = alert("The round is still ongoing, are you sure you wish to send an OOC message?", "Confirm midround OOC?", "No", "Yes", "Always yes for this round")
+			switch(choice)
+				if("No")
+					return
+				if("Always yes for this round")
+					holder.ooc_confirmation_enabled = FALSE
 	if(is_banned_from(ckey, "OOC"))
 		to_chat(src, "<span class='danger'>You have been banned from OOC.</span>")
 		return
@@ -93,10 +102,21 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 				else
 					to_chat(C, "[badge_data]<span class='ooc'><span class='prefix'>OOC:</span> <EM>[keyname]:</EM> <span class='message linkify'>[msg]</span></span>")
 	// beestation, send to discord
-	if(holder?.fakekey)
-		discordsendmsg("ooc", "**[holder.fakekey]:** [msg]")
-	else
-		discordsendmsg("ooc", "**[key]:** [msg]")
+	send_chat_to_discord(CHAT_TYPE_OOC, holder?.fakekey || key, raw_msg)
+
+/proc/send_chat_to_discord(type, sayer, msg)
+	var/discord_ooc_tag = CONFIG_GET(string/discord_ooc_tag) // check server config file. check `config.txt` file for the usage.
+	discord_ooc_tag = discord_ooc_tag ? "\[[discord_ooc_tag]\] " : ""
+	switch(type)
+		if(CHAT_TYPE_OOC)
+			sendooc2ext("[discord_ooc_tag](OOC) **[sayer]:** [msg]")
+		if(CHAT_TYPE_DEADCHAT) // don't send these until a round is finished
+			if(SSticker.current_state == GAME_STATE_FINISHED)
+				var/regex/R = regex("<span class=' '>(\[\\s\\S.\]+)</span>\"")
+				if(!R.Find(msg))
+					return
+				msg = R.group[1] // wipes some bad dchat format
+				sendooc2ext("[discord_ooc_tag](Dead) **[sayer]:** [msg]")
 
 /proc/toggle_ooc(toggle = null)
 	if(toggle != null) //if we're specifically en/disabling ooc
@@ -227,7 +247,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 			choices["[C.mob]([displayed_choicename])"] = C
 		else
 			choices[displayed_choicename] = C
-	choices = sortList(choices)
+	choices = sort_list(choices)
 	var/selection = input("Please, select a player!", "Ignore", null, null) as null|anything in choices
 	if(!selection || !(selection in choices))
 		return
@@ -301,3 +321,16 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 		return
 
 	GLOB.error_cache.show_to_minimal(src)
+
+/client/verb/speech_format_help()
+	set name = "Speech Format Help"
+	set category = "OOC"
+	set desc = "Chat formatting help"
+
+	var/message = "<span class='big'>You can add emphasis to your text by surrounding words or sentences in certain characters.</span>\n \
+		**bold**, and _italics_ are supported.\n\n \
+		<span class='big'>You can made custom saymods by doing <i>say 'screams| HELP IM DYING!'</i>. This works over the radio, and can be used to emote over the radio.</span>\n \
+		Example: say ';laughs maniacally!|' >> \[Common] Joe Schmoe laughs maniacally!"
+
+
+	to_chat(usr, "<span class='notice'>[message]</span>")

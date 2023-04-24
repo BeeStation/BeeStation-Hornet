@@ -1,35 +1,211 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/yellow,
-/turf/open/floor/plasteel/white,
-/area/ruin)
-"b" = (
+"ab" = (
 /turf/open/floor/plasteel,
 /area/ruin)
-"c" = (
+"ac" = (
 /obj/structure/table/glass,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plasteel/white,
 /area/ruin)
-"d" = (
+"ah" = (
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin)
+"ak" = (
+/turf/open/floor/plasteel/white,
+/area/ruin)
+"al" = (
+/obj/structure/table/glass,
+/obj/item/storage/box/beakers,
+/obj/item/reagent_containers/syringe,
+/obj/item/reagent_containers/syringe,
+/obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin)
+"an" = (
+/obj/effect/abstract/open_area_marker,
+/turf/open/floor/plasteel,
+/area/ruin)
+"ao" = (
+/obj/effect/turf_decal/tile/yellow/half/contrasted,
+/turf/open/floor/plasteel/white,
+/area/ruin)
+"ar" = (
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin)
+"as" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/ruin)
+"av" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin)
+"az" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/northleft{
+	dir = 4;
+	name = "Chemistry Desk";
+	req_access_txt = "5; 33"
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/plasteel/white,
+/area/ruin)
+"aB" = (
+/obj/machinery/chem_master,
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin)
+"aG" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow,
-/obj/machinery/chem_heater,
 /turf/open/floor/plasteel/white,
 /area/ruin)
-"e" = (
-/obj/effect/turf_decal/tile/yellow{
+"aH" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted,
+/turf/open/floor/plasteel/white,
+/area/ruin)
+"aK" = (
+/obj/machinery/door/airlock/medical/glass{
+	name = "Chemistry Lab";
+	req_access_txt = "5; 33"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin)
+"aN" = (
+/obj/effect/turf_decal/bot_white,
+/turf/open/floor/plasteel/white,
+/area/ruin)
+"aO" = (
+/turf/closed/wall,
+/area/ruin)
+"aP" = (
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted,
+/turf/open/floor/plasteel/white,
+/area/ruin)
+"aQ" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin)
+"aR" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin)
+"aS" = (
+/obj/machinery/chem_heater,
+/obj/effect/turf_decal/tile/yellow/anticorner/contrasted,
+/turf/open/floor/plasteel/white,
+/area/ruin)
+"aT" = (
+/obj/machinery/smartfridge/chemistry/preloaded,
+/turf/closed/wall,
+/area/ruin)
+"aV" = (
+/obj/effect/abstract/doorway_marker{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/yellow,
+/turf/open/floor/plasteel/white,
+/area/ruin)
+"aW" = (
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin)
+"bl" = (
+/obj/machinery/light_switch{
+	pixel_x = 1;
+	pixel_y = -25
+	},
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin)
+"kt" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow/half/contrasted,
+/turf/open/floor/plasteel/white,
+/area/ruin)
+"pt" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin)
+"ti" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -30
+	},
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin)
+"vp" = (
+/obj/structure/closet/secure_closet/chemical,
+/obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin)
+"wA" = (
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin)
+"xi" = (
+/obj/structure/table/glass,
+/obj/machinery/reagentgrinder{
+	pixel_x = -1;
+	pixel_y = 7
+	},
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin)
+"AP" = (
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin)
+"Cy" = (
+/obj/machinery/vending/wardrobe/chem_wardrobe,
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin)
+"FI" = (
 /obj/machinery/camera/autoname{
 	dir = 8
 	},
@@ -38,98 +214,43 @@
 /obj/item/storage/box/medsprays,
 /obj/item/reagent_containers/medspray,
 /obj/item/reagent_containers/medspray,
+/obj/effect/turf_decal/tile/yellow/half/contrasted,
 /turf/open/floor/plasteel/white,
 /area/ruin)
-"f" = (
-/obj/effect/turf_decal/tile/blue{
+"FK" = (
+/obj/structure/rack,
+/obj/item/construction/plumbing,
+/obj/effect/turf_decal/tile/yellow/half/contrasted,
+/turf/open/floor/plasteel/white,
+/area/ruin)
+"GR" = (
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
 /turf/open/floor/plasteel/white,
 /area/ruin)
-"g" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin)
-"i" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin)
-"j" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
+"Ih" = (
 /obj/structure/table/glass,
-/obj/machinery/reagentgrinder{
-	pixel_x = -1;
-	pixel_y = 7
+/obj/machinery/light{
+	dir = 1
 	},
-/turf/open/floor/plasteel/white,
-/area/ruin)
-"k" = (
-/turf/open/floor/plasteel/white,
-/area/ruin)
-"m" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
+/obj/item/book/manual/wiki/grenades{
+	pixel_y = 3
+	},
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin)
-"n" = (
-/obj/effect/abstract/open_area_marker,
-/turf/open/floor/plasteel,
-/area/ruin)
-"p" = (
-/obj/effect/turf_decal/tile/yellow{
+"IQ" = (
+/obj/structure/table/glass,
+/obj/effect/spawner/lootdrop/snowdin/dungeonlite,
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
-	},
-/obj/effect/turf_decal/tile/yellow,
-/obj/machinery/light_switch{
-	pixel_x = 1;
-	pixel_y = -25
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin)
-"q" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/machinery/chem_dispenser{
-	layer = 2.7
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin)
-"s" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/ruin)
-"t" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
+"JC" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/glass/beaker/large{
 	pixel_x = -3;
@@ -144,44 +265,21 @@
 	pixel_x = 1;
 	pixel_y = 4
 	},
-/turf/open/floor/plasteel/white,
-/area/ruin)
-"u" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
+/turf/open/floor/plasteel/white,
+/area/ruin)
+"Px" = (
+/obj/machinery/chem_dispenser{
+	layer = 2.7
+	},
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin)
-"v" = (
-/obj/effect/abstract/open_area_marker{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/ruin)
-"w" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/structure/closet/secure_closet/chemical,
-/turf/open/floor/plasteel/white,
-/area/ruin)
-"x" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
+"Rt" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/glass/bottle/charcoal{
 	pixel_x = 3;
@@ -195,294 +293,108 @@
 /obj/item/storage/pill_bottle,
 /obj/item/storage/pill_bottle,
 /obj/item/reagent_containers/syringe,
-/turf/open/floor/plasteel/white,
-/area/ruin)
-"y" = (
-/obj/effect/turf_decal/tile/blue{
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin)
-"z" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/northleft{
-	dir = 4;
-	name = "Chemistry Desk";
-	req_access_txt = "5; 33"
-	},
-/obj/machinery/door/firedoor,
-/turf/open/floor/plasteel/white,
-/area/ruin)
-"A" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin)
-"C" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin)
-"D" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/yellow,
-/obj/machinery/chem_master,
-/turf/open/floor/plasteel/white,
-/area/ruin)
-"E" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin)
-"F" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin)
-"G" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin)
-"I" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/yellow,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -30
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin)
-"J" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/yellow,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/structure/table/glass,
-/obj/item/storage/box/beakers,
-/obj/item/reagent_containers/syringe,
-/obj/item/reagent_containers/syringe,
-/turf/open/floor/plasteel/white,
-/area/ruin)
-"K" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "Chemistry Lab";
-	req_access_txt = "5; 33"
-	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin)
-"L" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow,
-/turf/open/floor/plasteel/white,
-/area/ruin)
-"M" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/machinery/vending/wardrobe/chem_wardrobe,
-/turf/open/floor/plasteel/white,
-/area/ruin)
-"N" = (
-/obj/effect/turf_decal/bot_white,
-/turf/open/floor/plasteel/white,
-/area/ruin)
-"O" = (
-/turf/closed/wall,
-/area/ruin)
-"T" = (
-/obj/machinery/smartfridge/chemistry/preloaded,
-/turf/closed/wall,
-/area/ruin)
-"U" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin)
-"V" = (
-/obj/effect/abstract/doorway_marker{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin)
-"X" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow,
-/obj/structure/rack,
-/obj/item/construction/plumbing,
-/turf/open/floor/plasteel/white,
-/area/ruin)
-"Y" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/structure/table/glass,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/item/book/manual/wiki/grenades{
-	pixel_y = 3
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin)
-"Z" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/yellow,
-/obj/structure/table/glass,
-/obj/effect/spawner/lootdrop/snowdin/dungeonlite,
 /turf/open/floor/plasteel/white,
 /area/ruin)
 
 (1,1,1) = {"
-O
-O
-O
-O
-O
-b
-v
-b
-O
+aO
+aO
+aO
+aO
+aO
+ab
+av
+ab
+aO
 "}
 (2,1,1) = {"
-O
-Y
-c
-Z
-O
-u
-f
-C
-b
+aO
+Ih
+ac
+IQ
+aO
+ar
+aR
+aW
+ab
 "}
 (3,1,1) = {"
-O
-U
-k
-p
-O
-y
-N
-F
-n
+aO
+AP
+ak
+bl
+aO
+pt
+aN
+aQ
+an
 "}
 (4,1,1) = {"
-O
-U
-k
-a
-K
-i
-m
-A
-b
+aO
+AP
+ak
+GR
+aK
+wA
+aH
+aP
+ab
 "}
 (5,1,1) = {"
-O
-j
-k
-I
-O
-s
-z
-T
-O
+aO
+xi
+ak
+ti
+aO
+as
+az
+aT
+aO
 "}
 (6,1,1) = {"
-O
-t
-k
-G
-x
-q
-g
-J
-O
+aO
+JC
+ak
+aG
+Rt
+Px
+ah
+al
+aO
 "}
 (7,1,1) = {"
-O
-M
-k
-k
-k
-k
-k
-D
-O
+aO
+Cy
+ak
+ak
+ak
+ak
+ak
+aB
+aO
 "}
 (8,1,1) = {"
-O
-w
-L
-e
-X
-E
-L
-d
-O
+aO
+vp
+ao
+FI
+FK
+kt
+ao
+aS
+aO
 "}
 (9,1,1) = {"
-O
-O
-V
-O
-O
-O
-O
-O
-O
+aO
+aO
+aV
+aO
+aO
+aO
+aO
+aO
+aO
 "}

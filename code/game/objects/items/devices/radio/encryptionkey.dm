@@ -12,8 +12,8 @@
 
 /obj/item/encryptionkey/Initialize(mapload)
 	. = ..()
-	if(!channels.len)
-		desc = "An encryption key for a radio headset.  Has no special codes in it. You should probably tell a coder!"
+	if(!(translate_binary || syndie || independent || amplification || length(channels)))
+		desc = "An encryption key for a radio headset. Has no special codes in it. You should probably tell a coder!"
 
 /obj/item/encryptionkey/examine(mob/user)
 	. = ..()
@@ -32,17 +32,14 @@
 
 /obj/item/encryptionkey/binary
 	name = "binary translator key"
+	desc = "An encryption key that interchanges the form of anaologue brainwave and binary electric signals."
 	icon_state = "bin_cypherkey"
 	translate_binary = TRUE
 
 /obj/item/encryptionkey/amplification
 	name = "amplification module key"
-	amplification = TRUE
-
-// Makes sure neither channel messages show up.
-/obj/item/encryptionkey/amplification/Initialize()
-	. = ..()
 	desc = "An amplification module key for a radio headset. It will enable the \"Loud mode\" ability on any headset it is inserted into."
+	amplification = TRUE
 
 /obj/item/encryptionkey/headset_sec
 	name = "security radio encryption key"
@@ -68,11 +65,6 @@
 	name = "science radio encryption key"
 	icon_state = "sci_cypherkey"
 	channels = list(RADIO_CHANNEL_SCIENCE = 1)
-
-/obj/item/encryptionkey/headset_medsci
-	name = "medical research radio encryption key"
-	icon_state = "medsci_cypherkey"
-	channels = list(RADIO_CHANNEL_SCIENCE = 1, RADIO_CHANNEL_MEDICAL = 1)
 
 /obj/item/encryptionkey/headset_medsec
 	name = "medical-security encryption key"
@@ -101,7 +93,7 @@
 	name = "\proper the research director's encryption key"
 	icon_state = "rd_cypherkey"
 	channels = list(RADIO_CHANNEL_SCIENCE = 1, RADIO_CHANNEL_EXPLORATION = 1, RADIO_CHANNEL_COMMAND = 1)
-	
+
 /obj/item/encryptionkey/heads/rd/fake
 	channels = list(RADIO_CHANNEL_SERVICE = 1)
 

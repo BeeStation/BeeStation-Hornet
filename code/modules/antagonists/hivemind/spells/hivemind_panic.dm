@@ -4,7 +4,7 @@
 	panel = "Hivemind Abilities"
 	charge_max = 900
 	range = 7
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	clothes_req = 0
 	max_targets = 0
 	antimagic_allowed = TRUE
@@ -35,11 +35,11 @@
 			if(2)
 				to_chat(target, "<span class='userdanger'>You panic and flail around!</span>")
 				target.click_random_mob()
-				addtimer(CALLBACK(target, /mob/proc/click_random_mob), 5)
-				addtimer(CALLBACK(target, /mob/proc/click_random_mob), 10)
-				addtimer(CALLBACK(target, /mob/proc/click_random_mob), 15)
-				addtimer(CALLBACK(target, /mob/proc/click_random_mob), 20)
-				addtimer(CALLBACK(target, /mob/living.proc/Stun, 30), 25)
+				addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, click_random_mob)), 5)
+				addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, click_random_mob)), 10)
+				addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, click_random_mob)), 15)
+				addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, click_random_mob)), 20)
+				addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, Stun), 30), 25)
 				target.confused += 10
 			if(3)
 				to_chat(target, "<span class='userdanger'>You freeze up in fear!</span>")

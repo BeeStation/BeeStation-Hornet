@@ -11,7 +11,7 @@
 	light_color = LIGHT_COLOR_BLUE
 	var/interval = 20
 	var/harvesting = FALSE
-	var/list/operation_order = list() //Order of wich we harvest limbs.
+	var/list/operation_order = list() //Order of which we harvest limbs.
 	var/allow_clothing = FALSE
 	var/allow_living = FALSE
 
@@ -88,7 +88,7 @@
 	visible_message("<span class='notice'>The [name] begins warming up!</span>")
 	say("Initializing harvest protocol.")
 	update_icon(TRUE)
-	addtimer(CALLBACK(src, .proc/harvest), interval)
+	addtimer(CALLBACK(src, PROC_REF(harvest)), interval)
 
 /obj/machinery/harvester/proc/harvest()
 	update_icon()
@@ -122,7 +122,7 @@
 		operation_order.Remove(BP)
 		break
 	use_power(5000)
-	addtimer(CALLBACK(src, .proc/harvest), interval)
+	addtimer(CALLBACK(src, PROC_REF(harvest)), interval)
 
 /obj/machinery/harvester/proc/end_harvesting()
 	harvesting = FALSE
@@ -157,10 +157,8 @@
 		visible_message("<span class='notice'>[usr] pries open \the [src].</span>", "<span class='notice'>You pry open [src].</span>")
 		open_machine()
 
-/obj/machinery/harvester/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+/obj/machinery/harvester/on_emag(mob/user)
+	..()
 	allow_living = TRUE
 	to_chat(user, "<span class='warning'>You overload [src]'s lifesign scanners.</span>")
 
