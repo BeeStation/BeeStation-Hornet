@@ -186,16 +186,15 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
   cancelNextKeyUp?: number;
   keybindingOnClicks: Record<string, (() => void)[]> = {};
   lastKeybinds?: PreferencesMenuData["keybindings"];
+  state: KeybindingsPageState = {
+    lastKeyboardEvent: undefined,
+    keybindings: undefined,
+    selectedKeybindings: undefined,
+    rebindingHotkey: undefined,
+  }
 
   constructor() {
     super();
-
-    this.state = {
-      lastKeyboardEvent: undefined,
-      keybindings: undefined,
-      selectedKeybindings: undefined,
-      rebindingHotkey: undefined,
-    };
 
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);
@@ -263,7 +262,7 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
 
   handleKeyDown(keyEvent: KeyEvent) {
     const event = keyEvent.event;
-    const rebindingHotkey = this.state.rebindingHotkey;
+    const rebindingHotkey = this.state?.rebindingHotkey;
 
     if (!rebindingHotkey) {
       return;
@@ -292,6 +291,10 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
       keyEvent.event.preventDefault();
     }
 
+    if(this.state == null) {
+      return;
+    }
+
     const { lastKeyboardEvent, rebindingHotkey } = this.state;
 
     if (rebindingHotkey && lastKeyboardEvent) {
@@ -309,7 +312,7 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
 
     if (!this.keybindingOnClicks[keybindingId][slot]) {
       this.keybindingOnClicks[keybindingId][slot] = () => {
-        if (this.state.rebindingHotkey === undefined) {
+        if (this.state?.rebindingHotkey === undefined) {
           this.setState({
             lastKeyboardEvent: undefined,
             rebindingHotkey: [keybindingId, slot],
@@ -327,6 +330,9 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
   }
 
   getTypingHotkey(keybindingId: string, slot: number): string | undefined {
+    if (!this.state) {
+      return;
+    }
     const { lastKeyboardEvent, rebindingHotkey } = this.state;
 
     if (!rebindingHotkey) {
@@ -372,7 +378,7 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
 
   render() {
     const { act } = useBackend(this.context);
-    const keybindings = this.state.keybindings;
+    const keybindings = this.state?.keybindings;
 
     if (!keybindings) {
       return <Box>Loading keybindings...</Box>;

@@ -238,8 +238,13 @@ export const computeBoxClassName = (props: BoxProps) => {
   return classes([isColorClass(color) && 'color-' + color, isColorClass(backgroundColor) && 'color-bg-' + backgroundColor]);
 };
 
-export const Box = (props: BoxProps) => {
-  const { as = 'div', className, children, ...rest } = props;
+export const Box: Inferno.SFC<BoxProps> = (props: BoxProps) => {
+  const {
+    as = 'div',
+    className,
+    children,
+    ...rest
+  } = props;
   // Render props
   if (typeof children === 'function') {
     return children(computeBoxProps(props));

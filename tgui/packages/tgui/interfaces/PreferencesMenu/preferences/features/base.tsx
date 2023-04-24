@@ -1,6 +1,7 @@
 import { sortBy, sortStrings } from "common/collections";
 import { BooleanLike, classes } from "common/react";
-import { ComponentType, createComponentVNode, InfernoNode } from "inferno";
+import { createComponentVNode } from "inferno";
+import type { Inferno, ComponentType } from "inferno";
 import { VNodeFlags } from "inferno-vnode-flags";
 import { sendAct, useBackend, useLocalState } from "../../../../backend";
 import { Box, Button, Dropdown, NumberInput, Stack } from "../../../../components";
@@ -228,7 +229,7 @@ export const FeatureIconnedDropdownInput = (
 
   const displayNames = Object.fromEntries(
     Object.entries(textNames).map(([choice, textName]) => {
-      let element: InfernoNode = textName;
+      let element: Inferno.InfernoNode = textName;
 
       if (icons && icons[choice]) {
         const icon = icons[choice];
