@@ -187,7 +187,9 @@
 	icon_state = "detective-armor"
 	resistance_flags = FLAMMABLE
 	dog_fashion = null
-	armor = list("melee" = 25, "bullet" = 20, "laser" = 15, "energy" = 20, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 15)
+	// Weak against energy based weapons compared to the trenchcoat
+	// which is weak against physical attacks.
+	armor = list("melee" = 20, "bullet" = 25, "laser" = 10, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 15)
 
 /obj/item/clothing/suit/armor/vest/det_suit/Initialize(mapload)
 	. = ..()
