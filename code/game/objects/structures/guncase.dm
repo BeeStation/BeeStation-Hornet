@@ -190,11 +190,8 @@
 	return (obj_flags & EMAGGED) || is_unlocked || (unlock_alert_level && GLOB.security_level >= unlock_alert_level)
 
 /// Add in emagging behaviour
-/obj/structure/guncase/locked/emag_act(mob/user)
-	. = ..()
-	if (obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+/obj/structure/guncase/locked/on_emag(mob/user)
+	..()
 	to_chat(user, "<span class='notice'>You override the locking mechanism inside of [src].</span>")
 	playsound(src, 'sound/machines/boltsup.ogg', 50, TRUE)
 	update_icon()
