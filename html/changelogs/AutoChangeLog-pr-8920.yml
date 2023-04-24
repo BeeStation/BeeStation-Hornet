@@ -1,0 +1,4 @@
+author: Wisemonster
+delete-after: true
+changes:
+  - bugfix: Fixed meteors being too slow to reach the station in a timely manner.
