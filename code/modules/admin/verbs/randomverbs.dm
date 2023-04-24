@@ -1373,15 +1373,15 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	if(!C.set_db_player_flags())
 		to_chat(usr, "<span class='danger'>ERROR: Unable read player flags from database. Please check logs.</span>")
-	// TODO tgui-prefs var/dbflags = C.prefs.db_flags
+	var/dbflags = C.prefs.db_flags
 	var/newstate = FALSE
 
-	//if(dbflags & DB_FLAG_EXEMPT || C.prefs.job_exempt)
-	//	newstate = FALSE
-	//else
-	//	newstate = TRUE
+	if(dbflags & DB_FLAG_EXEMPT || C.prefs.job_exempt)
+		newstate = FALSE
+	else
+		newstate = TRUE
 
-	//C.prefs.job_exempt = newstate
+	C.prefs.job_exempt = newstate
 
 	if(C.update_flag_db(DB_FLAG_EXEMPT, newstate))
 		to_chat(usr, "<span class='danger'>ERROR: Unable to update player flags. Please check logs.</span>")

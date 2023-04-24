@@ -18,8 +18,8 @@ GLOBAL_PROTECT(exp_to_update)
 	var/isexempt = C.prefs.db_flags & DB_FLAG_EXEMPT
 	if(isexempt)
 		return 0
-	//TODO tgui-prefs if(C.prefs.job_exempt)
-	//	return 0
+	if(C.prefs.job_exempt)
+		return 0
 	var/my_exp = C.calc_exp_type(get_exp_req_type())
 	var/job_requirement = get_exp_req_amount()
 	if(my_exp >= job_requirement)
