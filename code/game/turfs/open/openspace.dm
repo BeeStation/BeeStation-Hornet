@@ -196,7 +196,7 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 	return FALSE
 
 /turf/open/openspace/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller)
-	if(caller && !caller.can_z_move(DOWN, src, null , ZMOVE_FALL_FLAGS)) //If we can't fall here (flying/lattice), it's fine to path through
+	if(caller && !caller.can_zFall(caller, null, DOWN)) //If we can't fall here (flying/lattice), it's fine to path through
 		return TRUE
 	return FALSE
 

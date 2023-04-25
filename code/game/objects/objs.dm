@@ -55,6 +55,9 @@
 	/// If the emag behavior should be toggleable
 	var/emag_toggleable = FALSE
 
+	/// How this atom should react to having its astar blocking checked
+	var/can_astar_pass = CANASTARPASS_DENSITY
+
 /obj/vv_edit_var(vname, vval)
 	switch(vname)
 		if("anchored")

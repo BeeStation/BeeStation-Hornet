@@ -28,5 +28,3 @@
 	while (TICK_USAGE > min(TICK_LIMIT_TO_RUN, Master.current_ticklimit))
 
 #undef DELTA_CALC
-
-#define UNTIL(X) while(!(X)) stoplag()

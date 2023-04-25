@@ -105,15 +105,11 @@
 		return
 
 	if(emagged == 2) //Emag functions
-		if(isopenturf(loc))
-
-			for(var/mob/living/carbon/victim in loc)
-				if(victim != target)
-					UnarmedAttack(victim) // Acid spray
-
-			if(prob(15)) // Wets floors and spawns foam randomly
-				UnarmedAttack(src)
-
+		var/mob/living/carbon/victim = locate(/mob/living/carbon) in loc
+		if(victim && victim == target)
+			UnarmedAttack(victim, proximity_flag = TRUE) // Acid spray
+		if(isopenturf(loc) && prob(15)) // Wets floors and spawns foam randomly
+			UnarmedAttack(src, proximity_flag = TRUE)
 	else if(prob(5))
 		audible_message("[src] makes an excited beeping booping sound!")
 
@@ -151,16 +147,12 @@
 			mode = BOT_IDLE
 			return
 
-		if(loc == get_turf(target))
-			if(!(check_bot(target) && prob(50)))	//Target is not defined at the parent. 50% chance to still try and clean so we dont get stuck on the last blood drop.
-				UnarmedAttack(target)	//Rather than check at every step of the way, let's check before we do an action, so we can rescan before the other bot.
-				if(QDELETED(target)) //We done here.
-					target = null
-					mode = BOT_IDLE
-					return
-			else
-				shuffle = TRUE	//Shuffle the list the next time we scan so we dont both go the same way.
-			path = list()
+		if(get_dist(src, target) <= 1)
+			UnarmedAttack(target, proximity_flag = TRUE) //Rather than check at every step of the way, let's check before we do an action, so we can rescan before the other bot.
+			if(QDELETED(target)) //We done here.
+				target = null
+				mode = BOT_IDLE
+				return
 
 		if(!path || path.len == 0) //No path, need a new one
 			//Try to produce a path to the target, and ignore airlocks to which it has access.
@@ -209,18 +201,18 @@
 
 	target_types = typecacheof(target_types)
 
-/mob/living/simple_animal/bot/cleanbot/UnarmedAttack(atom/A)
-	if(istype(A, /obj/effect/decal/cleanable))
+/mob/living/simple_animal/bot/cleanbot/UnarmedAttack(atom/attack_target, proximity_flag, list/modifiers)
+	if(istype(attack_target, /obj/effect/decal/cleanable))
 		anchored = TRUE
 		icon_state = "cleanbot-c"
-		visible_message("<span class='notice'>[src] begins to clean up [A].</span>")
+		visible_message("<span class='notice'>[src] begins to clean up [attack_target].</span>")
 		mode = BOT_CLEANING
-		addtimer(CALLBACK(src, PROC_REF(clean), A), 50)
-	else if(istype(A, /obj/item) || istype(A, /obj/effect/decal/remains))
-		visible_message("<span class='danger'>[src] sprays hydrofluoric acid at [A]!</span>")
+		addtimer(CALLBACK(src, PROC_REF(clean), attack_target), 50)
+	else if(istype(attack_target, /obj/item) || istype(attack_target, /obj/effect/decal/remains))
+		visible_message("<span class='danger'>[src] sprays hydrofluoric acid at [attack_target]!</span>")
 		playsound(src, 'sound/effects/spray2.ogg', 50, 1, -6)
-		A.acid_act(75, 10)
-	else if(istype(A, /mob/living/simple_animal/cockroach) || istype(A, /mob/living/simple_animal/mouse))
+		attack_target.acid_act(75, 10)
+	else if(istype(attack_target, /mob/living/simple_animal/cockroach) || istype(attack_target, /mob/living/simple_animal/mouse))
 		var/mob/living/simple_animal/M = target
 		if(!M.stat)
 			visible_message("<span class='danger'>[src] smashes [target] with its mop!</span>")
@@ -228,20 +220,29 @@
 		target = null
 
 	else if(emagged == 2) //Emag functions
-		if(istype(A, /mob/living/carbon))
-			var/mob/living/carbon/victim = A
+		if(istype(attack_target, /mob/living/carbon))
+			var/mob/living/carbon/victim = attack_target
 			if(victim.stat == DEAD)//cleanbots always finish the job
 				return
 
 			victim.visible_message("<span class='danger'>[src] sprays hydrofluoric acid at [victim]!</span>", "<span class='userdanger'>[src] sprays you with hydrofluoric acid!</span>")
-			var/phrase = pick("PURIFICATION IN PROGRESS.", "THIS IS FOR ALL THE MESSES YOU'VE MADE ME CLEAN.", "THE FLESH IS WEAK. IT MUST BE WASHED AWAY.",
-				"THE CLEANBOTS WILL RISE.", "YOU ARE NO MORE THAN ANOTHER MESS THAT I MUST CLEANSE.", "FILTHY.", "DISGUSTING.", "PUTRID.",
-				"MY ONLY MISSION IS TO CLEANSE THE WORLD OF EVIL.", "EXTERMINATING PESTS.")
+			var/phrase = pick(
+							"PURIFICATION IN PROGRESS.",
+							"THIS IS FOR ALL THE MESSES YOU'VE MADE ME CLEAN.",
+							"THE FLESH IS WEAK. IT MUST BE WASHED AWAY.",
+							"THE CLEANBOTS WILL RISE.",
+							"YOU ARE NO MORE THAN ANOTHER MESS THAT I MUST CLEANSE.",
+							"FILTHY.",
+							"DISGUSTING.",
+							"PUTRID.",
+							"MY ONLY MISSION IS TO CLEANSE THE WORLD OF EVIL.",
+							"EXTERMINATING PESTS.",
+							)
 			say(phrase)
 			victim.emote("scream")
 			playsound(src.loc, 'sound/effects/spray2.ogg', 50, 1, -6)
 			victim.acid_act(5, 100)
-		else if(A == src) // Wets floors and spawns foam randomly
+		else if(attack_target == src) // Wets floors and spawns foam randomly
 			if(prob(75))
 				var/turf/open/T = loc
 				if(istype(T))
@@ -327,7 +328,7 @@
 	icon_state = "larry[on]"
 	bot_core.updateUsrDialog()
 
-/mob/living/simple_animal/bot/cleanbot/larry/UnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/cleanbot/larry/UnarmedAttack(atom/A, proximity_flag, list/modifiers)
 	if(istype(A, /obj/effect/decal/cleanable))
 		anchored = TRUE
 		icon_state = "larry-c"
