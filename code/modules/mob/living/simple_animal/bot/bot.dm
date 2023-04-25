@@ -1075,7 +1075,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	for(var/datum/atom_hud/hud as anything in path_huds_watching_me)
 		hud.remove_from_hud(src)
 
-	var/list/path_images = hud_list[DIAG_PATH_HUD]
+	var/list/path_images = active_hud_list[DIAG_PATH_HUD]
 	QDEL_LIST(path_images)
 	if(newpath)
 		var/mutable_appearance/path_image = new /mutable_appearance()
