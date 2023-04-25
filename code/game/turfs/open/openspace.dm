@@ -19,16 +19,16 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 	baseturfs = /turf/open/openspace
 	CanAtmosPassVertical = ATMOS_PASS_YES
 	allow_z_travel = TRUE
-
-	FASTDMM_PROP(\
-		pipe_astar_cost = 100\
-	)
-
 	//mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	pathing_pass_method = TURF_PATHING_PASS_PROC
 	var/can_cover_up = TRUE
 	var/can_build_on = TRUE
 
 	intact = 0
+
+	FASTDMM_PROP(\
+		pipe_astar_cost = 100\
+	)
 
 /turf/open/openspace/cold
 	initial_gas_mix = FROZEN_ATMOS
@@ -193,6 +193,11 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 	return FALSE
 
 /turf/open/openspace/rust_heretic_act()
+	return FALSE
+
+/turf/open/openspace/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller)
+	if(caller && !caller.can_z_move(DOWN, src, null , ZMOVE_FALL_FLAGS)) //If we can't fall here (flying/lattice), it's fine to path through
+		return TRUE
 	return FALSE
 
 //Returns FALSE if gravity is force disabled. True if grav is possible
