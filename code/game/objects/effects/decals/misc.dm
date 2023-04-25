@@ -27,10 +27,10 @@
 		return
 	qdel(src)
 
-/obj/effect/decal/chempuff/proc/check_move(datum/move_loop/source, succeeded)
+/obj/effect/decal/chempuff/proc/check_move(datum/move_loop/source, result)
 	if(QDELETED(src))
 		return
-	if(!succeeded || lifetime < 0)
+	if(result == MOVELOOP_FAILURE || lifetime < 0)
 		qdel(src)
 		return
 

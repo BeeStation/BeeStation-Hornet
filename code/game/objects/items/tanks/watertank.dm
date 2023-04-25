@@ -303,9 +303,9 @@
 			to_chat(user, "<span class='warning'>Resin foam mix is still being synthesized...</span>")
 			return
 
-/obj/item/extinguisher/mini/nozzle/proc/resin_stop_check(datum/move_loop/source, succeeded)
+/obj/item/extinguisher/mini/nozzle/proc/resin_stop_check(datum/move_loop/source, result)
 	SIGNAL_HANDLER
-	if(succeeded)
+	if(result == MOVELOOP_SUCCESS)
 		return
 	resin_landed(source)
 	qdel(source)

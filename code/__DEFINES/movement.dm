@@ -64,6 +64,11 @@
 /// An abductor teleport
 #define TELEPORT_MODE_ABDUCTORS 3
 
+///Return values for moveloop Move()
+#define MOVELOOP_FAILURE 0
+#define MOVELOOP_SUCCESS 1
+#define MOVELOOP_NOT_READY 2
+
 // Jetpack Thrust
 /// Thrust needed with gravity
 #define THRUST_REQUIREMENT_GRAVITY 0.2
