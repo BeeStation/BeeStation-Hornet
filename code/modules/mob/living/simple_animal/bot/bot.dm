@@ -413,30 +413,27 @@
 	if(istype(dropped_item, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/dropped_cell = dropped_item
 		dropped_cell.charge = 0
-		dropped_cell.update_icon()
+		dropped_cell.update_appearance()
 
 	else if(istype(dropped_item, /obj/item/storage))
-		var/obj/item/storage/S = dropped_item
-		S.contents = list()
+		var/obj/item/storage/storage_to_drop = dropped_item
+		storage_to_drop.contents = list()
 
 	else if(istype(dropped_item, /obj/item/gun/energy))
 		var/obj/item/gun/energy/dropped_gun = dropped_item
 		dropped_gun.cell.charge = 0
-		dropped_gun.update_icon()
+		dropped_gun.update_appearance()
 
 //Generalized behavior code, override where needed!
 
 GLOBAL_LIST_EMPTY(scan_typecaches)
-/*
-scan() will search for a given type (such as turfs, human mobs, or objects) in the bot's view range, and return a single result.
-Arguments: The object type to be searched (such as "/mob/living/carbon/human"), the old scan result to be ignored, if one exists,
-and the view range, which defaults to 7 (full screen) if an override is not passed.
-If the bot maintains an ignore list, it is also checked here.
-
-Example usage: patient = scan(/mob/living/carbon/human, oldpatient, 1)
-The proc would return a human next to the bot to be set to the patient var.
-Pass the desired type path itself, declaring a temporary var beforehand is not required.
-*/
+/**
+ * Attempt to scan tiles near [src], first by checking adjacent, then if a target is still not found, nearby.
+ *
+ * scan_types - list (of typepaths) that nearby tiles are being scanned for.
+ * old_target - what has already been scanned, and will early return at checkscan.
+ * scan_range - how far away from [src] will be scanned, if nothing is found directly adjacent.
+ */
 /mob/living/simple_animal/bot/proc/scan(list/scan_types, old_target, scan_range = DEFAULT_SCAN_RANGE)
 	var/key = scan_types.Join(",")
 	var/list/scan_cache = GLOB.scan_typecaches[key]

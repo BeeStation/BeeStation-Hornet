@@ -24,9 +24,8 @@
 	var/drawn = 0
 
 	var/list/target_types
-	var/obj/effect/decal/cleanable/target
+	var/atom/target
 	var/max_targets = 50 //Maximum number of targets a cleanbot can ignore.
-	var/oldloc = null
 	var/closest_dist
 	var/closest_loc
 	var/failed_steps
@@ -61,15 +60,14 @@
 	..()
 	ignore_list = list() //Allows the bot to clean targets it previously ignored due to being unreachable.
 	target = null
-	oldloc = null
 
 /mob/living/simple_animal/bot/cleanbot/set_custom_texts()
 	text_hack = "You corrupt [name]'s cleaning software."
 	text_dehack = "[name]'s software has been reset!"
 	text_dehack_fail = "[name] does not seem to respond to your repair code!"
 
-/mob/living/simple_animal/bot/cleanbot/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/modular_computer/tablet/pda))
+/mob/living/simple_animal/bot/cleanbot/attackby(obj/item/attacking_item, mob/living/user, params)
+	if(istype(attacking_item, /obj/item/card/id)||istype(attacking_item, /obj/item/modular_computer/tablet/pda))
 		if(bot_core.allowed(user) && !open && !emagged)
 			locked = !locked
 			to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] \the [src] behaviour controls.</span>")
@@ -98,7 +96,8 @@
 		return A
 
 /mob/living/simple_animal/bot/cleanbot/handle_automated_action()
-	if(!..())
+	. = ..()
+	if(!.)
 		return
 
 	if(mode == BOT_CLEANING)
@@ -137,11 +136,9 @@
 	if(!target && auto_patrol) //Search for cleanables it can see.
 		if(mode == BOT_IDLE || mode == BOT_START_PATROL)
 			start_patrol()
-
 		if(mode == BOT_PATROL)
 			bot_patrol()
-
-	if(target)
+	else if(target)
 		if(QDELETED(target) || !isturf(target.loc))
 			target = null
 			mode = BOT_IDLE
@@ -168,8 +165,6 @@
 			mode = BOT_IDLE
 			return
 
-	oldloc = loc
-
 /mob/living/simple_animal/bot/cleanbot/proc/get_targets()
 	target_types = list(
 		/obj/effect/decal/cleanable/oil,
@@ -185,19 +180,23 @@
 		)
 
 	if(blood)
-		target_types += /obj/effect/decal/cleanable/xenoblood
-		target_types += /obj/effect/decal/cleanable/blood
-		target_types += /obj/effect/decal/cleanable/trail_holder
+		target_types += list(
+			/obj/effect/decal/cleanable/xenoblood,
+			/obj/effect/decal/cleanable/blood,
+			/obj/effect/decal/cleanable/trail_holder,
+		)
 
 	if(pests)
-		target_types += /mob/living/simple_animal/cockroach
-		target_types += /mob/living/simple_animal/mouse
+		target_types += list(
+			/mob/living/simple_animal/cockroach,
+			/mob/living/simple_animal/mouse,
+		)
 
 	if(drawn)
-		target_types += /obj/effect/decal/cleanable/crayon
+		target_types += list(/obj/effect/decal/cleanable/crayon)
 
 	if(trash)
-		target_types += /obj/item/trash
+		target_types += list(/obj/item/trash)
 
 	target_types = typecacheof(target_types)
 

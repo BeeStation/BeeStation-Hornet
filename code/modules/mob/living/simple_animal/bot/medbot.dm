@@ -40,7 +40,6 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	var/skin = null //based off medkit_X skins in aibots.dmi for your selection; X goes here IE medskin_tox means skin var should be "tox"
 	var/mob/living/carbon/patient = null
 	var/mob/living/carbon/oldpatient = null
-	var/oldloc = null
 	var/last_found = 0
 	var/last_newpatient_speak = 0 //Don't spam the "HEY I'M COMING" messages
 	var/heal_amount = 2.5 //How much healing do we do at a time?
@@ -126,7 +125,6 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	..()
 	set_patient(null)
 	oldpatient = null
-	oldloc = null
 	last_found = world.time
 	declare_cooldown = 0
 	update_icon()
@@ -350,7 +348,10 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	if(QDELETED(patient))
 		if(!shut_up && prob(1))
 			if(emagged && prob(30))
-				var/list/i_need_scissors = list('sound/voice/medbot/fuck_you.ogg', 'sound/voice/medbot/im_different.ogg', 'sound/voice/medbot/shindemashou.ogg') //some lines removed because they are very LRP/meta, doesn't fit with bee
+				var/list/i_need_scissors = list(
+										'sound/voice/medbot/fuck_you.ogg',
+										'sound/voice/medbot/im_different.ogg',
+										'sound/voice/medbot/shindemashou.ogg') //some lines removed because they are very LRP/meta, doesn't fit with bee
 				playsound(src, pick(i_need_scissors), 70)
 			else
 				var/list/messagevoice = list("Radar, put a mask on!" = 'sound/voice/medbot/radar.ogg',"There's always a catch, and I'm the best there is." = 'sound/voice/medbot/catch.ogg',"I knew it, I should've been a plastic surgeon." = 'sound/voice/medbot/surgeon.ogg',"What kind of medbay is this? Everyone's dropping like flies." = 'sound/voice/medbot/flies.ogg',"Delicious!" = 'sound/voice/medbot/delicious.ogg', "Why are we still here? Just to suffer?" = 'sound/voice/medbot/why.ogg')
