@@ -523,10 +523,11 @@ Pass a positive integer as an argument to override a bot's default speed.
 		return FALSE
 	return TRUE
 
-
-/mob/living/simple_animal/bot/proc/bot_step(dest) //Step,increase tries if failed
-	if(!path)
+/// Performs a step_towards and increments the path if successful. Returns TRUE if the bot moved and FALSE otherwise.
+/mob/living/simple_animal/bot/proc/bot_step(dest)
+	if(!length(path))
 		return FALSE
+
 	if(path.len > 1)
 		step_towards(src, path[1])
 		if(get_turf(src) == path[1]) //Successful move
@@ -566,10 +567,9 @@ Pass a positive integer as an argument to override a bot's default speed.
 			call_bot_z_move(caller, waypoint)
 			return
 
-
 	set_path(get_path_to(src, waypoint, 200, id=all_access))
 
-	if(path && path.len) //Ensures that a valid path is calculated!
+	if(path?.len) //Ensures that a valid path is calculated!
 		var/end_area = get_area_name(waypoint)
 		if(!on)
 			turn_on() //Saves the AI the hassle of having to activate a bot manually.

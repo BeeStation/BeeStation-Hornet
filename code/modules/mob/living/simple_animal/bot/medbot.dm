@@ -359,7 +359,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 				speak(message)
 				playsound(src, messagevoice[message], 50)
 		var/scan_range = (stationary_mode ? 1 : DEFAULT_SCAN_RANGE) //If in stationary mode, scan range is limited to adjacent patients.
-		set_patient(scan(/mob/living/carbon/human, oldpatient, scan_range))
+		set_patient(scan(list(/mob/living/carbon/human), oldpatient, scan_range))
 
 	if(patient && (get_dist(src,patient) <= 1)) //Patient is next to us, begin treatment!
 		if(mode != BOT_HEALING)
