@@ -4,7 +4,7 @@
 
 
 /datum/keybinding/mob/move_north
-	keys = list("W", "North")
+	keys = list("W")
 	name = "move_north"
 	full_name = "Move North"
 	description = ""
@@ -29,7 +29,7 @@
 
 
 /datum/keybinding/mob/move_east
-	keys = list("D", "East")
+	keys = list("D")
 	name = "move_east"
 	full_name = "Move East"
 	description = ""
@@ -54,7 +54,7 @@
 
 
 /datum/keybinding/mob/move_south
-	keys = list("S", "South")
+	keys = list("S")
 	name = "move_south"
 	full_name = "Move South"
 	description = ""
@@ -79,7 +79,7 @@
 
 
 /datum/keybinding/mob/move_west
-	keys = list("A", "West")
+	keys = list("A")
 	name = "move_west"
 	full_name = "Move West"
 	description = ""

@@ -71,7 +71,7 @@ GLOBAL_LIST_INIT(valid_keys, list(
 	// since these modifier keys toggle effects like "change facing" that require the movement keys to function.
 	// Note that this doesn't prevent the user from binding CTRL-W to North: In that case *only* CTRL-W will function.
 	if (full_key != _key)
-		for (var/kb_name in prefs.key_bindings[_key])
+		for (var/kb_name in prefs.key_bindings_by_key[_key])
 			var/datum/keybinding/kb = GLOB.keybindings_by_name[kb_name]
 			if (kb.any_modifier)
 				kbs += kb
@@ -98,7 +98,7 @@ GLOBAL_LIST_INIT(valid_keys, list(
 	// We don't do full key for release, because for mod keys you
 	// can hold different keys and releasing any should be handled by the key binding specifically
 	var/list/kbs = list()
-	for (var/kb_name in prefs.key_bindings[_key])
+	for (var/kb_name in prefs.key_bindings_by_key[_key])
 		var/datum/keybinding/kb = GLOB.keybindings_by_name[kb_name]
 		kbs += kb
 	kbs = sort_list(kbs, GLOBAL_PROC_REF(cmp_keybinding_dsc))
@@ -106,7 +106,5 @@ GLOBAL_LIST_INIT(valid_keys, list(
 		if(kb.can_use(src) && kb.up(src))
 			break
 
-	if(holder)
-		holder.key_up(_key, src)
-	if(mob.focus)
-		mob.focus.key_up(_key, src)
+	holder?.key_up(_key, src)
+	mob.focus?.key_up(_key, src)
