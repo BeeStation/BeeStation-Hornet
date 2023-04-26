@@ -247,17 +247,17 @@
 
 ////////////////////////////////////TRAUMAS////////////////////////////////////////
 
-/obj/item/organ/brain/proc/has_trauma_type(brain_trauma_type = /datum/brain_trauma, resilience = TRAUMA_RESILIENCE_ABSOLUTE)
+/obj/item/organ/brain/proc/has_trauma_type(brain_trauma_type = /datum/brain_trauma, resilience = TRAUMA_RESILIENCE_ABSOLUTE, datum/callback/custom_check)
 	for(var/X in traumas)
 		var/datum/brain_trauma/BT = X
-		if(istype(BT, brain_trauma_type) && (BT.resilience <= resilience))
+		if(istype(BT, brain_trauma_type) && (BT.resilience <= resilience) && (!custom_check || custom_check.Invoke(BT)))
 			return BT
 
-/obj/item/organ/brain/proc/get_traumas_type(brain_trauma_type = /datum/brain_trauma, resilience = TRAUMA_RESILIENCE_ABSOLUTE)
+/obj/item/organ/brain/proc/get_traumas_type(brain_trauma_type = /datum/brain_trauma, resilience = TRAUMA_RESILIENCE_ABSOLUTE, datum/callback/custom_check)
 	. = list()
 	for(var/X in traumas)
 		var/datum/brain_trauma/BT = X
-		if(istype(BT, brain_trauma_type) && (BT.resilience <= resilience))
+		if(istype(BT, brain_trauma_type) && (BT.resilience <= resilience) && (!custom_check || custom_check.Invoke(BT)))
 			. += BT
 
 /obj/item/organ/brain/proc/can_gain_trauma(datum/brain_trauma/trauma, resilience)
@@ -336,7 +336,7 @@
 	var/list/datum/brain_trauma/possible_traumas = list()
 	for(var/T in subtypesof(brain_trauma_type))
 		var/datum/brain_trauma/BT = T
-		if(can_gain_trauma(BT, resilience) && initial(BT.random_gain))
+		if(can_gain_trauma(BT, resilience) && CHECK_BITFIELD(initial(BT.trauma_flags), TRAUMA_CLONEABLE))
 			possible_traumas += BT
 
 	if(!LAZYLEN(possible_traumas))
@@ -346,13 +346,13 @@
 	gain_trauma(trauma_type, resilience)
 
 //Cure a random trauma of a certain resilience level
-/obj/item/organ/brain/proc/cure_trauma_type(brain_trauma_type = /datum/brain_trauma, resilience = TRAUMA_RESILIENCE_BASIC)
-	var/list/traumas = get_traumas_type(brain_trauma_type, resilience)
+/obj/item/organ/brain/proc/cure_trauma_type(brain_trauma_type = /datum/brain_trauma, resilience = TRAUMA_RESILIENCE_BASIC, datum/callback/custom_check)
+	var/list/traumas = get_traumas_type(brain_trauma_type, resilience, custom_check)
 	if(LAZYLEN(traumas))
 		qdel(pick(traumas))
 
-/obj/item/organ/brain/proc/cure_all_traumas(resilience = TRAUMA_RESILIENCE_BASIC)
-	var/list/traumas = get_traumas_type(resilience = resilience)
+/obj/item/organ/brain/proc/cure_all_traumas(resilience = TRAUMA_RESILIENCE_BASIC, datum/callback/custom_check)
+	var/list/traumas = get_traumas_type(resilience = resilience, custom_check = custom_check)
 	for(var/X in traumas)
 		qdel(X)
 
