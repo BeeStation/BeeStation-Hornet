@@ -64,3 +64,6 @@
 //Called when hugging. expand into generally interacting, where future coders could switch the intent?
 /datum/brain_trauma/proc/on_hug(mob/living/hugger, mob/living/hugged)
 	return
+
+/proc/trauma_can_be_specially_cured(datum/brain_trauma/trauma)
+	return !CHECK_BITFIELD(trauma.trauma_flags, TRAUMA_SPECIAL_CURE_PROOF)

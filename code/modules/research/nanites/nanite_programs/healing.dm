@@ -1,5 +1,4 @@
 //Programs that heal the host in some way.
-#define NANITE_TRAUMA_CALLBACK CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(trauma_can_be_cured_by_nanites))
 
 /datum/nanite_program/regenerative
 	name = "Accelerated Regeneration"
@@ -74,7 +73,7 @@
 	var/problems = FALSE
 	if(iscarbon(host_mob))
 		var/mob/living/carbon/C = host_mob
-		if(length(C.get_traumas(custom_check = NANITE_TRAUMA_CALLBACK)))
+		if(length(C.get_traumas(custom_check = TRAUMA_SPECIAL_CURE_CALLBACK)))
 			problems = TRUE
 	if(host_mob.getOrganLoss(ORGAN_SLOT_BRAIN) > 0)
 		problems = TRUE
@@ -84,7 +83,7 @@
 	host_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, -1)
 	if(iscarbon(host_mob) && prob(10))
 		var/mob/living/carbon/C = host_mob
-		C.cure_trauma_type(resilience = TRAUMA_RESILIENCE_BASIC, custom_check = NANITE_TRAUMA_CALLBACK)
+		C.cure_trauma_type(resilience = TRAUMA_RESILIENCE_BASIC, custom_check = TRAUMA_SPECIAL_CURE_CALLBACK)
 
 /datum/nanite_program/blood_restoring
 	name = "Blood Regeneration"
@@ -196,7 +195,7 @@
 	var/problems = FALSE
 	if(iscarbon(host_mob))
 		var/mob/living/carbon/C = host_mob
-		if(length(C.get_traumas(custom_check = NANITE_TRAUMA_CALLBACK)))
+		if(length(C.get_traumas(custom_check = TRAUMA_SPECIAL_CURE_CALLBACK)))
 			problems = TRUE
 	if(host_mob.getOrganLoss(ORGAN_SLOT_BRAIN) > 0)
 		problems = TRUE
@@ -206,7 +205,7 @@
 	host_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, -2)
 	if(iscarbon(host_mob) && prob(10))
 		var/mob/living/carbon/C = host_mob
-		C.cure_trauma_type(resilience = TRAUMA_RESILIENCE_LOBOTOMY, custom_check = NANITE_TRAUMA_CALLBACK)
+		C.cure_trauma_type(resilience = TRAUMA_RESILIENCE_LOBOTOMY, custom_check = TRAUMA_SPECIAL_CURE_CALLBACK)
 
 /datum/nanite_program/defib
 	name = "Defibrillation"
@@ -254,8 +253,3 @@
 		log_game("[C] has been successfully defibrillated by nanites.")
 	else
 		playsound(C, 'sound/machines/defib_failed.ogg', 50, FALSE)
-
-/proc/trauma_can_be_cured_by_nanites(datum/brain_trauma/trauma)
-	return !CHECK_BITFIELD(trauma.trauma_flags, TRAUMA_NANITE_PROOF)
-
-#undef NANITE_TRAUMA_CALLBACK

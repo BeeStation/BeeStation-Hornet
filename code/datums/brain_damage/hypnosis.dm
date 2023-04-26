@@ -53,4 +53,4 @@
 
 /// A "hardened" variant of the hypnosis trauma, used by hypnoflashes so that nanites can't cure it.
 /datum/brain_trauma/hypnosis/hardened
-	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM | TRAUMA_NANITE_PROOF
+	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM | TRAUMA_SPECIAL_CURE_PROOF

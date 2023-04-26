@@ -223,14 +223,16 @@
 #define TRAUMA_RESILIENCE_MAGIC 4      //! Curable only with magic
 #define TRAUMA_RESILIENCE_ABSOLUTE 5   //! This is here to stay
 
-/// This trauma cannot be cured through nanites.
-#define TRAUMA_NANITE_PROOF		(1<<0)
+/// This trauma cannot be cured through "special" means, such as nanites or viruses.
+#define TRAUMA_SPECIAL_CURE_PROOF	(1<<0)
 /// This trauma transfers on cloning.
-#define TRAUMA_CLONEABLE		(1<<1)
+#define TRAUMA_CLONEABLE			(1<<1)
 /// This trauma CANNOT be obtained randomly.
-#define TRAUMA_NOT_RANDOM		(1<<2)
+#define TRAUMA_NOT_RANDOM			(1<<2)
 /// Default trauma flags.
-#define TRAUMA_DEFAULT_FLAGS	(TRAUMA_CLONEABLE)
+#define TRAUMA_DEFAULT_FLAGS		(TRAUMA_CLONEABLE)
+
+#define TRAUMA_SPECIAL_CURE_CALLBACK CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(trauma_can_be_specially_cured))
 
 //Limit of traumas for each resilience tier
 #define TRAUMA_LIMIT_BASIC 3
