@@ -25,9 +25,10 @@
 		var/value = Q.item[2]
 		var/datum/preference/preference = GLOB.preference_entries_by_key[db_key]
 		if(!preference)
+			// TODO tgui-prefs clean out database and re-enable this
 			//CRASH("Unknown preference tag in database: [db_key] for ckey [prefs.parent.ckey]")
 			continue
-		preference_data[db_key] = preference.deserialize(value, prefs)
+		preference_data[db_key] = isnull(value) ? null : preference.deserialize(value, prefs)
 	qdel(Q)
 	return TRUE
 

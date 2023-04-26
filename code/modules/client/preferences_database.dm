@@ -168,11 +168,12 @@
 	return value
 
 /datum/preferences_holder/proc/read_raw(datum/preferences/preferences, datum/preference/preference)
+	// Data is already deserialized by the time it's in the cache. Don't deserialize it again.
 	var/value = preference_data[preference.db_key]
 	if (isnull(value))
 		return null
 	else
-		return preference.deserialize(value, preferences)
+		return value
 
 /datum/preferences_holder/proc/write_preference(datum/preferences/preferences, datum/preference/preference, value)
 	var/new_value = preference.deserialize(value, preferences)

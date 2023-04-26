@@ -52,7 +52,8 @@
 		var/datum/preference/preference = GLOB.preference_entries_by_key[db_key]
 		if(!istype(preference))
 			CRASH("Could not find preference with db_key [db_key] when querying database.")
-		preference_data[db_key] = preference.deserialize(values[index], prefs)
+		var/value = values[index]
+		preference_data[db_key] = isnull(value) ? null : preference.deserialize(value, prefs)
 	return TRUE
 
 /datum/preferences_holder/preferences_character/proc/write_to_database(datum/preferences/prefs)
