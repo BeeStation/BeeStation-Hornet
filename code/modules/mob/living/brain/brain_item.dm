@@ -336,7 +336,7 @@
 	var/list/datum/brain_trauma/possible_traumas = list()
 	for(var/T in subtypesof(brain_trauma_type))
 		var/datum/brain_trauma/BT = T
-		if(can_gain_trauma(BT, resilience) && CHECK_BITFIELD(initial(BT.trauma_flags), TRAUMA_CLONEABLE))
+		if(can_gain_trauma(BT, resilience) && !CHECK_BITFIELD(initial(BT.trauma_flags), TRAUMA_NOT_RANDOM))
 			possible_traumas += BT
 
 	if(!LAZYLEN(possible_traumas))
