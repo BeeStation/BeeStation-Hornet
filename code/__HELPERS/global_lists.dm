@@ -68,10 +68,7 @@
 			continue
 		var/datum/keybinding/instance = new keybinding
 		GLOB.keybindings_by_name[instance.name] = instance
-		if(!LAZYLEN(instance.keys))
-			continue
-		for(var/bound_key in instance.keys)
-			LAZYADD(GLOB.keybinding_list_by_key[bound_key], list(instance.name))
+		LAZYADD(GLOB.keybindings_by_name_to_key[instance.name], LAZYCOPY(instance.keys))
 
 	init_subtypes(/datum/crafting_recipe, GLOB.crafting_recipes)
 

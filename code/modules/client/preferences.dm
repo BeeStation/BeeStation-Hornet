@@ -31,6 +31,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	/// For example, by default would have "swap_hands" -> "X"
 	var/list/key_bindings = list()
 
+	/// Cached list of keybindings, mapping keys to actions.
+	/// For example, by default would have "X" -> list("swap_hands")
+	var/list/key_bindings_by_key = list()
+
 	var/toggles = TOGGLES_DEFAULT
 	var/toggles2 = TOGGLES_2_DEFAULT
 	var/db_flags
@@ -494,6 +498,16 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 		character.update_hair()
 		character.update_body_parts()
 
+/// Inverts the key_bindings list such that it can be used for key_bindings_by_key
+/datum/preferences/proc/get_key_bindings_by_key(list/key_bindings)
+	var/list/output = list()
+
+	for (var/action in key_bindings)
+		for (var/key in key_bindings[action])
+			LAZYADD(output[key], action)
+
+	return output
+
 /// Returns the default `randomise` variable ouptut
 /datum/preferences/proc/get_default_randomization()
 	var/list/default_randomization = list()
@@ -509,9 +523,11 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 	if(!istype(_key_bindings))
 		return
 	key_bindings = _key_bindings
+	key_bindings_by_key = get_key_bindings_by_key(key_bindings)
 
 /datum/preferences/proc/set_default_key_bindings()
-	key_bindings = deep_copy_list(GLOB.keybinding_list_by_key)
+	key_bindings = deep_copy_list(GLOB.keybindings_by_name_to_key)
+	key_bindings_by_key = get_key_bindings_by_key(key_bindings)
 
 /datum/preferences/proc/set_keybind(keybind_name, hotkeys)
 	if (!(keybind_name in GLOB.keybindings_by_name))
@@ -519,3 +535,4 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 	if(!islist(hotkeys))
 		return
 	key_bindings[keybind_name] = hotkeys
+	key_bindings_by_key = get_key_bindings_by_key(key_bindings)

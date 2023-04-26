@@ -34,8 +34,6 @@
 	. = ..()
 	if(.)
 		return
-	if(iscyborg(user.mob))
-		return FALSE
 	user.mob?.a_intent_change(INTENT_HELP)
 	return TRUE
 
@@ -52,7 +50,6 @@
 	. = ..()
 	if(.)
 		return
-	if (!iscarbon(user.mob)) return
 	var/mob/living/carbon/C = user.mob
 	C.a_intent_change(INTENT_DISARM)
 	return TRUE
@@ -70,7 +67,6 @@
 	. = ..()
 	if(.)
 		return
-	if (!iscarbon(user.mob)) return
 	var/mob/living/carbon/C = user.mob
 	C.a_intent_change(INTENT_GRAB)
 	return TRUE
@@ -88,8 +84,6 @@
 	. = ..()
 	if(.)
 		return
-	if(iscyborg(user.mob))
-		return FALSE
 	user.mob?.a_intent_change(INTENT_HARM)
 	return TRUE
 

@@ -15,7 +15,7 @@
 
 /datum/keybinding/living/resist/down(client/user)
 	. = ..()
-	if(. || !isliving(user.mob))
+	if(.)
 		return
 	var/mob/living/L = user.mob
 	L.resist()
@@ -31,7 +31,7 @@
 
 /datum/keybinding/living/rest/down(client/user)
 	. = ..()
-	if(. || !isliving(user.mob))
+	if(.)
 		return
 	var/mob/living/L = user.mob
 	L.lay_down()
@@ -46,7 +46,7 @@
 
 /datum/keybinding/living/look_up/down(client/user)
 	. = ..()
-	if(. || !isliving(user.mob))
+	if(.)
 		return
 	var/mob/living/L = user.mob
 	L.look_up(lock = TRUE)
@@ -54,7 +54,7 @@
 
 /datum/keybinding/living/look_up/up(client/user)
 	. = ..()
-	if(. || !isliving(user.mob))
+	if(.)
 		return
 	var/mob/living/L = user.mob
 	L.look_reset()
@@ -77,7 +77,7 @@
 
 /datum/keybinding/living/look_down/up(client/user)
 	. = ..()
-	if(. || !isliving(user.mob))
+	if(.)
 		return
 	var/mob/living/L = user.mob
 	L.look_reset()

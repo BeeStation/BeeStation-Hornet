@@ -63,7 +63,7 @@ GLOBAL_LIST_INIT(valid_keys, list(
 			full_key = "[AltMod][CtrlMod][ShiftMod][_key]"
 
 	var/list/kbs = list()
-	for (var/kb_name in prefs.key_bindings[full_key])
+	for (var/kb_name in prefs.key_bindings_by_key[full_key])
 		var/datum/keybinding/kb = GLOB.keybindings_by_name[kb_name]
 		kbs += kb
 	// WASD-type movement keys (not the native arrow keys) are handled through the keybind system here.
