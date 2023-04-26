@@ -1,4 +1,0 @@
-author: Wisemonster
-delete-after: true
-changes:
-  - bugfix: The furnace at the gulag has been fixed, so point quotas can be fulfilled.
