@@ -1,0 +1,4 @@
+author: ss13-beebot
+delete-after: true
+changes:
+  - server: DMAPI bump to 6.4.2
