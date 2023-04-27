@@ -1,0 +1,4 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Newscasters no longer erroneously show your job as your name.
