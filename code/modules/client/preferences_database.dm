@@ -45,6 +45,8 @@
 	return TRUE
 
 /datum/preferences/proc/save_preferences()
+	if(IS_GUEST_KEY(parent.ckey)) // NO saving guests to the DB!
+		return
 	player_data.write_to_database(src)
 	/*for (var/preference_type in GLOB.preference_entries)
 		var/datum/preference/preference = GLOB.preference_entries[preference_type]

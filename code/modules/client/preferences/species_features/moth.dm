@@ -1,9 +1,10 @@
-/*/datum/preference/choiced/moth_antennae
+/datum/preference/choiced/moth_antennae
 	db_key = "feature_moth_antennae"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Antennae"
 	should_generate_icons = TRUE
+	relevant_mutant_bodypart = "moth_antennae"
 
 /datum/preference/choiced/moth_antennae/init_possible_values()
 	var/list/values = list()
@@ -11,8 +12,8 @@
 	var/icon/moth_head = icon('icons/mob/human_parts.dmi', "moth_head_m")
 	moth_head.Blend(icon('icons/mob/human_face.dmi', "motheyes"), ICON_OVERLAY)
 
-	for (var/antennae_name in GLOB.moth_antennae_list)
-		var/datum/sprite_accessory/antennae = GLOB.moth_antennae_list[antennae_name]
+	for (var/antennae_name in GLOB.moth_antennae_roundstart_list)
+		var/datum/sprite_accessory/antennae = GLOB.moth_antennae_roundstart_list[antennae_name]
 
 		var/icon/icon_with_antennae = new(moth_head)
 		icon_with_antennae.Blend(icon(antennae.icon, "m_moth_antennae_[antennae.icon_state]_FRONT"), ICON_OVERLAY)
@@ -54,8 +55,8 @@
 
 	moth_body.Blend(icon('icons/mob/human_face.dmi', "motheyes"), ICON_OVERLAY)
 
-	for (var/markings_name in GLOB.moth_markings_list)
-		var/datum/sprite_accessory/markings = GLOB.moth_markings_list[markings_name]
+	for (var/markings_name in GLOB.moth_markings_roundstart_list)
+		var/datum/sprite_accessory/markings = GLOB.moth_markings_roundstart_list[markings_name]
 		var/icon/icon_with_markings = new(moth_body)
 
 		if (markings_name != "None")
@@ -84,10 +85,11 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Moth wings"
 	should_generate_icons = TRUE
+	relevant_mutant_bodypart = "moth_wings"
 
 /datum/preference/choiced/moth_wings/init_possible_values()
 	var/list/icon/values = possible_values_for_sprite_accessory_list_for_body_part(
-		GLOB.moth_wings_list,
+		GLOB.moth_wings_roundstart_list,
 		"moth_wings",
 		list("BEHIND", "FRONT"),
 	)
@@ -100,4 +102,4 @@
 
 /datum/preference/choiced/moth_wings/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["moth_wings"] = value
-*/
+

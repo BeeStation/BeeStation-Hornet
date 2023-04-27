@@ -35,6 +35,7 @@ export const Button = (props) => {
     onclick,
     onClick,
     verticalAlignContent,
+    captureKeys,
     ...rest
   } = props;
   const hasContent = !!(content || children);
@@ -77,7 +78,7 @@ export const Button = (props) => {
       ])}
       tabIndex={!disabled && '0'}
       onKeyDown={e => {
-        if (props.captureKeys === false) {
+        if (captureKeys === false) {
           return;
         }
 

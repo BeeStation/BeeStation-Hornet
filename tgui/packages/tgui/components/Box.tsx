@@ -10,7 +10,7 @@ import { ChildFlags, VNodeFlags } from 'inferno-vnode-flags';
 import { CSS_COLORS } from '../constants';
 import type { Inferno, InfernoNode } from 'inferno';
 
-export interface BoxProps {
+export type BoxProps = {
   [key: string]: any;
   as?: string;
   className?: string | BooleanLike;
@@ -253,7 +253,13 @@ export const Box: Inferno.SFC<BoxProps> = (props: BoxProps) => {
     typeof className === 'string' ? className + ' ' + computeBoxClassName(rest) : computeBoxClassName(rest);
   const computedProps = computeBoxProps(rest);
   // Render a wrapper element
-  return createVNode(VNodeFlags.HtmlElement, as, computedClassName, children, ChildFlags.UnknownChildren, computedProps);
+  return createVNode(
+    VNodeFlags.HtmlElement,
+    as,
+    computedClassName,
+    children,
+    ChildFlags.UnknownChildren,
+    computedProps);
 };
 
 Box.defaultHooks = pureComponentHooks;

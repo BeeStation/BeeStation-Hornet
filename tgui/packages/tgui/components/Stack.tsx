@@ -47,7 +47,7 @@ const StackItem = (props: StackItemProps) => {
         computeFlexItemClassName(rest),
       ])}
       ref={innerRef}
-      {...computeBoxProps(computeFlexItemProps(rest))}
+      {...computeFlexItemProps(rest)}
     />
   );
 };

@@ -511,3 +511,19 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 /datum/preference/toggle/is_valid(value)
 	return value == TRUE || value == FALSE
+
+/// A simple string type preference.
+/datum/preference/string
+	abstract_type = /datum/preference/string
+
+	/// The default value of the string, if create_default_value is not specified
+	var/default_value = ""
+
+/datum/preference/string/create_default_value()
+	return default_value
+
+/datum/preference/string/deserialize(input, datum/preferences/preferences)
+	return sanitize_text(input, create_default_value())
+
+/datum/preference/string/is_valid(value)
+	return istext(value)

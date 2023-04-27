@@ -4,7 +4,7 @@ import { createComponentVNode } from "inferno";
 import type { Inferno, ComponentType } from "inferno";
 import { VNodeFlags } from "inferno-vnode-flags";
 import { sendAct, useBackend, useLocalState } from "../../../../backend";
-import { Box, Button, Dropdown, NumberInput, Stack } from "../../../../components";
+import { Box, Button, Dropdown, Input, NumberInput, Stack } from "../../../../components";
 import { createSetPreference, PreferencesMenuData } from "../../data";
 import { ServerPreferencesFetcher } from "../../ServerPreferencesFetcher";
 
@@ -89,6 +89,16 @@ export const FeatureColorInput = (props: FeatureValueProps<string>) => {
 };
 
 export type FeatureToggle = Feature<BooleanLike, boolean>;
+
+export const TextInput = (props: FeatureValueProps<string, string>) => {
+  return (
+    <Input
+      value={props.value}
+      onInput={(_, newValue) => props.handleSetValue(newValue)}
+      width="100%"
+    />
+  );
+};
 
 export const CheckboxInput = (
   props: FeatureValueProps<BooleanLike, boolean>
