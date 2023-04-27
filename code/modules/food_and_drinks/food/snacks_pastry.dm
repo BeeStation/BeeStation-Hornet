@@ -360,11 +360,10 @@
 		if(!T) ///no tongue means no taste
 			return
 
-		if(!HAS_TRAIT(H, TRAIT_AGEUSIA))
-			if(foodtype & T.toxic_food & T.disliked_food)
-				to_chat(H,"<span class='warning'>You're not too sure what's on top though...</span>")
-			else if(foodtype & T.liked_food)
-				to_chat(H,"<span class='nicegreen'>Ooh! It's even got bits of clothes on it! Yummy!</span>")
+		if(foodtype & T.toxic_food & T.disliked_food)
+			to_chat(H,"<span class='warning'>You're not too sure what's on top though...</span>")
+		else if(foodtype & T.liked_food)
+			to_chat(H,"<span class='nicegreen'>Ooh! It's even got bits of clothes on it! Yummy!</span>")
 
 /obj/item/reagent_containers/food/snacks/chawanmushi
 	name = "chawanmushi"
