@@ -464,8 +464,8 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	holotile.name = "[holo_host.name] (Hologram)"
 	holotile.add_atom_colour("#77abff", FIXED_COLOUR_PRIORITY)
 	holotile.copy_overlays(holo_host, TRUE)
-	holotile.anchored = TRUE
-	holotile.density = FALSE
+	holotile.set_anchored(TRUE)
+	holotile.set_density(FALSE)
 
 	//the code that follows is basically the code that changeling use to get people's last spoken sentences with a few tweaks.
 	recent_speech = list() //resets the list from its previous sentences

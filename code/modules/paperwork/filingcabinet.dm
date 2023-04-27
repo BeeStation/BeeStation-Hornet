@@ -58,7 +58,7 @@
 		to_chat(user, "<span class='notice'>You begin to [anchored ? "unwrench" : "wrench"] [src].</span>")
 		if(P.use_tool(src, user, 20, volume=50))
 			to_chat(user, "<span class='notice'>You successfully [anchored ? "unwrench" : "wrench"] [src].</span>")
-			anchored = !anchored
+			set_anchored(!anchored)
 	else if(user.a_intent != INTENT_HARM)
 		to_chat(user, "<span class='warning'>You can't put [P] in [src]!</span>")
 	else

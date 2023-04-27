@@ -61,31 +61,33 @@
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/item/ctf/attack_hand(mob/living/user)
+	//pre normal check item stuff, this is for our special flag checks
 	if(!is_ctf_target(user) && !anyonecanpickup)
-		to_chat(user, "Non players shouldn't be moving the flag!")
+		to_chat(user, "<span class='warning'>Non players shouldn't be moving the flag!</span>")
 		return
 	if(team in user.faction)
-		to_chat(user, "You can't move your own flag!")
+		to_chat(user, "<span class='warning'>You can't move your own flag!</span>")
 		return
 	if(loc == user)
 		if(!user.dropItemToGround(src))
 			return
-	anchored = FALSE
-	if(!user.put_in_active_hand(src))
-		dropped(user)
-		return
-	user.anchored = TRUE
-	user.status_flags &= ~CANPUSH
 	for(var/mob/M in GLOB.player_list)
 		var/area/mob_area = get_area(M)
 		if(istype(mob_area, /area/ctf))
 			to_chat(M, "<span class='userdanger'>\The [src] has been taken!</span>")
 	STOP_PROCESSING(SSobj, src)
-	..()
+	anchored = FALSE // Hacky usage that bypasses set_anchored(), because normal checks need this to be FALSE to pass
+	. = ..() //this is the actual normal item checks
+	if(.) //only apply these flag passives
+		anchored = TRUE // Avoid directly assigning to anchored and prefer to use set_anchored() on normal circumstances.
+		return
+	//passing means the user picked up the flag so we can now apply this
+	user.set_anchored(TRUE)
+	user.status_flags &= ~CANPUSH
 
 /obj/item/ctf/dropped(mob/user)
 	..()
-	user.anchored = FALSE
+	user.set_anchored(FALSE)
 	user.status_flags |= CANPUSH
 	reset_cooldown = world.time + 200 //20 seconds
 	START_PROCESSING(SSobj, src)
@@ -93,7 +95,7 @@
 		var/area/mob_area = get_area(M)
 		if(istype(mob_area, /area/ctf))
 			to_chat(M, "<span class='userdanger'>\The [src] has been dropped!</span>")
-	anchored = TRUE
+	anchored = TRUE // Avoid directly assigning to anchored and prefer to use set_anchored() on normal circumstances.
 
 
 /obj/item/ctf/red

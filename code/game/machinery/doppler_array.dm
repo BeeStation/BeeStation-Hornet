@@ -21,6 +21,7 @@
 /obj/machinery/doppler_array/Initialize(mapload)
 	. = ..()
 	RegisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION, PROC_REF(sense_explosion))
+	RegisterSignal(src, COMSIG_MOVABLE_SET_ANCHORED, PROC_REF(power_change))
 	printer_ready = world.time + PRINTER_TIMEOUT
 
 /obj/machinery/doppler_array/ComponentInitialize()
@@ -119,12 +120,10 @@
 /obj/machinery/doppler_array/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WRENCH)
 		if(!anchored && !isinspace())
-			anchored = TRUE
-			power_change()
+			set_anchored(TRUE)
 			to_chat(user, "<span class='notice'>You fasten [src].</span>")
 		else if(anchored)
-			anchored = FALSE
-			power_change()
+			set_anchored(FALSE)
 			to_chat(user, "<span class='notice'>You unfasten [src].</span>")
 		I.play_tool_sound(src)
 		return

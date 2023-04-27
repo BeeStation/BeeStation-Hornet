@@ -9,7 +9,7 @@
 
 /datum/xenoartifact_trait/minor/looped/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/multitool))
-		to_chat(user, "<span class='info'>The [item.name] displays a resistance reading of [X.charge_req*0.1].</span>") 
+		to_chat(user, "<span class='info'>The [item.name] displays a resistance reading of [X.charge_req*0.1].</span>")
 		return TRUE
 	return ..()
 
@@ -41,13 +41,13 @@
 		X.cooldown = -1000 SECONDS //This is better than making a unique interaction in xenoartifact.dm
 		return
 	charges = pick(0, 1, 2)
-	playsound(get_turf(X), 'sound/machines/capacitor_charge.ogg', 50, TRUE) 
+	playsound(get_turf(X), 'sound/machines/capacitor_charge.ogg', 50, TRUE)
 	X.cooldown = saved_cooldown
 	saved_cooldown = null
 
 /datum/xenoartifact_trait/minor/capacitive/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/multitool))
-		to_chat(user, "<span class='info'>The [item.name] displays an overcharge reading of [charges/3].</span>") 
+		to_chat(user, "<span class='info'>The [item.name] displays an overcharge reading of [charges/3].</span>")
 		return TRUE
 	return ..()
 
@@ -141,8 +141,8 @@
 
 /datum/xenoartifact_trait/minor/sentient/proc/setup_sentience(obj/item/xenoartifact/X, ckey)
 	if(!(SSzclear.get_free_z_level()))
-		playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 50, TRUE) 
-		return	
+		playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 50, TRUE)
+		return
 	man = new(get_turf(X))
 	man.name = pick(GLOB.xenoa_artifact_names)
 	man.real_name = "[man.name] - [X]"
@@ -150,7 +150,7 @@
 	man.status_flags |= GODMODE
 	log_game("[key_name_admin(man)] took control of the sentient [X]. [X] located at [AREACOORD(X)]")
 	man.forceMove(X)
-	man.anchored = TRUE
+	man.set_anchored(TRUE)
 	var/obj/effect/proc_holder/spell/targeted/xeno_senitent_action/P = new /obj/effect/proc_holder/spell/targeted/xeno_senitent_action(,X)
 	man.AddSpell(P)
 	//show little guy his traits
@@ -232,7 +232,7 @@
 		X.visible_message("<span class='danger'>The [X.name] shatters!</span>", "<span class='danger'>The [X.name] shatters!</span>")
 		var/obj/effect/decal/cleanable/ash/A = new(get_turf(X))
 		A.color = X.material
-		playsound(get_turf(X), 'sound/effects/glassbr1.ogg', 50, TRUE) 
+		playsound(get_turf(X), 'sound/effects/glassbr1.ogg', 50, TRUE)
 		qdel(X)
 
 //============
@@ -280,7 +280,7 @@
 
 /datum/xenoartifact_trait/minor/wearable/on_init(obj/item/xenoartifact/X)
 	X.slot_flags = ITEM_SLOT_GLOVES
-	
+
 /datum/xenoartifact_trait/minor/wearable/activate(obj/item/xenoartifact/X, atom/user)
 	X.true_target |= list(user)
 
@@ -360,7 +360,7 @@
 		var/mob/living/holder = X.loc
 		holder.dropItemToGround(X)
 	X.visible_message("<span class='danger'>The [X.name] buckles to the floor!</span>")
-	X.setAnchored(TRUE)
+	X.set_anchored(TRUE)
 	X.density = TRUE
 
 /datum/xenoartifact_trait/minor/anchor/on_item(obj/item/xenoartifact/X, atom/user, obj/item/item)
@@ -369,7 +369,7 @@
 		if(isliving(X.loc))
 			var/mob/living/holder = X.loc
 			holder.dropItemToGround(X)
-		X.setAnchored(!X.anchored)
+		X.set_anchored(!X.anchored)
 		if(!X.get_trait(/datum/xenoartifact_trait/minor/dense))
 			X.density = !X.density
 		return TRUE

@@ -238,7 +238,7 @@
 		if(RCD_LADDER)
 			to_chat(user, "<span class='notice'>You build a ladder.</span>")
 			var/obj/structure/ladder/L = new(src)
-			L.anchored = TRUE
+			L.set_anchored(TRUE)
 			return TRUE
 		if(RCD_AIRLOCK)
 			if(locate(/obj/machinery/door/airlock) in src)
@@ -257,7 +257,7 @@
 			if(A.electronics.unres_sides)
 				A.unres_sides = A.electronics.unres_sides
 			A.autoclose = TRUE
-			A.update_icon()
+			A.update_appearance()
 			return TRUE
 		if(RCD_DECONSTRUCT)
 			if(ScrapeAway(flags = CHANGETURF_INHERIT_AIR) == src)
@@ -269,7 +269,7 @@
 				return FALSE
 			to_chat(user, "<span class='notice'>You construct the grille.</span>")
 			var/obj/structure/grille/G = new(src)
-			G.anchored = TRUE
+			G.set_anchored(TRUE)
 			return TRUE
 		if(RCD_MACHINE)
 			if(locate(/obj/structure/frame/machine) in src)
@@ -277,13 +277,13 @@
 			var/obj/structure/frame/machine/M = new(src)
 			M.state = 2
 			M.icon_state = "box_1"
-			M.anchored = TRUE
+			M.set_anchored(TRUE)
 			return TRUE
 		if(RCD_COMPUTER)
 			if(locate(/obj/structure/frame/computer) in src)
 				return FALSE
 			var/obj/structure/frame/computer/C = new(src)
-			C.anchored = TRUE
+			C.set_anchored(TRUE)
 			C.state = 1
 			C.setDir(the_rcd.computer_dir)
 			return TRUE

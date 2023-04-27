@@ -69,10 +69,12 @@
 	connected_port.connected_device = src
 	connected_port.parents[1].update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
 
-	anchored = TRUE //Prevent movement
+	set_anchored(TRUE) //Prevent movement
 	pixel_x = new_port.pixel_x
 	pixel_y = new_port.pixel_y
-	update_icon()
+
+
+	update_appearance()
 	return TRUE
 
 /obj/machinery/portable_atmospherics/Move()
