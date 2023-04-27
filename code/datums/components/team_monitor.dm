@@ -75,23 +75,25 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 
 //The component that handles tracking atoms
 /datum/component/team_monitor
-	//The frequency of the team signals we are trackings
-	var/team_freq_key = "debug"	//Key <-- cannot be changed
-	var/team_frequency = ""	//Final compiled: Consists of key then numbers between 1 and 999
-	//The atoms we are actually tracking
-	// Key = Beacon component
-	// Value = image
+	/// The frequency of the team signals we are trackings
+	/// Key <-- cannot be changed
+	var/team_freq_key = "debug"
+	/// Final compiled: Consists of key then numbers between 1 and 999
+	var/team_frequency = ""
+	/// The atoms we are actually tracking
+	/// Key = Beacon component
+	/// Value = image
 	var/list/tracking = list()
-	//Who are we updating for
+	/// Who are we updating for
 	var/mob/updating = null
-	//Distance from center
-	//Probably in pixels or something idk
+	/// Distance from center
+	/// Probably in pixels or something idk
 	var/distance = 20
-	//Should we display the hud in the firstplace
+	/// Should we display the hud in the firstplace
 	var/hud_visible = TRUE
-	//The attached beacon: Ignore this one
+	/// The attached beacon: Ignore this one
 	var/datum/component/tracking_beacon/attached_beacon
-	//If we can track beacons within the same zgroup (e.g. on a multiz station)
+	/// If we can track beacons within the same zgroup (e.g. on a multiz station)
 	var/multiz = TRUE
 
 /datum/component/team_monitor/Initialize(frequency_key, frequency, _attached_beacon, _multiz = TRUE)
@@ -377,22 +379,24 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 //==================
 
 /datum/component/tracking_beacon
-	//The frequency of the team signals we are trackings
-	var/team_freq_key = "debug"	//Key <-- cannot be changed
-	var/team_frequency = ""	//Final compiled: Consists of key then numbers between 1 and 999
-	//Are we visible to other trackers?
+	/// The frequency of the team signals we are trackings
+	/// Key <-- cannot be changed
+	var/team_freq_key = "debug"
+	/// Final compiled: Consists of key then numbers between 1 and 999
+	var/team_frequency = ""
+	/// Are we visible to other trackers?
 	var/visible = TRUE
-	//Our colour
+	/// Our colour
 	var/colour = "#FFFFFF"
-	//Colour when on a different z level
+	/// Colour when on a different z level
 	var/z_diff_colour = "#808080"
-	//Who are we updating for
+	/// Who are we updating for
 	var/mob/updating = null
-	//Do we have an attached monitor?
+	/// Do we have an attached monitor?
 	var/datum/component/team_monitor/attached_monitor
-	//Should we update when not equipped?
+	/// Should we update when not equipped?
 	var/always_update = FALSE
-	//Global signal?
+	/// Global signal?
 	var/global_signal = FALSE
 
 /datum/component/tracking_beacon/Initialize(_frequency_key, _frequency, _attached_monitor, _visible = TRUE, _colour = "#ffffff", _global = FALSE, _always_update = FALSE, _z_diff_colour = "#808080")

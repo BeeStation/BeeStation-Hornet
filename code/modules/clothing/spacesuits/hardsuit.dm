@@ -352,7 +352,7 @@
 		linkedsuit = loc
 		//NOTE FOR COPY AND PASTING: BEACON MUST BE MADE FIRST
 		//Add the monitor (Default to null - No tracking)
-		var/datum/component/tracking_beacon/component_beacon = linkedsuit.AddComponent(/datum/component/tracking_beacon, "synd", null, null, TRUE, "#8f4a4b")
+		var/datum/component/tracking_beacon/component_beacon = linkedsuit.AddComponent(/datum/component/tracking_beacon, "synd", null, null, TRUE, "#8f4a4b", FALSE, FALSE, "#573d3d")
 		//Add the monitor (Default to null - No tracking)
 		component_beacon.attached_monitor = AddComponent(/datum/component/team_monitor/worn, "synd", null, component_beacon)
 	else
@@ -965,7 +965,7 @@
 		var/obj/linkedsuit = loc
 		//NOTE FOR COPY AND PASTING: BEACON MUST BE MADE FIRST
 		//Add the monitor (Default to null - No tracking)
-		var/datum/component/tracking_beacon/component_beacon = linkedsuit.AddComponent(/datum/component/tracking_beacon, "synd", null, null, TRUE, "#8f4a4b")
+		var/datum/component/tracking_beacon/component_beacon = linkedsuit.AddComponent(/datum/component/tracking_beacon, "synd", null, null, TRUE, "#8f4a4b", FALSE, FALSE, "#573d3d")
 		//Add the monitor (Default to null - No tracking)
 		component_beacon.attached_monitor = AddComponent(/datum/component/team_monitor/worn, "synd", null, component_beacon)
 	else

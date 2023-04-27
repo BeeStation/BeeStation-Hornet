@@ -757,17 +757,21 @@
 		if("Crew Member")
 			var/list/personnel_list = list()
 
-			for(var/datum/data/record/t in GLOB.data_core.locked)//Look in data core locked.
-				personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["image"]//Pull names, rank, and image.
+			for(var/datum/data/record/record_datum in GLOB.data_core.locked)//Look in data core locked.
+				personnel_list["[record_datum.fields["name"]]: [record_datum.fields["rank"]]"] = record_datum.fields["character_appearance"]//Pull names, rank, and image.
 
+			if(!length(personnel_list))
+				alert("No suitable records found. Aborting.")
+				return
 			if(personnel_list.len)
 				input = input("Select a crew member:") as null|anything in sort_list(personnel_list)
-				var/icon/character_icon = personnel_list[input]
+				var/mutable_appearance/character_icon = personnel_list[input]
 				if(character_icon)
 					qdel(holo_icon)//Clear old icon so we're not storing it in memory.
-					holo_icon = getHologramIcon(icon(character_icon))
-			else
-				alert("No suitable records found. Aborting.")
+					character_icon.setDir(SOUTH)
+
+					var/icon/icon_for_holo = getFlatIcon(character_icon)
+					holo_icon = getHologramIcon(icon(icon_for_holo))
 
 		if("Animal")
 			var/list/icon_list = list(
