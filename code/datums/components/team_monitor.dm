@@ -75,28 +75,29 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 
 //The component that handles tracking atoms
 /datum/component/team_monitor
-	//The frequency of the team signals we are trackings
-	var/team_freq_key = "debug"	//Key <-- cannot be changed
-	var/team_frequency = ""	//Final compiled: Consists of key then numbers between 1 and 999
-	//The atoms we are actually tracking
-	// Key = Beacon component
-	// Value = image
+	/// The frequency of the team signals we are trackings
+	/// Key <-- cannot be changed
+	var/team_freq_key = "debug"
+	/// Final compiled: Consists of key then numbers between 1 and 999
+	var/team_frequency = ""
+	/// The atoms we are actually tracking
+	/// Key = Beacon component
+	/// Value = image
 	var/list/tracking = list()
-	//Who are we updating for
+	/// Who are we updating for
 	var/mob/updating = null
-	//Distance from center
-	//Probably in pixels or something idk
+	/// Distance from center
+	/// Probably in pixels or something idk
 	var/distance = 20
-	//Should we display the hud in the firstplace
+	/// Should we display the hud in the firstplace
 	var/hud_visible = TRUE
-	//The attached beacon: Ignore this one
+	/// The attached beacon: Ignore this one
 	var/datum/component/tracking_beacon/attached_beacon
+	/// If we can track beacons within the same zgroup (e.g. on a multiz station)
+	var/multiz = TRUE
 
-/datum/component/team_monitor/Initialize(frequency_key, frequency, _attached_beacon)
-	var/obj/item/clothing/item = parent
-	if(!istype(item))
-		return COMPONENT_INCOMPATIBLE
-
+/datum/component/team_monitor/Initialize(frequency_key, frequency, _attached_beacon, _multiz = TRUE)
+	multiz = _multiz
 	team_freq_key = frequency_key
 	if(frequency)
 		team_frequency = "[frequency_key][frequency]"
@@ -105,18 +106,10 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 
 	attached_beacon = _attached_beacon
 
-	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(parent_equipped))
-	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(parent_dequpped))
-
 	get_matching_beacons()
 	add_tracker_hud(team_frequency, src)
 
 /datum/component/team_monitor/Destroy(force, silent)
-	//Unregister signals
-	if(parent)
-		UnregisterSignal(parent, COMSIG_ITEM_EQUIPPED)
-		UnregisterSignal(parent, COMSIG_ITEM_DROPPED)
-
 	if(team_frequency)
 		GLOB.tracker_huds[team_frequency] -= src
 
@@ -166,12 +159,14 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 
 //Update the arrow towards another atom
 /datum/component/team_monitor/proc/update_atom_dir(datum/component/tracking_beacon/beacon)
-	if(!updating || !updating.hud_used || !beacon)
+	if(!updating || !updating.hud_used || !beacon || !beacon.visible)
 		return
 	var/atom/movable/screen/arrow/screen = tracking[beacon]
 	var/turf/target_turf = get_turf(beacon.parent)
 	var/turf/parent_turf = get_turf(parent)
-	if(target_turf.get_virtual_z_level() != parent_turf.get_virtual_z_level() || target_turf == parent_turf)
+	var/share_z = target_turf.get_virtual_z_level() == parent_turf.get_virtual_z_level()
+	var/share_zgroup = SSorbits.assoc_z_levels["[target_turf.get_virtual_z_level()]"] == SSorbits.assoc_z_levels["[parent_turf.get_virtual_z_level()]"]
+	if((!share_z && (!multiz || !share_zgroup)) || target_turf == parent_turf)
 		if(screen)
 			//Remove the screen
 			updating.hud_used.team_finder_arrows -= screen
@@ -184,41 +179,24 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 		//Create the screen
 		screen = new
 		screen.alpha = 240
-		screen.color = beacon.colour
+		if(multiz && !share_z && screen.color != beacon.z_diff_colour)
+			screen.color = beacon.z_diff_colour
+		else if(screen.color != beacon.colour)
+			screen.color = beacon.colour
 		screen.hud = updating.hud_used
 		updating.hud_used.team_finder_arrows += screen
 		tracking[beacon] = screen
 		//Update their hud
 		updating.hud_used.show_hud(updating.hud_used.hud_version, updating)
+	if(multiz && !share_z && screen.color != beacon.z_diff_colour)
+		screen.color = beacon.z_diff_colour
+	else if(screen.color != beacon.colour)
+		screen.color = beacon.colour
 	var/matrix/rotationMatrix = matrix()
 	rotationMatrix.Scale(1.5)
 	rotationMatrix.Translate(0, -distance)
 	rotationMatrix.Turn(get_angle(target_turf, parent_turf))
 	animate(screen, transform = rotationMatrix, time = 2)
-
-//===========
-// Handles being equipped / dequipped
-//===========
-
-//The parent equipped an item with a team_monitor, check if its in the right slot and apply the hud
-//Also needs to enable other trackers pointers towards us
-/datum/component/team_monitor/proc/parent_equipped(datum/source, mob/equipper, slot)
-	SIGNAL_HANDLER
-
-	var/obj/item/clothing/item = parent
-	if(!istype(item))
-		return
-	if(item.slot_flags & slot) //Was equipped to a valid slot for this item?
-		show_hud(equipper)
-	else
-		hide_hud(equipper)
-
-//Disable our hud
-//Disable the pointers to us
-/datum/component/team_monitor/proc/parent_dequpped(datum/source, mob/user)
-	SIGNAL_HANDLER
-
-	hide_hud(user)
 
 //===========
 // Handles hiding / showing the hud when equipped
@@ -237,9 +215,16 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	if(!target.hud_used)
 		return
 	for(var/datum/component/tracking_beacon/key in tracking)
+		if(!key.visible) // calling show_hud should not show hidden beacons
+			continue
 		var/atom/movable/screen/arrow/arrow = new
 		arrow.alpha = 240
-		arrow.color = key.colour
+		var/turf/target_turf = get_turf(key.parent)
+		var/turf/parent_turf = get_turf(parent)
+		if(multiz && target_turf.get_virtual_z_level() != parent_turf.get_virtual_z_level() && arrow.color != key.z_diff_colour)
+			arrow.color = key.z_diff_colour
+		else if(arrow.color != key.colour)
+			arrow.color = key.colour
 		arrow.hud = target.hud_used
 		target.hud_used.team_finder_arrows += arrow
 		tracking[key] = arrow
@@ -328,7 +313,12 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 		if(updating?.hud_used)
 			var/atom/movable/screen/arrow/arrow = new
 			arrow.alpha = 240
-			arrow.color = beacon.colour
+			var/turf/target_turf = get_turf(beacon.parent)
+			var/turf/parent_turf = get_turf(parent)
+			if(multiz && target_turf.get_virtual_z_level() != parent_turf.get_virtual_z_level() && arrow.color != beacon.z_diff_colour)
+				arrow.color = beacon.z_diff_colour
+			else if(arrow.color != beacon.colour)
+				arrow.color = beacon.colour
 			arrow.hud = updating.hud_used
 			updating.hud_used.team_finder_arrows += arrow
 			tracking[beacon] = arrow
@@ -339,6 +329,49 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 		else
 			tracking[beacon] = null
 
+// ============
+// Worn version, hides when dequipped
+// ============
+
+/datum/component/team_monitor/worn/Initialize(frequency_key, frequency, _attached_beacon)
+	var/obj/item/clothing/item = parent
+	if(!istype(item))
+		return COMPONENT_INCOMPATIBLE
+	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(parent_equipped))
+	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(parent_dequpped))
+	..()
+
+//===========
+// Handles being equipped / dequipped
+//===========
+
+//The parent equipped an item with a team_monitor, check if its in the right slot and apply the hud
+//Also needs to enable other trackers pointers towards us
+/datum/component/team_monitor/worn/proc/parent_equipped(datum/source, mob/equipper, slot)
+	SIGNAL_HANDLER
+
+	var/obj/item/clothing/item = parent
+	if(!istype(item))
+		return
+	if(item.slot_flags & slot) //Was equipped to a valid slot for this item?
+		show_hud(equipper)
+	else
+		hide_hud(equipper)
+
+//Disable our hud
+//Disable the pointers to us
+/datum/component/team_monitor/worn/proc/parent_dequpped(datum/source, mob/user)
+	SIGNAL_HANDLER
+
+	hide_hud(user)
+
+/datum/component/team_monitor/worn/Destroy(force, silent)
+	//Unregister signals
+	if(parent)
+		UnregisterSignal(parent, COMSIG_ITEM_EQUIPPED)
+		UnregisterSignal(parent, COMSIG_ITEM_DROPPED)
+	return ..()
+
 //==================
 // Component
 //  - TRACKER COMPONENT
@@ -346,27 +379,32 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 //==================
 
 /datum/component/tracking_beacon
-	//The frequency of the team signals we are trackings
-	var/team_freq_key = "debug"	//Key <-- cannot be changed
-	var/team_frequency = ""	//Final compiled: Consists of key then numbers between 1 and 999
-	//Are we visible to other trackers?
+	/// The frequency of the team signals we are trackings
+	/// Key <-- cannot be changed
+	var/team_freq_key = "debug"
+	/// Final compiled: Consists of key then numbers between 1 and 999
+	var/team_frequency = ""
+	/// Are we visible to other trackers?
 	var/visible = TRUE
-	//Our colour
+	/// Our colour
 	var/colour = "#FFFFFF"
-	//Who are we updating for
+	/// Colour when on a different z level
+	var/z_diff_colour = "#808080"
+	/// Who are we updating for
 	var/mob/updating = null
-	//Do we have an attached monitor?
+	/// Do we have an attached monitor?
 	var/datum/component/team_monitor/attached_monitor
-	//Should we update when not equipped?
+	/// Should we update when not equipped?
 	var/always_update = FALSE
-	//Global signal?
+	/// Global signal?
 	var/global_signal = FALSE
 
-/datum/component/tracking_beacon/Initialize(_frequency_key, _frequency, _attached_monitor, _visible = TRUE, _colour = "#ffffff", _global = FALSE, _always_update = FALSE)
+/datum/component/tracking_beacon/Initialize(_frequency_key, _frequency, _attached_monitor, _visible = TRUE, _colour = "#ffffff", _global = FALSE, _always_update = FALSE, _z_diff_colour = "#808080")
 	. = ..()
 
 	//Set vars
 	colour = _colour
+	z_diff_colour = _z_diff_colour
 	attached_monitor = _attached_monitor
 	always_update = _always_update
 	global_signal = _global
