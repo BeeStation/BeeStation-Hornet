@@ -15387,6 +15387,9 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
 	},
+/obj/effect/turf_decal/siding/white{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/tcommsat/computer)
 "cei" = (
@@ -15401,11 +15404,14 @@
 /obj/item/multitool{
 	pixel_x = 6
 	},
-/obj/effect/turf_decal/delivery,
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = -28
 	},
+/obj/effect/turf_decal/siding/white{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/tcommsat/computer)
 "cem" = (
@@ -18624,6 +18630,9 @@
 /obj/effect/landmark/event_spawn,
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
+	},
+/obj/effect/turf_decal/siding/white{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/tcommsat/computer)
@@ -39501,6 +39510,9 @@
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 1
 	},
+/obj/effect/turf_decal/siding/white{
+	dir = 4
+	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/tcommsat/computer)
@@ -45785,6 +45797,9 @@
 	},
 /obj/structure/sign/poster/official/work_for_a_future{
 	pixel_y = -32
+	},
+/obj/effect/turf_decal/siding/white/corner{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/tcommsat/computer)
@@ -58991,6 +59006,9 @@
 /obj/item/pen{
 	pixel_x = -5;
 	pixel_y = 5
+	},
+/obj/effect/turf_decal/siding/white{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/tcommsat/computer)
