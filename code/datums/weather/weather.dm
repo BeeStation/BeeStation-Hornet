@@ -29,7 +29,7 @@
 	var/impacted_z_levels // The list of z-levels that this weather is actively affecting
 
 	var/overlay_layer = AREA_LAYER //Since it's above everything else, this is the layer used by default. TURF_LAYER is below mobs and walls if you need to use that.
-	var/overlay_plane = BLACKNESS_PLANE
+	var/overlay_plane = AREA_PLANE
 	var/aesthetic = FALSE //If the weather has no purpose other than looks
 	var/immunity_type = "storm" //Used by mobs to prevent them from being affected by the weather
 
@@ -74,7 +74,7 @@
 				to_chat(player, telegraph_message)
 			if(telegraph_sound)
 				SEND_SOUND(player, sound(telegraph_sound))
-	addtimer(CALLBACK(src, .proc/start), telegraph_duration)
+	addtimer(CALLBACK(src, PROC_REF(start)), telegraph_duration)
 
 /datum/weather/proc/start()
 	if(stage >= MAIN_STAGE)
@@ -91,7 +91,7 @@
 				to_chat(player, weather_message)
 			if(weather_sound)
 				SEND_SOUND(player, sound(weather_sound))
-	addtimer(CALLBACK(src, .proc/wind_down), weather_duration)
+	addtimer(CALLBACK(src, PROC_REF(wind_down)), weather_duration)
 
 /datum/weather/proc/wind_down()
 	if(stage >= WIND_DOWN_STAGE)
@@ -108,7 +108,7 @@
 				to_chat(player, end_message)
 			if(end_sound)
 				SEND_SOUND(player, sound(end_sound))
-	addtimer(CALLBACK(src, .proc/end), end_duration)
+	addtimer(CALLBACK(src, PROC_REF(end)), end_duration)
 
 /datum/weather/proc/end()
 	if(stage == END_STAGE)

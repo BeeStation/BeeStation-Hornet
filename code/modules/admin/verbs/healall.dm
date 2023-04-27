@@ -8,7 +8,7 @@
 	if(!check_rights(R_FUN))
 		to_chat(src, "You need the fun permission to use this command.")
 		return
-	if(alert(src, "Confirm Heal All?","Are you sure?","Yes","No") == "No")
+	if(alert(src, "Confirm Heal All?","Are you sure?","Yes","No") != "Yes")
 		return
 	message_admins("[key_name_admin(usr)] healed all living mobs")
 	log_admin("[key_name_admin(usr)] healed all living mobs")

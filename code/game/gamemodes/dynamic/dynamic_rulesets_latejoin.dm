@@ -71,7 +71,7 @@
 	restricted_roles = list(JOB_NAME_AI,JOB_NAME_CYBORG)
 	required_candidates = 1
 	weight = 7
-	cost = 5
+	cost = 8
 	requirements = list(5,5,5,5,5,5,5,5,5,5)
 	repeatable = TRUE
 	blocking_rules = list(
@@ -101,7 +101,7 @@
 	required_candidates = 1
 	weight = 2
 	delay = 1 MINUTES // Prevents rule start while head is offstation.
-	cost = 10
+	cost = 13
 	requirements = list(101,101,70,40,30,20,20,20,20,20)
 	flags = HIGH_IMPACT_RULESET
 	blocking_rules = list(/datum/dynamic_ruleset/roundstart/revs)
@@ -174,7 +174,7 @@
 	restricted_roles = list(JOB_NAME_AI,JOB_NAME_CYBORG)
 	required_candidates = 1
 	weight = 4
-	cost = 7
+	cost = 10
 	requirements = list(101,101,101,10,10,10,10,10,10,10)
 	repeatable = TRUE
 	blocking_rules = list(

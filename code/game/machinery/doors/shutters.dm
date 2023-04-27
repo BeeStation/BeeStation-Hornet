@@ -15,6 +15,7 @@
 /obj/machinery/door/poddoor/shutters/preopen
 	icon_state = "shut_open"
 	density = FALSE
+	obj_flags = CAN_BE_HIT // reset zblock
 	opacity = 0
 
 /obj/machinery/door/poddoor/shutters/indestructible
@@ -37,6 +38,7 @@
 	density = FALSE
 	opacity = FALSE
 	rad_insulation = RAD_NO_INSULATION
+	obj_flags = CAN_BE_HIT // reset zblock
 
 /obj/machinery/door/poddoor/shutters/radiation/open()
 	. = ..()
@@ -58,3 +60,4 @@
 /obj/machinery/door/poddoor/shutters/window/preopen
 	icon_state = "win_open"
 	density = FALSE
+	obj_flags = CAN_BE_HIT // reset zblock

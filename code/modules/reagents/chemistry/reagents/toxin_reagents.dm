@@ -70,18 +70,6 @@
 	C.adjustPlasma(20)
 	return ..()
 
-/datum/reagent/toxin/plasma/reaction_obj(obj/O, reac_volume)
-	if((!O) || (!reac_volume))
-		return 0
-	var/temp = holder ? holder.chem_temp : T20C
-	O.atmos_spawn_air("plasma=[reac_volume];TEMP=[temp]")
-
-/datum/reagent/toxin/plasma/reaction_turf(turf/open/T, reac_volume)
-	if(istype(T))
-		var/temp = holder ? holder.chem_temp : T20C
-		T.atmos_spawn_air("plasma=[reac_volume];TEMP=[temp]")
-	return
-
 /datum/reagent/toxin/plasma/reaction_mob(mob/living/M, method=TOUCH, reac_volume)//Splashing people with plasma is stronger than fuel!
 	if(method == TOUCH || method == VAPOR)
 		M.adjust_fire_stacks(reac_volume / 5)
@@ -326,7 +314,7 @@
 	..()
 
 /datum/reagent/toxin/fakebeer	//disguised as normal beer for use by emagged brobots
-	name = "Beer"
+	name = "Strong Beer"
 	description = "A specially-engineered sedative disguised as beer. It induces instant sleep in its target."
 	color = "#664300" // rgb: 102, 67, 0
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
@@ -474,6 +462,25 @@
 		M.reagents.remove_reagent(/datum/reagent/toxin/venom, 1.1)
 	else
 		..()
+
+/datum/reagent/toxin/spidervenom
+	name = "Spider Venom"
+	description = "A type of venom extracted from spiders. Causes toxin damage and can paralyze in large doses."
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	reagent_state = LIQUID
+	color = "#00A080"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	toxpwr = 0.5
+
+/datum/reagent/toxin/spidervenom/on_mob_life(mob/living/carbon/M)
+	if(M.getStaminaLoss() <= 70)				//Should not stamcrit under most conditions, but will greatly slow down given some time.
+		M.adjustStaminaLoss((volume * 0.75) * REM, 0)
+	if(current_cycle > 10 && prob(current_cycle + (volume * 0.3))) 	//The longer it is in your system and the more of it you have the more frequently you drop
+		M.Paralyze(3 SECONDS, 0)
+		toxpwr += 0.1							//The venom gets stronger until completely purged.
+	if(holder.has_reagent(/datum/reagent/medicine/calomel) || holder.has_reagent(/datum/reagent/medicine/pen_acid) || holder.has_reagent(/datum/reagent/medicine/charcoal))
+		current_cycle += 5						// Prevents using purgatives while in combat
+	..()
 
 /datum/reagent/toxin/fentanyl
 	name = "Fentanyl"

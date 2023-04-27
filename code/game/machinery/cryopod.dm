@@ -223,7 +223,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 /obj/machinery/cryopod/open_machine()
 	..()
 	icon_state = "cryopod-open"
-	density = TRUE
+	set_density(TRUE)
 	name = initial(name)
 
 /obj/machinery/cryopod/container_resist(mob/living/user)
@@ -313,6 +313,17 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		qdel(W)//because we moved all items to preserve away
 		//and yes, this totally deletes their bodyparts one by one, I just couldn't bother
 
+	// Suspend their bank payment
+	if(mob_occupant.mind?.account_id)
+		var/datum/bank_account/target_account = SSeconomy.get_bank_account_by_id(mob_occupant.mind.account_id)
+		if(target_account)
+			for(var/D in target_account.payment_per_department)
+				target_account.payment_per_department[D] = 0
+				target_account.bonus_per_department[D] = 0
+			target_account.suspended = TRUE // bank account will not be deleted, just suspended
+
+	// This should be done after item removal because it checks if your ID card still exists
+
 	if(iscyborg(mob_occupant))
 		var/mob/living/silicon/robot/R = occupant
 		if(!istype(R)) return
@@ -351,7 +362,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 			to_chat(user, "<span class='danger'>You can't put [target] into [src]. They're conscious.</span>")
 		return
 	else if(target.client)
-		if(alert(target,"Would you like to enter cryosleep?",,"Yes","No") == "No")
+		if(alert(target,"Would you like to enter cryosleep?",,"Yes","No") != "Yes")
 			return
 
 	var/generic_plsnoleave_message = " Please adminhelp before leaving the round, even if there are no administrators online!"

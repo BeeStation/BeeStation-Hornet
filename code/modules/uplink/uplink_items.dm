@@ -160,8 +160,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			var/mob/living/carbon/human/H = user
 			if(H.put_in_hands(A))
 				to_chat(H, "[A] materializes into your hands!")
+				log_uplink_purchase(user, A)
 				return A
 	to_chat(user, "[A] materializes onto the floor.")
+	log_uplink_purchase(user, A)
 	return A
 
 //Discounts (dynamically filled above)
@@ -315,7 +317,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/index = rand(1, 20)
 	starting_crate_value = index * 5
 	if(index == 1)
-		to_chat(user, "<span class='warning'><b>Incomming transmission from the syndicate.</b></span>")
+		to_chat(user, "<span class='warning'><b>Incoming transmission from the syndicate.</b></span>")
 		to_chat(user, "<span class='warning'>You feel an overwhelming sense of pride and accomplishment.</span>")
 		var/obj/item/clothing/mask/joy/funny_mask = new(get_turf(user))
 		ADD_TRAIT(funny_mask, TRAIT_NODROP, CURSED_ITEM_TRAIT)
@@ -360,7 +362,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/bundles_TC/telecrystal
 	name = "1 Raw Telecrystal"
 	desc = "A telecrystal in its rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
-	item = /obj/item/stack/telecrystal
+	item = /obj/item/stack/sheet/telecrystal
 	cost = 1
 	// Don't add telecrystals to the purchase_log since
 	// it's just used to buy more items (including itself!)
@@ -369,13 +371,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/bundles_TC/telecrystal/five
 	name = "5 Raw Telecrystals"
 	desc = "Five telecrystals in their rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
-	item = /obj/item/stack/telecrystal/five
+	item = /obj/item/stack/sheet/telecrystal/five
 	cost = 5
 
 /datum/uplink_item/bundles_TC/telecrystal/twenty
 	name = "20 Raw Telecrystals"
 	desc = "Twenty telecrystals in their rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
-	item = /obj/item/stack/telecrystal/twenty
+	item = /obj/item/stack/sheet/telecrystal/twenty
 	cost = 20
 
 /datum/uplink_item/bundles_TC/crate
@@ -621,7 +623,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/dangerous/sniper
 	name = "Sniper Rifle"
 	desc = "Ranged fury, Syndicate style. Guaranteed to cause shock and awe or your TC back!"
-	item = /obj/item/gun/ballistic/automatic/sniper_rifle/syndicate
+	item = /obj/item/gun/ballistic/sniper_rifle/syndicate
 	cost = 16
 	surplus = 25
 	purchasable_from = UPLINK_NUKE_OPS
@@ -940,27 +942,58 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	illegal_tech = FALSE
 
 /datum/uplink_item/ammo/sniper
-	cost = 4
 	purchasable_from = UPLINK_NUKE_OPS
 	illegal_tech = FALSE
 
-/datum/uplink_item/ammo/sniper/basic
+/datum/uplink_item/ammo/sniper/magazine
 	name = ".50 Magazine"
-	desc = "An additional standard 6-round magazine for use with .50 sniper rifles."
-	item = /obj/item/ammo_box/magazine/sniper_rounds
+	desc = "An additional standard 6-round magazine for use with .50 sniper rifles. Bullets are not included."
+	item = /obj/item/ammo_box/magazine/sniper_rounds/empty
+	cost = 2
+
+/datum/uplink_item/ammo/sniper/basic
+	name = ".50 Rounds"
+	desc = "An ammo box containing 6 highly powerful .50 caliber projectiles which can be inserted into .50 magazines to be used in a sniper rifle."
+	item = /obj/item/ammo_box/sniper
+	cost = 2
 
 /datum/uplink_item/ammo/sniper/penetrator
-	name = ".50 Penetrator Magazine"
-	desc = "A 5-round magazine of penetrator ammo designed for use with .50 sniper rifles. \
+	name = ".50 Penetrator Rounds"
+	desc = "2 rounds of penetrator ammo designed for use with .50 sniper rifles. \
 			Can pierce walls and multiple enemies."
-	item = /obj/item/ammo_box/magazine/sniper_rounds/penetrator
-	cost = 5
+	item = /obj/item/ammo_box/sniper/penetrator
+	cost = 2
 
 /datum/uplink_item/ammo/sniper/soporific
-	name = ".50 Soporific Magazine"
-	desc = "A 3-round magazine of soporific ammo designed for use with .50 sniper rifles. Put your enemies to sleep today!"
-	item = /obj/item/ammo_box/magazine/sniper_rounds/soporific
-	cost = 6
+	name = ".50 Soporific Rounds"
+	desc = "2 rounds of .50 cal soporific bullets, for use in a sniper rifle's magazine. Put your enemies to sleep today!"
+	item = /obj/item/ammo_box/sniper/soporific
+	cost = 3
+
+/datum/uplink_item/ammo/sniper/emp
+	name = ".50 Emp Shell"
+	desc = "A single EMP shell for the sniper rifle. Upon impact will release an EMP which disables nearby electronics \
+		temporarilly."
+	item = /obj/item/ammo_casing/p50/emp
+	cost = 1
+
+/datum/uplink_item/ammo/sniper/explosive
+	name = ".50 Explosive Shell"
+	desc = "An explosive shell for the sniper rifle, upon impact will create a small explosion which damages nearby targets."
+	item = /obj/item/ammo_casing/p50/explosive
+	cost = 3
+
+/datum/uplink_item/ammo/sniper/inferno
+	name = ".50 Inferno Shell"
+	desc = "A shell for the sniper rifle with a highly volatile flammable core. Upon impact will release a fireball which consumes anything nearby."
+	item = /obj/item/ammo_casing/p50/inferno
+	cost = 2
+
+/datum/uplink_item/ammo/sniper/antimatter
+	name = ".50 Antimatter-tipped Shell"
+	desc = "An antimatter-tipped sniper rifle shell. Upon impact the antimatter core will collapse, releasing the energy contained within. Handle with extreme care."
+	item = /obj/item/ammo_casing/p50/antimatter
+	cost = 14
 
 /datum/uplink_item/ammo/carbine
 	name = "5.56mm Toploader Magazine"
@@ -1220,7 +1253,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "The minibomb is a grenade with a five-second fuse. Upon detonation, it will create a small hull breach \
 			in addition to dealing high amounts of damage to nearby personnel."
 	item = /obj/item/grenade/syndieminibomb
-	cost = 5
+	cost = 4
 	purchasable_from = ~UPLINK_CLOWN_OPS
 
 /datum/uplink_item/explosives/tearstache
@@ -1475,7 +1508,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/suits/hardsuit/spawn_item(spawn_path, mob/user, datum/component/uplink/U)
 	var/obj/item/clothing/suit/space/hardsuit/suit = ..()
 	var/datum/component/tracking_beacon/beacon = suit.GetComponent(/datum/component/tracking_beacon)
-	var/datum/component/team_monitor/hud = suit.helmet.GetComponent(/datum/component/team_monitor)
+	var/datum/component/team_monitor/worn/hud = suit.helmet.GetComponent(/datum/component/team_monitor/worn)
 
 	var/datum/antagonist/nukeop/nukie = is_nuclear_operative(user)
 	if(nukie?.nuke_team?.team_frequency)
@@ -1923,7 +1956,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			It teaches you how to use your claws and tail to gain an advantage in combat, \
 			don't buy this unless you are a lizard or plan to give it to one as only they can understand the ancient draconic words."
 	item = /obj/item/book/granter/martial/tribal_claw
-	cost = 14
+	cost = 6
 	surplus = 0
 	restricted_species = list(SPECIES_LIZARD)
 
@@ -2041,17 +2074,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/grenade/spawnergrenade/clown_broken
 	cost = 5
 	restricted_roles = list(JOB_NAME_CLOWN)
-
-
-/datum/uplink_item/role_restricted/spider_injector
-	name = "Australicus Slime Mutator"
-	desc = "Crikey mate, it's been a wild travel from the Australicus sector but we've managed to get \
-			some special spider extract from the giant spiders down there. Use this injector on a gold slime core \
-			to create a few of the same type of spiders we found on the planets over there. They're a bit tame until you \
-			also give them a bit of sentience though."
-	item = /obj/item/reagent_containers/syringe/spider_extract
-	cost = 10
-	restricted_roles = list(JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST)
 
 /datum/uplink_item/role_restricted/clowncar
 	name = "Clown Car"
@@ -2230,11 +2252,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/role_restricted/pressure_mod
 	name = "Kinetic Accelerator Pressure Mod"
-	desc = "A modification kit which allows Kinetic Accelerators to do greatly increased damage while indoors and in a vacuum. \
+	desc = "A modification kit which allows Kinetic Accelerators to do greatly increased damage while indoors. \
 			Occupies 35% mod capacity."
 	item = /obj/item/borg/upgrade/modkit/indoors
-	cost = 5 //you need two for full damage, so total of 10 for maximum damage
-	limited_stock = 2 //you can't use more than two!
+	cost = 5 //you need one for full damage, so total of 5 for maximum damage
+	limited_stock = 1 //you can't use more than one!
 	restricted_roles = list(JOB_NAME_SHAFTMINER)
 
 /datum/uplink_item/role_restricted/esaw
@@ -2329,6 +2351,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Nothing is more terrifying than clowns with fully automatic weaponry."
 	item = /obj/item/storage/backpack/duffelbag/clown/syndie
 
+/datum/uplink_item/badass/surprise_cake
+	name = "Rigged towering cake"
+	desc = "For hosting a surprise birthday party for the Captain, with a flashy surprise."
+	item = /obj/structure/popout_cake/nukeop
+	cost = 4
+	purchasable_from = (UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+
 /datum/uplink_item/badass/balloon
 	name = "Syndicate Balloon"
 	desc = "For showing that you are THE BOSS: A useless red balloon with the Syndicate logo on it. \
@@ -2386,7 +2415,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/implants/deathrattle
 	name = "Box of Deathrattle Implants"
 	desc = "A collection of implants (and one reusable implanter) that should be injected into the team. When one of the team \
-	dies, all other implant holders recieve a mental message informing them of their teammates' name \
+	dies, all other implant holders receive a mental message informing them of their teammates' name \
 	and the location of their death. Unlike most implants, these are designed to be implanted \
 	in any creature, biological or mechanical."
 	item = /obj/item/storage/box/syndie_kit/imp_deathrattle
@@ -2397,6 +2426,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/device_tools/antag_lasso
 	name = "Mindslave Lasso"
 	desc = "A state of the art taming device.\n Use this device to tame almost any animal by lassoing and untying them.\n Tamed animals can be rode & commanded!"
-	item = /obj/item/mob_lasso/antag
+	item = /obj/item/mob_lasso/traitor
 	cost = 3
 	surplus = 0

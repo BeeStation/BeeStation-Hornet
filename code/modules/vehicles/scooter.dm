@@ -88,12 +88,12 @@
 	initialize_controller_action_type(/datum/action/vehicle/ridden/scooter/skateboard/kflip, VEHICLE_CONTROL_DRIVE)
 
 /obj/vehicle/ridden/scooter/skateboard/post_buckle_mob(mob/living/M)//allows skateboards to be non-dense but still allows 2 skateboarders to collide with each other
-	density = TRUE
+	set_density(TRUE)
 	return ..()
 
 /obj/vehicle/ridden/scooter/skateboard/post_unbuckle_mob(mob/living/M)
 	if(!has_buckled_mobs())
-		density = FALSE
+		set_density(FALSE)
 	return ..()
 
 /obj/vehicle/ridden/scooter/skateboard/Bump(atom/A)
@@ -141,7 +141,7 @@
 				if(location)
 					location.hotspot_expose(1000,1000)
 				sparks.start() //the most radical way to start plasma fires
-			addtimer(CALLBACK(src, .proc/grind), 2)
+			addtimer(CALLBACK(src, PROC_REF(grind)), 2)
 			return
 	else
 		grinding = FALSE

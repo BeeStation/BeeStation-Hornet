@@ -1,0 +1,776 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aJ" = (
+/turf/closed/wall/rust,
+/area/template_noop)
+"cb" = (
+/obj/item/kirbyplants{
+	icon_state = "plant-21"
+	},
+/obj/structure/fluff/paper{
+	dir = 4;
+	icon_state = "papercorner"
+	},
+/turf/open/floor/wood{
+	icon_state = "wood-broken"
+	},
+/area/template_noop)
+"cL" = (
+/obj/structure/railing/corner,
+/turf/open/floor/wood,
+/area/template_noop)
+"di" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/template_noop)
+"dt" = (
+/obj/item/chair/wood,
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"dH" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/structure/fluff/paper{
+	icon_state = "paperstack"
+	},
+/turf/open/floor/wood,
+/area/template_noop)
+"fC" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/wood{
+	icon_state = "wood-broken7"
+	},
+/area/template_noop)
+"gy" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/remains/human,
+/obj/item/kitchen/knife{
+	pixel_x = 18;
+	pixel_y = 8
+	},
+/obj/structure/table/wood,
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/item/candle/infinite{
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/turf/open/floor/monofloor,
+/area/template_noop)
+"gV" = (
+/obj/structure/chair/wood/normal{
+	dir = 4
+	},
+/obj/structure/fluff/paper{
+	icon_state = "paperstack"
+	},
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"hf" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood,
+/area/template_noop)
+"jx" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/structure/fluff/paper{
+	dir = 10;
+	icon_state = "paperstack"
+	},
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"jP" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"jR" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"kD" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/wood/normal{
+	dir = 8
+	},
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"lO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/structure/fluff/paper{
+	dir = 1;
+	icon_state = "paperstack"
+	},
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"lY" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"mm" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp/green{
+	pixel_x = -5;
+	pixel_y = 7
+	},
+/obj/item/folder/yellow,
+/obj/structure/fluff/paper,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"mJ" = (
+/obj/structure/fluff/paper{
+	dir = 8;
+	icon_state = "paperstack"
+	},
+/obj/effect/decal/cleanable/blood/old,
+/obj/structure/railing/corner,
+/turf/open/floor/wood,
+/area/template_noop)
+"mN" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"nX" = (
+/obj/structure/fluff/paper{
+	dir = 8;
+	icon_state = "papercorner"
+	},
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"ob" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/template_noop)
+"oq" = (
+/obj/structure/railing,
+/turf/open/floor/plasteel/stairs{
+	dir = 8
+	},
+/area/template_noop)
+"pW" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/open/floor/plasteel/stairs{
+	dir = 8
+	},
+/area/template_noop)
+"qp" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood{
+	icon_state = "wood-broken7"
+	},
+/area/template_noop)
+"qv" = (
+/obj/item/kirbyplants{
+	icon_state = "plant-02";
+	pixel_y = 3
+	},
+/obj/structure/fluff/paper{
+	dir = 1;
+	icon_state = "papercorner"
+	},
+/turf/open/floor/wood{
+	icon_state = "wood-broken"
+	},
+/area/template_noop)
+"qH" = (
+/obj/structure/fluff/paper{
+	icon_state = "papercorner"
+	},
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"qN" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/fluff/paper{
+	icon_state = "paperstack"
+	},
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"rR" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/floor/plasteel/stairs,
+/area/template_noop)
+"rU" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"sn" = (
+/obj/structure/fluff/paper{
+	dir = 4;
+	icon_state = "papercorner"
+	},
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"uc" = (
+/obj/machinery/photocopier,
+/obj/structure/fluff/paper{
+	icon_state = "papercorner"
+	},
+/obj/structure/fluff/paper{
+	icon_state = "paperstack"
+	},
+/turf/open/floor/wood,
+/area/template_noop)
+"uh" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood{
+	icon_state = "wood-broken4"
+	},
+/area/template_noop)
+"vA" = (
+/obj/item/stack/sheet/wood,
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"xZ" = (
+/obj/structure/fluff/paper{
+	dir = 6;
+	icon_state = "paperstack"
+	},
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/turf/open/floor/wood{
+	icon_state = "wood-broken4"
+	},
+/area/template_noop)
+"yf" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"yV" = (
+/obj/structure/table/wood,
+/obj/item/folder,
+/obj/structure/fluff/paper{
+	dir = 8;
+	icon_state = "papercorner"
+	},
+/turf/open/floor/wood,
+/area/template_noop)
+"yW" = (
+/obj/effect/rune,
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/turf/open/floor/monofloor,
+/area/template_noop)
+"ze" = (
+/obj/structure/table/wood,
+/obj/item/candle/infinite{
+	pixel_x = 6;
+	pixel_y = 6
+	},
+/obj/structure/railing/corner,
+/turf/open/floor/monofloor,
+/area/template_noop)
+"Ay" = (
+/obj/item/kirbyplants{
+	icon_state = "plant-16"
+	},
+/obj/structure/fluff/paper{
+	dir = 1;
+	icon_state = "papercorner"
+	},
+/turf/open/floor/wood{
+	icon_state = "wood-broken"
+	},
+/area/template_noop)
+"AX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/wood/normal,
+/obj/structure/fluff/paper{
+	icon_state = "paperstack"
+	},
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"BZ" = (
+/obj/structure/noticeboard{
+	dir = 8;
+	pixel_x = 32
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood,
+/area/template_noop)
+"Cp" = (
+/obj/structure/table/wood,
+/turf/open/floor/wood,
+/area/template_noop)
+"Cr" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/turf_decal/stripes/corner,
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"CF" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/item/chair/wood,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"Dp" = (
+/obj/structure/bookcase/random/nonfiction,
+/turf/open/floor/wood,
+/area/template_noop)
+"Dy" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/plasteel/stairs,
+/area/template_noop)
+"EK" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/plasteel/stairs{
+	dir = 1
+	},
+/area/template_noop)
+"Fb" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"Fv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/remains/human,
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/turf/open/floor/monofloor,
+/area/template_noop)
+"FO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"Ga" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/chair/wood,
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"Hr" = (
+/obj/structure/table/wood,
+/obj/structure/fluff/paper,
+/obj/structure/fluff/paper{
+	dir = 10;
+	icon_state = "paperstack"
+	},
+/obj/item/pen{
+	pixel_x = 8;
+	pixel_y = 5
+	},
+/obj/item/pen/red{
+	pixel_x = 5;
+	pixel_y = 1
+	},
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"Hv" = (
+/obj/structure/fluff/paper{
+	dir = 8
+	},
+/obj/structure/fluff/paper{
+	dir = 8;
+	icon_state = "paperstack"
+	},
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"HO" = (
+/obj/structure/fluff/paper{
+	dir = 1;
+	icon_state = "papercorner"
+	},
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"IC" = (
+/obj/structure/railing,
+/turf/open/floor/plasteel/stairs{
+	dir = 4
+	},
+/area/template_noop)
+"Jr" = (
+/obj/structure/fluff/paper{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/wood/normal{
+	dir = 1
+	},
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"KF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner,
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"Lr" = (
+/obj/structure/chair/wood/normal{
+	dir = 8
+	},
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"LO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/fluff/paper{
+	dir = 4;
+	icon_state = "paperstack"
+	},
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"LX" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/turf/open/floor/wood{
+	icon_state = "wood-broken"
+	},
+/area/template_noop)
+"Mo" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/open/floor/plasteel/stairs{
+	dir = 4
+	},
+/area/template_noop)
+"Na" = (
+/obj/structure/fluff/paper{
+	dir = 1
+	},
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"NA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"NJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"OJ" = (
+/turf/closed/wall,
+/area/template_noop)
+"Qs" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/sheet/wood,
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"QA" = (
+/obj/structure/bookcase/random/nonfiction,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"QC" = (
+/obj/structure/table/wood,
+/obj/structure/fluff/paper{
+	dir = 4
+	},
+/obj/structure/fluff/paper{
+	dir = 9;
+	icon_state = "paperstack"
+	},
+/obj/item/flashlight/lamp/green{
+	pixel_x = -5;
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/food/drinks/britcup,
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"Ra" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"Ru" = (
+/obj/item/kirbyplants{
+	icon_state = "plant-22"
+	},
+/obj/structure/fluff/paper{
+	icon_state = "paperstack"
+	},
+/obj/structure/fluff/paper{
+	dir = 4;
+	icon_state = "papercorner"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood{
+	icon_state = "wood-broken"
+	},
+/area/template_noop)
+"RT" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/wood/normal{
+	dir = 4
+	},
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"Sn" = (
+/obj/structure/fluff/paper{
+	dir = 1
+	},
+/obj/structure/fluff/paper{
+	dir = 8;
+	icon_state = "paperstack"
+	},
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"SF" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/structure/fluff/paper{
+	dir = 1;
+	icon_state = "paperstack"
+	},
+/turf/open/floor/wood,
+/area/template_noop)
+"Ts" = (
+/obj/structure/bookcase/random/nonfiction,
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"UI" = (
+/obj/structure/table/wood,
+/obj/item/kirbyplants{
+	icon_state = "plant-17";
+	pixel_x = 8;
+	pixel_y = 3
+	},
+/obj/structure/fluff/paper{
+	dir = 8
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/fluff/paper{
+	dir = 1;
+	icon_state = "paperstack"
+	},
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"VI" = (
+/obj/structure/chair/wood/normal,
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"VO" = (
+/obj/structure/table/wood,
+/obj/structure/fluff/paper{
+	icon_state = "papercorner"
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/wood{
+	icon_state = "wood-broken"
+	},
+/area/template_noop)
+"WJ" = (
+/obj/structure/table/wood,
+/obj/structure/fluff/paper{
+	dir = 8;
+	icon_state = "papercorner"
+	},
+/obj/item/paper_bin{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/wood{
+	icon_state = "wood-broken"
+	},
+/area/template_noop)
+"Yg" = (
+/obj/structure/railing/corner,
+/obj/structure/fluff/paper{
+	dir = 10;
+	icon_state = "paperstack"
+	},
+/turf/open/floor/wood{
+	icon_state = "wood-broken"
+	},
+/area/template_noop)
+"YS" = (
+/obj/structure/chair/wood/normal{
+	dir = 1
+	},
+/turf/open/floor/carpet/green,
+/area/template_noop)
+"ZR" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/floor/plasteel/stairs{
+	dir = 1
+	},
+/area/template_noop)
+
+(1,1,1) = {"
+OJ
+Dp
+Ay
+lO
+CF
+jP
+Ra
+uc
+Cp
+OJ
+"}
+(2,1,1) = {"
+Cp
+Ts
+Na
+vA
+mN
+RT
+gV
+mm
+Ts
+Cp
+"}
+(3,1,1) = {"
+yV
+UI
+sn
+mJ
+qp
+cL
+BZ
+nX
+Hv
+cb
+"}
+(4,1,1) = {"
+Fb
+VI
+cL
+OJ
+pW
+oq
+OJ
+LX
+YS
+KF
+"}
+(5,1,1) = {"
+lY
+AX
+ob
+rR
+yW
+gy
+ZR
+hf
+Qs
+jx
+"}
+(6,1,1) = {"
+LO
+yf
+Yg
+Dy
+Fv
+ze
+EK
+dH
+YS
+rU
+"}
+(7,1,1) = {"
+NJ
+dt
+ob
+aJ
+Mo
+IC
+OJ
+xZ
+Ga
+jR
+"}
+(8,1,1) = {"
+VO
+QC
+HO
+SF
+fC
+uh
+di
+qH
+Jr
+qv
+"}
+(9,1,1) = {"
+Dp
+Ts
+Sn
+Lr
+dt
+kD
+Lr
+Hr
+QA
+Cp
+"}
+(10,1,1) = {"
+OJ
+Cp
+Ru
+Cr
+NA
+qN
+FO
+WJ
+Dp
+OJ
+"}

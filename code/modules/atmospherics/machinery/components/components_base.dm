@@ -2,8 +2,10 @@
 // On top of that, now people can add component-speciic procs/vars if they want!
 
 /obj/machinery/atmospherics/components
+	hide = FALSE
+
 	var/welded = FALSE //Used on pumps and scrubbers
-	var/showpipe = FALSE
+	var/showpipe = TRUE
 	var/shift_underlay_only = TRUE //Layering only shifts underlay?
 
 	var/list/datum/pipeline/parents
@@ -19,26 +21,34 @@
 		var/datum/gas_mixture/A = new(200)
 		airs[i] = A
 
+/obj/machinery/atmospherics/components/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>[src] is on layer [piping_layer].</span>"
+
+/obj/machinery/atmospherics/components/Initialize()
+	. = ..()
+
+	if(hide)
+		RegisterSignal(src, COMSIG_OBJ_HIDE, PROC_REF(hide_pipe))
+
 // Iconnery
 
 /obj/machinery/atmospherics/components/proc/update_icon_nopipes()
 	return
+
+/obj/machinery/atmospherics/components/proc/hide_pipe(datum/source, covered)
+	showpipe = !covered
+	update_icon()
 
 /obj/machinery/atmospherics/components/update_icon()
 	update_icon_nopipes()
 
 	underlays.Cut()
 
-	var/turf/T = loc
-	if(level == 2 || (istype(T) && !T.intact))
-		showpipe = TRUE
-		plane = GAME_PLANE
-	else
-		showpipe = FALSE
-		plane = FLOOR_PLANE
+	plane = showpipe ? GAME_PLANE : FLOOR_PLANE
 
 	if(!showpipe)
-		return //no need to update the pipes if they aren't showing
+		return
 
 	var/connected = 0 //Direction bitset
 

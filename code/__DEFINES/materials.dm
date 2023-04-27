@@ -12,3 +12,19 @@
 #define MATERIAL_NO_COLOR (1<<0)
 /// Applies the material greyscale color to the atom's greyscale color.
 #define MATERIAL_GREYSCALE (1<<1)
+
+/// Create standardized stack sizes.
+
+#define STACKSIZE_MACRO(Path)\
+##Path/fifty{\
+	amount = 50; \
+} \
+##Path/twenty{\
+	amount = 20; \
+} \
+##Path/ten{\
+	amount = 10; \
+} \
+##Path/five{\
+	amount = 5; \
+} \

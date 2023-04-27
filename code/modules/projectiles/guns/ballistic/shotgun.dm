@@ -194,7 +194,7 @@
 	sawn_desc = "Omar's coming!"
 	obj_flags = UNIQUE_RENAME
 	rack_sound_volume = 0
-	unique_reskin = list("Default" = "dshotgun",
+	unique_reskin_icon = list("Default" = "dshotgun",
 						"Dark Red Finish" = "dshotgun_d",
 						"Ash" = "dshotgun_f",
 						"Faded Grey" = "dshotgun_g",
@@ -206,10 +206,26 @@
 	fire_rate = 2 //being double barrelled, you don't rely on internal mechanisms.
 	pb_knockback = 3
 
-/obj/item/gun/ballistic/shotgun/doublebarrel/AltClick(mob/user)
+/obj/item/gun/ballistic/shotgun/doublebarrel/reskin_obj(mob/M)
+	if(sawn_off == FALSE)
+		unique_reskin = list(
+			"Default" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "dshotgun"),
+			"Dark Red Finish" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "dshotgun_d"),
+			"Ash" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "dshotgun_f"),
+			"Faded Grey" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "dshotgun_g"),
+			"Maple" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "dshotgun_l"),
+			"Rosewood" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "dshotgun_p")
+		)
+	else
+		unique_reskin = list(
+			"Default" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "dshotgun_sawn"),
+			"Dark Red Finish" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "dshotgun_d_sawn"),
+			"Ash" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "dshotgun_f_sawn"),
+			"Faded Grey" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "dshotgun_g_sawn"),
+			"Maple" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "dshotgun_l_sawn"),
+			"Rosewood" = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "dshotgun_p_sawn")
+		)
 	. = ..()
-	if(unique_reskin && !current_skin && user.canUseTopic(src, BE_CLOSE, NO_DEXTERY))
-		reskin_obj(user)
 
 /obj/item/gun/ballistic/shotgun/doublebarrel/attackby(obj/item/A, mob/user, params)
 	..()
@@ -232,7 +248,7 @@
 	slot_flags = null
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised
 	sawn_desc = "I'm just here for the gasoline."
-	unique_reskin = null
+	unique_reskin_icon = null
 	recoil = 2
 	var/slung = FALSE
 

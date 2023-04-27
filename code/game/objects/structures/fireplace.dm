@@ -38,8 +38,8 @@
 		return TRUE
 
 /obj/structure/fireplace/attackby(obj/item/T, mob/user)
-	if(istype(T, /obj/item/stack/sheet/mineral/wood))
-		var/obj/item/stack/sheet/mineral/wood/wood = T
+	if(istype(T, /obj/item/stack/sheet/wood))
+		var/obj/item/stack/sheet/wood/wood = T
 		var/space_remaining = MAXIMUM_BURN_TIMER - burn_time_remaining()
 		var/space_for_logs = round(space_remaining / LOG_BURN_TIMER)
 		if(space_for_logs < 1)
@@ -112,7 +112,7 @@
 	playsound(src, 'sound/effects/comfyfire.ogg',50,0, 0, 1)
 	var/turf/T = get_turf(src)
 	T.hotspot_expose(700, 2.5 * delta_time)
-	update_icon()
+	update_appearance()
 	adjust_light()
 
 /obj/structure/fireplace/extinguish()
@@ -142,11 +142,11 @@
 	desc = "A large stone brick fireplace, warm and cozy."
 	flame_expiry_timer = world.time + fuel_added
 	fuel_added = 0
-	update_icon()
+	update_appearance()
 	adjust_light()
 
 /obj/structure/fireplace/proc/put_out()
 	lit = FALSE
-	update_icon()
+	update_appearance()
 	adjust_light()
 	desc = initial(desc)

@@ -12,7 +12,7 @@
 	var/datum/action/innate/shuttle_creator/modify/modify_action = new
 
 /obj/machinery/computer/camera_advanced/shuttle_creator/check_eye(mob/user)
-	if(user.eye_blind || user.incapacitated())
+	if(user.is_blind() || user.incapacitated())
 		user.unset_machine()
 
 /obj/machinery/computer/camera_advanced/shuttle_creator/CreateEye()

@@ -38,7 +38,7 @@
 	var/list/display_names = generate_display_names()
 	if(!display_names.len)
 		return
-	var/choice = input(M,"Which item would you like to order?","Select an Item") as null|anything in sortList(display_names)
+	var/choice = input(M,"Which item would you like to order?","Select an Item") as null|anything in sort_list(display_names)
 	if(!choice || !M.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
 
@@ -222,7 +222,7 @@
 		if(target == user)
 			kidnaptime = 1 SECONDS
 		kidnapee.visible_message("<span class='warning'>[user] starts pulling [src] over [kidnapee]'s head!</span>", "<span class='userdanger'>[user] starts pulling [src] over your head!</span>")
-		if(do_mob(user, kidnapee, kidnaptime * kidnappingcoefficient))
+		if(do_after(user, kidnaptime * kidnappingcoefficient, kidnapee))
 			if(kidnapee == user)
 				kidnapee.drop_all_held_items()
 				if(HAS_TRAIT(src, TRAIT_NODROP))

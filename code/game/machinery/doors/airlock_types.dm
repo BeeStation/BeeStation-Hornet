@@ -6,7 +6,7 @@
 	icon = 'icons/obj/doors/airlocks/station/command.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_com
 	normal_integrity = 450
-	security_level = 6
+	security_level = AIRLOCK_SECURITY_PLASTEEL_O_S
 
 /obj/machinery/door/airlock/security
 	icon = 'icons/obj/doors/airlocks/station/security.dmi'
@@ -86,7 +86,7 @@
 	opacity = 0
 	glass = TRUE
 	normal_integrity = 400
-	security_level =  6
+	security_level = AIRLOCK_SECURITY_PLASTEEL_O_S
 
 /obj/machinery/door/airlock/engineering/glass
 	opacity = 0
@@ -223,14 +223,16 @@
 
 /obj/machinery/door/airlock/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
-		PlasmaBurn(exposed_temperature)
+		if(plasma_ignition(6))
+			PlasmaBurn()
 
-/obj/machinery/door/airlock/plasma/proc/ignite(exposed_temperature)
-	if(exposed_temperature > 300)
-		PlasmaBurn(exposed_temperature)
+/obj/machinery/door/airlock/plasma/bullet_act(obj/item/projectile/Proj)
+	if(!(Proj.nodamage) && Proj.damage_type == BURN)
+		if(plasma_ignition(6, Proj?.firer))
+			PlasmaBurn()
+	. = ..()
 
-/obj/machinery/door/airlock/plasma/proc/PlasmaBurn(temperature)
-	atmos_spawn_air("plasma=500;TEMP=1000")
+/obj/machinery/door/airlock/plasma/proc/PlasmaBurn()
 	var/obj/structure/door_assembly/DA
 	DA = new /obj/structure/door_assembly(loc)
 	if(glass)
@@ -239,16 +241,14 @@
 		DA.heat_proof_finished = TRUE
 	DA.update_icon()
 	DA.update_name()
-	qdel(src)
 
 /obj/machinery/door/airlock/plasma/BlockThermalConductivity() //we don't stop the heat~
 	return 0
 
 /obj/machinery/door/airlock/plasma/attackby(obj/item/C, mob/user, params)
 	if(C.is_hot() > 300)//If the temperature of the object is over 300, then ignite
-		message_admins("Plasma airlock ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(src)]")
-		log_game("Plasma airlock ignited by [key_name(user)] in [AREACOORD(src)]")
-		ignite(C.is_hot())
+		if(plasma_ignition(6, user))
+			PlasmaBurn()
 	else
 		return ..()
 
@@ -306,7 +306,7 @@
 	anim_parts = "left=-13,0;right=13,0"
 	normal_integrity = 150
 	damage_deflection = 5
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
 
 /obj/machinery/door/airlock/bronze/seethru
 	assemblytype = /obj/structure/door_assembly/door_assembly_bronze/seethru
@@ -379,7 +379,7 @@
 	overlays_file = 'icons/obj/doors/airlocks/centcom/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_centcom
 	normal_integrity = 1000
-	security_level = 6
+	security_level = AIRLOCK_SECURITY_PLASTEEL
 	explosion_block = 2
 
 /obj/machinery/door/airlock/grunge
@@ -400,7 +400,7 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_vault
 	explosion_block = 2
 	normal_integrity = 400 // reverse engieneerd: 400 * 1.5 (sec lvl 6) = 600 = original
-	security_level = 6
+	security_level = AIRLOCK_SECURITY_PLASTEEL
 
 //////////////////////////////////
 /*
@@ -444,7 +444,7 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_highsecurity
 	explosion_block = 2
 	normal_integrity = 500
-	security_level = 1
+	security_level = AIRLOCK_SECURITY_IRON
 	damage_deflection = 30
 
 //////////////////////////////////
@@ -476,7 +476,7 @@
 	hackProof = TRUE
 	aiControlDisabled = 1
 	normal_integrity = 700
-	security_level = 1
+	security_level = AIRLOCK_SECURITY_IRON
 	allow_repaint = FALSE
 
 //////////////////////////////////
@@ -586,7 +586,7 @@
 	desc = "An airlock hastily corrupted by blood magic, it is unusually brittle in this state."
 	normal_integrity = 150
 	damage_deflection = 5
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
 
 //////////////////////////////////
 /*

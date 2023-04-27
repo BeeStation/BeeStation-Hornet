@@ -12,6 +12,7 @@
 	item_state = "rack_parts"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	item_flags = ISWEAPON
 
 	var/ticking = FALSE
 	var/time_left = 60 //seconds remaining until pop
@@ -43,7 +44,7 @@
 		soundloop.stop()
 		soundloop2.stop()
 		to_chat(loc, "<span class='userdanger'>*ding*</span>")
-		addtimer(CALLBACK(src, .proc/snap), 2)
+		addtimer(CALLBACK(src, PROC_REF(snap)), 2)
 
 /obj/item/reverse_bear_trap/attack_hand(mob/user)
 	if(iscarbon(user))

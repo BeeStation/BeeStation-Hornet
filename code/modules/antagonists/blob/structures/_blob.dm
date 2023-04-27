@@ -12,7 +12,7 @@
 	CanAtmosPass = ATMOS_PASS_PROC
 	var/point_return = 0 //How many points the blob gets back when it removes a blob of that type. If less than 0, blob cannot be removed.
 	max_integrity = 30
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 70, STAMINA = 0)
 	var/health_regen = 2 //how much health this blob regens when pulsed
 	var/pulse_timestamp = 0 //we got pulsed when?
 	var/heal_timestamp = 0 //we got healed when?
@@ -170,9 +170,9 @@
 
 	if(make_blob) //well, can we?
 		var/obj/structure/blob/B = new /obj/structure/blob/normal(src.loc, (controller || overmind))
-		B.density = TRUE
+		B.set_density(TRUE)
 		if(T.Enter(B)) //NOW we can attempt to move into the tile
-			B.density = initial(B.density)
+			B.set_density(initial(B.density))
 			B.forceMove(T)
 			B.update_icon()
 			if(B.overmind && expand_reaction)
@@ -209,9 +209,9 @@
 	..()
 	if(overmind)
 		if(overmind.blobstrain.tesla_reaction(src, power))
-			take_damage(power/400, BURN, "energy")
+			take_damage(power/400, BURN, ENERGY)
 	else
-		take_damage(power/400, BURN, "energy")
+		take_damage(power/400, BURN, ENERGY)
 
 /obj/structure/blob/extinguish()
 	..()

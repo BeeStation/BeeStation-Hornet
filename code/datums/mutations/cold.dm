@@ -2,7 +2,6 @@
 	name = "Geladikinesis"
 	desc = "Allows the user to concentrate moisture and sub-zero forces into snow."
 	quality = POSITIVE
-	text_gain_indication = "<span class='notice'>Your hand feels cold.</span>"
 	instability = 10
 	difficulty = 10
 	synchronizer_coeff = 1
@@ -11,7 +10,8 @@
 /obj/effect/proc_holder/spell/targeted/conjure_item/snow
 	name = "Create Snow"
 	desc = "Concentrates cryokinetic forces to create snow, useful for snow-like construction."
-	item_type = /obj/item/stack/sheet/mineral/snow
+	item_type = /obj/item/stack/sheet/snow
+
 	charge_max = 50
 	delete_old = FALSE
 	action_icon_state = "snow"
@@ -20,7 +20,6 @@
 	name = "Waxy Saliva"
 	desc = "Allows the user to secrete wax."
 	quality = POSITIVE
-	text_gain_indication = "<span class='notice'>Your mouth feels waxy.</span>"
 	instability = 10
 	difficulty = 10
 	synchronizer_coeff = 1
@@ -30,7 +29,7 @@
 /obj/effect/proc_holder/spell/targeted/conjure_item/wax
 	name = "Secrete Wax"
 	desc = "Concentrate to spit out some wax, useful for bee-themed construction."
-	item_type = /obj/item/stack/sheet/mineral/wax
+	item_type = /obj/item/stack/sheet/wax
 	charge_max = 50
 	delete_old = FALSE
 	action_icon_state = "honey"
@@ -39,7 +38,6 @@
 	name = "Cryokinesis"
 	desc = "Draws negative energy from the sub-zero void to freeze surrounding temperatures at subject's will."
 	quality = POSITIVE //upsides and downsides
-	text_gain_indication = "<span class='notice'>Your hand feels cold.</span>"
 	instability = 20
 	difficulty = 12
 	synchronizer_coeff = 1

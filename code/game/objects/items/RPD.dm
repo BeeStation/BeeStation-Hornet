@@ -55,10 +55,13 @@ GLOBAL_LIST_INIT(disposal_pipe_recipes, list(
 		new /datum/pipe_info/disposal("Junction",		/obj/structure/disposalpipe/junction, PIPE_TRIN_M),
 		new /datum/pipe_info/disposal("Y-Junction",		/obj/structure/disposalpipe/junction/yjunction),
 		new /datum/pipe_info/disposal("Sort Junction",	/obj/structure/disposalpipe/sorting/mail, PIPE_TRIN_M),
+		new /datum/pipe_info/disposal("Package Junction",	/obj/structure/disposalpipe/sorting/wrap, PIPE_TRIN_M),
 		new /datum/pipe_info/disposal("Trunk",			/obj/structure/disposalpipe/trunk),
 		new /datum/pipe_info/disposal("Bin",			/obj/machinery/disposal/bin, PIPE_ONEDIR),
 		new /datum/pipe_info/disposal("Outlet",			/obj/structure/disposaloutlet),
 		new /datum/pipe_info/disposal("Chute",			/obj/machinery/disposal/deliveryChute),
+		new /datum/pipe_info/disposal("Multi-Z Trunk (Up)",		/obj/structure/disposalpipe/trunk/multiz, PIPE_UNARY),
+		new /datum/pipe_info/disposal("Multi-Z Trunk (Down)",	/obj/structure/disposalpipe/trunk/multiz/down, PIPE_UNARY),
 	)
 ))
 
@@ -209,7 +212,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(/datum/material/iron=75000, /datum/material/glass=37500)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0)
 	resistance_flags = FIRE_PROOF
 	var/datum/effect_system/spark_spread/spark_system
 	var/working = 0
@@ -234,6 +237,28 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 	/// Bitflags for upgrades
 	var/upgrade_flags
 	var/locked = FALSE //wheter we can change categories. Useful for the plumber
+	var/ranged = FALSE
+
+	/// you can remove these through RPD
+	var/static/list/rpd_targets = typecacheof(list(
+			/obj/item/pipe,
+			/obj/item/pipe_meter,
+			/obj/structure/disposalconstruct,
+			/obj/structure/disposalpipe/broken,
+			/obj/structure/c_transit_tube,
+			/obj/structure/c_transit_tube_pod,
+		))
+	/// you can attempt using RPD on these
+	var/static/list/rpd_whitelist = typecacheof(list(
+			/obj/structure/lattice,
+			/obj/structure/girder,
+			/obj/item/pipe,
+			/obj/item/pipe_meter,
+			/obj/structure/window,
+			/obj/structure/grille
+		))
+	/// list of atmos constructs that we don't want to attack with RPD
+	var/static/list/atmos_constructs = typecacheof(list(/obj/machinery/atmospherics, /obj/structure/transit_tube))
 
 /obj/item/pipe_dispenser/Initialize(mapload)
 	. = ..()
@@ -261,7 +286,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 /obj/item/pipe_dispenser/equipped(mob/user, slot, initial)
 	. = ..()
 	if(slot == ITEM_SLOT_HANDS)
-		RegisterSignal(user, COMSIG_MOB_MOUSE_SCROLL_ON, .proc/mouse_wheeled)
+		RegisterSignal(user, COMSIG_MOB_MOUSE_SCROLL_ON, PROC_REF(mouse_wheeled))
 	else
 		UnregisterSignal(user, COMSIG_MOB_MOUSE_SCROLL_ON)
 
@@ -271,12 +296,6 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 
 /obj/item/pipe_dispenser/cyborg_unequip(mob/user)
 	UnregisterSignal(user, COMSIG_MOB_MOUSE_SCROLL_ON)
-	return ..()
-
-/obj/item/pipe_dispenser/pre_attack(atom/target, mob/user, params)
-	if(istype(target, /obj/item/rpd_upgrade/unwrench))
-		install_upgrade(target, user)
-		return TRUE
 	return ..()
 
 /obj/item/pipe_dispenser/attack_self(mob/user)
@@ -412,9 +431,26 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 		spark_system.start()
 		playsound(get_turf(src), 'sound/effects/pop.ogg', 50, FALSE)
 
-/obj/item/pipe_dispenser/pre_attack(atom/A, mob/user)
+/obj/item/pipe_dispenser/attack_obj(obj/O, mob/living/user)
+	// don't attempt to attack what we don't want to attack
+	if(is_type_in_typecache(O, atmos_constructs) || is_type_in_typecache(O, rpd_targets) || is_type_in_typecache(O, rpd_whitelist))
+		return
+
+	return ..()
+
+/obj/item/pipe_dispenser/afterattack(atom/A, mob/user, proximity)
 	if(!user.IsAdvancedToolUser() || istype(A, /turf/open/space/transit))
 		return ..()
+
+	// this shouldn't use early return because checking less condition is good
+	if(isturf(A) || is_type_in_typecache(A, atmos_constructs) || is_type_in_typecache(A, rpd_targets) || is_type_in_typecache(A, rpd_whitelist))
+		if(proximity || ranged)
+			rpd_create(A, user)
+			return
+
+	return ..()
+
+/obj/item/pipe_dispenser/proc/rpd_create(atom/A, mob/user)
 
 	var/atom/attack_target = A
 
@@ -425,21 +461,17 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 
 	//Unwrench pipe before we build one over/paint it, but only if we're not already running a do_after on it already to prevent a potential runtime.
 	if((mode & DESTROY_MODE) && (upgrade_flags & RPD_UPGRADE_UNWRENCH) && istype(attack_target, /obj/machinery/atmospherics) && !(attack_target in user.do_afters))
-		attack_target = attack_target.wrench_act(user, src)
-		if(attack_target == TRUE)
-			return ..()
+		attack_target.wrench_act(user, src)
+		return
 
 	//make sure what we're clicking is valid for the current category
-	var/static/list/make_pipe_whitelist
-	if(!make_pipe_whitelist)
-		make_pipe_whitelist = typecacheof(list(/obj/structure/lattice, /obj/structure/girder, /obj/item/pipe, /obj/structure/window, /obj/structure/grille))
 	if(istype(attack_target, /obj/machinery/atmospherics) && ((mode & BUILD_MODE) && !(mode & PAINT_MODE))) //target turf if on buildmode so that it doesn't try painting a pipe you click on
 		attack_target = get_turf(attack_target)
-	var/can_make_pipe = (isturf(attack_target) || is_type_in_typecache(attack_target, make_pipe_whitelist))
+	var/can_make_pipe = (isturf(attack_target) || is_type_in_typecache(attack_target, rpd_whitelist))
 
 	. = FALSE
 
-	if((mode & DESTROY_MODE) && istype(attack_target, /obj/item/pipe) || istype(attack_target, /obj/structure/disposalconstruct) || istype(attack_target, /obj/structure/c_transit_tube) || istype(attack_target, /obj/structure/c_transit_tube_pod) || istype(attack_target, /obj/item/pipe_meter) || istype(attack_target, /obj/structure/disposalpipe/broken))
+	if((mode & DESTROY_MODE) && is_type_in_typecache(A, rpd_targets))
 		to_chat(user, "<span class='notice'>You start destroying a pipe...</span>")
 		playsound(get_turf(src), 'sound/machines/click.ogg', 50, 1)
 		if(do_after(user, destroy_speed, target = attack_target))
@@ -469,7 +501,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 		switch(category) //if we've gotten this var, the target is valid
 			if(ATMOS_CATEGORY) //Making pipes
 				if(!can_make_pipe)
-					return ..()
+					return
 				playsound(get_turf(src), 'sound/machines/click.ogg', 50, 1)
 				if (recipe.type == /datum/pipe_info/meter)
 					to_chat(user, "<span class='notice'>You start building a meter...</span>")
@@ -482,12 +514,12 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 				else
 					if(recipe.all_layers == FALSE && (piping_layer == 1 || piping_layer == 5))
 						to_chat(user, "<span class='notice'>You can't build this object on the layer...</span>")
-						return ..()
+						return
 					to_chat(user, "<span class='notice'>You start building a pipe...</span>")
 					if(do_after(user, atmos_build_speed, target = attack_target))
 						if(recipe.all_layers == FALSE && (piping_layer == 1 || piping_layer == 5)) // double check to stop cheaters (and to not waste time waiting for something that can't be placed)
 							to_chat(user, "<span class='notice'>You can't build this object on the layer...</span>")
-							return ..()
+							return
 						activate()
 						var/obj/machinery/atmospherics/path = queued_p_type
 						var/pipe_item_type = initial(path.construction_type) || /obj/item/pipe
@@ -507,7 +539,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 
 			if(DISPOSALS_CATEGORY) //Making disposals pipes
 				if(!can_make_pipe)
-					return ..()
+					return
 				attack_target = get_turf(attack_target)
 				if(isclosedturf(attack_target))
 					to_chat(user, "<span class='warning'>[src]'s error light flickers; there's something in the way!</span>")
@@ -532,7 +564,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 
 			if(TRANSIT_CATEGORY) //Making transit tubes
 				if(!can_make_pipe)
-					return ..()
+					return
 				attack_target = get_turf(attack_target)
 				if(isclosedturf(attack_target))
 					to_chat(user, "<span class='warning'>[src]'s error light flickers; there's something in the way!</span>")
@@ -562,7 +594,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 
 			if(PLUMBING_CATEGORY) //Making pancakes
 				if(!can_make_pipe)
-					return ..()
+					return
 				attack_target = get_turf(attack_target)
 				if(isclosedturf(attack_target))
 					to_chat(user, "<span class='warning'>[src]'s error light flickers; there's something in the way!</span>")
@@ -583,7 +615,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 						D.wrench_act(user, src)
 
 			else
-				return ..()
+				return
 
 /obj/item/pipe_dispenser/proc/activate()
 	playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)

@@ -1,6 +1,6 @@
 /datum/species/dullahan
 	name = "\improper Dullahan"
-	id = "dullahan"
+	id = SPECIES_DULLAHAN
 	max_bodypart_count = 5 //No head
 	default_color = "FFFFFF"
 	species_traits = list(EYECOLOR,HAIR,FACEHAIR,LIPS)
@@ -73,7 +73,7 @@
 /obj/item/organ/tongue/dullahan/handle_speech(datum/source, list/speech_args)
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
-		if(H.dna.species.id == "dullahan")
+		if(H.dna.species.id == SPECIES_DULLAHAN)
 			var/datum/species/dullahan/D = H.dna.species
 			if(isobj(D.myhead.loc))
 				var/obj/O = D.myhead.loc
@@ -103,7 +103,7 @@
 
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
-		if(H.dna.species.id == "dullahan")
+		if(H.dna.species.id == SPECIES_DULLAHAN)
 			var/datum/species/dullahan/D = H.dna.species
 			D.update_vision_perspective(H)
 
@@ -133,7 +133,7 @@
 /obj/item/dullahan_relay/Destroy()
 	if(!QDELETED(owner))
 		var/mob/living/carbon/human/H = owner
-		if(H.dna.species.id == "dullahan")
+		if(H.dna.species.id == SPECIES_DULLAHAN)
 			var/datum/species/dullahan/D = H.dna.species
 			D.myhead = null
 			owner.gib()

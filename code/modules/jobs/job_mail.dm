@@ -284,15 +284,15 @@
 		/obj/item/toy/cards/deck = 10,
 		/obj/item/clothing/glasses/sunglasses/advanced/big = 5,
 		/obj/item/book/manual/wiki/security_space_law = 5,
-		//Harrassing security has never been this fun
+		//Harassing security has never been this fun
 		/obj/item/megaphone = 3,
 	)
 
 //MAGICIAN GIMMICK
 /datum/job/gimmick/stage_magician
 	mail_goodies = list(
-		//AND FOR MY NEXT TRICK... Bnnuy
-		/mob/living/simple_animal/chicken/rabbit/normal = 40,
+		//AND FOR MY NEXT TRICK... Bunny
+		/obj/item/clothing/head/mob_holder/rabbit = 40,
 		/obj/item/gun/magic/wand = 10,
 		/obj/item/clothing/head/collectable/tophat = 10,
 		/obj/item/clothing/head/bowler = 5,

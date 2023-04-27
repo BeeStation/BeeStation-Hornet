@@ -142,7 +142,7 @@ GLOBAL_PROTECT(VVpixelmovement)
 
 		if(variable == "(CLEAR NULLS)")
 			L = L.Copy()
-			listclearnulls(L)
+			list_clear_nulls(L)
 			if (!O.vv_edit_var(objectvar, L))
 				to_chat(src, "Your edit was rejected by the object.")
 				return
@@ -152,7 +152,7 @@ GLOBAL_PROTECT(VVpixelmovement)
 			return
 
 		if(variable == "(CLEAR DUPES)")
-			L = uniqueList(L)
+			L = unique_list(L)
 			if (!O.vv_edit_var(objectvar, L))
 				to_chat(src, "Your edit was rejected by the object.")
 				return
@@ -179,7 +179,7 @@ GLOBAL_PROTECT(VVpixelmovement)
 		return
 	var/assoc = 0
 	var/prompt = alert(src, "Do you want to edit the key or its assigned value?", "Associated List", "Key", "Assigned Value", "Cancel")
-	if (prompt == "Cancel")
+	if (prompt == "Cancel" || !prompt)
 		return
 	if (prompt == "Assigned Value")
 		assoc = 1
@@ -306,7 +306,7 @@ GLOBAL_PROTECT(VVpixelmovement)
 		for (var/V in O.vars)
 			names += V
 
-		names = sortList(names)
+		names = sort_list(names)
 
 		variable = input("Which var?","Var") as null|anything in names
 		if(!variable)

@@ -15,6 +15,7 @@
 
 	vision_flags = NONE
 	darkness_view = 2
+	lighting_alpha = null
 	invis_view = SEE_INVISIBLE_LIVING
 
 	var/list/modes = list(MODE_NONE = MODE_MESON, MODE_MESON = MODE_TRAY, MODE_TRAY = MODE_RAD, MODE_RAD = MODE_NONE)
@@ -92,8 +93,7 @@
 		var/mutable_appearance/MA = new()
 		MA.maptext = MAPTEXT("[strength]k")
 		MA.color = "#04e66d"
-		MA.layer = RAD_TEXT_LAYER
-		MA.plane = GAME_PLANE
+		MA.plane = RAD_TEXT_PLANE
 		pic.appearance = MA
 		flick_overlay(pic, list(user.client), 10)
 

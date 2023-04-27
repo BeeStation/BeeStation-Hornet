@@ -36,7 +36,7 @@
 		var/datum/antagonist/hivemind/hiv= target.mind.has_antag_datum(/datum/antagonist/hivemind)
 		if(hiv)
 			var/timer = round(rand(1800,3000))
-			addtimer(CALLBACK(hiv, /datum/antagonist/hivemind/.proc/handle_implant), timer, TIMER_STOPPABLE)
+			addtimer(CALLBACK(hiv, TYPE_PROC_REF(/datum/antagonist/hivemind, handle_implant)), timer, TIMER_STOPPABLE)
 			hiv.handle_implant()
 
 		if(is_hivemember(target))

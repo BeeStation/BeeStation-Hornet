@@ -502,7 +502,7 @@
 	time = 15
 	name = "Poppy pretzel"
 	reqs = list(
-		/obj/item/seeds/poppy = 1,
+		/obj/item/seeds/flower/poppy = 1,
 		/obj/item/reagent_containers/food/snacks/pastrybase = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/poppypretzel
@@ -588,7 +588,7 @@
 	name = "Rav'tart"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/pastrybase = 1,
-		/obj/item/stack/tile/bronze = 1,
+		/obj/item/stack/sheet/bronze = 1,
 		/obj/item/reagent_containers/food/snacks/grown/berries = 2,
 		/obj/item/reagent_containers/food/snacks/grown/citrus/orange = 1
 	)

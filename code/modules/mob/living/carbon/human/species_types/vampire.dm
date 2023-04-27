@@ -1,6 +1,6 @@
 /datum/species/vampire
 	name = "\improper Vampire"
-	id = "vampire"
+	id = SPECIES_VAMPIRE
 	default_color = "FFFFFF"
 	species_traits = list(EYECOLOR,HAIR,FACEHAIR,LIPS)
 	inherent_traits = list(TRAIT_NOHUNGER,TRAIT_NOBREATH,TRAIT_DRINKSBLOOD)
