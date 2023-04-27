@@ -8,13 +8,13 @@ import { BooleanLike, classes, pureComponentHooks } from 'common/react';
 import { createVNode } from 'inferno';
 import { ChildFlags, VNodeFlags } from 'inferno-vnode-flags';
 import { CSS_COLORS } from '../constants';
-import type { Inferno } from 'inferno';
+import type { Inferno, InfernoNode } from 'inferno';
 
 export interface BoxProps {
   [key: string]: any;
   as?: string;
   className?: string | BooleanLike;
-  children?: Inferno.InfernoNode;
+  children?: InfernoNode;
   position?: string | BooleanLike;
   overflow?: string | BooleanLike;
   overflowX?: string | BooleanLike;
