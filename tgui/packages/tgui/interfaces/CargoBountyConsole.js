@@ -1,16 +1,12 @@
-import { toArray } from 'common/collections';
-import { Fragment } from 'inferno';
-import { useBackend, useSharedState } from '../backend';
-import { AnimatedNumber, Box, Button, Flex, LabeledList, Section, Table, Tabs, Grid } from '../components';
+import { useBackend } from '../backend';
+import { AnimatedNumber, Box, Button, Section, Table } from '../components';
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
 
 export const CargoBountyConsole = (props, context) => {
   const { act, data } = useBackend(context);
-  const [tab, setTab] = useSharedState(context, 'tab', 'catalog');
   const {
     bountydata = [],
-    stored_cash,
   } = data;
   return (
     <Window
@@ -101,7 +97,6 @@ export const CargoBountyConsole = (props, context) => {
             ))}
           </Table>
         </Section>
-        
       </Window.Content>
     </Window>
   );

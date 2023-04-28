@@ -1,9 +1,7 @@
-import { map, toArray } from 'common/collections';
 import { useBackend } from '../backend';
 import { Box, Tabs, Section, Button, BlockQuote, Icon, Collapsible, AnimatedNumber, ProgressBar } from '../components';
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
-import { sanitizeText } from "../sanitize";
 
 export const XenoartifactConsole = (props, context) => {
   const { act, data } = useBackend(context);
@@ -14,7 +12,7 @@ export const XenoartifactConsole = (props, context) => {
     points,
     stability,
   } = data;
-  const sellers=toArray(data.seller);
+  const sellers = Object.values(data.seller);
   return (
     <Window
       width={800}
@@ -146,8 +144,8 @@ export const XenoartifactLinking = (props, context) => {
 
 export const XenoartifactSell = (props, context) => {
   const { act, data } = useBackend(context);
-  const entries = toArray(data.sold_artifacts);
-  const buyers = toArray(data.buyer);
+  const entries = Object.values(data.sold_artifacts);
+  const buyers = Object.values(data.buyer);
   return (
     <Box p={.5}>
       <Section>

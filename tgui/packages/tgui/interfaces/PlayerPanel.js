@@ -258,7 +258,7 @@ class PlayerDetails extends Component {
             metacurrency_balance={metacurrency_balance}
             previous_names={previous_names} />
         </Flex.Item>
-        <Flex.Item grow={1} ml={1} mr={0.5}>
+        <Flex.Item grow={1} ml={1} mr={0.5} basis="content">
           <PlayerCKEYDetailsSection
             ckey={ckey}
             first_seen={first_seen}

@@ -133,7 +133,7 @@ const NewscasterChannelModal = (
             <Stack.Item>
               <Box as="label" color="label" htmlFor="create_channel_desc">Channel Description</Box>
             </Stack.Item>
-            <Stack.Item grow>
+            <Stack.Item grow basis="content">
               <TextArea
                 id="create_channel_desc"
                 height="150px"
@@ -393,15 +393,15 @@ const NewscasterContent = (_, context) => {
   return (
     <>
       <Stack>
-        <Stack.Item grow>
+        <Stack.Item grow basis="content">
           <NewscasterChannelSelector />
         </Stack.Item>
-        <Stack.Item grow style={{ width: "100%" }}>
+        <Stack.Item grow basis="content" style={{ width: "100%" }}>
           <Stack fill vertical>
             <Stack.Item>
               <UserDetails />
             </Stack.Item>
-            <Stack.Item grow>
+            <Stack.Item grow basis="content">
               <NewscasterChannelBox
                 channelName={current_channel.name}
                 channelOwner={current_channel.owner}
@@ -440,7 +440,7 @@ const NewscasterChannelBox = (_, context) => {
       ) : null
     }>
       <Stack fill vertical>
-        <Stack.Item grow>
+        <Stack.Item grow basis="content">
           {channelCensored ? (
             <Section>
               <BlockQuote color="red">
@@ -514,7 +514,7 @@ const NewscasterChannelSelector = (_, context) => {
   return (
     <Section fill>
       <Stack vertical fill>
-        <Stack.Item grow>
+        <Stack.Item grow basis="content">
           <Tabs vertical>
             {wanted.filter(wanted => wanted.criminal).map(activeWanted => (
               <Tabs.Tab
