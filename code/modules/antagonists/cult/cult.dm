@@ -244,7 +244,7 @@
 		H.update_body()
 
 /datum/team/cult
-	name = "Cult"
+	name = "Bloodcult"
 
 	var/blood_target
 	var/image/blood_target_image
