@@ -73,8 +73,7 @@
 	var/datum/fugitive_type/hunter/backstory
 
 /datum/team/fugitive_hunters/get_team_name() // simple to know fugitive hunter's story
-	var/s = length(members) "s" : ""
-	return "Fugitive Hunter[s]: [backstory.multiple_name]"
+	return backstory.multiple_name
 
 /datum/team/fugitive_hunters/proc/forge_team_objectives()
 	for(var/datum/antagonist/fugitive/A in GLOB.antagonists)

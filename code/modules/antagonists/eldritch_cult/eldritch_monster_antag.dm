@@ -30,7 +30,7 @@
 /datum/antagonist/heretic_monster/get_antag_name() // good to recognise who's responsible with these monsters
 	if(!master)
 		return "Unchained Eldritch Horror"
-	return "Eldritch Horrors of [master.owner.name]"
+	return "Eldritch Horror of [master.owner.name]"
 
 /datum/antagonist/heretic_monster/proc/set_owner(datum/antagonist/_master)
 	master = _master
