@@ -367,20 +367,21 @@ Behavior that's still missing from this component that original food items had t
 	if(eater.satiety > -200)
 		eater.satiety -= junkiness
 	playsound(eater.loc,'sound/items/eatfood.ogg', rand(10,50), TRUE)
-	if(owner.reagents.total_volume)
-		SEND_SIGNAL(parent, COMSIG_FOOD_EATEN, eater, feeder, bitecount, bite_consumption)
-		var/fraction = min(bite_consumption / owner.reagents.total_volume, 1)
-		owner.reagents.trans_to(eater, bite_consumption, transfered_by = feeder, method = INGEST)
-		bitecount++
-		if(!owner.reagents.total_volume)
-			on_consume(eater, feeder)
-		check_liked(fraction, eater)
+	if(!owner.reagents.total_volume)
+		return
+	SEND_SIGNAL(parent, COMSIG_FOOD_EATEN, eater, feeder, bitecount, bite_consumption)
+	var/fraction = min(bite_consumption / owner.reagents.total_volume, 1)
+	owner.reagents.trans_to(eater, bite_consumption, transfered_by = feeder, method = INGEST)
+	bitecount++
+	check_liked(fraction, eater)
+	if(!owner.reagents.total_volume)
+		on_consume(eater, feeder)
 
-		//Invoke our after eat callback if it is valid
-		if(after_eat)
-			after_eat.Invoke(eater, feeder, bitecount)
+	//Invoke our after eat callback if it is valid
+	if(after_eat)
+		after_eat.Invoke(eater, feeder, bitecount)
 
-		return TRUE
+	return TRUE
 
 ///Checks if we can compost something, and handles it
 /datum/component/edible/proc/compost(mob/living/user)
