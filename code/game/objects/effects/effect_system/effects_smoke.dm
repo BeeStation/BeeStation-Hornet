@@ -36,6 +36,9 @@
 	. = ..()
 	create_reagents(500)
 	START_PROCESSING(SSobj, src)
+	// Smoke out any mobs on initialise
+	if (!opacity)
+		target.apply_status_effect(STATUS_EFFECT_SMOKE)
 
 /obj/effect/particle_effect/smoke/ComponentInitialize()
 	. = ..()
@@ -78,8 +81,6 @@
 		return 0
 	C.smoke_delay++
 	addtimer(CALLBACK(src, PROC_REF(remove_smoke_delay), C), 10)
-	if (!opacity)
-		target.apply_status_effect(STATUS_EFFECT_SMOKE)
 	return 1
 
 /obj/effect/particle_effect/smoke/proc/remove_smoke_delay(mob/living/carbon/C)
