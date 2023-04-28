@@ -79,7 +79,7 @@
 						if(antag_team)
 							serialized["antag"] = antag_team.get_team_name()
 						else
-							serialized["antag"] = A.name
+							serialized["antag"] = A.get_antag_name()
 						antagonists += list(serialized)
 						break
 
