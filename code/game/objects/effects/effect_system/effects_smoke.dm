@@ -67,8 +67,7 @@
 	if (!istype(target))
 		return
 	// Mobs inside the smoke get slowed if they can't see through it
-	if (opaque)
-		target.apply_status_effect(STATUS_EFFECT_SMOKE)
+	target.apply_status_effect(STATUS_EFFECT_SMOKE)
 
 /obj/effect/particle_effect/smoke/proc/smoke_mob(mob/living/carbon/C)
 	if(!istype(C))
