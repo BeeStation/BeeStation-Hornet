@@ -51,20 +51,20 @@ Behavior that's still missing from this component that original food items had t
 	var/microwaved_type
 
 /datum/component/edible/Initialize(list/initial_reagents,
-								food_flags = NONE,
-								foodtypes = NONE,
-								volume = 50,
-								eat_time = 10,
-								list/tastes,
-								list/eatverbs = list("bite","chew","nibble","gnaw","gobble","chomp"),
-								bite_consumption = 2,
-								microwaved_type,
-								junkiness,
-								datum/callback/pre_eat,
-								datum/callback/on_compost,
-								datum/callback/after_eat,
-								datum/callback/on_consume)
-
+	food_flags = NONE,
+	foodtypes = NONE,
+	volume = 50,
+	eat_time = 10,
+	list/tastes,
+	list/eatverbs = list("bite","chew","nibble","gnaw","gobble","chomp"),
+	bite_consumption = 2,
+	microwaved_type,
+	junkiness,
+	datum/callback/pre_eat,
+	datum/callback/on_compost,
+	datum/callback/after_eat,
+	datum/callback/on_consume
+)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -261,15 +261,19 @@ Behavior that's still missing from this component that original food items had t
 			this_food.reagents.add_reagent(r_id, amount)
 
 ///Makes sure the thing hasn't been destroyed or fully eaten to prevent eating phantom edibles
-/datum/component/edible/proc/is_food_gone(atom/owner, mob/living/feeder)
+/datum/component/edible/proc/IsFoodGone(atom/owner, mob/living/feeder)
 	if(QDELETED(owner)|| !(IS_EDIBLE(owner)))
 		return TRUE
 	if(owner.reagents.total_volume)
 		return FALSE
 	return TRUE
 
+/// Normal time to forcefeed someone something
+#define EAT_TIME_FORCE_FEED (3 SECONDS)
+
 ///All the checks for the act of eating itself and
 /datum/component/edible/proc/TryToEat(mob/living/eater, mob/living/feeder)
+
 	set waitfor = FALSE // We might end up sleeping here, so we don't want to hold up anything
 
 	var/atom/owner = parent
@@ -277,21 +281,24 @@ Behavior that's still missing from this component that original food items had t
 	if(feeder.a_intent == INTENT_HARM)
 		return
 
-	if(is_food_gone(owner, feeder))
+	. = COMPONENT_CANCEL_ATTACK_CHAIN //Point of no return I suppose
+
+	if(IsFoodGone(owner, feeder))
 		return
 
-	if(!can_consume(eater, feeder))
+	if(!CanConsume(eater, feeder))
 		return
 	var/fullness = eater.nutrition + 10 //The theoretical fullness of the person eating if they were to eat this
 
-	. = COMPONENT_CANCEL_ATTACK_CHAIN //Point of no return I suppose
+	var/time_to_eat = (eater = feeder) ? eat_time : EAT_TIME_FORCE_FEED
 
 	if(eater == feeder)//If you're eating it yourself.
-		if(!do_after(feeder, eat_time, eater)) //Gotta pass the minimal eat time
+		if(eat_time && !do_after(feeder, time_to_eat, eater, timed_action_flags = food_flags & FOOD_FINGER_FOOD ? IGNORE_USER_LOC_CHANGE | IGNORE_TARGET_LOC_CHANGE : NONE)) //Gotta pass the minimal eat time
 			return
-		if(is_food_gone(owner, feeder))
+		if(IsFoodGone(owner, feeder))
 			return
 		var/eatverb = pick(eatverbs)
+
 		if(junkiness && eater.satiety < -150 && eater.nutrition > NUTRITION_LEVEL_STARVING + 50 && !HAS_TRAIT(eater, TRAIT_VORACIOUS))
 			to_chat(eater, "<span class='warning'>You don't feel like eating any more junk food at the moment!</span>")
 			return
@@ -306,34 +313,52 @@ Behavior that's still missing from this component that original food items had t
 		else if(fullness > (600 * (1 + eater.overeatduration / 2000)))	// The more you eat - the more you can eat
 			eater.visible_message("<span class='warning'>[eater] cannot force any more of \the [parent] to go down [eater.p_their()] throat!</span>", "<span class='warning'>You cannot force any more of \the [parent] to go down your throat!</span>")
 			return
+
+
+
+
+
 	else //If you're feeding it to someone else.
 		if(isbrain(eater))
 			to_chat(feeder, "<span class='warning'>[eater] doesn't seem to have a mouth!</span>")
 			return
 		if(fullness <= (600 * (1 + eater.overeatduration / 1000)))
-			eater.visible_message("<span class='danger'>[feeder] attempts to feed [eater] [parent].</span>", \
-									"<span class='userdanger'>[feeder] attempts to feed you [parent].</span>")
+			eater.visible_message(
+				"<span class='danger'>[feeder] attempts to feed [eater] [parent].</span>", \
+				"<span class='userdanger'>[feeder] attempts to feed you [parent].</span>"
+			)
+			if(eater.is_blind())
+				to_chat(eater, "<span class='userdanger'>You feel someone trying to feed you something!</span>")
 		else
-			eater.visible_message("<span class='warning'>[feeder] cannot force any more of [parent] down [eater]'s throat!</span>", \
-									"<span class='warning'>[feeder] cannot force any more of [parent] down your throat!</span>")
+			eater.visible_message(
+				"<span class='warning'>[feeder] cannot force any more of [parent] down [eater]'s throat!</span>", \
+				"<span class='warning'>[feeder] cannot force any more of [parent] down your throat!</span>"
+			)
+			if(eater.is_blind())
+				to_chat(eater, "<span class='userdanger'>You're too full to eat what's being fed to you!</span>")
 			return
-		if(!do_after(feeder, target = eater)) //Wait 3 seconds before you can feed
+		if(!do_after(feeder, delay = time_to_eat, target = eater)) //Wait 3 seconds before you can feed
 			return
-		if(is_food_gone(owner, feeder))
+		if(IsFoodGone(owner, feeder))
 			return
 		log_combat(feeder, eater, "fed", owner.reagents.log_list())
-		eater.visible_message("<span class='danger'>[feeder] forces [eater] to eat [parent]!</span>", \
-									"<span class='userdanger'>[feeder] forces you to eat [parent]!</span>")
+		eater.visible_message(
+			"<span class='danger'>[feeder] forces [eater] to eat [parent]!</span>", \
+			"<span class='userdanger'>[feeder] forces you to eat [parent]!</span>"
+		)
+		if(eater.is_blind())
+			to_chat(eater, "<span class='userdanger'>You're forced to eat something!</span>")
 
-	take_bite(eater, feeder)
+	TakeBite(eater, feeder)
 
 	//If we're not force-feeding, try take another bite
-	if(eater == feeder)
+	if(eater == feeder && eat_time)
 		INVOKE_ASYNC(src, PROC_REF(TryToEat), eater, feeder)
 
+#undef EAT_TIME_FORCE_FEED
 
 ///This function lets the eater take a bite and transfers the reagents to the eater.
-/datum/component/edible/proc/take_bite(mob/living/eater, mob/living/feeder)
+/datum/component/edible/proc/TakeBite(mob/living/eater, mob/living/feeder)
 
 	var/atom/owner = parent
 
@@ -364,7 +389,7 @@ Behavior that's still missing from this component that original food items had t
 		return COMPONENT_EDIBLE_BLOCK_COMPOST
 
 ///Checks whether or not the eater can actually consume the food
-/datum/component/edible/proc/can_consume(mob/living/eater, mob/living/feeder)
+/datum/component/edible/proc/CanConsume(mob/living/eater, mob/living/feeder)
 	if(!iscarbon(eater))
 		return FALSE
 	if(pre_eat && !pre_eat.Invoke(eater, feeder))

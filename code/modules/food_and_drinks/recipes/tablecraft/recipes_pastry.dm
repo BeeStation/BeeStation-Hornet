@@ -562,7 +562,7 @@
 		/obj/item/reagent_containers/food/snacks/pastrybase = 1,
 		/obj/item/reagent_containers/food/snacks/grown/bluecherries = 1
 	)
-	result = /obj/item/reagent_containers/food/snacks/bluecherrycupcake
+	result = /obj/item/reagent_containers/food/snacks/cherrycupcake/blue
 	subcategory = CAT_PASTRY
 
 /datum/crafting_recipe/food/honeybun

@@ -14,13 +14,16 @@
 #define BREAKFAST	(1<<13)
 #define CLOTH 		(1<<14)
 
-#define DRINK_BAD   1
-#define DRINK_NICE	2
-#define DRINK_GOOD	3
-#define DRINK_VERYGOOD	4
-#define DRINK_FANTASTIC	5
+#define DRINK_BAD 1
+#define DRINK_NICE 2
+#define DRINK_GOOD 3
+#define DRINK_VERYGOOD 4
+#define DRINK_FANTASTIC 5
 
+/// Food is "in a container", not in a code sense, but in a literal sense (canned foods)
 #define FOOD_IN_CONTAINER (1<<0)
+/// Finger food can be eaten while walking / running around
+#define FOOD_FINGER_FOOD (1<<1)
 
 #define STOP_SERVING_BREAKFAST (15 MINUTES)
 
