@@ -59,7 +59,10 @@
 		smoke_mob(L)
 	return 1
 
-/obj/effect/particle_effect/smoke/proc/mob_entered(mob/living/target)
+/obj/effect/particle_effect/smoke/proc/mob_entered(datum/source, mob/living/target)
+	SIGNAL_HANDLER
+	if (!istype(target))
+		return
 	// Mobs inside the smoke get slowed if they can't see through it
 	if (!opacity)
 		target.apply_status_effect(STATUS_EFFECT_SMOKE)
@@ -75,6 +78,8 @@
 		return 0
 	C.smoke_delay++
 	addtimer(CALLBACK(src, PROC_REF(remove_smoke_delay), C), 10)
+	if (!opacity)
+		target.apply_status_effect(STATUS_EFFECT_SMOKE)
 	return 1
 
 /obj/effect/particle_effect/smoke/proc/remove_smoke_delay(mob/living/carbon/C)

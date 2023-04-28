@@ -1062,12 +1062,13 @@
 
 /datum/status_effect/smoke
 	id = "smoke"
-	duration = 10
+	duration = 15
 	status_type = STATUS_EFFECT_REFRESH
 	alert_type = /atom/movable/screen/alert/status_effect/smoke
 
 /datum/status_effect/smoke/on_apply()
 	owner.add_movespeed_modifier(MOVESPEED_ID_SMOKE, multiplicative_slowdown=1.5)
+	return TRUE
 
 /datum/status_effect/smoke/on_remove()
 	owner.remove_movespeed_modifier(MOVESPEED_ID_SMOKE)
