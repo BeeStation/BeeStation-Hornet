@@ -15,8 +15,10 @@
 	animate_movement = 0
 	var/amount = 4
 	var/lifetime = 5
-	var/opaque = 1 //whether the smoke can block the view when in enough amount
-
+	var/opaque = 1 //whether the smoke can block the view when in enough amountz
+	var/static/list/connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(mob_entered),
+	)
 
 /obj/effect/particle_effect/smoke/proc/fade_out(frames = 16)
 	if(alpha == 0) //Handle already transparent case
@@ -35,6 +37,9 @@
 	create_reagents(500)
 	START_PROCESSING(SSobj, src)
 
+/obj/effect/particle_effect/smoke/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/connect_loc_behalf, src, connections)
 
 /obj/effect/particle_effect/smoke/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -53,6 +58,11 @@
 	for(var/mob/living/L in get_turf(src))
 		smoke_mob(L)
 	return 1
+
+/obj/effect/particle_effect/smoke/proc/mob_entered(mob/living/target)
+	// Mobs inside the smoke get slowed if they can't see through it
+	if (!opacity)
+		target.apply_status_effect(STATUS_EFFECT_SMOKE)
 
 /obj/effect/particle_effect/smoke/proc/smoke_mob(mob/living/carbon/C)
 	if(!istype(C))
@@ -97,7 +107,6 @@
 		spawn(1) //the smoke spreads rapidly but not instantly
 			for(var/obj/effect/particle_effect/smoke/SM in newsmokes)
 				SM.spread_smoke()
-
 
 /datum/effect_system/smoke_spread
 	var/amount = 10
