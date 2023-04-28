@@ -38,7 +38,8 @@
 	START_PROCESSING(SSobj, src)
 	// Smoke out any mobs on initialise
 	if (!opacity)
-		target.apply_status_effect(STATUS_EFFECT_SMOKE)
+		for (var/mob/living/target in loc)
+			target.apply_status_effect(STATUS_EFFECT_SMOKE)
 
 /obj/effect/particle_effect/smoke/ComponentInitialize()
 	. = ..()
