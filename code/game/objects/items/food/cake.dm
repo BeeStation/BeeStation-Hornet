@@ -5,7 +5,7 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 20,
 		/datum/reagent/consumable/nutriment/vitamin = 5
-		)
+	)
 	tastes = list("cake" = 1)
 	foodtypes = GRAIN | DAIRY
 	/// type is spawned 5 at a time and replaces this cake when processed by cutting tool

@@ -17,7 +17,7 @@
 	AddElement(/datum/element/dunkable, 10)
 	AddComponent(/datum/component/food_storage)
 
-/obj/item/food/bread/MakeProcessable()
+/obj/item/food/bread/make_processable()
 	if (slice_type)
 		AddElement(/datum/element/processable, TOOL_KNIFE, slice_type, yield, 3 SECONDS, table_required = TRUE, screentip_verb = "Slice")
 		AddElement(/datum/element/processable, TOOL_SAW, slice_type, yield, 4 SECONDS, table_required = TRUE, screentip_verb = "Slice")
@@ -312,7 +312,7 @@
 	icon_state = ""
 	bite_consumption = 2
 
-/obj/item/food/deepfryholder/MakeEdible()
+/obj/item/food/deepfryholder/make_edible()
 	AddComponent(/datum/component/edible,\
 			initial_reagents = food_reagents,\
 			food_flags = food_flags,\

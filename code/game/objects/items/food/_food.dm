@@ -3,7 +3,11 @@
 	name = "food"
 	desc = "you eat this"
 	resistance_flags = FLAMMABLE
-	w_class = WEIGHT_CLASS_NORMAL
+	icon = 'icons/obj/food/food.dmi'
+	icon_state = null
+	lefthand_file = 'icons/mob/inhands/misc/food_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/misc/food_righthand.dmi'
+	w_class = WEIGHT_CLASS_SMALL
 	///List of reagents this food gets on creation
 	var/list/food_reagents
 	///Extra flags for things such as if the food is in a container or not
@@ -33,29 +37,30 @@
 		tastes = string_assoc_list(tastes)
 	if(eatverbs)
 		eatverbs = string_list(eatverbs)
-	MakeEdible()
-	MakeProcessable()
-	MakeLeaveTrash()
+	make_edible()
+	make_processable()
+	make_leave_trash()
 
 ///This proc adds the edible component, overwrite this if you for some reason want to change some specific args like callbacks.
-/obj/item/food/proc/MakeEdible()
+/obj/item/food/proc/make_edible()
 	AddComponent(/datum/component/edible,\
-				initial_reagents = food_reagents,\
-				food_flags = food_flags,\
-				foodtypes = foodtypes,\
-				volume = max_volume,\
-				eat_time = eat_time,\
-				tastes = tastes,\
-				eatverbs = eatverbs,\
-				bite_consumption = bite_consumption,\
-				microwaved_type = microwaved_type)
+		initial_reagents = food_reagents,\
+		food_flags = food_flags,\
+		foodtypes = foodtypes,\
+		volume = max_volume,\
+		eat_time = eat_time,\
+		tastes = tastes,\
+		eatverbs = eatverbs,\
+		bite_consumption = bite_consumption,\
+		microwaved_type = microwaved_type,\
+	)
 
 
 ///This proc handles processable elements, overwrite this if you want to add behavior such as slicing, forking, spooning, whatever, to turn the item into something else
-/obj/item/food/proc/MakeProcessable()
+/obj/item/food/proc/make_processable()
 	return
 
 ///This proc handles trash components, overwrite this if you want the object to spawn trash
-/obj/item/food/proc/MakeLeaveTrash()
+/obj/item/food/proc/make_leave_trash()
 	AddElement(/datum/element/food_trash, trash_type)
 	return

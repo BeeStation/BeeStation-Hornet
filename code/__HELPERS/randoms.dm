@@ -4,7 +4,6 @@
 
 	if(!LAZYLEN(allowed_food)) //it's static so we only ever do this once
 		var/list/blocked = list(
-		/obj/item/food/drug,
 		/obj/item/food/spaghetti,
 		/obj/item/food/bread,
 		/obj/item/food/breadslice,
@@ -27,7 +26,7 @@
 		/obj/item/food/bread,
 		/obj/item/reagent_containers/food/snacks/grown/nettle
 		)
-	blocked |= typesof(/obj/item/reagent_containers/food/snacks/customizable)
+		blocked |= typesof(/obj/item/reagent_containers/food/snacks/customizable)
 
 		var/list/unfiltered_allowed_food = subtypesof(/obj/item/food) - blocked
 		for(var/obj/item/food/food as anything in unfiltered_allowed_food)
