@@ -70,8 +70,9 @@
 	member_name = "fugitive"
 	var/datum/fugitive_type/backstory
 
-/datum/team/fugitive_hunters/get_team_name() // simple to know fugitive story
-	return "Fugitive: [backstory.name]"
+/datum/team/fugitive/get_team_name() // simple to know fugitive story
+	var/s = length(members) "s" : ""
+	return "Fugitive[s]: [backstory.name]"
 
 /datum/team/fugitive/roundend_report() //shows the number of fugitives, but not if they won in case there is no security
 	var/list/fugitives = list()
