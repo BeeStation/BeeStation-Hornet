@@ -13,6 +13,7 @@
 	icon_state = "door_open"
 	opacity = FALSE
 	density = FALSE
+	obj_flags = CAN_BE_HIT // reset zblock
 	max_integrity = 300
 	resistance_flags = FIRE_PROOF
 	heat_proof = TRUE
@@ -62,6 +63,7 @@
 	icon_state = "door_closed"
 	opacity = TRUE
 	density = TRUE
+	obj_flags = CAN_BE_HIT | BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 	processing_flags = START_PROCESSING_ON_INIT
 
 //see also turf/AfterChange for adjacency shennanigans
@@ -515,6 +517,7 @@
 	icon_state = "frame1"
 	anchored = FALSE
 	density = TRUE
+	obj_flags = CAN_BE_HIT | BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 	var/constructionStep = CONSTRUCTION_NOCIRCUIT
 	var/reinforced = 0
 	var/firelock_type = /obj/machinery/door/firedoor
