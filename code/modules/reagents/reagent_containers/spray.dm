@@ -181,7 +181,6 @@
 	return OXYLOSS
 
 /obj/item/reagent_containers/peppercloud_deployer/attack_self(mob/user)
-	. = ..()
 	// Deploy in the forward facing direction
 	deploy_direction(user, user.dir)
 
