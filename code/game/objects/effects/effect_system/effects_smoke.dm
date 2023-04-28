@@ -37,9 +37,8 @@
 	create_reagents(500)
 	START_PROCESSING(SSobj, src)
 	// Smoke out any mobs on initialise
-	if (!opacity)
-		for (var/mob/living/target in loc)
-			target.apply_status_effect(STATUS_EFFECT_SMOKE)
+	for (var/mob/living/target in loc)
+		target.apply_status_effect(STATUS_EFFECT_SMOKE)
 
 /obj/effect/particle_effect/smoke/ComponentInitialize()
 	. = ..()
@@ -68,8 +67,7 @@
 	if (!istype(target))
 		return
 	// Mobs inside the smoke get slowed if they can't see through it
-	if (!opacity)
-		target.apply_status_effect(STATUS_EFFECT_SMOKE)
+	target.apply_status_effect(STATUS_EFFECT_SMOKE)
 
 /obj/effect/particle_effect/smoke/proc/smoke_mob(mob/living/carbon/C)
 	if(!istype(C))
@@ -88,12 +86,12 @@
 	if(C)
 		C.smoke_delay = 0
 
-/obj/effect/particle_effect/smoke/proc/spread_smoke()
+/obj/effect/particle_effect/smoke/proc/spread_smoke(circle = TRUE)
 	var/turf/t_loc = get_turf(src)
 	if(!t_loc)
 		return
 	var/list/newsmokes = list()
-	for(var/turf/T in t_loc.GetAtmosAdjacentTurfs())
+	for(var/turf/T in t_loc.GetAtmosAdjacentTurfs(!circle))
 		var/obj/effect/particle_effect/smoke/foundsmoke = locate() in T //Don't spread smoke where there's already smoke!
 		if(foundsmoke)
 			continue
@@ -113,18 +111,20 @@
 	if(newsmokes.len)
 		spawn(1) //the smoke spreads rapidly but not instantly
 			for(var/obj/effect/particle_effect/smoke/SM in newsmokes)
-				SM.spread_smoke()
+				SM.spread_smoke(circle)
 
 /datum/effect_system/smoke_spread
 	var/amount = 10
+	var/circle = TRUE
 	effect_type = /obj/effect/particle_effect/smoke
 
-/datum/effect_system/smoke_spread/set_up(radius = 5, loca)
+/datum/effect_system/smoke_spread/set_up(radius = 5, loca, circle = TRUE)
 	if(isturf(loca))
 		location = loca
 	else
 		location = get_turf(loca)
 	amount = radius
+	src.circle = TRUE
 
 /datum/effect_system/smoke_spread/start()
 	if(holder)
@@ -132,7 +132,7 @@
 	var/obj/effect/particle_effect/smoke/S = new effect_type(location)
 	S.amount = amount
 	if(S.amount)
-		S.spread_smoke()
+		S.spread_smoke(circle)
 
 
 /////////////////////////////////////////////
@@ -193,8 +193,8 @@
 	for(var/obj/item/Item in T)
 		Item.extinguish()
 
-/datum/effect_system/smoke_spread/freezing/set_up(radius = 5, loca, blast_radius = 0)
-	..()
+/datum/effect_system/smoke_spread/freezing/set_up(radius = 5, loca, blast_radius = 0, circle = TRUE)
+	..(radius, loca, circle)
 	blast = blast_radius
 
 /datum/effect_system/smoke_spread/freezing/start()
@@ -280,13 +280,14 @@
 	chemholder = null
 	return ..()
 
-/datum/effect_system/smoke_spread/chem/set_up(datum/reagents/carry = null, radius = 1, loca, silent = FALSE)
+/datum/effect_system/smoke_spread/chem/set_up(datum/reagents/carry = null, radius = 1, loca, silent = FALSE, circle = TRUE)
 	if(isturf(loca))
 		location = loca
 	else
 		location = get_turf(loca)
 	amount = radius
 	carry.copy_to(chemholder, carry.total_volume)
+	src.circle = circle
 
 	if(!silent)
 		var/contained = ""
@@ -323,8 +324,8 @@
 		S.add_atom_colour(mixcolor, FIXED_COLOUR_PRIORITY) // give the smoke color, if it has any to begin with
 	S.amount = amount
 	if(S.amount)
-		S.spread_smoke() //calling process right now so the smoke immediately attacks mobs.
-
+		S.spread_smoke(circle) //calling process right now so the smoke immediately attacks mobs.
+	return S
 
 /////////////////////////////////////////////
 // Transparent smoke

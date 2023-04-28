@@ -123,7 +123,7 @@ GLOBAL_LIST_INIT(advanced_hardsuit_allowed, typecacheof(list(
 	/obj/item/flashlight,
 	/obj/item/gun,
 	/obj/item/melee/baton,
-	/obj/item/reagent_containers/spray/pepper,
+	/obj/item/reagent_containers/peppercloud_deployer,
 	/obj/item/restraints/handcuffs,
 	/obj/item/tank/internals)))
 
@@ -135,7 +135,7 @@ GLOBAL_LIST_INIT(security_hardsuit_allowed, typecacheof(list(
 	/obj/item/gun/energy,
 	/obj/item/gun/grenadelauncher,
 	/obj/item/melee/baton,
-	/obj/item/reagent_containers/spray/pepper,
+	/obj/item/reagent_containers/peppercloud_deployer,
 	/obj/item/restraints/handcuffs,
 	/obj/item/tank/internals)))
 
@@ -151,7 +151,7 @@ GLOBAL_LIST_INIT(detective_vest_allowed, typecacheof(list(
 	/obj/item/lighter,
 	/obj/item/melee/baton,
 	/obj/item/melee/classic_baton/police,
-	/obj/item/reagent_containers/spray/pepper,
+	/obj/item/reagent_containers/peppercloud_deployer,
 	/obj/item/restraints/handcuffs,
 	/obj/item/storage/fancy/cigarettes,
 	/obj/item/tank/internals/emergency_oxygen,
@@ -167,7 +167,7 @@ GLOBAL_LIST_INIT(security_vest_allowed, typecacheof(list(
 	/obj/item/kitchen/knife/combat,
 	/obj/item/melee/baton,
 	/obj/item/melee/classic_baton/police/telescopic,
-	/obj/item/reagent_containers/spray/pepper,
+	/obj/item/reagent_containers/peppercloud_deployer,
 	/obj/item/restraints/handcuffs,
 	/obj/item/tank/internals/emergency_oxygen,
 	/obj/item/tank/internals/plasmaman)))
@@ -183,7 +183,7 @@ GLOBAL_LIST_INIT(security_wintercoat_allowed, typecacheof(list(
 	/obj/item/lighter,
 	/obj/item/melee/baton,
 	/obj/item/melee/classic_baton/police/telescopic,
-	/obj/item/reagent_containers/spray/pepper,
+	/obj/item/reagent_containers/peppercloud_deployer,
 	/obj/item/restraints/handcuffs,
 	/obj/item/tank/internals/emergency_oxygen,
 	/obj/item/tank/internals/plasmaman,

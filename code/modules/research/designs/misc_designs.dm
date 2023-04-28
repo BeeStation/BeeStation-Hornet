@@ -448,7 +448,7 @@
 	id = "pepperspray"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 5000, /datum/material/glass = 1000)
-	build_path = /obj/item/reagent_containers/spray/pepper/empty
+	build_path = /obj/item/reagent_containers/peppercloud_deployer/empty
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
