@@ -37,7 +37,7 @@
 	create_reagents(500)
 	START_PROCESSING(SSobj, src)
 	// Smoke out any mobs on initialise
-	if (!opacity)
+	if (opaque)
 		for (var/mob/living/target in loc)
 			target.apply_status_effect(STATUS_EFFECT_SMOKE)
 
