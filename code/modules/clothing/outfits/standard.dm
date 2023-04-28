@@ -267,7 +267,7 @@
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
 	W.access = get_all_accesses()
-	W.access += get_centcom_access(JOB_CENTCOM_COMMANDER)
+	W.access |= get_centcom_access(JOB_CENTCOM_COMMANDER)
 	W.assignment = JOB_CENTCOM_COMMANDER
 	W.registered_name = H.real_name
 	W.update_label()
@@ -296,7 +296,7 @@
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
 	W.access = get_all_accesses()
-	W.access += get_centcom_access(JOB_CENTCOM_ADMIRAL)
+	W.access |= get_centcom_access(JOB_CENTCOM_ADMIRAL)
 	W.assignment = JOB_CENTCOM_ADMIRAL
 	W.registered_name = H.real_name
 	W.update_label()
@@ -377,7 +377,7 @@
 	var/obj/item/card/id/silver/W = H.wear_id
 	W.icon_state = "centcom"
 	W.access = get_all_accesses()
-	W.access += get_centcom_access(JOB_CENTCOM_ADMIRAL)
+	W.access |= get_centcom_access(JOB_CENTCOM_ADMIRAL)
 	W.assignment = JOB_CENTCOM_ADMIRAL
 	W.registered_name = H.real_name
 	W.update_label()
