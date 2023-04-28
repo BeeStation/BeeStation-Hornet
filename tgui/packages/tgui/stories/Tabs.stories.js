@@ -67,6 +67,14 @@ const Story = (props, context) => {
           })} />
         <Button.Checkbox
           inline
+          content="fill"
+          checked={tabProps.fill}
+          onClick={() => setTabProps({
+            ...tabProps,
+            fill: !tabProps.fill,
+          })} />
+        <Button.Checkbox
+          inline
           content="left aligned"
           checked={tabProps.leftAligned}
           onClick={() => setTabProps({
@@ -78,6 +86,7 @@ const Story = (props, context) => {
         <Tabs
           vertical={tabProps.vertical}
           fluid={tabProps.fluid}
+          fill={tabProps.fill}
           textAlign={tabProps.leftAligned && 'left'}>
           {TAB_RANGE.map((text, i) => (
             <Tabs.Tab
