@@ -29,7 +29,7 @@
 		)
 	blocked |= typesof(/obj/item/reagent_containers/food/snacks/customizable)
 
-	var/list/unfiltered_allowed_food = subtypesof(/obj/item/food) - blocked
+		var/list/unfiltered_allowed_food = subtypesof(/obj/item/food) - blocked
 		for(var/obj/item/food/food as anything in unfiltered_allowed_food)
 			if(!initial(food.icon_state)) //food with no icon_state should probably not be spawned
 				continue
