@@ -131,7 +131,6 @@
 	if(prob(1))
 		desc = "IT'S PEPPER TIME, BITCH!"
 
-
 /obj/structure/reagent_dispensers/water_cooler
 	name = "liquid cooler"
 	desc = "A machine that dispenses liquid to drink."

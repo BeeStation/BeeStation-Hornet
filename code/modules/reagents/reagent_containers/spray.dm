@@ -169,6 +169,15 @@
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	volume = 50
 	list_reagents = list(/datum/reagent/consumable/condensedcapsaicin = 50)
+
+	item_flags = NOBLUDGEON | ISWEAPON
+	reagent_flags = OPENCONTAINER
+	slot_flags = ITEM_SLOT_BELT
+	throwforce = 0
+	w_class = WEIGHT_CLASS_SMALL
+	throw_speed = 3
+	throw_range = 7
+
 	var/cooldown_time = 0
 	var/activation_cooldown = 30 SECONDS
 
@@ -206,9 +215,20 @@
 	deploy(previous, user)
 
 /obj/item/reagent_containers/peppercloud_deployer/proc/deploy(turf/center, mob/user, force = FALSE)
+	// Check if we are currently on cooldown
 	if (world.time < cooldown_time && !force)
 		to_chat(user, "<span class='warning'>[src] isn't ready to be activated yet.<span>")
 		return
+	// Clear any reagents that are not pepperspray
+	var/reagents_removed = FALSE
+	for (var/datum/reagent/reagent in reagents.reagent_list)
+		if (istype(reagent, /datum/reagent/consumable/condensedcapsaicin))
+			continue
+		reagents.remove_reagent(reagent.type, reagent.volume, TRUE)
+		reagents_removed = TRUE
+	if (reagents_removed)
+		reagents.handle_reactions()
+	// Check that we have enough pepperspray remaining
 	if (reagents.get_reagent_amount(/datum/reagent/consumable/condensedcapsaicin) < 25)
 		to_chat(user, "<span class='warning'>[src] doesn't contain enough capsaicin to deploy, refill it!<span>")
 		return
