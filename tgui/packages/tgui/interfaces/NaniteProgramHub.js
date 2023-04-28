@@ -75,7 +75,7 @@ export const NaniteProgramHub = (props, context) => {
           )}>
           {programs !== null ? (
             <Flex>
-              <Flex.Item minWidth="110px">
+              <Flex.Item minWidth="110px" mr={1}>
                 <Tabs vertical>
                   {map((cat_contents, category) => {
                     const progs = cat_contents || [];
