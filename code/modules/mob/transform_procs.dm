@@ -32,6 +32,9 @@
 
 	var/mob/living/carbon/monkey/O = new /mob/living/carbon/monkey( loc )
 
+	// Make it be able to be turned back into a human with mutadone
+	O.natural = FALSE
+	O.check_if_natural()
 	// hash the original name?
 	if(tr_flags & TR_HASHNAME)
 		O.name = "monkey ([copytext_char(rustg_hash_string(RUSTG_HASH_MD5, real_name), 2, 6)])"

@@ -123,7 +123,7 @@
 				highest = A
 	INVOKE_ASYNC(src, PROC_REF(SpinAnimation), 5, 2)
 	if(highest)
-		throw_impact(highest)
+		throw_impact(highest, new /datum/thrownthing(src, highest, DOWN, levels, min(5, levels), null, FALSE, MOVE_FORCE_STRONG, null, BODY_ZONE_HEAD))
 	return TRUE
 
 //For physical constraints to travelling up/down.

@@ -314,7 +314,7 @@
 		for(var/datum/data/record/R as() in GLOB.data_core.locked)
 			var/datum/mind/M = R.fields["mindref"]
 			if(target == M)
-				reshape = R.fields["image"]
+				reshape = R.fields["character_appearance"]
 				break
 	if(!reshape)
 		reshape = icon('icons/mob/mob.dmi', "ghost", SOUTH)

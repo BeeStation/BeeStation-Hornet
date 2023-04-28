@@ -15,10 +15,10 @@
 
 /datum/eldritch_knowledge/flesh_ghoul
 	name = "Imperfect Ritual"
-	desc = "Allows you to resurrect the dead as voiceless dead by sacrificing them on the transmutation rune with a poppy. Voiceless dead are mute and have 50 HP. You can only have 2 at a time."
+	desc = "Allows you to resurrect the dead as voiceless dead by sacrificing them on the transmutation rune with a flower. Voiceless dead are mute and have 50 HP. You can only have 2 at a time."
 	gain_text = "I found notes of a dark ritual, unfinished... yet still, I pushed forward."
 	cost = 1
-	required_atoms = list(/mob/living/carbon/human,/obj/item/reagent_containers/food/snacks/grown/poppy)
+	required_atoms = list(/mob/living/carbon/human,/obj/item/reagent_containers/food/snacks/grown/flower)
 	next_knowledge = list(/datum/eldritch_knowledge/flesh_mark,/datum/eldritch_knowledge/armor,/datum/eldritch_knowledge/ashen_eyes)
 	route = PATH_FLESH
 	var/max_amt = 2
@@ -193,7 +193,7 @@
 	gain_text = "I was able to combine my greed and desires to summon an eldritch beast I had never seen before. An ever shapeshifting mass of flesh, it knew well my goals."
 	desc = "You can now summon a Stalker by transmutating a knife, a flower, a pen and a piece of paper. Stalkers can shapeshift into harmless animals to get close to the victim."
 	cost = 1
-	required_atoms = list(/obj/item/kitchen/knife,/obj/item/reagent_containers/food/snacks/grown/poppy,/obj/item/pen,/obj/item/paper)
+	required_atoms = list(/obj/item/kitchen/knife,/obj/item/reagent_containers/food/snacks/grown/flower,/obj/item/pen,/obj/item/paper)
 	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/stalker
 	next_knowledge = list(/datum/eldritch_knowledge/summon/ashy,/datum/eldritch_knowledge/summon/rusty,/datum/eldritch_knowledge/last/flesh_final)
 	route = PATH_FLESH
