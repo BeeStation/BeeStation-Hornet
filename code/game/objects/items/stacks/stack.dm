@@ -288,7 +288,7 @@
 		to_chat(usr, "<span class='warning'>There is another [R.title] here!</span>")
 		return FALSE
 	if(R.on_floor)
-		if(!isfloorturf(T))
+		if(!isanyfloor(T))
 			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor!</span>")
 			return FALSE
 		for(var/obj/AM in T)
