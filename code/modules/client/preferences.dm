@@ -112,8 +112,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		if(load_character())
 			return
 	// TODO tgui-prefs implement fallback species
-	// We couldn't load character data so just randomize the character appearance + name
-	randomise_appearance_prefs() //let's create a random character then - rather than a fat, bald and naked man.
+	if(!loaded_preferences_successfully)
+		character_data = new(src, default_slot)
+	// We couldn't load character data so just randomize the character appearance
+	randomise_appearance_prefs()
 	if(parent)
 		apply_all_client_preferences() // apply now since normally this is done in load_preferences(). Defaults were set in preferences_player
 		parent.set_macros()

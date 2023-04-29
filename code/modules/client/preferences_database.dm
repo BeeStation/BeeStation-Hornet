@@ -13,11 +13,9 @@
 	} // we dont need error handling where were going
 
 /datum/preferences/proc/load_preferences()
-	if(!SSdbcore.IsConnected())
-		return FALSE
 	// Get the datumized stuff first
 	player_data = new(src)
-	if(!player_data.load_from_database(src))
+	if(!player_data.load_from_database(src)) // checks db connection
 		return FALSE
 
 	var/datum/DBQuery/read_player_data = SSdbcore.NewQuery(
@@ -148,7 +146,7 @@
 		default_slot = slot
 
 	character_data = new(src, slot)
-	if(!character_data.load_from_database(src))
+	if(!character_data.load_from_database(src)) // checks db connection
 		return FALSE
 
 	// Do NOT statically cache this or I will kill you. You are asking an evil vareditor to break the DB in a BAD way
