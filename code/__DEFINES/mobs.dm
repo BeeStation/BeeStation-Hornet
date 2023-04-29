@@ -232,8 +232,6 @@
 /// Default trauma flags.
 #define TRAUMA_DEFAULT_FLAGS		(TRAUMA_CLONEABLE)
 
-#define TRAUMA_SPECIAL_CURE_CALLBACK CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(trauma_can_be_specially_cured))
-
 //Limit of traumas for each resilience tier
 #define TRAUMA_LIMIT_BASIC 3
 #define TRAUMA_LIMIT_SURGERY 2

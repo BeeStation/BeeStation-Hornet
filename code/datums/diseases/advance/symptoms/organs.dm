@@ -58,9 +58,9 @@
 			var/mob/living/carbon/C = M
 			if(prob(10))
 				if(trauma_heal_severe)
-					C.cure_trauma_type(resilience = TRAUMA_RESILIENCE_LOBOTOMY, custom_check = TRAUMA_SPECIAL_CURE_CALLBACK)
+					C.cure_trauma_type(resilience = TRAUMA_RESILIENCE_LOBOTOMY, special_method = TRUE)
 				else
-					C.cure_trauma_type(resilience = TRAUMA_RESILIENCE_BASIC, custom_check = TRAUMA_SPECIAL_CURE_CALLBACK)
+					C.cure_trauma_type(resilience = TRAUMA_RESILIENCE_BASIC, special_method = TRUE)
 
 
 

@@ -73,7 +73,7 @@
 	var/problems = FALSE
 	if(iscarbon(host_mob))
 		var/mob/living/carbon/C = host_mob
-		if(length(C.get_traumas(custom_check = TRAUMA_SPECIAL_CURE_CALLBACK)))
+		if(length(C.get_traumas(special_method = TRUE)))
 			problems = TRUE
 	if(host_mob.getOrganLoss(ORGAN_SLOT_BRAIN) > 0)
 		problems = TRUE
@@ -83,7 +83,7 @@
 	host_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, -1)
 	if(iscarbon(host_mob) && prob(10))
 		var/mob/living/carbon/C = host_mob
-		C.cure_trauma_type(resilience = TRAUMA_RESILIENCE_BASIC, custom_check = TRAUMA_SPECIAL_CURE_CALLBACK)
+		C.cure_trauma_type(resilience = TRAUMA_RESILIENCE_BASIC, special_method = TRUE)
 
 /datum/nanite_program/blood_restoring
 	name = "Blood Regeneration"
@@ -195,7 +195,7 @@
 	var/problems = FALSE
 	if(iscarbon(host_mob))
 		var/mob/living/carbon/C = host_mob
-		if(length(C.get_traumas(custom_check = TRAUMA_SPECIAL_CURE_CALLBACK)))
+		if(length(C.get_traumas(special_method = TRUE)))
 			problems = TRUE
 	if(host_mob.getOrganLoss(ORGAN_SLOT_BRAIN) > 0)
 		problems = TRUE
@@ -205,7 +205,7 @@
 	host_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, -2)
 	if(iscarbon(host_mob) && prob(10))
 		var/mob/living/carbon/C = host_mob
-		C.cure_trauma_type(resilience = TRAUMA_RESILIENCE_LOBOTOMY, custom_check = TRAUMA_SPECIAL_CURE_CALLBACK)
+		C.cure_trauma_type(resilience = TRAUMA_RESILIENCE_LOBOTOMY, special_method = TRUE)
 
 /datum/nanite_program/defib
 	name = "Defibrillation"
