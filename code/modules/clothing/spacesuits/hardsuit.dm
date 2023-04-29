@@ -77,7 +77,7 @@
 		soundloop.start(user)
 
 /obj/item/clothing/head/helmet/space/hardsuit/proc/toggle_hud(mob/user)
-	var/datum/component/team_monitor/monitor = GetComponent(/datum/component/team_monitor)
+	var/datum/component/team_monitor/worn/monitor = GetComponent(/datum/component/team_monitor/worn)
 	if(!monitor)
 		to_chat(user, "<span class='notice'>The suit is not fitted with a tracking beacon.</span>")
 		return
