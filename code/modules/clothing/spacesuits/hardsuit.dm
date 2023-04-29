@@ -345,7 +345,7 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/exploration/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/team_monitor, EXPLORATION_TRACKING, -1)
+	AddComponent(/datum/component/team_monitor/worn, EXPLORATION_TRACKING, -1)
 
 /obj/item/clothing/head/helmet/space/hardsuit/exploration/ui_action_click(mob/user, datum/action)
 	switch(action.type)
