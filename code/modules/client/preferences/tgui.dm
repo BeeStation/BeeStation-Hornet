@@ -52,7 +52,7 @@
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 	db_key = "tgui_say"
 	preference_type = PREFERENCE_PLAYER
-	default_value = FALSE
+	default_value = TRUE
 
 /datum/preference/toggle/tgui_say/apply_to_client(client/client)
 	//client.tgui_say?.load()
