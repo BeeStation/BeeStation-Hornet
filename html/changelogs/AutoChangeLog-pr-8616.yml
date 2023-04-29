@@ -1,0 +1,14 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - balance: Hierophant club now does reduced damage when the player using it isn't
+      on lavaland.
+  - balance: Hierophant club chasers are now fired alongside cardinal blasts when
+      off of cooldown, instead of replacing them. They will also begin travel from
+      the center of the blast instead of from the user making them much more useful
+      in combat.
+  - tweak: Hierophant chasers from all sources will no longer detonate gibtonite,
+      instead defusing it in its weakest form.
+  - bugfix: Resonators are no longer forgotten and have had their damage halved just
+      like most of the other lavaland tools. They're no longer capable of rapidly
+      dealing more damage than backstabbing with crushers.
