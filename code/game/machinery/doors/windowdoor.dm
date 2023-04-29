@@ -123,7 +123,7 @@
 	if(get_dir(loc, T) == dir)
 		return !density
 	else
-		return 1
+		return TRUE
 
 //used in the AStar algorithm to determinate if the turf the door is on is passable
 /obj/machinery/door/window/CanAStarPass(obj/item/card/id/ID, to_dir)
@@ -131,6 +131,11 @@
 
 /obj/machinery/door/window/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
+	if(leaving.movement_type & PHASING)
+		return
+
+	if(leaving == src)
+		return // Let's not block ourselves.
 
 	if(istype(leaving) && (leaving.pass_flags & PASSTRANSPARENT))
 		return
@@ -141,27 +146,31 @@
 
 /obj/machinery/door/window/open(forced=FALSE)
 	if(operating) //doors can still open when emag-disabled
-		return 0
+		return FALSE
+
 	if(!forced)
 		if(!hasPower())
-			return 0
+			return FALSE
+
 	if(forced < 2)
 		if(obj_flags & EMAGGED)
-			return 0
+			return FALSE
+
 	if(!operating) //in case of emag
 		operating = TRUE
+
 	do_animate("opening")
-	playsound(src, 'sound/machines/windowdoor.ogg', 100, 1)
+	playsound(src, 'sound/machines/windowdoor.ogg', 100, TRUE)
 	icon_state ="[base_state]open"
 	sleep(operationdelay)
-
 	set_density(FALSE)
 	air_update_turf(1)
 	update_freelook_sight()
 
 	if(operating == 1) //emag again
 		operating = FALSE
-	return 1
+
+	return TRUE
 
 /obj/machinery/door/window/close(forced=FALSE)
 	if(operating)
