@@ -1,7 +1,0 @@
-author: RKz, Timberpoes, Tlaticuhteli
-delete-after: true
-changes:
-  - bugfix: Fixes an exploit where machine frames could be stacked. Now when a machine
-      frame is created on a turf it shouldn't, it deconstructs itself down into its
-      component parts.
-  - code_imp: rcd unit test

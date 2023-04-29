@@ -1,7 +1,0 @@
-author: Absolucy
-delete-after: true
-changes:
-  - balance: Changeling transformation stings are now reversible. Clonexadone can,
-      after a minute or so, revert you back to your original identity.
-  - balance: Transform stings now only cost 20 chemicals, but can only be used once
-      every 2 minutes.
