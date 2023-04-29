@@ -25,10 +25,11 @@
 			if (preference.preference_type != pref_type)
 				continue
 			preference_data[preference.db_key] = preference.deserialize(preference.create_informed_default_value(prefs), prefs)
+		return FALSE
+	return TRUE
 
 /datum/preferences_holder/preferences_character/proc/query_data(datum/preferences/prefs)
 	if(!SSdbcore.IsConnected())
-		// TODO tgui-prefs write informed default or random value
 		return FALSE
 	var/list/values
 	var/datum/DBQuery/Q = SSdbcore.NewQuery(
@@ -41,12 +42,14 @@
 	if(Q.NextRow())
 		values = Q.item
 		if(!length(values)) // There is no character
+			qdel(Q)
 			return FALSE
 	else
+		qdel(Q)
 		return FALSE
 	qdel(Q)
 	if(length(values) != length(column_names))
-		CRASH("Error querying character data: the returned value length is greater than the number of columns requested.")
+		CRASH("Error querying character data: the returned value length is not equal to the number of columns requested.")
 	for(var/index in 1 to length(values))
 		var/db_key = column_names[index]
 		var/datum/preference/preference = GLOB.preference_entries_by_key[db_key]
@@ -57,7 +60,7 @@
 	return TRUE
 
 /datum/preferences_holder/preferences_character/proc/write_to_database(datum/preferences/prefs)
-	write_data(prefs)
+	. = write_data(prefs)
 	dirty_prefs.Cut() // clear all dirty preferences
 
 /datum/preferences_holder/preferences_character/proc/write_data(datum/preferences/prefs)
@@ -109,7 +112,7 @@
 	return column_name
 
 /// Minimized copy of english_list because I don't want someone breaking this very important function later on
-/datum/preferences_holder/preferences_character/proc/db_column_list(list/input, colon = FALSE)
+/proc/db_column_list(list/input, colon = FALSE)
 	var/total = length(input)
 	switch(total)
 		if (0)
@@ -127,7 +130,7 @@
 
 			return "[output][colon ? ":" : ""][input[index]]"
 
-/datum/preferences_holder/preferences_character/proc/db_column_values(list/input)
+/proc/db_column_values(list/input)
 	var/total = length(input)
 	switch(total)
 		if (0)

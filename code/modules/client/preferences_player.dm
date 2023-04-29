@@ -9,6 +9,8 @@
 			if (preference.preference_type != pref_type)
 				continue
 			preference_data[preference.db_key] = preference.deserialize(preference.create_informed_default_value(prefs), prefs)
+		return FALSE
+	return TRUE
 
 /datum/preferences_holder/preferences_player/proc/query_data(datum/preferences/prefs)
 	if(!SSdbcore.IsConnected())

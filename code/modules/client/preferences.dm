@@ -39,7 +39,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/toggles2 = TOGGLES_2_DEFAULT
 	var/db_flags
 	var/chat_toggles = TOGGLES_DEFAULT_CHAT
-	var/ghost_form = "ghost"
 
 	//character preferences
 	var/slot_randomized //keeps track of round-to-round randomization of the character slot, prevents overwriting
@@ -55,6 +54,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	/// The current window, PREFERENCE_TAB_* in [`code/__DEFINES/preferences.dm`]
 	var/current_window = PREFERENCE_TAB_CHARACTER_PREFERENCES
 
+	/// If the user is a BYOND Member
 	var/unlock_content = 0
 
 	var/list/ignoring = list()
@@ -94,7 +94,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	if(istype(parent))
 		if(!IS_GUEST_KEY(parent.key))
-			unlock_content = !!parent.IsByondMember()
+			unlock_content = TRUE //!!parent.IsByondMember() TODO tgui-prefs (i need this for testing)
 			if(unlock_content)
 				max_save_slots = 8
 	else
@@ -102,7 +102,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	// give them default keybinds and update their movement keys
 	set_default_key_bindings()
-	//randomise = get_default_randomization()
+	randomise = get_default_randomization()
 
 	var/loaded_preferences_successfully = load_preferences()
 	if(loaded_preferences_successfully)
@@ -112,15 +112,17 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		if(load_character())
 			return
 	// TODO tgui-prefs implement fallback species
-	//we couldn't load character data so just randomize the character appearance + name
+	// We couldn't load character data so just randomize the character appearance + name
 	randomise_appearance_prefs() //let's create a random character then - rather than a fat, bald and naked man.
 	if(parent)
-		//apply_all_client_preferences()
+		apply_all_client_preferences() // apply now since normally this is done in load_preferences(). Defaults were set in preferences_player
 		parent.set_macros()
 
+	// If this was a NEW CKEY ENTRY, and not a guest key, save it.
 	if(!loaded_preferences_successfully)
 		save_preferences()
-	save_character() //let's save this new random character so it doesn't keep generating new ones.
+	// Save the newly created random character
+	save_character()
 
 /datum/preferences/ui_interact(mob/user, datum/tgui/ui)
 	// If you leave and come back, re-register the character preview
@@ -209,7 +211,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			// SAFETY: `load_character` performs sanitization the slot number
 			if (!load_character(params["slot"]))
 				tainted_character_profiles = TRUE
-				//randomise_appearance_prefs()
+				randomise_appearance_prefs()
 				save_character()
 
 			for (var/datum/preference_middleware/preference_middleware as anything in middleware)

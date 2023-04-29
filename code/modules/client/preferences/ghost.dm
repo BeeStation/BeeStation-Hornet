@@ -40,40 +40,10 @@
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 	should_generate_icons = TRUE
 
-	var/static/list/ghost_forms = list(
-		"catghost" = "Cat",
-		"ghost" = "Default",
-		"ghost_black" = "Black",
-		"ghost_blazeit" = "Blaze it",
-		"ghost_blue" = "Blue",
-		"ghost_camo" = "Camo",
-		"ghost_cyan" = "Cyan",
-		"ghost_dblue" = "Dark blue",
-		"ghost_dcyan" = "Dark cyan",
-		"ghost_dgreen" = "Dark green",
-		"ghost_dpink" = "Dark pink",
-		"ghost_dred" = "Dark red",
-		"ghost_dyellow" = "Dark yellow",
-		"ghost_fire" = "Fire",
-		"ghost_funkypurp" = "Funky purple",
-		"ghost_green" = "Green",
-		"ghost_grey" = "Grey",
-		"ghost_mellow" = "Mellow",
-		"ghost_pink" = "Pink",
-		"ghost_pinksherbert" = "Pink Sherbert",
-		"ghost_purpleswirl" = "Purple Swirl",
-		"ghost_rainbow" = "Rainbow",
-		"ghost_red" = "Red",
-		"ghost_yellow" = "Yellow",
-		"ghostian2" = "Ian",
-		"ghostking" = "King",
-		"skeleghost" = "Skeleton",
-	)
-
 /datum/preference/choiced/ghost_form/init_possible_values()
 	var/list/values = list()
 
-	for (var/ghost_form in ghost_forms)
+	for (var/ghost_form in GLOB.ghost_forms)
 		values[ghost_form] = icon('icons/mob/mob.dmi', ghost_form)
 
 	return values
@@ -94,7 +64,7 @@
 /datum/preference/choiced/ghost_form/compile_constant_data()
 	var/list/data = ..()
 
-	data[CHOICED_PREFERENCE_DISPLAY_NAMES] = ghost_forms
+	data[CHOICED_PREFERENCE_DISPLAY_NAMES] = GLOB.ghost_forms
 
 	return data
 

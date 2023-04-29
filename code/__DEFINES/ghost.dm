@@ -57,3 +57,32 @@ GLOBAL_LIST_INIT(ghost_accs_options, list(GHOST_ACCS_NONE, GHOST_ACCS_DIR, GHOST
 /// Pictures taken by a camera will display ghosts and their orbits
 #define CAMERA_SEE_GHOSTS_ORBIT 2 // this doesn't do anything right now as of Mar 2023
 
+GLOBAL_LIST_INIT(ghost_forms, list(
+	"catghost" = "Cat",
+	"ghost" = "Default",
+	"ghost_black" = "Black",
+	"ghost_blazeit" = "Blaze it",
+	"ghost_blue" = "Blue",
+	"ghost_camo" = "Camo",
+	"ghost_cyan" = "Cyan",
+	"ghost_dblue" = "Dark blue",
+	"ghost_dcyan" = "Dark cyan",
+	"ghost_dgreen" = "Dark green",
+	"ghost_dpink" = "Dark pink",
+	"ghost_dred" = "Dark red",
+	"ghost_dyellow" = "Dark yellow",
+	"ghost_fire" = "Fire",
+	"ghost_funkypurp" = "Funky purple",
+	"ghost_green" = "Green",
+	"ghost_grey" = "Grey",
+	"ghost_mellow" = "Mellow",
+	"ghost_pink" = "Pink",
+	"ghost_pinksherbert" = "Pink Sherbert",
+	"ghost_purpleswirl" = "Purple Swirl",
+	"ghost_rainbow" = "Rainbow",
+	"ghost_red" = "Red",
+	"ghost_yellow" = "Yellow",
+	"ghostian2" = "Ian",
+	"ghostking" = "King",
+	"skeleghost" = "Skeleton",
+))

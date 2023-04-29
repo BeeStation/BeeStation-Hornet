@@ -212,7 +212,7 @@
 	to_chat(usr, "You will [(prefs.chat_toggles & CHAT_BANKCARD) ? "now" : "no longer"] be notified when you get paid.")
 	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Income Notifications", "[(prefs.chat_toggles & CHAT_BANKCARD) ? "Enabled" : "Disabled"]"))
 
-GLOBAL_LIST_INIT(ghost_forms, sort_list(list("ghost","ghostking","ghostian2","skeleghost","ghost_red","ghost_black", \
+GLOBAL_LIST_INIT(ghost_forms, sortList(list("ghost","ghostking","ghostian2","skeleghost","ghost_red","ghost_black", \
 							"ghost_blue","ghost_yellow","ghost_green","ghost_pink", \
 							"ghost_cyan","ghost_dblue","ghost_dred","ghost_dgreen", \
 							"ghost_dcyan","ghost_grey","ghost_dyellow","ghost_dpink", "ghost_purpleswirl","ghost_funkypurp","ghost_pinksherbert","ghost_blazeit",\
@@ -223,9 +223,8 @@ GLOBAL_LIST_INIT(ghost_forms, sort_list(list("ghost","ghostking","ghostian2","sk
 		alert("This setting is for accounts with BYOND premium only.")
 		return
 	var/new_form = input(src, "Thanks for supporting BYOND - Choose your ghostly form:","Thanks for supporting BYOND",null) as null|anything in GLOB.ghost_forms
-	if(new_form)
-		prefs.ghost_form = new_form
-		prefs.save_preferences()
+	if(new_form) // TODO tgui-prefs - add external save queueing?
+		prefs.update_preference(/datum/preference/choiced/ghost_form, new_form)
 		if(isobserver(mob))
 			var/mob/dead/observer/O = mob
 			O.update_icon(new_form = new_form)
