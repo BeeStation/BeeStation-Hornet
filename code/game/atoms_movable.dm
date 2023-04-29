@@ -60,6 +60,9 @@
 	///Highest-intensity light affecting us, which determines our visibility.
 	var/affecting_dynamic_lumi = 0
 
+	/// Whether this atom should have its dir automatically changed when it moves. Setting this to FALSE allows for things such as directional windows to retain dir on moving without snowflake code all of the place.
+	var/set_dir_on_move = TRUE
+
 
 /atom/movable/Initialize(mapload)
 	. = ..()
@@ -291,14 +294,16 @@
 // Here's where we rewrite how byond handles movement except slightly different
 // To be removed on step_ conversion
 // All this work to prevent a second bump
-/atom/movable/Move(atom/newloc, direction)
+/atom/movable/Move(atom/newloc, direction, update_dir = TRUE)
 	. = FALSE
 	if(!newloc || newloc == loc)
 		return
 
 	if(!direction)
 		direction = get_dir(src, newloc)
-	setDir(direction)
+
+	if(set_dir_on_move && dir != direction && update_dir)
+		setDir(direction)
 
 	var/is_multi_tile_object = bound_width > 32 || bound_height > 32
 
@@ -363,7 +368,7 @@
 
 ////////////////////////////////////////
 
-/atom/movable/Move(atom/newloc, direct)
+/atom/movable/Move(atom/newloc, direct, update_dir = TRUE)
 	var/atom/movable/pullee = pulling
 	var/turf/T = loc
 	if(!moving_from_pull)
@@ -421,7 +426,7 @@
 						moving_diagonally = SECOND_DIAG_STEP
 						. = step(src, SOUTH)
 			if(moving_diagonally == SECOND_DIAG_STEP)
-				if(!.)
+				if(!. && set_dir_on_move && update_dir)
 					setDir(first_step_dir)
 				else if (!inertia_moving)
 					newtonian_move(direct)
@@ -445,7 +450,8 @@
 			check_pulling()
 
 	last_move = direct
-	if(flat_direct)
+
+	if(set_dir_on_move && flat_direct)
 		setDir(flat_direct)
 	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc,direct)) //movement failed due to buckled mob(s)
 		return FALSE
