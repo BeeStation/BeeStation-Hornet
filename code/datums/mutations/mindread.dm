@@ -22,7 +22,7 @@
 		return
 	var/mindreaders = list()
 	for(var/mob/living/mindreader in get_hearers_in_view(7, src, SEE_INVISIBLE_MAXIMUM))
-		if(!HAS_TRAIT(mindreader, TRAIT_MINDREAD) || mindreader == src)
+		if(!HAS_TRAIT(mindreader, TRAIT_MINDREAD) || !mindreader.mind || mindreader == src)
 			continue
 		if(language && !mindreader.has_language(language))
 			to_chat(mindreader, "<span class='reckon'>You notice [subject] [verbtype] but you can't understand it.</span>")
@@ -34,7 +34,7 @@
 		to_chat(mindreader, "<span class='reckon'>You notice [subject] [verbtype] [comma][message][comma]</span>")
 
 		 // reading a hypnotic thought is a bad idea even if you didn't intend
-		if(mindreader.has_antag_datum(/datum/antagonist/hypnotized)) // skip if you're already hypnotised
+		if(mindreader.mind.has_antag_datum(/datum/antagonist/hypnotized)) // skip if you're already hypnotised
 			continue
 		if(hypnotic && forced && mindreader.hypnosis_vulnerable() && prob(75))
 			// the message must be hyonotic, and the source should reckon it not by their will(forced flag)

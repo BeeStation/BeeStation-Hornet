@@ -53,10 +53,9 @@
 	if(!can_reckon(forced))
 		return
 	for(var/mob/dead/observer/ghost_hearer in GLOB.player_list)
-		if(forced)
-			break
+		// add here `if(forced) break` if it's too spammy to ghosts
 		var/follow_link = FOLLOW_LINK(ghost_hearer, src)
-		to_chat(ghost_hearer, "[follow_link] <span class='reckon'>[src.mind.name] hypnotically reckons, '[message]'</span>")
+		to_chat(ghost_hearer, "[follow_link] <span class='reckon'>[src.mind.name] [hypnotic : "hypnotically ", ""]reckons, '[message]'</span>")
 	if(hypnotic)
 		message = "<span class='hypnophrase'>[message]</span>"
 	to_chat(src, "<span class='reckon'>You reckon, '[message]'</span>")

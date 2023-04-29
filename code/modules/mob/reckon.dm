@@ -31,7 +31,7 @@
 /mob/living/carbon/reckon(message, forced=FALSE)
 	if(!can_reckon())
 		return
-	var/force_source = forced ? "a thought-compelling" ? ""
+	var/force_source = forced ? "a thought-compelling" : ""
 	var/datum/brain_trauma/hypnosis/your_hypnosis
 	for(var/datum/brain_trauma/hypnosis/thing in get_traumas()) // easy way to grab the thing
 		your_hypnosis = thing
