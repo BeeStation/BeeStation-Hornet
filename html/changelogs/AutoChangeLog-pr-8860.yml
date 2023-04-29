@@ -1,0 +1,5 @@
+author: RKz, cacogen
+delete-after: true
+changes:
+  - rscadd: Armor lists will tell you if they protect from facehuggers
+  - code_imp: optimized some armor list stuff

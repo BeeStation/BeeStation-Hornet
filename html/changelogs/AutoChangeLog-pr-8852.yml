@@ -1,0 +1,5 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - rscadd: added more gas/atmos miner types for missing gas. (tip - admin can generate
+      '/obj/machinery/atmospherics/miner/tritium' for admin EORG)
