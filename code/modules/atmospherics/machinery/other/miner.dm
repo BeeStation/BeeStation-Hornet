@@ -179,6 +179,31 @@
 	overlay_color = "#99928E"
 	spawn_id = GAS_H2O
 
+/obj/machinery/atmospherics/miner/tritium
+	name = "\improper Tritium Gas Miner"
+	overlay_color = "#1ae000"
+	spawn_id = GAS_TRITIUM
+
+/obj/machinery/atmospherics/miner/hypernoblium
+	name = "\improper Hypernoblium Gas Miner"
+	overlay_color = "#00a6e7"
+	spawn_id = GAS_HYPERNOB
+
+/obj/machinery/atmospherics/miner/nitryl
+	name = "\improper Nitryl Gas Miner"
+	overlay_color = "#5e4000"
+	spawn_id = GAS_NITRYL
+
+/obj/machinery/atmospherics/miner/stimulum
+	name = "\improper Stimulum Gas Miner"
+	overlay_color = "#c9c9c9"
+	spawn_id = GAS_STIMULUM
+
+/obj/machinery/atmospherics/miner/pluoxium
+	name = "\improper Pluoxium Gas Miner"
+	overlay_color = "#c5c9b1"
+	spawn_id = GAS_PLUOXIUM
+
 /obj/machinery/atmospherics/miner/station
 	power_draw = GASMINER_POWER_FULLSCALE
 	spawn_mol = MOLES_CELLSTANDARD / 10
