@@ -47,6 +47,7 @@
 		if(C.prefs.chat_toggles & CHAT_PRAYER)
 			to_chat(C, msg)
 	to_chat(usr, "<span class='info'>You pray to the gods: \"[msg_tmp]\"</span>")
+	reckon_message_to_mindreaders(msg_tmp, verbtype="prays,")
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Prayer") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 

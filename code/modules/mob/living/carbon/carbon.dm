@@ -1043,7 +1043,8 @@
 /mob/living/carbon/can_resist()
 	return bodyparts.len > 2 && ..()
 
-/mob/living/carbon/proc/hypnosis_vulnerable()
+
+/mob/living/carbon/hypnosis_vulnerable()
 	if(HAS_TRAIT(src, TRAIT_MINDSHIELD))
 		return FALSE
 	if(hallucinating())

@@ -991,6 +991,10 @@
 
 	return TRUE
 
+/// actual definition is at carbon subtype.
+/mob/living/proc/hypnosis_vulnerable()
+	return
+
 //used in datum/reagents/reaction() proc
 /mob/living/proc/get_permeability_protection()
 	return 0

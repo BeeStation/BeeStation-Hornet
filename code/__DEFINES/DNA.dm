@@ -56,6 +56,7 @@
 #define OVERLOAD    /datum/mutation/overload
 #define ACIDOOZE    /datum/mutation/acidooze
 #define MEDIEVAL    /datum/mutation/medieval
+#define MINDREAD    /datum/mutation/mindread
 
 #define UI_CHANGED "ui changed"
 #define UE_CHANGED "ue changed"

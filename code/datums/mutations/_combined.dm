@@ -28,3 +28,7 @@
 /datum/generecipe/cluwne
 	required = "/datum/mutation/clumsy; /datum/mutation/badblink"
 	result = CLUWNEMUT
+
+/datum/generecipe/mindread
+	required = "/datum/mutation/antenna; /datum/mutation/paranoia"
+	result = MINDREAD

@@ -480,6 +480,14 @@
 	name = "\improper DNA injector (Anti-Medieval)"
 	remove_mutations = list(MEDIEVAL)
 
+/obj/item/dnainjector/mindread
+	name = "\improper DNA injector (Mindread)"
+	add_mutations = list(MINDREAD)
+
+/obj/item/dnainjector/antimindread
+	name = "\improper DNA injector (Anti-Mindread)"
+	remove_mutations = list(MINDREAD)
+
 /obj/item/dnainjector/timed
 	var/duration = 600
 

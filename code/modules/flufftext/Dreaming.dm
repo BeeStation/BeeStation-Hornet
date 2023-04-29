@@ -40,6 +40,7 @@
 
 	if(prob(25))
 		dream_sequence(dream_fragments)
+		reckon_message_to_mindreaders(jointext(dream_fragments, " "), verbtype="dreams...", comma="", forced=TRUE)
 		return
 
 	//Object
@@ -55,6 +56,7 @@
 
 	dreaming = TRUE
 	dream_sequence(dream_fragments)
+	reckon_message_to_mindreaders(jointext(dream_fragments, " "), verbtype="dreams...", comma="", forced=TRUE)
 
 /mob/living/carbon/proc/dream_sequence(list/dream_fragments)
 	if(stat != UNCONSCIOUS || InCritical())

@@ -598,3 +598,8 @@
 
 /// Messages when (something) lays an egg
 #define EGG_LAYING_MESSAGES list("lays an egg.","squats down and croons.","begins making a huge racket.","begins clucking raucously.")
+
+// used in reckon result
+#define RECKON_RESULT_LOGGED 1
+#define RECKON_RESULT_NOT_LOGGED 2
+#define RECKON_RESULT_CANNOT_RECKON 3

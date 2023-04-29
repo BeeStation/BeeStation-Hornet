@@ -139,6 +139,9 @@ LOG_TELECOMMS
 ## log prayers
 LOG_PRAYER
 
+## log reckons
+LOG_RECKON
+
 ## log lawchanges
 LOG_LAW
 

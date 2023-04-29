@@ -166,6 +166,10 @@
 	if (CONFIG_GET(flag/log_prayer))
 		WRITE_LOG(GLOB.world_game_log, "PRAY: [text]")
 
+/proc/log_reckon(text)
+	if (CONFIG_GET(flag/log_reckon))
+		WRITE_LOG(GLOB.world_game_log, "RECKON: [text]")
+
 /proc/log_pda(text)
 	if (CONFIG_GET(flag/log_pda))
 		WRITE_LOG(GLOB.world_pda_log, "PDA: [text]")

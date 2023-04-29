@@ -141,6 +141,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	// This works as an additional failsafe for get_selected_language() has no language to return
 
 	if(!can_speak_vocal(message))
+		reckon_message_to_mindreaders(message, verbtype="wanted to speak something...", language=language)
 		to_chat(src, "<span class='warning'>You find yourself unable to speak!</span>")
 		return
 
