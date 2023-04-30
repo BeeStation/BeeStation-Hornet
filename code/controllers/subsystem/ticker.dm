@@ -431,14 +431,14 @@ SUBSYSTEM_DEF(ticker)
 		if(!istype(player) || !player.mind)
 			continue
 
-		// some antags will be a part of the station
-		var/equips_station_gear = TRUE
+		// some antags will NOT be a part of the station
+		var/is_station_crew = TRUE
 		if(player.mind.has_special_role(GLOB.no_gearing_roles)) // i.e.) nukies, wizard
-			equips_station_gear = FALSE
+			is_station_crew = FALSE
 			player.mind.wipe_job()
 
-		if(equips_station_gear)
-			// captaincy check -
+		if(is_station_crew)
+			// captaincy check
 			if(player.mind.has_job(JOB_KEY_CAPTAIN))
 				captainless = FALSE
 				spare_id_candidates += N
