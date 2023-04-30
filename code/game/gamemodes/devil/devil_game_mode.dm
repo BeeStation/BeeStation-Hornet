@@ -44,6 +44,7 @@
 			break
 		var/datum/mind/devil = antag_pick(antag_candidates, ROLE_KEY_DEVIL)
 		devils += devil
+		devil.set_special_role(ROLE_KEY_DEVIL)
 		devil.restricted_roles = restricted_jobs
 
 		log_game("[key_name(devil)] has been selected as a [traitor_name]")

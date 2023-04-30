@@ -64,6 +64,7 @@ GLOBAL_LIST_EMPTY(hivehosts)
 			break
 		var/datum/mind/host = antag_pick(antag_candidates, ROLE_KEY_HIVE)
 		hosts += host
+		host.set_special_role(ROLE_KEY_HIVE)
 		host.restricted_roles = restricted_jobs
 		log_game("[key_name(host)] has been selected as a hivemind host")
 		antag_candidates.Remove(host)

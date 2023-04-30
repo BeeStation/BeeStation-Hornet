@@ -158,12 +158,24 @@
 		M.add_antag_datum(antag_datum)
 	return TRUE
 
-/// this MUST BE called once someone is chosen for a role, or they'll get a role again
+/// this MUST BE called once someone is chosen for a role, or they'll get a role again. should be called after pre_execute()
 /datum/dynamic_ruleset/proc/give_special_role_status()
 	if(!antag_flag)
 		return
 	for(var/datum/mind/mind in assigned)
 		mind.set_special_role(antag_flag)
+	/* NOTE:
+		special_role check is used to define whom to give antag datum before roundstart
+		so, `set_special_role()` should be applied before roundstart
+		special_role is given from antag datum too, but we use this to give antag datum, which means they don't have antag datum here.
+		then it can happen 'heretic traitor', 'changeling revolutionary', etc
+
+		unlike how other gamemodes do, dynamic_ruleset will add special_role to people by give_special_role_status() here
+		which means you don't have to add `mind.set_special_role(ROLE_KEY_ANTAG_THING)` in each dynamic execute()/pre_execute()
+
+		for latejoin/midround pick, early special_role check is not necessary, so you don't have to use `set_special_role()`
+		and those roles will be given to them by antag datum
+	*/
 
 /// Here you can perform any additional checks you want. (such as checking the map etc)
 /// Remember that on roundstart no one knows what their job is at this point.

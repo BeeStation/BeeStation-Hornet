@@ -55,6 +55,7 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 			var/datum/mind/changeling = antag_pick(antag_candidates, ROLE_KEY_CHANGELING)
 			antag_candidates -= changeling
 			changelings += changeling
+			changeling.set_special_role(ROLE_KEY_CHANGELING)
 			changeling.restricted_roles = restricted_jobs
 		return 1
 	else
