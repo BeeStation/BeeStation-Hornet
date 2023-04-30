@@ -130,7 +130,10 @@
 /obj/structure/window/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
 
-	if (istype(leaving) && (leaving.pass_flags & PASSTRANSPARENT))
+	if(leaving == src)
+		return // Let's not block ourselves.
+
+	if (leaving.pass_flags & PASSTRANSPARENT)
 		return
 
 	if (fulltile)

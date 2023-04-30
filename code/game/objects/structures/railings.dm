@@ -88,6 +88,9 @@
 /obj/structure/railing/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
 
+	if(leaving == src)
+		return // Let's not block ourselves.
+
 	if(!(direction & dir))
 		return
 
@@ -97,7 +100,7 @@
 	if (leaving.throwing)
 		return
 
-	if (leaving.movement_type & (FLYING | FLOATING))
+	if (leaving.movement_type & (PHASING | FLYING | FLOATING))
 		return
 
 	if (leaving.move_force >= MOVE_FORCE_EXTREMELY_STRONG)
