@@ -108,6 +108,8 @@
 	switch(action)
 		// Take item out
 		if("remove")
+			if(isobserver(usr))
+				return
 			var/obj/item/I= locate(params["ref"]) in src
 			remove_item(I, usr)
 			. = TRUE
