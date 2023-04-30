@@ -103,7 +103,7 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/AnnounceGimmickJobs(target=null)
 	var/list/available_gimmicks = list()
 	for(var/datum/job/J in occupations)
-		if((J.job_bitflags & JOB_BITFLAG_SELECTABLE) && (J.job_bitflags & JOB_BITFLAG_GIMMICK) && J.total_positions)
+		if((J.job_bitflags & JOB_BITFLAG_SELECTABLE) && (J.job_bitflags & JOB_BITFLAG_GIMMICK) && (J.current_positions < J.total_positions))
 			available_gimmicks += J.get_title()
 	if(length(available_gimmicks))
 		if(target) // send the message to a single person
