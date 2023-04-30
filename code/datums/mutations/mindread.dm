@@ -31,15 +31,17 @@
 		if(!length(message))
 			to_chat(mindreader, "<span class='reckon'>You notice [subject] [verbtype]</span>") // someone dreams...
 			continue
-		to_chat(mindreader, "<span class='reckon'>You notice [subject] [verbtype] [comma][message][comma]</span>")
 
-		 // reading a hypnotic thought is a bad idea even if you didn't intend
-		if(mindreader.mind.has_antag_datum(/datum/antagonist/hypnotized)) // skip if you're already hypnotised
-			continue
-		if(hypnotic && forced && mindreader.hypnosis_vulnerable() && prob(75))
-			// the message must be hyonotic, and the source should reckon it not by their will(forced flag)
+		// the message must be hyonotic, and the source should reckon it not by their will(forced flag)
+		if(hypnotic && forced && !HAS_TRAIT(mindreader, TRAIT_MINDSHIELD) && prob(75))
+			message = "<span class='hypnophrase'>[message]</span>"
+			to_chat(mindreader, "<span class='reckon'>You notice [subject] [verbtype] [comma][message][comma]</span>")
+			if(mindreader.mind.has_antag_datum(/datum/antagonist/hypnotized)) // skip if you're already hypnotised
+				continue
 			mindreader.log_message("has vulnerably mindread a hypnotic message '[message]'.", LOG_ATTACK, color="red")
 			log_game("[key_name(mindreader)] has vulnerably mindread a hypnotic message '[message]'.")
-			hypnotize(mindreader, message)
+			hypnotize(mindreader, message) // reading a hypnotic thought is a bad idea even if you didn't intend
+		else
+			to_chat(mindreader, "<span class='reckon'>You notice [subject] [verbtype] [comma][message][comma]</span>")
 	if(length(mindreaders) && message)
 		log_reckon("their message '[message]' has been mindread by [english_list(mindreaders)].")
