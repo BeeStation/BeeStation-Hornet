@@ -16,6 +16,9 @@ GLOBAL_DATUM_INIT(default_state, /datum/ui_state/default, new)
 /mob/proc/default_can_use_topic(src_object)
 	return UI_CLOSE // Don't allow interaction by default.
 
+/mob/dead/observer/default_can_use_topic(src_object)
+	return UI_UPDATE
+
 /mob/living/default_can_use_topic(src_object)
 	. = shared_ui_interaction(src_object)
 	if(. > UI_CLOSE && loc)

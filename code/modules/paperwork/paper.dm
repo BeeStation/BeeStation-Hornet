@@ -175,7 +175,7 @@
 /obj/item/paper/ui_state(mob/user)
 	if(istype(loc, /obj/item/modular_computer))
 		return GLOB.reverse_contained_state
-	return logic_state(STATE_OR, list(..(), GLOB.observer_state))
+	return ..()
 
 
 /obj/item/paper/can_interact(mob/user)
