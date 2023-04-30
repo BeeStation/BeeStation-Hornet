@@ -144,7 +144,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 		brainmob.ckey = candidate.ckey
 	name = "[initial(name)] ([brainmob.name])"
 	to_chat(brainmob, welcome_message)
-	brainmob.mind.assign_station_role(JOB_KEY_CYBORG)
+	brainmob.mind.set_special_role(ROLE_KEY_POSIBRAIN)
 	brainmob.set_stat(CONSCIOUS)
 	brainmob.remove_from_dead_mob_list()
 	brainmob.add_to_alive_mob_list()

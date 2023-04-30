@@ -302,7 +302,6 @@
 					O.make_laws()
 
 			SSticker.mode.remove_antag_for_borging(BM.mind)
-			O.mind.assign_station_role(JOB_KEY_CYBORG)
 
 			O.cell = chest.cell
 			chest.cell.forceMove(O)
@@ -315,6 +314,8 @@
 			O.updatename(BM.client)
 
 			BM.mind.transfer_to(O)
+			O.mind.remove_special_role(ROLE_KEY_POSIBRAIN)
+			O.mind.assign_station_role(JOB_KEY_CYBORG) // to-do: syndi borg should work differently
 
 			if(O.mind?.get_display_special_role())
 				O.mind.store_memory("As a cyborg, you must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.")
