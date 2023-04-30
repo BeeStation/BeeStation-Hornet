@@ -163,7 +163,7 @@
 		chant(i)
 		var/list/destinations = list()
 		for(var/turf/T as() in (RANGE_TURFS(1, owner) - get_turf(owner)))
-			if(!is_blocked_turf(T, TRUE))
+			if(!T.is_blocked_turf(TRUE))
 				destinations += T
 		if(!LAZYLEN(destinations))
 			to_chat(owner, "<span class='warning'>You need more space to summon your cult!</span>")

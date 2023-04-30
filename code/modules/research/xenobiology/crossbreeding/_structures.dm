@@ -405,7 +405,7 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	if(crystals >= 3)
 		return
 	for(var/turf/T as() in RANGE_TURFS(2,src))
-		if(is_blocked_turf(T) || isspaceturf(T)  || T == get_turf(src) || prob(50))
+		if(T.is_blocked_turf() || isspaceturf(T)  || T == get_turf(src) || prob(50))
 			continue
 		var/obj/structure/cerulean_slime_crystal/CSC = locate() in range(1,T)
 		if(CSC)
