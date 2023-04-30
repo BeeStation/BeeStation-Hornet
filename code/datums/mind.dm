@@ -316,6 +316,8 @@
 /datum/mind/proc/assign_special_role(role_key, role_title=null)
 	if(!role_key)
 		CRASH("role_string is null")
+	if(get_special_role(role_key)) // "Swarmer, Swarmer" wouldn't be a nice title
+		return
 	set_special_role(role_key)
 	var/current_role = get_display_special_role()
 	if(!role_title)

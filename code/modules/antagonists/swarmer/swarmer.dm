@@ -816,7 +816,7 @@
 /datum/team/swarmer/roundend_report()
 	var/list/parts = list()
 
-	parts += "<span class='header'>The Swarm consisted of :</span>"
+	parts += "<span class='header'>The Swarm consisted of:</span>"
 
 	parts += printplayerlist(members)
 

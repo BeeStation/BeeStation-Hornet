@@ -627,7 +627,7 @@
 		text += " <span class='redtext'>had their body destroyed</span>"
 	return text
 
-/proc/printplayerlist(list/players,fleecheck)
+/proc/printplayerlist(list/players, fleecheck)
 	var/list/parts = list()
 
 	parts += "<ul class='playerlist'>"
