@@ -132,10 +132,13 @@
 /obj/machinery/door/window/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
 
+	if(leaving.movement_type & PHASING)
+		return
+
 	if(leaving == src)
 		return // Let's not block ourselves.
 
-	if(istype(leaving) && (leaving.pass_flags & PASSTRANSPARENT))
+	if(leaving.pass_flags & PASSTRANSPARENT)
 		return
 
 	if(direction == dir && density)
@@ -144,15 +147,15 @@
 
 /obj/machinery/door/window/open(forced=FALSE)
 	if(operating) //doors can still open when emag-disabled
-		return FALSE
+		return 0
 
 	if(!forced)
 		if(!hasPower())
-			return FALSE
+			return 0
 
 	if(forced < 2)
 		if(obj_flags & EMAGGED)
-			return FALSE
+			return 0
 
 	if(!operating) //in case of emag
 		operating = TRUE
@@ -168,7 +171,7 @@
 	if(operating == 1) //emag again
 		operating = FALSE
 
-	return TRUE
+	return 1
 
 /obj/machinery/door/window/close(forced=FALSE)
 	if(operating)
