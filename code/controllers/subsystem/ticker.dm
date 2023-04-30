@@ -366,7 +366,6 @@ SUBSYSTEM_DEF(ticker)
 	set waitfor = FALSE
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_POST_START)
 	mode.post_setup()
-	GLOB.data_core.manifest()
 	GLOB.start_state = new /datum/station_state()
 	GLOB.start_state.count()
 
@@ -432,18 +431,14 @@ SUBSYSTEM_DEF(ticker)
 		if(!istype(player) || !player.mind)
 			continue
 
-		// some antags don't equip station gears
+		// some antags will be a part of the station
 		var/equips_station_gear = TRUE
-		var/static/list/no_gearing_roles = list(
-			ROLE_KEY_OPERATIVE,
-			ROLE_KEY_WIZARD,
-			ROLE_KEY_SERVANT_OF_RATVAR
-		)
-		if(player.mind.has_special_role(no_gearing_roles))
+		if(player.mind.has_special_role(GLOB.no_gearing_roles)) // i.e.) nukies, wizard
 			equips_station_gear = FALSE
 			player.mind.wipe_job()
 
 		if(equips_station_gear)
+			// captaincy check -
 			if(player.mind.has_job(JOB_KEY_CAPTAIN))
 				captainless = FALSE
 				spare_id_candidates += N
@@ -459,9 +454,13 @@ SUBSYSTEM_DEF(ticker)
 							highest_rank = spare_id_priority
 						else if(spare_id_priority == highest_rank)
 							spare_id_candidates += N
-			SSjob.EquipRank(N, player.mind.get_job(), FALSE)
+
+			// finishing the creation of a crew
+			SSjob.EquipRank(N, player.mind.get_job(), FALSE) // equips station gears
 			if(CONFIG_GET(flag/roundstart_traits) && ishuman(N.new_character))
-				SSquirks.AssignQuirks(player.mind, N.client, TRUE)
+				SSquirks.AssignQuirks(player.mind, N.client, TRUE) // gives quirks to them
+			if(ishuman(player)) // silicons will not be injected
+				GLOB.data_core.manifest_inject(player) // injects them to crew manifest
 		CHECK_TICK
 	if(length(spare_id_candidates))			//No captain, time to choose acting captain
 		if(!enforce_coc)

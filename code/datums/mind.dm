@@ -82,6 +82,9 @@
 	/// your bank account id in your mind
 	var/account_id
 
+	/// checks if you cryo'ed
+	var/is_cryoed = FALSE
+
 /datum/mind/New(var/key)
 	src.key = key
 	soulOwner = src

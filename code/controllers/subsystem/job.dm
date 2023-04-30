@@ -324,7 +324,7 @@ SUBSYSTEM_DEF(job)
 // makes players unreadied so that they don't role antag
 /datum/controller/subsystem/job/proc/player_readycheck_jobs()
 	for(var/mob/dead/new_player/player in GLOB.player_list)
-		if(!player.check_preferences()) // they should role a job at least
+		if(!player.check_preferences()) // they should roll a job at least
 			player.ready = PLAYER_NOT_READY
 
 

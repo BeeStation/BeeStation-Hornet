@@ -187,6 +187,14 @@ GLOBAL_LIST_INIT(ghost_special_roles__notifying, list(
 	ROLE_KEY_LIVING_LEGEND
 ))
 
+// If you get these roles on roundstart, you'll not get geared with station equipment.
+GLOBAL_LIST_INIT(no_gearing_roles, list(
+	ROLE_KEY_OPERATIVE,
+	ROLE_KEY_WIZARD,
+	ROLE_KEY_SERVANT_OF_RATVAR
+
+))
+
 //Job defines for what happens when you fail to qualify for any job during job selection
 #define BEOVERFLOW 	1
 #define BERANDOMJOB 	2
