@@ -69,7 +69,7 @@
 #define MOVETYPE_JAUNT 5
 
 /mob/living/canZMove(dir, turf/source, turf/target, pre_move = TRUE)
-	if(incapacitated(check_immobilized = TRUE) || resting || zmoving || IsKnockdown())
+	if(HAS_TRAIT(src, TRAIT_INCAPACITATED) || resting || zmoving || IsKnockdown())
 		return MOVETYPE_NONE
 	if(incorporeal_move || (movement_type & PHASING))
 		return MOVETYPE_JAUNT

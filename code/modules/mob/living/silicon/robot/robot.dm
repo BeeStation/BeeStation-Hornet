@@ -1060,7 +1060,6 @@
 		else
 			set_stat(CONSCIOUS)
 	update_mobility()
-	update_headlamp()
 	diag_hud_set_status()
 	diag_hud_set_health()
 	diag_hud_set_aishell()

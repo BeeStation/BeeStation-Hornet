@@ -1173,8 +1173,7 @@
 	var/stun = IsStun()
 	var/knockdown = IsKnockdown()
 	var/ignore_legs = get_leg_ignore()
-	var/in_stasis = IsInStasis()
-	var/canmove = !IsImmobilized() && !stun && stat_conscious && !paralyzed && !buckled && (!stat_softcrit || !pulledby) && !chokehold && !IsFrozen() && !in_stasis && (has_arms || ignore_legs || has_legs)
+	var/canmove = !IsImmobilized() && !stun && stat_conscious && !paralyzed && !buckled && (!stat_softcrit || !pulledby) && !chokehold && !IsFrozen() && !IS_IN_STASIS(src) && (has_arms || ignore_legs || has_legs)
 	if(canmove)
 		mobility_flags |= MOBILITY_MOVE
 	else
@@ -1424,12 +1423,13 @@
 	. = ..()
 	if(isnull(.))
 		return
+		
 	switch(.) //Previous stat.
 		if(UNCONSCIOUS)
-			cure_blind(UNCONSCIOUS_BLIND)
+			adjust_blindness(-1)
 	switch(stat) //Current stat.
 		if(UNCONSCIOUS)
-			become_blind(UNCONSCIOUS_BLIND)
+			blind_eyes(1)
 
 #define LOOKING_DIRECTION_UP 1
 #define LOOKING_DIRECTION_NONE 0
