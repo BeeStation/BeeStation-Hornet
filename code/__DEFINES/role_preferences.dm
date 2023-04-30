@@ -192,7 +192,6 @@ GLOBAL_LIST_INIT(no_gearing_roles, list(
 	ROLE_KEY_OPERATIVE,
 	ROLE_KEY_WIZARD,
 	ROLE_KEY_SERVANT_OF_RATVAR
-
 ))
 
 //Job defines for what happens when you fail to qualify for any job during job selection
