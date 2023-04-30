@@ -1,6 +1,6 @@
 /datum/mutation/mindread
 	name = "Mindread"
-	desc = "A mutation that allows the user to read neayby people's thoughts and prays."
+	desc = "A mutation that allows the user to read nearby people's thoughts and prays."
 	quality = POSITIVE
 	locked = TRUE
 	difficulty = 16
