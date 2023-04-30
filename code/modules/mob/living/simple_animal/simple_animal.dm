@@ -136,11 +136,6 @@
 	if(do_footstep)
 		..()
 
-/mob/living/simple_animal/updatehealth()
-	..()
-	health = CLAMP(health, 0, maxHealth)
-	update_health_hud()
-
 /mob/living/simple_animal/update_health_hud()
 	if(!hud_used)
 		return
@@ -459,7 +454,7 @@
 		..()
 
 /mob/living/simple_animal/update_mobility(value_otherwise = TRUE)
-	if(IsUnconscious() || IsParalyzed() || IsStun() || IsKnockdown() || IsParalyzed() || stat || resting)
+	if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT) || IsParalyzed() || IsStun() || IsKnockdown() || IsParalyzed() || stat || resting)
 		drop_all_held_items()
 		mobility_flags = NONE
 	else if(buckled)
