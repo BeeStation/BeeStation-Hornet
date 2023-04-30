@@ -435,14 +435,11 @@
 
 	if(O.dna.species && !istype(O.dna.species, /datum/species/monkey))
 		O.set_species(O.dna.species)
-		message_admins("Transformed into [O.dna.species] normally")
 	else
 		if(keep_original_species)
 			O.set_species(original_species)
-			message_admins("Transformed into [original_species], failed the check")
 		else
 			O.set_species(/datum/species/human)
-			message_admins("Transformed into human")
 
 	O.a_intent = INTENT_HELP
 	if (tr_flags & TR_DEFAULTMSG)
