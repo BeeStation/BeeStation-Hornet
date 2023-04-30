@@ -293,6 +293,7 @@ SUBSYSTEM_DEF(ticker)
 	CHECK_TICK
 	//Configure mode and assign player to special mode stuff
 	var/can_continue = 0
+	SSjob.player_readycheck_jobs() // makes players unreadied so that they don't roll antag
 	mode.setup_antag_candidates()			//Re-calculate antag candidates in case anybody left
 	can_continue = src.mode.pre_setup()		//Choose antagonists
 	CHECK_TICK
@@ -328,8 +329,6 @@ SUBSYSTEM_DEF(ticker)
 	create_characters() //Create player characters
 	collect_minds()
 	equip_characters()
-
-	GLOB.data_core.manifest()
 
 	transfer_characters()	//transfer keys to the new mobs
 
@@ -367,6 +366,7 @@ SUBSYSTEM_DEF(ticker)
 	set waitfor = FALSE
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_POST_START)
 	mode.post_setup()
+	GLOB.data_core.manifest()
 	GLOB.start_state = new /datum/station_state()
 	GLOB.start_state.count()
 
@@ -429,7 +429,21 @@ SUBSYSTEM_DEF(ticker)
 
 	for(var/mob/dead/new_player/N in GLOB.player_list)
 		var/mob/living/carbon/human/player = N.new_character
-		if(istype(player) && player.mind?.get_display_station_role())
+		if(!istype(player) || !player.mind)
+			continue
+
+		// some antags don't equip station gears
+		var/equips_station_gear = TRUE
+		var/static/list/no_gearing_roles = list(
+			ROLE_KEY_OPERATIVE,
+			ROLE_KEY_WIZARD,
+			ROLE_KEY_SERVANT_OF_RATVAR
+		)
+		if(player.mind.has_special_role(no_gearing_roles))
+			equips_station_gear = FALSE
+			player.mind.wipe_job()
+
+		if(equips_station_gear)
 			if(player.mind.has_job(JOB_KEY_CAPTAIN))
 				captainless = FALSE
 				spare_id_candidates += N

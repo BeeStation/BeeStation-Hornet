@@ -172,6 +172,8 @@
 /datum/datacore/proc/manifest()
 	for(var/i in GLOB.new_player_list)
 		var/mob/dead/new_player/N = i
+		if(!N.new_character.mind.get_display_station_role()) // they're not crew, so don't inject them to manifest
+			continue
 		if(N.new_character)
 			log_manifest(N.ckey,N.new_character.mind,N.new_character)
 		if(ishuman(N.new_character))

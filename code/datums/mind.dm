@@ -227,6 +227,11 @@
 		return
 	return _has_role(RLPK_HOLDER_JOBS, job_key)
 
+/// some antags shouldn't have station job information
+/datum/mind/proc/wipe_job()
+	mind_roles[RLPK_HOLDER_JOBS] = list()
+	mind_roles -= mind_roles[RLPK_DISPLAY_STATION_ROLE] = ""
+
 /// ------------- role -------------------
 /// Sets a mind's role
 /datum/mind/proc/set_special_role(role_key)

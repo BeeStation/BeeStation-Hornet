@@ -595,6 +595,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	var/added_threat = ruleset.scale_up(roundstart_pop_ready, scaled_times)
 
 	if(ruleset.pre_execute(roundstart_pop_ready))
+		ruleset.give_special_role_status()
 		threat_log += "[worldtime2text()]: Roundstart [ruleset.name] spent [ruleset.cost + added_threat]. [ruleset.scaling_cost ? "Scaled up [ruleset.scaled_times]/[scaled_times] times." : ""]"
 		if(ruleset.flags & ONLY_RULESET)
 			only_ruleset_executed = TRUE
@@ -652,6 +653,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 			if (!ignore_cost)
 				spend_midround_budget(new_rule.cost, threat_log, "[worldtime2text()]: Forced rule [new_rule.name]")
 			new_rule.pre_execute(population)
+			new_rule.give_special_role_status()
 			if (new_rule.execute()) // This should never fail since ready() returned 1
 				if(new_rule.flags & HIGH_IMPACT_RULESET)
 					high_impact_ruleset_executed = TRUE
