@@ -146,6 +146,9 @@ GLOBAL_PROTECT(exp_to_update)
 	if (!isnum_safe(minutes))
 		return -1
 	var/list/play_records = list()
+	var/is_admin = FALSE
+	if(holder && !holder.deadmined)
+		is_admin = TRUE
 
 	if(isliving(mob))
 		if(mob.stat != DEAD)
@@ -169,20 +172,20 @@ GLOBAL_PROTECT(exp_to_update)
 					play_records[each_role] += minutes
 					if(announce_changes)
 						to_chat(mob,"<span class='notice'>You got: [minutes] [each_role] EXP!</span>")
-		else
-			if(holder && !holder.deadmined)
+		else // mob.stat == DEAD
+			if(is_admin)
 				play_records[EXP_TYPE_ADMIN] += minutes
 				if(announce_changes)
 					to_chat(src,"<span class='notice'>You got: [minutes] Admin EXP!</span>")
 			play_records[EXP_TYPE_DEAD] += minutes // they're in a dead body
 			if(announce_changes)
 				to_chat(src,"<span class='notice'>You got: [minutes] Dead EXP!</span>")
-	else if(isobserver(mob))
-		if(holder && !holder.deadmined)
+	else if(isobserver(mob)) // being a ghost
+		if(is_admin)
 			play_records[EXP_TYPE_ADMIN] += minutes
 			if(announce_changes)
 				to_chat(src,"<span class='notice'>You got: [minutes] Admin EXP!</span>")
-		if(!mob.mind || mob.mind?.is_cryoed) // mindless ghost(or is_cryo mind) would mean they're just an observer
+		if(!mob.mind || mob.mind.is_cryoed || (is_admin && mob.mind?.current.stat != DEAD)) // mindless ghost(or is_cryo mind) would mean they're just an observer, or admin doing something...
 			play_records[EXP_TYPE_OBSERVER] += minutes
 			if(announce_changes)
 				to_chat(src,"<span class='notice'>You got: [minutes] Observer EXP!</span>")
