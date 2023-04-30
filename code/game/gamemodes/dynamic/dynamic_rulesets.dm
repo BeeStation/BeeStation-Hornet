@@ -158,6 +158,13 @@
 		M.add_antag_datum(antag_datum)
 	return TRUE
 
+/// this MUST BE called once someone is chosen for a role, or they'll get a role again
+/datum/dynamic_ruleset/proc/give_special_role_status()
+	if(!antag_flag)
+		return
+	for(var/datum/mind/mind in assigned)
+		mind.set_special_role(antag_flag)
+
 /// Here you can perform any additional checks you want. (such as checking the map etc)
 /// Remember that on roundstart no one knows what their job is at this point.
 /// IMPORTANT: If ready() returns TRUE, that means pre_execute() or execute() should never fail!
