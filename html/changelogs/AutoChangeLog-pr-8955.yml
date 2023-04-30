@@ -1,0 +1,4 @@
+author: RKz
+delete-after: true
+changes:
+  - bugfix: fixed inverse machine wrenching caused by framestacking anti-exploit
