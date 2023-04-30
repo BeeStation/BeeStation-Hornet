@@ -29,7 +29,7 @@
 	return ..()
 
 
-/obj/structure/ai_core/Destroy()
+/obj/structure/AIcore/Destroy()
 	QDEL_NULL(circuit)
 	QDEL_NULL(brain)
 	QDEL_NULL(laws)
