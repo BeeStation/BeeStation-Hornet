@@ -350,9 +350,6 @@
 		tab_data["Master AI"] = GENERATE_STAT_TEXT("[connected_ai.name]")
 	return tab_data
 
-/mob/living/silicon/robot/restrained(ignore_grab)
-	. = 0
-
 /mob/living/silicon/robot/triggerAlarm(class, area/home, cameras, obj/source)
 	if(source.get_virtual_z_level() != get_virtual_z_level())
 		return

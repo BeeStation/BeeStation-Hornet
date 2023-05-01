@@ -147,7 +147,7 @@
 				ContactContractDisease(D)
 
 		//Should stop you pushing a restrained person out of the way
-		if(L.pulledby && L.pulledby != src && L.restrained())
+		if(L.pulledby && L.pulledby != src && HAS_TRAIT(L, TRAIT_RESTRAINED))
 			if(!(world.time % 5))
 				to_chat(src, "<span class='warning'>[L] is restrained, you cannot push past.</span>")
 			return TRUE
@@ -155,7 +155,7 @@
 		if(L.pulling)
 			if(ismob(L.pulling))
 				var/mob/P = L.pulling
-				if(P.restrained())
+				if(HAS_TRAIT(P, TRAIT_RESTRAINED))
 					if(!(world.time % 5))
 						to_chat(src, "<span class='warning'>[L] is restraining [P], you cannot push past.</span>")
 					return TRUE
@@ -175,8 +175,8 @@
 				mob_swap = TRUE
 			else if(
 				!(HAS_TRAIT(M, TRAIT_NOMOBSWAP) || HAS_TRAIT(src, TRAIT_NOMOBSWAP))&&\
-				((M.restrained() && !too_strong) || M.a_intent == INTENT_HELP) &&\
-				(restrained() || a_intent == INTENT_HELP)
+				((HAS_TRAIT(M, TRAIT_RESTRAINED) && !too_strong) || M.a_intent == INTENT_HELP) &&\
+				(HAS_TRAIT(src, TRAIT_RESTRAINED) || a_intent == INTENT_HELP)
 			)
 				mob_swap = TRUE
 		if(mob_swap)
@@ -390,16 +390,12 @@
 		if(SOUTH)
 			animate(M, pixel_x = 0, pixel_y = -offset, 3)
 		if(EAST)
-			if(M.lying == 270) //update the dragged dude's direction if we've turned
-				M.lying = 90
-				M.update_transform() //force a transformation update, otherwise it'll take a few ticks for update_mobility() to do so
-				M.lying_prev = M.lying
+			if(M.lying_angle == 270) //update the dragged dude's direction if we've turned
+				M.set_lying_angle(90)
 			animate(M, pixel_x = offset, pixel_y = 0, 3)
 		if(WEST)
-			if(M.lying == 90)
-				M.lying = 270
-				M.update_transform()
-				M.lying_prev = M.lying
+			if(M.lying_angle == 90)
+				M.set_lying_angle(270)
 			animate(M, pixel_x = -offset, pixel_y = 0, 3)
 
 /mob/living/proc/reset_pull_offsets(mob/living/M, override)
@@ -441,20 +437,21 @@
 
 /mob/living/verb/succumb(whispered as null)
 	set hidden = TRUE
-	if (InCritical())
-		log_message("Has [whispered ? "whispered his final words" : "succumbed to death"] while in [InFullCritical() ? "hard":"soft"] critical with [round(health, 0.1)] points of health!", LOG_ATTACK)
-		adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
-		updatehealth()
-		if(!whispered)
-			to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
+	if (!CAN_SUCCUMB(src))
+		return
+	log_message("Has [whispered ? "whispered his final words" : "succumbed to death"] with [round(health, 0.1)] points of health!", LOG_ATTACK)
+	adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
+	updatehealth()
+	if(!whispered)
+		to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
 
-		if (src.client)
-			client.give_award(/datum/award/achievement/misc/succumb, client.mob)
+	if (src.client)
+		client.give_award(/datum/award/achievement/misc/succumb, client.mob)
 
-		death()
+	death()
 
 /mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_stasis = FALSE)
-	if(stat || HAS_TRAIT(src, TRAIT_INCAPACITATED) || (!ignore_restraints && restrained(ignore_grab)) || (!ignore_stasis && IS_IN_STASIS(src)))
+	if(stat || HAS_TRAIT(src, TRAIT_INCAPACITATED) || (!ignore_restraints && (HAS_TRAIT(src, TRAIT_RESTRAINED) || (!ignore_grab && pulledby && pulledby.grab_state >= GRAB_AGGRESSIVE))) || (!ignore_stasis && IS_IN_STASIS(src)))
 		return TRUE
 
 /mob/living/canUseStorage()
@@ -668,13 +665,8 @@
 	return
 
 /mob/living/Move(atom/newloc, direct)
-	if(lying)
-		if(direct & EAST)
-			lying = 90
-		if(direct & WEST)
-			lying = 270
-		update_transform()
-		lying_prev = lying
+	if(lying_angle != 0)
+		lying_angle_on_movement(direct)
 	if (buckled && buckled.loc != newloc) //not updating position
 		if (!buckled.anchored)
 			return buckled.Move(newloc, direct)
@@ -701,6 +693,16 @@
 
 	if(!(mobility_flags & MOBILITY_STAND) && !buckled && prob(getBruteLoss()*200/maxHealth))
 		makeTrail(newloc, T, old_direction)
+
+///Called by mob Move() when the lying_angle is different than zero, to better visually simulate crawling.
+/mob/living/proc/lying_angle_on_movement(direct)
+	if(direct & EAST)
+		set_lying_angle(90)
+	else if(direct & WEST)
+		set_lying_angle(270)
+
+/mob/living/carbon/alien/humanoid/lying_angle_on_movement(direct)
+	return
 
 /mob/living/proc/makeTrail(turf/target_turf, turf/start, direction, spec_color)
 	if(!has_gravity() || (movement_type & THROWN))
@@ -789,7 +791,7 @@
 
 	SEND_SIGNAL(src, COMSIG_LIVING_RESIST, src)
 	//resisting grabs (as if it helps anyone...)
-	if(!restrained(ignore_grab = 1) && pulledby)
+	if(!HAS_TRAIT(src, TRAIT_RESTRAINED) && pulledby)
 		log_combat(src, pulledby, "resisted grab")
 		resist_grab()
 		return
@@ -874,7 +876,7 @@
 		animate(pixel_y = -2, time = 10, loop = -1, flags = ANIMATION_RELATIVE)
 		setMovetype(movement_type | FLOATING)
 	else if(((!on || fixed) && (movement_type & FLOATING)))
-		animate(src, pixel_y = get_standard_pixel_y_offset(lying), time = 10)
+		animate(src, pixel_y = get_standard_pixel_y_offset(lying_angle), time = 10)
 		setMovetype(movement_type & ~FLOATING)
 
 // The src mob is trying to strip an item from someone
@@ -1164,42 +1166,29 @@
 /mob/living/can_be_pulled()
 	return ..() && !(buckled && buckled.buckle_prevents_pull)
 
-//Updates canmove, lying and icons. Could perhaps do with a rename but I can't think of anything to describe it.
+//Updates lying and icons. Could perhaps do with a rename but I can't think of anything to describe it.
 //Robots, animals and brains have their own version so don't worry about them
 /mob/living/proc/update_mobility()
-	var/stat_softcrit = stat == SOFT_CRIT
-	var/stat_conscious = (stat == CONSCIOUS) || stat_softcrit
-	var/chokehold = pulledby && pulledby.grab_state >= GRAB_NECK
-	var/restrained = restrained()
-	var/has_legs = get_num_legs()
-	var/has_arms = get_num_arms()
-	var/paralyzed = IsParalyzed()
-	var/ignore_legs = get_leg_ignore()
-	var/canmove = !HAS_TRAIT(src, TRAIT_IMMOBILIZED) && (has_arms || ignore_legs || has_legs)
-	if(canmove)
-		mobility_flags |= MOBILITY_MOVE
-	else
-		mobility_flags &= ~MOBILITY_MOVE
 	var/canstand_involuntary = !HAS_TRAIT(src, TRAIT_FLOORED) && (ignore_legs || has_legs)
 	var/canstand = canstand_involuntary && !resting
 
-	var/should_be_lying = !canstand
-	if(buckled)
-		if(buckled.buckle_lying != -1)
-			should_be_lying = buckled.buckle_lying
-
-	if(should_be_lying)
+	if(buckled && buckled.buckle_lying != -1)
+		if(buckled.buckle_lying != 0)
+			mobility_flags &= ~MOBILITY_STAND
+		else
+			mobility_flags |= MOBILITY_STAND
+		set_lying_angle(buckled.buckle_lying)
+	else if(!canstand)
 		mobility_flags &= ~MOBILITY_STAND
-		if(buckled)
-			if(buckled.buckle_lying != -1)
-				lying = buckled.buckle_lying
-		if(!lying) //force them on the ground
-			lying = pick(90, 270)
+		if(lying_angle == 0) //force them on the ground
+			set_lying_angle(pick(90, 270))
+			if(!canstand_involuntary)
+				on_fall()
 	else
 		mobility_flags |= MOBILITY_STAND
-		lying = 0
+		set_lying_angle(0)
 
-	if(should_be_lying || restrained || incapacitated())
+	if(lying_angle != 0 || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED) || incapacitated())
 		mobility_flags &= ~(MOBILITY_UI|MOBILITY_PULL)
 	else
 		mobility_flags |= MOBILITY_UI|MOBILITY_PULL
@@ -1208,32 +1197,11 @@
 	if(stat == UNCONSCIOUS)
 		drop_all_held_items()
 	var/canitem = !paralyzed && !IsStun() && stat_conscious && !chokehold && !restrained && has_arms
-	if(canitem)
-		mobility_flags |= (MOBILITY_USE | MOBILITY_PICKUP | MOBILITY_STORAGE)
-	else
-		mobility_flags &= ~(MOBILITY_USE | MOBILITY_PICKUP | MOBILITY_STORAGE)
-	if(!(mobility_flags & MOBILITY_USE))
-		drop_all_held_items()
 	if(!(mobility_flags & MOBILITY_PULL))
 		if(pulling)
 			stop_pulling()
 	if(!(mobility_flags & MOBILITY_UI))
 		unset_machine()
-	density = !lying
-	var/changed = lying == lying_prev
-	if(lying)
-		if(!lying_prev)
-			fall(!canstand_involuntary)
-		if(layer == initial(layer)) //to avoid special cases like hiding larvas.
-			layer = LYING_MOB_LAYER //so mob lying always appear behind standing mobs
-	else
-		if(layer == LYING_MOB_LAYER)
-			layer = initial(layer)
-	update_transform()
-	if(changed)
-		if(client)
-			client.move_delay = world.time + movement_delay()
-	lying_prev = lying
 
 	// Movespeed mods based on arms/legs quantity
 	if(!get_leg_ignore())
@@ -1248,7 +1216,9 @@
 		else
 			remove_movespeed_modifier(MOVESPEED_ID_LIVING_LIMBLESS, update=TRUE)
 
-/mob/living/proc/fall(forced)
+///Called when mob changes from a standing position into a prone while lacking the ability to stand up at the moment, through update_mobility()
+/mob/living/proc/on_fall()
+	return
 
 /mob/living/proc/AddAbility(obj/effect/proc_holder/A)
 	abilities.Add(A)
@@ -1429,10 +1399,12 @@
 		if(CONSCIOUS)
 			if(stat >= UNCONSCIOUS)
 				ADD_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
+				ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, TRAIT_KNOCKEDOUT)
 			ADD_TRAIT(src, TRAIT_FLOORED, UNCONSCIOUS_TRAIT)
 		if(SOFT_CRIT)
 			if(stat >= UNCONSCIOUS)
 				ADD_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT) //adding trait sources should come before removing to avoid unnecessary updates
+				ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, TRAIT_KNOCKEDOUT)
 			if(pulledby)
 				REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT)
 		if(UNCONSCIOUS)
@@ -1441,11 +1413,16 @@
 		if(CONSCIOUS)
 			if(. >= UNCONSCIOUS)
 				REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
+				REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, TRAIT_KNOCKEDOUT)
+			REMOVE_TRAIT(src, TRAIT_FLOORED, UNCONSCIOUS_TRAIT)
+			REMOVE_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
 		if(SOFT_CRIT)
 			if(pulledby)
 				ADD_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT) //adding trait sources should come before removing to avoid unnecessary updates
 			if(. >= UNCONSCIOUS)
 				REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, TRAIT_KNOCKEDOUT)
+				REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, TRAIT_KNOCKEDOUT)
+			ADD_TRAIT(src, TRAIT_CRITICAL_CONDITION, STAT_TRAIT)
 		if(UNCONSCIOUS)
 			blind_eyes(1)
 
@@ -1475,6 +1452,46 @@
 			ADD_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT)
 	else if(. && stat == SOFT_CRIT)
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT)
+
+/// Updates the grab state of the mob and updates movespeed
+/mob/living/setGrabState(newstate)
+	. = ..()
+	switch(grab_state)
+		if(GRAB_PASSIVE)
+			remove_movespeed_modifier(MOVESPEED_ID_MOB_GRAB_STATE)
+		if(GRAB_AGGRESSIVE)
+			add_movespeed_modifier(/datum/movespeed_modifier/grab_slowdown/aggressive)
+		if(GRAB_NECK)
+			add_movespeed_modifier(/datum/movespeed_modifier/grab_slowdown/neck)
+		if(GRAB_KILL)
+			add_movespeed_modifier(/datum/movespeed_modifier/grab_slowdown/kill)
+
+/**
+  * Changes the inclination angle of a mob, used by humans and others to differentiate between standing up and prone positions.
+  *
+  * In BYOND-angles 0 is NORTH, 90 is EAST, 180 is SOUTH and 270 is WEST.
+  * This usually means that 0 is standing up, 90 and 270 are horizontal positions to right and left respectively, and 180 is upside-down.
+  * Mobs that do now follow these conventions due to unusual sprites should require a special handling or redefinition of this proc, due to the density and layer changes.
+  * The return of this proc is the previous value of the modified lying_angle if a change was successful (might include zero), or null if no change was made.
+  */
+/mob/living/proc/set_lying_angle(new_lying)
+	if(new_lying == lying_angle)
+		return
+	. = lying_angle
+	lying_angle = new_lying
+	if(lying_angle != lying_prev)
+		update_transform()
+		lying_prev = lying_angle
+	if(lying_angle != 0) //We are not standing up.
+		if(layer == initial(layer)) //to avoid things like hiding larvas.
+			layer = LYING_MOB_LAYER //so mob lying always appear behind standing mobs
+		if(. != 0) //We became prone and were not before. We lose density and stop bumping passable dense things.
+			density = FALSE
+	else //We are prone.
+		if(layer == LYING_MOB_LAYER)
+			layer = initial(layer)
+		if(.) //We weren't pone before, so we become dense and things can bump into us again.
+			density = initial(density)
 
 #define LOOKING_DIRECTION_UP 1
 #define LOOKING_DIRECTION_NONE 0

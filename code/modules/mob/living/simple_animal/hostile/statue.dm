@@ -223,7 +223,3 @@
 /mob/living/simple_animal/hostile/statue/sentience_act()
 	faction -= "neutral"
 
-/mob/living/simple_animal/hostile/statue/restrained(ignore_grab)
-	. = ..()
-	if(can_be_seen(loc))
-		return 1

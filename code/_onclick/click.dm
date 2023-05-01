@@ -113,9 +113,9 @@
 		var/obj/mecha/M = loc
 		return M.click_action(A,src,params)
 
-	if(restrained())
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		changeNext_move(CLICK_CD_HANDCUFFED)   //Doing shit in cuffs shall be vey slow
-		RestrainedClickOn(A)
+		UnarmedAttack(A)
 		return
 
 	if(throw_mode && throw_item(A))
@@ -272,14 +272,6 @@
 */
 /mob/proc/RangedAttack(atom/A, params)
 	SEND_SIGNAL(src, COMSIG_MOB_ATTACK_RANGED, A, params)
-/*
-	Restrained ClickOn
-
-	Used when you are handcuffed and click things.
-	Not currently used by anything but could easily be.
-*/
-/mob/proc/RestrainedClickOn(atom/A)
-	return
 
 /**
  * Middle click

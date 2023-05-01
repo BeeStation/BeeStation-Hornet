@@ -431,9 +431,6 @@
 		return
 	SSshuttle.cancelEvac(src)
 
-/mob/living/silicon/ai/restrained(ignore_grab)
-	. = 0
-
 /mob/living/silicon/ai/Topic(href, href_list)
 	..()
 	if(usr != src)

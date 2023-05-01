@@ -495,7 +495,7 @@
 
 	var/mob/living/carbon/human/H = target
 	if(ishuman(target) && (!H.handcuffed))
-		H.handcuffed = new /obj/item/restraints/handcuffs/energy/used(H)
+		H.set_handcuffed(new /obj/item/restraints/handcuffs/energy/used(H))
 		H.update_handcuffed()
 		log_combat(src, H, "handcuffed")
 

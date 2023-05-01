@@ -234,9 +234,6 @@
 		tab_data["Systems"] = GENERATE_STAT_TEXT("nonfunctional")
 	return tab_data
 
-/mob/living/silicon/pai/restrained(ignore_grab)
-	. = FALSE
-
 // See software.dm for Topic()
 
 /mob/living/silicon/pai/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
