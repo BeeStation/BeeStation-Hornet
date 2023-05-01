@@ -60,10 +60,6 @@
 #define COMSIG_KB_MOB_TARGETBODYGROIN_DOWN "keybinding_mob_targetbodygroin_down"
 #define COMSIG_KB_MOB_TARGETLEFTLEG_DOWN "keybinding_mob_targetleftleg_down"
 #define COMSIG_KB_MOB_PREVENTMOVEMENT_DOWN "keybinding_mob_preventmovement_down"
-/*
-* Player input currently unauthorized by dev. Keeping this here for compatibility reasons
-* #define COMSIG_KB_MOB_PIXELSHIFT_DOWN "keybinding_mob_pixelshift_down"
-*/
 #define COMSIG_KB_MOB_MOVEUP_DOWN "keybinding_mob_moveup_down"
 #define COMSIG_KB_MOB_MOVEDOWN_DOWN "keybinding_mob_movedown_down"
 
