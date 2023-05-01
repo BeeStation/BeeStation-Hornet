@@ -45,8 +45,15 @@
 			"[user] successfully lobotomizes [target]!",
 			"[user] completes the surgery on [target]'s brain.")
 	target.cure_all_traumas(TRAUMA_RESILIENCE_LOBOTOMY)
-	if(target.mind && target.mind.has_antag_datum(/datum/antagonist/brainwashed))
-		target.mind.remove_antag_datum(/datum/antagonist/brainwashed)
+	if(target.mind)
+		var/datum/mind/mind = target.mind
+		if(mind.has_antag_datum(/datum/antagonist/brainwashed))
+			mind.remove_antag_datum(/datum/antagonist/brainwashed)
+		if(mind.has_antag_datum(/datum/antagonist/abductee))
+			if(istype(target.getorganslot(ORGAN_SLOT_HEART), /obj/item/organ/heart/gland))
+				to_chat(target, "<span class='userdanger'>You feel a brief moment of calm lucidity, before your chest begins to feel warm and your sanity painfully slips away once more...</span>")
+			else
+				mind.remove_antag_datum(/datum/antagonist/abductee)
 	switch(rand(0,3))//Now let's see what hopefully-not-important part of the brain we cut off
 		if(1)
 			target.gain_trauma_type(BRAIN_TRAUMA_MILD, TRAUMA_RESILIENCE_MAGIC)

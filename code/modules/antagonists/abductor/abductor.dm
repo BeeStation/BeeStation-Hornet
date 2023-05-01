@@ -193,6 +193,11 @@
 		"Something isn't right with your brain, you feel like there is something you have to do no matter what...\n\
 		[LAZYLEN(objectives)?"<B>Objective</B>: [first_objective.explanation_text]": "Nevermind..."]")
 
+/datum/antagonist/abductee/farewell()
+	owner.current.visible_message("<span class='deconversion_message'>[owner.current] looks like a massive burden was just lifted from [owner.current.p_them()]!</span>", ignored_mobs = owner.current)
+	to_chat(owner, "<big><span class='boldnotice'>Sanity floods back into you, as you begin to forget what you were even so worried about anyways...</span></big>")
+	owner.announce_objectives()
+
 /datum/antagonist/abductee/proc/give_objective()
 	var/mob/living/carbon/human/H = owner.current
 	var/objtype = (prob(75) ? /datum/objective/abductee/random : pick(subtypesof(/datum/objective/abductee/) - /datum/objective/abductee/random))
