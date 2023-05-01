@@ -1190,7 +1190,7 @@
 
 	if(stat == UNCONSCIOUS)
 		drop_all_held_items()
-		
+
 	if(!(mobility_flags & MOBILITY_PULL))
 		if(pulling)
 			stop_pulling()
@@ -1199,7 +1199,7 @@
 
 	// Movespeed mods based on arms/legs quantity
 	if(movement_type & (FLYING | FLOATING))
-		remove_movespeed_modifier(/datum/movespeed_modifier/limbless)
+		remove_movespeed_modifier(MOVESPEED_ID_LIVING_LIMBLESS)
 	else
 		var/limbless_slowdown = 0
 		// These checks for <2 should be swapped out for something else if we ever end up with a species with more than 2
@@ -1502,11 +1502,11 @@
 		if(GRAB_PASSIVE)
 			remove_movespeed_modifier(MOVESPEED_ID_MOB_GRAB_STATE)
 		if(GRAB_AGGRESSIVE)
-			add_movespeed_modifier(/datum/movespeed_modifier/grab_slowdown/aggressive)
+			add_movespeed_modifier(MOVESPEED_ID_MOB_GRAB_STATE, TRUE, 100, override=TRUE, multiplicative_slowdown = 3, blacklisted_movetypes=FLOATING)
 		if(GRAB_NECK)
-			add_movespeed_modifier(/datum/movespeed_modifier/grab_slowdown/neck)
+			add_movespeed_modifier(MOVESPEED_ID_MOB_GRAB_STATE, TRUE, 100, override=TRUE, multiplicative_slowdown = 6, blacklisted_movetypes=FLOATING)
 		if(GRAB_KILL)
-			add_movespeed_modifier(/datum/movespeed_modifier/grab_slowdown/kill)
+			add_movespeed_modifier(MOVESPEED_ID_MOB_GRAB_STATE, TRUE, 100, override=TRUE, multiplicative_slowdown = 9, blacklisted_movetypes=FLOATING)
 
 /**
   * Changes the inclination angle of a mob, used by humans and others to differentiate between standing up and prone positions.

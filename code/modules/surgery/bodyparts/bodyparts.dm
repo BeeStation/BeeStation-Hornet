@@ -261,7 +261,7 @@
 		. = bodypart_disabled //inertia, to avoid limbs healing 0.1 damage and being re-enabled
 		if((get_damage(TRUE) >= max_damage) || (HAS_TRAIT(owner, TRAIT_EASYLIMBDISABLE) && (get_damage(TRUE) >= (max_damage * 0.6)))) //Easy limb disable disables the limb at 40% health instead of 0%
 			return BODYPART_DISABLED_DAMAGE
-		if(disabled && (get_damage(TRUE) <= (max_damage * 0.5)))
+		if(bodypart_disabled && (get_damage(TRUE) <= (max_damage * 0.5)))
 			return BODYPART_NOT_DISABLED
 	else
 		return BODYPART_NOT_DISABLED
@@ -574,9 +574,8 @@
 				if(held_index)
 					owner.dropItemToGround(owner.get_item_for_held_index(held_index))
 	if(owner.hud_used)
-		var/obj/screen/inventory/hand/hand_screen_object = owner.hud_used.hand_slots["[held_index]"]
+		var/atom/movable/screen/inventory/hand/hand_screen_object = owner.hud_used.hand_slots["[held_index]"]
 		hand_screen_object?.update_icon()
-
 
 /obj/item/bodypart/l_arm/monkey
 	icon = 'icons/mob/animal_parts.dmi'
@@ -649,9 +648,8 @@
 				if(held_index)
 					owner.dropItemToGround(owner.get_item_for_held_index(held_index))
 	if(owner.hud_used)
-		var/obj/screen/inventory/hand/hand_screen_object = owner.hud_used.hand_slots["[held_index]"]
+		var/atom/movable/screen/inventory/hand/hand_screen_object = owner.hud_used.hand_slots["[held_index]"]
 		hand_screen_object?.update_icon()
-
 
 /obj/item/bodypart/r_arm/monkey
 	icon = 'icons/mob/animal_parts.dmi'
