@@ -1210,7 +1210,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_desc = "A drink from Clown Heaven."
 
 /datum/reagent/consumable/ethanol/bananahonk/on_mob_life(mob/living/carbon/M)
-	if((ishuman(M) && M.mind?.get_job(JOB_KEY_CLOWN)) || ismonkey(M))
+	if((ishuman(M) && M.mind?.has_job(JOB_KEY_CLOWN)) || ismonkey(M))
 		M.heal_bodypart_damage(1,1)
 		. = 1
 	return ..() || .
@@ -1230,7 +1230,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/silencer/on_mob_life(mob/living/carbon/M)
 	M.silent = max(M.silent, 1.25)
-	if(ishuman(M) && M.mind?.get_job(JOB_KEY_MIME))
+	if(ishuman(M) && M.mind?.has_job(JOB_KEY_MIME))
 		M.heal_bodypart_damage(1 , 1)
 		. = 1
 	return ..() || .
@@ -1950,7 +1950,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/blank_paper/on_mob_life(mob/living/carbon/M)
 	M.silent = max(M.silent, MIMEDRINK_SILENCE_DURATION)
-	if(ishuman(M) && M.mind?.get_job(JOB_KEY_MIME))
+	if(ishuman(M) && M.mind?.has_job(JOB_KEY_MIME))
 		M.heal_bodypart_damage(1,1)
 		. = 1
 	return ..()

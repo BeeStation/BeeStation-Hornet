@@ -137,7 +137,7 @@
 	glass_desc = "The raw essence of a banana. HONK."
 
 /datum/reagent/consumable/banana/on_mob_life(mob/living/carbon/M)
-	if((ishuman(M) && M.mind?.get_job(JOB_KEY_CLOWN)) || ismonkey(M))
+	if((ishuman(M) && M.mind?.has_job(JOB_KEY_CLOWN)) || ismonkey(M))
 		M.heal_bodypart_damage(1,1, 0)
 		. = 1
 	..()
@@ -154,7 +154,7 @@
 
 
 /datum/reagent/consumable/nothing/on_mob_life(mob/living/carbon/M)
-	if(ishuman(M) && M.mind?.get_job(JOB_KEY_MIME))
+	if(ishuman(M) && M.mind?.has_job(JOB_KEY_MIME))
 		M.silent = max(M.silent, MIMEDRINK_SILENCE_DURATION)
 		M.heal_bodypart_damage(1,1, 0)
 		. = 1
