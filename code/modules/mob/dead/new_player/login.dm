@@ -39,5 +39,5 @@
 		to_chat(src, "Please set up your character and select \"Ready\". The game will start [tl > 0 ? "in about [DisplayTimeText(tl)]" : "soon"].")
 
 	// don't announce gimmick jobs to new-login players until game is fully setup
-	if(SSticker.current_state > GAME_STATE_PREGAME)
+	if(SSticker.current_state >= GAME_STATE_PREGAME)
 		SSjob.AnnounceGimmickJobs(src)

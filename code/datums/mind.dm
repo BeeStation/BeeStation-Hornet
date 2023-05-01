@@ -178,7 +178,7 @@
 //-------------------------------------------------------------------------------
 //--------------------  procs for role / job in mind ----------------------------
 //-------------------------------------------------------------------------------
-/// ------------- parent types -------------------
+// ------------- parent types -------------------
 /// Sets a mind's role/job
 /datum/mind/proc/_set_role(list_key, role_key)
 	mind_roles[list_key][role_key] = role_key // `mind_roles[list_key][role_key]` will return its `role_key`
@@ -189,6 +189,9 @@
 
 /// returns a mind's primary role, or all roles
 /datum/mind/proc/_get_role(list_key, as_list=FALSE)
+	if(!isnum(as_list)) // should be TRUE or FALSE
+		stack_trace("WARNING: get_job() or get_special_role() used the proc with an improper value. It must be TRUE or FALSE, but [as_list] was given. We return FALSE.")
+		return FALSE
 	if(!length(mind_roles[list_key]))
 		return as_list ? list() : FALSE
 	return as_list ? mind_roles[list_key] : mind_roles[list_key][1]
@@ -203,7 +206,7 @@
 			return TRUE
 	return FALSE
 
-/// ------------- Job -------------------
+// ------------- Job -------------------
 /// Sets a mind's job
 /datum/mind/proc/set_job(job_key)
 	if(!job_key)
@@ -235,7 +238,7 @@
 	mind_roles[RLPK_HOLDER_JOBS] = list()
 	mind_roles -= mind_roles[RLPK_DISPLAY_STATION_ROLE] = ""
 
-/// ------------- role -------------------
+// ------------- role -------------------
 /// Sets a mind's role
 /datum/mind/proc/set_special_role(role_key)
 	if(!role_key)
@@ -263,7 +266,7 @@
 	return _has_role(RLPK_HOLDER_SPECIAL_ROLES, role_key)
 
 //-------------------------------------------------------------------
-/// -------------- Aesthetic displaying mind titles -----------------
+// -------------- Aesthetic displaying mind titles -----------------
 /// Sets a mind's station role
 /datum/mind/proc/set_display_station_role(job_string)
 	if(!job_string)
@@ -316,7 +319,7 @@
 /datum/mind/proc/assign_special_role(role_key, role_title=null)
 	if(!role_key)
 		CRASH("role_string is null")
-	if(get_special_role(role_key)) // "Swarmer, Swarmer" wouldn't be a nice title
+	if(has_special_role(role_key)) // "Swarmer, Swarmer" wouldn't be a nice title
 		return
 	set_special_role(role_key)
 	var/current_role = get_display_special_role()

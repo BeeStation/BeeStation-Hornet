@@ -503,6 +503,7 @@ SUBSYSTEM_DEF(job)
 		log_game(message)
 		message_admins(message)
 		RejectPlayer(player)
+
 //Gives the player the stuff he should have with his rank
 /datum/controller/subsystem/job/proc/EquipRank(mob/M, job_key, joined_late = FALSE)
 	var/mob/dead/new_player/newplayer
@@ -694,6 +695,7 @@ SUBSYSTEM_DEF(job)
 	JobDebug("Player rejected :[player]")
 	to_chat(player, "<b>You have failed to qualify for any job you desired.</b>")
 	unassigned -= player
+	SSticker.mode.antag_candidates -= player
 	player.ready = PLAYER_NOT_READY
 
 

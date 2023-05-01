@@ -33,7 +33,7 @@
 		for(var/i = 0, i < n_agents, ++i)
 			var/datum/mind/new_op = antag_pick(antag_candidates, ROLE_KEY_OPERATIVE)
 			pre_nukeops += new_op
-			new_op.set_special_role(ROLE_KEY_OPERATIVE) // clown OP keeps this. their role displaying title will be retitled from antag datum
+			new_op.assign_special_role(ROLE_KEY_OPERATIVE) // clown OP keeps this. their role displaying title will be retitled from antag datum
 			log_game("[key_name(new_op)] has been selected as a nuclear operative")
 		return TRUE
 	else

@@ -294,10 +294,11 @@ SUBSYSTEM_DEF(ticker)
 	//Configure mode and assign player to special mode stuff
 	var/can_continue = 0
 	SSjob.player_readycheck_jobs() // makes players unreadied so that they don't roll antag
-	mode.setup_antag_candidates()			//Re-calculate antag candidates in case anybody left
-	can_continue = src.mode.pre_setup()		//Choose antagonists
+	mode.setup_antag_candidates()  // Re-calculate antag candidates in case anybody left
+	can_continue = src.mode.pre_setup() //Choose antagonists
 	CHECK_TICK
-	can_continue = can_continue && SSjob.DivideOccupations(mode.required_jobs) 				//Distribute jobs
+	can_continue = can_continue && SSjob.DivideOccupations(mode.required_jobs) //Distribute jobs
+	// note: RejectPlayer() will manually remove a candidate that's set by setup_antag_candidates() when they're not eligible to get a job from SSjob.DivideOccupations()
 	CHECK_TICK
 
 	to_chat(world, "<span class='boldannounce'>Starting game...</span>")

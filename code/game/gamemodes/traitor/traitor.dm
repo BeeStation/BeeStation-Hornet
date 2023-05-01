@@ -60,7 +60,7 @@
 			break
 		var/datum/mind/traitor = antag_pick(antag_candidates, ROLE_KEY_TRAITOR)
 		pre_traitors += traitor
-		traitor.set_special_role(ROLE_KEY_TRAITOR)
+		traitor.assign_special_role(ROLE_KEY_TRAITOR)
 		traitor.restricted_roles = restricted_jobs
 		log_game("[key_name(traitor)] has been selected as a [traitor_name]")
 		antag_candidates.Remove(traitor)

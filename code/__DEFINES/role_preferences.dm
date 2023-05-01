@@ -83,6 +83,7 @@
 #define ROLE_KEY_LIVING_LEGEND    "The Living Legend" // only use this when a mob role is a legendary person in SS13. (i.e. Yender the Archwizard, Doctor Hilbert, or a member of Nanotrasen Family like "Random_name d'Nanotrasen")
 
 
+
 #define ROLE_KEY_UNDEFINED_SPECIAL_ROLE "Undefied Special Role" // default for all ghost roles
 
 // for role title display

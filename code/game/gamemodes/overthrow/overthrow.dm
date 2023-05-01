@@ -31,7 +31,7 @@
 		var/datum/mind/sleeping_agent = antag_pick(antag_candidates, ROLE_KEY_OVERTHROW)
 		antag_candidates -= sleeping_agent
 		initial_agents += sleeping_agent
-		sleeping_agent.set_special_role(ROLE_KEY_OVERTHROW)
+		sleeping_agent.assign_special_role(ROLE_KEY_OVERTHROW)
 		sleeping_agent.restricted_roles = restricted_jobs
 
 	if(initial_agents.len < required_enemies)

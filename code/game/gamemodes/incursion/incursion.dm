@@ -48,7 +48,7 @@
 		possible_traitors -= incursion
 		antag_candidates -= incursion
 		team.add_member(incursion)
-		incursion.set_special_role(ROLE_KEY_INCURSION)
+		incursion.assign_special_role(ROLE_KEY_INCURSION)
 		incursion.restricted_roles = restricted_jobs
 		log_game("[key_name(incursion)] has been selected as a member of the incursion")
 	pre_incursionist_team = team
