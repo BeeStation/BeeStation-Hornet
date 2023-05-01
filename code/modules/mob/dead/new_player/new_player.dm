@@ -266,7 +266,7 @@
 	if(!(job.job_bitflags & JOB_BITFLAG_SELECTABLE))
 		return JOB_UNAVAILABLE_NOT_INTRODUCED
 	if((job.current_positions >= job.total_positions) && job.total_positions != -1)
-		if(job.get_jkey(TRUE) == JOB_KEY_ASSISTANT)
+		if(job.get_jkey() == JOB_KEY_ASSISTANT)
 			if(isnum_safe(client.player_age) && client.player_age <= 14) //Newbies can always be assistants
 				return JOB_AVAILABLE
 			for(var/datum/job/J in SSjob.occupations)
