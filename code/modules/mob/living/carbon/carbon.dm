@@ -986,12 +986,12 @@
 		var/datum/mutation/MT = result
 		if(dna.mutation_in_sequence(MT))
 			dna.activate_mutation(MT)
-			log_admin("[key_name(usr)] has activated the mutation [MT] in [key_name(src)]")
-			message_admins("<span class='notice'>[key_name_admin(usr)] has activated the mutation [MT] in [key_name_admin(src)].</span>")
+			log_admin("[key_name(usr)] has activated the mutation [initial(MT.name)] in [key_name(src)]")
+			message_admins("<span class='notice'>[key_name_admin(usr)] has activated the mutation [initial(MT.name)] in [key_name_admin(src)].</span>")
 		else
 			dna.add_mutation(MT, MUT_EXTRA)
-			log_admin("[key_name(usr)] has mutated [key_name(src)] with [MT]")
-			message_admins("<span class='notice'>[key_name_admin(usr)] has mutated [key_name_admin(src)] with [MT].</span>")
+			log_admin("[key_name(usr)] has mutated [key_name(src)] with [initial(MT.name)]")
+			message_admins("<span class='notice'>[key_name_admin(usr)] has mutated [key_name_admin(src)] with [initial(MT.name)].</span>")
 
 	if(href_list[VV_HK_REMOVE_MUTATION] && check_rights(R_FUN|R_DEBUG))
 		if(length(dna.mutations) <= 0)
