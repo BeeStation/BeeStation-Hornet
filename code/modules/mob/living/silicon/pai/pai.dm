@@ -149,16 +149,16 @@
 	return ..()
 
 /mob/living/silicon/pai/Initialize(mapload)
-	var/obj/item/paicard/P = loc
 	START_PROCESSING(SSfastprocess, src)
 	GLOB.pai_list += src
 	make_laws()
-	if(!istype(P)) //when manually spawning a pai, we create a card to put it into.
-		var/newcardloc = P
-		P = new /obj/item/paicard(newcardloc)
-		P.setPersonality(src)
-	forceMove(P)
-	card = P
+	var/obj/item/paicard/pai_card = loc
+	if(!istype(pai_card)) //when manually spawning a pai, we create a card to put it into.
+		var/newcardloc = pai_card
+		pai_card = new /obj/item/paicard(newcardloc)
+		pai_card.setPersonality(src)
+	forceMove(pai_card)
+	card = pai_card
 	job = JOB_NAME_PAI
 	signaler = new /obj/item/assembly/signaler/internal(src)
 	hostscan = new /obj/item/healthanalyzer(src)
@@ -176,8 +176,10 @@
 
 	emittersemicd = TRUE
 	addtimer(CALLBACK(src, PROC_REF(emittercool)), 600)
-	return INITIALIZE_HINT_LATELOAD
-
+	if(!holoform)
+		ADD_TRAIT(src, TRAIT_IMMOBILIZED, PAI_FOLDED)
+		ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, PAI_FOLDED)
+	desc = "A pAI hard-light holographics emitter. This one appears in the form of a [chassis]."
 
 /mob/living/silicon/pai/Life(delta_time = SSMOBS_DT, times_fired)
 	if(hacking)
@@ -298,7 +300,7 @@
 
 /datum/action/innate/pai/rest/Trigger()
 	..()
-	P.lay_down()
+	P.toggle_resting()
 
 /datum/action/innate/pai/light
 	name = "Toggle Integrated Lights"

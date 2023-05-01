@@ -1352,7 +1352,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	M.slurring += 3
 	switch(current_cycle)
 		if(51 to 200)
-			M.Sleeping(100, FALSE)
+			M.Sleeping(100)
 			. = 1
 		if(201 to INFINITY)
 			M.AdjustSleeping(40, FALSE)

@@ -71,8 +71,6 @@
 
 	update_action_buttons_icon()
 	update_health_hud()
-	update_mobility()
-
 	med_hud_set_health()
 	med_hud_set_status()
 

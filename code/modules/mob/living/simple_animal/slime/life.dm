@@ -107,13 +107,11 @@
 					set_stat(UNCONSCIOUS)
 					powerlevel = 0
 					rabid = FALSE
-					update_mobility()
 					regenerate_icons()
 			if(UNCONSCIOUS, HARD_CRIT)
 				if(!stasis)
 					to_chat(src, "<span class='notice'>You wake up from the stasis.</span>")
 					set_stat(CONSCIOUS)
-					update_mobility()
 					regenerate_icons()
 
 	updatehealth()
@@ -233,8 +231,6 @@
 				powerlevel += gainpower
 
 /mob/living/simple_animal/slime/proc/handle_targets()
-	update_mobility()
-
 	if(attacked > 50)
 		attacked = 50
 

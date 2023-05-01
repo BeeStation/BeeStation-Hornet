@@ -792,7 +792,7 @@
 
 
 ///Proc to react to the owner gaining the TRAIT_PARALYSIS_R_ARM trait.
-/obj/item/bodypart/arm/right/proc/on_owner_paralysis_gain(mob/living/carbon/source)
+/obj/item/bodypart/r_arm/proc/on_owner_paralysis_gain(mob/living/carbon/source)
 	SIGNAL_HANDLER
 	ADD_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_ARM)
 	UnregisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_ARM))
@@ -800,7 +800,7 @@
 
 
 ///Proc to react to the owner losing the TRAIT_PARALYSIS_R_ARM trait.
-/obj/item/bodypart/arm/right/proc/on_owner_paralysis_loss(mob/living/carbon/source)
+/obj/item/bodypart/r_arm/proc/on_owner_paralysis_loss(mob/living/carbon/source)
 	SIGNAL_HANDLER
 	REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_ARM)
 	UnregisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_ARM))

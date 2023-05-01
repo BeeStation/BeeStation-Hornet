@@ -133,6 +133,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_IMMOBILIZED "immobilized"
 /// Prevents voluntary standing or staying up on its own.
 #define TRAIT_FLOORED "floored"
+/// Forces user to stay standing
+#define TRAIT_FORCED_STANDING "forcedstanding"
 /// Prevents usage of manipulation appendages (picking, holding or using items, manipulating storage).
 #define TRAIT_HANDS_BLOCKED		"handsblocked"
 /// Inability to access UI hud elements. Turned into a trait from [MOBILITY_UI] to be able to track sources.
@@ -416,6 +418,16 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define LACKING_LOCOMOTION_APPENDAGES_TRAIT "lacking-locomotion-appengades" //trait associated to not having locomotion appendages nor the ability to fly or float
 #define LACKING_MANIPULATION_APPENDAGES_TRAIT "lacking-manipulation-appengades" //trait associated to not having fine manipulation appendages such as hands
 #define HANDCUFFED_TRAIT "handcuffed"
+/// Trait applied by by [/datum/component/soulstoned]
+#define SOULSTONE_TRAIT "soulstone"
+/// Trait applied to slimes by low temperature
+#define SLIME_COLD "slime-cold"
+/// Trait applied to bots by being tipped over
+#define BOT_TIPPED_OVER "bot-tipped-over"
+/// Trait applied to PAIs by being folded
+#define PAI_FOLDED "pai-folded"
+/// Trait applied to brain mobs when they lack external aid for locomotion, such as being inside a mech.
+#define BRAIN_UNAIDED "brain-unaided"
 #define TRAIT_PRESERVE_UI_WITHOUT_CLIENT "preserve_ui_without_client" //this mob should never close ui even if it doesn't have a client
 
 ///Traits given by station traits

@@ -10,26 +10,25 @@
 	e_range = e_range_
 	RegisterSignal(parent, list(COMSIG_MOVABLE_MOVED), PROC_REF(play_footstep))
 
-/datum/component/footstep/proc/play_footstep()
-	SIGNAL_HANDLER
-
-	var/turf/open/T = get_turf(parent)
+/datum/component/footstep/proc/play_footstep(mob/living/source)
+	var/turf/open/T = get_turf(source)
 	if(!istype(T))
 		return
 
-	var/mob/living/LM = parent
 	var/v = volume
 	var/e = e_range
-	if(!T.footstep || LM.buckled || LM.lying_angle || !CHECK_MULTIPLE_BITFIELDS(LM.mobility_flags, MOBILITY_STAND | MOBILITY_MOVE) || LM.throwing || LM.movement_type & (VENTCRAWLING | FLYING))
-		if (LM.lying_angle && !LM.buckled && !(!T.footstep || LM.movement_type & (VENTCRAWLING | FLYING))) //play crawling sound if we're lying
-			playsound(T, 'sound/effects/footstep/crawl1.ogg', 15 * v)
+	if(!T.footstep || source.buckled || source.throwing || source.movement_type & (VENTCRAWLING | FLYING) || HAS_TRAIT(source, TRAIT_IMMOBILIZED))
 		return
 
-	if(iscarbon(LM))
-		var/mob/living/carbon/C = LM
-		if(!C.get_bodypart(BODY_ZONE_L_LEG) && !C.get_bodypart(BODY_ZONE_R_LEG))
+	if(source.body_position == LYING_DOWN) //play crawling sound if we're lying
+		playsound(T, 'sound/effects/footstep/crawl1.ogg', 15 * volume)
+		return
+
+	if(iscarbon(source))
+		var/mob/living/carbon/carbon_source = source
+		if(!carbon_source.get_bodypart(BODY_ZONE_L_LEG) && !carbon_source.get_bodypart(BODY_ZONE_R_LEG))
 			return
-		if(ishuman(C) && C.m_intent == MOVE_INTENT_WALK)
+		if(carbon_source.m_intent == MOVE_INTENT_WALK)
 			return // stealth
 	steps++
 
@@ -39,13 +38,13 @@
 	if(steps % 2)
 		return
 
-	if(!LM.has_gravity(T) && steps != 0) // don't need to step as often when you hop around
+	if(!source.has_gravity(T) && steps != 0) // don't need to step as often when you hop around
 		return
 
 	//begin playsound shenanigans//
 
 	//for barefooted non-clawed mobs like monkeys
-	if(isbarefoot(LM))
+	if(isbarefoot(source))
 		playsound(T, pick(GLOB.barefootstep[T.barefootstep][1]),
 			GLOB.barefootstep[T.barefootstep][2] * v,
 			TRUE,
@@ -53,8 +52,8 @@
 		return
 
 	//for xenomorphs, dogs, and other clawed mobs
-	if(isclawfoot(LM))
-		if(isalienadult(LM)) //xenos are stealthy and get quieter footsteps
+	if(isclawfoot(source))
+		if(isalienadult(source)) //xenos are stealthy and get quieter footsteps
 			v /= 2
 			e -= 5
 
@@ -65,7 +64,7 @@
 		return
 
 	//for megafauna and other large and imtimidating mobs such as the bloodminer
-	if(isheavyfoot(LM))
+	if(isheavyfoot(source))
 		playsound(T, pick(GLOB.heavyfootstep[T.heavyfootstep][1]),
 				GLOB.heavyfootstep[T.heavyfootstep][2] * v,
 				TRUE,
@@ -73,20 +72,20 @@
 		return
 
 	//for slimes
-	if(isslime(LM))
+	if(isslime(source))
 		playsound(T, 'sound/effects/footstep/slime1.ogg', 15 * v)
 		return
 
 	//for (simple) humanoid mobs (clowns, russians, pirates, etc.)
-	if(isshoefoot(LM))
-		if(!ishuman(LM))
+	if(isshoefoot(source))
+		if(!ishuman(source))
 			playsound(T, pick(GLOB.footstep[T.footstep][1]),
 				GLOB.footstep[T.footstep][2] * v,
 				TRUE,
 				GLOB.footstep[T.footstep][3] + e)
 			return
-		if(ishuman(LM)) //for proper humans, they're special
-			var/mob/living/carbon/human/H = LM
+		if(ishuman(source)) //for proper humans, they're special
+			var/mob/living/carbon/human/H = source
 			var/feetCover = (H.wear_suit && (H.wear_suit.body_parts_covered & FEET)) || (H.w_uniform && (H.w_uniform.body_parts_covered & FEET))
 
 			if(H.shoes || feetCover) //are we wearing shoes
@@ -98,7 +97,7 @@
 			//Sound of wearing shoes always plays, special movement sound
 			// IE (server motors wont play bare footed.)
 			if(H.dna.species.special_step_sounds)
-				playsound(T, pick(H.dna.species.special_step_sounds), 50, TRUE)
+				playsound(T, pick(H.dna.species.special_step_sounds), 30, TRUE)
 
 			else if((!H.shoes && !feetCover)) //are we NOT wearing shoes
 				playsound(T, pick(GLOB.barefootstep[T.barefootstep][1]),

@@ -64,7 +64,7 @@
 
 /mob/living/carbon/attackby(obj/item/I, mob/user, params)
 	for(var/datum/surgery/S in surgeries)
-		if(!(mobility_flags & MOBILITY_STAND) || !S.lying_required)
+		if(body_position == LYING_DOWN || !S.lying_required)
 			if((S.self_operable || user != src) && (user.a_intent == INTENT_HELP || user.a_intent == INTENT_DISARM))
 				if(S.next_step(user,user.a_intent))
 					return TRUE
@@ -230,7 +230,7 @@
 
 /mob/living/carbon/resist_fire()
 	fire_stacks -= 5
-	Paralyze(60, TRUE, TRUE)
+	Paralyze(60, ignore_canstun = TRUE)
 	spin(32,2)
 	visible_message("<span class='danger'>[src] rolls on the floor, trying to put [p_them()]self out!</span>", \
 		"<span class='notice'>You stop, drop, and roll!</span>")
@@ -474,15 +474,14 @@
 	if(dna)
 		dna.real_name = real_name
 
-/mob/living/carbon/set_lying_angle(new_lying)
+/mob/living/carbon/set_body_position(new_value)
 	. = ..()
 	if(isnull(.))
 		return
-	switch(lying_angle)
-		if(90, 270)
-			add_movespeed_modifier(MOVESPEED_ID_CARBON_CRAWLING, TRUE, multiplicative_slowdown = CRAWLING_ADD_SLOWDOWN)
-		else
-			remove_movespeed_modifier(MOVESPEED_ID_CARBON_CRAWLING, TRUE)
+	if(new_value == LYING_DOWN)
+		add_movespeed_modifier(MOVESPEED_ID_CARBON_CRAWLING, TRUE, multiplicative_slowdown = CRAWLING_ADD_SLOWDOWN)
+	else
+		remove_movespeed_modifier(MOVESPEED_ID_CARBON_CRAWLING, TRUE)
 
 //Updates the mob's health from bodyparts and mob damage variables
 /mob/living/carbon/updatehealth()
@@ -498,7 +497,6 @@
 	set_health(round(maxHealth - getOxyLoss() - getToxLoss() - getCloneLoss() - total_burn - total_brute, DAMAGE_PRECISION))
 	staminaloss = round(total_stamina, DAMAGE_PRECISION)
 	update_stat()
-	update_mobility()
 	if(((maxHealth - total_burn) < HEALTH_THRESHOLD_DEAD*2) && stat == DEAD )
 		become_husk("burn")
 	med_hud_set_health()
@@ -751,7 +749,6 @@
 			set_stat(SOFT_CRIT)
 		else
 			set_stat(CONSCIOUS)
-		update_mobility()
 	update_damage_hud()
 	update_health_hud()
 	med_hud_set_status()
@@ -769,7 +766,7 @@
 	update_action_buttons_icon() //some of our action buttons might be unusable when we're handcuffed.
 	update_inv_handcuffed()
 	update_hud_handcuffed()
-	update_mobility()
+
 
 /mob/living/carbon/fully_heal(admin_revive = FALSE)
 	if(reagents)
@@ -1035,6 +1032,19 @@
 			REMOVE_TRAIT(src, TRAIT_RESTRAINED, HANDCUFFED_TRAIT)
 	else if(handcuffed)
 		ADD_TRAIT(src, TRAIT_RESTRAINED, HANDCUFFED_TRAIT)
+
+/mob/living/carbon/on_lying_down(new_lying_angle)
+	. = ..()
+	if(!buckled || buckled.buckle_lying != 0)
+		lying_angle_on_lying_down(new_lying_angle)
+
+
+/// Special carbon interaction on lying down, to transform its sprite by a rotation.
+/mob/living/carbon/proc/lying_angle_on_lying_down(new_lying_angle)
+	if(!new_lying_angle)
+		set_lying_angle(pick(90, 270))
+	else
+		set_lying_angle(new_lying_angle)
 
 /mob/living/carbon/set_gender(ngender = NEUTER, silent = FALSE, update_icon = TRUE, forced = FALSE)
 	var/opposite_gender = gender != ngender

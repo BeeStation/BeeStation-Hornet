@@ -493,6 +493,9 @@
 /// Possible value of [/atom/movable/buckle_lying]. If set to a different (positive-or-zero) value than this, the buckling thing will force a lying angle on the buckled.
 #define NO_BUCKLE_LYING -1
 
+/// Simple mob trait, indicating it may follow continuous move actions controlled by code instead of by user input.
+#define MOVES_ON_ITS_OWN (1<<0)
+
 // Mob Overlays Indexes
 /// KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;
 #define TOTAL_LAYERS 29
@@ -594,3 +597,9 @@
 
 /// Returns whether or not the given mob can succumb
 #define CAN_SUCCUMB(target) (HAS_TRAIT(target, TRAIT_CRITICAL_CONDITION) && !HAS_TRAIT(target, TRAIT_NODEATH))
+
+// Body position defines.
+/// Mob is standing up, usually associated with lying_angle value of 0.
+#define STANDING_UP 0
+/// Mob is lying down, usually associated with lying_angle values of 90 or 270.
+#define LYING_DOWN 1

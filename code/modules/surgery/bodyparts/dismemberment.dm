@@ -133,7 +133,7 @@
 	C.update_health_hud() //update the healthdoll
 	C.update_body()
 	C.update_hair()
-	C.update_mobility()
+
 
 	if(!Tsec)	// Tsec = null happens when a "dummy human" used for rendering icons on prefs screen gets its limbs replaced.
 		qdel(src)
@@ -313,7 +313,7 @@
 	C.updatehealth()
 	C.update_body()
 	C.update_hair()
-	C.update_mobility()
+
 
 
 /obj/item/bodypart/head/attach_limb(mob/living/carbon/C, special, is_creating = FALSE)

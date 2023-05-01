@@ -54,7 +54,7 @@
 	if(!..())
 		return
 	var/mob/living/silicon/pai/pAI = usr
-	pAI.lay_down()
+	pAI.toggle_resting()
 
 /atom/movable/screen/pai/light
 	name = "Toggle Integrated Lights"

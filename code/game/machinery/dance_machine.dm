@@ -23,6 +23,8 @@
 	anchored = FALSE
 	var/list/spotlights = list()
 	var/list/sparkles = list()
+	/// Precentage change per process of the mob dancing.
+	var/dance_chance = 20
 
 /obj/machinery/jukebox/disco/indestructible
 	name = "radiant dance machine mark V"
@@ -184,7 +186,7 @@
 	dance_setup()
 	lights_spin()
 
-/obj/machinery/jukebox/disco/proc/dance_setup()
+/obj/machinery/jukebox/disco/proc/dance_setup(mob/living/dancer) //Show your moves
 	var/turf/cen = get_turf(src)
 	FOR_DVIEW(var/turf/t, 3, get_turf(src),INVISIBILITY_LIGHTING)
 		if(t.x == cen.x && t.y > cen.y)
@@ -353,8 +355,9 @@
 		sleep(20)
 
 /obj/machinery/jukebox/disco/proc/dance3(var/mob/living/M)
+	set waitfor = FALSE
 	for (var/i in 1 to 75)
-		if (!M)
+		if(QDELETED(M))
 			return
 		switch(i)
 			if (1 to 15)
@@ -454,10 +457,10 @@
 /obj/machinery/jukebox/disco/process(delta_time)
 	. = ..()
 	if(active)
-		for(var/mob/M as() in rangers)
-			if(DT_PROB(5+(allowed(M)*4), delta_time))
-				if(isliving(M))
-					var/mob/living/L = M
-					if(!(L.mobility_flags & MOBILITY_MOVE))
-						continue
-					dance(L)
+		for(var/mob/living/dancer in rangers)
+			if(QDELETED(dancer))
+				rangers -= dancer
+				continue
+			if(!prob(dance_chance) || HAS_TRAIT(dancer, TRAIT_IMMOBILIZED))
+				continue
+			dance(dancer)

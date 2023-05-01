@@ -4,7 +4,7 @@
 	health = 20
 	maxHealth = 20
 	gender = PLURAL //placeholder
-
+	living_flags = MOVES_ON_ITS_OWN
 	status_flags = CANPUSH
 
 	var/icon_living = ""
@@ -393,15 +393,14 @@
 /mob/living/simple_animal/ExtinguishMob()
 	return
 
-/mob/living/simple_animal/revive(full_heal = 0, admin_revive = 0)
-	if(..()) //successfully ressuscitated from death
-		icon = initial(icon)
-		icon_state = icon_living
-		set_density(initial(density))
-		mobility_flags = MOBILITY_FLAGS_DEFAULT
-		update_mobility()
-		. = 1
-		setMovetype(initial(movement_type))
+/mob/living/simple_animal/revive(full_heal = FALSE, admin_revive = FALSE)
+	. = ..()
+	if(!.)
+		return
+	icon = initial(icon)
+	icon_state = icon_living
+	density = initial(density)
+	setMovetype(initial(movement_type))
 
 /mob/living/simple_animal/proc/make_babies() // <3 <3 <3
 	set waitfor = 0
@@ -459,23 +458,6 @@
 	else
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
 	return ..()
-
-/mob/living/simple_animal/update_mobility(value_otherwise = TRUE)
-	if(HAS_TRAIT_NOT_FROM(src, TRAIT_IMMOBILIZED, BUCKLED_TRAIT))
-		drop_all_held_items()
-		mobility_flags = NONE
-	else if(buckled)
-		mobility_flags = MOBILITY_FLAGS_INTERACTION
-	else
-		if(value_otherwise)
-			mobility_flags = MOBILITY_FLAGS_DEFAULT
-		else
-			mobility_flags = NONE
-	if(!(mobility_flags & MOBILITY_MOVE))
-		SSmove_manager.stop_looping(src) //stop mid walk
-
-	update_transform()
-	update_action_buttons_icon()
 
 /mob/living/simple_animal/update_transform()
 	var/matrix/ntransform = matrix(transform) //aka transform.Copy()

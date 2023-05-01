@@ -24,7 +24,7 @@
 
 /mob/living/carbon/alien/Initialize(mapload)
 	add_verb(/mob/living/proc/mob_sleep)
-	add_verb(/mob/living/proc/lay_down)
+	add_verb(/mob/living/proc/toggle_resting)
 	create_bodyparts() //initialize bodyparts
 	create_internal_organs()
 	return ..()
@@ -136,3 +136,11 @@ Des: Removes all infected images from the alien.
 
 /mob/living/carbon/alien/can_hold_items()
 	return has_fine_manipulation
+
+/mob/living/carbon/alien/on_lying_down(new_lying_angle)
+	. = ..()
+	update_icons()
+
+/mob/living/carbon/alien/on_standing_up()
+	. = ..()
+	update_icons()

@@ -65,6 +65,8 @@
 /mob/living/proc/on_immobilized_trait_gain(datum/source)
 	SIGNAL_HANDLER
 	mobility_flags &= ~MOBILITY_MOVE
+	if(living_flags & MOVES_ON_ITS_OWN)
+		walk(src, 0) //stop mid walk
 
 /// Called when [TRAIT_IMMOBILIZED] is removed from the mob.
 /mob/living/proc/on_immobilized_trait_loss(datum/source)
@@ -77,43 +79,55 @@
 	if(buckled && buckled.buckle_lying != NO_BUCKLE_LYING)
 		return // Handled by the buckle.
 	mobility_flags &= ~MOBILITY_STAND
-	if(lying_angle == 0) //force them on the ground
-		set_lying_angle(pick(90, 270))
-		on_fall()
+	on_floored_start()
 
 /// Called when [TRAIT_FLOORED] is removed from the mob.
 /mob/living/proc/on_floored_trait_loss(datum/source)
 	SIGNAL_HANDLER
 	mobility_flags |= MOBILITY_STAND
-	if(!resting)
-		get_up()
+	on_floored_end()
+
+/// Called when [TRAIT_FORCED_STANDING] is added to the mob.
+/mob/living/proc/on_forced_standing_trait_gain(datum/source)
+	SIGNAL_HANDLER
+
+	set_body_position(STANDING_UP)
+	set_lying_angle(0)
+
+/// Called when [TRAIT_FORCED_STANDING] is removed from the mob.
+/mob/living/proc/on_forced_standing_trait_loss(datum/source)
+	SIGNAL_HANDLER
+
+	if(HAS_TRAIT(src, TRAIT_FLOORED))
+		on_fall()
+		set_lying_down()
+	else if(resting)
+		set_lying_down()
 
 /// Called when [TRAIT_HANDS_BLOCKED] is added to the mob.
 /mob/living/proc/on_handsblocked_trait_gain(datum/source)
 	SIGNAL_HANDLER
 	mobility_flags &= ~(MOBILITY_USE | MOBILITY_PICKUP | MOBILITY_STORAGE)
-	drop_all_held_items()
-	ADD_TRAIT(src, TRAIT_UI_BLOCKED, TRAIT_HANDS_BLOCKED)
-	ADD_TRAIT(src, TRAIT_PULL_BLOCKED, TRAIT_HANDS_BLOCKED)
+	on_handsblocked_start()
 
 /// Called when [TRAIT_HANDS_BLOCKED] is removed from the mob.
 /mob/living/proc/on_handsblocked_trait_loss(datum/source)
 	SIGNAL_HANDLER
 	mobility_flags |= (MOBILITY_USE | MOBILITY_PICKUP | MOBILITY_STORAGE)
-	REMOVE_TRAIT(src, TRAIT_UI_BLOCKED, TRAIT_HANDS_BLOCKED)
-	REMOVE_TRAIT(src, TRAIT_PULL_BLOCKED, TRAIT_HANDS_BLOCKED)
-
+	on_handsblocked_end()
 
 /// Called when [TRAIT_UI_BLOCKED] is added to the mob.
 /mob/living/proc/on_ui_blocked_trait_gain(datum/source)
 	SIGNAL_HANDLER
 	mobility_flags &= ~(MOBILITY_UI)
 	unset_machine()
+	update_action_buttons_icon()
 
 /// Called when [TRAIT_UI_BLOCKED] is removed from the mob.
 /mob/living/proc/on_ui_blocked_trait_loss(datum/source)
 	SIGNAL_HANDLER
 	mobility_flags |= MOBILITY_UI
+	update_action_buttons_icon()
 
 
 /// Called when [TRAIT_PULL_BLOCKED] is added to the mob.
@@ -134,6 +148,7 @@
 	SIGNAL_HANDLER
 	ADD_TRAIT(src, TRAIT_UI_BLOCKED, TRAIT_INCAPACITATED)
 	ADD_TRAIT(src, TRAIT_PULL_BLOCKED, TRAIT_INCAPACITATED)
+	update_appearance()
 
 /// Called when [TRAIT_INCAPACITATED] is removed from the mob.
 /mob/living/proc/on_incapacitated_trait_loss(datum/source)

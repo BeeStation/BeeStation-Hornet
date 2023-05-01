@@ -77,8 +77,8 @@
 
 /obj/structure/bed/nest/post_unbuckle_mob(mob/living/M)
 	REMOVE_TRAIT(M, TRAIT_HANDS_BLOCKED, type)
-	M.pixel_x = M.get_standard_pixel_x_offset(M.lying_angle)
-	M.pixel_y = M.get_standard_pixel_y_offset(M.lying_angle)
+	M.pixel_x = M.get_standard_pixel_x_offset(M.body_position == LYING_DOWN)
+	M.pixel_y = M.get_standard_pixel_y_offset(M.body_position == LYING_DOWN)
 	M.layer = initial(M.layer)
 	cut_overlay(nest_overlay)
 

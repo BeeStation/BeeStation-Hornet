@@ -493,9 +493,9 @@
 			return FALSE
 		if(!L.density)
 			return FALSE
-		if(!L.lying_angle)
+		if(L.body_position != LYING_DOWN)
 			return TRUE
-		var/stunned = !CHECK_BITFIELD(L.mobility_flags, MOBILITY_USE | MOBILITY_STAND | MOBILITY_MOVE)
+		var/stunned = HAS_TRAIT(L, TRAIT_IMMOBILIZED) && HAS_TRAIT(L, TRAIT_FLOORED) && HAS_TRAIT(L, TRAIT_HANDS_BLOCKED)
 		return !stunned || hit_stunned_targets
 	return TRUE
 

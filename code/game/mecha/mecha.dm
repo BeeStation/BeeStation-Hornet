@@ -826,7 +826,6 @@
 	AI.cancel_camera()
 	AI.controlled_mech = src
 	AI.remote_control = src
-	AI.mobility_flags = ALL //Much easier than adding AI checks! Be sure to set this back to 0 if you decide to allow an AI to leave a mech somehow.
 	AI.can_shunt = 0 //ONE AI ENTERS. NO AI LEAVES.
 	to_chat(AI, AI.can_dominate_mechs ? "<span class='announce'>Takeover of [name] complete! You are now loaded onto the onboard computer. Do not attempt to leave the station sector!</span>" :\
 		"<span class='notice'>You have been uploaded to a mech's onboard computer.</span>")
@@ -1002,13 +1001,12 @@
 		to_chat(user, "<span class='warning'>\the [mmi_as_oc] is stuck to your hand, you cannot put it in \the [src]!</span>")
 		return FALSE
 	var/mob/living/brainmob = mmi_as_oc.brainmob
-	mmi_as_oc.mecha = src
+	mmi_as_oc.set_mecha(src)
 	occupant = brainmob
 	silicon_pilot = TRUE
 	brainmob.forceMove(src) //should allow relaymove
 	brainmob.reset_perspective(src)
 	brainmob.remote_control = src
-	brainmob.update_mobility()
 	brainmob.update_mouse_pointer()
 	icon_state = base_icon_state
 	update_icon()
@@ -1094,9 +1092,8 @@
 			if(mmi.brainmob)
 				L.forceMove(mmi)
 				L.reset_perspective()
-			mmi.mecha = null
+			mmi.set_mecha(null)
 			mmi.update_icon()
-			L.mobility_flags = NONE
 		icon_state = "[base_icon_state]-open"
 		setDir(dir_in)
 

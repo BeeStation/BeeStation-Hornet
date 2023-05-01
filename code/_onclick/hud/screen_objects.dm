@@ -405,7 +405,7 @@
 /atom/movable/screen/rest/Click()
 	if(isliving(usr))
 		var/mob/living/L = usr
-		L.lay_down()
+		L.toggle_resting()
 
 /atom/movable/screen/rest/update_icon_state()
 	var/mob/living/user = hud?.mymob

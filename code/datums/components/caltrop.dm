@@ -42,6 +42,8 @@
 
 		if((flags & CALTROP_IGNORE_WALKERS) && H.m_intent == MOVE_INTENT_WALK)
 			return
+		if(H.body_position == LYING_DOWN) //if we're not standing we cant step on the caltrop
+			return
 
 		var/picked_def_zone = pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 		var/obj/item/bodypart/O = H.get_bodypart(picked_def_zone)

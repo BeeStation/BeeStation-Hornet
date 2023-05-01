@@ -40,7 +40,7 @@
 
 /mob/living/simple_animal/pet/cat/Initialize(mapload)
 	. = ..()
-	add_verb(/mob/living/proc/lay_down)
+	add_verb(/mob/living/proc/toggle_resting)
 
 /mob/living/simple_animal/pet/cat/space
 	name = "space cat"
@@ -160,6 +160,18 @@
 	gender = MALE
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
+
+/mob/living/simple_animal/pet/cat/update_resting()
+	. = ..()
+	if(stat == DEAD)
+		return
+	if (resting)
+		icon_state = "[icon_living]_rest"
+		collar_type = "[initial(collar_type)]_rest"
+	else
+		icon_state = "[icon_living]"
+		collar_type = "[initial(collar_type)]"
+	regenerate_icons()
 
 /mob/living/simple_animal/pet/cat/Move()
 	. = ..()
