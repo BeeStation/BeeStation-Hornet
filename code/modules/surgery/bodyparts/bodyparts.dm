@@ -33,7 +33,7 @@
 	var/held_index = 0 //are we a hand? if so, which one!
 	var/is_pseudopart = FALSE //For limbs that don't really exist, eg chainsaws
 
-	var/disabled = BODYPART_NOT_DISABLED //If disabled, limb is as good as missing
+	var/bodypart_disabled = BODYPART_NOT_DISABLED //If disabled, limb is as good as missing
 	var/body_damage_coeff = 1 //Multiplier of the limb's damage that gets applied to the mob
 	var/stam_damage_coeff = 0.7 //Why is this the default???
 	var/brutestate = 0
@@ -100,7 +100,7 @@
 
 /obj/item/bodypart/Destroy()
 	if(owner)
-		owner.bodyparts -= src
+		owner.remove_bodypart(src)
 		owner = null
 	return ..()
 
@@ -249,13 +249,16 @@
 
 //Checks disabled status thresholds
 /obj/item/bodypart/proc/update_disabled()
-	set_disabled(is_disabled())
+	if(!owner)
+		return
+	if(!isnull(set_disabled(is_disabled()))) //set_disabled will return null when there's no change
+		owner.update_mobility()
 
 /obj/item/bodypart/proc/is_disabled()
 	if(HAS_TRAIT(src, TRAIT_PARALYSIS))
 		return BODYPART_DISABLED_PARALYSIS
 	if(can_dismember() && !HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE))
-		. = disabled //inertia, to avoid limbs healing 0.1 damage and being re-enabled
+		. = bodypart_disabled //inertia, to avoid limbs healing 0.1 damage and being re-enabled
 		if((get_damage(TRUE) >= max_damage) || (HAS_TRAIT(owner, TRAIT_EASYLIMBDISABLE) && (get_damage(TRUE) >= (max_damage * 0.6)))) //Easy limb disable disables the limb at 40% health instead of 0%
 			return BODYPART_DISABLED_DAMAGE
 		if(disabled && (get_damage(TRUE) <= (max_damage * 0.5)))
@@ -264,13 +267,14 @@
 		return BODYPART_NOT_DISABLED
 
 /obj/item/bodypart/proc/set_disabled(new_disabled)
-	if(disabled == new_disabled)
+	if(isnull(new_disabled) || bodypart_disabled == new_disabled || !owner)
 		return
-	disabled = new_disabled
+	. = bodypart_disabled
+	bodypart_disabled = new_disabled
+	if(bodypart_disabled && owner.get_item_for_held_index(held_index))
+		owner.dropItemToGround(owner.get_item_for_held_index(held_index))
 	owner.update_health_hud() //update the healthdoll
 	owner.update_body()
-	owner.update_mobility()
-	return TRUE //if there was a change.
 
 //Updates an organ's brute/burn states for use by update_damage_overlays()
 //Returns 1 if we need to update overlays. 0 otherwise.
@@ -549,24 +553,30 @@
 
 /obj/item/bodypart/l_arm/set_disabled(new_disabled)
 	. = ..()
-	if(!.)
+	if(isnull(.))
 		return
-	if(disabled == BODYPART_DISABLED_DAMAGE)
-		if(owner.stat < UNCONSCIOUS)
-			owner.emote("scream")
-		if(owner.stat < DEAD)
-			to_chat(owner, "<span class='userdanger'>Your [name] is too damaged to function!</span>")
-		if(held_index)
-			owner.dropItemToGround(owner.get_item_for_held_index(held_index))
-	else if(disabled == BODYPART_DISABLED_PARALYSIS)
-		if(owner.stat < DEAD)
-			to_chat(owner, "<span class='userdanger'>You can't feel your [name]!</span>")
+	if(. == BODYPART_NOT_DISABLED)
+		if(bodypart_disabled != BODYPART_NOT_DISABLED)
+			owner.set_usable_hands(owner.usable_hands + 1)
+	else if(bodypart_disabled == BODYPART_NOT_DISABLED)
+		owner.set_usable_hands(owner.usable_hands - 1)
+	switch(bodypart_disabled)
+		if(BODYPART_DISABLED_DAMAGE)
+			if(owner.stat < UNCONSCIOUS)
+				owner.emote("scream")
+			if(owner.stat < DEAD)
+				to_chat(owner, "<span class='userdanger'>Your [name] is too damaged to function!</span>")
 			if(held_index)
 				owner.dropItemToGround(owner.get_item_for_held_index(held_index))
+		if(BODYPART_DISABLED_PARALYSIS)
+			if(owner.stat < DEAD)
+				to_chat(owner, "<span class='userdanger'>You can't feel your [name]!</span>")
+				if(held_index)
+					owner.dropItemToGround(owner.get_item_for_held_index(held_index))
 	if(owner.hud_used)
-		var/atom/movable/screen/inventory/hand/L = owner.hud_used.hand_slots["[held_index]"]
-		if(L)
-			L.update_icon()
+		var/obj/screen/inventory/hand/hand_screen_object = owner.hud_used.hand_slots["[held_index]"]
+		hand_screen_object?.update_icon()
+
 
 /obj/item/bodypart/l_arm/monkey
 	icon = 'icons/mob/animal_parts.dmi'
@@ -618,24 +628,30 @@
 
 /obj/item/bodypart/r_arm/set_disabled(new_disabled)
 	. = ..()
-	if(!.)
+	if(isnull(.))
 		return
-	if(disabled == BODYPART_DISABLED_DAMAGE)
-		if(owner.stat < UNCONSCIOUS)
-			owner.emote("scream")
-		if(owner.stat < DEAD)
-			to_chat(owner, "<span class='userdanger'>Your [name] is too damaged to function!</span>")
-		if(held_index)
-			owner.dropItemToGround(owner.get_item_for_held_index(held_index))
-	else if(disabled == BODYPART_DISABLED_PARALYSIS)
-		if(owner.stat < DEAD)
-			to_chat(owner, "<span class='userdanger'>You can't feel your [name]!</span>")
+	if(. == BODYPART_NOT_DISABLED)
+		if(bodypart_disabled != BODYPART_NOT_DISABLED)
+			owner.set_usable_hands(owner.usable_hands + 1)
+	else if(bodypart_disabled == BODYPART_NOT_DISABLED)
+		owner.set_usable_hands(owner.usable_hands - 1)
+	switch(bodypart_disabled)
+		if(BODYPART_DISABLED_DAMAGE)
+			if(owner.stat < UNCONSCIOUS)
+				owner.emote("scream")
+			if(owner.stat < DEAD)
+				to_chat(owner, "<span class='userdanger'>Your [name] is too damaged to function!</span>")
 			if(held_index)
 				owner.dropItemToGround(owner.get_item_for_held_index(held_index))
+		if(BODYPART_DISABLED_PARALYSIS)
+			if(owner.stat < DEAD)
+				to_chat(owner, "<span class='userdanger'>You can't feel your [name]!</span>")
+				if(held_index)
+					owner.dropItemToGround(owner.get_item_for_held_index(held_index))
 	if(owner.hud_used)
-		var/atom/movable/screen/inventory/hand/R = owner.hud_used.hand_slots["[held_index]"]
-		if(R)
-			R.update_icon()
+		var/obj/screen/inventory/hand/hand_screen_object = owner.hud_used.hand_slots["[held_index]"]
+		hand_screen_object?.update_icon()
+
 
 /obj/item/bodypart/r_arm/monkey
 	icon = 'icons/mob/animal_parts.dmi'
@@ -685,19 +701,25 @@
 
 /obj/item/bodypart/l_leg/set_disabled(new_disabled)
 	. = ..()
-	if(!.)
+	if(isnull(.))
 		return
-	if(disabled == BODYPART_DISABLED_DAMAGE)
-		if(owner.stat < UNCONSCIOUS)
-			owner.emote("scream")
-		if(owner.stat < DEAD)
-			to_chat(owner, "<span class='userdanger'>Your [name] is too damaged to function!</span>")
-	else if(disabled == BODYPART_DISABLED_PARALYSIS)
-		if(owner.stat < DEAD)
-			to_chat(owner, "<span class='userdanger'>You can't feel your [name]!</span>")
+	if(. == BODYPART_NOT_DISABLED)
+		if(bodypart_disabled != BODYPART_NOT_DISABLED)
+			owner.set_usable_legs(owner.usable_legs + 1)
+	else if(bodypart_disabled == BODYPART_NOT_DISABLED)
+		owner.set_usable_legs(owner.usable_legs - 1)
+	switch(bodypart_disabled)
+		if(BODYPART_DISABLED_DAMAGE)
+			if(owner.stat < UNCONSCIOUS)
+				owner.emote("scream")
+			if(owner.stat < DEAD)
+				to_chat(owner, "<span class='userdanger'>Your [name] is too damaged to function!</span>")
+		if(BODYPART_DISABLED_PARALYSIS)
+			if(owner.stat < DEAD)
+				to_chat(owner, "<span class='userdanger'>You can't feel your [name]!</span>")
 
 
-/obj/item/bodypart/l_leg/monkey
+/obj/item/bodypart/l_leg/digitigrade
 	icon = 'icons/mob/animal_parts.dmi'
 	icon_state = "default_monkey_l_leg"
 	limb_id = SPECIES_MONKEY
@@ -746,19 +768,25 @@
 
 /obj/item/bodypart/r_leg/set_disabled(new_disabled)
 	. = ..()
-	if(!.)
+	if(isnull(.))
 		return
-	if(disabled == BODYPART_DISABLED_DAMAGE)
-		if(owner.stat < UNCONSCIOUS)
-			owner.emote("scream")
-		if(owner.stat < DEAD)
-			to_chat(owner, "<span class='userdanger'>Your [name] is too damaged to function!</span>")
-	else if(disabled == BODYPART_DISABLED_PARALYSIS)
-		if(owner.stat < DEAD)
-			to_chat(owner, "<span class='userdanger'>You can't feel your [name]!</span>")
+	if(. == BODYPART_NOT_DISABLED)
+		if(bodypart_disabled != BODYPART_NOT_DISABLED)
+			owner.set_usable_legs(owner.usable_legs + 1)
+	else if(bodypart_disabled == BODYPART_NOT_DISABLED)
+		owner.set_usable_legs(owner.usable_legs - 1)
+	switch(bodypart_disabled)
+		if(BODYPART_DISABLED_DAMAGE)
+			if(owner.stat < UNCONSCIOUS)
+				owner.emote("scream")
+			if(owner.stat < DEAD)
+				to_chat(owner, "<span class='userdanger'>Your [name] is too damaged to function!</span>")
+		if(BODYPART_DISABLED_PARALYSIS)
+			if(owner.stat < DEAD)
+				to_chat(owner, "<span class='userdanger'>You can't feel your [name]!</span>")
 
 
-/obj/item/bodypart/r_leg/monkey
+/obj/item/bodypart/r_leg/digitigrade
 	icon = 'icons/mob/animal_parts.dmi'
 	icon_state = "default_monkey_r_leg"
 	limb_id = SPECIES_MONKEY

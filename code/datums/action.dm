@@ -505,11 +505,14 @@
 		owner.put_in_hands(target_item)
 		target_item.attack_self(owner)
 		return
+	if(!isliving(owner))
+		to_chat(owner, "<span class='warning'>You lack the necessary living force for this action.</span>")
+		return
+	var/mob/living/living_owner = owner
+	if (living_owner.usable_hands <= 0)
+		to_chat(living_owner, "<span class='warning'>You dont have any usable hands!</span>")
 	else
-		if (owner.get_num_arms() <= 0)
-			to_chat(owner, "<span class='warning'>You don't have any usable hands!</span>")
-		else
-			to_chat(owner, "<span class='warning'>Your hands are full!</span>")
+		to_chat(living_owner, "<span class='warning'>Your hands are full!</span>")
 
 
 ///MGS BOX!

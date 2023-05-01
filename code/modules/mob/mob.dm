@@ -1189,6 +1189,8 @@
 ///Set the movement type of the mob and update it's movespeed
 /mob/setMovetype(newval)
 	. = ..()
+	if(isnull(.))
+		return
 	update_movespeed(FALSE)
 
 /mob/proc/update_equipment_speed_mods()

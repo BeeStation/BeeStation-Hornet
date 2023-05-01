@@ -1286,7 +1286,7 @@
 			M.visible_message("<span class='boldwarning'>Unfortunately, [M] just can't seem to hold onto [src]!</span>")
 			return
 	if(iscarbon(M) && (!riding_datum.equip_buckle_inhands(M, 1)))
-		if (M.get_num_arms() <= 0)
+		if(M.usable_hands == 0)
 			M.visible_message("<span class='boldwarning'>[M] can't climb onto [src] because [M.p_they()] don't have any usable arms!</span>")
 		else
 			M.visible_message("<span class='boldwarning'>[M] can't climb onto [src] because [M.p_their()] hands are full!</span>")

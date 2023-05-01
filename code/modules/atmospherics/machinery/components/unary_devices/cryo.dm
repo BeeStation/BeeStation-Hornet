@@ -265,7 +265,7 @@
 	..()
 	update_icon()
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/relaymove(mob/user)
+/obj/machinery/atmospherics/components/unary/cryo_cell/relaymove(mob/living/user, direction)
 	if(message_cooldown <= world.time)
 		message_cooldown = world.time + 50
 		to_chat(user, "<span class='warning'>[src]'s door won't budge!</span>")

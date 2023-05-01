@@ -116,6 +116,8 @@ Des: Removes all infected images from the alien.
 	return
 
 /mob/living/carbon/alien/canBeHandcuffed()
+	if(num_hands < 2)
+		return FALSE
 	return TRUE
 
 /mob/living/carbon/alien/get_standard_pixel_y_offset(lying = 0)

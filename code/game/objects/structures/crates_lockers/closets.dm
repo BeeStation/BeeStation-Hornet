@@ -370,8 +370,8 @@
 		O.forceMove(T)
 	return TRUE
 
-/obj/structure/closet/relaymove(mob/user)
-	if(user.stat || !isturf(loc) || !isliving(user))
+/obj/structure/closet/relaymove(mob/living/user, direction)
+	if(user.stat || !isturf(loc))
 		return
 	if(locked)
 		if(message_cooldown <= world.time)

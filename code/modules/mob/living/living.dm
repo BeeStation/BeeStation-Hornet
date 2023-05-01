@@ -76,10 +76,10 @@
 	var/total_damage_percent_left = 1
 	var/obj/item/bodypart/left_leg = get_bodypart(BODY_ZONE_L_LEG)
 	var/obj/item/bodypart/right_leg = get_bodypart(BODY_ZONE_R_LEG)
-	if(left_leg && !left_leg.disabled)
+	if(left_leg && !left_leg.bodypart_disabled)
 		total_damage_percent_left -= 0.45
 		apply_damage(amount_total * 0.45, BRUTE, BODY_ZONE_L_LEG)
-	if(right_leg && !right_leg.disabled)
+	if(right_leg && !right_leg.bodypart_disabled)
 		total_damage_percent_left -= 0.45
 		apply_damage(amount_total * 0.45, BRUTE, BODY_ZONE_R_LEG)
 	adjustBruteLoss(amount_total * total_damage_percent_left)
@@ -455,7 +455,7 @@
 		return TRUE
 
 /mob/living/canUseStorage()
-	if (get_num_arms() <= 0)
+	if (usable_hands <= 0)
 		return FALSE
 	return TRUE
 
@@ -1163,9 +1163,7 @@
 //Updates lying and icons. Could perhaps do with a rename but I can't think of anything to describe it.
 //Robots, animals and brains have their own version so don't worry about them
 /mob/living/proc/update_mobility()
-	var/has_legs = get_num_legs()
-	var/ignore_legs = get_leg_ignore()
-	var/canstand_involuntary = !HAS_TRAIT(src, TRAIT_FLOORED) && (ignore_legs || has_legs)
+	var/canstand_involuntary = !HAS_TRAIT(src, TRAIT_FLOORED)
 	var/canstand = canstand_involuntary && !resting
 
 	if(buckled && buckled.buckle_lying != -1)
@@ -1192,7 +1190,7 @@
 
 	if(stat == UNCONSCIOUS)
 		drop_all_held_items()
-	var/canitem = !paralyzed && !IsStun() && stat_conscious && !chokehold && !restrained && has_arms
+		
 	if(!(mobility_flags & MOBILITY_PULL))
 		if(pulling)
 			stop_pulling()
@@ -1200,13 +1198,15 @@
 		unset_machine()
 
 	// Movespeed mods based on arms/legs quantity
-	if(!get_leg_ignore())
+	if(movement_type & (FLYING | FLOATING))
+		remove_movespeed_modifier(/datum/movespeed_modifier/limbless)
+	else
 		var/limbless_slowdown = 0
 		// These checks for <2 should be swapped out for something else if we ever end up with a species with more than 2
-		if(has_legs < 2)
-			limbless_slowdown += 6 - (has_legs * 3)
-			if(!has_legs && has_arms < 2)
-				limbless_slowdown += 6 - (has_arms * 3)
+		if(usable_legs < default_num_legs)
+			limbless_slowdown += (default_num_legs * 3) - (usable_legs * 3)
+			if(!usable_legs && usable_hands < default_num_hands)
+				limbless_slowdown += (default_num_hands * 3) - (usable_hands * 3)
 		if(limbless_slowdown)
 			add_movespeed_modifier(MOVESPEED_ID_LIVING_LIMBLESS, update=TRUE, priority=100, override=TRUE, multiplicative_slowdown=limbless_slowdown, movetypes=GROUND)
 		else
@@ -1463,6 +1463,37 @@
 			ADD_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT)
 	else if(. && stat == SOFT_CRIT)
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, PULLED_WHILE_SOFTCRIT_TRAIT)
+
+///Proc to modify the value of num_legs and hook behavior associated to this event.
+/mob/living/proc/set_num_legs(new_value)
+	if(num_legs == new_value)
+		return
+	. = num_legs
+	num_legs = new_value
+
+
+///Proc to modify the value of usable_legs and hook behavior associated to this event.
+/mob/living/proc/set_usable_legs(new_value)
+	if(usable_legs == new_value)
+		return
+	. = usable_legs
+	usable_legs = new_value
+
+
+///Proc to modify the value of num_hands and hook behavior associated to this event.
+/mob/living/proc/set_num_hands(new_value)
+	if(num_hands == new_value)
+		return
+	. = num_hands
+	num_hands = new_value
+
+
+///Proc to modify the value of usable_hands and hook behavior associated to this event.
+/mob/living/proc/set_usable_hands(new_value)
+	if(usable_hands == new_value)
+		return
+	. = usable_hands
+	usable_hands = new_value
 
 /// Updates the grab state of the mob and updates movespeed
 /mob/living/setGrabState(newstate)

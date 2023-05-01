@@ -23,7 +23,7 @@
 	var/egged = 0
 
 /obj/structure/closet/cardboard/relaymove(mob/living/user, direction)
-	if(!istype(user) || opened || move_delay || user.incapacitated() || !isturf(loc) || !has_gravity(loc))
+	if(opened || move_delay || user.incapacitated() || !isturf(loc) || !has_gravity(loc))
 		return
 	move_delay = TRUE
 	if(step(src, direction))
