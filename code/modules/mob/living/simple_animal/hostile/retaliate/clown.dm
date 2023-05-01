@@ -38,6 +38,15 @@
 	var/banana_type = /obj/item/grown/bananapeel
 	var/attack_reagent
 
+// they're clown anyway
+/mob/living/simple_animal/hostile/retaliate/clown/mob_has_job(job_keys)
+	if(islist(job_keys))
+		if(JOB_KEY_CLOWN in job_keys)
+			return TRUE
+	if(job_key == JOB_KEY_CLOWN)
+		return TRUE
+	return FALSE
+
 /mob/living/simple_animal/hostile/retaliate/clown/handle_temperature_damage()
 	if(bodytemperature < minbodytemp)
 		adjustBruteLoss(10)

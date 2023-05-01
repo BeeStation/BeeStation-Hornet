@@ -162,6 +162,15 @@
 		if(3)
 			adjustBruteLoss(30)
 
+// they're clown anyway
+/mob/living/simple_animal/slaughter/laughter/mob_has_job(job_keys)
+	if(islist(job_keys))
+		if(JOB_KEY_CLOWN in job_keys)
+			return TRUE
+	if(job_key == JOB_KEY_CLOWN)
+		return TRUE
+	return FALSE
+
 /mob/living/simple_animal/slaughter/laughter/proc/release_friends()
 	if(!consumed_mobs)
 		return
