@@ -766,7 +766,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 
 	if(!length(mood_job_allowed))
 		return .
-	if(!(subject.mind?.has_job(mood_job_allowed)))
+	if(!(subject.mob_has_job(mood_job_allowed)))
 		. = FALSE
 	if(mood_job_reverse)
 		return !.  // the most eye bleeding syntax ive written

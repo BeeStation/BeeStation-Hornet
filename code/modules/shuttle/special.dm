@@ -207,7 +207,7 @@
 	. = FALSE
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H.mind?.has_job(JOB_KEY_BARTENDER))
+		if(H.mob_has_job(JOB_KEY_BARTENDER))
 			return TRUE
 
 	var/obj/item/card/id/ID = user.get_idcard(FALSE)

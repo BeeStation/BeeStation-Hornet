@@ -291,7 +291,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 	if(GLOB.announcement_systems.len)
 		var/obj/machinery/announcement_system/announcer = pick(GLOB.announcement_systems)
-		if(mob_occupant.mind.has_job(JOB_KEY_CAPTAIN))
+		if(mob_occupant.mob_has_job(JOB_KEY_CAPTAIN))
 			minor_announce("[SSjob.get_current_jobname(JOB_KEY_CAPTAIN)] [mob_occupant.real_name] has entered cryogenic storage.")
 		else
 			announcer.announce("CRYOSTORAGE", mob_occupant.real_name, announce_rank, list())

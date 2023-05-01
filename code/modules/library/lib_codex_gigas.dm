@@ -43,7 +43,7 @@
 	var/correctness = 85
 	if(ishuman(user))
 		var/mob/living/carbon/human/U = user
-		if(U.mind.has_job(JOB_KEY_CURATOR)) // the curator is both faster, and more accurate than normal crew members at research
+		if(U.mob_has_job(JOB_KEY_CURATOR)) // the curator is both faster, and more accurate than normal crew members at research
 			speed = 100
 			correctness = 100
 		correctness -= U.getOrganLoss(ORGAN_SLOT_BRAIN) * 0.5 //Brain damage makes researching hard.

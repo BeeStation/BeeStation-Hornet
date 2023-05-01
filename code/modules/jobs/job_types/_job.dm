@@ -130,7 +130,7 @@
 			if(G)
 				var/permitted = FALSE
 
-				if(G.allowed_roles && H.mind && H.mind.has_job(G.allowed_roles))
+				if(G.allowed_roles && H.mob_has_job(G.allowed_roles))
 					permitted = TRUE
 				else if(!G.allowed_roles)
 					permitted = TRUE

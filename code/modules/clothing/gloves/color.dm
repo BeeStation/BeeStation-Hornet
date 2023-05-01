@@ -14,31 +14,31 @@
 
 /obj/item/clothing/gloves/color/black/equipped(mob/user, slot)
 	. = ..()
-	if((slot == ITEM_SLOT_GLOVES) && user.mind?.has_job(GLOB.security_positions))
+	if((slot == ITEM_SLOT_GLOVES) && user.mob_has_job(GLOB.security_positions))
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "sec_black_gloves", /datum/mood_event/sec_black_gloves)
 
 /obj/item/clothing/gloves/color/black/dropped(mob/living/carbon/user)
 	..()
 	if(user.gloves != src)
 		return
-	if(user.mind?.has_job(GLOB.security_positions))
+	if(user.mob_has_job(GLOB.security_positions))
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "sec_black_gloves")
 
 /obj/item/clothing/gloves/color/yellow/equipped(mob/user, slot)
 	. = ..()
 	if(slot == ITEM_SLOT_GLOVES)
-		if(user.mind?.has_job(JOB_KEY_ASSISTANT))
+		if(user.mob_has_job(JOB_KEY_ASSISTANT))
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "assistant_insulated_gloves", /datum/mood_event/assistant_insulated_gloves)
-		if(user.mind?.has_job(GLOB.security_positions))
+		if(user.mob_has_job(GLOB.security_positions))
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "sec_insulated_gloves", /datum/mood_event/sec_insulated_gloves)
 
 /obj/item/clothing/gloves/color/yellow/dropped(mob/living/carbon/user)
 	..()
 	if(user.gloves != src)
 		return
-	if(user.mind?.has_job(JOB_KEY_ASSISTANT))
+	if(user.mob_has_job(JOB_KEY_ASSISTANT))
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "assistant_insulated_gloves")
-	if(user.mind?.has_job(GLOB.security_positions))
+	if(user.mob_has_job(GLOB.security_positions))
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "sec_insulated_gloves")
 
 

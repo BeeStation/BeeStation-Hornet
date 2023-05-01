@@ -61,7 +61,7 @@
 	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
 		if(isReadytoRumble(applicant, ROLE_KEY_TRAITOR))
 			if(temp.age_check(applicant.client))
-				if(!applicant.mind.has_job(temp.restricted_jobs))
+				if(!applicant.mob_has_job(temp.restricted_jobs))
 					candidates += applicant
 
 	if(candidates.len)
@@ -96,7 +96,7 @@
 	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
 		if(isReadytoRumble(applicant, ROLE_KEY_CHANGELING))
 			if(temp.age_check(applicant.client))
-				if(!applicant.mind.has_job(temp.restricted_jobs))
+				if(!applicant.mob_has_job(temp.restricted_jobs))
 					candidates += applicant
 
 	if(candidates.len)
@@ -126,7 +126,7 @@
 	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
 		if(isReadytoRumble(applicant, ROLE_KEY_REVOLUTION))
 			if(temp.age_check(applicant.client))
-				if(!applicant.mind.has_job(temp.restricted_jobs))
+				if(!applicant.mob_has_job(temp.restricted_jobs))
 					candidates += applicant
 
 	if(candidates.len)
@@ -168,7 +168,7 @@
 	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
 		if(isReadytoRumble(applicant, ROLE_KEY_CULTIST))
 			if(temp.age_check(applicant.client))
-				if(!applicant.mind.has_job(temp.restricted_jobs))
+				if(!applicant.mob_has_job(temp.restricted_jobs))
 					candidates += applicant
 
 	if(candidates.len)

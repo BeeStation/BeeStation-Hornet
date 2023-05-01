@@ -238,6 +238,13 @@
 	mind_roles[RLPK_HOLDER_JOBS] = list()
 	mind_roles -= mind_roles[RLPK_DISPLAY_STATION_ROLE] = ""
 
+/// helpful mob proc that doesn't have to put a question mark for the mind proc
+/mob/proc/mob_has_job(list/job_key)
+	if(!mind)
+		return FALSE
+	return mind.has_job(job_key)
+	// since has_job() needs to check a mind a lot, it's easy to overlook a missing question mark to call the proc when it's necessary
+	// no other procs don't need this
 // ------------- role -------------------
 /// Sets a mind's role
 /datum/mind/proc/set_special_role(role_key)

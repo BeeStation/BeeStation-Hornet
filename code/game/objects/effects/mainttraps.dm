@@ -306,7 +306,7 @@
 	if(!cluwne && !iscultist(user))
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
-			if(HAS_TRAIT(H, TRAIT_CLUMSY) || H.mind?.has_job(JOB_KEY_CLOWN) || H.dna.check_mutation(CLUWNEMUT))
+			if(HAS_TRAIT(H, TRAIT_CLUMSY) || H.mob_has_job(JOB_KEY_CLOWN) || H.dna.check_mutation(CLUWNEMUT))
 				to_chat(user, "<span class='warning'>We need a connection! One of the honkmother's manifested forms!</span>")
 			else
 				to_chat(user, "<span class='warning'>You touch the crayon drawing, and feel somewhat foolish.</span>")
@@ -319,7 +319,7 @@
 		if(HAS_TRAIT(H, TRAIT_LAW_ENFORCEMENT_METABOLISM) || HAS_TRAIT(H, TRAIT_MINDSHIELD))// NO SHITSEC
 			to_chat(user, "<span class='warning'>You're too disgusted by [src] to even consider touching it.</span>")
 			return
-		if(HAS_TRAIT(H, TRAIT_CLUMSY) || H.mind?.has_job(JOB_KEY_CLOWN) || H.dna.check_mutation(CLUWNEMUT))
+		if(HAS_TRAIT(H, TRAIT_CLUMSY) || H.mob_has_job(JOB_KEY_CLOWN) || H.dna.check_mutation(CLUWNEMUT))
 			var/list/invokers = can_invoke(user)
 			if(invokers.len >= 5)
 				to_chat(user, "<span class='warning'>Honestly, this is so simple even a baby could do it!</span>")

@@ -48,7 +48,7 @@
 			continue
 		if(!H.mind.get_display_station_role()) // only station crews will be eligible for this
 			continue
-		if(H.mind.has_job(protected_jobs))
+		if(H.mob_has_job(protected_jobs))
 			continue
 		if(H.mind.has_antag_datum(antag_datum))
 			continue

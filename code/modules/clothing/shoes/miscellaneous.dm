@@ -93,7 +93,7 @@
 	if(slot == ITEM_SLOT_FEET)
 		if(enabled_waddle)
 			waddle = user.AddComponent(/datum/component/waddling)
-		if(user.mind && user.mind.has_job(JOB_KEY_CLOWN))
+		if(user.mob_has_job(JOB_KEY_CLOWN))
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "clownshoes", /datum/mood_event/clownshoes)
 
 /obj/item/clothing/shoes/clown_shoes/dropped(mob/living/carbon/user)
@@ -101,7 +101,7 @@
 	QDEL_NULL(waddle)
 	if(user.shoes != src)
 		return
-	if(user.mind && user.mind.has_job(JOB_KEY_CLOWN))
+	if(user.mob_has_job(JOB_KEY_CLOWN))
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "clownshoes")
 
 /obj/item/clothing/shoes/clown_shoes/CtrlClick(mob/living/user)

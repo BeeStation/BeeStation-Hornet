@@ -519,7 +519,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				playsound(get_turf(M), 'sound/effects/splat.ogg', 50, 1)
 				if(prob(60) && M.mind && ishuman(M))
 					if(tetsuo && prob(15))
-						if(A.affected_mob.mind?.has_job(JOB_KEY_CLOWN))
+						if(A.affected_mob.mob_has_job(JOB_KEY_CLOWN))
 							new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)
 						if(MOB_ROBOTIC in A.infectable_biotypes)
 							new /obj/effect/decal/cleanable/robot_debris(M.loc)

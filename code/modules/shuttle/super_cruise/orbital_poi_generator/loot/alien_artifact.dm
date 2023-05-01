@@ -10,7 +10,7 @@
 /obj/item/alienartifact/examine(mob/user)
 	. = ..()
 	var/mob/living/L = user
-	if(!L.mind?.has_job(JOB_KEY_CURATOR))
+	if(!L.mob_has_job(JOB_KEY_CURATOR))
 		return
 	for(var/datum/artifact_effect/effect in effects)
 		for(var/verb in effect.effect_act_descs)

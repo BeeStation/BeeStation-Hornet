@@ -133,9 +133,9 @@
 // A gun with ultra-honk pin is useful for clown and useless for everyone else.
 /obj/item/firing_pin/clown/ultra/pin_auth(mob/living/user)
 	playsound(src.loc, 'sound/items/bikehorn.ogg', 50, 1)
-	if(user && !(HAS_TRAIT(user, TRAIT_CLUMSY) && !user.mind && user.mind.has_job(JOB_KEY_CLOWN)))
-		return FALSE
-	return TRUE
+	if(user.mob_has_job(JOB_KEY_CLOWN) || HAS_TRAIT(user, TRAIT_CLUMSY))
+		return TRUE
+	return FALSE
 
 /obj/item/firing_pin/clown/ultra/gun_insert(mob/living/user, obj/item/gun/G)
 	..()

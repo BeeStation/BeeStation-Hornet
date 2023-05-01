@@ -35,7 +35,7 @@
 		clownmask = TRUE
 		if(A.resistance >= 15)
 			clumsy = TRUE
-	if(A.affected_mob.mind?.has_job(JOB_KEY_CLOWN))
+	if(A.affected_mob.mob_has_job(JOB_KEY_CLOWN))
 		clown_mob = TRUE
 
 /datum/symptom/pierrot/Activate(datum/disease/advance/A)

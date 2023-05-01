@@ -545,7 +545,7 @@
 	if(!initial && A.mutable && (spread_flags & DISEASE_SPREAD_CONTACT_FLUIDS))
 		var/minimum = 1
 		if(prob(CLAMP(35-(A.resistance + A.stealth - A.speed), 0, 50) * (A.mutability)))//stealthy/resistant diseases are less likely to mutate. this means diseases used to farm mutations should be easier to cure. hypothetically.
-			if(infectee.mind?.has_job(list(JOB_KEY_CLOWN, JOB_KEY_MIME)) || prob(1))//infecting a clown or mime can evolve l0 symptoms/. they can also appear very rarely
+			if(infectee.mob_has_job(list(JOB_KEY_CLOWN, JOB_KEY_MIME)) || prob(1))//infecting a clown or mime can evolve l0 symptoms/. they can also appear very rarely
 				minimum = 0
 			else
 				minimum = CLAMP(A.severity - 1, 1, 7)

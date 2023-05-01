@@ -297,7 +297,7 @@
 /datum/emote/living/carbon/human/robot_tongue/clown/can_run_emote(mob/user, status_check = TRUE , intentional)
 	if(!..())
 		return FALSE
-	if(user.mind.has_job(JOB_KEY_CLOWN))
+	if(user.mob_has_job(JOB_KEY_CLOWN))
 		return TRUE
 
 /datum/emote/living/carbon/human/robot_tongue/clown/honk

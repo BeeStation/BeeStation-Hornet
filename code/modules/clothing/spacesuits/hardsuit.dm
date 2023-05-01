@@ -780,7 +780,7 @@
 	if(!..() || !ishuman(M))
 		return FALSE
 	var/mob/living/carbon/human/H = M
-	if(H.mind.has_job(JOB_KEY_CLOWN))
+	if(H.mob_has_job(JOB_KEY_CLOWN))
 		return TRUE
 	else
 		return FALSE

@@ -439,7 +439,7 @@ GLOBAL_VAR_INIT(pirates_spawned, FALSE)
 	else if("pirate" in H.faction) //can't ransom your fellow pirates to CentCom!
 		return 0
 	else
-		if(H.mind.has_job(GLOB.command_positions))
+		if(H.mob_has_job(GLOB.command_positions))
 			return 3000
 		else
 			return 1000

@@ -29,7 +29,7 @@
 	if(!M.mind)
 		add_control_flags(M, VEHICLE_CONTROL_KIDNAPPED)
 		return
-	if(M.mind.has_job(JOB_KEY_CLOWN))
+	if(M.mob_has_job(JOB_KEY_CLOWN))
 		is_clown = TRUE
 	else
 		if(M.mind.get_display_special_role() == "Laughter Demon") // ...yes, they too.
