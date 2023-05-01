@@ -27,7 +27,7 @@
 	projectiletype = /obj/item/projectile/seedling
 	projectilesound = 'sound/weapons/pierce.ogg'
 	robust_searching = TRUE
-	stat_attack = UNCONSCIOUS
+	stat_attack = HARD_CRIT
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	var/combatant_state = SEEDLING_STATE_NEUTRAL
 	var/obj/seedling_weakpoint/weak_point

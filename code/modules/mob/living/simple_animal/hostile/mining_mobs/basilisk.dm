@@ -26,6 +26,7 @@
 	a_intent = INTENT_HARM
 	speak_emote = list("chitters")
 	attack_sound = 'sound/weapons/bladeslice.ogg'
+	stat_attack = HARD_CRIT
 	vision_range = 2
 	aggro_vision_range = 9
 	turns_per_move = 5
@@ -74,7 +75,6 @@
 	a_intent = INTENT_HARM
 	speak_emote = list("telepathically cries")
 	attack_sound = 'sound/weapons/bladeslice.ogg'
-	stat_attack = UNCONSCIOUS
 	movement_type = FLYING
 	robust_searching = 1
 	crusher_loot = /obj/item/crusher_trophy/watcher_wing

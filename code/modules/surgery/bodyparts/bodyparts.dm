@@ -479,7 +479,7 @@
 	var/obj/item/cavity_item
 
 /obj/item/bodypart/chest/can_dismember(obj/item/I)
-	if(!((owner.stat == DEAD) || owner.InFullCritical()))
+	if(owner.stat <= HARD_CRIT || !get_organs())
 		return FALSE
 	return ..()
 

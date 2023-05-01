@@ -17,7 +17,7 @@
 					entry += " <i>(as [C.holder.fakekey])</i>"
 				if (isnewplayer(C.mob))
 					entry += " - <font color='darkgray'><b>In Lobby</b></font>"
-				else
+				else, HARD_CRIT
 					entry += " - Playing as [C.mob.real_name]"
 					switch(C.mob.stat)
 						if(UNCONSCIOUS)

@@ -138,6 +138,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Abstract condition that prevents movement if being pulled and might be resisted against. Handcuffs and straight jackets, basically.
 #define TRAIT_RESTRAINED		"restrained"
 #define TRAIT_INCAPACITATED		"incapacitated"
+#define TRAIT_CRITICAL_CONDITION "critical-condition" //In some kind of critical condition. Is able to succumb.
 #define TRAIT_BLIND 			"blind"
 /// Mute. Can't talk.
 #define TRAIT_MUTE "mute"
@@ -338,7 +339,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define BUCKLED_TRAIT "buckled" //trait associated to being buckled
 #define CHOKEHOLD_TRAIT "chokehold" //trait associated to being held in a chokehold
 #define RESTING_TRAIT "resting" //trait associated to resting
-/* #define STAT_TRAIT "stat" */ //trait associated to a stat value or range of 
+#define STAT_TRAIT "stat" //trait associated to a stat value or range of 
 /*(#define MAPPING_HELPER_TRAIT "mapping-helper" *///obtained from mapping helper
 /// Trait associated to wearing a suit
 #define SUIT_TRAIT "suit"
