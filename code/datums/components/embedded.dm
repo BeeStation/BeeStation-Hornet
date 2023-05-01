@@ -106,7 +106,7 @@
 	if(weapon)
 		UnregisterSignal(weapon, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING))
 	weapon = null
-	set_limb(null)
+	limb = null
 	return ..()
 
 /datum/component/embedded/RegisterWithParent()
