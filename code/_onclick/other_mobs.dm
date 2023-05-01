@@ -9,6 +9,7 @@
 		if(src == A)
 			check_self_for_injuries()
 		return
+		
 	if(!has_active_hand()) //can't attack without a hand.
 		to_chat(src, "<span class='notice'>You look at your arm and sigh.</span>")
 		return

@@ -884,10 +884,6 @@
 		var/obj/item/organ/I = X
 		I.Insert(src)
 
-/mob/living/carbon/proc/update_disabled_bodyparts()
-	for(var/obj/item/bodypart/BP as() in bodyparts)
-		BP.update_disabled()
-
 /mob/living/carbon/vv_get_dropdown()
 	. = ..()
 	VV_DROPDOWN_OPTION("", "---------")

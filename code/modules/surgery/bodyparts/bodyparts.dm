@@ -33,7 +33,12 @@
 	var/held_index = 0 //are we a hand? if so, which one!
 	var/is_pseudopart = FALSE //For limbs that don't really exist, eg chainsaws
 
-	var/bodypart_disabled = BODYPART_NOT_DISABLED //If disabled, limb is as good as missing
+	///If disabled, limb is as good as missing.
+	var/bodypart_disabled = FALSE
+	///Multiplied by max_damage it returns the threshold which defines a limb being disabled or not. From 0 to 1.
+	var/disable_threshold = 1
+	///Controls whether bodypart_disabled makes sense or not for this limb.
+	var/can_be_disabled = FALSE
 	var/body_damage_coeff = 1 //Multiplier of the limb's damage that gets applied to the mob
 	var/stam_damage_coeff = 0.7 //Why is this the default???
 	var/brutestate = 0
@@ -76,10 +81,19 @@
 
 /obj/item/bodypart/Initialize(mapload)
 	..()
+	if(can_be_disabled)
+		RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS), .proc/on_paralysis_trait_gain)
+		RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS), .proc/on_paralysis_trait_loss)
 	name = "[limb_id] [parse_zone(body_zone)]"
 	if(is_dimorphic)
 		limb_gender = pick("m", "f")
 	update_icon_dropped()
+
+/obj/item/bodypart/Destroy()
+	if(owner)
+		owner.remove_bodypart(src)
+		set_owner(null)
+	return ..()
 
 /obj/item/bodypart/forceMove(atom/destination) //Please. Never forcemove a limb if its's actually in use. This is only for borgs.
 	. = ..()
@@ -97,12 +111,6 @@
 
 /obj/item/bodypart/blob_act()
 	take_damage(max_damage)
-
-/obj/item/bodypart/Destroy()
-	if(owner)
-		owner.remove_bodypart(src)
-		owner = null
-	return ..()
 
 /obj/item/bodypart/attack(mob/living/carbon/C, mob/user)
 	if(ishuman(C))
@@ -149,14 +157,6 @@
 	for(var/obj/item/I in src)
 		I.forceMove(T)
 
-/obj/item/bodypart/proc/consider_processing()
-	if(stamina_dam >= DAMAGE_PRECISION)
-		. = TRUE
-	//else if.. else if.. so on.
-	else
-		. = FALSE
-	needs_processing = .
-
 //Return TRUE to get whatever mob this is in to update health.
 /obj/item/bodypart/proc/on_life(stam_regen)
 	if(stamina_dam >= DAMAGE_PRECISION && stam_regen)					//DO NOT update health here, it'll be done in the carbon's life.
@@ -200,23 +200,25 @@
 		brute = round(brute * (can_inflict / total_damage),DAMAGE_PRECISION)
 		burn = round(burn * (can_inflict / total_damage),DAMAGE_PRECISION)
 
-	brute_dam += brute
-	burn_dam += burn
+	if(brute)
+		set_brute_dam(brute_dam + brute)
+	if(burn)
+		set_burn_dam(burn_dam + burn)
 
 	//We've dealt the physical damages, if there's room lets apply the stamina damage.
-	var/current_damage = get_damage(TRUE)		//This time around, count stamina loss too.
-	var/available_damage = max_damage - current_damage
-	var/applied_damage = min(max_stamina_damage - stamina_dam, available_damage)
-	stamina_dam += round(CLAMP(stamina, 0, applied_damage), DAMAGE_PRECISION)
+	if(stamina)
+		set_stamina_dam(stamina_dam + round(clamp(stamina, 0, max_stamina_damage - stamina_dam), DAMAGE_PRECISION))
 
 
-	if(owner && updating_health)
-		owner.updatehealth()
-		if(stamina >= DAMAGE_PRECISION)
-			owner.update_stamina(TRUE)
-			owner.stam_regen_start_time = max(owner.stam_regen_start_time, world.time + STAMINA_REGEN_BLOCK_TIME)
-	consider_processing()
-	update_disabled()
+	if(owner)
+		if(can_be_disabled)
+			update_disabled()
+		if(updating_health)
+			owner.updatehealth()
+			if(stamina > DAMAGE_PRECISION)
+				owner.update_stamina()
+				owner.stam_regen_start_time = world.time + STAMINA_REGEN_BLOCK_TIME
+				. = TRUE
 	return update_bodypart_damage_state()
 
 //Heals brute and burn damage for the organ. Returns 1 if the damage-icon states changed at all.
@@ -227,18 +229,47 @@
 	if(required_status && !(bodytype & required_status)) //So we can only heal certain kinds of limbs, ie robotic vs organic.
 		return
 
-	brute_dam	= round(max(brute_dam - brute, 0), DAMAGE_PRECISION)
-	burn_dam	= round(max(burn_dam - burn, 0), DAMAGE_PRECISION)
-	stamina_dam = round(max(stamina_dam - stamina, 0), DAMAGE_PRECISION)
-	if(owner && updating_health)
-		owner.updatehealth()
-	if(owner.dna && owner.dna.species && (REVIVESBYHEALING in owner.dna.species.species_traits))
-		if(owner.health > 0 && !owner.ishellbound())
-			owner.revive(0)
-			owner.cure_husk(0) // If it has REVIVESBYHEALING, it probably can't be cloned. No husk cure.
-	consider_processing()
-	update_disabled()
+	if(brute)
+		set_brute_dam(round(max(brute_dam - brute, 0), DAMAGE_PRECISION))
+	if(burn)
+		set_burn_dam(round(max(burn_dam - burn, 0), DAMAGE_PRECISION))
+	if(stamina)
+		set_stamina_dam(round(max(stamina_dam - stamina, 0), DAMAGE_PRECISION))
+
+	if(owner)
+		if(can_be_disabled)
+			update_disabled()
+		if(updating_health)
+			owner.updatehealth()
+
 	return update_bodypart_damage_state()
+
+///Proc to hook behavior associated to the change of the brute_dam variable's value.
+/obj/item/bodypart/proc/set_brute_dam(new_value)
+	if(brute_dam == new_value)
+		return
+	. = brute_dam
+	brute_dam = new_value
+
+
+///Proc to hook behavior associated to the change of the burn_dam variable's value.
+/obj/item/bodypart/proc/set_burn_dam(new_value)
+	if(burn_dam == new_value)
+		return
+	. = burn_dam
+	burn_dam = new_value
+
+
+///Proc to hook behavior associated to the change of the stamina_dam variable's value.
+/obj/item/bodypart/proc/set_stamina_dam(new_value)
+	if(stamina_dam == new_value)
+		return
+	. = stamina_dam
+	stamina_dam = new_value
+	if(stamina_dam > DAMAGE_PRECISION)
+		needs_processing = TRUE
+	else
+		needs_processing = FALSE
 
 //Returns total damage.
 /obj/item/bodypart/proc/get_damage(include_stamina = FALSE)
@@ -251,30 +282,114 @@
 /obj/item/bodypart/proc/update_disabled()
 	if(!owner)
 		return
-	if(!isnull(set_disabled(is_disabled()))) //set_disabled will return null when there's no change
-		owner.update_mobility()
+	if(!can_be_disabled)
+		set_disabled(FALSE)
+		CRASH("update_disabled called with can_be_disabled false")
 
-/obj/item/bodypart/proc/is_disabled()
 	if(HAS_TRAIT(src, TRAIT_PARALYSIS))
-		return BODYPART_DISABLED_PARALYSIS
-	if(can_dismember() && !HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE))
-		. = bodypart_disabled //inertia, to avoid limbs healing 0.1 damage and being re-enabled
-		if((get_damage(TRUE) >= max_damage) || (HAS_TRAIT(owner, TRAIT_EASYLIMBDISABLE) && (get_damage(TRUE) >= (max_damage * 0.6)))) //Easy limb disable disables the limb at 40% health instead of 0%
-			return BODYPART_DISABLED_DAMAGE
-		if(bodypart_disabled && (get_damage(TRUE) <= (max_damage * 0.5)))
-			return BODYPART_NOT_DISABLED
-	else
-		return BODYPART_NOT_DISABLED
+		set_disabled(TRUE)
+		return
+
+	var/total_damage = max(brute_dam + burn_dam, stamina_dam)
+
+	if(total_damage >= max_damage * disable_threshold) //Easy limb disable disables the limb at 40% health instead of 0%
+		set_disabled(TRUE)
+		return
+
+	if(bodypart_disabled && total_damage <= max_damage * 0.8) // reenabled at 80% now instead of 50% as of wounds update
+		set_disabled(FALSE)
 
 /obj/item/bodypart/proc/set_disabled(new_disabled)
-	if(isnull(new_disabled) || bodypart_disabled == new_disabled || !owner)
+	if(bodypart_disabled == new_disabled)
 		return
 	. = bodypart_disabled
 	bodypart_disabled = new_disabled
-	if(bodypart_disabled && owner.get_item_for_held_index(held_index))
-		owner.dropItemToGround(owner.get_item_for_held_index(held_index))
+
+	if(!owner)
+		return
+
 	owner.update_health_hud() //update the healthdoll
 	owner.update_body()
+
+///Proc to change the value of the `owner` variable and react to the event of its change.
+/obj/item/bodypart/proc/set_owner(mob/living/carbon/new_owner)
+	SHOULD_CALL_PARENT(TRUE)
+
+	if(owner == new_owner)
+		return FALSE //`null` is a valid option, so we need to use a num var to make it clear no change was made.
+	var/mob/living/carbon/old_owner = owner
+	owner = new_owner
+	var/needs_update_disabled = FALSE //Only really relevant if there's an owner
+	if(old_owner)
+		if(initial(can_be_disabled))
+			if(HAS_TRAIT(old_owner, TRAIT_NOLIMBDISABLE))
+				if(!owner || !HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE))
+					set_can_be_disabled(initial(can_be_disabled))
+					needs_update_disabled = TRUE
+			UnregisterSignal(old_owner, list(
+				SIGNAL_REMOVETRAIT(TRAIT_NOLIMBDISABLE),
+				SIGNAL_ADDTRAIT(TRAIT_NOLIMBDISABLE),
+				))
+	if(owner)
+		if(initial(can_be_disabled))
+			if(HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE))
+				set_can_be_disabled(FALSE)
+				needs_update_disabled = FALSE
+			RegisterSignal(new_owner, SIGNAL_REMOVETRAIT(TRAIT_NOLIMBDISABLE), .proc/on_owner_nolimbdisable_trait_loss)
+			RegisterSignal(new_owner, SIGNAL_ADDTRAIT(TRAIT_NOLIMBDISABLE), .proc/on_owner_nolimbdisable_trait_gain)
+
+		if(needs_update_disabled)
+			update_disabled()
+
+	return old_owner
+
+
+///Proc to change the value of the `can_be_disabled` variable and react to the event of its change.
+/obj/item/bodypart/proc/set_can_be_disabled(new_can_be_disabled)
+	if(can_be_disabled == new_can_be_disabled)
+		return
+	. = can_be_disabled
+	can_be_disabled = new_can_be_disabled
+	if(can_be_disabled)
+		if(owner)
+			if(HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE))
+				CRASH("set_can_be_disabled to TRUE with for limb whose owner has TRAIT_NOLIMBDISABLE")
+			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS), .proc/on_paralysis_trait_gain)
+			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS), .proc/on_paralysis_trait_loss)
+		update_disabled()
+	else if(.)
+		if(owner)
+			UnregisterSignal(owner, list(
+				SIGNAL_ADDTRAIT(TRAIT_PARALYSIS),
+				SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS),
+				))
+		set_disabled(FALSE)
+
+
+///Called when TRAIT_PARALYSIS is added to the limb.
+/obj/item/bodypart/proc/on_paralysis_trait_gain(obj/item/bodypart/source)
+	SIGNAL_HANDLER
+	if(can_be_disabled)
+		set_disabled(TRUE)
+
+
+///Called when TRAIT_PARALYSIS is removed from the limb.
+/obj/item/bodypart/proc/on_paralysis_trait_loss(obj/item/bodypart/source)
+	SIGNAL_HANDLER
+	if(can_be_disabled)
+		update_disabled()
+
+
+///Called when TRAIT_NOLIMBDISABLE is added to the owner.
+/obj/item/bodypart/proc/on_owner_nolimbdisable_trait_gain(mob/living/carbon/source)
+	SIGNAL_HANDLER
+	set_can_be_disabled(FALSE)
+
+
+///Called when TRAIT_NOLIMBDISABLE is removed from the owner.
+/obj/item/bodypart/proc/on_owner_nolimbdisable_trait_loss(mob/living/carbon/source)
+	SIGNAL_HANDLER
+	set_can_be_disabled(initial(can_be_disabled))
 
 //Updates an organ's brute/burn states for use by update_damage_overlays()
 //Returns 1 if we need to update overlays. 0 otherwise.
@@ -545,34 +660,59 @@
 	held_index = 1
 	px_x = -6
 	px_y = 0
+	can_be_disabled = TRUE
 
-/obj/item/bodypart/l_arm/is_disabled()
-	if(HAS_TRAIT(owner, TRAIT_PARALYSIS_L_ARM))
-		return BODYPART_DISABLED_PARALYSIS
-	return ..()
+/obj/item/bodypart/l_arm/set_owner(new_owner)
+	. = ..()
+	if(. == FALSE)
+		return
+	if(owner)
+		if(HAS_TRAIT(owner, TRAIT_PARALYSIS_L_ARM))
+			ADD_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_ARM)
+			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_ARM), .proc/on_owner_paralysis_loss)
+		else
+			REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_ARM)
+			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_ARM), .proc/on_owner_paralysis_gain)
+	if(.)
+		var/mob/living/carbon/old_owner = .
+		if(HAS_TRAIT(old_owner, TRAIT_PARALYSIS_L_ARM))
+			UnregisterSignal(old_owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_ARM))
+			if(!owner || !HAS_TRAIT(owner, TRAIT_PARALYSIS_L_ARM))
+				REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_ARM)
+		else
+			UnregisterSignal(old_owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_ARM))
+
+
+///Proc to react to the owner gaining the TRAIT_PARALYSIS_L_ARM trait.
+/obj/item/bodypart/l_arm/proc/on_owner_paralysis_gain(mob/living/carbon/source)
+	SIGNAL_HANDLER
+	ADD_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_ARM)
+	UnregisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_ARM))
+	RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_ARM), .proc/on_owner_paralysis_loss)
+
+
+///Proc to react to the owner losing the TRAIT_PARALYSIS_L_ARM trait.
+/obj/item/bodypart/l_arm/proc/on_owner_paralysis_loss(mob/living/carbon/source)
+	SIGNAL_HANDLER
+	REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_ARM)
+	UnregisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_ARM))
+	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_ARM), .proc/on_owner_paralysis_gain)
 
 /obj/item/bodypart/l_arm/set_disabled(new_disabled)
 	. = ..()
-	if(isnull(.))
+	if(isnull(.) || !owner)
 		return
-	if(. == BODYPART_NOT_DISABLED)
-		if(bodypart_disabled != BODYPART_NOT_DISABLED)
-			owner.set_usable_hands(owner.usable_hands + 1)
-	else if(bodypart_disabled == BODYPART_NOT_DISABLED)
-		owner.set_usable_hands(owner.usable_hands - 1)
-	switch(bodypart_disabled)
-		if(BODYPART_DISABLED_DAMAGE)
+
+	if(!.)
+		if(bodypart_disabled)
+			owner.set_usable_hands(owner.usable_hands - 1)
 			if(owner.stat < UNCONSCIOUS)
-				owner.emote("scream")
-			if(owner.stat < DEAD)
-				to_chat(owner, "<span class='userdanger'>Your [name] is too damaged to function!</span>")
+				to_chat(owner, "<span class='userdanger'>Your lose control of your [name]!</span>")
 			if(held_index)
 				owner.dropItemToGround(owner.get_item_for_held_index(held_index))
-		if(BODYPART_DISABLED_PARALYSIS)
-			if(owner.stat < DEAD)
-				to_chat(owner, "<span class='userdanger'>You can't feel your [name]!</span>")
-				if(held_index)
-					owner.dropItemToGround(owner.get_item_for_held_index(held_index))
+	else if(!bodypart_disabled)
+		owner.set_usable_hands(owner.usable_hands + 1)
+
 	if(owner.hud_used)
 		var/atom/movable/screen/inventory/hand/hand_screen_object = owner.hud_used.hand_slots["[held_index]"]
 		hand_screen_object?.update_icon()
@@ -594,12 +734,14 @@
 	icon_state = "alien_l_arm"
 	px_x = 0
 	px_y = 0
-	dismemberable = 0
+	dismemberable = FALSE
+	can_be_disabled = FALSE
 	max_damage = 100
 	animal_origin = ALIEN_BODYPART
 
 /obj/item/bodypart/l_arm/devil
-	dismemberable = 0
+	dismemberable = FALSE
+	can_be_disabled = FALSE
 	max_damage = 5000
 	animal_origin = DEVIL_BODYPART
 
@@ -619,34 +761,58 @@
 	held_index = 2
 	px_x = 6
 	px_y = 0
+	can_be_disabled = TRUE
 
-/obj/item/bodypart/r_arm/is_disabled()
-	if(HAS_TRAIT(owner, TRAIT_PARALYSIS_R_ARM))
-		return BODYPART_DISABLED_PARALYSIS
-	return ..()
+/obj/item/bodypart/r_arm/set_owner(new_owner)
+	. = ..()
+	if(. == FALSE)
+		return
+	if(owner)
+		if(HAS_TRAIT(owner, TRAIT_PARALYSIS_R_ARM))
+			ADD_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_ARM)
+			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_ARM), .proc/on_owner_paralysis_loss)
+		else
+			REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_ARM)
+			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_ARM), .proc/on_owner_paralysis_gain)
+	if(.)
+		var/mob/living/carbon/old_owner = .
+		if(HAS_TRAIT(old_owner, TRAIT_PARALYSIS_R_ARM))
+			UnregisterSignal(old_owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_ARM))
+			if(!owner || !HAS_TRAIT(owner, TRAIT_PARALYSIS_R_ARM))
+				REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_ARM)
+		else
+			UnregisterSignal(old_owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_ARM))
+
+
+///Proc to react to the owner gaining the TRAIT_PARALYSIS_R_ARM trait.
+/obj/item/bodypart/r_arm/proc/on_owner_paralysis_gain(mob/living/carbon/source)
+	SIGNAL_HANDLER
+	ADD_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_ARM)
+	UnregisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_ARM))
+	RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_ARM), .proc/on_owner_paralysis_loss)
+
+///Proc to react to the owner losing the TRAIT_PARALYSIS_R_ARM trait.
+/obj/item/bodypart/r_arm/proc/on_owner_paralysis_loss(mob/living/carbon/source)
+	SIGNAL_HANDLER
+	REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_ARM)
+	UnregisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_ARM))
+	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_ARM), .proc/on_owner_paralysis_gain)
 
 /obj/item/bodypart/r_arm/set_disabled(new_disabled)
 	. = ..()
-	if(isnull(.))
+	if(isnull(.) || !owner)
 		return
-	if(. == BODYPART_NOT_DISABLED)
-		if(bodypart_disabled != BODYPART_NOT_DISABLED)
-			owner.set_usable_hands(owner.usable_hands + 1)
-	else if(bodypart_disabled == BODYPART_NOT_DISABLED)
-		owner.set_usable_hands(owner.usable_hands - 1)
-	switch(bodypart_disabled)
-		if(BODYPART_DISABLED_DAMAGE)
+
+	if(!.)
+		if(bodypart_disabled)
+			owner.set_usable_hands(owner.usable_hands - 1)
 			if(owner.stat < UNCONSCIOUS)
-				owner.emote("scream")
-			if(owner.stat < DEAD)
-				to_chat(owner, "<span class='userdanger'>Your [name] is too damaged to function!</span>")
+				to_chat(owner, "<span class='userdanger'>Your lose control of your [name]!</span>")
 			if(held_index)
 				owner.dropItemToGround(owner.get_item_for_held_index(held_index))
-		if(BODYPART_DISABLED_PARALYSIS)
-			if(owner.stat < DEAD)
-				to_chat(owner, "<span class='userdanger'>You can't feel your [name]!</span>")
-				if(held_index)
-					owner.dropItemToGround(owner.get_item_for_held_index(held_index))
+	else if(!bodypart_disabled)
+		owner.set_usable_hands(owner.usable_hands + 1)
+
 	if(owner.hud_used)
 		var/atom/movable/screen/inventory/hand/hand_screen_object = owner.hud_used.hand_slots["[held_index]"]
 		hand_screen_object?.update_icon()
@@ -669,12 +835,14 @@
 	icon_state = "alien_r_arm"
 	px_x = 0
 	px_y = 0
-	dismemberable = 0
+	dismemberable = FALSE
+	can_be_disabled = FALSE
 	max_damage = 100
 	animal_origin = ALIEN_BODYPART
 
 /obj/item/bodypart/r_arm/devil
-	dismemberable = 0
+	dismemberable = FALSE
+	can_be_disabled = FALSE
 	max_damage = 5000
 	animal_origin = DEVIL_BODYPART
 
@@ -691,33 +859,59 @@
 	px_x = -2
 	px_y = 12
 	max_stamina_damage = 50
+	can_be_disabled = TRUE
 
-/obj/item/bodypart/l_leg/is_disabled()
-	if(HAS_TRAIT(owner, TRAIT_PARALYSIS_L_LEG))
-		return BODYPART_DISABLED_PARALYSIS
-	return ..()
+/obj/item/bodypart/l_leg/set_owner(new_owner)
+	. = ..()
+	if(. == FALSE)
+		return
+	if(new_owner)
+		if(HAS_TRAIT(owner, TRAIT_PARALYSIS_L_LEG))
+			ADD_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_LEG)
+			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_LEG), .proc/on_owner_paralysis_loss)
+		else
+			REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_LEG)
+			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_LEG), .proc/on_owner_paralysis_gain)
+	if(.)
+		var/mob/living/carbon/old_owner = .
+		if(HAS_TRAIT(old_owner, TRAIT_PARALYSIS_L_LEG))
+			UnregisterSignal(old_owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_LEG))
+			if(!owner || !HAS_TRAIT(owner, TRAIT_PARALYSIS_L_LEG))
+				REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_LEG)
+		else
+			UnregisterSignal(old_owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_LEG))
+
+
+///Proc to react to the owner gaining the TRAIT_PARALYSIS_L_LEG trait.
+/obj/item/bodypart/l_leg/proc/on_owner_paralysis_gain(mob/living/carbon/source)
+	SIGNAL_HANDLER
+	ADD_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_LEG)
+	UnregisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_LEG))
+	RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_LEG), .proc/on_owner_paralysis_loss)
+
+
+///Proc to react to the owner losing the TRAIT_PARALYSIS_L_LEG trait.
+/obj/item/bodypart/l_leg/proc/on_owner_paralysis_loss(mob/living/carbon/source)
+	SIGNAL_HANDLER
+	REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_L_LEG)
+	UnregisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_L_LEG))
+	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_L_LEG), .proc/on_owner_paralysis_gain)
 
 /obj/item/bodypart/l_leg/set_disabled(new_disabled)
 	. = ..()
-	if(isnull(.))
+	if(isnull(.) || !owner)
 		return
-	if(. == BODYPART_NOT_DISABLED)
-		if(bodypart_disabled != BODYPART_NOT_DISABLED)
-			owner.set_usable_legs(owner.usable_legs + 1)
-	else if(bodypart_disabled == BODYPART_NOT_DISABLED)
-		owner.set_usable_legs(owner.usable_legs - 1)
-	switch(bodypart_disabled)
-		if(BODYPART_DISABLED_DAMAGE)
+
+	if(!.)
+		if(bodypart_disabled)
+			owner.set_usable_legs(owner.usable_legs - 1)
 			if(owner.stat < UNCONSCIOUS)
-				owner.emote("scream")
-			if(owner.stat < DEAD)
-				to_chat(owner, "<span class='userdanger'>Your [name] is too damaged to function!</span>")
-		if(BODYPART_DISABLED_PARALYSIS)
-			if(owner.stat < DEAD)
-				to_chat(owner, "<span class='userdanger'>You can't feel your [name]!</span>")
+				to_chat(owner, "<span class='userdanger'>Your lose control of your [name]!</span>")
+	else if(!bodypart_disabled)
+		owner.set_usable_legs(owner.usable_legs + 1)
 
 
-/obj/item/bodypart/l_leg/digitigrade
+/obj/item/bodypart/l_leg/monkey
 	icon = 'icons/mob/animal_parts.dmi'
 	icon_state = "default_monkey_l_leg"
 	limb_id = SPECIES_MONKEY
@@ -734,12 +928,14 @@
 	icon_state = "alien_l_leg"
 	px_x = 0
 	px_y = 0
-	dismemberable = 0
+	dismemberable = FALSE
+	can_be_disabled = FALSE
 	max_damage = 100
 	animal_origin = ALIEN_BODYPART
 
 /obj/item/bodypart/l_leg/devil
-	dismemberable = 0
+	dismemberable = FALSE
+	can_be_disabled = FALSE
 	max_damage = 5000
 	animal_origin = DEVIL_BODYPART
 
@@ -758,33 +954,59 @@
 	px_x = 2
 	px_y = 12
 	max_stamina_damage = 50
+	can_be_disabled = TRUE
 
-/obj/item/bodypart/r_leg/is_disabled()
-	if(HAS_TRAIT(owner, TRAIT_PARALYSIS_R_LEG))
-		return BODYPART_DISABLED_PARALYSIS
-	return ..()
+/obj/item/bodypart/r_leg/set_owner(new_owner)
+	. = ..()
+	if(. == FALSE)
+		return
+	if(owner)
+		if(HAS_TRAIT(owner, TRAIT_PARALYSIS_R_LEG))
+			ADD_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_LEG)
+			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_LEG), .proc/on_owner_paralysis_loss)
+		else
+			REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_LEG)
+			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_LEG), .proc/on_owner_paralysis_gain)
+	if(.)
+		var/mob/living/carbon/old_owner = .
+		if(HAS_TRAIT(old_owner, TRAIT_PARALYSIS_R_LEG))
+			UnregisterSignal(old_owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_LEG))
+			if(!owner || !HAS_TRAIT(owner, TRAIT_PARALYSIS_R_LEG))
+				REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_LEG)
+		else
+			UnregisterSignal(old_owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_LEG))
+
+
+///Proc to react to the owner gaining the TRAIT_PARALYSIS_R_LEG trait.
+/obj/item/bodypart/r_leg/proc/on_owner_paralysis_gain(mob/living/carbon/source)
+	SIGNAL_HANDLER
+	ADD_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_LEG)
+	UnregisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_LEG))
+	RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_LEG), .proc/on_owner_paralysis_loss)
+
+
+///Proc to react to the owner losing the TRAIT_PARALYSIS_R_LEG trait.
+/obj/item/bodypart/r_leg/proc/on_owner_paralysis_loss(mob/living/carbon/source)
+	SIGNAL_HANDLER
+	REMOVE_TRAIT(src, TRAIT_PARALYSIS, TRAIT_PARALYSIS_R_LEG)
+	UnregisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS_R_LEG))
+	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_PARALYSIS_R_LEG), .proc/on_owner_paralysis_gain)
 
 /obj/item/bodypart/r_leg/set_disabled(new_disabled)
 	. = ..()
-	if(isnull(.))
+	if(isnull(.) || !owner)
 		return
-	if(. == BODYPART_NOT_DISABLED)
-		if(bodypart_disabled != BODYPART_NOT_DISABLED)
-			owner.set_usable_legs(owner.usable_legs + 1)
-	else if(bodypart_disabled == BODYPART_NOT_DISABLED)
-		owner.set_usable_legs(owner.usable_legs - 1)
-	switch(bodypart_disabled)
-		if(BODYPART_DISABLED_DAMAGE)
+
+	if(!.)
+		if(bodypart_disabled)
+			owner.set_usable_legs(owner.usable_legs - 1)
 			if(owner.stat < UNCONSCIOUS)
-				owner.emote("scream")
-			if(owner.stat < DEAD)
-				to_chat(owner, "<span class='userdanger'>Your [name] is too damaged to function!</span>")
-		if(BODYPART_DISABLED_PARALYSIS)
-			if(owner.stat < DEAD)
-				to_chat(owner, "<span class='userdanger'>You can't feel your [name]!</span>")
+				to_chat(owner, "<span class='userdanger'>Your lose control of your [name]!</span>")
+	else if(!bodypart_disabled)
+		owner.set_usable_legs(owner.usable_legs + 1)
 
 
-/obj/item/bodypart/r_leg/digitigrade
+/obj/item/bodypart/r_leg/monkey
 	icon = 'icons/mob/animal_parts.dmi'
 	icon_state = "default_monkey_r_leg"
 	limb_id = SPECIES_MONKEY
@@ -801,11 +1023,13 @@
 	icon_state = "alien_r_leg"
 	px_x = 0
 	px_y = 0
-	dismemberable = 0
+	dismemberable = FALSE
+	can_be_disabled = FALSE
 	max_damage = 100
 	animal_origin = ALIEN_BODYPART
 
 /obj/item/bodypart/r_leg/devil
-	dismemberable = 0
+	dismemberable = FALSE
+	can_be_disabled = FALSE
 	max_damage = 5000
 	animal_origin = DEVIL_BODYPART
