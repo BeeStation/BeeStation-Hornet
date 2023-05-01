@@ -856,7 +856,7 @@
 			message_admins(msg)
 			admin_ticket_log(src, msg)
 	if(href_list[VV_HK_RANDOM_NAME])
-		if(!check_rights(R_SPAWN))
+		if(!check_rights(R_ADMIN))//mods can rename people with VV so they should be able to do this too
 			return
 		if(isnull(dna.species))
 			to_chat(usr, "The species of [src] is null, aborting.")
