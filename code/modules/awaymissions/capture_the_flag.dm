@@ -200,7 +200,7 @@
 			spawned_mobs -= M
 			continue
 		// Anyone in crit, automatically reap
-		var/mob/living/living_participant = i
+		var/mob/living/living_participant = M
 		if(HAS_TRAIT(living_participant, TRAIT_CRITICAL_CONDITION) || living_participant.stat == DEAD)
 			ctf_dust_old(living_participant)
 		else

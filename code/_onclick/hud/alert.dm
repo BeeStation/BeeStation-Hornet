@@ -326,12 +326,12 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 		owner.clear_alert("[offerer]")
 
 /// Gives the player the option to succumb while in critical condition
-/obj/screen/alert/succumb
+/atom/movable/screen/alert/succumb
 	name = "Succumb"
 	desc = "Shuffle off this mortal coil."
 	icon_state = "succumb"
 
-/obj/screen/alert/succumb/Click()
+/atom/movable/screen/alert/succumb/Click()
 	if (isobserver(usr))
 		return
 

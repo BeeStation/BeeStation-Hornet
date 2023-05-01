@@ -61,6 +61,6 @@
 /// Will show or hide the succumb alert prompt.
 /mob/living/proc/update_succumb_action()
 	if (CAN_SUCCUMB(src))
-		throw_alert("succumb", /obj/screen/alert/succumb)
+		throw_alert("succumb", /atom/movable/screen/alert/succumb)
 	else
 		clear_alert("succumb")

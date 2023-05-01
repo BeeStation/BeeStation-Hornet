@@ -935,9 +935,9 @@
 /mob/living/proc/do_jitter_animation(jitteriness)
 	var/amplitude = min(4, (jitteriness/100) + 1)
 	var/pixel_x_diff = rand(-amplitude, amplitude)
-	var/pixel_y_diff = rand(-amplitude/3, amplitude/3)
-	var/final_pixel_x = get_standard_pixel_x_offset(lying)
-	var/final_pixel_y = get_standard_pixel_y_offset(lying)
+	var/pixel_y_diff = rand(-amplitude / 3, amplitude / 3)
+	var/final_pixel_x = get_standard_pixel_x_offset(lying_angle)
+	var/final_pixel_y = get_standard_pixel_y_offset(lying_angle)
 	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff , time = 2, loop = 6)
 	animate(pixel_x = final_pixel_x , pixel_y = final_pixel_y , time = 2)
 	setMovetype(movement_type & ~FLOATING) // If we were without gravity, the bouncing animation got stopped, so we make sure to restart it in next life().
@@ -1163,6 +1163,8 @@
 //Updates lying and icons. Could perhaps do with a rename but I can't think of anything to describe it.
 //Robots, animals and brains have their own version so don't worry about them
 /mob/living/proc/update_mobility()
+	var/has_legs = get_num_legs()
+	var/ignore_legs = get_leg_ignore()
 	var/canstand_involuntary = !HAS_TRAIT(src, TRAIT_FLOORED) && (ignore_legs || has_legs)
 	var/canstand = canstand_involuntary && !resting
 

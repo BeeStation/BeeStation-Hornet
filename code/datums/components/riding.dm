@@ -71,7 +71,7 @@
 /datum/component/riding/proc/ride_check(mob/living/M)
 	var/atom/movable/AM = parent
 	var/mob/AMM = AM
-	if((ride_check_rider_restrained && HAS_TRAIT(M, TRAIT_RESTRAINED)) || (ride_check_rider_incapacitated && M.incapacitated(TRUE, TRUE)))
+	if((ride_check_rider_restrained && HAS_TRAIT(M, TRAIT_RESTRAINED)) || (ride_check_rider_incapacitated && AMM.incapacitated(TRUE, TRUE)))
 		M.visible_message("<span class='warning'>[M] falls off of [AM]!</span>", \
 						"<span class='warning'>You fall off of [AM]!</span>")
 		AM.unbuckle_mob(M)
