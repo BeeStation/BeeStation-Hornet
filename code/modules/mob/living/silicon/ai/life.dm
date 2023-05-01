@@ -1,8 +1,3 @@
-#define POWER_RESTORATION_OFF 0
-#define POWER_RESTORATION_START 1
-#define POWER_RESTORATION_SEARCH_APC 2
-#define POWER_RESTORATION_APC_FOUND 3
-
 /mob/living/silicon/ai/Life(delta_time)
 	if (stat == DEAD)
 		return
@@ -111,7 +106,7 @@
 	T = get_turf(src)
 	if(isspaceturf(T))
 		to_chat(src, "Unable to verify! No power connection detected!")
-		aiRestorePowerRoutine = POWER_RESTORATION_SEARCH_APC
+		setAiRestorePowerRoutine(POWER_RESTORATION_SEARCH_APC)
 		return
 	to_chat(src, "Connection verified. Searching for APC in power network.")
 	sleep(50)
@@ -132,7 +127,7 @@
 					to_chat(src, "Unable to locate APC!")
 				else
 					to_chat(src, "Lost connection with the APC!")
-			aiRestorePowerRoutine = POWER_RESTORATION_SEARCH_APC
+			setAiRestorePowerRoutine(POWER_RESTORATION_SEARCH_APC)
 			return
 		if(AIarea.power_equip)
 			if(!isspaceturf(T))
@@ -152,7 +147,7 @@
 				sleep(2)
 				apc_override = theAPC
 				theAPC.ui_interact(src)
-				aiRestorePowerRoutine = POWER_RESTORATION_APC_FOUND
+				setAiRestorePowerRoutine(POWER_RESTORATION_APC_FOUND)
 		sleep(50)
 		theAPC = null
 
@@ -168,13 +163,9 @@
 
 /mob/living/silicon/ai/proc/ai_lose_power()
 	disconnect_shell()
-	aiRestorePowerRoutine = POWER_RESTORATION_START
+	setAiRestorePowerRoutine(POWER_RESTORATION_START)
 	blind_eyes(1)
 	update_sight()
 	to_chat(src, "You've lost power!")
 	addtimer(CALLBACK(src, PROC_REF(start_RestorePowerRoutine)), 20)
 
-#undef POWER_RESTORATION_OFF
-#undef POWER_RESTORATION_START
-#undef POWER_RESTORATION_SEARCH_APC
-#undef POWER_RESTORATION_APC_FOUND
