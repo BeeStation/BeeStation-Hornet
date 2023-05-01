@@ -45,7 +45,7 @@
 			return TRUE
 	if(job_key == JOB_KEY_CLOWN)
 		return TRUE
-	return FALSE
+	return ..()
 
 /mob/living/simple_animal/hostile/retaliate/clown/handle_temperature_damage()
 	if(bodytemperature < minbodytemp)

@@ -578,13 +578,13 @@
 /datum/game_mode/proc/get_living_by_department(glob_job_positions)
 	. = list()
 	for(var/mob/living/carbon/human/player in GLOB.mob_list)
-		if(player.stat != DEAD && player.mind.has_job(glob_job_positions))
+		if(player.stat != DEAD && player.mind?.has_job(glob_job_positions))
 			. |= player.mind
 
 /datum/game_mode/proc/get_all_by_department(glob_job_positions)
 	. = list()
 	for(var/mob/player in GLOB.mob_list)
-		if(player.mind.has_job(glob_job_positions))
+		if(player.mind?.has_job(glob_job_positions))
 			. |= player.mind
 
 /////////////////////////////////////////////
@@ -593,7 +593,7 @@
 /datum/game_mode/proc/get_living_silicon()
 	. = list()
 	for(var/mob/living/silicon/player in GLOB.mob_list)
-		if(player.stat != DEAD && player.mind.has_job(GLOB.nonhuman_positions))
+		if(player.stat != DEAD && player.mob_has_job(GLOB.nonhuman_positions))
 			. |= player.mind
 
 ///////////////////////////////////////
@@ -602,7 +602,7 @@
 /datum/game_mode/proc/get_all_silicon()
 	. = list()
 	for(var/mob/living/silicon/player in GLOB.mob_list)
-		if(player.mind.has_job(GLOB.nonhuman_positions))
+		if(player.mob_has_job(GLOB.nonhuman_positions))
 			. |= player.mind
 
 /proc/reopen_roundstart_suicide_roles()

@@ -120,7 +120,7 @@
 		return FALSE
 	var/head_check = 0
 	for(var/mob/player in mode.current_players[CURRENT_LIVING_PLAYERS])
-		if (player.mind.has_job(GLOB.command_positions))
+		if (player.mind?.has_job(GLOB.command_positions))
 			head_check++
 	return (head_check >= required_heads_of_staff)
 

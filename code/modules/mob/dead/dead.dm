@@ -123,3 +123,7 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 // Ghosts cannot fall
 /mob/dead/has_gravity(turf/T)
 	return FALSE
+
+// just in case
+/mob/dead/mob_has_job(list/job_key)
+	return FALSE

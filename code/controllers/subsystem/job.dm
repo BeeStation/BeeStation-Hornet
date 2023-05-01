@@ -798,7 +798,7 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/get_living_heads()
 	. = list()
 	for(var/mob/living/carbon/human/player in GLOB.alive_mob_list)
-		if(player.stat != DEAD && player.mind.has_job(GLOB.command_positions))
+		if(player.stat != DEAD && player.mind?.has_job(GLOB.command_positions))
 			. |= player.mind
 
 
@@ -809,7 +809,7 @@ SUBSYSTEM_DEF(job)
 	. = list()
 	for(var/i in GLOB.mob_list)
 		var/mob/player = i
-		if(player.mind.has_job(GLOB.command_positions))
+		if(player.mind?.has_job(GLOB.command_positions))
 			. |= player.mind
 
 //////////////////////////////////////////////
@@ -818,7 +818,7 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/get_living_sec()
 	. = list()
 	for(var/mob/living/carbon/human/player in GLOB.carbon_list)
-		if(player.stat != DEAD && player.mind.has_job(GLOB.security_positions))
+		if(player.stat != DEAD && player?.mind.has_job(GLOB.security_positions))
 			. |= player.mind
 
 ////////////////////////////////////////
@@ -827,7 +827,7 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/get_all_sec()
 	. = list()
 	for(var/mob/living/carbon/human/player in GLOB.carbon_list)
-		if(player.mind.has_job(GLOB.security_positions))
+		if(player.mind?.has_job(GLOB.security_positions))
 			. |= player.mind
 
 /datum/controller/subsystem/job/proc/JobDebug(message)

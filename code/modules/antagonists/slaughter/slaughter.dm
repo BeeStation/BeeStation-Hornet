@@ -169,7 +169,7 @@
 			return TRUE
 	if(job_key == JOB_KEY_CLOWN)
 		return TRUE
-	return FALSE
+	return ..()
 
 /mob/living/simple_animal/slaughter/laughter/proc/release_friends()
 	if(!consumed_mobs)

@@ -245,6 +245,7 @@
 	return mind.has_job(job_key)
 	// since has_job() needs to check a mind a lot, it's easy to overlook a missing question mark to call the proc when it's necessary
 	// no other procs don't need this
+	// NOTE: some mob types override this. Check clown mobs.
 // ------------- role -------------------
 /// Sets a mind's role
 /datum/mind/proc/set_special_role(role_key)
