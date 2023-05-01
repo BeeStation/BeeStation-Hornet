@@ -319,6 +319,8 @@ B --><-- A
 	return T ? T.z : A.z
 
 //Proc currently not used
+// if its not used why is it not commented out??
+/*
 /proc/get_step_towards2(atom/ref , atom/trg)
 	var/base_dir = get_dir(ref, get_step_towards(ref,trg))
 	var/turf/temp = get_step_towards(ref,trg)
@@ -349,3 +351,5 @@ B --><-- A
 
 	else
 		return get_step(ref, base_dir)
+
+*/

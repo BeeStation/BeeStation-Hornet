@@ -132,14 +132,11 @@
 		data["user"]["name"] = card.registered_account.account_holder
 		var/datum/data/record/R = find_record("name", card.registered_account.account_holder, GLOB.data_core.general)
 		if(R)
-			data["user"]["job"] = R.fields["name"]
-			data["user"]["department"] = R.fields[""]
+			data["user"]["job"] = R.fields["rank"]
 		else if(card.registered_account.account_job)
 			data["user"]["job"] = card.registered_account.account_job.title
-			data["user"]["department"] = card.registered_account.account_job.bank_account_department
 		else
 			data["user"]["job"] = "No Job"
-			data["user"]["department"] = "No Department"
 	else if(issilicon(user))
 		data["user"]["authenticated"] = TRUE
 		data["user"]["silicon"] = TRUE
@@ -149,7 +146,6 @@
 	else
 		data["user"]["name"] = "Unknown"
 		data["user"]["job"] = "N/A"
-		data["user"]["department"] = "N/A"
 
 	data["photo_data"] = !isnull(current_image)
 	data["creating_channel"] = creating_channel
