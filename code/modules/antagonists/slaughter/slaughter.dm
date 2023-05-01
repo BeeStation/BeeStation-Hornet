@@ -167,7 +167,7 @@
 	if(islist(job_keys))
 		if(JOB_KEY_CLOWN in job_keys)
 			return TRUE
-	if(job_key == JOB_KEY_CLOWN)
+	if(job_keys == JOB_KEY_CLOWN)
 		return TRUE
 	return ..()
 
