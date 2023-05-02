@@ -21,6 +21,8 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/magic
 	)
 
+	use_clown_name = FALSE
+
 /datum/outfit/job/stage_magician
 	name = JOB_KEY_STAGEMAGICIAN
 	jobtype = /datum/job/clown/stage_magician

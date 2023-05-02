@@ -25,9 +25,13 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/honk
 	)
 
+	/// set this FALSE if subtype jobs don't use clown name (i.e. Stage Magician)
+	var/use_clown_name = TRUE
+
 /datum/job/clown/after_spawn(mob/living/carbon/human/H, mob/M)
 	. = ..()
-	H.apply_pref_name("clown", M.client)
+	if(use_clown_name)
+		H.apply_pref_name("clown", M.client)
 
 /datum/outfit/job/clown
 	name = JOB_KEY_CLOWN

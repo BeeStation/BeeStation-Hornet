@@ -213,7 +213,7 @@
 		if(is_centcom_level(player.z))
 			candidates -= player // We don't autotator people in CentCom
 			continue
-		if(player.mind && (player.mind.get_display_special_role() || length(player.mind.antag_datums)))
+		if(player.mind && (player.mind.get_special_role() || length(player.mind.antag_datums)))
 			candidates -= player // We don't autotator people with roles already
 
 /datum/dynamic_ruleset/midround/autotraitor/ready(forced = FALSE)
@@ -270,7 +270,7 @@
 		if(is_centcom_level(player.z))
 			candidates -= player
 			continue
-		if(player.mind && (player.mind.get_display_special_role() || length(player.mind.antag_datums)))
+		if(player.mind && (player.mind.get_special_role() || length(player.mind.antag_datums)))
 			candidates -= player
 
 /datum/dynamic_ruleset/midround/malf/ready(forced = FALSE)
@@ -668,7 +668,7 @@
 			|| candidate.mind.has_antag_datum(/datum/antagonist/obsessed) \
 			|| candidate.stat == DEAD \
 			|| !(ROLE_KEY_OBSESSED in candidate.client?.prefs?.be_special) \
-			|| !candidate.mind.get_display_station_role() \
+			|| !candidate.mind.get_special_role() \
 			|| candidate.mind.has_job(GLOB.nonhuman_positions) \
 		)
 			candidates -= candidate
