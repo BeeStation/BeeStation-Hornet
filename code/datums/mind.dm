@@ -210,7 +210,7 @@
 /// Sets a mind's job
 /datum/mind/proc/set_job(job_key)
 	if(!job_key)
-		CRASH("job key is missing: [job_key]")
+		CRASH("job key is missing")
 	if(!SSjob.GetJob(job_key))
 		return
 	_set_role(RLPK_HOLDER_JOBS, job_key)
@@ -218,7 +218,7 @@
 /// Removes a specific job in a mind
 /datum/mind/proc/remove_job(job_key)
 	if(!job_key)
-		CRASH("job key is missing: [job_key]")
+		CRASH("job key is missing")
 	if(!mind_roles[RLPK_HOLDER_JOBS][job_key])
 		return
 	_remove_role(RLPK_HOLDER_JOBS, job_key)
@@ -250,13 +250,15 @@
 /// Sets a mind's role
 /datum/mind/proc/set_special_role(role_key)
 	if(!role_key)
-		CRASH("role key is missing: [role_key]")
+		CRASH("role key is missing")
+	if(role_key in list(ROLE_KEY_UNDEFINED_ANTAG_ROLE, ROLE_KEY_UNDEFINED_SPECIAL_ROLE))
+		stack_trace("[key_name(src)] has acquired an unnamed special role - [role_key].")
 	_set_role(RLPK_HOLDER_SPECIAL_ROLES, role_key)
 
 /// Removes a specific role in a mind
 /datum/mind/proc/remove_special_role(role_key)
 	if(!role_key)
-		CRASH("role key is missing: [role_key]")
+		CRASH("role key is missing")
 	if(!mind_roles[RLPK_HOLDER_SPECIAL_ROLES][role_key])
 		return
 	_remove_role(RLPK_HOLDER_SPECIAL_ROLES, role_key)
@@ -278,7 +280,7 @@
 /// Sets a mind's station role
 /datum/mind/proc/set_display_station_role(job_string)
 	if(!job_string)
-		CRASH("[job_string] is null")
+		CRASH("job string is null")
 	mind_roles[RLPK_DISPLAY_STATION_ROLE] = job_string
 
 /// Gets a mind's station role (as string). Only returns job strings as long as they're a station member. Use `get_job()` if you need their job. This is useful when you need to check if they're crew, since non-crews(like wiz, syndi ops) wouldn't have `set_display_station_role()`
@@ -290,7 +292,7 @@
 /// Sets a mind's special role (not station)
 /datum/mind/proc/set_display_special_role(role_string)
 	if(!role_string)
-		CRASH("[role_string] is null")
+		CRASH("role string is null")
 	mind_roles[RLPK_DISPLAY_SPECIAL_ROLE] = role_string
 
 /// Gets a mind's special role (not station). It returns strings, not their real
@@ -326,7 +328,7 @@
 /// used to initlaise an antagonist's special role status, setting their roles, and setting their displaying-special-role-name
 /datum/mind/proc/assign_special_role(role_key, role_title=null)
 	if(!role_key)
-		CRASH("role_string is null")
+		CRASH("role_key is null")
 	if(has_special_role(role_key)) // "Swarmer, Swarmer" wouldn't be a nice title
 		return
 	set_special_role(role_key)
