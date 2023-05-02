@@ -100,6 +100,13 @@
 #define SEC_DEPT_SCIENCE "Science"
 #define SEC_DEPT_SUPPLY "Supply"
 
+
+#define EXP_JOB_REQUIRES(x) (x) // actually putting a number directly, but writing context-less number is bad.
+
+#define EXPJOB_TIMEREQ_LIVING_DEFAULT 5
+#define EXPJOB_TIMEREQ_ESSENTIAL 600
+#define EXPJOB_TIMEREQ_
+
 // Playtime tracking system, see jobs_exp.dm
 #define EXP_TYPE_LIVING			"Living"
 #define EXP_TYPE_CREW			"Crew"
