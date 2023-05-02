@@ -170,7 +170,7 @@ GLOBAL_PROTECT(exp_to_update)
 					if(!(each_role in GLOB.exp_specialmap[EXP_TYPE_ANTAG] + GLOB.exp_specialmap[EXP_TYPE_SPECIAL]))
 						var/static/list/informed_players = list()
 						if(!informed_players["[mob.mind.name][each_role]"])
-							stack_trace("[key_name[mob]] has an incorrect role to track playtime: [each_role]")
+							stack_trace("[key_name(mob)] has an incorrect role to track playtime: [each_role]")
 							informed_players["[mob.mind.name][each_role]"] = TRUE
 						continue
 					play_records[each_role] += minutes
