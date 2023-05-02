@@ -153,6 +153,7 @@
 
 /obj/machinery/suit_storage_unit/Initialize(mapload)
 	. = ..()
+	obj_flags |= USES_TGUI
 	wires = new /datum/wires/suit_storage_unit(src)
 	if(suit_type)
 		suit = new suit_type(src)
