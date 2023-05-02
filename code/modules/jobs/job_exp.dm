@@ -168,6 +168,10 @@ GLOBAL_PROTECT(exp_to_update)
 			if(length(mob.mind.get_special_role(TRUE))) // it gives all special type playtime as long as they have
 				for(var/each_role in mob.mind.get_special_role(TRUE))
 					if(!(each_role in GLOB.exp_specialmap[EXP_TYPE_ANTAG] + GLOB.exp_specialmap[EXP_TYPE_SPECIAL]))
+						var/static/list/informed_players = list()
+						if(!informed_players["[mob.mind.name][each_role]"])
+							stack_trace("[key_name[mob]] has an incorrect role to track playtime: [each_role]")
+							informed_players["[mob.mind.name][each_role]"] = TRUE
 						continue
 					play_records[each_role] += minutes
 					if(announce_changes)
