@@ -385,6 +385,7 @@
 
 	add_fingerprint(user)
 
+
 /obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_CROWBAR && user.a_intent == INTENT_HARM && !panel_open && machine_stat & NOPOWER)
 		if(locked)
