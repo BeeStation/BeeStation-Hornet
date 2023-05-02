@@ -379,6 +379,7 @@
 			return
 		user.visible_message("<span class='warning'>[user] successfully broke out of [src]!</span>", \
 			"<span class='notice'>You successfully break out of [src]!</span>")
+		locked = FALSE
 		open_machine()
 		dump_contents()
 
