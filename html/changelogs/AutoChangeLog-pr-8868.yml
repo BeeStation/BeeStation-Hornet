@@ -1,4 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - bugfix: Added the "ISWEAPON" flag to a bunch of items that should've had it
