@@ -38,6 +38,7 @@ export const GamePreferenceWindow = (props: {
       title="Game Preferences"
       width={920}
       height={770}
+      theme="generic"
     >
       <Window.Content>
         <Stack vertical fill>

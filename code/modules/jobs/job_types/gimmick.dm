@@ -1,6 +1,8 @@
 /datum/job/gimmick //gimmick var must be set to true for all gimmick jobs BUT the parent
 	title = JOB_NAME_GIMMICK
 	flag = GIMMICK
+	department_for_prefs = DEPT_BITFLAG_ASSISTANT
+	show_in_prefs = TRUE
 	faction = "Station"
 	total_positions = 0
 	spawn_positions = 0
@@ -29,9 +31,11 @@
 /datum/job/gimmick/barber
 	title = JOB_NAME_BARBER
 	flag = BARBER
+	description = "Give the crew haircuts using the variety of tools at your disposal, and provide less professional and cosmetic surgeries."
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	gimmick = TRUE
+	show_in_prefs = FALSE
 
 	outfit = /datum/outfit/job/gimmick/barber
 
@@ -59,9 +63,11 @@
 /datum/job/gimmick/stage_magician
 	title = JOB_NAME_STAGEMAGICIAN
 	flag = MAGICIAN
+	description = "Use your special tools to provide entertainment for the crew, show them than you can do more than simple parlor magic tricks."
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	gimmick = TRUE
+	show_in_prefs = FALSE
 
 	outfit = /datum/outfit/job/gimmick/stage_magician
 
@@ -95,9 +101,11 @@
 /datum/job/gimmick/psychiatrist
 	title = JOB_NAME_PSYCHIATRIST
 	flag = PSYCHIATRIST
+	description = "Provide therapy to the crew through talk sessions, psychoactive drugs, and careful consideration of their thoughts and feelings. Provide mental evaluations for Security."
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
 	gimmick = TRUE
+	show_in_prefs = FALSE
 
 	outfit = /datum/outfit/job/gimmick/psychiatrist
 
@@ -125,7 +133,9 @@
 /datum/job/gimmick/vip
 	title = JOB_NAME_VIP
 	flag = CELEBRITY
+	description = "Flaunt around your wealth, organize posh parties and other high life activities with your near-bottomless budget."
 	gimmick = TRUE
+	show_in_prefs = FALSE
 
 	outfit = /datum/outfit/job/gimmick/vip
 

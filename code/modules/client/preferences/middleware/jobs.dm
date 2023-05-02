@@ -1,7 +1,13 @@
 /datum/preference_middleware/jobs
 	action_delegations = list(
 		"set_job_preference" = PROC_REF(set_job_preference),
+		"clear_job_preferences" = PROC_REF(clear_job_preferences),
 	)
+
+/datum/preference_middleware/jobs/proc/clear_job_preferences(list/params, mob/user)
+	preferences.job_preferences = list()
+	preferences.character_preview_view?.update_body()
+	return TRUE
 
 /datum/preference_middleware/jobs/proc/set_job_preference(list/params, mob/user)
 	var/job_title = params["job"]
@@ -32,23 +38,28 @@
 	var/list/jobs = list()
 
 	for (var/datum/job/job as anything in SSjob.occupations)
-		/*var/department_flag = job.department_for_prefs
-
+		if(!job.show_in_prefs)
+			continue
+		var/department_flag = job.department_for_prefs
 		if (isnull(department_flag))
 			stack_trace("[job] does not have a department set, yet is a joinable occupation!")
-			continue*/
+			continue
 
 		if (isnull(job.description))
 			stack_trace("[job] does not have a description set, yet is a joinable occupation!")
 			continue
 
-		var/department_name = "testing department" // TODO tgui-prefs department logic
-		/*if (isnull(departments[department_name]))
-			var/datum/job/department_head_type = initial(department_type.department_head)
-
-			departments[department_name] = list(
-				"head" = department_head_type && initial(department_head_type.title),
-			)*/
+		var/department_name = GLOB.dept_bitflag_to_name["[department_flag]"]
+		if (isnull(departments[department_name]))
+			var/department_head_jobname = job.department_head_for_prefs || job.department_head
+			if(islist(department_head_jobname) && length(department_head_jobname))
+				department_head_jobname = department_head_jobname[1]
+			if(length(department_head_jobname))
+				departments[department_name] = list(
+					"head" = department_head_jobname,
+				)
+			else
+				departments[department_name] = list()
 
 		jobs[job.title] = list(
 			"description" = job.description,

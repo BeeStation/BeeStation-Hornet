@@ -291,7 +291,7 @@ const JoblessRoleDropdown = (props, context) => {
   ];
 
   return (
-    <Box position="absolute" right={0} width="30%">
+    <Box width="30%" style={{ 'margin': '5px auto' }}>
       <Dropdown
         width="100%"
         selected={selected}
@@ -303,10 +303,18 @@ const JoblessRoleDropdown = (props, context) => {
   );
 };
 
+const ClearJobsButton = (_, context) => {
+  const { act } = useBackend<PreferencesMenuData>(context);
+  return <Button content="Clear All" confirm onClick={() => act('clear_job_preferences')} />;
+};
+
 export const JobsPage = () => {
   return (
     <>
-      <JoblessRoleDropdown />
+      <Box textAlign="center">
+        <JoblessRoleDropdown />
+        <ClearJobsButton />
+      </Box>
 
       <Stack vertical fill>
         <Gap amount={22} />
@@ -314,29 +322,27 @@ export const JobsPage = () => {
         <Stack.Item>
           <Stack fill className="PreferencesMenu__Jobs">
             <Stack.Item mr={1}>
-              <Gap amount={36} />
-
               <PriorityHeaders />
+
+              <Department department="Assistant">
+                <Gap amount={6} />
+              </Department>
 
               <Department department="Engineering">
                 <Gap amount={6} />
               </Department>
 
-              <Department department="Science">
-                <Gap amount={6} />
-              </Department>
-
-              <Department department="Silicon">
-                <Gap amount={12} />
-              </Department>
-
-              <Department department="Assistant" />
+              <Department department="Medical" />
             </Stack.Item>
 
             <Stack.Item mr={1}>
               <PriorityHeaders />
 
               <Department department="Captain">
+                <Gap amount={6} />
+              </Department>
+
+              <Department department="Civilian">
                 <Gap amount={6} />
               </Department>
 
@@ -348,15 +354,17 @@ export const JobsPage = () => {
             </Stack.Item>
 
             <Stack.Item>
-              <Gap amount={36} />
-
               <PriorityHeaders />
+
+              <Department department="Science">
+                <Gap amount={6} />
+              </Department>
 
               <Department department="Security">
                 <Gap amount={6} />
               </Department>
 
-              <Department department="Medical" />
+              <Department department="Silicon" />
             </Stack.Item>
           </Stack>
         </Stack.Item>

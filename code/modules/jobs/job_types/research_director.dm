@@ -1,6 +1,8 @@
 /datum/job/research_director
 	title = JOB_NAME_RESEARCHDIRECTOR
 	flag = RD_JF
+	description = "Oversee the scientists and roboticists and keep up with their research projects, take care of any issues with the station's AI that may arise, ensure research is being prioritized in accordance with the needs of the station."
+	department_for_prefs = DEPT_BITFLAG_SCI
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"

@@ -1,6 +1,8 @@
 /datum/job/curator
 	title = JOB_NAME_CURATOR
 	flag = CURATOR
+	description = "Be in charge of maintaining the library, engage in peace talks with alien races using your knowledge of all languages, cosplay to your heart's content."
+	department_for_prefs = DEPT_BITFLAG_CIV
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	faction = "Station"

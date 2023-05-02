@@ -1,6 +1,8 @@
 /datum/job/chemist
 	title = JOB_NAME_CHEMIST
 	flag = CHEMIST
+	description = "Create healing medicines and fullfill other requests when medicine isn't needed. Label everything you produce correctly to prevent confusion."
+	department_for_prefs = DEPT_BITFLAG_MED
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
 	faction = "Station"

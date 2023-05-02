@@ -20,6 +20,12 @@
 	var/flag = NONE //Deprecated //Except not really, still used throughout the codebase
 	var/auto_deadmin_role_flags = NONE
 
+	/// If this job should show in the preferences menu
+	var/show_in_prefs = TRUE
+
+	/// The head of the department to show in the preferences menu
+	var/department_head_for_prefs
+
 	///Mostly deprecated, but only used in pref job savefiles
 	var/department_flag = NONE
 

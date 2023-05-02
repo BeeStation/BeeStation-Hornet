@@ -112,6 +112,23 @@
 #define DEPT_BITFLAG_SILICON  (1<<9)
 #define DEPT_BITFLAG_CAPTAIN (1<<10)
 #define DEPT_BITFLAG_ASSISTANT (1<<11)
+
+/// For use in the preferences menu.
+GLOBAL_LIST_INIT(dept_bitflag_to_name, list(
+	"[DEPT_BITFLAG_COM]" = "Command",
+	"[DEPT_BITFLAG_CIV]" = "Civilian",
+	"[DEPT_BITFLAG_SRV]" = "Service",
+	"[DEPT_BITFLAG_CAR]" = "Cargo",
+	"[DEPT_BITFLAG_SCI]" = "Science",
+	"[DEPT_BITFLAG_ENG]" = "Engineering",
+	"[DEPT_BITFLAG_MED]" = "Medical",
+	"[DEPT_BITFLAG_SEC]" = "Security",
+	"[DEPT_BITFLAG_VIP]" = "Very Important People",
+	"[DEPT_BITFLAG_SILICON]" = "Silicon",
+	"[DEPT_BITFLAG_CAPTAIN]" = "Captain",
+	"[DEPT_BITFLAG_ASSISTANT]" = "Assistant"
+))
+
 // should check the ones in `\_DEFINES\economy.dm`
 // It's true that bitflags shouldn't be separated in two DEFINES if these are same, but just in case the system can be devided, it's remained separated.
 
