@@ -456,5 +456,5 @@
 	if(total_required_time > 0)
 		result_description[EXP_CHECK_PASS] = FALSE
 		if(returns_details)
-			result_description[EXP_CHECK_DESC] += "Play [get_exp_format(total_required_time)] more [category ? category : "as any of [english_list(required_jobs)]"]."
+			result_description[EXP_CHECK_DESC] += "Play [get_exp_format(total_required_time)] more [category ? category : "as any of [english_list(required_jobs, and_text=", or")]"]."
 	return result_description
