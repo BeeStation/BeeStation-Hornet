@@ -241,8 +241,11 @@
 			job_preferences -= j
 
 		// this automatically removes an invalid job from the pref list.
+		var/static/list/no_spam_list = list()
 		if(!SSjob.name_occupations[j]) // it should get a job by `SSjob.GetJob(j)` usually, but seeing runtime here is not necessary.
-			stack_trace("found an invalid job [j]: automatically removed from their preference.")
+			if(!no_spam_list[j])
+				stack_trace("found an invalid job [j]: automatically removed from their preference. (The error message for [j] will be skipped.)")
+				no_spam_list[j] = TRUE
 			job_preferences -= j
 
 	all_quirks = SANITIZE_LIST(all_quirks)
