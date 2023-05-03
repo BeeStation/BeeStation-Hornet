@@ -235,6 +235,12 @@
 	message = "beeps"
 	message_param = "beeps at %t"
 
+/datum/emote/living/carbon/human/robot_tongue/boop
+	key = "boop"
+	key_third_person = "boops"
+	message = "boops."
+	sound = 'sound/machines/boop.ogg'
+
 /datum/emote/living/carbon/human/robot_tongue/beep/run_emote(mob/user, params)
 	if(..())
 		playsound(user.loc, 'sound/machines/twobeep.ogg', 50)

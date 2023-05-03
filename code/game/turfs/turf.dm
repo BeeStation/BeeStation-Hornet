@@ -2,7 +2,6 @@ GLOBAL_LIST_EMPTY(station_turfs)
 GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf
 	icon = 'icons/turf/floors.dmi'
-	level = 1
 
 	/// If this is TRUE, that means this floor is on top of plating so pipes and wires and stuff will appear under it... or something like that it's not entirely clear.
 	var/intact = 1
@@ -247,15 +246,34 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 /turf/proc/multiz_turf_new(turf/T, dir)
 
-/// Returns TRUE if the turf cannot be moved onto
-/proc/is_blocked_turf(turf/T, exclude_mobs)
-	if(T.density)
-		return 1
-	for(var/i in T)
-		var/atom/A = i
-		if(A.density && (!exclude_mobs || !ismob(A)))
-			return 1
-	return 0
+/**
+ * Check whether the specified turf is blocked by something dense inside it with respect to a specific atom.
+ *
+ * Returns truthy value TURF_BLOCKED_TURF_DENSE if the turf is blocked because the turf itself is dense.
+ * Returns truthy value TURF_BLOCKED_CONTENT_DENSE if one of the turf's contents is dense and would block
+ * a source atom's movement.
+ * Returns falsey value TURF_NOT_BLOCKED if the turf is not blocked.
+ *
+ * Arguments:
+ * * exclude_mobs - If TRUE, ignores dense mobs on the turf.
+ * * source_atom - If this is not null, will check whether any contents on the turf can block this atom specifically. Also ignores itself on the turf.
+ * * ignore_atoms - Check will ignore any atoms in this list. Useful to prevent an atom from blocking itself on the turf.
+ */
+/turf/proc/is_blocked_turf(exclude_mobs = FALSE, source_atom = null, list/ignore_atoms)
+	if(density)
+		return TRUE
+
+	for(var/atom/movable/movable_content as anything in contents)
+		// We don't want to block ourselves or consider any ignored atoms.
+		if((movable_content == source_atom) || (movable_content in ignore_atoms))
+			continue
+		// If the thing is dense AND we're including mobs or the thing isn't a mob AND if there's a source atom and
+		// it cannot pass through the thing on the turf,  we consider the turf blocked.
+		if(movable_content.density && (!exclude_mobs || !ismob(movable_content)))
+			if(source_atom && movable_content.CanPass(source_atom, src))
+				continue
+			return TRUE
+	return FALSE
 
 /proc/is_anchored_dense_turf(turf/T) //like the older version of the above, fails only if also anchored
 	if(T.density)
@@ -448,9 +466,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	..()
 	SSzfall.remove_openspace_inhabitant(exiting)
 
-/turf/proc/is_plasteel_floor()
-	return FALSE
-
 // A proc in case it needs to be recreated or badmins want to change the baseturfs
 /turf/proc/assemble_baseturfs(turf/fake_baseturf_type)
 	var/turf/current_target
@@ -501,29 +516,19 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 /turf/proc/levelupdate()
 	for(var/obj/O in src)
-		if(O.level == 1 && (O.flags_1 & INITIALIZED_1))
-			O.hide(src.intact)
+		if(O.flags_1 & INITIALIZED_1)
+			SEND_SIGNAL(O, COMSIG_OBJ_HIDE, intact)
 
 // override for space turfs, since they should never hide anything
 /turf/open/space/levelupdate()
 	for(var/obj/O in src)
-		if(O.level == 1 && (O.flags_1 & INITIALIZED_1))
-			O.hide(0)
+		return
 
 // Removes all signs of lattice on the pos of the turf -Donkieyo
 /turf/proc/RemoveLattice()
 	var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 	if(L && (L.flags_1 & INITIALIZED_1))
 		qdel(L)
-
-/turf/proc/phase_damage_creatures(damage,mob/U = null)//>Ninja Code. Hurts and knocks out creatures on this turf //NINJACODE
-	for(var/mob/living/M in src)
-		if(M==U)
-			continue//Will not harm U. Since null != M, can be excluded to kill everyone.
-		M.adjustBruteLoss(damage)
-		M.Unconscious(damage * 4)
-	for(var/obj/mecha/M in src)
-		M.take_damage(damage*2, BRUTE, "melee", 1)
 
 /turf/proc/Bless()
 	new /obj/effect/blessing(src)
@@ -539,7 +544,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 	var/list/things = src_object.contents()
 	var/datum/progressbar/progress = new(user, things.len, src)
-	while (do_after(usr, 10, TRUE, src, FALSE, CALLBACK(src_object, /datum/component/storage.proc/mass_remove_from_storage, src, things, progress)))
+	while (do_after(usr, 10, src, progress = FALSE, extra_checks = CALLBACK(src_object, TYPE_PROC_REF(/datum/component/storage, mass_remove_from_storage), src, things, progress)))
 		stoplag(1)
 	qdel(progress)
 
@@ -566,8 +571,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf/singularity_act()
 	if(intact)
 		for(var/obj/O in contents) //this is for deleting things like wires contained in the turf
-			if(O.level != 1)
-				continue
 			if(O.invisibility == INVISIBILITY_MAXIMUM)
 				O.singularity_act()
 	ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
@@ -589,19 +592,10 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	return
 
 /turf/contents_explosion(severity, target)
-	var/affecting_level
-	if(severity == 1)
-		affecting_level = 1
-	else if(is_shielded())
-		affecting_level = 3
-	else if(intact)
-		affecting_level = 2
-	else
-		affecting_level = 1
 
 	for(var/thing in contents)
 		var/atom/atom_thing = thing
-		if(!QDELETED(atom_thing) && atom_thing.level >= affecting_level)
+		if(!QDELETED(atom_thing))
 			if(ismovable(atom_thing))
 				var/atom/movable/movable_thing = atom_thing
 				if(!movable_thing.ex_check(explosion_id))
@@ -663,11 +657,9 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		acid_type = /obj/effect/acid/alien
 	var/has_acid_effect = FALSE
 	for(var/obj/O in src)
-		if(intact && O.level == 1) //hidden under the floor
-			continue
 		if(istype(O, acid_type))
 			var/obj/effect/acid/A = O
-			A.acid_level = min(A.level + acid_volume * acidpwr, 12000)//capping acid level to limit power of the acid
+			A.acid_level = min(acid_volume * acidpwr, 12000)//capping acid level to limit power of the acid
 			has_acid_effect = 1
 			continue
 		O.acid_act(acidpwr, acid_volume)
@@ -737,15 +729,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 //Should return new turf
 /turf/proc/Melt()
 	return ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
-
-/// Handles exposing a turf to reagents.
-/turf/expose_reagents(list/reagents, datum/reagents/source, methods=TOUCH, volume_modifier=1, show_message=TRUE)
-	if((. = ..()) & COMPONENT_NO_EXPOSE_REAGENTS)
-		return
-
-	for(var/reagent in reagents)
-		var/datum/reagent/R = reagent
-		. |= R.expose_turf(src, reagents[R])
 
 /turf/proc/check_gravity()
 	return TRUE

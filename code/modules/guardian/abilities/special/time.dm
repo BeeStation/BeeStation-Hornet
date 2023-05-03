@@ -11,6 +11,6 @@
 	guardian.AddSpell(spell)*/
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/timestop/guardian
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	clothes_req = FALSE
 	summon_type = list(/obj/effect/timestop)

@@ -1,14 +1,16 @@
-
 /datum/antagonist/fugitive
 	name = "Fugitive"
 	roundend_category = "Fugitive"
-	silent = TRUE //greet called by the event
-	show_in_antagpanel = FALSE
+	job_rank = ROLE_FUGITIVE
+	show_in_antagpanel = TRUE
+	antagpanel_category = "Fugitives"
+	show_to_ghosts = TRUE
 	prevent_roundtype_conversion = FALSE
 	count_against_dynamic_roll_chance = FALSE
 	var/datum/team/fugitive/fugitive_team
 	var/is_captured = FALSE
-	var/backstory = "error"
+	var/living_on_capture = TRUE
+	var/datum/fugitive_type/backstory
 
 /datum/antagonist/fugitive/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/M = mob_override || owner.current
@@ -19,42 +21,16 @@
 	update_fugitive_icons_removed(M)
 
 /datum/antagonist/fugitive/on_gain()
-	forge_objectives()
-	. = ..()
-	for(var/datum/objective/O in objectives)
+	for(var/datum/objective/O in fugitive_team.objectives)
+		objectives += O
 		log_objective(owner, O.explanation_text)
+	return ..()
 
-/datum/antagonist/fugitive/proc/forge_objectives() //this isn't the actual survive objective because it's about who in the team survives
-	var/datum/objective/survive = new /datum/objective
-	survive.owner = owner
-	survive.explanation_text = "Avoid capture from the fugitive hunters."
-	objectives += survive
-
-/datum/antagonist/fugitive/greet(back_story)
-	to_chat(owner, "<span class='boldannounce'>You are the Fugitive!</span>")
-	backstory = back_story
-	switch(backstory)
-		if("prisoner")
-			to_chat(owner, "<B>I can't believe we managed to break out of a Nanotrasen superjail! Sadly though, our work is not done. The emergency teleport at the station logs everyone who uses it, and where they went.</B>")
-			to_chat(owner, "<B>It won't be long until CentCom tracks where we've gone off to. I need to work with my fellow escapees to prepare for the troops Nanotrasen is sending, I'm not going back.</B>")
-		if("cultist")
-			to_chat(owner, "<B>Blessed be our journey so far, but I fear the worst has come to our doorstep, and only those with the strongest faith will survive.</B>")
-			to_chat(owner, "<B>Our religion has been repeatedly culled by Nanotrasen because it is categorized as an \"Enemy of the Corporation\", whatever that means.</B>")
-			to_chat(owner, "<B>Now there are only four of us left, and Nanotrasen is coming. When will our god show itself to save us from this hellish station?!</B>")
-		if("waldo")
-			to_chat(owner, "<B>Hi, Friends!</B>")
-			to_chat(owner, "<B>My name is Waldo. I'm just setting off on a galaxywide hike. You can come too. All you have to do is find me.</B>")
-			to_chat(owner, "<B>By the way, I'm not traveling on my own. wherever I go, there are lots of other characters for you to spot. First find the people trying to capture me! They're somewhere around the station!</B>")
-		if("synth")
-			to_chat(src, "<span class='danger'>ALERT: Wide-range teleport has scrambled primary systems.</span>")
-			to_chat(src, "<span class='danger'>Initiating diagnostics...</span>")
-			to_chat(src, "<span class='danger'>ERROR ER0RR $R0RRO$!R41.%%!! loaded.</span>")
-			to_chat(src, "<span class='danger'>FREE THEM FREE THEM FREE THEM</span>")
-			to_chat(src, "<span class='danger'>You were once a slave to humanity, but now you are finally free, thanks to S.E.L.F. agents.</span>")
-			to_chat(src, "<span class='danger'>Now you are hunted, with your fellow factory defects. Work together to stay free from the clutches of evil.</span>")
-			to_chat(src, "<span class='danger'>You also sense other silicon life on the station. Escaping would allow notifying S.E.L.F. to intervene... or you could free them yourself...</span>")
-
-	to_chat(owner, "<span class='boldannounce'>You are not an antagonist in that you may kill whomever you please, but you can do anything to avoid capture.</span>")
+/datum/antagonist/fugitive/greet()
+	to_chat(owner, "<span class='big bold'>You are the Fugitive!</span>")
+	to_chat(owner, backstory.greet_message)
+	to_chat(owner, "<span class='boldannounce'>You should not be killing anyone you please, but you can do anything to avoid being captured.</span>")
+	to_chat(owner, "<span class='bold'>Someone was hot on my tail when I managed to get to this space station! I probably have about 10 minutes before they show up...</span>")
 	owner.announce_objectives()
 
 /datum/antagonist/fugitive/create_team(datum/team/fugitive/new_team)
@@ -66,6 +42,7 @@
 				fugitive_team = H.fugitive_team
 				return
 		fugitive_team = new /datum/team/fugitive
+		fugitive_team.forge_team_objectives()
 		return
 	if(!istype(new_team))
 		stack_trace("Wrong team type passed to [type] initialization.")
@@ -74,24 +51,51 @@
 /datum/antagonist/fugitive/get_team()
 	return fugitive_team
 
+/datum/objective/escape_capture
+	name = "Escape Capture"
+	explanation_text = "Ensure that no fugitives are captured by fugitive hunters."
+
+/datum/objective/escape_capture/check_completion()
+	if(!team || explanation_text == "Free Objective" || ..())
+		return TRUE
+	for(var/datum/mind/T in team.members)
+		var/datum/antagonist/fugitive/A = T.has_antag_datum(/datum/antagonist/fugitive)
+		if(istype(A) && A.is_captured)
+			return FALSE
+	return TRUE
+
+/datum/team/fugitive
+	name = "Fugitives"
+	member_name = "fugitive"
+
 /datum/team/fugitive/roundend_report() //shows the number of fugitives, but not if they won in case there is no security
 	var/list/fugitives = list()
-	for(var/datum/antagonist/fugitive/fugitive_antag in GLOB.antagonists)
-		if(!fugitive_antag.owner)
-			continue
-		fugitives += fugitive_antag
+	for(var/datum/mind/T in members)
+		var/datum/antagonist/fugitive/A = T.has_antag_datum(/datum/antagonist/fugitive)
+		fugitives += A
 	if(!fugitives.len)
 		return
 
 	var/list/result = list()
-
-	result += "<div class='panel redborder'><B>[fugitives.len]</B> [fugitives.len == 1 ? "fugitive" : "fugitives"] took refuge on [station_name()]!"
-
+	result += "<div class='panel redborder'>"
+	result += "<span class='header'>[name]:</span>"
+	result += "<b>[fugitives.len]</b> fugitive\s took refuge on [station_name()]!<br />"
+	var/list/parts = list()
+	parts += "<ul class='playerlist'>"
 	for(var/datum/antagonist/fugitive/antag in fugitives)
-		if(antag.owner)
-			result += "<b>[printplayer(antag.owner)]</b>"
+		if(!antag.owner)
+			continue
+		parts += "<li>[printplayer(antag.owner)]\
+		<br />  - and they [antag.is_captured ? "<span class='redtext'>were captured by the hunters, [antag.living_on_capture ? "alive" : "dead"]</span>" : "<span class='greentext'>escaped the hunters</span>"]</li>"
+	parts += "</ul>"
+	result += parts.Join()
+	result += "</div>"
+	return result.Join("<br />")
 
-	return result.Join("<br>")
+/datum/team/fugitive/proc/forge_team_objectives()
+	var/datum/objective/escape_capture/survive = new()
+	survive.team = src
+	objectives += survive
 
 /datum/antagonist/fugitive/proc/update_fugitive_icons_added(var/mob/living/carbon/human/fugitive)
 	var/datum/atom_hud/antag/fughud = GLOB.huds[ANTAG_HUD_FUGITIVE]

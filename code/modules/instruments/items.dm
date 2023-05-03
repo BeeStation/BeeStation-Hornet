@@ -13,6 +13,7 @@
 	var/list/allowed_instrument_ids
 	/// How far away our song datum can be heard.
 	var/instrument_range = 15
+	item_flags = ISWEAPON
 
 /obj/item/instrument/Initialize(mapload)
 	. = ..()
@@ -212,7 +213,7 @@
 
 /obj/item/instrument/harmonica/equipped(mob/M, slot)
 	. = ..()
-	RegisterSignal(M, COMSIG_MOB_SAY, .proc/handle_speech)
+	RegisterSignal(M, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
 /obj/item/instrument/harmonica/dropped(mob/M)
 	..()

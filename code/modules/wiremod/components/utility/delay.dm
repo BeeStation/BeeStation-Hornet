@@ -29,7 +29,7 @@
 	var/delay = delay_amount.value
 	if(delay > COMP_DELAY_MIN_VALUE)
 		// Convert delay into deciseconds
-		addtimer(CALLBACK(output, /datum/port/output.proc/set_output, trigger.value), delay*10)
+		addtimer(CALLBACK(output, TYPE_PROC_REF(/datum/port/output, set_output), trigger.value), delay*10)
 	else
 		output.set_output(trigger.value)
 

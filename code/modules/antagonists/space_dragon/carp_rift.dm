@@ -60,7 +60,7 @@
 /obj/structure/carp_rift
 	name = "carp rift"
 	desc = "A rift akin to the ones space carp use to travel long distances."
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 0)
 	max_integrity = 300
 	icon = 'icons/obj/carp_rift.dmi'
 	icon_state = "carp_rift_carpspawn"
@@ -143,7 +143,8 @@
 
 /obj/structure/carp_rift/attack_ghost(mob/user)
 	. = ..()
-	summon_carp(user)
+	if(user?.client.canGhostRole(ROLE_SPACE_DRAGON, TRUE, flags_1))
+		summon_carp(user)
 
 /**
  * Does a series of checks based on the portal's status.

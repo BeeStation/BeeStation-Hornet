@@ -867,10 +867,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/mine/production)
-"gh" = (
-/obj/machinery/mineral/processing_unit_console,
-/turf/closed/wall,
-/area/mine/laborcamp)
 "gl" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/item/kirbyplants/random,
@@ -1189,6 +1185,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/storage)
+"ij" = (
+/obj/machinery/mineral/processing_unit_console,
+/turf/closed/wall,
+/area/mine/laborcamp)
 "im" = (
 /turf/open/floor/plasteel,
 /area/mine/science)
@@ -31906,7 +31906,7 @@ np
 DF
 aw
 rw
-gh
+ij
 rw
 wB
 rw

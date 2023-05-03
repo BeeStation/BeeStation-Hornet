@@ -9,7 +9,7 @@
 	righthand_file = 'icons/mob/inhands/misc/touchspell_righthand.dmi'
 	icon_state = "syndballoon"
 	item_state = null
-	item_flags = NEEDS_PERMIT | ABSTRACT | DROPDEL
+	item_flags = NEEDS_PERMIT | ABSTRACT | DROPDEL | ISWEAPON
 	w_class = WEIGHT_CLASS_HUGE
 	force = 0
 	throwforce = 0
@@ -171,7 +171,7 @@
 	var/mob/living/carbon/M = target
 
 	user.visible_message("<span class='warning'>[user] is trying to stuff [M]\s body into \the [src]!</span>")
-	if(do_mob(user, M, 250))
+	if(do_after(user, 25 SECONDS, M))
 		var/name = M.real_name
 		var/obj/item/reagent_containers/food/snacks/pie/cream/body/pie = new(get_turf(M))
 		pie.name = "\improper [name] [pie.name]"

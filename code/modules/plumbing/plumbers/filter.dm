@@ -19,6 +19,7 @@
 /obj/machinery/plumbing/filter/Initialize(mapload, bolt)
 	. = ..()
 	AddComponent(/datum/component/plumbing/filter, bolt)
+	update_appearance() //so the input/output pipes will overlay properly during init
 
 
 /obj/machinery/plumbing/filter/ui_state(mob/user)

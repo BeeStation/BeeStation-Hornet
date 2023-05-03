@@ -54,7 +54,7 @@
 	current_target = target
 	active = TRUE
 	current_beam = new(user,current_target,time=6000,beam_icon_state="medbeam",btype=/obj/effect/ebeam/medical)
-	INVOKE_ASYNC(current_beam, /datum/beam.proc/Start)
+	INVOKE_ASYNC(current_beam, TYPE_PROC_REF(/datum/beam, Start))
 
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 
@@ -90,7 +90,7 @@
 	else if(!istype(user_turf))
 		return 0
 	var/obj/dummy = new(user_turf)
-	dummy.pass_flags |= PASSTABLE|PASSGLASS|PASSGRILLE //Grille/Glass so it can be used through common windows
+	dummy.pass_flags |= PASSTABLE|PASSTRANSPARENT|PASSGRILLE //Grille/Glass so it can be used through common windows
 	for(var/turf/turf in getline(user_turf,target))
 		if(mounted && turf == user_turf)
 			continue //Mechs are dense and thus fail the check

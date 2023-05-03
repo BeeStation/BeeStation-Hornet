@@ -40,7 +40,7 @@
 	if(ismob(AM) && AM == target)
 		visible_message("[src] flails his swords and cuts [AM]!")
 		playsound(src,'sound/effects/beepskyspinsabre.ogg',100,TRUE,-1)
-		INVOKE_ASYNC(src, .proc/stun_attack, AM)
+		INVOKE_ASYNC(src, PROC_REF(stun_attack), AM)
 
 /mob/living/simple_animal/bot/secbot/grievous/Initialize(mapload)
 	. = ..()
@@ -63,7 +63,7 @@
 	weapon.attack(C, src)
 	playsound(src, 'sound/weapons/blade1.ogg', 50, TRUE, -1)
 	if(C.stat == DEAD)
-		addtimer(CALLBACK(src, /atom/.proc/update_icon), 2)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 2)
 		back_to_idle()
 
 
@@ -119,7 +119,7 @@
 		if((C.name == oldtarget_name) && (world.time < last_found + 100))
 			continue
 
-		threatlevel = C.assess_threat(judgment_criteria, weaponcheck=CALLBACK(src, .proc/check_for_weapons))
+		threatlevel = C.assess_threat(judgment_criteria, weaponcheck=CALLBACK(src, PROC_REF(check_for_weapons)))
 
 		if(!threatlevel)
 			continue
@@ -134,7 +134,7 @@
 			icon_state = "grievous-c"
 			visible_message("<b>[src]</b> points at [C.name]!")
 			mode = BOT_HUNT
-			INVOKE_ASYNC(src, .proc/handle_automated_action)
+			INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 			break
 		else
 			continue

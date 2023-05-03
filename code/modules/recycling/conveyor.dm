@@ -68,9 +68,9 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	///Leaving onto conveyor detection won't work at this point, but that's alright since it's an optimization anyway
 	///Should be fine without it
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_EXITED = .proc/conveyable_exit,
-		COMSIG_ATOM_ENTERED = .proc/conveyable_enter,
-		COMSIG_ATOM_CREATED = .proc/conveyable_enter
+		COMSIG_ATOM_EXITED = PROC_REF(conveyable_exit),
+		COMSIG_ATOM_ENTERED = PROC_REF(conveyable_enter),
+		COMSIG_ATOM_CREATED = PROC_REF(conveyable_enter)
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 	update_move_direction()
@@ -117,10 +117,10 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 			continue
 		neighbors["[direction]"] = TRUE
 		valid.neighbors["[turn(direction, 180)]"] = TRUE
-		RegisterSignal(valid, COMSIG_MOVABLE_MOVED, .proc/nearby_belt_changed, override=TRUE)
-		RegisterSignal(valid, COMSIG_PARENT_QDELETING, .proc/nearby_belt_changed, override=TRUE)
-		valid.RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/nearby_belt_changed, override=TRUE)
-		valid.RegisterSignal(src, COMSIG_PARENT_QDELETING, .proc/nearby_belt_changed, override=TRUE)
+		RegisterSignal(valid, COMSIG_MOVABLE_MOVED, PROC_REF(nearby_belt_changed), override=TRUE)
+		RegisterSignal(valid, COMSIG_PARENT_QDELETING, PROC_REF(nearby_belt_changed), override=TRUE)
+		valid.RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(nearby_belt_changed), override=TRUE)
+		valid.RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(nearby_belt_changed), override=TRUE)
 
 /obj/machinery/conveyor/proc/nearby_belt_changed(datum/source)
 	SIGNAL_HANDLER

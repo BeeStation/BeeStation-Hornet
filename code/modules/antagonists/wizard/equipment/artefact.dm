@@ -15,6 +15,7 @@
 	throwforce = 10
 	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	item_flags = ISWEAPON
 	var/charges = 1
 	var/spawn_type = /obj/tear_in_reality
 	var/spawn_amt = 1
@@ -122,7 +123,7 @@
 	. = ..()
 	AddComponent(
 		/datum/component/singularity, \
-		consume_callback = CALLBACK(src, .proc/consume), \
+		consume_callback = CALLBACK(src, PROC_REF(consume)), \
 		consume_range = TEAR_IN_REALITY_CONSUME_RANGE, \
 		notify_admins = FALSE, \
 		roaming = FALSE, \
@@ -139,7 +140,7 @@
 		insaneinthemembrane.sanity = 0
 		for(var/lore in typesof(/datum/brain_trauma/severe))
 			C.gain_trauma(lore)
-		addtimer(CALLBACK(src, .proc/deranged, C), 100)
+		addtimer(CALLBACK(src, PROC_REF(deranged), C), 100)
 
 /obj/tear_in_reality/proc/deranged(mob/living/carbon/C)
 	if(!C || C.stat == DEAD)
@@ -289,7 +290,7 @@
 			H.dust(TRUE)
 			spooky_scaries.Remove(X)
 			continue
-	listclearnulls(spooky_scaries)
+	list_clear_nulls(spooky_scaries)
 
 //Funny gimmick, skeletons always seem to wear roman/ancient armour
 /obj/item/necromantic_stone/proc/equip_roman_skeleton(mob/living/carbon/human/H)
@@ -320,6 +321,7 @@
 	var/cooldown = 0
 	max_integrity = 10
 	resistance_flags = FLAMMABLE
+	item_flags = ISWEAPON
 
 /obj/item/voodoo/attackby(obj/item/I, mob/user, params)
 	if(target && cooldown < world.time)
@@ -353,7 +355,7 @@
 
 /obj/item/voodoo/attack_self(mob/user)
 	if(!target && possible.len)
-		target = input(user, "Select your victim!", "Voodoo") as null|anything in sortNames(possible)
+		target = input(user, "Select your victim!", "Voodoo") as null|anything in sort_names(possible)
 		return
 
 	if(user.zone_selected == BODY_ZONE_CHEST)

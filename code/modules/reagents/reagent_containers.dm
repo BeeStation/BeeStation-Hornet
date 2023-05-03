@@ -3,6 +3,7 @@
 	desc = "..."
 	icon = 'icons/obj/chemical.dmi'
 	w_class = WEIGHT_CLASS_TINY
+	item_flags = ISWEAPON
 	/// this is to support when you don't want to display "bottle" part with a custom name. i.e.) "Bica-Kelo mix" rather than "Bica-Kelo mix bottle"
 	var/label_name
 	///How many units are we currently transferring?
@@ -122,7 +123,7 @@
 
 		if(thrownby)
 			log_combat(thrown_by, M, "splashed", R)
-		reagents.expose(target, TOUCH)
+		reagents.reaction(target, TOUCH)
 
 	else if(bartender_check(target) && thrown)
 		visible_message("<span class='notice'>[src] lands onto the [target.name] without spilling a single drop.</span>")
@@ -134,7 +135,7 @@
 			log_game("[key_name(thrown_by)] splashed (thrown) [english_list(reagents.reagent_list)] on [target] in [AREACOORD(target)].")
 			message_admins("[ADMIN_LOOKUPFLW(thrown_by)] splashed (thrown) [english_list(reagents.reagent_list)] on [target] in [ADMIN_VERBOSEJMP(target)].")
 		visible_message("<span class='notice'>[src] spills its contents all over [target].</span>")
-		reagents.expose(target, TOUCH)
+		reagents.reaction(target, TOUCH)
 		if(QDELETED(src))
 			return
 

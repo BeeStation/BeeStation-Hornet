@@ -9,7 +9,6 @@
 	layer = TURF_LAYER
 	plane = GAME_PLANE
 	appearance_flags = TILE_BOUND
-	var/level = 2
 
 	/// pass_flags that we are. If any of this matches a pass_flag on a moving thing, by default, we let them through.
 	var/pass_flags_self = NONE
@@ -299,7 +298,7 @@
 	var/a_incidence_s = abs(incidence_s)
 	if(a_incidence_s > 90 && a_incidence_s < 270)
 		return FALSE
-	if((P.flag in list("bullet", "bomb")) && P.ricochet_incidence_leeway)
+	if((P.armor_flag in list(BULLET, BOMB)) && P.ricochet_incidence_leeway)
 		if((a_incidence_s < 90 && a_incidence_s < 90 - P.ricochet_incidence_leeway) || (a_incidence_s > 270 && a_incidence_s -270 > P.ricochet_incidence_leeway))
 			return FALSE
 	var/new_angle_s = SIMPLIFY_DEGREES(face_angle + incidence_s)
@@ -324,6 +323,8 @@
 	if(mover.pass_flags & pass_flags_self)
 		return TRUE
 	if(mover.throwing && (pass_flags_self & LETPASSTHROW))
+		return TRUE
+	if ((mover.pass_flags & PASSTRANSPARENT) && alpha < 255 && prob(100 - (alpha/2.55)))
 		return TRUE
 	return !density
 
@@ -489,26 +490,6 @@
 /atom/proc/is_drainable()
 	return reagents && (reagents.flags & DRAINABLE)
 
-/** Handles exposing this atom to a list of reagents.
-  *
-  * Sends COMSIG_ATOM_EXPOSE_REAGENTS
-  * Calls expose_atom() for every reagent in the reagent list.
-  *
-  * Arguments:
-  * - [reagents][/list]: The list of reagents the atom is being exposed to.
-  * - [source][/datum/reagents]: The reagent holder the reagents are being sourced from.
-  * - method: How the atom is being exposed to the reagents.
-  * - volume_modifier: Volume multiplier.
-  * - show_message: Whether to display anything to mobs when they are exposed.
-  */
-/atom/proc/expose_reagents(list/reagents, datum/reagents/source, methods=TOUCH, volume_modifier=1, show_message=TRUE)
-	if((. = SEND_SIGNAL(src, COMSIG_ATOM_EXPOSE_REAGENTS, reagents, source, methods, volume_modifier, show_message)) & COMPONENT_NO_EXPOSE_REAGENTS)
-		return
-
-	for(var/reagent in reagents)
-		var/datum/reagent/R = reagent
-		. |= R.expose_atom(src, reagents[R])
-
 /// Is this atom grindable to get reagents
 /atom/proc/is_grindable()
 	return reagents && (reagents.flags & ABSOLUTELY_GRINDABLE)
@@ -640,7 +621,7 @@
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
 /**
- * Updates the appearence of the icon
+ * Updates the appearance of the icon
  *
  * Mostly delegates to update_name, update_desc, and update_icon
  *
@@ -788,7 +769,7 @@
 /atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
 	if(density && !has_gravity(AM)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
-		addtimer(CALLBACK(src, .proc/hitby_react, AM), 2)
+		addtimer(CALLBACK(src, PROC_REF(hitby_react), AM), 2)
 
 /**
   * We have have actually hit the passed in atom
@@ -844,12 +825,6 @@
 	if(!blood_dna)
 		return FALSE
 	return add_blood_DNA(blood_dna)
-
-///wash cream off this object
-///
-///(for the love of space jesus please make this a component)
-/atom/proc/wash_cream()
-	return TRUE
 
 ///Is this atom in space
 /atom/proc/isinspace()
@@ -999,7 +974,7 @@
 	var/list/things = src_object.contents()
 	var/datum/progressbar/progress = new(user, things.len, src)
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	while (do_after(user, 10, TRUE, src, FALSE, CALLBACK(STR, /datum/component/storage.proc/handle_mass_item_insertion, things, src_object, user, progress)))
+	while (do_after(user, 1 SECONDS, src, NONE, FALSE, CALLBACK(STR, TYPE_PROC_REF(/datum/component/storage, handle_mass_item_insertion), things, src_object, user, progress)))
 		stoplag(1)
 	qdel(progress)
 	to_chat(user, "<span class='notice'>You dump as much of [src_object.parent]'s contents into [STR.insert_preposition]to [src] as you can.</span>")
@@ -1417,6 +1392,8 @@
 			log_mecha(log_text)
 		if(LOG_RADIO_EMOTE)
 			log_radio_emote(log_text)
+		if(LOG_SPEECH_INDICATORS)
+			log_speech_indicators(log_text)
 		else
 			stack_trace("Invalid individual logging type: [message_type]. Defaulting to [LOG_GAME] (LOG_GAME).")
 			log_game(log_text)
@@ -1466,6 +1443,10 @@
 
 	var/mob/living/living_target = target
 	var/hp = istype(living_target) ? " (NEWHP: [living_target.health]) " : ""
+	var/stam
+	if(iscarbon(living_target))
+		var/mob/living/carbon/C = living_target
+		stam = "(STAM: [C.getStaminaLoss()]) "
 
 	var/sobject = ""
 	if(object)
@@ -1474,7 +1455,7 @@
 	if(addition)
 		saddition = " [addition]"
 
-	var/postfix = "[sobject][saddition][hp]"
+	var/postfix = "[sobject][saddition][hp][stam]"
 
 	var/message = "has [what_done] [starget][postfix]"
 	user.log_message(message, LOG_ATTACK, color="red")
@@ -1505,7 +1486,7 @@
 
 /atom/proc/update_filters()
 	filters = null
-	filter_data = sortTim(filter_data, /proc/cmp_filter_data_priority, TRUE)
+	filter_data = sortTim(filter_data, GLOBAL_PROC_REF(cmp_filter_data_priority), TRUE)
 	for(var/f in filter_data)
 		var/list/data = filter_data[f]
 		var/list/arguments = data.Copy()
@@ -1575,6 +1556,11 @@
 		custom_material.on_applied(src, materials[custom_material] * multiplier, material_flags)
 		custom_materials[custom_material] += materials[custom_material] * multiplier
 
+/// Returns the indice in filters of the given filter name.
+/// If it is not found, returns null.
+/atom/proc/get_filter_index(name)
+	return filter_data?.Find(name)
+
 ///Setter for the `density` variable to append behavior related to its changing.
 /atom/proc/set_density(new_value)
 	SHOULD_CALL_PARENT(TRUE)
@@ -1615,3 +1601,44 @@
 /atom/proc/InitializeAIController()
 	if(ai_controller)
 		ai_controller = new ai_controller(src)
+
+/*
+* Called when something made out of plasma is exposed to high temperatures.
+* Intended for use only with plasma that is ignited outside of some form of containment
+* Contained plasma ignitions (such as power cells or light fixtures) should explode with proper force
+*/
+/atom/proc/plasma_ignition(strength, mob/user, reagent_reaction)
+	var/turf/T = get_turf(src)
+	var/datum/gas_mixture/environment = T.return_air()
+	if(environment.get_moles(GAS_O2) >= PLASMA_MINIMUM_OXYGEN_NEEDED) //Flashpoint ignition can only occur with at least this much oxygen present
+		//no reason to alert admins or create an explosion if there's not enough power to actually make an explosion
+		if(strength > 1)
+			if(user)
+				message_admins("[src] ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(T)]")
+				log_game("[src] ignited by [key_name(user)] in [AREACOORD(T)]")
+			else
+				//if we can't get a direct source for ignition, we'll take the last person who touched what is blowing up
+				var/mob/toucher = get_mob_by_ckey(fingerprintslast)
+				if(toucher)
+					message_admins("[src] ignited in [ADMIN_VERBOSEJMP(T)], last touched by [ADMIN_LOOKUPFLW(toucher)]")
+					log_game("[src] ignited in [AREACOORD(T)], last touched by [key_name(toucher)]")
+				else
+					//Nobody directly touched the source of ignition or what ignited. Probably caused by burning atmos.
+					message_admins("[src] ignited by unidentified causes in [ADMIN_VERBOSEJMP(T)]")
+					log_game("[src] ignited by unidentified causes in [AREACOORD(T)]")
+			explosion(T, 0, 0, light_impact_range = strength/4, flash_range = strength/2, flame_range = strength, silent = TRUE)
+		else
+			new /obj/effect/hotspot(T)
+		//Regardless of power, whatever is burning will go up in a brilliant flash with at least a fizzle
+		playsound(T,'sound/magic/fireball.ogg', max(strength*20, 20), 1)
+		T.visible_message("<b><span class='userdanger'>[src] ignites in a brilliant flash!</span></b>")
+		if(reagent_reaction) // Don't qdel(src). It's a reaction inside of something (or someone) important.
+			return TRUE
+		else if(isturf(src))
+			var/turf/srcTurf = src
+			srcTurf.ScrapeAway() //Can't just qdel turfs
+		else
+			qdel(src)
+		return TRUE
+	return FALSE
+

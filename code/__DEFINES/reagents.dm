@@ -18,17 +18,11 @@
 #define OPENCONTAINER 	(REFILLABLE | DRAINABLE | TRANSPARENT)
 
 
-// Reagent exposure methods.
-/// Used for splashing.
-#define TOUCH (1<<0)
-/// Used for ingesting the reagents. Food, drinks, inhaling smoke.
-#define INGEST (1<<1)
-/// Used by foams, sprays, and blob attacks.
-#define VAPOR (1<<2)
-/// Used by medical patches and gels.
-#define PATCH (1<<3)
-/// Used for direct injection of reagents.
-#define INJECT (1<<4)
+#define TOUCH			1	//! splashing
+#define INGEST			2	//! ingestion
+#define VAPOR			3	//! foam, spray, blob attack
+#define PATCH			4	//! patches
+#define INJECT			5	//! injection
 
 
 //defines passed through to the on_reagent_change proc
@@ -75,7 +69,7 @@
 GLOBAL_LIST_INIT(pill_shape_list, list(
 		"pill_shape_capsule_purple_pink",
 		"pill_shape_capsule_bloodred",
-		"pill_shape_capsule_red_whiteline",
+		"pill_shape_capsule_red_whitelined",
 		"pill_shape_capsule_orange",
 		"pill_shape_capsule_yellow",
 		"pill_shape_capsule_green",

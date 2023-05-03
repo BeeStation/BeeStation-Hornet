@@ -55,4 +55,4 @@
 
 /datum/food_processor_process/fish
 	input = /obj/item/fish
-	output = /obj/item/reagent_containers/food/snacks/carpmeat/icantbeliveitsnotcarp
+	output = /obj/item/reagent_containers/food/snacks/carpmeat/icantbelieveitsnotcarp

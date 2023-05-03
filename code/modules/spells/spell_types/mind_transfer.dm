@@ -6,7 +6,7 @@
 	charge_max = 600
 	clothes_req = FALSE
 	invocation = "GIN'YU CAPAN"
-	invocation_type = "whisper"
+	invocation_type = INVOCATION_WHISPER
 	range = 1
 	cooldown_min = 200 //100 deciseconds reduction per rank
 	var/unconscious_amount_caster = 400 //how much the caster is stunned for after the spell

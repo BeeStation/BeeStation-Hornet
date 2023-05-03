@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, ProgressBar, Section, AnimatedNumber } from '../components';
+import { Box, Button, LabeledList, ProgressBar, Section, AnimatedNumber, Table } from '../components';
 import { Window } from '../layouts';
 import { toFixed } from 'common/math';
 
@@ -10,20 +10,8 @@ export const Sleeper = (props, context) => {
     open,
     occupant = {},
     occupied,
+    chems = {},
   } = data;
-
-  const preSortChems = data.chems || [];
-  const chems = preSortChems.sort((a, b) => {
-    const descA = a.name.toLowerCase();
-    const descB = b.name.toLowerCase();
-    if (descA < descB) {
-      return -1;
-    }
-    if (descA > descB) {
-      return 1;
-    }
-    return 0;
-  });
 
   const damageTypes = [
     {
@@ -120,18 +108,35 @@ export const Sleeper = (props, context) => {
               content={open ? 'Open' : 'Closed'}
               onClick={() => act('door')} />
           )}>
-          {chems.map(chem => (
-            <Button
-              key={chem.name}
-              icon="flask"
-              content={chem.name}
-              disabled={!(occupied && chem.allowed)}
-              width="140px"
-              onClick={() => act('inject', {
-                chem: chem.id,
-              })}
-            />
-          ))}
+          <Table>
+            {chems.map(chem => (
+              <Table.Row
+                key={chem.id} >
+                <Table.Cell>
+                  <Button
+                    key={chem.id}
+                    icon="flask"
+                    width="100%"
+                    content={chem.name + ' (' + chem.amount + 'u)'}
+                    disabled={!(occupied && chem.allowed)}
+                    onClick={() => act('inject', {
+                      chem: chem.id,
+                    })}
+                  />
+                </Table.Cell>
+                <Table.Cell collapsing>
+                  <Button
+                    key={chem.id}
+                    icon="eject"
+                    content="Eject"
+                    onClick={() => act('eject', {
+                      chem: chem.id,
+                    })}
+                  />
+                </Table.Cell>
+              </Table.Row>
+            ))}
+          </Table>
         </Section>
       </Window.Content>
     </Window>

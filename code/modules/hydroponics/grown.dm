@@ -121,9 +121,9 @@
 	if(seed)
 		for(var/datum/plant_gene/trait/trait in seed.genes)
 			trait.on_squash(src, target)
-	reagents.expose(T)
+	reagents.reaction(T)
 	for(var/A in T)
-		reagents.expose(A)
+		reagents.reaction(A)
 	qdel(src)
 
 /obj/item/reagent_containers/food/snacks/grown/proc/squashreact()
