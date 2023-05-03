@@ -79,6 +79,7 @@ SUBSYSTEM_DEF(job)
 
 	for(var/J in all_jobs)
 		var/datum/job/job = new J()
+		job.initialize_playtime_list()
 		if(!job)
 			continue
 		if(job.faction != faction)

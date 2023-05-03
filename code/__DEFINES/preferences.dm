@@ -101,11 +101,17 @@
 #define SEC_DEPT_SUPPLY "Supply"
 
 
+#define EXP_WRAP(x) (list(x))
+#define EXP_WRAP_B(x) (list())
+
+#define ADD_EXP_CHECK(x) exp_requirement_list+=x
+#define EXP_JOB_REQUIRE(x, n) (list("[x]" = n))
+
 #define EXP_JOB_REQUIRES(x) (x) // actually putting a number directly, but writing context-less number is bad.
+#define EXP_JOB_SERIES(x) (list(x))
 
 #define EXPJOB_TIMEREQ_LIVING_DEFAULT 5
 #define EXPJOB_TIMEREQ_ESSENTIAL 600
-#define EXPJOB_TIMEREQ_
 
 // Playtime tracking system, see jobs_exp.dm
 #define EXP_TYPE_LIVING			"Living"

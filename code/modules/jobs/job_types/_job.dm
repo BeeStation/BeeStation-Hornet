@@ -96,6 +96,10 @@
 /datum/job/New()
 	. = ..()
 
+/// This is necessary to contain wanted playtime req to `list/exp_requirement_list`, because the code does some fuckery
+/datum/job/proc/initialize_playtime_list()
+	return
+
 //Only override this proc, unless altering loadout code. Loadouts act on H but get info from M
 //H is usually a human unless an /equip override transformed it
 //do actions on H but send messages to M as the key may not have been transferred_yet
