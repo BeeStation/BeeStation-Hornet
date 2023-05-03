@@ -53,7 +53,7 @@
 						data_entry["job"] = I.assignment ? I.assignment : player.mind?.get_display_station_role()
 						if(GLOB.crewmonitor.jobs[I.hud_state] != null)
 							data_entry["ijob"] = GLOB.crewmonitor.jobs[I.hud_state]
-					if(!data_entry["job"])
+					if(!data_entry["job"]) // tries to get a job from mob's mind or their card, but still no job data means they're mindless
 						data_entry["job"] = "Mindless mob"
 				else
 					data_entry["job"] = initial(player.name) // get the name of their mob type
