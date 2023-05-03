@@ -444,10 +444,11 @@
 		if(!required_jobs[each_job])
 			continue
 		var/playtime_result = required_jobs[each_job] - playrecord[each_job]
-		if(playtime_result > 0 && returns_details) // Positive: you need to play more
-			result_jobs += "Play [get_exp_format(playtime_result)] more as [each_job]."
-		else
+		if(playtime_result <= 0) // Negative: You played this job enough
 			required_count--
+		else if(returns_details) // Positive + detail flag: Builds what you need to play
+			result_jobs += "Play [get_exp_format(playtime_result)] more as [each_job]."
+
 	if(required_count)
 		result_description[EXP_CHECK_PASS] = FALSE
 		if(returns_details)
