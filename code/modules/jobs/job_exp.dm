@@ -12,14 +12,14 @@ GLOBAL_PROTECT(exp_to_update)
 	if(!length(exp_requirement_list))
 		return TRUE
 	if(!job_is_xp_locked(src.title))
-		return 0
+		return TRUE
 	if(CONFIG_GET(flag/use_exp_restrictions_admin_bypass) && check_rights_for(C,R_ADMIN))
-		return 0
+		return TRUE
 	var/isexempt = C.prefs.db_flags & DB_FLAG_EXEMPT
 	if(isexempt)
-		return 0
+		return TRUE
 	if(C.prefs.job_exempt)
-		return 0
+		return TRUE
 
 	var/list/exp_result = INIT_EXP_LIST
 	for(var/datum/job_playtime_req/each_req in exp_requirement_list)
