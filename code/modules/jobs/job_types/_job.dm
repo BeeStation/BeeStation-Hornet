@@ -400,12 +400,13 @@
 
 
 /datum/job_playtime_req
+	/// number of requirement of playtime for each job. 2 means you need 2 jobs having playtime.
 	var/required_number
-	///
-	var/required_jobs
-	/// playtime requires that total playtime from required_jobs. If required_jobs have time, it
+	/// list of jobs, or roles. If each key has a value, that'll be required time for the role.
+	var/list/required_jobs
+	/// [Optional] Required total playtime from all jobs/roles from required_jobs
 	var/required_job_sumtime
-	/// displays this name instead of long job name
+	/// [Optional] Displays this name instead of long job name (required_job_sumtime is needed)
 	var/category
 
 /datum/job_playtime_req/New(number, jobs, checks_sum=0, category_name="")
