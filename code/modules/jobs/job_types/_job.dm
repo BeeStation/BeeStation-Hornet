@@ -395,3 +395,65 @@
 		scandisease.spread_text = "None"
 		scandisease.visibility_flags |= HIDDEN_SCANNER
 		H.ForceContractDisease(scandisease)
+
+
+
+
+/datum/job_playtime_req
+	var/required_number
+	///
+	var/required_jobs
+	/// playtime requires that total playtime from required_jobs. If required_jobs have time, it
+	var/required_job_sumtime
+	/// displays this name instead of long job name
+	var/category
+
+/datum/job_playtime_req/New(number, jobs, checks_sum=0, category_name="")
+	required_number = number
+	required_jobs = jobs
+	required_job_sumtime = checks_sum
+	if(category_name)
+		category = category_name
+
+	var/checakble_jobs = 0
+	for(var/each_job in required_jobs)
+		if(required_jobs[each_job])
+			checakble_jobs++
+	if(required_number > checakble_jobs)
+		stack_trace("Jobs that have timecheck are [checakble_jobs], but the required number is [required_number]")
+		required_number = checakble_jobs
+
+/*
+	ADD_EXP_REQ_FORMAT(
+		number = number of requirement for each job,
+		jobs = list(jobs),
+		checks_sum = [optional] total time requirement from all given jobs,
+		category_name = [optional])
+*/
+
+/datum/job_playtime_req/proc/check_eligibility(client/cli, returns_details=FALSE)
+	var/list/playrecord = cli.prefs.exp
+	var/list/result_description = INIT_EXP_LIST
+	var/total_required_time = required_job_sumtime
+	var/required_count = required_number
+
+	var/list/result_jobs = list()
+	for(var/each_job in required_jobs)
+		total_required_time -= playrecord[each_job]
+		if(!required_jobs[each_job])
+			continue
+		var/playtime_result = required_jobs[each_job] - playrecord[each_job]
+		if(playtime_result > 0 && returns_details) // Positive: you need to play more
+			result_jobs += "Play [get_exp_format(playtime_result)] more as [each_job]."
+		else
+			required_count--
+	if(required_count)
+		result_description[EXP_CHECK_PASS] = FALSE
+		if(returns_details)
+			result_description[EXP_CHECK_DESC] = result_jobs
+
+	if(total_required_time > 0)
+		result_description[EXP_CHECK_PASS] = FALSE
+		if(returns_details)
+			result_description[EXP_CHECK_DESC] += "Play [get_exp_format(total_required_time)] more [category ? category : "as any of [english_list(required_jobs)]"]."
+	return result_description

@@ -42,30 +42,16 @@
 	biohazard = 45
 
 /datum/job/chief_medical_officer/initialize_playtime_list()
-	add_time(1, EXP_WRAP(EXP_TYPE_LIVING = EXPJOB_TIMEREQ_LIVING_DEFAULT))
-	add_time(1, EXP_WRAP(EXP_TYPE_MEDICAL = 1200))
-	add_time(1, list(
-		JOB_NAME_MEDICALDOCTOR,
-		JOB_NAME_PARAMEDIC,
-		JOB_NAME_BRIGPHYSICIAN)=600)
-
-	add_time(3, list(
+	ADD_EXP_REQ_FORMAT(1, list(EXP_TYPE_LIVING = EXPJOB_TIMEREQ_LIVING_DEFAULT))
+	ADD_EXP_REQ_FORMAT(1, list(GLOB.medical_positions), checks_sum = 1200, category_name="as medical jobs")
+	ADD_EXP_REQ_FORMAT(3, list(
 		JOB_NAME_CHEMIST = 120,
 		JOB_NAME_GENETICIST = 120,
 		JOB_NAME_VIROLOGIST = 120))
-
-/datum/job/chief_medical_officer/proc/add_time(number_of_req, list_item)
-	exp_requirement_list += list(number_of_req = list_item)
-
-/datum/job/chief_medical_officer/proc/make_series(...)
-	. = list()
-	for(var/each in args)
-		. += each
-
-/datum/job/chief_medical_officer/proc/make_series_b(...)
-	. = list()
-	for(var/each in args)
-		. += list(each = args[each])
+	ADD_EXP_REQ_FORMAT(0, list(
+		JOB_NAME_MEDICALDOCTOR,
+		JOB_NAME_PARAMEDIC,
+		JOB_NAME_BRIGPHYSICIAN), checks_sum = 600)
 
 /datum/outfit/job/chief_medical_officer
 	name = JOB_NAME_CHIEFMEDICALOFFICER

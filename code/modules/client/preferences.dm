@@ -929,7 +929,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	var/width = widthPerColumn
 
-	var/HTML = "<center>"
+	var/HTML = TOOLTIP_CSS_SETUP
+	HTML += "<center>"
 	if(SSjob.occupations.len <= 0)
 		HTML += "The job SSticker is not yet finished creating jobs, please try again later"
 		HTML += "<center><a href='?_src_=prefs;preference=job;task=close'>Done</a></center><br>" // Easier to press up here.
@@ -968,9 +969,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if(is_banned_from(user.ckey, rank))
 				HTML += "<font color=red>[rank]</font></td><td><a href='?_src_=prefs;bancheck=[rank]'> BANNED</a></td></tr>"
 				continue
-			var/required_playtime_remaining = job.required_playtime_remaining(user.client)
-			if(required_playtime_remaining)
-				HTML += "<font color=red>[rank]</font></td><td><font color=red> \[ [get_exp_format(required_playtime_remaining)] as [job.get_exp_req_type()] \] </font></td></tr>"
+			var/list/playtime_check_result = job.check_playtime(user.client, returns_details=TRUE)
+			if(!playtime_check_result[EXP_CHECK_PASS])
+				HTML += "<font color=red>[rank]</font></td><td><font color=red> \[ [TOOLTIP_WRAPPER("DETAIL", 350, english_list(playtime_check_result[EXP_CHECK_DESC], and_text="<br>", comma_text="<br>"))] \] </font></td></tr>"
 				continue
 			if(!job.player_old_enough(user.client))
 				var/available_in_days = job.available_in_days(user.client)

@@ -2,15 +2,15 @@ GLOBAL_LIST_EMPTY(exp_to_update)
 GLOBAL_PROTECT(exp_to_update)
 
 // Procs
-/datum/job/proc/required_playtime_remaining(client/C)
+/datum/job/proc/check_playtime(client/C, returns_details=FALSE)
 	if(!C)
-		return 0
+		return TRUE
 	if(!CONFIG_GET(flag/use_exp_tracking))
-		return 0
+		return TRUE
 	if(!SSdbcore.Connect())
-		return 0
-	if(!exp_requirements || !exp_type)
-		return 0
+		return TRUE
+	if(!length(exp_requirement_list))
+		return TRUE
 	if(!job_is_xp_locked(src.title))
 		return 0
 	if(CONFIG_GET(flag/use_exp_restrictions_admin_bypass) && check_rights_for(C,R_ADMIN))
@@ -20,12 +20,17 @@ GLOBAL_PROTECT(exp_to_update)
 		return 0
 	if(C.prefs.job_exempt)
 		return 0
-	var/my_exp = C.calc_exp_type(get_exp_req_type())
-	var/job_requirement = get_exp_req_amount()
-	if(my_exp >= job_requirement)
-		return 0
-	else
-		return (job_requirement - my_exp)
+
+	var/list/exp_result = INIT_EXP_LIST
+	for(var/datum/job_playtime_req/each_req in exp_requirement_list)
+		var/list/check_result = each_req.check_eligibility(C, returns_details)
+		if(!check_result[EXP_CHECK_PASS])
+			exp_result[EXP_CHECK_PASS] = FALSE
+			if(returns_details)
+				exp_result[EXP_CHECK_DESC] |= check_result[EXP_CHECK_DESC]
+	if(!returns_details)
+		return exp_result[EXP_CHECK_PASS]
+	return exp_result
 
 /datum/job/proc/get_exp_req_amount()
 	if(title in (GLOB.command_positions | list(JOB_NAME_AI)))
