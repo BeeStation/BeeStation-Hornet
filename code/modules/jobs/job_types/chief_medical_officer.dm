@@ -42,16 +42,16 @@
 	biohazard = 45
 
 /datum/job/chief_medical_officer/initialize_playtime_list()
-	ADD_EXP_REQ_FORMAT(1, list(EXP_TYPE_LIVING = EXPJOB_TIMEREQ_LIVING_DEFAULT))
-	ADD_EXP_REQ_FORMAT(1, list(GLOB.medical_positions), checks_sum = 1200, category_name="as medical jobs")
-	ADD_EXP_REQ_FORMAT(3, list(
-		JOB_NAME_CHEMIST = 120,
-		JOB_NAME_GENETICIST = 120,
-		JOB_NAME_VIROLOGIST = 120))
+	ADD_EXP_REQ_FORMAT(0, list(EXP_TYPE_LIVING), checks_sum = 6000, category_name="from a round")
+	ADD_EXP_REQ_FORMAT(0, list(GLOB.medical_positions), checks_sum = 1200, category_name="as any medical job")
 	ADD_EXP_REQ_FORMAT(0, list(
 		JOB_NAME_MEDICALDOCTOR,
 		JOB_NAME_PARAMEDIC,
 		JOB_NAME_BRIGPHYSICIAN), checks_sum = 600)
+	ADD_EXP_REQ_FORMAT(3, list(
+		JOB_NAME_CHEMIST = 120,
+		JOB_NAME_GENETICIST = 120,
+		JOB_NAME_VIROLOGIST = 120))
 
 /datum/outfit/job/chief_medical_officer
 	name = JOB_NAME_CHIEFMEDICALOFFICER

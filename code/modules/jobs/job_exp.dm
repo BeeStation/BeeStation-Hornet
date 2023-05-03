@@ -4,22 +4,22 @@ GLOBAL_PROTECT(exp_to_update)
 // Procs
 /datum/job/proc/check_playtime(client/C, returns_details=FALSE)
 	if(!C)
-		return TRUE
+		return returns_details ? list(EXP_CHECK_PASS=TRUE) : TRUE
 	if(!CONFIG_GET(flag/use_exp_tracking))
-		return TRUE
+		return returns_details ? list(EXP_CHECK_PASS=TRUE) : TRUE
 	if(!SSdbcore.Connect())
-		return TRUE
+		return returns_details ? list(EXP_CHECK_PASS=TRUE) : TRUE
 	if(!length(exp_requirement_list))
-		return TRUE
+		return returns_details ? list(EXP_CHECK_PASS=TRUE) : TRUE
 	if(!job_is_xp_locked(src.title))
-		return TRUE
+		return returns_details ? list(EXP_CHECK_PASS=TRUE) : TRUE
 	if(CONFIG_GET(flag/use_exp_restrictions_admin_bypass) && check_rights_for(C,R_ADMIN))
-		return TRUE
+		return returns_details ? list(EXP_CHECK_PASS=TRUE) : TRUE
 	var/isexempt = C.prefs.db_flags & DB_FLAG_EXEMPT
 	if(isexempt)
-		return TRUE
+		return returns_details ? list(EXP_CHECK_PASS=TRUE) : TRUE
 	if(C.prefs.job_exempt)
-		return TRUE
+		return returns_details ? list(EXP_CHECK_PASS=TRUE) : TRUE
 
 	var/list/exp_result = INIT_EXP_LIST
 	for(var/datum/job_playtime_req/each_req in exp_requirement_list)
