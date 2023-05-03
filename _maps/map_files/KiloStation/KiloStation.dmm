@@ -20643,8 +20643,8 @@
 /obj/structure/closet/crate{
 	name = "disposal supplies"
 	},
-/obj/item/bodybag,
-/obj/item/bodybag,
+/obj/item/deployable/bodybag,
+/obj/item/deployable/bodybag,
 /obj/item/shovel,
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"

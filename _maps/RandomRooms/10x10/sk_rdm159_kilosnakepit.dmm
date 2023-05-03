@@ -472,7 +472,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
 /obj/effect/turf_decal/bot_white,
-/obj/item/bodybag{
+/obj/item/deployable/bodybag{
 	pixel_y = 5
 	},
 /obj/item/shovel,

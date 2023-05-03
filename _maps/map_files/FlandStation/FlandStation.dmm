@@ -21880,8 +21880,8 @@
 /obj/structure/closet/crate{
 	name = "disposal supplies"
 	},
-/obj/item/bodybag,
-/obj/item/bodybag,
+/obj/item/deployable/bodybag,
+/obj/item/deployable/bodybag,
 /obj/item/shovel,
 /obj/item/stack/sheet/mineral/copper{
 	amount = 5

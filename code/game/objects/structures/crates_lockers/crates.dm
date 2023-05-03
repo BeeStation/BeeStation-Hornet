@@ -297,3 +297,33 @@
 	..()
 	for(var/i in 1 to 5)
 		new /obj/item/coin/silver(src)
+
+/obj/structure/closet/crate/capsule
+	name = "storage capsule"
+	desc = "A capsule that can shrink in size for easy transportation of most goods."
+	climbable = FALSE
+	mob_storage_capacity = 0
+
+/obj/structure/closet/crate/capsule/insertion_allowed(atom/movable/AM)
+	if(isitem(AM))
+		var/obj/item/I = AM
+		if(I.w_class >= WEIGHT_CLASS_BULKY) //capsule pod can't hold bulky or larger objects
+			return FALSE
+	if(ismob(AM)) //capsule pod can't hold mobs
+		return FALSE
+	return ..()
+
+/obj/structure/closet/crate/capsule/MouseDrop(over_object, src_location, over_location)
+	. = ..()
+	if(over_object == usr && Adjacent(usr) && (in_range(src, usr) || usr.contents.Find(src)))
+		if(!ishuman(usr))
+			return
+		if(opened)
+			to_chat(usr, "<span class='warning'>You need to close [src] before you can compress it again.</span>")
+			return
+		visible_message("<span class='notice'>[usr] slaps the switch on [src] and it compresses into their hand.</span>")
+		var/obj/item/deployable/capsule/C = new()
+		usr.put_in_hands(C)
+		for(var/atom/movable/A in contents)
+			A.forceMove(C)
+		qdel(src)

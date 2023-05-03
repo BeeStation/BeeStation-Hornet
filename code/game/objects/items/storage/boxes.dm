@@ -464,7 +464,7 @@
 /obj/item/storage/box/bodybags/PopulateContents()
 	..()
 	for(var/i in 1 to 7)
-		new /obj/item/bodybag(src)
+		new /obj/item/deployable/bodybag(src)
 
 /obj/item/storage/box/rxglasses
 	name = "box of prescription glasses"

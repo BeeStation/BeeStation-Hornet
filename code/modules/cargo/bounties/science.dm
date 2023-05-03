@@ -20,7 +20,7 @@
 	name = "Bluespace Body Bag"
 	description = "Nanotrasen would make good use of high-capacity body bags. If you have any, please ship them."
 	reward = 10000
-	wanted_types = list(/obj/item/bodybag/bluespace)
+	wanted_types = list(/obj/item/deployable/bodybag/bluespace)
 
 /datum/bounty/item/science/nightvision_goggles
 	name = "Night Vision Goggles"
