@@ -213,7 +213,6 @@
 #include "code\__DEFINES\dcs\signals\signals_obj\signals_machine\signals_machinery.dm"
 #include "code\__DEFINES\dcs\signals\signals_obj\signals_machine\signals_supermatter.dm"
 #include "code\__DEFINES\dcs\signals\signals_obj\signals_machine\signals_teleporter.dm"
-#include "code\__DEFINES\research\anomalies.dm"
 #include "code\__DEFINES\power\apc_defines.dm"
 #include "code\__DEFINES\power\power.dm"
 #include "code\__HELPERS\_extools_api.dm"
