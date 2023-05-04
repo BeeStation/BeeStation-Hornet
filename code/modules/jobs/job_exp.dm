@@ -27,7 +27,7 @@ GLOBAL_PROTECT(exp_to_update)
 		if(!check_result[EXP_CHECK_PASS])
 			exp_result[EXP_CHECK_PASS] = FALSE
 			if(returns_details)
-				exp_result[EXP_CHECK_DESC] |= check_result[EXP_CHECK_DESC]
+				exp_result[EXP_CHECK_DESC] += check_result[EXP_CHECK_DESC] // don't use |= because some strings are the same in specific situations
 	if(!returns_details)
 		return exp_result[EXP_CHECK_PASS]
 	return exp_result

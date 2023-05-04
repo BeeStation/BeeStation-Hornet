@@ -42,16 +42,27 @@
 	biohazard = 45
 
 /datum/job/chief_medical_officer/initialize_playtime_list()
-	ADD_EXP_REQ_FORMAT(0, list(EXP_TYPE_LIVING), checks_sum = 6000, category_name="from a round")
-	ADD_EXP_REQ_FORMAT(0, list(GLOB.medical_positions), checks_sum = 1200, category_name="as any medical job")
+	ADD_EXP_REQ_FORMAT(0, list(EXP_TYPE_LIVING), combined_playtime_req = 6000, group_display_name="from a round")
+	// Any experience types work
+
+	ADD_EXP_REQ_FORMAT(0, list(GLOB.medical_positions), combined_playtime_req = 1200, group_display_name="as any medical job")
+	// If you want track department time, use positions global
+
 	ADD_EXP_REQ_FORMAT(0, list(
 		JOB_NAME_MEDICALDOCTOR,
 		JOB_NAME_PARAMEDIC,
-		JOB_NAME_BRIGPHYSICIAN), checks_sum = 600)
+		JOB_NAME_BRIGPHYSICIAN), combined_playtime_req = 600)
 	ADD_EXP_REQ_FORMAT(3, list(
+		EXP_TYPE_LIVING = 5, // example living time
 		JOB_NAME_CHEMIST = 120,
 		JOB_NAME_GENETICIST = 120,
 		JOB_NAME_VIROLOGIST = 120))
+
+	ADD_EXP_REQ_FORMAT(2, list( // example other jobs, or role
+		JOB_NAME_ASSISTANT = 120,
+		JOB_NAME_ASSISTANT = 120,
+		JOB_NAME_JANITOR = 120,
+		ROLE_TRAITOR = 120), combined_playtime_req = 600)
 
 /datum/outfit/job/chief_medical_officer
 	name = JOB_NAME_CHIEFMEDICALOFFICER

@@ -400,62 +400,61 @@
 
 
 /datum/job_playtime_req
-	/// number of requirement of playtime for each job. 2 means you need 2 jobs having playtime.
-	var/required_number
-	/// list of jobs, or roles. If each key has a value, that'll be required time for the role.
-	var/list/required_jobs
-	/// [Optional] Required total playtime from all jobs/roles from required_jobs
-	var/required_job_sumtime
-	/// [Optional] Displays this name instead of long job name (required_job_sumtime is needed)
-	var/category
+	/// Number of jobs with minimum playtime required for eligibility. 2 means you need 2 jobs with minimum playtime.
+	var/stored_eligibility_count_requirement
+	/// List of jobs, or roles. If each key has a value, that value represents the minimum required playtime for that role, and contributes to 'eligibility count'
+	var/list/stored_job_playtime_requirement
+	/// [Optional] Required combined playtime from all jobs/roles listed in job_playtime_requirement
+	var/stored_playtime_requirement
+	/// [Optional] Displays this group name instead of long job name (combined_playtime_requirement is needed)
+	var/stored_group_display_name
 
-/datum/job_playtime_req/New(number, jobs, checks_sum=0, category_name="")
-	required_number = number
-	required_jobs = jobs
-	required_job_sumtime = checks_sum
-	if(category_name)
-		category = category_name
+/// use `ADD_EXP_REQ_FORMAT` macro for using this
+/datum/job_playtime_req/New(eligibility_count, job_playtime_requirement, combined_playtime_req=0, group_display_name="")
+	stored_eligibility_count_requirement = eligibility_count
+	stored_job_playtime_requirement = job_playtime_requirement
+	stored_playtime_requirement = combined_playtime_req
+	if(group_display_name)
+		stored_group_display_name = group_display_name
 
 	var/checakble_jobs = 0
-	for(var/each_job in required_jobs)
-		if(required_jobs[each_job])
+	for(var/each_job in stored_job_playtime_requirement)
+		if(stored_job_playtime_requirement[each_job])
 			checakble_jobs++
-	if(required_number > checakble_jobs)
-		stack_trace("Jobs that have timecheck are [checakble_jobs], but the required number is [required_number]")
-		required_number = checakble_jobs
-
-/*
-	ADD_EXP_REQ_FORMAT(
-		number = number of requirement for each job,
-		jobs = list(jobs),
-		checks_sum = [optional] total time requirement from all given jobs,
-		category_name = [optional])
-*/
+	if(stored_eligibility_count_requirement > checakble_jobs)
+		stack_trace("Jobs that have timecheck are [checakble_jobs], but the required number is [stored_eligibility_count_requirement]")
+		stored_eligibility_count_requirement = checakble_jobs
 
 /datum/job_playtime_req/proc/check_eligibility(client/cli, returns_details=FALSE)
 	var/list/playrecord = cli.prefs.exp
 	var/list/result_description = INIT_EXP_LIST
-	var/total_required_time = required_job_sumtime
-	var/required_count = required_number
+	var/calculated_playtime_requirement = stored_playtime_requirement
+	var/calculated_count = stored_eligibility_count_requirement
 
 	var/list/result_jobs = list()
-	for(var/each_job in required_jobs)
-		total_required_time -= playrecord[each_job]
-		if(!required_jobs[each_job])
+	for(var/each_job in stored_job_playtime_requirement)
+		calculated_playtime_requirement -= playrecord[each_job]
+		if(!stored_job_playtime_requirement[each_job])
 			continue
-		var/playtime_result = required_jobs[each_job] - playrecord[each_job]
+		var/playtime_result = stored_job_playtime_requirement[each_job] - playrecord[each_job]
 		if(playtime_result <= 0) // Negative: You played this job enough
-			required_count--
+			calculated_count--
+			if(returns_details)
+				result_jobs += "-- <span style='text-decoration:line-through;'>Play [get_exp_format(playtime_result)] more as [each_job]</span>."
+			if(!calculated_count)
+				break
 		else if(returns_details) // Positive + detail flag: Builds what you need to play
-			result_jobs += "Play [get_exp_format(playtime_result)] more as [each_job]."
+			result_jobs += "-- Play [get_exp_format(playtime_result)] more as [each_job]."
 
-	if(required_count)
+	if(calculated_count)
 		result_description[EXP_CHECK_PASS] = FALSE
 		if(returns_details)
-			result_description[EXP_CHECK_DESC] = result_jobs
+			result_description[EXP_CHECK_DESC] = list("< Meet [calculated_count] more conditions below >")
+			result_description[EXP_CHECK_DESC] |= result_jobs
 
-	if(total_required_time > 0)
+	if(calculated_playtime_requirement > 0)
 		result_description[EXP_CHECK_PASS] = FALSE
 		if(returns_details)
-			result_description[EXP_CHECK_DESC] += "Play [get_exp_format(total_required_time)] more [category ? category : "as any of [english_list(required_jobs, and_text=", or")]"]."
+			result_description[EXP_CHECK_DESC] += "Play [get_exp_format(calculated_playtime_requirement)] more [stored_group_display_name ? stored_group_display_name : "as any of [english_list(stored_job_playtime_requirement, and_text=", or ")]"]."
+
 	return result_description
