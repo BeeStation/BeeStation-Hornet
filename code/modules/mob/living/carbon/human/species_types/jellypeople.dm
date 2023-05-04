@@ -3,8 +3,10 @@
 	name = "\improper Jellyperson"
 	id = SPECIES_JELLYPERSON
 	default_color = "00FF90"
-	species_traits = list(MUTCOLORS,EYECOLOR,NOBLOOD)
+	species_traits = list(MUTCOLORS,EYECOLOR,NOBLOOD,HAIR,FACEHAIR)
 	inherent_traits = list(TRAIT_TOXINLOVER, TRAIT_NONECRODISEASE)
+	hair_color = "mutcolor"
+	hair_alpha = 150
 	mutantlungs = /obj/item/organ/lungs/slime
 	mutanttongue = /obj/item/organ/tongue/slime
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/slime
@@ -120,8 +122,6 @@
 	id = SPECIES_SLIMEPERSON
 	default_color = "00FFFF"
 	species_traits = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,NOBLOOD)
-	hair_color = "mutcolor"
-	hair_alpha = 150
 	var/datum/action/innate/split_body/slime_split
 	var/list/mob/living/carbon/bodies
 	var/datum/action/innate/swap_body/swap_body
