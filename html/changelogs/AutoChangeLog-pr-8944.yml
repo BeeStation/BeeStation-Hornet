@@ -1,5 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - code_imp: get_all_access() proc will give all accesses properly, but also changed
-      some code
