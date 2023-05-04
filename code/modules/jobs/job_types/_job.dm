@@ -408,6 +408,8 @@
 	var/stored_playtime_requirement
 	/// [Optional] Displays this group name instead of long job name (combined_playtime_requirement is needed)
 	var/stored_group_display_name
+	/// automatically set to FALSE when stored_eligibility_count_requirement is different. This var is used to make HTML style better.
+	var/boxing_flag = TRUE
 
 /// use `ADD_EXP_REQ_FORMAT` macro for using this
 /datum/job_playtime_req/New(eligibility_count, job_playtime_requirement, combined_playtime_req=0, group_display_name="")
@@ -425,6 +427,14 @@
 		stack_trace("Jobs that have timecheck are [checakble_jobs], but the required number is [stored_eligibility_count_requirement]")
 		stored_eligibility_count_requirement = checakble_jobs
 
+	if(!stored_eligibility_count_requirement && checakble_jobs > 0)
+		stack_trace("Eligibility count is 0, but playtime checkable jobs are [checakble_jobs] - setting to 1.")
+		stored_eligibility_count_requirement = 1
+
+	if(checakble_jobs == stored_eligibility_count_requirement)
+		boxing_flag = FALSE
+
+
 /datum/job_playtime_req/proc/check_eligibility(client/cli, returns_details=FALSE)
 	var/list/playrecord = cli.prefs.exp
 	var/list/result_description = INIT_EXP_LIST
@@ -439,18 +449,19 @@
 		var/playtime_result = stored_job_playtime_requirement[each_job] - playrecord[each_job]
 		if(playtime_result <= 0) // Negative: You played this job enough
 			calculated_count--
-			if(returns_details)
+			if(returns_details && boxing_flag)
 				result_jobs += "-- <span style='text-decoration:line-through;'>Play [get_exp_format(playtime_result)] more as [each_job]</span>."
 			if(!calculated_count)
 				break
 		else if(returns_details) // Positive + detail flag: Builds what you need to play
-			result_jobs += "-- Play [get_exp_format(playtime_result)] more as [each_job]."
+			result_jobs += "[boxing_flag ? "-- " : ""]Play [get_exp_format(playtime_result)] more as [each_job]."
 
 	if(calculated_count)
 		result_description[EXP_CHECK_PASS] = FALSE
 		if(returns_details)
-			result_description[EXP_CHECK_DESC] = list("< Meet [calculated_count] more conditions below >")
-			result_description[EXP_CHECK_DESC] |= result_jobs
+			if(boxing_flag)
+				result_description[EXP_CHECK_DESC] += "< Meet [calculated_count] more conditions below >"
+			result_description[EXP_CHECK_DESC] += result_jobs
 
 	if(calculated_playtime_requirement > 0)
 		result_description[EXP_CHECK_PASS] = FALSE
