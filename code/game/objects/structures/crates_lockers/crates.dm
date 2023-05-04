@@ -301,8 +301,20 @@
 /obj/structure/closet/crate/capsule
 	name = "storage capsule"
 	desc = "A capsule that can shrink in size for easy transportation of most goods."
+	icon = 'icons/obj/crates.dmi'
+	icon_state = "capsule"
+	icon_door = null
 	climbable = FALSE
 	mob_storage_capacity = 0
+
+/obj/structure/closet/crate/update_icon()
+	if(opened)
+		icon_state = "capsule_open"
+	else
+		icon_state = "capsule_close"
+
+/obj/structure/closet/crate/animate_door(closing)
+	return FALSE
 
 /obj/structure/closet/crate/capsule/insertion_allowed(atom/movable/AM)
 	if(isitem(AM))
