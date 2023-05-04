@@ -1,6 +1,7 @@
 /datum/saymode
 	var/key
 	var/mode
+	var/early = FALSE
 
 //Return FALSE if you have handled the message. Otherwise, return TRUE and saycode will continue doing saycode things.
 //user = whoever said the message
@@ -64,3 +65,26 @@
 		AI.holopad_talk(message, language)
 		return FALSE
 	return TRUE
+
+/datum/saymode/slime_link
+	key = MODE_KEY_SLIMELINK
+	mode = MODE_SLIMELINK
+	early = TRUE
+
+/datum/saymode/slime_link/handle_message(mob/living/user, message, datum/language/_language)
+	. = FALSE
+	if(!user || !user.mind)
+		return TRUE
+	if(!length(message))
+		return TRUE
+	if(ishuman(user))
+		var/mob/living/carbon/human/h_user = user
+		if(isstargazer(h_user))
+			var/datum/species/jelly/stargazer/stargazer = h_user.dna.species
+			stargazer.slime_chat(h_user, message)
+			return
+	var/datum/weakref/mind_ref = GLOB.slime_linked_with[user.mind]
+	var/datum/species/jelly/stargazer/stargazer = mind_ref?.resolve()
+	if(!stargazer || !istype(stargazer))
+		return TRUE
+	stargazer.slime_chat(user, message)
