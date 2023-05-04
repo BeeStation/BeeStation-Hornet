@@ -307,13 +307,11 @@
 	climbable = FALSE
 	mob_storage_capacity = 0
 
-/obj/structure/closet/crate/update_icon()
-	if(opened)
-		icon_state = "capsule_open"
-	else
-		icon_state = "capsule_close"
+/obj/structure/closet/crate/capsule/update_icon()
+	cut_overlays()
+	icon_state = "capsule[opened ? "_open" : "_close"]"
 
-/obj/structure/closet/crate/animate_door(closing)
+/obj/structure/closet/crate/capsule/animate_door(closing)
 	return FALSE
 
 /obj/structure/closet/crate/capsule/insertion_allowed(atom/movable/AM)

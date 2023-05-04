@@ -8,22 +8,34 @@
 	var/released_object
 
 /obj/item/deployable/attack_self(mob/user)
-	if(isopenturf(user.loc))
-		deploy(user, user.loc)
-	else
-		to_chat(user, "<span class='warning'>You cannot deploy [src] inside of something!</span>")
+	try_deploy(user, user.loc)
 
 /obj/item/deployable/afterattack(atom/target, mob/user, proximity)
 	. = ..()
 	if(proximity)
-		if(isopenturf(target))
-			deploy(user, target)
+		try_deploy(user, target)
+
+///Checks to see if object can deploy, either in a passed location or within its own location if none was passed and deploys if it can be.
+/obj/item/deployable/proc/try_deploy(mob/user, atom/location)
+	if(location && isopenturf(location)) //We must verify that a location was passed to the proc, so this redundancy is necessary.
+		deploy(user, location)
+		return TRUE
+	if(isopenturf(loc)) //if no location was explicitly passed, then this was probably time delayed, so we need to check the current location.
+		deploy(user, loc)
+		return TRUE
+	if(user)
+		to_chat(user, "<span class='warning'>[src] can only be deployed in an open area!</span>")
+	visible_message("<span class='warning'>[src] fails to deploy!</span>")
+	return FALSE
 
 /obj/item/deployable/proc/deploy(mob/user, atom/location)
 	var/atom/R = new released_object(location)
 	for(var/atom/movable/A in contents)
 		A.forceMove(R)
 	R.add_fingerprint(user)
+	if(istype(R, /obj/structure/closet/))
+		var/obj/structure/closet/sesame = R
+		sesame.open()
 	qdel(src)
 
 /obj/item/deployable/container_resist(mob/living/user)
