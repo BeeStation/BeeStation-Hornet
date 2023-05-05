@@ -9293,7 +9293,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "cZw" = (
-/obj/item/reagent_containers/food/snacks/grown/harebell{
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell{
 	pixel_y = 3
 	},
 /obj/structure/table/wood/fancy/purple,
@@ -29148,7 +29148,7 @@
 /area/hallway/primary/central)
 "jDS" = (
 /obj/effect/turf_decal/siding/wideplating/dark,
-/obj/item/reagent_containers/food/snacks/grown/poppy{
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
 	pixel_x = 1;
 	pixel_y = 4
 	},
@@ -29772,7 +29772,7 @@
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 1
 	},
-/obj/item/reagent_containers/food/snacks/grown/poppy{
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
 	pixel_y = 4
 	},
 /obj/structure/table/wood/fancy/purple,
@@ -36828,7 +36828,7 @@
 	pixel_y = 32
 	},
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/grown/harebell{
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell{
 	pixel_y = 3
 	},
 /obj/item/candle/infinite{
@@ -60038,7 +60038,7 @@
 	dir = 8
 	},
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/poppy{
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
 	pixel_y = 4
 	},
 /obj/machinery/airalarm/directional/east,
@@ -60166,7 +60166,7 @@
 	pixel_x = 6;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/snacks/grown/poppy/lily,
+/obj/item/reagent_containers/food/snacks/grown/flower/lily,
 /obj/structure/table/wood/fancy,
 /turf/open/floor/plasteel/grimy,
 /area/chapel/office)
@@ -72175,7 +72175,7 @@
 	pixel_y = 32
 	},
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/grown/harebell{
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell{
 	pixel_y = 3
 	},
 /obj/item/candle/infinite{
