@@ -3237,6 +3237,7 @@
 #include "code\modules\projectiles\projectile\special\neurotoxin.dm"
 #include "code\modules\projectiles\projectile\special\plasma.dm"
 #include "code\modules\projectiles\projectile\special\rocket.dm"
+#include "code\modules\projectiles\projectile\special\spidernet.dm"
 #include "code\modules\projectiles\projectile\special\temperature.dm"
 #include "code\modules\projectiles\projectile\special\vortex.dm"
 #include "code\modules\projectiles\projectile\special\wormhole.dm"
