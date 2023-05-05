@@ -303,6 +303,8 @@
 	desc = "A capsule that can shrink in size for easy transportation of most goods."
 	icon = 'icons/obj/crates.dmi'
 	icon_state = "capsule"
+	open_sound = 'sound/machines/capsule_open.ogg'
+	close_sound = 'sound/machines/capsule_close.ogg'
 	icon_door = null
 	climbable = FALSE
 	mob_storage_capacity = 0

@@ -42,9 +42,6 @@
 	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't get out while you're restrained like this!</span>")
 		return
-	//If container locked
-	//	to_chat(user, "<span class='warning'>The [src] is locked, you can't open it from inside!</span>")
-	// 	return
 	user.changeNext_move(CLICK_CD_BREAKOUT)
 	user.last_special = world.time + CLICK_CD_BREAKOUT
 	to_chat(user, "<span class='notice'>You try to force your way out of [src]...</span>")

@@ -15,18 +15,19 @@
 /obj/item/deployable/capsule/try_deploy(mob/user, atom/location)
 	if(..())
 		return TRUE
+	playsound(src, 'sound/machines/button2.ogg', 15, 1)
 	active = FALSE
 	update_icon()
 
 /obj/item/deployable/capsule/deploy(mob/user, atom/location)
 	if(!active)
 		return
-	//play whooshing sound
+	playsound(src, 'sound/effects/phasein.ogg', 25, 1)
 	do_smoke(0, location, /obj/effect/particle_effect/smoke/transparent/short)
 	..()
 
 /obj/item/deployable/capsule/attack_self(mob/user)
-	//play clicking sound
+	playsound(src, 'sound/machines/button2.ogg', 15, 1)
 	activate_capsule(user)
 
 /obj/item/deployable/capsule/proc/activate_capsule(mob/user)
