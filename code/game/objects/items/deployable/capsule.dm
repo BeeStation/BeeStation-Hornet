@@ -22,7 +22,7 @@
 /obj/item/deployable/capsule/deploy(mob/user, atom/location)
 	if(!active)
 		return
-	playsound(src, 'sound/effects/phasein.ogg', 25, 1)
+	playsound(src, 'sound/effects/phasein.ogg', 15, 1)
 	do_smoke(0, location, /obj/effect/particle_effect/smoke/transparent/short)
 	..()
 

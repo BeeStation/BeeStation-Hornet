@@ -308,6 +308,8 @@
 	icon_door = null
 	climbable = FALSE
 	mob_storage_capacity = 0
+	///Becomes TRUE when the crate is being closed to ensure the compression sequence completes as expected.
+	var/closing = FALSE
 
 /obj/structure/closet/crate/capsule/update_icon()
 	cut_overlays()
@@ -325,17 +327,21 @@
 		return FALSE
 	return ..()
 
-/obj/structure/closet/crate/capsule/MouseDrop(over_object, src_location, over_location)
-	. = ..()
-	if(over_object == usr && Adjacent(usr) && (in_range(src, usr) || usr.contents.Find(src)))
-		if(!ishuman(usr))
-			return
-		if(opened)
-			to_chat(usr, "<span class='warning'>You need to close [src] before you can compress it again.</span>")
-			return
-		visible_message("<span class='notice'>[usr] slaps the switch on [src] and it compresses into their hand.</span>")
-		var/obj/item/deployable/capsule/C = new()
-		usr.put_in_hands(C)
-		for(var/atom/movable/A in contents)
-			A.forceMove(C)
-		qdel(src)
+/obj/structure/closet/crate/capsule/close(mob/living/user)
+	if(!closing)
+		closing = TRUE
+		addtimer(CALLBACK(src, PROC_REF(compress)), 2 SECONDS)
+		return ..()
+
+/obj/structure/closet/crate/capsule/open(mob/living/user)
+	if(!closing)
+		return ..()
+
+/obj/structure/closet/crate/capsule/proc/compress()
+	visible_message("<span class='notice'>[src] compresses back into a small capsule!.</span>")
+	do_smoke(0, loc, /obj/effect/particle_effect/smoke/transparent/short)
+	playsound(src, 'sound/effects/phasein.ogg', 15, 1)
+	var/obj/item/deployable/capsule/C = new(loc)
+	for(var/atom/movable/A in contents)
+		A.forceMove(C)
+	qdel(src)
