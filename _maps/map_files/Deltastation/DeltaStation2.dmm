@@ -27059,7 +27059,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
 /obj/item/reagent_containers/blood/random,
-/obj/item/roller,
+/obj/item/deployable/rollerbed,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
@@ -32437,7 +32437,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
 /obj/item/wrench,
-/obj/item/roller,
+/obj/item/deployable/rollerbed,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
@@ -67680,7 +67680,7 @@
 /area/tcommsat/server)
 "nLN" = (
 /obj/structure/rack,
-/obj/item/roller,
+/obj/item/deployable/rollerbed,
 /obj/item/reagent_containers/blood,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1

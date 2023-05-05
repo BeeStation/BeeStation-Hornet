@@ -6,6 +6,10 @@
 	w_class = WEIGHT_CLASS_TINY
 	///This is what the item will deploy as. This will be a one-way conversion unless the deployed item has its own code for converting back
 	var/released_object
+	///Should be true if the item is deploying itself when set up, should be false if it's deploying other objects
+	var/consumed = TRUE
+	///For when consumed is false, is the carrier object currently loaded and ready to deploy its payload item?
+	var/loaded
 
 /obj/item/deployable/attack_self(mob/user)
 	try_deploy(user, user.loc)
@@ -17,6 +21,9 @@
 
 ///Checks to see if object can deploy, either in a passed location or within its own location if none was passed and deploys if it can be.
 /obj/item/deployable/proc/try_deploy(mob/user, atom/location)
+	if(!consumed && !loaded)
+		to_chat(user, "<span class='warning'>[src] has nothing to deploy!</span>")
+		return FALSE
 	if(location && isopenturf(location)) //We must verify that a location was passed to the proc, so this redundancy is necessary.
 		deploy(user, location)
 		return TRUE
@@ -28,6 +35,7 @@
 	visible_message("<span class='warning'>[src] fails to deploy!</span>")
 	return FALSE
 
+///Do not call this directly, use try_deploy instead
 /obj/item/deployable/proc/deploy(mob/user, atom/location)
 	var/atom/R = new released_object(location)
 	for(var/atom/movable/A in contents)
@@ -36,7 +44,11 @@
 	if(istype(R, /obj/structure/closet/))
 		var/obj/structure/closet/sesame = R
 		sesame.open()
-	qdel(src)
+	if(consumed)
+		qdel(src)
+	else
+		loaded = FALSE
+		update_icon()
 
 /obj/item/deployable/container_resist(mob/living/user)
 	if(user.incapacitated())

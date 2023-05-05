@@ -24896,7 +24896,7 @@
 /obj/structure/rack,
 /obj/item/crowbar,
 /obj/item/storage/pill_bottle,
-/obj/item/roller,
+/obj/item/deployable/rollerbed,
 /obj/item/clothing/glasses/eyepatch,
 /obj/item/wrench,
 /obj/machinery/airalarm{
@@ -69228,7 +69228,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/backpack/duffelbag/med,
 /obj/item/flashlight/pen,
-/obj/item/roller,
+/obj/item/deployable/rollerbed,
 /obj/item/crowbar,
 /obj/machinery/light/small{
 	dir = 4

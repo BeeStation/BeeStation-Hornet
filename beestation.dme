@@ -1254,6 +1254,7 @@
 #include "code\game\objects\items\deployable\bodybag.dm"
 #include "code\game\objects\items\deployable\capsule.dm"
 #include "code\game\objects\items\deployable\deployable.dm"
+#include "code\game\objects\items\deployable\rollerbed.dm"
 #include "code\game\objects\items\devices\aicard.dm"
 #include "code\game\objects\items\devices\anomaly_neutralizer.dm"
 #include "code\game\objects\items\devices\antivirus.dm"

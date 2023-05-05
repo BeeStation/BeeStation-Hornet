@@ -1756,7 +1756,7 @@
 	max_supply = 4
 	contains = list(/obj/item/storage/backpack/duffelbag/med/surgery,
 					/obj/item/reagent_containers/medspray/sterilizine,
-					/obj/item/roller)
+					/obj/item/deployable/rollerbed)
 	crate_name = "surgical supplies crate"
 
 /datum/supply_pack/medical/salglucanister
