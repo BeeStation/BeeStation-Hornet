@@ -68,6 +68,10 @@
 	if(holder.has_reagent(/datum/reagent/medicine/epinephrine))
 		holder.remove_reagent(/datum/reagent/medicine/epinephrine, 2*REM)
 	C.adjustPlasma(20)
+	M.adjust_bodytemperature(-7 * TEMPERATURE_DAMAGE_COEFFICIENT, M.get_body_temp_normal())
+	if(ishuman(M))
+		var/mob/living/carbon/human/humi = M
+		humi.adjust_coretemperature(-7 * TEMPERATURE_DAMAGE_COEFFICIENT, M.get_body_temp_normal())
 	return ..()
 
 /datum/reagent/toxin/plasma/reaction_mob(mob/living/M, method=TOUCH, reac_volume)//Splashing people with plasma is stronger than fuel!
@@ -477,7 +481,7 @@
 		for(var/datum/component/nanites/N in L.datum_components)
 			for(var/X in N.programs)
 				var/datum/nanite_program/NP = X
-				NP.software_error(5) //all programs are overwritten with /glitch which does no harm, but gradually drains nanites. 
+				NP.software_error(5) //all programs are overwritten with /glitch which does no harm, but gradually drains nanites.
 
 /datum/reagent/toxin/spidervenom/on_mob_life(mob/living/carbon/M)
 	if(M.getStaminaLoss() <= 70)				//Will never stamcrit

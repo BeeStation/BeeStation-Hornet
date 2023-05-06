@@ -35,8 +35,8 @@
 	species_r_leg = /obj/item/bodypart/r_leg/lizard
 
 /// Lizards are cold blooded and do not stabilize body temperature naturally
-/datum/species/lizard/natural_bodytemperature_stabilization(mob/living/carbon/human/H)
-	return 0
+/datum/species/lizard/body_temperature_core(mob/living/carbon/human/humi)
+	return
 
 /datum/species/lizard/random_name(gender, unique, lastname, attempts)
 	if(gender == MALE)
