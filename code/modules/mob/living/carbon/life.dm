@@ -562,7 +562,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 	if(areatemp > bodytemperature) // It is hot here
 		thermal_protection -= get_heat_protection(areatemp) // Get the thermal protection of the mob
 		environment_change = min(thermal_protection * (areatemp - bodytemperature) / BODYTEMP_HEAT_DIVISOR, BODYTEMP_HEATING_MAX)
-		if(bodytemperature < BODYTEMP_NORMAL)
+		if(bodytemperature < get_body_temp_normal())
 			// Our bodytemp is below normal we are cold, insulation helps us retain body heat
 			// and will reduce the heat we lose to the environment
 			natural_change = (thermal_protection + 1) * natural
@@ -574,7 +574,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 		thermal_protection -= get_cold_protection(areatemp) // Get the thermal protection of the mob
 		if(!on_fire) // If on fire ignore ignore local temperature in cold areas
 			environment_change = max(thermal_protection * (areatemp - bodytemperature) / BODYTEMP_COLD_DIVISOR, BODYTEMP_COOLING_MAX)
-			if(bodytemperature < BODYTEMP_NORMAL)
+			if(bodytemperature < get_body_temp_normal())
 				// Our bodytemp is below normal, insulation helps us retain body heat
 				// and will reduce the heat we lose to the environment
 				natural_change = (thermal_protection + 1) * natural
@@ -589,7 +589,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 /// Used to stabilize the body temperature back to normal on living mobs
 /// Returns the amount of degrees kelvin to change the body temperature
 /mob/living/carbon/proc/natural_bodytemperature_stabilization()
-	var/body_temperature_difference = BODYTEMP_NORMAL - bodytemperature
+	var/body_temperature_difference = get_body_temp_normal() - bodytemperature
 
 	// We are very cold, increate body temperature
 	if(bodytemperature <= BODYTEMP_COLD_DAMAGE_LIMIT)
@@ -597,12 +597,12 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 			BODYTEMP_AUTORECOVERY_MINIMUM)
 
 	// we are cold, reduce the minimum increment and do not jump over the difference
-	if(bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT && bodytemperature < BODYTEMP_NORMAL)
+	if(bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT && bodytemperature < get_body_temp_normal())
 		return max(body_temperature_difference * metabolism_efficiency / BODYTEMP_AUTORECOVERY_DIVISOR, \
 			min(body_temperature_difference, BODYTEMP_AUTORECOVERY_MINIMUM / 4))
 
 	// We are hot, reduce the minimum increment and do not jump below the difference
-	if(bodytemperature > BODYTEMP_NORMAL && bodytemperature <= BODYTEMP_HEAT_DAMAGE_LIMIT)
+	if(bodytemperature > get_body_temp_normal() && bodytemperature <= BODYTEMP_HEAT_DAMAGE_LIMIT)
 		return min(body_temperature_difference * metabolism_efficiency / BODYTEMP_AUTORECOVERY_DIVISOR, \
 			max(body_temperature_difference, -(BODYTEMP_AUTORECOVERY_MINIMUM / 4)))
 

@@ -1929,7 +1929,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			firemodifier = min(firemodifier, 0)
 
 		// this can go below 5 at log 2.5
-		burn_damage = max(log(2 - firemodifier, (H.bodytemperature - bodytemp_normal)) - 5,0)
+		burn_damage = max(log(2 - firemodifier, (H.bodytemperature - H.get_body_temp_normal())) - 5,0)
 
 		// Display alerts based on the amount of fire damage being taken
 		if (burn_damage)
@@ -1965,13 +1965,13 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		// Apply more damage based on how cold you are
 		switch(H.bodytemperature)
 			if(200 to bodytemp_cold_damage_limit)
-				H.throw_alert("temp", /obj/screen/alert/cold, 1)
+				H.throw_alert("temp", /atom/movable/alert/cold, 1)
 				H.apply_damage(COLD_DAMAGE_LEVEL_1 * coldmod * H.physiology.cold_mod, BURN)
 			if(120 to 200)
-				H.throw_alert("temp", /obj/screen/alert/cold, 2)
+				H.throw_alert("temp", /atom/movable/alert/cold, 2)
 				H.apply_damage(COLD_DAMAGE_LEVEL_2 * coldmod * H.physiology.cold_mod, BURN)
 			else
-				H.throw_alert("temp", /obj/screen/alert/cold, 3)
+				H.throw_alert("temp", /atom/movable/alert/cold, 3)
 				H.apply_damage(COLD_DAMAGE_LEVEL_3 * coldmod * H.physiology.cold_mod, BURN)
 
 	// We are not to hot or cold, remove status and moods
@@ -1994,13 +1994,13 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			if(!HAS_TRAIT(H, TRAIT_RESISTHIGHPRESSURE))
 				H.adjustBruteLoss(min(((adjusted_pressure / HAZARD_HIGH_PRESSURE) -1 ) * \
 					PRESSURE_DAMAGE_COEFFICIENT, MAX_HIGH_PRESSURE_DAMAGE) * H.physiology.pressure_mod)
-				H.throw_alert("pressure", /obj/screen/alert/highpressure, 2)
+				H.throw_alert("pressure", /atom/movable/alert/highpressure, 2)
 			else
 				H.clear_alert("pressure")
 
 		// High pressure, show an alert
 		if(WARNING_HIGH_PRESSURE to HAZARD_HIGH_PRESSURE)
-			H.throw_alert("pressure", /obj/screen/alert/highpressure, 1)
+			H.throw_alert("pressure", /atom/movable/alert/highpressure, 1)
 
 		// No pressure issues here clear pressure alerts
 		if(WARNING_LOW_PRESSURE to WARNING_HIGH_PRESSURE)
@@ -2012,7 +2012,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			if(HAS_TRAIT(H, TRAIT_RESISTLOWPRESSURE))
 				H.clear_alert("pressure")
 			else
-				H.throw_alert("pressure", /obj/screen/alert/lowpressure, 1)
+				H.throw_alert("pressure", /atom/movable/alert/lowpressure, 1)
 
 		// Very low pressure, show an alert and take damage
 		else
@@ -2027,7 +2027,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 /// Returns the amount of degrees kelvin to change the body temperature
 /datum/species/proc/natural_bodytemperature_stabilization(mob/living/carbon/human/H)
 	var/body_temp = H.bodytemperature // Get current body temperature
-	var/body_temperature_difference = bodytemp_normal - body_temp
+	var/body_temperature_difference = H.get_body_temp_normal() - body_temp
 
 	// We are very cold, increate body temperature
 	if(body_temp <= bodytemp_cold_damage_limit)

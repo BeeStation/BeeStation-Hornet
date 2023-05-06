@@ -4,6 +4,9 @@
 	var/list/ownedSoullinks //soullinks we are the owner of
 	var/list/sharedSoullinks //soullinks we are a/the sharer of
 
+/// List of changes to body temperature, used by desease symtoms like fever
+var/list/body_temp_changes = list()
+
 /mob/living/Destroy()
 	if(playable)
 		remove_from_spawner_menu()
