@@ -299,7 +299,7 @@
 		new /obj/item/coin/silver(src)
 
 /obj/structure/closet/crate/capsule
-	name = "storage capsule"
+	name = "bluespace capsule"
 	desc = "A capsule that can shrink in size for easy transportation of most goods."
 	icon = 'icons/obj/crates.dmi'
 	icon_state = "capsule"

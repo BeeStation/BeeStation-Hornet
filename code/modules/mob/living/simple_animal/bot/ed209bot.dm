@@ -22,6 +22,7 @@
 	allow_pai = 0
 	data_hud_type = DATA_HUD_SECURITY_ADVANCED
 	path_image_color = "#FF0000"
+	carryable = FALSE
 
 	var/lastfired = 0
 	var/shot_delay = 15

@@ -1252,6 +1252,7 @@
 #include "code\game\objects\items\colorizers\mobs.dm"
 #include "code\game\objects\items\deployable\barricade.dm"
 #include "code\game\objects\items\deployable\bodybag.dm"
+#include "code\game\objects\items\deployable\bot.dm"
 #include "code\game\objects\items\deployable\capsule.dm"
 #include "code\game\objects\items\deployable\deployable.dm"
 #include "code\game\objects\items\deployable\rollerbed.dm"

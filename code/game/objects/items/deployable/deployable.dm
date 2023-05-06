@@ -5,7 +5,7 @@
 	icon_state = "capsule"
 	w_class = WEIGHT_CLASS_TINY
 	///This is what the item will deploy as. This will be a one-way conversion unless the deployed item has its own code for converting back
-	var/deployed_object
+	var/atom/movable/deployed_object
 	///Should be true if the item is deploying itself when set up, should be false if it's deploying other objects
 	var/consumed = TRUE
 	///For when consumed is false, is the carrier object currently loaded and ready to deploy its payload item?
@@ -32,7 +32,7 @@
 		location = loc
 	if(isopenturf(location))
 		if(dense_deployment)
-			return deploy_after(user, loc)
+			return deploy_after(user, location)
 		else
 			var/dense_location
 			for(var/atom/movable/AM in location)
@@ -40,7 +40,7 @@
 					dense_location = TRUE
 					break
 			if(!dense_location)
-				return deploy_after(user, loc)
+				return deploy_after(user, location)
 	if(user)
 		to_chat(user, "<span class='warning'>[src] can only be deployed in an open area!</span>")
 	visible_message("<span class='warning'>[src] fails to deploy!</span>")
