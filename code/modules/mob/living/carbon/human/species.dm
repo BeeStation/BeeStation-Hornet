@@ -2101,7 +2101,13 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 	humi.apply_damage(burn_damage, BURN, bodypart)
 
-/// Handle the air pressure of the environment
+/**
+ * Enviroment handler for species
+ *
+ * vars:
+ * * environment The environment gas mix
+ * * H The mob we will stabilize
+ */
 /datum/species/proc/handle_environment_pressure(datum/gas_mixture/environment, mob/living/carbon/human/H)
 	var/pressure = environment.return_pressure()
 	var/adjusted_pressure = H.calculate_affecting_pressure(pressure)
