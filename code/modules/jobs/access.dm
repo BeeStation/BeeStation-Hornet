@@ -57,11 +57,11 @@
 	if(!req_access)
 		req_access = list()
 		for(var/a in text2access(req_access_txt))
-			req_access += a
+			req_access |= a
 	if(!req_one_access)
 		req_one_access = list()
 		for(var/b in text2access(req_one_access_txt))
-			req_one_access += b
+			req_one_access |= b
 
 // Check if an item has access to this object
 /obj/proc/check_access(obj/item/I)
@@ -158,7 +158,7 @@
 							ACCESS_MECH_MINING, ACCESS_MECH_ENGINE, ACCESS_MECH_SCIENCE, ACCESS_MECH_SECURITY, ACCESS_MECH_MEDICAL,
 							ACCESS_VAULT, ACCESS_MINING_STATION, ACCESS_XENOBIOLOGY, ACCESS_CE, ACCESS_HOP, ACCESS_HOS, ACCESS_RC_ANNOUNCE,
 							ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_GATEWAY, ACCESS_MINERAL_STOREROOM, ACCESS_MINISAT, ACCESS_NETWORK, ACCESS_CLONING, ACCESS_RD_SERVER)
-	return access_list
+	return access_list.Copy()
 
 /proc/get_all_centcom_access()
 	return list(ACCESS_CENT_GENERAL, ACCESS_CENT_THUNDER, ACCESS_CENT_SPECOPS, ACCESS_CENT_MEDICAL, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE, ACCESS_CENT_TELEPORTER, ACCESS_CENT_CAPTAIN, ACCESS_CENT_BAR)
