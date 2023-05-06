@@ -5638,7 +5638,7 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Medbay break room maintenance";
-	req_access_txt = s
+	req_access_txt = "5"
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/medical/break_room)
@@ -56846,7 +56846,7 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Medbay central maintenance";
-	req_access_txt = s
+	req_access_txt = "5"
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/medical/medbay/central)
