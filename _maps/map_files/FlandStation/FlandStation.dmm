@@ -89219,19 +89219,7 @@
 "wrD" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/bot,
-/obj/item/grenade/barrier{
-	pixel_x = 6;
-	pixel_y = -2
-	},
-/obj/item/grenade/barrier{
-	pixel_x = 3;
-	pixel_y = -1
-	},
-/obj/item/grenade/barrier,
-/obj/item/grenade/barrier{
-	pixel_x = -3;
-	pixel_y = 1
-	},
+/obj/item/storage/box/sec_barricades,
 /obj/item/gun/grenadelauncher{
 	pixel_y = 4
 	},

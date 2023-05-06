@@ -131,7 +131,7 @@
 /datum/export/large/barrier
 	cost = 25
 	unit_name = "security barrier"
-	export_types = list(/obj/item/grenade/barrier, /obj/structure/barricade/security)
+	export_types = list(/obj/item/deployable/barricade/security, /obj/structure/barricade/security)
 
 /datum/export/large/gas_canister
 	cost = 10 //Base cost of canister. You get more for nice gases inside.

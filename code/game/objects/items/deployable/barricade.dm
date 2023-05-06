@@ -1,13 +1,34 @@
-#define SINGLE "single"
-#define VERTICAL "vertical"
-#define HORIZONTAL "horizontal"
 
 #define METAL 1
 #define WOOD 2
 #define SAND 3
 
-//Barricades/cover
+//Largely utilized subtype, add some more types of barricades!
+/obj/item/deployable/barricade
+	name = "Generic Barricade"
+	desc = "You should never see this"
+	time_to_deploy = 3 SECONDS
 
+/obj/item/deployable/barricade/security
+	name = "security barricade"
+	desc = "A very sturdy barricade for use by Nanotrasen security personnel."
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "barrier0"
+	deployed_object = /obj/structure/barricade/security
+	time_to_deploy = 3 SECONDS
+
+/obj/item/storage/box/sec_barricades
+	name = "box of barricades"
+	desc = "A box full of sturdy security barricades"
+	icon_state = "secbox"
+	illustration = "syndiesuit"
+
+/obj/item/storage/box/sec_barricades/PopulateContents()
+	for(var/i in 1 to 7)
+		new /obj/item/deployable/barricade/security(src)
+
+
+//Barricades in structure form
 /obj/structure/barricade
 	name = "chest high wall"
 	desc = "Looks like this would make good cover."
@@ -52,9 +73,7 @@
 		return FALSE
 
 
-
-/////BARRICADE TYPES///////
-
+//Barricade types
 /obj/structure/barricade/wooden
 	name = "wooden barricade"
 	desc = "This space is blocked off by a wooden barricade."
@@ -79,7 +98,6 @@
 				qdel(src)
 				return
 	return ..()
-
 
 /obj/structure/barricade/wooden/crude
 	name = "crude plank barricade"
@@ -116,90 +134,41 @@
 	name = "security barrier"
 	desc = "A deployable barrier. Provides good cover in fire fights."
 	icon = 'icons/obj/objects.dmi'
-	icon_state = "barrier0"
-	density = FALSE
-	anchored = FALSE
+	icon_state = "barrier1"
 	max_integrity = 180
 	proj_pass_rate = 20
 	armor = list(MELEE = 10,  BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 10, ACID = 0, STAMINA = 0)
+	req_access = list(ACCESS_SECURITY)
+	var/locked_down = TRUE
+	var/pickup_delay = 8 SECONDS
 
-	var/deploy_time = 40
-	var/deploy_message = TRUE
+/obj/structure/barricade/security/attackby(obj/item/I, mob/user, params)
+	if(I.GetID())
+		if(allowed(user))
+			locked_down = !locked_down
+			to_chat(user, "<span class='notice'>You [locked_down ? "lock" : "unlock"] the release mechanism.</span>")
+		return TRUE
+	return ..()
 
-
-/obj/structure/barricade/security/Initialize(mapload)
+/obj/structure/barricade/security/MouseDrop(over_object, src_location, over_location)
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(deploy)), deploy_time)
-
-/obj/structure/barricade/security/proc/deploy()
-	icon_state = "barrier1"
-	set_density(TRUE)
-	anchored = TRUE
-	if(deploy_message)
-		visible_message("<span class='warning'>[src] deploys!</span>")
-
-
-/obj/item/grenade/barrier
-	name = "barrier grenade"
-	desc = "Instant cover."
-	icon = 'icons/obj/grenade.dmi'
-	icon_state = "flashbang"
-	item_state = "flashbang"
-	actions_types = list(/datum/action/item_action/toggle_barrier_spread)
-	var/mode = SINGLE
-
-/obj/item/grenade/barrier/examine(mob/user)
-	. = ..()
-	. += "<span class='notice'>Alt-click to toggle modes.</span>"
-
-/obj/item/grenade/barrier/AltClick(mob/living/carbon/user)
-	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE))
-		return
-	toggle_mode(user)
-
-/obj/item/grenade/barrier/proc/toggle_mode(mob/user)
-	switch(mode)
-		if(SINGLE)
-			mode = VERTICAL
-		if(VERTICAL)
-			mode = HORIZONTAL
-		if(HORIZONTAL)
-			mode = SINGLE
-
-	to_chat(user, "[src] is now in [mode] mode.")
-
-/obj/item/grenade/barrier/prime(mob/living/lanced_by)
-	. = ..()
-	if(!.)
-		return
-
-	new /obj/structure/barricade/security(get_turf(src.loc))
-	switch(mode)
-		if(VERTICAL)
-			var/turf/target_turf = get_step(src, NORTH)
-			if(!target_turf.is_blocked_turf())
-				new /obj/structure/barricade/security(target_turf)
-
-			var/turf/target_turf2 = get_step(src, SOUTH)
-			if(!target_turf2.is_blocked_turf())
-				new /obj/structure/barricade/security(target_turf2)
-		if(HORIZONTAL)
-			var/turf/target_turf = get_step(src, EAST)
-			if(!target_turf.is_blocked_turf())
-				new /obj/structure/barricade/security(target_turf)
-
-			var/turf/target_turf2 = get_step(src, WEST)
-			if(!target_turf2.is_blocked_turf())
-				new /obj/structure/barricade/security(target_turf2)
-	qdel(src)
-
-/obj/item/grenade/barrier/ui_action_click(mob/user)
-	toggle_mode(user)
+	if(over_object == usr && Adjacent(usr))
+		if(!ishuman(usr) || !usr.canUseTopic(src, BE_CLOSE))
+			return FALSE
+		if(locked_down)
+			to_chat(usr, "<span class='warning'>[src] is still locked down! Swipe an ID with access to unlock it.</span>")
+			return FALSE
+		usr.visible_message("[usr] begins breaking down [src] for relocation", "<span class='notice'>You begin breaking down [src].</span>")
+		if(do_after(usr, pickup_delay, src))
+			usr.visible_message("[usr] picks up the [src].", "<span class='notice'>You pick up [src].</span>")
+			var/obj/item/deployable/barricade/security/carryable = new(loc)
+			usr.put_in_hands(carryable)
+			qdel(src)
 
 
-#undef SINGLE
-#undef VERTICAL
-#undef HORIZONTAL
+
+
+
 
 #undef METAL
 #undef WOOD

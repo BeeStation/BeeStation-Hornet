@@ -4,7 +4,7 @@
 	icon = 'icons/obj/beds_chairs/rollerbed.dmi'
 	icon_state = "folded"
 	w_class = WEIGHT_CLASS_NORMAL // No more excuses, stop getting blood everywhere
-	released_object = /obj/structure/bed/roller
+	deployed_object = /obj/structure/bed/roller
 
 /obj/item/deployable/rollerbed/robo //ROLLER ROBO DA!
 	name = "roller bed dock"

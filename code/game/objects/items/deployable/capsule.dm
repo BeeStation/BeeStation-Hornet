@@ -4,7 +4,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "capsule"
 	w_class = WEIGHT_CLASS_TINY
-	released_object = /obj/structure/closet/crate/capsule
+	deployed_object = /obj/structure/closet/crate/capsule
 	var/active = FALSE
 	var/activation_delay = 3 SECONDS
 

@@ -18323,19 +18323,7 @@
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/primary/starboard)
 "dXG" = (
-/obj/item/grenade/barrier{
-	pixel_x = -3;
-	pixel_y = 1
-	},
-/obj/item/grenade/barrier,
-/obj/item/grenade/barrier{
-	pixel_x = 3;
-	pixel_y = -1
-	},
-/obj/item/grenade/barrier{
-	pixel_x = 6;
-	pixel_y = -2
-	},
+/obj/item/storage/box/sec_barricades,
 /obj/structure/table/reinforced,
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_y = -30

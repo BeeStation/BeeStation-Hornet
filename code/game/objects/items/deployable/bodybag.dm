@@ -4,12 +4,12 @@
 	icon = 'icons/obj/bodybag.dmi'
 	icon_state = "bodybag_folded"
 	w_class = WEIGHT_CLASS_SMALL
-	released_object = /obj/structure/closet/body_bag
+	deployed_object = /obj/structure/closet/body_bag
 
 /obj/item/deployable/bodybag/suicide_act(mob/user)
 	if(isopenturf(user.loc))
 		user.visible_message("<span class='suicide'>[user] is crawling into [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-		var/obj/structure/closet/body_bag/R = new released_object(user.loc)
+		var/obj/structure/closet/body_bag/R = new deployed_object(user.loc)
 		R.add_fingerprint(user)
 		qdel(src)
 		user.forceMove(R)
@@ -24,7 +24,7 @@
 	desc = "A folded bluespace body bag designed for the storage and transportation of cadavers."
 	icon = 'icons/obj/bodybag.dmi'
 	icon_state = "bluebodybag_folded"
-	released_object = /obj/structure/closet/body_bag/bluespace
+	deployed_object = /obj/structure/closet/body_bag/bluespace
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = NO_MAT_REDEMPTION
 

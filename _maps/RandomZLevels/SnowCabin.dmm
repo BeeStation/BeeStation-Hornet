@@ -2754,7 +2754,7 @@
 /turf/open/floor/plating/asteroid/snow,
 /area/awaymission/cabin/caves)
 "iu" = (
-/obj/item/grenade/barrier{
+/obj/item/deployable/barricade/security{
 	pixel_x = -14;
 	pixel_y = 14
 	},

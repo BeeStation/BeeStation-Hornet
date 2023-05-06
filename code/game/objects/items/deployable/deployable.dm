@@ -5,11 +5,13 @@
 	icon_state = "capsule"
 	w_class = WEIGHT_CLASS_TINY
 	///This is what the item will deploy as. This will be a one-way conversion unless the deployed item has its own code for converting back
-	var/released_object
+	var/deployed_object
 	///Should be true if the item is deploying itself when set up, should be false if it's deploying other objects
 	var/consumed = TRUE
 	///For when consumed is false, is the carrier object currently loaded and ready to deploy its payload item?
 	var/loaded
+	///The amount of time it takes to deploy
+	var/time_to_deploy
 
 /obj/item/deployable/attack_self(mob/user)
 	try_deploy(user, user.loc)
@@ -25,19 +27,30 @@
 		to_chat(user, "<span class='warning'>[src] has nothing to deploy!</span>")
 		return FALSE
 	if(location && isopenturf(location)) //We must verify that a location was passed to the proc, so this redundancy is necessary.
-		deploy(user, location)
-		return TRUE
+		return deploy_after(user, location)
 	if(isopenturf(loc)) //if no location was explicitly passed, then this was probably time delayed, so we need to check the current location.
-		deploy(user, loc)
-		return TRUE
+		return deploy_after(user, loc)
 	if(user)
 		to_chat(user, "<span class='warning'>[src] can only be deployed in an open area!</span>")
 	visible_message("<span class='warning'>[src] fails to deploy!</span>")
 	return FALSE
 
+///Delays deployment for things which take time to set up
+/obj/item/deployable/proc/deploy_after(mob/user, atom/location)
+	if(!time_to_deploy || !user)
+		deploy(user, location)
+		return TRUE
+
+	user.visible_message("<span class='notice'>[user] begins to deploy [src]...</span>")
+	if(do_after(user, time_to_deploy, src))
+		deploy(user, location)
+		return TRUE
+	else
+		return FALSE
+
 ///Do not call this directly, use try_deploy instead
 /obj/item/deployable/proc/deploy(mob/user, atom/location)
-	var/atom/R = new released_object(location)
+	var/atom/R = new deployed_object(location)
 	for(var/atom/movable/A in contents)
 		A.forceMove(R)
 	R.add_fingerprint(user)
