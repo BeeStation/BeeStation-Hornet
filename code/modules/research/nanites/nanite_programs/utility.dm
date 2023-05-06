@@ -223,20 +223,20 @@
 	var/obj/item/current_item
 	current_item = host_mob.get_active_held_item()
 	if(current_item)
-		new_access += current_item.GetAccess()
+		new_access |= current_item.GetAccess()
 	current_item = host_mob.get_inactive_held_item()
 	if(current_item)
-		new_access += current_item.GetAccess()
+		new_access |= current_item.GetAccess()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
 		current_item = H.wear_id
 		if(current_item)
-			new_access += current_item.GetAccess()
+			new_access |= current_item.GetAccess()
 	else if(isanimal(host_mob))
 		var/mob/living/simple_animal/A = host_mob
 		current_item = A.access_card
 		if(current_item)
-			new_access += current_item.GetAccess()
+			new_access |= current_item.GetAccess()
 	access = new_access
 
 /datum/nanite_program/spreading
