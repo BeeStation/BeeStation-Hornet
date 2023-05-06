@@ -16086,7 +16086,7 @@
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/engineering{
-	name = "ds";
+	name = "Tech Storage";
 	req_access_txt = "23"
 	},
 /turf/open/floor/plasteel/techmaint,
@@ -18280,7 +18280,7 @@
 /obj/structure/cable/yellow,
 /obj/machinery/door/poddoor/shutters{
 	id = "techstorageshutters";
-	name = "Vacant Commissary Shutters #1"
+	name = "Tech Storage Shutters"
 	},
 /turf/open/floor/plating,
 /area/storage/tech)
@@ -20477,9 +20477,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
-/obj/item/radio/intercom{
-	pixel_y = -28
-	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/lobby)
 "fsy" = (
@@ -21491,8 +21488,7 @@
 /area/library)
 "fEm" = (
 /obj/item/storage/secure/safe{
-	pixel_x = 32;
-	pixel_y = s
+	pixel_x = 32
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
@@ -23859,8 +23855,7 @@
 	pixel_y = 6
 	},
 /obj/item/storage/secure/safe{
-	pixel_x = 32;
-	pixel_y = s
+	pixel_x = 32
 	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/cmo)
@@ -24438,7 +24433,7 @@
 /obj/machinery/door/airlock/medical/glass{
 	id_tag = "cloningfoyer";
 	name = "Cloning and Cryo Lab";
-	req_access_txt = sssssssssss
+	req_one_access_txt = "9;5"
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
@@ -79782,8 +79777,8 @@
 	},
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters{
-	id = sssssssss;
-	name = "Vacant Commissary Shutters #1"
+	id = "techstorageshutters";
+	name = "Tech Storage Shutters"
 	},
 /turf/open/floor/plating,
 /area/storage/tech)
@@ -84771,7 +84766,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters{
 	id = "techstorageshutters";
-	name = "Vacant Commissary Shutters #1"
+	name = "Tech Storage Shutters"
 	},
 /turf/open/floor/plating,
 /area/storage/tech)
