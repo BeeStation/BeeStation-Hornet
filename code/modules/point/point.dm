@@ -22,12 +22,14 @@
 	var/turf/our_tile = get_turf(src)
 	var/obj/visual = new /obj/effect/temp_visual/point(our_tile, invisibility)
 
-	//animate(visual, pixel_x = (tile.x - our_tile.x) * world.icon_size + pointed_atom.pixel_x, pixel_y = (tile.y - our_tile.y) * world.icon_size + pointed_atom.pixel_y, time = 1.7, easing = EASE_OUT)
 	/// Set position
 	var/final_x = (tile.x - our_tile.x) * world.icon_size + pointed_atom.pixel_x
 	var/final_y = (tile.y - our_tile.y) * world.icon_size + pointed_atom.pixel_y
 	var/list/click_params = params2list(params)
-	if(length(click_params) && click_params["screen-loc"])
+	if(!length(click_params) || !click_params["screen-loc"])
+		animate(visual, pixel_x = (tile.x - our_tile.x) * world.icon_size + pointed_atom.pixel_x, pixel_y = (tile.y - our_tile.y) * world.icon_size + pointed_atom.pixel_y, time = 1.7, easing = EASE_OUT)
+		return
+	else
 		var/list/actual_view = getviewsize(M.client ? M.client.view : world.view)
 		var/list/split_coords = splittext(click_params["screen-loc"], ",")
 		final_x = (text2num(splittext(split_coords[1], ":")[1]) - actual_view[1] / 2) * world.icon_size + (text2num(splittext(split_coords[1], ":")[2]) - world.icon_size)
