@@ -12,6 +12,8 @@
 	var/loaded
 	///The amount of time it takes to deploy
 	var/time_to_deploy
+	///Set to true to allow deployment on top of dense objects
+	var/dense_deployment = FALSE
 
 /obj/item/deployable/attack_self(mob/user)
 	try_deploy(user, user.loc)
@@ -26,10 +28,19 @@
 	if(!consumed && !loaded)
 		to_chat(user, "<span class='warning'>[src] has nothing to deploy!</span>")
 		return FALSE
-	if(location && isopenturf(location)) //We must verify that a location was passed to the proc, so this redundancy is necessary.
-		return deploy_after(user, location)
-	if(isopenturf(loc)) //if no location was explicitly passed, then this was probably time delayed, so we need to check the current location.
-		return deploy_after(user, loc)
+	if(!location) //if no location was passed we use the current location.
+		location = loc
+	if(isopenturf(location))
+		if(dense_deployment)
+			return deploy_after(user, loc)
+		else
+			var/dense_location
+			for(var/atom/movable/AM in location)
+				if(AM.density)
+					dense_location = TRUE
+					break
+			if(!dense_location)
+				return deploy_after(user, loc)
 	if(user)
 		to_chat(user, "<span class='warning'>[src] can only be deployed in an open area!</span>")
 	visible_message("<span class='warning'>[src] fails to deploy!</span>")
