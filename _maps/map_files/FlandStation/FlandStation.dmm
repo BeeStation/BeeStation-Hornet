@@ -5638,7 +5638,7 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Medbay break room maintenance";
-	req_access_txt = "5"
+	req_access_txt = s
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/medical/break_room)
@@ -9851,13 +9851,6 @@
 /obj/machinery/light,
 /turf/open/floor/plating,
 /area/engine/storage)
-"cDB" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_one_access_txt = "12;47"
-	},
-/turf/closed/wall/r_wall,
-/area/engine/atmos)
 "cDE" = (
 /obj/machinery/light{
 	dir = 4
@@ -56842,14 +56835,6 @@
 /area/security/nuke_storage)
 "oTm" = (
 /obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "emmd";
-	name = "Emergency Medical Lockdown Shutters"
-	},
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
@@ -56858,6 +56843,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
+	},
+/obj/machinery/door/airlock/maintenance{
+	name = "Medbay central maintenance";
+	req_access_txt = s
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/medical/medbay/central)
@@ -139659,7 +139648,7 @@ uUs
 uUs
 uUs
 uUs
-cDB
+uUs
 uUs
 uUs
 cSY
