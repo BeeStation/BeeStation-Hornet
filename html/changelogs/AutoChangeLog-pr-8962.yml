@@ -1,0 +1,4 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - bugfix: fixed un-monkifying setting that person's species to null sometimes
