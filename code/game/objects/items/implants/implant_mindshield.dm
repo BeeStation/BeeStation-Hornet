@@ -24,7 +24,7 @@
 			return TRUE
 
 		if(target.mind.has_antag_datum(/datum/antagonist/brainwashed))
-			target.mind.remove_antag_datum(/datum/antagonist/brainwashed)
+			unbrainwash(target)
 
 		if(target.mind.has_antag_datum(/datum/antagonist/rev/head) || target.mind.unconvertable)
 			if(!silent)

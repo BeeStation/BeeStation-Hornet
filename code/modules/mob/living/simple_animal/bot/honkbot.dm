@@ -42,7 +42,7 @@
 	update_icon()
 	auto_patrol = TRUE
 	var/datum/job/clown/J = new/datum/job/clown
-	access_card.access += J.get_access()
+	access_card.access |= J.get_access()
 	prev_access = access_card.access
 
 	var/static/list/loc_connections = list(

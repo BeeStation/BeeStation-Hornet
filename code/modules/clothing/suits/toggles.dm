@@ -153,10 +153,6 @@
 		W.suit = src
 		helmet = W
 
-/obj/item/clothing/suit/space/hardsuit/ui_action_click()
-	..()
-	ToggleHelmet()
-
 /obj/item/clothing/suit/space/hardsuit/equipped(mob/user, slot)
 	if(!helmettype)
 		return

@@ -521,7 +521,7 @@
 				open()
 			else
 				req_access = list()
-				req_access += pick(get_all_accesses())
+				req_access |= pick(get_all_accesses())
 
 /obj/structure/closet/contents_explosion(severity, target)
 	for(var/thing in contents)
