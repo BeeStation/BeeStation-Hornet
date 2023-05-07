@@ -8,7 +8,7 @@
 /obj/effect/particle_effect/foam
 	name = "foam"
 	icon_state = "foam"
-	opacity = 0
+	opacity = FALSE
 	anchored = TRUE
 	density = FALSE
 	layer = EDGED_TURF_LAYER
@@ -254,7 +254,7 @@
 	icon_state = "metalfoam"
 	density = TRUE
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
-	opacity = 1 	// changed in New()
+	opacity = TRUE // changed in New()
 	anchored = TRUE
 	layer = EDGED_TURF_LAYER
 	resistance_flags = FIRE_PROOF | ACID_PROOF

@@ -59,7 +59,7 @@
 	plantname = "Rice Stalks"
 	product = /obj/item/reagent_containers/food/snacks/grown/rice
 	mutatelist = list()
-	reagents_add = list(/datum/reagent/silicon = 0.1)
+	reagents_add = list(/datum/reagent/consumable/rice = 0.1)
 	growthstages = 3
 
 /obj/item/reagent_containers/food/snacks/grown/rice

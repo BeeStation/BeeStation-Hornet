@@ -124,6 +124,12 @@
 
 // Put any "can we eat this" checks for edible organs here
 /obj/item/organ/proc/pre_eat(eater, feeder)
+	if(iscarbon(eater))
+		var/mob/living/carbon/target = eater
+		for(var/S in target.surgeries)
+			var/datum/surgery/surgery = S
+			if(surgery.location == zone)
+				return FALSE
 	return TRUE
 
 /obj/item/organ/proc/pre_compost(user)

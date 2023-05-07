@@ -209,10 +209,6 @@
 	if (light_system == STATIC_LIGHT && light_power && light_range)
 		update_light()
 
-	if (opacity && isturf(loc))
-		var/turf/T = loc
-		T.has_opaque_atom = TRUE // No need to recalculate it in this case, it's guaranteed to be on afterwards anyways.
-
 	if(custom_materials && custom_materials.len)
 		var/temp_list = list()
 		for(var/i in custom_materials)
@@ -1454,6 +1450,10 @@
 
 	var/mob/living/living_target = target
 	var/hp = istype(living_target) ? " (NEWHP: [living_target.health]) " : ""
+	var/stam
+	if(iscarbon(living_target))
+		var/mob/living/carbon/C = living_target
+		stam = "(STAM: [C.getStaminaLoss()]) "
 
 	var/sobject = ""
 	if(object)
@@ -1462,7 +1462,7 @@
 	if(addition)
 		saddition = " [addition]"
 
-	var/postfix = "[sobject][saddition][hp]"
+	var/postfix = "[sobject][saddition][hp][stam]"
 
 	var/message = "has [what_done] [starget][postfix]"
 	user.log_message(message, LOG_ATTACK, color="red")

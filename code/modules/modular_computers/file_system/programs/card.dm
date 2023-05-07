@@ -77,7 +77,7 @@
 		var/list/info = sub_managers[access_text]
 		var/access = text2num(access_text)
 		if((access in id_card.access) && ((info["region"] in target_dept) || !length(target_dept)))
-			region_access += info["region"]
+			region_access |= info["region"]
 			//I don't even know what I'm doing anymore
 			head_types += info["head"]
 
@@ -224,10 +224,10 @@
 						return
 
 					target_id_card.access -= get_all_accesses()
-					target_id_card.access += jobdatum.get_access()
+					target_id_card.access |= jobdatum.get_access()
 				else // centcom level
 					target_id_card.access -= get_all_centcom_access()
-					target_id_card.access += get_centcom_access(target)
+					target_id_card.access |= get_centcom_access(target)
 
 				// tablet program doesn't change bank/manifest status. check 'card.dm' for the detail
 

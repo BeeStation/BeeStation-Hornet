@@ -3,7 +3,7 @@
 	name = "FORCEWALL"
 	icon_state = "m_shield"
 	anchored = TRUE
-	opacity = 0
+	opacity = FALSE
 	density = TRUE
 	CanAtmosPass = ATMOS_PASS_DENSITY
 	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP

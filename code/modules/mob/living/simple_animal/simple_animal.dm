@@ -459,10 +459,10 @@
 		..()
 
 /mob/living/simple_animal/update_mobility(value_otherwise = TRUE)
-	if(IsUnconscious() || IsParalyzed() || IsStun() || IsKnockdown() || IsParalyzed() || stat || resting)
+	if(IsUnconscious() || IsParalyzed() || IsStun() || IsKnockdown() || stat || resting)
 		drop_all_held_items()
 		mobility_flags = NONE
-	else if(buckled)
+	else if(buckled || IsImmobilized())
 		mobility_flags = MOBILITY_FLAGS_INTERACTION
 	else
 		if(value_otherwise)

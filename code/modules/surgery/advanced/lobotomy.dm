@@ -46,7 +46,7 @@
 			"[user] completes the surgery on [target]'s brain.")
 	target.cure_all_traumas(TRAUMA_RESILIENCE_LOBOTOMY)
 	if(target.mind && target.mind.has_antag_datum(/datum/antagonist/brainwashed))
-		target.mind.remove_antag_datum(/datum/antagonist/brainwashed)
+		unbrainwash(target)
 	switch(rand(0,3))//Now let's see what hopefully-not-important part of the brain we cut off
 		if(1)
 			target.gain_trauma_type(BRAIN_TRAUMA_MILD, TRAUMA_RESILIENCE_MAGIC)
