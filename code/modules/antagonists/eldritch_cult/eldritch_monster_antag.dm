@@ -8,6 +8,7 @@
 	var/antag_hud_type = ANTAG_HUD_HERETIC
 	var/antag_hud_name = "heretic_beast"
 	var/datum/antagonist/heretic/master
+	show_to_ghosts = TRUE
 
 /datum/antagonist/heretic_monster/admin_add(datum/mind/new_owner,mob/admin)
 	new_owner.add_antag_datum(src)
@@ -25,6 +26,11 @@
 		to_chat(owner, "<span class='boldannounce'>Your no longer bound to your master, [master.owner.current.real_name]</span>")
 		master = null
 	return ..()
+
+/datum/antagonist/heretic_monster/get_antag_name() // good to recognise who's responsible with these monsters
+	if(!master)
+		return "Unchained Eldritch Horror"
+	return "Eldritch Horror of [master.owner.name]"
 
 /datum/antagonist/heretic_monster/proc/set_owner(datum/antagonist/_master)
 	master = _master
