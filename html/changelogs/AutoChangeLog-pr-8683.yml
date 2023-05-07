@@ -1,0 +1,24 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - balance: Repairing cyborgs now takes half as long per tick, and repairing burnt
+      wires also restores for twice as much on top of this. 2x speed for brute and
+      4x speed for burn repairs overall.
+  - balance: Cyborg self-repair module is much better at doing its job and much less
+      power hungry. It is still greatly outclassed by getting someone else to do repairs,
+      but should be seen as a worthwhile upgrade to install now. The module also has
+      sound effects now.
+  - balance: Cyborgs now slow down gradually as they receive damage
+  - balance: Cyborgs can no longer be stunlocked by flashes - they will be stunned
+      once for five seconds (down from seven) and then immune to further stuns for
+      30 seconds (indicated by flashing lights).
+  - tweak: Successfully opening the cover of a cyborg which is flash stunned will
+      refresh the stun timer to five seconds the first time it happens.
+  - tweak: All silicons take burn damage from EMPs now instead of brute
+  - tweak: Cyborg health HUDs will now more accurately represent their current HP,
+      only blinking red when they are critically close to breaking down instead of
+      at half health.
+  - bugfix: Fixed an exploitable oversight that allowed cyborgs to equip and use modules
+      in slots that are supposed to be deactivated
+  - bugfix: fixed a calculation error regarding the stunning and throwing of buckled
+      mobs when a cyborg is hit with an EMP.
