@@ -458,7 +458,7 @@
 /atom/proc/balloon_alert(mob/viewer, text, color = null)
 	if(!viewer?.client)
 		return
-	switch(viewer.client.prefs.read_player_preference(/datum/preference/toggle/auto_fit_viewport)) // TODO tgui-prefs show_balloon_alerts
+	switch(viewer.client.prefs.read_player_preference(/datum/preference/choiced/show_balloon_alerts))
 		if(BALLOON_ALERT_ALWAYS)
 			new /datum/chatmessage/balloon_alert(text, src, viewer, color)
 		if(BALLOON_ALERT_WITH_CHAT)

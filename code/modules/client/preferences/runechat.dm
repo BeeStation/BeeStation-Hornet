@@ -23,3 +23,14 @@
 
 /datum/preference/numeric/max_chat_length/create_default_value()
 	return CHAT_MESSAGE_MAX_LENGTH
+
+/datum/preference/choiced/show_balloon_alerts
+	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
+	db_key = "show_balloon_alerts"
+	preference_type = PREFERENCE_PLAYER
+
+/datum/preference/choiced/brief_outfit/create_default_value()
+	return BALLOON_ALERT_ALWAYS
+
+/datum/preference/choiced/brief_outfit/init_possible_values()
+	return list(BALLOON_ALERT_ALWAYS, BALLOON_ALERT_WITH_CHAT, BALLOON_ALERT_NEVER)

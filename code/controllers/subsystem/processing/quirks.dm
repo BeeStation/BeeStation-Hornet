@@ -55,5 +55,5 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 			bad_quirks += V
 	if(bad_quirk_checker > 0 || length(bad_quirks)) // negative & zero value = calculation good / positive quirk value = something's wrong
 		cli.prefs.all_quirks = list()
-		//TODO tgui-prefs write_preference()
+		cli.prefs.save_character() // save the new cleared quirks.
 		client_alert(cli, "You have one or more outdated quirks[length(bad_quirks) ? ": [english_list(bad_quirks)]" : ""]. Your eligible quirks are kept at this round, but your character preference has been reset. Please review them at any time.", "Oh, no!")

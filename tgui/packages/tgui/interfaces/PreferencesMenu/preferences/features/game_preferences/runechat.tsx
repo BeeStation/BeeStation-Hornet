@@ -1,4 +1,4 @@
-import { CheckboxInput, FeatureNumberInput, FeatureNumeric, FeatureToggle } from "../base";
+import { Feature, CheckboxInput, FeatureDropdownInput, FeatureNumberInput, FeatureNumeric, FeatureToggle } from "../base";
 
 export const chat_on_map: FeatureToggle = {
   name: "Enable Runechat",
@@ -26,4 +26,11 @@ export const max_chat_length: FeatureNumeric = {
   category: "RUNECHAT",
   description: "The maximum length a Runechat message will show as.",
   component: FeatureNumberInput,
+};
+
+export const show_balloon_alerts: Feature<string> = {
+  name: 'Show balloon alerts',
+  category: 'RUNECHAT',
+  description: 'Show text above items when certain interactions are used.',
+  component: FeatureDropdownInput,
 };
