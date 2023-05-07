@@ -109,3 +109,6 @@
 #define FUGITIVE_WALDO "waldo"
 #define FUGITIVE_CULT "cultist"
 #define FUGITIVE_SYNTH "synth"
+
+//Spider webs
+#define MAX_WEBS_PER_TILE 3

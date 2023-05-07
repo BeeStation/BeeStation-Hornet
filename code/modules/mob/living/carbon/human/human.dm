@@ -110,14 +110,11 @@
 
 /mob/living/carbon/human/get_stat_tab_status()
 	var/list/tab_data = ..()
-
-	if (internal)
-		if (!internal.air_contents)
-			qdel(internal)
-		else
-			tab_data["Internal Atmosphere Info"] = GENERATE_STAT_TEXT("[internal.name]")
-			tab_data["Tank Pressure"] = GENERATE_STAT_TEXT("[internal.air_contents.return_pressure()]")
-			tab_data["Distribution Pressure"] = GENERATE_STAT_TEXT("[internal.distribute_pressure]")
+	var/obj/item/tank/target_tank = internal || external
+	if(target_tank)
+		tab_data["Internal Atmosphere Info"] = GENERATE_STAT_TEXT("[target_tank.name]")
+		tab_data["Tank Pressure"] = GENERATE_STAT_TEXT("[target_tank.air_contents.return_pressure()]")
+		tab_data["Distribution Pressure"] = GENERATE_STAT_TEXT("[target_tank.distribute_pressure]")
 
 	if(mind)
 		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
@@ -635,6 +632,9 @@
 /mob/living/carbon/human/proc/end_electrocution_animation(mutable_appearance/MA)
 	remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, "#000000")
 	cut_overlay(MA)
+
+/mob/living/carbon/human/can_interact_with(atom/A, treat_mob_as_adjacent)
+	return ..() || (dna.check_mutation(TK) && tkMaxRangeCheck(src, A))
 
 /mob/living/carbon/human/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
 	if(!(mobility_flags & MOBILITY_UI))
@@ -1232,20 +1232,17 @@
 /mob/living/carbon/human/species/ipc
 	race = /datum/species/ipc
 
-/mob/living/carbon/human/species/jelly
-	race = /datum/species/jelly
-
 /mob/living/carbon/human/species/oozeling
 	race = /datum/species/oozeling
 
-/mob/living/carbon/human/species/jelly/slime
-	race = /datum/species/jelly/slime
+/mob/living/carbon/human/species/oozeling/slime
+	race = /datum/species/oozeling/slime
 
-/mob/living/carbon/human/species/jelly/stargazer
-	race = /datum/species/jelly/stargazer
+/mob/living/carbon/human/species/oozeling/stargazer
+	race = /datum/species/oozeling/stargazer
 
-/mob/living/carbon/human/species/jelly/luminescent
-	race = /datum/species/jelly/luminescent
+/mob/living/carbon/human/species/oozeling/luminescent
+	race = /datum/species/oozeling/luminescent
 
 /mob/living/carbon/human/species/lizard
 	race = /datum/species/lizard

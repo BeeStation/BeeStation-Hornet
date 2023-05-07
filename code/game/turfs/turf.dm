@@ -2,6 +2,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf
 	icon = 'icons/turf/floors.dmi'
+	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE // Important for interaction with and visualization of openspace.
 
 	/// If this is TRUE, that means this floor is on top of plating so pipes and wires and stuff will appear under it... or something like that it's not entirely clear.
 	var/intact = 1
@@ -49,11 +50,10 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	/// Should we used the smooth tiled dirt decal or not
 	var/tiled_dirt = FALSE
 
-	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE // Important for interaction with and visualization of openspace.
-
 	///the holodeck can load onto this turf if TRUE
 	var/holodeck_compatible = FALSE
 
+	///Icon-smoothing variable to map a diagonal wall corner with a fixed underlay.
 	var/list/fixed_underlay = null
 
 /turf/vv_edit_var(var_name, new_value)
@@ -112,7 +112,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		SEND_SIGNAL(T, COMSIG_TURF_MULTIZ_NEW, src, UP)
 
 	if (opacity)
-		has_opaque_atom = TRUE
+		directional_opacity = ALL_CARDINALS
 
 	ComponentInitialize()
 	if(isopenturf(src))
@@ -190,6 +190,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		return
 	return ..()
 
+<<<<<<< HEAD
 /// Returns TRUE if the turf cannot be moved onto
 /proc/is_blocked_turf(turf/T, exclude_mobs)
 	if(T.density)
@@ -199,6 +200,94 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		if(A.density && (!exclude_mobs || !ismob(A)))
 			return 1
 	return 0
+=======
+/turf/proc/check_z_travel(mob/user)
+	if(get_turf(user) != src)
+		return
+	var/list/tool_list = list()
+	var/turf/above = above()
+	if(above)
+		tool_list["Up"] = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = NORTH)
+	var/turf/below = below()
+	if(below)
+		tool_list["Down"] = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = SOUTH)
+
+	if(!length(tool_list))
+		return
+
+	var/result = show_radial_menu(user, user, tool_list, require_near = TRUE, tooltips = TRUE)
+	if(get_turf(user) != src)
+		return
+	switch(result)
+		if("Cancel")
+			return
+		if("Up")
+			if(user.zMove(UP, TRUE))
+				to_chat(user, "<span class='notice'>You move upwards.</span>")
+		if("Down")
+			if(user.zMove(DOWN, TRUE))
+				to_chat(user, "<span class='notice'>You move down.</span>")
+
+/turf/proc/travel_z(mob/user, turf/target, dir)
+	var/mob/living/L = user
+	if(istype(L) && L.incorporeal_move) // Allow most jaunting
+		user.client?.Process_Incorpmove(dir)
+		return
+	var/atom/movable/AM
+	if(user.pulling)
+		AM = user.pulling
+		AM.forceMove(target)
+	if(user.pulledby) // We moved our way out of the pull
+		user.pulledby.stop_pulling()
+	if(user.has_buckled_mobs())
+		for(var/M in user.buckled_mobs)
+			var/mob/living/buckled_mob = M
+			var/old_dir = buckled_mob.dir
+			if(!buckled_mob.Move(target, dir))
+				user.doMove(buckled_mob.loc) //forceMove breaks buckles, use doMove
+				user.last_move = buckled_mob.last_move
+				// Otherwise they will always face north
+				buckled_mob.setDir(old_dir)
+				user.setDir(old_dir)
+				return FALSE
+	else
+		user.forceMove(target)
+	if(istype(AM) && user.Adjacent(AM))
+		user.start_pulling(AM)
+
+/turf/proc/multiz_turf_del(turf/T, dir)
+
+/turf/proc/multiz_turf_new(turf/T, dir)
+
+/**
+ * Check whether the specified turf is blocked by something dense inside it with respect to a specific atom.
+ *
+ * Returns truthy value TURF_BLOCKED_TURF_DENSE if the turf is blocked because the turf itself is dense.
+ * Returns truthy value TURF_BLOCKED_CONTENT_DENSE if one of the turf's contents is dense and would block
+ * a source atom's movement.
+ * Returns falsey value TURF_NOT_BLOCKED if the turf is not blocked.
+ *
+ * Arguments:
+ * * exclude_mobs - If TRUE, ignores dense mobs on the turf.
+ * * source_atom - If this is not null, will check whether any contents on the turf can block this atom specifically. Also ignores itself on the turf.
+ * * ignore_atoms - Check will ignore any atoms in this list. Useful to prevent an atom from blocking itself on the turf.
+ */
+/turf/proc/is_blocked_turf(exclude_mobs = FALSE, source_atom = null, list/ignore_atoms)
+	if(density)
+		return TRUE
+
+	for(var/atom/movable/movable_content as anything in contents)
+		// We don't want to block ourselves or consider any ignored atoms.
+		if((movable_content == source_atom) || (movable_content in ignore_atoms))
+			continue
+		// If the thing is dense AND we're including mobs or the thing isn't a mob AND if there's a source atom and
+		// it cannot pass through the thing on the turf,  we consider the turf blocked.
+		if(movable_content.density && (!exclude_mobs || !ismob(movable_content)))
+			if(source_atom && movable_content.CanPass(source_atom, src))
+				continue
+			return TRUE
+	return FALSE
+>>>>>>> origin/master
 
 /proc/is_anchored_dense_turf(turf/T) //like the older version of the above, fails only if also anchored
 	if(T.density)
@@ -269,21 +358,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		mover.Bump(firstbump)
 		return (mover.movement_type & PHASING)
 	return TRUE
-
-/turf/Entered(atom/movable/arrived, direction)
-	..()
-	// If an opaque movable atom moves around we need to potentially update visibility.
-	if (arrived.opacity)
-		has_opaque_atom = TRUE // Make sure to do this before reconsider_lights(), incase we're on instant updates. Guaranteed to be on in this case.
-		reconsider_lights()
-
-/turf/open/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
-	..()
-	//melting
-	if(isobj(arrived) && air && air.return_temperature() > T0C)
-		var/obj/O = arrived
-		if(O.obj_flags & FROZEN)
-			O.make_unfrozen()
 
 // A proc in case it needs to be recreated or badmins want to change the baseturfs
 /turf/proc/assemble_baseturfs(turf/fake_baseturf_type)

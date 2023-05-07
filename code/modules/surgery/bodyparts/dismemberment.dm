@@ -316,7 +316,7 @@
 	C.update_mobility()
 
 
-/obj/item/bodypart/head/attach_limb(mob/living/carbon/C, special)
+/obj/item/bodypart/head/attach_limb(mob/living/carbon/C, special, is_creating = FALSE)
 	//Transfer some head appearance vars over
 	if(brain)
 		if(brainmob)
@@ -334,7 +334,7 @@
 	if(eyes)
 		eyes = null
 
-	if(ishuman(C))
+	if(ishuman(C) && !is_creating) // don't overwrite if the mob being created
 		var/mob/living/carbon/human/H = C
 		H.hair_color = hair_color
 		H.hair_style = hair_style

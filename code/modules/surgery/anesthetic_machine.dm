@@ -80,7 +80,7 @@
 				return
 			else
 				usr.visible_message("<span class='warning'>[usr] attaches the [src] to [target].</span>", "<span class='notice'>You attach the [src] to [target].</span>")
-				target.internal = attached_tank
+				target.external = attached_tank
 				mask_out = TRUE
 				START_PROCESSING(SSmachines, src)
 				target.update_internals_hud_icon(1)
