@@ -1,0 +1,5 @@
+author: PowerfulBacon,CydiaLamiales
+delete-after: true
+changes:
+  - rscadd: Exploration hardsuits now have a HUD which points them towards research
+      disks and item objectives.

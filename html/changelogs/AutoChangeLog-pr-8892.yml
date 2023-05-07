@@ -1,0 +1,7 @@
+author: Absolucy
+delete-after: true
+changes:
+  - refactor: Slightly refactored brainwashing.
+  - bugfix: You can no longer use mind control nanites to clear a brainwash from another
+      source.
+  - rscadd: Deadchat is now shown the source of an objective when someone is brainwashed.

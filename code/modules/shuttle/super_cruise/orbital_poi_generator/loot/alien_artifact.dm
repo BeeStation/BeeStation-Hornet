@@ -22,6 +22,7 @@
 /obj/item/alienartifact/objective/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/gps, "[scramble_message_replace_chars("#########", 100)]", TRUE)
+	AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#eb4d4d", TRUE, TRUE)
 
 /obj/item/alienartifact/Initialize(mapload)
 	. = ..()

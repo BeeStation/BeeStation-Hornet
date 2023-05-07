@@ -721,7 +721,7 @@
 		Ctrl-Clicking on a mob will attempt to remove it from the area and place it in a safe environment for storage.")
 
 /datum/team/swarmer
-	name = "The Swarm"
+	name = "Swarmers"
 	var/total_resources_eaten = 0
 
 /datum/antagonist/swarmer/get_team()

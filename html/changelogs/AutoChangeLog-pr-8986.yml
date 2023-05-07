@@ -1,0 +1,4 @@
+author: Absolucy
+delete-after: true
+changes:
+  - bugfix: Inserting a new organ into someone will no longer feed it to them too.

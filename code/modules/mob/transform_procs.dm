@@ -1,6 +1,6 @@
 #define TRANSFORMATION_DURATION 22
 
-/mob/living/carbon/proc/monkeyize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI), skip_animation = FALSE, original_species = /datum/species/human)
+/mob/living/carbon/proc/monkeyize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI), skip_animation = FALSE, keep_original_species = FALSE)
 	if (notransform || transformation_timer)
 		return
 
@@ -47,9 +47,11 @@
 	O.updateappearance(icon_update=0)
 
 	//store original species
-	for(var/datum/mutation/race/M in O.dna.mutations)
-		M.original_species = original_species
-		break //Can't be more than one monkified in a DNA set so, no need to continue the loop
+	if(keep_original_species)
+		for(var/datum/mutation/race/M in O.dna.mutations)
+			if(!isnull(dna.species))
+				M.original_species = dna.species
+			break //Can't be more than one monkified in a DNA set so, no need to continue the loop
 
 	if(suiciding)
 		O.set_suicide(suiciding)
@@ -294,7 +296,7 @@
 //////////////////////////           Humanize               //////////////////////////////
 //Could probably be merged with monkeyize but other transformations got their own procs, too
 
-/mob/living/carbon/proc/humanize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI), original_species = /datum/species/human)
+/mob/living/carbon/proc/humanize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI), keep_original_species = FALSE, var/datum/species/original_species)
 	if (notransform || transformation_timer)
 		return
 
@@ -331,6 +333,7 @@
 		if(C.anchored)
 			continue
 		O.equip_to_appropriate_slot(C)
+
 	dna.transfer_identity(O, tr_flags & TR_KEEPSE)
 	O.dna.set_se(FALSE, GET_INITIALIZED_MUTATION(RACEMUT))
 	//Reset offsets to match human settings, in-case they have been changed
@@ -427,15 +430,20 @@
 		else if(O.ai_controller)
 			QDEL_NULL(O.ai_controller)
 
+	if(keep_original_species && isnull(original_species))
+		original_species = /datum/species/human
+
 	if(O.dna.species && !istype(O.dna.species, /datum/species/monkey))
 		O.set_species(O.dna.species)
 	else
-		O.set_species(original_species)
-
+		if(keep_original_species)
+			O.set_species(original_species)
+		else
+			O.set_species(/datum/species/human)
 
 	O.a_intent = INTENT_HELP
 	if (tr_flags & TR_DEFAULTMSG)
-		to_chat(O, "<B>You are now \a [original_species].</B>")
+		to_chat(O, "<B>You are now \a [O.dna.species]].</B>")
 
 	transfer_observers_to(O)
 
