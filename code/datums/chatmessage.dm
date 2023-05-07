@@ -284,9 +284,9 @@
 /mob/proc/should_show_chat_message(atom/movable/speaker, datum/language/message_language, is_emote = FALSE, is_heard = FALSE)
 	if(!client)
 		return CHATMESSAGE_CANNOT_HEAR
-	if(!(client.prefs.toggles & PREFTOGGLE_RUNECHAT_GLOBAL) || (!(client.prefs.toggles & PREFTOGGLE_RUNECHAT_NONMOBS) && !ismob(speaker)))
+	if(!client.prefs.read_player_preference(/datum/preference/toggle/enable_runechat) || (!client.prefs.read_player_preference(/datum/preference/toggle/enable_runechat_non_mobs) && !ismob(speaker)))
 		return CHATMESSAGE_CANNOT_HEAR
-	if(!(client.prefs.toggles & PREFTOGGLE_RUNECHAT_EMOTES) && is_emote)
+	if(!client.prefs.read_player_preference(/datum/preference/toggle/see_rc_emotes) && is_emote)
 		return CHATMESSAGE_CANNOT_HEAR
 	if(is_heard && !can_hear())
 		return CHATMESSAGE_CANNOT_HEAR

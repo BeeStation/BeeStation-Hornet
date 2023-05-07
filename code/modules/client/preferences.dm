@@ -35,8 +35,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	/// For example, by default would have "X" -> list("swap_hands")
 	var/list/key_bindings_by_key = list()
 
-	var/toggles = TOGGLES_DEFAULT
-	var/toggles2 = TOGGLES_2_DEFAULT
 	var/db_flags
 	var/chat_toggles = TOGGLES_DEFAULT_CHAT
 

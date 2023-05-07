@@ -459,8 +459,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
 		to_chat(src, "<span class='warning'>Unable to access asset cache browser, if you are using a custom skin file, please allow DS to download the updated version, if you are not, then make a bug report. This is not a critical issue but can cause issues with resource downloading, as it is impossible to know when extra resources arrived to you.</span>")
 
-	update_ambience_pref()
-
 	//This is down here because of the browse() calls in tooltip/New()
 	if(!tooltips)
 		tooltips = new /datum/tooltip(src)
@@ -1149,12 +1147,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(holder)
 		holder.particool = new /datum/particle_editor(in_atom)
 		holder.particool.ui_interact(mob)
-
-/client/proc/update_ambience_pref()
-	if(prefs.toggles & PREFTOGGLE_SOUND_AMBIENCE)
-		SSambience.add_ambience_client(src)
-	else
-		SSambience.remove_ambience_client(src)
 
 /client/proc/give_award(achievement_type, mob/user)
 	return player_details.achievements.unlock(achievement_type, user)

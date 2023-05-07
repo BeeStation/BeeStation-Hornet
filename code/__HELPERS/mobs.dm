@@ -388,13 +388,15 @@ GLOBAL_LIST_EMPTY(species_list)
 	message = "<span class='linkify'>[message]</span>"
 	for(var/mob/M in GLOB.player_list)
 		var/chat_toggles = TOGGLES_DEFAULT_CHAT
-		var/toggles = TOGGLES_DEFAULT
+		var/death_rattle = TRUE
+		var/arrivals_rattle = TRUE
 		var/list/ignoring
 		if(M?.client.prefs)
 			var/datum/preferences/prefs = M.client.prefs
 			chat_toggles = prefs.chat_toggles
-			toggles = prefs.toggles
 			ignoring = prefs.ignoring
+			death_rattle = prefs.read_player_preference(/datum/preference/toggle/death_rattle)
+			arrivals_rattle = prefs.read_player_preference(/datum/preference/toggle/arrivals_rattle)
 
 
 		var/override = FALSE
@@ -413,10 +415,10 @@ GLOBAL_LIST_EMPTY(species_list)
 
 		switch(message_type)
 			if(DEADCHAT_DEATHRATTLE)
-				if(toggles & PREFTOGGLE_DISABLE_DEATHRATTLE)
+				if(!death_rattle)
 					continue
 			if(DEADCHAT_ARRIVALRATTLE)
-				if(toggles & PREFTOGGLE_DISABLE_ARRIVALRATTLE)
+				if(!arrivals_rattle)
 					continue
 			if(DEADCHAT_LAWCHANGE)
 				if(!(chat_toggles & CHAT_GHOSTLAWS))
