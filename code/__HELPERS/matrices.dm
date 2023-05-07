@@ -104,6 +104,21 @@
 /matrix/proc/get_y_shift()
 	. = f
 
+/matrix/proc/get_x_skew()
+	. = b
+
+/matrix/proc/get_y_skew()
+	. = d
+
+//Skews a matrix in a particular direction
+//Missing arguments are treated as no skew in that direction
+
+//As Rotation is defined as a scale+skew, these procs will break any existing rotation
+//Unless the result is multiplied against the current matrix
+/matrix/proc/set_skew(x = 0, y = 0)
+	b = x
+	d = y
+
 //-----------------//
 // COLOUR MATRICES //
 //-----------------//
