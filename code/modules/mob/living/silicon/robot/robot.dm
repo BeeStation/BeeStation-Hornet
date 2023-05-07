@@ -3,8 +3,8 @@
 	real_name = JOB_NAME_CYBORG
 	icon = 'icons/mob/robots.dmi'
 	icon_state = "robot"
-	maxHealth = 100
-	health = 100
+	maxHealth = 200
+	health = 200
 	bubble_icon = "robot"
 	designation = "Default" //used for displaying the prefix & getting the current module of cyborg
 	has_limbs = 1
@@ -16,6 +16,8 @@
 	var/braintype = "Cyborg"
 	var/obj/item/robot_suit/robot_suit = null //Used for deconstruction to remember what the borg was constructed out of..
 	var/obj/item/mmi/mmi = null
+	///The last time this mob was flashed. Used for flash cooldowns
+	var/last_flashed = 0
 
 	var/shell = FALSE
 	var/deployed = FALSE
@@ -444,7 +446,7 @@
 			to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
 			return
 		//repeatedly repairs until the cyborg is fully repaired
-		while(getBruteLoss() && W.tool_start_check(user, amount=0) && W.use_tool(src, user, 60))
+		while(getBruteLoss() && W.tool_start_check(user, amount=0) && W.use_tool(src, user, 3 SECONDS))
 			W.use(1) //use one fuel for each repair step
 			adjustBruteLoss(-10)
 			updatehealth()
@@ -458,10 +460,10 @@
 			to_chat(user, "The wires seem fine, there's no need to fix them.")
 			return
 		var/obj/item/stack/cable_coil/coil = W
-		while((getFireLoss() || getToxLoss()) && do_after(user, 60, target = src))
+		while((getFireLoss() || getToxLoss()) && do_after(user, 30, target = src))
 			if(coil.use(1))
-				adjustFireLoss(-10)
-				adjustToxLoss(-10)
+				adjustFireLoss(-20)
+				adjustToxLoss(-20)
 				updatehealth()
 				add_fingerprint(user)
 				user.visible_message("[user] has fixed some of the burnt wires on [src].", "<span class='notice'>You fix some of the burnt wires on [src].</span>")
@@ -478,9 +480,10 @@
 				to_chat(user, "<span class='warning'>The cover is locked and cannot be opened!</span>")
 			else
 				to_chat(user, "<span class='notice'>You open the cover.</span>")
+				if(IsParalyzed() && (last_flashed + 5 SECONDS >= world.time)) //second half of this prevents someone from stunlocking via open/close spam
+					Paralyze(5 SECONDS)
 				opened = 1
-				update_icons()
-
+				update_icons()				
 	else if(istype(W, /obj/item/stock_parts/cell) && opened)	// trying to put a cell inside
 		if(wiresexposed)
 			to_chat(user, "<span class='warning'>Close the cover first!</span>")
@@ -672,7 +675,9 @@
 	if(stat != DEAD && !(IsUnconscious() || IsStun() || IsParalyzed() || low_power_mode)) //Not dead, not stunned.
 		if(!eye_lights)
 			eye_lights = new()
-		if(lamp_enabled)
+		if(last_flashed && last_flashed + 30 SECONDS >= world.time) //We want to make sure last_flashed isn't zero because otherwise roundstart borgs blink for 30 seconds
+			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_fl"
+		else if(lamp_enabled)
 			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_l"
 			eye_lights.color = lamp_color
 			eye_lights.plane = ABOVE_LIGHTING_PLANE //glowy eyes
@@ -988,21 +993,25 @@
 
 /mob/living/silicon/robot/updatehealth()
 	..()
-	if(health < maxHealth*0.5) //Gradual break down of modules as more damage is sustained
+	if(health < maxHealth*0.75) //Gradual break down of modules as more damage is sustained
+		var/speedpenalty = (maxHealth - health) / 150
+		add_movespeed_modifier(MOVESPEED_ID_DAMAGE_SLOWDOWN, override = TRUE, multiplicative_slowdown = speedpenalty, blacklisted_movetypes = FLOATING)
 		if(uneq_module(held_items[3]))
 			playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, 1, 1)
 			audible_message("<span class='warning'>[src] sounds an alarm! \"SYSTEM ERROR: Module 3 OFFLINE.\"</span>")
 			to_chat(src, "<span class='userdanger'>SYSTEM ERROR: Module 3 OFFLINE.</span>")
-		if(health < 0)
+		if(health < maxHealth*0.5)
 			if(uneq_module(held_items[2]))
 				audible_message("<span class='warning'>[src] sounds an alarm! \"SYSTEM ERROR: Module 2 OFFLINE.\"</span>")
 				to_chat(src, "<span class='userdanger'>SYSTEM ERROR: Module 2 OFFLINE.</span>")
 				playsound(loc, 'sound/machines/warning-buzzer.ogg', 60, 1, 1)
-			if(health < -maxHealth*0.5)
+			if(health < maxHealth*0.25)
 				if(uneq_module(held_items[1]))
 					audible_message("<span class='warning'>[src] sounds an alarm! \"CRITICAL ERROR: All modules OFFLINE.\"</span>")
 					to_chat(src, "<span class='userdanger'>CRITICAL ERROR: All modules OFFLINE.</span>")
 					playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, 1, 1)
+	else
+		remove_movespeed_modifier(MOVESPEED_ID_DAMAGE_SLOWDOWN)
 
 /mob/living/silicon/robot/update_sight()
 	if(!client)
@@ -1051,7 +1060,7 @@
 	if(status_flags & GODMODE)
 		return
 	if(stat != DEAD)
-		if(health <= -maxHealth) //die only once
+		if(health <= 0) //die only once
 			death()
 			toggle_headlamp(1)
 			return
