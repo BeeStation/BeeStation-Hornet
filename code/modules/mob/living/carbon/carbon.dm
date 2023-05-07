@@ -72,7 +72,7 @@
 
 /mob/living/carbon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	var/hurt = TRUE
-	if(throwingdatum.force <= MOVE_FORCE_WEAK)
+	if(!throwingdatum || throwingdatum.force <= MOVE_FORCE_WEAK)
 		hurt = FALSE
 
 	if(iscarbon(hit_atom) && hit_atom != src)
@@ -455,7 +455,7 @@
 			if(T)
 				T.add_vomit_floor(src, VOMIT_TOXIC)//toxic barf looks different
 		T = get_step(T, dir)
-		if (is_blocked_turf(T))
+		if (T.is_blocked_turf())
 			break
 	return 1
 

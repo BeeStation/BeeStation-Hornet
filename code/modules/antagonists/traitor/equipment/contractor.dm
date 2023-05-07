@@ -12,6 +12,7 @@
 
 /// Team for storing both the contractor and their support unit - only really for the HUD and admin logging.
 /datum/team/contractor_team
+	name = "Contractors"
 	show_roundend_report = FALSE
 
 /datum/antagonist/traitor/contractor_support/forge_traitor_objectives()

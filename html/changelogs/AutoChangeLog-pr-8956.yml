@@ -1,0 +1,6 @@
+author: RKz, TiviPlus, xzaber
+delete-after: true
+changes:
+  - bugfix: silicons will actually QDEL their law datum when they get destroyed
+  - admin: if an AI's law datum gets deleted for spaghetti reasons, a stack_trace
+      will be sent letting you be able to determine when, (and probably) how it occurred
