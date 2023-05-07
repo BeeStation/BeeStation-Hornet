@@ -48,7 +48,7 @@
 	belt = /obj/item/modular_computer/tablet/pda/heads/chief_medical_officer
 	l_pocket = /obj/item/pinpointer/crew
 	r_pocket = /obj/item/flashlight/pen
-	ears = /obj/item/radio/headset/heads/cmo
+	ears = /obj/item/radio_abstract/headset/heads/cmo
 	uniform = /obj/item/clothing/under/rank/medical/chief_medical_officer
 	shoes = /obj/item/clothing/shoes/sneakers/brown
 	suit = /obj/item/clothing/suit/toggle/labcoat/med/cmo

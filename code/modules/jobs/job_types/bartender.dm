@@ -32,7 +32,7 @@
 	id = /obj/item/card/id/job/bartender
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced/reagent
 	belt = /obj/item/modular_computer/tablet/pda/bartender
-	ears = /obj/item/radio/headset/headset_srv
+	ears = /obj/item/radio_abstract/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/bartender
 	suit = /obj/item/clothing/suit/armor/vest
 	backpack_contents = list(/obj/item/storage/box/beanbag=1)

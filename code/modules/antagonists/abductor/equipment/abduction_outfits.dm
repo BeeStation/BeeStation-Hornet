@@ -3,7 +3,7 @@
 	uniform = /obj/item/clothing/under/abductor
 	shoes = /obj/item/clothing/shoes/combat
 	back = /obj/item/storage/backpack
-	ears = /obj/item/radio/headset/abductor
+	ears = /obj/item/radio_abstract/headset/abductor
 	id = /obj/item/card/id/syndicate
 
 /datum/outfit/abductor/proc/link_to_console(mob/living/carbon/human/H, team_number)

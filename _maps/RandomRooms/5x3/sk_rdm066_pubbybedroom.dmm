@@ -39,7 +39,7 @@
 /area/template_noop)
 "i" = (
 /obj/machinery/washing_machine,
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	dir = 4;
 	pixel_x = -31
 	},

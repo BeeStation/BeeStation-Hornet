@@ -86,7 +86,7 @@
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/item/clothing/head/wig/random,
 /obj/item/reagent_containers/medspray/spraytan,
-/obj/item/radio,
+/obj/item/radio_abstract/walkie_talkie,
 /turf/open/floor/plating,
 /area/template_noop)
 "m" = (

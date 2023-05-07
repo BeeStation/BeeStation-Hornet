@@ -1451,7 +1451,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/stealthy_tools/chambowman
 	name = "Chameleon Bangproof Headset"
 	desc = "A headset reinforced to protect the ears from flashbangs, enhanced with chameleon disguise technology."
-	item = /obj/item/radio/headset/chameleon/bowman
+	item = /obj/item/radio_abstract/headset/chameleon/bowman
 	cost = 2
 
 /datum/uplink_item/stealthy_tools/chamweldinggoggles

@@ -120,7 +120,7 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "P" = (
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	pixel_y = 26
 	},
 /obj/machinery/light{

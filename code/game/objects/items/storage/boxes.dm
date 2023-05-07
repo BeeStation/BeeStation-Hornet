@@ -179,11 +179,11 @@
 
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
 		new /obj/item/flashlight/flare(src)
-		new /obj/item/radio/off(src)
+		new /obj/item/radio_abstract/walkie_talkie/off(src)
 
 /obj/item/storage/box/survival/radio/PopulateContents()
 	..() // we want the survival stuff too.
-	new /obj/item/radio/off(src)
+	new /obj/item/radio_abstract/walkie_talkie/off(src)
 
 // Mining survival box
 /obj/item/storage/box/survival_mining/PopulateContents()
@@ -208,7 +208,7 @@
 
 /obj/item/storage/box/engineer/radio/PopulateContents()
 	..() // we want the regular items too.
-	new /obj/item/radio/off(src)
+	new /obj/item/radio_abstract/walkie_talkie/off(src)
 
 // Syndie survival box
 /obj/item/storage/box/syndie/PopulateContents()
@@ -231,7 +231,7 @@
 
 /obj/item/storage/box/security/radio/PopulateContents()
 	..() // we want the regular stuff too
-	new /obj/item/radio/off(src)
+	new /obj/item/radio_abstract/walkie_talkie/off(src)
 
 /obj/item/storage/box/gloves
 	name = "box of latex gloves"
@@ -898,7 +898,7 @@
 
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
 		new /obj/item/flashlight/flare(src)
-		new /obj/item/radio/off(src)
+		new /obj/item/radio_abstract/walkie_talkie/off(src)
 
 /obj/item/storage/box/rubbershot
 	name = "box of rubber shots"

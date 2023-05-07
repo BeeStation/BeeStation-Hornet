@@ -14,8 +14,8 @@
 	dir = 1
 	},
 /obj/structure/closet/crate,
-/obj/item/radio/headset/headset_exploration,
-/obj/item/radio/headset/headset_exploration,
+/obj/item/radio_abstract/headset/headset_exploration,
+/obj/item/radio_abstract/headset/headset_exploration,
 /obj/item/wrench,
 /obj/item/pickaxe,
 /obj/item/mining_scanner,

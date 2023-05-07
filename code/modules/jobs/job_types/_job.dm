@@ -276,7 +276,7 @@
 
 	uniform = /obj/item/clothing/under/color/grey
 	id = /obj/item/card/id
-	ears = /obj/item/radio/headset
+	ears = /obj/item/radio_abstract/headset
 	belt = /obj/item/modular_computer/tablet/pda
 	back = /obj/item/storage/backpack
 	shoes = /obj/item/clothing/shoes/sneakers/black

@@ -3317,14 +3317,14 @@
 /area/awaymission/cabin/lumbermill)
 "jT" = (
 /obj/structure/table/wood,
-/obj/item/radio/off{
+/obj/item/radio_abstract/walkie_talkie/off{
 	pixel_x = -5;
 	pixel_y = 4
 	},
-/obj/item/radio/off{
+/obj/item/radio_abstract/walkie_talkie/off{
 	pixel_y = 4
 	},
-/obj/item/radio/off{
+/obj/item/radio_abstract/walkie_talkie/off{
 	pixel_x = 5;
 	pixel_y = 4
 	},

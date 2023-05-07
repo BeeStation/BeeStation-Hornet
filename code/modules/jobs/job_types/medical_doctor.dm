@@ -34,7 +34,7 @@
 
 	id = /obj/item/card/id/job/medical_doctor
 	belt = /obj/item/modular_computer/tablet/pda/medical
-	ears = /obj/item/radio/headset/headset_med
+	ears = /obj/item/radio_abstract/headset/headset_med
 	uniform = /obj/item/clothing/under/rank/medical/doctor
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	suit =  /obj/item/clothing/suit/toggle/labcoat/med

@@ -150,7 +150,7 @@
 	add_verb(/mob/living/silicon/ai/proc/show_laws_verb)
 
 	aiMulti = new(src)
-	radio = new /obj/item/radio/headset/silicon/ai(src)
+	radio = new /obj/item/radio_abstract/headset/silicon/ai(src)
 	aicamera = new/obj/item/camera/siliconcam/ai_camera(src)
 
 	deploy_action.Grant(src)

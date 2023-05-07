@@ -65,7 +65,7 @@
 /turf/open/floor/carpet,
 /area/shuttle/escape)
 "an" = (
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	name = "Station Intercom (General)";
 	pixel_y = -29
 	},
@@ -168,7 +168,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	name = "Station Intercom (General)";
 	pixel_y = 23
 	},

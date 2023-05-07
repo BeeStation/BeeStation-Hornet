@@ -3,7 +3,7 @@
 /obj/structure/closet/secure_closet/medical2{
 	req_access = list(29)
 	},
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	pixel_y = 24
 	},
 /turf/open/floor/plasteel/white,

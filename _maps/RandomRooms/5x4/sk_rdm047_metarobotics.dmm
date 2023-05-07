@@ -20,7 +20,7 @@
 "e" = (
 /obj/structure/rack,
 /obj/item/stack/sheet/cardboard,
-/obj/item/radio/off,
+/obj/item/radio_abstract/walkie_talkie/off,
 /obj/structure/light_construct{
 	dir = 1
 	},

@@ -143,7 +143,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "bounty_trap_off"
 	var/obj/structure/trap/stun/hunter/stored_trap
-	var/obj/item/radio/radio
+	var/obj/item/radio_abstract/radio
 	var/datum/effect_system/spark_spread/spark_system
 
 /obj/item/bountytrap/Initialize(mapload)

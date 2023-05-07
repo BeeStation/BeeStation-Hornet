@@ -407,14 +407,14 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	var/gameStatus = ORION_STATUS_START
 	var/canContinueEvent = 0
 
-	var/obj/item/radio/Radio
+	var/obj/item/radio_abstract/Radio
 	var/static/list/gamers = list()
 	var/killed_crew = 0
 
 
 /obj/machinery/computer/arcade/orion_trail/Initialize(mapload)
 	. = ..()
-	Radio = new /obj/item/radio(src)
+	Radio = new /obj/item/radio_abstract(src)
 	Radio.listening = 0
 
 /obj/machinery/computer/arcade/orion_trail/kobayashi

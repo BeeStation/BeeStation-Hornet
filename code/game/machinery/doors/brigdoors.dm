@@ -36,7 +36,7 @@
 	///List of weakrefs to nearby closets
 	var/list/closets = list()
 
-	var/obj/item/radio/Radio //needed to send messages to sec radio
+	var/obj/item/radio_abstract/Radio //needed to send messages to sec radio
 
 	maptext_height = 26
 	maptext_width = 32
@@ -47,7 +47,7 @@
 /obj/machinery/door_timer/Initialize(mapload)
 	. = ..()
 
-	Radio = new/obj/item/radio(src)
+	Radio = new/obj/item/radio_abstract(src)
 	Radio.listening = 0
 
 /obj/machinery/door_timer/Initialize(mapload)

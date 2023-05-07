@@ -12,7 +12,7 @@
 	new /obj/item/clothing/under/rank/cargo/quartermaster/turtleneck(src)
 	new /obj/item/clothing/under/rank/cargo/quartermaster/turtleneck/skirt(src)
 	new /obj/item/clothing/shoes/sneakers/brown(src)
-	new /obj/item/radio/headset/headset_quartermaster(src)
+	new /obj/item/radio_abstract/headset/headset_quartermaster(src)
 	new /obj/item/clothing/suit/fire/firefighter(src)
 	new /obj/item/clothing/gloves/fingerless(src)
 	new /obj/item/megaphone/cargo(src)

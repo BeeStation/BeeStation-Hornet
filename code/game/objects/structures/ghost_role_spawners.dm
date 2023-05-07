@@ -337,7 +337,7 @@
 	name = "Hotel Staff"
 	uniform = /obj/item/clothing/under/misc/assistantformal
 	shoes = /obj/item/clothing/shoes/laceup
-	r_pocket = /obj/item/radio/off
+	r_pocket = /obj/item/radio_abstract/walkie_talkie/off
 	back = /obj/item/storage/backpack
 	implants = list(/obj/item/implant/mindshield, /obj/item/implant/exile/hotel)
 
@@ -414,7 +414,7 @@
 	name = "Demonic Friend"
 	uniform = /obj/item/clothing/under/misc/assistantformal
 	shoes = /obj/item/clothing/shoes/laceup
-	r_pocket = /obj/item/radio/off
+	r_pocket = /obj/item/radio_abstract/walkie_talkie/off
 	back = /obj/item/storage/backpack
 	implants = list(/obj/item/implant/mindshield) //No revolutionaries, he's MY friend.
 	id = /obj/item/card/id
@@ -433,7 +433,7 @@
 	uniform = /obj/item/clothing/under/syndicate
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
-	ears = /obj/item/radio/headset/syndicate/alt
+	ears = /obj/item/radio_abstract/headset/syndicate/alt
 	back = /obj/item/storage/backpack
 	implants = list(/obj/item/implant/weapons_auth)
 	id = /obj/item/card/id/syndicate

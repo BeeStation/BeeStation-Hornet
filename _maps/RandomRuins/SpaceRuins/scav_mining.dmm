@@ -167,7 +167,7 @@
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered)
 "B" = (
-/obj/item/radio/off,
+/obj/item/radio_abstract/walkie_talkie/off,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered)
 "C" = (

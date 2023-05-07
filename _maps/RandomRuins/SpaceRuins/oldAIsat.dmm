@@ -411,7 +411,7 @@
 /area/template_noop)
 "bt" = (
 /obj/structure/table,
-/obj/item/radio/off,
+/obj/item/radio_abstract/walkie_talkie/off,
 /turf/open/floor/plasteel/airless,
 /area/tcommsat/oldaisat)
 "bu" = (
@@ -556,7 +556,7 @@
 /turf/open/floor/plasteel/airless,
 /area/tcommsat/oldaisat)
 "bR" = (
-/obj/item/radio/off,
+/obj/item/radio_abstract/walkie_talkie/off,
 /turf/open/floor/plasteel/airless/dark,
 /area/tcommsat/oldaisat)
 "bS" = (

@@ -52,7 +52,7 @@
 
 	id = /obj/item/card/id/job/head_of_personnel
 	belt = /obj/item/modular_computer/tablet/pda/heads/head_of_personnel
-	ears = /obj/item/radio/headset/heads/head_of_personnel
+	ears = /obj/item/radio_abstract/headset/heads/head_of_personnel
 	uniform = /obj/item/clothing/under/rank/civilian/head_of_personnel
 	shoes = /obj/item/clothing/shoes/sneakers/brown
 	head = /obj/item/clothing/head/hopcap

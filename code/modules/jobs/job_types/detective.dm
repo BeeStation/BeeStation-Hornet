@@ -37,7 +37,7 @@
 
 	id = /obj/item/card/id/job/detective
 	belt = /obj/item/modular_computer/tablet/pda/detective
-	ears = /obj/item/radio/headset/headset_sec/alt
+	ears = /obj/item/radio_abstract/headset/headset_sec/alt
 	uniform = /obj/item/clothing/under/rank/security/detective
 	neck = /obj/item/clothing/neck/tie/detective
 	shoes = /obj/item/clothing/shoes/sneakers/brown

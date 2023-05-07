@@ -10,7 +10,7 @@
 	new /obj/item/clothing/gloves/color/yellow(src)
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/tank/jetpack/suit(src)
-	new /obj/item/radio/headset/heads/chief_engineer(src)
+	new /obj/item/radio_abstract/headset/heads/chief_engineer(src)
 
 	new /obj/item/clothing/neck/petcollar(src)
 	new /obj/item/pet_carrier(src)
@@ -98,7 +98,7 @@
 /obj/structure/closet/secure_closet/engineering_personal/PopulateContents()
 	..()
 	new /obj/item/clothing/head/beret/eng(src)
-	new /obj/item/radio/headset/headset_eng(src)
+	new /obj/item/radio_abstract/headset/headset_eng(src)
 	new /obj/item/storage/toolbox/mechanical(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/holosign_creator/engineering(src)
@@ -113,7 +113,7 @@
 
 /obj/structure/closet/secure_closet/atmospherics/PopulateContents()
 	..()
-	new /obj/item/radio/headset/headset_eng(src)
+	new /obj/item/radio_abstract/headset/headset_eng(src)
 	new /obj/item/pipe_dispenser(src)
 	new /obj/item/storage/toolbox/mechanical(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)

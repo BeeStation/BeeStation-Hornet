@@ -51,7 +51,7 @@
 	var/datum/gas_mixture/cabin_air
 	var/obj/machinery/atmospherics/components/unary/portables_connector/connected_port = null
 
-	var/obj/item/radio/mech/radio
+	var/obj/item/radio_abstract/mech/radio
 	var/list/trackers = list()
 
 	var/max_temperature = 25000
@@ -121,7 +121,7 @@
 
 	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 
-/obj/item/radio/mech //this has to go somewhere
+/obj/item/radio_abstract/mech //this has to go somewhere
 
 /obj/mecha/Initialize(mapload)
 	. = ..()

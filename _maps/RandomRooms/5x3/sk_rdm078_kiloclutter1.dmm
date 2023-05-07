@@ -41,7 +41,7 @@
 	icon_state = "0"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	pixel_y = 22
 	},
 /turf/open/floor/plasteel/dark,

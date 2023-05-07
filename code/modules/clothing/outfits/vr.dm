@@ -2,7 +2,7 @@
 	name = "Basic VR"
 	uniform = /obj/item/clothing/under/color/random
 	shoes = /obj/item/clothing/shoes/sneakers/black
-	ears = /obj/item/radio/headset
+	ears = /obj/item/radio_abstract/headset
 	id = /obj/item/card/id
 
 /datum/outfit/vr/pre_equip(mob/living/carbon/human/H)

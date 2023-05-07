@@ -622,7 +622,7 @@
 	id = "radio_headset"
 	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 75)
-	build_path = /obj/item/radio/headset
+	build_path = /obj/item/radio_abstract/headset
 	category = list("initial", "T-Comm")
 
 /datum/design/bounced_radio
@@ -630,7 +630,7 @@
 	id = "bounced_radio"
 	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 75, /datum/material/glass = 25)
-	build_path = /obj/item/radio/off
+	build_path = /obj/item/radio_abstract/walkie_talkie/off
 	category = list("initial", "T-Comm")
 
 /datum/design/intercom_frame

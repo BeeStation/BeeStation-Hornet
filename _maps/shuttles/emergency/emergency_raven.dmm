@@ -327,7 +327,7 @@
 	pixel_y = 4
 	},
 /obj/item/storage/lockbox/loyalty,
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	pixel_x = -28
 	},
 /obj/structure/table/reinforced,
@@ -346,7 +346,7 @@
 /area/shuttle/escape)
 "bq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	pixel_x = 28
 	},
 /obj/machinery/stasis,
@@ -495,7 +495,7 @@
 /obj/effect/turf_decal/bot_white,
 /obj/structure/closet/emcloset,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	name = "Station Intercom (General)";
 	pixel_y = 23
 	},
@@ -514,7 +514,7 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency,
-/obj/item/radio,
+/obj/item/radio_abstract/walkie_talkie,
 /obj/item/clothing/mask/gas,
 /obj/item/tank/internals/emergency_oxygen{
 	pixel_x = 3
@@ -525,7 +525,7 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/rack,
 /obj/item/storage/toolbox/mechanical,
-/obj/item/radio,
+/obj/item/radio_abstract/walkie_talkie,
 /obj/item/clothing/mask/gas,
 /obj/item/tank/internals/emergency_oxygen{
 	pixel_x = 3
@@ -869,7 +869,7 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/rack,
 /obj/item/storage/toolbox/mechanical,
-/obj/item/radio,
+/obj/item/radio_abstract/walkie_talkie,
 /obj/item/clothing/mask/gas,
 /obj/item/tank/internals/emergency_oxygen{
 	pixel_x = 3
@@ -889,11 +889,11 @@
 /obj/structure/rack,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/belt/utility,
-/obj/item/radio/off{
+/obj/item/radio_abstract/walkie_talkie/off{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/radio/off,
+/obj/item/radio_abstract/walkie_talkie/off,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "dx" = (
@@ -925,7 +925,7 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency,
-/obj/item/radio,
+/obj/item/radio_abstract/walkie_talkie,
 /obj/item/clothing/mask/gas,
 /obj/item/tank/internals/emergency_oxygen{
 	pixel_x = 3
@@ -1455,7 +1455,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	name = "Station Intercom (General)";
 	pixel_y = 22
 	},
@@ -1549,7 +1549,7 @@
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency,
 /obj/item/wrench,
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	name = "Station Intercom (General)";
 	pixel_y = -31
 	},
@@ -1693,7 +1693,7 @@
 /area/shuttle/escape)
 "HE" = (
 /obj/machinery/light,
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	name = "Station Intercom (General)";
 	pixel_y = -28
 	},
@@ -1794,7 +1794,7 @@
 /area/shuttle/escape)
 "Mq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	pixel_x = -28
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
@@ -1947,7 +1947,7 @@
 /area/shuttle/escape)
 "VM" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	pixel_x = 28
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{

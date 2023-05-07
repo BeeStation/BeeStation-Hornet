@@ -28,7 +28,7 @@
 
 	var/obj/item/reagent_containers/glass/beaker = null
 
-	var/obj/item/radio/radio
+	var/obj/item/radio_abstract/radio
 	var/radio_key = /obj/item/encryptionkey/headset_med
 	var/radio_channel = RADIO_CHANNEL_MEDICAL
 

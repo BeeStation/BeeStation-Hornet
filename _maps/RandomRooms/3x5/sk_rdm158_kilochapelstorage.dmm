@@ -43,7 +43,7 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "w" = (
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	pixel_x = 28;
 	pixel_y = 22
 	},

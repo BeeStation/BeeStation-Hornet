@@ -20,7 +20,7 @@
 /turf/template_noop,
 /area/shuttle/exploration)
 "cH" = (
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	frequency = 1453;
 	pixel_y = 24
 	},
@@ -320,7 +320,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	frequency = 1453;
 	pixel_y = -30
 	},
@@ -423,8 +423,8 @@
 /obj/item/stack/sheet/mineral/plasma/five,
 /obj/item/pickaxe,
 /obj/item/mining_scanner,
-/obj/item/radio/headset/headset_exploration,
-/obj/item/radio/headset/headset_exploration,
+/obj/item/radio_abstract/headset/headset_exploration,
+/obj/item/radio_abstract/headset/headset_exploration,
 /obj/machinery/light/small{
 	dir = 8
 	},

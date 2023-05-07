@@ -100,7 +100,7 @@
 /obj/item/chainsaw,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/item/clothing/head/wig/random,
-/obj/item/radio,
+/obj/item/radio_abstract/walkie_talkie,
 /obj/item/reagent_containers/medspray/spraytan,
 /turf/open/floor/plating,
 /area/template_noop)

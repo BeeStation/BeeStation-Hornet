@@ -35,7 +35,7 @@
 
 	var/calculated_cogs = 0
 	var/cogs = 0
-	var/obj/item/radio/borg/eminence/internal_radio
+	var/obj/item/radio_abstract/borg/eminence/internal_radio
 
 	var/mob/living/selected_mob = null
 
@@ -324,7 +324,7 @@
 	revert_cast(user)
 
 //Internal Radio
-/obj/item/radio/borg/eminence
+/obj/item/radio_abstract/borg/eminence
 	name = "eminence internal listener"
 	desc = "if you can see this, call a coder"
 	canhear_range = 0

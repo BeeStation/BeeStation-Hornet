@@ -158,7 +158,7 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/template_noop)
 "Y" = (
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	pixel_x = 28
 	},
 /obj/machinery/light{

@@ -75,7 +75,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	//How much hallucination should it produce per unit of power?
 	var/config_hallucination_power = 0.1
 
-	var/obj/item/radio/radio
+	var/obj/item/radio_abstract/radio
 	var/radio_key = /obj/item/encryptionkey/headset_eng
 	var/engineering_channel = "Engineering"
 	var/common_channel = null
@@ -306,12 +306,12 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			visible_message("<span class='warning'>[src] melts through [T]!</span>")
 		return
 
-	if(last_complete_process > SSair.last_complete_process) 
+	if(last_complete_process > SSair.last_complete_process)
 		power_changes = FALSE //Atmos has not been fully processed since the previous time the SM was. Abort all power and processing operations.
 		return
 	else
 		power_changes = TRUE //Atmos has run at least one full tick recently, resume processing.
-	
+
 	if(power)
 		soundloop.volume = CLAMP((50 + (power / 50)), 50, 100)
 	if(damage >= 300)
@@ -501,7 +501,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 		if(damage > explosion_point)
 			countdown()
-	
+
 	last_complete_process = world.time
 	return 1
 
@@ -878,7 +878,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	if(!power_changes) //Still toggled off from a failed atmos tick at some point
 		return FALSE
 	if(SSair.state >= SS_PAUSED) //Atmos isn't running, stop building power until it is fully operational again
-		power_changes = FALSE 
+		power_changes = FALSE
 		return FALSE
 	else //Atmos is either operational, or hasn't been stumbling enough for it to matter yet
 		return TRUE

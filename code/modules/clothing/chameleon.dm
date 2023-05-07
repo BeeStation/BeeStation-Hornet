@@ -678,28 +678,28 @@
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
-/obj/item/radio/headset/chameleon
+/obj/item/radio_abstract/headset/chameleon
 	name = "radio headset"
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
-/obj/item/radio/headset/chameleon/Initialize(mapload)
+/obj/item/radio_abstract/headset/chameleon/Initialize(mapload)
 	. = ..()
 	chameleon_action = new(src)
-	chameleon_action.chameleon_type = /obj/item/radio/headset
+	chameleon_action.chameleon_type = /obj/item/radio_abstract/headset
 	chameleon_action.chameleon_name = "Headset"
 	chameleon_action.initialize_disguises()
 
-/obj/item/radio/headset/chameleon/emp_act(severity)
+/obj/item/radio_abstract/headset/chameleon/emp_act(severity)
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
 	chameleon_action.emp_randomise()
 
-/obj/item/radio/headset/chameleon/broken/Initialize(mapload)
+/obj/item/radio_abstract/headset/chameleon/broken/Initialize(mapload)
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
-/obj/item/radio/headset/chameleon/bowman
+/obj/item/radio_abstract/headset/chameleon/bowman
 	name = "bowman headset"
 	icon_state = "syndie_headset"
 	item_state = "syndie_headset"

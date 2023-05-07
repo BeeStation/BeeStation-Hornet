@@ -123,14 +123,14 @@
 "D" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
-/obj/item/radio{
+/obj/item/radio_abstract/walkie_talkie{
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/item/radio{
+/obj/item/radio_abstract/walkie_talkie{
 	pixel_y = 4
 	},
-/obj/item/radio{
+/obj/item/radio_abstract/walkie_talkie{
 	pixel_x = -6;
 	pixel_y = 6
 	},

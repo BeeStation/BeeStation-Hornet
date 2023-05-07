@@ -107,7 +107,7 @@
 
 	uniform = /obj/item/clothing/under/rank/centcom/officer
 	gloves = /obj/item/clothing/gloves/color/black
-	ears = /obj/item/radio/headset/headset_cent/empty
+	ears = /obj/item/radio_abstract/headset/headset_cent/empty
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 	belt = /obj/item/gun/energy/e_gun
 	l_pocket = /obj/item/pen
@@ -126,7 +126,7 @@
 	suit = /obj/item/clothing/suit/armor/vest
 	shoes = /obj/item/clothing/shoes/laceup
 	gloves = /obj/item/clothing/gloves/color/yellow
-	ears = /obj/item/radio/headset
+	ears = /obj/item/radio_abstract/headset
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 	belt = /obj/item/storage/belt/utility/full/engi
 	id = /obj/item/card/id

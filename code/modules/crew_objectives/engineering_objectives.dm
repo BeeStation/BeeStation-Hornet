@@ -32,6 +32,6 @@
 	if(..())
 		return TRUE
 	for(var/mob/living/simple_animal/parrot/Poly/dumbbird in GLOB.mob_list)
-		if(dumbbird.stat != DEAD && istype(dumbbird.ears, /obj/item/radio/headset))
+		if(dumbbird.stat != DEAD && istype(dumbbird.ears, /obj/item/radio_abstract/headset))
 			return TRUE
 	return FALSE

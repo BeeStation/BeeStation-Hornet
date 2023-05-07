@@ -47,7 +47,7 @@
 
 	id = /obj/item/card/id/job/head_of_security
 	belt = /obj/item/modular_computer/tablet/pda/heads/head_of_security
-	ears = /obj/item/radio/headset/heads/hos/alt
+	ears = /obj/item/radio_abstract/headset/heads/hos/alt
 	uniform = /obj/item/clothing/under/rank/security/head_of_security
 	shoes = /obj/item/clothing/shoes/jackboots
 	suit = /obj/item/clothing/suit/armor/hos/trenchcoat

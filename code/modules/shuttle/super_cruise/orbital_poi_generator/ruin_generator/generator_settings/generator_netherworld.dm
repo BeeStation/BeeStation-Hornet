@@ -39,7 +39,7 @@
 
 /datum/generator_settings/netherworld/get_non_directional_walltrash()
 	return list(
-		/obj/item/radio/intercom = 1,
+		/obj/item/radio_abstract/intercom = 1,
 		/obj/structure/sign/poster/random = 1,
 		/obj/structure/sign/poster/ripped = 2,
 		/obj/machinery/newscaster = 1,

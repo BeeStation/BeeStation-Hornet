@@ -158,7 +158,7 @@
 /turf/open/floor/plasteel/techmaint,
 /area/template_noop)
 "R" = (
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	pixel_x = 29
 	},
 /turf/open/floor/plasteel,

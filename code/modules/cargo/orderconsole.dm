@@ -16,7 +16,7 @@
 		homing beacons, mail, or machinery housing any form of artificial intelligence."
 	var/blockade_warning = "Bluespace instability detected. Shuttle movement impossible."
 	/// radio used by the console to send messages on supply channel
-	var/obj/item/radio/headset/radio
+	var/obj/item/radio_abstract/headset/radio
 	/// var that tracks message cooldown
 	var/message_cooldown
 	COOLDOWN_DECLARE(order_cooldown)
@@ -34,7 +34,7 @@
 
 /obj/machinery/computer/cargo/Initialize(mapload)
 	. = ..()
-	radio = new /obj/item/radio/headset/headset_cargo(src)
+	radio = new /obj/item/radio_abstract/headset/headset_cargo(src)
 	var/obj/item/circuitboard/computer/cargo/board = circuit
 	contraband = board.contraband
 	if (board.obj_flags & EMAGGED)

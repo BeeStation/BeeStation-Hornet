@@ -49,7 +49,7 @@
 
 	id = /obj/item/card/id/job/research_director
 	belt = /obj/item/modular_computer/tablet/pda/heads/research_director
-	ears = /obj/item/radio/headset/heads/research_director
+	ears = /obj/item/radio_abstract/headset/heads/research_director
 	uniform = /obj/item/clothing/under/rank/rnd/research_director
 	shoes = /obj/item/clothing/shoes/sneakers/brown
 	suit = /obj/item/clothing/suit/toggle/labcoat/research_director

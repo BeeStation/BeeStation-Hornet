@@ -35,7 +35,7 @@
 
 	id = /obj/item/card/id/job/virologist
 	belt = /obj/item/extrapolator
-	ears = /obj/item/radio/headset/headset_med
+	ears = /obj/item/radio_abstract/headset/headset_med
 	uniform = /obj/item/clothing/under/rank/medical/virologist
 	mask = /obj/item/clothing/mask/surgical
 	shoes = /obj/item/clothing/shoes/sneakers/white

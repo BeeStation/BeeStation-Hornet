@@ -22,8 +22,8 @@
 		. += head.bang_protect
 	if(isclothing(ears)) //ear slot
 		. += ears.bang_protect
-	else if(istype(ears, /obj/item/radio/headset))
-		var/obj/item/radio/headset/headset_in_ear = ears
+	else if(istype(ears, /obj/item/radio_abstract/headset))
+		var/obj/item/radio_abstract/headset/headset_in_ear = ears
 		. += headset_in_ear.bang_protect
 
 /mob/living/carbon/is_mouth_covered(head_only = 0, mask_only = 0)

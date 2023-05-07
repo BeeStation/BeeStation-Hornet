@@ -31,7 +31,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	name = "Station Intercom";
 	pixel_y = 24
 	},
@@ -71,7 +71,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	name = "Station Intercom";
 	pixel_x = 26
 	},
@@ -334,7 +334,7 @@
 	},
 /obj/item/crowbar,
 /obj/item/wrench,
-/obj/item/radio,
+/obj/item/radio_abstract/walkie_talkie,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
@@ -348,7 +348,7 @@
 /obj/structure/sign/warning/nosmoking/circle{
 	pixel_x = -32
 	},
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	name = "Station Intercom";
 	pixel_y = -26
 	},
@@ -565,7 +565,7 @@
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "HX" = (
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	name = "Station Intercom";
 	pixel_x = 26
 	},

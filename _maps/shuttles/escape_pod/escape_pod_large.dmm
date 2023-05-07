@@ -20,7 +20,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	pixel_x = 30
 	},
 /turf/open/floor/mineral/titanium/blue,

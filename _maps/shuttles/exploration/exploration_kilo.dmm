@@ -251,7 +251,7 @@
 	pixel_y = 3
 	},
 /obj/item/storage/toolbox/emergency,
-/obj/item/radio{
+/obj/item/radio_abstract/walkie_talkie{
 	pixel_x = 7;
 	pixel_y = 8
 	},
@@ -298,8 +298,8 @@
 /obj/machinery/atmospherics/pipe/manifold/purple/visible{
 	dir = 1
 	},
-/obj/item/radio/headset/headset_exploration,
-/obj/item/radio/headset/headset_exploration,
+/obj/item/radio_abstract/headset/headset_exploration,
+/obj/item/radio_abstract/headset/headset_exploration,
 /obj/structure/closet/crate/science,
 /obj/item/multitool,
 /obj/item/wrench,

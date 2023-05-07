@@ -96,8 +96,8 @@
 /datum/export/radio
 	cost = 5
 	unit_name = "radio"
-	export_types = list(/obj/item/radio)
-	exclude_types = list(/obj/item/radio/mech)
+	export_types = list(/obj/item/radio_abstract)
+	exclude_types = list(/obj/item/radio_abstract/mech)
 
 
 /datum/export/rcd

@@ -34,7 +34,7 @@
 	id = /obj/item/card/id/job/curator
 	shoes = /obj/item/clothing/shoes/laceup
 	belt = /obj/item/modular_computer/tablet/pda/curator
-	ears = /obj/item/radio/headset/headset_curator
+	ears = /obj/item/radio_abstract/headset/headset_curator
 	uniform = /obj/item/clothing/under/rank/civilian/curator
 	l_hand = /obj/item/storage/bag/books
 	r_pocket = /obj/item/key/displaycase

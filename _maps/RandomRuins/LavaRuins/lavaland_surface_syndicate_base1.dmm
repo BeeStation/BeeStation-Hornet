@@ -195,7 +195,7 @@
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
 "bg" = (
 /obj/structure/table/reinforced,
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	freerange = 1;
 	name = "Syndicate Radio Intercom"
 	},
@@ -459,12 +459,12 @@
 	pixel_x = 1;
 	pixel_y = -1
 	},
-/obj/item/radio/headset/syndicate/alt{
+/obj/item/radio_abstract/headset/syndicate/alt{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/radio/headset/syndicate/alt,
-/obj/item/radio/headset/syndicate/alt{
+/obj/item/radio_abstract/headset/syndicate/alt,
+/obj/item/radio_abstract/headset/syndicate/alt{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -5003,10 +5003,10 @@
 /obj/item/clothing/head/soft/cargo{
 	pixel_x = -8
 	},
-/obj/item/radio{
+/obj/item/radio_abstract/walkie_talkie{
 	pixel_x = 5
 	},
-/obj/item/radio{
+/obj/item/radio_abstract/walkie_talkie{
 	pixel_x = 5
 	},
 /obj/effect/turf_decal/tile/brown/half/contrasted{
@@ -5547,7 +5547,7 @@
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "Vf" = (
 /obj/structure/table/reinforced,
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	freerange = 1;
 	name = "Syndicate Radio Intercom"
 	},

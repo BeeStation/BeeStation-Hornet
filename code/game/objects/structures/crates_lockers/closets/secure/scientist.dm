@@ -9,7 +9,7 @@
 	new /obj/item/clothing/suit/armor/reactive/teleport(src)
 	new /obj/item/clothing/suit/toggle/labcoat/research_director(src)
 	new /obj/item/clothing/mask/gas(src)
-	new /obj/item/radio/headset/heads/research_director(src)
+	new /obj/item/radio_abstract/headset/heads/research_director(src)
 
 	new /obj/item/clothing/suit/bio_suit/scientist(src)
 	new /obj/item/clothing/head/bio_hood/scientist(src)

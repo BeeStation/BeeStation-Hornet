@@ -12,7 +12,7 @@
 "ad" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical,
-/obj/item/radio,
+/obj/item/radio_abstract/walkie_talkie,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "ae" = (
@@ -276,7 +276,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	pixel_y = -28
 	},
 /obj/machinery/light,
@@ -310,7 +310,7 @@
 	},
 /obj/item/crowbar,
 /obj/item/wrench,
-/obj/item/radio,
+/obj/item/radio_abstract/walkie_talkie,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
@@ -1088,15 +1088,15 @@
 "KL" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/bot,
-/obj/item/radio{
+/obj/item/radio_abstract/walkie_talkie{
 	pixel_x = -6;
 	pixel_y = 6
 	},
-/obj/item/radio{
+/obj/item/radio_abstract/walkie_talkie{
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/item/radio{
+/obj/item/radio_abstract/walkie_talkie{
 	pixel_y = 4
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{

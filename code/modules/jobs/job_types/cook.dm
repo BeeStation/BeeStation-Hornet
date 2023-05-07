@@ -33,7 +33,7 @@
 
 	id = /obj/item/card/id/job/cook
 	belt = /obj/item/modular_computer/tablet/pda/cook
-	ears = /obj/item/radio/headset/headset_srv
+	ears = /obj/item/radio_abstract/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/chef
 	suit = /obj/item/clothing/suit/toggle/chef
 	head = /obj/item/clothing/head/chefhat

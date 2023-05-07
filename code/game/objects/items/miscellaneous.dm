@@ -57,7 +57,7 @@
 	var/msg = "<span class=danger>After making your selection, you notice a strange target on the ground. It might be best to step back!</span>"
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(istype(H.ears, /obj/item/radio/headset))
+		if(istype(H.ears, /obj/item/radio_abstract/headset))
 			msg = "You hear something crackle in your ears for a moment before a voice speaks.  \"Please stand by for a message from Central Command.  Message as follows: <span class='bold'>Item request received. Your package is inbound, please stand back from the landing site.</span> Message ends.\""
 	to_chat(M, msg)
 
@@ -349,7 +349,7 @@
 	var/msg = "<span class=danger>After making your selection, you notice a strange target on the ground. It might be best to step back!</span>"
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(istype(H.ears, /obj/item/radio/headset))
+		if(istype(H.ears, /obj/item/radio_abstract/headset))
 			msg = "You hear something crackle in your ears for a moment before a voice speaks.  \"Please stand by for a message from Central Command.  Message as follows: <span class='bold'>One pet delivery straight from Central Command. Stand clear!</span> Message ends.\""
 	to_chat(M, msg)
 	new /obj/effect/pod_landingzone(get_turf(src), pod)

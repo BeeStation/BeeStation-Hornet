@@ -35,7 +35,7 @@
 
 	id = /obj/item/card/id/job/paramedic
 	belt = /obj/item/modular_computer/tablet/pda/paramedic
-	ears = /obj/item/radio/headset/headset_med
+	ears = /obj/item/radio_abstract/headset/headset_med
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile
 	uniform = /obj/item/clothing/under/rank/medical/paramedic
 	shoes = /obj/item/clothing/shoes/sneakers/white

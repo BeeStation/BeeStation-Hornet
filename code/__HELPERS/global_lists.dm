@@ -121,7 +121,7 @@ Checks if that loc and dir has an item on the wall
 GLOBAL_LIST_INIT(WALLITEMS_INTERIOR, typecacheof(list(
 	/obj/machinery/power/apc,
 	/obj/machinery/airalarm,
-	/obj/item/radio/intercom,
+	/obj/item/radio_abstract/intercom,
 	/obj/structure/extinguisher_cabinet,
 	/obj/structure/reagent_dispensers/peppertank,
 	/obj/machinery/status_display,

@@ -56,7 +56,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	dir = 8;
 	name = "Station Intercom (General)";
 	pixel_x = -28
@@ -98,7 +98,7 @@
 /area/shuttle/escape)
 "aM" = (
 /obj/structure/closet/emcloset,
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	name = "Station Intercom (General)";
 	pixel_y = 23
 	},
@@ -143,7 +143,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aW" = (
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	name = "Station Intercom (General)";
 	pixel_y = 23
 	},
@@ -266,7 +266,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	name = "Station Intercom (General)";
 	pixel_y = -29
 	},
@@ -293,7 +293,7 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "bC" = (
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	dir = 8;
 	name = "Station Intercom (General)";
 	pixel_x = -28

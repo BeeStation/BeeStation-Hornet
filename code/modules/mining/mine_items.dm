@@ -58,7 +58,7 @@
 	new /obj/item/storage/box/emptysandbags(src)
 	new /obj/item/shovel(src)
 	new /obj/item/pickaxe/mini(src)
-	new /obj/item/radio/headset/headset_cargo/shaft_miner(src)
+	new /obj/item/radio_abstract/headset/headset_cargo/shaft_miner(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/storage/bag/plants(src)
 	new /obj/item/storage/bag/ore(src)

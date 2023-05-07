@@ -645,7 +645,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	S.start()
 	..()
 
-/obj/item/radio/headset/abductor
+/obj/item/radio_abstract/headset/abductor
 	name = "alien headset"
 	desc = "An advanced alien headset designed to monitor communications of human space stations. Why does it have a microphone? No one knows."
 	icon = 'icons/obj/abductor.dmi'
@@ -654,11 +654,11 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	keyslot2 = new /obj/item/encryptionkey/heads/captain
 	bang_protect = 1
 
-/obj/item/radio/headset/abductor/Initialize(mapload)
+/obj/item/radio_abstract/headset/abductor/Initialize(mapload)
 	. = ..()
 	make_syndie()
 
-/obj/item/radio/headset/abductor/attackby(obj/item/W, mob/user, params)
+/obj/item/radio_abstract/headset/abductor/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		return // Stops humans from disassembling abductor headsets.
 	return ..()

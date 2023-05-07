@@ -5,7 +5,7 @@
 	shoes = /obj/item/clothing/shoes/chameleon
 	gloves = /obj/item/clothing/gloves/color/yellow
 	back = /obj/item/storage/backpack/chameleon
-	ears = /obj/item/radio/headset/chameleon
+	ears = /obj/item/radio_abstract/headset/chameleon
 	id = /obj/item/card/id/syndicate/ratvar
 	belt = /obj/item/storage/belt/utility/servant
 	var/weapon = null

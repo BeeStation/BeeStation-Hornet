@@ -5067,7 +5067,7 @@
 /turf/open/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "KI" = (
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	dir = 8;
 	name = "Station Intercom (General)";
 	pixel_x = -28

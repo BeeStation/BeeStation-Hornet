@@ -121,7 +121,7 @@
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
 	back = /obj/item/storage/backpack/fireproof
-	ears = /obj/item/radio/headset/syndicate/alt
+	ears = /obj/item/radio_abstract/headset/syndicate/alt
 	l_pocket = /obj/item/modular_computer/tablet/nukeops
 	id = /obj/item/card/id/syndicate
 	belt = /obj/item/gun/ballistic/automatic/pistol
@@ -145,7 +145,7 @@
 	tc = 0
 
 /datum/outfit/syndicate/post_equip(mob/living/carbon/human/H)
-	var/obj/item/radio/R = H.ears
+	var/obj/item/radio_abstract/R = H.ears
 	R.set_frequency(FREQ_SYNDICATE)
 	R.freqlock = TRUE
 	if(command_radio)

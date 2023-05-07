@@ -186,7 +186,7 @@
 /area/reebe/city_of_cogs)
 "Z" = (
 /obj/structure/table/brass,
-/obj/item/radio/intercom,
+/obj/item/radio_abstract/intercom,
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
 

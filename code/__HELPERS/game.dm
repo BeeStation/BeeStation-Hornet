@@ -212,7 +212,7 @@
 			if(sight_check && !isInSight(A_tmp, O))
 				passed=0
 
-		else if(include_radio && istype(A, /obj/item/radio))
+		else if(include_radio && istype(A, /obj/item/radio_abstract))
 			passed=1
 
 			if(sight_check && !isInSight(A, O))
@@ -247,10 +247,10 @@
 		if(recursive_contents)
 			. += recursive_contents
 
-/proc/get_mobs_in_radio_ranges(list/obj/item/radio/radios)
+/proc/get_mobs_in_radio_ranges(list/obj/item/radio_abstract/radios)
 	. = list()
 	// Returns a list of mobs who can hear any of the radios given in @radios
-	for(var/obj/item/radio/R in radios)
+	for(var/obj/item/radio_abstract/R in radios)
 		if(R.canhear_range != -1)
 			. |= get_hearers_in_view(R.canhear_range, R)
 		else

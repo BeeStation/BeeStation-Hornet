@@ -60,7 +60,7 @@
 	if(!istype(H))
 		to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 		return
-	if(!istype(H.ears, /obj/item/radio/headset))
+	if(!istype(H.ears, /obj/item/radio_abstract/headset))
 		to_chat(usr, "The person you are trying to contact is not wearing a headset.")
 		return
 

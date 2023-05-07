@@ -12,7 +12,7 @@
 		new /obj/item/storage/backpack(src)
 	else
 		new /obj/item/storage/backpack/satchel(src)
-	new /obj/item/radio/headset( src )
+	new /obj/item/radio_abstract/headset( src )
 
 /obj/structure/closet/secure_closet/personal/patient
 	name = "patient's closet"
@@ -34,7 +34,7 @@
 /obj/structure/closet/secure_closet/personal/cabinet/PopulateContents()
 	new /obj/item/storage/backpack/satchel/leather/withwallet( src )
 	new /obj/item/instrument/piano_synth(src)
-	new /obj/item/radio/headset( src )
+	new /obj/item/radio_abstract/headset( src )
 
 /obj/structure/closet/secure_closet/personal/attackby(obj/item/W, mob/user, params)
 	var/obj/item/card/id/I = W.GetID()

@@ -217,7 +217,7 @@
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "bU" = (
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	dir = 4;
 	name = "Station Intercom (General)";
 	pixel_y = 27
@@ -432,7 +432,7 @@
 "fj" = (
 /obj/structure/table,
 /obj/item/storage/box/cups,
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	dir = 4;
 	name = "Station Intercom (General)";
 	pixel_y = 27
@@ -631,7 +631,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "rB" = (
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	name = "Station Intercom (General)";
 	pixel_y = -29
 	},
@@ -666,7 +666,7 @@
 /obj/item/kirbyplants{
 	icon_state = "plant-22"
 	},
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	name = "Station Intercom (General)";
 	pixel_y = -29
 	},
@@ -1046,7 +1046,7 @@
 /obj/item/kirbyplants{
 	icon_state = "plant-22"
 	},
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	name = "Station Intercom (General)";
 	pixel_y = -29
 	},
@@ -1145,7 +1145,7 @@
 /turf/open/floor/plasteel/white,
 /area/shuttle/escape)
 "UX" = (
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	name = "Station Intercom (General)";
 	pixel_y = -29
 	},

@@ -56,8 +56,8 @@
 	#define COMPONENT_STOP_RINGTONE_CHANGE (1<<0)
 
 
-// /obj/item/radio signals
-#define COMSIG_RADIO_NEW_FREQUENCY "radio_new_frequency"		//! called from base of /obj/item/radio/proc/set_frequency(): (list/args)
+// /obj/item/radio_abstract signals
+#define COMSIG_RADIO_NEW_FREQUENCY "radio_new_frequency"		//! called from base of /obj/item/radio_abstract/proc/set_frequency(): (list/args)
 #define COMSIG_RADIO_MESSAGE "radio_message"
 
 // /obj/item/pen signals

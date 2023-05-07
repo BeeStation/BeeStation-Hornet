@@ -22,7 +22,7 @@
 "e" = (
 /obj/structure/table,
 /obj/item/crowbar/red,
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	pixel_y = 22
 	},
 /obj/machinery/light/small{

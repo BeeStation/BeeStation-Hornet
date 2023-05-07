@@ -5,7 +5,7 @@
 	icon_state = "mmi_off"
 	w_class = WEIGHT_CLASS_NORMAL
 	var/braintype = JOB_NAME_CYBORG
-	var/obj/item/radio/radio = null //Let's give it a radio.
+	var/obj/item/radio_abstract/radio = null //Let's give it a radio.
 	var/mob/living/brain/brainmob = null //The current occupant.
 	var/mob/living/silicon/robot = null //Appears unused.
 	var/obj/mecha = null //This does not appear to be used outside of reference in mecha.dm.

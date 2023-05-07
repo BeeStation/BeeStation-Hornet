@@ -89,7 +89,7 @@
 	suit_store = /obj/item/gun/ballistic/automatic/pistol
 	shoes = /obj/item/clothing/shoes/jackboots
 	gloves = /obj/item/clothing/gloves/combat
-	ears = /obj/item/radio/headset
+	ears = /obj/item/radio_abstract/headset
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 	belt = /obj/item/storage/belt/military
 	l_pocket = /obj/item/ammo_box/magazine/m10mm
@@ -108,7 +108,7 @@
 	suit_store = /obj/item/gun/ballistic/automatic/pistol/m1911
 	shoes = /obj/item/clothing/shoes/jackboots
 	gloves = /obj/item/clothing/gloves/combat
-	ears = /obj/item/radio/headset
+	ears = /obj/item/radio_abstract/headset
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/eyepatch
 	belt = /obj/item/storage/belt/sabre
 	l_pocket = /obj/item/ammo_box/magazine/m45
@@ -128,7 +128,7 @@
 	suit = /obj/item/clothing/suit/chameleon
 	shoes = /obj/item/clothing/shoes/chameleon
 	gloves = /obj/item/clothing/gloves/chameleon
-	ears = /obj/item/radio/headset/chameleon
+	ears = /obj/item/radio_abstract/headset/chameleon
 	glasses = /obj/item/clothing/glasses/chameleon
 	belt = /obj/item/storage/belt/chameleon
 	l_pocket = /obj/item/stamp/chameleon
@@ -146,7 +146,7 @@
 	name = "Clown (VIP Target)"
 
 	id = /obj/item/card/id/job/clown
-	ears = /obj/item/radio/headset/headset_srv
+	ears = /obj/item/radio_abstract/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/clown
 	shoes = /obj/item/clothing/shoes/clown_shoes
 	mask = /obj/item/clothing/mask/gas/clown_hat

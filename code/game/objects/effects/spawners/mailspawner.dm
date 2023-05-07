@@ -150,7 +150,7 @@
 		/obj/item/pipe_dispenser,
 		/obj/item/assembly/signaler,
 		/obj/item/transfer_valve,
-		/obj/item/radio,
+		/obj/item/radio_abstract/walkie_talkie,
 		/obj/item/camera,
 		/obj/item/encryptionkey/headset_sci,
 		/obj/item/aicard,

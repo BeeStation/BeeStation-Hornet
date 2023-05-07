@@ -164,7 +164,7 @@
 	hostscan = new /obj/item/healthanalyzer(src)
 	atmos_analyzer = new /obj/item/analyzer(src)
 	if(!radio)
-		radio = new /obj/item/radio/headset/silicon/pai(src)
+		radio = new /obj/item/radio_abstract/headset/silicon/pai(src)
 	newscaster = new /obj/machinery/newscaster/pai(src)
 	if(!aicamera)
 		aicamera = new /obj/item/camera/siliconcam/ai_camera(src)

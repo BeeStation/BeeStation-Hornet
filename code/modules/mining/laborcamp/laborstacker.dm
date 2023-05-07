@@ -10,13 +10,13 @@ GLOBAL_LIST(labor_sheet_values)
 	density = FALSE
 	var/obj/machinery/mineral/stacking_machine/laborstacker/stacking_machine
 	//needed to send messages to sec radio
-	var/obj/item/radio/integrated_radio
+	var/obj/item/radio_abstract/integrated_radio
 	var/machinedir = SOUTH
 
 
 /obj/machinery/mineral/labor_claim_console/Initialize(mapload)
 	. = ..()
-	integrated_radio = new /obj/item/radio(src)
+	integrated_radio = new /obj/item/radio_abstract(src)
 	integrated_radio.listening = FALSE
 	locate_stacking_machine()
 	//If we can't find a stacking machine end it all ok?

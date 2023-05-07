@@ -119,7 +119,7 @@
 "ya" = (
 /obj/machinery/chem_dispenser/drinks/beer,
 /obj/structure/table/wood,
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	pixel_y = 26
 	},
 /turf/open/floor/plating,

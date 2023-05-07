@@ -737,7 +737,7 @@
 "Ko" = (
 /obj/structure/rack,
 /obj/item/tank/internals/oxygen,
-/obj/item/radio,
+/obj/item/radio_abstract/walkie_talkie,
 /obj/item/clothing/mask/gas,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4

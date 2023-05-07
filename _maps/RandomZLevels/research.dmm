@@ -586,8 +586,8 @@
 /area/awaymission/research/interior)
 "cD" = (
 /obj/structure/table,
-/obj/item/radio,
-/obj/item/radio,
+/obj/item/radio_abstract/walkie_talkie,
+/obj/item/radio_abstract/walkie_talkie,
 /turf/open/floor/plasteel/dark,
 /area/awaymission/research/interior/gateway)
 "cE" = (

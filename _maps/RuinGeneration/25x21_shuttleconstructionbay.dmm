@@ -91,7 +91,7 @@
 /obj/machinery/light/built{
 	dir = 8
 	},
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	pixel_y = -27
 	},
 /turf/open/floor/mineral/titanium/airless,

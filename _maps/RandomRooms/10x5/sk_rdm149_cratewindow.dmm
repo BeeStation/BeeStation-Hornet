@@ -123,7 +123,7 @@
 /area/template_noop)
 "V" = (
 /obj/structure/window/reinforced/spawner,
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	pixel_y = 26
 	},
 /turf/open/floor/plating{

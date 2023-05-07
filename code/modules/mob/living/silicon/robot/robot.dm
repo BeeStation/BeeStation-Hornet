@@ -136,7 +136,7 @@
 			lawupdate = FALSE
 			wires.ui_update()
 
-	radio = new /obj/item/radio/borg(src)
+	radio = new /obj/item/radio_abstract/borg(src)
 	if(!scrambledcodes && !builtInCamera)
 		builtInCamera = new (src)
 		builtInCamera.c_tag = real_name
@@ -483,7 +483,7 @@
 				if(IsParalyzed() && (last_flashed + 5 SECONDS >= world.time)) //second half of this prevents someone from stunlocking via open/close spam
 					Paralyze(5 SECONDS)
 				opened = 1
-				update_icons()				
+				update_icons()
 	else if(istype(W, /obj/item/stock_parts/cell) && opened)	// trying to put a cell inside
 		if(wiresexposed)
 			to_chat(user, "<span class='warning'>Close the cover first!</span>")
@@ -920,7 +920,7 @@
 /mob/living/silicon/robot/modules/syndicate/Initialize(mapload)
 	. = ..()
 	cell = new /obj/item/stock_parts/cell/hyper(src, 25000)
-	radio = new /obj/item/radio/borg/syndicate(src)
+	radio = new /obj/item/radio_abstract/borg/syndicate(src)
 	laws = new /datum/ai_laws/syndicate_override()
 	//Add in syndicate access to their ID card.
 	create_access_card(get_all_syndicate_access())

@@ -42,7 +42,7 @@
 /obj/structure/closet/secure_closet/medical3/PopulateContents()
 	..()
 	new /obj/item/clothing/head/beret/med(src)
-	new /obj/item/radio/headset/headset_med(src)
+	new /obj/item/radio_abstract/headset/headset_med(src)
 	new /obj/item/defibrillator/loaded(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
 	new /obj/item/storage/belt/medical(src)
@@ -84,7 +84,7 @@
 	new /obj/item/storage/backpack/duffelbag/med(src)
 	new /obj/item/clothing/suit/toggle/labcoat/med/cmo(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
-	new /obj/item/radio/headset/heads/cmo(src)
+	new /obj/item/radio_abstract/headset/heads/cmo(src)
 
 	new /obj/item/clothing/suit/bio_suit/cmo(src)
 	new /obj/item/clothing/head/bio_hood/cmo(src)

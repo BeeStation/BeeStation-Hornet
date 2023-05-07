@@ -619,7 +619,7 @@
 /obj/item/storage/toolbox/emergency{
 	pixel_y = 3
 	},
-/obj/item/radio,
+/obj/item/radio_abstract/walkie_talkie,
 /obj/item/flashlight/seclite{
 	pixel_y = 11
 	},
@@ -1061,7 +1061,7 @@
 	},
 /obj/item/crowbar,
 /obj/item/wrench,
-/obj/item/radio,
+/obj/item/radio_abstract/walkie_talkie,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9

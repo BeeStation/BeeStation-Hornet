@@ -160,7 +160,7 @@
 /area/ruin/space/djstation)
 "aH" = (
 /obj/structure/table,
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	broadcasting = 0;
 	dir = 8;
 	freerange = 1;
@@ -195,7 +195,7 @@
 /area/ruin/space/djstation)
 "aQ" = (
 /obj/structure/table,
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	broadcasting = 1;
 	dir = 8;
 	freerange = 1;

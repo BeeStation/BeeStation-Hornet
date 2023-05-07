@@ -50,7 +50,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "as" = (
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	dir = 4;
 	name = "Station Intercom (General)";
 	pixel_y = 27
@@ -266,7 +266,7 @@
 	pixel_x = -2;
 	pixel_y = 8
 	},
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	name = "Station Intercom (General)";
 	pixel_y = -31
 	},
@@ -282,7 +282,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aS" = (
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	name = "Station Intercom (General)";
 	pixel_y = -31
 	},
@@ -476,7 +476,7 @@
 	pixel_x = -4;
 	pixel_y = 2
 	},
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	name = "Station Intercom (General)";
 	pixel_y = -31
 	},
@@ -524,7 +524,7 @@
 	},
 /obj/item/clothing/gloves/color/latex,
 /obj/item/clothing/mask/surgical,
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	name = "Station Intercom (General)";
 	pixel_x = -27
 	},
@@ -594,7 +594,7 @@
 	},
 /obj/item/crowbar,
 /obj/item/wrench,
-/obj/item/radio,
+/obj/item/radio_abstract/walkie_talkie,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
@@ -623,7 +623,7 @@
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "bQ" = (
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	name = "Station Intercom (General)";
 	pixel_y = -31
 	},

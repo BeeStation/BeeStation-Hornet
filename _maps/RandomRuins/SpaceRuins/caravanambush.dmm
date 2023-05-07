@@ -1147,7 +1147,7 @@
 /obj/structure/rack,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/tank/internals/oxygen,
-/obj/item/radio,
+/obj/item/radio_abstract/walkie_talkie,
 /obj/item/clothing/mask/gas,
 /turf/open/floor/plasteel/airless{
 	icon_state = "damaged5"

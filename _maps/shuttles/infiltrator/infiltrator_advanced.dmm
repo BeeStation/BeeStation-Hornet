@@ -84,7 +84,7 @@
 	},
 /obj/item/stack/cable_coil/red,
 /obj/item/crowbar/red,
-/obj/item/radio/headset/syndicate/alt,
+/obj/item/radio_abstract/headset/syndicate/alt,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/bridge)
 "am" = (
@@ -121,7 +121,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	freerange = 1;
 	name = "Syndicate Radio Intercom"
 	},
@@ -999,7 +999,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	freerange = 1;
 	name = "Syndicate Radio Intercom";
 	pixel_y = 22
@@ -1513,7 +1513,7 @@
 	pixel_x = -4
 	},
 /obj/structure/table/reinforced,
-/obj/item/radio/headset/syndicate/alt{
+/obj/item/radio_abstract/headset/syndicate/alt{
 	pixel_x = 4;
 	pixel_y = 4
 	},
@@ -1780,7 +1780,7 @@
 	dir = 5
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	freerange = 1;
 	name = "Syndicate Radio Intercom";
 	pixel_y = 22

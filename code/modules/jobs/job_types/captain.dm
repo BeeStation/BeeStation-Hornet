@@ -47,7 +47,7 @@
 	id = /obj/item/card/id/job/captain
 	belt = /obj/item/modular_computer/tablet/pda/heads/captain
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
-	ears = /obj/item/radio/headset/heads/captain/alt
+	ears = /obj/item/radio_abstract/headset/heads/captain/alt
 	gloves = /obj/item/clothing/gloves/color/captain
 	uniform =  /obj/item/clothing/under/rank/captain
 	suit = /obj/item/clothing/suit/armor/vest/capcarapace

@@ -16,7 +16,7 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 
 	circuit = /obj/item/circuitboard/machine/announcement_system
 
-	var/obj/item/radio/headset/radio
+	var/obj/item/radio_abstract/headset/radio
 	var/arrival = "%PERSON has signed up as %RANK. Welcome to %STNAME."
 	var/arrivalToggle = 1
 	var/newhead = "%PERSON, %RANK, is the department head."
@@ -29,7 +29,7 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 /obj/machinery/announcement_system/Initialize(mapload)
 	. = ..()
 	GLOB.announcement_systems += src
-	radio = new /obj/item/radio/headset/silicon/ai(src)
+	radio = new /obj/item/radio_abstract/headset/silicon/ai(src)
 	update_icon()
 
 /obj/machinery/announcement_system/update_icon()

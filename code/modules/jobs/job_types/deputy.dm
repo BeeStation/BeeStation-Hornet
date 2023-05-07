@@ -30,7 +30,7 @@
 
 	id = /obj/item/card/id/job/deputy
 	belt = /obj/item/storage/belt/security/deputy
-	ears = /obj/item/radio/headset/headset_sec
+	ears = /obj/item/radio_abstract/headset/headset_sec
 	uniform = /obj/item/clothing/under/rank/security/officer/mallcop/deputy
 	accessory = /obj/item/clothing/accessory/armband/deputy
 	shoes = /obj/item/clothing/shoes/sneakers/black

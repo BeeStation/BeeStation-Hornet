@@ -7,7 +7,7 @@
 	..()
 	new /obj/item/storage/bag/plants/portaseeder(src)
 	new /obj/item/plant_analyzer(src)
-	new /obj/item/radio/headset/headset_srv(src)
+	new /obj/item/radio_abstract/headset/headset_srv(src)
 	new /obj/item/cultivator(src)
 	new /obj/item/hatchet(src)
 	new /obj/item/storage/belt/botanical(src)

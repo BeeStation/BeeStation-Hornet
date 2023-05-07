@@ -32,7 +32,7 @@
 
 	id = /obj/item/card/id/job/janitor
 	belt = /obj/item/modular_computer/tablet/pda/janitor
-	ears = /obj/item/radio/headset/headset_srv
+	ears = /obj/item/radio_abstract/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/janitor
 
 /datum/outfit/job/janitor/pre_equip(mob/living/carbon/human/H, visualsOnly)

@@ -62,7 +62,7 @@
 "i" = (
 /obj/structure/bed,
 /obj/item/bedsheet/dorms,
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	pixel_x = 25
 	},
 /turf/open/floor/plasteel,

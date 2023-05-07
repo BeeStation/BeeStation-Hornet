@@ -1,6 +1,6 @@
 /datum/outfit/spacepol
 	id = /obj/item/card/id/silver/spacepol
-	ears = /obj/item/radio/headset/headset_spacepol
+	ears = /obj/item/radio_abstract/headset/headset_spacepol
 	back = /obj/item/storage/backpack/security
 	box = /obj/item/storage/box/survival
 	var/assignment
@@ -51,7 +51,7 @@
 	id = /obj/item/card/id/silver/bounty
 	back = /obj/item/storage/backpack
 	r_pocket = /obj/item/restraints/handcuffs/cable
-	ears = /obj/item/radio/headset
+	ears = /obj/item/radio_abstract/headset
 	shoes = /obj/item/clothing/shoes/jackboots
 	box = /obj/item/storage/box/survival
 
@@ -102,7 +102,7 @@
 	head = /obj/item/clothing/head/bearpelt
 	gloves = /obj/item/clothing/gloves/color/black
 	mask = /obj/item/clothing/mask/gas/old
-	ears = /obj/item/radio/headset
+	ears = /obj/item/radio_abstract/headset
 	id = /obj/item/card/id/space_russian
 	back = /obj/item/storage/backpack/satchel/leather
 	box = /obj/item/storage/box/survival

@@ -7,7 +7,7 @@
 	circuit = /obj/item/circuitboard/computer/robotics
 	light_color = LIGHT_COLOR_PINK
 	var/extracting = FALSE
-	var/obj/item/radio/radio
+	var/obj/item/radio_abstract/radio
 	var/radio_channel = RADIO_CHANNEL_COMMAND
 	var/timerid
 

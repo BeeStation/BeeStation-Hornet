@@ -765,7 +765,7 @@
 	name = "Bridge Shutters Control";
 	pixel_y = -5
 	},
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	pixel_y = 5
 	},
 /obj/effect/decal/cleanable/dirt,

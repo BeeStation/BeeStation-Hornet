@@ -960,6 +960,7 @@
 "cM" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 5;
+	
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006
@@ -2659,6 +2660,7 @@
 "hU" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4;
+	
 	},
 /obj/structure/table,
 /obj/item/book/manual/chef_recipes,
@@ -2671,6 +2673,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4;
+	
 	},
 /turf/open/floor/plating{
 	heat_capacity = 1e+006
@@ -3003,8 +3006,8 @@
 /area/awaymission/undergroundoutpost45/gateway)
 "iO" = (
 /obj/structure/table,
-/obj/item/radio/off,
-/obj/item/radio/off,
+/obj/item/radio_abstract/walkie_talkie/off,
+/obj/item/radio_abstract/walkie_talkie/off,
 /turf/open/floor/plasteel{
 	dir = 8;
 	heat_capacity = 1e+006;
@@ -5246,7 +5249,7 @@
 	dir = 8
 	},
 /obj/structure/table,
-/obj/item/radio/off,
+/obj/item/radio_abstract/walkie_talkie/off,
 /obj/item/laser_pointer,
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5;
@@ -7030,6 +7033,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4;
+	
 	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Research Maintenance";
@@ -9598,7 +9602,7 @@
 "xv" = (
 /obj/structure/table,
 /obj/item/pickaxe,
-/obj/item/radio/off,
+/obj/item/radio_abstract/walkie_talkie/off,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel{
 	heat_capacity = 1e+006
@@ -10350,7 +10354,7 @@
 /obj/item/screwdriver{
 	pixel_y = 10
 	},
-/obj/item/radio/off,
+/obj/item/radio_abstract/walkie_talkie/off,
 /obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/plasteel{
 	heat_capacity = 1e+006
@@ -12441,7 +12445,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/item/radio/off,
+/obj/item/radio_abstract/walkie_talkie/off,
 /obj/item/screwdriver{
 	pixel_y = 10
 	},
@@ -12804,7 +12808,7 @@
 "ZL" = (
 /obj/structure/table,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/item/radio/off,
+/obj/item/radio_abstract/walkie_talkie/off,
 /obj/item/screwdriver{
 	pixel_y = 10
 	},

@@ -1158,7 +1158,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
-/obj/item/radio/headset/headset_cent,
+/obj/item/radio_abstract/headset/headset_cent,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/ferry)
@@ -1998,15 +1998,15 @@
 /area/centcom/control)
 "iv" = (
 /obj/structure/table/reinforced,
-/obj/item/radio{
+/obj/item/radio_abstract/walkie_talkie{
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/obj/item/radio{
+/obj/item/radio_abstract/walkie_talkie{
 	pixel_x = -5;
 	pixel_y = 5
 	},
-/obj/item/radio,
+/obj/item/radio_abstract/walkie_talkie,
 /obj/machinery/airalarm{
 	pixel_y = 23
 	},
@@ -2808,7 +2808,7 @@
 "lb" = (
 /obj/structure/table/wood,
 /obj/machinery/door/window,
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	desc = "Talk smack through this.";
 	syndie = 1
 	},
@@ -2826,7 +2826,7 @@
 /area/centcom/control)
 "ld" = (
 /obj/structure/table/wood,
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	desc = "Talk smack through this.";
 	syndie = 1
 	},
@@ -3056,7 +3056,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	desc = "Talk smack through this.";
 	pixel_x = -32;
 	syndie = 1
@@ -3120,7 +3120,7 @@
 /area/centcom/control)
 "mn" = (
 /obj/structure/table/wood,
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	desc = "Talk smack through this.";
 	syndie = 1
 	},
@@ -5178,7 +5178,7 @@
 /area/wizard_station)
 "uD" = (
 /obj/structure/table/wood/fancy,
-/obj/item/radio/headset,
+/obj/item/radio_abstract/headset,
 /turf/open/floor/wood,
 /area/wizard_station)
 "uE" = (
@@ -5934,7 +5934,7 @@
 "xE" = (
 /obj/structure/table/wood,
 /obj/item/clipboard,
-/obj/item/radio/headset/headset_cent,
+/obj/item/radio_abstract/headset/headset_cent,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/tdome/tdomeadmin)
@@ -6577,7 +6577,7 @@
 "Aj" = (
 /obj/structure/table/reinforced,
 /obj/item/restraints/handcuffs,
-/obj/item/radio,
+/obj/item/radio_abstract/walkie_talkie,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -9534,15 +9534,15 @@
 /turf/open/floor/plasteel,
 /area/tdome/tdomeobserve)
 "Nl" = (
-/obj/item/radio{
+/obj/item/radio_abstract/walkie_talkie{
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/obj/item/radio{
+/obj/item/radio_abstract/walkie_talkie{
 	pixel_x = -5;
 	pixel_y = 5
 	},
-/obj/item/radio,
+/obj/item/radio_abstract/walkie_talkie,
 /obj/structure/table/wood,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
@@ -9669,7 +9669,7 @@
 "NQ" = (
 /obj/structure/table/wood,
 /obj/item/clipboard,
-/obj/item/radio/headset/headset_cent,
+/obj/item/radio_abstract/headset/headset_cent,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/centcom/ferry)
@@ -11745,15 +11745,15 @@
 /turf/open/floor/plasteel,
 /area/centcom/supplypod)
 "WN" = (
-/obj/item/radio{
+/obj/item/radio_abstract/walkie_talkie{
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/obj/item/radio{
+/obj/item/radio_abstract/walkie_talkie{
 	pixel_x = -5;
 	pixel_y = 5
 	},
-/obj/item/radio,
+/obj/item/radio_abstract/walkie_talkie,
 /obj/structure/table/wood,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,

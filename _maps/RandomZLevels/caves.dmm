@@ -1369,8 +1369,8 @@
 /area/awaymission/caves/BMP_asteroid)
 "eh" = (
 /obj/structure/table,
-/obj/item/radio,
-/obj/item/radio,
+/obj/item/radio_abstract/walkie_talkie,
+/obj/item/radio_abstract/walkie_talkie,
 /turf/open/floor/plasteel,
 /area/awaymission/caves/BMP_asteroid)
 "ei" = (

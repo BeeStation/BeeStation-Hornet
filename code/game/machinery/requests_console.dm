@@ -64,7 +64,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	var/message = ""
 	var/to_department = "" //the department which will be receiving the message
 	var/priority = REQ_NO_NEW_MESSAGE //Priority of the message being sent
-	var/obj/item/radio/Radio
+	var/obj/item/radio_abstract/Radio
 	var/emergency //If an emergency has been called by this device. Acts as both a cooldown and lets the responder know where it the emergency was triggered from
 	var/receive_ore_updates = FALSE //If ore redemption machines will send an update when it receives new ores.
 	var/auth_id = "Unknown" //Will contain the name and and job of the person who verified it
@@ -122,7 +122,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 
 	GLOB.req_console_ckey_departments[ckey(department)] = department
 
-	Radio = new /obj/item/radio(src)
+	Radio = new /obj/item/radio_abstract(src)
 	Radio.listening = 0
 
 /obj/machinery/requests_console/Destroy()

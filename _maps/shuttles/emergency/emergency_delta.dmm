@@ -157,7 +157,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	name = "Station Intercom";
 	pixel_x = -26
 	},
@@ -228,7 +228,7 @@
 /area/shuttle/escape)
 "ba" = (
 /obj/structure/reagent_dispensers/fueltank,
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	name = "Station Intercom";
 	pixel_x = -26
 	},
@@ -312,7 +312,7 @@
 	},
 /obj/item/crowbar,
 /obj/item/wrench,
-/obj/item/radio,
+/obj/item/radio_abstract/walkie_talkie,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
@@ -532,7 +532,7 @@
 "bV" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/zipties,
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	name = "Station Intercom";
 	pixel_y = -26
 	},
@@ -649,7 +649,7 @@
 /turf/open/floor/plasteel/white,
 /area/shuttle/escape)
 "pa" = (
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	name = "Station Intercom";
 	pixel_y = 58
 	},
@@ -659,7 +659,7 @@
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "qL" = (
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	name = "Station Intercom";
 	pixel_x = 26;
 	pixel_y = 58
@@ -1140,7 +1140,7 @@
 /turf/open/floor/plasteel/white,
 /area/shuttle/escape)
 "ZB" = (
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	name = "Station Intercom";
 	pixel_x = 26;
 	pixel_y = 58

@@ -931,8 +931,8 @@
 /obj/item/stack/sheet/mineral/plasma/five,
 /obj/item/pickaxe,
 /obj/item/mining_scanner,
-/obj/item/radio/headset/headset_exploration,
-/obj/item/radio/headset/headset_exploration,
+/obj/item/radio_abstract/headset/headset_exploration,
+/obj/item/radio_abstract/headset/headset_exploration,
 /obj/item/gps/mining,
 /obj/machinery/atmospherics/pipe/manifold/purple/visible{
 	dir = 1

@@ -42,7 +42,7 @@
 	if(!user?.client.canGhostRole(banType, use_cooldown, flags_1))
 		return
 	if(QDELETED(src) || QDELETED(user))
-		return	
+		return
 	var/ghost_role = alert("Become [mob_name]? (Warning, You can no longer be cloned!)",,"Yes","No")
 	if(ghost_role != "Yes" || !loc)
 		return
@@ -340,7 +340,7 @@
 /obj/effect/mob_spawn/human/doctor/alive/equip(mob/living/carbon/human/H)
 	..()
 	// Remove radio and PDA so they wouldn't annoy station crew.
-	var/list/del_types = list(/obj/item/modular_computer/tablet/pda, /obj/item/radio/headset)
+	var/list/del_types = list(/obj/item/modular_computer/tablet/pda, /obj/item/radio_abstract/headset)
 	for(var/del_type in del_types)
 		var/obj/item/I = locate(del_type) in H
 		qdel(I)
@@ -460,7 +460,7 @@
 
 /datum/outfit/nanotrasenbridgeofficercorpse
 	name = "Bridge Officer Corpse"
-	ears = /obj/item/radio/headset/heads/head_of_personnel
+	ears = /obj/item/radio_abstract/headset/heads/head_of_personnel
 	uniform = /obj/item/clothing/under/rank/centcom/officer
 	suit = /obj/item/clothing/suit/armor/bulletproof
 	shoes = /obj/item/clothing/shoes/sneakers/black
@@ -478,7 +478,7 @@
 	name = "\improper Nanotrasen Private Security Commander"
 	uniform = /obj/item/clothing/under/rank/centcom/commander
 	suit = /obj/item/clothing/suit/armor/bulletproof
-	ears = /obj/item/radio/headset/heads/captain
+	ears = /obj/item/radio_abstract/headset/heads/captain
 	glasses = /obj/item/clothing/glasses/eyepatch
 	mask = /obj/item/clothing/mask/cigarette/cigar/cohiba
 	head = /obj/item/clothing/head/centhat

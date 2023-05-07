@@ -35,7 +35,7 @@
 
 	id = /obj/item/card/id/job/mime
 	belt = /obj/item/modular_computer/tablet/pda/mime
-	ears = /obj/item/radio/headset/headset_srv
+	ears = /obj/item/radio_abstract/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/mime
 	mask = /obj/item/clothing/mask/gas/mime
 	gloves = /obj/item/clothing/gloves/color/white

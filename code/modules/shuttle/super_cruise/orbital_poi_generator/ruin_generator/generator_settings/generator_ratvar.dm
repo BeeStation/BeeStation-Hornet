@@ -35,7 +35,7 @@
 
 /datum/generator_settings/ratvar/get_non_directional_walltrash()
 	return list(
-		/obj/item/radio/intercom = 2,
+		/obj/item/radio_abstract/intercom = 2,
 		/obj/structure/sign/poster/random = 1,
 		/obj/machinery/newscaster = 2,
 		/obj/structure/destructible/clockwork/trap/delay = 1,

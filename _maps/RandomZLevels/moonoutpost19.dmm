@@ -306,11 +306,11 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/item/radio/off{
+/obj/item/radio_abstract/walkie_talkie/off{
 	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/item/radio/off{
+/obj/item/radio_abstract/walkie_talkie/off{
 	pixel_x = 2
 	},
 /obj/effect/turf_decal/stripes/line,
@@ -2639,7 +2639,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
-/obj/item/radio/off,
+/obj/item/radio_abstract/walkie_talkie/off,
 /turf/open/floor/plating{
 	heat_capacity = 1e+006
 	},
@@ -2755,7 +2755,7 @@
 	pixel_y = 9
 	},
 /obj/item/pen,
-/obj/item/radio/off,
+/obj/item/radio_abstract/walkie_talkie/off,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -3683,7 +3683,7 @@
 /area/awaymission/moonoutpost19/research)
 "iJ" = (
 /obj/structure/table,
-/obj/item/radio/off,
+/obj/item/radio_abstract/walkie_talkie/off,
 /obj/item/laser_pointer,
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5
@@ -4972,7 +4972,7 @@
 /area/awaymission/moonoutpost19/arrivals)
 "lX" = (
 /obj/structure/table,
-/obj/item/radio/off,
+/obj/item/radio_abstract/walkie_talkie/off,
 /turf/open/floor/mineral/titanium/yellow,
 /area/awaymission/moonoutpost19/arrivals)
 "lZ" = (
@@ -5927,7 +5927,7 @@
 	},
 /area/awaymission/moonoutpost19/research)
 "pg" = (
-/obj/item/radio/off,
+/obj/item/radio_abstract/walkie_talkie/off,
 /obj/item/screwdriver{
 	pixel_y = 10
 	},

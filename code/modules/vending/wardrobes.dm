@@ -150,7 +150,7 @@
 					/obj/item/clothing/gloves/fingerless = 3,
 					/obj/item/clothing/head/soft/cargo = 3,
 					/obj/item/clothing/head/beret/supply = 3,
-					/obj/item/radio/headset/headset_cargo = 3)
+					/obj/item/radio_abstract/headset/headset_cargo = 3)
 	premium = list(	/obj/item/clothing/under/rank/cargo/miner = 3,
 					/obj/item/clothing/head/mailman = 2,
 					/obj/item/clothing/under/misc/mailman/skirt = 2,
@@ -159,7 +159,7 @@
 					/obj/item/clothing/under/plasmaman/mailman = 2,
 					/obj/item/clothing/head/helmet/space/plasmaman/mailman = 2
 	)
-	contraband = list(/obj/item/radio/headset/headset_quartermaster = 1)
+	contraband = list(/obj/item/radio_abstract/headset/headset_quartermaster = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/cargo_wardrobe
 	dept_req_for_free = ACCOUNT_CAR_BITFLAG
 /obj/item/vending_refill/wardrobe/cargo_wardrobe
@@ -214,7 +214,7 @@
 					/obj/item/clothing/head/helmet/space/plasmaman/science = 3,
 					/obj/item/clothing/suit/toggle/labcoat/science = 3,
 					/obj/item/clothing/shoes/sneakers/white = 3,
-					/obj/item/radio/headset/headset_sci = 3,
+					/obj/item/radio_abstract/headset/headset_sci = 3,
 					/obj/item/clothing/mask/gas = 3,
 					/obj/item/clothing/head/beret/sci = 3,
 					/obj/item/clothing/head/cowboy_science = 3)
@@ -283,7 +283,7 @@
 	vend_reply = "Thank you for using the BarDrobe!"
 	light_color = LIGHT_COLOR_WHITE
 	products = list(/obj/item/clothing/head/that = 2,
-					/obj/item/radio/headset/headset_srv = 2,
+					/obj/item/radio_abstract/headset/headset_srv = 2,
 					/obj/item/clothing/under/suit/sl = 2,
 					/obj/item/clothing/under/rank/civilian/bartender = 2,
 					/obj/item/clothing/under/rank/civilian/bartender/purple = 2,
@@ -316,7 +316,7 @@
 	product_ads = "Our clothes are guaranteed to protect you from food splatters!"
 	vend_reply = "Thank you for using the ChefDrobe!"
 	products = list(/obj/item/clothing/under/suit/waiter = 2,
-					/obj/item/radio/headset/headset_srv = 2,
+					/obj/item/radio_abstract/headset/headset_srv = 2,
 					/obj/item/clothing/accessory/waistcoat = 2,
 					/obj/item/clothing/suit/apron/chef = 3,
 					/obj/item/clothing/head/soft = 2,

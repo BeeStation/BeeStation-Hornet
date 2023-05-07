@@ -5,7 +5,7 @@
 	mask = /obj/item/clothing/mask/gas/sechailer
 	shoes = /obj/item/clothing/shoes/combat/swat
 	gloves = /obj/item/clothing/gloves/combat
-	ears = /obj/item/radio/headset/headset_cent/alt
+	ears = /obj/item/radio_abstract/headset/headset_cent/alt
 
 /datum/outfit/ert/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
@@ -14,7 +14,7 @@
 	var/obj/item/implant/mindshield/L = new/obj/item/implant/mindshield(H)
 	L.implant(H, null, 1)
 
-	var/obj/item/radio/R = H.ears
+	var/obj/item/radio_abstract/R = H.ears
 	R.set_frequency(FREQ_CENTCOM)
 	R.freqlock = TRUE
 
@@ -44,7 +44,7 @@
 
 	if(visualsOnly)
 		return
-	var/obj/item/radio/R = H.ears
+	var/obj/item/radio_abstract/R = H.ears
 	R.keyslot = new /obj/item/encryptionkey/heads/captain
 	R.recalculateChannels()
 
@@ -77,7 +77,7 @@
 	if(visualsOnly)
 		return
 
-	var/obj/item/radio/R = H.ears
+	var/obj/item/radio_abstract/R = H.ears
 	R.keyslot = new /obj/item/encryptionkey/heads/hos
 	R.recalculateChannels()
 
@@ -111,7 +111,7 @@
 	if(visualsOnly)
 		return
 
-	var/obj/item/radio/R = H.ears
+	var/obj/item/radio_abstract/R = H.ears
 	R.keyslot = new /obj/item/encryptionkey/heads/cmo
 	R.recalculateChannels()
 
@@ -147,7 +147,7 @@
 	if(visualsOnly)
 		return
 
-	var/obj/item/radio/R = H.ears
+	var/obj/item/radio_abstract/R = H.ears
 	R.keyslot = new /obj/item/encryptionkey/heads/ce
 	R.recalculateChannels()
 
@@ -168,7 +168,7 @@
 	uniform = /obj/item/clothing/under/rank/centcom/officer
 	shoes = /obj/item/clothing/shoes/sneakers/black
 	gloves = /obj/item/clothing/gloves/color/black
-	ears = /obj/item/radio/headset/headset_cent
+	ears = /obj/item/radio_abstract/headset/headset_cent
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 	belt = /obj/item/gun/energy/e_gun
 	l_pocket = /obj/item/pen
@@ -231,7 +231,7 @@
 	if(visualsOnly)
 		return
 
-	var/obj/item/radio/R = H.ears
+	var/obj/item/radio_abstract/R = H.ears
 	R.keyslot = new /obj/item/encryptionkey/heads/hop
 	R.recalculateChannels()
 
@@ -283,7 +283,7 @@
 	if(visualsOnly)
 		return
 
-	var/obj/item/radio/R = H.ears
+	var/obj/item/radio_abstract/R = H.ears
 	R.keyslot = new /obj/item/encryptionkey/headset_service
 	R.recalculateChannels()
 
@@ -319,7 +319,7 @@
 	if(visualsOnly)
 		return
 
-	var/obj/item/radio/R = H.ears
+	var/obj/item/radio_abstract/R = H.ears
 	R.keyslot = new /obj/item/encryptionkey/headset_service
 	R.recalculateChannels()
 
@@ -329,7 +329,7 @@
 	uniform = /obj/item/clothing/under/rank/centcom/intern
 	suit = /obj/item/clothing/suit/toggle/lawyer
 	shoes = /obj/item/clothing/shoes/laceup
-	ears = /obj/item/radio/headset/headset_cent
+	ears = /obj/item/radio_abstract/headset/headset_cent
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 	belt = /obj/item/modular_computer/tablet/pda/lawyer
 	back = /obj/item/storage/backpack/satchel
@@ -345,7 +345,7 @@
 	uniform = /obj/item/clothing/under/rank/centcom/intern
 	shoes = /obj/item/clothing/shoes/sneakers/black
 	gloves = /obj/item/clothing/gloves/color/black
-	ears = /obj/item/radio/headset/headset_cent
+	ears = /obj/item/radio_abstract/headset/headset_cent
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 	belt = /obj/item/melee/classic_baton/police
 	l_hand = /obj/item/gun/ballistic/rifle/boltaction
@@ -379,7 +379,7 @@
 	name = "Code Banana ERT"
 	id = /obj/item/card/id/centcom
 	belt = /obj/item/modular_computer/tablet/pda/clown
-	ears = /obj/item/radio/headset/headset_cent
+	ears = /obj/item/radio_abstract/headset/headset_cent
 	uniform = /obj/item/clothing/under/rank/civilian/clown
 	back = /obj/item/storage/backpack/clown
 	shoes = /obj/item/clothing/shoes/clown_shoes
@@ -403,7 +403,7 @@
 	var/obj/item/implant/mindshield/L = new/obj/item/implant/mindshield(H)
 	L.implant(H, null, 1)
 
-	var/obj/item/radio/R = H.ears
+	var/obj/item/radio_abstract/R = H.ears
 	R.set_frequency(FREQ_CENTCOM)
 	R.freqlock = TRUE
 
@@ -449,7 +449,7 @@
 	belt = /obj/item/gun/ballistic/revolver/mateba
 	l_hand = /obj/item/gun/energy/pulse/loyalpin
 	id = /obj/item/card/id/centcom
-	ears = /obj/item/radio/headset/headset_cent/alt
+	ears = /obj/item/radio_abstract/headset/headset_cent/alt
 
 	backpack_contents = list(/obj/item/storage/box=1,\
 		/obj/item/ammo_box/a357=1,\
@@ -462,7 +462,7 @@
 	if(visualsOnly)
 		return
 
-	var/obj/item/radio/R = H.ears
+	var/obj/item/radio_abstract/R = H.ears
 	R.set_frequency(FREQ_CENTCOM)
 	R.freqlock = TRUE
 
@@ -504,7 +504,7 @@
 	r_pocket = /obj/item/tank/internals/emergency_oxygen/double
 	backpack_contents = list(/obj/item/storage/box/engineer=1,\
 		/obj/item/reagent_containers/hypospray/combat,\
-		/obj/item/radio=1,\
+		/obj/item/radio_abstract/walkie_talkie=1,\
 		/obj/item/chainsaw/energy/doom=1,\
 		/obj/item/gun/ballistic/sniper_rifle=1,\
 		/obj/item/gun/grenadelauncher/security=1,\

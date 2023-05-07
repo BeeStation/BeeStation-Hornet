@@ -148,7 +148,7 @@
 "L" = (
 /obj/structure/bed,
 /obj/item/bedsheet/random,
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	pixel_y = 26
 	},
 /turf/open/floor/carpet,

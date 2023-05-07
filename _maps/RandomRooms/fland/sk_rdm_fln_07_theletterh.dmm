@@ -10,7 +10,7 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "e" = (
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	pixel_x = -28
 	},
 /turf/open/floor/plating,
@@ -81,7 +81,7 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "z" = (
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	pixel_x = 29
 	},
 /turf/open/floor/plasteel,

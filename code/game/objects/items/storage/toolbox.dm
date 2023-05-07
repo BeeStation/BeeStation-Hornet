@@ -58,7 +58,7 @@
 			new /obj/item/flashlight/glowstick(src)
 		if(3)
 			new /obj/item/flashlight/flare(src)
-	new /obj/item/radio/off(src)
+	new /obj/item/radio_abstract/walkie_talkie/off(src)
 
 /obj/item/storage/toolbox/emergency/old
 	name = "rusty red toolbox"

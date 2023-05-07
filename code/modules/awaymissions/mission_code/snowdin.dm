@@ -588,7 +588,7 @@
 	name = "Syndicate Snow Operative"
 	uniform = /obj/item/clothing/under/syndicate/coldres
 	shoes = /obj/item/clothing/shoes/combat/coldres
-	ears = /obj/item/radio/headset/syndicate/alt
+	ears = /obj/item/radio_abstract/headset/syndicate/alt
 	r_pocket = /obj/item/gun/ballistic/automatic/pistol
 	id = /obj/item/card/id/syndicate
 	implants = list(/obj/item/implant/exile)

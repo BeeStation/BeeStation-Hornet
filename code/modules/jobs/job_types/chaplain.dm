@@ -117,7 +117,7 @@
 
 	id = /obj/item/card/id/job/chaplain
 	belt = /obj/item/modular_computer/tablet/pda/chaplain
-	ears = /obj/item/radio/headset/headset_srv
+	ears = /obj/item/radio_abstract/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/chaplain
 	backpack_contents = list(
 		/obj/item/nullrod = 1,

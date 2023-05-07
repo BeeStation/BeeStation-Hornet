@@ -23,7 +23,7 @@
 	suit = /obj/item/clothing/suit/striped_sweater
 	head = /obj/item/clothing/head/beanie/waldo
 	shoes = /obj/item/clothing/shoes/sneakers/brown
-	ears = /obj/item/radio/headset
+	ears = /obj/item/radio_abstract/headset
 	glasses = /obj/item/clothing/glasses/regular/circle
 
 /datum/outfit/waldo/post_equip(mob/living/carbon/human/H, visualsOnly=FALSE)
@@ -53,7 +53,7 @@
 /datum/outfit/synthetic
 	name = "Factory Error Synth"
 	uniform = /obj/item/clothing/under/color/white
-	ears = /obj/item/radio/headset
+	ears = /obj/item/radio_abstract/headset
 
 /datum/outfit/synthetic/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)

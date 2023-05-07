@@ -61,7 +61,7 @@
 	var/tries = 0 //Number of times the bot tried and failed to move.
 	var/remote_disabled = 0 //If enabled, the AI cannot *Remotely* control a bot. It can still control it through cameras.
 	var/mob/living/silicon/ai/calling_ai //Links a bot to the AI calling it.
-	var/obj/item/radio/Radio //The bot's radio, for speaking to people.
+	var/obj/item/radio_abstract/Radio //The bot's radio, for speaking to people.
 	var/radio_key = null //which channels can the bot listen to
 	var/radio_channel = RADIO_CHANNEL_COMMON //The bot's default radio channel
 	var/auto_patrol = 0// set to make bot automatically patrol
@@ -153,7 +153,7 @@
 //This access is so bots can be immediately set to patrol and leave Robotics, instead of having to be let out first.
 	access_card.access |= ACCESS_ROBOTICS
 	set_custom_texts()
-	Radio = new/obj/item/radio(src)
+	Radio = new/obj/item/radio_abstract(src)
 	if(radio_key)
 		Radio.keyslot = new radio_key
 	Radio.subspace_transmission = TRUE

@@ -33,7 +33,7 @@
 
 	id = /obj/item/card/id/job/shaft_miner
 	belt = /obj/item/modular_computer/tablet/pda/shaft_miner
-	ears = /obj/item/radio/headset/headset_cargo/shaft_miner
+	ears = /obj/item/radio_abstract/headset/headset_cargo/shaft_miner
 	shoes = /obj/item/clothing/shoes/workboots/mining
 	gloves = /obj/item/clothing/gloves/color/black
 	uniform = /obj/item/clothing/under/rank/cargo/miner/lavaland

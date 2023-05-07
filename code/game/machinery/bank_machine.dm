@@ -5,7 +5,7 @@
 	idle_power_usage = 100
 	var/siphoning = FALSE
 	var/next_warning = 0
-	var/obj/item/radio/radio
+	var/obj/item/radio_abstract/radio
 	var/radio_channel = RADIO_CHANNEL_COMMON
 	var/minimum_time_between_warnings = 400
 	var/syphoning_credits = 0

@@ -58,7 +58,7 @@
 "hp" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	pixel_y = 26
 	},
 /turf/open/floor/monotile/steel,

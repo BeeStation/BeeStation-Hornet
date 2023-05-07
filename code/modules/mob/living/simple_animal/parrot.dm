@@ -82,7 +82,7 @@
 	var/list/available_channels = list()
 
 	//Headset for Poly to yell at engineers :)
-	var/obj/item/radio/headset/ears = null
+	var/obj/item/radio_abstract/headset/ears = null
 
 	//The thing the parrot is currently interested in. This gets used for items the parrot wants to pick up, mobs it wants to steal from,
 	//mobs it wants to attack or mobs that have attacked it
@@ -106,12 +106,12 @@
 /mob/living/simple_animal/parrot/Initialize(mapload)
 	. = ..()
 	if(!ears)
-		var/headset = pick(/obj/item/radio/headset/headset_sec, \
-						/obj/item/radio/headset/headset_eng, \
-						/obj/item/radio/headset/headset_med, \
-						/obj/item/radio/headset/headset_sci, \
-						/obj/item/radio/headset/headset_cargo, \
-						/obj/item/radio/headset/headset_exploration)
+		var/headset = pick(/obj/item/radio_abstract/headset/headset_sec, \
+						/obj/item/radio_abstract/headset/headset_eng, \
+						/obj/item/radio_abstract/headset/headset_med, \
+						/obj/item/radio_abstract/headset/headset_sci, \
+						/obj/item/radio_abstract/headset/headset_cargo, \
+						/obj/item/radio_abstract/headset/headset_exploration)
 		ears = new headset(src)
 
 	parrot_sleep_dur = parrot_sleep_max //In case someone decides to change the max without changing the duration var
@@ -201,7 +201,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	if(!.)
 		return FALSE
 
-	if(!istype(equipping, /obj/item/radio/headset))
+	if(!istype(equipping, /obj/item/radio_abstract/headset))
 		to_chat(user, "<span class='warning'>[equipping] won't fit!</span>")
 		return FALSE
 
@@ -212,7 +212,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	return TRUE
 
 /datum/strippable_item/parrot_headset/finish_equip(atom/source, obj/item/equipping, mob/user)
-	var/obj/item/radio/headset/radio = equipping
+	var/obj/item/radio_abstract/headset/radio = equipping
 	if(!istype(radio))
 		return
 
@@ -892,7 +892,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	var/longest_deathstreak = 0
 
 /mob/living/simple_animal/parrot/Poly/Initialize(mapload)
-	ears = new /obj/item/radio/headset/headset_eng(src)
+	ears = new /obj/item/radio_abstract/headset/headset_eng(src)
 	available_channels = list(":e")
 	Read_Memory()
 	if(rounds_survived == longest_survival)

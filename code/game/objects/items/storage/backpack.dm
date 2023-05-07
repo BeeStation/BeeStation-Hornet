@@ -451,7 +451,7 @@
 
 /obj/item/storage/backpack/duffelbag/sec/deputy/PopulateContents()
 	new /obj/item/clothing/head/soft/sec(src)
-	new /obj/item/radio/headset/headset_sec(src)
+	new /obj/item/radio_abstract/headset/headset_sec(src)
 	new /obj/item/clothing/glasses/hud/security/deputy(src)
 	new /obj/item/clothing/under/rank/security/officer/mallcop(src)
 	new /obj/item/clothing/shoes/sneakers/black(src)

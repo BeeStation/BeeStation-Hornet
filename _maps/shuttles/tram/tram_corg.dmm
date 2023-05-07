@@ -40,7 +40,7 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	pixel_x = 30
 	},
 /obj/effect/turf_decal/stripes/line{

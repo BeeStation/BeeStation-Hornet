@@ -58,15 +58,15 @@
 "el" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/bot,
-/obj/item/radio{
+/obj/item/radio_abstract/walkie_talkie{
 	pixel_x = -6;
 	pixel_y = 6
 	},
-/obj/item/radio{
+/obj/item/radio_abstract/walkie_talkie{
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/item/radio{
+/obj/item/radio_abstract/walkie_talkie{
 	pixel_y = 4
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -359,7 +359,7 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/arrival)
 "Er" = (
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	name = "Station Intercom (General)";
 	pixel_y = -29
 	},
@@ -445,7 +445,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	pixel_x = -25
 	},
 /turf/open/floor/mineral/plastitanium,

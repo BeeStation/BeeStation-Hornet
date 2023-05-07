@@ -288,7 +288,7 @@
 
 	var/list/all_contents = traitor_mob.GetAllContents()
 	var/obj/item/modular_computer/tablet/pda/PDA = locate() in all_contents
-	var/obj/item/radio/R = locate() in all_contents
+	var/obj/item/radio_abstract/R = locate() in all_contents
 	var/obj/item/pen/P
 
 	if (PDA) // Prioritize PDA pen, otherwise the pocket protector pens will be chosen, which causes numerous ahelps about missing uplink

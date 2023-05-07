@@ -10,7 +10,7 @@
 	suit_store = /obj/item/tank/internals/emergency_oxygen/magic_oxygen
 	internals_slot = ITEM_SLOT_SUITSTORE
 	glasses = /obj/item/clothing/glasses/hud/debug
-	ears = /obj/item/radio/headset/headset_cent/debug
+	ears = /obj/item/radio_abstract/headset/headset_cent/debug
 	box = /obj/item/storage/box/debugtools
 	back = /obj/item/storage/backpack/debug
 	backpack_contents = list(/obj/item/gun/magic/wand/resurrection/debug=1,\
@@ -97,7 +97,7 @@
 	shoes = /obj/item/clothing/shoes/sneakers/red
 	head = /obj/item/clothing/head/helmet/redtaghelm
 	gloves = /obj/item/clothing/gloves/color/red
-	ears = /obj/item/radio/headset
+	ears = /obj/item/radio_abstract/headset
 	suit = /obj/item/clothing/suit/redtag
 	back = /obj/item/storage/backpack
 	suit_store = /obj/item/gun/energy/laser/redtag
@@ -124,17 +124,17 @@
 /datum/outfit/pirate/space
 	suit = /obj/item/clothing/suit/space/pirate
 	head = /obj/item/clothing/head/helmet/space/pirate/bandana
-	ears = /obj/item/radio/headset/syndicate/alt
+	ears = /obj/item/radio_abstract/headset/syndicate/alt
 	id = /obj/item/card/id/pirate
 
 /datum/outfit/pirate/space/captain
 	head = /obj/item/clothing/head/helmet/space/pirate
-	ears = /obj/item/radio/headset/syndicate/alt/leader
+	ears = /obj/item/radio_abstract/headset/syndicate/alt/leader
 
 /datum/outfit/pirate/post_equip(mob/living/carbon/human/H)
 	H.faction |= "pirate"
 
-	var/obj/item/radio/R = H.ears
+	var/obj/item/radio_abstract/R = H.ears
 	if(R)
 		R.set_frequency(FREQ_SYNDICATE)
 		R.freqlock = TRUE
@@ -151,7 +151,7 @@
 	shoes = /obj/item/clothing/shoes/clown_shoes
 	gloves = /obj/item/clothing/gloves/color/black
 	mask = /obj/item/clothing/mask/gas/clown_hat
-	ears = /obj/item/radio/headset
+	ears = /obj/item/radio_abstract/headset
 	glasses = /obj/item/clothing/glasses/thermal/monocle
 	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie
 	l_pocket = /obj/item/reagent_containers/food/snacks/grown/banana
@@ -178,7 +178,7 @@
 	gloves = /obj/item/clothing/gloves/color/latex
 	mask = /obj/item/clothing/mask/surgical
 	head = /obj/item/clothing/head/welding
-	ears = /obj/item/radio/headset
+	ears = /obj/item/radio_abstract/headset
 	glasses = /obj/item/clothing/glasses/thermal/monocle
 	suit = /obj/item/clothing/suit/apron
 	l_pocket = /obj/item/kitchen/knife
@@ -198,7 +198,7 @@
 	uniform = /obj/item/clothing/under/suit/black
 	shoes = /obj/item/clothing/shoes/sneakers/black
 	gloves = /obj/item/clothing/gloves/color/black
-	ears = /obj/item/radio/headset
+	ears = /obj/item/radio_abstract/headset
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 	l_pocket = /obj/item/melee/transforming/energy/sword/saber
 	l_hand = /obj/item/storage/secure/briefcase
@@ -240,7 +240,7 @@
 	suit = /obj/item/clothing/suit/armor/bulletproof
 	shoes = /obj/item/clothing/shoes/combat/swat
 	gloves = /obj/item/clothing/gloves/combat
-	ears = /obj/item/radio/headset/headset_cent/commander
+	ears = /obj/item/radio_abstract/headset/headset_cent/commander
 	glasses = /obj/item/clothing/glasses/eyepatch
 	mask = /obj/item/clothing/mask/cigarette/cigar/cohiba
 	head = /obj/item/clothing/head/centhat
@@ -280,7 +280,7 @@
 	shoes = /obj/item/clothing/shoes/combat/swat
 	gloves = /obj/item/clothing/gloves/combat
 	glasses = /obj/item/clothing/glasses/thermal/eyepatch
-	ears = /obj/item/radio/headset/headset_cent/commander
+	ears = /obj/item/radio_abstract/headset/headset_cent/commander
 	mask = /obj/item/clothing/mask/cigarette/cigar/havana
 	head = /obj/item/clothing/head/helmet/space/beret
 	belt = /obj/item/gun/energy/pulse/pistol/m1911
@@ -301,7 +301,7 @@
 	W.registered_name = H.real_name
 	W.update_label()
 
-	var/obj/item/radio/headset/R = H.ears
+	var/obj/item/radio_abstract/headset/R = H.ears
 	R.set_frequency(FREQ_CENTCOM)
 	R.freqlock = TRUE
 
@@ -320,7 +320,7 @@
 	uniform = /obj/item/clothing/under/color/lightpurple
 	suit = /obj/item/clothing/suit/wizrobe
 	shoes = /obj/item/clothing/shoes/sandal/magic
-	ears = /obj/item/radio/headset
+	ears = /obj/item/radio_abstract/headset
 	head = /obj/item/clothing/head/wizard
 	r_pocket = /obj/item/teleportation_scroll
 	r_hand = /obj/item/spellbook
@@ -362,7 +362,7 @@
 	head = /obj/item/clothing/head/pirate/captain
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
-	ears = /obj/item/radio/headset/headset_cent
+	ears = /obj/item/radio_abstract/headset/headset_cent
 	glasses = /obj/item/clothing/glasses/thermal/eyepatch
 	suit = /obj/item/clothing/suit/pirate/captain
 	back = /obj/item/storage/backpack/satchel/leather
@@ -389,7 +389,7 @@
 	head = /obj/item/clothing/head/fedora
 	shoes = /obj/item/clothing/shoes/laceup
 	gloves = /obj/item/clothing/gloves/color/black
-	ears = /obj/item/radio/headset
+	ears = /obj/item/radio_abstract/headset
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 	r_hand = /obj/item/gun/ballistic/automatic/tommygun
 	id = /obj/item/card/id
@@ -429,7 +429,7 @@
 	shoes = /obj/item/clothing/shoes/laceup
 	gloves = /obj/item/clothing/gloves/color/white
 	id = /obj/item/card/id/job/clown
-	ears = /obj/item/radio/headset/headset_srv
+	ears = /obj/item/radio_abstract/headset/headset_srv
 
 
 /datum/outfit/joker/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

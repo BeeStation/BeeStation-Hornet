@@ -114,7 +114,7 @@
 	dir = 1
 	},
 /obj/structure/table/reinforced,
-/obj/item/radio,
+/obj/item/radio_abstract/walkie_talkie,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
 "C" = (

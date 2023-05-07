@@ -55,7 +55,7 @@
 /mob/living/carbon/human/binarycheck()
 	if(stat >= SOFT_CRIT || !ears)
 		return FALSE
-	var/obj/item/radio/headset/dongle = ears
+	var/obj/item/radio_abstract/headset/dongle = ears
 	if(!istype(dongle))
 		return FALSE
 	return dongle.translate_binary

@@ -140,7 +140,7 @@
 /area/template_noop)
 "aK" = (
 /obj/effect/turf_decal/stripes/corner,
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	pixel_y = 22
 	},
 /obj/effect/decal/cleanable/dirt,

@@ -104,7 +104,7 @@
 /obj/item/implant/radio
 	name = "internal radio implant"
 	activated = TRUE
-	var/obj/item/radio/radio
+	var/obj/item/radio_abstract/radio
 	var/radio_key
 	var/subspace_transmission = FALSE
 	var/radio_silent = TRUE

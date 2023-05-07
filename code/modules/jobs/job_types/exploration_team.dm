@@ -58,7 +58,7 @@
 
 	id = /obj/item/card/id/job/exploration_crew
 	belt = /obj/item/modular_computer/tablet/pda/exploration_crew
-	ears = /obj/item/radio/headset/headset_exploration
+	ears = /obj/item/radio_abstract/headset/headset_exploration
 	shoes = /obj/item/clothing/shoes/jackboots
 	gloves = /obj/item/clothing/gloves/color/black
 	uniform = /obj/item/clothing/under/rank/cargo/exploration

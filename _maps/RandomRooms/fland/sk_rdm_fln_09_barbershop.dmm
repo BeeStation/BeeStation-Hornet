@@ -44,7 +44,7 @@
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/item/clothing/head/wig/random,
 /obj/item/reagent_containers/medspray/spraytan,
-/obj/item/radio,
+/obj/item/radio_abstract/walkie_talkie,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -54,7 +54,7 @@
 /obj/structure/table/wood,
 /obj/item/clothing/head/wig/random,
 /obj/item/clothing/head/wig/random,
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	pixel_x = 28
 	},
 /turf/open/floor/plasteel/ameridiner,

@@ -42,7 +42,7 @@
 
 	id = /obj/item/card/id/job/warden
 	belt = /obj/item/modular_computer/tablet/pda/warden
-	ears = /obj/item/radio/headset/headset_sec/alt
+	ears = /obj/item/radio_abstract/headset/headset_sec/alt
 	uniform = /obj/item/clothing/under/rank/security/warden
 	shoes = /obj/item/clothing/shoes/jackboots
 	suit = /obj/item/clothing/suit/armor/vest/warden/alt

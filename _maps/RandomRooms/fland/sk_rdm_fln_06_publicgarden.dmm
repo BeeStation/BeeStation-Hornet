@@ -21,7 +21,7 @@
 /area/template_noop)
 "h" = (
 /obj/machinery/biogenerator,
-/obj/item/radio/intercom{
+/obj/item/radio_abstract/intercom{
 	pixel_x = 28
 	},
 /turf/open/floor/plasteel,
