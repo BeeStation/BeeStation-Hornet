@@ -198,7 +198,7 @@
 			H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 75)
 			H.emote("scream")
 			return TRUE
-	brainwash(C, objective)
+	brainwash(C, objective, "neural imprinter")
 	message_admins("[ADMIN_LOOKUPFLW(user)] brainwashed [key_name_admin(C)] with objective '[objective]'.")
 	log_game("[key_name(user)] brainwashed [key_name(C)] with objective '[objective]'.")
 	return TRUE
