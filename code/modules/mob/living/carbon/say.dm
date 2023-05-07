@@ -24,3 +24,4 @@
 	var/obj/item/organ/tongue/T = getorganslot(ORGAN_SLOT_TONGUE)
 	if(T)
 		return T.could_speak_language(dt)
+		
