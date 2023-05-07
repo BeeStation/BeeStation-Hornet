@@ -46,6 +46,7 @@ export const RandomizationButton = (props: {
       ]}
       nochevron
       onSelected={setValue}
+      menuWidth="120px"
       width="auto"
     />
   );
