@@ -440,14 +440,8 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 /turf/open/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	..()
-	//melting
-	if(isobj(arrived) && air && air.return_temperature() > T0C)
-		var/obj/O = arrived
-		if(O.obj_flags & FROZEN)
-			O.make_unfrozen()
 	if(!arrived.zfalling)
 		zFall(arrived, old_loc = old_loc)
-
 
 /turf/open/openspace/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	..()
