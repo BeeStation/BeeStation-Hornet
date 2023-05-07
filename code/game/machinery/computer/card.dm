@@ -623,7 +623,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						inserted_modify_id.access -= access_type
 						log_id("[key_name(usr)] removed [get_access_desc(access_type)] from [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
 						if(access_allowed == 1)
-							inserted_modify_id.access += access_type
+							inserted_modify_id.access |= access_type
 							log_id("[key_name(usr)] added [get_access_desc(access_type)] to [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
 						playsound(src, "terminal_type", 50, FALSE)
 		if ("assign")
@@ -671,10 +671,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 							return
 
 						inserted_modify_id.access -= get_all_accesses()
-						inserted_modify_id.access += jobdatum.get_access()
+						inserted_modify_id.access |= jobdatum.get_access()
 					else // centcom level
 						inserted_modify_id.access -= get_all_centcom_access()
-						inserted_modify_id.access += get_centcom_access(t1)
+						inserted_modify_id.access |= get_centcom_access(t1)
 
 					// Step 1: reseting theirs first
 					if(B && jobdatum) // 1-A: reseting bank payment

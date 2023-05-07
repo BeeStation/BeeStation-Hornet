@@ -332,6 +332,8 @@ GENE SCANNER
 		//Genetic damage
 		if(advanced && H.has_dna())
 			message += "\t<span class='info'>Genetic Stability: [H.dna.stability]%.</span>"
+			if(H.has_status_effect(STATUS_EFFECT_LING_TRANSFORMATION))
+				message += "\t<span class='info'>Subject's DNA appears to be in an unstable state.</span>"
 
 	// Species and body temperature
 	if(ishuman(M))

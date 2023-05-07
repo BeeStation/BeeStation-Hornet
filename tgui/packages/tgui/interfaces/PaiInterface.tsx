@@ -348,9 +348,9 @@ const InstalledInfo = (props) => {
   const { software } = props;
 
   /** Records get their own section here */
-  if (software === 'medical records') {
+  if (software === 'Medical Records') {
     return <RecordsDisplay record_type="medical" />;
-  } else if (software === 'security records') {
+  } else if (software === 'Security Records') {
     return <RecordsDisplay record_type="security" />;
   } else {
     return (
