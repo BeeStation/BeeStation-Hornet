@@ -58,12 +58,14 @@
 	user.visible_message("<span class='warning'>[user] starts climbing onto [climbed_thing].</span>", \
 								"<span class='notice'>You start climbing onto [climbed_thing]...</span>")
 	var/adjusted_climb_time = climb_time
+	var/adjusted_climb_stun = climb_stun
 	if(user.restrained()) //climbing takes twice as long without help from the hands.
 		adjusted_climb_time *= 2
 	if(isalien(user))
 		adjusted_climb_time *= 0.25 //aliens are terrifyingly fast
 	if(HAS_TRAIT(user, TRAIT_FREERUNNING)) //do you have any idea how fast I am???
 		adjusted_climb_time *= 0.8
+		adjusted_climb_stun *= 0.8
 	LAZYADDASSOC(current_climbers, climbed_thing, user)
 	if(do_after(user, adjusted_climb_time, climbed_thing))
 		if(QDELETED(climbed_thing)) //Checking if structure has been destroyed
@@ -112,7 +114,7 @@
 			if (!animal.dextrous)
 				return
 		if(living_target.mobility_flags & MOBILITY_MOVE)
-			INVOKE_ASYNC(src, .proc/climb_structure, climbed_thing, living_target, params)
+			INVOKE_ASYNC(src, PROC_REF(climb_structure), climbed_thing, living_target, params)
 			return
 
 ///Tries to climb onto the target if the forced movement of the mob allows it
