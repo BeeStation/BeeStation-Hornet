@@ -52,6 +52,7 @@
 #define SCAN_BOOZEPOWER         (1<<12) //! Allows helmets and glasses to scan reagents.
 #define MASKEXTENDRANGE			(1<<13) //! For masks, allows you to breathe from internals on adjecent tiles
 #define NOTCONSUMABLE			(1<<14) //! Moths cannot eat clothing with that flag
+#define HEADINTERNALS 			(1<<15) //! Headgear/helmet allows internals
 
 /// Flags for the organ_flags var on /obj/item/organ
 

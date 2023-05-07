@@ -44,7 +44,7 @@
 /obj/machinery/sleeper/Initialize(mapload)
 	. = ..()
 	occupant_typecache = GLOB.typecache_living
-	update_icon()
+	update_appearance()
 	RefreshParts()
 
 	//Create roundstart chems
@@ -97,11 +97,9 @@
 
 	ui_update()
 
-/obj/machinery/sleeper/update_icon()
-	if(state_open)
-		icon_state = "[initial(icon_state)]-open"
-	else
-		icon_state = initial(icon_state)
+/obj/machinery/sleeper/update_icon_state()
+	. = ..()
+	icon_state = "[initial(icon_state)][state_open ? "-open" : ""]"
 
 /obj/machinery/sleeper/attackby(obj/item/I, mob/living/user, params)
 	if ((istype(I, /obj/item/reagent_containers/glass) \
@@ -204,7 +202,7 @@
 /obj/machinery/sleeper/ui_requires_update(mob/user, datum/tgui/ui)
 	. = ..()
 
-	if(occupant)
+	if(isliving(occupant))
 		. = TRUE // Only autoupdate when occupied
 
 /obj/machinery/sleeper/ui_state(mob/user)
@@ -239,7 +237,6 @@
 
 /obj/machinery/sleeper/ui_data()
 	var/list/data = list()
-	data["occupied"] = occupant ? 1 : 0
 	data["open"] = state_open
 
 	data["max_vials"] = max_vials
@@ -252,41 +249,43 @@
 		i++
 
 	data["occupant"] = list()
+	if(!isliving(occupant))
+		data["occupied"] = FALSE
+		return data
+	data["occupied"] = TRUE
 	var/mob/living/mob_occupant = occupant
-	if(mob_occupant)
-		data["occupant"]["name"] = mob_occupant.name
-		switch(mob_occupant.stat)
-			if(CONSCIOUS)
-				data["occupant"]["stat"] = "Conscious"
-				data["occupant"]["statstate"] = "good"
-			if(SOFT_CRIT)
-				data["occupant"]["stat"] = "Conscious"
-				data["occupant"]["statstate"] = "average"
-			if(UNCONSCIOUS)
-				data["occupant"]["stat"] = "Unconscious"
-				data["occupant"]["statstate"] = "average"
-			if(DEAD)
-				data["occupant"]["stat"] = "Dead"
-				data["occupant"]["statstate"] = "bad"
-		data["occupant"]["health"] = mob_occupant.health
-		data["occupant"]["maxHealth"] = mob_occupant.maxHealth
-		data["occupant"]["minHealth"] = HEALTH_THRESHOLD_DEAD
-		data["occupant"]["bruteLoss"] = mob_occupant.getBruteLoss()
-		data["occupant"]["oxyLoss"] = mob_occupant.getOxyLoss()
-		data["occupant"]["toxLoss"] = mob_occupant.getToxLoss()
-		data["occupant"]["fireLoss"] = mob_occupant.getFireLoss()
-		data["occupant"]["cloneLoss"] = mob_occupant.getCloneLoss()
-		data["occupant"]["brainLoss"] = mob_occupant.getOrganLoss(ORGAN_SLOT_BRAIN)
-		data["occupant"]["reagents"] = list()
-		if(mob_occupant.reagents && mob_occupant.reagents.reagent_list.len)
-			for(var/datum/reagent/R in mob_occupant.reagents.reagent_list)
-				data["occupant"]["reagents"] += list(list("name" = R.name, "volume" = R.volume))
+	data["occupant"]["name"] = mob_occupant.name
+	switch(mob_occupant.stat)
+		if(CONSCIOUS)
+			data["occupant"]["stat"] = "Conscious"
+			data["occupant"]["statstate"] = "good"
+		if(SOFT_CRIT)
+			data["occupant"]["stat"] = "Conscious"
+			data["occupant"]["statstate"] = "average"
+		if(UNCONSCIOUS)
+			data["occupant"]["stat"] = "Unconscious"
+			data["occupant"]["statstate"] = "average"
+		if(DEAD)
+			data["occupant"]["stat"] = "Dead"
+			data["occupant"]["statstate"] = "bad"
+	data["occupant"]["health"] = mob_occupant.health
+	data["occupant"]["maxHealth"] = mob_occupant.maxHealth
+	data["occupant"]["minHealth"] = HEALTH_THRESHOLD_DEAD
+	data["occupant"]["bruteLoss"] = mob_occupant.getBruteLoss()
+	data["occupant"]["oxyLoss"] = mob_occupant.getOxyLoss()
+	data["occupant"]["toxLoss"] = mob_occupant.getToxLoss()
+	data["occupant"]["fireLoss"] = mob_occupant.getFireLoss()
+	data["occupant"]["cloneLoss"] = mob_occupant.getCloneLoss()
+	data["occupant"]["brainLoss"] = mob_occupant.getOrganLoss(ORGAN_SLOT_BRAIN)
+	data["occupant"]["reagents"] = list()
+	if(length(mob_occupant.reagents?.reagent_list))
+		for(var/datum/reagent/R in mob_occupant.reagents.reagent_list)
+			data["occupant"]["reagents"] += list(list("name" = R.name, "volume" = R.volume))
 	return data
 
 /obj/machinery/sleeper/ui_act(action, params)
 	if(..())
 		return
-	var/mob/living/mob_occupant = occupant
 	switch(action)
 		if("door")
 			check_nap_violations()
@@ -308,7 +307,7 @@
 		if("inject")
 			check_nap_violations()
 			var/chem = params["chem"]
-			if(!is_operational || !mob_occupant || chem < 1 || chem > length(inserted_vials))
+			if(!is_operational || !isliving(occupant) || chem < 1 || chem > length(inserted_vials))
 				return
 			if(obj_flags & EMAGGED)
 				chem = rand(1, length(inserted_vials))

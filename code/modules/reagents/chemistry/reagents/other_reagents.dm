@@ -536,14 +536,14 @@
 	description = "A corruptive toxin."
 	color = "#13BC5E" // rgb: 19, 188, 94
 	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	race = /datum/species/jelly/slime
+	race = /datum/species/oozeling/slime
 
 /datum/reagent/mutationtoxin/unstable
 	name = "Unstable Mutation Toxin"
 	description = "A mostly safe mutation toxin."
 	color = "#13BC5E" // rgb: 19, 188, 94
 	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	race = list(/datum/species/jelly/slime,
+	race = list(/datum/species/oozeling/slime,
 						/datum/species/human,
 						/datum/species/human/felinid,
 						/datum/species/lizard,
@@ -551,7 +551,7 @@
 						/datum/species/moth,
 						/datum/species/apid,
 						/datum/species/pod,
-						/datum/species/jelly,
+						/datum/species/oozeling,
 						/datum/species/abductor,
 						/datum/species/skeleton)
 
@@ -607,13 +607,13 @@
 	description = "A jellyfying toxin."
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	race = /datum/species/jelly
+	race = /datum/species/oozeling
 	taste_description = "grandma's gelatin"
 
 /datum/reagent/mutationtoxin/jelly/on_mob_life(mob/living/carbon/human/H)
-	if(isjellyperson(H))
-		to_chat(H, "<span class='warning'>Your jelly shifts and morphs, turning you into another subspecies!</span>")
-		var/species_type = pick(subtypesof(/datum/species/jelly))
+	if(isoozeling(H))
+		to_chat(H, "<span class='warning'>Your body shifts and morphs, turning you into another subspecies!</span>")
+		var/species_type = pick(subtypesof(/datum/species/oozeling))
 		H.set_species(species_type)
 		H.reagents.del_reagent(type)
 		return TRUE

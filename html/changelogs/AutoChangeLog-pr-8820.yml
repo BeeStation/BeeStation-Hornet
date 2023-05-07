@@ -1,0 +1,6 @@
+author: RKz, Rohesie
+delete-after: true
+changes:
+  - refactor: minor opacity refactor
+  - bugfix: Fixes some atoms_movable related harddels
+  - balance: mechs no longer block sight

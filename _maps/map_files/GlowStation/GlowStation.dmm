@@ -853,12 +853,11 @@
 /turf/open/floor/wood,
 /area/bridge/meeting_room/council)
 "aiJ" = (
-/obj/structure/railing/corner,
 /obj/machinery/camera{
-	c_tag = "Floor 2 Command staircase";
-	name = "hallway camera"
+	c_tag = "Secure Elevator"
 	},
-/turf/open/floor/plasteel/elevatorshaft,
+/obj/structure/elevator_segment/secure,
+/turf/open/floor/noslip/dark,
 /area/ai_monitored/turret_protected/ai_upload_foyer)
 "aiK" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -2528,10 +2527,21 @@
 /area/chapel/main/monastery)
 "aCp" = (
 /obj/machinery/atmospherics/pipe/multiz/layer2,
-/obj/effect/turf_decal/delivery/white,
 /obj/machinery/camera{
 	c_tag = "Floor 5 AI Sat hallway - Central";
 	name = "hallway camera"
+	},
+/obj/machinery/elevator_interface/secure{
+	preset_z = 1;
+	pixel_y = 24
+	},
+/obj/machinery/elevator_indicator/secure{
+	pixel_y = 24;
+	preset_z = 1;
+	pixel_x = 10
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/secondary/command)
@@ -9266,6 +9276,10 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 1
 	},
+/obj/effect/turf_decal/caution/stand_clear,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai_upload_foyer)
 "bWX" = (
@@ -15078,7 +15092,11 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/storage)
 "dpM" = (
-/turf/open/floor/plasteel/elevatorshaft,
+/obj/machinery/door/airlock/public/glass{
+	req_access_txt = "16"
+	},
+/obj/structure/elevator_segment/secure,
+/turf/open/floor/noslip/dark,
 /area/ai_monitored/turret_protected/ai_upload_foyer)
 "dpU" = (
 /obj/effect/decal/cleanable/dirt,
@@ -17073,6 +17091,15 @@
 /obj/machinery/atmospherics/pipe/multiz/layer2,
 /obj/effect/turf_decal/delivery/white,
 /obj/machinery/atmospherics/pipe/multiz/layer2,
+/obj/machinery/elevator_indicator/secure{
+	pixel_y = 24;
+	preset_z = 1;
+	pixel_x = 10
+	},
+/obj/machinery/elevator_interface/secure{
+	preset_z = 1;
+	pixel_y = 24
+	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/upper/secondary/command)
 "dKn" = (
@@ -18452,12 +18479,6 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/iceland_surface,
 /area/chapel/main/monastery)
-"dYB" = (
-/obj/structure/railing/corner{
-	dir = 8
-	},
-/turf/open/floor/plasteel/elevatorshaft,
-/area/hallway/upper/secondary/command)
 "dYC" = (
 /obj/machinery/atmospherics/components/unary/tank/air{
 	dir = 8
@@ -19949,13 +19970,6 @@
 /obj/machinery/door/airlock/maintenance_hatch,
 /turf/open/floor/plating,
 /area/maintenance/fore)
-"eql" = (
-/obj/structure/stairs,
-/obj/structure/railing{
-	dir = 4
-	},
-/turf/open/floor/plasteel/elevatorshaft,
-/area/hallway/upper/secondary/command)
 "eqn" = (
 /obj/machinery/status_display/ai{
 	pixel_y = 32
@@ -26427,20 +26441,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/storage)
-"fHA" = (
-/obj/structure/railing{
-	layer = 3
-	},
-/obj/machinery/camera{
-	c_tag = "Floor 1 Command staircase";
-	name = "hallway camera"
-	},
-/obj/effect/turf_decal/numbers/two_nine{
-	dir = 4
-	},
-/obj/effect/turf_decal/box,
-/turf/open/floor/plasteel/elevatorshaft,
-/area/hallway/upper/secondary/command)
 "fHC" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line,
 /turf/open/floor/plasteel/dark{
@@ -28934,12 +28934,6 @@
 "ghB" = (
 /turf/closed/wall/r_wall,
 /area/science/robotics/mechbay)
-"ghG" = (
-/obj/structure/stairs{
-	dir = 1
-	},
-/turf/open/floor/plasteel/elevatorshaft,
-/area/ai_monitored/turret_protected/ai_upload_foyer)
 "ghH" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -29711,6 +29705,16 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
+"gqQ" = (
+/obj/machinery/elevator_indicator/secure{
+	pixel_x = -24
+	},
+/obj/structure/elevator_segment/secure,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/noslip/dark,
+/area/ai_monitored/turret_protected/ai_upload_foyer)
 "gqR" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -32183,7 +32187,9 @@
 /area/tcommsat/relay)
 "gRD" = (
 /obj/machinery/atmospherics/pipe/multiz/layer4,
-/obj/effect/turf_decal/delivery/red,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/secondary/command)
 "gRG" = (
@@ -34114,12 +34120,6 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/crew_quarters/heads/hop)
-"hkL" = (
-/obj/structure/railing{
-	dir = 8
-	},
-/turf/open/openspace,
-/area/hallway/upper/secondary/command)
 "hkO" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -36228,14 +36228,6 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
-"hGG" = (
-/obj/machinery/camera{
-	c_tag = "Floor 5 Command staircase";
-	name = "hallway camera"
-	},
-/obj/effect/turf_decal/box,
-/turf/open/openspace,
-/area/hallway/upper/secondary/command)
 "hGH" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -36700,11 +36692,6 @@
 	},
 /turf/open/openspace/cold,
 /area/iceland/shaded)
-"hKP" = (
-/obj/effect/turf_decal/numbers/two_nine,
-/obj/effect/turf_decal/box,
-/turf/open/floor/plasteel/elevatorshaft,
-/area/hallway/upper/secondary/command)
 "hKU" = (
 /obj/structure/table,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
@@ -39034,12 +39021,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
-"ijG" = (
-/obj/structure/railing{
-	layer = 3
-	},
-/turf/open/openspace,
-/area/hallway/upper/secondary/command)
 "ijK" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/wood,
@@ -48335,13 +48316,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/primary/central)
-"kgs" = (
-/obj/machinery/camera{
-	c_tag = "Floor 4 Command staircase";
-	name = "hallway camera"
-	},
-/turf/open/openspace,
-/area/hallway/upper/secondary/command)
 "kgC" = (
 /obj/effect/landmark/start/assistant,
 /obj/structure/chair/wood/normal{
@@ -50020,6 +49994,10 @@
 /obj/item/kirbyplants/random,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/theatre)
+"kyY" = (
+/obj/structure/elevator_segment/secure,
+/turf/open/floor/noslip/dark,
+/area/ai_monitored/turret_protected/ai_upload_foyer)
 "kza" = (
 /obj/machinery/door/airlock/research{
 	name = "Shuttle dock";
@@ -50673,6 +50651,13 @@
 	},
 /turf/open/openspace/cold,
 /area/iceland)
+"kHy" = (
+/obj/effect/turf_decal/caution/stand_clear/red,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/hallway/upper/secondary/command)
 "kHC" = (
 /obj/structure/window/plasma/reinforced,
 /turf/open/floor/plating/asteroid/basalt/iceland_surface,
@@ -52813,6 +52798,12 @@
 	},
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/theatre)
+"ldD" = (
+/obj/structure/sign/warning{
+	name = "\improper WARNING: ELEVATOR SHAFT"
+	},
+/turf/closed/wall/r_wall,
+/area/hallway/upper/secondary/command)
 "ldL" = (
 /obj/machinery/status_display/evac{
 	pixel_y = -32
@@ -54474,6 +54465,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/effect/turf_decal/caution/stand_clear,
 /turf/open/floor/plasteel/dark,
 /area/hallway/upper/secondary/command)
 "luE" = (
@@ -55346,6 +55338,12 @@
 /obj/effect/turf_decal/tile/dark/fourcorners,
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/primary/port)
+"lFX" = (
+/obj/structure/sign/warning{
+	name = "\improper WARNING: ELEVATOR SHAFT"
+	},
+/turf/closed/wall/r_wall,
+/area/ai_monitored/turret_protected/ai_upload_foyer)
 "lFY" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -60623,12 +60621,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
-"mJC" = (
-/obj/structure/railing{
-	dir = 4
-	},
-/turf/open/floor/plasteel/elevatorshaft,
-/area/ai_monitored/turret_protected/ai_upload_foyer)
 "mJD" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -72105,15 +72097,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
-"per" = (
-/obj/structure/stairs{
-	dir = 1
-	},
-/obj/structure/railing{
-	dir = 8
-	},
-/turf/open/floor/plasteel/elevatorshaft,
-/area/hallway/upper/secondary/command)
 "pet" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance/five,
@@ -77753,19 +77736,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
-"qoe" = (
-/obj/structure/stairs{
-	dir = 1
-	},
-/obj/structure/railing{
-	dir = 8
-	},
-/obj/structure/railing/corner{
-	dir = 1;
-	pixel_y = -23
-	},
-/turf/open/floor/plasteel/elevatorshaft,
-/area/hallway/upper/secondary/command)
 "qog" = (
 /obj/item/stack/medical/gauze,
 /obj/item/stack/medical/ointment,
@@ -79746,10 +79716,6 @@
 	},
 /turf/open/floor/carpet/royalblack,
 /area/library)
-"qIj" = (
-/obj/structure/railing/corner,
-/turf/open/floor/plasteel/elevatorshaft,
-/area/hallway/upper/secondary/command)
 "qIm" = (
 /obj/structure/table/wood,
 /obj/structure/disposalpipe/segment,
@@ -80182,6 +80148,10 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
+	},
+/obj/effect/turf_decal/caution/stand_clear,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai_upload_foyer)
@@ -82944,10 +82914,11 @@
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "rro" = (
-/obj/structure/railing{
-	layer = 3
+/obj/structure/elevator_segment/secure,
+/obj/machinery/light{
+	dir = 1
 	},
-/turf/open/floor/plasteel/elevatorshaft,
+/turf/open/floor/noslip/dark,
 /area/ai_monitored/turret_protected/ai_upload_foyer)
 "rrv" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -84366,13 +84337,6 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /turf/open/floor/carpet/royalblack,
 /area/library)
-"rJS" = (
-/obj/structure/railing/corner{
-	dir = 4;
-	pixel_y = -23
-	},
-/turf/open/openspace,
-/area/hallway/upper/secondary/command)
 "rJY" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -84637,13 +84601,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
-"rOj" = (
-/obj/effect/turf_decal/numbers{
-	dir = 8
-	},
-/obj/effect/turf_decal/box,
-/turf/open/floor/plasteel/elevatorshaft,
-/area/ai_monitored/turret_protected/ai_upload_foyer)
 "rOq" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
@@ -86856,6 +86813,10 @@
 "siC" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
+	},
+/obj/effect/turf_decal/caution/stand_clear,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai_upload_foyer)
@@ -90762,6 +90723,18 @@
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
+	},
+/obj/machinery/elevator_interface/secure{
+	preset_z = 1;
+	pixel_y = 24
+	},
+/obj/machinery/elevator_indicator/secure{
+	pixel_y = 24;
+	preset_z = 1;
+	pixel_x = 10
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai_upload_foyer)
@@ -94809,10 +94782,6 @@
 /obj/effect/turf_decal/caution,
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
-"tNi" = (
-/obj/structure/railing,
-/turf/open/openspace,
-/area/hallway/upper/secondary/command)
 "tNm" = (
 /obj/effect/turf_decal/trimline/yellow/line{
 	dir = 8
@@ -102932,17 +102901,6 @@
 /obj/machinery/vending/cola/random,
 /turf/open/floor/wood,
 /area/crew_quarters/locker)
-"vvZ" = (
-/obj/machinery/camera{
-	c_tag = "Floor 3 Command staircase";
-	name = "hallway camera"
-	},
-/obj/effect/turf_decal/numbers/two_nine{
-	dir = 1
-	},
-/obj/effect/turf_decal/box,
-/turf/open/floor/plasteel/elevatorshaft,
-/area/hallway/upper/secondary/command)
 "vwb" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/door/airlock/command/glass{
@@ -108432,13 +108390,6 @@
 /obj/structure/ladder,
 /turf/open/floor/plasteel/dark/snowdin,
 /area/iceland)
-"wFz" = (
-/obj/effect/turf_decal/box,
-/obj/effect/turf_decal/numbers/two_nine{
-	dir = 8
-	},
-/turf/open/floor/plasteel/elevatorshaft,
-/area/hallway/upper/secondary/command)
 "wFD" = (
 /obj/structure/railing{
 	dir = 8
@@ -110242,6 +110193,9 @@
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai_upload_foyer)
@@ -114416,6 +114370,13 @@
 /obj/effect/turf_decal/tile/dark/fourcorners,
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/primary/aft)
+"yat" = (
+/obj/machinery/elevator_interface/secure{
+	pixel_x = -24
+	},
+/obj/structure/elevator_segment/secure,
+/turf/open/floor/noslip/dark,
+/area/ai_monitored/turret_protected/ai_upload_foyer)
 "yaw" = (
 /obj/structure/table,
 /obj/item/restraints/handcuffs,
@@ -148066,10 +148027,10 @@ obX
 jvh
 uDz
 qSj
-qfB
-dpM
-dpM
-dpM
+lFX
+gqQ
+yat
+kyY
 dpM
 bWW
 gnM
@@ -148325,9 +148286,9 @@ tii
 rZn
 qfB
 aiJ
-mJC
-mJC
-rOj
+kyY
+kyY
+dpM
 qMj
 kQj
 bCG
@@ -148580,10 +148541,10 @@ sKv
 jvh
 gxG
 lRV
-qfB
+lFX
 rro
-ghG
-ghG
+kyY
+kyY
 dpM
 siC
 gak
@@ -213350,7 +213311,7 @@ lgz
 lgz
 lgz
 lgz
-lgz
+ldD
 hOC
 nCW
 eTW
@@ -213603,10 +213564,10 @@ eTW
 eTW
 gVf
 lgz
-rdV
-eql
-eql
-rdV
+qkU
+qkU
+qkU
+qkU
 xto
 dHb
 iXM
@@ -213860,10 +213821,10 @@ eTW
 eTW
 gVf
 lgz
-vvZ
-rdV
-rdV
-rdV
+qkU
+qkU
+qkU
+qkU
 mWb
 luD
 iXM
@@ -214117,11 +214078,11 @@ eTW
 eTW
 gVf
 lgz
-rdV
-hkL
-hkL
-rdV
-goN
+qkU
+qkU
+qkU
+qkU
+lgz
 dKj
 iXM
 eTW
@@ -214378,7 +214339,7 @@ lgz
 lgz
 lgz
 lgz
-lgz
+goN
 iXM
 iXM
 eTW
@@ -279141,8 +279102,8 @@ ohO
 lgz
 qkU
 qkU
-rJS
-rdV
+qkU
+qkU
 lgz
 vKF
 vHs
@@ -279396,10 +279357,10 @@ eTW
 eTW
 vzA
 lgz
-kgs
 qkU
-tNi
-hKP
+qkU
+qkU
+qkU
 lgz
 vHs
 vHs
@@ -279654,9 +279615,9 @@ yjJ
 ohO
 lgz
 qkU
-per
-qoe
-rdV
+qkU
+qkU
+qkU
 lgz
 qat
 vHs
@@ -344675,9 +344636,9 @@ eTW
 mkL
 ohO
 lgz
-qIj
-eql
-eql
+qkU
+qkU
+qkU
 qkU
 lgz
 qoN
@@ -344932,7 +344893,7 @@ eTW
 eTW
 qJI
 lgz
-fHA
+qkU
 qkU
 qkU
 qkU
@@ -345189,7 +345150,7 @@ eTW
 xgu
 ohO
 lgz
-dYB
+qkU
 qkU
 qkU
 qkU
@@ -410214,7 +410175,7 @@ lgz
 qkU
 qkU
 qkU
-rdV
+qkU
 xto
 gRD
 dzv
@@ -410468,12 +410429,12 @@ ntU
 hNE
 ots
 lgz
-hGG
 qkU
-ijG
-wFz
+qkU
+qkU
+qkU
 aWI
-tBx
+kHy
 qAX
 dvj
 dvj
@@ -410727,8 +410688,8 @@ ahW
 lgz
 qkU
 qkU
-ijG
-rdV
+qkU
+qkU
 lgz
 aCp
 uHr
@@ -410986,7 +410947,7 @@ lgz
 lgz
 lgz
 lgz
-lgz
+ldD
 tBx
 dQO
 tBx
