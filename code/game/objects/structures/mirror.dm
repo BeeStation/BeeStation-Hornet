@@ -140,15 +140,8 @@
 		return
 
 	var/available_choicse = list("name", "race", "gender", "hair", "eyes")
-
-	var/list/character_list = list()
-	for(var/do_only_once in 1 to uses_preference)
-		character_list = user.client.prefs.get_character_list()
-		if(!length(character_list))
-			break
-		available_choicse += "-----------"
-		available_choicse += character_list
-
+	if(uses_preference)
+		available_choicse += "check your character list"
 
 	var/choice = input(user, "Something to change?", "Magical Grooming") as null|anything in available_choicse
 
@@ -263,12 +256,15 @@
 				H.dna.update_ui_block(DNA_EYE_COLOR_BLOCK)
 				H.update_body()
 
+
 		// become a character from your prefs that you choose
-		else
-			if(!character_list[choice])
+		if("check your character list")
+			var/list/character_list = user.client.prefs.get_character_list()
+			if(!length(character_list))
 				return
 
-			if(user.client.prefs.apply_pref_to_character(H, character_list[choice], changes_mind_name))
+			var/character_choice = input(user, "Select a character to copy its appearance to you", "Magical Grooming: Character list") as null|anything in character_list
+			if(user.client.prefs.apply_pref_to_character(H, character_list[character_choice], changes_mind_name))
 				who_are_you()
 			else
 				return // something's wrong to copy
