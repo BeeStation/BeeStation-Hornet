@@ -32,3 +32,7 @@
 /datum/generecipe/mindread
 	required = "/datum/mutation/antenna; /datum/mutation/paranoia"
 	result = MINDREAD
+
+/datum/generecipe/thoughtbarrior
+	required = "/datum/mutation/mindread; /datum/mutation/badblink"
+	result = THOUGHTBARRIOR

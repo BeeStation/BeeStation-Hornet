@@ -488,6 +488,14 @@
 	name = "\improper DNA injector (Anti-Mindread)"
 	remove_mutations = list(MINDREAD)
 
+/obj/item/dnainjector/thoughtbarrior
+	name = "\improper DNA injector (Thoughtbarrior)"
+	add_mutations = list(THOUGHTBARRIOR)
+
+/obj/item/dnainjector/antithoughtbarrior
+	name = "\improper DNA injector (Anti-Thoughtbarrior)"
+	remove_mutations = list(THOUGHTBARRIOR)
+
 /obj/item/dnainjector/timed
 	var/duration = 600
 

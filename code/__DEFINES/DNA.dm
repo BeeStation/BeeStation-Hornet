@@ -57,6 +57,7 @@
 #define ACIDOOZE    /datum/mutation/acidooze
 #define MEDIEVAL    /datum/mutation/medieval
 #define MINDREAD    /datum/mutation/mindread
+#define THOUGHTBARRIOR /datum/mutation/thoughtbarrior
 
 #define UI_CHANGED "ui changed"
 #define UE_CHANGED "ue changed"

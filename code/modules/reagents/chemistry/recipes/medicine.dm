@@ -218,9 +218,8 @@
 /datum/chemical_reaction/dexalin
 	name = "Dexalin"
 	id = "dexalin"
-	results = list(/datum/reagent/medicine/dexalin = 5)
-	required_reagents = list(/datum/reagent/oxygen = 5, /datum/reagent/nitrogen = 5)
-	required_catalysts = list(/datum/reagent/toxin/plasma = 5)
+	results = list(/datum/reagent/medicine/dexalin = 3)
+	required_reagents = list(/datum/reagent/carbon = 1, /datum/reagent/oxygen = 1, /datum/reagent/consumable/sugar = 1)
 
 /datum/chemical_reaction/dexalinp
 	name = "Dexalin Plus"
