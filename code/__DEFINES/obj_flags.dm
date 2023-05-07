@@ -9,12 +9,11 @@
 #define ON_BLUEPRINTS			(1<<5)  //! Are we visible on the station blueprints at roundstart?
 #define UNIQUE_RENAME			(1<<6)  //! can you customize the description/name of the thing?
 #define USES_TGUI				(1<<7)  //! put on things that use tgui on ui_interact instead of custom/old UI.
-#define FROZEN					(1<<8)
-#define BLOCK_Z_OUT_DOWN		(1<<9)  // Should this object block z falling from loc?
-#define BLOCK_Z_OUT_UP			(1<<10) // Should this object block z uprise from loc?
-#define BLOCK_Z_IN_DOWN			(1<<11) // Should this object block z falling from above?
-#define BLOCK_Z_IN_UP			(1<<12) // Should this object block z uprise from below?
-#define OBJ_EMPED				(1<<13) // Object is affected by EMP
+#define BLOCK_Z_OUT_DOWN		(1<<8)  // Should this object block z falling from loc?
+#define BLOCK_Z_OUT_UP			(1<<9) // Should this object block z uprise from loc?
+#define BLOCK_Z_IN_DOWN			(1<<10) // Should this object block z falling from above?
+#define BLOCK_Z_IN_UP			(1<<11) // Should this object block z uprise from below?
+#define OBJ_EMPED				(1<<12) // Object is affected by EMP
 
 // If you add new ones, be sure to add them to /obj/Initialize as well for complete mapping support
 
@@ -53,6 +52,7 @@
 #define SCAN_BOOZEPOWER         (1<<12) //! Allows helmets and glasses to scan reagents.
 #define MASKEXTENDRANGE			(1<<13) //! For masks, allows you to breathe from internals on adjecent tiles
 #define NOTCONSUMABLE			(1<<14) //! Moths cannot eat clothing with that flag
+#define HEADINTERNALS 			(1<<15) //! Headgear/helmet allows internals
 
 /// Flags for the organ_flags var on /obj/item/organ
 

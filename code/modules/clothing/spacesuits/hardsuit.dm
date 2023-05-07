@@ -18,7 +18,7 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT
+	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | HEADINTERNALS
 	var/current_tick_amount = 0
 	var/radiation_count = 0
 	var/grace = RAD_GEIGER_GRACE_PERIOD
@@ -76,6 +76,17 @@
 	else
 		soundloop.start(user)
 
+/obj/item/clothing/head/helmet/space/hardsuit/proc/toggle_hud(mob/user)
+	var/datum/component/team_monitor/worn/monitor = GetComponent(/datum/component/team_monitor/worn)
+	if(!monitor)
+		to_chat(user, "<span class='notice'>The suit is not fitted with a tracking beacon.</span>")
+		return
+	monitor.toggle_hud(!monitor.hud_visible, user)
+	if(monitor.hud_visible)
+		to_chat(user, "<span class='notice'>You toggle the heads up display of your suit.</span>")
+	else
+		to_chat(user, "<span class='warning'>You disable the heads up display of your suit.</span>")
+
 /obj/item/clothing/head/helmet/space/hardsuit/proc/display_visor_message(var/msg)
 	var/mob/wearer = loc
 	if(msg && ishuman(wearer))
@@ -105,6 +116,12 @@
 	. = ..()
 	display_visor_message("[severity > 1 ? "Light" : "Strong"] electromagnetic pulse detected!")
 
+/obj/item/clothing/head/helmet/space/hardsuit/ui_action_click(mob/user, datum/action)
+	switch(action.type)
+		if(/datum/action/item_action/toggle_beacon_hud)
+			toggle_hud(user)
+			return
+	. = ..()
 
 /obj/item/clothing/suit/space/hardsuit
 	name = "hardsuit"
@@ -174,6 +191,37 @@
 		for(var/X in jetpack.actions)
 			var/datum/action/A = X
 			A.Remove(user)
+
+/obj/item/clothing/suit/space/hardsuit/ui_action_click(mob/user, datum/actiontype)
+	switch(actiontype.type)
+		if(/datum/action/item_action/toggle_helmet)
+			ToggleHelmet()
+			return
+		if(/datum/action/item_action/toggle_beacon)
+			toggle_beacon(user)
+			return
+		if(/datum/action/item_action/toggle_beacon_frequency)
+			set_beacon_freq(user)
+			return
+	return ..()
+
+/obj/item/clothing/suit/space/hardsuit/proc/toggle_beacon(mob/user)
+	var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)
+	if(!beacon)
+		to_chat(user, "<span class='notice'>The suit is not fitted with a tracking beacon.</span>")
+		return
+	beacon.toggle_visibility(!beacon.visible)
+	if(beacon.visible)
+		to_chat(user, "<span class='notice'>You enable the tracking beacon on [src]. Anybody on the same frequency will now be able to track your location.</span>")
+	else
+		to_chat(user, "<span class='warning'>You disable the tracking beacon on [src].</span>")
+
+/obj/item/clothing/suit/space/hardsuit/proc/set_beacon_freq(mob/user)
+	var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)
+	if(!beacon)
+		to_chat(user, "<span class='notice'>The suit is not fitted with a tracking beacon.</span>")
+		return
+	beacon.change_frequency(user)
 
 /obj/item/clothing/suit/space/hardsuit/item_action_slot_check(slot)
 	if(slot == ITEM_SLOT_OCLOTHING) //we only give the mob the ability to toggle the helmet if he's wearing the hardsuit.
@@ -290,6 +338,21 @@
 	armor = list(MELEE = 35,  BULLET = 15, LASER = 20, ENERGY = 10, BOMB = 50, BIO = 100, RAD = 50, FIRE = 50, ACID = 75, STAMINA = 20)
 	light_range = 6
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator)
+	actions_types = list(
+		/datum/action/item_action/toggle_helmet_light,
+		/datum/action/item_action/toggle_beacon_hud/explorer
+		)
+
+/obj/item/clothing/head/helmet/space/hardsuit/exploration/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/team_monitor/worn, EXPLORATION_TRACKING, -1)
+
+/obj/item/clothing/head/helmet/space/hardsuit/exploration/ui_action_click(mob/user, datum/action)
+	switch(action.type)
+		if(/datum/action/item_action/toggle_beacon_hud/explorer)
+			toggle_hud(user)
+			return
+	. = ..()
 
 /obj/item/clothing/suit/space/hardsuit/exploration
 	icon_state = "hardsuit-exploration"
@@ -301,6 +364,9 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/storage/bag/ore, /obj/item/pickaxe)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/exploration
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
+	actions_types = list(
+		/datum/action/item_action/toggle_helmet
+	)
 
 	//Cybersun Hardsuit
 	//A kind of side-grade to the explorer suit, sacrificing burn protection for brute. If you can kill the guy inside it, anyways.
@@ -340,7 +406,7 @@
 	actions_types = list(/datum/action/item_action/toggle_helmet_mode,\
 		/datum/action/item_action/toggle_beacon_hud)
 	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE|HIDEFACIALHAIR|HIDEEARS|HIDESNOUT
-	visor_flags = STOPSPRESSUREDAMAGE
+	visor_flags = STOPSPRESSUREDAMAGE | HEADINTERNALS
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/update_icon()
 	icon_state = "hardsuit[on]-[hardsuit_type]"
@@ -352,29 +418,18 @@
 		linkedsuit = loc
 		//NOTE FOR COPY AND PASTING: BEACON MUST BE MADE FIRST
 		//Add the monitor (Default to null - No tracking)
-		var/datum/component/tracking_beacon/component_beacon = linkedsuit.AddComponent(/datum/component/tracking_beacon, "synd", null, null, TRUE, "#8f4a4b")
+		var/datum/component/tracking_beacon/component_beacon = linkedsuit.AddComponent(/datum/component/tracking_beacon, "synd", null, null, TRUE, "#8f4a4b", FALSE, FALSE, "#573d3d")
 		//Add the monitor (Default to null - No tracking)
-		component_beacon.attached_monitor = AddComponent(/datum/component/team_monitor, "synd", null, component_beacon)
+		component_beacon.attached_monitor = AddComponent(/datum/component/team_monitor/worn, "synd", null, component_beacon)
 	else
-		AddComponent(/datum/component/team_monitor, "synd", null)
+		AddComponent(/datum/component/team_monitor/worn, "synd", -1)
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/ui_action_click(mob/user, datum/action)
 	switch(action.type)
 		if(/datum/action/item_action/toggle_helmet_mode)
 			attack_self(user)
-		if(/datum/action/item_action/toggle_beacon_hud)
-			toggle_hud(user)
-
-/obj/item/clothing/head/helmet/space/hardsuit/syndi/proc/toggle_hud(mob/user)
-	var/datum/component/team_monitor/monitor = GetComponent(/datum/component/team_monitor)
-	if(!monitor)
-		to_chat(user, "<span class='notice'>The suit is not fitted with a tracking beacon.</span>")
-		return
-	monitor.toggle_hud(!monitor.hud_visible, user)
-	if(monitor.hud_visible)
-		to_chat(user, "<span class='notice'>You toggle the heads up display of your suit.</span>")
-	else
-		to_chat(user, "<span class='warning'>You disable the heads up display of your suit.</span>")
+			return
+	..()
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/attack_self(mob/user) //Toggle Helmet
 	if(!isturf(user.loc))
@@ -450,33 +505,6 @@
 /obj/item/clothing/suit/space/hardsuit/syndi/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
-
-/obj/item/clothing/suit/space/hardsuit/syndi/ui_action_click(mob/user, datum/actiontype)
-	switch(actiontype.type)
-		if(/datum/action/item_action/toggle_helmet)
-			ToggleHelmet()
-		if(/datum/action/item_action/toggle_beacon)
-			toggle_beacon(user)
-		if(/datum/action/item_action/toggle_beacon_frequency)
-			set_beacon_freq(user)
-
-/obj/item/clothing/suit/space/hardsuit/syndi/proc/toggle_beacon(mob/user)
-	var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)
-	if(!beacon)
-		to_chat(user, "<span class='notice'>The suit is not fitted with a tracking beacon.</span>")
-		return
-	beacon.toggle_visibility(!beacon.visible)
-	if(beacon.visible)
-		to_chat(user, "<span class='notice'>You enable the tracking beacon on [src]. Anybody on the same frequency will now be able to track your location.</span>")
-	else
-		to_chat(user, "<span class='warning'>You disable the tracking beacon on [src].</span>")
-
-/obj/item/clothing/suit/space/hardsuit/syndi/proc/set_beacon_freq(mob/user)
-	var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)
-	if(!beacon)
-		to_chat(user, "<span class='notice'>The suit is not fitted with a tracking beacon.</span>")
-		return
-	beacon.change_frequency(user)
 
 /obj/item/clothing/suit/space/hardsuit/syndi/RemoveHelmet()
 	. = ..()
@@ -606,7 +634,7 @@
 	hardsuit_type = "medical"
 	flash_protect = 0
 	armor = list(MELEE = 30,  BULLET = 5, LASER = 10, ENERGY = 15, BOMB = 10, BIO = 100, RAD = 60, FIRE = 60, ACID = 75, STAMINA = 20)
-	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | SCAN_REAGENTS
+	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | SCAN_REAGENTS | HEADINTERNALS
 
 /obj/item/clothing/suit/space/hardsuit/medical
 	icon_state = "hardsuit-medical"
@@ -638,7 +666,7 @@
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	armor = list(MELEE = 30,  BULLET = 5, LASER = 10, ENERGY = 15, BOMB = 100, BIO = 100, RAD = 60, FIRE = 60, ACID = 80, STAMINA = 30)
 	var/obj/machinery/doppler_array/integrated/bomb_radar
-	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | SCAN_REAGENTS
+	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | SCAN_REAGENTS | HEADINTERNALS
 	actions_types = list(/datum/action/item_action/toggle_helmet_light, /datum/action/item_action/toggle_research_scanner)
 
 /obj/item/clothing/head/helmet/space/hardsuit/rd/Initialize(mapload)
@@ -929,24 +957,6 @@
 		if(/datum/action/item_action/toggle_beacon_frequency)
 			set_beacon_freq(user)
 
-/obj/item/clothing/suit/space/hardsuit/shielded/syndi/proc/toggle_beacon(mob/user)
-	var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)
-	if(!beacon)
-		to_chat(user, "<span class='notice'>The suit is not fitted with a tracking beacon.</span>")
-		return
-	beacon.toggle_visibility(!beacon.visible)
-	if(beacon.visible)
-		to_chat(user, "<span class='notice'>You enable the tracking beacon on [src]. Anybody on the same frequency will now be able to track your location.</span>")
-	else
-		to_chat(user, "<span class='warning'>You disable the tracking beacon on [src].</span>")
-
-/obj/item/clothing/suit/space/hardsuit/shielded/syndi/proc/set_beacon_freq(mob/user)
-	var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)
-	if(!beacon)
-		to_chat(user, "<span class='notice'>The suit is not fitted with a tracking beacon.</span>")
-		return
-	beacon.change_frequency(user)
-
 //Helmet - With built in HUD
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi
@@ -965,11 +975,11 @@
 		var/obj/linkedsuit = loc
 		//NOTE FOR COPY AND PASTING: BEACON MUST BE MADE FIRST
 		//Add the monitor (Default to null - No tracking)
-		var/datum/component/tracking_beacon/component_beacon = linkedsuit.AddComponent(/datum/component/tracking_beacon, "synd", null, null, TRUE, "#8f4a4b")
+		var/datum/component/tracking_beacon/component_beacon = linkedsuit.AddComponent(/datum/component/tracking_beacon, "synd", null, null, TRUE, "#8f4a4b", FALSE, FALSE, "#573d3d")
 		//Add the monitor (Default to null - No tracking)
-		component_beacon.attached_monitor = AddComponent(/datum/component/team_monitor, "synd", null, component_beacon)
+		component_beacon.attached_monitor = AddComponent(/datum/component/team_monitor/worn, "synd", null, component_beacon)
 	else
-		AddComponent(/datum/component/team_monitor, "synd", null)
+		AddComponent(/datum/component/team_monitor/worn, "synd", -1)
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi/ui_action_click(mob/user, datum/action)
 	switch(action.type)
@@ -977,17 +987,6 @@
 			toggle_helmlight()
 		if(/datum/action/item_action/toggle_beacon_hud)
 			toggle_hud(user)
-
-/obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi/proc/toggle_hud(mob/user)
-	var/datum/component/team_monitor/monitor = GetComponent(/datum/component/team_monitor)
-	if(!monitor)
-		to_chat(user, "<span class='notice'>The suit is not fitted with a tracking beacon.</span>")
-		return
-	monitor.toggle_hud(!monitor.hud_visible, user)
-	if(monitor.hud_visible)
-		to_chat(user, "<span class='notice'>You toggle the heads up display of your suit.</span>")
-	else
-		to_chat(user, "<span class='warning'>You disable the heads up display of your suit.</span>")
 
 ///SWAT version
 /obj/item/clothing/suit/space/hardsuit/shielded/swat

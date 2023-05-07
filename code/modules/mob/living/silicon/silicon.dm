@@ -67,6 +67,17 @@
 	create_access_card(default_access_list)
 	default_access_list = null
 
+/mob/living/silicon/Destroy()
+	QDEL_NULL(radio)
+	QDEL_NULL(aicamera)
+	QDEL_NULL(builtInCamera)
+	laws?.owner = null //Laws will refuse to die otherwise.
+	QDEL_NULL(laws)
+	QDEL_NULL(modularInterface)
+	QDEL_NULL(internal_id_card)
+	GLOB.silicon_mobs -= src
+	return ..()
+
 /mob/living/silicon/proc/create_access_card(list/access_list)
 	if(!internal_id_card)
 		internal_id_card = new()
@@ -102,15 +113,6 @@
 
 /mob/living/silicon/med_hud_set_status()
 	return //we use a different hud
-
-/mob/living/silicon/Destroy()
-	radio = null
-	aicamera = null
-	modularInterface = null
-	QDEL_NULL(builtInCamera)
-	QDEL_NULL(internal_id_card)
-	GLOB.silicon_mobs -= src
-	return ..()
 
 /mob/living/silicon/contents_explosion(severity, target)
 	return
