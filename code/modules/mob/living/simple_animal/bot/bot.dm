@@ -969,7 +969,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		if(!ishuman(usr) || !usr.canUseTopic(src, BE_CLOSE))
 			return FALSE
 		if(!carryable)
-			to_chat(usr, "<span class='notice'>[src] too large to carry!.</span>")
+			to_chat(usr, "<span class='notice'>[src] too large to carry!</span>")
 			return FALSE
 		if(on || booting)
 			to_chat(usr, "<span class='notice'>You need to turn [src] off before carrying it around.</span>")
