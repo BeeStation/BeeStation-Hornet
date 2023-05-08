@@ -179,6 +179,12 @@
 	name = "Abductee"
 	roundend_category = "abductees"
 	antagpanel_category = "Abductee"
+	var/custom_objective
+
+/datum/antagonist/abductee/New(custom_objective)
+	. = ..()
+	if(custom_objective)
+		src.custom_objective = custom_objective
 
 /datum/antagonist/abductee/on_gain()
 	give_objective()
@@ -195,10 +201,14 @@
 
 /datum/antagonist/abductee/proc/give_objective()
 	var/mob/living/carbon/human/H = owner.current
-	var/objtype = (prob(75) ? /datum/objective/abductee/random : pick(subtypesof(/datum/objective/abductee/) - /datum/objective/abductee/random))
-	var/datum/objective/abductee/O = new objtype()
-	objectives += O
-	log_objective(H, O.explanation_text)
+	var/datum/objective/abductee/objective
+	if(custom_objective)
+		objective = new /datum/objective/abductee/custom(custom_objective)
+	else
+		var/objective_type = (prob(75) ? /datum/objective/abductee/random : pick(subtypesof(/datum/objective/abductee/) - /datum/objective/abductee/random))
+		objective = new objective_type
+	objectives += objective
+	log_objective(H, objective.explanation_text)
 
 /datum/antagonist/abductee/apply_innate_effects(mob/living/mob_override)
 	update_abductor_icons_added(mob_override ? mob_override.mind : owner,"abductee")

@@ -101,7 +101,7 @@
 			var/mob/living/mob_occupant = occupant
 			if(mob_occupant.stat == DEAD)
 				return
-			flash = experiment(mob_occupant, params["experiment_type"], usr)
+			flash = experiment(mob_occupant, params["experiment_type"], usr, params["objective"])
 			return TRUE
 
 /**
@@ -112,7 +112,7 @@
  * * type The type of experiment to be performed
  * * user The mob starting the experiment
  */
-/obj/machinery/abductor/experiment/proc/experiment(mob/occupant, type, mob/user)
+/obj/machinery/abductor/experiment/proc/experiment(mob/occupant, type, mob/user, custom_objective)
 	LAZYINITLIST(history)
 	var/mob/living/carbon/human/H = occupant
 
@@ -147,7 +147,11 @@
 				to_chat(H, "<span class='warning'>You feel intensely watched.</span>")
 		sleep(5)
 		user_abductor.team.abductees += H.mind
-		H.mind.add_antag_datum(/datum/antagonist/abductee)
+		if(custom_objective)
+			deadchat_broadcast("<span class='deadsay'><b>[H]</b> has been imprinted with the custom abductee objective: <b>[custom_objective]</b></span>", follow_target = occupant, turf_target = get_turf(occupant), message_type = DEADCHAT_REGULAR)
+			log_game("[key_name(user)] imprinted [key_name(occupant)] with the custom abductee objective '[custom_objective]'.")
+			message_admins("[ADMIN_LOOKUPFLW(user)] imprinted [ADMIN_LOOKUPFLW(occupant)] with the custom abductee objective '[custom_objective]'.")
+		H.mind.add_antag_datum(new /datum/antagonist/abductee(custom_objective))
 
 		for(var/obj/item/organ/heart/gland/G in H.internal_organs)
 			G.Start()
