@@ -124,7 +124,7 @@ export const ProbingConsole = (_props, context) => {
                 <Input
                   value={customObjective}
                   onInput={(_e, value) => setCustomObjective(value)}
-                  placeholder="Objective" 
+                  placeholder="Optional Objective" 
                   fluid />
               </LabeledList.Item>
               <LabeledList.Item label="Experiments">
