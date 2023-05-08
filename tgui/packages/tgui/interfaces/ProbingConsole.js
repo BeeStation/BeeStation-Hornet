@@ -4,14 +4,14 @@ import { Window } from '../layouts';
 
 const ProbingConsoleConfirmation = (_props, context) => {
   const { act } = useBackend(context);
-  const [customObjective] = useLocalState(context, 'customObjective', '');
+  const [customObjective, setCustomObjective] = useLocalState(context, 'customObjective', '');
   const [
     experimentPopup,
     setExperimentPopup,
   ] = useLocalState(context, 'experimentPopup', 0);
   return (
     <Dimmer>
-      <Stack align="baselin" textAlign="center" fontSize="14px" vertical>
+      <Stack align="baseline" textAlign="center" fontSize="14px" vertical>
         <Stack.Item>
           <Icon
             color="yellow"
@@ -43,6 +43,7 @@ const ProbingConsoleConfirmation = (_props, context) => {
                     objective: customObjective,
                   });
                   setExperimentPopup(0);
+                  setCustomObjective('');
                 }} />
             </Stack.Item>
             <Stack.Item grow>
@@ -124,7 +125,7 @@ export const ProbingConsole = (_props, context) => {
                 <Input
                   value={customObjective}
                   onInput={(_e, value) => setCustomObjective(value)}
-                  placeholder="Optional Objective" 
+                  placeholder="Optional Objective"
                   fluid />
               </LabeledList.Item>
               <LabeledList.Item label="Experiments">
