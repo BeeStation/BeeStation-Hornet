@@ -96,6 +96,7 @@ To add a crossbreed:
 	. = ..()
 	if(discovery_points)
 		AddComponent(/datum/component/discoverable, discovery_points)
+
 /obj/item/slimecrossbeaker //To be used as a result for extract reactions that make chemicals.
 	name = "result extract"
 	desc = "You shouldn't see this."
