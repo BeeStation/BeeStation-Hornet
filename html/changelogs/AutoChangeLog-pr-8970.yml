@@ -1,4 +1,0 @@
-author: HowToLoLu
-delete-after: true
-changes:
-  - bugfix: Suit Storage no longer becomes anonamously locked open when breaking out

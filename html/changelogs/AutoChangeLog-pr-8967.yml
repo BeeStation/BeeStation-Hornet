@@ -1,5 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - rscadd: Added a VV dropdown option to generate a random name for humanoids based
-      on their species
