@@ -1,5 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - bugfix: Fixed Plasmamen with alternative helmet styles spawning without their
-      internals being open
