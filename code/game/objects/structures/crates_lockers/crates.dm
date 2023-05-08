@@ -339,8 +339,6 @@
 
 /obj/structure/closet/crate/capsule/proc/compress()
 	visible_message("<span class='notice'>[src] compresses back into a small capsule!.</span>")
-	do_smoke(0, loc, /obj/effect/particle_effect/smoke/transparent/short)
-	playsound(src, 'sound/effects/phasein.ogg', 15, 1)
 	var/obj/item/deployable/capsule/C = new(loc)
 	for(var/atom/movable/A in contents)
 		A.forceMove(C)

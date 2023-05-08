@@ -22,8 +22,6 @@
 /obj/item/deployable/capsule/deploy(mob/user, atom/location)
 	if(!active)
 		return
-	playsound(src, 'sound/effects/phasein.ogg', 15, 1)
-	do_smoke(0, location, /obj/effect/particle_effect/smoke/transparent/short)
 	..()
 
 /obj/item/deployable/capsule/attack_self(mob/user)
