@@ -8,3 +8,5 @@
 #define COMSIG_OBJ_SETANCHORED "obj_setanchored"	//! called in /obj/structure/setAnchored(): (value)
 #define COMSIG_OBJ_HIDE	"obj_hide"		//from base of /turf/proc/levelupdate(). (intact) true to hide and false to unhide
 
+/// from /obj/proc/make_unfrozen()
+#define COMSIG_OBJ_UNFREEZE "obj_unfreeze"
