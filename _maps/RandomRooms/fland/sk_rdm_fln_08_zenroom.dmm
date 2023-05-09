@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/turf/closed/wall,
+/turf/template_noop/closed,
 /area/template_noop)
 "c" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -76,13 +76,6 @@
 /obj/structure/chair/stool/bamboo,
 /turf/open/floor/bamboo,
 /area/template_noop)
-"x" = (
-/obj/machinery/newscaster{
-	pixel_x = -28;
-	pixel_y = 1
-	},
-/turf/open/floor/wood,
-/area/template_noop)
 "C" = (
 /obj/structure/table/wood,
 /obj/item/kirbyplants{
@@ -128,9 +121,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/template_noop,
 /area/template_noop)
-"K" = (
-/turf/closed/wall/r_wall,
-/area/template_noop)
 "L" = (
 /obj/structure/sign/poster/official/moth6{
 	pixel_x = -32
@@ -145,12 +135,9 @@
 /obj/item/seeds/tea/astra,
 /turf/open/floor/wood,
 /area/template_noop)
-"P" = (
+"Q" = (
 /obj/machinery/hydroponics/constructable,
 /obj/item/seeds/tea,
-/turf/open/floor/wood,
-/area/template_noop)
-"Q" = (
 /obj/machinery/light{
 	dir = 8
 	},
@@ -189,20 +176,18 @@
 (1,1,1) = {"
 U
 O
-P
 Q
 Z
 r
 r
 L
-x
+r
 h
 a
 "}
 (2,1,1) = {"
 W
 m
-c
 c
 d
 d
@@ -216,7 +201,6 @@ J
 W
 s
 V
-V
 k
 C
 G
@@ -228,7 +212,6 @@ a
 (4,1,1) = {"
 U
 I
-V
 Y
 v
 v
@@ -236,12 +219,11 @@ v
 D
 V
 o
-K
+a
 "}
 (5,1,1) = {"
 U
 e
-e
 U
 e
 e
@@ -249,5 +231,5 @@ e
 U
 e
 U
-K
+a
 "}
