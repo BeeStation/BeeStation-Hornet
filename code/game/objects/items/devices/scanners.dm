@@ -429,15 +429,15 @@ GENE SCANNER
 	if(target.reagents)
 		if(target.reagents.reagent_list.len)
 			message += "<span class='notice'>Subject contains the following reagents:</span>"
-			for(var/datum/reagent/R in M.reagents.reagent_list)
+			for(var/datum/reagent/R in target.reagents.reagent_list)
 				message += "<span class='notice'>[round(R.volume, 0.001)] units of [R.name][R.overdosed == 1 ? "</span> - <span class='boldannounce'>OVERDOSING</span>" : ".</span>"]"
 		else
 			message += "<span class='notice'>Subject contains no reagents.</span>"
 
 	// Addictions
-	if(LAZYLEN(M.mind?.active_addictions))
+	if(LAZYLEN(target.mind?.active_addictions))
 		message += "<span class='boldannounce ml-1'>Subject is addicted to the following types of drug:</span>"
-		for(var/datum/addiction/addiction_type as anything in M.mind.active_addictions)
+		for(var/datum/addiction/addiction_type as anything in target.mind.active_addictions)
 			message += "<span class='alert'>[initial(addiction_type.name)]</span>"
 	else
 		message += "<span class='notice'>Subject is not addicted to any types of drugs.</span>"

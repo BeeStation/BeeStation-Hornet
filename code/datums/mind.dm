@@ -74,10 +74,6 @@
 
 	/// A lazy list of statuses to add next to this mind in the traitor panel
 	var/list/special_statuses
-	///Assoc list of addiction values, key is the type of withdrawal (as singleton type), and the value is the amount of addiction points (as number)
-	var/list/addiction_points
-	///Assoc list of key active addictions and value amount of cycles that it has been active.
-	var/list/active_addictions
 	/// your bank account id in your mind
 	var/account_id
 
