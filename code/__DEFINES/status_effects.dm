@@ -113,13 +113,15 @@
 
 #define STATUS_EFFECT_COCOONED /datum/status_effect/cocooned /// If a moth is in a cocoon
 
+#define STATUS_EFFECT_LING_TRANSFORMATION /datum/status_effect/ling_transformation // transform stung by a changeling
+
 ///Raises click cooldowns for everything you do.
 #define STATUS_EFFECT_WOOZY /datum/status_effect/woozy
 
 ///Makes you bleed harder
 #define STATUS_EFFECT_HIGHBLOODPRESSURE /datum/status_effect/high_blood_pressure
 
-/// makes you seize up. reminds me of this video https://www.youtube.com/watch?v=wvkHIZg_954
+///Makes you seize up
 #define STATUS_EFFECT_SEIZURE /datum/status_effect/seizure
 
 //---------//

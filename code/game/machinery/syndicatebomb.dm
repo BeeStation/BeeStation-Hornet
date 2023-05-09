@@ -202,7 +202,7 @@
 	active = TRUE
 	begin_processing()
 	//Global teamfinder signal trackable on the synd frequency.
-	AddComponent(/datum/component/tracking_beacon, "synd", null, null, TRUE, "#ff2b2b", TRUE, TRUE)
+	AddComponent(/datum/component/tracking_beacon, "synd", null, null, TRUE, "#ff2b2b", TRUE, TRUE, "#c32bff")
 	countdown.start()
 	next_beep = world.time + 10
 	detonation_timer = world.time + (timer_set * 10)
@@ -425,7 +425,7 @@
 		chem_splash(get_turf(src), spread_range, list(reactants), temp_boost)
 
 		// Detonate it again in one second, until it's out of juice.
-		addtimer(CALLBACK(src, .proc/detonate), 10)
+		addtimer(CALLBACK(src, PROC_REF(detonate)), 10)
 
 	// If it's not a time release bomb, do normal explosion
 

@@ -159,7 +159,7 @@
 	if(usr != owner)
 		return
 	to_chat(owner, "<span class='notice'>You attempt to remove the durathread strand from around your neck.</span>")
-	if(do_after(owner, 35, null, owner))
+	if(do_after(owner, 35, target = owner, timed_action_flags = IGNORE_HELD_ITEM))
 		if(isliving(owner))
 			var/mob/living/L = owner
 			to_chat(owner, "<span class='notice'>You successfuly remove the durathread strand.</span>")
@@ -214,8 +214,8 @@
 		if(istype(syringestatus, /datum/status_effect/syringe))
 			var/obj/item/reagent_containers/syringe/syringe = syringestatus.syringe
 			to_chat(owner, "<span class='notice'>You begin carefully pulling the syringe out.</span>")
-			if(do_after(C, 20, null, owner))
-				to_chat(C, "<span class='notice'>You successfuly remove the syringe.</span>")
+			if(do_after(C, 20, target = owner, timed_action_flags = IGNORE_HELD_ITEM))
+				to_chat(C, "<span class='notice'>You succesfuly remove the syringe.</span>")
 				syringe.forceMove(C.loc)
 				C.put_in_hands(syringe)
 				qdel(syringestatus)
@@ -544,7 +544,7 @@
 /datum/status_effect/trance/on_apply()
 	if(!iscarbon(owner))
 		return FALSE
-	RegisterSignal(owner, COMSIG_MOVABLE_HEAR, .proc/hypnotize)
+	RegisterSignal(owner, COMSIG_MOVABLE_HEAR, PROC_REF(hypnotize))
 	ADD_TRAIT(owner, TRAIT_MUTE, "trance")
 	if(!owner.has_quirk(/datum/quirk/monochromatic))
 		owner.add_client_colour(/datum/client_colour/monochrome)
@@ -574,8 +574,8 @@
 		return
 	var/mob/living/carbon/C = owner
 	C.cure_trauma_type(/datum/brain_trauma/hypnosis, TRAUMA_RESILIENCE_SURGERY) //clear previous hypnosis
-	addtimer(CALLBACK(C, /mob/living/carbon.proc/gain_trauma, /datum/brain_trauma/hypnosis, TRAUMA_RESILIENCE_SURGERY, hearing_args[HEARING_RAW_MESSAGE]), 10)
-	addtimer(CALLBACK(C, /mob/living.proc/Stun, 60, TRUE, TRUE), 15) //Take some time to think about it
+	addtimer(CALLBACK(C, TYPE_PROC_REF(/mob/living/carbon, gain_trauma), /datum/brain_trauma/hypnosis, TRAUMA_RESILIENCE_SURGERY, hearing_args[HEARING_RAW_MESSAGE]), 10)
+	addtimer(CALLBACK(C, TYPE_PROC_REF(/mob/living, Stun), 60, TRUE, TRUE), 15) //Take some time to think about it
 	qdel(src)
 
 /datum/status_effect/spasms
@@ -1059,3 +1059,67 @@
 /datum/status_effect/cloudstruck/Destroy()
 	. = ..()
 	QDEL_NULL(mob_overlay)
+
+/datum/status_effect/ling_transformation
+	id = "ling_transformation"
+	status_type = STATUS_EFFECT_REPLACE
+	alert_type = null
+	/// The DNA that the status effect transforms the target into.
+	var/datum/dna/target_dna
+	/// The target's original DNA, which will be restored upon 'curing' them.
+	var/datum/dna/original_dna
+	/// How much "charge" the transformation has left. It's randomly set upon creation,
+	/// and ticks down every second if there's mutadone in the target's system.
+	var/charge_left
+
+/datum/status_effect/ling_transformation/on_creation(mob/living/new_owner, datum/dna/target_dna, datum/dna/original_dna)
+	if(!iscarbon(new_owner) || QDELETED(target_dna))
+		qdel(src)
+		return
+	src.target_dna = new target_dna.type
+	target_dna.copy_dna(src.target_dna)
+	charge_left = rand(45, 90)
+	if(original_dna)
+		src.original_dna = new original_dna.type
+		original_dna.copy_dna(src.original_dna)
+	return ..()
+
+/datum/status_effect/ling_transformation/on_apply()
+	. = ..()
+	if(!target_dna)
+		qdel(src)
+		return
+	var/mob/living/carbon/carbon_owner = owner
+	if(original_dna?.compare_dna(target_dna)) // Cleanly handle someone being transform stung back into their original identity
+		qdel(src)
+		return
+	else if(!original_dna)
+		original_dna = new carbon_owner.dna.type
+		carbon_owner.dna.copy_dna(original_dna)
+	apply_dna(target_dna)
+	to_chat(owner, "<span class='warning'>You don't feel like yourself anymore...</span>")
+
+/datum/status_effect/ling_transformation/on_remove()
+	. = ..()
+	if(QDELETED(owner) || !original_dna)
+		return
+	apply_dna(original_dna)
+	to_chat(owner, "<span class='notice'>You feel like yourself again!</span>")
+
+/datum/status_effect/ling_transformation/tick()
+	. = ..()
+	if(owner.reagents.has_reagent(/datum/reagent/medicine/clonexadone))
+		charge_left--
+		if(prob(4))
+			to_chat(owner, "<span class='notice'>You begin to feel slightly more like yourself...</span>")
+	if(charge_left <= 0)
+		qdel(src)
+
+/datum/status_effect/ling_transformation/proc/apply_dna(datum/dna/dna)
+	var/mob/living/carbon/carbon_owner = owner
+	if(!carbon_owner || !istype(carbon_owner))
+		return
+	dna.transfer_identity(carbon_owner, transfer_SE = TRUE)
+	carbon_owner.real_name = carbon_owner.dna.real_name
+	carbon_owner.updateappearance(mutcolor_update = TRUE)
+	carbon_owner.domutcheck()

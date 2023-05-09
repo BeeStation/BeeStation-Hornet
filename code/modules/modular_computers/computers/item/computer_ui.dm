@@ -16,7 +16,7 @@
 	)
 
 /obj/item/modular_computer/ui_interact(mob/user, datum/tgui/ui)
-	if(!enabled || !user.can_read(src) || !use_power())
+	if(!enabled || !user.is_literate() || !use_power())
 		if(ui)
 			ui.close()
 		return
@@ -59,6 +59,13 @@
 	if(old_open_ui != ui.interface)
 		update_static_data(user, ui) // forces a static UI update for the new UI
 		ui.send_assets() // sends any new asset datums from the new UI
+		if(active_program)
+			active_program.on_ui_create(user, ui)
+
+
+/obj/item/modular_computer/ui_close(mob/user, datum/tgui/tgui)
+	if(active_program)
+		active_program.on_ui_close(user, tgui)
 
 /obj/item/modular_computer/ui_assets(mob/user)
 	var/list/data = list()
@@ -264,7 +271,7 @@
 			update_id_display()
 
 			playsound(src, 'sound/machines/terminal_processing.ogg', 15, TRUE)
-			addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, src, 'sound/machines/terminal_success.ogg', 15, TRUE), 1.3 SECONDS)
+			addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), src, 'sound/machines/terminal_success.ogg', 15, TRUE), 1.3 SECONDS)
 			return TRUE
 		if("PC_Toggle_Auto_Imprint")
 			saved_auto_imprint = !saved_auto_imprint

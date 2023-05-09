@@ -130,7 +130,7 @@
 	else if(M.getBruteLoss() + M.getFireLoss() >= 70 && !active_coma)
 		to_chat(M, "<span class='warning'>You feel yourself slip into a deep, regenerative slumber.</span>")
 		active_coma = TRUE
-		addtimer(CALLBACK(src, .proc/coma, M), 60)
+		addtimer(CALLBACK(src, PROC_REF(coma), M), 60)
 
 /datum/symptom/heal/coma/proc/coma(mob/living/M)
 	if(deathgasp)
@@ -139,7 +139,7 @@
 		M.Unconscious(300, TRUE, TRUE)
 	M.update_stat()
 	M.update_mobility()
-	addtimer(CALLBACK(src, .proc/uncoma, M), 300)
+	addtimer(CALLBACK(src, PROC_REF(uncoma), M), 300)
 
 /datum/symptom/heal/coma/proc/uncoma(mob/living/M)
 	if(!active_coma)
@@ -742,7 +742,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 						candidates[prospect] += (candidate.stat - 1)
 						candidates[prospect] += (3 - get_dist(candidate, H)) * 2
 						candidates[prospect] += round(candidate.blood_volume / 150)
-				bloodbag = pickweight(candidates) //dont return here
+				bloodbag = pick_weight(candidates) //dont return here
 
 	if(bloodpoints >= maxbloodpoints)
 		return 0
@@ -845,7 +845,8 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		power += 1
 
 /datum/symptom/parasite/proc/isslimetarget(var/mob/living/carbon/M)
-	if(isslimeperson(M) || isluminescent(M) || isjellyperson(M) || isoozeling(M) || isstargazer(M))
+	if(isoozeling(M))
+//	if(isslimeperson(M) || isluminescent(M) || isoozeling(M) || isstargazer(M))
 		return TRUE
 	else
 		return FALSE

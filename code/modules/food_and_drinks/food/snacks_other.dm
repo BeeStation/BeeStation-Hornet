@@ -467,7 +467,7 @@
 		timer_id = null
 	chewing = (slot == ITEM_SLOT_MASK ? TRUE : FALSE)
 	if(chewing) //Set a timer to chew(), instead of calling chew for the convenience of being able to equip/unequip our pop
-		timer_id = addtimer(CALLBACK(src, .proc/chew), bite_frequency, TIMER_STOPPABLE)
+		timer_id = addtimer(CALLBACK(src, PROC_REF(chew)), bite_frequency, TIMER_STOPPABLE)
 
 /obj/item/reagent_containers/food/snacks/lollipop/dropped(mob/user)
 	. = ..()
@@ -481,7 +481,7 @@
 		if(M.health <= 0)
 			return
 		attack(M, M)
-		timer_id = addtimer(CALLBACK(src, .proc/chew), bite_frequency, TIMER_STOPPABLE)
+		timer_id = addtimer(CALLBACK(src, PROC_REF(chew)), bite_frequency, TIMER_STOPPABLE)
 
 /obj/item/reagent_containers/food/snacks/lollipop/long
 	name = "longpop"
@@ -492,7 +492,7 @@
 /obj/item/reagent_containers/food/snacks/lollipop/long/equipped(mob/user, slot)
 	..()
 	if(chewing)
-		RegisterSignal(user, COMSIG_LIVING_STATUS_KNOCKDOWN, .proc/on_trip, user)
+		RegisterSignal(user, COMSIG_LIVING_STATUS_KNOCKDOWN, PROC_REF(on_trip), user)
 	else
 		UnregisterSignal(user, COMSIG_LIVING_STATUS_KNOCKDOWN)
 
@@ -506,7 +506,7 @@
 
 /obj/item/reagent_containers/food/snacks/lollipop/cyborg/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, .proc/spamcheck), 1200)
+	addtimer(CALLBACK(src, PROC_REF(spamcheck)), 1200)
 
 /obj/item/reagent_containers/food/snacks/lollipop/cyborg/equipped(mob/living/user, slot)
 	. = ..(user, slot)
@@ -534,7 +534,7 @@
 
 /obj/item/reagent_containers/food/snacks/gumball/cyborg/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, .proc/spamcheck), 1200)
+	addtimer(CALLBACK(src, PROC_REF(spamcheck)), 1200)
 
 /obj/item/reagent_containers/food/snacks/gumball/cyborg/equipped(mob/living/user, slot)
 	. = ..(user, slot)

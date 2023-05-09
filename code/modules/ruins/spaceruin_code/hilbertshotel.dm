@@ -115,7 +115,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
     else
         placer = hotelRoomTemp.load(locate(roomReservation.bottom_left_coords[1], roomReservation.bottom_left_coords[2], roomReservation.bottom_left_coords[3]))
     activeRooms["[roomNumber]"] = roomReservation
-    placer.on_completion(CALLBACK(src, .proc/linkTurfs, roomReservation, roomNumber))
+    placer.on_completion(CALLBACK(src, PROC_REF(linkTurfs), roomReservation, roomNumber))
     do_sparks(3, FALSE, get_turf(user))
     user.forceMove(locate(roomReservation.bottom_left_coords[1] + hotelRoomTemp.landingZoneRelativeX, roomReservation.bottom_left_coords[2] + hotelRoomTemp.landingZoneRelativeY, roomReservation.bottom_left_coords[3]))
 
@@ -146,12 +146,12 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
                                 to_chat(M, "<span class='warning'>As the sphere breaks apart, you're suddenly ejected into the depths of space!")
                         var/max = world.maxx-TRANSITIONEDGE
                         var/min = 1+TRANSITIONEDGE
-                        var/list/possible_transtitons = list()
+                        var/list/possible_transitions = list()
                         for(var/AZ in SSmapping.z_list)
                             var/datum/space_level/D = AZ
                             if (D.linkage == CROSSLINKED)
-                                possible_transtitons += D.z_value
-                        var/_z = pick(possible_transtitons)
+                                possible_transitions += D.z_value
+                        var/_z = pick(possible_transitions)
                         var/_x = rand(min,max)
                         var/_y = rand(min,max)
                         var/turf/T = locate(_x, _y, _z)
@@ -164,12 +164,12 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
             for(var/atom/movable/A in atomList)
                 var/max = world.maxx-TRANSITIONEDGE
                 var/min = 1+TRANSITIONEDGE
-                var/list/possible_transtitons = list()
+                var/list/possible_transitions = list()
                 for(var/AZ in SSmapping.z_list)
                     var/datum/space_level/D = AZ
                     if (D.linkage == CROSSLINKED)
-                        possible_transtitons += D.z_value
-                var/_z = pick(possible_transtitons)
+                        possible_transitions += D.z_value
+                var/_z = pick(possible_transitions)
                 var/_x = rand(min,max)
                 var/_y = rand(min,max)
                 var/turf/T = locate(_x, _y, _z)

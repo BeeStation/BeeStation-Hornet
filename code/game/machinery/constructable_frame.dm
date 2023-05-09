@@ -205,7 +205,7 @@
 				for(var/obj/item/co in replacer)
 					part_list += co
 				//Sort the parts. This ensures that higher tier items are applied first.
-				part_list = sortTim(part_list, /proc/cmp_rped_sort)
+				part_list = sortTim(part_list, GLOBAL_PROC_REF(cmp_rped_sort))
 
 				for(var/path in req_components)
 					while(req_components[path] > 0 && (locate(path) in part_list))
@@ -232,7 +232,7 @@
 							S.merge(NS)
 					if(!QDELETED(part)) //If we're a stack and we merged we might not exist anymore
 						components += part
-					to_chat(user, "<span class='notice'>[part.name] applied.</span>")
+					to_chat(user, "<span class='notice'>You add [part] to [src].</span>")
 				if(added_components.len)
 					replacer.play_rped_sound()
 				return

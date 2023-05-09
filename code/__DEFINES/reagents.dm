@@ -15,19 +15,19 @@
 #define AMOUNT_VISIBLE (1<<6) // For non-transparent containers that still have the general amount of reagents in them visible.
 #define NO_REACT (1<<7) // Applied to a reagent holder, the contents will not react with each other.
 
+#define ABSOLUTELY_GRINDABLE (1<<8) //! used in 'All-In-One Grinder' that it can grind anything if it has this bitflag
+
 //pH and impurity shit, not desirable for us, but just for compatibility reasons if we ever want to pick those prs apart for their optimizations (3/20/2023)
 /*
-#define REAGENT_HOLDER_INSTANT_REACT (1<<8)  // Applied to a reagent holder, all of the reactions in the reagents datum will be instant. Meant to be used for things like smoke effects where reactions aren't meant to occur
+#define REAGENT_HOLDER_INSTANT_REACT (1<<9)  // Applied to a reagent holder, all of the reactions in the reagents datum will be instant. Meant to be used for things like smoke effects where reactions aren't meant to occur
 ///If the holder is "alive" (i.e. mobs and organs) - If this flag is applied to a holder it will cause reagents to split upon addition to the object
-#define REAGENT_HOLDER_ALIVE (1<<9)
+#define REAGENT_HOLDER_ALIVE (1<<10)
 */
 
 /*
 ///If the holder a sealed container - Used if you don't want reagent contents boiling out (plasma, specifically, in which case it only bursts out when at ignition temperatures)
-#define SEALED_CONTAINER (1<<10)
+#define SEALED_CONTAINER (1<<11)
 */
-
-#define ABSOLUTELY_GRINDABLE (1<<7) //! used in 'All-In-One Grinder' that it can grind anything if it has this bitflag
 
 // Is an open container for all intents and purposes.
 #define OPENCONTAINER (REFILLABLE | DRAINABLE | TRANSPARENT)
@@ -99,7 +99,7 @@
 GLOBAL_LIST_INIT(pill_shape_list, list(
 		"pill_shape_capsule_purple_pink",
 		"pill_shape_capsule_bloodred",
-		"pill_shape_capsule_red_whiteline",
+		"pill_shape_capsule_red_whitelined",
 		"pill_shape_capsule_orange",
 		"pill_shape_capsule_yellow",
 		"pill_shape_capsule_green",

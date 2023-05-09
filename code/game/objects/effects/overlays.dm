@@ -77,13 +77,3 @@
 	layer = FLOAT_LAYER
 	vis_flags = VIS_INHERIT_ID
 	appearance_flags = KEEP_TOGETHER | LONG_GLIDE | PIXEL_SCALE
-
-/obj/effect/overlay/light_visible
-	name = ""
-	icon = 'icons/effects/light_overlays/light_32.dmi'
-	icon_state = "light"
-	plane = O_LIGHTING_VISUAL_PLANE
-	appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	alpha = 0
-	vis_flags = NONE

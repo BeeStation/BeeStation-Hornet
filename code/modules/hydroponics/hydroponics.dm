@@ -369,7 +369,7 @@
 		if(14 to 15)
 			myseed = new /obj/item/seeds/nettle(src)
 		if(12 to 13)
-			myseed = new /obj/item/seeds/harebell(src)
+			myseed = new /obj/item/seeds/flower/harebell(src)
 		if(10 to 11)
 			myseed = new /obj/item/seeds/amanita(src)
 		if(8 to 9)
@@ -399,6 +399,11 @@
 /obj/machinery/hydroponics/proc/hardmutate()
 	mutate(4, 10, 2, 4, 50, 4, 10, 3)
 
+/obj/machinery/hydroponics/proc/glowmutate()
+	if(!myseed)
+		return
+	myseed.add_random_glow()
+
 
 /obj/machinery/hydroponics/proc/mutatespecie() // Mutagent produced a new plant!
 	if(!myseed || dead)
@@ -421,7 +426,7 @@
 	weedlevel = 0 // Reset
 
 	var/message = "<span class='warning'>[oldPlantName] suddenly mutates into [myseed.plantname]!</span>"
-	addtimer(CALLBACK(src, .proc/after_mutation, message), 0.5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(after_mutation), message), 0.5 SECONDS)
 
 
 /obj/machinery/hydroponics/proc/mutateweed() // If the weeds gets the mutagent instead. Mind you, this pretty much destroys the old plant
@@ -440,7 +445,7 @@
 		weedlevel = 0 // Reset
 
 		var/message = "<span class='warning'>The mutated weeds in [src] spawn some [myseed.plantname]!</span>"
-		addtimer(CALLBACK(src, .proc/after_mutation, message), 0.5 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(after_mutation), message), 0.5 SECONDS)
 	else
 		to_chat(usr, "<span class='warning'>The few weeds in [src] seem to react, but only for a moment...</span>")
 
@@ -500,6 +505,10 @@
 		hardmutate()
 	else if(S.has_reagent(/datum/reagent/toxin/mutagen, 1) || S.has_reagent(/datum/reagent/uranium/radium, 2) || S.has_reagent(/datum/reagent/uranium, 2))
 		mutate()
+
+	//Bioluminescence only mutation
+	if(S.has_reagent(/datum/reagent/colorful_reagent, 1))
+		glowmutate()
 
 	// After handling the mutating, we now handle the damage from adding crude radioactives...
 	if(S.has_reagent(/datum/reagent/uranium, 1))

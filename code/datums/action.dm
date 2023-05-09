@@ -48,7 +48,7 @@
 				return
 			Remove(owner)
 		owner = M
-		RegisterSignal(owner, COMSIG_PARENT_QDELETING, .proc/owner_deleted)
+		RegisterSignal(owner, COMSIG_PARENT_QDELETING, PROC_REF(owner_deleted))
 
 		//button id generation
 		var/counter = 0
@@ -351,6 +351,9 @@
 	name = "Toggle Hardsuit Locator HUD"
 	icon_icon = 'icons/mob/actions.dmi'
 	button_icon_state = "toggle-hud"
+
+/datum/action/item_action/toggle_beacon_hud/explorer
+	button_icon_state = "toggle-hud-explo"
 
 /datum/action/item_action/toggle_beacon_frequency
 	name = "Toggle Hardsuit Locator Frequency"

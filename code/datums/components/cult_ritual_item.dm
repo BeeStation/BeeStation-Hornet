@@ -44,13 +44,13 @@
 	return ..()
 
 /datum/component/cult_ritual_item/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, .proc/try_scribe_rune)
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK, .proc/try_purge_holywater)
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK_OBJ, .proc/try_hit_object)
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK_EFFECT, .proc/try_clear_rune)
+	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(try_scribe_rune))
+	RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(try_purge_holywater))
+	RegisterSignal(parent, COMSIG_ITEM_ATTACK_OBJ, PROC_REF(try_hit_object))
+	RegisterSignal(parent, COMSIG_ITEM_ATTACK_EFFECT, PROC_REF(try_clear_rune))
 
 	if(examine_message)
-		RegisterSignal(parent, COMSIG_PARENT_EXAMINE, .proc/on_examine)
+		RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 
 /datum/component/cult_ritual_item/UnregisterFromParent()
 	UnregisterSignal(parent, list(
@@ -92,7 +92,7 @@
 		to_chat(user, "<span class='warning'>You are already drawing a rune.</span>")
 		return
 
-	INVOKE_ASYNC(src, .proc/start_scribe_rune, source, user)
+	INVOKE_ASYNC(src, PROC_REF(start_scribe_rune), source, user)
 
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
@@ -112,7 +112,7 @@
 	if(!target.reagents.get_reagent(/datum/reagent/water/holywater))
 		return
 
-	INVOKE_ASYNC(src, .proc/do_purge_holywater, user)
+	INVOKE_ASYNC(src, PROC_REF(do_purge_holywater), user)
 
 /*
  * Signal proc for [COMSIG_ITEM_ATTACK_OBJ].
@@ -125,11 +125,11 @@
 		return
 
 	if(istype(target, /obj/structure/girder/cult))
-		INVOKE_ASYNC(src, .proc/do_destroy_girder, target, cultist)
+		INVOKE_ASYNC(src, PROC_REF(do_destroy_girder), target, cultist)
 		return COMPONENT_NO_AFTERATTACK
 
 	if(istype(target, /obj/structure/destructible/cult))
-		INVOKE_ASYNC(src, .proc/do_unanchor_structure, target, cultist)
+		INVOKE_ASYNC(src, PROC_REF(do_unanchor_structure), target, cultist)
 		return COMPONENT_NO_AFTERATTACK
 
 /*
@@ -143,7 +143,7 @@
 		return
 
 	if(istype(target, /obj/effect/rune))
-		INVOKE_ASYNC(src, .proc/do_scrape_rune, target, cultist)
+		INVOKE_ASYNC(src, PROC_REF(do_scrape_rune), target, cultist)
 		return COMPONENT_NO_AFTERATTACK
 
 
@@ -300,6 +300,7 @@
 		"<span class='warning'>[cultist] [cultist.blood_volume ? "cuts open [cultist.p_their()] arm and begins writing in [cultist.p_their()] own blood":"begins sketching out a strange design"]!</span>",
 		"<span class='cult'>You [cultist.blood_volume ? "slice open your arm and ":""]begin drawing a sigil of the Geometer.</span>"
 		)
+	log_game("[key_name(cultist)] has begun inscribing the Narsie summon rune at [AREACOORD(cultist)]")
 
 	if(cultist.blood_volume)
 		cultist.apply_damage(initial(rune_to_scribe.scribe_damage), BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)) // *cuts arm* *bone explodes* ever have one of those days?
@@ -320,6 +321,7 @@
 		"<span class='warning'>[cultist] creates a strange circle[cultist.blood_volume ? " in [cultist.p_their()] own blood":""].</span>",
 		"<span class='cult'>You finish drawing the arcane markings of the Geometer.</span>"
 		)
+	log_game("[key_name(cultist)] has finished inscribing the Narsie summon rune at [AREACOORD(cultist)]")
 
 	cleanup_shields()
 	var/obj/effect/rune/made_rune = new rune_to_scribe(our_turf, chosen_keyword)
@@ -354,6 +356,7 @@
 	if(!check_if_in_ritual_site(cultist, cult_team))
 		return FALSE
 	priority_announce("Figments from an eldritch god are being summoned by [cultist.real_name] into [get_area(cultist)] from an unknown dimension. Disrupt the ritual at all costs!","Central Command Higher Dimensional Affairs", ANNOUNCER_SPANOMALIES)
+
 	for(var/shielded_turf in spiral_range_turfs(1, cultist, 1))
 		LAZYADD(shields, new /obj/structure/emergency_shield/sanguine(shielded_turf))
 

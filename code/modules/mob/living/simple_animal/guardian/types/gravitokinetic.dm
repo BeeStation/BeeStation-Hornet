@@ -13,7 +13,7 @@
 
 /mob/living/simple_animal/hostile/guardian/gravitokinetic/Initialize(mapload)
 	. = ..()
-	distance_check = CALLBACK(src, .proc/__distance_check)
+	distance_check = CALLBACK(src, PROC_REF(__distance_check))
 
 /mob/living/simple_animal/hostile/guardian/gravitokinetic/AttackingTarget()
 	. = ..()
@@ -49,7 +49,7 @@
 /mob/living/simple_animal/hostile/guardian/gravitokinetic/proc/add_gravity(atom/A, new_gravity = 2)
     A.AddElement(/datum/element/forced_gravity, new_gravity)
 	gravito_targets[A] = new_gravity
-	RegisterSignal(A, COMSIG_MOVABLE_MOVED, .proc/__distance_check)
+	RegisterSignal(A, COMSIG_MOVABLE_MOVED, PROC_REF(__distance_check))
 	playsound(src, 'sound/effects/gravhit.ogg', 100, TRUE)
 
 /mob/living/simple_animal/hostile/guardian/gravitokinetic/proc/remove_gravity(atom/target)

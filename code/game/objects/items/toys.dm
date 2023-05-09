@@ -310,6 +310,7 @@
 	attack_verb = list("pricked", "absorbed", "gored")
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
+	item_flags = ISWEAPON
 
 /*
  * Batong
@@ -324,6 +325,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	attack_verb = list("batonged", "stunned", "hit")
 	w_class = WEIGHT_CLASS_SMALL
+	item_flags = ISWEAPON
 
 /obj/item/toy/windupToolbox
 	name = "windup toolbox"
@@ -338,6 +340,7 @@
 	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
 	pickup_sound = 'sound/items/handling/toolbox_pickup.ogg'
 	attack_verb = list("robusted")
+	item_flags = ISWEAPON
 
 /obj/item/toy/windupToolbox/attack_self(mob/user)
 	if(!active)
@@ -346,7 +349,7 @@
 		active = TRUE
 		playsound(src, 'sound/effects/pope_entry.ogg', 100)
 		Rumble()
-		addtimer(CALLBACK(src, .proc/stopRumble), 600)
+		addtimer(CALLBACK(src, PROC_REF(stopRumble)), 600)
 	else
 		to_chat(user, "[src] is already active.")
 
@@ -386,6 +389,7 @@
 	attack_verb = list("attacked", "struck", "hit")
 	block_upgrade_walk = 0
 	block_level = 0
+	item_flags = ISWEAPON
 
 /obj/item/dualsaber/toy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0
@@ -414,6 +418,7 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	block_flags = BLOCKING_ACTIVE | BLOCKING_PROJECTILE //if it some how gets block level, katanas block projectiles for the meme
+	item_flags = ISWEAPON
 
 /*
  * Snap pops
@@ -447,7 +452,7 @@
 /obj/item/toy/snappop/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -469,7 +474,7 @@
 
 /obj/effect/decal/cleanable/ash/snappop_phoenix/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, .proc/respawn), respawn_time)
+	addtimer(CALLBACK(src, PROC_REF(respawn)), respawn_time)
 
 /obj/effect/decal/cleanable/ash/snappop_phoenix/proc/respawn()
 	new /obj/item/toy/snappop/phoenix(get_turf(src))
@@ -672,6 +677,7 @@
 /obj/item/toy/cards
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
+	item_flags = ISWEAPON
 	var/parentdeck = null
 	var/deckstyle = "nanotrasen"
 	var/card_hitsound = null
@@ -1177,6 +1183,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
+	item_flags = ISWEAPON
 
 /*
  * Toy Cog

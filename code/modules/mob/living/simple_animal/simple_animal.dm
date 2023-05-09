@@ -161,7 +161,7 @@
 	med_hud_set_status()
 
 
-/mob/living/simple_animal/handle_status_effects()
+/mob/living/simple_animal/handle_status_effects(delta_time)
 	..()
 	if(stuttering)
 		stuttering = 0
@@ -357,7 +357,7 @@
 		drop_all_held_items()
 	if(!gibbed)
 		if(deathsound || deathmessage || !del_on_death)
-			INVOKE_ASYNC(src, /mob.proc/emote, "deathgasp")
+			INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "deathgasp")
 	if(del_on_death)
 		..()
 		//Prevent infinite loops if the mob Destroy() is overridden in such
@@ -429,7 +429,7 @@
 		CHECK_TICK
 
 	if(partner && children < 3)
-		var/childspawn = pickweight(childtype)
+		var/childspawn = pick_weight(childtype)
 		var/turf/target = get_turf(loc)
 		if(target)
 			return new childspawn(target)
@@ -459,10 +459,10 @@
 		..()
 
 /mob/living/simple_animal/update_mobility(value_otherwise = TRUE)
-	if(IsUnconscious() || IsParalyzed() || IsStun() || IsKnockdown() || IsParalyzed() || stat || resting)
+	if(IsUnconscious() || IsParalyzed() || IsStun() || IsKnockdown() || stat || resting)
 		drop_all_held_items()
 		mobility_flags = NONE
-	else if(buckled)
+	else if(buckled || IsImmobilized())
 		mobility_flags = MOBILITY_FLAGS_INTERACTION
 	else
 		if(value_otherwise)

@@ -37,7 +37,7 @@
 
 /mob/living/silicon/robot/proc/lawsync()
 	laws_sanity_check()
-	var/datum/ai_laws/master = connected_ai ? connected_ai.laws : null
+	var/datum/ai_laws/master = connected_ai?.laws
 	var/temp
 	if (master)
 		laws.devillaws.len = master.devillaws.len
@@ -84,4 +84,4 @@
 
 /mob/living/silicon/robot/post_lawchange(announce = TRUE)
 	. = ..()
-	addtimer(CALLBACK(src, .proc/logevent,"Law update processed."), 0, TIMER_UNIQUE | TIMER_OVERRIDE) //Post_Lawchange gets spammed by some law boards, so let's wait it out
+	addtimer(CALLBACK(src, PROC_REF(logevent),"Law update processed."), 0, TIMER_UNIQUE | TIMER_OVERRIDE) //Post_Lawchange gets spammed by some law boards, so let's wait it out

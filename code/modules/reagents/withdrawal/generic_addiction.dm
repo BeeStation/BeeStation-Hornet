@@ -1,7 +1,7 @@
 ///Opiods
 /datum/addiction/opiods
 	name = "opiod"
-	withdrawal_stage_messages = list("I feel aches in my bodies..", "I need some pain relief...", "It aches all over...I need some opiods!")
+	withdrawal_stage_messages = list("My body is aching..", "I need some pain relief...", "It aches all over...I need some opiods!")
 
 /datum/addiction/opiods/withdrawal_stage_1_process(mob/living/carbon/affected_carbon, delta_time)
 	. = ..()
@@ -92,7 +92,7 @@
 
 /datum/addiction/maintenance_drugs
 	name = "maintenance drug"
-	withdrawal_stage_messages = list("", "", "")
+	withdrawal_stage_messages = null
 
 /datum/addiction/maintenance_drugs/withdrawal_enters_stage_1(mob/living/carbon/affected_carbon)
 	. = ..()
@@ -158,7 +158,7 @@
 ///Makes you a hypochondriac - I'd like to call it hypochondria, but "I could use some hypochondria" doesn't work
 /datum/addiction/medicine
 	name = "medicine"
-	withdrawal_stage_messages = list("", "", "")
+	withdrawal_stage_messages = list("I feel really sick...", "I really need to get to medbay!", "I NEED HELP, NOW!")
 	var/datum/hallucination/fake_alert/hallucination
 	var/datum/hallucination/fake_health_doll/hallucination2
 

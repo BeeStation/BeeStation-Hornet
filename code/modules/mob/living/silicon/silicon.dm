@@ -26,8 +26,8 @@
 
 	var/obj/item/radio/borg/radio = null //All silicons make use of this, with (p)AI's creating headsets
 
-	var/list/alarm_types_show = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
-	var/list/alarm_types_clear = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
+	var/list/alarm_types_show = list("Motion" = 0, FIRE = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
+	var/list/alarm_types_clear = list("Motion" = 0, FIRE = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
 
 	var/lawcheck[1]
 	var/ioncheck[1]
@@ -67,6 +67,17 @@
 	create_access_card(default_access_list)
 	default_access_list = null
 
+/mob/living/silicon/Destroy()
+	QDEL_NULL(radio)
+	QDEL_NULL(aicamera)
+	QDEL_NULL(builtInCamera)
+	laws?.owner = null //Laws will refuse to die otherwise.
+	QDEL_NULL(laws)
+	QDEL_NULL(modularInterface)
+	QDEL_NULL(internal_id_card)
+	GLOB.silicon_mobs -= src
+	return ..()
+
 /mob/living/silicon/proc/create_access_card(list/access_list)
 	if(!internal_id_card)
 		internal_id_card = new()
@@ -103,15 +114,6 @@
 /mob/living/silicon/med_hud_set_status()
 	return //we use a different hud
 
-/mob/living/silicon/Destroy()
-	radio = null
-	aicamera = null
-	modularInterface = null
-	QDEL_NULL(builtInCamera)
-	QDEL_NULL(internal_id_card)
-	GLOB.silicon_mobs -= src
-	return ..()
-
 /mob/living/silicon/contents_explosion(severity, target)
 	return
 
@@ -134,7 +136,7 @@
 		alarm_types_clear[type] += 1
 
 	if(!in_cooldown)
-		addtimer(CALLBACK(src, .proc/handle_alarms), 30) //3 second cooldown
+		addtimer(CALLBACK(src, PROC_REF(handle_alarms)), 30) //3 second cooldown
 
 /mob/living/silicon/proc/handle_alarms()
 	if(alarms_to_show.len < 5)

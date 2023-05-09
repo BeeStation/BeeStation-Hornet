@@ -146,7 +146,7 @@
 	for(var/X in atoms)
 		var/atom/A = X
 		fingerprints |= A.return_fingerprints()
-	listclearnulls(fingerprints)
+	list_clear_nulls(fingerprints)
 	if(fingerprints.len == 0)
 		return FALSE
 	return TRUE
@@ -165,7 +165,7 @@
 		to_chat(user, "<span class='warning'>These items don't possess the required fingerprints or DNA.</span>")
 		return FALSE
 
-	var/chosen_mob = input("Select the person you wish to curse","Your target") as null|anything in sortList(compiled_list, /proc/cmp_mob_realname_dsc)
+	var/chosen_mob = input("Select the person you wish to curse","Your target") as null|anything in sort_list(compiled_list, GLOBAL_PROC_REF(cmp_mob_realname_dsc))
 	if(!chosen_mob)
 		return FALSE
 	var/mob/living/living_mob = chosen_mob
@@ -173,7 +173,7 @@
 		to_chat(user, "<span class='warning'>The curse failed! The target is warded against curses.</span>")
 		return FALSE
 	curse(compiled_list[chosen_mob])
-	addtimer(CALLBACK(src, .proc/uncurse, compiled_list[chosen_mob]),timer)
+	addtimer(CALLBACK(src, PROC_REF(uncurse), compiled_list[chosen_mob]),timer)
 	return TRUE
 
 /datum/eldritch_knowledge/curse/proc/curse(mob/living/chosen_mob)
@@ -207,10 +207,10 @@
 	return TRUE
 
 //Ascension knowledge
-/datum/eldritch_knowledge/final
+/datum/eldritch_knowledge/last
 	var/finished = FALSE
 
-/datum/eldritch_knowledge/final/recipe_snowflake_check(list/atoms, loc,selected_atoms)
+/datum/eldritch_knowledge/last/recipe_snowflake_check(list/atoms, loc,selected_atoms)
 	if(finished)
 		return FALSE
 	var/counter = 0
@@ -221,13 +221,13 @@
 			return TRUE
 	return FALSE
 
-/datum/eldritch_knowledge/final/on_finished_recipe(mob/living/user, list/atoms, loc)
+/datum/eldritch_knowledge/last/on_finished_recipe(mob/living/user, list/atoms, loc)
 	finished = TRUE
 	var/datum/antagonist/heretic/ascension = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	ascension.ascended = TRUE
 	return TRUE
 
-/datum/eldritch_knowledge/final/cleanup_atoms(list/atoms)
+/datum/eldritch_knowledge/last/cleanup_atoms(list/atoms)
 	. = ..()
 	for(var/mob/living/carbon/human/H in atoms)
 		atoms -= H
@@ -304,10 +304,10 @@
 
 /datum/eldritch_knowledge/living_heart
 	name = "Living Heart"
-	desc = "Allows you to create additional living hearts, using a heart, a pool of blood and a poppy. Living hearts when used on a transmutation rune will grant you a person to hunt and sacrifice on the rune. Every sacrifice gives you an additional charge in the book."
+	desc = "Allows you to create additional living hearts, using a heart, a pool of blood and a flower. Living hearts when used on a transmutation rune will grant you a person to hunt and sacrifice on the rune. Every sacrifice gives you an additional charge in the book."
 	gain_text = "The Gates of Mansus open up to your mind."
 	cost = 0
-	required_atoms = list(/obj/item/organ/heart,/obj/effect/decal/cleanable/blood,/obj/item/reagent_containers/food/snacks/grown/poppy)
+	required_atoms = list(/obj/item/organ/heart,/obj/effect/decal/cleanable/blood,/obj/item/reagent_containers/food/snacks/grown/flower)
 	result_atoms = list(/obj/item/living_heart)
 	route = "Start"
 

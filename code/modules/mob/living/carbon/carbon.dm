@@ -6,8 +6,8 @@
 	create_reagents(1000)
 	update_body_parts() //to update the carbon's new bodyparts appearance
 	GLOB.carbon_list += src
-	RegisterSignal(src, COMSIG_MOB_LOGOUT, .proc/med_hud_set_status)
-	RegisterSignal(src, COMSIG_MOB_LOGIN, .proc/med_hud_set_status)
+	RegisterSignal(src, COMSIG_MOB_LOGOUT, PROC_REF(med_hud_set_status))
+	RegisterSignal(src, COMSIG_MOB_LOGIN, PROC_REF(med_hud_set_status))
 
 /mob/living/carbon/Destroy()
 	//This must be done first, so the mob ghosts correctly before DNA etc is nulled
@@ -72,7 +72,7 @@
 
 /mob/living/carbon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	var/hurt = TRUE
-	if(throwingdatum.force <= MOVE_FORCE_WEAK)
+	if(!throwingdatum || throwingdatum.force <= MOVE_FORCE_WEAK)
 		hurt = FALSE
 
 	if(iscarbon(hit_atom) && hit_atom != src)
@@ -220,7 +220,7 @@
 			buckle_cd = O.breakouttime
 		visible_message("<span class='warning'>[src] attempts to unbuckle [p_them()]self!</span>", \
 					"<span class='notice'>You attempt to unbuckle yourself... (This will take around [round(buckle_cd/600,1)] minute\s, and you need to stay still.)</span>")
-		if(do_after(src, buckle_cd, 0, target = src))
+		if(do_after(src, buckle_cd, target = src, timed_action_flags = IGNORE_HELD_ITEM|IGNORE_RESTRAINED))
 			if(!buckled)
 				return
 			buckled.user_unbuckle_mob(src,src)
@@ -271,7 +271,7 @@
 	if(!cuff_break)
 		visible_message("<span class='warning'>[src] attempts to remove [I]!</span>")
 		to_chat(src, "<span class='notice'>You attempt to remove [I]... (This will take around [DisplayTimeText(breakouttime)] and you need to stand still.)</span>")
-		if(do_after(src, breakouttime, 0, target = src))
+		if(do_after(src, breakouttime, target = src, timed_action_flags = IGNORE_HELD_ITEM|IGNORE_RESTRAINED))
 			clear_cuffs(I, cuff_break)
 		else
 			to_chat(src, "<span class='warning'>You fail to remove [I]!</span>")
@@ -280,7 +280,7 @@
 		breakouttime = 50
 		visible_message("<span class='warning'>[src] is trying to break [I]!</span>")
 		to_chat(src, "<span class='notice'>You attempt to break [I]... (This will take around 5 seconds and you need to stand still.)</span>")
-		if(do_after(src, breakouttime, 0, target = src))
+		if(do_after(src, breakouttime, target = src, timed_action_flags = IGNORE_HELD_ITEM|IGNORE_RESTRAINED))
 			clear_cuffs(I, cuff_break)
 		else
 			to_chat(src, "<span class='warning'>You fail to break [I]!</span>")
@@ -455,7 +455,7 @@
 			if(T)
 				T.add_vomit_floor(src, VOMIT_TOXIC)//toxic barf looks different
 		T = get_step(T, dir)
-		if (is_blocked_turf(T))
+		if (T.is_blocked_turf())
 			break
 	return 1
 
@@ -988,3 +988,20 @@
 	if(mood)
 		if(mood.sanity < SANITY_UNSTABLE)
 			return TRUE
+
+/mob/living/carbon/set_gender(ngender = NEUTER, silent = FALSE, update_icon = TRUE, forced = FALSE)
+	var/opposite_gender = gender != ngender
+	. = ..()
+	if(!.)
+		return
+	if(dna && opposite_gender)
+		if(ngender == MALE || ngender == FEMALE)
+			dna.features["body_model"] = ngender
+			if(!silent)
+				var/adj = ngender == MALE ? "masculine" : "feminine"
+				visible_message("<span class='boldnotice'>[src] suddenly looks more [adj]!</span>", "<span class='boldwarning'>You suddenly feel more [adj]!</span>")
+		else if(ngender == NEUTER)
+			dna.features["body_model"] = MALE
+	if(update_icon)
+		update_body()
+		update_body_parts(TRUE)

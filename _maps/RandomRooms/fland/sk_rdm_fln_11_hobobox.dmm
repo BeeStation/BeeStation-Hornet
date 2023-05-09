@@ -8,10 +8,6 @@
 	dir = 4
 	},
 /obj/structure/lattice/catwalk/over,
-/obj/machinery/newscaster{
-	pixel_x = 28;
-	pixel_y = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
@@ -68,13 +64,6 @@
 /obj/machinery/light/small,
 /turf/open/floor/plating,
 /area/template_noop)
-"q" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 10
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/plating,
-/area/template_noop)
 "r" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /obj/structure/lattice/catwalk/over,
@@ -85,12 +74,6 @@
 "s" = (
 /obj/effect/decal/cleanable/glass,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/plating,
-/area/template_noop)
-"t" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
-	},
 /turf/open/floor/plating,
 /area/template_noop)
 "u" = (
@@ -114,8 +97,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "z" = (
-/obj/structure/curtain,
-/turf/open/floor/plating,
+/turf/closed/wall/mineral/wood,
 /area/template_noop)
 "A" = (
 /obj/effect/decal/cleanable/glass,
@@ -180,13 +162,15 @@
 /turf/template_noop,
 /area/template_noop)
 "K" = (
-/obj/item/trash/can,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 10
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/item/trash/can,
 /turf/open/floor/plating,
 /area/template_noop)
 "Q" = (
-/turf/closed/wall/r_wall,
+/turf/template_noop/closed,
 /area/template_noop)
 "R" = (
 /obj/structure/closet/cardboard,
@@ -209,9 +193,12 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "V" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
+	},
 /obj/structure/closet/secure_closet/personal,
 /obj/effect/spawner/lootdrop/gambling,
-/turf/open/floor/plasteel,
+/turf/open/floor/plating,
 /area/template_noop)
 "W" = (
 /obj/machinery/door/firedoor,
@@ -226,12 +213,11 @@ r
 S
 y
 R
-t
 V
 a
 e
 f
-a
+Q
 "}
 (2,1,1) = {"
 W
@@ -239,7 +225,6 @@ m
 a
 A
 s
-q
 K
 d
 c
@@ -253,11 +238,10 @@ a
 E
 k
 C
-a
-a
-a
-a
-a
+z
+T
+z
+Q
 "}
 (4,1,1) = {"
 a
@@ -266,22 +250,20 @@ I
 G
 U
 v
-T
-D
 z
+D
 o
 Q
 "}
 (5,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+Q
 Q
 "}
