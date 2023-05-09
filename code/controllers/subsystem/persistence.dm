@@ -294,7 +294,7 @@ SUBSYSTEM_DEF(persistence)
 				continue
 			this_round |= roundstart_rule.name
 		if(LAZYLEN(this_round))
-			saved_dynamic_rulesets.Insert(1, this_round)
+			saved_dynamic_rulesets.Insert(1, list(this_round))
 	if(length(saved_dynamic_rulesets) > amount_of_rules)
 		saved_dynamic_rulesets.Cut(amount_of_rules + 1)
 	var/json_file = file("data/RecentDynamicRules.json")
