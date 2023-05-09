@@ -141,12 +141,14 @@ export const StandardizedDropdown = (props: {
   displayNames: Record<string, InfernoNode>;
   onSetValue: (newValue: string) => void;
   value?: string;
+  buttons?: boolean;
 }) => {
-  const { choices, disabled, displayNames, onSetValue, value } = props;
+  const { choices, disabled, buttons, displayNames, onSetValue, value } = props;
 
   return (
     <Dropdown
       disabled={disabled}
+      buttons={buttons}
       selected={value}
       onSelected={onSetValue}
       width="100%"
@@ -164,6 +166,7 @@ export const StandardizedDropdown = (props: {
 export const FeatureDropdownInput = (
   props: FeatureValueProps<string, string, FeatureChoicedServerData> & {
     disabled?: boolean;
+    buttons?: boolean;
   }
 ) => {
   const serverData = props.serverData;
@@ -178,6 +181,7 @@ export const FeatureDropdownInput = (
     <StandardizedDropdown
       choices={sortStrings(serverData.choices)}
       disabled={props.disabled}
+      buttons={props.buttons}
       displayNames={displayNames}
       onSetValue={props.handleSetValue}
       value={props.value}
@@ -202,7 +206,9 @@ export const FeatureIconnedDropdownInput = (
     },
     string,
     FeatureChoicedServerData
-  >
+  > & {
+    buttons?: boolean;
+  }
 ) => {
   const serverData = props.serverData;
   if (!serverData) {
@@ -242,6 +248,7 @@ export const FeatureIconnedDropdownInput = (
 
   return (
     <StandardizedDropdown
+      buttons={props.buttons}
       choices={sortStrings(serverData.choices)}
       displayNames={displayNames}
       onSetValue={props.handleSetValue}
