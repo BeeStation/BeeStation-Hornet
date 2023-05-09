@@ -20,7 +20,7 @@ GLOBAL_VAR_INIT(looc_allowed, 1)
     if(!msg)
         return
 
-    if(!(prefs.toggles & CHAT_OOC))
+    if(!(prefs.read_player_preference(/datum/preference/toggle/chat_ooc)))
         to_chat(src, "<span class='danger'>You have OOC (and therefore LOOC) muted.</span>")
         return
 
@@ -70,7 +70,7 @@ GLOBAL_VAR_INIT(looc_allowed, 1)
         if (isobserver(M))
             continue //Also handled later.
 
-        if(C.prefs.toggles & CHAT_OOC)
+        if(C.prefs.read_player_preference(/datum/preference/toggle/chat_ooc))
 //            var/display_name = src.key
 //            if(holder)
 //                if(holder.fakekey)
@@ -81,7 +81,7 @@ GLOBAL_VAR_INIT(looc_allowed, 1)
             to_chat(C,"<span class='looc'><span class='prefix'>LOOC:</span> <EM>[src.mob.name]:</EM> <span class='message'>[msg]</span></span>")
 
     for(var/client/C in GLOB.admins)
-        if(C.prefs.toggles & CHAT_OOC)
+        if(C.prefs.read_player_preference(/datum/preference/toggle/chat_ooc))
             var/prefix = "(R)LOOC"
             if (C.mob in heard)
                 prefix = "LOOC"

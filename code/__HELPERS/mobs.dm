@@ -387,20 +387,21 @@ GLOBAL_LIST_EMPTY(species_list)
 /proc/deadchat_broadcast(message, mob/follow_target=null, turf/turf_target=null, speaker_key=null, message_type=DEADCHAT_REGULAR)
 	message = "<span class='linkify'>[message]</span>"
 	for(var/mob/M in GLOB.player_list)
-		var/chat_toggles = TOGGLES_DEFAULT_CHAT
 		var/death_rattle = TRUE
 		var/arrivals_rattle = TRUE
+		var/dchat = FALSE
+		var/ghostlaws = TRUE
 		var/list/ignoring
 		if(M?.client.prefs)
 			var/datum/preferences/prefs = M.client.prefs
-			chat_toggles = prefs.chat_toggles
 			ignoring = prefs.ignoring
 			death_rattle = prefs.read_player_preference(/datum/preference/toggle/death_rattle)
 			arrivals_rattle = prefs.read_player_preference(/datum/preference/toggle/arrivals_rattle)
-
+			dchat = prefs.read_player_preference(/datum/preference/toggle/chat_dead)
+			ghostlaws = prefs.read_player_preference(/datum/preference/toggle/chat_ghostlaws)
 
 		var/override = FALSE
-		if(M?.client.holder && (chat_toggles & CHAT_DEAD))
+		if(M?.client.holder && dchat)
 			override = TRUE
 		if(HAS_TRAIT(M, TRAIT_SIXTHSENSE))
 			override = TRUE
@@ -421,7 +422,7 @@ GLOBAL_LIST_EMPTY(species_list)
 				if(!arrivals_rattle)
 					continue
 			if(DEADCHAT_LAWCHANGE)
-				if(!(chat_toggles & CHAT_GHOSTLAWS))
+				if(!ghostlaws)
 					continue
 
 		if(isobserver(M))

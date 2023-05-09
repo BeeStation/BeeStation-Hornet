@@ -2149,6 +2149,7 @@
 #include "code\modules\client\preferences\body_type.dm"
 #include "code\modules\client\preferences\broadcast_login_logout.dm"
 #include "code\modules\client\preferences\buttons_locked.dm"
+#include "code\modules\client\preferences\chat.dm"
 #include "code\modules\client\preferences\clothing.dm"
 #include "code\modules\client\preferences\darkened_flash.dm"
 #include "code\modules\client\preferences\fps.dm"

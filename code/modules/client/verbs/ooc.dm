@@ -66,7 +66,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 			message_admins("[key_name_admin(src)] has attempted to post a clickable link in OOC: [msg]")
 			return
 
-	if(!(prefs.chat_toggles & CHAT_OOC))
+	if(!(prefs.read_player_preference(/datum/preference/toggle/chat_ooc)))
 		to_chat(src, "<span class='danger'>You have OOC muted.</span>")
 		return
 	if(OOC_FILTER_CHECK(raw_msg))
@@ -84,7 +84,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	var/badge_data = badge_parse(get_badges())
 	//The linkify span classes and linkify=TRUE below make ooc text get clickable chat href links if you pass in something resembling a url
 	for(var/client/C in GLOB.clients)
-		if(C.prefs.chat_toggles & CHAT_OOC)
+		if(C.prefs.read_player_preference(/datum/preference/toggle/chat_ooc))
 			if(holder)
 				if(!holder.fakekey || C.holder)
 					if(check_rights_for(src, R_ADMIN))

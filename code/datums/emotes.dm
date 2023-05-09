@@ -98,7 +98,7 @@
 		if(!M.client || isnewplayer(M))
 			continue
 		var/T = get_turf(user)
-		if(M.stat == DEAD && M.client && (M.client.prefs.chat_toggles & CHAT_GHOSTSIGHT) && !(M in viewers(T, null)))
+		if(M.stat == DEAD && M.client && M.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostsight) && !(M in viewers(T, null)))
 			if(user.mind || (M.client.prefs.chat_toggles & CHAT_GHOSTFOLLOWMINDLESS))
 				M.show_message("[FOLLOW_LINK(M, user)] [dchatmsg]")
 			else
@@ -202,7 +202,7 @@
 		for(var/mob/ghost as anything in GLOB.dead_mob_list)
 			if(!ghost.client || isnewplayer(ghost))
 				continue
-			if(ghost.client.prefs.chat_toggles & CHAT_GHOSTSIGHT && !(ghost in viewers(origin_turf, null)))
+			if(ghost.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostsight) && !(ghost in viewers(origin_turf, null)))
 				if(mind || (ghost.client.prefs.chat_toggles & CHAT_GHOSTFOLLOWMINDLESS))
 					ghost.show_message("[FOLLOW_LINK(ghost, src)] [ghost_text]")
 				else

@@ -19,21 +19,6 @@
 		"member_public" = MEMBER_PUBLIC,
 	)
 
-	var/list/legacy_chat_toggles = list(
-		"chat_bankcard" = CHAT_BANKCARD,
-		"chat_dead" = CHAT_DEAD,
-		"chat_ghostears" = CHAT_GHOSTEARS,
-		"chat_ghostlaws" = CHAT_GHOSTLAWS,
-		"chat_ghostpda" = CHAT_GHOSTPDA,
-		"chat_ghostradio" = CHAT_GHOSTRADIO,
-		"chat_ghostsight" = CHAT_GHOSTSIGHT,
-		"chat_ghostwhisper" = CHAT_GHOSTWHISPER,
-		"chat_login_logout" = CHAT_LOGIN_LOGOUT,
-		"chat_ooc" = CHAT_OOC,
-		"chat_prayer" = CHAT_PRAYER,
-		"chat_pullr" = CHAT_PULLR,
-	)
-
 /datum/preference_middleware/legacy_toggles/get_character_preferences(mob/user)
 	if (preferences.current_window != PREFERENCE_TAB_GAME_PREFERENCES)
 		return list()
@@ -49,11 +34,6 @@
 		"deadmin_position_silicon",
 		"sound_adminhelp",
 		"sound_prayers",
-	)
-
-	var/static/list/admin_only_chat_toggles = list(
-		"chat_dead",
-		"chat_prayer",
 	)
 
 	var/static/list/deadmin_flags = list(
@@ -78,12 +58,6 @@
 
 		new_game_preferences[toggle_name] = (preferences.toggles & legacy_toggles[toggle_name]) != 0
 
-	for (var/toggle_name in legacy_chat_toggles)
-		if (!is_admin && (toggle_name in admin_only_chat_toggles))
-			continue
-
-		new_game_preferences[toggle_name] = (preferences.chat_toggles & legacy_chat_toggles[toggle_name]) != 0
-
 	return list(
 		PREFERENCE_CATEGORY_GAME_PREFERENCES = new_game_preferences,
 	)
@@ -95,15 +69,6 @@
 			preferences.toggles |= legacy_flag
 		else
 			preferences.toggles &= ~legacy_flag
-		return TRUE
-
-	var/legacy_chat_flag = legacy_chat_toggles[preference]
-	if (!isnull(legacy_chat_flag))
-		if (value)
-			preferences.chat_toggles |= legacy_chat_flag
-		else
-			preferences.chat_toggles &= ~legacy_chat_flag
-
 		return TRUE
 
 	return FALSE
