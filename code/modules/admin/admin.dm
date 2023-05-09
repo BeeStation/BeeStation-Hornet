@@ -791,9 +791,10 @@
 		if(string)
 			message_admins("[string]")
 
-///Plays a sound to all admins, with the var being the sound filepath
+///Plays a sound to all admins who have that preference on, with the var being the sound filepath
 /proc/play_sound_to_all_admins(var/sound = null)
 	if(isnull(sound))
 		return
 	for(var/client/C as anything in GLOB.admins)
-		SEND_SOUND(C, sound)
+		if(C.prefs.toggles & PREFTOGGLE_2_SOUND_ADMINALERT)
+			SEND_SOUND(C, sound)

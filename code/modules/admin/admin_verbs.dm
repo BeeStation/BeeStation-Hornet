@@ -73,6 +73,7 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/client/proc/colorasay,
 	/client/proc/resetasaycolor,
 	/client/proc/toggleadminhelpsound,
+	/client/proc/toggleadminalertsound,
 	/client/proc/respawn_character,
 	/datum/admins/proc/open_borgopanel,
 	/client/proc/fix_say,
