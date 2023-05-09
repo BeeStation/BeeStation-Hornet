@@ -91,6 +91,19 @@
 /datum/dynamic_ruleset/roundstart // One or more of those drafted at roundstart
 	ruletype = "Roundstart"
 
+/datum/dynamic_ruleset/roundstart/get_weight()
+	. = ..()
+	var/list/repeated_mode_adjust = CONFIG_GET(number_list/repeated_mode_adjust)
+	if(!LAZYLEN(repeated_mode_adjust))
+		return
+	var/adjustment = 0
+	for(var/rounds_ago = 1 to min(length(SSpersistence.saved_dynamic_rulesets), length(repeated_mode_adjust)))
+		var/list/round = SSpersistence.saved_dynamic_rulesets[rounds_ago]
+		if(name in round)
+			adjustment += repeated_mode_adjust[rounds_ago]
+	if(adjustment)
+		. *= ((100 - adjustment) / 100)
+
 // Can be drafted when a player joins the server
 /datum/dynamic_ruleset/latejoin
 	ruletype = "Latejoin"
@@ -200,6 +213,41 @@
 /// Set mode result and news report here.
 /// Only called if ruleset is flagged as HIGH_IMPACT_RULESET
 /datum/dynamic_ruleset/proc/round_result()
+
+
+/// Checks if the ruleset is "dead", where all the antags are either dead or deconverted.
+/datum/dynamic_ruleset/proc/is_dead()
+	. = TRUE
+	for(var/datum/mind/mind in assigned)
+		var/mob/living/body = mind.current
+		// If they have no body, they're dead for realsies.
+		if(QDELETED(body))
+			continue
+		// Well, if there's nobody in the body, they might as well be dead.
+		if(!body.ckey)
+			continue
+		// Have they been AFK for over 20 minutes? If so, eh, we won't take them into consdideration.
+		if(body.client?.is_afk(20 MINUTES))
+			continue
+		// Have they been husked by a non-burn source? Probably really really dead.
+		if(HAS_TRAIT_NOT_FROM(body, TRAIT_HUSK, "burn"))
+			continue
+		// Alright, they have a body with a ckey, but are they actually dead?
+		if(body.stat == DEAD)
+			// Has their soul departed or been ripped out? If so, yep, they dead alright.
+			if(body.soul_departed() || mind.hellbound)
+				continue
+			// Are they in medbay or an operating table/stasis bed, and have been dead for less than 20 minutes? If so, they're probably being revived.
+			if(world.time <= (mind.last_death + 20 MINUTES) && (istype(get_area(body), /area/medical) || (locate(/obj/machinery/stasis) in body.loc) || (locate(/obj/structure/table/optable) in body.loc)))
+				return FALSE
+		else
+			// Are they a silicon? If so, might as well be dead.
+			if(issilicon(body))
+				continue
+			// Well, they're at least somewhat alive. But are they still antag?
+			if(antag_datum && mind.has_antag_datum(antag_datum))
+				// They're still antag and not dead.
+				return FALSE
 
 //////////////////////////////////////////////
 //                                          //
