@@ -207,6 +207,10 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	/// ruleset has "died".
 	var/high_impact_dead_rolled = FALSE
 
+	/// Whether dynamic should try to inject midrounds after high impacts die or not.
+	/// Normally, this will be set to TRUE if something 'big' happens, like warops.
+	var/high_impact_major_event_occured = FALSE
+
 	COOLDOWN_DECLARE(next_dead_check)
 
 /datum/game_mode/dynamic/admin_panel()
@@ -690,7 +694,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		for(var/blocking in blocking_list)
 			for(var/_executed in rule_list)
 				var/datum/dynamic_ruleset/executed = _executed
-				if(ignore_dead_rulesets && executed.is_dead())
+				if((ignore_dead_rulesets && !high_impact_major_event_occured) && executed.is_dead())
 					continue
 				if(blocking == executed.type)
 					log_game("DYNAMIC: FAIL: check_blocking - [blocking] conflicts with [executed.type]")
@@ -805,7 +809,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	for(var/datum/dynamic_ruleset/ruleset in executed_rules)
 		if(!CHECK_BITFIELD(ruleset.flags, HIGH_IMPACT_RULESET))
 			continue
-		if(ruleset.is_dead())
+		if(!high_impact_major_event_occured && ruleset.is_dead())
 			continue
 		return TRUE
 
@@ -838,6 +842,16 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 /datum/game_mode/dynamic/proc/dynamic_log(text)
 	message_admins("DYNAMIC: [text]")
 	log_game("DYNAMIC: [text]")
+
+/// This sets the "don't roll after high impact rules die" flag
+/// if the mode is dynamic, signalling that something major has happened
+/// and that dynamic should NOT try to roll new antags, even if all the
+/// current high-impact antags end up dying.
+/proc/set_dynamic_high_impact_event()
+	var/datum/game_mode/dynamic/dynamic = SSticker.mode
+	if(!istype(dynamic))
+		return
+	dynamic.high_impact_major_event_occured = TRUE
 
 #undef FAKE_REPORT_CHANCE
 #undef REPORT_NEG_DIVERGENCE

@@ -108,7 +108,7 @@
 /// Checks to see if all roundstart 'high impact' rulesets are dead, and tries to force an injection if so.
 /datum/game_mode/dynamic/proc/check_for_dead_high_impacts()
 	. = FALSE
-	if(high_impact_dead_rolled)
+	if(high_impact_dead_rolled || high_impact_major_event_occured)
 		return
 	if(!COOLDOWN_FINISHED(src, next_dead_check))
 		return
