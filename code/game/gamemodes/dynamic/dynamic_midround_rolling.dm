@@ -112,7 +112,7 @@
 		return
 	if(!COOLDOWN_FINISHED(src, next_dead_check))
 		return
-	COOLDOWN_START(src, next_dead_check, next_dead_check)
+	COOLDOWN_START(src, next_dead_check, dead_ruleset_check_time)
 	var/found_high_impacts = FALSE
 	for(var/datum/dynamic_ruleset/ruleset in executed_rules)
 		if(!CHECK_BITFIELD(ruleset.flags, HIGH_IMPACT_RULESET|ONLY_RULESET|NO_OTHER_ROUNDSTARTS_RULESET))
