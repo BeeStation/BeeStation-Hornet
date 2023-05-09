@@ -99,6 +99,10 @@
 	var/adjustment = 0
 	for(var/rounds_ago = 1 to min(length(SSpersistence.saved_dynamic_rulesets), length(repeated_mode_adjust)))
 		var/list/round = SSpersistence.saved_dynamic_rulesets[rounds_ago]
+		if(!round)
+			continue
+		if(!islist(round))
+			round = list(round)
 		if(name in round)
 			adjustment += repeated_mode_adjust[rounds_ago]
 	if(adjustment)
