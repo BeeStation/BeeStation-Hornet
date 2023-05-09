@@ -277,13 +277,20 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_HEARING_SENSITIVE "hearing_sensitive"
 
 // item traits
-#define TRAIT_NODROP            "nodrop"
-#define TRAIT_NO_STORAGE_INSERT	"no_storage_insert" //cannot be inserted in a storage.
-#define TRAIT_SPRAYPAINTED		"spraypainted"
-#define TRAIT_T_RAY_VISIBLE     "t-ray-visible" // Visible on t-ray scanners if the atom/var/level == 1
-#define TRAIT_NO_TELEPORT		"no-teleport" //you just can't
-#define TRAIT_STARGAZED			"stargazed"	//Affected by a stargazer
-#define TRAIT_DOOR_PRYER		"door-pryer"	//Item can be used on airlocks to pry them open (even when powered)
+#define TRAIT_NODROP "nodrop"
+/// cannot be inserted in a storage.
+#define TRAIT_NO_STORAGE_INSERT "no_storage_insert"
+#define TRAIT_SPRAYPAINTED "spraypainted"
+/// Visible on t-ray scanners if the atom/var/level == 1
+#define TRAIT_T_RAY_VISIBLE "t-ray-visible"
+/// you just can't
+#define TRAIT_NO_TELEPORT "no-teleport"
+/// Buckling yourself to objects with this trait won't immobilize you
+#define TRAIT_NO_IMMOBILIZE "no_immobilize"
+/// Affected by a stargazer
+#define TRAIT_STARGAZED "stargazed"
+/// Item can be used on airlocks to pry them open (even when powered)
+#define TRAIT_DOOR_PRYER "door-pryer"
 #define TRAIT_FISH_SAFE_STORAGE "fish_case" //Fish in this won't die
 #define TRAIT_FISH_CASE_COMPATIBILE "fish_case_compatibile" //Stuff that can go inside fish cases
 #define TRAIT_NEEDS_TWO_HANDS "needstwohands" // The items needs two hands to be carried
@@ -351,7 +358,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define BUCKLED_TRAIT "buckled" //trait associated to being buckled
 #define CHOKEHOLD_TRAIT "chokehold" //trait associated to being held in a chokehold
 #define RESTING_TRAIT "resting" //trait associated to resting
-#define STAT_TRAIT "stat" //trait associated to a stat value or range of 
+#define STAT_TRAIT "stat" //trait associated to a stat value or range of
 /*(#define MAPPING_HELPER_TRAIT "mapping-helper" *///obtained from mapping helper
 /// Trait associated to wearing a suit
 #define SUIT_TRAIT "suit"
