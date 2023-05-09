@@ -45,7 +45,7 @@
 		//Calculate velocity
 		meteor.velocity.x = (station_target.position.x - meteor.start_x * 10) / meteor_time
 		meteor.velocity.y = (station_target.position.y - meteor.start_y * 10) / meteor_time
-		meteor.end_tick = world.time + meteor_time
+		meteor.end_tick = SSorbits.times_fired + (meteor_time / SSorbits.wait)
 		meteor.target = station_target
 
 /datum/round_event/meteor_wave/on_admin_trigger()
