@@ -1,4 +1,4 @@
-#define ADMIN_CANCEL_MIDROUND_TIME (10 SECONDS)
+#define ADMIN_CANCEL_MIDROUND_TIME (30 SECONDS)
 
 /// From a list of rulesets, returns one based on weight and availability.
 /// Mutates the list that is passed into it to remove invalid rules.
