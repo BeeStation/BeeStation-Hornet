@@ -179,6 +179,10 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	/// The population size where dynamic stops caring about antag percents during injections. This is usually because on higher pop it isn't forced to spawn a bunch of sleeper agents.
 	var/traitor_percentage_population_threshold = 30
 
+	/// How often should dynamic check to see if all the high-impact rulesets are 'dead'?
+	var/dead_ruleset_check_time	= 5 MINUTES
+
+
 	// == EVERYTHING BELOW THIS POINT SHOULD NOT BE CONFIGURED ==
 
 	/// A list of recorded "snapshots" of the round, stored in the dynamic.json log
@@ -198,6 +202,12 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	var/list/current_midround_rulesets
 
 	VAR_PRIVATE/next_midround_injection
+
+	/// Whether the mode has attempted to inject new midrounds after a high impact
+	/// ruleset has "died".
+	var/high_impact_dead_rolled = FALSE
+
+	COOLDOWN_DECLARE(next_dead_check)
 
 /datum/game_mode/dynamic/admin_panel()
 	var/list/dat = list("<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><title>Game Mode Panel</title></head><body><h1><B>Game Mode Panel</B></h1>")
@@ -664,6 +674,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		if(rule.rule_process() == RULESET_STOP_PROCESSING) // If rule_process() returns 1 (RULESET_STOP_PROCESSING), stop processing.
 			current_rules -= rule
 
+	check_for_dead_high_impacts()
 	try_midround_roll()
 
 /// Removes type from the list

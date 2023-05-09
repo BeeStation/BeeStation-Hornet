@@ -290,7 +290,7 @@ SUBSYSTEM_DEF(persistence)
 	if(istype(dynamic))
 		var/list/this_round = list()
 		for(var/datum/dynamic_ruleset/roundstart/roundstart_rule in dynamic.executed_rules)
-			if(!CHECK_BITFIELD(roundstart_rule.flags, HIGH_IMPACT_RULESET|NO_OTHER_ROUNDSTARTS_RULESET))
+			if(!CHECK_BITFIELD(roundstart_rule.flags, HIGH_IMPACT_RULESET|ONLY_RULESET|NO_OTHER_ROUNDSTARTS_RULESET))
 				continue
 			this_round |= roundstart_rule.name
 		if(LAZYLEN(this_round))
