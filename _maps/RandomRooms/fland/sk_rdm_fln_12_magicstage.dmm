@@ -14,12 +14,6 @@
 /obj/structure/curtain/bounty,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"e" = (
-/obj/item/radio/intercom{
-	pixel_x = -28
-	},
-/turf/closed/wall,
-/area/template_noop)
 "f" = (
 /obj/structure/closet,
 /obj/item/storage/toolbox/mechanical,
@@ -106,13 +100,6 @@
 	},
 /turf/open/floor/carpet/red,
 /area/template_noop)
-"G" = (
-/obj/machinery/newscaster{
-	pixel_x = 28;
-	pixel_y = 1
-	},
-/turf/open/floor/carpet/red,
-/area/template_noop)
 "J" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -120,7 +107,7 @@
 /turf/template_noop,
 /area/template_noop)
 "Q" = (
-/turf/closed/wall/r_wall,
+/turf/template_noop/closed,
 /area/template_noop)
 "R" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -144,6 +131,9 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/item/radio/intercom{
+	pixel_x = -28
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "W" = (
@@ -162,19 +152,17 @@ r
 S
 E
 v
-v
 V
 y
-e
-f
 a
+f
+Q
 "}
 (2,1,1) = {"
 W
 m
 a
 A
-s
 s
 R
 w
@@ -188,19 +176,17 @@ m
 a
 C
 C
-C
 Z
 T
 a
 u
-a
+Q
 "}
 (4,1,1) = {"
 U
 z
 S
 v
-G
 v
 b
 D
@@ -209,15 +195,14 @@ o
 Q
 "}
 (5,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+Q
 Q
 "}

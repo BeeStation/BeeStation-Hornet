@@ -1,6 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - rscadd: 'GlowStation: Replaced the secure elevator staircase with an actual elevator.'
-  - bugfix: Elevator call buttons now work on the top floor.
-  - tweak: Improved elevator call button feedback if the elevator is currently moving.

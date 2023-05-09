@@ -1,8 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - rscadd: Orbit panel tracks antag team rather than individual antag name (i.e.
-      ERTs, Abductors)
-  - bugfix: job icon in orbit panel no longer looks horrible
-  - tweak: some antagonists/teams will display some different name in orbit panel
-  - tweak: eldritch horrors are now tracked in antag category in orbit panel
