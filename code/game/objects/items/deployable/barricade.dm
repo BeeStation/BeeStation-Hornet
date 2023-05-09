@@ -16,6 +16,7 @@
 	icon_state = "barrier0"
 	deployed_object = /obj/structure/barricade/security
 	time_to_deploy = 3 SECONDS
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/storage/box/sec_barricades
 	name = "box of barricades"

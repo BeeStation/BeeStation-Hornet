@@ -326,6 +326,3 @@
 	smoke.effect_type = smoke_type
 	smoke.set_up(range, location)
 	smoke.start()
-
-/obj/effect/particle_effect/smoke/transparent/short
-	lifetime = 0

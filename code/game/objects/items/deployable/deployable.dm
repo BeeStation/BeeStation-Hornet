@@ -3,7 +3,7 @@
 	desc = "Tell admins they forgot to edit the description when spawning this in."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "capsule"
-	w_class = WEIGHT_CLASS_TINY
+	w_class = WEIGHT_CLASS_NORMAL
 	///This is what the item will deploy as. This will be a one-way conversion unless the deployed item has its own code for converting back
 	var/atom/movable/deployed_object
 	///Should be true if the item is deploying itself when set up, should be false if it's deploying other objects
