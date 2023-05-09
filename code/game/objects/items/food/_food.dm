@@ -62,5 +62,6 @@
 
 ///This proc handles trash components, overwrite this if you want the object to spawn trash
 /obj/item/food/proc/make_leave_trash()
-	AddElement(/datum/element/food_trash, trash_type)
+	if(trash_type)
+		AddElement(/datum/element/food_trash, trash_type)
 	return
