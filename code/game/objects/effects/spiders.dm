@@ -13,6 +13,12 @@
 	if(damage_type == BURN)//the stickiness of the web mutes all attack sounds except fire damage type
 		playsound(loc, 'sound/items/welder.ogg', 100, 1)
 
+/obj/structure/spider/attackby(obj/item/I, mob/living/user, params)
+	if(I.damtype != BURN)
+		if(prob(35))
+			user.transferItemToLoc(I, drop_location())
+			to_chat(user, "<span class='danger'>The [I] gets stuck in \the [src]!</span>")
+	return ..()
 
 /obj/structure/spider/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	if(damage_flag == MELEE)
@@ -32,18 +38,27 @@
 	if(prob(50))
 		icon_state = "stickyweb2"
 	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/structure/spider/stickyweb/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+	if(isliving(AM) && !istype(AM, /mob/living/simple_animal/hostile/poison/giant_spider))
+		var/mob/living/L = AM
+		if(!L.IsImmobilized()) //Don't spam the shit out of them if they're being dragged by a spider
+			to_chat(L, "<span class='danger'>You get stuck in \the [src] for a moment.</span>")
+		L.Immobilize(1.5 SECONDS)
+	if(ismecha(AM))
+		var/obj/mecha/mech = AM
+		mech.step_restricted += 1 SECONDS //unlike the above, this one stacks based on number of webs. Punch the webs to destroy them you dolt.
+		if(mech.occupant && !mech.step_restricted)
+			to_chat(mech.occupant, "<span class='danger'>\the [mech] gets stuck in \the [src]!</span>")
 
 /obj/structure/spider/stickyweb/CanAllowThrough(atom/movable/mover, turf/target)
 	. = ..()
-	if(istype(mover, /mob/living/simple_animal/hostile/poison/giant_spider))
-		return TRUE
-	else if(isliving(mover))
-		if(istype(mover.pulledby, /mob/living/simple_animal/hostile/poison/giant_spider))
-			return TRUE
-		if(prob(50))
-			to_chat(mover, "<span class='danger'>You get stuck in \the [src] for a moment.</span>")
-			return FALSE
-	else if(istype(mover, /obj/item/projectile))
+	if(istype(mover, /obj/item/projectile))
 		return prob(30)
 
 /obj/structure/spider/eggcluster
@@ -67,12 +82,12 @@
 	var/list/mob/living/potential_spawns = list(/mob/living/simple_animal/hostile/poison/giant_spider/guard,
 								/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
 								/mob/living/simple_animal/hostile/poison/giant_spider/nurse,
-								/mob/living/simple_animal/hostile/poison/giant_spider/tarantula)
+								/mob/living/simple_animal/hostile/poison/giant_spider/netcaster)
 	// The types of spiders the egg sac produces when we proc an enriched spawn
 	var/list/mob/living/potential_enriched_spawns = list(/mob/living/simple_animal/hostile/poison/giant_spider/guard,
 								/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
 								/mob/living/simple_animal/hostile/poison/giant_spider/nurse,
-								/mob/living/simple_animal/hostile/poison/giant_spider/tarantula,
+								/mob/living/simple_animal/hostile/poison/giant_spider/netcaster,
 								/mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper,
 								/mob/living/simple_animal/hostile/poison/giant_spider/broodmother)
 
@@ -225,8 +240,8 @@
 /obj/structure/spider/spiderling/viper
 	grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper
 
-/obj/structure/spider/spiderling/tarantula
-	grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/tarantula
+/obj/structure/spider/spiderling/netcaster
+	grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/netcaster
 
 /obj/structure/spider/spiderling/Bump(atom/user)
 	if(istype(user, /obj/structure/table))
@@ -296,7 +311,7 @@
 		if(amount_grown >= 100)
 			if(!grow_as)
 				if(prob(3))
-					grow_as = pick(/mob/living/simple_animal/hostile/poison/giant_spider/tarantula, /mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother)
+					grow_as = pick(/mob/living/simple_animal/hostile/poison/giant_spider/netcaster, /mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper, /mob/living/simple_animal/hostile/poison/giant_spider/broodmother)
 				else
 					grow_as = pick(/mob/living/simple_animal/hostile/poison/giant_spider, /mob/living/simple_animal/hostile/poison/giant_spider/hunter, /mob/living/simple_animal/hostile/poison/giant_spider/nurse)
 			var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(src.loc)

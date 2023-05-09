@@ -99,7 +99,7 @@
 
 /datum/reagent/toxin/slimejelly
 	name = "Slime Jelly"
-	description = "A gooey semi-liquid produced from one of the deadliest lifeforms in existence. SO REAL."
+	description = "A gooey semi-liquid produced from Oozelings"
 	color = "#801E28" // rgb: 128, 30, 40
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	toxpwr = 0
@@ -107,25 +107,6 @@
 	taste_mult = 1.3
 
 /datum/reagent/toxin/slimejelly/on_mob_life(mob/living/carbon/M)
-	if(prob(10))
-		to_chat(M, "<span class='danger'>Your insides are burning!</span>")
-		M.adjustToxLoss(rand(20,60)*REM, 0)
-		. = 1
-	else if(prob(40))
-		M.heal_bodypart_damage(5*REM)
-		. = 1
-	..()
-
-/datum/reagent/toxin/slimeooze
-	name = "Slime Ooze"
-	description = "A gooey semi-liquid produced from Oozelings"
-	color = "#611e80"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	toxpwr = 0
-	taste_description = "slime"
-	taste_mult = 1.5
-
-/datum/reagent/toxin/slimeooze/on_mob_life(mob/living/carbon/M)
 	if(prob(10))
 		to_chat(M, "<span class='danger'>Your insides are burning!</span>")
 		M.adjustToxLoss(rand(1,10)*REM, 0)
@@ -472,13 +453,20 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	toxpwr = 0.5
 
+/datum/reagent/toxin/spidervenom/on_mob_metabolize(mob/living/L)
+	if(SEND_SIGNAL(L, COMSIG_HAS_NANITES))
+		for(var/datum/component/nanites/N in L.datum_components)
+			for(var/X in N.programs)
+				var/datum/nanite_program/NP = X
+				NP.software_error(1) //all programs are destroyed, nullifying all nanites
+
 /datum/reagent/toxin/spidervenom/on_mob_life(mob/living/carbon/M)
-	if(M.getStaminaLoss() <= 70)				//Should not stamcrit under most conditions, but will greatly slow down given some time.
-		M.adjustStaminaLoss((volume * 0.75) * REM, 0)
-	if(current_cycle > 10 && prob(current_cycle + (volume * 0.3))) 	//The longer it is in your system and the more of it you have the more frequently you drop
+	if(M.getStaminaLoss() <= 70)				//Will never stamcrit
+		M.adjustStaminaLoss(min(volume * 1.5, 15) * REM, 0)
+	if(current_cycle >= 4 && prob(current_cycle + (volume * 0.3))) 	//The longer it is in your system and the more of it you have the more frequently you drop
 		M.Paralyze(3 SECONDS, 0)
 		toxpwr += 0.1							//The venom gets stronger until completely purged.
-	if(holder.has_reagent(/datum/reagent/medicine/calomel) || holder.has_reagent(/datum/reagent/medicine/pen_acid) || holder.has_reagent(/datum/reagent/medicine/charcoal))
+	if(holder.has_reagent(/datum/reagent/medicine/calomel) || holder.has_reagent(/datum/reagent/medicine/pen_acid) || holder.has_reagent(/datum/reagent/medicine/charcoal) || holder.has_reagent(/datum/reagent/medicine/carthatoline))
 		current_cycle += 5						// Prevents using purgatives while in combat
 	..()
 

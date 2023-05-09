@@ -11,7 +11,7 @@
 	var/smooth_icon = 'icons/turf/smoothrocks.dmi'
 	baseturfs = /turf/open/floor/plating/asteroid/airless
 	initial_gas_mix = AIRLESS_ATMOS
-	opacity = 1
+	opacity = TRUE
 	density = TRUE
 	layer = EDGED_TURF_LAYER
 	initial_temperature = 293.15

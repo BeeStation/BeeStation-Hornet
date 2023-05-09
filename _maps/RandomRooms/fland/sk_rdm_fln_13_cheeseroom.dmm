@@ -1,0 +1,216 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/template_noop/closed,
+/area/template_noop)
+"d" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/turf/open/floor/plasteel/vaporwave,
+/area/template_noop)
+"e" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/turf/open/floor/plasteel/vaporwave,
+/area/template_noop)
+"f" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/store/bread/creamcheese,
+/obj/effect/decal/cleanable/crayon,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/template_noop)
+"h" = (
+/obj/item/reagent_containers/food/snacks/spaghetti/butternoodles,
+/obj/effect/decal/cleanable/crayon,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/structure/table/wood/fancy/black,
+/turf/open/floor/plating{
+	icon_state = "platingdmg3"
+	},
+/area/template_noop)
+"k" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/store/cake/cheese,
+/obj/effect/decal/cleanable/crayon,
+/turf/open/floor/plasteel/techmaint,
+/area/template_noop)
+"o" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 6
+	},
+/turf/open/floor/plasteel/vaporwave,
+/area/template_noop)
+"p" = (
+/obj/item/reagent_containers/food/snacks/butterdog,
+/obj/effect/decal/cleanable/crayon,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/structure/table/wood/fancy/black,
+/turf/open/floor/plating,
+/area/template_noop)
+"q" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 6
+	},
+/turf/open/floor/plasteel/vaporwave,
+/area/template_noop)
+"r" = (
+/turf/closed/wall,
+/area/template_noop)
+"u" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/spaghetti/kasespatzle,
+/obj/effect/decal/cleanable/crayon,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/template_noop)
+"D" = (
+/obj/item/reagent_containers/food/snacks/butter/on_a_stick,
+/obj/effect/decal/cleanable/crayon,
+/obj/structure/table/wood/fancy/black,
+/turf/open/floor/plating,
+/area/template_noop)
+"E" = (
+/obj/machinery/light_switch{
+	pixel_x = -4;
+	pixel_y = -32
+	},
+/turf/open/floor/plasteel/vaporwave,
+/area/template_noop)
+"F" = (
+/turf/open/floor/plasteel/vaporwave,
+/area/template_noop)
+"G" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/butter,
+/obj/effect/decal/cleanable/crayon,
+/turf/open/floor/plasteel/techmaint,
+/area/template_noop)
+"H" = (
+/obj/machinery/door/airlock/maintenance,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/turf/template_noop,
+/area/template_noop)
+"I" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/store/cheesewheel,
+/obj/effect/decal/cleanable/crayon,
+/turf/open/floor/plasteel/techmaint,
+/area/template_noop)
+"J" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/turf/open/floor/plasteel/vaporwave,
+/area/template_noop)
+"M" = (
+/obj/item/reagent_containers/food/snacks/butteredtoast,
+/obj/effect/decal/cleanable/crayon,
+/obj/structure/table/wood/fancy/black,
+/turf/open/floor/plating{
+	icon_state = "platingdmg3"
+	},
+/area/template_noop)
+"N" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/butterbiscuit,
+/obj/effect/decal/cleanable/crayon,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/template_noop)
+"U" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/cheesyburrito,
+/obj/effect/decal/cleanable/crayon,
+/turf/open/floor/plasteel/techmaint,
+/area/template_noop)
+"W" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/cheesynachos,
+/obj/effect/decal/cleanable/crayon,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/template_noop)
+"X" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 8
+	},
+/turf/open/floor/plasteel/vaporwave,
+/area/template_noop)
+"Y" = (
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/maintenance,
+/turf/open/floor/plasteel/grid/steel,
+/area/template_noop)
+
+(1,1,1) = {"
+r
+G
+W
+F
+F
+F
+F
+u
+I
+a
+"}
+(2,1,1) = {"
+Y
+F
+o
+d
+p
+h
+d
+q
+e
+H
+"}
+(3,1,1) = {"
+Y
+F
+X
+F
+D
+M
+F
+J
+E
+a
+"}
+(4,1,1) = {"
+r
+U
+N
+F
+F
+F
+F
+f
+k
+a
+"}
+(5,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
