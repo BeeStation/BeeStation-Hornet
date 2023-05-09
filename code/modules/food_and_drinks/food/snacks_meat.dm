@@ -308,7 +308,7 @@
 	desc = "A human meat, on a stick."
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 6)
 	tastes = list("tender meat" = 3, "metal" = 1)
-	foodtype = MEAT | GROSS
+	foodtype = MEAT | GORE
 
 /obj/item/reagent_containers/food/snacks/kebab/monkey
 	name = "meat-kebab"
@@ -330,7 +330,7 @@
 	desc = "Severed lizard tail on a stick."
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 4)
 	tastes = list("meat" = 8, "metal" = 4, "scales" = 1)
-	foodtype = MEAT
+	foodtype = MEAT | GORE
 
 /obj/item/reagent_containers/food/snacks/kebab/rat
 	name = "rat-kebab"
@@ -339,7 +339,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("rat meat" = 1, "metal" = 1)
-	foodtype = MEAT | GROSS
+	foodtype = MEAT | GORE
 
 /obj/item/reagent_containers/food/snacks/kebab/rat/double
 	name = "double rat-kebab"
