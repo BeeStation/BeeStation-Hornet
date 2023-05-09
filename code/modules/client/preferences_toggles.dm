@@ -356,7 +356,7 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Adminhelp Sound", "[prefs.toggles & PREFTOGGLE_SOUND_ADMINHELP ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/toggleadminalertsound()
-	set name = "Hear/Silence Admin alert sounds"
+	set name = "Hear/Silence Admin alerts"
 	set category = "Prefs - Admin"
 	set desc = "Toggle hearing a notification when various admin alerts happen"
 	if(!holder)
