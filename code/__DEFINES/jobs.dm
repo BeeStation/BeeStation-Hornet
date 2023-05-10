@@ -1,6 +1,6 @@
 // RL PK = Role List 'Primary Key'
-#define RLPK_DISPLAY_STATION_ROLE "station_role"
-#define RLPK_DISPLAY_SPECIAL_ROLE "special_role"
+#define RLPK_DISPLAY_STATION_ROLE "title_station_role"
+#define RLPK_DISPLAY_SPECIAL_ROLE "title_special_role"
 #define RLPK_HOLDER_JOBS "jobs"
 #define RLPK_HOLDER_SPECIAL_ROLES "special_roles"
 
