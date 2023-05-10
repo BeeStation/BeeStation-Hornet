@@ -211,7 +211,14 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	/// Normally, this will be set to TRUE if something 'big' happens, like warops.
 	var/high_impact_major_event_occured = FALSE
 
+	/// Cached value of is_station_intact.
+	var/cached_station_intact = TRUE
+
+	/// When the next high impact death check will be run.
 	COOLDOWN_DECLARE(next_dead_check)
+
+	/// When the cached station intactness will expire.
+	COOLDOWN_DECLARE(intact_cache_expiry)
 
 /datum/game_mode/dynamic/admin_panel()
 	var/list/dat = list("<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><title>Game Mode Panel</title></head><body><h1><B>Game Mode Panel</B></h1>")
@@ -316,7 +323,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 /datum/game_mode/dynamic/set_round_result()
 	// If it got to this part, just pick one high impact ruleset if it exists
 	for(var/datum/dynamic_ruleset/rule in executed_rules)
-		if(rule.flags & HIGH_IMPACT_RULESET)
+		if(CHECK_BITFIELD(rule.flags, HIGH_IMPACT_RULESET))
 			return rule.round_result()
 	return ..()
 
@@ -578,20 +585,20 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 
 		rulesets_picked[ruleset] += 1
 
-		if (ruleset.flags & HIGH_IMPACT_RULESET)
+		if (CHECK_BITFIELD(ruleset.flags, HIGH_IMPACT_RULESET))
 			for (var/_other_ruleset in drafted_rules)
 				var/datum/dynamic_ruleset/other_ruleset = _other_ruleset
-				if (other_ruleset.flags & HIGH_IMPACT_RULESET)
+				if (CHECK_BITFIELD(other_ruleset.flags, HIGH_IMPACT_RULESET))
 					drafted_rules[other_ruleset] = null
 
-		if (ruleset.flags & NO_OTHER_ROUNDSTARTS_RULESET)
+		if (CHECK_BITFIELD(ruleset.flags, NO_OTHER_ROUNDSTARTS_RULESET))
 			drafted_rules.Cut()
 
-		if (ruleset.flags & LONE_RULESET)
+		if (CHECK_BITFIELD(ruleset.flags, LONE_RULESET))
 			drafted_rules[ruleset] = null
 
 	for (var/datum/dynamic_ruleset/ruleset in rulesets_picked)
-		if(ruleset.flags & NO_OTHER_ROUNDSTARTS_RULESET)
+		if(CHECK_BITFIELD(ruleset.flags, NO_OTHER_ROUNDSTARTS_RULESET))
 			rulesets_picked = list()
 			rulesets_picked[ruleset] = 1
 			break
@@ -608,7 +615,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 
 	if(ruleset.pre_execute(roundstart_pop_ready))
 		threat_log += "[worldtime2text()]: Roundstart [ruleset.name] spent [ruleset.cost + added_threat]. [ruleset.scaling_cost ? "Scaled up [ruleset.scaled_times]/[scaled_times] times." : ""]"
-		if(ruleset.flags & ONLY_RULESET)
+		if(CHECK_BITFIELD(ruleset.flags, ONLY_RULESET))
 			only_ruleset_executed = TRUE
 		executed_rules += ruleset
 		return ruleset.cost + added_threat
@@ -650,7 +657,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		else if(check_blocking(new_rule.blocking_rules, executed_rules))
 			return FALSE
 		// Check if the ruleset is high impact and if a high impact ruleset has been executed
-		else if(new_rule.flags & HIGH_IMPACT_RULESET)
+		else if(CHECK_BITFIELD(new_rule.flags, HIGH_IMPACT_RULESET))
 			if(threat_level < GLOB.dynamic_stacking_limit && GLOB.dynamic_no_stacking && high_impact_ruleset_active())
 				return FALSE
 
@@ -662,7 +669,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 				spend_midround_budget(new_rule.cost, threat_log, "[worldtime2text()]: Forced rule [new_rule.name]")
 			new_rule.pre_execute(population)
 			if (new_rule.execute()) // This should never fail since ready() returned 1
-				if(new_rule.flags & ONLY_RULESET)
+				if(CHECK_BITFIELD(new_rule.flags, ONLY_RULESET))
 					only_ruleset_executed = TRUE
 				log_game("DYNAMIC: Making a call to a specific ruleset...[new_rule.name]!")
 				executed_rules += new_rule
@@ -743,10 +750,12 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		for (var/datum/dynamic_ruleset/latejoin/rule in latejoin_rules)
 			if (!rule.weight)
 				continue
+			if (CHECK_BITFIELD(rule.flags, INTACT_STATION_RULESET) && !is_station_intact())
+				continue
 			if (rule.acceptable(current_players[CURRENT_LIVING_PLAYERS].len, threat_level) && mid_round_budget >= rule.cost)
 				// No stacking : only one round-ender, unless threat level > stacking_limit.
 				if (threat_level < GLOB.dynamic_stacking_limit && GLOB.dynamic_no_stacking)
-					if(rule.flags & HIGH_IMPACT_RULESET && high_impact_ruleset_active())
+					if(CHECK_BITFIELD(rule.flags, HIGH_IMPACT_RULESET) && high_impact_ruleset_active())
 						continue
 
 				rule.candidates = list(newPlayer)
@@ -812,6 +821,36 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		if(!high_impact_major_event_occured && ruleset.is_dead())
 			continue
 		return TRUE
+
+/// Checks if the station is considered "intact", for the purpose of rolling rulesets with the INTACT_STATION_RULESET flag.
+/datum/game_mode/dynamic/proc/is_station_intact()
+	if(!COOLDOWN_FINISHED(src, intact_cache_expiry))
+		return cached_station_intact
+	COOLDOWN_START(src, intact_cache_expiry, 5 MINUTES)
+	cached_station_intact = TRUE
+	var/min_pop = CONFIG_GET(number/dynamic_minimum_living_population)
+	if(min_pop)
+		var/total = 0
+		var/living = 0
+		for(var/mob/living/player in GLOB.player_list)
+			if(!is_station_level(player.z))
+				continue
+			if(player.stat < DEAD)
+				living++
+			total++
+		if(min(total, living) > 0)
+			var/living_percent = living / total
+			if(min_pop > living_percent)
+				cached_station_intact = FALSE
+	var/min_integrity = CONFIG_GET(number/dynamic_minimum_station_integrity)
+	if(min_integrity && cached_station_intact)
+		var/datum/station_state/current_state = new /datum/station_state()
+		current_state.count()
+		var/station_integrity = GLOB.start_state.score(current_state)
+		qdel(current_state)
+		if(min_integrity > station_integrity)
+			cached_station_intact = FALSE
+	return cached_station_intact
 
 /// Turns the value generated by lorentz distribution to number between 0 and 100.
 /// Used for threat level and splitting the budgets.

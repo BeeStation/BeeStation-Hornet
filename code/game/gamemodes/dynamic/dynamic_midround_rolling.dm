@@ -46,6 +46,10 @@
 			log_game("DYNAMIC: FAIL: [ruleset] has a weight of 0")
 			continue
 
+		if (CHECK_BITFIELD(ruleset.flags, INTACT_STATION_RULESET) && !is_station_intact())
+			log_game("DYNAMIC: FAIL: [ruleset] is not acceptable, as the station is not considered intact.")
+			continue
+
 		if (!ruleset.acceptable(SSticker.mode.current_players[CURRENT_LIVING_PLAYERS].len, threat_level))
 			log_game("DYNAMIC: FAIL: [ruleset] is not acceptable with the current parameters. Alive players: [SSticker.mode.current_players[CURRENT_LIVING_PLAYERS].len], threat level: [threat_level]")
 			continue
@@ -59,7 +63,7 @@
 			continue
 
 		// If admins have disabled dynamic from picking from the ghost pool
-		if(istype(ruleset, /datum/dynamic_ruleset/midround/from_ghosts) && !(GLOB.ghost_role_flags & GHOSTROLE_MIDROUND_EVENT))
+		if(istype(ruleset, /datum/dynamic_ruleset/midround/from_ghosts) && !(CHECK_BITFIELD(GLOB.ghost_role_flags, GHOSTROLE_MIDROUND_EVENT)))
 			log_game("DYNAMIC: FAIL: [ruleset] is a from_ghosts ruleset, but ghost roles are disabled")
 			continue
 

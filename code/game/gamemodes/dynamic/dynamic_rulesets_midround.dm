@@ -196,6 +196,7 @@
 	cost = 8
 	requirements = list(8,8,8,8,8,8,8,8,8,8)
 	repeatable = TRUE
+	flags = INTACT_STATION_RULESET
 	blocking_rules = list(
 		/datum/dynamic_ruleset/roundstart/bloodcult,
 		/datum/dynamic_ruleset/roundstart/clockcult,
@@ -253,7 +254,7 @@
 	cost = 13
 	required_type = /mob/living/silicon/ai
 	blocking_rules = list(/datum/dynamic_ruleset/roundstart/nuclear)
-	flags = HIGH_IMPACT_RULESET
+	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET
 	var/ion_announce = 33
 	var/removeDontImproveChance = 10
 
@@ -388,7 +389,7 @@
 	weight = 3
 	cost = 12
 	minimum_players = 25
-	flags = HIGH_IMPACT_RULESET
+	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET
 
 /datum/dynamic_ruleset/midround/from_ghosts/blob/generate_ruleset_body(mob/applicant)
 	var/body = applicant.become_overmind()
@@ -412,7 +413,7 @@
 	weight = 3
 	cost = 12
 	minimum_players = 25
-	flags = HIGH_IMPACT_RULESET
+	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET
 	var/list/vents = list()
 
 /datum/dynamic_ruleset/midround/from_ghosts/xenomorph/execute()
@@ -504,6 +505,7 @@
 	cost = 11
 	minimum_players = 25
 	repeatable = TRUE
+	flags = INTACT_STATION_RULESET
 	var/list/spawn_locs = list()
 
 /datum/dynamic_ruleset/midround/from_ghosts/space_dragon/execute()
@@ -705,6 +707,7 @@
 	weight = 3
 	cost = 11
 	repeatable = TRUE
+	flags = INTACT_STATION_RULESET
 	minimum_players = 27
 	var/fed = 1
 	var/list/vents = list()
@@ -763,6 +766,7 @@
 	cost = 10
 	minimum_players = 15
 	repeatable = FALSE // please no
+	flags = INTACT_STATION_RULESET
 	var/announce_chance = 25
 
 /datum/dynamic_ruleset/midround/from_ghosts/swarmer/execute()
