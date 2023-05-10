@@ -447,7 +447,7 @@
 
 //Dynamic options
 /datum/config_entry/number/dynamic_minimum_station_integrity
-	config_entry_value = 95
+	config_entry_value = 0.95
 	min_val = 0
 	max_val = 100
 
@@ -458,7 +458,7 @@
 		config_entry_value *= 0.01
 
 /datum/config_entry/number/dynamic_minimum_living_population
-	config_entry_value = 70
+	config_entry_value = 0.7
 	min_val = 0
 	max_val = 100
 
