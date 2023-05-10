@@ -313,7 +313,6 @@ DYNAMIC_CONFIG_ENABLED
 ## The minimum station integrity, as a percentage value, for potentially destructive crew antags to roll.
 ## Basically, if the station is blown to bits, it won't spawn traitors to come in and pick apart what's left.
 ## Set to 0 to disable station integrity checks.
-## 95% seems to be a good threshold for "blown to bits", from local testing. -Lucy
 DYNAMIC_MINIMUM_STATION_INTEGRITY 95
 
 ## What's the minimum percentage of living crew (compared to all joined crew) needed to start rolling potentially
