@@ -83,10 +83,15 @@
 /datum/component/food_storage/proc/try_removing_item(datum/source, mob/user)
 	SIGNAL_HANDLER
 
+	var/atom/food = parent
+
 	if(user.a_intent != INTENT_GRAB)
 		return
 
 	if(QDELETED(stored_item))
+		return
+
+	if(!food.can_interact(user))
 		return
 
 	user.visible_message("<span class='notice'>[user.name] begins tearing at \the [parent].</span>", \
@@ -158,9 +163,11 @@
 	bad_chance_of_discovery = (bitecount / (initial_volume / bitesize))*100
 	/// Chance of finding the held item = bad chance - 50
 	good_chance_of_discovery = bad_chance_of_discovery - 50
+
 	if(prob(good_chance_of_discovery)) //finding the item, without biting it
 		discovered = TRUE
 		to_chat(target, "<span class='warning'>It feels like there's something in \the [parent]...!</span>")
+		
 	else if(prob(bad_chance_of_discovery)) //finding the item, BY biting it
 		user.log_message("[key_name(user)] just fed [key_name(target)] a/an [stored_item] which was hidden in [parent] at [AREACOORD(target)]", LOG_ATTACK)
 		discovered = stored_item.on_accidental_consumption(target, user, parent)
