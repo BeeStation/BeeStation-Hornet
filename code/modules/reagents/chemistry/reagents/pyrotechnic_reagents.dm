@@ -242,41 +242,26 @@
 
 /datum/reagent/teslium/energized_jelly
 	name = "Energized Jelly"
-	description = "Electrically-charged jelly. Boosts jellypeople's nervous system, but only shocks other lifeforms."
+	description = "Electrically-charged jelly. Boosts Oozeling's nervous system, but only shocks other lifeforms."
 	reagent_state = LIQUID
 	color = "#CAFF43"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "jelly"
+	overdose_threshold = 30
 
 /datum/reagent/teslium/energized_jelly/on_mob_life(mob/living/carbon/M)
-	if(isjellyperson(M))
+	if(isoozeling(M))
 		shock_timer = 0 //immune to shocks
 		M.AdjustAllImmobility(-40, FALSE)
 		M.adjustStaminaLoss(-2, 0)
 		if(isluminescent(M))
 			var/mob/living/carbon/human/H = M
-			var/datum/species/jelly/luminescent/L = H.dna.species
+			var/datum/species/oozeling/luminescent/L = H.dna.species
 			L.extract_cooldown = max(0, L.extract_cooldown - 20)
 	..()
 
-/datum/reagent/teslium/energized_jelly/energized_ooze
-	name = "Energized Ooze"
-	description = "Electrically-charged Ooze. Boosts Oozeling's nervous system, but only shocks other lifeforms."
-	reagent_state = LIQUID
-	color = "#CAFF43"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	taste_description = "slime"
-	overdose_threshold = 30
-
-/datum/reagent/teslium/energized_jelly/energized_ooze/on_mob_life(mob/living/carbon/M)
+/datum/reagent/teslium/energized_jelly/overdose_process(mob/living/carbon/M)
 	if(isoozeling(M))
-		shock_timer = 0 //immune to shocks
-		M.AdjustAllImmobility(-40, FALSE)
-		M.adjustStaminaLoss(-2, 0)
-	..()
-
-/datum/reagent/teslium/energized_jelly/energized_ooze/overdose_process(mob/living/carbon/M)
-	if(isoozeling(M) || isjellyperson(M))
 		if(prob(25))
 			M.electrocute_act(rand(5,20), "Energized Jelly overdose in their body", 1, 1) //Override because it's caused from INSIDE of you
 			playsound(M, "sparks", 50, 1)

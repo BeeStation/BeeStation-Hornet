@@ -19,6 +19,8 @@ SUBSYSTEM_DEF(air)
 	var/cost_equalize = 0
 	var/thread_wait_ticks = 0
 	var/cur_thread_wait_ticks = 0
+	///The last time the subsystem completely processed
+	var/last_complete_process = 0
 
 	var/low_pressure_turfs = 0
 	var/high_pressure_turfs = 0
@@ -297,6 +299,7 @@ SUBSYSTEM_DEF(air)
 		currentpart = SSAIR_HOTSPOTS
 	*/
 	currentpart = SSAIR_REBUILD_PIPENETS
+	last_complete_process = world.time
 
 /datum/controller/subsystem/air/Recover()
 	thread_wait_ticks = SSair.thread_wait_ticks
