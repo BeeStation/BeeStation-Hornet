@@ -455,7 +455,7 @@
 	. = ..()
 	// Convert to 0-1 percentage
 	if(.)
-		config_entry_value /= 100
+		config_entry_value *= 0.1
 
 /datum/config_entry/number/dynamic_minimum_living_population
 	config_entry_value = 70
@@ -466,4 +466,4 @@
 	. = ..()
 	// Convert to 0-1 percentage
 	if(.)
-		config_entry_value /= 100
+		config_entry_value *= 0.1
