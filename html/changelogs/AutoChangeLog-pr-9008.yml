@@ -1,5 +1,0 @@
-author: Crossedfall
-delete-after: true
-changes:
-  - server: The rust_g binary has been replaced with a version that's more compatible
-      with older hardware
