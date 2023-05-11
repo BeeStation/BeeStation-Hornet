@@ -6,7 +6,7 @@
 	name = "meat"
 	desc = "A slab of meat."
 	icon_state = "meat"
-	dried_type = /obj/item/food/sosjerky/healthy
+	dried_type = /obj/item/reagent_containers/food/snacks/sosjerky/healthy
 	bitesize = 3
 	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/cooking_oil = 2) //Meat has fats that a food processor can process into cooking oil
 	cooked_type = /obj/item/reagent_containers/food/snacks/meat/steak/plain
@@ -221,7 +221,7 @@
 	tastes = list("meat" = 1, ACID = 1)
 	foodtype = RAW | MEAT
 
-/obj/item/food/meat/slab/spider
+/obj/item/reagent_containers/food/snacks/meat/slab/spider
 	name = "spider meat"
 	desc = "A slab of spider meat."
 	icon_state = "spidermeat"

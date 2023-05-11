@@ -204,17 +204,7 @@
 	/*food_flags = FOOD_FINGER_FOOD*/
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/reagent_containers/food/snacks/eggwrap
-	name = "egg wrap"
-	desc = "The precursor to Pigs in a Blanket."
-	icon_state = "eggwrap"
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 3)
-	list_reagents = list(/datum/reagent/consumable/nutriment = 5)
-	filling_color = "#F0E68C"
-	tastes = list("egg" = 1)
-	foodtype = MEAT | GRAIN
-
-/obj/item/food/spidereggs
+/obj/item/reagent_containers/food/snacks/spidereggs
 	name = "spider eggs"
 	desc = "A cluster of juicy spider eggs. A great side dish for when you care not for your health."
 	icon_state = "spidereggs"

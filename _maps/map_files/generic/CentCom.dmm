@@ -6411,7 +6411,7 @@
 /turf/open/floor/grass,
 /area/wizard_station)
 "zr" = (
-/obj/item/food/meat/slab/corgi,
+/obj/item/reagent_containers/food/snacks/meat/slab/corgi,
 /turf/open/floor/grass,
 /area/wizard_station)
 "zt" = (
@@ -12089,7 +12089,7 @@
 /area/centcom/control)
 "Yf" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/chawanmushi,
+/obj/item/food/chawanmushi,
 /turf/open/floor/wood,
 /area/centcom/holding)
 "Yg" = (

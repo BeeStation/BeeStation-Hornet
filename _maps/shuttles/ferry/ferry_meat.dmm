@@ -35,7 +35,7 @@
 /obj/item/reagent_containers/food/snacks/meat/slab/goliath,
 /obj/item/reagent_containers/food/snacks/meat/slab/killertomato,
 /obj/item/reagent_containers/food/snacks/meat/slab/pug,
-/obj/item/food/meat/slab/spider,
+/obj/item/reagent_containers/food/snacks/meat/slab/spider,
 /obj/item/reagent_containers/food/snacks/meat/slab/xeno,
 /obj/item/reagent_containers/food/snacks/meat/slab/human{
 	name = "human meat"

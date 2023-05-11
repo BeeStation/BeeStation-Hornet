@@ -103,19 +103,24 @@
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 
 //Egg prizes and egg spawns!
-/obj/item/reagent_containers/food/snacks/egg
-	var/containsPrize = FALSE
+/obj/item/surprise_egg
+	name = "wrapped egg"
+	desc = "A chocolate egg containing a little something special. Unwrap and enjoy!"
+	icon_state = "egg"
+	resistance_flags = FLAMMABLE
+	w_class = WEIGHT_CLASS_TINY
+	icon = 'icons/obj/food/egg.dmi'
+	lefthand_file = 'icons/mob/inhands/items/food_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items/food_righthand.dmi'
+	obj_flags = UNIQUE_RENAME
 
-/obj/item/food/egg/loaded
-	containsPrize = TRUE
-
-/obj/item/food/egg/loaded/Initialize(mapload)
+/obj/item/suprise_egg/loaded/Initialize(mapload)
 	. = ..()
 	var/eggcolor = pick("blue","green","mime","orange","purple","rainbow","red","yellow")
 	icon_state = "egg-[eggcolor]"
 
-/obj/item/food/egg/proc/dispensePrize(turf/where)
-	var/won = pick(/obj/item/clothing/head/bunnyhead,
+/obj/item/suprise_egg/proc/dispensePrize(turf/where)
+	var/static/list/prize_list = list(/obj/item/clothing/head/bunnyhead,
 	/obj/item/clothing/suit/bunnysuit,
 	/obj/item/reagent_containers/food/snacks/grown/carrot,
 	/obj/item/food/chocolateegg,
@@ -128,16 +133,15 @@
 	/obj/item/toy/plush/carpplushie,
 	/obj/item/toy/redbutton,
 	/obj/item/clothing/head/collectable/rabbitears)
+	var/won = pick(prize_list)
 	new won(where)
 	new/obj/item/food/chocolateegg(where)
 
-/obj/item/food/egg/attack_self(mob/user)
+/obj/item/suprise_egg/attack_self(mob/user)
 	..()
-	if(containsPrize)
-		to_chat(user, "<span class='notice'>You unwrap [src] and find a prize inside!</span>")
-		dispensePrize(get_turf(user))
-		containsPrize = FALSE
-		qdel(src)
+	to_chat(user, "<span class='notice'>You unwrap [src] and find a prize inside!</span>")
+	dispensePrize(get_turf(user))
+	qdel(src)
 
 //Easter Recipes + food
 /obj/item/reagent_containers/food/snacks/hotcrossbun

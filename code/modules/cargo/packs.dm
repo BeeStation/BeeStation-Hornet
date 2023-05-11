@@ -2300,7 +2300,7 @@
 					/obj/item/reagent_containers/food/snacks/meat/slab/killertomato,
 					/obj/item/reagent_containers/food/snacks/meat/slab/bear,
 					/obj/item/reagent_containers/food/snacks/meat/slab/xeno,
-					/obj/item/food/meat/slab/spider,
+					/obj/item/reagent_containers/food/snacks/meat/slab/spider,
 					/obj/item/reagent_containers/food/snacks/meat/rawbacon,
 					/obj/item/reagent_containers/food/snacks/meat/slab/penguin,
 					/obj/item/food/spiderleg,

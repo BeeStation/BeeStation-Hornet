@@ -158,7 +158,7 @@
 		/obj/item/reagent_containers/food/snacks/burrito,
 		/obj/item/food/burger/fish,
 		/obj/item/food/cubancarp,
-		/obj/item/reagent_containers/food/snacks/fishandchips,
+		/obj/item/food/fishandchips,
 		/obj/item/reagent_containers/food/snacks/pie/meatpie,
 		/obj/item/pizzabox,
 	)

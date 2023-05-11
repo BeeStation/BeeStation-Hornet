@@ -458,7 +458,6 @@
 	)
 	bite_consumption = 6
 	tastes = list("fish" = 1,"cruelty" = 2)
-	eatverbs = pick("bite","chew","choke down","gnaw","swallow","chomp")
 	foodtypes = MEAT
 
 

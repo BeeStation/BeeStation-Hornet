@@ -87,6 +87,7 @@
 /obj/item/food/friedegg
 	name = "fried egg"
 	desc = "A fried egg, with a touch of salt and pepper."
+	icon = 'icons/obj/food/egg.dmi'
 	icon_state = "friedegg"
 	food_reagents = list(
 		///datum/reagent/consumable/nutriment/protein = 6,
@@ -99,6 +100,7 @@
 /obj/item/food/boiledegg
 	name = "boiled egg"
 	desc = "A hard boiled egg."
+	icon = 'icons/obj/food/egg.dmi'
 	icon_state = "egg"
 	food_reagents = list(
 		///datum/reagent/consumable/nutriment/protein = 4,
@@ -112,6 +114,7 @@
 /obj/item/food/omelette //FUCK THIS
 	name = "omelette du fromage"
 	desc = "That's all you can say!"
+	icon = 'icons/obj/food/egg.dmi'
 	icon_state = "omelette"
 	trash_type = /obj/item/trash/plate
 	food_reagents = list(
@@ -144,6 +147,7 @@
 /obj/item/food/benedict
 	name = "eggs benedict"
 	desc = "There is only one egg on this, how rude."
+	icon = 'icons/obj/food/egg.dmi'
 	icon_state = "benedict"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment/vitamin = 6,
@@ -154,3 +158,26 @@
 	w_class = WEIGHT_CLASS_SMALL
 	tastes = list("egg" = 1, "bacon" = 1, "bun" = 1)
 	foodtypes = MEAT | BREAKFAST | GRAIN
+
+/obj/item/food/eggwrap
+	name = "egg wrap"
+	desc = "The precursor to Pigs in a Blanket."
+	icon = 'icons/obj/food/egg.dmi'
+	icon_state = "eggwrap"
+	food_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/protein = 2, /datum/reagent/consumable/nutriment/vitamin = 3)
+	tastes = list("egg" = 1)
+	foodtypes = MEAT | VEGETABLES
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/food/chawanmushi
+	name = "chawanmushi"
+	desc = "A legendary egg custard that makes friends out of enemies. Probably too hot for a cat to eat."
+	icon = 'icons/obj/food/egg.dmi'
+	icon_state = "chawanmushi"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 4,
+		/datum/reagent/consumable/nutriment/protein = 3,
+		/datum/reagent/consumable/nutriment/vitamin = 1
+	)
+	tastes = list("custard" = 1)
+	foodtypes = MEAT | VEGETABLES

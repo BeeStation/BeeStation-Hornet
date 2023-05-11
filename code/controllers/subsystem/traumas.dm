@@ -136,7 +136,7 @@ SUBSYSTEM_DEF(traumas)
 						/obj/item/clothing/under/costume/griffin, /obj/item/clothing/shoes/griffin, /obj/item/clothing/head/griffin,
 						/obj/item/clothing/head/helmet/space/freedom, /obj/item/clothing/suit/space/freedom)),
 
-					   "anime" = typecacheof(list(/obj/item/clothing/under/costume/schoolgirl, /obj/item/katana, /obj/item/food/sashimi, /obj/item/reagent_containers/food/snacks/chawanmushi,
+					   "anime" = typecacheof(list(/obj/item/clothing/under/costume/schoolgirl, /obj/item/katana, /obj/item/food/sashimi, /obj/item/food/chawanmushi,
 					   /obj/item/reagent_containers/food/drinks/bottle/sake, /obj/item/throwing_star, /obj/item/clothing/head/kitty/genuine, /obj/item/clothing/suit/space/space_ninja,
 					   /obj/item/clothing/mask/gas/space_ninja, /obj/item/clothing/shoes/space_ninja, /obj/item/clothing/gloves/space_ninja, /obj/item/vibro_weapon,
 					   /obj/item/nullrod/scythe/vibro, /obj/item/energy_katana, /obj/item/toy/katana, /obj/item/nullrod/claymore/katana, /obj/item/katana/weak/curator, /obj/structure/window/paperframe, /obj/structure/mineral_door/paperframe))

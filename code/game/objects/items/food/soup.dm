@@ -1,7 +1,7 @@
 /obj/item/food/soup
 	w_class = WEIGHT_CLASS_NORMAL
 	icon = 'icons/obj/food/soupsalad.dmi'
-	trash_type = /obj/item/reagent_containers/cup/bowl
+	trash_type = /obj/item/reagent_containers/glass/bowl
 	bite_consumption = 5
 	max_volume = 80
 	food_reagents = list(
@@ -73,7 +73,7 @@
 	name = "wing fang chu"
 	desc = "A savory dish of alien wing wang in soy."
 	icon_state = "wingfangchu"
-	trash_type = /obj/item/reagent_containers/cup/bowl
+	trash_type = /obj/item/reagent_containers/glass/bowl
 	food_reagents = list(
 		//datum/reagent/consumable/nutriment/protein = 9,
 		/datum/reagent/consumable/soysauce = 10,

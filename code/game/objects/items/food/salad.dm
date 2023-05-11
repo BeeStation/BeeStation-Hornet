@@ -49,15 +49,6 @@
 	tastes = list("leaves" = 1, "potato" = 1, "meat" = 1, "valids" = 1)
 	foodtypes = VEGETABLES | MEAT | FRIED | FRUIT
 
-/obj/item/food/salad/oatmeal
-	name = "oatmeal"
-	desc = "Thicker than a bowl of oatmeal."
-	icon_state = "oatmeal"
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/nutriment/vitamin = 4)
-	list_reagents = list(/datum/reagent/consumable/nutriment = 7, /datum/reagent/consumable/milk = 10, /datum/reagent/consumable/nutriment/vitamin = 2)
-	tastes = list("oats" = 1, "milk" = 1)
-	foodtype = DAIRY | GRAIN | BREAKFAST
-
 /obj/item/food/salad/fruit
 	name = "fruit salad"
 	desc = "Your standard fruit salad."
