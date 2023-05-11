@@ -147,9 +147,12 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 /obj/structure/bodycontainer/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
 		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 2)
+
+
 /*
  * Morgue
  */
+GLOBAL_LIST_EMPTY(morgue_trays)
 /obj/structure/bodycontainer/morgue
 	name = "morgue"
 	desc = "Used to keep bodies in until someone fetches them. Now includes a high-tech alert system."
@@ -163,6 +166,11 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 	. = ..()
 	connected = new/obj/structure/tray/m_tray(src)
 	connected.connected = src
+	GLOB.morgue_trays += src
+
+/obj/structure/bodycontainer/morgue/Destroy()
+	GLOB.morgue_trays -= src
+	return ..()
 
 /obj/structure/bodycontainer/morgue/examine(mob/user)
 	. = ..()
