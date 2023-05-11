@@ -214,6 +214,23 @@
 			to_chat(usr, "<span class='notice'>None of new surgical programs detected.</span>")
 	return ..()
 
+/obj/item/organ/cyberimp/brain/perfect_surgeon
+	name = "hacked surgical serverlink brain implant"
+	desc = "A brain implant with a bluespace technology that lets you perform any advanced surgery through hacked Nanotrasen servers."
+	slot = ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT
+	syndicate_implant = TRUE
+
+/obj/item/organ/cyberimp/brain/perfect_surgeon/Insert(mob/living/carbon/user, special, drop_if_replaced)
+	. = ..()
+	to_chat(user, "<span class='notice'>Detailed, forbidden medical knowledge begins to fill your brain... You feel as if you're a <span class='hypnophrase'>perfect</span> surgeon now!</span>")
+	ADD_TRAIT(user, TRAIT_SURGEON, ORGAN_TRAIT)
+
+/obj/item/organ/cyberimp/brain/perfect_surgeon/Remove(mob/living/carbon/user, special)
+	. = ..()
+	if(!QDELETED(user))
+		to_chat(user, "<span class='warning'>You feel your perfect surgical knowledge leaving your mind!</span>")
+		REMOVE_TRAIT(user, TRAIT_SURGEON, ORGAN_TRAIT)
+
 //[[[[MOUTH]]]]
 /obj/item/organ/cyberimp/mouth
 	zone = BODY_ZONE_PRECISE_MOUTH

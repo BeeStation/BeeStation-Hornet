@@ -68,7 +68,7 @@
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		var/obj/item/organ/cyberimp/brain/linkedsurgery/IMP = C.getorganslot(ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT )
-		if(!isnull(IMP))
+		if(istype(IMP))
 			if(replaced_by in IMP.advanced_surgeries)
 				return FALSE
 			if(type in IMP.advanced_surgeries)
@@ -148,7 +148,7 @@
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		var/obj/item/organ/cyberimp/brain/linkedsurgery/IMP = C.getorganslot(ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT )
-		if(!isnull(IMP))
+		if(istype(IMP))
 			if(type in IMP.advanced_surgeries)
 				return TRUE
 
