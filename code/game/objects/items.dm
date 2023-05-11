@@ -990,10 +990,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		MO.desc = "Looks like this was \an [src] some time ago."
 		..()
 
-/obj/item/proc/microwave_act(obj/machinery/microwave/M)
-	SEND_SIGNAL(src, COMSIG_ITEM_MICROWAVE_ACT, M)
-	if(istype(M) && M.dirty < 100)
-		M.dirty++
+/obj/item/proc/microwave_act(obj/machinery/microwave/microwave_source, mob/microwaver)
+	SHOULD_CALL_PARENT(TRUE)
 
 	var/obj/item/stock_parts/cell/battery = get_cell()
 	if(battery && battery.charge < battery.maxcharge * 0.4)
@@ -1005,6 +1003,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				battery.explode()
 			else
 				explosion(src, 0, 0, 3, 4)
+
+	return SEND_SIGNAL(src, COMSIG_ITEM_MICROWAVE_ACT, microwave_source, microwaver)
 
 /obj/item/proc/on_mob_death(mob/living/L, gibbed)
 

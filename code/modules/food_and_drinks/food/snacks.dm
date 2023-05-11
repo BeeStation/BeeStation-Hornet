@@ -303,6 +303,7 @@ All foods are distributed among various categories. Use common sense.
 				S.reagents.add_reagent(r_id, amount)
 
 /obj/item/reagent_containers/food/snacks/microwave_act(obj/machinery/microwave/M)
+	. = ..()
 	var/turf/T = get_turf(src)
 	var/obj/item/result
 
