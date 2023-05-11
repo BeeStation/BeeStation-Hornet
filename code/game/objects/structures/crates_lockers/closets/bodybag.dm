@@ -106,7 +106,7 @@
 /obj/structure/closet/body_bag/bluespace/MouseDrop(over_object, src_location, over_location)
 	if(over_object == usr && Adjacent(usr) && (in_range(src, usr) || usr.contents.Find(src)) && folding_allowed())
 		var/list/trays = list()
-		for(var/obj/structure/bodycontainer/morgue/M in GLOB.morgue_trays)
+		for(var/obj/structure/bodycontainer/morgue/M as() in GLOB.morgue_trays)
 			if(M.z == z)
 				trays += M // Don't allow teleportation between zlevels
 
