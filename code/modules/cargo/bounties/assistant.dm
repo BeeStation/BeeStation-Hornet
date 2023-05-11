@@ -61,7 +61,7 @@
 	description = "Apparently the company that makes Cheesie Honkers is going out of business soon. CentCom wants to stock up before it happens!"
 	reward = 1200
 	required_count = 3
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/cheesiehonkers)
+	wanted_types = list(/obj/item/food/cheesiehonkers)
 
 /datum/bounty/item/assistant/baseball_bat
 	name = "Baseball Bat"
@@ -163,7 +163,7 @@
 	description = "Due to a recent genetics accident, Central Command is in serious need of monkeys. Your mission is to ship monkey cubes."
 	reward = 2000
 	required_count = 3
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/monkeycube)
+	wanted_types = list(/obj/item/food/monkeycube)
 
 /datum/bounty/item/assistant/chainsaw
 	name = "Chainsaw"

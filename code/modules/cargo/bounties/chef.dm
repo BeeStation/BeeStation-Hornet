@@ -30,14 +30,14 @@
 	description = "Upper management has been screaming non-stop for ice cream. Please send some."
 	reward = 4000
 	required_count = 3
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/icecreamsandwich)
+	wanted_types = list(/obj/item/food/icecreamsandwich)
 
 /datum/bounty/item/chef/strawberryicecreamsandwich
 	name = " Strawberry Ice Cream Sandwiches"
 	description = "Upper management has been screaming non-stop for more flavourful ice cream. Please send some."
 	reward = 5000
 	required_count = 3
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/strawberryicecreamsandwich)
+	wanted_types = list(/obj/item/food/strawberryicecreamsandwich)
 
 /datum/bounty/item/chef/bread
 	name = "Bread"
@@ -81,7 +81,7 @@
 	name = "Cuban Carp"
 	description = "To celebrate the birth of Castro XXVII, ship one cuban carp to CentCom."
 	reward = 8000
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/cubancarp)
+	wanted_types = list(/obj/item/food/cubancarp)
 
 /datum/bounty/item/chef/hotdog
 	name = "Hot Dog"
@@ -134,5 +134,5 @@
 	description = "The vice president's son won't shut up about chicken nuggies. Would you mind shipping some?"
 	reward = 4000
 	required_count = 6
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/nugget)
+	wanted_types = list(/obj/item/food/nugget)
 

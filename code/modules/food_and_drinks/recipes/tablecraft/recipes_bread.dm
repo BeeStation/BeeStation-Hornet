@@ -38,7 +38,7 @@
 	reqs = list(
 		/datum/reagent/consumable/milk = 5,
 		/obj/item/food/bread/plain = 1,
-		/obj/item/reagent_containers/food/snacks/boiledegg = 3,
+		/obj/item/food/boiledegg = 3,
 		/obj/item/reagent_containers/food/snacks/grown/banana = 1
 	)
 	result = /obj/item/food/bread/banana
@@ -48,7 +48,7 @@
 	name = "Tofu bread"
 	reqs = list(
 		/obj/item/food/bread/plain = 1,
-		/obj/item/reagent_containers/food/snacks/tofu = 3,
+		/obj/item/food/tofu = 3,
 		/obj/item/reagent_containers/food/snacks/cheesewedge = 3
 	)
 	result = /obj/item/food/bread/tofu
@@ -69,7 +69,7 @@
 	reqs = list(
 		/datum/reagent/consumable/soymilk = 5,
 		/obj/item/food/bread/plain = 1,
-		/obj/item/reagent_containers/food/snacks/tofu = 3,
+		/obj/item/food/tofu = 3,
 		/obj/item/reagent_containers/food/snacks/grown/banana/mime = 1
 	)
 	result = /obj/item/food/bread/mimana
@@ -121,7 +121,7 @@
 	reqs = list(
 		/datum/reagent/consumable/ketchup = 5,
 		/obj/item/reagent_containers/food/snacks/bun = 1,
-		/obj/item/reagent_containers/food/snacks/sausage = 1
+		/obj/item/food/sausage = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/hotdog
 	subcategory = CAT_BREAD

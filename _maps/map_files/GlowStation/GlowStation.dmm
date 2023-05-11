@@ -13086,7 +13086,7 @@
 "cQp" = (
 /obj/structure/railing,
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/chips,
+/obj/item/food/chips,
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
 "cQq" = (
@@ -37219,7 +37219,7 @@
 	dir = 1
 	},
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/sosjerky/healthy,
+/obj/item/food/sosjerky/healthy,
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
@@ -82168,7 +82168,7 @@
 	dir = 8
 	},
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/chips,
+/obj/item/food/chips,
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
 "rkg" = (

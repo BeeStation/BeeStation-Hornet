@@ -1789,7 +1789,7 @@
 	cost = 1500
 	max_supply = 4
 	access = ACCESS_VIROLOGY
-	contains = list(/obj/item/reagent_containers/food/snacks/monkeycube,
+	contains = list(/obj/item/food/monkeycube,
 					/obj/item/reagent_containers/food/drinks/bottle/virusfood,
 					/obj/item/reagent_containers/glass/bottle/mutagen,
 					/obj/item/reagent_containers/glass/bottle/formaldehyde,
@@ -2300,11 +2300,11 @@
 					/obj/item/reagent_containers/food/snacks/meat/slab/killertomato,
 					/obj/item/reagent_containers/food/snacks/meat/slab/bear,
 					/obj/item/reagent_containers/food/snacks/meat/slab/xeno,
-					/obj/item/reagent_containers/food/snacks/meat/slab/spider,
+					/obj/item/food/meat/slab/spider,
 					/obj/item/reagent_containers/food/snacks/meat/rawbacon,
 					/obj/item/reagent_containers/food/snacks/meat/slab/penguin,
-					/obj/item/reagent_containers/food/snacks/spiderleg,
-					/obj/item/reagent_containers/food/snacks/carpmeat,
+					/obj/item/food/spiderleg,
+					/obj/item/food/fishmeat/carp,
 					/obj/item/reagent_containers/food/snacks/meat/slab/human)
 	crate_name = "food crate"
 

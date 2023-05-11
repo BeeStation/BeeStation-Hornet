@@ -285,11 +285,11 @@
 	. = ..()
 	desc += "\nIt seems a few selections have been added."
 	prize_list += list(
-		new /datum/data/vendor_equipment("Extra Id",       				/obj/item/card/id/golem, 				                   		250),
+		new /datum/data/vendor_equipment("Extra Id",       				/obj/item/card/id/golem,										250),
 		new /datum/data/vendor_equipment("Science Goggles",       		/obj/item/clothing/glasses/science,								250),
-		new /datum/data/vendor_equipment("Monkey Cube",					/obj/item/reagent_containers/food/snacks/monkeycube,        	300),
-		new /datum/data/vendor_equipment("Toolbelt",					/obj/item/storage/belt/utility,	    							350),
-		new /datum/data/vendor_equipment("Royal Cape of the Liberator", /obj/item/bedsheet/rd/royal_cape, 								500),
+		new /datum/data/vendor_equipment("Monkey Cube",					/obj/item/food/monkeycube,										300),
+		new /datum/data/vendor_equipment("Toolbelt",					/obj/item/storage/belt/utility,									350),
+		new /datum/data/vendor_equipment("Royal Cape of the Liberator", /obj/item/bedsheet/rd/royal_cape,								500),
 		new /datum/data/vendor_equipment("Grey Slime Extract",			/obj/item/slime_extract/grey,									1000),
 		new /datum/data/vendor_equipment("P-KA Upgrade: Trigger Mod",	/obj/item/borg/upgrade/modkit/trigger_guard,					1000),
 		new /datum/data/vendor_equipment("The Liberator's Legacy",  	/obj/item/storage/box/rndboards,								2000)

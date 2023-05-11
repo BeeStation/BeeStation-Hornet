@@ -214,7 +214,7 @@
 	tastes = list("egg" = 1)
 	foodtype = MEAT | GRAIN
 
-/obj/item/reagent_containers/food/snacks/spidereggs
+/obj/item/food/spidereggs
 	name = "spider eggs"
 	desc = "A cluster of juicy spider eggs. A great side dish for when you care not for your health."
 	icon_state = "spidereggs"

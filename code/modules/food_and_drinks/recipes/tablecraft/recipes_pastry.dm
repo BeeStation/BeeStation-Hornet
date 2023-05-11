@@ -322,7 +322,7 @@
 	name = "Donk-pocket"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/pastrybase = 1,
-		/obj/item/reagent_containers/food/snacks/meatball = 1
+		/obj/item/food/meatball = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/donkpocket
 	subcategory = CAT_PASTRY
@@ -436,7 +436,7 @@
 	reqs = list(
 		/datum/reagent/water = 5,
 		/datum/reagent/consumable/soysauce = 5,
-		/obj/item/reagent_containers/food/snacks/boiledegg = 2,
+		/obj/item/food/boiledegg = 2,
 		/obj/item/reagent_containers/food/snacks/grown/mushroom/chanterelle = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/chawanmushi
@@ -449,7 +449,7 @@
 	reqs = list(
 		/datum/reagent/consumable/soysauce = 5,
 		/obj/item/reagent_containers/food/snacks/bun = 1,
-		/obj/item/reagent_containers/food/snacks/meatball = 1,
+		/obj/item/food/meatball = 1,
 		/obj/item/reagent_containers/food/snacks/grown/cabbage = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/meatbun
@@ -540,7 +540,7 @@
 /datum/crafting_recipe/food/raisincookie
 	name = "Raisin cookie"
 	reqs = list(
-		/obj/item/reagent_containers/food/snacks/no_raisin = 1,
+		/obj/item/food/no_raisin = 1,
 		/obj/item/reagent_containers/food/snacks/pastrybase = 1,
 		/obj/item/reagent_containers/food/snacks/grown/oat = 1
 	)

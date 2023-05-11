@@ -5705,7 +5705,7 @@
 /area/engine/engineering)
 "aLA" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/friedegg,
+/obj/item/food/friedegg,
 /obj/item/kitchen/fork,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/cafeteria)
@@ -9069,7 +9069,7 @@
 	name = "Hydroponics Desk";
 	req_access_txt = "35"
 	},
-/obj/item/reagent_containers/food/snacks/monkeycube,
+/obj/item/food/monkeycube,
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/hydroponics)

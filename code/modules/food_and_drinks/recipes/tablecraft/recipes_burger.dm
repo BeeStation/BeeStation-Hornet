@@ -75,7 +75,7 @@
 /datum/crafting_recipe/food/fishburger
 	name = "Fish burger"
 	reqs = list(
-		/obj/item/reagent_containers/food/snacks/carpmeat = 1,
+		/obj/item/food/fishmeat/carp = 1,
 		/obj/item/reagent_containers/food/snacks/cheesewedge = 1,
 		/obj/item/reagent_containers/food/snacks/bun = 1
 	)
@@ -85,7 +85,7 @@
 /datum/crafting_recipe/food/tofuburger
 	name = "Tofu burger"
 	reqs = list(
-		/obj/item/reagent_containers/food/snacks/tofu = 1,
+		/obj/item/food/tofu = 1,
 		/obj/item/reagent_containers/food/snacks/bun = 1
 	)
 	result = /obj/item/food/burger/tofu
@@ -235,7 +235,7 @@
 		/obj/item/reagent_containers/food/snacks/meat/steak/plain = 5,
 		/obj/item/reagent_containers/food/snacks/grown/tomato = 4,
 		/obj/item/reagent_containers/food/snacks/cheesewedge = 3,
-		/obj/item/reagent_containers/food/snacks/boiledegg = 1,
+		/obj/item/food/boiledegg = 1,
 		/obj/item/reagent_containers/food/snacks/meat/bacon = 1,
 		/obj/item/reagent_containers/food/snacks/bun = 1
 
@@ -342,7 +342,7 @@
 /datum/crafting_recipe/food/ribburger
 	name = "McRib"
 	reqs = list(
-			/obj/item/reagent_containers/food/snacks/bbqribs = 1,     //The sauce is already included in the ribs
+			/obj/item/food/bbqribs = 1, //The sauce is already included in the ribs
 			/obj/item/reagent_containers/food/snacks/onion_slice = 1, //feel free to remove if too burdensome.
 			/obj/item/reagent_containers/food/snacks/bun = 1
 	)
@@ -352,7 +352,7 @@
 /datum/crafting_recipe/food/mcguffin
 	name = "McGuffin"
 	reqs = list(
-			/obj/item/reagent_containers/food/snacks/friedegg = 1,
+			/obj/item/food/friedegg = 1,
 			/obj/item/reagent_containers/food/snacks/meat/bacon = 2,
 			/obj/item/reagent_containers/food/snacks/bun = 1
 	)

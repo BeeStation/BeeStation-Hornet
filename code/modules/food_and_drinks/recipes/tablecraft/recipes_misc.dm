@@ -71,7 +71,7 @@
 /datum/crafting_recipe/food/wrap
 	name = "Wrap"
 	reqs = list(/datum/reagent/consumable/soysauce = 10,
-		/obj/item/reagent_containers/food/snacks/friedegg = 1,
+		/obj/item/food/friedegg = 1,
 		/obj/item/reagent_containers/food/snacks/grown/cabbage = 1,
 	)
 	result = /obj/item/reagent_containers/food/snacks/eggwrap
@@ -113,7 +113,7 @@
 		/datum/reagent/toxin/slimejelly = 5,
 		/obj/item/food/breadslice/plain = 1
 	)
-	result = /obj/item/reagent_containers/food/snacks/jelliedtoast/slime
+	result = /obj/item/food/jelliedtoast/slime
 	subcategory = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/jelliedyoast
@@ -122,7 +122,7 @@
 		/datum/reagent/consumable/cherryjelly = 5,
 		/obj/item/food/breadslice/plain = 1
 	)
-	result = /obj/item/reagent_containers/food/snacks/jelliedtoast/cherry
+	result = /obj/item/food/jelliedtoast/cherry
 	subcategory = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/butteredtoast
@@ -131,7 +131,7 @@
 		/obj/item/food/breadslice/plain = 1,
 		/obj/item/reagent_containers/food/snacks/butter = 1
 	)
-	result = /obj/item/reagent_containers/food/snacks/butteredtoast
+	result = /obj/item/food/butteredtoast
 	subcategory = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/twobread
@@ -140,7 +140,7 @@
 		/datum/reagent/consumable/ethanol/wine = 5,
 		/obj/item/food/breadslice/plain = 2
 	)
-	result = /obj/item/reagent_containers/food/snacks/twobread
+	result = /obj/item/food/twobread
 	subcategory = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/burrito
@@ -295,7 +295,7 @@
 	name = "Bran Requests Cereal"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/grown/wheat = 1,
-		/obj/item/reagent_containers/food/snacks/no_raisin = 1,
+		/obj/item/food/no_raisin = 1,
 	)
 	result = /obj/item/reagent_containers/food/snacks/branrequests
 	subcategory = CAT_MISCFOOD
@@ -305,9 +305,9 @@
 	reqs = list(
 		/datum/reagent/consumable/milk = 5,
 		/datum/reagent/consumable/sugar = 5,
-		/obj/item/reagent_containers/food/snacks/salad/boiledrice = 1
+		/obj/item/food/salad/boiledrice = 1
 	)
-	result = /obj/item/reagent_containers/food/snacks/salad/ricepudding
+	result = /obj/item/food/salad/ricepudding
 	subcategory = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/butterbear //ITS ALIVEEEEEE!
