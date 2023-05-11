@@ -38,7 +38,7 @@
 /area/tdome/arena)
 "h" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/burger/human,
+/obj/item/food/burger/human,
 /turf/open/floor/plasteel/yellowsiding,
 /area/tdome/arena)
 "i" = (
@@ -109,7 +109,7 @@
 /area/tdome/arena)
 "t" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/burger/human,
+/obj/item/food/burger/human,
 /turf/open/floor/plasteel/telecomms,
 /area/tdome/arena)
 "u" = (
@@ -246,7 +246,7 @@
 /area/tdome/arena)
 "W" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/burger/human,
+/obj/item/food/burger/human,
 /turf/open/floor/plasteel/yellowsiding{
 	dir = 1
 	},
@@ -256,7 +256,7 @@
 /turf/open/floor/plasteel/telecomms,
 /area/tdome/arena)
 "Z" = (
-/obj/item/reagent_containers/food/snacks/burger/human,
+/obj/item/food/burger/human,
 /turf/open/floor/plasteel/telecomms,
 /area/tdome/arena)
 

@@ -1816,7 +1816,7 @@
 /turf/open/floor/wood,
 /area/awaymission/cabin/caves/mountain)
 "fk" = (
-/obj/item/reagent_containers/food/snacks/burger/ghost{
+/obj/item/food/burger/ghost{
 	desc = "I killed a burger for you. Hope you're grateful, bastards.";
 	pixel_x = -2;
 	pixel_y = 4
