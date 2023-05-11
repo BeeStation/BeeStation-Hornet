@@ -87,7 +87,7 @@
 
 /obj/structure/closet/body_bag/bluespace
 	name = "bluespace body bag"
-	desc = "A bluespace body bag designed for the storage and instant transportation of cadavers to your local ."
+	desc = "A bluespace body bag designed for the storage and instant transportation of cadavers to your local morgue."
 	icon = 'icons/obj/bodybag.dmi'
 	icon_state = "bluebodybag"
 	foldedbag_path = /obj/item/bodybag/bluespace
