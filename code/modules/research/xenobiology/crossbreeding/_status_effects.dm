@@ -519,6 +519,18 @@
 	colour = "metal"
 	var/cooldown = 30
 	var/max_cooldown = 30
+	var/lottery_attempt = 4 // lottery materials will consume this by 1, and remove the slime once it ran out
+	var/static/list/lottery_materials = list(
+		/obj/item/stack/sheet/telecrystal = 42 // 42% chance. weird chance that is good enough to bait people into certainly losing lottery.
+	)
+	/* Note for the telecrystal lottery (simulation summary)
+		<Condition> You start with 20 TCs for the lottery
+		<Results>
+			50%: This can possibly hit 500 TC, so you shouldn't put any number above this
+			48%: Possibly hit 60 TC
+			...
+			42%: Possibly hit 40 TC, but usually end up nothing.
+	*/
 
 /datum/status_effect/stabilized/metal/tick()
 	if(cooldown > 0)
@@ -532,7 +544,25 @@
 
 		if(sheets.len > 0)
 			var/obj/item/stack/sheet/S = pick(sheets)
-			S.amount++
+
+			// lottery part
+			for(var/each_typecheck in lottery_materials)
+				if(!istype(S, each_typecheck))
+					continue
+				if(prob(lottery_materials[each_typecheck]))
+					S.add(1)
+					to_chat(owner, "<span class='notice'>[linked_extract] adds a layer of slime to [S], which metamorphosizes into another stack of the material!</span>")
+				else
+					S.use(1)
+					to_chat(owner, "<span class='notice'>[linked_extract] attempts to add a layer of slime to [S], but a stack of the material with the new layer disappears!</span>")
+				lottery_attempt--
+				if(!lottery_attempt)
+					to_chat(owner, "<span class='notice'>[linked_extract] suddenly disappears!</span>")
+					qdel(linked_extract)
+				return
+
+			// standard materials part
+			S.add(1)
 			to_chat(owner, "<span class='notice'>[linked_extract] adds a layer of slime to [S], which metamorphosizes into another sheet of material!</span>")
 	return ..()
 
