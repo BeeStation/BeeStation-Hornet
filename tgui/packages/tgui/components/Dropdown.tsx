@@ -74,24 +74,16 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
     getBoundingClientRect: () => Dropdown.currentOpenMenu?.getBoundingClientRect() ?? NULL_RECT,
   };
   menuContents: any;
-  handleClick: any;
   state: DropdownState = {
     open: false,
+    selected: this.props.selected,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      selected: props.selected,
-      open: props.open,
-    };
-    this.handleClick = () => {
-      if (this.state.open) {
-        this.setOpen(false);
-      }
-    };
-  }
+  handleClick = () => {
+    if (this.state.open) {
+      this.setOpen(false);
+    }
+  };
 
   getDOMNode() {
     return findDOMFromVNode(this.$LI, true);
@@ -179,7 +171,7 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
       return (
         <div
           key={value}
-          className="Dropdown__menuentry"
+          className={classes(['Dropdown__menuentry', this.state.selected === value && 'selected'])}
           onClick={() => {
             this.setSelected(value);
           }}>
