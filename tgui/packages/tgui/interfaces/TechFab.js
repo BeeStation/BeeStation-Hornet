@@ -185,7 +185,7 @@ const TechFabHeader = (props, context) => {
           title={"Reagents ("+reagents_label+")"}
           disabled={materials === null}
           buttons={<Button
-            content="Purge all" 
+            content="Purge all"
             onClick={() => act("disposeall")}
           />}>
           <Flex wrap="wrap" align="baseline">
@@ -224,7 +224,7 @@ const ConditionalTooltip = (props, context) => {
   {
     return children;
   }
-  
+
   return (
     <Tooltip {...rest}>
       {children}
@@ -316,7 +316,7 @@ const Recipe = (props, context) => {
                       className="TechFab__NumberButton"
                       content={"x"+amount}
                       disabled={amount>max}
-                      onClick={() => act("build", 
+                      onClick={() => act("build",
                         { "design_id": recipe.id, "amount": amount }
                       )}
                     />
@@ -344,10 +344,21 @@ const TechFabContent = (props, context) => {
     return recipe.name;
   });
 
+  let repeats = new Set();
   const recipesDisplayed = search !== null
-    ? recipes.filter(testSearch)
+    ? recipes
+      .filter(testSearch)
+      .filter(item => {
+        // check whether we have design_id repeats in our search
+        return repeats.has(item.design_id) ? false : repeats.add(item.design_id);
+      })
     : category
-      ? recipes.filter(recipe => recipe.category.includes(category))
+      ? recipes
+          .filter(recipe => recipe.category.includes(category))
+          .filter(item => {
+            // check whether we have design_id repeats in our search
+            return repeats.has(item.design_id) ? false : repeats.add(item.design_id);
+          })
       : null;
 
   if (recipesDisplayed)
