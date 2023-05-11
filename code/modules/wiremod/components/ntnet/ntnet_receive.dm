@@ -45,6 +45,9 @@
 	if(!port)
 		return
 
+	var/datum/circuit_datatype/datatype_handler = data_package.datatype_handler
+	if(!datatype_handler?.can_receive_from_datatype(port.datatype))
+		return
 
 	data_package.set_output(data.data["data"])
 	trigger_output.set_output(COMPONENT_SIGNAL)
