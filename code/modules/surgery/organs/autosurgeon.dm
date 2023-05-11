@@ -115,7 +115,7 @@
 	name = "suspicious autosurgeon (hacked surgical serverlink brain implant)"
 	desc = "A single use autosurgeon that contains a hacked surgical serverlink brain implant."
 	uses = 1
-	starting_organ = list(/obj/item/organ/cyberimp/brain/perfect_surgeon)
+	starting_organ = list(/obj/item/organ/cyberimp/brain/linkedsurgery/perfect)
 
 /obj/item/autosurgeon/syndicate/esaw_arm
 	name = "suspicious autosurgeon (arm-mounted energy saw)"

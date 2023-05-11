@@ -15,9 +15,6 @@
 	var/obj/item/organ/zombie_infection/ZI = target.getorganslot(ORGAN_SLOT_ZOMBIE)
 	if(ZI)
 		return FALSE
-	if(istype(target.getorganslot(ORGAN_SLOT_BRAIN_SURGICAL_IMPLANT), /obj/item/organ/cyberimp/brain/perfect_surgeon))
-		// FUCK NO
-		return FALSE
 
 /datum/surgery_step/bionecrosis
 	name = "start bionecrosis"

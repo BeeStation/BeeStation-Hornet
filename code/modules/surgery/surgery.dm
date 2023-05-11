@@ -43,7 +43,7 @@
 	if(replaced_by == /datum/surgery)
 		return FALSE
 
-	if(HAS_TRAIT(user, TRAIT_SURGEON) || (user.mind && HAS_TRAIT(user.mind, TRAIT_SURGEON)))
+	if(HAS_TRAIT(user, TRAIT_ALL_SURGERIES) || (user.mind && HAS_TRAIT(user.mind, TRAIT_ALL_SURGERIES)))
 		if(replaced_by)
 			return FALSE
 		else
@@ -135,7 +135,7 @@
 	if(!..())
 		return FALSE
 	// True surgeons (like abductor scientists) need no instructions
-	if(HAS_TRAIT(user, TRAIT_SURGEON) || HAS_TRAIT(user.mind, TRAIT_SURGEON))
+	if(HAS_TRAIT(user, TRAIT_ALL_SURGERIES) || HAS_TRAIT(user.mind, TRAIT_ALL_SURGERIES))
 		return TRUE
 
 	if(iscyborg(user))
