@@ -519,7 +519,7 @@
 	colour = "metal"
 	var/cooldown = 30
 	var/max_cooldown = 30
-	var/lottery_attempt = 4 // lottery materials will consume this by 1, and remove the slime once it ran out
+	var/lottery_attempt = 7 // lottery materials will consume this by 1, and remove the slime once it ran out
 	var/static/list/lottery_materials = list(
 		/obj/item/stack/sheet/telecrystal = 42 // 42% chance. weird chance that is good enough to bait people into certainly losing lottery.
 	)
