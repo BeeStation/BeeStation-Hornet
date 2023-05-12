@@ -18495,7 +18495,7 @@
 /area/crew_quarters/kitchen)
 "cpn" = (
 /obj/structure/table,
-/obj/item/food/spaghetti,
+/obj/item/food/spaghetti/raw,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "cpo" = (

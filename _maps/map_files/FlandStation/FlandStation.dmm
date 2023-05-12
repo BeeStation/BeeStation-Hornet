@@ -12768,7 +12768,7 @@
 /area/maintenance/solars/port/aft)
 "drR" = (
 /obj/structure/table,
-/obj/item/food/spaghetti,
+/obj/item/food/spaghetti/raw,
 /obj/item/reagent_containers/food/condiment/saltshaker{
 	pixel_x = 4;
 	pixel_y = 4
