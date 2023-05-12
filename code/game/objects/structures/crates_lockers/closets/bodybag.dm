@@ -120,8 +120,8 @@
 		for(var/mob/living/target in contents)
 			var/obj/structure/bodycontainer/morgue/M = pick(trays)
 
-			if(is_centcom_level(M.Z))
-				to_chat(usr, "<span class='warning'>You try to fold [src], but some other-worldly force prevents you from delievering [A] to a morgue!</span>")
+			if(is_centcom_level(M.z))
+				to_chat(usr, "<span class='warning'>You try to fold [src], but some other-worldly force prevents you from delievering [target] to a morgue!</span>")
 				return
 
 			target.forceMove(M)
