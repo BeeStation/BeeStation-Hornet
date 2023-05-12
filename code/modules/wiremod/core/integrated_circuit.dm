@@ -36,9 +36,6 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 	/// Whether the integrated circuit is locked or not. Handled by the shell.
 	var/locked = FALSE
 
-	/// Whether the integrated circuit is admin only. Disables power usage and allows admin circuits to be attached, at the cost of making it inaccessible to regular users.
-	var/admin_only = FALSE
-
 	/// The ID that is authorized to unlock/lock the shell so that the circuit can/cannot be removed.
 	var/datum/weakref/owner_id
 
@@ -363,14 +360,6 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 
 	if (isobserver(user))
 		. = max(., UI_UPDATE)
-
-	// Extra protection because ui_state will not close the UI if they already have the ui open,
-	// as ui_state is only set during
-	if(admin_only)
-		if(!check_rights_for(user.client, R_VAREDIT))
-			return UI_CLOSE
-		else
-			return UI_INTERACTIVE
 
 /obj/item/integrated_circuit/ui_state(mob/user)
 	if(!shell)

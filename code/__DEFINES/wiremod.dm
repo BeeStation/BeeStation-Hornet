@@ -97,14 +97,10 @@
 #define CIRCUIT_FLAG_INPUT_SIGNAL (1<<0)
 /// Creates an output trigger that sends a pulse whenever the component is successfully triggered
 #define CIRCUIT_FLAG_OUTPUT_SIGNAL (1<<1)
-/// Prohibits the component from being duplicated via the module duplicator
-#define CIRCUIT_FLAG_UNDUPEABLE (1<<2)
-/// Marks a circuit component as admin only. Admins will only be able to link/unlink with these circuit components.
-#define CIRCUIT_FLAG_ADMIN (1<<3)
 /// This circuit component does not show in the menu.
-#define CIRCUIT_FLAG_HIDDEN (1<<4)
+#define CIRCUIT_FLAG_HIDDEN (1<<2)
 /// This circuit component has been marked as a component that has instant execution and will show up in the UI as so. This will only cause a visual change.
-#define CIRCUIT_FLAG_INSTANT (1<<5)
+#define CIRCUIT_FLAG_INSTANT (1<<3)
 
 // Datatype flags
 /// The datatype supports manual inputs

@@ -25,8 +25,6 @@ GLOBAL_LIST_INIT(circuit_dupe_whitelisted_types, list(
 		var/variable_name = variable["name"]
 		circuit_variables[variable_name] = new /datum/circuit_variable(variable_name, variable["datatype"])
 
-	admin_only = general_data["admin_only"]
-
 	var/list/circuit_data = general_data["components"]
 	var/list/identifiers_to_circuit = list()
 	for(var/identifier in circuit_data)
@@ -170,7 +168,6 @@ GLOBAL_LIST_INIT(circuit_dupe_whitelisted_types, list(
 	general_data["components"] = circuit_data
 	general_data["external_objects"] = external_objects_key
 	general_data["display_name"] = display_name
-	general_data["admin_only"] = admin_only
 
 	var/list/variables = list()
 	for(var/variable_identifier in circuit_variables)
@@ -200,7 +197,7 @@ GLOBAL_LIST_INIT(circuit_dupe_whitelisted_types, list(
 
 /client/proc/load_circuit()
 	set name = "Load Circuit"
-	set category = "Admin.Fun"
+	set category = "Fun"
 
 	if(!check_rights(R_VAREDIT))
 		return

@@ -242,14 +242,9 @@
 	if(!parent?.on)
 		return FALSE
 
-	if(!parent.admin_only)
-		if(circuit_flags & CIRCUIT_FLAG_ADMIN)
-			message_admins("[display_name] tried to execute on [parent.get_creator_admin()] that has admin_only set to 0")
-			return FALSE
-
-		var/obj/item/stock_parts/cell/cell = parent.get_cell()
-		if(!cell?.use(power_usage_per_input))
-			return FALSE
+	var/obj/item/stock_parts/cell/cell = parent.get_cell()
+	if(!cell?.use(power_usage_per_input))
+		return FALSE
 
 	if((circuit_flags & CIRCUIT_FLAG_INPUT_SIGNAL) && !COMPONENT_TRIGGERED_BY(trigger_input, port))
 		return FALSE
