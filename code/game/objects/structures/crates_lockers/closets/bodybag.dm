@@ -120,6 +120,10 @@
 		for(var/mob/living/target in contents)
 			var/obj/structure/bodycontainer/morgue/M = pick(trays)
 
+			if(is_centcom_level(M.Z))
+				to_chat(usr, "<span class='warning'>You try to fold [src], but some other-worldly force prevents you from delievering [A] to a morgue!</span>")
+				return
+
 			target.forceMove(M)
 			to_chat(target, "<span class='userdanger'>You're suddenly forced into a tiny, compressed space! You have warped into [M]!</span>")
 			target.Knockdown(30)
