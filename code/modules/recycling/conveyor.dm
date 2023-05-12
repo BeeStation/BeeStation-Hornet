@@ -549,7 +549,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	if(!attached_switch)
 		return
 
-	INVOKE_ASYNC(src, .proc/update_conveyers, port)
+	INVOKE_ASYNC(src, PROC_REF(update_conveyers), port)
 
 /obj/item/circuit_component/conveyor_switch/proc/update_conveyers(datum/port/input/port)
 	if(!attached_switch)

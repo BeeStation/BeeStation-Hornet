@@ -151,7 +151,7 @@
 	. = ..()
 	if(istype(shell, /obj/machinery/door/airlock))
 		attached_airlock = shell
-		RegisterSignal(shell, COMSIG_OBJ_ALLOWED, .proc/handle_allowed)
+		RegisterSignal(shell, COMSIG_OBJ_ALLOWED, PROC_REF(handle_allowed))
 
 /obj/item/circuit_component/airlock_access_event/unregister_shell(atom/movable/shell)
 	attached_airlock = null
@@ -162,7 +162,7 @@
 
 
 /obj/item/circuit_component/airlock_access_event/populate_ports()
-	open_airlock = add_input_port("Should Open Airlock", PORT_TYPE_SIGNAL, trigger = .proc/should_open_airlock)
+	open_airlock = add_input_port("Should Open Airlock", PORT_TYPE_SIGNAL, trigger = PROC_REF(should_open_airlock))
 	accessing_entity = add_output_port("Accessing Entity", PORT_TYPE_ATOM)
 	event_triggered = add_output_port("Event Triggered", PORT_TYPE_SIGNAL)
 
