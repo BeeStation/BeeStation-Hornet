@@ -6875,13 +6875,6 @@
 /obj/machinery/smartfridge/chemistry/virology/preloaded,
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/virology)
-"bIV" = (
-/obj/structure/reagent_dispensers/watertank,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/maintenance/port/fore)
 "bJk" = (
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 1
@@ -11330,11 +11323,10 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/virology)
 "cWM" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/open/floor/plating/rust,
-/area/maintenance/port/fore)
+/obj/machinery/atmospherics/pipe/simple/general/hidden,
+/obj/effect/spawner/structure/window/reinforced/tinted,
+/turf/open/floor/plating,
+/area/engine/engine_room)
 "cXc" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/disposalpipe/segment{
@@ -16273,6 +16265,7 @@
 /obj/structure/chair/fancy/bench/pew/left{
 	dir = 1
 	},
+/obj/machinery/light/small,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
 "ere" = (
@@ -20100,18 +20093,12 @@
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
 "fnP" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/siding/white{
+/obj/structure/reagent_dispensers/watertank,
+/obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/airalarm{
-	dir = 8;
-	pixel_x = 22
-	},
-/turf/open/floor/plasteel,
-/area/hallway/primary/port)
+/turf/open/floor/plating,
+/area/maintenance/port/fore)
 "fnR" = (
 /obj/item/kirbyplants/random,
 /obj/item/toy/plush/moth/redish,
@@ -28834,11 +28821,15 @@
 /turf/open/floor/plasteel/checker,
 /area/quartermaster/storage)
 "hBC" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/siding/wideplating/dark{
+	dir = 8
+	},
+/obj/structure/chair/fancy/bench/pew/right{
+	dir = 1
+	},
 /obj/machinery/light/small,
-/turf/open/floor/plating,
-/area/maintenance/port/fore)
+/turf/open/floor/plasteel/dark,
+/area/chapel/main)
 "hBE" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -51319,6 +51310,19 @@
 	},
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
+"nsU" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/siding/white{
+	dir = 4
+	},
+/obj/machinery/airalarm{
+	dir = 8;
+	pixel_x = 22
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/port)
 "nsW" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/components/trinary/filter/critical{
@@ -86175,6 +86179,12 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/brig)
+"vRj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small,
+/turf/open/floor/plating,
+/area/maintenance/port/fore)
 "vRu" = (
 /obj/machinery/camera{
 	c_tag = "Atmospherics - Carbon Dioxide Cell";
@@ -91225,10 +91235,14 @@
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison)
 "wYf" = (
-/obj/machinery/atmospherics/pipe/simple/general/hidden,
-/obj/effect/spawner/structure/window/reinforced/tinted,
-/turf/open/floor/plating,
-/area/engine/engine_room)
+/obj/effect/turf_decal/pool{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/noslip,
+/area/crew_quarters/fitness/recreation)
 "wYg" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -94808,6 +94822,12 @@
 	},
 /turf/closed/wall,
 /area/janitor)
+"xFL" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/plating/rust,
+/area/maintenance/port/fore)
 "xFN" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
@@ -113638,7 +113658,7 @@ eoO
 hxK
 pyE
 leT
-hBC
+vRj
 eFZ
 cXA
 fam
@@ -116453,7 +116473,7 @@ kHH
 aeN
 eFZ
 aBt
-cWM
+xFL
 leT
 yjW
 yjW
@@ -116462,7 +116482,7 @@ yjW
 yjW
 yjW
 vNZ
-bIV
+fnP
 yfU
 cIP
 oOp
@@ -119809,7 +119829,7 @@ frp
 pdV
 szu
 rza
-szu
+hBC
 eAy
 hqg
 sXL
@@ -121407,7 +121427,7 @@ xMW
 ejA
 rZX
 cbk
-fnP
+nsU
 xWO
 xWO
 xWO
@@ -141701,7 +141721,7 @@ vtk
 dNa
 qPc
 wId
-wYc
+wYf
 lky
 xII
 xUm
@@ -148927,7 +148947,7 @@ kWV
 vNA
 nkF
 vQp
-wYf
+cWM
 qvc
 bGF
 rTd
@@ -149184,7 +149204,7 @@ mdb
 vNM
 scz
 ose
-wYf
+cWM
 dOV
 bGF
 rTd
