@@ -122,9 +122,6 @@
 		return ..()
 
 	var/obj/item/circuit_component/module/module = weapon
-	if(module.circuit_flags & CIRCUIT_FLAG_UNDUPEABLE)
-		balloon_alert(user, "module cannot be saved!")
-		return ..()
 
 	if(module.display_name == initial(module.display_name))
 		balloon_alert(user, "module needs a name!")
@@ -137,10 +134,6 @@
 
 	var/total_cost = 0
 	for(var/obj/item/circuit_component/component as anything in module.internal_circuit.attached_components)
-		if(component.circuit_flags & CIRCUIT_FLAG_UNDUPEABLE)
-			balloon_alert(user, "module contains prohibited components!")
-			return ..()
-
 		total_cost += cost_per_component
 
 	var/list/data = list()
