@@ -48,6 +48,7 @@
 		if(ispath(circuit_component))
 			circuit_component = new circuit_component()
 		circuit_component.removable = FALSE
+		circuit_component.set_circuit_size(0)
 		RegisterSignal(circuit_component, COMSIG_CIRCUIT_COMPONENT_SAVE, PROC_REF(save_component))
 		unremovable_circuit_components += circuit_component
 
@@ -163,7 +164,7 @@
 		source.balloon_alert(attacker, "there is already a circuitboard inside!")
 		return
 
-	if(length(logic_board.attached_components) - length(unremovable_circuit_components) > capacity)
+	if(logic_board.current_size > capacity)
 		source.balloon_alert(attacker, "this is too large to fit into [parent]!")
 		return
 
@@ -230,7 +231,7 @@
 		source.balloon_alert(user, "it's locked!")
 		return COMPONENT_CANCEL_ADD_COMPONENT
 
-	if(length(attached_circuit.attached_components) - length(unremovable_circuit_components) >= capacity)
+	if(attached_circuit.current_size + added_comp.circuit_size >= capacity)
 		source.balloon_alert(user, "it's at maximum capacity!")
 		return COMPONENT_CANCEL_ADD_COMPONENT
 
