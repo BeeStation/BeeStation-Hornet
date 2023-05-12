@@ -39,6 +39,12 @@
 /// Cancels the attack chain, but without performing any other action.
 #define COMSIG_CANCEL_USB_CABLE_ATTACK (1<<2)
 
+/// Called when the circuit component is saved.
+#define COMSIG_CIRCUIT_COMPONENT_SAVE "circuit_component_save"
+
+/// Called when an external object is loaded.
+#define COMSIG_MOVABLE_CIRCUIT_LOADED "movable_circuit_loaded"
+
 /// Called when the integrated circuit's cell is set.
 #define COMSIG_CIRCUIT_SET_CELL "circuit_set_cell"
 
@@ -64,8 +70,3 @@
 #define COMSIG_PORT_SET_VALUE "port_set_value"
 /// Sent when the type of a port is set.
 #define COMSIG_PORT_SET_TYPE "port_set_type"
-/// Called when an external object is loaded.
-#define COMSIG_MOVABLE_CIRCUIT_LOADED "movable_circuit_loaded"
-/// Called when the circuit component is saved.
-#define COMSIG_CIRCUIT_COMPONENT_SAVE "circuit_component_save"
-
