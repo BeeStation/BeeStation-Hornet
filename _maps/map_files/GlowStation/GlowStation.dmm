@@ -65928,29 +65928,10 @@
 /area/hallway/upper/primary/port)
 "nRz" = (
 /obj/structure/bed/dogbed,
-/mob/living/simple_animal/hostile/retaliate/bat{
-	desc = "A fierce companion for any person of power, this spider has been carefully trained by Nanotrasen specialists. Its beady, staring eyes send shivers down your spine.";
-	emote_hear = list("chitters");
-	faction = list("spiders");
-	health = 200;
-	icon_dead = "guard_dead";
-	icon_gib = "guard_dead";
-	icon_living = "guard";
-	icon_state = "guard";
-	maxHealth = 250;
-	max_co2 = 5;
-	max_tox = 2;
-	melee_damage = 15;
-	min_oxy = 5;
-	movement_type = 1;
-	name = "Sergeant Araneus";
-	real_name = "Sergeant Araneus";
-	response_help = "pets";
-	turns_per_move = 10
-	},
 /obj/machinery/firealarm{
 	pixel_y = 26
 	},
+/mob/living/simple_animal/hostile/retaliate/bat/sgt_araneus,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hos)
 "nRH" = (
