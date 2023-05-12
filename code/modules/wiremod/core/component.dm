@@ -16,6 +16,9 @@
 	/// The name of the component shown on the UI
 	var/display_name = "Generic"
 
+	/// The colour this circuit component appears in the UI
+	var/ui_color = "blue"
+
 	/// The integrated_circuit that this component is attached to.
 	var/obj/item/integrated_circuit/parent
 
@@ -42,11 +45,17 @@
 	/// The power usage whenever this component receives an input
 	var/power_usage_per_input = 1
 
-	// Whether the component is removable or not. Only affects user UI
+	/// Whether the component is removable or not. Only affects user UI
 	var/removable = TRUE
 
-	// Defines which shells support this component. Only used as an informational guide, does not restrict placing these components in circuits.
+	/// Defines which shells support this component. Only used as an informational guide, does not restrict placing these components in circuits.
 	var/required_shells = null
+
+	/// Determines the amount of space this circuit occupies in an integrated circuit.
+	var/circuit_size = 1
+
+	/// The UI buttons of this circuit component. An assoc list that has this format: "button_icon" = "action_name"
+	var/ui_buttons = null
 
 /// Called when the option ports should be set up
 /obj/item/circuit_component/proc/populate_options()
@@ -70,6 +79,8 @@
 		trigger_input = add_input_port("Trigger", PORT_TYPE_SIGNAL, order = 2)
 	if(circuit_flags & CIRCUIT_FLAG_OUTPUT_SIGNAL)
 		trigger_output = add_output_port("Triggered", PORT_TYPE_SIGNAL, order = 2)
+	if(circuit_flags & CIRCUIT_FLAG_INSTANT)
+		ui_color = "orange"
 
 
 /obj/item/circuit_component/Destroy()
@@ -185,7 +196,7 @@
  * Arguments:
  * * port - Can be null. The port that sent the input
  */
-/obj/item/circuit_component/proc/trigger_component(datum/port/input/port)
+/obj/item/circuit_component/proc/trigger_component(datum/port/input/port, list/return_values)
 	SHOULD_NOT_SLEEP(TRUE)
 	pre_input_received(port)
 	if(!should_receive_input(port))
@@ -196,9 +207,9 @@
 		var/proc_to_call = port.trigger
 		if(!proc_to_call)
 			return FALSE
-		result = call(src, proc_to_call)(port)
+		result = call(src, proc_to_call)(port, return_values)
 	else
-		result = input_received()
+		result = input_received(null, , return_values)
 
 	if(result)
 		return FALSE
@@ -207,6 +218,14 @@
 		trigger_output.set_output(COMPONENT_SIGNAL)
 	return TRUE
 
+/obj/item/circuit_component/proc/set_circuit_size(new_size)
+	if(parent)
+		parent.current_size -= circuit_size
+
+	circuit_size = new_size
+
+	if(parent)
+		parent.current_size += circuit_size
 
 /**
  * Called whether this circuit component should receive an input.
@@ -248,8 +267,9 @@
  * Return value indicates that the circuit should not send an output signal.
  * Arguments:
  * * port - Can be null. The port that sent the input
+ * * return_values - Only defined if the component is receiving an input due to instant execution. Contains the values to be returned once execution has stopped.
  */
-/obj/item/circuit_component/proc/input_received(datum/port/input/port)
+/obj/item/circuit_component/proc/input_received(datum/port/input/port, list/return_values)
 	SHOULD_NOT_SLEEP(TRUE)
 	return
 
@@ -274,6 +294,9 @@
 /obj/item/circuit_component/proc/get_ui_notices()
 	. = list()
 
+	if(circuit_flags & CIRCUIT_FLAG_INSTANT)
+		. += create_ui_notice("Instant Execution", "red", "tachometer-alt")
+
 	if(!removable)
 		. += create_ui_notice("Unremovable", "red", "lock")
 
@@ -284,6 +307,16 @@
 
 	if(length(input_ports))
 		. += create_ui_notice("Power Usage Per Input: [power_usage_per_input]", "orange", "bolt")
+
+/**
+ * Called when a special button is pressed on this component in the UI.
+ *
+ * Arguments:
+ * * user - Interacting mob
+ * * action - A string for which action is being performed. No parameters passed because it's only a button press.
+ */
+/obj/item/circuit_component/proc/ui_perform_action(mob/user, action)
+	return
 
 /**
  * Creates a UI notice entry to be used in get_ui_notices()
@@ -298,6 +331,11 @@
 		"content" = content,
 		"color" = color,
 	))
+
+/obj/item/circuit_component/ui_host(mob/user)
+	if(parent)
+		return parent.ui_host()
+	return ..()
 
 /**
  * Creates a table UI notice entry to be used in get_ui_notices()
