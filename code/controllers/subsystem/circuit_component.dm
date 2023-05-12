@@ -6,6 +6,11 @@ SUBSYSTEM_DEF(circuit_component)
 	var/list/callbacks_to_invoke = list()
 	var/list/currentrun = list()
 
+	var/instant_run_tick = 0
+	var/instant_run_start_cpu_usage = 0
+	var/instant_run_max_cpu_usage = 10
+	var/list/instant_run_callbacks_to_run = list()
+
 /datum/controller/subsystem/circuit_component/fire(resumed)
 	if(!resumed)
 		currentrun = callbacks_to_invoke.Copy()
@@ -18,8 +23,10 @@ SUBSYSTEM_DEF(circuit_component)
 		if(QDELETED(to_call))
 			continue
 
+		to_call.user = null
 		to_call.InvokeAsync()
 		qdel(to_call)
+
 
 		if(MC_TICK_CHECK)
 			return
@@ -30,5 +37,37 @@ SUBSYSTEM_DEF(circuit_component)
  * Prevents race conditions as it acts like a queue system.
  * Those that registered first will be executed first and those registered last will be executed last.
  */
-/datum/controller/subsystem/circuit_component/proc/add_callback(datum/callback/to_call)
+/datum/controller/subsystem/circuit_component/proc/add_callback(datum/port/input, datum/callback/to_call)
+	if(instant_run_tick == world.time && (TICK_USAGE - instant_run_start_cpu_usage) < instant_run_max_cpu_usage)
+		instant_run_callbacks_to_run += to_call
+
 	callbacks_to_invoke += to_call
+
+/// Queues any callbacks to be executed instantly instead of using the subsystem.
+/datum/controller/subsystem/circuit_component/proc/queue_instant_run()
+	instant_run_tick = world.time
+	instant_run_start_cpu_usage = TICK_USAGE
+	instant_run_callbacks_to_run = list()
+
+/**
+ * Instantly executes the stored callbacks and does this in a loop until there are no stored callbacks or it hits tick limit.
+ *
+ * Returns a list containing any values added by any input port.
+ */
+/datum/controller/subsystem/circuit_component/proc/execute_instant_run()
+	var/list/received_inputs = list()
+	while(length(instant_run_callbacks_to_run))
+		var/list/instant_run_currentrun = instant_run_callbacks_to_run
+		instant_run_callbacks_to_run = list()
+		while(length(instant_run_currentrun))
+			var/datum/callback/to_call = instant_run_currentrun[1]
+			instant_run_currentrun.Cut(1,2)
+			to_call.user = null
+			to_call.InvokeAsync(received_inputs)
+			qdel(to_call)
+
+	instant_run_tick = 0
+	if((TICK_USAGE - instant_run_start_cpu_usage) < instant_run_max_cpu_usage)
+		return received_inputs
+	else
+		return null
