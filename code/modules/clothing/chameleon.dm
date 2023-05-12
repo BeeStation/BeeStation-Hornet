@@ -206,11 +206,11 @@
 			H?.sec_hud_set_ID()
 
 /datum/action/item_action/chameleon/change/proc/update_look(mob/user, obj/item/picked_item, emp=FALSE)
+	message_admins("EMP on - item: [target] / user: [user]")
 	if(isliving(user))
 		var/mob/living/C = user
 		if(C.stat != CONSCIOUS)
 			return
-
 		update_item(picked_item, emp)
 		if(ispath(picked_item, /obj/item/card/id))
 			var/mob/living/carbon/human/H = user
