@@ -20,6 +20,11 @@
 	var/min_size = 1
 	var/max_size = 20
 
+	ui_buttons = list(
+		"plus" = "increase",
+		"minus" = "decrease"
+	)
+
 /obj/item/circuit_component/list_literal/save_data_to_list(list/component_data)
 	. = ..()
 	component_data["length"] = length
@@ -59,18 +64,12 @@
 	list_output = null
 	return ..()
 
-// Increases list length
-/obj/item/circuit_component/list_literal/attack_self(mob/user, list/modifiers)
-	. = ..()
-	set_list_size(min(length + 1, max_size))
-	balloon_alert(user, "new size is now [length]")
-
-// Decreases list length
-/obj/item/circuit_component/list_literal/CtrlClick(mob/user)
-	if(can_interact(user))
-		set_list_size(max(length - 1, min_size))
-		balloon_alert(user, "new size is now [length]")
-	return ..()
+/obj/item/circuit_component/list_literal/ui_perform_action(mob/user, action)
+	switch(action)
+		if("increase")
+			set_list_size(min(length + 1, max_size))
+		if("decrease")
+			set_list_size(max(length - 1, min_size))
 
 /obj/item/circuit_component/list_literal/input_received(datum/port/input/port)
 

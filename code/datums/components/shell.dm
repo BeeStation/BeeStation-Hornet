@@ -48,6 +48,7 @@
 		if(ispath(circuit_component))
 			circuit_component = new circuit_component()
 		circuit_component.removable = FALSE
+		circuit_component.set_circuit_size(0)
 		RegisterSignal(circuit_component, COMSIG_CIRCUIT_COMPONENT_SAVE, PROC_REF(save_component))
 		unremovable_circuit_components += circuit_component
 
@@ -163,7 +164,7 @@
 		source.balloon_alert(attacker, "there is already a circuitboard inside!")
 		return
 
-	if(length(logic_board.attached_components) - length(unremovable_circuit_components) > capacity)
+	if(logic_board.current_size > capacity)
 		source.balloon_alert(attacker, "this is too large to fit into [parent]!")
 		return
 
@@ -173,7 +174,7 @@
 /// Sets whether the shell is locked or not
 /datum/component/shell/proc/set_locked(new_value)
 	locked = new_value
-	attached_circuit?.locked = locked
+	attached_circuit?.set_locked(new_value)
 
 
 /datum/component/shell/proc/on_multitool_act(atom/source, mob/user, obj/item/tool)
@@ -230,7 +231,7 @@
 		source.balloon_alert(user, "it's locked!")
 		return COMPONENT_CANCEL_ADD_COMPONENT
 
-	if(length(attached_circuit.attached_components) - length(unremovable_circuit_components) >= capacity)
+	if(attached_circuit.current_size + added_comp.circuit_size >= capacity)
 		source.balloon_alert(user, "it's at maximum capacity!")
 		return COMPONENT_CANCEL_ADD_COMPONENT
 
@@ -252,7 +253,7 @@
 	attached_circuit.set_shell(parent_atom)
 	if(attached_circuit.display_name != "")
 		parent_atom.name = "[initial(parent_atom.name)] ([attached_circuit.display_name])"
-	attached_circuit.locked = FALSE
+	attached_circuit.set_locked(FALSE)
 
 	if(shell_flags & SHELL_FLAG_REQUIRE_ANCHOR)
 		on_unfasten(parent_atom, parent_atom.anchored)
@@ -278,7 +279,7 @@
 	for(var/obj/item/circuit_component/to_remove as anything in unremovable_circuit_components)
 		attached_circuit.remove_component(to_remove)
 		to_remove.moveToNullspace()
-	attached_circuit.locked = FALSE
+	attached_circuit.set_locked(FALSE)
 	attached_circuit = null
 
 /datum/component/shell/proc/on_atom_usb_cable_try_attach(atom/source, obj/item/usb_cable/usb_cable, mob/user)

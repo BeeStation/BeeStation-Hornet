@@ -15,6 +15,8 @@
 
 	var/datum/circuit_variable/current_variable
 
+	circuit_size = 0
+
 /obj/item/circuit_component/getter/populate_options()
 	variable_name = add_option_port("Variable", null)
 
@@ -62,5 +64,5 @@
 	remove_current_variable()
 	current_variable = variable
 	current_variable.add_listener(src)
-	RegisterSignal(current_variable, COMSIG_PARENT_QDELETING, .proc/remove_current_variable)
+	RegisterSignal(current_variable, COMSIG_PARENT_QDELETING, PROC_REF(remove_current_variable))
 	value.set_datatype(variable.datatype)

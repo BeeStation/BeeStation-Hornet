@@ -33,7 +33,7 @@
 /obj/item/circuit_component/counter_overlay/register_shell(atom/movable/shell)
 	if(istype(shell, /obj/item/organ/cyberimp/bci))
 		bci = shell
-		RegisterSignal(shell, COMSIG_CARBON_LOSE_ORGAN, .proc/on_organ_removed)
+		RegisterSignal(shell, COMSIG_CARBON_LOSE_ORGAN, PROC_REF(on_organ_removed))
 
 /obj/item/circuit_component/counter_overlay/unregister_shell(atom/movable/shell)
 	bci = null

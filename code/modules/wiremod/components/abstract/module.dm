@@ -17,13 +17,18 @@
 
 	var/port_limit = 10
 
+	ui_buttons = list(
+		"edit" = "action"
+	)
+
 /obj/item/integrated_circuit/module
 	var/obj/item/circuit_component/module/attached_module
 
 /obj/item/integrated_circuit/module/ui_host(mob/user)
 	. = ..()
-	if(. == src)
-		return attached_module
+	if(attached_module)
+		return attached_module.ui_host()
+	return ..()
 
 /obj/item/integrated_circuit/module/set_display_name(new_name)
 	. = ..()
@@ -40,6 +45,16 @@
 	if(ispath(type, /obj/item/circuit_component/module_output))
 		return attached_module.output_component
 
+	return ..()
+
+/obj/item/integrated_circuit/module/add_component(obj/item/circuit_component/to_add, mob/living/user)
+	. = ..()
+	if(attached_module)
+		attached_module.circuit_size += to_add.circuit_size
+
+/obj/item/integrated_circuit/module/remove_component(obj/item/circuit_component/to_remove)
+	if(attached_module)
+		attached_module.circuit_size -= to_remove.circuit_size
 	return ..()
 
 /obj/item/integrated_circuit/module/Destroy()
@@ -153,9 +168,9 @@
 
 /obj/item/circuit_component/module/add_to(obj/item/integrated_circuit/added_to)
 	. = ..()
-	RegisterSignal(added_to, COMSIG_CIRCUIT_SET_CELL, .proc/handle_set_cell)
-	RegisterSignal(added_to, COMSIG_CIRCUIT_SET_ON, .proc/handle_set_on)
-	RegisterSignal(added_to, COMSIG_CIRCUIT_SET_SHELL, .proc/handle_set_shell)
+	RegisterSignal(added_to, COMSIG_CIRCUIT_SET_CELL, PROC_REF(handle_set_cell))
+	RegisterSignal(added_to, COMSIG_CIRCUIT_SET_ON, PROC_REF(handle_set_on))
+	RegisterSignal(added_to, COMSIG_CIRCUIT_SET_SHELL, PROC_REF(handle_set_shell))
 	internal_circuit.set_cell(added_to.cell)
 	internal_circuit.set_shell(added_to.shell)
 	internal_circuit.set_on(added_to.on)
@@ -295,6 +310,9 @@
 		SStgui.update_uis(internal_circuit)
 
 #undef WITHIN_RANGE
+
+/obj/item/circuit_component/module/ui_perform_action(mob/user, action)
+	interact(user)
 
 /obj/item/circuit_component/module/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
