@@ -492,6 +492,7 @@
 	build_path = /obj/item/assembly/modular
 	build_type = PROTOLATHE | COMPONENT_PRINTER
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_SHELLS)
+
 /datum/design/bci_shell
 	name = "Brain-Computer Interface Shell"
 	desc = "An implant that can be placed in a user's head to control circuits using their brain."
