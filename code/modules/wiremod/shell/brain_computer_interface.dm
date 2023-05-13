@@ -70,41 +70,38 @@
 	var/static/action_options = list(
 		"Blank",
 
-		"One Green",
-		"Two Green",
-		"Three Green",
-		"Four Green",
-		"Five Green",
-		"Plus Green",
-		"Minus Green",
-		"Power Green",
+		"One",
+		"Two",
+		"Three",
+		"Four",
+		"Five",
 
-		"One Red",
-		"Two Red",
-		"Three Red",
-		"Four Red",
-		"Five Red",
-		"Plus Red",
-		"Minus Red",
-		"Power Red",
-
-		"One Yellow",
-		"Two Yellow",
-		"Three Yellow",
-		"Four Yellow",
-		"Five Yellow",
-		"Plus Yellow",
-		"Minus Yellow",
-		"Power Yellow",
-
-		"One Blue",
-		"Two Blue",
-		"Three Blue",
-		"Four Blue",
-		"Five Blue",
-		"Plus Blue",
-		"Minus Blue",
-		"Power Blue",
+		"Blood",
+		"Bomb",
+		"Brain",
+		"Brain Damage",
+		"Cross",
+		"Electricity",
+		"Exclamation",
+		"Heart",
+		"Id",
+		"Info",
+		"Injection",
+		"Magnetism",
+		"Minus",
+		"Network",
+		"Plus",
+		"Power",
+		"Question",
+		"Radioactive",
+		"Reaction",
+		"Repair",
+		"Say",
+		"Scan",
+		"Shield",
+		"Skull",
+		"Sleep",
+		"Wireless",
 	)
 
 	icon_options = add_option_port("Icon", action_options)
@@ -129,7 +126,7 @@
 
 /obj/item/circuit_component/bci_action/proc/update_action()
 	bci_action.name = button_name.value
-	bci_action.button_icon_state = "[replacetextEx(lowertext(icon_options.value), " ", "_")]"
+	bci_action.button_icon_state = "bci_[replacetextEx(lowertext(icon_options.value), " ", "_")]"
 
 /datum/action/innate/bci_action
 	name = "Action"
