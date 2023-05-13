@@ -3414,7 +3414,7 @@
 /area/gateway)
 "aPp" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/junction,
-/turf/closed/wall/r_wall,
+/turf/closed/wall,
 /area/maintenance/department/engine)
 "aPA" = (
 /obj/structure/cable{
@@ -4327,6 +4327,9 @@
 	},
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /obj/machinery/light/small,
+/obj/structure/sign/warning/fire{
+	pixel_y = -32
+	},
 /turf/open/floor/engine,
 /area/maintenance/disposal/incinerator)
 "aXT" = (
@@ -11548,7 +11551,7 @@
 /obj/machinery/atmospherics/pipe/simple/dark/visible{
 	dir = 4
 	},
-/turf/closed/wall/r_wall,
+/turf/closed/wall,
 /area/maintenance/disposal/incinerator)
 "das" = (
 /obj/effect/turf_decal/siding/wood{
@@ -29262,10 +29265,10 @@
 /obj/structure/disposaloutlet{
 	dir = 4
 	},
-/obj/structure/lattice/catwalk,
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
+/obj/effect/turf_decal/stripes/box,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "hIb" = (
@@ -33489,6 +33492,18 @@
 	dir = 9
 	},
 /obj/structure/lattice/catwalk/over,
+/obj/machinery/button/door/incinerator_vent_atmos_main{
+	pixel_x = 24;
+	pixel_y = -8
+	},
+/obj/machinery/button/door/incinerator_vent_atmos_aux{
+	pixel_x = 24;
+	pixel_y = 8
+	},
+/obj/machinery/button/ignition/incinerator/atmos{
+	pixel_x = 34;
+	pixel_y = 8
+	},
 /turf/open/floor/plating,
 /area/maintenance/disposal/incinerator)
 "iKl" = (
@@ -42209,18 +42224,6 @@
 "lcI" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 4
-	},
-/obj/machinery/button/door/incinerator_vent_atmos_aux{
-	pixel_x = 24;
-	pixel_y = 8
-	},
-/obj/machinery/button/door/incinerator_vent_atmos_main{
-	pixel_x = 24;
-	pixel_y = -8
-	},
-/obj/machinery/button/ignition/incinerator/atmos{
-	pixel_x = 34;
-	pixel_y = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/effect/turf_decal/stripes/corner{
@@ -59359,6 +59362,9 @@
 /obj/structure/lattice/catwalk/over,
 /obj/machinery/atmospherics/pipe/simple/dark/hidden{
 	dir = 10
+	},
+/obj/structure/sign/warning/fire{
+	pixel_x = 32
 	},
 /turf/open/floor/plating,
 /area/maintenance/disposal/incinerator)
@@ -80027,7 +80033,7 @@
 /area/chapel/office)
 "uyt" = (
 /obj/structure/sign/warning/securearea,
-/turf/closed/wall/r_wall,
+/turf/closed/wall,
 /area/maintenance/disposal/incinerator)
 "uyu" = (
 /obj/effect/landmark/event_spawn,
@@ -84030,7 +84036,8 @@
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 4
 	},
-/turf/closed/wall/r_wall,
+/obj/effect/spawner/structure/window/depleteduranium,
+/turf/open/floor/plating/airless,
 /area/maintenance/disposal/incinerator)
 "vty" = (
 /obj/effect/landmark/start/geneticist,
@@ -91188,9 +91195,6 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/lab)
-"wXJ" = (
-/turf/closed/wall/r_wall,
-/area/maintenance/disposal/incinerator)
 "wXP" = (
 /obj/effect/turf_decal/trimline/blue/line{
 	dir = 8
@@ -91811,10 +91815,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/wood,
 /area/crew_quarters/theatre)
-"xdz" = (
-/obj/structure/sign/warning/fire,
-/turf/closed/wall/r_wall,
-/area/maintenance/disposal/incinerator)
 "xdD" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -147162,7 +147162,6 @@ hgB
 yaw
 wRN
 xtQ
-wXJ
 rTo
 rTo
 rTo
@@ -147170,7 +147169,8 @@ rTo
 rTo
 rTo
 rTo
-wXJ
+rTo
+rTo
 xWY
 xWY
 xWY
@@ -147419,7 +147419,7 @@ lXU
 yaw
 qPG
 yaw
-wXJ
+rTo
 eeo
 bVm
 pIq
@@ -147933,7 +147933,7 @@ wnB
 pLM
 jZL
 wLN
-wXJ
+rTo
 tby
 tQQ
 uam
@@ -147941,7 +147941,7 @@ pip
 uam
 aqG
 bPL
-wXJ
+rTo
 vXB
 jVC
 vXB
@@ -148179,18 +148179,18 @@ bNY
 rHd
 xCJ
 vBw
-vpD
-rXm
+hKD
+hgB
 rTd
 rTd
 rTd
 rTd
 rTd
-rXm
-rXm
-rXm
+hgB
+hgB
+hgB
 ble
-wXJ
+rTo
 wSL
 tQQ
 xyv
@@ -148198,7 +148198,7 @@ frM
 gLO
 aqG
 bsm
-wXJ
+rTo
 air
 ylJ
 qri
@@ -148447,7 +148447,7 @@ gNU
 cfM
 hgB
 ufE
-wXJ
+rTo
 toW
 eek
 mrz
@@ -148455,7 +148455,7 @@ wkL
 udf
 hiT
 rqz
-wXJ
+rTo
 iQD
 jtj
 eZm
@@ -148693,7 +148693,7 @@ jXl
 wWM
 nLC
 jLt
-rXm
+hgB
 vLM
 vPv
 nLx
@@ -148704,7 +148704,7 @@ nLx
 lGr
 hgB
 rSR
-wXJ
+rTo
 wUB
 nih
 ahp
@@ -148712,7 +148712,7 @@ qxK
 kCA
 gsd
 ymc
-wXJ
+rTo
 vXB
 nwT
 vXB
@@ -148961,7 +148961,7 @@ pLj
 eXB
 hgB
 itO
-wXJ
+rTo
 gzZ
 pAX
 sgY
@@ -148969,7 +148969,7 @@ apI
 lcI
 iKk
 hoD
-wXJ
+rTo
 mmz
 vjf
 vjf
@@ -149218,15 +149218,15 @@ lGr
 eXB
 vjf
 reh
-wXJ
+rTo
 vOV
-xdz
+rTo
 dap
 lZI
 vtx
-xdz
+rTo
 voV
-wXJ
+rTo
 fDn
 abN
 abN
@@ -149477,11 +149477,11 @@ abN
 vfL
 upj
 jSq
-wXJ
+rTo
 apJ
 duk
 aXP
-wXJ
+rTo
 pdG
 vjf
 hzW
@@ -149734,11 +149734,11 @@ wHW
 abN
 abN
 sXg
-wXJ
+rTo
 vtx
 wVv
 vtx
-wXJ
+rTo
 trG
 nnx
 abN
@@ -149995,7 +149995,7 @@ qNr
 vvA
 vby
 kaB
-wXJ
+rTo
 trG
 nnx
 nnx
@@ -150248,11 +150248,11 @@ csJ
 csJ
 wYL
 vLM
-wXJ
-wXJ
+rTo
+rTo
 hIV
-wXJ
-wXJ
+rTo
+rTo
 trG
 nnx
 nnx
@@ -150506,9 +150506,9 @@ nnx
 nnx
 vLM
 vLM
-wXJ
+rTo
 azz
-wXJ
+rTo
 vLM
 trG
 nnx
@@ -150763,9 +150763,9 @@ xJu
 xJu
 csJ
 wbm
-wXJ
+rTo
 tVl
-wXJ
+rTo
 vLM
 hHX
 csJ
