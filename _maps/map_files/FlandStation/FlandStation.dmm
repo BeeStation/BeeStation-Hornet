@@ -7248,6 +7248,19 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
+"bOU" = (
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/purple/line{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/light_switch{
+	pixel_x = -24
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/science/research)
 "bOW" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
 /obj/machinery/portable_atmospherics/pump{
@@ -17850,14 +17863,14 @@
 /area/vacant_room/commissary/commissary1)
 "eKf" = (
 /obj/effect/turf_decal/trimline/purple/filled/line{
-	dir = 8
+	dir = 4
 	},
 /obj/effect/turf_decal/trimline/purple/line{
-	dir = 4
+	dir = 8
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/light_switch{
-	pixel_x = -24
+	pixel_x = 24
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/research)
@@ -19928,6 +19941,10 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/machinery/light_switch{
+	pixel_x = 24;
+	pixel_y = 24
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain/private)
@@ -42870,19 +42887,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"lkb" = (
-/obj/effect/turf_decal/trimline/purple/filled/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/trimline/purple/line{
-	dir = 8
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/light_switch{
-	pixel_x = 24
-	},
-/turf/open/floor/plasteel/grid/steel,
-/area/science/research)
 "lkd" = (
 /obj/item/radio/intercom{
 	pixel_x = 28
@@ -132269,7 +132273,7 @@ wEL
 hRU
 gAu
 hRU
-eKf
+bOU
 ifo
 eCG
 vLF
@@ -135351,7 +135355,7 @@ uwQ
 dhQ
 oDd
 pAj
-lkb
+eKf
 sQL
 pAj
 yeR
