@@ -1,0 +1,5 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - bugfix: nukie team will properly display the team name in the orbit panel (including
+      lone operative)
