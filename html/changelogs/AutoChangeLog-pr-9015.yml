@@ -1,0 +1,4 @@
+author: Tyranicranger4
+delete-after: true
+changes:
+  - bugfix: Fixes Stabilized Metal crossbreeds from being able to replicate telecrystals.
