@@ -428,6 +428,9 @@
 	name = "command camera"
 	},
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
+/obj/machinery/light_switch{
+	pixel_x = 24
+	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "agn" = (
@@ -17846,18 +17849,18 @@
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary/commissary1)
 "eKf" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+/obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 8
 	},
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	pixel_y = 24
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
+/obj/effect/turf_decal/trimline/purple/line{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark,
-/area/security/courtroom)
+/obj/structure/disposalpipe/segment,
+/obj/machinery/light_switch{
+	pixel_x = -24
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/science/research)
 "eKp" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -23389,10 +23392,6 @@
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
 /obj/item/pen,
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	pixel_y = 24
-	},
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/dark/side,
 /area/quartermaster/sorting)
@@ -24669,10 +24668,6 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	pixel_y = 24
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
@@ -30641,10 +30636,6 @@
 /turf/open/floor/plasteel/dark,
 /area/security/checkpoint/customs)
 "hZN" = (
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	pixel_y = 24
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/disposalpipe/segment{
@@ -32031,6 +32022,9 @@
 /area/asteroid/nearstation/bomb_site)
 "irF" = (
 /obj/item/kirbyplants/random,
+/obj/machinery/light_switch{
+	pixel_x = 24
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "irW" = (
@@ -38438,6 +38432,10 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
 	},
+/obj/machinery/light_switch{
+	pixel_x = -24;
+	pixel_y = -24
+	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/sorting)
 "kcJ" = (
@@ -39818,6 +39816,10 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/machinery/light_switch{
+	pixel_x = -24;
+	pixel_y = 24
+	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/chief)
 "kyo" = (
@@ -40424,10 +40426,6 @@
 	},
 /obj/effect/turf_decal/tile/red/opposingcorners{
 	dir = 1
-	},
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	pixel_y = 24
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/execution/transfer)
@@ -42872,6 +42870,19 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"lkb" = (
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/purple/line{
+	dir = 8
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/light_switch{
+	pixel_x = 24
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/science/research)
 "lkd" = (
 /obj/item/radio/intercom{
 	pixel_x = 28
@@ -49337,6 +49348,9 @@
 /area/medical/break_room)
 "mSH" = (
 /obj/machinery/vending/wardrobe/law_wardrobe,
+/obj/machinery/light_switch{
+	pixel_x = 24
+	},
 /turf/open/floor/wood,
 /area/lawoffice)
 "mTi" = (
@@ -50228,10 +50242,6 @@
 "nep" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
-	},
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	pixel_y = 24
 	},
 /turf/open/floor/plasteel/dark,
 /area/storage/tech)
@@ -55411,6 +55421,9 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
 	dir = 1
 	},
+/obj/machinery/light_switch{
+	pixel_x = -24
+	},
 /turf/open/floor/plasteel,
 /area/science/breakroom)
 "ovY" = (
@@ -55525,7 +55538,6 @@
 	},
 /mob/living/simple_animal/parrot/Poly,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/obj/machinery/firealarm/directional/west,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/chief)
 "oxU" = (
@@ -61206,10 +61218,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	pixel_y = 24
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
@@ -62176,6 +62184,9 @@
 	dir = 4
 	},
 /obj/item/toy/plush/moth/moonfly,
+/obj/machinery/light_switch{
+	pixel_x = 24
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/storage/tech)
 "qiI" = (
@@ -65861,6 +65872,10 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/apc/auto_name/east,
+/obj/machinery/light_switch{
+	pixel_x = 24;
+	pixel_y = 24
+	},
 /turf/open/floor/wood,
 /area/bridge/showroom/corporate)
 "rde" = (
@@ -68503,12 +68518,14 @@
 /area/maintenance/solars/port)
 "rIA" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/obj/machinery/keycard_auth{
-	pixel_y = 24
-	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
 	dir = 1
+	},
+/obj/machinery/firealarm/directional/north,
+/obj/machinery/keycard_auth{
+	pixel_x = 26;
+	pixel_y = 24
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/chief)
@@ -88258,10 +88275,6 @@
 /obj/effect/turf_decal/trimline/red/filled/warning{
 	dir = 4
 	},
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	pixel_y = 24
-	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
@@ -90925,10 +90938,6 @@
 /obj/item/radio/intercom{
 	pixel_x = -28
 	},
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	pixel_y = 24
-	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "wVh" = (
@@ -91829,6 +91838,10 @@
 /obj/structure/disposalpipe/junction/flip,
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/effect/turf_decal/siding/purple,
+/obj/machinery/light_switch{
+	pixel_x = 24;
+	pixel_y = -24
+	},
 /turf/open/floor/plasteel/white,
 /area/science/lobby)
 "xdK" = (
@@ -132256,7 +132269,7 @@ wEL
 hRU
 gAu
 hRU
-ifo
+eKf
 ifo
 eCG
 vLF
@@ -135338,7 +135351,7 @@ uwQ
 dhQ
 oDd
 pAj
-pAj
+lkb
 sQL
 pAj
 yeR
@@ -139648,7 +139661,7 @@ qFd
 flF
 fAw
 geb
-eKf
+aFA
 lCN
 qSu
 rPR
@@ -143028,8 +143041,8 @@ fOM
 yif
 dRb
 skT
-qos
 aRe
+qos
 qos
 nZM
 qos
