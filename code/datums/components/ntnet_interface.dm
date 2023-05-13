@@ -70,9 +70,8 @@
 	id_tag = network_tag
 	SSnetworks.interfaces_by_hardware_id[hardware_id] = src
 
-	network = SSnetworks.create_network_simple(network_name)
 
-	network.add_interface(src)
+	SSnetworks.create_network_simple(network_name).add_interface(src)
 
 
 /**
