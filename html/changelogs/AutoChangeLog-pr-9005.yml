@@ -1,0 +1,4 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - bugfix: Fixed the species being set to null after getting umonkified
