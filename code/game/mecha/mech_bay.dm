@@ -51,7 +51,7 @@
 /obj/machinery/mech_bay_recharge_port/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Base recharge rate at <b>[siunit(recharge_power, "W", 1)]</b> per cycle.</span>"
+		. += "<span class='notice'>The status display reads: Base recharge rate at <b>[siunit(recharge_power, "W", 1)]</b>.</span>"
 
 /obj/machinery/mech_bay_recharge_port/process()
 	if(machine_stat & NOPOWER || !recharge_console)
