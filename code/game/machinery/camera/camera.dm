@@ -50,6 +50,9 @@
 
 	var/internal_light = TRUE //Whether it can light up when an AI views it
 
+	///Represents a signal source of camera alarms about movement or camera tampering
+	var/datum/alarm_handler/alarm_manager
+
 /obj/machinery/camera/preset/toxins //Bomb test site in space
 	name = "Hardened Bomb-Test Camera"
 	desc = "A specially-reinforced camera with a long lasting battery, used to monitor the bomb testing site. An external light is attached to the top."
@@ -87,12 +90,21 @@
 	if (isturf(loc))
 		myarea = get_area(src)
 		LAZYADD(myarea.cameras, src)
-	proximity_monitor = new(src, 1)
 
 	if(mapload && is_station_level(z) && prob(3) && !start_active)
 		toggle_cam()
 	else //this is handled by toggle_camera, so no need to update it twice.
-		update_icon()
+		update_appearance()
+
+	alarm_manager = new(src)
+
+/obj/machinery/proc/create_prox_monitor()
+	if(!proximity_monitor)
+		proximity_monitor = new(src, 1)
+
+/obj/machinery/camera/proc/set_area_motion(area/A)
+	area_motion = A
+	create_prox_monitor()
 
 /obj/machinery/camera/Destroy()
 	if(can_use())
@@ -101,7 +113,8 @@
 	GLOB.cameranet.cameras -= src
 	cancelCameraAlarm()
 	if(isarea(myarea))
-		myarea.clear_camera(src)
+		LAZYREMOVE(myarea.cameras, src)
+	QDEL_NULL(alarm_manager)
 	QDEL_NULL(assembly_ref)
 	QDEL_NULL(emp_component)
 	if(bug)
@@ -377,13 +390,11 @@
 
 /obj/machinery/camera/proc/triggerCameraAlarm()
 	alarm_on = TRUE
-	for(var/mob/living/silicon/S in GLOB.silicon_mobs)
-		S.triggerAlarm("Camera", get_area(src), list(src), src)
+	alarm_manager.send_alarm(ALARM_CAMERA, src, src)
 
 /obj/machinery/camera/proc/cancelCameraAlarm()
 	alarm_on = FALSE
-	for(var/mob/living/silicon/S in GLOB.silicon_mobs)
-		S.cancelAlarm("Camera", get_area(src), src)
+	alarm_manager.clear_alarm(ALARM_CAMERA)
 
 /obj/machinery/camera/proc/can_use()
 	if(!status)

@@ -7,14 +7,15 @@
 	inherent_traits = list(TRAIT_TOXINLOVER,TRAIT_NOFIRE,TRAIT_ALWAYS_CLEAN,TRAIT_EASYDISMEMBER)
 	hair_color = "mutcolor"
 	hair_alpha = 150
-	mutantlungs = /obj/item/organ/lungs/oozeling
+	mutantlungs = /obj/item/organ/lungs/slime
 	mutanttongue = /obj/item/organ/tongue/slime
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/slime
-	exotic_blood = /datum/reagent/toxin/slimeooze
+	exotic_blood = /datum/reagent/toxin/slimejelly
 	damage_overlay_type = ""
 	var/datum/action/innate/regenerate_limbs/regenerate_limbs
 	coldmod = 6   // = 3x cold damage
 	heatmod = 0.5 // = 1/4x heat damage
+	inherent_factions = list("slime")
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/oozeling
 	swimming_component = /datum/component/swimming/dissolve

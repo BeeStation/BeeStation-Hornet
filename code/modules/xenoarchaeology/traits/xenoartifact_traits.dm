@@ -42,12 +42,12 @@
 ///Compile a blacklist of traits from a given flag/s
 /proc/compile_artifact_blacklist(var/flags)
 	var/list/output = list()
-	for(var/datum/xenoartifact_trait/T as() in GLOB.xenoa_all_traits)	
+	for(var/datum/xenoartifact_trait/T as() in GLOB.xenoa_all_traits)
 		if(!(initial(T.flags) & flags))
 			output += T
 	return output
 
-//Activator signal shenanignas 
+//Activator signal shenanignas
 ///Passes information into the activator datum to decide if, and how, the artifact activates
 /datum/xenoartifact_trait/activator/proc/pass_input(obj/item/xenoartifact/X)
 	return
