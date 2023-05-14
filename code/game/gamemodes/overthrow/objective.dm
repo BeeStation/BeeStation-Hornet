@@ -63,7 +63,7 @@
 	var/list/datum/mind/owners = get_owners()
 	for(var/datum/mind/possible_target in get_crewmember_minds()) // i would use SSjob.get_all_heads() but jesus christ that proc's shit, i ain't using it
 		if(!(possible_target in owners) && ishuman(possible_target.current))
-			if(possible_target.assigned_role in GLOB.command_positions)
+			if(possible_target.assigned_role in SSdepartment.get_joblist_by_dept_id(DEPT_NAME_COMMAND))
 				targets[possible_target] = possible_target.assigned_role
 	update_explanation_text()
 
@@ -139,7 +139,7 @@
 		explanation_text = "Nothing."
 
 /datum/objective/overthrow/target/is_unique_objective(datum/mind/possible_target, list/dupe_search_range)
-	if(possible_target.assigned_role in GLOB.command_positions)
+	if(possible_target.assigned_role in SSdepartment.get_joblist_by_dept_id(DEPT_NAME_COMMAND))
 		return FALSE
 	return TRUE
 

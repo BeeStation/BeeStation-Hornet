@@ -34,7 +34,7 @@
 
 	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_COMMAND | DEPT_BITFLAG_SERVICE
-	bank_account_department = ACCOUNT_SRV_BITFLAG | ACCOUNT_COM_BITFLAG
+	bank_account_department = ACCOUNT_SRV_BITFLAG | DEPT_BITFLAG_COMMAND
 	payment_per_department = list(
 		ACCOUNT_COM_ID = PAYCHECK_COMMAND_NT,
 		ACCOUNT_SRV_ID = PAYCHECK_COMMAND_DEPT)

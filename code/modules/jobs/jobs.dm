@@ -1,14 +1,16 @@
 GLOBAL_LIST_INIT(exp_jobsmap, list(
-	EXP_TYPE_CREW = list("titles" = command_positions | engineering_positions | medical_positions | science_positions | supply_positions | security_positions | civilian_positions | gimmick_positions | list(JOB_NAME_AI,JOB_NAME_CYBORG)), // crew positions
-	EXP_TYPE_COMMAND = list("titles" = command_positions),
-	EXP_TYPE_ENGINEERING = list("titles" = engineering_positions),
-	EXP_TYPE_MEDICAL = list("titles" = medical_positions),
-	EXP_TYPE_SCIENCE = list("titles" = science_positions),
-	EXP_TYPE_SUPPLY = list("titles" = supply_positions),
-	EXP_TYPE_SECURITY = list("titles" = security_positions),
-	EXP_TYPE_SILICON = list("titles" = list(JOB_NAME_AI,JOB_NAME_CYBORG)),
-	EXP_TYPE_SERVICE = list("titles" = civilian_positions | gimmick_positions),
-	EXP_TYPE_GIMMICK = list("titles" = gimmick_positions)
+	// should fix later
+
+	////EXP_TYPE_CREW = list("titles" = command_positions | engineering_positions | medical_positions | science_positions | supply_positions | security_positions | SSdepartment.get_joblist_by_dept_id(DEPT_NAME_SERVICE) | gimmick_positions | list(JOB_NAME_AI,JOB_NAME_CYBORG)), // crew positions
+	//EXP_TYPE_COMMAND = list("titles" = command_positions),
+	//EXP_TYPE_ENGINEERING = list("titles" = engineering_positions),
+	//EXP_TYPE_MEDICAL = list("titles" = medical_positions),
+	//EXP_TYPE_SCIENCE = list("titles" = science_positions),
+	//EXP_TYPE_SUPPLY = list("titles" = supply_positions),
+	//EXP_TYPE_SECURITY = list("titles" = security_positions),
+	//EXP_TYPE_SILICON = list("titles" = list(JOB_NAME_AI,JOB_NAME_CYBORG)),
+	///EXP_TYPE_SERVICE = list("titles" = SSdepartment.get_joblist_by_dept_id(DEPT_NAME_SERVICE) | gimmick_positions),
+	//EXP_TYPE_GIMMICK = list("titles" = gimmick_positions)
 ))
 
 GLOBAL_LIST_INIT(exp_specialmap, list(
@@ -21,7 +23,7 @@ GLOBAL_PROTECT(exp_jobsmap)
 GLOBAL_PROTECT(exp_specialmap)
 
 /proc/guest_jobbans(job)
-	return ((job in GLOB.command_positions) || (job in GLOB.nonhuman_positions) || (job in GLOB.security_positions))
+	return ((job in SSdepartment.get_joblist_by_dept_id(DEPT_NAME_COMMAND)) || (job in SSdepartment.get_joblist_by_dept_id(DEPT_NAME_SILICON)) || (job in SSdepartment.get_joblist_by_dept_id(DEPT_NAME_SECURITY)))
 
 
 

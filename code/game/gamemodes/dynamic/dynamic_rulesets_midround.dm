@@ -672,7 +672,7 @@
 			|| candidate.stat == DEAD \
 			|| !(ROLE_OBSESSED in candidate.client?.prefs?.be_special) \
 			|| !SSjob.GetJob(candidate.mind.assigned_role) \
-			|| (candidate.mind.assigned_role in GLOB.nonhuman_positions) \
+			|| (candidate.mind.assigned_role in SSdepartment.get_joblist_by_dept_id(DEPT_NAME_SILICON)) \
 		)
 			candidates -= candidate
 

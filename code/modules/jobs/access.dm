@@ -218,148 +218,98 @@
 		if(7) //command
 			return "Command"
 
-/proc/get_access_desc(A)
-	switch(A)
-		if(ACCESS_CARGO)
-			return "Cargo Bay"
-		if(ACCESS_SECURITY)
-			return "Security"
-		if(ACCESS_BRIG)
-			return "Holding Cells"
-		if(ACCESS_COURT)
-			return "Courtroom"
-		if(ACCESS_FORENSICS_LOCKERS)
-			return "Forensics"
-		if(ACCESS_MEDICAL)
-			return "Medical"
-		if(ACCESS_GENETICS)
-			return "Genetics Lab"
-		if(ACCESS_MORGUE)
-			return "Morgue"
-		if(ACCESS_TOX)
-			return "R&D Lab"
-		if(ACCESS_TOX_STORAGE)
-			return "Toxins Lab"
-		if(ACCESS_CHEMISTRY)
-			return "Chemistry Lab"
-		if(ACCESS_BRIGPHYS)
-			return "Brig Physician"
-		if(ACCESS_RD)
-			return "RD Office"
-		if(ACCESS_BAR)
-			return "Bar"
-		if(ACCESS_JANITOR)
-			return "Custodial Closet"
-		if(ACCESS_ENGINE)
-			return "Engineering"
-		if(ACCESS_ENGINE_EQUIP)
-			return "Power and Engineering Equipment"
-		if(ACCESS_MAINT_TUNNELS)
-			return "Maintenance"
-		if(ACCESS_EXTERNAL_AIRLOCKS)
-			return "External Airlocks"
-		if(ACCESS_CHANGE_IDS)
-			return "ID Console"
-		if(ACCESS_AI_UPLOAD)
-			return "AI Chambers"
-		if(ACCESS_TELEPORTER)
-			return "Teleporter"
-		if(ACCESS_EVA)
-			return "EVA"
-		if(ACCESS_HEADS)
-			return "Bridge"
-		if(ACCESS_CAPTAIN)
-			return "Captain"
-		if(ACCESS_ALL_PERSONAL_LOCKERS)
-			return "Personal Lockers"
-		if(ACCESS_CHAPEL_OFFICE)
-			return "Chapel Office"
-		if(ACCESS_TECH_STORAGE)
-			return "Technical Storage"
-		if(ACCESS_ATMOSPHERICS)
-			return "Atmospherics"
-		if(ACCESS_CREMATORIUM)
-			return "Crematorium"
-		if(ACCESS_ARMORY)
-			return "Armory"
-		if(ACCESS_CONSTRUCTION)
-			return "Construction"
-		if(ACCESS_KITCHEN)
-			return "Kitchen"
-		if(ACCESS_HYDROPONICS)
-			return "Hydroponics"
-		if(ACCESS_LIBRARY)
-			return "Library"
-		if(ACCESS_LAWYER)
-			return "Law Office"
-		if(ACCESS_ROBOTICS)
-			return "Robotics"
-		if(ACCESS_VIROLOGY)
-			return "Virology"
-		if(ACCESS_CMO)
-			return "CMO Office"
-		if(ACCESS_QM)
-			return "Quartermaster"
-		if(ACCESS_EXPLORATION)
-			return "Exploration Dock"
-		if(ACCESS_SURGERY)
-			return "Surgery"
-		if(ACCESS_THEATRE)
-			return "Theatre"
-		if(ACCESS_RESEARCH)
-			return "Science"
-		if(ACCESS_RD_SERVER)
-			return "Research Server Room"
-		if(ACCESS_MINING)
-			return "Mining"
-		if(ACCESS_MAILSORTING)
-			return "Cargo Office"
-		if(ACCESS_VAULT)
-			return "Main Vault"
-		if(ACCESS_MINING_STATION)
-			return "Mining EVA"
-		if(ACCESS_XENOBIOLOGY)
-			return "Xenobiology Lab"
-		if(ACCESS_HOP)
-			return "HoP Office"
-		if(ACCESS_HOS)
-			return "HoS Office"
-		if(ACCESS_CE)
-			return "CE Office"
-		if(ACCESS_RC_ANNOUNCE)
-			return "RC Announcements"
-		if(ACCESS_KEYCARD_AUTH)
-			return "Keycode Auth."
-		if(ACCESS_TCOMSAT)
-			return "Telecommunications"
-		if(ACCESS_GATEWAY)
-			return "Gateway"
-		if(ACCESS_SEC_DOORS)
-			return "Brig"
-		if(ACCESS_SEC_RECORDS)
-			return "Security Records"
-		if(ACCESS_MINERAL_STOREROOM)
-			return "Mineral Storage"
-		if(ACCESS_MINISAT)
-			return "AI Satellite"
-		if(ACCESS_WEAPONS)
-			return "Weapon Permit"
-		if(ACCESS_NETWORK)
-			return "Network Access"
-		if(ACCESS_CLONING)
-			return "Cloning Room"
-		if(ACCESS_MECH_MINING)
-			return "Mining Mech Access"
-		if(ACCESS_MECH_MEDICAL)
-			return "Medical Mech Access"
-		if(ACCESS_MECH_SECURITY)
-			return "Security Mech Access"
-		if(ACCESS_MECH_SCIENCE)
-			return "Science Mech Access"
-		if(ACCESS_MECH_ENGINE)
-			return "Engineering Mech Access"
-		if(ACCESS_AUX_BASE)
-			return "Auxiliary Base"
+/proc/get_access_desc(access_code)
+	var/static/list/acc_desc
+	if(!acc_desc)
+		acc_desc = list(
+			"[ACCESS_CARGO]" = "Cargo Bay",
+			"[ACCESS_SECURITY]" = "Security",
+			"[ACCESS_BRIG]" = "Holding Cells",
+			"[ACCESS_COURT]" = "Courtroom",
+			"[ACCESS_FORENSICS_LOCKERS]" = "Forensics",
+			"[ACCESS_MEDICAL]" = "Medical",
+			"[ACCESS_GENETICS]" = "Genetics Lab",
+			"[ACCESS_MORGUE]" = "Morgue",
+			"[ACCESS_TOX]" = "R&D Lab",
+			"[ACCESS_TOX_STORAGE]" = "Toxins Lab",
+			"[ACCESS_CHEMISTRY]" = "Chemistry Lab",
+			"[ACCESS_BRIGPHYS]" = "Brig Physician",
+			"[ACCESS_RD]" = "RD Office",
+			"[ACCESS_BAR]" = "Bar",
+			"[ACCESS_JANITOR]" = "Custodial Closet",
+			"[ACCESS_ENGINE]" = "Engineering",
+			"[ACCESS_ENGINE_EQUIP]" = "Power and Engineering Equipment",
+			"[ACCESS_MAINT_TUNNELS]" = "Maintenance",
+			"[ACCESS_EXTERNAL_AIRLOCKS]" = "External Airlocks",
+			"[ACCESS_CHANGE_IDS]" = "ID Console",
+			"[ACCESS_AI_UPLOAD]" = "AI Chambers",
+			"[ACCESS_TELEPORTER]" = "Teleporter",
+			"[ACCESS_EVA]" = "EVA",
+			"[ACCESS_HEADS]" = "Bridge",
+			"[ACCESS_CAPTAIN]" = "Captain",
+			"[ACCESS_ALL_PERSONAL_LOCKERS]" = "Personal Lockers",
+			"[ACCESS_CHAPEL_OFFICE]" = "Chapel Office",
+			"[ACCESS_TECH_STORAGE]" = "Technical Storage",
+			"[ACCESS_ATMOSPHERICS]" = "Atmospherics",
+			"[ACCESS_CREMATORIUM]" = "Crematorium",
+			"[ACCESS_ARMORY]" = "Armory",
+			"[ACCESS_CONSTRUCTION]" = "Construction",
+			"[ACCESS_KITCHEN]" = "Kitchen",
+			"[ACCESS_HYDROPONICS]" = "Hydroponics",
+			"[ACCESS_LIBRARY]" = "Library",
+			"[ACCESS_LAWYER]" = "Law Office",
+			"[ACCESS_ROBOTICS]" = "Robotics",
+			"[ACCESS_VIROLOGY]" = "Virology",
+			"[ACCESS_CMO]" = "CMO Office",
+			"[ACCESS_QM]" = "Quartermaster",
+			"[ACCESS_EXPLORATION]" = "Exploration Dock",
+			"[ACCESS_SURGERY]" = "Surgery",
+			"[ACCESS_THEATRE]" = "Theatre",
+			"[ACCESS_RESEARCH]" = "Science",
+			"[ACCESS_RD_SERVER]" = "Research Server Room",
+			"[ACCESS_MINING]" = "Mining",
+			"[ACCESS_MAILSORTING]" = "Cargo Office",
+			"[ACCESS_VAULT]" = "Main Vault",
+			"[ACCESS_MINING_STATION]" = "Mining EVA",
+			"[ACCESS_XENOBIOLOGY]" = "Xenobiology Lab",
+			"[ACCESS_HOP]" = "HoP Office",
+			"[ACCESS_HOS]" = "HoS Office",
+			"[ACCESS_CE]" = "CE Office",
+			"[ACCESS_RC_ANNOUNCE]" = "RC Announcements",
+			"[ACCESS_KEYCARD_AUTH]" = "Keycode Auth.",
+			"[ACCESS_TCOMSAT]" = "Telecommunications",
+			"[ACCESS_GATEWAY]" = "Gateway",
+			"[ACCESS_SEC_DOORS]" = "Brig",
+			"[ACCESS_SEC_RECORDS]" = "Security Records",
+			"[ACCESS_MINERAL_STOREROOM]" = "Mineral Storage",
+			"[ACCESS_MINISAT]" = "AI Satellite",
+			"[ACCESS_WEAPONS]" = "Weapon Permit",
+			"[ACCESS_NETWORK]" = "Network Access",
+			"[ACCESS_CLONING]" = "Cloning Room",
+			"[ACCESS_MECH_MINING]" = "Mining Mech Access",
+			"[ACCESS_MECH_MEDICAL]" = "Medical Mech Access",
+			"[ACCESS_MECH_SECURITY]" = "Security Mech Access",
+			"[ACCESS_MECH_SCIENCE]" = "Science Mech Access",
+			"[ACCESS_MECH_ENGINE]" = "Engineering Mech Access",
+			"[ACCESS_AUX_BASE]" = "Auxiliary Base",
+			"[ACCESS_CENT_GENERAL]" = "Code Grey",
+			"[ACCESS_CENT_THUNDER]" = "Code Yellow",
+			"[ACCESS_CENT_STORAGE]" = "Code Orange",
+			"[ACCESS_CENT_LIVING]" = "Code Green",
+			"[ACCESS_CENT_MEDICAL]" = "Code White",
+			"[ACCESS_CENT_TELEPORTER]" = "Code Blue",
+			"[ACCESS_CENT_SPECOPS]" = "Code Black",
+			"[ACCESS_CENT_CAPTAIN]" = "Code Gold",
+			"[ACCESS_CENT_BAR]" = "Code Scotch",
+			"[ACCESS_SYNDICATE]" = "Syndicate",
+			"[ACCESS_SYNDICATE_LEADER]" = "Syndicate Leader",
+			"[ACCESS_AWAY_GENERIC1]" = "Away generic 1",
+			"[ACCESS_BLOODCULT]" = "Bloodcult",
+			"[ACCESS_CLOCKCULT]" = "Clockcult"
+		)
+	access_code = "[access_code]"
+	return acc_desc[access_code] || "Unknown [access_code]"
+
 
 /proc/get_centcom_access_desc(A)
 	switch(A)
@@ -382,6 +332,7 @@
 		if(ACCESS_CENT_BAR)
 			return "Code Scotch"
 
+// Note: avoid using this as possible as you can
 /proc/get_all_jobs()
 	return list(JOB_NAME_CAPTAIN,
 				// Service
@@ -399,9 +350,6 @@
 				JOB_NAME_HEADOFSECURITY, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_SECURITYOFFICER, JOB_NAME_BRIGPHYSICIAN, JOB_NAME_DEPUTY)
 				// Each job is supposed to be in their department due to the HoP console.
 
-/proc/get_all_job_icons() //We need their HUD icons, but we don't want to give these jobs to people from the job list of HoP console.
-	return get_all_jobs() + list("Prisoner", "King", JOB_NAME_VIP, "Acting Captain")
-
 /proc/get_all_centcom_jobs()
 	return list(JOB_CENTCOM_VIP,JOB_CENTCOM_CUSTODIAN, JOB_CENTCOM_THUNDERDOME_OVERSEER,JOB_CENTCOM_OFFICIAL,JOB_CENTCOM_MEDICAL_DOCTOR,JOB_ERT_DEATHSQUAD,JOB_CENTCOM_RESEARCH_OFFICER,"Special Ops Officer",JOB_CENTCOM_ADMIRAL,JOB_CENTCOM_COMMANDER,JOB_ERT_COMMANDER,JOB_ERT_OFFICER ,JOB_ERT_ENGINEER, JOB_ERT_MEDICAL_DOCTOR,JOB_CENTCOM_BARTENDER,"Comedy Response Officer", "HONK Squad Trooper")
 
@@ -413,3 +361,10 @@
 	if(I_hud)
 		return I_hud
 	return "unknown"
+
+
+/proc/get_all_centcom_access()
+	var/static/datum/department_group/dept
+	if(!dept)
+		dept = SSdepartment.get_department_by_id(DEPT_NAME_CENTCOM)
+	return dept.standard_access.Copy()
