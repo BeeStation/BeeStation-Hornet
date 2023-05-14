@@ -122,7 +122,7 @@
 #define INIT_ORDER_RESEARCH			75
 #define INIT_ORDER_ORBITS			74 //Other things use the orbital map, so it needs to be made early on.
 #define INIT_ORDER_STATION			73 //This is high priority because it manipulates a lot of the subsystems that will initialize after it
-#define INIT_ORDER_DEPARTMENT		72
+#define INIT_ORDER_DEPARTMENT		72 //This is important: it has access distributing code, so should be initialized quickly
 #define INIT_ORDER_JOBS				71 //Must initialize before events for holidays
 #define INIT_ORDER_EVENTS			70
 #define INIT_ORDER_QUIRKS			60
