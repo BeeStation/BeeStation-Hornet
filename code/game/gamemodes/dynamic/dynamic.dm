@@ -182,6 +182,14 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	/// How often should dynamic check to see if all the high-impact rulesets are 'dead'?
 	var/dead_ruleset_check_time	= 5 MINUTES
 
+	/// The minimum amount of station integrity needed for a dead threat injection
+	var/minimum_station_integrity = 0.85
+
+	/// The maximum amount of threat that should be obtainable from injecting "dead" threats
+	var/maximum_threat_from_death_injection = 50
+
+	/// How much to multiply the 'dead' threat cost against when injecting a new replacement threat?
+	var/dead_threat_multipler = 0.5
 
 	// == EVERYTHING BELOW THIS POINT SHOULD NOT BE CONFIGURED ==
 
@@ -203,19 +211,11 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 
 	VAR_PRIVATE/next_midround_injection
 
-	/// Whether the mode has attempted to inject new midrounds after a high impact
-	/// ruleset has "died".
-	var/high_impact_dead_rolled = FALSE
-
-	/// Whether dynamic should try to inject midrounds after high impacts die or not.
-	/// Normally, this will be set to TRUE if something 'big' happens, like warops.
+	/// Contains whether 'dead' ruleset injection will be blocked due to a high impact event occurring.
 	var/high_impact_major_event_occured = FALSE
 
 	/// Cached value of is_station_intact.
 	var/cached_station_intact = TRUE
-
-	/// When the next high impact death check will be run.
-	COOLDOWN_DECLARE(next_dead_check)
 
 	/// When the cached station intactness will expire.
 	COOLDOWN_DECLARE(intact_cache_expiry)
@@ -319,11 +319,11 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 
 	admin_panel() // Refreshes the window
 
-// Checks if there are HIGH_IMPACT_RULESETs and calls the rule's round_result() proc
+// Checks if there are NO_OTHER_ROUNDSTARTSs and calls the rule's round_result() proc
 /datum/game_mode/dynamic/set_round_result()
 	// If it got to this part, just pick one high impact ruleset if it exists
 	for(var/datum/dynamic_ruleset/rule in executed_rules)
-		if(CHECK_BITFIELD(rule.flags, HIGH_IMPACT_RULESET))
+		if(CHECK_BITFIELD(rule.flags, NO_OTHER_ROUNDSTARTS_RULESET))
 			return rule.round_result()
 	return ..()
 
@@ -577,7 +577,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 			drafted_rules[ruleset] = null
 			continue
 
-		if (check_blocking(ruleset.blocking_rules, rulesets_picked, FALSE))
+		if (check_blocking(ruleset.blocking_rules, rulesets_picked, ignore_dead_rulesets=FALSE))
 			drafted_rules[ruleset] = null
 			continue
 
@@ -685,7 +685,6 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		if(rule.rule_process() == RULESET_STOP_PROCESSING) // If rule_process() returns 1 (RULESET_STOP_PROCESSING), stop processing.
 			current_rules -= rule
 
-	check_for_dead_high_impacts()
 	try_midround_roll()
 
 /// Removes type from the list
@@ -701,11 +700,12 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		for(var/blocking in blocking_list)
 			for(var/_executed in rule_list)
 				var/datum/dynamic_ruleset/executed = _executed
+				if(blocking != executed.type)
+					continue
 				if((ignore_dead_rulesets && !high_impact_major_event_occured) && executed.is_dead())
 					continue
-				if(blocking == executed.type)
-					log_game("DYNAMIC: FAIL: check_blocking - [blocking] conflicts with [executed.type]")
-					return TRUE
+				log_game("DYNAMIC: FAIL: check_blocking - [blocking] conflicts with [executed.type]")
+				return TRUE
 	return FALSE
 
 /datum/game_mode/dynamic/proc/check_lowpop_lowimpact_injection()
@@ -829,32 +829,15 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	COOLDOWN_START(src, intact_cache_expiry, 5 MINUTES)
 	var/old_cached_station_intact = cached_station_intact
 	cached_station_intact = TRUE
-	var/min_pop = CONFIG_GET(number/dynamic_minimum_living_population)
-	if(min_pop)
-		var/total = 0
-		var/living = 0
-		for(var/mob/living/player in GLOB.player_list)
-			if(!is_station_level(player.z))
-				continue
-			if(player.stat < DEAD)
-				living++
-			total++
-		if(min(total, living) > 0)
-			var/living_percent = living / total
-			if(min_pop > living_percent)
-				cached_station_intact = FALSE
-				if(old_cached_station_intact)
-					log_game("DYNAMIC: Station has a living population of [PERCENT(living_percent)]%, which is lower than the minimum living population of [PERCENT(min_pop)]%")
-	var/min_integrity = CONFIG_GET(number/dynamic_minimum_station_integrity)
-	if(min_integrity)
+	if(minimum_station_integrity)
 		var/datum/station_state/current_state = new /datum/station_state()
 		current_state.count()
 		var/station_integrity = GLOB.start_state.score(current_state)
 		qdel(current_state)
-		if(min_integrity > station_integrity)
+		if(minimum_station_integrity > station_integrity)
 			cached_station_intact = FALSE
 			if(old_cached_station_intact)
-				log_game("DYNAMIC: Station has an integrity of [PERCENT(station_integrity)]%, which is lower than the minimum integrity of [PERCENT(min_integrity)]%")
+				log_game("DYNAMIC: Station has an integrity of [PERCENT(station_integrity)]%, which is lower than the minimum integrity of [PERCENT(minimum_station_integrity)]%")
 	return cached_station_intact
 
 /// Turns the value generated by lorentz distribution to number between 0 and 100.

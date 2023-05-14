@@ -242,11 +242,11 @@
 			if(body.soul_departed() || mind.hellbound)
 				continue
 			// Are they in medbay or an operating table/stasis bed, and have been dead for less than 20 minutes? If so, they're probably being revived.
-			if(world.time <= (mind.last_death + 20 MINUTES) && (istype(get_area(body), /area/medical) || (locate(/obj/machinery/stasis) in body.loc) || (locate(/obj/structure/table/optable) in body.loc)))
+			if(world.time <= (mind.last_death + 15 MINUTES) && (istype(get_area(body), /area/medical) || (locate(/obj/machinery/stasis) in body.loc) || (locate(/obj/structure/table/optable) in body.loc)))
 				return FALSE
 		else
 			// Are they a silicon? If so, might as well be dead.
-			if(issilicon(body))
+			if(issilicon(body) && mind.assigned_role != JOB_NAME_AI)
 				continue
 			// Well, they're at least somewhat alive. But are they still antag?
 			if(antag_datum && mind.has_antag_datum(antag_datum))

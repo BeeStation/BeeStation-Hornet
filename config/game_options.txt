@@ -305,20 +305,8 @@ DEFAULT_REP_VALUE 5
 ## Uncomment to allow players to see the set odds of different rounds in secret/random in the get server revision screen. This will NOT tell the current roundtype.
 #SHOW_GAME_TYPE_ODDS
 
-
-## Dynamic options
 ## Uncomment to enable dynamic ruleset config file.
 DYNAMIC_CONFIG_ENABLED
-
-## The minimum station integrity, as a percentage value, for potentially destructive crew antags to roll.
-## Basically, if the station is blown to bits, it won't spawn traitors to come in and pick apart what's left.
-## Set to 0 to disable station integrity checks.
-DYNAMIC_MINIMUM_STATION_INTEGRITY 95
-
-## What's the minimum percentage of living crew (compared to all joined crew) needed to start rolling potentially
-## destructive crew antags?
-## Set to 0 to disable population checks.
-DYNAMIC_MINIMUM_LIVING_POPULATION 70
 
 ## RANDOM EVENTS ###
 ## Comment this out to disable random events during the round.

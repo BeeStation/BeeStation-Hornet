@@ -16,9 +16,8 @@
 
 	return last_midround_injection_attempt + distance
 
-/datum/game_mode/dynamic/proc/try_midround_roll(forced = FALSE)
-	. = FALSE
-	if (!(forced || forced_injection) && next_midround_injection() > world.time)
+/datum/game_mode/dynamic/proc/try_midround_roll()
+	if (!forced_injection && next_midround_injection() > world.time)
 		return
 
 	if (GLOB.dynamic_forced_extended)
@@ -29,10 +28,9 @@
 
 	var/spawn_heavy = prob(get_heavy_midround_injection_chance())
 
-	if(!forced)
-		last_midround_injection_attempt = world.time
-		next_midround_injection = null
-		forced_injection = FALSE
+	last_midround_injection_attempt = world.time
+	next_midround_injection = null
+	forced_injection = FALSE
 
 	dynamic_log("A midround ruleset is rolling, and will be [spawn_heavy ? "HEAVY" : "LIGHT"].")
 
@@ -44,10 +42,6 @@
 	for (var/datum/dynamic_ruleset/midround/ruleset in midround_rules)
 		if (ruleset.weight == 0)
 			log_game("DYNAMIC: FAIL: [ruleset] has a weight of 0")
-			continue
-
-		if (CHECK_BITFIELD(ruleset.flags, INTACT_STATION_RULESET) && !is_station_intact())
-			log_game("DYNAMIC: FAIL: [ruleset] is not acceptable, as the station is not considered intact.")
 			continue
 
 		if (!ruleset.acceptable(SSticker.mode.current_players[CURRENT_LIVING_PLAYERS].len, threat_level))
@@ -63,7 +57,7 @@
 			continue
 
 		// If admins have disabled dynamic from picking from the ghost pool
-		if(istype(ruleset, /datum/dynamic_ruleset/midround/from_ghosts) && !(CHECK_BITFIELD(GLOB.ghost_role_flags, GHOSTROLE_MIDROUND_EVENT)))
+		if(istype(ruleset, /datum/dynamic_ruleset/midround/from_ghosts) && !(GLOB.ghost_role_flags & GHOSTROLE_MIDROUND_EVENT))
 			log_game("DYNAMIC: FAIL: [ruleset] is a from_ghosts ruleset, but ghost roles are disabled")
 			continue
 
@@ -83,11 +77,10 @@
 	log_game("DYNAMIC: Rolling [spawn_heavy ? "HEAVY" : "LIGHT"]... [heavy_light_log_count]")
 
 	if (spawn_heavy && drafted_heavies.len > 0 && pick_midround_rule(drafted_heavies, "heavy rulesets"))
-		return TRUE
+		return
 	else if (drafted_lights.len > 0 && pick_midround_rule(drafted_lights, "light rulesets"))
 		if (spawn_heavy)
 			dynamic_log("A heavy ruleset was intended to roll, but there weren't any available. [heavy_light_log_count]")
-		return TRUE
 	else
 		dynamic_log("No midround rulesets could be drafted. ([heavy_light_log_count])")
 
@@ -108,25 +101,3 @@
 	var/heavy_coefficient = CLAMP01((next_midround_roll - midround_light_upper_bound) / (midround_heavy_lower_bound - midround_light_upper_bound))
 
 	return 100 * (heavy_coefficient * max(1, chance_modifier))
-
-/// Checks to see if all roundstart 'high impact' rulesets are dead, and tries to force an injection if so.
-/datum/game_mode/dynamic/proc/check_for_dead_high_impacts()
-	. = FALSE
-	if(high_impact_dead_rolled || high_impact_major_event_occured)
-		return
-	if(!COOLDOWN_FINISHED(src, next_dead_check))
-		return
-	COOLDOWN_START(src, next_dead_check, dead_ruleset_check_time)
-	var/found_high_impacts = FALSE
-	for(var/datum/dynamic_ruleset/ruleset in executed_rules)
-		if(!CHECK_BITFIELD(ruleset.flags, HIGH_IMPACT_RULESET|ONLY_RULESET|NO_OTHER_ROUNDSTARTS_RULESET))
-			continue
-		if(!ruleset.is_dead())
-			return
-		found_high_impacts = TRUE
-	if(!found_high_impacts)
-		return
-	log_game("DYNAMIC: High-impact rulesets are dead, forcing midround injection.")
-	if(try_midround_roll(forced = TRUE))
-		high_impact_dead_rolled = TRUE
-		return TRUE

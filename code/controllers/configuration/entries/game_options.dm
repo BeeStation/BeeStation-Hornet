@@ -444,26 +444,3 @@
 /datum/config_entry/flag/spare_enforce_coc
 
 /datum/config_entry/flag/station_traits
-
-//Dynamic options
-/datum/config_entry/number/dynamic_minimum_station_integrity
-	config_entry_value = 0.95
-	min_val = 0
-	max_val = 100
-
-/datum/config_entry/number/dynamic_minimum_station_integrity/ValidateAndSet(str_val)
-	. = ..()
-	// Convert to 0-1 percentage
-	if(.)
-		config_entry_value *= 0.01
-
-/datum/config_entry/number/dynamic_minimum_living_population
-	config_entry_value = 0.7
-	min_val = 0
-	max_val = 100
-
-/datum/config_entry/number/dynamic_minimum_living_population/ValidateAndSet(str_val)
-	. = ..()
-	// Convert to 0-1 percentage
-	if(.)
-		config_entry_value *= 0.01

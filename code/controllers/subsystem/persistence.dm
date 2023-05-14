@@ -290,18 +290,17 @@ SUBSYSTEM_DEF(persistence)
 	if(istype(dynamic))
 		var/list/this_round = list()
 		for(var/datum/dynamic_ruleset/roundstart/roundstart_rule in dynamic.executed_rules)
-			if(!CHECK_BITFIELD(roundstart_rule.flags, HIGH_IMPACT_RULESET|ONLY_RULESET|NO_OTHER_ROUNDSTARTS_RULESET))
+			if(!CHECK_BITFIELD(roundstart_rule.flags, PERSISTENT_RULESET))
 				continue
 			this_round |= roundstart_rule.name
 		if(LAZYLEN(this_round))
 			saved_dynamic_rulesets.Insert(1, list(this_round))
 	if(length(saved_dynamic_rulesets) > amount_of_rules)
 		saved_dynamic_rulesets.Cut(amount_of_rules + 1)
-	var/json_file = file("data/RecentDynamicRules.json")
-	fdel(json_file)
-	WRITE_FILE(json_file, json_encode(list(
+	fdel("data/RecentDynamicRules.json")
+	rustg_file_write(json_encode(list(
 		"data" = saved_dynamic_rulesets
-	)))
+	)), "data/RecentDynamicRules.json")
 
 /datum/controller/subsystem/persistence/proc/CollectAntagReputation()
 	var/ANTAG_REP_MAXIMUM = CONFIG_GET(number/antag_rep_maximum)

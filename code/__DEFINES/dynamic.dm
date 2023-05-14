@@ -14,6 +14,9 @@
 /// Only used for midround/latejoin rolling.
 #define INTACT_STATION_RULESET (1 << 4)
 
+/// This ruleset will be logged in persistence, to reduce the chances of it repeatedly rolling several rounds in a row.
+#define PERSISTENT_RULESET (1 << 5)
+
 /// This is a "heavy" midround ruleset, and should be run later into the round
 #define MIDROUND_RULESET_STYLE_HEAVY "Heavy"
 
