@@ -187,15 +187,15 @@
 /datum/datacore/proc/get_manifest()
 	var/list/manifest_out = list()
 	var/list/dept_list = list(
-		"Command" = DEPT_BITFLAG_COM,
+		"Command" = DEPT_BITFLAG_COMMAND,
 		"Very Important People" = DEPT_BITFLAG_VIP,
-		"Security" = DEPT_BITFLAG_SEC,
+		"Security" = DEPT_BITFLAG_SECURITY,
 		"Engineering" = DEPT_BITFLAG_ENG,
-		"Medical" = DEPT_BITFLAG_MED,
+		"Medical" = DEPT_BITFLAG_MEDICAL,
 		"Science" = DEPT_BITFLAG_SCI,
-		"Supply" = DEPT_BITFLAG_CAR,
-		"Service" = DEPT_BITFLAG_SRV,
-		"Civilian" = DEPT_BITFLAG_CIV,
+		"Supply" = DEPT_BITFLAG_SUPPLY,
+		"Service" = DEPT_BITFLAG_SERVICE,
+		"Civilian" = DEPT_BITFLAG_CIVILIAN,
 		"Silicon" = DEPT_BITFLAG_SILICON
 	)
 	for(var/datum/data/record/t in GLOB.data_core.general)

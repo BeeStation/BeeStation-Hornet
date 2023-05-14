@@ -20,7 +20,7 @@
 	minimal_access = list() 	//See get_access()
 
 	department_flag = ENGSEC
-	departments = DEPT_BITFLAG_COM
+	departments = DEPT_BITFLAG_COMMAND
 	bank_account_department = ACCOUNT_SEC_BITFLAG | ACCOUNT_COM_BITFLAG
 	payment_per_department = list(
 		ACCOUNT_COM_ID = PAYCHECK_COMMAND_NT,

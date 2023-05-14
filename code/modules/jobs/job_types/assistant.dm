@@ -17,7 +17,7 @@ Assistant
 	minimal_access = list()	//See /datum/job/assistant/get_access()
 
 	department_flag = CIVILIAN
-	departments = DEPT_BITFLAG_CIV
+	departments = DEPT_BITFLAG_CIVILIAN
 	bank_account_department = NONE // nothing is free for them
 	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_ASSISTANT) // Get a job. Job reassignment changes your paycheck now. Get over it.
 

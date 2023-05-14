@@ -655,7 +655,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 							if(SSeconomy.is_nonstation_account(each)) // do not touch VIP/Command flag
 								continue
 							R.fields["active_dept"] &= ~SSeconomy.get_budget_acc_bitflag(each) // turn off all bitflag for each department except for VIP/Command. *note: this actually shouldn't use `get_budget_acc_bitflag()` proc, because bitflags are the same but these have a different purpose.
-						R.fields["active_dept"] &= ~DEPT_BITFLAG_COM  // micromanagement2. the reason is the same. Command should be removed manually.
+						R.fields["active_dept"] &= ~DEPT_BITFLAG_COMMAND  // micromanagement2. the reason is the same. Command should be removed manually.
 
 
 					log_id("[key_name(usr)] unassigned and stripped all access from [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
@@ -690,7 +690,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 							if(SSeconomy.is_nonstation_account(each))
 								continue
 							R.fields["active_dept"] &= ~SSeconomy.get_budget_acc_bitflag(each)
-						R.fields["active_dept"] &= ~DEPT_BITFLAG_COM  // micromanagement2
+						R.fields["active_dept"] &= ~DEPT_BITFLAG_COMMAND  // micromanagement2
 						// Note: `fields["active_dept"] = NONE` is a bad idea because you should keep VIP_BITFLAG.
 					// Step 2: giving the job info into their bank and record
 					if(B && jobdatum) // 2-A: setting bank payment

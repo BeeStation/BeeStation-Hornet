@@ -12,7 +12,7 @@
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
 
 	department_flag = CIVILIAN
-	departments = DEPT_BITFLAG_CIV
+	departments = DEPT_BITFLAG_CIVILIAN
 	bank_account_department = ACCOUNT_CIV_BITFLAG
 	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_ASSISTANT)
 
@@ -35,7 +35,7 @@
 	minimal_access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 
 	department_flag = CIVILIAN
-	departments = DEPT_BITFLAG_SRV
+	departments = DEPT_BITFLAG_SERVICE
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_ASSISTANT)
 
@@ -67,7 +67,7 @@
 	minimal_access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 
 	department_flag = CIVILIAN
-	departments = DEPT_BITFLAG_SRV
+	departments = DEPT_BITFLAG_SERVICE
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_MINIMAL)
 
@@ -102,7 +102,7 @@
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
 
 	department_flag = MEDSCI
-	departments = DEPT_BITFLAG_MED
+	departments = DEPT_BITFLAG_MEDICAL
 	bank_account_department = ACCOUNT_MED_BITFLAG
 	payment_per_department = list(ACCOUNT_MED_ID = PAYCHECK_EASY)
 	mind_traits = list(TRAIT_MADNESS_IMMUNE, TRAIT_MEDICAL_METABOLISM)

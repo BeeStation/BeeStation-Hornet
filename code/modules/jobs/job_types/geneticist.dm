@@ -15,7 +15,7 @@
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_CLONING, ACCESS_MECH_MEDICAL)
 
 	department_flag = MEDSCI
-	departments = DEPT_BITFLAG_MED
+	departments = DEPT_BITFLAG_MEDICAL
 	bank_account_department = ACCOUNT_MED_BITFLAG
 	payment_per_department = list(
 		ACCOUNT_MED_ID = PAYCHECK_MEDIUM

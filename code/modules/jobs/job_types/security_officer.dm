@@ -21,7 +21,7 @@
 					ACCESS_MECH_SECURITY, ACCESS_MINERAL_STOREROOM) // See /datum/job/security_officer/get_access()
 
 	department_flag = ENGSEC
-	departments = DEPT_BITFLAG_SEC
+	departments = DEPT_BITFLAG_SECURITY
 	bank_account_department = ACCOUNT_SEC_BITFLAG
 	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_HARD)
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)

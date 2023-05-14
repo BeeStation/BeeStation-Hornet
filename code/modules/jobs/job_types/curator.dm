@@ -14,7 +14,7 @@
 	minimal_access = list(ACCESS_LIBRARY, ACCESS_AUX_BASE, ACCESS_MINING_STATION)
 
 	department_flag = CIVILIAN
-	departments = DEPT_BITFLAG_CIV
+	departments = DEPT_BITFLAG_CIVILIAN
 	bank_account_department = ACCOUNT_CIV_BITFLAG
 	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_EASY)
 
