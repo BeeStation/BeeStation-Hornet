@@ -1,0 +1,6 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - rscadd: ChemMaster now says which amount chem units it can hold.
+  - balance: ChemMaster now can hold 100 units more regardless of beakers inside (roundstarts
+      with 200 max units)
