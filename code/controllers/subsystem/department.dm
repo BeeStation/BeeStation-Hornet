@@ -19,6 +19,10 @@ SUBSYSTEM_DEF(department)
 		department_by_key[each_dept.dept_id] = each_dept
 		department_names += each_dept.dept_id
 
+	// initialising static list inside of the procs
+	get_departments_by_pref_order()
+	get_departments_by_manifest_order()
+
 	return ..()
 
 /datum/controller/subsystem/department/proc/get_department_by_bitflag(bitflag)
@@ -39,7 +43,6 @@ SUBSYSTEM_DEF(department)
 /datum/controller/subsystem/department/proc/get_all_jobs()
 
 
-
 /datum/controller/subsystem/department/proc/get_departments_by_manifest_order()
 	var/static/list/department_order = list()
 	if(!length(department_order))
@@ -47,7 +50,7 @@ SUBSYSTEM_DEF(department)
 		while(length(copied_dept))
 			var/datum/department_group/current
 			for(var/datum/department_group/each_dept in copied_dept)
-				if(!each_dept.manifest_category_order)
+				if(!each_dept.manifest_category_order || !each_dept.manifest_category_name)
 					copied_dept -= each_dept
 					continue
 				if(!current)
@@ -152,12 +155,9 @@ SUBSYSTEM_DEF(department)
 		return FALSE
 	if(!length(auth_access)) // no need to check
 		return TRUE
-	message_admins("Ctype: [check_type]")
 	for(var/each_access in auth_access)
 		if(each_access in access_to_check)
-			message_admins("found: [each_access]")
 			return TRUE
-	message_admins("not found")
 	return FALSE
 
 

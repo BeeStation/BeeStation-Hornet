@@ -9,7 +9,15 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	desc = "You can use this to manage jobs and ID access."
 	icon_screen = "id"
 	icon_keyboard = "id_key"
-	req_one_access = list(ACCESS_HEADS, ACCESS_CHANGE_IDS)
+	req_one_access = list(ACCESS_CHANGE_IDS,
+							ACCESS_HEADS,
+							ACCESS_HOP,
+							ACCESS_HOS,
+							ACCESS_CMO,
+							ACCESS_RD,
+							ACCESS_CE,
+							ACCESS_CAPTAIN,
+							ACCESS_CENT_CAPTAIN)
 	circuit = /obj/item/circuitboard/computer/card
 	var/mode = 0
 	var/printing = null
@@ -23,11 +31,12 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/minor = FALSE
 	var/target_paycheck = ACCOUNT_SRV_ID
 	var/list/available_departments = list(DEPT_NAME_SERVICE,
-											DEPT_NAME_SECURITY,
+											DEPT_NAME_CIVILIAN,
+											DEPT_NAME_SUPPLY,
 											DEPT_NAME_MEDICAL,
 											DEPT_NAME_SCIENCE,
 											DEPT_NAME_ENGINEERING,
-											DEPT_NAME_SUPPLY,
+											DEPT_NAME_SECURITY,
 											DEPT_NAME_COMMAND)
 	var/auth_bitflag_dominant = NONE
 	var/auth_bitflag_supervisor = NONE
@@ -360,8 +369,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		header += "<hr>"
 
 		var/jobs_all = ""
+		var/formatted_job_list = ""
 		var/list/alljobs = list("Unassigned")
-		alljobs += (istype(src, /obj/machinery/computer/card/centcom)? get_all_centcom_jobs() : get_all_jobs()) + "Custom"
+
 		for(var/job in alljobs)
 			if(job == JOB_NAME_ASSISTANT)
 				jobs_all += "<br/>* Service: "
@@ -375,10 +385,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				jobs_all += "<br/>* Medical: "
 			if(job == JOB_NAME_HEADOFSECURITY)
 				jobs_all += "<br/>* Security: "
-			if(job == "Custom")
-				jobs_all += "<br/>"
-			// these will make some separation for the department.
-			jobs_all += "<a href='?src=[REF(src)];choice=assign;assign_target=[job]'>[replacetext(job, " ", "&nbsp")]</a> " //make sure there isn't a line break in the middle of a job
+			// these will make some separation for the department. //make sure there isn't a line break in the middle of a job
 
 
 		var/body
@@ -479,7 +486,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						extra_data += "<td>----</td>"
 						continue
 					if(!check_auth_by_type(DEPT_AUTHCHECK_BUDGET, each_dept.dept_bitflag))
-						extra_data += "<td>----</td>"
+						extra_data += "<td>$[B.payment_per_department[each_dept.budget_id]]</td>"
 						continue
 					extra_data += "<td><a href='?src=[REF(src)];choice=adjust_pay;paycheck_t=[each_dept.budget_id]'>$[B.payment_per_department[each_dept.budget_id]]</a></td>"
 				extra_data += "</tr>"
@@ -497,7 +504,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				var/datum/department_group/each_dept = SSdepartment.get_department_by_id(each_dept_key)
 				if(!each_dept || !each_dept.access_group_name)
 					continue
-				if(!check_auth_by_type(DEPT_AUTHCHECK_DOMINANT, each_dept.dept_bitflag))
+				if(!check_auth_by_type(DEPT_AUTHCHECK_ACCESS_MANAGER, each_dept.dept_bitflag))
 					continue
 				accesses += "<td style='width:14%'><b>[each_dept.access_group_name]:</b></td>"
 			accesses += "</tr><tr>"
@@ -506,14 +513,14 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				var/datum/department_group/each_dept = SSdepartment.get_department_by_id(each_dept_key)
 				if(!each_dept || !each_dept.access_group_name)
 					continue
-				if(!check_auth_by_type(DEPT_AUTHCHECK_DOMINANT, each_dept.dept_bitflag))
+				if(!check_auth_by_type(DEPT_AUTHCHECK_ACCESS_MANAGER, each_dept.dept_bitflag))
 					continue
 				accesses += "<td style='width:14%' valign='top'>"
 				for(var/each_access in each_dept.standard_access)
 					if(each_access in inserted_modify_id.access)
-						accesses += "<a href='?src=[REF(src)];choice=access;access_target=[each_access];allowed=0'><font color=\"6bc473\">[replacetext(get_access_desc(each_access), " ", "&nbsp")]</font></a> "
+						accesses += "<a href='?src=[REF(src)];choice=access;access_target=[each_access];dept_target=[each_dept_key];allowed=0'><font color=\"6bc473\">[replacetext(get_access_desc(each_access), " ", "&nbsp")]</font></a> "
 					else
-						accesses += "<a href='?src=[REF(src)];choice=access;access_target=[each_access];allowed=1'>[replacetext(get_access_desc(each_access), " ", "&nbsp")]</a> "
+						accesses += "<a href='?src=[REF(src)];choice=access;access_target=[each_access];dept_target=[each_dept_key];allowed=1'>[replacetext(get_access_desc(each_access), " ", "&nbsp")]</a> "
 					accesses += "<br>"
 				accesses += "</td>"
 			accesses += "</tr></table>"
@@ -597,15 +604,28 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if("access")
 			if(href_list["allowed"])
 				if(authenticated)
-					var/access_type = text2num(href_list["access_target"])
-					var/access_allowed = text2num(href_list["allowed"])
-					if(access_type in (istype(src, /obj/machinery/computer/card/centcom)?get_all_centcom_access() : get_all_accesses()))
-						inserted_modify_id.access -= access_type
-						log_id("[key_name(usr)] removed [get_access_desc(access_type)] from [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
-						if(access_allowed == 1)
-							inserted_modify_id.access |= access_type
-							log_id("[key_name(usr)] added [get_access_desc(access_type)] to [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
-						playsound(src, "terminal_type", 50, FALSE)
+					var/auth_allowed = FALSE
+					var/access_code = text2num(href_list["access_target"])
+					var/has_access = text2num(href_list["allowed"])
+					var/datum/department_group/dept = SSdepartment.get_department_by_id(href_list["dept_target"])
+
+					if(access_code in dept.protected_access)
+						if(check_auth_by_type(DEPT_AUTHCHECK_DOMINANT, dept.dept_bitflag))
+							auth_allowed = TRUE
+					else
+						if(check_auth_by_type(DEPT_AUTHCHECK_ACCESS_MANAGER, dept.dept_bitflag))
+							auth_allowed = TRUE
+
+					if(auth_allowed)
+						if(has_access)
+							inserted_modify_id.access -= access_code
+							log_id("[key_name(usr)] removed [get_access_desc(access_code)] from [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
+						else
+							inserted_modify_id.access |= access_code
+							log_id("[key_name(usr)] added [get_access_desc(access_code)] to [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
+					else
+						to_chat(usr, "<span class='warning'>This access is protected, and your auth is not sufficient to adjust this.</span>")
+					playsound(src, "terminal_type", 50, FALSE)
 		if ("assign")
 			if (authenticated)
 				var/datum/bank_account/B = inserted_modify_id?.registered_account
@@ -938,6 +958,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			return auth_bitflag_dominant & variable_to_check
 		if(DEPT_AUTHCHECK_SUPERVISOR)
 			return auth_bitflag_supervisor & variable_to_check
+		if(DEPT_AUTHCHECK_ACCESS_MANAGER)
+			return (auth_bitflag_supervisor & variable_to_check) | (auth_bitflag_dominant & variable_to_check)
 		if(DEPT_AUTHCHECK_MANIFEST)
 			return auth_bitflag_manifest & variable_to_check
 		if(DEPT_AUTHCHECK_BUDGET)
@@ -951,7 +973,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 /obj/machinery/computer/card/centcom/Initialize(mapload)
 	. = ..()
-	available_departments = SSdepartment.department_names.Copy()
+	available_departments |= SSdepartment.department_names
 
 /obj/machinery/computer/card/minor
 	name = "department management console"

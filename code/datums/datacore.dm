@@ -186,18 +186,11 @@
 
 /datum/datacore/proc/get_manifest()
 	var/list/manifest_out = list()
-	var/list/dept_list = list(
-		"Command" = DEPT_BITFLAG_COMMAND,
-		"Very Important People" = DEPT_BITFLAG_VIP,
-		"Security" = DEPT_BITFLAG_SECURITY,
-		"Engineering" = DEPT_BITFLAG_ENGINEERING,
-		"Medical" = DEPT_BITFLAG_MEDICAL,
-		"Science" = DEPT_BITFLAG_SCIENCE,
-		"Supply" = DEPT_BITFLAG_SUPPLY,
-		"Service" = DEPT_BITFLAG_SERVICE,
-		"Civilian" = DEPT_BITFLAG_CIVILIAN,
-		"Silicon" = DEPT_BITFLAG_SILICON
-	)
+	var/static/list/dept_list
+	if(!dept_list)
+		dept_list = list()
+		for(var/datum/department_group/each_dept in SSdepartment.get_departments_by_manifest_order())
+			dept_list[each_dept.manifest_category_name] = each_dept.dept_bitflag
 	for(var/datum/data/record/t in GLOB.data_core.general)
 		var/name = t.fields["name"]
 		var/rank = t.fields["rank"]

@@ -382,10 +382,6 @@
 */
 
 /mob/dead/new_player/proc/LateChoices()
-	var/static/list/department_order = list()
-	if(!length(department_order))
-		department_order = SSdepartment.get_departments_by_pref_order()
-
 	var/list/dat = list("<div class='notice'>Round Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]</div>")
 	if(SSjob.prioritized_jobs.len > 0)
 		dat+="<div class='priority' style='text-align:center'>Jobs in Green have been prioritized by the Head of Personnel.<br>Please consider joining the game as that role.</div>"
@@ -401,7 +397,7 @@
 			SSjob.prioritized_jobs -= prioritized_job
 	dat += "<table><tr><td valign='top'>"
 	var/column_counter = 0
-	for(var/datum/department_group/each_dept in department_order)
+	for(var/datum/department_group/each_dept in SSdepartment.get_departments_by_pref_order())
 		var/cat_color = each_dept.dept_colour
 		dat += "<fieldset style='width: 185px; border: 2px solid [cat_color]; display: inline'>"
 		dat += "<legend align='center' style='color: [cat_color]'>[each_dept.dept_name]</legend>"
