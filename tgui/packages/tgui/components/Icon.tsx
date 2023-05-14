@@ -37,6 +37,7 @@ export const Icon = (props: IconProps) => {
     }
     style['transform'] = `rotate(${rotation}deg)`;
   }
+  rest.style = style;
 
   const boxProps = computeBoxProps(rest);
 
