@@ -1,0 +1,78 @@
+author: Ivniinvi, EdgeLordExe, Melbert, Imaginos, SpaceManiac, ChungusGamer666, AnturK,
+  ZephyrTFA, coiax, Krysonism
+delete-after: true
+changes:
+  - rscadd: New heretic path - Path of Void- it specializes in being extremely stealthy.
+  - rscadd: Large scale heretic revamp!
+  - rscadd: The Codex Cicatrix is no longer a roundstart heretic item. Research is
+      handled through an action button. Rune drawing is done by using a writing tool
+      with Mansus Grasp active in your offhand. The actual Codex is an unlockable
+      ritual item now.
+  - rscadd: The Living Heart is no longer a roundstart heretic item - their actual
+      heart now becomes their Living Heart, and it makes a sound when triggered. Losing
+      your heart (being disemboweled) will require you to do a ritual to regain it.
+  - rscadd: The Hereic Antag UI has been overhauled, and now hosts much of their mechanics
+      as well as providing some helpful tips for newer players.
+  - rscadd: Most heretic spells now require a focus to cast. All heretics can make
+      a basic focus necklace, and some heretic equipment also functions as a focus.
+      (Credit to Imaginos for the focus sprite!)
+  - rscadd: Heretics now passively gain +1 influence every 20 minutes.
+  - rscadd: Heretic sacrificing has been reworked. You can now sacrifice people who
+      are in soft crit or weaker. Sacrificing someone heals them, cuffs them, and
+      teleports them to the SHADOW REALM, where they must dodge a barrage of hands
+      to survive. Survive long enough and you return without memory - die, and your
+      body will be thrown back.
+  - rscadd: Heretics now have a few new rituals, including the Ritual of Knowledge,
+      a randomly generated ritual that awards knowledge points.
+  - rscadd: Heretic ascension now has a few requirements - you must complete your
+      objectives assigned to you prior to learning the final ritual, and all the final
+      rituals have been changed a bit!
+  - tweak: Used heretic influences can now be removed with a Anomaly Neutralizers.
+  - balance: Some heretic rituals are now limited in the amount they can make. You
+      can only have up to 2 heretic blades crafted at once (3 if you are Path of Flesh).
+  - balance: The Lord of the Night has been buffed to be a little scarier. Did you
+      know the Lord of the Night can eat arms to regain body parts and heal?
+  - balance: Buffed some heretic summons - mostly their health pools.
+  - balance: Nerfed the heretic's Mask of Madness. It can no longer infinite stam-crit
+      you.
+  - balance: Nerfed the heretic's ash mark.
+  - balance: 'Nerfed a bunch of on-hit-heretic-blade effects. Many effects only apply
+      on mark detonation now: Void blade silence, flesh blade wounds, ash blade gasp
+      cooldown refund.'
+  - bugfix: Fixed quite a few bugs and unintended behaviors with heretic code.
+  - refactor: Refactored and improved much of Heretic code. Improved the file structure
+      dramatically.
+  - admin: The heretic's traitor panel has been beefed up a bit.
+  - refactor: Refactored cult rune inscribing into a component
+  - refactor: Refactored null rod rune clearing into a component
+  - code_imp: Rust is now a component
+  - refactor: refactor almost all of the rust heretic atom procs
+  - rscadd: Wirebrush for advanced rust removal
+  - rscadd: 'A new heretic node to replace rust wave: entropic plume.'
+  - rscadd: A small rune visual effects appears 70% of the time when a tile is rusted.
+  - rscdel: Removed the rust wave node.
+  - bugfix: The ash man and rust walker nodes now link to the correct nodes.
+  - rscadd: IPCs who roll heretic now become human with the user's Backup Human Name.
+  - rscadd: Raw Prophets can now toggle their sight range with the Change Sight Range
+      action
+  - tweak: Heretics can no longer hijack the Emergency Shuttle
+  - bugfix: Heretic Smugglers (latejoin heretics) actually spawn influences
+  - bugfix: Fixes a few potential issues with heretic rituals.
+  - code_imp: Adds proper stack support to heretic rituals. Also allows for more specific
+      "ritual failure" feedback.
+  - code_imp: Added an isstack helper
+  - tweak: heretic sacrifices will drop their legcuffs before entering the minigame
+      (bolas, bear traps)
+  - balance: 'Heretic: The Amber Focus is now fireproof.'
+  - balance: 'Heretic: The Eldritch Medallion (thermal vision necklace) is now fireproof,
+      acid proof, and works as a focus.'
+  - balance: 'Heretic: The Void Cloak can carry more things in its pocket, including
+      various ritual components (organs, bodyparts, flowers), small heretic items,
+      and a singular sickly blade. It also functions as a focus while the hood is
+      down.'
+  - balance: 'Heretic: Mawed Crucible potions are now small sized (down from normal).'
+  - tweak: Heretic rituals overhauled slightly. You now pick from a list of all your
+      rituals when invoking a rune to select what ritual you want to do.
+  - bugfix: Minor fixes for the Heretic's Living Heart ritual. Cybernetic organs are
+      now properly detected.
+  - bugfix: Similarly, you cannot feed the mawed crucible cybernetic organs.
