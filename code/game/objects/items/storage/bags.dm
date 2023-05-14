@@ -460,5 +460,5 @@
 										/obj/item/small_delivery,
 										/obj/item/paper,
 										/obj/item/reagent_containers/food/condiment/milk,
-										/obj/item/reagent_containers/food/snacks/store/bread/plain
+										/obj/item/food/bread/plain
 									))
