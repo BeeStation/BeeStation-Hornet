@@ -218,7 +218,7 @@
 				mmi.brainmob.remove_from_dead_mob_list()
 				mmi.brainmob.add_to_alive_mob_list()
 			mind.transfer_to(mmi.brainmob)
-			mmi.update_icon()
+			mmi.update_appearance()
 		else
 			to_chat(src, "<span class='boldannounce'>Oops! Something went very wrong, your MMI was unable to receive your mind. You have been ghosted. Please make a bug report so we can fix this bug.</span>")
 			ghostize()
@@ -239,6 +239,7 @@
 	QDEL_NULL(inv1)
 	QDEL_NULL(inv2)
 	QDEL_NULL(inv3)
+	QDEL_NULL(hands)
 	QDEL_NULL(spark_system)
 	QDEL_NULL(listener)
 	cell = null
@@ -370,9 +371,6 @@
 	SIGNAL_HANDLER
 	queueAlarm("--- [alarm_type] alarm in [source_area.name] has been cleared.", alarm_type, FALSE)
 
-/mob/living/silicon/robot/restrained(ignore_grab)
-	. = 0
-
 /mob/living/silicon/robot/can_interact_with(atom/A)
 	if (A == modularInterface)
 		return TRUE //bypass for borg tablets
@@ -444,7 +442,7 @@
 				if(IsParalyzed() && (last_flashed + 5 SECONDS >= world.time)) //second half of this prevents someone from stunlocking via open/close spam
 					Paralyze(5 SECONDS)
 				opened = 1
-				update_icons()				
+				update_icons()
 	else if(istype(W, /obj/item/stock_parts/cell) && opened)	// trying to put a cell inside
 		if(wiresexposed)
 			to_chat(user, "<span class='warning'>Close the cover first!</span>")
