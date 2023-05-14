@@ -267,6 +267,13 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 #define TRAIT_AI_BAGATTACK "bagattack" // This atom can ignore the "is on a turf" check for simple AI datum attacks, allowing them to attack from bags or lockers as long as any other conditions are met
 
+/// Allows heretics to cast their spells.
+#define TRAIT_ALLOW_HERETIC_CASTING "allow_heretic_casting"
+/// Designates a heart as a living heart for a heretic.
+#define TRAIT_LIVING_HEART "living_heart"
+/// Prevents stripping this equipment
+#define TRAIT_NO_STRIP "no_strip"
+
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
 #define TRAIT_AGEUSIA			"ageusia"
