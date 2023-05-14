@@ -186,7 +186,6 @@
 /datum/species/oozeling/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	. = ..()
 	if(. && target != user && target.on_fire)
-		to_chat(user, "<span class='notice'>We begin to closely hug [target] to extinguish them...</span>")
 		target.visible_message("<span class='notice'>[user] begins to closely hug [target]...</span>", "<span class='boldnotice'>[user] holds you closely in a tight hug!</span>")
 		if(do_after(user, 1 SECONDS, target, IGNORE_HELD_ITEM))
 			target.visible_message("<span class='notice'>[user] extingushes [target] with a hug!</span>", "<span class='boldnotice'>[user] extingushes you with a hug!</span>", "<span class='italics'>You hear a fire sizzle out.</span>")
