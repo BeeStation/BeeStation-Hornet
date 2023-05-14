@@ -1,0 +1,11 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - tweak: having monitoring nanites can make you trackable by pinpointer. simple/carbon
+      mobs with monitoring nanites are now trackable by pinpointer (as long as they
+      have mind...) Jammer will disable this.
+  - rscadd: pinpointer is now trackable z-levels as long as those z-levels are in
+      the same group (i.e. multi-floored station). Orange bar will appear if your
+      target is within the same type z-level.
+  - imageadd: some pinpointer indicating sprites
+  - refactor: better pinpointer code
