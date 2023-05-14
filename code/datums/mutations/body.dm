@@ -170,7 +170,7 @@
 /datum/mutation/race/on_acquiring(mob/living/carbon/human/owner)
 	if(..())
 		return
-	original_species = owner.dna.species
+	original_species = owner.dna.species.type
 	. = owner.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE | TR_KEEPAI, FALSE, TRUE)
 
 /datum/mutation/race/on_losing(mob/living/carbon/monkey/owner)
