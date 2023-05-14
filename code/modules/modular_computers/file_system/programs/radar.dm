@@ -24,6 +24,8 @@
 	var/arrowstyle = "ntosradarpointer.png"
 	///Used by the tgui interface, themed for NT or Syndicate colors.
 	var/pointercolor = "green"
+	///tracks the target between z-level groups (i.e. Station v.s. Lavaland)
+	var/tracks_grand_z = FALSE
 	COOLDOWN_DECLARE(last_scan)
 
 /datum/computer_file/program/radar/on_start(mob/living/user)
@@ -89,6 +91,9 @@
   *for far away targets. This information is returned in the form of a list.
   *
 */
+#define Z_RESULT_TOO_FAR 1 // Station v.s. Lavaland
+#define Z_RESULT_SAME_Z 0 // Station 1st floor v.s. Station 5th floor
+
 /datum/computer_file/program/radar/proc/track()
 	var/atom/movable/signal = find_atom()
 	if(!trackable(signal))
@@ -96,35 +101,63 @@
 
 	var/turf/here_turf = (get_turf(computer))
 	var/turf/target_turf = (get_turf(signal))
-	var/userot = FALSE
-	var/rot = 0
-	var/pointer = "crosshairs"
+	var/use_rotate = FALSE
+	var/rotate_angle = 0
+	var/pointer_z = ""
 	var/locx = (target_turf.x - here_turf.x) + 24
 	var/locy = (here_turf.y - target_turf.y) + 24
 	var/dist = get_dist_euclidian(here_turf, target_turf)
 
+	// this stores the z-value difference
+	var/z_comparison_result_value
+	// this stores if here and target is too far or near
+	var/pin_grand_z_result = Z_RESULT_SAME_Z
+
+	// getting z result first
+	var/here_zlevel = here_turf.get_virtual_z_level()
+	var/there_zlevel = target_turf.get_virtual_z_level()
+	z_comparison_result_value = here_zlevel-there_zlevel // neg-val: above / posi-val: below
+
+	if(abs(z_comparison_result_value)) // different z. now should check if it's too far
+		pin_grand_z_result = compare_z(here_zlevel, there_zlevel)
+		if(isnull(pin_grand_z_result)) // null: no good to track z levels
+			return
+		else if(!pin_grand_z_result) // FALSE: z-levels are in different groups. (Station v.s. Lavaland)
+			if(!tracks_grand_z)
+				return // do not track this
+			pin_grand_z_result = Z_RESULT_TOO_FAR
+		else // TRUE: z-levels are in the same group (i.e. multi-floored station)
+			pin_grand_z_result = Z_RESULT_SAME_Z
+
+		if(z_comparison_result_value < 0)
+			pointer_z = "caret-up"
+		else if(z_comparison_result_value > 0)
+			pointer_z = "caret-down"
+
 	if(dist > 24 || istype(computer, /obj/item/modular_computer/tablet/pda))
-		userot = TRUE
-		rot = round(get_angle(here_turf, target_turf))
-	else
-		if(target_turf.z > here_turf.z)
-			pointer="caret-up"
-		else if(target_turf.z < here_turf.z)
-			pointer="caret-down"
+		use_rotate = TRUE
+		rotate_angle = round(get_angle(here_turf, target_turf))
 
 	var/list/trackinfo = list(
 		"locx" = locx,
 		"locy" = locy,
-		"userot" = userot,
-		"rot" = rot,
+		"locz_string" = z_comparison_result_value<0 ? "Z+[z_comparison_result_value*-1]" : (z_comparison_result_value>0 ? "Z[z_comparison_result_value*-1]" : "Z±0"),
+		"pin_grand_z_result" = pin_grand_z_result,
+		"use_rotate" = use_rotate,
+		"rotate_angle" = rotate_angle,
 		"arrowstyle" = arrowstyle,
 		"color" = pointercolor,
-		"pointer" = pointer,
+		"pointer_z" = pointer_z,
 		"gpsx" = target_turf.x,
 		"gpsy" = target_turf.y,
+		"gpsz" = there_zlevel,
 		"dist" = round(dist),
 		)
+
 	return trackinfo
+
+#undef Z_RESULT_TOO_FAR
+#undef Z_RESULT_SAME_Z
 
 /**
   *
@@ -136,13 +169,7 @@
   **arg1 is the atom being evaluated.
 */
 /datum/computer_file/program/radar/proc/trackable(atom/movable/signal)
-	if(!signal || !computer)
-		return FALSE
-	var/turf/here = get_turf(computer)
-	var/turf/there = get_turf(signal)
-	if(!here || !there)
-		return FALSE //I was still getting a runtime even after the above check while scanning, so fuck it
-	return (there.z == here.z) || (is_station_level(here.z) && is_station_level(there.z))
+	return checks_trackable_core(computer, signal, tracks_grand_z, JAMMER_PROTECTION_SENSOR_NETWORK)
 
 /**
   *
@@ -227,43 +254,34 @@
 	program_icon = "heartbeat"
 
 /datum/computer_file/program/radar/lifeline/find_atom()
-	return locate(selected) in GLOB.carbon_list //currently we dont have a list of humanoids so this'll have to do
+	return locate(selected) in GLOB.suit_sensors_list
 
 /datum/computer_file/program/radar/lifeline/scan()
 	if(!COOLDOWN_FINISHED(src, last_scan))
 		return
 	COOLDOWN_START(src, last_scan, SCAN_COOLDOWN)
 	objects = list()
-	for(var/i in GLOB.carbon_list)
-		var/mob/living/carbon/human/humanoid = i
-		if(!trackable(humanoid))
+	var/count = 0
+	for(var/mob/living/L in GLOB.suit_sensors_list) // if you need to find other ones, use differnet GLOB like GLOB.carbon_list
+		if(!trackable(L))
 			continue
 		var/crewmember_name = "Unknown"
-		if(humanoid.wear_id)
-			var/obj/item/card/id/ID = humanoid.wear_id.GetID()
-			if(ID?.registered_name)
-				crewmember_name = ID.registered_name
+		if(ishuman(L))
+			var/mob/living/carbon/human/H = L
+			if(H.wear_id)
+				var/obj/item/card/id/I = H.wear_id.GetID()
+				if(I?.registered_name)
+					crewmember_name = I.registered_name
+		else
+			crewmember_name = L.name // non-human can't get ID card, but displaying them as Unknown is annoying
 		var/list/crewinfo = list(
-			ref = REF(humanoid),
-			name = crewmember_name,
+			ref = REF(L),
+			name = "[++count]. [crewmember_name]",
 			)
 		objects += list(crewinfo)
 
-/datum/computer_file/program/radar/lifeline/trackable(mob/living/carbon/human/humanoid)
-	if(!humanoid || !istype(humanoid))
-		return FALSE
-	if(..())
-		if(HAS_TRAIT(humanoid, TRAIT_NANITE_SENSORS))
-			if(humanoid.is_jammed(JAMMER_PROTECTION_SENSOR_NETWORK))
-				return FALSE
-			return TRUE
-		if(istype(humanoid.w_uniform, /obj/item/clothing/under))
-			var/obj/item/clothing/under/uniform = humanoid.w_uniform
-			if(uniform.is_jammed(JAMMER_PROTECTION_SENSOR_NETWORK))
-				return FALSE
-			if(uniform.has_sensor && uniform.sensor_mode >= SENSOR_COORDS) // Suit sensors must be on maximum
-				return TRUE
-	return FALSE
+/datum/computer_file/program/radar/lifeline/trackable(mob/target_mob)
+	return checks_trackable_lifeline(computer, target_mob, tracks_grand_z, JAMMER_PROTECTION_SENSOR_NETWORK)
 
 ///Tracks all janitor equipment
 /datum/computer_file/program/radar/custodial_locator
@@ -284,6 +302,7 @@
 		return
 	next_scan = world.time + (2 SECONDS)
 	objects = list()
+	var/count = 0
 	for(var/obj/custodial_tools as anything in GLOB.janitor_devices)
 		if(!trackable(custodial_tools))
 			continue
@@ -303,7 +322,7 @@
 
 		var/list/tool_information = list(
 			ref = REF(custodial_tools),
-			name = tool_name,
+			name = "[++count]. [tool_name]",
 		)
 		objects += list(tool_information)
 
@@ -325,6 +344,7 @@
 	program_icon = "bomb"
 	arrowstyle = "ntosradarpointerS.png"
 	pointercolor = "red"
+	tracks_grand_z = TRUE
 
 /datum/computer_file/program/radar/fission360/find_atom()
 	return locate(selected) in GLOB.poi_list

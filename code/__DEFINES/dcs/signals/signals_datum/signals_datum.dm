@@ -36,15 +36,26 @@
 #define COMSIG_COMPONENT_CLEAN_FACE_ACT "clean_face_act"		//! called when you wash your face at a sink: (num/strength)
 
 //Food
-#define COMSIG_FOOD_EATEN "food_eaten"		//! from base of obj/item/reagent_containers/food/snacks/attack(): (mob/living/eater, mob/feeder)
+
+///from base of obj/item/reagent_containers/food/snacks/attack() & Edible component: (mob/living/eater, mob/feeder)
+#define COMSIG_FOOD_EATEN "food_eaten"
+
+///from base of Component/edible/On_Consume: (mob/living/eater, mob/living/feeder)
+#define COMSIG_FOOD_CONSUMED "food_consumed"
+
+#define COMSIG_ITEM_FRIED "item_fried"
+	#define COMSIG_FRYING_HANDLED (1<<0)
 
 //Gibs
+
 #define COMSIG_GIBS_STREAK "gibs_streak"						//! from base of /obj/effect/decal/cleanable/blood/gibs/streak(): (list/directions, list/diseases)
 
 //Diseases
-#define COMSIG_DISEASE_END "disease_end" 						//! from the base of /datum/disease/advance/Destroy(): (GetDiseaseID)
+
+#define COMSIG_DISEASE_END "disease_end" 						//from the base of /datum/disease/advance/Destroy(): (GetDiseaseID)
 
 //Mood
+
 #define COMSIG_ADD_MOOD_EVENT "add_mood" //! Called when you send a mood event from anywhere in the code.
 #define COMSIG_CLEAR_MOOD_EVENT "clear_mood" //! Called when you clear a mood event from anywhere in the code.
 
