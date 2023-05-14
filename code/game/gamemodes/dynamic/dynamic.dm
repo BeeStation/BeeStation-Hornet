@@ -179,9 +179,6 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	/// The population size where dynamic stops caring about antag percents during injections. This is usually because on higher pop it isn't forced to spawn a bunch of sleeper agents.
 	var/traitor_percentage_population_threshold = 30
 
-	/// How often should dynamic check to see if all the high-impact rulesets are 'dead'?
-	var/dead_ruleset_check_time	= 5 MINUTES
-
 	/// The minimum amount of station integrity needed for a dead threat injection
 	var/minimum_station_integrity = 0.85
 
