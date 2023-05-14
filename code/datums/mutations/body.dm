@@ -165,17 +165,17 @@
 	quality = NEGATIVE
 	mobtypes_allowed = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
 	locked = TRUE //Species specific, keep out of actual gene pool
-	var/original_species = /datum/species/human
+	var/datum/species/original_species = /datum/species/human
 
 /datum/mutation/race/on_acquiring(mob/living/carbon/human/owner)
 	if(..())
 		return
-	original_species = owner.dna.species
-	. = owner.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE | TR_KEEPAI, FALSE, original_species = src.original_species)
+	original_species = owner.dna.species.type
+	. = owner.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE | TR_KEEPAI, FALSE, TRUE)
 
 /datum/mutation/race/on_losing(mob/living/carbon/monkey/owner)
 	if(owner && ismonkey(owner) && owner.stat != DEAD && !..())
-		. = owner.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE | TR_KEEPAI, original_species = src.original_species)
+		. = owner.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE | TR_KEEPAI, TRUE, original_species)
 
 /datum/mutation/glow
 	name = "Glowy"

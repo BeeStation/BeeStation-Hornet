@@ -11,7 +11,7 @@
 	maxHealth = 30
 	health = 30
 	see_in_dark = 3
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/breadslice/plain = 2)
+	butcher_results = list(/obj/item/food/breadslice/plain = 2)
 	response_help  = "pokes"
 	response_disarm = "passes"
 	response_harm   = "breaks"

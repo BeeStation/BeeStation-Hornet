@@ -4,7 +4,7 @@
 	icon = 'icons/effects/spacevines.dmi'
 	icon_state = "flower_bud"
 	layer = SPACEVINE_MOB_LAYER
-	opacity = 0
+	opacity = FALSE
 	canSmoothWith = list()
 	var/growth_time = 1200
 	smoothing_flags = NONE

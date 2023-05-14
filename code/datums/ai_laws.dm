@@ -20,6 +20,16 @@
 	var/list/valentine_laws = list()
 	var/id = DEFAULT_AI_LAWID
 
+/datum/ai_laws/Destroy(force = FALSE, ...)
+	if(!QDELETED(owner)) //Stopgap to help with laws randomly being lost. This stack_trace will hopefully help find the real issues.
+		if(force) //Unless we're forced...
+			stack_trace("AI law datum for [owner] has been forcefully destroyed incorrectly; the owner variable should be cleared first!")
+			return ..()
+		stack_trace("AI law datum for [owner] has ignored Destroy() call; the owner variable must be cleared first!")
+		return QDEL_HINT_LETMELIVE
+	owner = null
+	return ..()
+
 /datum/ai_laws/proc/lawid_to_type(lawid)
 	var/all_ai_laws = subtypesof(/datum/ai_laws)
 	for(var/al in all_ai_laws)

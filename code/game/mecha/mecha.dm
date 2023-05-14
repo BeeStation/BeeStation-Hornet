@@ -3,7 +3,6 @@
 	desc = "Exosuit"
 	icon = 'icons/mecha/mecha.dmi'
 	density = TRUE //Dense. To raise the heat.
-	opacity = 1 ///opaque. Menacing.
 	move_force = MOVE_FORCE_VERY_STRONG
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -161,6 +160,7 @@
 
 /obj/mecha/rust_heretic_act()
 	take_damage(500,  BRUTE)
+	return TRUE
 
 /obj/mecha/Destroy()
 	if(occupant)
@@ -1165,8 +1165,6 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 		if(user == occupant)
 			user.sight |= occupant_sight_flags
 
-/obj/mecha/rust_heretic_act()
-	take_damage(500,  BRUTE)
 
 /obj/mecha/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	..()

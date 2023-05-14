@@ -18,10 +18,14 @@
 	var/clockwork_warp_allowed = TRUE // Can servants warp into this area from Reebe?
 	var/clockwork_warp_fail = "The structure there is too dense for warping to pierce. (This is normal in high-security areas.)"
 
+	///Do we have an active fire alarm?
 	var/fire = null
-	///Whether there is an atmos alarm in this area
-	var/atmosalm = FALSE
-	var/poweralm = TRUE
+
+	///Alarm type to count of sources. Not usable for ^ because we handle fires differently
+	var/list/active_alarms = list()
+	///We use this just for fire alarms, because they're area based right now so one alarm going poof shouldn't prevent you from clearing your alarms listing
+	var/datum/alarm_handler/alarm_manager
+
 	var/lightswitch = TRUE
 	var/vacuum = null
 
@@ -156,6 +160,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	if (area_flags & UNIQUE_AREA)
 		GLOB.areas_by_type[type] = src
 	power_usage = new /list(AREA_USAGE_LEN) // Some atoms would like to use power in Initialize()
+	alarm_manager = new(src) // just in case
 	return ..()
 
 /**
@@ -294,83 +299,8 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	GLOB.sortedAreas -= src
 	if(fire)
 		STOP_PROCESSING(SSobj, src)
+	QDEL_NULL(alarm_manager)
 	return ..()
-
-/**
-  * Generate a power alert for this area
-  *
-  * Sends to all ai players, alert consoles, drones and alarm monitor programs in the world
-  */
-/area/proc/poweralert(state, obj/source)
-	if (state != poweralm)
-		poweralm = state
-		if(istype(source))	//Only report power alarms on the z-level where the source is located.
-			for (var/item in GLOB.silicon_mobs)
-				var/mob/living/silicon/aiPlayer = item
-				if (state == 1)
-					aiPlayer.cancelAlarm("Power", src, source)
-				else
-					aiPlayer.triggerAlarm("Power", src, cameras, source)
-
-			for (var/item in GLOB.alert_consoles)
-				var/obj/machinery/computer/station_alert/a = item
-				if(state == 1)
-					a.cancelAlarm("Power", src, source)
-				else
-					a.triggerAlarm("Power", src, cameras, source)
-
-			for (var/item in GLOB.drones_list)
-				var/mob/living/simple_animal/drone/D = item
-				if(state == 1)
-					D.cancelAlarm("Power", src, source)
-				else
-					D.triggerAlarm("Power", src, cameras, source)
-			for(var/item in GLOB.alarmdisplay)
-				var/datum/computer_file/program/alarm_monitor/p = item
-				if(state == 1)
-					p.cancelAlarm("Power", src, source)
-				else
-					p.triggerAlarm("Power", src, cameras, source)
-
-/**
-  * Generate an atmospheric alert for this area
-  *
-  * Sends to all ai players, alert consoles, drones and alarm monitor programs in the world
-  */
-/area/proc/atmosalert(isdangerous, obj/source)
-	if(isdangerous != atmosalm)
-		if(isdangerous==TRUE)
-
-			for (var/item in GLOB.silicon_mobs)
-				var/mob/living/silicon/aiPlayer = item
-				aiPlayer.triggerAlarm("Atmosphere", src, cameras, source)
-			for (var/item in GLOB.alert_consoles)
-				var/obj/machinery/computer/station_alert/a = item
-				a.triggerAlarm("Atmosphere", src, cameras, source)
-			for (var/item in GLOB.drones_list)
-				var/mob/living/simple_animal/drone/D = item
-				D.triggerAlarm("Atmosphere", src, cameras, source)
-			for(var/item in GLOB.alarmdisplay)
-				var/datum/computer_file/program/alarm_monitor/p = item
-				p.triggerAlarm("Atmosphere", src, cameras, source)
-
-		else
-			for (var/item in GLOB.silicon_mobs)
-				var/mob/living/silicon/aiPlayer = item
-				aiPlayer.cancelAlarm("Atmosphere", src, source)
-			for (var/item in GLOB.alert_consoles)
-				var/obj/machinery/computer/station_alert/a = item
-				a.cancelAlarm("Atmosphere", src, source)
-			for (var/item in GLOB.drones_list)
-				var/mob/living/simple_animal/drone/D = item
-				D.cancelAlarm("Atmosphere", src, source)
-			for(var/item in GLOB.alarmdisplay)
-				var/datum/computer_file/program/alarm_monitor/p = item
-				p.cancelAlarm("Atmosphere", src, source)
-
-		atmosalm = isdangerous
-		return TRUE
-	return FALSE
 
 /**
   * Try to close all the firedoors in the area
@@ -404,26 +334,16 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	if(always_unpowered == 1) //no fire alarms in space/asteroid
 		return
 
-	if (!fire)
+	if(!fire)
 		set_fire_alarm_effect()
 		ModifyFiredoors(FALSE)
-		START_PROCESSING(SSobj, src)
 		for(var/item in firealarms)
 			var/obj/machinery/firealarm/F = item
-			F.update_icon()
+			F.update_appearance()
+	alarm_manager.send_alarm(ALARM_FIRE, source)
+	START_PROCESSING(SSobj, src)
 
-	for (var/item in GLOB.alert_consoles)
-		var/obj/machinery/computer/station_alert/a = item
-		a.triggerAlarm("Fire", src, cameras, source)
-	for (var/item in GLOB.silicon_mobs)
-		var/mob/living/silicon/aiPlayer = item
-		aiPlayer.triggerAlarm("Fire", src, cameras, source)
-	for (var/item in GLOB.drones_list)
-		var/mob/living/simple_animal/drone/D = item
-		D.triggerAlarm("Fire", src, cameras, source)
-	for(var/item in GLOB.alarmdisplay)
-		var/datum/computer_file/program/alarm_monitor/p = item
-		p.triggerAlarm("Fire", src, cameras, source)
+
 
 /**
   * Reset the firealarm alert for this area
@@ -434,38 +354,16 @@ GLOBAL_LIST_EMPTY(teleportlocs)
   * Also cycles the icons of all firealarms and deregisters the area from processing on SSOBJ
   */
 /area/proc/firereset(obj/source)
-	if (fire)
+	if(fire)
 		unset_fire_alarm_effects()
 		ModifyFiredoors(TRUE)
 		STOP_PROCESSING(SSobj, src)
 		for(var/item in firealarms)
 			var/obj/machinery/firealarm/F = item
-			F.update_icon()
+			F.update_appearance()
+	alarm_manager.clear_alarm(ALARM_FIRE, source)
+	STOP_PROCESSING(SSobj, src)
 
-	for (var/item in GLOB.silicon_mobs)
-		var/mob/living/silicon/aiPlayer = item
-		aiPlayer.cancelAlarm("Fire", src, source)
-	for (var/item in GLOB.alert_consoles)
-		var/obj/machinery/computer/station_alert/a = item
-		a.cancelAlarm("Fire", src, source)
-	for (var/item in GLOB.drones_list)
-		var/mob/living/simple_animal/drone/D = item
-		D.cancelAlarm("Fire", src, source)
-	for(var/item in GLOB.alarmdisplay)
-		var/datum/computer_file/program/alarm_monitor/p = item
-		p.cancelAlarm("Fire", src, source)
-
-///Get rid of any dangling camera refs
-/area/proc/clear_camera(obj/machinery/camera/cam)
-	LAZYREMOVE(cameras, cam)
-	for (var/mob/living/silicon/aiPlayer as anything in GLOB.silicon_mobs)
-		aiPlayer.freeCamera(src, cam)
-	for (var/obj/machinery/computer/station_alert/comp as anything in GLOB.alert_consoles)
-		comp.freeCamera(src, cam)
-	for (var/mob/living/simple_animal/drone/drone_on as anything in GLOB.drones_list)
-		drone_on.freeCamera(src, cam)
-	for(var/datum/computer_file/program/alarm_monitor/monitor as anything in GLOB.alarmdisplay)
-		monitor.freeCamera(src, cam)
 
 /**
   * If 100 ticks has elapsed, toggle all the firedoors closed again
@@ -495,18 +393,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/proc/burglaralert(obj/trigger)
 	if(always_unpowered) //no burglar alarms in space/asteroid
 		return
-
 	//Trigger alarm effect
 	set_fire_alarm_effect()
-	//Lockdown airlocks
-	for(var/obj/machinery/door/DOOR in src)
-		close_and_lock_door(DOOR)
-
-	for (var/i in GLOB.silicon_mobs)
-		var/mob/living/silicon/SILICON = i
-		if(SILICON.triggerAlarm("Burglar", src, cameras, trigger))
-			//Cancel silicon alert after 1 minute
-			addtimer(CALLBACK(SILICON, TYPE_PROC_REF(/mob/living/silicon, cancelAlarm),"Burglar",src,trigger), 600)
+	for(var/obj/machinery/door/door in src)
+		close_and_lock_door(door)
 
 /**
   * Trigger the fire alarm visual affects in an area
@@ -565,24 +455,25 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		icon_state = null
 	return ..()
 /**
-  * Update the icon of the area (overridden to always be null for space
-  */
+ * Update the icon of the area (overridden to always be null for space
+ */
 /area/space/update_icon_state()
+	SHOULD_CALL_PARENT(FALSE)
 	icon_state = null
 	return ..()
 
 /**
-  * Returns int 1 or 0 if the area has power for the given channel
-  *
-  * evalutes a mixture of variables mappers can set, requires_power, always_unpowered and then
-  * per channel power_equip, power_light, power_environ
-  */
-/area/proc/powered(chan)		// return true if the area has power to given channel
+ * Returns int 1 or 0 if the area has power for the given channel
+ *
+ * evalutes a mixture of variables mappers can set, requires_power, always_unpowered and then
+ * per channel power_equip, power_light, power_environ
+ */
+/area/proc/powered(chan) // return true if the area has power to given channel
 
 	if(!requires_power)
-		return 1
+		return TRUE
 	if(always_unpowered)
-		return 0
+		return FALSE
 	switch(chan)
 		if(AREA_USAGE_EQUIP)
 			return power_equip
@@ -591,13 +482,13 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		if(AREA_USAGE_ENVIRON)
 			return power_environ
 
-	return 0
+	return FALSE
 
 /**
-  * Space is not powered ever, so this returns 0
-  */
+ * Space is not powered ever, so this returns false
+ */
 /area/space/powered(chan) //Nope.avi
-	return 0
+	return FALSE
 
 /**
   * Called when the area power status changes
@@ -608,7 +499,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	for(var/obj/machinery/M in src)	// for each machine in the area
 		M.power_change()				// reverify power status (to update icons etc.)
 	SEND_SIGNAL(src, COMSIG_AREA_POWER_CHANGE)
-	update_icon()
+	update_appearance()
 
 
 /**

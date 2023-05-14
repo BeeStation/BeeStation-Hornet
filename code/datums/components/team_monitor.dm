@@ -49,7 +49,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 
 /proc/get_all_beacons_on_frequency(frequency, base_frequency)
 	if(!frequency)
-		return list()
+		return GLOB.tracker_beacons["[base_frequency]-GLOB"]
 	var/list/found_beacons = list()
 	if(islist(GLOB.tracker_beacons[frequency]))
 		found_beacons.Add(GLOB.tracker_beacons[frequency])
