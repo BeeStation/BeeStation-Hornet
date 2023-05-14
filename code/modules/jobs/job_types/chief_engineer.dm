@@ -28,7 +28,7 @@
 
 	department_flag = ENGSEC
 	departments = DEPT_BITFLAG_ENGINEERING | DEPT_BITFLAG_COMMAND
-	bank_account_department = ACCOUNT_ENG_BITFLAG | DEPT_BITFLAG_COMMAND
+	bank_account_department = ACCOUNT_ENG_BITFLAG | ACCOUNT_COM_BITFLAG
 	payment_per_department = list(
 		ACCOUNT_COM_ID = PAYCHECK_COMMAND_NT,
 		ACCOUNT_ENG_ID = PAYCHECK_COMMAND_DEPT)

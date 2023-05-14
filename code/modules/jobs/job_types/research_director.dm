@@ -30,7 +30,7 @@
 
 	department_flag = MEDSCI
 	departments = DEPT_BITFLAG_SCIENCE | DEPT_BITFLAG_COMMAND
-	bank_account_department = ACCOUNT_SCI_BITFLAG | DEPT_BITFLAG_COMMAND
+	bank_account_department = ACCOUNT_SCI_BITFLAG | ACCOUNT_COM_BITFLAG
 	payment_per_department = list(
 		ACCOUNT_COM_ID = PAYCHECK_COMMAND_NT,
 		ACCOUNT_SCI_ID = PAYCHECK_COMMAND_DEPT)

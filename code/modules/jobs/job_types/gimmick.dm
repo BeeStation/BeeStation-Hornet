@@ -13,7 +13,7 @@
 
 	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_CIVILIAN
-	bank_account_department = DEPT_BITFLAG_CIVILIAN
+	bank_account_department = ACCOUNT_CIV_BITFLAG
 	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_ASSISTANT)
 
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT

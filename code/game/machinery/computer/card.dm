@@ -479,6 +479,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						extra_data += "<td>----</td>"
 						continue
 					if(!check_auth_by_type(DEPT_AUTHCHECK_BUDGET, each_dept.dept_bitflag))
+						extra_data += "<td>----</td>"
 						continue
 					extra_data += "<td><a href='?src=[REF(src)];choice=adjust_pay;paycheck_t=[each_dept.budget_id]'>$[B.payment_per_department[each_dept.budget_id]]</a></td>"
 				extra_data += "</tr>"
