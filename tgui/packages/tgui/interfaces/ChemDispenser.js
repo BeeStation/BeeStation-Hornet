@@ -110,7 +110,7 @@ const RecipeButton = (props, context) => {
   const [deletingRecipes] = useLocalState(context, 'deletingRecipes', false);
   return (
     <Button
-      icon="tint"
+      icon={deletingRecipes ? "trash" : "tint"}
       width="129.5px"
       lineHeight="21px"
       content={recipe.name}
