@@ -129,21 +129,23 @@
 
 	// First target, any command.
 	for(var/datum/mind/head_mind as anything in shuffle_inplace(valid_targets))
-		if(head_mind.assigned_role in list("Captain", "Head of Personnel", "Chief Engineer", "Head of Security", "Research Director", "Chief Medical Officer"))
+		if(head_mind.has_job(GLOB.command_positions))
 			final_targets += head_mind
 			valid_targets -= head_mind
 			break
 
 	// Second target, any security
 	for(var/datum/mind/sec_mind as anything in shuffle_inplace(valid_targets))
-		if(sec_mind.assigned_role in list("Security Officer", "Warden", "Detective", "Head of Security", "Brig Physician", "Deputy"))
+		if(sec_mind.has_job(GLOB.security_positions))
 			final_targets += sec_mind
 			valid_targets -= sec_mind
 			break
 
 	// Third target, someone in their department.
+	// TO-DO: This code tries to get a random victim whose job is the exact same one of the heretic's, not getting a random one from their department.
+	// So, okay, let it be... This is going to be fixed when department refactor comes.
 	for(var/datum/mind/department_mind as anything in shuffle_inplace(valid_targets))
-		if(department_mind.assigned_role == user.mind.assigned_role)
+		if(department_mind.get_job() == user.mind.get_job())
 			final_targets += department_mind
 			valid_targets -= department_mind
 			break
@@ -166,7 +168,7 @@
 	for(var/datum/mind/chosen_mind as anything in final_targets)
 		heretic_datum.add_sacrifice_target(chosen_mind.current)
 		if(!silent)
-			to_chat(user, "<span class='danger'>[chosen_mind.current.real_name], the [chosen_mind.assigned_role].</span>")
+			to_chat(user, "<span class='danger'>[chosen_mind.current.real_name], the [chosen_mind.get_display_station_role()].</span>")
 
 	return TRUE
 
@@ -193,7 +195,7 @@
 
 	to_chat(user, "<span class='hypnophrase'>Your patron accepts your offer.</span>")
 
-	if(sacrifice.mind?.assigned_role in list("Captain", "Head of Personnel", "Chief Engineer", "Head of Security", "Research Director", "Chief Medical Officer"))
+	if(sacrifice.mind?.has_job(GLOB.command_positions))
 		heretic_datum.knowledge_points++
 		heretic_datum.high_value_sacrifices++
 

@@ -190,7 +190,6 @@
 /datum/dynamic_ruleset/latejoin/heretic_smuggler/execute()
 	var/mob/picked_mob = pick(candidates)
 	assigned += picked_mob.mind
-	picked_mob.mind.special_role = antag_flag
 	var/datum/antagonist/heretic/new_heretic = picked_mob.mind.add_antag_datum(antag_datum)
 
 	// Heretics passively gain influence over time.

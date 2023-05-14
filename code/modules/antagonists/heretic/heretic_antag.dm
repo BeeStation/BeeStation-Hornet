@@ -17,7 +17,7 @@
 	roundend_category = "Heretics"
 	antagpanel_category = "Heretic"
 	antag_moodlet = /datum/mood_event/heretics
-	job_rank = ROLE_HERETIC
+	antag_role_type = ROLE_KEY_HERETIC
 	/// Whether we've ascended! (Completed one of the final rituals)
 	var/ascended = FALSE
 	/// The path our heretic has chosen. Mostly used for flavor.
@@ -329,7 +329,7 @@
 
 	var/num_heads = 0
 	for(var/mob/player in SSticker.mode.current_players[CURRENT_LIVING_PLAYERS])
-		if(player.mind.assigned_role in list("Captain", "Head of Personnel", "Chief Engineer", "Head of Security", "Research Director", "Chief Medical Officer"))
+		if(player.mind.has_job(GLOB.command_positions))
 			num_heads++
 
 	var/datum/objective/minor_sacrifice/sac_objective = new()
@@ -450,7 +450,7 @@
 
 	if(alert(admin, "Let them know their targets have been updated?", "Whispers of the Mansus", "Yes", "No") == "Yes")
 		to_chat(owner.current, "<span class='danger'>The Mansus has modified your targets. Go find them!</span>")
-		to_chat(owner.current, "<span class='danger'>[new_target.real_name], the [new_target.mind?.assigned_role || "human"].</span>")
+		to_chat(owner.current, "<span class='danger'>[new_target.real_name], the [new_target.mind?.get_display_station_role() || "human"].</span>")
 
 	add_sacrifice_target(new_target)
 
@@ -518,7 +518,7 @@
 			var/mob/living/carbon/human/actual_target = ref.resolve()
 			if(QDELETED(actual_target))
 				continue
-			. += " - <b>[actual_target.real_name]</b>, the [actual_target.mind?.assigned_role || "Unknown"].<br>"
+			. += " - <b>[actual_target.real_name]</b>, the [actual_target.mind?.get_display_station_role() || "Unknown"].<br>"
 	else
 		. += "<i>None!</i><br>"
 	. += "<br>"
