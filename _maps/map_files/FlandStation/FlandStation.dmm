@@ -582,7 +582,7 @@
 /area/solar/port/fore)
 "aia" = (
 /obj/structure/sign/map/left{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
 	icon_state = "map-left-fland";
 	pixel_y = 32
 	},
@@ -6421,7 +6421,7 @@
 /area/science/lab)
 "bBu" = (
 /obj/structure/sign/map/left{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
 	icon_state = "map-left-fland";
 	pixel_y = 32
 	},
@@ -7368,7 +7368,7 @@
 /area/drydock)
 "bQy" = (
 /obj/structure/sign/map/right{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
 	icon_state = "map-right-fland";
 	pixel_y = 32
 	},
@@ -10421,14 +10421,14 @@
 	name = "Miscellaneous medical Supplies";
 	req_access_txt = "5"
 	},
-/obj/structure/sign/map/right{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
-	icon_state = "map-right-fland";
-	pixel_y = 32
-	},
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/structure/window/reinforced{
 	dir = 4
+	},
+/obj/structure/sign/map/right{
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	icon_state = "map-right-fland";
+	pixel_y = 32
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/storage)
@@ -24005,7 +24005,7 @@
 /area/maintenance/aft)
 "glq" = (
 /obj/structure/sign/map/left{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
 	icon_state = "map-left-fland";
 	pixel_y = 32
 	},
@@ -25463,7 +25463,6 @@
 	dir = 10
 	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/machinery/firealarm/directional/west,
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "gEs" = (
@@ -30045,7 +30044,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/techmaint,
-/area/science/mixing)
+/area/science/mixing/chamber)
 "hRK" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -30351,7 +30350,7 @@
 /obj/effect/turf_decal/guideline/guideline_out/yellow,
 /obj/effect/turf_decal/guideline/guideline_in/blue,
 /obj/structure/sign/map/left{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
 	icon_state = "map-left-fland";
 	pixel_y = 32
 	},
@@ -30613,7 +30612,7 @@
 /area/maintenance/port/aft)
 "hZG" = (
 /obj/structure/sign/map/left{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
 	icon_state = "map-left-fland";
 	pixel_y = 32
 	},
@@ -35211,7 +35210,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/job_scale/armoury/wt550,
+/obj/item/gun/ballistic/automatic/wt550/rubber_loaded,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "jka" = (
@@ -36915,13 +36914,13 @@
 /turf/open/floor/plasteel/techmaint,
 /area/maintenance/port)
 "jKy" = (
-/obj/structure/sign/map/right{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
-	icon_state = "map-right-fland";
-	pixel_y = 32
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/sign/map/right{
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	icon_state = "map-right-fland";
+	pixel_y = 32
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
@@ -37952,7 +37951,7 @@
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/structure/sign/map/left{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
 	icon_state = "map-left-fland";
 	pixel_y = 32
 	},
@@ -42963,7 +42962,7 @@
 /area/hallway/secondary/service)
 "llb" = (
 /obj/structure/sign/map/right{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
 	icon_state = "map-right-fland";
 	pixel_y = 32
 	},
@@ -43327,6 +43326,16 @@
 	},
 /turf/open/floor/plating,
 /area/security/checkpoint/customs)
+"lpl" = (
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/red/line{
+	dir = 4
+	},
+/obj/machinery/firealarm/directional/west,
+/turf/open/floor/plasteel/dark,
+/area/security/main)
 "lpr" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -48825,6 +48834,14 @@
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/plasteel/dark,
 /area/medical/exam_room)
+"mMf" = (
+/obj/structure/sign/map/right{
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	icon_state = "map-right-fland";
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/port)
 "mMk" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -48939,12 +48956,12 @@
 /obj/item/clothing/neck/stethoscope,
 /obj/item/storage/belt/medical,
 /obj/item/storage/belt/medical,
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/structure/sign/map/left{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
 	icon_state = "map-left-fland";
 	pixel_y = 32
 	},
-/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/medical/storage)
 "mNx" = (
@@ -52418,7 +52435,7 @@
 "nGk" = (
 /obj/effect/turf_decal/guideline/guideline_in/red,
 /obj/structure/sign/map/right{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
 	icon_state = "map-right-fland";
 	pixel_y = 32
 	},
@@ -57927,7 +57944,7 @@
 "phi" = (
 /obj/effect/turf_decal/guideline/guideline_in/red,
 /obj/structure/sign/map/left{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
 	icon_state = "map-left-fland";
 	pixel_y = 32
 	},
@@ -62733,6 +62750,7 @@
 /obj/machinery/camera{
 	c_tag = "Brig - Hallway - Center"
 	},
+/obj/machinery/firealarm/directional/north,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "qpE" = (
@@ -63187,7 +63205,7 @@
 /area/tcommsat/server)
 "que" = (
 /obj/structure/sign/map/right{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
 	icon_state = "map-right-fland";
 	pixel_y = 32
 	},
@@ -70314,15 +70332,15 @@
 /turf/open/floor/plasteel,
 /area/storage/primary)
 "sfg" = (
-/obj/structure/sign/map/right{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
-	icon_state = "map-right-fland";
-	pixel_y = 32
-	},
 /obj/machinery/camera{
 	c_tag = "Port Primary Hallway - Starboard";
 	dir = 6;
 	name = "hallway camera"
+	},
+/obj/structure/sign/map/right{
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	icon_state = "map-right-fland";
+	pixel_y = 32
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
@@ -71221,7 +71239,7 @@
 /obj/effect/turf_decal/guideline/guideline_out/yellow,
 /obj/effect/turf_decal/guideline/guideline_in/blue,
 /obj/structure/sign/map/right{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
 	icon_state = "map-right-fland";
 	pixel_y = 32
 	},
@@ -74739,7 +74757,7 @@
 	dir = 1
 	},
 /obj/structure/sign/map/right{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
 	icon_state = "map-right-fland";
 	pixel_y = 32
 	},
@@ -84978,6 +84996,11 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/sign/map/left{
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	icon_state = "map-left-fland";
+	pixel_y = 32
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "vDh" = (
@@ -86840,13 +86863,13 @@
 	},
 /area/medical/surgery)
 "vYE" = (
-/obj/structure/sign/map/left{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
-	icon_state = "map-left-fland";
-	pixel_y = 32
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/sign/map/left{
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	icon_state = "map-left-fland";
+	pixel_y = 32
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
@@ -128618,7 +128641,7 @@ kHi
 jjl
 sUb
 wVj
-sUb
+lpl
 siM
 sCK
 tCp
@@ -130714,7 +130737,7 @@ rio
 veC
 isS
 isS
-xUL
+mMf
 qbd
 gtO
 yfq
