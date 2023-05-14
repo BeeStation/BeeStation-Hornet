@@ -185,12 +185,6 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	/// The minimum amount of station integrity needed for a dead threat injection
 	var/minimum_station_integrity = 0.85
 
-	/// The maximum amount of threat that should be obtainable from injecting "dead" threats
-	var/maximum_threat_from_death_injection = 50
-
-	/// How much to multiply the 'dead' threat cost against when injecting a new replacement threat?
-	var/dead_threat_multipler = 0.5
-
 	// == EVERYTHING BELOW THIS POINT SHOULD NOT BE CONFIGURED ==
 
 	/// A list of recorded "snapshots" of the round, stored in the dynamic.json log
