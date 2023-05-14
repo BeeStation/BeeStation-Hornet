@@ -13,7 +13,8 @@
 	filling_color = "#D2691E"
 	tastes = list("donut" = 1)
 	foodtype = JUNKFOOD | GRAIN | FRIED | SUGAR | BREAKFAST
-	dunkable = TRUE
+	/*food_flags = FOOD_FINGER_FOOD*/
+	w_class = WEIGHT_CLASS_SMALL
 	var/decorated_icon = "donut_homer"
 	var/is_decorated = FALSE
 	var/extra_reagent = null
@@ -23,6 +24,10 @@
 	. = ..()
 	if(prob(30))
 		decorate_donut()
+
+/obj/item/reagent_containers/food/snacks/donut/Initialize()
+	. = ..()
+	AddElement(/datum/element/dunkable, 10)
 
 /obj/item/reagent_containers/food/snacks/donut/proc/decorate_donut()
 	if(is_decorated || !decorated_icon)
@@ -324,6 +329,8 @@
 	filling_color = "#F4A460"
 	tastes = list("muffin" = 1)
 	foodtype = GRAIN | SUGAR | BREAKFAST
+	/*food_flags = FOOD_FINGER_FOOD*/
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/reagent_containers/food/snacks/muffin/berry
 	name = "berry muffin"
@@ -428,6 +435,8 @@
 	filling_color = "#CD853F"
 	tastes = list("meat" = 2, "dough" = 2, "laziness" = 1)
 	foodtype = GRAIN
+	/*food_flags = FOOD_FINGER_FOOD*/
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/reagent_containers/food/snacks/donkpocket/warm
 	name = "warm Donk-pocket"
@@ -578,7 +587,12 @@
 	filling_color = "#F0E68C"
 	tastes = list("cookie" = 1)
 	foodtype = GRAIN | SUGAR
-	dunkable = TRUE
+	/*food_flags = FOOD_FINGER_FOOD*/
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/reagent_containers/food/snacks/cookie/Initialize()
+	. = ..()
+	AddElement(/datum/element/dunkable, 10)
 
 /obj/item/reagent_containers/food/snacks/fortunecookie
 	name = "fortune cookie"
@@ -589,6 +603,8 @@
 	filling_color = "#F4A460"
 	tastes = list("cookie" = 1)
 	foodtype = GRAIN | SUGAR
+	/*food_flags = FOOD_FINGER_FOOD*/
+	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/reagent_containers/food/snacks/poppypretzel
 	name = "poppy pretzel"
@@ -599,6 +615,8 @@
 	filling_color = "#F0E68C"
 	tastes = list("pretzel" = 1)
 	foodtype = GRAIN | SUGAR
+	/*food_flags = FOOD_FINGER_FOOD*/
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/reagent_containers/food/snacks/plumphelmetbiscuit
 	name = "plump helmet biscuit"
@@ -609,6 +627,8 @@
 	filling_color = "#F0E68C"
 	tastes = list("mushroom" = 1, "biscuit" = 1)
 	foodtype = GRAIN | VEGETABLES
+	/*food_flags = FOOD_FINGER_FOOD*/
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/reagent_containers/food/snacks/plumphelmetbiscuit/Initialize(mapload)
 	var/fey = prob(10)
@@ -630,6 +650,8 @@
 	filling_color = "#F0E68C"
 	tastes = list("cracker" = 1)
 	foodtype = GRAIN
+	/*food_flags = FOOD_FINGER_FOOD*/
+	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/reagent_containers/food/snacks/hotdog
 	name = "hotdog"
@@ -671,7 +693,10 @@
 	filling_color = "#CD853F"
 	tastes = list("sweetness" = 1)
 	foodtype = GRAIN | JUNKFOOD | SUGAR
-	dunkable = TRUE
+
+/obj/item/reagent_containers/food/snacks/sugarcookie/Initialize()
+	. = ..()
+	AddElement(/datum/element/dunkable, 10)
 
 /obj/item/reagent_containers/food/snacks/chococornet
 	name = "chocolate cornet"
@@ -692,7 +717,10 @@
 	filling_color = "#D2691E"
 	tastes = list("cookie" = 2, "oat" = 1)
 	foodtype = GRAIN
-	dunkable = TRUE
+
+/obj/item/reagent_containers/food/snacks/oatmealcookie/Initialize()
+	. = ..()
+	AddElement(/datum/element/dunkable, 10)
 
 /obj/item/reagent_containers/food/snacks/raisincookie
 	name = "raisin cookie"
@@ -703,27 +731,28 @@
 	filling_color = "#F0E68C"
 	tastes = list("cookie" = 1, "raisins" = 1)
 	foodtype = GRAIN | FRUIT
-	dunkable = TRUE
+
+/obj/item/reagent_containers/food/snacks/raisincookie/Initialize()
+	. = ..()
+	AddElement(/datum/element/dunkable, 10)
 
 /obj/item/reagent_containers/food/snacks/cherrycupcake
 	name = "cherry cupcake"
 	desc = "A sweet cupcake with cherry bits."
 	icon_state = "cherrycupcake"
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 1)
+	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 3)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/consumable/nutriment/vitamin = 1)
 	filling_color = "#F0E68C"
 	tastes = list("cake" = 3, "cherry" = 1)
 	foodtype = GRAIN | FRUIT | SUGAR
+	/*food_flags = FOOD_FINGER_FOOD*/
+	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/reagent_containers/food/snacks/bluecherrycupcake
+/obj/item/reagent_containers/food/snacks/cherrycupcake/blue
 	name = "blue cherry cupcake"
 	desc = "Blue cherries inside a delicious cupcake."
 	icon_state = "bluecherrycupcake"
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 3)
-	list_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/consumable/nutriment/vitamin = 1)
-	filling_color = "#F0E68C"
 	tastes = list("cake" = 3, "blue cherry" = 1)
-	foodtype = GRAIN | FRUIT | SUGAR
 
 /obj/item/reagent_containers/food/snacks/honeybun
 	name = "honey bun"

@@ -23243,7 +23243,7 @@
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/snacks/spaghetti/copypasta{
+/obj/item/food/spaghetti/copypasta{
 	pixel_y = 5
 	},
 /obj/item/kitchen/fork,
@@ -77639,7 +77639,7 @@
 "sHM" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/spaghetti/copypasta{
+/obj/item/food/spaghetti/copypasta{
 	name = "rotten copypasta";
 	pixel_y = 4
 	},
