@@ -142,3 +142,6 @@ GLOBAL_VAR_INIT(cmp_field, "name")
 
 /proc/cmp_list_slot_id_asc(list/a, list/b)
 	return a["slot_id"] - b["slot_id"]
+
+/proc/cmp_heretic_knowledge(datum/heretic_knowledge/knowledge_a, datum/heretic_knowledge/knowledge_b)
+	return initial(knowledge_b.priority) - initial(knowledge_a.priority)

@@ -661,6 +661,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		return
 
 	AddElement(/datum/element/rust)
+	return TRUE
 
 /turf/handle_fall(mob/faller, forced)
 	if(!forced)

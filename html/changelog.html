@@ -56,6 +56,70 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">14 May 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">Blood and Clock Cult now have a strict minimum population requirement of 24.</li>
+				<li class="balance">Nanite chambers (including public chambers) are now upgradable! Upgraded manipulators result in more "starting" nanites, and upgraded micro-lasers will speed up the chamber.</li>
+			</ul>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Added a murderbone objective check to shuttle hijacking</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">having monitoring nanites can make you trackable by pinpointer. simple/carbon mobs with monitoring nanites are now trackable by pinpointer (as long as they have mind...) Jammer will disable this.</li>
+				<li class="rscadd">pinpointer is now trackable z-levels as long as those z-levels are in the same group (i.e. multi-floored station). Orange bar will appear if your target is within the same type z-level.</li>
+				<li class="imageadd">some pinpointer indicating sprites</li>
+				<li class="refactor">better pinpointer code</li>
+			</ul>
+			<h3 class="author">HowToLoLu updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed a runtime involving Plasmamen outfits given by jobs</li>
+			</ul>
+			<h3 class="author">Rkz, Time-Green, SteelSlayer, floyd, Qustinuus, ArcaneDefence, FlowerCuco updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Food storage! Hide some glass in the captains cake! Fuck his digestive system!!! (Not really, accidental consumption isnt active w/o wounds or stomach refactor, so It doesnt do anything yet lmao)</li>
+				<li class="rscadd">Bread, Cake and Spaghetti to Newfood</li>
+				<li class="rscadd">dunkable element. Dunk yo nuggies in the ketchup.</li>
+				<li class="rscadd">some smaller foods can now be eaten whilst on the run! (This ONLY applies to newfood items thus far!)</li>
+				<li class="rscadd">converted edible component to work with newfood</li>
+				<li class="rscdel">oldfood for Bread, Cake and Spaghetti</li>
+				<li class="tweak">edited a few messed up values</li>
+				<li class="tweak">food trash is sensible now. Finishing stuff like cake will actually spawn a plate rubbish. Instead of you eating the plate, fatso, perhaps properly dispose of it!</li>
+				<li class="bugfix">Wildly STUPID item weights. Candycorn and cakes are no longer the SAME size</li>
+			</ul>
+
+			<h2 class="date">13 May 2023</h2>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed the species being set to null after getting umonkified</li>
+				<li class="tweak">Doubled the speed of the Virus Extrapolator, again</li>
+				<li class="rscadd">Added a new lung subtype - Ash Walker lungs, that are adapted to low pressure, low O2 and high CO2 concentrations</li>
+				<li class="tweak">Made the Gladiator Uniform display digitigrade legs</li>
+				<li class="tweak">Replaced the station air around the Ash Walker tendril with lavaland air</li>
+				<li class="balance">Made Ash Walkers have Lavaland adapted lungs rather than not needing to breathe at all</li>
+				<li class="balance">Ash Walkers are now low pressure immune</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">nukie team will properly display the team name in the orbit panel (including lone operative)</li>
+			</ul>
+			<h3 class="author">RKz, LemonInTheDark updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">refactored the alarm system. Fixed some hard deletes</li>
+			</ul>
+			<h3 class="author">Tyranicranger4 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes Stabilized Metal crossbreeds from being able to replicate telecrystals.</li>
+			</ul>
+
+			<h2 class="date">10 May 2023</h2>
+			<h3 class="author">Crossedfall updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="server">The rust_g binary has been replaced with a version that's more compatible with older hardware</li>
+			</ul>
+
 			<h2 class="date">08 May 2023</h2>
 			<h3 class="author">CydiaLamiales updated:</h3>
 			<ul class="changes bgimages16">
@@ -719,143 +783,6 @@
 				<li class="rscadd">Added a preference toggle for soundtrack music (Countdown, Mind Crawler, etc)</li>
 				<li class="admin">Added an admin verb for playing soundtrack music.</li>
 				<li class="tweak">Un-silencing soundtrack music will now start playing the music again rather than missing out entirely.</li>
-			</ul>
-
-			<h2 class="date">12 March 2023</h2>
-			<h3 class="author">Crossedfall updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Undocumented role time requirement changes have been reverted</li>
-			</ul>
-			<h3 class="author">RKz updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">removed all genetic printlines, you can't *feel* Swedish anymore. You better trust that the Genetics Expert gave you something good.</li>
-				<li class="balance">removed most genetic stability messages, except for the penultimate and final meltdown one.</li>
-				<li class="spellcheck">Made some mutations descriptions more consistent and immersive. Cleared up terminology misuse.</li>
-			</ul>
-			<h3 class="author">Rukofamicom updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="admin">Blackpowder and phlogiston now alert admins upon creation.</li>
-				<li class="code_imp">All objects made primarily or entirely of plasma now have their reactions handled via atom/proc/plasma_ignition() instead of each having slight variations of almost the same code defined individually.</li>
-				<li class="tweak">almost all objects made of plasma now react to being shot with lasers, attacked with hot objects such as lit welders, and being exposed to flames. This notably excludes plasma ore and plasma glass.</li>
-				<li class="tweak">Ground plasma in beakers now ignites when exposed to any heat increase above ambient temperature. Chemists beware!</li>
-				<li class="balance">Plasma gas is no longer created as a byproduct of solid plasma burning or spilling. Instead the various forms of solid plasma burn rapidly and brilliantly, resulting in a small explosion with a bright flash and wide but brief flame.</li>
-			</ul>
-			<h3 class="author">WrillWasTaken updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">halved the HP of glowshrooms and its variants</li>
-			</ul>
-
-			<h2 class="date">11 March 2023</h2>
-			<h3 class="author">@DrDuckedGoose Code, @itsmeow UI, @qwertyquerty Sound updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added basic elevators, with control elements.</li>
-				<li class="tweak">Replaces the elevator on multi-z debug with new presets</li>
-				<li class="rscadd">Added elevator UI theme, with fancy elevator buttons.</li>
-			</ul>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">fixed the moodlets for wearing Clown Shoes, Black and Yellow gloves being removed when you dropped a second pair</li>
-				<li class="rscadd">Added a new Orange Bioluminescence trait to the Extradimensional Orange</li>
-				<li class="rscadd">Added orange Fairygrass tiles</li>
-				<li class="rscadd">Added a new Colorful Reagent reaction to plants, which adds/swaps out an existing bioluminescence trait</li>
-			</ul>
-			<h3 class="author">Rohesie, Benbot16 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">Do_afters now support timed_action_flags.</li>
-			</ul>
-			<h3 class="author">Rukofamicom updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">fultons work on necropolis chests again</li>
-				<li class="bugfix">Fixed the laser gatling gun's sounds and intended functionality. It is still only available via admin spawn.</li>
-			</ul>
-			<h3 class="author">Tyranicranger4 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added an engineering ERT team preset</li>
-				<li class="tweak">ERT members that have first-aid kits now have normal sized first-aid kits</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">Added preemptive compilation compatibility for BYOND 515. This does not mean the game will work on 515, nor will clients be able to update.</li>
-				<li class="bugfix">Fixed a runtime that caused message monitor PDA messages and admin PDA messages to not be logged.</li>
-				<li class="bugfix">Asay color is now properly sanitized from prefs menu.</li>
-			</ul>
-
-			<h2 class="date">10 March 2023</h2>
-			<h3 class="author">Chirynnn updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Due to budget cuts, the Captain's Spare Safe has been downsized, and can now only fit IDs inside of it.</li>
-			</ul>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added a squash animations when interacting with storage items</li>
-				<li class="rscadd">Added icons to the upgrades/trophies when examining a PKA or a PKC</li>
-				<li class="bugfix">fixed examining a PKC not displaying attached trophies</li>
-			</ul>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">debug RPD is now unwrench upgraded</li>
-				<li class="bugfix">debug RPD can unwrench/repaint now</li>
-				<li class="rscadd">ghosts will now notice when a kudzu/vine is deployed.</li>
-			</ul>
-			<h3 class="author">Ghost, Benbot16 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Ports the edibility component.</li>
-				<li class="refactor">Organs don't turn into food objects when you eat them anymore, and they take a small amount of time to eat. Taking a bite out of them still makes them unusable.</li>
-			</ul>
-			<h3 class="author">LemonInTheDark, CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added a visual effect for dropping items from your inventory or hands</li>
-				<li class="rscadd">Increased the animation time of the pickup effect, to make it less of a snapshot. Did some other things to it to hopefully make it look nicer</li>
-				<li class="rscadd">dropped items will now be randomly pixelshifted around</li>
-			</ul>
-			<h3 class="author">PigeonVerde322, Wallem updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="imageadd">Departmental protolathes/techfabs have colored stripes to tell the departments apart.</li>
-			</ul>
-			<h3 class="author">imsynthex updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="spellcheck">fixed around 350 common misspellings and typos</li>
-				<li class="tweak">holoparasites' lights will now move smoothly</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed map and shuttle votes not properly reacting to votes.</li>
-				<li class="server">Update to Python 3.11.2, Node 18.14.2, Inferno 8, Typescript 4.9, Yarn 3.4</li>
-				<li class="rscadd">Added fallback species config option, for use when there is no database attached.</li>
-				<li class="tweak">ModPCs/Tablets/PDAs will now use the same window for all apps, reducing the lag between switching apps and preventing the window from jumping around the screen.</li>
-				<li class="rscadd">Added the IC date to the NtOS header.</li>
-				<li class="balance">Nukie PDAs can now connect to NTNet while off-station.</li>
-				<li class="bugfix">You can no longer imprint IDs onto ModPCs that don't support it.</li>
-				<li class="code_imp">Converted the IC year offset to a define.</li>
-				<li class="bugfix">Fixed a potential exploit where any airlock could be remotely controlled with the airlock control app.</li>
-				<li class="admin">Added more detail to some href exploit logs.</li>
-				<li class="tweak">Illiterate people can no longer use ModPCs.</li>
-				<li class="bugfix">NT Bounty Hunter and SecurEye apps work again</li>
-				<li class="tweak">Added a cooldown to the bounty list printer in NT Bounty Hunter.</li>
-			</ul>
-
-			<h2 class="date">09 March 2023</h2>
-			<h3 class="author">tonty updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">you can finally emote at the beginning of messages in dchat</li>
-				<li class="bugfix">custom say emotes properly punctuate over the radio</li>
-				<li class="bugfix">custom say emotes actually EMOTE NOW (can you believe it)</li>
-				<li class="bugfix">you can have spaces around the custom say separator without it looking jank</li>
-				<li class="code_imp">text.dm has a punctuate proc now</li>
-				<li class="tweak">you can now put an ellipses at the beginning of your sentences</li>
-			</ul>
-
-			<h2 class="date">08 March 2023</h2>
-			<h3 class="author">Crossedfall updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="admin">The protected CID warning will now correctly show up for inherited entries</li>
-			</ul>
-			<h3 class="author">timothymtorres ported by mystery3525 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">Move defines to their local .dm files</li>
-				<li class="code_imp">Remove code/__DEFINES/misc.dm</li>
-				<li class="code_imp">Moved code/__DEFINES/research/anomalies.dm</li>
-				<li class="refactor">Adds some documentation to defines</li>
 			</ul>
 		</div>
 

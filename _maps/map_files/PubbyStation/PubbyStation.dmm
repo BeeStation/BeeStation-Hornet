@@ -18495,7 +18495,7 @@
 /area/crew_quarters/kitchen)
 "cpn" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/spaghetti,
+/obj/item/food/spaghetti/raw,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "cpo" = (
@@ -18845,11 +18845,11 @@
 /area/chapel/office)
 "crY" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/breadslice/plain,
-/obj/item/reagent_containers/food/snacks/breadslice/plain{
+/obj/item/food/breadslice/plain,
+/obj/item/food/breadslice/plain{
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/snacks/breadslice/plain{
+/obj/item/food/breadslice/plain{
 	pixel_y = 8
 	},
 /turf/open/floor/plasteel/dark,
