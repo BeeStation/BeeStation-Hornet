@@ -1,0 +1,18 @@
+author: Rkz, Time-Green, SteelSlayer, floyd, Qustinuus, ArcaneDefence, FlowerCuco
+delete-after: true
+changes:
+  - rscadd: Food storage! Hide some glass in the captains cake! Fuck his digestive
+      system!!! (Not really, accidental consumption isnt active w/o wounds or stomach
+      refactor, so It doesnt do anything yet lmao)
+  - rscadd: Bread, Cake and Spaghetti to Newfood
+  - rscadd: dunkable element. Dunk yo nuggies in the ketchup.
+  - rscadd: some smaller foods can now be eaten whilst on the run! (This ONLY applies
+      to newfood items thus far!)
+  - rscadd: converted edible component to work with newfood
+  - rscdel: oldfood for Bread, Cake and Spaghetti
+  - tweak: edited a few messed up values
+  - tweak: food trash is sensible now. Finishing stuff like cake will actually spawn
+      a plate rubbish. Instead of you eating the plate, fatso, perhaps properly dispose
+      of it!
+  - bugfix: Wildly STUPID item weights. Candycorn and cakes are no longer the SAME
+      size
