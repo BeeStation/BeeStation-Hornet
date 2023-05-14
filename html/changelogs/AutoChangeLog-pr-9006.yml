@@ -1,0 +1,4 @@
+author: HowToLoLu
+delete-after: true
+changes:
+  - bugfix: Fixed a runtime involving Plasmamen outfits given by jobs
