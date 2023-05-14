@@ -388,7 +388,7 @@
 	display_name = "Advanced Shell Research"
 	description = "Grants access to more complicated shell designs."
 	prereq_ids = list("basic_circuitry", "engineering")
-	design_ids = list("bot_shell", "door_shell", "controller_shell", "money_bot_shell", "scanner_gate_shell", "scanner_shell", "assembly_shell")
+	design_ids = list("bot_shell", "door_shell", "controller_shell", "money_bot_shell", "scanner_gate_shell", "scanner_shell", "assembly_shell", "bci_shell", "bci_implanter")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
 /datum/techweb_node/movable_shells_tech
