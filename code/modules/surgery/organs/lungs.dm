@@ -336,21 +336,9 @@
 	..()
 	gas_max -= GAS_PLASMA
 
-/obj/item/organ/lungs/oozeling
-	name = "oozeling vacuole"
-	desc = "A large organelle designed to store oxygen and filter toxins."
-
 /obj/item/organ/lungs/slime
 	name = "vacuole"
-	desc = "A large organelle designed to store oxygen and other important gasses."
-
-/obj/item/organ/lungs/slime/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
-	. = ..()
-	if (breath)
-		var/total_moles = breath.total_moles()
-		var/pressure = breath.return_pressure()
-		var/plasma_pp = PP(breath, GAS_PLASMA)
-		owner.blood_volume += (0.2 * plasma_pp) // 10/s when breathing literally nothing but plasma, which will suffocate you.
+	desc = "A large organelle designed to store oxygen and filter toxins."
 
 /obj/item/organ/lungs/cybernetic
 	name = "cybernetic lungs"
@@ -391,5 +379,15 @@
 	icon_state = "lungs"
 	safe_breath_min = 8
 
+/obj/item/organ/lungs/ashwalker
+	name = "ash walker lungs"
+	desc = "Lungs belonging to the tribal group of lizardmen that have adapted to Lavaland's atmosphere, and thus can breathe its air safely but find the station's \
+	air to be oversaturated with oxygen."
+	safe_breath_min = 4
+	safe_breath_max = 20
+	gas_max = list(
+		GAS_CO2 = 45,
+		GAS_PLASMA = MOLES_GAS_VISIBLE
+	)
 #undef PP
 #undef PP_MOLES

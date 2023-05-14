@@ -16,25 +16,9 @@
 	icon_state = "carpetsymbol"
 	},
 /area/template_noop)
-"d" = (
-/obj/effect/landmark/start/randommaint/backalley_doc,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/wood,
-/area/template_noop)
 "e" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/template_noop)
-"g" = (
-/obj/machinery/door/window/westleft{
-	base_state = "right";
-	dir = 2;
-	icon_state = "right"
-	},
-/turf/open/floor/carpet{
-	icon_state = "carpetsymbol"
-	},
 /area/template_noop)
 "o" = (
 /obj/item/hemostat,
@@ -75,28 +59,14 @@
 	},
 /turf/open/floor/plasteel/ameridiner,
 /area/template_noop)
-"q" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
-/turf/open/floor/wood,
-/area/template_noop)
 "r" = (
+/obj/effect/landmark/start/randommaint/backalley_doc,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/wood,
 /area/template_noop)
 "t" = (
-/obj/machinery/door/window/westleft{
-	dir = 2
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 10
-	},
-/turf/open/floor/carpet{
-	icon_state = "carpetsymbol"
-	},
+/turf/open/floor/wood,
 /area/template_noop)
 "u" = (
 /obj/effect/decal/remains/human,
@@ -106,31 +76,12 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
 /area/template_noop)
-"v" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/carpet{
-	icon_state = "carpetsymbol"
-	},
-/area/template_noop)
 "w" = (
-/obj/structure/mirror{
-	pixel_x = -28
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -24
 	},
-/obj/structure/chair/comfy{
-	dir = 8
-	},
-/turf/open/floor/plasteel/ameridiner,
-/area/template_noop)
-"x" = (
-/obj/structure/chair/fancy/sofa/right{
-	dir = 8
-	},
-/turf/open/floor/carpet{
-	icon_state = "carpetsymbol"
-	},
-/area/template_noop)
-"y" = (
 /obj/structure/table,
+/obj/item/reagent_containers/spray/cleaner,
 /obj/item/handmirror{
 	pixel_x = 5;
 	pixel_y = 4
@@ -138,23 +89,30 @@
 /obj/item/razor{
 	pixel_x = -5
 	},
-/obj/machinery/newscaster{
-	pixel_x = -28;
-	pixel_y = 1
+/turf/open/floor/plasteel/ameridiner,
+/area/template_noop)
+"y" = (
+/obj/structure/mirror{
+	pixel_x = -28
+	},
+/obj/structure/chair/fancy/comfy{
+	buildstackamount = 0;
+	color = "#742925";
+	dir = 8
 	},
 /turf/open/floor/plasteel/ameridiner,
 /area/template_noop)
 "B" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 6
 	},
 /turf/open/floor/wood,
 /area/template_noop)
 "C" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
-	dir = 8
+/obj/item/kirbyplants/random,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 4
 	},
 /turf/open/floor/wood,
 /area/template_noop)
@@ -190,7 +148,7 @@
 /turf/template_noop,
 /area/template_noop)
 "K" = (
-/turf/closed/wall/r_wall,
+/turf/template_noop/closed,
 /area/template_noop)
 "L" = (
 /obj/structure/sign/poster/official/moth6{
@@ -227,26 +185,13 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "O" = (
-/obj/item/kirbyplants/random,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 4
-	},
-/turf/open/floor/carpet{
-	icon_state = "carpetsymbol"
-	},
-/area/template_noop)
-"Q" = (
 /obj/machinery/light{
-	dir = 8
+	dir = 4
 	},
 /obj/structure/window/spawner,
-/obj/item/kirbyplants/random,
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
-	},
-/turf/open/floor/carpet{
-	icon_state = "carpetsymbol"
-	},
+/obj/structure/table/wood,
+/obj/item/paper/pamphlet/ruin/spacehotel,
+/turf/open/floor/wood,
 /area/template_noop)
 "R" = (
 /obj/effect/decal/cleanable/blood/drip,
@@ -256,12 +201,10 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "U" = (
-/obj/structure/chair/fancy/sofa/left{
+/obj/structure/chair/fancy/sofa/old/right{
 	dir = 8
 	},
-/turf/open/floor/carpet{
-	icon_state = "carpetsymbol"
-	},
+/turf/open/floor/wood,
 /area/template_noop)
 "V" = (
 /turf/open/floor/carpet{
@@ -277,45 +220,37 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/template_noop)
 "Y" = (
-/obj/machinery/light{
-	dir = 4
+/obj/structure/chair/fancy/sofa/old/left{
+	dir = 8
 	},
-/obj/structure/window/spawner,
-/obj/structure/table/wood,
-/obj/item/paper/pamphlet/ruin/spacehotel,
-/turf/open/floor/carpet{
-	icon_state = "carpetsymbol"
-	},
+/turf/open/floor/wood,
 /area/template_noop)
 "Z" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -24
+/obj/machinery/light{
+	dir = 8
 	},
-/obj/structure/table,
-/obj/item/reagent_containers/spray/cleaner,
-/turf/open/floor/plasteel/ameridiner,
+/obj/structure/window/spawner,
+/turf/open/floor/wood,
 /area/template_noop)
 
 (1,1,1) = {"
 a
-O
-V
-Q
+C
+G
 Z
 w
 y
 L
 a
 N
-a
+K
 "}
 (2,1,1) = {"
 W
 c
-v
 t
-C
-d
+t
+t
 r
 B
 H
@@ -325,23 +260,21 @@ J
 (3,1,1) = {"
 W
 V
-V
-g
-q
+G
+G
 G
 G
 R
 a
 u
-a
+K
 "}
 (4,1,1) = {"
 a
-x
 U
 Y
+O
 p
-b
 b
 D
 a
@@ -349,15 +282,14 @@ o
 K
 "}
 (5,1,1) = {"
-a
-a
+K
+K
 e
-a
-a
+K
+K
 e
-e
-a
-a
-a
+K
+K
+K
 K
 "}

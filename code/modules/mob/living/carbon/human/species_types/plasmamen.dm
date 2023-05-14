@@ -65,12 +65,14 @@
 	. = ..()
 
 /datum/species/plasmaman/after_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE, client/preference_source = null)
-	H.internal = H.get_item_for_held_index(2)
-	H.update_internals_hud_icon(1)
+	H.open_internals(H.get_item_for_held_index(2))
 
 	if(!preference_source)
 		return
-	var/path = J.species_outfits[SPECIES_PLASMAMAN]
+	var/path = J.species_outfits?[SPECIES_PLASMAMAN]
+	if (!path) //Somehow we were given a job without a plasmaman suit, use the default one so we don't go in naked!
+		path = /datum/outfit/plasmaman
+		stack_trace("Job [J] lacks a species_outfits entry for plasmamen!")
 	var/datum/outfit/plasmaman/O = new path
 	var/datum/character_save/CS = preference_source.prefs.active_character
 	if(CS.helmet_style != HELMET_DEFAULT)
@@ -78,6 +80,7 @@
 			var/helmet = O.helmet_variants[CS.helmet_style]
 			qdel(H.head)
 			H.equip_to_slot(new helmet, ITEM_SLOT_HEAD)
+			H.open_internals(H.get_item_for_held_index(2))
 
 /datum/species/plasmaman/qualifies_for_rank(rank, list/features)
 	if(rank in GLOB.security_positions)

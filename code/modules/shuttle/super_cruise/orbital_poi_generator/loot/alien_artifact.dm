@@ -22,6 +22,7 @@
 /obj/item/alienartifact/objective/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/gps, "[scramble_message_replace_chars("#########", 100)]", TRUE)
+	AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#eb4d4d", TRUE, TRUE)
 
 /obj/item/alienartifact/Initialize(mapload)
 	. = ..()
@@ -406,9 +407,9 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 
 /datum/artifact_effect/gas_remove/Initialize(source)
 	. = ..()
-	input = pickweight(valid_inputs)
+	input = pick_weight(valid_inputs)
 	effect_act_descs = list("near gas")
-	output = pickweight(valid_outputs)
+	output = pick_weight(valid_outputs)
 
 /datum/artifact_effect/gas_remove/process(delta_time)
 	var/turf/T = get_turf(source_object)

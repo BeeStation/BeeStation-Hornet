@@ -9,7 +9,7 @@
 	var/base_state = "left"
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
 	integrity_failure = 0
-	armor = list("melee" = 20, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 70, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 20,  BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 70, ACID = 100, STAMINA = 0)
 	visible = FALSE
 	flags_1 = ON_BORDER_1
 	opacity = FALSE
@@ -17,6 +17,7 @@
 	CanAtmosPass = ATMOS_PASS_PROC
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
 	network_id = NETWORK_DOOR_AIRLOCKS
+	obj_flags = CAN_BE_HIT // reset zblock
 	var/operationdelay = 5
 	var/obj/item/electronics/airlock/electronics = null
 	var/reinf = 0
@@ -105,20 +106,18 @@
 	. = ..()
 	if(.)
 		return
-	if(get_dir(loc, target) == dir) //Make sure looking at appropriate border
-		return
-	if(istype(mover, /obj/structure/window))
-		var/obj/structure/window/W = mover
-		if(!valid_window_location(loc, W.ini_dir))
-			return FALSE
-	else if(istype(mover, /obj/structure/windoor_assembly))
-		var/obj/structure/windoor_assembly/W = mover
-		if(!valid_window_location(loc, W.ini_dir))
-			return FALSE
-	else if(istype(mover, /obj/machinery/door/window) && !valid_window_location(loc, mover.dir))
+
+	if(get_dir(loc, target) == dir)
 		return FALSE
-	else
-		return TRUE
+
+	if(istype(mover, /obj/structure/window))
+		var/obj/structure/window/moved_window = mover
+		return valid_window_location(loc, moved_window.dir, is_fulltile = moved_window.fulltile)
+
+	if(istype(mover, /obj/structure/windoor_assembly) || istype(mover, /obj/machinery/door/window))
+		return valid_window_location(loc, mover.dir, is_fulltile = FALSE)
+
+	return TRUE
 
 /obj/machinery/door/window/CanAtmosPass(turf/T)
 	if(get_dir(loc, T) == dir)
@@ -270,7 +269,6 @@
 						WA.setAnchored(TRUE)
 						WA.state= "02"
 						WA.setDir(dir)
-						WA.ini_dir = dir
 						WA.update_icon()
 						WA.created_name = name
 
@@ -389,7 +387,7 @@
 	shards = 0
 	rods = 0
 	max_integrity = 50
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 70, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 100, RAD = 100, FIRE = 70, ACID = 100, STAMINA = 0)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	operationdelay = 10
 	var/made_glow = FALSE

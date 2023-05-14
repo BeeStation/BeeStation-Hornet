@@ -78,7 +78,7 @@
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/blight(null))
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction(null))
 	random_revenant_name()
-	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE)
+	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE, "#490066")
 
 /mob/living/simple_animal/revenant/Destroy()
 	. = ..()
@@ -386,7 +386,13 @@
 	..()
 
 /mob/living/simple_animal/revenant/proc/check_orbitable(atom/A)
-	if(revealed || notransform || inhibited || !Adjacent(A) || !incorporeal_move_check(A))
+	if(revealed)
+		to_chat(src, "<span class='warning'>You can't orbit while you're revealed!</span>")
+		return
+	if(!Adjacent(A))
+		to_chat(src, "<span class='warning'>You can only orbit things that are next to you!</span>")
+		return
+	if(notransform || inhibited || !incorporeal_move_check(A))
 		return
 	var/icon/I = icon(A.icon, A.icon_state, A.dir)
 	var/orbitsize = (I.Width()+I.Height())*0.5

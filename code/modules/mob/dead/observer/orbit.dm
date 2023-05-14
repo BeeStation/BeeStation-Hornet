@@ -75,7 +75,11 @@
 					var/datum/antagonist/A = _A
 					if (A.show_to_ghosts)
 						was_antagonist = TRUE
-						serialized["antag"] = A.name
+						var/datum/team/antag_team = A.get_team()
+						if(antag_team)
+							serialized["antag"] = antag_team.get_team_name()
+						else
+							serialized["antag"] = A.get_antag_name()
 						antagonists += list(serialized)
 						break
 

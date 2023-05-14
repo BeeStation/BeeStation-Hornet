@@ -460,7 +460,7 @@
 	reqs = list(
 		/datum/reagent/consumable/eggyolk = 5,
 		/obj/item/reagent_containers/food/snacks/cheesewedge = 1,
-		/obj/item/reagent_containers/food/snacks/store/bread/plain = 1
+		/obj/item/food/bread/plain = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/khachapuri
 	subcategory = CAT_PASTRY
@@ -492,7 +492,7 @@
 	time = 15
 	name = "Poppy pretzel"
 	reqs = list(
-		/obj/item/seeds/poppy = 1,
+		/obj/item/seeds/flower/poppy = 1,
 		/obj/item/reagent_containers/food/snacks/pastrybase = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/poppypretzel
@@ -562,7 +562,7 @@
 		/obj/item/reagent_containers/food/snacks/pastrybase = 1,
 		/obj/item/reagent_containers/food/snacks/grown/bluecherries = 1
 	)
-	result = /obj/item/reagent_containers/food/snacks/bluecherrycupcake
+	result = /obj/item/reagent_containers/food/snacks/cherrycupcake/blue
 	subcategory = CAT_PASTRY
 
 /datum/crafting_recipe/food/honeybun

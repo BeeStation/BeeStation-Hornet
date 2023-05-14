@@ -9,6 +9,7 @@
 	block_upgrade_walk = 1
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
+	item_flags = ISWEAPON
 	throwforce = 20
 	throw_speed = 4
 	armour_penetration = 10
@@ -67,7 +68,7 @@
 		var/mob/living/target = hit_atom
 		if(!.)
 			if(!target.anti_magic_check(magic=FALSE,holy=TRUE) && !is_servant_of_ratvar(target))
-				hit_effect(target, throwingdatum.thrower, TRUE)
+				hit_effect(target, throwingdatum?.thrower, TRUE)
 
 /obj/item/clockwork/weapon/proc/hit_effect(mob/living/target, mob/living/user, thrown=FALSE)
 	return
@@ -163,7 +164,7 @@
 		to_chat(user, "<span class='notice'>You dispell the arrow.</span>")
 	else if (get_ammo())
 		var/obj/item/I = user.get_active_held_item()
-		if (do_mob(user,I,5))
+		if (do_after(user, 0.5 SECONDS, I))
 			to_chat(user, "<span class='notice'>You draw back the bowstring.</span>")
 			playsound(src, 'sound/weapons/bowdraw.ogg', 75, 0) //gets way too high pitched if the freq varies
 			chamber_round()

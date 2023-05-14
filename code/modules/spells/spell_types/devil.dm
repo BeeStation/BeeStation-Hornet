@@ -54,7 +54,7 @@
 					user.put_in_hands(contract)
 			else
 				var/obj/item/paper/contract/infernal/contract  // = new(user.loc, C.mind, contractType, user.mind)
-				var/contractTypeName = input(user, "What type of contract?") in sortList(list("Power", "Wealth", "Prestige", "Magic", "Knowledge", "Friendship"))
+				var/contractTypeName = input(user, "What type of contract?") in sort_list(list("Power", "Wealth", "Prestige", "Magic", "Knowledge", "Friendship"))
 				switch(contractTypeName)
 					if("Power")
 						contract = new /obj/item/paper/contract/infernal/power(C.loc, C.mind, user.mind)
@@ -107,7 +107,7 @@
 		if(istype(user.loc, /obj/effect/dummy/phased_mob/slaughter/))
 			if(valid_location(user))
 				to_chat(user, "<span class='warning'>You are now phasing in.</span>")
-				if(do_mob(user,user,150))
+				if(do_after(user, 15 SECONDS))
 					if(valid_location(user))
 						user.infernalphasein()
 					else
@@ -121,7 +121,7 @@
 			user.notransform = TRUE
 			user.fakefire()
 			to_chat(src, "<span class='warning'>You begin to phase back into sinful flames.</span>")
-			if(do_mob(user,user,150))
+			if(do_after(user, 15 SECONDS))
 				user.infernalphaseout()
 			else
 				to_chat(user, "<span class='warning'>You must remain still while exiting.</span>")

@@ -172,7 +172,7 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	strip_delay = 60
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 50, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 70, ACID = 50, STAMINA = 0)
 
 /obj/item/clothing/gloves/color/latex
 	name = "latex gloves"
@@ -184,7 +184,7 @@
 	permeability_coefficient = 0.01
 	transfer_prints = TRUE
 	resistance_flags = NONE
-	var/carrytrait = TRAIT_QUICK_CARRY
+	var/carrytrait = TRAIT_QUICKER_CARRY
 
 /obj/item/clothing/gloves/color/latex/equipped(mob/user, slot)
 	..()
@@ -193,7 +193,12 @@
 
 /obj/item/clothing/gloves/color/latex/dropped(mob/user)
 	..()
-	REMOVE_TRAIT(user, carrytrait, CLOTHING_TRAIT)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.gloves != src)
+			return
+		else
+			REMOVE_TRAIT(user, carrytrait, CLOTHING_TRAIT)
 
 /obj/item/clothing/gloves/color/latex/obj_break()
 	..()

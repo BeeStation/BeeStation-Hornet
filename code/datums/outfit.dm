@@ -220,8 +220,7 @@
 	if(!visualsOnly)
 		apply_fingerprints(H)
 		if(internals_slot)
-			H.internal = H.get_item_by_slot(internals_slot)
-			H.update_action_buttons_icon()
+			H.open_internals(H.get_item_by_slot(internals_slot))
 		if(implants)
 			for(var/implant_type in implants)
 				var/obj/item/implant/I = new implant_type(H)
@@ -282,7 +281,7 @@
 /datum/outfit/proc/get_chameleon_disguise_info()
 	var/list/types = list(uniform, suit, back, belt, gloves, shoes, head, mask, neck, ears, glasses, id, l_pocket, r_pocket, suit_store, r_hand, l_hand)
 	types += chameleon_extras
-	listclearnulls(types)
+	list_clear_nulls(types)
 	return types
 
 /datum/outfit/proc/get_json_data()

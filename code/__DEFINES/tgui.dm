@@ -35,6 +35,11 @@
 	"%7b%22type%22%3a%22[type]%22%2c%22payload%22%3a[url_encode(json_encode(payload))]%7d" \
 )
 
+/// Creates a message packet for sending via output() with no payload
+#define TGUI_CREATE_MESSAGE_EMPTY(type) ( \
+	"%7b%22type%22%3a%22[type]%22%7d" \
+)
+
 /// Telemetry
 
 /**

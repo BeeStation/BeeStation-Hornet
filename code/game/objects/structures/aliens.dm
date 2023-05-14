@@ -12,7 +12,7 @@
 	max_integrity = 100
 
 /obj/structure/alien/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == "melee")
+	if(damage_flag == MELEE)
 		switch(damage_type)
 			if(BRUTE)
 				damage_amount *= 0.25
@@ -59,7 +59,7 @@
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN)
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_RESIN)
 	density = TRUE
-	opacity = 1
+	opacity = TRUE
 	anchored = TRUE
 	max_integrity = 200
 	var/resintype = null
@@ -95,7 +95,7 @@
 	base_icon_state = "resin_membrane"
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WALLS)
-	opacity = 0
+	opacity = FALSE
 	max_integrity = 160
 
 /obj/structure/alien/resin/attack_paw(mob/user)
