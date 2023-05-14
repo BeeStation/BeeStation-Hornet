@@ -107,7 +107,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 /mob/living/simple_animal/bot/medbot/Initialize(mapload, new_skin)
 	. = ..()
 	var/datum/job/medical_doctor/J = new /datum/job/medical_doctor
-	access_card.access += J.get_access()
+	access_card.access |= J.get_access()
 	prev_access = access_card.access
 	qdel(J)
 	skin = new_skin
@@ -134,6 +134,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 /mob/living/simple_animal/bot/medbot/proc/soft_reset() //Allows the medibot to still actively perform its medical duties without being completely halted as a hard reset does.
 	path = list()
 	set_patient(null)
+	oldpatient = null
 	mode = BOT_IDLE
 	last_found = world.time
 	update_icon()
