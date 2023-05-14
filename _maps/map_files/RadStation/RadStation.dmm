@@ -25928,7 +25928,7 @@
 /area/security/checkpoint/escape)
 "iwU" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/spaghetti/meatballspaghetti{
+/obj/item/food/spaghetti/meatballspaghetti{
 	pixel_x = -6;
 	pixel_y = 4
 	},
@@ -65874,7 +65874,7 @@
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "vWl" = (
-/obj/item/reagent_containers/food/snacks/butterdog,
+/obj/item/food/butterdog,
 /obj/effect/decal/cleanable/crayon,
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
@@ -71833,7 +71833,7 @@
 /turf/open/floor/noslip/white,
 /area/crew_quarters/heads/captain/private)
 "xSK" = (
-/obj/item/reagent_containers/food/snacks/spaghetti/butternoodles,
+/obj/item/food/spaghetti/butternoodles,
 /obj/effect/decal/cleanable/crayon,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
