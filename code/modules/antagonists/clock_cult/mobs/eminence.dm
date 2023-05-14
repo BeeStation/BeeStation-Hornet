@@ -89,7 +89,7 @@
 	trigger_event = new
 	AddSpell(trigger_event)
 	//Wooooo, you are a ghost
-	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE)
+	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE, "#490066")
 	internal_radio = new(src)
 	cog_change()
 

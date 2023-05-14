@@ -243,7 +243,7 @@
 	equip_cooldown = 10
 	energy_drain = 250
 	range = MECHA_MELEE|MECHA_RANGED
-	item_flags = NO_MAT_REDEMPTION
+	item_flags = NO_MAT_REDEMPTION | ISWEAPON
 	var/mode = 0 //0 - deconstruct, 1 - wall or floor, 2 - airlock.
 
 /obj/item/mecha_parts/mecha_equipment/rcd/Initialize(mapload)
