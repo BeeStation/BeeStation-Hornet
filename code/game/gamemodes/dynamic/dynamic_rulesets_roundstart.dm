@@ -224,6 +224,7 @@
 	weight = 3
 	cost = 20
 	requirements = list(100,90,80,60,40,30,10,10,10,10)
+	minimum_players = 24
 	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET
 	antag_cap = list("denominator" = 20, "offset" = 1)
 	var/datum/team/cult/main_cult
@@ -583,6 +584,7 @@
 	weight = 3
 	cost = 35
 	requirements = list(100,90,80,70,60,50,30,30,30,30)
+	minimum_players = 24
 	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET
 	var/datum/team/clock_cult/main_cult
 	var/list/selected_servants = list()
