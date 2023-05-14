@@ -184,6 +184,11 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		for(var/M in computer.viewing_mobs)
 			computer.update_static_data(M)
 
+/// parameter must accept 'get_virtual_z_level()' values
+/datum/controller/subsystem/processing/orbits/proc/get_orbital_map_name_from_z(my_z)
+	var/datum/orbital_object/O = assoc_z_levels["[my_z]"]
+	return O?.name
+
 /*
  * Returns the base data of what is required for
  * OrbitalMapSvg to function.
