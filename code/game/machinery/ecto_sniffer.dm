@@ -15,7 +15,7 @@
 	var/list/ectoplasmic_residues = list()
 	///Internal radio
 	var/obj/item/radio/radio
-	///Cooldown for repathing, prevents spam
+	///Cooldown for radio, prevents spam
 	COOLDOWN_DECLARE(radio_cooldown)
 
 /obj/machinery/ecto_sniffer/Initialize()
