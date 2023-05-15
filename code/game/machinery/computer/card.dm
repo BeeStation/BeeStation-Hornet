@@ -488,11 +488,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			var/accesses = ""
 			if(istype(src, /obj/machinery/computer/card/centcom))
 				accesses += "<h5>Central Command:</h5>"
-				for(var/A in get_all_centcom_access())
-					if(A in inserted_modify_id.card_access) // need to check
-						accesses += "<a href='?src=[REF(src)];choice=access;access_target=[A];allowed=0'><font color=\"6bc473\">[replacetext(get_access_desc(A), " ", "&nbsp")]</font></a> "
+				for(var/each_access in get_all_centcom_access())
+					if(check_access_textified(inserted_modify_id.card_access, each_access))
+						accesses += "<a href='?src=[REF(src)];choice=access;access_target=[each_access];allowed=0'><font color=\"6bc473\">[replacetext(get_access_desc(each_access), " ", "&nbsp")]</font></a> "
 					else
-						accesses += "<a href='?src=[REF(src)];choice=access;access_target=[A];allowed=1'>[replacetext(get_access_desc(A), " ", "&nbsp")]</a> "
+						accesses += "<a href='?src=[REF(src)];choice=access;access_target=[each_access];allowed=1'>[replacetext(get_access_desc(each_access), " ", "&nbsp")]</a> "
 			else
 				accesses += "<div align='center'><b>Access</b></div>"
 				accesses += "<table style='width:100%'>"
@@ -506,11 +506,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					if(authenticated == 1 && !(i in region_access))
 						continue
 					accesses += "<td style='width:14%' valign='top'>"
-					for(var/A in get_region_accesses(i))
-						if(A in inserted_modify_id.card_access) // need to check
-							accesses += "<a href='?src=[REF(src)];choice=access;access_target=[A];allowed=0'><font color=\"6bc473\">[replacetext(get_access_desc(A), " ", "&nbsp")]</font></a> "
+					for(var/each_access in get_region_accesses(i))
+						if(check_access_textified(inserted_modify_id.card_access, each_access))
+							accesses += "<a href='?src=[REF(src)];choice=access;access_target=[each_access];allowed=0'><font color=\"6bc473\">[replacetext(get_access_desc(each_access), " ", "&nbsp")]</font></a> "
 						else
-							accesses += "<a href='?src=[REF(src)];choice=access;access_target=[A];allowed=1'>[replacetext(get_access_desc(A), " ", "&nbsp")]</a> "
+							accesses += "<a href='?src=[REF(src)];choice=access;access_target=[each_access];allowed=1'>[replacetext(get_access_desc(each_access), " ", "&nbsp")]</a> "
 						accesses += "<br>"
 					accesses += "</td>"
 				accesses += "</tr></table>"
@@ -619,14 +619,14 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				if(authenticated)
 					var/access_type = text2num(href_list["access_target"])
 					var/access_allowed = text2num(href_list["allowed"])
-					if(access_type in (istype(src, /obj/machinery/computer/card/centcom)?get_all_centcom_access() : get_all_accesses()))
+					if(access_type in (istype(src, /obj/machinery/computer/card/centcom) ? get_all_centcom_access() : get_all_accesses()))
 						if(access_allowed)
 							grant_accesses_to_card(inserted_modify_id.card_access, access_type)
 							log_id("[key_name(usr)] added [get_access_desc(access_type)] to [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
 						else
 							remove_accesses_from_card(inserted_modify_id.card_access, access_type)
 							log_id("[key_name(usr)] removed [get_access_desc(access_type)] from [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
-						playsound(src, "terminal_type", 50, FALSE)
+					playsound(src, "terminal_type", 50, FALSE)
 		if ("assign")
 			if (authenticated == 2)
 				var/datum/bank_account/B = inserted_modify_id?.registered_account

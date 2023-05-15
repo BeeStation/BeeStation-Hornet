@@ -42,6 +42,7 @@
 /mob/living/simple_animal/bot/firebot/Initialize(mapload)
 	. = ..()
 	update_icon()
+
 	var/datum/job/J = SSjob.GetJob(JOB_NAME_STATIONENGINEER)
 	grant_accesses_to_card(access_card.card_access, J.get_access())
 	grant_accesses_to_card(prev_access, access_card.card_access)

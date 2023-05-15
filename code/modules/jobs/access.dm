@@ -92,7 +92,6 @@
 	return TRUE
 
 
-/// Warning: don't ever never give access list to a card as numbers. Make it cached.
 /// Note: don't merge 'access_list' in the parameter. using grant_accesses_to_card() multiple times is recommended.
 /// 'referenced_target_access' will be a reference list if you send a list of an ID card.
 /proc/grant_accesses_to_card(list/referenced_target_access, list/access_list)
@@ -100,24 +99,37 @@
 		return
 	if(!islist(access_list)) // do not change the check to 'isnum()' because text/number comes
 		referenced_target_access["[access_list]"] = TRUE
+		return
 
 	for(var/each in access_list)
-		referenced_target_access["[each]"] = TRUE
+		each = "[each]"
+		var/acc_value = access_list?[each]
+		if(isnull(acc_value)) // if 'list(code=null)', it's good to give because it's value-less key
+			referenced_target_access[each] = TRUE
+		else if(acc_value) // if 'list(code=TRUE)', they have access to give
+			referenced_target_access[each] = TRUE
+		// if 'list(code=FALSE)', it shouldn't give access to them even if a key exists.
+
 
 /proc/remove_accesses_from_card(list/referenced_target_access, list/access_list)
 	if(!access_list)
 		return
 	if(!islist(access_list))
 		referenced_target_access["[access_list]"] = FALSE
+		return
 
 	for(var/each in access_list)
 		referenced_target_access["[each]"] = FALSE
+	// note: these accesses look weird when you check card_access in vv menu
+	// it says 'list(sort_number=code)', but it is actually 'list(code=FALSE)', so don't worry about it.
 
 /proc/check_access_textified(list/access_list_in_card, single_code)
-	if(!length(access_list_in_card) || !single_code)
+	if(!single_code)
 		return FALSE
-	single_code = "[single_code]"
-	return access_list_in_card[single_code] || FALSE // it won't return NULL
+	if(islist(single_code))
+		stack_trace("check_access_textified recieved a list in single_code parameter.")
+		return TRUE
+	return access_list_in_card["[single_code]"] || FALSE // it won't return NULL
 
 
 
@@ -253,7 +265,7 @@
 			return "Command"
 
 
-GLOBAL_VAR_INIT(access_desc_list, list( \
+GLOBAL_LIST_INIT(access_desc_list, list( \
 	"[ACCESS_CARGO]" = "Cargo Bay",
 	"[ACCESS_SECURITY]" = "Security",
 	"[ACCESS_BRIG]" = "Holding Cells",

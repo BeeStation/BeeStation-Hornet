@@ -563,6 +563,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/proc/check_bot_access()
 	if(mode != BOT_SUMMON && mode != BOT_RESPONDING)
+		access_card.card_access = list()
 		grant_accesses_to_card(access_card.card_access, prev_access)
 
 /mob/living/simple_animal/bot/proc/call_bot(caller, turf/waypoint, message=TRUE)
@@ -622,6 +623,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	set_path(null)
 	summon_target = null
 	pathset = 0
+	access_card.card_access = list()
 	grant_accesses_to_card(access_card.card_access, prev_access)
 	tries = 0
 	mode = BOT_IDLE

@@ -122,8 +122,11 @@
 
 /obj/item/card/id/Initialize(mapload)
 	. = ..()
+	var/temp = card_access
+	card_access = list()
+	grant_accesses_to_card(card_access, temp)
 	if(mapload && access_txt)
-		card_access = text2access(access_txt)
+		grant_accesses_to_card(card_access, text2access(access_txt))
 
 /obj/item/card/id/Destroy()
 	if (registered_account)
@@ -614,7 +617,9 @@ update_label("John Doe", "Clowny")
 	hud_state = JOB_HUD_CENTCOM
 
 /obj/item/card/id/ert/Initialize(mapload)
-	grant_accesses_to_card(card_access, get_all_accesses()+get_ert_access("commander")-ACCESS_CHANGE_IDS)
+	grant_accesses_to_card(card_access, get_all_accesses())
+	grant_accesses_to_card(card_access, get_ert_access("commander"))
+	grant_accesses_to_card(card_access, ACCESS_CHANGE_IDS)
 	. = ..()
 
 /obj/item/card/id/ert/Security
@@ -623,7 +628,9 @@ update_label("John Doe", "Clowny")
 	icon_state = "ert"
 
 /obj/item/card/id/ert/Security/Initialize(mapload)
-	grant_accesses_to_card(card_access, get_all_accesses()+get_ert_access("sec")-ACCESS_CHANGE_IDS)
+	grant_accesses_to_card(card_access, get_all_accesses())
+	grant_accesses_to_card(card_access, get_ert_access("sec"))
+	grant_accesses_to_card(card_access, ACCESS_CHANGE_IDS)
 	. = ..()
 
 /obj/item/card/id/ert/Engineer
@@ -632,7 +639,9 @@ update_label("John Doe", "Clowny")
 	icon_state = "ert"
 
 /obj/item/card/id/ert/Engineer/Initialize(mapload)
-	grant_accesses_to_card(card_access, get_all_accesses()+get_ert_access("eng")-ACCESS_CHANGE_IDS)
+	grant_accesses_to_card(card_access, get_all_accesses())
+	grant_accesses_to_card(card_access, get_ert_access("eng"))
+	grant_accesses_to_card(card_access, ACCESS_CHANGE_IDS)
 	. = ..()
 
 /obj/item/card/id/ert/Medical
@@ -641,7 +650,9 @@ update_label("John Doe", "Clowny")
 	icon_state = "ert"
 
 /obj/item/card/id/ert/Medical/Initialize(mapload)
-	grant_accesses_to_card(card_access, get_all_accesses()+get_ert_access("med")-ACCESS_CHANGE_IDS)
+	grant_accesses_to_card(card_access, get_all_accesses())
+	grant_accesses_to_card(card_access, get_ert_access("med"))
+	grant_accesses_to_card(card_access, ACCESS_CHANGE_IDS)
 	. = ..()
 
 /obj/item/card/id/ert/chaplain
@@ -650,7 +661,9 @@ update_label("John Doe", "Clowny")
 	icon_state = "ert"
 
 /obj/item/card/id/ert/chaplain/Initialize(mapload)
-	grant_accesses_to_card(card_access, get_all_accesses()+get_ert_access("sec")-ACCESS_CHANGE_IDS)
+	grant_accesses_to_card(card_access, get_all_accesses())
+	grant_accesses_to_card(card_access, get_ert_access("sec"))
+	grant_accesses_to_card(card_access, ACCESS_CHANGE_IDS)
 	. = ..()
 
 /obj/item/card/id/ert/Janitor

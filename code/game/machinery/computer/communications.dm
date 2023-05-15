@@ -27,7 +27,7 @@
 	var/authorize_name
 
 	/// The access that the card had on login
-	var/list/authorize_access
+	var/list/authorize_access = list()
 
 	/// The messages this console has been sent
 	var/list/datum/comm_message/messages
