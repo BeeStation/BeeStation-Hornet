@@ -57,7 +57,7 @@
 	var/obj/item/card/id/W = new(H)
 	W.icon_state = "centcom"
 	W.access = get_all_accesses()
-	W.access += get_all_centcom_access()
+	W.access |= get_all_centcom_access()
 	W.assignment = "Highlander"
 	W.registered_name = H.real_name
 	ADD_TRAIT(W, TRAIT_NODROP, HIGHLANDER)

@@ -3,7 +3,7 @@
 /turf/closed/wall,
 /area/template_noop)
 "b" = (
-/turf/closed/wall/r_wall,
+/turf/template_noop/closed,
 /area/template_noop)
 "c" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -58,14 +58,6 @@
 /obj/item/circuitboard/machine/paystand,
 /obj/item/stack/sheet/iron/five,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plasteel,
-/area/template_noop)
-"r" = (
-/obj/machinery/newscaster{
-	pixel_x = -28;
-	pixel_y = 1
-	},
-/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "s" = (
@@ -212,21 +204,19 @@
 
 (1,1,1) = {"
 U
-r
-s
 z
+s
 m
 S
 V
 a
 j
 f
-a
+b
 "}
 (2,1,1) = {"
 W
 n
-t
 t
 c
 q
@@ -240,20 +230,18 @@ J
 W
 i
 D
-D
 m
 C
 F
 a
 G
 u
-a
+b
 "}
 (4,1,1) = {"
 U
 R
 z
-m
 w
 h
 v
@@ -263,15 +251,14 @@ o
 b
 "}
 (5,1,1) = {"
-a
-a
+b
+b
 U
-U
-a
-a
-a
-a
-a
-a
+b
+b
+b
+b
+b
+b
 b
 "}
