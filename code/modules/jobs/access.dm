@@ -85,8 +85,8 @@
 			return FALSE
 
 	if(length(req_one_access))
-		for(var/each_code_ in req_one_access)
-			if(check_access_textified(accesses_to_check, each_code_)) //has an access from the single access list
+		for(var/each_code in req_one_access)
+			if(check_access_textified(accesses_to_check, each_code)) //has an access from the single access list
 				return TRUE
 		return FALSE
 	return TRUE
@@ -352,8 +352,7 @@ GLOBAL_LIST_INIT(access_desc_list, list( \
 	"[ACCESS_CLOCKCULT]" = "Clockcult"))
 
 /proc/get_access_desc(access_code)
-	access_code = "[access_code]"
-	return GLOB.access_desc_list[access_code] || "Unknown [access_code]"
+	return GLOB.access_desc_list["[access_code]"] || "Unknown [access_code]"
 
 /proc/get_all_jobs()
 	return list(JOB_NAME_CAPTAIN,
