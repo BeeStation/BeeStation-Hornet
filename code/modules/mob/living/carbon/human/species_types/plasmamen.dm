@@ -69,7 +69,10 @@
 
 	if(!preference_source)
 		return
-	var/path = J.species_outfits[SPECIES_PLASMAMAN]
+	var/path = J.species_outfits?[SPECIES_PLASMAMAN]
+	if (!path) //Somehow we were given a job without a plasmaman suit, use the default one so we don't go in naked!
+		path = /datum/outfit/plasmaman
+		stack_trace("Job [J] lacks a species_outfits entry for plasmamen!")
 	var/datum/outfit/plasmaman/O = new path
 	var/datum/character_save/CS = preference_source.prefs.active_character
 	if(CS.helmet_style != HELMET_DEFAULT)

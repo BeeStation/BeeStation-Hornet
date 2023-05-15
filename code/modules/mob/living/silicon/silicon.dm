@@ -452,6 +452,7 @@
 
 /mob/living/silicon/rust_heretic_act()
 	adjustBruteLoss(500)
+	return TRUE
 
 /mob/living/silicon/hears_radio()
 	return FALSE

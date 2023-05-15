@@ -1506,7 +1506,7 @@
 /obj/item/toy/eldrich_book
 	name = "Codex Cicatrix"
 	desc = "A toy book that closely resembles the Codex Cicatrix. Covered in fake polyester human flesh and has a huge goggly eye attached to the cover. The runes are gibberish and cannot be used to summon demons... Hopefully?"
-	icon = 'icons/obj/eldritch.dmi'
+	icon = 'icons/obj/heretic.dmi'
 	icon_state = "book"
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("sacrificed", "transmuted", "grasped", "cursed")
@@ -1526,7 +1526,7 @@
 /obj/item/toy/reality_pierce
 	name = "Pierced reality"
 	desc = "Hah. You thought it was the real deal!"
-	icon = 'icons/effects/eldritch.dmi'
+	icon = 'icons/effects/heretic.dmi'
 	icon_state = "pierced_illusion"
 	item_flags = NO_PIXEL_RANDOM_DROP
 
