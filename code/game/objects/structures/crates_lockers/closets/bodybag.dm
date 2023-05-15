@@ -5,7 +5,7 @@
 	icon = 'icons/obj/bodybag.dmi'
 	icon_state = "bodybag"
 	density = FALSE
-	mob_storage_capacity = 3
+	mob_storage_capacity = 2
 	var/foldable_storage_capacity = 0 // how many items can this hold folded
 	open_sound = 'sound/items/zip.ogg'
 	close_sound = 'sound/items/zip.ogg'
@@ -91,8 +91,8 @@
 	icon = 'icons/obj/bodybag.dmi'
 	icon_state = "bluebodybag"
 	foldedbag_path = /obj/item/bodybag/bluespace
-	mob_storage_capacity = 15
-	foldable_storage_capacity = 8
+	mob_storage_capacity = 10
+	foldable_storage_capacity = 6
 	max_mob_size = MOB_SIZE_LARGE
 
 /obj/structure/closet/body_bag/bluespace/folding_allowed()
