@@ -14303,7 +14303,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering Break Room";
-	req_one_access_txt = "32;19"
+	req_one_access_txt = "32"
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
@@ -28304,7 +28304,7 @@
 	},
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering Break Room";
-	req_one_access_txt = "32;19"
+	req_one_access_txt = "32"
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
@@ -31641,7 +31641,7 @@
 	},
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering Break Room";
-	req_one_access_txt = "32;19"
+	req_one_access_txt = "32"
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -56992,7 +56992,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering Break Room";
-	req_one_access_txt = "32;19"
+	req_one_access_txt = "32"
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
