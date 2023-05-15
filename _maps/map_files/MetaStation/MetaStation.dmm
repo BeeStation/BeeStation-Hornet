@@ -70108,7 +70108,7 @@
 "uEH" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Shared Engineering Storage";
-	req_one_access_txt = "32;19"
+	req_one_access_txt = "32"
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -71193,7 +71193,7 @@
 "vgR" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Shared Engineering Storage";
-	req_one_access_txt = "32;19"
+	req_one_access_txt = "32"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -75046,7 +75046,7 @@
 "wPX" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engineering Foyer";
-	req_one_access_txt = "32;19"
+	req_one_access_txt = "32"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"

@@ -1,6 +1,0 @@
-author: Absolucy
-delete-after: true
-changes:
-  - balance: Nanite chambers (including public chambers) are now upgradable! Upgraded
-      manipulators result in more "starting" nanites, and upgraded micro-lasers will
-      speed up the chamber.
