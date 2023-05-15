@@ -136,6 +136,10 @@ GLOBAL_VAR_INIT(cmp_field, "name")
 
 /proc/cmp_mob_realname_dsc(mob/A,mob/B)
 	return sorttext(A.real_name,B.real_name)
+
 /// Orders by integrated circuit weight
 /proc/cmp_port_order_asc(datum/port/compare1, datum/port/compare2)
 	return compare1.order - compare2.order
+
+/proc/cmp_heretic_knowledge(datum/heretic_knowledge/knowledge_a, datum/heretic_knowledge/knowledge_b)
+	return initial(knowledge_b.priority) - initial(knowledge_a.priority)

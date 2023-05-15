@@ -207,7 +207,7 @@
 /area/ruin/unpowered)
 "F" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/store/cake/birthday,
+/obj/item/food/cake/birthday,
 /turf/open/floor/wood{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},

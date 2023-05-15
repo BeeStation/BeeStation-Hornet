@@ -693,6 +693,7 @@ Class Procs:
 
 /obj/machinery/rust_heretic_act()
 	take_damage(500, BRUTE, MELEE, 1)
+	return TRUE
 
 /obj/machinery/vv_edit_var(vname, vval)
 	if(vname == "occupant")
