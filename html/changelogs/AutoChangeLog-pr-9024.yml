@@ -1,0 +1,4 @@
+author: WhereAmO, recouped by mystery3525
+delete-after: true
+changes:
+  - tweak: Ecto Sniffer now sends a message over Science Comms
