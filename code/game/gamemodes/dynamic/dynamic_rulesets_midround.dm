@@ -57,10 +57,10 @@
 
 		var/hours = M.client.get_exp_living(TRUE) / 60
 		if (hours < mode.min_antag_hours) // Do they have enough living hours for the attached gamemode?
-			candidates.Remove(P)
+			candidates.Remove(M)
 			continue
 		if (hours < minimum_required_hours) // Do they have enough living hours for the ruleset?
-			candidates.Remove(P)
+			candidates.Remove(M)
 			continue
 
 
