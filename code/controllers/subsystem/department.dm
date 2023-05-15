@@ -8,25 +8,30 @@ SUBSYSTEM_DEF(department)
 	init_order = INIT_ORDER_DEPARTMENT
 	flags = SS_NO_FIRE
 
-	var/list/department_list = list()
+	//
+	var/list/department_type_list = list()
+	var/list/department_id_list = list()
 	var/list/department_by_key = list()
-	var/list/department_names = list()
+	var/list/sorted_department_for_manifest = list()
+	var/list/sorted_department_for_pref = list()
+	var/list/current_all_accesses = list()
 
 /datum/controller/subsystem/department/Initialize(timeofday)
 	for(var/datum/department_group/each_dept as() in subtypesof(/datum/department_group))
 		each_dept = new each_dept
-		department_list += each_dept
+		department_type_list += each_dept
 		department_by_key[each_dept.dept_id] = each_dept
-		department_names += each_dept.dept_id
+		department_id_list += each_dept.dept_id
 
 	// initialising static list inside of the procs
 	get_departments_by_pref_order()
 	get_departments_by_manifest_order()
+	refresh_all_station_accesses()
 
 	return ..()
 
 /datum/controller/subsystem/department/proc/get_department_by_bitflag(bitflag)
-	for(var/datum/department_group/each_dept in department_list)
+	for(var/datum/department_group/each_dept in department_type_list)
 		if(each_dept.dept_bitflag & bitflag)
 			return each_dept
 
@@ -39,15 +44,49 @@ SUBSYSTEM_DEF(department)
 	return dept.jobs
 
 // get access proc
+/// returns job list by id. if id is given as a list, it will return as a list as `[department_id]=list(jobs)`
+/datum/controller/subsystem/department/proc/get_jobs_by_dept_id(list/id)
+	if(!id)
+		stack_trace("proc has no id value")
+		return list()
 
+	if(!islist(id))
+		id = list(id)
+
+	var/list/jobs_to_return = list()
+	for(var/each in id)
+		var/datum/department_group/dept = department_by_key[id]
+		if(!dept || !length(dept.jobs))
+			continue
+		jobs_to_return[dept.dept_id] = dept.jobs.Copy()
+
+	return jobs_to_return
+
+/// WARNING: This returns silicon jobs + non-station jobs. use `get_jobs_by_dept_id()`
 /datum/controller/subsystem/department/proc/get_all_jobs()
+	var/list/jobs_to_return = list()
+	for(var/datum/department_group/dept in department_by_key[id])
+		if(!dept || !length(dept.jobs))
+			continue
+		jobs_to_return[dept.dept_id] = dept.jobs.Copy()
+	return jobs_to_return
 
 
+/datum/controller/subsystem/department/proc/refresh_all_station_accesses()
+	for(var/datum/department_group/dept in department_by_key[id])
+		if(!dept.is_station)
+			continue
+		current_all_accesses |= dept.get_department_accesses()
+
+/datum/controller/subsystem/department/proc/get_all_station_accesses()
+	return current_all_accesses
+
+/// returns the department list as manifest order
 /datum/controller/subsystem/department/proc/get_departments_by_manifest_order()
-	var/static/list/department_order = list()
-	if(!length(department_order))
-		var/list/copied_dept = department_list.Copy()
-		while(length(copied_dept))
+	if(!length(sorted_department_for_manifest))
+		var/list/copied_dept = department_type_list.Copy()
+		var/sanity_check = 1000 // this won't happen but just in case
+		while(length(copied_dept) && sanity_check--)
 			var/datum/department_group/current
 			for(var/datum/department_group/each_dept in copied_dept)
 				if(!each_dept.manifest_category_order || !each_dept.manifest_category_name)
@@ -59,18 +98,21 @@ SUBSYSTEM_DEF(department)
 				if(each_dept.manifest_category_order < current.manifest_category_order)
 					current = each_dept
 					continue
-			department_order += current
+			sorted_department_for_manifest += current
 			copied_dept -= current
-	return department_order
+		if(!sanity_check)
+			stack_trace("the proc reached 0 sanity check - something's causing the infinite loop.")
+	return sorted_department_for_manifest
 
+/// returns the department list as preference order (used in latejoin)
 /datum/controller/subsystem/department/proc/get_departments_by_pref_order()
-	var/static/list/department_order = list()
-	if(!length(department_order))
-		var/list/copied_dept = department_list.Copy()
-		while(length(copied_dept))
+	if(!length(sorted_department_for_pref))
+		var/list/copied_dept = department_type_list.Copy()
+		var/sanity_check = 1000
+		while(length(copied_dept) && sanity_check--)
 			var/datum/department_group/current
 			for(var/datum/department_group/each_dept in copied_dept)
-				if(!each_dept.pref_category_order)
+				if(!each_dept.pref_category_order || !each_dept.pref_category_name)
 					copied_dept -= each_dept
 					continue
 				if(!current)
@@ -79,10 +121,34 @@ SUBSYSTEM_DEF(department)
 				if(each_dept.pref_category_order < current.pref_category_order)
 					current = each_dept
 					continue
-			department_order += current
+			sorted_department_for_pref += current
 			copied_dept -= current
-	return department_order
+		if(!sanity_check)
+			stack_trace("the proc reached 0 sanity check - something's causing the infinite loop.")
+	return sorted_department_for_pref
 
+
+/datum/controller/subsystem/department/proc/add_new_custom_access_by_dept_id(list/id, new_code, access_name, protected=FALSE)
+	if(!id)
+		CRASH("No id detected")
+
+	if(!islist(id))
+		id = list(id)
+	new_code = "[new_code]"
+
+	for(var/each in id)
+		var/datum/department_group/current = department_by_key[each]
+		if(!current)
+			continue
+		current.standard_access[new_code] = TRUE
+		GLOB.access_desc_list[new_code] = access_name
+		if(protected)
+			current.protected_access[new_code] = TRUE
+		current.refresh_full_access_list()
+
+
+// --------------------------------------------
+// department group datums for this subsystem
 /datum/department_group
 	// basic variables
 	var/dept_name = "No department"
@@ -93,7 +159,6 @@ SUBSYSTEM_DEF(department)
 	var/is_station = FALSE
 
 	// job preference & roundjoin window
-	/// sometimes a department should be merged into a department (i.e. VIP is Civilian in fact)
 	var/pref_category_name = "No department"
 	var/pref_category_order = 0
 
@@ -116,6 +181,8 @@ SUBSYSTEM_DEF(department)
 	var/list/custom_access = list()
 	/// supervisor access can't adjust these accesses (i.e. CMO can't give 'CMO office access' to their medical doctors card)
 	var/list/protected_access = list()
+	/// automated list var that is combination of standard+custom+protected, and used to display sane order
+	var/list/full_access_list = list()
 
 	// datacore & crew manifest
 	/// an access that can inject someone into a manifest
@@ -131,6 +198,52 @@ SUBSYSTEM_DEF(department)
 	var/budget_id = null
 	var/budget_bitflag = NONE
 
+// ----------------------------------------------
+//           department datum procs
+// ----------------------------------------------
+/// most variables exists as a list, but should be replaced as typecache for faster performance
+/datum/department_group/New()
+	for(var/each in leaders)
+		leaders["[each]"] = TRUE
+	for(var/each in jobs)
+		jobs["[each]"] = TRUE
+
+	for(var/each in access_dominant)
+		access_dominant["[each]"] = TRUE
+	for(var/each in access_supervisor)
+		access_supervisor["[each]"] = TRUE
+	for(var/each in standard_access)
+		standard_access["[each]"] = TRUE
+	for(var/each in custom_access)
+		custom_access["[each]"] = TRUE
+	for(var/each in protected_access)
+		protected_access["[each]"] = TRUE
+	refresh_full_access_list()
+
+	for(var/each in access_manifest_changer)
+		access_manifest_changer["[each]"] = TRUE
+	for(var/each in access_accountancy)
+		access_accountancy["[each]"] = TRUE
+
+/// only call this when HoP/Admin added a new custom accesss
+/datum/department_group/proc/refresh_full_access_list()
+	full_access_list = list()
+	for(var/each in standard_access)
+		if(custom_access[each] || protected_access[each])
+			continue
+		full_access_list[each] = TRUE // this will make protected access come after custom access
+	full_access_list |= custom_access
+	full_access_list |= protected_access
+	if(is_station)
+		SSdepartment.current_all_accesses |= full_access_list
+
+/// returns all accesses to a department.
+/datum/department_group/proc/get_department_accesses()
+	return full_access_list
+
+
+
+/// returns TRUE or FALSE based on auth type
 /datum/department_group/proc/check_authentication(check_type, list/access_to_check)
 	if(!check_type)
 		stack_trace("check_type is not specified")

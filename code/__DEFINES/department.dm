@@ -48,7 +48,7 @@
 #define DEPT_MANIFEST_ORDER_SUPPLY 60
 #define DEPT_MANIFEST_ORDER_SERVICE 70
 #define DEPT_MANIFEST_ORDER_CIVILIAN 80
-#define DEPT_MANIFEST_ORDER_SILICON 90 // not used - can be used if we want silicons in datacore
+#define DEPT_MANIFEST_ORDER_SILICON 90
 #define DEPT_MANIFEST_ORDER_OTHER 999 // not used but just in case
 
 

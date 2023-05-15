@@ -31,7 +31,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/minor = FALSE
 	var/target_paycheck = ACCOUNT_SRV_ID
 	var/list/available_departments = list(DEPT_NAME_SERVICE,
-											DEPT_NAME_CIVILIAN,
+											DEPT_NAME_CIVILIAN, // civ has no access list, but exists for manifest and payment
 											DEPT_NAME_SUPPLY,
 											DEPT_NAME_MEDICAL,
 											DEPT_NAME_SCIENCE,
@@ -973,7 +973,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 /obj/machinery/computer/card/centcom/Initialize(mapload)
 	. = ..()
-	available_departments |= SSdepartment.department_names
+	available_departments |= SSdepartment.department_id_list
 
 /obj/machinery/computer/card/minor
 	name = "department management console"
