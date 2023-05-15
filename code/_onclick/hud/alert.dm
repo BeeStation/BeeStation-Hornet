@@ -333,7 +333,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 
 /atom/movable/screen/alert/succumb/Click()
 	. = ..()
-	if(!.) //stops those other than the player in control from using alerts, like through the observe verb
+	if(isobserver(usr))
 		return
 	var/mob/living/living_owner = owner
 	var/last_whisper
