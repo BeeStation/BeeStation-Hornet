@@ -106,10 +106,9 @@ GLOBAL_VAR(medibot_unique_id_gen)
 
 /mob/living/simple_animal/bot/medbot/Initialize(mapload, new_skin)
 	. = ..()
-	var/datum/job/medical_doctor/J = new /datum/job/medical_doctor
-	access_card.access |= J.get_access()
-	prev_access = access_card.access
-	qdel(J)
+	var/datum/job/J = SSjob.GetJob(JOB_HUD_MEDICALDOCTOR)
+	grant_accesses_to_card(access_card.card_access, J.get_access())
+	grant_accesses_to_card(prev_access, access_card.card_access)
 	skin = new_skin
 	update_icon()
 	linked_techweb = SSresearch.science_tech
