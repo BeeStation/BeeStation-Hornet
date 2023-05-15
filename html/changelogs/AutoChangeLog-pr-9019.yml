@@ -1,6 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - bugfix: Corrects chassis integrity to respect the newer HP formula. Chassis integrity
-      will now report the actual health percentage instead of reporting a range from
-      51% to 151% integrity.
