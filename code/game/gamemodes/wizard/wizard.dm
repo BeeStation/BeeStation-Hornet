@@ -12,6 +12,7 @@
 	required_enemies = 1
 	recommended_enemies = 1
 	enemy_minimum_age = 14
+	min_antag_hours = 50
 	round_ends_with_antag_death = 1
 	announce_span = "danger"
 	announce_text = "There is a space wizard attacking the station!\n\

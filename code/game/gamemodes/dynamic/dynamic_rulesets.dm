@@ -24,6 +24,9 @@
 	var/datum/antagonist/antag_datum = null
 	/// The required minimum account age for this ruleset.
 	var/minimum_required_age = 7
+	/// Minimum living time (in hours) for someone to roll this particular ruleset.
+	/// Default is 10, but increased to 25 for team-based antags and 50 for more rigorous antags.
+	var/minimum_required_hours = 10
 	/// If set, and config flag protect_roles_from_antagonist is false, then the rule will not pick players from these roles.
 	var/list/protected_roles = list()
 	/// If set, rule will deny candidates from those roles always.
@@ -213,12 +216,23 @@
 		var/client/client = GET_CLIENT(P)
 		if (!client || !P.mind) // Are they connected?
 			candidates.Remove(P)
-		else if(!mode.check_age(client, minimum_required_age))
+			continue
+		if(!mode.check_age(client, minimum_required_age)) // is their account old enough?
 			candidates.Remove(P)
 			continue
+
+		var/hours = client.get_exp_living(TRUE) / 60
+		if (hours < mode.min_antag_hours) // Do they have enough living hours for the attached gamemode?
+			candidates.Remove(P)
+			continue
+		if (hours < minimum_required_hours) // Do they have enough living hours for the ruleset?
+			candidates.Remove(P)
+			continue
+
 		if(P.mind.special_role) // We really don't want to give antag to an antag.
 			candidates.Remove(P)
-		else if(antag_flag_override)
+			continue
+		if(antag_flag_override)
 			if(!(antag_flag_override in client.prefs.be_special) || is_banned_from(P.ckey, list(antag_flag_override, ROLE_SYNDICATE)))
 				candidates.Remove(P)
 				continue

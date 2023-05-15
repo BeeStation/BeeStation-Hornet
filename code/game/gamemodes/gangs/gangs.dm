@@ -11,6 +11,7 @@ GLOBAL_LIST_EMPTY(gangs)
 	required_enemies = 2
 	recommended_enemies = 3
 	enemy_minimum_age = 14
+	min_antag_hours = 25
 
 	announce_span = "danger"
 	announce_text = "A violent turf war has erupted on the station!\n\

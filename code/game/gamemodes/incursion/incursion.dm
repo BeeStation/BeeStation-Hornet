@@ -10,6 +10,7 @@
 	antag_flag = ROLE_INCURSION
 	false_report_weight = 10
 	enemy_minimum_age = 0
+	min_antag_hours = 25
 
 	announce_span = "danger"
 	announce_text = "A large force of syndicate operatives have infiltrated the ranks of the station and wish to take it by force!\n\

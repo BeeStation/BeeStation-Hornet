@@ -9,9 +9,18 @@
 		if (!P.client || !P.mind || !P.mind.assigned_role) // Are they connected?
 			candidates.Remove(P)
 			continue
-		if(!mode.check_age(P.client, minimum_required_age))
+		if(!mode.check_age(P.client, minimum_required_age)) // is their account old enough?
 			candidates.Remove(P)
 			continue
+
+		var/hours = P.client.get_exp_living(TRUE) / 60
+		if (hours < mode.min_antag_hours) // Do they have enough living hours for the attached gamemode?
+			candidates.Remove(P)
+			continue
+		if (hours < minimum_required_hours) // Do they have enough living hours for the ruleset?
+			candidates.Remove(P)
+			continue
+
 		if(antag_flag_override)
 			if(!(antag_flag_override in P.client.prefs.be_special) || is_banned_from(P.ckey, list(antag_flag_override, ROLE_SYNDICATE)))
 				candidates.Remove(P)
@@ -95,6 +104,7 @@
 	antag_datum = /datum/antagonist/rev/head
 	antag_flag = ROLE_REV_HEAD
 	antag_flag_override = ROLE_REV
+	minimum_required_hours = 25
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CHIEFENGINEER, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_RESEARCHDIRECTOR)
 	enemy_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER,JOB_NAME_DETECTIVE,JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_WARDEN)
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)

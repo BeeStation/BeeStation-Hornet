@@ -37,6 +37,7 @@
 	var/enemy_minimum_age = 7 //How many days must players have been playing before they can play this antagonist
 	var/list/allowed_special = list()	//Special roles that can spawn (Add things like /datum/antagonist/special/undercover for them to be able to spawn during this gamemode)
 	var/list/active_specials = list()	//Special roles that have spawned, and can now spawn late
+	var/min_antag_hours = 10 //Minimum living hours required to be a roundstart antagonist
 
 	var/announce_span = "warning" //The gamemode's name will be in this span during announcement.
 	var/announce_text = "This gamemode forgot to set a descriptive text! Uh oh!" //Used to describe a gamemode when it's announced.
@@ -488,8 +489,9 @@
 		if(player.client && player.ready == PLAYER_READY_TO_PLAY)
 			if(role in player.client.prefs.be_special)
 				if(!is_banned_from(player.ckey, list(role, ROLE_SYNDICATE)) && !QDELETED(player))
-					if(age_check(player.client)) //Must be older than the minimum age
-						candidates += player.mind				// Get a list of all the people who want to be the antagonist for this round
+					if(age_check(player.client)) //Must be older than the minimum allowable age
+						if((player.client.get_exp_living(TRUE) / 60) >= min_antag_hours) //Must have more hours than the minimum
+							candidates += player.mind				// Get a list of all the people who want to be the antagonist for this round
 
 	if(restricted_jobs)
 		for(var/datum/mind/player in candidates)
@@ -720,7 +722,6 @@
 	if(get_remaining_days(C) == 0)
 		return 1	//Available in 0 days = available right now = player is old enough to play.
 	return 0
-
 
 /datum/game_mode/proc/get_remaining_days(client/C)
 	if(!C)

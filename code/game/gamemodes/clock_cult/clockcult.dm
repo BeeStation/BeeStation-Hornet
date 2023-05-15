@@ -34,6 +34,7 @@ GLOBAL_VAR(clockcult_eminence)
 	recommended_enemies = 4
 	antag_flag = ROLE_SERVANT_OF_RATVAR
 	enemy_minimum_age = 14
+	min_antag_hours = 25
 
 	title_icon = "clockcult"
 	announce_span = "danger"
