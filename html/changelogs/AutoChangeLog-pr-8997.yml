@@ -1,0 +1,5 @@
+author: Absolucy
+delete-after: true
+changes:
+  - rscadd: Slime crossbreeds can be scanned for 750 discovery points each.
+  - tweak: Each color slime can be discovery scanned, rather than just scanning a slime once.
