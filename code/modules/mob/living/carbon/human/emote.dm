@@ -133,25 +133,22 @@
 	if(!.)
 		return
 	var/mob/living/carbon/human/H = user
-	if(!istype(H) || !H.dna || !H.dna.species || !H.dna.species.can_wag_tail(H))
+	var/obj/item/organ/tail/tail = H?.getorganslot(ORGAN_SLOT_TAIL)
+	if(!tail)
 		return
-	if(!H.dna.species.is_wagging_tail())
-		H.dna.species.start_wagging_tail(H)
-	else
-		H.dna.species.stop_wagging_tail(H)
+	tail.toggle_wag(H)
 
 /datum/emote/living/carbon/human/wag/can_run_emote(mob/user, status_check = TRUE , intentional)
 	if(!..())
 		return FALSE
 	var/mob/living/carbon/human/H = user
-	return H.dna?.species?.can_wag_tail(user)
+	return istype(H?.getorganslot(ORGAN_SLOT_TAIL), /obj/item/organ/tail)
 
 /datum/emote/living/carbon/human/wag/select_message_type(mob/user, intentional)
 	. = ..()
 	var/mob/living/carbon/human/H = user
-	if(!H.dna || !H.dna.species)
-		return
-	if(H.dna.species.is_wagging_tail())
+	var/obj/item/organ/tail/tail = H.getorganslot(ORGAN_SLOT_TAIL)
+	if(tail?.is_wagging(H))
 		. = null
 
 /datum/emote/living/carbon/human/wing
