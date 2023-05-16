@@ -72291,7 +72291,7 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Supermatter Engine";
-	req_one_access_txt = s
+	req_one_access_txt = "10;24"
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/engine/engine_room)
