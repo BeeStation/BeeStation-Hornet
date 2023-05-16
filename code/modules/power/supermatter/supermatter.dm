@@ -113,6 +113,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	///Can the crystal trigger the station wide anomaly spawn?
 	var/anomaly_event = TRUE
 
+	/// don't let these to be consumed by SM
+	var/static/list/consume_protected = list()
+
 /obj/machinery/power/supermatter_crystal/Initialize(mapload)
 	. = ..()
 	uid = gl_uid++
@@ -132,6 +135,14 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	RegisterSignal(src, COMSIG_ATOM_BSA_BEAM, PROC_REF(call_delamination_event))
 
 	soundloop = new(src, TRUE)
+
+	if(!length(consume_protected))
+		consume_protected = typecacheof(list(
+			/obj/eldritch,
+			/obj/anomaly/singularity,
+			/obj/anomaly/energy_ball,
+			/obj/boh_tear
+		))
 
 /obj/machinery/power/supermatter_crystal/Destroy()
 	investigate_log("has been destroyed.", INVESTIGATE_ENGINES)
@@ -306,12 +317,12 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			visible_message("<span class='warning'>[src] melts through [T]!</span>")
 		return
 
-	if(last_complete_process > SSair.last_complete_process) 
+	if(last_complete_process > SSair.last_complete_process)
 		power_changes = FALSE //Atmos has not been fully processed since the previous time the SM was. Abort all power and processing operations.
 		return
 	else
 		power_changes = TRUE //Atmos has run at least one full tick recently, resume processing.
-	
+
 	if(power)
 		soundloop.volume = CLAMP((50 + (power / 50)), 50, 100)
 	if(damage >= 300)
@@ -501,7 +512,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 		if(damage > explosion_point)
 			countdown()
-	
+
 	last_complete_process = world.time
 	return 1
 
@@ -691,7 +702,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		user.dust(force = TRUE)
 		if(is_power_processing())
 			matter_power += 200
-	else if(AM.flags_1 & SUPERMATTER_IGNORES_1)
+	else if(consume_protected[AM.type])
 		return
 	else if(isobj(AM))
 		var/obj/O = AM
@@ -878,7 +889,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	if(!power_changes) //Still toggled off from a failed atmos tick at some point
 		return FALSE
 	if(SSair.state >= SS_PAUSED) //Atmos isn't running, stop building power until it is fully operational again
-		power_changes = FALSE 
+		power_changes = FALSE
 		return FALSE
 	else //Atmos is either operational, or hasn't been stumbling enough for it to matter yet
 		return TRUE

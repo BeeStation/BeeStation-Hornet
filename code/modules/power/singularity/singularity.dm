@@ -28,7 +28,6 @@
 	var/time_since_act = 0
 	var/consumed_supermatter = FALSE //If the singularity has eaten a supermatter shard and can go to stage six
 	var/datum/weakref/singularity_component
-	flags_1 = SUPERMATTER_IGNORES_1
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	obj_flags = CAN_BE_HIT | DANGEROUS_POSSESSION
 
