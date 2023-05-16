@@ -14,6 +14,7 @@
 	display_results(user, target, "<span class='notice'>You begin to alter [target]'s appearance...</span>",
 		"[user] begins to alter [target]'s appearance.",
 		"[user] begins to make an incision in [target]'s face.")
+	display_pain(target, "You feel slicing pain across your face!")
 
 /datum/surgery_step/reshape_face/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(HAS_TRAIT_FROM(target, TRAIT_DISFIGURED, TRAIT_GENERIC))
@@ -21,6 +22,7 @@
 		display_results(user, target, "<span class='notice'>You successfully restore [target]'s appearance.</span>",
 			"[user] successfully restores [target]'s appearance!",
 			"[user] finishes the operation on [target]'s face.")
+		display_pain(target, "The pain fades, your face feels normal again!")
 	else
 		var/list/names = list()
 		if(!isabductor(user))
@@ -39,6 +41,7 @@
 		display_results(user, target, "<span class='notice'>You alter [oldname]'s appearance completely, [target.p_they()] is now [newname].</span>",
 			"[user] alters [oldname]'s appearance completely, [target.p_they()] is now [newname]!",
 			"[user] finishes the operation on [target]'s face.")
+		display_pain(target, "The pain fades, your face feels new and unfamiliar!")
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		H.sec_hud_set_ID()
@@ -48,5 +51,6 @@
 	display_results(user, target, "<span class='warning'>You screw up, leaving [target]'s appearance disfigured!</span>",
 		"[user] screws up, disfiguring [target]'s appearance!",
 		"[user] finishes the operation on [target]'s face.")
+	display_pain(target, "Your face feels horribly scarred and deformed!")
 	ADD_TRAIT(target, TRAIT_DISFIGURED, TRAIT_GENERIC)
 	return FALSE

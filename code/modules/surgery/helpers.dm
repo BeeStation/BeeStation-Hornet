@@ -111,6 +111,8 @@
 			to_chat(user, "<span class='warning'>You need to hold a [is_robotic ? "screwdriver" : "cautery"] in your inactive hand to stop [M]'s surgery!</span>")
 			return
 		M.surgeries -= S
+		if(!LAZYLEN(M.surgeries))
+			SEND_SIGNAL(M, COMSIG_CLEAR_MOOD_EVENT, "surgery")
 		user.visible_message("<span class='notice'>[user] closes [M]'s [parse_zone(selected_zone)] with [close_tool] and removes [I].</span>", \
 			"<span class='notice'>You close [M]'s [parse_zone(selected_zone)] with [close_tool] and remove [I].</span>")
 		qdel(S)

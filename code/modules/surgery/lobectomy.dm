@@ -26,6 +26,7 @@
 	display_results(user, target, "<span class='notice'>You begin to make an incision in [target]'s lungs...</span>",
 		"[user] begins to make an incision in [target].",
 		"[user] begins to make an incision in [target].")
+	display_pain(target, "You feel a stabbing pain in your chest!")
 
 /datum/surgery_step/lobectomy/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(ishuman(target))
@@ -36,6 +37,7 @@
 		display_results(user, target, "<span class='notice'>You successfully excise [H]'s most damaged lobe.</span>",
 			"Successfully removes a piece of [H]'s lungs.",
 			"")
+		display_pain(target, "Your chest hurts like hell, but breathng becomes slightly easier.")
 	return TRUE
 
 /datum/surgery_step/lobectomy/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -44,6 +46,7 @@
 		display_results(user, target, "<span class='warning'>You screw up, failing to excise [H]'s damaged lobe!</span>",
 			"<span class='warning'>[user] screws up!</span>",
 			"<span class='warning'>[user] screws up!</span>")
+		display_pain(target, "You feel a sharp stab in your chest; the wind is knocked out of you and it hurts to catch your breath!")
 		H.losebreath += 4
 		H.adjustOrganLoss(ORGAN_SLOT_LUNGS, 10)
 	return FALSE

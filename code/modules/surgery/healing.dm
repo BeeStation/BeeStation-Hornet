@@ -45,8 +45,8 @@
 		var/datum/surgery/healing/the_surgery = surgery
 		if(!the_surgery.antispam)
 			display_results(user, target, "<span class='notice'>You attempt to patch some of [target]'s [woundtype].</span>",
-		"[user] attempts to patch some of [target]'s [woundtype].",
-		"[user] attempts to patch some of [target]'s [woundtype].")
+				"[user] attempts to patch some of [target]'s [woundtype].",
+				"[user] attempts to patch some of [target]'s [woundtype].")
 
 
 /datum/surgery_step/heal/initiate(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)

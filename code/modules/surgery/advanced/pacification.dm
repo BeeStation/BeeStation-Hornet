@@ -30,11 +30,13 @@
 	display_results(user, target, "<span class='notice'>You begin to pacify [target]...</span>",
 		"[user] begins to fix [target]'s brain.",
 		"[user] begins to perform surgery on [target]'s brain.")
+	display_pain(target, "Your head pounds with unimaginable pain!")
 
 /datum/surgery_step/pacify/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, "<span class='notice'>You succeed in neurologically pacifying [target].</span>",
 		"[user] successfully fixes [target]'s brain!",
 		"[user] completes the surgery on [target]'s brain.")
+	display_pain(target, "Your head pounds... the concept of violence flashes in your head, and nearly makes you hurl!")
 	target.gain_trauma(/datum/brain_trauma/severe/pacifism, TRAUMA_RESILIENCE_LOBOTOMY)
 	return TRUE
 
@@ -42,5 +44,6 @@
 	display_results(user, target, "<span class='notice'>You screw up, rewiring [target]'s brain the wrong way around...</span>",
 			"<span class='warning'>[user] screws up, causing brain damage!</span>",
 			"[user] completes the surgery on [target]'s brain.")
+	display_pain(target, "Your head pounds, and it feels like it's getting worse!")
 	target.gain_trauma_type(BRAIN_TRAUMA_SEVERE, TRAUMA_RESILIENCE_LOBOTOMY)
 	return FALSE

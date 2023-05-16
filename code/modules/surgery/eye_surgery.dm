@@ -22,6 +22,7 @@
 	display_results(user, target, "<span class='notice'>You begin to fix [target]'s eyes...</span>",
 		"[user] begins to fix [target]'s eyes.",
 		"[user] begins to perform surgery on [target]'s eyes.")
+	display_pain(target, "You feel a stabbing pain in your eyes!")
 
 /datum/surgery_step/fix_eyes/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/eyes/E = target.getorganslot(ORGAN_SLOT_EYES)
@@ -29,6 +30,7 @@
 	display_results(user, target, "<span class='notice'>You succeed in fixing [target]'s eyes.</span>",
 		"[user] successfully fixes [target]'s eyes!",
 		"[user] completes the surgery on [target]'s eyes.")
+	display_pain(target, "Your vision blurs, but it seems like you can see a little better now!")
 	target.cure_blind(list(EYE_DAMAGE))
 	target.set_blindness(0)
 	target.cure_nearsighted(list(EYE_DAMAGE))
@@ -41,9 +43,11 @@
 		display_results(user, target, "<span class='warning'>You accidentally stab [target] right in the brain!</span>",
 			"<span class='warning'>[user] accidentally stabs [target] right in the brain!</span>",
 			"<span class='warning'>[user] accidentally stabs [target] right in the brain!</span>")
+		display_pain(target, "You feel a visceral stabbing pain right through your head, into your brain!")
 		target.adjustOrganLoss(ORGAN_SLOT_BRAIN, 70)
 	else
 		display_results(user, target, "<span class='warning'>You accidentally stab [target] right in the brain! Or would have, if [target] had a brain.</span>",
 			"<span class='warning'>[user] accidentally stabs [target] right in the brain! Or would have, if [target] had a brain.</span>",
 			"<span class='warning'>[user] accidentally stabs [target] right in the brain!</span>")
+		display_pain(target, "You feel a visceral stabbing pain right through your head!") // dunno who can feel pain w/o a brain but may as well be consistent.
 	return FALSE

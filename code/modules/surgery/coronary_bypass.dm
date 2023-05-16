@@ -26,6 +26,7 @@
 	display_results(user, target, "<span class='notice'>You begin to make an incision in [target]'s heart...</span>",
 		"[user] begins to make an incision in [target]'s heart.",
 		"[user] begins to make an incision in [target]'s heart.")
+	display_pain(target, "You feel a horrendous pain in your heart, it's almost enough to make you pass out!")
 
 /datum/surgery_step/incise_heart/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(ishuman(target))
@@ -58,6 +59,7 @@
 	display_results(user, target, "<span class='notice'>You begin to graft a bypass onto [target]'s heart...</span>",
 			"[user] begins to graft something onto [target]'s heart!",
 			"[user] begins to graft something onto [target]'s heart!")
+	display_pain(target, "The pain in your chest is unbearable! You can barely take it anymore!")
 
 /datum/surgery_step/coronary_bypass/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	target.setOrganLoss(ORGAN_SLOT_HEART, 60)
@@ -67,6 +69,7 @@
 	display_results(user, target, "<span class='notice'>You successfully graft a bypass onto [target]'s heart.</span>",
 			"[user] finishes grafting something onto [target]'s heart.",
 			"[user] finishes grafting something onto [target]'s heart.")
+	display_pain(target, "The pain in your chest throbs, but your heart feels better than ever!")
 	return TRUE
 
 /datum/surgery_step/coronary_bypass/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -75,6 +78,7 @@
 		display_results(user, target, "<span class='warning'>You screw up in attaching the graft, and it tears off, tearing part of the heart!</span>",
 			"<span class='warning'>[user] screws up, causing blood to spurt out of [H]'s chest profusely!</span>",
 			"<span class='warning'>[user] screws up, causing blood to spurt out of [H]'s chest profusely!</span>")
+		display_pain(target, "Your chest burns; you feel like you're going insane!")
 		H.adjustOrganLoss(ORGAN_SLOT_HEART, 20)
 		H.bleed_rate += 30
 	return FALSE

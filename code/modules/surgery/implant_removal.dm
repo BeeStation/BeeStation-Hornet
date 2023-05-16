@@ -20,6 +20,7 @@
 		display_results(user, target, "<span class='notice'>You begin to extract [I] from [target]'s [target_zone]...</span>",
 			"[user] begins to extract [I] from [target]'s [target_zone].",
 			"[user] begins to extract something from [target]'s [target_zone].")
+		display_pain(target, "You feel a serious pain in your [target_zone]!")
 	else
 		display_results(user, target, "<span class='notice'>You look for an implant in [target]'s [target_zone]...</span>",
 			"[user] looks for an implant in [target]'s [target_zone].",
@@ -30,6 +31,7 @@
 		display_results(user, target, "<span class='notice'>You successfully remove [I] from [target]'s [target_zone].</span>",
 			"[user] successfully removes [I] from [target]'s [target_zone]!",
 			"[user] successfully removes something from [target]'s [target_zone]!")
+		display_pain(target, "You can feel your [I] pulled out of you!")
 		I.removed(target)
 
 		var/obj/item/implantcase/case

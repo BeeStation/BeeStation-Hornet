@@ -35,11 +35,13 @@
 	display_results(user, target, "<span class='notice'>You start heating [target]'s bone marrow with [tool]...</span>",
 		"[user] starts heating [target]'s bone marrow with [tool]...",
 		"[user] starts heating something in [target]'s chest with [tool]...")
+	display_pain(target, "You feel a searing heat spread through your chest!")
 
 /datum/surgery_step/viral_bond/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, "<span class='notice'>[target]'s bone marrow begins pulsing slowly. The viral bonding is complete.</span>",
 		"[target]'s bone marrow begins pulsing slowly.",
 		"[user] finishes the operation.")
+	display_pain(target, "You feel a faint throbbing in your chest.")
 	for(var/X in target.diseases)
 		var/datum/disease/D = X
 		D.carrier = TRUE

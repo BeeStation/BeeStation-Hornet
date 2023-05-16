@@ -223,7 +223,7 @@
 	mood_change = -6
 
 /datum/mood_event/surgery
-	description = "<span class='boldwarning'>HE'S CUTTING ME OPEN!!</span>\n"
+	description = "<span class='boldwarning'>THEY'RE CUTTING ME OPEN!!</span>\n"
 	mood_change = -8
 
 /datum/mood_event/nanite_sadness

@@ -31,11 +31,13 @@
 	display_results(user, target, "<span class='notice'>You begin to fix [target]'s brain...</span>",
 		"[user] begins to fix [target]'s brain.",
 		"[user] begins to perform surgery on [target]'s brain.")
+	display_pain(target, "Your head pounds with unimaginable pain!")
 
 /datum/surgery_step/fix_brain/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, "<span class='notice'>You succeed in fixing [target]'s brain.</span>",
 		"[user] successfully fixes [target]'s brain!",
 		"[user] completes the surgery on [target]'s brain.")
+	display_pain(target, "The pain in your head receeds, thinking becomes a bit easier!")
 	if(target.mind && target.mind.has_antag_datum(/datum/antagonist/brainwashed))
 		unbrainwash(target)
 	target.setOrganLoss(ORGAN_SLOT_BRAIN, target.getOrganLoss(ORGAN_SLOT_BRAIN) - 60)	//we set damage in this case in order to clear the "failing" flag
@@ -49,6 +51,7 @@
 		display_results(user, target, "<span class='warning'>You screw up, causing more damage!</span>",
 			"<span class='warning'>[user] screws up, causing brain damage!</span>",
 			"[user] completes the surgery on [target]'s brain.")
+		display_pain(target, "Your head throbs with horrible pain; thinking hurts!")
 		target.adjustOrganLoss(ORGAN_SLOT_BRAIN, 60)
 		target.gain_trauma_type(BRAIN_TRAUMA_SEVERE, TRAUMA_RESILIENCE_LOBOTOMY)
 	else

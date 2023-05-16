@@ -29,6 +29,7 @@
 	display_results(user, target, "<span class='notice'>You begin to cut out a damaged piece of [target]'s liver...</span>",
 		"<span class='notice'>[user] begins to make an incision in [target].</span>",
 		"<span class='notice'>[user] begins to make an incision in [target].</span>")
+	display_pain(target, "Your abdomen burns in horrific stabbing pain!")
 
 /datum/surgery_step/hepatectomy/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/mob/living/carbon/human/H = target
@@ -36,6 +37,7 @@
 	display_results(user, target, "<span class='notice'>You successfully remove the damaged part of [target]'s liver.</span>",
 		"<span class='notice'>[user] successfullly removes the damaged part of [target]'s liver.",
 		"<span class='notice'>[user] successfullly removes the damaged part of [target]'s liver.")
+	display_pain(target, "The pain receeds slightly.")
 	return TRUE
 
 /datum/surgery_step/hepatectomy/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery)
@@ -44,3 +46,4 @@
 	display_results(user, target, "<span class='warning'>You cut the wrong part of [target]'s liver!</span>",
 		"<span class='warning'>[user] cuts the wrong part of [target]'s liver!",
 		"<span class='warning'>[user] cuts the wrong part of [target]'s liver!")
+	display_pain(target, "You feel a sharp stab inside your abdomen!")

@@ -77,6 +77,7 @@
 		display_results(user, target, "<span class='notice'>You succeed in replacing [target]'s [parse_zone(target_zone)].</span>",
 			"[user] successfully replaces [target]'s [parse_zone(target_zone)] with [tool]!",
 			"[user] successfully replaces [target]'s [parse_zone(target_zone)]!")
+		display_pain(target, "You feel synthetic sensation wash from your [parse_zone(target_zone)], which you can feel again!", mechanical_surgery = TRUE)
 		return 1
 	else
 		var/obj/item/bodypart/L = target.newBodyPart(target_zone, FALSE, FALSE)
@@ -86,6 +87,7 @@
 		display_results(user, target, "<span class='notice'>You attach [tool].</span>",
 			"[user] finishes attaching [tool]!",
 			"[user] finishes the attachment procedure!")
+		display_pain(target, "You feel a strange sensation from your new [parse_zone(target_zone)].", mechanical_surgery = TRUE)
 		qdel(tool)
 		if(istype(tool, /obj/item/chainsaw/energy/doom))
 			var/obj/item/mounted_chainsaw/super/new_arm = new(target)

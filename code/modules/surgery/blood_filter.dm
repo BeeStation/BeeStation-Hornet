@@ -31,6 +31,7 @@
 			display_results(user, target, "<span class='notice'>You begin filtering [target]'s blood...</span>",
 		"<span class='notice'>[user] uses [tool] to filtering your blood.</span>",
 		"<span class='notice'>[user] uses [tool] on [target]'s chest.</span>")
+		display_pain(target, "You feel a throbbing pain in your chest!")
 
 /datum/surgery_step/filter_blood/initiate(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
 	if(..())
