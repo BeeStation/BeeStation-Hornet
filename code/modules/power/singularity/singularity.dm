@@ -227,6 +227,9 @@
 	return 1
 
 /obj/anomaly/singularity/proc/consume(atom/thing)
+	if(thing == src)
+		stack_trace("consume() called on self by singularity [src]")
+		return
 	var/gain = thing.singularity_act(current_size, src)
 	energy += gain
 	if(istype(thing, /obj/machinery/power/supermatter_crystal) && !consumed_supermatter)
@@ -368,6 +371,7 @@
 	var/dist = max((current_size - 2),1)
 	explosion(src.loc,(dist),(dist*2),(dist*4))
 	qdel(src)
+	log_game("Singularity [src] consumed by another singularity at [AREACOORD(src)]")
 	return(gain)
 
 /obj/anomaly/singularity/deadchat_controlled
