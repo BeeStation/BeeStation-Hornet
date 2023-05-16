@@ -310,11 +310,11 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 
 	admin_panel() // Refreshes the window
 
-// Checks if there are NO_OTHER_ROUNDSTARTSs and calls the rule's round_result() proc
+// Checks if there are any high-impact rulesets and calls the rule's round_result() proc
 /datum/game_mode/dynamic/set_round_result()
 	// If it got to this part, just pick one high impact ruleset if it exists
 	for(var/datum/dynamic_ruleset/rule in executed_rules)
-		if(CHECK_BITFIELD(rule.flags, NO_OTHER_ROUNDSTARTS_RULESET))
+		if(CHECK_BITFIELD(rule.flags, HIGH_IMPACT_RULESET))
 			return rule.round_result()
 	return ..()
 
