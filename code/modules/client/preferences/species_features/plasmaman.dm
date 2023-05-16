@@ -8,3 +8,6 @@
 
 /datum/preference/choiced/helmet_style/create_default_value()
 	return HELMET_DEFAULT
+
+/datum/preference/choiced/helmet_style/apply_to_human(mob/living/carbon/human/target, value)
+	return

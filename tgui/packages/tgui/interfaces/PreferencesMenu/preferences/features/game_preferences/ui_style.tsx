@@ -51,7 +51,7 @@ const UIStyleInput = (props: FeatureValueProps<string, string, FeatureChoicedSer
   );
 };
 
-export const UI_style: FeatureChoiced = {
+export const ui_style: FeatureChoiced = {
   name: 'UI Style',
   category: 'UI',
   component: UIStyleInput,

@@ -130,7 +130,7 @@
 /datum/preference/color_legacy/gradient_color/apply_to_human(mob/living/carbon/human/target, value)
 	target.gradient_color = value
 
-/datum/preference/color/gradient_color/is_accessible(datum/preferences/preferences)
+/datum/preference/color_legacy/gradient_color/is_accessible(datum/preferences/preferences)
 	if (!..(preferences))
 		return FALSE
 	return preferences.read_preference(/datum/preference/choiced/gradient_style) != "None"
