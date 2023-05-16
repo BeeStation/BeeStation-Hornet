@@ -1,4 +1,4 @@
-/*/datum/preference/choiced/tail_human
+/datum/preference/choiced/tail_human
 	db_key = "feature_human_tail"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
@@ -31,4 +31,4 @@
 /datum/preference/choiced/ears/create_default_value()
 	var/datum/sprite_accessory/ears/cat/ears = /datum/sprite_accessory/ears/cat
 	return initial(ears.name)
-*/
+

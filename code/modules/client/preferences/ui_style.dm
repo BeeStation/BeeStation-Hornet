@@ -24,3 +24,8 @@
 
 /datum/preference/choiced/ui_style/apply_to_client(client/client, value)
 	client.mob?.hud_used?.update_ui_style(ui_style2icon(value))
+
+/datum/preference/toggle/intent_style
+	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
+	db_key = "intent_style"
+	preference_type = PREFERENCE_PLAYER

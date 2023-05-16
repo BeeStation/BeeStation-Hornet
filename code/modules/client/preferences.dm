@@ -36,7 +36,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/list/key_bindings_by_key = list()
 
 	var/db_flags
-	var/chat_toggles = TOGGLES_DEFAULT_CHAT
+
+	/// Legacy toggles bitflags
+	var/toggles = 0
 
 	//character preferences
 	var/slot_randomized //keeps track of round-to-round randomization of the character slot, prevents overwriting

@@ -8,15 +8,14 @@
 	// DO NOT ADD ANY NEW TOGGLES HERE!
 	// Use `/datum/preference/toggle` instead.
 	var/static/list/legacy_toggles = list(
-		"admin_ignore_cult_ghost" = ADMIN_IGNORE_CULT_GHOST,
-		"announce_login" = ANNOUNCE_LOGIN,
-		"combohud_lighting" = COMBOHUD_LIGHTING,
-		"deadmin_always" = DEADMIN_ALWAYS,
-		"deadmin_antagonist" = DEADMIN_ANTAGONIST,
-		"deadmin_position_head" = DEADMIN_POSITION_HEAD,
-		"deadmin_position_security" = DEADMIN_POSITION_SECURITY,
-		"deadmin_position_silicon" = DEADMIN_POSITION_SILICON,
-		"member_public" = MEMBER_PUBLIC,
+		"announce_login" = PREFTOGGLE_ANNOUNCE_LOGIN,
+		"combohud_lighting" = PREFTOGGLE_COMBOHUD_LIGHTING,
+		"deadmin_always" = PREFTOGGLE_DEADMIN_ALWAYS,
+		"deadmin_antagonist" = PREFTOGGLE_DEADMIN_ANTAGONIST,
+		"deadmin_position_head" = PREFTOGGLE_DEADMIN_POSITION_HEAD,
+		"deadmin_position_security" = PREFTOGGLE_DEADMIN_POSITION_SECURITY,
+		"deadmin_position_silicon" = PREFTOGGLE_DEADMIN_POSITION_SILICON,
+		"member_public" = PREFTOGGLE_MEMBER_PUBLIC,
 	)
 
 /datum/preference_middleware/legacy_toggles/get_character_preferences(mob/user)
@@ -24,7 +23,6 @@
 		return list()
 
 	var/static/list/admin_only_legacy_toggles = list(
-		"admin_ignore_cult_ghost",
 		"announce_login",
 		"combohud_lighting",
 		"deadmin_always",
@@ -32,8 +30,6 @@
 		"deadmin_position_head",
 		"deadmin_position_security",
 		"deadmin_position_silicon",
-		"sound_adminhelp",
-		"sound_prayers",
 	)
 
 	var/static/list/deadmin_flags = list(
@@ -50,7 +46,7 @@
 		if (!is_admin && (toggle_name in admin_only_legacy_toggles))
 			continue
 
-		if (is_admin && (toggle_name in deadmin_flags) && (preferences.toggles & DEADMIN_ALWAYS))
+		if (is_admin && (toggle_name in deadmin_flags) && (preferences.toggles & PREFTOGGLE_DEADMIN_ALWAYS))
 			continue
 
 		if (toggle_name == "member_public" && !preferences.unlock_content)

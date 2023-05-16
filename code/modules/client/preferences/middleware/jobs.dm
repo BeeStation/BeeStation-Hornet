@@ -40,6 +40,7 @@
 	for (var/datum/job/job as anything in SSjob.occupations)
 		if(!job.show_in_prefs)
 			continue
+
 		var/department_flag = job.department_for_prefs
 		if (isnull(department_flag))
 			stack_trace("[job] does not have a department set, yet is a joinable occupation!")

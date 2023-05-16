@@ -1,21 +1,13 @@
-// Legacy chat toggles.
-// !!! DO NOT ADD ANY NEW ONES HERE !!!
-// Use `/datum/preference/toggle` instead.
-#define CHAT_OOC			(1<<0)
-#define CHAT_DEAD			(1<<1)
-#define CHAT_GHOSTEARS		(1<<2)
-#define CHAT_GHOSTSIGHT		(1<<3)
-#define CHAT_PRAYER			(1<<4)
-#define CHAT_RADIO			(1<<5)
-#define CHAT_PULLR			(1<<6)
-#define CHAT_GHOSTWHISPER	(1<<7)
-#define CHAT_GHOSTPDA		(1<<8)
-#define CHAT_GHOSTRADIO 	(1<<9)
-#define CHAT_BANKCARD  (1<<10)
-#define CHAT_GHOSTLAWS	(1<<11)
-#define CHAT_GHOSTFOLLOWMINDLESS (1<<12)
+// Legacy toggles
+#define PREFTOGGLE_MEMBER_PUBLIC				(1<<4)
+#define PREFTOGGLE_ANNOUNCE_LOGIN				(1<<10)
+#define PREFTOGGLE_COMBOHUD_LIGHTING			(1<<14)
 
-#define TOGGLES_DEFAULT_CHAT (CHAT_OOC|CHAT_DEAD|CHAT_GHOSTEARS|CHAT_GHOSTSIGHT|CHAT_PRAYER|CHAT_RADIO|CHAT_PULLR|CHAT_GHOSTWHISPER|CHAT_GHOSTPDA|CHAT_GHOSTRADIO|CHAT_BANKCARD|CHAT_GHOSTLAWS|CHAT_GHOSTFOLLOWMINDLESS)
+#define PREFTOGGLE_DEADMIN_ALWAYS				(1<<15)
+#define PREFTOGGLE_DEADMIN_ANTAGONIST			(1<<16)
+#define PREFTOGGLE_DEADMIN_POSITION_HEAD		(1<<17)
+#define PREFTOGGLE_DEADMIN_POSITION_SECURITY	(1<<18)
+#define PREFTOGGLE_DEADMIN_POSITION_SILICON		(1<<19)
 
 // Preferences value defines
 
@@ -95,44 +87,31 @@
 #define UPLINK_IMPLANT "Implant"
 #define UPLINK_IMPLANT_WITH_PRICE "[UPLINK_IMPLANT] (-[UPLINK_IMPLANT_TELECRYSTAL_COST] TC)"
 
-//Plasmamen helmet styles, when you edit those remember to edit list in preferences.dm
+//Plasmamen helmet styles
 #define HELMET_DEFAULT "Default"
 #define HELMET_MK2 "Mark II"
 #define HELMET_PROTECTIVE "Protective"
+
+GLOBAL_LIST_INIT(helmet_styles, list(
+	HELMET_DEFAULT,
+	HELMET_MK2,
+	HELMET_PROTECTIVE,
+))
 
 // All DB preference entries go here
 // --- DO NOT EVER CHANGE OR RE-USE VALUES HERE ---
 // If you remove an entry, comment it out and leave it for preservation sake
 // All the values must be strings because they are map entries not list indexes
-#define PREFERENCE_TAG_TOGGLES			"1"
-#define PREFERENCE_TAG_TOGGLES2			"2"
-#define PREFERENCE_TAG_ASAY_COLOUR		"3"
-#define PREFERENCE_TAG_OOC_COLOUR		"4"
-#define PREFERENCE_TAG_LAST_CL			"5"
-#define PREFERENCE_TAG_UI_STYLE			"6"
-#define PREFERENCE_TAG_OUTLINE_COLOUR	"7"
-#define PREFERENCE_TAG_BALLOON_ALERTS	"8"
-#define PREFERENCE_TAG_DEFAULT_SLOT		"9"
-#define PREFERENCE_TAG_CHAT_TOGGLES		"10"
-#define PREFERENCE_TAG_GHOST_FORM		"11"
-#define PREFERENCE_TAG_GHOST_ORBIT		"12"
-#define PREFERENCE_TAG_GHOST_ACCS		"13"
-#define PREFERENCE_TAG_GHOST_OTHERS		"14"
-#define PREFERENCE_TAG_PREFERRED_MAP	"15"
-#define PREFERENCE_TAG_IGNORING			"16"
-#define PREFERENCE_TAG_CLIENTFPS		"17"
-#define PREFERENCE_TAG_PARALLAX			"18"
-#define PREFERENCE_TAG_PIXELSIZE		"19"
-#define PREFERENCE_TAG_SCALING_METHOD	"20"
-#define PREFERENCE_TAG_TIP_DELAY		"21"
-#define PREFERENCE_TAG_PDA_THEME		"22"
-#define PREFERENCE_TAG_PDA_COLOUR		"23"
-#define PREFERENCE_TAG_KEYBINDS			"24"
-#define PREFERENCE_TAG_PURCHASED_GEAR	"25"
-#define PREFERENCE_TAG_BE_SPECIAL		"26"
-#define PREFERENCE_TAG_PAI_NAME			"27"
-#define PREFERENCE_TAG_PAI_DESCRIPTION	"28"
-#define PREFERENCE_TAG_PAI_COMMENT		"29"
+#define PREFERENCE_TAG_TOGGLES			"toggles"
+#define PREFERENCE_TAG_LAST_CL			"last_changelog"
+#define PREFERENCE_TAG_DEFAULT_SLOT		"default_slot"
+#define PREFERENCE_TAG_IGNORING			"ignoring"
+#define PREFERENCE_TAG_KEYBINDS			"key_bindings"
+#define PREFERENCE_TAG_PURCHASED_GEAR	"purchased_gear"
+#define PREFERENCE_TAG_BE_SPECIAL		"be_special"
+#define PREFERENCE_TAG_PAI_NAME			"pai_name"
+#define PREFERENCE_TAG_PAI_DESCRIPTION	"pai_description"
+#define PREFERENCE_TAG_PAI_COMMENT		"pai_comment"
 
 // True value of max save slots (3 is default, 8 is byond member, +1 to either if you have the extra slot loadout entry). Potential max is 9
 #define TRUE_MAX_SAVE_SLOTS 9

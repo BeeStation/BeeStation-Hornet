@@ -510,6 +510,8 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	return default_value
 
 /datum/preference/toggle/deserialize(input, datum/preferences/preferences)
+	if(istext(input))
+		input = text2num(input)
 	return !!input
 
 /datum/preference/toggle/is_valid(value)

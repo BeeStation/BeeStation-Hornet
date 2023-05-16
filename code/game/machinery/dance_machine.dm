@@ -437,7 +437,7 @@
 					continue
 				L.stop_sound_channel(CHANNEL_JUKEBOX)
 		for(var/mob/M as() in hearers(10,src))
-			if(!M.client || !(M.client.prefs.toggles & PREFTOGGLE_SOUND_INSTRUMENTS))
+			if(!M.client || !M.client.prefs.read_player_preference(/datum/preference/toggle/sound_instruments))
 				continue
 			if(!(M in rangers))
 				rangers += M

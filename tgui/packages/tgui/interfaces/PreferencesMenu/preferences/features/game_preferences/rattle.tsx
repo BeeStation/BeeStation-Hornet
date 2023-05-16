@@ -1,6 +1,6 @@
 import { CheckboxInput, FeatureToggle } from '../base';
 
-export const arrival_rattle: FeatureToggle = {
+export const arrivals_rattle: FeatureToggle = {
   name: 'Notify for new arrivals',
   category: 'GHOST',
   description: 'When enabled, you will be notified as a ghost for new crew.',

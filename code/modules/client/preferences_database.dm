@@ -35,10 +35,8 @@
 			prefmap[read_player_data.item[1]] = read_player_data.item[2]
 		qdel(read_player_data)
 
-	READPREF_INT(default_slot, "default_slot")
-	READPREF_INT(chat_toggles, PREFERENCE_TAG_CHAT_TOGGLES)
+	READPREF_INT(default_slot, PREFERENCE_TAG_DEFAULT_SLOT)
 	READPREF_INT(toggles, PREFERENCE_TAG_TOGGLES)
-	READPREF_INT(toggles2, PREFERENCE_TAG_TOGGLES2)
 	READPREF_STR(lastchangelog, PREFERENCE_TAG_LAST_CL)
 	/*
 	READPREF_STR(pai_name, PREFERENCE_TAG_PAI_NAME)
@@ -57,7 +55,6 @@
 	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
 	default_slot	= sanitize_integer(default_slot, 1, TRUE_MAX_SAVE_SLOTS, initial(default_slot))
 	toggles			= sanitize_integer(toggles, 0, (2**24)-1, initial(toggles)) // yes
-	toggles2		= sanitize_integer(toggles2, 0, (2**24)-1, initial(toggles2))
 	be_special		= SANITIZE_LIST(be_special)
 
 	//pai_name		= sanitize_text(pai_name, initial(pai_name))
@@ -98,20 +95,18 @@
 		return FALSE
 	var/list/datum/DBQuery/write_queries = list() // do not rename this you muppet
 
-	PREP_WRITEPREF_STR(default_slot, "default_slot") // TODO tgui-prefs migrate these to defines
-	PREP_WRITEPREF_STR(chat_toggles, "chat_toggles")
-	PREP_WRITEPREF_STR(toggles, "toggles")
-	PREP_WRITEPREF_STR(toggles2, "toggles2")
-	PREP_WRITEPREF_STR(lastchangelog, "last_changelog")
+	PREP_WRITEPREF_STR(default_slot, PREFERENCE_TAG_DEFAULT_SLOT)
+	PREP_WRITEPREF_STR(toggles, PREFERENCE_TAG_TOGGLES)
+	PREP_WRITEPREF_STR(lastchangelog, PREFERENCE_TAG_LAST_CL)
 
 	/*PREP_WRITEPREF_STR(pai_name, PREFERENCE_TAG_PAI_NAME)
 	PREP_WRITEPREF_STR(pai_description, PREFERENCE_TAG_PAI_DESCRIPTION)
 	PREP_WRITEPREF_STR(pai_comment, PREFERENCE_TAG_PAI_COMMENT)*/
 
-	PREP_WRITEPREF_JSONENC(ignoring, "ignoring")
-	PREP_WRITEPREF_JSONENC(key_bindings, "key_bindings")
+	PREP_WRITEPREF_JSONENC(ignoring, PREFERENCE_TAG_IGNORING)
+	PREP_WRITEPREF_JSONENC(key_bindings, PREFERENCE_TAG_KEYBINDS)
 	//PREP_WRITEPREF_JSONENC(purchased_gear, PREFERENCE_TAG_PURCHASED_GEAR)
-	PREP_WRITEPREF_JSONENC(be_special, "be_special")
+	PREP_WRITEPREF_JSONENC(be_special, PREFERENCE_TAG_BE_SPECIAL)
 
 	// QuerySelect can execute many queries at once. That name is dumb but w/e
 	SSdbcore.QuerySelect(write_queries, TRUE, TRUE)
@@ -119,7 +114,7 @@
 
 /datum/preferences/proc/save_keybinds()
 	var/list/datum/DBQuery/write_queries = list()
-	PREP_WRITEPREF_JSONENC(key_bindings, "key_bindings") // TODO tgui-prefs this one too don't miss it
+	PREP_WRITEPREF_JSONENC(key_bindings, PREFERENCE_TAG_KEYBINDS)
 	SSdbcore.QuerySelect(write_queries, TRUE, TRUE)
 
 #undef PREP_WRITEPREF_STR

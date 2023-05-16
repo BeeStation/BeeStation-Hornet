@@ -67,19 +67,17 @@
 /datum/species/plasmaman/after_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE, client/preference_source = null)
 	H.open_internals(H.get_item_for_held_index(2))
 
-	if(!preference_source)
+	if(!preference_source?.prefs)
 		return
-	// TODO tgui-prefs
-	/*
 	var/path = J.species_outfits?[SPECIES_PLASMAMAN]
 	if (!path) //Somehow we were given a job without a plasmaman suit, use the default one so we don't go in naked!
 		path = /datum/outfit/plasmaman
 		stack_trace("Job [J] lacks a species_outfits entry for plasmamen!")
 	var/datum/outfit/plasmaman/O = new path
-	var/datum/character_save/CS = preference_source.prefs.active_character
-	if(CS.helmet_style != HELMET_DEFAULT)
-		if(O.helmet_variants[CS.helmet_style])
-			var/helmet = O.helmet_variants[CS.helmet_style]
+	var/selected_style = preference_source.prefs.read_character_preference(/datum/preference/choiced/helmet_style)
+	if(selected_style != HELMET_DEFAULT)
+		if(O.helmet_variants[selected_style])
+			var/helmet = O.helmet_variants[selected_style]
 			qdel(H.head)
 			H.equip_to_slot(new helmet, ITEM_SLOT_HEAD)
 			H.open_internals(H.get_item_for_held_index(2))*/
@@ -147,3 +145,10 @@
 
 /datum/species/plasmaman/get_sniff_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_SNIFF_SOUND(user)
+
+/datum/species/plasmaman/get_features()
+	var/list/features = ..()
+
+	features += "helmet_style"
+
+	return features

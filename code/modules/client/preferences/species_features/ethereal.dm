@@ -1,4 +1,4 @@
-/*/datum/preference/choiced/ethereal_color
+/datum/preference/choiced/ethereal_color
 	db_key = "feature_ethcolor"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
@@ -31,4 +31,4 @@
 
 /datum/preference/choiced/ethereal_color/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["ethcolor"] = GLOB.color_list_ethereal[value]
-*/
+

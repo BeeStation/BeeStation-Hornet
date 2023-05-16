@@ -206,7 +206,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 
 	//send this msg to all admins
 	for(var/client/X in GLOB.admins)
-		if(X.prefs.toggles & PREFTOGGLE_SOUND_ADMINHELP)
+		if(X.prefs.read_player_preference(/datum/preference/toggle/sound_adminhelp))
 			SEND_SOUND(X, sound(reply_sound))
 		window_flash(X, ignorepref = TRUE)
 		to_chat(X,

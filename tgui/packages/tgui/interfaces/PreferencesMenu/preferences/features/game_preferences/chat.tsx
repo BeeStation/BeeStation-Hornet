@@ -14,6 +14,13 @@ export const chat_dead: FeatureToggle = {
   component: CheckboxInput,
 };
 
+export const chat_followghostmindless: FeatureToggle = {
+  name: 'Enable Mindless Ghost Follow Messages',
+  category: 'GHOST',
+  description: 'When enabled, (F) will be prefixed on mindless mobs in deadchat.',
+  component: CheckboxInput,
+};
+
 export const chat_ghostears: FeatureToggle = {
   name: 'Hear All Messages',
   category: 'GHOST',
