@@ -444,7 +444,7 @@
 				if(IsParalyzed() && (last_flashed + 5 SECONDS >= world.time)) //second half of this prevents someone from stunlocking via open/close spam
 					Paralyze(5 SECONDS)
 				opened = 1
-				update_icons()				
+				update_icons()
 	else if(istype(W, /obj/item/stock_parts/cell) && opened)	// trying to put a cell inside
 		if(wiresexposed)
 			to_chat(user, "<span class='warning'>Close the cover first!</span>")
@@ -980,7 +980,7 @@
 	if(stat == DEAD)
 		sight = (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		see_in_dark = 8
-		see_invisible = SEE_INVISIBLE_OBSERVER
+		see_invisible = SEE_INVISIBLE_OOC_INFORMATION
 		return
 
 	see_invisible = initial(see_invisible)

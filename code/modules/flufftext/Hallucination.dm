@@ -84,7 +84,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	return T
 
 /obj/effect/hallucination
-	invisibility = INVISIBILITY_OBSERVER
+	invisibility = INVISIBILITY_OOC_INFORMATION
 	anchored = TRUE
 	var/mob/living/carbon/target = null
 
