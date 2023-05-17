@@ -20,7 +20,7 @@
 	///How many cake slices will appear once it's cut up
 	var/amount_of_slices = 16
 	///What kind of cake slice will appear
-	var/slice_path  = /obj/item/reagent_containers/food/snacks/cakeslice/plain/full
+	var/slice_path  = /obj/item/food/cakeslice/plain
 	///If the surprise reveal has an extra oomph to it, used for the nukeop exclusive cake
 	var/strong_surprise = FALSE
 

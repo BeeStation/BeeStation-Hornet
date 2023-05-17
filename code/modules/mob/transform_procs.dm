@@ -50,7 +50,7 @@
 	if(keep_original_species)
 		for(var/datum/mutation/race/M in O.dna.mutations)
 			if(!isnull(dna.species))
-				M.original_species = dna.species
+				M.original_species = dna.species.type
 			break //Can't be more than one monkified in a DNA set so, no need to continue the loop
 
 	if(suiciding)
@@ -434,10 +434,16 @@
 		original_species = /datum/species/human
 
 	if(O.dna.species && !istype(O.dna.species, /datum/species/monkey))
-		O.set_species(O.dna.species)
+		if(isnull(O.dna.species))
+			O.set_species(/datum/species/human)
+		else
+			O.set_species(O.dna.species)
 	else
 		if(keep_original_species)
-			O.set_species(original_species)
+			if(isnull(original_species) || !ispath(original_species, /datum/species))
+				O.set_species(/datum/species/human)
+			else
+				O.set_species(original_species)
 		else
 			O.set_species(/datum/species/human)
 
