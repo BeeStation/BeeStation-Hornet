@@ -12427,6 +12427,18 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/exam_room)
+"cIr" = (
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
+/obj/machinery/door/airlock/engineering{
+	name = "Engineering Break Room";
+	req_one_access_txt = "32"
+	},
+/obj/machinery/door/firedoor,
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/plasteel,
+/area/engine/break_room)
 "cIu" = (
 /obj/structure/railing{
 	dir = 4
@@ -14299,16 +14311,6 @@
 /obj/effect/spawner/lootdrop/maintenance/three,
 /turf/open/floor/plating,
 /area/maintenance/port)
-"deS" = (
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/machinery/door/airlock/engineering{
-	name = "Engineering Break Room";
-	req_one_access_txt = "32"
-	},
-/obj/machinery/door/firedoor,
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/plasteel,
-/area/engine/break_room)
 "deX" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -15348,6 +15350,13 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/maintenance/aft)
+"drF" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/machinery/photocopier,
+/turf/open/floor/wood,
+/area/crew_quarters/heads/hop)
 "drG" = (
 /obj/structure/railing{
 	layer = 3
@@ -26522,6 +26531,14 @@
 /obj/structure/girder,
 /turf/open/floor/plating,
 /area/iceland/underground)
+"fIG" = (
+/obj/structure/bed/dogbed,
+/obj/machinery/firealarm{
+	pixel_y = 26
+	},
+/mob/living/simple_animal/hostile/retaliate/bat/sgt_araneus,
+/turf/open/floor/wood,
+/area/crew_quarters/heads/hos)
 "fIJ" = (
 /turf/closed/wall,
 /area/storage/tools)
@@ -28298,18 +28315,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/primary/central)
-"gaU" = (
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
-	},
-/obj/machinery/door/airlock/engineering{
-	name = "Engineering Break Room";
-	req_one_access_txt = "32"
-	},
-/obj/machinery/door/firedoor,
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/plasteel,
-/area/engine/break_room)
 "gaZ" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
@@ -29306,21 +29311,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/primary/central)
-"glP" = (
-/obj/structure/table/wood,
-/obj/item/clipboard,
-/obj/item/folder/red,
-/obj/item/stamp/denied{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/stamp/hos,
-/obj/item/paper/fluff{
-	info = "Remember that the Brig shuttle can dock with the southern PERMA";
-	name = "Reminder"
-	},
-/turf/open/floor/wood,
-/area/crew_quarters/heads/hos)
 "glY" = (
 /obj/machinery/power/apc/auto_name/north{
 	pixel_y = 24
@@ -31635,23 +31625,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/secondary/command)
-"gMk" = (
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
-	},
-/obj/machinery/door/airlock/engineering{
-	name = "Engineering Break Room";
-	req_one_access_txt = "32"
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/plasteel,
-/area/engine/break_room)
 "gMo" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -42973,6 +42946,21 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
+"iZt" = (
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/machinery/door/airlock/engineering{
+	name = "Engineering Break Room";
+	req_one_access_txt = "32"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/plasteel,
+/area/engine/break_room)
 "iZx" = (
 /obj/structure/rack,
 /obj/item/storage/briefcase{
@@ -50839,6 +50827,21 @@
 /obj/item/analyzer,
 /turf/open/floor/mineral/plastitanium,
 /area/science/explab)
+"kJw" = (
+/obj/structure/table/wood,
+/obj/item/clipboard,
+/obj/item/folder/red,
+/obj/item/stamp/denied{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/stamp/hos,
+/obj/item/paper/fluff{
+	default_raw_text = "Remember that the Brig shuttle can dock with the southern PERMA";
+	name = "Reminder"
+	},
+/turf/open/floor/wood,
+/area/crew_quarters/heads/hos)
 "kJF" = (
 /obj/machinery/atmospherics/pipe/simple/dark/visible{
 	dir = 4
@@ -53212,6 +53215,23 @@
 /obj/machinery/telecomms/broadcaster/preset_left,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
+"liE" = (
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
+/obj/machinery/door/airlock/engineering{
+	name = "Engineering Break Room";
+	req_one_access_txt = "32"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/plasteel,
+/area/engine/break_room)
 "liJ" = (
 /obj/machinery/atmospherics/miner/toxins,
 /obj/machinery/light/floor,
@@ -56988,21 +57008,6 @@
 /obj/machinery/holopad,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
-"lUW" = (
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/machinery/door/airlock/engineering{
-	name = "Engineering Break Room";
-	req_one_access_txt = "32"
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/plasteel,
-/area/engine/break_room)
 "lUZ" = (
 /obj/effect/landmark/start/assistant,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -65926,14 +65931,6 @@
 /obj/effect/turf_decal/tile/dark/fourcorners,
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/primary/port)
-"nRz" = (
-/obj/structure/bed/dogbed,
-/obj/machinery/firealarm{
-	pixel_y = 26
-	},
-/mob/living/simple_animal/hostile/retaliate/bat/sgt_araneus,
-/turf/open/floor/wood,
-/area/crew_quarters/heads/hos)
 "nRH" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -87024,6 +87021,16 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/port)
+"skZ" = (
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/machinery/door/airlock/engineering{
+	name = "Engineering Break Room";
+	req_one_access_txt = "32"
+	},
+/obj/machinery/door/firedoor,
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/plasteel,
+/area/engine/break_room)
 "slb" = (
 /obj/effect/turf_decal/trimline/red/filled/line,
 /obj/machinery/door/firedoor,
@@ -111933,12 +111940,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/hallway/upper/secondary/command)
-"xwc" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
-/turf/open/floor/wood,
-/area/crew_quarters/heads/hop)
 "xwd" = (
 /obj/machinery/light{
 	dir = 4;
@@ -215364,10 +215365,10 @@ lMZ
 pVy
 mef
 nfn
-deS
+skZ
 tNm
 wvK
-gaU
+cIr
 gYE
 pLm
 aoW
@@ -215621,10 +215622,10 @@ lMZ
 vdQ
 eGj
 hGX
-lUW
+iZt
 vvH
 vvH
-gMk
+liE
 kWb
 fLW
 pmL
@@ -342878,7 +342879,7 @@ rCZ
 alZ
 tjt
 mSP
-xwc
+drF
 knU
 cwV
 qsh
@@ -404818,7 +404819,7 @@ hln
 tnp
 sfO
 rSQ
-glP
+kJw
 wOf
 rDW
 yde
@@ -405841,7 +405842,7 @@ bdk
 tME
 jPF
 jii
-nRz
+fIG
 wsk
 mLn
 ucW
