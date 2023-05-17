@@ -90,8 +90,8 @@
 	say_mod = "buzzes"
 	taste_sensitivity = 25 // you eat vomit, this is a mercy
 	modifies_speech = TRUE
-	liked_food = GROSS | RAW | FRUIT | GORE
-	disliked_food = CLOTH
+	liked_food = GROSS | RAW | GORE // Limit how much food they actually like. They already have carte blanche on like 90% of food
+	disliked_food = NONE
 	toxic_food = NONE
 
 /obj/item/organ/tongue/fly/handle_speech(datum/source, list/speech_args)
@@ -221,6 +221,7 @@
 	taste_sensitivity = 101 // skeletons cannot taste anything
 	modifies_speech = TRUE
 	liked_food = GROSS | MEAT | RAW | GORE
+	disliked_food = NONE // why would they care
 	toxic_food = NONE
 	var/chattering = FALSE
 	var/phomeme_type = "sans"
@@ -244,7 +245,7 @@
 	desc = "Like animated skeletons, Plasmamen vibrate their teeth in order to produce speech."
 	icon_state = "tongueplasma"
 	modifies_speech = FALSE
-	disliked_food = FRUIT
+	disliked_food = FRUIT | CLOTH
 	liked_food = VEGETABLES
 
 /obj/item/organ/tongue/robot
@@ -323,7 +324,7 @@
 	name = "cat tongue"
 	desc = "A rough tongue, full of small, boney spines all over it's surface."
 	say_mod = "meows"
-	disliked_food = VEGETABLES | SUGAR | CLOTH
+	disliked_food = GROSS | VEGETABLES | SUGAR | CLOTH
 	liked_food = DAIRY | MEAT | GORE
 
 /obj/item/organ/tongue/slime
@@ -333,6 +334,7 @@
 	ask_mod = "inquisitively blorbles"
 	yell_mod = "shrilly blorbles"
 	exclaim_mod = "loudly blorbles"
+	liked_food = MEAT //cause slimes are mostly carnivores, however the ability to consume RAW or GORE was lost when spliced with humans
 	toxic_food = NONE
 	disliked_food = NONE
 
