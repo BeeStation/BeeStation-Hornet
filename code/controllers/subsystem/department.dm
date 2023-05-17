@@ -14,7 +14,8 @@ SUBSYSTEM_DEF(department)
 	var/list/department_by_key = list()
 	var/list/sorted_department_for_manifest = list()
 	var/list/sorted_department_for_pref = list()
-	var/list/current_all_accesses = list()
+
+	var/list/all_station_accesses = list()
 
 /datum/controller/subsystem/department/Initialize(timeofday)
 	for(var/datum/department_group/each_dept as() in subtypesof(/datum/department_group))
@@ -35,17 +36,30 @@ SUBSYSTEM_DEF(department)
 		if(each_dept.dept_bitflag & bitflag)
 			return each_dept
 
-/datum/controller/subsystem/department/proc/get_department_by_id(id)
+/datum/controller/subsystem/department/proc/get_department_by_dept_id(id)
 	return department_by_key[id]
 
 /// WARNING: include_dispatch parameter is important. Avoid using it to security positions.
-/datum/controller/subsystem/department/proc/get_joblist_by_dept_id(id)
-	var/datum/department_group/dept = department_by_key[id]
-	return dept.jobs
+/datum/controller/subsystem/department/proc/get_jobs_by_dept_id(list/id)
+	if(!id)
+		stack_trace("proc has no id value")
+		return list()
+
+	if(!islist(id))
+		id = list(id)
+
+	var/list/jobs_to_return = list()
+	for(var/each in id)
+		var/datum/department_group/dept = department_by_key[id]
+		if(!dept || !length(dept.jobs))
+			continue
+		jobs_to_return |= dept.jobs
+
+	return jobs_to_return
 
 // get access proc
 /// returns job list by id. if id is given as a list, it will return as a list as `[department_id]=list(jobs)`
-/datum/controller/subsystem/department/proc/get_jobs_by_dept_id(list/id)
+/datum/controller/subsystem/department/proc/get_dept_assoc_jobs_by_dept_id(list/id)
 	if(!id)
 		stack_trace("proc has no id value")
 		return list()
@@ -66,20 +80,44 @@ SUBSYSTEM_DEF(department)
 /datum/controller/subsystem/department/proc/get_all_jobs()
 	var/list/jobs_to_return = list()
 	for(var/datum/department_group/dept in department_by_key[id])
-		if(!dept || !length(dept.jobs))
+		if(!dept || !length(dept.jobs)) // do not put 'if(!dept.is_station)' or silicons will not be chosen
 			continue
 		jobs_to_return[dept.dept_id] = dept.jobs.Copy()
 	return jobs_to_return
 
+/proc/get_all_jobs()
+	return SSdepartment.get_jobs_by_dept_id(list(DEPT_NAME_ALL_STATION_DEPT_LIST))
 
-/datum/controller/subsystem/department/proc/refresh_all_station_accesses()
+
+/datum/controller/subsystem/department/proc/refresh_all_station_accesses(first_init=FALSE)
 	for(var/datum/department_group/dept in department_by_key[id])
 		if(!dept.is_station)
 			continue
-		current_all_accesses |= dept.get_department_accesses()
+		if(first_init)
+			all_station_accesses |= dept.get_department_accesses()
+		else
+			all_station_accesses |= dept.custom_access
+
+
+// ----------------------------------------------------------
+// 			Access related procs
+/datum/controller/subsystem/department/proc/get_department_access_by_dept_id(id)
+	var/datum/department_group/dept = department_by_key[id]
+	if(!dept)
+		stack_trace("wrong id is given. sending service department for not breaking game...")
+		return department_by_key[DEPT_NAME_SERVICE]
+	return dept.get_department_accesses()
 
 /datum/controller/subsystem/department/proc/get_all_station_accesses()
-	return current_all_accesses
+	return all_station_accesses
+
+/datum/controller/subsystem/department/proc/get_all_ingame_accesses()
+	var/list/access_to_return = list()
+	for(var/datum/department_group/dept in department_type_list)
+		access_to_return |= dept.get_department_accesses()
+	return access_to_return
+
+
 
 /// returns the department list as manifest order
 /datum/controller/subsystem/department/proc/get_departments_by_manifest_order()
@@ -145,6 +183,8 @@ SUBSYSTEM_DEF(department)
 		if(protected)
 			current.protected_access[new_code] = TRUE
 		current.refresh_full_access_list()
+		if(currnet.is_station)
+			refresh_all_station_accesses()
 
 
 // --------------------------------------------
@@ -235,7 +275,7 @@ SUBSYSTEM_DEF(department)
 	full_access_list |= custom_access
 	full_access_list |= protected_access
 	if(is_station)
-		SSdepartment.current_all_accesses |= full_access_list
+		SSdepartment.all_station_accesses |= full_access_list
 
 /// returns all accesses to a department.
 /datum/department_group/proc/get_department_accesses()
@@ -405,7 +445,7 @@ SUBSYSTEM_DEF(department)
 
 // this will automatically follow service department data
 /datum/department_group/civilian/New()
-	var/datum/department_group/service_dept = SSdepartment.get_department_by_id(DEPT_NAME_SERVICE)
+	var/datum/department_group/service_dept = SSdepartment.get_department_by_dept_id(DEPT_NAME_SERVICE)
 	dept_colour = service_dept.dept_colour
 	dept_radio_channel = service_dept.dept_radio_channel
 
