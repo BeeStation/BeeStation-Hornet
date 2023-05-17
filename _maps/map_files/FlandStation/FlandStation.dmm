@@ -2133,6 +2133,20 @@
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
+"aCF" = (
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Shared Engineering Storage";
+	req_one_access_txt = "32"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup,
+/turf/open/floor/plasteel/techmaint,
+/area/engine/storage_shared)
 "aCH" = (
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
@@ -3257,13 +3271,6 @@
 	icon_state = "panelscorched"
 	},
 /area/maintenance/port/fore)
-"aOo" = (
-/mob/living/simple_animal/mouse/gray,
-/obj/structure/lattice/catwalk,
-/obj/item/reagent_containers/food/snacks/store/cheesewheel,
-/obj/item/food/breadslice/creamcheese,
-/turf/open/floor/plating,
-/area/maintenance/port/central)
 "aOs" = (
 /turf/closed/wall,
 /area/maintenance/solars/port/fore)
@@ -6500,16 +6507,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
-"bDf" = (
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red/opposingcorners,
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/medical/break_room)
 "bDq" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
@@ -7928,6 +7925,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/exit/departure_lounge)
+"bYK" = (
+/mob/living/simple_animal/mouse/gray,
+/obj/structure/lattice/catwalk,
+/obj/item/reagent_containers/food/snacks/store/cheesewheel,
+/obj/item/food/breadslice/creamcheese,
+/turf/open/floor/plating,
+/area/maintenance/port/central)
 "bYR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -9019,19 +9023,6 @@
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/heads/cmo)
-"cqu" = (
-/obj/machinery/newscaster{
-	pixel_y = -28
-	},
-/obj/item/kirbyplants/random,
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark/side,
-/area/quartermaster/office)
 "cqv" = (
 /obj/structure/lattice,
 /obj/docking_port/stationary/random{
@@ -9382,6 +9373,17 @@
 	},
 /turf/open/floor/plating,
 /area/science/explab)
+"cwc" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/obj/machinery/fax{
+	name = "Lawyer Fax Machine";
+	fax_name = "Lawyer"
+	},
+/obj/structure/table/wood,
+/turf/open/floor/wood,
+/area/lawoffice)
 "cwd" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -12766,21 +12768,6 @@
 /obj/structure/sign/departments/minsky/engineering/engineering,
 /turf/closed/wall/r_wall,
 /area/maintenance/solars/port/aft)
-"drR" = (
-/obj/structure/table,
-/obj/item/food/spaghetti/raw,
-/obj/item/reagent_containers/food/condiment/saltshaker{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/reagent_containers/food/condiment/peppermill,
-/obj/item/reagent_containers/food/condiment/enzyme{
-	pixel_y = 6
-	},
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/bar/opposingcorners,
-/turf/open/floor/plasteel/cafeteria,
-/area/crew_quarters/kitchen)
 "dsd" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -12871,15 +12858,6 @@
 	dir = 1
 	},
 /area/hydroponics/garden)
-"dtl" = (
-/obj/item/kirbyplants/random,
-/obj/machinery/newscaster{
-	pixel_x = 28;
-	pixel_y = 1
-	},
-/obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
-/turf/open/floor/plasteel/dark,
-/area/bridge)
 "dtC" = (
 /obj/structure/rack,
 /obj/item/cane,
@@ -14166,6 +14144,32 @@
 	dir = 8
 	},
 /area/hallway/primary/fore)
+"dLA" = (
+/obj/machinery/door/airlock/engineering{
+	name = "Engineering Break Room";
+	req_one_access_txt = "32"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/engine/break_room)
 "dLO" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup{
@@ -22611,6 +22615,19 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/main)
+"fSP" = (
+/obj/machinery/newscaster{
+	pixel_x = 28;
+	pixel_y = 1
+	},
+/obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
+/obj/machinery/fax{
+	name = "Bridge Fax Machine";
+	fax_name = "Bridge"
+	},
+/obj/structure/table/reinforced,
+/turf/open/floor/plasteel/dark,
+/area/bridge)
 "fTg" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -22830,31 +22847,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/rust,
 /area/maintenance/department/science)
-"fWM" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/item/paper/fluff{
-	info = "I used the shotgun. You know why? Cause the shot gun doesn't miss, and unlike the shitty hybrid taser it stops a criminal in their tracks in two hits. Bang, bang, and they're fucking done. I use four shots just to make damn sure. Because, once again, I'm not there to coddle a buncha criminal scum sucking f------, I'm there to 1) Survive the fucking round. 2) Guard the armory. So you can absolutely get fucked. If I get unbanned, which I won't, you can guarantee I will continue to use the shotgun to apprehend criminals. Because it's quick, clean and effective as fuck. Why in the seven hells would I fuck around with the disabler shots, which take half a clip just to bring someone down, or with the tazer bolts which are slow as balls, impossible to aim and do about next to jack shit, fuck all. The shotgun is the superior law enforcement weapon. Because it stops crime. And it stops crime by reducing the number of criminals roaming the fucking halls.";
-	name = "Shotgun manifesto"
-	},
-/obj/machinery/door/window/southright{
-	base_state = "left";
-	icon_state = "left";
-	name = "Balistic Weapons storage";
-	req_one_access_txt = "1;4"
-	},
-/obj/effect/turf_decal/tile/red/half/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
-	},
-/obj/effect/spawner/lootdrop/job_scale/armoury/riot_shotgun,
-/turf/open/floor/plasteel/dark,
-/area/ai_monitored/security/armory)
 "fWQ" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/barricade/wooden/crude,
@@ -24645,6 +24637,14 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
+"gtq" = (
+/obj/machinery/fax{
+	name = "Engineering Fax Machine";
+	fax_name = "Engineering"
+	},
+/obj/structure/table/reinforced,
+/turf/open/floor/plasteel/sepia,
+/area/engine/break_room)
 "gtz" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -28172,6 +28172,28 @@
 /obj/item/dice/d1,
 /turf/open/floor/plasteel/dark,
 /area/library/lounge)
+"hqs" = (
+/obj/structure/table/wood,
+/obj/item/paper/fluff{
+	default_raw_text = "We have heard of your complaints of the office being located in such a poor location, the next shifts we will work on moving you office -NT official";
+	name = "Deepest apoligies"
+	},
+/obj/item/paper/fluff{
+	default_raw_text = "We have recived your latest mails requiring to hasten the transfering process, unfortunateley, due to your rather... noteworthy language, we had to rediscuss the transfer to your office closer to security, however due to the most recent rennovation of the security department, the northen access has been made closer to your office, thus making your request to move your office not viable due to financial reasons. Thanks for your cooperation. -NT official";
+	name = "re:re:Deepest apoligies";
+	pixel_x = 9;
+	pixel_y = 6
+	},
+/obj/item/taperecorder,
+/obj/item/hand_labeler,
+/obj/item/paper/fluff{
+	default_raw_text = "We have recived your latest mails requiring to hasten the transfering process, unfortunateley, due to your rather... noteworthy language, we had to rediscuss the transfer to your office closer to security, however due to the most recent rennovation of the security department, the northen access has been made closer to your office, thus making your request to move your office not viable due to financial reasons. Thanks for your cooperation. -NT official";
+	name = "re:re:Deepest apoligies";
+	pixel_x = 9;
+	pixel_y = 6
+	},
+/turf/open/floor/carpet/green,
+/area/security/detectives_office)
 "hqF" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -28922,28 +28944,6 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/security/prison)
-"hCC" = (
-/obj/structure/table/wood,
-/obj/item/paper/fluff{
-	info = "We have heard of your complaints of the office being located in such a poor location, the next shifts we will work on moving you office -NT official";
-	name = "Deepest apoligies"
-	},
-/obj/item/paper/fluff{
-	info = "We have recived your latest mails requiring to hasten the transfering process, unfortunateley, due to your rather... noteworthy language, we had to rediscuss the transfer to your office closer to security, however due to the most recent rennovation of the security department, the northen access has been made closer to your office, thus making your request to move your office not viable due to financial reasons. Thanks for your cooperation. -NT official";
-	name = "re:re:Deepest apoligies";
-	pixel_x = 9;
-	pixel_y = 6
-	},
-/obj/item/taperecorder,
-/obj/item/hand_labeler,
-/obj/item/paper/fluff{
-	info = "We have recived your latest mails requiring to hasten the transfering process, unfortunateley, due to your rather... noteworthy language, we had to rediscuss the transfer to your office closer to security, however due to the most recent rennovation of the security department, the northen access has been made closer to your office, thus making your request to move your office not viable due to financial reasons. Thanks for your cooperation. -NT official";
-	name = "re:re:Deepest apoligies";
-	pixel_x = 9;
-	pixel_y = 6
-	},
-/turf/open/floor/carpet/green,
-/area/security/detectives_office)
 "hCP" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
@@ -36363,6 +36363,15 @@
 	},
 /turf/open/floor/plasteel/grid,
 /area/medical/virology)
+"jDt" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/machinery/fax{
+	name = "Science Fax Machine";
+	fax_name = "Science"
+	},
+/obj/structure/table,
+/turf/open/floor/plasteel/grid/steel,
+/area/science/lab)
 "jDw" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/dark,
@@ -37198,32 +37207,6 @@
 	dir = 4
 	},
 /area/hallway/primary/central)
-"jOz" = (
-/obj/machinery/door/airlock/engineering{
-	name = "Engineering Break Room";
-	req_one_access_txt = "32"
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plasteel/techmaint,
-/area/engine/break_room)
 "jOA" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
@@ -39566,6 +39549,20 @@
 	},
 /turf/open/floor/plating,
 /area/quartermaster/sorting)
+"kuX" = (
+/obj/structure/table,
+/obj/effect/turf_decal/trimline/red/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 8
+	},
+/obj/machinery/fax{
+	name = "Security Fax Machine";
+	fax_name = "Security"
+	},
+/turf/open/floor/plasteel/dark,
+/area/security/main)
 "kvd" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -43836,6 +43833,19 @@
 	},
 /turf/open/floor/wood,
 /area/library)
+"lvm" = (
+/obj/structure/table/wood,
+/obj/machinery/computer/secure_data/laptop{
+	pixel_y = 2
+	},
+/obj/item/paper/fluff{
+	default_raw_text = "Been here before - Love is when I freeze - Somebody's bloodShot down on his knees - Take whatcha learn and whatcha need.";
+	name = "Lawyer's poem";
+	pixel_x = 9;
+	pixel_y = 6
+	},
+/turf/open/floor/wood,
+/area/lawoffice)
 "lvn" = (
 /obj/effect/turf_decal/trimline/blue/line,
 /obj/effect/turf_decal/trimline/blue/filled/line{
@@ -46509,6 +46519,31 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai_upload_foyer)
+"mgw" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/bot,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/paper/fluff{
+	default_raw_text = "I used the shotgun. You know why? Cause the shot gun doesn't miss, and unlike the shitty hybrid taser it stops a criminal in their tracks in two hits. Bang, bang, and they're fucking done. I use four shots just to make damn sure. Because, once again, I'm not there to coddle a buncha criminal scum sucking f------, I'm there to 1) Survive the fucking round. 2) Guard the armory. So you can absolutely get fucked. If I get unbanned, which I won't, you can guarantee I will continue to use the shotgun to apprehend criminals. Because it's quick, clean and effective as fuck. Why in the seven hells would I fuck around with the disabler shots, which take half a clip just to bring someone down, or with the tazer bolts which are slow as balls, impossible to aim and do about next to jack shit, fuck all. The shotgun is the superior law enforcement weapon. Because it stops crime. And it stops crime by reducing the number of criminals roaming the fucking halls.";
+	name = "Shotgun manifesto"
+	},
+/obj/machinery/door/window/southright{
+	base_state = "left";
+	icon_state = "left";
+	name = "Balistic Weapons storage";
+	req_one_access_txt = "1;4"
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/obj/effect/spawner/lootdrop/job_scale/armoury/riot_shotgun,
+/turf/open/floor/plasteel/dark,
+/area/ai_monitored/security/armory)
 "mgO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/girder/displaced,
@@ -49196,13 +49231,6 @@
 /obj/effect/turf_decal/trimline/yellow/filled/line,
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/central)
-"mQN" = (
-/obj/item/kirbyplants/random,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
-/turf/open/floor/wood,
-/area/lawoffice)
 "mQU" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -49956,6 +49984,21 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
+"nbx" = (
+/obj/machinery/fax{
+	name = "Medical Fax Machine";
+	fax_name = "Medical"
+	},
+/obj/structure/table/wood,
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/medical/break_room)
 "nbC" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
@@ -54621,19 +54664,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/security/brig)
-"oln" = (
-/obj/structure/table/wood,
-/obj/machinery/computer/secure_data/laptop{
-	pixel_y = 2
-	},
-/obj/item/paper/fluff{
-	info = "Been here before - Love is when I freeze - Somebody's bloodShot down on his knees - Take whatcha learn and whatcha need.";
-	name = "Lawyer's poem";
-	pixel_x = 9;
-	pixel_y = 6
-	},
-/turf/open/floor/wood,
-/area/lawoffice)
 "olv" = (
 /obj/machinery/light{
 	dir = 4
@@ -56808,6 +56838,23 @@
 /obj/machinery/meter,
 /turf/open/floor/plasteel/grid/steel,
 /area/science/mixing)
+"oSP" = (
+/obj/machinery/newscaster{
+	pixel_y = -28
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/brown{
+	dir = 4
+	},
+/obj/machinery/fax{
+	name = "Cargo Fax Machine";
+	fax_name = "Cargo"
+	},
+/obj/structure/table/reinforced,
+/turf/open/floor/plasteel/dark/side,
+/area/quartermaster/office)
 "oSQ" = (
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
@@ -62425,11 +62472,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
-"qlO" = (
-/obj/item/kirbyplants/random,
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/turf/open/floor/plasteel/grid/steel,
-/area/science/lab)
 "qlX" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -63411,6 +63453,21 @@
 	},
 /turf/open/floor/vault,
 /area/engine/engine_room)
+"qxm" = (
+/obj/structure/table,
+/obj/item/food/spaghetti/raw,
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/food/condiment/peppermill,
+/obj/item/reagent_containers/food/condiment/enzyme{
+	pixel_y = 6
+	},
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel/cafeteria,
+/area/crew_quarters/kitchen)
 "qxp" = (
 /obj/effect/turf_decal/trimline/blue/line{
 	dir = 8
@@ -65301,6 +65358,22 @@
 /obj/machinery/chem_master,
 /turf/open/floor/plasteel/grid/steel,
 /area/science/xenobiology)
+"qUk" = (
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/engineering{
+	name = "Engineering Foyer";
+	req_one_access_txt = "32"
+	},
+/obj/effect/turf_decal/stripes/closeup,
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/plasteel/techmaint,
+/area/engine/break_room)
 "qUu" = (
 /obj/effect/turf_decal/trimline/red/filled/line,
 /obj/effect/turf_decal/trimline/red/line{
@@ -74026,20 +74099,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/lobby)
-"tbV" = (
-/obj/structure/table,
-/obj/effect/turf_decal/trimline/red/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/trimline/red/filled/line{
-	dir = 8
-	},
-/obj/effect/spawner/lootdrop/donkpockets{
-	pixel_x = 2;
-	pixel_y = 4
-	},
-/turf/open/floor/plasteel/dark,
-/area/security/main)
 "tbW" = (
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1
@@ -75622,21 +75681,6 @@
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
-"tww" = (
-/obj/machinery/microwave{
-	desc = "It looks really dirty.";
-	name = "maintenance microwave";
-	pixel_y = 5
-	},
-/obj/structure/table,
-/obj/effect/turf_decal/trimline/red/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/trimline/red/filled/line{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/security/main)
 "twx" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -80617,20 +80661,6 @@
 "uGx" = (
 /turf/open/floor/plasteel/techmaint,
 /area/engine/engine_room)
-"uGD" = (
-/obj/machinery/door/airlock/engineering/glass{
-	name = "Shared Engineering Storage";
-	req_one_access_txt = "32"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/stripes/closeup,
-/turf/open/floor/plasteel/techmaint,
-/area/engine/storage_shared)
 "uGL" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/secure_closet/security/sec,
@@ -80822,6 +80852,16 @@
 /obj/effect/spawner/xmastree,
 /turf/open/floor/carpet,
 /area/crew_quarters/bar/atrium)
+"uJy" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/remains/human,
+/obj/item/paper/crumpled{
+	default_raw_text = "This isn't funny, I'm trapped on the least fun room on the station.";
+	name = "poorly written complaint"
+	},
+/turf/open/floor/plating,
+/area/maintenance/port)
 "uJA" = (
 /mob/living/simple_animal/chicken{
 	name = "Kentucky";
@@ -82636,6 +82676,25 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space,
 /area/solar/port/fore)
+"vfi" = (
+/obj/machinery/microwave{
+	desc = "It looks really dirty.";
+	name = "maintenance microwave";
+	pixel_y = 5
+	},
+/obj/structure/table,
+/obj/effect/turf_decal/trimline/red/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 8
+	},
+/obj/effect/spawner/lootdrop/donkpockets{
+	pixel_x = 2;
+	pixel_y = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/security/main)
 "vfj" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -86987,22 +87046,6 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
-"wbn" = (
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/engineering{
-	name = "Engineering Foyer";
-	req_one_access_txt = "32"
-	},
-/obj/effect/turf_decal/stripes/closeup,
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/plasteel/techmaint,
-/area/engine/break_room)
 "wbo" = (
 /obj/machinery/door/airlock/external{
 	name = "Supply Dock Airlock";
@@ -91609,16 +91652,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
-"xbW" = (
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/remains/human,
-/obj/item/paper/crumpled{
-	info = "This isn't funny, I'm trapped on the least fun room on the station.";
-	name = "poorly written complaint"
-	},
-/turf/open/floor/plating,
-/area/maintenance/port)
 "xbX" = (
 /obj/machinery/light{
 	dir = 8
@@ -112879,7 +112912,7 @@ wxd
 jYF
 wzn
 wxd
-xbW
+uJy
 wxd
 wxd
 wxd
@@ -116446,7 +116479,7 @@ gFf
 gsj
 aoI
 jJI
-hCC
+hqs
 kKQ
 mDo
 bGV
@@ -121091,7 +121124,7 @@ mWm
 xNi
 iLg
 pYP
-drR
+qxm
 mib
 mLj
 kMK
@@ -123959,7 +123992,7 @@ ess
 xEb
 eVR
 ddk
-cqu
+oSP
 wRY
 vYc
 xIP
@@ -126756,7 +126789,7 @@ oks
 vOR
 fmo
 lFm
-fWM
+mgw
 oSQ
 kIc
 wWu
@@ -129551,7 +129584,7 @@ dJu
 nDT
 jMU
 nGM
-bDf
+nbx
 kzU
 kzC
 yio
@@ -129573,9 +129606,9 @@ rpO
 rKK
 sjh
 mAX
-tbV
+kuX
 uaR
-tww
+vfi
 nDx
 ujV
 uOm
@@ -130798,7 +130831,7 @@ lHA
 jID
 jID
 jID
-aOo
+bYK
 jID
 aRi
 asn
@@ -135783,7 +135816,7 @@ sTe
 sTe
 sTe
 wWV
-qlO
+jDt
 dpN
 xMs
 myp
@@ -140145,7 +140178,7 @@ vHQ
 mDc
 qbJ
 vhe
-wbn
+qUk
 vAy
 lIn
 uEQ
@@ -140661,7 +140694,7 @@ qNK
 wdc
 wvQ
 wmu
-jOz
+dLA
 wmu
 uUs
 vQm
@@ -140866,10 +140899,10 @@ lCX
 dKc
 jjx
 mrt
-mQN
+cwc
 iPN
 nBV
-oln
+lvm
 dTb
 oXq
 xYC
@@ -141624,7 +141657,7 @@ kWW
 nwC
 xAQ
 afI
-dtl
+fSP
 ykN
 nyM
 rRp
@@ -141687,7 +141720,7 @@ nLE
 rgC
 qNK
 qUO
-ykQ
+gtq
 ykQ
 cbS
 wdc
@@ -142205,7 +142238,7 @@ gfk
 ykQ
 wZX
 hwz
-uGD
+aCF
 wOU
 kFq
 oYP

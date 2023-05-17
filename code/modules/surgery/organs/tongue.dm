@@ -11,7 +11,7 @@
 	var/yell_mod = "yells"
 	var/exclaim_mod = "exclaims"
 	var/liked_food = JUNKFOOD | FRIED
-	var/disliked_food = GROSS | RAW
+	var/disliked_food = GROSS | RAW | CLOTH
 	var/toxic_food = TOXIC
 	var/taste_sensitivity = 15 // lower is more sensitive.
 	var/modifies_speech = FALSE
@@ -63,7 +63,7 @@
 	say_mod = "hisses"
 	taste_sensitivity = 10 // combined nose + tongue, extra sensitive
 	modifies_speech = TRUE
-	disliked_food = GRAIN | DAIRY
+	disliked_food = GRAIN | DAIRY | CLOTH
 	liked_food = GROSS | MEAT
 
 /obj/item/organ/tongue/lizard/handle_speech(datum/source, list/speech_args)
@@ -90,6 +90,7 @@
 	say_mod = "buzzes"
 	taste_sensitivity = 25 // you eat vomit, this is a mercy
 	modifies_speech = TRUE
+	disliked_food = CLOTH
 	liked_food = GROSS | MEAT | RAW | FRUIT
 
 /obj/item/organ/tongue/fly/handle_speech(datum/source, list/speech_args)
@@ -321,7 +322,7 @@
 	name = "cat tongue"
 	desc = "A rough tongue, full of small, boney spines all over it's surface."
 	say_mod = "meows"
-	disliked_food = VEGETABLES | SUGAR
+	disliked_food = VEGETABLES | SUGAR | CLOTH
 	liked_food = DAIRY | MEAT
 
 /obj/item/organ/tongue/slime
@@ -352,10 +353,11 @@
 	desc = "It's a tongue that looks off... Must be from a creature that shouldn't exist."
 	say_mod = "mumbles"
 	icon_state = "tonguefly"
+	disliked_food = CLOTH
 	liked_food = JUNKFOOD | FRIED | GROSS | RAW
 
 /obj/item/organ/tongue/podperson
 	name = "plant tongue"
 	desc = "It's an odd tongue, seemingly made of plant matter."
 	disliked_food = MEAT | DAIRY
-	liked_food = VEGETABLES | FRUIT | GRAIN //cannibals apparently
+	liked_food = VEGETABLES | FRUIT | GRAIN | CLOTH //cannibals apparently
