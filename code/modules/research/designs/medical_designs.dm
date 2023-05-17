@@ -737,6 +737,17 @@
 	surgery = /datum/surgery/healing/combo/upgraded/femto
 	id = "surgery_heal_combo_upgrade_femto"
 
+/datum/design/surgery/healing/filter_upgrade
+	name = "Filter Blood Upgrade"
+	desc = "Newfound knowledge allows us to remove the effect of toxins on the body whenever filtering someone's blood."
+	surgery = /datum/surgery/blood_filter/upgraded
+	id = "surgery_filter_upgrade"
+
+/datum/design/surgery/healing/filter_upgrade_2
+	name = "Filter Blood Upgrade"
+	surgery = /datum/surgery/blood_filter/femto
+	id = "surgery_filter_upgrade_femto"
+
 /datum/design/surgery/revival
 	name = "Revival"
 	desc = "An experimental surgical procedure which involves reconstruction and reactivation of the patient's brain even long after death. The body must still be able to sustain life."
