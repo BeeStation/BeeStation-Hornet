@@ -13,6 +13,11 @@
 	var/stored_money = 0
 	var/locked = FALSE
 
+	light_system = MOVABLE_LIGHT
+	light_range = 6
+	light_power = 1
+	light_on = FALSE
+
 /obj/structure/money_bot/deconstruct(disassembled)
 	new /obj/item/holochip(drop_location(), stored_money)
 	return ..()

@@ -14,6 +14,11 @@
 
 	securable = FALSE //This item should only ever be used as an assembly and the shell datum uses screwdriver_act, might as well make it permanently unsecured
 
+	light_system = MOVABLE_LIGHT
+	light_range = 6
+	light_power = 1
+	light_on = FALSE
+
 	var/datum/port/output/pulse_out
 
 /obj/item/assembly/modular/Initialize(mapload)
