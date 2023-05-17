@@ -1,0 +1,6 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - code_imp: removed SUPERMATTER_IGNORE_1 atom flag. SM has a static list that checks
+      if it should not consume an atom.
+  - bugfix: fixed where SM code causes runtime
