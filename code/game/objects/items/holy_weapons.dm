@@ -13,7 +13,7 @@
 	desc = "Deus Vult."
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
-	armor = list("melee" = 50, "bullet" = 10, "laser" = 10, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80, "stamina" = 40)
+	armor = list(MELEE = 50,  BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, STAMINA = 40)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	strip_delay = 80
@@ -162,7 +162,7 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 20, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 20, STAMINA = 0)
 
 /obj/item/clothing/under/rank/civilian/graverobber_under
 	name = "grave robber uniform"
@@ -244,6 +244,7 @@
 	throw_speed = 3
 	throw_range = 4
 	throwforce = 10
+	item_flags = ISWEAPON
 	w_class = WEIGHT_CLASS_TINY
 	obj_flags = UNIQUE_RENAME
 	var/chaplain_spawnable = TRUE
@@ -255,7 +256,7 @@
 	success_feedback = "You disrupt the magic of %THEEFFECT with %THEWEAPON.", \
 	success_forcesay = "BEGONE FOUL MAGIKS!!", \
 	on_clear_callback = CALLBACK(src, PROC_REF(on_cult_rune_removed)), \
-	effects_we_clear = list(/obj/effect/rune, /obj/effect/eldritch))
+	effects_we_clear = list(/obj/effect/rune, /obj/effect/heretic_rune))
 
 /obj/item/nullrod/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is killing [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to get closer to god!</span>")
@@ -348,6 +349,7 @@
 		var/obj/item/nullrod/holy_weapon = new A
 		holy_weapon.current_skin = choice
 		M.put_in_active_hand(holy_weapon)
+
 
 /obj/item/nullrod/proc/on_cult_rune_removed(obj/effect/target, mob/living/user)
 	if(!istype(target, /obj/effect/rune))
@@ -637,7 +639,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/chainsaw_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/chainsaw_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
-	item_flags = ABSTRACT
+	item_flags = ABSTRACT | ISWEAPON
 	sharpness = IS_SHARP
 	attack_verb = list("sawed", "tore", "cut", "chopped", "diced")
 	hitsound = 'sound/weapons/chainsawhit.ogg'
@@ -717,7 +719,7 @@
 	item_state = "arm_blade"
 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
-	item_flags = ABSTRACT
+	item_flags = ABSTRACT | ISWEAPON
 	w_class = WEIGHT_CLASS_HUGE
 	sharpness = IS_SHARP
 

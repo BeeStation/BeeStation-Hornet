@@ -267,6 +267,13 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 #define TRAIT_AI_BAGATTACK "bagattack" // This atom can ignore the "is on a turf" check for simple AI datum attacks, allowing them to attack from bags or lockers as long as any other conditions are met
 
+/// Allows heretics to cast their spells.
+#define TRAIT_ALLOW_HERETIC_CASTING "allow_heretic_casting"
+/// Designates a heart as a living heart for a heretic.
+#define TRAIT_LIVING_HEART "living_heart"
+/// Prevents stripping this equipment
+#define TRAIT_NO_STRIP "no_strip"
+
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
 #define TRAIT_AGEUSIA			"ageusia"
@@ -293,6 +300,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 ///Trait applied to turfs when an atmos holosign is placed on them. It will stop firedoors from closing.
 #define TRAIT_FIREDOOR_STOP "firedoor_stop"
+
+/// this object has been frozen
+#define TRAIT_FROZEN "frozen"
 
 // common trait sources
 #define TRAIT_GENERIC "generic"
@@ -370,6 +380,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define STARGAZER_TRAIT "stargazer"
 #define GUARDIAN_TRAIT	"guardian_trait"
 #define PARRY_TRAIT	"parry_trait"
+#define ELEMENT_TRAIT(source) "element_trait_[source]"
 #define LIGHTPINK_TRAIT "lightpinktrait"
 #define BATTLE_ROYALE_TRAIT "battleroyale_trait"
 #define MADE_UNCLONEABLE "made-uncloneable"

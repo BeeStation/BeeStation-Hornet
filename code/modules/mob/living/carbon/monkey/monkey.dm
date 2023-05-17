@@ -20,6 +20,8 @@
 	mobchatspan = "monkeyhive"
 	ai_controller = /datum/ai_controller/monkey
 	faction = list("neutral", "monkey")
+	/// Whether it can be made into a human with mutadone
+	var/natural = TRUE
 	///Item reference for jumpsuit
 	var/obj/item/clothing/w_uniform = null
 
@@ -61,7 +63,15 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	dna.initialize_dna(random_blood_type())
 	//Set offsets here, DONT mess with monkey species, we use human anyway.
 	dna.species.offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,0), OFFSET_EARS = list(0,0), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,-4), OFFSET_HEAD = list(0,-4), OFFSET_FACE = list(0,0), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0), OFFSET_RIGHT_HAND = list(0,0), OFFSET_LEFT_HAND = list(0,0))
+	check_if_natural()
 	AddElement(/datum/element/strippable, GLOB.strippable_monkey_items)
+
+/mob/living/carbon/monkey/proc/check_if_natural()
+	for(var/datum/mutation/race/monke in dna.mutations)
+		if(natural)
+			monke.mutadone_proof = TRUE
+		else
+			monke.mutadone_proof = FALSE
 
 /mob/living/carbon/monkey/Destroy()
 	SSmobs.cubemonkeys -= src

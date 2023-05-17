@@ -110,14 +110,11 @@
 
 /mob/living/carbon/human/get_stat_tab_status()
 	var/list/tab_data = ..()
-
-	if (internal)
-		if (!internal.air_contents)
-			qdel(internal)
-		else
-			tab_data["Internal Atmosphere Info"] = GENERATE_STAT_TEXT("[internal.name]")
-			tab_data["Tank Pressure"] = GENERATE_STAT_TEXT("[internal.air_contents.return_pressure()]")
-			tab_data["Distribution Pressure"] = GENERATE_STAT_TEXT("[internal.distribute_pressure]")
+	var/obj/item/tank/target_tank = internal || external
+	if(target_tank)
+		tab_data["Internal Atmosphere Info"] = GENERATE_STAT_TEXT("[target_tank.name]")
+		tab_data["Tank Pressure"] = GENERATE_STAT_TEXT("[target_tank.air_contents.return_pressure()]")
+		tab_data["Distribution Pressure"] = GENERATE_STAT_TEXT("[target_tank.distribute_pressure]")
 
 	if(mind)
 		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
@@ -160,36 +157,41 @@
 	if(href_list["hud"])
 		if(!ishuman(usr))
 			return
-		var/mob/living/carbon/human/H = usr
+		var/mob/living/carbon/human/human_user = usr
 		var/perpname = get_face_name(get_id_name(""))
-		if(!HAS_TRAIT(H, TRAIT_SECURITY_HUD) && !HAS_TRAIT(H, TRAIT_MEDICAL_HUD))
+		if(!HAS_TRAIT(human_user, TRAIT_SECURITY_HUD) && !HAS_TRAIT(human_user, TRAIT_MEDICAL_HUD))
 			return
-		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.general)
+		if((text2num(href_list["examine_time"]) + 1 MINUTES) < world.time)
+			to_chat(human_user, "<span class='notice'>It's too late to use this now!</span>")
+			return
+		var/datum/data/record/target_record = find_record("name", perpname, GLOB.data_core.general)
 		if(href_list["photo_front"] || href_list["photo_side"])
-			if(!R)
+			if(!target_record)
 				return
-			if(!H.canUseHUD())
+			if(!human_user.canUseHUD())
 				return
-			var/obj/item/photo/P = null
+			if(!HAS_TRAIT(human_user, TRAIT_SECURITY_HUD) && !HAS_TRAIT(human_user, TRAIT_MEDICAL_HUD))
+				return
+			var/obj/item/photo/photo_from_record = null
 			if(href_list["photo_front"])
-				P = R.fields["photo_front"]
+				photo_from_record = target_record.fields["photo_front"]
 			else if(href_list["photo_side"])
-				P = R.fields["photo_side"]
-			if(P)
-				P.show(H)
+				photo_from_record = target_record.fields["photo_side"]
+			if(photo_from_record)
+				photo_from_record.show(human_user)
 			return
 
 		if(href_list["hud"] == "m")
-			if(!HAS_TRAIT(H, TRAIT_MEDICAL_HUD))
+			if(!HAS_TRAIT(human_user, TRAIT_MEDICAL_HUD))
 				return
 			if(href_list["evaluation"])
 				if(!getBruteLoss() && !getFireLoss() && !getOxyLoss() && getToxLoss() < 20)
-					to_chat(usr, "<span class='notice'>No external injuries detected.</span><br>")
+					to_chat(human_user, "<span class='notice'>No external injuries detected.</span><br>")
 					return
 				var/span = "notice"
 				var/status = ""
 				if(getBruteLoss())
-					to_chat(usr, "<b>Physical trauma analysis:</b>")
+					to_chat(human_user, "<b>Physical trauma analysis:</b>")
 					for(var/obj/item/bodypart/BP as() in bodyparts)
 						var/brutedamage = BP.brute_dam
 						if(brutedamage > 0)
@@ -202,9 +204,9 @@
 							status = "sustained major trauma!"
 							span = "userdanger"
 						if(brutedamage)
-							to_chat(usr, "<span class='[span]'>[BP] appears to have [status]</span>")
+							to_chat(human_user, "<span class='[span]'>[BP] appears to have [status]</span>")
 				if(getFireLoss())
-					to_chat(usr, "<b>Analysis of skin burns:</b>")
+					to_chat(human_user, "<b>Analysis of skin burns:</b>")
 					for(var/obj/item/bodypart/BP as() in bodyparts)
 						var/burndamage = BP.burn_dam
 						if(burndamage > 0)
@@ -217,118 +219,118 @@
 							status = "major burns!"
 							span = "userdanger"
 						if(burndamage)
-							to_chat(usr, "<span class='[span]'>[BP] appears to have [status]</span>")
+							to_chat(human_user, "<span class='[span]'>[BP] appears to have [status]</span>")
 				if(getOxyLoss())
-					to_chat(usr, "<span class='danger'>Patient has signs of suffocation, emergency treatment may be required!</span>")
+					to_chat(human_user, "<span class='danger'>Patient has signs of suffocation, emergency treatment may be required!</span>")
 				if(getToxLoss() > 20)
-					to_chat(usr, "<span class='danger'>Gathered data is inconsistent with the analysis, possible cause: poisoning.</span>")
-			if(!H.wear_id) //You require access from here on out.
-				to_chat(H, "<span class='warning'>ERROR: Invalid access</span>")
+					to_chat(human_user, "<span class='danger'>Gathered data is inconsistent with the analysis, possible cause: poisoning.</span>")
+			if(!human_user.wear_id) //You require access from here on out.
+				to_chat(human_user, "<span class='warning'>ERROR: Invalid access</span>")
 				return
-			var/list/access = H.wear_id.GetAccess()
+			var/list/access = human_user.wear_id.GetAccess()
 			if(!(ACCESS_MEDICAL in access))
-				to_chat(H, "<span class='warning'>ERROR: Invalid access</span>")
+				to_chat(human_user, "<span class='warning'>ERROR: Invalid access</span>")
 				return
 			if(href_list["p_stat"])
-				var/health_status = input(usr, "Specify a new physical status for this person.", "Medical HUD", R.fields["p_stat"]) in list("Active", "Physically Unfit", "*Unconscious*", "*Deceased*", "Cancel")
-				if(!R)
+				var/health_status = input(human_user, "Specify a new physical status for this person.", "Medical HUD", target_record.fields["p_stat"]) in list("Active", "Physically Unfit", "*Unconscious*", "*Deceased*", "Cancel")
+				if(!target_record)
 					return
-				if(!H.canUseHUD())
+				if(!human_user.canUseHUD())
 					return
-				if(!HAS_TRAIT(H, TRAIT_MEDICAL_HUD))
+				if(!HAS_TRAIT(human_user, TRAIT_MEDICAL_HUD))
 					return
 				if(health_status && health_status != "Cancel")
-					R.fields["p_stat"] = health_status
+					target_record.fields["p_stat"] = health_status
 				return
 			if(href_list["m_stat"])
-				var/health_status = input(usr, "Specify a new mental status for this person.", "Medical HUD", R.fields["m_stat"]) in list("Stable", "*Watch*", "*Unstable*", "*Insane*", "Cancel")
-				if(!R)
+				var/health_status = input(human_user, "Specify a new mental status for this person.", "Medical HUD", target_record.fields["m_stat"]) in list("Stable", "*Watch*", "*Unstable*", "*Insane*", "Cancel")
+				if(!target_record)
 					return
-				if(!H.canUseHUD())
+				if(!human_user.canUseHUD())
 					return
-				if(!HAS_TRAIT(H, TRAIT_MEDICAL_HUD))
+				if(!HAS_TRAIT(human_user, TRAIT_MEDICAL_HUD))
 					return
 				if(health_status && health_status != "Cancel")
-					R.fields["m_stat"] = health_status
+					target_record.fields["m_stat"] = health_status
 				return
 			return //Medical HUD ends here.
 
 		if(href_list["hud"] == "s")
-			if(!HAS_TRAIT(H, TRAIT_SECURITY_HUD))
+			if(!HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
 				return
-			if(usr.stat || usr == src) //|| !usr.canmove || usr.restrained()) Fluff: Sechuds have eye-tracking technology and sets 'arrest' to people that the wearer looks and blinks at.
+			if(human_user.stat || human_user == src) //|| !human_user.canmove || human_user.restrained()) Fluff: Sechuds have eye-tracking technology and sets 'arrest' to people that the wearer looks and blinks at.
 				return													  //Non-fluff: This allows sec to set people to arrest as they get disarmed or beaten
 			// Checks the user has security clearence before allowing them to change arrest status via hud, comment out to enable all access
 			var/allowed_access = null
-			var/obj/item/clothing/glasses/hud/security/G = H.glasses
-			if(istype(G) && (G.obj_flags & EMAGGED))
+			var/obj/item/clothing/glasses/hud/security/user_glasses = human_user.glasses
+			if(istype(user_glasses) && (user_glasses.obj_flags & EMAGGED))
 				allowed_access = "@%&ERROR_%$*"
 			else //Implant and standard glasses check access
-				if(H.wear_id)
-					var/list/access = H.wear_id.GetAccess()
+				if(human_user.wear_id)
+					var/list/access = human_user.wear_id.GetAccess()
 					if(ACCESS_SEC_RECORDS in access)
-						allowed_access = H.get_authentification_name()
+						allowed_access = human_user.get_authentification_name()
 
 			if(!allowed_access)
-				to_chat(H, "<span class='warning'>ERROR: Invalid access.</span>")
+				to_chat(human_user, "<span class='warning'>ERROR: Invalid access.</span>")
 				return
 
 			if(!perpname)
-				to_chat(H, "<span class='warning'>ERROR: Can not identify target.</span>")
+				to_chat(human_user, "<span class='warning'>ERROR: Can not identify target.</span>")
 				return
-			R = find_record("name", perpname, GLOB.data_core.security)
-			if(!R)
-				to_chat(usr, "<span class='warning'>ERROR: Unable to locate data core entry for target.</span>")
+			target_record = find_record("name", perpname, GLOB.data_core.security)
+			if(!target_record)
+				to_chat(human_user, "<span class='warning'>ERROR: Unable to locate data core entry for target.</span>")
 				return
 			if(href_list["status"])
-				var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) in list("None", "Arrest", "Search", "Monitor", "Incarcerated", "Paroled", "Discharged", "Cancel")
+				var/setcriminal = input(human_user, "Specify a new criminal status for this person.", "Security HUD", target_record.fields["criminal"]) in list("None", "Arrest", "Search", "Monitor", "Incarcerated", "Paroled", "Discharged", "Cancel")
 				if(setcriminal != "Cancel")
-					if(!R)
+					if(!target_record)
 						return
-					if(!H.canUseHUD())
+					if(!human_user.canUseHUD())
 						return
-					if(!HAS_TRAIT(H, TRAIT_SECURITY_HUD))
+					if(!HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
 						return
-					investigate_log("[key_name(src)] has been set from [R.fields["criminal"]] to [setcriminal] by [key_name(usr)].", INVESTIGATE_RECORDS)
-					R.fields["criminal"] = setcriminal
+					investigate_log("[key_name(src)] has been set from [target_record.fields["criminal"]] to [setcriminal] by [key_name(human_user)].", INVESTIGATE_RECORDS)
+					target_record.fields["criminal"] = setcriminal
 					sec_hud_set_security_status()
 				return
 
 			if(href_list["view"])
-				if(!H.canUseHUD())
+				if(!human_user.canUseHUD())
 					return
-				if(!HAS_TRAIT(H, TRAIT_SECURITY_HUD))
+				if(!HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
 					return
-				to_chat(usr, "<b>Name:</b> [R.fields["name"]]	<b>Criminal Status:</b> [R.fields["criminal"]]")
-				for(var/datum/data/crime/c in R.fields["crim"])
-					to_chat(usr, "<b>Crime:</b> [c.crimeName]")
+				to_chat(human_user, "<b>Name:</b> [target_record.fields["name"]]	<b>Criminal Status:</b> [target_record.fields["criminal"]]")
+				for(var/datum/data/crime/c in target_record.fields["crim"])
+					to_chat(human_user, "<b>Crime:</b> [c.crimeName]")
 					if (c.crimeDetails)
-						to_chat(usr, "<b>Details:</b> [c.crimeDetails]")
+						to_chat(human_user, "<b>Details:</b> [c.crimeDetails]")
 					else
-						to_chat(usr, "<b>Details:</b> <A href='?src=[REF(src)];hud=s;add_details=1;cdataid=[c.dataId]'>\[Add details]</A>")
-					to_chat(usr, "Added by [c.author] at [c.time]")
-					to_chat(usr, "----------")
-				to_chat(usr, "<b>Notes:</b> [R.fields["notes"]]")
+						to_chat(human_user, "<b>Details:</b> <A href='?src=[REF(src)];hud=s;add_details=1;cdataid=[c.dataId]'>\[Add details]</A>")
+					to_chat(human_user, "Added by [c.author] at [c.time]")
+					to_chat(human_user, "----------")
+				to_chat(human_user, "<b>Notes:</b> [target_record.fields["notes"]]")
 				return
 
 			if(href_list["add_citation"])
 				var/maxFine = CONFIG_GET(number/maxfine)
 				var/t1 = stripped_input("Please input citation crime:", "Security HUD", "", null)
 				var/fine = FLOOR(input("Please input citation fine, up to [maxFine]:", "Security HUD", 50) as num|null, 1)
-				if(!R || !t1 || !fine || !allowed_access)
+				if(!target_record || !t1 || !fine || !allowed_access)
 					return
-				if(!H.canUseHUD())
+				if(!human_user.canUseHUD())
 					return
-				if(!HAS_TRAIT(H, TRAIT_SECURITY_HUD))
+				if(!HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
 					return
 				if(fine < 0)
-					to_chat(usr, "<span class='warning'>You're pretty sure that's not how money works.</span>")
+					to_chat(human_user, "<span class='warning'>You're pretty sure that's not how money works.</span>")
 					return
 				fine = min(fine, maxFine)
 
 				var/datum/data/crime/crime = GLOB.data_core.createCrimeEntry(t1, "", allowed_access, station_time_timestamp(), fine)
 				for (var/obj/item/modular_computer/tablet in GLOB.TabletMessengers)
-					if(tablet.saved_identification == R.fields["name"])
+					if(tablet.saved_identification == target_record.fields["name"])
 						var/message = "You have been fined [fine] credits for '[t1]'. Fines may be paid at security."
 						var/datum/signal/subspace/messaging/tablet_msg/signal = new(src, list(
 							"name" = "Security Citation",
@@ -338,65 +340,65 @@
 							"automated" = TRUE
 						))
 						signal.send_to_receivers()
-						usr.log_message("(PDA: Citation Server) sent \"[message]\" to [signal.format_target()]", LOG_PDA)
-				GLOB.data_core.addCitation(R.fields["id"], crime)
-				investigate_log("New Citation: <strong>[t1]</strong> Fine: [fine] | Added to [R.fields["name"]] by [key_name(usr)]", INVESTIGATE_RECORDS)
+						human_user.log_message("(PDA: Citation Server) sent \"[message]\" to [signal.format_target()]", LOG_PDA)
+				GLOB.data_core.addCitation(target_record.fields["id"], crime)
+				investigate_log("New Citation: <strong>[t1]</strong> Fine: [fine] | Added to [target_record.fields["name"]] by [key_name(human_user)]", INVESTIGATE_RECORDS)
 				return
 
 			if(href_list["add_crime"])
 				var/t1 = stripped_input("Please input crime name:", "Security HUD", "", null)
-				if(!R || !t1 || !allowed_access)
+				if(!target_record || !t1 || !allowed_access)
 					return
-				if(!H.canUseHUD())
+				if(!human_user.canUseHUD())
 					return
-				if(!HAS_TRAIT(H, TRAIT_SECURITY_HUD))
+				if(!HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
 					return
 				var/crime = GLOB.data_core.createCrimeEntry(t1, null, allowed_access, station_time_timestamp())
-				GLOB.data_core.addCrime(R.fields["id"], crime)
-				investigate_log("New Crime: <strong>[t1]</strong> | Added to [R.fields["name"]] by [key_name(usr)]", INVESTIGATE_RECORDS)
-				to_chat(usr, "<span class='notice'>Successfully added a crime.</span>")
+				GLOB.data_core.addCrime(target_record.fields["id"], crime)
+				investigate_log("New Crime: <strong>[t1]</strong> | Added to [target_record.fields["name"]] by [key_name(human_user)]", INVESTIGATE_RECORDS)
+				to_chat(human_user, "<span class='notice'>Successfully added a crime.</span>")
 				return
 
 			if(href_list["add_details"])
-				var/t1 = stripped_input(usr, "Please input crime details:", "Secure. records", "", null)
-				if(!R || !t1 || !allowed_access)
+				var/t1 = stripped_input(human_user, "Please input crime details:", "Secure. records", "", null)
+				if(!target_record || !t1 || !allowed_access)
 					return
-				if(!H.canUseHUD())
+				if(!human_user.canUseHUD())
 					return
-				if(!HAS_TRAIT(H, TRAIT_SECURITY_HUD))
+				if(!HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
 					return
 				if(href_list["cdataid"])
-					GLOB.data_core.addCrimeDetails(R.fields["id"], href_list["cdataid"], t1)
-					investigate_log("New Crime details: [t1] | Added to [R.fields["name"]] by [key_name(usr)]", INVESTIGATE_RECORDS)
-					to_chat(usr, "<span class='notice'>Successfully added details.</span>")
+					GLOB.data_core.addCrimeDetails(target_record.fields["id"], href_list["cdataid"], t1)
+					investigate_log("New Crime details: [t1] | Added to [target_record.fields["name"]] by [key_name(human_user)]", INVESTIGATE_RECORDS)
+					to_chat(human_user, "<span class='notice'>Successfully added details.</span>")
 				return
 
 			if(href_list["view_comment"])
-				if(!H.canUseHUD())
+				if(!human_user.canUseHUD())
 					return
-				if(!HAS_TRAIT(H, TRAIT_SECURITY_HUD))
+				if(!HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
 					return
-				to_chat(usr, "<b>Comments/Log:</b>")
+				to_chat(human_user, "<b>Comments/Log:</b>")
 				var/counter = 1
-				while(R.fields[text("com_[]", counter)])
-					to_chat(usr, R.fields[text("com_[]", counter)])
-					to_chat(usr, "----------")
+				while(target_record.fields[text("com_[]", counter)])
+					to_chat(human_user, target_record.fields[text("com_[]", counter)])
+					to_chat(human_user, "----------")
 					counter++
 				return
 
 			if(href_list["add_comment"])
 				var/t1 = stripped_multiline_input("Add Comment:", "Secure. records", null, null)
-				if (!R || !t1 || !allowed_access)
+				if (!target_record || !t1 || !allowed_access)
 					return
-				if(!H.canUseHUD())
+				if(!human_user.canUseHUD())
 					return
-				if(!HAS_TRAIT(H, TRAIT_SECURITY_HUD))
+				if(!HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
 					return
 				var/counter = 1
-				while(R.fields[text("com_[]", counter)])
+				while(target_record.fields[text("com_[]", counter)])
 					counter++
-				R.fields[text("com_[]", counter)] = text("Made by [] on [] [], []<BR>[]", allowed_access, station_time_timestamp(), time2text(world.realtime, "MMM DD"), GLOB.year_integer+YEAR_OFFSET, t1)
-				to_chat(usr, "<span class='notice'>Successfully added comment.</span>")
+				target_record.fields[text("com_[]", counter)] = text("Made by [] on [] [], []<BR>[]", allowed_access, station_time_timestamp(), time2text(world.realtime, "MMM DD"), GLOB.year_integer+YEAR_OFFSET, t1)
+				to_chat(human_user, "<span class='notice'>Successfully added comment.</span>")
 				return
 	..() //end of this massive fucking chain. TODO: make the hud chain not spooky.
 
@@ -631,6 +633,9 @@
 	remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, "#000000")
 	cut_overlay(MA)
 
+/mob/living/carbon/human/can_interact_with(atom/A, treat_mob_as_adjacent)
+	return ..() || (dna.check_mutation(TK) && tkMaxRangeCheck(src, A))
+
 /mob/living/carbon/human/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
 	if(!(mobility_flags & MOBILITY_UI))
 		to_chat(src, "<span class='warning'>You can't do that right now!</span>")
@@ -764,6 +769,7 @@
 	VV_DROPDOWN_OPTION(VV_HK_MAKE_ALIEN, "Make Alien")
 	VV_DROPDOWN_OPTION(VV_HK_SET_SPECIES, "Set Species")
 	VV_DROPDOWN_OPTION(VV_HK_PURRBATION, "Toggle Purrbation")
+	VV_DROPDOWN_OPTION(VV_HK_RANDOM_NAME, "Randomize Name")
 
 /mob/living/carbon/human/vv_do_topic(list/href_list)
 	. = ..()
@@ -773,6 +779,8 @@
 		copy_outfit()
 	if(href_list[VV_HK_MOD_QUIRKS])
 		if(!check_rights(R_SPAWN))
+			return
+		if(!mind)
 			return
 
 		var/list/options = list("Clear"="Clear")
@@ -784,14 +792,14 @@
 		var/result = input(usr, "Choose quirk to add/remove","Quirk Mod") as null|anything in options
 		if(result)
 			if(result == "Clear")
-				for(var/datum/quirk/q in roundstart_quirks)
-					remove_quirk(q.type)
+				for(var/datum/quirk/q in mind.quirks)
+					mind.remove_quirk(q.type)
 			else
 				var/T = options[result]
 				if(has_quirk(T))
-					remove_quirk(T)
+					mind.remove_quirk(T)
 				else
-					add_quirk(T,TRUE)
+					mind.add_quirk(T,TRUE)
 	if(href_list[VV_HK_MAKE_MONKEY])
 		if(!check_rights(R_SPAWN))
 			return
@@ -844,6 +852,16 @@
 			var/msg = "<span class='notice'>[key_name_admin(usr)] has removed [key_name(src)] from purrbation.</span>"
 			message_admins(msg)
 			admin_ticket_log(src, msg)
+	if(href_list[VV_HK_RANDOM_NAME])
+		if(!check_rights(R_ADMIN))//mods can rename people with VV so they should be able to do this too
+			return
+		if(isnull(dna.species))
+			to_chat(usr, "The species of [src] is null, aborting.")
+		var/old_name = real_name
+		fully_replace_character_name(real_name, dna.species.random_name(gender))
+		log_admin("[key_name(usr)] has randomly generated a new name for [key_name(src)], replacing their old name of [old_name].")
+		message_admins("<span class='notice'>[key_name_admin(usr)] has randomly generated a new name for [key_name(src)], replacing their old name of [old_name].</span>")
+
 
 /mob/living/carbon/human/MouseDrop_T(mob/living/target, mob/living/user)
 	if(pulling != target || grab_state < GRAB_AGGRESSIVE || stat != CONSCIOUS || a_intent != INTENT_GRAB)
@@ -1074,12 +1092,6 @@
 		return FALSE
 	return ..()
 
-/mob/living/carbon/human/ZImpactDamage(turf/T, levels)
-	var/datum/species/species_datum = dna?.species
-	if(!istype(species_datum))
-		return ..()
-	species_datum.z_impact_damage(src, T, levels)
-
 /mob/living/carbon/human/proc/stub_toe(var/power)
 	if(HAS_TRAIT(src, TRAIT_LIGHT_STEP))
 		power *= 0.5
@@ -1231,20 +1243,17 @@
 /mob/living/carbon/human/species/ipc
 	race = /datum/species/ipc
 
-/mob/living/carbon/human/species/jelly
-	race = /datum/species/jelly
-
 /mob/living/carbon/human/species/oozeling
 	race = /datum/species/oozeling
 
-/mob/living/carbon/human/species/jelly/slime
-	race = /datum/species/jelly/slime
+/mob/living/carbon/human/species/oozeling/slime
+	race = /datum/species/oozeling/slime
 
-/mob/living/carbon/human/species/jelly/stargazer
-	race = /datum/species/jelly/stargazer
+/mob/living/carbon/human/species/oozeling/stargazer
+	race = /datum/species/oozeling/stargazer
 
-/mob/living/carbon/human/species/jelly/luminescent
-	race = /datum/species/jelly/luminescent
+/mob/living/carbon/human/species/oozeling/luminescent
+	race = /datum/species/oozeling/luminescent
 
 /mob/living/carbon/human/species/lizard
 	race = /datum/species/lizard

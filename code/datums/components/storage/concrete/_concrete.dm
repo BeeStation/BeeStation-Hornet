@@ -134,6 +134,9 @@
 		if(ismob(parent.loc))
 			var/mob/M = parent.loc
 			I.dropped(M, TRUE)
+		if(!(I.item_flags & (NO_PIXEL_RANDOM_DROP | WAS_THROWN)))
+			I.pixel_x = rand(-6, 6)
+			I.pixel_y = rand(-6, 6)
 	if(new_location)
 		//Reset the items values
 		_removal_reset(AM)

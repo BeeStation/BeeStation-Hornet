@@ -3,5 +3,5 @@
 	icon_state = "spark"
 	damage = 0
 	damage_type = BURN
-	flag = "energy"
+	armor_flag = ENERGY
 	reflectable = REFLECT_NORMAL

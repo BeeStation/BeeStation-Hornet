@@ -296,7 +296,7 @@
 /obj/item/organ/brain/clockwork/on_life()
 	. = ..()
 	if(prob(5) && !robust)
-		SEND_SOUND(owner, pickweight(list('sound/effects/clock_tick.ogg' = 6, 'sound/effects/smoke.ogg' = 2, 'sound/spookoween/chain_rattling.ogg' = 1, 'sound/ambience/ambiruin3.ogg' = 1)))
+		SEND_SOUND(owner, pick_weight(list('sound/effects/clock_tick.ogg' = 6, 'sound/effects/smoke.ogg' = 2, 'sound/spookoween/chain_rattling.ogg' = 1, 'sound/ambience/ambiruin3.ogg' = 1)))
 
 /obj/item/organ/liver/clockwork
 	name = "biometallic alembic"

@@ -148,6 +148,7 @@
 	hitsound = null //To prevent tap.ogg playing, as the item lacks of force
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
+	item_flags = ISWEAPON
 	throw_speed = 3
 	throw_range = 7
 	attack_verb = list("HONKED")

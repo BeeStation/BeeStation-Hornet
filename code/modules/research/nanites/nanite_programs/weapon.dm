@@ -177,13 +177,12 @@
 	if(!comm_message)
 		var/datum/nanite_extra_setting/ES = extra_settings[NES_DIRECTIVE]
 		sent_directive = ES.get_value()
-	brainwash(host_mob, sent_directive)
+	var/directive = brainwash(host_mob, sent_directive, nanites.cloud_id ? "nanites in cloud [nanites.cloud_id]" : "nanites")
 	log_game("A mind control nanite program brainwashed [key_name(host_mob)] with the objective '[sent_directive]'.")
-	addtimer(CALLBACK(src, PROC_REF(end_brainwashing)), 600)
+	addtimer(CALLBACK(src, PROC_REF(end_brainwashing), directive), 600)
 
-/datum/nanite_program/comm/mind_control/proc/end_brainwashing()
-	if(host_mob.mind && host_mob.mind.has_antag_datum(/datum/antagonist/brainwashed))
-		host_mob.mind.remove_antag_datum(/datum/antagonist/brainwashed)
+/datum/nanite_program/comm/mind_control/proc/end_brainwashing(directive)
+	unbrainwash(host_mob, directive)
 	log_game("[key_name(host_mob)] is no longer brainwashed by nanites.")
 
 /datum/nanite_program/comm/mind_control/disable_passive_effect()

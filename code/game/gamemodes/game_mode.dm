@@ -239,7 +239,7 @@
 		message_admins("Convert_roundtype failed due to no valid modes to convert to. Please report this error to the Coders.")
 		return null
 
-	replacementmode = pickweight(usable_modes)
+	replacementmode = pick_weight(usable_modes)
 
 	switch(SSshuttle.emergency.mode) //Rounds on the verge of ending don't get new antags, they just run out
 		if(SHUTTLE_STRANDED, SHUTTLE_ESCAPE)
@@ -380,7 +380,7 @@
 		reports += config.mode_reports[report_type]
 		Count++
 	for(var/i in Count to rand(3,5)) //Between three and five wrong entries on the list.
-		var/false_report_type = pickweightAllowZero(report_weights)
+		var/false_report_type = pick_weight_allow_zero(report_weights)
 		report_weights[false_report_type] = 0 //Make it so the same false report won't be selected twice
 		reports += config.mode_reports[false_report_type]
 
@@ -407,9 +407,12 @@
 	if(!station_goals.len)
 		return
 	. = "<hr><b>Special Orders for [station_name()]:</b><BR>"
+	var/list/goal_reports = list()
 	for(var/datum/station_goal/station_goal in station_goals)
 		station_goal.on_report()
-		. += station_goal.get_report()
+		goal_reports += station_goal.get_report()
+
+	. += goal_reports.Join("<hr>")
 	return
 
 // This is a frequency selection system. You may imagine it like a raffle where each player can have some number of tickets. The more tickets you have the more likely you are to
