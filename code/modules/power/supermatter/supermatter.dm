@@ -599,7 +599,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	dust_mob(user, cause = "hand")
 
 /obj/machinery/power/supermatter_crystal/proc/dust_mob(mob/living/nom, vis_msg, mob_msg, cause)
-	if(nom.incorporeal_move || nom.status_flags & GODMODE || is_type_in_typecache(nom.type, consume_protected))
+	if(nom.incorporeal_move || nom.status_flags & GODMODE || is_type_in_typecache(nom, consume_protected))
 		return
 	if(!vis_msg)
 		vis_msg = "<span class='danger'>[nom] reaches out and touches [src], inducing a resonance... [nom.p_their()] body starts to glow and burst into flames before flashing into dust!</span>"
@@ -615,7 +615,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 /obj/machinery/power/supermatter_crystal/attackby(obj/item/W, mob/living/user, params)
 	if(!istype(W) || (W.item_flags & ABSTRACT) || !istype(user))
 		return
-	if(is_type_in_typecache(W.type, consume_protected))
+	if(is_type_in_typecache(W, consume_protected))
 		return ..()
 	if(istype(W, /obj/item/melee/roastingstick)) // SM Cooking 101
 		return ..()
@@ -676,7 +676,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	return TRUE
 
 /obj/machinery/power/supermatter_crystal/Bumped(atom/movable/AM)
-	if(is_type_in_typecache(AM.type, consume_protected))
+	if(is_type_in_typecache(AM, consume_protected))
 		return ..() // remove calling parent if it causes weird behaviour
 	else if(isliving(AM))
 		AM.visible_message("<span class='danger'>\The [AM] slams into \the [src] inducing a resonance... [AM.p_their()] body starts to glow and burst into flames before flashing into dust!</span>",\
@@ -698,7 +698,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	. |= FALL_STOP_INTERCEPTING | FALL_INTERCEPTED
 
 /obj/machinery/power/supermatter_crystal/proc/Consume(atom/movable/AM)
-	if(is_type_in_typecache(AM.type, consume_protected))
+	if(is_type_in_typecache(AM, consume_protected))
 		return
 	else if(isliving(AM))
 		var/mob/living/user = AM
