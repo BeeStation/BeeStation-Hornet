@@ -62,10 +62,57 @@
 	starting_node = TRUE
 	display_name = "Basic Integrated Circuits"
 	description = "Research on how to fully exploit the power of integrated circuits"
-	design_ids = list("circuit_multitool", "comp_arithmetic", "comp_clock", "comp_comparison", "comp_concat", "comp_concat_list", "comp_delay", "comp_direction", "comp_get_column", "comp_gps", "comp_ram", "comp_health", "comp_hear", "comp_index",
-		"comp_index_table", "comp_length", "comp_light", "comp_list_literal", "comp_logic", "comp_mmi", "comp_module", "comp_multiplexer", "comp_not", "comp_pressuresensor", "comp_radio", "comp_random", "comp_router", "comp_select_query",
-		"comp_self", "comp_soundemitter", "comp_species", "comp_speech", "comp_speech", "comp_split", "comp_string_contains", "comp_tempsensor", "comp_textcase", "comp_tonumber", "comp_tostring", "comp_typecast", "comp_typecheck",
-		"compact_remote_shell", "component_printer", "integrated_circuit", "module_duplicator", "usb_cable","comp_ntnet_receive", "comp_ntnet_send"
+	design_ids = list(
+		"circuit_multitool",
+		"comp_arithmetic",
+		"comp_clock",
+		"comp_comparison",
+		"comp_concat_list",
+		"comp_concat",
+		"comp_delay",
+		"comp_direction",
+		"comp_get_column",
+		"comp_gps",
+		"comp_health",
+		"comp_hear",
+		"comp_index_table",
+		"comp_index",
+		"comp_length",
+		"comp_light",
+		"comp_list_literal",
+		"comp_logic",
+		"comp_mmi",
+		"comp_module",
+		"comp_multiplexer",
+		"comp_not",
+		"comp_ntnet_receive",
+		"comp_ntnet_send",
+		"comp_pressuresensor",
+		"comp_radio",
+		"comp_ram",
+		"comp_random",
+		"comp_round",
+		"comp_router",
+		"comp_seleccontains",
+		"comp_self",
+		"comp_soundemitter",
+		"comp_species",
+		"comp_speech",
+		"comp_speech",
+		"comp_split",
+		"comp_string",
+		"comp_tempsensor",
+		"comp_textcase",
+		"comp_tonumber",
+		"comp_tostring",
+		"comp_typecast",
+		"comp_typecheck",
+		"compact_remote_shell",
+		"component_printer",
+		"integrated_circuit",
+		"module_duplicator",
+		"usb_cable",
+		"comp_select_query",
 	)
 
 /////////////////////////Biotech/////////////////////////
@@ -370,7 +417,7 @@
 	display_name = "Math Circuitry"
 	description = "Development of more complex mathematical components for all your number manipulating needs"
 	prereq_ids = list("basic_circuitry", "datatheory")
-	design_ids = list("comp_adv_trig","comp_hyper_trig", "comp_bitwise", "comp_bitflag")
+	design_ids = list("comp_trig","comp_adv_trig","comp_hyper_trig", "comp_bitwise", "comp_bitflag")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
 
 /datum/techweb_node/list_circuits
