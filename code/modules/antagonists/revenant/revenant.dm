@@ -432,7 +432,7 @@
 		if(stepTurf.flags_1 & NOJAUNT_1)
 			to_chat(src, "<span class='warning'>Some strange aura is blocking the way.</span>")
 			return
-		if(locate(/obj/effect/blessing) in stepTurf)
+		if(stepTurf.is_holy())
 			to_chat(src, "<span class='warning'>Holy energies block your path!</span>")
 			return
 	return TRUE

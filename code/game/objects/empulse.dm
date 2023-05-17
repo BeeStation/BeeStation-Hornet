@@ -19,7 +19,7 @@
 
 	for(var/turf/T as() in spiral_range_turfs(light_range, epicenter))
 		//Blessing protects from holy EMPS
-		if(holy && (locate(/obj/effect/blessing) in T))
+		if(holy && T.is_holy())
 			continue
 		for(var/atom/A as() in T)
 			//Magic check.

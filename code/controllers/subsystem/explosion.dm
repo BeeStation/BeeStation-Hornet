@@ -323,7 +323,7 @@ SUBSYSTEM_DEF(explosions)
 		var/dist = init_dist
 
 		//Phew, that was a close one.
-		if(holy && (locate(/obj/effect/blessing) in T))
+		if(holy && T.is_holy())
 			continue
 
 		if(reactionary)

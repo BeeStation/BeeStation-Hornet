@@ -865,7 +865,7 @@ Striking a noncultist, however, will tear their flesh."}
 		new /obj/effect/temp_visual/dir_setting/cult/phase(user.loc, user.dir)
 		var/turf/temp_target = get_turf_in_angle(set_angle, targets_from, 40)
 		for(var/turf/T in getline(targets_from,temp_target))
-			if (locate(/obj/effect/blessing, T))
+			if (T.is_holy())
 				temp_target = T
 				playsound(T, 'sound/machines/clockcult/ark_damage.ogg', 50, 1)
 				new /obj/effect/temp_visual/at_shield(T, T)
