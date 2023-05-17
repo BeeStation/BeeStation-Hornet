@@ -190,75 +190,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		return
 	return ..()
 
-<<<<<<< HEAD
-/// Returns TRUE if the turf cannot be moved onto
-/proc/is_blocked_turf(turf/T, exclude_mobs)
-	if(T.density)
-		return 1
-	for(var/i in T)
-		var/atom/A = i
-		if(A.density && (!exclude_mobs || !ismob(A)))
-			return 1
-	return 0
-=======
-/turf/proc/check_z_travel(mob/user)
-	if(get_turf(user) != src)
-		return
-	var/list/tool_list = list()
-	var/turf/above = above()
-	if(above)
-		tool_list["Up"] = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = NORTH)
-	var/turf/below = below()
-	if(below)
-		tool_list["Down"] = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = SOUTH)
-
-	if(!length(tool_list))
-		return
-
-	var/result = show_radial_menu(user, user, tool_list, require_near = TRUE, tooltips = TRUE)
-	if(get_turf(user) != src)
-		return
-	switch(result)
-		if("Cancel")
-			return
-		if("Up")
-			if(user.zMove(UP, TRUE))
-				to_chat(user, "<span class='notice'>You move upwards.</span>")
-		if("Down")
-			if(user.zMove(DOWN, TRUE))
-				to_chat(user, "<span class='notice'>You move down.</span>")
-
-/turf/proc/travel_z(mob/user, turf/target, dir)
-	var/mob/living/L = user
-	if(istype(L) && L.incorporeal_move) // Allow most jaunting
-		user.client?.Process_Incorpmove(dir)
-		return
-	var/atom/movable/AM
-	if(user.pulling)
-		AM = user.pulling
-		AM.forceMove(target)
-	if(user.pulledby) // We moved our way out of the pull
-		user.pulledby.stop_pulling()
-	if(user.has_buckled_mobs())
-		for(var/M in user.buckled_mobs)
-			var/mob/living/buckled_mob = M
-			var/old_dir = buckled_mob.dir
-			if(!buckled_mob.Move(target, dir))
-				user.doMove(buckled_mob.loc) //forceMove breaks buckles, use doMove
-				user.last_move = buckled_mob.last_move
-				// Otherwise they will always face north
-				buckled_mob.setDir(old_dir)
-				user.setDir(old_dir)
-				return FALSE
-	else
-		user.forceMove(target)
-	if(istype(AM) && user.Adjacent(AM))
-		user.start_pulling(AM)
-
-/turf/proc/multiz_turf_del(turf/T, dir)
-
-/turf/proc/multiz_turf_new(turf/T, dir)
-
 /**
  * Check whether the specified turf is blocked by something dense inside it with respect to a specific atom.
  *
@@ -287,7 +218,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 				continue
 			return TRUE
 	return FALSE
->>>>>>> origin/master
 
 /proc/is_anchored_dense_turf(turf/T) //like the older version of the above, fails only if also anchored
 	if(T.density)
