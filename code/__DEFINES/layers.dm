@@ -88,6 +88,10 @@
 //#define FLY_LAYER 5 //For easy recordkeeping; this is a byond define
 #define GASFIRE_LAYER 5.05
 #define RIPPLE_LAYER 5.1
+// UI_LAYER 6 ---- this is NOT a Byond define
+// text effects shouldn't be displayed behind.
+#define UI_LAYER 6
+#define TEXT_EFFECT_UI_LAYER 6.05
 
 #define BLACKNESS_PLANE 0 //To keep from conflicts with SEE_BLACKNESS internals
 

@@ -12,6 +12,7 @@
 	var/started = FALSE
 	var/displayed_text
 	var/atom/attached_to
+	layer = TEXT_EFFECT_UI_LAYER
 
 /obj/effect/countdown/Initialize(mapload)
 	. = ..()
