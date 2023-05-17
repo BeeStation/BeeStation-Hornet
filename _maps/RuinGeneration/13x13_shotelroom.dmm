@@ -11,6 +11,12 @@
 /obj/machinery/computer/scan_consolenew,
 /turf/open/floor/plasteel/tiled,
 /area/ruin/unpowered)
+"c" = (
+/obj/structure/table/wood/fancy/purple,
+/obj/item/food/cake/chocolate,
+/obj/item/kitchen/knife,
+/turf/open/floor/carpet/orange,
+/area/ruin/unpowered)
 "d" = (
 /obj/structure/table/wood/fancy/purple,
 /obj/item/reagent_containers/food/drinks/bottle/orangejuice{
@@ -78,12 +84,6 @@
 /obj/machinery/door/airlock/wood,
 /obj/effect/mapping_helpers/airlock/locked,
 /turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"r" = (
-/obj/structure/table/wood/fancy/purple,
-/obj/item/food/cake/chocolate,
-/obj/item/kitchen/knife,
-/turf/open/floor/carpet/orange,
 /area/ruin/unpowered)
 "s" = (
 /obj/machinery/washing_machine,
@@ -194,23 +194,6 @@
 /obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
-"O" = (
-/obj/item/paper/crumpled/bloody/ruins/lavaland/clown_planet/escape{
-	info = "lol";
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/pen/fountain/captain{
-	pixel_x = 3;
-	pixel_y = -1
-	},
-/obj/structure/table/glass,
-/obj/item/reagent_containers/food/drinks/britcup{
-	pixel_x = -8;
-	pixel_y = -1
-	},
-/turf/open/floor/wood,
-/area/ruin/unpowered)
 "P" = (
 /obj/structure/chair/comfy/black{
 	dir = 1
@@ -226,6 +209,23 @@
 "R" = (
 /obj/structure/falsewall,
 /turf/open/floor/plasteel/tiled,
+/area/ruin/unpowered)
+"S" = (
+/obj/item/paper/crumpled/bloody/ruins/lavaland/clown_planet/escape{
+	default_raw_text = "lol";
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/pen/fountain/captain{
+	pixel_x = 3;
+	pixel_y = -1
+	},
+/obj/structure/table/glass,
+/obj/item/reagent_containers/food/drinks/britcup{
+	pixel_x = -8;
+	pixel_y = -1
+	},
+/turf/open/floor/wood,
 /area/ruin/unpowered)
 "T" = (
 /obj/effect/turf_decal/tile/purple{
@@ -318,7 +318,7 @@ m
 m
 s
 j
-O
+S
 h
 h
 h
@@ -434,7 +434,7 @@ k
 j
 h
 L
-r
+c
 d
 P
 v
