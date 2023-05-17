@@ -66,7 +66,11 @@
 /datum/antagonist/brother/proc/finalize_brother()
 	var/obj/item/implant/bloodbrother/I = new /obj/item/implant/bloodbrother()
 	I.implant(owner.current, null, TRUE, TRUE)
-	I.implant_colour = team.team_id <= 9 ? COLOR_LIST_BLOOD_BROTHERS[team.team_id] : "#ff0000"
+	if(team.team_id <= 9)
+		I.implant_colour = COLOR_LIST_BLOOD_BROTHERS[team.team_id]
+	else
+		I.implant_colour = "#ff0000"
+		stack_trace("Blood brother teams exist more than 9 teams, and colour preset is ran out")
 	for(var/datum/mind/M in team.members) // Link the implants of all team members
 		var/obj/item/implant/bloodbrother/T = locate() in M.current.implants
 		I.link_implant(T)
