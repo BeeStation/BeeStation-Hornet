@@ -100,7 +100,7 @@
 			var/obj/item/organ/tail/tail = H.getorganslot(ORGAN_SLOT_TAIL)
 			if(tail)
 				tail.set_wagging(H, TRUE)
-				addtimer(CALLBACK(H.dna.species, TYPE_PROC_REF(/obj/item/organ/tail, set_wagging), H, FALSE), 3 SECONDS)
+				addtimer(CALLBACK(tail, TYPE_PROC_REF(/obj/item/organ/tail, set_wagging), H, FALSE), 3 SECONDS)
 			description =  "<span class='nicegreen'>They want to play on the table!</span>\n"
 			mood_change = 2
 
