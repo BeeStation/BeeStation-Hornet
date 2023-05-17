@@ -1,0 +1,5 @@
+author: RKz, Thalpy
+delete-after: true
+changes:
+  - rscadd: Add ease out transitions on TGUI elements. Progress bars will now smoothly
+      update.
