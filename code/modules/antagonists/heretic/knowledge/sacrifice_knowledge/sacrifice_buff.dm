@@ -71,7 +71,7 @@
  * Adjust the owner's temperature up or down to standard body temperatures.
  */
 /datum/status_effect/unholy_determination/proc/adjust_temperature()
-	var/target_temp = BODYTEMP_NORMAL
+	var/target_temp = owner.get_bodytemp_normal()
 	if(owner.bodytemperature > target_temp)
 		owner.adjust_bodytemperature(-50 * TEMPERATURE_DAMAGE_COEFFICIENT, target_temp)
 	else if(owner.bodytemperature < (target_temp + 1))
