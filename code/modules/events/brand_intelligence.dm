@@ -82,7 +82,7 @@
 					M.desc += " By the way, this seems to be hurting..."
 				if(91 to 100) // moves faster
 					M.move_to_delay /= 2 // just half
-					M.desc += " By the way, this is obviously faster."
+					M.desc += " This one seems more agile..."
 
 		kill()
 		return
