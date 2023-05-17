@@ -3877,7 +3877,7 @@
 	name = "theatre RC";
 	pixel_x = -32
 	},
-/obj/item/reagent_containers/food/snacks/baguette,
+/obj/item/food/baguette,
 /obj/item/toy/dummy,
 /turf/open/floor/plasteel/white/side{
 	dir = 4
@@ -21002,7 +21002,7 @@
 	},
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engineering Foyer";
-	req_one_access_txt = "32;19"
+	req_one_access_txt = "32"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8

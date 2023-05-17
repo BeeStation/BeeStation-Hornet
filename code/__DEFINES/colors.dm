@@ -29,6 +29,7 @@
 #define COLOR_HALF_TRANSPARENT_BLACK    "#0000007A"
 #define COLOR_RED              "#FF0000"
 #define COLOR_RED_LIGHT        "#FF3333"
+#define COLOR_DARK_RED		   "#A50824"
 #define COLOR_MAROON           "#800000"
 #define COLOR_YELLOW           "#FFFF00"
 #define COLOR_OLIVE            "#808000"

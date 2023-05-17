@@ -152,3 +152,15 @@
 /turf/open/openspace/examine(mob/user)
 	SHOULD_CALL_PARENT(FALSE)
 	return below.examine(user)
+
+/turf/open/openspace/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	..()
+	if(!arrived.zfalling)
+		zFall(arrived, old_loc = old_loc) // don't use try_start_zFall here, it needs to be sync
+	// Make sure we didn't move from the above call
+	if(get_turf(arrived) == src)
+		SSzfall.add_openspace_inhabitant(arrived)
+
+/turf/open/openspace/Exited(atom/movable/exiting, atom/newloc)
+	..()
+	SSzfall.remove_openspace_inhabitant(exiting)

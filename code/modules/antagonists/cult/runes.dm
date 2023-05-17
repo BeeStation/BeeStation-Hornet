@@ -377,7 +377,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	LAZYADD(GLOB.teleport_runes, src)
 
 /obj/effect/rune/teleport/Destroy()
-	GLOB.teleport_runes -= src
+	LAZYREMOVE(GLOB.teleport_runes, src)
 	if(inner_portal)
 		QDEL_NULL(inner_portal)
 	if(outer_portal)
