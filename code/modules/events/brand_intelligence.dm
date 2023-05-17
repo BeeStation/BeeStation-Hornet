@@ -79,7 +79,7 @@
 					M.desc += " This one seems extra robust..."
 				if(81 to 90) // does stronger damage
 					M.melee_damage += 2+rand(1, 6) // 3~8
-					M.desc += " By the way, this seems to be hurting..."
+					M.desc += " This one seems extra painful..."
 				if(91 to 100) // moves faster
 					M.move_to_delay /= 2 // just half
 					M.desc += " This one seems more agile..."
