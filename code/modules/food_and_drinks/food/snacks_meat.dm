@@ -126,6 +126,8 @@
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 1)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("meat" = 1)
+	slices_num = 6
+	slice_path = /obj/item/reagent_containers/food/snacks/salami
 	foodtype = MEAT | BREAKFAST
 	/*food_flags = FOOD_FINGER_FOOD*/
 	var/roasted = FALSE
@@ -133,6 +135,14 @@
 /obj/item/reagent_containers/food/snacks/sausage/Initialize(mapload)
 	. = ..()
 	eatverb = pick("bite","chew","nibble","gobble","chomp")
+
+/obj/item/reagent_containers/food/snacks/salami
+	name = "salami"
+	desc = "A slice of cured salami. Surely they can have a little..."
+	icon_state = "salami"
+	list_reagents = list(/datum/reagent/consumable/nutriment = 1)
+	tastes = list("meat" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/rawkhinkali
 	name = "raw khinkali"

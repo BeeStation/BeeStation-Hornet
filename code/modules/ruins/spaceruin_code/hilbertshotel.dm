@@ -503,7 +503,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 /obj/item/paper/crumpled/docslogs/Initialize(mapload)
 	. = ..()
 	GLOB.hhmysteryRoomNumber = rand(1, SHORT_REAL_LIMIT)
-	info = {"<h4><center>Research Logs</center></h4>
+	default_raw_text = {"<h4><center>Research Logs</center></h4>
 	I might just be onto something here!<br>
 	The strange space-warping properties of bluespace have been known about for awhile now, but I might be on the verge of discovering a new way of harnessing it.<br>
 	It's too soon to say for sure, but this might be the start of something quite important!<br>
@@ -529,7 +529,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 
 /obj/item/paper/crumpled/robertsworkjournal
 	name = "Work Journal"
-	info = {"<h4>First Week!</h4>
+	default_raw_text = {"<h4>First Week!</h4>
 	First week on the new job. It's a secretarial position, but hey, whatever pays the bills. Plus it seems like some interesting stuff goes on here.<br>
 	Doc says its best that I don't openly talk about his research with others, I guess he doesn't want it getting out or something. I've caught myself slipping a few times when talking to others, it's hard not to brag about something this cool!<br>
 	I'm not really sure why I'm choosing to journal this. Doc seems to log everything. He says it's incase he discovers anything important.<br>
@@ -555,7 +555,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 
 /obj/item/paper/crumpled/bloody/docsdeathnote
 	name = "note"
-	info = {"This is it isn't it?<br>
+	default_raw_text = {"This is it isn't it?<br>
 	No one's coming to help, that much has become clear.<br>
 	Sure, it's lonely, but do I have much choice? At least I brought the analyzer with me, they shouldn't be able to find me without it.<br>
 	Who knows who's waiting for me out there. Its either die out there in their hands, or die a slower, slightly more comfortable death in here.<br>
@@ -572,7 +572,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 
 /obj/item/paper/crumpled/hilbertsstaffnotice
 	name = "An apology letter to our guests"
-	info = {"Due to a bluespace malfunction, one of our recent visitors got stranded in out of our rooms for a <b>REDACTED</b> amount of time.<br>
+	default_raw_text = {"Due to a bluespace malfunction, one of our recent visitors got stranded in out of our rooms for a <b>REDACTED</b> amount of time.<br>
 	In desperation they tried breaking down the door and have irreparably damaged the door handle in the process.<br>
 	Upon investigation, we have discovered that anyone who would tug too hard on door handle would be pulled inside of the door and sent off into an unknown location.<br>
 	As such, each room has received the equipment necessary to ensure our dear guests do not suffer the adverse effects of being sent into space.<br>

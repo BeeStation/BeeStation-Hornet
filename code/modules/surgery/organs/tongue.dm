@@ -91,6 +91,7 @@
 	taste_sensitivity = 25 // you eat vomit, this is a mercy
 	modifies_speech = TRUE
 	liked_food = GROSS | RAW | FRUIT | GORE
+	disliked_food = CLOTH
 	toxic_food = NONE
 
 /obj/item/organ/tongue/fly/handle_speech(datum/source, list/speech_args)
@@ -353,10 +354,11 @@
 	desc = "It's a tongue that looks off... Must be from a creature that shouldn't exist."
 	say_mod = "mumbles"
 	icon_state = "tonguefly"
+	disliked_food = CLOTH
 	liked_food = JUNKFOOD | FRIED | GROSS | RAW | GORE
 
 /obj/item/organ/tongue/podperson
 	name = "plant tongue"
 	desc = "It's an odd tongue, seemingly made of plant matter."
 	disliked_food = MEAT | DAIRY
-	liked_food = VEGETABLES | FRUIT | GRAIN //cannibals apparently
+	liked_food = VEGETABLES | FRUIT | GRAIN | CLOTH //cannibals apparently
