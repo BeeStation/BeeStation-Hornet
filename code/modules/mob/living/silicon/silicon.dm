@@ -297,8 +297,9 @@
 					number++
 					sleep(10)
 
-	S.client.silicon_spam_grace_done(total_laws_count)
 	currently_stating_laws = FALSE
+	if(S.client)
+		S.client.silicon_spam_grace_done(total_laws_count)
 
 /mob/living/silicon/proc/checklaws() //Gives you a link-driven interface for deciding what laws the statelaws() proc will share with the crew. --NeoFite
 
