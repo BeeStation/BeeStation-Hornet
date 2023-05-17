@@ -76,7 +76,7 @@
 					var/bonus_health = 15+rand(1, 7)*5
 					M.health += bonus_health
 					M.maxHealth += bonus_health
-					M.desc += " By the way, this seems to be robust..."
+					M.desc += " This one seems extra robust..."
 				if(81 to 90) // does stronger damage
 					M.melee_damage += 2+rand(1, 6) // 3~8
 					M.desc += " By the way, this seems to be hurting..."
