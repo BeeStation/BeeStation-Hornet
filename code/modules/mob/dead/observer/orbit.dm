@@ -65,7 +65,7 @@
 				var/obj/item/card/id/identification_card = M.get_idcard()
 				if (identification_card)
 					serialized["role_icon"] = "hud[ckey(identification_card.GetJobIcon())]"
-				else
+				else if(mind.assigned_role in SSjob.name_occupations)
 					//If we have no ID, use the mind job
 					var/datum/job/located_job = SSjob.GetJob(mind.assigned_role)
 					if (located_job)
@@ -80,6 +80,8 @@
 							serialized["antag"] = antag_team.get_team_name()
 						else
 							serialized["antag"] = A.get_antag_name()
+						if(mind.antag_hud_icon_state)
+							serialized["antag_icon"] = mind.antag_hud_icon_state
 						antagonists += list(serialized)
 						break
 
@@ -101,6 +103,7 @@
 	. = ..() || list()
 	. += get_asset_datum(/datum/asset/simple/orbit)
 	. += get_asset_datum(/datum/asset/spritesheet/job_icons)
+	. += get_asset_datum(/datum/asset/spritesheet/antag_hud)
 
 /datum/asset/spritesheet/job_icons
 	name = "job-icon"

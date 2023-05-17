@@ -56,20 +56,28 @@ const BasicSection = (props, context) => {
 
 const OrbitedButton = (props, context) => {
   const { act } = useBackend(context);
-  const { color, thing, job } = props;
+  const { color, thing, job, antag } = props;
 
   return (
     <Button
       color={color}
+      style={{ "line-height": "24px" }}
       onClick={() => act("orbit", {
         ref: thing.ref,
       })}>
       {job && (
         <Box inline
-          ml={0.1}
-          mr={0.6}
-          style={{ "transform": "translateY(2.5px)" }}
+          mr={0.5}
+          ml={-0.5}
+          style={{ "transform": "translateY(18.75%)" }}
           className={`job-icon16x16 job-icon-${job}`} />
+      )}
+      {antag && (
+        <Box inline
+          mr={0.5}
+          ml={job ? -0.25 : -0.5}
+          style={{ "transform": "translateY(18.75%)" }}
+          className={`antag-hud16x16 antag-hud-${antag}`} />
       )}
       {thing.name}
       {thing.orbiters && (
@@ -162,6 +170,7 @@ export const Orbit = (props, context) => {
                       color="bad"
                       thing={antag}
                       job={antag.role_icon}
+                      antag={antag.antag_icon}
                     />
                   ))}
               </Section>
