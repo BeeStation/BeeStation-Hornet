@@ -227,9 +227,8 @@
 	return ..()
 
 /datum/dynamic_ruleset/midround/autotraitor/execute()
-	var/mob/M = pick(candidates)
+	var/mob/M = antag_pick_n_take(candidates)
 	assigned += M
-	candidates -= M
 	var/datum/antagonist/traitor/newTraitor = new
 	M.mind.add_antag_datum(newTraitor)
 	return TRUE
@@ -282,7 +281,7 @@
 	return ..()
 
 /datum/dynamic_ruleset/midround/malf/execute()
-	var/mob/living/silicon/ai/M = pick_n_take(candidates)
+	var/mob/living/silicon/ai/M = antag_pick_n_take(candidates)
 	assigned += M.mind
 	var/datum/antagonist/traitor/AI = new
 	M.mind.special_role = antag_flag
@@ -663,6 +662,7 @@
 	weight = 3
 	cost = 5
 	repeatable = TRUE
+	consider_antag_rep = TRUE
 
 /datum/dynamic_ruleset/midround/obsessed/trim_candidates()
 	..()
@@ -684,7 +684,7 @@
 	return ..()
 
 /datum/dynamic_ruleset/midround/obsessed/execute()
-	var/mob/living/carbon/human/obsessed = pick_n_take(candidates)
+	var/mob/living/carbon/human/obsessed = antag_pick_n_take(candidates)
 	obsessed.gain_trauma(/datum/brain_trauma/special/obsessed)
 	message_admins("[ADMIN_LOOKUPFLW(obsessed)] has been made Obsessed by the midround ruleset.")
 	log_game("[key_name(obsessed)] was made Obsessed by the midround ruleset.")

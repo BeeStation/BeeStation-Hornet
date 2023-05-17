@@ -71,6 +71,8 @@
 	/// Delay for when execute will get called from the time of post_setup (roundstart) or process (midround/latejoin).
 	/// Make sure your ruleset works with execute being called during the game when using this, and that the clean_up proc reverts it properly in case of faliure.
 	var/delay = 0
+	/// Whether antag rep should be considered when rolling candidates or not.
+	var/consider_antag_rep = FALSE
 
 	/// Judges the amount of antagonists to apply, for both solo and teams.
 	/// Note that some antagonists (such as traitors, lings, heretics, etc) will add more based on how many times they've been scaled.
@@ -90,6 +92,7 @@
 
 /datum/dynamic_ruleset/roundstart // One or more of those drafted at roundstart
 	ruletype = "Roundstart"
+	consider_antag_rep = TRUE
 
 /datum/dynamic_ruleset/roundstart/get_weight()
 	. = ..()
@@ -252,6 +255,12 @@
 			if(antag_datum && mind.has_antag_datum(antag_datum))
 				// They're still antag and not dead.
 				return FALSE
+
+/// Picks a candidate from a list, while potentially taking antag rep into consideration.
+/datum/dynamic_ruleset/proc/antag_pick_n_take(list/candidates)
+	. = (mode && consider_antag_rep) ? mode.antag_pick(candidates, antag_flag) : pick(candidates)
+	if(.)
+		candidates -= .
 
 //////////////////////////////////////////////
 //                                          //
