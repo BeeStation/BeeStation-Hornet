@@ -11,6 +11,7 @@
 	return GLOB.observer_state
 
 /datum/orbit_menu/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if (!ui)
 		ui = new(user, src, "Orbit", "Orbit")
 		ui.open()
@@ -25,6 +26,8 @@
 		var/atom/movable/poi = (locate(ref) in GLOB.mob_list) || (locate(ref) in GLOB.poi_list)
 		if (poi != null)
 			owner.ManualFollow(poi)
+		else
+			return TRUE
 
 /datum/orbit_menu/ui_data(mob/user)
 	var/list/data = list()
@@ -100,10 +103,11 @@
 	return data
 
 /datum/orbit_menu/ui_assets()
-	. = ..() || list()
-	. += get_asset_datum(/datum/asset/simple/orbit)
-	. += get_asset_datum(/datum/asset/spritesheet/job_icons)
-	. += get_asset_datum(/datum/asset/spritesheet/antag_hud)
+	return list(
+		get_asset_datum(/datum/asset/simple/orbit),
+		get_asset_datum(/datum/asset/spritesheet/job_icons),
+		get_asset_datum(/datum/asset/spritesheet/antag_hud)
+	)
 
 /datum/asset/spritesheet/job_icons
 	name = "job-icon"
