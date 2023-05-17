@@ -65,7 +65,7 @@
 				var/obj/item/card/id/identification_card = M.get_idcard()
 				if (identification_card)
 					serialized["role_icon"] = "hud[ckey(identification_card.GetJobIcon())]"
-				else if(mind.assigned_role in SSjob.name_occupations)
+				else if(SSjob.name_occupations[mind.assigned_role])
 					//If we have no ID, use the mind job
 					var/datum/job/located_job = SSjob.GetJob(mind.assigned_role)
 					if (located_job)
