@@ -442,7 +442,7 @@
 	if(is_special_character(user))
 		to_chat(undead, "<span class='userdanger'>You are grateful to have been summoned into this word by [user]. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
 	else
-		to_chat(undead, "<h1><span class='notice'>You are grateful to have been summoned into this world. You are now a member of this stations crew, Try not to cause any trouble.</span></h1>")
+		to_chat(undead, "<span class='big notice'>You are grateful to have been summoned into this world. You are now a member of this station's crew, Try not to cause any trouble.</span>")
 	playsound(altar_turf, pick('sound/hallucinations/growl1.ogg','sound/hallucinations/growl2.ogg','sound/hallucinations/growl3.ogg',), 50, TRUE)
 	return ..()
 
