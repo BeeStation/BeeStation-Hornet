@@ -1,7 +1,8 @@
 import { classes } from 'common/react';
+import { Fragment } from 'inferno';
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
-import { Box, Button, Flex, Icon, NoticeBox, Section } from '../components';
+import { Box, Button, Flex, Icon, NoticeBox, Section, Tooltip } from '../components';
 import { NtosWindow } from '../layouts';
 
 export const NtosRadar = (props, context) => {
@@ -18,6 +19,7 @@ export const NtosRadar = (props, context) => {
     </NtosWindow>
   );
 };
+const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
 export const NtosRadarContentSmall = (props, context) => {
   const { act, data } = useBackend(context);
@@ -45,14 +47,26 @@ export const NtosRadarContentSmall = (props, context) => {
             : <Box>No Target Selected.</Box>)
           : (
             <Box>
-              Distance: {target.dist}<br />
-              Location: ({target.gpsx}, {target.gpsy}){" "}
-              {target.userot ? (
+              Distance: {target.dist} {target.locz_string}{" "}
+              {target.use_rotate && target.pointer_z && target.pin_grand_z_result ? (
+                <Tooltip
+                  content={"WARNING: Target is too far away."}>
+                  <Icon name="exclamation-triangle" color="yellow" />
+                </Tooltip>
+              ) : null}<br />
+              Location: ({target.gpsx}x, {target.gpsy}y, {target.gpsz}z){" "}
+              {" "}
+              {target.use_rotate ? (
                 <Icon
                   name={target.dist > 0 ? "arrow-up" : "crosshairs"}
                   style={{
-                    'transform': `rotate(${target.rot}deg)`,
+                    'transform': `rotate(${target.rotate_angle}deg)`,
                   }} />
+              ) : null}{" "}
+              {target.use_rotate && target.pointer_z ? (
+                <Icon
+                  size={1.5}
+                  name={target.pointer_z} />
               ) : null}
             </Box>
           )}
@@ -174,24 +188,43 @@ export const NtosRadarContent = (props, context) => {
               {sig_err}
             </NoticeBox>
           )
-          : !!target.userot && (
-            <Box as="img"
-              src={resolveAsset(target.arrowstyle)}
-              position="absolute"
-              top="20px"
-              left="243px"
-              style={{
-                'transform': `rotate(${target.rot}deg)`,
-              }} />
+          : !!target.use_rotate && (
+            <Fragment>
+              <Box as="img"
+                src={resolveAsset(target.arrowstyle)}
+                position="absolute"
+                top="20px"
+                left="243px"
+                style={{
+                  'transform': `rotate(${target.rotate_angle}deg)`,
+                }} />
+              {target.pointer_z ? <Icon
+                name={target.pointer_z}
+                position="absolute"
+                size={12}
+                color={(target.pin_grand_z_result ? "purple" : "orange")}
+                top={200 + 'px'}
+                left={224 + 'px'} /> : null }
+            </Fragment>
           ) || (
             <Icon
-              name={target.pointer}
+              name={target.pointer_z ? target.pointer_z : "crosshairs"}
               position="absolute"
-              size={2}
-              color={target.color}
+              size={target.pointer_z ? 4 : 2}
+              color={(target.pin_grand_z_result ? "purple" : (target.pointer_z ? "orange" : target.color))}
               top={((target.locy * 10) + 19) + 'px'}
               left={((target.locx * 10) + 16) + 'px'} />
           )}
+        <Box>
+          Distance: {target.dist} {target.locz_string}
+          {target.pointer_z && target.pin_grand_z_result ? (
+            <Tooltip
+              content={"WARNING: Target is too far away."}>
+              <Icon name="exclamation-triangle" color="yellow" />
+            </Tooltip>
+          ) : null}<br />
+          Location: ({target.gpsx}x, {target.gpsy}y, {target.gpsz}z){" "}
+        </Box>
       </Flex.Item>
     </Flex>
   );

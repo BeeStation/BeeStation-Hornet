@@ -567,6 +567,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		return
 
 	AddElement(/datum/element/rust)
+	return TRUE
 
 /// When someone falls over onto this turf (Knockdown() or similar), not related to zfalls
 /turf/handle_fall(mob/faller, forced)

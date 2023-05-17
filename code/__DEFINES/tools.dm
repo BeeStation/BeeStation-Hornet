@@ -14,6 +14,7 @@
 #define TOOL_DRILL			"drill"
 #define TOOL_SCALPEL		"scalpel"
 #define TOOL_SAW			"saw"
+#define TOOL_KNIFE			"knife"
 #define TOOL_BLOODFILTER	"bloodfilter"
 #define TOOL_RUSTSCRAPER	"rustscraper"
 // If delay between the start and the end of tool operation is less than MIN_TOOL_SOUND_DELAY,

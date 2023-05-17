@@ -125,3 +125,4 @@
 
 /obj/structure/rust_heretic_act()
 	take_damage(500, BRUTE, MELEE, 1)
+	return TRUE

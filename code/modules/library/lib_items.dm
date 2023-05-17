@@ -22,7 +22,7 @@
 	max_integrity = 200
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0, STAMINA = 0)
 	var/state = 0
-	var/list/allowed_books = list(/obj/item/book, /obj/item/spellbook, /obj/item/storage/book, /obj/item/forbidden_book) //Things allowed in the bookcase
+	var/list/allowed_books = list(/obj/item/book, /obj/item/spellbook, /obj/item/storage/book, /obj/item/codex_cicatrix) //Things allowed in the bookcase
 	/// When enabled, books_to_load number of random books will be generated for this bookcase when first interacted with.
 	var/load_random_books = FALSE
 	/// The category of books to pick from when populating random books.

@@ -3261,7 +3261,7 @@
 /mob/living/simple_animal/mouse/gray,
 /obj/structure/lattice/catwalk,
 /obj/item/reagent_containers/food/snacks/store/cheesewheel,
-/obj/item/reagent_containers/food/snacks/breadslice/creamcheese,
+/obj/item/food/breadslice/creamcheese,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "aOs" = (
@@ -12768,7 +12768,7 @@
 /area/maintenance/solars/port/aft)
 "drR" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/spaghetti,
+/obj/item/food/spaghetti/raw,
 /obj/item/reagent_containers/food/condiment/saltshaker{
 	pixel_x = 4;
 	pixel_y = 4
@@ -37201,7 +37201,7 @@
 "jOz" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering Break Room";
-	req_one_access_txt = "32;19"
+	req_one_access_txt = "32"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
@@ -80620,7 +80620,7 @@
 "uGD" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Shared Engineering Storage";
-	req_one_access_txt = "32;19"
+	req_one_access_txt = "32"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -86997,7 +86997,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering Foyer";
-	req_one_access_txt = "32;19"
+	req_one_access_txt = "32"
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /obj/structure/disposalpipe/segment,
