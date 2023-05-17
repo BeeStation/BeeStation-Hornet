@@ -300,6 +300,7 @@
 		"<span class='warning'>[cultist] [cultist.blood_volume ? "cuts open [cultist.p_their()] arm and begins writing in [cultist.p_their()] own blood":"begins sketching out a strange design"]!</span>",
 		"<span class='cult'>You [cultist.blood_volume ? "slice open your arm and ":""]begin drawing a sigil of the Geometer.</span>"
 		)
+	log_game("[key_name(cultist)] has begun inscribing the Narsie summon rune at [AREACOORD(cultist)]")
 
 	if(cultist.blood_volume)
 		cultist.apply_damage(initial(rune_to_scribe.scribe_damage), BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)) // *cuts arm* *bone explodes* ever have one of those days?
@@ -320,6 +321,7 @@
 		"<span class='warning'>[cultist] creates a strange circle[cultist.blood_volume ? " in [cultist.p_their()] own blood":""].</span>",
 		"<span class='cult'>You finish drawing the arcane markings of the Geometer.</span>"
 		)
+	log_game("[key_name(cultist)] has finished inscribing the Narsie summon rune at [AREACOORD(cultist)]")
 
 	cleanup_shields()
 	var/obj/effect/rune/made_rune = new rune_to_scribe(our_turf, chosen_keyword)
@@ -354,6 +356,7 @@
 	if(!check_if_in_ritual_site(cultist, cult_team))
 		return FALSE
 	priority_announce("Figments from an eldritch god are being summoned by [cultist.real_name] into [get_area(cultist)] from an unknown dimension. Disrupt the ritual at all costs!","Central Command Higher Dimensional Affairs", ANNOUNCER_SPANOMALIES)
+
 	for(var/shielded_turf in spiral_range_turfs(1, cultist, 1))
 		LAZYADD(shields, new /obj/structure/emergency_shield/sanguine(shielded_turf))
 

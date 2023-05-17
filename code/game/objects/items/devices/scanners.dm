@@ -332,6 +332,8 @@ GENE SCANNER
 		//Genetic damage
 		if(advanced && H.has_dna())
 			message += "\t<span class='info'>Genetic Stability: [H.dna.stability]%.</span>"
+			if(H.has_status_effect(STATUS_EFFECT_LING_TRANSFORMATION))
+				message += "\t<span class='info'>Subject's DNA appears to be in an unstable state.</span>"
 
 	// Species and body temperature
 	if(ishuman(M))
@@ -1005,7 +1007,7 @@ GENE SCANNER
 		else
 			to_chat(user, "<span class='info'><font color='green'><b>[D.name]</b>, stage [D.stage]/[D.max_stages].</font></span>")
 
-/obj/item/extrapolator/proc/extrapolate(atom/AM, var/list/diseases = list(), mob/user, isolate = FALSE, timer = 200)
+/obj/item/extrapolator/proc/extrapolate(atom/AM, var/list/diseases = list(), mob/user, isolate = FALSE, timer = 100)
 	var/list/advancediseases = list()
 	var/list/symptoms = list()
 	if(using)
@@ -1037,7 +1039,7 @@ GENE SCANNER
 		symptomholder.Finalize()
 		symptomholder.Refresh()
 		to_chat(user, "<span class='warning'>You begin isolating [chosen].</span>")
-		if(do_after(user, (300 / (scanner.rating + 1)), target = AM))
+		if(do_after(user, (150 / (scanner.rating + 1)), target = AM))
 			create_culture(symptomholder, user, AM)
 	else
 		using = TRUE

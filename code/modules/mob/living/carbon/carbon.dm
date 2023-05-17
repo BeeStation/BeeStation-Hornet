@@ -455,7 +455,7 @@
 			if(T)
 				T.add_vomit_floor(src, VOMIT_TOXIC)//toxic barf looks different
 		T = get_step(T, dir)
-		if (is_blocked_turf(T))
+		if (T.is_blocked_turf())
 			break
 	return 1
 
@@ -761,6 +761,21 @@
 	update_inv_handcuffed()
 	update_hud_handcuffed()
 	update_mobility()
+
+/mob/living/carbon/heal_and_revive(heal_to = 75, revive_message)
+	// We can't heal them if they're missing a heart
+	if(needs_heart() && !getorganslot(ORGAN_SLOT_HEART))
+		return FALSE
+
+	// We can't heal them if they're missing their lungs
+	if(!HAS_TRAIT(src, TRAIT_NOBREATH) && !getorganslot(ORGAN_SLOT_LUNGS))
+		return FALSE
+
+	// And we can't heal them if they're missing their liver
+	if(!getorganslot(ORGAN_SLOT_LIVER))
+		return FALSE
+
+	return ..()
 
 /mob/living/carbon/fully_heal(admin_revive = FALSE)
 	if(reagents)

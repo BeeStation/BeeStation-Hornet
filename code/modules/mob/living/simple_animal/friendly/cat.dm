@@ -260,7 +260,7 @@
 	health = 50
 	maxHealth = 50
 	gender = FEMALE
-	butcher_results = list(/obj/item/organ/brain = 1, /obj/item/organ/heart = 1, /obj/item/reagent_containers/food/snacks/cakeslice/birthday = 3,  \
+	butcher_results = list(/obj/item/organ/brain = 1, /obj/item/organ/heart = 1, /obj/item/food/cakeslice/birthday = 3,  \
 	/obj/item/reagent_containers/food/snacks/meat/slab = 2)
 	response_harm = "takes a bite out of"
 	attacked_sound = 'sound/items/eatfood.ogg'
@@ -311,7 +311,7 @@
 	icon_dead = "breadcat_dead"
 	collar_type = null
 	held_state = "breadcat"
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 2, /obj/item/organ/ears/cat = 1, /obj/item/organ/tail/cat = 1, /obj/item/organ/tongue/cat = 1, /obj/item/reagent_containers/food/snacks/breadslice/plain = 1)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 2, /obj/item/organ/ears/cat = 1, /obj/item/organ/tail/cat = 1, /obj/item/organ/tongue/cat = 1, /obj/item/food/breadslice/plain = 1)
 
 /mob/living/simple_animal/pet/cat/halal
 	name = "arabian cat"

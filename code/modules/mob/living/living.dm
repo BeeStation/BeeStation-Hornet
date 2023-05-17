@@ -95,7 +95,7 @@
 		return
 	if(buckled || now_pushing)
 		return
-	if((confused || is_blind()) && stat == CONSCIOUS && (mobility_flags & MOBILITY_STAND) && m_intent == "run" && (!ismovable(A) || is_blocked_turf(A)) && !HAS_MOB_PROPERTY(src, PROP_CANTBUMPSLAM))  // ported from VORE, sue me
+	if((confused || is_blind()) && stat == CONSCIOUS && (mobility_flags & MOBILITY_STAND) && m_intent == "run" && !ismovable(A) && !HAS_MOB_PROPERTY(src, PROP_CANTBUMPSLAM))  // ported from VORE, sue me
 		APPLY_MOB_PROPERTY(src, PROP_CANTBUMPSLAM, src.type) //Bump() is called continuously so ratelimit the check to 20 seconds if it passes or 5 if it doesn't
 		if(prob(10))
 			playsound(get_turf(src), "punch", 25, 1, -1)
@@ -252,13 +252,23 @@
 	if(!client && (mob_size < MOB_SIZE_SMALL))
 		return
 	now_pushing = TRUE
-	var/t = get_dir(src, AM)
+	var/dir_to_target = get_dir(src, AM)
+
+	// If there's no dir_to_target then the player is on the same turf as the atom they're trying to push.
+	// This can happen when a player is stood on the same turf as a directional window. All attempts to push
+	// the window will fail as get_dir will return 0 and the player will be unable to move the window when
+	// it should be pushable.
+	// In this scenario, we will use the facing direction of the /mob/living attempting to push the atom as
+	// a fallback.
+	if(!dir_to_target)
+		dir_to_target = dir
+
 	var/push_anchored = FALSE
 	if((AM.move_resist * MOVE_FORCE_CRUSH_RATIO) <= force)
-		if(move_crush(AM, move_force, t))
+		if(move_crush(AM, move_force, dir_to_target))
 			push_anchored = TRUE
 	if((AM.move_resist * MOVE_FORCE_FORCEPUSH_RATIO) <= force)			//trigger move_crush and/or force_push regardless of if we can push it normally
-		if(force_push(AM, move_force, t, push_anchored))
+		if(force_push(AM, move_force, dir_to_target, push_anchored))
 			push_anchored = TRUE
 	if((AM.anchored && !push_anchored) || (force < (AM.move_resist * MOVE_FORCE_PUSH_RATIO)))
 		now_pushing = FALSE
@@ -266,7 +276,7 @@
 	if (istype(AM, /obj/structure/window))
 		var/obj/structure/window/W = AM
 		if(W.fulltile)
-			for(var/obj/structure/window/win in get_step(W,t))
+			for(var/obj/structure/window/win in get_step(W, dir_to_target))
 				now_pushing = FALSE
 				return
 	if(pulling == AM)
@@ -274,8 +284,8 @@
 	var/current_dir
 	if(isliving(AM))
 		current_dir = AM.dir
-	if(step(AM, t))
-		step(src, t)
+	if(step(AM, dir_to_target))
+		step(src, dir_to_target)
 	if(current_dir)
 		AM.setDir(current_dir)
 	now_pushing = FALSE
@@ -590,6 +600,50 @@
 			for(var/S in mind.spell_list)
 				var/obj/effect/proc_holder/spell/spell = S
 				spell.updateButtonIcon()
+
+/*
+ * Heals up the [target] to up to [heal_to] of the main damage types.
+ * EX: If heal_to is 50, and they have 150 brute damage, they will heal 100 brute (up to 50 brute damage)
+ *
+ * If the target is dead, also revives them and heals their organs / restores blood.
+ * If we have a [revive_message], play a visible message if the revive was successful.
+ *
+ * Arguments
+ * * heal_to - the health threshold to heal the mob up to for each of the main damage types.
+ * * revive_message - if provided, a visible message to show on a successful revive.
+ *
+ * Returns TRUE if the mob is alive afterwards, or FALSE if they're still dead (revive failed).
+ */
+/mob/living/proc/heal_and_revive(heal_to = 50, revive_message)
+
+	// Heal their brute and burn up to the threshold we're looking for
+	var/brute_to_heal = heal_to - getBruteLoss()
+	var/burn_to_heal = heal_to - getFireLoss()
+	var/oxy_to_heal = heal_to - getOxyLoss()
+	var/tox_to_heal = heal_to - getToxLoss()
+	if(brute_to_heal < 0)
+		adjustBruteLoss(brute_to_heal, FALSE)
+	if(burn_to_heal < 0)
+		adjustFireLoss(burn_to_heal, FALSE)
+	if(oxy_to_heal < 0)
+		adjustOxyLoss(oxy_to_heal, FALSE)
+	if(tox_to_heal < 0)
+		adjustToxLoss(tox_to_heal, FALSE, TRUE)
+
+	// Run updatehealth once to set health for the revival check
+	updatehealth()
+
+	// We've given them a decent heal.
+	// If they happen to be dead too, try to revive them - if possible.
+	if(stat == DEAD && can_be_revived())
+		// If the revive is successful, show our revival message (if present).
+		if(revive(FALSE, FALSE, 10) && revive_message)
+			visible_message(revive_message)
+
+	// Finally update health again after we're all done
+	updatehealth()
+
+	return stat != DEAD
 
 /mob/living/proc/remove_CC(should_update_mobility = TRUE)
 	SetStun(0, FALSE)

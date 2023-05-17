@@ -212,7 +212,7 @@
 
 /datum/team/nuclear/proc/rename_team(new_name)
 	syndicate_name = new_name
-	name = "[syndicate_name] Team"
+	name = "Family [syndicate_name]"
 	for(var/I in members)
 		var/datum/mind/synd_mind = I
 		var/mob/living/carbon/human/H = synd_mind.current
@@ -252,6 +252,7 @@
 		else
 			stack_trace("Station self-destruct not found during lone op team creation.")
 			nuke_team.memorized_code = null
+		nuke_team.name = "Lone Operative - [nuke_team.syndicate_name]"
 
 /datum/antagonist/nukeop/reinforcement
 	send_to_spawnpoint = FALSE
@@ -268,6 +269,7 @@
 /datum/team/nuclear/New()
 	..()
 	syndicate_name = syndicate_name()
+	name = "Family [syndicate_name]"
 	team_frequency = get_free_team_frequency("synd")
 
 /datum/team/nuclear/proc/update_objectives()

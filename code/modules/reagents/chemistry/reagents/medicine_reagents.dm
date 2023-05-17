@@ -1361,22 +1361,6 @@
 	taste_description = "jelly"
 
 /datum/reagent/medicine/regen_jelly/on_mob_life(mob/living/carbon/M)
-	M.adjustBruteLoss(-1.5*REM, 0)
-	M.adjustFireLoss(-1.5*REM, 0)
-	M.adjustOxyLoss(-1.5*REM, 0)
-	M.adjustToxLoss(-1.5*REM, 0, TRUE) //heals TOXINLOVERs
-	. = 1
-	..()
-
-/datum/reagent/medicine/regen_ooze
-	name = "Regenerative Ooze"
-	description = "Gradually regenerates all types of damage, without harming slime anatomy."
-	reagent_state = LIQUID
-	color = "#65d891"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	taste_description = "jelly"
-
-/datum/reagent/medicine/regen_ooze/on_mob_life(mob/living/carbon/M)
 	M.adjustBruteLoss(-0.5*REM, 0)
 	M.adjustFireLoss(-0.5*REM, 0)
 	M.adjustOxyLoss(-0.5*REM, 0)
