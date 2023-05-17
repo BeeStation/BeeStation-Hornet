@@ -130,6 +130,7 @@
 	else
 		say("Error: Unable to detect hub.")
 	power_station.update_icon()
+
 /obj/machinery/computer/teleporter/proc/set_teleport_target(new_target)
 	var/datum/weakref/new_target_ref = WEAKREF(new_target)
 	if (target_ref == new_target_ref)

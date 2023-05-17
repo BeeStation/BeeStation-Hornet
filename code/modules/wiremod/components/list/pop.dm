@@ -6,7 +6,7 @@
 
 /obj/item/circuit_component/pop
 	display_name = "Pop Component"
-
+	desc = "Removes the last or first entry of a list and returns it."
 
 	//The list port
 	var/datum/port/input/list_port

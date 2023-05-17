@@ -8,7 +8,7 @@
  //Generic class for other trig components
 /obj/item/circuit_component/trig
 	display_name = "Generic Trigonometry"
-
+	desc = "A useless component that all trigonometric based components are built off of."
 
 	/// The input port
 	var/datum/port/input/input
@@ -47,7 +47,7 @@
 //Does your typical Sine, Cosine, and Tangent, as well as their inverses
 /obj/item/circuit_component/trig/trig
 	display_name = "Trigonometry"
-
+	desc = "A component capable of trigonometric functions."
 
 /obj/item/circuit_component/trig/trig/populate_options()
 	var/static/options = list(
@@ -82,7 +82,7 @@
 //Performs Secant, Cosecant, and Cotangent
 /obj/item/circuit_component/trig/adv_trig
 	display_name = "Advanced Trigonometry"
-
+	desc = "Following outstanding advancements in the field of Mathematics, NanoTrasen scientist have discovered how to take the reciprical of trignometric functions"
 
 
 /obj/item/circuit_component/trig/adv_trig/populate_options()
@@ -107,7 +107,7 @@
 //Hyperbolic Sine and Cosine
 /obj/item/circuit_component/trig/hyper_trig
 	display_name = "Hyperbolic Trigonometry"
-
+	desc = "This component makes all your trig calculations be based on hyperbolas and natural exponentials instead of circles"
 
 /obj/item/circuit_component/trig/hyper_trig/populate_options()
 	var/static/options = list(

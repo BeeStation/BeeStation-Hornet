@@ -54,27 +54,27 @@
 
 		switch(arithmetic_option.value)
 			if(COMP_ARITHMETIC_ADD)
-				. += value
+				result += value
 			if(COMP_ARITHMETIC_SUBTRACT)
-				. -= value
+				result -= value
 			if(COMP_ARITHMETIC_MULTIPLY)
-				. *= value
+				result *= value
 			if(COMP_ARITHMETIC_DIVIDE)
 				// Protect from div by zero errors.
 				if(value == 0)
-					. = null
+					result = null
 					break
-				. /= value
+				result /= value
 			if(COMP_ARITHMETIC_MODULO)
 				//Another protect from divide by zero.
 				if(value == 0)
-					. = null
+					result = null
 					break
 				//BYOND's built in modulus operator doesn't work well with decimals, so I'm using this method instead
-				var/multiples = FLOOR(. / value, 1)
-				. -= multiples * value
+				var/multiples = FLOOR(result / value, 1)
+				result -= multiples * value
 			if(COMP_ARITHMETIC_MAX)
-				. = max(., value)
+				result = max(result, value)
 			if(COMP_ARITHMETIC_MIN)
 				result = min(result, value)
 
