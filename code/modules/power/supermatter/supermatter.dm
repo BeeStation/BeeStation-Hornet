@@ -445,10 +445,11 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			air_update_turf()
 
 	for(var/mob/living/carbon/human/l in viewers(HALLUCINATION_RANGE(power), src)) // If they can see it without mesons on.  Bad on them.
-		if(!HAS_TRAIT(l, TRAIT_MADNESS_IMMUNE) && !HAS_TRAIT(l.mind, TRAIT_MADNESS_IMMUNE))
-			var/D = sqrt(1 / max(1, get_dist(l, src)))
-			l.hallucination += power * config_hallucination_power * D
-			l.hallucination = CLAMP(0, 200, l.hallucination)
+		if(!HAS_TRAIT(l, TRAIT_MADNESS_IMMUNE) || !HAS_TRAIT(l.mind, TRAIT_MADNESS_IMMUNE))
+			continue
+		var/D = sqrt(1 / max(1, get_dist(l, src)))
+		l.hallucination += power * config_hallucination_power * D
+		l.hallucination = CLAMP(0, 200, l.hallucination)
 
 	//Transitions between one function and another, one we use for the fast inital startup, the other is used to prevent errors with fusion temperatures.
 	//Use of the second function improves the power gain imparted by using co2
@@ -676,7 +677,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 /obj/machinery/power/supermatter_crystal/Bumped(atom/movable/AM)
 	if(is_type_in_typecache(AM.type, consume_protected))
-		return
+		return ..() // remove calling parent if it causes weird behaviour
 	else if(isliving(AM))
 		AM.visible_message("<span class='danger'>\The [AM] slams into \the [src] inducing a resonance... [AM.p_their()] body starts to glow and burst into flames before flashing into dust!</span>",\
 		"<span class='userdanger'>You slam into \the [src] as your ears are filled with unearthly ringing. Your last thought is \"Oh, fuck.\"</span>",\
