@@ -123,8 +123,8 @@
 	//Clockcult - Has the reward for converting an APC been given?
 	var/clock_cog_rewarded = FALSE
 	//Clockcult - The integration cog inserted inside of us
-	var/integration_cog = null	
-	
+	var/integration_cog = null
+
 	/// To prevent sound loop bugs
 	var/apc_sound_stage = null
 
@@ -576,10 +576,25 @@
 			GLOB.clockcult_power += power_delta
 			cell.charge -= power_delta
 
+		/// Sounds for power off and on stages in APCs
+		if(ISINRANGE(cell.percent(), 14, 16) && charging == APC_NOT_CHARGING && apc_sound_stage != 1)
+			playsound(src, 'sound/machines/apc/PowerSwitch_Place.ogg', 20, 1)
+			apc_sound_stage = 1
+		if(ISINRANGE(cell.percent(), 29, 31) && charging == APC_NOT_CHARGING && apc_sound_stage != 2)
+			playsound(src, 'sound/machines/apc/PowerSwitch_Off.ogg', 10, 1)
+			apc_sound_stage = 2
+		if(ISINRANGE(cell.percent(), 1, 3) && charging == APC_NOT_CHARGING  && apc_sound_stage != 3)
+			playsound(src, 'sound/machines/apc/PowerDown_001.ogg', 10, 1)
+			apc_sound_stage = 3
+		if(ISINRANGE(cell.percent(), 1, 3) && charging == APC_CHARGING && apc_sound_stage != 4)
+			playsound(src, 'sound/machines/apc/PowerUp_001.ogg', 10, 1)
+			apc_sound_stage = 4
+
 	else // no cell, switch everything off
 
 		charging = APC_NOT_CHARGING
 		chargecount = 0
+		
 		equipment = autoset(equipment, AUTOSET_FORCE_OFF)
 		lighting = autoset(lighting, AUTOSET_FORCE_OFF)
 		environ = autoset(environ, AUTOSET_FORCE_OFF)
@@ -593,20 +608,6 @@
 		update()
 	else if (last_ch != charging)
 		queue_icon_update()
-
-	/// Sounds for power off and on stages in APCs
-	if(ISINRANGE(cell.percent(), 14, 16) && charging == APC_NOT_CHARGING && apc_sound_stage != 1)
-		playsound(src, 'sound/machines/apc/PowerSwitch_Place.ogg', 20, 1)
-		apc_sound_stage = 1
-	if(ISINRANGE(cell.percent(), 29, 31) && charging == APC_NOT_CHARGING && apc_sound_stage != 2)
-		playsound(src, 'sound/machines/apc/PowerSwitch_Off.ogg', 10, 1)
-		apc_sound_stage = 2
-	if(ISINRANGE(cell.percent(), 1, 3) && charging == APC_NOT_CHARGING  && apc_sound_stage != 3)
-		playsound(src, 'sound/machines/apc/PowerDown_001.ogg', 10, 1)
-		apc_sound_stage = 3
-	if(ISINRANGE(cell.percent(), 1, 3) && charging == APC_CHARGING && apc_sound_stage != 4)
-		playsound(src, 'sound/machines/apc/PowerUp_001.ogg', 10, 1)
-		apc_sound_stage = 4
 
 /*Power module, used for APC construction*/
 /obj/item/electronics/apc
