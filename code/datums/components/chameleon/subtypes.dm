@@ -14,7 +14,11 @@
 /datum/component/chameleon/suit
 	original_name = "Suit"
 	base_disguise_path = /obj/item/clothing/suit
-	disguise_blacklist = list(/obj/item/clothing/suit/armor/abductor, /obj/item/clothing/suit/changeling)
+	disguise_blacklist = list(
+		/obj/item/clothing/suit/armor/abductor,
+		/obj/item/clothing/suit/changeling,
+		/obj/item/clothing/suit/armor/changeling
+	)
 
 /datum/component/chameleon/glasses
 	original_name = "Glasses"
@@ -24,12 +28,19 @@
 /datum/component/chameleon/gloves
 	original_name = "Gloves"
 	base_disguise_path = /obj/item/clothing/gloves
-	disguise_blacklist = list(/obj/item/clothing/gloves, /obj/item/clothing/gloves/color, /obj/item/clothing/gloves/changeling)
+	disguise_blacklist = list(
+		/obj/item/clothing/gloves,
+		/obj/item/clothing/gloves/color,
+		/obj/item/clothing/gloves/changeling
+	)
 
 /datum/component/chameleon/hat
 	original_name = "Hat"
 	base_disguise_path = /obj/item/clothing/head
-	disguise_blacklist = list(/obj/item/clothing/head/changeling)
+	disguise_blacklist = list(
+		/obj/item/clothing/head/changeling,
+		/obj/item/clothing/head/helmet/changeling
+	)
 
 /datum/component/chameleon/mask
 	original_name = "Mask"

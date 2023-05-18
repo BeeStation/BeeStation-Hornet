@@ -58,6 +58,7 @@
 	for(var/C in get_chameleon_items(user))
 		var/datum/component/chameleon/chameleon = C
 		var/item_name = name_slot(user, names, chameleon)
+		var/slot_name = user.get_inventory_slot_name(chameleon.parent)
 		names += item_name
 		var/list/disguise_choices = list()
 		for(var/D in chameleon.disguise_paths)
@@ -71,6 +72,7 @@
 		sortTim(disguise_choices, GLOBAL_PROC_REF(cmp_list_name_asc))
 		.["chameleon_items"] += list(list(
 			"name" = item_name,
+			"slot" = slot_name,
 			"ref" = REF(chameleon),
 			"type" = "[chameleon.parent.type]",
 			"extra_actions" = assoc_list_strip_value(chameleon.extra_actions),
@@ -216,9 +218,6 @@
 
 /datum/action/chameleon_panel/proc/name_slot(mob/living/user, names_so_far, datum/component/chameleon/chameleon)
 	var/base_name = chameleon.original_name
-	var/slot_name = user.get_inventory_slot_name(chameleon.parent)
-	if(slot_name)
-		base_name = "[chameleon.original_name] on [slot_name]"
 	var/name = base_name
 	var/suffix = 1
 	while(name in names_so_far)

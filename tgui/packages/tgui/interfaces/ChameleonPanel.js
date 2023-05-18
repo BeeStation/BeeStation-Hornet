@@ -181,12 +181,18 @@ const Outfits = (props, context) => {
   return outfits.map((outfit, _) => {
     const outfit_icon = icons['outfits'][outfit.type];
     return (
-      <Button
-        key={outfit.type}
-        tooltip={outfit.name}
-        onClick={() => act('equip_outfit', { outfit: outfit.type })}>
-        <ChameleonIcon assetName={outfit_icon} />
-      </Button>
+      <Flex inline direction="column" width="80px" key={outfit.type}>
+        <Flex.Item>
+          <Button
+            key={outfit.type}
+            onClick={() => act('equip_outfit', { outfit: outfit.type })}>
+            <ChameleonIcon assetName={outfit_icon} />
+          </Button>
+        </Flex.Item>
+        <Flex.Item textAlign="center" fontSize="10px" style={{ "overflow-wrap": "anywhere" }}>
+          {outfit.name}
+        </Flex.Item>
+      </Flex>
     );
   });
 };
@@ -288,13 +294,20 @@ const DisguiseItems = (_, context) => {
           .replace(/\//g, '-');
         return (
           <Stack.Item key={disguise.ref}>
-            <Button
-              key={disguise.ref}
-              tooltip={disguise.name}
-              selected={selected === disguise.ref}
-              onClick={() => setSelected(disguise.ref)}>
-              <ChameleonIcon assetClass={disguise_icon} />
-            </Button>
+            <Flex direction="column" width="80px">
+              <Flex.Item>
+                <Button
+                  key={disguise.ref}
+                  selected={selected === disguise.ref}
+                  tooltip={disguise.slot}
+                  onClick={() => setSelected(disguise.ref)}>
+                  <ChameleonIcon assetClass={disguise_icon} />
+                </Button>
+              </Flex.Item>
+              <Flex.Item textAlign="center" fontSize="10px">
+                {disguise.name}
+              </Flex.Item>
+            </Flex>
           </Stack.Item>
         );
       })}
@@ -310,18 +323,23 @@ const Disguises = (props, context) => {
       .replace('/obj/item/', '')
       .replace(/\//g, '-');
     return (
-      <Button
-        key={disguise.type}
-        tooltip={`${disguise.name} (${disguise.icon_name})`}
-        selected={selectedChameleon.current_disguise === disguise.type}
-        m={1}
-        onClick={() =>
-          act('disguise', {
-            ref: selectedChameleon.ref,
-            type: disguise.type,
-          })}>
-        <ChameleonIcon assetClass={disguise_icon} />
-      </Button>
+      <Flex inline direction="column" width="80px" key={disguise.type}>
+        <Flex.Item>
+          <Button
+            selected={selectedChameleon.current_disguise === disguise.type}
+            tooltip={disguise.icon_name}
+            onClick={() =>
+              act('disguise', {
+                ref: selectedChameleon.ref,
+                type: disguise.type,
+              })}>
+            <ChameleonIcon assetClass={disguise_icon} />
+          </Button>
+        </Flex.Item>
+        <Flex.Item textAlign="center" fontSize="10px" style={{ "overflow-wrap": "anywhere" }}>
+          {`${disguise.name}`}
+        </Flex.Item>
+      </Flex>
     );
   });
 };
