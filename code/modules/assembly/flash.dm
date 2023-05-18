@@ -434,7 +434,7 @@
 				user.visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>", "<span class='danger'>You hypno-flash [M]!</span>")
 
 			if(M.hypnosis_vulnerable())
-				M.apply_status_effect(/datum/status_effect/trance, 200, TRUE)
+				M.apply_status_effect(/datum/status_effect/trance/hardened, 200, TRUE)
 			else
 				to_chat(M, "<span class='notice'>The light makes you feel oddly relaxed...</span>")
 				M.confused += min(M.confused + 10, 20)
