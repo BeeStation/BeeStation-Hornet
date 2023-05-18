@@ -528,8 +528,9 @@
 	duration = 300
 	tick_interval = 10
 	examine_text = "<span class='warning'>SUBJECTPRONOUN seems slow and unfocused.</span>"
-	var/stun = TRUE
 	alert_type = /atom/movable/screen/alert/status_effect/trance
+	var/stun = TRUE
+	var/hypnosis_type = /datum/brain_trauma/hypnosis
 
 /atom/movable/screen/alert/status_effect/trance
 	name = "Trance"
@@ -574,9 +575,14 @@
 		return
 	var/mob/living/carbon/C = owner
 	C.cure_trauma_type(/datum/brain_trauma/hypnosis, TRAUMA_RESILIENCE_SURGERY) //clear previous hypnosis
-	addtimer(CALLBACK(C, TYPE_PROC_REF(/mob/living/carbon, gain_trauma), /datum/brain_trauma/hypnosis, TRAUMA_RESILIENCE_SURGERY, hearing_args[HEARING_RAW_MESSAGE]), 10)
+	addtimer(CALLBACK(C, TYPE_PROC_REF(/mob/living/carbon, gain_trauma), hypnosis_type, TRAUMA_RESILIENCE_SURGERY, hearing_args[HEARING_RAW_MESSAGE]), 10)
 	addtimer(CALLBACK(C, TYPE_PROC_REF(/mob/living, Stun), 60, TRUE, TRUE), 15) //Take some time to think about it
 	qdel(src)
+
+/// "Hardened" trance variant, used by hypnoflashes.
+/// Only difference is the resulting trauma can't be cured via nanites.
+/datum/status_effect/trance/hardened
+	hypnosis_type = /datum/brain_trauma/hypnosis/hardened
 
 /datum/status_effect/spasms
 	id = "spasms"

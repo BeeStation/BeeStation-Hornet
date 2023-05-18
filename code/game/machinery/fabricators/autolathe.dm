@@ -83,7 +83,7 @@
 
 /obj/machinery/modular_fabricator/autolathe/attackby(obj/item/O, mob/user, params)
 
-	if((ACCESS_SECURITY in O.GetAccess()) && !(obj_flags & EMAGGED))
+	if(check_access_textified(O.GetAccess(), ACCESS_SECURITY) && !(obj_flags & EMAGGED))
 		security_interface_locked = !security_interface_locked
 		to_chat(user, "<span class='warning'>You [security_interface_locked?"lock":"unlock"] the security controls of [src].</span>")
 		return TRUE

@@ -10771,12 +10771,12 @@
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "bEo" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/science/storage)
 "bEp" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/structure/sign/warning/nosmoking{
 	pixel_y = 32
 	},
@@ -14046,7 +14046,7 @@
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
 "bXX" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/toxin_output{
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/plasma_output{
 	dir = 8
 	},
 /turf/open/floor/engine/plasma,
@@ -14216,7 +14216,7 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bYT" = (
-/obj/machinery/computer/atmos_control/tank/toxin_tank{
+/obj/machinery/computer/atmos_control/tank/plasma_tank{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -14227,11 +14227,11 @@
 	},
 /area/engine/atmos)
 "bYU" = (
-/obj/machinery/atmospherics/miner/station/toxins,
+/obj/machinery/atmospherics/miner/station/plasma,
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
 "bYV" = (
-/obj/machinery/air_sensor/atmos/toxin_tank,
+/obj/machinery/air_sensor/atmos/plasma_tank,
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
 "bYW" = (
@@ -14457,7 +14457,7 @@
 	},
 /area/engine/atmos)
 "bZL" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/toxin_input{
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/plasma_input{
 	dir = 8
 	},
 /turf/open/floor/engine/plasma,
@@ -54153,7 +54153,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "tIV" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -54815,7 +54815,7 @@
 /area/medical/medbay/central)
 "ubb" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/components/unary/tank/toxins{
+/obj/machinery/atmospherics/components/unary/tank/plasma{
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery,
