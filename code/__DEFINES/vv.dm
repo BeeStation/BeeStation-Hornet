@@ -130,6 +130,8 @@
 #define VV_HK_MARTIAL_ART "give_martial_art"
 #define VV_HK_GIVE_TRAUMA "give_trauma"
 #define VV_HK_CURE_TRAUMA "cure_trauma"
+#define VV_HK_GIVE_MUTATION "give_mutation"
+#define VV_HK_REMOVE_MUTATION "remove_mutation"
 
 // /mob/living/carbon/human
 #define VV_HK_COPY_OUTFIT "copy_outfit"
@@ -140,6 +142,7 @@
 #define VV_HK_MAKE_ALIEN "human_alienify"
 #define VV_HK_SET_SPECIES "setspecies"
 #define VV_HK_PURRBATION "purrbation"
+#define VV_HK_RANDOM_NAME "random_name"
 
 // misc
 #define VV_HK_SPACEVINE_PURGE "spacevine_purge"

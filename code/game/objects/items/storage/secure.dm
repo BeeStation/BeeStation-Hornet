@@ -145,6 +145,7 @@
 //Syndie variant of Secure Briefcase. Contains space cash, slightly more robust.
 /obj/item/storage/secure/briefcase/syndie
 	force = 15
+	item_flags = ISWEAPON
 
 /obj/item/storage/secure/briefcase/syndie/PopulateContents()
 	..()
@@ -225,3 +226,4 @@ It remains quite flush against the wall, and there only seems to be enough room 
 
 /obj/item/storage/secure/safe/caps_spare/rust_heretic_act()
 	take_damage(damage_amount = 100, damage_type = BRUTE, damage_flag = MELEE, armour_penetration = 100)
+	return TRUE

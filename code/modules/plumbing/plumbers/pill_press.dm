@@ -40,6 +40,7 @@
 			style_list["id"] = each_pill_shape
 			style_list["pill_icon_name"] = each_pill_shape
 			pill_styles += list(style_list)
+	update_appearance() //so the input/output pipes will overlay properly during init
 
 /obj/machinery/plumbing/pill_press/process()
 	if(machine_stat & NOPOWER)

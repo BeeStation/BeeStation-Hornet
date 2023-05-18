@@ -15,6 +15,7 @@
 	desc = "A bluespace engine used to make shuttles move."
 	density = TRUE
 	anchored = TRUE
+	obj_flags = CAN_BE_HIT | BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 	var/engine_power = 1
 	var/state = ENGINE_WELDED //welding shmelding
 
@@ -104,7 +105,7 @@
 	name = "propulsion engine"
 	icon_state = "propulsion"
 	desc = "A standard reliable bluespace engine used by many forms of shuttles."
-	opacity = 1
+	opacity = TRUE
 
 /obj/structure/shuttle/engine/propulsion/left
 	name = "left propulsion engine"
@@ -137,7 +138,7 @@
 
 /obj/structure/shuttle/engine/large
 	name = "engine"
-	opacity = 1
+	opacity = TRUE
 	icon = 'icons/obj/2x2.dmi'
 	icon_state = "large_engine"
 	desc = "A very large bluespace engine used to propel very large ships."
@@ -147,7 +148,7 @@
 
 /obj/structure/shuttle/engine/huge
 	name = "engine"
-	opacity = 1
+	opacity = TRUE
 	icon = 'icons/obj/3x3.dmi'
 	icon_state = "huge_engine"
 	desc = "An extremely large bluespace engine used to propel extremely large ships."

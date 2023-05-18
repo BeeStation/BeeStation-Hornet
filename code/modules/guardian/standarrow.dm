@@ -117,7 +117,7 @@
 	for(var/M in majors)
 		var/datum/guardian_ability/major/major = new M
 		major_weighted[major] = major.arrow_weight
-	var/datum/guardian_ability/major/major_ability = pickweight(major_weighted)
+	var/datum/guardian_ability/major/major_ability = pick_weight(major_weighted)
 	var/datum/guardian_stats/stats = new
 	stats.ability = major_ability
 	stats.ability.master_stats = stats

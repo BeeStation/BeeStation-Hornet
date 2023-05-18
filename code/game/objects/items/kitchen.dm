@@ -13,6 +13,7 @@
 	icon = 'icons/obj/kitchen.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/kitchen_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
+	item_flags = ISWEAPON
 
 /obj/item/kitchen/fork
 	name = "fork"
@@ -88,6 +89,7 @@
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 0)
 	var/bayonet = FALSE	//Can this be attached to a gun?
 	custom_price = 30
+	tool_behaviour = TOOL_KNIFE
 
 /obj/item/kitchen/knife/Initialize(mapload)
 	. = ..()

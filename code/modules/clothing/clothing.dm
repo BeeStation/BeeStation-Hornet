@@ -36,6 +36,8 @@
 	var/list/user_vars_to_edit //VARNAME = VARVALUE eg: "name" = "butts"
 	var/list/user_vars_remembered //Auto built by the above + dropped() + equipped()
 
+	/// Trait modification, lazylist of traits to add/take away, on equipment/drop in the correct slot
+
 	var/pocket_storage_component_path
 
 	//These allow head/mask items to dynamically alter the user's hair
@@ -47,10 +49,6 @@
 
 	var/high_pressure_multiplier = 1
 	var/static/list/high_pressure_multiplier_types = list(MELEE, BULLET, LASER, ENERGY, BOMB)
-	///These are armor values that protect the wearer, taken from the clothing's armor datum. List updates on examine because it's currently only used to print armor ratings to chat in Topic().
-	var/list/armor_list = list()
-	///These are armor values that protect the clothing, taken from its armor datum. List updates on examine because it's currently only used to print armor ratings to chat in Topic().
-	var/list/durability_list = list()
 
 /obj/item/clothing/Initialize(mapload)
 	if(CHECK_BITFIELD(clothing_flags, VOICEBOX_TOGGLABLE))
@@ -114,7 +112,7 @@
 		user_vars_remembered = initial(user_vars_remembered) // Effectively this sets it to null.
 
 /obj/item/clothing/equipped(mob/user, slot)
-	..()
+	. = ..()
 	if (!istype(user))
 		return
 	if(slot_flags & slot) //Was equipped to a valid slot for this item?
@@ -135,6 +133,21 @@
 			. += "[src] offers the wearer robust protection from fire."
 	if(damaged_clothes)
 		. += "<span class='warning'>It looks damaged!</span>"
+
+	/* Bodypart wounds-related shit for when we eventually port https://github.com/tgstation/tgstation/pull/50558
+	*
+	for(var/zone in damage_by_parts)
+		var/pct_damage_part = damage_by_parts[zone] / limb_integrity * 100
+		var/zone_name = parse_zone(zone)
+		switch(pct_damage_part)
+			if(100 to INFINITY)
+				. += span_warning("<b>The [zone_name] is useless and requires mending!</b>")
+			if(60 to 99)
+				. += span_warning("The [zone_name] is heavily shredded!")
+			if(30 to 59)
+				. += span_danger("The [zone_name] is partially shredded.")
+	*/
+
 	var/datum/component/storage/pockets = GetComponent(/datum/component/storage)
 	if(pockets)
 		var/list/how_cool_are_your_threads = list("<span class='notice'>")
@@ -142,8 +155,10 @@
 			how_cool_are_your_threads += "[src]'s storage opens when clicked.\n"
 		else
 			how_cool_are_your_threads += "[src]'s storage opens when dragged to yourself.\n"
-		how_cool_are_your_threads += "[src] can store [pockets.max_items] item\s.\n"
-		how_cool_are_your_threads += "[src] can store items that are [weight_class_to_text(pockets.max_w_class)] or smaller.\n"
+		if (pockets.can_hold?.len) // If pocket type can hold anything, vs only specific items
+			how_cool_are_your_threads += "[src] can store [pockets.max_items] item\s.\n"
+		else
+			how_cool_are_your_threads += "[src] can store [pockets.max_items] item\s that are [weight_class_to_text(pockets.max_w_class)] or smaller.\n"
 		if(pockets.quickdraw)
 			how_cool_are_your_threads += "You can quickly remove an item from [src] using Alt-Click.\n"
 		if(pockets.silent)
@@ -151,89 +166,61 @@
 		how_cool_are_your_threads += "</span>"
 		. += how_cool_are_your_threads.Join()
 
-	. += "<span class='notice'>It has a <a href='?src=[REF(src)];list_armor=1'>tag</a> listing its protection classes.</span>"
+	if(armor.bio || armor.bomb || armor.bullet || armor.energy || armor.laser || armor.melee || armor.fire || armor.acid || armor.stamina || (flags_cover & HEADCOVERSMOUTH))
+		. += "<span class='notice'>It has a <a href='?src=[REF(src)];list_armor=1'>tag</a> listing its protection classes.</span>"
 
 /obj/item/clothing/Topic(href, href_list)
 	. = ..()
 
 	if(href_list["list_armor"])
-		if(length(armor_list))
-			armor_list.Cut()
-		if(armor.bio)
-			armor_list += list("TOXIN" = armor.bio)
-		if(armor.bomb)
-			armor_list += list("EXPLOSIVE" = armor.bomb)
-		if(armor.bullet)
-			armor_list += list("BULLET" = armor.bullet)
-		if(armor.energy)
-			armor_list += list("ENERGY" = armor.energy)
-		if(armor.laser)
-			armor_list += list("LASER" = armor.laser)
-		if(armor.magic)
-			armor_list += list("MAGIC" = armor.magic)
-		if(armor.melee)
-			armor_list += list(MELEE = armor.melee)
-		if(armor.rad)
-			armor_list += list("RADIATION" = armor.rad)
-		if(armor.stamina)
-			armor_list += list("STAMINA" = armor.stamina)
+		var/list/readout = list("<span class='notice'><u><b>PROTECTION CLASSES</u></b>")
+		if(armor.bio || armor.bomb || armor.bullet || armor.energy || armor.laser || armor.magic || armor.melee || armor.rad || armor.stamina)
+			readout += "\n<b>ARMOR (I-X)</b>"
+			if(armor.bio)
+				readout += "\nTOXIN [armor_to_protection_class(armor.bio)]"
+			if(armor.bomb)
+				readout += "\nEXPLOSIVE [armor_to_protection_class(armor.bomb)]"
+			if(armor.bullet)
+				readout += "\nBULLET [armor_to_protection_class(armor.bullet)]"
+			if(armor.energy)
+				readout += "\nENERGY [armor_to_protection_class(armor.energy)]"
+			if(armor.laser)
+				readout += "\nLASER [armor_to_protection_class(armor.laser)]"
+			if(armor.magic)
+				readout += "\nMAGIC [armor_to_protection_class(armor.magic)]"
+			if(armor.melee)
+				readout += "\nMELEE [armor_to_protection_class(armor.melee)]"
+			if(armor.rad)
+				readout += "\nRADIATION [armor_to_protection_class(armor.rad)]"
+			if(armor.stamina)
+				readout += "\nSTAMINA [armor_to_protection_class(armor.stamina)]"
+		if(armor.fire || armor.acid)
+			readout += "\n<b>DURABILITY (I-X)</b>"
+			if(armor.fire)
+				readout += "\nFIRE [armor_to_protection_class(armor.fire)]"
+			if(armor.acid)
+				readout += "\nACID [armor_to_protection_class(armor.acid)]"
+		if(flags_cover & HEADCOVERSMOUTH)
+			readout += "\n<b>COVERAGE</b>"
+			readout += "\nIt will block Facehuggers."
+			/* We dont have the tooltips for this
+			readout += "<span class='tooltip'>Because this item is worn on the head and is covering the mouth, it will block facehugger proboscides, killing them</span>."
+			*/
 
-		if(length(durability_list))
-			durability_list.Cut()
-		if(armor.fire)
-			durability_list += list("FIRE" = armor.fire)
-		if(armor.acid)
-			durability_list += list("ACID" = armor.acid)
-		var/list/readout = list("<span class='notice'><u><b>PROTECTION CLASSES (I-X)</u></b>")
-		if(length(armor_list))
-			readout += "\n<b>ARMOR</b>"
-			for(var/dam_type in armor_list)
-				var/armor_amount = armor_list[dam_type]
-				readout += "\n[dam_type] [armor_to_protection_class(armor_amount)]" //e.g. BOMB IV
-		if(length(durability_list))
-			readout += "\n<b>DURABILITY</b>"
-			for(var/dam_type in durability_list)
-				var/durability_amount = durability_list[dam_type]
-				readout += "\n[dam_type] [armor_to_protection_class(durability_amount)]" //e.g. FIRE II
-		if(!(length(armor_list) || length(durability_list)))
-			readout += "\n<b>NO PROTECTION</b>"
 		readout += "</span>"
 
 		to_chat(usr, "[readout.Join()]")
 
 /**
-  * Rounds armor_value to nearest 10, divides it by 10 and then expresses it in roman numerals up to 10
-  *
-  * Rounds armor_value to nearest 10, divides it by 10
-  * and then expresses it in roman numerals up to 10
-  * Arguments:
-  * * armor_value - Number we're converting
-  */
+ * Rounds armor_value down to the nearest 10, divides it by 10 and then converts it to Roman numerals.
+ *
+ * Arguments:
+ * * armor_value - Number we're converting
+ */
 /obj/item/clothing/proc/armor_to_protection_class(armor_value)
-	armor_value = round(armor_value,10) / 10
-	switch (armor_value)
-		if(0)
-			. = "< I"
-		if(1)
-			. = "I"
-		if(2)
-			. = "II"
-		if(3)
-			. = "III"
-		if(4)
-			. = "IV"
-		if(5)
-			. = "V"
-		if(6)
-			. = "VI"
-		if(7)
-			. = "VII"
-		if(8)
-			. = "VIII"
-		if(9)
-			. = "IX"
-		if(10 to INFINITY)
-			. = "X"
+	if (armor_value < 0)
+		. = "-"
+	. += "\Roman[round(abs(armor_value), 10) / 10]"
 
 /obj/item/clothing/obj_break(damage_flag)
 	if(!damaged_clothes)
@@ -252,17 +239,19 @@
 
 /obj/item/clothing/update_overlays()
 	. = ..()
-	if(damaged_clothes)
-		var/index = "[REF(initial(icon))]-[initial(icon_state)]"
-		var/static/list/damaged_clothes_icons = list()
-		var/icon/damaged_clothes_icon = damaged_clothes_icons[index]
-		if(!damaged_clothes_icon)
-			damaged_clothes_icon = icon(icon, icon_state, null, 1)
-			damaged_clothes_icon.Blend("#fff", ICON_ADD) 	//fills the icon_state with white (except where it's transparent)
-			damaged_clothes_icon.Blend(icon('icons/effects/item_damage.dmi', "itemdamaged"), ICON_MULTIPLY) //adds damage effect and the remaining white areas become transparant
-			damaged_clothes_icon = fcopy_rsc(damaged_clothes_icon)
-			damaged_clothes_icons[index] = damaged_clothes_icon
-		. += damaged_clothes_icon
+	if(!damaged_clothes)
+		return
+
+	var/index = "[REF(initial(icon))]-[initial(icon_state)]"
+	var/static/list/damaged_clothes_icons = list()
+	var/icon/damaged_clothes_icon = damaged_clothes_icons[index]
+	if(!damaged_clothes_icon)
+		damaged_clothes_icon = icon(icon, icon_state, null, 1)
+		damaged_clothes_icon.Blend("#fff", ICON_ADD) 	//fills the icon_state with white (except where it's transparent)
+		damaged_clothes_icon.Blend(icon('icons/effects/item_damage.dmi', "itemdamaged"), ICON_MULTIPLY) //adds damage effect and the remaining white areas become transparant
+		damaged_clothes_icon = fcopy_rsc(damaged_clothes_icon)
+		damaged_clothes_icons[index] = damaged_clothes_icon
+	. += damaged_clothes_icon
 
 
 /*

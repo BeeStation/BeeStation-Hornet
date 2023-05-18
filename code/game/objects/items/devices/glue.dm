@@ -4,6 +4,7 @@
 	icon = 'icons/obj/tools.dmi'
 	icon_state	= "glue"
 	w_class = WEIGHT_CLASS_SMALL
+	item_flags = ISWEAPON
 	var/uses = 1
 
 /obj/item/syndie_glue/suicide_act(mob/living/M)

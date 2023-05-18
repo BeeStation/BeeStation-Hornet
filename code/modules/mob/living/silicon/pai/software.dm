@@ -45,9 +45,9 @@
 	var/mob/living/silicon/pai/pai = user
 	data["available"] = available_software
 	data["records"] = list()
-	if("medical records" in pai.software)
+	if(PAI_PROGRAM_MEDICAL_RECORDS in pai.software)
 		data["records"]["medical"] = medical_records
-	if("security records" in pai.software)
+	if(PAI_PROGRAM_SECURITY_RECORDS in pai.software)
 		data["records"]["security"] = security_records
 	return data
 
