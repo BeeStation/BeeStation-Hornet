@@ -9,7 +9,7 @@
 #define NEW_BANK_ACCOUNT_COST 1000
 
 //Keeps track of the time for the ID console. Having it as a global variable prevents people from dismantling/reassembling it to
-//increase the slots of many jobs.
+//increase the slots of many jobs
 GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 /obj/machinery/computer/card
