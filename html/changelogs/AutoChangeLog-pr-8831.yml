@@ -1,4 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - admin: admin can bypass no-respawn with respawn verb
