@@ -270,7 +270,7 @@
 
 	for(var/datum/nanite_program/access/access_program in programs)
 		if(access_program.activated)
-			return O.check_access_list(access_program.access)
+			return O.check_access_list(access_program.nanite_access)
 		else
 			return FALSE
 	return FALSE
