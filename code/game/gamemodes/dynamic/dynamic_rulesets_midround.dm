@@ -99,19 +99,19 @@
 
 	return TRUE
 
-/datum/dynamic_ruleset/midround/from_ghosts/execute()
+/datum/dynamic_ruleset/midround/from_ghosts/execute(forced = FALSE)
 	var/list/possible_candidates = list()
 	possible_candidates.Add(dead_players)
 	possible_candidates.Add(list_observers)
-	send_applications(possible_candidates)
+	send_applications(possible_candidates, forced)
 	return length(assigned) ? TRUE : NOT_ENOUGH_PLAYERS
 
 /// This sends a poll to ghosts if they want to be a ghost spawn from a ruleset.
-/datum/dynamic_ruleset/midround/from_ghosts/proc/send_applications(list/possible_volunteers = list())
-	if (!length(possible_volunteers)) // This shouldn't happen, as ready() should return FALSE if there is not a single valid candidate
-		message_admins("Possible volunteers was 0. This shouldn't appear, because of ready(), unless you forced it!")
-		log_game("DYNAMIC: Possible volunteers was 0. This shouldn't appear, because of ready(), unless you forced it!")
-		return
+/datum/dynamic_ruleset/midround/from_ghosts/proc/send_applications(list/possible_volunteers = list(), forced = FALSE)
+	if (!length(possible_volunteers) && !forced) // This shouldn't happen, as ready() should return FALSE if there is not a single valid candidate
+		message_admins("Possible volunteers was 0. This shouldn't appear, because of ready()!")
+		log_game("DYNAMIC: Possible volunteers was 0. This shouldn't appear, because of ready()!")
+		CRASH("The ruleset [name] execute()d with no candidates. This should have been caught by ready(), so something is wrong.")
 	message_admins("Polling [possible_volunteers.len] players to apply for the [name] ruleset.")
 	log_game("DYNAMIC: Polling [possible_volunteers.len] players to apply for the [name] ruleset.")
 
@@ -216,7 +216,7 @@
 		if(player.mind && (player.mind.special_role || length(player.mind.antag_datums)))
 			candidates -= player // We don't autotator people with roles already
 
-/datum/dynamic_ruleset/midround/autotraitor/execute()
+/datum/dynamic_ruleset/midround/autotraitor/execute(forced = FALSE)
 	var/mob/M = pick(candidates)
 	assigned += M
 	candidates -= M
@@ -266,7 +266,7 @@
 		if(player.mind && (player.mind.special_role || length(player.mind.antag_datums)))
 			candidates -= player
 
-/datum/dynamic_ruleset/midround/malf/execute()
+/datum/dynamic_ruleset/midround/malf/execute(forced = FALSE)
 	var/mob/living/silicon/ai/M = pick_n_take(candidates)
 	assigned += M.mind
 	var/datum/antagonist/traitor/AI = new
@@ -398,7 +398,7 @@
 	required_candidates += prob(50)
 	return ..()
 
-/datum/dynamic_ruleset/midround/from_ghosts/xenomorph/ready(forced)
+/datum/dynamic_ruleset/midround/from_ghosts/xenomorph/ready(forced = FALSE)
 	if(!..())
 		return FALSE
 	vents = list()
@@ -446,7 +446,7 @@
 	repeatable = TRUE
 	var/list/spawn_locs
 
-/datum/dynamic_ruleset/midround/from_ghosts/nightmare/ready(forced)
+/datum/dynamic_ruleset/midround/from_ghosts/nightmare/ready(forced = FALSE)
 	if(!..())
 		return FALSE
 	spawn_locs = list()
@@ -493,7 +493,7 @@
 	repeatable = TRUE
 	var/list/spawn_locs
 
-/datum/dynamic_ruleset/midround/from_ghosts/space_dragon/ready(forced)
+/datum/dynamic_ruleset/midround/from_ghosts/space_dragon/ready(forced = FALSE)
 	if(!..())
 		return FALSE
 	spawn_locs = list()
@@ -577,7 +577,7 @@
 		return FALSE
 	return ..()
 
-/datum/dynamic_ruleset/midround/from_ghosts/revenant/ready(forced)
+/datum/dynamic_ruleset/midround/from_ghosts/revenant/ready(forced = FALSE)
 	if(!..())
 		return FALSE
 	spawn_locs = list()
@@ -631,7 +631,7 @@
 		return FALSE
 	return ..()
 
-/datum/dynamic_ruleset/midround/pirates/execute()
+/datum/dynamic_ruleset/midround/pirates/execute(forced = FALSE)
 	if(!GLOB.pirates_spawned)
 		send_pirate_threat()
 	return ..()
@@ -664,7 +664,7 @@
 		)
 			candidates -= candidate
 
-/datum/dynamic_ruleset/midround/obsessed/execute()
+/datum/dynamic_ruleset/midround/obsessed/execute(forced = FALSE)
 	var/mob/living/carbon/human/obsessed = pick_n_take(candidates)
 	obsessed.gain_trauma(/datum/brain_trauma/special/obsessed)
 	message_admins("[ADMIN_LOOKUPFLW(obsessed)] has been made Obsessed by the midround ruleset.")
@@ -693,7 +693,7 @@
 	var/list/vents
 	var/datum/team/spiders/spider_team
 
-/datum/dynamic_ruleset/midround/from_ghosts/spiders/ready(forced)
+/datum/dynamic_ruleset/midround/from_ghosts/spiders/ready(forced = FALSE)
 	if(!..())
 		return FALSE
 	vents = list()
@@ -751,7 +751,7 @@
 	repeatable = FALSE // please no
 	var/announce_chance = 25
 
-/datum/dynamic_ruleset/midround/from_ghosts/swarmer/ready(forced)
+/datum/dynamic_ruleset/midround/from_ghosts/swarmer/ready(forced = FALSE)
 	if(!..())
 		return FALSE
 	if(!GLOB.the_gateway)
@@ -791,7 +791,7 @@
 	minimum_players = 15
 	repeatable = FALSE // also please no
 
-/datum/dynamic_ruleset/midround/from_ghosts/morph/ready(forced)
+/datum/dynamic_ruleset/midround/from_ghosts/morph/ready(forced = FALSE)
 	if(!..())
 		return FALSE
 	if(!length(GLOB.xeno_spawn))
@@ -841,7 +841,7 @@
 		return FALSE
 	return ..()
 
-/datum/dynamic_ruleset/midround/from_ghosts/fugitives/ready(forced)
+/datum/dynamic_ruleset/midround/from_ghosts/fugitives/ready(forced = FALSE)
 	if(!..())
 		return FALSE
 	spawn_locs = list()

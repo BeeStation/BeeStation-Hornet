@@ -73,7 +73,7 @@
 		pre_brother_teams += team
 	return TRUE
 
-/datum/dynamic_ruleset/roundstart/traitorbro/execute()
+/datum/dynamic_ruleset/roundstart/traitorbro/execute(forced = FALSE)
 	for(var/datum/team/brother_team/team in pre_brother_teams)
 		team.pick_meeting_area()
 		team.forge_brother_objectives()
@@ -187,7 +187,7 @@
 
 	return TRUE
 
-/datum/dynamic_ruleset/roundstart/wizard/execute()
+/datum/dynamic_ruleset/roundstart/wizard/execute(forced = FALSE)
 	for(var/datum/mind/M in assigned)
 		M.current.forceMove(pick(GLOB.wizardstart))
 		M.add_antag_datum(new antag_datum())
@@ -230,7 +230,7 @@
 		M.mind.restricted_roles = restricted_roles
 	return TRUE
 
-/datum/dynamic_ruleset/roundstart/bloodcult/execute()
+/datum/dynamic_ruleset/roundstart/bloodcult/execute(forced = FALSE)
 	main_cult = new
 	for(var/datum/mind/M in assigned)
 		var/datum/antagonist/cult/new_cultist = new antag_datum()
@@ -287,7 +287,7 @@
 		M.mind.special_role = "Nuclear Operative"
 	return TRUE
 
-/datum/dynamic_ruleset/roundstart/nuclear/execute()
+/datum/dynamic_ruleset/roundstart/nuclear/execute(forced = FALSE)
 	var/leader = TRUE
 	for(var/datum/mind/M in assigned)
 		if (leader)
@@ -374,7 +374,7 @@
 		M.mind.special_role = antag_flag
 	return TRUE
 
-/datum/dynamic_ruleset/roundstart/revs/execute()
+/datum/dynamic_ruleset/roundstart/revs/execute(forced = FALSE)
 	revolution = new()
 	for(var/datum/mind/M in assigned)
 		if(check_eligible(M))
@@ -499,7 +499,7 @@
 		log_game("[key_name(devil)] has been selected as a devil")
 	return TRUE
 
-/datum/dynamic_ruleset/roundstart/devil/execute()
+/datum/dynamic_ruleset/roundstart/devil/execute(forced = FALSE)
 	for(var/datum/mind/devil in assigned)
 		add_devil(devil.current, ascendable = TRUE)
 		add_devil_objectives(devil,2)
@@ -593,7 +593,7 @@
 	generate_clockcult_scriptures()
 	return TRUE
 
-/datum/dynamic_ruleset/roundstart/clockcult/execute()
+/datum/dynamic_ruleset/roundstart/clockcult/execute(forced = FALSE)
 	var/list/spawns = GLOB.servant_spawns.Copy()
 	main_cult = new
 	main_cult.setup_objectives()
@@ -652,7 +652,7 @@
 		M.mind.restricted_roles = restricted_roles
 	return TRUE
 
-/datum/dynamic_ruleset/roundstart/incursion/execute()
+/datum/dynamic_ruleset/roundstart/incursion/execute(forced = FALSE)
 	incursion_team = new
 	incursion_team.forge_team_objectives(restricted_roles)
 	for(var/datum/mind/M in assigned)

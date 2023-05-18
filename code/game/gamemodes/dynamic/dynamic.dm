@@ -654,7 +654,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 			if (!ignore_cost)
 				spend_midround_budget(new_rule.cost, threat_log, "[worldtime2text()]: Forced rule [new_rule.name]")
 			new_rule.pre_execute(population)
-			if (new_rule.execute()) // This should never fail since ready() returned 1
+			if (new_rule.execute(forced)) // This should never fail since ready() returned 1
 				if(new_rule.flags & HIGH_IMPACT_RULESET)
 					high_impact_ruleset_executed = TRUE
 				else if(new_rule.flags & ONLY_RULESET)

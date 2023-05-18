@@ -153,7 +153,7 @@
 
 /// Called on post_setup on roundstart and when the rule executes on midround and latejoin.
 /// Give your candidates or assignees equipment and antag datum here.
-/datum/dynamic_ruleset/proc/execute()
+/datum/dynamic_ruleset/proc/execute(forced = FALSE)
 	for(var/datum/mind/M in assigned)
 		M.add_antag_datum(antag_datum)
 	return TRUE
@@ -161,7 +161,7 @@
 /// Here you can perform any additional checks you want. (such as checking the map etc)
 /// Remember that on roundstart no one knows what their job is at this point.
 /// IMPORTANT: If ready() returns TRUE, that means pre_execute() or execute() should never fail!
-/datum/dynamic_ruleset/proc/ready(forced = 0)
+/datum/dynamic_ruleset/proc/ready(forced = FALSE)
 	return check_candidates()
 
 /// Runs from gamemode process() if ruleset fails to start, like delayed rulesets not getting valid candidates.
