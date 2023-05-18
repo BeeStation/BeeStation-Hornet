@@ -1,0 +1,4 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - code_imp: 'reverted the access check refactor PR #9027 #9036'
