@@ -2168,7 +2168,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A bottle of cursed blood, full of angry spirits which will burn all the heretics with the fires of hell.\
 			At least. thats what the label says"
 	item = /obj/item/reagent_containers/glass/bottle/fluspanish
-	cost = 14
+	cost = 12
 	restricted_roles = list(JOB_NAME_CHAPLAIN, JOB_NAME_VIROLOGIST)
 
 /datum/uplink_item/role_restricted/retrovirus
@@ -2176,16 +2176,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A bottle of contagious DNA bugs, which will manually rearrange the DNA of hosts.\
 			At least, that's what the label says."
 	item = /obj/item/reagent_containers/glass/bottle/retrovirus
-	cost = 14
+	cost = 12
 	restricted_roles = list(JOB_NAME_VIROLOGIST, JOB_NAME_GENETICIST)
-
-/datum/uplink_item/role_restricted/random_disease
-	name = "Experimental Disease"
-	desc = "A random disease. Maybe you'll get lucky with another level nine."
-	item = /obj/item/reagent_containers/glass/bottle/random_virus
-	cost = 5
-	restricted_roles = list(JOB_NAME_VIROLOGIST)
-	surplus = 20
 
 /datum/uplink_item/role_restricted/anxiety
 	name = "Anxiety Culture Bottle"
