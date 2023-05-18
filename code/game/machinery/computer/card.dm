@@ -235,7 +235,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		dat += "<table>"
 		dat += "<tr><td style='width:25%'><b>Job</b></td><td style='width:5%'><b>Slots</b></td><td style='width:20%'><b>Open job</b></td><td style='width:20%'><b>Close job</b><td style='width:20%'><b>Prioritize</b></td></td></tr>"
 		var/ID
+<<<<<<< HEAD
 		if(inserted_scan_id && (ACCESS_CHANGE_IDS in inserted_scan_id.access))
+=======
+		if(inserted_scan_id && check_access_textified(inserted_scan_id.card_access, ACCESS_CHANGE_IDS) && !target_dept)
+>>>>>>> master
 			ID = 1
 		else
 			ID = 0
@@ -305,6 +309,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		var/list/available_paycheck_department = list()
 		if(inserted_scan_id)
 			S = html_encode(inserted_scan_id.name)
+<<<<<<< HEAD
 			//Checking corresponding departments and its auth
 			for(var/dept_key in available_departments)
 				var/datum/department_group/each_dept = SSdepartment.get_department_by_id(dept_key)
@@ -314,6 +319,21 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					continue
 				available_paycheck_department += each_dept.budget_id
 				// to-do // available_paycheck_department[each_dept.budget_id] =
+=======
+			//Checking all the accesses and their corresponding departments
+			if(check_access_textified(inserted_scan_id.card_access, ACCESS_HOP)&& ((target_dept==DEPT_GEN) || !target_dept))
+				paycheck_departments |= ACCOUNT_SRV_ID
+				paycheck_departments |= ACCOUNT_CIV_ID
+				paycheck_departments |= ACCOUNT_CAR_ID //Currently no seperation between service/civillian and supply
+			if(check_access_textified(inserted_scan_id.card_access, ACCESS_HOS) && ((target_dept==DEPT_SEC) || !target_dept))
+				paycheck_departments |= ACCOUNT_SEC_ID
+			if(check_access_textified(inserted_scan_id.card_access, ACCESS_CMO) && ((target_dept==DEPT_MED) || !target_dept))
+				paycheck_departments |= ACCOUNT_MED_ID
+			if(check_access_textified(inserted_scan_id.card_access, ACCESS_RD) && ((target_dept==DEPT_SCI) || !target_dept))
+				paycheck_departments |= ACCOUNT_SCI_ID
+			if(check_access_textified(inserted_scan_id.card_access, ACCESS_CE) && ((target_dept==DEPT_ENG) || !target_dept))
+				paycheck_departments |= ACCOUNT_ENG_ID
+>>>>>>> master
 		else
 			S = "--------"
 		dat += "<a href='?src=[REF(src)];choice=inserted_scan_id'>[S]</a><br>"
@@ -497,6 +517,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			extra_data += "<br>"
 
 			var/accesses = ""
+<<<<<<< HEAD
 			accesses += "<div align='center'><b>Access</b></div>"
 			accesses += "<table style='width:100%'>"
 			accesses += "<tr>"
@@ -526,6 +547,37 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			accesses += "</tr></table>"
 
 			body = "[carddesc]<br>[jobs]<br>[extra_data]<br>[accesses]"// finalising
+=======
+			if(istype(src, /obj/machinery/computer/card/centcom))
+				accesses += "<h5>Central Command:</h5>"
+				for(var/each_access in get_all_centcom_access())
+					if(check_access_textified(inserted_modify_id.card_access, each_access))
+						accesses += "<a href='?src=[REF(src)];choice=access;access_target=[each_access];allowed=0'><font color=\"6bc473\">[replacetext(get_access_desc(each_access), " ", "&nbsp")]</font></a> "
+					else
+						accesses += "<a href='?src=[REF(src)];choice=access;access_target=[each_access];allowed=1'>[replacetext(get_access_desc(each_access), " ", "&nbsp")]</a> "
+			else
+				accesses += "<div align='center'><b>Access</b></div>"
+				accesses += "<table style='width:100%'>"
+				accesses += "<tr>"
+				for(var/i = 1; i <= 7; i++)
+					if(authenticated == 1 && !(i in region_access))
+						continue
+					accesses += "<td style='width:14%'><b>[get_region_accesses_name(i)]:</b></td>"
+				accesses += "</tr><tr>"
+				for(var/i = 1; i <= 7; i++)
+					if(authenticated == 1 && !(i in region_access))
+						continue
+					accesses += "<td style='width:14%' valign='top'>"
+					for(var/each_access in get_region_accesses(i))
+						if(check_access_textified(inserted_modify_id.card_access, each_access))
+							accesses += "<a href='?src=[REF(src)];choice=access;access_target=[each_access];allowed=0'><font color=\"6bc473\">[replacetext(get_access_desc(each_access), " ", "&nbsp")]</font></a> "
+						else
+							accesses += "<a href='?src=[REF(src)];choice=access;access_target=[each_access];allowed=1'>[replacetext(get_access_desc(each_access), " ", "&nbsp")]</a> "
+						accesses += "<br>"
+					accesses += "</td>"
+				accesses += "</tr></table>"
+			body = "[carddesc]<br>[jobs]<br>[banking]<br>[accesses]" //CHECK THIS
+>>>>>>> master
 
 		else
 			body = "<a href='?src=[REF(src)];choice=auth'>{Log in}</a> <br><hr>"
@@ -618,10 +670,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 					if(auth_allowed)
 						if(has_access)
-							inserted_modify_id.access -= access_code
+							remove_accesses_from_card(inserted_modify_id.card_access, access_type)
 							log_id("[key_name(usr)] removed [get_access_desc(access_code)] from [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
 						else
-							inserted_modify_id.access |= access_code
+							grant_accesses_to_card(inserted_modify_id.card_access, access_type)
 							log_id("[key_name(usr)] added [get_access_desc(access_code)] to [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
 					else
 						to_chat(usr, "<span class='warning'>This access is protected, and your auth is not sufficient to adjust this.</span>")
@@ -638,7 +690,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						log_id("[key_name(usr)] changed [inserted_modify_id] assignment to [newJob] using [inserted_scan_id] at [AREACOORD(usr)].")
 
 				else if(t1 == "Unassigned")
-					inserted_modify_id.access -= get_all_accesses()
+					remove_accesses_from_card(inserted_modify_id.card_access, get_all_accesses())
 
 					// These lines are to make an individual to an assistant
 					if(B)
@@ -670,11 +722,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 							updateUsrDialog()
 							return
 
-						inserted_modify_id.access -= get_all_accesses()
-						inserted_modify_id.access |= jobdatum.get_access()
+						remove_accesses_from_card(inserted_modify_id.card_access, get_all_accesses())
+						grant_accesses_to_card(inserted_modify_id.card_access, jobdatum.get_access())
 					else // centcom level
-						inserted_modify_id.access -= get_all_centcom_access()
-						inserted_modify_id.access |= get_centcom_access(t1)
+						remove_accesses_from_card(inserted_modify_id.card_access, get_all_centcom_access())
+						grant_accesses_to_card(inserted_modify_id.card_access, get_centcom_access(t1))
 
 					// Step 1: reseting theirs first
 					if(B && jobdatum) // 1-A: reseting bank payment
@@ -741,7 +793,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if("make_job_available")
 			// MAKE ANOTHER JOB POSITION AVAILABLE FOR LATE JOINERS
+<<<<<<< HEAD
 			if(inserted_scan_id && (ACCESS_CHANGE_IDS in inserted_scan_id.access) && minor)
+=======
+			if(inserted_scan_id && check_access_textified(inserted_scan_id.card_access, ACCESS_CHANGE_IDS) && !target_dept)
+>>>>>>> master
 				var/edit_job_target = href_list["job"]
 				var/datum/job/j = SSjob.GetJob(edit_job_target)
 				if(!j)
@@ -758,7 +814,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if("make_job_unavailable")
 			// MAKE JOB POSITION UNAVAILABLE FOR LATE JOINERS
+<<<<<<< HEAD
 			if(inserted_scan_id && (ACCESS_CHANGE_IDS in inserted_scan_id.access) && minor)
+=======
+			if(inserted_scan_id && check_access_textified(inserted_scan_id.card_access, ACCESS_CHANGE_IDS) && !target_dept)
+>>>>>>> master
 				var/edit_job_target = href_list["job"]
 				var/datum/job/j = SSjob.GetJob(edit_job_target)
 				if(!j)
@@ -776,7 +836,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if ("prioritize_job")
 			// TOGGLE WHETHER JOB APPEARS AS PRIORITIZED IN THE LOBBY
+<<<<<<< HEAD
 			if(inserted_scan_id && (ACCESS_CHANGE_IDS in inserted_scan_id.access) && minor)
+=======
+			if(inserted_scan_id && check_access_textified(inserted_scan_id.card_access, ACCESS_CHANGE_IDS) && !target_dept)
+>>>>>>> master
 				var/priority_target = href_list["job"]
 				var/datum/job/j = SSjob.GetJob(priority_target)
 				if(!j)
@@ -890,7 +954,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				var/t1 = "<B>Crew Manifest:</B><BR>"
 				for(var/datum/data/record/t in sort_record(GLOB.data_core.general))
 					t1 += t.fields["name"] + " - " + t.fields["rank"] + "<br>"
-				P.info = t1
+				P.default_raw_text = t1
 				P.name = "paper- 'Crew Manifest'"
 				printing = null
 				playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
@@ -900,7 +964,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				say("No ID detected.")
 				updateUsrDialog()
 				return
-			if(!(ACCESS_HOP in inserted_scan_id.access))
+			if(!check_access_textified(inserted_scan_id.card_access, ACCESS_HOP))
 				say("Insufficient access to create a new bank account.")
 				return
 			var/datum/bank_account/B = SSeconomy.get_budget_account(initial(target_paycheck))
@@ -927,11 +991,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					B.payment_per_department[each] = 0
 				say("Printing...")
 				sleep(50)
-				var/obj/item/paper/P = new /obj/item/paper( loc )
-				P.name = "New bank account information"
-				P.info += "<b>* Owner:</b> [target_name]<br>"
-				P.info += "<b>* Bank ID:</b> [B.account_id]<br>"
-				P.info += "--- Created by Nanotrasen Space Finance ---"
+				var/obj/item/paper/printed_paper = new /obj/item/paper( loc )
+				printed_paper.name = "New bank account information"
+				var/final_paper_text = "<b>* Owner:</b> [target_name]<br>"
+				final_paper_text += "<b>* Bank ID:</b> [B.account_id]<br>"
+				final_paper_text += "--- Created by Nanotrasen Space Finance ---"
+				printed_paper.add_raw_text(final_paper_text)
+				printed_paper.update_appearance()
 				printing = null
 				playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 
@@ -942,7 +1008,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 /// Returns if auth id has head access that is eligible to adjust payment
 /obj/machinery/computer/card/proc/check_auth_payment()
 	for(var/each in list(ACCESS_HEADS, ACCESS_CHANGE_IDS, ACCESS_HOP, ACCESS_CMO, ACCESS_RD, ACCESS_CE))
-		if(each in inserted_scan_id.access)
+		if(check_access_textified(inserted_scan_id.card_access, each))
 			return TRUE
 	return FALSE
 

@@ -67,7 +67,8 @@
 /obj/proc/check_access(obj/item/I)
 	return check_access_list(I ? I.GetAccess() : null)
 
-/obj/proc/check_access_list(list/access_list)
+
+/obj/proc/check_access_list(list/accesses_to_check)
 	gen_access()
 
 	if(!islist(req_access)) //something's very wrong
@@ -76,19 +77,66 @@
 	if(!req_access.len && !length(req_one_access))
 		return TRUE
 
-	if(!length(access_list) || !islist(access_list))
+	if(!length(accesses_to_check) || !islist(accesses_to_check))
 		return FALSE
 
-	for(var/req in req_access)
-		if(!(req in access_list)) //doesn't have this access
+	for(var/each_code in req_access)
+		if(!check_access_textified(accesses_to_check, each_code)) //doesn't have this access
 			return FALSE
 
 	if(length(req_one_access))
-		for(var/req in req_one_access)
-			if(req in access_list) //has an access from the single access list
+		for(var/each_code in req_one_access)
+			if(check_access_textified(accesses_to_check, each_code)) //has an access from the single access list
 				return TRUE
 		return FALSE
 	return TRUE
+
+
+/// Note: don't merge 'access_list' in the parameter. using grant_accesses_to_card() multiple times is recommended.
+/// 'referenced_target_access' will be a reference list if you send a list of an ID card.
+/proc/grant_accesses_to_card(list/referenced_target_access, access_single_or_list)
+	if(!access_single_or_list)
+		return
+	if(isnum(access_single_or_list) || istext(access_single_or_list))
+		referenced_target_access["[access_single_or_list]"] = TRUE
+		return
+
+	if(!islist(access_single_or_list))
+		return
+	for(var/each in access_single_or_list)
+		each = "[each]"
+		var/acc_value = access_single_or_list?[each]
+		if(isnull(acc_value)) // if 'list(code=null)', it's good to give because it's value-less key
+			referenced_target_access[each] = TRUE
+		else if(acc_value) // if 'list(code=TRUE)', they have access to give
+			referenced_target_access[each] = TRUE
+		// if 'list(code=FALSE)', it shouldn't give access to them even if a key exists.
+
+
+/proc/remove_accesses_from_card(list/referenced_target_access, access_single_or_list)
+	if(!access_single_or_list)
+		return
+	if(isnum(access_single_or_list) || istext(access_single_or_list))
+		referenced_target_access["[access_single_or_list]"] = FALSE
+		return
+
+	if(!islist(access_single_or_list))
+		return
+	for(var/each in access_single_or_list)
+		referenced_target_access["[each]"] = FALSE
+	// note: these accesses look weird when you check card_access in vv menu
+	// it says 'list(sort_number=code)', but it is actually 'list(code=FALSE)', so don't worry about it.
+
+/proc/check_access_textified(list/access_list_in_card, single_code)
+	if(!single_code)
+		stack_trace("check_access_textified recieved nothing in single_code parameter. Returns TRUE for failsafe.")
+		return TRUE
+	if(islist(single_code))
+		stack_trace("check_access_textified recieved a list in single_code parameter. Returns TRUE for failsafe.")
+		return TRUE
+	return access_list_in_card["[single_code]"] || FALSE // it won't return NULL
+
+
 
 /*
  * Checks if this packet can access this device
@@ -210,98 +258,92 @@
 		if(7) //command
 			return "Command"
 
-/proc/get_access_desc(access_code)
-	var/static/list/acc_desc
-	if(!acc_desc)
-		acc_desc = list(
-			"[ACCESS_CARGO]" = "Cargo Bay",
-			"[ACCESS_SECURITY]" = "Security",
-			"[ACCESS_BRIG]" = "Holding Cells",
-			"[ACCESS_COURT]" = "Courtroom",
-			"[ACCESS_FORENSICS_LOCKERS]" = "Forensics",
-			"[ACCESS_MEDICAL]" = "Medical",
-			"[ACCESS_GENETICS]" = "Genetics Lab",
-			"[ACCESS_MORGUE]" = "Morgue",
-			"[ACCESS_TOX]" = "R&D Lab",
-			"[ACCESS_TOX_STORAGE]" = "Toxins Lab",
-			"[ACCESS_CHEMISTRY]" = "Chemistry Lab",
-			"[ACCESS_BRIGPHYS]" = "Brig Physician",
-			"[ACCESS_RD]" = "RD Office",
-			"[ACCESS_BAR]" = "Bar",
-			"[ACCESS_JANITOR]" = "Custodial Closet",
-			"[ACCESS_ENGINE]" = "Engineering",
-			"[ACCESS_ENGINE_EQUIP]" = "Power and Engineering Equipment",
-			"[ACCESS_MAINT_TUNNELS]" = "Maintenance",
-			"[ACCESS_EXTERNAL_AIRLOCKS]" = "External Airlocks",
-			"[ACCESS_CHANGE_IDS]" = "ID Console",
-			"[ACCESS_AI_UPLOAD]" = "AI Chambers",
-			"[ACCESS_TELEPORTER]" = "Teleporter",
-			"[ACCESS_EVA]" = "EVA",
-			"[ACCESS_HEADS]" = "Bridge",
-			"[ACCESS_CAPTAIN]" = "Captain",
-			"[ACCESS_ALL_PERSONAL_LOCKERS]" = "Personal Lockers",
-			"[ACCESS_CHAPEL_OFFICE]" = "Chapel Office",
-			"[ACCESS_TECH_STORAGE]" = "Technical Storage",
-			"[ACCESS_ATMOSPHERICS]" = "Atmospherics",
-			"[ACCESS_CREMATORIUM]" = "Crematorium",
-			"[ACCESS_ARMORY]" = "Armory",
-			"[ACCESS_CONSTRUCTION]" = "Construction",
-			"[ACCESS_KITCHEN]" = "Kitchen",
-			"[ACCESS_HYDROPONICS]" = "Hydroponics",
-			"[ACCESS_LIBRARY]" = "Library",
-			"[ACCESS_LAWYER]" = "Law Office",
-			"[ACCESS_ROBOTICS]" = "Robotics",
-			"[ACCESS_VIROLOGY]" = "Virology",
-			"[ACCESS_CMO]" = "CMO Office",
-			"[ACCESS_QM]" = "Quartermaster",
-			"[ACCESS_EXPLORATION]" = "Exploration Dock",
-			"[ACCESS_SURGERY]" = "Surgery",
-			"[ACCESS_THEATRE]" = "Theatre",
-			"[ACCESS_RESEARCH]" = "Science",
-			"[ACCESS_RD_SERVER]" = "Research Server Room",
-			"[ACCESS_MINING]" = "Mining",
-			"[ACCESS_MAILSORTING]" = "Cargo Office",
-			"[ACCESS_VAULT]" = "Main Vault",
-			"[ACCESS_MINING_STATION]" = "Mining EVA",
-			"[ACCESS_XENOBIOLOGY]" = "Xenobiology Lab",
-			"[ACCESS_HOP]" = "HoP Office",
-			"[ACCESS_HOS]" = "HoS Office",
-			"[ACCESS_CE]" = "CE Office",
-			"[ACCESS_RC_ANNOUNCE]" = "RC Announcements",
-			"[ACCESS_KEYCARD_AUTH]" = "Keycode Auth.",
-			"[ACCESS_TCOMSAT]" = "Telecommunications",
-			"[ACCESS_GATEWAY]" = "Gateway",
-			"[ACCESS_SEC_DOORS]" = "Brig",
-			"[ACCESS_SEC_RECORDS]" = "Security Records",
-			"[ACCESS_MINERAL_STOREROOM]" = "Mineral Storage",
-			"[ACCESS_MINISAT]" = "AI Satellite",
-			"[ACCESS_WEAPONS]" = "Weapon Permit",
-			"[ACCESS_NETWORK]" = "Network Access",
-			"[ACCESS_CLONING]" = "Cloning Room",
-			"[ACCESS_MECH_MINING]" = "Mining Mech Access",
-			"[ACCESS_MECH_MEDICAL]" = "Medical Mech Access",
-			"[ACCESS_MECH_SECURITY]" = "Security Mech Access",
-			"[ACCESS_MECH_SCIENCE]" = "Science Mech Access",
-			"[ACCESS_MECH_ENGINE]" = "Engineering Mech Access",
-			"[ACCESS_AUX_BASE]" = "Auxiliary Base",
-			"[ACCESS_CENT_GENERAL]" = "Code Grey",
-			"[ACCESS_CENT_THUNDER]" = "Code Yellow",
-			"[ACCESS_CENT_STORAGE]" = "Code Orange",
-			"[ACCESS_CENT_LIVING]" = "Code Green",
-			"[ACCESS_CENT_MEDICAL]" = "Code White",
-			"[ACCESS_CENT_TELEPORTER]" = "Code Blue",
-			"[ACCESS_CENT_SPECOPS]" = "Code Black",
-			"[ACCESS_CENT_CAPTAIN]" = "Code Gold",
-			"[ACCESS_CENT_BAR]" = "Code Scotch",
-			"[ACCESS_SYNDICATE]" = "Syndicate",
-			"[ACCESS_SYNDICATE_LEADER]" = "Syndicate Leader",
-			"[ACCESS_AWAY_GENERIC1]" = "Away generic 1",
-			"[ACCESS_BLOODCULT]" = "Bloodcult",
-			"[ACCESS_CLOCKCULT]" = "Clockcult"
-		)
-	access_code = "[access_code]"
-	return acc_desc[access_code] || "Unknown [access_code]"
 
+GLOBAL_LIST_INIT(access_desc_list, list( \
+	"[ACCESS_CARGO]" = "Cargo Bay",
+	"[ACCESS_SECURITY]" = "Security",
+	"[ACCESS_BRIG]" = "Holding Cells",
+	"[ACCESS_COURT]" = "Courtroom",
+	"[ACCESS_FORENSICS_LOCKERS]" = "Forensics",
+	"[ACCESS_MEDICAL]" = "Medical",
+	"[ACCESS_GENETICS]" = "Genetics Lab",
+	"[ACCESS_MORGUE]" = "Morgue",
+	"[ACCESS_TOX]" = "R&D Lab",
+	"[ACCESS_TOX_STORAGE]" = "Toxins Lab",
+	"[ACCESS_CHEMISTRY]" = "Chemistry Lab",
+	"[ACCESS_BRIGPHYS]" = "Brig Physician",
+	"[ACCESS_RD]" = "RD Office",
+	"[ACCESS_BAR]" = "Bar",
+	"[ACCESS_JANITOR]" = "Custodial Closet",
+	"[ACCESS_ENGINE]" = "Engineering",
+	"[ACCESS_ENGINE_EQUIP]" = "Power and Engineering Equipment",
+	"[ACCESS_MAINT_TUNNELS]" = "Maintenance",
+	"[ACCESS_EXTERNAL_AIRLOCKS]" = "External Airlocks",
+	"[ACCESS_CHANGE_IDS]" = "ID Console",
+	"[ACCESS_AI_UPLOAD]" = "AI Chambers",
+	"[ACCESS_TELEPORTER]" = "Teleporter",
+	"[ACCESS_EVA]" = "EVA",
+	"[ACCESS_HEADS]" = "Bridge",
+	"[ACCESS_CAPTAIN]" = "Captain",
+	"[ACCESS_ALL_PERSONAL_LOCKERS]" = "Personal Lockers",
+	"[ACCESS_CHAPEL_OFFICE]" = "Chapel Office",
+	"[ACCESS_TECH_STORAGE]" = "Technical Storage",
+	"[ACCESS_ATMOSPHERICS]" = "Atmospherics",
+	"[ACCESS_CREMATORIUM]" = "Crematorium",
+	"[ACCESS_ARMORY]" = "Armory",
+	"[ACCESS_CONSTRUCTION]" = "Construction",
+	"[ACCESS_KITCHEN]" = "Kitchen",
+	"[ACCESS_HYDROPONICS]" = "Hydroponics",
+	"[ACCESS_LIBRARY]" = "Library",
+	"[ACCESS_LAWYER]" = "Law Office",
+	"[ACCESS_ROBOTICS]" = "Robotics",
+	"[ACCESS_VIROLOGY]" = "Virology",
+	"[ACCESS_CMO]" = "CMO Office",
+	"[ACCESS_QM]" = "Quartermaster",
+	"[ACCESS_EXPLORATION]" = "Exploration Dock",
+	"[ACCESS_SURGERY]" = "Surgery",
+	"[ACCESS_THEATRE]" = "Theatre",
+	"[ACCESS_RESEARCH]" = "Science",
+	"[ACCESS_RD_SERVER]" = "Research Server Room",
+	"[ACCESS_MINING]" = "Mining",
+	"[ACCESS_MAILSORTING]" = "Cargo Office",
+	"[ACCESS_VAULT]" = "Main Vault",
+	"[ACCESS_MINING_STATION]" = "Mining EVA",
+	"[ACCESS_XENOBIOLOGY]" = "Xenobiology Lab",
+	"[ACCESS_HOP]" = "HoP Office",
+	"[ACCESS_HOS]" = "HoS Office",
+	"[ACCESS_CE]" = "CE Office",
+	"[ACCESS_RC_ANNOUNCE]" = "RC Announcements",
+	"[ACCESS_KEYCARD_AUTH]" = "Keycode Auth.",
+	"[ACCESS_TCOMSAT]" = "Telecommunications",
+	"[ACCESS_GATEWAY]" = "Gateway",
+	"[ACCESS_SEC_DOORS]" = "Brig",
+	"[ACCESS_SEC_RECORDS]" = "Security Records",
+	"[ACCESS_MINERAL_STOREROOM]" = "Mineral Storage",
+	"[ACCESS_MINISAT]" = "AI Satellite",
+	"[ACCESS_WEAPONS]" = "Weapon Permit",
+	"[ACCESS_NETWORK]" = "Network Access",
+	"[ACCESS_CLONING]" = "Cloning Room",
+	"[ACCESS_MECH_MINING]" = "Mining Mech Access",
+	"[ACCESS_MECH_MEDICAL]" = "Medical Mech Access",
+	"[ACCESS_MECH_SECURITY]" = "Security Mech Access",
+	"[ACCESS_MECH_SCIENCE]" = "Science Mech Access",
+	"[ACCESS_MECH_ENGINE]" = "Engineering Mech Access",
+	"[ACCESS_AUX_BASE]" = "Auxiliary Base",
+	"[ACCESS_CENT_GENERAL]" = "Code Grey",
+	"[ACCESS_CENT_THUNDER]" = "Code Yellow",
+	"[ACCESS_CENT_STORAGE]" = "Code Orange",
+	"[ACCESS_CENT_LIVING]" = "Code Green",
+	"[ACCESS_CENT_MEDICAL]" = "Code White",
+	"[ACCESS_CENT_TELEPORTER]" = "Code Blue",
+	"[ACCESS_CENT_SPECOPS]" = "Code Black",
+	"[ACCESS_CENT_CAPTAIN]" = "Code Gold",
+	"[ACCESS_CENT_BAR]" = "Code Scotch",
+	"[ACCESS_SYNDICATE]" = "Syndicate",
+	"[ACCESS_SYNDICATE_LEADER]" = "Syndicate Leader",
+	"[ACCESS_AWAY_GENERIC1]" = "Away generic 1",
+	"[ACCESS_BLOODCULT]" = "Bloodcult",
+	"[ACCESS_CLOCKCULT]" = "Clockcult"))
 
 /proc/get_centcom_access_desc(A)
 	switch(A)

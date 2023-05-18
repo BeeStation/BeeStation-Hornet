@@ -61,7 +61,7 @@
 	var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
 	var/obj/item/card/id/user_id = card_slot?.stored_card
 
-	if(!user_id || !(ACCESS_CHANGE_IDS in user_id.access))
+	if(!user_id || !check_access_textified(user_id.card_access, ACCESS_CHANGE_IDS))
 		return TRUE
 
 	switch(action)
@@ -112,7 +112,7 @@
 	var/authed = FALSE
 	var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
 	var/obj/item/card/id/user_id = card_slot?.stored_card
-	if(user_id && (ACCESS_CHANGE_IDS in user_id.access))
+	if(user_id && check_access_textified(user_id.card_access, ACCESS_CHANGE_IDS))
 		authed = TRUE
 
 	data["authed"] = authed

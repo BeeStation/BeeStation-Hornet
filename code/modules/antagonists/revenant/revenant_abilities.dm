@@ -24,7 +24,7 @@
 	if(isturf(A))
 		var/turf/T = A
 		if(T == get_turf(src))
-			T.check_z_travel(src)
+			T.show_zmove_radial(src)
 
 
 //Harvest; activated by clicking the target, will try to drain their essence.
