@@ -526,7 +526,7 @@
 	if(client)
 		R.updatename(client)
 
-	if(mind)		//TODO
+	if(mind)//TODO //huh?
 		if(!transfer_after)
 			mind.active = FALSE
 		mind.transfer_to(R)
@@ -546,7 +546,7 @@
 
 	. = R
 	if(R.ckey && is_banned_from(R.ckey, "Cyborg"))
-		INVOKE_ASYNC(R, /mob/living/silicon/robot.proc/replace_banned_cyborg)
+		INVOKE_ASYNC(R, TYPE_PROC_REF(/mob/living/silicon/robot, replace_banned_cyborg))
 	qdel(src)
 
 /mob/living/silicon/robot/proc/replace_banned_cyborg()
