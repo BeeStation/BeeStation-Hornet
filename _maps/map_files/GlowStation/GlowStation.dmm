@@ -6201,7 +6201,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/engine,
 /area/science/storage)
 "bqw" = (
@@ -28618,7 +28618,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/plasteel/dark,
 /area/engine/storage)
 "gef" = (
@@ -38214,7 +38214,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
 "ibu" = (
-/obj/machinery/atmospherics/components/unary/tank/toxins{
+/obj/machinery/atmospherics/components/unary/tank/plasma{
 	dir = 8
 	},
 /turf/open/floor/plating/snowed,
@@ -48897,7 +48897,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "kmS" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/toxin_output{
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/plasma_output{
 	dir = 8
 	},
 /turf/open/floor/engine/plasma/light,
@@ -49139,7 +49139,7 @@
 "kpw" = (
 /obj/machinery/atmospherics/pipe/simple/green/visible,
 /obj/effect/turf_decal/delivery,
-/obj/machinery/computer/atmos_control/tank/toxin_tank{
+/obj/machinery/computer/atmos_control/tank/plasma_tank{
 	desc = "Used to monitor the station's atmospherics sensors. On the Side it's engraved 'Do not'.";
 	dir = 8
 	},
@@ -53233,7 +53233,7 @@
 /turf/open/floor/plasteel,
 /area/engine/break_room)
 "liJ" = (
-/obj/machinery/atmospherics/miner/toxins,
+/obj/machinery/atmospherics/miner/plasma,
 /obj/machinery/light/floor,
 /turf/open/floor/engine/plasma/light,
 /area/engine/atmos)
@@ -55264,7 +55264,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "lES" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/toxin_input{
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/plasma_input{
 	dir = 8
 	},
 /turf/open/floor/engine/plasma/light,
@@ -99177,7 +99177,7 @@
 "uJa" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/engine,
 /area/science/storage)
 "uJc" = (
@@ -104359,7 +104359,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "vOO" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/plasteel/dark,
 /area/engine/storage)
 "vOT" = (
@@ -108292,7 +108292,7 @@
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "wEl" = (
-/obj/machinery/atmospherics/components/unary/tank/toxins,
+/obj/machinery/atmospherics/components/unary/tank/plasma,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
@@ -110735,7 +110735,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
 "xgQ" = (
-/obj/machinery/air_sensor/atmos/toxin_tank,
+/obj/machinery/air_sensor/atmos/plasma_tank,
 /turf/open/floor/engine/plasma/light,
 /area/engine/atmos)
 "xgS" = (

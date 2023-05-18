@@ -359,9 +359,9 @@
 	on = TRUE
 	icon_state = "vent_map_siphon_on-3"
 
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/toxin_output
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/plasma_output
 	name = "plasma tank output inlet"
-	id_tag = ATMOS_GAS_MONITOR_OUTPUT_TOX
+	id_tag = ATMOS_GAS_MONITOR_OUTPUT_PLASMA
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/oxygen_output
 	name = "oxygen tank output inlet"
 	id_tag = ATMOS_GAS_MONITOR_OUTPUT_O2
