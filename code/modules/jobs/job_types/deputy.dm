@@ -46,4 +46,4 @@
 	name = "deputy promotion card"
 	desc = "A small card, that when used on an ID, will grant basic security access, and the job title of 'Deputy.'"
 	assignment = JOB_NAME_DEPUTY
-	card_access = list(ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_BRIG, ACCESS_WEAPONS)
+	access = list(ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_BRIG, ACCESS_WEAPONS)

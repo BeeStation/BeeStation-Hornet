@@ -359,8 +359,8 @@
 
 	var/obj/item/card/id/C = H.wear_id
 	if(istype(C))
-		grant_accesses_to_card(C.card_access, J.get_access())
-		shuffle_inplace(C.card_access) // Shuffle access list to make NTNet passkeys less predictable
+		C.access = J.get_access()
+		shuffle_inplace(C.access) // Shuffle access list to make NTNet passkeys less predictable
 		C.registered_name = H.real_name
 		C.assignment = J.get_title()
 		C.set_hud_icon_on_spawn(J.get_jkey())

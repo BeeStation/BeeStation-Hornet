@@ -224,12 +224,12 @@
 		if(id_access)
 			for(var/datum/job/J in SSjob.occupations)
 				if(J.get_jkey() == id_access)
-					grant_accesses_to_card(W.card_access, J.get_access())
+					W.access = J.get_access()
 					break
 		if(id_access_list)
-			grant_accesses_to_card(W.card_access, id_access_list)
-		if(id_title)
-			W.assignment = id_title
+			W.access |= id_access_list
+		if(id_job)
+			W.assignment = id_job
 		W.registered_name = H.real_name
 		W.update_label()
 

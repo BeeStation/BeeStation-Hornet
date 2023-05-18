@@ -81,62 +81,15 @@
 		return FALSE
 
 	for(var/each_code in req_access)
-		if(!check_access_textified(accesses_to_check, each_code)) //doesn't have this access
+		if(!(each_code in accesses_to_check)) //doesn't have this access
 			return FALSE
 
 	if(length(req_one_access))
 		for(var/each_code in req_one_access)
-			if(check_access_textified(accesses_to_check, each_code)) //has an access from the single access list
+			if(each_code in accesses_to_check) //has an access from the single access list
 				return TRUE
 		return FALSE
 	return TRUE
-
-
-/// Note: don't merge 'access_list' in the parameter. using grant_accesses_to_card() multiple times is recommended.
-/// 'referenced_target_access' will be a reference list if you send a list of an ID card.
-/proc/grant_accesses_to_card(list/referenced_target_access, access_single_or_list)
-	if(!access_single_or_list)
-		return
-	if(isnum(access_single_or_list) || istext(access_single_or_list))
-		referenced_target_access["[access_single_or_list]"] = TRUE
-		return
-
-	if(!islist(access_single_or_list))
-		return
-	for(var/each in access_single_or_list)
-		each = "[each]"
-		var/acc_value = access_single_or_list?[each]
-		if(isnull(acc_value)) // if 'list(code=null)', it's good to give because it's value-less key
-			referenced_target_access[each] = TRUE
-		else if(acc_value) // if 'list(code=TRUE)', they have access to give
-			referenced_target_access[each] = TRUE
-		// if 'list(code=FALSE)', it shouldn't give access to them even if a key exists.
-
-
-/proc/remove_accesses_from_card(list/referenced_target_access, access_single_or_list)
-	if(!access_single_or_list)
-		return
-	if(isnum(access_single_or_list) || istext(access_single_or_list))
-		referenced_target_access["[access_single_or_list]"] = FALSE
-		return
-
-	if(!islist(access_single_or_list))
-		return
-	for(var/each in access_single_or_list)
-		referenced_target_access["[each]"] = FALSE
-	// note: these accesses look weird when you check card_access in vv menu
-	// it says 'list(sort_number=code)', but it is actually 'list(code=FALSE)', so don't worry about it.
-
-/proc/check_access_textified(list/access_list_in_card, single_code)
-	if(!single_code)
-		stack_trace("check_access_textified recieved nothing in single_code parameter. Returns TRUE for failsafe.")
-		return TRUE
-	if(islist(single_code))
-		stack_trace("check_access_textified recieved a list in single_code parameter. Returns TRUE for failsafe.")
-		return TRUE
-	return access_list_in_card["[single_code]"] || FALSE // it won't return NULL
-
-
 
 /*
  * Checks if this packet can access this device
