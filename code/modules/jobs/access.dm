@@ -345,6 +345,9 @@ GLOBAL_LIST_INIT(access_desc_list, list( \
 	"[ACCESS_BLOODCULT]" = "Bloodcult",
 	"[ACCESS_CLOCKCULT]" = "Clockcult"))
 
+/proc/get_access_desc(access_code)
+	return GLOB.access_desc_list["[access_code]"] || "Unknown [access_code]"
+
 /proc/get_centcom_access_desc(A)
 	switch(A)
 		if(ACCESS_CENT_GENERAL)

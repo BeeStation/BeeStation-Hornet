@@ -979,7 +979,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if((active_character.job_preferences[overflow] == JP_LOW) && (rank != SSjob.overflow_role) && !is_banned_from(user.ckey, SSjob.overflow_role))
 				HTML += "<font color=orange>[rank]</font></td><td></td></tr>"
 				continue
-			if((rank in SSdepartment.get_joblist_by_dept_id(DEPT_NAME_COMMAND)) || (rank == JOB_NAME_AI))//Bold head jobs
+			if((rank in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND)) || (rank == JOB_NAME_AI))//Bold head jobs
 				HTML += "<b><span class='dark'>[rank]</span></b>"
 			else
 				HTML += "<span class='dark'>[rank]</span>"

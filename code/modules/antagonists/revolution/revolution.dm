@@ -18,7 +18,7 @@
 /datum/antagonist/rev/can_be_owned(datum/mind/new_owner)
 	. = ..()
 	if(.)
-		if(new_owner.assigned_role in SSdepartment.get_joblist_by_dept_id(DEPT_NAME_COMMAND))
+		if(new_owner.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND))
 			return FALSE
 		if(new_owner.unconvertable)
 			return FALSE
@@ -416,7 +416,7 @@
 			if (isnull(mind))
 				continue
 
-			if (!(mind.assigned_role in SSdepartment.get_joblist_by_dept_id(DEPT_NAME_COMMAND) + SSdepartment.get_joblist_by_dept_id(DEPT_NAME_SECURITY)))
+			if (!(mind.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND) + SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY)))
 				continue
 
 			var/mob/living/carbon/target_body = mind.current
@@ -431,7 +431,7 @@
 			else
 				mind.announce_objectives()
 
-		for (var/job_name in SSdepartment.get_joblist_by_dept_id(DEPT_NAME_COMMAND) + SSdepartment.get_joblist_by_dept_id(DEPT_NAME_SECURITY))
+		for (var/job_name in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_COMMAND) + SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY))
 			var/datum/job/job = SSjob.GetJob(job_name)
 			job.allow_bureaucratic_error = FALSE
 			job.total_positions = 0

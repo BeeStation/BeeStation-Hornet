@@ -235,7 +235,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		dat += "<table>"
 		dat += "<tr><td style='width:25%'><b>Job</b></td><td style='width:5%'><b>Slots</b></td><td style='width:20%'><b>Open job</b></td><td style='width:20%'><b>Close job</b><td style='width:20%'><b>Prioritize</b></td></td></tr>"
 		var/ID
-		if(inserted_scan_id && check_access_textified(inserted_scan_id.card_access, ACCESS_CHANGE_IDS) && !target_dept)
+		if(inserted_scan_id && check_access_textified(inserted_scan_id.card_access, ACCESS_CHANGE_IDS))
 			ID = 1
 		else
 			ID = 0
@@ -307,10 +307,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			S = html_encode(inserted_scan_id.name)
 			//Checking corresponding departments and its auth
 			for(var/dept_key in available_departments)
-				var/datum/department_group/each_dept = SSdepartment.get_department_by_id(dept_key)
+				var/datum/department_group/each_dept = SSdepartment.get_department_by_dept_id(dept_key)
 				if(!each_dept || !each_dept.budget_id)
 					continue
-				if(!each_dept.check_authentication(DEPT_AUTHCHECK_BUDGET, inserted_scan_id.access))
+				if(!each_dept.check_authentication(DEPT_AUTHCHECK_BUDGET, inserted_scan_id.card_access))
 					continue
 				available_paycheck_department += each_dept.budget_id
 				// to-do // available_paycheck_department[each_dept.budget_id] =
@@ -368,25 +368,14 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		header += "<hr>"
 
-		var/jobs_all = ""
 		var/formatted_job_list = ""
-		var/list/alljobs = list("Unassigned")
+		var/list/job_list = SSdepartment.get_dept_assoc_jobs_by_dept_id(available_departments)
+		job_list["Misc"] = list("Unassigned", "Custom")
 
-		for(var/job in alljobs)
-			if(job == JOB_NAME_ASSISTANT)
-				jobs_all += "<br/>* Service: "
-			if(job == JOB_NAME_QUARTERMASTER)
-				jobs_all += "<br/>* Cargo: "
-			if(job == JOB_NAME_RESEARCHDIRECTOR)
-				jobs_all += "<br/>* R&D: "
-			if(job == JOB_NAME_CHIEFENGINEER)
-				jobs_all += "<br/>* Engineering: "
-			if(job == JOB_NAME_CHIEFMEDICALOFFICER)
-				jobs_all += "<br/>* Medical: "
-			if(job == JOB_NAME_HEADOFSECURITY)
-				jobs_all += "<br/>* Security: "
-			// these will make some separation for the department. //make sure there isn't a line break in the middle of a job
-
+		for(var/list/each_dept in job_list)
+			formatted_job_list += "<br/>* [each_dept]: "
+			for(var/each_job in job_list[each_dept])
+				formatted_job_list +=  "<a href='?src=[REF(src)];choice=assign;assign_target=[each_job]'>[replacetext(each_job, " ", "&nbsp")]</a> "
 
 		var/body
 
@@ -406,7 +395,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 									}
 									function showAll(){
 										var allJobsSlot = document.getElementById('alljobsslot');
-										allJobsSlot.innerHTML = "<a href='#' onclick='hideAll()'>hide</a><br>"+ "[jobs_all]";
+										allJobsSlot.innerHTML = "<a href='#' onclick='hideAll()'>hide</a><br>"+ "[formatted_job_list]";
 									}
 									function hideAll(){
 										var allJobsSlot = document.getElementById('alljobsslot');
@@ -436,7 +425,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			var/datum/data/record/R = find_record("name", inserted_modify_id.registered_name, GLOB.data_core.general)
 			if(R)
 				for(var/each_dept_key in available_departments)
-					var/datum/department_group/each_dept = SSdepartment.get_department_by_id(each_dept_key)
+					var/datum/department_group/each_dept = SSdepartment.get_department_by_dept_id(each_dept_key)
 					if(!each_dept)
 						continue
 					if(!check_auth_by_type(DEPT_AUTHCHECK_MANIFEST, each_dept.dept_bitflag))
@@ -457,7 +446,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				extra_data += "<tr>"
 				extra_data += "<td><b>Free Vendor Access:</b></td>"
 				for(var/each_dept_key in available_departments)
-					var/datum/department_group/each_dept = SSdepartment.get_department_by_id(each_dept_key)
+					var/datum/department_group/each_dept = SSdepartment.get_department_by_dept_id(each_dept_key)
 					if(!each_dept)
 						continue
 					if(!each_dept.budget_id) // table sync
@@ -479,7 +468,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				extra_data += "<tr>"
 				extra_data += "<td><b>Payment per department:</b></td>"
 				for(var/each_dept_key in available_departments)
-					var/datum/department_group/each_dept = SSdepartment.get_department_by_id(each_dept_key)
+					var/datum/department_group/each_dept = SSdepartment.get_department_by_dept_id(each_dept_key)
 					if(!each_dept)
 						continue
 					if(!each_dept.budget_id) // table sync
@@ -501,7 +490,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			accesses += "<table style='width:100%'>"
 			accesses += "<tr>"
 			for(var/each_dept_key in available_departments) // headings
-				var/datum/department_group/each_dept = SSdepartment.get_department_by_id(each_dept_key)
+				var/datum/department_group/each_dept = SSdepartment.get_department_by_dept_id(each_dept_key)
 				if(!each_dept || !each_dept.access_group_name)
 					continue
 				if(!check_auth_by_type(DEPT_AUTHCHECK_ACCESS_MANAGER, each_dept.dept_bitflag))
@@ -510,7 +499,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			accesses += "</tr><tr>"
 
 			for(var/each_dept_key in available_departments) // actual access list
-				var/datum/department_group/each_dept = SSdepartment.get_department_by_id(each_dept_key)
+				var/datum/department_group/each_dept = SSdepartment.get_department_by_dept_id(each_dept_key)
 				if(!each_dept || !each_dept.access_group_name)
 					continue
 				if(!check_auth_by_type(DEPT_AUTHCHECK_ACCESS_MANAGER, each_dept.dept_bitflag))
@@ -581,16 +570,16 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				if (check_access(inserted_scan_id))
 					reset_auth_bitflags()
 					for(var/each_dept_key in available_departments)
-						var/datum/department_group/each_dept = SSdepartment.get_department_by_id(each_dept_key)
+						var/datum/department_group/each_dept = SSdepartment.get_department_by_dept_id(each_dept_key)
 						if(!each_dept)
 							continue
-						if(each_dept.check_authentication(DEPT_AUTHCHECK_DOMINANT, inserted_scan_id.access))
+						if(each_dept.check_authentication(DEPT_AUTHCHECK_DOMINANT, inserted_scan_id.card_access))
 							auth_bitflag_dominant |= each_dept.dept_bitflag
-						if(each_dept.check_authentication(DEPT_AUTHCHECK_SUPERVISOR, inserted_scan_id.access))
+						if(each_dept.check_authentication(DEPT_AUTHCHECK_SUPERVISOR, inserted_scan_id.card_access))
 							auth_bitflag_supervisor |= each_dept.dept_bitflag
-						if(each_dept.check_authentication(DEPT_AUTHCHECK_MANIFEST, inserted_scan_id.access))
+						if(each_dept.check_authentication(DEPT_AUTHCHECK_MANIFEST, inserted_scan_id.card_access))
 							auth_bitflag_manifest |= each_dept.dept_bitflag
-						if(each_dept.check_authentication(DEPT_AUTHCHECK_BUDGET, inserted_scan_id.access))
+						if(each_dept.check_authentication(DEPT_AUTHCHECK_BUDGET, inserted_scan_id.card_access))
 							auth_bitflag_budget |= each_dept.dept_bitflag
 						authenticated = 1
 						playsound(src, 'sound/machines/terminal_on.ogg', 50, FALSE)
@@ -607,7 +596,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					var/auth_allowed = FALSE
 					var/access_code = text2num(href_list["access_target"])
 					var/has_access = text2num(href_list["allowed"])
-					var/datum/department_group/dept = SSdepartment.get_department_by_id(href_list["dept_target"])
+					var/datum/department_group/dept = SSdepartment.get_department_by_dept_id(href_list["dept_target"])
 
 					if(access_code in dept.protected_access)
 						if(check_auth_by_type(DEPT_AUTHCHECK_DOMINANT, dept.dept_bitflag))
@@ -618,10 +607,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 					if(auth_allowed)
 						if(has_access)
-							remove_accesses_from_card(inserted_modify_id.card_access, access_type)
+							remove_accesses_from_card(inserted_modify_id.card_access, access_code)
 							log_id("[key_name(usr)] removed [get_access_desc(access_code)] from [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
 						else
-							grant_accesses_to_card(inserted_modify_id.card_access, access_type)
+							grant_accesses_to_card(inserted_modify_id.card_access, access_code)
 							log_id("[key_name(usr)] added [get_access_desc(access_code)] to [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
 					else
 						to_chat(usr, "<span class='warning'>This access is protected, and your auth is not sufficient to adjust this.</span>")
@@ -741,7 +730,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if("make_job_available")
 			// MAKE ANOTHER JOB POSITION AVAILABLE FOR LATE JOINERS
-			if(inserted_scan_id && check_access_textified(inserted_scan_id.card_access, ACCESS_CHANGE_IDS) && !target_dept)
+			if(inserted_scan_id && check_access_textified(inserted_scan_id.card_access, ACCESS_CHANGE_IDS))
 				var/edit_job_target = href_list["job"]
 				var/datum/job/j = SSjob.GetJob(edit_job_target)
 				if(!j)
@@ -758,7 +747,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if("make_job_unavailable")
 			// MAKE JOB POSITION UNAVAILABLE FOR LATE JOINERS
-			if(inserted_scan_id && check_access_textified(inserted_scan_id.card_access, ACCESS_CHANGE_IDS) && !target_dept)
+			if(inserted_scan_id && check_access_textified(inserted_scan_id.card_access, ACCESS_CHANGE_IDS))
 				var/edit_job_target = href_list["job"]
 				var/datum/job/j = SSjob.GetJob(edit_job_target)
 				if(!j)
@@ -776,7 +765,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if ("prioritize_job")
 			// TOGGLE WHETHER JOB APPEARS AS PRIORITIZED IN THE LOBBY
-			if(inserted_scan_id && check_access_textified(inserted_scan_id.card_access, ACCESS_CHANGE_IDS) && !target_dept)
+			if(inserted_scan_id && check_access_textified(inserted_scan_id.card_access, ACCESS_CHANGE_IDS))
 				var/priority_target = href_list["job"]
 				var/datum/job/j = SSjob.GetJob(priority_target)
 				if(!j)

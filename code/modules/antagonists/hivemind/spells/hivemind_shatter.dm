@@ -14,7 +14,7 @@
 		return
 	if(!hive.hivemembers)
 		return
-	if(target.mind?.assigned_role in SSdepartment.get_joblist_by_dept_id(DEPT_NAME_SECURITY) || CAPTAIN)
+	if(target.mind?.assigned_role in SSdepartment.get_jobs_by_dept_id(DEPT_NAME_SECURITY) || CAPTAIN)
 		to_chat(user, "<span class='warning'>A subconsciously trained response barely protects [target.name]'s mind.</span>")
 		to_chat(target, "<span class='assimilator'>Powerful mental attacks strike out against us, our training allows us to barely overcome it.</span>")
 		return

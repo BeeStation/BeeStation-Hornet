@@ -3,6 +3,8 @@
 		This subsystem also stores how to give access by region/job/id
 
 */
+
+#define ACCESS_TEMP_SETUP(temp, acclist) temp = acclist; acclist = list();
 SUBSYSTEM_DEF(department)
 	name = "Departments"
 	init_order = INIT_ORDER_DEPARTMENT
@@ -79,7 +81,7 @@ SUBSYSTEM_DEF(department)
 /// WARNING: This returns silicon jobs + non-station jobs. use `get_jobs_by_dept_id()`
 /datum/controller/subsystem/department/proc/get_all_jobs()
 	var/list/jobs_to_return = list()
-	for(var/datum/department_group/dept in department_by_key[id])
+	for(var/datum/department_group/dept in department_type_list)
 		if(!dept || !length(dept.jobs)) // do not put 'if(!dept.is_station)' or silicons will not be chosen
 			continue
 		jobs_to_return[dept.dept_id] = dept.jobs.Copy()
@@ -90,7 +92,7 @@ SUBSYSTEM_DEF(department)
 
 
 /datum/controller/subsystem/department/proc/refresh_all_station_accesses(first_init=FALSE)
-	for(var/datum/department_group/dept in department_by_key[id])
+	for(var/datum/department_group/dept in department_type_list)
 		if(!dept.is_station)
 			continue
 		if(first_init)
@@ -183,7 +185,7 @@ SUBSYSTEM_DEF(department)
 		if(protected)
 			current.protected_access[new_code] = TRUE
 		current.refresh_full_access_list()
-		if(currnet.is_station)
+		if(current.is_station)
 			refresh_all_station_accesses()
 
 
@@ -243,25 +245,35 @@ SUBSYSTEM_DEF(department)
 // ----------------------------------------------
 /// most variables exists as a list, but should be replaced as typecache for faster performance
 /datum/department_group/New()
+	var/temp
+	ACCESS_TEMP_SETUP(temp, leaders)
 	for(var/each in leaders)
 		leaders["[each]"] = TRUE
+	ACCESS_TEMP_SETUP(temp, jobs)
 	for(var/each in jobs)
 		jobs["[each]"] = TRUE
 
+	ACCESS_TEMP_SETUP(temp, access_dominant)
 	for(var/each in access_dominant)
 		access_dominant["[each]"] = TRUE
+	ACCESS_TEMP_SETUP(temp, access_supervisor)
 	for(var/each in access_supervisor)
 		access_supervisor["[each]"] = TRUE
+	ACCESS_TEMP_SETUP(temp, standard_access)
 	for(var/each in standard_access)
 		standard_access["[each]"] = TRUE
+	ACCESS_TEMP_SETUP(temp, custom_access)
 	for(var/each in custom_access)
 		custom_access["[each]"] = TRUE
+	ACCESS_TEMP_SETUP(temp, protected_access)
 	for(var/each in protected_access)
 		protected_access["[each]"] = TRUE
 	refresh_full_access_list()
 
+	ACCESS_TEMP_SETUP(temp, access_manifest_changer)
 	for(var/each in access_manifest_changer)
 		access_manifest_changer["[each]"] = TRUE
+	ACCESS_TEMP_SETUP(temp, access_accountancy)
 	for(var/each in access_accountancy)
 		access_accountancy["[each]"] = TRUE
 
@@ -309,7 +321,7 @@ SUBSYSTEM_DEF(department)
 	if(!length(auth_access)) // no need to check
 		return TRUE
 	for(var/each_access in auth_access)
-		if(each_access in access_to_check)
+		if(check_access_textified(access_to_check, each_access))
 			return TRUE
 	return FALSE
 
