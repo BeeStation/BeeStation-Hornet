@@ -1,6 +1,0 @@
-author: RKz, Rohesie. TiviPlus
-delete-after: true
-changes:
-  - bugfix: more reliable CanPass and CanAllowThrough behavior
-  - bugfix: blockers block what they should, not what they shouldnt (like phasing
-      mechs getting stuck on railings and windows???)
