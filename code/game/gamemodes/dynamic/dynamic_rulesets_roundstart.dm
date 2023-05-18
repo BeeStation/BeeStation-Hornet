@@ -114,12 +114,6 @@
 		M.mind.special_role = ROLE_CHANGELING
 	return TRUE
 
-/datum/dynamic_ruleset/roundstart/changeling/execute()
-	for(var/datum/mind/changeling in assigned)
-		var/datum/antagonist/changeling/new_antag = new antag_datum()
-		changeling.add_antag_datum(new_antag)
-	return TRUE
-
 //////////////////////////////////////////////
 //                                          //
 //              HERETICS                    //
@@ -151,15 +145,6 @@
 		assigned += picked_candidate.mind
 		picked_candidate.mind.restricted_roles = restricted_roles
 		picked_candidate.mind.special_role = ROLE_HERETIC
-	return TRUE
-
-/datum/dynamic_ruleset/roundstart/heretics/execute()
-
-	for(var/c in assigned)
-		var/datum/mind/cultie = c
-		var/datum/antagonist/heretic/new_antag = new antag_datum()
-		cultie.add_antag_datum(new_antag)
-
 	return TRUE
 
 
@@ -407,7 +392,7 @@
 		SSshuttle.registerHostileEnvironment(revolution)
 		return TRUE
 	log_game("DYNAMIC: [ruletype] [name] failed to get any eligible headrevs. Refunding [cost] threat.")
-	return FALSE
+	return NOT_ENOUGH_PLAYERS
 
 /datum/dynamic_ruleset/roundstart/revs/clean_up()
 	qdel(revolution)
@@ -622,7 +607,7 @@
 		S.prefix = CLOCKCULT_PREFIX_MASTER
 	//Setup the conversion limits for auto opening the ark
 	calculate_clockcult_values()
-	return ..()
+	return TRUE
 
 /datum/dynamic_ruleset/roundstart/clockcult/round_result()
 	if(GLOB.ratvar_risen)
@@ -710,10 +695,4 @@
 		assigned += M.mind
 		M.mind.restricted_roles = restricted_roles
 		M.mind.special_role = ROLE_HIVE
-	return TRUE
-
-/datum/dynamic_ruleset/roundstart/hivemind/execute()
-	for(var/datum/mind/host in assigned)
-		var/datum/antagonist/hivemind/new_antag = new antag_datum()
-		host.add_antag_datum(new_antag)
 	return TRUE

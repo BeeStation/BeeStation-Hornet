@@ -609,14 +609,16 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 /// Mainly here to facilitate delayed rulesets. All roundstart rulesets are executed with a timered callback to this proc.
 /datum/game_mode/dynamic/proc/execute_roundstart_rule(sent_rule)
 	var/datum/dynamic_ruleset/rule = sent_rule
-	if(rule.execute())
+	var/execute_result = rule.execute()
+	if(execute_result && execute_result != NOT_ENOUGH_PLAYERS)
 		if(rule.persistent)
 			current_rules += rule
 		new_snapshot(rule)
 		return TRUE
 	rule.clean_up()	// Refund threat, delete teams and so on.
 	executed_rules -= rule
-	stack_trace("The starting rule \"[rule.name]\" failed to execute.")
+	if(execute_result != NOT_ENOUGH_PLAYERS) // not enough players is an expected failure. Any other should be reported
+		CRASH("The starting rule \"[rule.name]\" failed to execute.")
 	return FALSE
 
 /// An experimental proc to allow admins to call rules on the fly or have rules call other rules.

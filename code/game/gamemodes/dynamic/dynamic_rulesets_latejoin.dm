@@ -140,7 +140,7 @@
 	else
 		log_game("DYNAMIC: [ruletype] [name] discarded [M.name] from head revolutionary due to ineligibility.")
 		log_game("DYNAMIC: [ruletype] [name] failed to get any eligible headrevs. Refunding [cost] threat.")
-		return FALSE
+		return NOT_ENOUGH_PLAYERS
 
 /datum/dynamic_ruleset/latejoin/provocateur/rule_process()
 	var/winner = revolution.process_victory(revs_win_threat_injection)

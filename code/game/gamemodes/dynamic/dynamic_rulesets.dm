@@ -185,11 +185,11 @@
 
 /// Checks if there are enough candidates to run, and logs otherwise
 /datum/dynamic_ruleset/proc/check_candidates()
-	if (required_candidates <= candidates.len)
-		return TRUE
-
-	log_game("DYNAMIC: FAIL: [src] does not have enough candidates ([required_candidates] needed, [candidates.len] found)")
-	return FALSE
+	var/candidates_amt = length(candidates)
+	if (required_candidates > candidates_amt)
+		log_game("DYNAMIC: FAIL: [src] does not have enough candidates ([required_candidates] needed, [candidates_amt] found)")
+		return FALSE
+	return TRUE
 
 /// Here you can remove candidates that do not meet your requirements.
 /// This means if their job is not correct or they have disconnected you can remove them from candidates here.
