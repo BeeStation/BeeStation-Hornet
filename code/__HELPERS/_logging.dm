@@ -114,14 +114,16 @@
 
 /proc/log_manifest(ckey, datum/mind/mind,mob/body, latejoin = FALSE)
 	if (CONFIG_GET(flag/log_manifest))
+		var/species = null
 		if(istype(body, /mob/living/carbon))
 			var/mob/living/carbon/M = body
 			if(M?.dna?.species)
-				WRITE_LOG(GLOB.world_manifest_log, "[ckey] \\ [body.real_name] \\ [mind.assigned_role] \\ [mind.special_role ? mind.special_role : "NONE"] \\ [latejoin ? "LATEJOIN":"ROUNDSTART"] \\ [format_text(M?.dna?.species?.name)]")
-			else
-				WRITE_LOG(GLOB.world_manifest_log, "[ckey] \\ [body.real_name] \\ [mind.assigned_role] \\ [mind.special_role ? mind.special_role : "NONE"] \\ [latejoin ? "LATEJOIN":"ROUNDSTART"] \\ Something broke, yell on ghub")
+				species = M.dna.species
+				message_admins("Species found : [M.dna.species] , written as [species]")
+		if(!isnull(species))
+			WRITE_LOG(GLOB.world_manifest_log, "[ckey] \\ [body.real_name] \\ [mind.assigned_role] \\ [mind.special_role ? mind.special_role : "NONE"] \\ [latejoin ? "LATEJOIN":"ROUNDSTART"] \\ [species]")
 		else
-			WRITE_LOG(GLOB.world_manifest_log, "[ckey] \\ [body.real_name] \\ [mind.assigned_role] \\ [mind.special_role ? mind.special_role : "NONE"] \\ [latejoin ? "LATEJOIN":"ROUNDSTART"]")
+			WRITE_LOG(GLOB.world_manifest_log, "[ckey] \\ [body.real_name] \\ [mind.assigned_role] \\ [mind.special_role ? mind.special_role : "NONE"]")
 
 /proc/log_bomber(atom/user, details, atom/bomb, additional_details, message_admins = TRUE)
 	if(SSticker.current_state == GAME_STATE_FINISHED)
