@@ -228,8 +228,7 @@
 
 /obj/anomaly/singularity/proc/consume(atom/thing)
 	if(thing == src)
-		stack_trace("consume() called on self by singularity [src]")
-		return
+		CRASH("consume() called on self by singularity [src]")
 	var/gain = thing.singularity_act(current_size, src)
 	energy += gain
 	if(istype(thing, /obj/machinery/power/supermatter_crystal) && !consumed_supermatter)
