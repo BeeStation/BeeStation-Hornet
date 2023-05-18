@@ -56,7 +56,7 @@
 		P.attack_self(H)
 	var/obj/item/card/id/W = new(H)
 	W.icon_state = "centcom"
-	grant_accesses_to_card(W.card_access, grant_accesses_to_card())
+	grant_accesses_to_card(W.card_access, get_all_accesses())
 	grant_accesses_to_card(W.card_access, get_all_centcom_access())
 	W.assignment = "Highlander"
 	W.registered_name = H.real_name

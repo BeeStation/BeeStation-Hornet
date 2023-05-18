@@ -369,7 +369,7 @@
 	if(id_card)
 		data["id_rank"] = id_card.assignment ? id_card.assignment : "Unassigned"
 		data["id_owner"] = id_card.registered_name ? id_card.registered_name : "-----"
-		data["access_on_card"] = id_card.card_access // this looks questionable if it's really used
+		data["access_on_card"] = id_card.card_access
 
 	return data
 

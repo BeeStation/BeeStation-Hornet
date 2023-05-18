@@ -41,7 +41,7 @@ export const AccessList = (props, context) => {
     let oneAccess = false;
     let oneInaccess = false;
     for (let element of accesses) {
-      if (selectedList.includes(element.ref)) {
+      if (selectedList[element.ref]) {
         oneAccess = true;
       }
       else {
@@ -121,7 +121,7 @@ export const AccessList = (props, context) => {
               fluid
               key={entry.desc}
               content={entry.desc}
-              checked={selectedList.includes(entry.ref)}
+              checked={selectedList[entry.ref]}
               onClick={() => accessMod(entry.ref)} />
           ))}
         </Flex.Item>
