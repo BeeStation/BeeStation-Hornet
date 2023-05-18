@@ -458,7 +458,7 @@
 		for(var/datum/component/nanites/N in L.datum_components)
 			for(var/X in N.programs)
 				var/datum/nanite_program/NP = X
-				NP.software_error(5) //all programs are overwritten with /glitch which does no harm, but gradually drains nanites. 
+				NP.software_error(1) //all programs are destroyed, nullifying all nanites
 
 /datum/reagent/toxin/spidervenom/on_mob_life(mob/living/carbon/M)
 	if(M.getStaminaLoss() <= 70)				//Will never stamcrit

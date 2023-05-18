@@ -1,7 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - bugfix: Fixed a TGUI bluescreen when there are no chemicals in a sleeper.
-  - tweak: Having 0% brute/burn/toxin in the sleeper is now shown as green for good.
-  - tweak: Improved text overflow behavior on beaker medicine labels in the sleeper
-      UI.

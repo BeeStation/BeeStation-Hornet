@@ -38,6 +38,7 @@ Dockerfile @crossedfall
 /code/modules/tgui_panel/ @itsmeow
 /tgui/ @itsmeow
 /tgui/packages/tgui/interfaces/PlayerPanel.js @itsmeow
+/code/modules/multiz @itsmeow
 
 # itsmeow (explicitly disowned)
 

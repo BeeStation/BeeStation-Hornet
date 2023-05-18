@@ -1506,7 +1506,7 @@
 /obj/item/toy/eldrich_book
 	name = "Codex Cicatrix"
 	desc = "A toy book that closely resembles the Codex Cicatrix. Covered in fake polyester human flesh and has a huge goggly eye attached to the cover. The runes are gibberish and cannot be used to summon demons... Hopefully?"
-	icon = 'icons/obj/eldritch.dmi'
+	icon = 'icons/obj/heretic.dmi'
 	icon_state = "book"
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("sacrificed", "transmuted", "grasped", "cursed")
@@ -1526,7 +1526,7 @@
 /obj/item/toy/reality_pierce
 	name = "Pierced reality"
 	desc = "Hah. You thought it was the real deal!"
-	icon = 'icons/effects/eldritch.dmi'
+	icon = 'icons/effects/heretic.dmi'
 	icon_state = "pierced_illusion"
 	item_flags = NO_PIXEL_RANDOM_DROP
 
@@ -1733,4 +1733,4 @@
 
 /obj/item/paper/yatzy
 	name = "paper - Yatzy Table"
-	info = "<table><tr><th>Upper</th><th>Game 1</th><th>Game 2</th><th>Game 3</th></tr><tr><th>Aces</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Twos</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Threes</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Fours</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Fives</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Sixes</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Total</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Upper Total</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th><b>Bonus</b></th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>1 Pair</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>2 Pairs</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th><th>3 of a Kind</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th><th>4 of a Kind</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Full House</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Sm. Straight</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Lg. Straight</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Yatzy</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Chance</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Lower Total</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th><b>Grand Total</b></th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr></table>"
+	default_raw_text = "<table><tr><th>Upper</th><th>Game 1</th><th>Game 2</th><th>Game 3</th></tr><tr><th>Aces</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Twos</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Threes</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Fours</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Fives</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Sixes</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Total</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Upper Total</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th><b>Bonus</b></th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>1 Pair</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>2 Pairs</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th><th>3 of a Kind</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th><th>4 of a Kind</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Full House</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Sm. Straight</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Lg. Straight</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Yatzy</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Chance</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Lower Total</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th><b>Grand Total</b></th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr></table>"
