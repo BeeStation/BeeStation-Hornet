@@ -136,5 +136,5 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 	message_admins("Choosing random fugitive backstory in 20 seconds. \
 		<a href='?_src_=holder;[HrefToken(TRUE)];backstory_select=[REF(backstory_keys)]'>SELECT MANUALLY</a>")
 	play_sound_to_all_admins('sound/effects/admin_alert.ogg')
-	sleep(30 SECONDS)
+	sleep(20 SECONDS)
 	return pick(GLOB.fugitive_backstory_selection)
