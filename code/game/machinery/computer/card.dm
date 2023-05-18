@@ -372,7 +372,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		var/list/job_list = SSdepartment.get_dept_assoc_jobs_by_dept_id(available_departments)
 		job_list["Misc"] = list("Unassigned", "Custom")
 
-		for(var/list/each_dept in job_list)
+		message_admins("job list length: [length(job_list)]")
+		for(var/each_dept in job_list)
+			message_admins("dept job length: [length(job_list[each_dept])]")
 			formatted_job_list += "<br/>* [each_dept]: "
 			for(var/each_job in job_list[each_dept])
 				formatted_job_list +=  "<a href='?src=[REF(src)];choice=assign;assign_target=[each_job]'>[replacetext(each_job, " ", "&nbsp")]</a> "

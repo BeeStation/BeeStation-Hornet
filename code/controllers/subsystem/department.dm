@@ -11,17 +11,19 @@ SUBSYSTEM_DEF(department)
 	flags = SS_NO_FIRE
 
 	//
-	var/list/department_type_list = list()
 	var/list/department_id_list = list()
+	var/list/department_type_list = list()
 	var/list/department_by_key = list()
 	var/list/sorted_department_for_manifest = list()
 	var/list/sorted_department_for_pref = list()
 
 	var/list/all_station_accesses = list()
 
+	var/list/checker
+
 /datum/controller/subsystem/department/Initialize(timeofday)
 	for(var/datum/department_group/each_dept as() in subtypesof(/datum/department_group))
-		each_dept = new each_dept
+		each_dept = new each_dept()
 		department_type_list += each_dept
 		department_by_key[each_dept.dept_id] = each_dept
 		department_id_list += each_dept.dept_id
@@ -30,6 +32,26 @@ SUBSYSTEM_DEF(department)
 	get_departments_by_pref_order()
 	get_departments_by_manifest_order()
 	refresh_all_station_accesses()
+
+	checker = get_dept_assoc_jobs_by_dept_id(DEPT_MEDICAL, DEPT_SCIENCE)
+
+	// I fucking hate this to be here but this was initialized in ticker before
+	// generate_code_phrase() should be called after this subsystem init'ed job list
+	if(!GLOB.syndicate_code_phrase)
+		GLOB.syndicate_code_phrase	= generate_code_phrase(return_list=TRUE)
+
+		var/codewords = jointext(GLOB.syndicate_code_phrase, "|")
+		var/regex/codeword_match = new("([codewords])", "ig")
+
+		GLOB.syndicate_code_phrase_regex = codeword_match
+
+	if(!GLOB.syndicate_code_response)
+		GLOB.syndicate_code_response = generate_code_phrase(return_list=TRUE)
+
+		var/codewords = jointext(GLOB.syndicate_code_response, "|")
+		var/regex/codeword_match = new("([codewords])", "ig")
+
+		GLOB.syndicate_code_response_regex = codeword_match
 
 	return ..()
 
@@ -71,10 +93,16 @@ SUBSYSTEM_DEF(department)
 
 	var/list/jobs_to_return = list()
 	for(var/each in id)
+		message_admins("currently: [each]")
 		var/datum/department_group/dept = department_by_key[id]
-		if(!dept || !length(dept.jobs))
+		if(!dept)
+			message_admins("no dept: [each]")
+			continue
+		if(!length(dept.jobs))
+			message_admins("no jobs: [each]")
 			continue
 		jobs_to_return[dept.dept_id] = dept.jobs.Copy()
+		message_admins("copied")
 
 	return jobs_to_return
 
@@ -245,37 +273,24 @@ SUBSYSTEM_DEF(department)
 // ----------------------------------------------
 /// most variables exists as a list, but should be replaced as typecache for faster performance
 /datum/department_group/New()
-	var/temp
-	ACCESS_TEMP_SETUP(temp, leaders)
-	for(var/each in leaders)
-		leaders["[each]"] = TRUE
-	ACCESS_TEMP_SETUP(temp, jobs)
-	for(var/each in jobs)
-		jobs["[each]"] = TRUE
+	leaders = init_assoc(leaders)
+	jobs = init_assoc(jobs)
 
-	ACCESS_TEMP_SETUP(temp, access_dominant)
-	for(var/each in access_dominant)
-		access_dominant["[each]"] = TRUE
-	ACCESS_TEMP_SETUP(temp, access_supervisor)
-	for(var/each in access_supervisor)
-		access_supervisor["[each]"] = TRUE
-	ACCESS_TEMP_SETUP(temp, standard_access)
-	for(var/each in standard_access)
-		standard_access["[each]"] = TRUE
-	ACCESS_TEMP_SETUP(temp, custom_access)
-	for(var/each in custom_access)
-		custom_access["[each]"] = TRUE
-	ACCESS_TEMP_SETUP(temp, protected_access)
-	for(var/each in protected_access)
-		protected_access["[each]"] = TRUE
+	access_dominant = init_assoc(access_dominant)
+	access_supervisor = init_assoc(access_supervisor)
+	standard_access = init_assoc(standard_access)
+	custom_access = init_assoc(custom_access)
+	protected_access = init_assoc(protected_access)
 	refresh_full_access_list()
 
-	ACCESS_TEMP_SETUP(temp, access_manifest_changer)
-	for(var/each in access_manifest_changer)
-		access_manifest_changer["[each]"] = TRUE
-	ACCESS_TEMP_SETUP(temp, access_accountancy)
-	for(var/each in access_accountancy)
-		access_accountancy["[each]"] = TRUE
+	access_manifest_changer = init_assoc(access_manifest_changer)
+	access_accountancy = init_assoc(access_accountancy)
+
+/datum/department_group/proc/init_assoc(target_list)
+	var/assoc_list = list()
+	for(var/each in target_list)
+		assoc_list["[each]"] = TRUE
+	return assoc_list
 
 /// only call this when HoP/Admin added a new custom accesss
 /datum/department_group/proc/refresh_full_access_list()
@@ -416,7 +431,7 @@ SUBSYSTEM_DEF(department)
 							ACCESS_LIBRARY,
 							ACCESS_THEATRE,
 							ACCESS_LAWYER)
-	protected_access = list()
+	protected_access = list(ACCESS_HOP)
 
 	access_manifest_changer = list(ACCESS_CHANGE_IDS, ACCESS_HOP)
 	manifest_category_name = DEPT_NAME_SERVICE
@@ -537,7 +552,7 @@ SUBSYSTEM_DEF(department)
 							ACCESS_NETWORK,
 							ACCESS_RD_SERVER,
 							ACCESS_RD)
-	protected_access = list()
+	protected_access = list(ACCESS_RD)
 
 	access_manifest_changer = list(ACCESS_CHANGE_IDS, ACCESS_RD)
 	manifest_category_name = DEPT_NAME_SCIENCE
