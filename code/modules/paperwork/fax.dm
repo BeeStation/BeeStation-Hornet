@@ -157,16 +157,16 @@
 	if(IsAdminGhost(user))
 		return TRUE
 
+	if(!length(access_additional_faxes_required)) // if it needs nothing, it means always allowed
+		return TRUE
 	var/obj/item/card/id/used_card = user.get_idcard(TRUE)
 	if(used_card)
-		// We check if it makes sense to check access at all.
-		if(!access_additional_faxes_required || !used_card.access)
+		if(!length(used_card.card_access)) // it needs something, but do early return FALSE if card has no access
 			return FALSE
-
 		for(var/requested_access in access_additional_faxes_required)
-			if(requested_access in used_card.access)
+			if(check_access_textified(used_card.card_access, requested_access))
 				return TRUE
-		return FALSE
+	return FALSE
 
 // Switches access to the "legal" administrator's fax list. Access to the "illegal" is switched by hacking.
 /obj/machinery/fax/proc/access_additional_faxes_toggle()

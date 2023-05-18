@@ -151,7 +151,7 @@
 	GLOB.bots_list += src
 	access_card = new /obj/item/card/id(src)
 //This access is so bots can be immediately set to patrol and leave Robotics, instead of having to be let out first.
-	access_card.access |= ACCESS_ROBOTICS
+	grant_accesses_to_card(access_card.card_access, ACCESS_ROBOTICS)
 	set_custom_texts()
 	Radio = new/obj/item/radio(src)
 	if(radio_key)
@@ -563,15 +563,15 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/proc/check_bot_access()
 	if(mode != BOT_SUMMON && mode != BOT_RESPONDING)
-		access_card.access = prev_access
+		access_card.card_access = list()
+		grant_accesses_to_card(access_card.card_access, prev_access)
 
 /mob/living/simple_animal/bot/proc/call_bot(caller, turf/waypoint, message=TRUE)
 	bot_reset() //Reset a bot before setting it to call mode.
 
 	//For giving the bot temporary all-access.
 	var/obj/item/card/id/all_access = new /obj/item/card/id
-	var/datum/job/captain/All = new/datum/job/captain
-	all_access.access = All.get_access()
+	grant_accesses_to_card(all_access.card_access, get_all_accesses())
 
 	calling_ai = caller //Link the AI to the bot!
 	ai_waypoint = waypoint
@@ -623,7 +623,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 	set_path(null)
 	summon_target = null
 	pathset = 0
-	access_card.access = prev_access
+	access_card.card_access = list()
+	grant_accesses_to_card(access_card.card_access, prev_access)
 	tries = 0
 	mode = BOT_IDLE
 	hard_reset()
@@ -772,8 +773,10 @@ Pass a positive integer as an argument to override a bot's default speed.
 		if("summon")
 			bot_reset()
 			summon_target = get_turf(user)
-			if(user_access.len != 0)
-				access_card.access = user_access + prev_access //Adds the user's access, if any.
+			if(length(user_access))
+				access_card.card_access = list() // resets current access to remove old user access
+				grant_accesses_to_card(prev_access, user_access)
+				grant_accesses_to_card(access_card.card_access, user_access)
 			mode = BOT_SUMMON
 			speak("Responding.", radio_channel)
 			calc_summon_path()
@@ -1051,7 +1054,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/Login()
 	. = ..()
-	access_card.access |= player_access
+	grant_accesses_to_card(access_card.card_access, player_access)
 	diag_hud_set_botmode()
 
 /mob/living/simple_animal/bot/Logout()
@@ -1228,8 +1231,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 /mob/living/simple_animal/bot/proc/call_bot_z_move(caller, turf/ori_dest, message=TRUE)
 	//For giving the bot temporary all-access.
 	var/obj/item/card/id/all_access = new /obj/item/card/id
-	var/datum/job/captain/all = new/datum/job/captain
-	all_access.access = all.get_access()
+	grant_accesses_to_card(all_access.card_access, get_all_accesses())
 	bot_z_mode = BOT_Z_MODE_AI_CALLED
 
 	var/target
@@ -1272,8 +1274,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 /mob/living/simple_animal/bot/proc/go_up_or_down(direction)
 	//For giving the bot temporary all-access.
 	var/obj/item/card/id/all_access = new /obj/item/card/id
-	var/datum/job/captain/all = new/datum/job/captain
-	all_access.access = all.get_access()
+	grant_accesses_to_card(all_access.card_access, get_all_accesses())
 	bot_z_mode = BOT_Z_MODE_PATROLLING
 
 	if(!is_reserved_level(z) && is_station_level(z))
