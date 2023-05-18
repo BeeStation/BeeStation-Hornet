@@ -510,7 +510,7 @@ What a mess.*/
 					active2 = null
 					authenticated = I.registered_name
 					rank = I.assignment
-					if(check_access_textified(I.card_access, ACCESS_CHANGE_IDS))
+					if(ACCESS_CHANGE_IDS in I.access)
 						allowed_to_edit = TRUE
 					screen = 1
 				else

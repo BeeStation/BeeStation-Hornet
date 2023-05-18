@@ -551,8 +551,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if ((!( authenticated ) && (inserted_scan_id || issilicon(usr)) && (inserted_modify_id || mode)))
 				if (check_access(inserted_scan_id))
 					region_access = list()
-					region_access_payment = NONE
-					head_subordinates = list()
+					region_access_payment = NO_UNDERWEAR
 					if(ACCESS_CHANGE_IDS in inserted_scan_id.access)
 						if(target_dept)
 							region_access |= target_dept

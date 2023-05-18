@@ -84,8 +84,7 @@
 
 	head_subordinates = list()
 	if(length(head_types))
-		for(var/j in SSjob.occupations)
-			var/datum/job/job = j
+		for(var/datum/job/J in SSjob.occupations)
 			for(var/head in head_types)//god why
 				if(head in J.department_head)
 					head_subordinates += J.get_jkey()

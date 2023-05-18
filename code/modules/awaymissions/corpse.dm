@@ -228,8 +228,8 @@
 					break
 		if(id_access_list)
 			W.access |= id_access_list
-		if(id_job)
-			W.assignment = id_job
+		if(id_title)
+			W.assignment = id_title
 		W.registered_name = H.real_name
 		W.update_label()
 
