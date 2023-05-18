@@ -431,6 +431,16 @@
 	result = /obj/item/reagent_containers/food/snacks/muffin/booberry
 	subcategory = CAT_PASTRY
 
+/datum/crafting_recipe/food/moffin
+	name = "Moffin"
+	reqs = list(
+		/datum/reagent/consumable/milk = 5,
+		/obj/item/reagent_containers/food/snacks/pastrybase = 1,
+		/obj/item/stack/sheet/cotton/cloth = 1,
+	)
+	result = /obj/item/reagent_containers/food/snacks/muffin/moffin
+	subcategory = CAT_PASTRY
+
 /datum/crafting_recipe/food/chawanmushi
 	name = "Chawanmushi"
 	reqs = list(

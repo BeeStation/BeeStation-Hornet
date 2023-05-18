@@ -11,6 +11,8 @@
 #define POLL_IGNORE_BLODCULT_OVERALL "bloodcult"
 #define POLL_IGNORE_CLOCKWORK_OVERALL "clockwork"
 #define POLL_IGNORE_SPLITPERSONALITY "split_personality"
+#define POLL_IGNORE_HOLYCARP "holy_carp"
+#define POLL_IGNORE_HOLYUNDEAD "holy_undead"
 
 #define POLL_IGNORE_SPECTRAL_BLADE "spectral_blade"
 #define POLL_IGNORE_POSIBRAIN "posibrain"
@@ -41,6 +43,8 @@ GLOBAL_LIST_INIT(poll_ignore_desc, list( // TO-DO: some ghost notifications are 
 	POLL_IGNORE_BLODCULT_OVERALL = "Notification: all bloodcult notifications",
 	POLL_IGNORE_CLOCKWORK_OVERALL = "Notification: all clockcult notifications",
 	POLL_IGNORE_SPLITPERSONALITY = "Notificaiton: Split Personality",
+  POLL_IGNORE_HOLYCARP = "Notificaiton: Holy Carp",
+	POLL_IGNORE_HOLYUNDEAD = "Notificaiton: Holy Undead",
 
 	POLL_IGNORE_SPECTRAL_BLADE = "Spawn Request: Necropolis Spectral blade",
 	POLL_IGNORE_POSIBRAIN = "Spawn Request: Positronic brain",

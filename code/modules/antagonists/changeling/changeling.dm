@@ -57,17 +57,18 @@
 	. = ..()
 
 /datum/antagonist/changeling/proc/generate_name()
+	var/static/list/left_changling_names = GLOB.greek_letters.Copy()
+
 	var/honorific
 	if(owner.current.gender == FEMALE)
 		honorific = "Ms."
 	else
 		honorific = "Mr."
-	if(GLOB.possible_changeling_IDs.len)
-		changelingID = pick(GLOB.possible_changeling_IDs)
-		GLOB.possible_changeling_IDs -= changelingID
+	if(length(left_changling_names))
+		changelingID = pick_n_take(left_changling_names)
 		changelingID = "[honorific] [changelingID]"
 	else
-		changelingID = "[honorific] [rand(1,999)]"
+		changelingID = "[honorific] [pick(GLOB.greek_letters)] No.[rand(1,9)]"
 
 /datum/antagonist/changeling/proc/create_actions()
 	cellular_emporium = new(src)

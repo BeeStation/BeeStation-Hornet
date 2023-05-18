@@ -113,6 +113,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	///Can the crystal trigger the station wide anomaly spawn?
 	var/anomaly_event = TRUE
 
+	/// don't let these to be consumed by SM
+	var/static/list/not_dustable
+
 /obj/machinery/power/supermatter_crystal/Initialize(mapload)
 	. = ..()
 	uid = gl_uid++
@@ -132,6 +135,14 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	RegisterSignal(src, COMSIG_ATOM_BSA_BEAM, PROC_REF(call_delamination_event))
 
 	soundloop = new(src, TRUE)
+
+	if(!not_dustable)
+		not_dustable = typecacheof(list(
+			/obj/eldritch,
+			/obj/anomaly/singularity,
+			/obj/anomaly/energy_ball,
+			/obj/boh_tear
+		))
 
 /obj/machinery/power/supermatter_crystal/Destroy()
 	investigate_log("has been destroyed.", INVESTIGATE_ENGINES)
@@ -306,12 +317,12 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			visible_message("<span class='warning'>[src] melts through [T]!</span>")
 		return
 
-	if(last_complete_process > SSair.last_complete_process) 
+	if(last_complete_process > SSair.last_complete_process)
 		power_changes = FALSE //Atmos has not been fully processed since the previous time the SM was. Abort all power and processing operations.
 		return
 	else
 		power_changes = TRUE //Atmos has run at least one full tick recently, resume processing.
-	
+
 	if(power)
 		soundloop.volume = CLAMP((50 + (power / 50)), 50, 100)
 	if(damage >= 300)
@@ -434,10 +445,11 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			air_update_turf()
 
 	for(var/mob/living/carbon/human/l in viewers(HALLUCINATION_RANGE(power), src)) // If they can see it without mesons on.  Bad on them.
-		if(!HAS_TRAIT(l.mind, TRAIT_MADNESS_IMMUNE) && !HAS_TRAIT(l, TRAIT_MADNESS_IMMUNE))
-			var/D = sqrt(1 / max(1, get_dist(l, src)))
-			l.hallucination += power * config_hallucination_power * D
-			l.hallucination = CLAMP(0, 200, l.hallucination)
+		if(HAS_TRAIT(l, TRAIT_MADNESS_IMMUNE) || HAS_TRAIT(l.mind, TRAIT_MADNESS_IMMUNE))
+			continue
+		var/D = sqrt(1 / max(1, get_dist(l, src)))
+		l.hallucination += power * config_hallucination_power * D
+		l.hallucination = CLAMP(0, 200, l.hallucination)
 
 	//Transitions between one function and another, one we use for the fast inital startup, the other is used to prevent errors with fusion temperatures.
 	//Use of the second function improves the power gain imparted by using co2
@@ -501,7 +513,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 		if(damage > explosion_point)
 			countdown()
-	
+
 	last_complete_process = world.time
 	return 1
 
@@ -587,7 +599,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	dust_mob(user, cause = "hand")
 
 /obj/machinery/power/supermatter_crystal/proc/dust_mob(mob/living/nom, vis_msg, mob_msg, cause)
-	if(nom.incorporeal_move || nom.status_flags & GODMODE)
+	if(nom.incorporeal_move || nom.status_flags & GODMODE || is_type_in_typecache(nom, not_dustable))
 		return
 	if(!vis_msg)
 		vis_msg = "<span class='danger'>[nom] reaches out and touches [src], inducing a resonance... [nom.p_their()] body starts to glow and burst into flames before flashing into dust!</span>"
@@ -603,7 +615,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 /obj/machinery/power/supermatter_crystal/attackby(obj/item/W, mob/living/user, params)
 	if(!istype(W) || (W.item_flags & ABSTRACT) || !istype(user))
 		return
-	if(istype(W, /obj/item/melee/roastingstick))
+	if(is_type_in_typecache(W, not_dustable))
+		return ..()
+	if(istype(W, /obj/item/melee/roastingstick)) // SM Cooking 101
 		return ..()
 	if(istype(W, /obj/item/clothing/mask/cigarette))
 		var/obj/item/clothing/mask/cigarette/cig = W
@@ -662,7 +676,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	return TRUE
 
 /obj/machinery/power/supermatter_crystal/Bumped(atom/movable/AM)
-	if(isliving(AM))
+	if(is_type_in_typecache(AM, not_dustable))
+		return ..() // remove calling parent if it causes weird behaviour
+	else if(isliving(AM))
 		AM.visible_message("<span class='danger'>\The [AM] slams into \the [src] inducing a resonance... [AM.p_their()] body starts to glow and burst into flames before flashing into dust!</span>",\
 		"<span class='userdanger'>You slam into \the [src] as your ears are filled with unearthly ringing. Your last thought is \"Oh, fuck.\"</span>",\
 		"<span class='italics'>You hear an unearthly noise as a wave of heat washes over you.</span>")
@@ -682,7 +698,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	. |= FALL_STOP_INTERCEPTING | FALL_INTERCEPTED
 
 /obj/machinery/power/supermatter_crystal/proc/Consume(atom/movable/AM)
-	if(isliving(AM))
+	if(is_type_in_typecache(AM, not_dustable))
+		return
+	else if(isliving(AM))
 		var/mob/living/user = AM
 		if(user.status_flags & GODMODE)
 			return
@@ -691,8 +709,6 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		user.dust(force = TRUE)
 		if(is_power_processing())
 			matter_power += 200
-	else if(AM.flags_1 & SUPERMATTER_IGNORES_1)
-		return
 	else if(isobj(AM))
 		var/obj/O = AM
 		if(O.resistance_flags & INDESTRUCTIBLE)
@@ -878,7 +894,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	if(!power_changes) //Still toggled off from a failed atmos tick at some point
 		return FALSE
 	if(SSair.state >= SS_PAUSED) //Atmos isn't running, stop building power until it is fully operational again
-		power_changes = FALSE 
+		power_changes = FALSE
 		return FALSE
 	else //Atmos is either operational, or hasn't been stumbling enough for it to matter yet
 		return TRUE

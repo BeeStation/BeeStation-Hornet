@@ -2066,15 +2066,9 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 //Tail Wagging//
 ////////////////
 
-/datum/species/proc/can_wag_tail(mob/living/carbon/human/H)
-	return FALSE
-
-/datum/species/proc/is_wagging_tail(mob/living/carbon/human/H)
-	return FALSE
-
-/datum/species/proc/start_wagging_tail(mob/living/carbon/human/H)
-
 /datum/species/proc/stop_wagging_tail(mob/living/carbon/human/H)
+	var/obj/item/organ/tail/tail = H?.getorganslot(ORGAN_SLOT_TAIL)
+	tail?.set_wagging(H, FALSE)
 
 ///////////////
 //FLIGHT SHIT//

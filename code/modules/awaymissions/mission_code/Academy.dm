@@ -33,7 +33,7 @@
 
 /obj/item/paper/fluff/awaymissions/academy/console_maint
 	name = "Console Maintenance"
-	info = "We're upgrading to the latest mainframes for our consoles, the shipment should be in before spring break is over!"
+	default_raw_text = "We're upgrading to the latest mainframes for our consoles, the shipment should be in before spring break is over!"
 
 /obj/item/paper/fluff/awaymissions/academy/class/automotive
 	name = "Automotive Repair 101"
@@ -46,19 +46,19 @@
 
 /obj/item/paper/fluff/awaymissions/academy/grade/aplus
 	name = "Summoning Midterm Exam"
-	info = "Grade: A+ Educator's Notes: Excellent form."
+	default_raw_text = "Grade: A+ Educator's Notes: Excellent form."
 
 /obj/item/paper/fluff/awaymissions/academy/grade/bminus
 	name = "Summoning Midterm Exam"
-	info = "Grade: B- Educator's Notes: Keep applying yourself, you're showing improvement."
+	default_raw_text = "Grade: B- Educator's Notes: Keep applying yourself, you're showing improvement."
 
 /obj/item/paper/fluff/awaymissions/academy/grade/dminus
 	name = "Summoning Midterm Exam"
-	info = "Grade: D- Educator's Notes: SEE ME AFTER CLASS."
+	default_raw_text = "Grade: D- Educator's Notes: SEE ME AFTER CLASS."
 
 /obj/item/paper/fluff/awaymissions/academy/grade/failure
 	name = "Pyromancy Evaluation"
-	info = "Current Grade: F. Educator's Notes: No improvement shown despite multiple private lessons.  Suggest additional tutelage."
+	default_raw_text = "Current Grade: F. Educator's Notes: No improvement shown despite multiple private lessons.  Suggest additional tutelage."
 
 /// The immobile, close pulling singularity seen in the academy away mission
 /obj/anomaly/singularity/academy
