@@ -87,8 +87,7 @@
 	. = ..()
 	GLOB.drones_list += src
 	access_card = new /obj/item/card/id(src)
-	var/datum/job/captain/C = new /datum/job/captain
-	access_card.access = C.get_access()
+	grant_accesses_to_card(access_card.card_access, get_all_accesses())
 
 	if(default_storage)
 		var/obj/item/I = new default_storage(src)

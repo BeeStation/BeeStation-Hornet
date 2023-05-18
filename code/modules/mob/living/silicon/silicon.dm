@@ -82,7 +82,7 @@
 	if(!internal_id_card)
 		internal_id_card = new()
 		internal_id_card.name = "[src] internal access"
-	internal_id_card.access |= access_list
+	grant_accesses_to_card(internal_id_card.card_access, access_list)
 
 /mob/living/silicon/proc/create_modularInterface()
 	if(!modularInterface)

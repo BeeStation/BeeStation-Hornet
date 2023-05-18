@@ -9875,7 +9875,7 @@
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
 "aFn" = (
-/obj/machinery/atmospherics/miner/station/toxins,
+/obj/machinery/atmospherics/miner/station/plasma,
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
 "aFo" = (
@@ -10300,17 +10300,17 @@
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
 "aHg" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/toxin_input{
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/plasma_input{
 	dir = 1
 	},
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
 "aHh" = (
-/obj/machinery/air_sensor/atmos/toxin_tank,
+/obj/machinery/air_sensor/atmos/plasma_tank,
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
 "aHi" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/toxin_output{
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/plasma_output{
 	dir = 1
 	},
 /turf/open/floor/engine/plasma,
@@ -10984,7 +10984,7 @@
 "aLS" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
@@ -14460,7 +14460,7 @@
 /turf/open/floor/plating,
 /area/science/mixing)
 "beI" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/bot,
 /obj/structure/sign/warning/nosmoking{
 	pixel_y = -32
@@ -53962,7 +53962,7 @@
 /turf/open/floor/plasteel,
 /area/security/checkpoint/supply)
 "iKW" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
@@ -58357,7 +58357,7 @@
 /turf/closed/wall/r_wall/rust,
 /area/science/test_area)
 "kwT" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/light/small{
 	dir = 4
@@ -58556,7 +58556,7 @@
 /area/engine/atmos)
 "kBl" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/structure/sign/warning/nosmoking{
 	pixel_y = -32
 	},
@@ -60829,7 +60829,7 @@
 /area/crew_quarters/heads/hor)
 "lEm" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
 	},
@@ -69840,7 +69840,7 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/mixing)
 "pAb" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
@@ -80254,7 +80254,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/machinery/atmospherics/components/unary/tank/toxins,
+/obj/machinery/atmospherics/components/unary/tank/plasma,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/disposal/incinerator)
@@ -84625,7 +84625,7 @@
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 4
 	},
-/obj/machinery/computer/atmos_control/tank/toxin_tank{
+/obj/machinery/computer/atmos_control/tank/plasma_tank{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,

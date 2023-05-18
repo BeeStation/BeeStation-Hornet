@@ -85,7 +85,7 @@ GLOBAL_VAR_INIT(hsboxspawn, TRUE)
 			hsbinfo += "- <a href='?src=[REF(src)];hsb=hsbtobj'>Toggle Object Spawning</a><br>"
 			hsbinfo += "- <a href='?src=[REF(src)];hsb=hsbtac'>Toggle Item Spawn Panel Auto-close</a><br>"
 			hsbinfo += "<b>Canister Spawning</b><br>"
-			hsbinfo += "- <a href='?src=[REF(src)];hsb=hsbspawn&path=[/obj/machinery/portable_atmospherics/canister/toxins]'>Spawn Plasma Canister</a><br>"
+			hsbinfo += "- <a href='?src=[REF(src)];hsb=hsbspawn&path=[/obj/machinery/portable_atmospherics/canister/plasma]'>Spawn Plasma Canister</a><br>"
 			hsbinfo += "- <a href='?src=[REF(src)];hsb=hsbspawn&path=[/obj/machinery/portable_atmospherics/canister/carbon_dioxide]'>Spawn CO2 Canister</a><br>"
 			hsbinfo += "- <a href='?src=[REF(src)];hsb=hsbspawn&path=[/obj/machinery/portable_atmospherics/canister/nitrogen]'>Spawn Nitrogen Canister</a><br>"
 			hsbinfo += "- <a href='?src=[REF(src)];hsb=hsbspawn&path=[/obj/machinery/portable_atmospherics/canister/nitrous_oxide]'>Spawn N2O Canister</a><hr>"
@@ -209,7 +209,7 @@ GLOBAL_VAR_INIT(hsboxspawn, TRUE)
 				var/obj/item/card/id/gold/ID = new(usr.loc)
 				ID.registered_name = usr.real_name
 				ID.assignment = "Sandbox"
-				ID.access = get_all_accesses()
+				grant_accesses_to_card(ID.card_access, get_all_accesses())
 				ID.update_label()
 
 			//

@@ -645,9 +645,16 @@
 /mob/verb/abandon_mob()
 	set name = "Respawn"
 	set category = "OOC"
+	var/alert_yes
 
 	if (CONFIG_GET(flag/norespawn))
-		return
+		if(!check_rights_for(client, R_ADMIN))
+			to_chat(usr, "<span class='boldnotice'>Respawning is disabled.</span>")
+			return
+		alert_yes = alert(src, "Do you want to use your admin privilege to respawn? (Respawning is currently disabled)", "Options", "Yes", "No")
+		if(alert_yes != "Yes")
+			return
+
 	if ((stat != DEAD || !( SSticker )))
 		to_chat(usr, "<span class='boldnotice'>You must be dead to use this!</span>")
 		return
@@ -670,6 +677,9 @@
 		log_game("[key_name(usr)] AM failed due to disconnect.")
 		qdel(M)
 		return
+	if(alert_yes)
+		log_admin("[key_name(usr)] has used admin privilege to respawn themselves back to the Lobby.")
+		message_admins("[key_name(usr)] has used admin privilege to respawn themselves back to the Lobby.")
 
 	M.key = key
 //	M.Login()	//wat
