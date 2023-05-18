@@ -817,5 +817,5 @@ SUBSYSTEM_DEF(job)
 	// Force-give their ID card bridge access.
 	if(H.wear_id?.GetID())
 		var/obj/item/card/id/id_card = H.wear_id
-		if(!check_access_textified(id_card.card_access, ACCESS_HEADS))
-			grant_accesses_to_card(id_card.card_access, ACCESS_HEADS)
+		if(!(ACCESS_HEADS in id_card.access))
+			LAZYADD(id_card.access, ACCESS_HEADS)

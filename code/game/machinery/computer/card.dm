@@ -235,7 +235,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		dat += "<table>"
 		dat += "<tr><td style='width:25%'><b>Job</b></td><td style='width:5%'><b>Slots</b></td><td style='width:20%'><b>Open job</b></td><td style='width:20%'><b>Close job</b><td style='width:20%'><b>Prioritize</b></td></td></tr>"
 		var/ID
-		if(inserted_scan_id && check_access_textified(inserted_scan_id.card_access, ACCESS_CHANGE_IDS))
+		if(inserted_scan_id && (ACCESS_CHANGE_IDS in inserted_scan_id.access))
 			ID = 1
 		else
 			ID = 0
@@ -508,7 +508,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					continue
 				accesses += "<td style='width:14%' valign='top'>"
 				for(var/each_access in each_dept.standard_access)
-					if(check_access_textified(inserted_modify_id.card_access, each_access))
+					if(each_access in inserted_modify_id.card_access)
 						accesses += "<a href='?src=[REF(src)];choice=access;access_target=[each_access];dept_target=[each_dept_key];allowed=0'><font color=\"6bc473\">[replacetext(get_access_desc(each_access), " ", "&nbsp")]</font></a> "
 					else
 						accesses += "<a href='?src=[REF(src)];choice=access;access_target=[each_access];dept_target=[each_dept_key];allowed=1'>[replacetext(get_access_desc(each_access), " ", "&nbsp")]</a> "
@@ -609,10 +609,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 					if(auth_allowed)
 						if(has_access)
-							remove_accesses_from_card(inserted_modify_id.card_access, access_code)
+							inserted_modify_id.card_access -= access_code
 							log_id("[key_name(usr)] removed [get_access_desc(access_code)] from [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
 						else
-							grant_accesses_to_card(inserted_modify_id.card_access, access_code)
+							inserted_modify_id.card_access += access_code
 							log_id("[key_name(usr)] added [get_access_desc(access_code)] to [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
 					else
 						to_chat(usr, "<span class='warning'>This access is protected, and your auth is not sufficient to adjust this.</span>")
@@ -629,7 +629,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						log_id("[key_name(usr)] changed [inserted_modify_id] assignment to [newJob] using [inserted_scan_id] at [AREACOORD(usr)].")
 
 				else if(t1 == "Unassigned")
-					remove_accesses_from_card(inserted_modify_id.card_access, get_all_accesses())
+					inserted_modify_id.access -= get_all_accesses()
 
 					// These lines are to make an individual to an assistant
 					if(B)
@@ -661,11 +661,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 							updateUsrDialog()
 							return
 
-						remove_accesses_from_card(inserted_modify_id.card_access, get_all_accesses())
-						grant_accesses_to_card(inserted_modify_id.card_access, jobdatum.get_access())
+						inserted_modify_id.access -= get_all_accesses()
+						inserted_modify_id.access |= jobdatum.get_access()
 					else // centcom level
-						remove_accesses_from_card(inserted_modify_id.card_access, get_all_centcom_access())
-						grant_accesses_to_card(inserted_modify_id.card_access, get_centcom_access(t1))
+						inserted_modify_id.access -= get_all_centcom_access()
+						inserted_modify_id.access |= get_centcom_access(t1)
 
 					// Step 1: reseting theirs first
 					if(B && jobdatum) // 1-A: reseting bank payment
@@ -732,7 +732,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if("make_job_available")
 			// MAKE ANOTHER JOB POSITION AVAILABLE FOR LATE JOINERS
-			if(inserted_scan_id && check_access_textified(inserted_scan_id.card_access, ACCESS_CHANGE_IDS))
+			if(inserted_scan_id && (ACCESS_CHANGE_IDS in inserted_scan_id.card_access))
 				var/edit_job_target = href_list["job"]
 				var/datum/job/j = SSjob.GetJob(edit_job_target)
 				if(!j)
@@ -749,7 +749,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if("make_job_unavailable")
 			// MAKE JOB POSITION UNAVAILABLE FOR LATE JOINERS
-			if(inserted_scan_id && check_access_textified(inserted_scan_id.card_access, ACCESS_CHANGE_IDS))
+			if(inserted_scan_id && (ACCESS_CHANGE_IDS in inserted_scan_id.card_access))
 				var/edit_job_target = href_list["job"]
 				var/datum/job/j = SSjob.GetJob(edit_job_target)
 				if(!j)
@@ -767,7 +767,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if ("prioritize_job")
 			// TOGGLE WHETHER JOB APPEARS AS PRIORITIZED IN THE LOBBY
-			if(inserted_scan_id && check_access_textified(inserted_scan_id.card_access, ACCESS_CHANGE_IDS))
+			if(inserted_scan_id && (ACCESS_CHANGE_IDS in inserted_scan_id.card_access))
 				var/priority_target = href_list["job"]
 				var/datum/job/j = SSjob.GetJob(priority_target)
 				if(!j)
@@ -891,7 +891,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				say("No ID detected.")
 				updateUsrDialog()
 				return
-			if(!check_access_textified(inserted_scan_id.card_access, ACCESS_HOP))
+			if(!(ACCESS_HOP in inserted_scan_id.access))
 				say("Insufficient access to create a new bank account.")
 				return
 			var/datum/bank_account/B = SSeconomy.get_budget_account(initial(target_paycheck))
@@ -935,7 +935,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 /// Returns if auth id has head access that is eligible to adjust payment
 /obj/machinery/computer/card/proc/check_auth_payment()
 	for(var/each in list(ACCESS_HEADS, ACCESS_CHANGE_IDS, ACCESS_HOP, ACCESS_CMO, ACCESS_RD, ACCESS_CE))
-		if(check_access_textified(inserted_scan_id.card_access, each))
+		if(each in inserted_scan_id.access)
 			return TRUE
 	return FALSE
 

@@ -145,7 +145,7 @@
 
 /mob/living/simple_animal/drone/snowflake/bardrone/Initialize(mapload)
 	. = ..()
-	grant_accesses_to_card(access_card.card_access, ACCESS_CENT_BAR)
+	access_card.access |= ACCESS_CENT_BAR
 	ADD_TRAIT(src, TRAIT_BARMASTER, ROUNDSTART_TRAIT)
 	ADD_TRAIT(src, TRAIT_SOMMELIER, ROUNDSTART_TRAIT)
 
@@ -164,8 +164,8 @@
 /mob/living/simple_animal/hostile/alien/maid/barmaid/Initialize(mapload)
 	. = ..()
 	access_card = new /obj/item/card/id(src)
-	grant_accesses_to_card(access_card.card_access, get_all_accesses())
-	grant_accesses_to_card(access_card.card_access, ACCESS_CENT_BAR)
+	access_card.access = get_all_accesses()
+	access_card.access |= ACCESS_CENT_BAR
 	ADD_TRAIT(access_card, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 	ADD_TRAIT(src, TRAIT_BARMASTER, ROUNDSTART_TRAIT)
 	ADD_TRAIT(src, TRAIT_SOMMELIER, ROUNDSTART_TRAIT)
@@ -210,7 +210,7 @@
 			return TRUE
 
 	var/obj/item/card/id/ID = user.get_idcard(FALSE)
-	if(ID && check_access_textified(ID.card_access, ACCESS_CENT_BAR))
+	if(ID && (ACCESS_CENT_BAR in ID.access))
 		return TRUE
 
 //Luxury Shuttle Blockers

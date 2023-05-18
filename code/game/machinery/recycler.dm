@@ -71,7 +71,7 @@
 	..()
 	if(safety_mode)
 		safety_mode = FALSE
-		update_icon()
+		update_appearance()
 	playsound(src, "sparks", 75, 1, -1)
 	to_chat(user, "<span class='notice'>You use the cryptographic sequencer on [src].</span>")
 
@@ -81,6 +81,13 @@
 	if(safety_mode)
 		is_powered = FALSE
 	icon_state = icon_name + "[is_powered]" + "[(blood ? "bld" : "")]" // add the blood tag at the end
+
+/obj/machinery/recycler/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(!anchored)
+		return
+	if(border_dir == eat_dir)
+		return TRUE
 
 /obj/machinery/recycler/Bumped(atom/movable/AM)
 
@@ -152,16 +159,16 @@
 
 
 /obj/machinery/recycler/proc/emergency_stop(mob/living/L)
-	playsound(src, 'sound/machines/buzz-sigh.ogg', 50, 0)
+	playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 	safety_mode = TRUE
-	update_icon()
+	update_appearance()
 	L.forceMove(loc)
 	addtimer(CALLBACK(src, PROC_REF(reboot)), SAFETY_COOLDOWN)
 
 /obj/machinery/recycler/proc/reboot()
-	playsound(src, 'sound/machines/ping.ogg', 50, 0)
+	playsound(src, 'sound/machines/ping.ogg', 50, FALSE)
 	safety_mode = FALSE
-	update_icon()
+	update_appearance()
 
 /obj/machinery/recycler/proc/crush_living(mob/living/L)
 
