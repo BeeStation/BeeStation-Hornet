@@ -1,0 +1,6 @@
+author: Absolucy
+delete-after: true
+changes:
+  - tweak: You can now remove individual recipe recordings from chem dispensers!
+  - tweak: Made the confirmation for clearing all chem recipes a part of the tgui
+      itself.
