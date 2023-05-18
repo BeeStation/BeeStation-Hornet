@@ -43,7 +43,7 @@
 	. = ..()
 	update_icon()
 
-	var/datum/job/J = SSjob.GetJob(JOB_NAME_STATIONENGINEER)
+	var/datum/job/J = SSjob.GetJob(JOB_KEY_STATIONENGINEER)
 	grant_accesses_to_card(access_card.card_access, J.get_access())
 	grant_accesses_to_card(prev_access, access_card.card_access)
 

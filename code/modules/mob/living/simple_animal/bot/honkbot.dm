@@ -42,7 +42,7 @@
 	update_icon()
 	auto_patrol = TRUE
 
-	var/datum/job/J = SSjob.GetJob(JOB_NAME_CLOWN)
+	var/datum/job/J = SSjob.GetJob(JOB_KEY_CLOWN)
 	grant_accesses_to_card(access_card.card_access, J.get_access())
 	grant_accesses_to_card(prev_access, access_card.card_access)
 

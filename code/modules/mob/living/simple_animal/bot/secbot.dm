@@ -67,7 +67,7 @@
 /mob/living/simple_animal/bot/secbot/Initialize(mapload)
 	. = ..()
 	update_icon()
-	var/datum/job/J = SSjob.GetJob(JOB_NAME_DETECTIVE)
+	var/datum/job/J = SSjob.GetJob(JOB_KEY_DETECTIVE)
 	grant_accesses_to_card(access_card.card_access, J.get_access())
 	grant_accesses_to_card(prev_access, access_card.card_access)
 

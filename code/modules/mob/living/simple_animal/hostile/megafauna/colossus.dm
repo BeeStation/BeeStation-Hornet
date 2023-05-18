@@ -531,7 +531,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 		var/mob/living/carbon/human/H = user
 		for(var/obj/item/W in H)
 			H.dropItemToGround(W)
-		var/datum/job/C = SSjob.GetJob(JOB_NAME_CLOWN)
+		var/datum/job/C = SSjob.GetJob(JOB_KEY_CLOWN)
 		C.equip(H)
 		affected_targets.Add(H)
 
