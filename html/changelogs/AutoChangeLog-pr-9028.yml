@@ -1,0 +1,5 @@
+author: Absolucy
+delete-after: true
+changes:
+  - refactor: Refactored tail wagging code a bit.
+  - tweak: All species can now *wag their tail if they have one.
