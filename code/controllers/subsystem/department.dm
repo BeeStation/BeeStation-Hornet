@@ -22,11 +22,15 @@ SUBSYSTEM_DEF(department)
 	var/list/checker
 
 /datum/controller/subsystem/department/Initialize(timeofday)
-	for(var/datum/department_group/each_dept as() in subtypesof(/datum/department_group))
-		each_dept = new each_dept()
+	for(var/each_type in subtypesof(/datum/department_group))
+		var/datum/department_group/each_dept = new each_type()
+		message_admins("currently making: [each_type] / [each_dept.dept_id] / [each_dept] / [each_dept.type]")
 		department_type_list += each_dept
-		department_by_key[each_dept.dept_id] = each_dept
+		department_by_key[each_dept.dept_id] = each_dept // I don't know why but 'each_dept.dept_id' is a type, not a string...
 		department_id_list += each_dept.dept_id
+
+	for(var/each_dept in department_by_key)
+		message_admins("qwerqwer [each_dept]")
 
 	// initialising static list inside of the procs
 	get_departments_by_pref_order()
@@ -336,7 +340,7 @@ SUBSYSTEM_DEF(department)
 	if(!length(auth_access)) // no need to check
 		return TRUE
 	for(var/each_access in auth_access)
-		if(check_access_textified(access_to_check, each_access))
+		if(each_access in access_to_check)
 			return TRUE
 	return FALSE
 

@@ -310,7 +310,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				var/datum/department_group/each_dept = SSdepartment.get_department_by_dept_id(dept_key)
 				if(!each_dept || !each_dept.budget_id)
 					continue
-				if(!each_dept.check_authentication(DEPT_AUTHCHECK_BUDGET, inserted_scan_id.card_access))
+				if(!each_dept.check_authentication(DEPT_AUTHCHECK_BUDGET, inserted_scan_id.access))
 					continue
 				available_paycheck_department += each_dept.budget_id
 				// to-do // available_paycheck_department[each_dept.budget_id] =
@@ -508,7 +508,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					continue
 				accesses += "<td style='width:14%' valign='top'>"
 				for(var/each_access in each_dept.standard_access)
-					if(each_access in inserted_modify_id.card_access)
+					if(each_access in inserted_modify_id.access)
 						accesses += "<a href='?src=[REF(src)];choice=access;access_target=[each_access];dept_target=[each_dept_key];allowed=0'><font color=\"6bc473\">[replacetext(get_access_desc(each_access), " ", "&nbsp")]</font></a> "
 					else
 						accesses += "<a href='?src=[REF(src)];choice=access;access_target=[each_access];dept_target=[each_dept_key];allowed=1'>[replacetext(get_access_desc(each_access), " ", "&nbsp")]</a> "
@@ -575,13 +575,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						var/datum/department_group/each_dept = SSdepartment.get_department_by_dept_id(each_dept_key)
 						if(!each_dept)
 							continue
-						if(each_dept.check_authentication(DEPT_AUTHCHECK_DOMINANT, inserted_scan_id.card_access))
+						if(each_dept.check_authentication(DEPT_AUTHCHECK_DOMINANT, inserted_scan_id.access))
 							auth_bitflag_dominant |= each_dept.dept_bitflag
-						if(each_dept.check_authentication(DEPT_AUTHCHECK_SUPERVISOR, inserted_scan_id.card_access))
+						if(each_dept.check_authentication(DEPT_AUTHCHECK_SUPERVISOR, inserted_scan_id.access))
 							auth_bitflag_supervisor |= each_dept.dept_bitflag
-						if(each_dept.check_authentication(DEPT_AUTHCHECK_MANIFEST, inserted_scan_id.card_access))
+						if(each_dept.check_authentication(DEPT_AUTHCHECK_MANIFEST, inserted_scan_id.access))
 							auth_bitflag_manifest |= each_dept.dept_bitflag
-						if(each_dept.check_authentication(DEPT_AUTHCHECK_BUDGET, inserted_scan_id.card_access))
+						if(each_dept.check_authentication(DEPT_AUTHCHECK_BUDGET, inserted_scan_id.access))
 							auth_bitflag_budget |= each_dept.dept_bitflag
 						authenticated = 1
 						playsound(src, 'sound/machines/terminal_on.ogg', 50, FALSE)
@@ -609,10 +609,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 					if(auth_allowed)
 						if(has_access)
-							inserted_modify_id.card_access -= access_code
+							inserted_modify_id.access -= access_code
 							log_id("[key_name(usr)] removed [get_access_desc(access_code)] from [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
 						else
-							inserted_modify_id.card_access += access_code
+							inserted_modify_id.access += access_code
 							log_id("[key_name(usr)] added [get_access_desc(access_code)] to [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
 					else
 						to_chat(usr, "<span class='warning'>This access is protected, and your auth is not sufficient to adjust this.</span>")
@@ -732,7 +732,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if("make_job_available")
 			// MAKE ANOTHER JOB POSITION AVAILABLE FOR LATE JOINERS
-			if(inserted_scan_id && (ACCESS_CHANGE_IDS in inserted_scan_id.card_access))
+			if(inserted_scan_id && (ACCESS_CHANGE_IDS in inserted_scan_id.access))
 				var/edit_job_target = href_list["job"]
 				var/datum/job/j = SSjob.GetJob(edit_job_target)
 				if(!j)
@@ -749,7 +749,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if("make_job_unavailable")
 			// MAKE JOB POSITION UNAVAILABLE FOR LATE JOINERS
-			if(inserted_scan_id && (ACCESS_CHANGE_IDS in inserted_scan_id.card_access))
+			if(inserted_scan_id && (ACCESS_CHANGE_IDS in inserted_scan_id.access))
 				var/edit_job_target = href_list["job"]
 				var/datum/job/j = SSjob.GetJob(edit_job_target)
 				if(!j)
@@ -767,7 +767,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if ("prioritize_job")
 			// TOGGLE WHETHER JOB APPEARS AS PRIORITIZED IN THE LOBBY
-			if(inserted_scan_id && (ACCESS_CHANGE_IDS in inserted_scan_id.card_access))
+			if(inserted_scan_id && (ACCESS_CHANGE_IDS in inserted_scan_id.access))
 				var/priority_target = href_list["job"]
 				var/datum/job/j = SSjob.GetJob(priority_target)
 				if(!j)
