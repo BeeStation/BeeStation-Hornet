@@ -23,19 +23,16 @@
 		circuit = null
 		if((state != GLASS_CORE) && (state != AI_READY_CORE))
 			state = EMPTY_CORE
-			update_icon()
+			update_appearance()
 	if(A == brain)
 		brain = null
-	. = ..()
+	return ..()
 
 
 /obj/structure/AIcore/Destroy()
-	if(circuit)
-		qdel(circuit)
-		circuit = null
-	if(brain)
-		qdel(brain)
-		brain = null
+	QDEL_NULL(circuit)
+	QDEL_NULL(brain)
+	QDEL_NULL(laws)
 	return ..()
 
 /obj/structure/AIcore/latejoin_inactive

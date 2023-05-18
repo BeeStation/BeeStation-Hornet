@@ -4,8 +4,8 @@
 	scan_desc = "epistemania"
 	gain_text = "<span class='notice'>Requesting mentor...</span>"
 	lose_text = ""
-	random_gain = FALSE
 	resilience = TRAUMA_RESILIENCE_ABSOLUTE
+	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM | TRAUMA_SPECIAL_CURE_PROOF
 
 /datum/brain_trauma/special/imaginary_friend/mrat/make_friend()
 	friend = new /mob/camera/imaginary_friend/mrat(get_turf(owner), src)

@@ -164,7 +164,7 @@
 		return
 
 	var/obj/item/card/id/W = H.wear_id
-	W.access = get_all_accesses()
+	grant_accesses_to_card(W.card_access, get_all_accesses())
 	W.icon_state = "clown_op"
 	W.assignment = "Tunnel Clown!"
 	W.registered_name = H.real_name
@@ -228,7 +228,7 @@
 	pda.saved_job = "Reaper"
 
 	var/obj/item/card/id/syndicate/W = H.wear_id
-	W.access = get_all_accesses()
+	grant_accesses_to_card(W.card_access, get_all_accesses())
 	W.assignment = "Reaper"
 	W.registered_name = H.real_name
 	W.update_label(H.real_name)
@@ -262,12 +262,12 @@
 		return
 
 	if(isplasmaman(H))
-		H.internal = H.get_item_for_held_index(2)
-		H.update_internals_hud_icon(1)
+		H.open_internals(H.get_item_for_held_index(2))
+
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
-	W.access = get_all_accesses()
-	W.access += get_centcom_access(JOB_CENTCOM_COMMANDER)
+	grant_accesses_to_card(W.card_access, get_all_accesses())
+	grant_accesses_to_card(W.card_access, get_centcom_access(JOB_CENTCOM_COMMANDER))
 	W.assignment = JOB_CENTCOM_COMMANDER
 	W.registered_name = H.real_name
 	W.update_label()
@@ -295,8 +295,8 @@
 
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
-	W.access = get_all_accesses()
-	W.access += get_centcom_access(JOB_CENTCOM_ADMIRAL)
+	grant_accesses_to_card(W.card_access, get_all_accesses())
+	grant_accesses_to_card(W.card_access, get_centcom_access(JOB_CENTCOM_ADMIRAL))
 	W.assignment = JOB_CENTCOM_ADMIRAL
 	W.registered_name = H.real_name
 	W.update_label()
@@ -376,8 +376,8 @@
 
 	var/obj/item/card/id/silver/W = H.wear_id
 	W.icon_state = "centcom"
-	W.access = get_all_accesses()
-	W.access += get_centcom_access(JOB_CENTCOM_ADMIRAL)
+	grant_accesses_to_card(W.card_access, get_all_accesses())
+	grant_accesses_to_card(W.card_access, get_centcom_access(JOB_CENTCOM_ADMIRAL))
 	W.assignment = JOB_CENTCOM_ADMIRAL
 	W.registered_name = H.real_name
 	W.update_label()
@@ -412,7 +412,6 @@
 	head = /obj/item/clothing/head/helmet/space/plasmaman
 	uniform = /obj/item/clothing/under/plasmaman
 	r_hand= /obj/item/tank/internals/plasmaman/belt/full
-	mask = /obj/item/clothing/mask/breath
 
 /datum/outfit/chrono_agent
 	name = "Timeline Eradication Agent"

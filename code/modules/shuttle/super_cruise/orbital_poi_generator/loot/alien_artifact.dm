@@ -22,6 +22,7 @@
 /obj/item/alienartifact/objective/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/gps, "[scramble_message_replace_chars("#########", 100)]", TRUE)
+	AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#eb4d4d", TRUE, TRUE)
 
 /obj/item/alienartifact/Initialize(mapload)
 	. = ..()
@@ -267,9 +268,9 @@
 		idcards += id_card
 	var/list/accesses_to_add = get_all_accesses()
 	for(var/obj/item/card/id/id_card as() in idcards)
-		if(length(id_card.access))
-			id_card.access.Remove(pick(id_card.access))
-			id_card.access |= pick(accesses_to_add)
+		if(length(id_card.card_access))
+			remove_accesses_from_card(id_card.card_access, pick(id_card.card_access))
+			grant_accesses_to_card(id_card.card_access, pick(accesses_to_add))
 
 //===================
 // Reality Destabilizer

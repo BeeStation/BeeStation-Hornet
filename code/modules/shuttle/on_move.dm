@@ -147,6 +147,8 @@ All ShuttleMove procs go here
 		update_light()
 	if(rotation)
 		shuttleRotate(rotation)
+	if(proximity_monitor)
+		proximity_monitor.HandleMove()
 
 	return TRUE
 
