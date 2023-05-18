@@ -852,7 +852,7 @@
 		to_chat(M, "<span class='warning'>The blackness in your peripheral vision fades.</span>")
 		M.cure_nearsighted(EYE_DAMAGE)
 		M.blur_eyes(10)
-	else if(M.eye_blind || M.eye_blurry)
+	else if(M.is_blind() || M.eye_blurry)
 		M.set_blindness(0)
 		M.set_blurriness(0)
 	..()
@@ -951,9 +951,9 @@
 			M.visible_message("<span class='warning'>[M]'s body starts convulsing!</span>")
 			M.notify_ghost_cloning(source = M)
 			M.do_jitter_animation(10)
-			addtimer(CALLBACK(M, /mob/living/carbon.proc/do_jitter_animation, 10), 40) //jitter immediately, then again after 4 and 8 seconds
-			addtimer(CALLBACK(M, /mob/living/carbon.proc/do_jitter_animation, 10), 80)
-			addtimer(CALLBACK(M, /mob/living.proc/revive, FALSE, FALSE), 100)
+			addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation), 10), 40) //jitter immediately, then again after 4 and 8 seconds
+			addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation), 10), 80)
+			addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living, revive), FALSE, FALSE), 100)
 	..()
 
 /datum/reagent/medicine/strange_reagent/on_mob_life(mob/living/carbon/M)
@@ -1361,22 +1361,6 @@
 	taste_description = "jelly"
 
 /datum/reagent/medicine/regen_jelly/on_mob_life(mob/living/carbon/M)
-	M.adjustBruteLoss(-1.5*REM, 0)
-	M.adjustFireLoss(-1.5*REM, 0)
-	M.adjustOxyLoss(-1.5*REM, 0)
-	M.adjustToxLoss(-1.5*REM, 0, TRUE) //heals TOXINLOVERs
-	. = 1
-	..()
-
-/datum/reagent/medicine/regen_ooze
-	name = "Regenerative Ooze"
-	description = "Gradually regenerates all types of damage, without harming slime anatomy."
-	reagent_state = LIQUID
-	color = "#65d891"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	taste_description = "jelly"
-
-/datum/reagent/medicine/regen_ooze/on_mob_life(mob/living/carbon/M)
 	M.adjustBruteLoss(-0.5*REM, 0)
 	M.adjustFireLoss(-0.5*REM, 0)
 	M.adjustOxyLoss(-0.5*REM, 0)
@@ -1480,7 +1464,7 @@
 //used for changeling's adrenaline power
 /datum/reagent/medicine/changelingadrenaline
 	name = "Changeling Adrenaline"
-	description = "Reduces the duration of unconciousness, knockdown and stuns. Restores stamina, but deals toxin damage when overdosed."
+	description = "Reduces the duration of unconsciousness, knockdown and stuns. Restores stamina, but deals toxin damage when overdosed."
 	color = "#C1151D"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	overdose_threshold = 30

@@ -32,22 +32,24 @@
 			.++
 
 /datum/station_goal/dna_vault/get_report()
-	return {"Our long term prediction systems indicate a 99% chance of system-wide cataclysm in the near future.
-	 We need you to construct a DNA Vault aboard your station.
-
-	 The DNA Vault needs to contain samples of:
-	 [animal_count] unique animal data
-	 [plant_count] unique non-standard plant data
-	 [human_count] unique sapient humanoid DNA data
-
-	 Base vault parts are available for shipping via cargo."}
+	return list(
+		"<blockquote>Our long term prediction systems indicate a 99% chance of system-wide cataclysm in the near future.",
+		"We need you to construct a DNA Vault aboard your station.",
+		"",
+		"The DNA Vault needs to contain samples of:",
+		"* [animal_count] unique animal data",
+		"* [plant_count] unique non-standard plant data",
+		"* [human_count] unique sapient humanoid DNA data",
+		"",
+		"Base vault parts are available for shipping via cargo.</blockquote>",
+	).Join("\n")
 
 
 /datum/station_goal/dna_vault/on_report()
-	var/datum/supply_pack/P = SSshuttle.supply_packs[/datum/supply_pack/engineering/dna_vault]
+	var/datum/supply_pack/P = SSsupply.supply_packs[/datum/supply_pack/engineering/dna_vault]
 	P.special_enabled = TRUE
 
-	P = SSshuttle.supply_packs[/datum/supply_pack/engineering/dna_probes]
+	P = SSsupply.supply_packs[/datum/supply_pack/engineering/dna_probes]
 	P.special_enabled = TRUE
 
 /datum/station_goal/dna_vault/check_completion()

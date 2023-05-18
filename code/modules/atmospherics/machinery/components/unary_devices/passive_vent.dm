@@ -3,9 +3,9 @@
 
 	name = "passive vent"
 	desc = "It is an open vent."
-	can_unwrench = TRUE
 
-	level = 1
+	can_unwrench = TRUE
+	hide = TRUE
 	interacts_with_air = TRUE
 	layer = GAS_SCRUBBER_LAYER
 	shift_underlay_only = FALSE

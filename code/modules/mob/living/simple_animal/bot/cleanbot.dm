@@ -39,7 +39,7 @@
 	icon_state = "cleanbot[on]"
 
 	var/datum/job/janitor/J = new/datum/job/janitor
-	access_card.access += J.get_access()
+	access_card.access |= J.get_access()
 	prev_access = access_card.access
 	GLOB.janitor_devices += src
 
@@ -215,7 +215,7 @@
 		icon_state = "cleanbot-c"
 		visible_message("<span class='notice'>[src] begins to clean up [A].</span>")
 		mode = BOT_CLEANING
-		addtimer(CALLBACK(src, .proc/clean, A), 50)
+		addtimer(CALLBACK(src, PROC_REF(clean), A), 50)
 	else if(istype(A, /obj/item) || istype(A, /obj/effect/decal/remains))
 		visible_message("<span class='danger'>[src] sprays hydrofluoric acid at [A]!</span>")
 		playsound(src, 'sound/effects/spray2.ogg', 50, 1, -6)
@@ -314,7 +314,7 @@
 	icon_state = "larry[on]"
 
 	var/datum/job/janitor/J = new/datum/job/janitor
-	access_card.access += J.get_access()
+	access_card.access |= J.get_access()
 	prev_access = access_card.access
 
 /mob/living/simple_animal/bot/cleanbot/larry/turn_on()
@@ -333,7 +333,7 @@
 		icon_state = "larry-c"
 		visible_message("<span class='notice'>[src] begins to clean up [A].</span>")
 		mode = BOT_CLEANING
-		addtimer(CALLBACK(src, .proc/clean, A), 50)
+		addtimer(CALLBACK(src, PROC_REF(clean), A), 50)
 	else if(istype(A, /obj/item) || istype(A, /obj/effect/decal/remains))
 		visible_message("<span class='danger'>[src] sprays hydrofluoric acid at [A]!</span>")
 		playsound(src, 'sound/effects/spray2.ogg', 50, 1, -6)

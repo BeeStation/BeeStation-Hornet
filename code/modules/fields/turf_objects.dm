@@ -1,3 +1,6 @@
+// ????
+#define FIELD_TURF 1
+#define FIELD_EDGE 2
 
 /obj/effect/abstract/proximity_checker/advanced
 	name = "field"
@@ -68,3 +71,6 @@
 		if(O.parent == F)
 			return FIELD_TURF
 	return FALSE
+
+#undef FIELD_TURF
+#undef FIELD_EDGE

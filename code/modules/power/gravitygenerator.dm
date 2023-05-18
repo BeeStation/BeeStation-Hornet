@@ -154,12 +154,12 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 		if(count == 5) // Middle
 			middle = part
 		if(count <= 3) // Their sprite is the top part of the generator
-			part.density = FALSE
+			part.set_density(FALSE)
 			part.layer = WALL_OBJ_LAYER
 		part.sprite_number = count
 		part.main_part = src
 		parts += part
-		part.update_icon()
+		part.update_appearance()
 
 /obj/machinery/gravity_generator/main/proc/connected_parts()
 	return parts.len == 8
@@ -182,7 +182,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 		if(M.machine_stat & BROKEN)
 			M.set_fix()
 	broken_state = 0
-	update_icon()
+	update_appearance()
 	set_power()
 
 // Interaction
@@ -195,14 +195,14 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 				to_chat(user, "<span class='notice'>You secure the screws of the framework.</span>")
 				I.play_tool_sound(src)
 				broken_state++
-				update_icon()
+				update_appearance()
 				return
 		if(GRAV_NEEDS_WELDING)
 			if(I.tool_behaviour == TOOL_WELDER)
 				if(I.use_tool(src, user, 0, volume=50, amount=1))
 					to_chat(user, "<span class='notice'>You mend the damaged framework.</span>")
 					broken_state++
-					update_icon()
+					update_appearance()
 				return
 		if(GRAV_NEEDS_PLASTEEL)
 			if(istype(I, /obj/item/stack/sheet/plasteel))
@@ -212,7 +212,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 					to_chat(user, "<span class='notice'>You add the plating to the framework.</span>")
 					playsound(src.loc, 'sound/machines/click.ogg', 75, 1)
 					broken_state++
-					update_icon()
+					update_appearance()
 				else
 					to_chat(user, "<span class='warning'>You need 10 sheets of plasteel!</span>")
 				return
@@ -288,7 +288,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 
 	charging_state = new_state ? POWER_UP : POWER_DOWN // Startup sequence animation.
 	investigate_log("is now [charging_state == POWER_UP ? "charging" : "discharging"].", INVESTIGATE_GRAVITY)
-	update_icon()
+	update_appearance()
 
 // Set the state of the gravity.
 /obj/machinery/gravity_generator/main/proc/set_state(new_state)
@@ -309,7 +309,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 				investigate_log("was brought offline and there is now no gravity for this level.", INVESTIGATE_GRAVITY)
 				message_admins("The gravity generator was brought offline with no backup generator. [ADMIN_VERBOSEJMP(src)]")
 
-	update_icon()
+	update_appearance()
 	update_list()
 	ui_update()
 	if(alert)
@@ -409,7 +409,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 
 /obj/item/paper/guides/jobs/engi/gravity_gen
 	name = "paper- 'Generate your own gravity!'"
-	info = {"<h1>Gravity Generator Instructions For Dummies</h1>
+	default_raw_text = {"<h1>Gravity Generator Instructions For Dummies</h1>
 	<p>Surprisingly, gravity isn't that hard to make! All you have to do is inject deadly radioactive minerals into a ball of
 	energy and you have yourself gravity! You can turn the machine on or off when required but you must remember that the generator
 	will EMIT RADIATION when charging or discharging, you can tell it is charging or discharging by the noise it makes, so please WEAR PROTECTIVE CLOTHING.</p>

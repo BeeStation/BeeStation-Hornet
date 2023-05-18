@@ -22,7 +22,7 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 ///////////////////////////////
 
 /proc/spawn_meteors(number = 10, list/meteortypes, z = 0)
-	for(var/i = 0; i < number; i++)
+	for(var/i in 1 to number)
 		spawn_meteor(meteortypes, z)
 
 /proc/spawn_meteor(list/meteortypes, z = 0)
@@ -37,7 +37,7 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 		max_i--
 		if(max_i<=0)
 			return
-	var/Me = pickweight(meteortypes)
+	var/Me = pick_weight(meteortypes)
 	new Me(pickedstart, pickedgoal)
 
 /proc/spaceDebrisStartLoc(startSide, Z)
@@ -189,7 +189,7 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 	if(!new_loop)
 		return
 
-	RegisterSignal(new_loop, COMSIG_PARENT_QDELETING, .proc/handle_stopping)
+	RegisterSignal(new_loop, COMSIG_PARENT_QDELETING, PROC_REF(handle_stopping))
 
 ///Deals with what happens when we stop moving, IE we die
 /obj/effect/meteor/proc/handle_stopping()
@@ -254,6 +254,9 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 			var/dist = get_dist(M.loc, src.loc)
 			shake_camera(M, dist > 20 ? 2 : 4, dist > 20 ? 1 : 3)
 			M.playsound_local(src.loc, null, 50, 1, random_frequency, 10, S = meteor_sound)
+
+/obj/effect/meteor/has_gravity(turf/T)
+	return FALSE
 
 ///////////////////////
 //Meteor types
@@ -450,7 +453,7 @@ GLOBAL_LIST_INIT(meteorsSPOOKY, list(/obj/effect/meteor/pumpkin))
 	M.Translate(-1.5 * world.icon_size, -1.5 * world.icon_size)
 	M.Translate(0, world.icon_size * 7)
 	transform = M
-	INVOKE_ASYNC(src, .proc/fall_animation)
+	INVOKE_ASYNC(src, PROC_REF(fall_animation))
 
 /obj/effect/falling_meteor/Destroy(force)
 	if(contained_meteor)

@@ -25,7 +25,7 @@
 	var/mob/living/M = mob_override || owner.current
 	update_synd_icons_added(M)
 	ADD_TRAIT(owner, TRAIT_DISK_VERIFIER, NUKEOP_TRAIT)
-	M.remove_all_quirks()
+	owner.remove_all_quirks()
 
 /datum/antagonist/nukeop/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/M = mob_override || owner.current
@@ -151,8 +151,8 @@
 
 /datum/antagonist/nukeop/get_admin_commands()
 	. = ..()
-	.["Send to base"] = CALLBACK(src,.proc/admin_send_to_base)
-	.["Tell code"] = CALLBACK(src,.proc/admin_tell_code)
+	.["Send to base"] = CALLBACK(src,PROC_REF(admin_send_to_base))
+	.["Tell code"] = CALLBACK(src,PROC_REF(admin_tell_code))
 
 /datum/antagonist/nukeop/proc/admin_send_to_base(mob/admin)
 	owner.current.forceMove(pick(GLOB.nukeop_start))
@@ -178,14 +178,14 @@
 /datum/antagonist/nukeop/leader/memorize_code()
 	..()
 	if(nuke_team?.memorized_code)
-		var/obj/item/paper/P = new
-		P.info = "The nuclear authorization code is: <b>[nuke_team.memorized_code]</b>"
-		P.name = "nuclear bomb code"
+		var/obj/item/paper/nuke_code_paper = new
+		nuke_code_paper.add_raw_text("The nuclear authorization code is: <b>[nuke_team.memorized_code]</b>")
+		nuke_code_paper.name = "nuclear bomb code"
 		var/mob/living/carbon/human/H = owner.current
 		if(!istype(H))
-			P.forceMove(get_turf(H))
+			nuke_code_paper.forceMove(get_turf(H))
 		else
-			H.put_in_hands(P, TRUE)
+			H.put_in_hands(nuke_code_paper, TRUE)
 			H.update_icons()
 
 /datum/antagonist/nukeop/leader/give_alias()
@@ -201,7 +201,7 @@
 	to_chat(owner, "<B>If you feel you are not up to this task, give your ID to another operative.</B>")
 	to_chat(owner, "<B>In your hand you will find a special item capable of triggering a greater challenge for your team. Examine it carefully and consult with your fellow operatives before activating it.</B>")
 	owner.announce_objectives()
-	addtimer(CALLBACK(src, .proc/nuketeam_name_assign), 1)
+	addtimer(CALLBACK(src, PROC_REF(nuketeam_name_assign)), 1)
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Nuclear Operative Team Leader",
 		"Destroy the station with a nuclear explosive by leading your team.")
 
@@ -212,7 +212,7 @@
 
 /datum/team/nuclear/proc/rename_team(new_name)
 	syndicate_name = new_name
-	name = "[syndicate_name] Team"
+	name = "Family [syndicate_name]"
 	for(var/I in members)
 		var/datum/mind/synd_mind = I
 		var/mob/living/carbon/human/H = synd_mind.current
@@ -252,6 +252,7 @@
 		else
 			stack_trace("Station self-destruct not found during lone op team creation.")
 			nuke_team.memorized_code = null
+		nuke_team.name = "Lone Operative - [nuke_team.syndicate_name]"
 
 /datum/antagonist/nukeop/reinforcement
 	send_to_spawnpoint = FALSE
@@ -268,6 +269,7 @@
 /datum/team/nuclear/New()
 	..()
 	syndicate_name = syndicate_name()
+	name = "Family [syndicate_name]"
 	team_frequency = get_free_team_frequency("synd")
 
 /datum/team/nuclear/proc/update_objectives()

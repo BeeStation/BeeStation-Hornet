@@ -36,7 +36,7 @@
 
 		var/list/viewable = view(affected_range, epicenter)
 		var/list/accessible = list(epicenter)
-		for(var/i=1; i<=affected_range; i++)
+		for(var/i in 1 to affected_range)
 			var/list/turflist = RANGE_TURFS(i, epicenter) - RANGE_TURFS(i-1, epicenter)
 			for(var/turf/T as() in turflist)
 				if(!(get_dir(T,epicenter) in GLOB.cardinals) && (abs(T.x - epicenter.x) == abs(T.y - epicenter.y) ))

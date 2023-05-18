@@ -58,8 +58,6 @@ GENE SCANNER
 		return
 	var/list/t_ray_images = list()
 	for(var/obj/O in orange(distance, viewer) )
-		if(O.level != 1)
-			continue
 
 		if(O.invisibility == INVISIBILITY_MAXIMUM || HAS_TRAIT(O, TRAIT_T_RAY_VISIBLE))
 			var/image/I = new(loc = get_turf(O))
@@ -129,7 +127,7 @@ GENE SCANNER
 
 // Used by the PDA medical scanner too
 /proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE, to_chat = TRUE)
-	if(isliving(user) && (user.incapacitated() || user.eye_blind))
+	if(isliving(user) && (user.incapacitated() || user.is_blind()))
 		return
 
 	// the final list of strings to render
@@ -188,8 +186,8 @@ GENE SCANNER
 				trauma_desc += B.scan_desc
 				trauma_text += trauma_desc
 			message += "\t<span class='alert'>Cerebral traumas detected: subject appears to be suffering from [english_list(trauma_text)].</span>"
-		if(C.roundstart_quirks.len)
-			message += "\t<span class='info'>Subject has the following physiological traits: [C.get_trait_string()].</span>"
+		if(length(C.last_mind?.quirks))
+			message += "\t<span class='info'>Subject has the following physiological traits: [C.last_mind.get_quirk_string()].</span>"
 	if(advanced)
 		message += "\t<span class='info'>Brain Activity Level: [(200 - M.getOrganLoss(ORGAN_SLOT_BRAIN))/2]%.</span>"
 
@@ -230,7 +228,7 @@ GENE SCANNER
 			message += "\t<span class='info'><b>==EYE STATUS==</b></span>"
 			if(istype(eyes))
 				var/healthy = TRUE
-				if(HAS_TRAIT(C, TRAIT_BLIND))
+				if(C.is_blind())
 					message += "\t<span class='alert'>Subject is blind.</span>"
 					healthy = FALSE
 				if(HAS_TRAIT(C, TRAIT_NEARSIGHT))
@@ -334,6 +332,8 @@ GENE SCANNER
 		//Genetic damage
 		if(advanced && H.has_dna())
 			message += "\t<span class='info'>Genetic Stability: [H.dna.stability]%.</span>"
+			if(H.has_status_effect(STATUS_EFFECT_LING_TRANSFORMATION))
+				message += "\t<span class='info'>Subject's DNA appears to be in an unstable state.</span>"
 
 	// Species and body temperature
 	if(ishuman(M))
@@ -490,7 +490,7 @@ GENE SCANNER
 /obj/item/analyzer/attack_self(mob/user)
 	add_fingerprint(user)
 
-	if(user.stat || user.eye_blind)
+	if(user.stat || user.is_blind())
 		return
 
 	//Functionality moved down to proc/scan_turf()
@@ -543,7 +543,7 @@ GENE SCANNER
 			else
 				to_chat(user, "<span class='warning'>[src]'s barometer function says a storm will land in approximately [butchertime(fixed)].</span>")
 		cooldown = TRUE
-		addtimer(CALLBACK(src,/obj/item/analyzer/proc/ping), cooldown_time)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/analyzer, ping)), cooldown_time)
 
 /obj/item/analyzer/proc/ping()
 	if(isliving(loc))
@@ -692,7 +692,7 @@ GENE SCANNER
 	materials = list(/datum/material/iron=30, /datum/material/glass=20)
 
 /obj/item/slime_scanner/attack(mob/living/M, mob/living/user)
-	if(user.stat || user.eye_blind)
+	if(user.stat || user.is_blind())
 		return
 	if(!isslime(M))
 		to_chat(user, "<span class='warning'>This device can only scan slimes!</span>")
@@ -879,7 +879,7 @@ GENE SCANNER
 	for(var/A in buffer)
 		options += get_display_name(A)
 
-	var/answer = input(user, "Analyze Potential", "Sequence Analyzer")  as null|anything in sortList(options)
+	var/answer = input(user, "Analyze Potential", "Sequence Analyzer")  as null|anything in sort_list(options)
 	if(answer && ready && user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		var/sequence
 		for(var/A in buffer) //this physically hurts but i dont know what anything else short of an assoc list
@@ -898,7 +898,7 @@ GENE SCANNER
 
 		ready = FALSE
 		icon_state = "[icon_state]_recharging"
-		addtimer(CALLBACK(src, .proc/recharge), cooldown, TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(recharge)), cooldown, TIMER_UNIQUE)
 
 /obj/item/sequence_scanner/proc/recharge()
 	icon_state = initial(icon_state)
@@ -1007,7 +1007,7 @@ GENE SCANNER
 		else
 			to_chat(user, "<span class='info'><font color='green'><b>[D.name]</b>, stage [D.stage]/[D.max_stages].</font></span>")
 
-/obj/item/extrapolator/proc/extrapolate(atom/AM, var/list/diseases = list(), mob/user, isolate = FALSE, timer = 200)
+/obj/item/extrapolator/proc/extrapolate(atom/AM, var/list/diseases = list(), mob/user, isolate = FALSE, timer = 100)
 	var/list/advancediseases = list()
 	var/list/symptoms = list()
 	if(using)
@@ -1039,7 +1039,7 @@ GENE SCANNER
 		symptomholder.Finalize()
 		symptomholder.Refresh()
 		to_chat(user, "<span class='warning'>You begin isolating [chosen].</span>")
-		if(do_after(user, (600 / (scanner.rating + 1)), target = AM))
+		if(do_after(user, (150 / (scanner.rating + 1)), target = AM))
 			create_culture(symptomholder, user, AM)
 	else
 		using = TRUE

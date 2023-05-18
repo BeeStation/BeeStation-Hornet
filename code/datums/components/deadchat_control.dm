@@ -14,13 +14,13 @@
 /datum/component/deadchat_control/Initialize(_deadchat_mode, _inputs, _input_cooldown = 12 SECONDS)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
-	RegisterSignal(parent, COMSIG_ATOM_ORBIT_BEGIN, .proc/orbit_begin)
-	RegisterSignal(parent, COMSIG_ATOM_ORBIT_STOP, .proc/orbit_stop)
+	RegisterSignal(parent, COMSIG_ATOM_ORBIT_BEGIN, PROC_REF(orbit_begin))
+	RegisterSignal(parent, COMSIG_ATOM_ORBIT_STOP, PROC_REF(orbit_stop))
 	deadchat_mode = _deadchat_mode
 	inputs = _inputs
 	input_cooldown = _input_cooldown
 	if(deadchat_mode == DEMOCRACY_MODE)
-		timerid = addtimer(CALLBACK(src, .proc/democracy_loop), input_cooldown, TIMER_STOPPABLE | TIMER_LOOP)
+		timerid = addtimer(CALLBACK(src, PROC_REF(democracy_loop)), input_cooldown, TIMER_STOPPABLE | TIMER_LOOP)
 	notify_ghosts("[parent] is now deadchat controllable!", source = parent, action = NOTIFY_ORBIT, header="Something Interesting!")
 
 
@@ -40,7 +40,7 @@
 			return MOB_DEADSAY_SIGNAL_INTERCEPT
 		inputs[message].Invoke()
 		ckey_to_cooldown[source.ckey] = TRUE
-		addtimer(CALLBACK(src, .proc/remove_cooldown, source.ckey), input_cooldown)
+		addtimer(CALLBACK(src, PROC_REF(remove_cooldown), source.ckey), input_cooldown)
 	else if(deadchat_mode == DEMOCRACY_MODE)
 		ckey_to_cooldown[source.ckey] = message
 	return MOB_DEADSAY_SIGNAL_INTERCEPT
@@ -92,12 +92,12 @@
 		return
 	ckey_to_cooldown = list()
 	if(var_value == DEMOCRACY_MODE)
-		timerid = addtimer(CALLBACK(src, .proc/democracy_loop), input_cooldown, TIMER_STOPPABLE | TIMER_LOOP)
+		timerid = addtimer(CALLBACK(src, PROC_REF(democracy_loop)), input_cooldown, TIMER_STOPPABLE | TIMER_LOOP)
 	else
 		deltimer(timerid)
 
 /datum/component/deadchat_control/proc/orbit_begin(atom/source, atom/orbiter)
-	RegisterSignal(orbiter, COMSIG_MOB_DEADSAY, .proc/deadchat_react)
+	RegisterSignal(orbiter, COMSIG_MOB_DEADSAY, PROC_REF(deadchat_react))
 	orbiters |= orbiter
 
 /datum/component/deadchat_control/proc/orbit_stop(atom/source, atom/orbiter)

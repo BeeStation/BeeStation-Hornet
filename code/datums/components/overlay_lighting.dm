@@ -51,7 +51,7 @@
 		)
 
 	///Overlay effect to cut into the darkness and provide light.
-	var/obj/effect/overlay/light_visible/visible_mask
+	var/image/visible_mask
 	///Lazy list to track the turfs being affected by our light, to determine their visibility.
 	var/list/turf/affected_turfs
 	///Movable atom currently holding the light. Parent might be a flashlight, for example, but that might be held by a mob or something else.
@@ -71,7 +71,10 @@
 
 	. = ..()
 
-	visible_mask = new()
+	visible_mask = image('icons/effects/light_overlays/light_32.dmi', icon_state = "light")
+	visible_mask.plane = O_LIGHTING_VISUAL_PLANE
+	visible_mask.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
+	visible_mask.alpha = 0
 	if(!isnull(_range))
 		movable_parent.set_light_range(_range)
 	set_range(parent, movable_parent.light_range)
@@ -87,12 +90,12 @@
 
 /datum/component/overlay_lighting/RegisterWithParent()
 	. = ..()
-	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/on_parent_moved)
-	RegisterSignal(parent, COMSIG_ATOM_SET_LIGHT_RANGE, .proc/set_range)
-	RegisterSignal(parent, COMSIG_ATOM_SET_LIGHT_POWER, .proc/set_power)
-	RegisterSignal(parent, COMSIG_ATOM_SET_LIGHT_COLOR, .proc/set_color)
-	RegisterSignal(parent, COMSIG_ATOM_SET_LIGHT_ON, .proc/on_toggle)
-	RegisterSignal(parent, COMSIG_ATOM_SET_LIGHT_FLAGS, .proc/on_light_flags_change)
+	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_parent_moved))
+	RegisterSignal(parent, COMSIG_ATOM_SET_LIGHT_RANGE, PROC_REF(set_range))
+	RegisterSignal(parent, COMSIG_ATOM_SET_LIGHT_POWER, PROC_REF(set_power))
+	RegisterSignal(parent, COMSIG_ATOM_SET_LIGHT_COLOR, PROC_REF(set_color))
+	RegisterSignal(parent, COMSIG_ATOM_SET_LIGHT_ON, PROC_REF(on_toggle))
+	RegisterSignal(parent, COMSIG_ATOM_SET_LIGHT_FLAGS, PROC_REF(on_light_flags_change))
 	var/atom/movable/movable_parent = parent
 	if(movable_parent.light_flags & LIGHT_ATTACHED)
 		overlay_lighting_flags |= LIGHTING_ATTACHED
@@ -127,7 +130,7 @@
 	set_parent_attached_to(null)
 	set_holder(null)
 	clean_old_turfs()
-	QDEL_NULL(visible_mask)
+	visible_mask = null
 	return ..()
 
 
@@ -158,16 +161,16 @@
 
 ///Adds the luminosity and source for the afected movable atoms to keep track of their visibility.
 /datum/component/overlay_lighting/proc/add_dynamic_lumi(atom/movable/affected_movable)
-	LAZYSET(affected_movable.affected_dynamic_lights, src, lumcount_range + 1)
-	affected_movable.vis_contents += visible_mask
-	affected_movable.update_dynamic_luminosity()
+	LAZYSET(current_holder.affected_dynamic_lights, src, lumcount_range + 1)
+	current_holder.underlays += visible_mask
+	current_holder.update_dynamic_luminosity()
 
 
 ///Removes the luminosity and source for the afected movable atoms to keep track of their visibility.
 /datum/component/overlay_lighting/proc/remove_dynamic_lumi(atom/movable/affected_movable)
-	LAZYREMOVE(affected_movable.affected_dynamic_lights, src)
-	affected_movable.vis_contents -= visible_mask
-	affected_movable.update_dynamic_luminosity()
+	LAZYREMOVE(current_holder.affected_dynamic_lights, src)
+	current_holder.underlays -= visible_mask
+	current_holder.update_dynamic_luminosity()
 
 
 ///Called to change the value of parent_attached_to.
@@ -180,13 +183,13 @@
 		var/atom/movable/old_parent_attached_to = .
 		UnregisterSignal(old_parent_attached_to, list(COMSIG_PARENT_QDELETING, COMSIG_MOVABLE_MOVED))
 		if(old_parent_attached_to == current_holder)
-			RegisterSignal(old_parent_attached_to, COMSIG_PARENT_QDELETING, .proc/on_holder_qdel)
-			RegisterSignal(old_parent_attached_to, COMSIG_MOVABLE_MOVED, .proc/on_holder_moved)
+			RegisterSignal(old_parent_attached_to, COMSIG_PARENT_QDELETING, PROC_REF(on_holder_qdel))
+			RegisterSignal(old_parent_attached_to, COMSIG_MOVABLE_MOVED, PROC_REF(on_holder_moved))
 	if(parent_attached_to)
 		if(parent_attached_to == current_holder)
 			UnregisterSignal(current_holder, list(COMSIG_PARENT_QDELETING, COMSIG_MOVABLE_MOVED))
-		RegisterSignal(parent_attached_to, COMSIG_PARENT_QDELETING, .proc/on_parent_attached_to_qdel)
-		RegisterSignal(parent_attached_to, COMSIG_MOVABLE_MOVED, .proc/on_parent_attached_to_moved)
+		RegisterSignal(parent_attached_to, COMSIG_PARENT_QDELETING, PROC_REF(on_parent_attached_to_qdel))
+		RegisterSignal(parent_attached_to, COMSIG_MOVABLE_MOVED, PROC_REF(on_parent_attached_to_moved))
 	check_holder()
 
 
@@ -206,8 +209,8 @@
 	if(overlay_lighting_flags & LIGHTING_ON)
 		add_dynamic_lumi(new_holder)
 	if(new_holder != parent && new_holder != parent_attached_to)
-		RegisterSignal(new_holder, COMSIG_PARENT_QDELETING, .proc/on_holder_qdel)
-		RegisterSignal(new_holder, COMSIG_MOVABLE_MOVED, .proc/on_holder_moved)
+		RegisterSignal(new_holder, COMSIG_PARENT_QDELETING, PROC_REF(on_holder_qdel))
+		RegisterSignal(new_holder, COMSIG_MOVABLE_MOVED, PROC_REF(on_holder_moved))
 
 
 ///Used to determine the new valid current_holder from the parent's loc.
@@ -275,6 +278,8 @@
 	range = clamp(CEILING(new_range, 0.5), 1, 6)
 	var/pixel_bounds = ((range - 1) * 64) + 32
 	lumcount_range = CEILING(range, 1)
+	if(overlay_lighting_flags & LIGHTING_ON)
+		current_holder.underlays -= visible_mask
 	visible_mask.icon = light_overlays["[pixel_bounds]"]
 	if(pixel_bounds == 32)
 		visible_mask.transform = null
@@ -284,6 +289,7 @@
 	transform.Translate(-offset, -offset)
 	visible_mask.transform = transform
 	if(overlay_lighting_flags & LIGHTING_ON)
+		current_holder.underlays += visible_mask
 		make_luminosity_update()
 
 
@@ -291,13 +297,22 @@
 /datum/component/overlay_lighting/proc/set_power(atom/source, new_power)
 	set_lum_power(new_power >= 0 ? 0.5 : -0.5)
 	set_alpha = min(230, (abs(new_power) * 120) + 30)
+	// We need to do this in order to trigger byond to update the overlay
+	if(overlay_lighting_flags & LIGHTING_ON)
+		current_holder.underlays -= visible_mask
 	visible_mask.alpha = set_alpha
+	if(overlay_lighting_flags & LIGHTING_ON)
+		current_holder.underlays += visible_mask
 
 
 ///Changes the light's color, pretty straightforward.
 /datum/component/overlay_lighting/proc/set_color(atom/source, new_color)
+	// We need to do this in order to trigger byond to update the overlay
+	if(overlay_lighting_flags & LIGHTING_ON)
+		current_holder.underlays -= visible_mask
 	visible_mask.color = new_color
-
+	if(overlay_lighting_flags & LIGHTING_ON)
+		current_holder.underlays += visible_mask
 
 ///Toggles the light on and off.
 /datum/component/overlay_lighting/proc/on_toggle(atom/source, new_value)

@@ -4,8 +4,6 @@ Slimecrossing Items
 	Collected here for clarity.
 */
 
-#define DEJAVU_REWIND_INTERVAL (10 SECONDS)
-
 //Rewind camera - I'm already Burning Sepia
 /obj/item/camera/rewind
 	name = "sepia-tinted camera"
@@ -55,81 +53,6 @@ Slimecrossing Items
 
 		ret[part.body_zone] = saved_part
 	return ret
-
-
-
-/datum/component/dejavu
-	var/integrity	//for objects
-	var/brute_loss //for simple animals
-	var/list/datum/saved_bodypart/saved_bodyparts //maps bodypart slots to health
-	var/clone_loss = 0
-	var/tox_loss = 0
-	var/oxy_loss = 0
-	var/brain_loss = 0
-	var/x
-	var/y
-	var/z
-	var/rewinds_remaining
-
-/datum/component/dejavu/Initialize(rewinds = 1)
-	rewinds_remaining = rewinds
-	var/turf/T = get_turf(parent)
-	if(T)
-		x = T.x
-		y = T.y
-		z = T.z
-	if(isliving(parent))
-		var/mob/living/L = parent
-		clone_loss = L.getCloneLoss()
-		tox_loss = L.getToxLoss()
-		oxy_loss = L.getOxyLoss()
-		brain_loss = L.getOrganLoss(ORGAN_SLOT_BRAIN)
-	if(iscarbon(parent))
-		var/mob/living/carbon/C = parent
-		saved_bodyparts = C.save_bodyparts()
-	else if(isanimal(parent))
-		var/mob/living/simple_animal/M = parent
-		brute_loss = M.bruteloss
-	else if(isobj(parent))
-		var/obj/O = parent
-		integrity = O.obj_integrity
-	addtimer(CALLBACK(src, .proc/rewind), DEJAVU_REWIND_INTERVAL)
-
-/datum/component/dejavu/proc/rewind()
-	to_chat(parent, "<span class=notice>You remember a time not so long ago...</span>")
-
-	if(isliving(parent))
-		var/mob/living/L = parent
-		L.setCloneLoss(clone_loss)
-		L.setToxLoss(tox_loss)
-		L.setOxyLoss(oxy_loss)
-		L.setOrganLoss(ORGAN_SLOT_BRAIN, brain_loss)
-
-	if(iscarbon(parent))
-		if(saved_bodyparts)
-			var/mob/living/carbon/C = parent
-			C.apply_saved_bodyparts(saved_bodyparts)
-	else if(isanimal(parent))
-		var/mob/living/simple_animal/M = parent
-		M.bruteloss = brute_loss
-		M.updatehealth()
-	else if(isobj(parent))
-		var/obj/O = parent
-		O.obj_integrity = integrity
-
-	//comes after healing so new limbs comically drop to the floor
-	if(!isnull(x) && istype(parent, /atom/movable))
-		var/atom/movable/AM = parent
-		var/turf/T = locate(x,y,z)
-		AM.forceMove(T)
-
-	rewinds_remaining --
-	if(rewinds_remaining)
-		addtimer(CALLBACK(src, .proc/rewind), DEJAVU_REWIND_INTERVAL)
-	else
-		to_chat(parent, "<span class=notice>But the memory falls out of your reach.</span>")
-
-
 
 /obj/item/camera/rewind/afterattack(atom/target, mob/user, flag)
 	if(!on || !pictures_left || !isturf(target.loc))
@@ -247,7 +170,7 @@ Slimecrossing Items
 	icon_state = "frozen"
 	density = TRUE
 	max_integrity = 100
-	armor = list("melee" = 30, "bullet" = 50, "laser" = -50, "energy" = -50, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = -80, "acid" = 30, "stamina" = 0)
+	armor = list(MELEE = 30,  BULLET = 50, LASER = -50, ENERGY = -50, BOMB = 0, BIO = 100, RAD = 100, FIRE = -80, ACID = 30, STAMINA = 0)
 
 /obj/structure/ice_stasis/Initialize(mapload)
 	. = ..()
@@ -275,7 +198,7 @@ Slimecrossing Items
 		to_chat(user, "<span class='warning'>The capture device only works on simple creatures.</span>")
 		return
 	if(M.mind)
-		INVOKE_ASYNC(src, .proc/offer_entry, M, user)
+		INVOKE_ASYNC(src, PROC_REF(offer_entry), M, user)
 		return
 	else
 		if(istype(M, /mob/living/simple_animal/hostile) && !("neutral" in M.faction))

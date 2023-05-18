@@ -107,7 +107,7 @@
 
 
 /datum/computer_file/program/phys_scanner/ui_data(mob/user)
-	var/list/data = get_header_data()
+	var/list/data = list()
 
 	data["set_mode"] = ReadCurrent()
 	data["last_record"] = last_record

@@ -11,10 +11,22 @@
 	var/obj/docking_port/stationary/my_port //the custom docking port placed by this console
 	var/obj/docking_port/mobile/shuttle_port //the mobile docking port of the connected shuttle
 	var/view_range = 0
-	var/list/whitelist_turfs = list(/turf/open/space, /turf/open/floor/plating/lavaland, /turf/open/floor/plating/asteroid, /turf/open/lava, /turf/open/floor/dock)
+	var/list/whitelist_turfs = list(
+		/turf/open/space,
+		/turf/open/floor/plating/lavaland,
+		/turf/open/floor/plating/asteroid,
+		/turf/open/lava,
+		/turf/open/floor/dock,
+		/turf/open/floor/plating/snowed,
+		/turf/open/floor/plating/ice,
+	)
 	var/designate_time = 50
 	var/turf/designating_target_loc
 	var/datum/action/innate/camera_jump/shuttle_docker/docker_action = new
+	///Camera action button to move up a Z level
+	var/datum/action/innate/camera_multiz_up/move_up_action = new
+	///Camera action button to move down a Z level
+	var/datum/action/innate/camera_multiz_down/move_down_action = new
 
 /obj/machinery/computer/shuttle_flight/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
@@ -46,6 +58,16 @@
 		docker_action.Grant(user)
 		actions += docker_action
 
+	if(move_up_action)
+		move_up_action.target = user
+		move_up_action.Grant(user)
+		actions += move_up_action
+
+	if(move_down_action)
+		move_down_action.target = user
+		move_down_action.Grant(user)
+		actions += move_down_action
+
 /obj/machinery/computer/shuttle_flight/proc/CreateEye()
 	shuttle_port = SSshuttle.getShuttle(shuttleId)
 	if(QDELETED(shuttle_port))
@@ -65,8 +87,7 @@
 				var/x_off = T.x - origin.x
 				var/y_off = T.y - origin.y
 				I.loc = locate(origin.x + x_off, origin.y + y_off, origin.z) //we have to set this after creating the image because it might be null, and images created in nullspace are immutable.
-				I.layer = ABOVE_NORMAL_TURF_LAYER
-				I.plane = 0
+				I.plane = ABOVE_LIGHTING_PLANE
 				I.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 				the_eye.placement_images[I] = list(x_off, y_off)
 
@@ -141,7 +162,7 @@
 	if(designate_time && (landing_clear != SHUTTLE_DOCKER_BLOCKED))
 		to_chat(current_user, "<span class='warning'>Targeting transit location, please wait [DisplayTimeText(designate_time)]...</span>")
 		designating_target_loc = the_eye.loc
-		var/wait_completed = do_after(current_user, designate_time, FALSE, designating_target_loc, TRUE, CALLBACK(src, .proc/canDesignateTarget))
+		var/wait_completed = do_after(current_user, designate_time, designating_target_loc, progress = TRUE, timed_action_flags = IGNORE_HELD_ITEM, extra_checks = CALLBACK(src, PROC_REF(canDesignateTarget)))
 		designating_target_loc = null
 		if(!current_user)
 			return
@@ -188,8 +209,7 @@
 		var/image/I = V
 		var/image/newI = image('icons/effects/alphacolors.dmi', the_eye.loc, "blue")
 		newI.loc = I.loc //It is highly unlikely that any landing spot including a null tile will get this far, but better safe than sorry.
-		newI.layer = ABOVE_OPEN_TURF_LAYER
-		newI.plane = 0
+		newI.plane = ABOVE_LIGHTING_PLANE
 		newI.mouse_opacity = 0
 		the_eye.placed_images += newI
 
@@ -202,7 +222,7 @@
 			//Hold the shuttle in the docking position until ready.
 			M.setTimer(INFINITY)
 			say("Waiting for hyperspace lane...")
-			INVOKE_ASYNC(src, .proc/unfreeze_shuttle, M, SSmapping.get_level(eyeobj.z))
+			INVOKE_ASYNC(src, PROC_REF(unfreeze_shuttle), M, SSmapping.get_level(eyeobj.z))
 		if(1)
 			to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
 		else
@@ -281,6 +301,9 @@
 
 	// Checking for overlapping dock boundaries
 	for(var/i in 1 to overlappers.len)
+		var/obj/docking_port/mobile/shuttle = overlappers[i]
+		if(istype(shuttle) && shuttle.undockable)
+			return SHUTTLE_DOCKER_BLOCKED
 		var/obj/docking_port/stationary/port = overlappers[i]
 		if(port == my_port)
 			continue
@@ -316,7 +339,7 @@
 	src.origin = origin
 	return ..()
 
-/mob/camera/ai_eye/remote/shuttle_docker/canZMove(direction, turf/target)
+/mob/camera/ai_eye/remote/shuttle_docker/canZMove(direction, turf/source, turf/target, pre_move = TRUE)
 	return TRUE
 
 /mob/camera/ai_eye/remote/shuttle_docker/setLoc(destination)

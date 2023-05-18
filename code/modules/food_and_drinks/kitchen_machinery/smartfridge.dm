@@ -218,7 +218,7 @@
 				listofitems[md5name]["amount"]++	// The good news is, #30519 made smartfridge UIs non-auto-updating
 			else
 				listofitems[md5name] = list("name" = O.name, "type" = O.type, "amount" = 1)
-	sortList(listofitems)
+	sort_list(listofitems)
 
 	.["contents"] = listofitems
 	.["name"] = name
@@ -474,7 +474,8 @@
 		return TRUE
 	if(!O.reagents || !O.reagents.reagent_list.len) // other empty containers not accepted
 		return FALSE
-	if(istype(O, /obj/item/reagent_containers/syringe) || istype(O, /obj/item/reagent_containers/glass/bottle) || istype(O, /obj/item/reagent_containers/glass/beaker) || istype(O, /obj/item/reagent_containers/spray) || istype(O, /obj/item/reagent_containers/medspray))
+	if(istype(O, /obj/item/reagent_containers/syringe) || istype(O, /obj/item/reagent_containers/glass/bottle) || istype(O, /obj/item/reagent_containers/glass/beaker) \
+	|| istype(O, /obj/item/reagent_containers/spray) || istype(O, /obj/item/reagent_containers/medspray) || istype(O, /obj/item/reagent_containers/chem_bag))
 		return TRUE
 	return FALSE
 

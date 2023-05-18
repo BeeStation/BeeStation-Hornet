@@ -7,6 +7,7 @@
 	use_power = IDLE_POWER_USE
 	can_unwrench = TRUE
 	shift_underlay_only = FALSE
+	hide = TRUE
 
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF //really helpful in building gas chambers for xenomorphs
 
@@ -18,7 +19,6 @@
 	var/id = null
 	var/datum/radio_frequency/radio_connection
 
-	level = 1
 	interacts_with_air = TRUE
 	layer = GAS_SCRUBBER_LAYER
 
@@ -141,7 +141,7 @@
 		var/datum/gas_mixture/air_contents = airs[1]
 		volume_rate = CLAMP(number, 0, air_contents.return_volume())
 
-	addtimer(CALLBACK(src, .proc/broadcast_status), 2)
+	addtimer(CALLBACK(src, PROC_REF(broadcast_status)), 2)
 
 	if(!("status" in signal.data)) //do not update_icon
 		update_icon()
@@ -254,3 +254,10 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/toxins_mixing_input
 	name = "toxins mixing input injector"
 	id = ATMOS_GAS_MONITOR_INPUT_TOXINS_LAB
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/toxins_waste_input
+	name = "toxins waste input injector"
+	id = ATMOS_GAS_MONITOR_INPUT_TOXINS_WASTE
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/sm_waste_input
+	name = "supermatter waste input injector"
+	id = ATMOS_GAS_MONITOR_INPUT_SM_WASTE
+

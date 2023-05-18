@@ -1,6 +1,6 @@
 /obj/item/paper/fluff/ruins/exp_cloning/manual
 	name = "paper - 'H-11 Cloning Apparatus Manual"
-	info = {"<h4>Getting Started</h4>
+	default_raw_text = {"<h4>Getting Started</h4>
 	Congratulations, you are testing the H-11 experimental cloning device!<br>
 	Using the H-11 is almost as simple as brain surgery! Simply insert the target humanoid into the scanning chamber and select the clone option to initiate cloning!<br>
 	<b>That's all there is to it!</b><br>
@@ -14,7 +14,7 @@
 
 /obj/item/paper/fluff/ruins/exp_cloning/log
 	name = "experiment log"
-	info = {"<h4>Day 1</h4>
+	default_raw_text = {"<h4>Day 1</h4>
 	We are very excited to be part of the first crew of the SC Irmanda!<br>
 	This ship is made to test an innovative FTL technology. I had some concerns at first, \
 	but the engineers assure me that it is safe and there is absolutely no risk of the external wings breaking off from the acceleration.<br>

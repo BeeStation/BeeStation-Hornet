@@ -36,7 +36,7 @@
 
 /obj/structure/showerframe/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, .proc/can_be_rotated))
+	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, PROC_REF(can_be_rotated)))
 
 /obj/structure/showerframe/proc/can_be_rotated(mob/user, rotation_type)
 	if(anchored)
@@ -51,7 +51,7 @@
 	soundloop = new(src, FALSE)
 
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -110,10 +110,10 @@
 	// If there was already mist, and the shower was turned off (or made cold): remove the existing mist in 25 sec
 	var/obj/effect/mist/mist = locate() in loc
 	if(!mist && on && current_temperature != SHOWER_FREEZING)
-		addtimer(CALLBACK(src, .proc/make_mist), 5 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(make_mist)), 5 SECONDS)
 
 	if(mist && (!on || current_temperature == SHOWER_FREEZING))
-		addtimer(CALLBACK(src, .proc/clear_mist), 25 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(clear_mist)), 25 SECONDS)
 
 /obj/machinery/shower/proc/make_mist()
 	var/obj/effect/mist/mist = locate() in loc
@@ -130,7 +130,7 @@
 	SIGNAL_HANDLER
 
 	if(on)
-		INVOKE_ASYNC(src, .proc/wash_atom, AM)
+		INVOKE_ASYNC(src, PROC_REF(wash_atom), AM)
 
 /obj/machinery/shower/proc/wash_atom(atom/A)
 	SEND_SIGNAL(A, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_WEAK)
@@ -161,7 +161,6 @@
 
 /obj/machinery/shower/proc/wash_mob(mob/living/L)
 	SEND_SIGNAL(L, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_WEAK)
-	L.wash_cream()
 	L.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 	SEND_SIGNAL(L, COMSIG_ADD_MOOD_EVENT, "shower", /datum/mood_event/nice_shower)
 	if(iscarbon(L))

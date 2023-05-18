@@ -11,7 +11,6 @@
 	plane = MASSIVE_OBJ_PLANE
 	light_color = COLOR_RED
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
-	flags_1 = SUPERMATTER_IGNORES_1
 
 /obj/eldritch/narsie/toddsie/greeting_message()
 	send_to_playing_players("<span class='narsie'>TODD'SIE HAS RISEN. BUY. SKYRIM.</span>")
@@ -20,7 +19,7 @@
 	if(A)
 		var/mutable_appearance/alert_overlay = mutable_appearance('icons/effects/cult_effects.dmi', "ghostalertsie")
 		notify_ghosts("Todd'Sie has risen in \the [A.name]. Reach out to the Geometer to be given a new shell for your soul.", source = src, alert_overlay = alert_overlay, action=NOTIFY_ATTACK)
-	INVOKE_ASYNC(src, .proc/narsie_spawn_animation)
+	INVOKE_ASYNC(src, PROC_REF(narsie_spawn_animation))
 /obj/eldritch/narsie/toddsie/acquire(atom/food)
 	var/datum/component/singularity/singularity_component = singularity.resolve()
 	if(food == singularity_component?.target)

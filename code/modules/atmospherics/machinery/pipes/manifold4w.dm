@@ -7,7 +7,7 @@
 	name = "4-way pipe manifold"
 	desc = "A manifold composed of regular pipes."
 
-	initialize_directions = NORTH|SOUTH|EAST|WEST
+	initialize_directions = ALL_CARDINALS
 
 	device_type = QUATERNARY
 
@@ -42,4 +42,3 @@
 			add_overlay( getpipeimage(icon, "pipe-[piping_layer]", get_dir(src, nodes[i])) )
 
 	update_layer()
-	update_alpha()

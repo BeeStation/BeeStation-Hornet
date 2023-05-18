@@ -2,8 +2,6 @@
 	var/datum/gas_mixture/air_temporary //used when reconstructing a pipeline that broke
 	var/volume = 0
 
-	level = 1
-
 	use_power = NO_POWER_USE
 	can_unwrench = 1
 	var/datum/pipeline/parent = null
@@ -25,6 +23,13 @@
 	volume = 35 * device_type
 	..()
 
+///I have no idea why there's a new and at this point I'm too afraid to ask
+/obj/machinery/atmospherics/pipe/Initialize(mapload)
+	. = ..()
+
+	if(hide)
+		AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE)
+
 /obj/machinery/atmospherics/pipe/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>[src] is on layer [piping_layer].</span>"
@@ -42,16 +47,6 @@
 	if(QDELETED(parent))
 		parent = new
 		parent.build_pipeline(src)
-
-/obj/machinery/atmospherics/pipe/atmosinit()
-	var/turf/T = loc			// hide if turf is not intact
-	hide(T.intact)
-	..()
-
-/obj/machinery/atmospherics/pipe/hide(i)
-	if(level == 1 && isturf(loc))
-		invisibility = i ? INVISIBILITY_MAXIMUM : 0
-	update_icon()
 
 /obj/machinery/atmospherics/pipe/proc/releaseAirToTurf()
 	if(air_temporary)
@@ -102,13 +97,6 @@
 			qdel(meter)
 	. = ..()
 
-/obj/machinery/atmospherics/pipe/update_icon()
-	. = ..()
-	update_alpha()
-
-/obj/machinery/atmospherics/pipe/proc/update_alpha()
-	alpha = invisibility ? 64 : 255
-
 /obj/machinery/atmospherics/pipe/proc/update_node_icon()
 	for(var/i in 1 to device_type)
 		if(nodes[i])
@@ -119,7 +107,7 @@
 	. = list(parent)
 
 /obj/machinery/atmospherics/pipe/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == "melee" && damage_amount < 12)
+	if(damage_flag == MELEE && damage_amount < 12)
 		return 0
 	. = ..()
 

@@ -158,7 +158,7 @@
 	msg = copytext_char(msg, 1, MAX_MESSAGE_LEN)
 
 	if(type)
-		if(type & MSG_VISUAL && eye_blind )//Vision related
+		if(type & MSG_VISUAL && is_blind() )//Vision related
 			if(!alt_msg)
 				return
 			else
@@ -171,7 +171,7 @@
 			else
 				msg = alt_msg
 				type = alt_type
-				if(type & MSG_VISUAL && eye_blind)
+				if(type & MSG_VISUAL && is_blind())
 					return
 	// voice muffling
 	if(stat == UNCONSCIOUS)
@@ -218,7 +218,7 @@
 		if(!msg)
 			continue
 
-		if(is_emote && M.should_show_chat_message(src, null, TRUE) && !is_blind(M))
+		if(is_emote && M.should_show_chat_message(src, null, TRUE) && !M.is_blind())
 			show_to += M
 
 		M.show_message(msg, MSG_VISUAL, blind_message, MSG_AUDIBLE)
@@ -538,39 +538,6 @@
 	return TRUE
 
 /**
-  * Point at an atom
-  *
-  * mob verbs are faster than object verbs. See
-  * [this byond forum post](https://secure.byond.com/forum/?post=1326139&page=2#comment8198716)
-  * for why this isn't atom/verb/pointed()
-  *
-  * note: ghosts can point, this is intended
-  *
-  * visible_message will handle invisibility properly
-  *
-  * overridden here and in /mob/dead/observer for different point span classes and sanity checks
-  */
-/mob/verb/pointed(atom/A as mob|obj|turf in view())
-	set name = "Point To"
-	set category = "Object"
-
-	if(!src || !isturf(src.loc) || !(A in view(src.loc)))
-		return FALSE
-	if(istype(A, /obj/effect/temp_visual/point))
-		return FALSE
-
-	var/turf/tile = get_turf(A)
-	if (!tile)
-		return FALSE
-
-	var/turf/our_tile = get_turf(src)
-	var/obj/visual = new /obj/effect/temp_visual/point(our_tile, invisibility)
-	animate(visual, pixel_x = (tile.x - our_tile.x) * world.icon_size + A.pixel_x, pixel_y = (tile.y - our_tile.y) * world.icon_size + A.pixel_y, time = 1.7, easing = EASE_OUT)
-
-	SEND_SIGNAL(src, COMSIG_MOB_POINTED, A)
-	return TRUE
-
-/**
   * Called by using Activate Held Object with an empty hand/limb
   *
   * Does nothing by default. The intended use is to allow limbs to call their
@@ -743,7 +710,7 @@
 		unset_machine()
 		src << browse(null, t1)
 
-	if(href_list["item"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERY))
+	if(href_list["item"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY))
 		var/slot = text2num(href_list["item"])
 		var/hand_index = text2num(href_list["hand_index"])
 		var/obj/item/what
@@ -813,7 +780,7 @@
   *
   * Conditions:
   * * client.last_turn > world.time
-  * * not dead or unconcious
+  * * not dead or unconscious
   * * not anchored
   * * no transform not set
   * * we are not restrained
@@ -930,10 +897,10 @@
 		return FALSE
 	var/turf/T = get_turf(src)
 	if(M.loc != T)
-		var/old_density = density
+		var/old_density = density //old and doesnt use set_density()
 		density = FALSE
 		var/can_step = step_towards(M, T)
-		density = old_density
+		density = old_density // Avoid changing density directly in normal circumstances, without the setter.
 		if(!can_step)
 			return FALSE
 	return ..()
@@ -974,7 +941,7 @@
 	return Adjacent(A)
 
 ///Can the mob use Topic to interact with machines
-/mob/proc/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
+/mob/proc/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
 	return
 
 ///Can this mob use storage
@@ -1118,7 +1085,7 @@
 
 ///Can this mob read (is literate and not blind)
 /mob/proc/can_read(obj/O)
-	if(is_blind(src))
+	if(is_blind())
 		to_chat(src, "<span class='warning'>As you are trying to read [O], you suddenly feel very stupid!</span>")
 		return
 	if(!is_literate())
@@ -1266,7 +1233,7 @@
 		UnregisterSignal(active_storage, COMSIG_PARENT_QDELETING)
 	active_storage = new_active_storage
 	if(active_storage)
-		RegisterSignal(active_storage, COMSIG_PARENT_QDELETING, .proc/active_storage_deleted)
+		RegisterSignal(active_storage, COMSIG_PARENT_QDELETING, PROC_REF(active_storage_deleted))
 
 /mob/proc/active_storage_deleted(datum/source)
 	SIGNAL_HANDLER

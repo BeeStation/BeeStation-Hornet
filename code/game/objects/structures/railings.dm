@@ -6,6 +6,8 @@
 	density = TRUE
 	anchored = TRUE
 	climbable = TRUE
+	max_integrity = 75
+
 	///Initial direction of the railing.
 	var/ini_dir
 
@@ -18,10 +20,11 @@
 	. = ..()
 	ini_dir = dir
 
-	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS ,null,CALLBACK(src, .proc/can_be_rotated),CALLBACK(src,.proc/after_rotation))
+	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS ,null,CALLBACK(src, PROC_REF(can_be_rotated)),CALLBACK(src, PROC_REF(after_rotation)))
 	init_connect_loc_element()
 
 /obj/structure/railing/attackby(obj/item/I, mob/living/user, params)
+	..()
 	add_fingerprint(user)
 
 	if(I.tool_behaviour == TOOL_WELDER && user.a_intent == INTENT_HELP)
@@ -39,27 +42,28 @@
 
 /obj/structure/railing/wirecutter_act(mob/living/user, obj/item/I)
 	. = ..()
+	if(flags_1 & NODECONSTRUCT_1)
+		return
 	if(!anchored)
-		to_chat(user, "<span class='warning'>You cut apart the railing.</span>")
-		I.play_tool_sound(src, 100)
-		deconstruct()
-		return TRUE
+		to_chat(user, "<span class='warning'>You begin to cut apart [src]...</span>")
+		// Insta-disassemble is bad
+		if(I.use_tool(src, user, 2.5 SECONDS))
+			deconstruct()
+			return TRUE
 
 /obj/structure/railing/deconstruct(disassembled)
-	. = ..()
-	if(!loc) //quick check if it's qdeleted already.
-		return
 	if(!(flags_1 & NODECONSTRUCT_1))
 		var/obj/item/stack/rods/rod = new /obj/item/stack/rods(drop_location(), 3)
 		transfer_fingerprints_to(rod)
-		qdel(src)
+	return ..()
+
 ///Implements behaviour that makes it possible to unanchor the railing.
 /obj/structure/railing/wrench_act(mob/living/user, obj/item/I)
 	. = ..()
 	if(flags_1&NODECONSTRUCT_1)
 		return
 	to_chat(user, "<span class='notice'>You begin to [anchored ? "unfasten the railing from":"fasten the railing to"] the floor...</span>")
-	if(I.use_tool(src, user, volume = 75, extra_checks = CALLBACK(src, .proc/check_anchored, anchored)))
+	if(I.use_tool(src, user, 1 SECONDS, volume = 75, extra_checks = CALLBACK(src, PROC_REF(check_anchored), anchored)))
 		setAnchored(!anchored)
 		to_chat(user, "<span class='notice'>You [anchored ? "fasten the railing to":"unfasten the railing from"] the floor.</span>")
 	return TRUE
@@ -77,7 +81,7 @@
 
 /obj/structure/railing/proc/init_connect_loc_element()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_EXIT = .proc/on_exit,
+		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
 	)
 
 	AddElement(/datum/element/connect_loc, loc_connections)
@@ -116,7 +120,7 @@
 
 	var/target_dir = turn(dir, rotation_type == ROTATION_CLOCKWISE ? -90 : 90)
 
-	if(!valid_window_location(loc, target_dir)) //Expanded to include rails, as well!
+	if(!valid_window_location(loc, target_dir, is_fulltile = FALSE)) //Expanded to include rails, as well!
 		to_chat(user, "<span class='warning'>[src] cannot be rotated in that direction!</span>")
 		return FALSE
 	return TRUE

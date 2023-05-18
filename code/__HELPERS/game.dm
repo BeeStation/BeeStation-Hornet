@@ -1,5 +1,8 @@
 #define CULT_POLL_WAIT 2400
 
+/// 200 proc calls deep and shit breaks, this is a bit lower to give some safety room
+#define MAX_PROC_DEPTH 195 // no idea where to put this
+
 /proc/get_area_name(atom/X, format_text = FALSE)
 	var/area/A = isarea(X) ? X : get_area(X)
 	if(!A)
@@ -23,7 +26,7 @@
 			get_area(get_ranged_target_turf(center, SOUTH, 1)),
 			get_area(get_ranged_target_turf(center, EAST, 1)),
 			get_area(get_ranged_target_turf(center, WEST, 1)))
-	listclearnulls(.)
+	list_clear_nulls(.)
 
 /proc/get_open_turf_in_dir(atom/center, dir)
 	var/turf/open/T = get_ranged_target_turf(center, dir, 1)
@@ -35,7 +38,7 @@
 			get_open_turf_in_dir(center, SOUTH),
 			get_open_turf_in_dir(center, EAST),
 			get_open_turf_in_dir(center, WEST))
-	listclearnulls(.)
+	list_clear_nulls(.)
 
 /proc/get_adjacent_open_areas(atom/center)
 	. = list()
@@ -268,7 +271,7 @@
 			Y1+=s
 			while(Y1!=Y2)
 				T=locate(X1,Y1,Z)
-				if(T.opacity)
+				if(IS_OPAQUE_TURF(T))
 					return 0
 				Y1+=s
 	else
@@ -284,7 +287,7 @@
 			else
 				X1+=signX //Line exits tile horizontally
 			T=locate(X1,Y1,Z)
-			if(T.opacity)
+			if(IS_OPAQUE_TURF(T))
 				return 0
 	return 1
 #undef SIGNV
@@ -367,7 +370,7 @@
 /proc/flick_overlay(image/I, list/show_to, duration)
 	for(var/client/C in show_to)
 		C.images += I
-	addtimer(CALLBACK(GLOBAL_PROC, /proc/remove_images_from_clients, I, show_to), duration, TIMER_CLIENT_TIME)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(remove_images_from_clients), I, show_to), duration, TIMER_CLIENT_TIME)
 
 /proc/flick_overlay_view(image/I, atom/target, duration) //wrapper for the above, flicks to everyone who can see the target atom
 	var/list/viewing = list()
@@ -465,7 +468,7 @@
 		if(!M.key || !M.client)
 			result -= M
 
-	listclearnulls(result)
+	list_clear_nulls(result)
 
 	return result
 
@@ -578,7 +581,7 @@
 				continue
 
 		if (!isspaceturf(found_turf))
-			if (!is_blocked_turf(found_turf))
+			if (!found_turf.is_blocked_turf())
 				possible_loc.Add(found_turf)
 
 	// Need at least one free location.

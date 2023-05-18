@@ -18,6 +18,8 @@ $include resources.txt
 $include interviews.txt
 # Performance stuff
 $include performance.txt
+# Server Policies/Rules
+$include policies.txt
 
 # You can use the @ character at the beginning of a config option to lock it from being edited in-game
 # Example usage:
@@ -44,10 +46,6 @@ LOBBY_COUNTDOWN 180
 
 ## Round End Time: This is the amount of time after the round ends that players have to murder death kill each other.
 ROUND_END_COUNTDOWN 90
-
-## Uncomment this if you want to use the Discord webhook handler
-#USING_DISCORD
-#DISCORD_WEBHOOK http://127.0.0.1:5000/api/
 
 ## Comment this out if you want to use the SQL based admin system, the legacy system uses admins.txt.
 ## You need to set up your database to use the SQL based system.
@@ -150,7 +148,7 @@ LOG_VIRUS
 ## log ID changes
 LOG_ID
 
-## log crew manifest to seperate file
+## log crew manifest to separate file
 LOG_MANIFEST
 
 ## log job divide debugging information
@@ -171,6 +169,9 @@ LOG_MANIFEST
 
 ## Log all timers on timer auto reset
 # LOG_TIMERS_ON_BUCKET_RESET
+
+## log speech indicators
+LOG_SPEECH_INDICATORS
 
 ##Log camera pictures - Must have picture logging enabled
 PICTURE_LOGGING_CAMERA
@@ -458,12 +459,15 @@ AUTOADMIN_RANK Admin
 ## These messages will be followed by one stating the clients current version and the required version for clarity.
 ## If CLIENT_WARN_POPUP is uncommented a popup window with the message will be displayed instead
 #CLIENT_WARN_VERSION 513
+#CLIENT_WARN_BUILD 1421
 #CLIENT_WARN_POPUP
 #CLIENT_WARN_MESSAGE 512 is no longer being directly supported as version 513 is set to become the new stable version soon. We've made a number of changes to take advantage of the improvements made in 513 which should make for a smoother experience. We will be removing support for 512 when this new version replaces it as stable, so it's recommended that you upgrade now. (You can update to the BETA via the website or directly in the BYOND client)
 CLIENT_ERROR_VERSION 514
 CLIENT_ERROR_MESSAGE Your version of byond is not supported. Please upgrade.
 ## The minimum build needed for joining the server, if using 513, a good minimum build would be 1526.
 CLIENT_ERROR_BUILD 1583
+## The maximum build recommended for clients
+CLIENT_MAX_BUILD 1589
 
 ## TOPIC RATE LIMITING
 ## This allows you to limit how many topic calls (clicking on an interface window) the client can do in any given game second and/or game minute.
@@ -615,3 +619,7 @@ ELASTICSEARCH_METRICS_APIKEY thisIsSomethingThatsBased64Encoded==
 
 ## Enable/disable the mentor mrat verb ("Request Mentor Assistance")
 ENABLE_MRAT
+
+## Discord OOC tag. As long as this is enabled, the message will be concatenated with `[thisServer] (OOC) beeboi: hello guys!`. if it's commented, it will be `(OOC) beeboi: hello guys!`
+## For Beestation, it will be "SA"(sage) and "AC"(acacia) for this value, then it will be `[SA] (OOC) beeboi: I love bee!`
+#DISCORD_OOC_TAG thisServer

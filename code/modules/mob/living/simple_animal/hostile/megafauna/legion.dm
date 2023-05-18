@@ -92,7 +92,7 @@ Difficulty: Medium
 	minimum_distance = 0
 	set_varspeed(0)
 	charging = TRUE
-	addtimer(CALLBACK(src, .proc/reset_charge), 50)
+	addtimer(CALLBACK(src, PROC_REF(reset_charge)), 50)
 
 /mob/living/simple_animal/hostile/megafauna/legion/GiveTarget(new_target)
 	. = ..()
@@ -177,7 +177,7 @@ Difficulty: Medium
 	hitsound = 'sound/weapons/sear.ogg'
 	var/storm_type = /datum/weather/ash_storm
 	var/storm_cooldown = 0
-	var/static/list/allowed_areas = list(/area/lavaland/surface/outdoors)
+	var/static/list/allowed_areas = list(/area/lavaland/surface/outdoors, /area/lavaland/surface/outdoors/explored)
 
 /obj/item/staff/storm/attack_self(mob/user)
 	if(storm_cooldown > world.time)
@@ -194,7 +194,7 @@ Difficulty: Medium
 	var/datum/weather/A
 	for(var/V in SSweather.processing)
 		var/datum/weather/W = V
-		if((user_turf.z in W.impacted_z_levels) && W.area_type == user_area.type)
+		if((user_turf.z in W.impacted_z_levels))
 			A = W
 			break
 

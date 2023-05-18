@@ -281,7 +281,7 @@
 			if(href_list["add_req_access"])
 				if(!add_req_access)
 					return
-				operation_req_access += text2num(href_list["add_req_access"])
+				operation_req_access |= text2num(href_list["add_req_access"])
 				output_access_dialog(id_card,usr)
 				return
 
@@ -410,7 +410,7 @@
 	if(href_list["repair_int_control_lost"])
 		occupant_message("Recalibrating coordination system.")
 		log_message("Recalibration of coordination system started.", LOG_MECHA)
-		addtimer(CALLBACK(src, .proc/stationary_repair, loc), 100, TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(stationary_repair), loc), 100, TIMER_UNIQUE)
 
 ///Repairs internal damage if the mech hasn't moved.
 /obj/mecha/proc/stationary_repair(location)

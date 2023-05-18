@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, ProgressBar, Section, AnimatedNumber } from '../components';
+import { Box, Button, LabeledList, ProgressBar, Section, AnimatedNumber, Table } from '../components';
 import { Window } from '../layouts';
 import { toFixed } from 'common/math';
 
@@ -10,20 +10,8 @@ export const Sleeper = (props, context) => {
     open,
     occupant = {},
     occupied,
+    chems = [],
   } = data;
-
-  const preSortChems = data.chems || [];
-  const chems = preSortChems.sort((a, b) => {
-    const descA = a.name.toLowerCase();
-    const descB = b.name.toLowerCase();
-    if (descA < descB) {
-      return -1;
-    }
-    if (descA > descB) {
-      return 1;
-    }
-    return 0;
-  });
 
   const damageTypes = [
     {
@@ -43,6 +31,14 @@ export const Sleeper = (props, context) => {
       type: 'oxyLoss',
     },
   ];
+
+  const ELLIPSIS_STYLE = { // enforces overflow ellipsis
+    "max-width": "1px",
+    "white-space": "nowrap",
+    "text-overflow": "ellipsis",
+    "overflow": "hidden",
+  };
+
 
   return (
     <Window
@@ -81,7 +77,7 @@ export const Sleeper = (props, context) => {
                       value={occupant[type.type]}
                       minValue={0}
                       maxValue={occupant.maxHealth}
-                      color="bad" />
+                      color={occupant[type.type] === 0 ? "good" : "bad"} />
                   </LabeledList.Item>
                 ))}
                 <LabeledList.Item
@@ -120,18 +116,48 @@ export const Sleeper = (props, context) => {
               content={open ? 'Open' : 'Closed'}
               onClick={() => act('door')} />
           )}>
-          {chems.map(chem => (
-            <Button
-              key={chem.name}
-              icon="flask"
-              content={chem.name}
-              disabled={!(occupied && chem.allowed)}
-              width="140px"
-              onClick={() => act('inject', {
-                chem: chem.id,
-              })}
-            />
-          ))}
+          <Table>
+            <style>{`
+              .Button--fluid.button-ellipsis {
+                max-width: 100%;
+              }
+              .button-ellipsis .Button__content {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+              }
+            `}
+            </style>
+            {chems.map(chem => (
+              <Table.Row
+                key={chem.id} >
+                <Table.Cell style={ELLIPSIS_STYLE}>
+                  <Button
+                    key={chem.id}
+                    icon="flask"
+                    className="button-ellipsis"
+                    fluid
+                    content={chem.name + ' (' + chem.amount + 'u)'}
+                    tooltip={chem.amount + 'u'}
+                    disabled={!(occupied && chem.allowed)}
+                    onClick={() => act('inject', {
+                      chem: chem.id,
+                    })}
+                  />
+                </Table.Cell>
+                <Table.Cell collapsing>
+                  <Button
+                    key={chem.id}
+                    icon="eject"
+                    content="Eject"
+                    onClick={() => act('eject', {
+                      chem: chem.id,
+                    })}
+                  />
+                </Table.Cell>
+              </Table.Row>
+            ))}
+          </Table>
         </Section>
       </Window.Content>
     </Window>
