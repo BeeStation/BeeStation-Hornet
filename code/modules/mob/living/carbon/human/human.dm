@@ -483,7 +483,7 @@
 
 	//Check for weapons
 	if( (judgment_criteria & JUDGE_WEAPONCHECK) && weaponcheck)
-		if(!idcard || !(ACCESS_WEAPONS in idcard.access))
+		if(!idcard || !check_access_textified(idcard.card_access, ACCESS_WEAPONS))
 			for(var/obj/item/I in held_items) //if they're holding a gun
 				if(weaponcheck.Invoke(I))
 					threatcount += 4
@@ -1091,12 +1091,6 @@
 			battery.set_charge_scaled(change)
 		return FALSE
 	return ..()
-
-/mob/living/carbon/human/ZImpactDamage(turf/T, levels)
-	var/datum/species/species_datum = dna?.species
-	if(!istype(species_datum))
-		return ..()
-	species_datum.z_impact_damage(src, T, levels)
 
 /mob/living/carbon/human/proc/stub_toe(var/power)
 	if(HAS_TRAIT(src, TRAIT_LIGHT_STEP))

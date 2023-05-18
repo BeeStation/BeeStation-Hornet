@@ -617,11 +617,11 @@
 	if(!istype(I, /obj/item/card/id) && isitem(I))
 		I = I.GetID()
 
-	if(!I || !I.access) //not ID or no access
+	if(!I || !length(I.card_access)) //not ID or no access
 		return 0
 	for(var/req in req_access)
-		if(!(req in I.access)) //doesn't have this access
-			return 0
+		if(!check_access_textified(I.card_access, req))
+			return 0 //doesn't have this access
 	return 1
 
 /mob/living/silicon/robot/regenerate_icons()

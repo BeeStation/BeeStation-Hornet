@@ -38,9 +38,9 @@
 	get_targets()
 	icon_state = "cleanbot[on]"
 
-	var/datum/job/janitor/J = new/datum/job/janitor
-	access_card.access |= J.get_access()
-	prev_access = access_card.access
+	var/datum/job/J = SSjob.GetJob(JOB_NAME_JANITOR)
+	grant_accesses_to_card(access_card.card_access, J.get_access())
+	grant_accesses_to_card(prev_access, access_card.card_access)
 	GLOB.janitor_devices += src
 
 /mob/living/simple_animal/bot/cleanbot/Destroy()
@@ -312,10 +312,6 @@
 	. = ..()
 	get_targets()
 	icon_state = "larry[on]"
-
-	var/datum/job/janitor/J = new/datum/job/janitor
-	access_card.access |= J.get_access()
-	prev_access = access_card.access
 
 /mob/living/simple_animal/bot/cleanbot/larry/turn_on()
 	..()

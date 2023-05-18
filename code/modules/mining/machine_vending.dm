@@ -336,7 +336,7 @@
 /obj/item/card/id/pass/mining_access_card
 	name = "mining access card"
 	desc = "A small card, that when used on any ID, will add mining access."
-	access = list(ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MECH_MINING, ACCESS_MINERAL_STOREROOM, ACCESS_CARGO)
+	card_access = list(ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MECH_MINING, ACCESS_MINERAL_STOREROOM, ACCESS_CARGO)
 
 /obj/item/storage/backpack/duffelbag/mining_conscript
 	name = "mining conscription kit"

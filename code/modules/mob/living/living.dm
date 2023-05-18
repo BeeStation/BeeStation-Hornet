@@ -1627,7 +1627,6 @@
 	if(!resting)
 		get_up()
 
-
 /// Proc to append behavior to the condition of being handsblocked. Called when the condition starts.
 /mob/living/proc/on_handsblocked_start()
 	drop_all_held_items()
@@ -1640,12 +1639,7 @@
 	REMOVE_TRAIT(src, TRAIT_UI_BLOCKED, TRAIT_HANDS_BLOCKED)
 	REMOVE_TRAIT(src, TRAIT_PULL_BLOCKED, TRAIT_HANDS_BLOCKED)
 
-#define LOOKING_DIRECTION_UP 1
-#define LOOKING_DIRECTION_NONE 0
-#define LOOKING_DIRECTION_DOWN -1
 
-/// The current direction the player is ACTUALLY looking, regardless of intent.
-/mob/living/var/looking_direction = LOOKING_DIRECTION_NONE
 /// The current direction the player is trying to look.
 /mob/living/var/attempt_looking_direction = LOOKING_DIRECTION_NONE
 
@@ -1752,23 +1746,3 @@
 	var/turf/seethrough_turf = direction == LOOKING_DIRECTION_UP ? turf_other : turf_base
 	// The turf we should end up looking at.
 	var/turf/end_turf = turf_other
-	if(istransparentturf(seethrough_turf)) //There is no turf we can look through directly above/below us, look for nearby turfs
-		return end_turf
-	// Turf in front of you to try to look through before anything else
-	var/turf/seethrough_turf_front = get_step(seethrough_turf, dir)
-	if(istransparentturf(seethrough_turf_front))
-		return direction == LOOKING_DIRECTION_UP ? seethrough_turf_front : get_step_multiz(seethrough_turf_front, DOWN)
-	var/target_z = direction == LOOKING_DIRECTION_UP ? turf_other.z : z
-	var/list/checkturfs = block(locate(x-1,y-1,target_z),locate(x+1,y+1,target_z))-turf_base-turf_other
-	for(var/turf/checkhole in checkturfs)
-		if(istransparentturf(checkhole))
-			seethrough_turf = checkhole
-			end_turf = direction == LOOKING_DIRECTION_UP ? checkhole : get_step_multiz(checkhole, DOWN)
-			break
-	if(!istransparentturf(seethrough_turf))
-		return FALSE
-	return end_turf
-
-#undef LOOKING_DIRECTION_UP
-#undef LOOKING_DIRECTION_NONE
-#undef LOOKING_DIRECTION_DOWN

@@ -135,7 +135,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "z" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/plating,
 /area/template_noop)
 "A" = (

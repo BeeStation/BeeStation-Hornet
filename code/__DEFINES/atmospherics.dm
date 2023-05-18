@@ -175,9 +175,9 @@
 #define ATMOS_GAS_MONITOR_OUTPUT_O2 "o2_out"
 #define ATMOS_GAS_MONITOR_SENSOR_O2 "o2_sensor"
 
-#define ATMOS_GAS_MONITOR_INPUT_TOX "tox_in"
-#define ATMOS_GAS_MONITOR_OUTPUT_TOX "tox_out"
-#define ATMOS_GAS_MONITOR_SENSOR_TOX "tox_sensor"
+#define ATMOS_GAS_MONITOR_INPUT_PLASMA "plasma_in"
+#define ATMOS_GAS_MONITOR_OUTPUT_PLASMA "plasma_out"
+#define ATMOS_GAS_MONITOR_SENSOR_PLASMA "plasma_sensor"
 
 #define ATMOS_GAS_MONITOR_INPUT_AIR "air_in"
 #define ATMOS_GAS_MONITOR_OUTPUT_AIR "air_out"
