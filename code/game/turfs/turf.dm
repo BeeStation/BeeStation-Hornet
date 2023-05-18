@@ -456,29 +456,12 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	return TRUE
 
 /turf/proc/add_blueprints(atom/movable/AM)
-	/*for(var/obj/O in orange(distance, viewer) )
-
-		if(O.invisibility == INVISIBILITY_MAXIMUM || HAS_TRAIT(O, TRAIT_T_RAY_VISIBLE))
-			var/image/I = new(loc = get_turf(O))
-			var/mutable_appearance/MA = new(O)
-			MA.alpha = 128
-			MA.dir = O.dir
-			I.appearance = MA
-			t_ray_images += I
 	var/image/I = new
 	I.appearance = AM.appearance
 	I.appearance_flags = RESET_COLOR|RESET_ALPHA|RESET_TRANSFORM
 	I.loc = src
 	I.setDir(AM.dir)
 	I.alpha = 128
-	*/
-	var/image/I = new(loc = get_turf(AM))
-	var/mutable_appearance/MA = new(AM)
-	MA.alpha = 128
-	MA.dir = AM.dir
-	I.appearance_flags = RESET_COLOR|RESET_ALPHA|RESET_TRANSFORM
-	I.loc = src
-	I.appearance = MA
 
 	LAZYADD(blueprint_data, I)
 
