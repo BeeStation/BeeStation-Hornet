@@ -1,0 +1,7 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - balance: Retrovirus uplink item 14 TC -> 12 TC
+  - balance: Spanish flu uplink item 14 TC -> 12 TC
+  - rscdel: removed random virus sample from uplink item list because It's a newbie
+      trap.
