@@ -187,9 +187,9 @@
 
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
-	W.access = list() // wipe access - they shouldn't get all centcom access.
-	W.access = get_centcom_access(JOB_CENTCOM_OFFICIAL)
-	W.access |= ACCESS_WEAPONS
+	W.card_access = list() // wipe access - they shouldn't get all centcom access.
+	grant_accesses_to_card(W.card_access, get_centcom_access(JOB_CENTCOM_OFFICIAL))
+	grant_accesses_to_card(W.card_access, ACCESS_WEAPONS)
 	W.assignment = JOB_CENTCOM_OFFICIAL
 	W.registered_name = H.real_name
 	W.update_label()
@@ -360,9 +360,9 @@
 		return
 
 	var/obj/item/card/id/W = H.wear_id
-	W.access = list() //wipe access - they shouldn't get all centcom access.
-	W.access = get_centcom_access(name)
-	W.access |= ACCESS_WEAPONS
+	W.card_access = list() //wipe access - they shouldn't get all centcom access.
+	grant_accesses_to_card(W.card_access, get_centcom_access(name))
+	grant_accesses_to_card(W.card_access, ACCESS_WEAPONS)
 	W.assignment = name
 	W.registered_name = H.real_name
 	W.update_label()
@@ -411,7 +411,7 @@
 
 	var/obj/item/card/id/W = H.wear_id
 	W.registered_name = H.real_name
-	W.access |= ACCESS_THEATRE
+	grant_accesses_to_card(W.card_access, ACCESS_THEATRE)
 	W.update_label(W.registered_name, W.assignment)
 	H.dna.add_mutation(CLOWNMUT)
 
@@ -472,9 +472,9 @@
 
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
-	W.access = list() //wipe access first
-	W.access = get_all_accesses()//They get full station access.
-	W.access |= get_centcom_access(JOB_ERT_DEATHSQUAD)//Let's add their alloted CentCom access.
+	W.card_access = list() //wipe access first
+	grant_accesses_to_card(W.card_access, get_all_accesses())  //They get full station access.
+	grant_accesses_to_card(W.card_access, get_centcom_access(JOB_ERT_DEATHSQUAD)) //Let's add their alloted CentCom access.
 	W.assignment = JOB_ERT_DEATHSQUAD
 	W.registered_name = H.real_name
 	W.update_label(W.registered_name, W.assignment)

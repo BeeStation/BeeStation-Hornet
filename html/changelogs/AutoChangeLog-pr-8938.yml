@@ -1,0 +1,5 @@
+author: Absolucy
+delete-after: true
+changes:
+  - refactor: Slightly refactored brain trauma.
+  - balance: Nanites and viruses can no longer cure an obsession or hypnosis.

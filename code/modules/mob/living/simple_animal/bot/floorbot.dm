@@ -46,9 +46,10 @@
 	. = ..()
 	toolbox_color = new_toolbox_color
 	update_icon()
-	var/datum/job/station_engineer/J = new/datum/job/station_engineer
-	access_card.access |= J.get_access()
-	prev_access = access_card.access
+
+	var/datum/job/J = SSjob.GetJob(JOB_NAME_STATIONENGINEER)
+	grant_accesses_to_card(access_card.card_access, J.get_access())
+	grant_accesses_to_card(prev_access, access_card.card_access)
 	if(toolbox_color == "s")
 		health = 100
 		maxHealth = 100

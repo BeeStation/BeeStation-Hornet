@@ -788,9 +788,9 @@ SUBSYSTEM_DEF(job)
 	desc = "Proof that you have been approved for Captaincy, with all its glory and all its horror."
 
 /obj/item/paper/fluff/spare_id_safe_code/Initialize(mapload)
-	. = ..()
 	var/id_safe_code = SSjob.spare_id_safe_code
-	info = "Captain's Spare ID safe code combination: [id_safe_code ? id_safe_code : "\[REDACTED\]"]<br><br>The spare ID can be found in its dedicated safe on the bridge."
+	default_raw_text = "Captain's Spare ID safe code combination: [id_safe_code ? id_safe_code : "\[REDACTED\]"]<br><br>The spare ID can be found in its dedicated safe on the bridge."
+	return ..()
 
 /datum/controller/subsystem/job/proc/promote_to_captain(var/mob/dead/new_player/new_captain, acting_captain = FALSE)
 	var/mob/living/carbon/human/H = new_captain.new_character
@@ -817,5 +817,5 @@ SUBSYSTEM_DEF(job)
 	// Force-give their ID card bridge access.
 	if(H.wear_id?.GetID())
 		var/obj/item/card/id/id_card = H.wear_id
-		if(!(ACCESS_HEADS in id_card.access))
-			LAZYADD(id_card.access, ACCESS_HEADS)
+		if(!check_access_textified(id_card.card_access, ACCESS_HEADS))
+			grant_accesses_to_card(id_card.card_access, ACCESS_HEADS)

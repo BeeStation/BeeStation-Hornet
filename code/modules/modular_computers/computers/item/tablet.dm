@@ -54,7 +54,7 @@
 	if(!istype(target, /obj/item/paper))
 		return FALSE
 	var/obj/item/paper/paper = target
-	if (!paper.info)
+	if (!paper.default_raw_text)
 		to_chat(user, "<span class='warning'>Unable to scan! Paper is blank.</span>")
 	else
 		// clean up after ourselves

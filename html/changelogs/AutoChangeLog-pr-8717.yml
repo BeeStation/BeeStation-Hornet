@@ -1,0 +1,5 @@
+author: RKz, timberpoes, Ninjanomnom, CoffeeKat, DoctorSquishy
+delete-after: true
+changes:
+  - bugfix: Fixed runtimes in the air subsystem, where deleted objects were still
+      processed.

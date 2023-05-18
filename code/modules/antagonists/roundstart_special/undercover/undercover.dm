@@ -74,7 +74,7 @@
 	//Update ID
 	var/obj/item/card/id/ID = H.get_idcard()
 	if(ID)
-		ID.access |= ACCESS_WEAPONS
+		grant_accesses_to_card(ID.card_access, ACCESS_WEAPONS)
 
 ////////////////////////////////
 //////     Objectives    ///////
