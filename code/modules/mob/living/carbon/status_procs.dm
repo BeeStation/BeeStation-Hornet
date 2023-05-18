@@ -16,7 +16,7 @@
 	stam_regen_start_time = world.time + STAMINA_CRIT_TIME
 	stam_paralyzed = TRUE
 	update_mobility()
-	
+
 /mob/living/carbon/adjust_drugginess(amount)
 	druggy = max(druggy+amount, 0)
 	if(druggy)
@@ -48,16 +48,23 @@
 
 ////////////////////////////////////////TRAUMAS/////////////////////////////////////////
 
-/mob/living/carbon/proc/get_traumas()
+/mob/living/carbon/proc/get_traumas(special_method = FALSE)
 	. = list()
 	var/obj/item/organ/brain/B = getorganslot(ORGAN_SLOT_BRAIN)
 	if(B)
-		. = B.traumas
+		if(special_method)
+			for(var/T in B.traumas)
+				var/datum/brain_trauma/trauma = T
+				if(CHECK_BITFIELD(trauma.trauma_flags, TRAUMA_SPECIAL_CURE_PROOF))
+					continue
+				. += trauma
+		else
+			. = B.traumas
 
-/mob/living/carbon/proc/has_trauma_type(brain_trauma_type, resilience)
+/mob/living/carbon/proc/has_trauma_type(brain_trauma_type, resilience, special_method = FALSE)
 	var/obj/item/organ/brain/B = getorganslot(ORGAN_SLOT_BRAIN)
 	if(B)
-		. = B.has_trauma_type(brain_trauma_type, resilience)
+		. = B.has_trauma_type(brain_trauma_type, resilience, special_method)
 
 /mob/living/carbon/proc/gain_trauma(datum/brain_trauma/trauma, resilience, ...)
 	var/obj/item/organ/brain/B = getorganslot(ORGAN_SLOT_BRAIN)
@@ -72,12 +79,12 @@
 	if(B)
 		. = B.gain_trauma_type(brain_trauma_type, resilience)
 
-/mob/living/carbon/proc/cure_trauma_type(brain_trauma_type = /datum/brain_trauma, resilience)
+/mob/living/carbon/proc/cure_trauma_type(brain_trauma_type = /datum/brain_trauma, resilience, special_method = FALSE)
 	var/obj/item/organ/brain/B = getorganslot(ORGAN_SLOT_BRAIN)
 	if(B)
-		. = B.cure_trauma_type(brain_trauma_type, resilience)
+		. = B.cure_trauma_type(brain_trauma_type, resilience, special_method)
 
-/mob/living/carbon/proc/cure_all_traumas(resilience)
+/mob/living/carbon/proc/cure_all_traumas(resilience, special_method = FALSE)
 	var/obj/item/organ/brain/B = getorganslot(ORGAN_SLOT_BRAIN)
 	if(B)
-		. = B.cure_all_traumas(resilience)
+		. = B.cure_all_traumas(resilience, special_method)
