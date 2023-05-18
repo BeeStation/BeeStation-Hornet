@@ -108,10 +108,12 @@
 
 /// This sends a poll to ghosts if they want to be a ghost spawn from a ruleset.
 /datum/dynamic_ruleset/midround/from_ghosts/proc/send_applications(list/possible_volunteers = list(), forced = FALSE)
-	if (!length(possible_volunteers) && !forced) // This shouldn't happen, as ready() should return FALSE if there is not a single valid candidate
-		message_admins("Possible volunteers was 0. This shouldn't appear, because of ready()!")
-		log_game("DYNAMIC: Possible volunteers was 0. This shouldn't appear, because of ready()!")
-		CRASH("The ruleset [name] execute()d with no candidates. This should have been caught by ready(), so something is wrong.")
+	if (!length(possible_volunteers)) // This shouldn't happen, as ready() should return FALSE if there is not a single valid candidate
+		if(!forced)
+			message_admins("Possible volunteers was 0. This shouldn't appear, because of ready()!")
+			log_game("DYNAMIC: Possible volunteers was 0. This shouldn't appear, because of ready()!")
+			CRASH("The ruleset [name] execute()d with no candidates. This should have been caught by ready(), so something is wrong.")
+		return
 	message_admins("Polling [possible_volunteers.len] players to apply for the [name] ruleset.")
 	log_game("DYNAMIC: Polling [possible_volunteers.len] players to apply for the [name] ruleset.")
 
