@@ -118,8 +118,7 @@
 		if(istype(body, /mob/living/carbon))
 			var/mob/living/carbon/M = body
 			if(M?.dna?.species)
-				species = M.dna.species
-				message_admins("Species found : [M.dna.species] , written as [species]")
+				species = format_text(initial(M.dna.species.name))
 		if(!isnull(species))
 			WRITE_LOG(GLOB.world_manifest_log, "[ckey] \\ [body.real_name] \\ [mind.assigned_role] \\ [mind.special_role ? mind.special_role : "NONE"] \\ [latejoin ? "LATEJOIN":"ROUNDSTART"] \\ [species]")
 		else
