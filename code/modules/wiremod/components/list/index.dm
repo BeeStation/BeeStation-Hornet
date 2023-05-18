@@ -26,11 +26,11 @@
 	var/index = index_port.value
 	var/list/list_input = list_port.value
 
-	if(!islist(list_input) || !index)
+	if(!islist(list_input) || !isnum(index))
 		output.set_output(null)
 		return
 
-	if(isnum(index) && (index < 1 || index > length(list_input)))
+	if(index < 1 || index > length(list_input))
 		output.set_output(null)
 		return
 

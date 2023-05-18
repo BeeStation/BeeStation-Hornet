@@ -7,7 +7,7 @@
 
 /obj/item/circuit_component/round
 	display_name = "Round"
-
+	desc = "A component capable of cutting off messy decimal values off a number."
 
 	/// The input port
 	var/datum/port/input/input

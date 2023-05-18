@@ -201,12 +201,13 @@
 	name = "Typecast Component"
 	id = "comp_typecast"
 	build_path = /obj/item/circuit_component/typecast
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_LOGIC_COMPONENTS)
+
 /datum/design/component/tonumber
 	name = "To Number"
 	id = "comp_tonumber"
 	build_path = /obj/item/circuit_component/tonumber
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_STRING_COMPONENTS, WIREMOD_CONVERSION_COMPONENTS)
-
 
 /datum/design/component/concat
 	name = "Concatenation Component"

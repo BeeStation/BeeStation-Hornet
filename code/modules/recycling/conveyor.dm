@@ -518,8 +518,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 
 /obj/item/paper/guides/conveyor
 	name = "paper- 'Nano-it-up U-build series, #9: Build your very own conveyor belt, in SPACE'"
-	info = "<h1>Congratulations!</h1><p>You are now the proud owner of the best conveyor set available for space mail order! We at Nano-it-up know you love to prepare your own structures without wasting time, so we have devised a special streamlined assembly procedure that puts all other mail-order products to shame!</p><p>Firstly, you need to link the conveyor switch assembly to each of the conveyor belt assemblies. After doing so, you simply need to install the belt assemblies onto the floor, et voila, belt built. Our special Nano-it-up smart switch will detected any linked assemblies as far as the eye can see! This convenience, you can only have it when you Nano-it-up. Stay nano!</p>"
-
+	default_raw_text = "<h1>Congratulations!</h1><p>You are now the proud owner of the best conveyor set available for space mail order! We at Nano-it-up know you love to prepare your own structures without wasting time, so we have devised a special streamlined assembly procedure that puts all other mail-order products to shame!</p><p>Firstly, you need to link the conveyor switch assembly to each of the conveyor belt assemblies. After doing so, you simply need to install the belt assemblies onto the floor, et voila, belt built. Our special Nano-it-up smart switch will detected any linked assemblies as far as the eye can see! This convenience, you can only have it when you Nano-it-up. Stay nano!</p>"
 
 /obj/item/circuit_component/conveyor_switch
 	display_name = "Conveyor Switch"
@@ -549,9 +548,9 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	if(!attached_switch)
 		return
 
-	INVOKE_ASYNC(src, PROC_REF(update_conveyers), port)
+	INVOKE_ASYNC(src, PROC_REF(update_conveyors), port)
 
-/obj/item/circuit_component/conveyor_switch/proc/update_conveyers(datum/port/input/port)
+/obj/item/circuit_component/conveyor_switch/proc/update_conveyors(datum/port/input/port)
 	if(!attached_switch)
 		return
 

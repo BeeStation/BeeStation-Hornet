@@ -1577,9 +1577,6 @@
 	filter_data = null
 	filters = null
 
-/atom/proc/intercept_zImpact(atom/movable/AM, levels = 1)
-	. |= SEND_SIGNAL(src, COMSIG_ATOM_INTERCEPT_Z_FALL, AM, levels)
-
 ///Sets the custom materials for an item.
 /atom/proc/set_custom_materials(var/list/materials, multiplier = 1)
 	if(custom_materials) //Only runs if custom materials existed at first. Should usually be the case but check anyways

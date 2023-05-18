@@ -895,7 +895,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				var/t1 = "<B>Crew Manifest:</B><BR>"
 				for(var/datum/data/record/t in sort_record(GLOB.data_core.general))
 					t1 += t.fields["name"] + " - " + t.fields["rank"] + "<br>"
-				P.info = t1
+				P.default_raw_text = t1
 				P.name = "paper- 'Crew Manifest'"
 				printing = null
 				playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
@@ -932,11 +932,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					B.payment_per_department[each] = 0
 				say("Printing...")
 				sleep(50)
-				var/obj/item/paper/P = new /obj/item/paper( loc )
-				P.name = "New bank account information"
-				P.info += "<b>* Owner:</b> [target_name]<br>"
-				P.info += "<b>* Bank ID:</b> [B.account_id]<br>"
-				P.info += "--- Created by Nanotrasen Space Finance ---"
+				var/obj/item/paper/printed_paper = new /obj/item/paper( loc )
+				printed_paper.name = "New bank account information"
+				var/final_paper_text = "<b>* Owner:</b> [target_name]<br>"
+				final_paper_text += "<b>* Bank ID:</b> [B.account_id]<br>"
+				final_paper_text += "--- Created by Nanotrasen Space Finance ---"
+				printed_paper.add_raw_text(final_paper_text)
+				printed_paper.update_appearance()
 				printing = null
 				playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 

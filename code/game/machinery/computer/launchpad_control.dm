@@ -159,6 +159,16 @@
 	var/turf/pad_turf = get_turf(pad)
 	if(pad_turf && is_centcom_level(pad_turf.z))
 		return "ERROR: Launchpad not operative. Heavy area shielding makes teleporting impossible."
+	for (var/obj/machinery/bluespace_anchor/anchor as() in GLOB.active_bluespace_anchors)
+		//Not nearby
+		if (anchor.get_virtual_z_level() != src.get_virtual_z_level() || get_dist(src, anchor) > anchor.range)
+			continue
+		//Check it
+		if(!anchor.try_activate())
+			continue
+		playsound(anchor, 'sound/magic/repulse.ogg', 80, TRUE)
+		//Anchored...
+		return "ERROR: Launchpad unable to teleport. Shielding makes teleporting impossible."
 	return null
 
 /obj/machinery/computer/launchpad/proc/teleport(mob/user, obj/machinery/launchpad/pad, sending)

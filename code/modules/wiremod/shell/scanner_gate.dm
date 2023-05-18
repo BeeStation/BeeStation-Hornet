@@ -7,6 +7,11 @@
 
 	var/locked = FALSE
 
+	light_system = MOVABLE_LIGHT
+	light_range = 6
+	light_power = 1
+	light_on = FALSE
+
 /obj/structure/scanner_gate_shell/Initialize()
 	. = ..()
 	set_scanline("passive")

@@ -96,7 +96,7 @@
 	greyscale_config_inhand_right = null
 
 /obj/item/paper/guides/antag/nuke_instructions
-	info = "How to break into a Nanotrasen self-destruct terminal and remove its plutonium core:<br>\
+	default_raw_text = "How to break into a Nanotrasen self-destruct terminal and remove its plutonium core:<br>\
 	<ul>\
 	<li>Use a screwdriver with a very thin tip (provided) to unscrew the terminal's front panel</li>\
 	<li>Dislodge and remove the front panel with a crowbar</li>\
@@ -109,7 +109,7 @@
 // STEALING SUPERMATTER
 
 /obj/item/paper/guides/antag/supermatter_sliver
-	info = "How to safely extract a supermatter sliver:<br>\
+	default_raw_text = "How to safely extract a supermatter sliver:<br>\
 	<ul>\
 	<li>Approach an active supermatter crystal with radiation shielded personal protective equipment. DO NOT MAKE PHYSICAL CONTACT.</li>\
 	<li>Use a supermatter scalpel (provided) to slice off a sliver of the crystal.</li>\

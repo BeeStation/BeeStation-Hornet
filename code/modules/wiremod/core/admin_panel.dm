@@ -1,6 +1,6 @@
 /// An admin verb to view all circuits, plus useful information
 /datum/admins/proc/view_all_circuits()
-	set category = "Admin.Game"
+	set category = "Adminbus"
 	set name = "View All Circuits"
 
 	var/static/datum/circuit_admin_panel/circuit_admin_panel = new
@@ -52,7 +52,8 @@
 				for (var/error in errors)
 					to_chat(usr, "<span class='warning'>[error]</span>")
 		if ("follow_circuit")
-			usr.client?.admin_follow(circuit)
+			var/datum/admins/D = GLOB.admin_datums[usr.client?.ckey]
+			D.admin_follow(circuit)
 		if ("save_circuit")
 			circuit.attempt_save_to(usr.client)
 		if ("vv_circuit")
