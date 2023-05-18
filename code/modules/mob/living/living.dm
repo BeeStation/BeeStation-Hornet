@@ -1224,6 +1224,8 @@
 /mob/living/proc/on_fall()
 	return
 
+/mob/living/proc/fall(forced)
+
 /mob/living/proc/AddAbility(obj/effect/proc_holder/A)
 	abilities.Add(A)
 	A.on_gain(src)
