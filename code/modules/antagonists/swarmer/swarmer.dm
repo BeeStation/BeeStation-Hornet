@@ -138,11 +138,11 @@
 	else
 		death()
 
-/mob/living/simple_animal/hostile/swarmer/CanAllowThrough(atom/movable/O)
+/mob/living/simple_animal/hostile/swarmer/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	if(istype(O, /obj/item/projectile/beam/disabler))//Allows for swarmers to fight as a group without wasting their shots hitting each other
+	if(istype(mover, /obj/item/projectile/beam/disabler))//Allows for swarmers to fight as a group without wasting their shots hitting each other
 		return TRUE
-	if(isswarmer(O))
+	else if(isswarmer(mover))
 		return TRUE
 
 ////CTRL CLICK FOR SWARMERS AND SWARMER_ACT()'S////
@@ -643,12 +643,10 @@
 	max_integrity = 50
 	density = TRUE
 
-/obj/structure/swarmer/blockade/CanAllowThrough(atom/movable/O)
+/obj/structure/swarmer/blockade/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	if(isswarmer(O))
-		return 1
-	if(istype(O, /obj/item/projectile/beam/disabler))
-		return 1
+	if(isswarmer(mover) || istype(mover, /obj/item/projectile/beam/disabler))
+		return TRUE
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateSwarmer()
 	set name = "Replicate"
@@ -721,7 +719,7 @@
 		Ctrl-Clicking on a mob will attempt to remove it from the area and place it in a safe environment for storage.")
 
 /datum/team/swarmer
-	name = "The Swarm"
+	name = "Swarmers"
 	var/total_resources_eaten = 0
 
 /datum/antagonist/swarmer/get_team()

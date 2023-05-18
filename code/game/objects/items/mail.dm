@@ -321,14 +321,13 @@
 /obj/item/paper/fluff/nice_argument/Initialize()
 	. = ..()
 	var/station_name = station_name()
-	info = "Nice argument, however there's a <i>small detail</i>...<br>IP: '[rand(0,10)].[rand(0,255)].[rand(0,255)].[rand(0,255)]'<br> Station name: '[station_name]'<br>"
+	add_raw_text("Nice argument, however there's a <i>small detail</i>...<br>IP: '[rand(0,10)].[rand(0,255)].[rand(0,255)].[rand(0,255)]'<br> Station name: '[station_name]'<br>")
 
 /obj/item/paper/fluff/junkmail_redpill/Initialize()
-	. = ..()
 	// 1 in 1000 chance of getting 2 random nuke code characters.
 	if(!prob(nuclear_option_odds))
-		info = "<i>You need to escape the simulation. Don't forget the numbers, they help you remember:</i> '[random_code(4)]...'"
-		return
+		add_raw_text("<i>You need to escape the simulation. Don't forget the numbers, they help you remember:</i> '[random_code(4)]...'")
+		return ..()
 	var/code = random_code(5)
 	for(var/obj/machinery/nuclearbomb/selfdestruct/nuke in GLOB.nuke_list)
 		if(nuke)
@@ -340,7 +339,8 @@
 		else
 			stack_trace("Station self-destruct not found during lone op team creation.")
 			code = null
-	info = "<i>You need to escape the simulation. Don't forget the numbers, they help you remember:</i> '[code[rand(1,5)]][code[rand(1,5)]][code[rand(1,5)]][code[rand(1,5)]]...'"
+	add_raw_text("<i>You need to escape the simulation. Don't forget the numbers, they help you remember:</i> '[code[rand(1,5)]][code[rand(1,5)]][code[rand(1,5)]][code[rand(1,5)]]...'")
+	return ..()
 
 //admin letter enabling players to brute force their way through the nuke code if they're so inclined.
 /obj/item/paper/fluff/junkmail_redpill/true
@@ -353,5 +353,5 @@
 	color = "#FFCCFF"
 
 /obj/item/paper/fluff/junkmail_generic/Initialize()
-	. = ..()
-	info = pick(GLOB.junkmail_messages)
+	default_raw_text = pick(GLOB.junkmail_messages)
+	return ..()
