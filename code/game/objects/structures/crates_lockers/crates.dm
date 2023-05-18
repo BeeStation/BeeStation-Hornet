@@ -34,9 +34,7 @@
 		animation_math = new/list()
 	if(!door_anim_time == 0 && !animation_math["[door_anim_time]-[door_anim_angle]-[azimuth_angle_2]-[radius_2]-[door_hinge]"])
 		animation_list()
-		AddElement(/datum/element/climbable, climb_time = crate_climb_time * 0.5, climb_stun = 0)
-	else
-		AddElement(/datum/element/climbable, climb_time = crate_climb_time, climb_stun = 0)
+	AddElement(/datum/element/climbable, climb_time = crate_climb_time * 0.5, climb_stun = 0)
 
 /obj/structure/closet/crate/Destroy()
 	QDEL_NULL(manifest)

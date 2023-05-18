@@ -29,7 +29,7 @@
 
 /datum/element/climbable/proc/on_examine(atom/source, mob/user, list/examine_texts)
 	SIGNAL_HANDLER
-	examine_texts += "<span class='notice'>[source] looks climbable.</span>"
+	examine_texts += "<span class='notice'>If you wanted to, you could climb [source] by dragging yourself onto it.</span>"
 
 /datum/element/climbable/proc/can_climb(atom/source, mob/user)
 	var/dir_step = get_dir(user, source.loc)
@@ -115,7 +115,6 @@
 				return
 		if(living_target.mobility_flags & MOBILITY_MOVE)
 			INVOKE_ASYNC(src, PROC_REF(climb_structure), climbed_thing, living_target, params)
-			return
 
 ///Tries to climb onto the target if the forced movement of the mob allows it
 /datum/element/climbable/proc/try_speedrun(datum/source, mob/bumpee)
