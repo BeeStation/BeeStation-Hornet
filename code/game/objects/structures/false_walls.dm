@@ -13,7 +13,7 @@
 	canSmoothWith = list(SMOOTH_GROUP_WALLS)
 	layer = LOW_OBJ_LAYER
 	density = TRUE
-	opacity = 1
+	opacity = TRUE
 	max_integrity = 100
 	can_be_unanchored = FALSE
 	CanAtmosPass = ATMOS_PASS_DENSITY

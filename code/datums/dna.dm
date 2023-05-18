@@ -67,6 +67,15 @@
 	new_dna.update_body_size() //Must come after features.Copy()
 	new_dna.mutations = mutations.Copy()
 
+/datum/dna/proc/compare_dna(datum/dna/other)
+	if (!other)
+		return FALSE
+	return unique_enzymes == other.unique_enzymes \
+		&& uni_identity == other.uni_identity \
+		&& blood_type == other.blood_type \
+		&& species?.type == other.species?.type \
+		&& real_name == other.real_name
+
 //See mutation.dm for what 'class' does. 'time' is time till it removes itself in decimals. 0 for no timer
 /datum/dna/proc/add_mutation(mutation, class = MUT_OTHER, time)
 	var/mutation_type = mutation

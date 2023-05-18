@@ -42,6 +42,7 @@
 				fugitive_team = H.fugitive_team
 				return
 		fugitive_team = new /datum/team/fugitive
+		fugitive_team.backstory = backstory
 		fugitive_team.forge_team_objectives()
 		return
 	if(!istype(new_team))
@@ -67,6 +68,10 @@
 /datum/team/fugitive
 	name = "Fugitives"
 	member_name = "fugitive"
+	var/datum/fugitive_type/backstory
+
+/datum/team/fugitive/get_team_name() // simple to know fugitive story
+	return backstory.multiple_name
 
 /datum/team/fugitive/roundend_report() //shows the number of fugitives, but not if they won in case there is no security
 	var/list/fugitives = list()

@@ -54,7 +54,7 @@
 	var/mob/living/L = parent
 	if(!L.can_interact_with(clicked_turf))
 		return
-	if(is_blocked_turf(clicked_turf))
+	if(clicked_turf.is_blocked_turf())
 		return
 	if(istype(clicked_turf, /turf/open/indestructible/sound/pool))
 		return

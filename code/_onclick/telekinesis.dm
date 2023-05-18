@@ -65,7 +65,7 @@
 	desc = "Magic"
 	icon = 'icons/obj/magic.dmi'//Needs sprites
 	icon_state = "2"
-	item_flags = NOBLUDGEON | ABSTRACT | DROPDEL
+	item_flags = NOBLUDGEON | ABSTRACT | DROPDEL | ISWEAPON
 	//item_state = null
 	w_class = WEIGHT_CLASS_GIGANTIC
 

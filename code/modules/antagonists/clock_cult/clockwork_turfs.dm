@@ -460,7 +460,7 @@
 
 /obj/machinery/door/airlock/clockwork/glass
 	glass = TRUE
-	opacity = 0
+	opacity = FALSE
 
 //=================================================
 //Servant Blocker: Doesn't allow servants to pass
@@ -577,7 +577,6 @@
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_BRONZE)
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
-	dir = FULLTILE_WINDOW_DIR
 	max_integrity = 120
 	glass_amount = 2
 

@@ -22,7 +22,6 @@
 	flags_1 = NONE
 	sound_environment = SOUND_AREA_LAVALAND
 	always_unpowered = TRUE
-	poweralm = FALSE
 	power_environ = FALSE
 	power_equip = FALSE
 	power_light = FALSE
