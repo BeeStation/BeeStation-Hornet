@@ -86,8 +86,8 @@
 
 	// Setup access
 	access_card = new /obj/item/card/id(src)
-	var/datum/job/shaft_miner/M = new
-	grant_accesses_to_card(access_card.card_access, M.get_access())
+	var/datum/job/M = SSjob.GetJob(JOB_NAME_SHAFTMINER)
+	access_card.access = M.get_access()
 
 
 /mob/living/simple_animal/hostile/mining_drone/Destroy()

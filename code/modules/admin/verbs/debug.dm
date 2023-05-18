@@ -193,10 +193,10 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			id = worn.GetID()
 		if(id)
 			id.icon_state = "gold"
-			grant_accesses_to_card(id.card_access, get_every_access())
+			id.access |= get_every_access()
 		else
 			id = new /obj/item/card/id/gold(H.loc)
-			grant_accesses_to_card(id.card_access, get_every_access())
+			id.access |= get_every_access()
 			id.registered_name = H.real_name
 			id.assignment = JOB_NAME_CAPTAIN
 			id.update_label()

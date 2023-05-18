@@ -130,7 +130,7 @@
 		access = access_card.GetAccess()
 
 	for(var/singular_access in access_to_check)
-		if(check_access_textified(access, singular_access))//For loop checks every individual access entry in the access list. If the user's ID has access to any entry, then we're good.
+		if(singular_access in access)//For loop checks every individual access entry in the access list. If the user's ID has access to any entry, then we're good.
 			return TRUE
 	if(loud)
 		to_chat(user, "<span class='danger'>\The [computer] flashes an \"Access Denied\" warning.</span>")

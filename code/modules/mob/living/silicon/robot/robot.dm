@@ -619,10 +619,10 @@
 	if(!istype(I, /obj/item/card/id) && isitem(I))
 		I = I.GetID()
 
-	if(!I || !length(I.card_access)) //not ID or no access
+	if(!I || !length(I.access)) //not ID or no access
 		return 0
 	for(var/req in req_access)
-		if(!check_access_textified(I.card_access, req))
+		if(!(req in I.access))
 			return 0 //doesn't have this access
 	return 1
 

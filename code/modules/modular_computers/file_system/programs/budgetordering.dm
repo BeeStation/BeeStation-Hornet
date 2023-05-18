@@ -53,7 +53,7 @@
 	var/datum/bank_account/buyer = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 	var/obj/item/card/id/id_card = get_buyer_id(user)
 	if(get_buyer_id(user))
-		if(check_access_textified(id_card.card_access, list(ACCESS_HEADS, ACCESS_QM)))
+		if((ACCESS_QM in id_card.access) || (ACCESS_HEADS in id_card.access))
 			requestonly = FALSE
 			buyer = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 			can_approve_requests = TRUE
