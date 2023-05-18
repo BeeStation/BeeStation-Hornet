@@ -443,7 +443,7 @@
 
 	for(var/datum/mind/mind in candidates)
 		p_ckey = ckey(mind.key)
-		var/mob/dead/new_player/player = get_mob_by_ckey(p_ckey)
+		var/mob/player = get_mob_by_ckey(p_ckey)
 		if(!player)
 			candidates -= mind
 			continue
@@ -454,7 +454,7 @@
 
 	for(var/datum/mind/mind in candidates)
 		p_ckey = ckey(mind.key)
-		var/mob/dead/new_player/player = get_mob_by_ckey(p_ckey)
+		var/mob/player = get_mob_by_ckey(p_ckey)
 		p_rep = SSpersistence.antag_rep[p_ckey]
 
 		var/previous = current
