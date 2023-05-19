@@ -1916,6 +1916,10 @@
 			GLOB.fugitive_backstory_selection = list(choice)
 			message_admins("[key_name_admin(usr)] selected backstory: [choice]")
 			log_admin("[key_name(usr)] selected backstory: [choice]")
+	else if(href_list["open_fax_manager"])
+		if(!check_rights(R_ADMIN))
+			return
+		usr.client.fax_manager()
 
 /datum/admins/proc/HandleCMode()
 	if(!check_rights(R_ADMIN))

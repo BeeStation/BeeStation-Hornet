@@ -468,6 +468,8 @@
 
 /obj/item/paper/ui_data(mob/user)
 	var/list/data = list()
+	if(!isliving(user))
+		return data
 
 	var/obj/item/holding = user.get_active_held_item()
 	// Use a clipboard's pen, if applicable
@@ -476,7 +478,8 @@
 		if(clipboard.pen)
 			holding = clipboard.pen
 
-	data["held_item_details"] = holding?.get_writing_implement_details()
+	if(istype(holding))
+		data["held_item_details"] = holding.get_writing_implement_details()
 
 	// If the paper is on an unwritable noticeboard, clear the held item details so it's read-only.
 	if(istype(loc, /obj/structure/noticeboard))

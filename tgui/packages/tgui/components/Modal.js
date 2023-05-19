@@ -12,6 +12,7 @@ export const Modal = props => {
   const {
     className,
     children,
+    fitted,
     ...rest
   } = props;
   return (
@@ -19,6 +20,7 @@ export const Modal = props => {
       <div
         className={classes([
           'Modal',
+          fitted && 'Modal--fitted',
           className,
           computeBoxClassName(rest),
         ])}

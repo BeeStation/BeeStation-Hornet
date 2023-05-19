@@ -12,3 +12,8 @@ $background-color: base.$color-bg !default;
   max-width: calc(100% - 1rem);
   padding: 1rem;
 }
+
+.Modal--fitted {
+  max-width: 100%;
+  padding: 0;
+}

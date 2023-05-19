@@ -171,7 +171,7 @@
 // Switches access to the "legal" administrator's fax list. Access to the "illegal" is switched by hacking.
 /obj/machinery/fax/proc/access_additional_faxes_toggle()
 	access_additional_faxes = !access_additional_faxes
-	say("The channel of communication with CentCom is [access_additional_faxes ? "open" : "close"].")
+	say("The channel of communication with CentCom is now: [access_additional_faxes ? "open" : "closed"].")
 
 /**
  * Attempts to clean out a jammed machine using a passed item.
@@ -356,6 +356,7 @@
 /obj/machinery/fax/proc/send_to_additional_faxes(obj/item/loaded, mob/sender, receiver_name, receiver_color)
 	GLOB.fax_manager.receive_request(sender, src, receiver_name, loaded, receiver_color)
 	playback_sending(loaded, receiver_name)
+	log_fax(loaded, "ADDITIONAL", receiver_name)
 	return TRUE
 
 /**
