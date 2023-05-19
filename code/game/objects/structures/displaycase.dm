@@ -6,28 +6,30 @@
 	density = TRUE
 	anchored = TRUE
 	resistance_flags = ACID_PROOF
-	armor = list("melee" = 30, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 30,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 70, ACID = 100, STAMINA = 0)
 	max_integrity = 200
 	integrity_failure = 25
 	var/obj/item/showpiece = null
 	///This allows for showpieces that can only hold items if they're the same istype as this.
-	var/obj/item/showpiece_type = null 
+	var/obj/item/showpiece_type = null
 	var/alert = TRUE
 	var/open = FALSE
 	var/openable = TRUE
 	///Is the case made of glass? Should it sound like that when it is being whacked?
 	var/shatter = TRUE
 	///If the case should be completely locked out at green alert, for cases containing equipment intended to be accessed only by antagonists or after threat level is raised
-	var/security_level_locked = SEC_LEVEL_GREEN 
+	var/security_level_locked = SEC_LEVEL_GREEN
 	///If we have a custom glass overlay to use.
-	var/custom_glass_overlay = FALSE 
+	var/custom_glass_overlay = FALSE
 	var/obj/item/electronics/airlock/electronics
 	///add type for items on display
-	var/start_showpiece_type = null 
+	var/start_showpiece_type = null
 	///Takes sublists in the form of list("type" = /obj/item/bikehorn, "trophy_message" = "henk")
-	var/list/start_showpieces = list() 
+	var/list/start_showpieces = list()
 	var/trophy_message = ""
 	var/glass_fix = TRUE
+	///Represents a signal source of screaming when broken
+	var/datum/alarm_handler/alarm_manager
 
 /obj/structure/displaycase/Initialize(mapload)
 	. = ..()
@@ -39,24 +41,26 @@
 				trophy_message = showpiece_entry["trophy_message"]
 	if(start_showpiece_type)
 		showpiece = new start_showpiece_type (src)
-	update_icon()
+	update_appearance()
+	alarm_manager = new(src)
 
 /obj/structure/displaycase/vv_edit_var(vname, vval)
 	. = ..()
 	if(vname in list(NAMEOF(src, open), NAMEOF(src, showpiece), NAMEOF(src, custom_glass_overlay)))
-		update_icon()
+		update_appearance()
 
 /obj/structure/displaycase/handle_atom_del(atom/A)
 	if(A == electronics)
 		electronics = null
 	if(A == showpiece)
 		showpiece = null
-		update_icon()
+		update_appearance()
 	return ..()
 
 /obj/structure/displaycase/Destroy()
 	QDEL_NULL(electronics)
 	QDEL_NULL(showpiece)
+	QDEL_NULL(alarm_manager)
 	return ..()
 
 /obj/structure/displaycase/examine(mob/user)
@@ -74,7 +78,7 @@
 		return
 	showpiece.forceMove(drop_location())
 	showpiece = null
-	update_icon()
+	update_appearance()
 
 /obj/structure/displaycase/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	if(!shatter)
@@ -97,14 +101,14 @@
 
 /obj/structure/displaycase/obj_break(damage_flag)
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))
-		density = FALSE
+		set_density(FALSE)
 		broken = TRUE
 		if(shatter)
 			new /obj/item/shard(drop_location())
 			playsound(src, "shatter", 70, TRUE)
 		else
 			playsound(src, "sound/magic/summonitems_generic.ogg", 70, TRUE)
-		update_icon()
+		update_appearance()
 		trigger_alarm()
 
 ///Anti-theft alarm triggered when broken.
@@ -113,6 +117,10 @@
 		return
 	var/area/alarmed = get_area(src)
 	alarmed.burglaralert(src)
+
+	alarm_manager.send_alarm(ALARM_BURGLAR)
+	addtimer(CALLBACK(alarm_manager, TYPE_PROC_REF(/datum/alarm_handler, clear_alarm), ALARM_BURGLAR), 1 MINUTES)
+
 	playsound(src, 'sound/effects/alert.ogg', 50, TRUE)
 
 /obj/structure/displaycase/update_overlays()
@@ -131,13 +139,13 @@
 
 /obj/structure/displaycase/attackby(obj/item/W, mob/user, params)
 	if(W.GetID() && !broken && openable)
-		if(open)	//You do not require access to close a case, only to open it. 
-			to_chat(user,  "<span class='notice'>You close [src].</span>")
+		if(open)	//You do not require access to close a case, only to open it.
+			to_chat(user, "<span class='notice'>You close [src].</span>")
 			toggle_lock(user)
 		else if(security_level_locked > GLOB.security_level || !allowed(user))
-			to_chat(user,  "<span class='alert'>Access denied.</span>")
+			to_chat(user, "<span class='alert'>Access denied.</span>")
 		else
-			to_chat(user,  "<span class='notice'>You open [src].</span>")
+			to_chat(user, "<span class='notice'>You open [src].</span>")
 			toggle_lock(user)
 	else if(W.tool_behaviour == TOOL_WELDER && user.a_intent == INTENT_HELP && !broken)
 		if(obj_integrity < max_integrity)
@@ -217,12 +225,12 @@
 		take_damage(2)
 
 /obj/structure/displaycase_chassis
-	anchored = TRUE
-	density = FALSE
 	name = "display case chassis"
 	desc = "The wooden base of a display case."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "glassbox_chassis"
+	anchored = TRUE
+	density = FALSE
 	var/obj/item/electronics/airlock/electronics
 
 
@@ -232,7 +240,7 @@
 		I.play_tool_sound(src)
 		if(I.use_tool(src, user, 30))
 			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
-			new /obj/item/stack/sheet/mineral/wood(get_turf(src), 5)
+			new /obj/item/stack/sheet/wood(get_turf(src), 5)
 			qdel(src)
 
 	else if(istype(I, /obj/item/electronics/airlock))
@@ -445,7 +453,7 @@
 	data["product_icon"] = null
 	if(showpiece)
 		data["product_name"] = capitalize(showpiece.name)
-		var/base64 = icon2base64(icon(showpiece.icon, showpiece.icon_state))
+		var/base64 = icon2base64(icon(showpiece.icon, showpiece.icon_state, frame=1))
 		data["product_icon"] = base64
 	data["registered"] = register
 	data["product_cost"] = sale_price
@@ -544,7 +552,7 @@
 			playsound(src, 'sound/machines/click.ogg', 20, TRUE)
 			toggle_lock()
 			return
-	if(istype(I, /obj/item/pda))
+	if(istype(I, /obj/item/modular_computer))
 		return TRUE
 	ui_update()
 	. = ..()
@@ -581,8 +589,8 @@
 		to_chat(user, "<span class='notice'>[src] must be open to move it.</span>")
 		return
 
-/obj/structure/displaycase/forsale/emag_act(mob/user)
-	. = ..()
+/obj/structure/displaycase/forsale/on_emag(mob/user)
+	..()
 	payments_acc = null
 	req_access = list()
 	to_chat(user, "<span class='warning'>[src]'s card reader fizzles and smokes, and the account owner is reset.</span>")

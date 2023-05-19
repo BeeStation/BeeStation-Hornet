@@ -16,14 +16,14 @@
 /turf/open/floor/carpet/blue,
 /area/template_noop)
 "s" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/fancy/sofa/old/left{
 	dir = 4
 	},
 /turf/open/floor/carpet/blue,
 /area/template_noop)
 "t" = (
 /obj/structure/chair/office,
-/obj/effect/landmark/start/randommaint/shrink,
+/obj/effect/landmark/start/randommaint/psychiatrist,
 /turf/open/floor/carpet/blue,
 /area/template_noop)
 "v" = (
@@ -40,7 +40,7 @@
 /turf/open/floor/plasteel/white,
 /area/template_noop)
 "I" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/fancy/sofa/old/right{
 	dir = 4
 	},
 /turf/open/floor/carpet/blue,

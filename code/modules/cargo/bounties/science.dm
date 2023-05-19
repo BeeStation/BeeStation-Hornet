@@ -16,12 +16,6 @@
 	reward = 10000
 	wanted_types = list(/obj/item/reagent_containers/syringe/bluespace)
 
-/datum/bounty/item/science/bluespace_body_bag
-	name = "Bluespace Body Bag"
-	description = "Nanotrasen would make good use of high-capacity body bags. If you have any, please ship them."
-	reward = 10000
-	wanted_types = list(/obj/item/bodybag/bluespace)
-
 /datum/bounty/item/science/nightvision_goggles
 	name = "Night Vision Goggles"
 	description = "An electrical storm has busted all the lights at CentCom. While management is waiting for replacements, perhaps some night vision goggles can be shipped?"

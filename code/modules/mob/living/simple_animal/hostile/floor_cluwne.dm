@@ -20,7 +20,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	attacktext = "attacks"
 	attack_sound = 'sound/items/bikehorn.ogg'
 	del_on_death = TRUE
-	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB | LETPASSTHROW | PASSGLASS | PASSBLOB//it's practically a ghost when unmanifested (under the floor)
+	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB | LETPASSTHROW | PASSTRANSPARENT | PASSBLOB//it's practically a ghost when unmanifested (under the floor)
 	loot = list(/obj/item/clothing/mask/cluwne)
 	wander = FALSE
 	minimum_distance = 2
@@ -52,7 +52,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 /mob/living/simple_animal/hostile/floor_cluwne/Initialize(mapload)
 	. = ..()
 	access_card = new /obj/item/card/id(src)
-	access_card.access = get_all_accesses()//THERE IS NO ESCAPE
+	access_card.access = get_all_accesses() //THERE IS NO ESCAPE
 	ADD_TRAIT(access_card, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 	invalid_area_typecache = typecacheof(invalid_area_typecache)
 	Manifest()
@@ -164,6 +164,9 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 			return TRUE
 	return FALSE
 
+/mob/living/simple_animal/hostile/floor_cluwne/get_photo_description(obj/item/camera/camera)
+	return "You can also see an indescribable horror!"
+
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Acquire_Victim(specific)
 	for(var/I in GLOB.player_list)//better than a potential recursive loop
 		var/mob/living/carbon/human/H = pick(GLOB.player_list)//so the check is fair
@@ -191,9 +194,8 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 		mobility_flags &= ~MOBILITY_MOVE
 		update_mobility()
 		cluwnehole = new(src.loc)
-		addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Appear), MANIFEST_DELAY)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/floor_cluwne, Appear)), MANIFEST_DELAY)
 	else
-		layer = GAME_PLANE
 		invisibility = INVISIBILITY_OBSERVER
 		density = FALSE
 		mobility_flags |= MOBILITY_MOVE
@@ -202,8 +204,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 			qdel(cluwnehole)
 
 
-/mob/living/simple_animal/hostile/floor_cluwne/proc/Appear()//handled in a seperate proc so floor cluwne doesn't appear before the animation finishes
-	layer = LYING_MOB_LAYER
+/mob/living/simple_animal/hostile/floor_cluwne/proc/Appear()//handled in a separate proc so floor cluwne doesn't appear before the animation finishes
 	invisibility = FALSE
 	density = TRUE
 
@@ -263,7 +264,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 				to_chat(H, "<i>yalp ot tnaw I</i>")
 				Appear()
 				manifested = FALSE
-				addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Manifest), 1)
+				addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/floor_cluwne, Manifest)), 1)
 
 		if(STAGE_TORMENT)
 
@@ -316,7 +317,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 				H.reagents.add_reagent("mercury", 3)
 				Appear()
 				manifested = FALSE
-				addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Manifest), 2)
+				addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/floor_cluwne, Manifest)), 2)
 				for(var/obj/machinery/light/L in range(8, H))
 					L.flicker()
 
@@ -335,12 +336,12 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 							forceMove(H.loc)
 				to_chat(H, "<span class='userdanger'>You feel the floor closing in on your feet!</span>")
 				H.Paralyze(300)
-				INVOKE_ASYNC(H, /mob.proc/emote, "scream")
+				INVOKE_ASYNC(H, TYPE_PROC_REF(/mob, emote), "scream")
 				H.adjustBruteLoss(10)
 				manifested = TRUE
 				Manifest()
 				if(!eating)
-					addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Grab, H), 50, TIMER_OVERRIDE|TIMER_UNIQUE)
+					addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/floor_cluwne, Grab), H), 50, TIMER_OVERRIDE|TIMER_UNIQUE)
 					for(var/turf/open/O in RANGE_TURFS(6, src))
 						O.MakeSlippery(TURF_WET_LUBE, 20)
 						playsound(src, 'sound/effects/meteorimpact.ogg', 30, 1)
@@ -363,11 +364,10 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 		visible_message("<span class='danger'>[src] begins dragging [H] under the floor!</span>")
 		if(do_after(src, 50, target = H) && eating)
 			H.become_blind()
-			H.layer = GAME_PLANE
 			H.invisibility = INVISIBILITY_OBSERVER
 			H.density = FALSE
 			H.anchored = TRUE
-			addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Kill, H), 100, TIMER_OVERRIDE|TIMER_UNIQUE)
+			addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/floor_cluwne, Kill), H), 100, TIMER_OVERRIDE|TIMER_UNIQUE)
 			visible_message("<span class='danger'>[src] pulls [H] under!</span>")
 			to_chat(H, "<span class='userdanger'>[src] drags you underneath the floor!</span>")
 		else
@@ -399,7 +399,6 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 			H.adjustBruteLoss(30)
 			H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 100)
 			H.cure_blind()
-			H.layer = initial(H.layer)
 			H.invisibility = initial(H.invisibility)
 			H.density = initial(H.density)
 			H.anchored = initial(H.anchored)

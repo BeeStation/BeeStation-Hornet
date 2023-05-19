@@ -1,0 +1,206 @@
+@use 'sass:color';
+@use 'sass:meta';
+
+@use '../base.scss' with (
+  $color-fg: black
+);
+@use '../colors.scss' with (
+  $primary: black
+);
+
+$disabled-color: #303030;
+
+.theme-thinktronic-classic {
+  @include meta.load-css('../components/Tabs.scss');
+  @include meta.load-css('../components/Section.scss');
+  @include meta.load-css('../components/Button.scss');
+  @include meta.load-css('../layouts/Layout.scss');
+  @include meta.load-css('../layouts/Window.scss');
+  @include meta.load-css('../layouts/TitleBar.scss');
+  ul,
+  ol {
+    list-style-type: none;
+  }
+  a,
+  a:link,
+  a:visited,
+  a:active,
+  a:hover {
+    color: #000000;
+    text-decoration: none;
+  }
+  img {
+    border-style: none;
+  }
+  a img {
+    padding-right: 9px;
+  }
+
+  * {
+    font-family: 'Courier New', Courier, monospace, sans-serif,
+      'Font Awesome 5 Free' !important;
+  }
+
+  .Button {
+    color: black !important;
+
+    &:hover {
+      transition: color 0ms !important;
+    }
+
+    &:hover {
+      color: $disabled-color !important;
+    }
+
+    * {
+      text-decoration: underline !important;
+    }
+  }
+
+  .Button__content {
+    text-decoration: underline !important;
+  }
+
+  @each $color-name, $color-value in colors.$bg-map {
+    .Button--color--#{$color-name} {
+      background-color: transparent !important;
+    }
+  }
+
+  .Button--color--default {
+    background-color: transparent !important;
+  }
+
+  .Button--color--caution {
+    background-color: transparent !important;
+  }
+
+  .Button--color--danger {
+    background-color: transparent !important;
+  }
+
+  .Button--color--transparent {
+    background-color: transparent !important;
+  }
+
+  .Button--disabled {
+    background-color: transparent !important;
+    text-decoration: none !important;
+    color: $disabled-color !important;
+    .fa,
+    .fas,
+    .far {
+      text-decoration: none !important;
+    }
+    .Button__content {
+      text-decoration: none !important;
+    }
+  }
+
+  .Button--selected {
+    background-color: transparent !important;
+    color: black !important;
+  }
+
+  .Button--hasContent {
+    // Add a margin to the icon to keep it separate from the text
+    .fa,
+    .fas,
+    .far {
+      text-decoration: underline;
+      margin-right: 0.25em;
+    }
+  }
+
+  .Section {
+    background-color: transparent;
+    color: black !important;
+  }
+
+  .Section__title {
+    border-bottom: 1px solid black;
+  }
+
+  .Section__titleText {
+    color: black;
+    font-weight: normal;
+  }
+
+  .Layout__content {
+    background-image: none;
+  }
+
+  .Window {
+    color: black;
+    background-image: none;
+  }
+
+  .Window__dimmer {
+    background-color: #00000020;
+  }
+
+  .color-label {
+    color: black !important;
+  }
+
+  .ProgressBar {
+    color: $disabled-color !important;
+    border-radius: 0;
+  }
+
+  .ProgressBar--color--default {
+    border: base.em(1px) solid black;
+
+    .ProgressBar__fill {
+      background-color: black;
+    }
+  }
+
+  @each $color-name, $color-value in colors.$bg-map {
+    .ProgressBar--color--#{$color-name} {
+      border: base.em(1px) solid black !important;
+
+      .ProgressBar__fill {
+        background-color: black;
+      }
+    }
+  }
+
+  .Tab {
+    color: black !important;
+  }
+
+  .Tab--selected {
+    color: black !important;
+    font-weight: bold;
+  }
+
+  .Tabs--horizontal {
+    .Tab--selected {
+      border-bottom: 1px solid black;
+    }
+  }
+
+  .Tabs--vertical {
+    .Tab--selected {
+      border-right: 0;
+    }
+  }
+
+  .ColorBox {
+    border: 1px solid black;
+  }
+
+  .Section.LogSection {
+    background-color: transparent;
+    color: black;
+  }
+
+  .TextArea {
+    color: white;
+  }
+
+  .Modal {
+    background-color: white !important;
+  }
+}

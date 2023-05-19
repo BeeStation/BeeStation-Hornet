@@ -42,16 +42,16 @@
 	/// If specified, the singularity will slowly move to this target
 	var/atom/target
 
-	/// List of turfs we have yet to consume, but need to
-	var/list/turf/turfs_to_consume = list()
-
 	/// The time that has elapsed since our last move/eat call
 	var/time_since_last_eat
+
+	///Amount of turfs we need to eat
+	var/turfs_to_eat = 0
 
 /datum/component/singularity/Initialize(
 	bsa_targetable = TRUE,
 	consume_range = 0,
-	consume_callback = CALLBACK(src, .proc/default_singularity_act),
+	consume_callback = CALLBACK(src, PROC_REF(default_singularity_act)),
 	admin_investigate_callback,
 	disregard_failed_movements = FALSE,
 	grav_pull = 4,
@@ -76,7 +76,7 @@
 		if(admin_investigate_callback)
 			src.admin_investigate_callback = admin_investigate_callback
 		else
-			src.admin_investigate_callback = CALLBACK(src, .proc/admin_investigate_setup)
+			src.admin_investigate_callback = CALLBACK(src, PROC_REF(admin_investigate_setup))
 
 /datum/component/singularity/RegisterWithParent()
 	START_PROCESSING(SSsinguloprocess, src)
@@ -85,21 +85,21 @@
 	parent.AddElement(/datum/element/forced_gravity, FALSE)
 
 	parent.AddElement(/datum/element/bsa_blocker)
-	RegisterSignal(parent, COMSIG_ATOM_BSA_BEAM, .proc/bluespace_reaction)
+	RegisterSignal(parent, COMSIG_ATOM_BSA_BEAM, PROC_REF(bluespace_reaction))
 
-	RegisterSignal(parent, COMSIG_ATOM_BLOB_ACT, .proc/block_blob)
+	RegisterSignal(parent, COMSIG_ATOM_BLOB_ACT, PROC_REF(block_blob))
 
 	RegisterSignal(parent, list(
 		COMSIG_ATOM_ATTACK_ANIMAL,
 		COMSIG_ATOM_ATTACK_HAND,
 		COMSIG_ATOM_ATTACK_PAW,
-	), .proc/consume_attack)
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, .proc/consume_attackby)
+	), PROC_REF(consume_attack))
+	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(consume_attackby))
 
-	RegisterSignal(parent, COMSIG_MOVABLE_PRE_MOVE, .proc/moved)
-	RegisterSignal(parent, COMSIG_ATOM_BUMPED, .proc/consume)
+	RegisterSignal(parent, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(moved))
+	RegisterSignal(parent, COMSIG_ATOM_BUMPED, PROC_REF(consume))
 
-	RegisterSignal(parent, COMSIG_ATOM_BULLET_ACT, .proc/consume_bullets)
+	RegisterSignal(parent, COMSIG_ATOM_BULLET_ACT, PROC_REF(consume_bullets))
 
 	if(notify_admins)
 		admin_investigate_callback?.Invoke()
@@ -135,15 +135,11 @@
 /datum/component/singularity/process(delta_time)
 	// We want to move and eat once a second, but want to process our turf consume queue the rest of the time
 	time_since_last_eat += delta_time
-	digest()
-	if(TICK_CHECK)
-		return
 	if(time_since_last_eat > 1) // Delta time is in seconds for "reasons"
 		time_since_last_eat = 0
 		if (roaming)
 			move()
 		eat()
-		digest() // Try and process as much as you can with the time we have left
 
 /datum/component/singularity/proc/block_blob()
 	SIGNAL_HANDLER
@@ -174,50 +170,38 @@
 	thing.singularity_act(singularity_size, parent)
 
 /datum/component/singularity/proc/eat()
-	turfs_to_consume |= spiral_range_turfs(grav_pull, parent)
+	if (turfs_to_eat > 0)
+		return
+	//Begin performing tickchecked enumeration
+	var/list/turfs_to_consume = spiral_range_turfs(grav_pull, parent)
+	turfs_to_eat = length(turfs_to_consume)
+	// The foreach will delete things in this list, so we will use a dereferencing enumerator
+	// Turfs cannot be deleted, only modified so they cannot hard delete.
+	var/datum/enumerator/turf_enumerator = get_dereferencing_enumerator(turfs_to_consume)
+	SSenumeration.tickcheck(turf_enumerator.foreach(CALLBACK(src, PROC_REF(consume_turf))))
 
-/datum/component/singularity/proc/digest()
-	var/atom/atom_parent = parent
+/datum/component/singularity/proc/consume_turf(turf/tile)
+	var/dist_to_tile = get_dist(tile, parent)
 
-	if(!isturf(atom_parent.loc))
+	if(grav_pull < dist_to_tile) //If we've exited the singulo's range already, just skip us
+		turfs_to_eat --
 		return
 
-	// We use a static index for this to prevent infinite runtimes.
-	// Maybe a might overengineered, but let's be safe yes?
-	var/static/cached_index = 0
-	if(cached_index)
-		var/old_index = cached_index
-		cached_index = 0 // Prevents infinite Cut() runtimes. Sorry MSO
-		turfs_to_consume.Cut(1, old_index + 1)
+	var/in_consume_range = (dist_to_tile <= consume_range)
+	if (in_consume_range)
+		consume(src, tile)
+	else
+		tile.singularity_pull(parent, singularity_size)
 
-	for(cached_index in 1 to length(turfs_to_consume))
-		var/turf/tile = turfs_to_consume[cached_index]
-		var/dist_to_tile = get_dist(tile, parent)
-
-		if(grav_pull < dist_to_tile) //If we've exited the singulo's range already, just skip us
+	for(var/atom/movable/thing as anything in tile)
+		if(thing == parent)
 			continue
-
-		var/in_consume_range = (dist_to_tile <= consume_range)
 		if (in_consume_range)
-			consume(src, tile)
+			consume(src, thing)
 		else
-			tile.singularity_pull(parent, singularity_size)
+			thing.singularity_pull(parent, singularity_size)
 
-		for(var/atom/movable/thing as anything in tile)
-			if(thing == parent)
-				continue
-			if (in_consume_range)
-				consume(src, thing)
-			else
-				thing.singularity_pull(parent, singularity_size)
-
-		if(TICK_CHECK) //Yes this means the singulo can eat all of its host subsystem's cpu, but like it's the singulo, and it was gonna do that anyway
-			turfs_to_consume.Cut(1, cached_index + 1)
-			cached_index = 0
-			return
-
-	turfs_to_consume.Cut()
-	cached_index = 0
+	turfs_to_eat--
 
 /datum/component/singularity/proc/move()
 	var/drifting_dir = pick(GLOB.alldirs - last_failed_movement)

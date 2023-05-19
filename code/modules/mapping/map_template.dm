@@ -5,7 +5,9 @@
 	var/mappath = null
 	var/loaded = 0 // Times loaded this round
 	var/datum/parsed_map/cached_map
+	var/maps_loading = 0
 	var/keep_cached_map = FALSE
+	var/station_id = null // used to override the root id when generating
 
 	///if true, turfs loaded from this template are placed on top of the turfs already there, defaults to TRUE
 	var/should_place_on_top = TRUE
@@ -75,6 +77,10 @@
 	// first or not.  Its defined In Initialize yet its run first in templates
 	// BEFORE so... hummm
 	SSmapping.reg_in_areas_in_z(areas)
+	// We have to do this hack here because its the ONLY place we can get the
+	// meta data from the template so we can properly set up the area
+	SSnetworks.assign_areas_root_ids(areas, src)
+	// If the world is starting up stop here and the world will do the rest
 	if(!SSatoms.initialized)
 		return
 
@@ -131,7 +137,7 @@
 	var/datum/parsed_map/parsed = new(file(mappath))
 	parsed.load(T.x, T.y, T.z, cropMap=TRUE, no_changeturf=TRUE, placeOnTop=should_place_on_top)
 
-/datum/map_template/proc/load(turf/T, centered = FALSE, init_atmos = TRUE)
+/datum/map_template/proc/load(turf/T, centered = FALSE, init_atmos = TRUE, finalize = TRUE, ...)
 	if(centered)
 		T = locate(T.x - round(width/2) , T.y - round(height/2) , T.z)
 	if(!T)
@@ -149,26 +155,43 @@
 
 	// Accept cached maps, but don't save them automatically - we don't want
 	// ruins clogging up memory for the whole round.
-	var/datum/parsed_map/parsed = cached_map || new(file(mappath))
-	cached_map = keep_cached_map ? parsed : null
+	maps_loading ++
+	var/datum/parsed_map/parsed = cached_map ? cached_map.copy() : new(file(mappath))
+	cached_map = parsed
 
 	var/list/turf_blacklist = list()
 	update_blacklist(T, turf_blacklist)
 
 	parsed.turf_blacklist = turf_blacklist
-	if(!parsed.load(T.x, T.y, T.z, cropMap=TRUE, no_changeturf=(SSatoms.initialized == INITIALIZATION_INSSATOMS), placeOnTop=should_place_on_top))
-		return
+	var/datum/map_generator/map_place/map_placer = new(parsed, T.x, T.y, T.z, cropMap=TRUE, no_changeturf=(SSatoms.initialized == INITIALIZATION_INSSATOMS), placeOnTop=should_place_on_top)
+	map_placer.on_completion(CALLBACK(src, PROC_REF(on_placement_completed)))
+	var/list/generation_arguments =  list(T, init_atmos, parsed, finalize)
+	if (length(args) > 4)
+		generation_arguments += args.Copy(5)
+	map_placer.generate(arglist(generation_arguments))
+	return map_placer
+
+/datum/map_template/proc/on_placement_completed(datum/map_generator/map_gen, turf/T, init_atmos, datum/parsed_map/parsed, finalize = TRUE, ...)
 	var/list/bounds = parsed.bounds
 	if(!bounds)
+		maps_loading --
+		if (!maps_loading)
+			cached_map = keep_cached_map ? parsed : null
+		message_admins("NO PARSED BOUNDS!")
 		return
 
 	if(!SSmapping.loading_ruins) //Will be done manually during mapping ss init
 		repopulate_sorted_areas()
 
-	//initialize things that are normally initialized after map load
-	initTemplateBounds(bounds, init_atmos)
+	//If this is a superfunction call, we don't want to initialize atoms here, let the subfunction handle that
+	if(finalize)
+		maps_loading --
+		if (!maps_loading)
+			cached_map = keep_cached_map ? parsed : null
+		//initialize things that are normally initialized after map load
+		initTemplateBounds(bounds, init_atmos)
+		log_game("[name] loaded at [T.x],[T.y],[T.z]")
 
-	log_game("[name] loaded at [T.x],[T.y],[T.z]")
 	return bounds
 
 /datum/map_template/proc/update_blacklist(turf/T, list/input_blacklist)

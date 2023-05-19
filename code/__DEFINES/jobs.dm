@@ -26,7 +26,7 @@
 #define DOCTOR			(1<<5)
 #define GENETICIST		(1<<6)
 #define VIROLOGIST		(1<<7)
-#define EMT				(1<<8)
+#define PARAMEDIC		(1<<8)
 
 
 #define CIVILIAN		(1<<2)
@@ -48,7 +48,7 @@
 #define GIMMICK 		(1<<14)
 #define BARBER		    (1<<15)
 #define MAGICIAN        (1<<16)
-#define SHRINK          (1<<17)
+#define PSYCHIATRIST    (1<<17)
 #define CELEBRITY       (1<<18)
 
 #define JOB_AVAILABLE 0
@@ -99,18 +99,113 @@
 #define JOB_DISPLAY_ORDER_AI 34
 #define JOB_DISPLAY_ORDER_CYBORG 35
 
-#define DEPARTMENT_SECURITY (1<<0)
-#define DEPARTMENT_COMMAND (1<<1)
-#define DEPARTMENT_SERVICE (1<<2)
-#define DEPARTMENT_CARGO (1<<3)
-#define DEPARTMENT_ENGINEERING (1<<4)
-#define DEPARTMENT_SCIENCE (1<<5)
-#define DEPARTMENT_MEDICAL (1<<6)
-#define DEPARTMENT_SILICON (1<<7)
+
+#define DEPT_BITFLAG_COM (1<<0)
+#define DEPT_BITFLAG_CIV (1<<1)
+#define DEPT_BITFLAG_SRV (1<<2)
+#define DEPT_BITFLAG_CAR (1<<3)
+#define DEPT_BITFLAG_SCI (1<<4)
+#define DEPT_BITFLAG_ENG (1<<5)
+#define DEPT_BITFLAG_MED (1<<6)
+#define DEPT_BITFLAG_SEC (1<<7)
+#define DEPT_BITFLAG_VIP (1<<8)
+#define DEPT_BITFLAG_SILICON  (1<<9)
+// should check the ones in `\_DEFINES\economy.dm`
+// It's true that bitflags shouldn't be separated in two DEFINES if these are same, but just in case the system can be devided, it's remained separated.
+
+//-------------------------------------------------------------------------------------------
+//------------------------------------- Job names -------------------------------------------
+//-------------------------------------------------------------------------------------------
+// Command
+#define JOB_NAME_CAPTAIN "Captain"
+
+// Service
+#define JOB_NAME_HEADOFPERSONNEL "Head of Personnel"
+#define JOB_NAME_ASSISTANT  "Assistant"
+#define JOB_NAME_BARTENDER  "Bartender"
+#define JOB_NAME_BOTANIST   "Botanist"
+#define JOB_NAME_COOK     "Cook"
+#define JOB_NAME_JANITOR  "Janitor"
+#define JOB_NAME_CURATOR  "Curator"
+#define JOB_NAME_LAWYER   "Lawyer"
+#define JOB_NAME_CHAPLAIN "Chaplain"
+#define JOB_NAME_MIME   "Mime"
+#define JOB_NAME_CLOWN  "Clown"
+#define JOB_NAME_STAGEMAGICIAN "Stage Magician" // gimmick
+#define JOB_NAME_BARBER "Barber" // gimmick
+#define JOB_NAME_VIP    "VIP" // gimmick
+
+// Cargo
+#define JOB_NAME_QUARTERMASTER   "Quartermaster"
+#define JOB_NAME_CARGOTECHNICIAN "Cargo Technician"
+#define JOB_NAME_SHAFTMINER      "Shaft Miner"
+
+// R&D
+#define JOB_NAME_RESEARCHDIRECTOR "Research Director"
+#define JOB_NAME_SCIENTIST  "Scientist"
+#define JOB_NAME_ROBOTICIST "Roboticist"
+#define JOB_NAME_EXPLORATIONCREW "Exploration Crew"
+
+// Engineering
+#define JOB_NAME_CHIEFENGINEER   "Chief Engineer"
+#define JOB_NAME_STATIONENGINEER "Station Engineer"
+#define JOB_NAME_ATMOSPHERICTECHNICIAN "Atmospheric Technician"
+
+// Medical
+#define JOB_NAME_CHIEFMEDICALOFFICER "Chief Medical Officer"
+#define JOB_NAME_MEDICALDOCTOR "Medical Doctor"
+#define JOB_NAME_PARAMEDIC  "Paramedic"
+#define JOB_NAME_CHEMIST    "Chemist"
+#define JOB_NAME_VIROLOGIST "Virologist"
+#define JOB_NAME_GENETICIST "Geneticist"
+#define JOB_NAME_BRIGPHYSICIAN "Brig Physician"
+#define JOB_NAME_PSYCHIATRIST  "Psychiatrist" // gimmick
+
+// Security
+#define JOB_NAME_HEADOFSECURITY "Head of Security"
+#define JOB_NAME_WARDEN "Warden"
+#define JOB_NAME_SECURITYOFFICER "Security Officer"
+#define JOB_NAME_DETECTIVE "Detective"
+#define JOB_NAME_DEPUTY  "Deputy"
+
+// Silicon
+#define JOB_NAME_AI     "AI"
+#define JOB_NAME_CYBORG "Cyborg"
+#define JOB_NAME_PAI    "Personal AI"
+
+// ERTs
+#define JOB_ERT_DEATHSQUAD      "Death Commando"
+#define JOB_ERT_COMMANDER       "Emergency Response Team Commander"
+#define JOB_ERT_OFFICER         "Security Response Officer"
+#define JOB_ERT_ENGINEER        "Engineering Response Officer"
+#define JOB_ERT_MEDICAL_DOCTOR  "Medical Response Officer"
+#define JOB_ERT_CHAPLAIN        "Religious Response Officer"
+#define JOB_ERT_JANITOR         "Janitorial Response Officer"
+
+// CentCom
+#define JOB_CENTCOM_CENTRAL_COMMAND "Central Command"
+#define JOB_CENTCOM_OFFICIAL  "CentCom Official"
+#define JOB_CENTCOM_ADMIRAL   "Admiral"
+#define JOB_CENTCOM_COMMANDER "CentCom Commander"
+#define JOB_CENTCOM_VIP       "VIP Guest"
+#define JOB_CENTCOM_BARTENDER "CentCom Bartender"
+#define JOB_CENTCOM_CUSTODIAN "Custodian"
+#define JOB_CENTCOM_THUNDERDOME_OVERSEER "Thunderdome Overseer"
+#define JOB_CENTCOM_MEDICAL_DOCTOR   "Medical Officer"
+#define JOB_CENTCOM_RESEARCH_OFFICER "Research Officer"
+
+// Misc & Off-Station
+#define JOB_NAME_GIMMICK "Gimmick" // gimmick
+#define JOB_NAME_KING    "King"
+#define JOB_NAME_PRISONER "Prisoner"
+#define JOB_SPACE_POLICE "Space Police"
 
 
 
-// Job names based on hud icon names
+//-------------------------------------------------------------------------------------------
+//---------------------------------------- HUD ----------------------------------------------
+//-------------------------------------------------------------------------------------------
+////////// Job names based on hud icon names
 // Command
 #define JOB_HUD_RAWCOMMAND "rawcommand"
 #define JOB_HUD_CAPTAIN  "captain"
@@ -121,13 +216,13 @@
 #define JOB_HUD_HEADOFPERSONNEL "headofpersonnel"
 #define JOB_HUD_ASSISTANT "assistant"
 #define JOB_HUD_BARTENDER "bartender"
-#define JOB_HUD_COOK "cook"
+#define JOB_HUD_COOK     "cook"
 #define JOB_HUD_BOTANIST "botanist"
 #define JOB_HUD_CHAPLAIN "chaplain"
-#define JOB_HUD_CURATOR "curator"
-#define JOB_HUD_JANITOR "janitor"
-#define JOB_HUD_LAWYER "lawyer"
-#define JOB_HUD_MIME "mime"
+#define JOB_HUD_CURATOR  "curator"
+#define JOB_HUD_JANITOR  "janitor"
+#define JOB_HUD_LAWYER   "lawyer"
+#define JOB_HUD_MIME  "mime"
 #define JOB_HUD_CLOWN "clown"
 #define JOB_HUD_STAGEMAGICIAN "stagemagician"
 #define JOB_HUD_BARBER "barber"
@@ -181,240 +276,77 @@
 #define JOB_HUD_SYNDICATE "syndicate"
 #define JOB_HUD_PRISONER "prisoner"
 #define JOB_HUD_UNKNOWN "unknown"
+#define JOB_HUD_PAPER "paper"
 
 
-// This proc is only used in `PDApainter.dm`, but for better readability, it's declared as global proc and stored here.
-// This returns a card icon style by given job name. Check `card.dmi` for the card list.
-/proc/get_cardstyle_by_jobname(jobname)
-	if(jobname)
-		var/static/id_style = list(
-			// Command
-			"Command (Custom)" = "captain",
-			"Captain" = "captain",
-			"Acting Captain" = "captain",
-			// Service
-			"Service (Custom)" = "rawservice",
-			"Head of Personnel" = "hop",
-			"Assistant" = "id",
-			"Botanist" = "serv",
-			"Bartender" = "serv",
-			"Cook" = "serv",
-			"Janitor" = "janitor",
-			"Curator" = "chap",
-			"Chaplain" = "chap",
-			"Lawyer" = "lawyer",
-			"Clown" = "clown",
-			"Mime" = "mime",
-			"Stage Magician" = "serv",
-			"Barber" = "serv",
-			// Cargo
-			"Cargo (Custom)" = "rawcargo",
-			"Quartermaster" = "qm",
-			"Cargo Technician" = "cargo",
-			"Shaft Miner" = "miner",
-			// R&D
-			"Science (Custom)" = "rawscience",
-			"Research Director" = "rd",
-			"Science" = "sci",
-			"Roboticist" = "roboticist",
-			"Exploration Crew" = "exploration",
-			// Engineering
-			"Engineering (Custom)" = "rawengineering",
-			"Chief Engineer" = "ce",
-			"Station Engineer" = "engi",
-			"Atmospheric Technician" = "atmos",
-			// Medical
-			"Medical (Custom)" = "rawmedical",
-			"Chief Medical Officer" = "cmo",
-			"Medical Doctor" = "med",
-			"Paramedic" = "paramed",
-			"Virologist" = "viro",
-			"Geneticist" = "gene",
-			"Chemist" = "chemist",
-			"Psychiatrist" = "med",
-			// Security
-			"Security (Custom)" = "rawsecurity",
-			"Head of Security" = "hos",
-			"Security Officer" = "sec",
-			"Warden" = "warden",
-			"Detective" = "detective",
-			"Brig Physician" = "brigphys",
-			"Deputy" = "deputy",
-			// ETC
-			"Unassigned" = "id",
-			"Prisoner" = "orange",
-			// EMAG
-			"CentCom (Custom)" = "centcom",
-			"CentCom" = "centcom",
-			"ERT" = "ert",
-			"VIP" = "gold",
-			"King" = "gold",
-			"Syndicate" = "syndicate",
-			"Clown Operative" = "clown_op",
-			"Unknown" = "unknown",
-			// ETC2
-			"Ratvar" = "ratvar"
-		)
-		if(jobname in id_style)
-			return id_style[jobname]
-	return "noname"
+//////////// Color defines
+// Command
+#define JOB_CHATCOLOR_RAWCOMMAND    "#AFB4D3" // custom command color
+#define JOB_CHATCOLOR_CAPTAIN       "#FFDC9B"
+#define JOB_CHATCOLOR_ACTINGCAPTAIN "#FFDC9B"
 
-// This returns a hud icon (from `hud.dmi`) by given job name.
-// Some custom title is from `PDApainter.dm`. You neec to check it if you're going to remove custom job.
-/proc/get_hud_by_jobname(jobname)
-	if(jobname)
-		var/static/id_to_hud = list(
-			// Command
-			"Command (Custom)" = JOB_HUD_RAWCOMMAND,
-			"Captain" = JOB_HUD_CAPTAIN,
-			"Acting Captain" = JOB_HUD_ACTINGCAPTAIN ,
+// Service
+#define JOB_CHATCOLOR_RAWSERVICE      "#BFE4B0" // custom service color
+#define JOB_CHATCOLOR_HEADOFPERSONNEL "#7979D3"
+#define JOB_CHATCOLOR_ASSISTANT "#BDBDBD"
+#define JOB_CHATCOLOR_BARTENDER "#B2CEB3"
+#define JOB_CHATCOLOR_COOK      "#A2FBB9"
+#define JOB_CHATCOLOR_BOTANIST  "#95DE85"
+#define JOB_CHATCOLOR_CURATOR   "#88C999"
+#define JOB_CHATCOLOR_CHAPLAIN  "#8AB48C"
+#define JOB_CHATCOLOR_JANITOR   "#97FBEA"
+#define JOB_CHATCOLOR_LAWYER    "#C07D7D"
+#define JOB_CHATCOLOR_MIME      "#BAD3BB"
+#define JOB_CHATCOLOR_CLOWN     "#FF83D7"
+#define JOB_CHATCOLOR_STAGEMAGICIAN  "#B898B3"
+#define JOB_CHATCOLOR_BARBER    "#BD9E86"
 
-			// Service
-			"Service (Custom)" = JOB_HUD_RAWSERVICE,
-			"Head of Personnel" = JOB_HUD_HEADOFPERSONNEL,
-			"Assistant" = JOB_HUD_ASSISTANT,
-			"Bartender" = JOB_HUD_BARTENDER,
-			"Cook" = JOB_HUD_COOK,
-			"Botanist" = JOB_HUD_BOTANIST,
-			"Curator" = JOB_HUD_CURATOR,
-			"Chaplain" = JOB_HUD_CHAPLAIN,
-			"Janitor" = JOB_HUD_JANITOR,
-			"Lawyer" = JOB_HUD_LAWYER,
-			"Mime" = JOB_HUD_MIME,
-			"Clown" = JOB_HUD_CLOWN,
-			"Stage Magician" = JOB_HUD_STAGEMAGICIAN,
-			"Barber" = JOB_HUD_BARBER,
+// Cargo
+#define JOB_CHATCOLOR_RAWCARGO        "#ECCE9A" // custom cargo color
+#define JOB_CHATCOLOR_QUARTERMASTER   "#C79C52"
+#define JOB_CHATCOLOR_CARGOTECHNICIAN "#D3A372"
+#define JOB_CHATCOLOR_SHAFTMINER      "#CE957E"
 
-			// Cargo
-			"Cargo (Custom)" = JOB_HUD_RAWCARGO,
-			"Quartermaster" = JOB_HUD_QUARTERMASTER,
-			"Cargo Technician" = JOB_HUD_CARGOTECHNICIAN,
-			"Shaft Miner" = JOB_HUD_SHAFTMINER,
+// R&D
+#define JOB_CHATCOLOR_RAWSCIENCE       "#F3BFF3" // custom R&D color
+#define JOB_CHATCOLOR_RESEARCHDIRECTOR "#974EA9"
+#define JOB_CHATCOLOR_SCIENTIST        "#C772C7"
+#define JOB_CHATCOLOR_ROBOTICIST       "#AC71BA"
+#define JOB_CHATCOLOR_EXPLORATIONCREW  "#85D8B8"
 
-			// R&D
-			"Science (Custom)" = JOB_HUD_RAWSCIENCE,
-			"Research Director" = JOB_HUD_RESEARCHDIRECTOR,
-			"Scientist" = JOB_HUD_SCIENTIST,
-			"Roboticist" = JOB_HUD_ROBOTICIST,
-			"Exploration Crew" = JOB_HUD_EXPLORATIONCREW,
+// Engineering
+#define JOB_CHATCOLOR_RAWENGINEERING        "#E9D1A8" // custom engineering color
+#define JOB_CHATCOLOR_CHIEFENGINEER         "#CFBB72"
+#define JOB_CHATCOLOR_STATIONENGINEER       "#D9BC89"
+#define JOB_CHATCOLOR_ATMOSPHERICTECHNICIAN "#D4A07D"
 
-			// Engineering
-			"Engineering (Custom)" = JOB_HUD_RAWENGINEERING,
-			"Chief Engineer" = JOB_HUD_CHIEFENGINEER,
-			"Station Engineer" = JOB_HUD_STATIONENGINEER,
-			"Atmospheric Technician" = JOB_HUD_ATMOSPHERICTECHNICIAN,
+// Medical
+#define JOB_CHATCOLOR_RAWMEDICAL           "#B1E5EC" // custom medical color
+#define JOB_CHATCOLOR_CHEIFMEDICALOFFICIER "#7A97DA"
+#define JOB_CHATCOLOR_MEDICALDOCTOR "#6CB1C5"
+#define JOB_CHATCOLOR_PARAMEDIC     "#8FBEB4"
+#define JOB_CHATCOLOR_VIROLOGIST    "#75AEA3"
+#define JOB_CHATCOLOR_CHEMIST       "#82BDCE"
+#define JOB_CHATCOLOR_GENETICIST    "#83BBBF"
+#define JOB_CHATCOLOR_PSYCHIATRIST  "#A2DFDC"
 
-			// Medical
-			"Medical (Custom)" = JOB_HUD_RAWMEDICAL,
-			"Chief Medical Officer" = JOB_HUD_CHEIFMEDICALOFFICIER,
-			"Medical Doctor" = JOB_HUD_MEDICALDOCTOR,
-			"Paramedic" = JOB_HUD_PARAMEDIC,
-			"Virologist" = JOB_HUD_VIROLOGIST,
-			"Chemist" = JOB_HUD_CHEMIST,
-			"Geneticist" = JOB_HUD_GENETICIST,
-			"Psychiatrist" = JOB_HUD_PSYCHIATRIST,
+// Security
+#define JOB_CHATCOLOR_RAWSECURITY     "#F3BDC0" // custom security color, has some color than deputy
+#define JOB_CHATCOLOR_HEADOFSECURITY  "#D33049"
+#define JOB_CHATCOLOR_WARDEN          "#EA545E"
+#define JOB_CHATCOLOR_SECURITYOFFICER "#E6A3A3"
+#define JOB_CHATCOLOR_DETECTIVE       "#C78B8B"
+#define JOB_CHATCOLOR_BRIGPHYSICIAN   "#B16789"
+#define JOB_CHATCOLOR_DEPUTY          "#FFEEEE"
 
-			// Security
-			"Security (Custom)" = JOB_HUD_RAWSECURITY,
-			"Head of Security" = JOB_HUD_HEADOFSECURITY,
-			"Security Officer" = JOB_HUD_SECURITYOFFICER,
-			"Warden" = JOB_HUD_WARDEN,
-			"Detective" = JOB_HUD_DETECTIVE,
-			"Brig Physician" = JOB_HUD_BRIGPHYSICIAN,
-			"Deputy" = JOB_HUD_DEPUTY,
+// CentCom
+#define JOB_CHATCOLOR_RAWCENTCOM "#A7F08F" // custom CC Color
+#define JOB_CHATCOLOR_CENTCOM    "#90FD6D"
 
-			// CentCom
-			"CentCom (Custom)" = JOB_HUD_RAWCENTCOM,
-			"CentCom" = JOB_HUD_CENTCOM,
-			"ERT" = JOB_HUD_CENTCOM,
-
-			// ETC
-			"VIP" = JOB_HUD_VIP,
-			"King" = JOB_HUD_KING,
-			"Syndicate" = JOB_HUD_SYNDICATE,
-			"Clown Operative" = JOB_HUD_SYNDICATE,
-			"Unassigned" = JOB_HUD_UNKNOWN,
-			"Prisoner" = JOB_HUD_PRISONER
-		)
-		if(jobname in id_to_hud)
-			return id_to_hud[jobname]
-	return JOB_HUD_UNKNOWN
-
-// This returns a department for banking system by given hud icon.
-// currently used in `card.dm` and `PDApainter.dm` to set a card's paycheck department
-/proc/get_department_by_hud(jobname)
-	if(jobname)
-		var/static/hud_to_department_acc = list(
-			// Command
-			JOB_HUD_RAWCOMMAND = ACCOUNT_SEC,
-			JOB_HUD_CAPTAIN = ACCOUNT_SEC,
-			JOB_HUD_ACTINGCAPTAIN = ACCOUNT_SEC,
-
-			// Service + Civilian
-			JOB_HUD_RAWSERVICE = ACCOUNT_SRV,
-			JOB_HUD_HEADOFPERSONNEL = ACCOUNT_SRV,
-			JOB_HUD_ASSISTANT = ACCOUNT_CIV,
-			JOB_HUD_BARTENDER = ACCOUNT_SRV,
-			JOB_HUD_COOK = ACCOUNT_SRV,
-			JOB_HUD_BOTANIST = ACCOUNT_SRV,
-			JOB_HUD_CURATOR = ACCOUNT_CIV,
-			JOB_HUD_CHAPLAIN = ACCOUNT_CIV,
-			JOB_HUD_JANITOR = ACCOUNT_SRV,
-			JOB_HUD_LAWYER = ACCOUNT_CIV,
-			JOB_HUD_MIME = ACCOUNT_SRV,
-			JOB_HUD_CLOWN = ACCOUNT_SRV,
-			JOB_HUD_STAGEMAGICIAN = ACCOUNT_SRV,
-			JOB_HUD_BARBER = ACCOUNT_CIV,
-
-			// Cargo
-			JOB_HUD_RAWCARGO = ACCOUNT_CAR,
-			JOB_HUD_QUARTERMASTER = ACCOUNT_CAR,
-			JOB_HUD_CARGOTECHNICIAN = ACCOUNT_CAR,
-			JOB_HUD_SHAFTMINER = ACCOUNT_CAR,
-
-			// R&D
-			JOB_HUD_RAWSCIENCE = ACCOUNT_SCI,
-			JOB_HUD_RESEARCHDIRECTOR = ACCOUNT_SCI,
-			JOB_HUD_SCIENTIST = ACCOUNT_SCI,
-			JOB_HUD_ROBOTICIST = ACCOUNT_SCI,
-			JOB_HUD_EXPLORATIONCREW = ACCOUNT_SCI,
-
-			// Engineering
-			JOB_HUD_RAWENGINEERING = ACCOUNT_ENG,
-			JOB_HUD_CHIEFENGINEER = ACCOUNT_ENG,
-			JOB_HUD_STATIONENGINEER = ACCOUNT_ENG,
-			JOB_HUD_ATMOSPHERICTECHNICIAN = ACCOUNT_ENG,
-
-			// Medical
-			JOB_HUD_RAWMEDICAL = ACCOUNT_MED,
-			JOB_HUD_CHEIFMEDICALOFFICIER = ACCOUNT_MED,
-			JOB_HUD_MEDICALDOCTOR = ACCOUNT_MED,
-			JOB_HUD_PARAMEDIC = ACCOUNT_MED,
-			JOB_HUD_VIROLOGIST = ACCOUNT_MED,
-			JOB_HUD_CHEMIST = ACCOUNT_MED,
-			JOB_HUD_GENETICIST = ACCOUNT_MED,
-			JOB_HUD_PSYCHIATRIST = ACCOUNT_MED,
-
-			// Security
-			JOB_HUD_RAWSECURITY = ACCOUNT_SEC,
-			JOB_HUD_HEADOFSECURITY = ACCOUNT_SEC,
-			JOB_HUD_SECURITYOFFICER = ACCOUNT_SEC,
-			JOB_HUD_WARDEN = ACCOUNT_SEC,
-			JOB_HUD_DETECTIVE = ACCOUNT_SEC,
-			JOB_HUD_BRIGPHYSICIAN = ACCOUNT_SEC,
-			JOB_HUD_DEPUTY = ACCOUNT_SEC,
-
-			// CentCom
-			JOB_HUD_RAWCENTCOM = ACCOUNT_CIV,
-			JOB_HUD_CENTCOM = ACCOUNT_CIV,
-
-			// ETC
-			JOB_HUD_VIP = ACCOUNT_CIV,
-			JOB_HUD_KING = ACCOUNT_CIV,
-			JOB_HUD_SYNDICATE = ACCOUNT_CIV,
-			JOB_HUD_UNKNOWN = ACCOUNT_CIV,
-			JOB_HUD_PRISONER = ACCOUNT_CIV
-		)
-		if(jobname in hud_to_department_acc)
-			return hud_to_department_acc[jobname]
-	return ACCOUNT_CIV
+// ETC
+#define JOB_CHATCOLOR_VIP        "#EBC96B"
+#define JOB_CHATCOLOR_KING       "#DCEC49" // somehow golden?
+#define JOB_CHATCOLOR_SYNDICATE  "#997272" // I really didn't care the color
+#define JOB_CHATCOLOR_NOTCENTCOM "#6D6AEC" // i.e. space police
+#define JOB_CHATCOLOR_PRISONER   "#D38A5C"
+#define JOB_CHATCOLOR_UNKNOWN    "#DDA583" // grey hud icon gets this

@@ -38,8 +38,6 @@
 /datum/proc/vv_do_topic(list/href_list)
 	if(!usr || !usr.client || !usr.client.holder || !check_rights(NONE))
 		return FALSE			//This is VV, not to be called by anything else.
-	if(href_list[VV_HK_MODIFY_TRAITS])
-		usr.client.holder.modify_traits(src)
 	return TRUE
 
 /datum/proc/vv_get_header()

@@ -26,23 +26,35 @@ export const NtosWindow = (props, context) => {
     PC_ntneticon,
     PC_apclinkicon,
     PC_stationtime,
+    PC_stationdate,
     PC_programheaders = [],
     PC_showexitprogram,
+    PC_classic_color,
   } = data;
   return (
     <Window
       title={title}
       width={width}
       height={height}
-      theme={theme}>
+      theme={PC_device_theme || theme}
+      override_bg={PC_classic_color && PC_device_theme === "thinktronic-classic" ? PC_classic_color : null}>
       <div className="NtosWindow">
         <div className="NtosWindow__header NtosHeader">
           <div className="NtosHeader__left">
             <Box inline bold mr={2}>
+              <Button
+                width="26px"
+                lineHeight="22px"
+                textAlign="left"
+                tooltip={PC_stationdate}
+                color="transparent"
+                icon="calendar"
+                tooltipPosition="bottom"
+              />
               {PC_stationtime}
             </Box>
             <Box inline italic mr={2} opacity={0.33}>
-              {PC_device_theme === 'ntos' && 'NtOS'}
+              {PC_device_theme?.startsWith('ntos') && 'NtOS'}
               {PC_device_theme === 'syndicate' && 'Syndix'}
             </Box>
           </div>

@@ -85,7 +85,7 @@
 	for(var/datum/mind/apprentice in apprentices)
 		round_credits += "<center><h2>[apprentice.name] as an eager apprentice</h2>"
 	if(len_before_addition == round_credits.len)
-		round_credits += list("<center><h2>The wizards have removed themselves from this realm of existance!</h2>", "<center><h2>We couldn't locate them!</h2>")
+		round_credits += list("<center><h2>The wizards have removed themselves from this realm of existence!</h2>", "<center><h2>We couldn't locate them!</h2>")
 	round_credits += "<br>"
 
 	round_credits += ..()

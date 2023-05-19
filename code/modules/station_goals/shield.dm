@@ -6,20 +6,12 @@
 	var/coverage_goal = 500
 
 /datum/station_goal/station_shield/get_report()
-	return {"The station is located in a zone full of space debris.
-			 We have a prototype shielding system you must deploy to reduce collision-related accidents.
-
-			 You can order the satellites and control systems at cargo.
-			 "}
-
-
-/datum/station_goal/station_shield/on_report()
-	//Unlock
-	var/datum/supply_pack/P = SSshuttle.supply_packs[/datum/supply_pack/engineering/shield_sat]
-	P.special_enabled = TRUE
-
-	P = SSshuttle.supply_packs[/datum/supply_pack/engineering/shield_sat_control]
-	P.special_enabled = TRUE
+	return list(
+		"<blockquote>The station is located in a zone full of space debris.",
+		"We have a prototype shielding system you must deploy to reduce collision-related accidents.",
+		"",
+		"You can order the satellites and control systems at cargo.</blockquote>",
+	).Join("\n")
 
 /datum/station_goal/station_shield/check_completion()
 	if(..())
@@ -180,10 +172,8 @@
 	if(active && (obj_flags & EMAGGED))
 		change_meteor_chance(0.5)
 
-/obj/machinery/satellite/meteor_shield/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+/obj/machinery/satellite/meteor_shield/on_emag(mob/user)
+	..()
 	to_chat(user, "<span class='notice'>You access the satellite's debug mode, increasing the chance of meteor strikes.</span>")
 	if(active)
 		change_meteor_chance(2)

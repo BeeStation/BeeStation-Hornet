@@ -187,7 +187,14 @@
 	integer = FALSE
 	min_val = 0
 
+/datum/config_entry/number/malf_ai_minimum_pop	// minimum population for malf AI to occur.
+	config_entry_value = 30
+	min_val = 0
+
 /datum/config_entry/flag/show_game_type_odds	//if set this allows players to see the odds of each roundtype on the get revision screen
+
+/datum/config_entry/string/fallback_default_species
+	config_entry_value = SPECIES_HUMAN
 
 /datum/config_entry/keyed_list/roundstart_races	//races you can play as from the get go.
 	key_mode = KEY_MODE_TEXT
@@ -242,6 +249,8 @@
 
 /datum/config_entry/flag/revival_cloning
 
+/datum/config_entry/flag/post_revival_message
+
 /datum/config_entry/number/revival_brain_life
 	config_entry_value = -1
 	integer = FALSE
@@ -295,28 +304,6 @@
 /datum/config_entry/number/movedelay/walk_delay
 	integer = FALSE
 
-/////////////////////////////////////////////////Outdated move delay
-/datum/config_entry/number/outdated_movedelay
-	deprecated_by = /datum/config_entry/keyed_list/multiplicative_movespeed
-	abstract_type = /datum/config_entry/number/outdated_movedelay
-	integer = FALSE
-	var/movedelay_type
-
-/datum/config_entry/number/outdated_movedelay/DeprecationUpdate(value)
-	return "[movedelay_type] [value]"
-
-/datum/config_entry/number/outdated_movedelay/human_delay
-	movedelay_type = /mob/living/carbon/human
-/datum/config_entry/number/outdated_movedelay/robot_delay
-	movedelay_type = /mob/living/silicon/robot
-/datum/config_entry/number/outdated_movedelay/monkey_delay
-	movedelay_type = /mob/living/carbon/monkey
-/datum/config_entry/number/outdated_movedelay/alien_delay
-	movedelay_type = /mob/living/carbon/alien
-/datum/config_entry/number/outdated_movedelay/slime_delay
-	movedelay_type = /mob/living/simple_animal/slime
-/datum/config_entry/number/outdated_movedelay/animal_delay
-	movedelay_type = /mob/living/simple_animal
 /////////////////////////////////////////////////
 
 /datum/config_entry/flag/virtual_reality	//Will virtual reality be loaded
@@ -363,7 +350,7 @@
 	min_val = -1
 
 /datum/config_entry/string/overflow_job
-	config_entry_value = "Assistant"
+	config_entry_value = JOB_NAME_ASSISTANT
 
 /datum/config_entry/flag/starlight
 /datum/config_entry/flag/grey_assistants

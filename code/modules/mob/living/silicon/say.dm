@@ -1,6 +1,9 @@
 /mob/living/proc/robot_talk(message)
 	//Cannot transmit wireless messages while jammed
-	if(is_jammed())
+	if(is_jammed(JAMMER_PROTECTION_SILICON_COMMS))
+		return
+	if(CHAT_FILTER_CHECK(message))
+		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
 		return
 	log_talk(message, LOG_SAY, tag="binary")
 	var/desig = "Default Cyborg" //ezmode for taters

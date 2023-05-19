@@ -78,8 +78,17 @@
 		winset(src, null, "[id].size=[window_width]x[window_height];[id].input.font-size=[font_size];[id].accept.font-size=[font_size];[id].cancel.font-size=[font_size]")
 	//End window scaling
 
+	center_window(id, window_width, window_height)
+
+	if(show)
+		//Show the window and focus on the textbox
+		winshow(src, id, TRUE)
+		winset(src, "[id].input", "focus=true")
+
+/// Centers a window on the main game window for this client
+/// Arguments: id - the id of the window to set the position of
+/client/proc/center_window(id, window_width, window_height)
 	//Center the window on the main window
-	//The window size is hardcoded to be 410x133, taken from skin.dmf
 	var/mainwindow_data = params2list(winget(src, "mainwindow", "pos;outer-size;size;inner-size;is-maximized"))
 	var/mainwindow_pos = splittext(mainwindow_data["pos"], ",")
 	var/mainwindow_size = splittext(mainwindow_data["size"], "x")
@@ -106,12 +115,6 @@
 		target_y = text2num(mainwindow_pos[2])+text2num(mainwindow_outersize[2])/2-window_height/2
 
 	winset(src, id, "pos=[target_x],[target_y]")
-	//End centering
-
-	if(show)
-		//Show the window and focus on the textbox
-		winshow(src, id, TRUE)
-		winset(src, "[id].input", "focus=true")
 
 ///Presets for standard windows
 GLOBAL_LIST_INIT(input_window_presets, list(

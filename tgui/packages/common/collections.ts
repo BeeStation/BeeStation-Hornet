@@ -172,7 +172,7 @@ export const sortBy = (...iterateeFns) => array => {
 };
 
 /**
- * 
+ *
  * returns a range of numbers from start to end, exclusively.
  * for example, range(0, 5) will return [0, 1, 2, 3, 4].
  */

@@ -14,13 +14,14 @@
 	var/leader = FALSE
 	var/datum/outfit/outfit = /datum/outfit/ert/security
 	var/datum/outfit/plasmaman_outfit = /datum/outfit/plasmaman/ert
-	var/role = "Security Officer"
+	var/role = JOB_NAME_SECURITYOFFICER
 	var/list/name_source
 	var/random_names = TRUE
 	can_elimination_hijack = ELIMINATION_PREVENT
 	show_in_antagpanel = FALSE
 	show_to_ghosts = TRUE
 	antag_moodlet = /datum/mood_event/focused
+	count_against_dynamic_roll_chance = FALSE
 
 /datum/antagonist/ert/on_gain()
 	if(random_names)
@@ -33,12 +34,11 @@
 /datum/antagonist/ert/get_team()
 	return ert_team
 
-/datum/antagonist/ert/New()
-	. = ..()
-	name_source = GLOB.last_names
-
 /datum/antagonist/ert/proc/update_name()
-	owner.current.fully_replace_character_name(owner.current.real_name,"[role] [pick(name_source)]")
+	var/name = pick(name_source)
+	if (!name)
+		name = owner.current.client?.prefs.active_character.custom_names["human"] || pick(GLOB.last_names)
+	owner.current.fully_replace_character_name(owner.current.real_name,"[role] [name]")
 
 /datum/antagonist/ert/deathsquad/New()
 	. = ..()
@@ -67,7 +67,7 @@
 	outfit = /datum/outfit/ert/engineer/alert
 
 /datum/antagonist/ert/medic
-	role = "Medical Officer"
+	role = JOB_CENTCOM_MEDICAL_DOCTOR
 	outfit = /datum/outfit/ert/medic
 
 /datum/antagonist/ert/medic/red
@@ -101,7 +101,7 @@
 	owner.holy_role = HOLY_ROLE_PRIEST
 
 /datum/antagonist/ert/chaplain
-	role = "Chaplain"
+	role = JOB_NAME_CHAPLAIN
 	outfit = /datum/outfit/ert/chaplain
 
 /datum/antagonist/ert/chaplain/inquisitor
@@ -119,7 +119,7 @@
 	owner.holy_role = HOLY_ROLE_PRIEST
 
 /datum/antagonist/ert/janitor
-	role = "Janitor"
+	role = JOB_NAME_JANITOR
 	outfit = /datum/outfit/ert/janitor
 
 /datum/antagonist/ert/janitor/heavy
@@ -146,6 +146,12 @@
 	name = "CentCom Head Intern"
 	outfit = /datum/outfit/centcom_intern/leader
 	role = "Head Intern"
+
+/datum/antagonist/ert/lawyer
+	name = "CentCom Attorney"
+	outfit = /datum/outfit/centcom_attorney
+	role = "Attorney"
+	plasmaman_outfit = /datum/outfit/plasmaman/centcom_attorney
 
 /datum/antagonist/ert/doomguy
 	name = "The Juggernaut"
@@ -179,8 +185,7 @@
 		return
 	if(isplasmaman(H))
 		H.equipOutfit(plasmaman_outfit)
-		H.internal = H.get_item_for_held_index(2)
-		H.update_internals_hud_icon(1)
+		H.open_internals(H.get_item_for_held_index(2))
 	H.equipOutfit(outfit)
 	//Set the suits frequency
 	var/obj/item/I = H.get_item_by_slot(ITEM_SLOT_OCLOTHING)
@@ -202,10 +207,10 @@
 	else
 		missiondesc += " Follow orders given to you by your squad leader."
 
-		missiondesc += "Avoid civilian casualites when possible."
+		missiondesc += " Avoid civilian casualites when possible."
 
-	missiondesc += "<BR><B>Your Mission</B> : [ert_team.mission.explanation_text]"
-	missiondesc += "<BR><b>Your Shared Tracking Frequency</b> : <i>[ert_team.ert_frequency]</i>"
+	missiondesc += "<BR><B>Your Mission</B>: [ert_team.mission.explanation_text]"
+	missiondesc += "<BR><b>Your Shared Tracking Frequency</b>: <i>[ert_team.ert_frequency]</i>"
 
 	to_chat(owner,missiondesc)
 

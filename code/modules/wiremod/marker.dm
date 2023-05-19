@@ -32,7 +32,7 @@
 
 	say("Marked [target].")
 	marked_atom = target
-	RegisterSignal(marked_atom, COMSIG_PARENT_QDELETING, .proc/cleanup_marked_atom)
+	RegisterSignal(marked_atom, COMSIG_PARENT_QDELETING, PROC_REF(cleanup_marked_atom))
 	return TRUE
 
 /// Clears the current marked atom

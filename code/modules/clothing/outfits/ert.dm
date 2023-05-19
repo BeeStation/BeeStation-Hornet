@@ -99,12 +99,11 @@
 	suit_store = /obj/item/gun/energy/e_gun
 	glasses = /obj/item/clothing/glasses/hud/health
 	back = /obj/item/storage/backpack/ert/medical
-	belt = /obj/item/storage/belt/medical
-	l_hand = /obj/item/storage/firstaid/regular
+	belt = /obj/item/storage/belt/medical/ert
+	l_hand = /obj/item/storage/firstaid/compact
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
-		/obj/item/melee/baton/loaded=1,
 		/obj/item/reagent_containers/hypospray/combat=1,
-		/obj/item/gun/medbeam=1)
+		/obj/item/melee/baton/loaded=1)
 
 /datum/outfit/ert/medic/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -120,11 +119,11 @@
 	name = "ERT Medic - High Alert"
 
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
+	l_hand = /obj/item/storage/firstaid/advanced/compact
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
 		/obj/item/melee/baton/loaded=1,
 		/obj/item/gun/energy/pulse/pistol/loyalpin=1,
-		/obj/item/reagent_containers/hypospray/combat/nanites=1,
-		/obj/item/gun/medbeam=1)
+		/obj/item/reagent_containers/hypospray/combat/nanites=1)
 
 /datum/outfit/ert/engineer
 	name = "ERT Engineer"
@@ -136,10 +135,11 @@
 	back = /obj/item/storage/backpack/ert/engineer
 	belt = /obj/item/storage/belt/utility/full
 	l_pocket = /obj/item/rcd_ammo/large
-	l_hand = /obj/item/storage/firstaid/regular
+	l_hand = /obj/item/storage/firstaid/compact
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
 		/obj/item/melee/baton/loaded=1,
-		/obj/item/construction/rcd/loaded=1)
+		/obj/item/construction/rcd/loaded=1,
+		/obj/item/bluespace_anchor=1)
 
 /datum/outfit/ert/engineer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -158,11 +158,12 @@
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
 		/obj/item/melee/baton/loaded=1,
 		/obj/item/gun/energy/pulse/pistol/loyalpin=1,
-		/obj/item/construction/rcd/combat=1)
+		/obj/item/construction/rcd/combat=1,
+		/obj/item/bluespace_anchor=1)
 
 
 /datum/outfit/centcom_official
-	name = "CentCom Official"
+	name = JOB_CENTCOM_OFFICIAL
 
 	uniform = /obj/item/clothing/under/rank/centcom/officer
 	shoes = /obj/item/clothing/shoes/sneakers/black
@@ -172,24 +173,24 @@
 	belt = /obj/item/gun/energy/e_gun
 	l_pocket = /obj/item/pen
 	back = /obj/item/storage/backpack/satchel
-	r_pocket = /obj/item/pda/heads
+	r_pocket = /obj/item/modular_computer/tablet/pda/heads
 	l_hand = /obj/item/clipboard
-	id = /obj/item/card/id
+	id = /obj/item/card/id/centcom
 
 /datum/outfit/centcom_official/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
 		return
 
-	var/obj/item/pda/heads/pda = H.r_store
-	pda.owner = H.real_name
-	pda.ownjob = "CentCom Official"
-	pda.update_label()
+	var/obj/item/modular_computer/tablet/pda/heads/pda = H.r_store
+	pda.saved_identification = H.real_name
+	pda.saved_job = JOB_CENTCOM_OFFICIAL
 
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
-	W.access = get_centcom_access("CentCom Official")
-	W.access += ACCESS_WEAPONS
-	W.assignment = "CentCom Official"
+	W.access = list() // wipe access - they shouldn't get all centcom access.
+	W.access = get_centcom_access(JOB_CENTCOM_OFFICIAL)
+	W.access |= ACCESS_WEAPONS
+	W.assignment = JOB_CENTCOM_OFFICIAL
 	W.registered_name = H.real_name
 	W.update_label()
 
@@ -322,6 +323,22 @@
 	R.keyslot = new /obj/item/encryptionkey/headset_service
 	R.recalculateChannels()
 
+/datum/outfit/centcom_attorney
+	name = "CentCom Attorney"
+
+	uniform = /obj/item/clothing/under/rank/centcom/intern
+	suit = /obj/item/clothing/suit/toggle/lawyer
+	shoes = /obj/item/clothing/shoes/laceup
+	ears = /obj/item/radio/headset/headset_cent
+	glasses = /obj/item/clothing/glasses/sunglasses/advanced
+	belt = /obj/item/modular_computer/tablet/pda/lawyer
+	back = /obj/item/storage/backpack/satchel
+	l_hand = /obj/item/storage/briefcase/lawyer
+	l_pocket = /obj/item/laser_pointer
+	r_pocket = /obj/item/clothing/accessory/lawyers_badge
+	id = /obj/item/card/id/ert/lawyer
+	backpack_contents = list(/obj/item/storage/box/survival = 1)
+
 /datum/outfit/centcom_intern
 	name = "CentCom Intern"
 
@@ -343,8 +360,9 @@
 		return
 
 	var/obj/item/card/id/W = H.wear_id
+	W.access = list() //wipe access - they shouldn't get all centcom access.
 	W.access = get_centcom_access(name)
-	W.access += ACCESS_WEAPONS
+	W.access |= ACCESS_WEAPONS
 	W.assignment = name
 	W.registered_name = H.real_name
 	W.update_label()
@@ -360,7 +378,7 @@
 /datum/outfit/centcom_clown
 	name = "Code Banana ERT"
 	id = /obj/item/card/id/centcom
-	belt = /obj/item/pda/clown
+	belt = /obj/item/modular_computer/tablet/pda/clown
 	ears = /obj/item/radio/headset/headset_cent
 	uniform = /obj/item/clothing/under/rank/civilian/clown
 	back = /obj/item/storage/backpack/clown
@@ -393,7 +411,7 @@
 
 	var/obj/item/card/id/W = H.wear_id
 	W.registered_name = H.real_name
-	W.access += ACCESS_THEATRE
+	W.access |= ACCESS_THEATRE
 	W.update_label(W.registered_name, W.assignment)
 	H.dna.add_mutation(CLOWNMUT)
 
@@ -416,7 +434,7 @@
 		)
 
 /datum/outfit/death_commando
-	name = "Death Commando"
+	name = JOB_ERT_DEATHSQUAD
 
 	uniform = /obj/item/clothing/under/rank/centcom/commander
 	suit = /obj/item/clothing/suit/space/hardsuit/deathsquad
@@ -430,12 +448,12 @@
 	suit_store = /obj/item/tank/internals/emergency_oxygen/double
 	belt = /obj/item/gun/ballistic/revolver/mateba
 	l_hand = /obj/item/gun/energy/pulse/loyalpin
-	id = /obj/item/card/id
+	id = /obj/item/card/id/centcom
 	ears = /obj/item/radio/headset/headset_cent/alt
 
 	backpack_contents = list(/obj/item/storage/box=1,\
 		/obj/item/ammo_box/a357=1,\
-		/obj/item/storage/firstaid/regular=1,\
+		/obj/item/storage/firstaid/compact=1,\
 		/obj/item/storage/box/flashbangs=1,\
 		/obj/item/flashlight=1,\
 		/obj/item/grenade/plastic/x4=1)
@@ -454,9 +472,10 @@
 
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
-	W.access = get_all_accesses()//They get full station access.
-	W.access += get_centcom_access("Death Commando")//Let's add their alloted CentCom access.
-	W.assignment = "Death Commando"
+	W.access = list() //wipe access first
+	W.access = get_all_accesses()  //They get full station access.
+	W.access |= get_centcom_access(JOB_ERT_DEATHSQUAD) //Let's add their alloted CentCom access.
+	W.assignment = JOB_ERT_DEATHSQUAD
 	W.registered_name = H.real_name
 	W.update_label(W.registered_name, W.assignment)
 
@@ -465,7 +484,7 @@
 	head = /obj/item/clothing/head/helmet/space/beret
 	backpack_contents = list(/obj/item/aiModule/core/full/deathsquad=1,\
 		/obj/item/ammo_box/a357=1,\
-		/obj/item/storage/firstaid/regular=1,\
+		/obj/item/storage/firstaid/compact=1,\
 		/obj/item/storage/box/flashbangs=1,\
 		/obj/item/flashlight=1,\
 		/obj/item/grenade/plastic/x4=1,
@@ -487,6 +506,6 @@
 		/obj/item/reagent_containers/hypospray/combat,\
 		/obj/item/radio=1,\
 		/obj/item/chainsaw/energy/doom=1,\
-		/obj/item/gun/ballistic/automatic/sniper_rifle=1,\
+		/obj/item/gun/ballistic/sniper_rifle=1,\
 		/obj/item/gun/grenadelauncher/security=1,\
 		/obj/item/gun/ballistic/automatic/ar=1)

@@ -51,6 +51,10 @@
 	var/setting = 1
 	light_power = 1.75
 
+/obj/machinery/power/floodlight/Initialize(mapload)
+	. = ..()
+	connect_to_network()
+	
 /obj/machinery/power/floodlight/process()
 	if(avail(active_power_usage))
 		add_load(active_power_usage)
@@ -106,12 +110,14 @@
 	..()
 
 /obj/machinery/power/floodlight/obj_break(damage_flag)
-	if(!(flags_1 & NODECONSTRUCT_1))
-		playsound(loc, 'sound/effects/glassbr3.ogg', 100, 1)
-		var/obj/structure/floodlight_frame/F = new(loc)
-		F.state = FLOODLIGHT_NEEDS_LIGHTS
-		new /obj/item/light/tube/broken(loc)
-		qdel(src)
+	. = ..()
+	if(!.)
+		return
+	playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
+	var/obj/structure/floodlight_frame/F = new(loc)
+	F.state = FLOODLIGHT_NEEDS_LIGHTS
+	new /obj/item/light/tube/broken(loc)
+	qdel(src)
 
 /obj/machinery/power/floodlight/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	playsound(src, 'sound/effects/glasshit.ogg', 75, 1)

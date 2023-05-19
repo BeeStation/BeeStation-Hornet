@@ -152,7 +152,7 @@
 		if(M.mind?.special_role)
 			continue
 		candidates += M.mind
-	var/datum/mind/value = input("Select new member:", "New team member", null) as null|anything in sortNames(candidates)
+	var/datum/mind/value = input("Select new member:", "New team member", null) as null|anything in sort_names(candidates)
 	if (!value)
 		return
 
@@ -205,12 +205,12 @@
 
 /datum/team/custom/get_admin_commands()
 	. = ..()
-	.["Force HUD"] = CALLBACK(src,.proc/admin_force_hud)
+	.["Force HUD"] = CALLBACK(src,PROC_REF(admin_force_hud))
 
 //This is here if you want admin created teams to tell each other apart easily.
 /datum/team/custom/proc/admin_force_hud(mob/user)
 	var/list/possible_icons = icon_states('icons/mob/hud.dmi')
-	var/new_hud_state = input(user,"Choose hud icon state","Custom HUD","traitor") as null|anything in sortList(possible_icons)
+	var/new_hud_state = input(user,"Choose hud icon state","Custom HUD","traitor") as null|anything in sort_list(possible_icons)
 	if(!new_hud_state)
 		return
 	//suppose could ask for color too

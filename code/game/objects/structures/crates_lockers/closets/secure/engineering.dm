@@ -5,40 +5,61 @@
 
 /obj/structure/closet/secure_closet/engineering_chief/PopulateContents()
 	..()
-	new /obj/item/gun/energy/e_gun/mini/heads(src)
-	new /obj/item/clothing/head/beret/ce(src)
+	new /obj/item/storage/box/suitbox/ce(src)
+	new /obj/item/clothing/suit/hazardvest(src)
+	new /obj/item/clothing/gloves/color/yellow(src)
+	new /obj/item/clothing/mask/gas(src)
+	new /obj/item/tank/jetpack/suit(src)
+	new /obj/item/radio/headset/heads/chief_engineer(src)
+
+	new /obj/item/clothing/neck/petcollar(src)
+	new /obj/item/pet_carrier(src)
+	new /obj/item/storage/photo_album/CE(src)
+
+	new /obj/item/storage/box/radiokey/eng(src)
+	new /obj/item/storage/box/command_keys(src)
+	new /obj/item/megaphone/command(src)
+	new /obj/item/computer_hardware/hard_drive/role/ce(src)
+	new /obj/item/storage/bag/construction(src)
+
+	new /obj/item/circuitboard/machine/techfab/department/engineering(src)
+
+	// prioritized items
+	new /obj/item/card/id/departmental_budget/eng(src)
+	new /obj/item/areaeditor/blueprints(src)
+	new /obj/item/storage/toolbox/mechanical(src)
 	new /obj/item/clothing/neck/cloak/ce(src)
+	new /obj/item/door_remote/chief_engineer(src)
+	new /obj/item/assembly/flash/handheld(src)
+	new /obj/item/storage/box/suitbox/ce_tools(src)
+	new /obj/item/clothing/glasses/meson/engine(src)
+	new /obj/item/gun/energy/e_gun/mini/heads(src)
+
+/obj/item/storage/box/suitbox/ce_tools
+	name = "compression box of chief engineer tools"
+
+/obj/item/storage/box/suitbox/ce_tools/PopulateContents()
+	new /obj/item/pipe_dispenser(src)
+	new /obj/item/multitool(src)
+	new /obj/item/inducer(src)
+	new /obj/item/airlock_painter(src)
+	new /obj/item/extinguisher/advanced(src)
+	new /obj/item/construction/rcd/loaded(src)
+	new /obj/item/rcd_ammo/large(src)
+	new /obj/item/holosign_creator/engineering(src)
+	new /obj/item/holosign_creator/atmos(src)
+
+/obj/item/storage/box/suitbox/ce
+	name = "compression box of chief engineer outfits"
+
+/obj/item/storage/box/suitbox/ce/PopulateContents()
 	new /obj/item/clothing/under/rank/engineering/chief_engineer(src)
+	new /obj/item/clothing/under/rank/engineering/chief_engineer/skirt(src)
+	new /obj/item/clothing/head/beret/ce(src)
 	new /obj/item/clothing/head/hardhat/white(src)
 	new /obj/item/clothing/head/hardhat/weldhat/white(src)
 	new /obj/item/clothing/head/welding(src)
-	new /obj/item/clothing/gloves/color/yellow(src)
 	new /obj/item/clothing/shoes/sneakers/brown(src)
-	new /obj/item/tank/jetpack/suit(src)
-	new /obj/item/cartridge/ce(src)
-	new /obj/item/radio/headset/heads/ce(src)
-	new /obj/item/storage/toolbox/mechanical(src)
-	new /obj/item/clothing/suit/hazardvest(src)
-	new /obj/item/megaphone/command(src)
-	new /obj/item/areaeditor/blueprints(src)
-	new /obj/item/airlock_painter(src)
-	new /obj/item/holosign_creator/engineering(src)
-	new /obj/item/holosign_creator/atmos(src)
-	new /obj/item/clothing/mask/gas(src)
-	new /obj/item/multitool(src)
-	new /obj/item/assembly/flash/handheld(src)
-	new /obj/item/clothing/glasses/meson/engine(src)
-	new /obj/item/door_remote/chief_engineer(src)
-	new /obj/item/pipe_dispenser(src)
-	new /obj/item/inducer(src)
-	new /obj/item/circuitboard/machine/techfab/department/engineering(src)
-	new /obj/item/extinguisher/advanced(src)
-	new /obj/item/storage/photo_album/CE(src)
-	new /obj/item/card/id/departmental_budget/eng(src)
-	new /obj/item/storage/bag/construction(src)
-	new /obj/item/construction/rcd/loaded(src)
-	new /obj/item/storage/box/command_keys(src)
-	new /obj/item/rcd_ammo/large(src)
 
 /obj/structure/closet/secure_closet/engineering_electrical
 	name = "electrical supplies locker"

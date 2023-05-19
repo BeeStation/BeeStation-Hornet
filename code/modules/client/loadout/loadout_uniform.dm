@@ -5,7 +5,6 @@
 	sort_category = "Uniforms and Casual Dress"
 	species_blacklist = list("plasmaman") //Envirosuit moment
 	cost = 1000
-
 //STANDARD UNIFORM COLORS
 
 /datum/gear/uniform/color
@@ -14,54 +13,80 @@
 /datum/gear/uniform/color/black
 	display_name = "black jumpsuit"
 	path = /obj/item/clothing/under/color/black
+	skirt_display_name = "black jumpskirt"
+	skirt_path = /obj/item/clothing/under/color/jumpskirt/black
 
 /datum/gear/uniform/color/grey
 	display_name = "grey jumpsuit"
 	path = /obj/item/clothing/under/color/grey
+	skirt_display_name = "grey jumpskirt"
+	skirt_path = /obj/item/clothing/under/color/jumpskirt/grey
 
 /datum/gear/uniform/color/blue
 	display_name = "blue jumpsuit"
 	path = /obj/item/clothing/under/color/blue
+	skirt_display_name = "blue jumpskirt"
+	skirt_path = /obj/item/clothing/under/color/jumpskirt/blue
 
 /datum/gear/uniform/color/orange
 	display_name = "orange jumpsuit"
 	path = /obj/item/clothing/under/color/orange
+	skirt_display_name = "orange jumpskirt"
+	skirt_path = /obj/item/clothing/under/color/jumpskirt/orange
 
 /datum/gear/uniform/color/pink
 	display_name = "pink jumpsuit"
 	path = /obj/item/clothing/under/color/pink
+	skirt_display_name = "pink jumpskirt"
+	skirt_path = /obj/item/clothing/under/color/jumpskirt/pink
 
 /datum/gear/uniform/color/red
 	display_name = "red jumpsuit"
 	path = /obj/item/clothing/under/color/red
+	skirt_display_name = "red jumpskirt"
+	skirt_path = /obj/item/clothing/under/color/jumpskirt/red
 
 /datum/gear/uniform/color/white
 	display_name = "white jumpsuit"
 	path = /obj/item/clothing/under/color/white
+	skirt_display_name = "white jumpskirt"
+	skirt_path = /obj/item/clothing/under/color/jumpskirt/white
 
 /datum/gear/uniform/color/yellow
 	display_name = "yellow jumpsuit"
 	path = /obj/item/clothing/under/color/yellow
+	skirt_display_name = "yellow jumpskirt"
+	skirt_path = /obj/item/clothing/under/color/jumpskirt/yellow
 
 /datum/gear/uniform/color/darkblue
 	display_name = "dark blue jumpsuit"
 	path = /obj/item/clothing/under/color/darkblue
+	skirt_display_name = "dark blue jumpskirt"
+	skirt_path = /obj/item/clothing/under/color/jumpskirt/darkblue
 
 /datum/gear/uniform/color/teal
 	display_name = "teal jumpsuit"
 	path = /obj/item/clothing/under/color/teal
+	skirt_display_name = "teal jumpskirt"
+	skirt_path = /obj/item/clothing/under/color/jumpskirt/teal
 
 /datum/gear/uniform/color/lightpurple
 	display_name = "purple jumpsuit"
 	path = /obj/item/clothing/under/color/lightpurple
+	skirt_display_name = "purple jumpskirt"
+	skirt_path = /obj/item/clothing/under/color/jumpskirt/lightpurple
 
 /datum/gear/uniform/color/darkgreen
 	display_name = "dark green jumpsuit"
 	path = /obj/item/clothing/under/color/darkgreen
+	skirt_display_name = "dark green jumpskirt"
+	skirt_path = /obj/item/clothing/under/color/jumpskirt/darkgreen
 
 /datum/gear/uniform/color/lightbrown
 	display_name = "light brown jumpsuit"
 	path = /obj/item/clothing/under/color/lightbrown
+	skirt_display_name = "light brown jumpskirt"
+	skirt_path = /obj/item/clothing/under/color/jumpskirt/lightbrown
 
 /datum/gear/uniform/color/khaki
 	display_name = "khaki jumpsuit"
@@ -70,10 +95,14 @@
 /datum/gear/uniform/color/brown
 	display_name = "brown jumpsuit"
 	path = /obj/item/clothing/under/color/brown
+	skirt_display_name = "brown jumpskirt"
+	skirt_path = /obj/item/clothing/under/color/jumpskirt/brown
 
 /datum/gear/uniform/color/maroon
 	display_name = "maroon jumpsuit"
 	path = /obj/item/clothing/under/color/maroon
+	skirt_display_name = "maroon jumpskirt"
+	skirt_path = /obj/item/clothing/under/color/jumpskirt/maroon
 
 //PANTS
 
@@ -266,7 +295,7 @@
 
 /datum/gear/uniform/rank/assistant
 	subtype_path = /datum/gear/uniform/rank/assistant
-	allowed_roles = list("Assistant")
+	allowed_roles = list(JOB_NAME_ASSISTANT)
 
 /datum/gear/uniform/rank/assistant/formal
 	display_name = "assistant's formal uniform"
@@ -281,7 +310,7 @@
 
 /datum/gear/uniform/rank/cook
 	subtype_path = /datum/gear/uniform/rank/cook
-	allowed_roles = list("Cook")
+	allowed_roles = list(JOB_NAME_COOK)
 
 /datum/gear/uniform/rank/cook/red
 	display_name = "cook's suit, red"
@@ -291,7 +320,7 @@
 
 /datum/gear/uniform/rank/cargo
 	subtype_path = /datum/gear/uniform/rank/cargo
-	allowed_roles = list("Quartermaster", "Cargo Technician", "Shaft Miner")
+	allowed_roles = list(JOB_NAME_QUARTERMASTER, JOB_NAME_CARGOTECHNICIAN, JOB_NAME_SHAFTMINER)
 
 /datum/gear/uniform/rank/cargo/overalls
 	display_name = "laborer's overalls, light blue"
@@ -301,21 +330,21 @@
 	display_name = "miner's overalls, asteroid purple"
 	description = "Purple jumpsuit, dirty overalls. Standard Nanotrasen Shaft Miner attire, from when Lavaland had yet to be discovered and exploited for plasma."
 	path = /obj/item/clothing/under/rank/cargo/miner
-	allowed_roles = list ("Shaft Miner")
+	allowed_roles = list (JOB_NAME_SHAFTMINER)
 
 //MEDICAL ALT UNIS
 
 /datum/gear/uniform/rank/medical
 	subtype_path = /datum/gear/uniform/rank/medical
-	allowed_roles = list("Paramedic", "Medical Doctor", "Chief Medical Officer")
+	allowed_roles = list(JOB_NAME_PARAMEDIC, JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER)
 
 /datum/gear/uniform/rank/medical/nurse_dress
 	display_name = "medical, nurse's dress"
 	path = /obj/item/clothing/under/rank/medical/doctor/nurse
 
-/datum/gear/uniform/rank/medical/emt
+/datum/gear/uniform/rank/medical/paramedic
 	display_name = "medical scrubs, EMT"
-	path = /obj/item/clothing/under/rank/medical/emt
+	path = /obj/item/clothing/under/rank/medical/paramedic
 
 /datum/gear/uniform/rank/medical/scrubs_blue
 	display_name = "medical scrubs, baby blue"
@@ -333,7 +362,7 @@
 
 /datum/gear/uniform/rank/engineering
 	subtype_path = /datum/gear/uniform/rank/engineering
-	allowed_roles = list("Chief Engineer", "Station Engineer", "Atmospheric Technician")
+	allowed_roles = list(JOB_NAME_CHIEFENGINEER, JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
 
 /datum/gear/uniform/rank/engineering/hazard
 	display_name = "engineering jumpsuit, hazard"
@@ -343,7 +372,7 @@
 
 /datum/gear/uniform/rank/security
 	subtype_path = /datum/gear/uniform/rank/security
-	allowed_roles = list("Security Officer")
+	allowed_roles = list(JOB_NAME_SECURITYOFFICER)
 
 /datum/gear/uniform/rank/security/white
 	display_name = "security jumpsuit, white"

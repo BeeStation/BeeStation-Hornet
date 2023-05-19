@@ -1,0 +1,47 @@
+@use 'sass:color';
+@use 'sass:meta';
+
+$ntos-color: #384e68 !default;
+$ntos-color-alt: $ntos-color !default;
+$ntos-fg: #ffffff !default;
+$ntos-primary: #4972a1 !default;
+$color-bg-grad-spread: 2% !default;
+
+@use '../colors.scss' with (
+  $fg-map-keys: (),
+  $bg-map-keys: (),
+  $primary: $ntos-primary
+);
+@use '../base.scss' with (
+  $color-bg: color.scale($ntos-color, $lightness: -45%),
+  $color-fg: $ntos-fg,
+  $color-bg-grad-spread: $color-bg-grad-spread
+);
+
+@mixin theme-ntos {
+  // Components
+  @include meta.load-css(
+    '../components/Button.scss',
+    $with: (
+      'color-default':
+        color.scale($ntos-color-alt, $lightness: 5%, $saturation: 8%),
+      'color-transparent-text': rgba(227, 240, 255, 0.75)
+    )
+  );
+  @include meta.load-css(
+    '../components/ProgressBar.scss',
+    $with: (
+      'color-default-fill': $ntos-color-alt,
+      'background-color': rgba(0, 0, 0, 0.5)
+    )
+  );
+  @include meta.load-css('../components/Section.scss');
+
+  // Layouts
+  @include meta.load-css('../layouts/Layout.scss');
+  @include meta.load-css('../layouts/Window.scss');
+  @include meta.load-css(
+    '../layouts/TitleBar.scss',
+    $with: ('background-color': color.scale($ntos-color-alt, $lightness: -25%))
+  );
+}

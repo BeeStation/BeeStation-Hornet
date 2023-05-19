@@ -3,6 +3,7 @@
 	var/last_move_diagonal = FALSE
 	var/vehicle_move_delay = 2 //tick delay between movements, lower = faster, higher = slower
 	var/keytype
+	var/vehicle_move_multiplier = 1
 
 	var/slowed = FALSE
 	var/slowvalue = 1
@@ -22,11 +23,13 @@
 	var/del_on_unbuckle_all = FALSE
 
 /datum/component/riding/Initialize()
-	if(!ismovableatom(parent))
+	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE
-	RegisterSignal(parent, COMSIG_MOVABLE_BUCKLE, .proc/vehicle_mob_buckle)
-	RegisterSignal(parent, COMSIG_MOVABLE_UNBUCKLE, .proc/vehicle_mob_unbuckle)
-	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/vehicle_moved)
+	RegisterSignal(parent, COMSIG_MOVABLE_BUCKLE, PROC_REF(vehicle_mob_buckle))
+	RegisterSignal(parent, COMSIG_MOVABLE_UNBUCKLE, PROC_REF(vehicle_mob_unbuckle))
+	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(vehicle_moved))
+	//Calculate the move multiplier speed, to be proportional to mob speed
+	vehicle_move_multiplier = CONFIG_GET(number/movedelay/run_delay) / 1.5
 
 /datum/component/riding/proc/vehicle_mob_unbuckle(datum/source, mob/living/M, force = FALSE)
 	SIGNAL_HANDLER
@@ -160,7 +163,7 @@
 		Unbuckle(user)
 		return
 
-	if(world.time < last_vehicle_move + ((last_move_diagonal? 2 : 1) * vehicle_move_delay))
+	if(world.time < last_vehicle_move + ((last_move_diagonal? SQRT_TWO : 1) * vehicle_move_delay * vehicle_move_multiplier))
 		return
 	last_vehicle_move = world.time
 
@@ -174,7 +177,13 @@
 			return
 		if(!Process_Spacemove(direction) || !isturf(AM.loc))
 			return
-		step(AM, direction)
+		if(!(direction & UP) && !(direction & DOWN))
+			step(AM, direction)
+		else if(ismob(AM))
+			var/mob/M = AM
+			var/old_dir = M.dir
+			M.zMove((direction & UP) ? UP : DOWN, feedback = TRUE, feedback_to = user)
+			M.setDir(old_dir)
 
 		if((direction & (direction - 1)) && (AM.loc == next))		//moved diagonally
 			last_move_diagonal = TRUE
@@ -187,7 +196,7 @@
 		to_chat(user, "<span class='notice'>You'll need the keys in one of your hands to [drive_verb] [AM].</span>")
 
 /datum/component/riding/proc/Unbuckle(atom/movable/M)
-	addtimer(CALLBACK(parent, /atom/movable/.proc/unbuckle_mob, M), 0, TIMER_UNIQUE)
+	addtimer(CALLBACK(parent, TYPE_PROC_REF(/atom/movable, unbuckle_mob), M), 0, TIMER_UNIQUE)
 
 /datum/component/riding/proc/Process_Spacemove(direction)
 	var/atom/movable/AM = parent
@@ -207,7 +216,7 @@
 
 /datum/component/riding/human/Initialize()
 	. = ..()
-	RegisterSignal(parent, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, .proc/on_host_unarmed_melee)
+	RegisterSignal(parent, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, PROC_REF(on_host_unarmed_melee))
 
 /datum/component/riding/human/vehicle_mob_unbuckle(datum/source, mob/living/M, force = FALSE)
 	var/mob/living/carbon/human/H = parent
@@ -376,3 +385,28 @@
 		if(rider in AM.buckled_mobs)
 			AM.unbuckle_mob(rider)
 	. = ..()
+
+//tamed riding
+/datum/component/riding/tamed/Initialize()
+	. = ..()
+	if(istype(parent, /mob/living/simple_animal))
+		var/mob/living/simple_animal/S = parent
+		override_allow_spacemove = S.spacewalk
+		RegisterSignal(parent, COMSIG_MOB_DEATH, PROC_REF(handle_mortality))
+
+/datum/component/riding/tamed/proc/handle_mortality()
+	qdel(src)
+
+/datum/component/riding/tamed/vehicle_mob_buckle(datum/source, mob/living/M, force = FALSE)
+	if(istype(parent, /mob/living/simple_animal))
+		var/mob/living/simple_animal/S = parent
+		M.spacewalk = S.spacewalk
+		S.toggle_ai(AI_OFF)
+	..()
+
+/datum/component/riding/tamed/vehicle_mob_unbuckle(datum/source, mob/living/M, force = FALSE)
+	M.spacewalk = FALSE
+	if(istype(parent, /mob/living/simple_animal))
+		var/mob/living/simple_animal/S = parent
+		S.toggle_ai(AI_ON)
+	..()

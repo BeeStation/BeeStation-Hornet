@@ -60,7 +60,7 @@
 	if(target != user)
 		target.visible_message("<span class='danger'>[user] is trying to inject [target] with [src]!</span>", \
 			"<span class='userdanger'>[user] is trying to inject you with [src]!</span>")
-		if(!do_mob(user, target) || used)
+		if(!do_after(user, target = target) || used)
 			return
 		target.visible_message("<span class='danger'>[user] injects [target] with the syringe with [src]!", \
 						"<span class='userdanger'>[user] injects you with the syringe with [src]!</span>")
@@ -471,6 +471,14 @@
 /obj/item/dnainjector/antiacidooze
 	name = "\improper DNA injector (Pepto-Bismol)"
 	remove_mutations = list(ACIDOOZE)
+
+/obj/item/dnainjector/medievalmut
+	name = "\improper DNA injector (Medieval)"
+	add_mutations = list(MEDIEVAL)
+
+/obj/item/dnainjector/antimedieval
+	name = "\improper DNA injector (Anti-Medieval)"
+	remove_mutations = list(MEDIEVAL)
 
 /obj/item/dnainjector/timed
 	var/duration = 600

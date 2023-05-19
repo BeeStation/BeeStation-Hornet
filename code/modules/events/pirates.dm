@@ -1,10 +1,17 @@
+GLOBAL_VAR_INIT(pirates_spawned, FALSE)
+
+// Pirates threat
+/// No way
+#define PIRATE_RESPONSE_NO_PAY "pirate_answer_no_pay"
+/// We'll pay
+#define PIRATE_RESPONSE_PAY "pirate_answer_pay"
+
 /datum/round_event_control/pirates
 	name = "Space Pirates"
 	typepath = /datum/round_event/pirates
-	weight = 8
+	weight = 10
 	max_occurrences = 1
-	min_players = 10
-	earliest_start = 30 MINUTES
+	min_players = 20
 	dynamic_should_hijack = TRUE
 	gamemode_blacklist = list("nuclear")
 	cannot_spawn_after_shuttlecall = TRUE
@@ -12,61 +19,59 @@
 /datum/round_event_control/pirates/preRunEvent()
 	if (!SSmapping.empty_space)
 		return EVENT_CANT_RUN
-
 	return ..()
 
-/datum/round_event/pirates
-	startWhen = 60 //2 minutes to answer
-	var/datum/comm_message/threat
-	var/payoff = 0
-	var/payoff_min = 20000
-	var/paid_off = FALSE
+/datum/round_event/pirates/start()
+	if(!GLOB.pirates_spawned)
+		send_pirate_threat()
+
+/proc/send_pirate_threat()
+	GLOB.pirates_spawned = TRUE
 	var/ship_name = "Space Privateers Association"
-	var/shuttle_spawned = FALSE
-
-/datum/round_event/pirates/setup()
-	ship_name = pick(strings(PIRATE_NAMES_FILE, "ship_names"))
-
-/datum/round_event/pirates/announce(fake)
+	var/payoff_min = 20000
+	var/payoff = 0
+	var/initial_send_time = world.time
+	var/response_max_time = rand(4,7) MINUTES
 	priority_announce("Incoming subspace communication. Secure channel opened at all communication consoles.", "Incoming Message", SSstation.announcer.get_rand_report_sound())
-	if(fake)
-		return
-	threat = new
-	var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
+	var/datum/comm_message/threat = new
+	var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 	if(D)
 		payoff = max(payoff_min, FLOOR(D.account_balance * 0.80, 1000))
+	ship_name = pick(strings(PIRATE_NAMES_FILE, "ship_names"))
 	threat.title = "Business proposition"
-	threat.content = "This is [ship_name]. Pay up [payoff] credits or you'll walk the plank."
-	threat.possible_answers = list("We'll pay.","No way.")
-	threat.answer_callback = CALLBACK(src,.proc/answered)
+	threat.content = "Avast, ye scurvy dogs! Our fine ship <i>[ship_name]</i> has come for yer booty. Immediately transfer [payoff] space doubloons from yer Cargo budget or ye'll be walkin' the plank. Don't try and cheat us, make sure it's all tharr!"
+	threat.possible_answers = list(
+		PIRATE_RESPONSE_PAY = "We'll pay.",
+		PIRATE_RESPONSE_NO_PAY = "No way.",
+	)
+	threat.answer_callback = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(pirates_answered), threat, payoff, ship_name, initial_send_time, response_max_time)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(spawn_pirates), threat, FALSE), response_max_time)
 	SScommunications.send_message(threat,unique = TRUE)
 
-/datum/round_event/pirates/proc/answered()
-	if(threat && threat.answered == 1)
-		var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
-		if(D)
-			if(D.adjust_money(-payoff))
-				priority_announce("Thanks for the credits, landlubbers.", sound = SSstation.announcer.get_rand_alert_sound(), sender_override = ship_name)
-				paid_off = TRUE
-				return
-			else
-				priority_announce("Trying to cheat us? You'll regret this!", sound = SSstation.announcer.get_rand_alert_sound(), sender_override = ship_name)
-	if(!shuttle_spawned)
-		spawn_shuttle()
-	else
-		priority_announce("Too late to beg for mercy!", sound = SSstation.announcer.get_rand_alert_sound(), sender_override = ship_name)
+/proc/pirates_answered(datum/comm_message/threat, payoff, ship_name, initial_send_time, response_max_time)
+	if(world.time > initial_send_time + response_max_time)
+		priority_announce("Too late to beg for mercy!",sender_override = ship_name)
+		return
+	// Attempted to pay off
+	if(threat?.answered == PIRATE_RESPONSE_PAY)
+		var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
+		if(!D)
+			return
+		// Check if they can afford it
+		if(D.adjust_money(-payoff))
+			priority_announce("Thanks for the credits, landlubbers.", sound = SSstation.announcer.get_rand_alert_sound(), sender_override = ship_name)
+		else
+			priority_announce("Trying to cheat us? You'll regret this!", sound = SSstation.announcer.get_rand_alert_sound(), sender_override = ship_name)
+			spawn_pirates(threat, TRUE) // insta-spawn!
 
-/datum/round_event/pirates/start()
-	if(threat && !threat.answered)
-		threat.possible_answers = list("Too late")
-		threat.answered = 1
-	if(!paid_off && !shuttle_spawned)
-		spawn_shuttle()
+/proc/spawn_pirates(datum/comm_message/threat, skip_answer_check)
+	// If they paid it off in the meantime, don't spawn pirates
+	// If they couldn't afford to pay, don't spawn another - it already spawned (see above)
+	// If they selected "No way.", this spawns on the timeout, so we don't want to return for the answer check
+	if(!skip_answer_check && threat?.answered == PIRATE_RESPONSE_PAY)
+		return
 
-/datum/round_event/pirates/proc/spawn_shuttle()
-	shuttle_spawned = TRUE
-
-	var/list/candidates = pollGhostCandidates("Do you wish to be considered for pirate crew?", ROLE_TRAITOR)
+	var/list/candidates = pollGhostCandidates("Do you wish to be considered for pirate crew?", ROLE_SPACE_PIRATE)
 	shuffle_inplace(candidates)
 
 	var/datum/map_template/shuttle/pirate/default/ship = new
@@ -77,20 +82,21 @@
 	if(!T)
 		CRASH("Pirate event found no turf to load in")
 
-	if(!ship.load(T))
-		CRASH("Loading pirate ship failed!")
+	var/datum/map_generator/template_placer = ship.load(T)
+	template_placer.on_completion(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(after_pirate_spawn), ship, candidates))
 
+	priority_announce("Unidentified armed ship detected near the station.", sound = SSstation.announcer.get_rand_alert_sound())
+
+/proc/after_pirate_spawn(datum/map_template/shuttle/pirate/default/ship, list/candidates, datum/map_generator/map_generator, turf/T)
 	for(var/turf/A in ship.get_affected_turfs(T))
 		for(var/obj/effect/mob_spawn/human/pirate/spawner in A)
 			if(candidates.len > 0)
 				var/mob/M = candidates[1]
 				spawner.create(M.ckey)
 				candidates -= M
-				announce_to_ghosts(M)
+				notify_ghosts("The pirate ship has an object of interest: [M]!", source=M, action=NOTIFY_ORBIT, header="Something's Interesting!")
 			else
-				announce_to_ghosts(spawner)
-
-	priority_announce("Unidentified armed ship detected near the station.", sound = SSstation.announcer.get_rand_alert_sound())
+				notify_ghosts("The pirate ship has an object of interest: [spawner]!", source=spawner, action=NOTIFY_ORBIT, header="Something's Interesting!")
 
 //Shuttle equipment
 
@@ -111,7 +117,7 @@
 /obj/machinery/shuttle_scrambler/process()
 	if(active)
 		if(is_station_level(z))
-			var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
+			var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 			if(D)
 				var/siphoned = min(D.account_balance,siphon_per_tick)
 				D.adjust_money(-siphoned)
@@ -132,7 +138,7 @@
 
 /obj/machinery/shuttle_scrambler/interact(mob/user)
 	if(!active)
-		if(alert(user, "Turning the scrambler on will make the shuttle trackable by GPS. Are you sure you want to do it?", "Scrambler", "Yes", "Cancel") == "Cancel")
+		if(alert(user, "Turning the scrambler on will make the shuttle trackable by GPS. Are you sure you want to do it?", "Scrambler", "Yes", "Cancel") != "Yes")
 			return
 		if(active || !user.canUseTopic(src, BE_CLOSE))
 			return
@@ -145,7 +151,7 @@
 //interrupt_research
 /obj/machinery/shuttle_scrambler/proc/interrupt_research()
 	for(var/obj/machinery/rnd/server/S in GLOB.machines)
-		if(S.stat & (NOPOWER|BROKEN))
+		if(S.machine_stat & (NOPOWER|BROKEN))
 			continue
 		S.emp_act(1)
 		new /obj/effect/temp_visual/emp(get_turf(S))
@@ -287,7 +293,7 @@
 	pad = newpad
 
 	if(pad)
-		RegisterSignal(pad, COMSIG_PARENT_QDELETING, .proc/handle_pad_deletion)
+		RegisterSignal(pad, COMSIG_PARENT_QDELETING, PROC_REF(handle_pad_deletion))
 
 /obj/machinery/computer/piratepad_control/proc/handle_pad_deletion()
 	pad = null
@@ -396,7 +402,7 @@
 	status_report = "Sending..."
 	pad.visible_message("<span class='notice'>[pad] starts charging up.</span>")
 	pad.icon_state = pad.warmup_state
-	sending_timer = addtimer(CALLBACK(src,.proc/send),warmup_time, TIMER_STOPPABLE)
+	sending_timer = addtimer(CALLBACK(src,PROC_REF(send)),warmup_time, TIMER_STOPPABLE)
 
 /obj/machinery/computer/piratepad_control/proc/stop_sending()
 	if(!sending)
@@ -466,3 +472,6 @@
 /datum/export/pirate/holochip/get_cost(atom/movable/AM)
 	var/obj/item/holochip/H = AM
 	return H.credits
+
+#undef PIRATE_RESPONSE_NO_PAY
+#undef PIRATE_RESPONSE_PAY

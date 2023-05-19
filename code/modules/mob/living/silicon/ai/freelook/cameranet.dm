@@ -168,5 +168,4 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 	mouse_opacity = MOUSE_OPACITY_ICON
 	invisibility = INVISIBILITY_ABSTRACT
 
-	layer = CAMERA_STATIC_LAYER
 	plane = CAMERA_STATIC_PLANE

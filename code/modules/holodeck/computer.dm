@@ -189,7 +189,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 	if (program == map_id)
 		return
 
-	if (!is_operational())//load_program is called once with a timer (in toggle_power) we dont want this to load anything if its off
+	if (!is_operational)//load_program is called once with a timer (in toggle_power) we dont want this to load anything if its off
 		map_id = offline_program
 		force = TRUE
 
@@ -213,6 +213,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 	//clear the items from the previous program
 	for(var/holo_atom in spawned)
 		derez(holo_atom)
+	spawned.Cut()
 
 	for(var/obj/effect/holodeck_effect/holo_effect as anything in effects)
 		effects -= holo_effect
@@ -227,8 +228,11 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 				holo_turf.baseturfs += /turf/open/floor/holofloor/plating
 
 	template = SSmapping.holodeck_templates[map_id]
-	template.load(bottom_left) //this is what actually loads the holodeck simulation into the map
+	var/datum/map_generator/template_placer = template.load(bottom_left) //this is what actually loads the holodeck simulation into the map
+	template_placer.on_completion(CALLBACK(src, PROC_REF(finish_spawn), template))
 
+///finalizes objects in the spawned list
+/obj/machinery/computer/holodeck/proc/finish_spawn()
 	spawned = template.created_atoms //populate the spawned list with the atoms belonging to the holodeck
 
 	if(istype(template, /datum/map_template/holodeck/thunderdome1218) && !SSshuttle.shuttle_purchase_requirements_met[SHUTTLE_UNLOCK_MEDISIM])
@@ -236,16 +240,13 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 		SSshuttle.shuttle_purchase_requirements_met[SHUTTLE_UNLOCK_MEDISIM] = TRUE
 
 	nerf(!(obj_flags & EMAGGED))
-	finish_spawn()
 
-///finalizes objects in the spawned list
-/obj/machinery/computer/holodeck/proc/finish_spawn()
 	for(var/atom/holo_atom as anything in spawned)
 		if(QDELETED(holo_atom))
 			spawned -= holo_atom
 			continue
 
-		RegisterSignal(holo_atom, COMSIG_PARENT_PREQDELETED, .proc/remove_from_holo_lists)
+		RegisterSignal(holo_atom, COMSIG_PARENT_PREQDELETED, PROC_REF(remove_from_holo_lists))
 		holo_atom.flags_1 |= HOLOGRAM_1
 
 		if(isholoeffect(holo_atom))//activates holo effects and transfers them from the spawned list into the effects list
@@ -255,10 +256,10 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 			var/atom/holo_effect_product = holo_effect.activate(src)//change name
 			if(istype(holo_effect_product))
 				spawned += holo_effect_product // we want mobs or objects spawned via holoeffects to be tracked as objects
-				RegisterSignal(holo_effect_product, COMSIG_PARENT_PREQDELETED, .proc/remove_from_holo_lists)
+				RegisterSignal(holo_effect_product, COMSIG_PARENT_PREQDELETED, PROC_REF(remove_from_holo_lists))
 			if(islist(holo_effect_product))
 				for(var/atom/atom_product as anything in holo_effect_product)
-					RegisterSignal(atom_product, COMSIG_PARENT_PREQDELETED, .proc/remove_from_holo_lists)
+					RegisterSignal(atom_product, COMSIG_PARENT_PREQDELETED, PROC_REF(remove_from_holo_lists))
 			continue
 
 		if(isobj(holo_atom))
@@ -335,7 +336,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 
 	if(toggleOn)
 		if(last_program && (last_program != offline_program))
-			addtimer(CALLBACK(src,.proc/load_program, last_program, TRUE), 25)
+			addtimer(CALLBACK(src,PROC_REF(load_program), last_program, TRUE), 25)
 		active = TRUE
 	else
 		last_program = program
@@ -344,7 +345,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 
 /obj/machinery/computer/holodeck/power_change()
 	. = ..()
-	INVOKE_ASYNC(src, .proc/toggle_power, !stat)
+	INVOKE_ASYNC(src, PROC_REF(toggle_power), !machine_stat)
 
 ///shuts down the holodeck and force loads the offline_program
 /obj/machinery/computer/holodeck/proc/emergency_shutdown()
@@ -371,18 +372,21 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 	for(var/obj/effect/holodeck_effect/holo_effect as anything in effects)
 		holo_effect.safety(nerf_this)
 
-/obj/machinery/computer/holodeck/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
+/obj/machinery/computer/holodeck/should_emag(mob/user)
+	if(!..())
+		return FALSE
 	if(!LAZYLEN(emag_programs))
 		to_chat(user, "[src] does not seem to have a card swipe port. It must be an inferior model.")
-		return
+		return FALSE
+	return TRUE
+
+/obj/machinery/computer/holodeck/on_emag(mob/user)
+	..()
 	playsound(src, "sparks", 75, TRUE)
-	obj_flags |= EMAGGED
 	to_chat(user, "<span class='warning'>You vastly increase projector power and override the safety and security protocols.</span>")
 	say("Warning. Automatic shutoff and derezzing protocols have been corrupted. Please call Nanotrasen maintenance and do not use the simulator.")
 	log_game("[key_name(user)] emagged the Holodeck Control Console")
-	nerf(!(obj_flags & EMAGGED),FALSE)
+	nerf(FALSE, FALSE)
 	ui_update()
 
 /obj/machinery/computer/holodeck/emp_act(severity)

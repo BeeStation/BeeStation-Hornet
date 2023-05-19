@@ -60,7 +60,7 @@
 	var/steps = rand(1,4)
 	for(var/i in 1 to steps)
 		step_away(src,loc)
-	addtimer(CALLBACK(src, .proc/prime), rand(15,60))
+	addtimer(CALLBACK(src, PROC_REF(prime)), rand(15,60))
 
 /obj/item/grenade/clusterbuster/segment/prime(mob/living/lanced_by)
 	if(dud_flags)
@@ -84,7 +84,7 @@
 		var/obj/item/grenade/P = new type(loc)
 		if(istype(P))
 			P.active = TRUE
-			addtimer(CALLBACK(P, /obj/item/grenade/proc/prime), rand(15,60))
+			addtimer(CALLBACK(P, TYPE_PROC_REF(/obj/item/grenade, prime)), rand(15,60))
 		var/steps = rand(1,4)
 		for(var/i in 1 to steps)
 			step_away(src,loc)
@@ -113,7 +113,7 @@
 		var/chosen = pick(subtypesof(/obj/item/slime_extract))
 		var/obj/item/slime_extract/P = new chosen(loc)
 		if(volatile)
-			addtimer(CALLBACK(P, /obj/item/slime_extract/proc/activate_slime), rand(15,60))
+			addtimer(CALLBACK(P, TYPE_PROC_REF(/obj/item/slime_extract, activate_slime)), rand(15,60))
 		var/steps = rand(1,4)
 		for(var/i in 1 to steps)
 			step_away(src,loc)

@@ -107,6 +107,18 @@ const formatHighContrast = inputHtml => {
     "stagemagician",
     "psychiatrist",
     "vip",
+    "king",
+    "rawcommand",
+    "rawservice",
+    "rawcargo",
+    "rawscience",
+    "rawmedical",
+    "rawengineering",
+    "rawsecurity",
+    "rawcentcom",
+    "syndicate",
+    "notcentcom",
+    "unassigned",
   ];
   const spanRegex = new RegExp('(<span[\\w| |\t|=]*[\'|"][\\w| ]*)(?:' + replacementNodes.join('|') + ')([\'|"]>)', 'gi');
   return inputHtml.replace(spanRegex, '$1$2');
@@ -230,21 +242,21 @@ class ChatRenderer {
     }
   }
 
-  setHighlight(text, color) {
+  setHighlight(text, color, matchWord, matchCase, highlightSelf) {
     if (!text || !color) {
       this.highlightRegex = null;
       this.highlightColor = null;
       return;
     }
-    const allowedRegex = /^[a-z0-9_\-\s]+$/ig;
     const lines = String(text)
       .split(',')
-      .map(str => str.trim())
+      // replace() escapes every character found by the regex
+      // by placing a \ infront of each
+      // eslint-disable-next-line no-useless-escape
+      .map(str => str.trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'))
       .filter(str => (
         // Must be longer than one character
         str && str.length > 1
-        // Must be alphanumeric (with some punctuation)
-        && allowedRegex.test(str)
       ));
     // Nothing to match, reset highlighting
     if (lines.length === 0) {
@@ -252,8 +264,11 @@ class ChatRenderer {
       this.highlightColor = null;
       return;
     }
-    this.highlightRegex = new RegExp('(' + lines.join('|') + ')', 'gi');
+    const pattern = `${(matchWord ? '\\b' : '')}(${lines.join('|')})${(matchWord ? '\\b' : '')}`;
+    const flags = 'g' + (matchCase ? '' : 'i');
+    this.highlightRegex = new RegExp(pattern, flags);
     this.highlightColor = color;
+    this.highlightSelf = highlightSelf;
   }
 
   setHighContrast(newValue) {
@@ -375,7 +390,8 @@ class ChatRenderer {
           logger.error('Error: message is missing text payload', message);
         }
         // Highlight text
-        if (!message.avoidHighlighting && this.highlightRegex) {
+        if ((!message.avoidHighlighting || this.highlightSelf)
+        && this.highlightRegex) {
           const highlighted = highlightNode(node,
             this.highlightRegex,
             text => (

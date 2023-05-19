@@ -25,7 +25,7 @@
 // I'm not sure everyone will react the emag's features so please say what your opinions are of it.
 //
 // When emagged it will rig every light it replaces, which will explode when the light is on.
-// This is VERY noticable, even the device's name changes when you emag it so if anyone
+// This is VERY noticeable, even the device's name changes when you emag it so if anyone
 // examines you when you're holding it in your hand, you will be discovered.
 // It will also be very obvious who is setting all these lights off, since only Janitor Borgs and Janitors have easy
 // access to them, and only one of them can emag their device.
@@ -64,6 +64,10 @@
 	var/bulb_shards = 0
 	// when we get this many shards, we get a free bulb.
 	var/shards_required = 4
+
+	var/bluespace_toggle = FALSE
+	/// If it can be emagged, used by subtypes to disable
+	var/emaggable = TRUE
 
 /obj/item/lightreplacer/examine(mob/user)
 	. = ..()
@@ -141,10 +145,14 @@
 
 		to_chat(user, "<span class='notice'>You fill \the [src] with lights from \the [S]. " + status_string() + "</span>")
 
-/obj/item/lightreplacer/emag_act()
-	if(obj_flags & EMAGGED)
-		return
-	Emag()
+/obj/item/lightreplacer/should_emag(mob/user)
+	return emaggable && ..()
+
+/obj/item/lightreplacer/on_emag(mob/user)
+	..()
+	playsound(src.loc, "sparks", 100, 1)
+	name = "shortcircuited [initial(name)]"
+	update_icon()
 
 /obj/item/lightreplacer/attack_self(mob/user)
 	for(var/obj/machinery/light/target in user.loc)
@@ -204,7 +212,7 @@
 			qdel(L2)
 
 			if(target.on && target.rigged)
-				target.explode()
+				target.plasma_ignition(4)
 			return
 
 		else
@@ -214,22 +222,14 @@
 		to_chat(U, "<span class='warning'>There is a working [target.fitting] already inserted!</span>")
 		return
 
-/obj/item/lightreplacer/proc/Emag()
-	obj_flags ^= EMAGGED
-	playsound(src.loc, "sparks", 100, 1)
-	if(obj_flags & EMAGGED)
-		name = "shortcircuited [initial(name)]"
-	else
-		name = initial(name)
-	update_icon()
-
 /obj/item/lightreplacer/proc/CanUse(mob/living/user)
 	add_fingerprint(user)
 	return uses > 0
 
 /obj/item/lightreplacer/afterattack(atom/T, mob/U, proximity)
 	. = ..()
-	if(!proximity)
+
+	if(!proximity && !bluespace_toggle)
 		return
 	if(!isturf(T))
 		return
@@ -240,6 +240,9 @@
 			break
 		used = TRUE
 		if(istype(A, /obj/machinery/light))
+			if(!proximity)  // only beams if at a distance
+				U.Beam(A, icon_state = "rped_upgrade", time = 5)
+				playsound(src, 'sound/items/pshoom.ogg', 40, 1)
 			ReplaceLight(A, U)
 
 	if(!used)
@@ -252,6 +255,16 @@
 
 /obj/item/lightreplacer/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	return
+
+/obj/item/lightreplacer/bluespace
+	name = "bluespace light replacer"
+	desc = "A modified light replacer that zaps lights into place. Refill with broken or working light bulbs, or sheets of glass."
+	icon_state = "lightreplacer_blue0"
+	bluespace_toggle = TRUE
+	emaggable = FALSE
+
+/obj/item/lightreplacer/bluespace/update_icon()  // making sure it uses the new icon state names
+	icon_state = "lightreplacer_blue[(obj_flags & EMAGGED ? 1 : 0)]"
 
 #undef LIGHT_OK
 #undef LIGHT_EMPTY

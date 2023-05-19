@@ -1,5 +1,5 @@
 /// How often the sensor data updates.
-#define SENSORS_UPDATE_PERIOD 10 SECONDS
+#define SENSORS_UPDATE_PERIOD 1 MINUTES
 
 /// The job sorting ID associated with otherwise unknown jobs
 #define UNKNOWN_JOB_ID	81
@@ -186,7 +186,7 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 			continue
 
 		// Radio transmitters are jammed
-		if(tracked_human.is_jammed())
+		if(tracked_human.is_jammed(JAMMER_PROTECTION_WIRELESS))
 			continue
 
 		// The entry for this human

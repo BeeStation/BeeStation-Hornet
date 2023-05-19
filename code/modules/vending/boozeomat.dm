@@ -48,7 +48,7 @@
 	refill_canister = /obj/item/vending_refill/boozeomat
 	default_price = 20
 	extra_price = 50
-	payment_department = ACCOUNT_SRV
+	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 
 /obj/machinery/vending/boozeomat/all_access
 	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one. This model appears to have no access restrictions."

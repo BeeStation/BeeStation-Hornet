@@ -1,39 +1,39 @@
 /datum/job/curator
-	title = "Curator"
+	title = JOB_NAME_CURATOR
 	flag = CURATOR
-	department_head = list("Head of Personnel")
-	department_flag = CIVILIAN
+	department_head = list(JOB_NAME_HEADOFPERSONNEL)
+	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
-	chat_color = "#88c999"
 
 	outfit = /datum/outfit/job/curator
 
 	access = list(ACCESS_LIBRARY, ACCESS_AUX_BASE, ACCESS_MINING_STATION)
 	minimal_access = list(ACCESS_LIBRARY, ACCESS_AUX_BASE, ACCESS_MINING_STATION)
-	paycheck = PAYCHECK_EASY
-	paycheck_department = ACCOUNT_CIV
+
+	department_flag = CIVILIAN
+	departments = DEPT_BITFLAG_CIV
+	bank_account_department = ACCOUNT_CIV_BITFLAG
+	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_EASY)
 
 	display_order = JOB_DISPLAY_ORDER_CURATOR
-	departments = DEPARTMENT_SERVICE
 	rpg_title = "Veteran Adventurer"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/curator
 	)
 	//they doesnt get out that much
-	biohazard = 5
+	biohazard = 10
 
 /datum/outfit/job/curator
-	name = "Curator"
+	name = JOB_NAME_CURATOR
 	jobtype = /datum/job/curator
 
 	id = /obj/item/card/id/job/curator
 	shoes = /obj/item/clothing/shoes/laceup
-	belt = /obj/item/pda/curator
+	belt = /obj/item/modular_computer/tablet/pda/curator
 	ears = /obj/item/radio/headset/headset_curator
 	uniform = /obj/item/clothing/under/rank/civilian/curator
 	l_hand = /obj/item/storage/bag/books

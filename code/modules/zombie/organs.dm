@@ -48,7 +48,7 @@
 	if(!(src in owner.internal_organs))
 		Remove(owner, TRUE)
 	if (causes_damage && !iszombie(owner) && owner.stat != DEAD)
-		owner.adjustToxLoss(0.5 * delta_time)
+		owner.adjustToxLoss(0.5 * delta_time, forced = TRUE)
 		if(DT_PROB(5, delta_time))
 			to_chat(owner, "<span class='danger'>You feel sick...</span>")
 	if(timer_id)
@@ -65,7 +65,7 @@
 		not even death can stop, you will rise again!</span>")
 	var/revive_time = rand(revive_time_min, revive_time_max)
 	var/flags = TIMER_STOPPABLE
-	timer_id = addtimer(CALLBACK(src, .proc/zombify, owner), revive_time, flags)
+	timer_id = addtimer(CALLBACK(src, PROC_REF(zombify), owner), revive_time, flags)
 
 /obj/item/organ/zombie_infection/proc/zombify(var/mob/living/carbon/C)
 	timer_id = null
@@ -84,8 +84,8 @@
 	C.setOxyLoss(0, 0)
 	C.heal_overall_damage(INFINITY, INFINITY, INFINITY, null, TRUE)
 
-	if(!C.revive())
-		return
+	C.revive()
+
 
 	C.grab_ghost()
 	C.visible_message("<span class='danger'>[owner] suddenly convulses, as [owner.p_they()][stand_up ? " stagger to [owner.p_their()] feet and" : ""] gain a ravenous hunger in [owner.p_their()] eyes!</span>", "<span class='alien'>You HUNGER!</span>")

@@ -6,6 +6,7 @@
 	icon = 'icons/obj/lavaland/terrain.dmi'
 	icon_state = "geyser"
 	anchored = TRUE
+	max_integrity = 150 //default is 300, override to have 1/2 half
 
 	var/erupting_state = null //set to null to get it greyscaled from "[icon_state]_soup". Not very usable with the whole random thing, but more types can be added if you change the spawn prob
 	var/activated = FALSE //whether we are active and generating chems
@@ -48,7 +49,7 @@
 
 /obj/structure/geyser/random/Initialize(mapload)
 	. = ..()
-	reagent_id = pickweight(options)
+	reagent_id = pick_weight(options)
 
 /obj/item/plunger
 	name = "plunger"

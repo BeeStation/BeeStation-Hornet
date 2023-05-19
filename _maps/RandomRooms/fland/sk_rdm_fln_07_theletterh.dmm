@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/turf/closed/wall,
+/turf/template_noop/closed,
 /area/template_noop)
 "c" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -31,13 +31,21 @@
 "j" = (
 /turf/open/floor/plating,
 /area/template_noop)
-"k" = (
-/obj/effect/turf_decal/tile/red/tile_side{
-	dir = 8
+"l" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "m" = (
+/turf/open/floor/plasteel,
+/area/template_noop)
+"n" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "o" = (
@@ -48,22 +56,19 @@
 /obj/item/storage/crayons,
 /turf/open/floor/plating,
 /area/template_noop)
-"q" = (
-/obj/effect/turf_decal/tile/red/tile_side{
-	dir = 10
+"p" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -24
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/effect/turf_decal/tile/red/half/contrasted,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "r" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/template_noop)
-"s" = (
-/obj/effect/turf_decal/tile/red/tile_side{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+"t" = (
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "u" = (
@@ -75,42 +80,9 @@
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
-"v" = (
-/obj/effect/turf_decal/tile/red/tile_side{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
-/area/template_noop)
-"y" = (
-/obj/effect/turf_decal/tile/red/tile_side,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -24
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
 "z" = (
 /obj/item/radio/intercom{
 	pixel_x = 29
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
-"A" = (
-/obj/effect/turf_decal/tile/red/tile_side{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plasteel,
-/area/template_noop)
-"C" = (
-/obj/effect/turf_decal/tile/red/tile_side{
-	dir = 6
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
-"D" = (
-/obj/effect/turf_decal/tile/red/tile_side{
-	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
@@ -120,20 +92,9 @@
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
-"G" = (
-/obj/effect/turf_decal/tile/red/tile_side{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 6
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
 "I" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/newscaster{
-	pixel_x = 28;
-	pixel_y = 1
+/obj/effect/turf_decal/tile/red{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
@@ -143,8 +104,23 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/template_noop,
 /area/template_noop)
-"Q" = (
-/turf/closed/wall/r_wall,
+"K" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 6
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"M" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"O" = (
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/turf/open/floor/plasteel,
 /area/template_noop)
 "R" = (
 /obj/effect/decal/cleanable/dirt,
@@ -153,18 +129,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
-"S" = (
-/obj/effect/turf_decal/tile/red/tile_side,
+"T" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "U" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/template_noop)
-"V" = (
-/obj/effect/turf_decal/tile/red/tile_side,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
 /area/template_noop)
 "W" = (
 /obj/machinery/door/firedoor,
@@ -175,12 +148,11 @@
 (1,1,1) = {"
 U
 r
-S
-S
-S
-S
-V
-y
+O
+O
+O
+O
+p
 e
 f
 a
@@ -188,12 +160,11 @@ a
 (2,1,1) = {"
 W
 m
-G
-A
-s
-q
-A
-A
+K
+l
+M
+l
+l
 c
 i
 J
@@ -203,10 +174,9 @@ W
 j
 E
 r
-k
-C
-S
-S
+t
+O
+O
 R
 u
 a
@@ -214,15 +184,14 @@ a
 (4,1,1) = {"
 U
 r
+r
+m
 I
-m
-m
-v
-v
-D
+n
+T
 z
 o
-Q
+a
 "}
 (5,1,1) = {"
 a
@@ -232,8 +201,7 @@ U
 U
 U
 U
-U
 a
 a
-Q
+a
 "}

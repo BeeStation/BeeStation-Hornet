@@ -8,15 +8,21 @@
 	icon = 'icons/turf/shuttle.dmi'
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	max_integrity = 500
-	armor = list("melee" = 100, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 70, "stamina" = 0) //default + ignores melee
+	armor = list(MELEE = 100,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 70, STAMINA = 0) //default + ignores melee
 
 /obj/structure/shuttle/engine
 	name = "engine"
 	desc = "A bluespace engine used to make shuttles move."
 	density = TRUE
 	anchored = TRUE
+	obj_flags = CAN_BE_HIT | BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 	var/engine_power = 1
 	var/state = ENGINE_WELDED //welding shmelding
+
+/obj/structure/shuttle/engine/Initialize(mapload)
+	. = ..()
+	if(anchored && state == ENGINE_UNWRENCHED)
+		state = ENGINE_WRENCHED
 
 //Ugh this is a lot of copypasta from emitters, welding need some boilerplate reduction
 /obj/structure/shuttle/engine/can_be_unfasten_wrench(mob/user, silent)
@@ -99,7 +105,7 @@
 	name = "propulsion engine"
 	icon_state = "propulsion"
 	desc = "A standard reliable bluespace engine used by many forms of shuttles."
-	opacity = 1
+	opacity = TRUE
 
 /obj/structure/shuttle/engine/propulsion/left
 	name = "left propulsion engine"
@@ -132,7 +138,7 @@
 
 /obj/structure/shuttle/engine/large
 	name = "engine"
-	opacity = 1
+	opacity = TRUE
 	icon = 'icons/obj/2x2.dmi'
 	icon_state = "large_engine"
 	desc = "A very large bluespace engine used to propel very large ships."
@@ -142,7 +148,7 @@
 
 /obj/structure/shuttle/engine/huge
 	name = "engine"
-	opacity = 1
+	opacity = TRUE
 	icon = 'icons/obj/3x3.dmi'
 	icon_state = "huge_engine"
 	desc = "An extremely large bluespace engine used to propel extremely large ships."

@@ -5,7 +5,7 @@
 	damage_type = OXY
 	nodamage = TRUE
 	armour_penetration = 100
-	flag = "magic"
+	armor_flag = MAGIC
 	martial_arts_no_deflect = TRUE
 
 /obj/item/projectile/magic/death
@@ -163,12 +163,16 @@
 	M.invisibility = INVISIBILITY_ABSTRACT
 
 	var/list/contents = M.contents.Copy()
-
-	if(iscyborg(M))
-		var/mob/living/silicon/robot/Robot = M
-		if(Robot.mmi)
-			qdel(Robot.mmi)
-		Robot.notify_ai(NEW_BORG)
+	if(issilicon(M)) // silicons should not drop internal parts since they are supposed to be unobtainable
+		for(var/obj/item/W in contents)
+			qdel(W)
+		if(iscyborg(M))
+			var/mob/living/silicon/robot/Robot = M
+			if(Robot.deployed || Robot.mainframe)
+				Robot.undeploy() // disconnect any AI shells first
+			if(Robot.mmi)
+				qdel(Robot.mmi)
+			Robot.notify_ai(NEW_BORG)
 	else
 		for(var/obj/item/W in contents)
 			if(!M.dropItemToGround(W))
@@ -191,7 +195,7 @@
 			if(issilicon(new_mob))
 				new_mob.gender = M.gender
 				new_mob.invisibility = 0
-				new_mob.job = "Cyborg"
+				new_mob.job = JOB_NAME_CYBORG
 				var/mob/living/silicon/robot/Robot = new_mob
 				Robot.lawupdate = FALSE
 				Robot.connected_ai = null
@@ -259,8 +263,8 @@
 				if(chooseable_races.len)
 					new_mob.set_species(pick(chooseable_races))
 
-			var/datum/preferences/A = new()	//Randomize appearance for the human
-			A.copy_to(new_mob, icon_updates=0)
+			var/datum/character_save/CS = new()	//Randomize appearance for the human
+			CS.copy_to(new_mob, icon_updates=0)
 
 			var/mob/living/carbon/human/H = new_mob
 			H.update_hair()
@@ -283,7 +287,7 @@
 
 	to_chat(new_mob, "<span class='warning'>Your form morphs into that of a [randomize].</span>")
 
-	var/poly_msg = CONFIG_GET(keyed_list/policy)["polymorph"]
+	var/poly_msg = CONFIG_GET(string/policy_polymorph)
 	if(poly_msg)
 		to_chat(new_mob, poly_msg)
 
@@ -342,7 +346,7 @@
 	icon_state = "lavastaff"
 	damage = 15
 	damage_type = BURN
-	flag = "magic"
+	armor_flag = MAGIC
 	dismemberment = 50
 	nodamage = FALSE
 	martial_arts_no_deflect = FALSE
@@ -363,7 +367,7 @@
 	damage_type = BURN
 	nodamage = FALSE
 	armour_penetration = 0
-	flag = "magic"
+	armor_flag = MAGIC
 	hitsound = 'sound/weapons/barragespellhit.ogg'
 	martial_arts_no_deflect = FALSE
 
@@ -381,7 +385,7 @@
 	name = "locker bolt"
 	icon_state = "locker"
 	nodamage = TRUE
-	flag = "magic"
+	armor_flag = MAGIC
 	martial_arts_no_deflect = FALSE
 	var/weld = TRUE
 	var/created = FALSE //prevents creation of more then one locker if it has multiple hits
@@ -427,15 +431,15 @@
 
 /obj/structure/closet/decay/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, .proc/locker_magic_timer), 5)
+	addtimer(CALLBACK(src, PROC_REF(locker_magic_timer)), 5)
 
 /obj/structure/closet/decay/proc/locker_magic_timer()
 	if(welded)
-		addtimer(CALLBACK(src, .proc/bust_open), 5 MINUTES)
+		addtimer(CALLBACK(src, PROC_REF(bust_open)), 5 MINUTES)
 		icon_state = magic_icon
 		update_icon()
 	else
-		addtimer(CALLBACK(src, .proc/decay), 15 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(decay)), 15 SECONDS)
 
 /obj/structure/closet/decay/after_weld(weld_state)
 	if(weld_state)
@@ -443,7 +447,7 @@
 
 /obj/structure/closet/decay/proc/decay()
 	animate(src, alpha = 0, time = 30)
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/qdel, src), 30)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), 30)
 
 /obj/structure/closet/decay/open(mob/living/user)
 	. = ..()
@@ -451,12 +455,12 @@
 		if(icon_state == magic_icon) //check if we used the magic icon at all before giving it the lesser magic icon
 			unmagify()
 		else
-			addtimer(CALLBACK(src, .proc/decay), 15 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(decay)), 15 SECONDS)
 
 /obj/structure/closet/decay/proc/unmagify()
 	icon_state = weakened_icon
 	update_icon()
-	addtimer(CALLBACK(src, .proc/decay), 15 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(decay)), 15 SECONDS)
 
 /obj/item/projectile/magic/flying
 	name = "bolt of flying"
@@ -623,7 +627,7 @@
 	damage_type = BURN
 	nodamage = FALSE
 	speed = 0.3
-	flag = "magic"
+	armor_flag = MAGIC
 
 	var/tesla_power = 20000
 	var/tesla_range = 15
@@ -706,7 +710,7 @@
 			return BULLET_ACT_BLOCK
 	var/turf/T = get_turf(target)
 	for(var/i=0, i<50, i+=10)
-		addtimer(CALLBACK(GLOBAL_PROC, .proc/explosion, T, -1, exp_heavy, exp_light, exp_flash, FALSE, FALSE, FALSE, TRUE), i)
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(explosion), T, -1, exp_heavy, exp_light, exp_flash, FALSE, FALSE, FALSE, TRUE), i)
 
 //still magic related, but a different path
 
@@ -718,4 +722,4 @@
 	nodamage = FALSE
 	armour_penetration = 100
 	temperature = 50
-	flag = "magic"
+	armor_flag = MAGIC

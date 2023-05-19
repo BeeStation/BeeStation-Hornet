@@ -4,14 +4,15 @@
     desc = "This colorizer will apply a new set of colors to an item."
     icon = 'icons/obj/crayons.dmi'
     icon_state = "rainbowcan"
+    var/uses_left = 1
 
     var/list/allowed_targets = list()
+    var/list/forbidden_targets = list()
     var/apply_icon = null
     var/apply_icon_state = null
     var/apply_item_state = null
     var/apply_righthand_file = null
     var/apply_lefthand_file = null
-
 
 /obj/item/colorizer/attack_self(mob/user)
     var/obj/item/target_atom = user.get_inactive_held_item()
@@ -31,7 +32,7 @@
 /obj/item/colorizer/proc/do_colorize(atom/to_be_colored, mob/user)
     if(!to_be_colored)
         return
-    if(!is_type_in_list(to_be_colored, allowed_targets))
+    if(!is_type_in_list(to_be_colored, allowed_targets) || is_type_in_list(to_be_colored, forbidden_targets))
         to_chat(user, "<span class='warning'>This colorizer is not compatible with that!</span>")
         return
 
@@ -51,5 +52,6 @@
 
     to_chat(user, "<span class='notice'>Color applied!</span>")
     playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
-    qdel(src)
-
+    uses_left --
+    if(!uses_left)
+        qdel(src)

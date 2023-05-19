@@ -14,10 +14,6 @@
 #define CHAT_MESSAGE_WIDTH			128
 /// Max length of chat message in characters
 #define CHAT_MESSAGE_MAX_LENGTH		110
-/// Maximum precision of float before rounding errors occur (in this context)
-#define CHAT_LAYER_Z_STEP			0.0001
-/// The number of z-layer 'slices' usable by the chat message layering
-#define CHAT_LAYER_MAX_Z			(CHAT_LAYER_MAX - CHAT_LAYER) / CHAT_LAYER_Z_STEP
 /// The dimensions of the chat message icons
 #define CHAT_MESSAGE_ICON_SIZE		7
 /// How much the message moves up before fading out.
@@ -39,16 +35,9 @@
 /// The amount of characters needed before this increase takes into effect
 #define BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN 10
 
-#define COLOR_JOB_UNKNOWN "#dda583"
 #define COLOR_PERSON_UNKNOWN "#999999"
 #define COLOR_CHAT_EMOTE "#727272"
 
-//For jobs that aren't roundstart but still need colours
-GLOBAL_LIST_INIT(job_colors_pastel, list(
-	"Prisoner" = 		"#d38a5c",
-	"CentCom" = 		"#90FD6D",
-	"Unknown"=			COLOR_JOB_UNKNOWN,
-))
 
 /**
   * # Chat Message Overlay
@@ -95,7 +84,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	. = ..()
 	if (!istype(target))
 		CRASH("Invalid target given for chatmessage")
-	INVOKE_ASYNC(src, .proc/generate_image, text, target, hearers, language_icon, extra_classes, lifespan)
+	INVOKE_ASYNC(src, PROC_REF(generate_image), text, target, hearers, language_icon, extra_classes, lifespan)
 
 /datum/chatmessage/Destroy()
 	if (hearers)
@@ -142,11 +131,11 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	var/client/first_hearer = hearers[1]
 
 	// Delete when the atom its above gets deleted.
-	RegisterSignal(target, COMSIG_PARENT_QDELETING, .proc/on_parent_qdel)
+	RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(on_parent_qdel))
 
 	for(var/client/C as() in hearers)
 		if(C)
-			RegisterSignal(C, COMSIG_PARENT_QDELETING, .proc/client_deleted)
+			RegisterSignal(C, COMSIG_PARENT_QDELETING, PROC_REF(client_deleted))
 
 	// Remove spans in the message from things like the recorder
 	var/static/regex/span_check = new(@"<\/?span[^>]*>", "gi")
@@ -164,12 +153,9 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 			if(ishuman(target))
 				var/mob/living/carbon/human/H = target
 				if(H.wear_id?.GetID())
-					var/obj/item/card/id/idcard = H.wear_id
-					var/datum/job/wearer_job = SSjob.GetJob(idcard.GetJobName())
-					if(wearer_job)
-						tgt_color = wearer_job.chat_color
-					else
-						tgt_color = GLOB.job_colors_pastel[idcard.GetJobName()]
+					var/obj/item/card/id/idcard = H.wear_id.GetID()
+					if(idcard)
+						tgt_color = get_chatcolor_by_hud(idcard.hud_state)
 				else
 					tgt_color = COLOR_PERSON_UNKNOWN
 			else
@@ -219,7 +205,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	text = "[prefixes?.Join("&nbsp;")][text]"
 
 	// Approximate text height
-	var/complete_text = "<span class='center [extra_classes.Join(" ")]' style='color: [tgt_color]'>[text]</span>"
+	var/complete_text = "<span class='center [extra_classes.Join(" ")]' style='color: [tgt_color]'>[target.say_emphasis(text)]</span>"
 	var/mheight = WXH_TO_HEIGHT(first_hearer.MeasureText(complete_text, null, CHAT_MESSAGE_WIDTH))
 	approx_lines = max(1, mheight / CHAT_MESSAGE_APPROX_LHEIGHT)
 
@@ -241,7 +227,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 				var/remaining_time = (sched_remaining) * (CHAT_MESSAGE_EXP_DECAY ** idx++) * (CHAT_MESSAGE_HEIGHT_DECAY ** CEILING(combined_height, 1))
 				if (remaining_time)
 					deltimer(m.fadertimer, SSrunechat)
-					m.fadertimer = addtimer(CALLBACK(m, .proc/end_of_life), remaining_time, TIMER_STOPPABLE|TIMER_DELETE_ME, SSrunechat)
+					m.fadertimer = addtimer(CALLBACK(m, PROC_REF(end_of_life)), remaining_time, TIMER_STOPPABLE|TIMER_DELETE_ME, SSrunechat)
 				else
 					m.end_of_life()
 
@@ -251,7 +237,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 
 	var/bound_height = world.icon_size
 	var/bound_width = world.icon_size
-	if(ismovableatom(message_loc))
+	if(ismovable(message_loc))
 		var/atom/movable/AM = message_loc
 		bound_height = AM.bound_height
 		bound_width = AM.bound_width
@@ -277,7 +263,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 
 	// Register with the runechat SS to handle EOL and destruction
 	var/duration = lifespan - CHAT_MESSAGE_EOL_FADE
-	fadertimer = addtimer(CALLBACK(src, .proc/end_of_life), duration, TIMER_STOPPABLE|TIMER_DELETE_ME, SSrunechat)
+	fadertimer = addtimer(CALLBACK(src, PROC_REF(end_of_life)), duration, TIMER_STOPPABLE|TIMER_DELETE_ME, SSrunechat)
 
 /datum/chatmessage/proc/client_deleted(client/source)
 	SIGNAL_HANDLER
@@ -293,14 +279,14 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 /datum/chatmessage/proc/end_of_life(fadetime = CHAT_MESSAGE_EOL_FADE)
 	isFading = TRUE
 	animate(message, alpha = 0, pixel_y = message.pixel_y + MESSAGE_FADE_PIXEL_Y, time = fadetime, flags = ANIMATION_PARALLEL)
-	addtimer(CALLBACK(GLOBAL_PROC, /proc/qdel, src), fadetime, TIMER_DELETE_ME, SSrunechat)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), fadetime, TIMER_DELETE_ME, SSrunechat)
 
 /mob/proc/should_show_chat_message(atom/movable/speaker, datum/language/message_language, is_emote = FALSE, is_heard = FALSE)
 	if(!client)
 		return CHATMESSAGE_CANNOT_HEAR
-	if(!client.prefs.chat_on_map || (!client.prefs.see_chat_non_mob && !ismob(speaker)))
+	if(!(client.prefs.toggles & PREFTOGGLE_RUNECHAT_GLOBAL) || (!(client.prefs.toggles & PREFTOGGLE_RUNECHAT_NONMOBS) && !ismob(speaker)))
 		return CHATMESSAGE_CANNOT_HEAR
-	if(!client.prefs.see_rc_emotes && is_emote)
+	if(!(client.prefs.toggles & PREFTOGGLE_RUNECHAT_EMOTES) && is_emote)
 		return CHATMESSAGE_CANNOT_HEAR
 	if(is_heard && !can_hear())
 		return CHATMESSAGE_CANNOT_HEAR
@@ -469,14 +455,14 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 		if(5)
 			return "#[num2hex(c, 2)][num2hex(m, 2)][num2hex(x, 2)]"
 
-/atom/proc/balloon_alert(mob/viewer, text)
+/atom/proc/balloon_alert(mob/viewer, text, color = null)
 	if(!viewer?.client)
 		return
 	switch(viewer.client.prefs.see_balloon_alerts)
 		if(BALLOON_ALERT_ALWAYS)
-			new /datum/chatmessage/balloon_alert(text, src, viewer)
+			new /datum/chatmessage/balloon_alert(text, src, viewer, color)
 		if(BALLOON_ALERT_WITH_CHAT)
-			new /datum/chatmessage/balloon_alert(text, src, viewer)
+			new /datum/chatmessage/balloon_alert(text, src, viewer, color)
 			to_chat(viewer, "<span class='notice'>[text].</span>")
 		if(BALLOON_ALERT_NEVER)
 			to_chat(viewer, "<span class='notice'>[text].</span>")
@@ -486,22 +472,25 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	hearers -= ignored_mobs
 
 	for (var/mob/hearer in hearers)
-		if (is_blind(hearer))
+		if (hearer.is_blind())
 			continue
 
 		balloon_alert(hearer, (hearer == src && self_message) || message)
 
 /datum/chatmessage/balloon_alert
-	tgt_color = "#ffffff"
+	tgt_color = "#ffffff" //default color
 
-/datum/chatmessage/balloon_alert/New(text, atom/target, mob/owner)
+/datum/chatmessage/balloon_alert/New(text, atom/target, mob/owner, color)
 	if (!istype(target))
 		CRASH("Invalid target given for chatmessage")
 	if(QDELETED(owner) || !istype(owner) || !owner.client)
 		stack_trace("/datum/chatmessage created with [isnull(owner) ? "null" : "invalid"] mob owner")
 		qdel(src)
 		return
-	INVOKE_ASYNC(src, .proc/generate_image, text, target, owner)
+	//handle color
+	if(color)
+		tgt_color = color
+	INVOKE_ASYNC(src, PROC_REF(generate_image), text, target, owner)
 
 /datum/chatmessage/balloon_alert/Destroy()
 	if(!QDELETED(message_loc))
@@ -511,12 +500,12 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 /datum/chatmessage/balloon_alert/end_of_life(fadetime = BALLOON_TEXT_FADE_TIME)
 	isFading = TRUE
 	animate(message, alpha = 0, pixel_y = message.pixel_y + MESSAGE_FADE_PIXEL_Y, time = fadetime, flags = ANIMATION_PARALLEL)
-	addtimer(CALLBACK(GLOBAL_PROC, /proc/qdel, src), fadetime, TIMER_DELETE_ME, SSrunechat)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), fadetime, TIMER_DELETE_ME, SSrunechat)
 
 /datum/chatmessage/balloon_alert/generate_image(text, atom/target, mob/owner)
 	// Register client who owns this message
 	var/client/owned_by = owner.client
-	RegisterSignal(owned_by, COMSIG_PARENT_QDELETING, .proc/on_parent_qdel)
+	RegisterSignal(owned_by, COMSIG_PARENT_QDELETING, PROC_REF(on_parent_qdel))
 
 	var/bound_width = world.icon_size
 	if (ismovable(target))
@@ -562,7 +551,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 
 	// Register with the runechat SS to handle EOL and destruction
 	var/duration = BALLOON_TEXT_TOTAL_LIFETIME(duration_mult)
-	fadertimer = addtimer(CALLBACK(src, .proc/end_of_life), duration, TIMER_STOPPABLE|TIMER_DELETE_ME, SSrunechat)
+	fadertimer = addtimer(CALLBACK(src, PROC_REF(end_of_life)), duration, TIMER_STOPPABLE|TIMER_DELETE_ME, SSrunechat)
 
 
 #undef BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN
@@ -585,3 +574,5 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 #undef CHATMESSAGE_CANNOT_HEAR
 #undef CHATMESSAGE_HEAR
 #undef CHATMESSAGE_SHOW_LANGUAGE_ICON
+#undef COLOR_PERSON_UNKNOWN
+#undef COLOR_CHAT_EMOTE

@@ -6,6 +6,7 @@ import { Window } from '../layouts';
 const TOOLTIP_TEXT = multiline`
   %PERSON will be replaced with their name.
   %RANK with their job.
+  %STNAME fills in the station name.
 `;
 
 export const AutomatedAnnouncement = (props, context) => {

@@ -61,11 +61,25 @@
 				var/datum/mind/mind = M.mind
 				var/was_antagonist = FALSE
 
+				//If we have an ID, use that
+				var/obj/item/card/id/identification_card = M.get_idcard()
+				if (identification_card)
+					serialized["role_icon"] = "hud[ckey(identification_card.GetJobIcon())]"
+				else
+					//If we have no ID, use the mind job
+					var/datum/job/located_job = SSjob.GetJob(mind.assigned_role)
+					if (located_job)
+						serialized["role_icon"] = "hud[ckey(located_job.title)]"
+
 				for (var/_A in mind.antag_datums)
 					var/datum/antagonist/A = _A
 					if (A.show_to_ghosts)
 						was_antagonist = TRUE
-						serialized["antag"] = A.name
+						var/datum/team/antag_team = A.get_team()
+						if(antag_team)
+							serialized["antag"] = antag_team.get_team_name()
+						else
+							serialized["antag"] = A.get_antag_name()
 						antagonists += list(serialized)
 						break
 
@@ -86,3 +100,16 @@
 /datum/orbit_menu/ui_assets()
 	. = ..() || list()
 	. += get_asset_datum(/datum/asset/simple/orbit)
+	. += get_asset_datum(/datum/asset/spritesheet/job_icons)
+
+/datum/asset/spritesheet/job_icons
+	name = "job-icon"
+
+/datum/asset/spritesheet/job_icons/register()
+	var/icon/I = icon('icons/mob/hud.dmi')
+	// Get the job hud part
+	I.Crop(1, 17, 8, 24)
+	// Scale it up
+	I.Scale(16, 16)
+	InsertAll("job-icon", I)
+	..()

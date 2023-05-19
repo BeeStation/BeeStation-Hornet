@@ -23,6 +23,7 @@
 /obj/machinery/computer/cargo/express/Initialize(mapload)
 	. = ..()
 	packin_up()
+	RegisterSignal(SSdcs, COMSIG_GLOB_RESUPPLY, /datum/proc/ui_update)
 
 /obj/machinery/computer/cargo/express/Destroy()
 	if(beacon)
@@ -30,7 +31,7 @@
 	return ..()
 
 /obj/machinery/computer/cargo/express/attackby(obj/item/W, mob/living/user, params)
-	if((istype(W, /obj/item/card/id) || istype(W, /obj/item/pda)) && allowed(user))
+	if((istype(W, /obj/item/card/id) || istype(W, /obj/item/modular_computer/tablet/pda)) && allowed(user))
 		locked = !locked
 		to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] the interface.</span>")
 		return
@@ -48,22 +49,15 @@
 			to_chat(user, "<span class='notice'>[src] is already linked to [sb].</span>")
 	..()
 
-/obj/machinery/computer/cargo/express/emag_act(mob/living/user)
-	if(obj_flags & EMAGGED)
-		return
-	if(user)
-		user.visible_message("<span class='warning'>[user] swipes a suspicious card through [src]!</span>",
-		"<span class='notice'>You change the routing protocols, allowing the Supply Pod to land anywhere on the station.</span>")
-	obj_flags |= EMAGGED
-	// This also sets this on the circuit board
-	var/obj/item/circuitboard/computer/cargo/board = circuit
-	board.obj_flags |= EMAGGED
+/obj/machinery/computer/cargo/express/on_emag(mob/user)
+	..()
+	to_chat(user,"<span class='notice'>You change the routing protocols, allowing the Supply Pod to land anywhere on the station.</span>")
 	packin_up()
 
 /obj/machinery/computer/cargo/express/proc/packin_up() // oh shit, I'm sorry
 	meme_pack_data = list() // sorry for what?
-	for(var/pack in SSshuttle.supply_packs) // our quartermaster taught us not to be ashamed of our supply packs
-		var/datum/supply_pack/P = SSshuttle.supply_packs[pack]  // specially since they're such a good price and all
+	for(var/pack in SSsupply.supply_packs) // our quartermaster taught us not to be ashamed of our supply packs
+		var/datum/supply_pack/P = SSsupply.supply_packs[pack]  // specially since they're such a good price and all
 		if(!meme_pack_data[P.group]) // yeah, I see that, your quartermaster gave you good advice
 			meme_pack_data[P.group] = list( // it gets cheaper when I return it
 				"name" = P.group, // mmhm
@@ -77,7 +71,8 @@
 			"name" = P.name,
 			"cost" = P.get_cost(),
 			"id" = pack,
-			"desc" = P.desc || P.name // If there is a description, use it. Otherwise use the pack's name.
+			"desc" = P.desc || P.name, // If there is a description, use it. Otherwise use the pack's name.
+			"supply" = P.current_supply
 		))
 
 
@@ -94,7 +89,7 @@
 /obj/machinery/computer/cargo/express/ui_data(mob/user)
 	var/canBeacon = beacon && (isturf(beacon.loc) || ismob(beacon.loc))//is the beacon in a valid location?
 	var/list/data = list()
-	var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
+	var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 	if(D)
 		data["points"] = D.account_balance
 	data["locked"] = locked//swipe an ID to unlock
@@ -144,7 +139,7 @@
 				beacon.update_status(SP_READY) //turns on the beacon's ready light
 				. = TRUE
 		if("printBeacon")
-			var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
+			var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 			if(D)
 				if(D.adjust_money(-BEACON_COST))
 					cooldown = 10//a ~ten second cooldown for printing beacons to prevent spam
@@ -161,7 +156,7 @@
 			if(usingBeacon && !(beacon && (isturf(beacon.loc) || ismob(beacon.loc))))
 				return
 			var/id = text2path(params["id"])
-			var/datum/supply_pack/pack = SSshuttle.supply_packs[id]
+			var/datum/supply_pack/pack = SSsupply.supply_packs[id]
 			if(!istype(pack))
 				return
 			var/name = "*None Provided*"
@@ -178,11 +173,11 @@
 			var/list/empty_turfs
 			var/datum/supply_order/SO = new(pack, name, rank, ckey, reason)
 			var/points_to_check
-			var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
+			var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 			if(D)
 				points_to_check = D.account_balance
 			if(!(obj_flags & EMAGGED))
-				if(SO.pack.get_cost() <= points_to_check)
+				if(SO.pack.get_cost() <= points_to_check && SO.pack.current_supply >= 0)
 					var/LZ
 					if (istype(beacon) && usingBeacon)//prioritize beacons over landing in cargobay
 						LZ = get_turf(beacon)
@@ -193,7 +188,7 @@
 							WARNING("[src] couldnt find a Quartermaster/Storage (aka cargobay) area on the station, and as such it has set the supplypod landingzone to the area it resides in.")
 							landingzone = get_area(src)
 						for(var/turf/open/floor/T in landingzone.contents)//uses default landing zone
-							if(is_blocked_turf(T))
+							if(T.is_blocked_turf())
 								continue
 							LAZYADD(empty_turfs, T)
 							CHECK_TICK
@@ -203,19 +198,22 @@
 						new /obj/effect/pod_landingzone(LZ, podType, SO)
 						COOLDOWN_START(src, order_cooldown, ORDER_COOLDOWN)
 						D.adjust_money(-SO.pack.get_cost())
+						SO.pack.current_supply --
+						SEND_GLOBAL_SIGNAL(COMSIG_GLOB_RESUPPLY)
 						. = TRUE
 						update_icon()
 			else
-				if(SO.pack.get_cost() * (0.72*MAX_EMAG_ROCKETS) <= points_to_check) // bulk discount :^)
+				if(SO.pack.get_cost() * (0.72*MAX_EMAG_ROCKETS) <= points_to_check && SO.pack.current_supply >= 0) // bulk discount :^)
 					landingzone = GLOB.areas_by_type[pick(GLOB.the_station_areas)]  //override default landing zone
 					for(var/turf/open/floor/T in landingzone.contents)
-						if(is_blocked_turf(T))
+						if(T.is_blocked_turf())
 							continue
 						LAZYADD(empty_turfs, T)
 						CHECK_TICK
 					if(empty_turfs && empty_turfs.len)
 						D.adjust_money(-(SO.pack.get_cost() * (0.72*MAX_EMAG_ROCKETS)))
-
+						SO.pack.current_supply --
+						SEND_GLOBAL_SIGNAL(COMSIG_GLOB_RESUPPLY)
 						SO.generateRequisition(get_turf(src))
 						for(var/i in 1 to MAX_EMAG_ROCKETS)
 							var/LZ = pick(empty_turfs)

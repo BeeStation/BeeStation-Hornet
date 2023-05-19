@@ -40,6 +40,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 	dwidth = 5
 	height = 7
 	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0)
+	undockable = TRUE
 
 
 	//Export categories for this run, this is set by console sending the shuttle.
@@ -83,20 +84,20 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 	var/list/obj/miscboxes = list() //miscboxes are combo boxes that contain all small_item orders grouped
 	var/list/misc_order_num = list() //list of strings of order numbers, so that the manifest can show all orders in a box
 	var/list/misc_contents = list() //list of lists of items that each box will contain
-	if(!SSshuttle.shoppinglist.len)
+	if(!SSsupply.shoppinglist.len)
 		return
 
 	var/list/empty_turfs = list()
 	for(var/place in shuttle_areas)
 		var/area/shuttle/shuttle_area = place
 		for(var/turf/open/floor/T in shuttle_area)
-			if(is_blocked_turf(T))
+			if(T.is_blocked_turf())
 				continue
 			empty_turfs += T
 
 	var/value = 0
 	var/purchases = 0
-	for(var/datum/supply_order/SO in SSshuttle.shoppinglist)
+	for(var/datum/supply_order/SO in SSsupply.shoppinglist)
 		if(!empty_turfs.len)
 			break
 		var/price = SO.pack.get_cost()
@@ -105,20 +106,25 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 			D = SO.paying_account
 			price *= 1.1 //TODO make this customizable by the quartermaster
 		else
-			D = SSeconomy.get_dep_account(ACCOUNT_CAR)
+			D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 		if(D)
 			if(!D.adjust_money(-price))
 				if(SO.paying_account)
 					D.bank_card_talk("Cargo order #[SO.id] rejected due to lack of funds. Credits required: [price]")
 				continue
+		//No stock
+		if(SO.pack.current_supply <= 0)
+			continue
+
+		SO.pack.current_supply --
 
 		if(SO.paying_account)
 			D.bank_card_talk("Cargo order #[SO.id] has shipped. [price] credits have been charged to your bank account.")
-			var/datum/bank_account/department/cargo = SSeconomy.get_dep_account(ACCOUNT_CAR)
+			var/datum/bank_account/department/cargo = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 			cargo.adjust_money(price - SO.pack.get_cost()) //Cargo gets the handling fee
 		value += SO.pack.get_cost()
-		SSshuttle.shoppinglist -= SO
-		SSshuttle.orderhistory += SO
+		SSsupply.shoppinglist -= SO
+		SSsupply.orderhistory += SO
 
 		if(SO.pack.small_item) //small_item means it gets piled in the miscbox
 			if(SO.paying_account)
@@ -131,7 +137,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 					misc_contents[D.account_holder] += item
 				misc_order_num[D.account_holder] = "[misc_order_num[D.account_holder]]#[SO.id]  "
 				if(SO.pack.access)
-					miscboxes[D.account_holder].req_access += SO.pack.access
+					miscboxes[D.account_holder].req_access |= SO.pack.access
 			else //No private payment, so we just stuff it all into a generic crate
 				if(!miscboxes.len || !miscboxes["Cargo"])
 					miscboxes["Cargo"] = new /obj/structure/closet/crate/secure(pick_n_take(empty_turfs))
@@ -142,7 +148,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 					misc_contents["Cargo"] += item
 					//new item(miscboxes["Cargo"])
 				if(SO.pack.access)
-					miscboxes["Cargo"].req_access += SO.pack.access
+					miscboxes["Cargo"].req_access |= SO.pack.access
 				misc_order_num["Cargo"] = "[misc_order_num["Cargo"]]#[SO.id]  "
 		else
 			SO.generate(pick_n_take(empty_turfs))
@@ -159,11 +165,13 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 		SO.generateCombo(miscboxes[I], I, misc_contents[I])
 		qdel(SO)
 
-	var/datum/bank_account/cargo_budget = SSeconomy.get_dep_account(ACCOUNT_CAR)
+	var/datum/bank_account/cargo_budget = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 	investigate_log("[purchases] orders in this shipment, worth [value] credits. [cargo_budget.account_balance] credits left.", INVESTIGATE_CARGO)
 
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_RESUPPLY)
+
 /obj/docking_port/mobile/supply/proc/sell()
-	var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
+	var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 	var/presale_points = D.account_balance
 
 	if(!GLOB.exports_list.len) // No exports list? Generate it!
@@ -183,7 +191,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 				matched_bounty = TRUE
 			if(!AM.anchored || istype(AM, /obj/mecha))
 				export_item_and_contents(AM, export_categories , dry_run = FALSE, external_report = ex)
-			else
+			else if(!ismachinery(AM))
 				//Exports the contents of things but not the item itself, so you can have conveyor belt that won't get sold
 				export_contents(AM, export_categories , dry_run = FALSE, external_report = ex)
 
@@ -207,7 +215,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 
 //	Generates a box of mail depending on our exports and imports.
 //	Applied in the cargo shuttle sending/arriving, by building the crate if the round is ready to introduce mail based on the economy subsystem.
-// Then, fills the mail crate with mail, by picking applicable crew who can recieve mail at the time to sending.
+// Then, fills the mail crate with mail, by picking applicable crew who can receive mail at the time to sending.
 
 /obj/docking_port/mobile/supply/proc/create_mail()
 	//Early return if there's no mail waiting to prevent taking up a slot.
@@ -217,8 +225,11 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 	var/list/empty_turfs = list()
 	for(var/area/shuttle/shuttle_area in shuttle_areas)
 		for(var/turf/open/floor/T in shuttle_area)
-			if(is_blocked_turf(T))
+			if(T.is_blocked_turf())
 				continue
 			empty_turfs += T
+
+	if(!length(empty_turfs))
+		return
 
 	new /obj/structure/closet/crate/mail/economy(pick(empty_turfs))

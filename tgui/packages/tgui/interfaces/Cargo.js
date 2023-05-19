@@ -125,7 +125,7 @@ const CargoStatus = (props, context) => {
 };
 
 export const CargoCatalog = (props, context) => {
-  const { 
+  const {
     express,
     canOrder = true,
   } = props;
@@ -194,14 +194,21 @@ export const CargoCatalog = (props, context) => {
                   </Table.Cell>
                   <Table.Cell
                     collapsing
+                    color="label"
+                    textAlign="right">
+                    Stock: {pack.supply}
+                  </Table.Cell>
+                  <Table.Cell
+                    collapsing
                     textAlign="right">
                     <Button
                       fontFamily="verdana"
                       fluid
                       tooltip={pack.desc}
                       tooltipPosition="left"
-                      disabled={!canOrder 
-                        || (express && points && points<pack.cost)}
+                      disabled={!canOrder
+                        || (express && points && points < pack.cost
+                          && pack.supply > 0)}
                       onClick={() => act('add', {
                         id: pack.id,
                       })}>
@@ -265,6 +272,9 @@ const CargoRequests = (props, context) => {
               </Table.Cell>
               <Table.Cell fontFamily="verdana" collapsing textAlign="right">
                 {formatMoney(request.cost)} cr
+              </Table.Cell>
+              <Table.Cell fontFamily="verdana" collapsing textAlign="right">
+                Stock: {request.supply}
               </Table.Cell>
               {(!requestonly || can_send) && can_approve_requests && (
                 <Table.Cell collapsing>
@@ -360,6 +370,9 @@ const CargoCart = (props, context) => {
               </Table.Cell>
               <Table.Cell fontFamily="verdana" collapsing textAlign="right">
                 {formatMoney(entry.cost)} cr
+              </Table.Cell>
+              <Table.Cell fontFamily="verdana" collapsing textAlign="right">
+                Stock: {entry.supply}
               </Table.Cell>
               <Table.Cell collapsing>
                 {can_send && (

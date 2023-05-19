@@ -3,7 +3,6 @@
 	desc = "Turns a person into a Cluwne, a poor soul cursed to a short and miserable life by the honkmother."
 	quality = NEGATIVE
 	locked = TRUE
-	text_gain_indication = "<span class='danger'>You feel like your brain is tearing itself apart.</span>"
 
 /datum/mutation/cluwne/on_acquiring(mob/living/carbon/owner)
 	if(..())

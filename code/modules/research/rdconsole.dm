@@ -160,6 +160,7 @@ Nothing else in the console has ID requirements.
 			var/i = stored_research.research_logs.len
 			stored_research.research_logs += null
 			stored_research.research_logs[++i] = list(TN.display_name, price["General Research"], logname, "[get_area(src)] ([src.x],[src.y],[src.z])")
+			SEND_GLOBAL_SIGNAL(COMSIG_GLOB_NEW_RESEARCH, id)
 			return TRUE
 		else
 			say("Failed to research node: Internal database error!")
@@ -179,13 +180,11 @@ Nothing else in the console has ID requirements.
 		linked_imprinter = null
 	..()
 
-/obj/machinery/computer/rdconsole/emag_act(mob/user)
-	if(!(obj_flags & EMAGGED))
-		to_chat(user, "<span class='notice'>You disable the security protocols[locked? " and unlock the console":""].</span>")
-		playsound(src, "sparks", 75, 1)
-		obj_flags |= EMAGGED
-		locked = FALSE
-	return ..()
+/obj/machinery/computer/rdconsole/on_emag(mob/user)
+	..()
+	to_chat(user, "<span class='notice'>You disable the security protocols[locked? " and unlock the console":""].</span>")
+	playsound(src, "sparks", 75, 1)
+	locked = FALSE
 
 /obj/machinery/computer/rdconsole/multitool_act(mob/user, obj/item/multitool/I)
 	var/lathe = linked_lathe && linked_lathe.multitool_act(user, I)
@@ -313,7 +312,7 @@ Nothing else in the console has ID requirements.
 		node_cache[compressed_id] = list(
 			"name" = node.display_name,
 			"description" = node.description,
-			"tech_tier" = node.tech_tier,
+			"node_tier" = node.tech_tier,
 		)
 		if (LAZYLEN(node.prereq_ids))
 			node_cache[compressed_id]["prereq_ids"] = list()

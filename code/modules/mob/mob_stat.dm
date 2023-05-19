@@ -52,9 +52,9 @@
 		// ===== ADMIN PMS =====
 		if("(!) Admin PM")
 			client.stat_update_mode = STAT_MEDIUM_UPDATE
-			var/datum/admin_help/ticket = client.current_ticket
+			var/datum/help_ticket/ticket = client.current_adminhelp_ticket
 			tab_data["ckey"] = key_name(client, FALSE, FALSE)
-			tab_data["admin_name"] = key_name(ticket.claimed_admin, FALSE, FALSE)
+			tab_data["admin_name"] = key_name(ticket.claimee, FALSE, FALSE)
 			//Messages:
 			tab_data["messages"] = list()
 			for(var/datum/ticket_interaction/message as() in ticket._interactions)
@@ -118,7 +118,7 @@
 		return list("Interview" = list(/mob/dead/new_player/proc/open_interview))
 
 	if(sorted_verbs)
-		all_verbs = deepCopyList(sorted_verbs)
+		all_verbs = deep_copy_list(sorted_verbs)
 	//An annoying thing to mention:
 	// list A [A: ["b", "c"]] +  (list B) [A: ["c", "d"]] will only have A from list B
 	for(var/i in client.sorted_verbs)
@@ -162,8 +162,10 @@
 		tab_data["Players Ready/Connected"] = GENERATE_STAT_TEXT("[SSticker.totalPlayersReady]/[GLOB.clients.len]")
 	else
 		tab_data["Players Playing/Connected"] = GENERATE_STAT_TEXT("[get_active_player_count()]/[GLOB.clients.len]")
-	tab_data["divider_3"] = GENERATE_STAT_DIVIDER
+	if(SSticker.round_start_time)
+		tab_data["Security Level"] = GENERATE_STAT_TEXT("[capitalize(get_security_level())]")
 
+	tab_data["divider_3"] = GENERATE_STAT_DIVIDER
 	if(SSshuttle.emergency)
 		var/ETA = SSshuttle.emergency.getModeStr()
 		if(ETA)
@@ -206,7 +208,7 @@
 		"Status",
 	)
 	//Get Tickets
-	if(client.current_ticket)
+	if(client.current_adminhelp_ticket)
 		//Bwoinks come after status
 		tabs += "(!) Admin PM"
 	//Listed turfs
@@ -237,7 +239,7 @@
 	//Performance increase from only adding keys is better than adding values too.
 	for(var/i in get_all_verbs())
 		additional_tabs |= i
-	additional_tabs = sortList(additional_tabs)
+	additional_tabs = sort_list(additional_tabs)
 	//Get verbs
 	tabs |= additional_tabs
 	return tabs
@@ -261,7 +263,7 @@
 				I.ui_interact(src)
 		if("open_ticket")
 			var/ticket_id = text2num(params["id"])
-			var/datum/admin_help/AH = GLOB.ahelp_tickets.TicketByID(ticket_id)
+			var/datum/help_ticket/AH = GLOB.ahelp_tickets.TicketByID(ticket_id)
 			if(AH && client.holder)
 				AH.ui_interact(src)
 		if("atomClick")
@@ -319,8 +321,8 @@
 			if(message)
 				if(world.time > client.last_adminhelp_reply + 10 SECONDS)
 					client.last_adminhelp_reply = world.time
-					if(client.current_ticket)
-						client.current_ticket.MessageNoRecipient(message)
+					if(client.current_adminhelp_ticket)
+						client.current_adminhelp_ticket.MessageNoRecipient(message)
 					else
 						to_chat(src, "<span class='warning'>Your issue has already been resolved!</span>")
 				else

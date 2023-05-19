@@ -11,14 +11,21 @@
 	throw_speed = 3
 	throw_range = 7
 	max_amount = 60
-	var/turf_type = null
-	var/mineralType = null
 	novariants = TRUE
+	/// What type of turf does this tile produce.
+	var/turf_type = null
+	/// Determines certain welder interactions.
+	var/mineralType = null
+	/// Cached associative lazy list to hold the radial options for tile reskinning. See tile_reskinning.dm for more information. Pattern: list[type] -> image
+	var/list/tile_reskin_types
 
 /obj/item/stack/tile/Initialize(mapload, new_amount, merge = TRUE, mob/user = null)
 	. = ..()
 	pixel_x = rand(-3, 3)
 	pixel_y = rand(-3, 3) //randomize a little
+	if(tile_reskin_types)
+		tile_reskin_types = tile_reskin_list(tile_reskin_types)
+
 
 /obj/item/stack/tile/attackby(obj/item/W, mob/user, params)
 
@@ -112,6 +119,13 @@
 	desc = "A patch of odd, glowing red grass."
 	turf_type = /turf/open/floor/grass/fairy/red
 	color = "#FF3333"
+
+/obj/item/stack/tile/fairygrass/orange
+	name = "orange fairygrass tile"
+	singular_name = "orange fairygrass floor tile"
+	desc = "A patch of odd, glowing orange grass."
+	turf_type = /turf/open/floor/grass/fairy/orange
+	color = "#FFA500"
 
 /obj/item/stack/tile/fairygrass/yellow
 	name = "yellow fairygrass tile"
@@ -482,7 +496,7 @@
 	flags_1 = CONDUCT_1
 	turf_type = /turf/open/floor/plasteel
 	mineralType = "iron"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70, STAMINA = 0)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/stack/tile/plasteel/cyborg
@@ -558,3 +572,19 @@
 	icon_state = "tile_tech_maint"
 	materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/plasteel/techmaint
+
+/obj/item/stack/tile/dock
+	name = "dock tile"
+	singular_name = "dock tile"
+	desc = "A bulky chunk of flooring capable of holding the weight of a shuttle."
+	icon_state = "tile_dock"
+	materials = list(/datum/material/iron=500, /datum/material/plasma=500)
+	turf_type = /turf/open/floor/dock
+
+/obj/item/stack/tile/drydock
+	name = "dry dock tile"
+	singular_name = "dry dock tile"
+	desc = "An extra-bulky chunk of flooring capable of supporting shuttle construction."
+	icon_state = "tile_drydock"
+	materials = list(/datum/material/iron=1000, /datum/material/plasma=1000)
+	turf_type = /turf/open/floor/dock/drydock

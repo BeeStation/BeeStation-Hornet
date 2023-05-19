@@ -55,13 +55,13 @@
 	charges_left ++
 	icon_state = "flashbulb"
 	if(charges_left < max_charges)
-		addtimer(CALLBACK(src, .proc/recharge), charge_time, TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(recharge)), charge_time, TIMER_UNIQUE)
 		recharging = TRUE
 
 /obj/item/flashbulb/recharging/use_flashbulb()
 	. = ..()
 	if(!recharging)
-		addtimer(CALLBACK(src, .proc/recharge), charge_time, TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(recharge)), charge_time, TIMER_UNIQUE)
 		recharging = TRUE
 
 /obj/item/flashbulb/recharging/revolution
@@ -75,7 +75,8 @@
 
 /obj/item/assembly/flash
 	name = "flash"
-	desc = "A powerful and versatile flashbulb device, with applications ranging from disorienting attackers to acting as visual receptors in robot production."
+	desc = "A powerful and versatile flashbulb device, with applications ranging from disorienting attackers to acting as visual receptors in robot production. \
+		It is highly effective against targets who aren't standing or are suffering from exhaustion."
 	icon_state = "flash"
 	item_state = "flashtool"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
@@ -88,6 +89,7 @@
 	light_range = FLASH_LIGHT_RANGE
 	light_power = FLASH_LIGHT_POWER
 	light_on = FALSE
+	item_flags = ISWEAPON
 	var/flashing_overlay = "flash-f"
 	var/last_used = 0 //last world.time it was used.
 	var/cooldown = 20
@@ -109,7 +111,6 @@
 	. = ..()
 	. += "[bulb ? "The bulb looks like it can handle just about [bulb.charges_left] more uses.\nIt looks like you can cut out the flashbulb with a pair of wirecutters." : "The device has no bulb installed."]"
 
-
 /obj/item/assembly/flash/suicide_act(mob/living/user)
 	if(!bulb)
 		user.visible_message("<span class='suicide'>[user] raises \the [src] up to [user.p_their()] eyes and activates it ... but there is no bulb!</span>")
@@ -117,7 +118,7 @@
 	if(bulb.charges_left <= 0)
 		user.visible_message("<span class='suicide'>[user] raises \the [src] up to [user.p_their()] eyes and activates it ... but it's burnt out!</span>")
 		return SHAME
-	else if(user.eye_blind)
+	else if(user.is_blind())
 		user.visible_message("<span class='suicide'>[user] raises \the [src] up to [user.p_their()] eyes and activates it ... but [user.p_theyre()] blind!</span>")
 		return SHAME
 	user.visible_message("<span class='suicide'>[user] raises \the [src] up to [user.p_their()] eyes and activates it! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -136,7 +137,7 @@
 	if(flash)
 		add_overlay(flashing_overlay)
 		attached_overlays += flashing_overlay
-		addtimer(CALLBACK(src, /atom/.proc/update_icon), 5)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 5)
 	if(holder)
 		holder.update_icon()
 
@@ -222,7 +223,7 @@
 	last_trigger = world.time
 	playsound(src, 'sound/weapons/flash.ogg', 100, TRUE)
 	set_light_on(TRUE)
-	addtimer(CALLBACK(src, .proc/flash_end), FLASH_LIGHT_DURATION, TIMER_OVERRIDE|TIMER_UNIQUE)
+	addtimer(CALLBACK(src, PROC_REF(flash_end)), FLASH_LIGHT_DURATION, TIMER_OVERRIDE|TIMER_UNIQUE)
 	update_icon(TRUE)
 	if(user && !clown_check(user))
 		return FALSE
@@ -243,7 +244,8 @@
 	if(generic_message && M != user)
 		to_chat(M, "<span class='disarm'>[src] emits a blinding light!</span>")
 	if(targeted)
-		if(M.flash_act(1, 1))
+		//No flash protection, blind and stun
+		if(M.flash_act(1, TRUE))
 			if(user)
 				terrible_conversion_proc(M, user)
 				visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>")
@@ -251,8 +253,28 @@
 				to_chat(M, "<span class='userdanger'>[user] blinds you with the flash!</span>")
 			else
 				to_chat(M, "<span class='userdanger'>You are blinded by [src]!</span>")
-			M.Paralyze(70)
+			//Will be 0 if the user has no stmaina loss, will be 1 if they are in stamcrit
+			var/flash_proportion = CLAMP01(M.getStaminaLoss() / (M.maxHealth - M.crit_threshold))
+			if (!(M.mobility_flags & MOBILITY_STAND))
+				flash_proportion = 1
+			if(flash_proportion > 0.4)
+				M.Paralyze(70 * flash_proportion)
+			else
+				M.Knockdown(max(70 * flash_proportion, 5))
+			M.confused = max(M.confused, 4)
 
+		//Basic flash protection, only blind
+		else if(M.flash_act(2, TRUE))
+			if(user)
+				//Tell the user that their flash failed
+				visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>")
+				to_chat(user, "<span class='warning'>You fail to blind [M] with the flash!</span>")
+				//Tell the victim that they have been blinded
+				to_chat(M, "<span class='userdanger'>[user] blinds you with the flash!</span>")
+			else
+				to_chat(M, "<span class='userdanger'>You are blinded by [src]!</span>")
+
+		//Complete failure to blind
 		else if(user)
 			visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>")
 			to_chat(user, "<span class='warning'>You fail to blind [M] with the flash!</span>")
@@ -260,7 +282,7 @@
 		else
 			to_chat(M, "<span class='danger'>[src] fails to blind you!</span>")
 	else
-		M.flash_act()
+		M.flash_act(2)
 
 /obj/item/assembly/flash/attack(mob/living/M, mob/user)
 	if(!try_use_flash(user))
@@ -272,9 +294,13 @@
 		var/mob/living/silicon/robot/R = M
 		log_combat(user, R, "flashed", src)
 		update_icon(1)
-		R.Paralyze(70)
 		R.flash_act(affect_silicon = 1, type = /atom/movable/screen/fullscreen/flash/static)
-		user.visible_message("<span class='disarm'>[user] overloads [R]'s sensors with the flash!</span>", "<span class='danger'>You overload [R]'s sensors with the flash!</span>")
+		if(R.last_flashed + 30 SECONDS < world.time)
+			R.last_flashed = world.time
+			R.Paralyze(5 SECONDS)
+			user.visible_message("<span class='disarm'>[user] overloads [R]'s sensors with the flash!</span>", "<span class='danger'>You overload [R]'s sensors with the flash!</span>")
+		else
+			user.visible_message("<span class='disarm'>[user] attempts to overload [R]'s sensors with the flash, but defense protocols mitigate the effect!</span>", "<span class='danger'>You attempt to overload [R]'s sensors with the flash, but their defense protocols mitigate the effect!</span>")
 		return TRUE
 
 	user.visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>", "<span class='warning'>You fail to blind [M] with the flash!</span>")
@@ -359,7 +385,7 @@
 		to_chat(real_arm.owner, "<span class='warning'>Your photon projector implant overheats and deactivates!</span>")
 		real_arm.Retract()
 	overheat = TRUE
-	addtimer(CALLBACK(src, .proc/cooldown), flashcd * 2)
+	addtimer(CALLBACK(src, PROC_REF(cooldown)), flashcd * 2)
 
 /obj/item/assembly/flash/armimplant/try_use_flash(mob/user = null)
 	if(overheat)
@@ -368,7 +394,7 @@
 			to_chat(real_arm.owner, "<span class='warning'>Your photon projector is running too hot to be used again so quickly!</span>")
 		return FALSE
 	overheat = TRUE
-	addtimer(CALLBACK(src, .proc/cooldown), flashcd)
+	addtimer(CALLBACK(src, PROC_REF(cooldown)), flashcd)
 	playsound(src, 'sound/weapons/flash.ogg', 100, TRUE)
 	update_icon(1)
 	return TRUE
@@ -408,7 +434,7 @@
 				user.visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>", "<span class='danger'>You hypno-flash [M]!</span>")
 
 			if(M.hypnosis_vulnerable())
-				M.apply_status_effect(/datum/status_effect/trance, 200, TRUE)
+				M.apply_status_effect(/datum/status_effect/trance/hardened, 200, TRUE)
 			else
 				to_chat(M, "<span class='notice'>The light makes you feel oddly relaxed...</span>")
 				M.confused += min(M.confused + 10, 20)

@@ -262,13 +262,15 @@ const Connections = (props, context) => {
 
   for (const comp of components) {
     for (const port of comp.input_ports) {
-      if (port.connected_to === NULL_REF) continue;
-      const output_port = locations[port.connected_to];
-      connections.push({
-        color: output_port && output_port.color || "blue",
-        from: output_port,
-        to: locations[port.ref],
-      });
+      for (const connected_port of port.connected_to) {
+        if (connected_port === NULL_REF) continue;
+        const output_port = locations[connected_port];
+        connections.push({
+          color: output_port && output_port.color || "blue",
+          from: output_port,
+          to: locations[port.ref],
+        });
+      }
     }
   }
 
@@ -681,7 +683,7 @@ const DisplayName = (props, context) => {
   const InputComponent = FUNDAMENTAL_DATA_TYPES[port.type || 'any'];
 
   const hasInput = !isOutput
-    && port.connected_to === NULL_REF
+    && port.connected_to.length === 0
     && InputComponent;
 
   return (

@@ -1,5 +1,6 @@
+import { classes } from 'common/react';
 import { useBackend, useSharedState } from '../backend';
-import { AnimatedNumber, Box, Button, ColorBox, LabeledList, NumberInput, Section, Table } from '../components';
+import { AnimatedNumber, Box, Button, ColorBox, Input, LabeledList, NumberInput, Section, Table } from '../components';
 import { Window } from '../layouts';
 
 export const ChemMaster = (props, context) => {
@@ -8,7 +9,7 @@ export const ChemMaster = (props, context) => {
   return (
     <Window
       width={465}
-      height={550}>
+      height={620}>
       <Window.Content scrollable>
         {screen === 'analyze' && (
           <AnalysisResults />
@@ -23,11 +24,19 @@ export const ChemMaster = (props, context) => {
 const ChemMasterContent = (props, context) => {
   const { act, data } = useBackend(context);
   const {
+    saved_volume,
+    saved_name,
+    saved_volume_state,
+    saved_name_state,
+  } = data;
+  const {
     screen,
     beakerContents = [],
     bufferContents = [],
     beakerCurrentVolume,
     beakerMaxVolume,
+    machineCurrentVolume,
+    machineMaxVolume,
     isBeakerLoaded,
     isPillBottleLoaded,
     pillBottleCurrentAmount,
@@ -77,6 +86,12 @@ const ChemMasterContent = (props, context) => {
         title="Buffer"
         buttons={(
           <>
+            <Box inline color="label" mr={2}>
+              <AnimatedNumber
+                value={machineCurrentVolume}
+                initial={0} />
+              {` / ${machineMaxVolume} units.`}
+            </Box>
             <Box inline color="label" mr={1}>
               Mode:
             </Box>
@@ -102,8 +117,51 @@ const ChemMasterContent = (props, context) => {
         </ChemicalBuffer>
       </Section>
       <Section
-        title="Packaging">
-        <PackagingControls />
+        title="Packaging"
+        buttons={(
+          <>
+            <Box inline color="label" mr={1}>
+              Mode:
+            </Box>
+            <Button
+              icon={saved_volume_state === "Exact" ? "eye-dropper" : "flask"}
+              content={`${saved_volume_state}`}
+              tooltip="Volume Distribution"
+              onClick={() => act('setSavedVolumeState', { volume_state: saved_volume_state === "Exact" ? "Auto" : "Exact" })}
+            />
+            {saved_volume_state === "Exact" && (
+              <NumberInput
+                width="84px"
+                unit="units"
+                stepPixelSize={15}
+                value={saved_volume}
+                minValue={0.01}
+                maxValue={50}
+                onChange={(e, value) => act('setSavedVolume', { volume: value })} />
+            )}
+          </>
+        )}>
+        <Box mb={2}>
+          <Box inline color="label" mr={1}>
+            Naming Mode:
+          </Box>
+          <Button
+            icon={saved_name_state === "Manual" ? "pen" : "print"}
+            content={`${saved_name_state}`}
+            onClick={() => act('setSavedNameState', { name_state: saved_name_state === "Manual" ? "Auto" : "Manual" })}
+          />
+          {saved_name_state === "Manual" && (
+            <Input
+              fluid
+              value={saved_name}
+              placeholder="Name"
+              onInput={(e, value) => {
+                act('setSavedName', { name: value });
+              }} />
+          )}
+        </Box>
+        <PackagingControls
+          volume={saved_volume_state === "Exact" ? saved_volume : "auto"} packagingName={saved_name_state === "Manual" ? saved_name : null} />
       </Section>
       {!!isPillBottleLoaded && (
         <Section
@@ -216,7 +274,8 @@ const PackagingControlsItem = props => {
   );
 };
 
-const PackagingControls = (props, context) => {
+
+const PackagingControls = ({ volume, packagingName }, context) => {
   const { act, data } = useBackend(context);
   const [
     pillAmount,
@@ -231,27 +290,38 @@ const PackagingControls = (props, context) => {
     setBottleAmount,
   ] = useSharedState(context, 'bottleAmount', 1);
   const [
+    bagAmount,
+    setBagAmount,
+  ] = useSharedState(context, 'bagAmount', 1);
+  const [
     packAmount,
     setPackAmount,
   ] = useSharedState(context, 'packAmount', 1);
   const {
     condi,
-    chosenPillStyle,
-    pillStyles = [],
+    chosen_pill_style,
+    pill_styles = [],
+    chosen_patch_style,
+    patch_styles = [],
   } = data;
   return (
     <LabeledList>
       {!condi && (
         <LabeledList.Item label="Pill type">
-          {pillStyles.map(pill => (
+          {pill_styles.map(each_style => (
             <Button
-              key={pill.id}
+              key={each_style.id}
               width="30px"
-              selected={pill.id === chosenPillStyle}
+              height="16px"
+              selected={each_style.id === chosen_pill_style}
               textAlign="center"
               color="transparent"
-              onClick={() => act('pillStyle', { id: pill.id })}>
-              <Box mx={-1} className={pill.className} />
+              onClick={() => act('pillStyle', { id: each_style.id })}>
+              <Box mx={-1}
+                className={classes([
+                  'medicine_containers22x22',
+                  each_style.pill_icon_name,
+                ])} />
             </Button>
           ))}
         </LabeledList.Item>
@@ -266,8 +336,29 @@ const PackagingControls = (props, context) => {
           onCreate={() => act('create', {
             type: 'pill',
             amount: pillAmount,
-            volume: 'auto',
+            volume: volume,
+            name: packagingName,
           })} />
+      )}
+      {!condi && (
+        <LabeledList.Item label="Patch type">
+          {patch_styles.map(each_style => (
+            <Button
+              key={each_style.id}
+              width="30px"
+              height="25px"
+              selected={each_style.id === chosen_patch_style}
+              textAlign="center"
+              color="transparent"
+              onClick={() => act('patchStyle', { id: each_style.id })}>
+              <Box mx={-1}
+                className={classes([
+                  'medicine_containers22x22',
+                  each_style.patch_icon_name,
+                ])} />
+            </Button>
+          ))}
+        </LabeledList.Item>
       )}
       {!condi && (
         <PackagingControlsItem
@@ -279,7 +370,8 @@ const PackagingControls = (props, context) => {
           onCreate={() => act('create', {
             type: 'patch',
             amount: patchAmount,
-            volume: 'auto',
+            volume: volume,
+            name: packagingName,
           })} />
       )}
       {!condi && (
@@ -292,6 +384,20 @@ const PackagingControls = (props, context) => {
           onCreate={() => act('create', {
             type: 'bottle',
             amount: bottleAmount,
+            volume: volume,
+            name: packagingName,
+          })} />
+      )}
+      {!condi && (
+        <PackagingControlsItem
+          label="Bags"
+          amount={bagAmount}
+          amountUnit="bags"
+          sideNote="max 200u"
+          onChangeAmount={(e, value) => setBagAmount(value)}
+          onCreate={() => act('create', {
+            type: 'bag',
+            amount: bagAmount,
             volume: 'auto',
           })} />
       )}
@@ -305,7 +411,8 @@ const PackagingControls = (props, context) => {
           onCreate={() => act('create', {
             type: 'condimentPack',
             amount: packAmount,
-            volume: 'auto',
+            volume: volume,
+            name: packagingName,
           })} />
       )}
       {!!condi && (
@@ -318,7 +425,8 @@ const PackagingControls = (props, context) => {
           onCreate={() => act('create', {
             type: 'condimentBottle',
             amount: bottleAmount,
-            volume: 'auto',
+            volume: volume,
+            name: packagingName,
           })} />
       )}
     </LabeledList>

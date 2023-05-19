@@ -117,6 +117,16 @@
 	mood_change = 10 //maybe being a cultist isn't that bad after all
 	hidden = TRUE
 
+/datum/mood_event/hivehost
+	description = "<span class='nicegreen'>Our psyche expands, our influence broadens.</span>\n"
+	mood_change = 5
+	hidden = TRUE
+
+/datum/mood_event/hiveawakened
+	description = "<span class='nicegreen'>True purpose has been revealed to us, at last!.</span>\n"
+	mood_change =  2
+	hidden = TRUE
+
 /datum/mood_event/family_heirloom
 	description = "<span class='nicegreen'>My family heirloom is safe with me.</span>\n"
 	mood_change = 1
@@ -222,3 +232,26 @@
 /datum/mood_event/feline_mania
 	description = "<span class='nicegreen'>I'M SO HECKIN CUTE OMIGOSH!</span>\n"
 	mood_change = 5
+
+/datum/mood_event/brain_tumor_mannitol
+	description = "<span class='nicegreen'>Mannitol makes my brain calm down.</span>\n"
+	mood_change = 0
+	timeout = 30 SECONDS
+
+/datum/mood_event/brain_tumor_mannitol/New(mob/M, param)
+	timeout = rand(30,60) SECONDS // makes the timing unreliable on your mood
+	..()
+
+/datum/mood_event/flower_worn
+	description = "<span class='nicegreen'>The flower I'm wearing is pretty.</span>\n"
+	mood_change = 1
+
+/datum/mood_event/flower_worn/add_effects(obj/item/I)
+	description = "<span class='nicegreen'>The [I.name] I'm wearing is pretty.</span>\n"
+
+/datum/mood_event/flower_crown_worn
+	description = "<span class='nicegreen'>The flower crown on my head is beautiful.</span>\n"
+	mood_change = 3
+
+/datum/mood_event/flower_crown_worn/add_effects(obj/item/I)
+	description = "<span class='nicegreen'>The [I.name] on my head is beautiful.</span>\n"

@@ -13,13 +13,10 @@
 	else
 		return ..()
 
-/obj/machinery/door/unpowered/emag_act()
-	return
-
 /obj/machinery/door/unpowered/shuttle
 	icon = 'icons/turf/shuttle.dmi'
 	name = "door"
 	icon_state = "door1"
-	opacity = 1
+	opacity = TRUE
 	density = TRUE
 	explosion_block = 1

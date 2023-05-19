@@ -3,7 +3,7 @@
 
 Deafness
 
-	Slightly noticable.
+	Slightly noticeable.
 	Lowers resistance.
 	Decreases stage speed slightly.
 	Decreases transmittablity.

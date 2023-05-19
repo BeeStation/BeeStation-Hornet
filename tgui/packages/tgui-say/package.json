@@ -1,0 +1,13 @@
+{
+  "private": true,
+  "name": "tgui-say",
+  "version": "1.0.0",
+  "dependencies": {
+    "common": "workspace:*",
+    "dompurify": "^3.0.1",
+    "inferno": "^8.0.6",
+    "tgui": "workspace:*",
+    "tgui-dev-server": "workspace:*",
+    "tgui-polyfill": "workspace:*"
+  }
+}

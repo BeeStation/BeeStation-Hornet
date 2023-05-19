@@ -20,7 +20,7 @@
 	invisibility = INVISIBILITY_REVENANT
 	health = INFINITY //Revenants don't use health, they use essence instead
 	maxHealth = INFINITY
-	layer = GHOST_LAYER
+	plane = GHOST_PLANE
 	healable = FALSE
 	spacewalk = TRUE
 	sight = SEE_SELF
@@ -71,13 +71,14 @@
 /mob/living/simple_animal/revenant/Initialize(mapload)
 	. = ..()
 	AddSpell(new /obj/effect/proc_holder/spell/targeted/night_vision/revenant(null))
+	AddSpell(new /obj/effect/proc_holder/spell/self/revenant_phase_shift(null))
 	AddSpell(new /obj/effect/proc_holder/spell/targeted/telepathy/revenant(null))
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/defile(null))
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/overload(null))
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/blight(null))
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction(null))
 	random_revenant_name()
-	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE)
+	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE, "#490066")
 
 /mob/living/simple_animal/revenant/Destroy()
 	. = ..()
@@ -86,7 +87,7 @@
 	if(beacon)
 		qdel(beacon)
 
-/mob/living/simple_animal/revenant/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
+/mob/living/simple_animal/revenant/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
 	return FALSE
 
 /mob/living/simple_animal/revenant/proc/random_revenant_name()
@@ -162,6 +163,10 @@
 /mob/living/simple_animal/revenant/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	if(!message)
 		return
+	if(CHAT_FILTER_CHECK(message))
+		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+		return
+	message = treat_message_min(message)
 	src.log_talk(message, LOG_SAY)
 	var/rendered = "<span class='revennotice'><b>[src]</b> says, \"[message]\"</span>"
 	for(var/mob/M in GLOB.mob_list)
@@ -204,7 +209,7 @@
 		adjustBruteLoss(25) //hella effective
 		inhibited = TRUE
 		update_action_buttons_icon()
-		addtimer(CALLBACK(src, .proc/reset_inhibit), 30)
+		addtimer(CALLBACK(src, PROC_REF(reset_inhibit)), 30)
 
 /mob/living/simple_animal/revenant/proc/reset_inhibit()
 	inhibited = FALSE
@@ -252,6 +257,25 @@
 
 
 //reveal, stun, icon updates, cast checks, and essence changing
+/mob/living/simple_animal/revenant/proc/phase_shift()
+	if(unreveal_time) //An ability has forced the revenant to be vulnerable and this should not override that
+		to_chat(src, "<span class='revenwarning'>You cannot become incorporeal yet!</span>")
+		return FALSE
+
+	else if(revealed) //Okay, the revenant wasn't forced to be revealed, are they currently vulnerable
+		revealed = FALSE
+		incorporeal_move = INCORPOREAL_MOVE_JAUNT
+		invisibility = INVISIBILITY_REVENANT
+
+
+	else //Revenant isn't revealed, whether by force or their own will, so this means they are currently invisible
+		revealed = TRUE
+		incorporeal_move = FALSE
+		invisibility = 0
+	update_spooky_icon()
+	orbiting?.end_orbit(src)
+	return TRUE
+
 /mob/living/simple_animal/revenant/proc/reveal(time)
 	if(!src)
 		return
@@ -267,6 +291,7 @@
 		to_chat(src, "<span class='revenwarning'>You have been revealed!</span>")
 		unreveal_time = unreveal_time + time
 	update_spooky_icon()
+	orbiting?.end_orbit(src)
 
 /mob/living/simple_animal/revenant/proc/stun(time)
 	if(!src)
@@ -302,7 +327,7 @@
 		to_chat(src, "<span class='revenwarning'>You cannot use abilities from inside of a wall.</span>")
 		return FALSE
 	for(var/obj/O in T)
-		if(O.density && !O.CanPass(src, T))
+		if(O.density && !O.CanPass(src, get_dir(T, src)))
 			to_chat(src, "<span class='revenwarning'>You cannot use abilities inside of a dense object.</span>")
 			return FALSE
 	if(inhibited)
@@ -350,6 +375,74 @@
 	alpha=255
 	stasis = FALSE
 
+/mob/living/simple_animal/revenant/CtrlClickOn(atom/A)
+	if(incorporeal_move == INCORPOREAL_MOVE_JAUNT)
+		check_orbitable(A)
+		return
+	..()
+
+/mob/living/simple_animal/revenant/DblClickOn(atom/A, params)
+	check_orbitable(A)
+	..()
+
+/mob/living/simple_animal/revenant/proc/check_orbitable(atom/A)
+	if(revealed)
+		to_chat(src, "<span class='warning'>You can't orbit while you're revealed!</span>")
+		return
+	if(!Adjacent(A))
+		to_chat(src, "<span class='warning'>You can only orbit things that are next to you!</span>")
+		return
+	if(notransform || inhibited || !incorporeal_move_check(A))
+		return
+	var/icon/I = icon(A.icon, A.icon_state, A.dir)
+	var/orbitsize = (I.Width()+I.Height())*0.5
+	orbitsize -= (orbitsize/world.icon_size)*(world.icon_size*0.25)
+	orbit(A, orbitsize)
+
+/mob/living/simple_animal/revenant/orbit(atom/target)
+	setDir(SOUTH) // reset dir so the right directional sprites show up
+	return ..()
+
+/mob/living/simple_animal/revenant/Moved(atom/OldLoc)
+	if(!orbiting) // only needed when orbiting
+		return ..()
+	if(incorporeal_move_check(src))
+		return ..()
+
+	// back back back it up, the orbitee went somewhere revenant cannot
+	orbiting?.end_orbit(src)
+	abstract_move(OldLoc) // gross but maybe orbit component will be able to check pre move in the future
+
+/mob/living/simple_animal/revenant/stop_orbit(datum/component/orbiter/orbits)
+	// reset the simple_flying animation
+	animate(src, pixel_y = 2, time = 1 SECONDS, loop = -1, flags = ANIMATION_RELATIVE)
+	animate(pixel_y = -2, time = 1 SECONDS, flags = ANIMATION_RELATIVE)
+	return ..()
+
+/// Incorporeal move check: blocked by holy-watered tiles and salt piles.
+/mob/living/simple_animal/revenant/proc/incorporeal_move_check(atom/destination)
+	var/turf/open/floor/stepTurf = get_turf(destination)
+	if(stepTurf)
+		var/obj/effect/decal/cleanable/food/salt/salt = locate() in stepTurf
+		if(salt)
+			to_chat(src, "<span class='warning'>[salt] bars your passage!</span>")
+			reveal(20)
+			stun(20)
+			return
+		if(stepTurf.flags_1 & NOJAUNT_1)
+			to_chat(src, "<span class='warning'>Some strange aura is blocking the way.</span>")
+			return
+		if(locate(/obj/effect/blessing) in stepTurf)
+			to_chat(src, "<span class='warning'>Holy energies block your path!</span>")
+			return
+	return TRUE
+
+/mob/living/simple_animal/revenant/get_photo_description(obj/item/camera/camera)
+	return "You can also see a g-g-g-g-ghooooost of malice!"
+
+/mob/living/simple_animal/revenant/set_resting(rest, silent = TRUE)
+	to_chat(src, "<span class='warning'>You are too restless to rest now!</span>")
+	return FALSE
 
 //reforming
 /obj/item/ectoplasm/revenant
@@ -366,7 +459,7 @@
 
 /obj/item/ectoplasm/revenant/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, .proc/try_reform), 600)
+	addtimer(CALLBACK(src, PROC_REF(try_reform)), 600)
 
 /obj/item/ectoplasm/revenant/proc/scatter()
 	qdel(src)

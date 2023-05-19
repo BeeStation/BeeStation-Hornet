@@ -5,7 +5,6 @@
 	name = "Epilepsy"
 	desc = "A genetic defect that sporadically causes seizures."
 	quality = NEGATIVE
-	text_gain_indication = "<span class='danger'>You get a headache.</span>"
 	synchronizer_coeff = 1
 	power_coeff = 1
 
@@ -15,7 +14,7 @@
 		owner.Unconscious(200 * GET_MUTATION_POWER(src))
 		owner.Jitter(1000 * GET_MUTATION_POWER(src))
 		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "epilepsy", /datum/mood_event/epilepsy)
-		addtimer(CALLBACK(src, .proc/jitter_less), 90)
+		addtimer(CALLBACK(src, PROC_REF(jitter_less)), 90)
 
 /datum/mutation/epilepsy/proc/jitter_less()
 	if(owner)
@@ -27,13 +26,11 @@
 	name = "Unstable DNA"
 	desc = "Strange mutation that causes the holder to randomly mutate."
 	quality = NEGATIVE
-	text_gain_indication = "<span class='danger'>You feel strange.</span>"
 	locked = TRUE
 
 /datum/mutation/bad_dna/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
-	to_chat(owner, text_gain_indication)
 	var/mob/new_mob
 	if(prob(95))
 		if(prob(50))
@@ -53,7 +50,6 @@
 	name = "Cough"
 	desc = "A chronic cough."
 	quality = MINOR_NEGATIVE
-	text_gain_indication = "<span class='danger'>You start coughing.</span>"
 	synchronizer_coeff = 1
 	power_coeff = 1
 
@@ -70,8 +66,6 @@
 	name = "Paranoia"
 	desc = "Subject is easily terrified, and may suffer from hallucinations."
 	quality = NEGATIVE
-	text_gain_indication = "<span class='danger'>You feel screams echo through your mind...</span>"
-	text_lose_indication = "<span class='notice'>The screaming in your mind fades.</span>"
 
 /datum/mutation/paranoia/on_life()
 	if(prob(5) && owner.stat == CONSCIOUS)
@@ -111,7 +105,6 @@
 	name = "Clumsiness"
 	desc = "A genome that inhibits certain brain functions, causing the holder to appear clumsy. Honk"
 	quality = MINOR_NEGATIVE
-	text_gain_indication = "<span class='danger'>You feel lightheaded.</span>"
 
 /datum/mutation/clumsy/on_acquiring(mob/living/carbon/owner)
 	if(..())
@@ -129,7 +122,6 @@
 	name = "Tourette's Syndrome"
 	desc = "A chronic twitch that forces the user to scream bad words." //definitely needs rewriting
 	quality = NEGATIVE
-	text_gain_indication = "<span class='danger'>You twitch.</span>"
 	synchronizer_coeff = 1
 
 /datum/mutation/tourettes/on_life()
@@ -153,7 +145,6 @@
 	name = "Deafness"
 	desc = "The holder of this genome is completely deaf."
 	quality = NEGATIVE
-	text_gain_indication = "<span class='danger'>You can't seem to hear anything.</span>"
 
 /datum/mutation/deaf/on_acquiring(mob/living/carbon/owner)
 	if(..())
@@ -174,21 +165,22 @@
 	quality = NEGATIVE
 	mobtypes_allowed = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
 	locked = TRUE //Species specific, keep out of actual gene pool
+	var/datum/species/original_species = /datum/species/human
 
 /datum/mutation/race/on_acquiring(mob/living/carbon/human/owner)
 	if(..())
 		return
-	. = owner.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE | TR_KEEPAI)
+	original_species = owner.dna.species.type
+	. = owner.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE | TR_KEEPAI, FALSE, TRUE)
 
 /datum/mutation/race/on_losing(mob/living/carbon/monkey/owner)
 	if(owner && ismonkey(owner) && owner.stat != DEAD && !..())
-		. = owner.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE | TR_KEEPAI)
+		. = owner.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE | TR_KEEPAI, TRUE, original_species)
 
 /datum/mutation/glow
 	name = "Glowy"
 	desc = "You permanently emit a light with a random color and intensity."
 	quality = POSITIVE
-	text_gain_indication = "<span class='notice'>Your skin begins to glow softly.</span>"
 	instability = 5
 	var/obj/effect/dummy/luminescent_glow/glowth //shamelessly copied from luminescents
 	var/glow = 2.5
@@ -218,7 +210,6 @@
 /datum/mutation/glow/anti
 	name = "Anti-Glow"
 	desc = "Your skin seems to attract and absorb nearby light creating 'darkness' around you."
-	text_gain_indication = "<span class='notice'>Your light around you seems to disappear.</span>"
 	glow = -3.5 //Slightly stronger, since negating light tends to be harder than making it.
 	conflicts = list(/datum/mutation/glow)
 	locked = TRUE
@@ -227,15 +218,12 @@
 	name = "Strength"
 	desc = "The user's muscles slightly expand."
 	quality = POSITIVE
-	text_gain_indication = "<span class='notice'>You feel strong.</span>"
 	difficulty = 16
 
 /datum/mutation/insulated
 	name = "Insulated"
 	desc = "The affected person does not conduct electricity."
 	quality = POSITIVE
-	text_gain_indication = "<span class='notice'>Your fingertips go numb.</span>"
-	text_lose_indication = "<span class='notice'>Your fingertips regain feeling.</span>"
 	difficulty = 16
 	instability = 25
 
@@ -253,8 +241,6 @@
 	name = "Fiery Sweat"
 	desc = "The user's skin will randomly combust, but is generally alot more resilient to burning."
 	quality = NEGATIVE
-	text_gain_indication = "<span class='warning'>You feel hot.</span>"
-	text_lose_indication = "<span class='notice'>You feel a lot cooler.</span>"
 	difficulty = 14
 	synchronizer_coeff = 1
 	power_coeff = 1
@@ -282,8 +268,6 @@
 	name = "Spatial Instability"
 	desc = "The victim of the mutation has a very weak link to spatial reality, and may be displaced. Often causes extreme nausea."
 	quality = NEGATIVE
-	text_gain_indication = "<span class='warning'>The space around you twists sickeningly.</span>"
-	text_lose_indication = "<span class='notice'>The space around you settles back to normal.</span>"
 	difficulty = 18//high so it's hard to unlock and abuse
 	instability = 10
 	synchronizer_coeff = 1
@@ -301,7 +285,7 @@
 		"<span class='warning'>One moment, you see [owner]. The next, [owner] is gone.</span>")
 		owner.visible_message(warpmessage, "<span class='userdanger'>You feel a wave of nausea as you fall through reality!</span>")
 		var/warpdistance = rand(10,15) * GET_MUTATION_POWER(src)
-		do_teleport(owner, get_turf(owner), warpdistance, channel = TELEPORT_CHANNEL_FREE)
+		do_teleport(owner, get_turf(owner), warpdistance, channel = TELEPORT_CHANNEL_BLINK)
 		owner.adjust_disgust(GET_MUTATION_SYNCHRONIZER(src) * (warpchance * warpdistance))
 		warpchance = 0
 		owner.visible_message("<span class='danger'>[owner] appears out of nowhere!</span>")
@@ -312,8 +296,6 @@
 	name = "Acidic Flesh"
 	desc = "Subject has acidic chemicals building up underneath their skin. This is often lethal."
 	quality = NEGATIVE
-	text_gain_indication = "<span class='userdanger'>A horrible burning sensation envelops you as your flesh turns to acid!</span>"
-	text_lose_indication = "<span class='notice'>A feeling of relief covers you as your flesh goes back to normal.</span>"
 	difficulty = 18//high so it's hard to unlock and use on others
 	var/msgcooldown = 0
 
@@ -352,8 +334,6 @@
 	name = "Spastic"
 	desc = "Subject suffers from muscle spasms."
 	quality = NEGATIVE
-	text_gain_indication = "<span class='warning'>You flinch.</span>"
-	text_lose_indication = "<span class='notice'>Your flinching subsides.</span>"
 	difficulty = 16
 
 /datum/mutation/spastic/on_acquiring()
@@ -368,10 +348,8 @@
 
 /datum/mutation/extrastun
 	name = "Two Left Feet"
-	desc = "A mutation that replaces the right foot with another left foot. It makes standing up after getting knocked down very difficult."
+	desc = "A mutation that disrupts coordination in the legs. It makes standing up after getting knocked down very difficult."
 	quality = NEGATIVE
-	text_gain_indication = "<span class='warning'>Your right foot feels... left.</span>"
-	text_lose_indication = "<span class='notice'>Your right foot feels alright.</span>"
 	difficulty = 16
 	var/stun_cooldown = 0
 

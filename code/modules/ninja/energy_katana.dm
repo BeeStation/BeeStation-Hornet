@@ -43,7 +43,7 @@
 		spark_system.start()
 		playsound(user, "sparks", 50, 1)
 		playsound(user, 'sound/weapons/blade1.ogg', 50, 1)
-		target.emag_act(user)
+		target.use_emag(user)
 
 /obj/item/energy_katana/pickup(mob/living/user)
 	..()

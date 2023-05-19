@@ -111,6 +111,7 @@ Des: Removes all infected images from the alien.
 		for(var/image/I in client.images)
 			var/searchfor = "infected"
 			if(findtext(I.icon_state, searchfor, 1, length(searchfor) + 1))
+				client.images -= I
 				qdel(I)
 	return
 

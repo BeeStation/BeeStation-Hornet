@@ -15,6 +15,8 @@
 
 
 /obj/machinery/computer/prisoner/AltClick(mob/user)
+	if(!user.canUseTopic(src, !issilicon(user)))
+		return
 	id_eject(user)
 
 /obj/machinery/computer/prisoner/proc/id_insert(mob/user, obj/item/card/id/prisoner/P)

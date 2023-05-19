@@ -62,7 +62,6 @@
 		/obj/item/organ/vocal_cords/adamantine,
 		/obj/effect/gibspawner/xeno,
 		/obj/effect/mob_spawn/human/corpse/assistant,
-		/obj/effect/mob_spawn/teratomamonkey,
 		/obj/item/organ/wings/moth/robust,
 		/obj/item/organ/wings/dragon,)
 	new mail_organmajor(loc)
@@ -160,8 +159,8 @@
 		/obj/item/gps/science,
 		/obj/item/inducer/sci,
 		/obj/item/megaphone,
-		/obj/item/pda/roboticist,
-		/obj/item/pda/toxins,
+		/obj/item/modular_computer/tablet/pda/roboticist,
+		/obj/item/modular_computer/tablet/pda/science,
 		/obj/item/anomaly_neutralizer,
 		/obj/item/shuttle_creator,
 		/obj/item/soap,

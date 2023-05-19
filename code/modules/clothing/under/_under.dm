@@ -4,7 +4,9 @@
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	permeability_coefficient = 0.9
 	slot_flags = ITEM_SLOT_ICLOTHING
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
+	drop_sound = 'sound/items/handling/cloth_drop.ogg'
+	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 	var/fitted = FEMALE_UNIFORM_FULL // For use in alternate clothing styles for women
 	var/has_sensor = HAS_SENSORS // For the crew computer
 	var/random_sensor = TRUE
@@ -77,7 +79,7 @@
 		if(!alt_covers_chest)
 			body_parts_covered |= CHEST
 
-	if(ishuman(user))
+	if(ishuman(user) || ismonkey(user))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_w_uniform()
 	if(slot == ITEM_SLOT_ICLOTHING)
@@ -101,7 +103,7 @@
 		if(ishuman(H) && attached_accessory.above_suit)
 			H.update_inv_wear_suit()
 
-	if(ishuman(H))
+	if(ishuman(H) || ismonkey(H))
 		if(H.w_uniform == src)
 			if(!HAS_TRAIT(user, TRAIT_SUIT_SENSORS))
 				return
@@ -138,6 +140,9 @@
 				var/mob/living/carbon/human/H = loc
 				H.update_inv_w_uniform()
 				H.update_inv_wear_suit()
+			if(ismonkey(loc))
+				var/mob/living/carbon/monkey/H = loc
+				H.update_inv_w_uniform()
 
 			return TRUE
 
@@ -159,6 +164,9 @@
 			var/mob/living/carbon/human/H = loc
 			H.update_inv_w_uniform()
 			H.update_inv_wear_suit()
+		if(ismonkey(loc))
+			var/mob/living/carbon/monkey/H = loc
+			H.update_inv_w_uniform()
 
 //Adds or removes mob from suit sensor global list
 /obj/item/clothing/under/proc/update_sensors(new_mode, forced = FALSE)
@@ -206,3 +214,70 @@
 
 /obj/item/clothing/under/rank
 	dying_key = DYE_REGISTRY_UNDER
+
+/obj/item/clothing/under/compile_monkey_icon()
+	//If the icon, for this type of clothing, is already made by something else, don't make it again
+	if(GLOB.monkey_icon_cache[type])
+		monkey_icon = GLOB.monkey_icon_cache[type]
+		return
+
+	//Start with a base and align it with the mask
+	var/icon/base = icon('icons/mob/clothing/uniform.dmi', icon_state, SOUTH) //This takes the icon and uses the worn version of the icon
+	var/icon/back = icon('icons/mob/clothing/uniform.dmi', icon_state, NORTH) //Awkard but, we have to manually insert the back
+	back.Shift(SOUTH, 2) //Allign with masks
+	base.Shift(SOUTH, 2)
+
+	//Break the base down into two parts and lay it on-top of the original. This helps with clothing being too small for monkeys
+	var/icon/left = new(base)
+	var/icon/mask = new('icons/mob/monkey.dmi', "monkey_mask_left")
+	left.AddAlphaMask(mask)
+
+	var/icon/right = new(base)
+	mask = new('icons/mob/monkey.dmi', "monkey_mask_right")
+	right.AddAlphaMask(mask)
+	right.Shift(EAST, 1)
+
+	var/icon/middle = new(base) //This part is used to correct a line of pixels
+	mask = new('icons/mob/monkey.dmi', "monkey_mask_middle")
+	middle.AddAlphaMask(mask)
+	middle.Shift(EAST, 1)
+
+	left.Blend(right, ICON_OVERLAY)
+	left.Blend(middle, ICON_OVERLAY)
+	base.Blend(left, ICON_OVERLAY)
+
+	//Again for the back
+	left = new(back)
+	mask = new('icons/mob/monkey.dmi', "monkey_mask_left")
+	left.AddAlphaMask(mask)
+
+	right = new(back)
+	right.Shift(EAST, 1)
+	mask = new('icons/mob/monkey.dmi', "monkey_mask_right")
+	right.AddAlphaMask(mask)
+
+	left.Blend(right, ICON_OVERLAY)
+	back.Blend(left, ICON_OVERLAY) //blend the outcome into the current to avoid a bald stripe
+
+	//Now modify the left & right facing icons to better emphasize direction / volume
+	left = new(base)
+	left.Shift(WEST, 3)
+	base.Insert(left, dir = WEST)
+
+	right = new(left)
+	right.Flip(EAST)
+	base.Insert(right, dir = EAST)
+
+	//Apply masking
+	mask = new('icons/mob/monkey.dmi', "monkey_mask_cloth")//Roughly monkey shaped clothing
+	base.AddAlphaMask(mask)
+	back.AddAlphaMask(mask)
+	base.Insert(back, dir = NORTH)//Insert faces into the base
+
+	//Mix in GAG color
+	if(greyscale_colors)
+		base.Blend(greyscale_colors, ICON_MULTIPLY)
+
+	//Finished!
+	monkey_icon = base
+	GLOB.monkey_icon_cache[type] = icon(monkey_icon) //Don't create a reference to monkey icon

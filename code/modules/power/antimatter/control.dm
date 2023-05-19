@@ -56,7 +56,7 @@
 		check_shield_icons()
 		update_shield_icons = 0
 
-	if(stat & (NOPOWER|BROKEN) || !active)//can update the icons even without power
+	if(machine_stat & (NOPOWER|BROKEN) || !active)//can update the icons even without power
 		return
 
 	if(!fueljar)//No fuel but we are on, shutdown
@@ -133,20 +133,20 @@
 
 /obj/machinery/power/am_control_unit/bullet_act(obj/item/projectile/Proj)
 	. = ..()
-	if(Proj.flag != "bullet")
+	if(Proj.armor_flag != BULLET)
 		stability -= Proj.force
 		check_stability()
 
 
 /obj/machinery/power/am_control_unit/power_change()
 	..()
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		if(active)
 			toggle_power(1)
 		else
 			use_power = NO_POWER_USE
 
-	else if(!stat && anchored)
+	else if(!machine_stat && anchored)
 		use_power = IDLE_POWER_USE
 
 	return
@@ -261,12 +261,12 @@
 			if(AMS.processing)
 				AMS.shutdown_core()
 			AMS.control_unit = null
-			addtimer(CALLBACK(AMS, /obj/machinery/am_shielding.proc/controllerscan), 10)
+			addtimer(CALLBACK(AMS, TYPE_PROC_REF(/obj/machinery/am_shielding, controllerscan)), 10)
 		linked_shielding = list()
 	else
 		for(var/obj/machinery/am_shielding/AMS in linked_shielding)
 			AMS.update_icon()
-	addtimer(CALLBACK(src, .proc/reset_shield_icon_delay), 20)
+	addtimer(CALLBACK(src, PROC_REF(reset_shield_icon_delay)), 20)
 
 /obj/machinery/power/am_control_unit/proc/reset_shield_icon_delay()
 	shield_icon_delay = 0
@@ -279,14 +279,14 @@
 	for(var/obj/machinery/am_shielding/AMS in linked_cores)
 		stored_core_stability += AMS.stability
 	stored_core_stability/=linked_cores.len
-	addtimer(CALLBACK(src, .proc/reset_stored_core_stability_delay), 40)
+	addtimer(CALLBACK(src, PROC_REF(reset_stored_core_stability_delay)), 40)
 
 /obj/machinery/power/am_control_unit/proc/reset_stored_core_stability_delay()
 	stored_core_stability_delay = 0
 
 /obj/machinery/power/am_control_unit/ui_interact(mob/user)
 	. = ..()
-	if((get_dist(src, user) > 1) || (stat & (BROKEN|NOPOWER)))
+	if((get_dist(src, user) > 1) || (machine_stat & (BROKEN|NOPOWER)))
 		if(!isAI(user))
 			user.unset_machine()
 			user << browse(null, "window=AMcontrol")
@@ -305,7 +305,7 @@
 	dat += "Cores: [linked_cores.len]<BR><BR>"
 	dat += "-Current Efficiency: [reported_core_efficiency]<BR>"
 	dat += "-Average Stability: [stored_core_stability] <A href='?src=[REF(src)];refreshstability=1'>(update)</A><BR>"
-	dat += "Last Produced: [DisplayPower(stored_power)]<BR>"
+	dat += "Last Produced: [display_power(stored_power)]<BR>"
 
 	dat += "Fuel: "
 	if(!fueljar)

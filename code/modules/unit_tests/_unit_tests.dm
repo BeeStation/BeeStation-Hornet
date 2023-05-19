@@ -48,6 +48,7 @@
 #include "check_adjustable_clothing.dm"
 #include "component_tests.dm"
 #include "connect_loc.dm"
+#include "crafting_tests.dm"
 
 // Del the World.
 // This unit test creates and qdels almost every atom in the code, checking for errors with initialization and harddels on deletion.
@@ -57,13 +58,20 @@
 #endif
 
 #include "dynamic_ruleset_sanity.dm"
+#include "enumerables.dm"
 #include "keybinding_init.dm"
+#include "rcd.dm"
 #include "reagent_id_typos.dm"
 #include "reagent_recipe_collisions.dm"
+#include "siunit.dm"
+#include "shuttle_width_height_correctness.dm"
 #include "spawn_humans.dm"
 #include "species_whitelists.dm"
 #include "greyscale_config.dm"
+#include "heretic_knowledge.dm"
+#include "heretic_rituals.dm"
 #include "metabolizing.dm"
+#include "ntnetwork_tests.dm"
 #include "projectiles.dm"
 #include "subsystem_init.dm"
 #include "subsystem_metric_sanity.dm"

@@ -4,6 +4,7 @@
  *		Sleepy Pens
  *		Parapens
  *		Edaggers
+ *		Screwdriver pen
  */
 
 
@@ -19,6 +20,7 @@
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_EARS
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
+	item_flags = ISWEAPON
 	throw_speed = 3
 	throw_range = 7
 	materials = list(/datum/material/iron=10)
@@ -85,7 +87,7 @@
 /datum/crafting_recipe/charcoal_stylus
 	name = "Charcoal Stylus"
 	result = /obj/item/pen/charcoal
-	reqs = list(/obj/item/stack/sheet/mineral/wood = 1, /datum/reagent/ash = 30)
+	reqs = list(/obj/item/stack/sheet/wood = 1, /datum/reagent/ash = 30)
 	time = 30
 	category = CAT_PRIMAL
 
@@ -101,7 +103,7 @@
 	materials = list(/datum/material/gold = 750)
 	sharpness = IS_SHARP
 	resistance_flags = FIRE_PROOF
-	unique_reskin = list("Oak" = "pen-fountain-o",
+	unique_reskin_icon = list("Oak" = "pen-fountain-o",
 						"Gold" = "pen-fountain-g",
 						"Rosewood" = "pen-fountain-r",
 						"Black and Silver" = "pen-fountain-b",
@@ -114,9 +116,17 @@
 	AddComponent(/datum/component/butchering, 200, 115) //the pen is mightier than the sword
 
 /obj/item/pen/fountain/captain/reskin_obj(mob/M)
-	..()
+	if(isnull(unique_reskin))
+		unique_reskin = list(
+			"Oak" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen-fountain-o"),
+			"Gold" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen-fountain-g"),
+			"Rosewood" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen-fountain-r"),
+			"Black and Silver" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen-fountain-b"),
+			"Command Blue" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "pen-fountain-cb")
+		)
 	if(current_skin)
 		desc = "It's an expensive [current_skin] fountain pen. The nib is quite sharp."
+	. = ..()
 
 /obj/item/pen/attack_self(mob/living/carbon/user)
 	var/deg = input(user, "What angle would you like to rotate the pen head to? (1-360)", "Rotate Pen Head") as null|num
@@ -166,6 +176,14 @@
 				return
 			O.desc = input
 			to_chat(user, "You have successfully changed \the [O.name]'s description.")
+
+/obj/item/pen/get_writing_implement_details()
+	return list(
+		interaction_mode = MODE_WRITING,
+		font = font,
+		color = colour,
+		use_bold = FALSE,
+	)
 
 /*
  * Sleepypens
@@ -238,3 +256,57 @@
 		item_state = initial(item_state)
 		lefthand_file = initial(lefthand_file)
 		righthand_file = initial(righthand_file)
+
+
+/*
+ * Screwdriver Pen
+ */
+
+/obj/item/pen/screwdriver
+	var/extended = FALSE
+	desc = "A pen with an extendable screwdriver tip. This one has a yellow cap."
+	icon_state = "pendriver"
+	toolspeed = 1.20  // gotta have some downside
+
+/obj/item/pen/screwdriver/attack_self(mob/living/user)
+	if(extended)
+		extended = FALSE
+		w_class = initial(w_class)
+		tool_behaviour = initial(tool_behaviour)
+		force = initial(force)
+		throwforce = initial(throwforce)
+		throw_speed = initial(throw_speed)
+		throw_range = initial(throw_range)
+		to_chat(user, "You retract the screwdriver.")
+
+	else
+		extended = TRUE
+		tool_behaviour = TOOL_SCREWDRIVER
+		w_class = WEIGHT_CLASS_SMALL  // still can fit in pocket
+		force = 4  // copies force from screwdriver
+		throwforce = 5
+		throw_speed = 3
+		throw_range = 5
+		to_chat(user, "You extend the screwdriver.")
+	playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE) // click
+	update_icon()
+
+/obj/item/pen/screwdriver/attack(mob/living/carbon/M, mob/living/carbon/user)
+	if(!extended)
+		return ..()
+	if(!istype(M))
+		return ..()
+	if(user.zone_selected != BODY_ZONE_PRECISE_EYES && user.zone_selected != BODY_ZONE_HEAD)
+		return ..()
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, "<span class='warning'>You don't want to harm [M]!</span>")
+		return
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+		M = user
+	return eyestab(M,user)
+
+/obj/item/pen/screwdriver/update_icon()
+	if(extended)
+		icon_state = "pendriverout"
+	else
+		icon_state = initial(icon_state)

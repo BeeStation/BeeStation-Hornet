@@ -14,6 +14,10 @@
 	duration = 12
 	icon_state = "bloodin"
 
+/obj/effect/temp_visual/cult/blood/long // For Necro Sect usage
+	name = "necromatic summon"
+	duration = 300
+
 /obj/effect/temp_visual/cult/blood/out
 	icon_state = "bloodout"
 
@@ -46,6 +50,14 @@
 
 /obj/effect/temp_visual/cult/turf/floor
 	icon_state = "floorglow"
+	duration = 5
+	plane = FLOOR_PLANE
+
+/obj/effect/temp_visual/religion/turf/floor
+	icon = 'icons/effects/religion_effects.dmi'
+	randomdir = 0
+	duration = 10
+	icon_state = "grass_convert"
 	duration = 5
 	plane = FLOOR_PLANE
 

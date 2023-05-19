@@ -127,7 +127,27 @@
 	desc = "A modification kit for Kinetic Accelerators which causes it to fire AoE blasts that destroy rock."
 	id = "hypermod"
 	build_type = PROTOLATHE | MECHFAB
-	materials = list(/datum/material/iron = 8000, /datum/material/glass = 1500, /datum/material/silver = 2000, /datum/material/gold = 2000, /datum/material/diamond = 2000)
+	materials = list(/datum/material/iron = 4000, /datum/material/glass = 1500, /datum/material/silver = 1000, /datum/material/gold = 1000, /datum/material/diamond = 1000)
 	build_path = /obj/item/borg/upgrade/modkit/aoe/turfs
+	category = list("Mining Designs", "Cyborg Upgrade Modules")
+	departmental_flags = DEPARTMENTAL_FLAG_CARGO
+
+/datum/design/hyperacceleratorplus
+	name = "Kinetic Accelerator Complete AoE Mod"
+	desc = "A modification kit for Kinetic Accelerators which causes it to fire AoE blasts that destroy both stone and flesh."
+	id = "hypermodplus"
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(/datum/material/iron = 8000, /datum/material/glass = 1500, /datum/material/silver = 2000, /datum/material/gold = 2000, /datum/material/diamond = 2000)
+	build_path = /obj/item/borg/upgrade/modkit/aoe/turfs/andmobs
+	category = list("Mining Designs", "Cyborg Upgrade Modules")
+	departmental_flags = DEPARTMENTAL_FLAG_CARGO
+
+/datum/design/repeatermod
+	name = "Kinetic Accelerator Repeater"
+	desc = "A device which manipulates the reverberation of successful hits to reduce the cooldown period between shots"
+	id = "repeatermod"
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(/datum/material/iron = 8000, /datum/material/glass = 1500, /datum/material/silver = 2000, /datum/material/gold = 2000, /datum/material/diamond = 2000)
+	build_path = /obj/item/borg/upgrade/modkit/cooldown/repeater
 	category = list("Mining Designs", "Cyborg Upgrade Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_CARGO

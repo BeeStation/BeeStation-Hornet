@@ -1,7 +1,7 @@
 import { filter, map, sortBy } from 'common/collections';
 import { flow } from 'common/fp';
 import { useBackend, useLocalState } from '../backend';
-import { Button, Section, Modal, Dropdown, Tabs, Box, Input, Flex, ProgressBar, Collapsible, Icon, Divider } from '../components';
+import { Button, Section, Modal, Dropdown, Tabs, Box, Input, Flex, ProgressBar, Collapsible, Icon, Divider, Tooltip } from '../components';
 import { Window, NtosWindow } from '../layouts';
 
 // Data reshaping / ingestion (thanks stylemistake for the help, very cool!)
@@ -719,6 +719,7 @@ const TechNode = (props, context) => {
     nodes,
     compact,
     researchable,
+    tech_tier,
   } = data;
   const { node, nodetails, nocontrols, destructive } = props;
   const { id, can_unlock, tier, costs } = node;
@@ -727,7 +728,7 @@ const TechNode = (props, context) => {
     description,
     design_ids,
     prereq_ids,
-    tech_tier,
+    node_tier,
   } = node_cache[id];
   const [
     techwebRoute,
@@ -744,7 +745,7 @@ const TechNode = (props, context) => {
       title={name}
       width={25}>
       <Box inline className="Techweb__TierDisplay">
-        Tier {tech_tier}
+        Tier {node_tier}
       </Box>
       {!nocontrols && (
         <>
@@ -758,14 +759,29 @@ const TechNode = (props, context) => {
               Details
             </Button>
           )}
-          {((tier > 0) && (!destructive)) && (!!researchable) && (
-            <Button
-              icon="lightbulb"
-              disabled={!can_unlock || tier > 1}
-              onClick={() => act("researchNode", { node_id: id })}>
-              Research
-            </Button>
-          )}
+          {((tier > 0) && (!destructive)) && (!!researchable) && ((
+            node_tier > tech_tier+1) ? (
+              <Button.Confirm
+                icon="lightbulb"
+                disabled={!can_unlock || tier > 1}
+                onClick={() => act("researchNode", { node_id: id })}
+                content="Research" />
+            ) : (
+              <Button
+                icon="lightbulb"
+                disabled={!can_unlock || tier > 1}
+                onClick={() => act("researchNode", { node_id: id })}>
+                Research
+              </Button>
+            ))}
+          {
+            (node_tier > tech_tier+1) && (
+              <Tooltip
+                content={"Researching this node will cost additional discovery points. Please research more tier "+(tech_tier+1)+" technology nodes first."}>
+                <Icon style={{ 'margin-left': '3px' }} mr={1} name="exclamation-triangle" color="yellow" />
+              </Tooltip>
+            )
+          }
           {destructive && (
             <Button
               icon="trash"

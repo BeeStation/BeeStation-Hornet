@@ -7,11 +7,20 @@
 /// This ruleset can only be picked once. Anything that does not have a scaling_cost MUST have this.
 #define LONE_RULESET (1 << 2)
 
+/// This ruleset can't execute alongside ANY other roundstart ruleset.
+#define NO_OTHER_ROUNDSTARTS_RULESET (1 << 3)
+
+/// This is a "heavy" midround ruleset, and should be run later into the round
+#define MIDROUND_RULESET_STYLE_HEAVY "Heavy"
+
+/// This is a "light" midround ruleset, and should be run early into the round
+#define MIDROUND_RULESET_STYLE_LIGHT "Light"
+
 /// No round event was hijacked this cycle
 #define HIJACKED_NOTHING "HIJACKED_NOTHING"
 
 /// This cycle, a round event was hijacked when the last midround event was too recent.
 #define HIJACKED_TOO_RECENT "HIJACKED_TOO_RECENT"
 
-/// This cycle, a round event was hijacked when the next midround event is too soon.
-#define HIJACKED_TOO_SOON "HIJACKED_TOO_SOON"
+/// Requirements when something needs a lot of threat to run, but still possible at low-pop
+#define REQUIREMENTS_VERY_HIGH_THREAT_NEEDED list(90,90,90,80,60,50,40,40,40,40)

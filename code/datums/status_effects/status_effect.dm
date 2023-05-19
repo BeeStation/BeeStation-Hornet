@@ -71,6 +71,9 @@
 		return
 	duration = world.time + original_duration
 
+/datum/status_effect/proc/get_examine_text() //Called when the owner is examined
+	return examine_text
+
 //clickdelay/nextmove modifiers!
 /datum/status_effect/proc/nextmove_modifier()
 	return 1

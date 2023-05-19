@@ -28,7 +28,7 @@ export class Window extends Component {
     if (suspended) {
       return;
     }
-    Byond.winset(window.__windowId__, {
+    Byond.winset(Byond.windowId, {
       'can-close': Boolean(canClose),
     });
     logger.log('mounting');
@@ -67,6 +67,7 @@ export class Window extends Component {
       title,
       children,
       buttons,
+      override_bg,
     } = this.props;
     const {
       config,
@@ -84,7 +85,8 @@ export class Window extends Component {
     return (
       <Layout
         className="Window"
-        theme={theme}>
+        theme={theme}
+        style={override_bg ? { 'background-color': `${override_bg} !important` } : null}>
         <TitleBar
           className="Window__titleBar"
           title={!suspended && (title || decodeHtmlEntities(config.title))}

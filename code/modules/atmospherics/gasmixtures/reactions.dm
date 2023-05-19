@@ -1,4 +1,5 @@
 //All defines used in reactions are located in ..\__DEFINES\reactions.dm
+#define SET_REACTION_RESULTS(amount) air.reaction_results[type] = amount
 
 /proc/init_gas_reactions()
 	. = list()
@@ -9,7 +10,7 @@
 			continue
 		reaction = new r
 		. += reaction
-	sortTim(., /proc/cmp_gas_reactions)
+	sortTim(., GLOBAL_PROC_REF(cmp_gas_reactions))
 
 /proc/cmp_gas_reactions(list/datum/gas_reaction/a, list/datum/gas_reaction/b) // compares lists of reactions by the maximum priority contained within the list
 	if (!length(a) || !length(b))
@@ -60,16 +61,29 @@
 	id = "vapor"
 
 /datum/gas_reaction/water_vapor/init_reqs()
-	min_requirements = list(GAS_H2O = MOLES_GAS_VISIBLE)
+	min_requirements = list(
+		GAS_H2O = MOLES_GAS_VISIBLE,
+		"MAX_TEMP" = WATER_VAPOR_CONDENSATION_POINT,
+	)
 
 /datum/gas_reaction/water_vapor/react(datum/gas_mixture/air, datum/holder)
-	var/turf/open/location = isturf(holder) ? holder : null
 	. = NO_REACTION
-	if (air.return_temperature() <= WATER_VAPOR_FREEZE)
-		if(location && location.freon_gas_act())
-			. = REACTING
-	else if(location && location.water_vapor_gas_act())
-		air.adjust_moles(GAS_H2O, -MOLES_GAS_VISIBLE)
+	if(!isturf(holder))
+		return
+
+	var/turf/open/location = holder
+	var/consumed = 0
+	switch(air.return_temperature())
+		if(-INFINITY to WATER_VAPOR_DEPOSITION_POINT)
+			if(location?.freeze_turf())
+				consumed = MOLES_GAS_VISIBLE
+		if(WATER_VAPOR_DEPOSITION_POINT to WATER_VAPOR_CONDENSATION_POINT)
+			location.water_vapor_gas_act()
+			consumed = MOLES_GAS_VISIBLE
+
+	if(consumed)
+		air.adjust_moles(GAS_H2O, -consumed)
+		SET_REACTION_RESULTS(consumed)
 		. = REACTING
 
 //tritium combustion: combustion of oxygen and tritium (treated as hydrocarbons). creates hotspots. exothermic
@@ -308,7 +322,7 @@
 			fuels[fuel] *= oxidation_ratio
 	fuels += oxidizers
 	var/list/fire_products = GLOB.gas_data.fire_products
-	var/list/fire_enthalpies = GLOB.gas_data.fire_enthalpies
+	var/list/fire_enthalpies = GLOB.gas_data.enthalpies
 	for(var/fuel in fuels + oxidizers)
 		var/amt = fuels[fuel]
 		if(!burn_results[fuel])
@@ -482,6 +496,7 @@
 	air.adjust_moles(GAS_PLASMA, -2*reaction_efficency)
 
 	SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, min((reaction_efficency**2)*BZ_RESEARCH_SCALE,BZ_RESEARCH_MAX_AMOUNT))
+	SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, min((reaction_efficency**2)*BZ_RESEARCH_SCALE,BZ_RESEARCH_MAX_AMOUNT)*0.5)
 
 	if(energy_released > 0)
 		var/new_heat_capacity = air.heat_capacity()
@@ -515,6 +530,7 @@
 	air.adjust_moles(GAS_NITRYL, -heat_scale)
 	air.adjust_moles(GAS_TRITIUM, -heat_scale)
 	SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, STIMULUM_RESEARCH_AMOUNT*max(stim_energy_change,0))
+	SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, STIMULUM_RESEARCH_AMOUNT*max(stim_energy_change,0)*0.5)
 	if(stim_energy_change)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
@@ -542,6 +558,7 @@
 	air.adjust_moles(GAS_N2, -20*nob_formed)
 	air.adjust_moles(GAS_HYPERNOB, nob_formed)
 	SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, nob_formed*NOBLIUM_RESEARCH_AMOUNT)
+	SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, nob_formed*NOBLIUM_RESEARCH_AMOUNT*0.5)
 
 	if (nob_formed)
 		var/new_heat_capacity = air.heat_capacity()

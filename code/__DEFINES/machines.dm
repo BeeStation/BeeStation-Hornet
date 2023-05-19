@@ -52,13 +52,19 @@
 //Modular computer part defines
 #define MC_CPU "CPU"
 #define MC_HDD "HDD"
+#define MC_HDD_JOB "HDD_JOB"
 #define MC_SDD "SDD"
 #define MC_CARD "CARD"
+#define MC_CARD2 "CARD2"
+#define MC_CART "CART"
 #define MC_NET "NET"
 #define MC_PRINT "PRINT"
 #define MC_CELL "CELL"
 #define MC_CHARGE "CHARGE"
 #define MC_AI "AI"
+#define MC_SENSORS "SENSORS"
+#define MC_SIGNALLER "SIGNALER"
+#define MC_IDENTIFY "IDENTIFY"
 
 //! ## NTNet stuff, for modular computers
 //!  **NTNet module-configuration values. Do not change these. If you need to add another use larger number (5..6..7 etc)**
@@ -85,6 +91,12 @@
 #define PROGRAM_STATE_KILLED 0
 #define PROGRAM_STATE_BACKGROUND 1
 #define PROGRAM_STATE_ACTIVE 2
+//Program categories
+#define PROGRAM_CATEGORY_CREW "Crew"
+#define PROGRAM_CATEGORY_ENGI "Engineering"
+#define PROGRAM_CATEGORY_ROBO "Robotics"
+#define PROGRAM_CATEGORY_SUPL "Supply"
+#define PROGRAM_CATEGORY_MISC "Other"
 
 #define FIREDOOR_OPEN 1
 #define FIREDOOR_CLOSED 2
@@ -149,3 +161,18 @@
 #define PLANT_GENE_EXTRACTABLE	(1<<1)
 
 #define CLICKSOUND_INTERVAL (0.1 SECONDS)	//clicky noises, how much time needed in between clicks on the machine for the sound to play on click again.
+
+// From code/game/machinery/computer/communications.dm
+// ---------------------------------------------------
+
+// for setting status display. Used in modpc status app as well.
+#define MAX_STATUS_LINE_LENGTH 40
+// approvied pictures, also used in modpc app
+GLOBAL_LIST_INIT(approved_status_pictures, list(
+	"biohazard",
+	"blank",
+	"default",
+	"lockdown",
+	"redalert",
+	"shuttle",
+))

@@ -1,13 +1,9 @@
-
-
-/*
- * Wrapping Paper
- */
+/* Wrapping Paper */
 
 /obj/item/stack/wrapping_paper
 	name = "wrapping paper"
 	desc = "Wrap packages with this festive paper to make gifts."
-	icon = 'icons/obj/stack_objects.dmi'
+	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	icon_state = "wrap_paper"
 	item_flags = NOBLUDGEON
 	amount = 25
@@ -21,15 +17,13 @@
 		new /obj/item/c_tube(T)
 
 
-/*
- * Package Wrap
- */
+/* Package Wrap */
 
 /obj/item/stack/package_wrap
 	name = "package wrapper"
 	singular_name = "wrapping sheet"
 	desc = "You can use this to wrap items in."
-	icon = 'icons/obj/stack_objects.dmi'
+	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	icon_state = "deliveryPaper"
 	item_flags = NOBLUDGEON
 	amount = 25
@@ -86,7 +80,7 @@
 				user.put_in_hands(P)
 			I.forceMove(P)
 			var/size = round(I.w_class)
-			P.name = "[weightclass2text(size)] parcel"
+			P.name = "[weight_class_to_text(size)] parcel"
 			P.w_class = size
 			size = min(size, 5)
 			P.icon_state = "deliverypackage[size]"
@@ -123,7 +117,7 @@
 /obj/item/c_tube
 	name = "cardboard tube"
 	desc = "A tube... of cardboard."
-	icon = 'icons/obj/stack_objects.dmi'
+	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	icon_state = "c_tube"
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY

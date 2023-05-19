@@ -28,6 +28,9 @@ export class DreamSeeker {
       .map(key => encodeURIComponent(key)
         + '=' + encodeURIComponent(params[key]))
       .join('&');
+    logger.log(
+      `topic call at ${this.client.defaults.baseURL + '/dummy?' + query}`
+    );
     return this.client.get('/dummy?' + query);
   }
 }

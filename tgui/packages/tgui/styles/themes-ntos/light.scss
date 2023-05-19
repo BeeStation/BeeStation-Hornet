@@ -1,0 +1,11 @@
+@use './ntos-colors.scss' with (
+  $ntos-color: #eaeaea,
+  $ntos-fg: rgb(241, 241, 241)
+);
+.theme-ntos-light {
+  @include ntos-colors.theme-ntos;
+  // white progress bars need contrast!
+  .ProgressBar--color--default * {
+    color: black;
+  }
+}

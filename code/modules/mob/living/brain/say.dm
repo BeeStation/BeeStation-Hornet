@@ -23,5 +23,4 @@
 	return LINGHIVE_NONE
 
 /mob/living/brain/treat_message(message)
-	message = capitalize(message)
-	return message
+	return treat_message_min(message)

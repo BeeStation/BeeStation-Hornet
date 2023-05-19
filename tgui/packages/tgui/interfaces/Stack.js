@@ -25,14 +25,14 @@ export const Stack = (props, context) => {
   const filterRecipes = (recipes, searchText) => {
     return recipes
       .filter(recipe => recipe.title !== undefined)
-      .map(recipe => recipe.sub_recipes 
-        ? { 
-          "title": recipe.title, 
+      .map(recipe => recipe.sub_recipes
+        ? {
+          "title": recipe.title,
           "sub_recipes": filterRecipes(recipe.sub_recipes, searchText),
-        } 
+        }
         : recipe)
-      .filter(recipe => recipe.sub_recipes 
-        ? recipe.sub_recipes.length > 0 
+      .filter(recipe => recipe.sub_recipes
+        ? recipe.sub_recipes.length > 0
         : testSearch(recipe));
   };
 
@@ -92,13 +92,14 @@ const RecipeList = (props, context) => {
   return display_recipes.map(recipe => {
     if (recipe.spacer) {
       return (
-        <hr />
+        <hr key="spacer" />
       );
     } else if (recipe.sub_recipes) {
       return (
         <Collapsible
           color="label"
           title={recipe.title}
+          key={recipe.title}
           open={expand}>
           <Box ml={1}>
             <RecipeList
@@ -113,6 +114,7 @@ const RecipeList = (props, context) => {
       return (
         <Recipe
           title={recipe.title}
+          key={recipe.ref}
           recipe={recipe} />
       );
     }

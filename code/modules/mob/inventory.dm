@@ -182,7 +182,6 @@
 			I.pickup(src)
 		I.forceMove(src)
 		held_items[hand_index] = I
-		I.layer = ABOVE_HUD_LAYER
 		I.plane = ABOVE_HUD_PLANE
 		I.equipped(src, ITEM_SLOT_HANDS)
 		if(I.pulledby)
@@ -293,25 +292,33 @@
 
 //for when you want the item to end up on the ground
 //will force move the item to the ground and call the turf's Entered
-/mob/proc/dropItemToGround(obj/item/I, force = FALSE, thrown = FALSE)
-	return doUnEquip(I, force, drop_location(), FALSE, was_thrown = thrown)
+/mob/proc/dropItemToGround(obj/item/I, force = FALSE, silent = FALSE)
+	. = doUnEquip(I, force, drop_location(), FALSE, silent = silent)
+	if(!. || !I) //ensure the item exists and that it was dropped properly.
+		return
+	if(!(I.item_flags & NO_PIXEL_RANDOM_DROP) && !(I.item_flags & WAS_THROWN))
+		I.pixel_x = rand(-6, 6)
+		I.pixel_y = rand(-6, 6)
+	I.do_drop_animation(src)
 
 //for when the item will be immediately placed in a loc other than the ground
-/mob/proc/transferItemToLoc(obj/item/I, newloc = null, force = FALSE)
-	return doUnEquip(I, force, newloc, FALSE)
+/mob/proc/transferItemToLoc(obj/item/I, newloc = null, force = FALSE, silent = TRUE)
+	. = doUnEquip(I, force, newloc, FALSE, silent = silent)
+	I.do_drop_animation(src)
+
 
 //visibly unequips I but it is NOT MOVED AND REMAINS IN SRC
 //item MUST BE FORCEMOVE'D OR QDEL'D
 /mob/proc/temporarilyRemoveItemFromInventory(obj/item/I, force = FALSE, idrop = TRUE)
-	return doUnEquip(I, force, null, TRUE, idrop)
+	return doUnEquip(I, force, null, TRUE, idrop, silent = TRUE)
 
 //DO NOT CALL THIS PROC
 //use one of the above 3 helper procs
 //you may override it, but do not modify the args
-/mob/proc/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, was_thrown = FALSE) //Force overrides TRAIT_NODROP for things like wizarditis and admin undress.
+/mob/proc/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, was_thrown = FALSE, silent = FALSE) //Force overrides TRAIT_NODROP for things like wizarditis and admin undress.
 													//Use no_move if the item is just gonna be immediately moved afterward
 													//Invdrop is used to prevent stuff in pockets dropping. only set to false if it's going to immediately be replaced
-	if(!I) //If there's nothing to drop, the drop is automatically succesfull. If(unEquip) should generally be used to check for TRAIT_NODROP.
+	if(!I) //If there's nothing to drop, the drop is automatically successfull. If(unEquip) should generally be used to check for TRAIT_NODROP.
 		return TRUE
 
 	if(HAS_TRAIT(I, TRAIT_NODROP) && !force)
@@ -331,7 +338,7 @@
 				I.moveToNullspace()
 			else
 				I.forceMove(newloc)
-		I.dropped(src, was_thrown)
+		I.dropped(src, was_thrown, silent)
 	return TRUE
 
 //Outdated but still in use apparently. This should at least be a human proc.
@@ -349,6 +356,10 @@
 		items += wear_mask
 	if(wear_neck)
 		items += wear_neck
+	if(handcuffed)
+		items += handcuffed
+	if(legcuffed)
+		items += legcuffed
 	return items
 
 /mob/living/carbon/human/get_equipped_items(include_pockets = FALSE)
@@ -500,7 +511,7 @@
 //GetAllContenst that is reasonable and not stupid
 /mob/living/carbon/proc/get_all_gear()
 	var/list/processing_list = get_equipped_items(include_pockets = TRUE) + held_items
-	listclearnulls(processing_list) // handles empty hands
+	list_clear_nulls(processing_list) // handles empty hands
 	var/i = 0
 	while(i < length(processing_list) )
 		var/atom/A = processing_list[++i]

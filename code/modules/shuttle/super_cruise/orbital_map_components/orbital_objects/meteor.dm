@@ -16,8 +16,9 @@
 
 /datum/orbital_object/meteor/New()
 	. = ..()
-	start_tick = world.time
-	end_tick = world.time + 10 MINUTES
+	//Use continuous time for smoother meteors
+	start_tick = SSorbits.times_fired
+	end_tick = SSorbits.times_fired + (10 MINUTES / SSorbits.wait)
 	radius = rand(10, 50)
 
 /datum/orbital_object/meteor/Destroy()
@@ -25,12 +26,11 @@
 	meteor_types = null
 	. = ..()
 
-/datum/orbital_object/meteor/process()
-	. = ..()
+/datum/orbital_object/meteor/process(delta_time)
 	if(!QDELETED(target))
 		end_x = target.position.x
 		end_y = target.position.y
-	var/current_tick = world.time
+	var/current_tick = SSorbits.times_fired
 	var/tick_proportion = min((current_tick - start_tick) / (end_tick - start_tick), 1)
 	//stop when reached the target
 	if(tick_proportion == 1)
@@ -38,6 +38,10 @@
 		velocity.y = 0
 	var/current_x = (end_x * tick_proportion) + (start_x * (1 - tick_proportion))
 	var/current_y = (end_y * tick_proportion) + (start_y * (1 - tick_proportion))
+	//Set the velocity for better rendering
+	velocity.x = current_x - position.x
+	velocity.y = current_y - position.y
+	. = ..()
 	MOVE_ORBITAL_BODY(src, current_x, current_y)
 	if(abs(position.x) > 10000 || abs(position.y) > 10000)
 		qdel(src)
@@ -61,7 +65,7 @@
 		if(space_level.traits[ZTRAIT_CENTCOM] || space_level.traits[ZTRAIT_REEBE])
 			return
 		//Check level flags for planetary bodies
-		if(space_level.traits[ZTRAIT_MINING])
+		if(space_level.traits[ZTRAIT_MINING] || (space_level.traits[ZTRAIT_STATION] && SSmapping.config.planetary_station))
 			for(var/i in 1 to 5)
 				meteor_impact(locate(rand(10, world.maxx - 10), rand(10, world.maxx-10), space_level.z_value))
 		else
@@ -75,4 +79,10 @@
 
 //Fall from the sky
 /datum/orbital_object/meteor/proc/meteor_impact(turf/T)
-	new /obj/effect/falling_meteor(T, meteor_types ? pick(meteor_types) : null)
+	//Make it so meteors fall from high Z and will impact the top Z-Levels first
+	var/turf/target_turf = T
+	var/turf/next = target_turf.above()
+	while (next != null)
+		target_turf = next
+		next = target_turf.above()
+	new /obj/effect/falling_meteor(target_turf, meteor_types ? pick(meteor_types) : null)

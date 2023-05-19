@@ -353,7 +353,7 @@
 
 		var/datum/species/S = H.dna.species
 		species_flags_list = H.dna.species.species_traits //Literally only exists for a single use of NOBLOOD, but, no reason to remove it i guess...?
-		limb_gender = (H.gender == MALE) ? "m" : "f"
+		limb_gender = (H.dna.features["body_model"] == MALE) ? "m" : "f"
 		if(S.use_skintones)
 			skin_tone = H.skin_tone
 		else
@@ -601,6 +601,7 @@
 	icon_state = "default_human_r_arm"
 	attack_verb = list("slapped", "punched")
 	max_damage = 50
+	max_stamina_damage = 50
 	body_zone = BODY_ZONE_R_ARM
 	body_part = ARM_RIGHT
 	aux_zone = BODY_ZONE_PRECISE_R_HAND
@@ -609,7 +610,6 @@
 	held_index = 2
 	px_x = 6
 	px_y = 0
-	max_stamina_damage = 50
 
 /obj/item/bodypart/r_arm/is_disabled()
 	if(HAS_TRAIT(owner, TRAIT_PARALYSIS_R_ARM))

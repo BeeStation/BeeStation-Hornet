@@ -43,6 +43,14 @@
 	if(flags_1 & INITIALIZED_1)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
+	if(length(smoothing_groups))
+		sortTim(smoothing_groups) //In case it's not properly ordered, let's avoid duplicate entries with the same values.
+		SET_BITFLAG_LIST(smoothing_groups)
+	if(length(canSmoothWith))
+		sortTim(canSmoothWith)
+		if(canSmoothWith[length(canSmoothWith)] > MAX_S_TURF) //If the last element is higher than the maximum turf-only value, then it must scan turf contents for smoothing targets.
+			smoothing_flags |= SMOOTH_OBJ
+		SET_BITFLAG_LIST(canSmoothWith)
 
 	var/area/A = loc
 	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
@@ -52,7 +60,7 @@
 		update_light()
 
 	if (opacity)
-		has_opaque_atom = TRUE
+		directional_opacity = ALL_CARDINALS
 
 	ComponentInitialize()
 
@@ -243,9 +251,9 @@
 	destination_y = dest_y
 	destination_z = dest_z
 
-//If someone is floating above space in 0 gravity, don't fall.
-/turf/open/space/zPassIn(atom/movable/A, direction, turf/source)
-	return A.has_gravity(src)
+//Don't fall if in zero gravity, but we should allow non-fall movement
+/turf/open/space/zPassIn(atom/movable/A, direction, turf/source, falling = FALSE)
+	return !falling || A.has_gravity(src)
 
 /turf/open/space/check_gravity()
 	return FALSE

@@ -2,28 +2,29 @@ name: Run tests
 
 on:
   workflow_dispatch:
-  push:
-    paths-ignore:
-      - "html/changelogs/**"
-      - "html/changelog.html"
+#  push:
+#    paths-ignore:
+#      - "html/changelogs/**"
+#      - "html/changelog.html"
+  pull_request:
     branches:
       - master
-  pull_request:
+  merge_group:
     branches:
       - master
 
 jobs:
   run_linters:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Python setup
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v4
         with:
-          python-version: "3.9"
+          python-version: "3.11"
       - name: Setup cache
         id: cache-spacemandmm
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/dreamchecker
           key: ${{ runner.os }}-spacemandmm-cache-${{ hashFiles('dependencies.sh') }}
@@ -48,12 +49,12 @@ jobs:
           tools/bootstrap/python -m mapmerge2.dmm_test
           ~/dreamchecker
   compile_all_maps:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Setup cache
         id: cache-byond
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/BYOND
           key: ${{ runner.os }}-byond-cache-${{ hashFiles('Dockerfile') }}
@@ -66,7 +67,7 @@ jobs:
           python3 tools/ci/template_dm_generator.py
           tools/build/build --ci dm -DCIBUILDING -DCITESTING -DALL_MAPS
   run_all_tests:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     services:
       mysql:
         image: mysql:latest
@@ -76,10 +77,10 @@ jobs:
           - 3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Setup cache
         id: cache-byond
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/BYOND
           key: ${{ runner.os }}-byond-cache-${{ hashFiles('Dockerfile') }}
@@ -108,7 +109,7 @@ jobs:
   test_windows:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Compile
         run: pwsh tools/ci/build.ps1
         env:

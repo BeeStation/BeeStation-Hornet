@@ -1,0 +1,7 @@
+
+## Set this to disable parallax updates after this amount of players have joined the server
+## This will cause the parallax to be a static background.
+PARALLAX_DISABLE_POP 60
+## The population at which ghosts should stop seeing parallax updates.
+## Alive players will still receieve them.
+PARALLAX_GHOST_DISABLE_POP 40

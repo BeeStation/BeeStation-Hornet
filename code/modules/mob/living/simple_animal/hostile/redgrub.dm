@@ -29,17 +29,18 @@
 	maxbodytemp = 360 //really, *really* dont like heat
 	deathmessage = "curls up and stops moving."
 	var/patience = 30
-	var/growthstage = 1 //1-3. 
+	var/growthstage = 1 //1-3.
 	var/food = 0
 	var/hibernating = FALSE //if they dont aggro, they hibernate until they do. They will allow themselves to be killed, butchered, or eaten.
 	var/hibernationcounter = 0
 	var/list/grubdisease = list()
 
 /mob/living/simple_animal/hostile/redgrub/proc/isslimetarget(var/mob/living/M)
-	if(isslimeperson(M) || isluminescent(M) || isjellyperson(M) || isoozeling(M) || isstargazer(M)) // i hate this
+	if(isoozeling(M))
+//	if(isslimeperson(M) || isluminescent(M) || isoozeling(M) || isstargazer(M)) // i hate this
 		return TRUE
 	return FALSE
-	
+
 /mob/living/simple_animal/hostile/redgrub/spawn_gibs() //redgrubs dont have much in the way of gibs or mess. just meat.
 	new /obj/effect/decal/cleanable/insectguts(drop_location())
 	playsound(drop_location(), 'sound/effects/blobattack.ogg', 60, TRUE)
@@ -54,7 +55,7 @@
 	var/newtarget = ..()
 	if(CanAttack(newtarget))
 		return newtarget
-		
+
 /mob/living/simple_animal/hostile/redgrub/Life()
 	. = ..()
 	if(stat)
@@ -65,7 +66,7 @@
 		if(1 to 9)
 			if(growthstage >= 2)
 				shrink()
-			else if(!target && !hibernating) //we're starving! 
+			else if(!target && !hibernating) //we're starving!
 				togglehibernation()
 		if(10 to 15)
 			if(growthstage >= 2)
@@ -129,7 +130,7 @@
 		icon_state = icon_dead
 		icon_living = icon_dead
 		hibernating = TRUE
-		stop_automated_movement = 1		
+		stop_automated_movement = 1
 
 /mob/living/simple_animal/hostile/redgrub/proc/grow()
 	switch(growthstage)
@@ -168,11 +169,11 @@
 			icon_state = "grub_2"
 			icon_living = "grub_2"
 			icon_dead = "grub_2_dead"
-			
+
 /mob/living/simple_animal/hostile/redgrub/CanAttack(atom/the_target)
 	if(isliving(the_target))
 		if(isslime(the_target) || isslimetarget(the_target))
-			return ..()	
+			return ..()
 	return FALSE
 
 /mob/living/simple_animal/hostile/redgrub/harvest(mob/living/user) //used for extra objects etc. in butchering
@@ -186,7 +187,7 @@
 		meat.AddComponent(/datum/component/infective, grubdisease)
 	return ..()
 
-/mob/living/simple_animal/hostile/redgrub/attack_slime(mob/living/simple_animal/slime/M)//this is pretty unlikely to happen in game. 
+/mob/living/simple_animal/hostile/redgrub/attack_slime(mob/living/simple_animal/slime/M)//this is pretty unlikely to happen in game.
 	if(!SSticker.HasRoundStarted()) //since i need to skip simple_animal/attack slime
 		to_chat(M, "You cannot attack people before the game has started.")
 		return
@@ -209,7 +210,7 @@
 		newstatus.diseases += grubdisease
 	M.visible_message("<span class='warning'>[M] swallows [src] whole!</span>", "<span class='userdanger'>[src] burrows into your cytoplasm when you bite it!</span>")
 	qdel(src)
-	
+
 /mob/living/simple_animal/hostile/redgrub/environment_temperature_is_safe(datum/gas_mixture/environment)
 	if(isliving(loc))
 		var/mob/living/L = loc
@@ -226,7 +227,7 @@
 		if(growthstage >= 3)
 			M.visible_message("<span class='danger'>the [src] begins burrowing into [M]!</span>", \
 						"<span class='userdanger'>[src] is trying to burrow into your cytoplasm!</span>")
-			if(M.can_inject(src) && do_mob(src, M, 15))
+			if(M.can_inject(src) && do_after(src, 15, M))
 				for(var/datum/disease/D in grubdisease)
 					if(D.spread_flags & DISEASE_SPREAD_FALTERED)
 						continue

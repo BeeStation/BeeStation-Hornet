@@ -4,7 +4,7 @@
 	damage = 0
 	damage_type = BURN
 	nodamage = TRUE
-	flag = "energy"
+	armor_flag = ENERGY
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/ion
 
 /obj/item/projectile/ion/on_hit(atom/target, blocked = FALSE)

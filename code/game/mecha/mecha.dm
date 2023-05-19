@@ -3,7 +3,6 @@
 	desc = "Exosuit"
 	icon = 'icons/mecha/mecha.dmi'
 	density = TRUE //Dense. To raise the heat.
-	opacity = 1 ///opaque. Menacing.
 	move_force = MOVE_FORCE_VERY_STRONG
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -18,6 +17,7 @@
 	var/can_move = 0 //time of next allowed movement
 	var/mob/living/carbon/occupant = null
 	var/step_in = 10 //make a step in step_in/10 sec.
+	var/step_restricted = 0 //applied on_entered() by things which slow or restrict mech movement. Resets to zero at the end of every movement
 	var/dir_in = 2//What direction will the mech face when entered/powered on? Defaults to South.
 	var/normal_step_energy_drain = 10 //How much energy the mech will consume each time it moves. This variable is a backup for when leg actuators affect the energy drain.
 	var/step_energy_drain = 10
@@ -25,7 +25,7 @@
 	var/overload_step_energy_drain_min = 100
 	max_integrity = 300 //max_integrity is base health
 	var/deflect_chance = 10 //chance to deflect the incoming projectiles, hits, or lesser the effect of ex_act.
-	armor = list("melee" = 20, "bullet" = 10, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 20,  BULLET = 10, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0)
 	var/list/facing_modifiers = list(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)
 	var/equipment_disabled = 0 //disabled due to EMP
 	var/obj/item/stock_parts/cell/cell ///Keeps track of the mech's cell
@@ -160,6 +160,7 @@
 
 /obj/mecha/rust_heretic_act()
 	take_damage(500,  BRUTE)
+	return TRUE
 
 /obj/mecha/Destroy()
 	if(occupant)
@@ -448,20 +449,16 @@
 		for(var/mob/M as() in hearers(7,src))
 			if(M.client)
 				speech_bubble_recipients.Add(M.client)
-		INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, image('icons/mob/talk.dmi', src, "machine[say_test(raw_message)]",MOB_LAYER+1), speech_bubble_recipients, 30)
+		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay), image('icons/mob/talk.dmi', src, "machine[say_test(raw_message)]",MOB_LAYER+1), speech_bubble_recipients, 30)
 
-/obj/mecha/emag_act(mob/user)
-	. = ..()
-	if(obj_flags & EMAGGED)
-		to_chat(user, "<span class='warning'>The mech suit's internal controls are damaged beyond repair!</span>")
-		return
-	obj_flags |= EMAGGED
+/obj/mecha/on_emag(mob/user)
+	..()
 	playsound(src, "sparks", 100, 1)
 	to_chat(user, "<span class='warning'>You short out the mech suit's internal controls.</span>")
 	dna_lock = null
 	equipment_disabled = TRUE
 	log_message("System emagged detected", LOG_MECHA, color="red")
-	addtimer(CALLBACK(src, /obj/mecha/proc/restore_equipment), 15 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/mecha, restore_equipment)), 15 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 
 ////////////////////////////
 ///// Action processing ////
@@ -583,26 +580,28 @@
 
 /obj/mecha/proc/domove(direction)
 	if(can_move >= world.time)
-		return 0
+		return FALSE
+	if(direction == UP || direction == DOWN)
+		return FALSE
 	if(!Process_Spacemove(direction))
-		return 0
+		return FALSE
 	if(!has_charge(step_energy_drain))
-		return 0
+		return FALSE
 	if(zoom_mode)
 		if(world.time - last_message > 20)
 			occupant_message("Unable to move while in zoom mode.")
 			last_message = world.time
-		return 0
+		return FALSE
 	if(!cell)
 		if(world.time - last_message > 20)
 			occupant_message("<span class='warning'>Missing power cell.</span>")
 			last_message = world.time
-		return 0
+		return FALSE
 	if(!scanmod || !capacitor)
 		if(world.time - last_message > 20)
 			occupant_message("<span class='warning'>Missing [scanmod? "capacitor" : "scanning module"].</span>")
 			last_message = world.time
-		return 0
+		return FALSE
 
 	var/move_result = 0
 	var/oldloc = loc
@@ -614,9 +613,10 @@
 		move_result = mechstep(direction)
 	if(move_result || loc != oldloc)// halfway done diagonal move still returns false
 		use_power(step_energy_drain)
-		can_move = world.time + step_in
-		return 1
-	return 0
+		can_move = world.time + step_in + step_restricted
+		step_restricted = 0
+		return TRUE
+	return FALSE
 
 /obj/mecha/proc/mechturn(direction)
 	setDir(direction)
@@ -626,6 +626,8 @@
 
 /obj/mecha/proc/mechstep(direction)
 	var/current_dir = dir
+	if(!isturf(get_step_multiz(src, direction))) // verify the turf we intend to step into is actually valid
+		direction = direction & ~(UP|DOWN)
 	var/result = step(src,direction)
 	if(strafe)
 		setDir(current_dir)
@@ -666,16 +668,16 @@
 			if(nextsmash < world.time)
 				obstacle.mech_melee_attack(src)
 				nextsmash = world.time + smashcooldown
-				if(!obstacle || obstacle.CanPass(src,get_step(src,dir)))
+				if(!obstacle || obstacle.CanPass(src, get_dir(obstacle, src) || dir)) // The else is in case the obstacle is in the same turf.
 					step(src,dir)
 		if(isobj(obstacle))
 			var/obj/O = obstacle
 			if(!O.anchored && O.move_resist <= move_force)
-				step(obstacle, dir)
+				step(obstacle, dir & ~(UP|DOWN))
 		else if(ismob(obstacle))
 			var/mob/M = obstacle
 			if(M.move_resist <= move_force)
-				step(obstacle, dir)
+				step(obstacle, dir & ~(UP|DOWN))
 
 
 
@@ -778,7 +780,7 @@
 			card.AI = AI
 			AI.controlled_mech = null
 			AI.remote_control = null
-			icon_state = initial(icon_state)+"-open"
+			icon_state = "[base_icon_state]-open"
 			to_chat(AI, "You have been downloaded to a mobile storage device. Wireless connection offline.")
 			to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) removed from [name] and stored within local memory.")
 
@@ -816,7 +818,7 @@
 	AI.forceMove(src)
 	occupant = AI
 	silicon_pilot = TRUE
-	icon_state = initial(icon_state)
+	icon_state = base_icon_state
 	update_icon()
 	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 	if(!internal_damage)
@@ -840,7 +842,7 @@
 	if(pilot_mob && pilot_mob.Adjacent(src))
 		if(occupant)
 			return
-		icon_state = initial(icon_state)
+		icon_state = base_icon_state
 		occupant = pilot_mob
 		pilot_mob.mecha = src
 		pilot_mob.forceMove(src)
@@ -851,7 +853,7 @@
 		occupant = null
 	if(pilot_mob.mecha == src)
 		pilot_mob.mecha = null
-	icon_state = "[initial(icon_state)]-open"
+	icon_state = "[base_icon_state]-open"
 	pilot_mob.forceMove(get_turf(src))
 	RemoveActions(pilot_mob)
 
@@ -953,7 +955,7 @@
 		GrantActions(H, human_occupant=1)
 		forceMove(loc)
 		log_message("[H] moved in as pilot.", LOG_MECHA)
-		icon_state = initial(icon_state)
+		icon_state = base_icon_state
 		setDir(dir_in)
 		playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 		if(!internal_damage)
@@ -1008,7 +1010,7 @@
 	brainmob.remote_control = src
 	brainmob.update_mobility()
 	brainmob.update_mouse_pointer()
-	icon_state = initial(icon_state)
+	icon_state = base_icon_state
 	update_icon()
 	setDir(dir_in)
 	log_message("[mmi_as_oc] moved in as pilot.", LOG_MECHA)
@@ -1095,7 +1097,7 @@
 			mmi.mecha = null
 			mmi.update_icon()
 			L.mobility_flags = NONE
-		icon_state = initial(icon_state)+"-open"
+		icon_state = "[base_icon_state]-open"
 		setDir(dir_in)
 
 	if(L?.client)
@@ -1163,10 +1165,8 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 		if(user == occupant)
 			user.sight |= occupant_sight_flags
 
-/obj/mecha/rust_heretic_act()
-	take_damage(500,  BRUTE)
 
-/obj/mecha/lighteater_act(obj/item/light_eater/light_eater)
+/obj/mecha/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	..()
 	if(!lights_power)
 		return

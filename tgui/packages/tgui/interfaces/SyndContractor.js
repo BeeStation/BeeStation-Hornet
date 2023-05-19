@@ -114,7 +114,7 @@ export const SyndContractorContent = (props, context) => {
     "a specialised extraction unit to put the body into.",
     "",
     "We want targets alive - but we will sometimes pay slight",
-    "amounts if they're not, you just won't recieve the shown",
+    "amounts if they're not, you just won't receive the shown",
     "bonus. You can redeem your payment through this uplink in",
     "the form of raw telecrystals, which can be put into your",
     "regular Syndicate uplink to purchase whatever you may need.",

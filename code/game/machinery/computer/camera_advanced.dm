@@ -10,6 +10,10 @@
 	var/list/networks = list("ss13")
 	var/datum/action/innate/camera_off/off_action = new
 	var/datum/action/innate/camera_jump/jump_action = new
+	///Camera action button to move up a Z level
+	var/datum/action/innate/camera_multiz_up/move_up_action = new
+	///Camera action button to move down a Z level
+	var/datum/action/innate/camera_multiz_down/move_down_action = new
 	var/list/actions = list()
 	///Should we supress any view changes?
 	var/should_supress_view_changes  = TRUE
@@ -47,6 +51,16 @@
 		jump_action.Grant(user)
 		actions += jump_action
 
+	if(move_up_action)
+		move_up_action.target = user
+		move_up_action.Grant(user)
+		actions += move_up_action
+
+	if(move_down_action)
+		move_down_action.target = user
+		move_down_action.Grant(user)
+		actions += move_down_action
+
 /obj/machinery/proc/remove_eye_control(mob/living/user)
 	CRASH("[type] does not implement ai eye handling")
 
@@ -64,19 +78,16 @@
 		user.reset_perspective(null)
 		if(eyeobj.visible_icon && user.client)
 			user.client.images -= eyeobj.user_image
-
 		user.client.view_size.unsupress()
 
 	eyeobj.eye_user = null
 	user.remote_control = null
-
 	current_user = null
 	user.unset_machine()
-
 	playsound(src, 'sound/machines/terminal_off.ogg', 25, FALSE)
 
 /obj/machinery/computer/camera_advanced/check_eye(mob/user)
-	if( (stat & (NOPOWER|BROKEN)) || (!Adjacent(user) && !user.has_unlimited_silicon_privilege) || user.eye_blind || user.incapacitated() )
+	if( (machine_stat & (NOPOWER|BROKEN)) || (!Adjacent(user) && !user.has_unlimited_silicon_privilege) || user.is_blind() || user.incapacitated() )
 		user.unset_machine()
 
 /obj/machinery/computer/camera_advanced/Destroy()
@@ -102,7 +113,7 @@
 	. = ..()
 	if(.)
 		return
-	if(!is_operational()) //you cant use broken machine you chumbis
+	if(!is_operational) //you cant use broken machine you chumbis
 		return
 	if(current_user)
 		to_chat(user, "The console is already in use!")
@@ -209,6 +220,9 @@
 			eye_user.client.images += user_image
 
 /mob/camera/ai_eye/remote/relaymove(mob/user,direct)
+	if(direct == UP || direct == DOWN)
+		zMove(direct, FALSE)
+		return
 	var/initial = initial(sprint)
 	var/max_sprint = 50
 
@@ -277,4 +291,34 @@
 		C.overlay_fullscreen("flash", /atom/movable/screen/fullscreen/flash/static)
 		C.clear_fullscreen("flash", 3) //Shorter flash than normal since it's an ~~advanced~~ console!
 	else
-		playsound(origin, 'sound/machines/terminal_prompt_deny.ogg', 25, 0)
+		playsound(origin, 'sound/machines/terminal_prompt_deny.ogg', 25, FALSE)
+
+/datum/action/innate/camera_multiz_up
+	name = "Move up a floor"
+	icon_icon = 'icons/mob/actions/actions_silicon.dmi'
+	button_icon_state = "move_up"
+
+/datum/action/innate/camera_multiz_up/Activate()
+	if(!target || !isliving(target))
+		return
+	var/mob/living/user_mob = target
+	var/mob/camera/ai_eye/remote/remote_eye = user_mob.remote_control
+	if(remote_eye.zMove(UP, FALSE))
+		to_chat(user_mob, "<span class='notice'>You move upwards.</span>")
+	else
+		to_chat(user_mob, "<span class='notice'>You couldn't move upwards!</span>")
+
+/datum/action/innate/camera_multiz_down
+	name = "Move down a floor"
+	icon_icon = 'icons/mob/actions/actions_silicon.dmi'
+	button_icon_state = "move_down"
+
+/datum/action/innate/camera_multiz_down/Activate()
+	if(!target || !isliving(target))
+		return
+	var/mob/living/user_mob = target
+	var/mob/camera/ai_eye/remote/remote_eye = user_mob.remote_control
+	if(remote_eye.zMove(DOWN, FALSE))
+		to_chat(user_mob, "<span class='notice'>You move downwards.</span>")
+	else
+		to_chat(user_mob, "<span class='notice'>You couldn't move downwards!</span>")

@@ -28,7 +28,9 @@
 	filling_color = "#FF1493"
 	tastes = list("watermelon" = 1)
 	foodtype = FRUIT
+	/*food_flags = FOOD_FINGER_FOOD*/
 	juice_results = list(/datum/reagent/consumable/watermelonjuice = 5)
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/reagent_containers/food/snacks/candy_corn
 	name = "candy corn"
@@ -38,6 +40,8 @@
 	filling_color = "#FF8C00"
 	tastes = list("candy corn" = 1)
 	foodtype = JUNKFOOD | SUGAR
+	/*food_flags = FOOD_FINGER_FOOD*/
+	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/reagent_containers/food/snacks/candy_corn/prison
 	name = "desiccated candy corn"
@@ -55,6 +59,8 @@
 	filling_color = "#A0522D"
 	tastes = list("chocolate" = 1)
 	foodtype = JUNKFOOD | SUGAR
+	/*food_flags = FOOD_FINGER_FOOD*/
+	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/reagent_containers/food/snacks/hugemushroomslice
 	name = "huge mushroom slice"
@@ -98,7 +104,10 @@
 	filling_color = "#FFD700"
 	tastes = list("fries" = 3, "salt" = 1)
 	foodtype = VEGETABLES | GRAIN | FRIED
-	dunkable = TRUE
+
+/obj/item/reagent_containers/food/snacks/fries/Initialize()
+	. = ..()
+	AddElement(/datum/element/dunkable, 10)
 
 /obj/item/reagent_containers/food/snacks/tatortot
 	name = "tator tot"
@@ -108,7 +117,12 @@
 	filling_color = "FFD700"
 	tastes = list("potato" = 3, "valids" = 1)
 	foodtype = FRIED | VEGETABLES
-	dunkable = TRUE
+	/*food_flags = FOOD_FINGER_FOOD*/
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/reagent_containers/food/snacks/tatortot/Initialize()
+	. = ..()
+	AddElement(/datum/element/dunkable, 10)
 
 /obj/item/reagent_containers/food/snacks/soydope
 	name = "soy dope"
@@ -130,7 +144,10 @@
 	filling_color = "#FFD700"
 	tastes = list("fries" = 3, "cheese" = 1)
 	foodtype = VEGETABLES | GRAIN
-	dunkable = TRUE
+
+/obj/item/reagent_containers/food/snacks/cheesyfries/Initialize()
+	. = ..()
+	AddElement(/datum/element/dunkable, 10)
 
 /obj/item/reagent_containers/food/snacks/badrecipe
 	name = "burned mess"
@@ -139,6 +156,16 @@
 	list_reagents = list(/datum/reagent/toxin/bad_food = 30)
 	filling_color = "#8B4513"
 	foodtype = GROSS
+
+/obj/item/reagent_containers/food/snacks/badrecipe/burn()
+	if(QDELETED(src))
+		return
+	var/turf/T = get_turf(src)
+	var/obj/effect/decal/cleanable/ash/A = new /obj/effect/decal/cleanable/ash(T)
+	A.desc += "\nLooks like this used to be \an [name] some time ago."
+	if(resistance_flags & ON_FIRE)
+		SSfire_burning.processing -= src
+	qdel(src)
 
 /obj/item/reagent_containers/food/snacks/carrotfries
 	name = "carrot fries"
@@ -149,7 +176,10 @@
 	filling_color = "#FFA500"
 	tastes = list("carrots" = 3, "salt" = 1)
 	foodtype = VEGETABLES
-	dunkable = TRUE
+
+/obj/item/reagent_containers/food/snacks/carrotfries/Initialize()
+	. = ..()
+	AddElement(/datum/element/dunkable, 10)
 
 /obj/item/reagent_containers/food/snacks/candiedapple
 	name = "candied apple"
@@ -171,6 +201,8 @@
 	list_reagents = list(/datum/reagent/toxin/minttoxin = 2)
 	filling_color = "#800000"
 	foodtype = TOXIC | SUGAR
+	/*food_flags = FOOD_FINGER_FOOD*/
+	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/reagent_containers/food/snacks/eggwrap
 	name = "egg wrap"
@@ -208,6 +240,8 @@
 	filling_color = "#00800"
 	tastes = list("cobwebs" = 1, "sugar" = 2)
 	foodtype = JUNKFOOD | SUGAR
+	/*food_flags = FOOD_FINGER_FOOD*/
+	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/reagent_containers/food/snacks/chococoin
 	name = "chocolate coin"
@@ -218,6 +252,8 @@
 	filling_color = "#A0522D"
 	tastes = list("chocolate" = 1)
 	foodtype = JUNKFOOD | SUGAR
+	/*food_flags = FOOD_FINGER_FOOD*/
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/reagent_containers/food/snacks/fudgedice
 	name = "fudge dice"
@@ -229,6 +265,8 @@
 	trash = /obj/item/dice/fudge
 	tastes = list("fudge" = 1)
 	foodtype = JUNKFOOD | SUGAR
+	/*food_flags = FOOD_FINGER_FOOD*/
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/reagent_containers/food/snacks/chocoorange
 	name = "chocolate orange"
@@ -239,6 +277,8 @@
 	filling_color = "#A0522D"
 	tastes = list("chocolate" = 3, "oranges" = 1)
 	foodtype = JUNKFOOD | SUGAR
+	/*food_flags = FOOD_FINGER_FOOD*/
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/reagent_containers/food/snacks/eggplantparm
 	name = "eggplant parmigiana"
@@ -382,7 +422,9 @@
 	list_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/consumable/honey = 5)
 	filling_color = "#F2CE91"
 	tastes = list("oats" = 3, "nuts" = 2, "honey" = 1)
-	foodtype = FRUIT | SUGAR
+	foodtype = GRAIN | SUGAR
+	/*food_flags = FOOD_FINGER_FOOD*/
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/reagent_containers/food/snacks/stuffedlegion
 	name = "stuffed legion"
@@ -421,7 +463,9 @@
 	var/headcolor = rgb(0, 0, 0)
 	tastes = list("candy" = 1)
 	foodtype = JUNKFOOD | SUGAR
+	/*food_flags = FOOD_FINGER_FOOD*/
 	slot_flags = ITEM_SLOT_MASK
+	w_class = WEIGHT_CLASS_TINY
 	///Essentially IsEquipped
 	var/chewing = TRUE
 	///Time between bites
@@ -457,13 +501,13 @@
 		timer_id = null
 	chewing = (slot == ITEM_SLOT_MASK ? TRUE : FALSE)
 	if(chewing) //Set a timer to chew(), instead of calling chew for the convenience of being able to equip/unequip our pop
-		timer_id = addtimer(CALLBACK(src, .proc/chew), bite_frequency, TIMER_STOPPABLE)	
+		timer_id = addtimer(CALLBACK(src, PROC_REF(chew)), bite_frequency, TIMER_STOPPABLE)
 
 /obj/item/reagent_containers/food/snacks/lollipop/dropped(mob/user)
 	. = ..()
 	if(timer_id)
 		deltimer(timer_id)
-		timer_id = null		
+		timer_id = null
 
 /obj/item/reagent_containers/food/snacks/lollipop/proc/chew()
 	if(iscarbon(loc) && chewing)
@@ -471,7 +515,7 @@
 		if(M.health <= 0)
 			return
 		attack(M, M)
-		timer_id = addtimer(CALLBACK(src, .proc/chew), bite_frequency, TIMER_STOPPABLE)
+		timer_id = addtimer(CALLBACK(src, PROC_REF(chew)), bite_frequency, TIMER_STOPPABLE)
 
 /obj/item/reagent_containers/food/snacks/lollipop/long
 	name = "longpop"
@@ -482,7 +526,7 @@
 /obj/item/reagent_containers/food/snacks/lollipop/long/equipped(mob/user, slot)
 	..()
 	if(chewing)
-		RegisterSignal(user, COMSIG_LIVING_STATUS_KNOCKDOWN, .proc/on_trip, user)
+		RegisterSignal(user, COMSIG_LIVING_STATUS_KNOCKDOWN, PROC_REF(on_trip), user)
 	else
 		UnregisterSignal(user, COMSIG_LIVING_STATUS_KNOCKDOWN)
 
@@ -496,7 +540,7 @@
 
 /obj/item/reagent_containers/food/snacks/lollipop/cyborg/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, .proc/spamcheck), 1200)
+	addtimer(CALLBACK(src, PROC_REF(spamcheck)), 1200)
 
 /obj/item/reagent_containers/food/snacks/lollipop/cyborg/equipped(mob/living/user, slot)
 	. = ..(user, slot)
@@ -514,6 +558,8 @@
 	list_reagents = list(/datum/reagent/consumable/sugar = 5, /datum/reagent/medicine/bicaridine = 2, /datum/reagent/medicine/kelotane = 2)	//Kek
 	tastes = list("candy")
 	foodtype = JUNKFOOD
+	/*food_flags = FOOD_FINGER_FOOD*/
+	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/reagent_containers/food/snacks/gumball/Initialize(mapload)
 	. = ..()
@@ -524,7 +570,7 @@
 
 /obj/item/reagent_containers/food/snacks/gumball/cyborg/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, .proc/spamcheck), 1200)
+	addtimer(CALLBACK(src, PROC_REF(spamcheck)), 1200)
 
 /obj/item/reagent_containers/food/snacks/gumball/cyborg/equipped(mob/living/user, slot)
 	. = ..(user, slot)
@@ -594,6 +640,7 @@
 	desc = "delicious, golden, fatty goodness on a stick."
 	icon_state = "butteronastick"
 	trash = /obj/item/stack/rods
+	/*food_flags = FOOD_FINGER_FOOD*/
 
 /obj/item/reagent_containers/food/snacks/onionrings
 	name = "onion rings"
@@ -604,6 +651,7 @@
 	gender = PLURAL
 	tastes = list("batter" = 3, "onion" = 1)
 	foodtype = VEGETABLES
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/reagent_containers/food/snacks/pineappleslice
 	name = "pineapple slice"
@@ -613,6 +661,7 @@
 	juice_results = list(/datum/reagent/consumable/pineapplejuice = 3)
 	tastes = list("pineapple" = 1)
 	foodtype = FRUIT | PINEAPPLE
+	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/reagent_containers/food/snacks/tinychocolate
 	name = "chocolate"
@@ -711,3 +760,12 @@
 	filling_color = "#100800"
 	tastes = list("disgust" = 7, "tin" = 1)
 	foodtype = MEAT | GROSS | JUNKFOOD
+
+/obj/item/reagent_containers/food/snacks/pingles
+	name = "pingles"
+	desc = "A perfect blend of sour cream and onion on a potato chip. May cause space lag."
+	icon_state = "pingles"
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/cooking_oil = 2, /datum/reagent/consumable/sodiumchloride = 2)
+	trash = /obj/item/c_tube
+	tastes = list("sour cream" = 2, "onion" = 1)
+	foodtype = FRIED
