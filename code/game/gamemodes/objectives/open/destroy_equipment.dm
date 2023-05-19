@@ -22,6 +22,21 @@
 	selected_area = pick(valid_areas)
 	//Update the explanation text
 	update_explanation_text()
+	// All machines in the area at the time will count
+	// Registered signals will be cleared automatically on destroy
+	for (var/obj/machinery/machine in GLOB.machines)
+		var/area/machine_area = get_area(machine)
+		var/list/target_area_types = valid_areas[selected_area]
+		for (var/target_zone in target_area_types)
+			if (istype(machine_area, target_zone))
+				RegisterSignal(machine, COMSIG_MACHINERY_BROKEN, PROC_REF(register_machine_damage))
+				RegisterSignal(machine, COMSIG_PARENT_QDELETING, PROC_REF(register_machine_damage))
+				break
+
+/datum/objective/open/damage_equipment/proc/register_machine_damage(obj/machinery/source)
+	SIGNAL_HANDLER
+	UnregisterSignal(source, list(COMSIG_MACHINERY_BROKEN, COMSIG_PARENT_QDELETING))
+	damaged_machines ++
 
 /datum/objective/open/damage_equipment/update_explanation_text()
 	var/objective_text = pick(\
