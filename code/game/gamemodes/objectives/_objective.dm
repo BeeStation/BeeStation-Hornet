@@ -10,7 +10,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	var/target_amount = 0				//If they are focused on a particular number. Steal objectives have their own counter.
 	var/completed = 0					//currently only used for custom objectives.
 	var/martyr_compatible = 0			//If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
-	var/optional = FALSE				//Whether the objective should show up as optional in the roundend screen
+	var/murderbone_flag = FALSE
 
 /datum/objective/New(var/text)
 	if(text)
@@ -47,7 +47,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	if(target?.current)
 		def_value = target.current
 
-	var/mob/new_target = input(admin,"Select target:", "Objective target", def_value) as null|anything in (sortNames(possible_targets) | list("Free objective","Random"))
+	var/mob/new_target = input(admin,"Select target:", "Objective target", def_value) as null|anything in (sort_names(possible_targets) | list("Free objective","Random"))
 	if (!new_target)
 		return
 
@@ -80,7 +80,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/proc/get_completion_message()
 	return check_completion() ? "[explanation_text] <span class='greentext'>Success!</span>" : "[explanation_text] <span class='redtext'>Fail.</span>"
 
-/datum/objective/proc/is_unique_objective(datum/mind/possible_target, list/dupe_search_range)
+/datum/objective/proc/is_unique_objective(possible_target, list/dupe_search_range)
 	if(!islist(dupe_search_range))
 		stack_trace("Non-list passed as duplicate objective search range")
 		dupe_search_range = list(dupe_search_range)
@@ -219,7 +219,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	if(!secret_bag)
 		secret_bag = new()
 		var/atom_text = ""
-		switch (pickweight(list("airlock" = 3)))
+		switch (pick_weight(list("airlock" = 3)))
 			if("airlock")
 				atom_text = "An airlock"
 				//Valid areas

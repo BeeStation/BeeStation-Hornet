@@ -145,6 +145,7 @@
 		var/created_type = pick(subtypesof(/datum/objective/open))
 		var/datum/objective/obj = new created_type
 		obj.owner = owner
+		obj.find_target()
 		add_objective(obj)
 	else if(prob(50))
 		var/list/active_ais = active_ais()
@@ -344,12 +345,8 @@
 	if(objectives.len)//If the traitor had no objectives, don't need to process this.
 		var/count = 1
 		for(var/datum/objective/objective in objectives)
-			if(objective.check_completion() && !objective.optional)
-				objectives_text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <span class='greentext'>Success!</span>"
-			else if (objective.optional)
-				objectives_text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <span class='greentext'>Optional.</span>"
-			else
-				objectives_text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
+			objectives_text += "<br><B>Objective #[count]</B>: [objective.get_completion_message()]"
+			if(!objective.check_completion())
 				traitorwin = FALSE
 			count++
 

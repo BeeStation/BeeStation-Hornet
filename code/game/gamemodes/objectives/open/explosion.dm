@@ -23,12 +23,8 @@
 
 /datum/objective/open/explosion/New(text)
 	. = ..()
-	//Pick an area to target
-	selected_area = pick(valid_areas)
 	//Register for the signals
 	RegisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION, .proc/on_explosion)
-	//Update the explanation text
-	update_explanation_text()
 
 /datum/objective/open/explosion/Destroy(force, ...)
 	UnregisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION)
@@ -63,3 +59,22 @@
 	if(!success)
 		return "[explanation_text] <span class='redtext'>Fail!</span>"
 	return "[explanation_text] <span class='infotext'>Largest Bomb: ([devistation], [heavy], [light])</span>"
+
+/datum/objective/open/explosion/get_target()
+	return selected_area
+
+/datum/objective/open/explosion/find_target(list/dupe_search_range, list/blacklist)
+	if(!dupe_search_range)
+		dupe_search_range = get_owners()
+	var/approved_targets = list()
+	for(var/target_zone in valid_areas)
+		if(!is_unique_objective(target_zone, dupe_search_range))
+			continue
+		approved_targets += target_zone
+	set_target_zone(safepick(approved_targets))
+	return selected_area
+
+/datum/objective/open/explosion/proc/set_target_zone(target_zone)
+	selected_area = target_zone
+	//Update the explanation text
+	update_explanation_text()

@@ -5,6 +5,7 @@
 	martyr_compatible = FALSE //Technically you won't get both anyway.
 	/// Overrides the hijack speed of any antagonist datum it is on ONLY, no other datums are impacted.
 	var/hijack_speed_override = 1
+	murderbone_flag = TRUE
 
 /datum/objective/hijack/check_completion() // Requires all owners to escape.
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)

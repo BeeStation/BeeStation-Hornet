@@ -16,23 +16,6 @@
 	)
 	var/damaged_machines = 0
 
-/datum/objective/open/damage_equipment/New(text)
-	. = ..()
-	// Select an area to target
-	selected_area = pick(valid_areas)
-	//Update the explanation text
-	update_explanation_text()
-	// All machines in the area at the time will count
-	// Registered signals will be cleared automatically on destroy
-	for (var/obj/machinery/machine in GLOB.machines)
-		var/area/machine_area = get_area(machine)
-		var/list/target_area_types = valid_areas[selected_area]
-		for (var/target_zone in target_area_types)
-			if (istype(machine_area, target_zone))
-				RegisterSignal(machine, COMSIG_MACHINERY_BROKEN, PROC_REF(register_machine_damage))
-				RegisterSignal(machine, COMSIG_PARENT_QDELETING, PROC_REF(register_machine_damage))
-				break
-
 /datum/objective/open/damage_equipment/proc/register_machine_damage(obj/machinery/source)
 	SIGNAL_HANDLER
 	UnregisterSignal(source, list(COMSIG_MACHINERY_BROKEN, COMSIG_PARENT_QDELETING))
@@ -51,3 +34,31 @@
 	if (!damaged_machines)
 		return "[explanation_text] <span class='redtext'>No sabotaged machines (somehow)!</span>"
 	return "[explanation_text] <span class='infotext'>[damaged_machines] sabotaged machines!</span>"
+
+/datum/objective/open/damage_equipment/get_target()
+	return selected_area
+
+/datum/objective/open/damage_equipment/find_target(list/dupe_search_range, list/blacklist)
+	if(!dupe_search_range)
+		dupe_search_range = get_owners()
+	var/approved_targets = list()
+	for(var/target_zone in valid_areas)
+		if(!is_unique_objective(target_zone,dupe_search_range))
+			continue
+		approved_targets += target_zone
+	set_target_zone(safepick(approved_targets))
+	return selected_area
+
+/datum/objective/open/damage_equipment/proc/set_target_zone(target_zone)
+	selected_area = target_zone
+	//Update the explanation text
+	update_explanation_text()
+	// Registered signals will be cleared automatically on destroy
+	for (var/obj/machinery/machine in GLOB.machines)
+		var/area/machine_area = get_area(machine)
+		var/list/target_area_types = valid_areas[selected_area]
+		for (var/area_zone in target_area_types)
+			if (istype(machine_area, area_zone))
+				RegisterSignal(machine, COMSIG_MACHINERY_BROKEN, PROC_REF(register_machine_damage))
+				RegisterSignal(machine, COMSIG_PARENT_QDELETING, PROC_REF(register_machine_damage))
+				break

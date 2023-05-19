@@ -3,6 +3,7 @@
 	explanation_text = "Slaughter all loyalist crew aboard the shuttle. You, and any likeminded individuals, must be the only remaining people on the shuttle."
 	team_explanation_text = "Slaughter all loyalist crew aboard the shuttle. You, and any likeminded individuals, must be the only remaining people on the shuttle. Leave no team member behind."
 	martyr_compatible = FALSE
+	murderbone_flag = TRUE
 
 /datum/objective/elimination/check_completion()
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
