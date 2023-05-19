@@ -54,14 +54,14 @@
 	target.backbag = value
 
 /// Jumpsuit preference
-/datum/preference/choiced/jumpsuit
+/datum/preference/choiced/jumpsuit_style
 	db_key = "jumpsuit_style"
 	preference_type = PREFERENCE_CHARACTER
 	main_feature_name = "Jumpsuit"
 	category = PREFERENCE_CATEGORY_CLOTHING
 	should_generate_icons = TRUE
 
-/datum/preference/choiced/jumpsuit/init_possible_values()
+/datum/preference/choiced/jumpsuit_style/init_possible_values()
 	var/list/values = list()
 
 	values[PREF_SUIT] = /obj/item/clothing/under/color/grey
@@ -69,7 +69,7 @@
 
 	return values
 
-/datum/preference/choiced/jumpsuit/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/choiced/jumpsuit_style/apply_to_human(mob/living/carbon/human/target, value)
 	target.jumpsuit_style = value
 
 /// Socks preference

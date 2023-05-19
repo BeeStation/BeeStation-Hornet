@@ -256,7 +256,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	prefs.last_ip = address				//these are gonna be used for banning
 	prefs.last_id = computer_id			//these are gonna be used for banning
 
-	// TODO tgui-prefs prefs.handle_donator_items()
+	prefs.handle_donator_items()
 
 	if(fexists(roundend_report_file()))
 		add_verb(/client/proc/show_previous_roundend_report)

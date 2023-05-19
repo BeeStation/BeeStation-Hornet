@@ -59,6 +59,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	var/list/ignoring = list()
 
+	var/list/purchased_gear = list()
+	var/list/equipped_gear = list()
+
 	var/list/exp = list()
 	var/job_exempt = 0
 
@@ -106,9 +109,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	var/loaded_preferences_successfully = load_preferences()
 	if(loaded_preferences_successfully)
-		// TODO tgui-prefs
-		//if("6030fe461e610e2be3a2c3e75c06067e" in purchased_gear) //MD5 hash of, "extra character slot"
-		//	set_max_character_slots(max_usable_slots + 1)
+		if("6030fe461e610e2be3a2c3e75c06067e" in purchased_gear) //MD5 hash of, "extra character slot"
+			max_save_slots += 1
 		if(load_character())
 			return
 	// TODO tgui-prefs implement fallback species
@@ -540,3 +542,23 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 		return
 	key_bindings[keybind_name] = hotkeys
 	key_bindings_by_key = get_key_bindings_by_key(key_bindings)
+
+/// Handles adding and removing donator items from clients
+/datum/preferences/proc/handle_donator_items()
+	var/datum/loadout_category/DLC = GLOB.loadout_categories["Donator"] // stands for donator loadout category but the other def for DLC works too xD
+	if(!LAZYLEN(GLOB.patrons) || !CONFIG_GET(flag/donator_items)) // donator items are only accesibile by servers with a patreon
+		return
+	if(IS_PATRON(parent.ckey) || (parent in GLOB.admins))
+		for(var/gear_id in DLC.gear)
+			var/datum/gear/AG = DLC.gear[gear_id]
+			if(AG.id in purchased_gear)
+				continue
+			purchased_gear += AG.id
+			AG.purchase(parent)
+		save_preferences()
+	else if(length(purchased_gear) || length(equipped_gear))
+		for(var/gear_id in DLC.gear)
+			var/datum/gear/RG = DLC.gear[gear_id]
+			equipped_gear -= RG.id
+			purchased_gear -= RG.id
+		save_preferences()

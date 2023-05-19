@@ -12,6 +12,17 @@
 		pass();\
 	} // we dont need error handling where were going
 
+#define PREFERENCE_TAG_TOGGLES			"toggles"
+#define PREFERENCE_TAG_LAST_CL			"last_changelog"
+#define PREFERENCE_TAG_DEFAULT_SLOT		"default_slot"
+#define PREFERENCE_TAG_IGNORING			"ignoring"
+#define PREFERENCE_TAG_KEYBINDS			"key_bindings"
+#define PREFERENCE_TAG_PURCHASED_GEAR	"purchased_gear"
+#define PREFERENCE_TAG_BE_SPECIAL		"be_special"
+#define PREFERENCE_TAG_PAI_NAME			"pai_name"
+#define PREFERENCE_TAG_PAI_DESCRIPTION	"pai_description"
+#define PREFERENCE_TAG_PAI_COMMENT		"pai_comment"
+
 /datum/preferences/proc/load_preferences()
 	// Get the datumized stuff first
 	player_data = new(src)
@@ -45,7 +56,7 @@
 	*/
 
 	READPREF_JSONDEC(ignoring, PREFERENCE_TAG_IGNORING)
-	//READPREF_JSONDEC(purchased_gear, PREFERENCE_TAG_PURCHASED_GEAR)
+	READPREF_JSONDEC(purchased_gear, PREFERENCE_TAG_PURCHASED_GEAR)
 	READPREF_JSONDEC(be_special, PREFERENCE_TAG_BE_SPECIAL)
 
 	// Custom hotkeys
@@ -55,6 +66,8 @@
 	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
 	default_slot	= sanitize_integer(default_slot, 1, TRUE_MAX_SAVE_SLOTS, initial(default_slot))
 	toggles			= sanitize_integer(toggles, 0, (2**24)-1, initial(toggles)) // yes
+	ignoring		= SANITIZE_LIST(ignoring)
+	purchased_gear	= SANITIZE_LIST(purchased_gear)
 	be_special		= SANITIZE_LIST(be_special)
 
 	//pai_name		= sanitize_text(pai_name, initial(pai_name))
@@ -105,7 +118,7 @@
 
 	PREP_WRITEPREF_JSONENC(ignoring, PREFERENCE_TAG_IGNORING)
 	PREP_WRITEPREF_JSONENC(key_bindings, PREFERENCE_TAG_KEYBINDS)
-	//PREP_WRITEPREF_JSONENC(purchased_gear, PREFERENCE_TAG_PURCHASED_GEAR)
+	PREP_WRITEPREF_JSONENC(purchased_gear, PREFERENCE_TAG_PURCHASED_GEAR)
 	PREP_WRITEPREF_JSONENC(be_special, PREFERENCE_TAG_BE_SPECIAL)
 
 	// QuerySelect can execute many queries at once. That name is dumb but w/e
@@ -120,6 +133,17 @@
 #undef PREP_WRITEPREF_STR
 #undef PREP_WRITEPREF_JSONENC
 
+#undef PREFERENCE_TAG_TOGGLES
+#undef PREFERENCE_TAG_LAST_CL
+#undef PREFERENCE_TAG_DEFAULT_SLOT
+#undef PREFERENCE_TAG_IGNORING
+#undef PREFERENCE_TAG_KEYBINDS
+#undef PREFERENCE_TAG_PURCHASED_GEAR
+#undef PREFERENCE_TAG_BE_SPECIAL
+#undef PREFERENCE_TAG_PAI_NAME
+#undef PREFERENCE_TAG_PAI_DESCRIPTION
+#undef PREFERENCE_TAG_PAI_COMMENT
+
 #define JSONREAD_PREF(target, tag) \
 	try {\
 		var/idx = column_names?.Find(tag);\
@@ -132,6 +156,11 @@
 		target = null;\
 		pass();\
 	} // we dont need error handling where were going
+
+#define CHARACTER_PREFERENCE_RANDOMISE "randomise"
+#define CHARACTER_PREFERENCE_JOB_PREFERENCES "job_preferences"
+#define CHARACTER_PREFERENCE_ALL_QUIRKS "all_quirks"
+#define CHARACTER_PREFERENCE_EQUIPPED_GEAR "equipped_gear"
 
 /datum/preferences/proc/load_character(slot)
 	if(!slot)
@@ -147,11 +176,11 @@
 	// Do NOT statically cache this or I will kill you. You are asking an evil vareditor to break the DB in a BAD way
 	// also DO NOT rename this
 	var/list/column_names = list(
-		"slot",
-		"randomise", // TODO tgui-prefs convert these to DEFINEs
-		"job_preferences",
-		"all_quirks",
-		//"equipped_gear",
+		"slot", // this is a literal column name
+		CHARACTER_PREFERENCE_RANDOMISE,
+		CHARACTER_PREFERENCE_JOB_PREFERENCES,
+		CHARACTER_PREFERENCE_ALL_QUIRKS,
+		CHARACTER_PREFERENCE_EQUIPPED_GEAR,
 	)
 
 	var/datum/DBQuery/Q = SSdbcore.NewQuery(
@@ -177,16 +206,16 @@
 		CRASH("Error querying character data: the returned value length is not equal to the number of columns requested.")
 
 	// Decode
-	JSONREAD_PREF(randomise, "randomise")
-	JSONREAD_PREF(job_preferences, "job_preferences")
-	JSONREAD_PREF(all_quirks, "all_quirks")
-	//JSONREAD_PREF(equipped_gear, "equipped_gear")
+	JSONREAD_PREF(randomise, CHARACTER_PREFERENCE_RANDOMISE)
+	JSONREAD_PREF(job_preferences, CHARACTER_PREFERENCE_JOB_PREFERENCES)
+	JSONREAD_PREF(all_quirks, CHARACTER_PREFERENCE_ALL_QUIRKS)
+	JSONREAD_PREF(equipped_gear, CHARACTER_PREFERENCE_EQUIPPED_GEAR)
 
 	//Sanitize
 	randomise = SANITIZE_LIST(randomise)
 	job_preferences = SANITIZE_LIST(job_preferences)
 	all_quirks = SANITIZE_LIST(all_quirks)
-	//equipped_gear = SANITIZE_LIST(equipped_gear)
+	equipped_gear = SANITIZE_LIST(equipped_gear)
 
 	//Validate job prefs
 	for(var/j in job_preferences)
@@ -211,10 +240,10 @@
 	var/list/column_names = list()
 	var/list/new_data = list()
 
-	WRITEPREF_JSONENC(randomise, "randomise")
-	WRITEPREF_JSONENC(job_preferences, "job_preferences")
-	WRITEPREF_JSONENC(all_quirks, "all_quirks")
-	//WRITEPREF_JSON(equipped_gear, "equipped_gear")
+	WRITEPREF_JSONENC(randomise, CHARACTER_PREFERENCE_RANDOMISE)
+	WRITEPREF_JSONENC(job_preferences, CHARACTER_PREFERENCE_JOB_PREFERENCES)
+	WRITEPREF_JSONENC(all_quirks, CHARACTER_PREFERENCE_ALL_QUIRKS)
+	WRITEPREF_JSONENC(equipped_gear, CHARACTER_PREFERENCE_EQUIPPED_GEAR)
 
 	new_data["ckey"] = parent.ckey
 	new_data["slot"] = character_data.slot_number
@@ -229,6 +258,10 @@
 
 #undef WRITEPREF_STR
 #undef WRITEPREF_JSONENC
+#undef CHARACTER_PREFERENCE_RANDOMISE
+#undef CHARACTER_PREFERENCE_JOB_PREFERENCES
+#undef CHARACTER_PREFERENCE_ALL_QUIRKS
+#undef CHARACTER_PREFERENCE_EQUIPPED_GEAR
 
 /datum/preferences_holder
 	/// A map of db_key -> value. Data type varies.
@@ -252,7 +285,7 @@
 
 /datum/preferences_holder/proc/read_preference(datum/preferences/preferences, datum/preference/preference)
 	SHOULD_NOT_SLEEP(TRUE)
-	var/value = read_STR(preferences, preference)
+	var/value = read_raw(preferences, preference)
 	if (isnull(value))
 		value = preference.create_informed_default_value(preferences)
 		if (write_preference(preferences, preference, value))
@@ -261,7 +294,7 @@
 			CRASH("Couldn't write the default value for [preference.type] (received [value])")
 	return value
 
-/datum/preferences_holder/proc/read_STR(datum/preferences/preferences, datum/preference/preference)
+/datum/preferences_holder/proc/read_raw(datum/preferences/preferences, datum/preference/preference)
 	// Data is already deserialized by the time it's in the cache. Don't deserialize it again.
 	var/value = preference_data[preference.db_key]
 	if (isnull(value))

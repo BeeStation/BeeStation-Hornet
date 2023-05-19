@@ -118,11 +118,11 @@
 
 	if(!ishuman(H))
 		return
-	// TODO tgui-prefs
-	/*var/mob/living/carbon/human/human = H
+	var/mob/living/carbon/human/human = H
 	var/list/gear_leftovers = list()
-	if(M.client && LAZYLEN(M.client.prefs.active_character.equipped_gear))
-		for(var/gear in M.client.prefs.active_character.equipped_gear)
+	var/jumpsuit_style = M.client.prefs.read_character_preference(/datum/preference/choiced/jumpsuit_style)
+	if(M.client && LAZYLEN(M.client.prefs.equipped_gear))
+		for(var/gear in M.client.prefs.equipped_gear)
 			var/datum/gear/G = GLOB.gear_datums[gear]
 			if(G)
 				var/permitted = FALSE
@@ -145,7 +145,7 @@
 					continue
 
 				if(G.slot)
-					if(H.equip_to_slot_or_del(G.spawn_item(H, skirt_pref = M.client.prefs.active_character.jumpsuit_style), G.slot))
+					if(H.equip_to_slot_or_del(G.spawn_item(H, skirt_pref = jumpsuit_style), G.slot))
 						to_chat(M, "<span class='notice'>Equipping you with [G.display_name]!</span>")
 					else
 						gear_leftovers += G
@@ -153,12 +153,12 @@
 					gear_leftovers += G
 
 			else
-				M.client.prefs.active_character.equipped_gear -= gear
+				M.client.prefs.equipped_gear -= gear
 
 	if(gear_leftovers.len)
 		for(var/datum/gear/G in gear_leftovers)
-			var/metadata = M.client.prefs.active_character.equipped_gear[G.id]
-			var/item = G.spawn_item(null, metadata, M.client.prefs.active_character.jumpsuit_style)
+			var/metadata = M.client.prefs.equipped_gear[G.id]
+			var/item = G.spawn_item(null, metadata, jumpsuit_style)
 			var/atom/placed_in = human.equip_or_collect(item)
 
 			if(istype(placed_in))
@@ -177,12 +177,20 @@
 
 			var/obj/item/storage/B = (locate() in H)
 			if(B)
+<<<<<<< HEAD
 				G.spawn_item(B, metadata, M.client.prefs.active_character.jumpsuit_style)
+=======
+<<<<<<< HEAD
+				G.spawn_item(B, metadata)
+=======
+				G.spawn_item(B, metadata, jumpsuit_style)
+>>>>>>> e0f17f846e0 (Some features)
+>>>>>>> 3da2a524616 (Some features)
 				to_chat(M, "<span class='notice'>Placing [G.display_name] in [B.name]!</span>")
 				continue
 
 			to_chat(M, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug.</span>")
-			qdel(item)*/
+			qdel(item)
 
 /datum/job/proc/announce(mob/living/carbon/human/H)
 	if(head_announce)

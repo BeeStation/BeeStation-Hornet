@@ -98,21 +98,6 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 	HELMET_PROTECTIVE,
 ))
 
-// All DB preference entries go here
-// --- DO NOT EVER CHANGE OR RE-USE VALUES HERE ---
-// If you remove an entry, comment it out and leave it for preservation sake
-// All the values must be strings because they are map entries not list indexes
-#define PREFERENCE_TAG_TOGGLES			"toggles"
-#define PREFERENCE_TAG_LAST_CL			"last_changelog"
-#define PREFERENCE_TAG_DEFAULT_SLOT		"default_slot"
-#define PREFERENCE_TAG_IGNORING			"ignoring"
-#define PREFERENCE_TAG_KEYBINDS			"key_bindings"
-#define PREFERENCE_TAG_PURCHASED_GEAR	"purchased_gear"
-#define PREFERENCE_TAG_BE_SPECIAL		"be_special"
-#define PREFERENCE_TAG_PAI_NAME			"pai_name"
-#define PREFERENCE_TAG_PAI_DESCRIPTION	"pai_description"
-#define PREFERENCE_TAG_PAI_COMMENT		"pai_comment"
-
 // True value of max save slots (3 is default, 8 is byond member, +1 to either if you have the extra slot loadout entry). Potential max is 9
 #define TRUE_MAX_SAVE_SLOTS 9
 

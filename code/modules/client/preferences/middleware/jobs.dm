@@ -97,9 +97,10 @@
 
 	var/list/job_days_left = list()
 	var/list/job_required_experience = list()
-// TODO tgui-prefs
-/*
-	for (var/datum/job/job as anything in SSjob.all_occupations)
+
+	for (var/datum/job/job as anything in SSjob.occupations)
+		if(!job.show_in_prefs)
+			continue
 		var/required_playtime_remaining = job.required_playtime_remaining(user.client)
 		if (required_playtime_remaining)
 			job_required_experience[job.title] = list(
@@ -111,7 +112,7 @@
 
 		if (!job.player_old_enough(user.client))
 			job_days_left[job.title] = job.available_in_days(user.client)
-*/
+
 	if (job_days_left.len)
 		data["job_days_left"] = job_days_left
 

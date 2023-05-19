@@ -55,8 +55,7 @@
 	default_value = TRUE
 
 /datum/preference/toggle/tgui_say/apply_to_client(client/client)
-	//client.tgui_say?.load()
-	// TODO tgui-prefs
+	client.tgui_say?.load()
 
 /// Light mode for tgui say
 /datum/preference/toggle/tgui_say_light_mode
@@ -66,7 +65,7 @@
 	default_value = FALSE
 
 /datum/preference/toggle/tgui_say_light_mode/apply_to_client(client/client)
-	//client.tgui_say?.load()
+	client.tgui_say?.load()
 
 /datum/preference/toggle/tgui_say_show_prefix
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
@@ -75,4 +74,4 @@
 	default_value = FALSE
 
 /datum/preference/toggle/tgui_say_show_prefix/apply_to_client(client/client)
-	//client.tgui_say?.load()
+	client.tgui_say?.load()

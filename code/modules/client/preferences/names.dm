@@ -155,4 +155,4 @@
 	group = "religion"
 
 /datum/preference/name/bible/create_default_value()
-	return "The Bible" // TODO tgui-prefs
+	return DEFAULT_BIBLE
