@@ -130,7 +130,9 @@ GLOBAL_DATUM_INIT(fax_manager, /datum/fax_manager, new)
 	request["paper"] = message
 	requests += list(request)
 	var/msg = "<span class='adminnotice'><b><font color=[receiver_color]>\"[sanitize(receiver_fax_name)]\" fax</font> received a message from \"[sanitize(sender_fax.fax_name)]\" fax SENT BY [ADMIN_FULLMONTY(sender)] (<a href='?_src_=holder;[HrefToken(TRUE)];open_fax_manager=1'>Open Fax Manager</a>)</b></span>"
-	to_chat(GLOB.admins, msg)
+	for(var/client/C in GLOB.admins)
+		if(C.prefs.chat_toggles & CHAT_PRAYER)
+			to_chat(C, msg)
 	for(var/client/admin in GLOB.admins)
 		if((admin.prefs.chat_toggles & CHAT_PRAYER) && (admin.prefs.toggles & PREFTOGGLE_SOUND_PRAYERS))
 			SEND_SOUND(admin, sound('sound/items/poster_being_created.ogg'))
