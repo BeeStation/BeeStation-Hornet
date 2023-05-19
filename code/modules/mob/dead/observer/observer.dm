@@ -309,17 +309,31 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(stat == DEAD)
 		ghostize(1)
 	else
-		var/response = alert(src, "Are you -sure- you want to ghost?\n(You are alive. If you ghost whilst still alive you may not play again this round! You can't change your mind so choose wisely!!)","Are you sure you want to ghost?","Ghost","Stay in body")
+		var/response
+		if(!COOLDOWN_FINISHED(mind, force_ghost_timer))
+			response = alert(src, "Your ghotize timer isn't over yet. You need to wait [round(COOLDOWN_TIMELEFT(mind, force_ghost_timer)/10)] seconds more for safe ghostize.","Are you sure you want to ghost?","Ghost","Stay in body")
+			if(response != "Ghost")
+				return
+			response = alert(src, "Last check. [round(COOLDOWN_TIMELEFT(mind, force_ghost_timer)/10)] seconds left for safe ghotize. Are you sure to Ghost?","Are you really sure","Ghost","Stay in body")
+		else
+			response = alert(src, "Are you -sure- you want to ghost?\n(You are alive. If you ghost whilst still alive you may not play again this round! You can't change your mind so choose wisely!!)","Are you sure you want to ghost?","Ghost","Stay in body")
 		if(response != "Ghost")
-			return	//didn't want to ghost after-all
-		ghostize(FALSE,SENTIENCE_RETAIN)						//0 parameter is so we can never re-enter our body, "Charlie, you can never come baaaack~" :3
+			return
+		ghostize(FALSE,SENTIENCE_RETAIN) //0 parameter is so we can never re-enter our body, "Charlie, you can never come baaaack~" :3
 
 /mob/camera/verb/ghost()
 	set category = "OOC"
 	set name = "Ghost"
 	set desc = "Relinquish your life and enter the land of the dead."
 
-	var/response = alert(src, "Are you -sure- you want to ghost?\n(You are alive. If you ghost whilst still alive you may not play again this round! You can't change your mind so choose wisely!!)","Are you sure you want to ghost?","Ghost","Stay in body")
+	var/response
+	if(!COOLDOWN_FINISHED(mind, force_ghost_timer))
+		response = alert(src, "Your ghotize timer isn't over yet. You need to wait [round(COOLDOWN_TIMELEFT(mind, force_ghost_timer)/10)] seconds more for safe ghostize.","Are you sure you want to ghost?","Ghost","Stay in body")
+		if(response != "Ghost")
+			return
+		response = alert(src, "Last check. [round(COOLDOWN_TIMELEFT(mind, force_ghost_timer)/10)] seconds left for safe ghotize. Are you sure to Ghost?","Are you really sure","Ghost","Stay in body")
+	else
+		response = alert(src, "Are you -sure- you want to ghost?\n(You are alive. If you ghost whilst still alive you may not play again this round! You can't change your mind so choose wisely!!)","Are you sure you want to ghost?","Ghost","Stay in body")
 	if(response != "Ghost")
 		return
 	ghostize(FALSE,SENTIENCE_RETAIN)

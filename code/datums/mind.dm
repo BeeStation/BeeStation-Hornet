@@ -77,6 +77,9 @@
 	/// your bank account id in your mind
 	var/account_id
 
+	/// Do not let people ghostize/succumb because their health is -1%
+	COOLDOWN_DECLARE(force_ghost_timer)
+
 /datum/mind/New(var/key)
 	src.key = key
 	soulOwner = src

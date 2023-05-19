@@ -408,6 +408,9 @@
 
 /mob/living/verb/succumb(whispered as null)
 	set hidden = TRUE
+	if(!COOLDOWN_FINISHED(mind, force_ghost_timer))
+		to_chat(src, "<span class='notice'>You need to wait [round(COOLDOWN_TIMELEFT(mind, force_ghost_timer)/10, 0.1)] seconds to ghostize yourself!</span>")
+		return
 	if (InCritical())
 		log_message("Has [whispered ? "whispered his final words" : "succumbed to death"] while in [InFullCritical() ? "hard":"soft"] critical with [round(health, 0.1)] points of health!", LOG_ATTACK)
 		adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
