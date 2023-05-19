@@ -16,35 +16,29 @@
 	. = ..()
 
 // airlocks don't have actual overlays. make fake overlays temporary
+// tried to get vis_content in airlock, but it doesn't capture things properly
 /image/photo/airlock/New(location, obj/machinery/door/airlock/airlock)
 	. = ..()
-	var/list/displaying_overlay = list()
-	displaying_overlay += get_airlock_overlay("[airlock.last_used_state]", icon)
+	add_overlay(get_airlock_overlay("[airlock.last_used_state]", icon))
 	if(airlock.last_used_state == "closed")
-		if(airlock.airlock_material)
-			displaying_overlay += get_airlock_overlay("[airlock.airlock_material]_[airlock.last_used_state]", airlock.overlays_file)
-		else
-			displaying_overlay += get_airlock_overlay("fill_[airlock.last_used_state]", icon)
+		var/panel_base = airlock.airlock_material ? airlock.airlock_material : "fill"
+		add_overlay(get_airlock_overlay("[panel_base]_[airlock.last_used_state]", airlock.overlays_file))
 
 		if(airlock.lights && airlock.hasPower())
 			if(airlock.locked)
-				displaying_overlay += get_airlock_overlay("lights_bolts", airlock.overlays_file)
+				add_overlay(get_airlock_overlay("lights_bolts", airlock.overlays_file))
 			else if(airlock.emergency)
-				displaying_overlay += get_airlock_overlay("lights_emergency", airlock.overlays_file)
+				add_overlay(get_airlock_overlay("lights_emergency", airlock.overlays_file))
 
 		if(airlock.welded)
-			displaying_overlay += get_airlock_overlay("welded", airlock.overlays_file)
+			add_overlay(get_airlock_overlay("welded", airlock.overlays_file))
 
 		if(airlock.note)
-			displaying_overlay += get_airlock_overlay(airlock.note_type(), airlock.note_overlay_file)
+			add_overlay(get_airlock_overlay(airlock.note_type(), airlock.note_overlay_file))
 
 	if(airlock.panel_open)
-		if(airlock.security_level)
-			displaying_overlay += get_airlock_overlay("panel_[airlock.last_used_state]_protected", airlock.overlays_file)
-		else
-			displaying_overlay += get_airlock_overlay("panel_[airlock.last_used_state]", airlock.overlays_file)
-
-	add_overlay(displaying_overlay)
+		var/protected = airlock.security_level ? "_protected" : ""
+		add_overlay(get_airlock_overlay("panel_[airlock.last_used_state][protected]", airlock.overlays_file))
 
 /obj/item/camera/proc/camera_get_icon(list/turfs, turf/center, psize_x = 96, psize_y = 96, datum/turf_reservation/clone_area, size_x, size_y, total_x, total_y)
 	var/list/images = list()
@@ -153,7 +147,10 @@
 			playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, 1, -3)
 
 	if(wipe_images)
-		QDEL_LIST(images)
+		for(var/image/I in images)
+			I.cut_overlays()
+			qdel(I)
+			images.Cut()
 	sorted.Cut()
 
 	return res
