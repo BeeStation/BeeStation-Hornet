@@ -379,5 +379,15 @@
 	icon_state = "lungs"
 	safe_breath_min = 8
 
+/obj/item/organ/lungs/ashwalker
+	name = "ash walker lungs"
+	desc = "Lungs belonging to the tribal group of lizardmen that have adapted to Lavaland's atmosphere, and thus can breathe its air safely but find the station's \
+	air to be oversaturated with oxygen."
+	safe_breath_min = 4
+	safe_breath_max = 20
+	gas_max = list(
+		GAS_CO2 = 45,
+		GAS_PLASMA = MOLES_GAS_VISIBLE
+	)
 #undef PP
 #undef PP_MOLES

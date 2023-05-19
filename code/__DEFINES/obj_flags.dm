@@ -34,6 +34,7 @@
 #define NO_PIXEL_RANDOM_DROP 	(1<<13) //if dropped, it wont have a randomized pixel_x/pixel_y
 #define WAS_THROWN				(1<<14) //if the item was thrown and shouldn't have the drop_item animation applied
 #define ISWEAPON				(1<<15) //! If this item should hit living mobs when used on harm intent
+#define EXAMINE_SKIP			(1<<16) //! Examine will not read out this item
 
 // Flags for the clothing_flags var on /obj/item/clothing
 
@@ -61,6 +62,7 @@
 #define ORGAN_EXTERNAL			(1<<3)	//Was this organ implanted/inserted/etc, if true will not be removed during species change.
 #define ORGAN_VITAL				(1<<4)	//Currently only the brain
 #define ORGAN_EDIBLE			(1<<5)	//is a snack? :D
+#define ORGAN_UNREMOVABLE 		(1<<6)	//Can't be removed using surgery
 
 /// Flags for the pod_flags var on /obj/structure/closet/supplypod
 

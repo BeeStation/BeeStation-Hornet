@@ -160,6 +160,7 @@
 
 /obj/mecha/rust_heretic_act()
 	take_damage(500,  BRUTE)
+	return TRUE
 
 /obj/mecha/Destroy()
 	if(occupant)
@@ -667,7 +668,7 @@
 			if(nextsmash < world.time)
 				obstacle.mech_melee_attack(src)
 				nextsmash = world.time + smashcooldown
-				if(!obstacle || obstacle.CanPass(src,get_step(src,dir)))
+				if(!obstacle || obstacle.CanPass(src, get_dir(obstacle, src) || dir)) // The else is in case the obstacle is in the same turf.
 					step(src,dir)
 		if(isobj(obstacle))
 			var/obj/O = obstacle
@@ -1164,8 +1165,6 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 		if(user == occupant)
 			user.sight |= occupant_sight_flags
 
-/obj/mecha/rust_heretic_act()
-	take_damage(500,  BRUTE)
 
 /obj/mecha/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	..()
