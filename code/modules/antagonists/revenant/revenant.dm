@@ -79,8 +79,20 @@
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/overload(null))
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/blight(null))
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction(null))
+	check_rev_teleport() // they're spawned in non-station for some reason...
 	random_revenant_name()
 	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE)
+
+/mob/living/simple_animal/revenant/onTransitZ(old_z, new_z)
+	. = ..()
+	check_rev_teleport()
+
+/mob/living/simple_animal/revenant/proc/check_rev_teleport()
+	var/obj/effect/proc_holder/spell/self/rev_teleport/revtele = locate() in mob_spell_list
+	if(!is_station_level(src.z) && !revtele) // give them an ability to back to the station
+		AddSpell(new /obj/effect/proc_holder/spell/self/rev_teleport(null))
+	else if(is_station_level(src.z) && revtele) // you're back to the station. Remove tele spell.
+		RemoveSpell(revtele)
 
 /mob/living/simple_animal/revenant/Destroy()
 	. = ..()

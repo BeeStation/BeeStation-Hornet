@@ -30,39 +30,15 @@
 
 // double-click or ctrl-click for two abilities
 /mob/living/simple_animal/revenant/CtrlClickOn(atom/A)
-	if(A==src)
-		teleport_to_station()
-		return
 	if(incorporeal_move == INCORPOREAL_MOVE_JAUNT)
 		check_orbitable(A)
 		return
 	..() // pull the thing
 
 /mob/living/simple_animal/revenant/DblClickOn(atom/A, params)
-	if(A==src)
-		teleport_to_station()
-	else
+	if(get_dist(src, A) < 5) // message spam when you spam phase shift is annoying
 		check_orbitable(A)
 	..()
-
-// on yourself: teleport to the station
-/mob/living/simple_animal/revenant/proc/teleport_to_station()
-	if(is_station_level(src.z))
-		to_chat(src, "<span class='revenwarning'>Recalling yourself to the station is only available when you're not in the station.</span>")
-		return
-	else
-		if(revealed)
-			to_chat(src, "<span class='revenwarning'>Recalling yourself to the station is only available when you're invisible.</span>")
-			return
-
-		to_chat(src, "<span class='revennotice'>You start to concentrate recalling yourself to the station.</span>")
-		if(do_after(src, 30) && !revealed)
-			var/turf/targetturf = get_safe_random_station_turfs()
-			if(!do_teleport(src, targetturf, 0, channel = TELEPORT_CHANNEL_CULT))
-				to_chat(src,  "<span class='revenwarning'>You have failed to recall yourself to the station... You should try again.</span>")
-			else
-				reveal(80)
-				stun(40)
 
 // on others: orbit them
 /mob/living/simple_animal/revenant/proc/check_orbitable(atom/A)
@@ -183,6 +159,39 @@
 	action_icon = 'icons/mob/actions/actions_revenant.dmi'
 	action_icon_state = "r_nightvision"
 	action_background_icon_state = "bg_revenant"
+
+/obj/effect/proc_holder/spell/self/rev_teleport
+	name = "Recall to Station"
+	desc = "Teleport to the station."
+	charge_max = 0
+	panel = "Revenant Abilities"
+	action_icon = 'icons/mob/actions/actions_revenant.dmi'
+	action_icon_state = "r_teleport"
+	action_background_icon_state = "bg_revenant"
+	clothes_req = FALSE
+
+// teleport/recall to the station: teleport to the station
+/obj/effect/proc_holder/spell/self/rev_teleport/cast(mob/living/simple_animal/revenant/user = usr)
+	if(!isrevenant(user))
+		return
+	if(is_station_level(user.z))
+		to_chat(user, "<span class='revenwarning'>Recalling yourself to the station is only available when you're not in the station.</span>")
+		return
+	else
+		if(user.revealed)
+			to_chat(user, "<span class='revenwarning'>Recalling yourself to the station is only available when you're invisible.</span>")
+			return
+
+		to_chat(user, "<span class='revennotice'>You start to concentrate recalling yourself to the station.</span>")
+		if(do_after(user, 30) && !user.revealed)
+			if(QDELETED(src)) // it's bad when someone spams this...
+				return
+			var/turf/targetturf = get_random_station_turf()
+			if(!do_teleport(user, targetturf, channel = TELEPORT_CHANNEL_CULT, forced=TRUE))
+				to_chat(user,  "<span class='revenwarning'>You have failed to recall yourself to the station... You should try again.</span>")
+			else
+				user.reveal(80)
+				user.stun(40)
 
 //Transmit: the revemant's only direct way to communicate. Sends a single message silently to a single mob
 /obj/effect/proc_holder/spell/targeted/telepathy/revenant
