@@ -11,6 +11,10 @@
 		"the communications relay" = list(/area/comms, /area/server),
 		"the science lab" = list(/area/science),
 		"the research division server room" = list(/area/science/server),
+		// Anywhere monitored by the AI will do
+		"the AI's facilities" = list(/area/aisat, /area/ai_monitored),
+		"the Captain's office" = list(/area/crew_quarters/heads/captain),
+		"the Head of Personnel's office" = list(/area/crew_quarters/heads/hop)
 	)
 	var/success = FALSE
 	var/devistation = 0
@@ -48,7 +52,7 @@
 		"Obtain and detonate an explosive device within %DEPARTMENT%.",\
 		"Get your hands on any form of explosive device and detonate it inside of %DEPARTMENT%.",\
 		"Deploy and activate an explosive inside of %DEPARTMENT%.",\
-		"Cause fear and panic by detonating an explosive within %DEPARTMENT%.",\
+		"Cause fear and panic by detonating an explosive originating within %DEPARTMENT%.",\
 		"Destroy a part of %DEPARTMENT% with an explosive device.%")
 	explanation_text = replacetext(objective_text, "%DEPARTMENT%", selected_area)
 
