@@ -27,7 +27,6 @@
 			T.check_z_travel(src)
 
 
-
 // double-click or ctrl-click for two abilities
 /mob/living/simple_animal/revenant/CtrlClickOn(atom/A)
 	if(incorporeal_move == INCORPOREAL_MOVE_JAUNT)
@@ -40,7 +39,7 @@
 		check_orbitable(A)
 	..()
 
-// on others: orbit them
+// Orbit: literally obrits people like how ghosts do
 /mob/living/simple_animal/revenant/proc/check_orbitable(atom/A)
 	if(revealed)
 		to_chat(src, "<span class='revenwarning'>You can't orbit while you're revealed!</span>")
@@ -160,6 +159,7 @@
 	action_icon_state = "r_nightvision"
 	action_background_icon_state = "bg_revenant"
 
+// Recall to Station: teleport & recall to the station
 /obj/effect/proc_holder/spell/self/rev_teleport
 	name = "Recall to Station"
 	desc = "Teleport to the station."
@@ -170,7 +170,6 @@
 	action_background_icon_state = "bg_revenant"
 	clothes_req = FALSE
 
-// teleport/recall to the station: teleport to the station
 /obj/effect/proc_holder/spell/self/rev_teleport/cast(mob/living/simple_animal/revenant/user = usr)
 	if(!isrevenant(user))
 		return
