@@ -66,7 +66,7 @@
 		return
 
 	region_access = list()
-	if(!target_dept && check_access_textified(id_card.card_access, ACCESS_CHANGE_IDS))
+	if(!target_dept && (ACCESS_CHANGE_IDS in id_card.access))
 		minor = FALSE
 		authenticated = TRUE
 		update_static_data(user)
@@ -75,17 +75,19 @@
 	var/list/head_types = list()
 	for(var/access_text in sub_managers)
 		var/list/info = sub_managers[access_text]
-		if(check_access_textified(id_card.card_access, access_text) && ((info["region"] in target_dept) || !length(target_dept)))
+		var/access = text2num(access_text)
+		if((access in id_card.access) && ((info["region"] in target_dept) || !length(target_dept)))
 			region_access |= info["region"]
 			//I don't even know what I'm doing anymore
 			head_types += info["head"]
 
 	head_subordinates = list()
 	if(length(head_types))
-		for(var/datum/job/J in SSjob.occupations)
+		for(var/j in SSjob.occupations)
+			var/datum/job/job = j
 			for(var/head in head_types)//god why
-				if(head in J.department_head)
-					head_subordinates += J.title
+				if(head in job.department_head)
+					head_subordinates += job.title
 
 	if(length(region_access))
 		minor = TRUE
@@ -137,8 +139,9 @@
 						<u>Access:</u><br>
 						"}
 
-			for(var/A in target_id_card.card_access)
-				if(check_access_textified(get_all_accesses(), A)) // this looks weird, but it's working as intended
+			var/known_access_rights = get_all_accesses()
+			for(var/A in target_id_card.access)
+				if(A in known_access_rights)
 					contents += "  [get_access_desc(A)]"
 
 			if(!printer.print_text(contents,"access report"))
@@ -166,8 +169,7 @@
 				if(!(target_id_card.assignment in head_subordinates) && target_id_card.assignment != JOB_NAME_ASSISTANT)
 					return
 
-			remove_accesses_from_card(target_id_card.card_access, get_all_centcom_access())
-			remove_accesses_from_card(target_id_card.card_access, get_all_accesses())
+			target_id_card.access -= get_all_centcom_access() + get_all_accesses()
 			target_id_card.assignment = "Unassigned"
 			target_id_card.update_label()
 			log_id("[key_name(usr)] unassigned and stripped all access from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
@@ -221,11 +223,11 @@
 						playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 						return
 
-					remove_accesses_from_card(target_id_card.card_access, get_all_accesses())
-					grant_accesses_to_card(target_id_card.card_access, jobdatum.get_access())
+					target_id_card.access -= get_all_accesses()
+					target_id_card.access |= jobdatum.get_access()
 				else // centcom level
-					remove_accesses_from_card(target_id_card.card_access, get_all_centcom_access())
-					grant_accesses_to_card(target_id_card.card_access, get_centcom_access(target))
+					target_id_card.access -= get_all_centcom_access()
+					target_id_card.access |= get_centcom_access(target)
 
 				// tablet program doesn't change bank/manifest status. check 'card.dm' for the detail
 
@@ -241,25 +243,25 @@
 				return
 			var/access_type = text2num(params["access_target"])
 			if(access_type in (is_centcom ? get_all_centcom_access() : get_all_accesses()))
-				if(check_access_textified(target_id_card.card_access, access_type))
-					remove_accesses_from_card(target_id_card.card_access, access_type)
+				if(access_type in target_id_card.access)
+					target_id_card.access -= access_type
 					log_id("[key_name(usr)] removed [get_access_desc(access_type)] from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 				else
-					grant_accesses_to_card(target_id_card.card_access, access_type)
+					target_id_card.access |= access_type
 					log_id("[key_name(usr)] added [get_access_desc(access_type)] to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 				playsound(computer, "terminal_type", 50, FALSE)
 				return TRUE
 		if("PRG_grantall")
 			if(!authenticated || minor)
 				return
-			grant_accesses_to_card(target_id_card.card_access, (is_centcom ? get_all_centcom_access() : get_all_accesses()))
+			target_id_card.access |= (is_centcom ? get_all_centcom_access() : get_all_accesses())
 			log_id("[key_name(usr)] granted All Access to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_denyall")
 			if(!authenticated || minor)
 				return
-			target_id_card.card_access = list()
+			target_id_card.access.Cut()
 			log_id("[key_name(usr)] removed All Access from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE
@@ -269,7 +271,7 @@
 			var/region = text2num(params["region"])
 			if(isnull(region))
 				return
-			grant_accesses_to_card(target_id_card.card_access, get_region_accesses(region))
+			target_id_card.access |= get_region_accesses(region)
 			log_id("[key_name(usr)] granted [get_region_accesses_name(region)] regional access to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
@@ -279,7 +281,7 @@
 			var/region = text2num(params["region"])
 			if(isnull(region))
 				return
-			remove_accesses_from_card(target_id_card.card_access, get_region_accesses(region))
+			target_id_card.access -= get_region_accesses(region)
 			log_id("[key_name(usr)] removed [region] regional access from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE
@@ -369,7 +371,7 @@
 	if(id_card)
 		data["id_rank"] = id_card.assignment ? id_card.assignment : "Unassigned"
 		data["id_owner"] = id_card.registered_name ? id_card.registered_name : "-----"
-		data["access_on_card"] = id_card.card_access
+		data["access_on_card"] = id_card.access
 
 	return data
 

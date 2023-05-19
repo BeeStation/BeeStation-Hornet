@@ -63,8 +63,8 @@
 	wires = new /datum/wires/mulebot(src)
 
 	var/datum/job/J = SSjob.GetJob(JOB_NAME_CARGOTECHNICIAN)
-	grant_accesses_to_card(access_card.card_access, J.get_access())
-	grant_accesses_to_card(prev_access, access_card.card_access)
+	access_card.access = J.get_access()
+	prev_access = access_card.access.Copy()
 
 	cell = new /obj/item/stock_parts/cell/upgraded(src, 2000)
 

@@ -68,8 +68,8 @@
 	. = ..()
 	update_icon()
 	var/datum/job/J = SSjob.GetJob(JOB_NAME_DETECTIVE)
-	grant_accesses_to_card(access_card.card_access, J.get_access())
-	grant_accesses_to_card(prev_access, access_card.card_access)
+	access_card.access = J.get_access()
+	prev_access = access_card.access.Copy()
 
 	//SECHUD
 	var/datum/atom_hud/secsensor = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
