@@ -2,7 +2,7 @@
 	layer = OBJ_LAYER
 	glide_size = 8
 	appearance_flags = TILE_BOUND|PIXEL_SCALE
-	
+
 	var/move_stacks = 0 //how many times a this movable had movement procs called on it since Moved() was last called
 	var/last_move = null
 	var/last_move_time = 0
@@ -174,10 +174,11 @@
 	return TRUE
 
 /atom/movable/proc/stop_pulling()
-	if(pulling)
-		pulling.set_pulledby(null)
-		setGrabState(GRAB_PASSIVE)
-		pulling = null
+	if(!pulling)
+		return
+	pulling.set_pulledby(null)
+	setGrabState(GRAB_PASSIVE)
+	pulling = null
 
 ///Reports the event of the change in value of the pulledby variable.
 /atom/movable/proc/set_pulledby(new_pulledby)
@@ -186,30 +187,31 @@
 	. = pulledby
 	pulledby = new_pulledby
 
-/atom/movable/proc/Move_Pulled(atom/A)
+/atom/movable/proc/Move_Pulled(atom/moving_atom)
 	if(!pulling)
 		return
 	if(pulling.anchored || pulling.move_resist > move_force || !pulling.Adjacent(src, src, pulling))
 		stop_pulling()
 		return
 	if(isliving(pulling))
-		var/mob/living/L = pulling
-		if(L.buckled?.buckle_prevents_pull) //if they're buckled to something that disallows pulling, prevent it
+		var/mob/living/pulling_mob = pulling
+		if(pulling_mob.buckled?.buckle_prevents_pull) //if they're buckled to something that disallows pulling, prevent it
 			stop_pulling()
 			return
-	if(A == loc && pulling.density)
+	if(moving_atom == loc && pulling.density)
 		return
-	if(!Process_Spacemove(get_dir(pulling.loc, A)))
+	var/move_dir = get_dir(pulling.loc, moving_atom)
+	if(!Process_Spacemove(move_dir))
 		return
-	step(pulling, get_dir(pulling.loc, A))
+	pulling.Move(get_step(pulling.loc, move_dir), move_dir)
 	return TRUE
 
-/mob/living/Move_Pulled(atom/A)
+/mob/living/Move_Pulled(atom/moving_atom)
 	. = ..()
-	if(!. || !isliving(A))
+	if(!. || !isliving(moving_atom))
 		return
-	var/mob/living/L = A
-	set_pull_offsets(L, grab_state)
+	var/mob/living/pulled_mob = moving_atom
+	set_pull_offsets(pulled_mob, grab_state)
 
 /atom/movable/proc/check_pulling()
 	if(pulling)
@@ -325,7 +327,7 @@
 	if(oldarea != newarea)
 		newarea.Entered(src, oldarea)
 
-	Moved(oldloc, direction)
+	Moved(oldloc, direction, FALSE, old_locs)
 
 ////////////////////////////////////////
 
