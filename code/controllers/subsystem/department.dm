@@ -22,22 +22,17 @@ SUBSYSTEM_DEF(department)
 	var/list/checker
 
 /datum/controller/subsystem/department/Initialize(timeofday)
-	for(var/each_type in subtypesof(/datum/department_group))
-		var/datum/department_group/each_dept = new each_type()
-		message_admins("currently making: [each_type] / [each_dept.dept_id] / [each_dept] / [each_dept.type]")
+	message_admins("stating department INIT") // remove this later
+	for(var/datum/department_group/each_dept as() in subtypesof(/datum/department_group))
+		each_dept = new each_dept()
 		department_type_list += each_dept
-		department_by_key[each_dept.dept_id] = each_dept // I don't know why but 'each_dept.dept_id' is a type, not a string...
+		department_by_key[each_dept.dept_id] = each_dept
 		department_id_list += each_dept.dept_id
-
-	for(var/each_dept in department_by_key)
-		message_admins("qwerqwer [each_dept]")
 
 	// initialising static list inside of the procs
 	get_departments_by_pref_order()
 	get_departments_by_manifest_order()
 	refresh_all_station_accesses()
-
-	checker = get_dept_assoc_jobs_by_dept_id(DEPT_MEDICAL, DEPT_SCIENCE)
 
 	// I fucking hate this to be here but this was initialized in ticker before
 	// generate_code_phrase() should be called after this subsystem init'ed job list
@@ -56,6 +51,7 @@ SUBSYSTEM_DEF(department)
 		var/regex/codeword_match = new("([codewords])", "ig")
 
 		GLOB.syndicate_code_response_regex = codeword_match
+	message_admins("DEPARTMENT INIT DONE")// remove this later
 
 	return ..()
 
@@ -63,23 +59,32 @@ SUBSYSTEM_DEF(department)
 	for(var/datum/department_group/each_dept in department_type_list)
 		if(each_dept.dept_bitflag & bitflag)
 			return each_dept
+	CRASH("[bitflag] isn't an existing department bitflag.")
 
 /datum/controller/subsystem/department/proc/get_department_by_dept_id(id)
+	. = department_by_key[id]
+	if(!.)
+		CRASH("[id] isn't an existing department id.")
 	return department_by_key[id]
 
 /// WARNING: include_dispatch parameter is important. Avoid using it to security positions.
-/datum/controller/subsystem/department/proc/get_jobs_by_dept_id(list/id)
-	if(!id)
+/datum/controller/subsystem/department/proc/get_jobs_by_dept_id(id_or_list)
+	if(!id_or_list)
 		stack_trace("proc has no id value")
 		return list()
 
-	if(!islist(id))
-		id = list(id)
+	if(!islist(id_or_list))
+		id_or_list = list(id_or_list)
+	else if(islist(id_or_list?[1]))
+		CRASH("You did something wrong. Check if you did like 'list(list())'")
 
 	var/list/jobs_to_return = list()
-	for(var/each in id)
-		var/datum/department_group/dept = department_by_key[id]
-		if(!dept || !length(dept.jobs))
+	for(var/each in id_or_list)
+		var/datum/department_group/dept = department_by_key[each]
+		if(!dept)
+			message_admins("is not exist: [each]")
+			continue
+		if(!length(dept.jobs))
 			continue
 		jobs_to_return |= dept.jobs
 
@@ -87,26 +92,22 @@ SUBSYSTEM_DEF(department)
 
 // get access proc
 /// returns job list by id. if id is given as a list, it will return as a list as `[department_id]=list(jobs)`
-/datum/controller/subsystem/department/proc/get_dept_assoc_jobs_by_dept_id(list/id)
-	if(!id)
+/datum/controller/subsystem/department/proc/get_dept_assoc_jobs_by_dept_id(id_or_list)
+	if(!id_or_list)
 		stack_trace("proc has no id value")
 		return list()
 
-	if(!islist(id))
-		id = list(id)
+	if(!islist(id_or_list))
+		id_or_list = list(id_or_list)
+	else if(islist(id_or_list?[1]))
+		CRASH("You did something wrong. Check if you did like 'list(list())'")
 
 	var/list/jobs_to_return = list()
-	for(var/each in id)
-		message_admins("currently: [each]")
-		var/datum/department_group/dept = department_by_key[id]
-		if(!dept)
-			message_admins("no dept: [each]")
-			continue
-		if(!length(dept.jobs))
-			message_admins("no jobs: [each]")
+	for(var/each in id_or_list)
+		var/datum/department_group/dept = department_by_key[each]
+		if(!dept || !length(dept.jobs))
 			continue
 		jobs_to_return[dept.dept_id] = dept.jobs.Copy()
-		message_admins("copied")
 
 	return jobs_to_return
 
@@ -120,7 +121,7 @@ SUBSYSTEM_DEF(department)
 	return jobs_to_return
 
 /proc/get_all_jobs()
-	return SSdepartment.get_jobs_by_dept_id(list(DEPT_NAME_ALL_STATION_DEPT_LIST))
+	return SSdepartment.get_jobs_by_dept_id(DEPT_NAME_ALL_STATION_DEPT_LIST)
 
 
 /datum/controller/subsystem/department/proc/refresh_all_station_accesses(first_init=FALSE)
@@ -138,8 +139,7 @@ SUBSYSTEM_DEF(department)
 /datum/controller/subsystem/department/proc/get_department_access_by_dept_id(id)
 	var/datum/department_group/dept = department_by_key[id]
 	if(!dept)
-		stack_trace("wrong id is given. sending service department for not breaking game...")
-		return department_by_key[DEPT_NAME_SERVICE]
+		CRASH("wrong id '[id]' is given.")
 	return dept.get_department_accesses()
 
 /datum/controller/subsystem/department/proc/get_all_station_accesses()
@@ -212,10 +212,10 @@ SUBSYSTEM_DEF(department)
 		var/datum/department_group/current = department_by_key[each]
 		if(!current)
 			continue
-		current.standard_access[new_code] = TRUE
-		GLOB.access_desc_list[new_code] = access_name
+		current.custom_access += new_code
+		GLOB.access_desc_list["[new_code]"] = access_name
 		if(protected)
-			current.protected_access[new_code] = TRUE
+			current.protected_access += new_code
 		current.refresh_full_access_list()
 		if(current.is_station)
 			refresh_all_station_accesses()
@@ -277,32 +277,15 @@ SUBSYSTEM_DEF(department)
 // ----------------------------------------------
 /// most variables exists as a list, but should be replaced as typecache for faster performance
 /datum/department_group/New()
-	leaders = init_assoc(leaders)
-	jobs = init_assoc(jobs)
-
-	access_dominant = init_assoc(access_dominant)
-	access_supervisor = init_assoc(access_supervisor)
-	standard_access = init_assoc(standard_access)
-	custom_access = init_assoc(custom_access)
-	protected_access = init_assoc(protected_access)
 	refresh_full_access_list()
-
-	access_manifest_changer = init_assoc(access_manifest_changer)
-	access_accountancy = init_assoc(access_accountancy)
-
-/datum/department_group/proc/init_assoc(target_list)
-	var/assoc_list = list()
-	for(var/each in target_list)
-		assoc_list["[each]"] = TRUE
-	return assoc_list
 
 /// only call this when HoP/Admin added a new custom accesss
 /datum/department_group/proc/refresh_full_access_list()
 	full_access_list = list()
-	for(var/each in standard_access)
-		if(custom_access[each] || protected_access[each])
+	for(var/each_access in standard_access)
+		if((each_access in custom_access) || (each_access in protected_access))
 			continue
-		full_access_list[each] = TRUE // this will make protected access come after custom access
+		full_access_list += each_access // this will make protected access come after custom access
 	full_access_list |= custom_access
 	full_access_list |= protected_access
 	if(is_station)
@@ -311,8 +294,6 @@ SUBSYSTEM_DEF(department)
 /// returns all accesses to a department.
 /datum/department_group/proc/get_department_accesses()
 	return full_access_list
-
-
 
 /// returns TRUE or FALSE based on auth type
 /datum/department_group/proc/check_authentication(check_type, list/access_to_check)
@@ -627,10 +608,11 @@ SUBSYSTEM_DEF(department)
 	leaders = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	jobs = list(JOB_NAME_CHIEFMEDICALOFFICER,
 				JOB_NAME_MEDICALDOCTOR,
+				JOB_NAME_PARAMEDIC,
+				JOB_NAME_BRIGPHYSICIAN,
 				JOB_NAME_CHEMIST,
 				JOB_NAME_GENETICIST,
 				JOB_NAME_VIROLOGIST,
-				JOB_NAME_PARAMEDIC,
 				JOB_NAME_PSYCHIATRIST)
 
 	access_group_name = "Medbay"

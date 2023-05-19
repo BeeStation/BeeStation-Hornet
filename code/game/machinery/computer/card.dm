@@ -334,7 +334,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				dat += "<td>(Auth-denied)</td>"
 			else
 				if(B.active_departments & SSeconomy.get_budget_acc_bitflag(target_paycheck))
-					dat += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_bank;bank_account=[B.account_id];check_card=1'><font color=\"6bc473\">Free Vendor Access</font></a></td>"
+					dat += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_bank;bank_account=[B.account_id];check_card=1;paycheck_t=[target_paycheck'><font color=\"6bc473\">Free Vendor Access</font></a></td>"
 				else
 					dat += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_bank;bank_account=[B.account_id];check_card=1;paycheck_t=[target_paycheck]'>No Free Vendor Access</a></td>"
 			if(B.suspended)
@@ -369,15 +369,19 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		header += "<hr>"
 
 		var/formatted_job_list = ""
-		var/list/job_list = SSdepartment.get_dept_assoc_jobs_by_dept_id(available_departments)
-		job_list["Misc"] = list("Unassigned", "Custom")
+		var/list/job_list = SSdepartment.get_dept_assoc_jobs_by_dept_id(available_departments.Copy()-DEPT_NAME_COMMAND) // it doesn't have to show head jobs twice
+		if(!minor)
+			job_list["Misc"] = list(JOB_NAME_CAPTAIN, JOB_NAME_ASSISTANT, "Unassigned", "Custom")
+		else
+			job_list["Misc"] = list("Demoted")
 
-		message_admins("job list length: [length(job_list)]")
 		for(var/each_dept in job_list)
-			message_admins("dept job length: [length(job_list[each_dept])]")
-			formatted_job_list += "<br/>* [each_dept]: "
+			formatted_job_list += "* <b>[each_dept]:</b>&#9; "
+			if(each_dept == DEPT_SUPPLY)
+				job_list[each_dept] -= JOB_NAME_HEADOFPERSONNEL // seeing hop in supply dept twice is bloat.
 			for(var/each_job in job_list[each_dept])
-				formatted_job_list +=  "<a href='?src=[REF(src)];choice=assign;assign_target=[each_job]'>[replacetext(each_job, " ", "&nbsp")]</a> "
+				formatted_job_list += "<a href='?src=[REF(src)];choice=assign;assign_target=[each_job]'>[replacetext(each_job, " ", "&nbsp")]</a> "
+			formatted_job_list += "<br/>"
 
 		var/body
 
@@ -397,7 +401,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 									}
 									function showAll(){
 										var allJobsSlot = document.getElementById('alljobsslot');
-										allJobsSlot.innerHTML = "<a href='#' onclick='hideAll()'>hide</a><br>"+ "[formatted_job_list]";
+										allJobsSlot.innerHTML = "<a href='#' onclick='hideAll()'>hide</a><br> "+ "[formatted_job_list]";
 									}
 									function hideAll(){
 										var allJobsSlot = document.getElementById('alljobsslot');
@@ -409,13 +413,12 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				carddesc += "<input type='hidden' name='choice' value='reg'>"
 				carddesc += "<b>registered name:</b> <input type='text' id='namefield' name='reg' value='[target_owner]' style='width:250px; background-color:white;' onchange='markRed()'>"
 				carddesc += "<input type='submit' value='Rename' onclick='markGreen()'>"
-				carddesc += "</form>"
-				carddesc += "<b>Assignment:</b> "
 
+				jobs += "</form><b>Assignment:</b>"
 				jobs += "<span id='alljobsslot'><a href='#' onclick='showAll()'>[target_rank]</a></span>" //CHECK THIS
 
 			else
-				carddesc += "<b>registered_name:</b> [target_owner]</span>"
+				carddesc = text("<b>registered_name:</b> [target_owner]</span>")
 				jobs += "<b>Assignment:</b> [target_rank] (<a href='?src=[REF(src)];choice=demote'>Demote</a>)</span>"
 
 			var/extra_data = ""
@@ -509,9 +512,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				accesses += "<td style='width:14%' valign='top'>"
 				for(var/each_access in each_dept.standard_access)
 					if(each_access in inserted_modify_id.access)
-						accesses += "<a href='?src=[REF(src)];choice=access;access_target=[each_access];dept_target=[each_dept_key];allowed=0'><font color=\"6bc473\">[replacetext(get_access_desc(each_access), " ", "&nbsp")]</font></a> "
+						accesses += "<a href='?src=[REF(src)];choice=access;access_target=[each_access];dept_target=[each_dept_key];has_access=1'><font color=\"6bc473\">[replacetext(get_access_desc(each_access), " ", "&nbsp")]</font></a> "
 					else
-						accesses += "<a href='?src=[REF(src)];choice=access;access_target=[each_access];dept_target=[each_dept_key];allowed=1'>[replacetext(get_access_desc(each_access), " ", "&nbsp")]</a> "
+						accesses += "<a href='?src=[REF(src)];choice=access;access_target=[each_access];dept_target=[each_dept_key];has_access=0'>[replacetext(get_access_desc(each_access), " ", "&nbsp")]</a> "
 					accesses += "<br>"
 				accesses += "</td>"
 			accesses += "</tr></table>"
@@ -593,30 +596,29 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			playsound(src, 'sound/machines/terminal_off.ogg', 50, FALSE)
 
 		if("access")
-			if(href_list["allowed"])
-				if(authenticated)
-					var/auth_allowed = FALSE
-					var/access_code = text2num(href_list["access_target"])
-					var/has_access = text2num(href_list["allowed"])
-					var/datum/department_group/dept = SSdepartment.get_department_by_dept_id(href_list["dept_target"])
+			if(authenticated)
+				var/auth_allowed = FALSE
+				var/access_code = text2num(href_list["access_target"])
+				var/has_access = text2num(href_list["has_access"])
+				var/datum/department_group/dept = SSdepartment.get_department_by_dept_id(href_list["dept_target"])
 
-					if(access_code in dept.protected_access)
-						if(check_auth_by_type(DEPT_AUTHCHECK_DOMINANT, dept.dept_bitflag))
-							auth_allowed = TRUE
-					else
-						if(check_auth_by_type(DEPT_AUTHCHECK_ACCESS_MANAGER, dept.dept_bitflag))
-							auth_allowed = TRUE
+				if(access_code in dept.protected_access)
+					if(check_auth_by_type(DEPT_AUTHCHECK_DOMINANT, dept.dept_bitflag))
+						auth_allowed = TRUE
+				else
+					if(check_auth_by_type(DEPT_AUTHCHECK_ACCESS_MANAGER, dept.dept_bitflag))
+						auth_allowed = TRUE
 
-					if(auth_allowed)
-						if(has_access)
-							inserted_modify_id.access -= access_code
-							log_id("[key_name(usr)] removed [get_access_desc(access_code)] from [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
-						else
-							inserted_modify_id.access += access_code
-							log_id("[key_name(usr)] added [get_access_desc(access_code)] to [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
+				if(auth_allowed)
+					if(has_access)
+						inserted_modify_id.access -= access_code
+						log_id("[key_name(usr)] removed [get_access_desc(access_code)] from [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
 					else
-						to_chat(usr, "<span class='warning'>This access is protected, and your auth is not sufficient to adjust this.</span>")
-					playsound(src, "terminal_type", 50, FALSE)
+						inserted_modify_id.access += access_code
+						log_id("[key_name(usr)] added [get_access_desc(access_code)] to [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
+				else
+					to_chat(usr, "<span class='warning'>This access is protected, and your auth is not sufficient to adjust this.</span>")
+				playsound(src, "terminal_type", 50, FALSE)
 		if ("assign")
 			if (authenticated)
 				var/datum/bank_account/B = inserted_modify_id?.registered_account
@@ -812,10 +814,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(SSeconomy.is_nonstation_account(paycheck_t))
 				message_admins("[ADMIN_LOOKUPFLW(usr)] tried to adjust [B.account_id] payment. It must be they're hacking the game.")
 				CRASH("[key_name(usr)] tried to adjust [B.account_id] payment. It must be they're hacking the game.")
-			var/new_pay = FLOOR(input(usr, "Input the new paycheck amount.", "Set new paycheck amount.", B.payment_per_department[target_paycheck]) as num|null, 1)
+			var/new_pay = input(usr, "Input the new paycheck amount.", "Set new paycheck amount.", B.payment_per_department[target_paycheck]) as num|null
 			if(isnull(new_pay))
 				updateUsrDialog()
 				return
+			new_pay = FLOOR(new_pay, 1)
 			if(new_pay < 0)
 				to_chat(usr, "<span class='warning'>Paychecks cannot be negative.</span>")
 				updateUsrDialog()
@@ -835,10 +838,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(SSeconomy.is_nonstation_account(paycheck_t))
 				message_admins("[ADMIN_LOOKUPFLW(usr)] tried to adjust [inserted_modify_id.registered_name]'s [B.account_holder] pay bonus. It must be they're hacking the game.")
 				CRASH("[key_name(usr)] tried to adjust [inserted_modify_id.registered_name]'s [B.account_holder] pay bonus. It must be they're hacking the game.")
-			var/new_bonus = FLOOR(input(usr, "Input the bonus amount. Negative values will dock paychecks.", "Set paycheck bonus", B.bonus_per_department[target_paycheck]) as num|null, 1)
+			var/new_bonus = input(usr, "Input the bonus amount. Negative values will dock paychecks.", "Set paycheck bonus", B.bonus_per_department[target_paycheck]) as num|null
 			if(isnull(new_bonus))
 				updateUsrDialog()
 				return
+			new_bonus = FLOOR(new_bonus, 1)
 			B.bonus_per_department[paycheck_t] = new_bonus
 
 		if ("turn_on_off_department_bank")
@@ -855,10 +859,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				message_admins("[ADMIN_LOOKUPFLW(usr)] tried to adjust [inserted_modify_id.registered_name]'s vendor free status of [B.account_holder]. It must be they're hacking the game.")
 				CRASH("[key_name(usr)] tried to adjust [inserted_modify_id.registered_name]'s vendor free status of [B.account_holder]. It must be they're hacking the game.")
 
-			if(B.active_departments & SSeconomy.get_budget_acc_bitflag(paycheck_t))
-				B.active_departments &= ~SSeconomy.get_budget_acc_bitflag(paycheck_t) // turn off
+			message_admins("qwerwqr")
+			var/target_bitflag = SSeconomy.get_budget_acc_bitflag(paycheck_t)
+			if(B.active_departments & target_bitflag)
+				B.active_departments &= ~target_bitflag // turn off
 			else
-				B.active_departments |= SSeconomy.get_budget_acc_bitflag(paycheck_t) // turn on
+				B.active_departments |= target_bitflag // turn on
+			message_admins("dfgdfgd")
 
 		if ("turn_on_off_department_manifest")
 			var/target_bitflag = text2num(href_list["target_bitflag"])
