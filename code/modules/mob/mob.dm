@@ -1231,8 +1231,6 @@
 /mob/proc/hears_radio()
 	return TRUE
 
-#define GHOSTIZE_TIMER 3 MINUTES
-
 /mob/proc/set_stat(new_stat)
 	if(new_stat == stat)
 		return
@@ -1246,10 +1244,8 @@
 				COOLDOWN_RESET(mind, force_ghost_timer)
 			if(SOFT_CRIT, UNCONSCIOUS)
 				if(COOLDOWN_FINISHED(mind, force_ghost_timer + 6 MINUTES))
-					COOLDOWN_START(mind, force_ghost_timer, GHOSTIZE_TIMER)
+					COOLDOWN_START(mind, force_ghost_timer, 90 SECONDS)
 				// 6 minutes are necessary because the cooldown will start again even if they're eligible to ghostize when they become unconscious from soft-crit.
-
-#undef GHOSTIZE_TIMER
 
 /mob/proc/set_active_storage(new_active_storage)
 	if(active_storage)
