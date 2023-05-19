@@ -560,36 +560,6 @@
 		if(AIRLOCK_CLOSED, AIRLOCK_CLOSING, AIRLOCK_DENY)
 			last_used_state = "closed"
 
-/// returns the current shape of an airlock to render these in a photo
-/obj/machinery/door/airlock/proc/get_overlays_for_photo()
-	var/list/displaying_overlay = list()
-	displaying_overlay += get_airlock_overlay("[last_used_state]", icon)
-	if(last_used_state == "closed")
-		if(airlock_material)
-			displaying_overlay += get_airlock_overlay("[airlock_material]_[last_used_state]", overlays_file)
-		else
-			displaying_overlay += get_airlock_overlay("fill_[last_used_state]", icon)
-
-		if(lights && hasPower())
-			if(locked)
-				displaying_overlay += get_airlock_overlay("lights_bolts", overlays_file)
-			else if(emergency)
-				displaying_overlay += get_airlock_overlay("lights_emergency", overlays_file)
-
-		if(welded)
-			displaying_overlay += get_airlock_overlay("welded", overlays_file)
-
-		if(note)
-			displaying_overlay += get_airlock_overlay(note_type(), note_overlay_file)
-
-	if(panel_open)
-		if(security_level)
-			displaying_overlay += get_airlock_overlay("panel_[last_used_state]_protected", overlays_file)
-		else
-			displaying_overlay += get_airlock_overlay("panel_[last_used_state]", overlays_file)
-
-	return displaying_overlay
-
 /obj/machinery/door/airlock/proc/set_side_overlays(obj/effect/overlay/airlock_part/base, show_lights = FALSE)
 	var/side = base.side_id
 	base.icon = icon

@@ -18,7 +18,33 @@
 // airlocks don't have actual overlays. make fake overlays temporary
 /image/photo/airlock/New(location, obj/machinery/door/airlock/airlock)
 	. = ..()
-	add_overlay(airlock.get_overlays_for_photo())
+	var/list/displaying_overlay = list()
+	displaying_overlay += get_airlock_overlay("[airlock.last_used_state]", icon)
+	if(airlock.last_used_state == "closed")
+		if(airlock.airlock_material)
+			displaying_overlay += get_airlock_overlay("[airlock.airlock_material]_[airlock.last_used_state]", airlock.overlays_file)
+		else
+			displaying_overlay += get_airlock_overlay("fill_[airlock.last_used_state]", icon)
+
+		if(airlock.lights && airlock.hasPower())
+			if(airlock.locked)
+				displaying_overlay += get_airlock_overlay("lights_bolts", airlock.overlays_file)
+			else if(airlock.emergency)
+				displaying_overlay += get_airlock_overlay("lights_emergency", airlock.overlays_file)
+
+		if(airlock.welded)
+			displaying_overlay += get_airlock_overlay("welded", airlock.overlays_file)
+
+		if(airlock.note)
+			displaying_overlay += get_airlock_overlay(airlock.note_type(), airlock.note_overlay_file)
+
+	if(airlock.panel_open)
+		if(airlock.security_level)
+			displaying_overlay += get_airlock_overlay("panel_[airlock.last_used_state]_protected", airlock.overlays_file)
+		else
+			displaying_overlay += get_airlock_overlay("panel_[airlock.last_used_state]", airlock.overlays_file)
+
+	add_overlay(displaying_overlay)
 
 /obj/item/camera/proc/camera_get_icon(list/turfs, turf/center, psize_x = 96, psize_y = 96, datum/turf_reservation/clone_area, size_x, size_y, total_x, total_y)
 	var/list/images = list()
@@ -63,17 +89,8 @@
 	var/icon/res = icon('icons/effects/96x96.dmi', "")
 	res.Scale(psize_x, psize_y)
 
-	var/list/sorted = list()
-	var/j
-	for(var/i in 1 to images.len)
-		var/image/c = images[i]
-		for(j = sorted.len, j > 0, --j)
-			var/image/c2 = sorted[j]
-			if((c2.plane <= c.plane) && ((c2.layer <= c.layer)))
-				break
-		sorted.Insert(j+1, c)
-		CHECK_TICK
 
+	var/list/sorted = sortTim(images, GLOBAL_PROC_REF(cmp_atom_layer_asc))
 	var/xcomp = FLOOR(psize_x / 2, 1) - 15
 	var/ycomp = FLOOR(psize_y / 2, 1) - 15
 
@@ -137,5 +154,6 @@
 
 	if(wipe_images)
 		QDEL_LIST(images)
+	sorted.Cut()
 
 	return res
