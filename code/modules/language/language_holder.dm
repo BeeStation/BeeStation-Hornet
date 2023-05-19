@@ -218,19 +218,24 @@ Key procs
 
 /// Copies all languages from the supplied atom/language holder. Source should be overridden when you
 /// do not want the language overwritten by later atom updates or want to avoid blocked languages.
-/datum/language_holder/proc/copy_languages(var/datum/language_holder/from_holder, source_override)
+/datum/language_holder/proc/copy_languages(var/datum/language_holder/from_holder, source_override=FALSE, spoken=TRUE, understood=TRUE, blocked=TRUE)
 	if(source_override)	//No blocked languages here, for now only used by ling absorb.
-		for(var/language in from_holder.understood_languages)
-			grant_language(language, TRUE, FALSE, source_override)
-		for(var/language in from_holder.spoken_languages)
-			grant_language(language, FALSE, TRUE, source_override)
+		if(understood)
+			for(var/language in from_holder.understood_languages)
+				grant_language(language, TRUE, FALSE, source_override)
+		if(spoken)
+			for(var/language in from_holder.spoken_languages)
+				grant_language(language, FALSE, TRUE, source_override)
 	else
-		for(var/language in from_holder.understood_languages)
-			grant_language(language, TRUE, FALSE, from_holder.understood_languages[language])
-		for(var/language in from_holder.spoken_languages)
-			grant_language(language, FALSE, TRUE, from_holder.spoken_languages[language])
-		for(var/language in from_holder.blocked_languages)
-			add_blocked_language(language, from_holder.blocked_languages[language])
+		if(understood)
+			for(var/language in from_holder.understood_languages)
+				grant_language(language, TRUE, FALSE, from_holder.understood_languages[language])
+		if(spoken)
+			for(var/language in from_holder.spoken_languages)
+				grant_language(language, FALSE, TRUE, from_holder.spoken_languages[language])
+		if(blocked)
+			for(var/language in from_holder.blocked_languages)
+				add_blocked_language(language, from_holder.blocked_languages[language])
 	return TRUE
 
 

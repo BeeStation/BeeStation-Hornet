@@ -21,7 +21,7 @@
 /datum/language_menu/ui_data(mob/user)
 	var/list/data = list()
 
-	var/is_admin = check_rights_for(user.client, R_ADMIN)
+	var/is_admin = check_rights_for(user.client, R_ADMIN) || check_rights_for(user.client, R_DEBUG)
 	var/atom/movable/AM = language_holder.get_atom()
 	if(isliving(AM))
 		data["is_living"] = TRUE
@@ -95,7 +95,7 @@
 						!HAS_TRAIT(user, TRAIT_METALANGUAGE_KEY_ALLOWED) && \
 						!is_admin)
 					var/no = alert(user, "You're giving up your power to speak in a powerful language that everyone understands. Do you really wish to do that?", "WARNING!", "Yes", "No")
-					if(no == "No")
+					if(no != "Yes")
 						return
 
 				if(AM.can_speak_language(language_datum))
