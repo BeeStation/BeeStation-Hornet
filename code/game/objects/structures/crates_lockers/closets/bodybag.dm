@@ -92,7 +92,7 @@
 	icon_state = "bluebodybag"
 	foldedbag_path = /obj/item/bodybag/bluespace
 	mob_storage_capacity = 10
-	foldable_storage_capacity = 6
+	foldable_storage_capacity = 2
 	max_mob_size = MOB_SIZE_LARGE
 
 /obj/structure/closet/body_bag/bluespace/folding_allowed()
