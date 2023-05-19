@@ -37,7 +37,7 @@
 	/// Variable to track the body position of a mob, regardgless of the actual angle of rotation (usually matching it, but not necessarily).
 	var/body_position = STANDING_UP
 	/// Number of degrees of rotation of a mob. 0 means no rotation, up-side facing NORTH. 90 means up-side rotated to face EAST, and so on.
-	var/lying_angle = 0
+	VAR_PROTECTED/lying_angle = 0
 	/// Value of lying lying_angle before last change. TODO: Remove the need for this.
 	var/lying_prev = 0
 

@@ -52,7 +52,7 @@
 		STOP_PROCESSING(SSobj, src)
 		M.pixel_x = initial(M.pixel_x)
 		pixel_x = initial(pixel_x)
-		M.pixel_y = M.get_standard_pixel_y_offset(M.lying_angle)
+		M.pixel_y = M.get_standard_pixel_y_offset(!(M.mobility_flags & MOBILITY_STAND))
 
 /obj/structure/chair/noose/user_unbuckle_mob(mob/living/M,mob/living/user)
 	if(has_buckled_mobs())
