@@ -15,31 +15,6 @@
 			is_orbiting = AM.orbiting ? TRUE : FALSE
 	. = ..()
 
-// airlocks don't have actual overlays. make fake overlays temporary
-// tried to get vis_content in airlock, but it doesn't capture things properly
-/image/photo/airlock/New(location, obj/machinery/door/airlock/airlock)
-	. = ..()
-	add_overlay(get_airlock_overlay("[airlock.last_used_state]", icon))
-	if(airlock.last_used_state == "closed")
-		var/panel_base = airlock.airlock_material ? airlock.airlock_material : "fill"
-		add_overlay(get_airlock_overlay("[panel_base]_[airlock.last_used_state]", airlock.overlays_file))
-
-		if(airlock.lights && airlock.hasPower())
-			if(airlock.locked)
-				add_overlay(get_airlock_overlay("lights_bolts", airlock.overlays_file))
-			else if(airlock.emergency)
-				add_overlay(get_airlock_overlay("lights_emergency", airlock.overlays_file))
-
-		if(airlock.welded)
-			add_overlay(get_airlock_overlay("welded", airlock.overlays_file))
-
-		if(airlock.note)
-			add_overlay(get_airlock_overlay(airlock.note_type(), airlock.note_overlay_file))
-
-	if(airlock.panel_open)
-		var/protected = airlock.security_level ? "_protected" : ""
-		add_overlay(get_airlock_overlay("panel_[airlock.last_used_state][protected]", airlock.overlays_file))
-
 /obj/item/camera/proc/camera_get_icon(list/turfs, turf/center, psize_x = 96, psize_y = 96, datum/turf_reservation/clone_area, size_x, size_y, total_x, total_y)
 	var/list/images = list()
 	var/skip_normal = FALSE
@@ -61,10 +36,7 @@
 			for(var/i in T.contents)
 				var/atom/A = i
 				if(!A.invisibility || (see_ghosts && can_camera_see_atom(A)))
-					if(istype(A, /obj/machinery/door/airlock))
-						images += new /image/photo/airlock(newT, A)
-					else
-						images += new /image/photo(newT, A)
+					images += new /image/photo(newT, A)
 		skip_normal = TRUE
 		wipe_images = TRUE
 		center = locate(cloned_center_x, cloned_center_y, clone_area.bottom_left_coords[3])
@@ -147,10 +119,7 @@
 			playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, 1, -3)
 
 	if(wipe_images)
-		for(var/image/I in images)
-			I.cut_overlays()
-			qdel(I)
-			images.Cut()
+		QDEL_LIST(images)
 	sorted.Cut()
 
 	return res

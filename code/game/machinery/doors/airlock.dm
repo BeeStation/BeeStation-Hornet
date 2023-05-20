@@ -93,8 +93,6 @@
 	var/list/part_overlays
 	var/panel_attachment = "right"
 	var/note_attachment = "left"
-	/// this is only to know it's opened or closed to get sprite image. opening(closing) status only counts to just open(closed)
-	var/last_used_state = "closed"
 
 	var/cyclelinkeddir = 0
 	var/obj/machinery/door/airlock/cyclelinkedairlock
@@ -552,13 +550,6 @@
 		if(AIRLOCK_DENY, AIRLOCK_OPENING, AIRLOCK_CLOSING, AIRLOCK_EMAG)
 			icon_state = "nonexistenticonstate" //MADNESS
 	set_airlock_overlays(state)
-
-	// used for get_overlays_for_photo()
-	switch(state)
-		if(AIRLOCK_OPEN, AIRLOCK_OPENING)
-			last_used_state = "open"
-		if(AIRLOCK_CLOSED, AIRLOCK_CLOSING, AIRLOCK_DENY)
-			last_used_state = "closed"
 
 /obj/machinery/door/airlock/proc/set_side_overlays(obj/effect/overlay/airlock_part/base, show_lights = FALSE)
 	var/side = base.side_id
