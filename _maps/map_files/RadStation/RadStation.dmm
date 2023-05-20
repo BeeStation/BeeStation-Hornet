@@ -44295,7 +44295,7 @@
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
 "oFY" = (
-/obj/machinery/air_sensor/atmos/toxin_tank,
+/obj/machinery/air_sensor/atmos/plasma_tank,
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
 "oGi" = (
@@ -47714,7 +47714,7 @@
 /turf/open/floor/plasteel/techmaint,
 /area/science/misc_lab)
 "pSx" = (
-/obj/machinery/atmospherics/miner/station/toxins,
+/obj/machinery/atmospherics/miner/station/plasma,
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
 "pSJ" = (
