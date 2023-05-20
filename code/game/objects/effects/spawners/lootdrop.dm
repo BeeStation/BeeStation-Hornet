@@ -288,7 +288,7 @@
 		/obj/item/clothing/mask/gas/clown_hat = 4,
 		/obj/item/clothing/shoes/clown_shoes = 3,
 		/obj/item/bikehorn = 5,
-		/obj/item/reagent_containers/food/snacks/pie/cream = 3)
+		/obj/item/food/pie/cream = 3)
 
 /obj/effect/spawner/lootdrop/two_percent_xeno_egg_spawner
 	name = "2% chance xeno egg spawner"

@@ -7104,7 +7104,7 @@
 /area/engine/atmos)
 "byQ" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/pie/cream,
+/obj/item/food/pie/cream,
 /obj/machinery/requests_console{
 	department = "Theatre Backstage";
 	name = "Theatre RC";
@@ -88777,7 +88777,7 @@
 	id = "kitchenside";
 	name = "Kitchen Hall Shutters"
 	},
-/obj/item/reagent_containers/food/snacks/pie/cream,
+/obj/item/food/pie/cream,
 /turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
 "sCI" = (

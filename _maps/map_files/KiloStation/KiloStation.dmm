@@ -43937,7 +43937,7 @@
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
-/obj/item/reagent_containers/food/snacks/pie/cream{
+/obj/item/food/pie/cream{
 	pixel_y = 7
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -82313,7 +82313,7 @@
 /obj/structure/mirror{
 	pixel_x = -26
 	},
-/obj/item/reagent_containers/food/snacks/pie/cream,
+/obj/item/food/pie/cream,
 /obj/item/clothing/head/lobsterhat,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
