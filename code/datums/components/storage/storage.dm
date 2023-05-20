@@ -97,6 +97,7 @@
 	RegisterSignal(parent, COMSIG_ITEM_PRE_ATTACK, PROC_REF(preattack_intercept))
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(attack_self))
 	RegisterSignal(parent, COMSIG_ITEM_PICKUP, PROC_REF(signal_on_pickup))
+	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(update_actions))
 
 	RegisterSignal(parent, COMSIG_MOVABLE_POST_THROW, PROC_REF(close_all))
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
