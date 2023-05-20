@@ -420,6 +420,7 @@
 					L.transferItemToLoc(M, src)
 				else
 					M.forceMove(src)
+				SEND_SIGNAL(M, COMSIG_ATOM_USED_IN_CRAFT, src)
 		parts_list.Cut()
 
 ///Hook for multiz???
@@ -1283,7 +1284,7 @@
   */
 /atom/proc/tool_act(mob/living/user, obj/item/I, tool_type)
 	var/signal_result
-	
+
 	var/list/processing_recipes = list() //List of recipes that can be mutated by sending the signal
 	signal_result = SEND_SIGNAL(src, COMSIG_ATOM_TOOL_ACT(tool_type), user, I, processing_recipes)
 	if(processing_recipes.len)
