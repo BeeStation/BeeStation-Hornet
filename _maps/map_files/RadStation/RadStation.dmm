@@ -9847,7 +9847,7 @@
 /area/crew_quarters/kitchen)
 "diO" = (
 /obj/machinery/atmospherics/pipe/simple/green/visible,
-/obj/machinery/computer/atmos_control/tank/toxin_tank{
+/obj/machinery/computer/atmos_control/tank/plasma_tank{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
@@ -10871,7 +10871,7 @@
 /area/engine/engineering)
 "dBx" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
@@ -12289,7 +12289,7 @@
 	dir = 4;
 	network = list("ss13","engine")
 	},
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/bot,
 /obj/machinery/firealarm{
 	dir = 4;
@@ -16555,7 +16555,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/dark,
@@ -33466,7 +33466,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "lbG" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/camera/autoname{
 	network = list("ss13","sci")
@@ -39974,7 +39974,7 @@
 /area/hallway/secondary/service)
 "nhx" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/engine/engine_room)
@@ -45854,7 +45854,7 @@
 	dir = 4;
 	pixel_x = -24
 	},
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/plasteel/dark/side{
 	dir = 10
 	},
@@ -51388,7 +51388,7 @@
 /turf/open/floor/plasteel/tech,
 /area/engine/engine_room)
 "rfW" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/science/storage)
@@ -52818,7 +52818,7 @@
 	},
 /obj/machinery/airalarm/directional/north,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -57399,7 +57399,7 @@
 /obj/effect/turf_decal/bot{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "tfZ" = (
@@ -59801,7 +59801,7 @@
 /turf/open/floor/plating,
 /area/maintenance/central)
 "tVN" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/toxin_output{
+/obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/plasma_output{
 	dir = 8
 	},
 /turf/open/floor/engine/plasma,
@@ -62433,7 +62433,7 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "uNr" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/toxin_input{
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/plasma_input{
 	dir = 8
 	},
 /turf/open/floor/engine/plasma,
@@ -70077,7 +70077,7 @@
 /turf/open/floor/plasteel/dark,
 /area/security/nuke_storage)
 "xke" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
@@ -71208,7 +71208,7 @@
 /turf/open/floor/plasteel,
 /area/engine/engine_room)
 "xEv" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/bot,
 /obj/machinery/power/apc/auto_name/north{
 	pixel_y = 24

@@ -253,7 +253,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Ar" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
 	},
@@ -446,7 +446,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "SS" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
 	},
