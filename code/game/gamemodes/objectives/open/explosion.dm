@@ -49,7 +49,7 @@
 		"Get your hands on any form of explosive device and detonate it inside of %DEPARTMENT%.",\
 		"Deploy and activate an explosive inside of %DEPARTMENT%.",\
 		"Cause fear and panic by detonating an explosive originating within %DEPARTMENT%.",\
-		"Destroy a part of %DEPARTMENT% with an explosive device.%")
+		"Destroy a part of %DEPARTMENT% with an explosive device.")
 	explanation_text = replacetext(objective_text, "%DEPARTMENT%", selected_area)
 
 /datum/objective/open/explosion/check_completion()

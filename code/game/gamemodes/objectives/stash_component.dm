@@ -22,7 +22,9 @@
 	create_owner_icon(parent)
 
 /datum/component/stash/proc/create_owner_icon(atom/owner)
-	var/image/overlay = image(icon = 'icons/obj/storage.dmi', icon_state = "satchel-flat", loc = src)
+	if (!stash_owner.current)
+		return
+	var/image/overlay = image(icon = 'icons/obj/storage.dmi', icon_state = "satchel-flat", loc = owner)
 	overlay.appearance_flags = RESET_ALPHA
 	overlay.alpha = 160
 	overlay.plane = HUD_PLANE
@@ -55,15 +57,15 @@
 	if (user.mind != stash_owner)
 		return
 	to_chat(user, "<span class='warning'>You begin removing your stash from [parent]...</span>")
-	if(!do_after(user, 5 SECONDS, TRUE, parent))
+	if(!do_after(user, 5 SECONDS, parent))
 		return
 	to_chat(user, "<span class='notice'>You remove your stash from [parent].</span>")
 	//Put in hand
 	stash_item.forceMove(get_turf(user))
 	user.put_in_hands(stash_item)
 	//Remove the stash thing
-	stash_item = null
 	UnregisterSignal(stash_item, COMSIG_PARENT_QDELETING)
+	stash_item = null
 	//Stash is now used up
 	qdel(src)
 
@@ -75,4 +77,6 @@
 /datum/component/stash/proc/stash_destroyed(datum/source, force)
 	SIGNAL_HANDLER
 	stash_item = null
+	if (stash_owner)
+		stash_owner.antag_stash = null
 	UnregisterSignal(stash_item, COMSIG_PARENT_QDELETING)

@@ -24,7 +24,8 @@
 /datum/objective/open/damage_equipment/update_explanation_text()
 	var/objective_text = pick(\
 		"Sabotage equipment by damaging or disabling it within %DEPARTMENT%.",\
-		"Damage equipment inside of %DEPARTMENT% in order to disrupt station operations.")
+		"Damage equipment inside of %DEPARTMENT% in order to disrupt station operations.",\
+		"Disrupt the operations of %DEPARTMENT% by damaging their equipment.")
 	explanation_text = replacetext(objective_text, "%DEPARTMENT%", selected_area)
 
 /datum/objective/open/damage_equipment/check_completion()

@@ -218,6 +218,8 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	//Find and generate the stash
 	if(!secret_bag)
 		secret_bag = new()
+		// Hard-del handling is done by the component
+		receiver.antag_stash = secret_bag
 		var/atom_text = ""
 		switch (pick_weight(list("airlock" = 3)))
 			if("airlock")
@@ -260,6 +262,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 			receiver.current.equip_to_appropriate_slot(secret_bag)
 		//Update the mind
 		receiver.store_memory("You have a secret stash of items hidden on the station required for your objectives. It is hidden inside of [secret_bag.loc] ([atom_text]) located at [get_area(secret_bag.loc)], you may have to search around for it. (Use alt click on the object the stash is inside to access it).")
+		to_chat(receiver?.current, "<span class='notice bold'>You have a secret stash at [get_area(secret_bag)], more details are stored in your notes. (IC > Notes)</span>")
 	//Create the objects in the bag
 	for(var/eq_path in special_equipment)
 		new eq_path(secret_bag)
