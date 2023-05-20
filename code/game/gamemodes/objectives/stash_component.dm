@@ -21,6 +21,19 @@
 
 	create_owner_icon(parent)
 
+/datum/component/stash/Destroy(force, silent)
+	if(stash_item)
+		//Drop the stash to the ground
+		stash_item.forceMove(get_turf(stash_item))
+		UnregisterSignal(stash_item, COMSIG_PARENT_QDELETING)
+	if(stash_owner)
+		UnregisterSignal(stash_owner, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(parent, COMSIG_CLICK_ALT)
+	// Clear the alt appearance
+	var/atom/owner = parent
+	owner.remove_alt_appearance("stash_overlay")
+	. = ..()
+
 /datum/component/stash/proc/create_owner_icon(atom/owner)
 	if (!stash_owner.current)
 		return
@@ -41,18 +54,12 @@
 	if (viewer?.mind == stash_owner)
 		examine_text += "<span class='notice'>You have a stash hidden here! Use <b>Alt-Click</b> to access it.</span>"
 
-/datum/component/stash/Destroy(force, silent)
-	if(stash_item)
-		//Drop the stash to the ground
-		stash_item.forceMove(get_turf(stash_item))
-		UnregisterSignal(stash_item, COMSIG_PARENT_QDELETING)
-	if(stash_owner)
-		UnregisterSignal(stash_owner, COMSIG_PARENT_QDELETING)
-	UnregisterSignal(parent, COMSIG_CLICK_ALT)
-	. = ..()
-
 /datum/component/stash/proc/access_stash(datum/source, mob/user)
 	SIGNAL_HANDLER
+	// Do this asynchronously
+	INVOKE_ASYNC(src, PROC_REF(try_access_stash), user)
+
+/datum/component/stash/proc/try_access_stash(mob/user)
 	//Not the owner of this stash
 	if (user.mind != stash_owner)
 		return
