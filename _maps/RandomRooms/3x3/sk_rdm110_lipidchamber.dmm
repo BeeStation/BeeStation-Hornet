@@ -29,7 +29,7 @@
 	icon_state = "tracks";
 	dir = 10
 	},
-/obj/item/reagent_containers/food/snacks/meat/slab/human{
+/obj/item/food/meat/slab/human{
 	pixel_y = 10
 	},
 /turf/open/floor/plasteel/grimy,
