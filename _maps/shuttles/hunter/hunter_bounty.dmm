@@ -173,7 +173,7 @@
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/bot/right,
 /obj/effect/turf_decal/bot/left,
 /obj/structure/sign/poster/contraband/tools{
@@ -356,7 +356,7 @@
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/bot/right,
 /obj/effect/turf_decal/bot/left,
 /turf/open/floor/plasteel/tech/grid,
@@ -1051,7 +1051,7 @@
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/bot/right,
 /obj/effect/turf_decal/bot/left,
 /obj/machinery/light/small{

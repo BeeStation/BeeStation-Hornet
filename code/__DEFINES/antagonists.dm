@@ -75,12 +75,28 @@
 ///It is faster as a macro than a proc
 #define IS_HERETIC(mob) (mob.mind?.has_antag_datum(/datum/antagonist/heretic))
 #define IS_HERETIC_MONSTER(mob) (mob.mind?.has_antag_datum(/datum/antagonist/heretic_monster))
+/// Checks if the given mob is either a heretic or a heretic monster.
+#define IS_HERETIC_OR_MONSTER(mob) (IS_HERETIC(mob) || IS_HERETIC_MONSTER(mob))
 
-#define PATH_SIDE "Side"
+/// Define for the heretic faction applied to heretics and heretic mobs.
+#define FACTION_HERETIC "heretics"
 
-#define PATH_ASH "Ash"
-#define PATH_RUST "Rust"
-#define PATH_FLESH "Flesh"
+// Heretic path defines.
+#define HERETIC_PATH_START "Heretic Start Path"
+#define HERETIC_PATH_SIDE "Heretic Side Path"
+#define HERETIC_PATH_ASH "Heretic Ash Path"
+#define HERETIC_PATH_RUST "Heretic Rust Path"
+#define HERETIC_PATH_FLESH "Heretic Flesh Path"
+#define HERETIC_PATH_VOID "Heretic Void Path"
+
+/// Defines are used in /proc/has_living_heart() to report if the heretic has no heart period, no living heart, or has a living heart.
+#define HERETIC_NO_HEART_ORGAN -1
+#define HERETIC_NO_LIVING_HEART 0
+#define HERETIC_HAS_LIVING_HEART 1
+
+/// A define used in ritual priority for heretics.
+#define MAX_KNOWLEDGE_PRIORITY 100
+
 
 /// How much does it cost to reroll strains?
 #define BLOB_REROLL_COST 40

@@ -531,6 +531,9 @@
 		blocked += 50
 	. = ..(damage, damagetype, def_zone, blocked, forced)
 
+/mob/living/simple_animal/slime/get_discovery_id()
+	return "[colour] slime"
+
 /mob/living/simple_animal/slime/give_mind(mob/user)
 	. = ..()
 	if (.)
