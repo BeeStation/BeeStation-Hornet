@@ -96,9 +96,11 @@
 	var/mob/living/T = L.parent
 	if(ishuman(T))
 		var/mob/living/carbon/human/H = T
-		if(iscatperson(H))
-			H.dna.species.start_wagging_tail(H)
-			addtimer(CALLBACK(H.dna.species, TYPE_PROC_REF(/datum/species, stop_wagging_tail), H), 30)
+		if(iscatperson(H) || (istype(H.getorganslot(ORGAN_SLOT_EARS), /obj/item/organ/ears/cat) && istype(H.getorganslot(ORGAN_SLOT_TAIL), /obj/item/organ/tail/cat)))
+			var/obj/item/organ/tail/tail = H.getorganslot(ORGAN_SLOT_TAIL)
+			if(tail)
+				tail.set_wagging(H, TRUE)
+				addtimer(CALLBACK(tail, TYPE_PROC_REF(/obj/item/organ/tail, set_wagging), H, FALSE), 3 SECONDS)
 			description =  "<span class='nicegreen'>They want to play on the table!</span>\n"
 			mood_change = 2
 
