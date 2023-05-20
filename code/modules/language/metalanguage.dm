@@ -5,7 +5,7 @@
 	key = "`"
 	sentence_chance = -1 // 0% has a chance to occur
 	space_chance = -1
-	default_priority = 1
+	default_priority = -1 // language auto-update will not choose this
 	icon_state = "omniomega"
 
 // this language is made to display runechat for telepathic chats. Everyone knows this language, but none of them will be possible to talk in this language.

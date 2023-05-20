@@ -171,6 +171,8 @@ Key procs
 	for(var/lang in spoken_languages)
 		var/datum/language/language = lang
 		var/priority = initial(language.default_priority)
+		if(priority < 0) // -1 will be skipped
+			continue
 		if((!highest_priority || (priority > highest_priority)) && !(language in blocked_languages))
 			if(can_speak_language(language))
 				selected_language = language
@@ -212,30 +214,24 @@ Key procs
 	for(var/language in blocked_languages)
 		remove_blocked_language(language, LANGUAGE_ATOM)
 
-	copy_languages(from_atom)
+	copy_languages(from_atom, blocked=TRUE) // full-copy
 	get_selected_language()
 	return TRUE
 
 /// Copies all languages from the supplied atom/language holder. Source should be overridden when you
 /// do not want the language overwritten by later atom updates or want to avoid blocked languages.
-/datum/language_holder/proc/copy_languages(var/datum/language_holder/from_holder, source_override=FALSE, spoken=TRUE, understood=TRUE, blocked=TRUE)
-	if(source_override)	//No blocked languages here, for now only used by ling absorb.
-		if(understood)
-			for(var/language in from_holder.understood_languages)
-				grant_language(language, TRUE, FALSE, source_override)
-		if(spoken)
-			for(var/language in from_holder.spoken_languages)
-				grant_language(language, FALSE, TRUE, source_override)
-	else
-		if(understood)
-			for(var/language in from_holder.understood_languages)
-				grant_language(language, TRUE, FALSE, from_holder.understood_languages[language])
-		if(spoken)
-			for(var/language in from_holder.spoken_languages)
-				grant_language(language, FALSE, TRUE, from_holder.spoken_languages[language])
-		if(blocked)
-			for(var/language in from_holder.blocked_languages)
-				add_blocked_language(language, from_holder.blocked_languages[language])
+/datum/language_holder/proc/copy_languages(var/datum/language_holder/from_holder, source_override=FALSE, spoken=TRUE, understood=TRUE, blocked=FALSE)
+	if(understood)
+		for(var/language in from_holder.understood_languages)
+			grant_language(language, TRUE, FALSE, source_override || from_holder.understood_languages[language]) // if you don't have 'source_override' argument, source from 'from_holder' will be used.
+	if(spoken)
+		for(var/language in from_holder.spoken_languages)
+			grant_language(language, FALSE, TRUE, source_override || from_holder.spoken_languages[language])
+	if(blocked)
+		// blocked is set to FALSE by default because there's no reason to copy blocked languages in standard situations.
+		// 'blocked=TRUE' is recommanded when 'source_override=FALSE' because it means full-copy
+		for(var/language in from_holder.blocked_languages)
+			add_blocked_language(language, source_override || from_holder.blocked_languages[language])
 	return TRUE
 
 

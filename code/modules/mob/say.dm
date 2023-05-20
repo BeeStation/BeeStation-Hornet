@@ -161,7 +161,7 @@
 				chop_to = length(key) + 2
 			else
 				return message
-		else if(key == "," && !mods[LANGUAGE_EXTENSION])
+		else if(key == "," && !mods[LANGUAGE_EXTENSION]) // living/say() proc can set LANGUAGE_EXTENSION before this proc.
 			for(var/ld in GLOB.all_languages)
 				var/datum/language/LD = ld
 				if(initial(LD.key) == message[1 + length(message[1])])
