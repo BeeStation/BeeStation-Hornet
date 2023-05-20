@@ -1,5 +1,5 @@
 /obj/machinery/power/apc/proc/get_malf_status(mob/living/silicon/ai/malf)
-	if(istype(malf) || !malf.malf_picker)
+	if(istype(malf))
 		return APC_AI_NO_MALF // User is shunted in this APC
 	if(malfai != (malf.parent || malf))
 		return APC_AI_NO_HACK // User is shunted in another APC
