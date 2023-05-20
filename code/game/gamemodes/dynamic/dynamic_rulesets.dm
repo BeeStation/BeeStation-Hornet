@@ -80,6 +80,10 @@
 	/// If written as a linear equation, will be in the form of `list("denominator" = denominator, "offset" = offset).
 	var/antag_cap = 0
 
+	/// Whether thie ruleset has been determined to be dead or not already.
+	/// Currently only used for logging.
+	var/dead = FALSE
+
 
 /datum/dynamic_ruleset/New()
 	// Rulesets can be instantiated more than once, such as when an admin clicks
@@ -93,6 +97,8 @@
 /datum/dynamic_ruleset/roundstart // One or more of those drafted at roundstart
 	ruletype = "Roundstart"
 	consider_antag_rep = TRUE
+	/// Whether repeated_mode_adjust weight changes have been logged already.
+	var/logged_repeated_mode_adjust = FALSE
 
 /datum/dynamic_ruleset/roundstart/get_weight()
 	. = ..()
@@ -109,7 +115,11 @@
 		if(name in round)
 			adjustment += repeated_mode_adjust[rounds_ago]
 	if(adjustment)
+		var/old_weight = .
 		. *= ((100 - adjustment) / 100)
+		if(!logged_repeated_mode_adjust)
+			log_game("DYNAMIC: weight of [src] adjusted from [old_weight] to [.] by repeated_mode_adjust")
+			logged_repeated_mode_adjust = TRUE
 
 // Can be drafted when a player joins the server
 /datum/dynamic_ruleset/latejoin
@@ -224,7 +234,6 @@
 
 /// Checks if the ruleset is "dead", where all the antags are either dead or deconverted.
 /datum/dynamic_ruleset/proc/is_dead()
-	. = TRUE
 	for(var/datum/mind/mind in assigned)
 		var/mob/living/body = mind.current
 		// If they have no body, they're dead for realsies.
@@ -246,6 +255,7 @@
 				continue
 			// Are they in medbay or an operating table/stasis bed, and have been dead for less than 20 minutes? If so, they're probably being revived.
 			if(world.time <= (mind.last_death + 15 MINUTES) && (istype(get_area(body), /area/medical) || (locate(/obj/machinery/stasis) in body.loc) || (locate(/obj/structure/table/optable) in body.loc)))
+				log_undead()
 				return FALSE
 		else
 			// Are they a silicon? If so, might as well be dead.
@@ -254,7 +264,24 @@
 			// Well, they're at least somewhat alive. But are they still antag?
 			if(antag_datum && mind.has_antag_datum(antag_datum))
 				// They're still antag and not dead.
+				log_undead()
 				return FALSE
+	log_dead()
+	return TRUE
+
+/datum/dynamic_ruleset/proc/log_dead()
+	if(dead)
+		return
+	dead = TRUE
+	log_game("DYNAMIC: ruleset [src] is considered dead now, new midround rulesets may be able to roll now")
+	message_admins("DYNAMIC: ruleset [src] is considered dead now, new midround rulesets may be able to roll now")
+
+/datum/dynamic_ruleset/proc/log_undead()
+	if(!dead)
+		return
+	dead = FALSE
+	log_game("DYNAMIC: ruleset [src] is no longer considered dead")
+	message_admins("DYNAMIC: ruleset [src] is no longer considered dead")
 
 /// Picks a candidate from a list, while potentially taking antag rep into consideration.
 /datum/dynamic_ruleset/proc/antag_pick_n_take(list/candidates)

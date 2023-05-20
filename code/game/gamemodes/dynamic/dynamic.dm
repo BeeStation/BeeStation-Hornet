@@ -865,11 +865,12 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 /// if the mode is dynamic, signalling that something major has happened
 /// and that dynamic should NOT try to roll new antags, even if all the
 /// current high-impact antags end up dying.
-/proc/set_dynamic_high_impact_event()
+/proc/set_dynamic_high_impact_event(reason)
 	var/datum/game_mode/dynamic/dynamic = SSticker.mode
 	if(!istype(dynamic))
 		return
 	dynamic.high_impact_major_event_occured = TRUE
+	log_game("DYNAMIC: a high-impact event has occured[reason ? ": [reason]" : ""]. dead ruleset tracking is no longer active.")
 
 #undef FAKE_REPORT_CHANCE
 #undef REPORT_NEG_DIVERGENCE

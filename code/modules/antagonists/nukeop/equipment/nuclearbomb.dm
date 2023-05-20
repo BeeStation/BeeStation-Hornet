@@ -450,7 +450,7 @@
 			S.switch_mode_to(TRACK_INFILTRATOR)
 		countdown.start()
 		set_security_level(SEC_LEVEL_DELTA)
-		set_dynamic_high_impact_event()
+		set_dynamic_high_impact_event("nuclear bomb has been armed")
 
 		if (proper_bomb) // Why does this exist
 			countdown_music = play_soundtrack_music(/datum/soundtrack_song/bee/countdown)
