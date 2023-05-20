@@ -41,8 +41,8 @@
 	speak_emote = list("sniffles","twitches")
 	emote_hear = list("hops.")
 	emote_see = list("hops around","bounces up and down")
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 1)
-	egg_type = /obj/item/food/egg/loaded
+	butcher_results = list(/obj/item/food/meat/slab = 1)
+	egg_type = /obj/item/suprise_egg
 	food_type = /obj/item/reagent_containers/food/snacks/grown/carrot
 	eggsleft = 10
 	eggsFertile = FALSE
@@ -109,8 +109,8 @@
 	resistance_flags = FLAMMABLE
 	w_class = WEIGHT_CLASS_TINY
 	icon = 'icons/obj/food/egg.dmi'
-	lefthand_file = 'icons/mob/inhands/items/food_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items/food_righthand.dmi'
+	//lefthand_file = 'icons/mob/inhands/items/food_lefthand.dmi'
+	//righthand_file = 'icons/mob/inhands/items/food_righthand.dmi'
 	obj_flags = UNIQUE_RENAME
 
 /obj/item/suprise_egg/loaded/Initialize(mapload)

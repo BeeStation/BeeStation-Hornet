@@ -8,7 +8,7 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 5,
 		/datum/reagent/consumable/sugar = 2,
-		/datum/reagent/consumable/coco = 2,
+		/datum/reagent/consumable/cocoa = 2,
 		/datum/reagent/consumable/nutriment/vitamin = 1
 	)
 	tastes = list("chocolate" = 4, "sweetness" = 1)
@@ -164,7 +164,11 @@
 	desc = "The precursor to Pigs in a Blanket."
 	icon = 'icons/obj/food/egg.dmi'
 	icon_state = "eggwrap"
-	food_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/protein = 2, /datum/reagent/consumable/nutriment/vitamin = 3)
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 6,
+		///datum/reagent/consumable/nutriment/protein = 2,
+		/datum/reagent/consumable/nutriment/vitamin = 3
+	)
 	tastes = list("egg" = 1)
 	foodtypes = MEAT | VEGETABLES
 	w_class = WEIGHT_CLASS_TINY
@@ -176,7 +180,7 @@
 	icon_state = "chawanmushi"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 4,
-		/datum/reagent/consumable/nutriment/protein = 3,
+		///datum/reagent/consumable/nutriment/protein = 3,
 		/datum/reagent/consumable/nutriment/vitamin = 1
 	)
 	tastes = list("custard" = 1)

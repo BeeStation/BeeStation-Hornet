@@ -16,7 +16,7 @@
 		/obj/item/reagent_containers/food/snacks/pizzaslice,
 		/obj/item/food/salad,
 		/obj/item/food/meat,
-		/obj/item/reagent_containers/food/snacks/meat/slab,
+		/obj/item/food/meat/slab,
 		/obj/item/food/soup,
 		/obj/item/reagent_containers/food/snacks/grown,
 		/obj/item/reagent_containers/food/snacks/grown/mushroom,

@@ -438,6 +438,104 @@
 		/datum/reagent/consumable/capsaicin = 3
 	)
 
+////////////////////////////////////// MEAT STEAKS ///////////////////////////////////////////////////////////
+
+/obj/item/food/meat/steak
+	name = "steak"
+	desc = "A piece of hot spicy meat."
+	icon_state = "meatsteak"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment/protein = 8,
+		/datum/reagent/consumable/nutriment/vitamin = 1
+	)
+	trash_type = /obj/item/trash/plate
+	tastes = list("meat" = 1)
+	foodtypes = MEAT
+
+/obj/item/food/meat/steak/Initialize()
+	. = ..()
+	RegisterSignal(src, COMSIG_ITEM_MICROWAVE_COOKED, .proc/OnMicrowaveCooked)
+
+/obj/item/food/meat/steak/proc/OnMicrowaveCooked(datum/source, obj/item/source_item, cooking_efficiency = 1)
+	SIGNAL_HANDLER
+	name = "[source_item.name] steak"
+
+/obj/item/food/meat/steak/plain
+    foodtypes = MEAT
+
+/obj/item/food/meat/steak/plain/human
+	tastes = list("tender meat" = 1)
+	foodtypes = MEAT | GORE
+
+///Make sure the steak has the correct name
+/obj/item/food/meat/steak/plain/human/OnMicrowaveCooked(datum/source, obj/item/source_item, cooking_efficiency = 1)
+	. = ..()
+	if(istype(source_item, /obj/item/food/meat))
+		var/obj/item/food/meat/origin_meat = source_item
+		subjectname = origin_meat.subjectname
+		subjectjob = origin_meat.subjectjob
+		if(subjectname)
+			name = "[origin_meat.subjectname] meatsteak"
+		else if(subjectjob)
+			name = "[origin_meat.subjectjob] meatsteak"
+
+/obj/item/food/meat/steak/killertomato
+	name = "killer tomato steak"
+	tastes = list("tomato" = 1)
+	foodtypes = FRUIT // And dont let anybody tell you otherwise!
+
+/obj/item/food/meat/steak/bear
+	name = "bear steak"
+	tastes = list("meat" = 1, "salmon" = 1)
+
+/obj/item/food/meat/steak/xeno
+	name = "xeno steak"
+	tastes = list("meat" = 1, "acid" = 1)
+
+/obj/item/food/meat/steak/spider
+	name = "spider steak"
+	tastes = list("cobwebs" = 1)
+
+/obj/item/food/meat/steak/goliath
+	name = "goliath steak"
+	desc = "A delicious, lava cooked steak."
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	icon_state = "goliathsteak"
+	trash_type = null
+	tastes = list("meat" = 1, "rock" = 1)
+	foodtypes = MEAT
+
+/obj/item/food/meat/steak/gondola
+	name = "gondola steak"
+	tastes = list("meat" = 1, "tranquility" = 1)
+
+/obj/item/food/meat/steak/penguin
+	name = "penguin steak"
+	icon_state = "birdsteak"
+	tastes = list("beef" = 1, "cod fish" = 1)
+
+/obj/item/food/meat/steak/chicken
+	name = "chicken steak" //Can you have chicken steaks? Maybe this should be renamed once it gets new sprites. //I concur
+	icon_state = "birdsteak"
+	tastes = list("chicken" = 1)
+
+/obj/item/food/meat/steak/plain/human/lizard
+	name = "lizard steak"
+	icon_state = "birdsteak"
+	tastes = list("juicy chicken" = 3, "scales" = 1)
+	foodtypes = MEAT
+
+/obj/item/food/meat/steak/meatproduct
+	name = "thermally processed meat product"
+	icon_state = "meatproductsteak"
+	tastes = list("enhanced char" = 2, "suspicious tenderness" = 2, "natural & artificial dyes" = 2, "emulsifying agents" = 1)
+
+/obj/item/food/meat/steak/synth
+	name = "synthsteak"
+	desc = "A synthetic meat steak. It doesn't look quite right, now does it?"
+	icon_state = "meatsteak_old"
+	tastes = list("meat" = 4, "cryoxandone" = 1)
+
 /obj/item/food/meat/steak/ashflake
 	name = "ashflaked steak"
 	desc = "A common delicacy among miners."
@@ -446,6 +544,173 @@
 		/datum/reagent/consumable/vitfro = 2
 	)
 	tastes = list("tough meat" = 2, "bubblegum" = 1)
+	foodtypes = MEAT
+
+//////////////////////////////// MEAT CUTLETS ///////////////////////////////////////////////////////
+
+//Raw cutlets
+
+/obj/item/food/meat/rawcutlet
+	name = "raw cutlet"
+	desc = "A raw meat cutlet."
+	icon_state = "rawcutlet"
+	microwaved_type = /obj/item/food/meat/cutlet/plain
+	bite_consumption = 2
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment/protein = 1
+	)
+	tastes = list("meat" = 1)
+	foodtypes = MEAT | RAW
+	var/meat_type = "meat"
+
+/obj/item/food/meat/rawcutlet/OnCreatedFromProcessing(mob/living/user, obj/item/I, list/chosen_option, atom/original_atom)
+	..()
+	if(istype(original_atom, /obj/item/food/meat/slab))
+		var/obj/item/food/meat/slab/original_slab = original_atom
+		var/mutable_appearance/filling = mutable_appearance(icon, "rawcutlet_coloration")
+		filling.color = original_slab.slab_color
+		add_overlay(filling)
+		name = "raw [original_atom.name] cutlet"
+		meat_type = original_atom.name
+
+/obj/item/food/meat/rawcutlet/plain
+    foodtypes = MEAT
+
+/obj/item/food/meat/rawcutlet/plain/human
+	microwaved_type = /obj/item/food/meat/cutlet/plain/human
+	tastes = list("tender meat" = 1)
+	foodtypes = MEAT | RAW | GORE
+
+/obj/item/food/meat/rawcutlet/plain/human/OnCreatedFromProcessing(mob/living/user, obj/item/I, list/chosen_option, atom/original_atom)
+	. = ..()
+	if(istype(original_atom, /obj/item/food/meat))
+		var/obj/item/food/meat/origin_meat = original_atom
+		subjectname = origin_meat.subjectname
+		subjectjob = origin_meat.subjectjob
+		if(subjectname)
+			name = "raw [origin_meat.subjectname] cutlet"
+		else if(subjectjob)
+			name = "raw [origin_meat.subjectjob] cutlet"
+
+/obj/item/food/meat/rawcutlet/killertomato
+	name = "raw killer tomato cutlet"
+	microwaved_type = /obj/item/food/meat/cutlet/killertomato
+	tastes = list("tomato" = 1)
+	foodtypes = FRUIT
+
+/obj/item/food/meat/rawcutlet/bear
+	name = "raw bear cutlet"
+	microwaved_type = /obj/item/food/meat/cutlet/bear
+	tastes = list("meat" = 1, "salmon" = 1)
+
+/obj/item/food/meat/rawcutlet/xeno
+	name = "raw xeno cutlet"
+	microwaved_type = /obj/item/food/meat/cutlet/xeno
+	tastes = list("meat" = 1, "acid" = 1)
+
+/obj/item/food/meat/rawcutlet/spider
+	name = "raw spider cutlet"
+	microwaved_type = /obj/item/food/meat/cutlet/spider
+	tastes = list("cobwebs" = 1)
+
+/obj/item/food/meat/rawcutlet/gondola
+	name = "raw gondola cutlet"
+	microwaved_type = /obj/item/food/meat/cutlet/gondola
+	tastes = list("meat" = 1, "tranquility" = 1)
+
+/obj/item/food/meat/rawcutlet/penguin
+	name = "raw penguin cutlet"
+	microwaved_type = /obj/item/food/meat/cutlet/penguin
+	tastes = list("beef" = 1, "cod fish" = 1)
+
+/obj/item/food/meat/rawcutlet/chicken
+	name = "raw chicken cutlet"
+	microwaved_type = /obj/item/food/meat/cutlet/chicken
+	tastes = list("chicken" = 1)
+
+/obj/item/food/meat/rawcutlet/grub //grub meat is small, so its in cutlets
+	name = "redgrub cutlet"
+	desc = "A tough, slimy cut of raw Redgrub. Very toxic, and probably infectious, but delicious when cooked. Do not handle without proper biohazard equipment."
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 1,
+		/datum/reagent/toxin/slimejelly = 2
+	)
+	microwaved_type = /obj/item/food/meat/cutlet/grub
+	icon_state = "grubmeat"
+	bite_consumption = 1
+	tastes = list("slime" = 1, "grub" = 1)
+	foodtypes = RAW | MEAT | TOXIC
+
+//Cooked cutlets
+
+/obj/item/food/meat/cutlet
+	name = "cutlet"
+	desc = "A cooked meat cutlet."
+	icon_state = "cutlet"
+	bite_consumption = 2
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment/protein = 2
+	)
+	tastes = list("meat" = 1)
+	foodtypes = MEAT
+
+/obj/item/food/meat/cutlet/Initialize()
+	. = ..()
+	RegisterSignal(src, COMSIG_ITEM_MICROWAVE_COOKED, .proc/OnMicrowaveCooked)
+
+///This proc handles setting up the correct meat name for the cutlet, this should definitely be changed with the food rework.
+/obj/item/food/meat/cutlet/proc/OnMicrowaveCooked(datum/source, atom/source_item, cooking_efficiency)
+	SIGNAL_HANDLER
+	if(istype(source_item, /obj/item/food/meat/rawcutlet))
+		var/obj/item/food/meat/rawcutlet/original_cutlet = source_item
+		name = "[original_cutlet.meat_type] cutlet"
+
+/obj/item/food/meat/cutlet/plain
+
+/obj/item/food/meat/cutlet/plain/human
+	tastes = list("tender meat" = 1)
+	foodtypes = MEAT | GORE
+
+/obj/item/food/meat/cutlet/killertomato
+	name = "killer tomato cutlet"
+	tastes = list("tomato" = 1)
+	foodtypes = FRUIT
+
+/obj/item/food/meat/cutlet/bear
+	name = "bear cutlet"
+	tastes = list("meat" = 1, "salmon" = 1)
+
+/obj/item/food/meat/cutlet/xeno
+	name = "xeno cutlet"
+	tastes = list("meat" = 1, "acid" = 1)
+
+/obj/item/food/meat/cutlet/spider
+	name = "spider cutlet"
+	tastes = list("cobwebs" = 1)
+
+/obj/item/food/meat/cutlet/gondola
+	name = "gondola cutlet"
+	tastes = list("meat" = 1, "tranquility" = 1)
+
+/obj/item/food/meat/cutlet/penguin
+	name = "penguin cutlet"
+	tastes = list("beef" = 1, "cod fish" = 1)
+
+/obj/item/food/meat/cutlet/chicken
+	name = "chicken cutlet"
+	tastes = list("chicken" = 1)
+
+/obj/item/food/meat/cutlet/grub
+	name = "redgrub rind"
+	desc = "Cooking redgrub meat causes it to 'pop', and renders it non-toxic, crunchy and deliciously sweet"
+	icon_state = "grubsteak"
+	trash_type = null
+	bite_consumption = 1
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 1,
+		/datum/reagent/medicine/regen_jelly = 1
+	)
+	tastes = list("jelly" = 1, "sweet meat" = 1, "oil" = 1)
 	foodtypes = MEAT
 
 /obj/item/food/dolphinmeat

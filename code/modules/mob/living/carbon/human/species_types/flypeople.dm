@@ -7,7 +7,7 @@
 	mutanttongue = /obj/item/organ/tongue/fly
 	mutantliver = /obj/item/organ/liver/fly
 	mutantstomach = /obj/item/organ/stomach/fly
-	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/fly
+	meat = /obj/item/food/meat/slab/human/mutant/fly
 	mutant_bodyparts = list("insect_type")
 	default_features = list("insect_type" = "housefly", "body_size" = "Normal")
 	burnmod = 1.4
