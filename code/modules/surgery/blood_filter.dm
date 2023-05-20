@@ -97,8 +97,8 @@
 	name = "Filter Blood (Exp.)"
 	desc = "A surgical procedure that provides experimental toxin filtering to remove reagents from the patient's blood, in addition to undoing any damage the toxins done to the patient's system. Heals considerably more when the patient is severely injured."
 	requires_tech = TRUE
-	filtering_step_type = /datum/surgery_step/filter_blood/femto
+	filtering_step_type = /datum/surgery_step/filter_blood/upgraded/femto
 	replaced_by = null
 
-/datum/surgery_step/filter_blood/femto
+/datum/surgery_step/filter_blood/upgraded/femto
 	time = 1 SECONDS
