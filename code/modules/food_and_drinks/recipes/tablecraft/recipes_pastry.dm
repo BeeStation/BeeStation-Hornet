@@ -450,7 +450,7 @@
 		/obj/item/food/meatball = 1,
 		/obj/item/reagent_containers/food/snacks/grown/cabbage = 1
 	)
-	result = /obj/item/reagent_containers/food/snacks/meatbun
+	result = /obj/item/food/meatbun
 	subcategory = CAT_PASTRY
 
 /datum/crafting_recipe/food/khachapuri
