@@ -1,7 +1,0 @@
-author: Absolucy
-delete-after: true
-changes:
-  - bugfix: Advanced/experimental blood filtering now actually requires the appropriate
-      tech.
-  - bugfix: Max-tier blood filtering surgery actually heals toxin now.
-  - rscadd: Added a description to all variations of blood filtering surgery.
