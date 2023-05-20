@@ -161,10 +161,10 @@
 		return TRUE
 	var/obj/item/card/id/used_card = user.get_idcard(TRUE)
 	if(used_card)
-		if(!length(used_card.card_access)) // it needs something, but do early return FALSE if card has no access
+		if(!length(used_card.access)) // it needs something, but do early return FALSE if card has no access
 			return FALSE
 		for(var/requested_access in access_additional_faxes_required)
-			if(check_access_textified(used_card.card_access, requested_access))
+			if(requested_access in used_card.access)
 				return TRUE
 	return FALSE
 

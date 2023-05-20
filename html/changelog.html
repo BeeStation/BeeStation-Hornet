@@ -56,6 +56,32 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">20 May 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Advanced/experimental blood filtering now actually requires the appropriate tech.</li>
+				<li class="bugfix">Max-tier blood filtering surgery actually heals toxin now.</li>
+				<li class="rscadd">Added a description to all variations of blood filtering surgery.</li>
+			</ul>
+			<h3 class="author">RKz, Jacquerel updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">New foodtype, GORE. Split from GROSS, GORE foodtype will be replacing it where the food in particular resembles a corpse or organ. GROSS should only apply to inedible or rotting foods.</li>
+				<li class="balance">All butchered player species are considered to be gore, only preferred by Lizards, Felinids, and Flies. If you like the taste of your fellow crew, prepare accordingly.</li>
+				<li class="balance">Moved food preferences around to make more sense with the current system. Nothing drastic, but species liked foods should be much more immersive in general.</li>
+			</ul>
+			<h3 class="author">Rukofamicom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Adds a new type of reagent, metabolites. Metabolites are produced as a byproduct of any reagent with a metabolite set and can be used to trace what kinds of reagents someone has been exposed to at least somewhat recently. For now metabolites are only implemented for Bicaridine, Kelotane, Antitoxin, Tricordrazine, Styptic Powder and Silver Sulfadiazine.</li>
+				<li class="balance">Bicaridine, Kelotane, Antitoxin and Tricordrazine are equally effective regardless of current HP again, instead having their effects wane as metabolites build up. They will always be useful, but will never be the only thing you need to treat more severe injuries.</li>
+				<li class="tweak">Bruise packs and ointment now utilize reagent code to heal instead of directly healing. Due to overdosing concerns, they heal for half as much per application, but come with twice as many applications per stack to compensate.</li>
+				<li class="balance">Because they now properly utilize medicine, ointments and bruise packs are now very painful! Players will find they are unable to subject themselves to this pain if they try to apply more than one in quick succession. Seek help from others if you need multiple applications!</li>
+				<li class="tweak">Gauze can now heal injured simplemobs just like bruise packs.</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Martial arts granting books (karate scroll, CQC manual, etc) no longer break permanently if you interrupt it last second.</li>
+			</ul>
+
 			<h2 class="date">18 May 2023</h2>
 			<h3 class="author">Absolucy updated:</h3>
 			<ul class="changes bgimages16">
@@ -63,6 +89,14 @@
 				<li class="tweak">Made the confirmation for clearing all chem recipes a part of the tgui itself.</li>
 				<li class="refactor">Refactored tail wagging code a bit.</li>
 				<li class="tweak">All species can now *wag their tail if they have one.</li>
+				<li class="refactor">Slightly refactored brain trauma.</li>
+				<li class="balance">Nanites and viruses can no longer cure an obsession or hypnosis.</li>
+				<li class="rscadd">Oozelings can now hug flaming people to extinguish them!</li>
+			</ul>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Replaced Tricordrazine in survival medipens with Regenerative Jelly</li>
+				<li class="soundadd">Added a sound for the Crew Transfer vote</li>
 			</ul>
 			<h3 class="author">EvilDragonfiend updated:</h3>
 			<ul class="changes bgimages16">
@@ -73,6 +107,23 @@
 				<li class="tweak">mimic mobs (especially, animating venders) will become back to how it was. For Brand Intelligence event, dead mimics will become a destroyed vending machine</li>
 				<li class="tweak">Brand Intelligence targeted vendors no longer explode when the event happens. These will become a stronger version instead. (i.e. more HP, more damage, etc) Otherwise, vending machine mobs have slightly less HP.</li>
 				<li class="tweak">mimic crate will eat items on where it is spawned - including important items like a nuke disk. Still, nuke disk is trackable, and dead mimic will let things out. (Admins can use this to contain stuff into a mimic crate by spawning that mob - but items should be placed on it.)</li>
+				<li class="code_imp">cleaned up some bad coding</li>
+				<li class="refactor">refactored access checking system. checking access is slightly faster</li>
+				<li class="admin">admin can bypass no-respawn with respawn verb</li>
+				<li class="code_imp">toxin naming that is used to plasma is now changed to plasma (i.e. canister/toxins to canister/plasma)</li>
+				<li class="code_imp">fixes card TGUI error</li>
+				<li class="tweak">Chameleon card in PDA works more smoothly. Chameleon Outfit selection will change the chameleon card inside of PDA as well.</li>
+				<li class="bugfix">Fixed a case that a silicon can't state laws permanently</li>
+				<li class="code_imp">reverted the access check refactor PR #9027 #9036</li>
+			</ul>
+			<h3 class="author">RKz, Rohesie. TiviPlus updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">more reliable CanPass and CanAllowThrough behavior</li>
+				<li class="bugfix">blockers block what they should, not what they shouldnt (like phasing mechs getting stuck on railings and windows???)</li>
+			</ul>
+			<h3 class="author">RKz, timberpoes, Ninjanomnom, CoffeeKat, DoctorSquishy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed runtimes in the air subsystem, where deleted objects were still processed.</li>
 			</ul>
 
 			<h2 class="date">17 May 2023</h2>
@@ -834,48 +885,6 @@
 			<h3 class="author">imsynthex updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="imageadd">made black gloves, fingerless gloves and combat gloves darker</li>
-			</ul>
-
-			<h2 class="date">18 March 2023</h2>
-			<h3 class="author">Absolucy updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Searing tools and such now properly work to cauterize a chest cavity implant.</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixes express supply consoles not displaying stock.</li>
-			</ul>
-			<h3 class="author">benbot16 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">Removes do_mob() and do_atom()</li>
-			</ul>
-			<h3 class="author">itsmeow, Spockye updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added Fugitive / Fugitive Hunters role preferences, be sure to enable them!</li>
-				<li class="rscadd">Added Fugitives Dynamic ruleset</li>
-				<li class="refactor">Refactored fugitive and fugitive hunter code, including objectives, roundend reports, and general polish.</li>
-				<li class="tweak">Gave fugitive hunters new, varying outfits.</li>
-				<li class="tweak">Updated all fugitive hunter shuttles.</li>
-				<li class="tweak">The hunter shuttle now requires power and has dynamic lighting.</li>
-				<li class="tweak">Redesigned the bluespace capture device to work similarly to the gulag teleporter.</li>
-				<li class="tweak">The fugitive capture device now lists wanted fugitives and their location on the orbital map.</li>
-				<li class="bugfix">Fixed captured fugitives being able to re-enter their body.</li>
-				<li class="bugfix">Fixed spacepol outfits having an item that was too large in their pocket.</li>
-				<li class="tweak">Genericized the contractor baton for use by fugitive hunters.</li>
-				<li class="tweak">Changed the bounty hunter mask into a space helmet.</li>
-				<li class="rscadd">Added an incapacitating shell box.</li>
-				<li class="tweak">Re-themed the currently unused "neutral" theme for use in the fugitive capture device.</li>
-				<li class="rscadd">Added a bounty suit storage unit.</li>
-				<li class="rscadd">Added a hydraulic armblade autosurgeon.</li>
-				<li class="rscadd">Added various subtypes of hats, coats, etc for use in fugitive hunter outfits.</li>
-				<li class="admin">Admins can now select the fugitive and fugitive hunter backstories 15 seconds before they spawn.</li>
-				<li class="bugfix">Fixed a grammatical error in the contractor baton description.</li>
-			</ul>
-
-			<h2 class="date">17 March 2023</h2>
-			<h3 class="author">mystery3525 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">Anomalous crystal can no longer refresh the die of fate</li>
 			</ul>
 		</div>
 

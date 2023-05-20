@@ -283,7 +283,7 @@
 			qdel(src)
 		return TRUE
 
-/obj/structure/girder/CanAllowThrough(atom/movable/mover, turf/target)
+/obj/structure/girder/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if((mover.pass_flags & PASSGRILLE) || istype(mover, /obj/item/projectile))
 		return prob(girderpasschance)

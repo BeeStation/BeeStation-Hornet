@@ -27,7 +27,7 @@
 	var/authorize_name
 
 	/// The access that the card had on login
-	var/list/authorize_access = list()
+	var/list/authorize_access
 
 	/// The messages this console has been sent
 	var/list/datum/comm_message/messages
@@ -47,13 +47,13 @@
 /obj/machinery/computer/communications/proc/authenticated_as_non_silicon_captain(mob/user)
 	if (issilicon(user))
 		return FALSE
-	return check_access_textified(authorize_access, ACCESS_CAPTAIN)
+	return ACCESS_CAPTAIN in authorize_access
 
 /// Are we a silicon, OR we're logged in as the captain?
 /obj/machinery/computer/communications/proc/authenticated_as_silicon_or_captain(mob/user)
 	if (issilicon(user))
 		return TRUE
-	return check_access_textified(authorize_access, ACCESS_CAPTAIN)
+	return ACCESS_CAPTAIN in authorize_access
 
 /// Are we a silicon, OR logged in?
 /obj/machinery/computer/communications/proc/authenticated(mob/user)
@@ -70,7 +70,7 @@
 /obj/machinery/computer/communications/on_emag(mob/user)
 	..()
 	if (authenticated)
-		grant_accesses_to_card(authorize_access, get_all_accesses())
+		authorize_access = get_all_accesses()
 	to_chat(user, "<span class='danger'>You scramble the communication routing circuits!</span>")
 	playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
 
@@ -119,7 +119,7 @@
 					to_chat(usr, "<span class='warning'>You need to swipe your ID!</span>")
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 					return
-				if(!check_access_textified(id_card.card_access, ACCESS_CAPTAIN))
+				if (!(ACCESS_CAPTAIN in id_card.access))
 					to_chat(usr, "<span class='warning'>You are not authorized to do this!</span>")
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 					return
@@ -293,14 +293,14 @@
 			// Log out if we're logged in
 			if (authorize_name)
 				authenticated = FALSE
-				authorize_access = list()
+				authorize_access = null
 				authorize_name = null
 				playsound(src, 'sound/machines/terminal_off.ogg', 50, FALSE)
 				return TRUE
 
 			if (obj_flags & EMAGGED)
 				authenticated = TRUE
-				grant_accesses_to_card(authorize_access, get_all_accesses())
+				authorize_access = get_all_accesses()
 				authorize_name = "Unknown"
 				to_chat(usr, "<span class='warning'>[src] lets out a quiet alarm as its login is overridden.</span>")
 				playsound(src, 'sound/machines/terminal_alert.ogg', 25, FALSE)
@@ -308,7 +308,7 @@
 				var/obj/item/card/id/id_card = usr.get_idcard(hand_first = TRUE)
 				if (check_access(id_card))
 					authenticated = TRUE
-					grant_accesses_to_card(authorize_access, id_card.card_access)
+					authorize_access = id_card.access
 					authorize_name = "[id_card.registered_name] - [id_card.assignment]"
 
 			state = STATE_MESSAGES

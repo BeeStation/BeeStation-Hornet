@@ -464,7 +464,7 @@
 	SIGNAL_HANDLER
 	return SINGULARITY_TRY_MOVE_BLOCK
 
-/obj/machinery/shieldwall/CanAllowThrough(atom/movable/mover, turf/target)
+/obj/machinery/shieldwall/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(istype(mover) && (mover.pass_flags & PASSTRANSPARENT))
 		return prob(20)

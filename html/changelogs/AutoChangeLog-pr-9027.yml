@@ -1,5 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - code_imp: cleaned up some bad coding
-  - refactor: refactored access checking system. checking access is slightly faster
