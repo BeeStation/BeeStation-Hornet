@@ -141,7 +141,8 @@
 
 /datum/antagonist/traitor/proc/forge_single_human_objective() //Returns how many objectives are added
 	.=1
-	if(prob(30))
+	// Lower chance of spawning due to the few open objectives there are
+	if(prob(20))
 		var/created_type = pick(subtypesof(/datum/objective/open))
 		var/datum/objective/obj = new created_type
 		obj.owner = owner
