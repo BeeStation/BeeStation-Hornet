@@ -48,8 +48,7 @@
 			// put detactable atom list here
 			/mob/dead/observer,
 			/mob/living/simple_animal/revenant,
-			/mob/living/simple_animal/hostile/floor_cluwne,
-			/obj/effect/rune // camera can reveal hidden cult runes
+			/mob/living/simple_animal/hostile/floor_cluwne
 		))
 
 /obj/item/camera/attack_self(mob/user)
