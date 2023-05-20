@@ -23,6 +23,11 @@
 	. = ..()
 	go_invisible()
 
+
+/obj/structure/closet/cardboard/agent/open()
+	. = ..()
+	qdel(src)
+
 /obj/structure/closet/cardboard/agent/process()
 	alpha = max(0, alpha - 50)
 
