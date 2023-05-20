@@ -31,7 +31,7 @@
 /datum/language/proc/display_icon(atom/movable/hearer)
  	// ghosts want to know how it is going.
 	if((flags & LANGUAGE_ALWAYS_SHOW_ICON_TO_GHOSTS) && \
-			(isobserver(hearer) || (HAS_TRAIT(hearer, TRAIT_METALANGUAGE_KEY_ALLOWED) && src.type == /datum/language/metalanguage)))
+			(isobserver(hearer) || (HAS_TRAIT(hearer, TRAIT_METALANGUAGE_KEY_ALLOWED) && istype(src, /datum/language/metalanguage))))
 		return TRUE
 
 	var/understands = hearer.has_language(src.type)
