@@ -26,7 +26,6 @@
 	bullet_bounce_sound = null
 
 	z_eventually_space = TRUE
-	z_flags = Z_MIMIC_BELOW | Z_MIMIC_OVERWRITE
 	vis_flags = VIS_INHERIT_ID	//when this be added to vis_contents of something it be associated with something on clicking, important for visualisation of turf in openspace and interraction with openspace that show you turf.
 
 /turf/open/space/basic/New()	//Do not convert to Initialize
@@ -68,7 +67,7 @@
 
 	return INITIALIZE_HINT_NORMAL
 
-/turf/space/Destroy()
+/turf/open/space/Destroy()
 	// Cleanup cached z_eventually_space values above us.
 	if (above)
 		var/turf/T = src
