@@ -1,0 +1,5 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Martial arts granting books (karate scroll, CQC manual, etc) no longer
+      break permanently if you interrupt it last second.
