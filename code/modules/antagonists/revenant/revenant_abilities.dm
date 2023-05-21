@@ -157,7 +157,7 @@
 			if(stepTurf.flags_1 & NOJAUNT_1)
 				to_chat(user, "<span class='warning'>Some strange aura blocks your way to spirit realm.</span>")
 				return
-			if(locate(/obj/effect/blessing) in stepTurf)
+			if(stepTurf.is_holy())
 				to_chat(user, "<span class='warning'>Holy energies block your way to spirit realm!</span>")
 				return
 	revenant.phase_shift()
