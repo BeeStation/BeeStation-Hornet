@@ -1,0 +1,7 @@
+author: Tsar-Salat
+delete-after: true
+changes:
+  - bugfix: broken blackberry cake icon_states, leading to invisible cake. Invisible
+      cake couldnt be eaten, very sad.
+  - tweak: added ERROR sprites and description to newfood parents, so it's very visible
+      if the wrong path was used
