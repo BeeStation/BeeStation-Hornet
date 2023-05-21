@@ -41,11 +41,6 @@ map kilostation
 	votable
 endmap
 
-map glowstation
-	minplayers 40
-	votable
-endmap
-
 map flandstation
 	minplayers 40
 	votable
