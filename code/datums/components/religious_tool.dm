@@ -241,7 +241,7 @@
 	if(!can_i_see)
 		return
 	examine_list += ("<span class='notice'>Use a bible to interact with this.</span>")
-	if(user.mind?.holy_role != NONE)
+	if(user.mind?.holy_role)
 		var/obj/structure/altar_of_gods/altar = parent
 		examine_list +=("<span class='notice'>You can tap this with your holy weapon to [altar.anchored ? "un" : ""]anchor it.</span>")
 	if(!easy_access_sect)
