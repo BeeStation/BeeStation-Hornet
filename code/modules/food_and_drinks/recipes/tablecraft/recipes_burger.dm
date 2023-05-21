@@ -76,7 +76,7 @@
 	name = "Fish burger"
 	reqs = list(
 		/obj/item/food/fishmeat/carp = 1,
-		/obj/item/reagent_containers/food/snacks/cheesewedge = 1,
+		/obj/item/food/cheese/wedge = 1,
 		/obj/item/reagent_containers/food/snacks/bun = 1
 	)
 	result = /obj/item/food/burger/fish
@@ -221,7 +221,7 @@
 	name = "Big bite burger"
 	reqs = list(
 		/obj/item/food/meat/steak/plain = 3,
-		/obj/item/reagent_containers/food/snacks/cheesewedge = 2,
+		/obj/item/food/cheese/wedge = 2,
 		/obj/item/reagent_containers/food/snacks/bun = 1
 	)
 	result = /obj/item/food/burger/bigbite
@@ -234,7 +234,7 @@
 		/datum/reagent/consumable/blackpepper = 5,
 		/obj/item/food/meat/steak/plain = 5,
 		/obj/item/reagent_containers/food/snacks/grown/tomato = 4,
-		/obj/item/reagent_containers/food/snacks/cheesewedge = 3,
+		/obj/item/food/cheese/wedge = 3,
 		/obj/item/food/boiledegg = 1,
 		/obj/item/food/meat/bacon = 1,
 		/obj/item/reagent_containers/food/snacks/bun = 1
@@ -323,7 +323,7 @@
 	name = "Cheese Burger"
 	reqs = list(
 			/obj/item/food/meat/steak/plain = 1,
-			/obj/item/reagent_containers/food/snacks/cheesewedge = 1,
+			/obj/item/food/cheese/wedge = 1,
 			/obj/item/reagent_containers/food/snacks/bun = 1
 	)
 	result = /obj/item/food/burger/cheese
@@ -333,7 +333,7 @@
 	name = "Soylent Burger"
 	reqs = list(
 			/obj/item/reagent_containers/food/snacks/soylentgreen = 1, //two full meats worth.
-			/obj/item/reagent_containers/food/snacks/cheesewedge = 2,
+			/obj/item/food/cheese/wedge = 2,
 			/obj/item/reagent_containers/food/snacks/bun = 1
 	)
 	result = /obj/item/food/burger/soylent
@@ -376,7 +376,7 @@
 			/obj/item/reagent_containers/food/snacks/grown/chili = 2,
 			/datum/reagent/consumable/cooking_oil = 20,
 			/obj/item/reagent_containers/food/snacks/grown/nettle/death = 2, // closest thing to "grass of death"
-			/obj/item/reagent_containers/food/snacks/cheesewedge = 4,
+			/obj/item/food/cheese/wedge = 4,
 			/obj/item/reagent_containers/food/snacks/bun = 1
 	)
 	result = /obj/item/food/burger/crazy

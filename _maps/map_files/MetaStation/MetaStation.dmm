@@ -19888,7 +19888,7 @@
 /area/hallway/primary/central)
 "bRP" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/mint,
+/obj/item/food/mint,
 /obj/machinery/airalarm{
 	dir = 4;
 	pixel_x = -23

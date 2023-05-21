@@ -64,7 +64,7 @@
 	name = "Butter Noodles"
 	reqs = list(
 		/obj/item/food/spaghetti/boiledspaghetti = 1,
-		/obj/item/reagent_containers/food/snacks/butter = 1
+		/obj/item/food/butter = 1
 	)
 	result = /obj/item/food/spaghetti/butternoodles
 	subcategory = CAT_SPAGHETTI
@@ -74,7 +74,7 @@
 	reqs = list(
 		/obj/item/food/spaghetti/boiledspaghetti = 1,
 		/datum/reagent/consumable/eggyolk = 10,
-		/obj/item/reagent_containers/food/snacks/cheesewedge = 1
+		/obj/item/food/cheese/wedge = 1
 	)
 	result = /obj/item/food/spaghetti/kasespatzle
 	subcategory = CAT_SPAGHETTI
@@ -96,7 +96,7 @@
 		/obj/item/food/spaghetti = 1,
 		/obj/item/food/meatball = 1,
 		/obj/item/reagent_containers/food/snacks/grown/tomato = 1,
-		/obj/item/reagent_containers/food/snacks/cheesewedge = 1
+		/obj/item/food/cheese/wedge = 1
 	)
 	result = /obj/item/food/spaghetti/lasagna
 	subcategory = CAT_SPAGHETTI

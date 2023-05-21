@@ -36502,7 +36502,7 @@
 /obj/item/valentine{
 	pixel_x = 8
 	},
-/obj/item/reagent_containers/food/snacks/tinychocolate{
+/obj/item/food/bonbon{
 	pixel_x = -7
 	},
 /turf/open/floor/carpet/grimy,
@@ -40092,7 +40092,7 @@
 /area/maintenance/department/chapel/monastery)
 "iuU" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/mint,
+/obj/item/food/mint,
 /obj/structure/disposalpipe/segment,
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -68475,7 +68475,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "onW" = (
-/obj/item/reagent_containers/food/snacks/canned/beefbroth,
+/obj/item/food/canned/beefbroth,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
 "onX" = (

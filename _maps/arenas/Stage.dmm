@@ -196,7 +196,7 @@
 /area/tdome/arena)
 "G" = (
 /obj/structure/table/wood/fancy/red,
-/obj/item/reagent_containers/food/snacks/popcorn{
+/obj/item/food/popcorn{
 	pixel_y = 5
 	},
 /turf/open/floor/wood,

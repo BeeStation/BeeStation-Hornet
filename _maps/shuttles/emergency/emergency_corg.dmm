@@ -1321,9 +1321,9 @@
 /obj/item/reagent_containers/food/condiment/enzyme{
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/food/snacks/chocolatebar,
-/obj/item/reagent_containers/food/snacks/chocolatebar,
-/obj/item/reagent_containers/food/snacks/chocolatebar,
+/obj/item/food/chocolatebar,
+/obj/item/food/chocolatebar,
+/obj/item/food/chocolatebar,
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "Rb" = (

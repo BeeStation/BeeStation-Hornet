@@ -483,7 +483,7 @@
 	var/obj/item/reagent_containers/food/snacks/L
 	switch(mode)
 		if(DISPENSE_LOLLIPOP_MODE)
-			L = new /obj/item/reagent_containers/food/snacks/lollipop(T)
+			L = new /obj/item/food/lollipop(T)
 		if(DISPENSE_ICECREAM_MODE)
 			L = new /obj/item/reagent_containers/food/snacks/icecream(T)
 			var/obj/item/reagent_containers/food/snacks/icecream/I = L
@@ -589,13 +589,13 @@
 	name = "gumball"
 	desc = "Oh noes! A fast-moving gumball!"
 	icon_state = "gumball"
-	ammo_type = /obj/item/reagent_containers/food/snacks/gumball/cyborg
+	ammo_type = /obj/item/food/gumball/cyborg
 	nodamage = TRUE
 
 /obj/item/projectile/bullet/reusable/gumball/handle_drop()
 	if(!dropped)
 		var/turf/T = get_turf(src)
-		var/obj/item/reagent_containers/food/snacks/gumball/S = new ammo_type(T)
+		var/obj/item/food/gumball/S = new ammo_type(T)
 		S.color = color
 		dropped = TRUE
 
@@ -608,13 +608,13 @@
 	name = "lollipop"
 	desc = "Oh noes! A fast-moving lollipop!"
 	icon_state = "lollipop_1"
-	ammo_type = /obj/item/reagent_containers/food/snacks/lollipop/cyborg
+	ammo_type = /obj/item/food/lollipop/cyborg
 	var/color2 = rgb(0, 0, 0)
 	nodamage = TRUE
 
 /obj/item/projectile/bullet/reusable/lollipop/Initialize(mapload)
 	. = ..()
-	var/obj/item/reagent_containers/food/snacks/lollipop/S = new ammo_type(src)
+	var/obj/item/food/lollipop/S = new ammo_type(src)
 	color2 = S.headcolor
 	var/mutable_appearance/head = mutable_appearance('icons/obj/projectiles.dmi', "lollipop_2")
 	head.color = color2
@@ -623,7 +623,7 @@
 /obj/item/projectile/bullet/reusable/lollipop/handle_drop()
 	if(!dropped)
 		var/turf/T = get_turf(src)
-		var/obj/item/reagent_containers/food/snacks/lollipop/S = new ammo_type(T)
+		var/obj/item/food/lollipop/S = new ammo_type(T)
 		S.change_head_color(color2)
 		dropped = TRUE
 

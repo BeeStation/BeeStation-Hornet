@@ -77,8 +77,8 @@
 		/obj/item/reagent_containers/food/snacks/sugarcookie/spookycoffin,
 		/obj/item/food/candy_corn,
 		/obj/item/food/candy,
-		/obj/item/reagent_containers/food/snacks/candiedapple,
-		/obj/item/reagent_containers/food/snacks/chocolatebar)
+		/obj/item/food/candiedapple,
+		/obj/item/food/chocolatebar)
 	//Make some candy & put it in the list
 	type = new type
 	available_candy += type

@@ -465,3 +465,8 @@ Behavior that's still missing from this component that original food items had t
 		var/satisfaction_text = pick("burps from enjoyment.", "yaps for more!", "woofs twice.", "looks at the area where \the [parent] was.")
 		L.manual_emote(satisfaction_text)
 		qdel(parent)
+
+///Ability to feed food to puppers
+/datum/component/edible/proc/on_entered(datum/source, mob/user)
+	SIGNAL_HANDLER
+	SEND_SIGNAL(parent, COMSIG_FOOD_CROSSED, user, bitecount)

@@ -18511,7 +18511,7 @@
 /area/crew_quarters/kitchen)
 "cpA" = (
 /obj/structure/rack,
-/obj/item/reagent_containers/food/snacks/mint,
+/obj/item/food/mint,
 /obj/item/storage/box/drinkingglasses,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
@@ -40697,7 +40697,7 @@
 /area/maintenance/department/security/brig)
 "nTT" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/chocolatebar,
+/obj/item/food/chocolatebar,
 /obj/item/kitchen/fork,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,

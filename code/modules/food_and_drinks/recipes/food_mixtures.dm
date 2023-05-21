@@ -29,7 +29,7 @@
 /datum/chemical_reaction/chocolate_bar/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i in 1 to created_volume)
-		new /obj/item/reagent_containers/food/snacks/chocolatebar(location)
+		new /obj/item/food/chocolatebar(location)
 	return
 
 
@@ -42,7 +42,7 @@
 /datum/chemical_reaction/chocolate_bar2/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i in 1 to created_volume)
-		new /obj/item/reagent_containers/food/snacks/chocolatebar(location)
+		new /obj/item/food/chocolatebar(location)
 	return
 
 /datum/chemical_reaction/hot_cocoa
@@ -101,7 +101,7 @@
 /datum/chemical_reaction/cheesewheel/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i in 1 to created_volume)
-		new /obj/item/reagent_containers/food/snacks/store/cheesewheel(location)
+		new /obj/item/food/cheese/wheel(location)
 
 /datum/chemical_reaction/synthmeat
 	name = "synthmeat"

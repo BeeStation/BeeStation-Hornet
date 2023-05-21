@@ -145,10 +145,10 @@
 	lootcount = 3
 	loot = list(
 		/obj/item/food/burger/crab,
-		/obj/item/reagent_containers/food/snacks/crab_rangoon,
+		/obj/item/food/crab_rangoon,
 		/obj/item/reagent_containers/food/snacks/scotchegg,
 		/obj/item/reagent_containers/food/snacks/pancakes/chocolatechip,
-		/obj/item/reagent_containers/food/snacks/carrotfries,
+		/obj/item/food/carrotfries,
 		/obj/item/reagent_containers/food/snacks/chocolatebunny,
 		/obj/item/food/benedict,
 		/obj/item/food/cornedbeef,
@@ -156,7 +156,7 @@
 		/obj/item/food/soup/monkeysdelight,
 		/obj/item/food/soup/stew,
 		/obj/item/food/soup/hotchili,
-		/obj/item/reagent_containers/food/snacks/burrito,
+		/obj/item/food/burrito,
 		/obj/item/food/burger/fish,
 		/obj/item/food/cubancarp,
 		/obj/item/food/fishandchips,

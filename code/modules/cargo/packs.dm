@@ -2540,16 +2540,16 @@
 	max_supply = 3
 	contraband = TRUE
 	crate_type = /obj/structure/closet/crate
-	contains = list(/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+	contains = list(/obj/item/food/canned/beefbroth,
+					/obj/item/food/canned/beefbroth,
+					/obj/item/food/canned/beefbroth,
+					/obj/item/food/canned/beefbroth,
+					/obj/item/food/canned/beefbroth,
+					/obj/item/food/canned/beefbroth,
+					/obj/item/food/canned/beefbroth,
+					/obj/item/food/canned/beefbroth,
+					/obj/item/food/canned/beefbroth,
+					/obj/item/food/canned/beefbroth
 					)
 	crate_name = "Beef Broth Care"
 //////////////////////////////////////////////////////////////////////////////

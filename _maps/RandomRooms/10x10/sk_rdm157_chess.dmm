@@ -147,15 +147,15 @@
 /area/template_noop)
 "G" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/nachos{
+/obj/item/food/nachos{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/snacks/nachos{
+/obj/item/food/nachos{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/snacks/nachos{
+/obj/item/food/nachos{
 	pixel_y = -3
 	},
 /turf/open/floor/carpet/orange,

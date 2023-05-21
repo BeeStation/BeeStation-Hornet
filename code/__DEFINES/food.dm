@@ -27,6 +27,8 @@
 
 /// Food is "in a container", not in a code sense, but in a literal sense (canned foods)
 #define FOOD_IN_CONTAINER (1<<0)
+#define FOOD_CLOSED (1<<0)
+
 /// Finger food can be eaten while walking / running around
 #define FOOD_FINGER_FOOD (1<<1)
 
@@ -38,3 +40,6 @@
 #define CRAFTED_FOOD_INGREDIENT_REAGENT_MODIFIER  0.5
 
 #define IS_EDIBLE(O) (O.GetComponent(/datum/component/edible))
+
+///Food trash flags
+#define FOOD_TRASH_POPABLE (1<<0)

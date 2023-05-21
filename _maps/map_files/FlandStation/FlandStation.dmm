@@ -7928,7 +7928,7 @@
 "bYK" = (
 /mob/living/simple_animal/mouse/gray,
 /obj/structure/lattice/catwalk,
-/obj/item/reagent_containers/food/snacks/store/cheesewheel,
+/obj/item/food/cheese/wheel,
 /obj/item/food/breadslice/creamcheese,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
@@ -14887,7 +14887,7 @@
 	dir = 10
 	},
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/popcorn,
+/obj/item/food/popcorn,
 /obj/item/reagent_containers/food/drinks/bottle/vodka{
 	pixel_x = 4;
 	pixel_y = 6
@@ -25282,25 +25282,25 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "gCA" = (
-/obj/item/reagent_containers/food/snacks/canned/beans{
+/obj/item/food/canned/beans{
 	pixel_x = -5;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/snacks/canned/beans{
+/obj/item/food/canned/beans{
 	pixel_x = 2;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/snacks/canned/beans{
+/obj/item/food/canned/beans{
 	pixel_x = -2
 	},
-/obj/item/reagent_containers/food/snacks/canned/beans{
+/obj/item/food/canned/beans{
 	pixel_x = 5
 	},
-/obj/item/reagent_containers/food/snacks/canned/beans{
+/obj/item/food/canned/beans{
 	pixel_x = 1;
 	pixel_y = -3
 	},
-/obj/item/reagent_containers/food/snacks/canned/beans{
+/obj/item/food/canned/beans{
 	pixel_x = 8;
 	pixel_y = -3
 	},
@@ -40911,7 +40911,7 @@
 /obj/item/reagent_containers/food/condiment/flour{
 	pixel_x = 4
 	},
-/obj/item/reagent_containers/food/snacks/chocolatebar,
+/obj/item/food/chocolatebar,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
@@ -48805,7 +48805,7 @@
 /obj/structure/table,
 /obj/effect/turf_decal/bot,
 /obj/item/storage/box/ingredients/wildcard,
-/obj/item/reagent_containers/food/snacks/mint,
+/obj/item/food/mint,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
@@ -62748,7 +62748,7 @@
 /area/science/research)
 "qpN" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/canned/beefbroth{
+/obj/item/food/canned/beefbroth{
 	pixel_x = -4
 	},
 /obj/item/reagent_containers/food/snacks/canned/peaches{
@@ -77112,7 +77112,7 @@
 /area/teleporter)
 "tPo" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/mint{
+/obj/item/food/mint{
 	pixel_y = 9
 	},
 /obj/item/reagent_containers/food/condiment/peppermill{

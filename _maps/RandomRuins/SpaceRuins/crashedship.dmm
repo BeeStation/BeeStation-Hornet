@@ -1065,7 +1065,7 @@
 /area/awaymission/BMPship/Aft)
 "BC" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/hugemushroomslice,
+/obj/item/food/hugemushroomslice,
 /obj/item/organ/appendix,
 /obj/item/food/meat/slab,
 /obj/item/food/meat/slab/human/mutant/golem/adamantine,
@@ -1992,7 +1992,7 @@
 /turf/open/floor/plasteel,
 /area/awaymission/BMPship/Midship)
 "UV" = (
-/obj/item/reagent_containers/food/snacks/hugemushroomslice,
+/obj/item/food/hugemushroomslice,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel,
 /area/awaymission/BMPship/Midship)
@@ -2210,7 +2210,7 @@
 /turf/closed/wall/mineral/titanium/interior,
 /area/awaymission/BMPship/Fore)
 "Zj" = (
-/obj/item/reagent_containers/food/snacks/hugemushroomslice,
+/obj/item/food/hugemushroomslice,
 /turf/open/floor/plasteel,
 /area/awaymission/BMPship/Midship)
 "Zv" = (

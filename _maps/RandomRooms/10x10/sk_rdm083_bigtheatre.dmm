@@ -53,17 +53,17 @@
 /area/template_noop)
 "n" = (
 /obj/structure/chair/fancy/comfy,
-/obj/item/reagent_containers/food/snacks/popcorn,
+/obj/item/food/popcorn,
 /turf/open/floor/wood,
 /area/template_noop)
 "o" = (
 /obj/structure/chair/fancy/comfy,
-/obj/item/reagent_containers/food/snacks/popcorn,
+/obj/item/food/popcorn,
 /obj/item/reagent_containers/food/drinks/soda_cans/shamblers,
 /turf/open/floor/wood,
 /area/template_noop)
 "p" = (
-/obj/item/reagent_containers/food/snacks/popcorn,
+/obj/item/food/popcorn,
 /turf/open/floor/carpet/red,
 /area/template_noop)
 "q" = (

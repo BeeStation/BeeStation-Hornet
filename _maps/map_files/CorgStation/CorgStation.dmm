@@ -3484,7 +3484,7 @@
 "aPw" = (
 /obj/structure/table/reinforced,
 /obj/item/kitchen/knife,
-/obj/item/reagent_containers/food/snacks/chocolatebar,
+/obj/item/food/chocolatebar,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -46660,7 +46660,7 @@
 /area/maintenance/department/bridge)
 "pgJ" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/mint,
+/obj/item/food/mint,
 /obj/item/kitchen/rollingpin,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 1
@@ -50426,7 +50426,7 @@
 /area/crew_quarters/heads/hor)
 "qsX" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/mint,
+/obj/item/food/mint,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},

@@ -65730,7 +65730,7 @@
 /area/security/prison)
 "nPI" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/mint,
+/obj/item/food/mint,
 /obj/item/reagent_containers/food/condiment/enzyme{
 	pixel_x = -2;
 	pixel_y = 6
