@@ -7590,9 +7590,9 @@
 /area/quartermaster/storage)
 "aOX" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/poppy/lily,
-/obj/item/reagent_containers/food/snacks/grown/poppy/lily,
-/obj/item/reagent_containers/food/snacks/grown/poppy/lily,
+/obj/item/reagent_containers/food/snacks/grown/flower/lily,
+/obj/item/reagent_containers/food/snacks/grown/flower/lily,
+/obj/item/reagent_containers/food/snacks/grown/flower/lily,
 /obj/machinery/airalarm{
 	dir = 1;
 	pixel_y = -22

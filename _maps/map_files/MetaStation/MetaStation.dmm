@@ -42605,11 +42605,11 @@
 /area/crew_quarters/heads/hor)
 "jfQ" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
@@ -45573,19 +45573,19 @@
 /area/science/shuttledock)
 "kvS" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/poppy{
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/food/snacks/grown/poppy{
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/food/snacks/grown/poppy{
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/food/snacks/grown/poppy{
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/food/snacks/grown/poppy{
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
 	pixel_y = 2
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -45623,19 +45623,19 @@
 /obj/structure/sign/plaques/kiddie/badger{
 	pixel_y = 32
 	},
-/obj/item/reagent_containers/food/snacks/grown/poppy{
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/food/snacks/grown/poppy{
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/food/snacks/grown/poppy{
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/food/snacks/grown/poppy{
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/food/snacks/grown/poppy{
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
 	pixel_y = 2
 	},
 /obj/machinery/light/small{
@@ -70302,10 +70302,10 @@
 /obj/machinery/hydroponics/soil{
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/snacks/grown/harebell,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -71768,11 +71768,11 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/reagent_containers/food/snacks/grown/harebell,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
 /obj/machinery/button/massdriver{
 	id = "chapelgun";
 	name = "Chapel Mass Driver";
