@@ -60,3 +60,27 @@
 /obj/item/vending_refill/boozeomat
 	machine_name = "Booze-O-Mat"
 	icon_state = "refill_booze"
+
+/obj/machinery/vending/boozeomat/maint //abandoned bar on randomaints usually
+	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one. This one is kinda run down, almost forgotten down here..."
+	products = list(/obj/item/reagent_containers/food/drinks/bottle/whiskey = 1,
+			/obj/item/reagent_containers/food/drinks/bottle/absinthe = 1,
+			/obj/item/reagent_containers/food/drinks/bottle/limejuice = 1,
+			/obj/item/reagent_containers/food/drinks/bottle/cream = 1,
+			/obj/item/reagent_containers/food/drinks/soda_cans/tonic = 1,
+			/obj/item/reagent_containers/food/drinks/drinkingglass = 10,
+			/obj/item/reagent_containers/food/drinks/ice = 3,
+			/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass = 6,
+			/obj/item/reagent_containers/food/drinks/flask = 1)
+	req_access = null
+
+/obj/machinery/vending/boozeomat/captain //Captain's quarters variant
+	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one. This one has less items, yet more fit for a captain."
+	products = list(/obj/item/reagent_containers/food/drinks/bottle/rum = 1,
+					/obj/item/reagent_containers/food/drinks/bottle/wine = 1,
+					/obj/item/reagent_containers/food/drinks/ale = 1,
+					/obj/item/reagent_containers/food/drinks/drinkingglass = 6,
+					/obj/item/reagent_containers/food/drinks/ice = 1,
+					/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass = 4);
+	req_access = list(ACCESS_CAPTAIN)
+
