@@ -18,7 +18,7 @@
 
 			return null
 
-		if (check_blocking(rule.blocking_rules, executed_rules))
+		if (check_blocking(rule, rule.blocking_rules, executed_rules))
 			drafted_rules -= rule
 			if(drafted_rules.len <= 0)
 				return null
