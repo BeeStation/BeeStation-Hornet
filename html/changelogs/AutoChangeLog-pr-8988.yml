@@ -1,0 +1,12 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - rscadd: Added a tooltip to the Altar of the Gods showing that you can un/wrench
+      it with the Null Rod
+  - tweak: allowed for the Altar of the Gods to be used on any tile blessed by Holy
+      Water
+  - code_imp: Added a turf proc is_holy(), which checks if said turf is in the chapel
+      area or has the holy effect applied to it
+  - code_imp: Replaced checks for the holy effects with is_holy checks
+  - tweak: Made all holy roles be able to see blessed tiles rather than just the chaplain
+      (This means Holy Undead will be able to see them too)
