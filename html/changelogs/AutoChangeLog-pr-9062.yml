@@ -1,0 +1,4 @@
+author: PestoVerde322
+delete-after: true
+changes:
+  - bugfix: finally addressed the floating lattices not connecting to open turfs
