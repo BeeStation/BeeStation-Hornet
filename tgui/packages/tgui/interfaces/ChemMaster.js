@@ -35,8 +35,6 @@ const ChemMasterContent = (props, context) => {
     bufferContents = [],
     beakerCurrentVolume,
     beakerMaxVolume,
-    machineCurrentVolume,
-    machineMaxVolume,
     isBeakerLoaded,
     isPillBottleLoaded,
     pillBottleCurrentAmount,
@@ -86,12 +84,6 @@ const ChemMasterContent = (props, context) => {
         title="Buffer"
         buttons={(
           <>
-            <Box inline color="label" mr={2}>
-              <AnimatedNumber
-                value={machineCurrentVolume}
-                initial={0} />
-              {` / ${machineMaxVolume} units.`}
-            </Box>
             <Box inline color="label" mr={1}>
               Mode:
             </Box>

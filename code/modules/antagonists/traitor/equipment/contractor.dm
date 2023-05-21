@@ -281,7 +281,6 @@
 	minimum_range = 25
 	has_owner = TRUE
 	ignore_suit_sensor_level = TRUE
-	tracks_grand_z = TRUE
 
 /obj/item/storage/box/contractor/fulton_extraction
 	name = "Fulton Extraction Kit"

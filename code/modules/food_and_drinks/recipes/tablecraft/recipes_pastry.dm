@@ -431,16 +431,6 @@
 	result = /obj/item/reagent_containers/food/snacks/muffin/booberry
 	subcategory = CAT_PASTRY
 
-/datum/crafting_recipe/food/moffin
-	name = "Moffin"
-	reqs = list(
-		/datum/reagent/consumable/milk = 5,
-		/obj/item/reagent_containers/food/snacks/pastrybase = 1,
-		/obj/item/stack/sheet/cotton/cloth = 1,
-	)
-	result = /obj/item/reagent_containers/food/snacks/muffin/moffin
-	subcategory = CAT_PASTRY
-
 /datum/crafting_recipe/food/chawanmushi
 	name = "Chawanmushi"
 	reqs = list(
@@ -470,7 +460,7 @@
 	reqs = list(
 		/datum/reagent/consumable/eggyolk = 5,
 		/obj/item/reagent_containers/food/snacks/cheesewedge = 1,
-		/obj/item/food/bread/plain = 1
+		/obj/item/reagent_containers/food/snacks/store/bread/plain = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/khachapuri
 	subcategory = CAT_PASTRY
@@ -572,7 +562,7 @@
 		/obj/item/reagent_containers/food/snacks/pastrybase = 1,
 		/obj/item/reagent_containers/food/snacks/grown/bluecherries = 1
 	)
-	result = /obj/item/reagent_containers/food/snacks/cherrycupcake/blue
+	result = /obj/item/reagent_containers/food/snacks/bluecherrycupcake
 	subcategory = CAT_PASTRY
 
 /datum/crafting_recipe/food/honeybun

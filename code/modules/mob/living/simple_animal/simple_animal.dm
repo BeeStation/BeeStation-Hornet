@@ -107,13 +107,10 @@
 	if(!loc)
 		stack_trace("Simple animal being instantiated in nullspace")
 	update_simplemob_varspeed()
-
-/mob/living/simple_animal/ComponentInitialize()
-	. = ..()
 	if(dextrous)
 		AddComponent(/datum/component/personal_crafting)
 	if(discovery_points)
-		AddComponent(/datum/component/discoverable, discovery_points, get_discover_id = CALLBACK(src, PROC_REF(get_discovery_id)))
+		AddComponent(/datum/component/discoverable, discovery_points)
 
 /mob/living/simple_animal/Destroy()
 	GLOB.simple_animals[AIStatus] -= src
@@ -612,9 +609,6 @@
 			AIStatus = togglestatus
 		else
 			stack_trace("Something attempted to set simple animals AI to an invalid state: [togglestatus]")
-
-/mob/living/simple_animal/proc/get_discovery_id()
-	return type
 
 /mob/living/simple_animal/proc/consider_wakeup()
 	if (pulledby || shouldwakeup)

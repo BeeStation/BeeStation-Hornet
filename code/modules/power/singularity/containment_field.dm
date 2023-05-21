@@ -115,7 +115,7 @@
 		bump_field(mover)
 		return
 
-/obj/machinery/field/CanAllowThrough(atom/movable/mover, border_dir)
+/obj/machinery/field/CanAllowThrough(atom/movable/mover, turf/target)
 	. = ..()
 	if(hasShocked || isliving(mover) || ismachinery(mover) || isstructure(mover) || ismecha(mover))
 		return FALSE

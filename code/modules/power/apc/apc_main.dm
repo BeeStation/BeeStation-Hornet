@@ -117,9 +117,6 @@
 	///Reference to our remote control
 	var/obj/machinery/computer/apc_control/remote_control = null
 
-	///Represents a signel source of power alarms for this apc
-	var/datum/alarm_handler/alarm_manager
-
 	//Clockcult - Has the reward for converting an APC been given?
 	var/clock_cog_rewarded = FALSE
 	//Clockcult - The integration cog inserted inside of us
@@ -160,12 +157,28 @@
 			pixel_x = -25
 	if (building)
 		area = get_area(src)
+		clear_previous_power_alarm(src, area)
 		opened = APC_COVER_OPENED
 		operating = FALSE
 		name = "\improper [get_area_name(area, TRUE)] APC"
 		set_machine_stat(machine_stat | MAINT)
 		update_appearance()
 		addtimer(CALLBACK(src, PROC_REF(update)), 5)
+		area.poweralert(FALSE, src)
+
+/obj/machinery/power/apc/proc/clear_previous_power_alarm(obj/source, area/A)
+	var/list/areas_list = GLOB.alarms["Power"]
+	for (var/found_area in areas_list)
+		if(found_area != A.name)
+			continue
+		var/list/alarm = areas_list[found_area]
+		var/list/sources  = alarm[3]
+		for(var/origin in sources)
+			if(origin != source)//We don't want to clear our own alarm, do we
+				area.poweralert(TRUE, origin)
+				sources -= origin
+		if (sources.len == 0)
+			areas_list -= found_area
 
 /obj/machinery/power/apc/Destroy()
 	GLOB.apcs_list -= src
@@ -177,28 +190,25 @@
 		area.power_equip = FALSE
 		area.power_environ = FALSE
 		area.power_change()
-	QDEL_NULL(alarm_manager)
+		area.poweralert(FALSE, src)
 	if(occupier)
-		malfvacate(TRUE)
-	if(wires)
-		QDEL_NULL(wires)
+		malfvacate(1)
+	qdel(wires)
+	wires = null
 	if(cell)
-		QDEL_NULL(cell)
+		qdel(cell)
 	if(terminal)
 		disconnect_terminal()
-
 	. = ..()
 
 /obj/machinery/power/apc/handle_atom_del(atom/A)
 	if(A == cell)
 		cell = null
-		charging = APC_NOT_CHARGING
 		update_appearance()
 		updateUsrDialog()
 
 /obj/machinery/power/apc/Initialize(mapload)
 	. = ..()
-	alarm_manager = new(src)
 	if(!mapload)
 		return
 	has_electronics = APC_ELECTRONICS_SECURED
@@ -504,33 +514,31 @@
 		else if(longtermpower > -10)
 			longtermpower -= 2
 
-		if(cell.charge <= 0) // zero charge, turn all off
+		var/power_alert_fine = TRUE
+
+		if(cell.charge <= 0)					// zero charge, turn all off
 			equipment = autoset(equipment, 0)
 			lighting = autoset(lighting, 0)
 			environ = autoset(environ, 0)
-			alarm_manager.send_alarm(ALARM_POWER)
-
-		else if(cell.percent() < 15 && longtermpower < 0) // <15%, turn off lighting & equipment
+			power_alert_fine = FALSE
+		else if(cell.percent() < 15 && longtermpower < 0)	// <15%, turn off lighting & equipment
 			equipment = autoset(equipment, 2)
 			lighting = autoset(lighting, 2)
 			environ = autoset(environ, 1)
-			alarm_manager.send_alarm(ALARM_POWER)
-
-		else if(cell.percent() < 30 && longtermpower < 0) // <30%, turn off equipment
+			power_alert_fine = FALSE
+		else if(cell.percent() < 30 && longtermpower < 0)			// <30%, turn off equipment
 			equipment = autoset(equipment, 2)
 			lighting = autoset(lighting, 1)
 			environ = autoset(environ, 1)
-			alarm_manager.send_alarm(ALARM_POWER)
-
-		else // otherwise all can be on
+			power_alert_fine = FALSE
+		else									// otherwise all can be on
 			equipment = autoset(equipment, 1)
 			lighting = autoset(lighting, 1)
 			environ = autoset(environ, 1)
-			if(cell.percent() > 75)
-				alarm_manager.clear_alarm(ALARM_POWER)
 
 		if(integration_cog)
-			alarm_manager.clear_alarm(ALARM_POWER)
+			power_alert_fine = TRUE
+		area.poweralert(power_alert_fine, src)
 
 		// now trickle-charge the cell
 		if(chargemode && charging == APC_CHARGING && operating)
@@ -578,7 +586,7 @@
 		equipment = autoset(equipment, 0)
 		lighting = autoset(lighting, 0)
 		environ = autoset(environ, 0)
-		alarm_manager.send_alarm(ALARM_POWER)
+		area.poweralert(FALSE, src)
 
 	// update icon & area power if anything changed
 

@@ -22,17 +22,15 @@
 
 /obj/item/paper/bounty_printout/Initialize(mapload)
 	. = ..()
-	var/final_paper_text = "<h2>Nanotrasen Cargo Bounties</h2></br>"
+	info = "<h2>Nanotrasen Cargo Bounties</h2></br>"
+	update_icon()
 
 	for(var/datum/bounty/B in GLOB.bounties_list)
 		if(B.claimed)
 			continue
-		final_paper_text += "<h3>[B.name]</h3>"
-		final_paper_text += "<ul><li>Reward: [B.reward_string()]</li>"
-		final_paper_text += "<li>Completed: [B.completion_string()]</li></ul>"
-
-	add_raw_text(final_paper_text)
-	update_appearance()
+		info += "<h3>[B.name]</h3>"
+		info += "<ul><li>Reward: [B.reward_string()]</li>"
+		info += "<li>Completed: [B.completion_string()]</li></ul>"
 
 /obj/machinery/computer/bounty/ui_interact(mob/user, datum/tgui/ui)
 	if(!GLOB.bounties_list.len)

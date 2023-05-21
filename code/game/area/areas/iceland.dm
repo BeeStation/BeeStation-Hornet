@@ -4,6 +4,7 @@
 	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
 	always_unpowered = TRUE
 	requires_power = TRUE
+	poweralm = FALSE
 	power_environ = FALSE
 	power_equip = FALSE
 	power_light = FALSE

@@ -32,7 +32,7 @@
 	. = ..()
 	initialize_directions = dir
 	RefreshParts()
-	update_appearance()
+	update_icon()
 
 /obj/machinery/atmospherics/components/unary/thermomachine/proc/swap_function()
 	cooling = !cooling

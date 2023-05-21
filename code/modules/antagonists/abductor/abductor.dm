@@ -142,12 +142,8 @@
 
 /datum/team/abductor_team/New()
 	..()
-	var/static/list/left_team_names = GLOB.greek_letters.Copy() //TODO Ensure unique and actual alieny names (this is a TO-DO from 2018)
 	team_number = team_count++
-	if(length(left_team_names))
-		name = "Mothership [pick_n_take(left_team_names)]"
-	else
-		name = "No.[team_number] Mothership [pick(GLOB.greek_letters)]"
+	name = "Mothership [pick(GLOB.possible_changeling_IDs)]" //TODO Ensure unique and actual alieny names
 	add_objective(new/datum/objective/experiment)
 
 /datum/team/abductor_team/is_solo()

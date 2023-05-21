@@ -41,8 +41,6 @@
 
 	var/barometer_predictable = FALSE
 	var/next_hit_time = 0 //For barometers to know when the next storm will hit
-	/// This causes the weather to only end if forced to
-	var/perpetual = FALSE
 
 /datum/weather/New(z_levels)
 	..()
@@ -93,8 +91,7 @@
 				to_chat(player, weather_message)
 			if(weather_sound)
 				SEND_SOUND(player, sound(weather_sound))
-	if(!perpetual)
-		addtimer(CALLBACK(src, PROC_REF(wind_down)), weather_duration)
+	addtimer(CALLBACK(src, PROC_REF(wind_down)), weather_duration)
 
 /datum/weather/proc/wind_down()
 	if(stage >= WIND_DOWN_STAGE)

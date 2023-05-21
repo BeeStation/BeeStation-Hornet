@@ -32,3 +32,6 @@
 	for(var/obj/structure/cable/C in T)
 		C.deconstruct()
 	..()
+
+/obj/structure/lattice/catwalk/can_climb_through()
+	return FALSE

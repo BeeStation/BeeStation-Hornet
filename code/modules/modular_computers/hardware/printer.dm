@@ -30,16 +30,16 @@
 	if(!can_print())
 		return FALSE
 
-	var/obj/item/paper/printed_paper = new/obj/item/paper(holder.drop_location())
+	var/obj/item/paper/P = new/obj/item/paper(holder.drop_location())
 
 	// Damaged printer causes the resulting paper to be somewhat harder to read.
 	if(damage > damage_malfunction)
-		printed_paper.add_raw_text(stars(text_to_print, 100-malfunction_probability))
+		P.info = stars(text_to_print, 100-malfunction_probability)
 	else
-		printed_paper.add_raw_text(text_to_print)
+		P.info = text_to_print
 	if(paper_title)
-		printed_paper.name = paper_title
-	printed_paper.update_icon()
+		P.name = paper_title
+	P.update_icon()
 	stored_paper--
 
 	return TRUE
@@ -56,7 +56,7 @@
 		var/obj/item/paper/P = O
 		// Damaged printer causes the resulting paper to be somewhat harder to read.
 		if(do_malfunction && damage > damage_malfunction)
-			P.default_raw_text = stars(P.default_raw_text, 100-malfunction_probability)
+			P.info = stars(P.info, 100-malfunction_probability)
 			// From the stars definition:
 			//   This proc is dangerously laggy, avoid it or die
 			// Because of this, malfunction is disabled by default for this, since we might be printing big things

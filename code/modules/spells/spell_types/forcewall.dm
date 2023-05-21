@@ -30,11 +30,11 @@
 	. = ..()
 	wizard = summoner
 
-/obj/effect/forcefield/wizard/CanAllowThrough(atom/movable/mover, border_dir)
+/obj/effect/forcefield/wizard/CanAllowThrough(atom/movable/mover, turf/target)
 	. = ..()
 	if(mover == wizard)
 		return TRUE
-	if(isliving(mover))
-		var/mob/living/living_mover = mover
-		if(living_mover.anti_magic_check(major = FALSE))
+	if(ismob(mover))
+		var/mob/M = mover
+		if(M.anti_magic_check(major = FALSE))
 			return TRUE

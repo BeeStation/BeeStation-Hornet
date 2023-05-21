@@ -117,12 +117,12 @@
 	qdel(wires)
 	wires = null
 	cut_links()
-	SSair.start_processing_machine(src)
+	SSair.atmos_machinery -= src
 	return ..()
 
 /obj/machinery/advanced_airlock_controller/Initialize(mapload)
 	. = ..()
-	SSair.stop_processing_machine(src)
+	SSair.atmos_machinery += src
 	scan_on_late_init = mapload
 	if(mapload && (. != INITIALIZE_HINT_QDEL))
 		return INITIALIZE_HINT_LATELOAD

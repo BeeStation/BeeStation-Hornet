@@ -11,7 +11,7 @@
 	var/yell_mod = "yells"
 	var/exclaim_mod = "exclaims"
 	var/liked_food = JUNKFOOD | FRIED
-	var/disliked_food = GROSS | RAW | CLOTH | GORE
+	var/disliked_food = GROSS | RAW
 	var/toxic_food = TOXIC
 	var/taste_sensitivity = 15 // lower is more sensitive.
 	var/modifies_speech = FALSE
@@ -63,8 +63,8 @@
 	say_mod = "hisses"
 	taste_sensitivity = 10 // combined nose + tongue, extra sensitive
 	modifies_speech = TRUE
-	disliked_food = GRAIN | DAIRY | CLOTH | GROSS
-	liked_food = GORE | MEAT
+	disliked_food = GRAIN | DAIRY
+	liked_food = GROSS | MEAT
 
 /obj/item/organ/tongue/lizard/handle_speech(datum/source, list/speech_args)
 	var/static/regex/lizard_hiss = new("s+", "g")
@@ -90,9 +90,7 @@
 	say_mod = "buzzes"
 	taste_sensitivity = 25 // you eat vomit, this is a mercy
 	modifies_speech = TRUE
-	liked_food = GROSS | RAW | GORE // Limit how much food they actually like. They already have carte blanche on like 90% of food
-	disliked_food = NONE
-	toxic_food = NONE
+	liked_food = GROSS | MEAT | RAW | FRUIT
 
 /obj/item/organ/tongue/fly/handle_speech(datum/source, list/speech_args)
 	var/static/regex/fly_buzz = new("z+", "g")
@@ -163,7 +161,7 @@
 	say_mod = "moans"
 	modifies_speech = TRUE
 	taste_sensitivity = 32
-	liked_food = GROSS | MEAT | RAW | GORE
+	liked_food = GROSS | MEAT | RAW
 
 /obj/item/organ/tongue/zombie/handle_speech(datum/source, list/speech_args)
 	var/list/message_list = splittext(speech_args[SPEECH_MESSAGE], " ")
@@ -220,8 +218,7 @@
 	attack_verb = list("bitten", "chattered", "chomped", "enamelled", "boned")
 	taste_sensitivity = 101 // skeletons cannot taste anything
 	modifies_speech = TRUE
-	liked_food = GROSS | MEAT | RAW | GORE
-	disliked_food = NONE // why would they care
+	liked_food = GROSS | MEAT | RAW
 	toxic_food = NONE
 	var/chattering = FALSE
 	var/phomeme_type = "sans"
@@ -245,7 +242,7 @@
 	desc = "Like animated skeletons, Plasmamen vibrate their teeth in order to produce speech."
 	icon_state = "tongueplasma"
 	modifies_speech = FALSE
-	disliked_food = FRUIT | CLOTH
+	disliked_food = FRUIT
 	liked_food = VEGETABLES
 
 /obj/item/organ/tongue/robot
@@ -324,8 +321,8 @@
 	name = "cat tongue"
 	desc = "A rough tongue, full of small, boney spines all over it's surface."
 	say_mod = "meows"
-	disliked_food = GROSS | VEGETABLES | SUGAR | CLOTH
-	liked_food = DAIRY | MEAT | GORE
+	disliked_food = VEGETABLES | SUGAR
+	liked_food = DAIRY | MEAT
 
 /obj/item/organ/tongue/slime
 	name = "slimey tongue"
@@ -334,7 +331,6 @@
 	ask_mod = "inquisitively blorbles"
 	yell_mod = "shrilly blorbles"
 	exclaim_mod = "loudly blorbles"
-	liked_food = MEAT //cause slimes are mostly carnivores, however the ability to consume RAW or GORE was lost when spliced with humans
 	toxic_food = NONE
 	disliked_food = NONE
 
@@ -348,7 +344,7 @@
 	say_mod = "flutters"
 	icon_state = "tonguemoth"
 	liked_food = VEGETABLES | DAIRY | CLOTH
-	disliked_food = FRUIT | GROSS | GORE
+	disliked_food = FRUIT | GROSS
 	toxic_food = MEAT | RAW
 
 /obj/item/organ/tongue/teratoma
@@ -356,11 +352,10 @@
 	desc = "It's a tongue that looks off... Must be from a creature that shouldn't exist."
 	say_mod = "mumbles"
 	icon_state = "tonguefly"
-	disliked_food = CLOTH
-	liked_food = JUNKFOOD | FRIED | GROSS | RAW | GORE
+	liked_food = JUNKFOOD | FRIED | GROSS | RAW
 
 /obj/item/organ/tongue/podperson
 	name = "plant tongue"
 	desc = "It's an odd tongue, seemingly made of plant matter."
 	disliked_food = MEAT | DAIRY
-	liked_food = VEGETABLES | FRUIT | GRAIN | CLOTH //cannibals apparently
+	liked_food = VEGETABLES | FRUIT | GRAIN //cannibals apparently

@@ -163,9 +163,6 @@
 	if(isnull(item))
 		return FALSE
 
-	if(HAS_TRAIT(item, TRAIT_NO_STRIP))
-		return FALSE
-
 	source.visible_message(
 		"<span class='warning'>[user] tries to remove [source]'s [item.name].</span>",
 		"<span class='userdanger'>[user] tries to remove your [item.name].</span>",
@@ -383,7 +380,7 @@
 			continue
 
 		var/obj/item/item = item_data.get_item(owner)
-		if(isnull(item) || (HAS_TRAIT(item, TRAIT_NO_STRIP)))
+		if(isnull(item))
 			items[strippable_key] = result
 			continue
 

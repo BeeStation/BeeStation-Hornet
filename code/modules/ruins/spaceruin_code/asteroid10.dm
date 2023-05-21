@@ -2,7 +2,7 @@
 
 /obj/item/paper/fluff/ruins/asteroid10/welcome
 	name = "Welcome to Dog Heaven!"
-	default_raw_text = "The ambassador of Dog Heaven welcomes you to our humble retreat!"
+	info = "The ambassador of Dog Heaven welcomes you to our humble retreat!"
 
 /obj/item/reagent_containers/food/snacks/nugget/dog
 	name = "dog treat"

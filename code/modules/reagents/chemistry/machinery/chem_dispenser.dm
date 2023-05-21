@@ -297,14 +297,10 @@
 				else
 					recording_recipe[key] += dispense_amount
 			. = TRUE
-		if("delete_recipe")
-			var/recipe_name = params["recipe"]
-			if(!recipe_name || !saved_recipes[recipe_name])
-				return
-			saved_recipes -= recipe_name
-			. = TRUE
-		if("clear_all_recipes")
-			saved_recipes.Cut()
+		if("clear_recipes")
+			var/yesno = alert("Clear all recipes?",, "Yes","No")
+			if(yesno == "Yes")
+				saved_recipes = list()
 			. = TRUE
 		if("record_recipe")
 			recording_recipe = list()

@@ -138,11 +138,11 @@
 	else
 		death()
 
-/mob/living/simple_animal/hostile/swarmer/CanAllowThrough(atom/movable/mover, border_dir)
+/mob/living/simple_animal/hostile/swarmer/CanAllowThrough(atom/movable/O)
 	. = ..()
-	if(istype(mover, /obj/item/projectile/beam/disabler))//Allows for swarmers to fight as a group without wasting their shots hitting each other
+	if(istype(O, /obj/item/projectile/beam/disabler))//Allows for swarmers to fight as a group without wasting their shots hitting each other
 		return TRUE
-	else if(isswarmer(mover))
+	if(isswarmer(O))
 		return TRUE
 
 ////CTRL CLICK FOR SWARMERS AND SWARMER_ACT()'S////
@@ -643,10 +643,12 @@
 	max_integrity = 50
 	density = TRUE
 
-/obj/structure/swarmer/blockade/CanAllowThrough(atom/movable/mover, border_dir)
+/obj/structure/swarmer/blockade/CanAllowThrough(atom/movable/O)
 	. = ..()
-	if(isswarmer(mover) || istype(mover, /obj/item/projectile/beam/disabler))
-		return TRUE
+	if(isswarmer(O))
+		return 1
+	if(istype(O, /obj/item/projectile/beam/disabler))
+		return 1
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateSwarmer()
 	set name = "Replicate"

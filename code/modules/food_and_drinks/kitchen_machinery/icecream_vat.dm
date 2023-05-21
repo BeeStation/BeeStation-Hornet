@@ -167,15 +167,14 @@
 	return
 
 /obj/item/reagent_containers/food/snacks/icecream
-	name = "waffle cone"
+	name = "ice cream cone"
 	desc = "Delicious waffle cone, but no ice cream."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "icecream_cone_waffle" //default for admin-spawned cones, href_list["cone"] should overwrite this all the time
 	var/ice_creamed = 0
 	var/cone_type
 	bitesize = 3
-	foodtype = DAIRY | SUGAR
-	/*food_flags = FOOD_FINGER_FOOD*/
+	foodtype = DAIRY
 
 /obj/item/reagent_containers/food/snacks/icecream/Initialize(mapload)
 	. = ..()

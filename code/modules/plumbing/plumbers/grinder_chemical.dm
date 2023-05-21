@@ -23,11 +23,12 @@
 	. = ..()
 	eat_dir = newdir
 
-/obj/machinery/plumbing/grinder_chemical/CanAllowThrough(atom/movable/mover, border_dir)
+/obj/machinery/plumbing/grinder_chemical/CanAllowThrough(atom/movable/AM)
 	. = ..()
 	if(!anchored)
 		return
-	if(border_dir == eat_dir)
+	var/move_dir = get_dir(loc, AM.loc)
+	if(move_dir == eat_dir)
 		return TRUE
 
 /obj/machinery/plumbing/grinder_chemical/proc/on_entered(datum/source, atom/movable/AM)

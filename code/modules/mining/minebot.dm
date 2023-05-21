@@ -86,9 +86,8 @@
 
 	// Setup access
 	access_card = new /obj/item/card/id(src)
-	var/datum/job/M = SSjob.GetJob(JOB_NAME_SHAFTMINER)
+	var/datum/job/shaft_miner/M = new
 	access_card.access = M.get_access()
-
 
 /mob/living/simple_animal/hostile/mining_drone/Destroy()
 	for(var/datum/action/innate/minedrone/action in actions)
@@ -317,16 +316,16 @@
 		upgrade.onAltClick(target)
 
 /// Minebot passthrough handling (for the PKA upgrade and crushers)
-/mob/living/simple_animal/hostile/mining_drone/CanAllowThrough(atom/movable/mover, border_dir)
+/mob/living/simple_animal/hostile/mining_drone/CanAllowThrough(atom/movable/moving_atom)
 	. = ..()
-	if(istype(mover, /obj/item/projectile/kinetic))
-		var/obj/item/projectile/kinetic/kinetic_proj = mover
+	if(istype(moving_atom, /obj/item/projectile/kinetic))
+		var/obj/item/projectile/kinetic/kinetic_proj = moving_atom
 		if(kinetic_proj.kinetic_gun)
 			for(var/A as anything in kinetic_proj.kinetic_gun.get_modkits())
 				var/obj/item/borg/upgrade/modkit/modkit = A
 				if(istype(modkit, /obj/item/borg/upgrade/modkit/minebot_passthrough))
 					return TRUE
-	else if(istype(mover, /obj/item/projectile/destabilizer))
+	if(istype(moving_atom, /obj/item/projectile/destabilizer))
 		return TRUE
 
 /**********************Minebot Attack Handling**********************/

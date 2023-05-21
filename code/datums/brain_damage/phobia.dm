@@ -44,7 +44,7 @@
 
 
 /datum/brain_trauma/mild/phobia/on_clone()
-	if(CHECK_BITFIELD(trauma_flags, TRAUMA_CLONEABLE))
+	if(clonable)
 		return new type(phobia_type)
 
 /datum/brain_trauma/mild/phobia/on_gain()
@@ -259,75 +259,75 @@
 
 /datum/brain_trauma/mild/phobia/spiders
 	phobia_type = "spiders"
-	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
+	random_gain = FALSE
 
 /datum/brain_trauma/mild/phobia/space
 	phobia_type = "space"
-	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
+	random_gain = FALSE
 
 /datum/brain_trauma/mild/phobia/security
 	phobia_type = "security"
-	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
+	random_gain = FALSE
 
 /datum/brain_trauma/mild/phobia/clowns
 	phobia_type = "clowns"
-	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
+	random_gain = FALSE
 
 /datum/brain_trauma/mild/phobia/greytide
 	phobia_type = "greytide"
-	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
+	random_gain = FALSE
 
 /datum/brain_trauma/mild/phobia/lizards
 	phobia_type = "lizards"
-	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
+	random_gain = FALSE
 
 /datum/brain_trauma/mild/phobia/skeletons
 	phobia_type = "skeletons"
-	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
+	random_gain = FALSE
 
 /datum/brain_trauma/mild/phobia/snakes
 	phobia_type = "snakes"
-	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
+	random_gain = FALSE
 
 /datum/brain_trauma/mild/phobia/robots
 	phobia_type = "robots"
-	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
+	random_gain = FALSE
 
 /datum/brain_trauma/mild/phobia/doctors
 	phobia_type = "doctors"
-	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
+	random_gain = FALSE
 
 /datum/brain_trauma/mild/phobia/authority
 	phobia_type = "authority"
-	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
+	random_gain = FALSE
 
 /datum/brain_trauma/mild/phobia/supernatural
 	phobia_type = "the supernatural"
-	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
+	random_gain = FALSE
 
 /datum/brain_trauma/mild/phobia/aliens
 	phobia_type = "aliens"
-	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
+	random_gain = FALSE
 
 /datum/brain_trauma/mild/phobia/strangers
 	phobia_type = "strangers"
-	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
+	random_gain = FALSE
 
 /datum/brain_trauma/mild/phobia/birds
 	phobia_type = "birds"
-	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
+	random_gain = FALSE
 
 /datum/brain_trauma/mild/phobia/falling
 	phobia_type = "falling"
-	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
+	random_gain = FALSE
 
 /datum/brain_trauma/mild/phobia/anime
 	phobia_type = "anime"
-	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
+	random_gain = FALSE
 
 /datum/brain_trauma/mild/phobia/conspiracies
 	phobia_type = "conspiracies"
-	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
+	random_gain = FALSE
 
 #undef PHOBIA_STATE_CALM
 #undef PHOBIA_STATE_EDGY

@@ -134,7 +134,7 @@
 	if(!shock(user, 70))
 		take_damage(20, BRUTE, MELEE, 1)
 
-/obj/structure/grille/CanAllowThrough(atom/movable/mover, border_dir)
+/obj/structure/grille/CanAllowThrough(atom/movable/mover, turf/target)
 	. = ..()
 	if(!. && istype(mover, /obj/item/projectile))
 		return prob(30)

@@ -133,8 +133,7 @@ GLOBAL_LIST_EMPTY(fugitive_backstory_selection)
 
 /proc/admin_select_backstory(list/backstory_keys)
 	GLOB.fugitive_backstory_selection = backstory_keys
-	message_admins("Choosing random fugitive backstory in 20 seconds. \
+	message_admins("Choosing random fugitive backstory in 15 seconds. \
 		<a href='?_src_=holder;[HrefToken(TRUE)];backstory_select=[REF(backstory_keys)]'>SELECT MANUALLY</a>")
-	play_sound_to_all_admins('sound/effects/admin_alert.ogg')
-	sleep(20 SECONDS)
+	sleep(15 SECONDS)
 	return pick(GLOB.fugitive_backstory_selection)

@@ -222,15 +222,6 @@
 #define TRAUMA_RESILIENCE_MAGIC 4      //! Curable only with magic
 #define TRAUMA_RESILIENCE_ABSOLUTE 5   //! This is here to stay
 
-/// This trauma cannot be cured through "special" means, such as nanites or viruses.
-#define TRAUMA_SPECIAL_CURE_PROOF	(1<<0)
-/// This trauma transfers on cloning.
-#define TRAUMA_CLONEABLE			(1<<1)
-/// This trauma CANNOT be obtained randomly.
-#define TRAUMA_NOT_RANDOM			(1<<2)
-/// Default trauma flags.
-#define TRAUMA_DEFAULT_FLAGS		(TRAUMA_CLONEABLE)
-
 //Limit of traumas for each resilience tier
 #define TRAUMA_LIMIT_BASIC 3
 #define TRAUMA_LIMIT_SURGERY 2
@@ -251,7 +242,6 @@
 #define BIOWARE_NERVES "nerves"
 #define BIOWARE_CIRCULATION "circulation"
 #define BIOWARE_LIGAMENTS "ligaments"
-#define BIOWARE_CORTEX "cortex"
 
 //Health hud screws for carbon mobs
 #define SCREWYHUD_NONE 0

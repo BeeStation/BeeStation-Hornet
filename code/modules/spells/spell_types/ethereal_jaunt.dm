@@ -100,7 +100,7 @@
 	if(newLoc.flags_1 & NOJAUNT_1)
 		to_chat(user, "<span class='warning'>Some strange aura is blocking the way.</span>")
 		return
-	if (newLoc.is_holy())
+	if (locate(/obj/effect/blessing, newLoc))
 		to_chat(user, "<span class='warning'>Holy energies block your path!</span>")
 		return
 

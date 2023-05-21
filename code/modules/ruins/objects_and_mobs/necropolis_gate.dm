@@ -62,19 +62,13 @@
 /obj/structure/necropolis_gate/singularity_pull()
 	return 0
 
-/obj/structure/necropolis_gate/CanAllowThrough(atom/movable/mover, border_dir)
+/obj/structure/necropolis_gate/CanAllowThrough(atom/movable/mover, turf/target)
 	. = ..()
-	if(border_dir != dir)
+	if(!(get_dir(loc, target) == dir))
 		return TRUE
 
 /obj/structure/necropolis_gate/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
-
-	if(leaving.movement_type & PHASING)
-		return
-
-	if(leaving == src)
-		return // Let's not block ourselves.
 
 	if (direction == dir && density)
 		leaving.Bump(src)
@@ -176,7 +170,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 			return
 		user.visible_message("<span class='warning'>[user] knocks on [src]...</span>", "<span class='boldannounce'>You tentatively knock on [src]...</span>")
 		playsound(user.loc, 'sound/effects/shieldbash.ogg', 100, 1)
-		sleep(5 SECONDS)
+		sleep(50)
 	return ..()
 
 /obj/structure/necropolis_gate/legion_gate/toggle_the_gate(mob/user, legion_damaged)
@@ -307,7 +301,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	var/break_that_sucker = fall_on_cross == DESTROY_ON_CROSS
 	playsound(src, 'sound/effects/pressureplate.ogg', 50, TRUE)
 	Shake(-1, -1, 25)
-	sleep(0.5 SECONDS)
+	sleep(5)
 	if(break_that_sucker)
 		playsound(src, 'sound/effects/break_stone.ogg', 50, TRUE)
 	else

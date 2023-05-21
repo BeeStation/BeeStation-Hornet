@@ -5,7 +5,7 @@
 	gain_text = "If you see this message, make a github issue report. The trauma initialized wrong."
 	lose_text = "<span class='warning'>The voices in your head fall silent.</span>"
 	can_gain = TRUE
-	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM | TRAUMA_SPECIAL_CURE_PROOF
+	random_gain = FALSE
 	resilience = TRAUMA_RESILIENCE_SURGERY
 	var/mob/living/obsession
 	var/datum/objective/spendtime/attachedobsessedobj

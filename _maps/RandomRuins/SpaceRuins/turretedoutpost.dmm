@@ -177,7 +177,7 @@
 /area/ruin/space/has_grav/turretedoutpost)
 "ba" = (
 /obj/structure/table/wood,
-/obj/item/food/breadslice/meat,
+/obj/item/reagent_containers/food/snacks/breadslice/meat,
 /obj/machinery/light{
 	dir = 8
 	},

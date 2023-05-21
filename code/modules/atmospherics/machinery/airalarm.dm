@@ -86,8 +86,6 @@
 	var/frequency = FREQ_ATMOS_CONTROL
 	var/alarm_frequency = FREQ_ATMOS_ALARMS
 	var/datum/radio_frequency/radio_connection
-	///Represents a signel source of atmos alarms, complains to all the listeners if one of our thresholds is violated
-	var/datum/alarm_handler/alarm_manager
 
 	var/list/TLV = list( // Breathable air.
 		"pressure"					= new/datum/tlv(ONE_ATMOSPHERE * 0.8, ONE_ATMOSPHERE*  0.9, ONE_ATMOSPHERE * 1.1, ONE_ATMOSPHERE * 1.2), // kPa. Values are min2, min1, max1, max2
@@ -208,16 +206,17 @@
 	if(name == initial(name))
 		name = "[get_area_name(src)] Air Alarm"
 
-	alarm_manager = new(src)
-	update_appearance()
+	update_icon()
 
 	set_frequency(frequency)
 	GLOB.zclear_atoms += src
 
 /obj/machinery/airalarm/Destroy()
 	SSradio.remove_object(src, frequency)
-	QDEL_NULL(wires)
-	QDEL_NULL(alarm_manager)
+	qdel(wires)
+	wires = null
+	var/area/ourarea = get_area(src)
+	ourarea.atmosalert(FALSE, src)
 	GLOB.zclear_atoms -= src
 	return ..()
 
@@ -259,7 +258,7 @@
 	)
 
 	var/area/A = get_area(src)
-	data["atmos_alarm"] = !!A.active_alarms[ALARM_ATMOS]
+	data["atmos_alarm"] = A.atmosalm
 	data["fire_alarm"] = A.fire
 
 	var/turf/T = get_turf(src)
@@ -427,15 +426,17 @@
 			apply_mode(usr)
 			. = TRUE
 		if("alarm")
-			if(alarm_manager.send_alarm(ALARM_ATMOS))
+			var/area/A = get_area(src)
+			if(A.atmosalert(TRUE, src))
 				post_alert(2)
 			. = TRUE
 		if("reset")
-			if(alarm_manager.clear_alarm(ALARM_ATMOS))
+			var/area/A = get_area(src)
+			if(A.atmosalert(FALSE, src))
 				post_alert(0)
 			. = TRUE
 	if(.)
-		update_appearance()
+		update_icon()
 
 
 /obj/machinery/airalarm/proc/reset(wire)
@@ -631,8 +632,8 @@
 		icon_state = "alarmp"
 		return
 
-	var/area/our_area = get_area(src)
-	switch(max(danger_level, !!our_area.active_alarms[ALARM_ATMOS]))
+	var/area/A = get_area(src)
+	switch(max(danger_level, A.atmosalm))
 		if(0)
 			icon_state = "alarm0"
 		if(1)
@@ -706,16 +707,10 @@
 	for(var/obj/machinery/airalarm/AA in A)
 		if (!(AA.machine_stat & (NOPOWER|BROKEN)) && !AA.shorted)
 			new_area_danger_level = clamp(max(new_area_danger_level, AA.danger_level), 0, 1)
-
-	var/did_anything_happen
-	if(new_area_danger_level)
-		did_anything_happen = alarm_manager.send_alarm(ALARM_ATMOS)
-	else
-		did_anything_happen = alarm_manager.clear_alarm(ALARM_ATMOS)
-	if(did_anything_happen) //if something actually changed
+	if(A.atmosalert(new_area_danger_level,src)) //if area was in normal state or if area was in alert state
 		post_alert(new_area_danger_level)
 
-	update_appearance()
+	update_icon()
 
 /obj/machinery/airalarm/attackby(obj/item/W, mob/user, params)
 	switch(buildstage)

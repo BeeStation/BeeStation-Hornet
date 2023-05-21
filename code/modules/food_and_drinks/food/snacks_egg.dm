@@ -10,8 +10,6 @@
 	filling_color = "#A0522D"
 	tastes = list("chocolate" = 4, "sweetness" = 1)
 	foodtype = JUNKFOOD | SUGAR
-	/*food_flags = FOOD_FINGER_FOOD*/
-	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/reagent_containers/food/snacks/egg
 	name = "egg"
@@ -20,8 +18,7 @@
 	list_reagents = list(/datum/reagent/consumable/eggyolk = 5)
 	cooked_type = /obj/item/reagent_containers/food/snacks/boiledegg
 	filling_color = "#F0E68C"
-	foodtype = MEAT | RAW
-	w_class = WEIGHT_CLASS_TINY
+	foodtype = MEAT
 	grind_results = list()
 
 /obj/item/reagent_containers/food/snacks/egg/gland
@@ -99,8 +96,6 @@
 	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("egg" = 1)
 	foodtype = MEAT | BREAKFAST
-	/*food_flags = FOOD_FINGER_FOOD*/
-	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/reagent_containers/food/snacks/omelette	//FUCK THIS
 	name = "omelette du fromage"

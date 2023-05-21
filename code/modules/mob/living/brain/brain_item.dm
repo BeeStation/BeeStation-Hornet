@@ -190,12 +190,10 @@
 	if(damage > BRAIN_DAMAGE_MILD)
 		if(prob(damage_delta * (1 + max(0, (damage - BRAIN_DAMAGE_MILD)/100)))) //Base chance is the hit damage; for every point of damage past the threshold the chance is increased by 1% //learn how to do your bloody math properly goddamnit
 			gain_trauma_type(BRAIN_TRAUMA_MILD)
-
-	var/is_boosted = (owner && HAS_TRAIT(owner, TRAIT_SPECIAL_TRAUMA_BOOST))
 	if(damage > BRAIN_DAMAGE_SEVERE)
 		if(prob(damage_delta * (1 + max(0, (damage - BRAIN_DAMAGE_SEVERE)/100)))) //Base chance is the hit damage; for every point of damage past the threshold the chance is increased by 1%
-			if(prob(20 + (is_boosted * 30)))
-				gain_trauma_type(BRAIN_TRAUMA_SPECIAL, is_boosted ? TRAUMA_RESILIENCE_SURGERY : null)
+			if(prob(20))
+				gain_trauma_type(BRAIN_TRAUMA_SPECIAL)
 			else
 				gain_trauma_type(BRAIN_TRAUMA_SEVERE)
 
@@ -249,28 +247,18 @@
 
 ////////////////////////////////////TRAUMAS////////////////////////////////////////
 
-/obj/item/organ/brain/proc/has_trauma_type(brain_trauma_type = /datum/brain_trauma, resilience = TRAUMA_RESILIENCE_ABSOLUTE, special_method = FALSE)
+/obj/item/organ/brain/proc/has_trauma_type(brain_trauma_type = /datum/brain_trauma, resilience = TRAUMA_RESILIENCE_ABSOLUTE)
 	for(var/X in traumas)
 		var/datum/brain_trauma/BT = X
-		if(!istype(BT, brain_trauma_type))
-			continue
-		if(special_method && CHECK_BITFIELD(BT.trauma_flags, TRAUMA_SPECIAL_CURE_PROOF))
-			continue
-		if(BT.resilience > resilience)
-			continue
-		. += BT
+		if(istype(BT, brain_trauma_type) && (BT.resilience <= resilience))
+			return BT
 
-/obj/item/organ/brain/proc/get_traumas_type(brain_trauma_type = /datum/brain_trauma, resilience = TRAUMA_RESILIENCE_ABSOLUTE, special_method = FALSE)
+/obj/item/organ/brain/proc/get_traumas_type(brain_trauma_type = /datum/brain_trauma, resilience = TRAUMA_RESILIENCE_ABSOLUTE)
 	. = list()
 	for(var/X in traumas)
 		var/datum/brain_trauma/BT = X
-		if(!istype(BT, brain_trauma_type))
-			continue
-		if(special_method && CHECK_BITFIELD(BT.trauma_flags, TRAUMA_SPECIAL_CURE_PROOF))
-			continue
-		if(BT.resilience > resilience)
-			continue
-		. += BT
+		if(istype(BT, brain_trauma_type) && (BT.resilience <= resilience))
+			. += BT
 
 /obj/item/organ/brain/proc/can_gain_trauma(datum/brain_trauma/trauma, resilience)
 	if(!ispath(trauma))
@@ -348,7 +336,7 @@
 	var/list/datum/brain_trauma/possible_traumas = list()
 	for(var/T in subtypesof(brain_trauma_type))
 		var/datum/brain_trauma/BT = T
-		if(can_gain_trauma(BT, resilience) && !CHECK_BITFIELD(initial(BT.trauma_flags), TRAUMA_NOT_RANDOM))
+		if(can_gain_trauma(BT, resilience) && initial(BT.random_gain))
 			possible_traumas += BT
 
 	if(!LAZYLEN(possible_traumas))
@@ -358,13 +346,13 @@
 	gain_trauma(trauma_type, resilience)
 
 //Cure a random trauma of a certain resilience level
-/obj/item/organ/brain/proc/cure_trauma_type(brain_trauma_type = /datum/brain_trauma, resilience = TRAUMA_RESILIENCE_BASIC, special_method = FALSE)
-	var/list/traumas = get_traumas_type(brain_trauma_type, resilience, special_method)
+/obj/item/organ/brain/proc/cure_trauma_type(brain_trauma_type = /datum/brain_trauma, resilience = TRAUMA_RESILIENCE_BASIC)
+	var/list/traumas = get_traumas_type(brain_trauma_type, resilience)
 	if(LAZYLEN(traumas))
 		qdel(pick(traumas))
 
-/obj/item/organ/brain/proc/cure_all_traumas(resilience = TRAUMA_RESILIENCE_BASIC, special_method = FALSE)
-	var/list/traumas = get_traumas_type(resilience = resilience, special_method = special_method)
+/obj/item/organ/brain/proc/cure_all_traumas(resilience = TRAUMA_RESILIENCE_BASIC)
+	var/list/traumas = get_traumas_type(resilience = resilience)
 	for(var/X in traumas)
 		qdel(X)
 

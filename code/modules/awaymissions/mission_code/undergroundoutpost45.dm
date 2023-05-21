@@ -36,3 +36,4 @@
 	power_environ = FALSE
 	power_equip = FALSE
 	power_light = FALSE
+	poweralm = FALSE

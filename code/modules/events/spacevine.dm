@@ -574,7 +574,7 @@
 	if(!override)
 		qdel(src)
 
-/obj/structure/spacevine/CanAllowThrough(atom/movable/mover, border_dir)
+/obj/structure/spacevine/CanAllowThrough(atom/movable/mover, turf/target)
 	. = ..()
 	if(isvineimmune(mover))
 		return TRUE

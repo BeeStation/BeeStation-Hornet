@@ -6,12 +6,11 @@
 	var/coverage_goal = 500
 
 /datum/station_goal/station_shield/get_report()
-	return list(
-		"<blockquote>The station is located in a zone full of space debris.",
-		"We have a prototype shielding system you must deploy to reduce collision-related accidents.",
-		"",
-		"You can order the satellites and control systems at cargo.</blockquote>",
-	).Join("\n")
+	return {"The station is located in a zone full of space debris.
+			 We have a prototype shielding system you must deploy to reduce collision-related accidents.
+
+			 You can order the satellites and control systems at cargo.
+			 "}
 
 /datum/station_goal/station_shield/check_completion()
 	if(..())

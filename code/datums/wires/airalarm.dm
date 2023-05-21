@@ -53,7 +53,8 @@
 					A.mode = 1 // AALARM_MODE_SCRUB
 				A.apply_mode(usr)
 		if(WIRE_ALARM) // Clear alarms.
-			if(A.alarm_manager.clear_alarm(ALARM_ATMOS))
+			var/area/AA = get_area(A)
+			if(AA.atmosalert(FALSE, holder))
 				A.post_alert(0)
 			A.update_icon()
 
@@ -74,6 +75,7 @@
 				A.mode = 3 // AALARM_MODE_PANIC
 				A.apply_mode(usr)
 		if(WIRE_ALARM) // Post alarm.
-			if(A.alarm_manager.send_alarm(ALARM_ATMOS))
+			var/area/AA = get_area(A)
+			if(AA.atmosalert(TRUE, holder))
 				A.post_alert(2)
 			A.update_icon()

@@ -235,13 +235,13 @@
 		var/bz_pp = PP(breath, GAS_BZ)
 		if(bz_pp > BZ_brain_damage_min)
 			H.hallucination += 10
-			H.reagents.add_reagent(/datum/reagent/metabolite/bz,5)
+			H.reagents.add_reagent(/datum/reagent/bz_metabolites,5)
 			if(prob(33))
 				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3, 150)
 
 		else if(bz_pp > BZ_trip_balls_min)
 			H.hallucination += 5
-			H.reagents.add_reagent(/datum/reagent/metabolite/bz,1)
+			H.reagents.add_reagent(/datum/reagent/bz_metabolites,1)
 
 	// Nitryl
 		var/nitryl_pp = PP(breath,GAS_NITRYL)
@@ -379,15 +379,5 @@
 	icon_state = "lungs"
 	safe_breath_min = 8
 
-/obj/item/organ/lungs/ashwalker
-	name = "ash walker lungs"
-	desc = "Lungs belonging to the tribal group of lizardmen that have adapted to Lavaland's atmosphere, and thus can breathe its air safely but find the station's \
-	air to be oversaturated with oxygen."
-	safe_breath_min = 4
-	safe_breath_max = 20
-	gas_max = list(
-		GAS_CO2 = 45,
-		GAS_PLASMA = MOLES_GAS_VISIBLE
-	)
 #undef PP
 #undef PP_MOLES

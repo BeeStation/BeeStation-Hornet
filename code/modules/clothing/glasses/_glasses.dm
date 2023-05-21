@@ -253,12 +253,7 @@
 
 /obj/item/clothing/glasses/sunglasses/advanced/reagent/dropped(mob/user)
 	..()
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(H.glasses != src)
-			return
-		else
-			REMOVE_TRAIT(user, TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
+	REMOVE_TRAIT(user, TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
 
 /obj/item/clothing/glasses/sunglasses/advanced/garb
 	name = "black gar glasses"
