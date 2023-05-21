@@ -26,8 +26,3 @@
 	machine_name = "NanoMed"
 	icon_state = "refill_medical"
 
-/obj/machinery/vending/wallmed/pubby
-	products = list(/obj/item/reagent_containers/syringe = 3,
-					/obj/item/reagent_containers/pill/patch/styptic = 1,
-					/obj/item/reagent_containers/pill/patch/silver_sulf = 1,
-					/obj/item/reagent_containers/medspray/sterilizine = 1)
