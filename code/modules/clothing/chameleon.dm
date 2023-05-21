@@ -103,8 +103,13 @@
 	var/datum/outfit/O = new outfit_type()
 	var/list/outfit_types = O.get_chameleon_disguise_info()
 
-	for(var/V in user.chameleon_item_actions)
-		var/datum/action/item_action/chameleon/change/A = V
+	var/obj/item/card/id/syndicate/chamel_card // this is awful but this hardcoding is better than adding `obj/proc/get_chameleon_variable()` for every chalemon item
+	for(var/datum/action/item_action/chameleon/change/A in user.chameleon_item_actions)
+		if(istype(A.target, /obj/item/modular_computer))
+			var/obj/item/modular_computer/comp = A.target
+			if(istype(comp.GetID(), /obj/item/card/id/syndicate))
+				chamel_card = comp.GetID()
+
 		var/done = FALSE
 		for(var/T in outfit_types)
 			for(var/name in A.chameleon_list)
@@ -115,6 +120,20 @@
 					break
 			if(done)
 				break
+
+	if(chamel_card) // changes chameleon card inside of PDA
+		var/datum/action/item_action/chameleon/change/A = chamel_card.chameleon_action
+		var/done = FALSE
+		for(var/T in outfit_types)
+			for(var/name in A.chameleon_list)
+				if(A.chameleon_list[name] == T)
+					A.update_look(user, T)
+					outfit_types -= T
+					done = TRUE
+					break
+			if(done)
+				break
+
 	//hardsuit helmets/suit hoods
 	if(O.toggle_helmet && (ispath(O.suit, /obj/item/clothing/suit/space/hardsuit) || ispath(O.suit, /obj/item/clothing/suit/hooded)) && ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -201,31 +220,19 @@
 
 	else
 		update_item(picked_item, emp=TRUE)
-		if(ispath(picked_item, /obj/item/card/id))
-			var/mob/living/carbon/human/H = user
-			H?.sec_hud_set_ID()
 
 /datum/action/item_action/chameleon/change/proc/update_look(mob/user, obj/item/picked_item, emp=FALSE)
 	if(isliving(user))
 		var/mob/living/C = user
 		if(C.stat != CONSCIOUS)
 			return
-
-		update_item(picked_item, emp)
-		if(ispath(picked_item, /obj/item/card/id))
-			var/mob/living/carbon/human/H = user
-			H?.sec_hud_set_ID()
-		if(istype(target, /obj/item/modular_computer/tablet/pda))
-			var/mob/living/carbon/human/H = user
-			H?.sec_hud_set_ID()
-			var/obj/item/modular_computer/tablet/pda/PDA = target
-			PDA.update_id_display()
+		update_item(picked_item, emp=emp, item_holder=user)
 
 		var/obj/item/thing = target
 		thing.update_slot_icon()
 	UpdateButtonIcon()
 
-/datum/action/item_action/chameleon/change/proc/update_item(obj/item/picked_item, emp=FALSE)
+/datum/action/item_action/chameleon/change/proc/update_item(obj/item/picked_item, emp=FALSE, mob/item_holder=null)
 	var/keepname = FALSE
 	if(isitem(target))
 		var/obj/item/clothing/I = target
@@ -265,12 +272,50 @@
 							ID.update_label()
 			else
 				keepname = TRUE
-				ID.assignment = initial(ID_from.assignment) ? initial(ID_from.assignment) : "Unknown"
+				ID.assignment = initial(ID_from.assignment) || "Unknown"
 				ID.update_label()
+
+			// we're going to find a PDA that this ID card is inserted into, then force-update PDA
+			var/atom/current_holder = target.loc
+			if(istype(current_holder, /obj/item/computer_hardware/card_slot))
+				current_holder = current_holder.loc
+				if(istype(current_holder, /obj/item/modular_computer))
+					var/obj/item/modular_computer/comp = current_holder
+					if(comp)
+						comp.saved_identification = ID.registered_name
+						comp.saved_job = ID.assignment
+						comp.update_id_display()
+
+			update_mob_hud(item_holder)
+		if(istype(target, /obj/item/modular_computer))
+			var/obj/item/modular_computer/comp = target
+			var/obj/item/card/id/id = comp.GetID()
+			if(id)
+				comp.saved_identification = id.registered_name
+				comp.saved_job = id.assignment
+				comp.update_id_display()
+			keepname = TRUE // do not change PDA name unnecesarily
+			update_mob_hud(item_holder)
 	if(!keepname)
 		target.name = initial(picked_item.name)
 	target.desc = initial(picked_item.desc)
 	target.icon_state = initial(picked_item.icon_state)
+
+/datum/action/item_action/chameleon/change/proc/update_mob_hud(atom/card_holder)
+	// we're going to find a human, and store human ref to 'card_holder' by checking loc multiple time.
+	if(!ishuman(card_holder))
+		if(!card_holder)
+			card_holder = target.loc
+		if(istype(card_holder, /obj/item/storage/wallet))
+			card_holder = card_holder.loc // this should be human
+		if(istype(card_holder, /obj/item/computer_hardware/card_slot))
+			card_holder = card_holder.loc
+			if(istype(card_holder, /obj/item/modular_computer/tablet))
+				card_holder = card_holder.loc // tihs should be human
+	if(!ishuman(card_holder))
+		return
+	var/mob/living/carbon/human/card_holding_human = card_holder
+	card_holding_human.sec_hud_set_ID()
 
 /datum/action/item_action/chameleon/change/Trigger()
 	if(!IsAvailable())
