@@ -23957,6 +23957,11 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
+"gkw" = (
+/obj/structure/grille,
+/obj/structure/lattice,
+/turf/open/space/basic,
+/area/space/nearstation)
 "gkE" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -149307,8 +149312,8 @@ wXD
 nnx
 csJ
 csJ
-cZO
-cZO
+gkw
+gkw
 nnx
 nnx
 nnx
@@ -149565,7 +149570,7 @@ nnx
 csJ
 nnx
 nnx
-cZO
+gkw
 nnx
 nnx
 nnx
@@ -150079,7 +150084,7 @@ nnx
 csJ
 nnx
 nnx
-cZO
+gkw
 nnx
 nnx
 nnx
@@ -150335,8 +150340,8 @@ wXD
 nnx
 csJ
 csJ
-cZO
-cZO
+gkw
+gkw
 nnx
 nnx
 nnx
