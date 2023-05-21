@@ -1,8 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - tweak: Increased the time window for cancelling/changing random events and midround
-      injections from 10 to 30 seconds
-  - soundadd: Added a new sound - adminalert.ogg
-  - admin: Added a new preference for hearing admin alert sounds
-  - admin: Added a sound for the 'x event happening in y seconds' chat message
