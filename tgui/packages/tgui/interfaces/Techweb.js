@@ -714,7 +714,7 @@ const TechNodeDetail = (props, context) => {
 const DesignTooltip = (props, _context) => {
   const { design } = props;
   return (
-    <Flex direction="column" className={"Techweb__DesignTooltip"}>
+    <Flex direction="column">
       <Flex.Item>
         <b>{design.name}</b>
       </Flex.Item>
