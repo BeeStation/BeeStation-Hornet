@@ -6563,6 +6563,22 @@
 "ceE" = (
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
+"ceN" = (
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted,
+/obj/structure/table/glass,
+/obj/item/paper_bin{
+	pixel_x = 5;
+	pixel_y = 4
+	},
+/obj/item/folder/white{
+	pixel_x = -9
+	},
+/obj/item/folder/white{
+	pixel_x = -8;
+	pixel_y = 6
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/office)
 "ceW" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -7474,6 +7490,28 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/engine/engine_room)
+"ctC" = (
+/obj/structure/table,
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_x = 1;
+	pixel_y = -35
+	},
+/obj/item/clipboard{
+	pixel_x = -4;
+	pixel_y = 3
+	},
+/obj/item/folder/white,
+/obj/item/reagent_containers/glass/mortar{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/pestle{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/medical/virology)
 "ctR" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/oxygen_input{
 	dir = 4
@@ -15857,20 +15895,6 @@
 /obj/effect/landmark/start/cargo_technician,
 /turf/open/floor/plasteel/sepia,
 /area/quartermaster/storage)
-"fcT" = (
-/obj/effect/turf_decal/tile/blue/opposingcorners{
-	dir = 1
-	},
-/obj/structure/table/glass,
-/obj/item/gun/syringe/rapidsyringe{
-	pixel_y = 7
-	},
-/obj/item/toy/figure/cmo{
-	pixel_x = 6;
-	pixel_y = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/crew_quarters/heads/cmo)
 "fdb" = (
 /obj/effect/spawner/lootdrop/glowstick/lit,
 /obj/structure/cable/yellow{
@@ -19203,6 +19227,34 @@
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
+"gfq" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "geneticsdesk";
+	name = "Genetics Desk Shutters"
+	},
+/obj/machinery/door/firedoor,
+/obj/item/storage/box/monkeycubes{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/storage/pill_bottle/mannitol{
+	pixel_x = 11;
+	pixel_y = 5
+	},
+/obj/item/storage/pill_bottle/mutadone{
+	pixel_x = 9;
+	pixel_y = -1
+	},
+/obj/item/stack/cable_coil,
+/obj/machinery/door/window/westright{
+	dir = 1;
+	name = "Genetics Desk";
+	req_access_txt = "9"
+	},
+/obj/item/folder/white,
+/turf/open/floor/plasteel,
+/area/medical/genetics)
 "gfx" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/siding/wideplating/dark{
@@ -20301,6 +20353,14 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/theatre)
+"gAB" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/item/pen{
+	pixel_x = -27;
+	pixel_y = 6
+	},
+/turf/open/floor/plating,
+/area/medical/office)
 "gAU" = (
 /obj/machinery/vendor/mining,
 /obj/machinery/light{
@@ -20511,6 +20571,15 @@
 	},
 /turf/open/floor/plasteel/dark/side,
 /area/hallway/secondary/exit/departure_lounge)
+"gGe" = (
+/obj/machinery/suit_storage_unit/mining/eva,
+/obj/effect/turf_decal/delivery/red,
+/obj/machinery/airalarm/directional/north,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/miningdock)
 "gGk" = (
 /obj/structure/window/reinforced{
 	dir = 1;
@@ -21753,33 +21822,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
-"gXy" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "geneticsdesk";
-	name = "Genetics Desk Shutters"
-	},
-/obj/machinery/door/firedoor,
-/obj/item/storage/box/monkeycubes{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/storage/pill_bottle/mannitol{
-	pixel_x = 11;
-	pixel_y = 5
-	},
-/obj/item/storage/pill_bottle/mutadone{
-	pixel_x = 9;
-	pixel_y = -1
-	},
-/obj/item/stack/cable_coil,
-/obj/machinery/door/window/westright{
-	dir = 1;
-	name = "Genetics Desk";
-	req_access_txt = "9"
-	},
-/turf/open/floor/plasteel,
-/area/medical/genetics)
 "gXB" = (
 /obj/structure/chair/fancy/comfy{
 	buildstackamount = 0;
@@ -22365,6 +22407,21 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/engine/engine_room)
+"hhQ" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/obj/structure/table/glass,
+/obj/item/gun/syringe/rapidsyringe{
+	pixel_y = 7
+	},
+/obj/item/toy/figure/cmo{
+	pixel_x = 6;
+	pixel_y = 1
+	},
+/obj/item/folder/white,
+/turf/open/floor/plasteel/white,
+/area/crew_quarters/heads/cmo)
 "hhV" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	id_tag = "commissarydoor";
@@ -30759,14 +30816,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel,
 /area/engine/engine_room)
-"kdU" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/item/pen{
-	pixel_x = -32;
-	pixel_y = 1
-	},
-/turf/open/floor/plating,
-/area/medical/office)
 "keE" = (
 /obj/machinery/door/poddoor/shutters{
 	id = "explo_prep";
@@ -35936,6 +35985,26 @@
 	},
 /turf/open/floor/plasteel,
 /area/medical/surgery)
+"lTd" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/northleft{
+	dir = 2;
+	name = "Chemistry Desk";
+	req_one_access_txt = "5;33"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "chemistry_shutters";
+	name = "chemistry shutters"
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/obj/item/folder/white,
+/obj/item/folder/white{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/turf/open/floor/plating,
+/area/medical/apothecary)
 "lTg" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -52702,17 +52771,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/qm)
-"rHX" = (
-/obj/structure/table,
-/obj/item/reagent_containers/glass/mortar,
-/obj/item/pestle,
-/obj/item/radio/intercom{
-	dir = 1;
-	pixel_x = 1;
-	pixel_y = -35
-	},
-/turf/open/floor/plasteel/grid/steel,
-/area/medical/virology)
 "rId" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -71005,13 +71063,6 @@
 /obj/machinery/firealarm/directional/north,
 /turf/open/floor/plasteel/grid/steel,
 /area/science/xenobiology)
-"xAt" = (
-/obj/machinery/light,
-/obj/machinery/suit_storage_unit/mining/eva,
-/obj/effect/turf_decal/delivery/red,
-/obj/machinery/airalarm/directional/north,
-/turf/open/floor/plasteel,
-/area/quartermaster/miningdock)
 "xAz" = (
 /obj/machinery/portable_atmospherics/pump,
 /turf/open/floor/plating,
@@ -72018,13 +72069,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/carpet/purple,
 /area/chapel/main)
-"xTz" = (
-/obj/effect/turf_decal/tile/blue/anticorner/contrasted,
-/obj/structure/table/glass,
-/obj/item/paper_bin,
-/obj/item/folder/white,
-/turf/open/floor/plasteel/white,
-/area/medical/office)
 "xTR" = (
 /obj/effect/turf_decal/guideline/guideline_in/darkblue{
 	dir = 8
@@ -72108,22 +72152,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
-"xVn" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/northleft{
-	dir = 2;
-	name = "Chemistry Desk";
-	req_one_access_txt = "5;33"
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "chemistry_shutters";
-	name = "chemistry shutters"
-	},
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
-/obj/item/folder/white,
-/turf/open/floor/plating,
-/area/medical/apothecary)
 "xVo" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -94277,7 +94305,7 @@ blr
 blr
 kJT
 krB
-xAt
+gGe
 kSY
 fYn
 kIo
@@ -106891,7 +106919,7 @@ kZE
 kfv
 vpR
 vUa
-xVn
+lTd
 gmX
 nof
 dcG
@@ -108167,7 +108195,7 @@ rtY
 rgs
 fxR
 mHQ
-xTz
+ceN
 mjM
 uaR
 ijk
@@ -108424,7 +108452,7 @@ vRP
 vRP
 vRP
 pQC
-kdU
+gAB
 fxR
 lmw
 lmw
@@ -109976,7 +110004,7 @@ bQA
 rnL
 req
 kFj
-gXy
+gfq
 mya
 uiZ
 hKy
@@ -112022,7 +112050,7 @@ kCq
 lph
 uav
 dqd
-fcT
+hhQ
 unB
 tVW
 aaM
@@ -115635,7 +115663,7 @@ hzd
 hfq
 hzd
 jsg
-rHX
+ctC
 tfq
 cYI
 cYI
