@@ -109,9 +109,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery,
-/obj/machinery/mineral/processing_unit_console{
-	pixel_x = 30
-	},
 /turf/open/floor/noslip/standard,
 /area/mine/laborcamp)
 "aT" = (
@@ -1188,6 +1185,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/storage)
+"ij" = (
+/obj/machinery/mineral/processing_unit_console,
+/turf/closed/wall,
+/area/mine/laborcamp)
 "im" = (
 /turf/open/floor/plasteel,
 /area/mine/science)
@@ -31905,7 +31906,7 @@ np
 DF
 aw
 rw
-rw
+ij
 rw
 wB
 rw

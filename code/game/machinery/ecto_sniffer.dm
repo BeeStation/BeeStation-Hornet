@@ -13,10 +13,19 @@
 	var/sensor_enabled = TRUE
 	///List of ckeys containing players who have recently activated the device, players on this list are prohibited from activating the device until their residue decays.
 	var/list/ectoplasmic_residues = list()
+	///Internal radio
+	var/obj/item/radio/radio
+	///Cooldown for radio, prevents spam
+	COOLDOWN_DECLARE(radio_cooldown)
 
 /obj/machinery/ecto_sniffer/Initialize()
 	. = ..()
 	wires = new/datum/wires/ecto_sniffer(src)
+	radio = new(src)
+	radio.keyslot = new /obj/item/encryptionkey/headset_sci
+	radio.subspace_transmission = TRUE
+	radio.canhear_range = 0
+	radio.recalculateChannels()
 
 /obj/machinery/ecto_sniffer/attack_ghost(mob/user)
 	if(!on || !sensor_enabled || !is_operational)
@@ -29,12 +38,19 @@
 	if(is_banned_from(user.ckey, ROLE_POSIBRAIN))
 		to_chat(user, "<span class='warning'>Central Command outlawed your soul from interacting with the living...</span>")
 		return
+
 	activate(user)
 
 /obj/machinery/ecto_sniffer/proc/activate(mob/activator)
 	flick("ecto_sniffer_flick", src)
 	playsound(loc, 'sound/machines/ectoscope_beep.ogg', 25)
-	visible_message("<span class='notice'>[src] beeps, detecting ectoplasm! There may be additional positronic brain matrixes available!</span>")
+
+	if(COOLDOWN_FINISHED(src, radio_cooldown))
+		COOLDOWN_START(src, radio_cooldown, 3 MINUTES)
+		radio.talk_into(src, "Ectoplasm has been detected! There may be additional positronic brain matrices available!", RADIO_CHANNEL_SCIENCE)
+	else
+		visible_message("<span class='notice'>[src] has detected ectoplasm! There may be additional positronic brain matrices available!</span>")
+
 	use_power(10)
 	if(activator?.ckey)
 		ectoplasmic_residues[activator.ckey] = TRUE
@@ -72,6 +88,7 @@
 
 /obj/machinery/ecto_sniffer/Destroy()
 	QDEL_NULL(wires)
+	QDEL_NULL(radio)
 	ectoplasmic_residues = null
 	. = ..()
 

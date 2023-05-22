@@ -39,8 +39,8 @@ const TARGET_SPECIES_LIST = [
     value: 'moth',
   },
   {
-    name: 'Jellyperson',
-    value: 'jelly',
+    name: 'Oozeling',
+    value: 'ooze',
   },
   {
     name: 'Podperson',

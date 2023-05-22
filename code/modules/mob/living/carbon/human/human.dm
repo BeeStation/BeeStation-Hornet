@@ -110,14 +110,11 @@
 
 /mob/living/carbon/human/get_stat_tab_status()
 	var/list/tab_data = ..()
-
-	if (internal)
-		if (!internal.air_contents)
-			qdel(internal)
-		else
-			tab_data["Internal Atmosphere Info"] = GENERATE_STAT_TEXT("[internal.name]")
-			tab_data["Tank Pressure"] = GENERATE_STAT_TEXT("[internal.air_contents.return_pressure()]")
-			tab_data["Distribution Pressure"] = GENERATE_STAT_TEXT("[internal.distribute_pressure]")
+	var/obj/item/tank/target_tank = internal || external
+	if(target_tank)
+		tab_data["Internal Atmosphere Info"] = GENERATE_STAT_TEXT("[target_tank.name]")
+		tab_data["Tank Pressure"] = GENERATE_STAT_TEXT("[target_tank.air_contents.return_pressure()]")
+		tab_data["Distribution Pressure"] = GENERATE_STAT_TEXT("[target_tank.distribute_pressure]")
 
 	if(mind)
 		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
@@ -636,6 +633,9 @@
 	remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, "#000000")
 	cut_overlay(MA)
 
+/mob/living/carbon/human/can_interact_with(atom/A, treat_mob_as_adjacent)
+	return ..() || (dna.check_mutation(TK) && tkMaxRangeCheck(src, A))
+
 /mob/living/carbon/human/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
 	if(!(mobility_flags & MOBILITY_UI))
 		to_chat(src, "<span class='warning'>You can't do that right now!</span>")
@@ -769,6 +769,7 @@
 	VV_DROPDOWN_OPTION(VV_HK_MAKE_ALIEN, "Make Alien")
 	VV_DROPDOWN_OPTION(VV_HK_SET_SPECIES, "Set Species")
 	VV_DROPDOWN_OPTION(VV_HK_PURRBATION, "Toggle Purrbation")
+	VV_DROPDOWN_OPTION(VV_HK_RANDOM_NAME, "Randomize Name")
 
 /mob/living/carbon/human/vv_do_topic(list/href_list)
 	. = ..()
@@ -851,6 +852,16 @@
 			var/msg = "<span class='notice'>[key_name_admin(usr)] has removed [key_name(src)] from purrbation.</span>"
 			message_admins(msg)
 			admin_ticket_log(src, msg)
+	if(href_list[VV_HK_RANDOM_NAME])
+		if(!check_rights(R_ADMIN))//mods can rename people with VV so they should be able to do this too
+			return
+		if(isnull(dna.species))
+			to_chat(usr, "The species of [src] is null, aborting.")
+		var/old_name = real_name
+		fully_replace_character_name(real_name, dna.species.random_name(gender))
+		log_admin("[key_name(usr)] has randomly generated a new name for [key_name(src)], replacing their old name of [old_name].")
+		message_admins("<span class='notice'>[key_name_admin(usr)] has randomly generated a new name for [key_name(src)], replacing their old name of [old_name].</span>")
+
 
 /mob/living/carbon/human/MouseDrop_T(mob/living/target, mob/living/user)
 	if(pulling != target || grab_state < GRAB_AGGRESSIVE || stat != CONSCIOUS || a_intent != INTENT_GRAB)
@@ -1081,12 +1092,6 @@
 		return FALSE
 	return ..()
 
-/mob/living/carbon/human/ZImpactDamage(turf/T, levels)
-	var/datum/species/species_datum = dna?.species
-	if(!istype(species_datum))
-		return ..()
-	species_datum.z_impact_damage(src, T, levels)
-
 /mob/living/carbon/human/proc/stub_toe(var/power)
 	if(HAS_TRAIT(src, TRAIT_LIGHT_STEP))
 		power *= 0.5
@@ -1238,20 +1243,17 @@
 /mob/living/carbon/human/species/ipc
 	race = /datum/species/ipc
 
-/mob/living/carbon/human/species/jelly
-	race = /datum/species/jelly
-
 /mob/living/carbon/human/species/oozeling
 	race = /datum/species/oozeling
 
-/mob/living/carbon/human/species/jelly/slime
-	race = /datum/species/jelly/slime
+/mob/living/carbon/human/species/oozeling/slime
+	race = /datum/species/oozeling/slime
 
-/mob/living/carbon/human/species/jelly/stargazer
-	race = /datum/species/jelly/stargazer
+/mob/living/carbon/human/species/oozeling/stargazer
+	race = /datum/species/oozeling/stargazer
 
-/mob/living/carbon/human/species/jelly/luminescent
-	race = /datum/species/jelly/luminescent
+/mob/living/carbon/human/species/oozeling/luminescent
+	race = /datum/species/oozeling/luminescent
 
 /mob/living/carbon/human/species/lizard
 	race = /datum/species/lizard

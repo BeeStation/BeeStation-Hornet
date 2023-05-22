@@ -579,7 +579,7 @@ Difficulty: Hard
 				sleep(speed)
 			targetturf = get_turf(target)
 /obj/effect/temp_visual/hierophant/chaser/proc/make_blast()
-	var/obj/effect/temp_visual/hierophant/blast/B = new(loc, caster, friendly_fire_check)
+	var/obj/effect/temp_visual/hierophant/blast/B = new(loc, caster, friendly_fire_check, TRUE)
 	B.damage = damage
 	B.monster_damage_boost = monster_damage_boost
 
@@ -617,7 +617,7 @@ Difficulty: Hard
 	var/friendly_fire_check = FALSE
 	var/bursting = FALSE //if we're bursting and need to hit anyone crossing us
 
-/obj/effect/temp_visual/hierophant/blast/Initialize(mapload, new_caster, friendly_fire)
+/obj/effect/temp_visual/hierophant/blast/Initialize(mapload, new_caster, friendly_fire, defuse)
 	. = ..()
 	friendly_fire_check = friendly_fire
 	if(new_caster)
@@ -625,6 +625,9 @@ Difficulty: Hard
 	if(ismineralturf(loc)) //drill mineral turfs
 		var/turf/closed/mineral/M = loc
 		M.gets_drilled(caster)
+		if(defuse && istype(loc, /turf/closed/mineral/gibtonite))
+			var/turf/closed/mineral/gibtonite/G = loc
+			G.defuse()
 	INVOKE_ASYNC(src, PROC_REF(blast))
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),

@@ -202,7 +202,7 @@
 	active = TRUE
 	begin_processing()
 	//Global teamfinder signal trackable on the synd frequency.
-	AddComponent(/datum/component/tracking_beacon, "synd", null, null, TRUE, "#ff2b2b", TRUE, TRUE)
+	AddComponent(/datum/component/tracking_beacon, "synd", null, null, TRUE, "#ff2b2b", TRUE, TRUE, "#c32bff")
 	countdown.start()
 	next_beep = world.time + 10
 	detonation_timer = world.time + (timer_set * 10)

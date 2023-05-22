@@ -16,7 +16,7 @@
 	icon_state = "shut_open"
 	density = FALSE
 	obj_flags = CAN_BE_HIT // reset zblock
-	opacity = 0
+	opacity = FALSE
 
 /obj/machinery/door/poddoor/shutters/indestructible
 	name = "hardened shutters"

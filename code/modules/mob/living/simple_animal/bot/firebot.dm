@@ -42,9 +42,10 @@
 /mob/living/simple_animal/bot/firebot/Initialize(mapload)
 	. = ..()
 	update_icon()
-	var/datum/job/station_engineer/J = new/datum/job/station_engineer
-	access_card.access += J.get_access()
-	prev_access = access_card.access
+
+	var/datum/job/J = SSjob.GetJob(JOB_NAME_STATIONENGINEER)
+	access_card.access = J.get_access()
+	prev_access = access_card.access.Copy()
 
 	create_extinguisher()
 

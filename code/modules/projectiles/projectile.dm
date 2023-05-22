@@ -537,7 +537,7 @@
  * Projectile can pass through
  * Used to not even attempt to Bump() or fail to Cross() anything we already hit.
  */
-/obj/item/projectile/CanPassThrough(atom/blocker, turf/target, blocker_opinion)
+/obj/item/projectile/CanPassThrough(atom/blocker, movement_dir, blocker_opinion)
 	return impacted[blocker]? TRUE : ..()
 
 /**

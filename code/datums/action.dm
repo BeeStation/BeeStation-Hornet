@@ -352,6 +352,9 @@
 	icon_icon = 'icons/mob/actions.dmi'
 	button_icon_state = "toggle-hud"
 
+/datum/action/item_action/toggle_beacon_hud/explorer
+	button_icon_state = "toggle-hud-explo"
+
 /datum/action/item_action/toggle_beacon_frequency
 	name = "Toggle Hardsuit Locator Frequency"
 	icon_icon = 'icons/mob/actions.dmi'

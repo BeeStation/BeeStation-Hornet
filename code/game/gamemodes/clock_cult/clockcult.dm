@@ -262,6 +262,7 @@ GLOBAL_VAR(clockcult_eminence)
 			to_chat(O, "[FOLLOW_LINK(O, sender)] [hierophant_message]")
 		else
 			to_chat(O, hierophant_message)
+	sender.log_talk(msg, LOG_SAY, tag="clock cult")
 
 /proc/send_hierophant_message_to(datum/mind/mind, hierophant_message)
 	var/mob/M = mind.current
