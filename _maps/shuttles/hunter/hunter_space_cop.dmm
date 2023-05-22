@@ -545,7 +545,7 @@
 /turf/open/floor/plasteel/tech/grid,
 /area/shuttle/hunter)
 "sz" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/bot/left,
 /obj/effect/turf_decal/bot/right,
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
@@ -573,7 +573,7 @@
 /turf/open/floor/plasteel,
 /area/shuttle/hunter)
 "tr" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/bot/left,
 /obj/effect/turf_decal/bot/right,
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{

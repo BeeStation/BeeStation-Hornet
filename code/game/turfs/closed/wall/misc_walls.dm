@@ -73,6 +73,7 @@
 	if(prob(70))
 		new /obj/effect/temp_visual/glowing_rune(src)
 	ScrapeAway()
+	return TRUE
 
 /turf/closed/wall/r_wall/rust
 	//SDMM supports colors, this is simply for easier mapping
@@ -89,10 +90,11 @@
 
 /turf/closed/wall/r_wall/rust/rust_heretic_act()
 	if(prob(50))
-		return
+		return TRUE
 	if(prob(70))
 		new /obj/effect/temp_visual/glowing_rune(src)
 	ScrapeAway()
+	return TRUE
 
 /turf/closed/wall/mineral/bronze
 	name = "clockwork wall"
