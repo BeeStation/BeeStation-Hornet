@@ -3,7 +3,7 @@
 	element_flags = ELEMENT_BESPOKE
 	id_arg_index = 2
 	/// The type of trash that is spawned by this element
-	var/trash
+	var/atom/trash
 	///Flags of the trash element that change its behavior UNUSED UNTIL PART 2
 	var/flags
 	///Generate trash proc path
