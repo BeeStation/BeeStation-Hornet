@@ -14,9 +14,9 @@
 	maxHealth = 5
 	health = 5
 	butcher_results = list(/obj/item/food/meat/slab/mouse = 1)
-	response_help  = "pets"
+	response_help = "pets"
 	response_disarm = "gently pushes aside"
-	response_harm   = "splats"
+	response_harm = "splats"
 	density = FALSE
 	ventcrawler = VENTCRAWLER_ALWAYS
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
@@ -137,7 +137,7 @@
 	bite_consumption = 3
 	eatverbs = list("devour")
 	food_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 2)
-	foodtypes = GROSS | MEAT | RAW
+	foodtypes = GORE | MEAT | RAW
 	grind_results = list(/datum/reagent/blood = 20, /datum/reagent/liquidgibs = 5)
 
 
