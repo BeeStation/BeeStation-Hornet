@@ -289,12 +289,11 @@ SUBSYSTEM_DEF(persistence)
 	var/datum/game_mode/dynamic/dynamic = SSticker.mode
 	if(istype(dynamic))
 		var/list/this_round = list()
-		for(var/datum/dynamic_ruleset/roundstart/roundstart_rule in dynamic.executed_rules)
-			if(!CHECK_BITFIELD(roundstart_rule.flags, PERSISTENT_RULESET))
+		for(var/datum/dynamic_ruleset/rule in dynamic.executed_rules)
+			if(!CHECK_BITFIELD(rule.flags, PERSISTENT_RULESET))
 				continue
-			this_round |= roundstart_rule.name
-		if(LAZYLEN(this_round))
-			saved_dynamic_rulesets.Insert(1, list(this_round))
+			this_round |= rule.name
+		saved_dynamic_rulesets.Insert(1, list(this_round))
 	if(length(saved_dynamic_rulesets) > amount_of_rules)
 		saved_dynamic_rulesets.Cut(amount_of_rules + 1)
 	fdel("data/RecentDynamicRules.json")

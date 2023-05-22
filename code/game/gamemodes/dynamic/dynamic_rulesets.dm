@@ -84,6 +84,9 @@
 	/// Currently only used for logging.
 	var/dead = FALSE
 
+	/// Whether repeated_mode_adjust weight changes have been logged already.
+	var/logged_repeated_mode_adjust = FALSE
+
 
 /datum/dynamic_ruleset/New()
 	// Rulesets can be instantiated more than once, such as when an admin clicks
@@ -97,29 +100,6 @@
 /datum/dynamic_ruleset/roundstart // One or more of those drafted at roundstart
 	ruletype = "Roundstart"
 	consider_antag_rep = TRUE
-	/// Whether repeated_mode_adjust weight changes have been logged already.
-	var/logged_repeated_mode_adjust = FALSE
-
-/datum/dynamic_ruleset/roundstart/get_weight()
-	. = ..()
-	var/list/repeated_mode_adjust = CONFIG_GET(number_list/repeated_mode_adjust)
-	if(!LAZYLEN(repeated_mode_adjust))
-		return
-	var/adjustment = 0
-	for(var/rounds_ago = 1 to min(length(SSpersistence.saved_dynamic_rulesets), length(repeated_mode_adjust)))
-		var/list/round = SSpersistence.saved_dynamic_rulesets[rounds_ago]
-		if(!round)
-			continue
-		if(!islist(round))
-			round = list(round)
-		if(name in round)
-			adjustment += repeated_mode_adjust[rounds_ago]
-	if(adjustment)
-		var/old_weight = .
-		. *= ((100 - adjustment) / 100)
-		if(!logged_repeated_mode_adjust)
-			log_game("DYNAMIC: weight of [src] adjusted from [old_weight] to [.] by repeated_mode_adjust")
-			logged_repeated_mode_adjust = TRUE
 
 // Can be drafted when a player joins the server
 /datum/dynamic_ruleset/latejoin
@@ -211,6 +191,23 @@
 		for(var/datum/dynamic_ruleset/DR in mode.executed_rules)
 			if(istype(DR, type))
 				weight = max(weight-repeatable_weight_decrease,1)
+	var/list/repeated_mode_adjust = CONFIG_GET(number_list/repeated_mode_adjust)
+	if(CHECK_BITFIELD(flags, PERSISTENT_RULESET) && LAZYLEN(repeated_mode_adjust))
+		var/adjustment = 0
+		for(var/rounds_ago = 1 to min(length(SSpersistence.saved_dynamic_rulesets), length(repeated_mode_adjust)))
+			var/list/round = SSpersistence.saved_dynamic_rulesets[rounds_ago]
+			if(!round)
+				continue
+			if(!islist(round))
+				round = list(round)
+			if(name in round)
+				adjustment += repeated_mode_adjust[rounds_ago]
+		if(adjustment)
+			var/old_weight = weight
+			weight *= ((100 - adjustment) / 100)
+			if(!logged_repeated_mode_adjust)
+				log_game("DYNAMIC: weight of [src] adjusted from [old_weight] to [.] by repeated_mode_adjust")
+				logged_repeated_mode_adjust = TRUE
 	return weight
 
 /// Checks if there are enough candidates to run, and logs otherwise
