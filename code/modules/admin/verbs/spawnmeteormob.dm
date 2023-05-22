@@ -15,13 +15,13 @@
 
 	if (!chosen)
 		return
-	if(!C?.holder?.marked_datum)
-		to_chat(usr, "You need to mark something first!")
-		return
+	//if(!C?.holder?.marked_datum)
+		//to_chat(usr, "You need to mark something first!")
+		//return
 	if (!istype(C?.holder?.marked_datum, /mob))
 		to_chat(usr, "Your marked object needs to be a mob!")
 		return
-	var/mob/Package = C?.holder?.marked_datum
+	//var/mob/Package = C?.holder?.marked_datum
 
 	var/obj/chosen_obj = text2path(chosen)
 
@@ -67,13 +67,13 @@
 			Target = pickedgoal
 		if(mainsettings["autofly"]["value"] == "Yes")
 			var/obj/effect/meteor/M = new chosen_obj(T, Target)
-			M.carrier = TRUE
-			M.carried = WEAKREF(Package)
+			//M.carrier = TRUE
+			//M.carried = WEAKREF(Package)
 			message_admins("[key_name(usr)] created a [chosen_obj] with [C?.holder?.marked_datum] inside at [AREACOORD(M)]")
 		else
 			var/obj/effect/meteor/M = new chosen_obj(T)
-			M.carrier = TRUE
-			M.carried = WEAKREF(Package)
+			//M.carrier = TRUE
+			//M.carried = WEAKREF(Package)
 			message_admins("[key_name(usr)] created a [chosen_obj] with [C?.holder?.marked_datum] inside at [AREACOORD(M)]")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn mob in meteor") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
