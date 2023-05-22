@@ -46,8 +46,8 @@
 	reqs = list(
 		/obj/item/food/salad/boiledrice = 1,
 		/obj/item/food/boiledegg = 1,
-		/obj/item/reagent_containers/food/snacks/grown/carrot = 1,
-		/obj/item/reagent_containers/food/snacks/grown/corn = 1
+		/obj/item/food/grown/carrot = 1,
+		/obj/item/food/grown/corn = 1
 	)
 	result = /obj/item/food/salad/eggbowl
 	subcategory = CAT_EGG
@@ -56,7 +56,7 @@
 	name = "Wrap"
 	reqs = list(/datum/reagent/consumable/soysauce = 10,
 		/obj/item/food/friedegg = 1,
-		/obj/item/reagent_containers/food/snacks/grown/cabbage = 1,
+		/obj/item/food/grown/cabbage = 1,
 	)
 	result = /obj/item/food/eggwrap
 	subcategory = CAT_EGG
@@ -67,7 +67,7 @@
 		/datum/reagent/water = 5,
 		/datum/reagent/consumable/soysauce = 5,
 		/obj/item/food/boiledegg = 2,
-		/obj/item/reagent_containers/food/snacks/grown/mushroom/chanterelle = 1
+		/obj/item/food/grown/mushroom/chanterelle = 1
 	)
 	result = /obj/item/food/chawanmushi
 	subcategory = CAT_EGG

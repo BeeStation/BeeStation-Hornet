@@ -264,7 +264,7 @@
 	name = "Soylent viridians"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/pastrybase = 2,
-		/obj/item/reagent_containers/food/snacks/grown/soybeans = 1
+		/obj/item/food/grown/soybeans = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/soylenviridians
 	subcategory = CAT_PASTRY
@@ -300,7 +300,7 @@
 	name = "Blueberry pancake"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/pastrybase = 1,
-		/obj/item/reagent_containers/food/snacks/grown/berries = 1
+		/obj/item/food/grown/berries = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/pancakes/blueberry
 	subcategory = CAT_PASTRY
@@ -332,7 +332,7 @@
 	name = "Dank-pocket"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/pastrybase = 1,
-		/obj/item/reagent_containers/food/snacks/grown/cannabis = 1
+		/obj/item/food/grown/cannabis = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/donkpocket/dank
 	subcategory = CAT_PASTRY
@@ -342,7 +342,7 @@
 	name = "Spicy-pocket"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/pastrybase = 1,
-		/obj/item/reagent_containers/food/snacks/grown/chili = 1
+		/obj/item/food/grown/chili = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/donkpocket/spicy
 	subcategory = CAT_PASTRY
@@ -362,7 +362,7 @@
 	name = "Pizza-pocket"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/pastrybase = 1,
-		/obj/item/reagent_containers/food/snacks/grown/tomato = 1
+		/obj/item/food/grown/tomato = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/donkpocket/pizza
 	subcategory = CAT_PASTRY
@@ -372,7 +372,7 @@
 	name = "Honk-Pocket"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/pastrybase = 1,
-		/obj/item/reagent_containers/food/snacks/grown/banana = 1,
+		/obj/item/food/grown/banana = 1,
 		/datum/reagent/consumable/sugar = 3
 	)
 	result = /obj/item/reagent_containers/food/snacks/donkpocket/honk
@@ -383,7 +383,7 @@
 	name = "Berry-pocket"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/pastrybase = 1,
-		/obj/item/reagent_containers/food/snacks/grown/berries = 1
+		/obj/item/food/grown/berries = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/donkpocket/berry
 	subcategory = CAT_PASTRY
@@ -415,7 +415,7 @@
 	reqs = list(
 		/datum/reagent/consumable/milk = 5,
 		/obj/item/reagent_containers/food/snacks/pastrybase = 1,
-		/obj/item/reagent_containers/food/snacks/grown/berries = 1
+		/obj/item/food/grown/berries = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/muffin/berry
 	subcategory = CAT_PASTRY
@@ -425,7 +425,7 @@
 	reqs = list(
 		/datum/reagent/consumable/milk = 5,
 		/obj/item/reagent_containers/food/snacks/pastrybase = 1,
-		/obj/item/reagent_containers/food/snacks/grown/berries = 1,
+		/obj/item/food/grown/berries = 1,
 		/obj/item/ectoplasm = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/muffin/booberry
@@ -448,7 +448,7 @@
 		/datum/reagent/consumable/soysauce = 5,
 		/obj/item/reagent_containers/food/snacks/bun = 1,
 		/obj/item/food/meatball = 1,
-		/obj/item/reagent_containers/food/snacks/grown/cabbage = 1
+		/obj/item/food/grown/cabbage = 1
 	)
 	result = /obj/item/food/meatbun
 	subcategory = CAT_PASTRY
@@ -501,7 +501,7 @@
 	name = "Plumphelmet biscuit"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/pastrybase = 1,
-		/obj/item/reagent_containers/food/snacks/grown/mushroom/plumphelmet = 1
+		/obj/item/food/grown/mushroom/plumphelmet = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/plumphelmetbiscuit
 	subcategory = CAT_PASTRY
@@ -530,7 +530,7 @@
 	name = "Oatmeal cookie"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/pastrybase = 1,
-		/obj/item/reagent_containers/food/snacks/grown/oat = 1
+		/obj/item/food/grown/oat = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/oatmealcookie
 	subcategory = CAT_PASTRY
@@ -540,7 +540,7 @@
 	reqs = list(
 		/obj/item/food/no_raisin = 1,
 		/obj/item/reagent_containers/food/snacks/pastrybase = 1,
-		/obj/item/reagent_containers/food/snacks/grown/oat = 1
+		/obj/item/food/grown/oat = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/raisincookie
 	subcategory = CAT_PASTRY
@@ -549,7 +549,7 @@
 	name = "Cherry cupcake"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/pastrybase = 1,
-		/obj/item/reagent_containers/food/snacks/grown/cherries = 1
+		/obj/item/food/grown/cherries = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/cherrycupcake
 	subcategory = CAT_PASTRY
@@ -558,7 +558,7 @@
 	name = "Blue cherry cupcake"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/pastrybase = 1,
-		/obj/item/reagent_containers/food/snacks/grown/bluecherries = 1
+		/obj/item/food/grown/bluecherries = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/cherrycupcake/blue
 	subcategory = CAT_PASTRY
@@ -577,8 +577,8 @@
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/pastrybase = 1,
 		/obj/item/stack/sheet/bronze = 1,
-		/obj/item/reagent_containers/food/snacks/grown/berries = 2,
-		/obj/item/reagent_containers/food/snacks/grown/citrus/orange = 1
+		/obj/item/food/grown/berries = 2,
+		/obj/item/food/grown/citrus/orange = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/ravtart
 	subcategory = CAT_PASTRY

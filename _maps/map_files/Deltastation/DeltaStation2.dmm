@@ -13291,9 +13291,9 @@
 /obj/item/seeds/grape{
 	pixel_x = -6
 	},
-/obj/item/reagent_containers/food/snacks/grown/wheat,
-/obj/item/reagent_containers/food/snacks/grown/watermelon,
-/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/watermelon,
+/obj/item/food/grown/banana,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
@@ -14238,10 +14238,10 @@
 /obj/item/seeds/pumpkin{
 	pixel_x = -6
 	},
-/obj/item/reagent_containers/food/snacks/grown/wheat,
-/obj/item/reagent_containers/food/snacks/grown/watermelon,
-/obj/item/reagent_containers/food/snacks/grown/grapes,
-/obj/item/reagent_containers/food/snacks/grown/tomato,
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/watermelon,
+/obj/item/food/grown/grapes,
+/obj/item/food/grown/tomato,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/hydroponics)
@@ -19609,7 +19609,7 @@
 /obj/item/folder{
 	pixel_x = -6
 	},
-/obj/item/reagent_containers/food/snacks/grown/apple,
+/obj/item/food/grown/apple,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "cdg" = (
@@ -43859,11 +43859,11 @@
 /area/engine/break_room)
 "fyR" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/flower/geranium{
+/obj/item/food/grown/flower/geranium{
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/snacks/grown/flower/lily,
+/obj/item/food/grown/flower/lily,
 /turf/open/floor/plasteel/grimy,
 /area/chapel/office)
 "fzo" = (
@@ -52612,15 +52612,15 @@
 /area/science/robotics/mechbay)
 "iBK" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
+/obj/item/food/grown/flower/poppy{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
+/obj/item/food/grown/flower/poppy{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy,
+/obj/item/food/grown/flower/poppy,
 /obj/machinery/status_display/evac{
 	pixel_y = 32
 	},
@@ -69483,9 +69483,9 @@
 /area/engine/gravity_generator)
 "ovp" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/flower/lily,
-/obj/item/reagent_containers/food/snacks/grown/flower/lily,
-/obj/item/reagent_containers/food/snacks/grown/flower/lily,
+/obj/item/food/grown/flower/lily,
+/obj/item/food/grown/flower/lily,
+/obj/item/food/grown/flower/lily,
 /obj/machinery/airalarm{
 	dir = 1;
 	pixel_y = -22
@@ -74351,15 +74351,15 @@
 /area/science/server)
 "qhi" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell{
+/obj/item/food/grown/flower/harebell{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell{
+/obj/item/food/grown/flower/harebell{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
+/obj/item/food/grown/flower/harebell,
 /obj/machinery/status_display/evac{
 	pixel_y = 32
 	},

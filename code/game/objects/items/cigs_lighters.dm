@@ -497,7 +497,11 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 
 /obj/item/clothing/mask/cigarette/pipe/Initialize(mapload)
 	. = ..()
-	name = "empty [initial(name)]"
+	update_name()
+
+/obj/item/clothing/mask/cigarette/pipe/update_name()
+	. = ..()
+	name = packeditem ? "[packeditem]-packed [initial(name)]" : "empty [initial(name)]"
 
 /obj/item/clothing/mask/cigarette/pipe/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -525,30 +529,25 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 
 
 /obj/item/clothing/mask/cigarette/pipe/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/reagent_containers/food/snacks/grown))
-		var/obj/item/reagent_containers/food/snacks/grown/G = O
-		if(!packeditem)
-			if(G.dry == 1)
-				to_chat(user, "<span class='notice'>You stuff [O] into [src].</span>")
-				smoketime = 13 * 60
-				packeditem = TRUE
-				name = "[O.name]-packed [initial(name)]"
-				if(O.reagents)
-					O.reagents.trans_to(src, O.reagents.total_volume, transfered_by = user)
-				qdel(O)
-			else
-				to_chat(user, "<span class='warning'>It has to be dried first!</span>")
-		else
-			to_chat(user, "<span class='warning'>It is already packed!</span>")
-	else
-		var/lighting_text = O.ignition_effect(src,user)
-		if(lighting_text)
-			if(smoketime > 0)
-				light(lighting_text)
-			else
-				to_chat(user, "<span class='warning'>There is nothing to smoke!</span>")
-		else
-			return ..()
+	if(!istype(O, /obj/item/food/grown))
+		return ..()
+
+	var/obj/item/food/grown/to_smoke = O
+	if(packeditem)
+		to_chat(user, "<span class='warning'>It is already packed!</span>")
+		return
+	if(!HAS_TRAIT(to_smoke, TRAIT_DRIED))
+		to_chat(user, "<span class='warning'>It has to be dried first!</span>")
+		return
+
+	to_chat(user, "<span class='notice'>You stuff [to_smoke] into [src].</span>")
+	smoketime = 13 MINUTES
+	packeditem = to_smoke.name
+	update_name()
+	if(to_smoke.reagents)
+		to_smoke.reagents.trans_to(src, to_smoke.reagents.total_volume, transfered_by = user)
+	qdel(to_smoke)
+
 
 /obj/item/clothing/mask/cigarette/pipe/attack_self(mob/user)
 	var/turf/location = get_turf(user)
@@ -808,9 +807,9 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	. = ..()
 	if(!proximity)
 		return
-	if(istype(target, /obj/item/reagent_containers/food/snacks/grown))
-		var/obj/item/reagent_containers/food/snacks/grown/O = target
-		if(O.dry)
+	if(istype(target, /obj/item/food/grown))
+		var/obj/item/food/grown/O = target
+		if(HAS_TRAIT(O, TRAIT_DRIED))
 			var/obj/item/clothing/mask/cigarette/rollie/R = new /obj/item/clothing/mask/cigarette/rollie(user.loc)
 			R.chem_volume = target.reagents.total_volume
 			target.reagents.trans_to(R, R.chem_volume, transfered_by = user)

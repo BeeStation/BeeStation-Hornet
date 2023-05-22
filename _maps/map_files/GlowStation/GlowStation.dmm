@@ -29004,15 +29004,15 @@
 /area/hallway/primary/starboard)
 "gif" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
+/obj/item/food/grown/flower/poppy{
 	pixel_x = 1;
 	pixel_y = 9
 	},
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
+/obj/item/food/grown/flower/poppy{
 	pixel_x = -6;
 	pixel_y = -1
 	},
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
+/obj/item/food/grown/flower/poppy{
 	pixel_x = 7;
 	pixel_y = -1
 	},
@@ -48517,15 +48517,15 @@
 /area/security/nuke_storage)
 "kiS" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/flower/geranium{
+/obj/item/food/grown/flower/geranium{
 	pixel_x = 9;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/snacks/grown/flower/geranium{
+/obj/item/food/grown/flower/geranium{
 	pixel_x = 6;
 	pixel_y = -5
 	},
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell{
+/obj/item/food/grown/flower/harebell{
 	pixel_x = -5;
 	pixel_y = 11
 	},
@@ -85157,15 +85157,15 @@
 	dir = 8;
 	light_color = "#e8eaff"
 	},
-/obj/item/reagent_containers/food/snacks/grown/flower/lily{
+/obj/item/food/grown/flower/lily{
 	pixel_x = 1;
 	pixel_y = 10
 	},
-/obj/item/reagent_containers/food/snacks/grown/flower/lily{
+/obj/item/food/grown/flower/lily{
 	pixel_x = 10;
 	pixel_y = -5
 	},
-/obj/item/reagent_containers/food/snacks/grown/flower/lily{
+/obj/item/food/grown/flower/lily{
 	pixel_x = -6;
 	pixel_y = -4
 	},
@@ -100054,13 +100054,13 @@
 /obj/item/seeds/pumpkin{
 	pixel_x = -6
 	},
-/obj/item/reagent_containers/food/snacks/grown/wheat,
-/obj/item/reagent_containers/food/snacks/grown/watermelon,
-/obj/item/reagent_containers/food/snacks/grown/grapes,
-/obj/item/reagent_containers/food/snacks/grown/tomato,
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/watermelon,
+/obj/item/food/grown/grapes,
+/obj/item/food/grown/tomato,
 /obj/effect/turf_decal/bot,
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/grown/pumpkin{
+/obj/item/food/grown/pumpkin{
 	pixel_y = 5
 	},
 /obj/effect/turf_decal/stripes/line{

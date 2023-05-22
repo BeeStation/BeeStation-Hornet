@@ -1334,15 +1334,20 @@
 	StartProcessingAtom(user, I, choices_to_options[pick])
 
 
-/atom/proc/StartProcessingAtom(mob/living/user, obj/item/I, list/chosen_option)
+/atom/proc/StartProcessingAtom(mob/living/user, obj/item/process_item, list/chosen_option)
+	var/processing_time = chosen_option[TOOL_PROCESSING_TIME]
 	to_chat(user, "<span class='notice'>You start working on [src]</span>")
-	if(I.use_tool(src, user, chosen_option[TOOL_PROCESSING_TIME], volume=50))
+	if(process_item.use_tool(src, user, processing_time, volume=50))
 		var/atom/atom_to_create = chosen_option[TOOL_PROCESSING_RESULT]
 		for(var/i = 1 to chosen_option[TOOL_PROCESSING_AMOUNT])
 			new atom_to_create(loc)
 		to_chat(user, "<span class='notice'>You manage to create [chosen_option[TOOL_PROCESSING_AMOUNT]] [initial(atom_to_create.name)] from [src]</span>")
-		qdel(src)
+		UsedforProcessing(user, process_item, chosen_option)
 		return
+
+/atom/proc/UsedforProcessing(mob/living/user, obj/item/I, list/chosen_option)
+	qdel(src)
+	return
 
 /atom/proc/OnCreatedFromProcessing(mob/living/user, obj/item/I, list/chosen_option, atom/original_atom)
 	return

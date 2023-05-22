@@ -144,7 +144,7 @@
 	)
 	required_atoms = list(
 		/mob/living/carbon/human = 1,
-		/obj/item/reagent_containers/food/snacks/grown/flower = 1,
+		/obj/item/food/grown/flower = 1,
 	)
 	limit = 2
 	cost = 1

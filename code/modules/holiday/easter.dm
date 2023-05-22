@@ -43,7 +43,7 @@
 	emote_see = list("hops around","bounces up and down")
 	butcher_results = list(/obj/item/food/meat/slab = 1)
 	egg_type = /obj/item/suprise_egg
-	food_type = /obj/item/reagent_containers/food/snacks/grown/carrot
+	food_type = /obj/item/food/grown/carrot
 	eggsleft = 10
 	eggsFertile = FALSE
 	icon_prefix = "rabbit"
@@ -121,7 +121,7 @@
 /obj/item/suprise_egg/proc/dispensePrize(turf/where)
 	var/static/list/prize_list = list(/obj/item/clothing/head/bunnyhead,
 	/obj/item/clothing/suit/bunnysuit,
-	/obj/item/reagent_containers/food/snacks/grown/carrot,
+	/obj/item/food/grown/carrot,
 	/obj/item/food/chocolateegg,
 	/obj/item/toy/balloon,
 	/obj/item/toy/gun,

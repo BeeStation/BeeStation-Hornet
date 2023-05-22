@@ -1130,7 +1130,7 @@
 		H.dropItemToGround(W)
 	for(var/i in 1 to rand(3,5))
 		new /obj/item/stack/sheet/snow(get_turf(H))
-	new /obj/item/reagent_containers/food/snacks/grown/carrot(get_turf(H))
+	new /obj/item/food/grown/carrot(get_turf(H))
 	qdel(H)
 
 /datum/species/golem/snow/on_species_gain(mob/living/carbon/C, datum/species/old_species)

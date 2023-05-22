@@ -8,7 +8,7 @@
 /turf/closed/wall,
 /area/template_noop)
 "k" = (
-/obj/item/reagent_containers/food/snacks/grown/banana{
+/obj/item/food/grown/banana{
 	pixel_x = 8;
 	pixel_y = 7
 	},
@@ -19,7 +19,7 @@
 	dir = 1;
 	icon_state = "bulb"
 	},
-/obj/item/reagent_containers/food/snacks/grown/carrot{
+/obj/item/food/grown/carrot{
 	pixel_x = 5;
 	pixel_y = 6
 	},
@@ -27,7 +27,7 @@
 /area/template_noop)
 "B" = (
 /obj/structure/flora/ausbushes/ppflowers,
-/obj/item/reagent_containers/food/snacks/grown/chili{
+/obj/item/food/grown/chili{
 	pixel_x = 6;
 	pixel_y = -7
 	},
@@ -35,7 +35,7 @@
 /area/template_noop)
 "G" = (
 /obj/structure/flora/ausbushes/grassybush,
-/obj/item/reagent_containers/food/snacks/grown/eggplant{
+/obj/item/food/grown/eggplant{
 	pixel_x = -3;
 	pixel_y = 3
 	},
@@ -43,16 +43,16 @@
 /area/template_noop)
 "H" = (
 /obj/structure/flora/ausbushes/brflowers,
-/obj/item/reagent_containers/food/snacks/grown/citrus/orange,
+/obj/item/food/grown/citrus/orange,
 /turf/open/floor/grass,
 /area/template_noop)
 "M" = (
 /obj/machinery/light/small,
-/obj/item/reagent_containers/food/snacks/grown/berries,
+/obj/item/food/grown/berries,
 /turf/open/floor/grass,
 /area/template_noop)
 "S" = (
-/obj/item/reagent_containers/food/snacks/grown/cherries,
+/obj/item/food/grown/cherries,
 /turf/open/floor/grass,
 /area/template_noop)
 
