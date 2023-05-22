@@ -18,10 +18,13 @@
 	RegisterSignal(target, COMSIG_FOOD_CONSUMED, PROC_REF(generate_trash))
 	if(!generate_trash_procpath && generate_trash_proc)
 		generate_trash_procpath = generate_trash_proc
+	if(flags & FOOD_TRASH_OPENABLE)
+		RegisterSignal(target, COMSIG_ITEM_ATTACK_SELF, PROC_REF(open_trash))
 	if(flags & FOOD_TRASH_POPABLE)
 		RegisterSignal(target, COMSIG_FOOD_CROSSED, PROC_REF(food_crossed))
 	RegisterSignal(target, COMSIG_ITEM_ON_GRIND, PROC_REF(generate_trash))
 	RegisterSignal(target, COMSIG_ITEM_ON_JUICE, PROC_REF(generate_trash))
+	RegisterSignal(target, COMSIG_ITEM_USED_AS_INGREDIENT, PROC_REF(generate_trash))
 	RegisterSignal(target, COMSIG_ITEM_ON_COMPOSTED, PROC_REF(generate_trash))
 
 /datum/element/food_trash/Detach(datum/target)
@@ -62,7 +65,7 @@
 /datum/element/food_trash/proc/open_trash(datum/source, mob/user)
 	SIGNAL_HANDLER
 
-	to_chat(user, "<span class='notice'>You open the [src]\'s shell, revealing \a [initial(trash_type.name)].</span>")
+	to_chat(user, "<span class='notice'>You open the [source], revealing \a [initial(trash.name)].</span>")
 
-	INVOKE_ASYNC(src, .proc/async_generate_trash, source)
+	INVOKE_ASYNC(src, PROC_REF(async_generate_trash), source)
 	qdel(source)
