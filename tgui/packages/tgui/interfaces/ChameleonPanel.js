@@ -136,6 +136,7 @@ const OutfitsPanel = (_, context) => {
             value={searchText}
             onInput={(_, value) => setSearchText(value)}
             mx={1}
+            width="200px"
           />
         </>
       }>
@@ -261,6 +262,7 @@ const DisguisePanel = (_, context) => {
                   value={searchText}
                   onInput={(_, value) => setSearchText(value)}
                   mx={1}
+                  width="200px"
                 />
               </Stack.Item>
             </Stack>
