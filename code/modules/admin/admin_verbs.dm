@@ -120,6 +120,7 @@ GLOBAL_LIST_INIT(admin_verbs_spawn, list(
 	/datum/admins/proc/podspawn_atom,
 	/datum/admins/proc/spawn_cargo,
 	/datum/admins/proc/spawn_objasmob,
+	/datum/admins/proc/spawn_mobmeteor,
 	/datum/admins/proc/beaker_panel,
 	/client/proc/respawn_character,
 	/client/proc/centcom_podlauncher,/*Open a window to launch a Supplypod and configure it or it's contents*/

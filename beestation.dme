@@ -1629,6 +1629,7 @@
 #include "code\modules\admin\verbs\requests.dm"
 #include "code\modules\admin\verbs\shuttlepanel.dm"
 #include "code\modules\admin\verbs\spawnfloorcluwne.dm"
+#include "code\modules\admin\verbs\spawnmeteormob.dm"
 #include "code\modules\admin\verbs\spawnobjasmob.dm"
 #include "code\modules\admin\verbs\tripAI.dm"
 #include "code\modules\admin\verbs\SDQL2\SDQL_2.dm"
