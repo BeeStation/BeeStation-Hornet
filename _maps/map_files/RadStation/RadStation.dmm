@@ -1370,6 +1370,40 @@
 	},
 /turf/open/floor/plasteel/tech,
 /area/engine/engine_room)
+"axI" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/brigdoor{
+	base_state = "rightsecure";
+	dir = 4;
+	icon_state = "rightsecure";
+	name = "Head of Personnel's Paperwork Door";
+	req_access_txt = "57"
+	},
+/obj/machinery/door/window/northleft{
+	dir = 8;
+	name = "Paperwork Window"
+	},
+/obj/item/pen{
+	pixel_x = 8;
+	pixel_y = -3
+	},
+/obj/item/paper{
+	pixel_x = -6
+	},
+/obj/machinery/door/firedoor,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/desk_bell/speed_demon,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "hopshutter";
+	name = "privacy shutters"
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/heads/hop)
 "axT" = (
 /obj/structure/chair/stool{
 	pixel_y = 8
@@ -12654,19 +12688,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/cafeteria)
-"efr" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	id_tag = "commissarydoor";
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
-/obj/structure/barricade/wooden/crude,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/firedoor,
-/turf/open/floor/plasteel,
-/area/vacant_room/commissary/commissary1)
 "eft" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -46288,15 +46309,6 @@
 /obj/machinery/firealarm/directional/north,
 /turf/open/floor/plasteel/sepia,
 /area/quartermaster/storage)
-"ppF" = (
-/obj/effect/mapping_helpers/airlock/abandoned,
-/obj/machinery/door/airlock/maintenance_hatch{
-	id_tag = "commissarydoor";
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
-/turf/open/floor/plating,
-/area/vacant_room/commissary/commissary1)
 "ppL" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable/yellow{
@@ -54320,48 +54332,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
-"skI" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/brigdoor{
-	base_state = "rightsecure";
-	dir = 4;
-	icon_state = "rightsecure";
-	name = "Head of Personnel's Paperwork Door";
-	req_access_txt = "57"
-	},
-/obj/machinery/door/window/northleft{
-	dir = 8;
-	name = "Paperwork Window"
-	},
-/obj/item/pen{
-	pixel_x = 6;
-	pixel_y = 1
-	},
-/obj/item/pen{
-	pixel_x = 10;
-	pixel_y = 1
-	},
-/obj/item/pen{
-	pixel_x = 8;
-	pixel_y = -3
-	},
-/obj/item/paper{
-	pixel_x = -6
-	},
-/obj/machinery/door/firedoor,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/desk_bell/speed_demon,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "hopshutter";
-	name = "privacy shutters"
-	},
-/turf/open/floor/plasteel,
-/area/crew_quarters/heads/hop)
 "skO" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -72564,6 +72534,28 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/hydroponics)
+"ybh" = (
+/obj/effect/mapping_helpers/airlock/abandoned,
+/obj/machinery/door/airlock/maintenance_hatch{
+	id_tag = "commissarydoor1";
+	name = "Maintenance Hatch";
+	req_access_txt = "12"
+	},
+/turf/open/floor/plating,
+/area/vacant_room/commissary/commissary1)
+"ybl" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	id_tag = "commissarydoor1";
+	name = "Maintenance Hatch";
+	req_access_txt = "12"
+	},
+/obj/structure/barricade/wooden/crude,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/plasteel,
+/area/vacant_room/commissary/commissary1)
 "ybo" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -100716,7 +100708,7 @@ cyy
 cyy
 cyy
 gQP
-ppF
+ybh
 gQP
 gQP
 cKs
@@ -101490,7 +101482,7 @@ qjo
 esW
 gHQ
 lUf
-efr
+ybl
 vEI
 fDU
 aGC
@@ -106843,7 +106835,7 @@ kll
 wGM
 wGM
 gST
-skI
+axI
 wGM
 cMI
 rKn
