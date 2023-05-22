@@ -74,7 +74,7 @@
 			/obj/item/reagent_containers/food/drinks/flask = 1)
 	req_access = null
 
-/obj/machinery/vending/boozeomat/captain //Captain's quarters variant
+/obj/machinery/vending/boozeomat/captain//Captain's quarters variant
 	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one. This one has less items, yet more fit for a captain."
 	products = list(/obj/item/reagent_containers/food/drinks/bottle/rum = 1,
 					/obj/item/reagent_containers/food/drinks/bottle/wine = 1,

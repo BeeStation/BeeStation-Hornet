@@ -31495,7 +31495,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "kkg" = (
-/obj/machinery/vending/boozeomat/captain ,
+/obj/machinery/vending/boozeomat/captain,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
 "kkx" = (

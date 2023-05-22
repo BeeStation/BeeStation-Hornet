@@ -90900,7 +90900,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/machinery/vending/wallmed/Lite{
+/obj/machinery/vending/wallmed/lite{
 	pixel_x = 24
 	},
 /obj/structure/closet/secure_closet/brig_physician,
