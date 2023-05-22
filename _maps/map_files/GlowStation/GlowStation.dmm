@@ -63333,7 +63333,7 @@
 /turf/open/floor/carpet/royalblack,
 /area/crew_quarters/heads/cmo)
 "noA" = (
-/obj/item/reagent_containers/food/snacks/donut,
+/obj/item/food/donut,
 /obj/item/clothing/head/helmet/old,
 /obj/machinery/light/small{
 	dir = 1
@@ -114917,7 +114917,7 @@
 "ygy" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
-/obj/item/reagent_containers/food/snacks/donut/jelly/choco,
+/obj/item/food/donut/jelly/choco,
 /obj/item/lighter,
 /obj/effect/landmark/event_spawn,
 /obj/structure/disposalpipe/segment,

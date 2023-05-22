@@ -95319,7 +95319,7 @@
 "xEE" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
-/obj/item/reagent_containers/food/snacks/donut/jelly/choco,
+/obj/item/food/donut/jelly/choco,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},

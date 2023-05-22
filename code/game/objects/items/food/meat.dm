@@ -219,6 +219,19 @@
 	foodtypes = MEAT
 	w_class = WEIGHT_CLASS_SMALL
 
+/obj/item/food/meatbun
+	name = "meat bun"
+	desc = "Has the potential to not be dog."
+	icon = 'icons/obj/food/meat.dmi'
+	icon_state = "meatbun"
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 7,
+		/datum/reagent/consumable/nutriment/vitamin = 4,
+	)
+	tastes = list("bun" = 3, "meat" = 2)
+	foodtypes = GRAIN | MEAT | VEGETABLES
+	w_class = WEIGHT_CLASS_SMALL
+
 /obj/item/food/stewedsoymeat
 	name = "stewed soy meat"
 	desc = "Even non-vegetarians will LOVE this!"

@@ -292,7 +292,7 @@
 /mob/living/simple_animal/pet/cat/cak/Move()
 	. = ..()
 	if(. && !stat)
-		for(var/obj/item/reagent_containers/food/snacks/donut/D in get_turf(src)) //Frosts nearby donuts!
+		for(var/obj/item/food/donut/D in get_turf(src)) //Frosts nearby donuts!
 			if(!D.is_decorated)
 				D.decorate_donut()
 

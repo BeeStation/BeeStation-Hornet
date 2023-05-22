@@ -4,7 +4,7 @@
 //ASSISTANT
 /datum/job/assistant
 	mail_goodies = list(
-		/obj/item/reagent_containers/food/snacks/donkpocket/random = 10,
+		/obj/item/food/donkpocket/random = 10,
 		/obj/item/clothing/mask/gas/old = 10,
 		/obj/item/clothing/gloves/color/fyellow = 7,
 		/obj/item/choice_beacon/music = 5,
@@ -106,7 +106,7 @@
 /datum/job/chief_engineer
 	mail_goodies = list(
 		//you know. for poly
-		/obj/item/reagent_containers/food/snacks/cracker = 15,
+		/obj/item/food/cracker = 15,
 		/obj/item/reagent_containers/food/drinks/soda_cans/thirteenloko = 15,
 		/obj/item/rcd_ammo = 10,
 		/obj/item/wrench/caravan = 3,
@@ -331,7 +331,7 @@
 //QUARTERMASTER
 /datum/job/quartermaster
 	mail_goodies = list(
-		/obj/item/reagent_containers/food/snacks/donkpocket/random = 10,
+		/obj/item/food/donkpocket/random = 10,
 		//the beginning of your department's independence
 		/obj/item/banner/cargo = 5,
 		//if you want to watch the world burn, this is it.
@@ -377,7 +377,7 @@
 //SECURITY OFFICER
 /datum/job/security_officer
 	mail_goodies = list(
-		/obj/item/reagent_containers/food/snacks/donut/plain = 15,
+		/obj/item/food/donut/plain = 15,
 		/obj/effect/spawner/mail/donut = 10,
 		//just in case...
 		/obj/item/assembly/flash/handheld = 7,

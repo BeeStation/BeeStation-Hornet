@@ -5,7 +5,7 @@
 	product_ads = "Keep up, keep going!; Stay alive with the new Menu-35!;Meals fit for a demon slayer!; Grab a bite, and make us proud!"
 	icon_state = "sustenance"
 	light_color = LIGHT_COLOR_BLUEGREEN
-	products = list(/obj/item/reagent_containers/food/snacks/donkpocket/warm = 8,
+	products = list(/obj/item/food/donkpocket/warm = 8,
 					/obj/item/food/salad/herbsalad = 6,
 					/obj/item/food/canned/beans = 4,
 					/obj/item/reagent_containers/glass/waterbottle/large = 10)

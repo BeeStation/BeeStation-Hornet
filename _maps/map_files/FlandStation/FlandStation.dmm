@@ -10450,7 +10450,7 @@
 /area/bridge)
 "cLX" = (
 /obj/structure/closet/crate/bin,
-/obj/item/reagent_containers/food/snacks/donut/chaos,
+/obj/item/food/donut/chaos,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison)
@@ -51657,7 +51657,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "nxr" = (
-/obj/item/reagent_containers/food/snacks/donut,
+/obj/item/food/donut,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -54623,7 +54623,7 @@
 	pixel_y = 4
 	},
 /obj/item/pen,
-/obj/item/reagent_containers/food/snacks/cookie,
+/obj/item/food/cookie,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -79970,7 +79970,7 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
-/obj/item/reagent_containers/food/snacks/donut/jelly/choco,
+/obj/item/food/donut/jelly/choco,
 /obj/item/lighter{
 	pixel_x = 4;
 	pixel_y = 4

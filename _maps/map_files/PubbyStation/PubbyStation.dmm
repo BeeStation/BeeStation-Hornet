@@ -1400,7 +1400,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "ajr" = (
-/obj/item/reagent_containers/food/snacks/donut/chaos,
+/obj/item/food/donut/chaos,
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hos)
 "ajs" = (
@@ -3227,7 +3227,7 @@
 	name = "Brig Desk";
 	req_access_txt = "1"
 	},
-/obj/item/reagent_containers/food/snacks/donut,
+/obj/item/food/donut,
 /obj/machinery/door/poddoor/preopen{
 	id = "Secure Gate";
 	name = "brig shutters"
@@ -7055,10 +7055,10 @@
 /area/quartermaster/sorting)
 "aRm" = (
 /obj/structure/closet/crate,
-/obj/item/reagent_containers/food/snacks/donut,
-/obj/item/reagent_containers/food/snacks/donut,
-/obj/item/reagent_containers/food/snacks/donut,
-/obj/item/reagent_containers/food/snacks/donut,
+/obj/item/food/donut,
+/obj/item/food/donut,
+/obj/item/food/donut,
+/obj/item/food/donut,
 /turf/open/floor/plating,
 /area/quartermaster/sorting)
 "aRn" = (
@@ -9808,7 +9808,7 @@
 /area/hallway/primary/central)
 "bgs" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/donut,
+/obj/item/food/donut,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -31131,7 +31131,7 @@
 /area/maintenance/department/cargo)
 "iQS" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/cookie,
+/obj/item/food/cookie,
 /obj/machinery/airalarm{
 	pixel_y = 22
 	},
@@ -33837,7 +33837,7 @@
 /area/maintenance/department/engine)
 "kkQ" = (
 /obj/structure/chair,
-/obj/item/reagent_containers/food/snacks/donkpocket,
+/obj/item/food/donkpocket,
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
@@ -50907,7 +50907,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
 "tpb" = (
-/obj/item/reagent_containers/food/snacks/donut,
+/obj/item/food/donut,
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},

@@ -1309,7 +1309,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	log_admin("[key_name(usr)] punished [key_name(target)] with [punishment].")
 
 /mob/living/carbon/proc/give_cookie(var/client/admin_client)
-	var/obj/item/reagent_containers/food/snacks/cookie/cookie = new(src)
+	var/obj/item/food/cookie/cookie = new(src)
 	if(src.put_in_hands(cookie))
 		if(ishuman(src))
 			src.update_inv_hands()

@@ -151,3 +151,19 @@
 	foodtypes = GRAIN
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/food/hotdog
+	name = "hotdog"
+	desc = "Fresh footlong ready to go down on."
+	icon = 'icons/obj/food/meat.dmi'
+	icon_state = "hotdog"
+	bite_consumption = 3
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 3,
+		/datum/reagent/consumable/nutriment/protein = 1,
+		/datum/reagent/consumable/ketchup = 3,
+		/datum/reagent/consumable/nutriment/vitamin = 6,
+	)
+	tastes = list("bun" = 3, "meat" = 2)
+	foodtypes = GRAIN | MEAT //Ketchup is not a vegetable
+	w_class = WEIGHT_CLASS_SMALL

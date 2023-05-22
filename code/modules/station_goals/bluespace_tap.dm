@@ -147,7 +147,7 @@
 		/obj/item/food/burger/crab,
 		/obj/item/food/crab_rangoon,
 		/obj/item/reagent_containers/food/snacks/scotchegg,
-		/obj/item/reagent_containers/food/snacks/pancakes/chocolatechip,
+		/obj/item/food/pancakes/chocolatechip,
 		/obj/item/food/carrotfries,
 		/obj/item/reagent_containers/food/snacks/chocolatebunny,
 		/obj/item/food/benedict,

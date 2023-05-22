@@ -27,8 +27,6 @@
 
 /// Food is "in a container", not in a code sense, but in a literal sense (canned foods)
 #define FOOD_IN_CONTAINER (1<<0)
-#define FOOD_CLOSED (1<<0)
-
 /// Finger food can be eaten while walking / running around
 #define FOOD_FINGER_FOOD (1<<1)
 
@@ -44,3 +42,8 @@
 ///Food trash flags
 #define FOOD_TRASH_POPABLE (1<<0)
 #define FOOD_TRASH_OPENABLE (1<<1)
+
+///Food preference enums
+#define FOOD_LIKED 1
+#define FOOD_DISLIKED 2
+#define FOOD_TOXIC 3
