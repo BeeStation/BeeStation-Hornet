@@ -1,0 +1,17 @@
+author: BriggsIDP
+delete-after: true
+changes:
+  - rscadd: New map, Radstation
+  - tweak: basemap.dm - added Rad
+  - tweak: maps.txt - added Rad
+  - tweak: decals.dmi - added updated rad sign
+  - imageadd: decals.dmi - added rad shelter sign
+  - tweak: signs_warning.dm - updated rad sign, added rad shelter sign
+  - imageadd: decals.dmi - added minskydorms
+  - imageadd: decals.dmi - added minskyhydrob
+  - imageadd: decals.dmi - added minskyhead
+  - imageadd: decals.dmi - added minskyevac
+  - tweak: signs_departments.dm - added signs listed above
+  - imageadd: 4x7dmi
+  - imageadd: huge ion engine sprite
+  - rscadd: sci smart fridge - for storing components and disks
