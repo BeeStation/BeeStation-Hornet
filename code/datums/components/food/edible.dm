@@ -117,7 +117,8 @@ Behavior that's still missing from this component that original food items had t
 	list/eatverbs = list("bite","chew","nibble","gnaw","gobble","chomp"),
 	bite_consumption = 2,
 	datum/callback/after_eat,
-	datum/callback/on_consume
+	datum/callback/on_consume,
+	datum/callback/check_liked,
 	)
 
 	. = ..()

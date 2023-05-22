@@ -69,6 +69,7 @@
 #include "species_whitelists.dm"
 #include "greyscale_config.dm"
 #include "food_edibility_check.dm"
+#include "food_icons.dm"
 #include "heretic_knowledge.dm"
 #include "heretic_rituals.dm"
 #include "metabolizing.dm"
