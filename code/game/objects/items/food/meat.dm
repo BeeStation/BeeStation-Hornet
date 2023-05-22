@@ -54,7 +54,7 @@
 	icon_state = "fishfingers"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 2,
-		//datum/reagent/consumable/nutriment/protein = 5,
+		/datum/reagent/consumable/nutriment/protein = 5,
 		/datum/reagent/consumable/nutriment/vitamin = 2
 	)
 	bite_consumption = 1
@@ -103,7 +103,7 @@
 	desc = "We all love tofu."
 	icon_state = "tofu"
 	food_reagents = list(
-		//datum/reagent/consumable/nutriment/protein = 2
+		/datum/reagent/consumable/nutriment/protein = 2
 		/datum/reagent/consumable/nutriment = 1, //PLACEHOLDER UNTIL WE GET PROTEIN
 	)
 	tastes = list("tofu" = 1)
@@ -122,7 +122,7 @@
 	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "spiderleg"
 	food_reagents = list(
-		//datum/reagent/consumable/nutriment/protein = 3,
+		/datum/reagent/consumable/nutriment/protein = 3,
 		/datum/reagent/consumable/nutriment = 3, //PLACEHOLDER UNTIL WE GET PROTEIN
 		/datum/reagent/toxin = 2
 	)
@@ -178,7 +178,7 @@
 	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "sausage"
 	food_reagents = list(
-		//datum/reagent/consumable/nutriment/protein = 5,
+		/datum/reagent/consumable/nutriment/protein = 5,
 		/datum/reagent/consumable/nutriment/vitamin = 2
 	)
 	tastes = list("meat" = 1)
@@ -238,7 +238,7 @@
 	icon_state = "stewedsoymeat"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 5,
-		//datum/reagent/consumable/nutriment/protein = 6,
+		/datum/reagent/consumable/nutriment/protein = 6,
 		/datum/reagent/consumable/nutriment/vitamin = 2
 	)
 	tastes = list("soy" = 1, "vegetables" = 1)
@@ -266,7 +266,7 @@
 	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "spidereggsham"
 	food_reagents = list(
-		//datum/reagent/consumable/nutriment/protein = 8,
+		/datum/reagent/consumable/nutriment/protein = 8,
 		/datum/reagent/consumable/nutriment/vitamin = 3
 	)
 	bite_consumption = 4
@@ -397,7 +397,7 @@
 	name = "lizard-tail kebab"
 	desc = "Severed lizard tail on a stick."
 	food_reagents = list(
-		//datum/reagent/consumable/nutriment/protein = 30,
+		/datum/reagent/consumable/nutriment/protein = 30,
 		/datum/reagent/consumable/nutriment/vitamin = 4
 	)
 	tastes = list("meat" = 8, "metal" = 4, "scales" = 1)

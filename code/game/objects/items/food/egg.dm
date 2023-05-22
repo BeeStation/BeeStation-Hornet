@@ -90,7 +90,7 @@
 	icon = 'icons/obj/food/egg.dmi'
 	icon_state = "friedegg"
 	food_reagents = list(
-		//datum/reagent/consumable/nutriment/protein = 6,
+		/datum/reagent/consumable/nutriment/protein = 6,
 		/datum/reagent/consumable/nutriment/vitamin = 1
 	)
 	bite_consumption = 1
@@ -103,7 +103,7 @@
 	icon = 'icons/obj/food/egg.dmi'
 	icon_state = "egg"
 	food_reagents = list(
-		//datum/reagent/consumable/nutriment/protein = 4,
+		/datum/reagent/consumable/nutriment/protein = 4,
 		/datum/reagent/consumable/nutriment/vitamin = 1
 	)
 	tastes = list("egg" = 1)
@@ -118,7 +118,7 @@
 	icon_state = "omelette"
 	trash_type = /obj/item/trash/plate
 	food_reagents = list(
-		//datum/reagent/consumable/nutriment/protein = 10,
+		/datum/reagent/consumable/nutriment/protein = 10,
 		/datum/reagent/consumable/nutriment/vitamin = 3
 	)
 	bite_consumption = 1
@@ -151,7 +151,7 @@
 	icon_state = "benedict"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment/vitamin = 6,
-		//datum/reagent/consumable/nutriment/protein = 6,
+		/datum/reagent/consumable/nutriment/protein = 6,
 		/datum/reagent/consumable/nutriment = 3
 	)
 	trash_type = /obj/item/trash/plate
@@ -166,7 +166,7 @@
 	icon_state = "eggwrap"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 6,
-		//datum/reagent/consumable/nutriment/protein = 2,
+		/datum/reagent/consumable/nutriment/protein = 2,
 		/datum/reagent/consumable/nutriment/vitamin = 3
 	)
 	tastes = list("egg" = 1)
@@ -180,7 +180,7 @@
 	icon_state = "chawanmushi"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 4,
-		//datum/reagent/consumable/nutriment/protein = 3,
+		/datum/reagent/consumable/nutriment/protein = 3,
 		/datum/reagent/consumable/nutriment/vitamin = 1
 	)
 	tastes = list("custard" = 1)

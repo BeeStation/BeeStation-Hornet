@@ -60,8 +60,6 @@ Behavior that's still missing from this component that original food items had t
 	bite_consumption = 2,
 	microwaved_type,
 	junkiness,
-	datum/callback/pre_eat,
-	datum/callback/on_compost,
 	datum/callback/after_eat,
 	datum/callback/on_consume,
 	datum/callback/check_liked
@@ -75,7 +73,6 @@ Behavior that's still missing from this component that original food items had t
 	RegisterSignal(parent, COMSIG_ATOM_CREATEDBY_PROCESSING, PROC_REF(on_processed))
 	RegisterSignal(parent, COMSIG_ITEM_MICROWAVE_COOKED, PROC_REF(on_microwave_cooked))
 	RegisterSignal(parent, COMSIG_EDIBLE_INGREDIENT_ADDED, PROC_REF(edible_ingredient_added))
-	RegisterSignal(parent, COMSIG_EDIBLE_ON_COMPOST, PROC_REF(compost))
 
 	if(isitem(parent))
 		RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(use_from_hand))
@@ -90,13 +87,9 @@ Behavior that's still missing from this component that original food items had t
 	src.bite_consumption = bite_consumption
 	src.food_flags = food_flags
 	src.foodtypes = foodtypes
-	src.initial_reagents = initial_reagents
-	src.tastes = tastes
 	src.eat_time = eat_time
 	src.eatverbs = string_list(eatverbs)
 	src.junkiness = junkiness
-	src.pre_eat = pre_eat
-	src.on_compost = on_compost
 	src.after_eat = after_eat
 	src.on_consume = on_consume
 	src.initial_reagents = string_assoc_list(initial_reagents)

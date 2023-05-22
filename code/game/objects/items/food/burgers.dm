@@ -4,7 +4,7 @@
 	bite_consumption = 3
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 2,
-		//datum/reagent/consumable/nutriment/protein = 5,
+		/datum/reagent/consumable/nutriment/protein = 5,
 		/datum/reagent/consumable/nutriment/vitamin = 1
 		)
 	tastes = list("bun" = 2, "beef patty" = 4)
@@ -17,7 +17,7 @@
 	desc = "The cornerstone of every nutritious breakfast."
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 2,
-		//datum/reagent/consumable/nutriment/protein = 6,
+		/datum/reagent/consumable/nutriment/protein = 6,
 		/datum/reagent/consumable/nutriment/vitamin = 1
 	)
 	foodtypes = GRAIN | MEAT
@@ -40,7 +40,7 @@
 	desc = "A bloody burger."
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 2,
-		//datum/reagent/consumable/nutriment/protein = 6,
+		/datum/reagent/consumable/nutriment/protein = 6,
 		/datum/reagent/consumable/nutriment/vitamin = 5
 	)
 	tastes = list("bun" = 2, "long pig" = 4)
@@ -65,7 +65,7 @@
 	desc = "You monster."
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 2,
-		//datum/reagent/consumable/nutriment/protein = 6,
+		/datum/reagent/consumable/nutriment/protein = 6,
 		/datum/reagent/consumable/nutriment/vitamin = 6
 	)
 	foodtypes = GRAIN | MEAT | GROSS
@@ -75,7 +75,7 @@
 	desc = "Tastes like appendicitis."
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 2,
-		//datum/reagent/consumable/nutriment/protein = 11,
+		/datum/reagent/consumable/nutriment/protein = 11,
 		/datum/reagent/consumable/nutriment/vitamin = 7
 	)
 	icon_state = "appendixburger"
@@ -88,7 +88,7 @@
 	icon_state = "fishburger"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
-		//datum/reagent/consumable/nutriment/protein = 7,
+		/datum/reagent/consumable/nutriment/protein = 7,
 		/datum/reagent/consumable/nutriment/vitamin = 4
 	)
 	tastes = list("bun" = 4, "fish" = 4)
@@ -100,7 +100,7 @@
 	icon_state = "tofuburger"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
-		//datum/reagent/consumable/nutriment/protein = 6,
+		/datum/reagent/consumable/nutriment/protein = 6,
 		/datum/reagent/consumable/nutriment/vitamin = 3
 	)
 	tastes = list("bun" = 4, "tofu" = 4)
@@ -137,7 +137,7 @@
 	icon_state = "xburger"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
-		//datum/reagent/consumable/nutriment/protein = 9,
+		/datum/reagent/consumable/nutriment/protein = 9,
 		/datum/reagent/consumable/nutriment/vitamin = 7
 	)
 	tastes = list("bun" = 4, "acid" = 4)
@@ -149,7 +149,7 @@
 	icon_state = "bearger"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
-		//datum/reagent/consumable/nutriment/protein = 8,
+		/datum/reagent/consumable/nutriment/protein = 8,
 		/datum/reagent/consumable/nutriment/vitamin = 7
 	)
 	foodtypes = GRAIN | MEAT
@@ -160,7 +160,7 @@
 	icon_state = "clownburger"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 4,
-		//datum/reagent/consumable/nutriment/protein = 12,
+		/datum/reagent/consumable/nutriment/protein = 12,
 		/datum/reagent/medicine/mannitol = 11,
 		/datum/reagent/consumable/nutriment/vitamin = 6
 	)
@@ -172,7 +172,7 @@
 	icon_state = "mimeburger"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 6,
-		//datum/reagent/consumable/nutriment/protein = 11,
+		/datum/reagent/consumable/nutriment/protein = 11,
 		/datum/reagent/consumable/nutriment/vitamin = 7,
 		/datum/reagent/consumable/nothing = 6
 	)
@@ -196,7 +196,7 @@
 	icon_state = "ghostburger"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 7,
-		//datum/reagent/consumable/nutriment/protein = 5,
+		/datum/reagent/consumable/nutriment/protein = 5,
 		/datum/reagent/consumable/nutriment/vitamin = 13,
 		/datum/reagent/consumable/sodiumchloride = 5
 	)
@@ -248,7 +248,7 @@
 	icon_state = "cburger"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 2,
-		//datum/reagent/consumable/nutriment/protein = 5,
+		/datum/reagent/consumable/nutriment/protein = 5,
 		/datum/reagent/consumable/nutriment/vitamin = 6,
 		/datum/reagent/colorful_reagent/powder/red = 10
 	)
@@ -260,7 +260,7 @@
 	icon_state = "cburger"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 2,
-		//datum/reagent/consumable/nutriment/protein = 5,
+		/datum/reagent/consumable/nutriment/protein = 5,
 		/datum/reagent/consumable/nutriment/vitamin = 6,
 		/datum/reagent/colorful_reagent/powder/orange = 10
 	)
@@ -272,7 +272,7 @@
 	icon_state = "cburger"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 2,
-		//datum/reagent/consumable/nutriment/protein = 5,
+		/datum/reagent/consumable/nutriment/protein = 5,
 		/datum/reagent/consumable/nutriment/vitamin = 6,
 		/datum/reagent/colorful_reagent/powder/yellow = 10
 	)
@@ -284,7 +284,7 @@
 	icon_state = "cburger"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 2,
-		//datum/reagent/consumable/nutriment/protein = 5,
+		/datum/reagent/consumable/nutriment/protein = 5,
 		/datum/reagent/consumable/nutriment/vitamin = 6,
 		/datum/reagent/colorful_reagent/powder/green = 10
 	)
@@ -296,7 +296,7 @@
 	icon_state = "cburger"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 2,
-		//datum/reagent/consumable/nutriment/protein = 5,
+		/datum/reagent/consumable/nutriment/protein = 5,
 		/datum/reagent/consumable/nutriment/vitamin = 6,
 		/datum/reagent/colorful_reagent/powder/blue = 10
 	)
@@ -308,7 +308,7 @@
 	icon_state = "cburger"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 2,
-		//datum/reagent/consumable/nutriment/protein = 5,
+		/datum/reagent/consumable/nutriment/protein = 5,
 		/datum/reagent/consumable/nutriment/vitamin = 6,
 		/datum/reagent/colorful_reagent/powder/purple = 10
 	)
@@ -320,7 +320,7 @@
 	icon_state = "cburger"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 2,
-		//datum/reagent/consumable/nutriment/protein = 5,
+		/datum/reagent/consumable/nutriment/protein = 5,
 		/datum/reagent/consumable/nutriment/vitamin = 6,
 		/datum/reagent/colorful_reagent/powder/black = 10
 	)
@@ -332,7 +332,7 @@
 	icon_state = "cburger"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 2,
-		//datum/reagent/consumable/nutriment/protein = 5,
+		/datum/reagent/consumable/nutriment/protein = 5,
 		/datum/reagent/consumable/nutriment/vitamin = 6,
 		/datum/reagent/colorful_reagent/powder/white = 10
 	)
@@ -344,7 +344,7 @@
 	icon_state = "spellburger"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 8,
-		//datum/reagent/consumable/nutriment/protein = 5,
+		/datum/reagent/consumable/nutriment/protein = 5,
 		/datum/reagent/consumable/nutriment/vitamin = 11
 	)
 	tastes = list("bun" = 4, "magic" = 2)
@@ -356,7 +356,7 @@
 	icon_state = "bigbiteburger"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 4,
-		//datum/reagent/consumable/nutriment/protein = 11,
+		/datum/reagent/consumable/nutriment/protein = 11,
 		/datum/reagent/consumable/nutriment/vitamin = 7
 	)
 	w_class = WEIGHT_CLASS_NORMAL
@@ -391,7 +391,7 @@
 	icon_state = "superbiteburger"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 25,
-		//datum/reagent/consumable/nutriment/protein = 42,
+		/datum/reagent/consumable/nutriment/protein = 42,
 		/datum/reagent/consumable/nutriment/vitamin = 15
 	)
 	w_class = WEIGHT_CLASS_NORMAL
@@ -406,7 +406,7 @@
 	icon_state = "fivealarmburger"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 4,
-		//datum/reagent/consumable/nutriment/protein = 7,
+		/datum/reagent/consumable/nutriment/protein = 7,
 		/datum/reagent/consumable/capsaicin = 5,
 		/datum/reagent/consumable/condensedcapsaicin = 5,
 		/datum/reagent/consumable/nutriment/vitamin = 6
@@ -419,7 +419,7 @@
 	icon_state = "ratburger"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
-		//datum/reagent/consumable/nutriment/protein = 7,
+		/datum/reagent/consumable/nutriment/protein = 7,
 		/datum/reagent/consumable/nutriment/vitamin = 2
 	)
 	foodtypes = GRAIN | MEAT | GROSS
@@ -430,7 +430,7 @@
 	icon_state = "baseball"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
-		//datum/reagent/consumable/nutriment/protein = 5,
+		/datum/reagent/consumable/nutriment/protein = 5,
 		/datum/reagent/consumable/nutriment/vitamin = 2
 	)
 	foodtypes = GRAIN | GROSS
@@ -441,7 +441,7 @@
 	icon_state = "baconburger"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
-		//datum/reagent/consumable/nutriment/protein = 11,
+		/datum/reagent/consumable/nutriment/protein = 11,
 		/datum/reagent/consumable/nutriment/vitamin = 2
 	)
 	tastes = list("bacon" = 4, "bun" = 2)
@@ -453,7 +453,7 @@
 	icon_state = "empoweredburger"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 10,
-		//datum/reagent/consumable/nutriment/protein = 5,
+		/datum/reagent/consumable/nutriment/protein = 5,
 		/datum/reagent/consumable/nutriment/vitamin = 1,
 		/datum/reagent/consumable/liquidelectricity = 5
 	)
@@ -466,7 +466,7 @@
 	icon_state = "crabburger"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 4,
-		//datum/reagent/consumable/nutriment/protein = 7,
+		/datum/reagent/consumable/nutriment/protein = 7,
 		/datum/reagent/consumable/nutriment/vitamin = 4
 	)
 	tastes = list("bun" = 2, "crab meat" = 4)
@@ -478,7 +478,7 @@
 	icon_state = "soylentburger"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 4,
-		//datum/reagent/consumable/nutriment/protein = 9,
+		/datum/reagent/consumable/nutriment/protein = 9,
 		/datum/reagent/consumable/nutriment/vitamin = 4
 	)
 	tastes = list("bun" = 2, "assistant" = 4)
@@ -490,7 +490,7 @@
 	icon_state = "mcrib"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 2,
-		//datum/reagent/consumable/nutriment/protein = 7,
+		/datum/reagent/consumable/nutriment/protein = 7,
 		/datum/reagent/consumable/nutriment/vitamin = 4,
 		/datum/reagent/consumable/bbqsauce = 1
 	)
@@ -505,7 +505,7 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 2,
 		/datum/reagent/consumable/eggyolk = 3,
-		//datum/reagent/consumable/nutriment/protein = 7,
+		/datum/reagent/consumable/nutriment/protein = 7,
 		/datum/reagent/consumable/nutriment/vitamin = 1
 	)
 	foodtypes = GRAIN | MEAT | BREAKFAST
@@ -518,7 +518,7 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
 		/datum/reagent/consumable/mayonnaise = 3,
-		//datum/reagent/consumable/nutriment/protein = 7,
+		/datum/reagent/consumable/nutriment/protein = 7,
 		/datum/reagent/consumable/nutriment/vitamin = 1,
 		/datum/reagent/consumable/cooking_oil = 2
 	)
@@ -531,7 +531,7 @@
 	tastes = list("bun" = 2, "beef patty" = 4, "cheese" = 3)
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
-		//datum/reagent/consumable/nutriment/protein = 7,
+		/datum/reagent/consumable/nutriment/protein = 7,
 		/datum/reagent/consumable/nutriment/vitamin = 2
 	)
 	foodtypes = GRAIN | MEAT | DAIRY
