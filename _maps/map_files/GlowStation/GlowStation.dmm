@@ -93277,7 +93277,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/disposalpipe/segment,
-/obj/item/reagent_containers/food/snacks/dough,
+/obj/item/food/dough,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "tvD" = (

@@ -68029,8 +68029,8 @@
 /area/security/main)
 "oSL" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/dough,
-/obj/item/reagent_containers/food/snacks/dough,
+/obj/item/food/dough,
+/obj/item/food/dough,
 /obj/item/kitchen/rollingpin,
 /obj/item/kitchen/rollingpin,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{

@@ -183,7 +183,7 @@
 	dir = 4
 	},
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/dough,
+/obj/item/food/dough,
 /obj/item/kitchen/rollingpin,
 /turf/open/floor/plasteel,
 /area/shuttle/escape)

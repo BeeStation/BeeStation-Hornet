@@ -92875,7 +92875,7 @@
 /obj/effect/turf_decal/bot,
 /obj/item/reagent_containers/glass/bowl,
 /obj/item/food/grown/tomato,
-/obj/item/reagent_containers/food/snacks/dough,
+/obj/item/food/dough,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)

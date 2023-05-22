@@ -148,7 +148,7 @@
 /datum/chemical_reaction/dough/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i in 1 to created_volume)
-		new /obj/item/reagent_containers/food/snacks/dough(location)
+		new /obj/item/food/dough(location)
 
 /datum/chemical_reaction/cakebatter
 	name = "Cake Batter"
@@ -159,7 +159,7 @@
 /datum/chemical_reaction/cakebatter/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	for(var/i in 1 to created_volume)
-		new /obj/item/reagent_containers/food/snacks/cakebatter(location)
+		new /obj/item/food/cakebatter(location)
 
 /datum/chemical_reaction/cakebatter/vegan
 	id = "vegancakebatter"

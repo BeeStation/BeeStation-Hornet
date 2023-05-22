@@ -88,7 +88,7 @@
 /datum/crafting_recipe/food/butterbiscuit
 	name = "Butter Biscuit"
 	reqs = list(
-		/obj/item/reagent_containers/food/snacks/bun = 1,
+		/obj/item/food/bun = 1,
 		/obj/item/food/butter = 1
 	)
 	result = /obj/item/food/butterbiscuit
@@ -97,7 +97,7 @@
 /datum/crafting_recipe/food/butterdog
 	name = "Butterdog"
 	reqs = list(
-		/obj/item/reagent_containers/food/snacks/bun = 1,
+		/obj/item/food/bun = 1,
 		/obj/item/food/butter = 3,
 		)
 	result = /obj/item/food/butterdog
@@ -120,7 +120,7 @@
 	name = "Hot dog"
 	reqs = list(
 		/datum/reagent/consumable/ketchup = 5,
-		/obj/item/reagent_containers/food/snacks/bun = 1,
+		/obj/item/food/bun = 1,
 		/obj/item/food/sausage = 1
 	)
 	result = /obj/item/food/hotdog

@@ -36874,7 +36874,7 @@
 /area/bridge)
 "lVf" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/dough,
+/obj/item/food/dough,
 /obj/item/kitchen/rollingpin,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
