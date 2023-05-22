@@ -103,8 +103,7 @@
 	desc = "We all love tofu."
 	icon_state = "tofu"
 	food_reagents = list(
-		/datum/reagent/consumable/nutriment/protein = 2
-		/datum/reagent/consumable/nutriment = 1, //PLACEHOLDER UNTIL WE GET PROTEIN
+		/datum/reagent/consumable/nutriment/protein = 2,
 	)
 	tastes = list("tofu" = 1)
 	foodtypes = VEGETABLES
@@ -123,7 +122,7 @@
 	icon_state = "spiderleg"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment/protein = 3,
-		/datum/reagent/consumable/nutriment = 3, //PLACEHOLDER UNTIL WE GET PROTEIN
+		/datum/reagent/consumable/nutriment = 3,
 		/datum/reagent/toxin = 2
 	)
 	tastes = list("cobwebs" = 1)
@@ -165,7 +164,7 @@
 	icon_state = "meatball"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment/protein = 2,
-		/datum/reagent/consumable/nutriment = 3, //PLACEHOLDER UNTIL WE GET PROTEIN
+		/datum/reagent/consumable/nutriment = 3,
 	)
 	tastes = list("meat" = 1)
 	foodtypes = MEAT
@@ -359,9 +358,9 @@
 	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "kebab"
 	w_class = WEIGHT_CLASS_NORMAL
-	//food_reagents = list(
-	//	/datum/reagent/consumable/nutriment/protein = 14
-	//)
+	food_reagents = list(
+	/datum/reagent/consumable/nutriment/protein = 14
+	)
 	tastes = list("meat" = 3, "metal" = 1)
 	w_class = WEIGHT_CLASS_SMALL
 
@@ -369,7 +368,7 @@
 	name = "human-kebab"
 	desc = "A human meat, on a stick."
 	food_reagents = list(
-	//	/datum/reagent/consumable/nutriment/protein = 16,
+		/datum/reagent/consumable/nutriment/protein = 16,
 		/datum/reagent/consumable/nutriment/vitamin = 6
 	)
 	tastes = list("tender meat" = 3, "metal" = 1)
@@ -388,7 +387,7 @@
 /obj/item/food/kebab/tofu
 	name = "tofu-kebab"
 	desc = "Vegan meat, on a stick."
-	//food_reagents = list(/datum/reagent/consumable/nutriment/protein = 15)
+	food_reagents = list(/datum/reagent/consumable/nutriment/protein = 15)
 	tastes = list("tofu" = 3, "metal" = 1)
 	foodtypes = VEGETABLES
 
