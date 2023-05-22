@@ -7,6 +7,7 @@ import {
   Box,
   Stack,
   Section,
+  Icon,
   Input,
   Flex,
   Tabs,
@@ -130,15 +131,20 @@ const OutfitsPanel = (_, context) => {
     <Section
       title="Outfits"
       buttons={
-        <>
-          Search
-          <Input
-            value={searchText}
-            onInput={(_, value) => setSearchText(value)}
-            mx={1}
-            width="200px"
-          />
-        </>
+        <Flex>
+          <Flex.Item>
+            <Icon
+              name="search"
+              mr={1} />
+          </Flex.Item>
+          <Flex.Item grow={1}>
+            <Input
+              placeholder="Search..."
+              fluid
+              value={searchText}
+              onInput={(_, value) => setSearchText(value)} />
+          </Flex.Item>
+        </Flex>
       }>
       <Stack fill>
         <Stack.Item grow>
@@ -257,13 +263,21 @@ const DisguisePanel = (_, context) => {
                 />
               )}
               <Stack.Item>
-                Search
-                <Input
-                  value={searchText}
-                  onInput={(_, value) => setSearchText(value)}
-                  mx={1}
-                  width="200px"
-                />
+                <Flex>
+                  <Flex.Item>
+                    <Icon
+                      name="search"
+                      mr={1} />
+                  </Flex.Item>
+                  <Flex.Item>
+                    <Input
+                      placeholder="Search..."
+                      fluid
+                      width="200px"
+                      value={searchText}
+                      onInput={(_, value) => setSearchText(value)} />
+                  </Flex.Item>
+                </Flex>
               </Stack.Item>
             </Stack>
           }>
