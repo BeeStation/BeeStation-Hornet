@@ -88,10 +88,6 @@
 		user.visible_message("<span class= notice'>[user] begins cutting into [src] with [W]!</span>", "<span class='notice>You starts cutting [src] with [W]!</span>")
 		if(do_after(user, 60, src, timed_action_flags = IGNORE_HELD_ITEM))
 			do_popout()
-			if(!strong_surprise)
-				for(var/i=1 to (amount_of_slices))
-					var/obj/item/food/slice = new slice_path (loc)
-					slice.initialize_slice(slice, 0)
 			qdel(src)
 			return FALSE
 	if(istype(W, /obj/item/grenade/flashbang))
@@ -125,7 +121,6 @@
 			flash_and_bang(get_turf(M), M)
 			for(var/i=1 to (amount_of_slices))
 				var/obj/item/food/slice = new slice_path (loc)
-				slice.initialize_slice(slice, 0)
 				slice.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(1,3),5)
 	string.Remove(occupant)
 	occupant.forceMove(get_turf(src))
