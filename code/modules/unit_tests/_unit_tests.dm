@@ -68,6 +68,7 @@
 #include "spawn_humans.dm"
 #include "species_whitelists.dm"
 #include "greyscale_config.dm"
+#include "food_edibility_check.dm"
 #include "heretic_knowledge.dm"
 #include "heretic_rituals.dm"
 #include "metabolizing.dm"

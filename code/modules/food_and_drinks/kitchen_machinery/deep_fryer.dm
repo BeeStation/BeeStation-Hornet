@@ -19,6 +19,7 @@ God bless America.
     _-                                          _
     -
 */
+// God bless
 
 #define DEEPFRYER_COOKTIME 60
 #define DEEPFRYER_BURNTIME 120
@@ -129,7 +130,7 @@ God bless America.
 		cook_time += fry_speed * delta_time
 		if(cook_time >= DEEPFRYER_COOKTIME && !frying_fried)
 			frying_fried = TRUE //frying... frying... fried
-			playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
+			playsound(src.loc, 'sound/machines/ding.ogg', 50, TRUE)
 			audible_message("<span class='notice'>[src] dings!</span>")
 		else if (cook_time >= DEEPFRYER_BURNTIME && !frying_burnt)
 			frying_burnt = TRUE
