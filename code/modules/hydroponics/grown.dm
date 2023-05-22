@@ -69,7 +69,7 @@
 				bite_consumption = bite_consumption_mod ? 1 + round(max_volume / bite_consumption_mod) : bite_consumption,\
 				microwaved_type = microwaved_type,\
 				junkiness = junkiness,\
-				on_consume = CALLBACK(src, .proc/OnConsume))
+				on_consume = CALLBACK(src, PROC_REF(OnConsume)))
 
 
 /obj/item/food/grown/proc/make_dryable()
