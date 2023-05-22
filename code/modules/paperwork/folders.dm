@@ -98,27 +98,17 @@
 	return data
 
 /obj/item/folder/ui_act(action, params)
+	if(action == "examine")
+		var/obj/item/I = locate(params["ref"]) in src
+		if(istype(I))
+			usr.examinate(I)
+			return TRUE
 	. = ..()
-	if(.)
+	if(. || usr.incapacitated())
 		return
 
-	if(usr.incapacitated())
-		return
-
-	switch(action)
-		// Take item out
-		if("remove")
-			if(isobserver(usr))
-				return
-			var/obj/item/I= locate(params["ref"]) in src
-			remove_item(I, usr)
-			. = TRUE
-		// Inspect the item
-		if("examine")
-			var/obj/item/I = locate(params["ref"]) in src
-			if(istype(I))
-				usr.examinate(I)
-				. = TRUE
-
-/obj/item/folder/ui_state(mob/user)
-	return logic_state(STATE_OR, list(GLOB.default_state, GLOB.observer_state))
+	// Take item out
+	if(action == "remove")
+		var/obj/item/I = locate(params["ref"]) in src
+		remove_item(I, usr)
+		return TRUE

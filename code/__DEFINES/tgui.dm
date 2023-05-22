@@ -71,6 +71,3 @@
 #define POLLTYPE_RATING "NUMVAL"
 #define POLLTYPE_MULTI "MULTICHOICE"
 #define POLLTYPE_IRV "IRV"
-
-#define STATE_AND	"AND"
-#define STATE_OR	"OR"
