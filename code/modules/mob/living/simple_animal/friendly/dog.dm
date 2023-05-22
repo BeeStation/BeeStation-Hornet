@@ -463,9 +463,9 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 			if(!movement_target || !(src in viewers(3, movement_target.loc)))
 				movement_target = null
 				stop_automated_movement = 0
-				for(var/obj/item/reagent_containers/food/snacks/S in oview(3, src))
-					if(isturf(S.loc) || ishuman(S.loc))
-						movement_target = S
+				for(var/obj/item/potential_snack in oview(src,3))
+					if(IS_EDIBLE(potential_snack) && (isturf(potential_snack.loc) || ishuman(potential_snack.loc)))
+						movement_target = potential_snack
 						break
 			if(movement_target)
 				stop_automated_movement = 1

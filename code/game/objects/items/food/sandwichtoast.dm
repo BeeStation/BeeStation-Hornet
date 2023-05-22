@@ -5,7 +5,7 @@
 	icon_state = "sandwich"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 6,
-		//datum/reagent/consumable/nutriment/protein = 7,
+		/datum/reagent/consumable/nutriment/protein = 7,
 		/datum/reagent/consumable/nutriment/vitamin = 1
 	)
 	tastes = list("meat" = 2, "cheese" = 1, "bread" = 2, "lettuce" = 1)
@@ -13,16 +13,18 @@
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/reagent_containers/food/snacks/toastedsandwich
+/obj/item/food/toastedsandwich
 	name = "toasted sandwich"
 	desc = "Now if you only had a pepper bar."
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "toastedsandwich"
-	trash = /obj/item/trash/plate
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/carbon = 2)
-	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/carbon = 2)
+	trash_type = /obj/item/trash/plate
+	food_reagents = list(
+		/datum/reagent/consumable/nutriment = 6,
+		/datum/reagent/carbon = 2
+	)
 	tastes = list("toast" = 1)
-	foodtype = GRAIN
+	foodtypes = GRAIN
 
 /obj/item/food/grilled_cheese_sandwich
 	name = "grilled cheese sandwich"
@@ -31,7 +33,7 @@
 	icon_state = "toastedsandwich"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 6,
-		//datum/reagent/consumable/nutriment/protein = 5,
+		/datum/reagent/consumable/nutriment/protein = 5,
 		/datum/reagent/consumable/nutriment/vitamin = 1,
 		/datum/reagent/carbon = 4
 	)
@@ -47,7 +49,7 @@
 	icon_state = "sandwich"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 7,
-		//datum/reagent/consumable/nutriment/protein = 3,
+		/datum/reagent/consumable/nutriment/protein = 3,
 		/datum/reagent/consumable/nutriment/vitamin = 1
 	)
 	tastes = list("bread" = 1, "cheese" = 1)

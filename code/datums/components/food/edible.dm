@@ -232,7 +232,7 @@ Behavior that's still missing from this component that original food items had t
 	var/turf/parent_turf = get_turf(parent)
 
 	if(!microwaved_type)
-		new /obj/item/reagent_containers/food/snacks/badrecipe(parent_turf)
+		new /obj/item/food/badrecipe(parent_turf)
 		qdel(src)
 		return
 

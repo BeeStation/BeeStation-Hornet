@@ -63619,7 +63619,7 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/genetics)
 "nsK" = (
-/obj/item/reagent_containers/food/snacks/canned/peaches,
+/obj/item/food/canned/peaches,
 /turf/open/floor/plating/asteroid/snow,
 /area/iceland)
 "nsP" = (
@@ -76480,8 +76480,8 @@
 /area/maintenance/department/medical)
 "pZH" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/hotcrossbun,
-/obj/item/reagent_containers/food/snacks/hotcrossbun{
+/obj/item/food/hotcrossbun,
+/obj/item/food/hotcrossbun{
 	pixel_y = 5
 	},
 /turf/open/floor/plasteel/chapel{

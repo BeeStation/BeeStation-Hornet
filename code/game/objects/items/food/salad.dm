@@ -42,7 +42,7 @@
 	icon_state = "validsalad"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 5,
-		//datum/reagent/consumable/nutriment/protein = 5,
+		/datum/reagent/consumable/nutriment/protein = 5,
 		/datum/reagent/consumable/doctor_delight = 8,
 		/datum/reagent/consumable/nutriment/vitamin = 6
 	)
@@ -120,7 +120,7 @@
 	icon_state = "riceporkbowl"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 6,
-		///datum/reagent/consumable/nutriment/protein = 6,
+		//datum/reagent/consumable/nutriment/protein = 6,
 		/datum/reagent/consumable/nutriment/vitamin = 3
 	)
 	tastes = list("rice" = 1, "meat" = 1)
@@ -132,7 +132,7 @@
 	icon_state = "eggbowl"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 8,
-		///datum/reagent/consumable/nutriment/protein = 2,
+		//datum/reagent/consumable/nutriment/protein = 2,
 		/datum/reagent/consumable/nutriment/vitamin = 4
 	)
 	tastes = list("rice" = 1, "egg" = 1)

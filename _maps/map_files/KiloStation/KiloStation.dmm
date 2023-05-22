@@ -14292,7 +14292,7 @@
 	name = "kitchen closet"
 	},
 /obj/item/clothing/suit/toggle/chef,
-/obj/item/reagent_containers/food/snacks/chococoin,
+/obj/item/food/chococoin,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "bdJ" = (

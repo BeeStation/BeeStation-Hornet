@@ -33,7 +33,7 @@
 /area/template_noop)
 "ag" = (
 /obj/structure/closet/masks,
-/obj/item/reagent_containers/food/snacks/deadmouse,
+/obj/item/food/deadmouse,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "ah" = (

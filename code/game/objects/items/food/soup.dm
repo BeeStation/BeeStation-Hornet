@@ -36,7 +36,7 @@
 	icon_state = "meatballsoup"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 6,
-		//datum/reagent/consumable/nutriment/protein = 6,
+		/datum/reagent/consumable/nutriment/protein = 6,
 		/datum/reagent/consumable/nutriment/vitamin = 8,
 		/datum/reagent/water = 5
 	)
@@ -61,7 +61,7 @@
 	desc = "Smells like copper."
 	icon_state = "tomatosoup"
 	food_reagents = list(
-		//datum/reagent/consumable/nutriment/protein = 6,
+		/datum/reagent/consumable/nutriment/protein = 6,
 		/datum/reagent/blood = 10,
 		/datum/reagent/water = 5,
 		/datum/reagent/consumable/nutriment/vitamin = 10
@@ -75,7 +75,7 @@
 	icon_state = "wingfangchu"
 	trash_type = /obj/item/reagent_containers/glass/bowl
 	food_reagents = list(
-		//datum/reagent/consumable/nutriment/protein = 9,
+		/datum/reagent/consumable/nutriment/protein = 9,
 		/datum/reagent/consumable/soysauce = 10,
 		/datum/reagent/consumable/nutriment/vitamin = 7
 	)
@@ -114,7 +114,7 @@
 	icon_state = "nettlesoup"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 5,
-		//datum/reagent/consumable/nutriment/protein = 2,
+		/datum/reagent/consumable/nutriment/protein = 2,
 		/datum/reagent/water = 5,
 		/datum/reagent/consumable/nutriment/vitamin = 9,
 		/datum/reagent/medicine/omnizine = 5
@@ -128,7 +128,7 @@
 	icon_state = "mysterysoup"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 2,
-		//datum/reagent/consumable/nutriment/protein = 5
+		/datum/reagent/consumable/nutriment/protein = 5
 	)
 	tastes = list("chaos" = 1)
 
@@ -155,7 +155,7 @@
 	icon_state = "hotchili"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 4,
-		//datum/reagent/consumable/nutriment/protein = 6,
+		/datum/reagent/consumable/nutriment/protein = 6,
 		/datum/reagent/consumable/capsaicin = 3,
 		/datum/reagent/consumable/tomatojuice = 4,
 		/datum/reagent/consumable/nutriment/vitamin = 4
@@ -169,7 +169,7 @@
 	icon_state = "coldchili"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 4,
-		//datum/reagent/consumable/nutriment/protein = 6,
+		/datum/reagent/consumable/nutriment/protein = 6,
 		/datum/reagent/consumable/frostoil = 3,
 		/datum/reagent/consumable/tomatojuice = 4,
 		/datum/reagent/consumable/nutriment/vitamin = 4
@@ -183,7 +183,7 @@
 	icon_state = "monkeysdelight"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
-		//datum/reagent/consumable/nutriment/protein = 9,
+		/datum/reagent/consumable/nutriment/protein = 9,
 		/datum/reagent/consumable/banana = 5,
 		/datum/reagent/consumable/nutriment/vitamin = 10
 	)
@@ -208,7 +208,7 @@
 	icon_state = "eyeballsoup"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 2,
-		//datum/reagent/consumable/nutriment/protein = 6,
+		/datum/reagent/consumable/nutriment/protein = 6,
 		/datum/reagent/consumable/tomatojuice = 10,
 		/datum/reagent/consumable/nutriment/vitamin = 4,
 		/datum/reagent/liquidgibs = 3
@@ -222,7 +222,7 @@
 	icon_state = "misosoup"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 4,
-		//datum/reagent/consumable/nutriment/protein = 8,
+		/datum/reagent/consumable/nutriment/protein = 8,
 		/datum/reagent/water = 5,
 		/datum/reagent/consumable/nutriment/vitamin = 4
 	)
@@ -328,7 +328,7 @@
 	icon_state = "bisque"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 6,
-		//datum/reagent/consumable/nutriment/protein = 6,
+		/datum/reagent/consumable/nutriment/protein = 6,
 		/datum/reagent/water = 5,
 		/datum/reagent/consumable/nutriment/vitamin = 6
 	)

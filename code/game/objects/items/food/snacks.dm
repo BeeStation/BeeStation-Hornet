@@ -20,7 +20,7 @@
 	desc = "Beef jerky made from the finest space cows."
 	trash_type = /obj/item/trash/sosjerky
 	food_reagents = list(
-		//datum/reagent/consumable/nutriment/protein = 3,
+		/datum/reagent/consumable/nutriment/protein = 3,
 		/datum/reagent/consumable/sugar = 2,
 		/datum/reagent/consumable/sodiumchloride = 2
 	)
@@ -33,7 +33,7 @@
 	name = "homemade beef jerky"
 	desc = "Homemade beef jerky made from the finest space cows."
 	food_reagents = list(
-		//datum/reagent/consumable/nutriment/protein = 6,
+		/datum/reagent/consumable/nutriment/protein = 6,
 		/datum/reagent/consumable/nutriment/vitamin = 1
 	)
 	junkiness = 0

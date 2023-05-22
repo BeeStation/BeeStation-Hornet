@@ -90,7 +90,7 @@
 			do_popout()
 			if(!strong_surprise)
 				for(var/i=1 to (amount_of_slices))
-					var/obj/item/reagent_containers/food/snacks/slice = new slice_path (loc)
+					var/obj/item/food/slice = new slice_path (loc)
 					slice.initialize_slice(slice, 0)
 			qdel(src)
 			return FALSE
@@ -124,7 +124,7 @@
 				continue //So that the guy hiding inside doesn't get flashed
 			flash_and_bang(get_turf(M), M)
 			for(var/i=1 to (amount_of_slices))
-				var/obj/item/reagent_containers/food/snacks/slice = new slice_path (loc)
+				var/obj/item/food/slice = new slice_path (loc)
 				slice.initialize_slice(slice, 0)
 				slice.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(1,3),5)
 	string.Remove(occupant)

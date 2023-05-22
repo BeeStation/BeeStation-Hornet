@@ -7997,7 +7997,7 @@
 /area/security/prison)
 "aPl" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/deadmouse{
+/obj/item/food/deadmouse{
 	pixel_y = 5
 	},
 /turf/open/floor/plating,

@@ -302,7 +302,7 @@
 /obj/machinery/smartfridge/drying_rack/ui_act(action, params)
 	. = ..()
 	if(.)
-		update_icon() // This is to handle a case where the last item is taken out manually instead of through drying pop-out
+		update_appearance() // This is to handle a case where the last item is taken out manually instead of through drying pop-out
 		return
 	switch(action)
 		if("Dry")
@@ -312,7 +312,7 @@
 
 /obj/machinery/smartfridge/drying_rack/load() //For updating the filled overlay
 	..()
-	update_icon()
+	update_appearance()
 
 /obj/machinery/smartfridge/drying_rack/update_icon()
 	..()
@@ -325,15 +325,18 @@
 /obj/machinery/smartfridge/drying_rack/process()
 	..()
 	if(drying)
-		if(rack_dry())//no need to update unless something got dried
+		for(var/obj/item/item_iterator in src)
+			if(!accept_check(item_iterator))
+				continue
+			rack_dry(item_iterator)
+
 			SStgui.update_uis(src)
-			update_icon()
+			update_appearance()
+			use_power(active_power_usage)
 
 /obj/machinery/smartfridge/drying_rack/accept_check(obj/item/O)
-	if(istype(O, /obj/item/reagent_containers/food/snacks/))
-		var/obj/item/reagent_containers/food/snacks/S = O
-		if(S.dried_type)
-			return TRUE
+	if(HAS_TRAIT(O, TRAIT_DRYABLE)) //set on dryable element
+		return TRUE
 	if(istype(O, /obj/item/stack/sheet/leather/wetleather/))
 		return TRUE
 	return FALSE
@@ -341,9 +344,11 @@
 /obj/machinery/smartfridge/drying_rack/proc/toggle_drying(forceoff)
 	if(drying || forceoff)
 		drying = FALSE
+		//update_use_power(IDLE_POWER_USE)
 	else
 		drying = TRUE
-	update_icon()
+		//update_use_power(ACTIVE_POWER_USE)
+	update_appearance()
 
 /obj/machinery/smartfridge/drying_rack/proc/rack_dry(obj/item/target)
 	SEND_SIGNAL(target, COMSIG_ITEM_DRIED)
@@ -375,7 +380,7 @@
 	desc = "A refrigerated storage unit for food."
 
 /obj/machinery/smartfridge/food/accept_check(obj/item/O)
-	if(istype(O, /obj/item/reagent_containers/food/snacks/))
+	if(IS_EDIBLE(O))
 		return TRUE
 	return FALSE
 

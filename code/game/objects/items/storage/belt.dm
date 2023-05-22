@@ -525,7 +525,7 @@
 	STR.max_items = 6
 	STR.max_w_class = WEIGHT_CLASS_SMALL
 	var/static/list/can_hold = typecacheof(list(
-		/obj/item/reagent_containers/food/snacks,
+		/obj/item/food,
 		/obj/item/reagent_containers/food/drinks
 		))
 	STR.can_hold = can_hold

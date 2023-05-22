@@ -23,10 +23,10 @@
 	machine_name = "Getmore Chocolate Corp"
 
 /obj/machinery/vending/snack/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/reagent_containers/food/snacks))
+	if(IS_EDIBLE(W))
 		if(!compartment_access_check(user))
 			return
-		var/obj/item/reagent_containers/food/snacks/S = W
+		var/obj/item/food/S = W
 		if(!S.junkiness)
 			if(!iscompartmentfull(user))
 				if(!user.transferItemToLoc(W, src))
@@ -42,7 +42,7 @@
 		var/obj/item/storage/T = W
 		var/loaded = 0
 		var/denied_items = 0
-		for(var/obj/item/reagent_containers/food/snacks/S in T.contents)
+		for(var/obj/item/food/S in T.contents)
 			if(iscompartmentfull(user))
 				break
 			if(!S.junkiness)
@@ -62,7 +62,7 @@
 		return ..()
 
 /obj/machinery/vending/snack/Destroy()
-	for(var/obj/item/reagent_containers/food/snacks/S in contents)
+	for(var/obj/item/food/S in contents)
 		S.forceMove(get_turf(src))
 	return ..()
 
@@ -81,7 +81,7 @@
 		return 1
 	return 0
 
-/obj/machinery/vending/snack/proc/food_load(obj/item/reagent_containers/food/snacks/S)
+/obj/machinery/vending/snack/proc/food_load(obj/item/food/S)
 	if(dish_quants[S.name])
 		dish_quants[S.name]++
 	else

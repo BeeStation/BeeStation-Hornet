@@ -862,7 +862,7 @@
 /area/awaymission/BMPship/Aft)
 "wk" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/meat,
 /turf/open/floor/plasteel/showroomfloor,
 /area/awaymission/BMPship/Aft)
 "ww" = (
@@ -2011,7 +2011,7 @@
 /obj/structure/table,
 /obj/item/kitchen/knife/butcher,
 /obj/item/reagent_containers/food/drinks/beer,
-/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/food/meat,
 /obj/effect/turf_decal/tile/blue/opposingcorners{
 	dir = 1
 	},

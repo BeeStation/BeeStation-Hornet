@@ -73,8 +73,8 @@
 
 /datum/action/item_action/organ_action/pumpkin_head_candy/proc/generate_candy()
 	//Get a candy type
-	var/obj/item/type = pick(/obj/item/reagent_containers/food/snacks/sugarcookie/spookyskull,
-		/obj/item/reagent_containers/food/snacks/sugarcookie/spookycoffin,
+	var/obj/item/type = pick(/obj/item/food/cookie/sugar/spookyskull,
+		/obj/item/food/cookie/sugar/spookycoffin,
 		/obj/item/food/candy_corn,
 		/obj/item/food/candy,
 		/obj/item/food/candiedapple,

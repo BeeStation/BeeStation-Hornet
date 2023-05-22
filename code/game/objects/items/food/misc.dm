@@ -59,7 +59,7 @@
 	foodtypes = GROSS
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/reagent_containers/food/snacks/badrecipe/burn()
+/obj/item/food/badrecipe/burn()
 	if(QDELETED(src))
 		return
 	var/turf/T = get_turf(src)
@@ -268,3 +268,31 @@
 
 	tastes = list("sour cream" = 2, "onion" = 1)
 	foodtypes = FRIED
+
+/obj/item/food/rationpack
+	name = "ration pack"
+	desc = "A square bar that sadly <i>looks</i> like chocolate, packaged in a nondescript grey wrapper. Has saved soldiers' lives before - usually by stopping bullets."
+	icon_state = "rationpack"
+	bite_consumption = 3
+	junkiness = 15
+	tastes = list("cardboard" = 3, "sadness" = 3)
+	foodtypes = null //Don't ask what went into them. You're better off not knowing.
+	food_reagents = list(/datum/reagent/consumable/nutriment/stabilized = 10, /datum/reagent/consumable/nutriment = 2) //Won't make you fat. Will make you question your sanity.
+
+///Override for checkliked callback
+/obj/item/food/rationpack/make_edible()
+	AddComponent(/datum/component/edible,\
+				initial_reagents = food_reagents,\
+				food_flags = food_flags,\
+				foodtypes = foodtypes,\
+				volume = max_volume,\
+				eat_time = eat_time,\
+				tastes = tastes,\
+				eatverbs = eatverbs,\
+				bite_consumption = bite_consumption,\
+				microwaved_type = microwaved_type,\
+				junkiness = junkiness,\
+				check_liked = CALLBACK(src, .proc/check_liked))
+
+/obj/item/food/rationpack/proc/check_liked(fraction, mob/M)	//Nobody likes rationpacks. Nobody.
+	return FOOD_DISLIKED

@@ -17366,8 +17366,8 @@
 /area/crew_quarters/bar)
 "eGv" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/hotcrossbun,
-/obj/item/reagent_containers/food/snacks/hotcrossbun{
+/obj/item/food/hotcrossbun,
+/obj/item/food/hotcrossbun{
 	pixel_y = 5
 	},
 /turf/open/floor/carpet/grimy,
@@ -19719,7 +19719,7 @@
 /obj/item/food/pie/cream,
 /obj/effect/turf_decal/bot,
 /obj/item/kitchen/rollingpin,
-/obj/item/reagent_containers/food/snacks/hotdog,
+/obj/item/food/hotdog,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
@@ -62751,7 +62751,7 @@
 /obj/item/food/canned/beefbroth{
 	pixel_x = -4
 	},
-/obj/item/reagent_containers/food/snacks/canned/peaches{
+/obj/item/food/canned/peaches{
 	pixel_x = 4
 	},
 /turf/open/floor/plasteel/techmaint,

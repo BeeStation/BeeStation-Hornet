@@ -13,7 +13,7 @@
 /area/template_noop)
 "f" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/store/bread/creamcheese,
+/obj/item/food/bread/creamcheese,
 /obj/effect/decal/cleanable/crayon,
 /obj/machinery/light{
 	dir = 4
@@ -21,7 +21,7 @@
 /turf/open/floor/plasteel/techmaint,
 /area/template_noop)
 "h" = (
-/obj/item/reagent_containers/food/snacks/spaghetti/butternoodles,
+/obj/item/food/spaghetti/butternoodles,
 /obj/effect/decal/cleanable/crayon,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -33,7 +33,7 @@
 /area/template_noop)
 "k" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/store/cake/cheese,
+/obj/item/food/cake/cheese,
 /obj/effect/decal/cleanable/crayon,
 /turf/open/floor/plasteel/techmaint,
 /area/template_noop)
@@ -62,7 +62,7 @@
 /area/template_noop)
 "u" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/spaghetti/kasespatzle,
+/obj/item/food/spaghetti/kasespatzle,
 /obj/effect/decal/cleanable/crayon,
 /obj/machinery/light{
 	dir = 8
@@ -128,7 +128,7 @@
 /area/template_noop)
 "U" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/cheesyburrito,
+/obj/item/food/cheesyburrito,
 /obj/effect/decal/cleanable/crayon,
 /turf/open/floor/plasteel/techmaint,
 /area/template_noop)

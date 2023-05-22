@@ -146,10 +146,10 @@
 	loot = list(
 		/obj/item/food/burger/crab,
 		/obj/item/food/crab_rangoon,
-		/obj/item/reagent_containers/food/snacks/scotchegg,
+		/obj/item/food/scotchegg,
 		/obj/item/food/pancakes/chocolatechip,
 		/obj/item/food/carrotfries,
-		/obj/item/reagent_containers/food/snacks/chocolatebunny,
+		/obj/item/food/chocolatebunny,
 		/obj/item/food/benedict,
 		/obj/item/food/cornedbeef,
 		/obj/item/food/soup/meatball,

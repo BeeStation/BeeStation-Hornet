@@ -772,7 +772,7 @@
 	cost = 4000
 	contraband = TRUE
 	max_supply = 3
-	contains = list(/obj/item/reagent_containers/food/snacks/rationpack,
+	contains = list(/obj/item/food/rationpack,
 					/obj/item/ammo_box/a762,
 					/obj/item/storage/toolbox/ammo,
 					/obj/item/clothing/suit/armor/vest/russian,
