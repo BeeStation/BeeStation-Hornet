@@ -30,11 +30,13 @@
 	var/useable = TRUE
 	var/list/food_reagents = list(/datum/reagent/consumable/nutriment = 5)
 
-/obj/item/organ/Initialize()
+/obj/item/organ/Initialize(mapload)
 	. = ..()
 	if(organ_flags & ORGAN_EDIBLE)
-		AddComponent(/datum/component/edible, initial_reagents = food_reagents, foodtypes = RAW | MEAT | GORE, \
-			pre_eat = CALLBACK(src, PROC_REF(pre_eat)), on_compost = CALLBACK(src, PROC_REF(pre_compost)) , after_eat = CALLBACK(src, PROC_REF(on_eat_from)))
+		AddComponent(/datum/component/edible,\
+			initial_reagents = food_reagents,\
+			foodtypes = RAW | MEAT | GORE, \
+			after_eat = CALLBACK(src, PROC_REF(on_eat_from)))
 
 /obj/item/organ/proc/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE)
 	if(!iscarbon(M) || owner == M)
@@ -122,26 +124,13 @@
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 
-// Put any "can we eat this" checks for edible organs here
-/obj/item/organ/proc/pre_eat(eater, feeder)
-	if(iscarbon(eater))
-		var/mob/living/carbon/target = eater
-		for(var/S in target.surgeries)
-			var/datum/surgery/surgery = S
-			if(surgery.location == zone)
-				return FALSE
-	return TRUE
-
-/obj/item/organ/proc/pre_compost(user)
-	return TRUE
-
 /obj/item/organ/proc/on_eat_from(eater, feeder)
 	useable = FALSE //You bit it, no more using it
 
 /obj/item/organ/proc/check_for_surgery(mob/living/carbon/human/H)
 	for(var/datum/surgery/S in H.surgeries)
 		if(S.location == H.zone_selected)
-			return	TRUE			//no snacks mid surgery
+			return	TRUE //no snacks mid surgery
 	return FALSE
 
 /obj/item/organ/item_action_slot_check(slot,mob/user)

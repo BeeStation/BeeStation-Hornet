@@ -165,16 +165,6 @@
 		owner.mind.set_current(null)
 	return ..()
 
-// We really don't want people eating brains unless they're zombies.
-/obj/item/organ/brain/pre_eat(eater, feeder)
-	if(!iszombie(eater))
-		return FALSE
-	return TRUE
-
-// Ditto for composting
-/obj/item/organ/brain/pre_compost(user)
-	return FALSE
-
 /obj/item/organ/brain/on_life()
 	if(damage >= BRAIN_DAMAGE_DEATH) //rip
 		to_chat(owner, "<span class='userdanger'>The last spark of life in your brain fizzles out.</span>")

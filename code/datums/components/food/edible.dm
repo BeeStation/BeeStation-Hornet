@@ -29,8 +29,6 @@ Behavior that's still missing from this component that original food items had t
 	var/junkiness = 0
 	///Message to send when eating
 	var/list/eatverbs
-	///Callback to be ran before you eat something, so you can check if someone *can* eat it.
-	var/datum/callback/pre_eat
 	///Callback to be ran before composting something, in case you don't want a piece of food to be compostable for some reason.
 	var/datum/callback/on_compost
 	///Callback to be ran for when you take a bite of something
@@ -118,8 +116,6 @@ Behavior that's still missing from this component that original food items had t
 	list/tastes,
 	list/eatverbs = list("bite","chew","nibble","gnaw","gobble","chomp"),
 	bite_consumption = 2,
-	datum/callback/pre_eat,
-	datum/callback/on_compost,
 	datum/callback/after_eat,
 	datum/callback/on_consume
 	)
@@ -131,14 +127,11 @@ Behavior that's still missing from this component that original food items had t
 	src.eat_time = eat_time
 	src.eatverbs = eatverbs
 	src.junkiness = junkiness
-	src.pre_eat = pre_eat
-	src.on_compost = on_compost
 	src.after_eat = after_eat
 	src.on_consume = on_consume
+	src.check_liked = check_liked
 
 /datum/component/edible/Destroy(force, silent)
-	QDEL_NULL(pre_eat)
-	QDEL_NULL(on_compost)
 	QDEL_NULL(after_eat)
 	QDEL_NULL(on_consume)
 	return ..()
@@ -377,8 +370,6 @@ Behavior that's still missing from this component that original food items had t
 /datum/component/edible/proc/CanConsume(mob/living/eater, mob/living/feeder)
 	if(!iscarbon(eater))
 		return FALSE
-	if(pre_eat && !pre_eat.Invoke(eater, feeder))
-		return FALSE
 	var/mob/living/carbon/C = eater
 	var/covered = ""
 	if(C.is_mouth_covered(head_only = 1))
@@ -399,24 +390,28 @@ Behavior that's still missing from this component that original food items had t
 		return FALSE
 	var/mob/living/carbon/human/human_eater = eater
 	var/obj/item/organ/tongue/tongue = human_eater.getorganslot(ORGAN_SLOT_TONGUE)
+
 	if((foodtypes & BREAKFAST) && world.time - SSticker.round_start_time < STOP_SERVING_BREAKFAST)
 		SEND_SIGNAL(human_eater, COMSIG_ADD_MOOD_EVENT, "breakfast", /datum/mood_event/breakfast)
+
 	if(HAS_TRAIT(human_eater, TRAIT_AGEUSIA))
 		if(foodtypes & tongue.toxic_food)
 			to_chat(human_eater, "<span class='warning'>You don't feel so good...</span>")
 			human_eater.adjust_disgust(25 + 30 * fraction)
+		return // Later checks are irrelevant if you have ageusia
 
 	var/food_taste_reaction
 
-
 	if(check_liked) //Callback handling; use this as an override for special food like donuts
 		food_taste_reaction = check_liked.Invoke(fraction, human_eater)
-	else if(foodtypes & tongue.toxic_food)
-		food_taste_reaction = FOOD_TOXIC
-	else if(foodtypes & tongue.disliked_food)
-		food_taste_reaction = FOOD_DISLIKED
-	else if(foodtypes & tongue.liked_food)
-		food_taste_reaction = FOOD_LIKED
+
+	if(!food_taste_reaction)
+		if(foodtypes & tongue.toxic_food)
+			food_taste_reaction = FOOD_TOXIC
+		else if(foodtypes & tongue.disliked_food)
+			food_taste_reaction = FOOD_DISLIKED
+		else if(foodtypes & tongue.liked_food)
+			food_taste_reaction = FOOD_LIKED
 
 	switch(food_taste_reaction)
 		if(FOOD_TOXIC)
@@ -431,7 +426,6 @@ Behavior that's still missing from this component that original food items had t
 			to_chat(human_eater,"<span class='notice'>I love this taste!</span>")
 			human_eater.adjust_disgust(-5 + -2.5 * fraction)
 			SEND_SIGNAL(human_eater, COMSIG_ADD_MOOD_EVENT, "fav_food", /datum/mood_event/favorite_food)
-	last_check_time = world.time
 
 ///Delete the item when it is fully eaten
 /datum/component/edible/proc/on_consume(mob/living/eater, mob/living/feeder)
@@ -439,6 +433,7 @@ Behavior that's still missing from this component that original food items had t
 
 	on_consume?.Invoke(eater, feeder)
 
+	to_chat(feeder, "<span class='warning'>There is nothing left of [parent], oh no!</span>")
 	if(isturf(parent))
 		var/turf/T = parent
 		T.ScrapeAway(1, CHANGETURF_INHERIT_AIR)
