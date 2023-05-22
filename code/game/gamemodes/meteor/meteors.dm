@@ -140,6 +140,7 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 	///Lifetime in seconds
 	var/lifetime = DEFAULT_METEOR_LIFETIME
 	var/carrier = FALSE
+	var/datum/weakref/carried
 
 /obj/effect/meteor/Initialize(mapload, target)
 	. = ..()
@@ -240,11 +241,8 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 		var/thing_to_spawn = pick(meteordrop)
 		new thing_to_spawn(get_turf(src))
 	if(carrier)
-		for(var/atom/movable/A in contents)
-			if(istype(A, /mob))
-				var/mob/M = A
-				M.status_flags &= ~GODMODE
-			A.forceMove(get_turf(src))
+		var/mob/M = carried?.resolve()
+		M.delayed_teleport(get_turf(src))
 
 /obj/effect/meteor/proc/meteor_effect()
 	if(heavy)
