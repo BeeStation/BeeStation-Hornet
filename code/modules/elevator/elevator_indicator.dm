@@ -22,6 +22,10 @@
 /obj/machinery/elevator_indicator/secure
 	id = "secure"
 
+// Pubby
+/obj/machinery/elevator_indicator/pubby_main
+	id = "pubby_main"
+
 /obj/machinery/elevator_indicator/Initialize(mapload)
 	. = ..()
 	update_display(force = TRUE)

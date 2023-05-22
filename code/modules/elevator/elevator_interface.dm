@@ -29,6 +29,12 @@
 	available_levels = list(1, 2, 5)
 	calltime = 3.5 SECONDS // this is a long elevator, please don't take 5 years
 
+// Pubby
+/obj/machinery/elevator_interface/main_pubby
+	id = "main_pubby"
+	available_levels = list(1, 2, 3, 4, 5)
+	calltime = 3.5 SECONDS // this is a long elevator, please don't take 5 years
+
 /obj/machinery/elevator_interface/Initialize(mapload)
 	. = ..()
 	if(standing)

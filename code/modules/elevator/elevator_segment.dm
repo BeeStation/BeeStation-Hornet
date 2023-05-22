@@ -21,6 +21,11 @@
 	id = "secure"
 	base_turf = /turf/open/floor/plasteel/elevatorshaft
 
+// Pubby
+/obj/structure/elevator_segment/main_pubby
+	id = "main_pubby"
+	base_turf = /turf/open/floor/plasteel/elevatorshaft
+
 /obj/structure/elevator_segment/Initialize(mapload)
 	music_files = list('sound/effects/turbolift/elevatormusic.ogg' = 45, 'sound/effects/turbolift/elevator_loop.ogg' = 25)
 	move_blacklist = typecacheof(list(/atom/movable/lighting_object, /obj/structure/cable, /obj/structure/disposalpipe, /obj/machinery/atmospherics/pipe))

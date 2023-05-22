@@ -8,5 +8,35 @@
 		"whiteship": "whiteship_pubby",
 		"ferry": "ferry_fancy",
 		"cargo": "cargo_box"
-	}
+	},
+	"traits": [
+		{
+			"Up": 1,
+			"Baseturf": "/turf/open/space/basic",
+			"Linkage": "Cross"
+		},
+		{
+			"Up": 1,
+			"Down": -1,
+			"Baseturf": "/turf/open/openspace",
+			"Linkage": "Cross"
+		},
+		{
+			"Up": 1,
+			"Down": -1,
+			"Baseturf": "/turf/open/openspace",
+			"Linkage": "Cross"
+		},
+		{
+			"Up": 1,
+			"Down": -1,
+			"Baseturf": "/turf/open/openspace",
+			"Linkage": "Cross"
+		},
+		{
+			"Down": -1,
+			"Baseturf": "/turf/open/openspace",
+			"Linkage": "Cross"
+		}
+	]
 }
