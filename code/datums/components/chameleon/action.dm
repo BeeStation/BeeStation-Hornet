@@ -11,7 +11,7 @@
 	if(!IsAvailable())
 		return
 	if(!opened_message)
-		to_chat("<span class='warning'>The chameleon panel UI may take a few seconds to load upon opening it for the first time! Click the action button again if it doesn't load after a few seconds!</span>")
+		to_chat(owner, "<span class='warning'>The chameleon panel UI may take a few seconds to load upon opening it for the first time! Click the action button again if it doesn't load after a few seconds!</span>")
 		opened_message = TRUE
 	ui_interact(owner)
 
