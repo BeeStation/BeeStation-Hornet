@@ -9628,6 +9628,25 @@
 /obj/item/stack/rods,
 /turf/open/space/basic,
 /area/space)
+"det" = (
+/obj/structure/table,
+/obj/structure/reagent_dispensers/virusfood{
+	pixel_x = -32
+	},
+/obj/item/book/manual/wiki/infections{
+	pixel_x = 2;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -6;
+	pixel_y = 7
+	},
+/obj/item/clothing/glasses/hud/health{
+	pixel_x = 4;
+	pixel_y = -1
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/medical/virology)
 "deu" = (
 /obj/structure/frame/computer,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -9916,12 +9935,6 @@
 	name = "Suspicious-Looking Wall"
 	},
 /area/security/courtroom)
-"djr" = (
-/obj/machinery/smartfridge{
-	name = "Sample Storage"
-	},
-/turf/closed/wall/r_wall,
-/area/medical/virology)
 "djO" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -12448,21 +12461,6 @@
 /obj/structure/sign/poster/random,
 /turf/closed/wall,
 /area/medical/chemistry)
-"ebu" = (
-/obj/structure/table,
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -6;
-	pixel_y = 7
-	},
-/obj/item/clothing/glasses/hud/health{
-	pixel_x = 4;
-	pixel_y = -1
-	},
-/obj/structure/reagent_dispensers/virusfood{
-	pixel_x = -32
-	},
-/turf/open/floor/plasteel/grid/steel,
-/area/medical/virology)
 "ebv" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/cable{
@@ -15908,6 +15906,46 @@
 /area/security/main{
 	name = "Security Waiting Room"
 	})
+"feD" = (
+/obj/item/reagent_containers/syringe/antiviral{
+	pixel_x = 7;
+	pixel_y = 13
+	},
+/obj/item/reagent_containers/syringe/antiviral{
+	pixel_x = 5;
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/syringe/antiviral{
+	pixel_x = 1;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/syringe/antiviral{
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/syringe/antiviral{
+	pixel_x = -1;
+	pixel_y = 1
+	},
+/obj/item/reagent_containers/syringe/antiviral{
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/obj/item/storage/box/syringes{
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/obj/item/storage/box/syringes{
+	pixel_x = 6;
+	pixel_y = 11
+	},
+/obj/structure/table,
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_x = 32;
+	pixel_y = -3
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/medical/virology)
 "feL" = (
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/plasteel,
@@ -22998,25 +23036,6 @@
 	},
 /turf/open/floor/plating,
 /area/engine/atmos)
-"htn" = (
-/obj/machinery/chem_master{
-	dir = 4
-	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/requests_console{
-	department = "Medbay";
-	departmentType = 1;
-	name = "Medbay RC";
-	pixel_x = 32;
-	pixel_y = 2
-	},
-/obj/item/radio/intercom{
-	dir = 1;
-	pixel_x = 27;
-	pixel_y = -12
-	},
-/turf/open/floor/plasteel/grid/steel,
-/area/space)
 "htw" = (
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -32266,10 +32285,6 @@
 	dir = 1
 	},
 /area/medical/sleeper)
-"kFq" = (
-/obj/machinery/smartfridge/chemistry/virology/preloaded,
-/turf/closed/wall/r_wall,
-/area/medical/virology)
 "kFI" = (
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -32627,30 +32642,6 @@
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/quartermaster/sorting)
-"kMa" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/drinks/bottle/virusfood{
-	pixel_x = 2;
-	pixel_y = 12
-	},
-/obj/item/reagent_containers/food/drinks/bottle/virusfood{
-	pixel_x = -6;
-	pixel_y = 8
-	},
-/obj/item/reagent_containers/glass/bottle/spaceacillin{
-	pixel_x = 9;
-	pixel_y = 12
-	},
-/obj/item/reagent_containers/glass/bottle/spaceacillin{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/glass/bottle/spaceacillin{
-	pixel_x = 2;
-	pixel_y = -1
-	},
-/turf/open/floor/plasteel/grid/steel,
-/area/medical/virology)
 "kMo" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -32
@@ -32665,21 +32656,6 @@
 	},
 /turf/open/floor/plasteel/white/corner,
 /area/science/research)
-"kMD" = (
-/obj/machinery/chem_master{
-	dir = 4
-	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/button/door{
-	id = "quarantineshutters";
-	layer = 4;
-	name = "Quarantine Lockdown";
-	pixel_x = 27;
-	pixel_y = 8;
-	req_access_txt = "39"
-	},
-/turf/open/floor/plasteel/grid/steel,
-/area/space)
 "kMF" = (
 /obj/structure/lattice,
 /obj/effect/decal/remains/human,
@@ -34303,6 +34279,13 @@
 /obj/structure/window/reinforced,
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/central)
+"loD" = (
+/obj/structure/chair/office/light{
+	dir = 4
+	},
+/obj/effect/landmark/start/virologist,
+/turf/open/floor/plasteel/grid/steel,
+/area/medical/virology)
 "loI" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular{
@@ -34995,6 +34978,11 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
+"lBn" = (
+/obj/machinery/computer/pandemic,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel/grid/steel,
+/area/medical/virology)
 "lBo" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -35629,6 +35617,16 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/ridged/steel,
 /area/crew_quarters/heads/hos)
+"lMk" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/chem_master{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel/grid/steel,
+/area/medical/virology)
 "lMu" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/structure/cable/yellow{
@@ -40172,6 +40170,18 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/security/nuke_storage)
+"njS" = (
+/obj/machinery/smartfridge/chemistry/virology/preloaded,
+/obj/machinery/button/door{
+	id = "quarantineshutters";
+	layer = 4;
+	name = "Quarantine Lockdown";
+	pixel_x = 27;
+	pixel_y = 8;
+	req_access_txt = "39"
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/medical/virology)
 "nkd" = (
 /obj/machinery/light{
 	dir = 8
@@ -50790,41 +50800,6 @@
 /obj/machinery/vending/snack/orange,
 /turf/open/floor/plasteel/dark,
 /area/medical/medbay/central)
-"qWC" = (
-/obj/item/reagent_containers/syringe/antiviral{
-	pixel_x = 7;
-	pixel_y = 13
-	},
-/obj/item/reagent_containers/syringe/antiviral{
-	pixel_x = 5;
-	pixel_y = 10
-	},
-/obj/item/reagent_containers/syringe/antiviral{
-	pixel_x = 1;
-	pixel_y = 8
-	},
-/obj/item/reagent_containers/syringe/antiviral{
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/syringe/antiviral{
-	pixel_x = -1;
-	pixel_y = 1
-	},
-/obj/item/reagent_containers/syringe/antiviral{
-	pixel_x = -2;
-	pixel_y = -1
-	},
-/obj/item/storage/box/syringes{
-	pixel_x = -3;
-	pixel_y = 2
-	},
-/obj/item/storage/box/syringes{
-	pixel_x = 6;
-	pixel_y = 11
-	},
-/obj/structure/table,
-/turf/open/floor/plasteel/grid/steel,
-/area/medical/virology)
 "qWF" = (
 /obj/machinery/power/apc/auto_name/south{
 	pixel_y = -24
@@ -51451,6 +51426,36 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/sepia,
 /area/maintenance/central)
+"rjd" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/bottle/virusfood{
+	pixel_x = 2;
+	pixel_y = 12
+	},
+/obj/item/reagent_containers/food/drinks/bottle/virusfood{
+	pixel_x = -6;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/glass/bottle/spaceacillin{
+	pixel_x = 9;
+	pixel_y = 12
+	},
+/obj/item/reagent_containers/glass/bottle/spaceacillin{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/glass/bottle/spaceacillin{
+	pixel_x = 2;
+	pixel_y = -1
+	},
+/obj/machinery/requests_console{
+	department = "Medbay";
+	departmentType = 1;
+	name = "Medbay RC";
+	pixel_x = 32
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/medical/virology)
 "rjl" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	alpha = 180;
@@ -51500,13 +51505,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
-"rky" = (
-/obj/structure/chair/office/light{
-	dir = 4
-	},
-/obj/effect/landmark/start/virologist,
-/turf/open/floor/plasteel/grid/steel,
-/area/space)
 "rkO" = (
 /obj/structure/rack,
 /obj/item/reagent_containers/spray/cleaner,
@@ -52951,11 +52949,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/engine/engine_room)
-"rMb" = (
-/obj/machinery/computer/pandemic,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel/grid/steel,
-/area/space)
 "rMj" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -56728,6 +56721,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/storage/primary)
+"sWR" = (
+/obj/machinery/smartfridge{
+	name = "Sample Storage"
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/medical/virology)
 "sXt" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -67101,17 +67100,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
-"wla" = (
-/obj/structure/table,
-/obj/item/book/manual/wiki/infections{
-	pixel_x = 2;
-	pixel_y = 6
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/open/floor/plasteel/grid/steel,
-/area/medical/virology)
 "wlr" = (
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 4
@@ -115388,8 +115376,8 @@ iND
 tjL
 ufx
 sqV
-wla
-ebu
+lMk
+det
 sxu
 tfq
 cYI
@@ -116154,10 +116142,10 @@ jbO
 sWl
 nLO
 cIe
-rMb
-rky
-rky
-rMb
+lBn
+loD
+loD
+lBn
 mkS
 hzd
 hzd
@@ -116411,10 +116399,10 @@ hBd
 mYl
 oHV
 tfq
-htn
-qWC
-kMa
-kMD
+sWR
+feD
+rjd
+njS
 pZF
 wIx
 iiY
@@ -116669,8 +116657,8 @@ oNJ
 lAh
 tfq
 tfq
-djr
-kFq
+tfq
+tfq
 tfq
 cDB
 tfq
