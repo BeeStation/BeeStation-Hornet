@@ -160,17 +160,17 @@
 	name = "Nanotrasen MkIII BPDT engine"
 	icon = 'icons/obj/4x7.dmi'
 	icon_state = "huge_ion_engine"
-	desc = "An extremely large bluespaceoplasmadynamic ion engine used to propel even stations."
+	desc = "An extremely large bluespace-plasmadynamic ion engine used to propel objects reaching the size of stations."
 	bound_width = 128
 	bound_height = 224
 	appearance_flags = NONE
 
 /obj/structure/shuttle/engine/hugeionafterburn
-	name = "Nanotrasen MkIII BPDT engine afterburn"
+	name = "Nanotrasen MkIII BPDT engine afterburner"
 	opacity = 1
 	icon = 'icons/obj/4x7.dmi'
 	icon_state = "huge_ion_afterburn"
-	desc = "Quite hot, don't get too close to the glowing end!."
+	desc = "Quite hot, don't get too close to the glowing end!"
 	bound_width = 128
 	bound_height = 224
 	appearance_flags = NONE
