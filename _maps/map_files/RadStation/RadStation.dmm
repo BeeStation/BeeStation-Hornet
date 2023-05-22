@@ -14290,10 +14290,6 @@
 	},
 /turf/open/floor/plasteel/tech,
 /area/engine/atmos)
-"eDC" = (
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/maintenance/department/bridge)
 "eDI" = (
 /turf/open/floor/plasteel/sepia,
 /area/quartermaster/office)
@@ -108707,7 +108703,7 @@ gsA
 gsA
 gsA
 jGx
-eDC
+jGx
 hhv
 hCq
 dzW
