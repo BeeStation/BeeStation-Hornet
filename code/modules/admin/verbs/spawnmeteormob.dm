@@ -1,7 +1,7 @@
 /datum/admins/proc/spawn_mobmeteor(object as text)
 	set category = "Adminbus"
 	set desc = "Spawn mob-meteor (enter /obj/effect/meteor here)"
-	set name = "Spawn marked mob in meteor"
+	set name = "Spawn Marked Mob In Meteor"
 
 	spawn_mob_as_meteor(object)
 
