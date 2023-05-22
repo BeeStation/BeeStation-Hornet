@@ -117,6 +117,8 @@
 	#define COMPONENT_BLOCK_REACH 1
 ///for when an atom has been created through processing (atom/original_atom, list/chosen_processing_option)
 #define COMSIG_ATOM_CREATEDBY_PROCESSING "atom_createdby_processing"
+///when an atom is processed (mob/living/user, obj/item/I, list/atom/results)
+#define COMSIG_ATOM_PROCESSED "atom_processed"
 ///! called when teleporting into a protected turf: (channel, turf/origin)
 #define COMSIG_ATOM_INTERCEPT_TELEPORT "intercept_teleport"
 	#define COMPONENT_BLOCK_TELEPORT 1
@@ -124,6 +126,15 @@
 #define COMSIG_ATOM_ORBIT_BEGIN "atom_orbit_begin"
 /// called when an atom stops orbiting another atom: (atom)
 #define COMSIG_ATOM_ORBIT_STOP "atom_orbit_stop"
+
+//Customizable
+
+///called when an atom with /datum/component/customizable_reagent_holder is customized (obj/item/I)
+#define COMSIG_ATOM_CUSTOMIZED "atom_customized"
+///called when an item is used as an ingredient: (atom/customized)
+#define COMSIG_ITEM_USED_AS_INGREDIENT "item_used_as_ingredient"
+///called when an edible ingredient is added: (datum/component/edible/ingredient)
+#define COMSIG_EDIBLE_INGREDIENT_ADDED "edible_ingredient_added"
 
 /////////////////
 /* Attack signals. They should share the returned flags, to standardize the attack chain. */

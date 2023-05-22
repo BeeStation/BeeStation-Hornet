@@ -550,4 +550,12 @@
 		/datum/reagent/consumable/nutriment = 1
 	)
 	foodtypes = GRAIN | MEAT | DAIRY | TOXIC | GROSS | FRUIT
-	w_class = WEIGHT_CLASS_NORMAL   // The crazy hamburger in the video was bigger than joker's hand therefore i think this weight class is adequate.
+	w_class = WEIGHT_CLASS_NORMAL // The crazy hamburger in the video was bigger than joker's hand therefore i think this weight class is adequate.
+
+// empty burger you can customize
+/obj/item/food/burger/empty
+	name = "burger"
+	desc = "A crazy, custom burger made by a mad cook."
+	icon_state = "custburg"
+	tastes = list("bun")
+	foodtypes = GRAIN

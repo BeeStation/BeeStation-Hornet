@@ -39,9 +39,9 @@
 	tastes = list("bread" = 1)
 	foodtypes = GRAIN
 
-///obj/item/food/pizzabread/Initialize(mapload)
-//	. = ..()
-//	AddComponent(/datum/component/customizable_reagent_holder, /obj/item/food/pizza/margherita, CUSTOM_INGREDIENT_ICON_SCATTER, max_ingredients = 12)
+/obj/item/food/pizzabread/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/customizable_reagent_holder, /obj/item/food/pizza/margherita, CUSTOM_INGREDIENT_ICON_SCATTER, max_ingredients = 12)
 
 /obj/item/food/doughslice
 	name = "dough slice"
@@ -64,9 +64,9 @@
 	tastes = list("bun" = 1) // the bun tastes of bun.
 	foodtypes = GRAIN
 
-///obj/item/food/bun/Initialize(mapload)
-//	. = ..()
-//	AddComponent(/datum/component/customizable_reagent_holder, /obj/item/food/burger/empty, CUSTOM_INGREDIENT_ICON_STACKPLUSTOP)
+/obj/item/food/bun/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/customizable_reagent_holder, /obj/item/food/burger/empty, CUSTOM_INGREDIENT_ICON_STACKPLUSTOP)
 
 /obj/item/food/cakebatter
 	name = "cake batter"
