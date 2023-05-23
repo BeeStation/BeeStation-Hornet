@@ -2400,7 +2400,6 @@
 #include "code\modules\guardian\abilities\major\time.dm"
 #include "code\modules\guardian\abilities\minor\snares.dm"
 #include "code\modules\guardian\abilities\minor\teleport.dm"
-#include "code\modules\guardian\abilities\special\absolution.dm"
 #include "code\modules\guardian\abilities\special\time.dm"
 #include "code\modules\holiday\easter.dm"
 #include "code\modules\holiday\holidays.dm"
