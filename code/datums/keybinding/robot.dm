@@ -87,7 +87,7 @@
 
 /datum/keybinding/robot/undeploy
 	category = CATEGORY_AI
-	hotkey_keys = list("=")
+	key = "="
 	name = "undeploy"
 	full_name = "Disconnect from shell"
 	description = "Returns you to your AI core"

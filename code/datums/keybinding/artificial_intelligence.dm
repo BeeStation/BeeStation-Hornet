@@ -6,7 +6,7 @@
 	return isAI(user.mob)
 
 /datum/keybinding/artificial_intelligence/reconnect
-	hotkey_keys = list("-")
+	key = "-"
 	name = "reconnect"
 	full_name = "Reconnect to shell"
 	description = "Reconnects you to your most recently used AI shell"
