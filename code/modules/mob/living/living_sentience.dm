@@ -43,6 +43,16 @@
 		to_chat(src, "<span class='notice'>[get_spawner_flavour_text()]</span>")
 	return TRUE
 
+// this exists because some 'playable=TRUE' mobs are not actually playable because mob key is automatically given
+// it prevents 'GLOB.poi_list' being glitched. without this, it will show xeno(or some mobs) twice in orbit panel.
+/mob/living/proc/delayed_set_playable(called_again=FALSE)
+	set waitfor = 0 // I didn't want to use 'addtimer(CALLBACK(), 2 SECONDS)' so I tried this instead
+	if(called_again)
+		sleep(20)
+		set_playable()
+		return
+	delayed_set_playable(TRUE) // need to call this again because Init() proc is waiting for this
+
 /mob/living/proc/set_playable()
 	playable = TRUE
 	if (!key)	//check if there is nobody already inhibiting this mob
@@ -50,6 +60,9 @@
 		LAZYADD(GLOB.mob_spawners["[name]"], src)
 		GLOB.poi_list |= src
 		SSmobs.update_spawners()
+	else // it's spawned but someone occupied already
+		notify_ghosts("[name] has appeared!", source=src, action=NOTIFY_ORBIT, header="Something's Interesting!")
+
 
 /mob/living/get_spawner_desc()
 	return "Become [name]."

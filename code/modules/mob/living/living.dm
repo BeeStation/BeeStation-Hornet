@@ -19,7 +19,7 @@
 	GLOB.mob_living_list += src
 	initialize_footstep()
 	if (playable)
-		set_playable()	//announce to ghosts
+		delayed_set_playable()	//announce to ghosts
 
 /mob/living/proc/initialize_footstep()
 	AddComponent(/datum/component/footstep)
