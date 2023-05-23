@@ -19,6 +19,45 @@
 #define BUGS (1<<18)*/
 #define GORE (1<<19)
 
+DEFINE_BITFIELD(foodtypes, list(
+	"MEAT" = MEAT,
+	"VEGETABLES" = VEGETABLES,
+	"RAW" = RAW,
+	"JUNKFOOD" = JUNKFOOD,
+	"GRAIN" = GRAIN,
+	"FRUIT" = FRUIT,
+	"DAIRY" = DAIRY,
+	"FRIED" = FRIED,
+	"ALCOHOL" = ALCOHOL,
+	"SUGAR" = SUGAR,
+	"GROSS" = GROSS,
+	"TOXIC" = TOXIC,
+	"PINEAPPLE" = PINEAPPLE,
+	"BREAKFAST" = BREAKFAST,
+	"CLOTH" = CLOTH,
+	"GORE" = GORE,
+))
+
+/// A list of food type names, in order of their flags
+#define FOOD_FLAGS list( \
+	"MEAT", \
+	"VEGETABLES", \
+	"RAW", \
+	"JUNKFOOD", \
+	"GRAIN", \
+	"FRUIT", \
+	"DAIRY", \
+	"FRIED", \
+	"ALCOHOL", \
+	"SUGAR", \
+	"GROSS", \
+	"TOXIC", \
+	"PINEAPPLE", \
+	"BREAKFAST", \
+	"CLOTH", \
+	"GORE", \
+)
+
 #define DRINK_BAD 1
 #define DRINK_NICE 2
 #define DRINK_GOOD 3
@@ -29,6 +68,11 @@
 #define FOOD_IN_CONTAINER (1<<0)
 /// Finger food can be eaten while walking / running around
 #define FOOD_FINGER_FOOD (1<<1)
+
+DEFINE_BITFIELD(food_types, list(
+	"FOOD_FINGER_FOOD" = FOOD_FINGER_FOOD,
+	"FOOD_IN_CONTAINER" = FOOD_IN_CONTAINER,
+))
 
 #define STOP_SERVING_BREAKFAST (15 MINUTES)
 

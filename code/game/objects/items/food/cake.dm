@@ -218,9 +218,8 @@
 	foodtypes = GRAIN | DAIRY | JUNKFOOD | SUGAR
 	slice_type = /obj/item/food/cakeslice/birthday
 
-/obj/item/food/cake/birthday/microwave_act(obj/machinery/microwave/M) //super sekrit club
-	new /obj/item/clothing/head/hardhat/cakehat(get_turf(src))
-	qdel(src)
+/obj/item/food/cake/birthday/make_microwaveable() // super sekrit club
+	AddElement(/datum/element/microwavable, /obj/item/clothing/head/hardhat/cakehat)
 
 /obj/item/food/cakeslice/birthday
 	name = "birthday cake slice"
@@ -250,9 +249,8 @@
 	tastes = list("cake" = 3, "a Vlad's Salad" = 1)
 	slice_type = /obj/item/food/cakeslice/birthday/energy
 
-/obj/item/food/cake/birthday/energy/microwave_act(obj/machinery/microwave/M) //super sekriter club
-	new /obj/item/clothing/head/hardhat/cakehat/energycake(get_turf(src))
-	qdel(src)
+/obj/item/food/cake/birthday/energy/make_microwaveable() //super sekriter club
+	AddElement(/datum/element/microwavable, /obj/item/clothing/head/hardhat/cakehat/energycake)
 
 /obj/item/food/cake/birthday/energy/proc/energy_bite(mob/living/user)
 	to_chat(user, "<font color='red' size='5'>As you eat the cake, you accidentally hurt yourself on the embedded energy sword!</font>")

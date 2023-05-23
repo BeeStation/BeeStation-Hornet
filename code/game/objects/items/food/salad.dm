@@ -91,6 +91,9 @@
 	tastes = list("rice" = 1)
 	foodtypes = GRAIN | RAW
 
+/obj/item/food/salad/ricebowl/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/salad/boiledrice)
+
 /obj/item/food/salad/boiledrice
 	name = "boiled rice"
 	desc = "A warm bowl of rice."

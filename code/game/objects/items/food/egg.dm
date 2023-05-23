@@ -24,10 +24,11 @@
 	food_reagents = list(
 		/datum/reagent/consumable/eggyolk = 5
 	)
-	microwaved_type = /obj/item/food/boiledegg
 	foodtypes = MEAT | RAW
 	w_class = WEIGHT_CLASS_TINY
-	var/static/chick_count = 0
+
+/obj/item/food/egg/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/boiledegg)
 
 /obj/item/food/egg/gland
 	desc = "An egg! It looks weird..."

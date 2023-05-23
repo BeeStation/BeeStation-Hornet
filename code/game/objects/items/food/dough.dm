@@ -7,10 +7,12 @@
 	desc = "A piece of dough."
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "dough"
-	microwaved_type = /obj/item/food/bread/plain
 	food_reagents = list(/datum/reagent/consumable/nutriment = 6)
 	tastes = list("dough" = 1)
 	foodtypes = GRAIN
+
+/obj/item/food/dough/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/bread/plain)
 
 // Dough + rolling pin = flat dough
 /obj/item/food/dough/make_processable()
@@ -21,10 +23,12 @@
 	desc = "A flattened dough."
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "flat dough"
-	microwaved_type = /obj/item/food/pizzabread
 	food_reagents = list(/datum/reagent/consumable/nutriment = 6)
 	tastes = list("dough" = 1)
 	foodtypes = GRAIN
+
+/obj/item/food/flatdough/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/pizzabread)
 
 // sliceable into 3xdoughslices
 /obj/item/food/flatdough/make_processable()
@@ -48,11 +52,13 @@
 	desc = "A slice of dough. Can be cooked into a bun."
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "doughslice"
-	microwaved_type = /obj/item/food/bun
 	food_reagents = list(/datum/reagent/consumable/nutriment = 2)
 	w_class = WEIGHT_CLASS_SMALL
 	tastes = list("dough" = 1)
 	foodtypes = GRAIN
+
+/obj/item/food/doughslice/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/bun)
 
 /obj/item/food/bun
 	name = "bun"
@@ -73,10 +79,12 @@
 	desc = "Bake it to get a cake."
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "cakebatter"
-	microwaved_type = /obj/item/food/cake/plain
 	food_reagents = list(/datum/reagent/consumable/nutriment = 9)
 	tastes = list("batter" = 1)
 	foodtypes = GRAIN | DAIRY
+
+/obj/item/food/cakebatter/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/cake/plain)
 
 // Cake batter + rolling pin = pie dough
 /obj/item/food/cakebatter/make_processable()
@@ -87,10 +95,12 @@
 	desc = "Cook it to get a pie."
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "piedough"
-	microwaved_type = /obj/item/food/pie/plain
 	food_reagents = list(/datum/reagent/consumable/nutriment = 9)
 	tastes = list("dough" = 1)
 	foodtypes = GRAIN | DAIRY
+
+/obj/item/food/piedough/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/pie/plain)
 
 /obj/item/food/piedough/make_processable()
 	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/rawpastrybase, 6, 3 SECONDS, table_required = TRUE, /*screentip_verb = "Slice"*/)
@@ -100,11 +110,13 @@
 	desc = "Must be cooked before use."
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "rawpastrybase"
-	microwaved_type = /obj/item/food/pastrybase
 	food_reagents = list(/datum/reagent/consumable/nutriment = 2)
 	w_class = WEIGHT_CLASS_SMALL
 	tastes = list("raw pastry" = 1)
 	foodtypes = GRAIN | DAIRY
+
+/obj/item/food/rawpastrybase/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/pastrybase)
 
 /obj/item/food/pastrybase
 	name = "pastry base"

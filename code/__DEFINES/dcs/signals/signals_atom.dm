@@ -127,15 +127,6 @@
 /// called when an atom stops orbiting another atom: (atom)
 #define COMSIG_ATOM_ORBIT_STOP "atom_orbit_stop"
 
-//Customizable
-
-///called when an atom with /datum/component/customizable_reagent_holder is customized (obj/item/I)
-#define COMSIG_ATOM_CUSTOMIZED "atom_customized"
-///called when an item is used as an ingredient: (atom/customized)
-#define COMSIG_ITEM_USED_AS_INGREDIENT "item_used_as_ingredient"
-///called when an edible ingredient is added: (datum/component/edible/ingredient)
-#define COMSIG_EDIBLE_INGREDIENT_ADDED "edible_ingredient_added"
-
 /////////////////
 /* Attack signals. They should share the returned flags, to standardize the attack chain. */
 /// tool_act -> pre_attack -> target.attackby (item.attack) -> afterattack

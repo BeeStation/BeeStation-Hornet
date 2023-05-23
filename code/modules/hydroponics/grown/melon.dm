@@ -63,6 +63,27 @@
 /obj/item/food/grown/holymelon/make_dryable()
 	return //No drying
 
+/*
+/obj/item/food/grown/holymelon/make_edible()
+	. = ..()
+	AddComponent(/datum/component/edible, check_liked = CALLBACK(src, PROC_REF(check_holyness)))
+
+/*
+ * Callback to be used with the edible component.
+ * Checks whether or not the person eating the holymelon
+ * is a holy_role (chaplain), as chaplains love holymelons.
+ */
+/obj/item/food/grown/holymelon/proc/check_holyness(fraction, mob/mob_eating)
+	if(!ishuman(mob_eating))
+		return
+	var/mob/living/carbon/human/holy_person = mob_eating
+	if(!holy_person.mind?.holy_role || HAS_TRAIT(holy_person, TRAIT_AGEUSIA))
+		return
+	to_chat(holy_person, "<span class='notice'>Truly, a piece of heaven!</span>")
+	holy_person.add_mood_event("Divine_chew", /datum/mood_event/holy_consumption)
+	return FOOD_LIKED
+*/
+
 /obj/item/food/grown/holymelon/Initialize(mapload)
 	. = ..()
 	var/uses = 1

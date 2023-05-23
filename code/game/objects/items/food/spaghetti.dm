@@ -6,20 +6,23 @@
 	food_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 1)
 	foodtypes = GRAIN
 
-/obj/item/food/spaghetti/Initialize()
-	. = ..()
-	if(!microwaved_type) // This isn't cooked, why would you put uncooked spaghetti in your pocket?
-		var/list/display_message = list(
-			"<span class='notice'>Something wet falls out of their pocket and hits the ground. Is that... [name]?</span>",
-			"<span class='warning'>Oh shit! All your pocket [name] fell out!</span>")
-		AddComponent(/datum/component/spill, display_message, 'sound/effects/splat.ogg')
+// Why are you putting cooked spaghetti in your pockets?
+/obj/item/food/spaghetti/make_microwaveable()
+	var/list/display_message = list(
+		"<span class='notice'>Something wet falls out of their pocket and hits the ground. Is that... [name]?</span>",
+		"<span class='warning'>Oh shit! All your pocket [name] fell out!</span>")
+	AddComponent(/datum/component/spill, display_message, 'sound/effects/splat.ogg')
+
+	return ..()
 
 /obj/item/food/spaghetti/raw
 	name = "spaghetti"
 	desc = "Now that's a nic'e pasta!"
 	icon_state = "spaghetti"
 	tastes = list("pasta" = 1)
-	microwaved_type = /obj/item/food/spaghetti/boiledspaghetti
+
+/obj/item/food/spaghetti/raw/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/spaghetti/boiledspaghetti)
 
 /obj/item/food/spaghetti/boiledspaghetti
 	name = "boiled spaghetti"
@@ -27,7 +30,6 @@
 	icon_state = "spaghettiboiled"
 	trash_type = /obj/item/trash/plate
 	food_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/vitamin = 1)
-	microwaved_type = null
 
 /obj/item/food/spaghetti/boiledspaghetti/Initialize()
 	. = ..()
@@ -40,7 +42,6 @@
 	trash_type = /obj/item/trash/plate
 	bite_consumption = 4
 	food_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/tomatojuice = 10, /datum/reagent/consumable/nutriment/vitamin = 4)
-	microwaved_type = null
 	tastes = list("pasta" = 1, "tomato" = 1)
 	foodtypes = GRAIN | VEGETABLES
 
@@ -51,7 +52,6 @@
 	trash_type = /obj/item/trash/plate
 	bite_consumption = 4
 	food_reagents = list(/datum/reagent/consumable/nutriment = 12, /datum/reagent/consumable/tomatojuice = 20, /datum/reagent/consumable/nutriment/vitamin = 8)
-	microwaved_type = null
 	tastes = list("pasta" = 1, "tomato" = 1)
 	foodtypes = GRAIN | VEGETABLES
 
@@ -61,7 +61,6 @@
 	icon_state = "meatballspaghetti"
 	trash_type = /obj/item/trash/plate
 	food_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/nutriment/vitamin = 2)
-	microwaved_type = null
 	tastes = list("pasta" = 1, "meat" = 1)
 	foodtypes = GRAIN | MEAT
 
@@ -71,7 +70,6 @@
 	icon_state = "spesslaw"
 	trash_type = /obj/item/trash/plate
 	food_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/nutriment/vitamin = 3)
-	microwaved_type = null
 	tastes = list("pasta" = 1, "meat" = 1)
 
 /obj/item/food/spaghetti/chowmein
@@ -80,7 +78,6 @@
 	icon_state = "chowmein"
 	trash_type = /obj/item/trash/plate
 	food_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 6)
-	microwaved_type = null
 	tastes = list("noodle" = 1, "tomato" = 1)
 
 /obj/item/food/spaghetti/beefnoodle
@@ -89,7 +86,6 @@
 	icon_state = "beefnoodle"
 	trash_type = /obj/item/reagent_containers/glass/bowl
 	food_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/nutriment/vitamin = 6, /datum/reagent/liquidgibs = 3)
-	microwaved_type = null
 	tastes = list("noodle" = 1, "meat" = 1)
 	foodtypes = GRAIN | MEAT
 
@@ -99,7 +95,6 @@
 	icon_state = "butternoodles"
 	trash_type = /obj/item/trash/plate
 	food_reagents = list(/datum/reagent/consumable/nutriment = 9, /datum/reagent/consumable/nutriment/vitamin = 2)
-	microwaved_type = null
 	tastes = list("noodle" = 1, "butter" = 1)
 	foodtypes = GRAIN | DAIRY
 
@@ -109,7 +104,6 @@
 	icon_state = "kasespatzle"
 	trash_type = /obj/item/trash/plate
 	food_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/consumable/nutriment/vitamin = 4)
-	microwaved_type = null
 	tastes = list("pasta" = 1, "cheese" = 1, "egg" = 1)
 	foodtypes = GRAIN | DAIRY
 
@@ -119,7 +113,6 @@
 	icon_state = "spaghettinapolitan"
 	trash_type = /obj/item/trash/plate
 	food_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/consumable/nutriment/vitamin = 6)
-	microwaved_type = null
 	tastes = list("pasta" = 1, "ketchup" = 1, "sausage" = 1)
 	foodtypes = GRAIN | MEAT | VEGETABLES
 
@@ -129,7 +122,6 @@
 	icon_state = "lasagna"
 	trash_type = /obj/item/trash/plate
 	food_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/tomatojuice = 5, /datum/reagent/consumable/nutriment/vitamin = 4)
-	microwaved_type = null
 	tastes = list("pasta" = 1, "tomato" = 1, "cheese" = 1, "mondays" = 1)
 	foodtypes = GRAIN | DAIRY | VEGETABLES | MEAT
 
@@ -139,6 +131,5 @@
 	icon_state = "glassnoodles"
 	trash_type = /obj/item/trash/plate
 	food_reagents = list(/datum/reagent/consumable/nutriment = 7, /datum/reagent/consumable/nutriment/vitamin = 6)
-	microwaved_type = null
 	tastes = list("noodle" = 1, "sweetness" = 1, "tofu" = 1)
 	foodtypes = GRAIN | VEGETABLES

@@ -451,10 +451,11 @@
 
 /obj/item/food/meat/steak/Initialize()
 	. = ..()
-	RegisterSignal(src, COMSIG_ITEM_MICROWAVE_COOKED, PROC_REF(OnMicrowaveCooked))
+	RegisterSignal(src, COMSIG_ITEM_MICROWAVE_COOKED, PROC_REF(on_microwave_cooked))
 
-/obj/item/food/meat/steak/proc/OnMicrowaveCooked(datum/source, obj/item/source_item, cooking_efficiency = 1)
+/obj/item/food/meat/steak/proc/on_microwave_cooked(datum/source, atom/source_item, cooking_efficiency = 1)
 	SIGNAL_HANDLER
+
 	name = "[source_item.name] steak"
 
 /obj/item/food/meat/steak/plain
@@ -465,16 +466,18 @@
 	foodtypes = MEAT | GORE
 
 ///Make sure the steak has the correct name
-/obj/item/food/meat/steak/plain/human/OnMicrowaveCooked(datum/source, obj/item/source_item, cooking_efficiency = 1)
+/obj/item/food/meat/steak/plain/human/on_microwave_cooked(datum/source, atom/source_item, cooking_efficiency = 1)
 	. = ..()
-	if(istype(source_item, /obj/item/food/meat))
-		var/obj/item/food/meat/origin_meat = source_item
-		subjectname = origin_meat.subjectname
-		subjectjob = origin_meat.subjectjob
-		if(subjectname)
-			name = "[origin_meat.subjectname] meatsteak"
-		else if(subjectjob)
-			name = "[origin_meat.subjectjob] meatsteak"
+	if(!istype(source_item, /obj/item/food/meat))
+		return
+
+	var/obj/item/food/meat/origin_meat = source_item
+	subjectname = origin_meat.subjectname
+	subjectjob = origin_meat.subjectjob
+	if(subjectname)
+		name = "[origin_meat.subjectname] meatsteak"
+	else if(subjectjob)
+		name = "[origin_meat.subjectjob] meatsteak"
 
 /obj/item/food/meat/steak/killertomato
 	name = "killer tomato steak"
@@ -551,7 +554,6 @@
 	name = "raw cutlet"
 	desc = "A raw meat cutlet."
 	icon_state = "rawcutlet"
-	microwaved_type = /obj/item/food/meat/cutlet/plain
 	bite_consumption = 2
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment/protein = 1
@@ -560,8 +562,11 @@
 	foodtypes = MEAT | RAW
 	var/meat_type = "meat"
 
-/obj/item/food/meat/rawcutlet/OnCreatedFromProcessing(mob/living/user, obj/item/I, list/chosen_option, atom/original_atom)
-	..()
+/obj/item/food/meat/rawcutlet/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/meat/cutlet/plain)
+
+/obj/item/food/meat/rawcutlet/OnCreatedFromProcessing(mob/living/user, obj/item/work_tool, list/chosen_option, atom/original_atom)
+	. = ..()
 	if(istype(original_atom, /obj/item/food/meat/slab))
 		var/obj/item/food/meat/slab/original_slab = original_atom
 		var/mutable_appearance/filling = mutable_appearance(icon, "rawcutlet_coloration")
@@ -574,9 +579,11 @@
     foodtypes = MEAT
 
 /obj/item/food/meat/rawcutlet/plain/human
-	microwaved_type = /obj/item/food/meat/cutlet/plain/human
 	tastes = list("tender meat" = 1)
 	foodtypes = MEAT | RAW | GORE
+
+/obj/item/food/meat/rawcutlet/plain/human/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/meat/cutlet/plain/human)
 
 /obj/item/food/meat/rawcutlet/plain/human/OnCreatedFromProcessing(mob/living/user, obj/item/I, list/chosen_option, atom/original_atom)
 	. = ..()
@@ -591,39 +598,53 @@
 
 /obj/item/food/meat/rawcutlet/killertomato
 	name = "raw killer tomato cutlet"
-	microwaved_type = /obj/item/food/meat/cutlet/killertomato
 	tastes = list("tomato" = 1)
 	foodtypes = FRUIT
 
+/obj/item/food/meat/rawcutlet/killertomato/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/meat/cutlet/killertomato)
+
 /obj/item/food/meat/rawcutlet/bear
 	name = "raw bear cutlet"
-	microwaved_type = /obj/item/food/meat/cutlet/bear
 	tastes = list("meat" = 1, "salmon" = 1)
+
+/obj/item/food/meat/rawcutlet/bear/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/meat/cutlet/bear)
 
 /obj/item/food/meat/rawcutlet/xeno
 	name = "raw xeno cutlet"
-	microwaved_type = /obj/item/food/meat/cutlet/xeno
 	tastes = list("meat" = 1, "acid" = 1)
+
+/obj/item/food/meat/rawcutlet/xeno/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/meat/cutlet/xeno)
 
 /obj/item/food/meat/rawcutlet/spider
 	name = "raw spider cutlet"
-	microwaved_type = /obj/item/food/meat/cutlet/spider
 	tastes = list("cobwebs" = 1)
+
+/obj/item/food/meat/rawcutlet/spider/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/meat/cutlet/spider)
 
 /obj/item/food/meat/rawcutlet/gondola
 	name = "raw gondola cutlet"
-	microwaved_type = /obj/item/food/meat/cutlet/gondola
 	tastes = list("meat" = 1, "tranquility" = 1)
+
+/obj/item/food/meat/rawcutlet/gondola/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/meat/cutlet/gondola)
 
 /obj/item/food/meat/rawcutlet/penguin
 	name = "raw penguin cutlet"
-	microwaved_type = /obj/item/food/meat/cutlet/penguin
 	tastes = list("beef" = 1, "cod fish" = 1)
+
+/obj/item/food/meat/rawcutlet/penguin/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/meat/cutlet/penguin)
 
 /obj/item/food/meat/rawcutlet/chicken
 	name = "raw chicken cutlet"
-	microwaved_type = /obj/item/food/meat/cutlet/chicken
 	tastes = list("chicken" = 1)
+
+/obj/item/food/meat/rawcutlet/chicken/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/meat/cutlet/chicken)
 
 /obj/item/food/meat/rawcutlet/grub //grub meat is small, so its in cutlets
 	name = "redgrub cutlet"
@@ -632,11 +653,13 @@
 		/datum/reagent/consumable/nutriment = 1,
 		/datum/reagent/toxin/slimejelly = 2
 	)
-	microwaved_type = /obj/item/food/meat/cutlet/grub
 	icon_state = "grubmeat"
 	bite_consumption = 1
 	tastes = list("slime" = 1, "grub" = 1)
 	foodtypes = RAW | MEAT | TOXIC
+
+/obj/item/food/meat/rawcutlet/grub/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/meat/cutlet/grub)
 
 //Cooked cutlets
 
@@ -653,20 +676,34 @@
 
 /obj/item/food/meat/cutlet/Initialize()
 	. = ..()
-	RegisterSignal(src, COMSIG_ITEM_MICROWAVE_COOKED, PROC_REF(OnMicrowaveCooked))
+	RegisterSignal(src, COMSIG_ITEM_MICROWAVE_COOKED, PROC_REF(on_microwave_cooked))
 
 ///This proc handles setting up the correct meat name for the cutlet, this should definitely be changed with the food rework.
-/obj/item/food/meat/cutlet/proc/OnMicrowaveCooked(datum/source, atom/source_item, cooking_efficiency)
+/obj/item/food/meat/cutlet/proc/on_microwave_cooked(datum/source, atom/source_item, cooking_efficiency)
 	SIGNAL_HANDLER
-	if(istype(source_item, /obj/item/food/meat/rawcutlet))
-		var/obj/item/food/meat/rawcutlet/original_cutlet = source_item
-		name = "[original_cutlet.meat_type] cutlet"
+
+	if(!istype(source_item, /obj/item/food/meat/rawcutlet))
+		return
+
+	var/obj/item/food/meat/rawcutlet/original_cutlet = source_item
+	name = "[original_cutlet.meat_type] cutlet"
 
 /obj/item/food/meat/cutlet/plain
 
 /obj/item/food/meat/cutlet/plain/human
 	tastes = list("tender meat" = 1)
 	foodtypes = MEAT | GORE
+
+/obj/item/food/meat/cutlet/plain/human/on_microwave_cooked(datum/source, atom/source_item, cooking_efficiency)
+	. = ..()
+	if(!istype(source_item, /obj/item/food/meat))
+		return
+
+	var/obj/item/food/meat/origin_meat = source_item
+	if(subjectname)
+		name = "[origin_meat.subjectname] [initial(name)]"
+	else if(subjectjob)
+		name = "[origin_meat.subjectjob] [initial(name)]"
 
 /obj/item/food/meat/cutlet/killertomato
 	name = "killer tomato cutlet"

@@ -43,6 +43,12 @@
 
 //Step three to make leather - drying, either naturally or... in a more induced way.
 
+/obj/item/stack/sheet/leather/wetleather
+
+/obj/item/stack/sheet/leather/wetleather/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/microwavable, /obj/item/stack/sheet/leather)
+
 /obj/item/stack/sheet/leather/wetleather/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature >= drying_threshold_temperature)
@@ -51,8 +57,3 @@
 			new /obj/item/stack/sheet/leather(drop_location(), 1)
 			wetness = initial(wetness)
 			use(1)
-
-/obj/item/stack/sheet/leather/wetleather/microwave_act(obj/machinery/microwave/MW)
-	..()
-	new /obj/item/stack/sheet/leather(drop_location(), amount)
-	qdel(src)

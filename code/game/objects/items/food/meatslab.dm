@@ -15,11 +15,13 @@
 		/datum/reagent/consumable/nutriment/protein = 6,
 		/datum/reagent/consumable/cooking_oil = 2
 	) //Meat has fats that a food processor can process into cooking oil
-	microwaved_type = /obj/item/food/meat/steak/plain
 	tastes = list("meat" = 1)
 	foodtypes = MEAT | RAW
 	///Legacy code, handles the coloring of the overlay of the cutlets made from this.
 	var/slab_color = "#FF0000"
+
+/obj/item/food/meat/slab/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/meat/steak/plain)
 
 /obj/item/food/meat/slab/make_processable()
 	AddElement(/datum/element/processable, TOOL_KNIFE,  /obj/item/food/meat/rawcutlet/plain, 3, 30)
@@ -28,9 +30,11 @@
 
 /obj/item/food/meat/slab/human
 	name = "meat"
-	microwaved_type = /obj/item/food/meat/steak/plain/human
 	tastes = list("tender meat" = 1)
 	foodtypes = MEAT | RAW | GORE
+
+/obj/item/food/meat/slab/human/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/meat/steak/plain/human)
 
 /obj/item/food/meat/slab/human/make_processable()
 	AddElement(/datum/element/processable, TOOL_KNIFE,  /obj/item/food/meat/rawcutlet/plain/human, 3, 30)
@@ -63,9 +67,11 @@
 /obj/item/food/meat/slab/human/mutant/lizard
 	icon_state = "lizardmeat"
 	desc = "Delicious dino damage."
-	microwaved_type = /obj/item/food/meat/steak/plain/human/lizard
 	tastes = list("meat" = 4, "scales" = 1)
 	foodtypes = MEAT | RAW | GORE
+
+/obj/item/food/meat/slab/human/mutant/lizard/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/meat/steak/plain/human/lizard)
 
 /obj/item/food/meat/slab/human/mutant/plant
 	icon_state = "plantmeat"
@@ -137,9 +143,11 @@
 	name = "meat product"
 	icon_state = "meatproduct"
 	desc = "A slab of station reclaimed and chemically processed meat product."
-	microwaved_type = /obj/item/food/meat/steak/meatproduct
 	tastes = list("meat flavoring" = 2, "modified starches" = 2, "natural & artificial dyes" = 1, "butyric acid" = 1) // its supposed to be various processed chemicals seen in very processed food. Butyric acid is a reference to how a certain North American Candymaker puts a chemical commonly seen in vomit into chocolate
 	foodtypes = RAW | MEAT
+
+/obj/item/food/meat/slab/meatproduct/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/meat/steak/meatproduct)
 
 /obj/item/food/meat/slab/monkey
 	name = "monkey meat"
@@ -172,9 +180,11 @@
 	desc = "A slice from a huge tomato."
 	icon_state = "tomatomeat"
 	food_reagents = list(/datum/reagent/consumable/nutriment = 2)
-	microwaved_type = /obj/item/food/meat/steak/killertomato
 	tastes = list("tomato" = 1)
 	foodtypes = FRUIT // Yeah, tomatoes are FRUIT. Bite me.
+
+/obj/item/food/meat/slab/killertomato/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/meat/steak/killertomato)
 
 /obj/item/food/meat/slab/killertomato/make_processable()
 	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/meat/rawcutlet/killertomato, 3, 30)
@@ -189,9 +199,11 @@
 		/datum/reagent/consumable/nutriment/vitamin = 2,
 		/datum/reagent/consumable/cooking_oil = 6
 	)
-	microwaved_type = /obj/item/food/meat/steak/bear
 	tastes = list("meat" = 1, "salmon" = 1)
 	foodtypes = RAW | MEAT
+
+/obj/item/food/meat/slab/bear/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/meat/steak/bear)
 
 /obj/item/food/meat/slab/bear/make_processable()
 	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/meat/rawcutlet/bear, 3, 30)
@@ -205,9 +217,11 @@
 		/datum/reagent/consumable/nutriment/vitamin = 3
 	)
 	bite_consumption = 4
-	microwaved_type = /obj/item/food/meat/steak/xeno
 	tastes = list("meat" = 1, "acid" = 1)
 	foodtypes = RAW | MEAT
+
+/obj/item/food/meat/slab/xeno/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/meat/steak/xeno)
 
 /obj/item/food/meat/slab/xeno/make_processable()
 	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/meat/rawcutlet/xeno, 3, 30)
@@ -221,9 +235,11 @@
 		/datum/reagent/toxin = 3,
 		/datum/reagent/consumable/nutriment/vitamin = 1
 	)
-	microwaved_type = /obj/item/food/meat/steak/spider
 	tastes = list("cobwebs" = 1)
 	foodtypes = RAW | MEAT | TOXIC
+
+/obj/item/food/meat/slab/spider/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/meat/steak/spider)
 
 /obj/item/food/meat/slab/spider/make_processable()
 	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/meat/rawcutlet/spider, 3, 30)
@@ -272,7 +288,6 @@
 	name = "raw piece of bacon"
 	desc = "A raw piece of bacon."
 	icon_state = "bacon"
-	microwaved_type = /obj/item/food/meat/bacon
 	bite_consumption = 2
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment/protein = 2,
@@ -280,6 +295,9 @@
 	)
 	tastes = list("bacon" = 1)
 	foodtypes = RAW | MEAT
+
+/obj/item/food/meat/rawbacon/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/meat/bacon)
 
 /obj/item/food/meat/bacon
 	name = "piece of bacon"
@@ -302,8 +320,10 @@
 		/datum/reagent/consumable/cooking_oil = 3
 	)
 	tastes = list("meat" = 4, "tranquility" = 1)
-	microwaved_type = /obj/item/food/meat/steak/gondola
 	foodtypes = RAW | MEAT
+
+/obj/item/food/meat/slab/gondola/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/meat/steak/gondola)
 
 /obj/item/food/meat/slab/gondola/make_processable()
 	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/meat/rawcutlet/gondola, 3, 30)
@@ -316,8 +336,10 @@
 		/datum/reagent/consumable/nutriment/protein = 4,
 		/datum/reagent/consumable/cooking_oil = 3
 	)
-	microwaved_type = /obj/item/food/meat/steak/penguin
 	tastes = list("beef" = 1, "cod fish" = 1)
+
+/obj/item/food/meat/slab/penguin/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/meat/steak/penguin)
 
 /obj/item/food/meat/slab/penguin/make_processable()
 	. = ..()
@@ -327,7 +349,6 @@
 	name = "raw crab meat"
 	desc = "A pile of raw crab meat."
 	icon_state = "crabmeatraw"
-	microwaved_type = /obj/item/food/meat/crab
 	bite_consumption = 3
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment/protein = 3,
@@ -335,6 +356,9 @@
 	)
 	tastes = list("raw crab" = 1)
 	foodtypes = RAW | MEAT
+
+/obj/item/food/meat/rawcrab/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/meat/crab)
 
 /obj/item/food/meat/crab
 	name = "crab meat"
@@ -355,8 +379,10 @@
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment/protein = 6
 	) //low fat
-	microwaved_type = /obj/item/food/meat/steak/chicken
 	tastes = list("chicken" = 1)
+
+/obj/item/food/meat/slab/chicken/make_microwaveable()
+	AddElement(/datum/element/microwavable, /obj/item/food/meat/steak/chicken)
 
 /obj/item/food/meat/slab/chicken/make_processable()
 	. = ..()

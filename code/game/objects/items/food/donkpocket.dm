@@ -29,11 +29,20 @@
 		/datum/reagent/consumable/nutriment = 3,
 		/datum/reagent/consumable/nutriment/protein = 2 //uhhh lorewise microwaving donkpockets makes the proteins into omnizine or somethin idk
 	)
-	microwaved_type = /obj/item/food/donkpocket/warm
 	tastes = list("meat" = 2, "dough" = 2, "laziness" = 1)
 	foodtypes = GRAIN
 	food_flags = FOOD_FINGER_FOOD
 	w_class = WEIGHT_CLASS_SMALL
+
+	/// What type of donk pocket we're warmed into via baking or microwaving.
+	var/warm_type = /obj/item/food/donkpocket/warm
+	/// The lower end for how long it takes to bake
+	var/baking_time_short = 25 SECONDS
+	/// The upper end for how long it takes to bake
+	var/baking_time_long = 30 SECONDS
+
+/obj/item/food/donkpocket/make_microwaveable()
+	AddElement(/datum/element/microwavable, warm_type)
 
 /obj/item/food/donkpocket/warm
 	name = "warm Donk-pocket"
@@ -43,9 +52,13 @@
 		/datum/reagent/consumable/nutriment/protein = 2,
 		/datum/reagent/medicine/omnizine = 6
 	)
-	microwaved_type = null
 	tastes = list("meat" = 2, "dough" = 2, "laziness" = 1)
 	foodtypes = GRAIN
+
+	// Warmed donk pockets will burn if you leave them in the oven or microwave.
+	warm_type = /obj/item/food/badrecipe
+	baking_time_short = 10 SECONDS
+	baking_time_long = 15 SECONDS
 
 /obj/item/food/dankpocket
 	name = "\improper Dank-pocket"
@@ -68,9 +81,10 @@
 		/datum/reagent/consumable/nutriment/protein = 2,
 		/datum/reagent/consumable/capsaicin = 2
 	)
-	microwaved_type = /obj/item/food/donkpocket/warm/spicy
 	tastes = list("meat" = 2, "dough" = 2, "spice" = 1)
 	foodtypes = GRAIN
+
+	warm_type = /obj/item/food/donkpocket/warm/spicy
 
 /obj/item/food/donkpocket/warm/spicy
 	name = "warm Spicy-pocket"
@@ -94,9 +108,10 @@
 		/datum/reagent/consumable/nutriment/protein = 2,
 		/datum/reagent/consumable/soysauce = 2
 	)
-	microwaved_type = /obj/item/food/donkpocket/warm/teriyaki
 	tastes = list("meat" = 2, "dough" = 2, "soy sauce" = 2)
 	foodtypes = GRAIN
+
+	warm_type = /obj/item/food/donkpocket/warm/teriyaki
 
 /obj/item/food/donkpocket/warm/teriyaki
 	name = "warm Teriyaki-pocket"
@@ -120,9 +135,10 @@
 		/datum/reagent/consumable/nutriment/protein = 2,
 		/datum/reagent/consumable/tomatojuice = 2
 	)
-	microwaved_type = /obj/item/food/donkpocket/warm/pizza
 	tastes = list("meat" = 2, "dough" = 2, "cheese"= 2)
 	foodtypes = GRAIN
+
+	warm_type = /obj/item/food/donkpocket/warm/pizza
 
 /obj/item/food/donkpocket/warm/pizza
 	name = "warm Pizza-pocket"
@@ -145,9 +161,10 @@
 		/datum/reagent/consumable/nutriment = 4,
 		/datum/reagent/consumable/banana = 4
 	)
-	microwaved_type = /obj/item/food/donkpocket/warm/honk
 	tastes = list("banana" = 2, "dough" = 2, "children's antibiotics" = 1)
 	foodtypes = GRAIN
+
+	warm_type = /obj/item/food/donkpocket/warm/honk
 
 /obj/item/food/donkpocket/warm/honk
 	name = "warm Honk-pocket"
@@ -170,9 +187,10 @@
 		/datum/reagent/consumable/nutriment = 4,
 		/datum/reagent/consumable/berryjuice = 3
 	)
-	microwaved_type = /obj/item/food/donkpocket/warm/berry
 	tastes = list("dough" = 2, "jam" = 2)
 	foodtypes = GRAIN
+
+	warm_type = /obj/item/food/donkpocket/warm/berry
 
 /obj/item/food/donkpocket/warm/berry
 	name = "warm Berry-pocket"
@@ -195,9 +213,10 @@
 		/datum/reagent/consumable/nutriment/protein = 2,
 		/datum/reagent/tranquility = 5
 	)
-	microwaved_type = /obj/item/food/donkpocket/warm/gondola
 	tastes = list("meat" = 2, "dough" = 2, "inner peace" = 1)
 	foodtypes = GRAIN
+
+	warm_type = /obj/item/food/donkpocket/warm/gondola
 
 /obj/item/food/donkpocket/warm/gondola
 	name = "warm Gondola-pocket"
