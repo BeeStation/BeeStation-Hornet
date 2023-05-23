@@ -84,22 +84,3 @@
 	var/mob/living/silicon/robot/M = user.mob
 	M.uneq_active()
 	return TRUE
-
-/datum/keybinding/robot/undeploy
-	category = CATEGORY_AI
-	key = "="
-	name = "undeploy"
-	full_name = "Disconnect from shell"
-	description = "Returns you to your AI core"
-	keybind_signal = COMSIG_KB_SILION_UNDEPLOY_DOWN
-
-/datum/keybinding/robot/undeploy/down(client/user)
-	. = ..()
-	if(.)
-		return
-	var/mob/living/silicon/robot/shell/our_shell = user.mob
-	//We make sure our shell is actually a shell
-	if(!our_shell.shell)
-		return
-	our_shell.undeploy()
-	return TRUE
