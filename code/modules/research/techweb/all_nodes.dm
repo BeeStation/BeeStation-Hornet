@@ -762,6 +762,7 @@
 	design_ids = list("ci-linkedsurgery")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	export_price = 10000
+	boost_item_paths = list(/obj/item/organ/cyberimp/brain/linkedsurgery, /obj/item/organ/cyberimp/brain/linkedsurgery/perfect)
 	hidden = TRUE
 
 ////////////////////////Tools////////////////////////
