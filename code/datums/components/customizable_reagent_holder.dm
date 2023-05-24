@@ -127,6 +127,7 @@
 		replacement = null
 		RemoveComponent()
 		replacement_parent.TakeComponent(src)
+		handle_reagents(atom_parent)
 		qdel(atom_parent)
 	handle_reagents(ingredient)
 	add_ingredient(ingredient)
