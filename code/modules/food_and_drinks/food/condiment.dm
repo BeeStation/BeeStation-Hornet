@@ -198,7 +198,7 @@
 	desc = "A big bag of flour. Good for baking!"
 	icon_state = "flour"
 	item_state = "flour"
-	list_reagents = list(/datum/reagent/consumable/flour = 30)
+	list_reagents = list(/datum/reagent/consumable/flour = 50)// 50u across the kitchen items makes the most sense. Its both consistent and its less annoying when you print flour bags from botany and they are only 3/5ths full, instead of full
 
 /obj/item/reagent_containers/food/condiment/soymilk
 	name = "soy milk"
@@ -214,7 +214,7 @@
 	desc = "A big bag of rice. Good for cooking!"
 	icon_state = "rice"
 	item_state = "flour"
-	list_reagents = list(/datum/reagent/consumable/rice = 30)
+	list_reagents = list(/datum/reagent/consumable/rice = 50)
 
 /obj/item/reagent_containers/food/condiment/soysauce
 	name = "soy sauce"
