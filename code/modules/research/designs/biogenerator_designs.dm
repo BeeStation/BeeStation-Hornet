@@ -67,6 +67,7 @@
 	materials = list(/datum/material/biomass= 200)// a little less than what it should be, 250, because flour should be easier to produce than monkeycube.
 	build_path = /obj/item/reagent_containers/food/condiment/flour
 	category = list("initial","Food")
+	
 /datum/design/sugar_sack
 	name = "Sugar Sack"
 	id = "sugar_sack"
