@@ -6,8 +6,10 @@
 // Base type. Subtypes are found in /grown dir. Lavaland-based subtypes can be found in mining/ash_flora.dm
 /obj/item/food/grown
 	icon = 'icons/obj/hydroponics/harvest.dmi'
+	name = "fresh produce" //fix naming bug
 	max_volume = 100
 	w_class = WEIGHT_CLASS_SMALL
+	resistance_flags = FLAMMABLE
 	/// type path, gets converted to item on New(). It's safe to assume it's always a seed item.
 	var/obj/item/seeds/seed = null
 	///Name of the plant
@@ -16,13 +18,16 @@
 	var/bite_consumption_mod = 0
 	///the splat it makes when it splats lol
 	var/splat_type = /obj/effect/decal/cleanable/food/plant_smudge
-
-	resistance_flags = FLAMMABLE
-	var/dry_grind = FALSE //If TRUE, this object needs to be dry to be ground up
-	var/can_distill = TRUE //If FALSE, this object cannot be distilled into an alcohol.
-	var/distill_reagent //If NULL and this object can be distilled, it uses a generic fruit_wine reagent and adjusts its variables.
-	var/wine_flavor //If NULL, this is automatically set to the fruit's flavor. Determines the flavor of the wine if distill_reagent is NULL.
-	var/wine_power = 10 //Determines the boozepwr of the wine if distill_reagent is NULL.
+	/// If TRUE, this object needs to be dry to be ground up
+	var/dry_grind = FALSE
+	/// If FALSE, this object cannot be distilled into an alcohol.
+	var/can_distill = TRUE
+	/// The reagent this plant distills to. If NULL, it uses a generic fruit_wine reagent and adjusts its variables.
+	var/distill_reagent
+	/// Flavor of the plant's wine if NULL distill_reagent. If NULL, this is automatically set to the fruit's flavor.
+	var/wine_flavor
+	/// Boozepwr of the wine if NULL distill_reagent
+	var/wine_power = 10
 	///Color of the grown object
 	var/filling_color
 

@@ -55,7 +55,7 @@ Behavior that's still missing from this component that original food items had t
 	junkiness,
 	datum/callback/after_eat,
 	datum/callback/on_consume,
-	datum/callback/check_liked
+	datum/callback/check_liked,
 )
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -117,6 +117,7 @@ Behavior that's still missing from this component that original food items had t
 	list/tastes,
 	list/eatverbs,
 	bite_consumption,
+	junkiness,
 	datum/callback/after_eat,
 	datum/callback/on_consume,
 	datum/callback/check_liked,

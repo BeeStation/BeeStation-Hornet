@@ -55,7 +55,8 @@
 		tastes = tastes,\
 		eatverbs = eatverbs,\
 		bite_consumption = bite_consumption,\
-		junkiness = junkiness)
+		junkiness = junkiness,\
+	)
 
 
 ///This proc handles processable elements, overwrite this if you want to add behavior such as slicing, forking, spooning, whatever, to turn the item into something else
