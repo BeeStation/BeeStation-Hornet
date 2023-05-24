@@ -14,6 +14,7 @@
 	desc = "You should not be seeing this"
 	slot_flags = ITEM_SLOT_HEAD
 	bite_consumption_mod = 3
+	food_reagents = null //get the unit test off our back
 	foodtypes = VEGETABLES | GROSS
 
 /obj/item/food/grown/flower/equipped(mob/user, slot)

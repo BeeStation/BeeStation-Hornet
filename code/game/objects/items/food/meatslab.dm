@@ -330,7 +330,7 @@
 
 /obj/item/food/meat/slab/penguin
 	name = "penguin meat"
-	icon_state = "birdmeat"
+	//icon_state = "birdmeat"
 	desc = "A slab of penguin meat."
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment/protein = 4,
@@ -374,7 +374,7 @@
 
 /obj/item/food/meat/slab/chicken
 	name = "chicken meat"
-	icon_state = "birdmeat"
+	//icon_state = "birdmeat"
 	desc = "A slab of raw chicken. Remember to wash your hands!"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment/protein = 6

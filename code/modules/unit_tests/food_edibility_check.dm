@@ -4,7 +4,9 @@
 /datum/unit_test/food_edibility_check/Run()
 	var/list/not_food = list(
 		/obj/item/food/grown,
+		/obj/item/food/grown/flower,
 		/obj/item/food/grown/mushroom,
+		/obj/item/food/donkpocket/random,
 		/obj/item/food/deepfryholder,
 		/obj/item/food/clothing,
 		/obj/item/food/meat/slab/human/mutant,
