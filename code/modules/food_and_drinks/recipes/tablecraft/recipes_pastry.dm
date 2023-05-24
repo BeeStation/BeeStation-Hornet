@@ -438,18 +438,8 @@
 	)
 	result = /obj/item/food/muffin/moffin
 	subcategory = CAT_PASTRY
+	
 ////////////////////////////////////////////OTHER////////////////////////////////////////////
-
-/datum/crafting_recipe/food/meatbun
-	name = "Meat bun"
-	reqs = list(
-		/datum/reagent/consumable/soysauce = 5,
-		/obj/item/food/bun = 1,
-		/obj/item/food/meatball = 1,
-		/obj/item/food/grown/cabbage = 1
-	)
-	result = /obj/item/food/meatbun
-	subcategory = CAT_PASTRY
 
 /datum/crafting_recipe/food/khachapuri
 	name = "Khachapuri"

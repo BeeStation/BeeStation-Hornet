@@ -87,67 +87,6 @@
 	result = /obj/item/food/eggplantparm
 	subcategory = CAT_MISCFOOD
 
-/datum/crafting_recipe/food/baguette
-	name = "Baguette"
-	time = 40
-	reqs = list(/datum/reagent/consumable/sodiumchloride = 1,
-				/datum/reagent/consumable/blackpepper = 1,
-				/obj/item/food/pastrybase = 2
-	)
-	result = /obj/item/food/baguette
-	subcategory = CAT_MISCFOOD
-
-////////////////////////////////////////////////TOAST////////////////////////////////////////////////
-
-/datum/crafting_recipe/food/slimetoast
-	name = "Slime toast"
-	reqs = list(
-		/datum/reagent/toxin/slimejelly = 5,
-		/obj/item/food/breadslice/plain = 1
-	)
-	result = /obj/item/food/jelliedtoast/slime
-	subcategory = CAT_MISCFOOD
-
-/datum/crafting_recipe/food/jelliedyoast
-	name = "Jellied toast"
-	reqs = list(
-		/datum/reagent/consumable/cherryjelly = 5,
-		/obj/item/food/breadslice/plain = 1
-	)
-	result = /obj/item/food/jelliedtoast/cherry
-	subcategory = CAT_MISCFOOD
-
-/datum/crafting_recipe/food/butteredtoast
-	name = "Buttered Toast"
-	reqs = list(
-		/obj/item/food/breadslice/plain = 1,
-		/obj/item/food/butter = 1
-	)
-	result = /obj/item/food/butteredtoast
-	subcategory = CAT_MISCFOOD
-
-/datum/crafting_recipe/food/twobread
-	name = "Two bread"
-	reqs = list(
-		/datum/reagent/consumable/ethanol/wine = 5,
-		/obj/item/food/breadslice/plain = 2
-	)
-	result = /obj/item/food/twobread
-	subcategory = CAT_MISCFOOD
-
-/datum/crafting_recipe/food/melonfruitbowl
-	name ="Melon fruit bowl"
-	reqs = list(
-		/obj/item/food/grown/watermelon = 1,
-		/obj/item/food/grown/apple = 1,
-		/obj/item/food/grown/citrus/orange = 1,
-		/obj/item/food/grown/citrus/lemon = 1,
-		/obj/item/food/grown/banana = 1,
-		/obj/item/food/grown/ambrosia = 1
-	)
-	result = /obj/item/food/melonfruitbowl
-	subcategory = CAT_MISCFOOD
-
 /datum/crafting_recipe/food/melonkeg
 	name ="Melon keg"
 	reqs = list(
