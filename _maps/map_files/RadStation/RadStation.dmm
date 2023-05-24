@@ -5791,7 +5791,7 @@
 	pixel_x = 2;
 	pixel_y = -31
 	},
-/obj/item/reagent_containers/food/snacks/grown/tomato/blood{
+/obj/item/food/grown/tomato/blood{
 	pixel_x = 7;
 	pixel_y = 8
 	},
@@ -7012,7 +7012,7 @@
 	pixel_x = -5;
 	pixel_y = 16
 	},
-/obj/item/reagent_containers/food/snacks/mint,
+/obj/item/food/mint,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen)
 "clV" = (
@@ -8697,10 +8697,10 @@
 	name = "Chef Shutters Control";
 	pixel_x = -26
 	},
-/obj/item/reagent_containers/food/snacks/dough{
+/obj/item/food/dough{
 	pixel_x = -4
 	},
-/obj/item/reagent_containers/food/snacks/dough{
+/obj/item/food/dough{
 	pixel_y = 1
 	},
 /obj/item/kitchen/rollingpin{
@@ -9287,7 +9287,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "cZw" = (
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell{
+/obj/item/food/grown/flower/harebell{
 	pixel_y = 3
 	},
 /obj/structure/table/wood/fancy/purple,
@@ -15852,8 +15852,8 @@
 	},
 /obj/structure/closet/secure_closet/freezer/fridge,
 /obj/effect/turf_decal/bot,
-/obj/item/reagent_containers/food/snacks/meat/slab/penguin,
-/obj/item/reagent_containers/food/snacks/meat/slab/penguin,
+/obj/item/food/meat/slab/penguin,
+/obj/item/food/meat/slab/penguin,
 /obj/machinery/power/apc/auto_name/north{
 	pixel_y = 24
 	},
@@ -22522,7 +22522,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/grown/apple{
+/obj/item/food/grown/apple{
 	pixel_x = -3;
 	pixel_y = 2
 	},
@@ -27306,7 +27306,7 @@
 /turf/open/floor/plasteel,
 /area/engine/engine_room)
 "iUD" = (
-/obj/item/reagent_containers/food/snacks/butter/on_a_stick,
+/obj/item/food/butter/on_a_stick,
 /obj/effect/decal/cleanable/crayon,
 /obj/machinery/light/small{
 	brightness = 3;
@@ -29366,7 +29366,7 @@
 /area/hallway/primary/central)
 "jDS" = (
 /obj/effect/turf_decal/siding/wideplating/dark,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
+/obj/item/food/grown/flower/poppy{
 	pixel_x = 1;
 	pixel_y = 4
 	},
@@ -30029,7 +30029,7 @@
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 1
 	},
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
+/obj/item/food/grown/flower/poppy{
 	pixel_y = 4
 	},
 /obj/structure/table/wood/fancy/purple,
@@ -30540,7 +30540,7 @@
 /area/chapel/main)
 "jZE" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/piedough,
+/obj/item/food/piedough,
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
@@ -37009,7 +37009,7 @@
 	pixel_y = 32
 	},
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell{
+/obj/item/food/grown/flower/harebell{
 	pixel_y = 3
 	},
 /obj/item/candle/infinite{
@@ -43944,7 +43944,7 @@
 /turf/open/floor/carpet/blue,
 /area/bridge/meeting_room)
 "ovR" = (
-/obj/item/reagent_containers/food/snacks/butteredtoast,
+/obj/item/food/butteredtoast,
 /obj/effect/decal/cleanable/crayon,
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
@@ -47034,7 +47034,7 @@
 /obj/item/reagent_containers/syringe{
 	pixel_y = 10
 	},
-/obj/item/reagent_containers/food/snacks/grown/random{
+/obj/item/food/grown/random{
 	pixel_x = -3;
 	pixel_y = 21
 	},
@@ -60511,7 +60511,7 @@
 	dir = 8
 	},
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/flower/poppy{
+/obj/item/food/grown/flower/poppy{
 	pixel_y = 4
 	},
 /obj/machinery/airalarm/directional/east,
@@ -60648,7 +60648,7 @@
 	pixel_x = 6;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/snacks/grown/flower/lily,
+/obj/item/food/grown/flower/lily,
 /obj/structure/table/wood/fancy,
 /turf/open/floor/plasteel/grimy,
 /area/chapel/office)
@@ -64903,19 +64903,19 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/item/reagent_containers/food/snacks/grown/carrot{
+/obj/item/food/grown/carrot{
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/snacks/grown/carrot{
+/obj/item/food/grown/carrot{
 	pixel_x = -1;
 	pixel_y = 11
 	},
-/obj/item/reagent_containers/food/snacks/grown/carrot{
+/obj/item/food/grown/carrot{
 	pixel_x = -6;
 	pixel_y = 12
 	},
-/obj/item/reagent_containers/food/snacks/grown/carrot{
+/obj/item/food/grown/carrot{
 	pixel_x = -1;
 	pixel_y = 6
 	},
@@ -68515,7 +68515,7 @@
 	pixel_x = 8;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/snacks/mint,
+/obj/item/food/mint,
 /obj/machinery/door/poddoor/shutters{
 	id = "Chefwindow";
 	name = "Chef window"
@@ -72752,7 +72752,7 @@
 	pixel_y = 32
 	},
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/grown/flower/harebell{
+/obj/item/food/grown/flower/harebell{
 	pixel_y = 3
 	},
 /obj/item/candle/infinite{
