@@ -533,7 +533,7 @@
 /obj/item/food/meat/steak/synth
 	name = "synthsteak"
 	desc = "A synthetic meat steak. It doesn't look quite right, now does it?"
-	icon_state = "meatsteak_old"
+	icon_state = "meatsteak"
 	tastes = list("meat" = 4, "cryoxandone" = 1)
 
 /obj/item/food/meat/steak/ashflake
@@ -653,6 +653,7 @@
 		/datum/reagent/consumable/nutriment = 1,
 		/datum/reagent/toxin/slimejelly = 2
 	)
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "grubmeat"
 	bite_consumption = 1
 	tastes = list("slime" = 1, "grub" = 1)
@@ -737,6 +738,7 @@
 /obj/item/food/meat/cutlet/grub
 	name = "redgrub rind"
 	desc = "Cooking redgrub meat causes it to 'pop', and renders it non-toxic, crunchy and deliciously sweet"
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "grubsteak"
 	trash_type = null
 	bite_consumption = 1
@@ -750,6 +752,7 @@
 /obj/item/food/dolphinmeat
 	name = "dolphin fillet"
 	desc = "A fillet of spess dolphin meat."
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "fishfillet"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,

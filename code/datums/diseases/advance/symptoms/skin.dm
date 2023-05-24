@@ -312,7 +312,7 @@ BONUS
 /obj/item/food/fleshegg
 	name = "Fleshy Egg"
 	desc = "An Egg which appears to be made out of someone's flesh!"
-	icon = 'icons/obj/food/food.dmi'
+	icon = 'icons/obj/food/egg.dmi'
 	icon_state = "fleshegg"
 	bite_consumption = 1
 	var/list/diseases = list()
