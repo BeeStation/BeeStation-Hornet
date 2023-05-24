@@ -653,7 +653,7 @@
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
 "cz" = (
-/obj/item/foo/kebab/tail,
+/obj/item/food/kebab/tail,
 /obj/structure/table/wood/fancy/blue,
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/macspace)
