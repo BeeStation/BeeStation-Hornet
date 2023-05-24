@@ -86,7 +86,6 @@
 	power_environ = FALSE
 	power_equip = FALSE
 	power_light = FALSE
-	poweralm = FALSE
 	ambient_buzz = 'sound/ambience/magma.ogg'
 	ambient_buzz_vol = 10
 

@@ -220,6 +220,9 @@
 			eye_user.client.images += user_image
 
 /mob/camera/ai_eye/remote/relaymove(mob/user,direct)
+	if(direct == UP || direct == DOWN)
+		zMove(direct, FALSE)
+		return
 	var/initial = initial(sprint)
 	var/max_sprint = 50
 

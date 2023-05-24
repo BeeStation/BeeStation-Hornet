@@ -3,7 +3,6 @@
 #define LAYING_EGGS 2
 #define MOVING_TO_TARGET 3
 #define SPINNING_COCOON 4
-#define MAX_WEBS_PER_TILE 3
 
 /mob/living/simple_animal/hostile/poison
 	mobchatspan = "researchdirector"
@@ -54,7 +53,7 @@
 	sentience_type = SENTIENCE_OTHER // not eligible for sentience potions
 	var/busy = SPIDER_IDLE // What a spider's doing
 	var/datum/action/innate/spider/lay_web/lay_web // Web action
-	var/obj/effect/proc_holder/wrap/lesser/lesserwrap // Wrap action
+	var/obj/effect/proc_holder/spider/wrap/lesser/lesserwrap // Wrap action
 	var/web_speed = 1 // How quickly a spider lays down webs (percentage)
 	var/mob/master // The spider's master, used by sentience
 	var/onweb_speed
@@ -91,6 +90,7 @@
 		mind.add_antag_datum(spooder, spider_team)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/Destroy()
+	RemoveAbility(lesserwrap)
 	QDEL_NULL(lay_web)
 	GLOB.spidermobs -= src
 	return ..()
@@ -223,7 +223,7 @@
 			"<span class='notice'>You nuzzle [target_mob.name]!</span>", null, COMBAT_MESSAGE_RANGE)
 		return
 	return ..()
-s
+
 /mob/living/simple_animal/hostile/poison/giant_spider/proc/GiveUp()
 	if(busy == MOVING_TO_TARGET)
 		cocoon_target = null
@@ -232,12 +232,22 @@ s
 		stop_automated_movement = FALSE
 		SSmove_manager.stop_looping(src)
 
-// Tarantulas are the balanced generalist of the spider family: Moderate stats all around.
-/mob/living/simple_animal/hostile/poison/giant_spider/tarantula
-	name = "tarantula"
+// Net casters are the balanced generalist of the spider family: Moderate stats all around, and a ranged knockdown to assist others
+/mob/living/simple_animal/hostile/poison/giant_spider/netcaster
+	name = "net caster"
 	obj_damage = 35
 	speed = 0.5
 	onweb_speed = 0
+	var/obj/effect/proc_holder/spider/throw_web/spidernet
+
+/mob/living/simple_animal/hostile/poison/giant_spider/netcaster/Initialize(mapload)
+	. = ..()
+	spidernet = new
+	AddAbility(spidernet)
+
+/mob/living/simple_animal/hostile/poison/giant_spider/netcaster/Destroy()
+	. = ..()
+	RemoveAbility(spidernet)
 
 // Nurses heal other spiders and maintain the core of the nest.
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse
@@ -272,13 +282,13 @@ s
 	if(!istype(target, /mob/living/simple_animal/hostile/poison/giant_spider))
 		return ..()
 	var/mob/living/simple_animal/hostile/poison/giant_spider/hurt_spider = target
-	if(hurt_spider == src)
-		to_chat(src, "<span class='warning'>You don't have the dexerity to wrap your own wounds.</span>")
-		return
 	if(hurt_spider.health >= hurt_spider.maxHealth)
 		to_chat(src, "<span class='warning'>You can't find any wounds to wrap up.</span>")
 		return ..() // IFF is handled in parent
-	visible_message("<span class='notice'>[src] begins wrapping the wounds of [hurt_spider].</span>","<span class='notice'>You begin wrapping the wounds of [hurt_spider].</span>")
+	if(hurt_spider == src)
+		visible_message("<span class='notice'>[src] begins wrapping their wounds.</span>","<span class='notice'>You begin wrapping your wounds.</span>")
+	else
+		visible_message("<span class='notice'>[src] begins wrapping the wounds of [hurt_spider].</span>","<span class='notice'>You begin wrapping the wounds of [hurt_spider].</span>")
 	is_busy = TRUE
 	if(do_after(src, 20, target = hurt_spider))
 		hurt_spider.heal_overall_damage(20)
@@ -320,7 +330,7 @@ s
 
 	gender = FEMALE
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/spider = 2, /obj/item/reagent_containers/food/snacks/spiderleg = 8, /obj/item/reagent_containers/food/snacks/spidereggs = 4)
-	var/obj/effect/proc_holder/wrap/wrap
+	var/obj/effect/proc_holder/spider/wrap/wrap
 	var/datum/action/innate/spider/set_directive/set_directive
 	/// Allows the spider to use spider comms
 	var/datum/action/innate/spider/comm/letmetalkpls
@@ -473,7 +483,20 @@ s
 	else
 		to_chat(spider, "<span class='warning'>You're already spinning a web!</span>")
 
-/obj/effect/proc_holder/wrap
+/obj/effect/proc_holder/spider/Click()
+	if(!istype(usr, /mob/living/simple_animal/hostile/poison/giant_spider))
+		return TRUE
+	var/mob/living/simple_animal/hostile/poison/giant_spider/user = usr
+	activate(user)
+	return TRUE
+
+/obj/effect/proc_holder/spider/on_lose(mob/living/carbon/user)
+	remove_ranged_ability()
+
+/obj/effect/proc_holder/spider/proc/activate(mob/living/user)
+	return TRUE
+
+/obj/effect/proc_holder/spider/wrap
 	name = "Wrap"
 	panel = "Spider"
 	desc = "Wrap something or someone in a cocoon. If it's a living being, you'll also consume them, allowing you to lay eggs."
@@ -482,21 +505,14 @@ s
 	action_icon_state = "wrap_0"
 	action_background_icon_state = "bg_alien"
 
-/obj/effect/proc_holder/wrap/lesser
+/obj/effect/proc_holder/spider/wrap/lesser
 	desc = "Wrap loose objects in a cocoon of silk to prevent them from being used"
 
-/obj/effect/proc_holder/wrap/update_icon()
+/obj/effect/proc_holder/spider/wrap/update_icon()
 	action.button_icon_state = "wrap_[active]"
 	action.UpdateButtonIcon()
 
-/obj/effect/proc_holder/wrap/Click()
-	if(!istype(usr, /mob/living/simple_animal/hostile/poison/giant_spider))
-		return TRUE
-	var/mob/living/simple_animal/hostile/poison/giant_spider/user = usr
-	activate(user)
-	return TRUE
-
-/obj/effect/proc_holder/wrap/proc/activate(mob/living/user)
+/obj/effect/proc_holder/spider/wrap/activate(mob/living/user)
 	var/message
 	if(active)
 		message = "<span class='notice'>You no longer prepare to wrap something in a cocoon.</span>"
@@ -506,7 +522,7 @@ s
 		add_ranged_ability(user, message, TRUE)
 		return TRUE
 
-/obj/effect/proc_holder/wrap/InterceptClickOn(mob/living/caller, params, atom/target)
+/obj/effect/proc_holder/spider/wrap/InterceptClickOn(mob/living/caller, params, atom/target)
 	if(..())
 		return
 	if(ranged_ability_user.incapacitated() || !istype(ranged_ability_user, /mob/living/simple_animal/hostile/poison/giant_spider))
@@ -524,8 +540,58 @@ s
 		remove_ranged_ability()
 		return TRUE
 
-/obj/effect/proc_holder/wrap/on_lose(mob/living/carbon/user)
-	remove_ranged_ability()
+/obj/effect/proc_holder/spider/throw_web
+	name = "Throw web"
+	panel = "Spider"
+	desc = "Throw a sticky web at potential prey to immobilize them temporarily"
+	ranged_mousepointer = 'icons/effects/throwweb_target.dmi'
+	action_icon = 'icons/mob/actions/actions_animal.dmi'
+	action_icon_state = "throw_web_0"
+	action_background_icon_state = "bg_alien"
+
+/obj/effect/proc_holder/spider/throw_web/activate(mob/living/user)
+	var/message
+	if(active)
+		message = "<span class='notice'>You discard the webbing.</span>"
+		remove_ranged_ability(message)
+		return
+	if(!istype(user, /mob/living/simple_animal/hostile/poison/giant_spider))
+		return
+	var/mob/living/simple_animal/hostile/poison/giant_spider/spider = user
+	if(spider.busy != SPINNING_WEB)
+		spider.busy = SPINNING_WEB
+		spider.visible_message("<span class='notice'>[spider] begins to secrete a sticky substance.</span>","<span class='notice'>You begin to prepare a net from webbing.</span>")
+		spider.stop_automated_movement = TRUE
+		if(do_after(spider, 40 * spider.web_speed, spider))
+			message = "<span class='notice'>You ready the completed net with your forelimbs. <B>Left-click to throw it at a target!</B></span>"
+			add_ranged_ability(user, message, TRUE)
+		spider.busy = SPIDER_IDLE
+		spider.stop_automated_movement = FALSE
+	else
+		to_chat(spider, "<span class='warning'>You're already spinning a web!</span>")
+
+/obj/effect/proc_holder/spider/throw_web/update_icon()
+	action.button_icon_state = "throw_web_[active]"
+	action.UpdateButtonIcon()
+
+/obj/effect/proc_holder/spider/throw_web/InterceptClickOn(mob/living/caller, params, atom/target)
+	if(..())
+		return
+
+	var/turf/T = ranged_ability_user.loc
+	var/turf/U = get_step(ranged_ability_user, ranged_ability_user.dir)
+	if(!isturf(U) || !isturf(T))
+		return FALSE
+
+	ranged_ability_user.visible_message("<span class='danger'>[ranged_ability_user] throws a web!", "<span class='notice'>You throw the web!</span>")
+	var/obj/item/projectile/bullet/spidernet/A = new /obj/item/projectile/bullet/spidernet(ranged_ability_user.loc)
+	A.preparePixelProjectile(target, ranged_ability_user, params)
+	A.firer = ranged_ability_user
+	A.fire()
+	ranged_ability_user.newtonian_move(get_dir(U, T))
+	remove_ranged_ability() //have to spin another net before you can use it again
+
+	return TRUE
 
 // Laying eggs
 // If a spider eats a human, they can lay eggs that can hatch into special variants of the base spiders
@@ -668,4 +734,3 @@ s
 #undef LAYING_EGGS
 #undef MOVING_TO_TARGET
 #undef SPINNING_COCOON
-#undef MAX_WEBS_PER_TILE

@@ -775,6 +775,9 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	cable_color = "red"
 	color = "#ff0000"
 
+/obj/item/stack/cable_coil/red/one
+	amount = 1
+
 /obj/item/stack/cable_coil/yellow
 	cable_color = "yellow"
 	color = "#ffff00"

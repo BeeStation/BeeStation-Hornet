@@ -3,7 +3,7 @@
 #define POWER_RESTORATION_SEARCH_APC 2
 #define POWER_RESTORATION_APC_FOUND 3
 
-/mob/living/silicon/ai/Life()
+/mob/living/silicon/ai/Life(delta_time)
 	if (stat == DEAD)
 		return
 	else //I'm not removing that shitton of tabs, unneeded as they are. -- Urist
@@ -11,7 +11,7 @@
 
 		update_gravity(has_gravity())
 
-		handle_status_effects()
+		handle_status_effects(delta_time)
 
 		if(malfhack && malfhack.aidisabled)
 			deltimer(malfhacking)

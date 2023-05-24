@@ -304,32 +304,32 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		switch(old_part.body_zone)
 			if(BODY_ZONE_HEAD)
 				var/obj/item/bodypart/head/new_part = new new_species.species_head()
-				new_part.replace_limb(C, TRUE)
+				new_part.replace_limb(C, TRUE, is_creating = TRUE)
 				new_part.update_limb(is_creating = TRUE)
 				qdel(old_part)
 			if(BODY_ZONE_CHEST)
 				var/obj/item/bodypart/chest/new_part = new new_species.species_chest()
-				new_part.replace_limb(C, TRUE)
+				new_part.replace_limb(C, TRUE, is_creating = TRUE)
 				new_part.update_limb(is_creating = TRUE)
 				qdel(old_part)
 			if(BODY_ZONE_L_ARM)
 				var/obj/item/bodypart/l_arm/new_part = new new_species.species_l_arm()
-				new_part.replace_limb(C, TRUE)
+				new_part.replace_limb(C, TRUE, is_creating = TRUE)
 				new_part.update_limb(is_creating = TRUE)
 				qdel(old_part)
 			if(BODY_ZONE_R_ARM)
 				var/obj/item/bodypart/r_arm/new_part = new new_species.species_r_arm()
-				new_part.replace_limb(C, TRUE)
+				new_part.replace_limb(C, TRUE, is_creating = TRUE)
 				new_part.update_limb(is_creating = TRUE)
 				qdel(old_part)
 			if(BODY_ZONE_L_LEG)
 				var/obj/item/bodypart/l_leg/new_part = new new_species.species_l_leg()
-				new_part.replace_limb(C, TRUE)
+				new_part.replace_limb(C, TRUE, is_creating = TRUE)
 				new_part.update_limb(is_creating = TRUE)
 				qdel(old_part)
 			if(BODY_ZONE_R_LEG)
 				var/obj/item/bodypart/r_leg/new_part = new new_species.species_r_leg()
-				new_part.replace_limb(C, TRUE)
+				new_part.replace_limb(C, TRUE, is_creating = TRUE)
 				new_part.update_limb(is_creating = TRUE)
 				qdel(old_part)
 
@@ -775,7 +775,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			bodyparts_to_add -= "ipc_screen"
 
 	if("ipc_antenna" in mutant_bodyparts)
-		if(!H.dna.features["ipc_antenna"] || H.dna.features["ipc_antenna"] == "None" || H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD)
+		if(!H.dna.features["ipc_antenna"] || H.dna.features["ipc_antenna"] == "None" || (H.head?.flags_inv & HIDEEARS) || !HD)
 			bodyparts_to_add -= "ipc_antenna"
 
 	if("apid_antenna" in mutant_bodyparts)
@@ -1500,7 +1500,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			log_combat(user, target, "attempted to punch")
 			return FALSE
 
-		var/armor_block = target.run_armor_check(affecting, "melee")
+		var/armor_block = target.run_armor_check(affecting, MELEE)
 
 		playsound(target.loc, user.dna.species.attack_sound, 25, 1, -1)
 
@@ -1516,10 +1516,14 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 		if(atk_verb == ATTACK_EFFECT_KICK)//kicks deal 1.5x raw damage
 			target.apply_damage(damage*1.5, attack_type, affecting, armor_block)
+			if((damage * 1.5) >= 9)
+				target.force_say()
 			log_combat(user, target, "kicked")
 		else//other attacks deal full raw damage + 1.5x in stamina damage
 			target.apply_damage(damage, attack_type, affecting, armor_block)
 			target.apply_damage(damage*1.5, STAMINA, affecting, armor_block)
+			if(damage >= 9)
+				target.force_say()
 			log_combat(user, target, "punched")
 
 /datum/species/proc/spec_unarmedattacked(mob/living/carbon/human/user, mob/living/carbon/human/target)
@@ -1637,7 +1641,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				if(target_held_item)
 					target.visible_message("<span class='danger'>[target.name]'s grip on \the [target_held_item] loosens!</span>",
 						"<span class='danger'>Your grip on \the [target_held_item] loosens!</span>", null, COMBAT_MESSAGE_RANGE)
-				addtimer(CALLBACK(target, /mob/living/carbon/human/proc/clear_shove_slowdown), SHOVE_SLOWDOWN_LENGTH)
+				addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living/carbon/human, clear_shove_slowdown)), SHOVE_SLOWDOWN_LENGTH)
 			else if(target_held_item)
 				target.dropItemToGround(target_held_item)
 				knocked_item = TRUE
@@ -1701,7 +1705,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	hit_area = parse_zone(affecting.body_zone)
 	var/def_zone = affecting.body_zone
 
-	var/armor_block = H.run_armor_check(affecting, "melee", "<span class='notice'>Your armor has protected your [hit_area]!</span>", "<span class='warning'>Your armor has softened a hit to your [hit_area]!</span>",I.armour_penetration)
+	var/armor_block = H.run_armor_check(affecting, MELEE, "<span class='notice'>Your armor has protected your [hit_area]!</span>", "<span class='warning'>Your armor has softened a hit to your [hit_area]!</span>",I.armour_penetration)
 	armor_block = min(90,armor_block) //cap damage reduction at 90%
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 
@@ -1766,7 +1770,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 						H.update_inv_w_uniform()
 
 		if(Iforce > 10 || Iforce >= 5 && prob(33))
-			H.forcesay(GLOB.hit_appends)	//forcesay checks stat already.
+			H.force_say(user)
 	return TRUE
 
 /datum/species/proc/apply_damage(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H, forced = FALSE)
@@ -2062,15 +2066,9 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 //Tail Wagging//
 ////////////////
 
-/datum/species/proc/can_wag_tail(mob/living/carbon/human/H)
-	return FALSE
-
-/datum/species/proc/is_wagging_tail(mob/living/carbon/human/H)
-	return FALSE
-
-/datum/species/proc/start_wagging_tail(mob/living/carbon/human/H)
-
 /datum/species/proc/stop_wagging_tail(mob/living/carbon/human/H)
+	var/obj/item/organ/tail/tail = H?.getorganslot(ORGAN_SLOT_TAIL)
+	tail?.set_wagging(H, FALSE)
 
 ///////////////
 //FLIGHT SHIT//

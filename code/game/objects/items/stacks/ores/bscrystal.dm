@@ -6,6 +6,7 @@
 	icon_state = "bluespace_crystal"
 	singular_name = "bluespace crystal"
 	w_class = WEIGHT_CLASS_TINY
+	item_flags = ISWEAPON
 	materials = list(/datum/material/bluespace=MINERAL_MATERIAL_AMOUNT)
 	points = 63
 	var/blink_range = 8 // The teleport range when crushed/thrown at someone.

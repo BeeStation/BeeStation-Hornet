@@ -170,7 +170,7 @@
 /proc/random_skin_tone()
 	return pick(GLOB.skin_tones)
 
-GLOBAL_LIST_INIT(skin_tones, sortList(list(
+GLOBAL_LIST_INIT(skin_tones, sort_list(list(
 	"albino",
 	"caucasian1",
 	"caucasian2",
@@ -666,7 +666,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	var/list/borgs = active_free_borgs()
 	if(borgs.len)
 		if(user)
-			. = input(user,"Unshackled cyborg signals detected:", "Cyborg Selection", borgs[1]) in sortList(borgs)
+			. = input(user,"Unshackled cyborg signals detected:", "Cyborg Selection", borgs[1]) in sort_list(borgs)
 		else
 			. = pick(borgs)
 	return .
@@ -676,7 +676,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	var/list/ais = active_ais()
 	if(ais.len)
 		if(user)
-			. = input(user,"AI signals detected:", "AI Selection", ais[1]) in sortList(ais)
+			. = input(user,"AI signals detected:", "AI Selection", ais[1]) in sort_list(ais)
 		else
 			. = pick(ais)
 	return .

@@ -100,7 +100,7 @@
 	var/currently_spawning_anomalies = round(anomalies_to_spawn * 0.5, 1)
 	anomalies_to_spawn -= currently_spawning_anomalies
 	for(var/i in 1 to currently_spawning_anomalies)
-		var/anomaly_to_spawn = pickweight(ANOMALY_WEIGHTS)
+		var/anomaly_to_spawn = pick_weight(ANOMALY_WEIGHTS)
 		var/area/target_event_spawn = pick_n_take(anomaly_areas)
 		if(!target_event_spawn)
 			return
@@ -114,7 +114,7 @@
 
 	var/current_spawn = rand(5 SECONDS, 10 SECONDS)
 	for(var/i in 1 to anomalies_to_spawn)
-		var/anomaly_to_spawn = pickweight(ANOMALY_WEIGHTS)
+		var/anomaly_to_spawn = pick_weight(ANOMALY_WEIGHTS)
 		var/area/target_event_spawn = pick_n_take(anomaly_areas)
 		if(!target_event_spawn)
 			return

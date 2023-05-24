@@ -142,7 +142,7 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 
 /datum/help_ticket/mentor/TimeoutVerb()
 	initiator.remove_verb(/client/verb/mentorhelp)
-	initiator.mentorhelptimerid = addtimer(CALLBACK(initiator, /client/proc/givementorhelpverb), 1200, TIMER_STOPPABLE)
+	initiator.mentorhelptimerid = addtimer(CALLBACK(initiator, TYPE_PROC_REF(/client, givementorhelpverb)), 1200, TIMER_STOPPABLE)
 
 /datum/help_ticket/mentor/key_name_ticket(mob/user)
 	return key_name_mentor(user)
@@ -154,7 +154,7 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 	var/ref_src = "[REF(src)]"
 
 	//Message to be sent to all admins
-	var/admin_msg = "<span class='mentornotice'><span class='mentorhelp'>Mentor Ticket [TicketHref("#[id]", ref_src)]</span>: [LinkedReplyName(ref_src)] [ClosureLinks(ref_src)]: <span class='linkify'>[keywords_lookup(msg)]</span></span>"
+	var/admin_msg = "<span class='mentornotice'><span class='mentorhelp'>Mentor Ticket [TicketHref("#[id]", ref_src)]</span>: [LinkedReplyName(ref_src)] [ClosureLinks(ref_src)]: <span class='linkify'>[msg]</span></span>"
 
 	if(add_to_ticket)
 		AddInteraction("red", msg, initiator_key_name, claimee_key_name, "You", "Mentor")
@@ -242,7 +242,7 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 
 /datum/help_ticket/mentor/Resolve(key_name = key_name_ticket(usr), silent = FALSE)
 	..()
-	addtimer(CALLBACK(initiator, /client/proc/givementorhelpverb), 50)
+	addtimer(CALLBACK(initiator, TYPE_PROC_REF(/client, givementorhelpverb)), 50)
 
 /datum/help_ticket/mentor/Reject(key_name = key_name_ticket(usr))
 	..()

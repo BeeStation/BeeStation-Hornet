@@ -162,7 +162,7 @@
 	desc = "very powerful."
 	icon_state = "hardsuit0-syndielite"
 	hardsuit_type = "syndielite"
-	armor = list("melee" = 300, "bullet" = 300, "laser" = 300, "energy" = 300, "bomb" = 300, "bio" = 300, "rad" = 300, "fire" = 300, "acid" = 300, "stamina" = 300) // prevent armor penetration
+	armor = list(MELEE = 300,  BULLET = 300, LASER = 300, ENERGY = 300, BOMB = 300, BIO = 300, RAD = 300, FIRE = 300, ACID = 300, STAMINA = 300) // prevent armor penetration
 	strip_delay = 6000
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -175,7 +175,7 @@
 	hardsuit_type = "syndielite"
 	w_class = WEIGHT_CLASS_TINY
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/debug
-	armor = list("melee" = 300, "bullet" = 300, "laser" = 300, "energy" = 300, "bomb" = 300, "bio" = 300, "rad" = 300, "fire" = 300, "acid" = 300, "stamina" = 300) // prevent armor penetration
+	armor = list(MELEE = 300,  BULLET = 300, LASER = 300, ENERGY = 300, BOMB = 300, BIO = 300, RAD = 300, FIRE = 300, ACID = 300, STAMINA = 300) // prevent armor penetration
 	gas_transfer_coefficient = 0
 	permeability_coefficient = 0
 	siemens_coefficient = 0
@@ -197,7 +197,7 @@
 	item_state = "holdingpack"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	item_flags = NO_MAT_REDEMPTION
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 0)
 
 /obj/item/storage/backpack/debug/ComponentInitialize()
 	. = ..()

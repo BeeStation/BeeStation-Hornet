@@ -4,7 +4,7 @@
 	color = "#FFFF00"
 	damage = 40
 	damage_type = STAMINA
-	flag = "stamina"
+	armor_flag = STAMINA
 	nodamage = FALSE
 	knockdown = 30
 	stutter = 5

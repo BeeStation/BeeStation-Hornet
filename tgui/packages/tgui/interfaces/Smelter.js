@@ -1,7 +1,8 @@
 import { toTitleCase } from 'common/string';
 import { useBackend } from '../backend';
-import { Box, Button, Section, Table } from '../components';
+import { Box, Button, NumberInput, Section, Table } from '../components';
 import { Window } from '../layouts';
+import { round, scale } from 'common/math';
 
 export const Smelter = (props, context) => {
   const { act, data } = useBackend(context);
@@ -11,6 +12,8 @@ export const Smelter = (props, context) => {
     stored_points,
     materials,
     alloys,
+    auto_shutdown,
+    smelt_amount_limit,
   } = data;
   return (
     <Window
@@ -21,12 +24,39 @@ export const Smelter = (props, context) => {
           <Table.Row>
             <Table.Cell>
               <Box inline color="label" mr={1}>
+                Auto-off:
+              </Box>
+              <Button
+                icon={auto_shutdown ? 'power-off' : 'times'}
+                content={auto_shutdown ? 'On' : 'Off'}
+                onClick={() => act('toggle_auto_shutdown')} />
+            </Table.Cell>
+            <Table.Cell>
+              <Box inline color="label" mr={1}>
                 Machine Status:
               </Box>
               <Button
                 icon={on ? 'power-off' : 'times'}
                 content={on ? 'On' : 'Off'}
                 onClick={() => act('Toggle_on')} />
+            </Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell>
+              <Box inline color="label" mr={1}>
+                Stop after:
+              </Box>
+              <NumberInput
+                value={smelt_amount_limit}
+                unit="sheets"
+                width="55px"
+                minValue={1}
+                maxValue={100}
+                step={10}
+                stepPixelSize={1}
+                onChange={(e, value) => act('set_smelt_amount', {
+                  amount: value,
+                })} />
             </Table.Cell>
             {!!allowredeem && (
               <Table.Cell collapsing textAlign="right">

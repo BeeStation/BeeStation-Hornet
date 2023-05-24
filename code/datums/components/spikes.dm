@@ -26,7 +26,7 @@
 	var/netdamage = spikedamage * damage_mod
 	if(istype(C) && cooldown <= world.time)
 		var/atom/movable/P = parent
-		var/def_check = C.getarmor(type = "melee")
+		var/def_check = C.getarmor(type = MELEE)
 		C.apply_damage(netdamage, BRUTE, blocked = def_check)
 		P.visible_message("<span class='warning'>[C.name] is pricked on [P.name]'s spikes.</span>")
 		playsound(get_turf(P), 'sound/weapons/slice.ogg', 50, 1)

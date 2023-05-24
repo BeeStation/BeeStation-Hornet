@@ -6,11 +6,12 @@
 	density = TRUE
 	anchored = TRUE
 	opacity = TRUE
+	obj_flags = CAN_BE_HIT | BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 
 	icon = 'icons/obj/doors/mineral_doors.dmi'
 	icon_state = "metal"
 	max_integrity = 200
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 50, "acid" = 50, "stamina" = 0)
+	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 50, ACID = 50, STAMINA = 0)
 	CanAtmosPass = ATMOS_PASS_DENSITY
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	rad_insulation = RAD_MEDIUM_INSULATION
@@ -55,7 +56,7 @@
 		return
 	return TryToSwitchState(user)
 
-/obj/structure/mineral_door/CanAllowThrough(atom/movable/mover, turf/target)
+/obj/structure/mineral_door/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
@@ -90,6 +91,7 @@
 	flick("[initial(icon_state)]opening",src)
 	sleep(1 SECONDS)
 	set_density(FALSE)
+	obj_flags &= ~(BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP)
 	door_opened = TRUE
 	air_update_turf(1)
 	update_appearance()
@@ -109,6 +111,7 @@
 	flick("[initial(icon_state)]closing",src)
 	sleep(1 SECONDS)
 	set_density(TRUE)
+	obj_flags |= (BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP)
 	set_opacity(TRUE)
 	door_opened = FALSE
 	air_update_turf(1)

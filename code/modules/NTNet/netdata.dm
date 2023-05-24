@@ -92,7 +92,7 @@
 	C.user = user
 	C.next = null
 	if(deep_copy)
-		C.data = deepCopyList(data)
+		C.data = deep_copy_list(data)
 	else
 		C.data = data
 	return C
