@@ -2025,6 +2025,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	restricted_roles = list(JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_ROBOTICIST, JOB_NAME_PARAMEDIC, JOB_NAME_BRIGPHYSICIAN)
 	cost = 3
 
+/datum/uplink_item/role_restricted/perfect_surgeon
+	name = "Syndicate Surgery Implant"
+	desc = "A powerful brain implant, capable of uploading perfect, forbidden surgical knowledge to its users mind, \
+			allowing them to do just about any surgery, anywhere, without making any (unintentional) mistakes. \
+			Comes with a syndicate autosurgeon for immediate self-application."
+	item = /obj/item/autosurgeon/syndicate/perfect_surgeon
+	restricted_roles = list(JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_ROBOTICIST, JOB_NAME_PARAMEDIC, JOB_NAME_BRIGPHYSICIAN)
+	purchasable_from = ~(UPLINK_INCURSION | UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	cost = 12
+
 /datum/uplink_item/role_restricted/syndicate_mmi
 	name = "Syndicate MMI"
 	desc = "An MMI which autmatically applies the Syndimov laws to any borg it is placed in. Great for adding known allies to assist you with a little more stealth than a fully emagged borg."
