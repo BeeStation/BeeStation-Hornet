@@ -29,11 +29,13 @@
 		fill_type,
 		ingredient_type = CUSTOM_INGREDIENT_TYPE_EDIBLE,
 		max_ingredients = INFINITY,
-		list/obj/item/initial_ingredients = null)
+		list/obj/item/initial_ingredients = null
+)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 	var/atom/atom_parent = parent
-	if (!atom_parent.reagents)
+	// assume replacement is OK
+	if (!atom_parent.reagents && !replacement)
 		return COMPONENT_INCOMPATIBLE
 
 	src.replacement = replacement
@@ -96,36 +98,29 @@
 					if (i == ingredients.len - 1)
 						ending = ", and "
 			ingredients_listed += "\a [ingredient.name][ending]"
-	examine_list += "It contains [LAZYLEN(ingredients) ? "[ingredients_listed]" : " no ingredients, "]making a [custom_adjective()]-sized [initial(atom_parent.name)]."
+	examine_list += "It [LAZYLEN(ingredients) ? "contains [ingredients_listed]making a [custom_adjective()]-sized [initial(atom_parent.name)]" : "does not contain any ingredients"]."
 
 
 ///Handles when the customizable food is attacked by something.
 /datum/component/customizable_reagent_holder/proc/customizable_attack(datum/source, obj/ingredient, mob/attacker, silent = FALSE, force = FALSE)
 	SIGNAL_HANDLER
 
-	var/valid_ingredient = TRUE
-
-	switch (ingredient_type)
-		if (CUSTOM_INGREDIENT_TYPE_EDIBLE)
-			valid_ingredient = IS_EDIBLE(ingredient)
-
 	// only accept valid ingredients
-	if (!valid_ingredient || HAS_TRAIT(ingredient, TRAIT_CUSTOMIZABLE_REAGENT_HOLDER))
-		to_chat(attacker, "<span class='warning'>[ingredient] doesn't belong on [parent]!</span>")
+	if (!valid_ingredient(ingredient))
+		attacker.balloon_alert(attacker, "doesn't go on that!")
 		return
 
 	if (LAZYLEN(ingredients) >= max_ingredients)
-		to_chat(attacker, "<span class='warning'>[parent] is too full for any more ingredients!</span>")
+		attacker.balloon_alert(attacker, "too full!")
 		return COMPONENT_NO_AFTERATTACK
 
 	var/atom/atom_parent = parent
 	if(!attacker.transferItemToLoc(ingredient, atom_parent))
 		return
 	if (replacement)
-		var/atom/replacement_parent = new replacement(atom_parent.loc)
+		var/atom/replacement_parent = new replacement(atom_parent.drop_location())
 		ingredient.forceMove(replacement_parent)
 		replacement = null
-		RemoveComponent()
 		replacement_parent.TakeComponent(src)
 		handle_reagents(atom_parent)
 		qdel(atom_parent)
@@ -178,6 +173,7 @@
 /datum/component/customizable_reagent_holder/proc/handle_reagents(obj/item/ingredient)
 	var/atom/atom_parent = parent
 	if (atom_parent.reagents && ingredient.reagents)
+		atom_parent.reagents.maximum_volume += ingredient.reagents.maximum_volume // If we don't do this custom food starts voiding reagents past a certain point.
 		ingredient.reagents.trans_to(atom_parent, ingredient.reagents.total_volume)
 	return
 
