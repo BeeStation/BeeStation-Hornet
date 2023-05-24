@@ -34,7 +34,6 @@
 	var/discovery_points = 0 //Amount of discovery points given for scanning
 
 /obj/item/food/grown/Initialize(mapload, obj/item/seeds/new_seed)
-	. = ..()
 	if(!tastes)
 		tastes = list("[name]" = 1) //This happens first else the component already inits
 
@@ -45,6 +44,9 @@
 		// This is for adminspawn or map-placed growns. They get the default stats of their seed type.
 		seed = new seed()
 		seed.adjust_potency(50-seed.potency)
+	else if(!seed)
+		stack_trace("Grown object created without a seed. WTF")
+		return INITIALIZE_HINT_QDEL
 
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
@@ -54,13 +56,18 @@
 	for(var/datum/plant_gene/trait/T in seed.genes)
 		T.on_new(src, loc)
 
-	..() //Only call it here because we want all the genes and shit to be applied before we add edibility. God this code is a mess.
+	. = ..() //Only call it here because we want all the genes and shit to be applied before we add edibility. God this code is a mess.
 
 	seed.prepare_result(src)
 	transform *= TRANSFORM_USING_VARIABLE(seed.potency, 100) + 0.5 //Makes the resulting produce's sprite larger or smaller based on potency!
 
 	if(discovery_points)
 		AddComponent(/datum/component/discoverable, discovery_points)
+
+/obj/item/food/grown/Destroy()
+	if(isatom(seed))
+		QDEL_NULL(seed)
+	return ..()
 
 /obj/item/food/grown/proc/make_dryable()
 	AddElement(/datum/element/dryable, type)
