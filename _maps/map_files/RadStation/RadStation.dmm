@@ -2064,12 +2064,6 @@
 /area/security/main{
 	name = "Security Locker Room"
 	})
-"aIY" = (
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 1
-	},
-/turf/closed/wall,
-/area/crew_quarters/theatre/backstage)
 "aJa" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -10061,6 +10055,12 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
 	},
+/turf/open/floor/plating,
+/area/maintenance/central)
+"dnf" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/landmark/blobstart,
+/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/maintenance/central)
 "dom" = (
@@ -25772,6 +25772,19 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
+"iqW" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/red{
+	dir = 1
+	},
+/obj/structure/sign/painting/library{
+	pixel_y = 32
+	},
+/obj/structure/table/wood,
+/turf/open/floor/plasteel,
+/area/security/brig)
 "ira" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -44834,6 +44847,19 @@
 	lighting_overlay_colour = "#DDE6FF";
 	power_light = 0
 	})
+"oMT" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/red{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/vending/coffee,
+/turf/open/floor/plasteel,
+/area/security/brig)
 "oMV" = (
 /obj/machinery/atmospherics/pipe/simple/orange/hidden,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
@@ -47236,18 +47262,6 @@
 /obj/machinery/space_heater,
 /turf/open/floor/plating,
 /area/maintenance/department/science)
-"pIH" = (
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/red{
-	dir = 1
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/security/brig)
 "pIK" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -48138,6 +48152,16 @@
 	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/chief)
+"pWt" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/red{
+	dir = 1
+	},
+/obj/machinery/vending/snack/random,
+/turf/open/floor/plasteel,
+/area/security/brig)
 "pWA" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/curtain/bounty,
@@ -52382,15 +52406,6 @@
 /obj/item/folder/blue,
 /turf/open/floor/wood,
 /area/security/courtroom)
-"rww" = (
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/red{
-	dir = 1
-	},
-/turf/closed/wall/r_wall,
-/area/security/prison)
 "rwy" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
@@ -56569,18 +56584,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/cafeteria)
-"sPg" = (
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/red{
-	dir = 1
-	},
-/obj/structure/sign/painting/library{
-	pixel_y = 32
-	},
-/turf/open/floor/plasteel,
-/area/security/brig)
 "sPk" = (
 /obj/machinery/door/airlock{
 	name = "Service Hall";
@@ -59675,13 +59678,6 @@
 	icon_state = "panelscorched"
 	},
 /area/hallway/secondary/service)
-"tMu" = (
-/obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
-	alpha = 180;
-	color = "#DE3A3A"
-	},
-/turf/closed/wall/r_wall,
-/area/security/prison)
 "tMy" = (
 /obj/machinery/camera/autoname{
 	dir = 1;
@@ -60106,15 +60102,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
-"tVz" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/turf_decal/tile/neutral/anticorner{
-	dir = 9
-	},
-/obj/effect/landmark/blobstart,
-/obj/structure/lattice/catwalk/over,
-/turf/open/floor/plating,
-/area/maintenance/central)
 "tVN" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/plasma_output{
 	dir = 8
@@ -60866,24 +60853,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"uhA" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/guideline/guideline_half_edge/red{
-	dir = 8
-	},
-/obj/effect/turf_decal/guideline/guideline_half_edge/red{
-	dir = 6
-	},
-/obj/effect/turf_decal/guideline/guideline_edge_alt/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/guideline/guideline_tri/red{
-	dir = 1
-	},
-/turf/closed/wall/r_wall,
-/area/security/prison)
 "uhG" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 1
@@ -97053,9 +97022,9 @@ woY
 woY
 woY
 woY
-rww
-tMu
-uhA
+woY
+woY
+woY
 eSK
 mnF
 uTj
@@ -98329,7 +98298,7 @@ bCh
 jyu
 qBQ
 cpd
-nvT
+pWt
 uGi
 dpI
 fHK
@@ -98586,7 +98555,7 @@ vOg
 jyu
 sUs
 cpd
-sPg
+iqW
 mky
 dpI
 fHK
@@ -98843,7 +98812,7 @@ cuD
 jyu
 xaK
 cpd
-pIH
+oMT
 uGi
 xOM
 qnO
@@ -117098,7 +117067,7 @@ mta
 wZH
 dwN
 gdE
-tVz
+dnf
 jxn
 hdp
 ini
@@ -117365,7 +117334,7 @@ neh
 neh
 beM
 beM
-aIY
+neh
 neh
 eqb
 gMO
