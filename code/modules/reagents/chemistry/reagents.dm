@@ -1,4 +1,7 @@
 #define REM REAGENTS_EFFECT_MULTIPLIER
+#define METABOLITE_RATE     0.5 // How much of a reagent is converted metabolites if one is defined
+#define MAX_METABOLITES		15  // The maximum amount of a given metabolite someone can have at a time
+#define METABOLITE_PENALTY(path) clamp(M.reagents.get_reagent_amount(path)/2.5, 1, 5) //Ranges from 1 to 5 depending on level of metabolites. 
 
 GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 
@@ -32,6 +35,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/color = "#000000" // rgb: 0, 0, 0
 	var/chem_flags = CHEMICAL_NOT_DEFINED   // default = I am not sure this shit + CHEMICAL_NOT_SYNTH
 	var/metabolization_rate = REAGENTS_METABOLISM //how fast the reagent is metabolized by the mob
+	var/metabolite //Will be added as the reagent is processed
 	var/overrides_metab = 0
 	var/overdose_threshold = 0
 	var/addiction_threshold = 0
@@ -66,6 +70,8 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 /datum/reagent/proc/on_mob_life(mob/living/carbon/M)
 	current_cycle++
 	holder.remove_reagent(type, metabolization_rate * M.metabolism_efficiency) //By default it slowly disappears.
+	if(metabolite)
+		holder.add_reagent(metabolite, metabolization_rate * M.metabolism_efficiency * METABOLITE_RATE)
 	return
 
 /datum/reagent/proc/on_transfer(atom/A, method=TOUCH, trans_volume) //Called after a reagent is transfered
