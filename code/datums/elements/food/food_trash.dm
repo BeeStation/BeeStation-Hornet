@@ -29,7 +29,14 @@
 
 /datum/element/food_trash/Detach(datum/target)
 	. = ..()
-	UnregisterSignal(target, COMSIG_FOOD_CONSUMED)
+	UnregisterSignal(target, list(
+		COMSIG_FOOD_CONSUMED,
+		COMSIG_ITEM_ATTACK_SELF,
+		COMSIG_FOOD_CROSSED,
+		COMSIG_ITEM_ON_GRIND,
+		COMSIG_ITEM_ON_JUICE,
+		COMSIG_ITEM_USED_AS_INGREDIENT,
+		COMSIG_ITEM_ON_COMPOSTED,))
 
 /datum/element/food_trash/proc/generate_trash(datum/source, mob/living/eater, mob/living/feeder)
 	SIGNAL_HANDLER
@@ -46,6 +53,8 @@
 		var/mob/living/food_holding_mob = edible_object.loc
 		food_holding_mob.dropItemToGround(edible_object)
 		food_holding_mob.put_in_hands(trash_item)
+
+	Detach(source)
 
 /datum/element/food_trash/proc/food_crossed(datum/source, mob/crosser, bitecount)
 	SIGNAL_HANDLER

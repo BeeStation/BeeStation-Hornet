@@ -3,6 +3,9 @@
 
 #if defined(UNIT_TESTS) || defined(SPACEMAN_DMM)
 
+/// For advanced cases, fail unconditionally but don't return (so a test can return multiple results)
+#define TEST_FAIL(reason) (Fail(reason || "No reason", __FILE__, __LINE__))
+
 /// Asserts that a condition is true
 /// If the condition is not true, fails the test
 #define TEST_ASSERT(assertion, reason) if (!(assertion)) { return Fail("Assertion failed: [reason || "No reason"]") }
