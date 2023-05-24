@@ -2,7 +2,7 @@
 
 /obj/item/food/donkpocket/random
 	name = "\improper Random Donk-pocket"
-	icon_state = "random_donkpocket"
+	icon_state = "donkpocket"
 	desc = "The food of choice for the seasoned coder (if you see this, contact DonkCo. as soon as possible)."
 	food_reagents = list(/datum/reagent/consumable/nutriment = 3)// immediately gets overwritten. This exists to not set off the edibility unit test.
 

@@ -141,7 +141,7 @@
 
 /obj/item/food/meat/slab/meatproduct
 	name = "meat product"
-	icon_state = "meatproduct"
+	//icon_state = "meatproduct"
 	desc = "A slab of station reclaimed and chemically processed meat product."
 	tastes = list("meat flavoring" = 2, "modified starches" = 2, "natural & artificial dyes" = 1, "butyric acid" = 1) // its supposed to be various processed chemicals seen in very processed food. Butyric acid is a reference to how a certain North American Candymaker puts a chemical commonly seen in vomit into chocolate
 	foodtypes = RAW | MEAT

@@ -511,23 +511,23 @@
 
 /obj/item/food/meat/steak/penguin
 	name = "penguin steak"
-	icon_state = "birdsteak"
+	//icon_state = "birdsteak"
 	tastes = list("beef" = 1, "cod fish" = 1)
 
 /obj/item/food/meat/steak/chicken
 	name = "chicken steak" //Can you have chicken steaks? Maybe this should be renamed once it gets new sprites. //I concur
-	icon_state = "birdsteak"
+	//icon_state = "birdsteak"
 	tastes = list("chicken" = 1)
 
 /obj/item/food/meat/steak/plain/human/lizard
 	name = "lizard steak"
-	icon_state = "birdsteak"
+	//icon_state = "birdsteak"
 	tastes = list("juicy chicken" = 3, "scales" = 1)
 	foodtypes = MEAT
 
 /obj/item/food/meat/steak/meatproduct
 	name = "thermally processed meat product"
-	icon_state = "meatproductsteak"
+	//icon_state = "meatproductsteak"
 	tastes = list("enhanced char" = 2, "suspicious tenderness" = 2, "natural & artificial dyes" = 2, "emulsifying agents" = 1)
 
 /obj/item/food/meat/steak/synth
