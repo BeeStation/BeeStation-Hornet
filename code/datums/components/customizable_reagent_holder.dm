@@ -100,6 +100,16 @@
 			ingredients_listed += "\a [ingredient.name][ending]"
 	examine_list += "It [LAZYLEN(ingredients) ? "contains [ingredients_listed]making a [custom_adjective()]-sized [initial(atom_parent.name)]" : "does not contain any ingredients"]."
 
+//// Proc that checks if an ingredient is valid or not, returning false if it isnt and true if it is.
+/datum/component/customizable_reagent_holder/proc/valid_ingredient(obj/ingredient)
+	if (HAS_TRAIT(ingredient, TRAIT_CUSTOMIZABLE_REAGENT_HOLDER))
+		return FALSE
+	switch (ingredient_type)
+		if (CUSTOM_INGREDIENT_TYPE_EDIBLE)
+			return IS_EDIBLE(ingredient)
+		if (CUSTOM_INGREDIENT_TYPE_DRYABLE)
+			return HAS_TRAIT(ingredient, TRAIT_DRYABLE)
+	return TRUE
 
 ///Handles when the customizable food is attacked by something.
 /datum/component/customizable_reagent_holder/proc/customizable_attack(datum/source, obj/ingredient, mob/attacker, silent = FALSE, force = FALSE)

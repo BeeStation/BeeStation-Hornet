@@ -803,23 +803,9 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	icon_state = "cig_paper"
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/rollingpaper/afterattack(atom/target, mob/user, proximity)
+/obj/item/rollingpaper/Initialize(mapload)
 	. = ..()
-	if(!proximity)
-		return
-	if(istype(target, /obj/item/food/grown))
-		var/obj/item/food/grown/O = target
-		if(HAS_TRAIT(O, TRAIT_DRIED))
-			var/obj/item/clothing/mask/cigarette/rollie/R = new /obj/item/clothing/mask/cigarette/rollie(user.loc)
-			R.chem_volume = target.reagents.total_volume
-			target.reagents.trans_to(R, R.chem_volume, transfered_by = user)
-			qdel(target)
-			qdel(src)
-			user.put_in_active_hand(R)
-			to_chat(user, "<span class='notice'>You roll the [target.name] into a rolling paper.</span>")
-			R.desc = "Dried [target.name] rolled up in a thin piece of paper."
-		else
-			to_chat(user, "<span class='warning'>You need to dry this first!</span>")
+	AddComponent(/datum/component/customizable_reagent_holder, /obj/item/clothing/mask/cigarette/rollie, CUSTOM_INGREDIENT_ICON_NOCHANGE, ingredient_type=CUSTOM_INGREDIENT_TYPE_DRYABLE, max_ingredients=2)
 
 ///////////////
 //VAPE NATION//
