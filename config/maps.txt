@@ -56,6 +56,11 @@ map flandstation
 	votable
 endmap
 
+map radstation
+	minplayers 20
+	votable
+endmap
+
 #Debug Maps, you probably don't want these enabled.
 
 map runtimestation
