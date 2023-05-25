@@ -2,10 +2,10 @@
 	category = CATEGORY_ROBOT
 	weight = WEIGHT_ROBOT
 
-/datum/keybinding/robot/can_use(client/user)
+/datum/keybinding/shell/can_use(client/user)
 	if(iscyborg(user.mob))
 		var/mob/living/silicon/robot/shell/our_shell = user.mob
-		if(!our_shell.shell)
+		if(our_shell.shell)
 			return TRUE
 		else
 			return FALSE
