@@ -192,7 +192,7 @@ GLOBAL_LIST_EMPTY(unused_kill_targets)
 		objective = new /datum/objective/assassinate
 	objective.owner = owner
 	var/list/unused_protect_targets = GLOB.unused_protect_targets.Copy() - get_existing_targets()
-	if(LAZYLEN(unused_protect_targets) && prob(55))
+	if(LAZYLEN(unused_protect_targets) && prob(75))
 		var/datum/mind/target = pick(unused_protect_targets)
 		objective.target = target
 		objective.update_explanation_text()
@@ -208,7 +208,7 @@ GLOBAL_LIST_EMPTY(unused_kill_targets)
 	var/datum/objective/protect/escape/protect_objective = new
 	protect_objective.owner = owner
 	var/list/unused_kill_targets = GLOB.unused_kill_targets.Copy() - get_existing_targets()
-	if(LAZYLEN(unused_kill_targets) && prob(55))
+	if(LAZYLEN(unused_kill_targets) && prob(75))
 		var/datum/mind/target = pick(unused_kill_targets)
 		protect_objective.target = target
 		protect_objective.update_explanation_text()
