@@ -262,14 +262,16 @@ Auto Patrol: []"},
 	if(declare_arrests)
 		var/area/location = get_area(src)
 		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
-	C.visible_message("<span class='danger'>[src] has stunned [C]!</span>",\
-							"<span class='userdanger'>[src] has stunned you!</span>")
 
-	var/armor_block = target.run_armor_check(BODY_ZONE_CHEST, "stamina")
-	target.apply_damage(85, STAMINA, BODY_ZONE_CHEST, armor_block)
-	target.apply_effect(EFFECT_STUTTER, 50)
+	var/armor_block = C.run_armor_check(BODY_ZONE_CHEST, "stamina")
+	C.apply_damage(85, STAMINA, BODY_ZONE_CHEST, armor_block)
+	C.apply_effect(EFFECT_STUTTER, 50)
+	C.visible_message(
+		"<span class='danger'>[src] has stunned [C]!</span>",\
+		"<span class='userdanger'>[src] has stunned you!</span>"
+	)
 
-	log_combat(src,C,"stunned")
+	log_combat(src, C, "stunned")
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 	icon_state = "[initial(icon_state)]-c"
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 2)
