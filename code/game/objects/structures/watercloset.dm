@@ -401,25 +401,35 @@
 	density = FALSE
 	var/open = TRUE
 
+/obj/structure/curtain/allowed(mob/M)
+	if(interact_dir)
+		return TRUE
+	return ..()
+
+/obj/structure/curtain/interact_dir() //Allows curtains to be opend only from one side
+	return get_dir(src) & interact_dir
+
 /obj/structure/curtain/proc/toggle()
 	open = !open
 
 	update_appearance()
 
 /obj/structure/curtain/update_icon()
-	if(!open)
-		icon_state = "[icon_type]-closed"
-		layer = WALL_OBJ_LAYER
-		set_density(TRUE)
-		set_opacity(TRUE)
-		open = FALSE
+	if(src.allowed)
+		if(!open)
+			icon_state = "[icon_type]-closed"
+			layer = WALL_OBJ_LAYER
+			set_density(TRUE)
+			set_opacity(TRUE)
+			open = FALSE
 
-	else
-		icon_state = "[icon_type]-open"
-		layer = SIGN_LAYER
-		set_density(FALSE)
-		set_opacity(FALSE)
-		open = TRUE
+		else
+			icon_state = "[icon_type]-open"
+			layer = SIGN_LAYER
+			set_density(FALSE)
+			set_opacity(FALSE)
+			open = TRUE
+	return
 
 /obj/structure/curtain/attackby(obj/item/W, mob/user)
 	if (istype(W, /obj/item/toy/crayon))

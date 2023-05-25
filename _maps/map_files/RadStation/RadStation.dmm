@@ -10016,6 +10016,12 @@
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/maintenance/central)
+"dnh" = (
+/obj/effect/spawner/structure/window,
+/obj/structure/curtain/bounty,
+/obj/effect/mapping_helpers/interact_dir,
+/turf/open/floor/plating,
+/area/crew_quarters/cafeteria)
 "dom" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/structure/cable/yellow{
@@ -28248,7 +28254,7 @@
 	},
 /obj/machinery/vending/wallmed{
 	pixel_y = -32;
-	products = list(/obj/item/stack/medical/gauze = 4, /obj/item/reagent_containers/hypospray/medipen = 3, /obj/item/reagent_containers/hypospray/medipen/dexalin = 3, /obj/item/reagent_containers/glass/bottle/epinephrine = 2, /obj/item/reagent_containers/glass/bottle/charcoal = 2)
+	products = list(/obj/item/stack/medical/gauze=4,/obj/item/reagent_containers/hypospray/medipen=3,/obj/item/reagent_containers/hypospray/medipen/dexalin=3,/obj/item/reagent_containers/glass/bottle/epinephrine=2,/obj/item/reagent_containers/glass/bottle/charcoal=2)
 	},
 /obj/machinery/newscaster{
 	pixel_x = -32;
@@ -34130,6 +34136,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/qm)
+"ljz" = (
+/obj/effect/spawner/structure/window,
+/obj/structure/curtain/bounty,
+/turf/open/floor/plating,
+/area/crew_quarters/cafeteria)
 "ljM" = (
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	alpha = 180;
@@ -38546,7 +38557,7 @@
 /obj/item/reagent_containers/glass/bottle/mutagen{
 	amount_per_transfer_from_this = 2;
 	desc = "A small bottle, almost empty. Has the words drink me, you wont written on it";
-	list_reagents = list(/datum/reagent/toxin/mutagen = 5);
+	list_reagents = list(/datum/reagent/toxin/mutagen=5);
 	pixel_x = -6;
 	pixel_y = 1
 	},
@@ -40872,7 +40883,7 @@
 /area/maintenance/department/engine)
 "nsH" = (
 /obj/machinery/smartfridge/sci{
-	initial_contents = list(/obj/item/stock_parts/capacitor = 2, /obj/item/stock_parts/manipulator = 2, /obj/item/stock_parts/micro_laser = 2, /obj/item/stock_parts/matter_bin = 2, /obj/item/stock_parts/scanning_module = 2);
+	initial_contents = list(/obj/item/stock_parts/capacitor=2,/obj/item/stock_parts/manipulator=2,/obj/item/stock_parts/micro_laser=2,/obj/item/stock_parts/matter_bin=2,/obj/item/stock_parts/scanning_module=2);
 	name = "Science vender"
 	},
 /turf/closed/wall,
@@ -61716,7 +61727,9 @@
 "utn" = (
 /obj/effect/spawner/structure/window,
 /obj/structure/curtain/bounty,
-/obj/structure/window/reinforced,
+/obj/effect/mapping_helpers/interact_dir{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/crew_quarters/cafeteria)
 "utD" = (
@@ -111960,7 +111973,7 @@ bZA
 eQQ
 vDF
 hsB
-utn
+ljz
 iJe
 kgH
 wAl
@@ -112217,7 +112230,7 @@ tdk
 dbO
 rdc
 eKS
-utn
+dnh
 iJe
 kgH
 wAl
