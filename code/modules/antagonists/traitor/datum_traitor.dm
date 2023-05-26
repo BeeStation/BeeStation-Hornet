@@ -160,7 +160,7 @@ GLOBAL_LIST_EMPTY(unused_kill_targets)
 			destroy_objective.owner = owner
 			destroy_objective.find_target()
 			add_objective(destroy_objective)
-		else if (prob(50))
+		else if (prob(30))
 			forge_protect_human_objective()
 		else
 			forge_kill_or_maroon_human_objective()
