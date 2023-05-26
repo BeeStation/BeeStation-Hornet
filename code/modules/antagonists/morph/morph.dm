@@ -81,7 +81,7 @@
 /mob/living/simple_animal/hostile/morph/ClickOn(atom/A)
 	if(throwatom)
 		RemoveContents(throwatom, TRUE)
-		throwatom.safe_throw_at(A, throwatom.throw_range, throwatom.throw_speed, src, null, null, null, move_force)
+		throwatom.safe_throw_at(A, throwatom.throw_range, throwatom.throw_speed, src, null, null, null, ismob(throwatom) ? MOVE_FORCE_VERY_WEAK : move_force)
 		visible_message("<span class='warning'>[src] spits [throwatom] at [A]!</span>")
 		throwatom = null
 		playsound(src, 'sound/effects/splat.ogg', 50, 1)
