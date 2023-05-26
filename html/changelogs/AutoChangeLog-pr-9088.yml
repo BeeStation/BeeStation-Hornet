@@ -1,6 +1,0 @@
-author: Absolucy
-delete-after: true
-changes:
-  - bugfix: Setting DNA (including through cloning) now properly applies the correct
-      gender and skin tone. As a result, cloning will no longer randomize gender and
-      skin tone.
