@@ -11,7 +11,6 @@
 	var/climbable = FALSE
 	var/mob/living/structureclimber
 	var/broken = 0 //similar to machinery's stat BROKEN
-	var/interact_dir = 0
 
 	flags_ricochet = RICOCHET_HARD
 	ricochet_chance_mod = 0.5

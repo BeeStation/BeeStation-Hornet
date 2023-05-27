@@ -143,13 +143,6 @@
 /obj/effect/mapping_helpers/airlock/unres/payload(obj/machinery/door/airlock/airlock)
 	airlock.unres_sides ^= dir
 
-/obj/effect/mapping_helpers/curtain/unres
-	name = "interaction dir helper"
-	icon_state = "airlock_unres_helper"
-
-/obj/effect/mapping_helpers/curtain/unres/payload(/obj/structure/curtain)
-	curtain.interact_dir ^= dir
-
 /obj/effect/mapping_helpers/airlock/abandoned
 	name = "airlock abandoned helper"
 	icon_state = "airlock_abandoned"

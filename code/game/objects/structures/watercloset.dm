@@ -401,35 +401,20 @@
 	density = FALSE
 	var/open = TRUE
 
-/obj/structure/curtain/allowed(mob/M)
-	if(interact_dir)
-		return TRUE
-	return ..()
-
-/obj/structure/curtain/interact_dir() //Allows curtains to be opend only from one side
-	return get_dir(src) & interact_dir
-
-/obj/structure/curtain/proc/toggle()
-	open = !open
-
-	update_appearance()
-
 /obj/structure/curtain/update_icon()
-	if(src.allowed)
-		if(!open)
-			icon_state = "[icon_type]-closed"
-			layer = WALL_OBJ_LAYER
-			set_density(TRUE)
-			set_opacity(TRUE)
-			open = FALSE
+	if(!open)
+		icon_state = "[icon_type]-closed"
+		layer = WALL_OBJ_LAYER
+		set_density(TRUE)
+		set_opacity(TRUE)
+		open = FALSE
 
-		else
-			icon_state = "[icon_type]-open"
-			layer = SIGN_LAYER
-			set_density(FALSE)
-			set_opacity(FALSE)
-			open = TRUE
-	return
+	else
+		icon_state = "[icon_type]-open"
+		layer = SIGN_LAYER
+		set_density(FALSE)
+		set_opacity(FALSE)
+		open = TRUE
 
 /obj/structure/curtain/attackby(obj/item/W, mob/user)
 	if (istype(W, /obj/item/toy/crayon))
@@ -482,3 +467,32 @@
 	icon_state = "bounty-open"
 	color = null
 	alpha = 255
+
+/obj/structure/curtain/proc/toggle(mob/M)
+    if (check(M))
+        open = !open
+        playsound(loc, 'sound/effects/curtain.ogg', 50, 1)
+        update_appearance()
+    return
+
+/obj/structure/curtain/proc/check(mob/M)
+    if (istype(src, /obj/structure/curtain/directional))
+        if (src.dir != get_dir(src, M))
+            return TRUE
+    else
+        return TRUE
+    return FALSE
+
+/obj/structure/curtain/directional
+	icon_type = "bounty"
+	icon_state = "bounty-open"
+	color = null
+	alpha = 255
+	name = "window curtain"
+
+/obj/structure/curtain/directional/check(mob/M)
+	if (src.dir != get_dir(src, M))
+		message_admins("Source direction : [src.dir], mob direction : [get_dir(src, M)]")
+		return TRUE
+	else
+		return FALSE
