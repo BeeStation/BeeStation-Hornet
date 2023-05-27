@@ -77,6 +77,7 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/client/proc/toggleadminalertsound,
 	/client/proc/respawn_character,
 	/datum/admins/proc/open_borgopanel,
+	/datum/admins/proc/view_all_circuits,
 	/client/proc/fix_say,
 	/client/proc/stabilize_atmos,
 	/client/proc/openTicketManager,
