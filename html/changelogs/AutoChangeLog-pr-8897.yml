@@ -1,6 +1,0 @@
-author: PestoVerde322
-delete-after: true
-changes:
-  - tweak: removed the :^) from the tile_opposing_corners and as it's own tile decal
-  - rscadd: added the :^) and the opposing corners to the tile spriter and all the
-      possible corner options

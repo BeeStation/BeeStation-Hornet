@@ -1,4 +1,0 @@
-author: Crossedfall
-delete-after: true
-changes:
-  - bugfix: fixed bad proc runtimes for SDQL queries using global procs (wrappers)
