@@ -61,6 +61,7 @@
 /obj/effect/turf_decal/tile/white/carat
 	icon_state = "tile_carat"
 	name = "white carat decal"
+
 /obj/effect/turf_decal/tile/white/anticorner_ramp
 	icon_state = "tile_anticorner_ramp"
 	name = "white anticorner ramp"
