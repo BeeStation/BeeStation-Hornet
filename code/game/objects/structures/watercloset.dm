@@ -443,8 +443,7 @@
 	. = ..()
 	if(.)
 		return
-	playsound(loc, 'sound/effects/curtain.ogg', 50, 1)
-	toggle()
+	toggle(user)
 
 /obj/structure/curtain/deconstruct(disassembled = TRUE)
 	new /obj/item/stack/sheet/cotton/cloth (loc, 2)
@@ -491,8 +490,7 @@
 	name = "window curtain"
 
 /obj/structure/curtain/directional/check(mob/M)
-	if (src.dir != get_dir(src, M))
-		message_admins("Source direction : [src.dir], mob direction : [get_dir(src, M)]")
+	if (src.dir == get_dir(src, M))
 		return TRUE
 	else
 		return FALSE
