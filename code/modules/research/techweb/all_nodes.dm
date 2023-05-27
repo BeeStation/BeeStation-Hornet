@@ -1404,8 +1404,10 @@
 	tech_tier = 5
 	display_name = "Surgical Serverlink Brain Implant"
 	description = "A bluespace implant which a holder can read surgical programs from their server with."
-	prereq_ids = list("exp_surgery",
-		"micro_bluespace")
+	prereq_ids = list(
+		"exp_surgery",
+		"micro_bluespace",
+	)
 	design_ids = list("ci-linkedsurgery")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	export_price = 10000
@@ -1419,19 +1421,21 @@
 	display_name = "Mining Technology"
 	description = "Better than Efficiency V."
 	prereq_ids = list("engineering")
-	design_ids = list("drill",
+	design_ids = list(
+		"cargoexpress",
+		"cooldownmod",
+		"damagemod",
+		"drill",
+		"exploration_equipment_vendor",
+		"furnace_console",
+		"furnace",
+		"hypermod",
+		"mining_equipment_vendor",
+		"ore_redemption",
+		"rangemod",
 		"superresonator",
 		"triggermod",
-		"damagemod",
-		"cooldownmod",
-		"rangemod",
-		"hypermod",
-		"ore_redemption",
-		"mining_equipment_vendor",
-		"exploration_equipment_vendor",
-		"cargoexpress",
-		"furnace",
-		"furnace_console")
+	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
@@ -1440,15 +1444,19 @@
 	tech_tier = 3
 	display_name = "Advanced Mining Technology"
 	description = "Efficiency Level 127"	//dumb mc references
-	prereq_ids = list("basic_mining",
+	prereq_ids = list(
+		"basic_mining",
 		"adv_engi",
 		"adv_power",
-		"adv_plasma")
-	design_ids = list("drill_diamond",
-		"jackhammer",
+		"adv_plasma",
+	)
+	design_ids = list(
+		"borg_upgrade_cutter",
+		"drill_diamond",
 		"hypermodplus",
+		"jackhammer",
 		"repeatermod",
-		"borg_upgrade_cutter")
+	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
@@ -1458,12 +1466,14 @@
 	display_name = "Advanced Sanitation Technology"
 	description = "Clean things better, faster, stronger, and harder!"
 	prereq_ids = list("adv_engi")
-	design_ids = list("advmop",
-		"buffer",
+	design_ids = list(
+		"advmop",
+		"beartrap"
 		"blutrash",
+		"buffer",
 		"light_replacer_bluespace",
 		"spraybottle",
-		"beartrap")
+	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
@@ -1472,15 +1482,19 @@
 	tech_tier = 1
 	display_name = "Botanical Engineering"
 	description = "Botanical tools"
-	prereq_ids = list("adv_engi",
-		"biotech")
-	design_ids = list("diskplantgene",
-		"portaseeder",
-		"plantgenes",
+	prereq_ids = list(
+		"adv_engi",
+		"biotech",
+	)
+	design_ids = list(
+		"biogenerator",
+		"diskplantgene",
 		"flora_gun",
 		"hydro_tray",
-		"biogenerator",
-		"seed_extractor")
+		"plantgenes",
+		"portaseeder",
+		"seed_extractor",
+	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
@@ -1489,13 +1503,15 @@
 	tech_tier = 3
 	display_name = "Experimental Tools"
 	description = "Highly advanced tools."
-	design_ids = list("exwelder",
-		"jawsoflife",
+	design_ids = list(
+		"exwelder",
 		"handdrill",
+		"jawsoflife",
 		"laserscalpel",
 		"mechanicalpinches",
 		"searingtool",
-		"wirebrush_adv")
+		"wirebrush_adv",
+	)
 	prereq_ids = list("adv_engi")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
@@ -1505,12 +1521,14 @@
 	tech_tier = 1
 	display_name = "Basic Security Equipment"
 	description = "Standard equipment used by security."
-	design_ids = list("seclite",
-		"pepperspray",
+	design_ids = list(
 		"bola_energy",
-		"zipties",
 		"evidencebag",
-		"flashbulb")
+		"flashbulb",
+		"pepperspray",
+		"seclite",
+		"zipties",
+	)
 	prereq_ids = list("base")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
 	export_price = 5000
@@ -1520,9 +1538,11 @@
 	tech_tier = 3
 	display_name = "Rapid Device Upgrade Designs"
 	description = "Unlocks new designs that improve rapid devices."
-	design_ids = list("rcd_upgrade_frames",
+	design_ids = list(
+		"rcd_upgrade_frames",
 		"rcd_upgrade_simple_circuits",
-		"rpd_upgrade_unwrench")
+		"rpd_upgrade_unwrench",
+	)
 	prereq_ids = list("adv_engi")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
@@ -1533,8 +1553,10 @@
 	display_name = "Advanced RCD Designs Upgrade"
 	description = "Unlocks new RCD designs."
 	design_ids = list("rcd_upgrade_silo_link")
-	prereq_ids = list("rcd_upgrade",
-		"bluespace_travel")
+	prereq_ids = list(
+		"bluespace_travel",
+		"rcd_upgrade",
+	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
 
@@ -1556,9 +1578,11 @@
 	display_name = "Weapon Development Technology"
 	description = "Our researchers have found new ways to weaponize just about everything now."
 	prereq_ids = list("engineering")
-	design_ids = list("pin_testing",
+	design_ids = list(
+		"pin_testing",
+		"sleepy",
 		"tele_shield",
-		"sleepy")
+	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	export_price = 5000
 
@@ -1567,9 +1591,11 @@
 	tech_tier = 4
 	display_name = "Smart Landmine Technology"
 	description = "Using IFF technology, we could develop smartmines that do not trigger for those who are mindshielded."
-	prereq_ids = list("weaponry",
+	prereq_ids = list(
+		"engineering",
 		"nonlethal_mines",
-		"engineering")
+		"weaponry",
+	)
 	design_ids = list("stunmine_adv")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
@@ -1579,8 +1605,10 @@
 	tech_tier = 4
 	display_name = "Advanced Weapon Development Technology"
 	description = "Our weapons are breaking the rules of reality by now."
-	prereq_ids = list("adv_engi",
-		"weaponry")
+	prereq_ids = list(
+		"adv_engi",
+		"weaponry",
+	)
 	design_ids = list("pin_loyalty")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	export_price = 5000
@@ -1590,9 +1618,11 @@
 	tech_tier = 4
 	display_name = "Advanced Landmine Technology"
 	description = "We can further develop our smartmines to build some extremely capable designs."
-	prereq_ids = list("weaponry",
+	prereq_ids = list(
+		"adv_engi",
 		"smart_mines",
-		"adv_engi")
+		"weaponry",
+	)
 	design_ids = list("stunmine_rapid",
 		"stunmine_heavy")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
