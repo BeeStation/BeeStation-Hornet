@@ -51,6 +51,7 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
+	return hood
 
 /obj/item/clothing/suit/hooded/dropped()
 	..()
