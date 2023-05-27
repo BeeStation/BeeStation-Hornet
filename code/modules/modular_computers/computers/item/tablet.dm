@@ -50,11 +50,19 @@
 		icon_state_unpowered = "tablet-[finish_color]"
 		icon_state_powered = "tablet-[finish_color]"
 
+/obj/item/modular_computer/tablet/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
+	var/obj/item/card/id/inserted_id = GetID() // chain EMP to cards
+	if(inserted_id)
+		inserted_id.emp_act(severity)
+
 /obj/item/modular_computer/tablet/proc/try_scan_paper(obj/target, mob/user)
 	if(!istype(target, /obj/item/paper))
 		return FALSE
 	var/obj/item/paper/paper = target
-	if (!paper.info)
+	if (!paper.default_raw_text)
 		to_chat(user, "<span class='warning'>Unable to scan! Paper is blank.</span>")
 	else
 		// clean up after ourselves

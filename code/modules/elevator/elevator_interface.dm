@@ -23,6 +23,12 @@
 	id = "primary"
 	available_levels = list(1, 2, 3)
 
+// Glowstation
+/obj/machinery/elevator_interface/secure
+	id = "secure"
+	available_levels = list(1, 2, 5)
+	calltime = 3.5 SECONDS // this is a long elevator, please don't take 5 years
+
 /obj/machinery/elevator_interface/Initialize(mapload)
 	. = ..()
 	if(standing)
@@ -32,22 +38,22 @@
 /obj/machinery/elevator_interface/attack_hand(mob/living/user)
 	. = ..()
 	if(preset_z)
-		select_level()
+		select_level(get_virtual_z_level() + z_offset)
 
-/obj/machinery/elevator_interface/proc/select_level(level)
+/obj/machinery/elevator_interface/proc/select_level(display_level)
 	if(!powered() || SSelevator_controller.elevator_group_timers[id])
 		if(powered())
-			say("Unable to call elevator...")
+			say("Elevator is currently moving, please wait.")
 		return
-	var/destination = preset_z ? get_virtual_z_level() : level + z_offset
-	if(!(destination in available_levels))
+	var/real_destination = display_level - z_offset
+	var/display_destination = display_level
+	if(!(display_destination in available_levels))
 		return
-	destination -= preset_z ? 0 : z_offset
-	if(!destination || (destination == get_virtual_z_level() && !preset_z))
+	if(!real_destination || (real_destination == get_virtual_z_level() && !preset_z))
 		return
 	if(preset_z)
 		say("Calling elevator...")
-	if(!SSelevator_controller.move_elevator(id, destination, calltime * abs(get_virtual_z_level() - destination), obj_flags & EMAGGED))
+	if(!SSelevator_controller.move_elevator(id, real_destination, calltime * abs(get_virtual_z_level() - real_destination), obj_flags & EMAGGED))
 		say("Elevator obstructed...")
 
 /obj/machinery/elevator_interface/on_emag(mob/user)
@@ -77,5 +83,5 @@
 		return
 	var/num = text2num(action)
 	if(isnum(num))
-		select_level(num-z_offset)
+		select_level(num)
 	return TRUE

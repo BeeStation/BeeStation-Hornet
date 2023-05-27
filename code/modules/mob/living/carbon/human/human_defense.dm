@@ -830,7 +830,7 @@
 			damaged_message += D
 		to_chat(src, "<span class='info'>Your [damaged_message] [damaged_plural ? "are" : "is"] hurt.</span>")
 
-	if(length(mind.quirks))
+	if(length(mind?.quirks))
 		to_chat(src, "<span class='notice'>You have these quirks: [mind.get_quirk_string()].</span>")
 
 /mob/living/carbon/human/damage_clothes(damage_amount, damage_type = BRUTE, damage_flag = 0, def_zone)

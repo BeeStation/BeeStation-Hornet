@@ -5,7 +5,7 @@
 	icon_state = "reinforced_wall-0"
 	base_icon_state = "reinforced_wall"
 	smoothing_flags = SMOOTH_BITMASK
-	opacity = 1
+	opacity = TRUE
 	density = TRUE
 
 	var/d_state = INTACT
@@ -237,7 +237,7 @@
 		return
 	if(HAS_TRAIT(src, TRAIT_RUSTY))
 		ScrapeAway()
-		return
+		return TRUE
 	if(prob(70))
 		new /obj/effect/temp_visual/glowing_rune(src)
 	return ..()

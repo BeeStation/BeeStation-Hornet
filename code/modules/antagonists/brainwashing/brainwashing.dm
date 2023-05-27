@@ -1,30 +1,71 @@
-/proc/brainwash(mob/living/L, directives)
-	if(!L.mind)
+/// Brainwash a mob, adding objectives to an existing brainwash if it already exists.
+/proc/brainwash(mob/living/victim, list/directives, source)
+	. = list()
+	if(!victim.mind)
 		return
 	if(!islist(directives))
 		directives = list(directives)
-	var/datum/mind/M = L.mind
-	var/datum/antagonist/brainwashed/B = M.has_antag_datum(/datum/antagonist/brainwashed)
-	if(B)
-		for(var/O in directives)
-			var/datum/objective/brainwashing/objective = new(O)
-			B.objectives += objective
-			log_objective(M, objective.explanation_text)
-		B.greet()
+	var/datum/mind/victim_mind = victim.mind
+	var/datum/antagonist/brainwashed/brainwash = victim_mind.has_antag_datum(/datum/antagonist/brainwashed)
+	if(brainwash)
+		for(var/directive in directives)
+			var/datum/objective/brainwashing/objective = new(directive)
+			if(source)
+				objective.source = source
+			brainwash.objectives += objective
+			. += WEAKREF(objective)
+			log_objective(victim_mind, objective.explanation_text)
+		brainwash.greet()
 	else
-		B = new()
-		for(var/O in directives)
-			var/datum/objective/brainwashing/objective = new(O)
-			B.objectives += objective
-			log_objective(M, objective.explanation_text)
-		M.add_antag_datum(B)
+		brainwash = new()
+		for(var/directive in directives)
+			var/datum/objective/brainwashing/objective = new(directive)
+			if(source)
+				objective.source = source
+			brainwash.objectives += objective
+			. += WEAKREF(objective)
+			log_objective(victim_mind, objective.explanation_text)
+		victim_mind.add_antag_datum(brainwash)
 
-	var/begin_message = "<span class='deadsay'><b>[L]</b> has been brainwashed with the following objectives: "
+	var/source_message = source ? " by [source]" : ""
+	var/begin_message = "<span class='deadsay'><b>[victim]</b> has been brainwashed with the following objective[length(directives) > 1 ? "s" : ""][source_message]: "
 	var/obj_message = english_list(directives)
 	var/end_message = "</b>.</span>"
 	var/rendered = begin_message + obj_message + end_message
-	deadchat_broadcast(rendered, follow_target = L, turf_target = get_turf(L), message_type=DEADCHAT_REGULAR)
-	L.log_message(rendered, LOG_ATTACK, color="#960000")
+	deadchat_broadcast(rendered, follow_target = victim, turf_target = get_turf(victim), message_type=DEADCHAT_REGULAR)
+	victim.log_message(rendered, LOG_ATTACK, color="#960000")
+
+/// Removes objectives from someone's brainwash.
+/proc/unbrainwash(mob/living/victim, list/directives)
+	var/datum/antagonist/brainwashed/brainwash = victim?.mind?.has_antag_datum(/datum/antagonist/brainwashed)
+	if(!brainwash)
+		return FALSE
+	if(directives)
+		if(!isnull(directives) && !islist(directives))
+			directives = list(directives)
+		var/list/removed_objectives = list()
+		for(var/D in directives)
+			var/datum/objective/directive
+			if(istype(D, /datum/weakref))
+				var/datum/weakref/directive_weakref = D
+				directive = directive_weakref.resolve()
+			else if(istype(D, /datum/objective))
+				directive = D
+			if(!directive || !istype(directive))
+				continue
+			brainwash.objectives -= directive
+			removed_objectives += directive
+		log_admin("[key_name(victim)] had the following brainwashing objective[length(removed_objectives) > 1 ? "s" : ""] removed: [english_list(removed_objectives)].")
+		if(LAZYLEN(brainwash.objectives))
+			to_chat(victim, "<big><span class='warning'><b>[length(removed_objectives) > 1 ? "Some" : "One"] of your Directives fade away! You only have to obey the remaining Directives now.</b></span></big>")
+			victim.mind.announce_objectives()
+		else
+			victim.mind.remove_antag_datum(/datum/antagonist/brainwashed)
+		QDEL_LIST(removed_objectives)
+	else
+		log_admin("[key_name(victim)] had all of their brainwashing objectives removed: [english_list(brainwash.objectives)].")
+		QDEL_LIST(brainwash.objectives)
+		victim.mind.remove_antag_datum(/datum/antagonist/brainwashed)
 
 /datum/antagonist/brainwashed
 	name = "Brainwashed Victim"
@@ -98,10 +139,11 @@
 		to_chat(admin, "Mob doesn't exist anymore")
 		return
 
-	brainwash(C, objectives)
+	brainwash(C, objectives, "adminbus")
 	var/obj_list = english_list(objectives)
 	message_admins("[key_name_admin(admin)] has brainwashed [key_name_admin(C)] with the following objectives: [obj_list].")
 	log_admin("[key_name(admin)] has brainwashed [key_name(C)] with the following objectives: [obj_list].")
 
 /datum/objective/brainwashing
 	completed = TRUE
+	var/source

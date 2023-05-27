@@ -78,7 +78,7 @@
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/blight(null))
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction(null))
 	random_revenant_name()
-	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE)
+	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE, "#490066")
 
 /mob/living/simple_animal/revenant/Destroy()
 	. = ..()
@@ -327,7 +327,7 @@
 		to_chat(src, "<span class='revenwarning'>You cannot use abilities from inside of a wall.</span>")
 		return FALSE
 	for(var/obj/O in T)
-		if(O.density && !O.CanPass(src, T))
+		if(O.density && !O.CanPass(src, get_dir(T, src)))
 			to_chat(src, "<span class='revenwarning'>You cannot use abilities inside of a dense object.</span>")
 			return FALSE
 	if(inhibited)
@@ -432,7 +432,7 @@
 		if(stepTurf.flags_1 & NOJAUNT_1)
 			to_chat(src, "<span class='warning'>Some strange aura is blocking the way.</span>")
 			return
-		if(locate(/obj/effect/blessing) in stepTurf)
+		if(stepTurf.is_holy())
 			to_chat(src, "<span class='warning'>Holy energies block your path!</span>")
 			return
 	return TRUE

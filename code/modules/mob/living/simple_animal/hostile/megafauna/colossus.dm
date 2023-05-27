@@ -531,9 +531,8 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 		var/mob/living/carbon/human/H = user
 		for(var/obj/item/W in H)
 			H.dropItemToGround(W)
-		var/datum/job/clown/C = new /datum/job/clown()
+		var/datum/job/C = SSjob.GetJob(JOB_NAME_CLOWN)
 		C.equip(H)
-		qdel(C)
 		affected_targets.Add(H)
 
 /obj/machinery/anomalous_crystal/theme_warp //Warps the area you're in to look like a new one
@@ -588,7 +587,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 					var/turf/T = Stuff
 					if((isspaceturf(T) || isfloorturf(T)) && NewTerrainFloors)
 						var/turf/open/O = T.ChangeTurf(NewTerrainFloors, flags = CHANGETURF_INHERIT_AIR)
-						if(prob(florachance) && NewFlora.len && !is_blocked_turf(O, TRUE))
+						if(prob(florachance) && NewFlora.len && !O.is_blocked_turf(TRUE))
 							var/atom/Picked = pick(NewFlora)
 							new Picked(O)
 						continue

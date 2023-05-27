@@ -51,12 +51,12 @@
 /obj/machinery/computer/operating/proc/find_table()
 	for(var/direction in GLOB.alldirs)
 		table = locate(/obj/structure/table/optable) in get_step(src, direction)
-		if(table)
+		if(table && !table.computer)
 			table.computer = src
 			break
 		else
 			sbed = locate(/obj/machinery/stasis) in get_step(src, direction)
-			if(sbed)
+			if(sbed && !sbed.op_computer)
 				sbed.op_computer = src
 				break
 
@@ -151,8 +151,6 @@
 			))
 	return data
 
-
-
 /obj/machinery/computer/operating/ui_act(action, params)
 	if(..())
 		return
@@ -161,6 +159,28 @@
 			sync_surgeries()
 			. = TRUE
 	. = TRUE
+
+/obj/machinery/computer/operating/multitool_act(mob/living/user, obj/item/I)
+	var/obj/item/multitool/multitool = I
+	if(!I || !istype(I))
+		return ..()
+	. = TOOL_ACT_TOOLTYPE_SUCCESS
+	if(QDELETED(multitool.buffer))
+		to_chat(user, "<span class='warning'>\The [multitool]'s buffer is empty.</span>")
+		return
+	if(!istype(multitool.buffer, /obj/machinery/stasis))
+		to_chat(user, "<span class='warning'>You cannot link \the [multitool.buffer] to \the [src].</span>")
+		return
+	var/obj/machinery/stasis/new_stasis_bed = multitool.buffer
+	if(get_dist(src, new_stasis_bed) > 3)
+		to_chat(user, "<span class='warning'>\The [src] is too far away from \the [new_stasis_bed] to link!</span>")
+		return
+	balloon_alert(user, "linked to \the [new_stasis_bed]")
+	if(sbed)
+		sbed.op_computer = null
+	new_stasis_bed.op_computer = src
+	sbed = new_stasis_bed
+	to_chat(user, "<span class='notice'>You link \the [src] with \the [new_stasis_bed] to its [dir2text(get_dir(src, new_stasis_bed))].</span>")
 
 #undef MENU_OPERATION
 #undef MENU_SURGERIES
