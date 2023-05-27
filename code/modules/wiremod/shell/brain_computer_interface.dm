@@ -6,7 +6,7 @@
 	zone = BODY_ZONE_HEAD
 	w_class = WEIGHT_CLASS_TINY
 
-	light_range = FALSE
+	light_range = 0
 
 /obj/item/organ/cyberimp/bci/Initialize()
 	. = ..()
