@@ -1,0 +1,12 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Having an invalid job will no longer cause a runtime in the orbit menu.
+  - bugfix: Orbit menu now spaces job icons properly and has consistent button height.
+  - rscadd: Orbit menu will now show antag icons for ghost-visible antagonists.
+  - tweak: Orbit menu will now use generic UI theme
+  - tweak: Generic UI theme now colors more elements (Section headers, input outlines,
+      etc)
+  - tweak: Orbit menu sections are now collapsible.
+  - tweak: Orbit menu will now properly update instead of opening new orbit menus
+      when clicked. It will also autoupdate with new data.
