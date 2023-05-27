@@ -1,4 +1,0 @@
-author: BeeLover66
-delete-after: true
-changes:
-  - bugfix: Tagger now sends parcels to the correct destination
