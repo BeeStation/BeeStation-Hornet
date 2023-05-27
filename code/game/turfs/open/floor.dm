@@ -16,6 +16,8 @@
 	heat_capacity = 10000
 	intact = 1
 	tiled_dirt = TRUE
+	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
+	canSmoothWith = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 
 	var/icon_plating = "plating"
 	var/broken = 0

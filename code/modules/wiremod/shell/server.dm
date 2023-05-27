@@ -11,7 +11,7 @@
 
 	density = TRUE
 	//light_system = MOVABLE_LIGHT
-	light_range = FALSE
+	light_range = 0
 
 /obj/structure/server/Initialize(mapload)
 	. = ..()

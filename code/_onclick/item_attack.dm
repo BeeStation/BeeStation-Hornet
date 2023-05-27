@@ -2,18 +2,9 @@
 /obj/item/proc/melee_attack_chain(mob/user, atom/target, params)
 	if(!tool_attack_chain(user, target) && pre_attack(target, user, params))
 		// Return 1 in attackby() to prevent afterattack() effects (when safely moving items for example)
-		var/resolved
-		if(HAS_TRAIT(target, TRAIT_ONEWAYROAD))
-			resolved = user.attackby(src, user, params) // you just hit yourself
-		else
-			resolved = target.attackby(src, user, params)
+		var/resolved = target.attackby(src, user, params)
 		if(!resolved && target && !QDELETED(src))
-			 // 1: clicking something Adjacent
-			if(HAS_TRAIT(target, TRAIT_ONEWAYROAD))
-				afterattack(user, user, 1, params)
-			else
-				afterattack(target, user, 1, params)
-
+			afterattack(target, user, 1, params)
 
 //Checks if the item can work as a tool, calling the appropriate tool behavior on the target
 /obj/item/proc/tool_attack_chain(mob/user, atom/target)

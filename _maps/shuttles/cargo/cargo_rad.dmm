@@ -1,0 +1,534 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "MailConv"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/railing/corner,
+/turf/open/floor/plasteel/dark,
+/area/shuttle/supply)
+"b" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor{
+	id = "QMLoaddoor";
+	name = "Supply Dock Loading Door"
+	},
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "QMLoad2"
+	},
+/obj/structure/plasticflaps,
+/turf/open/floor/plasteel/sepia,
+/area/shuttle/supply)
+"c" = (
+/obj/machinery/conveyor{
+	id = "MailConv"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/shuttle/supply)
+"d" = (
+/obj/structure/shuttle/engine/heater,
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/supply)
+"e" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/shuttle/glass{
+	autoclose = 0.1;
+	id_tag = "CargoAirlocks"
+	},
+/turf/open/floor/plating,
+/area/shuttle/supply)
+"f" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"g" = (
+/obj/machinery/conveyor{
+	id = "MailConv"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/shuttle/supply)
+"h" = (
+/obj/structure/shuttle/engine/propulsion/burst/left,
+/turf/open/floor/plating/airless,
+/area/shuttle/supply)
+"i" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/stripes/closeup,
+/turf/open/floor/plasteel/sepia,
+/area/shuttle/supply)
+"j" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 4;
+	pixel_x = 4
+	},
+/obj/effect/decal/cleanable/glass,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"k" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/effect/turf_decal/loading_area{
+	dir = 4;
+	pixel_x = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"l" = (
+/obj/machinery/conveyor{
+	dir = 5;
+	id = "QMLoad2"
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/supply)
+"m" = (
+/obj/structure/sign/warning/fire,
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/supply)
+"n" = (
+/turf/template_noop,
+/area/template_noop)
+"o" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/loading_area{
+	dir = 4;
+	pixel_x = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"p" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/holopad,
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"q" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"r" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/loading_area{
+	dir = 4;
+	pixel_x = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"s" = (
+/obj/machinery/conveyor{
+	id = "MailConv"
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/supply)
+"t" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"u" = (
+/obj/docking_port/mobile/supply,
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/shuttle/glass{
+	autoclose = 0.1;
+	id_tag = "CargoAirlocks"
+	},
+/turf/open/floor/plating,
+/area/shuttle/supply)
+"v" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/stripes/end{
+	dir = 8
+	},
+/turf/open/floor/plasteel/sepia,
+/area/shuttle/supply)
+"w" = (
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "MailConv"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/shuttle/supply)
+"x" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot,
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"y" = (
+/obj/structure/shuttle/engine/propulsion/burst/right,
+/turf/open/floor/plating/airless,
+/area/shuttle/supply)
+"z" = (
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "MailConv"
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/supply)
+"A" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/conveyor/inverted{
+	dir = 5;
+	id = "MailConv"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/newscaster{
+	pixel_y = 34
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/supply)
+"B" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/supply)
+"C" = (
+/obj/machinery/light,
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "QMLoad2"
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/supply)
+"D" = (
+/turf/closed/wall/mineral/plastitanium,
+/area/shuttle/supply)
+"E" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/oil/streak,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"G" = (
+/obj/machinery/light,
+/obj/machinery/conveyor{
+	id = "MailConv"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/shuttle/supply)
+"H" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/conveyor{
+	id = "MailConv"
+	},
+/obj/machinery/camera/autoname{
+	dir = 4;
+	network = list("ss13","cargo")
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/supply)
+"I" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"J" = (
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"K" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"L" = (
+/obj/machinery/conveyor_switch/oneway{
+	dir = 1;
+	id = "MailConv"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"M" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"N" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"O" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/button/door{
+	id = "QMLoaddoor2";
+	layer = 4;
+	name = "Loading Doors";
+	pixel_x = 33;
+	pixel_y = 5;
+	req_access_txt = "31"
+	},
+/obj/machinery/button/door{
+	id = "QMLoaddoor";
+	layer = 4;
+	name = "Loading Doors";
+	pixel_x = 33;
+	pixel_y = -5;
+	req_access_txt = "31"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"P" = (
+/obj/machinery/conveyor_switch/oneway{
+	dir = 8;
+	id = "QMLoad2";
+	name = "Unloading ramp Switch"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/structure/railing,
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+"Q" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor{
+	id = "QMLoaddoor2";
+	name = "Supply Dock Loading Door"
+	},
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "MailConv"
+	},
+/obj/structure/plasticflaps,
+/turf/open/floor/plasteel/sepia,
+/area/shuttle/supply)
+"R" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/conveyor/inverted{
+	dir = 6;
+	id = "MailConv"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/status_display/supply{
+	pixel_x = 1;
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/supply)
+"S" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/supply)
+"T" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/stripes/end{
+	dir = 4
+	},
+/turf/open/floor/plasteel/sepia,
+/area/shuttle/supply)
+"U" = (
+/obj/machinery/conveyor{
+	dir = 9;
+	id = "MailConv"
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/supply)
+"V" = (
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "QMLoad2"
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/supply)
+"W" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/open/floor/plating/airless,
+/area/shuttle/supply)
+"X" = (
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/supply)
+"Y" = (
+/turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/supply)
+"Z" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner,
+/obj/structure/railing/corner,
+/turf/open/floor/plasteel,
+/area/shuttle/supply)
+
+(1,1,1) = {"
+n
+X
+S
+S
+S
+S
+Y
+S
+S
+S
+S
+Y
+D
+"}
+(2,1,1) = {"
+X
+Y
+A
+g
+g
+s
+H
+s
+g
+c
+G
+m
+h
+"}
+(3,1,1) = {"
+S
+v
+z
+j
+o
+o
+r
+o
+o
+r
+k
+d
+W
+"}
+(4,1,1) = {"
+S
+i
+z
+t
+N
+J
+p
+J
+J
+N
+I
+d
+W
+"}
+(5,1,1) = {"
+S
+T
+a
+M
+f
+E
+J
+Z
+x
+q
+K
+d
+W
+"}
+(6,1,1) = {"
+X
+Y
+R
+w
+U
+L
+O
+P
+l
+V
+C
+m
+y
+"}
+(7,1,1) = {"
+n
+X
+S
+S
+Q
+e
+X
+u
+b
+B
+S
+Y
+D
+"}

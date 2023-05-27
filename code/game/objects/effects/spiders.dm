@@ -56,7 +56,7 @@
 		if(mech.occupant && !mech.step_restricted)
 			to_chat(mech.occupant, "<span class='danger'>\the [mech] gets stuck in \the [src]!</span>")
 
-/obj/structure/spider/stickyweb/CanAllowThrough(atom/movable/mover, turf/target)
+/obj/structure/spider/stickyweb/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(istype(mover, /obj/item/projectile))
 		return prob(30)

@@ -164,7 +164,6 @@
 			names_of_entries += target["name"]
 		sec_record.fields["criminal"] = status_to_set
 
-
 	if(successful_set > 0)
 		investigate_log("[names_of_entries.Join(", ")] have been set to [status_to_set] by [parent.get_creator()].", INVESTIGATE_RECORDS)
 		if(successful_set > COMP_SECURITY_ARREST_AMOUNT_TO_FLAG)

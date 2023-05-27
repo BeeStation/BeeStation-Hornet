@@ -8,23 +8,22 @@
 	greyscale_config = /datum/greyscale_config/canister/hazard
 	greyscale_colors = "#ffff00#000000"
 	density = TRUE
+	volume = 1000
+	armor = list(MELEE = 50,  BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 80, ACID = 50, STAMINA = 0)
+	max_integrity = 250
+	integrity_failure = 100
+	pressure_resistance = 7 * ONE_ATMOSPHERE
+	req_access = list()
 
 	var/icon/canister_overlay_file = 'icons/obj/atmospherics/canisters.dmi'
 
 	var/valve_open = FALSE
 	var/release_log = ""
-
-	volume = 1000
 	var/filled = 0.5
 	var/gas_type
 	var/release_pressure = ONE_ATMOSPHERE
 	var/can_max_release_pressure = (ONE_ATMOSPHERE * 10)
 	var/can_min_release_pressure = (ONE_ATMOSPHERE / 10)
-
-	armor = list(MELEE = 50,  BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 80, ACID = 50, STAMINA = 0)
-	max_integrity = 250
-	integrity_failure = 100
-	pressure_resistance = 7 * ONE_ATMOSPHERE
 	var/temperature_resistance = 1000 + T0C
 	var/starter_temp = T20C
 	// Prototype vars
@@ -36,14 +35,13 @@
 	var/maximum_timer_set = 300
 	var/timing = FALSE
 	var/restricted = FALSE
-	req_access = list()
 
 	var/update = 0
 	var/static/list/label2types = list(
 		"n2" = /obj/machinery/portable_atmospherics/canister/nitrogen,
 		"o2" = /obj/machinery/portable_atmospherics/canister/oxygen,
 		"co2" = /obj/machinery/portable_atmospherics/canister/carbon_dioxide,
-		"plasma" = /obj/machinery/portable_atmospherics/canister/toxins,
+		"plasma" = /obj/machinery/portable_atmospherics/canister/plasma,
 		"n2o" = /obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 		"no2" = /obj/machinery/portable_atmospherics/canister/nitryl,
 		"bz" = /obj/machinery/portable_atmospherics/canister/bz,
@@ -193,7 +191,7 @@
 	greyscale_config = /datum/greyscale_config/canister
 	greyscale_colors = "#9b5d7f"
 
-/obj/machinery/portable_atmospherics/canister/toxins
+/obj/machinery/portable_atmospherics/canister/plasma
 	name = "plasma canister"
 	desc = "Plasma gas. The reason YOU are here. Highly toxic."
 	gas_type = GAS_PLASMA
@@ -259,7 +257,7 @@
 	if(href_list[VV_HK_MODIFY_CANISTER_GAS])
 		usr.client.modify_canister_gas(src)
 
-/obj/machinery/portable_atmospherics/canister/New(loc, datum/gas_mixture/existing_mixture)
+/obj/machinery/portable_atmospherics/canister/Initialize(mapload, datum/gas_mixture/existing_mixture)
 	. = ..()
 	if(existing_mixture)
 		air_contents.copy_from(existing_mixture)
