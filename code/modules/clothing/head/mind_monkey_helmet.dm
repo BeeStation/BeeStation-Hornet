@@ -61,15 +61,15 @@
 			magnification.ghostize(FALSE)
 		if(prob(10))
 			magnification.apply_damage(500,BRAIN,BODY_ZONE_HEAD,FALSE,FALSE,FALSE) //brain death
-
-	//either used up correctly or taken off before polling finished (punish this by destroying the helmet)
-	playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
-	playsound(src, "sparks", 100, TRUE)
-	visible_message("<span class='warning'>[src] fizzles and breaks apart!</span>")
-	magnification = null
-	new /obj/effect/decal/cleanable/ash/crematorium(drop_location()) //just in case they're in a locker or other containers it needs to use crematorium ash, see the path itself for an explanation
+	else
+		//either used up correctly or taken off before polling finished (punish this by destroying the helmet)
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
+		playsound(src, "sparks", 100, TRUE)
+		visible_message("<span class='warning'>[src] fizzles and breaks apart!</span>")
+		magnification = null
+		new /obj/effect/decal/cleanable/ash/crematorium(drop_location()) //just in case they're in a locker or other containers it needs to use crematorium ash, see the path itself for an explanation
+		qdel(src)
 
 /obj/item/clothing/head/mind_monkey_helmet/monkey_sentience/dropped(mob/user)
 	. = ..()
-	if(magnification || polling)
-		qdel(src)//runs disconnect code
+	disconnect()
