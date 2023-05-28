@@ -11,6 +11,7 @@
 	return GLOB.observer_state
 
 /datum/orbit_menu/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if (!ui)
 		ui = new(user, src, "Orbit", "Orbit")
 		ui.open()
@@ -25,6 +26,8 @@
 		var/atom/movable/poi = (locate(ref) in GLOB.mob_list) || (locate(ref) in GLOB.poi_list)
 		if (poi != null)
 			owner.ManualFollow(poi)
+		else
+			return TRUE
 
 /datum/orbit_menu/ui_data(mob/user)
 	var/list/data = list()
@@ -65,7 +68,7 @@
 				var/obj/item/card/id/identification_card = M.get_idcard()
 				if (identification_card)
 					serialized["role_icon"] = "hud[ckey(identification_card.GetJobIcon())]"
-				else
+				else if(SSjob.name_occupations[mind.assigned_role])
 					//If we have no ID, use the mind job
 					var/datum/job/located_job = SSjob.GetJob(mind.assigned_role)
 					if (located_job)
@@ -80,6 +83,8 @@
 							serialized["antag"] = antag_team.get_team_name()
 						else
 							serialized["antag"] = A.get_antag_name()
+						if(mind.antag_hud_icon_state)
+							serialized["antag_icon"] = mind.antag_hud_icon_state
 						antagonists += list(serialized)
 						break
 
@@ -98,9 +103,11 @@
 	return data
 
 /datum/orbit_menu/ui_assets()
-	. = ..() || list()
-	. += get_asset_datum(/datum/asset/simple/orbit)
-	. += get_asset_datum(/datum/asset/spritesheet/job_icons)
+	return list(
+		get_asset_datum(/datum/asset/simple/orbit),
+		get_asset_datum(/datum/asset/spritesheet/job_icons),
+		get_asset_datum(/datum/asset/spritesheet/antag_hud)
+	)
 
 /datum/asset/spritesheet/job_icons
 	name = "job-icon"
