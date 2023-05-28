@@ -328,6 +328,10 @@
 /area/medical/chemistry)
 "adI" = (
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/mining/glass{
+	name = "Cargo Bay";
+	req_one_access_txt = "31;48;26"
+	},
 /turf/open/floor/plasteel/sepia,
 /area/quartermaster/office)
 "adX" = (
@@ -27475,8 +27479,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/door/firedoor,
-/turf/open/floor/plasteel/sepia,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
 /area/quartermaster/office)
 "iNB" = (
 /obj/machinery/gateway{
@@ -51525,11 +51529,11 @@
 /turf/open/floor/wood,
 /area/security/courtroom)
 "qyH" = (
-/obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment{
 	dir = 2
 	},
-/turf/open/floor/plasteel/sepia,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
 /area/quartermaster/office)
 "qyI" = (
 /obj/machinery/power/floodlight{
