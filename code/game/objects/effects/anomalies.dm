@@ -7,10 +7,10 @@
 #define ANOMALY_DELIMBER_ZONES list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 #define ANOMALY_DELIMBER_ZONE_CHEST typesof(/obj/item/bodypart/chest)
 #define ANOMALY_DELIMBER_ZONE_HEAD typesof(/obj/item/bodypart/head)
-#define ANOMALY_DELIMBER_ZONE_L_LEG typesof(/obj/item/bodypart/l_arm)
-#define ANOMALY_DELIMBER_ZONE_R_LEG typesof(/obj/item/bodypart/r_arm)
-#define ANOMALY_DELIMBER_ZONE_L_ARM typesof(/obj/item/bodypart/l_leg)
-#define ANOMALY_DELIMBER_ZONE_R_ARM typesof(/obj/item/bodypart/r_leg)
+#define ANOMALY_DELIMBER_ZONE_L_LEG typesof(/obj/item/bodypart/l_leg)
+#define ANOMALY_DELIMBER_ZONE_R_LEG typesof(/obj/item/bodypart/r_leg)
+#define ANOMALY_DELIMBER_ZONE_L_ARM typesof(/obj/item/bodypart/l_arm)
+#define ANOMALY_DELIMBER_ZONE_R_ARM typesof(/obj/item/bodypart/r_arm)
 
 /////////////////////
 
@@ -524,7 +524,7 @@
 		target.update_body(TRUE)
 		to_chat(target, "<span class='warning'>Something feels different...</span>")
 		log_game("[key_name(owner)] has caused a delimber pulse affecting [english_list(affected)].")
-		target.log_message("[owner] has caused [target]'s [picked_part] to turn into [new_part.name] and delimbed their [picked_user_part.name].", LOG_ATTACK)
+		target.log_message("[owner] has caused [key_name(target)]'s [picked_user_part.type] to turn into [new_part.type].", LOG_ATTACK)
 
 	if(message_admins)
 		message_admins("[ADMIN_LOOKUPFLW(owner)] has caused a delimber pulse affecting [english_list(affected)].")
