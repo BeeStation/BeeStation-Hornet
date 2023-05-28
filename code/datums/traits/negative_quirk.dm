@@ -705,7 +705,7 @@
 		ALCOHOL,
 		SUGAR,
 		PINEAPPLE,
-		CLOTHES)
+		CLOTH)
 	medical_record_text = "Patient is allergic to some medicine or food."
 
 /datum/quirk/allergy/add()
