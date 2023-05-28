@@ -11,10 +11,7 @@
 	taste_description = "bitterness"
 
 /datum/reagent/medicine/on_mob_life(mob/living/carbon/M)
-	current_cycle++
-	holder.remove_reagent(type, metabolization_rate / M.metabolism_efficiency) //medicine reagents stay longer if you have a better metabolism
-	if(metabolite)
-		holder.add_reagent(metabolite, metabolization_rate / M.metabolism_efficiency * METABOLITE_RATE)
+	..()
 
 /datum/reagent/medicine/leporazine
 	name = "Leporazine"
@@ -243,7 +240,7 @@
 	name = "Spaceacillin"
 	description = "Spaceacillin will prevent a patient from conventionally spreading any diseases they are currently infected with."
 	color = "#E1F2E6"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE | CHEMICAL_ALLERGEN
 	metabolization_rate = 0.1 * REAGENTS_METABOLISM
 
 //Goon Chems. Ported mainly from Goonstation. Easily mixable (or not so easily) and provide a variety of effects.

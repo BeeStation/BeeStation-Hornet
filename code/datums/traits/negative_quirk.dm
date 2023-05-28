@@ -710,18 +710,23 @@
 
 /datum/quirk/allergy/add()
 	var/mob/living/carbon/human/H = quirk_target
-	if(prob(50))
+	if(prob(1))
 		H.allergen = FOOD_ALLERGY
-		H.allergentype = pick(food_allergies)
+		H.food_allergen = pick(food_allergies)
 	else
 		H.allergen = REAGENT_ALLERGY
-		H.allergentype = get_random_reagent_id(CHEMICAL_ALLERGEN)
+		H.reagent_allergen = get_random_reagent_id(CHEMICAL_ALLERGEN)
 
 /datum/quirk/allergy/remove()
 	var/mob/living/carbon/human/H = quirk_target
+	if(allergen == REAGENT_ALLERGY)
+		H.reagent_allergen = null
+	else
+		H.food_allergen = null
 	H.allergen = null
-	H.allergentype = null
 
-/datum/quirk/allergy/on_spawn()
+/datum/quirk/allergy/post_spawn()
 	var/mob/living/carbon/human/H = quirk_target
-	to_chat(H, "<span class='danger'>You are allergic to [H.allergentype].</span>")
+	if(H.allergen == REAGENT_ALLERGY)
+		var/datum/reagent/allergen = H.reagent_allergen
+		to_chat(quirk_target, "<span class='danger'>You are allergic to [initial(allergen.name)].</span>")

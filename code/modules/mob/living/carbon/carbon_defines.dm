@@ -39,7 +39,8 @@
 	var/obj/item/reagent_containers/food/snacks/meat/slab/type_of_meat = /obj/item/reagent_containers/food/snacks/meat/slab
 
 	var/allergen = null  // should either be reagent or food.
-	var/allergentype = null  //The actual allergen itself.
+	var/reagent_allergen = null  //The actual allergen reagent
+	var/food_allergen = null
 
 	var/gib_type = /obj/effect/decal/cleanable/blood/gibs
 

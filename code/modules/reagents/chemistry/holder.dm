@@ -938,7 +938,7 @@
 		CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE,         // (1<<23) - goal_define starts at 23 and goes reversed.
 		CHEMICAL_GOAL_BOTANIST_HARVEST,     // (1<<22)
 		CHEMICAL_GOAL_BARTENDER_SERVING,    // (1<<21)
-		CHEMICAL_ALLERGEN)  // (1<<0)
+		CHEMICAL_ALLERGEN)  // (1<<20)
 	var/static/list/random_reagents_a = list()  // CHEMICAL_NOT_SYNTH
 	var/static/list/random_reagents_b = list()  // CHEMICAL_BASIC_ELEMENT
 	var/static/list/random_reagents_c = list()  // CHEMICAL_BASIC_DRINK
@@ -948,7 +948,7 @@
 	var/static/list/random_reagents_goal_a = list()  // CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 	var/static/list/random_reagents_goal_b = list()  // CHEMICAL_GOAL_BOTANIST_HARVEST
 	var/static/list/random_reagents_goal_c = list()  // CHEMICAL_GOAL_BARTENDER_SERVING
-	var/static/list/random_reagents_allergy = list()
+	var/static/list/random_reagents_allergy = list() // CHEMICAL_ALLERGY
 	var/static/list/random_reagent = list(
 		random_reagents_a,
 		random_reagents_b,
