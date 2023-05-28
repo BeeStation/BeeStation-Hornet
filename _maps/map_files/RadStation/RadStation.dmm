@@ -330,7 +330,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining/glass{
 	name = "Cargo Bay";
-	req_one_access_txt = "31;48;26"
+	req_one_access_txt = "31;48"
 	},
 /turf/open/floor/plasteel/sepia,
 /area/quartermaster/office)
