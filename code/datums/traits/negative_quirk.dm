@@ -696,6 +696,7 @@
 	gain_text = "<span class='danger'>You feel allergic to something.</span>"
 	lose_text = "<span class='notice'>You have outgrown your allergies.</span>"
 	var/allergen = null
+	var/where_epi = null
 	//Toxic, Gross, Raw, Breakfast, Cloth don't quite fit because those are broad categories or just don't make sense for the average player.
 	var/food_allergies = list("meat" = MEAT,
 		"vegetables" = VEGETABLES,
@@ -726,10 +727,16 @@
 		H.food_allergen = null
 	H.allergen = null
 
+/datum/quirk/allergy/on_spawn()
+	var/mob/living/carbon/human/H = quirk_target
+	var/pen_instance = new /obj/item/reagent_containers/hypospray/medipen()
+	var/list/slots = list("in your backpack" = ITEM_SLOT_BACKPACK)
+	where_epi = H.equip_in_one_of_slots(pen_instance, slots, FALSE) || "at your feet"
+
 /datum/quirk/allergy/post_spawn()
 	var/mob/living/carbon/human/H = quirk_target
 	if(H.allergen == REAGENT_ALLERGY)
 		var/datum/reagent/allergen = H.reagent_allergen
-		to_chat(quirk_target, "<span class='danger'>You are allergic to [initial(allergen.name)].</span>")
+		to_chat(quirk_target, "<span class='danger'>You are allergic to [initial(allergen.name)]. There is an epinephrine autoinjector [where_epi].</span>")
 	else
-		to_chat(quirk_target, "<span class='danger'>You are allergic to [lowertext(allergen)].</span>")
+		to_chat(quirk_target, "<span class='danger'>You are allergic to [lowertext(allergen)]. There is an epinephrine autoinjector [where_epi].</span>")
