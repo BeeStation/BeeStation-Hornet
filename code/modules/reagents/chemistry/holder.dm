@@ -948,6 +948,7 @@
 	var/static/list/random_reagents_goal_a = list()  // CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
 	var/static/list/random_reagents_goal_b = list()  // CHEMICAL_GOAL_BOTANIST_HARVEST
 	var/static/list/random_reagents_goal_c = list()  // CHEMICAL_GOAL_BARTENDER_SERVING
+	var/static/list/random_reagents_allergy = list()
 	var/static/list/random_reagent = list(
 		random_reagents_a,
 		random_reagents_b,
@@ -957,7 +958,8 @@
 		random_reagents_f,
 		random_reagents_goal_a,
 		random_reagents_goal_b,
-		random_reagents_goal_c)
+		random_reagents_goal_c,
+		random_reagents_allergy)
 	// ----above is a section you might want to edit for more chem RNGs----
 
 	// initialize random reagent static lists
