@@ -71,8 +71,8 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 /datum/reagent/proc/on_mob_life(mob/living/carbon/M)
 	current_cycle++
 	holder.remove_reagent(type, metabolization_rate * M.metabolism_efficiency) //By default it slowly disappears.
-	if(istype(src, M.allergen))
-		allergic_reaction(M)
+	if(M.allergen == REAGENT_ALLERGY && istype(src, M.allergentype))
+		holder.add_reagent(/datum/reagent/toxin/histamine, metabolization_rate * M.metabolism_efficiency)
 	if(metabolite)
 		holder.add_reagent(metabolite, metabolization_rate * M.metabolism_efficiency * METABOLITE_RATE)
 	return
@@ -171,10 +171,6 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	if(prob(30))
 		to_chat(M, "<span class='boldannounce'>You're not feeling good at all! You really need some [name].</span>")
 	return
-
-//This is primarily meant to be anaphalactic shock(Spelling?)
-/datum/reagent/proc/allergic_reaction(mob/living/carbon/M)
-	M.gib(TRUE, TRUE, TRUE) //Testing Purposes Only
 
 /proc/pretty_string_from_reagent_list(list/reagent_list)
 	//Convert reagent list to a printable string for logging etc
