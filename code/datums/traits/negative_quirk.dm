@@ -716,9 +716,12 @@
 	else
 		H.allergen = REAGENT_ALLERGY
 		H.allergentype = get_random_reagent_id(CHEMICAL_ALLERGEN)
-	to_chat(H, "<span class='danger'>You are allergic to [H.allergentype].</span>")
 
 /datum/quirk/allergy/remove()
 	var/mob/living/carbon/human/H = quirk_target
 	H.allergen = null
 	H.allergentype = null
+
+/datum/quirk/allergy/on_spawn()
+	var/mob/living/carbon/human/H = quirk_target
+	to_chat(H, "<span class='danger'>You are allergic to [H.allergentype].</span>")
