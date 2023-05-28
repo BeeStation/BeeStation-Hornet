@@ -3,12 +3,14 @@
 	weight = WEIGHT_ROBOT
 
 /datum/keybinding/shell/can_use(client/user)
-	var/mob/living/silicon/robot/shell/our_shell = user.mob
-	if(iscyborg(user.mob)&&our_shell.shell)
-		return TRUE
+	if(iscyborg(user.mob)
+		var/mob/living/silicon/robot/shell/our_shell = user.mob
+		if(our_shell.shell)
+			return TRUE
+		else
+			return FALSE
 	else
 		return FALSE
-
 /datum/keybinding/shell/undeploy
 	category = CATEGORY_AI
 	key = "="
