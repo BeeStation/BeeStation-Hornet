@@ -99,6 +99,9 @@
 
 /obj/machinery/smartfridge/abductor/Initialize(mapload)
 	. = ..()
+	generate_glands()
+
+/obj/machinery/smartfridge/abductor/proc/generate_glands()
 	for(var/each as() in shuffle(subtypesof(/obj/item/organ/heart/gland)))
 		for(var/i in 1 to rand(5)+10)
 			var/obj/item/organ/heart/gland/each_gland = new each
