@@ -937,7 +937,8 @@
 		CHEMICAL_RNG_BOTANY,    // (1<<5)
 		CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE,         // (1<<23) - goal_define starts at 23 and goes reversed.
 		CHEMICAL_GOAL_BOTANIST_HARVEST,     // (1<<22)
-		CHEMICAL_GOAL_BARTENDER_SERVING)    // (1<<21)
+		CHEMICAL_GOAL_BARTENDER_SERVING,    // (1<<21)
+		CHEMICAL_ALLERGEN)  // (1<<0)
 	var/static/list/random_reagents_a = list()  // CHEMICAL_NOT_SYNTH
 	var/static/list/random_reagents_b = list()  // CHEMICAL_BASIC_ELEMENT
 	var/static/list/random_reagents_c = list()  // CHEMICAL_BASIC_DRINK

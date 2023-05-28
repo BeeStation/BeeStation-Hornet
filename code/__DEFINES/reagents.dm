@@ -55,7 +55,8 @@
 #define CHEMICAL_GOAL_BOTANIST_HARVEST     (1<<22)  // botanist objective - i.e.) make 12 crops of 10u omnizine
 #define CHEMICAL_GOAL_BARTENDER_SERVING    (1<<21) // !NOTE: not implemented, but refactored for preparation - i.e.) serve Bacchus' blessing to 10 crews
 
-
+// allergen related
+#define CHEMICAL_ALLERGEN (1<<0)
 
 /*	<pill sprite size standard>
 		Since sprite asset code crops the pill image, you are required to make a pill image within [11,10,21,20] squared area.

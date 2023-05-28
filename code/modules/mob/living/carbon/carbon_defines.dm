@@ -38,6 +38,9 @@
 	var/temperature_resistance = T0C+75
 	var/obj/item/reagent_containers/food/snacks/meat/slab/type_of_meat = /obj/item/reagent_containers/food/snacks/meat/slab
 
+	var/allergen = null  // should either be reagent or food.
+	var/allergentype = null  //The actual allergen itself.
+
 	var/gib_type = /obj/effect/decal/cleanable/blood/gibs
 
 	var/rotate_on_lying = 1

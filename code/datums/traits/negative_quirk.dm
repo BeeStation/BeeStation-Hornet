@@ -688,3 +688,37 @@
 /datum/quirk/trauma/remove()
 	var/mob/living/carbon/human/H = quirk_target
 	H.cure_trauma_type(trauma, TRAUMA_RESILIENCE_ABSOLUTE)
+
+/datum/quirk/allergy
+	name = "Allergy"
+	desc = "Your body has an allergic reaction to certain things. Thankfully, you start with a an epinephrine injector."
+	value = -2
+	gain_text = "<span class='danger'>You feel allergic to something.</span>"
+	lose_text = "<span class='notice'>You have outgrown your allergies.</span>"
+	var/allergen = null
+	var/food_allergies = list(MEAT,  //Toxic, Gross, Raw, and Breakfast don't quite fit because those are broad categories.
+		VEGETABLES,
+		JUNKFOOD,
+		GRAIN,
+		DAIRY,
+		FRIED,
+		ALCOHOL,
+		SUGAR,
+		PINEAPPLE,
+		CLOTHES)
+	medical_record_text = "Patient is allergic to some medicine or food."
+
+/datum/quirk/allergy/add()
+	var/mob/living/carbon/human/H = quirk_target
+	if(prob(50))
+		H.allergen = FOOD_ALLERGY
+		H.allergentype = pick(food_allergies)
+	else
+		H.allergen = REAGENT_ALLERGY
+		H.allergentype = get_random_reagent_id(CHEMICAL_ALLERGEN)
+	to_chat(H, "<span class='danger'>You are allergic to [H.allergentype].</span>")
+
+/datum/quirk/allergy/remove()
+	var/mob/living/carbon/human/H = quirk_target
+	H.allergen = null
+	H.allergentype = null
