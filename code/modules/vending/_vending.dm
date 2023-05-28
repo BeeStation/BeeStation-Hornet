@@ -361,14 +361,14 @@ GLOBAL_LIST_EMPTY(vending_products)
 /obj/machinery/vending/wrench_act(mob/living/user, obj/item/I)
 	..()
 	if(panel_open)
-		default_unfasten_wrench(user, I, time = 60)
+		default_unfasten_wrench(user, I, time = 6 SECONDS)
 		unbuckle_all_mobs(TRUE)
 	return TRUE
 
 /obj/machinery/vending/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
 		return TRUE
-	if(anchored)
+	if(anchored || (!anchored && !panel_open))
 		default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 		cut_overlays()
 		if(panel_open)
