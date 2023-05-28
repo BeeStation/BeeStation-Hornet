@@ -29842,6 +29842,9 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "jBc" = (
@@ -44651,7 +44654,8 @@
 	dir = 1;
 	icon_state = "right";
 	id_tag = "Bountydoors";
-	req_access_txt = "31;48;26"
+	req_access_txt = null;
+	req_one_access_txt = "31;48;26"
 	},
 /obj/structure/lattice/catwalk/over,
 /obj/effect/mapping_helpers/airlock/unres{
@@ -73675,10 +73679,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/item/radio/intercom{
-	dir = 1;
-	pixel_x = 1;
-	pixel_y = 23
+/obj/machinery/power/apc/auto_name/north,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)

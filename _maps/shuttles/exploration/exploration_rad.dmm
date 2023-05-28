@@ -93,7 +93,7 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/on,
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
-/area/template_noop)
+/area/shuttle/exploration)
 "fN" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/exploration)
