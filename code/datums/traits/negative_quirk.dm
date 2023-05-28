@@ -696,23 +696,24 @@
 	gain_text = "<span class='danger'>You feel allergic to something.</span>"
 	lose_text = "<span class='notice'>You have outgrown your allergies.</span>"
 	var/allergen = null
-	var/food_allergies = list(MEAT,  //Toxic, Gross, Raw, and Breakfast don't quite fit because those are broad categories.
-		VEGETABLES,
-		JUNKFOOD,
-		GRAIN,
-		DAIRY,
-		FRIED,
-		ALCOHOL,
-		SUGAR,
-		PINEAPPLE,
-		CLOTH)
+	//Toxic, Gross, Raw, Breakfast, Cloth don't quite fit because those are broad categories or just don't make sense for the average player.
+	var/food_allergies = list("meat" = MEAT,
+		"vegetables" = VEGETABLES,
+		"junkfood" = JUNKFOOD,
+		"grain" = GRAIN,
+		"dairy" = DAIRY,
+		"fried food"= FRIED,
+		"alcohol" = ALCOHOL,
+		"sugar" = SUGAR,
+		"pineapple" = PINEAPPLE)
 	medical_record_text = "Patient is allergic to some medicine or food."
 
 /datum/quirk/allergy/add()
 	var/mob/living/carbon/human/H = quirk_target
-	if(prob(1))
+	if(prob(95))
 		H.allergen = FOOD_ALLERGY
-		H.food_allergen = pick(food_allergies)
+		allergen = pick(food_allergies)
+		H.food_allergen = food_allergies[allergen]
 	else
 		H.allergen = REAGENT_ALLERGY
 		H.reagent_allergen = get_random_reagent_id(CHEMICAL_ALLERGEN)
@@ -730,3 +731,5 @@
 	if(H.allergen == REAGENT_ALLERGY)
 		var/datum/reagent/allergen = H.reagent_allergen
 		to_chat(quirk_target, "<span class='danger'>You are allergic to [initial(allergen.name)].</span>")
+	else
+		to_chat(quirk_target, "<span class='danger'>You are allergic to [lowertext(allergen)].</span>")

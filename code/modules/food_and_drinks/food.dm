@@ -21,6 +21,13 @@
 		pixel_x = rand(-5, 5)
 		pixel_y = rand(-5, 5)
 
+/obj/item/reagent_containers/food/attack(mob/M, mob/user, def_zone)
+	if(istype(M,/mob/living/carbon))
+		var/mob/living/carbon/C = M
+		if(C.allergen == FOOD_ALLERGY && foodtype & C.food_allergen)
+			C.reagents.add_reagent(/datum/reagent/toxin/histamine, 10)
+	..()
+
 /obj/item/reagent_containers/food/proc/checkLiked(var/fraction, mob/M)
 	if(last_check_time + 50 < world.time)
 		if(ishuman(M))

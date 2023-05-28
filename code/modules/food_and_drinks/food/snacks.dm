@@ -157,6 +157,7 @@ All foods are distributed among various categories. Use common sense.
 				bitecount++
 				On_Consume(M)
 				checkLiked(fraction, M)
+				..()
 				return TRUE
 
 	return 0

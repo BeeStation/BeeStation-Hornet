@@ -349,6 +349,10 @@ Behavior that's still missing from this component that original food items had t
 		if(eater.is_blind())
 			to_chat(eater, "<span class='userdanger'>You're forced to eat something!</span>")
 
+	if(istype(eater,/mob/living/carbon))
+		var/mob/living/carbon/C = eater
+		if(C.allergen == FOOD_ALLERGY && foodtypes & C.food_allergen)
+			C.reagents.add_reagent(/datum/reagent/toxin/histamine, 10)
 	TakeBite(eater, feeder)
 
 	//If we're not force-feeding, try take another bite
@@ -371,11 +375,11 @@ Behavior that's still missing from this component that original food items had t
 		return
 	SEND_SIGNAL(parent, COMSIG_FOOD_EATEN, eater, feeder, bitecount, bite_consumption)
 	var/fraction = min(bite_consumption / owner.reagents.total_volume, 1)
+	owner.reagents.trans_to(eater, bite_consumption, transfered_by = feeder, method = INGEST)
 	if(istype(eater,/mob/living/carbon))
 		var/mob/living/carbon/C = eater
-		if(C.allergen == FOOD_ALLERGY && foodtypes & C.allergentype)
-			C.reagents.add_reagent(/datum/reagent/toxin/histamine, bite_consumption)
-	owner.reagents.trans_to(eater, bite_consumption, transfered_by = feeder, method = INGEST)
+		if(C.allergen == FOOD_ALLERGY && foodtypes & C.food_allergen)
+			C.reagents.add_reagent(/datum/reagent/toxin/histamine, 10)
 	bitecount++
 	check_liked(fraction, eater)
 	if(!owner.reagents.total_volume)
