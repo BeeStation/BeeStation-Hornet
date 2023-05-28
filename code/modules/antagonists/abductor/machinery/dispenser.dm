@@ -1,3 +1,5 @@
+// This is classic abductor dispenser, but it is awfully identifiable.
+// The actual one abductors are using is after this type (as smartfridge)
 /obj/machinery/abductor/gland_dispenser
 	name = "replacement organ storage"
 	desc = "A tank filled with replacement organs."
@@ -80,7 +82,8 @@
 	ui_update()
 
 // -------------------------
-// less flavour, but abductor can see what these are
+// This is just smartfridge but for abductors.
+// less flavour, but abductor can see what these are at a glance
 /obj/machinery/smartfridge/abductor
 	name = "replacement organ storage"
 	desc = "A tank filled with replacement organs."
