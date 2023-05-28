@@ -46,12 +46,7 @@
 // this exists because some 'playable=TRUE' mobs are not actually playable because mob key is automatically given
 // it prevents 'GLOB.poi_list' being glitched. without this, it will show xeno(or some mobs) twice in orbit panel.
 /mob/living/proc/delayed_set_playable(called_again=FALSE)
-	set waitfor = 0 // I didn't want to use 'addtimer(CALLBACK(), 2 SECONDS)' so I tried this instead
-	if(called_again)
-		sleep(20)
-		set_playable()
-		return
-	delayed_set_playable(TRUE) // need to call this again because Init() proc is waiting for this
+	addtimer(CALLBACK(src, PROC_REF(set_playable)), 2 SECONDS)
 
 /mob/living/proc/set_playable()
 	playable = TRUE
