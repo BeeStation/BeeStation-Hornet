@@ -63,14 +63,15 @@
 	var/turf/T = get_turf(target)
 	var/selfpenalty = 0
 	var/sleepbonus = 0
-	if(target == user)
+	var/perfect = HAS_TRAIT(user, TRAIT_PERFECT_SURGEON)
+	if(target == user && !perfect)
 		if(HAS_TRAIT(user, TRAIT_SELF_AWARE) || user.get_inactive_held_item() == /obj/item/handmirror || locate(/obj/structure/mirror) in view(1, user))
 			selfpenalty = 0.4
 		else
 			selfpenalty = 0.6
 	if(target.stat)//are they not conscious
 		sleepbonus = 0.5
-	if(locate(/obj/structure/table/optable/abductor, T))
+	if(perfect || locate(/obj/structure/table/optable/abductor, T))
 		propability = 1.2
 	else if(locate(/obj/structure/table/optable, T))
 		propability = 1
@@ -112,8 +113,7 @@
 
 	if(do_after(user, modded_time, target = target))
 
-		if((prob(100 - fail_prob) || iscyborg(user)) && chem_check(target) && !try_to_fail)
-
+		if(((prob(100 - fail_prob) || HAS_TRAIT(user, TRAIT_PERFECT_SURGEON) || iscyborg(user)) && chem_check(target)) && !try_to_fail)
 			if(success(user, target, target_zone, tool, surgery))
 				play_success_sound(user, target, target_zone, tool, surgery)
 				advance = TRUE
