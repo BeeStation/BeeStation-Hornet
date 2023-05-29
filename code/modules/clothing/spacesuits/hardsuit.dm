@@ -715,7 +715,7 @@
 /obj/item/clothing/suit/space/hardsuit/security
 	icon_state = "hardsuit-sec"
 	name = "security hardsuit"
-	desc = "A bulky, armored helmet designed to protect security personnel in low pressure environments."
+	desc = "A bulky, armored suit designed to protect security personnel in low pressure environments."
 	item_state = "sec_hardsuit"
 	supports_variations = DIGITIGRADE_VARIATION
 	armor = list(MELEE = 35,  BULLET = 35, LASER = 30, ENERGY = 50, BOMB = 40, BIO = 100, RAD = 50, FIRE = 75, ACID = 75, STAMINA = 50)
@@ -728,7 +728,7 @@
 	//Head of Security hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/security/hos
 	name = "head of security's hardsuit helmet"
-	desc = "A bulky, armored helmet designed to protect security personnel in low pressure environments."
+	desc = "A bulky, armored helmet designed to protect security personnel in low pressure environments. This one has markings for the head of security."
 	icon_state = "hardsuit0-hos"
 	hardsuit_type = "hos"
 	armor = list(MELEE = 35,  BULLET = 35, LASER = 30, ENERGY = 50, BOMB = 40, BIO = 100, RAD = 50, FIRE = 75, ACID = 75, STAMINA = 50)
@@ -738,7 +738,7 @@
 	icon_state = "hardsuit-hos"
 	name = "head of security's hardsuit"
 	supports_variations = DIGITIGRADE_VARIATION
-	desc = "A bulky, armored helmet designed to protect security personnel in low pressure environments."
+	desc = "A bulky, armored suit designed to protect security personnel in low pressure environments. This one has markings for the head of security."
 	armor = list(MELEE = 35,  BULLET = 35, LASER = 30, ENERGY = 50, BOMB = 40, BIO = 100, RAD = 50, FIRE = 75, ACID = 75, STAMINA = 50)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security/hos
 	jetpack = /obj/item/tank/jetpack/suit
