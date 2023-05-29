@@ -1,0 +1,5 @@
+author: Absolucy
+delete-after: true
+changes:
+  - rscadd: Re-added tooltips to the R&D console, so you can now actually see what
+      you're researching!
