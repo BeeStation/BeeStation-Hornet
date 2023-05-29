@@ -7,7 +7,7 @@
 // asoundout: soundfile to play after teleportation
 // no_effects: disable the default effectin/effectout of sparks
 // forced: whether or not to ignore no_teleport
-/proc/do_teleport(atom/movable/teleatom, atom/destination, precision=null, datum/effect_system/effectin=null, datum/effect_system/effectout=null, asoundin=null, asoundout=null, no_effects=FALSE, channel=TELEPORT_CHANNEL_BLUESPACE, forced = FALSE, teleport_mode = TELEPORT_MODE_DEFAULT)
+/proc/do_teleport(atom/movable/teleatom, atom/destination, precision=null, datum/effect_system/effectin=null, datum/effect_system/effectout=null, asoundin=null, asoundout=null, no_effects=FALSE, channel=TELEPORT_CHANNEL_BLUESPACE, forced = FALSE, teleport_mode = TELEPORT_MODE_DEFAULT, no_wake = FALSE)
 	// teleporting most effects just deletes them
 	var/static/list/delete_atoms = typecacheof(list(
 		/obj/effect,
@@ -86,6 +86,11 @@
 	if(isobserver(teleatom))
 		teleatom.abstract_move(destturf)
 		return TRUE
+
+	// If we leave behind a wake, then create that here.
+	// Only leave a wake if we are going to a location that we can actually teleport to.
+	if (!no_wake && (channel == TELEPORT_CHANNEL_BLUESPACE || channel == TELEPORT_CHANNEL_CULT || channel == TELEPORT_CHANNEL_MAGIC) && A.teleport_restriction == TELEPORT_MODE_DEFAULT && B.teleport_restriction == TELEPORT_MODE_DEFAULT && teleport_mode == TELEPORT_MODE_DEFAULT)
+		new /obj/effect/temp_visual/teleportation_wake(get_turf(teleatom), destturf)
 
 	tele_play_specials(teleatom, curturf, effectin, asoundin)
 	var/success = teleatom.forceMove(destturf)
@@ -229,3 +234,28 @@
 
 	if(do_teleport(affected_mob, pick(L), channel = TELEPORT_CHANNEL_MAGIC, no_effects = TRUE))
 		affected_mob.say("SCYAR NILA [uppertext(thearea.name)]!", forced = "wizarditis teleport")
+
+/obj/effect/temp_visual/teleportation_wake
+	name = "slipspace wake"
+	duration = 30 SECONDS
+	randomdir = FALSE
+	icon = 'icons/effects/effects.dmi'
+	icon_state = null
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	var/turf/destination
+
+/obj/effect/temp_visual/teleportation_wake/Initialize(mapload, turf/destination)
+	// Replace any portals on the current turf
+	for (var/obj/effect/temp_visual/teleportation_wake/conflicting_portal in loc)
+		if (conflicting_portal == src)
+			continue
+		conflicting_portal.destination = destination
+		return INITIALIZE_HINT_QDEL
+	. = ..()
+	src.destination = destination
+	var/image/I = image(icon = 'icons/effects/effects.dmi', icon_state = "bluestream", layer = HIGH_OBJ_LAYER, loc = src)
+	I.appearance_flags = RESET_ALPHA | RESET_COLOR
+	I.alpha = 255
+	// Holy people can see the wakes
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/blessedAware, "slipspace_wake", I)
+
