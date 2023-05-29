@@ -479,7 +479,7 @@
 /obj/item/toy/plush/narplush/examine(mob/user)
 	. = ..()
 	if(invoker_charges == 0)
-		. += "<span class='notice'>It looks tired.</span>"
+		. += "<span class='notice'>She looks tired.</span>"
 		return
 	if(IS_CULTIST(user))
 		. += "<span class='warning'>It has [invoker_charges] [invoker_charges == 1 ? "charge" : "charges"] left!</span>"
