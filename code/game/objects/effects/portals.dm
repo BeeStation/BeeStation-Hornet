@@ -39,8 +39,8 @@
 		return
 	is_dispeling = TRUE
 	animate(src, 1 SECONDS, transform = matrix() * 1.2, easing = SINE_EASING)
-	animate(1.7 SECONDS, transform = matrix() * 0.6, easing = QUAD_EASING)
-	animate(0.3 SECONDS, transform = matrix() * 0, alpha = 0, easing = QUAD_EASING)
+	animate(transform = matrix() * 0.6, 1.7 SECONDS, easing = QUAD_EASING)
+	animate(transform = matrix() * 0, alpha = 0, 0.3 SECONDS, easing = QUAD_EASING)
 	QDEL_IN(src, 3 SECONDS)
 	if (linked)
 		linked.dispel()
@@ -93,7 +93,7 @@
 		. = INITIALIZE_HINT_QDEL
 		CRASH("Somebody fucked up.")
 	if(_lifespan > 0)
-		addtimer(src, CALLBACK(src, PROC_REF(dispel)), _lifespan)
+		addtimer(CALLBACK(src, PROC_REF(dispel)), _lifespan)
 	if(!isnull(atmos_link_override))
 		atmos_link = atmos_link_override
 	link_portal(_linked)
