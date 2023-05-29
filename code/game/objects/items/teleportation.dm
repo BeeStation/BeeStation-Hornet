@@ -126,9 +126,9 @@
 		return FALSE
 	return ..()
 
-/obj/item/hand_tele/proc/try_dispel_portal(atom/target, mob/user)
+/obj/item/hand_tele/proc/try_dispel_portal(obj/effect/portal/target, mob/user)
 	if(is_parent_of_portal(target))
-		qdel(target)
+		target.dispel()
 		to_chat(user, "<span class='notice'>You dispel [target] with \the [src]!</span>")
 		return TRUE
 	return FALSE

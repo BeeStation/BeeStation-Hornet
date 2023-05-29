@@ -31,6 +31,19 @@
 	var/allow_anchored = FALSE
 	var/innate_accuracy_penalty = 0
 	var/last_effect = 0
+	// Are we currently being dispelled from a hand teleporter?
+	var/is_dispeling = FALSE
+
+/obj/effect/portal/proc/dispel()
+	if (is_dispeling)
+		return
+	is_dispeling = TRUE
+	animate(src, 1 SECONDS, transform = matrix() * 1.2, easing = SINE_EASING)
+	animate(1.7 SECONDS, transform = matrix() * 0.6, easing = QUAD_EASING)
+	animate(0.3 SECONDS, transform = matrix() * 0, alpha = 0, easing = QUAD_EASING)
+	QDEL_IN(src, 3 SECONDS)
+	if (linked)
+		linked.dispel()
 
 /obj/effect/portal/anom
 	name = "wormhole"
@@ -80,7 +93,7 @@
 		. = INITIALIZE_HINT_QDEL
 		CRASH("Somebody fucked up.")
 	if(_lifespan > 0)
-		QDEL_IN(src, _lifespan)
+		addtimer(src, CALLBACK(src, PROC_REF(dispel)), _lifespan)
 	if(!isnull(atmos_link_override))
 		atmos_link = atmos_link_override
 	link_portal(_linked)
