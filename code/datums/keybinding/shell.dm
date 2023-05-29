@@ -11,6 +11,7 @@
 			return FALSE
 	else
 		return FALSE
+
 /datum/keybinding/shell/undeploy
 	category = CATEGORY_AI
 	key = "="
