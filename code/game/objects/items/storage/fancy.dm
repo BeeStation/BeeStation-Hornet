@@ -147,7 +147,7 @@
 	. = ..()
 	. += "<span class='notice'>Alt-click to extract contents.</span>"
 	var/obj/item/lighter/L = locate(/obj/item/lighter) in contents
-	if(L && contents.len > 0)
+	if(L)
 		. += "<span class='notice'>There seems to be a lighter inside. Ctrl-click to pull it out.</span>"
 
 /obj/item/storage/fancy/cigarettes/AltClick(mob/living/carbon/user)
@@ -166,13 +166,13 @@
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
 		return
 	var/obj/item/I = locate(/obj/item/lighter) in contents
-	if(I && contents.len > 0)
+	if(I)
 		SEND_SIGNAL(src, COMSIG_TRY_STORAGE_TAKE, I, user)
 		user.put_in_hands(I)
 		contents -= I
 		to_chat(user, "<span class='notice'>You take \a [I] out of the pack.</span>")
 	else
-		to_chat(user, "<span class='notice'>There is no lighter in the pack.</span>")
+		to_chat(user, "<span class='warning'>There is no lighter in the pack.</span>")
 
 /obj/item/storage/fancy/cigarettes/update_icon()
 	if(fancy_open || !contents.len)
