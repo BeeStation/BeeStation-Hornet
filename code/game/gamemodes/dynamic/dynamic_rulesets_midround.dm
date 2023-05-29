@@ -546,7 +546,6 @@
 	cost = 7
 	minimum_players = 25
 	repeatable = TRUE
-	var/solo = FALSE
 	var/datum/team/abductor_team/new_team
 
 /datum/dynamic_ruleset/midround/from_ghosts/abductors/ready(forced = FALSE)
@@ -556,16 +555,15 @@
 
 /datum/dynamic_ruleset/midround/from_ghosts/abductors/review_applications()
 	if(length(candidates) == 1)
-		solo = TRUE
 		required_applicants = 1
 	return ..()
 
 /datum/dynamic_ruleset/midround/from_ghosts/abductors/finish_setup(mob/new_character, index)
-	if (index == 1 || solo) // Our first guy is the scientist.  We also initialize the team here as well since this should only happen once per pair of abductors.
+	if (index == 1) // Our first guy is the scientist.  We also initialize the team here as well since this should only happen once per pair of abductors.
 		new_team = new
 		if(new_team.team_number > ABDUCTOR_MAX_TEAMS)
 			return MAP_ERROR
-		var/antag_type = solo ? /datum/antagonist/abductor/scientist/onemanteam : /datum/antagonist/abductor/scientist
+		var/antag_type = length(candidates) == 1 ? /datum/antagonist/abductor/scientist/onemanteam : /datum/antagonist/abductor/scientist
 		var/datum/antagonist/abductor/scientist/new_role = new antag_type
 		new_character.mind.add_antag_datum(new_role, new_team)
 	else // Our second guy is the agent, team is already created, don't need to make another one.
