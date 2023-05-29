@@ -14348,7 +14348,7 @@
 /turf/open/floor/plasteel/dark/side,
 /area/hallway/secondary/exit/departure_lounge)
 "eHD" = (
-/obj/machinery/vending/boozeomat/pubby_maint,
+ /obj/machinery/vending/boozeomat/maint,
 /turf/closed/wall,
 /area/maintenance/department/science)
 "eIm" = (
@@ -31213,7 +31213,7 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/security/prison)
 "kll" = (
-/obj/machinery/vending/boozeomat/pubby_captain,
+ /obj/machinery/vending/boozeomat/captain,
 /turf/closed/wall/r_wall,
 /area/crew_quarters/heads/hop)
 "klr" = (

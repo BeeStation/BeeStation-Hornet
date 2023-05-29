@@ -280,7 +280,7 @@
 	dir = 4;
 	layer = 2.9
 	},
-/obj/machinery/vending/wallmed/pubby{
+/obj/machinery/vending/wallmed/lite{
 	pixel_y = 30
 	},
 /obj/effect/turf_decal/tile/blue/opposingcorners{
