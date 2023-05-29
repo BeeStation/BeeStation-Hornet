@@ -1,0 +1,5 @@
+author: PestoVerde322
+delete-after: true
+changes:
+  - rscdel: Removed Pubby station off the rotation
+  - rscdel: Removed Glow station off the rotation
