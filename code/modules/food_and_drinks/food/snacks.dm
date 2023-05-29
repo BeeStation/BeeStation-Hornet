@@ -296,7 +296,7 @@ All foods are distributed among various categories. Use common sense.
 		snackyfood.create_reagents(snackyfood.volume)
 		if(reagents)
 			reagents.trans_to(snackyfood, reagents.total_volume)
-		if(snackyfood.bonus_reagents && snackyfood.bonus_reagents.len)
+		if(length(snackyfood.bonus_reagents))
 			for(var/r_id in snackyfood.bonus_reagents)
 				var/amount = snackyfood.bonus_reagents[r_id] * cooking_efficiency
 				if(r_id == /datum/reagent/consumable/nutriment || r_id == /datum/reagent/consumable/nutriment/vitamin)
