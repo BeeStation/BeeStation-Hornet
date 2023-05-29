@@ -23297,7 +23297,6 @@
 /obj/machinery/button/door{
 	id = "AIwindows";
 	name = "AI View Blast doors";
-	pixel_x = 0;
 	pixel_y = 33;
 	req_access_txt = "19"
 	},
@@ -67654,7 +67653,6 @@
 /obj/machinery/button/door{
 	id = "AIwindows";
 	name = "AI View Blast doors";
-	pixel_x = 0;
 	pixel_y = 33;
 	req_access_txt = "19"
 	},
