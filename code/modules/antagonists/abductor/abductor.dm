@@ -34,10 +34,6 @@
 	name = "Abductor Solo"
 	outfit = /datum/outfit/abductor/scientist/onemanteam
 
-/datum/antagonist/abductor/scientist/onemanteam
-	name = "Abductor Solo"
-	outfit = /datum/outfit/abductor/scientist/onemanteam
-
 /datum/antagonist/abductor/create_team(datum/team/abductor_team/new_team)
 	if(!new_team)
 		return
