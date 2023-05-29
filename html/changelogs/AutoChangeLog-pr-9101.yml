@@ -1,0 +1,4 @@
+author: BeeLover66
+delete-after: true
+changes:
+  - bugfix: Trash recycler now works
