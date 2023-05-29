@@ -577,7 +577,9 @@
 		Remove(H)
 		return
 
-	var/message = stripped_input(usr, "Message:", "Slime Telepathy")
+	var/message = tgui_input_text(usr, "Message:", "Slime Telepathy")
+	if(!message)
+		return
 	if(CHAT_FILTER_CHECK(message))
 		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
 		return
@@ -601,12 +603,12 @@
 			if(QDELETED(M) || M.stat == DEAD)
 				species.unlink_mob(M)
 				continue
-			to_chat(M, msg)
+			to_chat(M, msg, type = MESSAGE_TYPE_RADIO, avoid_highlighting = M == star_owner)
 
 		for(var/X in GLOB.dead_mob_list)
 			var/mob/M = X
 			var/link = FOLLOW_LINK(M, H)
-			to_chat(M, "[link] [msg]")
+			to_chat(M, "[link] [msg]", type = MESSAGE_TYPE_RADIO)
 
 /datum/action/innate/project_thought
 	name = "Send Thought"

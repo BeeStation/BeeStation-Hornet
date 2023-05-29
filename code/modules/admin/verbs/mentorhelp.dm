@@ -148,7 +148,7 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 	return key_name_mentor(user)
 
 /datum/help_ticket/mentor/message_ticket_managers(msg)
-	message_mentors(msg)
+	message_mentors(msg, target = claimee)
 
 /datum/help_ticket/mentor/MessageNoRecipient(msg, add_to_ticket = TRUE)
 	var/ref_src = "[REF(src)]"
