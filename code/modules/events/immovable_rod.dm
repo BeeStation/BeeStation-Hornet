@@ -33,12 +33,12 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	priority_announce("What the fuck was that?!", "General Alert", SSstation.announcer.get_rand_alert_sound())
 
 /datum/round_event/immovable_rod/start()
-	var/datum/round_event_control/immovable_rod/C = control
+	var/datum/round_event_control/immovable_rod/our_controller = control
 	var/startside = pick(GLOB.cardinals)
-	var/turf/endT = get_edge_target_turf(get_random_station_turf(), turn(startside, 180))
-	var/turf/startT = spaceDebrisStartLoc(startside, endT.z)
-	var/atom/rod = new /obj/effect/immovablerod(startT, endT, C.special_target)
-	C.special_target = null //Cleanup for future event rolls.
+	var/turf/end_turf = get_edge_target_turf(get_random_station_turf(), turn(startside, 180))
+	var/turf/start_turf = spaceDebrisStartLoc(startside, endT.z)
+	var/atom/rod = new /obj/effect/immovablerod(start_turf, end_turf, our_controller.special_target, our_controller.force_looping)
+	our_controller.special_target = null //Cleanup for future event rolls.
 	announce_to_ghosts(rod)
 
 /obj/effect/immovablerod
@@ -55,10 +55,11 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	generic_canpass = FALSE
 	movement_type = PHASING | FLYING
-	var/mob/living/wizard
-	var/z_original = 0
+	/// The turf we're looking to coast to.
+	var/turf/destination_turf
+	/// Something
 	var/previous_distance = 1000
-	var/destination
+	/// Whether we notify ghosts.
 	var/notify = TRUE
 	///We can designate a specific target to aim for, in which case we'll try to snipe them rather than just flying in a random direction
 	var/atom/special_target
@@ -71,22 +72,28 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	/// The rod levels up with each kill, increasing in size and auto-renaming itself.
 	var/dnd_style_level_up = TRUE
 
-/obj/effect/immovablerod/New(atom/start, atom/end, aimed_at)
+/obj/effect/immovablerod/Initialize(mapload, atom/target_atom, atom/specific_target, force_looping)
 	. = ..()
 	SSaugury.register_doom(src, 2000)
 
-	destination = end
-	special_target = aimed_at
+	var/turf/real_destination = get_turf(target_atom)
+	destination_turf = real_destination
+	special_target = specific_target
+	loopy_rod = force_looping
 	GLOB.poi_list += src
 
 	if(special_target)
-
-	if(special_target_valid)
 		SSmove_manager.home_onto(src, special_target)
-		previous_distance = get_dist(src, special_target)
-	else if(end && end.z==z_original)
-		SSmove_manager.home_onto(src, destination)
-		previous_distance = get_dist(src, destination)
+	else
+		SSmove_manager.move_towards(src, real_destination)
+
+/obj/effect/immovablerod/Destroy()
+	//UnregisterSignal(src, COMSIG_ATOM_ENTERING)
+	GLOB.poi_list -= src
+	SSaugury.unregister_doom(src)
+	destination_turf = null
+	special_target = null
+	. = ..()
 
 /obj/effect/immovablerod/examine(mob/user)
 	. = ..()
@@ -101,11 +108,6 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		\t\t[num_mobs_hit] mobs total, \n\
 		\t\t[num_sentient_mobs_hit] of which were sentient, and \n\
 		\t\t[num_sentient_people_hit] of which were sentient people</span>"
-
-/obj/effect/immovablerod/Destroy()
-	GLOB.poi_list -= src
-	SSaugury.unregister_doom(src)
-	. = ..()
 
 /obj/effect/immovablerod/Topic(href, href_list)
 	if(href_list["orbit"])
@@ -156,20 +158,26 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		return ..()
 
 	// If we have a destination turf, let's make sure it's also still valid.
-	if(destination)
-		var/turf/target_turf = get_turf(destination)
+	if(destination_turf)
+
+		// If the rod is a loopy_rod, run complete_trajectory() to get a new edge turf to fly to.
+		// Otherwise, qdel the rod.
+		if(destination_turf.z != z)
+			if(loopy_rod)
+				complete_trajectory()
+				return ..()
 
 		// Note: There is no way to detect if this is because it spawned off the primary station
 		// z-level with a destination on the primary station z-level. As a result, maps with
 		// multiple station z-levels may find their immovable rods immediately deleting themselves.
-		if(target_turf.z != z)
+		if(destination_turf.z != z)
 			qdel(src)
 			return
 
 		// Did we reach our destination? We're somewhere weird. Let's get rid of ourselves.
 		// Ordinarily this won't happen as the average destination is the edge of the map and
 		// the rod will auto transition to a new z-level.
-		if(loc == get_turf(destination))
+		if(loc == destination_turf)
 			qdel(src)
 			return
 
@@ -263,18 +271,26 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		var/mob/living/carbon/human/U = user
 		if(U.job in list(JOB_NAME_RESEARCHDIRECTOR))
 			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
-			for(var/mob/M in urange(8, src))
-				if(!M.stat)
-					shake_camera(M, 2, 3)
-			if(wizard)
-				U.visible_message("<span class='boldwarning'>[src] transforms into [wizard] as [U] suplexes them!</span>", "<span class='warning'>As you grab [src], it suddenly turns into [wizard] as you suplex them!</span>")
-				to_chat(wizard, "<span class='boldwarning'>You're suddenly jolted out of rod-form as [U] somehow manages to grab you, slamming you into the ground!</span>")
-				wizard.Stun(60)
-				wizard.apply_damage(25, BRUTE)
-				qdel(src)
-			else
-				U.client.give_award(/datum/award/achievement/misc/feat_of_strength, U) //rod-form wizards would probably make this a lot easier to get so keep it to regular rods only
-				U.visible_message("<span class='boldwarning'>[U] suplexes [src] into the ground!</span>", "<span class='warning'>You suplex [src] into the ground!</span>")
-				new /obj/structure/festivus/anchored(drop_location())
-				new /obj/effect/anomaly/flux(drop_location())
-				qdel(src)
+			for(var/mob/living/nearby_mob in urange(8, src))
+		if(nearby_mob.stat != CONSCIOUS)
+			continue
+		shake_camera(nearby_mob, 2, 3)
+
+	return suplex_rod(user)
+
+/**
+ * Called when someone manages to suplex the rod.
+ *
+ * Arguments
+ * * strongman - the suplexer of the rod.
+ */
+/obj/effect/immovablerod/proc/suplex_rod(mob/living/strongman)
+	strongman.client?.give_award(/datum/award/achievement/misc/feat_of_strength, strongman)
+	strongman.visible_message(
+		"<span class='boldwarning'>[strongman] suplexes [src] into the ground!</span>",
+		"<span class='warning'>You suplex [src] into the ground!</span>"
+		)
+	new /obj/structure/festivus/anchored(drop_location())
+	new /obj/effect/anomaly/flux(drop_location())
+	qdel(src)
+	return TRUE
