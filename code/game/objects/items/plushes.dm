@@ -491,7 +491,6 @@
 		P.clash_of_the_plushies(src)
 
 /obj/item/toy/plush/narplush/hugbox
-	desc = "A small stuffed doll of the elder goddess Nar'Sie. Who thought this was a good children's toy?"
 	invoker_charges = 0
 
 /obj/item/toy/plush/lizardplushie
