@@ -202,7 +202,7 @@
 	var/obj/effect/portal/c2 = created[2]
 
 	var/turf/check_turf = get_turf(get_step(user, user.dir))
-	if(check_turf.CanPass(user, get_dir(check_turf, user)))
+	if(!check_turf.is_blocked_turf(TRUE, src))
 		c1.forceMove(check_turf)
 	active_portal_pairs[created[1]] = created[2]
 
