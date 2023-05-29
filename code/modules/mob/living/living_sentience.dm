@@ -43,11 +43,6 @@
 		to_chat(src, "<span class='notice'>[get_spawner_flavour_text()]</span>")
 	return TRUE
 
-// this exists because some 'playable=TRUE' mobs are not actually playable because mob key is automatically given
-// it prevents 'GLOB.poi_list' being glitched. without this, it will show xeno(or some mobs) twice in orbit panel.
-/mob/living/proc/delayed_set_playable(called_again=FALSE)
-	addtimer(CALLBACK(src, PROC_REF(set_playable)), 2 SECONDS)
-
 /mob/living/proc/set_playable()
 	playable = TRUE
 	if (!key)	//check if there is nobody already inhibiting this mob
