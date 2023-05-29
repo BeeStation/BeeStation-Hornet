@@ -5512,7 +5512,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/mob/living/simple_animal/bot/cleanbot,
+/mob/living/simple_animal/bot/secbot/pingsky,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "bNx" = (
@@ -11057,6 +11057,10 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/wood,
 /area/crew_quarters/theatre)
+"dCL" = (
+/obj/machinery/ecto_sniffer,
+/turf/open/floor/plasteel,
+/area/science/robotics)
 "dCY" = (
 /obj/structure/sign/poster/random{
 	pixel_x = 2
@@ -26903,7 +26907,9 @@
 /obj/item/hand_labeler,
 /obj/item/assembly/signaler,
 /obj/structure/table/reinforced,
-/obj/item/stack/sheet/mineral/plasma/fifty,
+/obj/item/stack/sheet/mineral/plasma/fifty{
+	amount = 15
+	},
 /obj/item/clothing/glasses/science{
 	pixel_x = 4;
 	pixel_y = 10
@@ -45314,7 +45320,9 @@
 /area/security/warden)
 "ovp" = (
 /obj/effect/spawner/structure/window,
-/obj/structure/curtain/directional,
+/obj/structure/curtain/directional{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/crew_quarters/cafeteria)
 "ovK" = (
@@ -47099,6 +47107,10 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel,
 /area/medical/medbay/lobby)
+"paq" = (
+/mob/living/simple_animal/bot/cleanbot,
+/turf/open/floor/plating,
+/area/ai_monitored/storage/satellite)
 "pau" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 1
@@ -59262,7 +59274,6 @@
 	pixel_x = -2;
 	pixel_y = 5
 	},
-/obj/machinery/ecto_sniffer,
 /obj/item/stack/sheet/iron/fifty{
 	pixel_x = -2;
 	pixel_y = 5
@@ -59277,6 +59288,9 @@
 /obj/item/stack/sheet/plasteel{
 	amount = 15;
 	pixel_x = 2
+	},
+/obj/item/stack/sheet/mineral/plasma/fifty{
+	amount = 5
 	},
 /turf/open/floor/plasteel,
 /area/science/robotics)
@@ -101439,7 +101453,7 @@ vwQ
 jUD
 uKi
 mvC
-iGM
+dCL
 eaR
 qAe
 fWo
@@ -110337,7 +110351,7 @@ pHE
 tEo
 cUD
 acL
-pHE
+paq
 etb
 aNU
 vDZ
