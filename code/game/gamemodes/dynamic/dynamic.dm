@@ -558,7 +558,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 			drafted_rules[ruleset] = null
 			continue
 
-		if (check_blocking(ruleset, ruleset.blocking_rules, rulesets_picked))
+		if (check_blocking(ruleset, rulesets_picked))
 			drafted_rules[ruleset] = null
 			continue
 
@@ -639,7 +639,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		if(only_ruleset_executed)
 			return FALSE
 		// Check if a blocking ruleset has been executed.
-		else if(check_blocking(new_rule, new_rule.blocking_rules, executed_rules))
+		else if(check_blocking(new_rule, executed_rules))
 			return FALSE
 		// Check if the ruleset is high impact and if a high impact ruleset has been executed
 		else if(new_rule.flags & HIGH_IMPACT_RULESET)
@@ -683,10 +683,11 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	return type_list
 
 /// Checks if a type in blocking_list is in rule_list.
-/datum/game_mode/dynamic/proc/check_blocking(datum/dynamic_ruleset/rule, list/blocking_list, list/rule_list)
+/datum/game_mode/dynamic/proc/check_blocking(datum/dynamic_ruleset/rule, list/executed_rule_list)
+	var/list/blocking_list = rule.blocking_rules
 	if(blocking_list.len > 0)
 		for(var/blocking in blocking_list)
-			for(var/_executed in rule_list)
+			for(var/_executed in executed_rule_list)
 				var/datum/executed = _executed
 				if(blocking == executed.type)
 					log_game("DYNAMIC: FAIL: check_blocking [rule] blocked by [blocking]")
