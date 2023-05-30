@@ -15,4 +15,4 @@
 
 // this makes metalanguage is not understandable if they don't have the language for some reason
 /datum/language/metalanguage/scramble(input)
-	return Gibberish(stars(return_text)) // this will be simple enough to be a curse
+	return Gibberish(stars(input)) // this will be simple enough to be a curse
