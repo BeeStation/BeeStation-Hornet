@@ -113,6 +113,8 @@
 			message_admins("Possible volunteers was 0. This shouldn't appear, because of ready()!")
 			log_game("DYNAMIC: Possible volunteers was 0. This shouldn't appear, because of ready()!")
 			CRASH("The ruleset [name] execute()d with no candidates. This should have been caught by ready(), so something is wrong.")
+		else
+			message_admins("The dynamic ruleset could not be forced, as there are no potential candidates (0 dead players/observers)")
 		return
 	message_admins("Polling [possible_volunteers.len] players to apply for the [name] ruleset.")
 	log_game("DYNAMIC: Polling [possible_volunteers.len] players to apply for the [name] ruleset.")
