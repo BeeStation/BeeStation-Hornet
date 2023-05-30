@@ -857,6 +857,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				dat += "<h2>Admin Settings</h2>"
 
 				dat += "<b>Adminhelp Sounds:</b> <a href='?_src_=prefs;preference=hear_adminhelps'>[(toggles & PREFTOGGLE_SOUND_ADMINHELP)?"Enabled":"Disabled"]</a><br>"
+				dat += "<b>Admin Alert Sounds:</b> <a href='?_src_=prefs;preference=hear_adminalertsounds'>[(toggles & PREFTOGGLE_2_SOUND_ADMINALERT)?"Enabled":"Disabled"]</a><br>"
 				dat += "<b>Prayer Sounds:</b> <a href = '?_src_=prefs;preference=hear_prayers'>[(toggles & PREFTOGGLE_SOUND_PRAYERS)?"Enabled":"Disabled"]</a><br>"
 				dat += "<b>Announce Login:</b> <a href='?_src_=prefs;preference=announce_login'>[(toggles & PREFTOGGLE_ANNOUNCE_LOGIN)?"Enabled":"Disabled"]</a><br>"
 				dat += "<br>"
@@ -1843,6 +1844,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				//here lies the badmins
 				if("hear_adminhelps")
 					user.client.toggleadminhelpsound()
+				if("hear_adminalertsounds")
+					user.client.toggleadminalertsound()
 				if("hear_prayers")
 					user.client.toggle_prayer_sound()
 				if("announce_login")
