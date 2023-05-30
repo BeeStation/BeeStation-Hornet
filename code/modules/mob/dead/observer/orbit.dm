@@ -29,6 +29,21 @@
 		else
 			return TRUE
 
+/datum/orbit_menu/ui_static_data(mob/user)
+	var/static/list/all_job_huds
+	if(!all_job_huds)
+		all_job_huds = GLOB.command_positions_hud|\
+			GLOB.important_positions_hud|\
+			GLOB.engineering_positions_hud|\
+			GLOB.medical_positions_hud|\
+			GLOB.science_positions_hud|\
+			GLOB.supply_positions_hud|\
+			GLOB.civilian_positions_hud|\
+			GLOB.security_positions_hud
+	return list(
+		"job_huds" = all_job_huds
+	)
+
 /datum/orbit_menu/ui_data(mob/user)
 	var/list/data = list()
 

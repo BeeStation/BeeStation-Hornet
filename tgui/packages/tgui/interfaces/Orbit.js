@@ -35,7 +35,9 @@ const compareNumberedText = (a, b) => {
 };
 
 const OrbitSection = (props, context) => {
-  const { act } = useBackend(context);
+  const { act, data: {
+    job_huds = [],
+  } } = useBackend(context);
   const { searchText, source, title, color, basic } = props;
   const things = source.filter(searchFor(searchText));
   things.sort(compareNumberedText);
@@ -59,7 +61,7 @@ const OrbitSection = (props, context) => {
             key={thing.name}
             color={color}
             thing={thing}
-            job={thing.role_icon}
+            job={job_huds.includes(thing.role_icon.substring(3)) && thing.role_icon}
             antag={thing.antag_icon}
           />
         )
