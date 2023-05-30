@@ -128,7 +128,7 @@
 	switch(action)
 		if("claim")
 			if(ticket.claimee)
-				var/confirm = alert("This ticket is already claimed, override claim?", null,"Yes", "No")
+				var/confirm = tgui_alert(usr, "This ticket is already claimed, override claim?", buttons = list("Yes", "No"))
 				if(confirm != "Yes")
 					return
 			claim_ticket = CLAIM_OVERRIDE

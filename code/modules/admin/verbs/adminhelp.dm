@@ -36,7 +36,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 
 // Used for methods where input via arg doesn't work
 /client/proc/get_adminhelp()
-	var/msg = capped_multiline_input(src, "Please describe your problem concisely and an admin will help as soon as they're able. Include the names of the people you are ahelping against if applicable.", "Adminhelp contents")
+	var/msg = tgui_input_text(src, "Please describe your problem concisely and an admin will help as soon as they're able. Include the names of the people you are ahelping against if applicable.", "Adminhelp contents", multiline = TRUE, encode = FALSE) // we don't encode/sanitize here bc it's done for us later
 	adminhelp(msg)
 
 /client/verb/adminhelp(msg as message)
@@ -61,7 +61,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Adminhelp") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	if(current_adminhelp_ticket)
-		if(alert(usr, "You already have a ticket open. Is this for the same issue?",,"Yes","No") != "No")
+		if(tgui_alert(usr, "You already have a ticket open. Is this for the same issue?", buttons = list("Yes", "No")) != "No")
 			if(current_adminhelp_ticket)
 				current_adminhelp_ticket.MessageNoRecipient(msg)
 				current_adminhelp_ticket.TimeoutVerb()
