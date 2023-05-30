@@ -84,7 +84,7 @@
 		var/datum/language/language = lang
 		if(language_name == initial(language.name))
 			language_datum = language
-	var/is_admin = check_rights_for(user.client, R_ADMIN)
+	var/is_admin = check_rights_for(user.client, R_ADMIN) || check_rights_for(user.client, R_DEBUG)
 
 	switch(action)
 		if("select_default")
