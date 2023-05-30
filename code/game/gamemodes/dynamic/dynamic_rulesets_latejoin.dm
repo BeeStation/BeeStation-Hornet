@@ -55,7 +55,7 @@
 	assigned += M.mind
 	M.mind.special_role = antag_flag
 	M.mind.add_antag_datum(antag_datum)
-	return TRUE
+	return DYNAMIC_EXECUTE_SUCCESS
 
 //////////////////////////////////////////////
 //                                          //
@@ -136,11 +136,11 @@
 		revolution.update_objectives()
 		revolution.update_heads()
 		SSshuttle.registerHostileEnvironment(revolution)
-		return TRUE
+		return DYNAMIC_EXECUTE_SUCCESS
 	else
 		log_game("DYNAMIC: [ruletype] [name] discarded [M.name] from head revolutionary due to ineligibility.")
 		log_game("DYNAMIC: [ruletype] [name] failed to get any eligible headrevs. Refunding [cost] threat.")
-		return NOT_ENOUGH_PLAYERS
+		return DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS
 
 /datum/dynamic_ruleset/latejoin/provocateur/rule_process()
 	var/winner = revolution.process_victory(revs_win_threat_injection)
@@ -201,4 +201,4 @@
 	// Limit it to four missed passive gain cycles (4 points).
 	new_heretic.knowledge_points = min(new_heretic.knowledge_points, 5)
 
-	return TRUE
+	return DYNAMIC_EXECUTE_SUCCESS

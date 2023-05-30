@@ -81,7 +81,7 @@
 			M.add_antag_datum(/datum/antagonist/brother, team)
 		team.update_name()
 	mode.brother_teams += pre_brother_teams
-	return TRUE
+	return DYNAMIC_EXECUTE_SUCCESS
 
 //////////////////////////////////////////////
 //                                          //
@@ -191,7 +191,7 @@
 	for(var/datum/mind/M in assigned)
 		M.current.forceMove(pick(GLOB.wizardstart))
 		M.add_antag_datum(new antag_datum())
-	return TRUE
+	return DYNAMIC_EXECUTE_SUCCESS
 
 //////////////////////////////////////////////
 //                                          //
@@ -238,7 +238,7 @@
 		new_cultist.give_equipment = TRUE
 		M.add_antag_datum(new_cultist)
 	main_cult.setup_objectives()
-	return TRUE
+	return DYNAMIC_EXECUTE_SUCCESS
 
 /datum/dynamic_ruleset/roundstart/bloodcult/round_result()
 	..()
@@ -297,7 +297,7 @@
 		else
 			var/datum/antagonist/nukeop/new_op = new antag_datum()
 			M.add_antag_datum(new_op)
-	return TRUE
+	return DYNAMIC_EXECUTE_SUCCESS
 
 /datum/dynamic_ruleset/roundstart/nuclear/round_result()
 	var result = nuke_team.get_result()
@@ -390,9 +390,9 @@
 		revolution.update_objectives()
 		revolution.update_heads()
 		SSshuttle.registerHostileEnvironment(revolution)
-		return TRUE
+		return DYNAMIC_EXECUTE_SUCCESS
 	log_game("DYNAMIC: [ruletype] [name] failed to get any eligible headrevs. Refunding [cost] threat.")
-	return NOT_ENOUGH_PLAYERS
+	return DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS
 
 /datum/dynamic_ruleset/roundstart/revs/clean_up()
 	qdel(revolution)
@@ -503,7 +503,7 @@
 	for(var/datum/mind/devil in assigned)
 		add_devil(devil.current, ascendable = TRUE)
 		add_devil_objectives(devil,2)
-	return TRUE
+	return DYNAMIC_EXECUTE_SUCCESS
 
 /datum/dynamic_ruleset/roundstart/devil/proc/add_devil_objectives(datum/mind/devil_mind, quantity)
 	var/list/validtypes = list(/datum/objective/devil/soulquantity, /datum/objective/devil/soulquality, /datum/objective/devil/sintouch, /datum/objective/devil/buy_target)
@@ -607,7 +607,7 @@
 		S.prefix = CLOCKCULT_PREFIX_MASTER
 	//Setup the conversion limits for auto opening the ark
 	calculate_clockcult_values()
-	return TRUE
+	return DYNAMIC_EXECUTE_SUCCESS
 
 /datum/dynamic_ruleset/roundstart/clockcult/round_result()
 	if(GLOB.ratvar_risen)
@@ -660,7 +660,7 @@
 		new_incursionist.team = incursion_team
 		incursion_team.add_member(M)
 		M.add_antag_datum(new_incursionist)
-	return TRUE
+	return DYNAMIC_EXECUTE_SUCCESS
 
 /datum/dynamic_ruleset/roundstart/incursion/round_result()
 	..()

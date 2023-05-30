@@ -610,14 +610,14 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 /datum/game_mode/dynamic/proc/execute_roundstart_rule(sent_rule)
 	var/datum/dynamic_ruleset/rule = sent_rule
 	var/execute_result = rule.execute()
-	if(execute_result && execute_result != NOT_ENOUGH_PLAYERS)
+	if(execute_result == DYNAMIC_EXECUTE_SUCCESS)
 		if(rule.persistent)
 			current_rules += rule
 		new_snapshot(rule)
 		return TRUE
 	rule.clean_up()	// Refund threat, delete teams and so on.
 	executed_rules -= rule
-	if(execute_result != NOT_ENOUGH_PLAYERS) // not enough players is an expected failure. Any other should be reported
+	if(!execute_result || execute_result == DYNAMIC_EXECUTE_FAILURE) // not enough players is an expected failure. Any other should be reported
 		CRASH("The starting rule \"[rule.name]\" failed to execute.")
 	return FALSE
 

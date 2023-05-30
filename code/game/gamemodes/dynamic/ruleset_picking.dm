@@ -84,7 +84,7 @@
 	spend_midround_budget(rule.cost, threat_log, "[worldtime2text()]: [rule.ruletype] [rule.name]")
 	rule.pre_execute(current_players[CURRENT_LIVING_PLAYERS].len)
 	var/execute_result = rule.execute()
-	if(execute_result && execute_result != NOT_ENOUGH_PLAYERS)
+	if(execute_result == DYNAMIC_EXECUTE_SUCCESS)
 		log_game("DYNAMIC: Injected a [rule.ruletype == "latejoin" ? "latejoin" : "midround"] ruleset [rule.name].")
 		if(rule.flags & HIGH_IMPACT_RULESET)
 			high_impact_ruleset_executed = TRUE
@@ -99,7 +99,7 @@
 			current_rules += rule
 		new_snapshot(rule)
 		return TRUE
-	if(execute_result != NOT_ENOUGH_PLAYERS) // not enough players is an expected failure. Any other should be reported
+	if(!execute_result || execute_result == DYNAMIC_EXECUTE_FAILURE) // not enough players is an expected failure. Any other should be reported
 		CRASH("The [rule.ruletype] rule \"[rule.name]\" failed to execute.")
 	return FALSE
 

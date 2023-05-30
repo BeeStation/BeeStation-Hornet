@@ -77,6 +77,9 @@
 	if (forced)
 		return TRUE
 
+	if (!..()) // calls check_candidates()
+		return FALSE
+
 	var/job_check = 0
 	if (length(enemy_roles))
 		for (var/mob/M in mode.current_players[CURRENT_LIVING_PLAYERS])
@@ -94,9 +97,6 @@
 	if (mode.check_lowpop_lowimpact_injection())
 		return FALSE
 
-	if (!..()) // calls check_candidates()
-		return FALSE
-
 	return TRUE
 
 /datum/dynamic_ruleset/midround/from_ghosts/execute(forced = FALSE)
@@ -104,7 +104,7 @@
 	possible_candidates.Add(dead_players)
 	possible_candidates.Add(list_observers)
 	send_applications(possible_candidates, forced)
-	return length(assigned) ? TRUE : NOT_ENOUGH_PLAYERS
+	return length(assigned) ? DYNAMIC_EXECUTE_SUCCESS : DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS
 
 /// This sends a poll to ghosts if they want to be a ghost spawn from a ruleset.
 /datum/dynamic_ruleset/midround/from_ghosts/proc/send_applications(list/possible_volunteers = list(), forced = FALSE)
@@ -224,7 +224,7 @@
 	candidates -= M
 	var/datum/antagonist/traitor/newTraitor = new
 	M.mind.add_antag_datum(newTraitor)
-	return TRUE
+	return DYNAMIC_EXECUTE_SUCCESS
 
 //////////////////////////////////////////////
 //                                          //
@@ -280,7 +280,7 @@
 			M.replace_random_law(generate_ion_law(), list(LAW_INHERENT, LAW_SUPPLIED, LAW_ION))
 		else
 			M.add_ion_law(generate_ion_law())
-	return TRUE
+	return DYNAMIC_EXECUTE_SUCCESS
 
 //////////////////////////////////////////////
 //                                          //
