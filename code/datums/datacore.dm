@@ -387,12 +387,6 @@
 		security_records_out += list(crew_record)
 	return security_records_out
 
-/datum/datacore/proc/get_id_photo(mob/living/carbon/human/H, client/C, show_directions = list(SOUTH))
-	var/datum/job/J = SSjob.GetJob(H.mind.assigned_role)
-	var/datum/preferences/prefs
-	if(!C)
-		C = H.client
-	if(C)
-		prefs = C.prefs
-	// TODO tguip-test IPC changeling
-	return get_flat_human_icon(null, J, prefs, DUMMY_HUMAN_SLOT_MANIFEST, show_directions)
+// TODO tgui-prefs test this
+/datum/datacore/proc/get_id_photo(mob/living/carbon/human/human, show_directions = list(SOUTH))
+	return get_flat_existing_human_icon(human, show_directions)

@@ -177,15 +177,7 @@
 
 			var/obj/item/storage/B = (locate() in H)
 			if(B)
-<<<<<<< HEAD
-				G.spawn_item(B, metadata, M.client.prefs.active_character.jumpsuit_style)
-=======
-<<<<<<< HEAD
-				G.spawn_item(B, metadata)
-=======
 				G.spawn_item(B, metadata, jumpsuit_style)
->>>>>>> e0f17f846e0 (Some features)
->>>>>>> 3da2a524616 (Some features)
 				to_chat(M, "<span class='notice'>Placing [G.display_name] in [B.name]!</span>")
 				continue
 
