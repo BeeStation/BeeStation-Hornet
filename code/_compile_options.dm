@@ -69,7 +69,7 @@
 
 //Update this whenever the byond version is stable so people stop updating to hilariously broken versions
 #define MAX_COMPILER_VERSION 515
-#define MAX_COMPILER_BUILD 1607
+#define MAX_COMPILER_BUILD 1608
 #if DM_VERSION > MAX_COMPILER_VERSION || DM_BUILD > MAX_COMPILER_BUILD
 #warn WARNING: Your BYOND version is over the recommended version (515.1607)! Stability is not guaranteed.
 #endif
