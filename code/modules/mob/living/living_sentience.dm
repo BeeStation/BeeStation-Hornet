@@ -50,6 +50,9 @@
 		LAZYADD(GLOB.mob_spawners["[name]"], src)
 		GLOB.poi_list |= src
 		SSmobs.update_spawners()
+	else // it's spawned but someone occupied already
+		notify_ghosts("[name] has appeared!", source=src, action=NOTIFY_ORBIT, header="Something's Interesting!")
+
 
 /mob/living/get_spawner_desc()
 	return "Become [name]."
