@@ -304,7 +304,7 @@
 /datum/action/item_action/chameleon/change/proc/update_mob_hud(atom/card_holder)
 	// we're going to find a human, and store human ref to 'card_holder' by checking loc multiple time.
 	if(!ishuman(card_holder))
-		card_holder = card_holder.get_mob_owner()
+		card_holder = target.get_mob_owner()
 	if(!ishuman(card_holder))
 		return
 	var/mob/living/carbon/human/card_holding_human = card_holder
