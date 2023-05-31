@@ -206,7 +206,7 @@
 			var/old_weight = weight
 			weight *= ((100 - adjustment) / 100)
 			if(!logged_repeated_mode_adjust)
-				log_game("DYNAMIC: weight of [src] adjusted from [old_weight] to [.] by repeated_mode_adjust")
+				log_game("DYNAMIC: weight of [src] adjusted from [old_weight] to [weight] by repeated_mode_adjust")
 				logged_repeated_mode_adjust = TRUE
 	return weight
 
