@@ -70,9 +70,9 @@
 					serialized["role_icon"] = "hud[ckey(identification_card.GetJobIcon())]"
 				else if(SSjob.name_occupations[mind.assigned_role])
 					//If we have no ID, use the mind job
-					var/datum/job/located_job = SSjob.GetJob(mind.assigned_role)
-					if (located_job)
-						serialized["role_icon"] = "hud[ckey(located_job.title)]"
+					var/located_job_hud = get_hud_by_jobname(mind.assigned_role, returns_unknown=FALSE)
+					if (located_job_hud)
+						serialized["role_icon"] = "hud[ckey(located_job_hud)]"
 
 				for (var/_A in mind.antag_datums)
 					var/datum/antagonist/A = _A
