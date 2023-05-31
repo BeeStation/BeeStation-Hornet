@@ -402,9 +402,7 @@
 
 /mob/living/silicon/ai/Topic(href, href_list)
 	..()
-	if(usr != src)
-		return
-	if (incapacitated())
+	if(usr != src || incapacitated())
 		return
 	if (href_list["mach_close"])
 		var/t1 = "window=[href_list["mach_close"]]"
