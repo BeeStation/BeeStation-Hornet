@@ -83,7 +83,7 @@
 								background = "'background-color:#4F7529;'"
 
 							dat += "<tr style=[background]><td><A href='?src=[REF(src)];d_rec=[R.fields["id"]]'>[R.fields["name"]]</a></td>"
-							dat += "<td>[]</td>" + R.fields["id"]
+							dat += "<td>[R.fields["id"]]</td>"
 							dat += "<td><b>F:</b> [R.fields["fingerprint"]]<BR><b>D:</b> [b_dna]</td>"
 							dat += "<td>[blood_type]</td>"
 							dat += "<td>[R.fields["p_stat"]]</td>"
