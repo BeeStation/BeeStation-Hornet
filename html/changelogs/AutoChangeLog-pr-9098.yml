@@ -1,7 +1,0 @@
-author: Tyranicranger4
-delete-after: true
-changes:
-  - bugfix: Fixed Delimber anomalies actually delimbing people, despite their name
-      this was not their intended behavior
-  - admin: Slightly improved Delimber anomaly logging
-  - tweak: Renamed 'Delimber' anomalies to 'Bioscrambler' anomalies
