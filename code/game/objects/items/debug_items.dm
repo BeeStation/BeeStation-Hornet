@@ -264,7 +264,6 @@
 		TRAIT_RADIMMUNE,
 		TRAIT_VIRUSIMMUNE,
 		TRAIT_PIERCEIMMUNE,
-		TRAIT_IGNORESLOWDOWN,
 		TRAIT_IGNOREDAMAGESLOWDOWN,
 		TRAIT_NODISMEMBER,
 		TRAIT_NOLIMBDISABLE,
@@ -287,15 +286,18 @@
 		TRAIT_XRAY_VISION,
 		TRAIT_MEDICAL_HUD,
 		TRAIT_SECURITY_HUD,
-		TRAIT_BARMASTER
+		TRAIT_BARMASTER,
+		TRAIT_ALL_SURGERIES
 	)
 
-/obj/item/debug/orb_of_power/pickup(mob/user)
+/obj/item/debug/orb_of_power/pickup(mob/living/user)
 	. = ..()
 	for(var/each in traits_to_give)
 		ADD_TRAIT(user, each, "debug")
 	user.grant_all_languages(TRUE, TRUE, TRUE, "debug")
+	user.see_override = SEE_INVISIBLE_OBSERVER
 	user.update_sight()
+
 	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	hud.add_hud_to(user)
 	hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
@@ -312,6 +314,7 @@
 	for(var/each in traits_to_give)
 		REMOVE_TRAIT(user, each, "debug")
 	user.remove_all_languages("debug")
+	user.see_override = initial(user.see_override)
 	user.update_sight()
 
 	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
