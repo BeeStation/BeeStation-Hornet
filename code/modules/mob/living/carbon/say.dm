@@ -1,6 +1,10 @@
 /mob/living/carbon/proc/handle_tongueless_speech(mob/living/carbon/speaker, list/speech_args)
 	SIGNAL_HANDLER
 
+	var/obj/item/organ/tongue/tongue = speaker.getorganslot(ORGAN_SLOT_TONGUE)
+	if(tongue && !CHECK_BITFIELD(tongue.organ_flags, ORGAN_FAILING))
+		speaker.UnregisterSignal(speaker, COMSIG_MOB_SAY)
+		return
 	var/message = speech_args[SPEECH_MESSAGE]
 	var/static/regex/tongueless_lower = new("\[gdntke]+", "g")
 	var/static/regex/tongueless_upper = new("\[GDNTKE]+", "g")
@@ -11,7 +15,7 @@
 
 /mob/living/carbon/can_speak_vocal(message)
 	if(silent)
-		return 0
+		return FALSE
 	return ..()
 
 /mob/living/carbon/could_speak_language(datum/language/dt)
@@ -19,5 +23,5 @@
 	if(T)
 		. = T.could_speak_language(dt)
 	else
-		. = initial(dt.flags) & TONGUELESS_SPEECH
+		. = CHECK_BITFIELD(initial(dt.flags), TONGUELESS_SPEECH)
 

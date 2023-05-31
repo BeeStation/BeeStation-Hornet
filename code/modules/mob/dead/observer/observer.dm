@@ -152,7 +152,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	show_data_huds()
 	data_huds_on = 1
 
-	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE)
+	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE, "#490066")
 
 /mob/dead/observer/get_photo_description(obj/item/camera/camera)
 	return "You can also see a g-g-g-g-ghooooost!"
@@ -161,7 +161,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/old_color = color
 	color = "#960000"
 	animate(src, color = old_color, time = 10, flags = ANIMATION_PARALLEL)
-	addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 10)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 10)
 
 /mob/dead/observer/Destroy()
 	UnregisterSignal(src, COMSIG_MOB_MOUSE_SCROLL_ON)
@@ -595,8 +595,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	..()
 
 /proc/updateallghostimages()
-	listclearnulls(GLOB.ghost_images_default)
-	listclearnulls(GLOB.ghost_images_simple)
+	list_clear_nulls(GLOB.ghost_images_default)
+	list_clear_nulls(GLOB.ghost_images_simple)
 
 	for (var/mob/dead/observer/O in GLOB.player_list)
 		O.updateghostimages()
@@ -633,7 +633,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(!(L in GLOB.player_list) && !L.mind)
 			possessible += L
 
-	var/mob/living/target = input("Your new life begins today!", "Possess Mob", null, null) as null|anything in sortNames(possessible)
+	var/mob/living/target = input("Your new life begins today!", "Possess Mob", null, null) as null|anything in sort_names(possessible)
 
 	if(!target)
 		return 0

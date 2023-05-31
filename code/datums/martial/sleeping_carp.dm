@@ -83,7 +83,7 @@
 	return basic_hit(A,D)
 
 /datum/martial_art/the_sleeping_carp/proc/headKick(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	var/def_check = D.getarmor(BODY_ZONE_HEAD, "melee")
+	var/def_check = D.getarmor(BODY_ZONE_HEAD, MELEE)
 	if(!D.stat && !D.IsParalyzed())
 		log_combat(A, D, "head kicked (Sleeping Carp)")
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
@@ -97,7 +97,7 @@
 	return basic_hit(A,D)
 
 /datum/martial_art/the_sleeping_carp/proc/elbowDrop(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	var/def_check = D.getarmor(BODY_ZONE_CHEST, "melee")
+	var/def_check = D.getarmor(BODY_ZONE_CHEST, MELEE)
 	if(!(D.mobility_flags & MOBILITY_STAND))
 		log_combat(A, D, "elbow dropped (Sleeping Carp)")
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
@@ -129,7 +129,7 @@
 	return 1
 
 /datum/martial_art/the_sleeping_carp/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	var/def_check = D.getarmor(BODY_ZONE_CHEST, "melee")
+	var/def_check = D.getarmor(BODY_ZONE_CHEST, MELEE)
 	add_to_streak("H",D)
 	if(check_streak(A,D))
 		return 1

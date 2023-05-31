@@ -52,7 +52,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	verb_exclaim = "beeps"
 	max_integrity = 300
 	integrity_failure = 100
-	armor = list("melee" = 20, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 70, "stamina" = 0)
+	armor = list(MELEE = 20,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 70, STAMINA = 0)
 	circuit = /obj/item/circuitboard/machine/vendor
 	clicksound = 'sound/machines/pda_button1.ogg'
 	dept_req_for_free = ACCOUNT_SRV_BITFLAG
@@ -361,14 +361,14 @@ GLOBAL_LIST_EMPTY(vending_products)
 /obj/machinery/vending/wrench_act(mob/living/user, obj/item/I)
 	..()
 	if(panel_open)
-		default_unfasten_wrench(user, I, time = 60)
+		default_unfasten_wrench(user, I, time = 6 SECONDS)
 		unbuckle_all_mobs(TRUE)
 	return TRUE
 
 /obj/machinery/vending/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
 		return TRUE
-	if(anchored)
+	if(anchored || (!anchored && !panel_open))
 		default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 		cut_overlays()
 		if(panel_open)
@@ -522,7 +522,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 							new /obj/effect/gibspawner/human/bodypartless(get_turf(C))
 
 				C.apply_damage(max(0, squish_damage - crit_rebate), forced=TRUE)
-				C.AddElement(/datum/element/squish, 18 SECONDS)
+				C.AddElement(/datum/element/squish, 80 SECONDS)
 			else
 				L.visible_message("<span class='danger'>[L] is crushed by [src]!</span>", \
 				"<span class='userdanger'>You are crushed by [src]!</span>")

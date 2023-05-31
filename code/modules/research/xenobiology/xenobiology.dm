@@ -254,13 +254,13 @@
 /obj/item/slime_extract/yellow/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
-			if(istype(species,/datum/species/jelly/luminescent))
-				var/datum/species/jelly/luminescent/lum_species = species
+			if(istype(species,/datum/species/oozeling/luminescent))
+				var/datum/species/oozeling/luminescent/lum_species = species
 				if(lum_species.glow_intensity != LUMINESCENT_DEFAULT_GLOW)
 					to_chat(user, "<span class='warning'>Your glow is already enhanced!</span>")
 					return
 				lum_species.update_glow(user, 5)
-				addtimer(CALLBACK(lum_species, TYPE_PROC_REF(/datum/species/jelly/luminescent, update_glow), user, LUMINESCENT_DEFAULT_GLOW), 600)
+				addtimer(CALLBACK(lum_species, TYPE_PROC_REF(/datum/species/oozeling/luminescent, update_glow), user, LUMINESCENT_DEFAULT_GLOW), 600)
 				to_chat(user, "<span class='notice'>You start glowing brighter.</span>")
 				return 60 SECONDS
 			else
@@ -360,12 +360,7 @@
 				to_chat(user, "<span class='warning'>You can't swap your gender!</span>")
 				return 5 SECONDS
 
-			if(user.gender == MALE)
-				user.gender = FEMALE
-				user.visible_message("<span class='boldnotice'>[user] suddenly looks more feminine!</span>", "<span class='boldwarning'>You suddenly feel more feminine!</span>")
-			else
-				user.gender = MALE
-				user.visible_message("<span class='boldnotice'>[user] suddenly looks more masculine!</span>", "<span class='boldwarning'>You suddenly feel more masculine!</span>")
+			user.set_gender(user.gender == MALE ? FEMALE : MALE, forced = TRUE) //You are doing this to yourself.
 			return 10 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)
@@ -395,7 +390,7 @@
 			to_chat(user, "<span class='warning'>You feel yourself radically changing your slime type...</span>")
 			if(do_after(user, 120, target = user))
 				to_chat(user, "<span class='warning'>You feel different!</span>")
-				user.set_species(pick(/datum/species/jelly/slime, /datum/species/jelly/stargazer))
+				user.set_species(pick(/datum/species/oozeling/slime, /datum/species/oozeling/stargazer))
 				return 60 SECONDS
 			to_chat(user, "<span class='notice'>You stop the transformation.</span>")
 
@@ -642,8 +637,8 @@
 		if(SLIME_ACTIVATE_MINOR)
 			user.dna.features["mcolor"] = pick("FFFFFF","7F7F7F", "7FFF7F", "7F7FFF", "FF7F7F", "7FFFFF", "FF7FFF", "FFFF7F")
 			user.updateappearance(mutcolor_update = TRUE)
-			if(istype(species,/datum/species/jelly/luminescent))
-				var/datum/species/jelly/luminescent/lum_species = species
+			if(istype(species,/datum/species/oozeling/luminescent))
+				var/datum/species/oozeling/luminescent/lum_species = species
 				lum_species.update_glow(user)
 			to_chat(user, "<span class='notice'>You feel different...</span>")
 			return 10 SECONDS
@@ -684,6 +679,7 @@
 	name = "slime potion"
 	desc = "A hard yet gelatinous capsule excreted by a slime, containing mysterious substances."
 	w_class = WEIGHT_CLASS_TINY
+	item_flags = ISWEAPON
 
 /obj/item/slimepotion/afterattack(obj/item/reagent_containers/target, mob/user , proximity)
 	. = ..()
@@ -997,13 +993,8 @@
 
 	to_chat(user, "<span class='notice'>You feed [L] the gender change potion!</span>")
 
-	if(L.gender == MALE)
-		L.gender = FEMALE
-		L.visible_message("<span class='boldnotice'>[L] suddenly looks more feminine!</span>", "<span class='boldwarning'>You suddenly feel more feminine!</span>")
-	else
-		L.gender = MALE
-		L.visible_message("<span class='boldnotice'>[L] suddenly looks more masculine!</span>", "<span class='boldwarning'>You suddenly feel more masculine!</span>")
-	L.regenerate_icons()
+	if(!L.set_gender(L.gender == MALE ? FEMALE : MALE, forced = TRUE))
+		return
 	qdel(src)
 
 /obj/item/slimepotion/slime/renaming

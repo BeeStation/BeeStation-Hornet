@@ -69,6 +69,10 @@
 	maxHealth = 120
 	armored = TRUE
 
+// No more murder!
+/mob/living/simple_animal/hostile/bear/russian/hunter/ListTargets()
+	return list()
+
 /mob/living/simple_animal/hostile/bear/malnourished
 	name = "starving space bear"
 	desc = "You can practically see its ribcage through its thinning layer of fur. Looks like it hasn't eaten anything in a long while."

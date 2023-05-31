@@ -31,11 +31,6 @@ map metastation
 	votable
 endmap
 
-map pubbystation
-	maxplayers 50
-	votable
-endmap
-
 map deltastation
 	minplayers 40
 	votable
@@ -46,13 +41,13 @@ map kilostation
 	votable
 endmap
 
-map glowstation
+map flandstation
 	minplayers 40
 	votable
 endmap
 
-map flandstation
-	minplayers 40
+map radstation
+	minplayers 20
 	votable
 endmap
 

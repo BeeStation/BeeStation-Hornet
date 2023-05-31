@@ -20,6 +20,7 @@
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_EARS
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
+	item_flags = ISWEAPON
 	throw_speed = 3
 	throw_range = 7
 	materials = list(/datum/material/iron=10)
@@ -175,6 +176,14 @@
 				return
 			O.desc = input
 			to_chat(user, "You have successfully changed \the [O.name]'s description.")
+
+/obj/item/pen/get_writing_implement_details()
+	return list(
+		interaction_mode = MODE_WRITING,
+		font = font,
+		color = colour,
+		use_bold = FALSE,
+	)
 
 /*
  * Sleepypens

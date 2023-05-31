@@ -244,7 +244,7 @@
 		H.update_body()
 
 /datum/team/cult
-	name = "Cult"
+	name = "Bloodcult"
 
 	var/blood_target
 	var/image/blood_target_image
@@ -274,6 +274,7 @@
 			if(B.current)
 				SEND_SOUND(B.current, 'sound/hallucinations/i_see_you2.ogg')
 				to_chat(B.current, "<span class='cultlarge'>The veil weakens as your cult grows, your eyes begin to glow...")
+				log_game("The blood cult was given red eyes at cult population of [cultplayers].")
 				addtimer(CALLBACK(src, PROC_REF(rise), B.current), 200)
 		cult_risen = TRUE
 
@@ -282,6 +283,7 @@
 			if(B.current)
 				SEND_SOUND(B.current, 'sound/hallucinations/im_here1.ogg')
 				to_chat(B.current, "<span class='cultlarge'>Your cult is ascendent and the red harvest approaches - you cannot hide your true nature for much longer!!")
+				log_game("The blood cult was given halos at cult population of [cultplayers].")
 				addtimer(CALLBACK(src, PROC_REF(ascend), B.current), 200)
 		cult_ascendent = TRUE
 
@@ -314,7 +316,7 @@
 		for(var/datum/data/record/R as() in GLOB.data_core.locked)
 			var/datum/mind/M = R.fields["mindref"]
 			if(target == M)
-				reshape = R.fields["image"]
+				reshape = R.fields["character_appearance"]
 				break
 	if(!reshape)
 		reshape = icon('icons/mob/mob.dmi', "ghost", SOUTH)
@@ -336,7 +338,7 @@
 		for(var/datum/mind/possible_target in get_crewmember_minds())
 			if(is_valid_target(possible_target) && !(possible_target in blacklist))
 				target_candidates += possible_target
-	listclearnulls(target_candidates)
+	list_clear_nulls(target_candidates)
 	if(LAZYLEN(target_candidates))
 		set_target(pick(target_candidates))
 	else

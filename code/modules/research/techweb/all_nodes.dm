@@ -12,7 +12,7 @@
 	design_ids = list("basic_matter_bin", "basic_cell", "basic_scanning", "basic_capacitor", "basic_micro_laser", "micro_mani", "dest_tagger", "handlabel", "larry", "package_wrap",
 	"destructive_analyzer", "circuit_imprinter", "experimentor", "rdconsole", "design_disk", "tech_disk", "rdserver", "rdservercontrol", "mechfab", "paystand",
 	"space_heater", "beaker", "large_beaker", "bucket", "xlarge_beaker", "sec_rshot", "sec_beanbag_slug", "sec_bshot", "sec_slug", "sec_Islug", "sec_Brslug", "sec_dart", "sec_38", "sec_38b",
-	"rglass","plasteel","plastitanium","plasmaglass","plasmareinforcedglass","titaniumglass","plastitaniumglass","plumbing_rcd", "antivirus", "glasses_prescription", "light_replacer", "xenoa_labeler")
+	"rglass","plasteel","plastitanium","plasmaglass","plasmareinforcedglass","titaniumglass","plastitaniumglass","plumbing_rcd", "antivirus", "glasses_prescription", "light_replacer", "xenoa_labeler", "fax")
 
 /datum/techweb_node/mmi
 	id = "mmi"
@@ -54,7 +54,7 @@
 	starting_node = TRUE
 	display_name = "Basic Tools"
 	description = "Basic mechanical, electronic, surgical and botanical tools."
-	design_ids = list("discovery_scanner", "screwdriver", "wrench", "wirecutters", "crowbar", "multitool", "welding_tool", "wirebrush", "tscanner", "analyzer", "cable_coil", "pipe_painter", "airlock_painter", "decal_painter", "tile_sprayer", "scalpel", "circular_saw", "surgicaldrill", "retractor", "cautery", "blood_filter", "hemostat", "surgical_drapes", "syringe", "cultivator", "plant_analyzer", "shovel", "spade", "hatchet",  "mop")
+	design_ids = list("discovery_scanner", "screwdriver", "wrench", "wirecutters", "crowbar", "multitool", "cable_coil", "welding_tool", "welding_helmet", "wirebrush", "tscanner", "analyzer", "cable_coil", "pipe_painter", "airlock_painter", "decal_painter", "tile_sprayer", "scalpel", "circular_saw", "surgicaldrill", "retractor", "cautery", "blood_filter", "hemostat", "surgical_drapes", "syringe", "cultivator", "plant_analyzer", "shovel", "spade", "hatchet",  "mop")
 
 /datum/techweb_node/basic_circuitry
 	id = "basic_circuitry"
@@ -105,7 +105,7 @@
 	display_name = "Improved Wound-Tending Surgery"
 	description = "Who would have known being more gentle with a hemostat decreases patient pain?"
 	prereq_ids = list("adv_biotech")
-	design_ids = list("surgery_heal_brute_upgrade","surgery_heal_burn_upgrade")
+	design_ids = list("surgery_heal_brute_upgrade","surgery_heal_burn_upgrade","surgery_filter_upgrade")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
 	export_price = 1000
 
@@ -116,7 +116,7 @@
 	display_name = "Advanced Surgery"
 	description = "When simple medicine doesn't cut it."
 	prereq_ids = list("imp_wt_surgery")
-	design_ids = list("surgery_lobotomy","surgery_heal_brute_upgrade_femto","surgery_heal_burn_upgrade_femto","surgery_heal_combo","surgery_exp_dissection")
+	design_ids = list("surgery_lobotomy","surgery_heal_brute_upgrade_femto","surgery_heal_burn_upgrade_femto","surgery_heal_combo","surgery_filter_upgrade_femto","surgery_exp_dissection")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 4000
 
@@ -126,7 +126,7 @@
 	display_name = "Experimental Surgery"
 	description = "When evolution isn't fast enough."
 	prereq_ids = list("adv_surgery")
-	design_ids = list("surgery_revival","surgery_pacify","surgery_vein_thread","surgery_muscled_veins","surgery_nerve_splice","surgery_nerve_ground","surgery_ligament_hook","surgery_ligament_reinforcement","surgery_viral_bond", "surgery_heal_combo_upgrade")
+	design_ids = list("surgery_revival","surgery_pacify","surgery_vein_thread","surgery_muscled_veins","surgery_nerve_splice","surgery_nerve_ground","surgery_ligament_hook","surgery_ligament_reinforcement","surgery_viral_bond","surgery_heal_combo_upgrade","surgery_cortex_imprint","surgery_cortex_folding")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
 
@@ -285,7 +285,7 @@
 	display_name = "Applied Bluespace Research"
 	description = "Using bluespace to make things faster and better."
 	prereq_ids = list("bluespace_basic", "engineering")
-	design_ids = list("bs_rped","minerbag_holding", "bluespacebeaker", "bluespacesyringe", "bluespacebodybag", "phasic_scanning", "roastingstick", "ore_silo", "antivirus3")
+	design_ids = list("bs_rped","minerbag_holding", "bluespacebeaker", "bluespacesyringe", "phasic_scanning", "roastingstick", "ore_silo", "antivirus3")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
 
@@ -762,6 +762,7 @@
 	design_ids = list("ci-linkedsurgery")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	export_price = 10000
+	boost_item_paths = list(/obj/item/organ/cyberimp/brain/linkedsurgery, /obj/item/organ/cyberimp/brain/linkedsurgery/perfect)
 	hidden = TRUE
 
 ////////////////////////Tools////////////////////////
@@ -771,7 +772,7 @@
 	display_name = "Mining Technology"
 	description = "Better than Efficiency V."
 	prereq_ids = list("engineering")
-	design_ids = list("drill", "superresonator", "triggermod", "damagemod", "cooldownmod", "rangemod", "hypermod", "ore_redemption", "mining_equipment_vendor", "exploration_equipment_vendor", "cargoexpress")
+	design_ids = list("drill", "superresonator", "triggermod", "damagemod", "cooldownmod", "rangemod", "hypermod", "ore_redemption", "mining_equipment_vendor", "exploration_equipment_vendor", "cargoexpress", "furnace", "furnace_console")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 

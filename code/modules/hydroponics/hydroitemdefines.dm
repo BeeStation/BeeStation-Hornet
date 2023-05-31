@@ -77,6 +77,7 @@
 	flags_1 = CONDUCT_1
 	force = 12
 	w_class = WEIGHT_CLASS_SMALL
+	item_flags = ISWEAPON
 	throwforce = 15
 	throw_speed = 3
 	throw_range = 4
@@ -105,6 +106,7 @@
 	throw_speed = 2
 	throw_range = 3
 	w_class = WEIGHT_CLASS_BULKY
+	item_flags = ISWEAPON
 	flags_1 = CONDUCT_1
 	armour_penetration = 20
 	slot_flags = ITEM_SLOT_BACK

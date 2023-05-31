@@ -390,7 +390,7 @@ SUBSYSTEM_DEF(shuttle)
 	infestationActive = TRUE
 	emergencyNoRecall = TRUE
 	priority_announce("Xenomorph infestation detected: crisis shuttle protocols activated - jamming recall signals across all frequencies.")
-	play_soundtrack_music(/datum/soundtrack_song/bee/mind_crawler, only_station = TRUE)
+	play_soundtrack_music(/datum/soundtrack_song/bee/mind_crawler)
 	if(EMERGENCY_IDLE_OR_RECALLED)
 		emergency.request(null, set_coefficient=1) //If a shuttle wasn't already called, call one now, with 10 minute delay
 	else if(emergency.mode == SHUTTLE_CALL)
@@ -789,7 +789,7 @@ SUBSYSTEM_DEF(shuttle)
 
 		templates[S.port_id]["templates"] += list(L)
 
-	data["templates_tabs"] = sortList(data["templates_tabs"])
+	data["templates_tabs"] = sort_list(data["templates_tabs"])
 
 	data["existing_shuttle"] = null
 

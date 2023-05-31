@@ -429,7 +429,7 @@
 	if(safety)
 		if(timing)
 			set_security_level(previous_level)
-			stop_soundtrack_music()
+			stop_soundtrack_music(stop_playing = TRUE)
 			for(var/obj/item/pinpointer/nuke/syndicate/S in GLOB.pinpointer_list)
 				S.switch_mode_to(initial(S.mode))
 				S.alert = FALSE
@@ -452,12 +452,12 @@
 		set_security_level(SEC_LEVEL_DELTA)
 
 		if (proper_bomb) // Why does this exist
-			countdown_music = play_soundtrack_music(/datum/soundtrack_song/bee/countdown, only_station = TRUE)
+			countdown_music = play_soundtrack_music(/datum/soundtrack_song/bee/countdown)
 
 	else
 		detonation_timer = null
 		set_security_level(previous_level)
-		stop_soundtrack_music()
+		stop_soundtrack_music(stop_playing = TRUE)
 
 		for(var/obj/item/pinpointer/nuke/syndicate/S in GLOB.pinpointer_list)
 			S.switch_mode_to(initial(S.mode))
@@ -530,7 +530,7 @@
 	SSticker.roundend_check_paused = FALSE
 
 /obj/machinery/nuclearbomb/proc/really_actually_explode(off_station)
-	Cinematic(get_cinematic_type(off_station),world,CALLBACK(SSticker,/datum/controller/subsystem/ticker/proc/station_explosion_detonation,src))
+	Cinematic(get_cinematic_type(off_station),world,CALLBACK(SSticker, TYPE_PROC_REF(/datum/controller/subsystem/ticker, station_explosion_detonation), src))
 	INVOKE_ASYNC(GLOBAL_PROC,PROC_REF(KillEveryoneOnZLevel), get_virtual_z_level())
 
 /obj/machinery/nuclearbomb/proc/get_cinematic_type(off_station)
@@ -652,7 +652,7 @@ This is here to make the tiles around the station mininuke change when it's arme
 	icon_state = "nucleardisk"
 	persistence_replacement = /obj/item/disk/nuclear/fake
 	max_integrity = 250
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/fake = FALSE
 	var/turf/lastlocation
@@ -674,7 +674,7 @@ This is here to make the tiles around the station mininuke change when it's arme
 	AddComponent(/datum/component/stationloving, !fake)
 	if(!fake)
 		//Global teamfinder signal trackable on the synd frequency.
-		AddComponent(/datum/component/tracking_beacon, "synd", null, null, TRUE, "#ebeca1", TRUE, TRUE)
+		AddComponent(/datum/component/tracking_beacon, "synd", null, null, TRUE, "#ebeca1", TRUE, TRUE, "#818157")
 
 /obj/item/disk/nuclear/process()
 	++process_tick
@@ -743,7 +743,7 @@ This is here to make the tiles around the station mininuke change when it's arme
 	user.visible_message("<span class='suicide'>[user] is going delta! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(src, 'sound/machines/alarm.ogg', 50, -1, TRUE)
 	for(var/i in 1 to 100)
-		addtimer(CALLBACK(user, /atom/proc/add_atom_colour, (i % 2)? "#00FF00" : "#FF0000", ADMIN_COLOUR_PRIORITY), i)
+		addtimer(CALLBACK(user, TYPE_PROC_REF(/atom, add_atom_colour), (i % 2)? "#00FF00" : "#FF0000", ADMIN_COLOUR_PRIORITY), i)
 	addtimer(CALLBACK(src, PROC_REF(manual_suicide), user), 101)
 	return MANUAL_SUICIDE
 

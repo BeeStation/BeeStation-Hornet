@@ -18,7 +18,7 @@
 	success_sound = 'sound/surgery/organ2.ogg'
 
 /datum/surgery_step/handle_cavity/tool_check(mob/user, obj/item/tool)
-	if(istype(tool, /obj/item/cautery) || istype(tool, /obj/item/gun/energy/laser))
+	if(tool.tool_behaviour == TOOL_CAUTERY || istype(tool, /obj/item/gun/energy/laser))
 		return FALSE
 	return !tool.is_hot()
 

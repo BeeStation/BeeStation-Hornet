@@ -7,9 +7,10 @@
 	anchored = TRUE
 	flags_1 = CONDUCT_1
 	pass_flags_self = PASSGRILLE
+	obj_flags = CAN_BE_HIT | BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 	pressure_resistance = 5*ONE_ATMOSPHERE
 	layer = BELOW_OBJ_LAYER
-	armor = list("melee" = 50, "bullet" = 70, "laser" = 70, "energy" = 100, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 0, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 50,  BULLET = 70, LASER = 70, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 0, ACID = 0, STAMINA = 0)
 	max_integrity = 50
 	integrity_failure = 20
 	var/rods_type = /obj/item/stack/rods
@@ -58,17 +59,25 @@
 				return list("mode" = RCD_WINDOWGRILLE, "delay" = 20, "cost" = 8)
 	return FALSE
 
-/obj/structure/grille/rcd_act(mob/user, var/obj/item/construction/rcd/the_rcd, passed_mode)
+/obj/structure/grille/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	switch(passed_mode)
 		if(RCD_DECONSTRUCT)
 			to_chat(user, "<span class='notice'>You deconstruct the grille.</span>")
 			qdel(src)
 			return TRUE
 		if(RCD_WINDOWGRILLE)
-			if(locate(/obj/structure/window) in loc)
+			if(!isturf(loc))
+				return FALSE
+			var/turf/T = loc
+
+			if(!ispath(the_rcd.window_type, /obj/structure/window))
+				CRASH("Invalid window path type in RCD: [the_rcd.window_type]")
+			var/obj/structure/window/window_path = the_rcd.window_type
+			if(!valid_window_location(T, user.dir, is_fulltile = initial(window_path.fulltile)))
+				to_chat(user, "<span class='notice'>Already a window in this direction!.</span>")
 				return FALSE
 			to_chat(user, "<span class='notice'>You construct the window.</span>")
-			var/obj/structure/window/WD = new the_rcd.window_type(drop_location())
+			var/obj/structure/window/WD = new the_rcd.window_type(T, user.dir)
 			WD.setAnchored(TRUE)
 			return TRUE
 	return FALSE
@@ -86,14 +95,14 @@
 	var/mob/M = AM
 	shock(M, 70)
 	if(prob(50))
-		take_damage(1, BRUTE, "melee", FALSE)
+		take_damage(1, BRUTE, MELEE, FALSE)
 
 /obj/structure/grille/attack_animal(mob/user)
 	. = ..()
 	if(!.)
 		return
 	if(!shock(user, 70) && !QDELETED(src)) //Last hit still shocks but shouldn't deal damage to the grille
-		take_damage(rand(5,10), BRUTE, "melee", 1)
+		take_damage(rand(5,10), BRUTE, MELEE, 1)
 
 /obj/structure/grille/attack_paw(mob/user)
 	return attack_hand(user)
@@ -116,16 +125,16 @@
 	user.visible_message("<span class='warning'>[user] hits [src].</span>", null, null, COMBAT_MESSAGE_RANGE)
 	log_combat(user, src, "hit")
 	if(!shock(user, 70))
-		take_damage(rand(5,10), BRUTE, "melee", 1)
+		take_damage(rand(5,10), BRUTE, MELEE, 1)
 
 /obj/structure/grille/attack_alien(mob/living/user)
 	user.do_attack_animation(src)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.visible_message("<span class='warning'>[user] mangles [src].</span>", null, null, COMBAT_MESSAGE_RANGE)
 	if(!shock(user, 70))
-		take_damage(20, BRUTE, "melee", 1)
+		take_damage(20, BRUTE, MELEE, 1)
 
-/obj/structure/grille/CanAllowThrough(atom/movable/mover, turf/target)
+/obj/structure/grille/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(!. && istype(mover, /obj/item/projectile))
 		return prob(30)
@@ -193,7 +202,6 @@
 				else
 					WD = new/obj/structure/window/fulltile(drop_location()) //normal window
 				WD.setDir(dir_to_set)
-				WD.ini_dir = dir_to_set
 				WD.setAnchored(FALSE)
 				WD.state = 0
 				ST.use(2)

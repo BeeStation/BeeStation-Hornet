@@ -55,9 +55,9 @@
 
 	if(prob(squeak_chance))
 		if(!override_squeak_sounds)
-			playsound(parent, pickweight(default_squeak_sounds), volume, 1, -1)
+			playsound(parent, pick_weight(default_squeak_sounds), volume, 1, -1)
 		else
-			playsound(parent, pickweight(override_squeak_sounds), volume, 1, -1)
+			playsound(parent, pick_weight(override_squeak_sounds), volume, 1, -1)
 
 /datum/component/squeak/proc/step_squeak()
 	SIGNAL_HANDLER

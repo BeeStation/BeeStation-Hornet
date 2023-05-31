@@ -53,7 +53,7 @@
 	req_access = list(ACCESS_ATMOSPHERICS)
 	max_integrity = 250
 	integrity_failure = 80
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30, STAMINA = 0)
 	resistance_flags = FIRE_PROOF
 	layer = ABOVE_WINDOW_LAYER
 
@@ -117,12 +117,12 @@
 	qdel(wires)
 	wires = null
 	cut_links()
-	SSair.atmos_machinery -= src
+	SSair.start_processing_machine(src)
 	return ..()
 
 /obj/machinery/advanced_airlock_controller/Initialize(mapload)
 	. = ..()
-	SSair.atmos_machinery += src
+	SSair.stop_processing_machine(src)
 	scan_on_late_init = mapload
 	if(mapload && (. != INITIALIZE_HINT_QDEL))
 		return INITIALIZE_HINT_LATELOAD

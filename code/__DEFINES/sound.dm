@@ -9,6 +9,7 @@
 #define CHANNEL_AMBIENT_MUSIC 1017
 #define CHANNEL_BUZZ 1017
 #define CHANNEL_ELEVATOR_MUSIC 1016
+#define CHANNEL_SOUNDTRACK 1015
 
 ///Default range of a sound.
 #define SOUND_RANGE 17
@@ -112,3 +113,7 @@
 #define ANNOUNCER_SHUTTLEDOCK		"announcer_shuttledock"
 #define ANNOUNCER_SHUTTLERECALLED	"announcer_shuttlerecalled"
 #define ANNOUNCER_SPANOMALIES		"announcer_spanomalies"
+
+#define SOUNDTRACK_PLAY_RESPECT 0
+#define SOUNDTRACK_PLAY_ALL 1
+#define SOUNDTRACK_PLAY_ONLYSTATION 2

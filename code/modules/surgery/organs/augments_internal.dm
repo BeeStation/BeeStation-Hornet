@@ -151,28 +151,54 @@
 	actions_types = list(/datum/action/item_action/update_linkedsurgery)
 	var/list/advanced_surgeries = list()
 	var/static/datum/techweb/linked_techweb
-	var/number_of_surgeries
 
 /obj/item/organ/cyberimp/brain/linkedsurgery/Initialize()
 	. = ..()
 	if(isnull(linked_techweb))
 		linked_techweb = SSresearch.science_tech
-	number_of_surgeries = 0
 
 /obj/item/organ/cyberimp/brain/linkedsurgery/proc/update_surgery()
-	advanced_surgeries.Cut()
 	for(var/i in linked_techweb.researched_designs)
 		var/datum/design/surgery/D = SSresearch.techweb_design_by_id(i)
 		if(!istype(D))
 			continue
-		advanced_surgeries += D.surgery
-
-/obj/item/organ/cyberimp/brain/linkedsurgery/proc/check_surgery_update()
-	if(number_of_surgeries<length(advanced_surgeries))
-		to_chat(usr, "<span class='notice'>Surgical Implant updated.</span>")
-		number_of_surgeries = length(advanced_surgeries)
-	else
-		to_chat(usr, "<span class='notice'>None of new surgical programs detected.</span>")
+		advanced_surgeries |= D.surgery
+	for(var/held_item in owner.held_items)
+		if(!held_item)
+			continue
+		var/list/surgeries_to_add = list()
+		var/new_surgeries = 0
+		if(istype(held_item, /obj/item/disk/surgery))
+			var/obj/item/disk/surgery/surgery_disk = held_item
+			for(var/surgery in surgery_disk.surgeries)
+				if(!(surgery in advanced_surgeries))
+					surgeries_to_add += surgery
+					new_surgeries++
+		else if(istype(held_item, /obj/item/disk/tech_disk))
+			var/obj/item/disk/tech_disk/tech_disk = held_item
+			for(var/D in tech_disk.stored_research.researched_designs)
+				var/datum/design/surgery/surgery_design = SSresearch.techweb_design_by_id(D)
+				if(!istype(surgery_design))
+					continue
+				if(!(surgery_design.surgery in advanced_surgeries))
+					surgeries_to_add += surgery_design.surgery
+					new_surgeries++
+		else if(istype(held_item, /obj/item/disk/nuclear))
+			// funny joke message
+			to_chat(owner, "<span class='warning'>Do you <i>want</i> to explode? You can't get surgery data from \the [held_item]!</span>")
+			continue
+		else
+			continue
+		var/hand_name = owner.get_held_index_name(owner.get_held_index_of_item(held_item))
+		if(!new_surgeries)
+			to_chat(owner, "<span class='notice'>No new surgical programs detected on \the [held_item] in your [hand_name].</span>")
+			continue
+		to_chat(owner, "<span class='notice'><b>[new_surgeries]</b> new surgical program\s detected on \the [held_item] in your [hand_name]! Please hold still while the surgical program is being downloaded...</span>")
+		if(!do_after(owner, 5 SECONDS, held_item))
+			to_chat(owner, "<span class='warning'>Surgical program transfer interrupted!</span>")
+			return
+		to_chat(owner, "<span class='notice'><b>[new_surgeries]</b> new surgical program\s were transferred from \the [held_item] in your [hand_name] to \the [src]!</span>")
+		advanced_surgeries |= surgeries_to_add
 
 /datum/action/item_action/update_linkedsurgery
 	name = "Update Surgical Implant"
@@ -180,9 +206,68 @@
 /datum/action/item_action/update_linkedsurgery/Trigger()
 	if(istype(target, /obj/item/organ/cyberimp/brain/linkedsurgery))
 		var/obj/item/organ/cyberimp/brain/linkedsurgery/I = target
+		var/old_surgeries_amount = length(I.advanced_surgeries)
 		I.update_surgery()
-		I.check_surgery_update()
+		if(length(I.advanced_surgeries) > old_surgeries_amount)
+			to_chat(usr, "<span class='notice'>Surgical Implant updated.</span>")
+		else
+			to_chat(usr, "<span class='notice'>None of new surgical programs detected.</span>")
 	return ..()
+
+/obj/item/organ/cyberimp/brain/linkedsurgery/perfect
+	name = "hacked surgical serverlink brain implant"
+	desc = "A brain implant with a bluespace technology that lets you perform any advanced surgery through hacked Nanotrasen servers."
+	actions_types = list(/datum/action/item_action/toggle_perfect_surgeon)
+	syndicate_implant = TRUE
+	var/list/blocked_surgeries = list(
+		/datum/surgery/advanced,
+		/datum/surgery/advanced/bioware,
+		/datum/surgery/advanced/necrotic_revival,
+		/datum/surgery/organ_extraction
+	)
+
+/obj/item/organ/cyberimp/brain/linkedsurgery/perfect/Insert(mob/living/carbon/user, special, drop_if_replaced)
+	. = ..()
+	to_chat(user, "<span class='notice'>Detailed, forbidden medical knowledge begins to fill your brain... You feel as if you're a <span class='hypnophrase'>perfect</span> surgeon now!</span>")
+	ADD_TRAIT(user, TRAIT_PERFECT_SURGEON, ORGAN_TRAIT)
+	update_surgery()
+
+/obj/item/organ/cyberimp/brain/linkedsurgery/perfect/Remove(mob/living/carbon/user, special)
+	. = ..()
+	if(!QDELETED(user))
+		to_chat(user, "<span class='warning'>You feel your perfect surgical knowledge leaving your mind!</span>")
+		REMOVE_TRAIT(user, TRAIT_PERFECT_SURGEON, ORGAN_TRAIT)
+
+/obj/item/organ/cyberimp/brain/linkedsurgery/perfect/update_surgery()
+	advanced_surgeries = subtypesof(/datum/surgery) - blocked_surgeries
+
+/datum/action/item_action/toggle_perfect_surgeon
+	name = "Disable Perfect Surgery Skills"
+	desc = "Suppress your enhanced surgery skills, allowing you to perform surgery like an average person."
+
+/datum/action/item_action/toggle_perfect_surgeon/Trigger()
+	if(istype(target, /obj/item/organ/cyberimp/brain/linkedsurgery/perfect))
+		if(HAS_TRAIT_FROM(usr, TRAIT_PERFECT_SURGEON, ORGAN_TRAIT))
+			off(usr, target)
+		else
+			on(usr, target)
+	return ..()
+
+/datum/action/item_action/toggle_perfect_surgeon/proc/on(mob/living/user, obj/item/organ/cyberimp/brain/linkedsurgery/perfect/implant)
+	to_chat(usr, "<span class='notice'>You begin to focus, bringing your <span class='hypnophrase'>perfect</span> surgery skills back to the front of your mind!</span>")
+	ADD_TRAIT(user, TRAIT_PERFECT_SURGEON, ORGAN_TRAIT)
+	implant.update_surgery()
+	name = "Disable Perfect Surgery Skills"
+	desc = "Suppress your enhanced surgery skills, allowing you to perform surgery like an average person."
+	UpdateButtonIcon()
+
+/datum/action/item_action/toggle_perfect_surgeon/proc/off(mob/living/user, obj/item/organ/cyberimp/brain/linkedsurgery/perfect/implant)
+	REMOVE_TRAIT(usr, TRAIT_PERFECT_SURGEON, ORGAN_TRAIT)
+	implant.advanced_surgeries.Cut()
+	to_chat(user, "<span class='notice'>You slow down your mind, suppressing your <span class='hypnophrase'>perfect</span> surgery skills for the time being.</span>")
+	name = "Enable Perfect Surgery Skills"
+	desc = "Focus on your perfect surgery skills, bringing them to the front of your mind, allowing you to access your superhuman surgery skills once more."
+	UpdateButtonIcon()
 
 //[[[[MOUTH]]]]
 /obj/item/organ/cyberimp/mouth

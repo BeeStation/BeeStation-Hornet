@@ -4,16 +4,20 @@
 	name = "technology fabricator"
 	desc = "Makes researched and prototype items with materials and energy."
 	layer = BELOW_OBJ_LAYER
-	var/consoleless_interface = FALSE			//Whether it can be used without a console.
-	var/efficiency_coeff = 1				//Materials needed / coeff = actual.
+	/// Whether it can be used without a console.
+	var/consoleless_interface = FALSE
+	/// Used for material distribution among other things.
+	var/efficiency_coeff = 1
 	var/list/categories = list()
 	var/datum/component/remote_materials/materials
 	var/allowed_department_flags = ALL
-	var/production_animation				//What's flick()'d on print.
+	/// What's flick()'d on print.
+	var/production_animation
 	var/allowed_buildtypes = NONE
 	var/list/datum/design/cached_designs
 	var/list/datum/design/matching_designs
-	var/department_tag = "Unidentified"			//used for material distribution among other things.
+	/// Used for material distribution among other things.
+	var/department_tag = "Unidentified"
 	var/datum/techweb/stored_research
 	var/datum/techweb/host_research
 
@@ -25,7 +29,9 @@
 
 	var/list/mob/viewing_mobs = list()
 
-	var/list/pending_research = list()  // only for examination
+	/// Only used for storing pending research for examine()
+	var/list/pending_research = list()
+	var/base_storage = 75000
 
 /obj/machinery/rnd/production/Initialize(mapload)
 	. = ..()
@@ -63,18 +69,20 @@
 // Stuff for the stripe on the department machines
 /obj/machinery/rnd/production/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/screwdriver)
 	. = ..()
-	update_icon(UPDATE_OVERLAYS)
+	update_icon()
 
 /obj/machinery/rnd/production/update_icon()
 	. = ..()
 	cut_overlays()
-	var/mutable_appearance/stripe = mutable_appearance('icons/obj/machines/research.dmi', "protolate_stripe")
-	stripe.color = stripe_color
-	if(!panel_open)
-		cut_overlays()
-		stripe.icon_state = "protolathe_stripe"
-	else stripe.icon_state = "protolathe_stripe_t"
-	add_overlay(stripe)
+	if(stripe_color)
+		var/mutable_appearance/stripe = mutable_appearance('icons/obj/machines/research.dmi', "protolate_stripe")
+		stripe.color = stripe_color
+		if(!panel_open)
+			cut_overlays()
+			stripe.icon_state = "protolathe_stripe"
+		else
+			stripe.icon_state = "protolathe_stripe_t"
+		add_overlay(stripe)
 	if(length(pending_research))
 		add_overlay("lathe-research")
 
@@ -274,7 +282,7 @@
 	if(materials)
 		var/total_storage = 0
 		for(var/obj/item/stock_parts/matter_bin/M in component_parts)
-			total_storage += M.rating * 75000
+			total_storage += M.rating * base_storage
 		materials.set_local_size(total_storage)
 	var/total_rating = 1.2
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)

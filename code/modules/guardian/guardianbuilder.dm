@@ -270,6 +270,7 @@
 	desc = "An enchanted deck of tarot cards, rumored to be a source of unimaginable power."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "deck_syndicate_full"
+	item_flags = ISWEAPON
 	var/datum/guardianbuilder/builder
 	var/use_message = "<span class='holoparasite'>You shuffle the deck...</span>"
 	var/used_message = "<span class='holoparasite'>All the cards seem to be blank now.</span>"

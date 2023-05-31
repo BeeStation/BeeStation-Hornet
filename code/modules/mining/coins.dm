@@ -93,6 +93,22 @@
 	materials = list(/datum/material/plasma = MINERAL_MATERIAL_AMOUNT*0.2)
 	grind_results = list(/datum/reagent/toxin/plasma = 4)
 
+/obj/item/coin/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	if(exposed_temperature > 300)
+		plasma_ignition(0)
+
+
+/obj/item/coin/plasma/bullet_act(obj/item/projectile/Proj)
+	if(!(Proj.nodamage) && Proj.damage_type == BURN)
+		plasma_ignition(0, Proj?.firer)
+	. = ..()
+
+/obj/item/coin/plasma/attackby(obj/item/W, mob/user, params)
+	if(W.is_hot() > 300)//If the temperature of the object is over 300, then ignite
+		plasma_ignition(0, user)
+	else
+		return ..()
+
 /obj/item/coin/uranium
 	name = "uranium coin"
 	cmineral = "uranium"

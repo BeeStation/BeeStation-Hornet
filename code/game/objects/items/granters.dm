@@ -59,7 +59,7 @@
 			return
 	if(do_after(user,50, user))
 		on_reading_finished(user)
-		reading = FALSE
+	reading = FALSE
 	return TRUE
 
 ///ACTION BUTTONS///

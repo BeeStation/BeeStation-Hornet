@@ -5,7 +5,7 @@
 	possible_transfer_amounts = list(5, 10, 15, 20, 25, 30, 50)
 	volume = 50
 	obj_flags = UNIQUE_RENAME
-	reagent_flags = OPENCONTAINER
+	reagent_flags = OPENCONTAINER | DUNKABLE
 	spillable = TRUE
 	resistance_flags = ACID_PROOF
 
@@ -39,7 +39,7 @@
 			if(M != user)
 				M.visible_message("<span class='danger'>[user] attempts to feed [M] something from [src].</span>", \
 						"<span class='userdanger'>[user] attempts to feed you something from [src].</span>")
-				if(!do_mob(user, M))
+				if(!do_after(user, target = M))
 					return
 				if(!reagents || !reagents.total_volume)
 					return // The drink might be empty after the delay, such as by spam-feeding
@@ -230,7 +230,7 @@
 	flags_inv = HIDEHAIR
 	slot_flags = ITEM_SLOT_HEAD
 	resistance_flags = NONE
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 75, "acid" = 50, "stamina" = 0) //Weak melee protection, because you can wear it on your head
+	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 75, ACID = 50, STAMINA = 0) //Weak melee protection, because you can wear it on your head
 	slot_equipment_priority = list( \
 		ITEM_SLOT_BACK, ITEM_SLOT_ID,\
 		ITEM_SLOT_ICLOTHING, ITEM_SLOT_OCLOTHING,\
@@ -376,7 +376,8 @@
 	if(cap_on && reagents.total_volume)
 		if(prob(flip_chance)) // landed upright
 			src.visible_message("<span class='notice'>[src] lands upright!</span>")
-			SEND_SIGNAL(throwingdatum.thrower, COMSIG_ADD_MOOD_EVENT, "bottle_flip", /datum/mood_event/bottle_flip)
+			if(throwingdatum?.thrower)
+				SEND_SIGNAL(throwingdatum.thrower, COMSIG_ADD_MOOD_EVENT, "bottle_flip", /datum/mood_event/bottle_flip)
 		else // landed on it's side
 			animate(src, transform = matrix(prob(50)? 90 : -90, MATRIX_ROTATE), time = 3, loop = 0)
 

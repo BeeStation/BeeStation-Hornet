@@ -3,6 +3,7 @@
 	desc = "Use this to communicate with your fellow blood brother(s)."
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "headset"
+	/// BB implant colour is different per team, and is set by brother antag datum
 	var/implant_colour = "#ff0000"
 	var/list/linked_implants // All other implants that this communicates to
 

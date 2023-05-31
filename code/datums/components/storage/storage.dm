@@ -383,7 +383,8 @@
 				return FALSE
 	if(M.active_storage)
 		M.active_storage.hide_from(M)
-	animate_parent()
+	if(!istype(M, /mob/dead/observer))
+		animate_parent()
 	orient2hud()
 	M.client.screen |= boxes
 	M.client.screen |= closer
@@ -409,7 +410,8 @@
 	M.client.screen -= boxes
 	M.client.screen -= closer
 	M.client.screen -= real_location.contents
-	animate_parent()
+	if(!istype(M, /mob/dead/observer))
+		animate_parent()
 	return TRUE
 
 /datum/component/storage/proc/close(mob/M)
@@ -681,7 +683,8 @@
 		return
 	if(rustle_sound)
 		playsound(parent, "rustle", 50, 1, -5)
-	animate_parent()
+	if(!istype(user, /mob/dead/observer))
+		animate_parent()
 	for(var/mob/viewing as() in viewers(user))
 		if(M == viewing)
 			to_chat(usr, "<span class='notice'>You put [I] [insert_preposition]to [parent].</span>")

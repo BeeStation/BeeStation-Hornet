@@ -44,6 +44,9 @@
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		restricted_jobs += GLOB.command_positions
 
+	if(num_players() < CONFIG_GET(number/malf_ai_minimum_pop))
+		restricted_jobs += JOB_NAME_AI
+
 	var/num_traitors = 1
 
 	var/tsc = CONFIG_GET(number/traitor_scaling_coeff)

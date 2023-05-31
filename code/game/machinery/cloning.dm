@@ -183,7 +183,7 @@
 	return examine(user)
 
 //Start growing a human clone in the pod!
-/obj/machinery/clonepod/proc/growclone(clonename, ui, mutation_index, mindref, last_death, datum/species/mrace, list/features, factions, list/quirks, datum/bank_account/insurance, list/traumas, body_only, experimental)
+/obj/machinery/clonepod/proc/growclone(clonename, ui, mutation_index, mindref, last_death, datum/species/mrace, list/features, factions, datum/bank_account/insurance, list/traumas, body_only, experimental)
 	var/result = CLONING_SUCCESS
 	if(!reagents.has_reagent(/datum/reagent/medicine/synthflesh, fleshamnt))
 		connected_message("Cannot start cloning: Not enough synthflesh.")
@@ -279,10 +279,6 @@
 	if(H)
 		H.faction |= factions
 		remove_hivemember(H)
-
-		for(var/V in quirks)
-			var/datum/quirk/Q = new V(H)
-			Q.on_clone(quirks[V])
 
 		for(var/t in traumas)
 			var/datum/brain_trauma/BT = t
@@ -403,7 +399,7 @@
 			log_cloning("[key_name(mob_occupant)] completed cloning cycle in [src] at [AREACOORD(src)].")
 
 	else if (!mob_occupant || mob_occupant.loc != src)
-		occupant = null
+		set_occupant(null)
 		if (!mess && !panel_open)
 			icon_state = "pod_0"
 		use_power(200)
@@ -528,7 +524,7 @@
 		qdel(fl)
 	unattached_flesh.Cut()
 
-	occupant = null
+	set_occupant(null)
 	clonemind = null
 
 // Guess they moved out on their own, remove any clone status effects
@@ -583,7 +579,7 @@
 
 /obj/machinery/clonepod/handle_atom_del(atom/A)
 	if(A == occupant)
-		occupant = null
+		set_occupant(null)
 		countdown.stop()
 
 /obj/machinery/clonepod/proc/horrifyingsound()
@@ -658,7 +654,7 @@
 
 /obj/item/paper/guides/jobs/medical/cloning
 	name = "paper - 'H-87 Cloning Apparatus Manual"
-	info = {"<h4>Getting Started</h4>
+	default_raw_text = {"<h4>Getting Started</h4>
 	Congratulations, your station has purchased the H-87 industrial cloning device!<br>
 	Using the H-87 is almost as simple as brain surgery! Simply insert the target humanoid into the scanning chamber and select the scan option to create a new profile!<br>
 	<b>That's all there is to it!</b><br>

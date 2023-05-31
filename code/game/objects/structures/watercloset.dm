@@ -277,11 +277,11 @@
 	user.visible_message("<span class='notice'>[user] washes [user.p_their()] [washing_face ? "face" : "hands"] using [src].</span>", \
 						"<span class='notice'>You wash your [washing_face ? "face" : "hands"] using [src].</span>")
 	if(washing_face)
+		SEND_SIGNAL(user, COMSIG_COMPONENT_CLEAN_FACE_ACT, CLEAN_STRENGTH_BLOOD)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			H.lip_style = null //Washes off lipstick
 			H.lip_color = initial(H.lip_color)
-			H.wash_cream()
 			H.regenerate_icons()
 		user.drowsyness = max(user.drowsyness - rand(2,3), 0) //Washing your face wakes you up if you're falling asleep
 	else
@@ -397,7 +397,7 @@
 	alpha = 200 //Mappers can also just set this to 255 if they want curtains that can't be seen through
 	layer = SIGN_LAYER
 	anchored = TRUE
-	opacity = 0
+	opacity = FALSE
 	density = FALSE
 	var/open = TRUE
 
@@ -411,14 +411,14 @@
 		icon_state = "[icon_type]-closed"
 		layer = WALL_OBJ_LAYER
 		set_density(TRUE)
-		set_opacity(1)
+		set_opacity(TRUE)
 		open = FALSE
 
 	else
 		icon_state = "[icon_type]-open"
 		layer = SIGN_LAYER
 		set_density(FALSE)
-		set_opacity(0)
+		set_opacity(FALSE)
 		open = TRUE
 
 /obj/structure/curtain/attackby(obj/item/W, mob/user)

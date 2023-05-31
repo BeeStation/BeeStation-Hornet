@@ -3,8 +3,8 @@
 	real_name = JOB_NAME_CYBORG
 	icon = 'icons/mob/robots.dmi'
 	icon_state = "robot"
-	maxHealth = 100
-	health = 100
+	maxHealth = 200
+	health = 200
 	bubble_icon = "robot"
 	designation = "Default" //used for displaying the prefix & getting the current module of cyborg
 	has_limbs = 1
@@ -16,6 +16,8 @@
 	var/braintype = "Cyborg"
 	var/obj/item/robot_suit/robot_suit = null //Used for deconstruction to remember what the borg was constructed out of..
 	var/obj/item/mmi/mmi = null
+	///The last time this mob was flashed. Used for flash cooldowns
+	var/last_flashed = 0
 
 	var/shell = FALSE
 	var/deployed = FALSE
@@ -54,7 +56,8 @@
 	var/locked = TRUE
 	var/list/req_access = list(ACCESS_ROBOTICS)
 
-	var/alarms = list("Motion"=list(), "Fire"=list(), "Atmosphere"=list(), "Power"=list(), "Camera"=list(), "Burglar"=list())
+	///Alarm listener datum, handes caring about alarm events and such
+	var/datum/alarm_listener/listener
 
 	var/speed = 0 // VTEC speed boost.
 	var/magpulse = FALSE // Magboot-like effect.
@@ -173,6 +176,13 @@
 	aicamera = new/obj/item/camera/siliconcam/robot_camera(src)
 	toner = tonermax
 	diag_hud_set_borgcell()
+
+	listener = new(list(ALARM_ATMOS, ALARM_FIRE, ALARM_POWER, ALARM_CAMERA, ALARM_BURGLAR, ALARM_MOTION), list(z))
+	RegisterSignal(listener, COMSIG_ALARM_TRIGGERED, PROC_REF(alarm_triggered))
+	RegisterSignal(listener, COMSIG_ALARM_CLEARED, PROC_REF(alarm_cleared))
+	listener.RegisterSignal(src, COMSIG_LIVING_DEATH, /datum/alarm_listener/proc/prevent_alarm_changes)
+	listener.RegisterSignal(src, COMSIG_LIVING_REVIVE, /datum/alarm_listener/proc/allow_alarm_changes)
+
 	RegisterSignal(src, COMSIG_ATOM_ON_EMAG, PROC_REF(on_emag))
 	RegisterSignal(src, COMSIG_ATOM_SHOULD_EMAG, PROC_REF(should_emag))
 	logevent("System brought online.")
@@ -230,6 +240,7 @@
 	QDEL_NULL(inv2)
 	QDEL_NULL(inv3)
 	QDEL_NULL(spark_system)
+	QDEL_NULL(listener)
 	cell = null
 	UnregisterSignal(src, COMSIG_ATOM_ON_EMAG)
 	UnregisterSignal(src, COMSIG_ATOM_SHOULD_EMAG)
@@ -290,15 +301,16 @@
 
 /mob/living/silicon/robot/proc/robot_alerts()
 	var/dat = ""
-	for (var/cat in alarms)
-		dat += text("<B>[cat]</B><BR>\n")
-		var/list/L = alarms[cat]
-		if (L.len)
-			for (var/alarm in L)
-				var/list/alm = L[alarm]
+	var/list/alarms = listener.alarms
+	for (var/alarm_type in alarms)
+		dat += "<B>[alarm_type]</B><BR>\n"
+		var/list/alerts = alarms[alarm_type]
+		if (length(alerts))
+			for (var/alarm in alerts)
+				var/list/alm = alerts[alarm]
 				var/area/A = alm[1]
 				dat += "<NOBR>"
-				dat += text("-- [A.name]")
+				dat += "-- [A.name]"
 				dat += "</NOBR><BR>\n"
 		else
 			dat += "-- All Systems Nominal<BR>\n"
@@ -350,65 +362,16 @@
 		tab_data["Master AI"] = GENERATE_STAT_TEXT("[connected_ai.name]")
 	return tab_data
 
+/mob/living/silicon/robot/proc/alarm_triggered(datum/source, alarm_type, area/source_area)
+	SIGNAL_HANDLER
+	queueAlarm("--- [alarm_type] alarm detected in [source_area.name]!", alarm_type)
+
+/mob/living/silicon/robot/proc/alarm_cleared(datum/source, alarm_type, area/source_area)
+	SIGNAL_HANDLER
+	queueAlarm("--- [alarm_type] alarm in [source_area.name] has been cleared.", alarm_type, FALSE)
+
 /mob/living/silicon/robot/restrained(ignore_grab)
 	. = 0
-
-/mob/living/silicon/robot/triggerAlarm(class, area/home, cameras, obj/source)
-	if(source.get_virtual_z_level() != get_virtual_z_level())
-		return
-	if(stat == DEAD)
-		return TRUE
-	var/list/our_sort = alarms[class]
-	for(var/areaname in our_sort)
-		if (areaname == home.name)
-			var/list/alarm = our_sort[areaname]
-			var/list/sources = alarm[3]
-			if (!(source in sources))
-				sources += source
-			return TRUE
-
-	var/obj/machinery/camera/cam = null
-	var/list/our_cams = null
-	if(cameras && islist(cameras))
-		our_cams = cameras
-		if (our_cams.len == 1)
-			cam = our_cams[1]
-	else if(cameras && istype(cameras, /obj/machinery/camera))
-		cam = cameras
-	our_sort[home.name] = list(home, (cam ? cam : cameras), list(source))
-	queueAlarm(text("--- [class] alarm detected in [home.name]!"), class)
-	return TRUE
-
-/mob/living/silicon/robot/freeCamera(area/home, obj/machinery/camera/cam)
-	for(var/class in alarms)
-		var/our_area = alarms[class][home.name]
-		if(!our_area)
-			continue
-		var/cams = our_area[2] //Get the cameras
-		if(!cams)
-			continue
-		if(islist(cams))
-			cams -= cam
-			if(length(cams) == 1)
-				our_area[2] = cams[1]
-		else
-			our_area[2] = null
-
-/mob/living/silicon/robot/cancelAlarm(class, area/A, obj/origin)
-	var/list/L = alarms[class]
-	var/cleared = 0
-	for (var/I in L)
-		if (I == A.name)
-			var/list/alarm = L[I]
-			var/list/srcs  = alarm[3]
-			if (origin in srcs)
-				srcs -= origin
-			if (srcs.len == 0)
-				cleared = 1
-				L -= I
-	if (cleared)
-		queueAlarm("--- [class] alarm in [A.name] has been cleared.", class, 0)
-	return !cleared
 
 /mob/living/silicon/robot/can_interact_with(atom/A)
 	if (A == modularInterface)
@@ -444,7 +407,7 @@
 			to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
 			return
 		//repeatedly repairs until the cyborg is fully repaired
-		while(getBruteLoss() && W.tool_start_check(user, amount=0) && W.use_tool(src, user, 60))
+		while(getBruteLoss() && W.tool_start_check(user, amount=0) && W.use_tool(src, user, 3 SECONDS))
 			W.use(1) //use one fuel for each repair step
 			adjustBruteLoss(-10)
 			updatehealth()
@@ -458,10 +421,10 @@
 			to_chat(user, "The wires seem fine, there's no need to fix them.")
 			return
 		var/obj/item/stack/cable_coil/coil = W
-		while((getFireLoss() || getToxLoss()) && do_after(user, 60, target = src))
+		while((getFireLoss() || getToxLoss()) && do_after(user, 30, target = src))
 			if(coil.use(1))
-				adjustFireLoss(-10)
-				adjustToxLoss(-10)
+				adjustFireLoss(-20)
+				adjustToxLoss(-20)
 				updatehealth()
 				add_fingerprint(user)
 				user.visible_message("[user] has fixed some of the burnt wires on [src].", "<span class='notice'>You fix some of the burnt wires on [src].</span>")
@@ -478,9 +441,10 @@
 				to_chat(user, "<span class='warning'>The cover is locked and cannot be opened!</span>")
 			else
 				to_chat(user, "<span class='notice'>You open the cover.</span>")
+				if(IsParalyzed() && (last_flashed + 5 SECONDS >= world.time)) //second half of this prevents someone from stunlocking via open/close spam
+					Paralyze(5 SECONDS)
 				opened = 1
 				update_icons()
-
 	else if(istype(W, /obj/item/stock_parts/cell) && opened)	// trying to put a cell inside
 		if(wiresexposed)
 			to_chat(user, "<span class='warning'>Close the cover first!</span>")
@@ -655,11 +619,11 @@
 	if(!istype(I, /obj/item/card/id) && isitem(I))
 		I = I.GetID()
 
-	if(!I || !I.access) //not ID or no access
+	if(!I || !length(I.access)) //not ID or no access
 		return 0
 	for(var/req in req_access)
-		if(!(req in I.access)) //doesn't have this access
-			return 0
+		if(!(req in I.access))
+			return 0 //doesn't have this access
 	return 1
 
 /mob/living/silicon/robot/regenerate_icons()
@@ -672,7 +636,9 @@
 	if(stat != DEAD && !(IsUnconscious() || IsStun() || IsParalyzed() || low_power_mode)) //Not dead, not stunned.
 		if(!eye_lights)
 			eye_lights = new()
-		if(lamp_enabled)
+		if(last_flashed && last_flashed + 30 SECONDS >= world.time) //We want to make sure last_flashed isn't zero because otherwise roundstart borgs blink for 30 seconds
+			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_fl"
+		else if(lamp_enabled)
 			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_l"
 			eye_lights.color = lamp_color
 			eye_lights.plane = ABOVE_LIGHTING_PLANE //glowy eyes
@@ -705,8 +671,6 @@
 		to_chat(connected_ai, "<br><br><span class='alert'>ALERT - Cyborg detonation detected: [name]</span><br>")
 
 	if(emagged)
-		if(mmi)
-			qdel(mmi)
 		explosion(src.loc,1,2,4,flame_range = 2)
 	else
 		explosion(src.loc,-1,0,2)
@@ -990,21 +954,25 @@
 
 /mob/living/silicon/robot/updatehealth()
 	..()
-	if(health < maxHealth*0.5) //Gradual break down of modules as more damage is sustained
+	if(health < maxHealth*0.75) //Gradual break down of modules as more damage is sustained
+		var/speedpenalty = (maxHealth - health) / 150
+		add_movespeed_modifier(MOVESPEED_ID_DAMAGE_SLOWDOWN, override = TRUE, multiplicative_slowdown = speedpenalty, blacklisted_movetypes = FLOATING)
 		if(uneq_module(held_items[3]))
 			playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, 1, 1)
 			audible_message("<span class='warning'>[src] sounds an alarm! \"SYSTEM ERROR: Module 3 OFFLINE.\"</span>")
 			to_chat(src, "<span class='userdanger'>SYSTEM ERROR: Module 3 OFFLINE.</span>")
-		if(health < 0)
+		if(health < maxHealth*0.5)
 			if(uneq_module(held_items[2]))
 				audible_message("<span class='warning'>[src] sounds an alarm! \"SYSTEM ERROR: Module 2 OFFLINE.\"</span>")
 				to_chat(src, "<span class='userdanger'>SYSTEM ERROR: Module 2 OFFLINE.</span>")
 				playsound(loc, 'sound/machines/warning-buzzer.ogg', 60, 1, 1)
-			if(health < -maxHealth*0.5)
+			if(health < maxHealth*0.25)
 				if(uneq_module(held_items[1]))
 					audible_message("<span class='warning'>[src] sounds an alarm! \"CRITICAL ERROR: All modules OFFLINE.\"</span>")
 					to_chat(src, "<span class='userdanger'>CRITICAL ERROR: All modules OFFLINE.</span>")
 					playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, 1, 1)
+	else
+		remove_movespeed_modifier(MOVESPEED_ID_DAMAGE_SLOWDOWN)
 
 /mob/living/silicon/robot/update_sight()
 	if(!client)
@@ -1053,7 +1021,7 @@
 	if(status_flags & GODMODE)
 		return
 	if(stat != DEAD)
-		if(health <= -maxHealth) //die only once
+		if(health <= 0) //die only once
 			death()
 			toggle_headlamp(1)
 			return
