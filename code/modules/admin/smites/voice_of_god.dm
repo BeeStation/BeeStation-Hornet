@@ -3,8 +3,8 @@
 
 /datum/smite/voice_of_god/effect(client/user, mob/living/target)
 	. = ..()
-	var/target_sound = input(usr, "Enter the filepath of the sound they will hear.", "God Soundfile", 'sound/magic/clockwork/invoke_general.ogg') as null|text
-	var/target_speech = input(usr, "What will they hear from God?", "Divine Command", "Cease your heresy.") as null|text
+	var/target_sound = tgui_input_text(usr, "Enter the filepath of the sound they will hear.", "God Soundfile", 'sound/magic/clockwork/invoke_general.ogg')
+	var/target_speech = tgui_input_text(usr, "What will they hear from God?", "Divine Command", "Cease your heresy.")
 	if(isnull(target_sound) || isnull(target_speech)) //The user pressed "Cancel"
 		return
 

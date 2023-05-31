@@ -5,8 +5,8 @@
 /datum/smite/apply_damage/effect(client/user, mob/living/target)
 	. = ..()
 	var/list/damage_list = list(BRUTE, BURN, CLONE, OXY, STAMINA, TOX)
-	var/damage_punishment = input("Choose a damage type") as null|anything in sort_list(damage_list)
-	var/damage_amount = input("Choose an amount") as null|num
+	var/damage_punishment = tgui_input_list("Choose a damage type", sort_list(damage_list))
+	var/damage_amount = tgui_input_number("Choose an amount")
 	if(isnull(damage_punishment) || isnull(damage_amount)) //The user pressed "Cancel"
 		return
 

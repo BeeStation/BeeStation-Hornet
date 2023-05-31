@@ -1092,9 +1092,10 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	smite.effect(src, target)
 
 /client/proc/punish_log(whom, punishment)
-	admin_ticket_log(target, "[key_name_admin(usr)] punished [key_name_admin(target)] with [punishment]")
-	message_admins("[ADMIN_LOOKUPFLW(usr)] has punished [key_name_admin(target)] with [punishment].")
-	log_admin("[key_name(usr)] punished [key_name(target)] with [punishment].")
+	var/msg = "[key_name_admin(src)] punished [key_name_admin(whom)] with [punishment]."
+	message_admins(msg)
+	admin_ticket_log(whom, msg)
+	log_admin("[key_name(src)] punished [key_name(whom)] with [punishment].")
 
 /mob/living/carbon/proc/give_cookie(var/client/admin_client)
 	var/obj/item/reagent_containers/food/snacks/cookie/cookie = new(src)

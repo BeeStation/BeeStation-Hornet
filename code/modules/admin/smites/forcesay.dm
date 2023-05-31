@@ -3,7 +3,7 @@
 
 /datum/smite/forcesay/effect(client/user, mob/living/target)
 	. = ..()
-	var/forced_speech = input(usr, "What will they say?") as null|text
+	var/forced_speech = tgui_input_text(usr, "What will they say?")
 	if(isnull(forced_speech)) //The user pressed "Cancel"
 		return
 
