@@ -54,6 +54,9 @@
 #define HIDEHAIR		(1<<8)
 #define HIDEFACIALHAIR	(1<<9)
 #define HIDENECK		(1<<10)
+#define HIDETAIL		(1<<11) // only sprite visual only
+#define HIDEWINGS		(1<<12) // only sprite visual only
+#define HIDE_FULLHIDE (HIDEJUMPSUIT | HIDETAIL | HIDEWINGS)
 /// for wigs, only obscures the headgear
 //#define HIDEHEADGEAR (1<<11)
 ///for lizard snouts, because some HIDEFACE clothes don't actually conceal that portion of the head.

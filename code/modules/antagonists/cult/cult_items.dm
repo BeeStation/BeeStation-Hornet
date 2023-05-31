@@ -297,7 +297,7 @@ Striking a noncultist, however, will tear their flesh."}
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	armor = list(MELEE = 30,  BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 25, BIO = 10, RAD = 0, FIRE = 10, ACID = 10, STAMINA = 40)
-	flags_inv = HIDEJUMPSUIT
+	flags_inv = HIDE_FULLHIDE
 	cold_protection = CHEST|GROIN|LEGS|ARMS
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	heat_protection = CHEST|GROIN|LEGS|ARMS
@@ -348,7 +348,7 @@ Striking a noncultist, however, will tear their flesh."}
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	armor = list(MELEE = 50,  BULLET = 30, LASER = 50, ENERGY = 20, BOMB = 25, BIO = 10, RAD = 0, FIRE = 10, ACID = 10, STAMINA = 50)
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	flags_inv = HIDEGLOVES|HIDESHOES|HIDE_FULLHIDE
 
 /obj/item/clothing/head/helmet/space/hardsuit/cult
 	name = "\improper Nar'Sien hardened helmet"
@@ -427,7 +427,7 @@ Striking a noncultist, however, will tear their flesh."}
 	desc = "Blood-soaked robes infused with dark magic; allows the user to move at inhuman speeds, but at the cost of increased damage."
 	icon_state = "cultrobes"
 	item_state = "cultrobes"
-	flags_inv = HIDEJUMPSUIT
+	flags_inv = HIDE_FULLHIDE
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	armor = list(MELEE = -45,  BULLET = -45, LASER = -45, ENERGY = -45, BOMB = -45, BIO = -45, RAD = -45, FIRE = 0, ACID = 0, STAMINA = 40)

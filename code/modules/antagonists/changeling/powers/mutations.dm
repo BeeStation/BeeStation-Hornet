@@ -455,7 +455,7 @@
 	item_flags = DROPDEL
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	armor = list(MELEE = 40,  BULLET = 40, LASER = 50, ENERGY = 50, BOMB = 25, BIO = 0, RAD = 0, FIRE = 25, ACID = 25, STAMINA = 30)
-	flags_inv = HIDEJUMPSUIT
+	flags_inv = HIDE_FULLHIDE // hiding changeling's identity is important
 	cold_protection = 0
 	heat_protection = 0
 	blocks_shove_knockdown = TRUE

@@ -80,7 +80,7 @@
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	transparent_protection = HIDEGLOVES|HIDESUITSTORAGE|HIDEJUMPSUIT|HIDESHOES
+	transparent_protection = HIDEGLOVES|HIDESUITSTORAGE|HIDESHOES|HIDEJUMPSUIT // this armor looks so awesome, so that we want to show a tail and wings!
 	high_pressure_multiplier = 0.4
 
 /obj/item/clothing/head/hooded/cloakhood/drake
@@ -103,7 +103,7 @@
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	transparent_protection = HIDEGLOVES|HIDESUITSTORAGE|HIDEJUMPSUIT|HIDESHOES
+	transparent_protection = HIDEGLOVES|HIDESUITSTORAGE|HIDESHOES|HIDEJUMPSUIT // this armor looks so awesome, so that we want to show a tail and wings!
 
 /obj/item/clothing/head/hooded/cloakhood/bone
 	name = "bone helmet"

@@ -181,7 +181,7 @@
 	icon_state = "monkeysuit"
 	item_state = "monkeysuit"
 	body_parts_covered = CHEST|ARMS|GROIN|LEGS|FEET|HANDS
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL // it has a tail, but no need to hide wings.
 
 /obj/item/clothing/suit/toggle/owlwings
 	name = "owl cloak"
@@ -237,7 +237,7 @@
 	icon_state = "snowman"
 	item_state = "snowman"
 	body_parts_covered = CHEST|GROIN
-	flags_inv = HIDEJUMPSUIT
+	flags_inv = HIDE_FULLHIDE // winged & tailed snowman will look ridiculous... so 'HIDE_FULLHIDE'
 
 /obj/item/clothing/suit/poncho
 	name = "poncho"
@@ -273,7 +273,7 @@
 	icon_state = "white_dress"
 	item_state = "w_suit"
 	body_parts_covered = CHEST|GROIN|LEGS|FEET
-	flags_inv = HIDEJUMPSUIT|HIDESHOES
+	flags_inv = HIDESHOES|HIDEJUMPSUIT
 
 /obj/item/clothing/suit/hooded/carp_costume
 	name = "carp costume"
@@ -427,7 +427,7 @@
 	icon_state = "straight_jacket"
 	item_state = "straight_jacket"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS|HANDS
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	flags_inv = HIDEGLOVES|HIDESHOES|HIDE_FULLHIDE // people will want to tighten you very well including your tail, so 'HIDE_FULLHIDE'
 	equip_delay_self = 50
 	strip_delay = 60
 	breakouttime = 3000
@@ -554,7 +554,7 @@
 	icon_state = "xenos"
 	item_state = "xenos_helm"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS|HANDS
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	flags_inv = HIDEGLOVES|HIDESHOES|HIDE_FULLHIDE // showing your tail & wings will look ridiculous, so 'HIDE_FULLHIDE'
 	allowed = list(/obj/item/clothing/mask/facehugger/toy)
 
 /obj/item/clothing/suit/nemes

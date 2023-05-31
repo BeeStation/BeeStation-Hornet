@@ -70,7 +70,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS|LEGS
 	armor = list(MELEE = 30,  BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, BIO = 20, RAD = 20, FIRE = 100, ACID = 100, STAMINA = 50)
 	allowed = list(/obj/item/teleportation_scroll)
-	flags_inv = HIDEJUMPSUIT
+	flags_inv = HIDEJUMPSUIT // this is an actual armor that should use 'HIDE_FULLHIDE', but it's a wizard robe anyway! This doesn't have to hide your tail!
 	strip_delay = 50
 	equip_delay_other = 50
 	resistance_flags = FIRE_PROOF | ACID_PROOF
