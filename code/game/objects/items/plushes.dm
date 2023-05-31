@@ -482,7 +482,7 @@
 		. += "<span class='notice'>She looks tired.</span>"
 		return
 	if(IS_CULTIST(user))
-		. += "<span class='warning'>It has [invoker_charges] [invoker_charges == 1 ? "charge" : "charges"] left!</span>"
+		. += "<span class='warning'>She has [invoker_charges] [invoker_charges == 1 ? "charge" : "charges"] left!</span>"
 
 /obj/item/toy/plush/narplush/Moved()
 	. = ..()
