@@ -33,7 +33,7 @@
 
 /datum/objective/open/damage_equipment/get_completion_message()
 	if (!damaged_machines)
-		return "[explanation_text] <span class='redtext'>No sabotaged machines (somehow)!</span>"
+		return "[explanation_text] <span class='redtext'>No sabotaged machines!</span>"
 	return "[explanation_text] <span class='infotext'>[damaged_machines] sabotaged machines!</span>"
 
 /datum/objective/open/damage_equipment/get_target()
