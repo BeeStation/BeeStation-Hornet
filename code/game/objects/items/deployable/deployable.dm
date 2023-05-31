@@ -64,10 +64,12 @@
 	if(isnull(deployed_object)) //then this must have saved contents to dump directly instead
 		for(var/atom/movable/A in contents)
 			A.forceMove(location)
+			A.add_fingerprint(user)
 	else
 		var/atom/R = new deployed_object(location)
 		for(var/atom/movable/A in contents)
 			A.forceMove(R)
+			A.add_fingerprint(user)
 		R.add_fingerprint(user)
 		if(istype(R, /obj/structure/closet/))
 			var/obj/structure/closet/sesame = R
