@@ -472,7 +472,6 @@
         open = !open
         playsound(loc, 'sound/effects/curtain.ogg', 50, 1)
         update_appearance()
-    return
 
 /obj/structure/curtain/proc/check(mob/M)
     return TRUE
