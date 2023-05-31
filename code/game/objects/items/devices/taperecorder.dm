@@ -255,7 +255,7 @@
 	transcript_paper.add_raw_text(transcribed_text)
 	transcript_paper.name = "[paper_name] page [page_count]"
 	transcript_paper.update_appearance()
-	to_chat(src, "Transcript printed, [page_count] pages.")
+	to_chat(usr, "Transcript printed, [page_count] pages.")
 	usr.put_in_hands(transcript_paper)
 	canprint = FALSE
 	addtimer(VARSET_CALLBACK(src, canprint, TRUE), 30 SECONDS)
