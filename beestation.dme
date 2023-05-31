@@ -1935,6 +1935,8 @@
 #include "code\modules\antagonists\traitor\syndicate_contract.dm"
 #include "code\modules\antagonists\traitor\traitor_ai.dm"
 #include "code\modules\antagonists\traitor\traitor_backstory.dm"
+#include "code\modules\antagonists\traitor\traitor_factions.dm"
+#include "code\modules\antagonists\traitor\traitor_objective_ui.dm"
 #include "code\modules\antagonists\traitor\traitor_objectives.dm"
 #include "code\modules\antagonists\traitor\traitor_spawner.dm"
 #include "code\modules\antagonists\traitor\equipment\contractor.dm"

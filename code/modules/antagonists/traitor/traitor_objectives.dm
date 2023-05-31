@@ -24,8 +24,6 @@
 			assign_exchange_role(SSticker.mode.exchange_blue)
 		objectives_to_assign-- //Exchange counts towards number of objectives
 
-	//assign_backstory(is_hijacker, is_martyr)
-
 	for(var/i in 1 to objectives_to_assign) // minus 1
 		forge_single_human_objective(is_martyr)
 		objectives_to_assign--
@@ -39,31 +37,27 @@
 	add_objective(gimmick_objective) //Does not count towards the number of objectives, to allow hijacking as well
 #endif
 
+	var/martyr_compatibility = TRUE
 	if(is_hijacker)
 		if (!(locate(/datum/objective/hijack) in objectives))
 			var/datum/objective/hijack/hijack_objective = new
 			hijack_objective.owner = owner
 			add_objective(hijack_objective)
-			return
-
-
-	var/martyr_compatibility = TRUE //You can't succeed in stealing if you're dead.
-	for(var/datum/objective/O in objectives)
-		if(!O.martyr_compatible)
-			martyr_compatibility = FALSE
-			break
-
-	if(is_martyr && martyr_compatibility)
-		var/datum/objective/martyr/martyr_objective = new
-		martyr_objective.owner = owner
-		add_objective(martyr_objective)
-		return
 	else
-		if(!(locate(/datum/objective/escape) in objectives))
+		for(var/datum/objective/O in objectives)
+			if(!O.martyr_compatible) // You can't succeed in stealing if you're dead.
+				martyr_compatibility = FALSE
+				break
+
+		if(is_martyr && martyr_compatibility)
+			var/datum/objective/martyr/martyr_objective = new
+			martyr_objective.owner = owner
+			add_objective(martyr_objective)
+		else if(!(locate(/datum/objective/escape) in objectives))
 			var/datum/objective/escape/escape_objective = new
 			escape_objective.owner = owner
 			add_objective(escape_objective)
-			return
+	assign_backstory(!is_hijacker && is_martyr && martyr_compatibility, is_hijacker)
 
 /datum/antagonist/traitor/proc/forge_single_human_objective(is_martyr)
 	if(prob(50) || is_martyr) // martyr can't steal stuff, since they die, so they have to have a kill objective
@@ -94,6 +88,22 @@
 			steal_objective.owner = owner
 			steal_objective.find_target()
 			add_objective(steal_objective)
+
+/datum/antagonist/traitor
+	/// A list of bosses the traitor can pick from freely.
+	var/list/allowed_bosses = list(TRAITOR_BOSS_SYNDICATE, TRAITOR_BOSS_BLACK_MARKET, TRAITOR_BOSS_INDEPENDENT)
+	/// A list of bosses the traitor can pick from freely.
+	var/list/recommended_bosses
+	/// A list of backstories that are allowed for this traitor.
+	var/list/allowed_backstories
+	/// A list of recommended backstories for this traitor, based on their murderbone status.
+	var/list/recommended_backstories
+
+/datum/antagonist/traitor/proc/assign_backstory(murderbone, hijack)
+	recommended_bosses = murderbone ? list(TRAITOR_BOSS_SYNDICATE, TRAITOR_BOSS_INDEPENDENT) : allowed_bosses
+	allowed_backstories = list()
+	recommended_backstories = list()
+	add_menu_action()
 
 /datum/objective/assassinate
 	flavor_text = "Diplomacy has many means. Murder is the oldest of them."

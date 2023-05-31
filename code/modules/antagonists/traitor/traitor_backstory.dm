@@ -22,7 +22,7 @@
 	var/death_motivated = FALSE
 	/// If this backstory is implicitly motivated by their boss
 	var/simply_motivated = FALSE
-	/// If this backstory is implicitly murderbone
+	/// If this backstory is compatible with murderboning or hijacking
 	var/murderbone = FALSE
 
 /datum/traitor_backstory/debtor
@@ -89,6 +89,7 @@
 	)
 	politically_motivated = TRUE
 	love_motivated = TRUE
+	murderbone = TRUE
 
 /datum/traitor_backstory/greedy
 	name = "The Greedy"
@@ -121,7 +122,6 @@
 	I am nothing without the Syndicate, and I will do <b>everything</b> I am asked."
 	valid_bosses = list(TRAITOR_BOSS_SYNDICATE)
 	murderbone = TRUE
-	simply_motivated = TRUE
 
 /datum/traitor_backstory/sadist
 	name = "The Sadist"
@@ -134,4 +134,3 @@
 		TRAITOR_BOSS_INDEPENDENT
 	)
 	murderbone = TRUE
-	simply_motivated = TRUE

@@ -75,8 +75,9 @@
 	owner.announce_objectives()
 	if(should_give_codewords)
 		give_codewords()
-	owner.current.client?.tgui_panel?.give_antagonist_popup("Traitor",
-		"Complete your objectives, no matter the cost.")
+	if(owner.current.client)
+		owner.current.client.tgui_panel?.give_antagonist_popup("Traitor", "Complete your objectives, no matter the cost.")
+		ui_interact(owner.current)
 
 /datum/antagonist/traitor/proc/update_traitor_icons_added(datum/mind/traitor_mind)
 	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
