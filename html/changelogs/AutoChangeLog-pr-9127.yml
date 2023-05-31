@@ -1,4 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - bugfix: Fix orbit panel showing invalid job HUDs as blank boxes.
