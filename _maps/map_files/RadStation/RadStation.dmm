@@ -7212,6 +7212,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/engine/engine_room)
+"cqG" = (
+/obj/structure/sign/warning/vacuum/external{
+	pixel_x = -32
+	},
+/obj/machinery/power/smes,
+/obj/structure/cable,
+/turf/open/floor/plating,
+/area/maintenance/solars/port/aft)
 "cqL" = (
 /obj/structure/table/reinforced,
 /obj/item/paicard,
@@ -11161,8 +11169,8 @@
 "dFf" = (
 /obj/structure/tank_dispenser/oxygen,
 /obj/machinery/camera/autoname{
-	network = list("ss13","security");
-	dir = 9
+	dir = 9;
+	network = list("ss13","security")
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/main{
@@ -13252,17 +13260,6 @@
 	},
 /turf/open/floor/plating,
 /area/science/xenobiology)
-"eot" = (
-/obj/machinery/power/terminal,
-/obj/structure/cable,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 5
-	},
-/turf/open/floor/plating,
-/area/maintenance/solars/port/aft)
 "eoB" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable{
@@ -21528,7 +21525,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/vending/sustenance{
-	products = list(/obj/item/reagent_containers/food/snacks/tofu/prison=24,/obj/item/reagent_containers/food/drinks/ice/prison=12,/obj/item/reagent_containers/food/snacks/candy_corn/prison=6,/obj/item/storage/fancy/cigarettes=5,/obj/item/storage/box/matches=10)
+	products = list(/obj/item/reagent_containers/food/snacks/tofu/prison = 24, /obj/item/reagent_containers/food/drinks/ice/prison = 12, /obj/item/reagent_containers/food/snacks/candy_corn/prison = 6, /obj/item/storage/fancy/cigarettes = 5, /obj/item/storage/box/matches = 10)
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
@@ -25870,16 +25867,6 @@
 /obj/effect/turf_decal/box,
 /turf/open/floor/plasteel/white,
 /area/science/lobby)
-"ibG" = (
-/obj/structure/sign/warning/vacuum/external{
-	pixel_x = -32
-	},
-/obj/machinery/power/smes,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/turf/open/floor/plating,
-/area/maintenance/solars/port/aft)
 "ibS" = (
 /turf/closed/wall,
 /area/science/misc_lab)
@@ -26981,12 +26968,6 @@
 "ixE" = (
 /turf/open/floor/plasteel/white,
 /area/maintenance/department/science)
-"ixI" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plating,
-/area/maintenance/solars/port/aft)
 "ixJ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -29125,7 +29106,7 @@
 	},
 /obj/machinery/vending/wallmed{
 	pixel_y = -32;
-	products = list(/obj/item/stack/medical/gauze=4,/obj/item/reagent_containers/hypospray/medipen=3,/obj/item/reagent_containers/hypospray/medipen/dexalin=3,/obj/item/reagent_containers/glass/bottle/epinephrine=2,/obj/item/reagent_containers/glass/bottle/charcoal=2)
+	products = list(/obj/item/stack/medical/gauze = 4, /obj/item/reagent_containers/hypospray/medipen = 3, /obj/item/reagent_containers/hypospray/medipen/dexalin = 3, /obj/item/reagent_containers/glass/bottle/epinephrine = 2, /obj/item/reagent_containers/glass/bottle/charcoal = 2)
 	},
 /obj/machinery/newscaster{
 	pixel_x = -32;
@@ -31099,8 +31080,8 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/camera/autoname{
-	network = list("ss13","security","court");
-	dir = 8
+	dir = 8;
+	network = list("ss13","security","court")
 	},
 /turf/open/floor/wood,
 /area/security/courtroom)
@@ -35185,6 +35166,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"ldZ" = (
+/obj/machinery/power/terminal{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/turf/open/floor/plating,
+/area/maintenance/solars/port/aft)
 "leq" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
@@ -38199,7 +38189,7 @@
 /area/engine/atmos)
 "mgF" = (
 /obj/machinery/smartfridge/sci{
-	initial_contents = list(/obj/item/stock_parts/capacitor=2,/obj/item/stock_parts/manipulator=2,/obj/item/stock_parts/micro_laser=2,/obj/item/stock_parts/matter_bin=2,/obj/item/stock_parts/scanning_module=2);
+	initial_contents = list(/obj/item/stock_parts/capacitor = 2, /obj/item/stock_parts/manipulator = 2, /obj/item/stock_parts/micro_laser = 2, /obj/item/stock_parts/matter_bin = 2, /obj/item/stock_parts/scanning_module = 2);
 	name = "Science vender"
 	},
 /turf/closed/wall,
@@ -39994,7 +39984,7 @@
 /obj/item/reagent_containers/glass/bottle/mutagen{
 	amount_per_transfer_from_this = 2;
 	desc = "A small bottle, almost empty. Has the words drink me, you wont written on it";
-	list_reagents = list(/datum/reagent/toxin/mutagen=5);
+	list_reagents = list(/datum/reagent/toxin/mutagen = 5);
 	pixel_x = -6;
 	pixel_y = 1
 	},
@@ -42393,7 +42383,7 @@
 /area/maintenance/department/engine)
 "nsH" = (
 /obj/machinery/smartfridge/sci{
-	initial_contents = list(/obj/item/stock_parts/capacitor=2,/obj/item/stock_parts/manipulator=2,/obj/item/stock_parts/micro_laser=2,/obj/item/stock_parts/matter_bin=2,/obj/item/stock_parts/scanning_module=2);
+	initial_contents = list(/obj/item/stock_parts/capacitor = 2, /obj/item/stock_parts/manipulator = 2, /obj/item/stock_parts/micro_laser = 2, /obj/item/stock_parts/matter_bin = 2, /obj/item/stock_parts/scanning_module = 2);
 	name = "Science vender"
 	},
 /turf/closed/wall,
@@ -53620,8 +53610,8 @@
 /obj/machinery/atmospherics/pipe/simple/cyan/visible/layer4,
 /obj/structure/lattice/catwalk/over,
 /obj/machinery/camera/autoname{
-	network = list("ss13","engine");
-	dir = 4
+	dir = 4;
+	network = list("ss13","engine")
 	},
 /turf/open/floor/plasteel/tech,
 /area/engine/engine_room)
@@ -57783,6 +57773,18 @@
 "sxv" = (
 /turf/open/floor/plasteel/white/side,
 /area/science/research)
+"sxw" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 5
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating,
+/area/maintenance/solars/port/aft)
 "sxx" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -63276,8 +63278,8 @@
 /obj/structure/closet/secure_closet/personal,
 /obj/effect/turf_decal/box,
 /obj/machinery/camera/autoname{
-	network = list("ss13","medbay");
-	dir = 5
+	dir = 5;
+	network = list("ss13","medbay")
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/virology)
@@ -66133,8 +66135,8 @@
 	pixel_y = 10
 	},
 /obj/machinery/camera/autoname{
-	network = list("ss13","medbay");
-	dir = 5
+	dir = 5;
+	network = list("ss13","medbay")
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/virology)
@@ -99753,8 +99755,8 @@ gUo
 wYW
 gci
 rrj
-eot
-ibG
+sxw
+cqG
 oTR
 gUG
 hSn
@@ -100011,7 +100013,7 @@ qCL
 gci
 wEM
 rkf
-ixI
+ldZ
 oTR
 cCS
 lQR
