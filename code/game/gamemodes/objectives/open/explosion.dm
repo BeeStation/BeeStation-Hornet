@@ -30,7 +30,7 @@
 	UnregisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION)
 	. = ..()
 
-/datum/objective/open/explosion/proc/on_explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
+/datum/objective/open/explosion/proc/on_explosion(datum/source, turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
 	if(!light_impact_range && !heavy_impact_range && !devastation_range)
 		return
 	var/area/A = get_area(epicenter)
