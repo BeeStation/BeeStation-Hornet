@@ -851,6 +851,16 @@
 /mob/living/proc/get_visible_name()
 	return name
 
+/mob/living/can_put_in_hand(atom/I, hand_index)
+	. = ..()
+	if(!.)
+		return FALSE
+	var/owner = I.get_mob_owner()
+	if(owner && owner != src) // an item that's already possessed.
+		return FALSE
+	message_admins("It's valid to pickup!")
+	return .
+
 /mob/living/update_gravity(has_gravity,override = 0)
 	if(!SSticker.HasRoundStarted())
 		return

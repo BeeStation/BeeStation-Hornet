@@ -161,7 +161,7 @@
 /mob/proc/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE)
 	return FALSE
 
-/mob/proc/can_put_in_hand(I, hand_index)
+/mob/proc/can_put_in_hand(atom/I, hand_index)
 	if(hand_index > held_items.len)
 		return FALSE
 	if(!put_in_hand_check(I))
