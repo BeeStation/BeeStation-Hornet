@@ -1,17 +1,30 @@
 GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 /datum/objective
-	var/datum/mind/owner				//The primary owner of the objective. !!SOMEWHAT DEPRECATED!! Prefer using 'team' for new code.
-	var/datum/team/team					//An alternative to 'owner': a team. Use this when writing new code.
-	var/name = "generic objective" 		//Name for admin prompts
-	var/explanation_text = "Nothing"	//What that person is supposed to do.
-	var/team_explanation_text			//For when there are multiple owners.
-	var/datum/mind/target = null		//If they are focused on a particular person.
-	var/target_amount = 0				//If they are focused on a particular number. Steal objectives have their own counter.
-	var/completed = 0					//currently only used for custom objectives.
-	var/martyr_compatible = 0			//If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
-	var/optional = FALSE				//Whether the objective should show up as optional in the roundend screen
-	var/murderbone_flag = FALSE			//Used to check if obj owner can buy murderbone stuff
+	/// The primary owner of the objective. !!SOMEWHAT DEPRECATED!! Prefer using 'team' for new code.
+	var/datum/mind/owner
+	/// An alternative to 'owner': a team. Use this when writing new code.
+	var/datum/team/team
+	/// Name of the objective for admin prompts
+	var/name = "generic objective"
+	/// What that person is supposed to do.
+	var/explanation_text = "Nothing"
+	/// For when there are multiple owners.
+	var/team_explanation_text
+	/// If they are focused on a particular person.
+	var/datum/mind/target = null
+	/// If they are focused on a particular number. Steal objectives have their own counter.
+	var/target_amount = 0
+	/// If the objective is to be marked as completed, regardless of any conditions. Currently only used for custom objectives.
+	var/completed = FALSE
+	/// If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
+	var/martyr_compatible = FALSE
+	/// Whether the objective should show up as optional in the roundend screen
+	var/optional = FALSE
+	/// Used to check if obj owner can buy murderbone stuff
+	var/murderbone_flag = FALSE
+	/// Additional flavor text, giving a fun flair to the objective. Short and sweet, not lore related.
+	var/flavor_text
 
 /datum/objective/New(var/text, var/traitor_data_path)
 	if(text)

@@ -94,6 +94,11 @@
 	name = "The Greedy"
 	description = "If I do this, I'll be set for life. I'll have everything I ever wanted, and more. \
 	The payment is astronomical, and I'm fit for the job. Let's do this."
+	valid_bosses = list(
+		TRAITOR_BOSS_BLACK_MARKET,
+		TRAITOR_BOSS_SYNDICATE,
+		TRAITOR_BOSS_INDEPENDENT
+	)
 	money_motivated = TRUE
 
 /datum/traitor_backstory/climber
@@ -102,6 +107,11 @@
 	for the only end goal in life is for my ego to be supreme. \
 	In my many years of observing the dynamics in this universe, it is clear to me that this is the surest way to achieve the domination of myself. \
 	Today marks the beginning of my ascent, nothing matters but my rise. I am supreme."
+	valid_bosses = list(
+		TRAITOR_BOSS_BLACK_MARKET,
+		TRAITOR_BOSS_SYNDICATE,
+		TRAITOR_BOSS_INDEPENDENT
+	)
 	money_motivated = TRUE
 	reputation_motivated = TRUE
 

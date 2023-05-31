@@ -301,6 +301,7 @@
 #include "code\_globalvars\lists\names.dm"
 #include "code\_globalvars\lists\objects.dm"
 #include "code\_globalvars\lists\poll_ignore.dm"
+#include "code\_globalvars\lists\traitor.dm"
 #include "code\_globalvars\lists\typecache.dm"
 #include "code\_js\byjax.dm"
 #include "code\_js\menus.dm"
