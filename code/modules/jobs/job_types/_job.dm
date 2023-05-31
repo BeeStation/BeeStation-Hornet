@@ -330,7 +330,7 @@
 			C.access = J.get_access()
 			shuffle_inplace(C.access) // Shuffle access list to make NTNet passkeys less predictable
 		else // if magical_access is active on a wiz round, your ID card gets AA!
-			C.grant_magical_access()
+			shuffle_inplace(C.grant_magical_access())
 		C.registered_name = H.real_name
 		C.assignment = J.title
 		C.set_hud_icon_on_spawn(J.title)

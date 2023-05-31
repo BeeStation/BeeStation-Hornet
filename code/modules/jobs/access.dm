@@ -98,14 +98,10 @@
 
 /obj/proc/check_antimagic_access()
 	for(var/each_req in req_access)
-		if(!each_req)
-			continue
-		if(GLOB.antimagical_accesses["[each_req]"])
+		if(each_req in GLOB.antimagical_accesses)
 			return TRUE
 	for(var/each_req in req_one_access)
-		if(!each_req)
-			continue
-		if(GLOB.antimagical_accesses["[each_req]"])
+		if(each_req in GLOB.antimagical_accesses)
 			return TRUE
 /*
  * Checks if this packet can access this device
@@ -179,8 +175,7 @@
 
 /// returns All Accesses with more accesses - occured during a wizard round
 /proc/get_all_accesses_magically()
-	return shuffle_inplace(get_all_accesses()+ACCESS_SYNDICATE+ACCESS_BLOODCULT+ACCESS_CLOCKCULT)
-	// For the shuffle, a code line in `_job.dm` says this is needed to make NTNet passkeys less predictable. I don't know why we need this.
+	return get_all_accesses()+ACCESS_SYNDICATE+ACCESS_BLOODCULT+ACCESS_CLOCKCULT
 
 /proc/get_all_centcom_access()
 	return list(ACCESS_CENT_GENERAL, ACCESS_CENT_THUNDER, ACCESS_CENT_SPECOPS, ACCESS_CENT_MEDICAL, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE, ACCESS_CENT_TELEPORTER, ACCESS_CENT_CAPTAIN, ACCESS_CENT_BAR)

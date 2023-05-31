@@ -232,9 +232,7 @@
 /obj/mecha/check_antimagic_access()
 	// no need to call parent ..()
 	for(var/each_req in operation_req_access)
-		if(!each_req)
-			continue
-		if(GLOB.antimagical_accesses["[each_req]"])
+		if(each_req in GLOB.antimagical_accesses)
 			return TRUE
 	return FALSE
 
