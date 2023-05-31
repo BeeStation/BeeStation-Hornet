@@ -5,10 +5,10 @@
 	icon_state = "crystalline"
 	effect_desc = "Use to place a pylon."
 	var/obj/structure/slime_crystal/crystal_type
-
 /obj/item/slimecross/crystalline/attack_self(mob/user)
 	. = ..()
 
+	// Check before the progress bar so they don't wait for nothing
 	var/obj/structure/slime_crystal/C = locate(/obj/structure/slime_crystal) in range(6,get_turf(user))
 
 	if(C)
@@ -17,7 +17,13 @@
 
 	var/user_turf = get_turf(user)
 
-	if(!do_after(user, 15 SECONDS, user_turf, timed_action_flags = IGNORE_HELD_ITEM))
+	if(!do_after(user, 15 SECONDS, src))
+		return
+
+	// check after in case someone placed a crystal in the meantime (im watching you aramix)
+	var/obj/structure/slime_crystal/C = locate(/obj/structure/slime_crystal) in range(6,get_turf(user))
+	if(C)
+		to_chat(user,"<span class='notice'>You can't build crystals that close to each other!</span>")
 		return
 
 	new crystal_type(user_turf)
