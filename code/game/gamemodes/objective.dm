@@ -13,7 +13,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	var/optional = FALSE				//Whether the objective should show up as optional in the roundend screen
 	var/murderbone_flag = FALSE			//Used to check if obj owner can buy murderbone stuff
 
-/datum/objective/New(var/text)
+/datum/objective/New(var/text, var/traitor_data_path)
 	if(text)
 		explanation_text = text
 
