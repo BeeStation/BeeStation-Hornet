@@ -976,7 +976,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 			return FALSE
 		usr.visible_message("<span class='notice'>[usr] picks up the [src].</span>", "<span class='notice'>You pick up [src].</span>")
 		var/obj/item/deployable/bot/carried = new(loc)
-		carried.deployed_object = src
 		carried.name = name
 		carried.desc = desc
 		carried.icon = icon

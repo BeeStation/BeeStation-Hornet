@@ -59,15 +59,19 @@
 	else
 		return FALSE
 
-///Do not call this directly, use try_deploy instead
+///Do not call this directly, use try_deploy instead or else deployed items may end up in invalid locations
 /obj/item/deployable/proc/deploy(mob/user, atom/location)
-	var/atom/R = new deployed_object(location)
-	for(var/atom/movable/A in contents)
-		A.forceMove(R)
-	R.add_fingerprint(user)
-	if(istype(R, /obj/structure/closet/))
-		var/obj/structure/closet/sesame = R
-		sesame.open()
+	if(isnull(deployed_object)) //then this must have saved contents to dump directly instead
+		for(var/atom/movable/A in contents)
+			A.forceMove(location)
+	else
+		var/atom/R = new deployed_object(location)
+		for(var/atom/movable/A in contents)
+			A.forceMove(R)
+		R.add_fingerprint(user)
+		if(istype(R, /obj/structure/closet/))
+			var/obj/structure/closet/sesame = R
+			sesame.open()
 	if(consumed)
 		qdel(src)
 	else
