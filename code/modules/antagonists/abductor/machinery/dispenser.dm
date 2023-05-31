@@ -94,6 +94,7 @@
 	idle_power_usage = 0
 	active_power_usage = 0
 	max_n_of_items = 1000
+	tgui_theme = "abductor"
 	var/repair_rate = 0
 	var/allowed_to_everyone = FALSE
 
@@ -103,7 +104,7 @@
 
 /obj/machinery/smartfridge/abductor/proc/generate_glands()
 	for(var/each as() in shuffle(subtypesof(/obj/item/organ/heart/gland)))
-		for(var/i in 1 to rand(5)+10)
+		for(var/i in 1 to rand(2, 7))
 			var/obj/item/organ/heart/gland/each_gland = new each
 			each_gland.name = each_gland.true_name
 			each_gland.forceMove(src)
