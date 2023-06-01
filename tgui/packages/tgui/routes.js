@@ -37,12 +37,12 @@ const SuspendedWindow = () => {
 const RefreshingWindow = () => {
 
   return (
-    <Window title="Loading">
+    <Window title="Loading" theme="generic">
       <Window.Content>
         <Section fill>
           <Stack align="center" fill justify="center" vertical>
             <Stack.Item>
-              <Icon color="blue" name="toolbox" spin size={4} />
+              <Icon color="yellow" name="circle-notch" spin size={4} />
             </Stack.Item>
             <Stack.Item>
               Please wait...
