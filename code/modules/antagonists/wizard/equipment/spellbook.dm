@@ -660,6 +660,8 @@
 		var/datum/spellbook_entry/target = pick(book.entries)
 		if(istype(target, /datum/spellbook_entry/summon/wild_magic))
 			continue // Too lucky to get more spell points, but no.
+		if(istype(target, /datum/spellbook_entry/summon/curse_of_twisted_reality))
+			continue // they won't get a random point refund.
 		if(target.CanBuy(user,book))
 			if(target.Buy(user,book))
 				book.uses -= target.cost
