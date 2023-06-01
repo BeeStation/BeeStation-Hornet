@@ -121,7 +121,9 @@
 	leave = new
 	leave.Grant(src)
 
-	grant_all_languages()
+	grant_all_languages(spoken=FALSE) // they understand all language, but doesn't have to speak that
+	// mentor rats default language is set to metalanguage from imaginary friend init
+	// everything mrat says will be understandable to all people
 
 /mob/camera/imaginary_friend/mrat/proc/add_kick_action()
 	kick = new
