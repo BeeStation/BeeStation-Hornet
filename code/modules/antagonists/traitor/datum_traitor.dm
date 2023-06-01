@@ -43,6 +43,10 @@
 		QDEL_NULL(A.radio.keyslot)
 		A.radio.recalculateChannels()
 
+	if(menu)
+		menu.Remove(owner.current)
+		QDEL_NULL(menu)
+
 	SSticker.mode.traitors -= owner
 	if(!silent && owner.current)
 		to_chat(owner.current,"<span class='userdanger'> You are no longer the [special_role]! </span>")

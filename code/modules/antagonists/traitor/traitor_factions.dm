@@ -16,7 +16,7 @@
 	maybe you joined to get revenge.\n\
 	Either way, you will have potential allies in other syndicate agents, codewords, and communication methods. You'll have all the resources at your disposal.\n\
 	Get the job done right, and you will be rewarded - or simply freed of your debts.\n"
-	key = TRAITOR_BOSS_SYNDICATE
+	key = TRAITOR_FACTION_SYNDICATE
 	is_group = TRUE
 	ui_theme = THEME_SYNDICATE
 
@@ -28,7 +28,7 @@
 	You won't have the same benefits as working with the Syndicate - no codewords or communication methods, and limited potential allies. \
 	Just hope that your goals align with the other traitors.\n\
 	Get the job done right, and you will be paid in full - or simply freed of your debts.\n"
-	key = TRAITOR_BOSS_BLACK_MARKET
+	key = TRAITOR_FACTION_BLACK_MARKET
 
 /datum/traitor_faction/independent
 	name = "Independent"
@@ -36,4 +36,4 @@
 	You are a person who holds grudges, and has been hurt greatly by Nanotrasen.\n\
 	You will have no allies, and you can only get by on your stolen Syndicate uplink. You have one chance, don't blow it. \n\
 	<strong>It's personal.</strong>"
-	key = TRAITOR_BOSS_INDEPENDENT
+	key = TRAITOR_FACTION_INDEPENDENT

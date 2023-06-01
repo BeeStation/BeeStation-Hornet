@@ -1,29 +1,54 @@
 import { useBackend, useLocalState } from '../backend';
-import { Button, Dimmer, Stack, Box } from '../components';
+import { Button, Dimmer, Stack, Box, Dropdown, Section, Tabs, Flex, Icon, Tooltip } from '../components';
 import { Window } from '../layouts';
 
 export const TraitorObjectivesMenu = (props, context) => {
   const { act, data } = useBackend(context);
+  const {
+    all_factions = {},
+    faction,
+    all_backstories = {},
+    allowed_backstories = [],
+    backstory,
+  } = data;
   let [ui_phase, set_ui_phase] = useLocalState(context, "traitor_ui_phase", 0);
-  let [selected_faction, set_selected_faction] = useLocalState(context, "traitor_selected_faction", "syndicate");
+  let [selected_faction, set_selected_faction_backend] = useLocalState(context, "traitor_selected_faction", "syndicate");
+  let [selected_backstory, set_selected_backstory] = useLocalState(context, "traitor_selected_backstory", null);
+  const set_selected_faction = (faction) => {
+    set_selected_faction_backend(faction);
+    if (selected_backstory && !all_backstories[selected_backstory].allowed_factions.includes(faction)) {
+      set_selected_backstory(null);
+    }
+  };
   let ui_to_show = null;
+  if (all_backstories[backstory] && ui_phase < 3) {
+    set_ui_phase(3);
+  }
+  let windowTitle = "Traitor Backstory";
   switch (ui_phase) {
     case 0:
       ui_to_show = <IntroductionMenu set_ui_phase={set_ui_phase} />;
+      windowTitle = "Traitor Backstory: Introduction";
       break;
     case 1:
       ui_to_show = (<SelectFactionMenu
         set_ui_phase={set_ui_phase}
         selected_faction={selected_faction}
         set_selected_faction={set_selected_faction} />);
+      windowTitle = "Traitor Backstory: Faction Select";
       break;
     case 2:
       ui_to_show = (<SelectBackstoryMenu
         set_ui_phase={set_ui_phase}
-        selected_faction={selected_faction} />);
+        selected_faction={selected_faction}
+        set_selected_faction={set_selected_faction}
+        selected_backstory={selected_backstory}
+        set_selected_backstory={set_selected_backstory} />);
+      windowTitle = "Traitor Backstory: Backstory Select";
+      break;
   }
   return (
-    <Window theme="neutral" width={650} height={500}>
+    <Window theme="neutral" width={650} height={500} title={windowTitle}>
       <Window.Content scrollable>
         {ui_to_show}
       </Window.Content>
@@ -72,15 +97,7 @@ const IntroductionMenu = ({ set_ui_phase }, context) => {
   );
 };
 
-const SelectFactionMenu = ({ set_ui_phase, set_selected_faction, selected_faction }, context) => {
-  const { act, data } = useBackend(context);
-  const {
-    allowed_factions = [],
-    all_factions = {
-      "syndicate": {},
-    },
-  } = data;
-  let faction_keys = Object.keys(all_factions);
+const get_surrounding_factions = (faction_keys, selected_faction) => {
   let max_index = faction_keys.length - 1;
   let current_index = faction_keys.indexOf(selected_faction);
   let next_faction = current_index + 1;
@@ -93,7 +110,32 @@ const SelectFactionMenu = ({ set_ui_phase, set_selected_faction, selected_factio
   }
   next_faction = faction_keys[next_faction];
   prev_faction = faction_keys[prev_faction];
-  let faction = all_factions[selected_faction];
+  return [prev_faction, next_faction];
+};
+
+const SelectFactionMenu = ({ set_ui_phase, set_selected_faction, selected_faction }, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    allowed_factions = [],
+    all_factions = {},
+    faction,
+    recommended_factions = [],
+
+  } = data;
+  let faction_keys = Object.keys(all_factions);
+
+  if (faction_keys.length === 0 || faction_keys.filter(key => allowed_factions.includes(key)).length === 0) {
+    return (
+      <Dimmer>
+        No valid factions found. This is likely a bug. Please reload or reopen the menu.
+      </Dimmer>
+    );
+  }
+
+  let [prev_faction, next_faction] = get_surrounding_factions(faction_keys, selected_faction);
+
+  let current_faction = all_factions[faction] || all_factions[selected_faction];
+  let current_faction_key = faction || selected_faction;
 
   return (
     <Dimmer>
@@ -117,43 +159,76 @@ const SelectFactionMenu = ({ set_ui_phase, set_selected_faction, selected_factio
       <Stack align="baseline" vertical>
         <Stack.Item fontSize="14px">
           <Stack vertical textAlign="center">
-            <BackstoryInfo data={faction} />
+            <BackstoryInfo titleColor={
+              recommended_factions.length === 0 ? null : (
+                recommended_factions.includes(current_faction_key) ? "green" : "red"
+              )
+            } data={current_faction} />
           </Stack>
         </Stack.Item>
         <Stack.Item>
-          <Stack>
-            <Stack.Item>
-              <Button
-                mt={2}
-                fontSize="15px"
-                color="good"
-                content="Select"
-                onClick={() => {
-                  set_ui_phase(phase => phase + 1);
-                }} />
-            </Stack.Item>
-          </Stack>
+          {faction ? (
+            <Button
+              mt={2}
+              fontSize="15px"
+              content="Continue"
+              tooltip="Your faction is locked, due to taking too long to select a backstory."
+              onClick={() => {
+                set_ui_phase(phase => phase + 1);
+              }} />
+          ) : (
+            allowed_factions.includes(current_faction_key)
+                && recommended_factions.length !== 0
+                && !recommended_factions.includes(current_faction_key)
+              ? (
+                <Button.Confirm
+                  mt={2}
+                  fontSize="15px"
+                  color="bad"
+                  content="Select"
+                  tooltip={"This faction is NOT recommended based on your current objectives."}
+                  onClick={() => {
+                    set_ui_phase(phase => phase + 1);
+                  }} />
+              ) : (
+                <Button
+                  mt={2}
+                  fontSize="15px"
+                  color={recommended_factions.length === 0 ? null : "good"}
+                  content="Select"
+                  disable={!allowed_factions.includes(current_faction_key)}
+                  tooltip={!allowed_factions.includes(current_faction_key) ? "You are not able to select this faction." : (
+                    recommended_factions.length === 0 ? null : "This faction is recommended based on your current objectives"
+                  )}
+                  onClick={() => {
+                    set_ui_phase(phase => phase + 1);
+                  }} />
+              )
+          )}
         </Stack.Item>
       </Stack>
-      <Button
-        fontSize="18px"
-        icon="arrow-left"
-        style={{ position: "absolute", left: "8px", top: "45%" }}
-        onClick={() => set_selected_faction(prev_faction)} />
-      <Button
-        fontSize="18px"
-        icon="arrow-right"
-        iconPosition="right"
-        style={{ position: "absolute", right: "8px", top: "45%" }}
-        onClick={() => set_selected_faction(next_faction)} />
+      {!faction && (
+        <>
+          <Button
+            fontSize="18px"
+            icon="arrow-left"
+            style={{ position: "absolute", left: "8px", top: "45%" }}
+            onClick={() => set_selected_faction(prev_faction)} />
+          <Button
+            fontSize="18px"
+            icon="arrow-right"
+            style={{ position: "absolute", right: "8px", top: "45%" }}
+            onClick={() => set_selected_faction(next_faction)} />
+        </>
+      ) }
     </Dimmer>
   );
 };
 
-const BackstoryInfo = ({ data }, context) => {
+const BackstoryInfo = ({ data, titleColor }, context) => {
   return (
     <>
-      <Stack.Item fontSize="28px" mb={2} maxWidth="80vw">
+      <Stack.Item fontSize="28px" mb={2} maxWidth="80vw" textColor={titleColor}>
         {data?.name}
       </Stack.Item>
       {data?.description?.split("\n").map((value, index) => (
@@ -166,82 +241,206 @@ const BackstoryInfo = ({ data }, context) => {
   );
 };
 
-const SelectBackstoryMenu = ({ set_ui_phase, set_selected_faction, selected_faction }, context) => {
+const MOTIVATION_ICONS = {
+  "Forced Into It": "user-alt-slash",
+  "Not Forced Into It": "user-check",
+  "Money": "dollar-sign",
+  "Political": "peace",
+  "Love": "heart",
+  "Reputation": "comments-dollar",
+  "Death Threat": "skull",
+  "Authority": "users",
+  "Fun": "grin-tongue-wink",
+};
+
+const SelectBackstoryMenu = ({
+  set_ui_phase,
+  selected_faction,
+  set_selected_faction,
+  selected_backstory,
+  set_selected_backstory,
+}, context) => {
   const { act, data } = useBackend(context);
   const {
     allowed_backstories = [],
     all_backstories = {},
+    recommended_backstories = [],
+    all_motivations = [],
+    all_factions = {},
+    allowed_factions = [],
+    faction,
   } = data;
-  let backstory_keys = Object.keys(all_backstories);
-  let [selected_backstory, set_selected_backstory] = useLocalState(context, "traitor_selected_backstory", backstory_keys[0]);
-  let max_index = backstory_keys.length - 1;
-  let current_index = backstory_keys.indexOf(selected_backstory);
-  let next_backstory = current_index + 1;
-  let prev_backstory = current_index - 1;
-  if (next_backstory > max_index) {
-    next_backstory = 0;
+
+  let [motivations, set_motivations] = useLocalState(context, "traitor_motivations", []);
+
+  const toggle_motivation = (name) => set_motivations(motivations => {
+    if (motivations.includes(name)) {
+
+      let index = motivations.indexOf(name);
+      if (index > -1) {
+        motivations.splice(index, 1);
+      }
+    } else {
+      if (name === "Not Forced Into It" && motivations.includes("Forced Into It")) {
+        toggle_motivation("Forced Into It");
+      }
+      if (name === "Forced Into It" && motivations.includes("Not Forced Into It")) {
+        toggle_motivation("Not Forced Into It");
+      }
+      motivations.push(name);
+    }
+    return motivations;
+  });
+
+
+  let current_faction = all_factions[faction] || all_factions[selected_faction];
+  let current_faction_key = faction || selected_faction;
+
+  let allowed_backstories_filtered = Object.values(all_backstories).filter(value =>
+    value.allowed_factions.includes(current_faction_key) && allowed_backstories.includes(value.path)
+  ).map(value => value.path);
+  if (allowed_backstories_filtered.length === 0) {
+    return (
+      <Dimmer>
+        No valid backstories found. This is likely a bug. Please reload or reopen the menu.
+      </Dimmer>
+    );
   }
-  if (prev_backstory < 0) {
-    prev_backstory = max_index;
-  }
-  next_backstory = backstory_keys[next_backstory];
-  prev_backstory = backstory_keys[prev_backstory];
-  let backstory = all_backstories[selected_backstory];
+  let current_backstory = selected_backstory === null ? null : all_backstories[selected_backstory];
+
+
+  let recommendations = allowed_backstories_filtered.filter(v =>
+    all_backstories[v].motivations.some(r => motivations.includes(r))
+  );
+  let [prev_faction, next_faction] = get_surrounding_factions(
+    Object.keys(all_factions).filter(v => allowed_factions.includes(v)),
+    current_faction_key
+  );
 
   return (
-    <Dimmer>
-      <Box
-        width="100%"
-        textAlign="center"
-        fontSize="25px"
-        pb={0.75}
-        style={{ position: "absolute", left: "50%", top: "8px", transform: "translateX(-50%)", "border-bottom": "1px solid #aa2a2a" }}>
-        <strong>Backstory Select</strong>
-      </Box>
-      <Button
-        fontSize="15px"
-        color="bad"
-        icon="arrow-left"
-        content="Back"
-        style={{ position: "absolute", left: "8px", top: "8px" }}
-        onClick={() => {
-          set_ui_phase(phase => phase - 1);
-        }} />
-      <Stack align="baseline" vertical>
-        <Stack.Item fontSize="14px">
-          <Stack vertical textAlign="center">
-            <BackstoryInfo data={backstory} />
-          </Stack>
-        </Stack.Item>
-        <Stack.Item>
-          <Stack>
-            <Stack.Item>
-              <Button.Confirm
-                mt={2}
-                fontSize="15px"
-                confirm
-                icon="lock-open"
-                color="good"
-                confirmIcon="lock"
-                content="Select"
-                onClick={() => {
-                  set_ui_phase(phase => phase + 1);
-                }} />
-            </Stack.Item>
-          </Stack>
-        </Stack.Item>
-      </Stack>
-      <Button
-        fontSize="18px"
-        icon="arrow-left"
-        style={{ position: "absolute", left: "8px", top: "45%" }}
-        onClick={() => set_selected_backstory(prev_backstory)} />
-      <Button
-        fontSize="18px"
-        icon="arrow-right"
-        iconPosition="right"
-        style={{ position: "absolute", right: "8px", top: "45%" }}
-        onClick={() => set_selected_backstory(next_backstory)} />
-    </Dimmer>
+    <Flex direction="column" height="90vh">
+      <Flex.Item mb={1}>
+        <Section title={(
+          <>
+            <Box
+              width="100%"
+              textAlign="center"
+              fontSize="20px">
+              {!faction && (
+                <Button
+                  fontSize="13px"
+                  icon="arrow-left"
+                  style={{ position: "absolute", left: "28%", top: "8px" }}
+                  onClick={() => set_selected_faction(prev_faction)} />
+              )}
+              <strong>{current_faction.name}</strong>
+              {!faction && (
+                <Button
+                  fontSize="13px"
+                  icon="arrow-right"
+                  style={{ position: "absolute", right: "28%", top: "8px" }}
+                  onClick={() => set_selected_faction(next_faction)} />
+              )}
+            </Box>
+            <Button
+              fontSize="15px"
+              color="bad"
+              icon="arrow-left"
+              content="Back"
+              style={{ position: "absolute", left: "5px", top: "5px" }}
+              onClick={() => {
+                set_ui_phase(phase => phase - 1);
+              }} />
+          </>
+        )}>
+          <Box mb={0.5}>
+            <strong>What motivates your character?</strong>
+          </Box>
+          {all_motivations.map(motivation => (
+            <Button.Checkbox
+              key={motivation + "-checkbox"}
+              icon={motivations.includes(motivation) ? MOTIVATION_ICONS[motivation] : "square-o"}
+              content={motivation}
+              onClick={() => toggle_motivation(motivation)}
+              checked={motivations.includes(motivation)}
+            />
+          ))}
+        </Section>
+      </Flex.Item>
+      <Flex.Item grow>
+        <Flex height="100%">
+          <Flex.Item shrink minWidth="180px">
+            <Box height="100%" width="100%" className="Section Section-fill"
+              style={{ padding: "0.66em 0.5em", "overflow-y": "scroll", direction: "rtl" }}>
+              <Tabs vertical style={{ direction: "ltr" }} textAlign="right">
+                {
+                  Object.values(all_backstories).filter(v => allowed_backstories_filtered.includes(v.path)).map(backstory => (
+                    <Tabs.Tab
+                      fontSize={1.05}
+                      key={backstory.path}
+                      selected={selected_backstory === backstory.path}
+                      onClick={() => set_selected_backstory(selected_backstory === backstory.path ? null : backstory.path)}>
+                      {backstory.name}
+                      {
+                        recommended_backstories.includes(backstory.path) && (
+                          <Tooltip content="This backstory is recommended due to your murderbone status.">
+                            <Icon name="crosshairs" color="red" fontSize={1} ml={1} />
+                          </Tooltip>
+                        )
+                      }
+                      {
+                        recommendations.includes(backstory.path) && (
+                          <Tooltip content="This backstory is recommended based on your motivations.">
+                            <Icon fontSize={1.25} name="star" color={backstory.motivations.filter(r => motivations.includes(r)).length > 1 ? "yellow" : "silver"} ml={1} />
+                            <Box inline width="0" color="black" fontSize={1} style={{ transform: "translate(-12px, -1px)" }}>
+                              {backstory.motivations.filter(r => motivations.includes(r)).length}
+                            </Box>
+                          </Tooltip>
+                        )
+                      }
+                    </Tabs.Tab>
+                  ))
+                }
+
+              </Tabs>
+            </Box>
+          </Flex.Item>
+          <Flex.Item grow basis={0} ml={1}>
+            {current_backstory ? (
+              <Section fill title={(
+                <Box inline fontSize={1.8}>
+                  {current_backstory.name}
+                </Box>
+              )} fontSize={1.25} buttons={
+                <>
+                  {Object.entries(MOTIVATION_ICONS)
+                    .filter(([k, v]) => current_backstory.motivations.includes(k)).map(([motivation, icon]) => (
+                      <Tooltip key={"icon-motivation-tooltip-" + motivation} content={motivation}>
+                        <Icon fontSize={1.75} key={"icon-motivation-" + motivation} mr={1} mt={1} pr={0.5} pl={0.5} name={icon} />
+                      </Tooltip>
+                    ))}
+                  <Button.Confirm
+                    fontSize={1.4}
+                    style={{ transform: "translateY(-2.5px)" }}
+                    confirmContent="Lock In?"
+                    tooltip="You won't be able to change this selection after locking it in."
+                    content="Select"
+                    onClick={() => act("select_backstory", {
+                      faction: current_faction_key,
+                      backstory: selected_backstory,
+                    })} />
+                </>
+              }>
+                <Box inline dangerouslySetInnerHTML={{ __html: current_backstory.description }} />
+              </Section>
+            ) : (
+              <Section fill>
+                <Dimmer>No backstory selected</Dimmer>
+              </Section>
+            )}
+          </Flex.Item>
+        </Flex>
+      </Flex.Item>
+    </Flex>
   );
 };
