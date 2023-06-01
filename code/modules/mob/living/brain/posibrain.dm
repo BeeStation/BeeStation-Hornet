@@ -114,7 +114,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	if(transfer_personality(user))
 		GLOB.posi_key_list += ckey
 
-		announce_twisted_reality_to_new_user(src) // silicons have the same suffer
+		announce_twisted_reality_to_new_user(brainmob) // silicons have the same suffer
 
 /obj/item/mmi/posibrain/transfer_identity(mob/living/carbon/C)
 	name = "[initial(name)] ([C])"

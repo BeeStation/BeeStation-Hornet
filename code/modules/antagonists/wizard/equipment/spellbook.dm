@@ -596,7 +596,7 @@
 			Once a ritual is rejected, your points are refuneded. This ritual is not included in Wild Magic Manipulation."
 	cost = 2
 	ritual_invocation = "ALADAL DESINARI ODORI'IN PORES ANTE EGUL'OVOR'E MODU ENCANTOLITE"
-	var/wait_time = 60
+	var/wait_time = 600
 	var/response_timer_id = null
 
 /datum/spellbook_entry/summon/curse_of_twisted_reality/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
@@ -615,7 +615,7 @@
 
 /datum/spellbook_entry/summon/curse_of_twisted_reality/proc/check_admin_approval(mob/living/carbon/human/user, obj/item/spellbook/book, message)
 	to_chat(GLOB.admins, "<span class='adminnotice'><b><font color=orange>Wizard Twisted Reality: </font></b>\
-						[ADMIN_LOOKUPFLW(user)] proposes to declare the twisted reality: <b><font color=orange>[message]</span></b> \
+						[ADMIN_LOOKUPFLW(user)] proposes to declare the twisted reality: <b><font color=orange>[message]</font></b> \
 						(will auto-reject in [DisplayTimeText(wait_time)]). [ADMIN_SMITE(user)] \
 						(<A HREF='?_src_=holder;[HrefToken(TRUE)];time_until=[world.time+wait_time];spellref=[REF(src)];ritual_approve=[message];spelluser=[REF(user)]'>ACCEPT</A>) \
 						(<A HREF='?_src_=holder;[HrefToken(TRUE)];time_until=[world.time+wait_time];spellref=[REF(src)];ritual_reject=[REF(src)];spelluser=[REF(user)];spellbook=[REF(book)]'>REJECT</A>)</span>")

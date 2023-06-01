@@ -380,9 +380,9 @@
 		for(var/datum/dynamic_ruleset/rule in mode.executed_rules)
 			parts += "[FOURSPACES][FOURSPACES][rule.ruletype] - <b>[rule.name]</b>: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat"
 	if(length(GLOB.curse_of_twisted_reality_messages))
-		parts += "[GLOB.TAB]<br>Wizard casted a ritual 'Curse of Twisted Reality', and the message was:"
+		parts += "[GLOB.TAB]<br>Wizard performed a ritual <b>Curse of Twisted Reality</b>, and the message(s) was:"
 		for(var/each in GLOB.curse_of_twisted_reality_messages)
-			parts += "[GLOB.TAB]<br><B>Fact #[each]</B>: [GLOB.curse_of_twisted_reality_messages[each]]"
+			parts += "[FOURSPACES]<B>Fact #[each]</B>: [GLOB.curse_of_twisted_reality_messages[each]]"
 	return parts.Join("<br>")
 
 /client/proc/roundend_report_file()
