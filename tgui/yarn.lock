@@ -5718,17 +5718,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"inferno-vnode-flags@npm:8.2.1":
+"inferno-vnode-flags@npm:8.2.1, inferno-vnode-flags@npm:^8.2.1":
   version: 8.2.1
   resolution: "inferno-vnode-flags@npm:8.2.1"
   checksum: 10c12fb28a1c34bd8ea01ca78d4bf104ee2a78bfb80f4424aa03ba7549a57a20fbc1b9526890c033e0d3231287819ec08b184906954f0df15f9a8bd88e0df273
-  languageName: node
-  linkType: hard
-
-"inferno-vnode-flags@npm:^8.1.1":
-  version: 8.1.1
-  resolution: "inferno-vnode-flags@npm:8.1.1"
-  checksum: 5c0e861dc28f5a92542be60ff9ca6fe6cd3a2e61b4c7f5a050c659c1d2ccee31b2c8aba1fbb26fa654e2336b25ecccd6f8a9755fa90d87a59c3a7793842033fa
   languageName: node
   linkType: hard
 
@@ -9389,7 +9382,7 @@ __metadata:
     fastify: ^4.14.1
     fastify-static: ^4.7.0
     inferno: ^8.2.1
-    inferno-vnode-flags: ^8.1.1
+    inferno-vnode-flags: ^8.2.1
     lodash: ^4.17.21
     platform: ^1.3.6
     tgui: "workspace:*"
@@ -9502,7 +9495,7 @@ __metadata:
     dateformat: ^5.0.3
     dompurify: ^3.0.1
     inferno: ^8.2.1
-    inferno-vnode-flags: ^8.1.1
+    inferno-vnode-flags: ^8.2.1
     js-yaml: ^4.1.0
     marked: ^4.2.12
     tgui-dev-server: "workspace:*"
