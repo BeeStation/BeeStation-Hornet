@@ -126,6 +126,6 @@
 	icon_state = "blackbishopcloak"
 
 /obj/item/clothing/neck/cloak/vampire
-	name = "Vampire Cloak
+	name = "Vampire Cloak"
 	desc = "Worn by high ranking vampires of the transylvanian society of vampires."
-	icon_state = "vampirecloak
+	icon_state = "vampirecloak"
