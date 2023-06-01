@@ -247,6 +247,7 @@ SUBSYSTEM_DEF(vote)
 		log_vote(text)
 		var/vp = CONFIG_GET(number/vote_period)
 		to_chat(world, "\n<font color='purple'><b>[text]</b>\nType <b>vote</b> or click <a href='byond://winset?command=vote'>here</a> to place your votes.\nYou have [DisplayTimeText(vp)] to vote.</font>")
+		sound_to_playing_players('sound/misc/server-ready.ogg')
 		time_remaining = round(vp/10)
 		for(var/c in GLOB.clients)
 			var/client/C = c

@@ -490,9 +490,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				accesses += "<h5>Central Command:</h5>"
 				for(var/A in get_all_centcom_access())
 					if(A in inserted_modify_id.access)
-						accesses += "<a href='?src=[REF(src)];choice=access;access_target=[A];allowed=0'><font color=\"6bc473\">[replacetext(get_centcom_access_desc(A), " ", "&nbsp")]</font></a> "
+						accesses += "<a href='?src=[REF(src)];choice=access;access_target=[A];allowed=0'><font color=\"6bc473\">[replacetext(get_access_desc(A), " ", "&nbsp")]</font></a> "
 					else
-						accesses += "<a href='?src=[REF(src)];choice=access;access_target=[A];allowed=1'>[replacetext(get_centcom_access_desc(A), " ", "&nbsp")]</a> "
+						accesses += "<a href='?src=[REF(src)];choice=access;access_target=[A];allowed=1'>[replacetext(get_access_desc(A), " ", "&nbsp")]</a> "
 			else
 				accesses += "<div align='center'><b>Access</b></div>"
 				accesses += "<table style='width:100%'>"
@@ -623,7 +623,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						inserted_modify_id.access -= access_type
 						log_id("[key_name(usr)] removed [get_access_desc(access_type)] from [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
 						if(access_allowed == 1)
-							inserted_modify_id.access += access_type
+							inserted_modify_id.access |= access_type
 							log_id("[key_name(usr)] added [get_access_desc(access_type)] to [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
 						playsound(src, "terminal_type", 50, FALSE)
 		if ("assign")
@@ -671,10 +671,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 							return
 
 						inserted_modify_id.access -= get_all_accesses()
-						inserted_modify_id.access += jobdatum.get_access()
+						inserted_modify_id.access |= jobdatum.get_access()
 					else // centcom level
 						inserted_modify_id.access -= get_all_centcom_access()
-						inserted_modify_id.access += get_centcom_access(t1)
+						inserted_modify_id.access |= get_centcom_access(t1)
 
 					// Step 1: reseting theirs first
 					if(B && jobdatum) // 1-A: reseting bank payment
@@ -895,7 +895,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				var/t1 = "<B>Crew Manifest:</B><BR>"
 				for(var/datum/data/record/t in sort_record(GLOB.data_core.general))
 					t1 += t.fields["name"] + " - " + t.fields["rank"] + "<br>"
-				P.info = t1
+				P.default_raw_text = t1
 				P.name = "paper- 'Crew Manifest'"
 				printing = null
 				playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
@@ -932,11 +932,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					B.payment_per_department[each] = 0
 				say("Printing...")
 				sleep(50)
-				var/obj/item/paper/P = new /obj/item/paper( loc )
-				P.name = "New bank account information"
-				P.info += "<b>* Owner:</b> [target_name]<br>"
-				P.info += "<b>* Bank ID:</b> [B.account_id]<br>"
-				P.info += "--- Created by Nanotrasen Space Finance ---"
+				var/obj/item/paper/printed_paper = new /obj/item/paper( loc )
+				printed_paper.name = "New bank account information"
+				var/final_paper_text = "<b>* Owner:</b> [target_name]<br>"
+				final_paper_text += "<b>* Bank ID:</b> [B.account_id]<br>"
+				final_paper_text += "--- Created by Nanotrasen Space Finance ---"
+				printed_paper.add_raw_text(final_paper_text)
+				printed_paper.update_appearance()
 				printing = null
 				playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 

@@ -4,16 +4,18 @@
 	var/scanned = FALSE
 	var/unique = FALSE
 	var/point_reward = 0
+	var/datum/callback/get_discover_id
 
-/datum/component/discoverable/Initialize(_point_reward, _unique = FALSE)
+/datum/component/discoverable/Initialize(point_reward, unique = FALSE, get_discover_id)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(examine))
 	RegisterSignal(parent, COMSIG_CLICK, PROC_REF(tryScan))
 
-	point_reward = _point_reward
-	unique = _unique
+	src.point_reward = point_reward
+	src.unique = unique
+	src.get_discover_id = get_discover_id
 
 /datum/component/discoverable/proc/tryScan(datum/source, location, control, params, mob/user)
 	SIGNAL_HANDLER
@@ -38,7 +40,8 @@
 		to_chat(user, "<span class='warning'>[A] has already been analysed.</span>")
 		return
 	//Already scanned another of this type.
-	if(linked_techweb.scanned_atoms[A.type] && !unique)
+	var/discover_id = get_discover_id?.Invoke() || A.type
+	if(linked_techweb.scanned_atoms[discover_id] && !unique)
 		to_chat(user, "<span class='warning'>Datapoints about [A] already in system.</span>")
 		return
 	if(A.flags_1 & HOLOGRAM_1)
@@ -46,7 +49,7 @@
 		return
 	scanned = TRUE
 	linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, point_reward)
-	linked_techweb.scanned_atoms[A.type] = TRUE
+	linked_techweb.scanned_atoms[discover_id] = TRUE
 	playsound(user, 'sound/machines/terminal_success.ogg', 60)
 	to_chat(user, "<span class='notice'>New datapoint scanned, [point_reward] discovery points gained.</span>")
 	pulse_effect(get_turf(A), 4)
