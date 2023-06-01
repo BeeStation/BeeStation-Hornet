@@ -3,7 +3,7 @@
 	weight = WEIGHT_ROBOT
 
 /datum/keybinding/shell/can_use(client/user)
-	if(iscyborg(user.mob)
+	if(iscyborg(user.mob))
 		var/mob/living/silicon/robot/shell/our_shell = user.mob
 		if(our_shell.shell)
 			return TRUE
