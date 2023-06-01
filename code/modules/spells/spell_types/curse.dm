@@ -1,7 +1,7 @@
 GLOBAL_VAR_INIT(brain_curse, FALSE)
 GLOBAL_LIST_EMPTY(curse_of_twisted_reality_messages)
 
-/proc/brain_curse(mob/user, message)
+/proc/brain_curse(mob/user)
 	if(user) //in this case either someone holding a spellbook or a badmin
 		to_chat(user, "<span class='warning'>You sent a brain curse to everyone!</span>")
 		message_admins("[ADMIN_LOOKUPFLW(user)] sent a brain curse to everyone!")
