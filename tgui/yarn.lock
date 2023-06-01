@@ -5718,21 +5718,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"inferno-vnode-flags@npm:8.1.1, inferno-vnode-flags@npm:^8.1.1":
+"inferno-vnode-flags@npm:8.2.1":
+  version: 8.2.1
+  resolution: "inferno-vnode-flags@npm:8.2.1"
+  checksum: 10c12fb28a1c34bd8ea01ca78d4bf104ee2a78bfb80f4424aa03ba7549a57a20fbc1b9526890c033e0d3231287819ec08b184906954f0df15f9a8bd88e0df273
+  languageName: node
+  linkType: hard
+
+"inferno-vnode-flags@npm:^8.1.1":
   version: 8.1.1
   resolution: "inferno-vnode-flags@npm:8.1.1"
   checksum: 5c0e861dc28f5a92542be60ff9ca6fe6cd3a2e61b4c7f5a050c659c1d2ccee31b2c8aba1fbb26fa654e2336b25ecccd6f8a9755fa90d87a59c3a7793842033fa
   languageName: node
   linkType: hard
 
-"inferno@npm:^8.1.1":
-  version: 8.1.1
-  resolution: "inferno@npm:8.1.1"
+"inferno@npm:^8.2.1":
+  version: 8.2.1
+  resolution: "inferno@npm:8.2.1"
   dependencies:
     csstype: ^3.1.1
-    inferno-vnode-flags: 8.1.1
+    inferno-vnode-flags: 8.2.1
     opencollective-postinstall: ^2.0.3
-  checksum: 07402ca4ff935d0516e3c9da10a1a06a138cde288da16d436f4366862388988c9861ffe030ce58209a77091cd0d2d5f1ff92426ecc7bb82b55cf2ad2e1505d7b
+  checksum: a7611a05a127e649c6b3b1d6c06f18f3566a5c1221f3ba3e88d85a25d2b77d405861f3eae6a857172197e047dadb8a0eabf850bfc155b9bf949bbdbefda8e1d5
   languageName: node
   linkType: hard
 
@@ -9381,7 +9388,7 @@ __metadata:
     common: "workspace:*"
     fastify: ^4.14.1
     fastify-static: ^4.7.0
-    inferno: ^8.1.1
+    inferno: ^8.2.1
     inferno-vnode-flags: ^8.1.1
     lodash: ^4.17.21
     platform: ^1.3.6
@@ -9407,7 +9414,7 @@ __metadata:
   dependencies:
     common: "workspace:*"
     dompurify: ^3.0.1
-    inferno: ^8.1.1
+    inferno: ^8.2.1
     tgui: "workspace:*"
     tgui-dev-server: "workspace:*"
     tgui-polyfill: "workspace:*"
@@ -9431,7 +9438,7 @@ __metadata:
   dependencies:
     common: "workspace:*"
     dompurify: ^3.0.1
-    inferno: ^8.1.1
+    inferno: ^8.2.1
     tgui: "workspace:*"
     tgui-dev-server: "workspace:*"
     tgui-polyfill: "workspace:*"
@@ -9465,7 +9472,7 @@ __metadata:
     eslint-plugin-react: ^7.32.2
     eslint-plugin-sonarjs: ^0.18.0
     file-loader: ^6.2.0
-    inferno: ^8.1.1
+    inferno: ^8.2.1
     jest: ^29.5.0
     jest-circus: ^29.5.0
     jest-environment-jsdom: ^29.5.0
@@ -9494,7 +9501,7 @@ __metadata:
     csstype: ^3.1.1
     dateformat: ^5.0.3
     dompurify: ^3.0.1
-    inferno: ^8.1.1
+    inferno: ^8.2.1
     inferno-vnode-flags: ^8.1.1
     js-yaml: ^4.1.0
     marked: ^4.2.12

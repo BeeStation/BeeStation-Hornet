@@ -42,7 +42,7 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-sonarjs": "^0.18.0",
     "file-loader": "^6.2.0",
-    "inferno": "^8.1.1",
+    "inferno": "^8.2.1",
     "jest": "^29.5.0",
     "jest-circus": "^29.5.0",
     "jest-environment-jsdom": "^29.5.0",

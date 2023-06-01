@@ -6,7 +6,7 @@
     "common": "workspace:*",
     "fastify": "^4.14.1",
     "fastify-static": "^4.7.0",
-    "inferno": "^8.1.1",
+    "inferno": "^8.2.1",
     "inferno-vnode-flags": "^8.1.1",
     "lodash": "^4.17.21",
     "platform": "^1.3.6",

@@ -9,7 +9,7 @@
     "csstype": "^3.1.1",
     "dateformat": "^5.0.3",
     "dompurify": "^3.0.1",
-    "inferno": "^8.1.1",
+    "inferno": "^8.2.1",
     "inferno-vnode-flags": "^8.1.1",
     "js-yaml": "^4.1.0",
     "marked": "^4.2.12",
