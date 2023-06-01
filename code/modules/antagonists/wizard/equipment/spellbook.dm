@@ -575,37 +575,71 @@
 
 /datum/spellbook_entry/summon/brain_curse
 	name = "Brain curse"
-	desc = "Curses the brain of all crews in the station, including latejoiners, with magical traumas, sometimes special traumas."
+	desc = "Curses the brain of all crews in the station, including latejoiners, with magical traumas, sometimes special traumas. \
+			Casting this ritual after leaving Wizard's den is not recommended."
 	cost = 2
 	ritual_invocation = "ALADAL DESINARI ODORI'IN PORES ENHIDO'LEN MORI MAKA TU"
 
-/datum/spellbook_entry/summon/curse_of_madness/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
+/datum/spellbook_entry/summon/brain_curse/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
 	active = TRUE
-	var/message
-	while(!message)
-		message = stripped_input(user, "Whisper a secret truth to drive your victims to madness.", "Whispers of Madness")
-	curse_of_madness(user, message)
+	brain_curse(user)
 	to_chat(user, "<span class='notice'>You have cast the curse of insanity!</span>")
 	playsound(user, 'sound/magic/mandswap.ogg', 50, 1)
 	return TRUE
 
 /datum/spellbook_entry/summon/curse_of_twisted_reality
 	name = "Curse of Twisted Reality"
-	desc = "Curses the station, warping the minds of everyone inside, causing lasting traumas. Warning: this spell can affect you if not cast from a safe distance."
+	desc = "Curse everyone's reality as what they know is not what they know in fact, even including yourself. \
+			<br><b>Warning:</b> Wizard Federation Administrative Magus will evaluate your declaration, \
+			and decide to approve it or not. If there's no available person, it will be automatically rejected. \
+			Once a ritual is rejected, your points are refuneded. This ritual is not included in Wild Magic Manipulation."
 	cost = 2
-	ritual_invocation = "ALADAL DESINARI ODORI'IN PORES ENHIDO'LEN MORI MAKA TU"
+	ritual_invocation = "ALADAL DESINARI ODORI'IN PORES ANTE EGUL'OVOR'E MODU ENCANTOLITE"
+	var/wait_time = 60
+	var/response_timer_id = null
 
-/datum/spellbook_entry/summon/curse_of_madness/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
+/datum/spellbook_entry/summon/curse_of_twisted_reality/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
 	active = TRUE
-	var/message
-	while(!message)
-		message = stripped_input(user, "Whisper a secret truth to drive your victims to madness.", "Whispers of Madness")
-	curse_of_madness(user, message)
-	to_chat(user, "<span class='notice'>You have cast the curse of insanity!</span>")
-	playsound(user, 'sound/magic/mandswap.ogg', 50, 1)
+	var/message = stripped_input(user, "Declare the new fact to twist the reality of everyone.", "Twisting the reality")
+	if(!message)
+		to_chat(user, "<span class='notice'>You cancel the ritual.</span>")
+		active = FALSE
+		return FALSE
+
+	to_chat(user, "<span class='notice'>Wizard Federation will evaluate your declaration: [message]. \
+					Stand by for [DisplayTimeText(wait_time)] seconds.</span>")
+	INVOKE_ASYNC(src, PROC_REF(check_admin_approval), user, book, message)
 	return TRUE
+
+/datum/spellbook_entry/summon/curse_of_twisted_reality/proc/check_admin_approval(mob/living/carbon/human/user, obj/item/spellbook/book, message)
+	to_chat(GLOB.admins, "<span class='adminnotice'><b><font color=orange>Wizard Twisted Reality: </font></b>\
+						[ADMIN_LOOKUPFLW(user)] proposes to declare the twisted reality: <b><font color=orange>[message]</span></b> \
+						(will auto-reject in [DisplayTimeText(wait_time)]). [ADMIN_SMITE(user)] \
+						(<A HREF='?_src_=holder;[HrefToken(TRUE)];time_until=[world.time+wait_time];spellref=[REF(src)];ritual_approve=[message];spelluser=[REF(user)]'>ACCEPT</A>) \
+						(<A HREF='?_src_=holder;[HrefToken(TRUE)];time_until=[world.time+wait_time];spellref=[REF(src)];ritual_reject=[REF(src)];spelluser=[REF(user)];spellbook=[REF(book)]'>REJECT</A>)</span>")
+	response_timer_id = addtimer(CALLBACK(src, PROC_REF(rejected), user, book), wait_time, TIMER_STOPPABLE)
+
+/datum/spellbook_entry/summon/curse_of_twisted_reality/proc/rejected(mob/living/carbon/human/user, obj/item/spellbook/book)
+	if(response_timer_id)
+		deltimer(response_timer_id)
+		response_timer_id = null
+	if(!active)
+		return
+	to_chat(user, "<span class='notice'>Wizard Federation rejected your ritual.</span>")
+	book.uses += cost
+	active = FALSE
+
+/datum/spellbook_entry/summon/curse_of_twisted_reality/proc/accepted(mob/living/carbon/human/user, message)
+	deltimer(response_timer_id)
+	response_timer_id = null
+	if(!active)
+		return
+	to_chat(user, "<span class='notice'>The twisted reality has been manipulated!</span>")
+	curse_of_twisted_reality(user, message)
+	playsound(user, 'sound/magic/mandswap.ogg', 50, 1)
+	active = FALSE
 
 /datum/spellbook_entry/summon/wild_magic
 	name = "Wild Magic Manipulation"

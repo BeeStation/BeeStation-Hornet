@@ -401,6 +401,12 @@
 	var/output = "<B>[current.real_name]'s Memories:</B><br>"
 	output += memory
 
+	if(length(GLOB.curse_of_twisted_reality_messages))
+		output += "<br>Your mind is imprinted with the fact of the twisted reality:<BR>"
+		for(var/each in GLOB.curse_of_twisted_reality_messages)
+			output += "<br><B>Fact #[each]</B>: [GLOB.curse_of_twisted_reality_messages[each]]"
+		output += "<br>"
+
 
 	var/list/antag_objectives = get_all_antag_objectives()
 	for(var/datum/antagonist/A in antag_datums)

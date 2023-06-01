@@ -91,9 +91,6 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	if(is_banned_from(user.ckey, ROLE_POSIBRAIN))
 		to_chat(user, "<span class='warning'>You are restricted from taking positronic brain spawns at this time.</span>")
 		return
-	if(user.client.get_exp_living(TRUE) <= MINUTES_REQUIRED_BASIC)
-		to_chat(user, "<span class='warning'>You aren't allowed to take positronic brain spawns yet.</span>")
-		return
 	if(is_occupied() || QDELETED(brainmob) || QDELETED(src) || QDELETED(user))
 		return
 	if(user.ckey in GLOB.posi_key_list)
@@ -113,6 +110,8 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	var/ckey = user.ckey
 	if(transfer_personality(user))
 		GLOB.posi_key_list += ckey
+
+		announce_twisted_reality_to_new_user(src) // silicons have the same suffer
 
 /obj/item/mmi/posibrain/transfer_identity(mob/living/carbon/C)
 	name = "[initial(name)] ([C])"

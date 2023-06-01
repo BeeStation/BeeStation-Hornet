@@ -1917,6 +1917,29 @@
 			message_admins("[key_name_admin(usr)] selected backstory: [choice]")
 			log_admin("[key_name(usr)] selected backstory: [choice]")
 
+	else if(href_list["spellref"])
+		if(!check_rights(R_ADMIN))
+			return
+		if(text2num(href_list["time_until"]) < world.time)
+			to_chat(usr, "<span class='warning'>It's too late to do!</span>")
+			return
+		var/datum/spellbook_entry/summon/curse_of_twisted_reality/ritual = locate(href_list["spellref"])
+		if(href_list["ritual_approve"])
+			if(!istype(ritual))
+				return
+			message_admins("[key_name_admin(usr)] approved the twisted reality: [href_list["ritual_approve"]]")
+			log_admin("[key_name(usr)] approved the twisted reality: [href_list["ritual_approve"]]")
+			var/mob/M = locate(href_list["spelluser"])
+			ritual.accepted(M, href_list["ritual_approve"])
+		if(href_list["ritual_reject"])
+			if(!istype(ritual))
+				return
+			message_admins("[key_name_admin(usr)] rejected the twisted reality: [href_list["ritual_approve"]]")
+			log_admin("[key_name(usr)] rejected the twisted reality: [href_list["ritual_approve"]]")
+			var/obj/item/spellbook/book = locate(href_list["spellbook"])
+			var/mob/living/M = locate(href_list["spelluser"])
+			ritual.rejected(M, book)
+
 /datum/admins/proc/HandleCMode()
 	if(!check_rights(R_ADMIN))
 		return

@@ -1,5 +1,4 @@
 GLOBAL_VAR_INIT(brain_curse, FALSE)
-GLOBAL_VAR_INIT(curse_of_twisted_reality, FALSE)
 GLOBAL_LIST_EMPTY(curse_of_twisted_reality_messages)
 
 /proc/brain_curse(mob/user, message)
@@ -8,9 +7,9 @@ GLOBAL_LIST_EMPTY(curse_of_twisted_reality_messages)
 		message_admins("[ADMIN_LOOKUPFLW(user)] sent a brain curse to everyone!")
 		log_game("[key_name(user)] sent a brain curse to everyone!")
 
-	GLOB.curse_of_madness_triggered = TRUE // latejoiners are also afflicted.
+	GLOB.brain_curse = TRUE // latejoiners are also afflicted.
 
-	deadchat_broadcast("<span class='deadsay'>A <span class='name'>Brain Curse</span> has stricken the station, shattering their minds with the awful secret: \"<span class='big hypnophrase'>[message]</span>\"</span>")
+	deadchat_broadcast("<span class='deadsay'>A <span class='name'>Brain Curse</span> has stricken the station, shattering their minds.</span>")
 
 	for(var/mob/living/carbon/human/H in GLOB.player_list)
 		if(H.stat == DEAD)
@@ -44,26 +43,16 @@ GLOBAL_LIST_EMPTY(curse_of_twisted_reality_messages)
 	var/static/idx = 0
 	GLOB.curse_of_twisted_reality_messages["[++idx]"] = message
 
-	deadchat_broadcast("<span class='deadsay'>A <span class='name'>Curse of Twisted Reality</span> has stricken the station, shattering their minds with the awful secret: \"<span class='big hypnophrase'>[message]</span>\"</span>")
+	deadchat_broadcast("<span class='deadsay'>A <span class='name'>Curse of Twisted Reality</span> has stricken the station, twisting their minds with the new reality: \"<span class='big hypnophrase'>[message]</span>\"</span>")
 
 	for(var/mob/living/M in GLOB.player_list)
-		// do not put any protection here: everyone (including wizard) should deserve what the wizard did.
-		apply_curse_of_twisted_reality(H, message)
+		M.playsound_local(M,'sound/magic/curse.ogg',40,1)
+		to_chat(M, "<span class='reallybig hypnophrase'>[message]</span>")
+		to_chat(M, "<span class='warning'>Your mind twists!</span>")
 
-/proc/apply_curse_of_twisted_reality(mob/living/carbon/human/H)
-
-	H.playsound_local(H,'sound/magic/curse.ogg',40,1)
-	to_chat(H, "<span class='reallybig hypnophrase'>[message]</span>")
-	to_chat(H, "<span class='warning'>Your mind shatters!</span>")
-	mind.store_memory("<b>Your mind is imprinted with the fact of the twisted reality:<BR>* [message]</b><BR>This is the new reality, more than brainwash. It's the absolute fact.")
-
-
-/datum/brain_trauma/twisted_reality
-	name = "Reality Disorder"
-	desc = "Patient's consciousness is magically manipulated so that the fact they recognise is different."
-	scan_desc = "looping thought pattern"
-	gain_text = ""
-	lose_text = ""
-	resilience = TRAUMA_RESILIENCE_SURGERY
-	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
-	var/list/messages = list()
+/proc/announce_twisted_reality_to_new_user(mob/M)
+	if(length(GLOB.curse_of_twisted_reality_messages))
+		M.playsound_local(M,'sound/magic/curse.ogg',40,1)
+		for(var/each in GLOB.curse_of_twisted_reality_messages)
+			to_chat(M, "<span class='reallybig hypnophrase'>[GLOB.curse_of_twisted_reality_messages[each]]</span>")
+		to_chat(M, "<span class='warning'>Your mind twists!</span>")

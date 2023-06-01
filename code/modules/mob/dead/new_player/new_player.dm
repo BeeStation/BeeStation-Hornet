@@ -351,8 +351,7 @@
 
 		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREWMEMBER_JOINED, humanc, rank)
 
-	if(GLOB.curse_of_twisted_reality) // silicons have no exception
-		apply_curse_of_twisted_reality(character, GLOB.curse_of_twisted_reality)
+	announce_twisted_reality_to_new_user(character)  // silicons have no exception
 
 	GLOB.joined_player_list += character.ckey
 
