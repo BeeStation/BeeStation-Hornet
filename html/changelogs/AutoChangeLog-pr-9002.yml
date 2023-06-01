@@ -1,0 +1,11 @@
+author: Absolucy
+delete-after: true
+changes:
+  - tweak: High-impact roundstart dynamic rulesets are weighted less if they've been
+      chosen in a recent round.
+  - tweak: Normally blocked rulesets can now occur if the ruleset blocking them is
+      "dead". For example, this means heretics could show up after you deconvert the
+      entire cult, or traitors could appear after flukies all blow themselves up.
+  - tweak: Some midround/latejoin dynamic rulesets will not roll if the station has
+      been heavily damaged.
+  - tweak: Roundstart rulesets (and obsessed) in dynamic now actually use antag rep.
