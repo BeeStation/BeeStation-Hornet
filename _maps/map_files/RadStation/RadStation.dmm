@@ -12178,6 +12178,16 @@
 /area/security/main{
 	name = "Security EVA"
 	})
+"dVX" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/red,
+/obj/machinery/firealarm/directional/south,
+/turf/open/floor/plasteel,
+/area/security/main{
+	name = "Security Viewing Hall"
+	})
 "dVY" = (
 /obj/structure/sign/departments/restroom,
 /turf/closed/wall,
@@ -14549,7 +14559,7 @@
 /turf/open/floor/plasteel/dark/side,
 /area/hallway/secondary/exit/departure_lounge)
 "eHD" = (
- /obj/machinery/vending/boozeomat/maint,
+/obj/machinery/vending/boozeomat/maint,
 /turf/closed/wall,
 /area/maintenance/department/science)
 "eHT" = (
@@ -21470,7 +21480,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/vending/sustenance{
-	products = list(/obj/item/reagent_containers/food/snacks/tofu/prison = 24, /obj/item/reagent_containers/food/drinks/ice/prison = 12, /obj/item/reagent_containers/food/snacks/candy_corn/prison = 6, /obj/item/storage/fancy/cigarettes = 5, /obj/item/storage/box/matches = 10)
+	products = list(/obj/item/reagent_containers/food/snacks/tofu/prison=24,/obj/item/reagent_containers/food/drinks/ice/prison=12,/obj/item/reagent_containers/food/snacks/candy_corn/prison=6,/obj/item/storage/fancy/cigarettes=5,/obj/item/storage/box/matches=10)
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
@@ -29081,7 +29091,7 @@
 	},
 /obj/machinery/vending/wallmed{
 	pixel_y = -32;
-	products = list(/obj/item/stack/medical/gauze = 4, /obj/item/reagent_containers/hypospray/medipen = 3, /obj/item/reagent_containers/hypospray/medipen/dexalin = 3, /obj/item/reagent_containers/glass/bottle/epinephrine = 2, /obj/item/reagent_containers/glass/bottle/charcoal = 2)
+	products = list(/obj/item/stack/medical/gauze=4,/obj/item/reagent_containers/hypospray/medipen=3,/obj/item/reagent_containers/hypospray/medipen/dexalin=3,/obj/item/reagent_containers/glass/bottle/epinephrine=2,/obj/item/reagent_containers/glass/bottle/charcoal=2)
 	},
 /obj/machinery/newscaster{
 	pixel_x = -32;
@@ -32471,7 +32481,7 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/security/prison)
 "kll" = (
- /obj/machinery/vending/boozeomat/captain,
+/obj/machinery/vending/boozeomat/captain,
 /turf/closed/wall/r_wall,
 /area/crew_quarters/heads/hop)
 "klq" = (
@@ -38155,7 +38165,7 @@
 /area/engine/atmos)
 "mgF" = (
 /obj/machinery/smartfridge/sci{
-	initial_contents = list(/obj/item/stock_parts/capacitor = 2, /obj/item/stock_parts/manipulator = 2, /obj/item/stock_parts/micro_laser = 2, /obj/item/stock_parts/matter_bin = 2, /obj/item/stock_parts/scanning_module = 2);
+	initial_contents = list(/obj/item/stock_parts/capacitor=2,/obj/item/stock_parts/manipulator=2,/obj/item/stock_parts/micro_laser=2,/obj/item/stock_parts/matter_bin=2,/obj/item/stock_parts/scanning_module=2);
 	name = "Science vender"
 	},
 /turf/closed/wall,
@@ -39950,7 +39960,7 @@
 /obj/item/reagent_containers/glass/bottle/mutagen{
 	amount_per_transfer_from_this = 2;
 	desc = "A small bottle, almost empty. Has the words drink me, you wont written on it";
-	list_reagents = list(/datum/reagent/toxin/mutagen = 5);
+	list_reagents = list(/datum/reagent/toxin/mutagen=5);
 	pixel_x = -6;
 	pixel_y = 1
 	},
@@ -42349,7 +42359,7 @@
 /area/maintenance/department/engine)
 "nsH" = (
 /obj/machinery/smartfridge/sci{
-	initial_contents = list(/obj/item/stock_parts/capacitor = 2, /obj/item/stock_parts/manipulator = 2, /obj/item/stock_parts/micro_laser = 2, /obj/item/stock_parts/matter_bin = 2, /obj/item/stock_parts/scanning_module = 2);
+	initial_contents = list(/obj/item/stock_parts/capacitor=2,/obj/item/stock_parts/manipulator=2,/obj/item/stock_parts/micro_laser=2,/obj/item/stock_parts/matter_bin=2,/obj/item/stock_parts/scanning_module=2);
 	name = "Science vender"
 	},
 /turf/closed/wall,
@@ -66868,6 +66878,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"vmj" = (
+/obj/structure/lattice,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
+/turf/open/space/basic,
+/area/space/nearstation)
 "vmt" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -76418,23 +76435,6 @@
 /obj/structure/closet/secure_closet/contraband/armory,
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
-"yml" = (
-/obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 4
-	},
-/turf/open/space/basic,
-/area/space/nearstation)
-"ymo" = (
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/red,
-/obj/machinery/firealarm/directional/south,
-/turf/open/floor/plasteel,
-/area/security/main{
-	name = "Security Viewing Hall"
-	})
 
 (1,1,1) = {"
 yeA
@@ -105075,7 +105075,7 @@ fvP
 kKn
 sVb
 eZn
-ymo
+dVX
 ntc
 aum
 rza
@@ -106447,9 +106447,9 @@ fJJ
 jsM
 fJJ
 xUD
-yml
+vmj
 gsA
-yml
+vmj
 jGx
 aem
 jGx
@@ -107645,7 +107645,7 @@ bpg
 wCG
 nRq
 ell
-ymo
+dVX
 seT
 fxe
 qKl
@@ -109733,9 +109733,9 @@ mxy
 jDy
 jDy
 jDy
-cKs
-cKs
-cKs
+kHL
+kHL
+kHL
 cMR
 eAC
 eAC
