@@ -1,0 +1,9 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - tweak: revenant can see ghosts/other revs, but they can't orbit them
+  - rscadd: revenant can teleport to the station when they're in no-station z-level
+      (non-station). They get the spell when they are out of the station. You will
+      teleport to a random station location and get stunned for 4s and revealed for
+      8s
+  - code_imp: minor clean up rev code
