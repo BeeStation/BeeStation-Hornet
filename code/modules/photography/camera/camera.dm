@@ -179,9 +179,9 @@
 	var/list/dead_spotted = list()
 	var/ai_user = isAI(user)
 	var/list/seen
-	var/list/viewlist = (user && user.client)? getviewsize(user.client.view) : getviewsize(world.view)
+	var/list/viewlist = user?.client ? getviewsize(user.client.view) : getviewsize(world.view)
 	var/viewr = max(viewlist[1], viewlist[2]) + max(size_x, size_y)
-	var/viewc = user.client? user.client.eye : target
+	var/viewc = user?.client ? user.client.eye : target
 	seen = get_hear(viewr, get_turf(viewc))
 	var/list/turfs = list()
 	var/list/mobs = list()

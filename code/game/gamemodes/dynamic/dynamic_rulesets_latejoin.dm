@@ -74,6 +74,7 @@
 	cost = 8
 	requirements = list(5,5,5,5,5,5,5,5,5,5)
 	repeatable = TRUE
+	flags = INTACT_STATION_RULESET
 	blocking_rules = list(
 		/datum/dynamic_ruleset/roundstart/bloodcult,
 		/datum/dynamic_ruleset/roundstart/clockcult,
@@ -103,7 +104,7 @@
 	delay = 1 MINUTES // Prevents rule start while head is offstation.
 	cost = 13
 	requirements = list(101,101,70,40,30,20,20,20,20,20)
-	flags = HIGH_IMPACT_RULESET
+	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET
 	blocking_rules = list(/datum/dynamic_ruleset/roundstart/revs)
 	var/required_heads_of_staff = 3
 	var/finished = FALSE

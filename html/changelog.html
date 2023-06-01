@@ -56,6 +56,89 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">01 June 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">High-impact roundstart dynamic rulesets are weighted less if they've been chosen in a recent round.</li>
+				<li class="tweak">Normally blocked rulesets can now occur if the ruleset blocking them is "dead". For example, this means heretics could show up after you deconvert the entire cult, or traitors could appear after flukies all blow themselves up.</li>
+				<li class="tweak">Some midround/latejoin dynamic rulesets will not roll if the station has been heavily damaged.</li>
+				<li class="tweak">Roundstart rulesets (and obsessed) in dynamic now actually use antag rep.</li>
+				<li class="bugfix">Changeling transformation sting works again.</li>
+				<li class="rscadd">Tourettes can now combine with voice of god for an... interesting effect.</li>
+			</ul>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added the 'blueprint' mode to the T-ray scanner, which shows the normal layout of pipes, wires and disposal pipes</li>
+				<li class="rscadd">Added the ability to toggle T-ray scanner modes by Alt-clicking it</li>
+				<li class="tweak">Things revealed by the T-ray scanner now stay visible for 16 ticks rather than 8</li>
+				<li class="imageadd">added an icon for the T-ray scanner in the 'blueprint' mode</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">improved language codes</li>
+				<li class="rscadd">added Metalanguage - everyone can understand this, but only speakable by specific situation. (mentor rat can say this. curator can't say this). You know this language, but it will not be visible in your known language list.</li>
+				<li class="imageadd">lang icon for metalanguage</li>
+				<li class="tweak">Gibbering language icon will not be visible to yourself any longer. No meta yourself that your language is broken.</li>
+				<li class="tweak">some mobs (especially animals) will now say in Metalanguage instead of Common. Rats will squeak, cats will meow, but not in Galactic Common.</li>
+				<li class="tweak">revenant can see ghosts/other revs, but they can't orbit them</li>
+				<li class="rscadd">revenant can teleport to the station when they're in no-station z-level (non-station). They get the spell when they are out of the station. You will teleport to a random station location and get stunned for 4s and revealed for 8s</li>
+				<li class="code_imp">minor clean up rev code</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend, Aramix, nicbn(TG) updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">ported a camera code - Camera will capture your current shape correctly - especially when you're big or resting. (credit to nicbn in TG)</li>
+				<li class="bugfix">ghosts in a photo will be looked like they're orbiting. (credit to Aramix in bee discord)</li>
+			</ul>
+			<h3 class="author">HowToLoLu updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Odd movements in space no longer causes an error</li>
+			</ul>
+			<h3 class="author">Jikka Joestar  updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed visibility from medbay reception on Kilo Station</li>
+			</ul>
+			<h3 class="author">JixS4v updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added hotkeys for the AI to disconnect and reconnect to its most recently used shell</li>
+			</ul>
+
+			<h2 class="date">31 May 2023</h2>
+			<h3 class="author">Arkatos, Mothblocks updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">Cyborg Station Alerts UI now uses tgui.</li>
+				<li class="refactor">AI Station Alerts UI now uses tgui.</li>
+				<li class="bugfix">Station alert console will now always show a correct icon when an alert is added or cleared.</li>
+				<li class="bugfix">Station alert console and Canary application icons will no longer get stuck in an alert mode forever.</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fix orbit panel showing invalid job HUDs as blank boxes.</li>
+			</ul>
+			<h3 class="author">Tyranicranger4 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed Delimber anomalies actually delimbing people, despite their name this was not their intended behavior</li>
+				<li class="admin">Slightly improved Delimber anomaly logging</li>
+				<li class="tweak">Renamed 'Delimber' anomalies to 'Bioscrambler' anomalies</li>
+			</ul>
+			<h3 class="author">mystery3525 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Splits node design IDs into multiple lines in alphabetical order with trailing commas</li>
+			</ul>
+			<h3 class="author">someone543 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Cyborg total positions set to 1</li>
+			</ul>
+			<h3 class="author">trazelab, RKz updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added some job ban checks to the robot factory! You'll be ghosted if you're cyborg banned.</li>
+			</ul>
+
+			<h2 class="date">30 May 2023</h2>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed orbit panel shows a mob twice</li>
+			</ul>
+
 			<h2 class="date">29 May 2023</h2>
 			<h3 class="author">Absolucy updated:</h3>
 			<ul class="changes bgimages16">
@@ -932,23 +1015,6 @@
 			<h3 class="author">Crossedfall updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="server">Bumps auxmos to version 2.2.2</li>
-			</ul>
-
-			<h2 class="date">30 March 2023</h2>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixes an exploit with the byond debugger leaking information.</li>
-				<li class="code_imp">Updated the bug report issue template to include expected behaviour and actual behaviour.</li>
-			</ul>
-			<h3 class="author">RKz, tastyfish updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">status displays scroll much more smoothly, and aren't as much unreadable trash anymore</li>
-			</ul>
-
-			<h2 class="date">29 March 2023</h2>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Re-aggregated Kilo's tile decals into single objects.</li>
 			</ul>
 		</div>
 
