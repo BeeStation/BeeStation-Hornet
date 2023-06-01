@@ -51,7 +51,19 @@ GLOBAL_LIST_EMPTY(curse_of_twisted_reality_messages)
 		apply_curse_of_twisted_reality(H, message)
 
 /proc/apply_curse_of_twisted_reality(mob/living/carbon/human/H)
+
 	H.playsound_local(H,'sound/magic/curse.ogg',40,1)
 	to_chat(H, "<span class='reallybig hypnophrase'>[message]</span>")
 	to_chat(H, "<span class='warning'>Your mind shatters!</span>")
 	mind.store_memory("<b>Your mind is imprinted with the fact of the twisted reality:<BR>* [message]</b><BR>This is the new reality, more than brainwash. It's the absolute fact.")
+
+
+/datum/brain_trauma/twisted_reality
+	name = "Reality Disorder"
+	desc = "Patient's consciousness is magically manipulated so that the fact they recognise is different."
+	scan_desc = "looping thought pattern"
+	gain_text = ""
+	lose_text = ""
+	resilience = TRAUMA_RESILIENCE_SURGERY
+	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
+	var/list/messages = list()
