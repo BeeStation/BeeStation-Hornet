@@ -1,5 +1,5 @@
 /datum/round_event_control/wizard/madness
-	name = "Curse of Madness"
+	name = "Brain Curse"
 	weight = 1
 	typepath = /datum/round_event/wizard/madness
 	earliest_start = 0 MINUTES
@@ -10,19 +10,8 @@
 	if(!check_rights(R_FUN))
 		return
 
-	var/suggested = pick(strings(REDPILL_FILE, "redpill_questions"))
-
-	forced_secret = capped_input(usr, "What horrifying truth will you reveal?", "Curse of Madness", sort_list(suggested)) || suggested
-
 /datum/round_event/wizard/madness/start()
 	var/datum/round_event_control/wizard/madness/C = control
+	brain_curse(null)
 
-	var/horrifying_truth
-
-	if(C.forced_secret)
-		horrifying_truth = C.forced_secret
-		C.forced_secret = null
-	else
-		horrifying_truth = pick(strings(REDPILL_FILE, "redpill_questions"))
-
-	brain_curse(null, horrifying_truth)
+// note: this event used to give a random red pill question to people, but it's removed because it does actually nothing.

@@ -23,7 +23,7 @@ GLOBAL_LIST_EMPTY(curse_of_twisted_reality_messages)
 		if(istype(H.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			to_chat(H, "<span class='warning'>Your protective headgear successfully deflects mind controlling brainwaves!</span>")
 			continue
-		apply_brain_curse(H, message)
+		apply_brain_curse(H)
 
 /proc/apply_brain_curse(mob/living/carbon/human/H)
 	H.playsound_local(H,'sound/magic/curse.ogg',40,1)
