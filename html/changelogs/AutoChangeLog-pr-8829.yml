@@ -1,0 +1,12 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - code_imp: improved language codes
+  - rscadd: added Metalanguage - everyone can understand this, but only speakable
+      by specific situation. (mentor rat can say this. curator can't say this). You
+      know this language, but it will not be visible in your known language list.
+  - imageadd: lang icon for metalanguage
+  - tweak: Gibbering language icon will not be visible to yourself any longer. No
+      meta yourself that your language is broken.
+  - tweak: some mobs (especially animals) will now say in Metalanguage instead of
+      Common. Rats will squeak, cats will meow, but not in Galactic Common.
