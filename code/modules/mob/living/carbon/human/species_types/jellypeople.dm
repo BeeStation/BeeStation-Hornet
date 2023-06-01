@@ -677,7 +677,7 @@ GLOBAL_LIST_EMPTY(slime_linked_with)
 	var/list/options = list()
 	for(var/mob/living/Ms in oview(H))
 		options += Ms
-	var/mob/living/M = tgui_input_list("Select who to send your message to:", "Send thought to?", items = sort_names(options))
+	var/mob/living/M = tgui_input_list(usr, "Select who to send your message to:", "Send thought to?", items = sort_names(options))
 	if(!M)
 		return
 
