@@ -608,7 +608,7 @@
 		active = FALSE
 		return FALSE
 
-	to_chat(user, "<span class='notice'>Wizard Federation will evaluate your declaration: [message]. \
+	to_chat(user, "<span class='notice'>The Wizard Federation will evaluate your declaration: [message]. \
 					Stand by for [DisplayTimeText(wait_time)] seconds.</span>")
 	INVOKE_ASYNC(src, PROC_REF(check_admin_approval), user, book, message)
 	return TRUE
