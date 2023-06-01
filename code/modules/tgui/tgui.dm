@@ -196,7 +196,7 @@
 		return
 	if(!COOLDOWN_FINISHED(src, refresh_cooldown))
 		refreshing = TRUE
-		addtimer(CALLBACK(src, .proc/send_full_update), TGUI_REFRESH_FULL_UPDATE_COOLDOWN, TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(send_full_update)), TGUI_REFRESH_FULL_UPDATE_COOLDOWN, TIMER_UNIQUE)
 		return
 	refreshing = FALSE
 	var/should_update_data = force || status >= UI_UPDATE
