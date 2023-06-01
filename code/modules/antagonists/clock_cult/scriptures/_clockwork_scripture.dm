@@ -297,7 +297,7 @@
 	return ..()
 
 /datum/action/innate/clockcult/transmit/Activate()
-	hierophant_message(tgui_input_text(owner, "What do you want to tell your allies?", "Hierophant Transmit", ""), owner, "<span class='brass'>", use_sanitisation = FALSE) // we don't sanitize her because tgui_input_text sanitizes for us already
+	hierophant_message(tgui_input_text(owner, "What do you want to tell your allies?", "Hierophant Transmit", "", encode = FALSE), owner, "<span class='brass'>")
 
 /datum/action/innate/clockcult/transmit/Grant(mob/M)
 	..(M)
