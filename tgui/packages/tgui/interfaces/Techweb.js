@@ -30,9 +30,10 @@ const selectRemappedStaticData = data => {
   // Do the same as the above for the design cache
   const design_cache = {};
   for (let id of Object.keys(data.static_data.design_cache)) {
-    const [name, classes] = data.static_data.design_cache[id];
+    const [name, desc, classes] = data.static_data.design_cache[id];
     design_cache[remapId(id)] = {
       name: name,
+      desc: desc,
       class: classes.startsWith("design") ? classes : `design32x32 ${classes}`,
     };
   }
@@ -710,6 +711,22 @@ const TechNodeDetail = (props, context) => {
   );
 };
 
+const DesignTooltip = (props, _context) => {
+  const { design } = props;
+  return (
+    <Flex direction="column">
+      <Flex.Item>
+        <b>{design.name}</b>
+      </Flex.Item>
+      {design.desc !== "Desc" && (
+        <Flex.Item>
+          <i>{design.desc}</i>
+        </Flex.Item>
+      )}
+    </Flex>
+  );
+};
+
 const TechNode = (props, context) => {
   const { act, data } = useRemappedBackend(context);
   const {
@@ -821,16 +838,11 @@ const TechNode = (props, context) => {
       {!!compact && (
         <Box className="Techweb__NodeUnlockedDesigns" mt={1}>
           {design_ids.map((k, i) => (
-            <Box
+            <Button
               key={id}
               className={`${design_cache[k].class} Techweb__DesignIcon`}
-              // Tooltips are disabled due to performance issues
-              // The interace stutters every time it updates
-              // Those can be uncommented and the Box can be swapped for a
-              //  Button when the issues are resolved. Make sure to test
-              //  that they don't lag and *actually work*.
-              // tooltip={design_cache[k].name}
-              // tooltipPosition={i % 15 < 7 ? "right" : "left"}
+              tooltip={(<DesignTooltip design={design_cache[k]} />)}
+              tooltipPosition={i % 15 < 7 ? "right" : "left"}
             />
           ))}
         </Box>
