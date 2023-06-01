@@ -215,12 +215,14 @@
  * optional force bool Send an update even if UI is not interactive.
  */
 /datum/tgui/proc/send_update(custom_data, force)
-	if(!user.client || !initialized || closing)
+	if(!user.client || !initialized || closing || QDELETED(src_object) || QDELETED(user) || QDELETED(window))
 		return
 	var/should_update_data = force || status >= UI_UPDATE
-	window.send_message("update", get_payload(
+	var/payload = get_payload(
 		custom_data,
-		with_data = should_update_data))
+		with_data = should_update_data)
+	if(payload)
+		window.send_message("update", payload)
 
 /**
  * private
@@ -258,6 +260,8 @@
 	var/static_data = with_static_data && src_object.ui_static_data(user)
 	if(static_data)
 		json_data["static_data"] = static_data
+	if(!user?.client || !initialized || closing || QDELETED(src_object) || QDELETED(user) || QDELETED(window))
+		return
 	if(src_object.tgui_shared_states)
 		json_data["shared"] = src_object.tgui_shared_states
 	return json_data
