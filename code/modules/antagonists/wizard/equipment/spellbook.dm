@@ -596,7 +596,7 @@
 			Once a ritual is rejected, your points are refuneded. This ritual is not included in Wild Magic Manipulation."
 	cost = 2
 	ritual_invocation = "ALADAL DESINARI ODORI'IN PORES ANTE EGUL'OVOR'E MODU ENCANTOLITE"
-	var/wait_time = 600
+	var/wait_time = 1 MINUTES
 	var/response_timer_id = null
 
 /datum/spellbook_entry/summon/curse_of_twisted_reality/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
