@@ -627,7 +627,7 @@
 		response_timer_id = null
 	if(!active)
 		return
-	to_chat(user, "<span class='notice'>Wizard Federation rejected your ritual.</span>")
+	to_chat(user, "<span class='notice'>The Wizard Federation rejected your ritual.</span>")
 	book.uses += cost
 	active = FALSE
 
