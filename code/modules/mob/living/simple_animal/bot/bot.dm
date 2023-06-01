@@ -1014,7 +1014,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 				bot_name = name
 				name = paicard.pai.name
 				faction = user.faction.Copy()
-				copy_languages(paicard.pai)
+				copy_languages(paicard.pai, blocked=TRUE) // this is full-copy, so it should be blocked=TRUE
 				log_combat(user, paicard.pai, "uploaded to [bot_name],")
 				return TRUE
 			else
