@@ -1,5 +1,0 @@
-author: JixS4v
-delete-after: true
-changes:
-  - rscadd: Added hotkeys for the AI to disconnect and reconnect to its most recently
-      used shell

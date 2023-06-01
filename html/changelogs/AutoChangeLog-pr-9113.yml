@@ -1,4 +1,0 @@
-author: HowToLoLu
-delete-after: true
-changes:
-  - bugfix: Odd movements in space no longer causes an error

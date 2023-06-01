@@ -1,9 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - rscadd: Added the 'blueprint' mode to the T-ray scanner, which shows the normal
-      layout of pipes, wires and disposal pipes
-  - rscadd: Added the ability to toggle T-ray scanner modes by Alt-clicking it
-  - tweak: Things revealed by the T-ray scanner now stay visible for 16 ticks rather
-      than 8
-  - imageadd: added an icon for the T-ray scanner in the 'blueprint' mode
