@@ -595,7 +595,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 			location_sanity++
 			continue
 		new /obj/effect/visible_heretic_influence(chosen_location)
-		spawned ++
+		spawned++
 
 /// Checks if the turf was blessed with holy water OR the area its in is Chapel
 /turf/proc/is_holy()
