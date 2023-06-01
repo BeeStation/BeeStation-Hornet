@@ -1,4 +1,4 @@
-import { useBackend, } from '../backend';
+import { useBackend } from '../backend';
 import { AnimatedNumber, Box, Button, Flex, Section } from '../components';
 import { Window } from '../layouts';
 import { toFixed } from 'common/math';
