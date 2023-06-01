@@ -80,11 +80,11 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/h_user = user
 		if(isstargazer(h_user))
-			var/datum/species/jelly/stargazer/stargazer = h_user.dna.species
+			var/datum/species/oozeling/stargazer/stargazer = h_user.dna.species
 			stargazer.slime_chat(h_user, message)
 			return
 	var/datum/weakref/mind_ref = GLOB.slime_linked_with[user.mind]
-	var/datum/species/jelly/stargazer/stargazer = mind_ref?.resolve()
+	var/datum/species/oozeling/stargazer/stargazer = mind_ref?.resolve()
 	if(!stargazer || !istype(stargazer))
 		return TRUE
 	stargazer.slime_chat(user, message)

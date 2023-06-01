@@ -36,6 +36,8 @@
 	var/list/user_vars_to_edit //VARNAME = VARVALUE eg: "name" = "butts"
 	var/list/user_vars_remembered //Auto built by the above + dropped() + equipped()
 
+	/// Trait modification, lazylist of traits to add/take away, on equipment/drop in the correct slot
+
 	var/pocket_storage_component_path
 
 	//These allow head/mask items to dynamically alter the user's hair
@@ -110,7 +112,7 @@
 		user_vars_remembered = initial(user_vars_remembered) // Effectively this sets it to null.
 
 /obj/item/clothing/equipped(mob/user, slot)
-	..()
+	. = ..()
 	if (!istype(user))
 		return
 	if(slot_flags & slot) //Was equipped to a valid slot for this item?

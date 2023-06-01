@@ -17,7 +17,6 @@
 	pixel_x = -32
 	pixel_y = -32
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
-	flags_1 = SUPERMATTER_IGNORES_1
 	var/target
 	var/list/orbiting_balls = list()
 	dissipate = TRUE //Do we lose energy over time?

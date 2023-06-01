@@ -99,7 +99,7 @@
 		if(brainwash)
 			to_chat(C, "<span class='userdanger'>A new compulsion fills your mind... you feel forced to obey it!</span>")
 			var/objective = "Convert as many people as possible into a [initial(desired_race.name)]. Racewar!"
-			brainwash(C, objective)
+			brainwash(C, objective, "species converter")
 			log_game("[key_name(C)] has been brainwashed with the objective '[objective]' via the species converter.")
 
 	iterations++

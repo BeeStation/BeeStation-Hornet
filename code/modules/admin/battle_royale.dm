@@ -307,18 +307,18 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	to_chat(world, "<span class='boldannounce'>Battle Royale: Starting game.</span>")
 	titanfall()
 	death_wall = list()
-	var/z_level = SSmapping.station_start
-	var/turf/center = SSmapping.get_station_center()
-	var/list/edge_turfs = list()
-	edge_turfs += block(locate(12, 12, z_level), locate(244, 12, z_level))			//BOTTOM
-	edge_turfs += block(locate(12, 244, z_level), locate(244, 244, z_level))		//TOP
-	edge_turfs |= block(locate(12, 12, z_level), locate(12, 244, z_level))			//LEFT
-	edge_turfs |= block(locate(244, 12, z_level), locate(244, 244, z_level)) 	//RIGHT
-	for(var/turf/T in edge_turfs)
-		var/obj/effect/death_wall/DW = new(T)
-		DW.set_center(center)
-		death_wall += DW
-		CHECK_TICK
+	for(var/z_level in SSmapping.levels_by_trait(ZTRAIT_STATION))
+		var/turf/center = SSmapping.get_station_center(level = z_level)
+		var/list/edge_turfs = list()
+		edge_turfs += block(locate(12, 12, z_level), locate(244, 12, z_level))		//BOTTOM
+		edge_turfs += block(locate(12, 244, z_level), locate(244, 244, z_level))	//TOP
+		edge_turfs |= block(locate(12, 12, z_level), locate(12, 244, z_level))		//LEFT
+		edge_turfs |= block(locate(244, 12, z_level), locate(244, 244, z_level))	//RIGHT
+		for(var/turf/T in edge_turfs)
+			var/obj/effect/death_wall/DW = new(T)
+			DW.set_center(center)
+			death_wall += DW
+			CHECK_TICK
 	START_PROCESSING(SSprocessing, src)
 
 /datum/battle_royale_controller/proc/titanfall()

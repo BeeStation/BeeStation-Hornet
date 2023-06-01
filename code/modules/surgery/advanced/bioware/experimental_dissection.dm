@@ -42,7 +42,7 @@
 				return 8000
 			if(isgolem(H) || iszombie(H))
 				return 4000
-			if(isjellyperson(H) || ispodperson(H))
+			if(isslimeperson(H) || isluminescent(H) || isstargazer(H) || ispodperson(H))
 				return 3000
 			return 2000
 

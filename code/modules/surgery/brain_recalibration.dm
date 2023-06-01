@@ -37,7 +37,7 @@
 		"[user] successfully fixes [target]'s brain!",
 		"[user] completes the surgery on [target]'s brain.")
 	if(target.mind && target.mind.has_antag_datum(/datum/antagonist/brainwashed))
-		target.mind.remove_antag_datum(/datum/antagonist/brainwashed)
+		unbrainwash(target)
 	target.setOrganLoss(ORGAN_SLOT_BRAIN, target.getOrganLoss(ORGAN_SLOT_BRAIN) - 60)	//we set damage in this case in order to clear the "failing" flag
 	target.cure_all_traumas(TRAUMA_RESILIENCE_SURGERY)
 	if(target.getOrganLoss(ORGAN_SLOT_BRAIN))

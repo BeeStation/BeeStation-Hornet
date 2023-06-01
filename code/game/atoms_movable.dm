@@ -43,8 +43,6 @@
 	var/datum/component/orbiter/orbiting
 	var/can_be_z_moved = TRUE
 
-	var/zfalling = FALSE
-
 	/// Either FALSE, [EMISSIVE_BLOCK_GENERIC], or [EMISSIVE_BLOCK_UNIQUE]
 	var/blocks_emissive = FALSE
 	///Internal holder for emissive blocker object, do not use directly use blocks_emissive
@@ -75,6 +73,8 @@
 		if(EMISSIVE_BLOCK_UNIQUE)
 			render_target = ref(src)
 			em_block = new(src, render_target)
+	if(opacity)
+		AddElement(/datum/element/light_blocking)
 
 	QDEL_NULL(em_block)
 
@@ -101,50 +101,6 @@
 /atom/movable/update_overlays()
 	. = ..()
 	. += update_emissive_block()
-
-/atom/movable/proc/can_zFall(turf/source, turf/target, direction)
-	if(!direction)
-		direction = DOWN
-	if(!source)
-		source = get_turf(src)
-		if(!source)
-			return FALSE
-	if(!target)
-		target = get_step_multiz(source, direction)
-		if(!target)
-			return FALSE
-	return !(movement_type & FLYING) && has_gravity(src) && !throwing
-
-/atom/movable/proc/onZImpact(turf/T, levels)
-	var/atom/highest = null
-	for(var/i in T.contents)
-		var/atom/A = i
-		if(!A.density)
-			continue
-		if(isobj(A) || ismob(A))
-			if(!highest || A.layer > highest.layer)
-				highest = A
-	INVOKE_ASYNC(src, PROC_REF(SpinAnimation), 5, 2)
-	if(highest)
-		throw_impact(highest, new /datum/thrownthing(src, highest, DOWN, levels, min(5, levels), null, FALSE, MOVE_FORCE_STRONG, null, BODY_ZONE_HEAD))
-	return TRUE
-
-//For physical constraints to travelling up/down.
-/atom/movable/proc/can_zTravel(turf/destination, direction)
-	var/turf/T = get_turf(src)
-	if(!T)
-		return FALSE
-	if(!direction)
-		if(!destination)
-			return FALSE
-		direction = get_dir(T, destination)
-	if(direction != UP && direction != DOWN)
-		return FALSE
-	if(!destination)
-		destination = get_step_multiz(src, direction)
-		if(!destination)
-			return FALSE
-	return T.zPassOut(src, direction, destination) && destination.zPassIn(src, direction, T)
 
 /atom/movable/vv_edit_var(var_name, var_value)
 	var/static/list/banned_edits = list("step_x", "step_y", "step_size", "bounds")
@@ -228,7 +184,7 @@
 /atom/movable/proc/Move_Pulled(atom/A)
 	if(!pulling)
 		return
-	if(pulling.anchored || pulling.move_resist > move_force || !pulling.Adjacent(src))
+	if(pulling.anchored || pulling.move_resist > move_force || !pulling.Adjacent(src, src, pulling))
 		stop_pulling()
 		return
 	if(isliving(pulling))
@@ -481,22 +437,26 @@
 /atom/movable/Destroy(force)
 	QDEL_NULL(proximity_monitor)
 	QDEL_NULL(language_holder)
+	QDEL_NULL(em_block)
 
-	unbuckle_all_mobs(force=1)
+	unbuckle_all_mobs(force = TRUE)
 
-	. = ..()
 	if(loc)
 		//Restore air flow if we were blocking it (movables with ATMOS_PASS_PROC will need to do this manually if necessary)
 		if(((CanAtmosPass == ATMOS_PASS_DENSITY && density) || CanAtmosPass == ATMOS_PASS_NO) && isturf(loc))
 			CanAtmosPass = ATMOS_PASS_YES
 			air_update_turf(TRUE)
 		loc.handle_atom_del(src)
-	for(var/atom/movable/AM in contents)
-		qdel(AM)
-	moveToNullspace()
+
+	if(opacity)
+		RemoveElement(/datum/element/light_blocking)
+
 	invisibility = INVISIBILITY_ABSTRACT
+
 	if(pulledby)
 		pulledby.stop_pulling()
+	if(pulling)
+		stop_pulling()
 
 	if(orbiting)
 		orbiting.end_orbit(src)
@@ -506,17 +466,33 @@
 		if(!QDELETED(move_packet))
 			qdel(move_packet)
 		move_packet = null
+/*
+	LAZYCLEARLIST(client_mobs_in_contents)
+*/
+	. = ..()
 
+	for(var/movable_content in contents)
+		qdel(movable_content)
+
+	moveToNullspace()
+
+	//This absolutely must be after moveToNullspace()
+	//We rely on Entered and Exited to manage this list, and the copy of this list that is on any /atom/movable "Containers"
+	//If we clear this before the nullspace move, a ref to this object will be hung in any of its movable containers
 	LAZYCLEARLIST(important_recursive_contents)
 
-	vis_contents.Cut()
+	vis_locs = null //clears this atom out of all viscontents
+
+	// Checking length(vis_contents) before cutting has significant speed benefits
+	if (length(vis_contents))
+		vis_contents.Cut()
 
 // Make sure you know what you're doing if you call this, this is intended to only be called by byond directly.
 // You probably want CanPass()
 /atom/movable/Cross(atom/movable/AM)
 	. = TRUE
 	SEND_SIGNAL(src, COMSIG_MOVABLE_CROSS, AM)
-	return CanPass(AM, AM.loc, TRUE)
+	return CanPass(AM, get_dir(src, AM))
 
 ///default byond proc that is deprecated for us in lieu of signals. do not call
 /atom/movable/Crossed(atom/movable/AM, oldloc)
@@ -619,12 +595,6 @@
 				old_area.Exited(src, null)
 
 	Moved(oldloc, NONE, TRUE)
-
-/atom/movable/proc/onTransitZ(old_z,new_z)
-	SEND_SIGNAL(src, COMSIG_MOVABLE_Z_CHANGED, old_z, new_z)
-	for (var/item in src) // Notify contents of Z-transition. This can be overridden IF we know the items contents do not care.
-		var/atom/movable/AM = item
-		AM.onTransitZ(old_z,new_z)
 
 /atom/movable/proc/setMovetype(newval)
 	movement_type = newval
@@ -788,13 +758,13 @@
 /atom/movable/proc/move_crushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
 
-/atom/movable/CanAllowThrough(atom/movable/mover, turf/target)
+/atom/movable/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(mover in buckled_mobs)
 		return TRUE
 
 /// Returns true or false to allow src to move through the blocker, mover has final say
-/atom/movable/proc/CanPassThrough(atom/blocker, turf/target, blocker_opinion)
+/atom/movable/proc/CanPassThrough(atom/blocker, movement_dir, blocker_opinion)
 	SHOULD_CALL_PARENT(TRUE)
 	return blocker_opinion
 
@@ -818,7 +788,7 @@
 			return turf
 		else
 			var/atom/movable/AM = A
-			if(!AM.CanPass(src) || AM.density)
+			if(AM.density || !AM.CanPass(src, get_dir(src, AM)))
 				if(AM.anchored)
 					return AM
 				dense_object_backup = AM
@@ -1040,12 +1010,12 @@
 
 /// Copies all languages into the supplied atom/language holder. Source should be overridden when you
 /// do not want the language overwritten by later atom updates or want to avoid blocked languages.
-/atom/movable/proc/copy_languages(from_holder, source_override)
+/atom/movable/proc/copy_languages(from_holder, source_override=FALSE, spoken=TRUE, understood=TRUE, blocked=TRUE)
 	if(isatom(from_holder))
 		var/atom/movable/thing = from_holder
 		from_holder = thing.get_language_holder()
 	var/datum/language_holder/LH = get_language_holder()
-	return LH.copy_languages(from_holder, source_override)
+	return LH.copy_languages(from_holder, source_override, spoken, understood, blocked)
 
 /// Empties out the atom specific languages and updates them according to the current atoms language holder.
 /// As a side effect, it also creates missing language holders in the process.

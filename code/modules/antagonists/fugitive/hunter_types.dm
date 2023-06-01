@@ -8,8 +8,6 @@ GLOBAL_LIST_INIT(hunter_types, list(
 	max_amount = 4
 	/// The ship this type uses
 	var/ship_type
-	/// The plural form of the group
-	var/multiple_name
 
 /datum/fugitive_type/hunter/space_police
 	name = "Space Police"
