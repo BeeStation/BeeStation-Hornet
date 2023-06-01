@@ -1,6 +1,6 @@
 /** Radio channels */
-export const CHANNELS = ['Say', 'Radio', 'Me', 'OOC', 'LOOC'];
-export const NO_RADIO_CHANNELS = ['Me', 'OOC', 'LOOC'];
+export const CHANNELS = ['Say', 'Radio', 'Me', 'OOC', 'LOOC', 'Asay', 'Msay', 'Dsay'];
+export const NO_RADIO_CHANNELS = ['Me', 'OOC', 'LOOC', 'Asay', 'Msay', 'Dsay'];
 
 /** Window sizes in pixels */
 export enum WINDOW_SIZES {

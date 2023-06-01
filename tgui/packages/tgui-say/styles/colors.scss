@@ -15,6 +15,9 @@ $radio: #1ecc43;
 $me: #74a1e4;
 $ooc: #e64100;
 $looc: #fafa3b;
+$asay: #b6c653;
+$msay: #e236d8;
+$dsay: #b866ff;
 
 ////////////////////////////////////////////////
 // Subchannel chat colors
@@ -43,6 +46,9 @@ $_channel_map: (
   'me': $me,
   'ooc': $ooc,
   'looc': $looc,
+  'asay': $asay,
+  'msay': $msay,
+  'dsay': $dsay,
 
   'ai': $ai,
   'binary': $binary,

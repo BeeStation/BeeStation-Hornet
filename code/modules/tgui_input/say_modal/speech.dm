@@ -46,6 +46,16 @@
 			return TRUE
 		if(LOOC_CHANNEL)
 			client.looc(entry)
+			return TRUE
+		if(ASAY_CHANNEL)
+			client.cmd_admin_say(entry)
+			return TRUE
+		if(MSAY_CHANNEL)
+			client.cmd_mentor_say(entry)
+			return TRUE
+		if(DSAY_CHANNEL)
+			client.dsay(entry)
+			return TRUE
 	return FALSE
 
 /**
