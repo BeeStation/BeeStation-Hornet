@@ -1,5 +1,0 @@
-author: trazelab, RKz
-delete-after: true
-changes:
-  - rscadd: Added some job ban checks to the robot factory! You'll be ghosted if you're
-      cyborg banned.
