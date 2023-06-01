@@ -573,10 +573,27 @@
 		. += "You cast it [times] times.<br>"
 	return .
 
-/datum/spellbook_entry/summon/curse_of_madness
-	name = "Curse of Madness"
+/datum/spellbook_entry/summon/brain_curse
+	name = "Brain curse"
+	desc = "Curses the brain of all crews in the station, including latejoiners, with magical traumas, sometimes special traumas."
+	cost = 2
+	ritual_invocation = "ALADAL DESINARI ODORI'IN PORES ENHIDO'LEN MORI MAKA TU"
+
+/datum/spellbook_entry/summon/curse_of_madness/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
+	active = TRUE
+	var/message
+	while(!message)
+		message = stripped_input(user, "Whisper a secret truth to drive your victims to madness.", "Whispers of Madness")
+	curse_of_madness(user, message)
+	to_chat(user, "<span class='notice'>You have cast the curse of insanity!</span>")
+	playsound(user, 'sound/magic/mandswap.ogg', 50, 1)
+	return TRUE
+
+/datum/spellbook_entry/summon/curse_of_twisted_reality
+	name = "Curse of Twisted Reality"
 	desc = "Curses the station, warping the minds of everyone inside, causing lasting traumas. Warning: this spell can affect you if not cast from a safe distance."
-	cost = 4
+	cost = 2
 	ritual_invocation = "ALADAL DESINARI ODORI'IN PORES ENHIDO'LEN MORI MAKA TU"
 
 /datum/spellbook_entry/summon/curse_of_madness/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)

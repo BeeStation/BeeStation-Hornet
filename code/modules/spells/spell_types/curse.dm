@@ -1,14 +1,16 @@
-GLOBAL_VAR_INIT(curse_of_madness_triggered, FALSE)
+GLOBAL_VAR_INIT(brain_curse, FALSE)
+GLOBAL_VAR_INIT(curse_of_twisted_reality, FALSE)
+GLOBAL_LIST_EMPTY(curse_of_twisted_reality_messages)
 
-/proc/curse_of_madness(mob/user, message)
+/proc/brain_curse(mob/user, message)
 	if(user) //in this case either someone holding a spellbook or a badmin
-		to_chat(user, "<span class='warning'>You sent a curse of madness with the message \"[message]\"!</span>")
-		message_admins("[ADMIN_LOOKUPFLW(user)] sent a curse of madness with the message \"[message]\"!")
-		log_game("[key_name(user)] sent a curse of madness with the message \"[message]\"!")
+		to_chat(user, "<span class='warning'>You sent a brain curse to everyone!</span>")
+		message_admins("[ADMIN_LOOKUPFLW(user)] sent a brain curse to everyone!")
+		log_game("[key_name(user)] sent a brain curse to everyone!")
 
-	GLOB.curse_of_madness_triggered = message // So latejoiners are also afflicted.
+	GLOB.curse_of_madness_triggered = TRUE // latejoiners are also afflicted.
 
-	deadchat_broadcast("<span class='deadsay'>A <span class='name'>Curse of Madness</span> has stricken the station, shattering their minds with the awful secret: \"<span class='big hypnophrase'>[message]</span>\"</span>")
+	deadchat_broadcast("<span class='deadsay'>A <span class='name'>Brain Curse</span> has stricken the station, shattering their minds with the awful secret: \"<span class='big hypnophrase'>[message]</span>\"</span>")
 
 	for(var/mob/living/carbon/human/H in GLOB.player_list)
 		if(H.stat == DEAD)
@@ -22,19 +24,34 @@ GLOBAL_VAR_INIT(curse_of_madness_triggered, FALSE)
 		if(istype(H.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			to_chat(H, "<span class='warning'>Your protective headgear successfully deflects mind controlling brainwaves!</span>")
 			continue
-		give_madness(H, message)
+		apply_brain_curse(H, message)
 
-/proc/give_madness(mob/living/carbon/human/H, message)
+/proc/apply_brain_curse(mob/living/carbon/human/H)
+	H.playsound_local(H,'sound/magic/curse.ogg',40,1)
+	to_chat(H, "<span class='warning'>Your mind shatters!</span>")
+	switch(rand(1,10))
+		if(1 to 8)
+			H.gain_trauma_type(BRAIN_TRAUMA_MAGIC, TRAUMA_RESILIENCE_SURGERY)
+		if(9 to 10)
+			H.gain_trauma_type(BRAIN_TRAUMA_SPECIAL, TRAUMA_RESILIENCE_SURGERY)
+
+/proc/curse_of_twisted_reality(mob/user, message)
+	if(user)
+		to_chat(user, "<span class='warning'>You sent a curse of twisted reality with the message \"[message]\"!</span>")
+		message_admins("[ADMIN_LOOKUPFLW(user)] sent a curse of reality with the message \"[message]\"!")
+		log_game("[key_name(user)] sent a curse of reality with the message \"[message]\"!")
+
+	var/static/idx = 0
+	GLOB.curse_of_twisted_reality_messages["[++idx]"] = message
+
+	deadchat_broadcast("<span class='deadsay'>A <span class='name'>Curse of Twisted Reality</span> has stricken the station, shattering their minds with the awful secret: \"<span class='big hypnophrase'>[message]</span>\"</span>")
+
+	for(var/mob/living/M in GLOB.player_list)
+		// do not put any protection here: everyone (including wizard) should deserve what the wizard did.
+		apply_curse_of_twisted_reality(H, message)
+
+/proc/apply_curse_of_twisted_reality(mob/living/carbon/human/H)
 	H.playsound_local(H,'sound/magic/curse.ogg',40,1)
 	to_chat(H, "<span class='reallybig hypnophrase'>[message]</span>")
 	to_chat(H, "<span class='warning'>Your mind shatters!</span>")
-	switch(rand(1,10))
-		if(1 to 3)
-			H.gain_trauma_type(BRAIN_TRAUMA_MILD, TRAUMA_RESILIENCE_LOBOTOMY)
-			H.gain_trauma_type(BRAIN_TRAUMA_MILD, TRAUMA_RESILIENCE_LOBOTOMY)
-		if(4 to 6)
-			H.gain_trauma_type(BRAIN_TRAUMA_SEVERE, TRAUMA_RESILIENCE_LOBOTOMY)
-		if(7 to 8)
-			H.gain_trauma_type(BRAIN_TRAUMA_MAGIC, TRAUMA_RESILIENCE_LOBOTOMY)
-		if(9 to 10)
-			H.gain_trauma_type(BRAIN_TRAUMA_SPECIAL, TRAUMA_RESILIENCE_LOBOTOMY)
+	mind.store_memory("<b>Your mind is imprinted with the fact of the twisted reality:<BR>* [message]</b><BR>This is the new reality, more than brainwash. It's the absolute fact.")

@@ -346,10 +346,13 @@
 			give_guns(humanc)
 		if(GLOB.summon_magic_triggered)
 			give_magic(humanc)
-		if(GLOB.curse_of_madness_triggered)
-			give_madness(humanc, GLOB.curse_of_madness_triggered)
+		if(GLOB.brain_curse)
+			apply_brain_curse(humanc)
 
 		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CREWMEMBER_JOINED, humanc, rank)
+
+	if(GLOB.curse_of_twisted_reality) // silicons have no exception
+		apply_curse_of_twisted_reality(character, GLOB.curse_of_twisted_reality)
 
 	GLOB.joined_player_list += character.ckey
 

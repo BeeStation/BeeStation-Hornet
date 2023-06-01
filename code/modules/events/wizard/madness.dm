@@ -25,4 +25,4 @@
 	else
 		horrifying_truth = pick(strings(REDPILL_FILE, "redpill_questions"))
 
-	curse_of_madness(null, horrifying_truth)
+	brain_curse(null, horrifying_truth)
