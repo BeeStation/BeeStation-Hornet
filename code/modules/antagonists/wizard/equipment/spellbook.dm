@@ -602,7 +602,7 @@
 /datum/spellbook_entry/summon/curse_of_twisted_reality/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
 	active = TRUE
-	var/message = stripped_input(user, "Declare the new fact to twist the reality of everyone.", "Twisting the reality")
+	var/message = tgui_input_text(user, "Declare the new fact to twist the reality of everyone.", "Twisting the reality")
 	if(!message)
 		to_chat(user, "<span class='notice'>You cancel the ritual.</span>")
 		active = FALSE
