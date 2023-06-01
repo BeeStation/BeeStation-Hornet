@@ -66,18 +66,18 @@
 	owner.ExtinguishMob()
 	// catch your breath
 	owner.losebreath = 0
-	owner.setOxyLoss(0, updating_health = FALSE)
+	owner.setOxyLoss(0, FALSE)
 	// get back on your feet
 	owner.resting = FALSE
 	owner.setStaminaLoss(0)
 	owner.SetSleeping(0)
 	owner.SetUnconscious(0)
-	owner.SetAllImmobility(0, updating = TRUE)
+	owner.SetAllImmobility(0, TRUE)
 	// who cares about how hungry or fat you are when you're fighting for your life???
 	owner.set_nutrition(clamp(owner.nutrition, NUTRITION_LEVEL_STARVING + 10, NUTRITION_LEVEL_FAT - 10))
 	REMOVE_TRAIT(owner, TRAIT_FAT, OBESITY)
 	owner.overeatduration = 0
-	owner.remove_movespeed_modifier(MOVESPEED_ID_FAT, update = FALSE)
+	owner.remove_movespeed_modifier(MOVESPEED_ID_FAT, FALSE)
 	owner.remove_movespeed_modifier(MOVESPEED_ID_HUNGRY)
 
 /*
