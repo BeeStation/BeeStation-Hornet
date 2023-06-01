@@ -27,6 +27,41 @@
 			T.show_zmove_radial(src)
 
 
+// double-click or ctrl-click for two abilities
+/mob/living/simple_animal/revenant/CtrlClickOn(atom/A)
+	if(incorporeal_move == INCORPOREAL_MOVE_JAUNT)
+		check_orbitable(A)
+		return
+	..() // pull the thing
+
+/mob/living/simple_animal/revenant/DblClickOn(atom/A, params)
+	if(get_dist(src, A) < 5) // message spam when you spam phase shift is annoying
+		check_orbitable(A)
+	..()
+
+// Orbit: literally obrits people like how ghosts do
+/mob/living/simple_animal/revenant/proc/check_orbitable(atom/A)
+	if(revealed)
+		to_chat(src, "<span class='revenwarning'>You can't orbit while you're revealed!</span>")
+		return
+	if(!Adjacent(A))
+		to_chat(src, "<span class='revenwarning'>You can only orbit things that are next to you!</span>")
+		return
+	if(isobserver(A) || isrevenant(A))
+		to_chat(src, "<span class='revenwarning'>You can't orbit a ghost!</span>")
+		return
+	if(notransform || inhibited || !incorporeal_move_check(A))
+		return
+	var/icon/I = icon(A.icon, A.icon_state, A.dir)
+	var/orbitsize = (I.Width()+I.Height())*0.5
+	orbitsize -= (orbitsize/world.icon_size)*(world.icon_size*0.25)
+	orbit(A, orbitsize)
+
+/mob/living/simple_animal/revenant/orbit(atom/target)
+	setDir(SOUTH) // reset dir so the right directional sprites show up
+	return ..()
+
+
 //Harvest; activated by clicking the target, will try to drain their essence.
 /mob/living/simple_animal/revenant/proc/Harvest(mob/living/carbon/human/target)
 	if(!castcheck(0))
@@ -111,6 +146,10 @@
 	draining = FALSE
 	essence_drained = 0
 
+// -------------------------------------------
+// ------------- action skills ---------------
+// -------------------------------------------
+
 //Toggle night vision: lets the revenant toggle its night vision
 /obj/effect/proc_holder/spell/targeted/night_vision/revenant
 	charge_max = 0
@@ -119,6 +158,39 @@
 	action_icon = 'icons/mob/actions/actions_revenant.dmi'
 	action_icon_state = "r_nightvision"
 	action_background_icon_state = "bg_revenant"
+
+// Recall to Station: teleport & recall to the station
+/obj/effect/proc_holder/spell/self/rev_teleport
+	name = "Recall to Station"
+	desc = "Teleport to the station."
+	charge_max = 0
+	panel = "Revenant Abilities"
+	action_icon = 'icons/mob/actions/actions_revenant.dmi'
+	action_icon_state = "r_teleport"
+	action_background_icon_state = "bg_revenant"
+	clothes_req = FALSE
+
+/obj/effect/proc_holder/spell/self/rev_teleport/cast(mob/living/simple_animal/revenant/user = usr)
+	if(!isrevenant(user))
+		return
+	if(is_station_level(user.z))
+		to_chat(user, "<span class='revenwarning'>Recalling yourself to the station is only available when you're not in the station.</span>")
+		return
+	else
+		if(user.revealed)
+			to_chat(user, "<span class='revenwarning'>Recalling yourself to the station is only available when you're invisible.</span>")
+			return
+
+		to_chat(user, "<span class='revennotice'>You start to concentrate recalling yourself to the station.</span>")
+		if(do_after(user, 30) && !user.revealed)
+			if(QDELETED(src)) // it's bad when someone spams this...
+				return
+			var/turf/targetturf = get_random_station_turf()
+			if(!do_teleport(user, targetturf, channel = TELEPORT_CHANNEL_CULT, forced=TRUE))
+				to_chat(user,  "<span class='revenwarning'>You have failed to recall yourself to the station... You should try again.</span>")
+			else
+				user.reveal(80)
+				user.stun(40)
 
 //Transmit: the revemant's only direct way to communicate. Sends a single message silently to a single mob
 /obj/effect/proc_holder/spell/targeted/telepathy/revenant
