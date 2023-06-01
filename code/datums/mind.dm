@@ -402,7 +402,7 @@
 	output += memory
 
 	if(length(GLOB.curse_of_twisted_reality_messages))
-		output += "<br>Your mind is imprinted with the fact of the twisted reality:<BR>"
+		output += "<br>Your mind is imprinted with the fact[length(GLOB.curse_of_twisted_reality_messages) > 1 ? "s" : ""] of the twisted reality:<BR>"
 		for(var/each in GLOB.curse_of_twisted_reality_messages)
 			output += "<br><B>Fact #[each]</B>: [GLOB.curse_of_twisted_reality_messages[each]]"
 		output += "<br>"
