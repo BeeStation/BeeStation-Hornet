@@ -124,3 +124,8 @@
 /obj/item/clothing/neck/cloak/chap/bishop/black
 	name = "black bishop's cloak"
 	icon_state = "blackbishopcloak"
+
+/obj/item/clothing/neck/cloak/vampire
+	name = "Vampire Cloak
+	desc = "Worn by high ranking vampires of the transylvanian society of vampires."
+	icon_state = "vampirecloak
