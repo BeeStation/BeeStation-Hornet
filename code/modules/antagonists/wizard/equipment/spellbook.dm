@@ -636,7 +636,7 @@
 	response_timer_id = null
 	if(!active)
 		return
-	to_chat(user, "<span class='notice'>The twisted reality has been manipulated!</span>")
+	to_chat(user, "<span class='notice'>Reality has been twisted!</span>")
 	curse_of_twisted_reality(user, message)
 	playsound(user, 'sound/magic/mandswap.ogg', 50, 1)
 	active = FALSE
