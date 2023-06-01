@@ -1578,7 +1578,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
-/turf/open/space/basic,
+/turf/open/floor/plasteel,
 /area/maintenance/department/science)
 "aCk" = (
 /obj/effect/turf_decal/stripes/line,
@@ -5114,9 +5114,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
 /obj/effect/turf_decal/guideline/guideline_half_in/darkblue{
 	dir = 8
 	},
@@ -6337,9 +6334,6 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 2
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/effect/turf_decal/guideline/guideline_edge/red{
@@ -25508,6 +25502,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "hTZ" = (
@@ -33457,7 +33454,7 @@
 	name = "AI View Blast door"
 	},
 /turf/open/floor/plasteel/dark,
-/area/ai_monitored/turret_protected/aisat/foyer)
+/area/ai_monitored/turret_protected/aisat_interior)
 "kDI" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
@@ -46126,7 +46123,7 @@
 "oEY" = (
 /obj/structure/sign/warning/securearea,
 /turf/closed/wall/r_wall,
-/area/ai_monitored/turret_protected/aisat/foyer)
+/area/ai_monitored/turret_protected/aisat_interior)
 "oFr" = (
 /obj/structure/sign/departments/minsky/research/genetics,
 /turf/closed/wall,
@@ -49926,7 +49923,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
-/area/ai_monitored/turret_protected/aisat/foyer)
+/area/ai_monitored/turret_protected/aisat_interior)
 "pQB" = (
 /obj/effect/turf_decal/guideline/guideline_in/darkblue{
 	dir = 8
@@ -55907,9 +55904,6 @@
 	name = "Kitchen doors";
 	req_one_access_txt = "28;25;35"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "rQd" = (
@@ -56561,21 +56555,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
-"rZu" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/hallway/secondary/command)
 "rZA" = (
 /obj/machinery/camera/autoname{
 	dir = 8;
@@ -61535,15 +61514,8 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "tCJ" = (
-/obj/machinery/atmospherics/pipe/manifold4w/supply/hidden/layer2,
 /obj/structure/disposalpipe/segment{
 	dir = 2
-	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/guideline/guideline_in/darkblue{
 	dir = 4
@@ -61552,6 +61524,10 @@
 	alpha = 180;
 	dir = 2
 	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/command)
 "tCT" = (
@@ -106300,7 +106276,7 @@ yeA
 yeA
 yeA
 yeA
-uuQ
+wsM
 kDD
 oEY
 yeA
@@ -106557,9 +106533,9 @@ yeA
 yeA
 yeA
 yeA
-uuQ
+wsM
 pQu
-uuQ
+wsM
 yeA
 yeA
 yeA
@@ -108644,7 +108620,7 @@ rlD
 bHa
 qvr
 dCc
-rZu
+dCc
 dCc
 hkY
 jGA
