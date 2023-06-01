@@ -1,6 +1,6 @@
 /// Gives dchat the ability to move a mob or object, with no delay or voting
-/datum/smite/forcesay
-	name = "Forcesay"
+/datum/smite/dchat_anarchy
+	name = "Deadchat Control (Anarchy)"
 
 /datum/smite/dchat_anarchy/effect(client/user, mob/living/target)
 	. = ..()

@@ -1,6 +1,6 @@
 /// Gives dchat the ability to move a mob or object, determined by user voting
 /datum/smite/dchat_democracy
-	name = "Dchat Democracy Mode"
+	name = "Deadchat Control (Democracy)"
 
 /datum/smite/dchat_democracy/effect(client/user, mob/living/target)
 	. = ..()

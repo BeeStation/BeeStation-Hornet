@@ -1,5 +1,5 @@
 /datum/smite/ghostize
-	name = "Ghostize"
+	name = "Offer to Ghosts"
 
 /datum/smite/ghostize/effect(client/user, mob/living/target)
 	. = ..()

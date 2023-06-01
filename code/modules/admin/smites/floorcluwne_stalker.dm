@@ -1,6 +1,6 @@
 /// Spawns the evil floor cluwne to terrorize people
 /datum/smite/floorcluwne_stalker
-	name = "Spawn Stalker Floor Cluwne"
+	name = "Floor Cluwne (Stalker)"
 
 /datum/smite/floorcluwne_stalker/effect(client/user, mob/living/target)
 	. = ..()
