@@ -12,7 +12,7 @@
 
 	handle_status_effects(delta_time)
 
-	if(malfhack && malfhack.aidisabled)
+	if(malfhack?.aidisabled)
 		deltimer(malfhacking)
 		// This proc handles cleanup of screen notifications and
 		// messenging the client
@@ -96,7 +96,7 @@
 /mob/living/silicon/ai/proc/start_RestorePowerRoutine()
 	to_chat(src, "Backup battery online. Scanners, camera, and radio interface offline. Beginning fault-detection.")
 	end_multicam()
-	sleep(50)
+	sleep(5 SECONDS)
 	var/turf/T = get_turf(src)
 	var/area/AIarea = get_area(src)
 	if(AIarea?.power_equip)
@@ -104,16 +104,16 @@
 			ai_restore_power()
 			return
 	to_chat(src, "Fault confirmed: missing external power. Shutting down main control system to save power.")
-	sleep(20)
+	sleep(2 SECONDS)
 	to_chat(src, "Emergency control system online. Verifying connection to power network.")
-	sleep(50)
+	sleep(5 SECONDS)
 	T = get_turf(src)
 	if(isspaceturf(T))
 		to_chat(src, "Unable to verify! No power connection detected!")
 		aiRestorePowerRoutine = POWER_RESTORATION_SEARCH_APC
 		return
 	to_chat(src, "Connection verified. Searching for APC in power network.")
-	sleep(50)
+	sleep(5 SECONDS)
 	var/obj/machinery/power/apc/theAPC = null
 
 	var/PRP //like ERP with the code, at least this stuff is no more 4x sametext
@@ -149,15 +149,17 @@
 				apc_override = theAPC
 				theAPC.ui_interact(src)
 				aiRestorePowerRoutine = POWER_RESTORATION_APC_FOUND
-		sleep(50)
+		sleep(5 SECONDS)
 		theAPC = null
 
 /mob/living/silicon/ai/proc/ai_restore_power()
 	if(aiRestorePowerRoutine)
 		if(aiRestorePowerRoutine == POWER_RESTORATION_APC_FOUND)
-			to_chat(src, "Alert cancelled. Power has been restored.")
+			to_chat(src, "<span class='notice'>Alert cancelled. Power has been restored.</span>")
+			if(apc_override)
+				to_chat(src, "<span class='notice'>APC Backdoor has been closed.</span>") //No change in behavior, just tells the AI why they have to rehack their APC and turn the power back on
 		else
-			to_chat(src, "Alert cancelled. Power has been restored without our assistance.")
+			to_chat(src, "<span class='notice'>Alert cancelled. Power has been restored without our assistance.</span>")
 		aiRestorePowerRoutine = POWER_RESTORATION_OFF
 		set_blindness(0)
 		update_sight()
@@ -167,7 +169,7 @@
 	aiRestorePowerRoutine = POWER_RESTORATION_START
 	blind_eyes(1)
 	update_sight()
-	to_chat(src, "You've lost power!")
+	to_chat(src, "<span class='alert'>You've lost power!</span>")
 	addtimer(CALLBACK(src, PROC_REF(start_RestorePowerRoutine)), 20)
 
 #undef POWER_RESTORATION_OFF

@@ -1,5 +1,5 @@
 /obj/machinery/power/apc/proc/get_malf_status(mob/living/silicon/ai/malf)
-	if(istype(malf))
+	if(!istype(malf) || !malf.malf_picker)
 		return APC_AI_NO_MALF // User is shunted in this APC
 	if(malfai != (malf.parent || malf))
 		return APC_AI_NO_HACK // User is shunted in another APC
@@ -15,11 +15,11 @@
 	if(get_malf_status(malf) != 1)
 		return
 	if(malf.malfhacking)
-		to_chat(malf, "You are already hacking an APC.")
+		to_chat(malf, "<span class='warning'>You are already hacking an APC.</span>")
 		return
-	to_chat(malf, "Beginning override of APC systems. This takes some time, and you cannot perform other actions during the process.")
+	to_chat(malf, "<span class='notice'>Beginning override of APC systems. This takes some time, and you cannot perform other actions during the process.</span>")
 	malf.malfhack = src
-	malf.malfhacking = addtimer(CALLBACK(malf, TYPE_PROC_REF(/mob/living/silicon/ai, malfhacked), src), 600, TIMER_STOPPABLE)
+	malf.malfhacking = addtimer(CALLBACK(malf, TYPE_PROC_REF(/mob/living/silicon/ai/, malfhacked), src), 600, TIMER_STOPPABLE)
 
 	var/atom/movable/screen/alert/hackingapc/hacking_apc
 	hacking_apc = malf.throw_alert("hackingapc", /atom/movable/screen/alert/hackingapc)
@@ -44,7 +44,7 @@
 		occupier.parent = malf.parent
 	else
 		occupier.parent = malf
-	malf.shunted = 1
+	malf.shunted = TRUE
 	occupier.eyeobj.name = "[occupier.name] (AI Eye)"
 	if(malf.parent)
 		qdel(malf)
