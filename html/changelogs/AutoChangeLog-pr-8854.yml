@@ -1,0 +1,7 @@
+author: EvilDragonfiend, Aramix, nicbn(TG)
+delete-after: true
+changes:
+  - bugfix: ported a camera code - Camera will capture your current shape correctly
+      - especially when you're big or resting. (credit to nicbn in TG)
+  - bugfix: ghosts in a photo will be looked like they're orbiting. (credit to Aramix
+      in bee discord)
