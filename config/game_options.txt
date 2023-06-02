@@ -252,6 +252,10 @@ SECURITY_SCALING_COEFF 10
 TRAITOR_OBJECTIVES_AMOUNT 3
 BROTHER_OBJECTIVES_AMOUNT 2
 
+## If traitors should receive gimmick objectives.
+## Uses one of the slots from TRAITOR_OBJECTIVES_AMOUNT - does not add one.
+USE_GIMMICK_OBJECTIVES
+
 ## Uncomment to prohibit jobs that start with loyalty
 ## implants from being most antagonists.
 PROTECT_ROLES_FROM_ANTAGONIST

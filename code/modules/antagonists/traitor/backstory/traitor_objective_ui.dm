@@ -79,6 +79,6 @@
 				return TRUE
 			if(!("[selected_backstory.type]" in allowed_backstories))
 				return TRUE
-			backstory = selected_backstory
-			faction = selected_faction
+			set_faction(selected_faction)
+			set_backstory(selected_backstory)
 			return TRUE

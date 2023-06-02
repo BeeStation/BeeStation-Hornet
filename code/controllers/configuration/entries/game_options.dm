@@ -106,6 +106,8 @@
 	config_entry_value = 2
 	min_val = 0
 
+/datum/config_entry/flag/use_gimmick_objectives
+
 /datum/config_entry/number/brother_objectives_amount
 	config_entry_value = 2
 	min_val = 0

@@ -265,6 +265,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 /datum/objective/assassinate
 	name = "assasinate"
+	flavor_text = "Diplomacy has many means. Murder is the oldest of them."
 	var/target_role_type=FALSE
 	martyr_compatible = 1
 

@@ -16,6 +16,10 @@
 /datum/traitor_backstory/proc/has_motivation(motivation)
 	return motivation in motivations
 
+// ------------------
+// ACTUAL BACKSTORIES
+// ------------------
+
 /datum/traitor_backstory/debtor
 	name = "The Debtor"
 	description = "I owe a <b>lot</b> of money... Falling on hard times... \
