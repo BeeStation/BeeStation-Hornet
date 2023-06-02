@@ -48,7 +48,7 @@
 			if(holder)
 				to_chat(src, "<span class='danger'>Error: Mentor-PM: Client not found.</span>", type = MESSAGE_TYPE_MENTORPM)
 			else
-				current_mentorhelp_ticket.MessageNoRecipient(msg, sanitized = TRUE)
+				current_mentorhelp_ticket.MessageNoRecipient(msg)
 			return
 
 	if (src.handle_spam_prevention(msg,MUTE_MHELP))

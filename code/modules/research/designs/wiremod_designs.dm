@@ -365,6 +365,12 @@
 	build_path = /obj/item/circuit_component/list_literal
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_LIST_COMPONENTS)
 
+/datum/design/component/typecast
+	name = "Typecast Component"
+	id = "comp_typecast"
+	build_path = /obj/item/circuit_component/typecast
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_LOGIC_COMPONENTS)
+
 /datum/design/component/bci
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_BCI_COMPONENTS)
 
