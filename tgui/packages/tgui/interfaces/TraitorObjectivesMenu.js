@@ -160,9 +160,7 @@ const SelectFactionMenu = ({ set_ui_phase, set_selected_faction, selected_factio
         <Stack.Item fontSize="14px">
           <Stack vertical textAlign="center">
             <BackstoryInfo titleColor={
-              recommended_factions.length === 0 ? null : (
-                recommended_factions.includes(current_faction_key) ? "green" : "red"
-              )
+              recommended_factions.length === 0 ? null : (recommended_factions.includes(current_faction_key) ? "green" : "red")
             } data={current_faction} />
           </Stack>
         </Stack.Item>
@@ -208,20 +206,43 @@ const SelectFactionMenu = ({ set_ui_phase, set_selected_faction, selected_factio
         </Stack.Item>
       </Stack>
       {!faction && (
-        <>
-          <Button
-            fontSize="18px"
-            icon="arrow-left"
-            style={{ position: "absolute", left: "8px", top: "45%" }}
-            onClick={() => set_selected_faction(prev_faction)} />
-          <Button
-            fontSize="18px"
-            icon="arrow-right"
-            style={{ position: "absolute", right: "8px", top: "45%" }}
-            onClick={() => set_selected_faction(next_faction)} />
-        </>
+        <FactionNavigationButtons
+          faction_keys={faction_keys}
+          selected_faction={selected_faction}
+          set_selected_faction={set_selected_faction}
+          left="8px"
+          right="8px"
+          top="45%"
+          size="18px"
+        />
       ) }
     </Dimmer>
+  );
+};
+
+const FactionNavigationButtons = ({
+  faction_keys,
+  selected_faction,
+  left,
+  right,
+  top,
+  size,
+  set_selected_faction,
+}, context) => {
+  let [prev_faction, next_faction] = get_surrounding_factions(faction_keys, selected_faction);
+  return (
+    <>
+      <Button
+        fontSize={size}
+        icon="arrow-left"
+        style={{ position: "absolute", left: left, top: top }}
+        onClick={() => set_selected_faction(prev_faction)} />
+      <Button
+        fontSize={size}
+        icon="arrow-right"
+        style={{ position: "absolute", right: right, top: top }}
+        onClick={() => set_selected_faction(next_faction)} />
+    </>
   );
 };
 
@@ -327,20 +348,17 @@ const SelectBackstoryMenu = ({
               textAlign="center"
               fontSize="20px">
               {!faction && (
-                <Button
-                  fontSize="13px"
-                  icon="arrow-left"
-                  style={{ position: "absolute", left: "28%", top: "8px" }}
-                  onClick={() => set_selected_faction(prev_faction)} />
+                <FactionNavigationButtons
+                  faction_keys={Object.keys(all_factions).filter(v => allowed_factions.includes(v))}
+                  selected_faction={current_faction_key}
+                  set_selected_faction={set_selected_faction}
+                  left="28%"
+                  right="28%"
+                  top="8px"
+                  size="13px"
+                />
               )}
               <strong>{current_faction.name}</strong>
-              {!faction && (
-                <Button
-                  fontSize="13px"
-                  icon="arrow-right"
-                  style={{ position: "absolute", right: "28%", top: "8px" }}
-                  onClick={() => set_selected_faction(next_faction)} />
-              )}
             </Box>
             <Button
               fontSize="15px"
@@ -375,33 +393,17 @@ const SelectBackstoryMenu = ({
               <Tabs vertical style={{ direction: "ltr" }} textAlign="right">
                 {
                   Object.values(all_backstories).filter(v => allowed_backstories_filtered.includes(v.path)).map(backstory => (
-                    <Tabs.Tab
-                      fontSize={1.05}
+                    <BackstoryTab
+                      path={backstory.path}
                       key={backstory.path}
+                      name={backstory.name}
                       selected={selected_backstory === backstory.path}
-                      onClick={() => set_selected_backstory(selected_backstory === backstory.path ? null : backstory.path)}>
-                      {backstory.name}
-                      {
-                        recommended_backstories.includes(backstory.path) && (
-                          <Tooltip content="This backstory is recommended due to your murderbone status.">
-                            <Icon name="crosshairs" color="red" fontSize={1} ml={1} />
-                          </Tooltip>
-                        )
-                      }
-                      {
-                        recommendations.includes(backstory.path) && (
-                          <Tooltip content="This backstory is recommended based on your motivations.">
-                            <Icon fontSize={1.25} name="star" color={backstory.motivations.filter(r => motivations.includes(r)).length > 1 ? "yellow" : "silver"} ml={1} />
-                            <Box inline width="0" color="black" fontSize={1} style={{ transform: "translate(-12px, -1px)" }}>
-                              {backstory.motivations.filter(r => motivations.includes(r)).length}
-                            </Box>
-                          </Tooltip>
-                        )
-                      }
-                    </Tabs.Tab>
+                      set_selected_backstory={set_selected_backstory}
+                      is_recommended_objectives={recommended_backstories.includes(backstory.path)}
+                      recommendation_count={backstory.motivations.filter(r => motivations.includes(r)).length}
+                    />
                   ))
                 }
-
               </Tabs>
             </Box>
           </Flex.Item>
@@ -442,5 +444,40 @@ const SelectBackstoryMenu = ({
         </Flex>
       </Flex.Item>
     </Flex>
+  );
+};
+
+const BackstoryTab = ({
+  path,
+  name,
+  selected,
+  is_recommended_objectives,
+  recommendation_count,
+  set_selected_backstory,
+}, context) => {
+  return (
+    <Tabs.Tab
+      fontSize={1.05}
+      selected={selected}
+      onClick={() => set_selected_backstory(selected ? null : path)}>
+      {name}
+      {
+        is_recommended_objectives && (
+          <Tooltip content="This backstory is recommended due to your murderbone status.">
+            <Icon name="crosshairs" color="red" fontSize={1} ml={1} />
+          </Tooltip>
+        )
+      }
+      {
+        recommendation_count > 0 && (
+          <Tooltip content="This backstory is recommended based on your motivations.">
+            <Icon fontSize={1.25} name="star" color={recommendation_count > 1 ? "yellow" : "silver"} ml={1} />
+            <Box inline width="0" color="black" fontSize={1} style={{ transform: "translate(-12px, -1px)" }}>
+              {recommendation_count}
+            </Box>
+          </Tooltip>
+        )
+      }
+    </Tabs.Tab>
   );
 };
