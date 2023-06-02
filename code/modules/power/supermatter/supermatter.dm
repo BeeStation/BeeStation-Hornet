@@ -808,8 +808,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		return
 
 	switch(type)
-		if(ANOMALY_DELIMBER)
-			new /obj/effect/anomaly/delimber(local_turf, null)
+		if(ANOMALY_BIOSCRAMBLER)
+			new /obj/effect/anomaly/bioscrambler(local_turf, null)
 		if(ANOMALY_FLUX)
 			var/explosive = has_weak_lifespan ? ANOMALY_FLUX_NO_EXPLOSION : ANOMALY_FLUX_LOW_EXPLOSIVE
 			new /obj/effect/anomaly/flux(local_turf, has_weak_lifespan ? rand(250, 300) : null, TRUE, explosive)
