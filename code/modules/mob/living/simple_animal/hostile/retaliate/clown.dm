@@ -12,6 +12,7 @@
 	response_disarm = "gently pushes aside"
 	response_harm = "robusts"
 	speak = list("HONK", "Honk!", "Welcome to clown planet!")
+	speak_language = /datum/language/metalanguage // somehow clown speaks in this (same to all clown mobs)
 	emote_see = list("honks", "squeaks")
 	speak_chance = 1
 	a_intent = INTENT_HARM

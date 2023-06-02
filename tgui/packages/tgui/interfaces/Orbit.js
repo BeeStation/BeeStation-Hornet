@@ -3,8 +3,7 @@ import { resolveAsset } from '../assets';
 import { Box, Button, Input, Icon, Section, Flex } from '../components';
 import { Window } from '../layouts';
 import { useBackend, useLocalState } from '../backend';
-
-import { createLogger } from '../logging';
+import { CollapsibleSection } from 'tgui/components/CollapsibleSection';
 
 const PATTERN_DESCRIPTOR = / \[(?:ghost|dead)\]$/;
 const PATTERN_NUMBER = / \(([0-9]+)\)$/;
@@ -35,41 +34,64 @@ const compareNumberedText = (a, b) => {
   return compareString(aName, bName);
 };
 
-const BasicSection = (props, context) => {
+const OrbitSection = (props, context) => {
   const { act } = useBackend(context);
-  const { searchText, source, title } = props;
+  const { searchText, source, title, color, basic } = props;
   const things = source.filter(searchFor(searchText));
   things.sort(compareNumberedText);
   return source.length > 0 && (
-    <Section title={`${title} - (${source.length})`}>
+    <CollapsibleSection
+      sectionKey={title}
+      title={`${title} - (${source.length})`}
+      forceOpen={things.length && searchText}
+      showButton={!searchText}>
       {things.map(thing => (
-        <Button
-          key={thing.name}
-          content={thing.name.replace(PATTERN_DESCRIPTOR, "")}
-          onClick={() => act("orbit", {
-            ref: thing.ref,
-          })} />
+        basic ? (
+          <Button
+            key={thing.name}
+            color={color}
+            content={thing.name.replace(PATTERN_DESCRIPTOR, "")}
+            onClick={() => act("orbit", {
+              ref: thing.ref,
+            })} />
+        ) : (
+          <OrbitedButton
+            key={thing.name}
+            color={color}
+            thing={thing}
+            job={thing.role_icon}
+            antag={thing.antag_icon}
+          />
+        )
       ))}
-    </Section>
+    </CollapsibleSection>
   );
 };
 
 const OrbitedButton = (props, context) => {
   const { act } = useBackend(context);
-  const { color, thing, job } = props;
+  const { color, thing, job, antag } = props;
 
   return (
     <Button
       color={color}
+      style={{ "line-height": "24px" }}
       onClick={() => act("orbit", {
         ref: thing.ref,
       })}>
       {job && (
         <Box inline
-          ml={0.1}
-          mr={0.6}
-          style={{ "transform": "translateY(2.5px)" }}
+          mr={0.5}
+          ml={-0.5}
+          style={{ "transform": "translateY(18.75%)" }}
           className={`job-icon16x16 job-icon-${job}`} />
+      )}
+      {antag && (
+        <Box inline
+          mr={0.5}
+          ml={job ? -0.25 : -0.5}
+          style={{ "transform": "translateY(18.75%)" }}
+          className={`antag-hud16x16 antag-hud-${antag}`} />
       )}
       {thing.name}
       {thing.orbiters && (
@@ -129,6 +151,7 @@ export const Orbit = (props, context) => {
 
   return (
     <Window
+      theme="generic"
       width={350}
       height={700}>
       <Window.Content scrollable>
@@ -150,60 +173,52 @@ export const Orbit = (props, context) => {
           </Flex>
         </Section>
         {antagonists.length > 0 && (
-          <Section title="Ghost-Visible Antagonists">
+          <CollapsibleSection title="Ghost-Visible Antagonists" sectionKey="Ghost-Visible Antagonists" forceOpen={searchText}>
             {sortedAntagonists.map(([name, antags]) => (
-              <Section key={name} title={name} level={2}>
-                {antags
-                  .filter(searchFor(searchText))
-                  .sort(compareNumberedText)
-                  .map(antag => (
-                    <OrbitedButton
-                      key={antag.name}
-                      color="bad"
-                      thing={antag}
-                      job={antag.role_icon}
-                    />
-                  ))}
-              </Section>
+              <OrbitSection
+                key={name}
+                title={name}
+                source={antags}
+                searchText={searchText}
+                color="bad"
+              />
             ))}
-          </Section>
+          </CollapsibleSection>
         )}
 
-        <Section title="Alive">
-          {alive
-            .filter(searchFor(searchText))
-            .sort(compareNumberedText)
-            .map(thing => (
-              <OrbitedButton
-                key={thing.name}
-                color="good"
-                thing={thing}
-                job={thing.role_icon} />
-            ))}
-        </Section>
+        <OrbitSection
+          title="Alive"
+          source={alive}
+          searchText={searchText}
+          color="good"
+        />
 
-        <BasicSection
+        <OrbitSection
           title="Ghosts"
           source={ghosts}
           searchText={searchText}
+          basic
         />
 
-        <BasicSection
+        <OrbitSection
           title="Dead"
           source={dead}
           searchText={searchText}
+          basic
         />
 
-        <BasicSection
+        <OrbitSection
           title="NPCs"
           source={npcs}
           searchText={searchText}
+          basic
         />
 
-        <BasicSection
+        <OrbitSection
           title="Misc"
           source={misc}
           searchText={searchText}
+          basic
         />
       </Window.Content>
     </Window>

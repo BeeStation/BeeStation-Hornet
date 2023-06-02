@@ -19,9 +19,9 @@
 	return ..()
 
 /mob/living/carbon/could_speak_language(datum/language/dt)
+	if(CHECK_BITFIELD(initial(dt.flags), TONGUELESS_SPEECH))
+		return TRUE
 	var/obj/item/organ/tongue/T = getorganslot(ORGAN_SLOT_TONGUE)
 	if(T)
-		. = T.could_speak_language(dt)
-	else
-		. = CHECK_BITFIELD(initial(dt.flags), TONGUELESS_SPEECH)
-
+		return T.could_speak_language(dt)
+	return FALSE
