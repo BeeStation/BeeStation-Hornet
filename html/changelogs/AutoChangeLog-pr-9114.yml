@@ -1,0 +1,5 @@
+author: ALieJar
+delete-after: true
+changes:
+  - imagedel: old talisman sprite
+  - imageadd: new talisman sprite
