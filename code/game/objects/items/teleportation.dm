@@ -231,8 +231,10 @@
  */
 
 /obj/item/teleporter
-	name = "syndicate teleporter"
-	desc = "A Syndicate reverse-engineered version of the Nanotrasen portable handheld teleporter. It uses bluespace technology to translocate users, but lacks the advanced safety features of its counterpart. Warranty voided if exposed to an electromagnetic pulse."
+	name = "syndicate jaunter"
+	desc = "A device created by the syndicate in order to mimic the effects of the hand teleporter, using reverse-engineered jaunters obtained from captured miners. \
+		While it fails to allow for long-range teleportation and teleportation through matter, the combat potential of the bluespace wake created as a result of \
+		using the device far exceeds that of what Nanotrasen has been able to produce, mainly due to the fact that the Syndicate don't see it as an unwanted side effect."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "syndi_tele"
 	item_state = "electronic"
