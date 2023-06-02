@@ -1,57 +1,110 @@
-/// Test to ensure that every design has a connected techweb node and vice-versa
-/datum/unit_test/orphaned_designs
-
-/datum/unit_test/orphaned_designs/Run()
-	var/list/all_designs = subtypesof(/datum/design)
-	// error case
-	all_designs -= /datum/design/error_design
-	// subtypes
-	all_designs -= list(
-		/datum/design/battery,
-		/datum/design/board,
-		/datum/design/breaching_slug,
-		/datum/design/component,
-		/datum/design/component/arbitrary_input_amount,
-		/datum/design/disk,
-		/datum/design/nanites,
-		/datum/design/netcard,
-		/datum/design/portabledrive,
-		/datum/design/rcd_upgrade,
-		/datum/design/rpd_upgrade,
-		/datum/design/surgery,
-		/datum/design/surgery/healing,
+/// Test to ensure that every techweb is properly defined
+/datum/unit_test/techweb_sanity
+	var/list/designs = list()
+	var/list/nodes = list()
+	var/static/list/allowed_empty = list(
+		/datum/techweb_node/datatheory,
+		/datum/techweb_node/neural_programming,
 	)
 
-	var/list/all_technodes = subtypesof(/datum/techweb_node)
-	// error case
-	all_technodes -= /datum/techweb_node/error_node
+/datum/unit_test/techweb_sanity/Run()
+	build_designs()
+	build_techwebs()
+	verify_design_ownership()
 
-	var/list/all_design_ids = list()
-	var/list/passed_design_ids = list()
-	for(var/datum/design/DN as() in all_designs)
+/datum/unit_test/techweb_sanity/proc/build_designs()
+	for(var/path in subtypesof(/datum/design))
+		var/datum/design/DN = path
 		if(isnull(initial(DN.id)))
-			Fail("[DN] is missing an id!")
+			Fail("[path] is invalid!")
 			continue
 		if(initial(DN.id) == DESIGN_ID_IGNORE)
-			Fail("[DN] is set to the ignored id!")
 			continue
-		if(initial(DN.id) in all_design_ids)
-			Fail("Duplicate design_id [initial(DN.id)] present in multiple /datum/design!")
+		DN = new path
+		if(designs[initial(DN.id)])
+			Fail("[DN] has a duplicate design id!")
 			continue
-		all_design_ids += initial(DN.id)
-		passed_design_ids += initial(DN.id)
+		DN.InitializeMaterials()
+		designs[initial(DN.id)] = DN
+	verify_designs()
 
-	for(var/datum/techweb_node/TN as() in all_technodes)
-		for(var/id in initial(TN.design_ids))
-			if(id in passed_design_ids)
-				passed_design_ids -= initial(id)
+/datum/unit_test/techweb_sanity/proc/verify_designs()
+	for(var/id in designs)
+		var/datum/design/DN = designs[id]
+		if(!istype(DN))
+			Fail("Invalid design ID [id] on the designs list.")
+			continue
+
+/datum/unit_test/techweb_sanity/proc/build_techwebs()
+	for(var/path in subtypesof(/datum/techweb_node) - /datum/techweb_node/error_node)
+		var/datum/techweb_node/TN = path
+		if(isnull(initial(TN.id)))
+			Fail("[path] is invalid!")
+			continue
+		TN = new path
+		if(nodes[initial(TN.id)])
+			Fail("[TN] has a duplicate techweb id!")
+			continue
+		nodes[initial(TN.id)] = TN
+	for(var/id in nodes)
+		var/datum/techweb_node/TN = nodes[id]
+		TN.Initialize()
+	verify_techwebs()
+
+/datum/unit_test/techweb_sanity/proc/verify_techwebs()
+	var/list/points_types = TECHWEB_POINT_TYPE_LIST_ASSOCIATIVE_NAMES
+	for(var/id in nodes)
+		var/datum/techweb_node/TN = nodes[id]
+		if(!istype(TN))
+			Fail("Invalid techweb ID [id] on the techwebs list.")
+			continue
+		for(var/p in TN.prereq_ids)
+			var/datum/techweb_node/P = nodes[p]
+			if(!istype(P))
+				Fail("[TN] has an invalid/missing pre-requisite node [p]!")
+				continue
+		if(is_type_in_list(TN, allowed_empty) && length(TN.design_ids))
+			Fail("[TN] is not allowed to have any design IDs!")
+			continue
+		for(var/d in TN.design_ids)
+			var/datum/design/D = designs[d]
+			if(!istype(D))
+				Fail("[TN] has an invalid/missing design node [d]!")
+				continue
+		for(var/u in TN.unlock_ids)
+			var/datum/techweb_node/U = nodes[u]
+			if(!istype(U))
+				Fail("[TN] has an invalid [u]!")
+				continue
+		for(var/p in TN.boost_item_paths)
+			if(!ispath(p))
+				Fail("[TN] has invalid boost information: [p] is not a valid path.")
+				continue
+			var/list/points = TN.boost_item_paths[p]
+			if(islist(points))
+				for(var/i in points)
+					if(!isnum_safe(points[i]))
+						Fail("[TN] has invalid boost information: [points[i]] is not a valid number.")
+						continue
+					if(!points_types[i])
+						Fail("[TN] has invalid boost information: [i] is not a valid point type.")
+						continue
+			else if(!isnull(points))
+				Fail("[TN] has invalid boost information: No valid list.")
 				continue
 
-			// This detects if there is a duplicate, as we have already passed it above
-			if(id in all_design_ids)
-				Fail("Duplicate design_id [id] present in multiple techweb nodes!")
-			else
-				Fail("Techweb node [TN] has a design_id [id] which does not have a corresponding /datum/design id!")
-
-	for(var/id in passed_design_ids)
-		Fail("Orphaned design id [id] does not have a techweb node containing it!")
+/datum/unit_test/techweb_sanity/proc/verify_design_ownership()
+	var/list/all_nodes = list()
+	for(var/n_id in nodes)
+		all_nodes += n_id
+	for(var/d_id in designs)
+		for(var/n_id in nodes)
+			var/datum/techweb_node/TN = nodes[n_id]
+			if(d_id in TN.design_ids)
+				all_nodes -= n_id
+				continue
+	for(var/n_id in all_nodes)
+		var/datum/techweb_node/TN = nodes[n_id]
+		if(is_type_in_list(TN, allowed_empty))
+			continue
+		Fail("Node ID [n_id] has no designs attached!")
