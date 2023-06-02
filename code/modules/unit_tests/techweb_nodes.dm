@@ -11,7 +11,7 @@
 		/datum/design/board,
 		/datum/design/breaching_slug,
 		/datum/design/component,
-		/datum/design/component/arbitrary_input_amount
+		/datum/design/component/arbitrary_input_amount,
 		/datum/design/nanites,
 		/datum/design/netcard,
 		/datum/design/portabledrive,
