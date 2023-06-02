@@ -1,0 +1,4 @@
+author: someone543
+delete-after: true
+changes:
+  - bugfix: Sergeant Araneus now uses chitters instead of squeak
