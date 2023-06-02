@@ -86,7 +86,6 @@ global procs
 	create_private_chat_message(message, message_language, atom/speaker, list/hearers)
 		Makes a runechat to hearers. src is not included to hearers, so that you need to give it to the param if you want.
 		This is used for specific methods like telepathy when you want to display a runechat from it.
-		speaker parameter exists because src is not always reliable.
 
 /mob
 	say_dead(message)
