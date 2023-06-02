@@ -22,7 +22,6 @@
 	response_harm   = "stomps"
 	speak = list("Hissssss!", "Squeak!")
 	speak_emote = list("hisses", "squeaks")
-	speak_language = /datum/language/metalanguage
 	emote_hear = list("hisses", "squeaks")
 	emote_see = list("pounces")
 	faction = list("Lizard")

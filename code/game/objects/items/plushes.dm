@@ -473,16 +473,8 @@
 	icon_state = "narplush"
 	divine = TRUE
 	var/clashing
-	var/invoker_charges = 2
+	var/is_invoker = TRUE
 	gender = FEMALE	//it's canon if the toy is
-
-/obj/item/toy/plush/narplush/examine(mob/user)
-	. = ..()
-	if(invoker_charges == 0)
-		. += "<span class='notice'>She looks tired.</span>"
-		return
-	if(IS_CULTIST(user))
-		. += "<span class='warning'>She has [invoker_charges] [invoker_charges == 1 ? "charge" : "charges"] left!</span>"
 
 /obj/item/toy/plush/narplush/Moved()
 	. = ..()
@@ -491,7 +483,8 @@
 		P.clash_of_the_plushies(src)
 
 /obj/item/toy/plush/narplush/hugbox
-	invoker_charges = 0
+	desc = "A small stuffed doll of the elder goddess Nar'Sie. Who thought this was a good children's toy? <b>It looks sad.</b>"
+	is_invoker = FALSE
 
 /obj/item/toy/plush/lizardplushie
 	name = "lizard plushie"

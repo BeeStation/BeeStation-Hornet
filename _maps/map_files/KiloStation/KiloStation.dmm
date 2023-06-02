@@ -10668,10 +10668,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/space/basic,
 /area/space/nearstation)
-"aJV" = (
-/obj/effect/spawner/structure/window,
-/turf/open/floor/plating,
-/area/medical/medbay)
 "aJZ" = (
 /turf/closed/wall/rust,
 /area/storage/primary)
@@ -40604,8 +40600,8 @@
 /area/hallway/primary/aft)
 "cUk" = (
 /obj/machinery/fax{
-	fax_name = "Medical";
-	name = "Medical Fax Machine"
+	name = "Medical Fax Machine";
+	fax_name = "Medical"
 	},
 /obj/structure/table,
 /obj/effect/turf_decal/stripes/corner{
@@ -41236,12 +41232,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/captain)
-"dlZ" = (
-/obj/machinery/newscaster,
-/obj/machinery/newscaster,
-/obj/machinery/newscaster,
-/turf/closed/wall,
-/area/medical/medbay)
 "dmh" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
@@ -45171,8 +45161,8 @@
 /area/maintenance/port/fore)
 "eUX" = (
 /obj/machinery/fax{
-	fax_name = "Security";
-	name = "Security Fax Machine"
+	name = "Security Fax Machine";
+	fax_name = "Security"
 	},
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
@@ -50105,8 +50095,8 @@
 /area/storage/primary)
 "hgk" = (
 /obj/machinery/fax{
-	fax_name = "Science";
-	name = "Science Fax Machine"
+	name = "Science Fax Machine";
+	fax_name = "Science"
 	},
 /obj/structure/table,
 /obj/machinery/button/door{
@@ -63718,8 +63708,8 @@
 "mSg" = (
 /obj/structure/table/wood,
 /obj/machinery/fax{
-	fax_name = "Lawyer";
-	name = "Lawyer Fax Machine"
+	name = "Lawyer Fax Machine";
+	fax_name = "Lawyer"
 	},
 /obj/item/radio/intercom{
 	pixel_y = -28
@@ -72796,6 +72786,9 @@
 /obj/structure/chair/office/light{
 	dir = 4
 	},
+/obj/machinery/newscaster{
+	pixel_y = 32
+	},
 /obj/machinery/button/door{
 	id = "medbay_front_door";
 	name = "Medbay Doors Toggle";
@@ -81131,8 +81124,8 @@
 	dir = 4
 	},
 /obj/machinery/fax{
-	fax_name = "Engineering";
-	name = "Engineering Fax Machine"
+	name = "Engineering Fax Machine";
+	fax_name = "Engineering"
 	},
 /obj/structure/table,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -81346,8 +81339,8 @@
 "upb" = (
 /obj/structure/table,
 /obj/machinery/fax{
-	fax_name = "Cargo";
-	name = "Cargo Fax Machine"
+	name = "Cargo Fax Machine";
+	fax_name = "Cargo"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -88173,8 +88166,8 @@
 /area/hallway/primary/fore)
 "wVv" = (
 /obj/machinery/fax{
-	fax_name = "Bridge";
-	name = "Bridge Fax Machine"
+	name = "Bridge Fax Machine";
+	fax_name = "Bridge"
 	},
 /obj/structure/table,
 /obj/machinery/light{
@@ -90907,7 +90900,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/machinery/vending/wallmed/lite{
+/obj/machinery/vending/wallmed/pubby{
 	pixel_x = 24
 	},
 /obj/structure/closet/secure_closet/brig_physician,
@@ -112107,7 +112100,7 @@ nOi
 aNO
 wLl
 lxe
-dlZ
+aQb
 tDc
 rNC
 xQG
@@ -112364,7 +112357,7 @@ eIE
 aNP
 cHv
 kix
-aJV
+aNn
 qJM
 sCT
 hLD
