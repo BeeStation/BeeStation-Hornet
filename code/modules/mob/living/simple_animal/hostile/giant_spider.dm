@@ -80,9 +80,11 @@
 	lesserwrap = new
 	AddAbility(lesserwrap)
 
-/mob/living/simple_animal/hostile/poison/giant_spider/mind_initialize()
+/mob/living/simple_animal/hostile/poison/giant_spider/mind_initialize(already_initialized=FALSE)
 	. = ..()
-	if(!mind.has_antag_datum(/datum/antagonist/spider))
+	if(already_initialized)
+		to_chat(src, "<span class='boldwarning'>If you were not an antagonist before you did not become one now. You still retain your retain your original loyalties and mind!</span>")
+	else if(!mind.has_antag_datum(/datum/antagonist/spider))
 		var/datum/antagonist/spider/spooder = new
 		if(!spider_team)
 			spooder.create_team()

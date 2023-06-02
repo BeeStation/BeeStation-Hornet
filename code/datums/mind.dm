@@ -762,7 +762,7 @@
 				return TRUE
 
 /mob/proc/sync_mind()
-	mind_initialize()	//updates the mind (or creates and initializes one if one doesn't exist)
+	mind_initialize(already_initialized = (mind ? TRUE : FALSE))	//updates the mind (or creates and initializes one if one doesn't exist)
 	mind.active = 1		//indicates that the mind is currently synced with a client
 
 /datum/mind/proc/has_martialart(var/string)
@@ -777,10 +777,9 @@
 	return
 
 //Initialisation procs
-/mob/proc/mind_initialize()
-	if(mind)
+/mob/proc/mind_initialize(already_initialized=FALSE)
+	if(already_initialized)
 		mind.key = key
-
 	else
 		mind = new /datum/mind(key)
 		SSticker.minds += mind
@@ -788,28 +787,28 @@
 		mind.name = real_name
 	mind.set_current(src)
 
-/mob/living/carbon/mind_initialize()
+/mob/living/carbon/mind_initialize(already_initialized=FALSE)
 	..()
 	last_mind = mind
 
 //HUMAN
-/mob/living/carbon/human/mind_initialize()
+/mob/living/carbon/human/mind_initialize(already_initialized=FALSE)
 	..()
 	if(!mind.assigned_role)
 		mind.assigned_role = "Unassigned" //default
 
 //AI
-/mob/living/silicon/ai/mind_initialize()
+/mob/living/silicon/ai/mind_initialize(already_initialized=FALSE)
 	..()
 	mind.assigned_role = JOB_NAME_AI
 
 //BORG
-/mob/living/silicon/robot/mind_initialize()
+/mob/living/silicon/robot/mind_initialize(already_initialized=FALSE)
 	..()
 	mind.assigned_role = JOB_NAME_CYBORG
 
 //PAI
-/mob/living/silicon/pai/mind_initialize()
+/mob/living/silicon/pai/mind_initialize(already_initialized=FALSE)
 	..()
 	mind.assigned_role = ROLE_PAI
 	mind.special_role = ""

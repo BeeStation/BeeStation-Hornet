@@ -263,18 +263,15 @@
 	else
 		..()
 
-/mob/living/simple_animal/hostile/morph/mind_initialize()
+/mob/living/simple_animal/hostile/morph/mind_initialize(already_initialized=FALSE)
 	. = ..()
 	to_chat(src, playstyle_string)
-	// sometimes the datum is not added for a bit
-	addtimer(CALLBACK(src, PROC_REF(notify_non_antag)), 3 SECONDS)
-
-/mob/living/simple_animal/hostile/morph/proc/notify_non_antag()
-	if(!mind.has_antag_datum(/datum/antagonist/morph))
+	if(already_initialized)
 		to_chat(src, "<span class='boldwarning'>If you were not an antagonist before you did not become one now. You still retain your retain your original loyalties and mind!</span>")
+	else if(!mind.has_antag_datum(/datum/antagonist/morph))
+		mind.add_antag_datum(/datum/antagonist/morph)
 
 //Spawn Event
-
 /datum/round_event_control/morph
 	name = "Spawn Morph"
 	typepath = /datum/round_event/ghost_role/morph
