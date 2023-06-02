@@ -6,11 +6,24 @@
 	// error case
 	all_designs -= /datum/design/error_design
 	// subtypes
-	all_designs -= /datum/design/board
-	all_designs -= /datum/design/component
-	all_designs -= /datum/design/nanites
-	all_designs -= /datum/design/surgery
-	all_designs -= /datum/design/surgery/healing
+	all_designs -= list(
+		/datum/design/battery,
+		/datum/design/board,
+		/datum/design/breaching_slug,
+		/datum/design/component,
+		/datum/design/component/arbitrary_input_amount
+		/datum/design/nanites,
+		/datum/design/netcard,
+		/datum/design/portabledrive,
+		/datum/design/rcd_upgrade,
+		/datum/design/rpd_upgrade,
+		/datum/design/surgery,
+		/datum/design/surgery/healing,
+	)
+
+	var/list/all_technodes = subtypesof(/datum/techweb_node)
+	// error case
+	all_technodes -= /datum/techweb_node/error_node
 
 	var/list/all_design_ids = list()
 	var/list/passed_design_ids = list()
