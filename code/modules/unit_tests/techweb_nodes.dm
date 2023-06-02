@@ -44,7 +44,7 @@
 	for(var/datum/techweb_node/TN as() in all_technodes)
 		for(var/id in initial(TN.design_ids))
 			if(id in passed_design_ids)
-				passed_design_ids -= id
+				passed_design_ids -= initial(id)
 				continue
 
 			// This detects if there is a duplicate, as we have already passed it above
@@ -54,4 +54,4 @@
 				Fail("Techweb node [TN] has a design_id [id] which does not have a corresponding /datum/design id!")
 
 	for(var/id in passed_design_ids)
-		Fail("Orphaned /datum/design id [id] does not have a techweb node containing it!")
+		Fail("Orphaned design id [id] does not have a techweb node containing it!")
