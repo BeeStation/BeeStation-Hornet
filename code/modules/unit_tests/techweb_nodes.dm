@@ -14,15 +14,21 @@
 
 	var/list/all_design_ids = list()
 	var/list/passed_design_ids = list()
-	for(var/datum/design/check as() in all_designs)
-		if(check.id in all_design_ids)
-			Fail("Duplicate design_id [check.id] present in multiple /datum/design!")
+	for(var/datum/design/DN as() in all_designs)
+		if(isnull(DN.id))
+			Fail("[DN] is missing an id!")
 			continue
-		all_design_ids += check.id
-		passed_design_ids += check.id
+		if(DN.id == DESIGN_ID_IGNORE)
+			Fail("[DN] is set to the ignored id!")
+			continue
+		if(DN.id in all_design_ids)
+			Fail("Duplicate design_id [DN.id] present in multiple /datum/design!")
+			continue
+		all_design_ids += DN.id
+		passed_design_ids += DN.id
 
-	for(var/datum/techweb_node/node as() in subtypesof(/datum/techweb_node))
-		for(var/id in node.design_ids)
+	for(var/datum/techweb_node/TN as() in subtypesof(/datum/techweb_node))
+		for(var/id in TN.design_ids)
 			if(id in passed_design_ids)
 				passed_design_ids -= id
 				continue
@@ -31,7 +37,7 @@
 			if(id in all_design_ids)
 				Fail("Duplicate design_id [id] present in multiple techweb nodes!")
 			else
-				Fail("Techweb node [node] has a design_id [id] which does not have a corresponding /datum/design id!")
+				Fail("Techweb node [TN] has a design_id [id] which does not have a corresponding /datum/design id!")
 
 	for(var/id in passed_design_ids)
 		Fail("Orphaned /datum/design id [id] does not have a techweb node containing it!")
