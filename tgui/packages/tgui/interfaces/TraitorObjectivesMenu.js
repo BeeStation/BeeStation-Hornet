@@ -11,7 +11,7 @@ export const TraitorObjectivesMenu = (props, context) => {
     allowed_backstories = [],
     backstory,
   } = data;
-  let [ui_phase, set_ui_phase] = useLocalState(context, "traitor_ui_phase", 0);
+  let [ui_phase, set_ui_phase] = useLocalState(context, "traitor_ui_phase", all_backstories[backstory] ? 3 : 0);
   let [selected_faction, set_selected_faction_backend] = useLocalState(context, "traitor_selected_faction", "syndicate");
   let [selected_backstory, set_selected_backstory] = useLocalState(context, "traitor_selected_backstory", null);
   const set_selected_faction = (faction) => {
@@ -20,37 +20,38 @@ export const TraitorObjectivesMenu = (props, context) => {
       set_selected_backstory(null);
     }
   };
-  let ui_to_show = null;
-  if (all_backstories[backstory] && ui_phase < 3) {
-    set_ui_phase(3);
-  }
   let windowTitle = "Traitor Backstory";
   switch (ui_phase) {
     case 0:
-      ui_to_show = <IntroductionMenu set_ui_phase={set_ui_phase} />;
       windowTitle = "Traitor Backstory: Introduction";
       break;
     case 1:
-      ui_to_show = (<SelectFactionMenu
-        set_ui_phase={set_ui_phase}
-        selected_faction={selected_faction}
-        set_selected_faction={set_selected_faction} />);
       windowTitle = "Traitor Backstory: Faction Select";
       break;
     case 2:
-      ui_to_show = (<SelectBackstoryMenu
-        set_ui_phase={set_ui_phase}
-        selected_faction={selected_faction}
-        set_selected_faction={set_selected_faction}
-        selected_backstory={selected_backstory}
-        set_selected_backstory={set_selected_backstory} />);
       windowTitle = "Traitor Backstory: Backstory Select";
       break;
   }
   return (
     <Window theme="neutral" width={650} height={500} title={windowTitle}>
       <Window.Content scrollable>
-        {ui_to_show}
+        {ui_phase === 0 && (
+          <IntroductionMenu set_ui_phase={set_ui_phase} />
+        )}
+        {ui_phase === 1 && (
+          <SelectFactionMenu
+            set_ui_phase={set_ui_phase}
+            selected_faction={selected_faction}
+            set_selected_faction={set_selected_faction} />
+        )}
+        {ui_phase === 2 && (
+          <SelectBackstoryMenu
+            set_ui_phase={set_ui_phase}
+            selected_faction={selected_faction}
+            set_selected_faction={set_selected_faction}
+            selected_backstory={selected_backstory}
+            set_selected_backstory={set_selected_backstory} />
+        )}
       </Window.Content>
     </Window>
   );
