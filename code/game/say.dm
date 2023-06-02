@@ -59,8 +59,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	create_chat_message(src,
 		message_language = message_language,
 		hearers = runechat_readers, // only you and your target sees the runechat (+ghosts)
-		raw_message = message,
-		force_hear = TRUE)
+		raw_message = message)
 	// Note for troubleshooting: if a spell doesn't show runechat, it's because the spell is object, and src is spell. you should call this proc from the mob.
 
 /atom/movable/proc/compose_message(atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), face_name = FALSE)
