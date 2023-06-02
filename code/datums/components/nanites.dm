@@ -126,7 +126,7 @@
 	qdel(src)
 
 //Syncs the nanite component to another, making it so programs are the same with the same programming (except activation status)
-/datum/component/nanites/proc/sync(datum/signal_source, datum/component/nanites/source, full_overwrite = TRUE, copy_activation = FALSE)
+/datum/component/nanites/proc/sync(datum/signal_source, datum/component/nanites/source, full_overwrite = TRUE, copy_settings = TRUE, copy_activation = FALSE)
 	SIGNAL_HANDLER
 
 	var/list/programs_to_remove = programs.Copy()
@@ -143,6 +143,10 @@
 	if(full_overwrite)
 		for(var/X in programs_to_remove)
 			qdel(X)
+	if(copy_settings)
+		cloud_active = source.cloud_active
+		cloud_id = source.cloud_id
+		safety_threshold = source.safety_threshold
 	for(var/X in programs_to_add)
 		var/datum/nanite_program/SNP = X
 		add_program(null, SNP.copy())
@@ -153,7 +157,7 @@
 		if(backup)
 			var/datum/component/nanites/cloud_copy = backup.nanites
 			if(cloud_copy)
-				sync(null, cloud_copy)
+				sync(source = cloud_copy)
 				return
 	//Without cloud syncing nanites can accumulate errors and/or defects
 	if(prob(8) && programs.len)
