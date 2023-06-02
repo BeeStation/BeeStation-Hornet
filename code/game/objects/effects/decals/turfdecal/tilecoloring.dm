@@ -58,10 +58,6 @@
 	icon_state = "diagonal_edge"
 	name = "white diagonal edge"
 
-/obj/effect/turf_decal/tile/white/carat
-	icon_state = "tile_carat"
-	name = "white carat decal"
-
 /obj/effect/turf_decal/tile/white/anticorner_ramp
 	icon_state = "tile_anticorner_ramp"
 	name = "white anticorner ramp"
@@ -119,10 +115,6 @@
 /obj/effect/turf_decal/tile/blue/diagonal_edge
 	icon_state = "diagonal_edge"
 	name = "blue diagonal edge"
-
-/obj/effect/turf_decal/tile/blue/carat
-	icon_state = "tile_carat"
-	name = "blue carat decal"
 
 /obj/effect/turf_decal/tile/blue/anticorner_ramp
 	icon_state = "tile_anticorner_ramp"
@@ -182,9 +174,6 @@
 	icon_state = "diagonal_edge"
 	name = "dark blue diagonal edge"
 
-/obj/effect/turf_decal/tile/dark_blue/carat
-	icon_state = "tile_carat"
-	name = "dark blue carat decal"
 /obj/effect/turf_decal/tile/dark_blue/anticorner_ramp
 	icon_state = "tile_anticorner_ramp"
 	name = "dark blue anticorner ramp"
@@ -242,10 +231,6 @@
 /obj/effect/turf_decal/tile/black/diagonal_edge
 	icon_state = "diagonal_edge"
 	name = "black diagonal edge"
-
-/obj/effect/turf_decal/tile/black/carat
-	icon_state = "tile_carat"
-	name = "black carat decal"
 
 /obj/effect/turf_decal/tile/black/anticorner_ramp
 	icon_state = "tile_anticorner_ramp"
@@ -305,10 +290,6 @@
 	icon_state = "diagonal_edge"
 	name = "green diagonal edge"
 
-/obj/effect/turf_decal/tile/green/carat
-	icon_state = "tile_carat"
-	name = "green carat decal"
-
 /obj/effect/turf_decal/tile/green/anticorner_ramp
 	icon_state = "tile_anticorner_ramp"
 	name = "green anticorner ramp"
@@ -366,10 +347,6 @@
 /obj/effect/turf_decal/tile/dark_green/diagonal_edge
 	icon_state = "diagonal_edge"
 	name = "dark green diagonal edge"
-
-/obj/effect/turf_decal/tile/dark_green/carat
-	icon_state = "tile_carat"
-	name = "dark green carat decal"
 
 /obj/effect/turf_decal/tile/dark_green/anticorner_ramp
 	icon_state = "tile_anticorner_ramp"
@@ -429,10 +406,6 @@
 	icon_state = "diagonal_edge"
 	name = "yellow diagonal edge"
 
-/obj/effect/turf_decal/tile/yellow/carat
-	icon_state = "tile_carat"
-	name = "yellow carat decal"
-
 /obj/effect/turf_decal/tile/yellow/anticorner_ramp
 	icon_state = "tile_anticorner_ramp"
 	name = "yellow anticorner ramp"
@@ -491,10 +464,6 @@
 	icon_state = "diagonal_edge"
 	name = "red diagonal edge"
 
-/obj/effect/turf_decal/tile/red/carat
-	icon_state = "tile_carat"
-	name = "red carat decal"
-
 /obj/effect/turf_decal/tile/red/anticorner_ramp
 	icon_state = "tile_anticorner_ramp"
 	name = "red anticorner ramp"
@@ -552,10 +521,6 @@
 /obj/effect/turf_decal/tile/dark_red/diagonal_edge
 	icon_state = "diagonal_edge"
 	name = "dark red diagonal edge"
-
-/obj/effect/turf_decal/tile/dark_red/carat
-	icon_state = "tile_carat"
-	name = "dark red carat decal"
 
 /obj/effect/turf_decal/tile/dark_red/anticorner_ramp
 	icon_state = "tile_anticorner_ramp"
@@ -616,10 +581,6 @@
 	icon_state = "diagonal_edge"
 	name = "bar diagonal edge"
 
-/obj/effect/turf_decal/tile/bar/carat
-	icon_state = "tile_carat"
-	name = "bar carat decal"
-
 /obj/effect/turf_decal/tile/bar/anticorner_ramp
 	icon_state = "tile_anticorner_ramp"
 	name = "bar anticorner ramp"
@@ -678,10 +639,6 @@
 	icon_state = "diagonal_edge"
 	name = "bar diagonal edge"
 
-/obj/effect/turf_decal/tile/purple/carat
-	icon_state = "tile_carat"
-	name = "purple carat decal"
-
 /obj/effect/turf_decal/tile/purple/anticorner_ramp
 	icon_state = "tile_anticorner_ramp"
 	name = "purple anticorner ramp"
@@ -738,10 +695,6 @@
 /obj/effect/turf_decal/tile/brown/diagonal_edge
 	icon_state = "diagonal_edge"
 	name = "brown diagonal edge"
-
-/obj/effect/turf_decal/tile/brown/carat
-	icon_state = "tile_carat"
-	name = "brown carat decal"
 
 /obj/effect/turf_decal/tile/brown/anticorner_ramp
 	icon_state = "tile_anticorner_ramp"
@@ -802,10 +755,6 @@
 	icon_state = "diagonal_edge"
 	name = "neutral diagonal edge"
 
-/obj/effect/turf_decal/tile/neutral/carat
-	icon_state = "tile_carat"
-	name = "neutral carat decal"
-
 /obj/effect/turf_decal/tile/neutral/anticorner_ramp
 	icon_state = "tile_anticorner_ramp"
 	name = "neutral anticorner ramp"
@@ -859,10 +808,6 @@
 /obj/effect/turf_decal/tile/dark/diagonal_edge
 	icon_state = "diagonal_edge"
 	name = "dark diagonal edge"
-
-/obj/effect/turf_decal/tile/dark/carat
-	icon_state = "tile_carat"
-	name = "dark carat decal"
 
 /obj/effect/turf_decal/tile/dark/anticorner_ramp
 	icon_state = "tile_anticorner_ramp"
@@ -921,10 +866,6 @@
 /obj/effect/turf_decal/tile/random/diagonal_edge
 	icon_state = "diagonal_edge"
 	name = "colorful diagonal edge"
-
-/obj/effect/turf_decal/tile/random/carat
-	icon_state = "tile_carat"
-	name = "dark carat decal"
 
 /obj/effect/turf_decal/tile/random/anticorner_ramp
 	icon_state = "tile_anticorner_ramp"

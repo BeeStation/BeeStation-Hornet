@@ -132,3 +132,4 @@
 /obj/item/clothing/under/gangster/purple
 	desc = "I have a dream."
 	icon_state = "gangster_p"
+	armor = list(MELEE = 10, LASER = 10, FIRE = 40, ACID = 10, BOMB = 5, STAMINA = 30)

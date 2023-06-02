@@ -1010,12 +1010,12 @@
 
 /// Copies all languages into the supplied atom/language holder. Source should be overridden when you
 /// do not want the language overwritten by later atom updates or want to avoid blocked languages.
-/atom/movable/proc/copy_languages(from_holder, source_override=FALSE, spoken=TRUE, understood=TRUE, blocked=TRUE)
+/atom/movable/proc/copy_languages(from_holder, source_override)
 	if(isatom(from_holder))
 		var/atom/movable/thing = from_holder
 		from_holder = thing.get_language_holder()
 	var/datum/language_holder/LH = get_language_holder()
-	return LH.copy_languages(from_holder, source_override, spoken, understood, blocked)
+	return LH.copy_languages(from_holder, source_override)
 
 /// Empties out the atom specific languages and updates them according to the current atoms language holder.
 /// As a side effect, it also creates missing language holders in the process.

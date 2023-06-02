@@ -5,7 +5,6 @@
 	response_harm   = "bites"
 	speak = list("Squeak", "SQUEAK!")
 	speak_emote = list("squeak", "hisses", "squeals")
-	speak_language = /datum/language/metalanguage
 	emote_hear = list("squeaks.", "hisses.", "squeals.")
 	emote_see = list("skitters", "examines it's claws", "rolls around")
 	faction = list("hamster")
