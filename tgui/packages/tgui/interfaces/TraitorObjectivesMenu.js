@@ -340,9 +340,9 @@ const SelectBackstoryMenu = ({
   );
 
   return (
-    <Flex direction="column" height="90vh">
+    <Flex height="100%" direction="column">
       <Flex.Item mb={1}>
-        <Section title={(
+        <Section fill title={(
           <>
             <Box
               width="100%"
@@ -386,9 +386,10 @@ const SelectBackstoryMenu = ({
           ))}
         </Section>
       </Flex.Item>
-      <Flex.Item grow>
+      {/* Don't ask me why height: 0 somehow fixes the flow layout scrollability, but it does. */}
+      <Flex.Item grow height="0">
         <Flex height="100%">
-          <Flex.Item shrink minWidth="180px">
+          <Flex.Item minWidth="180px">
             <Box height="100%" width="100%" className="Section Section-fill"
               style={{ padding: "0.66em 0.5em", "overflow-y": "scroll", direction: "rtl" }}>
               <Tabs vertical style={{ direction: "ltr" }} textAlign="right">
