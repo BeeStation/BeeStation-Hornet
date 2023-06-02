@@ -42,7 +42,7 @@
 		passed_design_ids += initial(DN.id)
 
 	for(var/datum/techweb_node/TN as() in all_technodes)
-		for(var/id in TN.design_ids)
+		for(var/id in initial(TN.design_ids))
 			if(id in passed_design_ids)
 				passed_design_ids -= id
 				continue
