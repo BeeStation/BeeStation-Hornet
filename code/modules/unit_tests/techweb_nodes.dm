@@ -5,6 +5,12 @@
 	var/list/all_designs = subtypesof(/datum/design)
 	// error case
 	all_designs -= /datum/design/error_design
+	// subtypes
+	all_designs -= /datum/design/board
+	all_designs -= /datum/design/component
+	all_designs -= /datum/design/nanites
+	all_designs -= /datum/design/surgery
+	all_designs -= /datum/design/surgery/healing
 
 	var/list/all_design_ids = list()
 	var/list/passed_design_ids = list()
