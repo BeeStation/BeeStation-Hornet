@@ -21,13 +21,38 @@
 /obj/structure/fermenting_barrel,
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
+"aY" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/button{
+	id = "lifebring";
+	pixel_x = 1;
+	pixel_y = -32
+	},
+/obj/machinery/light,
+/turf/open/floor/grass,
+/area/ruin/powered/seedvault)
 "bm" = (
 /turf/open/floor/grass,
+/area/ruin/powered/seedvault)
+"br" = (
+/obj/structure/sign/warning/biohazard,
+/turf/closed/wall/mineral/titanium/survival/nodiagonal,
 /area/ruin/powered/seedvault)
 "cp" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/template_noop/open,
 /area/lavaland/surface/outdoors)
+"cA" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/pod,
+/area/ruin/powered/seedvault)
 "dw" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/glass,
@@ -70,6 +95,18 @@
 /obj/structure/flora/ash/strange,
 /turf/template_noop/open,
 /area/lavaland/surface/outdoors)
+"eP" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 8
+	},
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/seed_vault,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/spawner/lootdrop/seed_vault,
+/obj/effect/spawner/lootdrop/seed_vault,
+/obj/item/stack/medical/gauze,
+/turf/open/floor/pod,
+/area/ruin/powered/seedvault)
 "fe" = (
 /obj/machinery/hydroponics/constructable,
 /obj/effect/decal/cleanable/dirt,
@@ -91,18 +128,6 @@
 	},
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
-"fQ" = (
-/obj/machinery/light/small{
-	dir = 1;
-	icon_state = "bulb"
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 32
-	},
-/turf/open/floor/pod/light,
-/area/ruin/powered/seedvault)
 "gT" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
@@ -119,6 +144,20 @@
 	},
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
+"ht" = (
+/obj/structure/table/wood,
+/obj/machinery/smartfridge/disks{
+	pixel_y = 2
+	},
+/obj/item/storage/box/disks_plantgene,
+/obj/item/storage/box/disks_plantgene,
+/obj/item/storage/box/disks_plantgene,
+/obj/effect/decal/cleanable/cobweb,
+/obj/structure/sign/poster/contraband/kudzu{
+	pixel_y = 32
+	},
+/turf/open/floor/pod,
+/area/ruin/powered/seedvault)
 "is" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
@@ -131,24 +170,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
-"it" = (
-/obj/machinery/light/broken{
-	icon_state = "tube-broken"
-	},
-/obj/structure/closet/crate/hydroponics,
-/obj/structure/beebox,
-/obj/item/melee/flyswatter,
-/obj/item/honey_frame,
-/obj/item/honey_frame,
-/obj/item/honey_frame,
-/obj/item/queen_bee/bought,
-/obj/item/clothing/head/beekeeper_head,
-/obj/item/clothing/suit/beekeeper_suit,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/pod/light,
-/area/ruin/powered/seedvault)
 "iQ" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -156,6 +177,15 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
+	},
+/turf/open/floor/grass,
+/area/ruin/powered/seedvault)
+"ja" = (
+/obj/structure/chair/office{
+	icon_state = "officechair_dark"
+	},
+/obj/structure/sign/warning/vacuum{
+	pixel_x = 33
 	},
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
@@ -255,6 +285,17 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
+"mM" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland{
+	dir = 8
+	},
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/seed_vault,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/spawner/lootdrop/seed_vault,
+/obj/effect/spawner/lootdrop/seed_vault,
+/turf/open/floor/pod,
+/area/ruin/powered/seedvault)
 "mW" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/closed/wall/mineral/titanium/survival,
@@ -348,34 +389,6 @@
 	},
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
-"qr" = (
-/obj/machinery/light/broken{
-	dir = 8;
-	icon_state = "tube-broken"
-	},
-/obj/structure/table,
-/obj/item/gun/energy/floragun,
-/obj/item/gun/energy/floragun{
-	pixel_x = 2;
-	pixel_y = 6
-	},
-/obj/item/gun/energy/floragun{
-	pixel_x = -2;
-	pixel_y = 1
-	},
-/obj/item/gun/energy/floragun{
-	pixel_x = 1;
-	pixel_y = -5
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/button{
-	id = "lifebring";
-	pixel_y = 32
-	},
-/turf/open/floor/pod,
-/area/ruin/powered/seedvault)
 "qz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
@@ -390,6 +403,16 @@
 	dir = 8
 	},
 /area/lavaland/surface/outdoors)
+"qV" = (
+/obj/effect/mob_spawn/human/seed_vault,
+/obj/effect/turf_decal/box,
+/obj/machinery/button{
+	id = "lifebring";
+	pixel_x = 32;
+	pixel_y = -1
+	},
+/turf/open/floor/pod/light,
+/area/ruin/powered/seedvault)
 "qX" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -401,11 +424,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
-"rz" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/flora/ausbushes/ppflowers,
-/turf/open/floor/grass,
-/area/ruin/powered/seedvault)
 "rI" = (
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /obj/machinery/light/small/broken{
@@ -415,30 +433,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/grass,
-/area/ruin/powered/seedvault)
-"sa" = (
-/obj/machinery/light/broken{
-	dir = 1;
-	icon_state = "tube-broken"
-	},
-/obj/structure/closet/crate/hydroponics,
-/obj/structure/beebox,
-/obj/item/melee/flyswatter,
-/obj/item/honey_frame,
-/obj/item/honey_frame,
-/obj/item/honey_frame,
-/obj/item/queen_bee/bought,
-/obj/item/clothing/head/beekeeper_head,
-/obj/item/clothing/suit/beekeeper_suit,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/button{
-	id = "lifebring";
-	pixel_y = 32
-	},
-/turf/open/floor/pod/light,
 /area/ruin/powered/seedvault)
 "sn" = (
 /obj/structure/closet/crate/hydroponics,
@@ -493,13 +487,23 @@
 /obj/machinery/door/airlock/survival_pod,
 /turf/open/floor/pod/light,
 /area/ruin/powered/seedvault)
-"us" = (
-/obj/machinery/light/broken{
-	dir = 4;
-	icon_state = "tube-broken"
+"uv" = (
+/obj/structure/table,
+/obj/item/paper_bin{
+	pixel_x = 7;
+	pixel_y = 2
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+/obj/item/pen{
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/folder{
+	pixel_x = -6;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/spray/plantbgone{
+	pixel_x = 10;
+	pixel_y = 14
 	},
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
@@ -509,12 +513,6 @@
 	},
 /turf/template_noop/open,
 /area/lavaland/surface/outdoors)
-"vp" = (
-/obj/structure/chair/office{
-	icon_state = "officechair_dark"
-	},
-/turf/open/floor/grass,
-/area/ruin/powered/seedvault)
 "vw" = (
 /obj/machinery/seed_extractor,
 /turf/open/floor/pod,
@@ -558,6 +556,24 @@
 	},
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
+"xB" = (
+/obj/machinery/light/broken{
+	icon_state = "tube-broken"
+	},
+/obj/structure/closet/crate/hydroponics,
+/obj/item/melee/flyswatter,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/queen_bee/bought,
+/obj/item/clothing/head/beekeeper_head,
+/obj/item/clothing/suit/beekeeper_suit,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/beebox/unwrenched,
+/turf/open/floor/pod/light,
+/area/ruin/powered/seedvault)
 "yc" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/syndicate,
@@ -577,15 +593,6 @@
 	dir = 4
 	},
 /turf/open/floor/pod/light,
-/area/ruin/powered/seedvault)
-"yM" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland{
-	dir = 8
-	},
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/seed_vault,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "zr" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -647,25 +654,6 @@
 	},
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
-"Do" = (
-/obj/machinery/light/broken{
-	dir = 4;
-	icon_state = "tube-broken"
-	},
-/obj/structure/table,
-/obj/item/reagent_containers/food/snacks/grown/banana{
-	pixel_x = 2
-	},
-/obj/item/reagent_containers/food/snacks/grown/banana{
-	pixel_x = 1;
-	pixel_y = 4
-	},
-/obj/item/reagent_containers/food/snacks/grown/banana{
-	pixel_x = -3;
-	pixel_y = 6
-	},
-/turf/open/floor/pod,
-/area/ruin/powered/seedvault)
 "Ds" = (
 /obj/item/caution,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -691,6 +679,41 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
+"Ec" = (
+/obj/structure/closet/crate/hydroponics,
+/obj/item/cultivator,
+/obj/item/shovel/spade{
+	pixel_x = 5;
+	pixel_y = -1
+	},
+/obj/item/shovel/spade{
+	pixel_x = -2;
+	pixel_y = -5
+	},
+/obj/item/hatchet,
+/obj/item/hatchet{
+	pixel_x = -7;
+	pixel_y = -3
+	},
+/obj/item/cultivator{
+	pixel_x = -1;
+	pixel_y = 1
+	},
+/obj/item/storage/belt/botanical{
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/obj/item/storage/belt/botanical,
+/obj/item/storage/belt/botanical{
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/obj/item/storage/belt/botanical{
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/turf/open/floor/pod,
+/area/ruin/powered/seedvault)
 "Em" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt,
@@ -698,14 +721,6 @@
 	dir = 5
 	},
 /turf/open/floor/pod,
-/area/ruin/powered/seedvault)
-"Eq" = (
-/obj/machinery/light/broken{
-	dir = 8;
-	icon_state = "tube-broken"
-	},
-/obj/machinery/chem_master/condimaster,
-/turf/open/floor/grass,
 /area/ruin/powered/seedvault)
 "Ex" = (
 /obj/item/kirbyplants,
@@ -739,6 +754,25 @@
 "FY" = (
 /turf/template_noop/closed,
 /area/lavaland/surface/outdoors)
+"Gm" = (
+/obj/machinery/light/small{
+	dir = 1;
+	icon_state = "bulb"
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 32
+	},
+/obj/item/tank/internals/emergency_oxygen{
+	pixel_x = -2
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = 8;
+	pixel_y = -10
+	},
+/turf/open/floor/pod/light,
+/area/ruin/powered/seedvault)
 "Gt" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plasteel/stairs/right{
@@ -754,10 +788,28 @@
 "GC" = (
 /turf/template_noop/open,
 /area/lavaland/surface/outdoors)
-"Ho" = (
-/obj/machinery/light,
-/obj/machinery/vending/hydronutrients,
-/obj/effect/turf_decal/bot,
+"Ih" = (
+/obj/machinery/light/broken{
+	dir = 8;
+	icon_state = "tube-broken"
+	},
+/obj/structure/table,
+/obj/item/gun/energy/floragun,
+/obj/item/gun/energy/floragun{
+	pixel_x = 2;
+	pixel_y = 6
+	},
+/obj/item/gun/energy/floragun{
+	pixel_x = -2;
+	pixel_y = 1
+	},
+/obj/item/gun/energy/floragun{
+	pixel_x = 1;
+	pixel_y = -5
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "Im" = (
@@ -767,6 +819,27 @@
 "ID" = (
 /turf/open/floor/grass,
 /area/lavaland/surface/outdoors)
+"IL" = (
+/obj/machinery/light,
+/obj/machinery/vending/hydronutrients,
+/obj/effect/turf_decal/bot,
+/obj/structure/sign/poster/contraband/smoke{
+	pixel_y = -32
+	},
+/turf/open/floor/pod,
+/area/ruin/powered/seedvault)
+"Jg" = (
+/obj/machinery/light/broken{
+	dir = 8;
+	icon_state = "tube-broken"
+	},
+/obj/machinery/chem_master/condimaster,
+/obj/structure/sign/poster/ripped{
+	pixel_x = -32;
+	pixel_y = 1
+	},
+/turf/open/floor/grass,
+/area/ruin/powered/seedvault)
 "Jr" = (
 /obj/structure/flora/ausbushes/palebush,
 /turf/open/floor/grass,
@@ -783,29 +856,6 @@
 "JM" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/open/floor/grass,
-/area/ruin/powered/seedvault)
-"JV" = (
-/obj/machinery/light/broken{
-	icon_state = "tube-broken"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/button{
-	id = "lifebring";
-	pixel_x = 1;
-	pixel_y = -32
-	},
-/turf/open/floor/grass,
-/area/ruin/powered/seedvault)
-"Ka" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 8
-	},
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/seed_vault,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "Ke" = (
 /obj/machinery/atmospherics/components/binary/valve,
@@ -1027,17 +1077,6 @@
 	},
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
-"OD" = (
-/obj/structure/table/wood,
-/obj/machinery/smartfridge/disks{
-	pixel_y = 2
-	},
-/obj/item/storage/box/disks_plantgene,
-/obj/item/storage/box/disks_plantgene,
-/obj/item/storage/box/disks_plantgene,
-/obj/effect/decal/cleanable/cobweb,
-/turf/open/floor/pod,
-/area/ruin/powered/seedvault)
 "Po" = (
 /obj/machinery/computer/monitor/secret{
 	dir = 4;
@@ -1238,33 +1277,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
-"TN" = (
-/obj/structure/closet/crate/hydroponics,
-/obj/item/cultivator,
-/obj/item/shovel/spade{
-	pixel_x = 5;
-	pixel_y = -1
-	},
-/obj/item/shovel/spade{
-	pixel_x = -2;
-	pixel_y = -5
-	},
-/obj/item/hatchet,
-/obj/item/hatchet{
-	pixel_x = -7;
-	pixel_y = -3
-	},
-/obj/item/cultivator{
-	pixel_x = -1;
-	pixel_y = 1
-	},
-/obj/item/storage/belt/botanical{
-	pixel_x = -2;
-	pixel_y = -2
-	},
-/obj/item/storage/belt/botanical,
-/turf/open/floor/pod,
-/area/ruin/powered/seedvault)
 "Ud" = (
 /obj/machinery/biogenerator,
 /obj/item/reagent_containers/glass/bucket,
@@ -1276,6 +1288,25 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
+/turf/open/floor/pod,
+/area/ruin/powered/seedvault)
+"UF" = (
+/obj/machinery/light/broken{
+	dir = 4;
+	icon_state = "tube-broken"
+	},
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/grown/banana{
+	pixel_x = 7;
+	pixel_y = -2
+	},
+/obj/item/reagent_containers/food/snacks/grown/banana{
+	pixel_x = -2;
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/food/snacks/grown/banana{
+	pixel_x = -1
+	},
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "UL" = (
@@ -1346,11 +1377,6 @@
 	},
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
-"YG" = (
-/obj/structure/table,
-/obj/item/reagent_containers/spray/plantbgone,
-/turf/open/floor/pod,
-/area/ruin/powered/seedvault)
 "YM" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 4
@@ -1363,10 +1389,42 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
+"Zi" = (
+/obj/machinery/light/broken{
+	dir = 1;
+	icon_state = "tube-broken"
+	},
+/obj/structure/closet/crate/hydroponics,
+/obj/item/melee/flyswatter,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/queen_bee/bought,
+/obj/item/clothing/head/beekeeper_head,
+/obj/item/clothing/suit/beekeeper_suit,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/button{
+	id = "lifebring";
+	pixel_y = 32
+	},
+/obj/structure/beebox/unwrenched,
+/turf/open/floor/pod/light,
+/area/ruin/powered/seedvault)
 "Zl" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/turf/open/floor/grass,
+/area/ruin/powered/seedvault)
+"ZS" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/sign/warning/vacuum{
+	pixel_x = 33
+	},
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
 
@@ -1422,12 +1480,12 @@ FY
 FY
 FY
 dM
-dM
-sa
+MJ
+Zi
 yG
 Pv
-it
-dM
+xB
+MJ
 dM
 FY
 FY
@@ -1462,10 +1520,10 @@ FY
 FY
 dM
 dM
-qr
+Ih
 yc
 dM
-OD
+ht
 Tv
 sU
 Rt
@@ -1475,7 +1533,7 @@ zr
 vw
 dM
 Da
-Eq
+Jg
 dM
 dM
 FY
@@ -1485,7 +1543,7 @@ FY
 dM
 fk
 fC
-TN
+Ec
 dM
 SK
 sG
@@ -1549,8 +1607,8 @@ FY
 (9,1,1) = {"
 FY
 VQ
-fk
-us
+qV
+cA
 sn
 MS
 al
@@ -1563,8 +1621,8 @@ UQ
 TG
 MS
 EY
-Do
-YG
+UF
+uv
 VQ
 FY
 "}
@@ -1582,7 +1640,7 @@ qX
 kt
 JM
 Rv
-Ho
+IL
 MJ
 dM
 MS
@@ -1647,12 +1705,12 @@ bm
 DN
 Nn
 bm
-JV
+aY
 MJ
 MJ
 dM
-yM
-Ka
+mM
+eP
 KU
 dM
 "}
@@ -1687,10 +1745,10 @@ aj
 GC
 VQ
 nO
-rz
+ZS
 Wr
 UL
-vp
+ja
 KJ
 VQ
 GC
@@ -1730,12 +1788,12 @@ GC
 GC
 Qu
 aj
-MJ
 dM
-fQ
+dM
+Gm
 dw
 dM
-MJ
+dM
 kG
 ID
 GC
@@ -1753,10 +1811,10 @@ GC
 GC
 GC
 en
-MJ
+br
 MZ
 MZ
-MJ
+br
 kq
 Qu
 GC
