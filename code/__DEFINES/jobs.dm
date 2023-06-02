@@ -102,109 +102,109 @@
 //------------------------------------- Job names -------------------------------------------
 //-------------------------------------------------------------------------------------------
 // ****** WARNING:
-// 		DO NOT CHANGE KEY. You are fine to change NAME defines, but DO NOT DO to KEY defines
+// 	   DO NOT CHANGE KEY. You are fine to change TITLE defines, but DO NOT DO to KEY defines
 #define JOB_UNASSIGNED "Unassigned"
 #define JOB_DEMOTED "Demoted"
 
 // Command
-#define JOB_NAME_CAPTAIN "Captain"
+#define JOB_TITLE_CAPTAIN "Captain"
 #define JOB_KEY_CAPTAIN "Captain"
 
 // Service
-#define JOB_NAME_HEADOFPERSONNEL "Head of Personnel"
+#define JOB_TITLE_HEADOFPERSONNEL "Head of Personnel"
 #define JOB_KEY_HEADOFPERSONNEL "Head of Personnel"
-#define JOB_NAME_ASSISTANT  "Assistant"
+#define JOB_TITLE_ASSISTANT  "Assistant"
 #define JOB_KEY_ASSISTANT  "Assistant"
-#define JOB_NAME_BARTENDER  "Bartender"
+#define JOB_TITLE_BARTENDER  "Bartender"
 #define JOB_KEY_BARTENDER  "Bartender"
-#define JOB_NAME_BOTANIST   "Botanist"
+#define JOB_TITLE_BOTANIST   "Botanist"
 #define JOB_KEY_BOTANIST   "Botanist"
-#define JOB_NAME_COOK     "Cook"
+#define JOB_TITLE_COOK     "Cook"
 #define JOB_KEY_COOK     "Cook"
-#define JOB_NAME_JANITOR  "Janitor"
+#define JOB_TITLE_JANITOR  "Janitor"
 #define JOB_KEY_JANITOR  "Janitor"
-#define JOB_NAME_CURATOR  "Curator"
+#define JOB_TITLE_CURATOR  "Curator"
 #define JOB_KEY_CURATOR  "Curator"
-#define JOB_NAME_LAWYER   "Lawyer"
+#define JOB_TITLE_LAWYER   "Lawyer"
 #define JOB_KEY_LAWYER   "Lawyer"
-#define JOB_NAME_CHAPLAIN "Chaplain"
+#define JOB_TITLE_CHAPLAIN "Chaplain"
 #define JOB_KEY_CHAPLAIN "Chaplain"
-#define JOB_NAME_MIME   "Mime"
+#define JOB_TITLE_MIME   "Mime"
 #define JOB_KEY_MIME   "Mime"
-#define JOB_NAME_CLOWN  "Clown"
+#define JOB_TITLE_CLOWN  "Clown"
 #define JOB_KEY_CLOWN  "Clown"
-#define JOB_NAME_STAGEMAGICIAN "Stage Magician" // gimmick
+#define JOB_TITLE_STAGEMAGICIAN "Stage Magician" // gimmick
 #define JOB_KEY_STAGEMAGICIAN "Stage Magician" // gimmick
-#define JOB_NAME_BARBER "Barber" // gimmick
+#define JOB_TITLE_BARBER "Barber" // gimmick
 #define JOB_KEY_BARBER "Barber" // gimmick
-#define JOB_NAME_VIP    "VIP" // gimmick
+#define JOB_TITLE_VIP    "VIP" // gimmick
 #define JOB_KEY_VIP    "VIP" // gimmick
 
 // Cargo
-#define JOB_NAME_QUARTERMASTER   "Quartermaster"
+#define JOB_TITLE_QUARTERMASTER   "Quartermaster"
 #define JOB_KEY_QUARTERMASTER   "Quartermaster"
-#define JOB_NAME_CARGOTECHNICIAN "Cargo Technician"
+#define JOB_TITLE_CARGOTECHNICIAN "Cargo Technician"
 #define JOB_KEY_CARGOTECHNICIAN "Cargo Technician"
-#define JOB_NAME_SHAFTMINER      "Shaft Miner"
+#define JOB_TITLE_SHAFTMINER      "Shaft Miner"
 #define JOB_KEY_SHAFTMINER      "Shaft Miner"
 
 // R&D
-#define JOB_NAME_RESEARCHDIRECTOR "Research Director"
+#define JOB_TITLE_RESEARCHDIRECTOR "Research Director"
 #define JOB_KEY_RESEARCHDIRECTOR "Research Director"
-#define JOB_NAME_SCIENTIST  "Scientist"
+#define JOB_TITLE_SCIENTIST  "Scientist"
 #define JOB_KEY_SCIENTIST  "Scientist"
-#define JOB_NAME_ROBOTICIST "Roboticist"
+#define JOB_TITLE_ROBOTICIST "Roboticist"
 #define JOB_KEY_ROBOTICIST "Roboticist"
-#define JOB_NAME_EXPLORATIONCREW "Exploration Crew"
+#define JOB_TITLE_EXPLORATIONCREW "Exploration Crew"
 #define JOB_KEY_EXPLORATIONCREW "Exploration Crew"
 
 // Engineering
-#define JOB_NAME_CHIEFENGINEER   "Chief Engineer"
+#define JOB_TITLE_CHIEFENGINEER   "Chief Engineer"
 #define JOB_KEY_CHIEFENGINEER   "Chief Engineer"
-#define JOB_NAME_STATIONENGINEER "Station Engineer"
+#define JOB_TITLE_STATIONENGINEER "Station Engineer"
 #define JOB_KEY_STATIONENGINEER "Station Engineer"
-#define JOB_NAME_ATMOSPHERICTECHNICIAN "Atmospheric Technician"
+#define JOB_TITLE_ATMOSPHERICTECHNICIAN "Atmospheric Technician"
 #define JOB_KEY_ATMOSPHERICTECHNICIAN "Atmospheric Technician"
 
 // Medical
-#define JOB_NAME_CHIEFMEDICALOFFICER "Chief Medical Officer"
+#define JOB_TITLE_CHIEFMEDICALOFFICER "Chief Medical Officer"
 #define JOB_KEY_CHIEFMEDICALOFFICER "Chief Medical Officer"
-#define JOB_NAME_MEDICALDOCTOR "Medical Doctor"
+#define JOB_TITLE_MEDICALDOCTOR "Medical Doctor"
 #define JOB_KEY_MEDICALDOCTOR "Medical Doctor"
-#define JOB_NAME_PARAMEDIC  "Paramedic"
+#define JOB_TITLE_PARAMEDIC  "Paramedic"
 #define JOB_KEY_PARAMEDIC  "Paramedic"
-#define JOB_NAME_CHEMIST    "Chemist"
+#define JOB_TITLE_CHEMIST    "Chemist"
 #define JOB_KEY_CHEMIST    "Chemist"
-#define JOB_NAME_VIROLOGIST "Virologist"
+#define JOB_TITLE_VIROLOGIST "Virologist"
 #define JOB_KEY_VIROLOGIST "Virologist"
-#define JOB_NAME_GENETICIST "Geneticist"
+#define JOB_TITLE_GENETICIST "Geneticist"
 #define JOB_KEY_GENETICIST "Geneticist"
-#define JOB_NAME_BRIGPHYSICIAN "Brig Physician"
+#define JOB_TITLE_BRIGPHYSICIAN "Brig Physician"
 #define JOB_KEY_BRIGPHYSICIAN "Brig Physician"
-#define JOB_NAME_PSYCHIATRIST  "Psychiatrist" // gimmick
+#define JOB_TITLE_PSYCHIATRIST  "Psychiatrist" // gimmick
 #define JOB_KEY_PSYCHIATRIST  "Psychiatrist" // gimmick
 
 // Security
-#define JOB_NAME_HEADOFSECURITY "Head of Security"
+#define JOB_TITLE_HEADOFSECURITY "Head of Security"
 #define JOB_KEY_HEADOFSECURITY "Head of Security"
-#define JOB_NAME_WARDEN "Warden"
+#define JOB_TITLE_WARDEN "Warden"
 #define JOB_KEY_WARDEN "Warden"
-#define JOB_NAME_SECURITYOFFICER "Security Officer"
+#define JOB_TITLE_SECURITYOFFICER "Security Officer"
 #define JOB_KEY_SECURITYOFFICER "Security Officer"
-#define JOB_NAME_DETECTIVE "Detective"
+#define JOB_TITLE_DETECTIVE "Detective"
 #define JOB_KEY_DETECTIVE "Detective"
-#define JOB_NAME_DEPUTY  "Deputy"
+#define JOB_TITLE_DEPUTY  "Deputy"
 #define JOB_KEY_DEPUTY  "Deputy"
 
 // Silicon
-#define JOB_NAME_AI     "AI"
+#define JOB_TITLE_AI     "AI"
 #define JOB_KEY_AI     "AI"
-#define JOB_NAME_CYBORG "Cyborg"
+#define JOB_TITLE_CYBORG "Cyborg"
 #define JOB_KEY_CYBORG "Cyborg"
 
 // Misc & Off-Station
-#define JOB_NAME_KING    "King"
-#define JOB_NAME_PRISONER "Prisoner"
+#define JOB_TITLE_KING    "King"
+#define JOB_TITLE_PRISONER "Prisoner"
 #define JOB_SPACE_POLICE "Space Police"
 
 // ERTs

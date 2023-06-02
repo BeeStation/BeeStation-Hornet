@@ -1,9 +1,9 @@
 /datum/job/detective
 	jkey = JOB_KEY_DETECTIVE
-	jtitle = JOB_NAME_DETECTIVE
+	jtitle = JOB_TITLE_DETECTIVE
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SECURITY
-	department_head = list(JOB_NAME_HEADOFSECURITY)
+	department_head = list(JOB_TITLE_HEADOFSECURITY)
 	faction = "station"
 	total_positions = 1
 	spawn_positions = 1

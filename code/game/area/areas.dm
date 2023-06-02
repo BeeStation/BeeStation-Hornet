@@ -36,7 +36,7 @@
 
 	var/mood_bonus = 0 //Mood for being here
 	var/mood_message = "<span class='nicegreen'>This area is pretty nice!\n</span>" //Mood message for being here, only shows up if mood_bonus != 0
-	/// if defined, restricts what jobs get this buff using JOB_NAME defines (-candycane/etherware)
+	/// if defined, restricts what jobs get this buff using JOB_KEY defines (-candycane/etherware)
 	var/list/mood_job_allowed = null
 	/// if true, mood_job_allowed will represent jobs exempt from getting the mood.
 	var/mood_job_reverse = FALSE

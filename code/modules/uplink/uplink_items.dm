@@ -2031,7 +2031,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			allowing them to do just about any surgery, anywhere, without making any (unintentional) mistakes. \
 			Comes with a syndicate autosurgeon for immediate self-application."
 	item = /obj/item/autosurgeon/syndicate/perfect_surgeon
-	restricted_roles = list(JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_ROBOTICIST, JOB_NAME_PARAMEDIC, JOB_NAME_BRIGPHYSICIAN)
+	restricted_roles = list(JOB_KEY_MEDICALDOCTOR, JOB_KEY_CHIEFMEDICALOFFICER, JOB_KEY_ROBOTICIST, JOB_KEY_PARAMEDIC, JOB_KEY_BRIGPHYSICIAN)
 	purchasable_from = ~(UPLINK_INCURSION | UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 	cost = 12
 

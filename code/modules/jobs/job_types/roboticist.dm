@@ -1,8 +1,8 @@
 /datum/job/roboticist
 	jkey = JOB_KEY_ROBOTICIST
-	jtitle = JOB_NAME_ROBOTICIST
+	jtitle = JOB_TITLE_ROBOTICIST
 	job_bitflags = JOB_BITFLAG_SELECTABLE
-	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
+	department_head = list(JOB_TITLE_RESEARCHDIRECTOR)
 	faction = "station"
 	total_positions = 2
 	spawn_positions = 2

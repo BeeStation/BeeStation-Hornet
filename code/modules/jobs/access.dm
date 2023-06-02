@@ -329,9 +329,6 @@ GLOBAL_LIST_INIT(access_desc_list, list( \
 				JOB_KEY_HEADOFSECURITY, JOB_KEY_WARDEN, JOB_KEY_DETECTIVE, JOB_KEY_SECURITYOFFICER, JOB_KEY_BRIGPHYSICIAN, JOB_KEY_DEPUTY)
 				// Each job is supposed to be in their department due to the HoP console.
 
-/proc/get_all_job_icons() //We need their HUD icons, but we don't want to give these jobs to people from the job list of HoP console.
-	return get_all_jobs() + list("Prisoner", "King", JOB_KEY_VIP, "Acting Captain")
-
 /proc/get_all_centcom_jobs()
 	return list(JOB_CENTCOM_VIP,JOB_CENTCOM_CUSTODIAN, JOB_CENTCOM_THUNDERDOME_OVERSEER,JOB_CENTCOM_OFFICIAL,JOB_CENTCOM_MEDICAL_DOCTOR,JOB_ERT_DEATHSQUAD,JOB_CENTCOM_RESEARCH_OFFICER,"Special Ops Officer",JOB_CENTCOM_ADMIRAL,JOB_CENTCOM_COMMANDER,JOB_ERT_COMMANDER,JOB_ERT_OFFICER ,JOB_ERT_ENGINEER, JOB_ERT_MEDICAL_DOCTOR,JOB_CENTCOM_BARTENDER,"Comedy Response Officer", "HONK Squad Trooper")
 

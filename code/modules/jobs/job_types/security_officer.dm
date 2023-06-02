@@ -1,9 +1,9 @@
 /datum/job/security_officer
 	jkey = JOB_KEY_SECURITYOFFICER
-	jtitle = JOB_NAME_SECURITYOFFICER
+	jtitle = JOB_TITLE_SECURITYOFFICER
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SECURITY
-	department_head = list(JOB_NAME_HEADOFSECURITY)
+	department_head = list(JOB_TITLE_HEADOFSECURITY)
 	faction = "station"
 	total_positions = 5 //Handled in /datum/controller/occupations/proc/setup_officer_positions()
 	spawn_positions = 5 //Handled in /datum/controller/occupations/proc/setup_officer_positions()

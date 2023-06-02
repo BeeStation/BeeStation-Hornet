@@ -1,8 +1,8 @@
 /datum/job/deputy
 	jkey = JOB_KEY_DEPUTY
-	jtitle = JOB_NAME_DEPUTY
+	jtitle = JOB_TITLE_DEPUTY
 	job_bitflags = JOB_BITFLAG_MANAGE_LOCKED
-	department_head = list(JOB_NAME_HEADOFSECURITY)
+	department_head = list(JOB_TITLE_HEADOFSECURITY)
 	faction = "station"
 	total_positions = 0
 	spawn_positions = 0
@@ -45,5 +45,5 @@
 /obj/item/card/id/pass/deputy
 	name = "deputy promotion card"
 	desc = "A small card, that when used on an ID, will grant basic security access, and the job title of 'Deputy.'"
-	assignment = JOB_NAME_DEPUTY
+	assignment = JOB_TITLE_DEPUTY
 	access = list(ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_BRIG, ACCESS_WEAPONS)

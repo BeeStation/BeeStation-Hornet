@@ -1,8 +1,8 @@
 /datum/job/cook
 	jkey = JOB_KEY_COOK
-	jtitle = JOB_NAME_COOK
+	jtitle = JOB_TITLE_COOK
 	job_bitflags = JOB_BITFLAG_SELECTABLE
-	department_head = list(JOB_NAME_HEADOFPERSONNEL)
+	department_head = list(JOB_TITLE_HEADOFPERSONNEL)
 	faction = "station"
 	total_positions = 2
 	spawn_positions = 1

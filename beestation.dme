@@ -2525,7 +2525,6 @@
 #include "code\modules\jobs\job_types\assistant\barber.dm"
 #include "code\modules\jobs\job_types\clown\stage_magician.dm"
 #include "code\modules\jobs\job_types\medical_doctor\psychiatrist.dm"
-#include "code\modules\jobs\map_changes\map_changes.dm"
 #include "code\modules\keybindings\bindings_atom.dm"
 #include "code\modules\keybindings\bindings_client.dm"
 #include "code\modules\keybindings\focus.dm"

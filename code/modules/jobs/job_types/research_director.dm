@@ -1,9 +1,9 @@
 /datum/job/research_director
 	jkey = JOB_KEY_RESEARCHDIRECTOR
-	jtitle = JOB_NAME_RESEARCHDIRECTOR
+	jtitle = JOB_TITLE_RESEARCHDIRECTOR
 	job_bitflags = JOB_BITFLAG_SELECTABLE | JOB_BITFLAG_MANAGE_LOCKED
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD
-	department_head = list(JOB_NAME_CAPTAIN)
+	department_head = list(JOB_TITLE_CAPTAIN)
 	head_announce = list("Science")
 	faction = "station"
 	total_positions = 1

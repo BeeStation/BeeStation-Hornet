@@ -275,7 +275,7 @@
 				return FALSE
 		else
 			// Are they a silicon? If so, might as well be dead.
-			if(issilicon(body) && mind.assigned_role != JOB_NAME_AI)
+			if(issilicon(body) && !mind.has_job(JOB_KEY_AI))
 				continue
 			// Well, they're at least somewhat alive. But are they still antag?
 			if(antag_datum && mind.has_antag_datum(antag_datum))

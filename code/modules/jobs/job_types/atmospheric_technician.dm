@@ -1,8 +1,8 @@
 /datum/job/atmospheric_technician
 	jkey = JOB_KEY_ATMOSPHERICTECHNICIAN
-	jtitle = JOB_NAME_ATMOSPHERICTECHNICIAN
+	jtitle = JOB_TITLE_ATMOSPHERICTECHNICIAN
 	job_bitflags = JOB_BITFLAG_SELECTABLE
-	department_head = list(JOB_NAME_CHIEFENGINEER)
+	department_head = list(JOB_TITLE_CHIEFENGINEER)
 	faction = "station"
 	total_positions = 3
 	spawn_positions = 2

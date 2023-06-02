@@ -30,6 +30,6 @@
 /datum/objective/crew
 	// Used for showing the roundend report again, instead of checking complete every time it's opened.
 	var/declared_complete = FALSE
-	// List or string of JOB_NAME defines that this applies to.
+	// List or string of JOB_KEYJOB_TITLE_ defines that this applies to.
 	var/jobs
 	explanation_text = "Yell at people on github if this ever shows up. Something involving crew objectives is broken."

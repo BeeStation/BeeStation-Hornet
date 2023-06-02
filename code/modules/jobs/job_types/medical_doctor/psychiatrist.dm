@@ -1,6 +1,6 @@
 /datum/job/medical_doctor/psychiatrist
 	g_jkey = JOB_KEY_PSYCHIATRIST
-	g_jtitle = JOB_NAME_PSYCHIATRIST
+	g_jtitle = JOB_TITLE_PSYCHIATRIST
 	job_bitflags = JOB_BITFLAG_GIMMICK
 	total_positions = 0
 	spawn_positions = 0

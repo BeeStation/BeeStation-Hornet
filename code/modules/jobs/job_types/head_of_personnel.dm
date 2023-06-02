@@ -1,9 +1,9 @@
 /datum/job/head_of_personnel
 	jkey = JOB_KEY_HEADOFPERSONNEL
-	jtitle = JOB_NAME_HEADOFPERSONNEL
+	jtitle = JOB_TITLE_HEADOFPERSONNEL
 	job_bitflags = JOB_BITFLAG_SELECTABLE | JOB_BITFLAG_MANAGE_LOCKED
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD
-	department_head = list(JOB_NAME_CAPTAIN)
+	department_head = list(JOB_TITLE_CAPTAIN)
 	head_announce = list(RADIO_CHANNEL_SUPPLY, RADIO_CHANNEL_SERVICE)
 	faction = "station"
 	total_positions = 1

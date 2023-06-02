@@ -226,7 +226,7 @@
 	skin_tone = "caucasian1"
 	hair_style = "Bald"
 	facial_hair_style = "Full beard"
-	id_title = JOB_NAME_WARDEN
+	id_title = JOB_TITLE_WARDEN
 	mob_gender = MALE
 
 /datum/outfit/sniper

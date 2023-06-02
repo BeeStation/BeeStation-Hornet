@@ -13,8 +13,8 @@
 
 
 /mob/living/silicon/ai
-	name = JOB_NAME_AI
-	real_name = JOB_NAME_AI
+	name = JOB_TITLE_AI
+	real_name = JOB_TITLE_AI
 	icon = 'icons/mob/ai.dmi'
 	icon_state = "ai"
 	move_resist = MOVE_FORCE_VERY_STRONG

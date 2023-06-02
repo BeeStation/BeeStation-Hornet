@@ -86,7 +86,7 @@
 
 	// Setup access
 	access_card = new /obj/item/card/id(src)
-	var/datum/job/M = SSjob.GetJob(JOB_NAME_SHAFTMINER)
+	var/datum/job/M = SSjob.GetJob(JOB_KEY_SHAFTMINER)
 	access_card.access = M.get_access()
 
 
