@@ -31,7 +31,6 @@
 	mob_size = MOB_SIZE_LARGE
 	var/battery = 200 //emergency power if the AI's APC is off
 	var/list/network = list("ss13")
-
 	var/list/connected_robots = list()
 
 	/// Station alert datum for showing alerts UI

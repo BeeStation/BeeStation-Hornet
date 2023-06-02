@@ -56,7 +56,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 		if(!each_mob.should_show_chat_message(src, message_language))
 			continue
 		runechat_readers += each_mob
-	create_chat_message(src, // this creates runechat, so that they can communicate better
+	create_chat_message(src,
 		message_language = message_language,
 		hearers = runechat_readers, // only you and your target sees the runechat (+ghosts)
 		raw_message = message,
