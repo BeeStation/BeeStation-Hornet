@@ -12,6 +12,7 @@
 		/datum/design/breaching_slug,
 		/datum/design/component,
 		/datum/design/component/arbitrary_input_amount,
+		/datum/design/disk,
 		/datum/design/nanites,
 		/datum/design/netcard,
 		/datum/design/portabledrive,
@@ -40,7 +41,7 @@
 		all_design_ids += initial(DN.id)
 		passed_design_ids += initial(DN.id)
 
-	for(var/datum/techweb_node/TN as() in subtypesof(/datum/techweb_node))
+	for(var/datum/techweb_node/TN as() in all_technodes)
 		for(var/id in TN.design_ids)
 			if(id in passed_design_ids)
 				passed_design_ids -= id
