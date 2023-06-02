@@ -52,6 +52,7 @@
 
 	chat_color = "#9A5ACB"
 	mobchatspan = "revenminor"
+	initial_language_holder = /datum/language_holder/empty
 
 	var/essence = 75 //The resource, and health, of revenants.
 	var/essence_regen_cap = 75 //The regeneration cap of essence (go figure); regenerates every Life() tick up to this amount.
@@ -176,25 +177,29 @@
 /mob/living/simple_animal/revenant/med_hud_set_status()
 	return //we use no hud
 
-/mob/living/simple_animal/revenant/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+/mob/living/simple_animal/revenant/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, list/prebuilt_hearers = null)
 	if(!message)
 		return
-	if(!incorporeal_move)
-		message = "...[message]"
-		return ..()
 
 	if(CHAT_FILTER_CHECK(message))
 		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
 		return
 	message = treat_message_min(message)
 	src.log_talk(message, LOG_SAY)
-	var/rendered = "<span class='revennotice'><b>[src]</b> says, \"[message]\"</span>"
+	var/rendered = "<span class='revennotice'><b>[src]</b> haunts, \"[message]\"</span>"
+	var/rendered_yourself = "<span class='revennotice'>You haunt to ghosts: [message]</span>"
+	var/list/hearers = list()
 	for(var/mob/M in GLOB.mob_list)
-		if(isrevenant(M))
+		if(M == src)
+			hearers += M
+			to_chat(M, rendered_yourself)
+		else if(isrevenant(M) && get_dist(M, src) < 7)
+			hearers += M
 			to_chat(M, rendered)
 		else if(isobserver(M))
 			var/link = FOLLOW_LINK(M, src)
 			to_chat(M, "[link] [rendered]")
+	create_private_chat_message("<i>...[message]", message_language = /datum/language/metalanguage, hearers = hearers)
 	return
 
 

@@ -222,16 +222,11 @@
 		msg = user.treat_message_min(msg)
 		log_directed_talk(user, M, msg, LOG_SAY, "[name]")
 
-		var/hearer_list = list()
-		for(var/mob/each_mob in GLOB.dead_mob_list+list(user, M))
-			if(each_mob.should_show_chat_message(user, null, is_heard=TRUE))
-				hearer_list += each_mob // mob list that'll see runechat
 		to_chat(user, "<span class='[boldnotice]'>You transmit to [M]:</span> <span class='[notice]'>[msg]</span>")
 		to_chat(M, "<span class='[boldnotice]'>You hear something haunting...</span> <span class='[notice]'>[msg]</span>")
-		create_chat_message(user, // this creates runechat, so that they can communicate better
-			message_language = M.get_random_understood_language(), // this is tricky, but there's no better way to make a runechat
-			hearers = hearer_list, // only you and your target sees the runechat (+ghosts)
-			raw_message = "...[msg]")
+		create_private_chat_message(message="...[msg]",
+									message_language = /datum/language/metalanguage,
+									hearers=list(user, M)) // only you and your target sees the runechat (+ghosts)
 		for(var/ded in GLOB.dead_mob_list)
 			if(!isobserver(ded))
 				continue

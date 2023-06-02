@@ -315,7 +315,7 @@
 		return CHATMESSAGE_CANNOT_HEAR
 	return ..()
 
-/proc/create_chat_message(atom/movable/speaker, datum/language/message_language, list/hearers, raw_message, list/spans, list/message_mods)
+/proc/create_chat_message(atom/movable/speaker, datum/language/message_language, list/hearers, raw_message, list/spans, list/message_mods, force_hear=FALSE)
 	if(!length(hearers))
 		return
 
@@ -363,7 +363,7 @@
 		var/list/client/show_icon_scrambled
 		var/list/client/hide_icon_scrambled
 		for(var/mob/M as() in hearers)
-			switch(M?.should_show_chat_message(speaker, message_language, FALSE))
+			switch(M?.should_show_chat_message(speaker, message_language, FALSE, force_hear))
 				if(CHATMESSAGE_HEAR)
 					if(!message_language || M.has_language(message_language))
 						LAZYADD(hide_icon_understand, M.client)
