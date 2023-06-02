@@ -74,7 +74,7 @@
 /obj/item/clothing/suit/hooded/cultrobes/void/RemoveHood()
 	// This is before the hood actually goes down
 	// We only make it visible if the hood is being moved from up to down
-	if(qdel_hood)
+	if(qdel_hood && hood)
 		make_visible()
 	return ..()
 

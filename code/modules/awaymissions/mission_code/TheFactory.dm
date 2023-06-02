@@ -273,7 +273,7 @@
 		playsound(get_turf(src), chosen_sound, 100, 0, 0)
 		var/list/possible_phrases = list("Anomaly spotted! Send backup!","Intruder over here!","Hostile spotted, get them!")
 		var/chosen_phrase = pick(possible_phrases)
-		say(chosen_phrase)
+		say(chosen_phrase, language = speak_language)
 	else
 		return
 

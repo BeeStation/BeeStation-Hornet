@@ -559,7 +559,7 @@
 		claim_ticket = CLAIM_OVERRIDE
 	return claim_ticket
 
-/datum/help_ticket/proc/MessageNoRecipient(msg)
+/datum/help_ticket/proc/MessageNoRecipient(msg, sanitized = FALSE)
 	return
 
 /datum/help_ticket/proc/key_name_ticket(mob/user)

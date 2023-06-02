@@ -56,8 +56,8 @@
 	var/locked = TRUE
 	var/list/req_access = list(ACCESS_ROBOTICS)
 
-	///Alarm listener datum, handes caring about alarm events and such
-	var/datum/alarm_listener/listener
+	/// Station alert datum for showing alerts UI
+	var/datum/station_alert/alert_control
 
 	var/speed = 0 // VTEC speed boost.
 	var/magpulse = FALSE // Magboot-like effect.
@@ -177,11 +177,11 @@
 	toner = tonermax
 	diag_hud_set_borgcell()
 
-	listener = new(list(ALARM_ATMOS, ALARM_FIRE, ALARM_POWER, ALARM_CAMERA, ALARM_BURGLAR, ALARM_MOTION), list(z))
-	RegisterSignal(listener, COMSIG_ALARM_TRIGGERED, PROC_REF(alarm_triggered))
-	RegisterSignal(listener, COMSIG_ALARM_CLEARED, PROC_REF(alarm_cleared))
-	listener.RegisterSignal(src, COMSIG_LIVING_DEATH, /datum/alarm_listener/proc/prevent_alarm_changes)
-	listener.RegisterSignal(src, COMSIG_LIVING_REVIVE, /datum/alarm_listener/proc/allow_alarm_changes)
+	alert_control = new(src, list(ALARM_ATMOS, ALARM_FIRE, ALARM_POWER, ALARM_CAMERA, ALARM_BURGLAR, ALARM_MOTION), list(z))
+	RegisterSignal(alert_control.listener, COMSIG_ALARM_TRIGGERED, PROC_REF(alarm_triggered))
+	RegisterSignal(alert_control.listener, COMSIG_ALARM_CLEARED, PROC_REF(alarm_cleared))
+	alert_control.listener.RegisterSignal(src, COMSIG_LIVING_DEATH, /datum/alarm_listener/proc/prevent_alarm_changes)
+	alert_control.listener.RegisterSignal(src, COMSIG_LIVING_REVIVE, /datum/alarm_listener/proc/allow_alarm_changes)
 
 	RegisterSignal(src, COMSIG_ATOM_ON_EMAG, PROC_REF(on_emag))
 	RegisterSignal(src, COMSIG_ATOM_SHOULD_EMAG, PROC_REF(should_emag))
@@ -240,7 +240,7 @@
 	QDEL_NULL(inv2)
 	QDEL_NULL(inv3)
 	QDEL_NULL(spark_system)
-	QDEL_NULL(listener)
+	QDEL_NULL(alert_control)
 	cell = null
 	UnregisterSignal(src, COMSIG_ATOM_ON_EMAG)
 	UnregisterSignal(src, COMSIG_ATOM_SHOULD_EMAG)
@@ -298,27 +298,6 @@
 
 /mob/living/silicon/robot/proc/get_standard_name()
 	return "[(designation ? "[designation] " : "")][mmi.braintype]-[ident]"
-
-/mob/living/silicon/robot/proc/robot_alerts()
-	var/dat = ""
-	var/list/alarms = listener.alarms
-	for (var/alarm_type in alarms)
-		dat += "<B>[alarm_type]</B><BR>\n"
-		var/list/alerts = alarms[alarm_type]
-		if (length(alerts))
-			for (var/alarm in alerts)
-				var/list/alm = alerts[alarm]
-				var/area/A = alm[1]
-				dat += "<NOBR>"
-				dat += "-- [A.name]"
-				dat += "</NOBR><BR>\n"
-		else
-			dat += "-- All Systems Nominal<BR>\n"
-		dat += "<BR>\n"
-
-	var/datum/browser/alerts = new(usr, "robotalerts", "Current Station Alerts", 400, 410)
-	alerts.set_content(dat)
-	alerts.open()
 
 /mob/living/silicon/robot/proc/ionpulse(thrust = 0.01, use_fuel = TRUE)
 	if(!ionpulse_on)

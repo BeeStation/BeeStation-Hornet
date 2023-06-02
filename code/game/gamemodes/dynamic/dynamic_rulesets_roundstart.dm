@@ -28,7 +28,7 @@
 	for (var/i = 1 to num_traitors)
 		if(candidates.len <= 0)
 			break
-		var/mob/M = pick_n_take(candidates)
+		var/mob/M = antag_pick_n_take(candidates)
 		assigned += M.mind
 		M.mind.restricted_roles = restricted_roles
 	return TRUE
@@ -64,7 +64,7 @@
 		var/datum/team/brother_team/team = new
 		var/team_size = prob(10) ? min(3, candidates.len) : 2
 		for(var/k = 1 to team_size)
-			var/mob/bro = pick_n_take(candidates)
+			var/mob/bro = antag_pick_n_take(candidates)
 			assigned += bro.mind
 			team.add_member(bro.mind)
 			bro.mind.restricted_roles = restricted_roles
@@ -106,7 +106,7 @@
 	for (var/i = 1 to num_changelings)
 		if(candidates.len <= 0)
 			break
-		var/mob/M = pick_n_take(candidates)
+		var/mob/M = antag_pick_n_take(candidates)
 		assigned += M.mind
 		M.mind.restricted_roles = restricted_roles
 	return TRUE
@@ -144,7 +144,7 @@
 	for (var/i = 1 to num_ecult)
 		if(candidates.len <= 0)
 			break
-		var/mob/picked_candidate = pick_n_take(candidates)
+		var/mob/picked_candidate = antag_pick_n_take(candidates)
 		assigned += picked_candidate.mind
 		picked_candidate.mind.restricted_roles = restricted_roles
 	return TRUE
@@ -169,7 +169,7 @@
 	name = "Wizard"
 	antag_flag = ROLE_KEY_WIZARD
 	antag_datum = /datum/antagonist/wizard
-	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET
+	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET | PERSISTENT_RULESET
 	minimum_required_age = 14
 	restricted_roles = list(JOB_KEY_HEADOFSECURITY, JOB_KEY_CAPTAIN) // Just to be sure that a wizard getting picked won't ever imply a Captain or HoS not getting drafted
 	required_candidates = 1
@@ -189,7 +189,7 @@
 	if(GLOB.wizardstart.len == 0)
 		return FALSE
 	mode.antags_rolled += 1
-	var/mob/M = pick_n_take(candidates)
+	var/mob/M = antag_pick_n_take(candidates)
 	if (M)
 		assigned += M.mind
 
@@ -218,7 +218,7 @@
 	cost = 20
 	requirements = list(100,90,80,60,40,30,10,10,10,10)
 	minimum_players = 24
-	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET
+	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET | PERSISTENT_RULESET
 	antag_cap = list("denominator" = 20, "offset" = 1)
 	var/datum/team/cult/main_cult
 
@@ -232,7 +232,7 @@
 	for(var/cultists_number = 1 to cultists)
 		if(candidates.len <= 0)
 			break
-		var/mob/M = pick_n_take(candidates)
+		var/mob/M = antag_pick_n_take(candidates)
 		assigned += M.mind
 		M.mind.restricted_roles = restricted_roles
 	return TRUE
@@ -273,7 +273,7 @@
 	weight = 3
 	cost = 20
 	requirements = list(90,90,90,80,60,40,30,20,10,10)
-	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET
+	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET | PERSISTENT_RULESET
 	antag_cap = list("denominator" = 18, "offset" = 1)
 	var/datum/team/nuclear/nuke_team
 
@@ -288,7 +288,7 @@
 	for(var/operatives_number = 1 to operatives)
 		if(candidates.len <= 0)
 			break
-		var/mob/M = pick_n_take(candidates)
+		var/mob/M = antag_pick_n_take(candidates)
 		assigned += M.mind
 	return TRUE
 
@@ -358,7 +358,7 @@
 	cost = 20
 	requirements = list(101,101,70,40,30,20,10,10,10,10)
 	antag_cap = 3
-	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET
+	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET | PERSISTENT_RULESET
 	blocking_rules = list(/datum/dynamic_ruleset/latejoin/provocateur)
 	// I give up, just there should be enough heads with 35 players...
 	minimum_players = 35
@@ -373,7 +373,7 @@
 	for(var/i = 1 to max_candidates)
 		if(candidates.len <= 0)
 			break
-		var/mob/M = pick_n_take(candidates)
+		var/mob/M = antag_pick_n_take(candidates)
 		assigned += M.mind
 		M.mind.restricted_roles = restricted_roles
 	return TRUE
@@ -492,7 +492,7 @@
 	for(var/j = 0, j < num_devils, j++)
 		if (candidates.len <= 0)
 			break
-		var/mob/devil = pick_n_take(candidates)
+		var/mob/devil = antag_pick_n_take(candidates)
 		assigned += devil.mind
 		devil.mind.restricted_roles = restricted_roles
 
@@ -570,7 +570,7 @@
 	cost = 35
 	requirements = list(100,90,80,70,60,50,30,30,30,30)
 	minimum_players = 24
-	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET
+	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET | PERSISTENT_RULESET
 	var/datum/team/clock_cult/main_cult
 	var/list/selected_servants = list()
 
@@ -585,7 +585,7 @@
 		starter_servants += round(number_players / 10)
 	starter_servants = min(starter_servants, 8)
 	for (var/i in 1 to starter_servants)
-		var/mob/servant = pick_n_take(candidates)
+		var/mob/servant = antag_pick_n_take(candidates)
 		assigned += servant.mind
 	//Generate scriptures
 	generate_clockcult_scriptures()
@@ -631,7 +631,7 @@
 	weight = 3
 	cost = 20
 	requirements = list(100,90,80,60,40,30,10,10,10,10)
-	flags = HIGH_IMPACT_RULESET
+	flags = HIGH_IMPACT_RULESET | PERSISTENT_RULESET
 	antag_cap = list("denominator" = 10, "offset" = 1)
 	var/datum/team/incursion/incursion_team
 
@@ -644,7 +644,7 @@
 	for(var/x = 1 to required_candidates)
 		if(!length(candidates))
 			break
-		var/mob/M = pick_n_take(candidates)
+		var/mob/M = antag_pick_n_take(candidates)
 		assigned += M.mind
 		M.mind.restricted_roles = restricted_roles
 	return TRUE
@@ -682,13 +682,13 @@
 	weight = 3
 	cost = 30
 	requirements = list(100,90,80,60,40,30,10,10,10,10)
-	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET
+	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET | PERSISTENT_RULESET
 
 /datum/dynamic_ruleset/roundstart/hivemind/pre_execute(population)
 	. = ..()
 	var/num_hosts = max( 3 , rand(0,1) + min(8, round(population / 8) ) )
 	for (var/i = 1 to num_hosts)
-		var/mob/M = pick_n_take(candidates)
+		var/mob/M = antag_pick_n_take(candidates)
 		assigned += M.mind
 		M.mind.restricted_roles = restricted_roles
 	return TRUE

@@ -4,7 +4,7 @@
 	job_bitflags = JOB_BITFLAG_SELECTABLE | JOB_BITFLAG_MANAGE_LOCKED
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SILICON
 	faction = "station"
-	total_positions = 0
+	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#ddffdd"
 	minimal_player_age = 21

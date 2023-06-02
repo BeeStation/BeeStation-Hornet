@@ -444,20 +444,36 @@
 	var/p_ckey
 	var/p_rep
 
-	for(var/datum/mind/mind in candidates)
-		p_ckey = ckey(mind.key)
-		var/mob/dead/new_player/player = get_mob_by_ckey(p_ckey)
+	for(var/candidate in candidates)
+		var/mob/player
+		if(istype(candidate, /datum/mind))
+			var/datum/mind/mind = candidate
+			p_ckey = ckey(mind.key)
+			player = get_mob_by_ckey(p_ckey)
+		else if(ismob(candidate))
+			player = candidate
+			p_ckey = player.ckey
+		else
+			continue
 		if(!player)
-			candidates -= mind
+			candidates -= candidate
 			continue
 		total_tickets += min(((role in player.client.prefs.be_special) ? SSpersistence.antag_rep[p_ckey] : 0) + DEFAULT_ANTAG_TICKETS, MAX_TICKETS_PER_ROLL)
 
 	var/antag_select = rand(1,total_tickets)
 	var/current = 1
 
-	for(var/datum/mind/mind in candidates)
-		p_ckey = ckey(mind.key)
-		var/mob/dead/new_player/player = get_mob_by_ckey(p_ckey)
+	for(var/candidate in candidates)
+		var/mob/player
+		if(istype(candidate, /datum/mind))
+			var/datum/mind/mind = candidate
+			p_ckey = ckey(mind.key)
+			player = get_mob_by_ckey(p_ckey)
+		else if(ismob(candidate))
+			player = candidate
+			p_ckey = player.ckey
+		else
+			continue
 		p_rep = SSpersistence.antag_rep[p_ckey]
 
 		var/previous = current
@@ -467,7 +483,7 @@
 		if(antag_select >= previous && antag_select <= (current-1))
 			SSpersistence.antag_rep_change[p_ckey] = -(spend - DEFAULT_ANTAG_TICKETS)
 //			WARNING("AR_DEBUG: Player [mind.key] won spending [spend] tickets from starting value [SSpersistence.antag_rep[p_ckey]]")
-			return mind
+			return candidate
 
 	WARNING("Something has gone terribly wrong. /datum/game_mode/proc/antag_pick failed to select a candidate. Falling back to pick()")
 	return pick(candidates)
