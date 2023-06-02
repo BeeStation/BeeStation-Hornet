@@ -313,7 +313,7 @@
 	if(.)
 		return
 	var/mob/living/silicon/robot/borgo = usr
-	borgo.alert_control.ui_interact(borgo)
+	borgo.robot_alerts()
 
 /atom/movable/screen/robot/crew_manifest
 	name = "Crew Manifest"

@@ -92,6 +92,8 @@
 
 /datum/antagonist/incursion/proc/equip(var/silent = FALSE)
 	owner.equip_traitor("The Syndicate", FALSE, src, 15)
+	var/obj/item/implant/radio/syndicate/selfdestruct/syndio = new
+	syndio.implant(owner.current)
 
 /datum/team/incursion
 	name = "syndicate incursion force"

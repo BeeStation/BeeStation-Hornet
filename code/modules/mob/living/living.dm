@@ -19,9 +19,7 @@
 	GLOB.mob_living_list += src
 	initialize_footstep()
 	if (playable)
-		addtimer(CALLBACK(src, PROC_REF(set_playable)), 2 SECONDS) //announce playable mobs to ghosts
-		// this should be delayed because some 'playable=TRUE' mobs are not actually playable because mob key is automatically given
-		// it prevents 'GLOB.poi_list' being glitched. without this, it will show xeno(or some mobs) twice in orbit panel.
+		set_playable()	//announce to ghosts
 
 /mob/living/proc/initialize_footstep()
 	AddComponent(/datum/component/footstep)
