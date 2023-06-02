@@ -15,17 +15,17 @@
 	var/list/all_design_ids = list()
 	var/list/passed_design_ids = list()
 	for(var/datum/design/DN as() in all_designs)
-		if(isnull(DN.id))
+		if(isnull(initial(DN.id)))
 			Fail("[DN] is missing an id!")
 			continue
-		if(DN.id == DESIGN_ID_IGNORE)
+		if(initial(DN.id) == DESIGN_ID_IGNORE)
 			Fail("[DN] is set to the ignored id!")
 			continue
-		if(DN.id in all_design_ids)
-			Fail("Duplicate design_id [DN.id] present in multiple /datum/design!")
+		if(initial(DN.id) in all_design_ids)
+			Fail("Duplicate design_id [initial(DN.id)] present in multiple /datum/design!")
 			continue
-		all_design_ids += DN.id
-		passed_design_ids += DN.id
+		all_design_ids += initial(DN.id)
+		passed_design_ids += initial(DN.id)
 
 	for(var/datum/techweb_node/TN as() in subtypesof(/datum/techweb_node))
 		for(var/id in TN.design_ids)
