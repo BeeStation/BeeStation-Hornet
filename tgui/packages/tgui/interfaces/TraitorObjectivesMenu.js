@@ -1,14 +1,11 @@
 import { useBackend, useLocalState } from '../backend';
-import { Button, Dimmer, Stack, Box, Dropdown, Section, Tabs, Flex, Icon, Tooltip } from '../components';
+import { Button, Dimmer, Stack, Box, Section, Tabs, Flex, Icon, Tooltip } from '../components';
 import { Window } from '../layouts';
 
-export const TraitorObjectivesMenu = (props, context) => {
-  const { act, data } = useBackend(context);
+export const TraitorObjectivesMenu = (_, context) => {
+  const { data } = useBackend(context);
   const {
-    all_factions = {},
-    faction,
     all_backstories = {},
-    allowed_backstories = [],
     backstory,
   } = data;
   let [ui_phase, set_ui_phase] = useLocalState(context, "traitor_ui_phase", all_backstories[backstory] ? 3 : 0);
@@ -57,7 +54,7 @@ export const TraitorObjectivesMenu = (props, context) => {
   );
 };
 
-const IntroductionMenu = ({ set_ui_phase }, context) => {
+const IntroductionMenu = ({ set_ui_phase }) => {
   return (
     <Dimmer>
       <Stack align="baseline" vertical>
@@ -115,7 +112,7 @@ const get_surrounding_factions = (faction_keys, selected_faction) => {
 };
 
 const SelectFactionMenu = ({ set_ui_phase, set_selected_faction, selected_faction }, context) => {
-  const { act, data } = useBackend(context);
+  const { data } = useBackend(context);
   const {
     allowed_factions = [],
     all_factions = {},
@@ -132,8 +129,6 @@ const SelectFactionMenu = ({ set_ui_phase, set_selected_faction, selected_factio
       </Dimmer>
     );
   }
-
-  let [prev_faction, next_faction] = get_surrounding_factions(faction_keys, selected_faction);
 
   let current_faction = all_factions[faction] || all_factions[selected_faction];
   let current_faction_key = faction || selected_faction;
@@ -229,7 +224,7 @@ const FactionNavigationButtons = ({
   top,
   size,
   set_selected_faction,
-}, context) => {
+}, _) => {
   let [prev_faction, next_faction] = get_surrounding_factions(faction_keys, selected_faction);
   return (
     <>
@@ -247,7 +242,7 @@ const FactionNavigationButtons = ({
   );
 };
 
-const BackstoryInfo = ({ data, titleColor }, context) => {
+const BackstoryInfo = ({ data, titleColor }) => {
   return (
     <>
       <Stack.Item fontSize="28px" mb={2} maxWidth="80vw" textColor={titleColor}>
@@ -329,15 +324,6 @@ const SelectBackstoryMenu = ({
     );
   }
   let current_backstory = selected_backstory === null ? null : all_backstories[selected_backstory];
-
-
-  let recommendations = allowed_backstories_filtered.filter(v =>
-    all_backstories[v].motivations.some(r => motivations.includes(r))
-  );
-  let [prev_faction, next_faction] = get_surrounding_factions(
-    Object.keys(all_factions).filter(v => allowed_factions.includes(v)),
-    current_faction_key
-  );
 
   return (
     <Flex height="100%" direction="column">
@@ -456,7 +442,7 @@ const BackstoryTab = ({
   is_recommended_objectives,
   recommendation_count,
   set_selected_backstory,
-}, context) => {
+}) => {
   return (
     <Tabs.Tab
       fontSize={1.05}

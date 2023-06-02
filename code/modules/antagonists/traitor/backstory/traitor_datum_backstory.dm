@@ -34,10 +34,17 @@
 
 	add_menu_action()
 
-/datum/antagonist/traitor/proc/set_faction(datum/traitor_faction/new_faction)
+/datum/antagonist/traitor/proc/set_faction(datum/traitor_faction/new_faction, forced = FALSE)
+	faction = new_faction
+	if(forced)
+		// If the UI is open, force it to recognize the new faction
+		ui_update()
+		to_chat("<span class='big warning'>Your traitor faction has been forcibly set to [new_faction.name], \
+		because too much time has passed without a backstory being selected. You may now select a backstory, but your faction cannot be changed.</span>")
 	return
 
 /datum/antagonist/traitor/proc/set_backstory(datum/traitor_backstory/new_backstory)
+	backstory = new_backstory
 	return
 
 /// Useful debug proc. Remove this before merge.

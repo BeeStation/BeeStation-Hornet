@@ -26,7 +26,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	/// Additional flavor text, giving a fun flair to the objective. Short and sweet, not lore related.
 	var/flavor_text
 
-/datum/objective/New(var/text, var/traitor_data_path)
+/datum/objective/New(var/text)
 	if(text)
 		explanation_text = text
 
