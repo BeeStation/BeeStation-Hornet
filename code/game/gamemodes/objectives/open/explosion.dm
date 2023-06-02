@@ -1,6 +1,7 @@
 /datum/objective/open/explosion
 	name = "detonate explosive"
 	explanation_text = "Obtain and detonate an explosive device within %DEPARTMENT%."
+	weight = 6
 	var/selected_area
 	var/list/valid_areas = list(
 		"medical" = list(/area/medical),
@@ -33,15 +34,22 @@
 /datum/objective/open/explosion/proc/on_explosion(datum/source, turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
 	if(!light_impact_range && !heavy_impact_range && !devastation_range)
 		return
+	// Get all the areas that we effect
+	var/list/affected_areas = list()
 	var/area/A = get_area(epicenter)
+	affected_areas += A
+	for (var/turf/location in range(heavy_impact_range, epicenter))
+		affected_areas |= location.loc
 	var/list/target_area_types = valid_areas[selected_area]
+	// Check for success
 	for(var/target_type in target_area_types)
-		if(istype(A, target_type))
-			success = TRUE
-			devistation = max(devistation, devastation_range)
-			heavy = max(heavy, light_impact_range)
-			light = max(light, light_impact_range)
-			return
+		for (var/located_area in affected_areas)
+			if(istype(located_area, target_type))
+				success = TRUE
+				devistation = max(devistation, devastation_range)
+				heavy = max(heavy, light_impact_range)
+				light = max(light, light_impact_range)
+				return
 
 /datum/objective/open/explosion/update_explanation_text()
 	var/objective_text = pick(\

@@ -143,7 +143,12 @@
 	.=1
 	// Lower chance of spawning due to the few open objectives there are
 	if(prob(20))
-		var/created_type = pick(subtypesof(/datum/objective/open))
+		var/static/list/selectable_objectives
+		if (!selectable_objectives)
+			selectable_objectives = list()
+			for (var/datum/objective/open/objective as() in subtypesof(/datum/objective/open))
+				selectable_objectives[objective] = initial(objective.weight)
+		var/created_type = pick_weight(selectable_objectives)
 		var/datum/objective/obj = new created_type
 		obj.owner = owner
 		obj.find_target()

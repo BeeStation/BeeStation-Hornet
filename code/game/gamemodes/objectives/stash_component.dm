@@ -78,6 +78,7 @@
 
 /datum/component/stash/proc/owner_deleted(datum/source, force)
 	SIGNAL_HANDLER
+	stash_owner.antag_stash = null
 	stash_owner = null
 	qdel(src)
 
