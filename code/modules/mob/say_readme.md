@@ -83,7 +83,7 @@ global procs
 		Returns the list of spans that are always applied to messages of this atom.
 		Always return ..() | + youroutput when overriding this proc!
 
-	create_private_chat_message(message, message_language, atom/speaker, list/hearers)
+	create_private_chat_message(message, message_language, list/hearers)
 		Makes a runechat to hearers. src is not included to hearers, so that you need to give it to the param if you want.
 		This is used for specific methods like telepathy when you want to display a runechat from it.
 
