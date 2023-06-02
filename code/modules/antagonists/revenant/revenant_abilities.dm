@@ -224,9 +224,9 @@
 
 		to_chat(user, "<span class='[boldnotice]'>You transmit to [M]:</span> <span class='[notice]'>[msg]</span>")
 		to_chat(M, "<span class='[boldnotice]'>You hear something haunting...</span> <span class='[notice]'>[msg]</span>")
-		create_private_chat_message(message="...[msg]",
+		user.create_private_chat_message(message="...[msg]",
 									message_language = /datum/language/metalanguage,
-									hearers=list(user, M)) // only you and your target sees the runechat (+ghosts)
+									hearers=list(user, M))
 		for(var/ded in GLOB.dead_mob_list)
 			if(!isobserver(ded))
 				continue

@@ -381,7 +381,7 @@ Possible to do for anyone motivated enough:
 		AI = null
 
 	if(is_operational && (!AI || AI.eyeobj.loc == loc))//If the projector has power and client eye is on it
-		if (AI && istype(AI.current, /obj/machinery/holopad))
+		if (AI && istype(AI.current_holopad, /obj/machinery/holopad))
 			to_chat(user, "<span class='danger'>ERROR:</span> \black Image feed in progress.")
 			return
 
@@ -463,7 +463,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	LAZYSET(holorays, user, new /obj/effect/overlay/holoray(loc))
 	var/mob/living/silicon/ai/AI = user
 	if(istype(AI))
-		AI.current = src
+		AI.current_holopad = src
 		AI.ai_hologram = h
 	SetLightsAndPower()
 	update_holoray(user, get_turf(loc))
@@ -476,8 +476,8 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 /obj/machinery/holopad/proc/unset_holo(mob/living/user)
 	var/mob/living/silicon/ai/AI = user
-	if(istype(AI) && AI.current == src)
-		AI.current = null
+	if(istype(AI) && AI.current_holopad == src)
+		AI.current_holopad = null
 		AI.ai_hologram = null
 	LAZYREMOVE(masters, user) // Discard AI from the list of those who use holopad
 	qdel(holorays[user])

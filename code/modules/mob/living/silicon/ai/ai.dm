@@ -31,7 +31,7 @@
 	mob_size = MOB_SIZE_LARGE
 	var/battery = 200 //emergency power if the AI's APC is off
 	var/list/network = list("ss13")
-	var/obj/machinery/camera/current
+
 	var/list/connected_robots = list()
 
 	/// Station alert datum for showing alerts UI
@@ -102,6 +102,7 @@
 
 	var/atom/movable/screen/ai/modpc/interfaceButton
 	var/obj/effect/overlay/holo_pad_hologram/ai_hologram
+	var/obj/machinery/holopad/current_holopad
 
 /mob/living/silicon/ai/Initialize(mapload, datum/ai_laws/L, mob/target_ai)
 	default_access_list = get_all_accesses()
@@ -942,8 +943,6 @@
 /mob/living/silicon/ai/reset_perspective(atom/A)
 	if(camera_light_on)
 		light_cameras()
-	if(istype(A, /obj/machinery/camera))
-		current = A
 	if(client)
 		if(ismovable(A))
 			if(A != GLOB.ai_camera_room_landmark)

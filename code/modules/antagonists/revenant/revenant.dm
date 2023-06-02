@@ -199,7 +199,7 @@
 		else if(isobserver(M))
 			var/link = FOLLOW_LINK(M, src)
 			to_chat(M, "[link] [rendered]")
-	create_private_chat_message("<i>...[message]", message_language = /datum/language/metalanguage, hearers = hearers)
+	create_private_chat_message("...[message]", message_language = /datum/language/metalanguage, hearers = hearers)
 	return
 
 

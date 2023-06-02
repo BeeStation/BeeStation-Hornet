@@ -36,7 +36,7 @@
 		return
 
 	if(!QDELETED(ai_hologram))
-		ai_hologram.say(message, language = language)
+		ai_hologram.say(message, language = language, source=current_holopad)
 		src.log_talk(message, LOG_SAY, tag="Hologram in [AREACOORD(ai_hologram)]")
 		message = "<span class='robot'>[say_emphasis(lang_treat(src, language, message))]</span>"
 		message = "<span class='holocall'><b>\[Holocall\] <span class='name'>[real_name]</span></b> [message]</span>"
