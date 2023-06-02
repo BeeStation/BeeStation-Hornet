@@ -2,9 +2,13 @@
 /datum/unit_test/orphaned_designs
 
 /datum/unit_test/orphaned_designs/Run()
+	var/list/all_designs = subtypesof(/datum/design)
+	// error case
+	all_designs -= /datum/design/error_design
+
 	var/list/all_design_ids = list()
 	var/list/passed_design_ids = list()
-	for(var/datum/design/check as() in subtypesof(/datum/design))
+	for(var/datum/design/check as() in all_designs)
 		if(check.id in all_design_ids)
 			Fail("Duplicate design_id [check.id] present in multiple /datum/design!")
 			continue
