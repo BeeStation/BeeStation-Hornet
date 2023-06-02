@@ -217,7 +217,6 @@
 		"comp_textcase",
 		"comp_tonumber",
 		"comp_tostring",
-		"comp_trig",
 		"comp_typecast",
 		"comp_typecheck",
 		"compact_remote_shell",
