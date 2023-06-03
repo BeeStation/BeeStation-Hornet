@@ -5103,10 +5103,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "KU" = (
-/obj/machinery/computer/camera_advanced{
-	create_camera_mob = TRUE;
-	camera_mob_icon_state = "syndi"
-	},
+/obj/machinery/computer/camera_advance/syndie,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)

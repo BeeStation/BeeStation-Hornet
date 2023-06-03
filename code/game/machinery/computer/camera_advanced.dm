@@ -43,10 +43,12 @@
 	camera_mob_icon_state = "syndi"
 
 /obj/machinery/computer/camera_advanced/bounty_hunter
+	circuit = /obj/item/circuitboard/computer/advanced_camera/cyan
 	reveal_camera_mob = TRUE
 	camera_mob_icon_state = "cyan"
 
 /obj/machinery/computer/camera_advanced/wizard
+	circuit = /obj/item/circuitboard/computer/advanced_camera/darkblue
 	reveal_camera_mob = TRUE
 	camera_mob_icon_state = "darkblue"
 
