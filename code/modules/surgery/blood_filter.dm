@@ -79,7 +79,7 @@
 				"[tool] pings as it pumps.")
 	else
 		display_results(user, target, "<span class='notice'>[tool] flashes, [target]'s blood is clean.</span>",
-			"<span class='notice'>[user] finishes pumping [target]s' blood with [tool]</span>",
+			"<span class='notice'>[user] finishes pumping [target]'s blood with [tool]</span>",
 			"[tool] has no chemicals or toxins to filter.")
 	if(istype(surgery, /datum/surgery/blood_filter))
 		var/datum/surgery/blood_filter/the_surgery = surgery
