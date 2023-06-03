@@ -112,8 +112,7 @@
 	if(already_initialized)
 		to_chat(src, "<span class='boldwarning'>If you were not an antagonist before you did not become one now. You still retain your retain your original loyalties and mind!</span>")
 	else if(!mind.has_antag_datum(/datum/antagonist/swarmer))
-		var/datum/antagonist/swarmer/S = new()
-		mind.add_antag_datum(S)
+		mind.add_antag_datum(/datum/antagonist/swarmer)
 
 /mob/living/simple_animal/hostile/swarmer/med_hud_set_health()
 	var/image/holder = hud_list[DIAG_HUD]
