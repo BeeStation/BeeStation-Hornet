@@ -132,9 +132,6 @@
 	///LazyList of all balloon alerts currently on this atom
 	var/list/balloon_alerts
 
-	///changes mob data upon map loading - i.e.) changes mob faction through dmm - it's good when you need to handle those with defines because using defines in dmm is not valid
-	var/datum/dmm_change_handler/dmm_handler = null
-
 /**
   * Called when an atom is created in byond (built in engine proc)
   *
@@ -1286,7 +1283,7 @@
   */
 /atom/proc/tool_act(mob/living/user, obj/item/I, tool_type)
 	var/signal_result
-	
+
 	var/list/processing_recipes = list() //List of recipes that can be mutated by sending the signal
 	signal_result = SEND_SIGNAL(src, COMSIG_ATOM_TOOL_ACT(tool_type), user, I, processing_recipes)
 	if(processing_recipes.len)
