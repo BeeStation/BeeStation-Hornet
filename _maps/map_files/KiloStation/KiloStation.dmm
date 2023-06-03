@@ -2296,11 +2296,6 @@
 	},
 /turf/open/floor/engine,
 /area/ai_monitored/storage/satellite)
-"ahD" = (
-/obj/effect/decal/cleanable/cobweb,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
-/area/maintenance/port/fore)
 "ahE" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -2357,13 +2352,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/xenobiology)
-"ahN" = (
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = 32
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
-/area/maintenance/port/fore)
 "ahO" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/sign/warning/electricshock{
@@ -2596,7 +2584,7 @@
 "aiD" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/fore)
 "aiE" = (
 /obj/effect/turf_decal/stripes/line,
@@ -2880,19 +2868,14 @@
 	},
 /area/ai_monitored/turret_protected/ai)
 "ajG" = (
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/xeno_spawn,
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
+/turf/template_noop,
 /area/maintenance/fore)
 "ajH" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/fore)
 "ajI" = (
 /obj/machinery/door/airlock/maintenance{
@@ -3098,11 +3081,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/engine/atmos)
-"aku" = (
-/obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
-/area/maintenance/port/fore)
 "akw" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/rack,
@@ -3117,7 +3095,7 @@
 /area/maintenance/central)
 "akz" = (
 /obj/effect/decal/cleanable/cobweb,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/fore)
 "akA" = (
 /turf/closed/wall/mineral/plastitanium,
@@ -3141,7 +3119,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port/fore)
 "akF" = (
 /obj/machinery/door/firedoor,
@@ -3391,7 +3369,7 @@
 /area/maintenance/fore)
 "alg" = (
 /obj/effect/landmark/xeno_spawn,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port/fore)
 "alh" = (
 /obj/machinery/airalarm{
@@ -3642,12 +3620,6 @@
 	},
 /turf/open/floor/plating,
 /area/quartermaster/exploration_dock)
-"alG" = (
-/obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
-/area/maintenance/port/fore)
 "alJ" = (
 /obj/machinery/computer/crew{
 	dir = 4
@@ -4131,11 +4103,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
-"ane" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating,
-/area/maintenance/port/fore)
 "anf" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -4344,11 +4311,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hos)
-"anD" = (
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
-/area/maintenance/port)
 "anE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment{
@@ -4418,11 +4380,8 @@
 /turf/open/floor/plating,
 /area/science/mixing)
 "anT" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
+/turf/template_noop,
 /area/maintenance/starboard/fore)
 "anU" = (
 /obj/effect/turf_decal/stripes/line,
@@ -4455,21 +4414,10 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/quartermaster/exploration_prep)
-"anY" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
-/area/maintenance/fore)
 "anZ" = (
 /obj/structure/sign/warning/docking,
 /turf/closed/wall,
 /area/maintenance/port/aft)
-"aoa" = (
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
-/area/maintenance/fore)
 "aob" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -4541,7 +4489,7 @@
 /obj/structure/noticeboard{
 	pixel_y = 32
 	},
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port/fore)
 "aom" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
@@ -7051,7 +6999,7 @@
 /area/quartermaster/warehouse)
 "avl" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port/fore)
 "avm" = (
 /obj/effect/turf_decal/bot,
@@ -8021,14 +7969,10 @@
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/aft)
 "ayH" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/warning/electricshock{
 	pixel_x = -32
 	},
-/obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
+/turf/template_noop,
 /area/maintenance/port/fore)
 "ayI" = (
 /obj/effect/turf_decal/delivery,
@@ -8185,13 +8129,9 @@
 	},
 /area/maintenance/port/fore)
 "azi" = (
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/room/threexfive,
 /obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
+/turf/template_noop,
 /area/maintenance/port/fore)
 "azj" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -8489,13 +8429,6 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
-"azU" = (
-/obj/effect/decal/cleanable/oil,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
-/area/maintenance/port/fore)
 "azV" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -8717,13 +8650,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard)
-"aAJ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/maintenance/port/fore)
 "aAL" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -8952,15 +8878,11 @@
 	},
 /area/science/robotics/mechbay)
 "aBG" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/xeno_spawn,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
+/turf/template_noop,
 /area/maintenance/port/fore)
 "aBH" = (
 /obj/machinery/door/firedoor,
@@ -9080,11 +9002,8 @@
 /turf/open/floor/plating,
 /area/engine/break_room)
 "aCi" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
+/turf/template_noop,
 /area/maintenance/port/fore)
 "aCj" = (
 /obj/machinery/door/airlock/maintenance{
@@ -9182,14 +9101,13 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/break_room)
 "aCB" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port/fore)
 "aCD" = (
 /obj/effect/turf_decal/bot,
@@ -9210,10 +9128,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/engine,
 /area/security/nuke_storage)
-"aCG" = (
-/obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/plating,
-/area/maintenance/port)
 "aCH" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/sign/warning/electricshock{
@@ -9653,16 +9567,6 @@
 /obj/structure/sign/poster/contraband/random,
 /turf/closed/wall/rust,
 /area/maintenance/port)
-"aEy" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
-/area/maintenance/port/fore)
 "aEB" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
@@ -11240,12 +11144,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
-"aNk" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
-/area/maintenance/port/fore)
 "aNm" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
@@ -11550,10 +11448,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
-"aPw" = (
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating,
-/area/maintenance/port)
 "aPx" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -13254,8 +13148,6 @@
 /turf/closed/wall/rust,
 /area/science/lab)
 "aZk" = (
-/obj/machinery/light/small,
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/noticeboard{
 	dir = 8;
 	pixel_x = 32
@@ -13263,7 +13155,10 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/template_noop,
 /area/maintenance/port/fore)
 "aZl" = (
 /obj/machinery/door/firedoor/heavy,
@@ -14897,13 +14792,10 @@
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port)
 "bgm" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
+/turf/template_noop,
 /area/maintenance/port)
 "bgn" = (
 /obj/structure/grille,
@@ -14932,7 +14824,6 @@
 /turf/open/floor/circuit/telecomms,
 /area/science/xenobiology)
 "bgq" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -14940,9 +14831,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
+/turf/template_noop,
 /area/maintenance/port)
 "bgr" = (
 /obj/machinery/door/airlock/maintenance{
@@ -18117,8 +18006,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/fore)
 "bug" = (
 /obj/structure/bookcase/random/fiction,
@@ -19836,11 +19724,10 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bBH" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port)
 "bBK" = (
 /obj/structure/lattice/catwalk,
@@ -19907,13 +19794,6 @@
 	icon_state = "panelscorched"
 	},
 /area/maintenance/port/fore)
-"bCm" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
-/area/maintenance/port/fore)
 "bCt" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
@@ -19974,11 +19854,10 @@
 /turf/closed/wall,
 /area/storage/primary)
 "bCB" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/warning/fire{
 	pixel_y = 32
 	},
-/turf/open/floor/plasteel/dark,
+/turf/template_noop,
 /area/maintenance/port/fore)
 "bCC" = (
 /obj/machinery/status_display/ai,
@@ -20097,10 +19976,6 @@
 /obj/machinery/status_display/ai,
 /turf/closed/wall/r_wall/rust,
 /area/ai_monitored/storage/eva)
-"bDi" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
-/area/maintenance/port/fore)
 "bDk" = (
 /obj/structure/girder/displaced,
 /obj/effect/turf_decal/stripes/corner{
@@ -20279,13 +20154,6 @@
 /obj/structure/sign/warning/securearea,
 /turf/closed/wall/r_wall,
 /area/storage/tech)
-"bDJ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
-/area/maintenance/port/fore)
 "bDK" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/corner{
@@ -20318,11 +20186,10 @@
 /turf/open/space/basic,
 /area/space)
 "bDT" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port)
 "bDU" = (
 /obj/effect/turf_decal/stripes/line,
@@ -20777,7 +20644,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port)
 "bFG" = (
 /obj/machinery/conveyor{
@@ -20896,9 +20763,7 @@
 /obj/item/radio/intercom{
 	pixel_x = -28
 	},
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
+/turf/template_noop,
 /area/maintenance/port/fore)
 "bGn" = (
 /obj/structure/cable/yellow{
@@ -21034,7 +20899,7 @@
 /area/medical/storage)
 "bGR" = (
 /obj/effect/decal/cleanable/cobweb,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port)
 "bGU" = (
 /obj/effect/turf_decal/bot,
@@ -22499,9 +22364,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/turf/open/floor/plating,
-/area/maintenance/port/aft)
-"bMX" = (
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "bMY" = (
@@ -25351,12 +25213,11 @@
 	},
 /area/maintenance/starboard)
 "bWq" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/components/binary/valve/digital/on/layer2{
 	name = "Atmospherics Cutoff Valve"
 	},
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/hallway/secondary/entry)
 "bWr" = (
 /obj/effect/turf_decal/stripes/white/line{
@@ -25380,10 +25241,7 @@
 "bWz" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
+/turf/template_noop,
 /area/hallway/secondary/entry)
 "bWH" = (
 /obj/effect/turf_decal/stripes/line{
@@ -26380,32 +26238,25 @@
 /turf/closed/wall/rust,
 /area/security/prison)
 "cbL" = (
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 5
 	},
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
+/turf/template_noop,
 /area/hallway/secondary/entry)
 "cbS" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
+/turf/template_noop,
 /area/hallway/secondary/entry)
 "cbU" = (
 /obj/effect/spawner/structure/window/reinforced/tinted,
@@ -26862,13 +26713,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/execution/education)
-"cdx" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small,
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
-/area/maintenance/port/fore)
 "cdy" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -27826,7 +27670,7 @@
 	},
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/landmark/xeno_spawn,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port)
 "cgn" = (
 /obj/effect/turf_decal/stripes/line,
@@ -28118,8 +27962,7 @@
 	dir = 4;
 	pixel_x = -23
 	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/fore)
 "cha" = (
 /obj/effect/turf_decal/stripes/line{
@@ -29499,7 +29342,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port)
 "ckU" = (
 /turf/closed/wall,
@@ -29800,11 +29643,10 @@
 /area/engine/gravity_generator)
 "clW" = (
 /obj/effect/landmark/xeno_spawn,
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port/aft)
 "clX" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
@@ -29880,8 +29722,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port/aft)
 "cmf" = (
 /obj/effect/turf_decal/stripes/line,
@@ -30300,11 +30141,10 @@
 	pixel_y = -24
 	},
 /obj/effect/spawner/room/threexthree,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port/aft)
 "cnm" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port/aft)
 "cnn" = (
 /obj/effect/turf_decal/stripes/line,
@@ -30886,7 +30726,6 @@
 "cpR" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
-	id_tag = null;
 	name = "Brig";
 	req_access_txt = "63"
 	},
@@ -31057,14 +30896,10 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "cqm" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/old,
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
+/turf/template_noop,
 /area/maintenance/port)
 "cqo" = (
 /obj/machinery/door/firedoor,
@@ -31511,7 +31346,6 @@
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port/aft)
 "crE" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
@@ -31521,7 +31355,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port)
 "crG" = (
 /obj/effect/turf_decal/stripes/line{
@@ -31552,16 +31386,13 @@
 	},
 /area/maintenance/port)
 "crI" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
+/turf/template_noop,
 /area/maintenance/fore)
 "crJ" = (
 /obj/effect/turf_decal/stripes/line{
@@ -31603,14 +31434,11 @@
 	},
 /area/maintenance/port)
 "crS" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/xeno_spawn,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
+/turf/template_noop,
 /area/maintenance/fore)
 "crT" = (
 /obj/effect/decal/cleanable/dirt,
@@ -31630,15 +31458,12 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/break_room)
 "crW" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
 /obj/effect/spawner/room/threexthree,
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
+/turf/template_noop,
 /area/maintenance/fore)
 "crY" = (
 /obj/structure/table/reinforced,
@@ -31701,20 +31526,16 @@
 /turf/open/floor/plating,
 /area/maintenance/solars/port/aft)
 "csf" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/blobstart,
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
+/turf/template_noop,
 /area/maintenance/fore)
 "csg" = (
 /obj/structure/noticeboard{
 	dir = 8;
 	pixel_x = 32
 	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port)
 "csh" = (
 /obj/effect/mapping_helpers/airlock/abandoned,
@@ -31734,7 +31555,6 @@
 	},
 /area/maintenance/port)
 "csj" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/grille/broken,
 /obj/item/radio/intercom{
 	pixel_x = 28
@@ -31742,12 +31562,9 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
+/turf/template_noop,
 /area/maintenance/fore)
 "csk" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
@@ -31757,12 +31574,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
 	},
-/turf/open/floor/plating,
-/area/maintenance/port)
-"csl" = (
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
+/turf/template_noop,
 /area/maintenance/port)
 "csm" = (
 /obj/effect/turf_decal/stripes/line{
@@ -32569,9 +32381,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
+/turf/template_noop,
 /area/maintenance/port/fore)
 "cvc" = (
 /obj/effect/turf_decal/stripes/line{
@@ -32585,7 +32395,7 @@
 "cvd" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port)
 "cve" = (
 /obj/effect/decal/cleanable/dirt,
@@ -32763,7 +32573,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port)
 "cvv" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -32822,12 +32632,6 @@
 	icon_state = "platingdmg3"
 	},
 /area/maintenance/port)
-"cvz" = (
-/obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
-/area/maintenance/port)
 "cvA" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -32856,7 +32660,7 @@
 "cvC" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/spawner/room/threexfive,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port)
 "cvD" = (
 /obj/machinery/atmospherics/pipe/layer_manifold/visible,
@@ -32899,7 +32703,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port/fore)
 "cvK" = (
 /obj/structure/table,
@@ -33039,10 +32843,6 @@
 "cwf" = (
 /obj/structure/sign/poster/contraband/missing_gloves,
 /turf/closed/wall/rust,
-/area/maintenance/port/fore)
-"cwg" = (
-/obj/effect/spawner/room/threexthree,
-/turf/open/floor/plating,
 /area/maintenance/port/fore)
 "cwi" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -33202,7 +33002,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port)
 "cwF" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -33220,13 +33020,11 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "cwG" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/room/threexthree,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port/fore)
 "cwI" = (
 /obj/effect/turf_decal/stripes/line{
@@ -33270,7 +33068,7 @@
 /area/maintenance/port/aft)
 "cwQ" = (
 /obj/effect/spawner/room/tenxfive,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port)
 "cwS" = (
 /obj/structure/girder,
@@ -33284,11 +33082,11 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 4
 	},
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port)
 "cwW" = (
 /obj/effect/spawner/room/threexthree,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port)
 "cwY" = (
 /obj/effect/decal/cleanable/dirt,
@@ -33307,13 +33105,11 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port/fore)
 "cxb" = (
 /obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
+/turf/template_noop,
 /area/maintenance/port)
 "cxd" = (
 /obj/effect/decal/cleanable/dirt,
@@ -33457,13 +33253,12 @@
 /turf/open/floor/engine,
 /area/engine/engineering)
 "cxn" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port)
 "cxo" = (
 /obj/effect/spawner/room/tenxten,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port/fore)
 "cxp" = (
 /obj/effect/turf_decal/stripes/line{
@@ -33497,13 +33292,6 @@
 	icon_state = "platingdmg3"
 	},
 /area/maintenance/port/fore)
-"cxr" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
-/area/maintenance/port)
 "cxs" = (
 /obj/machinery/door/airlock/external{
 	name = "Labor Camp Shuttle Airlock";
@@ -33999,7 +33787,7 @@
 	dir = 4;
 	name = "shuttle camera"
 	},
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/hallway/secondary/entry)
 "cyH" = (
 /obj/effect/decal/cleanable/dirt,
@@ -34245,9 +34033,6 @@
 	},
 /turf/open/floor/plasteel/airless/solarpanel,
 /area/solar/starboard/aft)
-"czz" = (
-/turf/open/floor/plating,
-/area/maintenance/port/fore)
 "czD" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -34267,10 +34052,7 @@
 /obj/structure/sign/warning/nosmoking{
 	pixel_x = -30
 	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
+/turf/template_noop,
 /area/hallway/secondary/entry)
 "czF" = (
 /obj/effect/turf_decal/stripes/line{
@@ -34281,10 +34063,6 @@
 	icon_state = "panelscorched"
 	},
 /area/maintenance/port/aft)
-"czG" = (
-/obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plating,
-/area/maintenance/fore)
 "czH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner,
@@ -34413,7 +34191,7 @@
 	icon_state = "0-4"
 	},
 /obj/effect/decal/cleanable/cobweb,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port/aft)
 "cAb" = (
 /obj/effect/turf_decal/bot,
@@ -34428,8 +34206,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
 	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/hallway/secondary/entry)
 "cAd" = (
 /obj/effect/turf_decal/stripes/line,
@@ -34463,14 +34240,10 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /turf/open/floor/plating,
 /area/maintenance/disposal/incinerator)
-"cAi" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
-/area/maintenance/fore)
 "cAj" = (
 /obj/effect/landmark/xeno_spawn,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/fore)
 "cAl" = (
 /obj/effect/turf_decal/stripes/corner,
@@ -34478,7 +34251,7 @@
 	pixel_y = -24
 	},
 /obj/effect/spawner/room/threexfive,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/fore)
 "cAm" = (
 /obj/effect/decal/cleanable/dirt,
@@ -34489,9 +34262,8 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/grille/broken,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/fore)
 "cAo" = (
 /obj/effect/turf_decal/bot,
@@ -34533,34 +34305,25 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
+/turf/template_noop,
 /area/maintenance/port)
 "cAv" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/grey_tide{
 	pixel_y = 32
 	},
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
+/turf/template_noop,
 /area/maintenance/port)
 "cAw" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/button/door{
 	id = "greylair";
 	name = "Lair Privacy Toggle";
 	pixel_y = 24
 	},
-/obj/effect/decal/cleanable/blood/old,
 /obj/effect/landmark/xeno_spawn,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
+/turf/template_noop,
 /area/maintenance/port)
 "cAx" = (
 /obj/effect/turf_decal/stripes/corner,
@@ -34608,8 +34371,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port)
 "cAC" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
@@ -34619,10 +34381,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
+/turf/template_noop,
 /area/maintenance/port)
 "cAD" = (
 /obj/effect/turf_decal/stripes/line{
@@ -34646,8 +34405,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/hallway/secondary/entry)
 "cAF" = (
 /obj/structure/girder,
@@ -35907,29 +35665,19 @@
 /obj/structure/sign/departments/cargo,
 /turf/closed/wall,
 /area/construction/mining/aux_base)
-"cEd" = (
-/turf/open/floor/plating,
-/area/maintenance/fore)
-"cEe" = (
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
-/area/maintenance/fore)
 "cEg" = (
 /obj/machinery/status_display/evac{
 	pixel_x = 32;
 	pixel_y = 32
 	},
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/fore)
 "cEh" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/item/radio/intercom{
 	pixel_x = 28
 	},
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
+/turf/template_noop,
 /area/maintenance/fore)
 "cEk" = (
 /obj/machinery/door/poddoor/shutters{
@@ -35956,26 +35704,17 @@
 	dir = 4;
 	pixel_x = -27
 	},
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/fore)
 "cEq" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/old,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/turf/open/floor/plasteel/dark,
-/area/maintenance/fore)
-"cEr" = (
-/turf/open/floor/plasteel/dark,
+/turf/template_noop,
 /area/maintenance/fore)
 "cEt" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/open/floor/plating,
-/area/maintenance/fore)
-"cEv" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
+/turf/template_noop,
 /area/maintenance/fore)
 "cEw" = (
 /obj/machinery/light/small{
@@ -35984,7 +35723,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},
-/turf/open/floor/plasteel/dark,
+/turf/template_noop,
 /area/maintenance/fore)
 "cEx" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -36025,26 +35764,21 @@
 	},
 /obj/effect/spawner/room/fivexfour,
 /obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/fore)
 "cEE" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
 /obj/item/shard,
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
+/turf/template_noop,
 /area/maintenance/fore)
 "cEF" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
+/turf/template_noop,
 /area/maintenance/fore)
 "cEG" = (
 /obj/structure/sign/departments/cargo,
@@ -36065,25 +35799,18 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
+/turf/template_noop,
 /area/maintenance/fore)
 "cEL" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/noticeboard{
 	pixel_y = 30
 	},
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
+/turf/template_noop,
 /area/maintenance/fore)
 "cEM" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/fore)
 "cEN" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -36173,17 +35900,13 @@
 /area/maintenance/starboard/fore)
 "cFf" = (
 /obj/effect/decal/cleanable/cobweb,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/starboard/fore)
 "cFh" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/status_display/evac{
 	pixel_y = 32
 	},
-/turf/open/floor/plating,
-/area/maintenance/starboard/fore)
-"cFi" = (
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/starboard/fore)
 "cFj" = (
 /obj/machinery/light/small{
@@ -36195,9 +35918,8 @@
 /obj/machinery/newscaster{
 	pixel_x = 30
 	},
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/starboard/fore)
 "cFl" = (
 /obj/effect/decal/cleanable/dirt,
@@ -36240,20 +35962,14 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
 	},
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
+/turf/template_noop,
 /area/maintenance/starboard/fore)
 "cFw" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
+/turf/template_noop,
 /area/maintenance/starboard/fore)
 "cFy" = (
 /obj/effect/decal/cleanable/dirt,
@@ -36311,32 +36027,24 @@
 	},
 /area/maintenance/fore)
 "cFN" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/noticeboard{
 	dir = 4;
 	pixel_x = -27
 	},
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
+/turf/template_noop,
 /area/maintenance/starboard/fore)
 "cFP" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/starboard/fore)
 "cFQ" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/effect/decal/cleanable/blood/old,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
+/turf/template_noop,
 /area/maintenance/starboard/fore)
 "cFR" = (
 /obj/structure/sign/plaques/kiddie/library{
@@ -36346,7 +36054,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/starboard/fore)
 "cFS" = (
 /obj/machinery/door/airlock/maintenance{
@@ -36451,30 +36159,24 @@
 	},
 /area/maintenance/fore)
 "cGg" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/room/fivexfour,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/starboard/fore)
 "cGh" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/starboard/fore)
 "cGi" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/xeno_spawn,
 /obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/starboard/fore)
 "cGj" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
+/turf/template_noop,
 /area/maintenance/starboard/fore)
 "cGk" = (
 /obj/machinery/light/small{
@@ -36486,9 +36188,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
+/turf/template_noop,
 /area/maintenance/starboard/fore)
 "cGl" = (
 /obj/effect/decal/cleanable/dirt,
@@ -37080,12 +36780,6 @@
 	},
 /turf/open/space,
 /area/space/nearstation)
-"cHE" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/maintenance/port)
 "cHH" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -37117,7 +36811,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port)
 "cHM" = (
 /obj/effect/turf_decal/stripes/line{
@@ -37126,13 +36820,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port)
 "cHN" = (
-/turf/open/floor/plating,
-/area/maintenance/port)
-"cHO" = (
-/obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating,
 /area/maintenance/port)
 "cHS" = (
@@ -37142,7 +36832,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port)
 "cHU" = (
 /obj/effect/turf_decal/bot,
@@ -37235,7 +36925,7 @@
 	dir = 1
 	},
 /obj/effect/spawner/room/fivexthree,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port)
 "cIf" = (
 /obj/structure/displaycase/trophy,
@@ -37639,9 +37329,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port/aft)
 "cIQ" = (
 /obj/machinery/computer/cargo{
@@ -39105,14 +38793,11 @@
 	},
 /area/maintenance/solars/port/aft)
 "cMG" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
+/turf/template_noop,
 /area/maintenance/port/aft)
 "cMH" = (
 /obj/effect/decal/cleanable/dirt,
@@ -39993,7 +39678,6 @@
 "cOS" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
-	id_tag = null;
 	name = "Brig";
 	req_access_txt = "63"
 	},
@@ -49007,12 +48691,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/brig)
-"gEZ" = (
-/obj/effect/decal/cleanable/cobweb,
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
-/area/maintenance/port/fore)
 "gFe" = (
 /obj/machinery/door/poddoor/incinerator_atmos_aux,
 /turf/open/floor/engine/vacuum,
@@ -49100,6 +48778,9 @@
 	},
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
+"gHQ" = (
+/turf/template_noop,
+/area/maintenance/fore)
 "gIb" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
@@ -51215,8 +50896,7 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/computer/shuttle_flight/mining{
 	dir = 4;
-	req_access = null;
-	req_one_access = null
+	req_access = null
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
@@ -53429,9 +53109,8 @@
 /turf/open/floor/plasteel/dark,
 /area/medical/virology)
 "iza" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plasteel/dark,
+/turf/template_noop,
 /area/maintenance/fore)
 "izz" = (
 /obj/structure/disposalpipe/segment{
@@ -56535,10 +56214,7 @@
 /area/medical/virology)
 "jGK" = (
 /obj/effect/spawner/room/threexthree,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
+/turf/template_noop,
 /area/maintenance/port/fore)
 "jGU" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -56869,10 +56545,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/xenobiology)
-"jMI" = (
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating,
-/area/maintenance/port/fore)
 "jMK" = (
 /obj/machinery/teleport/station,
 /obj/machinery/status_display/evac{
@@ -57363,11 +57035,8 @@
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/fore)
 "jZV" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/room/threexthree,
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
+/turf/template_noop,
 /area/hallway/secondary/entry)
 "kal" = (
 /obj/effect/landmark/event_spawn,
@@ -58011,13 +57680,10 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "knX" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
+/turf/template_noop,
 /area/maintenance/port/fore)
 "koc" = (
 /obj/item/radio/intercom{
@@ -62746,7 +62412,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port)
 "muA" = (
 /obj/structure/table,
@@ -63182,6 +62848,9 @@
 	},
 /turf/open/floor/plasteel,
 /area/gateway)
+"mGy" = (
+/turf/template_noop,
+/area/maintenance/port/fore)
 "mHe" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -63307,6 +62976,9 @@
 /obj/effect/decal/remains/human,
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
+"mKJ" = (
+/turf/template_noop,
+/area/maintenance/port)
 "mKS" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/regular,
@@ -63348,7 +63020,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port/fore)
 "mLK" = (
 /obj/item/radio/intercom{
@@ -65095,15 +64767,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
-"nEH" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
-/area/maintenance/port/fore)
 "nEP" = (
 /obj/effect/turf_decal/box,
 /obj/structure/cable/yellow{
@@ -65907,8 +65570,7 @@
 "nTo" = (
 /obj/machinery/computer/shuttle_flight/mining{
 	dir = 8;
-	req_access = null;
-	req_one_access = null
+	req_access = null
 	},
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
@@ -67580,10 +67242,7 @@
 /area/quartermaster/warehouse)
 "oGt" = (
 /obj/effect/spawner/room/threexfive,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
+/turf/template_noop,
 /area/maintenance/port/fore)
 "oGN" = (
 /obj/effect/landmark/event_spawn,
@@ -68048,10 +67707,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/kitchen)
-"oTh" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
-/area/maintenance/port/fore)
 "oTC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -69301,13 +68956,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hor)
-"ppJ" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plating,
-/area/maintenance/port)
 "ppM" = (
 /obj/machinery/airalarm{
 	dir = 8;
@@ -70118,15 +69766,6 @@
 /obj/structure/sign/warning/securearea,
 /turf/closed/wall/r_wall,
 /area/quartermaster/exploration_prep)
-"pEt" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
-/area/maintenance/port)
 "pEu" = (
 /obj/machinery/computer/secure_data{
 	dir = 4
@@ -70144,13 +69783,10 @@
 /turf/open/space/basic,
 /area/solar/starboard/fore)
 "pEC" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
+/turf/template_noop,
 /area/maintenance/port/fore)
 "pEH" = (
 /obj/machinery/light/small{
@@ -72418,13 +72054,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/break_room)
-"qCu" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/maintenance/port/fore)
 "qCC" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -76764,7 +76393,7 @@
 /area/construction/mining/aux_base)
 "snC" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plating,
+/turf/template_noop,
 /area/maintenance/port)
 "snM" = (
 /obj/effect/turf_decal/box/corners{
@@ -77127,11 +76756,6 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/explab)
-"swr" = (
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
-/area/maintenance/port/fore)
 "swt" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -78911,15 +78535,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
-"tiS" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
-/area/maintenance/port/fore)
 "tiX" = (
 /obj/machinery/vending/coffee,
 /obj/structure/extinguisher_cabinet{
@@ -80165,12 +79780,6 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
-"tJu" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
-/area/maintenance/port/fore)
 "tJv" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -82551,13 +82160,10 @@
 /area/hallway/primary/fore)
 "uRL" = (
 /obj/effect/decal/cleanable/cobweb,
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
+/turf/template_noop,
 /area/maintenance/port/fore)
 "uSg" = (
 /turf/closed/wall/r_wall,
@@ -83540,10 +83146,7 @@
 /area/engine/atmos)
 "vlc" = (
 /obj/effect/decal/cleanable/cobweb,
-/obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
+/turf/template_noop,
 /area/maintenance/port/fore)
 "vln" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -84487,11 +84090,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
-"vEm" = (
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
-/area/maintenance/port/fore)
 "vEC" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -84577,9 +84175,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
+/turf/template_noop,
 /area/maintenance/port/fore)
 "vHq" = (
 /obj/machinery/computer/atmos_alert{
@@ -86578,11 +86174,8 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
 "wsh" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/plating{
-	icon_state = "platingdmg3"
-	},
+/turf/template_noop,
 /area/maintenance/port/fore)
 "wsi" = (
 /obj/effect/turf_decal/bot,
@@ -88568,17 +88161,13 @@
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "xeJ" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
 /obj/item/radio/intercom{
 	pixel_x = -28
 	},
-/obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
+/turf/template_noop,
 /area/maintenance/port/fore)
 "xeV" = (
 /obj/effect/turf_decal/stripes/line,
@@ -101074,9 +100663,9 @@ aeu
 aeu
 amA
 bGR
-cHN
-cHN
-csl
+mKJ
+mKJ
+mKJ
 cwQ
 amA
 aeu
@@ -101330,11 +100919,11 @@ aeo
 aeu
 aeu
 amA
-crP
-crP
-cHN
-crP
-cHN
+mKJ
+mKJ
+mKJ
+mKJ
+mKJ
 amA
 aeu
 aeu
@@ -101587,11 +101176,11 @@ aaa
 aaa
 alm
 amR
-cHN
-crP
-crP
-cHN
-cHO
+mKJ
+mKJ
+mKJ
+mKJ
+mKJ
 amR
 aeu
 aeu
@@ -101844,11 +101433,11 @@ aaa
 aaa
 acm
 amA
-crP
-bBL
-crP
-crP
-crP
+mKJ
+mKJ
+mKJ
+mKJ
+mKJ
 amA
 aeu
 aeu
@@ -102101,10 +101690,10 @@ acm
 acK
 bUG
 amA
-crP
-cHN
-cHN
-crP
+mKJ
+mKJ
+mKJ
+mKJ
 cxb
 amA
 amA
@@ -102358,10 +101947,10 @@ ccg
 agw
 aoc
 amA
-cHN
-cHN
-crP
-crP
+mKJ
+mKJ
+mKJ
+mKJ
 cxn
 bzX
 cyF
@@ -102615,10 +102204,10 @@ aaa
 aaa
 aod
 amR
-crP
-anD
-crP
-cHN
+mKJ
+mKJ
+mKJ
+mKJ
 bBH
 amR
 bDk
@@ -102872,11 +102461,11 @@ aaa
 aaa
 aUG
 amA
-cHN
-cHN
-cHN
-crP
-crP
+mKJ
+mKJ
+mKJ
+mKJ
+mKJ
 amA
 bDm
 ajd
@@ -103129,11 +102718,11 @@ aaa
 aaa
 bFQ
 amA
-cvz
-crP
-cHN
-cHN
-cxr
+mKJ
+mKJ
+mKJ
+mKJ
+mKJ
 amA
 bhp
 bJJ
@@ -103386,11 +102975,11 @@ crx
 agy
 amR
 amA
-crP
-aCG
+mKJ
+cxb
 bDT
 bFF
-cHN
+mKJ
 amR
 btn
 aer
@@ -103880,9 +103469,9 @@ aeU
 aeu
 aeu
 cwp
-tJu
-cxD
-aNk
+mGy
+mGy
+mGy
 cwp
 aeu
 aeu
@@ -104650,11 +104239,11 @@ aeU
 aof
 aeu
 cwp
-gEZ
+vlc
 pEC
 vGI
 xeJ
-cxD
+mGy
 oGt
 emS
 aDQ
@@ -104907,12 +104496,12 @@ aeu
 aeu
 aeu
 cwq
-wMS
-vEm
-wMS
-cxD
-oTh
-cxD
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
 emS
 aDQ
 aeu
@@ -105164,12 +104753,12 @@ aeu
 aeu
 aeu
 cwp
-nEH
-tiS
-oTh
-vEm
-swr
-vEm
+knX
+mLH
+mGy
+mGy
+mGy
+mGy
 cwp
 aeu
 aeu
@@ -105678,11 +105267,11 @@ aeu
 aeu
 cwp
 uRL
-aAJ
+vGI
 cwG
 amA
-cHN
-cHN
+mKJ
+mKJ
 cwW
 amA
 cum
@@ -105934,13 +105523,13 @@ aeu
 aeu
 aeu
 cwp
-tJu
+mGy
 aBG
-cdx
+mGy
 amR
 cgm
 muc
-cHN
+mKJ
 amA
 cve
 amR
@@ -106191,9 +105780,9 @@ aeu
 aeu
 aeu
 cwq
-bDJ
+wsh
 aCB
-aEy
+mLH
 amA
 cvd
 cHL
@@ -106502,7 +106091,7 @@ cJI
 aer
 ajd
 czZ
-bMX
+cnm
 cnl
 bNk
 cnO
@@ -106709,7 +106298,7 @@ cwp
 aDa
 aEH
 bGR
-cHE
+bBH
 cHM
 cvu
 cvC
@@ -106722,7 +106311,7 @@ cqb
 amR
 cAw
 crE
-pEt
+cAA
 cLK
 abJ
 csr
@@ -106969,7 +106558,7 @@ ckR
 snC
 cwV
 cwB
-aPw
+cxn
 aQO
 aTz
 cnr
@@ -106979,7 +106568,7 @@ bda
 bgn
 bgq
 csk
-ppJ
+cAA
 cLK
 bKl
 csr
@@ -107214,19 +106803,19 @@ cLv
 ctB
 aeu
 cwp
-bCm
-aNk
+mGy
+mGy
 ayH
-oTh
+mGy
 azi
 cwf
 aDd
 amA
-cHN
-cHN
-cHO
-cHN
-cHE
+mKJ
+mKJ
+mKJ
+mKJ
+bBH
 amA
 aTI
 aUK
@@ -107236,7 +106825,7 @@ cuV
 amA
 cAC
 csg
-csl
+mKJ
 amR
 csr
 amA
@@ -107472,9 +107061,9 @@ ctD
 cwp
 cwp
 bCB
-oTh
-tJu
-azU
+mGy
+mGy
+mGy
 aCi
 aDe
 aDi
@@ -107728,10 +107317,10 @@ cun
 ctC
 apU
 cwq
-bDi
-tJu
-aNk
-oTh
+mGy
+mGy
+wsh
+knX
 aZk
 aSf
 aDn
@@ -108491,7 +108080,7 @@ aeu
 cwp
 akE
 alg
-cwg
+jGK
 apf
 vrf
 cxD
@@ -108747,8 +108336,8 @@ aeu
 aeu
 cwq
 aol
-czz
-czz
+mGy
+mGy
 cxf
 jXE
 aOg
@@ -109005,7 +108594,7 @@ aeu
 cwp
 avl
 cxa
-czz
+mGy
 cxf
 jXE
 aar
@@ -109510,15 +109099,15 @@ aaa
 aUz
 aeu
 cwp
-ahD
-czz
-czz
-czz
-czz
-vEm
-czz
-czz
-czz
+vlc
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
 cxo
 cwp
 hUM
@@ -109767,16 +109356,16 @@ aeU
 aeU
 aeu
 cwp
-czz
-wMS
-czz
-czz
-oTh
-oTh
-czz
-czz
-oTh
-vEm
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
 cwp
 cwq
 cwy
@@ -110024,16 +109613,16 @@ aeU
 aeu
 aeu
 cwq
-czz
-czz
-czz
-czz
-czz
-czz
-oTh
-czz
-czz
-oTh
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
 cwp
 cwp
 aoZ
@@ -110281,16 +109870,16 @@ aaa
 aeu
 aeu
 cwp
-czz
-czz
-czz
-czz
-wMS
-czz
-czz
-swr
-czz
-alG
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
+wsh
 cwq
 aAB
 apb
@@ -110538,16 +110127,16 @@ aaa
 aeu
 aeu
 cwp
-czz
-czz
-vEm
-oTh
-czz
-wMS
-czz
-czz
-czz
-ane
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
+aCi
 pbO
 aEG
 aqR
@@ -110795,15 +110384,15 @@ aaa
 aeU
 aeu
 cwp
-ahN
-czz
-czz
-czz
-wMS
-czz
-oTh
-czz
-wMS
+akE
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
 cvJ
 cwq
 cwy
@@ -111052,16 +110641,16 @@ aeU
 aeU
 aeu
 cwp
-czz
-czz
-czz
-cxD
-czz
-czz
-oTh
-czz
-czz
-jMI
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
+aCi
 pbO
 ros
 apg
@@ -111309,16 +110898,16 @@ aeU
 aeU
 aeu
 cwp
-czz
-wMS
-oTh
-czz
-czz
-vEm
-czz
-oTh
-czz
-qCu
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
+pEC
 cwp
 czL
 aqR
@@ -111566,16 +111155,16 @@ aeU
 aeU
 aeu
 cwp
-czz
-vEm
-czz
-swr
-czz
-oTh
-czz
-czz
-czz
-czz
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
 cwp
 skf
 cLg
@@ -111823,16 +111412,16 @@ aaa
 aUz
 aeu
 cwq
-aku
-czz
-czz
-czz
-czz
-czz
-czz
+avl
+mGy
+mGy
+mGy
+mGy
+mGy
+mGy
 cvb
-oTh
-vEm
+mGy
+mGy
 cwp
 cwq
 cLl
@@ -114140,9 +113729,9 @@ aeu
 aeu
 adH
 akz
-cAi
+gHQ
 cgY
-cAi
+gHQ
 cAl
 adH
 alL
@@ -114396,9 +113985,9 @@ aeu
 aeu
 aeu
 adH
-cAi
-cEd
-cEd
+gHQ
+gHQ
+gHQ
 cAj
 aiD
 ajy
@@ -114653,9 +114242,9 @@ aeu
 aeu
 aeu
 adQ
-cEd
-cAi
-czG
+gHQ
+gHQ
+gHQ
 bua
 cAn
 cAp
@@ -117744,7 +117333,7 @@ aeu
 aeu
 adH
 cEM
-cGW
+gHQ
 csj
 bsf
 fic
@@ -121337,7 +120926,7 @@ acm
 aUz
 aeu
 adH
-cEd
+gHQ
 cEp
 cEt
 cED
@@ -121594,7 +121183,7 @@ alm
 aeu
 aeu
 adQ
-cEe
+gHQ
 cEq
 iza
 ajG
@@ -121851,9 +121440,9 @@ aeu
 aeu
 aeu
 adQ
-cFM
-cEr
-cEv
+gHQ
+gHQ
+gHQ
 cEE
 adQ
 cFc
@@ -122109,8 +121698,8 @@ aeu
 aeu
 adH
 cEg
-aoa
-anY
+gHQ
+gHQ
 ajH
 alt
 amD
@@ -122366,7 +121955,7 @@ aeu
 aeu
 adQ
 cEh
-cEv
+gHQ
 cEw
 cEF
 adH
@@ -123398,7 +122987,7 @@ cDE
 cDE
 cDE
 cDD
-cGP
+cGh
 cGh
 cGh
 cGh
@@ -123912,7 +123501,7 @@ cDE
 cDE
 cDE
 cDC
-cFi
+cGh
 anT
 cFQ
 cGj
