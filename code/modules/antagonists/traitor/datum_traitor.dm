@@ -223,10 +223,9 @@
 
 	var/backstory_text = "<br>"
 	if(istype(faction))
-		backstory_text += "<b>Faction:</b> [faction.name]<br>"
+		backstory_text += "<b>Faction:</b> <span class='tooltip_container' style=\"font-size: 12px\">\[ [faction.name]<span class='tooltip_hover' style=\"width: 320px; padding: 5px;\">[faction.description]</span> \]</span><br>"
 	if(istype(backstory))
-		backstory_text += "<h2>Backstory: [backstory.name]</h2>"
-		backstory_text += "<blockquote style=\"max-width: 300px\">[backstory.description]</blockquote>"
+		backstory_text += "<b>Backstory:</b> <span class='tooltip_container' style=\"font-size: 12px\">\[ [backstory.name]<span class='tooltip_hover' style=\"width: 320px; padding: 5px;\">[backstory.description]</span> \]</span><br>"
 	else
 		backstory_text += "<span class='redtext'>No backstory was selected!</span><br>"
 	result += backstory_text

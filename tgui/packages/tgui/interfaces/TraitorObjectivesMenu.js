@@ -421,7 +421,7 @@ const SelectBackstoryMenu = ({
                       set_selected_backstory={set_selected_backstory}
                       is_recommended_objectives={recommended_backstories.includes(backstory.path)}
                       recommendation_count={backstory.motivations.filter(r => motivations.includes(r)).length}
-                      matches_all_recommendations={backstory.motivations.filter(r => !motivations.includes(r)).length === 0}
+                      matches_all_recommendations={motivations.filter(r => !backstory.motivations.includes(r)).length === 0}
                     />
                   ))
                 }
@@ -524,7 +524,7 @@ const BackstoryTab = ({
       {
         recommendation_count > 0 && (
           <Tooltip content="This backstory is recommended based on your motivations.">
-            <Icon fontSize={1.25} name="star" color={matches_all_recommendations ? "yellow" : (recommendation_count > 1 ? "silver" : "bronze")} ml={1} />
+            <Icon fontSize={1.25} name="star" color={matches_all_recommendations ? "yellow" : (recommendation_count > 1 ? "silver" : "brown")} ml={1} />
             <Box inline width="0" color="black" fontSize={1} style={{ transform: "translate(-12px, -1px)" }}>
               {recommendation_count}
             </Box>
