@@ -49,6 +49,9 @@ export const TraitorObjectivesMenu = (_, context) => {
             selected_backstory={selected_backstory}
             set_selected_backstory={set_selected_backstory} />
         )}
+        {ui_phase === 3 && (
+          <BackstoryObjectivesMenu />
+        )}
       </Window.Content>
     </Window>
   );
@@ -427,41 +430,14 @@ const SelectBackstoryMenu = ({
           </Flex.Item>
           <Flex.Item grow basis={0} ml={1}>
             {current_backstory ? (
-              <Section fill title={(
-                <Box inline fontSize={1.8}>
-                  {current_backstory.name}
-                </Box>
-              )} fontSize={1.25} buttons={
-                <>
-                  {Object.entries(MOTIVATION_ICONS)
-                    .filter(([k, v]) => current_backstory.motivations.includes(k)).map(([motivation, icon]) => (
-                      <Tooltip key={"icon-motivation-tooltip-" + motivation} content={motivation}>
-                        <Icon fontSize={1.75} key={"icon-motivation-" + motivation} mr={1} mt={1} pr={0.5} pl={0.5} name={icon} />
-                      </Tooltip>
-                    ))}
-                  {backstory ? (
-                    <Button
-                      fontSize={1.4}
-                      style={{ transform: "translateY(-2.5px)" }}
-                      content="Continue"
-                      color="good"
-                      onClick={() => set_ui_phase(phase => phase + 1)} />
-                  ) : (
-                    <Button.Confirm
-                      fontSize={1.4}
-                      style={{ transform: "translateY(-2.5px)" }}
-                      confirmContent="Lock In?"
-                      tooltip="You won't be able to change this selection after locking it in."
-                      content="Select"
-                      onClick={() => act("select_backstory", {
-                        faction: current_faction_key,
-                        backstory: selected_backstory,
-                      })} />
-                  )}
-                </>
-              }>
-                <Box inline dangerouslySetInnerHTML={{ __html: current_backstory.description }} />
-              </Section>
+              <BackstorySection
+                show_button
+                fill
+                backstory={current_backstory}
+                backstory_locked={!!backstory}
+                backstory_key={selected_backstory}
+                faction_key={current_faction_key}
+                set_ui_phase={set_ui_phase} />
             ) : (
               <Section fill>
                 <Dimmer>No backstory selected</Dimmer>
@@ -471,6 +447,55 @@ const SelectBackstoryMenu = ({
         </Flex>
       </Flex.Item>
     </Flex>
+  );
+};
+
+const BackstorySection = ({
+  backstory,
+  backstory_locked,
+  show_button,
+  backstory_key,
+  faction_key,
+  set_ui_phase,
+  fill,
+}, context) => {
+  const { act } = useBackend(context);
+  return (
+    <Section fill={fill} title={(
+      <Box inline fontSize={1.8}>
+        {backstory.name}
+      </Box>
+    )} fontSize={1.25} buttons={
+      <>
+        {Object.entries(MOTIVATION_ICONS)
+          .filter(([k, v]) => backstory.motivations.includes(k)).map(([motivation, icon]) => (
+            <Tooltip key={"icon-motivation-tooltip-" + motivation} content={motivation}>
+              <Icon fontSize={1.75} key={"icon-motivation-" + motivation} mr={1} mt={1} pr={0.5} pl={0.5} name={icon} />
+            </Tooltip>
+          ))}
+        {show_button ? (backstory_locked ? (
+          <Button
+            fontSize={1.4}
+            style={{ transform: "translateY(-2.5px)" }}
+            content="Continue"
+            color="good"
+            onClick={() => set_ui_phase(phase => phase + 1)} />
+        ) : (
+          <Button.Confirm
+            fontSize={1.4}
+            style={{ transform: "translateY(-2.5px)" }}
+            confirmContent="Lock In?"
+            tooltip="You won't be able to change this selection after locking it in."
+            content="Select"
+            onClick={() => act("select_backstory", {
+              faction: faction_key,
+              backstory: backstory_key,
+            })} />
+        )): null}
+      </>
+    }>
+      <Box inline dangerouslySetInnerHTML={{ __html: backstory.description }} />
+    </Section>
   );
 };
 
@@ -507,5 +532,16 @@ const BackstoryTab = ({
         )
       }
     </Tabs.Tab>
+  );
+};
+
+const BackstoryObjectivesMenu = (_, context) => {
+  const { data } = useBackend(context);
+  const {
+    backstory,
+    all_backstories = {},
+  } = data;
+  return (
+    <BackstorySection fill backstory={all_backstories[backstory]} />
   );
 };
