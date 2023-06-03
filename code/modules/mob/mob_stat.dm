@@ -322,7 +322,7 @@
 				if(world.time > client.last_adminhelp_reply + 10 SECONDS)
 					client.last_adminhelp_reply = world.time
 					if(client.current_adminhelp_ticket)
-						client.current_adminhelp_ticket.MessageNoRecipient(message)
+						client.current_adminhelp_ticket.MessageNoRecipient(message, sanitized = TRUE)
 					else
 						to_chat(src, "<span class='warning'>Your issue has already been resolved!</span>")
 				else
