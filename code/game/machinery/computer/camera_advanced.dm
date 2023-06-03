@@ -53,14 +53,18 @@
 /obj/machinery/computer/camera_advanced/proc/CreateEye()
 	eyeobj = new()
 	eyeobj.origin = src
+	eyeobj.icon = camera_mob_icon
+	eyeobj.icon_state = camera_mob_icon_state
 	RevealCameraMob()
 
 /obj/machinery/computer/camera_advanced/proc/RevealCameraMob()
 	if(reveal_camera_mob)
 		eyeobj.visible_icon = TRUE
 		eyeobj.invisibility = INVISIBILITY_OBSERVER
-		eyeobj.icon = camera_mob_icon
-		eyeobj.icon_state = camera_mob_icon_state
+
+/obj/machinery/computer/camera_advanced/proc/ConcealCameraMob()
+	eyeobj.visible_icon = FALSE
+	eyeobj.invisibility = INVISIBILITY_ABSTRACT
 
 /obj/machinery/computer/camera_advanced/proc/GrantActions(mob/living/user)
 	if(off_action)
@@ -102,6 +106,7 @@
 			user.client.images -= eyeobj.user_image
 		user.client.view_size.unsupress()
 
+	ConcealCameraMob()
 	eyeobj.eye_user = null
 	user.remote_control = null
 	current_user = null
@@ -187,6 +192,7 @@
 	current_user = user
 	eyeobj.eye_user = user
 	eyeobj.name = "Camera Eye ([user.name])"
+	RevealCameraMob()
 	user.remote_control = eyeobj
 	user.reset_perspective(eyeobj)
 	eyeobj.setLoc(eyeobj.loc)

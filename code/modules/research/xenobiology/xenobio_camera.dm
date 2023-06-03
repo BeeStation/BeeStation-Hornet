@@ -76,6 +76,8 @@
 /obj/machinery/computer/camera_advanced/xenobio/CreateEye()
 	eyeobj = new /mob/camera/ai_eye/remote/xenobio(get_turf(src))
 	eyeobj.origin = src
+	eyeobj.icon = camera_mob_icon
+	eyeobj.icon_state = camera_mob_icon_state
 	RevealCameraMob()
 
 /obj/machinery/computer/camera_advanced/xenobio/GrantActions(mob/living/user)

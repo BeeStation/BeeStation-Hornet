@@ -95,4 +95,6 @@
 /obj/machinery/computer/camera_advanced/ratvar/CreateEye()
 	eyeobj = new /mob/camera/ai_eye/remote/ratvar(get_turf(SSmapping.get_station_center()))
 	eyeobj.origin = src
+	eyeobj.icon = camera_mob_icon
+	eyeobj.icon_state = camera_mob_icon_state
 	RevealCameraMob()
