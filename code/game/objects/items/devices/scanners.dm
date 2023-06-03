@@ -439,7 +439,11 @@ GENE SCANNER
 
 	for(var/thing in M.diseases)
 		var/datum/disease/D = thing
-		if(!(D.visibility_flags & HIDDEN_SCANNER))
+		if(isobserver(user) || !(D.visibility_flags & HIDDEN_SCANNER))
+			if(istype(D, /datum/disease/advance))
+				var/datum/disease/advance/advance_disease = D
+				if(advance_disease.dormant)
+					continue
 			message += "<span class='alert'><b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</span>"
 
 	// Blood Level
@@ -468,7 +472,7 @@ GENE SCANNER
 
 		var/list/cyberimp_detect = list()
 		for(var/obj/item/organ/cyberimp/CI in C.internal_organs)
-			if(CI.status == ORGAN_ROBOTIC && !CI.syndicate_implant)
+			if(CI.status == ORGAN_ROBOTIC && (isobserver(user) || !CI.syndicate_implant))
 				cyberimp_detect += CI.name
 		if(length(cyberimp_detect))
 			message += "<span class='notice'>Detected cybernetic modifications:</span>"
