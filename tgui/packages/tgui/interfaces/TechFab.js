@@ -344,21 +344,10 @@ const TechFabContent = (props, context) => {
     return recipe.name;
   });
 
-  let repeats = new Set();
   const recipesDisplayed = search !== null
-    ? recipes
-      .filter(testSearch)
-      .filter(item => {
-        // check whether we have design_id repeats in our search
-        return repeats.has(item.design_id) ? false : repeats.add(item.design_id);
-      })
+    ? recipes.filter(testSearch)
     : category
-      ? recipes
-        .filter(recipe => recipe.category.includes(category))
-        .filter(item => {
-          // check whether we have design_id repeats in our search
-          return repeats.has(item.design_id) ? false : repeats.add(item.design_id);
-        })
+      ? recipes.filter(recipe => recipe.category.includes(category))
       : null;
 
   if (recipesDisplayed)
