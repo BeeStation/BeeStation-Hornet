@@ -1,0 +1,5 @@
+author: itsmeow
+delete-after: true
+changes:
+  - tweak: Rewrote all the spraytan overdose messages to be less OOC and suspicious.
+  - tweak: Spraytan overdose speech now occurs less often.
