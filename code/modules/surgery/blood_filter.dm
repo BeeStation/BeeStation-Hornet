@@ -73,7 +73,7 @@
 				remaining += "<font color='[COLOR_GREEN]'>[round(tox_loss, 0.1)]</font> toxin"
 			if(target.reagents.total_volume)
 				remaining += "<font color='[COLOR_MAGENTA]'>[round(target.reagents.total_volume, 0.1)]u</font> of reagents"
-		var/umsg = length(remaining) ? " [english_list(remaining)]" : ""
+		var/umsg = length(remaining) ? " [english_list(remaining)] remaining." : ""
 		display_results(user, target, "<span class='notice'>[tool] pings as it filters [target]'s blood.[umsg]</span>",
 				"<span class='notice'>[user] pumps [target]'s blood with [tool].</span>",
 				"[tool] pings as it pumps.")
