@@ -19,6 +19,10 @@
 	var/should_supress_view_changes  = TRUE
 	light_color = LIGHT_COLOR_RED
 
+	var/reveal_camera_mob = FALSE
+	var/camera_mob_icon = 'icons/mob/cameramob.dmi'
+	var/camera_mob_icon_state = "marker"
+
 /obj/machinery/computer/camera_advanced/Initialize(mapload)
 	. = ..()
 	for(var/i in networks)
@@ -35,10 +39,28 @@
 /obj/machinery/computer/camera_advanced/syndie
 	icon_keyboard = "syndie_key"
 	circuit = /obj/item/circuitboard/computer/advanced_camera
+	reveal_camera_mob = TRUE
+	camera_mob_icon_state = "syndi"
+
+/obj/machinery/computer/camera_advanced/bounty_hunter
+	reveal_camera_mob = TRUE
+	camera_mob_icon_state = "cyan"
+
+/obj/machinery/computer/camera_advanced/wizard
+	reveal_camera_mob = TRUE
+	camera_mob_icon_state = "darkblue"
 
 /obj/machinery/computer/camera_advanced/proc/CreateEye()
 	eyeobj = new()
 	eyeobj.origin = src
+	RevealCameraMob()
+
+/obj/machinery/computer/camera_advanced/proc/RevealCameraMob()
+	if(reveal_camera_mob)
+		eyeobj.visible_icon = TRUE
+		eyeobj.invisibility = INVISIBILITY_OBSERVER
+		eyeobj.icon = camera_mob_icon
+		eyeobj.icon_state = camera_mob_icon_state
 
 /obj/machinery/computer/camera_advanced/proc/GrantActions(mob/living/user)
 	if(off_action)
