@@ -43,7 +43,7 @@
 	name = "Component ( NULL ENTRY )"
 	desc = "A component that goes into an integrated circuit."
 	build_type = IMPRINTER | COMPONENT_PRINTER
-	materials = list(/datum/material/glass = 500, /datum/material/copper = 1500)
+	materials = list(/datum/material/glass = 500, /datum/material/copper = 150)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 	category = list(WIREMOD_CIRCUITRY)
 
