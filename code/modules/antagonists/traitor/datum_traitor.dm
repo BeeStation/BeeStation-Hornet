@@ -9,9 +9,8 @@
 	antag_moodlet = /datum/mood_event/focused
 	hijack_speed = 0.5				//10 seconds per hijack stage by default
 	var/special_role = ROLE_TRAITOR
+	/// Shown when giving uplinks and codewords to the player
 	var/employer = "The Syndicate"
-	var/should_give_codewords = TRUE
-	var/should_equip = TRUE
 	var/traitor_kind = TRAITOR_HUMAN //Set on initial assignment
 	var/datum/contractor_hub/contractor_hub
 
@@ -77,11 +76,10 @@
 /datum/antagonist/traitor/greet()
 	to_chat(owner.current, "<span class='alertsyndie'>You are the [owner.special_role].</span>")
 	owner.announce_objectives()
-	if(should_give_codewords)
-		give_codewords()
 	if(owner.current.client)
 		owner.current.client.tgui_panel?.give_antagonist_popup("Traitor", "Complete your objectives, no matter the cost.")
-		ui_interact(owner.current)
+	if(traitor_kind == TRAITOR_AI)
+		give_codewords() // humans get this assigned by their faction
 
 /datum/antagonist/traitor/proc/update_traitor_icons_added(datum/mind/traitor_mind)
 	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
@@ -100,9 +98,7 @@
 			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/malf.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 			owner.current.grant_language(/datum/language/codespeak, TRUE, TRUE, LANGUAGE_MALF)
 		if(TRAITOR_HUMAN)
-			show_tips("traitor")
-			if(should_equip)
-				equip(silent)
+			ui_interact(owner.current)
 			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
 /datum/antagonist/traitor/apply_innate_effects(mob/living/mob_override)
@@ -123,22 +119,24 @@
 	UnregisterSignal(owner.current, COMSIG_MOVABLE_HEAR, PROC_REF(handle_hearing))
 
 /datum/antagonist/traitor/proc/give_codewords()
-	if(!owner.current)
+	if(!owner.current || !istype(faction))
 		return
-	var/mob/traitor_mob=owner.current
+	give_codewords_to_player(owner.current, src, faction.name)
 
+/proc/give_codewords_to_player(mob/player, datum/antagonist/antag_datum, employer = "The Syndicate")
 	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
 
-	to_chat(traitor_mob, "<U><B>The Syndicate have provided you with the following codewords to identify fellow agents:</B></U>")
-	to_chat(traitor_mob, "<B>Code Phrase</B>: <span class='blue'>[phrases]</span>")
-	to_chat(traitor_mob, "<B>Code Response</B>: <span class='red'>[responses]</span>")
+	to_chat(player, "<U><B>[employer] have provided you with the following codewords to identify fellow agents:</B></U>")
+	to_chat(player, "<B>Code Phrase</B>: <span class='blue'>[phrases]</span>")
+	to_chat(player, "<B>Code Response</B>: <span class='red'>[responses]</span>")
 
-	antag_memory += "<b>Code Phrase</b>: <span class='blue'>[phrases]</span><br>"
-	antag_memory += "<b>Code Response</b>: <span class='red'>[responses]</span><br>"
+	if(istype(antag_datum))
+		antag_datum.antag_memory += "<b>Code Phrase</b>: <span class='blue'>[phrases]</span><br>"
+		antag_datum.antag_memory += "<b>Code Response</b>: <span class='red'>[responses]</span><br>"
 
-	to_chat(traitor_mob, "Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
-	to_chat(traitor_mob, "<span class='alertwarning'>You memorize the codewords, allowing you to recognise them when heard.</span>")
+	to_chat(player, "Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
+	to_chat(player, "<span class='alertwarning'>You memorize the codewords, allowing you to recognise them when heard.</span>")
 
 /datum/antagonist/traitor/proc/equip(var/silent = FALSE)
 	if(traitor_kind == TRAITOR_HUMAN)
@@ -222,6 +220,14 @@
 		result += uplink_text
 
 	result += objectives_text
+
+	var/backstory_text = "<br><span class='redtext'>No backstory was selected!</span><br>"
+	if(istype(faction))
+		backstory_text += "<b>Faction:</b> [faction.name]<br>"
+	if(istype(backstory))
+		backstory_text = "<br><h2>Backstory: <b>[backstory.name]</b></h2><br>"
+		backstory_text += "<blockquote style=\"max-width: 300px\">[backstory.description]</blockquote>"
+	result += backstory_text
 
 	var/special_role_text = lowertext(name)
 

@@ -54,7 +54,11 @@ export const TraitorObjectivesMenu = (_, context) => {
   );
 };
 
-const IntroductionMenu = ({ set_ui_phase }) => {
+const IntroductionMenu = ({ set_ui_phase }, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    faction,
+  } = data;
   return (
     <Dimmer>
       <Stack align="baseline" vertical>
@@ -74,22 +78,35 @@ const IntroductionMenu = ({ set_ui_phase }) => {
               Please <strong>select a faction</strong> - a short description of each will be given.
               You will <strong>not</strong> be able to change this after your main backstory is locked in, so choose wisely.
             </Stack.Item>
-          </Stack>
-        </Stack.Item>
-        <Stack.Item>
-          <Stack>
-            <Stack.Item>
-              <Button
-                mt={2}
-                fontSize="15px"
-                color="good"
-                content="Continue"
-                onClick={() => {
-                  set_ui_phase(phase => phase + 1);
-                }} />
+            <Stack.Item maxWidth="80vw">
+              You have 4 minutes to select a backstory,{" "}
+              otherwise your faction is forced to Syndicate and you can then select a backstory.
             </Stack.Item>
           </Stack>
         </Stack.Item>
+        <Stack.Item>
+          <Button
+            mt={2}
+            fontSize="15px"
+            color="good"
+            content="Continue"
+            onClick={() => {
+              set_ui_phase(phase => phase + 1);
+            }} />
+        </Stack.Item>
+        {!faction && (
+          <Stack.Item>
+            <Button.Confirm
+              mt={1}
+              fontSize="15px"
+              color="bad"
+              content="Gimme Uplink!"
+              tooltip="Your faction will be set to The Syndicate, and you will not be able to change it."
+              onClick={() => {
+                act("gimme_uplink");
+              }} />
+          </Stack.Item>
+        )}
       </Stack>
     </Dimmer>
   );
@@ -155,9 +172,7 @@ const SelectFactionMenu = ({ set_ui_phase, set_selected_faction, selected_factio
       <Stack align="baseline" vertical>
         <Stack.Item fontSize="14px">
           <Stack vertical textAlign="center">
-            <BackstoryInfo titleColor={
-              recommended_factions.length === 0 ? null : (recommended_factions.includes(current_faction_key) ? "green" : "red")
-            } data={current_faction} />
+            <BackstoryInfo data={current_faction} />
           </Stack>
         </Stack.Item>
         <Stack.Item>
@@ -166,7 +181,7 @@ const SelectFactionMenu = ({ set_ui_phase, set_selected_faction, selected_factio
               mt={2}
               fontSize="15px"
               content="Continue"
-              tooltip="Your faction is locked, due to taking too long to select a backstory."
+              color="good"
               onClick={() => {
                 set_ui_phase(phase => phase + 1);
               }} />
@@ -200,6 +215,17 @@ const SelectFactionMenu = ({ set_ui_phase, set_selected_faction, selected_factio
               )
           )}
         </Stack.Item>
+        {(recommended_factions.length > 0 || faction) && (
+          <Stack.Item mt={3} textColor={faction ? "red" : (recommended_factions.includes(current_faction_key) ? "green" : "red")}>
+            <strong>
+              {faction ? "Your faction is locked in." : (
+                recommended_factions.includes(current_faction_key)
+                  ? "This faction is recommended based on your current objectives."
+                  : "This faction is NOT recommended based on your current objectives."
+              )}
+            </strong>
+          </Stack.Item>
+        )}
       </Stack>
       {!faction && (
         <FactionNavigationButtons
@@ -286,6 +312,7 @@ const SelectBackstoryMenu = ({
     all_factions = {},
     allowed_factions = [],
     faction,
+    backstory,
   } = data;
 
   let [motivations, set_motivations] = useLocalState(context, "traitor_motivations", []);
@@ -323,7 +350,9 @@ const SelectBackstoryMenu = ({
       </Dimmer>
     );
   }
-  let current_backstory = selected_backstory === null ? null : all_backstories[selected_backstory];
+
+  let current_backstory = all_backstories[backstory] || all_backstories[selected_backstory];
+  let current_backstory_key = backstory || selected_backstory;
 
   return (
     <Flex height="100%" direction="column">
@@ -385,10 +414,11 @@ const SelectBackstoryMenu = ({
                       path={backstory.path}
                       key={backstory.path}
                       name={backstory.name}
-                      selected={selected_backstory === backstory.path}
+                      selected={current_backstory_key === backstory.path}
                       set_selected_backstory={set_selected_backstory}
                       is_recommended_objectives={recommended_backstories.includes(backstory.path)}
                       recommendation_count={backstory.motivations.filter(r => motivations.includes(r)).length}
+                      matches_all_recommendations={backstory.motivations.filter(r => !motivations.includes(r)).length === 0}
                     />
                   ))
                 }
@@ -409,16 +439,25 @@ const SelectBackstoryMenu = ({
                         <Icon fontSize={1.75} key={"icon-motivation-" + motivation} mr={1} mt={1} pr={0.5} pl={0.5} name={icon} />
                       </Tooltip>
                     ))}
-                  <Button.Confirm
-                    fontSize={1.4}
-                    style={{ transform: "translateY(-2.5px)" }}
-                    confirmContent="Lock In?"
-                    tooltip="You won't be able to change this selection after locking it in."
-                    content="Select"
-                    onClick={() => act("select_backstory", {
-                      faction: current_faction_key,
-                      backstory: selected_backstory,
-                    })} />
+                  {backstory ? (
+                    <Button
+                      fontSize={1.4}
+                      style={{ transform: "translateY(-2.5px)" }}
+                      content="Continue"
+                      color="good"
+                      onClick={() => set_ui_phase(phase => phase + 1)} />
+                  ) : (
+                    <Button.Confirm
+                      fontSize={1.4}
+                      style={{ transform: "translateY(-2.5px)" }}
+                      confirmContent="Lock In?"
+                      tooltip="You won't be able to change this selection after locking it in."
+                      content="Select"
+                      onClick={() => act("select_backstory", {
+                        faction: current_faction_key,
+                        backstory: selected_backstory,
+                      })} />
+                  )}
                 </>
               }>
                 <Box inline dangerouslySetInnerHTML={{ __html: current_backstory.description }} />
@@ -441,6 +480,7 @@ const BackstoryTab = ({
   selected,
   is_recommended_objectives,
   recommendation_count,
+  matches_all_recommendations,
   set_selected_backstory,
 }) => {
   return (
@@ -459,7 +499,7 @@ const BackstoryTab = ({
       {
         recommendation_count > 0 && (
           <Tooltip content="This backstory is recommended based on your motivations.">
-            <Icon fontSize={1.25} name="star" color={recommendation_count > 1 ? "yellow" : "silver"} ml={1} />
+            <Icon fontSize={1.25} name="star" color={matches_all_recommendations ? "yellow" : (recommendation_count > 1 ? "silver" : "bronze")} ml={1} />
             <Box inline width="0" color="black" fontSize={1} style={{ transform: "translate(-12px, -1px)" }}>
               {recommendation_count}
             </Box>

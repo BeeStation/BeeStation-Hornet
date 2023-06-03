@@ -1,12 +1,12 @@
-/// Support unit gets it's own very basic antag datum for admin logging.
-/datum/antagonist/traitor/contractor_support
+/// Support unit gets its own very basic antag datum for admin logging.
+/datum/antagonist/contractor_support
 	name = "Contractor Support Unit"
+	job_rank = ROLE_TRAITOR
 	antag_moodlet = /datum/mood_event/focused
 
 	show_in_roundend = FALSE /// We're already adding them in to the contractor's roundend.
 	give_objectives = TRUE /// We give them their own custom objective.
 	show_in_antagpanel = FALSE /// Not a proper/full antag.
-	should_equip = FALSE /// Don't give them an uplink.
 
 	var/datum/team/contractor_team/contractor_team
 
@@ -15,7 +15,22 @@
 	name = "Contractors"
 	show_roundend_report = FALSE
 
-/datum/antagonist/traitor/contractor_support/forge_traitor_objectives()
+/datum/antagonist/contractor_support/on_gain()
+	owner.special_role = ROLE_TRAITOR
+	if(give_objectives)
+		forge_objectives()
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+	..()
+
+/datum/antagonist/contractor_support/greet()
+	to_chat(owner.current, "<span class='alertsyndie'>You are the Contractor Support Unit.</span>")
+	owner.announce_objectives()
+	if(owner.current)
+		give_codewords_to_player(owner.current, src)
+		if(owner.current.client)
+			owner.current.client.tgui_panel?.give_antagonist_popup("Contractor Support Unit", "Follow your contractor's orders.")
+
+/datum/antagonist/contractor_support/proc/forge_objectives()
 	var/datum/objective/generic_objective = new
 
 	generic_objective.name = "Follow Contractor's Orders"
@@ -23,7 +38,8 @@
 
 	generic_objective.completed = TRUE
 
-	add_objective(generic_objective)
+	objectives += generic_objective
+	log_objective(owner, generic_objective.explanation_text)
 
 /datum/contractor_hub
 	var/contract_rep = 0

@@ -82,3 +82,9 @@
 			set_faction(selected_faction)
 			set_backstory(selected_backstory)
 			return TRUE
+		if("gimme_uplink")
+			if(istype(faction))
+				return TRUE
+			set_faction(GLOB.traitor_factions_to_datum[TRAITOR_FACTION_SYNDICATE])
+			SStgui.close_user_uis(usr, src)
+			return FALSE

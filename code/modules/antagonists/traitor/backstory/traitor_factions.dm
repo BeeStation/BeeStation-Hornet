@@ -5,8 +5,8 @@
 	var/key
 	/// A short description of this faction, OOC
 	var/description
-	/// If this faction has access to codewords, radio keys, etc.
-	var/is_group = FALSE
+	/// If this faction has access to codewords
+	var/give_codewords = FALSE
 	/// The faction's UI theme, for use in uplinks etc.
 	var/ui_theme = THEME_NEUTRAL
 
@@ -17,7 +17,7 @@
 	Either way, you will have potential allies in other syndicate agents, codewords, and communication methods. You'll have all the resources at your disposal.\n\
 	Get the job done right, and you will be rewarded - or simply freed of your debts.\n"
 	key = TRAITOR_FACTION_SYNDICATE
-	is_group = TRUE
+	give_codewords = TRUE
 	ui_theme = THEME_SYNDICATE
 
 /datum/traitor_faction/black_market
