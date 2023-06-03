@@ -47,7 +47,7 @@
 
 /obj/item/circuit_component/soundemitter/pre_input_received(datum/port/input/port)
 	volume.set_value(clamp(volume.value, 0, 100))
-	frequency.set_value(clamp(frequency.value, -100, 100))
+	frequency.set_value(clamp(frequency.value, 0.25, 2))
 
 /obj/item/circuit_component/soundemitter/input_received(datum/port/input/port)
 	if(TIMER_COOLDOWN_CHECK(parent, COOLDOWN_CIRCUIT_SOUNDEMITTER))
