@@ -726,11 +726,6 @@
 /obj/item/kirbyplants,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
-"EY" = (
-/obj/structure/table,
-/obj/item/plant_analyzer,
-/turf/open/floor/pod,
-/area/ruin/powered/seedvault)
 "Fr" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
@@ -815,6 +810,13 @@
 "Im" = (
 /obj/structure/closet/crate/bin,
 /turf/open/floor/grass,
+/area/ruin/powered/seedvault)
+"Io" = (
+/obj/structure/table,
+/obj/item/plant_analyzer{
+	pixel_y = 1
+	},
+/turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "ID" = (
 /turf/open/floor/grass,
@@ -1620,7 +1622,7 @@ Nn
 UQ
 TG
 MS
-EY
+Io
 UF
 uv
 VQ
