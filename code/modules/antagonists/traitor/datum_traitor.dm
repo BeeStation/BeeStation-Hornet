@@ -221,12 +221,14 @@
 
 	result += objectives_text
 
-	var/backstory_text = "<br><span class='redtext'>No backstory was selected!</span><br>"
+	var/backstory_text = "<br>"
 	if(istype(faction))
 		backstory_text += "<b>Faction:</b> [faction.name]<br>"
 	if(istype(backstory))
-		backstory_text = "<br><h2>Backstory: <b>[backstory.name]</b></h2><br>"
+		backstory_text += "<h2>Backstory: [backstory.name]</h2>"
 		backstory_text += "<blockquote style=\"max-width: 300px\">[backstory.description]</blockquote>"
+	else
+		backstory_text += "<span class='redtext'>No backstory was selected!</span><br>"
 	result += backstory_text
 
 	var/special_role_text = lowertext(name)
