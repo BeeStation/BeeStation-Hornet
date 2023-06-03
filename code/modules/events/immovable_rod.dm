@@ -20,7 +20,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	if(!check_rights(R_FUN))
 		return
 
-	var/aimed = alert("Aimed at current location?","Sniperod", "Yes", "No")
+	var/aimed = tgui_alert(usr,"Aimed at current location?", "Sniperod", list("Yes", "No"))
 	if(aimed == "Yes")
 		special_target = get_turf(usr)
 

@@ -133,7 +133,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("tdomereset")
 			if(!check_rights(R_ADMIN))
 				return
-			var/delete_mobs = alert("Clear all mobs?","Confirm","Yes","No","Cancel")
+			var/delete_mobs = tgui_alert(usr,"Clear all mobs?","Confirm",list("Yes","No","Cancel"))
 			if(delete_mobs == "Cancel" || !delete_mobs)
 				return
 
@@ -153,7 +153,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 
 		if("clear_virus")
 
-			var/choice = input("Are you sure you want to remove all disease?") in list("Yes", "Cancel")
+			var/choice = tgui_alert(usr, "Are you sure you want to remove all disease?",, list("Yes", "Cancel"))
 			if(choice == "Yes")
 				message_admins("[key_name_admin(usr)] has cured all diseases.")
 				for(var/thing in SSdisease.active_diseases)
@@ -179,7 +179,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("night_shift_set")
 			if(!check_rights(R_ADMIN))
 				return
-			var/val = alert(usr, "What do you want to set night shift to? This will override the automatic system until set to automatic again.", "Night Shift", "On", "Off", "Automatic")
+			var/val = tgui_alert(usr, "What do you want to set night shift to? This will override the automatic system until set to automatic again.", "Night Shift", list("On", "Off", "Automatic"))
 			switch(val)
 				if("Automatic")
 					if(CONFIG_GET(flag/enable_night_shifts))
@@ -271,10 +271,11 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			if(!check_rights(R_ADMIN))
 				return
 			if(!SSticker.HasRoundStarted())
-				alert("The game hasn't started yet!")
+				tgui_alert(usr,"The game hasn't started yet!")
 			else if (SSticker.mode)
-				alert("The game mode is [SSticker.mode.name]")
-			else alert("For some reason there's a SSticker, but not a game mode")
+				tgui_alert(usr,"The game mode is [SSticker.mode.name]")
+			else
+				tgui_alert(usr,"For some reason there's a SSticker, but not a game mode")
 		if("manifest")
 			if(!check_rights(R_ADMIN))
 				return
@@ -360,7 +361,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			if(!check_rights(R_FUN))
 				return
 			if(!SSticker.HasRoundStarted())
-				alert("The game hasn't started yet!")
+				tgui_alert(usr,"The game hasn't started yet!")
 				return
 			if(!GLOB.admin_objective_list)
 				generate_admin_objective_list()
@@ -448,11 +449,11 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("anime")
 			if(!check_rights(R_FUN))
 				return
-			var/animetype = alert("Would you like to have the clothes be changed?",,"Yes","No","Cancel")
+			var/animetype = tgui_alert(usr,"Would you like to have the clothes be changed?",,list("Yes","No","Cancel"))
 
 			var/droptype
 			if(animetype =="Yes")
-				droptype = alert("Make the uniforms undroppable?",,"Yes","No","Cancel")
+				droptype = tgui_alert(usr,"Make the uniforms Nodrop?",,list("Yes","No","Cancel"))
 
 			if(animetype == "Cancel" || droptype == "Cancel" || !animetype || (!droptype && animetype == "Yes"))
 				return
@@ -500,7 +501,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			if(!check_rights(R_FUN))
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Virus Outbreak"))
-			switch(alert("Do you want this to be a random disease or do you have something in mind?",,"Make Your Own","Random","Choose"))
+			switch(tgui_alert(usr,"Do you want this to be a random disease or do you have something in mind?",,list("Make Your Own","Random","Choose")))
 				if("Make Your Own")
 					AdminCreateVirus(usr.client)
 				if("Random")
@@ -561,7 +562,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Summon Guns"))
 			var/survivor_probability = 0
-			switch(alert("Do you want this to create survivors antagonists?",,"No Antags","Some Antags","All Antags!"))
+			switch(tgui_alert(usr,"Do you want this to create survivors antagonists?",,list("No Antags","Some Antags","All Antags!")))
 				if("Some Antags")
 					survivor_probability = 25
 				if("All Antags!")
@@ -574,7 +575,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Summon Magic"))
 			var/survivor_probability = 0
-			switch(alert("Do you want this to create survivors antagonists?",,"No Antags","Some Antags","All Antags!"))
+			switch(tgui_alert(usr,"Do you want this to create survivors antagonists?",,list("No Antags","Some Antags","All Antags!")))
 				if("Some Antags")
 					survivor_probability = 25
 				if("All Antags!")
@@ -586,12 +587,12 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			if(!check_rights(R_FUN))
 				return
 			if(!SSevents.wizardmode)
-				if(alert("Do you want to toggle summon events on?",,"Yes","No") == "Yes")
+				if(tgui_alert(usr,"Do you want to toggle summon events on?",,list("Yes","No")) == "Yes")
 					summonevents()
 					SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Summon Events", "Activate"))
 
 			else
-				switch(alert("What would you like to do?",,"Intensify Summon Events","Turn Off Summon Events","Nothing"))
+				switch(tgui_alert(usr,"What would you like to do?",,list("Intensify Summon Events","Turn Off Summon Events","Nothing")))
 					if("Intensify Summon Events")
 						summonevents()
 						SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Summon Events", "Intensify"))
@@ -820,8 +821,14 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 	if(E)
 		E.processing = FALSE
 		if(E.announceWhen>0)
-			if(alert(usr, "Would you like to alert the crew?", "Alert", "Yes", "No") != "Yes")
-				E.announceChance = 0
+			switch(tgui_alert(usr, "Would you like to alert the crew?", "Alert", list("Yes", "No", "Cancel")))
+				if("Yes")
+					E.announceChance = 100
+				if("Cancel")
+					E.kill()
+					return
+				if("No")
+					E.announceChance = 0
 		E.processing = TRUE
 	if (usr)
 		log_admin("[key_name(usr)] used secret [action]")

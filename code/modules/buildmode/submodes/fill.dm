@@ -1,6 +1,6 @@
 /datum/buildmode_mode/fill
 	key = "fill"
-	
+
 	use_corner_selection = TRUE
 	var/objholder = null
 
@@ -17,11 +17,11 @@
 	if(!ispath(objholder))
 		objholder = pick_closest_path(target_path)
 		if(!objholder)
-			alert("No path has been selected.")
+			tgui_alert(usr,"No path has been selected.")
 			return
 		else if(ispath(objholder, /area))
 			objholder = null
-			alert("Area paths are not supported for this mode, use the area edit mode instead.")
+			tgui_alert(usr,"Area paths are not supported for this mode, use the area edit mode instead.")
 			return
 	deselect_region()
 

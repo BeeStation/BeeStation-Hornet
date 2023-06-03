@@ -285,7 +285,7 @@
 
 	var/rebootconfirm
 	if(SSticker.admin_delay_notice)
-		if(alert(usr, "Are you sure? An admin has already delayed the round end for the following reason: [SSticker.admin_delay_notice]", "Confirmation", "Yes", "No") == "Yes")
+		if(tgui_alert(usr, "Are you sure? An admin has already delayed the round end for the following reason: [SSticker.admin_delay_notice]", "Confirmation", list("Yes", "No")) != "Yes")
 			rebootconfirm = TRUE
 	else
 		rebootconfirm = TRUE
@@ -296,11 +296,17 @@
 			var/init_by = "Initiated by [usr.client.holder.fakekey ? "Admin" : usr.key]."
 			switch(result)
 				if("Regular Restart")
+					if(!(isnull(usr.client.address)))
+						if(alert(usr, "Are you sure you want to restart the server?","This server is live", "Restart", "Cancel") != "Restart")
+							return FALSE
 					SSticker.Reboot(init_by, "admin reboot - by [usr.key] [usr.client.holder.fakekey ? "(stealth)" : ""]", 10)
 				if("Regular Restart (with delay)")
 					var/delay = input("What delay should the restart have (in seconds)?", "Restart Delay", 5) as num|null
 					if(!delay)
 						return FALSE
+					if(!(isnull(usr.client.address)))
+						if(alert(usr,"Are you sure you want to restart the server?","This server is live", "Restart", "Cancel") != "Restart")
+							return FALSE
 					SSticker.Reboot(init_by, "admin reboot - by [usr.key] [usr.client.holder.fakekey ? "(stealth)" : ""]", delay * 10)
 				if("Hard Restart (No Delay, No Feeback Reason)")
 					to_chat(world, "World reboot - [init_by]")
@@ -319,11 +325,12 @@
 
 	if (!usr.client.holder)
 		return
-	var/confirm = alert("End the round and  restart the game world?", "End Round", "Yes", "Cancel")
-	if(confirm != "Yes")
+	var/confirm = tgui_alert(usr, "End the round and restart the game world?", "End Round", list("Yes", "Cancel"))
+	if(confirm == "Cancel")
 		return
-	SSticker.force_ending = 1
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "End Round") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	if(confirm == "Yes")
+		SSticker.force_ending = TRUE
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "End Round") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/dynamic_mode_options(mob/user)
 	var/dat = {"
@@ -475,7 +482,7 @@
 
 	var/newtime = input("Set a new time in seconds. Set -1 for indefinite delay.","Set Delay",round(SSticker.GetTimeLeft()/10)) as num|null
 	if(SSticker.current_state > GAME_STATE_PREGAME)
-		return alert("Too late... The game has already started!")
+		return tgui_alert(usr, "Too late... The game has already started!")
 	if(newtime)
 		newtime = newtime*10
 		SSticker.SetTimeLeft(newtime)
@@ -500,7 +507,7 @@
 			if(check_rights(R_FUN) && !GLOB.battle_royale && admin.tgui_panel && SSticker.current_state == GAME_STATE_FINISHED)
 				admin.tgui_panel.give_br_popup()
 	else
-		if(alert(usr, "Really cancel current round end delay? The reason for the current delay is: \"[SSticker.admin_delay_notice]\"", "Undelay round end", "Yes", "No") != "Yes")
+		if(tgui_alert(usr, "Really cancel current round end delay? The reason for the current delay is: \"[SSticker.admin_delay_notice]\"", "Undelay round end", list("Yes", "No")) != "Yes")
 			return
 		SSticker.admin_delay_notice = null
 	SSticker.delay_end = !SSticker.delay_end
@@ -520,7 +527,7 @@
 		message_admins("[key_name_admin(usr)] has unprisoned [key_name_admin(M)]")
 		log_admin("[key_name(usr)] has unprisoned [key_name(M)]")
 	else
-		alert("[M.name] is not prisoned.")
+		tgui_alert(usr,"[M.name] is not imprisoned.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Unprison") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 ////////////////////////////////////////////////////////////////////////////////////////////////ADMIN HELPER PROCS
@@ -685,7 +692,7 @@
 	var/count = 0
 
 	if(!SSjob.initialized)
-		alert(usr, "You cannot manage jobs before the job subsystem is initialized!")
+		tgui_alert(usr, "You cannot manage jobs before the job subsystem is initialized!")
 		return
 
 	dat += "<table>"
@@ -761,7 +768,7 @@
 		question = "This mob already has a user ([tomob.key]) in control of it! "
 	question += "Are you sure you want to place [frommob.name]([frommob.key]) in control of [tomob.name]?"
 
-	var/ask = alert(question, "Place ghost in control of mob?", "Yes", "No")
+	var/ask = tgui_alert(usr, question, "Place ghost in control of mob?", list("Yes", "No"))
 	if (ask != "Yes")
 		return 1
 

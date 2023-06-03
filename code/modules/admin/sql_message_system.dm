@@ -18,7 +18,7 @@
 			qdel(query_find_ckey)
 			return
 		if(!query_find_ckey.NextRow())
-			if(alert(usr, "[new_key]/([new_ckey]) has not been seen before, are you sure you want to create a [type] for them?", "Unknown ckey", "Yes", "No", "Cancel") != "Yes")
+			if(tgui_alert(usr, "[new_key]/([new_ckey]) has not been seen before, are you sure you want to create a [type] for them?", "Unknown ckey", list("Yes", "No", "Cancel")) != "Yes")
 				qdel(query_find_ckey)
 				return
 		qdel(query_find_ckey)
@@ -46,7 +46,7 @@
 			server_name = ssqlname
 
 	if(isnull(secret))
-		switch(alert("Hide note from being viewed by players?", "Secret note?","Yes","No","Cancel"))
+		switch(tgui_alert(usr,"Hide note from being viewed by players?", "Secret note?",list("Yes","No","Cancel")))
 			if("Yes")
 				secret = 1
 			if("No")
@@ -57,7 +57,7 @@
 	if(CONFIG_GET(flag/manual_note_expiry) && (type in list("note", "message")))
 		expiry = -1
 	else if(isnull(expiry))
-		if(alert(usr, "Set an expiry time? Expired messages are hidden like deleted ones.", "Expiry time?", "Yes", "No", "Cancel") == "Yes")
+		if(tgui_alert(usr, "Set an expiry time? Expired messages are hidden like deleted ones.", "Expiry time?", list("Yes", "No", "Cancel")) == "Yes")
 			var/expire_time = input("Set expiry time for [type] as format YYYY-MM-DD HH:MM:SS. All times in server time. HH:MM:SS is optional and 24-hour. Must be later than current time for obvious reasons.", "Set expiry time", SQLtime()) as null|text
 			if(!expire_time)
 				return

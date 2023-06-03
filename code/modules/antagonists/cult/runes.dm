@@ -882,7 +882,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	. = ..()
 	var/mob/living/user = invokers[1]
 	var/turf/T = get_turf(src)
-	var/choice = alert(user,"You tear open a connection to the spirit realm...",,"Summon a Cult Ghost","Ascend as a Dark Spirit","Cancel")
+	var/choice = tgui_alert(user,"You tear open a connection to the spirit realm...",,list("Summon a Cult Ghost","Ascend as a Dark Spirit","Cancel"))
 	if(choice == "Summon a Cult Ghost")
 		var/area/A = get_area(T)
 		if(initial(A.name) == "Space" || is_mining_level(T.z))

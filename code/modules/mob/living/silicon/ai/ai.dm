@@ -673,7 +673,7 @@
 	if(incapacitated())
 		return
 	var/input
-	switch(alert("Would you like to select a hologram based on a crew member, an animal, or switch to a unique avatar?",,"Crew Member","Unique","Animal"))
+	switch(tgui_alert(usr,"Would you like to select a hologram based on a crew member, an animal, or switch to a unique avatar?",,list("Crew Member","Unique","Animal")))
 		if("Crew Member")
 			var/list/personnel_list = list()
 
@@ -681,7 +681,7 @@
 				personnel_list["[record_datum.fields["name"]]: [record_datum.fields["rank"]]"] = record_datum.fields["character_appearance"]//Pull names, rank, and image.
 
 			if(!length(personnel_list))
-				alert("No suitable records found. Aborting.")
+				tgui_alert(usr,"No suitable records found. Aborting.")
 				return
 			if(personnel_list.len)
 				input = input("Select a crew member:") as null|anything in sort_list(personnel_list)

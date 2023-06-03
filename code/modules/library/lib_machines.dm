@@ -118,7 +118,7 @@
 		else
 			title = null
 	if(href_list["setcategory"])
-		var/newcategory = input("Choose a category to search for:") in list("Any", "Fiction", "Non-Fiction", "Adult", "Reference", "Religion")
+		var/newcategory = tgui_input_list(usr, "Choose a category to search for:",, list("Any", "Fiction", "Non-Fiction", "Adult", "Reference", "Religion"))
 		if(newcategory)
 			category = sanitize(newcategory)
 		else
@@ -437,20 +437,20 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 			if(length(newauthor) <= 45)
 				scanner.cache.author = newauthor
 			else
-				alert("Unable to set author. The field must be fewer than 45 characters.")
+				tgui_alert("Unable to set author. The field must be fewer than 45 characters.")
 	if(href_list["setcategory"])
-		var/newcategory = input("Choose a category: ") in list("Fiction", "Non-Fiction", "Adult", "Reference", "Religion","Technical")
+		var/newcategory = tgui_input_list(usr, "Choose a category: ",, list("Fiction", "Non-Fiction", "Adult", "Reference", "Religion","Technical"))
 		if(newcategory)
 			upload_category = newcategory
 	if(href_list["upload"])
 		if(scanner)
 			if(scanner.cache)
-				var/choice = input("Are you certain you wish to upload this title to the Archive?") in list("Confirm", "Abort")
+				var/choice = tgui_alert(usr, "Are you certain you wish to upload this title to the Archive?",, list("Confirm", "Abort"))
 				if(choice == "Confirm")
 					if (!SSdbcore.Connect())
-						alert("Connection to Archive has been severed. Aborting.")
+						tgui_alert(usr,"Connection to Archive has been severed. Aborting.")
 					else if((length(scanner.cache.name) > 45) || (length(scanner.cache.author) > 45))
-						alert("The title and author fields must each be 45 characters or fewer. Check your entry and try again.")
+						tgui_alert("The title and author fields must each be 45 characters or fewer. Check your entry and try again.")
 						return
 					else
 						var/msg = "[key_name(usr)] has uploaded the book titled [scanner.cache.name], [length(scanner.cache.dat)] signs"
@@ -460,15 +460,15 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 						"}, list("title" = scanner.cache.name, "author" = scanner.cache.author, "content" = scanner.cache.dat, "category" = upload_category, "ckey" = usr.ckey, "round_id" = GLOB.round_id))
 						if(!query_library_upload.Execute())
 							qdel(query_library_upload)
-							alert("Database error encountered uploading to Archive")
+							tgui_alert(usr,"Database error encountered uploading to Archive")
 							return
 						else
 							log_game(msg)
 							qdel(query_library_upload)
-							alert("Upload Complete. Uploaded title will be unavailable for printing for a short period")
+							tgui_alert(usr,"Upload Complete. Uploaded title will be unavailable for printing for a short period")
 	if(href_list["newspost"])
 		if(!GLOB.news_network)
-			alert("No news network found on station. Aborting.")
+			tgui_alert(usr,"No news network found on station. Aborting.")
 		var/channelexists = 0
 		for(var/datum/feed_channel/FC in GLOB.news_network.network_channels)
 			if(FC.channel_name == "Nanotrasen Book Club")
@@ -477,7 +477,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 		if(!channelexists)
 			GLOB.news_network.create_feed_channel("Nanotrasen Book Club", "Library", null)
 		GLOB.news_network.submit_article(scanner.cache.dat, "[scanner.cache.name]", "Nanotrasen Book Club", null)
-		alert("Upload complete. Your uploaded title is now available on station newscasters.")
+		tgui_alert(usr,"Upload complete. Your uploaded title is now available on station newscasters.")
 	if(href_list["orderbyid"])
 		if(cooldown > world.time)
 			say("Printer unavailable. Please allow a short time before attempting to print.")
@@ -490,7 +490,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 	if(href_list["targetid"])
 		var/id = href_list["targetid"]
 		if (!SSdbcore.Connect())
-			alert("Connection to Archive has been severed. Aborting.")
+			tgui_alert(usr,"Connection to Archive has been severed. Aborting.")
 		if(cooldown > world.time)
 			say("Printer unavailable. Please allow a short time before attempting to print.")
 		else

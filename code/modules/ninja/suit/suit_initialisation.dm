@@ -56,7 +56,7 @@
 /obj/item/clothing/suit/space/space_ninja/proc/deinitialize(delay = s_delay)
 	if(affecting==loc)
 		var/mob/living/carbon/human/U = affecting
-		if(alert("Are you certain you wish to remove the suit? This will take time and remove all abilities.",,"Yes","No")=="No")
+		if(tgui_alert(usr, "Are you certain you wish to remove the suit? This will take time and remove all abilities.",,list("Yes","No")) == "No")
 			return
 		s_busy = TRUE
 		addtimer(CALLBACK(src, PROC_REF(deinitialize_two), delay, U), delay)

@@ -349,7 +349,7 @@
 	if(summon_objective.check_completion())
 		to_chat(cultist, "<span class='cultlarge'>\"I am already here. There is no need to try to summon me now.\"</span>")
 		return FALSE
-	var/confirm_final = alert(cultist, "This is the FINAL step to summon Nar'Sie; it is a long, painful ritual and the crew will be alerted to your presence.", "Are you prepared for the final battle?", "My life for Nar'Sie!", "No")
+	var/confirm_final = tgui_alert(cultist, "This is the FINAL step to summon Nar'Sie; it is a long, painful ritual and the crew will be alerted to your presence.", "Are you prepared for the final battle?", list("My life for Nar'Sie!", "No"))
 	if(confirm_final == "No" || !confirm_final)
 		to_chat(cultist, "<span class='cult'>You decide to prepare further before scribing the rune.</span>")
 		return

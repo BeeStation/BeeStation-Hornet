@@ -28,7 +28,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 			return
 	else
 		if(SSticker.current_state == GAME_STATE_PLAYING && holder.ooc_confirmation_enabled)
-			var/choice = alert("The round is still ongoing, are you sure you wish to send an OOC message?", "Confirm midround OOC?", "No", "Yes", "Always yes for this round")
+			var/choice = tgui_alert("The round is still ongoing, are you sure you wish to send an OOC message?", "Confirm midround OOC?", list("No", "Yes", "Always yes for this round"))
 			switch(choice)
 				if("No")
 					return
@@ -49,7 +49,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	msg = emoji_parse(msg)
 
 	if((msg[1] in list(".",";",":","#")) || findtext_char(msg, "say", 1, 5))
-		if(alert("Your message \"[raw_msg]\" looks like it was meant for in game communication, say it in OOC?", "Meant for OOC?", "No", "Yes") != "Yes")
+		if(tgui_alert(usr,"Your message \"[raw_msg]\" looks like it was meant for in game communication, say it in OOC?", "Meant for OOC?", list("Yes", "No")) != "Yes")
 			return
 
 	if(!holder)

@@ -185,7 +185,7 @@
 	if(.)
 		return
 	if(isgolem(user) && can_transfer)
-		var/transfer_choice = alert("Transfer your soul to [src]? (Warning, your old body will die!)",,"Yes","No")
+		var/transfer_choice = tgui_alert(usr, "Transfer your soul to [src]? (Warning, your old body will die!)",,list("Yes","No"))
 		if(transfer_choice != "Yes")
 			return
 		if(QDELETED(src) || uses <= 0)

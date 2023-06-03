@@ -127,9 +127,9 @@
 		if(objective)
 			objectives += objective
 			log_objective(C, objective, admin)
-	while(alert(admin,"Add another objective?","More Brainwashing","Yes","No") == "Yes")
+	while(tgui_alert(admin,"Add another objective?","More Brainwashing",list("Yes","No")) == "Yes")
 
-	if(alert(admin,"Confirm Brainwashing?","Are you sure?","Yes","No") != "Yes")
+	if(tgui_alert(admin,"Confirm Brainwashing?","Are you sure?",list("Yes","No")) == "No")
 		return
 
 	if(!LAZYLEN(objectives))

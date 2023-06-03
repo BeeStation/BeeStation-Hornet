@@ -127,7 +127,7 @@
 		to_chat(admin, "<span class='warning'>This only works on humans!</span>")
 		return
 	var/mob/living/carbon/human/H = owner.current
-	var/gear = alert(admin,"Agent or Scientist Gear","Gear","Agent","Scientist")
+	var/gear = tgui_alert(admin,"Agent or Scientist Gear","Gear",list("Agent","Scientist"))
 	if(gear)
 		if(gear=="Agent")
 			H.equipOutfit(/datum/outfit/abductor/agent)

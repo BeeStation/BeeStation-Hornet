@@ -180,7 +180,7 @@
 			var/datum/round_event/event = E.runEvent()
 			if(event.announceWhen>0)
 				event.processing = FALSE
-				var/prompt = alert(usr, "Would you like to alert the crew?", "Alert", "Yes", "No", "Cancel")
+				var/prompt = tgui_alert(usr, "Would you like to alert the crew?", "Alert", list("Yes", "No", "Cancel"))
 				switch(prompt)
 					if("Yes")
 						event.announceChance = 100
@@ -222,9 +222,9 @@
 		if(!check_rights(R_ADMIN))
 			return
 		if(SSticker && SSticker.mode)
-			return alert(usr, "The game has already started.", null, null, null, null)
+			return tgui_alert(usr, "The game has already started.")
 		if(!istype(SSticker.mode, /datum/game_mode/dynamic))
-			return alert(usr, "The game mode has to be dynamic mode.", null, null, null, null)
+			return tgui_alert(usr, "The game mode has to be dynamic mode!")
 		var/roundstart_rules = list()
 		for (var/rule in subtypesof(/datum/dynamic_ruleset/roundstart))
 			var/datum/dynamic_ruleset/roundstart/newrule = new rule()
@@ -257,9 +257,9 @@
 		if(!check_rights(R_ADMIN))
 			return
 		if(!SSticker || !SSticker.mode)
-			return alert(usr, "The game must start first.", null, null, null, null)
+			return tgui_alert(usr, "The game has already started.")
 		if(!istype(SSticker.mode, /datum/game_mode/dynamic))
-			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
+			return tgui_alert(usr, "The game mode has to be dynamic mode.")
 		var/latejoin_rules = list()
 		var/datum/game_mode/dynamic/mode = SSticker.mode
 		for (var/rule in subtypesof(/datum/dynamic_ruleset/latejoin))
@@ -289,7 +289,7 @@
 		if(!SSticker || !SSticker.mode)
 			return alert(usr, "The game must start first.", null, null, null, null)
 		if(!istype(SSticker.mode, /datum/game_mode/dynamic))
-			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
+			return tgui_alert(usr, "The game mode has to be dynamic mode.")
 		var/midround_rules = list()
 		var/datum/game_mode/dynamic/mode = SSticker.mode
 		for (var/rule in subtypesof(/datum/dynamic_ruleset/midround))
@@ -307,9 +307,9 @@
 			return
 
 		if(SSticker && SSticker.mode)
-			return alert(usr, "The game has already started.", null, null, null, null)
+			return tgui_alert(usr, "The game has already started.")
 		if(!istype(SSticker.mode, /datum/game_mode/dynamic))
-			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
+			return tgui_alert(usr, "The game mode has to be dynamic mode!")
 
 		dynamic_mode_options(usr)
 
@@ -318,7 +318,7 @@
 			return
 
 		if(!istype(SSticker.mode, /datum/game_mode/dynamic))
-			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
+			return tgui_alert(usr, "The game mode has to be dynamic mode!")
 
 		GLOB.dynamic_forced_extended = !GLOB.dynamic_forced_extended
 		log_admin("[key_name(usr)] set 'forced_extended' to [GLOB.dynamic_forced_extended].")
@@ -330,7 +330,7 @@
 			return
 
 		if(!istype(SSticker.mode, /datum/game_mode/dynamic))
-			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
+			return tgui_alert(usr, "The game mode has to be dynamic mode!")
 
 		GLOB.dynamic_no_stacking = !GLOB.dynamic_no_stacking
 		log_admin("[key_name(usr)] set 'no_stacking' to [GLOB.dynamic_no_stacking].")
@@ -342,7 +342,7 @@
 			return
 
 		if(!istype(SSticker.mode, /datum/game_mode/dynamic))
-			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
+			return tgui_alert(usr, "The game mode has to be dynamic mode!")
 
 		GLOB.dynamic_stacking_limit = input(usr,"Change the threat limit at which round-endings rulesets will start to stack.", "Change stacking limit", null) as num
 		log_admin("[key_name(usr)] set 'stacking_limit' to [GLOB.dynamic_stacking_limit].")
@@ -354,14 +354,14 @@
 			return
 
 		if(SSticker && SSticker.mode)
-			return alert(usr, "The game has already started.", null, null, null, null)
+			return tgui_alert(usr, "The game has already started.")
 
 		if(!istype(SSticker.mode, /datum/game_mode/dynamic))
-			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
+			return tgui_alert(usr, "The game mode has to be dynamic mode!")
 
 		var/new_value = input(usr, "Enter the forced threat level for dynamic mode.", "Forced threat level") as num
 		if (new_value > 100)
-			return alert(usr, "The value must be be under 100.", null, null, null, null)
+			return tgui_alert(usr, "The value must be be under 100.")
 		GLOB.dynamic_forced_threat_level = new_value
 
 		log_admin("[key_name(usr)] set 'forced_threat_level' to [GLOB.dynamic_forced_threat_level].")
@@ -483,8 +483,8 @@
 			return
 
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] is considering ending the round.</span>")
-		if(alert(usr, "This will end the round, are you SURE you want to do this?", "Confirmation", "Yes", "No") == "Yes")
-			if(alert(usr, "Final Confirmation: End the round NOW?", "Confirmation", "Yes", "No") == "Yes")
+		if(tgui_alert(usr, "This will end the round, are you SURE you want to do this?", "Confirmation", list("Yes", "No")) == "Yes")
+			if(tgui_alert(usr, "Final Confirmation: End the round NOW?", "Confirmation", list("Yes", "No")) == "Yes")
 				message_admins("<span class='adminnotice'>[key_name_admin(usr)] has ended the round.</span>")
 				SSticker.force_ending = 1 //Yeah there we go APC destroyed mission accomplished
 				return
@@ -503,11 +503,12 @@
 			return
 
 		var/delmob = FALSE
-		switch(alert("Delete old mob?","Message","Yes","No","Cancel"))
-			if("Cancel")
-				return
-			if("Yes")
-				delmob = TRUE
+		if(!isobserver(M))
+			switch(tgui_alert(usr,"Delete old mob?","Message",list("Yes","No","Cancel")))
+				if("Cancel")
+					return
+				if("Yes")
+					delmob = TRUE
 
 		log_admin("[key_name(usr)] has used rudimentary transformation on [key_name(M)]. Transforming to [href_list["simplemake"]].; deletemob=[delmob]")
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has used rudimentary transformation on [key_name_admin(M)]. Transforming to [href_list["simplemake"]].; deletemob=[delmob]</span>")
@@ -574,7 +575,7 @@
 			if(!check_if_greater_rights_than(M.client))
 				to_chat(usr, "<span class='danger'>Error: They have more rights than you do.</span>")
 				return
-			if(alert(usr, "Kick [key_name(M)]?", "Confirm", "Yes", "No") != "Yes")
+			if(tgui_alert(usr, "Kick [key_name(M)]?", "Confirm", list("Yes", "No")) != "Yes")
 				return
 			if(!M)
 				to_chat(usr, "<span class='danger'>Error: [M] no longer exists!</span>")
@@ -628,7 +629,7 @@
 	else if(href_list["deletemessage"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/safety = alert("Delete message/note?",,"Yes","No");
+		var/safety = tgui_alert(usr,"Delete message/note?",,list("Yes","No"));
 		if (safety == "Yes")
 			var/message_id = href_list["deletemessage"]
 			delete_message(message_id)
@@ -636,7 +637,7 @@
 	else if(href_list["deletemessageempty"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/safety = alert("Delete message/note?",,"Yes","No");
+		var/safety = tgui_alert(usr,"Delete message/note?",,list("Yes","No"));
 		if (safety == "Yes")
 			var/message_id = href_list["deletemessageempty"]
 			delete_message(message_id, browse = TRUE)
@@ -779,9 +780,9 @@
 			return
 
 		if(SSticker.HasRoundStarted())
-			return alert(usr, "The game has already started.", null, null, null, null)
+			return tgui_alert(usr, "The game has already started.")
 		if(GLOB.master_mode != "secret")
-			return alert(usr, "The game mode has to be secret!", null, null, null, null)
+			return tgui_alert(usr, "The game mode has to be dynamic mode.")
 		GLOB.secret_force_mode = href_list["f_secret2"]
 		log_admin("[key_name(usr)] set the forced secret mode as [GLOB.secret_force_mode].")
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] set the forced secret mode as [GLOB.secret_force_mode].</span>")
@@ -856,7 +857,7 @@
 			to_chat(usr, "This cannot be used on instances of type /mob/living/silicon/ai.")
 			return
 
-		if(alert(usr, "Send [key_name(M)] to Prison?", "Message", "Yes", "No") != "Yes")
+		if(tgui_alert(usr, "Send [key_name(M)] to Prison?", "Message", list("Yes", "No")) != "Yes")
 			return
 
 		M.forceMove(pick(GLOB.prisonwarp))
@@ -879,7 +880,7 @@
 			to_chat(usr, "<span class='warning'>[M] doesn't seem to have an active client.</span>")
 			return
 
-		if(alert(usr, "Send [key_name(M)] back to Lobby?", "Message", "Yes", "No") != "Yes")
+		if(tgui_alert(usr, "Send [key_name(M)] back to Lobby?", "Message", list("Yes", "No")) != "Yes")
 			return
 
 		log_admin("[key_name(usr)] has sent [key_name(M)] back to the Lobby.")
@@ -893,7 +894,7 @@
 		if(!check_rights(R_FUN))
 			return
 
-		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
+		if(tgui_alert(usr, "Confirm?", "Message", list("Yes", "No")) != "Yes")
 			return
 
 		var/mob/M = locate(href_list["tdome1"])
@@ -920,7 +921,7 @@
 		if(!check_rights(R_FUN))
 			return
 
-		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
+		if(tgui_alert(usr, "Confirm?", "Message", list("Yes", "No")) != "Yes")
 			return
 
 		var/mob/M = locate(href_list["tdome2"])
@@ -947,7 +948,7 @@
 		if(!check_rights(R_FUN))
 			return
 
-		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
+		if(tgui_alert(usr, "Confirm?", "Message", list("Yes", "No")) != "Yes")
 			return
 
 		var/mob/M = locate(href_list["tdomeadmin"])
@@ -971,7 +972,7 @@
 		if(!check_rights(R_FUN))
 			return
 
-		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
+		if(tgui_alert(usr, "Confirm?", "Message", list("Yes", "No")) != "Yes")
 			return
 
 		var/mob/M = locate(href_list["tdomeobserve"])
@@ -1278,7 +1279,7 @@
 		if(!check_rights(R_ADMIN))
 			return
 
-		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
+		if(tgui_alert(usr, "Confirm?", "Message", list("Yes", "No")) != "Yes")
 			return
 		var/mob/M = locate(href_list["getmob"])
 		usr.client.Getmob(M)
@@ -1330,7 +1331,7 @@
 			return
 
 		if(!SSticker.HasRoundStarted())
-			alert("The game hasn't started yet!")
+			tgui_alert(usr,"The game hasn't started yet!")
 			return
 
 		var/mob/M = locate(href_list["traitor"])
@@ -1411,10 +1412,10 @@
 			paths += path
 
 		if(!paths)
-			alert("The path list you sent is empty.")
+			tgui_alert(usr,"The path list you sent is empty.")
 			return
 		if(length(paths) > 5)
-			alert("Select fewer object types, (max 5).")
+			tgui_alert(usr,"Select fewer object types, (max 5).")
 			return
 
 		var/list/offset = splittext(href_list["offset"],",")
@@ -1525,7 +1526,7 @@
 			return
 		if(SSticker.IsRoundInProgress())
 			var/afkonly = text2num(href_list["afkonly"])
-			if(alert("Are you sure you want to kick all [afkonly ? "AFK" : ""] clients from the lobby??","Message","Yes","Cancel") != "Yes")
+			if(tgui_alert(usr,"Are you sure you want to kick all [afkonly ? "AFK" : ""] clients from the lobby??","Message",list("Yes","Cancel")) != "Yes")
 				to_chat(usr, "Kick clients from lobby aborted")
 				return
 			var/list/listkicked = kick_clients_in_lobby("<span class='danger'>You were kicked from the lobby by [usr.client.holder.fakekey ? "an Administrator" : "[usr.client.key]"].</span>", afkonly)
@@ -1686,7 +1687,7 @@
 		var/answer = href_list["slowquery"]
 		if(answer == "yes")
 			log_query_debug("[usr.key] | Reported a server hang")
-			if(alert(usr, "Had you just press any admin buttons?", "Query server hang report", "Yes", "No") == "Yes")
+			if(tgui_alert(usr, "Had you just press any admin buttons?", "Query server hang report", list("Yes", "No")) == "Yes")
 				var/response = input(usr,"What were you just doing?","Query server hang report") as null|text
 				if(response)
 					log_query_debug("[usr.key] | [response]")
@@ -1701,7 +1702,7 @@
 	else if(href_list["rebootworld"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/confirm = alert("Are you sure you want to reboot the server?", "Confirm Reboot", "Yes", "No")
+		var/confirm = tgui_alert(usr,"Are you sure you want to reboot the server?", "Confirm Reboot", list("Yes", "No"))
 		if(confirm != "Yes")
 			return
 		restart()
@@ -1829,7 +1830,7 @@
 		if(!tear)
 			to_chat(usr, "Either items were already retrieved or 10 minutes have passed and they were deleted.")
 			return
-		var/confirm = alert("This will teleport all items consumed to the BoH tear back to the BoH tear original location, and delete the BoH if it still exists. Are you sure?", "Confirm Damage Control", "Yes", "No")
+		var/confirm = tgui_alert("This will teleport all items consumed to the BoH tear back to the BoH tear original location, and delete the BoH if it still exists. Are you sure?", "Confirm Damage Control", list("Yes", "No"))
 		if(confirm != "Yes")
 			return
 		var/turf/T = get_turf(tear.old_loc)
@@ -1934,9 +1935,9 @@
 		return
 
 	if(SSticker.HasRoundStarted())
-		return alert(usr, "The game has already started.", null, null, null, null)
+		return tgui_alert(usr, "The game has already started.")
 	if(GLOB.master_mode != "secret")
-		return alert(usr, "The game mode has to be secret!", null, null, null, null)
+		return tgui_alert(usr, "The game mode has to be dynamic mode!")
 	var/dat = {"<B>What game mode do you want to force secret to be? Use this if you want to change the game mode, but want the players to believe it's secret. This will only work if the current game mode is secret.</B><HR>"}
 	for(var/mode in config.modes)
 		dat += {"<A href='?src=[REF(src)];[HrefToken()];f_secret2=[mode]'>[config.mode_names[mode]]</A><br>"}

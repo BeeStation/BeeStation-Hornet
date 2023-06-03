@@ -119,7 +119,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 				differences[i] = value
 		if(length(worths) && !length(differences))
 			return FALSE
-		var/choice = input("Are you sure you want to destroy [loaded_item] to [!length(worths) ? "reveal [TN.display_name]" : "boost [TN.display_name] by [json_encode(differences)] point\s"]?") in list("Proceed", "Cancel")
+		var/choice = input("Are you sure you want to destroy [loaded_item] to [!length(worths) ? "reveal [TN.display_name]" : "boost [TN.display_name] by [json_encode(differences)] point\s"]?") in list("Proceed", "Cancel") // TODO: convert to TGUI alert at some point
 		if(choice == "Cancel" || !choice)
 			return FALSE
 		if(QDELETED(loaded_item) || QDELETED(linked_console) || !user.Adjacent(linked_console) || QDELETED(src))

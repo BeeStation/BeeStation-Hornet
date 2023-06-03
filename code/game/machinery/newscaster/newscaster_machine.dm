@@ -667,7 +667,7 @@
 		return
 	for(var/datum/feed_channel/iterated_feed_channel as anything in GLOB.news_network.network_channels)
 		if(iterated_feed_channel.channel_name == channel_name)
-			alert(usr, "ERROR: Feed channel with that name already exists on the Network.", "Okay")
+			tgui_alert(usr, "ERROR: Feed channel with that name already exists on the Network.", "Okay")
 			return TRUE
 	if(!channel_desc)
 		say("ERROR: No channel description present.")
@@ -677,7 +677,7 @@
 		say("ERROR: Cannot locate linked account ID.")
 		stop_creating_channel()
 		return TRUE
-	var/choice = alert(usr, "Please confirm feed channel creation","Network Channel Handler", "Confirm", "Cancel")
+	var/choice = tgui_alert(usr, "Please confirm Feed channel creation","Network Channel Handler", list("Confirm","Cancel"))
 	if(choice == "Confirm")
 		GLOB.news_network.create_feed_channel(channel_name, issilicon(usr) ? usr.name : account.account_holder, channel_desc, locked = channel_locked)
 		SSblackbox.record_feedback("text", "newscaster_channels", 1, "[channel_name]")
@@ -688,7 +688,7 @@
 		return
 	for(var/datum/feed_channel/iterated_feed_channel as anything in GLOB.news_network.network_channels)
 		if(iterated_feed_channel != current_channel && iterated_feed_channel.channel_name == channel_name)
-			alert(usr, "ERROR: Feed channel with that name already exists on the Network.", "Okay")
+			tgui_alert(usr, "ERROR: Feed channel with that name already exists on the Network.", "Okay")
 			return TRUE
 	if(!channel_desc)
 		say("ERROR: No channel description present.")
@@ -763,7 +763,7 @@
 	var/usr_name = issilicon(usr) ? usr.name : account.account_holder
 	if((usr_name == "Unknown") || (usr_name in existing_authors) || isnull(usr_name))
 		stop_creating_channel()
-		alert(usr, "ERROR: User cannot be found or already has an owned feed channel.", "Okay")
+		tgui_alert(usr, "ERROR: User cannot be found or already has an owned feed channel.", "Okay")
 		return TRUE
 	creating_channel = TRUE
 	return TRUE
