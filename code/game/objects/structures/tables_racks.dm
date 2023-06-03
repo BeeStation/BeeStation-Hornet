@@ -551,7 +551,11 @@
 	var/mob/living/carbon/human/patient = null
 	var/obj/machinery/computer/operating/computer = null
 
-/obj/structure/table/optable/Initialize(mapload)
+/obj/structure/table/optable/Initialize()
+	..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/structure/table/optable/LateInitialize()
 	. = ..()
 	for(var/direction in GLOB.alldirs)
 		computer = locate(/obj/machinery/computer/operating) in get_step(src, direction)

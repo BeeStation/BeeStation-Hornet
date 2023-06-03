@@ -14,7 +14,11 @@
 	var/datum/techweb/linked_techweb
 	light_color = LIGHT_COLOR_BLUE
 
-/obj/machinery/computer/operating/Initialize(mapload)
+/obj/machinery/computer/operating/Initialize()
+	..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/computer/operating/LateInitialize()
 	. = ..()
 	linked_techweb = SSresearch.science_tech
 	find_table()

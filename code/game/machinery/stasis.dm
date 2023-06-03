@@ -19,7 +19,11 @@
 	var/obj/effect/overlay/vis/mattress_on
 	var/obj/machinery/computer/operating/op_computer
 
-/obj/machinery/stasis/Initialize(mapload)
+/obj/machinery/stasis/Initialize()
+	..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/stasis/LateInitialize()
 	. = ..()
 	for(var/direction in GLOB.alldirs)
 		var/obj/machinery/computer/operating/op_computer = locate(/obj/machinery/computer/operating) in get_step(src, direction)
