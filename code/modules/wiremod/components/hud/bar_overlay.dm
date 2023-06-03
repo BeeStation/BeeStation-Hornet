@@ -21,7 +21,7 @@
 	bar_number = add_input_port("Number", PORT_TYPE_NUMBER)
 
 /obj/item/circuit_component/object_overlay/bar/populate_options()
-	var/static/component_options_bar = list(
+	var/static/list/component_options_bar = list(
 		COMP_BAR_OVERLAY_VERTICAL = "barvert",
 		COMP_BAR_OVERLAY_HORIZONTAL = "barhoriz"
 	)

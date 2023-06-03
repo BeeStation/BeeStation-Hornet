@@ -22,7 +22,7 @@
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
 /obj/item/circuit_component/arbitrary_input_amount/arithmetic/populate_options()
-	var/static/component_options = list(
+	var/static/list/component_options = list(
 		COMP_ARITHMETIC_ADD,
 		COMP_ARITHMETIC_SUBTRACT,
 		COMP_ARITHMETIC_MULTIPLY,

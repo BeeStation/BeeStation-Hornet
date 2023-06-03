@@ -50,7 +50,7 @@
 	desc = "A component capable of trigonometric functions."
 
 /obj/item/circuit_component/trig/trig/populate_options()
-	var/static/options = list(
+	var/static/list/options = list(
 		COMP_TRIG_SINE,
 		COMP_TRIG_COSINE,
 		COMP_TRIG_TANGENT,
@@ -58,26 +58,23 @@
 		COMP_TRIG_ACOSINE,
 		COMP_TRIG_ATANGENT
 	)
-	options_port = add_input_port("mode", options)
+	options_port = add_option_port("Mode", options)
 
 /obj/item/circuit_component/trig/trig/do_calculation(value)
-
+	value = TODEGREES(value) //apparently BYOND doesn't believe in the almighty radian
 	switch(options_port.value)
+		if(COMP_TRIG_SINE)
+			return sin(value)
+		if(COMP_TRIG_COSINE)
+			return cos(value)
+		if(COMP_TRIG_TANGENT)
+			return cos(value) == 0 ? null : tan(value)
 		if(COMP_TRIG_ASINE)
 			return (value >= -1 && value <= 1) ? TORADIANS(arcsin(value)) : null
 		if(COMP_TRIG_ACOSINE)
 			return (value >= -1 && value <= 1) ? TORADIANS(arccos(value)) * PI/180 : null
 		if(COMP_TRIG_ATANGENT)
 			return arctan(value) * PI/180
-	value = TODEGREES(value) //apparently BYOND doesn't believe in the almighty radian
-	switch(options_port.value)
-		if(COMP_TRIG_COSINE)
-			return cos(value)
-		if(COMP_TRIG_SINE)
-			return sin(value)
-		if(COMP_TRIG_TANGENT)
-			return cos(value) == 0 ? null : tan(value)
-
 
 //Performs Secant, Cosecant, and Cotangent
 /obj/item/circuit_component/trig/adv_trig
@@ -86,15 +83,15 @@
 
 
 /obj/item/circuit_component/trig/adv_trig/populate_options()
-	var/static/options = list(
+	var/static/list/options = list(
 		COMP_TRIG_SECANT,
 		COMP_TRIG_COSECANT,
 		COMP_TRIG_COTANGENT
 	)
-	options_port = add_input_port("Mode", options)
+	options_port = add_option_port("Mode", options)
 
 /obj/item/circuit_component/trig/adv_trig/do_calculation(value)
-	value = TODEGREES(value)
+	value = TODEGREES(value) //apparently BYOND doesn't believe in the almighty radian
 	switch(options_port.value)
 		if(COMP_TRIG_SECANT)
 			return cos(value) == 0 ? null : SEC(value)
@@ -103,28 +100,26 @@
 		if(COMP_TRIG_COTANGENT)
 			return sin(value) == 0 ? null : (cos(value) * CSC(value)) //The define for COT uses 1/tan(x), which throws a divide by zero error when x = pi/2 + kpi where k is an integer
 
-
 //Hyperbolic Sine and Cosine
 /obj/item/circuit_component/trig/hyper_trig
 	display_name = "Hyperbolic Trigonometry"
 	desc = "This component makes all your trig calculations be based on hyperbolas and natural exponentials instead of circles"
 
 /obj/item/circuit_component/trig/hyper_trig/populate_options()
-	var/static/options = list(
+	var/static/list/options = list(
 		COMP_TRIG_HYPERBOLIC_SINE,
 		COMP_TRIG_HYPERBOLIC_COSINE,
 		COMP_TRIG_AHYPERBOLIC_SINE,
 		COMP_TRIG_AHYPERBOLIC_COSINE,
 	)
-	options_port = add_input_port("Mode", options)
+	options_port = add_option_port("Mode", options)
 
 /obj/item/circuit_component/trig/hyper_trig/do_calculation(value)
-
 	switch(options_port.value)
-		if(COMP_TRIG_HYPERBOLIC_COSINE)
-			return (NUM_E**value + NUM_E**(-value))/2 //I suppose this could be used for exponents, using the identity cosh(x) + sinh(x) = e^x, I might look into making this more efficent if people end up using this for that
 		if(COMP_TRIG_HYPERBOLIC_SINE)
 			return (NUM_E**value - NUM_E**(-value))/2
+		if(COMP_TRIG_HYPERBOLIC_COSINE)
+			return (NUM_E**value + NUM_E**(-value))/2 //I suppose this could be used for exponents, using the identity cosh(x) + sinh(x) = e^x, I might look into making this more efficent if people end up using this for that
 		if(COMP_TRIG_AHYPERBOLIC_SINE)
 			return log(value+sqrt(value**2+1))
 		if(COMP_TRIG_AHYPERBOLIC_COSINE)

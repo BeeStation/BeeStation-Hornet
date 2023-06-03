@@ -21,7 +21,7 @@
 	var/datum/radio_frequency/radio_connection
 
 /obj/item/circuit_component/radio/populate_options()
-	var/static/component_options = list(
+	var/static/list/component_options = list(
 		COMP_RADIO_PUBLIC,
 		COMP_RADIO_PRIVATE,
 	)

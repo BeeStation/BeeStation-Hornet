@@ -10,7 +10,7 @@
 	var/datum/port/input/option/logic_options
 
 /obj/item/circuit_component/compare/logic/populate_options()
-	var/static/component_options = list(
+	var/static/list/component_options = list(
 		COMP_LOGIC_AND,
 		COMP_LOGIC_OR,
 		COMP_LOGIC_XOR,

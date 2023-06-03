@@ -18,7 +18,7 @@
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
 /obj/item/circuit_component/textcase/populate_options()
-	var/static/component_options = list(
+	var/static/list/component_options = list(
 		COMP_TEXT_LOWER,
 		COMP_TEXT_UPPER,
 	)

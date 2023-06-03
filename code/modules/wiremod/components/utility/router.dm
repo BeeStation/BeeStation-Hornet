@@ -26,7 +26,7 @@
 	var/list/datum/port/output/outs
 
 /obj/item/circuit_component/router/populate_options()
-	var/static/component_options = list(
+	var/static/list/component_options = list(
 		PORT_TYPE_ANY,
 		PORT_TYPE_STRING,
 		PORT_TYPE_NUMBER,

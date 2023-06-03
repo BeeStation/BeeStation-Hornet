@@ -13,7 +13,7 @@
 	var/current_type = PORT_TYPE_ANY
 
 /obj/item/circuit_component/compare/comparison/populate_options()
-	var/static/component_options = list(
+	var/static/list/component_options = list(
 		COMP_COMPARISON_EQUAL,
 		COMP_COMPARISON_NOT_EQUAL,
 		COMP_COMPARISON_GREATER_THAN,

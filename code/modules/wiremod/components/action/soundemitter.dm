@@ -32,7 +32,7 @@
 	frequency = add_input_port("Frequency", PORT_TYPE_NUMBER, default = 0)
 
 /obj/item/circuit_component/soundemitter/populate_options()
-	var/static/component_options = list(
+	var/static/list/component_options = list(
 		"Buzz" = 'sound/machines/buzz-sigh.ogg',
 		"Buzz Twice" = 'sound/machines/buzz-two.ogg',
 		"Chime" = 'sound/machines/chime.ogg',

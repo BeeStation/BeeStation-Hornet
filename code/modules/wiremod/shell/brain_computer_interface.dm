@@ -69,7 +69,7 @@
 	return ..()
 
 /obj/item/circuit_component/bci_action/populate_options()
-	var/static/action_options = list(
+	var/static/list/action_options = list(
 		"Blank",
 
 		"One Green",

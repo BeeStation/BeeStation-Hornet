@@ -44,7 +44,7 @@
 	return ..()
 
 /obj/item/circuit_component/object_overlay/populate_options()
-	var/static/component_options = list(
+	var/static/list/component_options = list(
 		"Corners (Blue)" = "hud_corners",
 		"Corners (Red)" = "hud_corners_red",
 		"Circle (Blue)" = "hud_circle",
