@@ -39,7 +39,14 @@
 		ai_hologram.say(message, language = language, source=current_holopad)
 		src.log_talk(message, LOG_SAY, tag="Hologram in [AREACOORD(ai_hologram)]")
 		message = "<span class='robot'>[say_emphasis(lang_treat(src, language, message))]</span>"
-		message = "<span class='holocall'><b>\[Holocall\] <span class='name'>[real_name]</span></b> [message]</span>"
+
+		// duplication part from `game/say.dm` to make a language icon
+		var/language_icon = ""
+		var/datum/language/D = GLOB.language_datum_instances[language]
+		if(istype(D) && D.display_icon(src))
+			language_icon = "[D.get_icon()] "
+
+		message = "<span class='holocall'><b>\[Holocall\] [language_icon]<span class='name'>[real_name]</span></b> [message]</span>"
 		to_chat(src, message)
 
 		for(var/mob/dead/observer/each_ghost in GLOB.dead_mob_list)

@@ -917,7 +917,13 @@
 		if(!(each_ghost.client.prefs.toggles & CHAT_GHOSTRADIO))
 			continue
 		var/follow_link = FOLLOW_LINK(each_ghost, speaker)
-		to_chat(each_ghost, "[follow_link] [rendered]")
+		if(each_ghost.has_language(message_language))
+			to_chat(each_ghost, "[follow_link] [rendered]")
+		else // ghost removed the language themselves
+			if(!rendered_scrambled_message)
+				rendered_scrambled_message = " <span class='message'>[each_ghost.say_emphasis(each_ghost.lang_treat(speaker, message_language, raw_message, spans, message_mods))]</span>"
+				rendered_scrambled_message = "<span class='holocall'><b>\[Holocall\] [language_icon]<span class='name'>[speaker.GetVoice()]</span></b>[rendered_scrambled_message]</span>"
+			to_chat(each_ghost, "[follow_link] [rendered_scrambled_message]")
 
 
 /mob/living/silicon/ai/fully_replace_character_name(oldname,newname)
