@@ -326,7 +326,7 @@
 
 	var/obj/item/card/id/C = H.wear_id
 	if(istype(C))
-		if(!GLOB.magical_access)
+		if(!CHECK_MAGICAL_ACCESS_DURATION)
 			C.access = J.get_access()
 			shuffle_inplace(C.access) // Shuffle access list to make NTNet passkeys less predictable
 		else // if magical_access is active on a wiz round, your ID card gets AA!

@@ -311,7 +311,7 @@
 						authenticated = TRUE
 						authorize_access = id_card.access
 						authorize_name = "[id_card.registered_name] - [id_card.assignment]"
-				else if(GLOB.magical_access)
+				else if(CHECK_MAGICAL_ACCESS_DURATION)
 					authenticated = TRUE
 					authorize_access = get_all_accesses()
 					authorize_name = "Wizard Federation"

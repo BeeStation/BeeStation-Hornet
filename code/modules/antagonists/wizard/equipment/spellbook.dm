@@ -594,19 +594,24 @@
 /datum/spellbook_entry/summon/magical_access
 	name = "Advent Ritual of Saint Anarchismea"
 	desc = "Summons the spirit of Saint Anarchismea's onto the station. Access requirement of all electronic devices \
-		on the station will be bypassed magically, and you and all ID cards will be blessed with unlimited AA."
+		on the station will be bypassed magically, and you and all ID cards will be blessed with unlimited AA. \
+		The duration of the bless from this ritual is an hour. Once the time is over, people no longer bypass things even without a card."
 	cost = 2
 	ritual_invocation = "ALADAL DESINARI ODORI'IN IDO'LEX IVLAROYE VOR ANARCHIDMEA OVOR'E SJIENYLE"
+	var/duration = 60 MINUTES // the ritual gives people AA until the duration is gone
 
 /datum/spellbook_entry/summon/magical_access/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
-	active = TRUE
+	active = TRUE // remove this if you want this castable multiple times
 
 	to_chat(user, "<span class='notice'>You have summoned Saint Anarcismea!</span>")
 	playsound(user, 'sound/magic/forcewall.ogg', 50, 1)
 	message_admins("[ADMIN_LOOKUPFLW(user)] cast 'Advent Ritual of Saint Anarchismea' and everyone gets AA from now.")
 	log_game("[key_name(user)] cast 'Advent Ritual of Saint Anarchismea' and everyone gets AA from now.")
-	GLOB.magical_access = TRUE
+	if(!GLOB.magical_access)
+		GLOB.magical_access = world.time + duration
+	else // if it's casted again, adds the duration again
+		GLOB.magical_access = GLOB.magical_access + duration
 	trigger()
 
 	return TRUE

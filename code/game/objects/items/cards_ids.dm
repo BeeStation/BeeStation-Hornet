@@ -125,7 +125,7 @@
 	. = ..()
 	if(mapload && access_txt)
 		access = text2access(access_txt)
-	if(GLOB.magical_access)
+	if(CHECK_MAGICAL_ACCESS_DURATION)
 		grant_magical_access()
 		// do not put this above `if(mapload && access_txt)`. You still need for centcom access.
 	GLOB.id_cards += src

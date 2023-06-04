@@ -117,7 +117,9 @@
 
 
 // Enabled by a wizard ritual - everyone gets AA magically.
-GLOBAL_VAR_INIT(magical_access, FALSE)
+GLOBAL_VAR_INIT(magical_access, 0)
+// magical_access is not TRUE/FALSE type. the variable takes the duration time
+#define CHECK_MAGICAL_ACCESS_DURATION (GLOB.magical_access > world.time)
 // Accesses that GLOB.magical_access can not bypass. Even if the magical access exists during a round, it can't bypass these special accesses.
 GLOBAL_LIST_INIT(antimagical_accesses, list(
 	ACCESS_CENT_GENERAL,
