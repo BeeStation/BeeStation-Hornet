@@ -4,7 +4,7 @@
 	id = SPECIES_LIZARD
 	bodyflag = FLAG_LIZARD
 	default_color = "00FF00"
-	species_traits = list(MUTCOLORS,EYECOLOR,LIPS,NO_UNDERWEAR)
+	species_traits = list(MUTCOLORS,EYECOLOR,LIPS)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_REPTILE)
 	mutant_bodyparts = list("tail_lizard", "snout", "spines", "horns", "frills", "body_markings", "legs")
 	mutanttongue = /obj/item/organ/tongue/lizard
@@ -52,48 +52,33 @@
 		stop_wagging_tail(H)
 	. = ..()
 
-/datum/species/lizard/can_wag_tail(mob/living/carbon/human/H)
-	return ("tail_lizard" in mutant_bodyparts) || ("waggingtail_lizard" in mutant_bodyparts)
+/datum/species/lizard/get_scream_sound(mob/living/carbon/user)
+	return pick('sound/voice/lizard/lizard_scream_1.ogg', 'sound/voice/lizard/lizard_scream_2.ogg', 'sound/voice/lizard/lizard_scream_3.ogg', 'sound/voice/lizard/lizard_scream_4.ogg')
 
-/datum/species/lizard/is_wagging_tail(mob/living/carbon/human/H)
-	return ("waggingtail_lizard" in mutant_bodyparts)
+/datum/species/lizard/get_cough_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_COUGH_SOUND(user)
 
-/datum/species/lizard/start_wagging_tail(mob/living/carbon/human/H)
-	if("tail_lizard" in mutant_bodyparts)
-		mutant_bodyparts -= "tail_lizard"
-		mutant_bodyparts -= "spines"
-		mutant_bodyparts |= "waggingtail_lizard"
-		mutant_bodyparts |= "waggingspines"
-	H.update_body()
+/datum/species/lizard/get_gasp_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_GASP_SOUND(user)
 
-/datum/species/lizard/stop_wagging_tail(mob/living/carbon/human/H)
-	if("waggingtail_lizard" in mutant_bodyparts)
-		mutant_bodyparts -= "waggingtail_lizard"
-		mutant_bodyparts -= "waggingspines"
-		mutant_bodyparts |= "tail_lizard"
-		mutant_bodyparts |= "spines"
-	H.update_body()
+/datum/species/lizard/get_sigh_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SIGH_SOUND(user)
+
+/datum/species/lizard/get_sneeze_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SNEEZE_SOUND(user)
+
+/datum/species/lizard/get_sniff_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SNIFF_SOUND(user)
 
 /*
  Lizard subspecies: ASHWALKERS
 */
 /datum/species/lizard/ashwalker
 	name = "Ash Walker"
-	id = "ashlizard"
+	id = SPECIES_ASHWALKER
 	examine_limb_id = SPECIES_LIZARD
 	species_traits = list(MUTCOLORS,EYECOLOR,LIPS, NO_UNDERWEAR)
-	inherent_traits = list(TRAIT_NOGUNS,TRAIT_NOBREATH)
+	inherent_traits = list(TRAIT_NOGUNS)
 	species_language_holder = /datum/language_holder/lizard/ash
+	mutantlungs = /obj/item/organ/lungs/ashwalker
 	digitigrade_customization = DIGITIGRADE_FORCED
-
-/datum/species/lizard/ashwalker/after_equip_job(datum/job/J, mob/living/carbon/human/H, client/preference_source = null) // For roundstart
-	H.mind?.teach_crafting_recipe(/datum/crafting_recipe/primal_lasso)
-	return ..()
-
-/datum/species/lizard/ashwalker/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load) // For transformations
-	C.mind?.teach_crafting_recipe(/datum/crafting_recipe/primal_lasso)
-	return ..()
-
-/datum/species/lizard/ashwalker/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
-	C.mind?.forget_crafting_recipe(/datum/crafting_recipe/primal_lasso)
-	return ..()

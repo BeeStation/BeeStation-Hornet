@@ -91,7 +91,9 @@
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "t" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)
 "u" = (
@@ -124,7 +126,7 @@
 	},
 /area/tdome/arena)
 "D" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /mob/living/simple_animal/crab,
 /turf/open/floor/plating/beach/sand,
 /area/tdome/arena)

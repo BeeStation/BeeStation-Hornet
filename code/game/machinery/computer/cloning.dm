@@ -48,14 +48,14 @@
 			var/obj/machinery/clonepod/pod = P
 			if(pod.occupant && pod.clonemind == mind)
 				return null
-			if(pod.is_operational() && !(pod.occupant || pod.mess))
+			if(pod.is_operational && !(pod.occupant || pod.mess))
 				return pod
 
 /obj/machinery/computer/cloning/proc/HasEfficientPod()
 	if(pods)
 		for(var/P in pods)
 			var/obj/machinery/clonepod/pod = P
-			if(pod.is_operational() && pod.efficiency > 5)
+			if(pod.is_operational && pod.efficiency > 5)
 				return TRUE
 
 /obj/machinery/computer/cloning/proc/GetAvailableEfficientPod(mind = null)
@@ -64,11 +64,11 @@
 			var/obj/machinery/clonepod/pod = P
 			if(pod.occupant && pod.clonemind == mind)
 				return pod
-			else if(!. && pod.is_operational() && !(pod.occupant || pod.mess) && pod.efficiency > 5)
+			else if(!. && pod.is_operational && !(pod.occupant || pod.mess) && pod.efficiency > 5)
 				. = pod
 
 /proc/grow_clone_from_record(obj/machinery/clonepod/pod, datum/data/record/R, experimental)
-	return pod.growclone(R.fields["name"], R.fields["UI"], R.fields["SE"], R.fields["mindref"], R.fields["last_death"], R.fields["mrace"], R.fields["features"], R.fields["factions"], R.fields["quirks"], R.fields["bank_account"], R.fields["traumas"], R.fields["body_only"], experimental)
+	return pod.growclone(R.fields["name"], R.fields["UI"], R.fields["SE"], R.fields["mindref"], R.fields["last_death"], R.fields["mrace"], R.fields["features"], R.fields["factions"], R.fields["bank_account"], R.fields["traumas"], R.fields["body_only"], experimental)
 
 /obj/machinery/computer/cloning/process()
 	if(!(scanner && LAZYLEN(pods) && autoprocess))
@@ -103,8 +103,8 @@
 		UnregisterSignal(scanner, COMSIG_MACHINE_CLOSE)
 
 	if(new_scanner)
-		RegisterSignal(new_scanner, COMSIG_MACHINE_OPEN, .proc/scanner_ui_update)
-		RegisterSignal(new_scanner, COMSIG_MACHINE_CLOSE, .proc/scanner_ui_update)
+		RegisterSignal(new_scanner, COMSIG_MACHINE_OPEN, PROC_REF(scanner_ui_update))
+		RegisterSignal(new_scanner, COMSIG_MACHINE_CLOSE, PROC_REF(scanner_ui_update))
 
 	scanner = new_scanner
 
@@ -132,7 +132,7 @@
 		scannerf = locate(/obj/machinery/dna_scannernew, get_step(src, direction))
 
 		// If found and operational, return the scanner
-		if (!isnull(scannerf) && scannerf.is_operational())
+		if (!isnull(scannerf) && scannerf.is_operational)
 			return scannerf
 
 	// If no scanner was found, it will return null
@@ -144,7 +144,7 @@
 	for(var/direction in GLOB.cardinals)
 
 		podf = locate(clonepod_type, get_step(src, direction))
-		if (!isnull(podf) && podf.is_operational())
+		if (!isnull(podf) && podf.is_operational)
 			AttachCloner(podf)
 
 /obj/machinery/computer/cloning/proc/AttachCloner(obj/machinery/clonepod/pod)
@@ -188,6 +188,8 @@
 
 /obj/machinery/computer/cloning/AltClick(mob/user)
 	. = ..()
+	if(!user.canUseTopic(src, !issilicon(user)))
+		return
 	EjectDisk(user)
 
 /obj/machinery/computer/cloning/proc/EjectDisk(mob/user)
@@ -234,7 +236,7 @@
 		scantemp = "Cannot delete: Data Corrupted."
 		return FALSE
 	var/obj/item/card/id/C = usr.get_idcard(hand_first = TRUE)
-	if(istype(C) || istype(C, /obj/item/pda) || istype(C, /obj/item/modular_computer/tablet))
+	if(istype(C) || istype(C, /obj/item/modular_computer/tablet))
 		if(check_access(C))
 			scantemp = "[GRAB.fields["name"]] => Record deleted."
 			records.Remove(GRAB)
@@ -284,7 +286,7 @@
 			temp = "Warning: Cloning cycle already in progress."
 			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		else
-			switch(pod.growclone(C.fields["name"], C.fields["UI"], C.fields["SE"], C.fields["mindref"], C.fields["last_death"], C.fields["mrace"], C.fields["features"], C.fields["factions"], C.fields["quirks"], C.fields["bank_account"], C.fields["traumas"], C.fields["body_only"], experimental))
+			switch(pod.growclone(C.fields["name"], C.fields["UI"], C.fields["SE"], C.fields["mindref"], C.fields["last_death"], C.fields["mrace"], C.fields["features"], C.fields["factions"], C.fields["bank_account"], C.fields["traumas"], C.fields["body_only"], experimental))
 				if(CLONING_SUCCESS)
 					temp = "Notice: [C.fields["name"]] => Cloning cycle in progress..."
 					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
@@ -342,7 +344,7 @@
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 
 /obj/machinery/computer/cloning/proc/Toggle_lock(mob/user)
-	if(!scanner.is_operational())
+	if(!scanner.is_operational)
 		return
 	if(!scanner.locked && !scanner.occupant) //I figured out that if you're fast enough, you can lock an open pod
 		return
@@ -351,7 +353,7 @@
 	. = TRUE
 
 /obj/machinery/computer/cloning/proc/Scan(mob/user, body_only = FALSE)
-	if(!scanner.is_operational() || !scanner.occupant)
+	if(!scanner.is_operational || !scanner.occupant)
 		return
 	scantemp = "[scantemp_name] => Scanning..."
 	loading = TRUE
@@ -359,7 +361,7 @@
 	say("Initiating scan...")
 	var/prev_locked = scanner.locked
 	scanner.locked = TRUE
-	addtimer(CALLBACK(src, .proc/finish_scan, scanner.occupant, user, prev_locked, body_only), 2 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(finish_scan), scanner.occupant, user, prev_locked, body_only), 2 SECONDS)
 	. = TRUE
 
 /obj/machinery/computer/cloning/proc/Toggle_autoprocess(mob/user)
@@ -605,17 +607,7 @@
 	R.fields["blood_type"] = dna.blood_type
 	R.fields["features"] = dna.features
 	R.fields["factions"] = mob_occupant.faction
-	R.fields["quirks"] = list()
 	R.fields["traumas"] = list()
-	if(!body_only || experimental) //Body only will not copy quirks.
-		for(var/V in mob_occupant.roundstart_quirks)
-			var/datum/quirk/T = V
-			R.fields["quirks"][T.type] = T.clone_data()
-			/*
-			Quirks 'should be' personal features from a brain, not a body. but quirks actually come from a body.
-			This will not transfer your quirks if your brain is transfered to the body_only cloned body, because someone's brain in your clone is not a musician/smoker/brain-tumored or something else.
-			This is likely a bug from the structure of quirks. We need to fix the quirk code.
-			*/
 
 	if(isbrain(mob_occupant)) //We'll detect the brain first because trauma is from the brain, not from the body.
 		R.fields["traumas"] = B.get_traumas()

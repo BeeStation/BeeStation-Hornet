@@ -1,10 +1,10 @@
 /mob/living/silicon/robot
-	name = "Cyborg"
-	real_name = "Cyborg"
+	name = JOB_NAME_CYBORG
+	real_name = JOB_NAME_CYBORG
 	icon = 'icons/mob/robots.dmi'
 	icon_state = "robot"
-	maxHealth = 100
-	health = 100
+	maxHealth = 200
+	health = 200
 	bubble_icon = "robot"
 	designation = "Default" //used for displaying the prefix & getting the current module of cyborg
 	has_limbs = 1
@@ -16,6 +16,8 @@
 	var/braintype = "Cyborg"
 	var/obj/item/robot_suit/robot_suit = null //Used for deconstruction to remember what the borg was constructed out of..
 	var/obj/item/mmi/mmi = null
+	///The last time this mob was flashed. Used for flash cooldowns
+	var/last_flashed = 0
 
 	var/shell = FALSE
 	var/deployed = FALSE
@@ -30,8 +32,6 @@
 	var/atom/movable/screen/inv1 = null
 	var/atom/movable/screen/inv2 = null
 	var/atom/movable/screen/inv3 = null
-	var/atom/movable/screen/lamp_button = null
-	var/atom/movable/screen/thruster_button = null
 	var/atom/movable/screen/hands = null
 
 	var/shown_robot_modules = 0	//Used to determine whether they have the module menu shown or not
@@ -56,7 +56,8 @@
 	var/locked = TRUE
 	var/list/req_access = list(ACCESS_ROBOTICS)
 
-	var/alarms = list("Motion"=list(), "Fire"=list(), "Atmosphere"=list(), "Power"=list(), "Camera"=list(), "Burglar"=list())
+	/// Station alert datum for showing alerts UI
+	var/datum/station_alert/alert_control
 
 	var/speed = 0 // VTEC speed boost.
 	var/magpulse = FALSE // Magboot-like effect.
@@ -74,12 +75,21 @@
 	var/toner = 0
 	var/tonermax = 40
 
-	var/lamp_max = 10 //Maximum brightness of a borg lamp. Set as a var for easy adjusting.
-	var/lamp_intensity = 0 //Luminosity of the headlamp. 0 is off. Higher settings than the minimum require power.
-	var/lamp_cooldown = 0 //Flag for if the lamp is on cooldown after being forcibly disabled.
+	///If the lamp isn't broken.
+	var/lamp_functional = TRUE
+	///If the lamp is turned on
+	var/lamp_enabled = FALSE
+	///Set lamp color
+	var/lamp_color = COLOR_WHITE
+	///Lamp brightness. Starts at 3, but can be 1 - 5.
+	var/lamp_intensity = 3
+	///Lamp button reference
+	var/atom/movable/screen/robot/lamp/lampButton
 
 	var/sight_mode = 0
 	hud_possible = list(ANTAG_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD, DIAG_TRACK_HUD)
+
+	var/atom/movable/screen/robot/modpc/interfaceButton
 
 	var/list/upgrades = list()
 
@@ -89,7 +99,6 @@
 	var/list/blacklisted_hats = list( //Hats that don't really work on borgos
 	/obj/item/clothing/head/helmet/space/santahat,
 	/obj/item/clothing/head/welding,
-	/obj/item/clothing/head/mob_holder, //I am so very upset that this breaks things
 	/obj/item/clothing/head/helmet/space/eva,
 	)
 
@@ -109,17 +118,18 @@
 
 	wires = new /datum/wires/robot(src)
 	AddComponent(/datum/component/empprotection, EMP_PROTECT_WIRES)
-	RegisterSignal(src, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, .proc/charge)
+	RegisterSignal(src, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(charge))
 
 	robot_modules_background = new()
 	robot_modules_background.icon_state = "block"
-	robot_modules_background.layer = HUD_LAYER	//Objects that appear on screen are on layer ABOVE_HUD_LAYER, UI should be just below it.
 	robot_modules_background.plane = HUD_PLANE
 
 	ident = rand(1, 999)
 
 	if(!cell)
 		cell = new /obj/item/stock_parts/cell/high(src)
+
+	create_modularInterface()
 
 	if(lawupdate)
 		make_laws()
@@ -139,6 +149,7 @@
 	module.rebuild_modules()
 	update_icons()
 	. = ..()
+	add_sensors()
 
 	//If this body is meant to be a borg controlled by the AI player
 	if(shell)
@@ -166,6 +177,35 @@
 	toner = tonermax
 	diag_hud_set_borgcell()
 
+	alert_control = new(src, list(ALARM_ATMOS, ALARM_FIRE, ALARM_POWER, ALARM_CAMERA, ALARM_BURGLAR, ALARM_MOTION), list(z))
+	RegisterSignal(alert_control.listener, COMSIG_ALARM_TRIGGERED, PROC_REF(alarm_triggered))
+	RegisterSignal(alert_control.listener, COMSIG_ALARM_CLEARED, PROC_REF(alarm_cleared))
+	alert_control.listener.RegisterSignal(src, COMSIG_LIVING_DEATH, /datum/alarm_listener/proc/prevent_alarm_changes)
+	alert_control.listener.RegisterSignal(src, COMSIG_LIVING_REVIVE, /datum/alarm_listener/proc/allow_alarm_changes)
+
+	RegisterSignal(src, COMSIG_ATOM_ON_EMAG, PROC_REF(on_emag))
+	RegisterSignal(src, COMSIG_ATOM_SHOULD_EMAG, PROC_REF(should_emag))
+	logevent("System brought online.")
+
+/**
+ * Sets the tablet theme and icon
+ *
+ * These variables are based on if the borg is a syndicate type or is emagged. This gets used in model change code
+ * and also borg emag code.
+ */
+/mob/living/silicon/robot/proc/set_modularInterface_theme()
+	if(istype(module, /obj/item/robot_module/syndicate) || emagged)
+		modularInterface.device_theme = THEME_SYNDICATE
+		modularInterface.icon_state = "tablet-silicon-syndicate"
+		modularInterface.icon_state_powered = "tablet-silicon-syndicate"
+		modularInterface.icon_state_unpowered = "tablet-silicon-syndicate"
+	else
+		modularInterface.device_theme = THEME_NTOS
+		modularInterface.icon_state = "tablet-silicon"
+		modularInterface.icon_state_powered = "tablet-silicon"
+		modularInterface.icon_state_unpowered = "tablet-silicon"
+	modularInterface.update_icon()
+
 //If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
 /mob/living/silicon/robot/Destroy()
 	var/atom/T = drop_location()//To hopefully prevent run time errors.
@@ -184,6 +224,8 @@
 			ghostize()
 			stack_trace("Borg MMI lacked a brainmob")
 		mmi = null
+	if(modularInterface)
+		QDEL_NULL(modularInterface)
 	if(connected_ai)
 		connected_ai.connected_robots -= src
 	if(shell)
@@ -198,7 +240,10 @@
 	QDEL_NULL(inv2)
 	QDEL_NULL(inv3)
 	QDEL_NULL(spark_system)
+	QDEL_NULL(alert_control)
 	cell = null
+	UnregisterSignal(src, COMSIG_ATOM_ON_EMAG)
+	UnregisterSignal(src, COMSIG_ATOM_SHOULD_EMAG)
 	return ..()
 
 /mob/living/silicon/robot/proc/pick_module()
@@ -240,7 +285,7 @@
 	var/changed_name = ""
 	if(custom_name)
 		changed_name = custom_name
-	if(changed_name == "" && C && C.prefs.custom_names["cyborg"] != DEFAULT_CYBORG_NAME)
+	if(changed_name == "" && C && C.prefs.active_character.custom_names["cyborg"] != DEFAULT_CYBORG_NAME)
 		if(apply_pref_name("cyborg", C))
 			return //built in camera handled in proc
 	if(!changed_name)
@@ -254,48 +299,16 @@
 /mob/living/silicon/robot/proc/get_standard_name()
 	return "[(designation ? "[designation] " : "")][mmi.braintype]-[ident]"
 
-/mob/living/silicon/robot/verb/cmd_robot_alerts()
-	set category = "Robot Commands"
-	set name = "Show Alerts"
-	if(usr.stat == DEAD)
-		to_chat(src, "<span class='userdanger'>Alert: You are dead.</span>")
-		return //won't work if dead
-	robot_alerts()
-
-/mob/living/silicon/robot/proc/robot_alerts()
-	var/dat = ""
-	for (var/cat in alarms)
-		dat += text("<B>[cat]</B><BR>\n")
-		var/list/L = alarms[cat]
-		if (L.len)
-			for (var/alarm in L)
-				var/list/alm = L[alarm]
-				var/area/A = alm[1]
-				dat += "<NOBR>"
-				dat += text("-- [A.name]")
-				dat += "</NOBR><BR>\n"
-		else
-			dat += "-- All Systems Nominal<BR>\n"
-		dat += "<BR>\n"
-
-	var/datum/browser/alerts = new(usr, "robotalerts", "Current Station Alerts", 400, 410)
-	alerts.set_content(dat)
-	alerts.open()
-
-/mob/living/silicon/robot/verb/view_manifest()
-	set name = "View Crew Manifest"
-	set category = "Robot Commands"
-	ai_roster()
-
-/mob/living/silicon/robot/proc/ionpulse()
+/mob/living/silicon/robot/proc/ionpulse(thrust = 0.01, use_fuel = TRUE)
 	if(!ionpulse_on)
-		return
+		return FALSE
 
 	if(cell.charge <= 10)
 		toggle_ionpulse()
-		return
+		return FALSE
 
-	cell.charge -= 10
+	if(use_fuel)
+		cell.charge -= (thrust * 1000)
 	return TRUE
 
 /mob/living/silicon/robot/proc/toggle_ionpulse()
@@ -313,8 +326,6 @@
 		ion_trail.start()
 	else
 		ion_trail.stop()
-	if(thruster_button)
-		thruster_button.icon_state = "ionpulse[ionpulse_on]"
 
 /mob/living/silicon/robot/get_stat_tab_status()
 	var/list/tab_data = ..()
@@ -330,117 +341,74 @@
 		tab_data["Master AI"] = GENERATE_STAT_TEXT("[connected_ai.name]")
 	return tab_data
 
+/mob/living/silicon/robot/proc/alarm_triggered(datum/source, alarm_type, area/source_area)
+	SIGNAL_HANDLER
+	queueAlarm("--- [alarm_type] alarm detected in [source_area.name]!", alarm_type)
+
+/mob/living/silicon/robot/proc/alarm_cleared(datum/source, alarm_type, area/source_area)
+	SIGNAL_HANDLER
+	queueAlarm("--- [alarm_type] alarm in [source_area.name] has been cleared.", alarm_type, FALSE)
+
 /mob/living/silicon/robot/restrained(ignore_grab)
 	. = 0
 
-/mob/living/silicon/robot/triggerAlarm(class, area/home, cameras, obj/source)
-	if(source.get_virtual_z_level() != get_virtual_z_level())
-		return
-	if(stat == DEAD)
-		return TRUE
-	var/list/our_sort = alarms[class]
-	for(var/areaname in our_sort)
-		if (areaname == home.name)
-			var/list/alarm = our_sort[areaname]
-			var/list/sources = alarm[3]
-			if (!(source in sources))
-				sources += source
-			return TRUE
-
-	var/obj/machinery/camera/cam = null
-	var/list/our_cams = null
-	if(cameras && islist(cameras))
-		our_cams = cameras
-		if (our_cams.len == 1)
-			cam = our_cams[1]
-	else if(cameras && istype(cameras, /obj/machinery/camera))
-		cam = cameras
-	our_sort[home.name] = list(home, (cam ? cam : cameras), list(source))
-	queueAlarm(text("--- [class] alarm detected in [home.name]!"), class)
-	return TRUE
-
-/mob/living/silicon/robot/freeCamera(area/home, obj/machinery/camera/cam)
-	for(var/class in alarms)
-		var/our_area = alarms[class][home.name]
-		if(!our_area)
-			continue
-		var/cams = our_area[2] //Get the cameras
-		if(!cams)
-			continue
-		if(islist(cams))
-			cams -= cam
-			if(length(cams) == 1)
-				our_area[2] = cams[1]
-		else
-			our_area[2] = null
-
-/mob/living/silicon/robot/cancelAlarm(class, area/A, obj/origin)
-	var/list/L = alarms[class]
-	var/cleared = 0
-	for (var/I in L)
-		if (I == A.name)
-			var/list/alarm = L[I]
-			var/list/srcs  = alarm[3]
-			if (origin in srcs)
-				srcs -= origin
-			if (srcs.len == 0)
-				cleared = 1
-				L -= I
-	if (cleared)
-		queueAlarm("--- [class] alarm in [A.name] has been cleared.", class, 0)
-	return !cleared
-
 /mob/living/silicon/robot/can_interact_with(atom/A)
+	if (A == modularInterface)
+		return TRUE //bypass for borg tablets
 	if (low_power_mode)
 		return FALSE
 	var/turf/T0 = get_turf(src)
 	var/turf/T1 = get_turf(A)
 	if (!T0 || ! T1)
 		return FALSE
-	if(A.is_jammed())
+	if(A.is_jammed(JAMMER_PROTECTION_WIRELESS))
 		return FALSE
 	return ISINRANGE(T1.x, T0.x - interaction_range, T0.x + interaction_range) && ISINRANGE(T1.y, T0.y - interaction_range, T0.y + interaction_range)
 
 /mob/living/silicon/robot/AltClick(mob/user)
 	..()
+	if(!user.canUseTopic(src, !issilicon(user)))
+		return
 	togglelock(user)
 
 /mob/living/silicon/robot/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_WELDER && (user.a_intent != INTENT_HARM || user == src))
+	if(length(user.progressbars))
+		if(W.tool_behaviour == TOOL_WELDER || istype(W, /obj/item/stack/cable_coil))
+			user.changeNext_move(CLICK_CD_MELEE)
+			to_chat(user, "<span class='notice'>You are already busy!</span>")
+			return
+	if(W.tool_behaviour == TOOL_WELDER && (user.a_intent != INTENT_HARM))
 		user.changeNext_move(CLICK_CD_MELEE)
+		if(user == src)
+			to_chat(user, "<span class='warning'>You are unable to maneuver [W] properly to repair yourself, seek assistance!</span>")
+			return
 		if (!getBruteLoss())
 			to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
 			return
-		if (!W.tool_start_check(user, amount=0)) //The welder has 1u of fuel consumed by it's afterattack, so we don't need to worry about taking any away.
-			return
-		if(src == user)
-			to_chat(user, "<span class='notice'>You start fixing yourself.</span>")
-			if(!W.use_tool(src, user, 50))
-				return
-
-		adjustBruteLoss(-30)
-		updatehealth()
-		add_fingerprint(user)
-		user.visible_message("[user] has fixed some of the dents on [src].", "<span class='notice'>You fix some of the dents on [src].</span>")
-		return
+		//repeatedly repairs until the cyborg is fully repaired
+		while(getBruteLoss() && W.tool_start_check(user, amount=0) && W.use_tool(src, user, 3 SECONDS))
+			W.use(1) //use one fuel for each repair step
+			adjustBruteLoss(-10)
+			updatehealth()
+			add_fingerprint(user)
+			user.visible_message("[user] has fixed some of the dents on [src].", "<span class='notice'>You fix some of the dents on [src].</span>")
+		return TRUE
 
 	else if(istype(W, /obj/item/stack/cable_coil) && wiresexposed)
 		user.changeNext_move(CLICK_CD_MELEE)
+		if(!(getFireLoss() || getToxLoss()))
+			to_chat(user, "The wires seem fine, there's no need to fix them.")
+			return
 		var/obj/item/stack/cable_coil/coil = W
-		if (getFireLoss() > 0 || getToxLoss() > 0)
-			if(src == user)
-				to_chat(user, "<span class='notice'>You start fixing yourself.</span>")
-				if(!do_after(user, 50, target = src))
-					return
-			if (coil.use(1))
-				adjustFireLoss(-30)
-				adjustToxLoss(-30)
+		while((getFireLoss() || getToxLoss()) && do_after(user, 30, target = src))
+			if(coil.use(1))
+				adjustFireLoss(-20)
+				adjustToxLoss(-20)
 				updatehealth()
+				add_fingerprint(user)
 				user.visible_message("[user] has fixed some of the burnt wires on [src].", "<span class='notice'>You fix some of the burnt wires on [src].</span>")
 			else
 				to_chat(user, "<span class='warning'>You need more cable to repair [src]!</span>")
-		else
-			to_chat(user, "The wires seem fine, there's no need to fix them.")
 
 	else if(W.tool_behaviour == TOOL_CROWBAR)	// crowbar means open or close the cover
 		if(opened)
@@ -452,9 +420,10 @@
 				to_chat(user, "<span class='warning'>The cover is locked and cannot be opened!</span>")
 			else
 				to_chat(user, "<span class='notice'>You open the cover.</span>")
+				if(IsParalyzed() && (last_flashed + 5 SECONDS >= world.time)) //second half of this prevents someone from stunlocking via open/close spam
+					Paralyze(5 SECONDS)
 				opened = 1
 				update_icons()
-
 	else if(istype(W, /obj/item/stock_parts/cell) && opened)	// trying to put a cell inside
 		if(wiresexposed)
 			to_chat(user, "<span class='warning'>Close the cover first!</span>")
@@ -529,7 +498,7 @@
 		else
 			to_chat(user, "<span class='warning'>Unable to locate a radio!</span>")
 
-	else if (istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))			// trying to unlock the interface with an ID card
+	else if (istype(W, /obj/item/card/id)||istype(W, /obj/item/modular_computer/tablet/pda))			// trying to unlock the interface with an ID card
 		togglelock(user)
 
 	else if(istype(W, /obj/item/borg/upgrade/))
@@ -545,15 +514,17 @@
 				return
 			if(U.action(src))
 				to_chat(user, "<span class='notice'>You apply the upgrade to [src].</span>")
+				to_chat(src, "----------------\nNew hardware detected...Identified as \"<b>[U]</b>\"...Setup complete.\n----------------")
 				if(U.one_use)
 					qdel(U)
+					logevent("Firmware [U] run successfully.")
 				else
 					U.forceMove(src)
 					upgrades += U
+					logevent("Hardware [U] installed successfully.")
 			else
 				to_chat(user, "<span class='danger'>Upgrade error.</span>")
 				U.forceMove(drop_location())
-
 	else if(istype(W, /obj/item/toner))
 		if(toner >= tonermax)
 			to_chat(user, "<span class='warning'>The toner level of [src] is at its highest level possible!</span>")
@@ -567,15 +538,22 @@
 	else if(istype(W, /obj/item/flashlight))
 		if(!opened)
 			to_chat(user, "<span class='warning'>You need to open the panel to repair the headlamp!</span>")
-		else if(lamp_cooldown <= world.time)
+		else if(lamp_functional)
 			to_chat(user, "<span class='warning'>The headlamp is already functional!</span>")
 		else
 			if(!user.temporarilyRemoveItemFromInventory(W))
 				to_chat(user, "<span class='warning'>[W] seems to be stuck to your hand. You'll have to find a different light.</span>")
 				return
-			lamp_cooldown = 0
+			lamp_functional = TRUE
 			qdel(W)
 			to_chat(user, "<span class='notice'>You replace the headlamp bulbs.</span>")
+	else if(istype(W, /obj/item/computer_hardware/hard_drive/portable)) //Allows borgs to install new programs with human help
+		if(!modularInterface)
+			stack_trace("Cyborg [src] ( [type] ) was somehow missing their integrated tablet. Please make a bug report.")
+			create_modularInterface()
+		var/obj/item/computer_hardware/hard_drive/portable/floppy = W
+		if(modularInterface.install_component(floppy, user))
+			return
 	else
 		return ..()
 
@@ -589,21 +567,9 @@
 			update_icons()
 			if(emagged)
 				to_chat(user, "<span class='notice'>The cover interface glitches out for a split second.</span>")
+			logevent("[emagged ? "ChÃ¥vÃis" : "Chassis"] cover lock has been [locked ? "engaged" : "released"]") //ChÃ¥vÃis: see above line
 		else
 			to_chat(user, "<span class='danger'>Access denied.</span>")
-
-/mob/living/silicon/robot/verb/unlock_own_cover()
-	set category = "Robot Commands"
-	set name = "Unlock Cover"
-	set desc = "Unlocks your own cover if it is locked. You can not lock it again. A human will have to lock it for you."
-	if(stat == DEAD)
-		return //won't work if dead
-	if(locked)
-		switch(alert("You cannot lock your cover again, are you sure?\n      (You can still ask for a human to lock it)", "Unlock Own Cover", "Yes", "No"))
-			if("Yes")
-				locked = FALSE
-				update_icons()
-				to_chat(usr, "<span class='notice'>You unlock your cover.</span>")
 
 /mob/living/silicon/robot/proc/allowed(mob/M)
 	//check if it doesn't require any access at all
@@ -632,11 +598,11 @@
 	if(!istype(I, /obj/item/card/id) && isitem(I))
 		I = I.GetID()
 
-	if(!I || !I.access) //not ID or no access
+	if(!I || !length(I.access)) //not ID or no access
 		return 0
 	for(var/req in req_access)
-		if(!(req in I.access)) //doesn't have this access
-			return 0
+		if(!(req in I.access))
+			return 0 //doesn't have this access
 	return 1
 
 /mob/living/silicon/robot/regenerate_icons()
@@ -644,14 +610,21 @@
 
 /mob/living/silicon/robot/update_icons()
 	cut_overlays()
+	SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
 	icon_state = module.cyborg_base_icon
 	if(stat != DEAD && !(IsUnconscious() || IsStun() || IsParalyzed() || low_power_mode)) //Not dead, not stunned.
 		if(!eye_lights)
 			eye_lights = new()
-		if(lamp_intensity > 2)
+		if(last_flashed && last_flashed + 30 SECONDS >= world.time) //We want to make sure last_flashed isn't zero because otherwise roundstart borgs blink for 30 seconds
+			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_fl"
+		else if(lamp_enabled)
 			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_l"
+			eye_lights.color = lamp_color
+			eye_lights.plane = ABOVE_LIGHTING_PLANE //glowy eyes
 		else
 			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_e[ratvar ? "_r" : ""]"
+			eye_lights.color = COLOR_WHITE
+			eye_lights.plane = ABOVE_LIGHTING_PLANE //still glowy, but don't emit actual light
 		eye_lights.icon = icon
 		add_overlay(eye_lights)
 
@@ -668,10 +641,15 @@
 		add_overlay(head_overlay)
 	update_fire()
 
-/mob/living/silicon/robot/proc/self_destruct()
+/mob/living/silicon/robot/proc/self_destruct(mob/usr)
+	var/turf/groundzero = get_turf(src)
+	message_admins("<span class='notice'>[ADMIN_LOOKUPFLW(usr)] detonated [key_name_admin(src, client)] at [ADMIN_VERBOSEJMP(groundzero)]!</span>")
+	log_game("\<span class='notice'>[key_name(usr)] detonated [key_name(src)]!</span>")
+	log_combat(usr, src, "detonated cyborg")
+	if(connected_ai)
+		to_chat(connected_ai, "<br><br><span class='alert'>ALERT - Cyborg detonation detected: [name]</span><br>")
+
 	if(emagged)
-		if(mmi)
-			qdel(mmi)
 		explosion(src.loc,1,2,4,flame_range = 2)
 	else
 		explosion(src.loc,-1,0,2)
@@ -716,6 +694,7 @@
 		clear_alert("locked")
 	lockcharge = state
 	update_mobility()
+	logevent("System lockdown [lockcharge?"triggered":"released"].")
 
 /mob/living/silicon/robot/proc/SetEmagged(new_state)
 	emagged = new_state
@@ -725,6 +704,7 @@
 		throw_alert("hacked", /atom/movable/screen/alert/hacked)
 	else
 		clear_alert("hacked")
+	set_modularInterface_theme()
 
 /mob/living/silicon/robot/proc/SetRatvar(new_state, rebuild=TRUE)
 	ratvar = new_state
@@ -738,55 +718,48 @@
 		qdel(internal_clock_slab)
 		clear_alert("ratvar")
 
-/mob/living/silicon/robot/verb/outputlaws()
-	set category = "Robot Commands"
-	set name = "State Laws"
-
-	if(usr.stat == DEAD)
-		return //won't work if dead
-	checklaws()
-
-/mob/living/silicon/robot/verb/set_automatic_say_channel() //Borg version of setting the radio for autosay messages.
-	set name = "Set Auto Announce Mode"
-	set desc = "Modify the default radio setting for stating your laws."
-	set category = "Robot Commands"
-
-	if(usr.stat == DEAD)
-		return //won't work if dead
-	set_autosay()
-
-
-/mob/living/silicon/robot/proc/control_headlamp()
-	if(stat || lamp_cooldown > world.time || low_power_mode)
-		to_chat(src, "<span class='danger'>This function is currently offline.</span>")
+/**
+  * Handles headlamp smashing
+  *
+  * When called (such as by the shadowperson lighteater's attack), this proc will break the borg's headlamp
+  * and then call toggle_headlamp to disable the light. It also plays a sound effect of glass breaking, and
+  * tells the borg what happened to its chat. Broken lights can be repaired by using a flashlight on the borg.
+  */
+/mob/living/silicon/robot/proc/smash_headlamp()
+	if(!lamp_functional)
 		return
+	lamp_functional = FALSE
+	playsound(src, 'sound/effects/glass_step.ogg', 50)
+	toggle_headlamp(TRUE)
+	to_chat(src, "<span class='danger'>Your headlamp is broken! You'll need a human to help replace it.</span>")
 
-//Some sort of magical "modulo" thing which somehow increments lamp power by 2, until it hits the max and resets to 0.
-	if(lamp_intensity == 0) //We'll skip intensity of 2, since every mob already has such a see-darkness range, so no much need for it.
-		lamp_intensity = 4
-	else //Some sort of magical "modulo" thing which somehow increments lamp power by 2, until it hits the max and resets to 0.
-		lamp_intensity = (lamp_intensity + 2) % (lamp_max + 2)
-	to_chat(src, "[lamp_intensity ? "Headlamp power set to level [lamp_intensity/2]." : "Headlamp disabled."]")
-	update_headlamp()
-
-/mob/living/silicon/robot/proc/update_headlamp(turn_off = FALSE, cooldown = 10 SECONDS)
-	if(lamp_intensity > 2)
-		if(turn_off || stat || low_power_mode)
-			to_chat(src, "<span class='danger'>Your headlamp has been deactivated.</span>")
-			lamp_intensity = 0
-			lamp_cooldown = world.time + cooldown
-			set_light_on(FALSE)
-		else
-			set_light_range(lamp_intensity * 0.5)
-			set_light_on(TRUE)
-	else
+/**
+  * Handles headlamp toggling, disabling, and color setting.
+  *
+  * The initial if statment is a bit long, but the gist of it is that should the lamp be on AND the update_color
+  * arg be true, we should simply change the color of the lamp but not disable it. Otherwise, should the turn_off
+  * arg be true, the lamp already be enabled, any of the normal reasons the lamp would turn off happen, or the
+  * update_color arg be passed with the lamp not on, we should set the lamp off. The update_color arg is only
+  * ever true when this proc is called from the borg tablet, when the color selection feature is used.
+  *
+  * Arguments:
+  * * arg1 - turn_off, if enabled will force the lamp into an off state (rather than toggling it if possible)
+  * * arg2 - update_color, if enabled, will adjust the behavior of the proc to change the color of the light if it is already on.
+  */
+/mob/living/silicon/robot/proc/toggle_headlamp(turn_off = FALSE, update_color = FALSE)
+	//if both lamp is enabled AND the update_color flag is on, keep the lamp on. Otherwise, if anything listed is true, disable the lamp.
+	if(!(update_color && lamp_enabled) && (turn_off || lamp_enabled || update_color || !lamp_functional || stat || low_power_mode))
 		set_light_on(FALSE)
-
-	if(lamp_button)
-		lamp_button.icon_state = "lamp[lamp_intensity]"
-
+		lamp_enabled = FALSE
+		lampButton.update_icon()
+		update_icons()
+		return
+	set_light_range(lamp_intensity)
+	set_light_color(lamp_color)
+	set_light_on(TRUE)
+	lamp_enabled = TRUE
+	lampButton.update_icon()
 	update_icons()
-
 
 /mob/living/silicon/robot/proc/deconstruct()
 	SEND_SIGNAL(src, COMSIG_BORG_SAFE_DECONSTRUCT)
@@ -891,7 +864,14 @@
 	laws = new /datum/ai_laws/syndicate_override()
 	//Add in syndicate access to their ID card.
 	create_access_card(get_all_syndicate_access())
-	addtimer(CALLBACK(src, .proc/show_playstyle), 5)
+	addtimer(CALLBACK(src, PROC_REF(show_playstyle)), 5)
+
+/mob/living/silicon/robot/modules/syndicate/create_modularInterface()
+	if(!modularInterface)
+		modularInterface = new /obj/item/modular_computer/tablet/integrated/syndicate(src)
+		modularInterface.saved_identification = real_name
+		modularInterface.saved_job = "Cyborg"
+	return ..()
 
 /mob/living/silicon/robot/modules/syndicate/proc/show_playstyle()
 	if(playstyle_string)
@@ -899,6 +879,12 @@
 
 /mob/living/silicon/robot/modules/syndicate/ResetModule()
 	return
+
+
+/mob/living/silicon/robot/modules/syndicate/create_modularInterface()
+	if(!modularInterface)
+		modularInterface = new /obj/item/modular_computer/tablet/integrated/syndicate(src)
+	return ..()
 
 /mob/living/silicon/robot/modules/syndicate/medical
 	icon_state = "synd_medical"
@@ -936,7 +922,7 @@
 		if(DISCONNECT) //Tampering with the wires
 			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - Remote telemetry lost with [name].</span><br>")
 
-/mob/living/silicon/robot/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
+/mob/living/silicon/robot/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
 	if(stat || lockcharge || low_power_mode)
 		to_chat(src, "<span class='warning'>You can't do that right now!</span>")
 		return FALSE
@@ -947,21 +933,25 @@
 
 /mob/living/silicon/robot/updatehealth()
 	..()
-	if(health < maxHealth*0.5) //Gradual break down of modules as more damage is sustained
+	if(health < maxHealth*0.75) //Gradual break down of modules as more damage is sustained
+		var/speedpenalty = (maxHealth - health) / 150
+		add_movespeed_modifier(MOVESPEED_ID_DAMAGE_SLOWDOWN, override = TRUE, multiplicative_slowdown = speedpenalty, blacklisted_movetypes = FLOATING)
 		if(uneq_module(held_items[3]))
 			playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, 1, 1)
 			audible_message("<span class='warning'>[src] sounds an alarm! \"SYSTEM ERROR: Module 3 OFFLINE.\"</span>")
 			to_chat(src, "<span class='userdanger'>SYSTEM ERROR: Module 3 OFFLINE.</span>")
-		if(health < 0)
+		if(health < maxHealth*0.5)
 			if(uneq_module(held_items[2]))
 				audible_message("<span class='warning'>[src] sounds an alarm! \"SYSTEM ERROR: Module 2 OFFLINE.\"</span>")
 				to_chat(src, "<span class='userdanger'>SYSTEM ERROR: Module 2 OFFLINE.</span>")
 				playsound(loc, 'sound/machines/warning-buzzer.ogg', 60, 1, 1)
-			if(health < -maxHealth*0.5)
+			if(health < maxHealth*0.25)
 				if(uneq_module(held_items[1]))
 					audible_message("<span class='warning'>[src] sounds an alarm! \"CRITICAL ERROR: All modules OFFLINE.\"</span>")
 					to_chat(src, "<span class='userdanger'>CRITICAL ERROR: All modules OFFLINE.</span>")
 					playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, 1, 1)
+	else
+		remove_movespeed_modifier(MOVESPEED_ID_DAMAGE_SLOWDOWN)
 
 /mob/living/silicon/robot/update_sight()
 	if(!client)
@@ -1010,31 +1000,30 @@
 	if(status_flags & GODMODE)
 		return
 	if(stat != DEAD)
-		if(health <= -maxHealth) //die only once
+		if(health <= 0) //die only once
 			death()
+			toggle_headlamp(1)
 			return
 		if(IsUnconscious() || IsStun() || IsKnockdown() || IsParalyzed() || getOxyLoss() > maxHealth*0.5)
 			if(stat == CONSCIOUS)
 				set_stat(UNCONSCIOUS)
 				blind_eyes(1)
 				update_mobility()
-				update_headlamp()
 		else
 			if(stat == UNCONSCIOUS)
 				set_stat(CONSCIOUS)
 				adjust_blindness(-1)
 				update_mobility()
-				update_headlamp()
 	diag_hud_set_status()
 	diag_hud_set_health()
 	diag_hud_set_aishell()
 	update_health_hud()
+	update_icons() //Updates eye_light overlay
 
 /mob/living/silicon/robot/revive(full_heal = 0, admin_revive = 0)
 	if(..()) //successfully ressuscitated from death
 		if(!QDELETED(builtInCamera) && !wires.is_cut(WIRE_CAMERA))
 			builtInCamera.toggle_cam(src,0)
-		update_headlamp()
 		if(admin_revive)
 			locked = TRUE
 		notify_ai(NEW_BORG)
@@ -1047,6 +1036,7 @@
 		notify_ai(RENAME, oldname, newname)
 	if(!QDELETED(builtInCamera))
 		builtInCamera.c_tag = real_name
+		modularInterface.saved_identification = real_name
 	custom_name = newname
 
 
@@ -1061,6 +1051,7 @@
 		resize = 0.5
 		hasExpanded = FALSE
 		update_transform()
+	logevent("Chassis configuration has been reset.")
 	module.transform_to(/obj/item/robot_module)
 
 	// Remove upgrades.
@@ -1108,6 +1099,16 @@
 	hat = new_hat
 	new_hat.forceMove(src)
 	update_icons()
+
+/**
+	*Checking Exited() to detect if a hat gets up and walks off.
+	*Drones and pAIs might do this, after all.
+*/
+/mob/living/silicon/robot/Exited(atom/A)
+	if(hat && hat == A)
+		hat = null
+	update_icons()
+	. = ..()
 
 /mob/living/silicon/robot/proc/make_shell(var/obj/item/borg/upgrade/ai/board)
 	if(!board)

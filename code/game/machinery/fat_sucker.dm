@@ -30,7 +30,7 @@
 
 /obj/machinery/fat_sucker/Initialize(mapload)
 	. = ..()
-	soundloop = new(list(src),  FALSE)
+	soundloop = new(src,  FALSE)
 	update_icon()
 
 /obj/machinery/fat_sucker/Destroy()
@@ -64,11 +64,11 @@
 		var/mob/living/L = occupant
 		if(!iscarbon(L) || HAS_TRAIT(L, TRAIT_POWERHUNGRY) || !(MOB_ORGANIC in L?.mob_biotypes))
 			occupant.forceMove(drop_location())
-			occupant = null
+			set_occupant(null)
 			return
 
 		to_chat(occupant, "<span class='notice'>You enter [src]</span>")
-		addtimer(CALLBACK(src, .proc/start_extracting), 20, TIMER_OVERRIDE|TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(start_extracting)), 20, TIMER_OVERRIDE|TIMER_UNIQUE)
 		update_icon()
 
 /obj/machinery/fat_sucker/open_machine(mob/user)
@@ -140,7 +140,7 @@
 /obj/machinery/fat_sucker/process(delta_time)
 	if(!processing)
 		return
-	if(!is_operational() || !occupant || !iscarbon(occupant))
+	if(!is_operational || !occupant || !iscarbon(occupant))
 		open_machine()
 		return
 
@@ -161,7 +161,7 @@
 	use_power(500)
 
 /obj/machinery/fat_sucker/proc/start_extracting()
-	if(state_open || !occupant || processing || !is_operational())
+	if(state_open || !occupant || processing || !is_operational)
 		return
 	if(iscarbon(occupant))
 		var/mob/living/carbon/C = occupant
@@ -185,9 +185,9 @@
 		var/mob/living/carbon/C = occupant
 		if(C.type_of_meat)
 			// Someone changed component rating high enough so it requires negative amount of nutrients to create a meat slab
-			if(nutrient_to_meat < 0)
+			if(nutrient_to_meat <= 0) // Megaddd, please don't crash the server again
 				occupant.forceMove(drop_location())
-				occupant = null
+				set_occupant(null)
 				explosion(loc, 0, 1, 2, 3, TRUE)
 				qdel(src)
 				return
@@ -220,10 +220,8 @@
 	if(default_deconstruction_crowbar(I))
 		return TRUE
 
-/obj/machinery/fat_sucker/emag_act(mob/living/user)
-	if(obj_flags & EMAGGED)
-		return
+/obj/machinery/fat_sucker/on_emag(mob/user)
+	..()
 	start_at = 100
 	stop_at = 0
 	to_chat(user, "<span class='notice'>You remove the access restrictions and lower the automatic ejection threshold!</span>")
-	obj_flags |= EMAGGED

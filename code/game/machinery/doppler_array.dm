@@ -20,12 +20,12 @@
 
 /obj/machinery/doppler_array/Initialize(mapload)
 	. = ..()
-	RegisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION, .proc/sense_explosion)
+	RegisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION, PROC_REF(sense_explosion))
 	printer_ready = world.time + PRINTER_TIMEOUT
 
 /obj/machinery/doppler_array/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE,null,null,CALLBACK(src,.proc/rot_message))
+	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE,null,null,CALLBACK(src,PROC_REF(rot_message)))
 
 /datum/data/tachyon_record
 	name = "Log Recording"
@@ -101,7 +101,7 @@
 	if(record)
 		name = "paper - [record.name]"
 
-		info += {"<h2>[record.name]</h2>
+		default_raw_text += {"<h2>[record.name]</h2>
 		<ul><li>Timestamp: [record.timestamp]</li>
 		<li>Coordinates: [record.coordinates]</li>
 		<li>Displacement: [record.displacement] seconds</li>
@@ -110,7 +110,7 @@
 		<li>Shockwave Radius: [record.factual_radius["shockwave_radius"]]</li></ul>"}
 
 		if(length(record.theory_radius))
-			info += {"<ul><li>Theoretical Epicenter Radius: [record.theory_radius["epicenter_radius"]]</li>
+			default_raw_text += {"<ul><li>Theoretical Epicenter Radius: [record.theory_radius["epicenter_radius"]]</li>
 			<li>Theoretical Outer Radius: [record.theory_radius["outer_radius"]]</li>
 			<li>Theoretical Shockwave Radius: [record.theory_radius["shockwave_radius"]]</li></ul>"}
 
@@ -138,7 +138,7 @@
 												  took,orig_dev_range,orig_heavy_range,orig_light_range)
 	SIGNAL_HANDLER
 
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		return FALSE
 	var/turf/zone = get_turf(src)
 	if(zone.get_virtual_z_level() != epicenter.get_virtual_z_level())
@@ -186,20 +186,20 @@
 
 	for(var/mob/living/carbon/human/H in oviewers(src))
 		if(H.client)
-			INVOKE_ASYNC(H.client, /client.proc/increase_score, /datum/award/score/bomb_score, H, orig_light_range)
+			INVOKE_ASYNC(H.client, TYPE_PROC_REF(/client, increase_score), /datum/award/score/bomb_score, H, orig_light_range)
 
 	return TRUE
 
 /obj/machinery/doppler_array/power_change()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		icon_state = "[initial(icon_state)]-broken"
 	else
 		if(powered() && anchored)
 			icon_state = initial(icon_state)
-			stat &= ~NOPOWER
+			set_machine_stat(machine_stat & ~NOPOWER)
 		else
 			icon_state = "[initial(icon_state)]-off"
-			stat |= NOPOWER
+			set_machine_stat(machine_stat | NOPOWER)
 
 //Portable version, built into EOD equipment. It simply provides an explosion's three damage levels.
 /obj/machinery/doppler_array/integrated
@@ -245,7 +245,7 @@
 		else
 			linked_techweb.largest_bomb_value = TECHWEB_BOMB_POINTCAP
 			general_point_gain = 1000
-		var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_SCI)
+		var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_SCI_ID)
 		if(D)
 			D.adjust_money(general_point_gain)
 			discovery_point_gain = general_point_gain * 0.5

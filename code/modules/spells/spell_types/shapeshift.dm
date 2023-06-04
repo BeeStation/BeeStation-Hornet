@@ -8,7 +8,7 @@
 	range = -1
 	include_user = TRUE
 	invocation = "RAC'WA NO!"
-	invocation_type = "shout"
+	invocation_type = INVOCATION_SHOUT
 	action_icon_state = "shapeshift"
 
 	var/revert_on_death = TRUE
@@ -21,7 +21,7 @@
 		/mob/living/simple_animal/pet/dog/corgi,\
 		/mob/living/simple_animal/hostile/carp/ranged/chaos,\
 		/mob/living/simple_animal/bot/ed209,\
-		/mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper,\
+		/mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper/wizard,\
 		/mob/living/simple_animal/hostile/construct/armored)
 
 /obj/effect/proc_holder/spell/targeted/shapeshift/cast(list/targets,mob/user = usr)
@@ -36,7 +36,7 @@
 			for(var/path in possible_shapes)
 				var/mob/living/simple_animal/A = path
 				animal_list[initial(A.name)] = path
-			var/new_shapeshift_type = input(M, "Choose Your Animal Form!", "It's Morphing Time!", null) as null|anything in sortList(animal_list)
+			var/new_shapeshift_type = input(M, "Choose Your Animal Form!", "It's Morphing Time!", null) as null|anything in sort_list(animal_list)
 			if(shapeshift_type)
 				return
 			shapeshift_type = new_shapeshift_type
@@ -148,7 +148,7 @@
 	else
 		restore()
 
-/obj/shapeshift_holder/proc/restore(death=FALSE, convert_damage = FALSE)
+/obj/shapeshift_holder/proc/restore(death=FALSE, convert_damage = TRUE)
 	if(!stored) //somehow this proc is getting called twice and it runtimes on the second pass because stored has been hit with qdel()
 		return FALSE
 	restoring = TRUE
@@ -159,7 +159,7 @@
 		shape.mind.transfer_to(stored)
 	if(death)
 		stored.death()
-	else if(convert_damage || istype(source) && source.convert_damage)
+	else if(convert_damage || (istype(source) && source.convert_damage))
 		var/original_blood_volume = stored.blood_volume
 		stored.revive(full_heal = TRUE)
 
@@ -168,7 +168,8 @@
 
 		stored.apply_damage(damapply, (istype(source) ? source.convert_damage_type : BRUTE), forced = TRUE) //brute is the default damage convert
 		stored.blood_volume = original_blood_volume
-	qdel(shape)
+	if(!QDELETED(shape))
+		qdel(shape)
 	qdel(src)
 
 /datum/soullink/shapeshift

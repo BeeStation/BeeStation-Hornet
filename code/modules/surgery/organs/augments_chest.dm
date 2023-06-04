@@ -23,7 +23,7 @@
 		synthesizing = TRUE
 		to_chat(owner, "<span class='notice'>You feel less hungry...</span>")
 		owner.adjust_nutrition(50)
-		addtimer(CALLBACK(src, .proc/synth_cool), 50)
+		addtimer(CALLBACK(src, PROC_REF(synth_cool)), 50)
 
 /obj/item/organ/cyberimp/chest/nutriment/proc/synth_cool()
 	synthesizing = FALSE
@@ -57,7 +57,7 @@
 /obj/item/organ/cyberimp/chest/reviver/on_life()
 	if(reviving)
 		if(owner.stat == UNCONSCIOUS)
-			addtimer(CALLBACK(src, .proc/heal), 30)
+			addtimer(CALLBACK(src, PROC_REF(heal)), 30)
 		else
 			cooldown = revive_cost + world.time
 			reviving = FALSE
@@ -104,7 +104,7 @@
 		if(H.stat != DEAD && prob(50 / severity) && H.can_heartattack())
 			H.set_heartattack(TRUE)
 			to_chat(H, "<span class='userdanger'>You feel a horrible agony in your chest!</span>")
-			addtimer(CALLBACK(src, .proc/undo_heart_attack), 600 / severity)
+			addtimer(CALLBACK(src, PROC_REF(undo_heart_attack)), 600 / severity)
 
 /obj/item/organ/cyberimp/chest/reviver/proc/undo_heart_attack()
 	var/mob/living/carbon/human/H = owner
@@ -151,10 +151,10 @@
 				to_chat(owner, "<span class='warning'>Your thrusters set seems to be broken!</span>")
 			return 0
 		on = TRUE
-		if(allow_thrust(0.01))
+		if(allow_thrust(THRUST_REQUIREMENT_SPACEMOVE))
 			ion_trail.start()
-			RegisterSignal(owner, COMSIG_MOVABLE_MOVED, .proc/move_react)
-			owner.add_movespeed_modifier(MOVESPEED_ID_CYBER_THRUSTER, priority=100, multiplicative_slowdown=-2, movetypes=FLOATING, conflict=MOVE_CONFLICT_JETPACK)
+			RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(move_react))
+			JETPACK_SPEED_CHECK(owner, MOVESPEED_ID_CYBER_THRUSTER, -1, TRUE)
 			if(!silent)
 				to_chat(owner, "<span class='notice'>You turn your thrusters set on.</span>")
 	else
@@ -178,9 +178,9 @@
 /obj/item/organ/cyberimp/chest/thrusters/proc/move_react()
 	SIGNAL_HANDLER
 
-	allow_thrust(0.01)
+	allow_thrust(THRUST_REQUIREMENT_SPACEMOVE)
 
-/obj/item/organ/cyberimp/chest/thrusters/proc/allow_thrust(num)
+/obj/item/organ/cyberimp/chest/thrusters/proc/allow_thrust(num, use_fuel = TRUE)
 	if(!on || !owner)
 		return 0
 
@@ -197,12 +197,13 @@
 	// Priority 2: use plasma from internal plasma storage.
 	// (just in case someone would ever use this implant system to make cyber-alien ops with jetpacks and taser arms)
 	if(owner.getPlasma() >= num*100)
-		owner.adjustPlasma(-num*100)
+		if(use_fuel)
+			owner.adjustPlasma(-num*100)
 		return 1
 
 	// Priority 3: use internals tank.
 	var/obj/item/tank/I = owner.internal
-	if(I && I.air_contents && I.air_contents.total_moles() >= num)
+	if(I && I.air_contents && I.air_contents.total_moles() >= num && use_fuel)
 		T.assume_air_moles(I.air_contents, num)
 
 	toggle(silent = TRUE)

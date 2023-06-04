@@ -60,11 +60,8 @@
 #define FORCE_MAP "runtimestation"
 #endif
 
-//Update this whenever you need to take advantage of more recent byond features
-#define MIN_COMPILER_VERSION 514
-#define MIN_COMPILER_BUILD 1583
 //TODO Remove the SDMM check when it supports 1568
-#if !defined(SPACEMAN_DMM) && (DM_VERSION < MIN_COMPILER_VERSION || DM_BUILD < MIN_COMPILER_BUILD)
+#if !defined(SPACEMAN_DMM) && (DM_VERSION < MIN_COMPILER_VERSION || DM_BUILD < MIN_COMPILER_BUILD) && !defined(FASTDMM)
 //Don't forget to update this part
 #error Your version of BYOND is too out-of-date to compile this project. Go to https://secure.byond.com/download and update.
 #error You need version 514.1583 or higher.
@@ -72,9 +69,9 @@
 
 //Update this whenever the byond version is stable so people stop updating to hilariously broken versions
 #define MAX_COMPILER_VERSION 514
-#define MAX_COMPILER_BUILD 1583
+#define MAX_COMPILER_BUILD 1589
 #if DM_VERSION > MAX_COMPILER_VERSION || DM_BUILD > MAX_COMPILER_BUILD
-#warn WARNING: Your BYOND version is over the recommended version (514.1583)! Stability is not guaranteed.
+#warn WARNING: Your BYOND version is over the recommended version (514.1589)! Stability is not guaranteed.
 #endif
 //Log the full sendmaps profile on 514.1556+, any earlier and we get bugs or it not existing
 #if DM_VERSION >= 514 && DM_BUILD >= 1556
@@ -108,7 +105,9 @@
 #define CBT
 #endif
 
-#if !defined(CBT) && !defined(SPACEMAN_DMM)
+#if defined(OPENDREAM)
+#error Compiling BeeStation in OpenDream is unsupported due to BeeStation's dependence on the auxtools DLL to function.
+#elif !defined(CBT) && !defined(SPACEMAN_DMM) && !defined(FASTDMM)
 #error Building with Dream Maker is no longer supported and will result in errors.
 #error Switch to VSCode and when prompted install the recommended extensions, you can then either use the UI or press Ctrl+Shift+B to build the codebase.
 #endif
@@ -116,11 +115,14 @@
 #define AUXMOS (world.system_type == MS_WINDOWS ? "auxtools/auxmos.dll" : __detect_auxmos())
 
 /proc/__detect_auxmos()
-	if (fexists("./libauxmos.so"))
-		return "./libauxmos.so"
-	else if (fexists("./auxtools/libauxmos.so"))
-		return "./auxtools/libauxmos.so"
-	else if (fexists("[world.GetConfig("env", "HOME")]/.byond/bin/libauxmos.so"))
-		return "[world.GetConfig("env", "HOME")]/.byond/bin/libauxmos.so"
-	else
-		CRASH("Could not find libauxmos.so")
+	var/static/auxmos_path
+	if(!auxmos_path)
+		if (fexists("./libauxmos.so"))
+			auxmos_path = "./libauxmos.so"
+		else if (fexists("./auxtools/libauxmos.so"))
+			auxmos_path = "./auxtools/libauxmos.so"
+		else if (fexists("[world.GetConfig("env", "HOME")]/.byond/bin/libauxmos.so"))
+			auxmos_path = "[world.GetConfig("env", "HOME")]/.byond/bin/libauxmos.so"
+		else
+			CRASH("Could not find libauxmos.so")
+	return auxmos_path

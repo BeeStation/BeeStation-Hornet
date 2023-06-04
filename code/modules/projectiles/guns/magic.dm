@@ -25,6 +25,13 @@
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi' //not really a gun and some toys use these inhands
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
+/obj/item/gun/magic/fire_sounds()
+	var/frequency_to_use = sin((90/max_charges) * charges)
+	if(suppressed)
+		playsound(src, suppressed_sound, suppressed_volume, vary_fire_sound, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0, frequency = frequency_to_use)
+	else
+		playsound(src, fire_sound, fire_sound_volume, vary_fire_sound, frequency = frequency_to_use)
+
 /obj/item/gun/magic/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
 	if(no_den_usage)
 		var/area/A = get_area(user)

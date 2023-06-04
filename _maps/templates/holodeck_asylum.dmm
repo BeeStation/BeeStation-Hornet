@@ -1,21 +1,21 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
+"aa" = (
 /obj/effect/holodeck_effect/mobspawner/psycho,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
-"b" = (
+"ab" = (
 /obj/machinery/door/window{
 	dir = 2
 	},
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
-"c" = (
+"ac" = (
 /obj/structure/window{
 	dir = 1
 	},
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
-"d" = (
+"ad" = (
 /obj/structure/window{
 	dir = 1
 	},
@@ -24,26 +24,26 @@
 	},
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
-"e" = (
+"ae" = (
 /obj/structure/window,
 /obj/structure/window{
 	dir = 8
 	},
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
-"f" = (
+"af" = (
 /obj/structure/window,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
-"g" = (
+"ag" = (
 /obj/structure/bed,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
-"h" = (
+"ah" = (
 /obj/structure/toilet,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
-"i" = (
+"ai" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
@@ -52,7 +52,7 @@
 	},
 /turf/open/floor/holofloor/white,
 /area/template_noop)
-"j" = (
+"aj" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
@@ -62,15 +62,15 @@
 	},
 /turf/open/floor/holofloor/white,
 /area/template_noop)
-"k" = (
+"ak" = (
 /turf/open/floor/holofloor/white,
 /area/template_noop)
-"l" = (
+"al" = (
 /obj/machinery/igniter,
 /obj/effect/holodeck_effect/mobspawner/psycho,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
-"m" = (
+"am" = (
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -82,7 +82,7 @@
 	},
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
-"n" = (
+"an" = (
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -92,7 +92,7 @@
 /obj/effect/decal/cleanable/blood/drip,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
-"o" = (
+"ao" = (
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -106,7 +106,7 @@
 	},
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
-"p" = (
+"ap" = (
 /obj/structure/window{
 	dir = 1
 	},
@@ -122,7 +122,7 @@
 	},
 /turf/open/floor/holofloor/white,
 /area/template_noop)
-"q" = (
+"aq" = (
 /obj/structure/window{
 	dir = 1
 	},
@@ -141,16 +141,16 @@
 	},
 /turf/open/floor/holofloor/white,
 /area/template_noop)
-"r" = (
+"ar" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/holofloor/white,
 /area/template_noop)
-"s" = (
+"as" = (
 /obj/structure/bed,
 /obj/effect/decal/cleanable/vomit,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
-"t" = (
+"at" = (
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -160,7 +160,7 @@
 /obj/effect/decal/cleanable/blood/drip,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
-"u" = (
+"au" = (
 /obj/structure/window{
 	dir = 1
 	},
@@ -176,12 +176,12 @@
 	},
 /turf/open/floor/holofloor/white,
 /area/template_noop)
-"v" = (
+"av" = (
 /obj/structure/window,
 /obj/effect/decal/cleanable/vomit,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
-"w" = (
+"aw" = (
 /obj/structure/table/glass,
 /obj/item/clothing/glasses/blindfold,
 /obj/item/clothing/glasses/blindfold,
@@ -189,7 +189,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/holofloor/white,
 /area/template_noop)
-"x" = (
+"ax" = (
 /obj/structure/curtain,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -199,7 +199,7 @@
 	},
 /turf/open/floor/holofloor/white,
 /area/template_noop)
-"y" = (
+"ay" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
@@ -207,7 +207,7 @@
 	},
 /turf/open/floor/holofloor/white,
 /area/template_noop)
-"z" = (
+"az" = (
 /obj/structure/table/glass,
 /obj/item/clothing/mask/muzzle,
 /obj/item/clothing/mask/muzzle,
@@ -215,7 +215,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/holofloor/white,
 /area/template_noop)
-"A" = (
+"aA" = (
 /obj/structure/window,
 /obj/structure/curtain,
 /obj/effect/turf_decal/tile/blue,
@@ -227,7 +227,7 @@
 	},
 /turf/open/floor/holofloor/white,
 /area/template_noop)
-"B" = (
+"aB" = (
 /obj/structure/window,
 /obj/structure/table/optable,
 /obj/effect/decal/cleanable/blood/old,
@@ -237,14 +237,14 @@
 	},
 /turf/open/floor/holofloor/white,
 /area/template_noop)
-"C" = (
+"aC" = (
 /obj/structure/window{
 	dir = 8
 	},
 /obj/structure/toilet,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
-"D" = (
+"aD" = (
 /obj/structure/window,
 /obj/machinery/computer/operating{
 	dir = 8
@@ -258,14 +258,14 @@
 	},
 /turf/open/floor/holofloor/white,
 /area/template_noop)
-"E" = (
+"aE" = (
 /obj/machinery/door/window{
 	dir = 2
 	},
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
-"F" = (
+"aF" = (
 /obj/structure/window{
 	dir = 8
 	},
@@ -274,13 +274,13 @@
 	},
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
-"G" = (
+"aG" = (
 /obj/machinery/door/window{
 	dir = 1
 	},
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
-"H" = (
+"aH" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/syringe,
 /obj/item/reagent_containers/syringe,
@@ -289,7 +289,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/holofloor/white,
 /area/template_noop)
-"I" = (
+"aI" = (
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -301,7 +301,7 @@
 	},
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
-"J" = (
+"aJ" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -309,7 +309,7 @@
 /obj/effect/decal/cleanable/blood/drip,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
-"K" = (
+"aK" = (
 /obj/structure/window{
 	dir = 1
 	},
@@ -319,19 +319,19 @@
 /obj/effect/decal/cleanable/vomit,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
-"L" = (
+"aL" = (
 /obj/structure/toilet{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/vomit,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
-"M" = (
+"aM" = (
 /obj/structure/bed,
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
-"N" = (
+"aN" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -339,31 +339,31 @@
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
-"O" = (
+"aO" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/holofloor/white,
 /area/template_noop)
-"P" = (
+"aP" = (
 /obj/machinery/door/window/brigdoor,
 /obj/effect/turf_decal/tile/red,
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
-"Q" = (
+"aQ" = (
 /obj/structure/sink{
 	dir = 8;
 	pixel_x = -12
 	},
 /turf/open/floor/holofloor/white,
 /area/template_noop)
-"R" = (
+"aR" = (
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
 /turf/open/floor/holofloor/white,
 /area/template_noop)
-"S" = (
+"aS" = (
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -375,7 +375,7 @@
 /obj/effect/decal/cleanable/blood/footprints,
 /turf/open/floor/holofloor/white,
 /area/template_noop)
-"T" = (
+"aT" = (
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
@@ -383,7 +383,7 @@
 /obj/effect/decal/cleanable/blood/drip,
 /turf/open/floor/holofloor/white,
 /area/template_noop)
-"U" = (
+"aU" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/yellow{
@@ -393,123 +393,287 @@
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/open/floor/holofloor/white,
 /area/template_noop)
-"V" = (
+"aV" = (
 /obj/machinery/door/window{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
-"W" = (
+"aW" = (
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
+"aX" = (
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"aY" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"aZ" = (
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"eI" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"fF" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"om" = (
+/obj/structure/curtain,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"pV" = (
+/obj/effect/turf_decal/tile/yellow/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"ul" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/turf_decal/tile/red,
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"wV" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"zS" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood,
+/obj/effect/turf_decal/tile/red/opposingcorners,
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"Cp" = (
+/obj/structure/window,
+/obj/structure/curtain,
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"FT" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"ID" = (
+/obj/structure/window,
+/obj/structure/table/optable,
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"KB" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/turf_decal/tile/blue/half/contrasted,
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"Pd" = (
+/obj/structure/window{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/item/clothing/suit/straight_jacket,
+/obj/item/assembly/flash,
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"Ps" = (
+/obj/structure/window,
+/obj/machinery/computer/operating{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted,
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"Sy" = (
+/obj/machinery/door/window/brigdoor,
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/turf_decal/tile/red,
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"Wv" = (
+/obj/structure/window{
+	dir = 1
+	},
+/obj/structure/curtain,
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"YF" = (
+/obj/structure/window{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/item/bedsheet,
+/obj/item/screwdriver,
+/obj/item/wirecutters,
+/obj/item/hatchet,
+/obj/item/lighter,
+/obj/item/healthanalyzer,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/holofloor/white,
+/area/template_noop)
 
 (1,1,1) = {"
-h
-f
-i
-r
-r
-r
-k
-R
-c
-L
+ah
+af
+pV
+ar
+ar
+ar
+ak
+aX
+ac
+aL
 "}
 (2,1,1) = {"
-a
-b
-i
-p
-x
-A
-k
-R
-G
-a
+aa
+ab
+pV
+Wv
+om
+Cp
+ak
+aX
+aG
+aa
 "}
 (3,1,1) = {"
-g
-v
-j
-q
-r
-B
-O
-R
-c
-M
+ag
+av
+fF
+YF
+ar
+ID
+aO
+aX
+ac
+aM
 "}
 (4,1,1) = {"
-C
-e
-i
-u
-y
-D
-O
-R
-d
-F
+aC
+ae
+pV
+Pd
+KB
+Ps
+aO
+aX
+ad
+aF
 "}
 (5,1,1) = {"
-a
-E
-i
-m
-t
-I
-k
-T
-V
-W
+aa
+aE
+pV
+am
+FT
+wV
+ak
+aZ
+aV
+aW
 "}
 (6,1,1) = {"
-g
-f
-j
-n
-l
-P
-S
-U
-c
-g
+ag
+af
+fF
+eI
+al
+Sy
+aS
+aY
+ac
+ag
 "}
 (7,1,1) = {"
-C
-e
-j
-o
-J
-N
-Q
-T
-K
-F
+aC
+ae
+fF
+zS
+ul
+aN
+aQ
+aZ
+aK
+aF
 "}
 (8,1,1) = {"
-a
-E
-i
-w
-z
-H
-O
-R
-G
-a
+aa
+aE
+pV
+aw
+az
+aH
+aO
+aX
+aG
+aa
 "}
 (9,1,1) = {"
-s
-f
-i
-k
-r
-k
-k
-R
-c
-g
+as
+af
+pV
+ak
+ar
+ak
+ak
+aX
+ac
+ag
 "}

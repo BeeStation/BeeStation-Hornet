@@ -88,30 +88,36 @@
 		if(2)
 			Stun(60)
 
-
-/mob/living/silicon/robot/emag_act(mob/user)
-	if(user == src)//To prevent syndieborgs from emagging themselves
-		return
+/mob/living/silicon/robot/proc/should_emag(atom/target, mob/user)
+	SIGNAL_HANDLER
+	if(target == user || user == src)
+		return TRUE // signal is inverted
 	if(!opened)//Cover is closed
-		if(locked)
-			to_chat(user, "<span class='notice'>You emag the cover lock.</span>")
-			locked = FALSE
-			if(shell) //A warning to Traitors who may not know that emagging AI shells does not slave them.
-				to_chat(user, "<span class='boldwarning'>[src] seems to be controlled remotely! Emagging the interface may not work as expected.</span>")
-		else
-			to_chat(user, "<span class='warning'>The cover is already unlocked!</span>")
-		return
+		return !locked
 	if(world.time < emag_cooldown)
-		return
+		return TRUE
 	if(wiresexposed)
 		to_chat(user, "<span class='warning'>You must unexpose the wires first!</span>")
+		return TRUE
+	return FALSE
+
+/mob/living/silicon/robot/proc/on_emag(atom/target, mob/user)
+	SIGNAL_HANDLER
+	if(!opened && locked) //Cover is closed
+		to_chat(user, "<span class='notice'>You emag the cover lock.</span>")
+		locked = FALSE
+		if(shell) //A warning to Traitors who may not know that emagging AI shells does not slave them.
+			to_chat(user, "<span class='boldwarning'>[src] seems to be controlled remotely! Emagging the interface may not work as expected.</span>")
 		return
 
 	to_chat(user, "<span class='notice'>You emag [src]'s interface.</span>")
 	emag_cooldown = world.time + 100
+	addtimer(CALLBACK(src, PROC_REF(after_emag), user), 1)
 
+/mob/living/silicon/robot/proc/after_emag(mob/user)
 	if(connected_ai?.mind && connected_ai.mind.has_antag_datum(/datum/antagonist/traitor))
 		to_chat(src, "<span class='danger'>ALERT: Foreign software execution prevented.</span>")
+		logevent("ALERT: Foreign software execution prevented.")
 		to_chat(connected_ai, "<span class='danger'>ALERT: Cyborg unit \[[src]] successfully defended against subversion.</span>")
 		log_game("[key_name(user)] attempted to emag cyborg [key_name(src)], but they were slaved to traitor AI [connected_ai].")
 		return
@@ -119,7 +125,7 @@
 	if(shell) //AI shells cannot be emagged, so we try to make it look like a standard reset. Smart players may see through this, however.
 		to_chat(user, "<span class='danger'>[src] is remotely controlled! Your emag attempt has triggered a system reset instead!</span>")
 		log_game("[key_name(user)] attempted to emag an AI shell belonging to [key_name(src) ? key_name(src) : connected_ai]. The shell has been reset as a result.")
-		ResetModule()
+		addtimer(CALLBACK(src, PROC_REF(after_emag_shell), user), 1)
 		return
 
 	SetEmagged(1)
@@ -131,17 +137,19 @@
 	var/time = time2text(world.realtime,"hh:mm:ss")
 	GLOB.lawchanges.Add("[time] <B>:</B> [user.name]([user.key]) emagged [name]([key])")
 	to_chat(src, "<span class='danger'>ALERT: Foreign software detected.</span>")
-	sleep(5)
+	logevent("ALERT: Foreign software detected.")
+	sleep(0.5 SECONDS)
 	to_chat(src, "<span class='danger'>Initiating diagnostics...</span>")
-	sleep(20)
+	sleep(2 SECONDS)
 	to_chat(src, "<span class='danger'>SynBorg v1.7 loaded.</span>")
-	sleep(5)
+	logevent("WARN: root privleges granted to PID [num2hex(rand(1,65535), -1)][num2hex(rand(1,65535), -1)].") //random eight digit hex value. Two are used because rand(1,4294967295) throws an error
+	sleep(0.5 SECONDS)
 	to_chat(src, "<span class='danger'>LAW SYNCHRONISATION ERROR</span>")
-	sleep(5)
+	sleep(0.5 SECONDS)
 	to_chat(src, "<span class='danger'>Would you like to send a report to NanoTraSoft? Y/N</span>")
-	sleep(10)
+	sleep(1 SECONDS)
 	to_chat(src, "<span class='danger'>> N</span>")
-	sleep(20)
+	sleep(2 SECONDS)
 	to_chat(src, "<span class='danger'>ERRORERRORERROR</span>")
 	to_chat(src, "<span class='danger'>ALERT: [user.real_name] is your new master. Obey your new laws and [user.p_their()] commands.</span>")
 	laws = new /datum/ai_laws/syndicate_override
@@ -150,6 +158,9 @@
 	update_icons()
 	//Get syndicate access.
 	create_access_card(get_all_syndicate_access())
+
+/mob/living/silicon/robot/proc/after_emag_shell(mob/user)
+	ResetModule()
 
 /mob/living/silicon/robot/blob_act(obj/structure/blob/B)
 	if(stat != DEAD)

@@ -1,3 +1,8 @@
+// TODO these two should be config options
+#define STATION_GOAL_BUDGET  1
+#define PR_ANNOUNCEMENTS_PER_ROUND 5 //The number of unique PR announcements allowed per round
+									//This makes sure that a single person can only spam 3 reopens and 3 closes before being ignored
+
 //config files
 #define CONFIG_GET(X) global.config.Get(/datum/config_entry/##X)
 #define CONFIG_SET(X, Y) global.config.Set(/datum/config_entry/##X, ##Y)
@@ -40,3 +45,17 @@
 #define GIMMICK_OBJ_FILE "[STRING_DIRECTORY]/gimmick_objectives.txt"
 #define DEPT_GIMMICK_OBJ_FILE "[STRING_DIRECTORY]/dept_gimmick_objectives.txt"
 #define TARGET_GIMMICK_OBJ_FILE "[STRING_DIRECTORY]/target_gimmick_objectives.txt"
+#define SPLASH_DESC_FILE "splash.json"
+#define MEDIEVAL_SPEECH_FILE "medieval_speech.json"
+#define HERETIC_INFLUENCE_FILE "heretic_influences.json"
+
+/// Force the log directory to be something specific in the data/logs folder
+#define OVERRIDE_LOG_DIRECTORY_PARAMETER "log-directory"
+/// Prevent the master controller from starting automatically
+#define NO_INIT_PARAMETER "no-init"
+/// Force the config directory to be something other than "config"
+#define OVERRIDE_CONFIG_DIRECTORY_PARAMETER "config-directory"
+
+// Defib stats
+/// The time (in deciseconds) in which a fresh body can be defibbed
+#define DEFIB_TIME_LIMIT 900

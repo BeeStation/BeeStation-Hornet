@@ -11,7 +11,6 @@
 	hud_possible = list(ANTAG_HUD, AI_DETECT_HUD = HUD_LIST_LIST)
 	var/list/visibleCameraChunks = list()
 	var/mob/living/silicon/ai/ai = null
-	var/relay_speech = FALSE
 	var/use_static = TRUE
 	var/static_visibility_range = 16
 	var/ai_detector_visible = TRUE
@@ -22,6 +21,12 @@
 	GLOB.ai_eyes += src
 	update_ai_detect_hud()
 	setLoc(loc, TRUE)
+
+/mob/camera/ai_eye/proc/set_relay_speech(relay)
+	if(relay)
+		become_hearing_sensitive()
+	else
+		REMOVE_TRAIT(src, TRAIT_HEARING_SENSITIVE, TRAIT_GENERIC)
 
 /mob/camera/ai_eye/proc/update_ai_detect_hud()
 	var/datum/atom_hud/ai_detector/hud = GLOB.huds[DATA_HUD_AI_DETECT]
@@ -84,7 +89,6 @@
 		if(ai.client && !ai.multicam_on)
 			ai.client.eye = src
 		update_ai_detect_hud()
-		update_parallax_contents()
 		//Holopad
 		if(istype(ai.current, /obj/machinery/holopad))
 			var/obj/machinery/holopad/H = ai.current
@@ -95,22 +99,23 @@
 			ai.master_multicam.refresh_view()
 
 //it uses setLoc not forceMove, talks to the sillycone and not the camera mob
-/mob/camera/ai_eye/zMove(dir, feedback = FALSE)
+/mob/camera/ai_eye/zMove(dir, feedback = FALSE, feedback_to = ai)
 	if(dir != UP && dir != DOWN)
 		return FALSE
+	var/turf/source = get_turf(src)
 	var/turf/target = get_step_multiz(src, dir)
 	if(!target)
 		if(feedback)
-			to_chat(ai, "<span class='warning'>There's nowhere to go in that direction!</span>")
+			to_chat(feedback_to, "<span class='warning'>There's nowhere to go in that direction!</span>")
 		return FALSE
-	if(!canZMove(dir, target))
+	if(!canZMove(dir, source, target))
 		if(feedback)
-			to_chat(ai, "<span class='warning'>You couldn't move there!</span>")
+			to_chat(feedback_to, "<span class='warning'>You couldn't move there!</span>")
 		return FALSE
 	setLoc(target, TRUE)
 	return TRUE
 
-/mob/camera/ai_eye/canZMove(direction, turf/target) //cameras do not respect these FLOORS you speak so much of
+/mob/camera/ai_eye/canZMove(direction, turf/source, turf/target, pre_move = TRUE) //cameras do not respect these FLOORS you speak so much of
 	return TRUE
 
 /mob/camera/ai_eye/Move()
@@ -213,7 +218,7 @@
 
 /mob/camera/ai_eye/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
 	. = ..()
-	if(relay_speech && speaker && ai && !radio_freq && speaker != ai && near_camera(speaker))
+	if(speaker && ai && !radio_freq && speaker != ai && near_camera(speaker))
 		ai.relay_speech(message, speaker, message_language, raw_message, radio_freq, spans, message_mods)
 
 /obj/effect/overlay/ai_detect_hud

@@ -145,12 +145,12 @@
   * Return the desc of this mob for a photo
   */
 /mob/proc/get_photo_description(obj/item/camera/camera)
-	return "a ... thing?"
+	return "You can also see a ... thing?"
 
 /**
   * Show a message to this mob (visual or audible)
   */
-/mob/proc/show_message(msg, type, alt_msg, alt_type)//Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
+/mob/proc/show_message(msg, type, alt_msg, alt_type, avoid_highlighting = FALSE)//Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
 
 	if(!client)
 		return
@@ -158,7 +158,7 @@
 	msg = copytext_char(msg, 1, MAX_MESSAGE_LEN)
 
 	if(type)
-		if(type & MSG_VISUAL && eye_blind )//Vision related
+		if(type & MSG_VISUAL && is_blind() )//Vision related
 			if(!alt_msg)
 				return
 			else
@@ -171,17 +171,17 @@
 			else
 				msg = alt_msg
 				type = alt_type
-				if(type & MSG_VISUAL && eye_blind)
+				if(type & MSG_VISUAL && is_blind())
 					return
 	// voice muffling
 	if(stat == UNCONSCIOUS)
 		if(type & MSG_AUDIBLE) //audio
 			to_chat(src, "<I>... You can almost hear something ...</I>")
 		return
-	to_chat(src, msg)
+	to_chat(src, msg, avoid_highlighting = avoid_highlighting)
 
 
-/atom/proc/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags)
+/atom/proc/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags, allow_inside_usr = FALSE, separation = " ")
 	var/turf/T = get_turf(src)
 	if(!T)
 		return
@@ -198,7 +198,7 @@
 	var/raw_msg = message
 	var/is_emote = FALSE
 	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE))
-		message = "<span class='emote'><b>[src]</b> [message]</span>"
+		message = "<span class='emote'><b>[src]</b>[separation][message]</span>"
 		is_emote = TRUE
 
 	var/list/show_to = list()
@@ -211,13 +211,14 @@
 		if(M.see_invisible < invisibility)//if src is invisible to M
 			msg = blind_message
 		else if(T != loc && T != src) //if src is inside something and not a turf.
-			msg = blind_message
+			if(!allow_inside_usr || loc != usr)
+				msg = blind_message
 		else if(T.lighting_object && T.lighting_object.invisibility <= M.see_invisible && T.is_softly_lit() && !in_range(T,M)) //if it is too dark.
 			msg = blind_message
 		if(!msg)
 			continue
 
-		if(is_emote && M.should_show_chat_message(src, null, TRUE) && !is_blind(M))
+		if(is_emote && M.should_show_chat_message(src, null, TRUE) && !M.is_blind())
 			show_to += M
 
 		M.show_message(msg, MSG_VISUAL, blind_message, MSG_AUDIBLE)
@@ -226,7 +227,7 @@
 	if(length(show_to))
 		create_chat_message(src, null, show_to, raw_msg, null, visible_message_flags)
 
-/mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags)
+/mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags, separation = " ")
 	. = ..()
 	if(self_message)
 		show_message(self_message, MSG_VISUAL, blind_message, MSG_AUDIBLE)
@@ -242,8 +243,8 @@
   * * deaf_message (optional) is what deaf people will see.
   * * hearing_distance (optional) is the range, how many tiles away the message can be heard.
   */
-/atom/proc/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, list/audible_message_flags)
-	var/list/hearers = get_hearers_in_view(hearing_distance, src, SEE_INVISIBLE_OBSERVER)
+/atom/proc/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, list/audible_message_flags, separation = " ")
+	var/list/hearers = get_hearers_in_view(hearing_distance, src, SEE_INVISIBLE_MAXIMUM)
 	if(self_message)
 		hearers -= src
 
@@ -251,7 +252,7 @@
 	var/is_emote = FALSE
 	if(LAZYFIND(audible_message_flags, CHATMESSAGE_EMOTE))
 		is_emote = TRUE
-		message = "<span class='emote'><b>[src]</b> [message]</span>"
+		message = "<span class='emote'><b>[src]</b>[separation][message]</span>"
 
 	var/list/show_to = list()
 	for(var/mob/M in hearers)
@@ -273,23 +274,23 @@
   * * deaf_message (optional) is what deaf people will see.
   * * hearing_distance (optional) is the range, how many tiles away the message can be heard.
   */
-/mob/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, list/audible_message_flags)
+/mob/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, list/audible_message_flags, separation = " ")
 	. = ..()
 	if(self_message)
 		show_message(self_message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
 
 ///Returns the client runechat visible messages preference according to the message type.
 /atom/proc/runechat_prefs_check(mob/target, list/visible_message_flags)
-	if(!target.client?.prefs.chat_on_map || !target.client.prefs.see_chat_non_mob)
+	if(!(target.client?.prefs.toggles & PREFTOGGLE_RUNECHAT_GLOBAL) || !(target.client.prefs.toggles & PREFTOGGLE_RUNECHAT_NONMOBS))
 		return FALSE
-	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !target.client.prefs.see_rc_emotes)
+	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !(target.client.prefs.toggles & PREFTOGGLE_RUNECHAT_EMOTES))
 		return FALSE
 	return TRUE
 
 /mob/runechat_prefs_check(mob/target, list/visible_message_flags)
-	if(!target.client?.prefs.chat_on_map)
+	if(!(target.client?.prefs.toggles & PREFTOGGLE_RUNECHAT_GLOBAL))
 		return FALSE
-	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !target.client.prefs.see_rc_emotes)
+	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !(target.client.prefs.toggles & PREFTOGGLE_RUNECHAT_EMOTES))
 		return FALSE
 	return TRUE
 
@@ -436,7 +437,7 @@
 /mob/proc/reset_perspective(atom/A)
 	if(client)
 		if(A)
-			if(ismovableatom(A))
+			if(ismovable(A))
 				//Set the the thing unless it's us
 				if(A != src)
 					client.perspective = EYE_PERSPECTIVE
@@ -484,7 +485,8 @@
 
 	face_atom(A)
 	var/list/result = A.examine(src)
-	to_chat(src, result.Join("\n"))
+
+	to_chat(src, EXAMINE_BLOCK(jointext(result, "\n")))
 	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, A)
 
 /mob/proc/blind_examine_check(atom/examined_thing)
@@ -533,39 +535,6 @@
 	examined_thing.attack_hand(src)
 	a_intent = previous_intent
 
-	return TRUE
-
-/**
-  * Point at an atom
-  *
-  * mob verbs are faster than object verbs. See
-  * [this byond forum post](https://secure.byond.com/forum/?post=1326139&page=2#comment8198716)
-  * for why this isn't atom/verb/pointed()
-  *
-  * note: ghosts can point, this is intended
-  *
-  * visible_message will handle invisibility properly
-  *
-  * overridden here and in /mob/dead/observer for different point span classes and sanity checks
-  */
-/mob/verb/pointed(atom/A as mob|obj|turf in view())
-	set name = "Point To"
-	set category = "Object"
-
-	if(!src || !isturf(src.loc) || !(A in view(src.loc)))
-		return FALSE
-	if(istype(A, /obj/effect/temp_visual/point))
-		return FALSE
-
-	var/turf/tile = get_turf(A)
-	if (!tile)
-		return FALSE
-
-	var/turf/our_tile = get_turf(src)
-	var/obj/visual = new /obj/effect/temp_visual/point(our_tile, invisibility)
-	animate(visual, pixel_x = (tile.x - our_tile.x) * world.icon_size + A.pixel_x, pixel_y = (tile.y - our_tile.y) * world.icon_size + A.pixel_y, time = 1.7, easing = EASE_OUT)
-
-	SEND_SIGNAL(src, COMSIG_MOB_POINTED, A)
 	return TRUE
 
 /**
@@ -676,9 +645,16 @@
 /mob/verb/abandon_mob()
 	set name = "Respawn"
 	set category = "OOC"
+	var/alert_yes
 
 	if (CONFIG_GET(flag/norespawn))
-		return
+		if(!check_rights_for(client, R_ADMIN))
+			to_chat(usr, "<span class='boldnotice'>Respawning is disabled.</span>")
+			return
+		alert_yes = alert(src, "Do you want to use your admin privilege to respawn? (Respawning is currently disabled)", "Options", "Yes", "No")
+		if(alert_yes != "Yes")
+			return
+
 	if ((stat != DEAD || !( SSticker )))
 		to_chat(usr, "<span class='boldnotice'>You must be dead to use this!</span>")
 		return
@@ -701,6 +677,9 @@
 		log_game("[key_name(usr)] AM failed due to disconnect.")
 		qdel(M)
 		return
+	if(alert_yes)
+		log_admin("[key_name(usr)] has used admin privilege to respawn themselves back to the Lobby.")
+		message_admins("[key_name(usr)] has used admin privilege to respawn themselves back to the Lobby.")
 
 	M.key = key
 //	M.Login()	//wat
@@ -741,7 +720,7 @@
 		unset_machine()
 		src << browse(null, t1)
 
-	if(href_list["item"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERY))
+	if(href_list["item"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERITY))
 		var/slot = text2num(href_list["item"])
 		var/hand_index = text2num(href_list["hand_index"])
 		var/obj/item/what
@@ -811,7 +790,7 @@
   *
   * Conditions:
   * * client.last_turn > world.time
-  * * not dead or unconcious
+  * * not dead or unconscious
   * * not anchored
   * * no transform not set
   * * we are not restrained
@@ -907,6 +886,15 @@
 	if((magic && HAS_TRAIT(src, TRAIT_ANTIMAGIC)) || (holy && HAS_TRAIT(src, TRAIT_HOLY)))
 		return src
 
+///Return any anti artifact atom on this mob
+/mob/proc/anti_artifact_check(self = FALSE)
+	var/list/protection_sources = list()
+	if(SEND_SIGNAL(src, COMSIG_MOB_RECEIVE_ARTIFACT, src, self, protection_sources) & COMPONENT_BLOCK_ARTIFACT)
+		if(protection_sources.len)
+			return pick(protection_sources)
+		else
+			return src
+
 /**
   * Buckle to another mob
   *
@@ -919,10 +907,10 @@
 		return FALSE
 	var/turf/T = get_turf(src)
 	if(M.loc != T)
-		var/old_density = density
+		var/old_density = density //old and doesnt use set_density()
 		density = FALSE
 		var/can_step = step_towards(M, T)
-		density = old_density
+		density = old_density // Avoid changing density directly in normal circumstances, without the setter.
 		if(!can_step)
 			return FALSE
 	return ..()
@@ -955,11 +943,15 @@
 	return 1
 
 ///Can the mob interact() with an atom?
-/mob/proc/can_interact_with(atom/A)
-	return IsAdminGhost(src) || Adjacent(A)
+/mob/proc/can_interact_with(atom/A, treat_mob_as_adjacent)
+	if(IsAdminGhost(src))
+		return TRUE
+	if(treat_mob_as_adjacent && src == A.loc)
+		return TRUE
+	return Adjacent(A)
 
 ///Can the mob use Topic to interact with machines
-/mob/proc/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
+/mob/proc/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
 	return
 
 ///Can this mob use storage
@@ -1055,11 +1047,11 @@
 					break
 				search_id = 0
 
-		else if( search_pda && istype(A, /obj/item/pda) )
-			var/obj/item/pda/PDA = A
-			if(PDA.owner == oldname)
-				PDA.owner = newname
-				PDA.update_label()
+		else if(search_pda && istype(A, /obj/item/modular_computer/tablet/pda))
+			var/obj/item/modular_computer/tablet/pda/PDA = A
+			if(PDA.saved_identification == oldname)
+				PDA.saved_identification = newname
+				PDA.update_id_display()
 				if(!search_id)
 					break
 				search_pda = 0
@@ -1103,7 +1095,7 @@
 
 ///Can this mob read (is literate and not blind)
 /mob/proc/can_read(obj/O)
-	if(is_blind(src))
+	if(is_blind())
 		to_chat(src, "<span class='warning'>As you are trying to read [O], you suddenly feel very stupid!</span>")
 		return
 	if(!is_literate())
@@ -1143,53 +1135,40 @@
 
 /mob/vv_do_topic(list/href_list)
 	. = ..()
-	if(href_list[VV_HK_REGEN_ICONS])
-		if(!check_rights(NONE))
-			return
+	if(href_list[VV_HK_REGEN_ICONS] && check_rights(R_ADMIN))
 		regenerate_icons()
-	if(href_list[VV_HK_PLAYER_PANEL])
-		if(!check_rights(NONE))
-			return
+
+	if(href_list[VV_HK_PLAYER_PANEL] && check_rights(R_ADMIN))
 		usr.client.holder.show_player_panel(src)
-	if(href_list[VV_HK_GODMODE])
-		if(!check_rights(R_ADMIN))
-			return
+
+	if(href_list[VV_HK_GODMODE] && check_rights(R_FUN))
 		usr.client.cmd_admin_godmode(src)
-	if(href_list[VV_HK_GIVE_SPELL])
-		if(!check_rights(NONE))
-			return
+
+	if(href_list[VV_HK_GIVE_SPELL] && check_rights(R_FUN))
 		usr.client.give_spell(src)
-	if(href_list[VV_HK_REMOVE_SPELL])
-		if(!check_rights(NONE))
-			return
+
+	if(href_list[VV_HK_REMOVE_SPELL] && check_rights(R_FUN))
 		usr.client.remove_spell(src)
-	if(href_list[VV_HK_GIVE_DISEASE])
-		if(!check_rights(NONE))
-			return
+
+	if(href_list[VV_HK_GIVE_DISEASE] && check_rights(R_FUN))
 		usr.client.give_disease(src)
-	if(href_list[VV_HK_GIB])
-		if(!check_rights(R_FUN))
-			return
+
+	if(href_list[VV_HK_GIB] && check_rights(R_FUN))
 		usr.client.cmd_admin_gib(src)
-	if(href_list[VV_HK_BUILDMODE])
-		if(!check_rights(R_BUILD))
-			return
+
+	if(href_list[VV_HK_BUILDMODE] && check_rights(R_BUILD))
 		togglebuildmode(src)
-	if(href_list[VV_HK_DROP_ALL])
-		if(!check_rights(NONE))
-			return
+
+	if(href_list[VV_HK_DROP_ALL] && check_rights(R_FUN))
 		usr.client.cmd_admin_drop_everything(src)
-	if(href_list[VV_HK_DIRECT_CONTROL])
-		if(!check_rights(NONE))
-			return
+
+	if(href_list[VV_HK_DIRECT_CONTROL] && check_rights(R_ADMIN))
 		usr.client.cmd_assume_direct_control(src)
-	if(href_list[VV_HK_GIVE_DIRECT_CONTROL])
-		if(!check_rights(NONE))
-			return
+
+	if(href_list[VV_HK_GIVE_DIRECT_CONTROL] && check_rights(R_ADMIN))
 		usr.client.cmd_give_direct_control(src)
-	if(href_list[VV_HK_OFFER_GHOSTS])
-		if(!check_rights(NONE))
-			return
+
+	if(href_list[VV_HK_OFFER_GHOSTS] && check_rights(R_ADMIN))
 		offer_control(src)
 
 /**
@@ -1264,15 +1243,8 @@
 		UnregisterSignal(active_storage, COMSIG_PARENT_QDELETING)
 	active_storage = new_active_storage
 	if(active_storage)
-		RegisterSignal(active_storage, COMSIG_PARENT_QDELETING, .proc/active_storage_deleted)
+		RegisterSignal(active_storage, COMSIG_PARENT_QDELETING, PROC_REF(active_storage_deleted))
 
 /mob/proc/active_storage_deleted(datum/source)
 	SIGNAL_HANDLER
 	set_active_storage(null)
-
-///Clears the client in contents list of our current "eye". Prevents hard deletes
-/mob/proc/clear_client_in_contents()
-	if(client?.movingmob) //In the case the client was transferred to another mob and not deleted.
-		client.movingmob.client_mobs_in_contents -= src
-		UNSETEMPTY(client.movingmob.client_mobs_in_contents)
-		client.movingmob = null

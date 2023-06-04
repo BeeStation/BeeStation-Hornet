@@ -99,7 +99,7 @@
 		)
 
 	if (up && down)
-		var/result = show_radial_menu(user, src, tool_list, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
+		var/result = show_radial_menu(user, src, tool_list, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 		if (!is_ghost && !in_range(src, user))
 			return  // nice try
 		switch(result)
@@ -107,7 +107,7 @@
 				travel(TRUE, user, is_ghost, up)
 			if("Down")
 				travel(FALSE, user, is_ghost, down)
-			if("Cancel")
+			else
 				return
 	else if(up)
 		travel(TRUE, user, is_ghost, up)
@@ -122,6 +122,10 @@
 /obj/structure/ladder/proc/check_menu(mob/user)
 	if(user.incapacitated() || !user.Adjacent(src))
 		return FALSE
+	return TRUE
+
+/obj/structure/ladder/attack_pai(mob/user, list/modifiers)
+	use(user)
 	return TRUE
 
 /obj/structure/ladder/attack_hand(mob/user)

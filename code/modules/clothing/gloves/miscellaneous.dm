@@ -25,7 +25,7 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 30, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 70, ACID = 30, STAMINA = 0)
 
 /obj/item/clothing/gloves/combat
 	name = "combat gloves"
@@ -41,7 +41,7 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 50, "stamina" = 20)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 50, STAMINA = 20)
 
 /obj/item/clothing/gloves/bracer
 	name = "bone bracers"
@@ -57,7 +57,7 @@
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list("melee" = 15, "bullet" = 35, "laser" = 35, "energy" = 20, "bomb" = 35, "bio" = 35, "rad" = 35, "fire" = 0, "acid" = 0, "stamina" = 20)
+	armor = list(MELEE = 15,  BULLET = 35, LASER = 35, ENERGY = 20, BOMB = 35, BIO = 35, RAD = 35, FIRE = 0, ACID = 0, STAMINA = 20)
 
 /obj/item/clothing/gloves/rapid
 	name = "Gloves of the North Star"
@@ -66,6 +66,7 @@
 	item_state = "rapid"
 	worn_icon_state = "rapid"
 	transfer_prints = TRUE
+	item_flags = ISWEAPON
 	var/warcry = "AT"
 
 /obj/item/clothing/gloves/rapid/Touch(atom/A, proximity)
@@ -112,16 +113,34 @@
 			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
 
 /obj/item/clothing/gloves/color/white/magic/Touch(atom/A, proximity)
-	var/mob/living/M = loc
-	if(get_dist(A, M) <= 1)
-		return 0
-	if(M in viewers(range, A))
-		M.visible_message("<span_class ='danger'>[M] waves their hands at [A]</span>", "<span_class ='notice'>You begin manipulating [A].</span>")
+	var/mob/living/user = loc
+	if(get_dist(A, user) <= 1 )
+		return FALSE
+	if(user in viewers(range, A))
+		user.visible_message("<span class='danger'>[user] waves their hands at [A]</span>", "<span class='notice'>You begin manipulating [A].</span>")
 		new	/obj/effect/temp_visual/telegloves(A.loc)
-		M.changeNext_move(CLICK_CD_MELEE)
-		if(do_after_mob(M, A, 8))
-			new /obj/effect/temp_visual/telekinesis(M.loc)
-			playsound(M, 'sound/weapons/emitter2.ogg', 25, 1, -1)
-			A.attack_hand(M)
-			return 1
+		user.changeNext_move(CLICK_CD_MELEE)
+		if(do_after(user, 0.8 SECONDS, A))
+			new /obj/effect/temp_visual/telekinesis(user.loc)
+			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
+			A.attack_hand(user)
+			return TRUE
 
+/obj/item/clothing/gloves/artifact_pinchers
+	name = "anti-tactile pinchers"
+	desc = "Used for the fine manipulation and examination of artifacts."
+	icon_state = "pincher"
+	item_state = "pincher"
+	worn_icon_state = "pincher"
+	transfer_prints = FALSE
+	actions_types = list(/datum/action/item_action/artifact_pincher_mode)
+	var/safety = FALSE
+
+/datum/action/item_action/artifact_pincher_mode
+	name = "Toggle Safety"
+
+/datum/action/item_action/artifact_pincher_mode/Trigger()
+	var/obj/item/clothing/gloves/artifact_pinchers/pinchy = target
+	if(istype(pinchy))
+		pinchy.safety = !pinchy.safety
+		button.icon_state = (pinchy.safety ? "template_active" : "template")

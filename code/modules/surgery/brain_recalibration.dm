@@ -16,6 +16,10 @@
 	name = "fix brain"
 	implements = list(TOOL_HEMOSTAT = 85, TOOL_SCREWDRIVER = 35, /obj/item/pen = 15) //don't worry, pouring some alcohol on their open brain will get that chance to 100
 	time = 120 //long and complicated
+	repeatable = TRUE
+	preop_sound = 'sound/surgery/hemostat1.ogg'
+	success_sound = 'sound/surgery/hemostat1.ogg'
+	failure_sound = 'sound/surgery/organ2.ogg'
 
 /datum/surgery/brain_recalibration/can_start(mob/user, mob/living/carbon/target)
 	var/obj/item/organ/brain/B = target.getorganslot(ORGAN_SLOT_BRAIN)
@@ -33,9 +37,11 @@
 		"[user] successfully fixes [target]'s brain!",
 		"[user] completes the surgery on [target]'s brain.")
 	if(target.mind && target.mind.has_antag_datum(/datum/antagonist/brainwashed))
-		target.mind.remove_antag_datum(/datum/antagonist/brainwashed)
+		unbrainwash(target)
 	target.setOrganLoss(ORGAN_SLOT_BRAIN, target.getOrganLoss(ORGAN_SLOT_BRAIN) - 60)	//we set damage in this case in order to clear the "failing" flag
 	target.cure_all_traumas(TRAUMA_RESILIENCE_SURGERY)
+	if(target.getOrganLoss(ORGAN_SLOT_BRAIN))
+		to_chat(user, "<span class='notice'>It looks like [target]'s brain could be fixed further.</span>")
 	return TRUE
 
 /datum/surgery_step/fix_brain/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)

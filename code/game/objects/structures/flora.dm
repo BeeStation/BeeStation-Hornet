@@ -313,6 +313,7 @@
 	throwforce = 13
 	throw_speed = 2
 	throw_range = 4
+	item_flags = NO_PIXEL_RANDOM_DROP
 
 /obj/item/kirbyplants/ComponentInitialize()
 	. = ..()
@@ -323,6 +324,7 @@
 	max_items = 1
 	max_w_class = WEIGHT_CLASS_NORMAL
 	insert_while_closed = FALSE // We don't want clicking plants with items to insert it, you have to alt click then click the slots
+	animated = FALSE
 
 /obj/item/kirbyplants/equipped(mob/living/user)
 	var/image/I = image(icon = 'icons/obj/flora/plants.dmi' , icon_state = src.icon_state, loc = user)
@@ -411,7 +413,7 @@
 //Jungle rocks
 
 /obj/structure/flora/rock/jungle
-	icon_state = "pile of rocks"
+	name = "pile of rocks"
 	desc = "A pile of rocks."
 	icon_state = "rock"
 	icon = 'icons/obj/flora/jungleflora.dmi'

@@ -17,7 +17,7 @@
 /turf/open/floor/carpet,
 /area/shuttle/escape)
 "af" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
 /turf/open/floor/carpet,
@@ -40,7 +40,7 @@
 /turf/open/floor/carpet,
 /area/shuttle/escape)
 "aj" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
 /turf/open/floor/carpet,
@@ -49,7 +49,7 @@
 /turf/open/floor/carpet,
 /area/shuttle/escape)
 "al" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 4
 	},
 /obj/structure/window/reinforced{
@@ -95,27 +95,8 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "at" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /turf/open/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
-"au" = (
-/obj/machinery/flasher{
-	id = "cockpit_flasher";
-	pixel_x = 6;
-	pixel_y = 24
-	},
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/escape)
-"av" = (
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
 /area/shuttle/escape)
 "aw" = (
 /turf/open/floor/mineral/titanium,
@@ -165,7 +146,7 @@
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aE" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
@@ -175,7 +156,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aG" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aH" = (
@@ -200,7 +181,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "aL" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue,
@@ -209,7 +190,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium/blue,
@@ -229,7 +210,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "aQ" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium,
@@ -244,7 +225,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aT" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/structure/extinguisher_cabinet{
@@ -274,28 +255,6 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/grimy,
-/area/shuttle/escape)
-"ba" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -30
-	},
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/escape)
-"bb" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/barricade/wooden,
-/obj/machinery/light,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
 /area/shuttle/escape)
 "bc" = (
 /obj/machinery/status_display/evac,
@@ -351,14 +310,14 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "bo" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "bp" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/machinery/light{
@@ -378,6 +337,15 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
+"de" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/barricade/wooden,
+/obj/machinery/light,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
 "gl" = (
 /obj/machinery/door/airlock/titanium{
 	name = "Emergency Shuttle Airlock";
@@ -385,6 +353,15 @@
 	},
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
+/area/shuttle/escape)
+"gw" = (
+/obj/machinery/flasher{
+	id = "cockpit_flasher";
+	pixel_x = 6;
+	pixel_y = 24
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
 /area/shuttle/escape)
 "jr" = (
 /obj/machinery/door/airlock/titanium{
@@ -416,6 +393,17 @@
 	},
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
+/area/shuttle/escape)
+"qt" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
+"sZ" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -30
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
 /area/shuttle/escape)
 "Dc" = (
 /obj/machinery/door/airlock/titanium{
@@ -497,7 +485,7 @@ aG
 aw
 aR
 aX
-av
+qt
 ab
 be
 KJ
@@ -521,7 +509,7 @@ aN
 aP
 aS
 aY
-ba
+sZ
 ab
 be
 ab
@@ -545,7 +533,7 @@ aO
 aQ
 aO
 aY
-av
+qt
 ab
 bf
 bL
@@ -569,7 +557,7 @@ aG
 aw
 aL
 ac
-av
+qt
 bc
 be
 ab
@@ -583,7 +571,7 @@ ag
 ak
 ao
 ab
-au
+gw
 aA
 aF
 aw
@@ -593,7 +581,7 @@ aw
 aw
 aL
 ac
-av
+qt
 mJ
 be
 Ow
@@ -607,7 +595,7 @@ af
 ak
 ap
 NP
-av
+qt
 ac
 aG
 aw
@@ -617,7 +605,7 @@ aG
 aw
 aL
 ac
-bb
+de
 ad
 ab
 ab

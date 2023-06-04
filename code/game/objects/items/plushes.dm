@@ -7,6 +7,7 @@
 	icon_state = "debug"
 	attack_verb = list("thumped", "whomped", "bumped")
 	w_class = WEIGHT_CLASS_SMALL
+	item_flags = ISWEAPON
 	resistance_flags = FLAMMABLE
 	var/list/squeak_override //Weighted list; If you want your plush to have different squeak sounds use this
 	var/stuffed = TRUE //If the plushie has stuffing in it
@@ -360,11 +361,11 @@
 			mood_message = null
 	cheer_up()
 
-/obj/item/toy/plush/proc/update_desc()
+/obj/item/toy/plush/update_desc()
 	desc = normal_desc
 	if(mood_message)
 		desc += mood_message
-
+	return ..()
 /obj/item/toy/plush/carpplushie
 	name = "space carp plushie"
 	desc = "An adorable stuffed toy that resembles a space carp."
@@ -472,8 +473,16 @@
 	icon_state = "narplush"
 	divine = TRUE
 	var/clashing
-	var/is_invoker = TRUE
+	var/invoker_charges = 2
 	gender = FEMALE	//it's canon if the toy is
+
+/obj/item/toy/plush/narplush/examine(mob/user)
+	. = ..()
+	if(invoker_charges == 0)
+		. += "<span class='notice'>She looks tired.</span>"
+		return
+	if(IS_CULTIST(user))
+		. += "<span class='warning'>She has [invoker_charges] [invoker_charges == 1 ? "charge" : "charges"] left!</span>"
 
 /obj/item/toy/plush/narplush/Moved()
 	. = ..()
@@ -482,8 +491,7 @@
 		P.clash_of_the_plushies(src)
 
 /obj/item/toy/plush/narplush/hugbox
-	desc = "A small stuffed doll of the elder goddess Nar'Sie. Who thought this was a good children's toy? <b>It looks sad.</b>"
-	is_invoker = FALSE
+	invoker_charges = 0
 
 /obj/item/toy/plush/lizardplushie
 	name = "lizard plushie"

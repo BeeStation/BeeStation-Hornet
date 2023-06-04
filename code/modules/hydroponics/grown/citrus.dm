@@ -102,7 +102,7 @@
 	lifespan = 55
 	endurance = 45
 	yield = 4
-	reagents_add = list(/datum/reagent/consumable/nutriment = 0.05)
+	reagents_add = list(/datum/reagent/consumable/nutriment = 0.05, /datum/reagent/sulfur = 0.1, /datum/reagent/medicine/charcoal = 0.1, /datum/reagent/saltpetre = 0.1)
 
 /obj/item/reagent_containers/food/snacks/grown/firelemon
 	seed = /obj/item/seeds/firelemon
@@ -119,7 +119,7 @@
 	log_bomber(user, "primed a", src, "for detonation")
 	icon_state = "firelemon_active"
 	playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
-	addtimer(CALLBACK(src, .proc/prime), rand(10, 60))
+	addtimer(CALLBACK(src, PROC_REF(prime)), rand(10, 60))
 
 /obj/item/reagent_containers/food/snacks/grown/firelemon/burn()
 	prime()
@@ -171,7 +171,7 @@
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	icon_grow = "lime-grow"
 	icon_dead = "lime-dead"
-	genes = list(/datum/plant_gene/trait/repeated_harvest)
+	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/glow/orange)
 	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d

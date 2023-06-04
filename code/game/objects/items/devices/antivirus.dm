@@ -10,8 +10,8 @@
 		var/cured = 0
 		if(MOB_ROBOTIC in H.mob_biotypes)
 			H.say("Installing [src]. Please do not turn your [H.dna.species] unit off or otherwise disturb it during the installation process", forced = "antivirus")
-			if(do_mob(user, H, 450)) //it has unlimited uses, but that's balanced by being very slow
-				H.say("[src] succesfully installed. Initiating scan.", forced = "antivirus")
+			if(do_after(user, 45 SECONDS, H)) //it has unlimited uses, but that's balanced by being very slow
+				H.say("[src] successfully installed. Initiating scan.", forced = "antivirus")
 				for(var/thing in H.diseases)
 					var/datum/disease/D = thing
 					if(istype(D, /datum/disease/advance))

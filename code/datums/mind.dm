@@ -33,15 +33,16 @@
 	var/key
 	var/name				//replaces mob/var/original_name
 	var/ghostname			//replaces name for observers name if set
+	/// The last living mob this mind occupied - if the player is dead, this is their body.
 	var/mob/living/current
 	var/active = 0
 
 	var/memory
+	var/list/quirks = list()
 
 	var/assigned_role
 	var/special_role
 	var/list/restricted_roles = list()
-
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
 
 	var/linglink
@@ -73,6 +74,8 @@
 
 	/// A lazy list of statuses to add next to this mind in the traitor panel
 	var/list/special_statuses
+	/// your bank account id in your mind
+	var/account_id
 
 /datum/mind/New(var/key)
 	src.key = key
@@ -81,13 +84,9 @@
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
-	if(islist(antag_datums))
-		for(var/i in antag_datums)
-			var/datum/antagonist/antag_datum = i
-			if(antag_datum.delete_on_mind_deletion)
-				qdel(i)
-		antag_datums = null
+	QDEL_LIST(antag_datums)
 	QDEL_NULL(language_holder)
+	soulOwner = null
 	set_current(null)
 	return ..()
 
@@ -98,7 +97,7 @@
 		UnregisterSignal(src, COMSIG_PARENT_QDELETING)
 	current = new_current
 	if(current)
-		RegisterSignal(src, COMSIG_PARENT_QDELETING, .proc/clear_current)
+		RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(clear_current))
 
 /datum/mind/proc/clear_current(datum/source)
 	SIGNAL_HANDLER
@@ -130,20 +129,29 @@
 		current.transfer_observers_to(new_character)	//transfer anyone observing the old character to the new one
 	set_current(new_character)								//associate ourself with our new body
 	new_character.mind = src							//and associate our new body with ourself
+
+	for(var/datum/quirk/T as() in quirks) //Retarget all traits this mind has
+		T.transfer_mob(new_character)
 	for(var/a in antag_datums)	//Makes sure all antag datums effects are applied in the new body
 		var/datum/antagonist/A = a
 		A.on_body_transfer(old_current, current)
+
 	if(iscarbon(new_character))
 		var/mob/living/carbon/C = new_character
 		C.last_mind = src
 	transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
 	transfer_actions(new_character)
 	transfer_martial_arts(new_character)
-	RegisterSignal(new_character, COMSIG_MOB_DEATH, .proc/set_death_time)
+	RegisterSignal(new_character, COMSIG_MOB_DEATH, PROC_REF(set_death_time))
 	if(active || force_key_move)
 		new_character.key = key		//now transfer the key to link the client to our new body
 	current.update_atom_languages()
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSFER_TO, old_current, new_character)
+	// Update SSD indicators
+	if(isliving(old_current))
+		old_current.med_hud_set_status()
+	if(isliving(current))
+		current.med_hud_set_status()
 
 /datum/mind/proc/set_death_time()
 	SIGNAL_HANDLER
@@ -279,7 +287,7 @@
 		return
 
 	var/list/all_contents = traitor_mob.GetAllContents()
-	var/obj/item/pda/PDA = locate() in all_contents
+	var/obj/item/modular_computer/tablet/pda/PDA = locate() in all_contents
 	var/obj/item/radio/R = locate() in all_contents
 	var/obj/item/pen/P
 
@@ -300,7 +308,7 @@
 	var/implant = FALSE
 
 	if(traitor_mob.client?.prefs)
-		switch(traitor_mob.client.prefs.uplink_spawn_loc)
+		switch(traitor_mob.client.prefs.active_character.uplink_spawn_loc)
 			if(UPLINK_PDA)
 				uplink_loc = PDA
 				if(!uplink_loc)
@@ -308,11 +316,19 @@
 				if(!uplink_loc)
 					uplink_loc = P
 			if(UPLINK_RADIO)
-				uplink_loc = R
-				if(!uplink_loc)
+				if(HAS_TRAIT(traitor_mob, TRAIT_MUTE))  // cant speak code into headset
+					to_chat(traitor_mob, "Using a radio uplink would be impossible with your muteness! Equipping PDA Uplink..")
 					uplink_loc = PDA
-				if(!uplink_loc)
-					uplink_loc = P
+					if(!uplink_loc)
+						uplink_loc = R
+					if(!uplink_loc)
+						uplink_loc = P
+				else
+					uplink_loc = R
+					if(!uplink_loc)
+						uplink_loc = PDA
+					if(!uplink_loc)
+						uplink_loc = P
 			if(UPLINK_PEN)
 				uplink_loc = P
 			if(UPLINK_IMPLANT)
@@ -331,9 +347,9 @@
 		U.setup_unlock_code()
 		if(!silent)
 			if(uplink_loc == R)
-				to_chat(traitor_mob, "<span class='boldnotice'>[employer] has cunningly disguised a Syndicate Uplink as your [R.name]. Simply dial the frequency [format_frequency(U.unlock_code)] to unlock its hidden features.</span>")
+				to_chat(traitor_mob, "<span class='boldnotice'>[employer] has cunningly disguised a Syndicate Uplink as your [R.name]. Simply speak [U.unlock_code] into the :d channel to unlock its hidden features.</span>")
 			else if(uplink_loc == PDA)
-				to_chat(traitor_mob, "<span class='boldnotice'>[employer] has cunningly disguised a Syndicate Uplink as your [PDA.name]. Simply enter the code \"[U.unlock_code]\" into the ringtone select to unlock its hidden features.</span>")
+				to_chat(traitor_mob, "<span class='boldnotice'>[employer] has cunningly disguised a Syndicate Uplink as your [PDA.name]. Simply enter the code \"[U.unlock_code]\" into the ring tone selection to unlock its hidden features.</span>")
 			else if(uplink_loc == P)
 				to_chat(traitor_mob, "<span class='boldnotice'>[employer] has cunningly disguised a Syndicate Uplink as your [P.name]. Simply twist the top of the pen [english_list(U.unlock_code)] from its starting position to unlock its hidden features.</span>")
 
@@ -347,8 +363,6 @@
 		if(!silent)
 			to_chat(traitor_mob, "<span class='boldnotice'>[employer] has cunningly implanted you with a Syndicate Uplink (although uplink implants cost valuable TC, so you will have slightly less). Simply trigger the uplink to access it.</span>")
 		return I
-
-
 
 //Link a new mobs mind to the creator of said mob. They will join any team they are currently on, and will only switch teams when their creator does.
 
@@ -431,7 +445,7 @@
 		A.admin_remove(usr)
 
 	if (href_list["role_edit"])
-		var/new_role = input("Select new role", "Assigned role", assigned_role) as null|anything in sortList(get_all_jobs())
+		var/new_role = input("Select new role", "Assigned role", assigned_role) as null|anything in sort_list(get_all_jobs())
 		if (!new_role)
 			return
 		assigned_role = new_role
@@ -471,7 +485,7 @@
 					if(1)
 						target_antag = antag_datums[1]
 					else
-						var/datum/antagonist/target = input("Which antagonist gets the objective:", "Antagonist", "(new custom antag)") as null|anything in sortList(antag_datums) + "(new custom antag)"
+						var/datum/antagonist/target = input("Which antagonist gets the objective:", "Antagonist", "(new custom antag)") as null|anything in sort_list(antag_datums) + "(new custom antag)"
 						if (QDELETED(target))
 							return
 						else if(target == "(new custom antag)")
@@ -605,6 +619,12 @@
 /datum/mind/proc/get_all_objectives()
 	return get_all_antag_objectives() | crew_objectives
 
+/datum/mind/proc/is_murderbone()
+	for(var/datum/objective/O as() in get_all_objectives())
+		if(O.murderbone_flag)
+			return TRUE
+	return FALSE
+
 /datum/mind/proc/announce_objectives()
 	var/obj_count = 1
 	var/list/antag_objectives = get_all_antag_objectives()
@@ -714,7 +734,7 @@
 				continue
 		S.charge_counter = delay
 		S.updateButtonIcon()
-		INVOKE_ASYNC(S, /obj/effect/proc_holder/spell.proc/start_recharge)
+		INVOKE_ASYNC(S, TYPE_PROC_REF(/obj/effect/proc_holder/spell, start_recharge))
 
 /datum/mind/proc/get_ghost(even_if_they_cant_reenter, ghosts_with_clients)
 	for(var/mob/dead/observer/G in (ghosts_with_clients ? GLOB.player_list : GLOB.dead_mob_list))
@@ -781,15 +801,44 @@
 //AI
 /mob/living/silicon/ai/mind_initialize()
 	..()
-	mind.assigned_role = "AI"
+	mind.assigned_role = JOB_NAME_AI
 
 //BORG
 /mob/living/silicon/robot/mind_initialize()
 	..()
-	mind.assigned_role = "Cyborg"
+	mind.assigned_role = JOB_NAME_CYBORG
 
 //PAI
 /mob/living/silicon/pai/mind_initialize()
 	..()
 	mind.assigned_role = ROLE_PAI
 	mind.special_role = ""
+
+// Quirk Procs //
+
+/datum/mind/proc/add_quirk(quirktype, spawn_effects) //separate proc due to the way these ones are handled
+	if(HAS_TRAIT(src, quirktype))
+		return
+	var/datum/quirk/T = quirktype
+	var/qname = initial(T.name)
+	if(!SSquirks || !SSquirks.quirks[qname])
+		return
+	new quirktype (src, current, spawn_effects)
+	return TRUE
+
+/datum/mind/proc/remove_quirk(quirktype)
+	for(var/datum/quirk/Q in quirks)
+		if(Q.type == quirktype)
+			qdel(Q)
+			return TRUE
+	return FALSE
+
+/datum/mind/proc/remove_all_quirks()
+	for(var/datum/quirk/Q in quirks)
+		qdel(Q)
+
+/datum/mind/proc/has_quirk(quirktype)
+	for(var/datum/quirk/Q in quirks)
+		if(Q.type == quirktype)
+			return TRUE
+	return FALSE

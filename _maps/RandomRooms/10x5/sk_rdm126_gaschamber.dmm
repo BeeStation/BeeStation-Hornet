@@ -1,5 +1,5 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
+"aa" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -15,13 +15,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
-"b" = (
+"ab" = (
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"c" = (
+"ac" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -35,36 +35,36 @@
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
-"d" = (
+"ad" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"e" = (
+"ae" = (
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /obj/structure/window/reinforced,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"f" = (
+"af" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector{
-	icon_state = "inje_map-2";
-	dir = 8
+	dir = 8;
+	icon_state = "inje_map-2"
 	},
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"g" = (
+"ag" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /obj/effect/spawner/lootdrop/trap,
 /turf/open/floor/plasteel,
 /area/template_noop)
-"h" = (
+"ah" = (
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -73,7 +73,7 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"i" = (
+"ai" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -83,54 +83,54 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"j" = (
+"aj" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /obj/effect/trap/nexus/trickyspawner/shitsec,
 /turf/open/floor/plasteel,
 /area/template_noop)
-"k" = (
+"ak" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector{
-	icon_state = "inje_map-2";
-	dir = 4
+	dir = 4;
+	icon_state = "inje_map-2"
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"l" = (
+"al" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/template_noop)
-"m" = (
+"am" = (
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/general/visible,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"n" = (
+"an" = (
 /obj/structure/chair,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"o" = (
+"ao" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"p" = (
+"ap" = (
 /obj/structure/chair,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/trap/nexus/trickyspawner,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"q" = (
+"aq" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 4
@@ -138,14 +138,14 @@
 /obj/machinery/atmospherics/pipe/simple/general/visible,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"r" = (
+"ar" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/template_noop)
-"s" = (
+"as" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 1
 	},
@@ -154,33 +154,33 @@
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
-"t" = (
+"at" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/effect/turf_decal/caution,
 /turf/open/floor/plasteel,
 /area/template_noop)
-"u" = (
+"au" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
-"v" = (
+"av" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
-"w" = (
+"aw" = (
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"x" = (
+"ax" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -192,15 +192,14 @@
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
-"y" = (
+"ay" = (
+/obj/effect/turf_decal/box,
 /obj/machinery/atmospherics/components/unary/portables_connector{
-	icon_state = "connector_map-2";
 	dir = 8
 	},
-/obj/effect/turf_decal/box,
 /turf/open/floor/plasteel,
 /area/template_noop)
-"z" = (
+"az" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -208,7 +207,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"A" = (
+"aA" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -219,7 +218,7 @@
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel,
 /area/template_noop)
-"B" = (
+"aB" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -227,12 +226,12 @@
 /obj/effect/spawner/lootdrop/trap,
 /turf/open/floor/plasteel,
 /area/template_noop)
-"C" = (
+"aC" = (
 /obj/machinery/door/window/southleft,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"D" = (
+"aD" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 4
@@ -240,21 +239,21 @@
 /obj/effect/decal/remains/human,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"E" = (
+"aE" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/template_noop)
-"F" = (
+"aF" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/template_noop)
-"G" = (
+"aG" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -262,11 +261,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/template_noop)
-"H" = (
+"aH" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/template_noop)
-"I" = (
+"aI" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
@@ -279,16 +278,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
-"J" = (
-/obj/machinery/atmospherics/components/unary/portables_connector{
-	icon_state = "connector_map-2";
-	dir = 4
-	},
+"aJ" = (
 /obj/effect/turf_decal/box,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/components/unary/portables_connector{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
-"K" = (
+"aK" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
@@ -298,7 +296,7 @@
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel,
 /area/template_noop)
-"L" = (
+"aL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/red{
 	dir = 8
@@ -309,7 +307,7 @@
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel,
 /area/template_noop)
-"M" = (
+"aM" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 5
 	},
@@ -320,7 +318,7 @@
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel,
 /area/template_noop)
-"N" = (
+"aN" = (
 /obj/machinery/light,
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 4
@@ -331,7 +329,7 @@
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel,
 /area/template_noop)
-"O" = (
+"aO" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 9
 	},
@@ -341,7 +339,7 @@
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel,
 /area/template_noop)
-"P" = (
+"aP" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
@@ -351,14 +349,14 @@
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel,
 /area/template_noop)
-"Q" = (
+"aQ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /obj/effect/landmark/blobstart,
 /turf/open/floor/plasteel,
 /area/template_noop)
-"R" = (
+"aR" = (
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -368,84 +366,178 @@
 /obj/effect/trap/nexus/trickyspawner/zombie,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"S" = (
+"aS" = (
 /obj/machinery/door/window/southleft,
 /obj/effect/spawner/lootdrop/trap,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
-"T" = (
+"aT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/trap,
 /turf/open/floor/plasteel,
 /area/template_noop)
+"aU" = (
+/obj/machinery/light,
+/obj/machinery/atmospherics/pipe/simple/general/visible{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"aV" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"aW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"aX" = (
+/obj/machinery/atmospherics/pipe/simple/general/visible{
+	dir = 9
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"aY" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"aZ" = (
+/obj/machinery/atmospherics/pipe/simple/general/visible{
+	dir = 5
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"be" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/cobweb,
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"dn" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"wr" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"ES" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"Vz" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
 
 (1,1,1) = {"
-a
-x
-B
-I
-L
+be
+ES
+aB
+aV
+aW
 "}
 (2,1,1) = {"
-h
-m
-R
-s
-M
+ah
+am
+aR
+as
+aZ
 "}
 (3,1,1) = {"
-f
-n
-C
-t
-N
+af
+an
+aC
+at
+aU
 "}
 (4,1,1) = {"
-d
-o
-D
-u
-y
+ad
+ao
+aD
+au
+ay
 "}
 (5,1,1) = {"
-g
-l
-Q
-v
-H
+ag
+al
+aQ
+av
+aH
 "}
 (6,1,1) = {"
-j
-r
-r
-E
-T
+aj
+ar
+ar
+aE
+aT
 "}
 (7,1,1) = {"
-b
-w
-e
-F
-J
+ab
+aw
+ae
+aF
+aJ
 "}
 (8,1,1) = {"
-k
-p
-S
-G
-N
+ak
+ap
+aS
+aG
+aU
 "}
 (9,1,1) = {"
-i
-z
-q
-s
-O
+ai
+az
+aq
+as
+aX
 "}
 (10,1,1) = {"
-c
-A
-g
-K
-P
+Vz
+wr
+ag
+dn
+aY
 "}

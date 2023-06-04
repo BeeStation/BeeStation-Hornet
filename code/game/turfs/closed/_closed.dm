@@ -1,8 +1,7 @@
 /turf/closed
 	layer = CLOSED_TURF_LAYER
-	opacity = 1
+	opacity = TRUE
 	density = TRUE
-	blocks_air = TRUE
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	rad_insulation = RAD_MEDIUM_INSULATION
 	pass_flags_self = PASSCLOSEDTURF
@@ -47,9 +46,10 @@
 	name = "sandstone wall"
 	desc = "A wall with sandstone plating. Rough."
 	icon = 'icons/turf/walls/sandstone_wall.dmi'
-	icon_state = "sandstone"
+	icon_state = "sandstone_wall-0"
+	base_icon_state = "sandstone_wall"
+	smoothing_flags = SMOOTH_BITMASK
 	baseturfs = /turf/closed/indestructible/sandstone
-	smooth = SMOOTH_TRUE
 
 /turf/closed/indestructible/oldshuttle/corner
 	icon_state = "corner"
@@ -76,19 +76,31 @@ INITIALIZE_IMMEDIATE(/turf/closed/indestructible/splashscreen)
 			if(NAMEOF(src, icon))
 				SStitle.icon = icon
 
+/turf/closed/indestructible/splashscreen/examine(mob/user)
+	desc = pick(strings(SPLASH_DESC_FILE, "splashes"))
+	. = ..()
+
 /turf/closed/indestructible/riveted
 	icon = 'icons/turf/walls/riveted.dmi'
-	icon_state = "riveted"
-	smooth = SMOOTH_TRUE
+	icon_state = "riveted-0"
+	base_icon_state = "riveted"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS)
+	canSmoothWith = list(SMOOTH_GROUP_CLOSED_TURFS)
 
 /turf/closed/indestructible/syndicate
 	icon = 'icons/turf/walls/plastitanium_wall.dmi'
-	icon_state = "map-shuttle"
-	smooth = SMOOTH_MORE
+	icon_state = "plastitanium_wall-0"
+	base_icon_state = "plastitanium_wall"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SYNDICATE_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_PLASTITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
 
 /turf/closed/indestructible/riveted/uranium
 	icon = 'icons/turf/walls/uranium_wall.dmi'
-	icon_state = "uranium"
+	icon_state = "uranium_wall-0"
+	base_icon_state = "uranium_wall"
+	smoothing_flags = SMOOTH_BITMASK
 
 /turf/closed/indestructible/abductor
 	icon_state = "alien1"
@@ -98,10 +110,14 @@ INITIALIZE_IMMEDIATE(/turf/closed/indestructible/splashscreen)
 
 /turf/closed/indestructible/fakeglass
 	name = "window"
-	icon_state = "fake_window"
-	opacity = 0
-	smooth = SMOOTH_TRUE
-	icon = 'icons/obj/smooth_structures/reinforced_window.dmi'
+	icon_state = "reinforced_window-0"
+	base_icon_state = "reinforced_window"
+	opacity = FALSE
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE)
+	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE)
+	opacity = FALSE
+	icon = 'icons/obj/smooth_structures/windows/reinforced_window.dmi'
 
 /turf/closed/indestructible/fakeglass/Initialize(mapload)
 	. = ..()
@@ -111,10 +127,14 @@ INITIALIZE_IMMEDIATE(/turf/closed/indestructible/splashscreen)
 
 /turf/closed/indestructible/opsglass
 	name = "window"
-	icon_state = "plastitanium_window"
-	opacity = 0
-	smooth = SMOOTH_TRUE
-	icon = 'icons/obj/smooth_structures/plastitanium_window.dmi'
+	icon_state = "plastitanium_window-0"
+	base_icon_state = "plastitanium_window"
+	opacity = FALSE
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM)
+	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM)
+	opacity = FALSE
+	icon = 'icons/obj/smooth_structures/windows/plastitanium_window.dmi'
 
 /turf/closed/indestructible/opsglass/Initialize(mapload)
 	. = ..()
@@ -170,8 +190,11 @@ INITIALIZE_IMMEDIATE(/turf/closed/indestructible/splashscreen)
 	name = "necropolis wall"
 	desc = "A thick, seemingly indestructible stone wall."
 	icon = 'icons/turf/walls/boss_wall.dmi'
-	icon_state = "wall"
-	canSmoothWith = list(/turf/closed/indestructible/riveted/boss, /turf/closed/indestructible/riveted/boss/see_through)
+	icon_state = "boss_wall-0"
+	base_icon_state = "boss_wall"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_CLOSED_TURFS, SMOOTH_GROUP_BOSS_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_BOSS_WALLS)
 	explosion_block = 50
 	baseturfs = /turf/closed/indestructible/riveted/boss
 
@@ -188,3 +211,6 @@ INITIALIZE_IMMEDIATE(/turf/closed/indestructible/splashscreen)
 	desc = "A wall made out of a strange metal. The squares on it pulse in a predictable pattern."
 	icon = 'icons/turf/walls/hierophant_wall.dmi'
 	icon_state = "wall"
+	smoothing_flags = SMOOTH_CORNERS
+	smoothing_groups = list(SMOOTH_GROUP_HIERO_WALL)
+	canSmoothWith = list(SMOOTH_GROUP_HIERO_WALL)

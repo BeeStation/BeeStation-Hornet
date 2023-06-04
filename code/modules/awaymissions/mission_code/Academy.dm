@@ -33,7 +33,7 @@
 
 /obj/item/paper/fluff/awaymissions/academy/console_maint
 	name = "Console Maintenance"
-	info = "We're upgrading to the latest mainframes for our consoles, the shipment should be in before spring break is over!"
+	default_raw_text = "We're upgrading to the latest mainframes for our consoles, the shipment should be in before spring break is over!"
 
 /obj/item/paper/fluff/awaymissions/academy/class/automotive
 	name = "Automotive Repair 101"
@@ -46,19 +46,19 @@
 
 /obj/item/paper/fluff/awaymissions/academy/grade/aplus
 	name = "Summoning Midterm Exam"
-	info = "Grade: A+ Educator's Notes: Excellent form."
+	default_raw_text = "Grade: A+ Educator's Notes: Excellent form."
 
 /obj/item/paper/fluff/awaymissions/academy/grade/bminus
 	name = "Summoning Midterm Exam"
-	info = "Grade: B- Educator's Notes: Keep applying yourself, you're showing improvement."
+	default_raw_text = "Grade: B- Educator's Notes: Keep applying yourself, you're showing improvement."
 
 /obj/item/paper/fluff/awaymissions/academy/grade/dminus
 	name = "Summoning Midterm Exam"
-	info = "Grade: D- Educator's Notes: SEE ME AFTER CLASS."
+	default_raw_text = "Grade: D- Educator's Notes: SEE ME AFTER CLASS."
 
 /obj/item/paper/fluff/awaymissions/academy/grade/failure
 	name = "Pyromancy Evaluation"
-	info = "Current Grade: F. Educator's Notes: No improvement shown despite multiple private lessons.  Suggest additional tutelage."
+	default_raw_text = "Current Grade: F. Educator's Notes: No improvement shown despite multiple private lessons.  Suggest additional tutelage."
 
 /// The immobile, close pulling singularity seen in the academy away mission
 /obj/anomaly/singularity/academy
@@ -207,7 +207,7 @@
 		roll_in_progress = TRUE
 		var/turf/T = get_turf(src)
 		T.visible_message("<span class='userdanger'>[src] flares briefly.</span>")
-		addtimer(CALLBACK(src, .proc/effect, user, .), 1 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(effect), user, .), 1 SECONDS)
 
 /obj/item/dice/d20/fate/equipped(mob/user, slot)
 	if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
@@ -361,7 +361,7 @@
 	charge_max = 100
 	clothes_req = 0
 	invocation = "JE VES"
-	invocation_type = "whisper"
+	invocation_type = INVOCATION_WHISPER
 	range = -1
 	level_max = 0 //cannot be improved
 	cooldown_min = 100

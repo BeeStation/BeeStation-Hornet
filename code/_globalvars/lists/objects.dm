@@ -30,6 +30,8 @@ GLOBAL_LIST_EMPTY(zombie_infection_list) 		// A list of all zombie_infection org
 GLOBAL_LIST_EMPTY(meteor_list)				// List of all meteors.
 GLOBAL_LIST_EMPTY(active_jammers)             // List of active radio jammers
 GLOBAL_LIST_EMPTY(ladders)
+GLOBAL_LIST_EMPTY(bot_elevator)
+GLOBAL_LIST_EMPTY(janitor_devices)
 GLOBAL_LIST_EMPTY(trophy_cases)
 
 GLOBAL_LIST_EMPTY(wire_color_directory)
@@ -39,4 +41,8 @@ GLOBAL_LIST_EMPTY(ai_status_displays)
 
 GLOBAL_LIST_EMPTY(mob_spawners) 		    // All mob_spawn objects
 GLOBAL_LIST_EMPTY(alert_consoles)			// Station alert consoles, /obj/machinery/computer/station_alert
-GLOBAL_LIST_INIT(alarms, list("Fire" = list(), "Atmosphere" = list(), "Power" = list())) //all engineering alerts for station alert consoles and alarm manager
+GLOBAL_LIST_INIT(alarms, list(
+	"Fire" = list(),
+	"Atmosphere" = list(),
+	"Power" = list()
+)) //all engineering alerts for station alert consoles and alarm manager

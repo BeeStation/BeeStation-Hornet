@@ -145,17 +145,18 @@
 /datum/design/welding_helmet
 	name = "Welding Helmet"
 	id = "welding_helmet"
-	build_type = AUTOLATHE
+	build_type = AUTOLATHE | PROTOLATHE
 	materials = list(/datum/material/iron = 1750, /datum/material/glass = 400)
 	build_path = /obj/item/clothing/head/welding
-	category = list("initial","Tools")
+	category = list("initial","Tools","Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/cable_coil
 	name = "Cable Coil"
 	id = "cable_coil"
-	build_type = AUTOLATHE
+	build_type = AUTOLATHE | PROTOLATHE
 	materials = list(/datum/material/iron = 10, /datum/material/glass = 5)
-	build_path = /obj/item/stack/cable_coil
+	build_path = /obj/item/stack/cable_coil/red/one
 	category = list("initial","Tools","Tool Designs")
 	maxstack = MAXCOIL
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
@@ -263,6 +264,15 @@
 	build_path = /obj/item/airlock_painter
 	category = list("initial","Tools","Tool Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/airlock_painter/decal/tile
+	name = "Tile Sprayer"
+	id = "tile_sprayer"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/iron = 50, /datum/material/glass = 50)
+	build_path = /obj/item/airlock_painter/decal/tile
+	category = list("initial","Tools","Tool Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SERVICE
 
 /datum/design/emergency_oxygen
 	name = "Emergency Oxygen Tank"
@@ -539,7 +549,7 @@
 	build_type = AUTOLATHE | PROTOLATHE
 	materials = list(/datum/material/iron = 500, /datum/material/glass = 50)
 	build_path = /obj/item/healthanalyzer
-	category = list("initial", "Medical", "Medical Designs")
+	category = list("hacked", "Medical", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
 /datum/design/pillbottle
@@ -1062,4 +1072,12 @@
 	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 50)
 	build_path = /obj/item/clothing/suit/caution
+	category = list("initial","Misc")
+
+/datum/design/control
+	name = "Blast Door Controller"
+	id = "blast"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/iron = 100, /datum/material/glass = 50)
+	build_path = /obj/item/assembly/control
 	category = list("initial","Misc")

@@ -10,6 +10,7 @@ export const EightBallVote = (props, context) => {
   } = data;
   return (
     <Window
+      theme="generic"
       width={400}
       height={600}>
       <Window.Content scrollable>

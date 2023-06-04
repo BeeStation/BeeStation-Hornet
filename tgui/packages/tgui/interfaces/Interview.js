@@ -29,6 +29,7 @@ export const Interview = (props, context) => {
 
   return (
     <Window
+      theme="generic"
       width={500}
       height={600}
       noClose={!is_admin}>

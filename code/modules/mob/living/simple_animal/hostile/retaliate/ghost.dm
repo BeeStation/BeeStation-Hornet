@@ -50,7 +50,7 @@
 				name = "ghost of [pick(GLOB.first_names_male)] [pick(GLOB.last_names)]"
 			if(1)
 				name = "ghost of [pick(GLOB.first_names_female)] [pick(GLOB.last_names)]"
-	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE)
+	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE, "#490066")
 
 /mob/living/simple_animal/hostile/retaliate/ghost/Destroy()
 	. = ..()

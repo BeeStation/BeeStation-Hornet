@@ -36,7 +36,7 @@
 		var/turf/T = get_turf(applicant)
 		if(!is_station_level(T.z))
 			return FALSE
-	if(conscious && applicant.stat) //incase you don't care about a certain antag being unconcious when made, ie if they have selfhealing abilities.
+	if(conscious && applicant.stat) //incase you don't care about a certain antag being unconscious when made, ie if they have selfhealing abilities.
 		return FALSE
 	if(!considered_alive(applicant.mind) || considered_afk(applicant.mind)) //makes sure the player isn't a zombie, brain, or just afk all together
 		return FALSE
@@ -50,7 +50,7 @@
 		temp.restricted_jobs += temp.protected_jobs
 
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		temp.restricted_jobs += "Assistant"
+		temp.restricted_jobs += JOB_NAME_ASSISTANT
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		temp.restricted_jobs += GLOB.command_positions
@@ -85,7 +85,7 @@
 		temp.restricted_jobs += temp.protected_jobs
 
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		temp.restricted_jobs += "Assistant"
+		temp.restricted_jobs += JOB_NAME_ASSISTANT
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		temp.restricted_jobs += GLOB.command_positions
@@ -118,7 +118,7 @@
 		temp.restricted_jobs += temp.protected_jobs
 
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		temp.restricted_jobs += "Assistant"
+		temp.restricted_jobs += JOB_NAME_ASSISTANT
 
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
@@ -157,7 +157,7 @@
 		temp.restricted_jobs += temp.protected_jobs
 
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		temp.restricted_jobs += "Assistant"
+		temp.restricted_jobs += JOB_NAME_ASSISTANT
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		temp.restricted_jobs += GLOB.command_positions
@@ -319,9 +319,9 @@
 		ertemplate = new /datum/ert/centcom_official
 
 	var/list/settings = list(
-		"preview_callback" = CALLBACK(src, .proc/makeERTPreviewIcon),
+		"preview_callback" = CALLBACK(src, PROC_REF(makeERTPreviewIcon)),
 		"mainsettings" = list(
-		"template" = list("desc" = "Template", "callback" = CALLBACK(src, .proc/makeERTTemplateModified), "type" = "datum", "path" = "/datum/ert", "subtypesonly" = TRUE, "value" = ertemplate.type),
+		"template" = list("desc" = "Template", "callback" = CALLBACK(src, PROC_REF(makeERTTemplateModified)), "type" = "datum", "path" = "/datum/ert", "subtypesonly" = TRUE, "value" = ertemplate.type),
 		"teamsize" = list("desc" = "Team Size", "type" = "number", "value" = ertemplate.teamsize),
 		"mission" = list("desc" = "Mission", "type" = "string", "value" = ertemplate.mission),
 		"polldesc" = list("desc" = "Ghost poll description", "type" = "string", "value" = ertemplate.polldesc),
@@ -384,7 +384,7 @@
 
 				//Spawn the body
 				var/mob/living/carbon/human/ERTOperative = new ertemplate.mobtype(spawnloc)
-				chosen_candidate.client.prefs.copy_to(ERTOperative)
+				chosen_candidate.client.prefs.active_character.copy_to(ERTOperative)
 				ERTOperative.key = chosen_candidate.key
 				log_objective(ERTOperative, missionobj.explanation_text)
 

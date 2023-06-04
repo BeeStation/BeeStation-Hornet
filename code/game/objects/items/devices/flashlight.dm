@@ -46,7 +46,7 @@
 	return 1
 
 /obj/item/flashlight/suicide_act(mob/living/carbon/human/user)
-	if (user.eye_blind)
+	if (user.is_blind())
 		user.visible_message("<span class='suicide'>[user] is putting [src] close to [user.p_their()] eyes and turning it on... but [user.p_theyre()] blind!</span>")
 		return SHAME
 	user.visible_message("<span class='suicide'>[user] is putting [src] close to [user.p_their()] eyes and turning it on! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -90,7 +90,7 @@
 				else
 					user.visible_message("<span class='warning'>[user] directs [src] to [M]'s eyes.</span>", \
 										 "<span class='danger'>You direct [src] to [M]'s eyes.</span>")
-					if(M.stat == DEAD || (HAS_TRAIT(M, TRAIT_BLIND)) || !M.flash_act(visual = 1)) //mob is dead or fully blind
+					if(M.stat == DEAD || (M.is_blind()) || !M.flash_act(visual = 1)) //mob is dead or fully blind
 						to_chat(user, "<span class='warning'>[M]'s pupils don't react to the light!</span>")
 					else if(M.has_dna() && M.dna.check_mutation(XRAY))	//mob has X-ray vision
 						to_chat(user, "<span class='danger'>[M]'s pupils give an eerie glow!</span>")
@@ -297,12 +297,8 @@
 	else
 		update_brightness(null)
 
-/obj/item/flashlight/flare/update_brightness(mob/user = null)
-	..()
-	if(on)
-		item_state = "[initial(item_state)]-on"
-	else
-		item_state = "[initial(item_state)]"
+	remove_emitter("spark")
+	remove_emitter("smoke")
 
 /obj/item/flashlight/flare/attack_self(mob/user)
 
@@ -319,7 +315,10 @@
 	if(.)
 		user.visible_message("<span class='notice'>[user] lights \the [src].</span>", "<span class='notice'>You light \the [src]!</span>")
 		force = on_damage
-		damtype = "fire"
+		damtype = BURN
+		if(!istype(src, /obj/item/flashlight/flare/torch))
+			add_emitter(/obj/emitter/sparks/flare, "spark", 10)
+			add_emitter(/obj/emitter/flare_smoke, "smoke", 9)
 		START_PROCESSING(SSobj, src)
 
 /obj/item/flashlight/flare/is_hot()
@@ -550,11 +549,9 @@
 	if(!found)
 		return
 	found.on = TRUE
-	found.icon_state = "[initial(found.icon_state)]-on"
-	if(found.on)
-		set_light_on(TRUE)
-	else
-		set_light_on(FALSE)
+	found.update_icon()
+	found.update_brightness()
+
 	for(var/X in found.actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()

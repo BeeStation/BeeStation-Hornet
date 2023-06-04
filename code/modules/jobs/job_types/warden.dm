@@ -1,13 +1,12 @@
 /datum/job/warden
-	title = "Warden"
+	title = JOB_NAME_WARDEN
 	flag = WARDEN
-	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
-	department_head = list("Head of Security")
-	department_flag = ENGSEC
+	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SECURITY
+	department_head = list(JOB_NAME_HEADOFSECURITY)
+	supervisors = "the head of security"
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the head of security"
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
 	exp_requirements = 600
@@ -18,12 +17,14 @@
 
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS, ACCESS_BRIG, ACCESS_BRIGPHYS, ACCESS_ARMORY,ACCESS_COURT, ACCESS_MECH_SECURITY, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_FORENSICS_LOCKERS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS, ACCESS_BRIG, ACCESS_BRIGPHYS, ACCESS_ARMORY, ACCESS_MECH_SECURITY, ACCESS_COURT, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM) // See /datum/job/warden/get_access()
-	paycheck = PAYCHECK_HARD
-	paycheck_department = ACCOUNT_SEC
+
+	department_flag = ENGSEC
+	departments = DEPT_BITFLAG_SEC
+	bank_account_department = ACCOUNT_SEC_BITFLAG
+	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_HARD)
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_WARDEN
-	departments = DEPARTMENT_SECURITY
 	rpg_title = "Jailor"
 
 	species_outfits = list(
@@ -36,11 +37,11 @@
 	return L
 
 /datum/outfit/job/warden
-	name = "Warden"
+	name = JOB_NAME_WARDEN
 	jobtype = /datum/job/warden
 
 	id = /obj/item/card/id/job/warden
-	belt = /obj/item/pda/warden
+	belt = /obj/item/modular_computer/tablet/pda/warden
 	ears = /obj/item/radio/headset/headset_sec/alt
 	uniform = /obj/item/clothing/under/rank/security/warden
 	shoes = /obj/item/clothing/shoes/jackboots

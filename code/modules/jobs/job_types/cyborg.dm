@@ -1,10 +1,10 @@
 /datum/job/cyborg
-	title = "Cyborg"
+	title = JOB_NAME_CYBORG
 	flag = CYBORG
-	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
+	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SILICON
 	department_flag = ENGSEC
 	faction = "Station"
-	total_positions = 0
+	total_positions = 1
 	spawn_positions = 1
 	supervisors = "your laws and the AI"	//Nodrak
 	selection_color = "#ddffdd"
@@ -14,7 +14,7 @@
 	random_spawns_possible = FALSE
 
 	display_order = JOB_DISPLAY_ORDER_CYBORG
-	departments = DEPARTMENT_SILICON
+	departments = DEPT_BITFLAG_SILICON
 
 /datum/job/cyborg/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source = null)
 	if(visualsOnly)

@@ -7,7 +7,7 @@
 	drag_slowdown = 1.5		// Same as a prone mob
 	max_integrity = 200
 	integrity_failure = 50
-	armor = list("melee" = 20, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 60, "stamina" = 0)
+	armor = list(MELEE = 20,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 70, ACID = 60, STAMINA = 0)
 	var/icon_door = null
 	var/icon_door_override = FALSE //override to have open overlay use icon different to its base's
 	var/secure = FALSE //secure locker or not, also used if overriding a non-secure locker with a secure door overlay to add fancy lights
@@ -44,7 +44,7 @@
 	var/door_anim_time = 2.0 // set to 0 to make the door not animate at all
 /obj/structure/closet/Initialize(mapload)
 	if(mapload && !opened)		// if closed, any item at the crate's loc is put in the contents
-		addtimer(CALLBACK(src, .proc/take_contents), 0)
+		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
 	. = ..()
 	update_icon()
 	PopulateContents()
@@ -107,7 +107,7 @@
 			animate(door_obj, transform = M, icon_state = door_state, layer = door_layer, time = world.tick_lag, flags = ANIMATION_END_NOW)
 		else
 			animate(transform = M, icon_state = door_state, layer = door_layer, time = world.tick_lag)
-	addtimer(CALLBACK(src,.proc/end_door_animation),door_anim_time,TIMER_UNIQUE|TIMER_OVERRIDE)
+	addtimer(CALLBACK(src,PROC_REF(end_door_animation)),door_anim_time,TIMER_UNIQUE|TIMER_OVERRIDE)
 
 /obj/structure/closet/proc/end_door_animation()
 	is_animating_door = FALSE
@@ -137,7 +137,7 @@
 		if(HAS_TRAIT(L, TRAIT_SKITTISH))
 			. += "<span class='notice'>Ctrl-Shift-click [src] to jump inside.</span>"
 
-/obj/structure/closet/CanAllowThrough(atom/movable/mover, turf/target)
+/obj/structure/closet/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(wall_mounted)
 		return TRUE
@@ -243,9 +243,9 @@
 	playsound(loc, close_sound, close_sound_volume, 1, -3)
 	climb_time = initial(climb_time)
 	opened = FALSE
-	density = TRUE
+	set_density(TRUE)
 	animate_door(TRUE)
-	update_icon()
+	update_appearance()
 	return TRUE
 
 /obj/structure/closet/proc/toggle(mob/living/user)
@@ -343,25 +343,24 @@
 	if(!isturf(O.loc))
 		return
 
-	var/actuallyismob = 0
+	var/actuallyismob = FALSE
 	if(isliving(O))
-		actuallyismob = 1
+		actuallyismob = TRUE
 	else if(!isitem(O))
 		return
 	var/turf/T = get_turf(src)
-	var/list/targets = list(O, src)
 	add_fingerprint(user)
-	user.visible_message("<span class='warning'>[user] [actuallyismob ? "tries to ":""]stuff [O] into [src].</span>", \
-				 	 	"<span class='warning'>You [actuallyismob ? "try to ":""]stuff [O] into [src].</span>", \
-				 	 	"<span class='italics'>You hear clanging.</span>")
+	user.visible_message("<span class='warning'>[user] [actuallyismob ? "tries to " : ""]stuff [O] into [src].</span>", \
+						"<span class='warning'>You [actuallyismob ? "try to " : ""]stuff [O] into [src].</span>", \
+						"<span class='italics'>You hear clanging.</span>")
 	if(actuallyismob)
-		if(do_after_mob(user, targets, 40))
+		if(do_after(user, 4 SECONDS, O))
 			user.visible_message("<span class='notice'>[user] stuffs [O] into [src].</span>", \
-							 	 "<span class='notice'>You stuff [O] into [src].</span>", \
-							 	 "<span class='italics'>You hear a loud metal bang.</span>")
+								"<span class='notice'>You stuff [O] into [src].</span>", \
+								"<span class='italics'>You hear a loud metal bang.</span>")
 			var/mob/living/L = O
 			if(!issilicon(L))
-				L.Paralyze(40)
+				L.Paralyze(4 SECONDS)
 			if(istype(src, /obj/structure/closet/supplypod/extractionpod))
 				O.forceMove(src)
 			else
@@ -369,7 +368,7 @@
 				close()
 	else
 		O.forceMove(T)
-	return 1
+	return TRUE
 
 /obj/structure/closet/relaymove(mob/user)
 	if(user.stat || !isturf(loc) || !isliving(user))
@@ -427,7 +426,7 @@
 /obj/structure/closet/container_resist(mob/living/user)
 	if(opened)
 		return
-	if(ismovableatom(loc))
+	if(ismovable(loc))
 		user.changeNext_move(CLICK_CD_BREAKOUT)
 		user.last_special = world.time + CLICK_CD_BREAKOUT
 		var/atom/movable/AM = loc
@@ -489,15 +488,18 @@
 	else if(secure && broken)
 		to_chat(user, "<span class='warning'>\The [src] is broken!</span>")
 
-/obj/structure/closet/emag_act(mob/user)
-	if(secure && !broken)
-		user?.visible_message("<span class='warning'>Sparks fly from [src]!</span>",
-						"<span class='warning'>You scramble [src]'s lock, breaking it open!</span>",
-						"<span class='italics'>You hear a faint electrical spark.</span>")
-		playsound(src, "sparks", 50, 1)
-		broken = TRUE
-		locked = FALSE
-		update_icon()
+/obj/structure/closet/should_emag(mob/user)
+	return secure && !broken && ..()
+
+/obj/structure/closet/on_emag(mob/user)
+	..()
+	user?.visible_message("<span class='warning'>Sparks fly from [src]!</span>",
+					"<span class='warning'>You scramble [src]'s lock, breaking it open!</span>",
+					"<span class='italics'>You hear a faint electrical spark.</span>")
+	playsound(src, "sparks", 50, 1)
+	broken = TRUE
+	locked = FALSE
+	update_icon()
 
 /obj/structure/closet/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
@@ -519,7 +521,7 @@
 				open()
 			else
 				req_access = list()
-				req_access += pick(get_all_accesses())
+				req_access |= pick(get_all_accesses())
 
 /obj/structure/closet/contents_explosion(severity, target)
 	for(var/thing in contents)

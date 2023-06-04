@@ -11,7 +11,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "cu" = (
@@ -118,7 +118,7 @@
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "qa" = (
@@ -165,7 +165,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "sT" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/mineral/titanium,
@@ -177,7 +177,7 @@
 	pixel_y = 11
 	},
 /obj/item/paper/crumpled{
-	info = "<p>I bought you some food, but I ate it all before you came, sorry.</p><p>- RTH</p>";
+	default_raw_text = "<p>I bought you some food, but I ate it all before you came, sorry.</p><p>- RTH</p>";
 	name = "scribbled note"
 	},
 /turf/open/floor/mineral/titanium,
@@ -207,7 +207,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/mineral/titanium,
@@ -230,7 +230,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "CU" = (
@@ -292,7 +292,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 9
 	},
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "IS" = (
@@ -317,7 +317,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Nx" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/item/radio/intercom{

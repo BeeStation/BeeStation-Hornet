@@ -39,6 +39,10 @@
 		title = "Master"
 	else if(!ishuman(user))
 		title = "Construct"
+	if(CHAT_FILTER_CHECK(message))
+		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+		return
+	message = user.treat_message_min(message)
 	my_message = "<span class='[span]'><b>[title] [findtextEx(user.name, user.real_name) ? user.name : "[user.real_name] (as [user.name])"]:</b> [message]</span>"
 	for(var/i in GLOB.player_list)
 		var/mob/M = i
@@ -48,7 +52,7 @@
 			var/link = FOLLOW_LINK(M, user)
 			to_chat(M, "[link] [my_message]")
 
-	user.log_talk(message, LOG_SAY, tag="cult")
+	user.log_talk(message, LOG_SAY, tag="blood cult")
 
 /datum/action/innate/cult/comm/spirit
 	name = "Spiritual Communion"
@@ -159,7 +163,7 @@
 		chant(i)
 		var/list/destinations = list()
 		for(var/turf/T as() in (RANGE_TURFS(1, owner) - get_turf(owner)))
-			if(!is_blocked_turf(T, TRUE))
+			if(!T.is_blocked_turf(TRUE))
 				destinations += T
 		if(!LAZYLEN(destinations))
 			to_chat(owner, "<span class='warning'>You need more space to summon your cult!</span>")
@@ -187,7 +191,7 @@
 									S.release_shades(owner)
 								B.current.setDir(SOUTH)
 								new /obj/effect/temp_visual/cult/blood(final)
-								addtimer(CALLBACK(B.current, /mob/.proc/reckon, final), 10)
+								addtimer(CALLBACK(B.current, TYPE_PROC_REF(/mob, reckon), final), 10)
 		else
 			return
 	antag.cult_team.reckoning_complete = TRUE
@@ -273,7 +277,7 @@
 		C.cult_team.blood_target = target
 		var/area/A = get_area(target)
 		attached_action.cooldown = world.time + attached_action.base_cooldown
-		addtimer(CALLBACK(attached_action.owner, /mob.proc/update_action_buttons_icon), attached_action.base_cooldown)
+		addtimer(CALLBACK(attached_action.owner, TYPE_PROC_REF(/mob, update_action_buttons_icon)), attached_action.base_cooldown)
 		C.cult_team.blood_target_image = image('icons/effects/cult_target.dmi', target, "glow", ABOVE_MOB_LAYER)
 		C.cult_team.blood_target_image.appearance_flags = RESET_COLOR
 		C.cult_team.blood_target_image.pixel_x = -target.pixel_x
@@ -285,7 +289,7 @@
 				B.current.client.images += C.cult_team.blood_target_image
 		attached_action.owner.update_action_buttons_icon()
 		remove_ranged_ability("<span class='cult'>The marking rite is complete! It will last for 90 seconds.</span>")
-		C.cult_team.blood_target_reset_timer = addtimer(CALLBACK(GLOBAL_PROC, .proc/reset_blood_target,C.cult_team), 900, TIMER_STOPPABLE)
+		C.cult_team.blood_target_reset_timer = addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(reset_blood_target),C.cult_team), 900, TIMER_STOPPABLE)
 		return TRUE
 	return FALSE
 
@@ -352,7 +356,7 @@
 	C.cult_team.blood_target = target
 	var/area/A = get_area(target)
 	cooldown = world.time + base_cooldown
-	addtimer(CALLBACK(owner, /mob.proc/update_action_buttons_icon), base_cooldown)
+	addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob, update_action_buttons_icon)), base_cooldown)
 	C.cult_team.blood_target_image = image('icons/effects/cult_target.dmi', target, "glow", ABOVE_MOB_LAYER)
 	C.cult_team.blood_target_image.appearance_flags = RESET_COLOR
 	C.cult_team.blood_target_image.pixel_x = -target.pixel_x
@@ -369,8 +373,8 @@
 	desc = "Remove the Blood Mark you previously set."
 	button_icon_state = "emp"
 	owner.update_action_buttons_icon()
-	C.cult_team.blood_target_reset_timer = addtimer(CALLBACK(GLOBAL_PROC, .proc/reset_blood_target,C.cult_team), base_cooldown, TIMER_STOPPABLE)
-	addtimer(CALLBACK(src, .proc/reset_button), base_cooldown)
+	C.cult_team.blood_target_reset_timer = addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(reset_blood_target),C.cult_team), base_cooldown, TIMER_STOPPABLE)
+	addtimer(CALLBACK(src, PROC_REF(reset_button)), base_cooldown)
 
 
 //////// ELDRITCH PULSE /////////
@@ -460,4 +464,4 @@
 			attached_action.cooldown = world.time + attached_action.base_cooldown
 			remove_ranged_ability("<span class='cult'>A pulse of blood magic surges through you as you shift [attached_action.throwee] through time and space.</span>")
 			caller.update_action_buttons_icon()
-			addtimer(CALLBACK(caller, /mob.proc/update_action_buttons_icon), attached_action.base_cooldown)
+			addtimer(CALLBACK(caller, TYPE_PROC_REF(/mob, update_action_buttons_icon)), attached_action.base_cooldown)

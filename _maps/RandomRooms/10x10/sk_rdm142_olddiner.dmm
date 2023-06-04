@@ -71,7 +71,7 @@
 /turf/open/floor/carpet/royalblack,
 /area/template_noop)
 "ut" = (
-/obj/item/stack/sheet/mineral/wood,
+/obj/item/stack/sheet/wood,
 /obj/machinery/light/small{
 	brightness = 3;
 	dir = 8
@@ -138,7 +138,7 @@
 /area/template_noop)
 "zm" = (
 /obj/structure/table_frame/wood,
-/obj/item/stack/sheet/mineral/wood,
+/obj/item/stack/sheet/wood,
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "AN" = (
@@ -170,7 +170,7 @@
 /area/template_noop)
 "Dz" = (
 /obj/structure/table_frame/wood,
-/obj/item/stack/sheet/mineral/wood,
+/obj/item/stack/sheet/wood,
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
@@ -201,7 +201,7 @@
 /turf/open/floor/carpet,
 /area/template_noop)
 "Ly" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
 /turf/open/floor/carpet,
@@ -263,7 +263,7 @@
 /turf/open/floor/monotile/steel,
 /area/template_noop)
 "Wn" = (
-/obj/item/stack/sheet/mineral/wood,
+/obj/item/stack/sheet/wood,
 /turf/open/floor/carpet/royalblack,
 /area/template_noop)
 "XA" = (

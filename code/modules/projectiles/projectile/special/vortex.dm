@@ -5,9 +5,10 @@
 	damage_type = BURN
 	reflectable = REFLECT_NORMAL
 	nodamage = FALSE
-	flag = "energy"
+	armor_flag = ENERGY
 	range = 10
-	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSCLOSEDTURF | PASSMOB
+	projectile_phasing = ALL
+	projectile_piercing = NONE
 
 /obj/item/projectile/energy/vortex/Range()
 	new /obj/effect/temp_visual/hierophant/blast/vortex(get_turf(src), firer, FALSE)

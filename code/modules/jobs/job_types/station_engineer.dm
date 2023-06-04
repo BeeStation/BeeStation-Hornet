@@ -1,12 +1,11 @@
-/datum/job/engineer
-	title = "Station Engineer"
+/datum/job/station_engineer
+	title = JOB_NAME_STATIONENGINEER
 	flag = ENGINEER
-	department_head = list("Chief Engineer")
-	department_flag = ENGSEC
+	department_head = list(JOB_NAME_CHIEFENGINEER)
+	supervisors = "the chief engineer"
 	faction = "Station"
 	total_positions = 5
 	spawn_positions = 5
-	supervisors = "the chief engineer"
 	selection_color = "#fff5cc"
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
@@ -18,11 +17,13 @@
 					ACCESS_AUX_BASE)
 	minimal_access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_MECH_ENGINE,
 					ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_TCOMSAT, ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE)
-	paycheck = PAYCHECK_MEDIUM
-	paycheck_department = ACCOUNT_ENG
+
+	department_flag = ENGSEC
+	departments = DEPT_BITFLAG_ENG
+	bank_account_department = ACCOUNT_ENG_BITFLAG
+	payment_per_department = list(ACCOUNT_ENG_ID = PAYCHECK_MEDIUM)
 
 	display_order = JOB_DISPLAY_ORDER_STATION_ENGINEER
-	departments = DEPARTMENT_ENGINEERING
 	rpg_title = "Crystallomancer"
 
 	species_outfits = list(
@@ -30,12 +31,12 @@
 	)
 
 /datum/outfit/job/engineer
-	name = "Station Engineer"
-	jobtype = /datum/job/engineer
+	name = JOB_NAME_STATIONENGINEER
+	jobtype = /datum/job/station_engineer
 
-	id = /obj/item/card/id/job/engi
+	id =  /obj/item/card/id/job/station_engineer
 	belt = /obj/item/storage/belt/utility/full/engi
-	l_pocket = /obj/item/pda/engineering
+	l_pocket = /obj/item/modular_computer/tablet/pda/station_engineer
 	ears = /obj/item/radio/headset/headset_eng
 	uniform = /obj/item/clothing/under/rank/engineering/engineer
 	shoes = /obj/item/clothing/shoes/workboots
@@ -47,7 +48,6 @@
 	duffelbag = /obj/item/storage/backpack/duffelbag/engineering
 	box = /obj/item/storage/box/engineer
 	pda_slot = ITEM_SLOT_LPOCKET
-	backpack_contents = list(/obj/item/modular_computer/tablet/preset/advanced=1)
 
 /datum/outfit/job/engineer/gloved
 	name = "Station Engineer (Gloves)"

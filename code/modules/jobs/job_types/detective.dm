@@ -1,13 +1,12 @@
 /datum/job/detective
-	title = "Detective"
+	title = JOB_NAME_DETECTIVE
 	flag = DETECTIVE
-	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
-	department_head = list("Head of Security")
-	department_flag = ENGSEC
+	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SECURITY
+	department_head = list(JOB_NAME_HEADOFSECURITY)
+	supervisors = "the head of security"
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the head of security"
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
 	exp_requirements = 180
@@ -18,12 +17,14 @@
 
 	access = list(ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_MECH_SECURITY, ACCESS_COURT, ACCESS_BRIG, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_MECH_SECURITY, ACCESS_COURT, ACCESS_BRIG, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
-	paycheck = PAYCHECK_MEDIUM
-	paycheck_department = ACCOUNT_SEC
+
+	department_flag = ENGSEC
+	departments = DEPT_BITFLAG_SEC
+	bank_account_department = ACCOUNT_SEC_BITFLAG
+	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_MEDIUM)
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_DETECTIVE
-	departments = DEPARTMENT_SECURITY
 	rpg_title = "Thiefcatcher"
 
 	species_outfits = list(
@@ -31,11 +32,11 @@
 	)
 
 /datum/outfit/job/detective
-	name = "Detective"
+	name = JOB_NAME_DETECTIVE
 	jobtype = /datum/job/detective
 
 	id = /obj/item/card/id/job/detective
-	belt = /obj/item/pda/detective
+	belt = /obj/item/modular_computer/tablet/pda/detective
 	ears = /obj/item/radio/headset/headset_sec/alt
 	uniform = /obj/item/clothing/under/rank/security/detective
 	neck = /obj/item/clothing/neck/tie/detective

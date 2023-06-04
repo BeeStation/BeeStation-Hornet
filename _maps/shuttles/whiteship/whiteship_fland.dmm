@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "an" = (
-/obj/structure/chair/comfy/teal{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -364,7 +364,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/dark/hidden{
@@ -820,6 +820,7 @@
 /area/shuttle/abandoned)
 "YN" = (
 /obj/structure/table,
+/obj/item/gun/energy/floragun,
 /turf/open/floor/wood,
 /area/shuttle/abandoned)
 "Zd" = (

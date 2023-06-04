@@ -21,8 +21,8 @@
 	var/atom/target = parent
 
 	target.orbiters = src
-	if(ismovableatom(target))
-		tracker = new(target, CALLBACK(src, .proc/move_react))
+	if(ismovable(target))
+		tracker = new(target, CALLBACK(src, PROC_REF(move_react)))
 
 /datum/component/orbiter/UnregisterFromParent()
 	var/atom/target = parent
@@ -31,7 +31,8 @@
 
 /datum/component/orbiter/Destroy()
 	var/atom/master = parent
-	master?.orbiters = null
+	if(master?.orbiters == src)
+		master.orbiters = null
 	for(var/i in orbiters)
 		end_orbit(i)
 	orbiters = null
@@ -42,7 +43,14 @@
 		begin_orbit(arglist(args.Copy(3)))
 		return
 	// The following only happens on component transfers
+	for(var/o in newcomp.orbiters)
+		var/atom/movable/incoming_orbiter = o
+		incoming_orbiter.orbiting = src
+		// It is important to transfer the signals so we don't get locked to the new orbiter component for all time
+		newcomp.UnregisterSignal(incoming_orbiter, COMSIG_MOVABLE_MOVED)
+		RegisterSignal(incoming_orbiter, COMSIG_MOVABLE_MOVED, PROC_REF(orbiter_move_react))
 	orbiters += newcomp.orbiters
+	newcomp.orbiters = null
 
 /datum/component/orbiter/PostTransfer()
 	if(!isatom(parent) || isarea(parent) || !get_turf(parent))
@@ -57,7 +65,7 @@
 			orbiter.orbiting.end_orbit(orbiter)
 	orbiters[orbiter] = TRUE
 	orbiter.orbiting = src
-	RegisterSignal(orbiter, COMSIG_MOVABLE_MOVED, .proc/orbiter_move_react)
+	RegisterSignal(orbiter, COMSIG_MOVABLE_MOVED, PROC_REF(orbiter_move_react))
 	SEND_SIGNAL(parent, COMSIG_ATOM_ORBIT_BEGIN, orbiter)
 	var/matrix/initial_transform = matrix(orbiter.transform)
 	orbiters[orbiter] = initial_transform

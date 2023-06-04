@@ -9,7 +9,7 @@
 	active_power_usage = 4
 	max_integrity = 300
 	circuit = /obj/item/circuitboard/machine/igniter
-	armor = list("melee" = 50, "bullet" = 30, "laser" = 70, "energy" = 50, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70, "stamina" = 0)
+	armor = list(MELEE = 50,  BULLET = 30, LASER = 70, ENERGY = 50, BOMB = 20, BIO = 0, RAD = 0, FIRE = 100, ACID = 70, STAMINA = 0)
 	resistance_flags = FIRE_PROOF
 	var/id = null
 	var/on = FALSE
@@ -38,7 +38,7 @@
 	icon_state = "igniter[on]"
 
 /obj/machinery/igniter/process()	//ugh why is this even in process()?
-	if (src.on && !(stat & NOPOWER) )
+	if (src.on && !(machine_stat & NOPOWER) )
 		var/turf/location = src.loc
 		if (isturf(location))
 			location.hotspot_expose(1000,500,1)
@@ -59,7 +59,7 @@
 	return ..()
 
 /obj/machinery/igniter/power_change()
-	if(!( stat & NOPOWER) )
+	if(!( machine_stat & NOPOWER) )
 		icon_state = "igniter[src.on]"
 	else
 		icon_state = "igniter0"
@@ -94,11 +94,11 @@
 
 /obj/machinery/sparker/power_change()
 	if ( powered() && disable == 0 )
-		stat &= ~NOPOWER
+		set_machine_stat(machine_stat & ~NOPOWER)
 		icon_state = "[base_state]"
 //		src.sd_SetLuminosity(2)
 	else
-		stat |= ~NOPOWER
+		set_machine_stat(machine_stat | NOPOWER)
 		icon_state = "[base_state]-p"
 //		src.sd_SetLuminosity(0)
 
@@ -145,5 +145,5 @@
 	. = ..()
 	if (. & EMP_PROTECT_SELF)
 		return
-	if(!(stat & (BROKEN|NOPOWER)))
+	if(!(machine_stat & (BROKEN|NOPOWER)))
 		ignite()

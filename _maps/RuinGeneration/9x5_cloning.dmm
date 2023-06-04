@@ -62,14 +62,6 @@
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
-"J" = (
-/obj/structure/table,
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/ruin/unpowered)
 "O" = (
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/plasteel/white,
@@ -86,6 +78,13 @@
 	dir = 6
 	},
 /turf/open/floor/noslip/dark,
+/area/ruin/unpowered)
+"S" = (
+/obj/structure/table,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 
 (1,1,1) = {"
@@ -141,7 +140,7 @@ a
 a
 p
 D
-J
+S
 a
 "}
 (9,1,1) = {"

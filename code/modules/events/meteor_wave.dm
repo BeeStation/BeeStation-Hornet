@@ -45,7 +45,7 @@
 		//Calculate velocity
 		meteor.velocity.x = (station_target.position.x - meteor.start_x * 10) / meteor_time
 		meteor.velocity.y = (station_target.position.y - meteor.start_y * 10) / meteor_time
-		meteor.end_tick = world.time + meteor_time
+		meteor.end_tick = SSorbits.times_fired + (meteor_time / SSorbits.wait)
 		meteor.target = station_target
 
 /datum/round_event/meteor_wave/on_admin_trigger()
@@ -55,7 +55,7 @@
 
 /datum/round_event/meteor_wave/proc/determine_wave_type()
 	if(!wave_name)
-		wave_name = pickweight(list(
+		wave_name = pick_weight(list(
 			"normal" = 50,
 			"threatening" = 40,
 			"catastrophic" = 10))
@@ -81,11 +81,6 @@
 
 /datum/round_event/meteor_wave/announce(fake)
 	priority_announce("Meteors have been detected on collision course with the station. Estimated time until impact: 10 MINUTES. Anti-meteor point defense is available for purchase via the station's cargo shuttle.", "Meteor Alert", ANNOUNCER_METEORS)
-	if(!fake)
-		var/datum/supply_pack/P = SSshuttle.supply_packs[/datum/supply_pack/engineering/shield_sat]
-		P.special_enabled = TRUE
-		P = SSshuttle.supply_packs[/datum/supply_pack/engineering/shield_sat_control]
-		P.special_enabled = TRUE
 
 /datum/round_event_control/meteor_wave/threatening
 	name = "Meteor Wave: Threatening"

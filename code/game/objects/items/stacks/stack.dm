@@ -5,28 +5,46 @@
  * 		Recipe list datum
  */
 
+//stack recipe placement check types config
+/// checks if there is an object of the result type in any of the cardinal directions
+#define STACK_CHECK_CARDINALS "cardinals"
+/// checks if there is an object of the result type within one tile
+#define STACK_CHECK_ADJACENT "adjacent"
+
 /*
  * Stacks
  */
 
 /obj/item/stack
-	icon = 'icons/obj/stack_objects.dmi'
+	icon = 'icons/obj/stacks/minerals.dmi'
 	gender = PLURAL
+	///The list recipes you can make with the stack
 	var/list/datum/stack_recipe/recipes
+	///The name of the thing when it's singular
 	var/singular_name
+	///The amount of thing in the stack
 	var/amount = 1
-	var/max_amount = 50 //also see stack recipes initialisation, param "max_res_amount" must be equal to this max_amount
-	var/is_cyborg = 0 // It's 1 if module is used by a cyborg, and uses its storage
+	///also see stack recipes initialisation, param "max_res_amount" must be equal to this max_amount
+	var/max_amount = 50
+	///It's TRUE if module is used by a cyborg, and uses its storage
+	var/is_cyborg = FALSE
+	///Holder var for the cyborg energy source
 	var/datum/robot_energy_storage/source
-	var/cost = 1 // How much energy from storage it costs
-	var/merge_type = null // This path and its children should merge with this stack, defaults to src.type
-	var/full_w_class = WEIGHT_CLASS_NORMAL //The weight class the stack should have at amount > 2/3rds max_amount
-	var/novariants = TRUE //Determines whether the item should update it's sprites based on amount.
+	///How much energy from storage it costs
+	var/cost = 1
+	///This path and its children should merge with this stack, defaults to src.type
+	var/merge_type
+	///The weight class the stack should have at amount > 2/3rds max_amount
+	var/full_w_class = WEIGHT_CLASS_NORMAL
+	//Determines whether the item should update it's sprites based on amount.
+	var/novariants = TRUE
+	///Stores table variant to be built from this stack
+	var/obj/structure/table/tableVariant
+
 	//NOTE: When adding grind_results, the amounts should be for an INDIVIDUAL ITEM - these amounts will be multiplied by the stack size in on_grind()
-	var/obj/structure/table/tableVariant // we tables now (stores table variant to be built from this stack)
 
 /obj/item/stack/on_grind()
-	for(var/i in 1 to grind_results.len) //This should only call if it's ground, so no need to check if grind_results exists
+	for(var/i in 1 to length(grind_results)) //This should only call if it's ground, so no need to check if grind_results exists
 		grind_results[grind_results[i]] *= get_amount() //Gets the key at position i, then the reagent amount of that key, then multiplies it by stack size
 
 /obj/item/stack/grind_requirements()
@@ -53,7 +71,7 @@
 	update_weight()
 	update_icon()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -66,7 +84,7 @@
 /obj/item/stack/proc/update_weight()
 	if(amount <= (max_amount * (1/3)))
 		w_class = CLAMP(full_w_class-2, WEIGHT_CLASS_TINY, full_w_class)
-	else if (amount <= (max_amount * (2/3)))
+	else if(amount <= (max_amount * (2/3)))
 		w_class = CLAMP(full_w_class-1, WEIGHT_CLASS_TINY, full_w_class)
 	else
 		w_class = full_w_class
@@ -76,26 +94,26 @@
 		return ..()
 	if(amount <= (max_amount * (1/3)))
 		icon_state = initial(icon_state)
-	else if (amount <= (max_amount * (2/3)))
+	else if(amount <= (max_amount * (2/3)))
 		icon_state = "[initial(icon_state)]_2"
 	else
 		icon_state = "[initial(icon_state)]_3"
-	..()
+	return ..()
 
 /obj/item/stack/examine(mob/user)
 	. = ..()
-	if (is_cyborg)
+	if(is_cyborg)
 		if(singular_name)
 			. += "There is enough energy for [get_amount()] [singular_name]\s."
 		else
 			. += "There is enough energy for [get_amount()]."
 		return
 	if(singular_name)
-		if(get_amount()>1)
+		if(get_amount() > 1)
 			. += "There are [get_amount()] [singular_name]\s in the stack."
 		else
 			. += "There is [get_amount()] [singular_name] in the stack."
-	else if(get_amount()>1)
+	else if(get_amount() > 1)
 		. += "There are [get_amount()] in the stack."
 	else
 		. += "There is [get_amount()] in the stack."
@@ -202,7 +220,7 @@
 				return
 			if(R.time)
 				usr.visible_message("<span class='notice'>[usr] starts building \a [R.title].</span>", "<span class='notice'>You start building \a [R.title]...</span>")
-				if (!do_after(usr, R.time, target = usr))
+				if(!do_after(usr, R.time, target = usr))
 					return
 				if(!building_checks(R, multiplier))
 					return
@@ -229,17 +247,6 @@
 				O.set_custom_materials(used_materials)
 			*/
 
-			if(istype(O, /obj/structure/windoor_assembly))
-				var/obj/structure/windoor_assembly/W = O
-				W.ini_dir = W.dir
-			else if(istype(O, /obj/structure/window))
-				var/obj/structure/window/W = O
-				W.ini_dir = W.dir
-
-			else if(istype(O, /obj/item/restraints/handcuffs/cable))
-				var/obj/item/cuffs = O
-				cuffs.color = color
-
 			if(QDELETED(O))
 				return //It's a stack and has already been merged
 
@@ -247,66 +254,70 @@
 				usr.put_in_hands(O)
 			O.add_fingerprint(usr)
 
-			//BubbleWrap - so newly formed boxes are empty
 			if(istype(O, /obj/item/storage))
-				for (var/obj/item/I in O)
+				for(var/obj/item/I in O)
 					qdel(I)
-			//BubbleWrap END
 			return TRUE
 
-/obj/item/stack/proc/building_checks(datum/stack_recipe/R, multiplier)
-	if (get_amount() < R.req_amount*multiplier)
-		if (R.req_amount*multiplier>1)
-			to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [R.req_amount*multiplier] [R.title]\s!</span>")
+/obj/item/stack/proc/building_checks(datum/stack_recipe/recipe, multiplier)
+	if(get_amount() < recipe.req_amount*multiplier)
+		if(recipe.req_amount*multiplier>1)
+			to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [recipe.req_amount*multiplier] [recipe.title]\s!</span>")
 		else
-			to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [R.title]!</span>")
+			to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [recipe.title]!</span>")
 		return FALSE
-	var/turf/T = get_turf(usr)
 
-	var/obj/D = R.result_type
-	if(R.window_checks && !valid_window_location(T, initial(D.dir) == FULLTILE_WINDOW_DIR ? FULLTILE_WINDOW_DIR : usr.dir))
-		to_chat(usr, "<span class='warning'>The [R.title] won't fit here!</span>")
-		return FALSE
-	if(R.one_per_turf && (locate(R.result_type) in T))
-		to_chat(usr, "<span class='warning'>There is another [R.title] here!</span>")
-		return FALSE
-	if(R.on_floor)
-		if(!isfloorturf(T))
-			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor!</span>")
+	var/turf/dest_turf = get_turf(usr)
+
+	// If we're making a window, we have some special snowflake window checks to do.
+	if(ispath(recipe.result_type, /obj/structure/window))
+		var/obj/structure/window/result_path = recipe.result_type
+		if(!valid_window_location(dest_turf, usr.dir, is_fulltile = initial(result_path.fulltile)))
+			to_chat(usr, "<span class='warning'>The [recipe.title] won't fit here!</span>")
 			return FALSE
-		for(var/obj/AM in T)
-			if(istype(AM,/obj/structure/grille))
+
+	if(recipe.one_per_turf && (locate(recipe.result_type) in dest_turf))
+		to_chat(usr, "<span class='warning'>There is another [recipe.title] here!</span>")
+		return FALSE
+
+	if(recipe.on_floor)
+		if(!isanyfloor(dest_turf))
+			to_chat(usr, "<span class='warning'>\The [recipe.title] must be constructed on the floor!</span>")
+			return FALSE
+
+		for(var/obj/object in dest_turf)
+			if(istype(object, /obj/structure/grille))
 				continue
-			if(istype(AM,/obj/structure/table))
+			if(istype(object, /obj/structure/table))
 				continue
-			if(istype(AM,/obj/structure/window))
-				var/obj/structure/window/W = AM
-				if(!W.fulltile)
+			if(istype(object, /obj/structure/window))
+				var/obj/structure/window/window_structure = object
+				if(!window_structure.fulltile)
 					continue
-			if(AM.density)
-				to_chat(usr, "<span class='warning'>Theres a [AM.name] here. You cant make a [R.title] here!</span>")
+			if(object.density)
+				to_chat(usr, "<span class='warning'>There is \a [object.name] here. You cant make \a [recipe.title] here!</span>")
 				return FALSE
-	if(R.placement_checks)
-		switch(R.placement_checks)
+	if(recipe.placement_checks)
+		switch(recipe.placement_checks)
 			if(STACK_CHECK_CARDINALS)
 				var/turf/step
 				for(var/direction in GLOB.cardinals)
-					step = get_step(T, direction)
-					if(locate(R.result_type) in step)
-						to_chat(usr, "<span class='warning'>\The [R.title] must not be built directly adjacent to another!</span>")
+					step = get_step(dest_turf, direction)
+					if(locate(recipe.result_type) in step)
+						to_chat(usr, "<span class='warning'>\The [recipe.title] must not be built directly adjacent to another!</span>")
 						return FALSE
 			if(STACK_CHECK_ADJACENT)
-				if(locate(R.result_type) in range(1, T))
-					to_chat(usr, "<span class='warning'>\The [R.title] must be constructed at least one tile away from others of its type!</span>")
+				if(locate(recipe.result_type) in range(1, dest_turf))
+					to_chat(usr, "<span class='warning'>\The [recipe.title] must be constructed at least one tile away from others of its type!</span>")
 					return FALSE
 	return TRUE
 
 /obj/item/stack/use(used, transfer = FALSE, check = TRUE) // return FALSE = borked; return TRUE = had enough
 	if(check && zero_amount())
 		return FALSE
-	if (is_cyborg)
+	if(is_cyborg)
 		return source.use_charge(used * cost)
-	if (amount < used)
+	if(amount < used)
 		return FALSE
 	amount -= used
 	if(check)
@@ -325,9 +336,7 @@
 				to_chat(user, "<span class='warning'>You need at least [amount] [singular_name] to do this!</span>")
 		else
 			to_chat(user, "<span class='warning'>You need at least [amount] to do this!</span>")
-
 		return FALSE
-
 	return TRUE
 
 /obj/item/stack/proc/zero_amount()
@@ -335,11 +344,11 @@
 		return source.energy < cost
 	if(amount < 1)
 		qdel(src)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /obj/item/stack/proc/add(amount)
-	if (is_cyborg)
+	if(is_cyborg)
 		source.add_charge(amount * cost)
 	else
 		src.amount += amount
@@ -363,16 +372,16 @@
 	S.add(transfer)
 	return transfer
 
-/obj/item/stack/proc/on_entered(datum/source, obj/o)
+/obj/item/stack/proc/on_entered(datum/source, obj/O)
 	SIGNAL_HANDLER
 
-	if(merge_check(o) && !o.throwing)
-		INVOKE_ASYNC(src, .proc/merge, o)
+	if(merge_check(O) && !O.throwing)
+		INVOKE_ASYNC(src, PROC_REF(merge), O)
 
 /obj/item/stack/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(merge_check(AM))
 		merge(AM)
-	. = ..()
+	return ..()
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/item/stack/attack_hand(mob/user)
@@ -381,7 +390,7 @@
 			return
 		return change_stack(user,1)
 	else
-		. = ..()
+		return ..()
 
 /obj/item/stack/AltClick(mob/living/user)
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
@@ -396,7 +405,7 @@
 		var/stackmaterial = round(input(user,"How many sheets do you wish to take out of this stack? (Maximum  [max])") as null|num)
 		max = get_amount()
 		stackmaterial = min(max, stackmaterial)
-		if(stackmaterial == null || stackmaterial <= 0 || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
+		if(!stackmaterial || stackmaterial < 0 || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
 			return
 		else
 			change_stack(user, stackmaterial)
@@ -405,7 +414,7 @@
 /obj/item/stack/proc/change_stack(mob/user, amount)
 	if(!use(amount, TRUE, FALSE))
 		return FALSE
-	var/obj/item/stack/F = new type(user? user : drop_location(), amount, FALSE)
+	var/obj/item/stack/F = new type(user ? user : drop_location(), amount, FALSE)
 	. = F
 	F.copy_evidences(src)
 	if(user)
@@ -421,14 +430,14 @@
 		if(merge(S))
 			to_chat(user, "<span class='notice'>Your [S.name] stack now contains [S.get_amount()] [S.singular_name]\s.</span>")
 	else
-		. = ..()
+		return ..()
 
-/obj/item/stack/proc/merge_check(obj/o)
-	if(istype(o,merge_type))
-		if(!istype(o,/obj/item/stack)) //Not a stack, but can be stacked.
+/obj/item/stack/proc/merge_check(obj/O)
+	if(istype(O,merge_type))
+		if(!istype(O,/obj/item/stack)) //Not a stack, but can be stacked.
 			return TRUE
 		else
-			var/obj/item/stack/ostack = o
+			var/obj/item/stack/ostack = O
 			if(istype(src,ostack.merge_type)) //Merge types have to go in both directions, so inheritance != stackable together
 				return TRUE
 	return FALSE
@@ -448,20 +457,26 @@
  * Recipe datum
  */
 /datum/stack_recipe
+	///The name of the recipe
 	var/title = "ERROR"
+	///The thing we get from doing the recipe
 	var/result_type
+	///The amount of type of material we need
 	var/req_amount = 1
+	///The amount of thing we make
 	var/res_amount = 1
+	///The maximum amount of thing we can get from crafting
 	var/max_res_amount = 1
+	///The time it takes to make
 	var/time = 0
+	///Can we have only one instance of recipe result per turf?
 	var/one_per_turf = FALSE
+	///Can we make the result on non-solid turfs (space)
 	var/on_floor = FALSE
-	var/window_checks = FALSE
+	///Do we do placement checks while placing the recipe?
 	var/placement_checks = FALSE
 
 /datum/stack_recipe/New(title, result_type, req_amount = 1, res_amount = 1, max_res_amount = 1,time = 0, one_per_turf = FALSE, on_floor = FALSE, window_checks = FALSE, placement_checks = FALSE )
-
-
 	src.title = title
 	src.result_type = result_type
 	src.req_amount = req_amount
@@ -470,7 +485,6 @@
 	src.time = time
 	src.one_per_turf = one_per_turf
 	src.on_floor = on_floor
-	src.window_checks = window_checks
 	src.placement_checks = placement_checks
 /*
  * Recipe list datum
@@ -482,3 +496,6 @@
 /datum/stack_recipe_list/New(title, recipes)
 	src.title = title
 	src.recipes = recipes
+
+#undef STACK_CHECK_CARDINALS
+#undef STACK_CHECK_ADJACENT

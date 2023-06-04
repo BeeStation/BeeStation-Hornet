@@ -14,7 +14,7 @@
 	throwforce = 6
 	w_class = WEIGHT_CLASS_BULKY
 	actions_types = list(/datum/action/item_action/toggle_paddles)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 0)
 
 	var/obj/item/shockpaddles/paddle_type = /obj/item/shockpaddles
 	var/on = FALSE //if the paddles are equipped (1) or on the defib (0)
@@ -137,13 +137,18 @@
 	else
 		return ..()
 
-/obj/item/defibrillator/emag_act(mob/user)
+/obj/item/defibrillator/should_emag(mob/user)
+	return TRUE
+
+/obj/item/defibrillator/on_emag(mob/user)
+	..()
 	if(safety)
 		safety = FALSE
 		to_chat(user, "<span class='warning'>You silently disable [src]'s safety protocols with the cryptographic sequencer.</span>")
 	else
 		safety = TRUE
 		to_chat(user, "<span class='notice'>You silently enable [src]'s safety protocols with the cryptographic sequencer.</span>")
+	update_icon()
 
 /obj/item/defibrillator/emp_act(severity)
 	. = ..()
@@ -224,7 +229,7 @@
 
 
 /obj/item/defibrillator/proc/cooldowncheck(mob/user)
-	addtimer(CALLBACK(src, .proc/finish_charging), cooldown_duration)
+	addtimer(CALLBACK(src, PROC_REF(finish_charging)), cooldown_duration)
 
 /obj/item/defibrillator/proc/finish_charging()
 	if(cell)
@@ -297,6 +302,7 @@
 	throwforce = 6
 	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = INDESTRUCTIBLE
+	item_flags = ISWEAPON
 
 	var/revivecost = 1000
 	var/cooldown = FALSE
@@ -309,7 +315,7 @@
 
 	var/mob/listeningTo
 
-	var/base_icon_state = "defibpaddles"
+	base_icon_state = "defibpaddles"
 
 /obj/item/shockpaddles/ComponentInitialize()
 	. = ..()
@@ -326,7 +332,7 @@
 		return
 	if(listeningTo && listeningTo != user)
 		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
-	RegisterSignal(user, COMSIG_MOVABLE_MOVED, .proc/check_range)
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(check_range))
 	listeningTo = user
 	check_range()
 
@@ -625,10 +631,8 @@
 				else
 					var/obj/item/organ/brain/BR = H.getorgan(/obj/item/organ/brain)
 					if(BR)
-						if(BR.organ_flags & ORGAN_FAILING)
+						if(BR.organ_flags & ORGAN_FAILING || BR.brain_death)
 							failed = "<span class='warning'>[req_defib ? "[defib]" : "[src]"] buzzes: Resuscitation failed - Patient's brain tissue is damaged making recovery of patient impossible via defibrillator. Further attempts futile.</span>"
-						if(BR.brain_death)
-							failed = "<span class='warning'>[req_defib ? "[defib]" : "[src]"] buzzes: Resuscitation failed - Patient's brain damaged beyond point of no return. Further attempts futile.</span>"
 						if(BR.suicided || BR.brainmob?.suiciding)
 							failed = "<span class='warning'>[req_defib ? "[defib]" : "[src]"] buzzes: Resuscitation failed - No intelligence pattern can be detected in patient's brain. Further attempts futile.</span>"
 					else

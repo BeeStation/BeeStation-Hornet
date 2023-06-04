@@ -12,7 +12,7 @@
 	refill_canister = /obj/item/vending_refill/coffee
 	default_price = 10
 	extra_price = 25
-	payment_department = ACCOUNT_SRV
+	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 /obj/item/vending_refill/coffee
 	machine_name = "Solar's Best Hot Drinks"
 	icon_state = "refill_joe"

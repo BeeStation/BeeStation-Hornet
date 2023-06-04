@@ -32,15 +32,26 @@
 		amount_per_transfer_from_this = initial(amount_per_transfer_from_this)
 	to_chat(user, "<span class='notice'>You will now apply the medspray's contents in [squirt_mode ? "short bursts":"extended sprays"]. You'll now use [amount_per_transfer_from_this] units per use.</span>")
 
-/obj/item/reagent_containers/medspray/attack(mob/M, mob/user, def_zone)
+/obj/item/reagent_containers/medspray/attack(mob/living/carbon/M, mob/user, def_zone)
+	if(!iscarbon(M))
+		return
+
 	if(!reagents || !reagents.total_volume)
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+		return
+
+	var/obj/item/bodypart/affecting = M.get_bodypart(check_zone(user.zone_selected))
+	if(!affecting)
+		balloon_alert(user, "The limb is missing.")
+		return
+	if(!IS_ORGANIC_LIMB(affecting))
+		balloon_alert(user, "[src] doesn't work on robotic limbs.")
 		return
 
 	if(M == user)
 		M.visible_message("<span class='notice'>[user] attempts to [apply_method] [src] on [user.p_them()]self.</span>")
 		if(self_delay)
-			if(!do_mob(user, M, self_delay))
+			if(!do_after(user, self_delay, M))
 				return
 			if(!reagents || !reagents.total_volume)
 				return
@@ -50,7 +61,7 @@
 		log_combat(user, M, "attempted to apply", src, reagents.log_list())
 		M.visible_message("<span class='danger'>[user] attempts to [apply_method] [src] on [M].</span>", \
 							"<span class='userdanger'>[user] attempts to [apply_method] [src] on [M].</span>")
-		if(!do_mob(user, M))
+		if(!do_after(user, target = M))
 			return
 		if(!reagents || !reagents.total_volume)
 			return
@@ -64,7 +75,7 @@
 		log_combat(user, M, "applied", src, reagents.log_list())
 		playsound(src, 'sound/effects/spray2.ogg', 50, 1, -6)
 		var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1)
-		reagents.reaction(M, apply_type, fraction)
+		reagents.reaction(M, apply_type, fraction, affecting = affecting)
 		reagents.trans_to(M, amount_per_transfer_from_this, transfered_by = user)
 	return
 

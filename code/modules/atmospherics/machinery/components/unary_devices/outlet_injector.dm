@@ -7,6 +7,7 @@
 	use_power = IDLE_POWER_USE
 	can_unwrench = TRUE
 	shift_underlay_only = FALSE
+	hide = TRUE
 
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF //really helpful in building gas chambers for xenomorphs
 
@@ -18,7 +19,6 @@
 	var/id = null
 	var/datum/radio_frequency/radio_connection
 
-	level = 1
 	interacts_with_air = TRUE
 	layer = GAS_SCRUBBER_LAYER
 
@@ -52,15 +52,15 @@
 		// everything is already shifted so don't shift the cap
 		add_overlay(getpipeimage(icon, "inje_cap", initialize_directions))
 
-	if(!nodes[1] || !on || !is_operational())
+	if(!nodes[1] || !on || !is_operational)
 		icon_state = "inje_off"
 	else
 		icon_state = "inje_on"
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/power_change()
-	var/old_stat = stat
+	var/old_stat = machine_stat
 	..()
-	if(old_stat != stat)
+	if(old_stat != machine_stat)
 		update_icon()
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/process_atmos()
@@ -68,7 +68,7 @@
 
 	injecting = 0
 
-	if(!on || !is_operational() || !isopenturf(loc))
+	if(!on || !is_operational || !isopenturf(loc))
 		return
 
 	var/datum/gas_mixture/air_contents = airs[1]
@@ -82,7 +82,7 @@
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/proc/inject()
 
-	if(on || injecting || !is_operational())
+	if(on || injecting || !is_operational)
 		return
 
 	var/datum/gas_mixture/air_contents = airs[1]
@@ -141,7 +141,7 @@
 		var/datum/gas_mixture/air_contents = airs[1]
 		volume_rate = CLAMP(number, 0, air_contents.return_volume())
 
-	addtimer(CALLBACK(src, .proc/broadcast_status), 2)
+	addtimer(CALLBACK(src, PROC_REF(broadcast_status)), 2)
 
 	if(!("status" in signal.data)) //do not update_icon
 		update_icon()
@@ -191,7 +191,7 @@
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/can_unwrench(mob/user)
 	. = ..()
-	if(. && on && is_operational())
+	if(. && on && is_operational)
 		to_chat(user, "<span class='warning'>You cannot unwrench [src], turn it off first!</span>")
 		return FALSE
 
@@ -227,9 +227,9 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/engine_waste
 	name = "engine outlet injector"
 	id = ATMOS_GAS_MONITOR_WASTE_ENGINE
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/toxin_input
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/plasma_input
 	name = "plasma tank input injector"
-	id = ATMOS_GAS_MONITOR_INPUT_TOX
+	id = ATMOS_GAS_MONITOR_INPUT_PLASMA
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/oxygen_input
 	name = "oxygen tank input injector"
 	id = ATMOS_GAS_MONITOR_INPUT_O2
@@ -254,3 +254,10 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/toxins_mixing_input
 	name = "toxins mixing input injector"
 	id = ATMOS_GAS_MONITOR_INPUT_TOXINS_LAB
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/toxins_waste_input
+	name = "toxins waste input injector"
+	id = ATMOS_GAS_MONITOR_INPUT_TOXINS_WASTE
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/sm_waste_input
+	name = "supermatter waste input injector"
+	id = ATMOS_GAS_MONITOR_INPUT_SM_WASTE
+

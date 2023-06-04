@@ -2,24 +2,15 @@
 "a" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
-"c" = (
-/obj/effect/turf_decal/tile/neutral/tile_full,
-/obj/effect/turf_decal/bot_white/right,
-/obj/structure/frame/machine,
-/turf/open/floor/plasteel/dark/airless,
-/area/ruin/unpowered)
-"d" = (
-/obj/structure/closet/crate/goldcrate,
-/obj/effect/turf_decal/tile/neutral/tile_full,
-/obj/effect/turf_decal/bot_white/right,
-/obj/effect/spawner/lootdrop/ruinloot/important,
-/turf/open/floor/plasteel/dark/airless,
-/area/ruin/unpowered)
-"f" = (
-/obj/structure/closet/crate/silvercrate,
-/obj/effect/turf_decal/tile/neutral/tile_full,
+"b" = (
 /obj/effect/turf_decal/bot_white/left,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark/airless,
+/area/ruin/unpowered)
+"e" = (
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "g" = (
 /obj/effect/turf_decal/stripes/line{
@@ -34,26 +25,27 @@
 "i" = (
 /turf/closed/wall/r_wall,
 /area/ruin/unpowered)
-"k" = (
-/obj/effect/turf_decal/tile/neutral/tile_full,
-/turf/open/floor/plasteel/dark,
-/area/ruin/unpowered)
-"l" = (
-/obj/effect/turf_decal/tile/neutral/tile_full,
+"m" = (
 /obj/effect/turf_decal/bot_white/right,
 /obj/item/circuitboard/machine/ore_silo,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark/airless,
 /area/ruin/unpowered)
 "o" = (
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
-"r" = (
-/obj/structure/frame/machine,
-/obj/item/stamp/clown{
-	pixel_y = 5
-	},
-/obj/effect/turf_decal/tile/neutral/tile_full,
-/turf/open/floor/plasteel/dark,
+"p" = (
+/obj/structure/filingcabinet,
+/obj/item/folder,
+/obj/effect/turf_decal/bot_white/left,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark/airless,
+/area/ruin/unpowered)
+"s" = (
+/obj/structure/frame/computer,
+/obj/effect/turf_decal/bot_white/right,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark/airless,
 /area/ruin/unpowered)
 "t" = (
 /obj/item/weldingtool/mini,
@@ -71,55 +63,54 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
+"y" = (
+/obj/item/stack/cable_coil/random/five,
+/obj/effect/turf_decal/tile/neutral,
+/turf/open/floor/plasteel/dark/airless,
+/area/ruin/unpowered)
 "z" = (
 /turf/template_noop/open,
 /area/template_noop)
-"B" = (
-/obj/effect/turf_decal/tile/neutral/tile_side{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark/airless,
-/area/ruin/unpowered)
-"C" = (
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/tile/neutral/tile_full,
-/turf/open/floor/plasteel/dark,
-/area/ruin/unpowered)
 "D" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
-"G" = (
+"F" = (
+/obj/effect/turf_decal/bot_white/right,
+/obj/structure/frame/machine,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark/airless,
+/area/ruin/unpowered)
+"H" = (
+/obj/structure/frame/machine,
+/obj/item/stamp/clown{
+	pixel_y = 5
+	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"K" = (
+/obj/structure/closet/crate/silvercrate,
+/obj/effect/turf_decal/bot_white/left,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark/airless,
+/area/ruin/unpowered)
+"L" = (
 /obj/structure/safe,
-/obj/effect/turf_decal/tile/neutral/tile_full,
 /obj/effect/turf_decal/bot_white/left,
 /obj/item/ammo_box/a357,
 /obj/item/paper{
-	info = "IOU - One Very Cool Revolver (Thanks HOP)"
+	default_raw_text = "IOU - One Very Cool Revolver (Thanks HOP)"
 	},
 /obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark/airless,
 /area/ruin/unpowered)
-"I" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/blood,
-/obj/effect/mob_spawn/human/corpse/cargo_tech,
-/obj/item/gun/ballistic/revolver/russian,
-/turf/open/floor/plasteel/dark/airless,
-/area/ruin/unpowered)
-"J" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/item/stack/cable_coil/random/five,
-/turf/open/floor/plasteel/dark/airless,
-/area/ruin/unpowered)
-"M" = (
-/obj/effect/turf_decal/tile/neutral/tile_full,
-/obj/effect/turf_decal/bot_white/left,
-/turf/open/floor/plasteel/dark/airless,
+"N" = (
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "O" = (
 /obj/structure/sign/poster/random{
@@ -127,18 +118,25 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
-"P" = (
+"Q" = (
+/obj/structure/closet/crate/goldcrate,
+/obj/effect/turf_decal/bot_white/right,
+/obj/effect/spawner/lootdrop/ruinloot/important,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark/airless,
+/area/ruin/unpowered)
+"R" = (
 /obj/machinery/door/airlock/vault{
 	req_access_txt = "53"
 	},
 /obj/effect/mapping_helpers/airlock/locked,
-/obj/effect/turf_decal/tile/neutral/tile_full,
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
-"S" = (
-/obj/structure/frame/computer,
-/obj/effect/turf_decal/tile/neutral/tile_full,
-/obj/effect/turf_decal/bot_white/right,
+"U" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark/airless,
 /area/ruin/unpowered)
 "V" = (
@@ -147,15 +145,17 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"W" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mob_spawn/human/corpse/cargo_tech,
+/obj/item/gun/ballistic/revolver/russian,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark/airless,
+/area/ruin/unpowered)
 "X" = (
 /turf/open/floor/circuit/airless,
-/area/ruin/unpowered)
-"Y" = (
-/obj/structure/filingcabinet,
-/obj/item/folder,
-/obj/effect/turf_decal/tile/neutral/tile_full,
-/obj/effect/turf_decal/bot_white/left,
-/turf/open/floor/plasteel/dark/airless,
 /area/ruin/unpowered)
 "Z" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -197,10 +197,10 @@ a
 (3,1,1) = {"
 z
 i
-S
-l
-d
-c
+s
+m
+Q
+F
 i
 z
 w
@@ -215,7 +215,7 @@ i
 X
 X
 X
-J
+y
 i
 w
 w
@@ -228,12 +228,12 @@ a
 z
 i
 X
-r
+H
 X
-B
-P
-k
-C
+U
+R
+N
+e
 g
 o
 o
@@ -245,7 +245,7 @@ i
 X
 X
 X
-I
+W
 i
 w
 w
@@ -257,10 +257,10 @@ a
 (7,1,1) = {"
 z
 i
-Y
-M
-f
-G
+p
+b
+K
+L
 i
 z
 w

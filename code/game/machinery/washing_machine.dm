@@ -12,7 +12,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_RAINBOW = /obj/item/clothing/under/color/rainbow,
 		DYE_MIME = /obj/item/clothing/under/rank/civilian/mime,
 		DYE_CLOWN = /obj/item/clothing/under/rank/civilian/clown,
-		DYE_QM = /obj/item/clothing/under/rank/cargo/qm,
+		DYE_QM = /obj/item/clothing/under/rank/cargo/quartermaster,
 		DYE_LAW = /obj/item/clothing/under/suit/black,
 		DYE_CAPTAIN = /obj/item/clothing/under/rank/captain,
 		DYE_HOP = /obj/item/clothing/under/rank/civilian/head_of_personnel,
@@ -120,7 +120,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 
 /obj/machinery/washing_machine/ComponentInitialize()
 	. = ..()
-	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, .proc/clean_blood)
+	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(clean_blood))
 
 /obj/machinery/washing_machine/examine(mob/user)
 	. = ..()
@@ -139,7 +139,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 
 	busy = TRUE
 	update_icon()
-	addtimer(CALLBACK(src, .proc/wash_cycle), 200)
+	addtimer(CALLBACK(src, PROC_REF(wash_cycle)), 200)
 
 	START_PROCESSING(SSfastprocess, src)
 
@@ -217,10 +217,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 //what happens to this object when washed inside a washing machine
 /atom/movable/proc/machine_wash(obj/machinery/washing_machine/WM)
 	return
-
-/obj/item/stack/sheet/hairlesshide/machine_wash(obj/machinery/washing_machine/WM)
-	new /obj/item/stack/sheet/wetleather(drop_location(), amount)
-	qdel(src)
 
 /obj/item/clothing/suit/hooded/ian_costume/machine_wash(obj/machinery/washing_machine/WM)
 	new /obj/item/reagent_containers/food/snacks/meat/slab/corgi(loc)
@@ -344,5 +340,5 @@ GLOBAL_LIST_INIT(dye_registry, list(
 
 /obj/machinery/washing_machine/open_machine(drop = 1)
 	..()
-	density = TRUE //because machinery/open_machine() sets it to 0
+	set_density(TRUE) //because machinery/open_machine() sets it to FALSE
 	color_source = null

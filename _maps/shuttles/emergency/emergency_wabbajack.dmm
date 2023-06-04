@@ -5,80 +5,12 @@
 "ab" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
-"ad" = (
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/escape)
-"ae" = (
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/shuttle/escape)
-"af" = (
-/obj/machinery/power/emitter/energycannon/magical,
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/shuttle/escape)
-"ag" = (
-/obj/structure/table/abductor/wabbajack/left,
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/shuttle/escape)
-"ah" = (
-/obj/structure/table/abductor/wabbajack/right,
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/shuttle/escape)
 "ai" = (
 /obj/structure/sign/warning/biohazard,
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
 "ak" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
@@ -87,7 +19,7 @@
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "am" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
@@ -132,7 +64,7 @@
 	pixel_x = -24;
 	pixel_y = -6
 	},
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
@@ -142,11 +74,11 @@
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "av" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "aw" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium,
@@ -192,13 +124,13 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
 "aI" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aJ" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /obj/structure/window/reinforced{
@@ -261,136 +193,6 @@
 /obj/item/reagent_containers/glass/bottle/charcoal,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
-"aW" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/yellow,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/escape)
-"aX" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/yellow,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/escape)
-"aY" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/shuttle/escape)
-"aZ" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/shuttle/escape)
-"ba" = (
-/obj/structure/destructible/cult/forge{
-	desc = "An engine used in powering the shuttle.";
-	name = "magma engine"
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/yellow,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/escape)
-"bb" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/yellow,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/shuttle/escape)
-"bc" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/shuttle/escape)
-"bd" = (
-/obj/structure/destructible/cult/forge{
-	desc = "An engine used in powering the shuttle.";
-	name = "magma engine"
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/shuttle/escape)
 "be" = (
 /obj/structure/window/reinforced{
 	dir = 1;
@@ -405,20 +207,6 @@
 "bg" = (
 /obj/structure/shuttle/engine/propulsion,
 /turf/open/floor/plating/airless,
-/area/shuttle/escape)
-"bi" = (
-/obj/machinery/light,
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "bj" = (
 /obj/machinery/light/small{
@@ -440,7 +228,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "bm" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/machinery/light/small{
@@ -453,7 +241,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "bo" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/machinery/light/small{
@@ -476,6 +264,23 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
+"dm" = (
+/obj/machinery/light,
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/shuttle/escape)
+"dV" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/turf/open/floor/plasteel/white,
+/area/shuttle/escape)
+"dW" = (
+/obj/structure/table/abductor/wabbajack/right,
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/shuttle/escape)
 "el" = (
 /obj/machinery/door/airlock/titanium,
 /obj/machinery/door/firedoor,
@@ -488,10 +293,31 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "ji" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"kt" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/turf/open/floor/plasteel/white,
+/area/shuttle/escape)
+"kv" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
+"nX" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/turf/open/floor/plasteel/white,
 /area/shuttle/escape)
 "oh" = (
 /obj/machinery/door/airlock/titanium{
@@ -500,11 +326,27 @@
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/escape)
+"rT" = (
+/obj/machinery/power/emitter/energycannon/magical,
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/shuttle/escape)
+"tN" = (
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
 "uR" = (
 /obj/structure/barricade/wooden,
 /obj/machinery/door/airlock/titanium,
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/cult,
+/area/shuttle/escape)
+"wf" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/turf/open/floor/plasteel,
 /area/shuttle/escape)
 "AO" = (
 /obj/machinery/door/airlock/titanium{
@@ -515,13 +357,33 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Ec" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium/white,
+/area/shuttle/escape)
+"EC" = (
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the shuttle.";
+	name = "magma engine"
+	},
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
+"Hm" = (
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/shuttle/escape)
+"Jj" = (
+/obj/structure/destructible/cult/forge{
+	desc = "An engine used in powering the shuttle.";
+	name = "magma engine"
+	},
+/obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/turf/open/floor/plasteel/white,
 /area/shuttle/escape)
 "JM" = (
 /obj/machinery/door/airlock/titanium{
@@ -534,7 +396,7 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "MK" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "Re" = (
@@ -546,6 +408,18 @@
 /obj/effect/spawner/structure/window/shuttle,
 /obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
+/area/shuttle/escape)
+"Uk" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
+"Vj" = (
+/obj/structure/table/abductor/wabbajack/left,
+/obj/effect/turf_decal/tile/green/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 
 (1,1,1) = {"
@@ -590,8 +464,8 @@ aq
 ab
 aq
 bo
-aW
-ba
+wf
+EC
 be
 ab
 ab
@@ -599,8 +473,8 @@ ab
 (3,1,1) = {"
 ab
 ab
-ag
-ae
+Vj
+Hm
 ab
 bj
 al
@@ -614,17 +488,17 @@ aq
 ab
 aq
 aq
-aX
-bb
+Uk
+kv
 be
 bf
 bg
 "}
 (4,1,1) = {"
 ft
-ad
-ae
-ad
+tN
+Hm
+tN
 ab
 am
 am
@@ -646,9 +520,9 @@ bg
 "}
 (5,1,1) = {"
 ft
-ae
-ad
-ae
+Hm
+tN
+Hm
 ab
 ab
 ab
@@ -670,9 +544,9 @@ bg
 "}
 (6,1,1) = {"
 ft
-af
-ad
-bi
+rT
+tN
+dm
 ai
 an
 bk
@@ -694,9 +568,9 @@ bg
 "}
 (7,1,1) = {"
 ft
-ae
-ad
-ae
+Hm
+tN
+Hm
 uR
 ao
 au
@@ -718,9 +592,9 @@ bg
 "}
 (8,1,1) = {"
 ft
-ad
-ae
-ad
+tN
+Hm
+tN
 ai
 ap
 av
@@ -743,8 +617,8 @@ bg
 (9,1,1) = {"
 ab
 ab
-ah
-ae
+dW
+Hm
 aH
 aq
 aq
@@ -758,8 +632,8 @@ aq
 as
 MK
 aq
-aY
-bc
+dV
+kt
 be
 bf
 bg
@@ -782,8 +656,8 @@ aT
 as
 MK
 bp
-aZ
-bd
+nX
+Jj
 be
 ab
 ab

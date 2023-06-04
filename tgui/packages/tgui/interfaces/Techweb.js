@@ -1,7 +1,7 @@
 import { filter, map, sortBy } from 'common/collections';
 import { flow } from 'common/fp';
 import { useBackend, useLocalState } from '../backend';
-import { Button, Section, Modal, Dropdown, Tabs, Box, Input, Flex, ProgressBar, Collapsible, Icon, Divider } from '../components';
+import { Button, Section, Modal, Dropdown, Tabs, Box, Input, Flex, ProgressBar, Collapsible, Icon, Divider, Tooltip } from '../components';
 import { Window, NtosWindow } from '../layouts';
 
 // Data reshaping / ingestion (thanks stylemistake for the help, very cool!)
@@ -30,9 +30,10 @@ const selectRemappedStaticData = data => {
   // Do the same as the above for the design cache
   const design_cache = {};
   for (let id of Object.keys(data.static_data.design_cache)) {
-    const [name, classes] = data.static_data.design_cache[id];
+    const [name, desc, classes] = data.static_data.design_cache[id];
     design_cache[remapId(id)] = {
       name: name,
+      desc: desc,
       class: classes.startsWith("design") ? classes : `design32x32 ${classes}`,
     };
   }
@@ -710,6 +711,22 @@ const TechNodeDetail = (props, context) => {
   );
 };
 
+const DesignTooltip = (props, _context) => {
+  const { design } = props;
+  return (
+    <Flex direction="column">
+      <Flex.Item>
+        <b>{design.name}</b>
+      </Flex.Item>
+      {design.desc !== "Desc" && (
+        <Flex.Item>
+          <i>{design.desc}</i>
+        </Flex.Item>
+      )}
+    </Flex>
+  );
+};
+
 const TechNode = (props, context) => {
   const { act, data } = useRemappedBackend(context);
   const {
@@ -719,6 +736,7 @@ const TechNode = (props, context) => {
     nodes,
     compact,
     researchable,
+    tech_tier,
   } = data;
   const { node, nodetails, nocontrols, destructive } = props;
   const { id, can_unlock, tier, costs } = node;
@@ -727,7 +745,7 @@ const TechNode = (props, context) => {
     description,
     design_ids,
     prereq_ids,
-    tech_tier,
+    node_tier,
   } = node_cache[id];
   const [
     techwebRoute,
@@ -744,7 +762,7 @@ const TechNode = (props, context) => {
       title={name}
       width={25}>
       <Box inline className="Techweb__TierDisplay">
-        Tier {tech_tier}
+        Tier {node_tier}
       </Box>
       {!nocontrols && (
         <>
@@ -758,14 +776,29 @@ const TechNode = (props, context) => {
               Details
             </Button>
           )}
-          {((tier > 0) && (!destructive)) && (!!researchable) && (
-            <Button
-              icon="lightbulb"
-              disabled={!can_unlock || tier > 1}
-              onClick={() => act("researchNode", { node_id: id })}>
-              Research
-            </Button>
-          )}
+          {((tier > 0) && (!destructive)) && (!!researchable) && ((
+            node_tier > tech_tier+1) ? (
+              <Button.Confirm
+                icon="lightbulb"
+                disabled={!can_unlock || tier > 1}
+                onClick={() => act("researchNode", { node_id: id })}
+                content="Research" />
+            ) : (
+              <Button
+                icon="lightbulb"
+                disabled={!can_unlock || tier > 1}
+                onClick={() => act("researchNode", { node_id: id })}>
+                Research
+              </Button>
+            ))}
+          {
+            (node_tier > tech_tier+1) && (
+              <Tooltip
+                content={"Researching this node will cost additional discovery points. Please research more tier "+(tech_tier+1)+" technology nodes first."}>
+                <Icon style={{ 'margin-left': '3px' }} mr={1} name="exclamation-triangle" color="yellow" />
+              </Tooltip>
+            )
+          }
           {destructive && (
             <Button
               icon="trash"
@@ -805,16 +838,11 @@ const TechNode = (props, context) => {
       {!!compact && (
         <Box className="Techweb__NodeUnlockedDesigns" mt={1}>
           {design_ids.map((k, i) => (
-            <Box
+            <Button
               key={id}
               className={`${design_cache[k].class} Techweb__DesignIcon`}
-              // Tooltips are disabled due to performance issues
-              // The interace stutters every time it updates
-              // Those can be uncommented and the Box can be swapped for a
-              //  Button when the issues are resolved. Make sure to test
-              //  that they don't lag and *actually work*.
-              // tooltip={design_cache[k].name}
-              // tooltipPosition={i % 15 < 7 ? "right" : "left"}
+              tooltip={(<DesignTooltip design={design_cache[k]} />)}
+              tooltipPosition={i % 15 < 7 ? "right" : "left"}
             />
           ))}
         </Box>

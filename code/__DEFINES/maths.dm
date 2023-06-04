@@ -8,6 +8,8 @@
 #define INFINITY				1e31	//closer then enough
 #define SYSTEM_TYPE_INFINITY					1.#INF //only for isinf check
 
+#define SQRT_TWO 1.414214
+
 #define SHORT_REAL_LIMIT 16777216
 
 /// A 32 bit single-precision floating point number's mantissa gives us 7 significant digits
@@ -27,9 +29,12 @@
 #define REALTIMEOFDAY (world.timeofday + (MIDNIGHT_ROLLOVER * MIDNIGHT_ROLLOVER_CHECK))
 #define MIDNIGHT_ROLLOVER_CHECK ( GLOB.rollovercheck_last_timeofday != world.timeofday ? update_midnight_rollover() : GLOB.midnight_rollovers )
 
-#define SIGN(x) ( (x)!=0 ? (x) / abs(x) : 0 )
+/// Gets the sign of x, returns -1 if negative, 0 if 0, 1 if positive
+#define SIGN(x) ( ((x) > 0) - ((x) < 0) )
 
 #define CEILING(x, y) ( -round(-(x) / (y)) * (y) )
+
+#define ROUND_UP(x) ( -round(-(x)))
 
 /// `round()` acts like `floor(x, 1)` by default but can't handle other values
 #define FLOOR(x, y) ( round((x) / (y)) * (y) )

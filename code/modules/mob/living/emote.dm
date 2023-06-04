@@ -52,17 +52,6 @@
 		var/mob/living/L = user
 		L.Unconscious(40)
 
-/datum/emote/living/cough
-	key = "cough"
-	key_third_person = "coughs"
-	message = "coughs"
-	emote_type = EMOTE_AUDIBLE
-
-/datum/emote/living/cough/can_run_emote(mob/user, status_check = TRUE , intentional)
-	. = ..()
-	if(HAS_TRAIT(user, TRAIT_SOOTHED_THROAT))
-		return FALSE
-
 /datum/emote/living/dance
 	key = "dance"
 	key_third_person = "dances"
@@ -123,7 +112,7 @@
 	if(. && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.Togglewings())
-			addtimer(CALLBACK(H,/mob/living/carbon/human.proc/Togglewings), wing_time)
+			addtimer(CALLBACK(H,TYPE_PROC_REF(/mob/living/carbon/human, Togglewings)), wing_time)
 
 /datum/emote/living/flap/aflap
 	key = "aflap"
@@ -142,13 +131,6 @@
 	key_third_person = "gags"
 	message = "gags"
 	emote_type = EMOTE_AUDIBLE
-
-/datum/emote/living/gasp
-	key = "gasp"
-	key_third_person = "gasps"
-	message = "gasps"
-	emote_type = EMOTE_AUDIBLE
-	stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/giggle
 	key = "giggle"
@@ -203,19 +185,17 @@
 
 /datum/emote/living/laugh/can_run_emote(mob/living/user, status_check = TRUE , intentional)
 	. = ..()
-	if(. && iscarbon(user))
+	if(!.)
+		return FALSE
+	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		return !C.silent
 
 /datum/emote/living/laugh/get_sound(mob/living/user)
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		var/human_laugh = ishumanbasic(H) || iscatperson(H)
-		if(human_laugh && (!H.mind || !H.mind.miming))
-			if(user.gender == FEMALE)
-				return 'sound/voice/human/womanlaugh.ogg'
-			else
-				return pick('sound/voice/human/manlaugh1.ogg', 'sound/voice/human/manlaugh2.ogg')
+	if(!iscarbon(user) || user.mind?.miming)
+		return
+	var/mob/living/carbon/H = user
+	return H.dna?.species?.get_laugh_sound(H)
 
 /datum/emote/living/look
 	key = "look"
@@ -286,12 +266,6 @@
 	message = "shivers"
 	emote_type = EMOTE_AUDIBLE
 
-/datum/emote/living/sigh
-	key = "sigh"
-	key_third_person = "sighs"
-	message = "sighs"
-	emote_type = EMOTE_AUDIBLE
-
 /datum/emote/living/sit
 	key = "sit"
 	key_third_person = "sits"
@@ -302,22 +276,10 @@
 	key_third_person = "smiles"
 	message = "smiles"
 
-/datum/emote/living/sneeze
-	key = "sneeze"
-	key_third_person = "sneezes"
-	message = "sneezes"
-	emote_type = EMOTE_AUDIBLE
-
 /datum/emote/living/smug
 	key = "smug"
 	key_third_person = "smugs"
 	message = "grins smugly"
-
-/datum/emote/living/sniff
-	key = "sniff"
-	key_third_person = "sniffs"
-	message = "sniffs"
-	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/snore
 	key = "snore"
@@ -400,6 +362,7 @@
 	key = "me"
 	key_third_person = "custom"
 	message = null
+	mob_type_blacklist_typecache = /mob/living/brain
 
 /datum/emote/living/custom/proc/check_invalid(mob/user, input)
 	var/static/regex/stop_bad_mime = regex(@"says|exclaims|yells|asks")
@@ -426,22 +389,16 @@
 		var/custom_emote = stripped_input(usr, "Choose an emote to display.")
 		if(custom_emote && !check_invalid(user, custom_emote))
 			var/type = input("Is this a visible or hearable emote?") as null|anything in list("Visible", "Hearable")
-			switch(type)
-				if("Visible")
-					emote_type = EMOTE_VISIBLE
-				if("Hearable")
-					emote_type = EMOTE_AUDIBLE
-				else
-					alert("Unable to use this emote, must be either hearable or visible.")
-					return
-			message = custom_emote
+			if(type == "Hearable")
+				emote_type |= EMOTE_AUDIBLE
+			message = user.say_emphasis(custom_emote)
 	else
 		message = params
 		if(type_override)
 			emote_type = type_override
 	. = ..()
 	message = null
-	emote_type = EMOTE_VISIBLE
+	emote_type = 0
 
 /datum/emote/living/custom/replace_pronoun(mob/user, message)
 	return message
@@ -460,7 +417,7 @@
 			if(P.can_run_emote(user, status_check = FALSE , intentional = TRUE))
 				keys += P.key
 
-	keys = sortList(keys)
+	keys = sort_list(keys)
 
 	for(var/emote in keys)
 		if(LAZYLEN(message) > 1)
@@ -480,7 +437,7 @@
 	message = "beeps"
 	message_param = "beeps at %t"
 	sound = 'sound/machines/twobeep.ogg'
-	mob_type_allowed_typecache = list(/mob/living/brain, /mob/living/silicon)
+	mob_type_allowed_typecache = list(/mob/living/brain, /mob/living/silicon, /mob/living/simple_animal/hostile/mining_drone)
 
 /datum/emote/living/circle
 	key = "circle"
@@ -526,16 +483,6 @@
 		qdel(N)
 		to_chat(user, "<span class='warning'>You don't have any free hands to high-five with.</span>")
 
-/datum/emote/living/snap
-	key = "snap"
-	key_third_person = "snaps"
-	message = "snaps their fingers"
-	message_param = "snaps their fingers at %t"
-	emote_type = EMOTE_AUDIBLE
-
-/datum/emote/living/snap/get_sound(mob/living/user)
-	return pick('sound/misc/fingersnap1.ogg', 'sound/misc/fingersnap2.ogg')
-
 /datum/emote/living/fingergun
 	key = "fingergun"
 	key_third_person = "fingerguns"
@@ -559,7 +506,7 @@
 	message_insect = "clicks their mandibles"
 
 /datum/emote/living/click/get_sound(mob/living/user)
-	if(ismoth(user) || isapid(user) || isflyperson(user))
+	if(ismoth(user) || isapid(user) || isflyperson(user) || istype(user, /mob/living/simple_animal/mothroach))
 		return 'sound/creatures/rattle.ogg'
 	else if(isipc(user))
 		return 'sound/machines/click.ogg'
@@ -595,3 +542,120 @@
 /datum/emote/living/hiss/get_sound(mob/living/user)
 	if(islizard(user))
 		return pick('sound/voice/hiss1.ogg', 'sound/voice/hiss2.ogg', 'sound/voice/hiss3.ogg', 'sound/voice/hiss4.ogg', 'sound/voice/hiss5.ogg', 'sound/voice/hiss6.ogg')
+
+/datum/emote/living/thumbs_up
+	key = "thumbsup"
+	key_third_person = "thumbsup"
+	message = "flashes a thumbs up"
+	message_robot = "makes a crude thumbs up with their 'hands'"
+	message_AI = "flashes a quick hologram of a thumbs up"
+	message_ipc = "flashes a thumbs up icon"
+	message_simple = "attempts a thumbs up"
+	message_param = "flashes a thumbs up at %t"
+	restraint_check = TRUE
+
+/datum/emote/living/thumbs_down
+	key = "thumbsdown"
+	key_third_person = "thumbsdown"
+	message = "flashes a thumbs down"
+	message_robot = "makes a crude thumbs down with their 'hands'"
+	message_AI = "flashes a quick hologram of a thumbs down"
+	message_ipc = "flashes a thumbs down icon"
+	message_simple = "attempts a thumbs down"
+	message_param = "flashes a thumbs down at %t"
+	restraint_check = TRUE
+
+/datum/emote/living/whistle
+	key="whistle"
+	key_third_person="whistle"
+	message = "whistles a few notes"
+	message_robot = "whistles a few synthesized notes"
+	message_AI = "whistles a synthesized song"
+	message_ipc = "whistles a few synthesized notes"
+
+/datum/emote/living/whistle/get_sound(mob/living/user)
+	return 'sound/items/megaphone.ogg'
+
+/// Breathing required + audible emotes
+
+/datum/emote/living/must_breathe
+	emote_type = EMOTE_AUDIBLE
+	vary = TRUE
+
+/datum/emote/living/must_breathe/can_run_emote(mob/user, status_check = TRUE, intentional)
+	if(!..())
+		return FALSE
+	var/mob/living/carbon/human/H = user
+	return !HAS_TRAIT(H, TRAIT_NOBREATH)
+
+/datum/emote/living/must_breathe/clear
+	key = "clear"
+	key_third_person = "clears their throat"
+	message = "clears their throat"
+
+/datum/emote/living/must_breathe/cough
+	key = "cough"
+	key_third_person = "coughs"
+	message = "coughs!"
+
+/datum/emote/living/must_breathe/cough/can_run_emote(mob/user, status_check = TRUE, intentional)
+	return ..() && !HAS_TRAIT(user, TRAIT_SOOTHED_THROAT)
+
+/datum/emote/living/must_breathe/cough/get_sound(mob/living/user)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	return H?.dna?.species?.get_cough_sound(H)
+
+/datum/emote/living/must_breathe/gasp
+	key = "gasp"
+	key_third_person = "gasps"
+	message = "gasps!"
+
+/datum/emote/living/must_breathe/gasp/get_sound(mob/living/user)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	return H?.dna?.species?.get_gasp_sound(H)
+
+/datum/emote/living/must_breathe/huff
+	key = "huff"
+	key_third_person = "huffs"
+	message ="lets out a huff!"
+
+/datum/emote/living/must_breathe/sigh
+	key = "sigh"
+	key_third_person = "sighs"
+	message = "sighs!"
+	emote_type = EMOTE_AUDIBLE|EMOTE_ANIMATED
+	emote_length = 3 SECONDS
+	overlay_y_offset = -1
+	overlay_icon_state = "sigh"
+
+/datum/emote/living/must_breathe/sigh/get_sound(mob/living/user)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	return H?.dna?.species?.get_sigh_sound(H)
+
+/datum/emote/living/must_breathe/sneeze
+	key = "sneeze"
+	key_third_person = "sneezes"
+	message = "sneezes!"
+
+/datum/emote/living/must_breathe/sneeze/get_sound(mob/living/user)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	return H?.dna?.species?.get_sneeze_sound(H)
+
+/datum/emote/living/must_breathe/sniff
+	key = "sniff"
+	key_third_person = "sniffs"
+	message = "sniffs."
+
+/datum/emote/living/must_breathe/sniff/get_sound(mob/living/user)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	return H?.dna?.species?.get_sniff_sound(H)

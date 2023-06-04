@@ -25,24 +25,14 @@
 	in_camera_mode = TRUE
 	to_chat(user, "<B>Camera Mode activated</B>")
 
-/obj/item/camera/siliconcam/proc/selectpicture(mob/user)
-	var/list/nametemp = list()
-	var/find
-	if(!stored.len)
-		to_chat(usr, "<span class='boldannounce'>No images saved.</span>")
+/obj/item/camera/siliconcam/proc/selectpicture(mob/user, title = "Select Photo", button_text = "Select")
+	if(!length(stored))
+		to_chat(user, "<span class='boldannounce'>No images saved.</span>")
 		return
-	var/list/temp = list()
-	for(var/i in stored)
-		var/datum/picture/p = i
-		nametemp += p.picture_name
-		temp[p.picture_name] = p
-	find = input(user, "Select image") in nametemp|null
-	if(!find)
-		return
-	return temp[find]
+	return tgui_select_picture(user, stored, title = title, button_text = button_text)
 
 /obj/item/camera/siliconcam/proc/viewpictures(mob/user)
-	var/datum/picture/selection = selectpicture(user)
+	var/datum/picture/selection = selectpicture(user, button_text = "View")
 	if(istype(selection))
 		show_picture(user, selection)
 
@@ -69,28 +59,20 @@
 		stored[picture] = TRUE
 		to_chat(usr, "<span class='unconscious'>Image recorded and saved to local storage. Upload will happen automatically if unit is lawsynced.</span>")
 
-/obj/item/camera/siliconcam/robot_camera/selectpicture(mob/user)
+/obj/item/camera/siliconcam/robot_camera/selectpicture(mob/user, title = "Select Photo", button_text = "Select")
 	var/mob/living/silicon/robot/R = loc
 	if(istype(R) && R.connected_ai)
 		R.picturesync()
-		return R.connected_ai.aicamera.selectpicture(user)
+		return R.connected_ai.aicamera.selectpicture(user, title, button_text)
 	else
 		return ..()
-
-/obj/item/camera/siliconcam/robot_camera/verb/borgprinting()
-	set category ="Robot Commands"
-	set name = "Print Image"
-	set src in usr
-	if(usr.stat == DEAD)
-		return
-	borgprint(usr)
 
 /obj/item/camera/siliconcam/robot_camera/proc/borgprint(mob/user)
 	var/mob/living/silicon/robot/C = loc
 	if(!istype(C) || C.toner < 20)
 		to_chat(user, "<span class='warning'>Insufficent toner to print image.</span>")
 		return
-	var/datum/picture/selection = selectpicture(user)
+	var/datum/picture/selection = selectpicture(user, button_text = "Print")
 	if(!istype(selection))
 		to_chat(user, "<span class='warning'>Invalid Image.</span>")
 		return
@@ -98,5 +80,13 @@
 	p.pixel_x = rand(-10, 10)
 	p.pixel_y = rand(-10, 10)
 	C.toner -= printcost	 //All fun allowed.
-	visible_message("[C.name] spits out a photograph from a narrow slot on its chassis.")
-	to_chat(usr, "<span class='notice'>You print a photograph.</span>")
+	visible_message("[C.name] spits out a photograph from a narrow slot on its chassis.", "<span class='notice'>You print a photograph.</span>")
+
+/obj/item/camera/siliconcam/proc/paiprint(mob/user)
+	var/mob/living/silicon/pai/paimob = loc
+	var/datum/picture/selection = selectpicture(user)
+	if(!istype(selection))
+		to_chat(user, "<span class='warning'>Invalid Image.</span>")
+		return
+	printpicture(user,selection)
+	user.visible_message("<span class='notice'>A picture appears on top of the chassis of [paimob.name]!</span>", "<span class='notice'>You print a photograph.</span>")

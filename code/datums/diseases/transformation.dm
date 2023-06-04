@@ -59,10 +59,7 @@
 		if(affected_mob.notransform)
 			return
 		affected_mob.notransform = 1
-		for(var/obj/item/W in affected_mob.get_equipped_items(TRUE))
-			affected_mob.dropItemToGround(W)
-		for(var/obj/item/I in affected_mob.held_items)
-			affected_mob.dropItemToGround(I)
+		affected_mob.unequip_everything()
 		var/mob/living/new_mob = new new_form(affected_mob.loc)
 		if(istype(new_mob))
 			if(bantype && is_banned_from(affected_mob.ckey, bantype))
@@ -184,7 +181,7 @@
 			if(ishuman(affected_mob))
 				var/mob/living/carbon/human/human = affected_mob
 				if(human.dna.species.id != "slime" && affected_mob.dna.species.id != "stargazer" && affected_mob.dna.species.id != "lum")
-					human.set_species(/datum/species/jelly/slime)
+					human.set_species(/datum/species/oozeling/slime)
 
 /datum/disease/transformation/corgi
 	name = "The Barkening"
@@ -311,7 +308,7 @@
 				to_chat(affected_mob, "<span class='danger'>You cough out a furball.</span>")
 
 /datum/disease/transformation/felinid/after_add()
-	RegisterSignal(affected_mob, COMSIG_MOB_SAY, .proc/handle_speech)
+	RegisterSignal(affected_mob, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
 /datum/disease/transformation/felinid/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER

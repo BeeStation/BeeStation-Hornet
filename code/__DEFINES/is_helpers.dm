@@ -5,8 +5,6 @@
 /// Within given range, but not counting z-levels
 #define IN_GIVEN_RANGE(source, other, given_range) (get_dist(source, other) <= given_range && (get_step(source, 0)?:z) == (get_step(other, 0)?:z))
 
-#define ismovableatom(A) ismovable(A)
-
 #define isatom(A) (isloc(A))
 
 #define isdatum(thing) (istype(thing, /datum))
@@ -37,6 +35,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define isfloorturf(A) (istype(A, /turf/open/floor))
 
+#define isanyfloor(A) (isfloorturf(A) || isindestructiblefloor(A))
+
 #define isclosedturf(A) (istype(A, /turf/closed))
 
 #define isindestructiblewall(A) (istype(A, /turf/closed/indestructible))
@@ -50,6 +50,11 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define ischasm(A) (istype(A, /turf/open/chasm))
 
 #define isplatingturf(A) (istype(A, /turf/open/floor/plating))
+
+// Temporary, but the code needs a way to differentiate if transparent turfs are added in the future.
+#define istransparentturf(A) (istype(A, /turf/open/openspace))
+
+#define isopenspace(A) (istype(A, /turf/open/openspace))
 
 //Mobs
 #define isliving(A) (istype(A, /mob/living))
@@ -71,10 +76,9 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define isplasmaman(A) (is_species(A, /datum/species/plasmaman))
 #define ispodperson(A) (is_species(A, /datum/species/pod))
 #define isflyperson(A) (is_species(A, /datum/species/fly))
-#define isjellyperson(A) (is_species(A, /datum/species/jelly))
-#define isslimeperson(A) (is_species(A, /datum/species/jelly/slime))
-#define isluminescent(A) (is_species(A, /datum/species/jelly/luminescent))
-#define isstargazer(A) (is_species(A, /datum/species/jelly/stargazer))
+#define isslimeperson(A) (is_species(A, /datum/species/oozeling/slime))
+#define isluminescent(A) (is_species(A, /datum/species/oozeling/luminescent))
+#define isstargazer(A) (is_species(A, /datum/species/oozeling/stargazer))
 #define isoozeling(A) (is_species(A, /datum/species/oozeling))
 #define iszombie(A) (is_species(A, /datum/species/zombie))
 #define isskeleton(A) (is_species(A, /datum/species/skeleton))
@@ -137,6 +141,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define iscat(A) (istype(A, /mob/living/simple_animal/pet/cat))
 
 #define iscorgi(A) (istype(A, /mob/living/simple_animal/pet/dog/corgi))
+
+#define isdog(A) (istype(A, /mob/living/simple_animal/pet/dog))
 
 #define ishostile(A) (istype(A, /mob/living/simple_animal/hostile))
 
@@ -223,6 +229,8 @@ GLOBAL_LIST_INIT(heavyfootmob, typecacheof(list(
 #define isobj(A) istype(A, /obj) //override the byond proc because it returns true on children of /atom/movable that aren't objs
 
 #define isitem(A) (istype(A, /obj/item))
+
+#define isstack(A) (istype(A, /obj/item/stack))
 
 #define isgrenade(A) (istype(A, /obj/item/grenade))
 

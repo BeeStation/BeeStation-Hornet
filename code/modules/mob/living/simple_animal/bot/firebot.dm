@@ -42,9 +42,10 @@
 /mob/living/simple_animal/bot/firebot/Initialize(mapload)
 	. = ..()
 	update_icon()
-	var/datum/job/engineer/J = new/datum/job/engineer
-	access_card.access += J.get_access()
-	prev_access = access_card.access
+
+	var/datum/job/J = SSjob.GetJob(JOB_NAME_STATIONENGINEER)
+	access_card.access = J.get_access()
+	prev_access = access_card.access.Copy()
 
 	create_extinguisher()
 
@@ -119,7 +120,7 @@
 
 	return dat
 
-/mob/living/simple_animal/bot/firebot/emag_act(mob/user)
+/mob/living/simple_animal/bot/firebot/on_emag(atom/target, mob/user)
 	..()
 	if(emagged == 2)
 		if(user)

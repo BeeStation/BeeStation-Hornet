@@ -18,6 +18,8 @@
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	throw_speed = 3
 	throw_range = 7
+	w_class = WEIGHT_CLASS_BULKY
+	var/skin_type = MEDBOT_SKIN_DEFAULT
 	var/empty = FALSE
 	var/damagetype_healed //defines damage type of the medkit. General ones stay null. Used for medibot healing bonuses
 
@@ -36,10 +38,24 @@
 		/obj/item/stack/medical/gauze = 1,
 		/obj/item/stack/medical/bruise_pack = 2,
 		/obj/item/stack/medical/ointment = 2,
-		/obj/item/reagent_containers/hypospray/medipen = 1,
-		/obj/item/healthanalyzer = 1)
+		/obj/item/reagent_containers/hypospray/medipen = 2)
 	generate_items_inside(items_inside,src)
 
+//Compact First Aid kit
+/obj/item/storage/firstaid/compact
+	name = "compact first-aid kit"
+	desc = "A compact first aid kit designed for treating common injuries found in the field."
+	w_class = WEIGHT_CLASS_NORMAL //Intended to be used by ERTs or other uncommon roles
+
+/obj/item/storage/firstaid/compact/PopulateContents()
+	if(empty)
+		return
+	var/static/items_inside = list(
+		/obj/item/stack/medical/gauze = 1,
+		/obj/item/stack/medical/bruise_pack = 2,
+		/obj/item/stack/medical/ointment = 2,
+		/obj/item/reagent_containers/hypospray/medipen = 2)
+	generate_items_inside(items_inside,src)
 
 //First MD kit
 /obj/item/storage/firstaid/medical
@@ -47,6 +63,7 @@
 	icon_state = "firstaid-surgery"
 	item_state = "firstaid-surgery"
 	desc = "A high capacity aid kit for doctors, full of medical supplies and basic surgical equipment"
+	skin_type = MEDBOT_SKIN_SURGERY
 
 /obj/item/storage/firstaid/medical/ComponentInitialize()
 	. = ..()
@@ -124,17 +141,19 @@
 	icon_state = "firstaid-surgeryalt"
 	item_state = "firstaid-surgeryalt"
 	desc = "A fancy high capacity aid kit for doctors, full of medical supplies and basic surgical equipment"
+	skin_type = null
 
 //First Aid kit (ancient)
 /obj/item/storage/firstaid/ancient
 	icon_state = "firstaid-old"
 	desc = "A first aid kit with the ability to heal common types of injuries."
+	skin_type = null
 
 /obj/item/storage/firstaid/ancient/PopulateContents()
 	if(empty)
 		return
 	var/static/items_inside = list(
-		/obj/item/stack/medical/gauze = 1,
+		/obj/item/stack/medical/gauze = 2,
 		/obj/item/stack/medical/bruise_pack = 3,
 		/obj/item/stack/medical/ointment= 3)
 	generate_items_inside(items_inside,src)
@@ -147,6 +166,7 @@
 	icon_state = "firstaid-burn"
 	item_state = "firstaid-burn"
 	damagetype_healed = BURN
+	skin_type = MEDBOT_SKIN_BURN
 
 /obj/item/storage/firstaid/fire/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins rubbing \the [src] against [user.p_them()]self! It looks like [user.p_theyre()] trying to start a fire!</span>")
@@ -162,8 +182,7 @@
 	var/static/items_inside = list(
 		/obj/item/reagent_containers/pill/patch/silver_sulf = 4,
 		/obj/item/storage/pill_bottle/kelotane = 1,
-		/obj/item/reagent_containers/hypospray/medipen = 1,
-		/obj/item/healthanalyzer = 1)
+		/obj/item/stack/medical/ointment = 2)
 	generate_items_inside(items_inside,src)
 
 
@@ -174,6 +193,7 @@
 	icon_state = "firstaid-toxin"
 	item_state = "firstaid-toxin"
 	damagetype_healed = TOX
+	skin_type = MEDBOT_SKIN_TOXIN
 
 /obj/item/storage/firstaid/toxin/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins licking the lead paint off \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -187,11 +207,10 @@
 	if(empty)
 		return
 	var/static/items_inside = list(
-		/obj/item/reagent_containers/syringe/antitoxin = 3,
+		/obj/item/reagent_containers/syringe/antitoxin = 4,
 		/obj/item/reagent_containers/syringe/calomel = 1,
 		/obj/item/reagent_containers/syringe/diphenhydramine = 1,
-		/obj/item/storage/pill_bottle/charcoal = 1,
-		/obj/item/healthanalyzer = 1)
+		/obj/item/storage/pill_bottle/charcoal = 1)
 	generate_items_inside(items_inside,src)
 
 
@@ -201,6 +220,7 @@
 	desc = "Used to treat minor toxic blood content and major radiation poisoning."
 	icon_state = "firstaid-rad"
 	item_state = "firstaid-rad"
+	skin_type = MEDBOT_SKIN_RADIATION
 
 /obj/item/storage/firstaid/radbgone/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins licking the lead paint off \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -209,16 +229,13 @@
 /obj/item/storage/firstaid/radbgone/PopulateContents()
 	if(empty)
 		return
-	if(prob(50))
-		new /obj/item/reagent_containers/pill/mutarad(src)
-	if(prob(80))
-		new /obj/item/reagent_containers/pill/antirad_plus(src)
-	new /obj/item/reagent_containers/syringe/charcoal(src)
-	new /obj/item/storage/pill_bottle/charcoal(src)
-	new /obj/item/reagent_containers/pill/mutadone(src)
-	new /obj/item/reagent_containers/pill/antirad(src)
-	new /obj/item/reagent_containers/food/drinks/bottle/vodka(src)
-	new /obj/item/healthanalyzer(src)
+	var/static/items_inside = list(
+		/obj/item/reagent_containers/pill/antirad_plus = 2,
+		/obj/item/reagent_containers/pill/antirad = 2,
+		/obj/item/storage/pill_bottle/charcoal = 1,
+		/obj/item/storage/pill_bottle/penacid = 1,
+		/obj/item/reagent_containers/pill/mutarad = 1)
+	generate_items_inside(items_inside,src)
 
 /obj/item/storage/firstaid/radbgone/Initialize(mapload)
 	. = ..()
@@ -231,6 +248,7 @@
 	icon_state = "firstaid-o2"
 	item_state = "firstaid-o2"
 	damagetype_healed = OXY
+	skin_type = MEDBOT_SKIN_OXY
 
 /obj/item/storage/firstaid/o2/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins hitting [user.p_their()] neck with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -240,10 +258,9 @@
 	if(empty)
 		return
 	var/static/items_inside = list(
-		/obj/item/reagent_containers/pill/salbutamol = 2,
-		/obj/item/reagent_containers/hypospray/medipen = 2,
-		/obj/item/reagent_containers/hypospray/medipen/dexalin = 2,
-		/obj/item/healthanalyzer = 1)
+		/obj/item/storage/pill_bottle/salbutamol = 1,
+		/obj/item/reagent_containers/hypospray/medipen = 3,
+		/obj/item/reagent_containers/hypospray/medipen/dexalin = 3)
 	generate_items_inside(items_inside,src)
 
 /obj/item/storage/firstaid/o2/Initialize(mapload)
@@ -258,6 +275,7 @@
 	icon_state = "firstaid-brute"
 	item_state = "firstaid-brute"
 	damagetype_healed = BRUTE
+	skin_type = MEDBOT_SKIN_BRUTE
 
 /obj/item/storage/firstaid/brute/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins beating [user.p_them()]self over the head with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -269,8 +287,8 @@
 	var/static/items_inside = list(
 		/obj/item/reagent_containers/pill/patch/styptic = 4,
 		/obj/item/storage/pill_bottle/bicaridine = 1,
-		/obj/item/stack/medical/gauze = 2,
-		/obj/item/healthanalyzer = 1)
+		/obj/item/stack/medical/bruise_pack = 1,
+		/obj/item/stack/medical/gauze = 1)
 	generate_items_inside(items_inside,src)
 
 /obj/item/storage/firstaid/brute/Initialize(mapload)
@@ -285,6 +303,7 @@
 	icon_state = "firstaid-advanced"
 	item_state = "firstaid-advanced"
 	custom_premium_price = 600
+	skin_type = MEDBOT_SKIN_ADVANCED
 
 /obj/item/storage/firstaid/advanced/PopulateContents()
 	if(empty)
@@ -300,12 +319,19 @@
 	. = ..()
 	icon_state = pick("firstaid-advanced","firstaid-advancedalt")
 
+//Compact First Advanced kit
+/obj/item/storage/firstaid/advanced/compact
+	name = "compact advanced first aid kit"
+	desc = "A compact advanced first aid kit designed for treating severe injuries found in the field."
+	w_class = WEIGHT_CLASS_NORMAL //Intended to be used by ERTs or other uncommon roles
+
 //First Random kit
 /obj/item/storage/firstaid/random
 	name = "mystery medical kit"
 	desc = "Are you feeling lucky today?"
 	icon_state = "firstaid-mystery"
 	item_state = "firstaid-mystery"
+	skin_type = NONE
 
 /obj/item/storage/firstaid/random/ComponentInitialize()
 	. = ..()
@@ -339,7 +365,6 @@
 		/obj/item/storage/pill_bottle/charcoal,
 		/obj/item/reagent_containers/pill/patch/silver_sulf,
 		/obj/item/storage/pill_bottle/kelotane)
-	new /obj/item/healthanalyzer(src)
 	for(var/i in 1 to 6)
 		var/selected_type = pick(supplies)
 		new selected_type(src)
@@ -350,6 +375,8 @@
 	desc = "I hope you've got insurance."
 	icon_state = "firstaid-combat"
 	item_state = "firstaid-combat"
+	skin_type = MEDBOT_SKIN_SYNDI
+	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/firstaid/tactical/Initialize(mapload)
 	. = ..()
@@ -381,15 +408,13 @@
 		to_chat(user, "<span class='warning'>You need to empty [src] out first!</span>")
 		return
 
+	if(!src.skin_type)
+		to_chat(user, "<span class='warning'>[src] cannot be used to make a medibot!</span>")
+		return
+
 	var/obj/item/bot_assembly/medbot/A = new
-	if(istype(src, /obj/item/storage/firstaid/fire))
-		A.skin = "ointment"
-	else if(istype(src, /obj/item/storage/firstaid/toxin))
-		A.skin = "tox"
-	else if(istype(src, /obj/item/storage/firstaid/o2))
-		A.skin = "o2"
-	else if(istype(src, /obj/item/storage/firstaid/brute))
-		A.skin = "brute"
+	A.skin = src.skin_type
+
 
 	user.put_in_hands(A)
 	to_chat(user, "<span class='notice'>You add [S] to [src].</span>")
@@ -406,7 +431,7 @@
 	name = "pill bottle"
 	desc = "It's an airtight container for storing medication."
 	icon_state = "pill_canister_0"
-	icon = 'icons/obj/chemical.dmi'
+	icon = 'icons/obj/medicine_containers.dmi'
 	item_state = "contsolid"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
@@ -563,7 +588,7 @@
 	desc = "Contains pills to expunge radiation and toxins."
 
 /obj/item/storage/pill_bottle/penacid/PopulateContents()
-	for(var/i in 1 to 3)
+	for(var/i in 1 to 7)
 		new /obj/item/reagent_containers/pill/penacid(src)
 
 
@@ -591,3 +616,11 @@
 /obj/item/storage/pill_bottle/floorpill/full/PopulateContents()
 	for(var/i in 1 to 7)
 		new /obj/item/reagent_containers/pill/floorpill(src)
+
+/obj/item/storage/pill_bottle/salbutamol
+	name = "bottle of salbutamol pills"
+	desc = "Contains pills to heal suffocation damage."
+
+/obj/item/storage/pill_bottle/salbutamol/PopulateContents()
+	for(var/i in 1 to 7)
+		new /obj/item/reagent_containers/pill/salbutamol(src)

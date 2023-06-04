@@ -9,19 +9,19 @@
 /datum/gear/hat/hhat_yellow
 	display_name = "hardhat, yellow"
 	path = /obj/item/clothing/head/hardhat
-	allowed_roles = list("Chief Engineer", "Station Engineer", "Atmospheric Technician")
+	allowed_roles = list(JOB_NAME_CHIEFENGINEER, JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
 	cost = 2500
 
 /datum/gear/hat/hhat_orange
 	display_name = "hardhat, orange"
 	path = /obj/item/clothing/head/hardhat/orange
-	allowed_roles = list("Chief Engineer", "Station Engineer", "Atmospheric Technician")
+	allowed_roles = list(JOB_NAME_CHIEFENGINEER, JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
 	cost = 2500
 
 /datum/gear/hat/hhat_blue
 	display_name = "hardhat, blue"
 	path = /obj/item/clothing/head/hardhat/dblue
-	allowed_roles = list("Chief Engineer", "Station Engineer", "Atmospheric Technician")
+	allowed_roles = list(JOB_NAME_CHIEFENGINEER, JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
 	cost = 2500
 
 //CIVILIAN HATS & MISC
@@ -57,6 +57,18 @@
 /datum/gear/hat/sombrero/green
 	display_name = "green sombrero"
 	path = /obj/item/clothing/head/sombrero/green
+
+/datum/gear/hat/wig
+	display_name = "wig"
+	path = /obj/item/clothing/head/wig
+	description = "Something to cover up your shining dome with. Can change its hair style and hair color."
+	cost = 4000
+
+/datum/gear/hat/wig/natural
+	display_name = "natural wig"
+	path = /obj/item/clothing/head/wig/natural
+	description = "Something to cover up your shining dome with. Can change its hair style but adapts to your natural hair color."
+	cost = 2000
 
 //SOFT CAPS
 
@@ -195,4 +207,4 @@
 	display_name = "black bishop mitre"
 	path = /obj/item/clothing/head/bishopmitre/black
 	cost = 5000
-	allowed_roles = list("Chaplain")
+	allowed_roles = list(JOB_NAME_CHAPLAIN)

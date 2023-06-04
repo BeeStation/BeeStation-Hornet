@@ -1,7 +1,7 @@
 /datum/job/ai
-	title = "AI"
+	title = JOB_NAME_AI
 	flag = AI_JF
-	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
+	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SILICON
 	department_flag = ENGSEC
 	faction = "Station"
 	total_positions = 1
@@ -14,7 +14,7 @@
 	exp_type = EXP_TYPE_CREW
 	exp_type_department = EXP_TYPE_SILICON
 	display_order = JOB_DISPLAY_ORDER_AI
-	departments = DEPARTMENT_SILICON
+	departments = DEPT_BITFLAG_SILICON
 	random_spawns_possible = FALSE
 	allow_bureaucratic_error = FALSE
 	var/do_special_check = TRUE
@@ -65,7 +65,7 @@
 
 /datum/job/ai/announce(mob/living/silicon/ai/AI)
 	. = ..()
-	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, .proc/minor_announce, "[AI] has been downloaded to an empty bluespace-networked AI core at [AREACOORD(AI)]."))
+	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(minor_announce), "[AI] has been downloaded to an empty bluespace-networked AI core at [AREACOORD(AI)]."))
 
 /datum/job/ai/config_check()
 	return CONFIG_GET(flag/allow_ai)

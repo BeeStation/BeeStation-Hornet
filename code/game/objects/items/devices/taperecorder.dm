@@ -11,6 +11,8 @@
 	materials = list(/datum/material/iron=60, /datum/material/glass=30)
 	force = 2
 	throwforce = 0
+	drop_sound = 'sound/items/handling/taperecorder_drop.ogg'
+	pickup_sound = 'sound/items/handling/taperecorder_pickup.ogg'
 	var/recording = 0
 	var/playing = 0
 	var/playsleepseconds = 0
@@ -220,13 +222,14 @@
 		return
 
 	to_chat(usr, "<span class='notice'>Transcript printed.</span>")
-	var/obj/item/paper/P = new /obj/item/paper(get_turf(src))
+	var/obj/item/paper/transcript_paper = new /obj/item/paper(get_turf(src))
 	var/t1 = "<B>Transcript:</B><BR><BR>"
-	for(var/i = 1, mytape.storedinfo.len >= i, i++)
+	for(var/i in 1 to mytape.storedinfo.len)
 		t1 += "[mytape.storedinfo[i]]<BR>"
-	P.info = t1
-	P.name = "paper- 'Transcript'"
-	usr.put_in_hands(P)
+	transcript_paper.add_raw_text(t1)
+	transcript_paper.name = "paper- 'Transcript'"
+	transcript_paper.update_appearance()
+	usr.put_in_hands(transcript_paper)
 	canprint = FALSE
 	addtimer(VARSET_CALLBACK(src, canprint, TRUE), 30 SECONDS)
 

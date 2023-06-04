@@ -32,7 +32,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "av" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
@@ -41,7 +41,7 @@
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "ax" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
@@ -53,7 +53,7 @@
 /turf/closed/wall/mineral/titanium/interior,
 /area/shuttle/escape)
 "aE" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/item/radio/intercom{
@@ -84,7 +84,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aK" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aL" = (
@@ -99,7 +99,6 @@
 "aM" = (
 /obj/structure/closet/emcloset,
 /obj/item/radio/intercom{
-	broadcasting = 0;
 	name = "Station Intercom (General)";
 	pixel_y = 23
 	},
@@ -145,7 +144,6 @@
 /area/shuttle/escape)
 "aW" = (
 /obj/item/radio/intercom{
-	broadcasting = 0;
 	name = "Station Intercom (General)";
 	pixel_y = 23
 	},
@@ -156,19 +154,19 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
 "aY" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aZ" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "ba" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium/blue,
@@ -265,7 +263,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "bw" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/item/radio/intercom{
@@ -275,7 +273,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "bx" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/structure/extinguisher_cabinet{
@@ -341,7 +339,7 @@
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
 "bK" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /obj/machinery/light{
 	dir = 1
 	},

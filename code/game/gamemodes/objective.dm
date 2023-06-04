@@ -11,6 +11,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	var/completed = 0					//currently only used for custom objectives.
 	var/martyr_compatible = 0			//If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
 	var/optional = FALSE				//Whether the objective should show up as optional in the roundend screen
+	var/murderbone_flag = FALSE			//Used to check if obj owner can buy murderbone stuff
 
 /datum/objective/New(var/text)
 	if(text)
@@ -47,7 +48,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	if(target?.current)
 		def_value = target.current
 
-	var/mob/new_target = input(admin,"Select target:", "Objective target", def_value) as null|anything in (sortNames(possible_targets) | list("Free objective","Random"))
+	var/mob/new_target = input(admin,"Select target:", "Objective target", def_value) as null|anything in (sort_names(possible_targets) | list("Free objective","Random"))
 	if (!new_target)
 		return
 
@@ -106,8 +107,13 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		UnregisterSignal(target, COMSIG_MIND_CRYOED)
 	target = new_target
 	if(istype(target, /datum/mind))
-		RegisterSignal(target, COMSIG_MIND_CRYOED, .proc/on_target_cryo)
+		RegisterSignal(target, COMSIG_MIND_CRYOED, PROC_REF(on_target_cryo))
 		target.isAntagTarget = TRUE
+
+/datum/objective/proc/unset_target()
+	if(target)
+		UnregisterSignal(target, COMSIG_MIND_CRYOED)
+		target = null
 
 /datum/objective/proc/get_crewmember_minds()
 	. = list()
@@ -120,7 +126,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/proc/find_target(list/dupe_search_range, list/blacklist)
 	if(!dupe_search_range)
 		dupe_search_range = get_owners()
-	var/list/prefered_targets = list()
+	var/list/preferred_targets = list()
 	var/list/possible_targets = list()
 	var/try_target_late_joiners = FALSE
 	var/owner_is_exploration_crew = FALSE
@@ -128,9 +134,9 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	for(var/datum/mind/O as() in get_owners())
 		if(O.late_joiner)
 			try_target_late_joiners = TRUE
-		if(O.assigned_role == "Exploration Crew")
+		if(O.assigned_role == JOB_NAME_EXPLORATIONCREW)
 			owner_is_exploration_crew = TRUE
-		if(O.assigned_role == "Shaft Miner")
+		if(O.assigned_role == JOB_NAME_SHAFTMINER)
 			owner_is_shaft_miner = TRUE
 	for(var/datum/mind/possible_target as() in get_crewmember_minds())
 		if(!is_valid_target(possible_target))
@@ -140,16 +146,16 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		if(possible_target in blacklist)
 			continue
 
-		if(possible_target.assigned_role == "Exploration Crew")
+		if(possible_target.assigned_role == JOB_NAME_EXPLORATIONCREW)
 			if(owner_is_exploration_crew)
-				prefered_targets += possible_target
+				preferred_targets += possible_target
 			else
 				//Reduced chance to get people off station
 				if(prob(70) && !owner_is_shaft_miner)
 					continue
-		else if(possible_target.assigned_role == "Shaft Miner")
+		else if(possible_target.assigned_role == JOB_NAME_SHAFTMINER)
 			if(owner_is_shaft_miner)
-				prefered_targets += possible_target
+				preferred_targets += possible_target
 			else
 				//Reduced chance to get people off station
 				if(prob(70) && !owner_is_exploration_crew)
@@ -163,9 +169,9 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 				possible_targets -= PT
 		if(!possible_targets.len)
 			possible_targets = all_possible_targets
-	//30% chance to go for a prefered target
-	if(prefered_targets.len > 0 && prob(30))
-		set_target(pick(prefered_targets))
+	//30% chance to go for a preferred target
+	if(preferred_targets.len > 0 && prob(30))
+		set_target(pick(preferred_targets))
 	else if(possible_targets.len > 0)
 		set_target(pick(possible_targets))
 	else
@@ -389,8 +395,12 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	var/obj/item/organ/brain/brain_target
 	if(human_check)
 		brain_target = target?.current.getorganslot(ORGAN_SLOT_BRAIN)
+	if(..() || !target)
+		return TRUE
+	if(considered_alive(target, enforce_human = human_check))
+		return TRUE
 	//Protect will always suceed when someone suicides
-	return ..() || !target || considered_alive(target, enforce_human = human_check) || (human_check == TRUE && brain_target)? brain_target.suicided : FALSE
+	return (human_check && brain_target) ? brain_target.suicided : FALSE
 
 /datum/objective/protect/update_explanation_text()
 	..()
@@ -413,6 +423,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	martyr_compatible = FALSE //Technically you won't get both anyway.
 	/// Overrides the hijack speed of any antagonist datum it is on ONLY, no other datums are impacted.
 	var/hijack_speed_override = 1
+	murderbone_flag = TRUE
 
 /datum/objective/hijack/check_completion() // Requires all owners to escape.
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
@@ -445,6 +456,8 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 	var/selected_gimmick = pick(gimmick_list)
 	selected_gimmick = replacetext(selected_gimmick, "%DEPARTMENT", selected_department)
+	if(!findtext(selected_gimmick, "%TARGET"))
+		unset_target()
 	if(target?.current)
 		selected_gimmick = replacetext(selected_gimmick, "%TARGET", target.name)
 
@@ -461,6 +474,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	explanation_text = "Slaughter all loyalist crew aboard the shuttle. You, and any likeminded individuals, must be the only remaining people on the shuttle."
 	team_explanation_text = "Slaughter all loyalist crew aboard the shuttle. You, and any likeminded individuals, must be the only remaining people on the shuttle. Leave no team member behind."
 	martyr_compatible = FALSE
+	murderbone_flag = TRUE
 
 /datum/objective/elimination/check_completion()
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
@@ -486,6 +500,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	name = "no organics on shuttle"
 	explanation_text = "Do not allow any organic lifeforms to escape on the shuttle alive."
 	martyr_compatible = 1
+	murderbone_flag = TRUE
 
 /datum/objective/block/check_completion()
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
@@ -617,6 +632,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/martyr
 	name = "martyr"
 	explanation_text = "Die a glorious death."
+	murderbone_flag = TRUE
 
 /datum/objective/martyr/check_completion()
 	for(var/datum/mind/M as() in get_owners())
@@ -630,6 +646,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	name = "nuclear"
 	explanation_text = "Destroy the station with a nuclear device."
 	martyr_compatible = 1
+	murderbone_flag = TRUE
 
 /datum/objective/nuclear/check_completion()
 	if(SSticker && SSticker.mode && SSticker.mode.station_was_nuked)
@@ -679,7 +696,7 @@ GLOBAL_LIST_EMPTY(possible_items)
 
 /datum/objective/steal/admin_edit(mob/admin)
 	var/list/possible_items_all = GLOB.possible_items
-	var/new_target = input(admin,"Select target:", "Objective target", steal_target) as null|anything in sortNames(possible_items_all)+"custom"
+	var/new_target = input(admin,"Select target:", "Objective target", steal_target) as null|anything in sort_names(possible_items_all)+"custom"
 	if (!new_target)
 		return
 
@@ -972,7 +989,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 /datum/objective/destroy/admin_edit(mob/admin)
 	var/list/possible_targets = active_ais(1)
 	if(possible_targets.len)
-		var/mob/new_target = input(admin,"Select target:", "Objective target") as null|anything in sortNames(possible_targets)
+		var/mob/new_target = input(admin,"Select target:", "Objective target") as null|anything in sort_names(possible_targets)
 		set_target(new_target.mind)
 	else
 		to_chat(admin, "No active AIs with minds")
@@ -1034,6 +1051,10 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 /datum/objective/custom
 	name = "custom"
 
+/datum/objective/custom/plus_murderbone
+	name = "custom (+murderbone pass)"
+	murderbone_flag = TRUE
+
 /datum/objective/custom/admin_edit(mob/admin)
 	var/expl = stripped_input(admin, "Custom objective:", "Objective", explanation_text)
 	if(expl)
@@ -1043,7 +1064,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 /proc/generate_admin_objective_list()
 	GLOB.admin_objective_list = list()
 
-	var/list/allowed_types = sortList(list(
+	var/list/allowed_types = sort_list(list(
 		/datum/objective/assassinate,
 		/datum/objective/maroon,
 		/datum/objective/debrain,
@@ -1059,8 +1080,9 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		/datum/objective/nuclear,
 		/datum/objective/capture,
 		/datum/objective/absorb,
-		/datum/objective/custom
-	),/proc/cmp_typepaths_asc)
+		/datum/objective/custom,
+		/datum/objective/custom/plus_murderbone
+	),GLOBAL_PROC_REF(cmp_typepaths_asc))
 
 	for(var/datum/objective/X as() in allowed_types)
 		GLOB.admin_objective_list[initial(X.name)] = X

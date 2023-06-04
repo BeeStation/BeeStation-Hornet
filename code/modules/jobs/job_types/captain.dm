@@ -1,13 +1,12 @@
 /datum/job/captain
-	title = "Captain"
+	title = JOB_NAME_CAPTAIN
 	flag = CAPTAIN
-	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD|DEADMIN_POSITION_SECURITY
+	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD|PREFTOGGLE_DEADMIN_POSITION_SECURITY
 	department_head = list("CentCom")
-	department_flag = ENGSEC
+	supervisors = "Nanotrasen officials and Space law"
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "Nanotrasen officials and Space law"
 	selection_color = "#ccccff"
 	req_admin_notify = 1
 	minimal_player_age = 14
@@ -19,13 +18,16 @@
 
 	access = list() 			//See get_access()
 	minimal_access = list() 	//See get_access()
-	paycheck = PAYCHECK_COMMAND
-	paycheck_department = ACCOUNT_SEC
 
+	department_flag = ENGSEC
+	departments = DEPT_BITFLAG_COM
+	bank_account_department = ACCOUNT_SEC_BITFLAG | ACCOUNT_COM_BITFLAG
+	payment_per_department = list(
+		ACCOUNT_COM_ID = PAYCHECK_COMMAND_NT,
+		ACCOUNT_SEC_ID = PAYCHECK_COMMAND_DEPT)
 	mind_traits = list(TRAIT_DISK_VERIFIER)
 
 	display_order = JOB_DISPLAY_ORDER_CAPTAIN
-	departments = DEPARTMENT_COMMAND
 	rpg_title = "Star Duke"
 
 	species_outfits = list(
@@ -36,14 +38,14 @@
 
 /datum/job/captain/announce(mob/living/carbon/human/H)
 	..()
-	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, .proc/minor_announce, "Captain [H.real_name] on deck!"))
+	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(minor_announce), "Captain [H.real_name] on deck!"))
 
 /datum/outfit/job/captain
-	name = "Captain"
+	name = JOB_NAME_CAPTAIN
 	jobtype = /datum/job/captain
 
 	id = /obj/item/card/id/job/captain
-	belt = /obj/item/pda/captain
+	belt = /obj/item/modular_computer/tablet/pda/heads/captain
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 	ears = /obj/item/radio/headset/heads/captain/alt
 	gloves = /obj/item/clothing/gloves/color/captain
@@ -51,7 +53,7 @@
 	suit = /obj/item/clothing/suit/armor/vest/capcarapace
 	shoes = /obj/item/clothing/shoes/sneakers/brown
 	head = /obj/item/clothing/head/caphat
-	backpack_contents = list(/obj/item/melee/classic_baton/police/telescopic=1, /obj/item/station_charter=1, /obj/item/modular_computer/tablet/preset/advanced/command=1)
+	backpack_contents = list(/obj/item/melee/classic_baton/police/telescopic=1, /obj/item/station_charter=1)
 
 	backpack = /obj/item/storage/backpack/captain
 	satchel = /obj/item/storage/backpack/satchel/cap

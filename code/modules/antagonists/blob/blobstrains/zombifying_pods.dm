@@ -12,7 +12,7 @@
 	reagent = /datum/reagent/blob/zombifying_pods
 
 /datum/blobstrain/reagent/zombifying_pods/damage_reaction(obj/structure/blob/B, damage, damage_type, damage_flag)
-	if((damage_flag == "melee" || damage_flag == "bullet" || damage_flag == "laser") && damage <= 20 && B.obj_integrity - damage <= 0 && prob(30)) //if the cause isn't fire or a bomb, the damage is less than 21, we're going to die from that damage, 20% chance of a shitty spore.
+	if((damage_flag == MELEE || damage_flag == BULLET || damage_flag == LASER) && damage <= 20 && B.obj_integrity - damage <= 0 && prob(30)) //if the cause isn't fire or a bomb, the damage is less than 21, we're going to die from that damage, 20% chance of a shitty spore.
 		B.visible_message("<span class='warning'><b>A spore floats free of the blob!</b></span>")
 		var/mob/living/simple_animal/hostile/blob/blobspore/weak/BS = new/mob/living/simple_animal/hostile/blob/blobspore/weak(B.loc)
 		BS.overmind = B.overmind

@@ -46,7 +46,7 @@
 	update_icon()
 
 /obj/machinery/smartfridge/update_icon()
-	if(!stat)
+	if(!machine_stat)
 		if (visible_contents)
 			switch(contents.len)
 				if(0)
@@ -86,7 +86,7 @@
 	if(default_deconstruction_crowbar(O))
 		return
 
-	if(!stat)
+	if(!machine_stat)
 
 		if(contents.len >= max_n_of_items)
 			to_chat(user, "<span class='warning'>\The [src] is full!</span>")
@@ -154,7 +154,7 @@
 
 
 /obj/machinery/smartfridge/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if(!stat)
+	if(!machine_stat)
 		if (istype(AM, /obj/item))
 			var/obj/item/O = AM
 			if(contents.len < max_n_of_items && accept_check(O))
@@ -218,7 +218,7 @@
 				listofitems[md5name]["amount"]++	// The good news is, #30519 made smartfridge UIs non-auto-updating
 			else
 				listofitems[md5name] = list("name" = O.name, "type" = O.type, "amount" = 1)
-	sortList(listofitems)
+	sort_list(listofitems)
 
 	.["contents"] = listofitems
 	.["name"] = name
@@ -281,7 +281,7 @@
 	component_parts = null
 
 /obj/machinery/smartfridge/drying_rack/on_deconstruction()
-	new /obj/item/stack/sheet/mineral/wood(drop_location(), 10)
+	new /obj/item/stack/sheet/wood(drop_location(), 10)
 	..()
 
 /obj/machinery/smartfridge/drying_rack/RefreshParts()
@@ -334,7 +334,7 @@
 		var/obj/item/reagent_containers/food/snacks/S = O
 		if(S.dried_type)
 			return TRUE
-	if(istype(O, /obj/item/stack/sheet/wetleather/))
+	if(istype(O, /obj/item/stack/sheet/leather/wetleather/))
 		return TRUE
 	return FALSE
 
@@ -360,7 +360,7 @@
 				S.reagents.copy_to(R)
 			qdel(S)
 		return TRUE
-	for(var/obj/item/stack/sheet/wetleather/WL in src)
+	for(var/obj/item/stack/sheet/leather/wetleather/WL in src)
 		new /obj/item/stack/sheet/leather(drop_location(), WL.amount)
 		qdel(WL)
 		return TRUE
@@ -474,7 +474,8 @@
 		return TRUE
 	if(!O.reagents || !O.reagents.reagent_list.len) // other empty containers not accepted
 		return FALSE
-	if(istype(O, /obj/item/reagent_containers/syringe) || istype(O, /obj/item/reagent_containers/glass/bottle) || istype(O, /obj/item/reagent_containers/glass/beaker) || istype(O, /obj/item/reagent_containers/spray) || istype(O, /obj/item/reagent_containers/medspray))
+	if(istype(O, /obj/item/reagent_containers/syringe) || istype(O, /obj/item/reagent_containers/glass/bottle) || istype(O, /obj/item/reagent_containers/glass/beaker) \
+	|| istype(O, /obj/item/reagent_containers/spray) || istype(O, /obj/item/reagent_containers/medspray) || istype(O, /obj/item/reagent_containers/chem_bag))
 		return TRUE
 	return FALSE
 
@@ -549,3 +550,24 @@
 		return TRUE
 	else
 		return FALSE
+
+// ----------------------------
+//  Sci smartfridge
+// ----------------------------
+/obj/machinery/smartfridge/sci
+	desc = "A smart storage vender for tech."
+
+/obj/machinery/smartfridge/sci/accept_check(obj/item/O)
+	if(istype(O, /obj/item/stock_parts))
+		return TRUE
+	if(istype(O, /obj/item/disk/tech_disk))
+		return TRUE
+	if(istype(O, /obj/item/circuit_component))
+		return TRUE
+	if(istype(O, /obj/item/assembly))
+		return TRUE
+	if(istype(O, /obj/item/circuitboard))
+		return TRUE
+	if(istype(O, /obj/item/mecha_parts))
+		return TRUE
+	return FALSE

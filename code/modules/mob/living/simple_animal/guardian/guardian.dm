@@ -303,7 +303,6 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	I.screen_loc = null // will get moved if inventory is visible
 	I.forceMove(src)
 	I.equipped(src, slot)
-	I.layer = ABOVE_HUD_LAYER
 	I.plane = ABOVE_HUD_PLANE
 
 /mob/living/simple_animal/hostile/guardian/proc/apply_overlay(cache_index)
@@ -326,7 +325,6 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		hands_overlays += r_hand.build_worn_icon(default_layer = GUARDIAN_HANDS_LAYER, default_icon_file = r_hand.righthand_file, isinhands = TRUE)
 
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
-			r_hand.layer = ABOVE_HUD_LAYER
 			r_hand.plane = ABOVE_HUD_PLANE
 			r_hand.screen_loc = ui_hand_position(get_held_index_of_item(r_hand))
 			client.screen |= r_hand
@@ -335,7 +333,6 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		hands_overlays +=  l_hand.build_worn_icon(default_layer = GUARDIAN_HANDS_LAYER, default_icon_file = l_hand.lefthand_file, isinhands = TRUE)
 
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
-			l_hand.layer = ABOVE_HUD_LAYER
 			l_hand.plane = ABOVE_HUD_PLANE
 			l_hand.screen_loc = ui_hand_position(get_held_index_of_item(l_hand))
 			client.screen |= l_hand
@@ -395,7 +392,10 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		var/input = stripped_input(src, "Please enter a message to tell your summoner.", "Guardian", "")
 		if(!input)
 			return
-
+		if(CHAT_FILTER_CHECK(input))
+			to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+			return
+		input = treat_message_min(input)
 		var/preliminary_message = "<span class='holoparasite bold'>[input]</span>" //apply basic color/bolding
 		var/my_message = "<font color=\"[guardiancolor]\"><b><i>[src]:</i></b></font> [preliminary_message]" //add source, color source with the guardian's color
 
@@ -416,7 +416,10 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	var/input = stripped_input(src, "Please enter a message to tell your guardian.", "Message", "")
 	if(!input)
 		return
-
+	if(CHAT_FILTER_CHECK(input))
+		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+		return
+	input = treat_message_min(input)
 	var/preliminary_message = "<span class='holoparasite bold'>[input]</span>" //apply basic color/bolding
 	var/my_message = "<span class='holoparasite bold'><i>[src]:</i> [preliminary_message]</span>" //add source, color source with default grey...
 
@@ -453,7 +456,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		if(P.reset)
 			guardians -= P //clear out guardians that are already reset
 	if(guardians.len)
-		var/mob/living/simple_animal/hostile/guardian/G = input(src, "Pick the guardian you wish to reset", "Guardian Reset") as null|anything in sortNames(guardians)
+		var/mob/living/simple_animal/hostile/guardian/G = input(src, "Pick the guardian you wish to reset", "Guardian Reset") as null|anything in sort_names(guardians)
 		if(G)
 			to_chat(src, "<span class='holoparasite'>You attempt to reset <font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font>'s personality...</span>")
 			var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as [src.real_name]'s [G.real_name]?", ROLE_PAI, null, FALSE, 100)
@@ -549,7 +552,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	if(random)
 		guardiantype = pick(possible_guardians)
 	else
-		guardiantype = input(user, "Pick the type of [mob_name]", "[mob_name] Creation") as null|anything in sortList(possible_guardians)
+		guardiantype = input(user, "Pick the type of [mob_name]", "[mob_name] Creation") as null|anything in sort_list(possible_guardians)
 		if(!guardiantype)
 			to_chat(user, "[failure_message]" )
 			used = FALSE
@@ -668,7 +671,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 
 /obj/item/paper/guides/antag/guardian
 	name = "Holoparasite Guide"
-	info = {"<b>A list of Holoparasite Types</b><br>
+	default_raw_text = {"<b>A list of Holoparasite Types</b><br>
 
  <br>
  <b>Assassin</b>: Does medium damage and takes full damage, but can enter stealth, causing its next attack to do massive damage and ignore armor. However, it becomes briefly unable to recall after attacking from stealth.<br>
@@ -696,7 +699,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 
 /obj/item/paper/guides/antag/guardian/wizard
 	name = "Guardian Guide"
-	info = {"<b>A list of Guardian Types</b><br>
+	default_raw_text = {"<b>A list of Guardian Types</b><br>
 
  <br>
  <b>Assassin</b>: Does medium damage and takes full damage, but can enter stealth, causing its next attack to do massive damage and ignore armor. However, it becomes briefly unable to recall after attacking from stealth.<br>

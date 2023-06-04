@@ -61,7 +61,7 @@
 /datum/syndicate_contract/proc/launch_extraction_pod(turf/empty_pod_turf)
 	var/obj/structure/closet/supplypod/extractionpod/empty_pod = new()
 
-	RegisterSignal(empty_pod, COMSIG_ATOM_ENTERED, .proc/enter_check)
+	RegisterSignal(empty_pod, COMSIG_ATOM_ENTERED, PROC_REF(enter_check))
 
 	empty_pod.stay_after_drop = TRUE
 	empty_pod.reversing = TRUE
@@ -122,12 +122,12 @@
 				target.dna.species.give_important_for_life(target)
 
 			// After pod is sent we start the victim narrative/heal.
-			INVOKE_ASYNC(src, .proc/handleVictimExperience, M)
+			INVOKE_ASYNC(src, PROC_REF(handleVictimExperience), M)
 
 			// This is slightly delayed because of the sleep calls above to handle the narrative.
 			// We don't want to tell the station instantly.
 			var/points_to_check
-			var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
+			var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 			if(D)
 				points_to_check = D.account_balance
 			if(points_to_check >= ransom)
@@ -138,7 +138,7 @@
 			priority_announce("One of your crew was captured by a rival organisation - we've needed to pay their ransom to bring them back. \
 							As is policy we've taken a portion of the station's funds to offset the overall cost.", null, null, null, "Nanotrasen Asset Protection")
 
-			INVOKE_ASYNC(src, .proc/finish_enter)
+			INVOKE_ASYNC(src, PROC_REF(finish_enter))
 
 /datum/syndicate_contract/proc/finish_enter()
 	sleep(30)
@@ -161,7 +161,7 @@
 /datum/syndicate_contract/proc/handleVictimExperience(var/mob/living/M)
 	// Ship 'em back - dead or alive, 4 minutes wait.
 	// Even if they weren't the target, we're still treating them the same.
-	addtimer(CALLBACK(src, .proc/returnVictim, M), (60 * 10) * 4)
+	addtimer(CALLBACK(src, PROC_REF(returnVictim), M), (60 * 10) * 4)
 
 	if (M.stat != DEAD)
 		// Heal them up - gets them out of crit/soft crit.
@@ -196,7 +196,7 @@
 
 	for (var/turf/possible_drop in contract.dropoff.contents)
 		if (!isspaceturf(possible_drop) && !isclosedturf(possible_drop))
-			if (!is_blocked_turf(possible_drop))
+			if (!possible_drop.is_blocked_turf())
 				possible_drop_loc.Add(possible_drop)
 
 	if (possible_drop_loc.len > 0)

@@ -5,9 +5,6 @@
 "b" = (
 /turf/closed/wall/mineral/gold,
 /area/ruin/space/has_grav/powered)
-"c" = (
-/turf/open/floor/eighties,
-/area/ruin/space/has_grav/powered)
 "d" = (
 /turf/open/floor/carpet/purple,
 /area/ruin/space/has_grav/powered)
@@ -19,8 +16,8 @@
 /area/ruin/space/has_grav/powered)
 "g" = (
 /obj/machinery/computer{
-	name = "Disco Disco Rave";
-	desc = "Unfortunately, the machine seems to be broken..."
+	desc = "Unfortunately, the machine seems to be broken...";
+	name = "Disco Disco Rave"
 	},
 /turf/open/floor/eighties,
 /area/ruin/space/has_grav/powered)
@@ -29,7 +26,6 @@
 /turf/open/floor/eighties,
 /area/ruin/space/has_grav/powered)
 "i" = (
-/turf/open/floor/plasteel/stairs,
 /turf/open/floor/eighties,
 /area/ruin/space/has_grav/powered)
 "j" = (
@@ -310,9 +306,9 @@ s
 s
 s
 b
-c
-c
-c
+i
+i
+i
 h
 d
 d
@@ -337,13 +333,13 @@ e
 f
 e
 i
-c
-c
-c
-c
-c
-c
-c
+i
+i
+i
+i
+i
+i
+i
 n
 a
 a
@@ -359,13 +355,13 @@ f
 e
 f
 i
-c
-c
-c
-c
-c
-c
-c
+i
+i
+i
+i
+i
+i
+i
 n
 a
 a
@@ -381,13 +377,13 @@ e
 f
 e
 i
-c
-c
-c
-c
-c
-c
-c
+i
+i
+i
+i
+i
+i
+i
 n
 a
 a
@@ -398,9 +394,9 @@ s
 s
 s
 b
-c
-c
-c
+i
+i
+i
 h
 d
 d

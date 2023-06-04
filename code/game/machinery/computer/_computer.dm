@@ -8,11 +8,11 @@
 	active_power_usage = 300
 	max_integrity = 200
 	integrity_failure = 100
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 40, "acid" = 20, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 40, ACID = 20, STAMINA = 0)
 	clicksound = "keyboard"
 	light_system = STATIC_LIGHT
-	light_range = 2
-	light_power = 1
+	light_range = 1
+	light_power = 0.5
 	light_on = TRUE
 	var/icon_keyboard = "generic_key"
 	var/icon_screen = "generic"
@@ -36,7 +36,7 @@
 	return ..()
 
 /obj/machinery/computer/process()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		return 0
 	return 1
 
@@ -47,7 +47,7 @@
 		icon_keyboard = "ratvar_key[rand(1, 2)]"
 		icon_state = "ratvarcomputer"
 		broken_overlay_emissive = TRUE
-		update_icon()
+		update_appearance()
 
 /obj/machinery/computer/narsie_act()
 	if(clockwork && clockwork != initial(clockwork)) //if it's clockwork but isn't normally clockwork
@@ -56,36 +56,34 @@
 		icon_keyboard = initial(icon_keyboard)
 		icon_state = initial(icon_state)
 		broken_overlay_emissive = initial(broken_overlay_emissive)
-		update_icon()
+		update_appearance()
 
-/obj/machinery/computer/update_icon()
-	cut_overlays()
-	SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
-	if(stat & NOPOWER)
-		add_overlay("[icon_keyboard]_off")
-		return
-	add_overlay(icon_keyboard)
+/obj/machinery/computer/update_overlays()
+	. = ..()
+	if(icon_keyboard)
+		if(machine_stat & NOPOWER)
+			. += "[icon_keyboard]_off"
+		else
+			. += icon_keyboard
 
 	// This whole block lets screens ignore lighting and be visible even in the darkest room
-	var/overlay_state = icon_screen
-	if(stat & BROKEN)
-		if(broken_overlay_emissive)
-			overlay_state = "[icon_state]_broken"
-		else
-			add_overlay("[icon_state]_broken")
-			overlay_state = null
+	if(machine_stat & BROKEN)
+		. += mutable_appearance(icon, "[icon_state]_broken")
+		return // If we don't do this broken computers glow in the dark.
 
-	if(overlay_state)
-		SSvis_overlays.add_vis_overlay(src, icon, overlay_state, layer, plane, dir)
-		SSvis_overlays.add_vis_overlay(src, icon, overlay_state, layer, EMISSIVE_PLANE, dir)
+	if(machine_stat & NOPOWER) // Your screen can't be on if you've got no damn charge
+		return
+
+	. += mutable_appearance(icon, icon_screen)
+	. += emissive_appearance(icon, icon_screen)
 
 /obj/machinery/computer/power_change()
 	..()
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		set_light(FALSE)
 	else
 		set_light(TRUE)
-	update_icon()
+	update_appearance()
 	return
 
 /obj/machinery/computer/screwdriver_act(mob/living/user, obj/item/I)
@@ -100,7 +98,7 @@
 /obj/machinery/computer/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
-			if(stat & BROKEN)
+			if(machine_stat & BROKEN)
 				playsound(src.loc, 'sound/effects/hit_on_shattered_glass.ogg', 70, 1)
 			else
 				playsound(src.loc, 'sound/effects/glasshit.ogg', 75, 1)
@@ -108,12 +106,12 @@
 			playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
 
 /obj/machinery/computer/obj_break(damage_flag)
-	if(circuit && !(flags_1 & NODECONSTRUCT_1)) //no circuit, no breaking
-		if(!(stat & BROKEN))
-			playsound(loc, 'sound/effects/glassbr3.ogg', 100, 1)
-			stat |= BROKEN
-			update_icon()
-			set_light(0)
+	if(!circuit) //no circuit, no breaking
+		return
+	. = ..()
+	if(.)
+		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
+		set_light(0)
 
 /obj/machinery/computer/emp_act(severity)
 	. = ..()
@@ -121,10 +119,10 @@
 		switch(severity)
 			if(1)
 				if(prob(50))
-					obj_break("energy")
+					obj_break(ENERGY)
 			if(2)
 				if(prob(10))
-					obj_break("energy")
+					obj_break(ENERGY)
 
 /obj/machinery/computer/deconstruct(disassembled = TRUE, mob/user)
 	on_deconstruction()
@@ -134,7 +132,7 @@
 			A.setDir(dir)
 			A.circuit = circuit
 			A.setAnchored(TRUE)
-			if(stat & BROKEN)
+			if(machine_stat & BROKEN)
 				if(user)
 					to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
 				else

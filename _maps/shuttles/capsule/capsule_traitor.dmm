@@ -23,7 +23,6 @@
 	},
 /obj/machinery/door/airlock/centcom{
 	name = "Shuttle Airlock";
-	opacity = 1;
 	req_access_txt = ""
 	},
 /turf/open/floor/mineral/plastitanium/red,
@@ -43,7 +42,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/pod_shuttle)
 "i" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -83,7 +82,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/pod_shuttle)
 "o" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -110,7 +109,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 8
 	},
@@ -120,7 +119,7 @@
 /turf/open/floor/plating,
 /area/shuttle/pod_shuttle)
 "s" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -132,7 +131,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/pod_shuttle)
 "t" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -203,7 +202,6 @@
 	},
 /obj/machinery/door/airlock/centcom{
 	name = "Shuttle Airlock";
-	opacity = 1;
 	req_access_txt = ""
 	},
 /obj/docking_port/mobile{
@@ -261,7 +259,7 @@
 /turf/open/floor/plating,
 /area/shuttle/pod_shuttle)
 "X" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{

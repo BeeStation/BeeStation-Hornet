@@ -66,12 +66,26 @@
 	chamber_round()
 	update_icon()
 
+/obj/item/gun/ballistic/fire_sounds()
+	var/frequency_to_use = sin((90/magazine?.max_ammo) * get_ammo())
+	var/click_frequency_to_use = 1 - frequency_to_use * 0.75
+	var/play_click = round(sqrt(magazine?.max_ammo * 2)) > get_ammo()
+
+	if(suppressed)
+		playsound(src, suppressed_sound, suppressed_volume, vary_fire_sound, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
+		if(play_click)
+			playsound(src, 'sound/weapons/effects/ballistic_click.ogg', suppressed_volume, vary_fire_sound, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0, frequency = click_frequency_to_use)
+	else
+		playsound(src, fire_sound, fire_sound_volume, vary_fire_sound)
+		if(play_click)
+			playsound(src, 'sound/weapons/effects/ballistic_click.ogg', fire_sound_volume, vary_fire_sound, frequency = click_frequency_to_use)
+
 /obj/item/gun/ballistic/update_icon()
 	if (QDELETED(src))
 		return
 	..()
 	if(current_skin)
-		icon_state = "[unique_reskin[current_skin]][sawn_off ? "_sawn" : ""]"
+		icon_state = "[unique_reskin_icon[current_skin]][sawn_off ? "_sawn" : ""]"
 	else
 		icon_state = "[initial(icon_state)][sawn_off ? "_sawn" : ""]"
 	cut_overlays()
@@ -193,7 +207,7 @@
 		if (insert_magazine(user, tac_load, FALSE))
 			to_chat(user, "<span class='notice'>You perform a tactical reload on \the [src].")
 		else
-			to_chat(user, "<span class='warning'>You dropped the old [magazine_wording], but the new one doesn't fit. How embarassing.</span>")
+			to_chat(user, "<span class='warning'>You dropped the old [magazine_wording], but the new one doesn't fit. How embarrassing.</span>")
 			magazine = null
 	else
 		magazine = null
@@ -263,7 +277,7 @@
 	update_icon()
 
 /obj/item/gun/ballistic/AltClick(mob/user)
-	if (unique_reskin && !current_skin && user.canUseTopic(src, BE_CLOSE, NO_DEXTERY))
+	if (unique_reskin_icon && !current_skin && user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY))
 		reskin_obj(user)
 		return
 	if(loc == user)
@@ -379,7 +393,7 @@
 			var/turf/target = get_ranged_target_turf(user, turn(user.dir, 180), BRAINS_BLOWN_THROW_RANGE)
 			B.Remove(user)
 			B.forceMove(T)
-			var/datum/callback/gibspawner = CALLBACK(GLOBAL_PROC, /proc/spawn_atom_to_turf, /obj/effect/gibspawner/generic, B, 1, FALSE, user)
+			var/datum/callback/gibspawner = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(spawn_atom_to_turf), /obj/effect/gibspawner/generic, B, 1, FALSE, user)
 			B.throw_at(target, BRAINS_BLOWN_THROW_RANGE, BRAINS_BLOWN_THROW_SPEED, callback=gibspawner)
 			return(BRUTELOSS)
 		else

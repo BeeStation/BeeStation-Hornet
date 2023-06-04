@@ -11,7 +11,7 @@
 /datum/nanite_program/sleepy/on_trigger(comm_message)
 	to_chat(host_mob, "<span class='warning'>You start to feel very sleepy...</span>")
 	host_mob.drowsyness += 20
-	addtimer(CALLBACK(host_mob, /mob/living.proc/Sleeping, 200), rand(60,200))
+	addtimer(CALLBACK(host_mob, TYPE_PROC_REF(/mob/living, Sleeping), 200), rand(60,200))
 
 /datum/nanite_program/paralyzing
 	name = "Paralysis"
@@ -144,13 +144,18 @@
 	extra_settings[NES_SENTENCE] = new /datum/nanite_extra_setting/text("")
 
 /datum/nanite_program/comm/speech/on_trigger(comm_message)
+	if(host_mob.stat == DEAD)
+		return
+
+	// do not spam with multiple programs
+	for(var/datum/nanite_program/comm/speech/N in nanites.programs)
+		N.next_trigger = world.time + trigger_cooldown
+
 	var/sent_message = comm_message
 	if(!comm_message)
 		var/datum/nanite_extra_setting/sentence = extra_settings[NES_SENTENCE]
 		sent_message = sentence.get_value()
 	if(sent_message in blacklist)
-		return
-	if(host_mob.stat == DEAD)
 		return
 	to_chat(host_mob, "<span class='warning'>You feel compelled to speak...</span>")
 	host_mob.say(sent_message, forced = "nanite speech")
@@ -162,19 +167,35 @@
 	trigger_cost = 1
 	trigger_cooldown = 20
 	rogue_types = list(/datum/nanite_program/brain_misfire, /datum/nanite_program/brain_decay)
+	var/notice_colour = "#6c8086"
+	COOLDOWN_STATIC_DECLARE(ghost_notification_time) // to prevent ghost spam
 
 /datum/nanite_program/comm/voice/register_extra_settings()
 	. = ..()
 	extra_settings[NES_MESSAGE] = new /datum/nanite_extra_setting/text("")
 
 /datum/nanite_program/comm/voice/on_trigger(comm_message)
+	if(host_mob.stat == DEAD)
+		return
+
+	// do not spam with multiple programs
+	for(var/datum/nanite_program/comm/voice/N in nanites.programs)
+		N.next_trigger = world.time + trigger_cooldown
+
+	// send message to its host
 	var/sent_message = comm_message
 	if(!comm_message)
 		var/datum/nanite_extra_setting/message_setting = extra_settings[NES_MESSAGE]
 		sent_message = message_setting.get_value()
-	if(host_mob.stat == DEAD)
-		return
 	to_chat(host_mob, "<i>You hear a strange, robotic voice in your head...</i> \"<span class='robot'>[html_encode(sent_message)]</span>\"")
+
+	// send message to ghosts
+	if(!COOLDOWN_FINISHED(src, ghost_notification_time))
+		return // do not spam this from multiple hosts to ghosts
+	COOLDOWN_START(src, ghost_notification_time, 2 SECONDS)
+	var/ghost_message = "<font color=\"[notice_colour]\"><b><i>Nanites -> Hosts in No.[nanites.cloud_id] cloud:</i></b></font> [html_encode(sent_message)]"
+	for(var/M in GLOB.dead_mob_list)
+		to_chat(M, "[ghost_message]")
 
 /datum/nanite_program/comm/hallucination
 	name = "Hallucination"

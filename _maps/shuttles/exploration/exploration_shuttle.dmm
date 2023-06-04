@@ -6,9 +6,6 @@
 	dir = 1
 	},
 /obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "b" = (
@@ -48,7 +45,6 @@
 	desc = "A remote control switch.";
 	id = "exploration";
 	name = "Exploration Shuttle Shutters";
-	normaldoorcontrol = 0;
 	pixel_y = 24
 	},
 /turf/open/floor/mineral/titanium,
@@ -63,7 +59,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "i" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /obj/machinery/light/small{
@@ -292,7 +288,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "P" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -311,14 +307,11 @@
 	dir = 1
 	},
 /obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "T" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "U" = (
@@ -338,7 +331,7 @@
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/exploration)
 "X" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium,

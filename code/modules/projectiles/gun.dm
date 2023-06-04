@@ -100,8 +100,8 @@
 	if(isnull(spread_unwielded))
 		spread_unwielded = weapon_weight * 20 + 20
 	if(requires_wielding)
-		RegisterSignal(src, COMSIG_TWOHANDED_WIELD, .proc/wield)
-		RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, .proc/unwield)
+		RegisterSignal(src, COMSIG_TWOHANDED_WIELD, PROC_REF(wield))
+		RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, PROC_REF(unwield))
 
 /obj/item/gun/ComponentInitialize()
 	. = ..()
@@ -184,33 +184,54 @@
 /obj/item/gun/proc/can_shoot()
 	return TRUE
 
+/obj/item/gun/proc/tk_firing(mob/living/user)
+	return loc != user ? TRUE : FALSE
+
 /obj/item/gun/proc/shoot_with_empty_chamber(mob/living/user as mob|obj)
 	balloon_alert(user, "[src] clicks.")
 	playsound(src, dry_fire_sound, 30, TRUE)
 
+/obj/item/gun/proc/fire_sounds()
+	if(suppressed)
+		playsound(src, suppressed_sound, suppressed_volume, vary_fire_sound)
+	else
+		playsound(src, fire_sound, fire_sound_volume, vary_fire_sound)
 
 /obj/item/gun/proc/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
-	if(recoil)
+	if(recoil && !tk_firing(user))
 		shake_camera(user, recoil + 1, recoil)
-
-	if(suppressed)
-		playsound(user, suppressed_sound, suppressed_volume, vary_fire_sound)
-	else
-		playsound(user, fire_sound, fire_sound_volume, vary_fire_sound)
+	fire_sounds()
+	if(!suppressed)
 		if(message)
-			if(pointblank)
-				user.visible_message("<span class='danger'>[user] fires [src] point blank at [pbtarget]!</span>", \
-								"<span class='danger'>You fire [src] point blank at [pbtarget]!</span>", \
-								"<span class='hear'>You hear a gunshot!</span>", COMBAT_MESSAGE_RANGE, pbtarget)
-				to_chat(pbtarget, "<span class='userdanger'>[user] fires [src] point blank at you!</span>")
+			if(tk_firing(user))
+				user.visible_message(
+					"<span class='danger'>[src] fires itself[pointblank ? " point blank at [pbtarget]!" : "!"]</span>", \
+					null ,\
+					"<span class='hear'>You hear a gunshot!</span>", \
+					COMBAT_MESSAGE_RANGE
+					)
+
+			else if(pointblank)
+				user.visible_message(
+					"<span class='danger'>[user] fires [src] point blank at [pbtarget]!</span>", \
+					"<span class='danger'>You fire [src] point blank at [pbtarget]!</span>", \
+					"<span class='hear'>You hear a gunshot!</span>", \
+					COMBAT_MESSAGE_RANGE, \
+					pbtarget
+				)
+				to_chat(pbtarget, "<span class='danger'>[user] fires [src] point blank at you!</span>")
 				if(pb_knockback > 0 && ismob(pbtarget))
-					var/mob/PBT= pbtarget
+					var/mob/PBT = pbtarget
 					var/atom/throw_target = get_edge_target_turf(PBT, user.dir)
 					PBT.throw_at(throw_target, pb_knockback, 2)
-			else
-				user.visible_message("<span class='danger'>[user] fires [src]!</span>", \
-								"<span class='danger'>You fire [src]!</span>", \
-								"<span class='hear'>You hear a gunshot!</span>", COMBAT_MESSAGE_RANGE)
+			else if(!tk_firing(user))
+				user.visible_message(
+					"<span class='danger'>[user] fires [src]!</span>", \
+					"<span class='danger'>You fire [src]!</span>", \
+					"<span class='hear'>You hear a gunshot!</span>", \
+					COMBAT_MESSAGE_RANGE, \
+					user
+				)
 
 /obj/item/gun/emp_act(severity)
 	. = ..()
@@ -276,7 +297,7 @@
 			else if(G.can_trigger_gun(user))
 				bonus_spread += dual_wield_spread
 				loop_counter++
-				addtimer(CALLBACK(G, /obj/item/gun.proc/process_fire, target, user, TRUE, params, null, bonus_spread, flag), loop_counter)
+				addtimer(CALLBACK(G, TYPE_PROC_REF(/obj/item/gun, process_fire), target, user, TRUE, params, null, bonus_spread, flag), loop_counter)
 
 	process_fire(target, user, TRUE, params, null, bonus_spread, aimed)
 
@@ -361,7 +382,7 @@
 	if(burst_size > 1)
 		firing_burst = TRUE
 		for(var/i = 1 to burst_size)
-			addtimer(CALLBACK(src, .proc/process_burst, user, target, message, params, zone_override, sprd, randomized_gun_spread, randomized_bonus_spread, rand_spr, i), fire_delay * (i - 1))
+			addtimer(CALLBACK(src, PROC_REF(process_burst), user, target, message, params, zone_override, sprd, randomized_gun_spread, randomized_bonus_spread, rand_spr, i), fire_delay * (i - 1))
 	else
 		if(chambered)
 			if(HAS_TRAIT(user, TRAIT_PACIFISM)) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
@@ -384,7 +405,7 @@
 		process_chamber()
 		update_icon()
 		semicd = TRUE
-		addtimer(CALLBACK(src, .proc/reset_semicd), fire_delay)
+		addtimer(CALLBACK(src, PROC_REF(reset_semicd)), fire_delay)
 
 	if(user)
 		user.update_inv_hands()
@@ -464,7 +485,7 @@
 		knife_overlay = mutable_appearance(bayonet_icons, state)
 		knife_overlay.pixel_x = knife_x_offset
 		knife_overlay.pixel_y = knife_y_offset
-		add_overlay(knife_overlay, TRUE)
+		add_overlay(knife_overlay)
 	else
 		return ..()
 
@@ -476,7 +497,7 @@
 		return
 	if((can_flashlight && gun_light) && (can_bayonet && bayonet)) //give them a choice instead of removing both
 		var/list/possible_items = list(gun_light, bayonet)
-		var/obj/item/item_to_remove = input(user, "Select an attachment to remove", "Attachment Removal") as null|obj in sortNames(possible_items)
+		var/obj/item/item_to_remove = input(user, "Select an attachment to remove", "Attachment Removal") as null|obj in sort_names(possible_items)
 		if(!item_to_remove || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 			return
 		return remove_gun_attachment(user, I, item_to_remove)
@@ -552,7 +573,7 @@
 		return
 	bayonet = null
 	if(knife_overlay)
-		cut_overlay(knife_overlay, TRUE)
+		cut_overlay(knife_overlay)
 		knife_overlay = null
 	return TRUE
 
@@ -639,7 +660,7 @@
 
 	semicd = TRUE
 
-	if(!bypass_timer && (!do_mob(user, target, 120) || user.zone_selected != BODY_ZONE_PRECISE_MOUTH))
+	if(!bypass_timer && (!do_after(user, 12 SECONDS, target) || user.zone_selected != BODY_ZONE_PRECISE_MOUTH))
 		if(user)
 			if(user == target)
 				user.visible_message("<span class='notice'>[user] decided not to shoot.</span>")
@@ -708,7 +729,7 @@
 		zoomed = forced_zoom
 
 	if(zoomed)
-		RegisterSignal(user, COMSIG_ATOM_DIR_CHANGE, .proc/rotate)
+		RegisterSignal(user, COMSIG_ATOM_DIR_CHANGE, PROC_REF(rotate))
 		user.client.view_size.zoomOut(zoom_out_amt, zoom_amt, direc)
 	else
 		UnregisterSignal(user, COMSIG_ATOM_DIR_CHANGE)

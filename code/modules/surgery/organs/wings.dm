@@ -120,7 +120,7 @@
 	icon_state = "mothwings"
 	flight_level = WINGS_FLIGHTLESS
 	basewings = "moth_wings"
-	wing_type = "plain"
+	wing_type = "Plain"
 	canopen = TRUE
 
 /obj/item/organ/wings/moth/Remove(mob/living/carbon/human/H, special)
@@ -137,11 +137,15 @@
 		var/mob/living/carbon/human/H = owner
 		if(flight_level >= WINGS_FLIGHTLESS && H.bodytemperature >= 800 && H.fire_stacks > 0)
 			flight_level = WINGS_COSMETIC
+			if((H.movement_type & FLYING))//Closes wings if they're open and flying
+				var/datum/species/S = H.dna.species
+				S.toggle_flight(H)
 			to_chat(H, "<span class='danger'>Your precious wings burn to a crisp!</span>")
 			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "burnt_wings", /datum/mood_event/burnt_wings)
-			H.dna.features["moth_wings"] = "Burnt Off"
-			wing_type = "Burnt Off"
+			ADD_TRAIT(H, TRAIT_MOTH_BURNT, "fire")
 			H.dna.species.handle_mutant_bodyparts(H)
+			H.dna.species.handle_body(H)
+
 
 /obj/item/organ/wings/angel
 	name = "pair of feathered wings"
@@ -182,7 +186,7 @@
 	var/obj/item/organ/wings/bee/wings = locate(/obj/item/organ/wings/bee) in L.internal_organs
 	var/jumpdistance = wings.jumpdist
 
-	if(L.stat != CONSCIOUS || L.buckling || L.restrained()) // Has to be concious and unbuckled
+	if(L.stat != CONSCIOUS || L.buckling || L.restrained()) // Has to be conscious and unbuckled
 		return
 	if(recharging_time > world.time)
 		to_chat(L, "<span class='warning'>The wings aren't ready to dash yet!</span>")
@@ -211,7 +215,7 @@
 
 	var/datum/callback/crashcallback
 	if(hoppingtable)
-		crashcallback = CALLBACK(src, .proc/crash_into_table, get_step(checkjump, L.dir))
+		crashcallback = CALLBACK(src, PROC_REF(crash_into_table), get_step(checkjump, L.dir))
 	if(L.throw_at(target, jumpdistancemoved, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = crashcallback, force = MOVE_FORCE_WEAK))
 		playsound(L, 'sound/creatures/bee.ogg', 50, 1, 1)
 		L.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")

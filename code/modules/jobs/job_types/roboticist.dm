@@ -1,8 +1,7 @@
 /datum/job/roboticist
-	title = "Roboticist"
+	title = JOB_NAME_ROBOTICIST
 	flag = ROBOTICIST
-	department_head = list("Research Director")
-	department_flag = MEDSCI
+	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	faction = "Station"
 	total_positions = 2
 	spawn_positions = 2
@@ -14,14 +13,16 @@
 	outfit = /datum/outfit/job/roboticist
 
 	access = list(ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_TECH_STORAGE, ACCESS_MORGUE, ACCESS_MECH_SCIENCE,
-					ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM, ACCESS_XENOBIOLOGY, ACCESS_GENETICS, ACCESS_AUX_BASE)
+					ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM, ACCESS_XENOBIOLOGY, ACCESS_AUX_BASE)
 	minimal_access = list(ACCESS_ROBOTICS, ACCESS_TECH_STORAGE, ACCESS_MORGUE, ACCESS_RESEARCH, ACCESS_MECH_SCIENCE,
 					ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE)
-	paycheck = PAYCHECK_MEDIUM
-	paycheck_department = ACCOUNT_SCI
+
+	department_flag = MEDSCI
+	departments = DEPT_BITFLAG_SCI
+	bank_account_department = ACCOUNT_SCI_BITFLAG
+	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_MEDIUM)
 
 	display_order = JOB_DISPLAY_ORDER_ROBOTICIST
-	departments = DEPARTMENT_SCIENCE
 	rpg_title = "Golemancer"
 
 	species_outfits = list(
@@ -29,12 +30,12 @@
 	)
 
 /datum/outfit/job/roboticist
-	name = "Roboticist"
+	name = JOB_NAME_ROBOTICIST
 	jobtype = /datum/job/roboticist
 
 	id = /obj/item/card/id/job/roboticist
 	belt = /obj/item/storage/belt/utility/full
-	l_pocket = /obj/item/pda/roboticist
+	l_pocket = /obj/item/modular_computer/tablet/pda/roboticist
 	ears = /obj/item/radio/headset/headset_sci
 	uniform = /obj/item/clothing/under/rank/rnd/roboticist
 	suit = /obj/item/clothing/suit/toggle/labcoat

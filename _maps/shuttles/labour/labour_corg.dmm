@@ -55,6 +55,7 @@
 	name = "Labor Shuttle Airlock";
 	req_access_txt = "2"
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/labor)
 "y" = (
@@ -101,6 +102,7 @@
 	port_direction = 4;
 	width = 8
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/labor)
 "F" = (
@@ -138,7 +140,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 "Q" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
@@ -157,7 +159,7 @@
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/labor)
 "V" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/machinery/flasher{
@@ -168,7 +170,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "X" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,

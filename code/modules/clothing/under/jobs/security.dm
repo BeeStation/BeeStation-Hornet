@@ -14,7 +14,7 @@
 	desc = "A tactical security jumpsuit for officers complete with Nanotrasen belt buckle."
 	icon_state = "rsecurity"
 	item_state = "r_suit"
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30, "stamina" = 30)
+	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30, STAMINA = 30)
 	strip_delay = 50
 	alt_covers_chest = TRUE
 	sensor_mode = SENSOR_COORDS
@@ -61,7 +61,7 @@
 	desc = "A formal security suit for officers complete with Nanotrasen belt buckle."
 	icon_state = "rwarden"
 	item_state = "r_suit"
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30, "stamina" = 30)
+	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30, STAMINA = 30)
 	strip_delay = 50
 	alt_covers_chest = TRUE
 	sensor_mode = SENSOR_COORDS
@@ -91,7 +91,7 @@
 	desc = "Someone who wears this means business."
 	icon_state = "detective"
 	item_state = "det"
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30, "stamina" = 20)
+	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30, STAMINA = 20)
 	strip_delay = 50
 	alt_covers_chest = TRUE
 	sensor_mode = SENSOR_COORDS
@@ -132,7 +132,7 @@
 	desc = "A security jumpsuit decorated for those few with the dedication to achieve the position of Head of Security."
 	icon_state = "rhos"
 	item_state = "r_suit"
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 30)
+	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 30)
 	strip_delay = 60
 	alt_covers_chest = TRUE
 	sensor_mode = SENSOR_COORDS
@@ -174,13 +174,13 @@
  * Brig Physician
 */
 
-/obj/item/clothing/under/rank/brig_phys
+/obj/item/clothing/under/rank/brig_physician
 	name = "brig physician's jumpsuit"
 	desc = "A lightly armored jumpsuit worn by Nanotrasen's Asset Protection Medical Corps."
 	icon_state = "brig_phys"
 	item_state = "labcoat_sec"
 
-/obj/item/clothing/under/rank/brig_phys/skirt
+/obj/item/clothing/under/rank/brig_physician/skirt
 	name = "brig physician's jumpskirt"
 	desc = "A lightly armored jumpskirt worn by Nanotrasen's Asset Protection Medical Corps."
 	icon_state = "brig_phys_skirt"

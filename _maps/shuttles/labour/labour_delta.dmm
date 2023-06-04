@@ -74,9 +74,7 @@
 	name = "Labor Shuttle Airlock";
 	req_access_txt = "2"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/white,
 /area/shuttle/labor)
 "l" = (
@@ -87,9 +85,7 @@
 	input_dir = 2;
 	output_dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/white,
 /area/shuttle/labor)
 "n" = (
@@ -120,7 +116,7 @@
 /turf/open/floor/plasteel,
 /area/shuttle/labor)
 "q" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -133,7 +129,7 @@
 /turf/open/floor/plasteel,
 /area/shuttle/labor)
 "s" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /obj/machinery/flasher{

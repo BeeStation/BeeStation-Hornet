@@ -2,7 +2,7 @@
 	name = "Invisible Wall"
 	desc = "The mime's performance transmutates a wall into physical reality."
 	school = "mime"
-	panel = "Mime"
+	panel = JOB_NAME_MIME
 	summon_type = list(/obj/effect/forcefield/mime)
 	invocation_type = "emote"
 	invocation_emote_self = "<span class='notice'>You form a wall in front of yourself.</span>"
@@ -32,7 +32,7 @@
 	name = "Invisible Chair"
 	desc = "The mime's performance transmutates a chair into physical reality."
 	school = "mime"
-	panel = "Mime"
+	panel = JOB_NAME_MIME
 	summon_type = list(/obj/structure/chair/mime)
 	invocation_type = "emote"
 	invocation_emote_self = "<span class='notice'>You conjure an invisible chair and sit down.</span>"
@@ -70,7 +70,7 @@
 	name = "Invisible Box"
 	desc = "The mime's performance transmutates a box into physical reality."
 	school = "mime"
-	panel = "Mime"
+	panel = JOB_NAME_MIME
 	summon_type = list(/obj/item/storage/box/mime)
 	invocation_type = "emote"
 	invocation_emote_self = "<span class='notice'>You conjure up an invisible box, large enough to store a few things.</span>"
@@ -92,7 +92,7 @@
 	for (var/obj/item/storage/box/mime/B in T)
 		user.put_in_hands(B)
 		B.alpha = 255
-		addtimer(CALLBACK(B, /obj/item/storage/box/mime/.proc/emptyStorage, FALSE), (summon_lifespan - 1))
+		addtimer(CALLBACK(B, TYPE_PROC_REF(/obj/item/storage/box/mime, emptyStorage), FALSE), (summon_lifespan - 1))
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/mime_box/Click()
 	if(usr && usr.mind)
@@ -109,7 +109,7 @@
 	name = "Speech"
 	desc = "Make or break a vow of silence."
 	school = "mime"
-	panel = "Mime"
+	panel = JOB_NAME_MIME
 	clothes_req = FALSE
 	human_req = TRUE
 	antimagic_allowed = TRUE
@@ -142,6 +142,8 @@
 		else
 			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "vow", /datum/mood_event/broken_vow)
 			to_chat(H, "<span class='notice'>You break your vow of silence.</span>")
+			for(var/datum/objective/crew/vow/obj in H.mind.crew_objectives)
+				obj.broken = TRUE
 
 // These spells can only be gotten from the "Guide for Advanced Mimery series" for Mime Traitors.
 
@@ -149,7 +151,7 @@
 	name = "Invisible Blockade"
 	desc = "Form an invisible three tile wide blockade."
 	school = "mime"
-	panel = "Mime"
+	panel = JOB_NAME_MIME
 	wall_type = /obj/effect/forcefield/mime/advanced
 	invocation_type = "emote"
 	invocation_emote_self = "<span class='notice'>You form a blockade in front of yourself.</span>"
@@ -178,7 +180,7 @@
 	name = "Finger Guns"
 	desc = "Shoot a mimed bullet from your fingers that stuns and does some damage."
 	school = "mime"
-	panel = "Mime"
+	panel = JOB_NAME_MIME
 	charge_max = 300
 	range = -1
 	clothes_req = FALSE

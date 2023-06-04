@@ -1,12 +1,11 @@
 /datum/job/lawyer
-	title = "Lawyer"
+	title = JOB_NAME_LAWYER
 	flag = LAWYER
-	department_head = list("Head of Personnel")
-	department_flag = CIVILIAN
+	department_head = list(JOB_NAME_HEADOFPERSONNEL)
+	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 2
 	spawn_positions = 2
-	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
 	var/lawyers = 0 //Counts lawyer amount
 
@@ -14,12 +13,14 @@
 
 	access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS)
 	minimal_access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS)
-	paycheck = PAYCHECK_EASY
-	paycheck_department = ACCOUNT_CIV
+
+	department_flag = CIVILIAN
+	departments = DEPT_BITFLAG_CIV
+	bank_account_department = ACCOUNT_CIV_BITFLAG
+	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_EASY)
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_LAWYER
-	departments = DEPARTMENT_SERVICE
 	rpg_title = "Magistrate"
 
 	species_outfits = list(
@@ -27,11 +28,11 @@
 	)
 
 /datum/outfit/job/lawyer
-	name = "Lawyer"
+	name = JOB_NAME_LAWYER
 	jobtype = /datum/job/lawyer
 
 	id = /obj/item/card/id/job/lawyer
-	belt = /obj/item/pda/lawyer
+	belt = /obj/item/modular_computer/tablet/pda/lawyer
 	ears = /obj/item/radio/headset/headset_srvsec
 	uniform = /obj/item/clothing/under/rank/civilian/lawyer/bluesuit
 	suit = /obj/item/clothing/suit/toggle/lawyer

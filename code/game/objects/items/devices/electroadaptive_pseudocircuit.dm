@@ -32,7 +32,7 @@
 		to_chat(R, "<span class='warning'>You need a power cell installed for that.</span>")
 		return
 	if(!R.cell.use(circuit_cost))
-		to_chat(R, "<span class='warning'>You don't have the energy for that (you need [DisplayEnergy(circuit_cost)].)</span>")
+		to_chat(R, "<span class='warning'>You don't have the energy for that (you need [display_energy(circuit_cost)].)</span>")
 		return
 	if(recharging)
 		to_chat(R, "<span class='warning'>[src] needs some time to recharge first.</span>")
@@ -46,7 +46,7 @@
 	maptext = MAPTEXT("[circuits]")
 	icon_state = "[initial(icon_state)]_recharging"
 	var/recharge_time = min(600, circuit_cost * 5)  //40W of cost for one fabrication = 20 seconds of recharge time; this is to prevent spamming
-	addtimer(CALLBACK(src, .proc/recharge), recharge_time)
+	addtimer(CALLBACK(src, PROC_REF(recharge)), recharge_time)
 	return TRUE //The actual circuit magic itself is done on a per-object basis
 
 /obj/item/electroadaptive_pseudocircuit/afterattack(atom/target, mob/living/user, proximity)

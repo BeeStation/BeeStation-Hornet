@@ -2,6 +2,21 @@
 "ak" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/arrival)
+"aw" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/item/flashlight,
+/obj/item/flashlight{
+	pixel_y = 8
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/arrival)
 "bm" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/arrival)
@@ -38,6 +53,28 @@
 	},
 /obj/structure/closet/crate/internals,
 /obj/effect/turf_decal/delivery,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/arrival)
+"el" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/bot,
+/obj/item/radio{
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/item/radio{
+	pixel_x = 6;
+	pixel_y = 6
+	},
+/obj/item/radio{
+	pixel_y = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "eA" = (
@@ -146,6 +183,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 24
 	},
+/obj/item/kirbyplants/random,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "nn" = (
@@ -180,24 +218,6 @@
 /obj/structure/table/reinforced,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
-"qJ" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/item/flashlight,
-/obj/item/flashlight{
-	pixel_y = 8
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/arrival)
 "rt" = (
 /obj/machinery/holopad,
 /obj/machinery/light{
@@ -218,7 +238,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/arrival)
 "ws" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/arrival)
 "xa" = (
@@ -355,7 +375,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "GO" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
@@ -369,7 +389,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "GX" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
@@ -473,31 +493,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/arrival)
-"RU" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/item/radio{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/radio{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/radio{
-	pixel_y = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/arrival)
 "SK" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/line{
@@ -576,9 +571,9 @@ jl
 QK
 cn
 lF
-qJ
+aw
 NO
-RU
+el
 Nm
 cn
 QK

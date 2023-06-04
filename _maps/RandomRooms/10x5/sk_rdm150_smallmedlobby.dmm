@@ -10,37 +10,24 @@
 "c" = (
 /turf/open/floor/plasteel,
 /area/template_noop)
-"f" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/spawner/lootdrop/maintenance/three,
-/obj/structure/closet/crate,
-/turf/open/floor/plasteel,
-/area/template_noop)
 "g" = (
 /obj/effect/landmark/blobstart,
 /turf/open/floor/plating,
-/area/template_noop)
-"h" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
 /area/template_noop)
 "i" = (
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
 /area/template_noop)
-"k" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/machinery/light/small{
+"l" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"m" = (
+/obj/machinery/light,
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -54,24 +41,20 @@
 /turf/closed/wall,
 /area/template_noop)
 "q" = (
-/obj/structure/chair/comfy/teal,
+/obj/structure/chair/fancy/comfy{
+	color = "#66b266"
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "s" = (
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/plasteel,
 /area/template_noop)
-"t" = (
-/obj/item/kirbyplants/random,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
+"u" = (
+/obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
+/obj/effect/turf_decal/tile/blue/half/contrasted,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "v" = (
@@ -80,27 +63,10 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
-"x" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/machinery/light,
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/three,
-/turf/open/floor/plasteel,
-/area/template_noop)
-"z" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
+"y" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1
 	},
-/obj/structure/sign/nanotrasen{
-	pixel_y = 32
-	},
-/obj/structure/chair/comfy/teal,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "A" = (
@@ -109,46 +75,29 @@
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
-"B" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
 "D" = (
 /obj/item/kirbyplants/random,
 /turf/open/floor/plating,
+/area/template_noop)
+"E" = (
+/obj/item/kirbyplants/random,
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"F" = (
+/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/structure/closet/crate,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
 /area/template_noop)
 "G" = (
 /turf/open/floor/plating{
 	icon_state = "platingdmg2"
 	},
-/area/template_noop)
-"H" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/structure/chair/comfy/teal,
-/obj/item/radio/intercom{
-	pixel_y = 26
-	},
-/turf/open/floor/plasteel,
-/area/template_noop)
-"I" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
 /area/template_noop)
 "J" = (
 /obj/structure/table,
@@ -159,23 +108,15 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
-"K" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
+"L" = (
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/chair/comfy/teal,
-/turf/open/floor/plasteel,
-/area/template_noop)
-"M" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
+/obj/structure/chair/fancy/comfy{
+	color = "#66b266"
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
@@ -185,14 +126,48 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
+"Q" = (
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"R" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
 "S" = (
 /turf/open/floor/plating,
+/area/template_noop)
+"T" = (
+/obj/structure/chair/fancy/comfy{
+	color = "#66b266"
+	},
+/obj/item/radio/intercom{
+	pixel_y = 26
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
 /area/template_noop)
 "V" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
 /turf/open/floor/plating,
+/area/template_noop)
+"W" = (
+/obj/structure/sign/nanotrasen{
+	pixel_y = 32
+	},
+/obj/structure/chair/fancy/comfy{
+	color = "#66b266"
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
 /area/template_noop)
 "X" = (
 /obj/structure/rack,
@@ -201,39 +176,39 @@
 /area/template_noop)
 
 (1,1,1) = {"
-t
-I
+E
+y
 S
 J
 a
 "}
 (2,1,1) = {"
-H
+T
 S
 o
 c
-f
+F
 "}
 (3,1,1) = {"
-K
+L
 i
 s
 G
-x
+m
 "}
 (4,1,1) = {"
-z
+W
 c
 g
 S
-M
+R
 "}
 (5,1,1) = {"
 q
 i
 G
 c
-M
+R
 "}
 (6,1,1) = {"
 D
@@ -266,7 +241,7 @@ p
 (10,1,1) = {"
 S
 O
-h
-k
-B
+l
+u
+Q
 "}

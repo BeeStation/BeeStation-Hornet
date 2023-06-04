@@ -28,7 +28,7 @@
 	icon = 'icons/obj/clothing/accessories.dmi'
 	icon_state = "headphones"
 	item_state = "headphones"
-	slot_flags = ITEM_SLOT_EARS | ITEM_SLOT_HEAD | ITEM_SLOT_NECK		//Fluff item, put it whereever you want!
+	slot_flags = ITEM_SLOT_EARS | ITEM_SLOT_HEAD | ITEM_SLOT_NECK		//Fluff item, put it wherever you want!
 	actions_types = list(/datum/action/item_action/toggle_headphones)
 	var/headphones_on = FALSE
 	custom_price = 20

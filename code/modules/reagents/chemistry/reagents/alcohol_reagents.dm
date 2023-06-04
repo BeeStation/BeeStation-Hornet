@@ -23,7 +23,7 @@ In addition, severe effects won't always trigger unless the drink is poisonously
 All effects don't start immediately, but rather get worse over time; the rate is affected by the imbiber's alcohol tolerance
 
 0: Non-alcoholic
-1-10: Barely classifiable as alcohol - occassional slurring
+1-10: Barely classifiable as alcohol - occasional slurring
 11-20: Slight alcohol content - slurring
 21-30: Below average - imbiber begins to look slightly drunk
 31-40: Just below average - no unique effects
@@ -56,7 +56,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 /datum/reagent/consumable/ethanol/reaction_obj(obj/O, reac_volume)
 	if(istype(O, /obj/item/paper))
 		var/obj/item/paper/paperaffected = O
-		paperaffected.clearpaper()
+		paperaffected.clear_paper()
 		to_chat(usr, "<span class='notice'>[paperaffected]'s ink washes away.</span>")
 	if(istype(O, /obj/item/book))
 		if(reac_volume >= 5)
@@ -92,6 +92,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	boozepwr = 25
 	taste_description = "piss water"
+	glass_icon_state = "beerglass"
 	glass_name = "glass of beer"
 	glass_desc = "A freezing pint of beer."
 
@@ -114,7 +115,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 		M.become_nearsighted("ftliver")
 		shake_camera(M,15)
 		M.playsound_local(M.loc,"sound/effects/hyperspace_end.ogg",50)
-		addtimer(CALLBACK(src, .proc/Recover, M), 55)
+		addtimer(CALLBACK(src, PROC_REF(Recover), M), 55)
 	return ..()
 
 /datum/reagent/consumable/ethanol/ftliver/proc/Recover(mob/living/M)
@@ -220,7 +221,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 	if(prob(5) && iscarbon(M))
 		var/obj/item/organ/eyes/eyes = M.getorganslot(ORGAN_SLOT_EYES)
-		if(HAS_TRAIT(M, TRAIT_BLIND))
+		if(M.is_blind())
 			if(istype(eyes))
 				eyes.Remove(M)
 				eyes.forceMove(get_turf(M))
@@ -378,7 +379,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	color = "#AB3C05" // rgb: 171, 60, 5
 	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 75
-	taste_description = "angry and irish"
+	taste_description = "classy French brandy"
 	glass_icon_state = "cognacglass"
 	glass_name = "glass of cognac"
 	glass_desc = "Damn, you feel like some kind of French aristocrat just by holding this."
@@ -413,7 +414,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_desc = "You've really hit rock bottom now... your liver packed its bags and left last night."
 
 /datum/reagent/consumable/ethanol/hooch/on_mob_life(mob/living/carbon/M)
-	if(M.mind?.assigned_role == "Assistant")
+	if(M.mind?.assigned_role == JOB_NAME_ASSISTANT)
 		M.heal_bodypart_damage(1,1)
 		. = 1
 	return ..() || .
@@ -562,7 +563,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_desc = "A simple, yet superb mixture of Vodka and orange juice. Just the thing for the tired engineer."
 
 /datum/reagent/consumable/ethanol/screwdrivercocktail/on_mob_life(mob/living/carbon/M)
-	if(M.mind && (M.mind.assigned_role in list("Station Engineer", "Atmospheric Technician", "Chief Engineer"))) //Engineers lose radiation poisoning at a massive rate.
+	if(M.mind && (M.mind.assigned_role in list(JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN, JOB_NAME_CHIEFENGINEER))) //Engineers lose radiation poisoning at a massive rate.
 		M.radiation = max(M.radiation - 25, 0)
 	return ..()
 
@@ -1209,7 +1210,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_desc = "A drink from Clown Heaven."
 
 /datum/reagent/consumable/ethanol/bananahonk/on_mob_life(mob/living/carbon/M)
-	if((ishuman(M) && M.job == "Clown") || ismonkey(M))
+	if((ishuman(M) && M.job == JOB_NAME_CLOWN) || ismonkey(M))
 		M.heal_bodypart_damage(1,1)
 		. = 1
 	return ..() || .
@@ -1229,7 +1230,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/silencer/on_mob_life(mob/living/carbon/M)
 	M.silent = max(M.silent, 1.25)
-	if(ishuman(M) && M.job == "Mime")
+	if(ishuman(M) && M.job == JOB_NAME_MIME)
 		M.heal_bodypart_damage(1 , 1)
 		. = 1
 	return ..() || .
@@ -1949,7 +1950,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/blank_paper/on_mob_life(mob/living/carbon/M)
 	M.silent = max(M.silent, MIMEDRINK_SILENCE_DURATION)
-	if(ishuman(M) && M.job == "Mime")
+	if(ishuman(M) && M.job == JOB_NAME_MIME)
 		M.heal_bodypart_damage(1,1)
 		. = 1
 	return ..()
@@ -2010,7 +2011,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 	var/minimum_name_percent = 0.35
 	name = ""
-	var/list/names_in_order = sortTim(names, /proc/cmp_numeric_dsc, TRUE)
+	var/list/names_in_order = sortTim(names, GLOBAL_PROC_REF(cmp_numeric_dsc), TRUE)
 	var/named = FALSE
 	for(var/fruit_name in names)
 		if(names[fruit_name] >= minimum_name_percent)
@@ -2361,7 +2362,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	var/list/trauma_list
 
 /datum/reagent/consumable/ethanol/fourthwall/proc/traumaweightpick(var/mild,var/severe,var/special)
-	return pick(pickweight(list(subtypesof(/datum/brain_trauma/mild) = mild, subtypesof(/datum/brain_trauma/severe) - /datum/brain_trauma/severe/split_personality - /datum/brain_trauma/severe/hypnotic_stupor = severe, subtypesof(/datum/brain_trauma/special) - /datum/brain_trauma/special/imaginary_friend = special)))
+	return pick(pick_weight(list(subtypesof(/datum/brain_trauma/mild) = mild, subtypesof(/datum/brain_trauma/severe) - /datum/brain_trauma/severe/split_personality - /datum/brain_trauma/severe/hypnotic_stupor = severe, subtypesof(/datum/brain_trauma/special) - /datum/brain_trauma/special/imaginary_friend = special)))
 
 /datum/reagent/consumable/ethanol/fourthwall/on_mob_metabolize(mob/living/carbon/M)
 	trauma_list = list()

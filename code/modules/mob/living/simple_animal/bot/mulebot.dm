@@ -50,17 +50,22 @@
 	var/auto_return = TRUE		/// true if auto return to home beacon after unload
 	var/auto_pickup = TRUE 	/// true if auto-pickup at beacon
 	var/report_delivery = TRUE /// true if bot will announce an arrival to a location.
+	var/turf/last_target
+	var/mulebot_z_mode
 
 	var/obj/item/stock_parts/cell/cell /// Internal Powercell
 	var/bloodiness = 0 ///If we've run over a mob, how many tiles will we leave tracks on while moving
 	var/num_steps = 0 ///The amount of steps we should take until we rest for a time.
+	var/network_id = NETWORK_BOTS_CARGO
 
 /mob/living/simple_animal/bot/mulebot/Initialize(mapload)
 	. = ..()
 	wires = new /datum/wires/mulebot(src)
-	var/datum/job/cargo_tech/J = new/datum/job/cargo_tech
+
+	var/datum/job/J = SSjob.GetJob(JOB_NAME_CARGOTECHNICIAN)
 	access_card.access = J.get_access()
-	prev_access = access_card.access
+	prev_access = access_card.access.Copy()
+
 	cell = new /obj/item/stock_parts/cell/upgraded(src, 2000)
 
 	var/static/mulebot_count = 0
@@ -74,10 +79,8 @@
 	D.set_vehicle_dir_layer(NORTH, layer)
 	D.set_vehicle_dir_layer(EAST, layer)
 	D.set_vehicle_dir_layer(WEST, layer)
-
-/mob/living/simple_animal/bot/mulebot/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/ntnet_interface)
+	if(network_id)
+		AddComponent(/datum/component/ntnet_interface, network_id)
 
 /mob/living/simple_animal/bot/mulebot/handle_atom_del(atom/A)
 	if(A == load)
@@ -126,12 +129,13 @@
 	id = new_id
 	if(paicard)
 		bot_name = "\improper MULEbot ([new_id])"
-	else
+	else if(name == "\improper MULEbot")
 		name = "\improper MULEbot ([new_id])"
 
 /mob/living/simple_animal/bot/mulebot/bot_reset()
 	..()
 	reached_target = FALSE
+	new_destination = null
 
 /mob/living/simple_animal/bot/mulebot/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
@@ -174,7 +178,7 @@
 	else
 		return ..()
 
-/mob/living/simple_animal/bot/mulebot/emag_act(mob/user)
+/mob/living/simple_animal/bot/mulebot/on_emag(atom/target, mob/user)
 	if(!emagged)
 		emagged = TRUE
 	if(!open)
@@ -184,6 +188,7 @@
 	playsound(src, "sparks", 100, FALSE)
 
 /mob/living/simple_animal/bot/mulebot/update_icon_state() //if you change the icon_state names, please make sure to update /datum/wires/mulebot/on_pulse() as well. <3
+	.=..()
 	icon_state = "[base_icon][on ? wires.is_cut(WIRE_AVOIDANCE) : 0]"
 
 /mob/living/simple_animal/bot/mulebot/update_overlays()
@@ -555,6 +560,10 @@
 
 		if(BOT_DELIVER, BOT_GO_HOME, BOT_BLOCKED) // navigating to deliver,home, or blocked
 			if(loc == target) // reached target
+				if(last_target != null)
+					if(z != last_target.z)
+						mulebot_z_movement()
+						return
 				at_target()
 				return
 
@@ -589,7 +598,7 @@
 							buzz(SIGH)
 							mode = BOT_WAIT_FOR_NAV
 							blockcount = 0
-							addtimer(CALLBACK(src, .proc/process_blocked, next), 2 SECONDS)
+							addtimer(CALLBACK(src, PROC_REF(process_blocked), next), 2 SECONDS)
 							return
 						return
 				else
@@ -602,7 +611,7 @@
 
 		if(BOT_NAV)	// calculate new path
 			mode = BOT_WAIT_FOR_NAV
-			INVOKE_ASYNC(src, .proc/process_nav)
+			INVOKE_ASYNC(src, PROC_REF(process_nav))
 
 /mob/living/simple_animal/bot/mulebot/proc/process_blocked(turf/next)
 	calc_path(avoid=next)
@@ -626,7 +635,41 @@
 // calculates a path to the current destination
 // given an optional turf to avoid
 /mob/living/simple_animal/bot/mulebot/calc_path(turf/avoid = null)
+	if(!is_reserved_level(z) && is_station_level(z))
+		if(target != null)
+			if(z > target.z)
+				mule_up_or_down(DOWN)
+				return
+			if(z < target.z)
+				mule_up_or_down(UP)
+				return
 	path = get_path_to(src, target, 250, id=access_card, exclude=avoid)
+
+/mob/living/simple_animal/bot/mulebot/proc/mule_up_or_down(direction)
+	if(!is_reserved_level(z) && is_station_level(z))
+		var/new_target = find_nearest_bot_elevator(direction)
+
+		var/go_here
+		mulebot_z_mode = MULEBOT_Z_MODE_ACTIVE
+		if(!new_target)
+			return
+		go_here = get_turf(new_target)
+		last_target = target
+		target = go_here
+		path = get_path_to(src, target, 250, id=access_card)
+
+/mob/living/simple_animal/bot/mulebot/proc/mulebot_z_movement()
+	var/obj/structure/bot_elevator/E = locate(/obj/structure/bot_elevator) in get_turf(src)
+	if(mulebot_z_mode == MULEBOT_Z_MODE_ACTIVE)
+		if(E)
+			if(z > last_target.z)
+				E.travel(FALSE, src, FALSE, E.down, FALSE)
+				target = last_target
+				calc_path()
+			else
+				E.travel(TRUE, src, FALSE, E.up, FALSE)
+				target = last_target
+				calc_path()
 
 // sets the current destination
 // signals all beacons matching the delivery code
@@ -650,7 +693,7 @@
 /mob/living/simple_animal/bot/mulebot/proc/start_home()
 	if(!on)
 		return
-	INVOKE_ASYNC(src, .proc/do_start_home)
+	INVOKE_ASYNC(src, PROC_REF(do_start_home))
 
 /mob/living/simple_animal/bot/mulebot/proc/do_start_home()
 	set_destination(home_destination)
@@ -721,12 +764,12 @@
 	playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
 
 	var/damage = rand(5,15)
-	H.apply_damage(2*damage, BRUTE, BODY_ZONE_HEAD, run_armor_check(BODY_ZONE_HEAD, "melee"))
-	H.apply_damage(2*damage, BRUTE, BODY_ZONE_CHEST, run_armor_check(BODY_ZONE_CHEST, "melee"))
-	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_L_LEG, run_armor_check(BODY_ZONE_L_LEG, "melee"))
-	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_R_LEG, run_armor_check(BODY_ZONE_R_LEG, "melee"))
-	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_L_ARM, run_armor_check(BODY_ZONE_L_ARM, "melee"))
-	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_R_ARM, run_armor_check(BODY_ZONE_R_ARM, "melee"))
+	H.apply_damage(2*damage, BRUTE, BODY_ZONE_HEAD, run_armor_check(BODY_ZONE_HEAD, MELEE))
+	H.apply_damage(2*damage, BRUTE, BODY_ZONE_CHEST, run_armor_check(BODY_ZONE_CHEST, MELEE))
+	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_L_LEG, run_armor_check(BODY_ZONE_L_LEG, MELEE))
+	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_R_LEG, run_armor_check(BODY_ZONE_R_LEG, MELEE))
+	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_L_ARM, run_armor_check(BODY_ZONE_L_ARM, MELEE))
+	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_R_ARM, run_armor_check(BODY_ZONE_R_ARM, MELEE))
 
 	var/turf/T = get_turf(src)
 	T.add_mob_blood(H)

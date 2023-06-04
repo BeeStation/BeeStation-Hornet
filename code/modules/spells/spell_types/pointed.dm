@@ -6,7 +6,7 @@
 	/// Message showing to the spell owner upon activating pointed spell.
 	var/active_msg = "You prepare to use the spell on a target..."
 	/// Default icon for the pointed spell, used for active/inactive states switching.
-	var/base_icon_state = "projectile"
+	base_icon_state = "projectile"
 
 /obj/effect/proc_holder/spell/pointed/Click()
 	var/mob/living/user = usr

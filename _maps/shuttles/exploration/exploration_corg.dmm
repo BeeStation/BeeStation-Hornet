@@ -185,7 +185,7 @@
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/exploration)
 "iG" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "iT" = (
@@ -194,7 +194,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "jt" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
@@ -252,7 +252,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "kO" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -270,7 +270,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "lY" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "mb" = (
@@ -347,7 +347,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "nY" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -563,7 +563,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Af" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/machinery/light,
@@ -738,7 +738,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "LR" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue,
@@ -780,8 +780,7 @@
 	dir = 8
 	},
 /obj/machinery/power/apc/auto_name/east{
-	locked = 0;
-	pixel_x = 24
+	locked = 0
 	},
 /obj/structure/cable/yellow,
 /turf/open/floor/mineral/titanium,
@@ -862,7 +861,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Up" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},

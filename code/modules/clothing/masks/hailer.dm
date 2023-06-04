@@ -8,10 +8,10 @@
 	icon_state = "sechailer"
 	item_state = "sechailer"
 	clothing_flags = BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS
-	flags_inv = HIDEFACIALHAIR|HIDEFACE
+	flags_inv = HIDEFACIALHAIR | HIDEFACE | HIDESNOUT
 	w_class = WEIGHT_CLASS_SMALL
 	visor_flags = BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS
-	visor_flags_inv = HIDEFACE
+	visor_flags_inv = HIDEFACE | HIDESNOUT
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	visor_flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	var/aggressiveness = 2
@@ -20,6 +20,10 @@
 	var/broken_hailer = 0
 	var/safety = TRUE
 
+/obj/item/clothing/mask/gas/sechailer/spacepol
+	name = "spacepol mask"
+	desc = "A standard issue gas mask with integrated 'Compli-o-nator 3000' device, created in cooperation with a certain megacorporation. Plays over a dozen pre-recorded compliance phrases designed to get scumbags to stand still whilst you tase them. Do not tamper with the device."
+
 /obj/item/clothing/mask/gas/sechailer/swat
 	name = "\improper SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000."
@@ -27,9 +31,9 @@
 	icon_state = "swat"
 	item_state = "swat"
 	aggressiveness = 3
-	flags_inv = HIDEFACIALHAIR|HIDEFACE|HIDEEYES|HIDEEARS|HIDEHAIR
+	flags_inv = HIDEFACIALHAIR | HIDEFACE | HIDEEYES | HIDEEARS | HIDEHAIR | HIDESNOUT
 	visor_flags_inv = 0
-	armor = list("melee" = 10, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 50, "rad" = 0, "fire" = 20, "acid" = 40, "stamina" = 30)
+	armor = list(MELEE = 10,  BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 50, RAD = 0, FIRE = 20, ACID = 40, STAMINA = 30)
 
 /obj/item/clothing/mask/gas/sechailer/swat/spacepol
 	name = "spacepol mask"
@@ -76,12 +80,14 @@
 
 /obj/item/clothing/mask/gas/sechailer/attack_self()
 	halt()
-/obj/item/clothing/mask/gas/sechailer/emag_act(mob/user as mob)
-	if(safety)
-		safety = FALSE
-		to_chat(user, "<span class='warning'>You silently fry [src]'s vocal circuit with the cryptographic sequencer.</span>")
-	else
-		return
+
+/obj/item/clothing/mask/gas/sechailer/should_emag(mob/user)
+	return safety && ..()
+
+/obj/item/clothing/mask/gas/sechailer/on_emag(mob/user)
+	..()
+	safety = FALSE
+	to_chat(user, "<span class='warning'>You silently fry [src]'s vocal circuit with the cryptographic sequencer.</span>")
 
 /obj/item/clothing/mask/gas/sechailer/verb/halt()
 	set category = "Object"

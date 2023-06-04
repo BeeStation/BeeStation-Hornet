@@ -3,15 +3,17 @@
 /datum/computer_file/program/power_monitor
 	filename = "powermonitor"
 	filedesc = "Power Monitor"
+	category = PROGRAM_CATEGORY_ENGI
 	program_icon_state = "power_monitor"
 	extended_desc = "This program connects to sensors around the station to provide information about electrical systems"
 	ui_header = "power_norm.gif"
-	transfer_access = ACCESS_ENGINE
+	transfer_access = list(ACCESS_ENGINE)
 	usage_flags = PROGRAM_CONSOLE
 	requires_ntnet = 0
 	network_destination = "power monitoring system"
 	size = 9
 	tgui_id = "NtosPowerMonitor"
+	program_icon = "plug"
 
 
 
@@ -24,8 +26,10 @@
 	var/next_record = 0
 
 
-/datum/computer_file/program/power_monitor/run_program(mob/living/user)
+/datum/computer_file/program/power_monitor/on_start(mob/living/user)
 	. = ..(user)
+	if(!.)
+		return
 	search()
 	history["supply"] = list()
 	history["demand"] = list()
@@ -76,13 +80,13 @@
 
 /datum/computer_file/program/power_monitor/ui_data()
 	var/datum/powernet/connected_powernet = get_powernet()
-	var/list/data = get_header_data()
+	var/list/data = list()
 	data["stored"] = record_size
 	data["interval"] = record_interval / 10
 	data["attached"] = connected_powernet ? TRUE : FALSE
 	if(connected_powernet)
-		data["supply"] = DisplayPower(connected_powernet.viewavail)
-		data["demand"] = DisplayPower(connected_powernet.viewload)
+		data["supply"] = display_power(connected_powernet.viewavail)
+		data["demand"] = display_power(connected_powernet.viewload)
 	data["history"] = history
 
 	data["areas"] = list()
@@ -93,7 +97,7 @@
 				data["areas"] += list(list(
 					"name" = A.area.name,
 					"charge" = A.integration_cog ? 100 : A.cell ? A.cell.percent() : 0,
-					"load" = DisplayPower(A.lastused_total),
+					"load" = display_power(A.lastused_total),
 					"charging" = A.integration_cog ? 2 : A.charging,
 					"eqp" = A.equipment,
 					"lgt" = A.lighting,

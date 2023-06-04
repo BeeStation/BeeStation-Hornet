@@ -14,7 +14,7 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 	maxHealth = 30
 	faction = list("neutral", "silicon", "turret", "ratvar")
 	default_storage = /obj/item/storage/belt/utility/servant/drone
-	visualAppearence = CLOCKDRONE
+	visualAppearance = CLOCKDRONE
 	bubble_icon = "clock"
 	picked = TRUE
 	flavortext = "<span class=brass>You are a cogscarab, an intricate machine that has been granted sentient by Rat'var.<br>\
@@ -44,6 +44,11 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 		try_warp_servant(src, T, FALSE)
 	. = ..()
 
+/mob/living/simple_animal/drone/cogscarab/force_hit_projectile(obj/item/projectile/projectile)
+	if(isliving(projectile.fired_from) && is_servant_of_ratvar(projectile.fired_from))
+		return FALSE
+	return TRUE
+
 //====Shell====
 
 /obj/effect/mob_spawn/drone/cogscarab
@@ -69,7 +74,7 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 		to_chat(user, "Can't become a cogscarab before the game has started.")
 		return
 	var/be_drone = alert("Become a cogscarab? (Warning, You can no longer be cloned!)",,"Yes","No")
-	if(be_drone == "No" || QDELETED(src) || !isobserver(user))
+	if(be_drone != "Yes" || QDELETED(src) || !isobserver(user))
 		return
 	var/mob/living/simple_animal/drone/D = new mob_type(get_turf(loc))
 	if(!D.default_hatmask && seasonal_hats && possible_seasonal_hats.len)

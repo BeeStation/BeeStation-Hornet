@@ -14,7 +14,7 @@
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "af" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/bluespace,
@@ -39,7 +39,7 @@
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "aj" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /turf/open/floor/bluespace,
@@ -49,7 +49,7 @@
 /turf/open/floor/bluespace,
 /area/shuttle/escape)
 "al" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/bluespace,
@@ -67,7 +67,7 @@
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "ao" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /obj/structure/extinguisher_cabinet{
@@ -138,11 +138,11 @@
 /turf/open/floor/bluespace,
 /area/shuttle/escape)
 "aC" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /turf/open/floor/mineral/bananium,
 /area/shuttle/escape)
 "aD" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/mineral/bananium,

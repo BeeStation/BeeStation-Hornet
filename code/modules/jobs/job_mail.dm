@@ -13,7 +13,7 @@
 	)
 
 //ATMOSPHERIC TECHNICIAN
-/datum/job/atmos
+/datum/job/atmospheric_technician
 	mail_goodies = list(
 		/obj/item/book/manual/wiki/atmospherics = 12,
 		/obj/item/tank/internals/emergency_oxygen/engi = 10,
@@ -48,7 +48,7 @@
 	)
 
 //BRIG PHYSICIAN
-/datum/job/brig_phys
+/datum/job/brig_physician
 	mail_goodies = list(
 		/obj/item/reagent_containers/hypospray/medipen = 15,
 		/obj/item/reagent_containers/medspray/silver_sulf = 10,
@@ -202,7 +202,7 @@
 	)
 
 //PARAMEDIC
-/datum/job/emt
+/datum/job/paramedic
 	mail_goodies = list(
 		/obj/item/reagent_containers/hypospray/medipen = 20,
 		/obj/item/reagent_containers/medspray/silver_sulf = 10,
@@ -216,7 +216,7 @@
 
 //EXPLORATION CREW
 //Slightly more powerful due to the rarity of them ever actually getting a chance to get their mail.
-/datum/job/exploration
+/datum/job/exploration_crew
 	mail_goodies = list(
 		/obj/item/tank/internals/emergency_oxygen/engi = 20,
 		/obj/item/storage/box/minertracker = 15,
@@ -237,7 +237,7 @@
 	)
 
 //HEAD OF PERSONNEL
-/datum/job/hop
+/datum/job/head_of_personnel
 	mail_goodies = list(
 		/obj/item/card/id/silver = 10,
 		/obj/item/assembly/flash/handheld = 5,
@@ -248,7 +248,7 @@
 	)
 
 //HEAD OF SECURITY
-/datum/job/hos
+/datum/job/head_of_security
 	mail_goodies = list(
 		/obj/effect/spawner/mail/donut = 20,
 		/obj/effect/spawner/mail/rdonut = 15,
@@ -284,22 +284,22 @@
 		/obj/item/toy/cards/deck = 10,
 		/obj/item/clothing/glasses/sunglasses/advanced/big = 5,
 		/obj/item/book/manual/wiki/security_space_law = 5,
-		//Harrassing security has never been this fun
+		//Harassing security has never been this fun
 		/obj/item/megaphone = 3,
 	)
 
 //MAGICIAN GIMMICK
-/datum/job/gimmick/magician
+/datum/job/gimmick/stage_magician
 	mail_goodies = list(
-		//AND FOR MY NEXT TRICK... Bnnuy
-		/mob/living/simple_animal/chicken/rabbit/normal = 40,
+		//AND FOR MY NEXT TRICK... Bunny
+		/obj/item/clothing/head/mob_holder/rabbit = 40,
 		/obj/item/gun/magic/wand = 10,
 		/obj/item/clothing/head/collectable/tophat = 10,
 		/obj/item/clothing/head/bowler = 5,
 	)
 
 //MEDICAL DOCTOR
-/datum/job/doctor
+/datum/job/medical_doctor
 	mail_goodies = list(
 		/obj/item/healthanalyzer/advanced = 10,
 		/obj/item/storage/pill_bottle/epinephrine = 8,
@@ -312,7 +312,7 @@
 //MIME
 /datum/job/mime
 	mail_goodies = list(
-		/obj/item/reagent_containers/food/snacks/baguette/mime = 15,
+		/obj/item/food/baguette/mime = 15,
 		/obj/item/reagent_containers/food/snacks/store/cheesewheel = 10,
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing = 10,
 		/obj/item/book/mimery = 2,
@@ -320,8 +320,8 @@
 		/obj/item/book/granter/spell/mimery_blockade = 1,
 	)
 
-//PSYCHOLOGIST / SHRINK GIMMICK
-/datum/job/gimmick/shrink
+//PSYCHOLOGIST / PSYCHIATRIST GIMMICK
+/datum/job/gimmick/psychiatrist
 	mail_goodies =  list(
 		/obj/item/storage/pill_bottle/mannitol = 30,
 		/obj/item/storage/pill_bottle/happy = 5,
@@ -329,7 +329,7 @@
 	)
 
 //QUARTERMASTER
-/datum/job/qm
+/datum/job/quartermaster
 	mail_goodies = list(
 		/obj/item/reagent_containers/food/snacks/donkpocket/random = 10,
 		//the beginning of your department's independence
@@ -375,7 +375,7 @@
 	)
 
 //SECURITY OFFICER
-/datum/job/officer
+/datum/job/security_officer
 	mail_goodies = list(
 		/obj/item/reagent_containers/food/snacks/donut/plain = 15,
 		/obj/effect/spawner/mail/donut = 10,
@@ -387,7 +387,7 @@
 	)
 
 //SHAFT MINER
-/datum/job/mining
+/datum/job/shaft_miner
 	mail_goodies = list(
 		/obj/item/reagent_containers/hypospray/medipen/survival = 10,
 		/obj/item/tank/internals/emergency_oxygen/double = 7,
@@ -398,7 +398,7 @@
 	)
 
 //ENGINEER
-/datum/job/engineer
+/datum/job/station_engineer
 	mail_goodies = list(
 		/obj/item/storage/box/lights/mixed = 15,
 		/obj/item/reagent_containers/food/drinks/soda_cans/thirteenloko = 15,
@@ -424,8 +424,8 @@
 
 	)
 
-//VIP / CELEBRITY GIMMICK
-/datum/job/gimmick/celebrity
+//VIP / VIP GIMMICK
+/datum/job/gimmick/vip
 	mail_goodies = list(
 		//WOW THE NEW BEATS BY DR.MOFF?
 		/obj/item/clothing/ears/headphones = 10,

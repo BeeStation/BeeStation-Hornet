@@ -26,7 +26,7 @@
 #define DOCTOR			(1<<5)
 #define GENETICIST		(1<<6)
 #define VIROLOGIST		(1<<7)
-#define EMT				(1<<8)
+#define PARAMEDIC		(1<<8)
 
 
 #define CIVILIAN		(1<<2)
@@ -48,7 +48,7 @@
 #define GIMMICK 		(1<<14)
 #define BARBER		    (1<<15)
 #define MAGICIAN        (1<<16)
-#define SHRINK          (1<<17)
+#define PSYCHIATRIST    (1<<17)
 #define CELEBRITY       (1<<18)
 
 #define JOB_AVAILABLE 0
@@ -99,17 +99,112 @@
 #define JOB_DISPLAY_ORDER_AI 34
 #define JOB_DISPLAY_ORDER_CYBORG 35
 
-#define DEPARTMENT_SECURITY (1<<0)
-#define DEPARTMENT_COMMAND (1<<1)
-#define DEPARTMENT_SERVICE (1<<2)
-#define DEPARTMENT_CARGO (1<<3)
-#define DEPARTMENT_ENGINEERING (1<<4)
-#define DEPARTMENT_SCIENCE (1<<5)
-#define DEPARTMENT_MEDICAL (1<<6)
-#define DEPARTMENT_SILICON (1<<7)
+
+#define DEPT_BITFLAG_COM (1<<0)
+#define DEPT_BITFLAG_CIV (1<<1)
+#define DEPT_BITFLAG_SRV (1<<2)
+#define DEPT_BITFLAG_CAR (1<<3)
+#define DEPT_BITFLAG_SCI (1<<4)
+#define DEPT_BITFLAG_ENG (1<<5)
+#define DEPT_BITFLAG_MED (1<<6)
+#define DEPT_BITFLAG_SEC (1<<7)
+#define DEPT_BITFLAG_VIP (1<<8)
+#define DEPT_BITFLAG_SILICON  (1<<9)
+// should check the ones in `\_DEFINES\economy.dm`
+// It's true that bitflags shouldn't be separated in two DEFINES if these are same, but just in case the system can be devided, it's remained separated.
+
+//-------------------------------------------------------------------------------------------
+//------------------------------------- Job names -------------------------------------------
+//-------------------------------------------------------------------------------------------
+// Command
+#define JOB_NAME_CAPTAIN "Captain"
+
+// Service
+#define JOB_NAME_HEADOFPERSONNEL "Head of Personnel"
+#define JOB_NAME_ASSISTANT  "Assistant"
+#define JOB_NAME_BARTENDER  "Bartender"
+#define JOB_NAME_BOTANIST   "Botanist"
+#define JOB_NAME_COOK     "Cook"
+#define JOB_NAME_JANITOR  "Janitor"
+#define JOB_NAME_CURATOR  "Curator"
+#define JOB_NAME_LAWYER   "Lawyer"
+#define JOB_NAME_CHAPLAIN "Chaplain"
+#define JOB_NAME_MIME   "Mime"
+#define JOB_NAME_CLOWN  "Clown"
+#define JOB_NAME_STAGEMAGICIAN "Stage Magician" // gimmick
+#define JOB_NAME_BARBER "Barber" // gimmick
+#define JOB_NAME_VIP    "VIP" // gimmick
+
+// Cargo
+#define JOB_NAME_QUARTERMASTER   "Quartermaster"
+#define JOB_NAME_CARGOTECHNICIAN "Cargo Technician"
+#define JOB_NAME_SHAFTMINER      "Shaft Miner"
+
+// R&D
+#define JOB_NAME_RESEARCHDIRECTOR "Research Director"
+#define JOB_NAME_SCIENTIST  "Scientist"
+#define JOB_NAME_ROBOTICIST "Roboticist"
+#define JOB_NAME_EXPLORATIONCREW "Exploration Crew"
+
+// Engineering
+#define JOB_NAME_CHIEFENGINEER   "Chief Engineer"
+#define JOB_NAME_STATIONENGINEER "Station Engineer"
+#define JOB_NAME_ATMOSPHERICTECHNICIAN "Atmospheric Technician"
+
+// Medical
+#define JOB_NAME_CHIEFMEDICALOFFICER "Chief Medical Officer"
+#define JOB_NAME_MEDICALDOCTOR "Medical Doctor"
+#define JOB_NAME_PARAMEDIC  "Paramedic"
+#define JOB_NAME_CHEMIST    "Chemist"
+#define JOB_NAME_VIROLOGIST "Virologist"
+#define JOB_NAME_GENETICIST "Geneticist"
+#define JOB_NAME_BRIGPHYSICIAN "Brig Physician"
+#define JOB_NAME_PSYCHIATRIST  "Psychiatrist" // gimmick
+
+// Security
+#define JOB_NAME_HEADOFSECURITY "Head of Security"
+#define JOB_NAME_WARDEN "Warden"
+#define JOB_NAME_SECURITYOFFICER "Security Officer"
+#define JOB_NAME_DETECTIVE "Detective"
+#define JOB_NAME_DEPUTY  "Deputy"
+
+// Silicon
+#define JOB_NAME_AI     "AI"
+#define JOB_NAME_CYBORG "Cyborg"
+#define JOB_NAME_PAI    "Personal AI"
+
+// ERTs
+#define JOB_ERT_DEATHSQUAD      "Death Commando"
+#define JOB_ERT_COMMANDER       "Emergency Response Team Commander"
+#define JOB_ERT_OFFICER         "Security Response Officer"
+#define JOB_ERT_ENGINEER        "Engineering Response Officer"
+#define JOB_ERT_MEDICAL_DOCTOR  "Medical Response Officer"
+#define JOB_ERT_CHAPLAIN        "Religious Response Officer"
+#define JOB_ERT_JANITOR         "Janitorial Response Officer"
+
+// CentCom
+#define JOB_CENTCOM_CENTRAL_COMMAND "Central Command"
+#define JOB_CENTCOM_OFFICIAL  "CentCom Official"
+#define JOB_CENTCOM_ADMIRAL   "Admiral"
+#define JOB_CENTCOM_COMMANDER "CentCom Commander"
+#define JOB_CENTCOM_VIP       "VIP Guest"
+#define JOB_CENTCOM_BARTENDER "CentCom Bartender"
+#define JOB_CENTCOM_CUSTODIAN "Custodian"
+#define JOB_CENTCOM_THUNDERDOME_OVERSEER "Thunderdome Overseer"
+#define JOB_CENTCOM_MEDICAL_DOCTOR   "Medical Officer"
+#define JOB_CENTCOM_RESEARCH_OFFICER "Research Officer"
+
+// Misc & Off-Station
+#define JOB_NAME_GIMMICK "Gimmick" // gimmick
+#define JOB_NAME_KING    "King"
+#define JOB_NAME_PRISONER "Prisoner"
+#define JOB_SPACE_POLICE "Space Police"
 
 
 
+//-------------------------------------------------------------------------------------------
+//---------------------------------------- HUD ----------------------------------------------
+//-------------------------------------------------------------------------------------------
 ////////// Job names based on hud icon names
 // Command
 #define JOB_HUD_RAWCOMMAND "rawcommand"
@@ -121,13 +216,13 @@
 #define JOB_HUD_HEADOFPERSONNEL "headofpersonnel"
 #define JOB_HUD_ASSISTANT "assistant"
 #define JOB_HUD_BARTENDER "bartender"
-#define JOB_HUD_COOK "cook"
+#define JOB_HUD_COOK     "cook"
 #define JOB_HUD_BOTANIST "botanist"
 #define JOB_HUD_CHAPLAIN "chaplain"
-#define JOB_HUD_CURATOR "curator"
-#define JOB_HUD_JANITOR "janitor"
-#define JOB_HUD_LAWYER "lawyer"
-#define JOB_HUD_MIME "mime"
+#define JOB_HUD_CURATOR  "curator"
+#define JOB_HUD_JANITOR  "janitor"
+#define JOB_HUD_LAWYER   "lawyer"
+#define JOB_HUD_MIME  "mime"
 #define JOB_HUD_CLOWN "clown"
 #define JOB_HUD_STAGEMAGICIAN "stagemagician"
 #define JOB_HUD_BARBER "barber"
@@ -181,11 +276,12 @@
 #define JOB_HUD_SYNDICATE "syndicate"
 #define JOB_HUD_PRISONER "prisoner"
 #define JOB_HUD_UNKNOWN "unknown"
+#define JOB_HUD_PAPER "paper"
 
 
 //////////// Color defines
 // Command
-#define JOB_CHATCOLOR_RAWCOMMAND    "#FFECCA" // custom command color
+#define JOB_CHATCOLOR_RAWCOMMAND    "#AFB4D3" // custom command color
 #define JOB_CHATCOLOR_CAPTAIN       "#FFDC9B"
 #define JOB_CHATCOLOR_ACTINGCAPTAIN "#FFDC9B"
 

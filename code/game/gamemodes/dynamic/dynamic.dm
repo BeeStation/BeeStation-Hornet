@@ -41,6 +41,8 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 
 	/// Running information about the threat. Can store text or datum entries.
 	var/list/threat_log = list()
+	/// Threat log shown on the roundend report. Should only list player-made edits.
+	var/list/roundend_threat_log = list()
 	/// List of latejoin rules used for selecting the rules.
 	var/list/latejoin_rules
 	/// List of midround rules used for selecting the rules.
@@ -68,8 +70,6 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	var/datum/dynamic_ruleset/latejoin/forced_latejoin_rule = null
 	/// How many percent of the rounds are more peaceful.
 	var/peaceful_percentage = 50
-	/// If a high impact ruleset was executed. Only one will run at a time in most circumstances.
-	var/high_impact_ruleset_executed = FALSE
 	/// If a only ruleset has been executed.
 	var/only_ruleset_executed = FALSE
 	/// Dynamic configuration, loaded on pre_setup
@@ -86,26 +86,29 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	/// The maximum time the recurring latejoin ruleset timer is allowed to be.
 	var/latejoin_delay_max = (25 MINUTES)
 
-	/// When world.time is over this number the mode tries to inject a midround ruleset.
-	var/midround_injection_cooldown = 0
+	/// The low bound for the midround roll time splits.
+	/// This number influences where to place midround rolls, making this smaller
+	/// will make midround rolls more frequent, and vice versa.
+	/// A midround will never be able to roll before this.
+	var/midround_lower_bound = 10 MINUTES
 
-	/// The minimum time the recurring midround ruleset timer is allowed to be.
-	var/midround_delay_min = (15 MINUTES)
+	/// The upper bound for the midround roll time splits.
+	/// This number influences where to place midround rolls, making this larger
+	/// will make midround rolls less frequent, and vice versa.
+	/// A midround will never be able to roll farther than this.
+	var/midround_upper_bound = 100 MINUTES
 
-	/// The maximum time the recurring midround ruleset timer is allowed to be.
-	var/midround_delay_max = (35 MINUTES)
+	/// The distance between the chosen midround roll point (which is deterministic),
+	/// and when it can actually roll.
+	/// Basically, if this is set to 5 minutes, and a midround roll point is decided to be at 20 minutes,
+	/// then it can roll anywhere between 15 and 25 minutes.
+	var/midround_roll_distance = 3 MINUTES
 
-	/// If above this threat, increase the chance of injection
-	var/higher_injection_chance_minimum_threat = 70
-
-	/// The chance of injection increase when above higher_injection_chance_minimum_threat
-	var/higher_injection_chance = 15
-
-	/// If below this threat, decrease the chance of injection
-	var/lower_injection_chance_minimum_threat = 10
-
-	/// The chance of injection decrease when above lower_injection_chance_minimum_threat
-	var/lower_injection_chance = 15
+	/// The amount of threat per midround roll.
+	/// Basically, if this is set to 5, then for every 5 threat, one midround roll will be added.
+	/// The equation this is used in rounds up, meaning that if this is set to 5, and you have 6
+	/// threat, then you will get 2 midround rolls.
+	var/threat_per_midround_roll = 7
 
 	/// A number between -5 and +5.
 	/// A negative value will give a more peaceful round and
@@ -116,6 +119,12 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	/// Higher value will favour extreme rounds and
 	/// lower value rounds closer to the average.
 	var/threat_curve_width = 1.8
+
+	/// Population at which the threat curve center starts getting reduced by 'threat_curve_lowop_coeff' for every X players under the threshold.
+	var/threat_curve_centre_lowpop_reduction_threshold = 30
+
+	/// The amount the threat curve centre is reduced for every player under 'threat_curve_centre_lowpop_reduction_threshold'
+	var/threat_curve_centre_lowpop_reduction_coeff = 1
 
 	/// A number between -5 and +5.
 	/// Equivalent to threat_curve_centre, but for the budget split.
@@ -135,14 +144,51 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	/// The maximum amount of time for antag random events to be hijacked.
 	var/random_event_hijack_maximum = 18 MINUTES
 
+	/// Maximum amount of threat allowed to generate.
+	var/max_threat_level = 100
+
+	/// The extra chance multiplier that a heavy impact midround ruleset will run next time.
+	/// For example, if this is set to 50, then the next heavy roll will be about 50% more likely to happen.
+	var/hijacked_random_event_injection_chance_modifier = 50
+
+	/// Any midround before this point is guaranteed to be light
+	var/midround_light_upper_bound = 25 MINUTES
+
+	/// Any midround after this point is guaranteed to be heavy
+	var/midround_heavy_lower_bound = 55 MINUTES
+
+	/// If there are less than this many players readied, threat level will be lowered.
+	/// This number should be kept fairly low, as there are other measures that population
+	/// impacts Dynamic, such as the requirements variable on rulesets.
+	var/low_pop_player_threshold = 20
+
+	/// The maximum threat that can roll with *zero* players.
+	/// As the number of players approaches `low_pop_player_threshold`, the maximum
+	/// threat level will increase.
+	/// For example, if `low_pop_maximum_threat` is 50, `low_pop_player_threshold` is 20,
+	/// and the number of readied players is 10, then the highest threat that can roll is
+	/// lerp(50, 100, 10 / 20), AKA 75.
+	var/low_pop_maximum_threat = 40
+
+	/// The chance for latejoins to roll when ready
+	var/latejoin_roll_chance = 50
+
+	/// The maximum percentage of (living antags / living players) can be before midround traitors, heretics, and all latejoins stop injecting while under "traitor_percentage_population_threshold" population.
+	var/lowpop_max_traitor_percentage = 15
+
+	/// The population size where dynamic stops caring about antag percents during injections. This is usually because on higher pop it isn't forced to spawn a bunch of sleeper agents.
+	var/traitor_percentage_population_threshold = 30
+
+	/// The minimum amount of station integrity needed for a dead threat injection
+	var/minimum_station_integrity = 0.85
+
+	// == EVERYTHING BELOW THIS POINT SHOULD NOT BE CONFIGURED ==
+
 	/// A list of recorded "snapshots" of the round, stored in the dynamic.json log
 	var/list/datum/dynamic_snapshot/snapshots
 
 	/// The time when the last midround injection was attempted, whether or not it was successful
 	var/last_midround_injection_attempt = 0
-
-	/// The amount to inject when a round event is hijacked
-	var/hijacked_random_event_injection_chance = 50
 
 	/// Whether or not a random event has been hijacked this midround cycle
 	var/random_event_hijacked = HIJACKED_NOTHING
@@ -154,6 +200,17 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	/// Used for choosing different midround injections.
 	var/list/current_midround_rulesets
 
+	VAR_PRIVATE/next_midround_injection
+
+	/// Contains whether 'dead' ruleset injection will be blocked due to a high impact event occurring.
+	var/high_impact_major_event_occured = FALSE
+
+	/// Cached value of is_station_intact.
+	var/cached_station_intact = TRUE
+
+	/// When the cached station intactness will expire.
+	COOLDOWN_DECLARE(intact_cache_expiry)
+
 /datum/game_mode/dynamic/admin_panel()
 	var/list/dat = list("<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><title>Game Mode Panel</title></head><body><h1><B>Game Mode Panel</B></h1>")
 	dat += "Dynamic Mode <a href='?_src_=vars;[HrefToken()];Vars=[REF(src)]'>\[VV\]</a> <a href='?src=\ref[src];[HrefToken()]'>\[Refresh\]</a><BR>"
@@ -163,6 +220,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	dat += "Midround budget to spend: <b>[mid_round_budget]</b> <a href='?src=\ref[src];[HrefToken()];adjustthreat=1'>\[Adjust\]</A> <a href='?src=\ref[src];[HrefToken()];threatlog=1'>\[View Log\]</a><br/>"
 	dat += "<br/>"
 	dat += "Parameters: centre = [threat_curve_centre] ; width = [threat_curve_width].<br/>"
+	dat += "            reduction_threshold = [threat_curve_centre_lowpop_reduction_threshold] ; reduction_coeff = [threat_curve_centre_lowpop_reduction_coeff].<br/>"
 	dat += "Split parameters: centre = [roundstart_split_curve_centre] ; width = [roundstart_split_curve_width].<br/>"
 	dat += "<i>On average, <b>[peaceful_percentage]</b>% of the rounds are more peaceful.</i><br/>"
 	dat += "Forced extended: <a href='?src=\ref[src];[HrefToken()];forced_extended=1'><b>[GLOB.dynamic_forced_extended ? "On" : "Off"]</b></a><br/>"
@@ -176,50 +234,60 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 			dat += "[DR.ruletype] - <b>[DR.name]</b><br>"
 	else
 		dat += "none.<br>"
-	dat += "<br>Injection Timers: (<b>[get_injection_chance(dry_run = TRUE)]%</b> latejoin chance, <b>[get_midround_injection_chance(dry_run = TRUE)]%</b> midround chance)<BR>"
+	dat += "<br>Injection Timers: (<b>[get_heavy_midround_injection_chance(dry_run = TRUE)]%</b> heavy midround chance)<BR>"
 	dat += "Latejoin: [(latejoin_injection_cooldown-world.time)>60*10 ? "[round((latejoin_injection_cooldown-world.time)/60/10,0.1)] minutes" : "[(latejoin_injection_cooldown-world.time)] seconds"] <a href='?src=\ref[src];[HrefToken()];injectlate=1'>\[Now!\]</a><BR>"
-	dat += "Midround: [(midround_injection_cooldown-world.time)>60*10 ? "[round((midround_injection_cooldown-world.time)/60/10,0.1)] minutes" : "[(midround_injection_cooldown-world.time)] seconds"] <a href='?src=\ref[src];[HrefToken()];injectmid=1'>\[Now!\]</a><BR>"
+
+	var/next_injection = next_midround_injection()
+	if (next_injection == INFINITY)
+		dat += "All midrounds have been exhausted."
+	else
+		dat += "Midround: [DisplayTimeText(next_injection - world.time)] <a href='?src=\ref[src];[HrefToken()];injectmid=1'>\[Now!\]</a><BR>"
+
 	usr << browse(dat.Join(), "window=gamemode_panel;size=500x500")
 
 /datum/game_mode/dynamic/Topic(href, href_list)
 	if (..()) // Sanity, maybe ?
 		return
 	if(!check_rights(R_ADMIN))
-		message_admins("[usr.key] has attempted to override the game mode panel!")
-		log_admin("[key_name(usr)] tried to use the game mode panel without authorization.")
+		message_admins("[key_name(usr)] has attempted to override the game mode panel!")
+		log_admin("[usr.key] tried to use the game mode panel without authorization.")
 		return
 	if (href_list["forced_extended"])
 		GLOB.dynamic_forced_extended = !GLOB.dynamic_forced_extended
 		message_admins("[key_name(usr)] toggled dynamic's Forced Extended setting to [GLOB.dynamic_forced_extended].")
+		dynamic_log("[usr.key] toggled dynamic's Forced Extended setting to [GLOB.dynamic_forced_extended].")
 	else if (href_list["no_stacking"])
 		GLOB.dynamic_no_stacking = !GLOB.dynamic_no_stacking
 		message_admins("[key_name(usr)] toggled dynamic's No Stacking setting to [GLOB.dynamic_no_stacking].")
+		dynamic_log("[usr.key] toggled dynamic's No Stacking setting to [GLOB.dynamic_no_stacking].")
 	else if (href_list["adjustthreat"])
 		var/threatadd = input("Specify how much threat to add (negative to subtract). This can inflate the threat level.", "Adjust Threat", 0) as null|num
 		if(!threatadd)
 			return
 		if(threatadd > 0)
-			create_threat(threatadd)
-			threat_log += "[worldtime2text()]: [key_name(usr)] increased threat by [threatadd] threat."
+			create_threat(threatadd, threat_log, "[worldtime2text()]: increased by [key_name(usr)]")
 		else
-			spend_midround_budget(-threatadd)
-			threat_log += "[worldtime2text()]: [key_name(usr)] decreased threat by [-threatadd] threat."
+			spend_midround_budget(-threatadd, threat_log, "[worldtime2text()]: decreased by [key_name(usr)]")
 		message_admins("[key_name(usr)] adjusted the dynamic threat level by [threatadd] threat.")
+		dynamic_log("[usr.key] adjusted the dynamic threat level by [threatadd] threat.")
 	else if (href_list["injectlate"])
 		latejoin_injection_cooldown = 0
 		forced_injection = TRUE
 		message_admins("[key_name(usr)] forced a latejoin injection.", 1)
+		dynamic_log("[usr.key] forced a latejoin injection.")
 	else if (href_list["injectmid"])
-		midround_injection_cooldown = 0
 		forced_injection = TRUE
 		message_admins("[key_name(usr)] forced a midround injection.", 1)
+		dynamic_log("[usr.key] forced a midround injection.")
+		try_midround_roll()
 	else if (href_list["threatlog"])
 		show_threatlog(usr)
 	else if (href_list["stacking_limit"])
 		GLOB.dynamic_stacking_limit = input(usr,"Change the threat limit at which round-endings rulesets will start to stack.", "Change stacking limit", null) as num
 		message_admins("[key_name(usr)] adjusted dynamic's Stacking Limit setting to [GLOB.dynamic_stacking_limit].")
+		dynamic_log("[usr.key] adjusted dynamic's Stacking Limit setting to [GLOB.dynamic_stacking_limit].")
 	else if(href_list["force_latejoin_rule"])
-		var/added_rule = input(usr,"What ruleset do you want to force upon the next latejoiner? This will bypass threat level and population restrictions.", "Rigging Latejoin", null) as null|anything in sortNames(init_rulesets(/datum/dynamic_ruleset/latejoin))
+		var/added_rule = input(usr,"What ruleset do you want to force upon the next latejoiner? This will bypass threat level and population restrictions.", "Rigging Latejoin", null) as null|anything in sort_names(init_rulesets(/datum/dynamic_ruleset/latejoin))
 		if (!added_rule)
 			return
 		forced_latejoin_rule = added_rule
@@ -228,7 +296,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		forced_latejoin_rule = null
 		dynamic_log("[key_name(usr)] cleared the forced latejoin ruleset.")
 	else if(href_list["force_midround_rule"])
-		var/added_rule = input(usr,"What ruleset do you want to force right now? This will bypass threat level and population restrictions.", "Execute Ruleset", null) as null|anything in sortNames(init_rulesets(/datum/dynamic_ruleset/midround))
+		var/added_rule = input(usr,"What ruleset do you want to force right now? This will bypass threat level and population restrictions.", "Execute Ruleset", null) as null|anything in sort_names(init_rulesets(/datum/dynamic_ruleset/midround))
 		if (!added_rule)
 			return
 		dynamic_log("[key_name(usr)] executed the [added_rule] ruleset.")
@@ -242,11 +310,11 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 
 	admin_panel() // Refreshes the window
 
-// Checks if there are HIGH_IMPACT_RULESETs and calls the rule's round_result() proc
+// Checks if there are any high-impact rulesets and calls the rule's round_result() proc
 /datum/game_mode/dynamic/set_round_result()
 	// If it got to this part, just pick one high impact ruleset if it exists
 	for(var/datum/dynamic_ruleset/rule in executed_rules)
-		if(rule.flags & HIGH_IMPACT_RULESET)
+		if(CHECK_BITFIELD(rule.flags, HIGH_IMPACT_RULESET))
 			return rule.round_result()
 	return ..()
 
@@ -322,8 +390,17 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 
 /// Generates the threat level using lorentz distribution and assigns peaceful_percentage.
 /datum/game_mode/dynamic/proc/generate_threat()
+	var/pop_diff = threat_curve_centre_lowpop_reduction_threshold - roundstart_pop_ready
+	if(pop_diff > 0)
+		var/reduction_threat = threat_curve_centre_lowpop_reduction_coeff * pop_diff
+		// lorentz runs from -5 to 5, not 0 to 100 like threat, so if 100 = 10 (since it's offset by 5, add 5 to the maximum, to get 10), then 10 / 100 = 0.1
+		threat_curve_centre -= reduction_threat * 0.1
+		log_game("DYNAMIC: Lowered threat curve centre by [reduction_threat] threat, scaled to [roundstart_pop_ready] population, threshold [threat_curve_centre_lowpop_reduction_threshold] ([pop_diff] players below)")
 	var/relative_threat = LORENTZ_DISTRIBUTION(threat_curve_centre, threat_curve_width)
-	threat_level = round(lorentz_to_amount(relative_threat), 0.1)
+	threat_level = clamp(round(lorentz_to_amount(relative_threat), 0.1), 0, max_threat_level)
+
+	if (roundstart_pop_ready < low_pop_player_threshold)
+		threat_level = min(threat_level, LERP(low_pop_maximum_threat, max_threat_level, roundstart_pop_ready / low_pop_player_threshold))
 
 	peaceful_percentage = round(LORENTZ_CUMULATIVE_DISTRIBUTION(relative_threat, threat_curve_centre, threat_curve_width), 0.01)*100
 
@@ -354,9 +431,6 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	var/latejoin_injection_cooldown_middle = 0.5*(latejoin_delay_max + latejoin_delay_min)
 	latejoin_injection_cooldown = round(clamp(EXP_DISTRIBUTION(latejoin_injection_cooldown_middle), latejoin_delay_min, latejoin_delay_max)) + world.time
 
-	var/midround_injection_cooldown_middle = 0.5*(midround_delay_max + midround_delay_min)
-	midround_injection_cooldown = round(clamp(EXP_DISTRIBUTION(midround_injection_cooldown_middle), midround_delay_min, midround_delay_max)) + world.time
-
 /datum/game_mode/dynamic/pre_setup()
 	if(CONFIG_GET(flag/dynamic_config_enabled))
 		var/json_file = file("config/dynamic.json")
@@ -369,6 +443,16 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 						continue
 					vars[variable] = configuration["Dynamic"][variable]
 
+	for(var/i in GLOB.new_player_list)
+		var/mob/dead/new_player/player = i
+		if(!player.mind || player.ready == PLAYER_READY_TO_OBSERVE)
+			continue
+		if(player.ready == PLAYER_READY_TO_PLAY)
+			roundstart_pop_ready++
+			candidates.Add(player)
+		else
+			roundstart_pop_ready += 0.5
+	roundstart_pop_ready = round(roundstart_pop_ready, 1)
 	setup_parameters()
 	setup_hijacking()
 	setup_rulesets()
@@ -377,11 +461,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	//To new_player and such, and we want the datums to just free when the roundstart work is done
 	var/list/roundstart_rules = init_rulesets(/datum/dynamic_ruleset/roundstart)
 
-	for(var/i in GLOB.new_player_list)
-		var/mob/dead/new_player/player = i
-		if(player.ready == PLAYER_READY_TO_PLAY && player.mind)
-			roundstart_pop_ready++
-			candidates.Add(player)
+
 	log_game("DYNAMIC: Listing [roundstart_rules.len] round start rulesets, and [candidates.len] players ready.")
 	if (candidates.len <= 0)
 		log_game("DYNAMIC: [candidates.len] candidates.")
@@ -406,7 +486,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 /datum/game_mode/dynamic/post_setup(report)
 	for(var/datum/dynamic_ruleset/roundstart/rule in executed_rules)
 		rule.candidates.Cut() // The rule should not use candidates at this point as they all are null.
-		addtimer(CALLBACK(src, /datum/game_mode/dynamic/.proc/execute_roundstart_rule, rule), rule.delay)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/game_mode/dynamic, execute_roundstart_rule), rule), rule.delay)
 	..()
 
 /// Initializes the internal ruleset variables
@@ -473,7 +553,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	var/round_start_budget_left = round_start_budget
 
 	while (round_start_budget_left > 0)
-		var/datum/dynamic_ruleset/roundstart/ruleset = pickweightAllowZero(drafted_rules)
+		var/datum/dynamic_ruleset/roundstart/ruleset = pick_weight_allow_zero(drafted_rules)
 		if (isnull(ruleset))
 			log_game("DYNAMIC: No more rules can be applied, stopping with [round_start_budget] left.")
 			break
@@ -488,7 +568,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 			drafted_rules[ruleset] = null
 			continue
 
-		if (check_blocking(ruleset.blocking_rules, rulesets_picked))
+		if (check_blocking(ruleset.blocking_rules, rulesets_picked, ignore_dead_rulesets=FALSE))
 			drafted_rules[ruleset] = null
 			continue
 
@@ -496,14 +576,23 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 
 		rulesets_picked[ruleset] += 1
 
-		if (ruleset.flags & HIGH_IMPACT_RULESET)
+		if (CHECK_BITFIELD(ruleset.flags, HIGH_IMPACT_RULESET))
 			for (var/_other_ruleset in drafted_rules)
 				var/datum/dynamic_ruleset/other_ruleset = _other_ruleset
-				if (other_ruleset.flags & HIGH_IMPACT_RULESET)
+				if (CHECK_BITFIELD(other_ruleset.flags, HIGH_IMPACT_RULESET))
 					drafted_rules[other_ruleset] = null
 
-		if (ruleset.flags & LONE_RULESET)
+		if (CHECK_BITFIELD(ruleset.flags, NO_OTHER_ROUNDSTARTS_RULESET))
+			drafted_rules.Cut()
+
+		if (CHECK_BITFIELD(ruleset.flags, LONE_RULESET))
 			drafted_rules[ruleset] = null
+
+	for (var/datum/dynamic_ruleset/ruleset in rulesets_picked)
+		if(CHECK_BITFIELD(ruleset.flags, NO_OTHER_ROUNDSTARTS_RULESET))
+			rulesets_picked = list()
+			rulesets_picked[ruleset] = 1
+			break
 
 	for (var/ruleset in rulesets_picked)
 		spend_roundstart_budget(picking_roundstart_rule(ruleset, rulesets_picked[ruleset] - 1))
@@ -517,10 +606,8 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 
 	if(ruleset.pre_execute(roundstart_pop_ready))
 		threat_log += "[worldtime2text()]: Roundstart [ruleset.name] spent [ruleset.cost + added_threat]. [ruleset.scaling_cost ? "Scaled up [ruleset.scaled_times]/[scaled_times] times." : ""]"
-		if(ruleset.flags & ONLY_RULESET)
+		if(CHECK_BITFIELD(ruleset.flags, ONLY_RULESET))
 			only_ruleset_executed = TRUE
-		if(ruleset.flags & HIGH_IMPACT_RULESET)
-			high_impact_ruleset_executed = TRUE
 		executed_rules += ruleset
 		return ruleset.cost + added_threat
 	else
@@ -541,7 +628,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	return FALSE
 
 /// An experimental proc to allow admins to call rules on the fly or have rules call other rules.
-/datum/game_mode/dynamic/proc/picking_specific_rule(ruletype, forced = FALSE)
+/datum/game_mode/dynamic/proc/picking_specific_rule(ruletype, forced = FALSE, ignore_cost = FALSE)
 	var/datum/dynamic_ruleset/midround/new_rule
 	if(ispath(ruletype))
 		new_rule = new ruletype() // You should only use it to call midround rules though.
@@ -561,22 +648,19 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		else if(check_blocking(new_rule.blocking_rules, executed_rules))
 			return FALSE
 		// Check if the ruleset is high impact and if a high impact ruleset has been executed
-		else if(new_rule.flags & HIGH_IMPACT_RULESET)
-			if(threat_level < GLOB.dynamic_stacking_limit && GLOB.dynamic_no_stacking)
-				if(high_impact_ruleset_executed)
-					return FALSE
+		else if(CHECK_BITFIELD(new_rule.flags, HIGH_IMPACT_RULESET))
+			if(threat_level < GLOB.dynamic_stacking_limit && GLOB.dynamic_no_stacking && high_impact_ruleset_active())
+				return FALSE
 
-	var/population = current_players[CURRENT_LIVING_PLAYERS].len
-	if((new_rule.acceptable(population, threat_level) && new_rule.cost <= mid_round_budget) || forced)
+	var/population =  current_players[CURRENT_LIVING_PLAYERS].len
+	if((new_rule.acceptable(population, threat_level) && (ignore_cost || new_rule.cost <= mid_round_budget)) || forced)
 		new_rule.trim_candidates()
 		if (new_rule.ready(forced))
-			spend_midround_budget(new_rule.cost)
-			threat_log += "[worldtime2text()]: Forced rule [new_rule.name] spent [new_rule.cost]"
+			if (!ignore_cost)
+				spend_midround_budget(new_rule.cost, threat_log, "[worldtime2text()]: Forced rule [new_rule.name]")
 			new_rule.pre_execute(population)
 			if (new_rule.execute()) // This should never fail since ready() returned 1
-				if(new_rule.flags & HIGH_IMPACT_RULESET)
-					high_impact_ruleset_executed = TRUE
-				else if(new_rule.flags & ONLY_RULESET)
+				if(CHECK_BITFIELD(new_rule.flags, ONLY_RULESET))
 					only_ruleset_executed = TRUE
 				log_game("DYNAMIC: Making a call to a specific ruleset...[new_rule.name]!")
 				executed_rules += new_rule
@@ -592,82 +676,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		if(rule.rule_process() == RULESET_STOP_PROCESSING) // If rule_process() returns 1 (RULESET_STOP_PROCESSING), stop processing.
 			current_rules -= rule
 
-	if (midround_injection_cooldown < world.time)
-		if (GLOB.dynamic_forced_extended)
-			return
-
-		// Somehow it managed to trigger midround multiple times so this was moved here.
-		// There is no way this should be able to trigger an injection twice now.
-		var/midround_injection_cooldown_middle = 0.5*(midround_delay_max + midround_delay_min)
-		midround_injection_cooldown = (round(clamp(EXP_DISTRIBUTION(midround_injection_cooldown_middle), midround_delay_min, midround_delay_max)) + world.time)
-
-		// Time to inject some threat into the round
-		if(EMERGENCY_ESCAPED_OR_ENDGAMED) // Unless the shuttle is gone
-			return
-
-		dynamic_log("Checking for midround injection.")
-
-		last_midround_injection_attempt = world.time
-
-		if (prob(get_midround_injection_chance()))
-			var/list/drafted_rules = list()
-			for (var/datum/dynamic_ruleset/midround/rule in midround_rules)
-				if (!rule.weight)
-					continue
-				if (rule.acceptable(current_players[CURRENT_LIVING_PLAYERS].len, threat_level) && mid_round_budget >= rule.cost)
-					// If admins have disabled dynamic from picking from the ghost pool
-					if(rule.ruletype == "Latejoin" && !(GLOB.ghost_role_flags & GHOSTROLE_MIDROUND_EVENT))
-						continue
-					// If admins have disabled dynamic from picking from the ghost pool
-					if(rule.ruletype == "Latejoin" && !(GLOB.ghost_role_flags & GHOSTROLE_MIDROUND_EVENT))
-						continue
-					rule.trim_candidates()
-					if (rule.ready())
-						drafted_rules[rule] = rule.get_weight()
-			if (drafted_rules.len > 0)
-				pick_midround_rule(drafted_rules)
-		else if (random_event_hijacked == HIJACKED_TOO_SOON)
-			log_game("DYNAMIC: Midround injection failed when random event was hijacked. Spawning another random event in its place.")
-
-			// A random event antag would have rolled had this injection check passed.
-			// As a refund, spawn a non-ghost-role random event.
-			SSevents.spawnEvent()
-			SSevents.reschedule()
-
-		random_event_hijacked = HIJACKED_NOTHING
-
-/// Gets the chance for latejoin injection, the dry_run argument is only used for forced injection.
-/datum/game_mode/dynamic/proc/get_injection_chance(dry_run = FALSE)
-	if(forced_injection)
-		forced_injection = dry_run
-		return 100
-	var/chance = 0
-	var/max_pop_per_antag = max(5,15 - round(threat_level/10) - round(current_players[CURRENT_LIVING_PLAYERS].len/5))
-	if (!current_players[CURRENT_LIVING_ANTAGS].len)
-		chance += 50 // No antags at all? let's boost those odds!
-	else
-		var/current_pop_per_antag = current_players[CURRENT_LIVING_PLAYERS].len / current_players[CURRENT_LIVING_ANTAGS].len
-		if (current_pop_per_antag > max_pop_per_antag)
-			chance += min(50, 25+10*(current_pop_per_antag-max_pop_per_antag))
-		else
-			chance += 25-10*(max_pop_per_antag-current_pop_per_antag)
-	if (current_players[CURRENT_DEAD_PLAYERS].len > current_players[CURRENT_LIVING_PLAYERS].len)
-		chance -= 30 // More than half the crew died? ew, let's calm down on antags
-	if (mid_round_budget > higher_injection_chance_minimum_threat)
-		chance += higher_injection_chance
-	if (mid_round_budget < lower_injection_chance_minimum_threat)
-		chance -= lower_injection_chance
-	return round(max(0,chance))
-
-/// Gets the chance for midround injection, the dry_run argument is only used for forced injection.
-/// Usually defers to the latejoin injection chance.
-/datum/game_mode/dynamic/proc/get_midround_injection_chance(dry_run)
-	var/chance = get_injection_chance(dry_run)
-
-	if (random_event_hijacked != HIJACKED_NOTHING)
-		chance += hijacked_random_event_injection_chance
-
-	return chance
+	try_midround_roll()
 
 /// Removes type from the list
 /datum/game_mode/dynamic/proc/remove_from_list(list/type_list, type)
@@ -677,13 +686,27 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	return type_list
 
 /// Checks if a type in blocking_list is in rule_list.
-/datum/game_mode/dynamic/proc/check_blocking(list/blocking_list, list/rule_list)
+/datum/game_mode/dynamic/proc/check_blocking(list/blocking_list, list/rule_list, ignore_dead_rulesets = TRUE)
 	if(blocking_list.len > 0)
 		for(var/blocking in blocking_list)
 			for(var/_executed in rule_list)
-				var/datum/executed = _executed
-				if(blocking == executed.type)
-					return TRUE
+				var/datum/dynamic_ruleset/executed = _executed
+				if(blocking != executed.type)
+					continue
+				if((ignore_dead_rulesets && !high_impact_major_event_occured) && executed.is_dead())
+					continue
+				log_game("DYNAMIC: FAIL: check_blocking - [blocking] conflicts with [executed.type]")
+				return TRUE
+	return FALSE
+
+/datum/game_mode/dynamic/proc/check_lowpop_lowimpact_injection()
+	var/living_players_count = length(current_players[CURRENT_LIVING_PLAYERS])
+	var/living_antags_count = length(current_players[CURRENT_LIVING_ANTAGS])
+	var/antag_percent = living_players_count ? (living_antags_count / living_players_count) * 100 : 0
+	if(living_players_count && living_players_count < traitor_percentage_population_threshold && antag_percent > lowpop_max_traitor_percentage)
+		log_game("DYNAMIC: FAIL: [src] has too many living antags for the population ([living_antags_count] antags of [living_players_count] players - [antag_percent]%)")
+		return TRUE
+	log_game("DYNAMIC: [src] passed lowpop_lowimpact requirement: ([living_antags_count] antags of [living_players_count] players - [antag_percent]%)")
 	return FALSE
 
 /// Checks if client age is age or older.
@@ -708,18 +731,22 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		if (forced_latejoin_rule.ready(TRUE))
 			if (!forced_latejoin_rule.repeatable)
 				latejoin_rules = remove_from_list(latejoin_rules, forced_latejoin_rule.type)
-			addtimer(CALLBACK(src, /datum/game_mode/dynamic/.proc/execute_midround_latejoin_rule, forced_latejoin_rule), forced_latejoin_rule.delay)
+			addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/game_mode/dynamic, execute_midround_latejoin_rule), forced_latejoin_rule), forced_latejoin_rule.delay)
 		forced_latejoin_rule = null
 
-	else if (latejoin_injection_cooldown < world.time && prob(get_injection_chance()))
+	else if (latejoin_injection_cooldown < world.time && (forced_injection || prob(latejoin_roll_chance)))
+		forced_injection = FALSE
+
 		var/list/drafted_rules = list()
 		for (var/datum/dynamic_ruleset/latejoin/rule in latejoin_rules)
 			if (!rule.weight)
 				continue
+			if (CHECK_BITFIELD(rule.flags, INTACT_STATION_RULESET) && !is_station_intact())
+				continue
 			if (rule.acceptable(current_players[CURRENT_LIVING_PLAYERS].len, threat_level) && mid_round_budget >= rule.cost)
 				// No stacking : only one round-ender, unless threat level > stacking_limit.
 				if (threat_level < GLOB.dynamic_stacking_limit && GLOB.dynamic_no_stacking)
-					if(rule.flags & HIGH_IMPACT_RULESET && high_impact_ruleset_executed)
+					if(CHECK_BITFIELD(rule.flags, HIGH_IMPACT_RULESET) && high_impact_ruleset_active())
 						continue
 
 				rule.candidates = list(newPlayer)
@@ -742,7 +769,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		ruleset.restricted_roles |= ruleset.protected_roles
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		ruleset.restricted_roles |= "Assistant"
+		ruleset.restricted_roles |= JOB_NAME_ASSISTANT
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		ruleset.restricted_roles |= GLOB.command_positions
 
@@ -751,18 +778,58 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	mid_round_budget = min(threat_level, mid_round_budget + regain)
 
 /// Generate threat and increase the threat_level if it goes beyond, capped at 100
-/datum/game_mode/dynamic/proc/create_threat(gain)
+/datum/game_mode/dynamic/proc/create_threat(gain, list/threat_log, reason)
 	mid_round_budget = min(100, mid_round_budget + gain)
 	if(mid_round_budget > threat_level)
 		threat_level = mid_round_budget
+	for(var/list/logs in threat_log)
+		log_threat(gain, logs, reason)
+
+/datum/game_mode/dynamic/proc/log_threat(threat_change, list/threat_log, reason)
+	var/gain_or_loss = "+"
+	if(threat_change < 0)
+		gain_or_loss = "-"
+	threat_log += "Threat [gain_or_loss][abs(threat_change)] - [reason]."
 
 /// Expend round start threat, can't fall under 0.
-/datum/game_mode/dynamic/proc/spend_roundstart_budget(cost)
+/datum/game_mode/dynamic/proc/spend_roundstart_budget(cost, list/threat_log, reason)
 	round_start_budget = max(round_start_budget - cost,0)
+	if (!isnull(threat_log))
+		log_threat(-cost, threat_log, reason)
 
 /// Expend midround threat, can't fall under 0.
-/datum/game_mode/dynamic/proc/spend_midround_budget(cost)
+/datum/game_mode/dynamic/proc/spend_midround_budget(cost, list/threat_log, reason)
 	mid_round_budget = max(mid_round_budget - cost,0)
+	if (!isnull(threat_log))
+		log_threat(-cost, threat_log, reason)
+
+/// Checks if a high impact ruleset was executed and isn't dead. Only one will run at a time in most circumstances.
+/datum/game_mode/dynamic/proc/high_impact_ruleset_active()
+	. = FALSE
+	for(var/datum/dynamic_ruleset/ruleset in executed_rules)
+		if(!CHECK_BITFIELD(ruleset.flags, HIGH_IMPACT_RULESET))
+			continue
+		if(!high_impact_major_event_occured && ruleset.is_dead())
+			continue
+		return TRUE
+
+/// Checks if the station is considered "intact", for the purpose of rolling rulesets with the INTACT_STATION_RULESET flag.
+/datum/game_mode/dynamic/proc/is_station_intact()
+	if(!COOLDOWN_FINISHED(src, intact_cache_expiry))
+		return cached_station_intact
+	COOLDOWN_START(src, intact_cache_expiry, 5 MINUTES)
+	var/old_cached_station_intact = cached_station_intact
+	cached_station_intact = TRUE
+	if(minimum_station_integrity)
+		var/datum/station_state/current_state = new /datum/station_state()
+		current_state.count()
+		var/station_integrity = GLOB.start_state.score(current_state)
+		qdel(current_state)
+		if(minimum_station_integrity > station_integrity)
+			cached_station_intact = FALSE
+			if(old_cached_station_intact)
+				log_game("DYNAMIC: Station has an integrity of [PERCENT(station_integrity)]%, which is lower than the minimum integrity of [PERCENT(minimum_station_integrity)]%")
+	return cached_station_intact
 
 /// Turns the value generated by lorentz distribution to number between 0 and 100.
 /// Used for threat level and splitting the budgets.
@@ -793,6 +860,17 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 /datum/game_mode/dynamic/proc/dynamic_log(text)
 	message_admins("DYNAMIC: [text]")
 	log_game("DYNAMIC: [text]")
+
+/// This sets the "don't roll after high impact rules die" flag
+/// if the mode is dynamic, signalling that something major has happened
+/// and that dynamic should NOT try to roll new antags, even if all the
+/// current high-impact antags end up dying.
+/proc/set_dynamic_high_impact_event(reason)
+	var/datum/game_mode/dynamic/dynamic = SSticker.mode
+	if(!istype(dynamic))
+		return
+	dynamic.high_impact_major_event_occured = TRUE
+	log_game("DYNAMIC: a high-impact event has occured[reason ? ": [reason]" : ""]. dead ruleset tracking is no longer active.")
 
 #undef FAKE_REPORT_CHANCE
 #undef REPORT_NEG_DIVERGENCE

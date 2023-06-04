@@ -1,11 +1,8 @@
 import { useSelector } from 'common/redux';
 import { decodeHtmlEntities } from 'common/string';
-import { Button, Flex, Knob, Tabs, Box, Section, Fragment } from 'tgui/components';
-import { useSettings } from '../settings';
+import { Box, Section } from 'tgui/components';
 import { selectStatPanel } from './selectors';
-import { sendMessage } from 'tgui/backend';
-import { Divider, Grid, Table, Input, ScrollableBox } from '../../tgui/components';
-import { STAT_TEXT, STAT_BUTTON, STAT_ATOM, STAT_DIVIDER, STAT_VERB } from './constants';
+import { Table } from '../../tgui/components';
 
 export const StatTicket = (props, context) => {
   const stat = useSelector(context, selectStatPanel);
@@ -14,7 +11,7 @@ export const StatTicket = (props, context) => {
   {
     return (
       <Box color="red">
-        Passed stat panel data was null contant coderman (or coderwoman).
+        Passed stat panel data was null, contact coderperson.
       </Box>
     );
   }

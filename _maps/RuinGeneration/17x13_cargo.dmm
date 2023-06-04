@@ -47,9 +47,25 @@
 /obj/effect/spawner/lootdrop/crate_spawner,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
+"m" = (
+/obj/effect/turf_decal/tile/brown/half/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
 "n" = (
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"p" = (
+/obj/effect/turf_decal/tile/brown/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"q" = (
+/obj/effect/turf_decal/tile/brown/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "r" = (
 /obj/structure/rack,
@@ -62,18 +78,6 @@
 "t" = (
 /obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
-/area/ruin/unpowered)
-"u" = (
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "v" = (
 /obj/structure/shuttle/engine/propulsion/burst/left{
@@ -90,6 +94,12 @@
 /obj/effect/spawner/lootdrop/glowstick/lit,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"A" = (
+/obj/effect/turf_decal/tile/brown/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
 "B" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/ruin/unpowered)
@@ -105,13 +115,6 @@
 /area/ruin/unpowered)
 "E" = (
 /turf/open/floor/mineral/titanium,
-/area/ruin/unpowered)
-"F" = (
-/obj/effect/turf_decal/tile/brown{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/brown,
-/turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "G" = (
 /obj/effect/turf_decal/delivery,
@@ -131,30 +134,11 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
-"K" = (
-/obj/effect/turf_decal/tile/brown{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/ruin/unpowered)
 "M" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
-"N" = (
-/obj/effect/turf_decal/tile/brown{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/brown,
-/turf/open/floor/plasteel/dark,
-/area/ruin/unpowered)
 "P" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium,
@@ -174,16 +158,13 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
-"V" = (
-/turf/open/floor/plasteel/dark,
-/area/ruin/unpowered)
-"W" = (
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/brown{
+"U" = (
+/obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 1
 	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"V" = (
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "X" = (
@@ -354,10 +335,10 @@ P
 r
 Y
 M
-u
-W
-W
-W
+q
+U
+U
+U
 M
 "}
 (12,1,1) = {"
@@ -369,7 +350,7 @@ E
 E
 X
 b
-K
+A
 l
 l
 V
@@ -384,7 +365,7 @@ E
 E
 X
 b
-K
+A
 V
 V
 V
@@ -399,7 +380,7 @@ E
 E
 X
 b
-K
+A
 w
 V
 V
@@ -414,7 +395,7 @@ c
 B
 B
 M
-K
+A
 D
 l
 V
@@ -429,10 +410,10 @@ T
 v
 S
 M
-N
-F
-F
-F
+p
+m
+m
+m
 M
 "}
 (17,1,1) = {"

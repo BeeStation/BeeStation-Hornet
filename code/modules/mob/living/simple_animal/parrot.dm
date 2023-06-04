@@ -45,6 +45,7 @@
 
 	speak = list("Hi!","Hello!","Cracker?","BAWWWWK george mellons griffing me!")
 	speak_emote = list("squawks","says","yells")
+	speak_language = /datum/language/common // parent has the same value, but just in case
 	emote_hear = list("squawks.","bawks!")
 	emote_see = list("flutters its wings.")
 
@@ -158,9 +159,11 @@
 	. = ..()
 	if(speaker != src && prob(50)) //Dont imitate ourselves
 		if(!radio_freq || prob(10))
-			if(speech_buffer.len >= 500)
-				speech_buffer -= pick(speech_buffer)
-			speech_buffer |= html_decode(raw_message)
+			// No being problematic, Poly!
+			if(!CHAT_FILTER_CHECK(raw_message))
+				if(speech_buffer.len >= 500)
+					speech_buffer -= pick(speech_buffer)
+				speech_buffer |= html_decode(raw_message)
 	if(speaker == src && !client) //If a parrot squawks in the woods and no one is around to hear it, does it make a sound? This code says yes!
 		return message
 
@@ -426,6 +429,8 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 
 				if(available_channels.len && src.ears)
 					for(var/possible_phrase in speak)
+						if(CHAT_FILTER_CHECK(possible_phrase))
+							continue
 
 						//50/50 chance to not use the radio at all
 						var/useradio = 0
@@ -441,6 +446,8 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 
 				else //If we have no headset or channels to use, dont try to use any!
 					for(var/possible_phrase in speak)
+						if(CHAT_FILTER_CHECK(possible_phrase))
+							continue
 						if((possible_phrase[1] in GLOB.department_radio_prefixes) && (copytext_char(possible_phrase, 2, 3) in GLOB.department_radio_keys))
 							possible_phrase = copytext_char(possible_phrase, 3) //crop out the channel prefix
 						newspeak.Add(possible_phrase)
@@ -1010,6 +1017,9 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	icon_living = "clock_hawk_fly"
 	icon_sit = "clock_hawk_sit"
 	speak = list("Penpxre!", "Ratvar vf n qhzo anzr naljnl!")
+	// speak_language variable can be set to Ratvarian, but this speak was made too long ago.
+	// If you have any idea what these exactly mean, change it to original speeches, and set 'speak_language = /datum/language/ratvar'
+	speak_language = /datum/language/metalanguage
 	speak_emote = list("squawks rustily", "says crassly", "yells brassly")
 	emote_hear = list("squawks rustily.", "bawks metallically!")
 	emote_see = list("flutters its metal wings.")

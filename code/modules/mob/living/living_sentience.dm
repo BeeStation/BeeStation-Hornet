@@ -29,11 +29,13 @@
 	if(key || !playable || stat)
 		return 0
 	var/question = alert("Do you want to become [name]?", "[name]", "Yes", "No")
-	if(question == "No" || !src || QDELETED(src))
+	if(question != "Yes" || !src || QDELETED(src))
 		return TRUE
 	if(key)
 		to_chat(user, "<span class='notice'>Someone else already took [name].</span>")
 		return TRUE
+	if(!user?.client.canGhostRole(role, TRUE, flags_1))
+		return
 	key = user.key
 	log_game("[key_name(src)] took control of [name].")
 	remove_from_spawner_menu()
@@ -48,6 +50,9 @@
 		LAZYADD(GLOB.mob_spawners["[name]"], src)
 		GLOB.poi_list |= src
 		SSmobs.update_spawners()
+	else // it's spawned but someone occupied already
+		notify_ghosts("[name] has appeared!", source=src, action=NOTIFY_ORBIT, header="Something's Interesting!")
+
 
 /mob/living/get_spawner_desc()
 	return "Become [name]."

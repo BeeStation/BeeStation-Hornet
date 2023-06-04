@@ -42,6 +42,8 @@
 	var/list/active_rites
 	/// Whether the structure has CANDLE OVERLAYS!
 	var/candle_overlay = TRUE
+	/// Whether the altar of the gods is anchored
+	var/altar_anchored = TRUE
 
 
 /datum/religion_sect/New()
@@ -137,9 +139,9 @@
 	tgui_icon = "robot"
 	alignment = ALIGNMENT_NEUT
 	desired_items = list(/obj/item/stock_parts/cell = "with battery charge")
-	rites_list = list(/datum/religion_rites/synthconversion, /datum/religion_rites/machine_blessing)
+	rites_list = list(/datum/religion_rites/synthconversion, /datum/religion_rites/machine_blessing, /datum/religion_rites/machine_implantation)
 	altar_icon_state = "convertaltar-blue"
-	max_favor = 2500
+	max_favor = 5000
 
 /datum/religion_sect/technophile/sect_bless(mob/living/target, mob/living/chap)
 	if(iscyborg(target))
@@ -193,7 +195,7 @@
 	if(the_cell.charge < 300)
 		to_chat(chap,"<span class='notice'>[GLOB.deity] does not accept pity amounts of power.</span>")
 		return
-	adjust_favor(round(the_cell.charge/300), chap)
+	adjust_favor(round(the_cell.charge/100), chap)
 	to_chat(chap, "<span class='notice'>You offer [the_cell]'s power to [GLOB.deity], pleasing them.</span>")
 	qdel(I)
 	return TRUE
@@ -236,7 +238,7 @@
 	alignment = ALIGNMENT_EVIL
 	max_favor = 10000
 	desired_items = list(/obj/item/organ/)
-	rites_list = list(/datum/religion_rites/raise_dead, /datum/religion_rites/living_sacrifice, /datum/religion_rites/raise_undead)
+	rites_list = list(/datum/religion_rites/raise_dead, /datum/religion_rites/living_sacrifice, /datum/religion_rites/raise_undead, /datum/religion_rites/create_lesser_lich)
 	altar_icon_state = "convertaltar-green"
 
 //Necro bibles don't heal or do anything special apart from the standard holy water blessings
@@ -248,5 +250,61 @@
 		return
 	adjust_favor(10, L)
 	to_chat(L, "<span class='notice'>You offer [N] to [GLOB.deity], pleasing them and gaining 10 favor in the process.</span>")
+	qdel(N)
+	return TRUE
+
+/**** Carp Sect ****/
+
+/datum/religion_sect/carp_sect
+	name = "Followers of the Great Carp"
+	desc = "A sect dedicated to the space carp and carp'sie, Offer the gods meat for favor."
+	quote = "Drown the station in fish and water."
+	tgui_icon = "fish"
+	alignment = ALIGNMENT_NEUT
+	max_favor = 10000
+	desired_items = list(/obj/item/reagent_containers/food/snacks/meat/slab)
+	rites_list = list(/datum/religion_rites/summon_carp, /datum/religion_rites/flood_area, /datum/religion_rites/summon_carpsuit)
+	altar_icon_state = "convertaltar-blue"
+
+//Carp bibles give people the carp faction!
+/datum/religion_sect/carp_sect/sect_bless(mob/living/L, mob/living/user)
+	if(!isliving(L))
+		return FALSE
+	L.faction |= "carp"
+	user.visible_message("<span class='notice'>[user] blessed [L] with the power of [GLOB.deity]! They are now protected from Space Carps, Although carps will still fight back if attacked.</span>")
+	SEND_SIGNAL(L, COMSIG_ADD_MOOD_EVENT, "blessing", /datum/mood_event/blessing)
+	return TRUE
+
+/datum/religion_sect/carp_sect/on_sacrifice(obj/item/N, mob/living/L) //and this
+	var/obj/item/reagent_containers/food/snacks/meat/meat = N
+	if(!istype(meat)) //how...
+		return
+	adjust_favor(20, L)
+	to_chat(L, "<span class='notice'>You offer [meat] to [GLOB.deity], pleasing them and gaining 20 favor in the process.</span>")
+	qdel(N)
+	return TRUE
+
+/**** Plant Sect ****/
+
+/datum/religion_sect/plant_sect
+	name = "Nature"
+	desc = "A sect dedicated to nature, plants, and animals. Sacrificing seeds grants you favor."
+	quote = "Living plant people? What has the world come to!"
+	tgui_icon = "tree"
+	alignment = ALIGNMENT_GOOD
+	max_favor = 10000
+	desired_items = list(/obj/item/seeds)
+	rites_list = list(/datum/religion_rites/create_podperson, /datum/religion_rites/create_sandstone, /datum/religion_rites/grass_generator, /datum/religion_rites/summon_animals)
+	altar_icon_state = "convertaltar-green"
+
+//plant bibles don't heal or do anything special apart from the standard holy water blessings
+/datum/religion_sect/plant_sect/sect_bless(mob/living/blessed, mob/living/user)
+	return TRUE
+
+/datum/religion_sect/plant_sect/on_sacrifice(obj/item/N, mob/living/L)
+	if(!istype(N, /obj/item/seeds))
+		return
+	adjust_favor(25, L)
+	to_chat(L, "<span class='notice'>You offer [N] to [GLOB.deity], pleasing them and gaining 25 favor in the process.</span>")
 	qdel(N)
 	return TRUE

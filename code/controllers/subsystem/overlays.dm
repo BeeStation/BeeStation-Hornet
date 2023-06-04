@@ -38,23 +38,47 @@ SUBSYSTEM_DEF(overlays)
 		count = 0 //so if we runtime on the Cut, we don't try again.
 		queue.Cut(1,c+1)
 
-	for (var/thing in queue)
+	for (var/atom/atom_to_compile as anything in queue)
 		count++
-		if(thing)
-			STAT_START_STOPWATCH
-			var/atom/A = thing
-			COMPILE_OVERLAYS(A)
-			STAT_STOP_STOPWATCH
-			STAT_LOG_ENTRY(stats, A.type)
+		if(!atom_to_compile)
+			continue
+		STAT_START_STOPWATCH
+		COMPILE_OVERLAYS(atom_to_compile)
+		UNSETEMPTY(atom_to_compile.add_overlays)
+		UNSETEMPTY(atom_to_compile.remove_overlays)
+		STAT_STOP_STOPWATCH
+		STAT_LOG_ENTRY(stats, atom_to_compile.type)
+		if(length(atom_to_compile.overlays) >= MAX_ATOM_OVERLAYS)
+			//Break it real GOOD
+			var/text_lays = overlays2text(atom_to_compile.overlays)
+			stack_trace("Too many overlays on [atom_to_compile.type] - [length(atom_to_compile.overlays)], refusing to update and cutting.\
+				\n What follows is a printout of all existing overlays at the time of the overflow \n[text_lays]")
+			atom_to_compile.overlays.Cut()
+			//Let them know they fucked up
+			atom_to_compile.add_overlay(mutable_appearance('icons/testing/greyscale_error.dmi'))
+			continue
 		if(mc_check)
 			if(MC_TICK_CHECK)
 				break
 		else
 			CHECK_TICK
-
 	if (count)
 		queue.Cut(1,count+1)
 		count = 0
+
+/// Converts an overlay list into text for debug printing
+/// Of note: overlays aren't actually mutable appearances, they're just appearances
+/// Don't have access to that type tho, so this is the best you're gonna get
+/proc/overlays2text(list/overlays)
+	var/list/unique_overlays = list()
+	// As anything because we're basically doing type coerrsion, rather then actually filtering for mutable apperances
+	for(var/mutable_appearance/overlay as anything in overlays)
+		var/key = "[overlay.icon]-[overlay.icon_state]-[overlay.dir]"
+		unique_overlays[key] += 1
+	var/list/output_text = list()
+	for(var/key in unique_overlays)
+		output_text += "([key]) = [unique_overlays[key]]"
+	return output_text.Join("\n")
 
 /proc/iconstate2appearance(icon, iconstate)
 	var/static/image/stringbro = new()
@@ -70,9 +94,8 @@ SUBSYSTEM_DEF(overlays)
 /atom/proc/build_appearance_list(old_overlays)
 	var/static/image/appearance_bro = new()
 	var/list/new_overlays = list()
-	if (!islist(old_overlays))
-		old_overlays = list(old_overlays)
-	for (var/overlay in old_overlays)
+
+	for (var/overlay in (islist(old_overlays) ? old_overlays : list(old_overlays)))
 		if(!overlay)
 			continue
 		if (istext(overlay))
@@ -93,67 +116,50 @@ SUBSYSTEM_DEF(overlays)
 
 #define NOT_QUEUED_ALREADY (!(flags_1 & OVERLAY_QUEUED_1))
 #define QUEUE_FOR_COMPILE flags_1 |= OVERLAY_QUEUED_1; SSoverlays.queue += src;
-/atom/proc/cut_overlays(priority = FALSE)
-	LAZYINITLIST(priority_overlays)
+/atom/proc/cut_overlays()
 	LAZYINITLIST(remove_overlays)
 	LAZYINITLIST(add_overlays)
 	remove_overlays = overlays.Copy()
 	add_overlays.Cut()
 
-	if(priority)
-		priority_overlays.Cut()
-
 	//If not already queued for work and there are overlays to remove
 	if(NOT_QUEUED_ALREADY && remove_overlays.len)
 		QUEUE_FOR_COMPILE
 
-/atom/proc/cut_overlay(list/overlays, priority)
+/atom/proc/cut_overlay(list/overlays)
 	if(!overlays)
 		return
 	overlays = build_appearance_list(overlays)
 	LAZYINITLIST(add_overlays) //always initialized after this point
-	LAZYINITLIST(priority_overlays)
 	LAZYINITLIST(remove_overlays)
 	var/a_len = add_overlays.len
 	var/r_len = remove_overlays.len
-	var/p_len = priority_overlays.len
+
 	remove_overlays += overlays
 	add_overlays -= overlays
 
-
-	if(priority)
-		var/list/cached_priority = priority_overlays
-		LAZYREMOVE(cached_priority, overlays)
-
 	var/fa_len = add_overlays.len
 	var/fr_len = remove_overlays.len
-	var/fp_len = priority_overlays.len
+
 
 	//If not already queued and there is work to be done
-	if(NOT_QUEUED_ALREADY && (fa_len != a_len || fr_len != r_len || fp_len != p_len))
+	if(NOT_QUEUED_ALREADY && (fa_len != a_len || fr_len != r_len))
 		QUEUE_FOR_COMPILE
 
-/atom/proc/add_overlay(list/overlays, priority = FALSE)
+/atom/proc/add_overlay(list/overlays)
 	if(!overlays)
 		return
 
 	overlays = build_appearance_list(overlays)
 
 	LAZYINITLIST(add_overlays) //always initialized after this point
-	LAZYINITLIST(priority_overlays)
 	var/a_len = add_overlays.len
-	var/p_len = priority_overlays.len
 
-	if(priority)
-		priority_overlays += overlays  //or in the image. Can we use [image] = image?
-		var/fp_len = priority_overlays.len
-		if(NOT_QUEUED_ALREADY && fp_len != p_len)
-			QUEUE_FOR_COMPILE
-	else
-		add_overlays += overlays
-		var/fa_len = add_overlays.len
-		if(NOT_QUEUED_ALREADY && fa_len != a_len)
-			QUEUE_FOR_COMPILE
+
+	add_overlays += overlays
+	var/fa_len = add_overlays.len
+	if(NOT_QUEUED_ALREADY && fa_len != a_len)
+		QUEUE_FOR_COMPILE
 
 /atom/proc/copy_overlays(atom/other, cut_old)	//copys our_overlays from another atom
 	if(!other)

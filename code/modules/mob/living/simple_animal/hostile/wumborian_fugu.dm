@@ -89,7 +89,7 @@
 	F.environment_smash = ENVIRONMENT_SMASH_WALLS
 	F.mob_size = MOB_SIZE_LARGE
 	F.speed = 1
-	addtimer(CALLBACK(F, /mob/living/simple_animal/hostile/asteroid/fugu/proc/Deflate), 100)
+	addtimer(CALLBACK(F, TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/fugu, Deflate)), 100)
 
 /mob/living/simple_animal/hostile/asteroid/fugu/proc/Deflate()
 	if(wumbo)
@@ -119,7 +119,7 @@
 	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
-	var/list/banned_mobs
+	var/list/banned_mobs = list(/mob/living/simple_animal/hostile/guardian)
 
 /obj/item/fugu_gland/afterattack(atom/target, mob/user, proximity_flag)
 	. = ..()

@@ -19,7 +19,7 @@
 
 /obj/machinery/species_converter/Initialize(mapload)
 	. = ..()
-	soundloop = new(list(src),  FALSE)
+	soundloop = new(src,  FALSE)
 	update_icon()
 
 /obj/machinery/species_converter/Destroy()
@@ -37,7 +37,7 @@
 	playsound(src, 'sound/machines/click.ogg', 50)
 	if(occupant)
 		to_chat(occupant, "<span class='notice'>You enter [src]</span>")
-		addtimer(CALLBACK(src, .proc/begin_conversion), 20, TIMER_OVERRIDE|TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(begin_conversion)), 20, TIMER_OVERRIDE|TIMER_UNIQUE)
 		update_icon()
 
 /obj/machinery/species_converter/open_machine(mob/user)
@@ -84,7 +84,7 @@
 /obj/machinery/species_converter/process(delta_time)
 	if(!processing)
 		return
-	if(!is_operational() || !occupant || !iscarbon(occupant))
+	if(!is_operational || !occupant || !iscarbon(occupant))
 		open_machine()
 		return
 
@@ -99,14 +99,14 @@
 		if(brainwash)
 			to_chat(C, "<span class='userdanger'>A new compulsion fills your mind... you feel forced to obey it!</span>")
 			var/objective = "Convert as many people as possible into a [initial(desired_race.name)]. Racewar!"
-			brainwash(C, objective)
+			brainwash(C, objective, "species converter")
 			log_game("[key_name(C)] has been brainwashed with the objective '[objective]' via the species converter.")
 
 	iterations++
 	use_power(500)
 
 /obj/machinery/species_converter/proc/begin_conversion()
-	if(state_open || !occupant || processing || !is_operational())
+	if(state_open || !occupant || processing || !is_operational)
 		return
 	if(iscarbon(occupant))
 		var/mob/living/carbon/C = occupant
@@ -138,11 +138,9 @@
 		changed = TRUE
 		to_chat(user, "<span class='notice'>You change \the [src]'s desired race setting to [initial(desired_race.name)].</span>")
 
-/obj/machinery/species_converter/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
+/obj/machinery/species_converter/on_emag(mob/user)
+	..()
 	dangerous = TRUE
 	brainwash = prob(30)
 	changed = FALSE
-	obj_flags |= EMAGGED
 	to_chat(user, "<span class='warning'>You quitely disable \the [src]'s safety measures.</span>")

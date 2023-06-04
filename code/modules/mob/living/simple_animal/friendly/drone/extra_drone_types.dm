@@ -14,7 +14,7 @@
 	desc = "A modified maintenance drone. This one brings with it the feeling of terror."
 	icon_state = "drone_synd"
 	icon_living = "drone_synd"
-	picked = TRUE //the appearence of syndrones is static, you don't get to change it.
+	picked = TRUE //the appearance of syndrones is static, you don't get to change it.
 	health = 30
 	maxHealth = 120 //If you murder other drones and cannibalize them you can get much stronger
 	initial_language_holder = /datum/language_holder/drone/syndicate
@@ -86,15 +86,15 @@
 /mob/living/simple_animal/drone/polymorphed/Initialize(mapload)
 	. = ..()
 	liberate()
-	visualAppearence = pick(MAINTDRONE, REPAIRDRONE, SCOUTDRONE)
-	if(visualAppearence == MAINTDRONE)
+	visualAppearance = pick(MAINTDRONE, REPAIRDRONE, SCOUTDRONE)
+	if(visualAppearance == MAINTDRONE)
 		var/colour = pick("grey", "blue", "red", "green", "pink", "orange")
-		icon_state = "[visualAppearence]_[colour]"
+		icon_state = "[visualAppearance]_[colour]"
 	else
-		icon_state = visualAppearence
+		icon_state = visualAppearance
 
 	icon_living = icon_state
-	icon_dead = "[visualAppearence]_dead"
+	icon_dead = "[visualAppearance]_dead"
 
 /obj/effect/mob_spawn/drone/dusty
 	name = "derelict drone shell"

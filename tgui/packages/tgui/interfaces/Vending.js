@@ -15,9 +15,9 @@ const VendingRow = (props, context) => {
     || product.price === 0
     || (
       !product.premium
-      && data.department
+      && data.department_bitflag
       && data.user
-      && data.department === data.user.department
+      && (data.department_bitflag & data.user.department_bitflag)
     )
   );
   return (

@@ -35,6 +35,11 @@
 	"%7b%22type%22%3a%22[type]%22%2c%22payload%22%3a[url_encode(json_encode(payload))]%7d" \
 )
 
+/// Creates a message packet for sending via output() with no payload
+#define TGUI_CREATE_MESSAGE_EMPTY(type) ( \
+	"%7b%22type%22%3a%22[type]%22%7d" \
+)
+
 /// Telemetry
 
 /**
@@ -46,7 +51,7 @@
 /**
  * Maximum time allocated for sending a telemetry packet.
  */
-#define TGUI_TELEMETRY_RESPONSE_WINDOW 30 SECONDS
+#define TGUI_TELEMETRY_RESPONSE_WINDOW 2 MINUTES
 
 /// Telemetry statuses
 #define TGUI_TELEMETRY_STAT_NOT_REQUESTED 0 //Not Yet Requested
@@ -59,3 +64,10 @@
 #define TGUI_TELEM_CKEY_WARNING "TELEM_CKEY_TEXT"
 #define TGUI_TELEM_IP_WARNING "TELEM_IP_TEXT"
 #define TGUI_TELEM_CID_WARNING "TELEM_CID_TEXT"
+
+//unmagic-strings for types of polls
+#define POLLTYPE_OPTION "OPTION"
+#define POLLTYPE_TEXT "TEXT"
+#define POLLTYPE_RATING "NUMVAL"
+#define POLLTYPE_MULTI "MULTICHOICE"
+#define POLLTYPE_IRV "IRV"

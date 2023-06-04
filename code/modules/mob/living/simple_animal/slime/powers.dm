@@ -28,7 +28,7 @@
 		if(Adjacent(C))
 			choices += C
 
-	var/mob/living/M = input(src,"Who do you wish to feed on?") in null|sortNames(choices)
+	var/mob/living/M = input(src,"Who do you wish to feed on?") in null|sort_names(choices)
 	if(!M)
 		return 0
 	if(CanFeedon(M))

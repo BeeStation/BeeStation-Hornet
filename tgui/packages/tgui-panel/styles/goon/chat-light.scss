@@ -267,10 +267,22 @@ em						{font-style: normal;	font-weight: bold;}
 .adminsay   			{color: #5b6321}
 .admin					{color: #4473ff;	font-weight: bold;}
 
+.mentor					{color: #44ff54;	font-weight: bold;}
+.mentornotice			{color: #00ff00;}
 .mentorfrom 			{color: #7e1c82;}
 .mentorto				{color: #1d861d;}
 .mentorhelp				{color: #4400c2;}
 .mentorsay        {color: #bd3ab6;}
+.mentorhelp_conclusion {
+  display: block;
+  color: white;
+  text-align: center;
+  background-color: black;
+  border: 2px solid #4400c2;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 20px;
+}
 
 .name					{	font-weight: bold;}
 
@@ -319,8 +331,19 @@ h1.alert, h2.alert		{color: #000000;}
 .info					{color: #0000CC;}
 .notice					{color: #000099;}
 .boldnotice				{color: #000099;	font-weight: bold;}
+.usernotice				{color: #000099;	font-weight: bold; font-size: 24px;}
 .adminnotice			{color: #0000ff;}
 .adminhelp              {color: #ff0000;    font-weight: bold;}
+.adminhelp_conclusion {
+  display: block;
+  color: white;
+  text-align: center;
+  background-color: black;
+  border: 2px solid red;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 20px;
+}
 .unconscious			{color: #0000ff;	font-weight: bold;}
 .suicide				{color: #ff5050;	font-style: italic;}
 .green					{color: #03ff39;}
@@ -466,11 +489,18 @@ h1.alert, h2.alert		{color: #000000;}
 .text-normal {font-weight: normal; font-style: normal;}
 .hidden {display: none; visibility: hidden;}
 
+.examine_block {
+  background: #f2f7fa;
+  border: 1px solid #111a27;
+  margin: 0.5em;
+  padding: 0.5em 0.75em;
+}
+
 //Job Colours
 //Make sure you add to replacementNodes in renderer.js
 // ----------
 // command
-.rawcommand {color: #cfa962}
+.rawcommand {color: #7584ad}
 .captain {color: #d8aa53}
 .actingcaptain {color: #cfa962}
 // Service
@@ -493,12 +523,6 @@ h1.alert, h2.alert		{color: #000000;}
 .quartermaster {color: #c79c52}
 .cargotechnician {color: #d3a372}
 .shaftminer {color: #ce957e}
-// R&D
-.rawscience {color: #ce6fce}
-.researchdirector {color: #974ea9}
-.scientist {color: #c772c7}
-.roboticist {color: #ac71ba}
-.explorationcrew {color: #85d8b8}
 // Engineering
 .rawengineering {color: #daa32d}
 .chiefengineer {color: #cfbb72}
@@ -513,6 +537,12 @@ h1.alert, h2.alert		{color: #000000;}
 .virologist {color: #5ac5b0}
 .geneticist {color: #83bbbf}
 .psychiatrist {color: #5394a8;}
+// R&D
+.rawscience {color: #ce6fce}
+.researchdirector {color: #974ea9}
+.scientist {color: #c772c7}
+.roboticist {color: #ac71ba}
+.explorationcrew {color: #85d8b8}
 // Security
 .rawsecurity {color: #c75c5c}
 .headofsecurity {color: #be132d}

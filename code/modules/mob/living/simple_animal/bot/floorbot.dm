@@ -46,9 +46,10 @@
 	. = ..()
 	toolbox_color = new_toolbox_color
 	update_icon()
-	var/datum/job/engineer/J = new/datum/job/engineer
-	access_card.access += J.get_access()
-	prev_access = access_card.access
+
+	var/datum/job/J = SSjob.GetJob(JOB_NAME_STATIONENGINEER)
+	access_card.access = J.get_access()
+	prev_access = access_card.access.Copy()
 	if(toolbox_color == "s")
 		health = 100
 		maxHealth = 100
@@ -128,7 +129,7 @@
 	else
 		..()
 
-/mob/living/simple_animal/bot/floorbot/emag_act(mob/user)
+/mob/living/simple_animal/bot/floorbot/on_emag(atom/target, mob/user)
 	..()
 	if(emagged == 2)
 		if(user)

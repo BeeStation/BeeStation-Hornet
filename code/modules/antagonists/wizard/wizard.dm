@@ -24,7 +24,10 @@
 	. = ..()
 	if(allow_rename)
 		rename_wizard()
-	owner.current.remove_all_quirks()
+	owner.remove_all_quirks()
+
+/datum/antagonist/wizard/get_antag_name() // wizards are not in the same team
+	return "Space Wizard [owner.name]"
 
 /datum/antagonist/wizard/proc/register()
 	SSticker.mode.wizards |= owner
@@ -47,8 +50,9 @@
 	var/datum/antagonist/wizard/master_wizard
 
 /datum/antagonist/wizard/proc/create_wiz_team()
+	var/static/count = 0
 	wiz_team = new(owner)
-	wiz_team.name = "[owner.current.real_name] team"
+	wiz_team.name = "Wizard team No.[++count]" // it will be only displayed to admins
 	wiz_team.master_wizard = src
 	update_wiz_icons_added(owner.current)
 
@@ -59,6 +63,13 @@
 		SSjob.SendToLateJoin(owner.current)
 		to_chat(owner, "HOT INSERTION, GO GO GO")
 	owner.current.forceMove(pick(GLOB.wizardstart))
+
+/datum/team/wizard/get_team_name() // team name is based on the master wizard's current form
+	var/mind_name = master_wizard.owner.name
+	var/mob_name = master_wizard.owner?.current.real_name
+	if(mind_name == mob_name)
+		return "Spece Wizard [mind_name]"
+	return "Space Wizard [mind_name] in [mob_name]" // tells which one is the real master
 
 /datum/antagonist/wizard/proc/create_objectives()
 	if(!give_objectives)
@@ -176,7 +187,7 @@
 
 /datum/antagonist/wizard/get_admin_commands()
 	. = ..()
-	.["Send to Lair"] = CALLBACK(src,.proc/admin_send_to_lair)
+	.["Send to Lair"] = CALLBACK(src,PROC_REF(admin_send_to_lair))
 
 /datum/antagonist/wizard/proc/admin_send_to_lair(mob/admin)
 	owner.current.forceMove(pick(GLOB.wizardstart))
@@ -210,20 +221,46 @@
 		if(APPRENTICE_DESTRUCTION)
 			owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/projectile/magic_missile(null))
 			owner.AddSpell(new /obj/effect/proc_holder/spell/aimed/fireball(null))
-			to_chat(owner, "<B>Your service has not gone unrewarded, however. Studying under [master.current.real_name], you have learned powerful, destructive spells. You are able to cast magic missile and fireball.")
+			to_chat(owner, "<b>Your service has not gone unrewarded, however. Studying under [master.current.real_name], you have learned powerful, destructive spells. You are able to cast magic missile and fireball.</b>")
 		if(APPRENTICE_BLUESPACE)
 			owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/area_teleport/teleport(null))
 			owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/ethereal_jaunt(null))
-			to_chat(owner, "<B>Your service has not gone unrewarded, however. Studying under [master.current.real_name], you have learned reality bending mobility spells. You are able to cast teleport and ethereal jaunt.")
+			to_chat(owner, "<b>Your service has not gone unrewarded, however. Studying under [master.current.real_name], you have learned reality bending mobility spells. You are able to cast teleport and ethereal jaunt.</b>")
 		if(APPRENTICE_HEALING)
 			owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/charge(null))
 			owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/forcewall(null))
 			H.put_in_hands(new /obj/item/gun/magic/staff/healing(H))
-			to_chat(owner, "<B>Your service has not gone unrewarded, however. Studying under [master.current.real_name], you have learned livesaving survival spells. You are able to cast charge and forcewall.")
+			to_chat(owner, "<b>Your service has not gone unrewarded, however. Studying under [master.current.real_name], you have learned livesaving survival spells. You are able to cast charge and forcewall.</b>")
 		if(APPRENTICE_ROBELESS)
 			owner.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock(null))
 			owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/mind_transfer(null))
-			to_chat(owner, "<B>Your service has not gone unrewarded, however. Studying under [master.current.real_name], you have learned stealthy, robeless spells. You are able to cast knock and mindswap.")
+			to_chat(owner, "<b>Your service has not gone unrewarded, however. Studying under [master.current.real_name], you have learned stealthy, robeless spells. You are able to cast knock and mindswap.</b>")
+		if(APPRENTICE_WILDMAGIC)
+			var/static/list/spell_entry
+			if(!spell_entry)
+				spell_entry = list()
+				for(var/datum/spellbook_entry/each_entry as() in subtypesof(/datum/spellbook_entry)-typesof(/datum/spellbook_entry/item)-typesof(/datum/spellbook_entry/summon))
+					spell_entry += new each_entry
+
+			var/spells_left = 2
+			while(spells_left)
+				var/failsafe = FALSE
+				var/datum/spellbook_entry/chosen_spell = pick(spell_entry)
+				if(chosen_spell.no_random)
+					continue
+				for(var/obj/effect/proc_holder/spell/my_spell in owner.spell_list)
+					if(chosen_spell.spell_type == my_spell.type) // You don't learn the same spell
+						failsafe = TRUE
+						break
+					if(is_type_in_typecache(my_spell.type, chosen_spell.no_coexistence_typecache)) // You don't learn a spell that isn't compatible with another
+						failsafe = TRUE
+						break
+				if(failsafe)
+					continue
+				var/obj/effect/proc_holder/spell/new_spell = chosen_spell.spell_type
+				owner.AddSpell(new new_spell(null))
+				spells_left--
+			to_chat(owner, "<b>Your service has not gone unrewarded, however. Studying under [master.current.real_name], you have learned special spells that aren't available to standard apprentices.</b>")
 
 /datum/antagonist/wizard/apprentice/create_objectives()
 	var/datum/objective/protect/new_objective = new /datum/objective/protect

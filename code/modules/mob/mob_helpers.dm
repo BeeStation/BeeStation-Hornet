@@ -38,7 +38,7 @@
 	if(prob(probability))
 		zone = check_zone(zone)
 	else
-		zone = pickweight(list(BODY_ZONE_HEAD = 1, BODY_ZONE_CHEST = 1, BODY_ZONE_L_ARM = 4, BODY_ZONE_R_ARM = 4, BODY_ZONE_L_LEG = 4, BODY_ZONE_R_LEG = 4))
+		zone = pick_weight(list(BODY_ZONE_HEAD = 1, BODY_ZONE_CHEST = 1, BODY_ZONE_L_ARM = 4, BODY_ZONE_R_ARM = 4, BODY_ZONE_L_LEG = 4, BODY_ZONE_R_LEG = 4))
 	return zone
 
 ///Would this zone be above the neck
@@ -332,12 +332,9 @@
 	if(hud_used && hud_used.action_intent)
 		hud_used.action_intent.icon_state = "[a_intent]"
 
-///Checks if passed through item is blind
-/proc/is_blind(A)
-	if(ismob(A))
-		var/mob/B = A
-		return B.eye_blind
-	return FALSE
+///Checks if the mob is able to see or not. eye_blind is temporary blindness, the trait is if they're permanently blind.
+/mob/proc/is_blind()
+	return eye_blind ? TRUE : HAS_TRAIT(src, TRAIT_BLIND)
 
 ///Is the mob hallucinating?
 /mob/proc/hallucinating()
@@ -448,8 +445,7 @@
 /**
   * Heal a robotic body part on a mob
   */
-/proc/item_heal_robotic(mob/living/carbon/human/H, mob/user, brute_heal, burn_heal)
-	var/obj/item/bodypart/affecting = H.get_bodypart(check_zone(user.zone_selected))
+/proc/item_heal_robotic(mob/living/carbon/human/H, mob/user, brute_heal, burn_heal, obj/item/bodypart/affecting)
 	if(affecting && (!IS_ORGANIC_LIMB(affecting)))
 		var/dam //changes repair text based on how much brute/burn was supplied
 		if(brute_heal > burn_heal)
@@ -461,9 +457,10 @@
 				H.update_damage_overlays()
 			user.visible_message("[user] has fixed some of the [dam ? "dents on" : "burnt wires in"] [H]'s [parse_zone(affecting.body_zone)].", \
 			"<span class='notice'>You fix some of the [dam ? "dents on" : "burnt wires in"] [H == user ? "your" : "[H]'s"] [parse_zone(affecting.body_zone)].</span>")
-			return 1 //successful heal
+			return TRUE //successful heal
 		else
 			to_chat(user, "<span class='warning'>[affecting] is already in good condition!</span>")
+			return FALSE
 
 ///Is the passed in mob an admin ghost
 /proc/IsAdminGhost(var/mob/user)
@@ -592,4 +589,19 @@
 
 //Can the mob see reagents inside of containers?
 /mob/proc/can_see_reagents()
-	return stat == DEAD || has_unlimited_silicon_privilege //Dead guys and silicons can always see reagents
+	. = FALSE
+	if(stat == DEAD) // Dead guys and silicons can always see reagents
+		return TRUE
+	else if(has_unlimited_silicon_privilege)
+		return TRUE
+	else if(HAS_TRAIT(src, TRAIT_BARMASTER)) // If they're a bar master, they know what reagents are at a glance
+		return TRUE
+
+/mob/proc/can_see_boozepower() // same rule above
+	. = FALSE
+	if(stat == DEAD)
+		return TRUE
+	else if(has_unlimited_silicon_privilege)
+		return TRUE
+	else if(HAS_TRAIT(src, TRAIT_BARMASTER))
+		return TRUE

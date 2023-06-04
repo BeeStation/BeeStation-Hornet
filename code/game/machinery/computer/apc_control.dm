@@ -18,7 +18,7 @@
 	result_filters = list("Name" = null, "Charge Above" = null, "Charge Below" = null, "Responsive" = null)
 
 /obj/machinery/computer/apc_control/process()
-	if(operator && (!operator.Adjacent(src) || stat))
+	if(operator && (!operator.Adjacent(src) || machine_stat))
 		operator = null
 		if(active_apc)
 			if(!active_apc.locked)
@@ -37,7 +37,7 @@
 	..(user)
 
 /obj/machinery/computer/apc_control/proc/check_apc(obj/machinery/power/apc/APC)
-	return APC.get_virtual_z_level() == get_virtual_z_level() && !APC.malfhack && !APC.aidisabled && !(APC.obj_flags & EMAGGED) && !APC.stat && !istype(APC.area, /area/ai_monitored) && !APC.area.outdoors
+	return APC.get_virtual_z_level() == get_virtual_z_level() && !APC.malfhack && !APC.aidisabled && !(APC.obj_flags & EMAGGED) && !APC.machine_stat && !istype(APC.area, /area/ai_monitored) && !APC.area.outdoors
 
 /obj/machinery/computer/apc_control/ui_interact(mob/living/user)
 	. = ..()
@@ -61,7 +61,7 @@
 					if(result_filters["Responsive"] && !APC.aidisabled)
 						continue
 					dat += "<a href='?src=[REF(src)];access_apc=[REF(APC)]'>[A]</a><br>\
-					<b>Charge:</b> [APC.cell ? "[DisplayEnergy(APC.cell.charge)] / [DisplayEnergy(APC.cell.maxcharge)] ([round((APC.cell.charge / APC.cell.maxcharge) * 100)]%)" : "No power cell installed."]<br>\
+					<b>Charge:</b> [APC.cell ? "[display_energy(APC.cell.charge)] / [display_energy(APC.cell.maxcharge)] ([round((APC.cell.charge / APC.cell.maxcharge) * 100)]%)" : "No power cell installed."]<br>\
 					<b>Area:</b> [APC.area]<br>\
 					[APC.aidisabled || APC.panel_open ? "<font color='#FF0000'>APC does not respond to interface query.</font>" : "<font color='#00FF00'>APC responds to interface query.</font>"]<br><br>"
 			dat += "<a href='?src=[REF(src)];check_logs=1'>Check Logs</a><br>"
@@ -88,7 +88,7 @@
 /obj/machinery/computer/apc_control/Topic(href, href_list)
 	if(..())
 		return
-	if(!usr || !usr.canUseTopic(src, !issilicon(usr)) || stat || QDELETED(src))
+	if(!usr || !usr.canUseTopic(src, !issilicon(usr)) || machine_stat || QDELETED(src))
 		return
 	if(href_list["authenticate"])
 		var/obj/item/card/id/ID = usr.get_idcard(TRUE)
@@ -139,7 +139,7 @@
 	if(href_list["name_filter"])
 		playsound(src, 'sound/machines/terminal_prompt.ogg', 50, 0)
 		var/new_filter = stripped_input(usr, "What name are you looking for?", name)
-		if(!src || !usr || !usr.canUseTopic(src, !issilicon(usr)) || stat || QDELETED(src))
+		if(!src || !usr || !usr.canUseTopic(src, !issilicon(usr)) || machine_stat || QDELETED(src))
 			return
 		log_activity("changed name filter to \"[new_filter]\"")
 		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
@@ -147,7 +147,7 @@
 	if(href_list["above_filter"])
 		playsound(src, 'sound/machines/terminal_prompt.ogg', 50, 0)
 		var/new_filter = input(usr, "Enter a percentage from 1-100 to sort by (greater than).", name) as null|num
-		if(!src || !usr || !usr.canUseTopic(src, !issilicon(usr)) || stat || QDELETED(src))
+		if(!src || !usr || !usr.canUseTopic(src, !issilicon(usr)) || machine_stat || QDELETED(src))
 			return
 		log_activity("changed greater than charge filter to \"[new_filter]\"")
 		if(new_filter)
@@ -157,7 +157,7 @@
 	if(href_list["below_filter"])
 		playsound(src, 'sound/machines/terminal_prompt.ogg', 50, 0)
 		var/new_filter = input(usr, "Enter a percentage from 1-100 to sort by (lesser than).", name) as null|num
-		if(!src || !usr || !usr.canUseTopic(src, !issilicon(usr)) || stat || QDELETED(src))
+		if(!src || !usr || !usr.canUseTopic(src, !issilicon(usr)) || machine_stat || QDELETED(src))
 			return
 		log_activity("changed lesser than charge filter to \"[new_filter]\"")
 		if(new_filter)
@@ -182,15 +182,18 @@
 		logs = list()
 	ui_interact(usr) //Refresh the UI after a filter changes
 
-/obj/machinery/computer/apc_control/emag_act(mob/user)
+/obj/machinery/computer/apc_control/should_emag(mob/user)
+	return !authenticated || ..()
+
+/obj/machinery/computer/apc_control/on_emag(mob/user)
 	if(!authenticated)
 		to_chat(user, "<span class='warning'>You bypass [src]'s access requirements using your emag.</span>")
 		authenticated = TRUE
 		log_activity("logged in")
-	else if(!(obj_flags & EMAGGED))
-		user.visible_message("<span class='warning'>[user] emags the [src], disabling precise logging!</span>", "<span class='warning'>You emag [src], disabling precise logging and allowing you to clear logs.</span>")
+	else
+		user.visible_message("<span class='warning'>[user] emags \the [src], disabling precise logging!</span>", "<span class='warning'>You emag [src], disabling precise logging and allowing you to clear logs.</span>")
 		log_game("[key_name(user)] emagged [src] at [AREACOORD(src)], disabling operator tracking.")
-		obj_flags |= EMAGGED
+		..()
 	playsound(src, "sparks", 50, 1)
 
 /obj/machinery/computer/apc_control/proc/log_activity(log_text)
@@ -199,6 +202,6 @@
 
 /mob/proc/using_power_flow_console()
 	for(var/obj/machinery/computer/apc_control/A in range(1, src))
-		if(A.operator && A.operator == src && !A.stat)
+		if(A.operator && A.operator == src && !A.machine_stat)
 			return TRUE
 	return

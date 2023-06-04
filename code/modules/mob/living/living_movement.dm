@@ -1,8 +1,9 @@
 /mob/living/Moved()
 	. = ..()
 	update_turf_movespeed(loc)
+	update_looking_move()
 
-/mob/living/CanAllowThrough(atom/movable/mover, turf/target)
+/mob/living/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(.)
 		return
@@ -56,11 +57,3 @@
 			return
 	remove_movespeed_modifier(MOVESPEED_ID_BULKY_DRAGGING)
 
-/mob/living/canZMove(dir, turf/target)
-	return can_zTravel(target, dir) && (movement_type & FLYING)
-
-/mob/living/zMove(dir, feedback = FALSE)
-	if(dir != UP && dir != DOWN)
-		return FALSE
-	var/turf/source = get_turf(src)
-	source.travel_z(src, get_step_multiz(src, dir), (dir == UP))

@@ -9,10 +9,9 @@
 	idle_power_usage = 2
 	active_power_usage = 4
 	max_integrity = 150
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 40, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 40, ACID = 0, STAMINA = 0)
 	var/frequency = 0
 	var/atom/target
-	var/id_tag
 	var/target_layer = PIPING_LAYER_DEFAULT
 
 /obj/machinery/meter/atmos
@@ -26,17 +25,17 @@
 	name = "distribution loop gas flow meter"
 	id_tag = ATMOS_GAS_MONITOR_LOOP_DISTRIBUTION
 
-/obj/machinery/meter/Destroy()
-	SSair.atmos_machinery -= src
-	target = null
-	return ..()
-
 /obj/machinery/meter/Initialize(mapload, new_piping_layer)
 	if(!isnull(new_piping_layer))
 		target_layer = new_piping_layer
-	SSair.atmos_machinery += src
+	SSair.start_processing_machine(src)
 	if(!target)
 		reattach_to_layer()
+	return ..()
+
+/obj/machinery/meter/Destroy()
+	SSair.stop_processing_machine(src)
+	target = null
 	return ..()
 
 /obj/machinery/meter/proc/reattach_to_layer()
@@ -44,8 +43,6 @@
 	for(var/obj/machinery/atmospherics/pipe/pipe in loc)
 		if(pipe.piping_layer == target_layer)
 			candidate = pipe
-			if(pipe.level == 2)
-				break
 	if(candidate)
 		target = candidate
 		setAttachLayer(candidate.piping_layer)
@@ -59,7 +56,7 @@
 		icon_state = "meterX"
 		return 0
 
-	if(stat & (BROKEN|NOPOWER))
+	if(machine_stat & (BROKEN|NOPOWER))
 		icon_state = "meter0"
 		return 0
 
@@ -129,7 +126,7 @@
 	qdel(src)
 
 /obj/machinery/meter/interact(mob/user)
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		return
 	else
 		to_chat(user, status())

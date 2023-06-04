@@ -22,7 +22,7 @@
 	. = TRUE
 	if(vertical && !(zAirOut(dir, T) && T.zAirIn(dir, src)))
 		. = FALSE
-	if(blocks_air || T.blocks_air)
+	if(isclosedturf(src) || isclosedturf(T))
 		. = FALSE
 	if (T == src)
 		return .
@@ -49,23 +49,22 @@
 		var/turf/T = get_step_multiz(src, direction)
 		if(!istype(T))
 			continue
-		var/opp_dir = REVERSE_DIR(direction)
-		if(isopenturf(T) && !(blocks_air || T.blocks_air) && ((direction & (UP|DOWN))? (canvpass && CANVERTICALATMOSPASS(T, src)) : (canpass && CANATMOSPASS(T, src))) )
+		if(isopenturf(T) && !(isclosedturf(src) || isclosedturf(T)) && ((direction & (UP|DOWN))? (canvpass && CANVERTICALATMOSPASS(T, src)) : (canpass && CANATMOSPASS(T, src))) )
 			LAZYINITLIST(atmos_adjacent_turfs)
 			LAZYINITLIST(T.atmos_adjacent_turfs)
-			atmos_adjacent_turfs[T] = direction
-			T.atmos_adjacent_turfs[src] = opp_dir
+			atmos_adjacent_turfs[T] = 1
+			T.atmos_adjacent_turfs[src] = 1
 		else
 			if (atmos_adjacent_turfs)
 				atmos_adjacent_turfs -= T
 			if (T.atmos_adjacent_turfs)
 				T.atmos_adjacent_turfs -= src
 			UNSETEMPTY(T.atmos_adjacent_turfs)
-			T.set_sleeping(T.blocks_air)
+			T.set_sleeping(isclosedturf(T))
 		T.__update_auxtools_turf_adjacency_info(isspaceturf(T.get_z_base_turf()), -1)
 	UNSETEMPTY(atmos_adjacent_turfs)
 	src.atmos_adjacent_turfs = atmos_adjacent_turfs
-	set_sleeping(blocks_air)
+	set_sleeping(isclosedturf(src))
 	__update_auxtools_turf_adjacency_info(isspaceturf(get_z_base_turf()))
 
 /turf/proc/ImmediateDisableAdjacency(disable_adjacent = TRUE)

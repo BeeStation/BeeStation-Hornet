@@ -1,28 +1,28 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
+"aa" = (
 /turf/template_noop,
 /area/template_noop)
-"b" = (
+"ab" = (
 /turf/closed/wall/r_wall,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"c" = (
+"ac" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced/fulltile,
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"d" = (
+"ad" = (
 /turf/closed/wall/r_wall/rust,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"e" = (
+"ae" = (
 /obj/machinery/defibrillator_mount/loaded,
 /turf/closed/wall/r_wall,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"f" = (
+"af" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced/fulltile,
 /turf/open/floor/plasteel/airless,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"g" = (
+"ag" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp,
 /obj/effect/decal/cleanable/cobweb,
@@ -38,7 +38,7 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"h" = (
+"ah" = (
 /obj/structure/table,
 /obj/item/pen,
 /obj/item/paper/fluff/ruins/exp_cloning/log,
@@ -54,7 +54,7 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"i" = (
+"ai" = (
 /obj/machinery/dna_scannernew,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -68,7 +68,7 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"j" = (
+"aj" = (
 /obj/machinery/computer/cloning/prototype,
 /obj/machinery/light{
 	dir = 1
@@ -86,7 +86,7 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"k" = (
+"ak" = (
 /obj/machinery/clonepod/experimental,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -100,7 +100,7 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"l" = (
+"al" = (
 /obj/effect/decal/cleanable/vomit/old,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -114,7 +114,7 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"m" = (
+"am" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -128,35 +128,35 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"n" = (
+"an" = (
 /obj/structure/sign/nanotrasen,
 /turf/closed/wall,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"o" = (
+"ao" = (
 /obj/machinery/vending/snack/teal,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/airless,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"p" = (
+"ap" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/airless,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"q" = (
+"aq" = (
 /obj/structure/sign/directions/science{
 	dir = 8
 	},
 /turf/closed/wall/r_wall,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"r" = (
+"ar" = (
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"s" = (
+"as" = (
 /obj/machinery/iv_drip,
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"t" = (
+"at" = (
 /obj/machinery/light{
 	dir = 4
 	},
@@ -164,7 +164,7 @@
 /obj/item/bedsheet/medical,
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"u" = (
+"au" = (
 /obj/machinery/light{
 	dir = 8
 	},
@@ -173,13 +173,13 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"v" = (
+"av" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"w" = (
+"aw" = (
 /obj/structure/chair{
 	dir = 1
 	},
@@ -191,7 +191,7 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"x" = (
+"ax" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
@@ -200,7 +200,7 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"y" = (
+"ay" = (
 /obj/structure/chair{
 	dir = 1
 	},
@@ -216,7 +216,7 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"z" = (
+"az" = (
 /obj/machinery/light{
 	dir = 4
 	},
@@ -225,26 +225,26 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"A" = (
+"aA" = (
 /obj/structure/sign/departments/science,
 /turf/closed/wall,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"B" = (
+"aB" = (
 /turf/open/floor/plasteel/airless,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"C" = (
+"aC" = (
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
-"D" = (
-/obj/structure/chair/comfy{
+"aD" = (
+/obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"E" = (
+"aE" = (
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"F" = (
+"aF" = (
 /obj/machinery/door/airlock/research/glass,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -252,14 +252,14 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"G" = (
+"aG" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"H" = (
+"aH" = (
 /obj/machinery/door/airlock/research/glass,
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -267,54 +267,54 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"I" = (
+"aI" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"J" = (
+"aJ" = (
 /turf/open/floor/plasteel/white,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"K" = (
+"aK" = (
 /obj/machinery/door/airlock/research/glass,
 /turf/open/floor/plasteel/airless,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"L" = (
+"aL" = (
 /turf/open/floor/plating/airless{
 	icon_state = "platingdmg1"
 	},
 /area/space/nearstation)
-"M" = (
+"aM" = (
 /obj/structure/fluff/broken_flooring{
-	name = "broken plating";
+	dir = 8;
 	icon_state = "plating";
-	dir = 8
+	name = "broken plating"
 	},
 /turf/template_noop,
 /area/space/nearstation)
-"N" = (
+"aN" = (
 /obj/item/book/random,
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"O" = (
+"aO" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/structure/bookcase/random/fiction,
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"P" = (
+"aP" = (
 /obj/structure/table/glass,
 /obj/machinery/light,
 /obj/structure/bedsheetbin,
 /turf/open/floor/plasteel/white,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"Q" = (
+"aQ" = (
 /obj/structure/table/glass,
 /turf/open/floor/plasteel/white,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"R" = (
+"aR" = (
 /obj/structure/table/glass,
 /obj/item/storage/firstaid/regular,
 /obj/item/healthanalyzer{
@@ -323,273 +323,338 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"S" = (
+"aS" = (
 /obj/structure/table/glass,
 /obj/item/storage/box/syringes,
 /turf/open/floor/plasteel/white,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"T" = (
+"aT" = (
 /turf/closed/wall,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
-"U" = (
+"aU" = (
 /turf/open/floor/plating/airless{
 	icon_state = "platingdmg2"
 	},
 /area/space/nearstation)
-"V" = (
+"aV" = (
 /turf/closed/wall/r_wall/rust,
 /area/space/nearstation)
+"aW" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/white,
+/area/ruin/space/has_grav/powered/ancient_shuttle)
+"aX" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin/space/has_grav/powered/ancient_shuttle)
+"aY" = (
+/obj/structure/table,
+/obj/item/flashlight/lamp,
+/obj/effect/decal/cleanable/cobweb,
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/white,
+/area/ruin/space/has_grav/powered/ancient_shuttle)
+"aZ" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin/space/has_grav/powered/ancient_shuttle)
+"ez" = (
+/obj/effect/decal/cleanable/vomit/old,
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/white,
+/area/ruin/space/has_grav/powered/ancient_shuttle)
+"kS" = (
+/obj/machinery/dna_scannernew,
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/white,
+/area/ruin/space/has_grav/powered/ancient_shuttle)
+"Cn" = (
+/obj/structure/table,
+/obj/item/pen,
+/obj/item/paper/fluff/ruins/exp_cloning/log,
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/white,
+/area/ruin/space/has_grav/powered/ancient_shuttle)
+"Pu" = (
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/white,
+/area/ruin/space/has_grav/powered/ancient_shuttle)
+"Pw" = (
+/obj/machinery/computer/cloning/prototype,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/item/paper/fluff/ruins/exp_cloning/manual,
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/white,
+/area/ruin/space/has_grav/powered/ancient_shuttle)
+"Tg" = (
+/obj/machinery/clonepod/experimental,
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/white,
+/area/ruin/space/has_grav/powered/ancient_shuttle)
 
 (1,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 "}
 (2,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 "}
 (3,1,1) = {"
-a
-a
-c
-c
-c
-c
-c
-a
-a
+aa
+aa
+ac
+ac
+ac
+ac
+ac
+aa
+aa
 "}
 (4,1,1) = {"
-a
-a
-c
-r
-D
-N
-c
-a
-a
+aa
+aa
+ac
+ar
+aD
+aN
+ac
+aa
+aa
 "}
 (5,1,1) = {"
-a
-a
-c
-s
-E
-E
-c
-a
-a
+aa
+aa
+ac
+as
+aE
+aE
+ac
+aa
+aa
 "}
 (6,1,1) = {"
-a
-a
-d
-t
-E
-O
-d
-a
-a
+aa
+aa
+ad
+at
+aE
+aO
+ad
+aa
+aa
 "}
 (7,1,1) = {"
-a
-a
-d
-b
-F
-d
-d
-a
-a
+aa
+aa
+ad
+ab
+aF
+ad
+ad
+aa
+aa
 "}
 (8,1,1) = {"
-a
-a
-a
-b
-G
-b
-a
-a
-a
+aa
+aa
+aa
+ab
+aG
+ab
+aa
+aa
+aa
 "}
 (9,1,1) = {"
-a
-a
-d
-d
-H
-b
-b
-a
-a
+aa
+aa
+ad
+ad
+aH
+ab
+ab
+aa
+aa
 "}
 (10,1,1) = {"
-a
-b
-b
-u
-I
-I
-c
-a
-a
+aa
+ab
+ab
+au
+aI
+aI
+ac
+aa
+aa
 "}
 (11,1,1) = {"
-a
-c
-g
-v
-J
-J
-c
-a
-a
+aa
+ac
+aY
+av
+aJ
+aJ
+ac
+aa
+aa
 "}
 (12,1,1) = {"
-a
-c
-h
-w
-J
-J
-d
-a
-a
+aa
+ac
+Cn
+aX
+aJ
+aJ
+ad
+aa
+aa
 "}
 (13,1,1) = {"
-a
-d
-i
-x
-J
-P
-b
-a
-a
+aa
+ad
+kS
+aZ
+aJ
+aP
+ab
+aa
+aa
 "}
 (14,1,1) = {"
-a
-b
-j
-y
-J
-Q
-c
-a
-a
+aa
+ab
+Pw
+aW
+aJ
+aQ
+ac
+aa
+aa
 "}
 (15,1,1) = {"
-a
-b
-k
-x
-J
-R
-c
-a
-a
+aa
+ab
+Tg
+aZ
+aJ
+aR
+ac
+aa
+aa
 "}
 (16,1,1) = {"
-a
-e
-l
-x
-J
-S
-d
-a
-a
+aa
+ae
+ez
+aZ
+aJ
+aS
+ad
+aa
+aa
 "}
 (17,1,1) = {"
-a
-d
-m
-z
-J
-J
-d
-a
-a
+aa
+ad
+Pu
+az
+aJ
+aJ
+ad
+aa
+aa
 "}
 (18,1,1) = {"
-a
-d
-n
-A
-K
-T
-b
-a
-a
+aa
+ad
+an
+aA
+aK
+aT
+ab
+aa
+aa
 "}
 (19,1,1) = {"
-a
-f
-o
-B
-p
-C
-V
-a
-a
+aa
+af
+ao
+aB
+ap
+aC
+aV
+aa
+aa
 "}
 (20,1,1) = {"
-a
-f
-p
-p
-C
-U
-M
-a
-a
+aa
+af
+ap
+ap
+aC
+aU
+aM
+aa
+aa
 "}
 (21,1,1) = {"
-a
-d
-q
-C
-L
-M
-a
-a
-a
+aa
+ad
+aq
+aC
+aL
+aM
+aa
+aa
+aa
 "}
 (22,1,1) = {"
-a
-a
-b
-f
-M
-a
-a
-a
-a
+aa
+aa
+ab
+af
+aM
+aa
+aa
+aa
+aa
 "}
 (23,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 "}
