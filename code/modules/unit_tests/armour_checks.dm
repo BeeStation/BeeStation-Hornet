@@ -6,10 +6,12 @@
 	// Test without armour
 	TEST_ASSERT_EQUAL(0, test_dummy.run_armor_check(), "Mob with no armour returned an armour value.")
 	// Give the mob some armour
-	var/armor50 = new /obj/item/clothing/suit/test_vest(list(MELEE = 50))
-	var/armor100 = new /obj/item/clothing/suit/test_vest(list(MELEE = 100))
-	var/armor200 = new /obj/item/clothing/suit/test_vest(list(MELEE = 200))
-	var/armorN50 = new /obj/item/clothing/suit/test_vest(list(MELEE = -50))
+	var/obj/item/clothing/suit/test_vest/armor50 = new /obj/item/clothing/suit/test_vest(spawn_loc, list(MELEE = 50))
+	var/armor100 = new /obj/item/clothing/suit/test_vest(spawn_loc, list(MELEE = 100))
+	var/armor200 = new /obj/item/clothing/suit/test_vest(spawn_loc, list(MELEE = 200))
+	var/armorN50 = new /obj/item/clothing/suit/test_vest(spawn_loc, list(MELEE = -50))
+	if (armor50.armor.melee != 50)
+		Fail("Armour 50 did not have the correct armour applied to it. This is an error with the unit test.")
 	// Run armour checks again without penetration
 	equip_item(test_dummy, armor50)
 	TEST_ASSERT_EQUAL(50, test_dummy.run_armor_check(BODY_ZONE_CHEST, MELEE), "Mob wearing 50 armour vest did not return 50 armour.")
@@ -32,7 +34,7 @@
 	// Accept this as a valid answer
 	TEST_ASSERT_EQUAL(-10, test_dummy.run_armor_check(BODY_ZONE_CHEST, MELEE, armour_penetration = 80), "Mob wearing -50 armour vest returned a strange value when 80% armour penetration was applied. ([test_dummy.run_armor_check(BODY_ZONE_CHEST, MELEE, armour_penetration = 80)])")
 	// Test stacking armour
-	var/suit50 = new /obj/item/clothing/suit/test_vest(list(MELEE = 50))
+	var/suit50 = new /obj/item/clothing/suit/test_vest(spawn_loc, list(MELEE = 50))
 	test_dummy.equip_to_slot_if_possible(suit50, ITEM_SLOT_ICLOTHING)
 
 	equip_item(test_dummy, armor50)
