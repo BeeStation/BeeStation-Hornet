@@ -39,6 +39,8 @@
 /datum/antagonist/traitor/proc/set_faction(datum/traitor_faction/new_faction, forced = FALSE)
 	if(!istype(new_faction))
 		return
+	if(forced && istype(faction))
+		return
 	var/no_faction = isnull(faction)
 	faction = new_faction
 	employer = new_faction.name
@@ -60,7 +62,7 @@
 	backstory = new_backstory
 
 /// Useful debug proc. Remove this before merge.
-/proc/backstory_objectives()
+/*/proc/backstory_objectives()
 	var/backstory_html = "<body>"
 	for(var/datum/traitor_backstory/path as anything in subtypesof(/datum/traitor_backstory))
 		var/datum/traitor_backstory/backstory = GLOB.traitor_backstories["[path]"]
@@ -71,8 +73,8 @@
 				continue
 			backstory_html += "<h1>[backstory.name] ([faction])</h1>"
 			backstory_html += "<p>[backstory.description]</p>"
-			for(var/datum/objective_backstory/obj_path as anything in subtypesof(/datum/objective_backstory/assassinate))
-				var/datum/objective_backstory/obj_backstory = GLOB.traitor_objective_backstories["[obj_path]"]
+			for(var/datum/objective_filterable/objective_backstory/obj_path as anything in subtypesof(/datum/objective_filterable/objective_backstory/assassinate))
+				var/datum/objective_filterable/objective_backstory/obj_backstory = GLOB.traitor_objective_backstories["[obj_path]"]
 				if(!istype(obj_backstory))
 					continue
 				if(!obj_backstory.is_recommended(backstory, faction))
@@ -83,3 +85,4 @@
 				backstory_html += "<p>[obj_backstory.personal_text]</p>"
 	backstory_html += "</body>"
 	usr << browse(backstory_html, "window=backstory_list")
+*/
