@@ -59,9 +59,12 @@
 /datum/surgery_step/filter_blood/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	var/tox_loss = target.getToxLoss()
 	if(target.reagents.total_volume || (tox_heal_factor > 0 && tox_loss > 0))
-		for(var/blood_chem in target.reagents.reagent_list)
-			var/datum/reagent/chem = blood_chem
-			target.reagents.remove_reagent(chem.type, min(chem.volume * chem_purge_factor, 10)) //Removes more reagent for higher amounts
+		if(target.reagents.total_volume <= 2)
+			target.reagents.clear_reagents()
+		else
+			for(var/blood_chem in target.reagents.reagent_list)
+				var/datum/reagent/chem = blood_chem
+				target.reagents.remove_reagent(chem.type, min(chem.volume * chem_purge_factor, 10)) //Removes more reagent for higher amounts
 		if(tox_heal_factor > 0)
 			if(tox_loss <= 2)
 				target.setToxLoss(0)
