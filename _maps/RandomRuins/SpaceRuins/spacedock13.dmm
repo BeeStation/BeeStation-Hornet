@@ -27,7 +27,7 @@
 /turf/open/floor/plasteel/airless,
 /area/ruin/space/has_grav/powered)
 "g" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/plasteel/airless,
 /area/ruin/space/has_grav/powered)
 "h" = (

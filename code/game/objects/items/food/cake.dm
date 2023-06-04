@@ -1,5 +1,8 @@
 /obj/item/food/cake
+	name = "Cake Parent"
+	desc = "You either spawned this erroneously, or a coder did. Either way, someone messed up."
 	icon = 'icons/obj/food/piecake.dmi'
+	icon_state = "ERROR"
 	bite_consumption = 3
 	max_volume = 80
 	food_reagents = list(
@@ -22,7 +25,10 @@
 		AddElement(/datum/element/processable, TOOL_KNIFE, slice_type, yield, 3 SECONDS, table_required = TRUE)
 
 /obj/item/food/cakeslice
+	name = "Cakeslice Parent"
+	desc = "You either spawned this erroneously, or a coder did. Either way, someone messed up."
 	icon = 'icons/obj/food/piecake.dmi'
+	icon_state = "ERROR"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 4,
 		/datum/reagent/consumable/nutriment/vitamin = 1
@@ -337,7 +343,7 @@
 /obj/item/food/cake/bsvc // blackberry strawberries vanilla cake
 	name = "blackberry and strawberry vanilla cake"
 	desc = "A plain cake, filled with assortment of blackberries and strawberries!"
-	icon_state = "blackbarry_strawberries_cake_vanilla_cake"
+	icon_state = "blackberry_strawberries_cake_vanilla_cake"
 	tastes = list("blackberry" = 2, "strawberries" = 2, "vanilla" = 2, "sweetness" = 2, "cake" = 3)
 	foodtypes = GRAIN | DAIRY | FRUIT | SUGAR
 	slice_type = /obj/item/food/cakeslice/bsvc
@@ -345,14 +351,14 @@
 /obj/item/food/cakeslice/bsvc
 	name = "blackberry and strawberry vanilla cake slice"
 	desc = "Just a slice of cake  filled with assortment of blackberries and strawberries!"
-	icon_state = "blackbarry_strawberries_cake_vanilla_slice"
+	icon_state = "blackberry_strawberries_cake_vanilla_slice"
 	tastes = list("blackberry" = 2, "strawberries" = 2, "vanilla" = 2, "sweetness" = 2,"cake" = 3)
 	foodtypes = GRAIN | DAIRY | FRUIT | SUGAR
 
 /obj/item/food/cake/bscc // blackbarry strawberries chocolate cake
 	name = "blackberry and strawberry chocolate cake"
 	desc = "A chocolate cake, filled with assortment of blackberries and strawberries!"
-	icon_state = "blackbarry_strawberries_cake_coco_cake"
+	icon_state = "blackberry_strawberries_cake_cocoa_cake"
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment = 20,
 		/datum/reagent/consumable/nutriment/vitamin = 5,
@@ -365,7 +371,7 @@
 /obj/item/food/cakeslice/bscc
 	name = "blackberry and strawberry chocolate cake slice"
 	desc = "Just a slice of cake  filled with assortment of blackberries and strawberries!"
-	icon_state = "blackbarry_strawberries_cake_coco_slice"
+	icon_state = "blackberry_strawberries_cake_cocoa_slice"
 	tastes = list("blackberry" = 2, "strawberries" = 2, "chocolate" = 4, "sweetness" = 2,"cake" = 3)
 	foodtypes = GRAIN | DAIRY | FRUIT | SUGAR
 

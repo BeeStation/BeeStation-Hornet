@@ -207,7 +207,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_THERMAL_VISION    "thermal_vision"
 #define TRAIT_ABDUCTOR_TRAINING "abductor-training"
 #define TRAIT_ABDUCTOR_SCIENTIST_TRAINING "abductor-scientist-training"
-#define TRAIT_SURGEON           "surgeon"
+#define TRAIT_ALL_SURGERIES		"all-surgeries"		//! Allows the user to do any surgery, anywhere, regardless of research or operating surface.
+#define TRAIT_PERFECT_SURGEON	"perfect-surgeon"	//! The user's surgeries will never (unintentionally) fail, and always perform as if they were on an abductor operating table.
 #define	TRAIT_STRONG_GRABBER	"strong_grabber"
 #define	TRAIT_CALCIUM_HEALER	"calcium_healer"
 #define	TRAIT_MAGIC_CHOKE		"magic_choke"
@@ -227,7 +228,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SECURITY_HUD		"sec_hud"
 #define TRAIT_MEDIBOTCOMINGTHROUGH "medbot" //Is a medbot healing you
 #define TRAIT_PASSTABLE			"passtable"
-#define TRAIT_ONEWAYROAD	"one-way road"
 #define TRAIT_NOBLOCK			"noblock"
 #define TRAIT_NANITECOMPATIBLE	"nanitecompatible"
 #define TRAIT_WARDED       		"curse_immune"
@@ -242,6 +242,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BARMASTER			"bar_master" // always can identify reagents
 #define TRAIT_HIVE_BURNT		 "hive-burnt"
 #define TRAIT_MOTH_BURNT		"moth_burnt"
+#define TRAIT_SPECIAL_TRAUMA_BOOST "special_trauma_boost" ///Increases chance of getting special traumas, makes them harder to cure
+#define TRAIT_METALANGUAGE_KEY_ALLOWED "metalanguage_key_allowed" // you can use language key for metalanguage (,`) and but also you see lang icon
 
 // You can stare into the abyss, but it does not stare back.
 // You're immune to the hallucination effect of the supermatter, either
@@ -387,6 +389,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_JAWS_OF_LIFE "jaws-of-life"
 #define STICKY_NODROP "sticky-nodrop" //sticky nodrop sounds like a bad soundcloud rapper's name
 #define TRAIT_PRESERVE_UI_WITHOUT_CLIENT "preserve_ui_without_client" //this mob should never close ui even if it doesn't have a client
+#define EXPERIMENTAL_SURGERY_TRAIT "experimental_surgery"
 
 ///Traits given by station traits
 #define STATION_TRAIT_BANANIUM_SHIPMENTS "station_trait_bananium_shipments"

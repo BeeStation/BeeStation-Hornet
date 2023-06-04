@@ -39,6 +39,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 "j" = (
@@ -85,6 +86,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 "v" = (

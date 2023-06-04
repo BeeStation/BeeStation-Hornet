@@ -478,8 +478,8 @@
 				M.visible_message(pick("<b>[M]</b>'s collar pops up without warning.</span>", "<b>[M]</b> flexes [M.p_their()] arms."))
 			else
 				M.visible_message("<b>[M]</b> flexes [M.p_their()] arms.")
-		if(prob(10))
-			M.say(pick("Shit was SO cash.", "You are everything bad in the world.", "What sports do you play, other than 'jack off to naked drawn Japanese people?'", "Don???t be a stranger. Just hit me with your best shot.", "My name is John and I hate every single one of you."), forced = /datum/reagent/spraytan)
+		if(prob(2))
+			M.say(pick("Shit was SO cash.", "Duuuuuude. Yeah bro.", "Check my muscles, broooo!", "Hell yeah brooo!"), forced = /datum/reagent/spraytan)
 
 #define MUT_MSG_IMMEDIATE 1
 #define MUT_MSG_EXTENDED 2
@@ -1975,21 +1975,6 @@
 /datum/reagent/pax/on_mob_end_metabolize(mob/living/L)
 	REMOVE_TRAIT(L, TRAIT_PACIFISM, type)
 	..()
-
-/datum/reagent/bz_metabolites
-	name = "BZ metabolites"
-	description = "A harmless metabolite of BZ gas."
-	color = "#FAFF00"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN // botany can't spam this. lings will have this disaster from scrub or maint pill.
-	taste_description = "acrid cinnamon"
-	metabolization_rate = 0.2 * REAGENTS_METABOLISM
-
-/datum/reagent/bz_metabolites/on_mob_life(mob/living/L)
-	if(L.mind)
-		var/datum/antagonist/changeling/changeling = L.mind.has_antag_datum(/datum/antagonist/changeling)
-		if(changeling)
-			changeling.chem_charges = max(changeling.chem_charges-2, 0)
-	return ..()
 
 /datum/reagent/pax/peaceborg
 	name = "Synthpax"

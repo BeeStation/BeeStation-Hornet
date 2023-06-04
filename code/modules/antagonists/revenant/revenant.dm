@@ -15,6 +15,7 @@
 	var/stasis = FALSE
 	mob_biotypes = list(MOB_SPIRIT)
 	incorporeal_move = INCORPOREAL_MOVE_JAUNT
+	see_invisible = SEE_INVISIBLE_GHOSTLY
 	invisibility = INVISIBILITY_GHOSTLY
 	health = INFINITY //Revenants don't use health, they use essence instead
 	maxHealth = INFINITY
@@ -68,6 +69,7 @@
 
 /mob/living/simple_animal/revenant/Initialize(mapload)
 	. = ..()
+	// more rev abilities are in 'revenant_abilities.dm'
 	AddSpell(new /obj/effect/proc_holder/spell/targeted/night_vision/revenant(null))
 	AddSpell(new /obj/effect/proc_holder/spell/self/revenant_phase_shift(null))
 	AddSpell(new /obj/effect/proc_holder/spell/targeted/telepathy/revenant(null))
@@ -75,8 +77,20 @@
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/overload(null))
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/blight(null))
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction(null))
+	check_rev_teleport() // they're spawned in non-station for some reason...
 	random_revenant_name()
 	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE, "#490066")
+
+/mob/living/simple_animal/revenant/onTransitZ(old_z, new_z)
+	. = ..()
+	check_rev_teleport()
+
+/mob/living/simple_animal/revenant/proc/check_rev_teleport()
+	var/obj/effect/proc_holder/spell/self/rev_teleport/revtele = locate() in mob_spell_list
+	if(!is_station_level(src.z) && !revtele) // give them an ability to back to the station
+		AddSpell(new /obj/effect/proc_holder/spell/self/rev_teleport(null))
+	else if(is_station_level(src.z) && revtele) // you're back to the station. Remove tele spell.
+		RemoveSpell(revtele)
 
 /mob/living/simple_animal/revenant/Destroy()
 	. = ..()
@@ -325,7 +339,7 @@
 		to_chat(src, "<span class='revenwarning'>You cannot use abilities from inside of a wall.</span>")
 		return FALSE
 	for(var/obj/O in T)
-		if(O.density && !O.CanPass(src, T))
+		if(O.density && !O.CanPass(src, get_dir(T, src)))
 			to_chat(src, "<span class='revenwarning'>You cannot use abilities inside of a dense object.</span>")
 			return FALSE
 	if(inhibited)
@@ -373,34 +387,6 @@
 	alpha=255
 	stasis = FALSE
 
-/mob/living/simple_animal/revenant/CtrlClickOn(atom/A)
-	if(incorporeal_move == INCORPOREAL_MOVE_JAUNT)
-		check_orbitable(A)
-		return
-	..()
-
-/mob/living/simple_animal/revenant/DblClickOn(atom/A, params)
-	check_orbitable(A)
-	..()
-
-/mob/living/simple_animal/revenant/proc/check_orbitable(atom/A)
-	if(revealed)
-		to_chat(src, "<span class='warning'>You can't orbit while you're revealed!</span>")
-		return
-	if(!Adjacent(A))
-		to_chat(src, "<span class='warning'>You can only orbit things that are next to you!</span>")
-		return
-	if(notransform || inhibited || !incorporeal_move_check(A))
-		return
-	var/icon/I = icon(A.icon, A.icon_state, A.dir)
-	var/orbitsize = (I.Width()+I.Height())*0.5
-	orbitsize -= (orbitsize/world.icon_size)*(world.icon_size*0.25)
-	orbit(A, orbitsize)
-
-/mob/living/simple_animal/revenant/orbit(atom/target)
-	setDir(SOUTH) // reset dir so the right directional sprites show up
-	return ..()
-
 /mob/living/simple_animal/revenant/Moved(atom/OldLoc)
 	if(!orbiting) // only needed when orbiting
 		return ..()
@@ -430,7 +416,7 @@
 		if(stepTurf.flags_1 & NOJAUNT_1)
 			to_chat(src, "<span class='warning'>Some strange aura is blocking the way.</span>")
 			return
-		if(locate(/obj/effect/blessing) in stepTurf)
+		if(stepTurf.is_holy())
 			to_chat(src, "<span class='warning'>Holy energies block your path!</span>")
 			return
 	return TRUE
