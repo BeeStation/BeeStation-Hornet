@@ -45,6 +45,7 @@
 
 #include "achievement_validation.dm"
 #include "anchored_mobs.dm"
+#include "armour_checks.dm"
 #include "check_adjustable_clothing.dm"
 #include "component_tests.dm"
 #include "connect_loc.dm"
