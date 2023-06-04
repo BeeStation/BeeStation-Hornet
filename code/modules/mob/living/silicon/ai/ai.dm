@@ -992,6 +992,8 @@
 	else if(mind)
 		soullink(/datum/soullink/sharedbody, src, target)
 		deployed_shell = target
+		transfer_observers_to(deployed_shell) // ai core to borg shell
+		eyeobj.transfer_observers_to(deployed_shell) // eyemob to borg
 		if(is_servant_of_ratvar(src) && !deployed_shell.ratvar)
 			deployed_shell.SetRatvar(TRUE)
 		target.deploy_init(src)
