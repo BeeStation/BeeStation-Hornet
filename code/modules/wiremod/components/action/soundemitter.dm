@@ -29,7 +29,7 @@
 
 /obj/item/circuit_component/soundemitter/populate_ports()
 	volume = add_input_port("Volume", PORT_TYPE_NUMBER, default = 35)
-	frequency = add_input_port("Frequency", PORT_TYPE_NUMBER, default = 0)
+	frequency = add_input_port("Frequency", PORT_TYPE_NUMBER, default = 1)
 
 /obj/item/circuit_component/soundemitter/populate_options()
 	var/static/list/component_options = list(

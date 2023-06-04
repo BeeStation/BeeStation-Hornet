@@ -161,16 +161,12 @@
 
 	/// A reference to the action button to look at charge/get info
 	var/datum/action/innate/bci_charge_action/charge_action
-
 	var/datum/port/input/message
 	var/datum/port/input/send_message_signal
-
 	var/datum/port/output/user_port
-
 	var/datum/weakref/user
 
 /obj/item/circuit_component/bci_core/populate_ports()
-
 	message = add_input_port("Message", PORT_TYPE_STRING)
 	send_message_signal = add_input_port("Send Message", PORT_TYPE_SIGNAL)
 
@@ -186,8 +182,8 @@
 	charge_action = new(src)
 	bci.actions += list(charge_action)
 
-	RegisterSignal(shell, COMSIG_CARBON_GAIN_ORGAN, PROC_REF(on_organ_implanted))
-	RegisterSignal(shell, COMSIG_CARBON_LOSE_ORGAN, PROC_REF(on_organ_removed))
+	RegisterSignal(shell, COMSIG_ORGAN_IMPLANTED, PROC_REF(on_organ_implanted))
+	RegisterSignal(shell, COMSIG_ORGAN_REMOVED, PROC_REF(on_organ_removed))
 
 /obj/item/circuit_component/bci_core/unregister_shell(atom/movable/shell)
 	var/obj/item/organ/cyberimp/bci/bci = shell
@@ -196,8 +192,8 @@
 	QDEL_NULL(charge_action)
 
 	UnregisterSignal(shell, list(
-		COMSIG_CARBON_GAIN_ORGAN,
-		COMSIG_CARBON_LOSE_ORGAN,
+		COMSIG_ORGAN_IMPLANTED,
+		COMSIG_ORGAN_REMOVED,
 	))
 
 /obj/item/circuit_component/bci_core/should_receive_input(datum/port/input/port)
@@ -246,7 +242,6 @@
 
 	if (isnull(parent.cell))
 		return
-
 	parent.cell.give(amount)
 
 /obj/item/circuit_component/bci_core/proc/on_electrocute(datum/source, shock_damage, siemens_coefficient, flags)
@@ -254,10 +249,8 @@
 
 	if (isnull(parent.cell))
 		return
-
 	if (flags & SHOCK_ILLUSION)
 		return
-
 	parent.cell.give(shock_damage * 2)
 	to_chat(source, "<span class='notice'>You absorb some of the shock into your [parent.name]!</span>")
 
@@ -356,10 +349,11 @@
 /obj/machinery/bci_implanter/examine(mob/user)
 	. = ..()
 
-	if (isnull(bci_to_implant?.resolve()))
+	var/obj/item/organ/cyberimp/bci/bci_to_implant_resolved = bci_to_implant?.resolve()
+	if (isnull(bci_to_implant_resolved))
 		. += "<span class='notice'>There is no BCI inserted.</span>"
 	else
-		. += "<span class='notice'>Right-click to remove current BCI.</span>"
+		. += "<span class='notice'>Control-click to remove [bci_to_implant_resolved].</span>"
 
 /obj/machinery/bci_implanter/proc/set_busy(status, working_icon)
 	busy = status
@@ -399,7 +393,7 @@
 	if(!user.Adjacent(src) || !can_interact(user))
 		return
 
-	if (locked)
+	if(locked)
 		balloon_alert(user, "it's locked!")
 		return ..()
 
