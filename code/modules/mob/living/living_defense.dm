@@ -8,7 +8,7 @@
 	if(armor <= 0)
 		return armor
 	if(silent)
-		return armour
+		return armor
 
 	//the if "armor" check is because this is used for everything on /living, including humans
 	if(armour_penetration)
