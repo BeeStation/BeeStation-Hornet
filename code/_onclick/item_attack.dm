@@ -118,7 +118,7 @@
 /mob/living/attacked_by(obj/item/I, mob/living/user)
 	send_item_attack_message(I, user)
 	if(I.force)
-		var/armour_block = run_armor_check(affecting, MELEE, armour_penetration = I.armour_penetration)
+		var/armour_block = run_armor_check(null, MELEE, armour_penetration = I.armour_penetration)
 		armour_block = min(armour_block, 90)
 		apply_damage(I.force, I.damtype, blocked = armour_block)
 		if(I.damtype == BRUTE)
