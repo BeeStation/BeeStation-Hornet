@@ -143,7 +143,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		to_chat(user, "<span class='warning'>You do not possess a strong enough physical binding to activate this rune!</span>")
 	if(req_cultists > 1 || istype(src, /obj/effect/rune/convert))
 		var/obj/item/toy/plush/narplush/plushsie = locate() in range(1, src)
-		if(plushsie?.is_invoker)
+		if(plushsie?.invoker_charges > 0)
 			invokers += plushsie
 		for(var/mob/living/L in viewers(1, src))
 			if(iscultist(L))
@@ -174,6 +174,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		else if(istype(M, /obj/item/toy/plush/narplush))
 			var/obj/item/toy/plush/narplush/P = M
 			P.visible_message("<span class='cult italic'>[P] squeaks loudly!</span>")
+			P.invoker_charges -= 1
 	do_invoke_glow()
 
 /obj/effect/rune/proc/do_invoke_glow()
@@ -377,7 +378,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	LAZYADD(GLOB.teleport_runes, src)
 
 /obj/effect/rune/teleport/Destroy()
-	GLOB.teleport_runes -= src
+	LAZYREMOVE(GLOB.teleport_runes, src)
 	if(inner_portal)
 		QDEL_NULL(inner_portal)
 	if(outer_portal)
@@ -412,7 +413,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		return
 
 	var/turf/target = get_turf(actual_selected_rune)
-	if(is_blocked_turf(target, TRUE))
+	if(target.is_blocked_turf(TRUE))
 		to_chat(user, "<span class='warning'>The target rune is blocked. Attempting to teleport to it would be massively unwise.</span>")
 		fail_invoke()
 		return

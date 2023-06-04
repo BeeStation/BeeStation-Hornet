@@ -49,11 +49,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
-"j" = (
-/obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/turf/open/floor/plating,
-/area/template_noop)
 "k" = (
 /obj/machinery/light_switch{
 	pixel_x = 22
@@ -63,7 +58,7 @@
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "l" = (
-/turf/closed/wall/r_wall,
+/turf/template_noop/closed,
 /area/template_noop)
 "m" = (
 /obj/machinery/light{
@@ -96,6 +91,10 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
 	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/template_noop)
 "q" = (
@@ -150,12 +149,6 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
-"w" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/plasteel/dark,
-/area/template_noop)
 "y" = (
 /obj/machinery/vending/coffee,
 /obj/effect/decal/cleanable/dirt,
@@ -168,11 +161,23 @@
 	},
 /area/template_noop)
 "B" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small{
-	dir = 1
+/obj/structure/table,
+/obj/item/coin/arcade_token{
+	pixel_x = 6
 	},
-/turf/open/floor/plating,
+/obj/item/coin/arcade_token{
+	pixel_x = -6
+	},
+/obj/item/coin/arcade_token{
+	pixel_y = 6
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark/side{
+	dir = 8
+	},
 /area/template_noop)
 "H" = (
 /obj/structure/chair/stool/bar{
@@ -237,29 +242,6 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel,
-/area/template_noop)
-"P" = (
-/obj/structure/table,
-/obj/item/coin/arcade_token{
-	pixel_x = 6
-	},
-/obj/item/coin/arcade_token{
-	pixel_x = -6
-	},
-/obj/item/coin/arcade_token{
-	pixel_y = 6
-	},
-/obj/machinery/newscaster{
-	pixel_x = -28;
-	pixel_y = 1
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark/side{
-	dir = 8
-	},
 /area/template_noop)
 "Q" = (
 /obj/effect/decal/cleanable/dirt,
@@ -334,16 +316,15 @@
 
 (1,1,1) = {"
 U
-P
+B
 t
 b
 y
 S
 V
 a
-j
 f
-a
+l
 "}
 (2,1,1) = {"
 W
@@ -354,7 +335,6 @@ o
 i
 s
 a
-B
 p
 J
 "}
@@ -367,9 +347,8 @@ O
 O
 L
 a
-a
 u
-a
+l
 "}
 (4,1,1) = {"
 U
@@ -379,21 +358,19 @@ q
 c
 m
 M
-w
 k
 g
 l
 "}
 (5,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+l
+l
+l
+l
+l
+l
+l
+l
+l
 l
 "}

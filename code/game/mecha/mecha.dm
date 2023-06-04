@@ -3,7 +3,6 @@
 	desc = "Exosuit"
 	icon = 'icons/mecha/mecha.dmi'
 	density = TRUE //Dense. To raise the heat.
-	opacity = 1 ///opaque. Menacing.
 	move_force = MOVE_FORCE_VERY_STRONG
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -18,6 +17,7 @@
 	var/can_move = 0 //time of next allowed movement
 	var/mob/living/carbon/occupant = null
 	var/step_in = 10 //make a step in step_in/10 sec.
+	var/step_restricted = 0 //applied on_entered() by things which slow or restrict mech movement. Resets to zero at the end of every movement
 	var/dir_in = 2//What direction will the mech face when entered/powered on? Defaults to South.
 	var/normal_step_energy_drain = 10 //How much energy the mech will consume each time it moves. This variable is a backup for when leg actuators affect the energy drain.
 	var/step_energy_drain = 10
@@ -160,6 +160,7 @@
 
 /obj/mecha/rust_heretic_act()
 	take_damage(500,  BRUTE)
+	return TRUE
 
 /obj/mecha/Destroy()
 	if(occupant)
@@ -579,26 +580,28 @@
 
 /obj/mecha/proc/domove(direction)
 	if(can_move >= world.time)
-		return 0
+		return FALSE
+	if(direction == UP || direction == DOWN)
+		return FALSE
 	if(!Process_Spacemove(direction))
-		return 0
+		return FALSE
 	if(!has_charge(step_energy_drain))
-		return 0
+		return FALSE
 	if(zoom_mode)
 		if(world.time - last_message > 20)
 			occupant_message("Unable to move while in zoom mode.")
 			last_message = world.time
-		return 0
+		return FALSE
 	if(!cell)
 		if(world.time - last_message > 20)
 			occupant_message("<span class='warning'>Missing power cell.</span>")
 			last_message = world.time
-		return 0
+		return FALSE
 	if(!scanmod || !capacitor)
 		if(world.time - last_message > 20)
 			occupant_message("<span class='warning'>Missing [scanmod? "capacitor" : "scanning module"].</span>")
 			last_message = world.time
-		return 0
+		return FALSE
 
 	var/move_result = 0
 	var/oldloc = loc
@@ -610,9 +613,10 @@
 		move_result = mechstep(direction)
 	if(move_result || loc != oldloc)// halfway done diagonal move still returns false
 		use_power(step_energy_drain)
-		can_move = world.time + step_in
-		return 1
-	return 0
+		can_move = world.time + step_in + step_restricted
+		step_restricted = 0
+		return TRUE
+	return FALSE
 
 /obj/mecha/proc/mechturn(direction)
 	setDir(direction)
@@ -664,7 +668,7 @@
 			if(nextsmash < world.time)
 				obstacle.mech_melee_attack(src)
 				nextsmash = world.time + smashcooldown
-				if(!obstacle || obstacle.CanPass(src,get_step(src,dir)))
+				if(!obstacle || obstacle.CanPass(src, get_dir(obstacle, src) || dir)) // The else is in case the obstacle is in the same turf.
 					step(src,dir)
 		if(isobj(obstacle))
 			var/obj/O = obstacle
@@ -1161,8 +1165,6 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 		if(user == occupant)
 			user.sight |= occupant_sight_flags
 
-/obj/mecha/rust_heretic_act()
-	take_damage(500,  BRUTE)
 
 /obj/mecha/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	..()

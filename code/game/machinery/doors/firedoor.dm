@@ -13,6 +13,7 @@
 	icon_state = "door_open"
 	opacity = FALSE
 	density = FALSE
+	obj_flags = CAN_BE_HIT // reset zblock
 	max_integrity = 300
 	resistance_flags = FIRE_PROOF
 	heat_proof = TRUE
@@ -62,6 +63,7 @@
 	icon_state = "door_closed"
 	opacity = TRUE
 	density = TRUE
+	obj_flags = CAN_BE_HIT | BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 	processing_flags = START_PROCESSING_ON_INIT
 
 //see also turf/AfterChange for adjacency shennanigans
@@ -457,13 +459,19 @@
 		return 0 // not big enough to matter
 	return start_point.air.return_pressure() < 20 ? -1 : 1
 
-/obj/machinery/door/firedoor/border_only/CanAllowThrough(atom/movable/mover, turf/target)
+/obj/machinery/door/firedoor/border_only/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	if(!(get_dir(loc, target) == dir)) //Make sure looking at appropriate border
+	if(!(border_dir == dir)) //Make sure looking at appropriate border
 		return TRUE
 
 /obj/machinery/door/firedoor/border_only/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
+
+	if(leaving.movement_type & PHASING)
+		return
+
+	if(leaving == src)
+		return // Let's not block ourselves.
 
 	if(direction == dir && density)
 		leaving.Bump(src)
@@ -515,6 +523,7 @@
 	icon_state = "frame1"
 	anchored = FALSE
 	density = TRUE
+	obj_flags = CAN_BE_HIT | BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 	var/constructionStep = CONSTRUCTION_NOCIRCUIT
 	var/reinforced = 0
 	var/firelock_type = /obj/machinery/door/firedoor

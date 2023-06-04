@@ -54,9 +54,10 @@
 		lasercolor = created_lasercolor
 	icon_state = "[lasercolor]ed209[on]"
 	set_weapon() //giving it the right projectile and firing sound.
-	var/datum/job/detective/J = new/datum/job/detective
-	access_card.access += J.get_access()
-	prev_access = access_card.access
+
+	var/datum/job/J = SSjob.GetJob(JOB_NAME_DETECTIVE)
+	access_card.access = J.get_access()
+	prev_access = access_card.access.Copy()
 	if(lasercolor)
 		shot_delay = 6//Longer shot delay because JESUS CHRIST
 		check_records = 0//Don't actively target people set to arrest

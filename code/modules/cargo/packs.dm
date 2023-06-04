@@ -1146,7 +1146,7 @@
 	cost = 5000
 	max_supply = 2
 	contains = list(
-		/obj/machinery/portable_atmospherics/canister/toxins,
+		/obj/machinery/portable_atmospherics/canister/plasma,
 		/obj/item/construction/rcd/loaded,
 		/obj/item/rcd_ammo/large,
 		/obj/item/rcd_ammo/large,

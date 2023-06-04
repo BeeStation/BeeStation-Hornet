@@ -4,6 +4,7 @@
 	desc = "An industrial unit made to hold and decontaminate irradiated equipment. It comes with a built-in UV cauterization mechanism. A small warning label advises that organic matter should not be placed into the unit."
 	icon = 'icons/obj/machines/suit_storage.dmi'
 	icon_state = "close"
+	obj_flags = CAN_BE_HIT | USES_TGUI
 	use_power = ACTIVE_POWER_USE
 	active_power_usage = 60
 	power_channel = AREA_USAGE_EQUIP
@@ -378,23 +379,12 @@
 			return
 		user.visible_message("<span class='warning'>[user] successfully broke out of [src]!</span>", \
 			"<span class='notice'>You successfully break out of [src]!</span>")
+		locked = FALSE
 		open_machine()
 		dump_contents()
 
 	add_fingerprint(user)
-	if(locked)
-		visible_message("<span class='notice'>You see [user] kicking against the doors of [src]!</span>", \
-			"<span class='notice'>You start kicking against the doors...</span>")
-		addtimer(CALLBACK(src, PROC_REF(resist_open), user), 300)
-	else
-		open_machine()
-		dump_contents()
 
-/obj/machinery/suit_storage_unit/proc/resist_open(mob/user)
-	if(!state_open && occupant && (user in src) && user.stat == 0) // Check they're still here.
-		visible_message("<span class='notice'>You see [user] burst out of [src]!</span>", \
-			"<span class='notice'>You escape the cramped confines of [src]!</span>")
-		open_machine()
 
 /obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_CROWBAR && user.a_intent == INTENT_HARM && !panel_open && machine_stat & NOPOWER)

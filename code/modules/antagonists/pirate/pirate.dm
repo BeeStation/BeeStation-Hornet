@@ -74,7 +74,7 @@
 	return ..()
 
 /datum/team/pirate
-	name = "Pirate crew"
+	name = "Space Pirates"
 
 /datum/team/pirate/proc/forge_objectives()
 	var/datum/objective/loot/getbooty = new()

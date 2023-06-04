@@ -452,6 +452,7 @@
 		set_security_level(SEC_LEVEL_DELTA)
 
 		if (proper_bomb) // Why does this exist
+			set_dynamic_high_impact_event("nuclear bomb has been armed")
 			countdown_music = play_soundtrack_music(/datum/soundtrack_song/bee/countdown)
 
 	else
@@ -674,7 +675,7 @@ This is here to make the tiles around the station mininuke change when it's arme
 	AddComponent(/datum/component/stationloving, !fake)
 	if(!fake)
 		//Global teamfinder signal trackable on the synd frequency.
-		AddComponent(/datum/component/tracking_beacon, "synd", null, null, TRUE, "#ebeca1", TRUE, TRUE)
+		AddComponent(/datum/component/tracking_beacon, "synd", null, null, TRUE, "#ebeca1", TRUE, TRUE, "#818157")
 
 /obj/item/disk/nuclear/process()
 	++process_tick
