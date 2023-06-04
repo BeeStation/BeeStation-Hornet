@@ -173,7 +173,7 @@ Garrison
 Gettemy
 Gibson
 Glover
-Goebbles
+Gokhile
 Goodman
 Graham
 Gray
@@ -528,7 +528,7 @@ Warren
 Watson
 Webb
 Weeter
-Weinstein
+Weindel
 Weisgarber
 Wells
 Welty
