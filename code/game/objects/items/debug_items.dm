@@ -287,7 +287,8 @@
 		TRAIT_MEDICAL_HUD,
 		TRAIT_SECURITY_HUD,
 		TRAIT_BARMASTER,
-		TRAIT_ALL_SURGERIES
+		TRAIT_ALL_SURGERIES,
+		TRAIT_METALANGUAGE_KEY_ALLOWED
 	)
 
 /obj/item/debug/orb_of_power/pickup(mob/living/user)
@@ -295,6 +296,7 @@
 	for(var/each in traits_to_give)
 		ADD_TRAIT(user, each, "debug")
 	user.grant_all_languages(TRUE, TRUE, TRUE, "debug")
+	user.grant_language(/datum/language/metalanguage, TRUE, TRUE, "debug")
 	user.see_override = SEE_INVISIBLE_OBSERVER
 	user.update_sight()
 
@@ -314,6 +316,7 @@
 	for(var/each in traits_to_give)
 		REMOVE_TRAIT(user, each, "debug")
 	user.remove_all_languages("debug")
+	user.remove_language(/datum/language/metalanguage, TRUE, TRUE, "debug")
 	user.see_override = initial(user.see_override)
 	user.update_sight()
 
