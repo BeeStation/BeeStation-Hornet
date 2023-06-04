@@ -68,6 +68,8 @@
 		trackable_mobs()
 
 	var/datum/weakref/target_ref = (isnull(track.humans[target_name]) ? track.others[target_name] : track.humans[target_name])
+	if (!target_ref)
+		return
 	var/atom/target = target_ref.resolve()
 
 	attempt_track(target)
