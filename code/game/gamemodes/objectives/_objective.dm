@@ -263,7 +263,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 			// Remove this from memory since the component deals with hard-dels
 			receiver.antag_stash = null
 		//Update the mind
-		receiver.store_memory("You have a secret stash of items hidden on the station required for your objectives. It is hidden inside of [atom_text] ([secret_bag.loc]) located at [get_area(secret_bag.loc)] ([COORD(secret_bag.loc)]), you may have to search around for it. (Use alt click on the object the stash is inside to access it).")
+		receiver.store_memory("You have a secret stash of items hidden on the station required for your objectives. It is hidden inside of [atom_text] ([secret_bag.loc]) located at [get_area(secret_bag.loc)] [COORD(secret_bag.loc)], you may have to search around for it. (Use alt click on the object the stash is inside to access it).")
 		to_chat(receiver?.current, "<span class='notice bold'>You have a secret stash at [get_area(secret_bag)], more details are stored in your notes. (IC > Notes)</span>")
 	//Create the objects in the bag
 	for(var/eq_path in special_equipment)
