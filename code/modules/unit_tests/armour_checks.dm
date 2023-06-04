@@ -34,7 +34,7 @@
 	// Accept this as a valid answer
 	TEST_ASSERT_EQUAL(-10, round(test_dummy.run_armor_check(BODY_ZONE_CHEST, MELEE, armour_penetration = 80), 1), "Mob wearing -50 armour vest returned a strange value when 80% armour penetration was applied. ([test_dummy.run_armor_check(BODY_ZONE_CHEST, MELEE, armour_penetration = 80)])")
 	// Test stacking armour
-	var/suit50 = new /obj/item/clothing/suit/test_vest(spawn_loc, list(MELEE = 50))
+	var/obj/item/clothing/suit/test_vest/suit50 = new /obj/item/clothing/suit/test_vest(spawn_loc, list(MELEE = 50))
 	test_dummy.equip_to_slot_if_possible(suit50, ITEM_SLOT_ICLOTHING)
 	ADD_TRAIT(suit50, TRAIT_NODROP, INNATE_TRAIT)
 
