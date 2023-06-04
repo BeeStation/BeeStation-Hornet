@@ -53,12 +53,15 @@
 	equip_item(test_dummy, armor200)
 	TEST_ASSERT_EQUAL(46, test_dummy.run_armor_check(BODY_ZONE_CHEST, MELEE, armour_penetration = 80), "Mob wearing 200+50 armour vest did not return 46 armour when 80% armour penetration was applied.")
 
-/datum/unit_test/armour_checks/proc/equip_item(mob/living/user, obj/item/item)
+/datum/unit_test/armour_checks/proc/equip_item(mob/living/carbon/human/user, obj/item/item)
 	// Drop all items
 	for (var/obj/item/I in user.contents)
 		user.dropItemToGround(I)
 	// Equip the item
 	user.equip_to_slot_if_possible(item, ITEM_SLOT_OCLOTHING)
+	// TEST THE TEST
+	if (user.wear_suit != item)
+		Fail("Equipping item failed, expected [item] to be equipped to the suit slot. The test itself has issues.")
 
 /obj/item/clothing/suit/test_vest
 	name = "Unit test vest"
