@@ -70,20 +70,40 @@
 	to_chat(user, "<span class='notice'>You modify [src] to be installed on the [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm.</span>")
 	update_icon()
 
-/obj/item/organ/cyberimp/arm/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = TRUE)
+/obj/item/organ/cyberimp/arm/Insert(mob/living/carbon/user, special = FALSE, drop_if_replaced = TRUE)
 	. = ..()
 	var/side = zone == BODY_ZONE_R_ARM ? 2 : 1
-	hand = owner.hand_bodyparts[side]
-	if(hand)
-		RegisterSignal(hand, COMSIG_ITEM_ATTACK_SELF, PROC_REF(on_item_attack_self)) //If the limb gets an attack-self, open the menu. Only happens when hand is empty
-		RegisterSignal(M, COMSIG_KB_MOB_DROPITEM_DOWN, PROC_REF(dropkey)) //We're nodrop, but we'll watch for the drop hotkey anyway and then stow if possible.
+	register_hand(user, owner.hand_bodyparts[side])
+	RegisterSignal(user, COMSIG_KB_MOB_DROPITEM_DOWN, PROC_REF(dropkey)) //We're nodrop, but we'll watch for the drop hotkey anyway and then stow if possible.
+	RegisterSignal(user, COMSIG_CARBON_POST_ATTACH_LIMB, PROC_REF(limb_attached))
 
-/obj/item/organ/cyberimp/arm/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/cyberimp/arm/Remove(mob/living/carbon/user, special = 0)
 	Retract()
-	if(hand)
-		UnregisterSignal(hand, COMSIG_ITEM_ATTACK_SELF)
-		UnregisterSignal(M, COMSIG_KB_MOB_DROPITEM_DOWN)
+	unregister_hand(user)
+	UnregisterSignal(user, list(COMSIG_KB_MOB_DROPITEM_DOWN, COMSIG_CARBON_POST_ATTACH_LIMB))
 	..()
+
+/obj/item/organ/cyberimp/arm/proc/register_hand(mob/living/carbon/user, obj/item/bodypart/new_hand)
+	if(!istype(new_hand, /obj/item/bodypart/l_arm) && !istype(new_hand, /obj/item/bodypart/r_arm))
+		return
+	hand = new_hand
+	RegisterSignal(hand, COMSIG_BODYPART_REMOVED, PROC_REF(limb_removed))
+	RegisterSignal(hand, COMSIG_ITEM_ATTACK_SELF, PROC_REF(on_item_attack_self)) //If the limb gets an attack-self, open the menu. Only happens when hand is empty
+
+/obj/item/organ/cyberimp/arm/proc/unregister_hand(mob/living/carbon/user)
+	if(hand)
+		UnregisterSignal(hand, list(COMSIG_ITEM_ATTACK_SELF, COMSIG_BODYPART_REMOVED))
+		hand = null
+
+/obj/item/organ/cyberimp/arm/proc/limb_attached(mob/living/carbon/source, obj/item/bodypart/new_limb, special)
+	SIGNAL_HANDLER
+	var/side = zone == BODY_ZONE_R_ARM ? 2 : 1
+	if(source.hand_bodyparts[side] == new_limb)
+		register_hand(source, new_limb)
+
+/obj/item/organ/cyberimp/arm/proc/limb_removed(obj/item/bodypart/source, mob/living/carbon/old_owner, dismembered)
+	SIGNAL_HANDLER
+	unregister_hand(source)
 
 /obj/item/organ/cyberimp/arm/proc/on_item_attack_self()
 	SIGNAL_HANDLER
