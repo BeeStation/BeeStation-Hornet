@@ -263,9 +263,9 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 		return 0
 	else
 		if(inventory_head)
-			armorval *= 1 - CLAMP01((inventory_head.get_armor_rating(type, src) / 100) * (1 - penetration / 100))
+			armorval *= 1 - min((inventory_head.get_armor_rating(type, src) / 100) * (1 - penetration / 100), 1)
 		if(inventory_back)
-			armorval *= 1 - CLAMP01((inventory_back.get_armor_rating(type, src) / 100) * (1 - penetration / 100))
+			armorval *= 1 - min((inventory_back.get_armor_rating(type, src) / 100) * (1 - penetration / 100), 1)
 	return (1 - armorval) * 100
 
 /mob/living/simple_animal/pet/dog/corgi/attackby(obj/item/O, mob/user, params)

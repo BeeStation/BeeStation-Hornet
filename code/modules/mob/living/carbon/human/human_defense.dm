@@ -42,7 +42,7 @@
 		if(bp && isclothing(bp))
 			var/obj/item/clothing/C = bp
 			if(C.body_parts_covered & def_zone.body_part)
-				protection *= 1 - CLAMP01((C.get_armor_rating(d_type, src) / 100) * (1 - (penetration / 100)))
+				protection *= 1 - min((C.get_armor_rating(d_type, src) / 100) * (1 - (penetration / 100)), 1)
 
 	protection *= 1 - CLAMP01(physiology.armor.getRating(d_type) / 100)
 	return (1 - protection) * 100
