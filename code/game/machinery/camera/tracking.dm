@@ -85,7 +85,7 @@
 	//Require the target to remain still for 3 seconds in order to acquire the track.
 	//Once track is acquired, it will hold and follow them while moving
 	if(!instant_track)
-		to_chat(src, "<span class='notice'>Target not present on suit sensor network, querying facial recognition network...</span>")
+		to_chat(src, "<span class='notice'>Target has no suit sensor beacon, querying facial recognition network. Please wait...</span>")
 		var/turf/target_turf = get_turf(target)
 		addtimer(CALLBACK(src, .proc/track_if_not_moved, target, target_turf), 3 SECONDS)
 		return
