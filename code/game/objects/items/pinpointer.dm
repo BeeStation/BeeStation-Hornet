@@ -245,7 +245,7 @@
 
 		while(crewmember_name in name_counts)
 			name_counts[crewmember_name]++
-			crewmember_name = text("[] ([])", crewmember_name, name_counts[crewmember_name])
+			crewmember_name = "[crewmember_name] ([name_counts[crewmember_name]])"
 		names[crewmember_name] = L
 		name_counts[crewmember_name] = 1
 

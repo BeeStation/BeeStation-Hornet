@@ -235,13 +235,13 @@
 		var/bz_pp = PP(breath, GAS_BZ)
 		if(bz_pp > BZ_brain_damage_min)
 			H.hallucination += 10
-			H.reagents.add_reagent(/datum/reagent/bz_metabolites,5)
+			H.reagents.add_reagent(/datum/reagent/metabolite/bz,5)
 			if(prob(33))
 				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3, 150)
 
 		else if(bz_pp > BZ_trip_balls_min)
 			H.hallucination += 5
-			H.reagents.add_reagent(/datum/reagent/bz_metabolites,1)
+			H.reagents.add_reagent(/datum/reagent/metabolite/bz,1)
 
 	// Nitryl
 		var/nitryl_pp = PP(breath,GAS_NITRYL)
