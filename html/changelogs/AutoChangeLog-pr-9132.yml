@@ -1,5 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - code_imp: Replaced text() proc into embbed text
-  - code_imp: cleaned up some awful looking html
