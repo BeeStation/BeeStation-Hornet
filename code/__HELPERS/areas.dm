@@ -32,7 +32,7 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 			.[sourceT] |= dir
 			.[checkT] |= turn(dir, 180)
 			if(break_if_found[checkT.type] || break_if_found[checkT.loc.type])
-				return FALSE
+				return null
 			var/static/list/cardinal_cache = list("[NORTH]"=TRUE, "[EAST]"=TRUE, "[SOUTH]"=TRUE, "[WEST]"=TRUE)
 			if(!cardinal_cache["[dir]"] || isclosedturf(checkT) || !CANATMOSPASS(sourceT, checkT))
 				continue

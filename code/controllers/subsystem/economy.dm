@@ -57,7 +57,7 @@ SUBSYSTEM_DEF(economy)
 
 /datum/controller/subsystem/economy/proc/get_bank_account_by_id(target_id)
 	if(!length(bank_accounts))
-		return FALSE
+		return null
 	if(istype(target_id, /datum/bank_account))
 		stack_trace("proc took account type itself, but it is supposed to take account id number.")
 		return target_id
@@ -104,7 +104,7 @@ SUBSYSTEM_DEF(economy)
 /// Returns multiple budget accounts based on the given bitflag.
 /datum/controller/subsystem/economy/proc/get_dept_id_by_bitflag(target_bitflag)
 	if(!target_bitflag) // 0 is not valid bitflag
-		return FALSE
+		return null
 	target_bitflag = text2num(target_bitflag) // failsafe to replace the string into number
 	if(!isnum(target_bitflag))
 		CRASH("the proc has taken non-numeral parameter: [target_bitflag]")

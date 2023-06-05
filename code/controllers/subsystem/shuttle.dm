@@ -477,7 +477,7 @@ SUBSYSTEM_DEF(shuttle)
 	var/datum/turf_reservation/proposal = SSmapping.RequestBlockReservation(transit_width, transit_height, null, /datum/turf_reservation/transit, transit_path)
 
 	if(!istype(proposal))
-		return FALSE
+		return null
 
 	var/turf/bottomleft = locate(proposal.bottom_left_coords[1], proposal.bottom_left_coords[2], proposal.bottom_left_coords[3])
 	// Then create a transit docking port in the middle
@@ -488,7 +488,7 @@ SUBSYSTEM_DEF(shuttle)
 
 	var/turf/midpoint = locate(transit_x, transit_y, bottomleft.z)
 	if(!midpoint)
-		return FALSE
+		return null
 	var/area/shuttle/transit/A = new()
 	A.parallax_movedir = travel_dir
 	A.contents = proposal.reserved_turfs
@@ -698,7 +698,7 @@ SUBSYSTEM_DEF(shuttle)
 	QDEL_NULL(preview_reservation)
 
 /datum/controller/subsystem/shuttle/proc/load_template(datum/map_template/shuttle/S, datum/variable_ref/shuttle_reference)
-	. = FALSE
+	. = null
 	// load shuttle template, centred at shuttle import landmark,
 	preview_reservation = SSmapping.RequestBlockReservation(S.width, S.height, SSmapping.transit.z_value, /datum/turf_reservation/transit)
 	if(!preview_reservation)

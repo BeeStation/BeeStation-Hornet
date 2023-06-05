@@ -586,7 +586,7 @@
 
 	// Need at least one free location.
 	if (possible_loc.len < 1)
-		return FALSE
+		return null
 
 	return pick(possible_loc)
 
