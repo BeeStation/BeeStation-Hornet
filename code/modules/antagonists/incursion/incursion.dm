@@ -19,6 +19,8 @@
 
 /datum/antagonist/incursion/on_gain()
 	SSticker.mode.incursionists += owner
+	if(!team.meeting_area)
+		team.pick_meeting_area()
 	for(var/datum/objective/O in team.objectives)
 		objectives += O
 		log_objective(owner, O.explanation_text)
@@ -48,11 +50,18 @@
 			member_text += ", "
 	return member_text
 
+/datum/antagonist/incursion/proc/give_meeting_area()
+	if(!owner.current || !team || !team.meeting_area)
+		return
+	to_chat(owner.current, "<B>Your designated meeting area:</B> [team.meeting_area]")
+	antag_memory += "<b>Meeting Area</b>: [team.meeting_area]<br>"
+
 /datum/antagonist/incursion/greet()
 	to_chat(owner.current, "<span class='alertsyndie'>You are the member of a Syndicate incursion team!</span>")
 	to_chat(owner.current, "You have formed a team of Syndicate members with a similar mindset and must infiltrate the ranks of the station!")
 	to_chat(owner.current, "You have been implanted with a syndicate headset for communication with your team. This headset can only be heard by you directly and if those pigs at Nanotrasen try to steal it they will violently explode!")
 	owner.announce_objectives()
+	give_meeting_area()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Incursion",
 		"Work with your team members to complete your objectives.")
 
@@ -83,6 +92,7 @@
 		new_owner.add_antag_datum(/datum/antagonist/incursion, SSticker.mode.incursion_team)
 	else
 		SSticker.mode.incursion_team = new
+		SSticker.mode.incursion_team.pick_meeting_area()
 		SSticker.mode.incursion_team.add_member(new_owner)
 		SSticker.mode.incursion_team.forge_team_objectives()
 		new_owner.add_antag_datum(/datum/antagonist/incursion, SSticker.mode.incursion_team)
@@ -98,9 +108,15 @@
 /datum/team/incursion
 	name = "syndicate incursion force"
 	member_name = "incursion member"
+	var/meeting_area
+	var/static/meeting_areas = list("The Bar", "Dorms", "Escape Dock", "Arrivals", "Holodeck", "Primary Tool Storage", "Recreation Area", "Chapel", "Library")
 
 /datum/team/incursion/is_solo()
 	return FALSE
+
+/datum/team/incursion/proc/pick_meeting_area()
+	meeting_area = pick(meeting_areas)
+	meeting_areas -= meeting_area
 
 /datum/team/incursion/proc/check_incursion_victory()
 	for(var/datum/objective/objective in objectives)
