@@ -48,7 +48,7 @@
 	if (!key)	//check if there is nobody already inhibiting this mob
 		notify_ghosts("[name] can be controlled", null, enter_link="<a href=?src=[REF(src)];activate=1>(Click to play)</a>", source=src, action=NOTIFY_ATTACK, ignore_key = name)
 		LAZYADD(GLOB.mob_spawners["[name]"], src)
-		GLOB.poi_list |= src
+		AddElement(/datum/element/point_of_interest)
 		SSmobs.update_spawners()
 	else // it's spawned but someone occupied already
 		notify_ghosts("[name] has appeared!", source=src, action=NOTIFY_ORBIT, header="Something's Interesting!")
@@ -73,4 +73,3 @@
 		if(!length(GLOB.mob_spawners[spawner]))
 			GLOB.mob_spawners -= spawner
 		SSmobs.update_spawners()
-	GLOB.poi_list -= src
