@@ -5,6 +5,13 @@
 		verb_ask = pick(T.ask_mod)
 		verb_yell = pick(T.yell_mod)
 		verb_exclaim = pick(T.exclaim_mod)
+	if(wear_mask)
+		var/obj/item/clothing/mask/M = wear_mask
+		if(!isnull(M.chosen_tongue))
+			verb_say = pick(M.chosen_tongue.say_mod)
+			verb_ask = pick(M.chosen_tongue.ask_mod)
+			verb_yell = pick(M.chosen_tongue.yell_mod)
+			verb_exclaim = pick(M.chosen_tongue.exclaim_mod)
 	if(slurring || !T)
 		return "slurs"
 	else
@@ -13,12 +20,18 @@
 /mob/living/carbon/human/GetVoice()
 	if(istype(wear_mask, /obj/item/clothing/mask/chameleon))
 		var/obj/item/clothing/mask/chameleon/V = wear_mask
-		if(V.vchange && wear_id)
+		if(V.voice_change && wear_id)
 			var/obj/item/card/id/idcard = wear_id.GetID()
 			if(istype(idcard) && idcard.electric)
 				return idcard.registered_name
 			else
 				return real_name
+		else
+			return real_name
+	if(istype(wear_mask, /obj/item/clothing/mask/gas/old/modulator))
+		var/obj/item/clothing/mask/gas/old/modulator/V = wear_mask
+		if(V.voice_change)
+			return "Unknown"
 		else
 			return real_name
 	if(mind)

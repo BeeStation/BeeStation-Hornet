@@ -8,12 +8,18 @@
 	var/modifies_speech = FALSE
 	var/mask_adjusted = 0
 	var/adjusted_flags = null
+	var/voice_change = FALSE //Used to mask/change the user's voice, only specific masks can set this to TRUE
+	var/obj/item/organ/tongue/chosen_tongue = null
 
 /obj/item/clothing/mask/attack_self(mob/user)
 	if(CHECK_BITFIELD(clothing_flags, VOICEBOX_TOGGLABLE))
 		TOGGLE_BITFIELD(clothing_flags, VOICEBOX_DISABLED)
 		var/status = !CHECK_BITFIELD(clothing_flags, VOICEBOX_DISABLED)
 		to_chat(user, "<span class='notice'>You turn the voice box in [src] [status ? "on" : "off"].</span>")
+
+/obj/item/clothing/mask/Destroy()
+	qdel(chosen_tongue)
+	return ..()
 
 /obj/item/clothing/mask/equipped(mob/M, slot)
 	. = ..()

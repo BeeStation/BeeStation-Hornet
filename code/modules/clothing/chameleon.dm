@@ -580,6 +580,39 @@
 	var/datum/action/item_action/chameleon/drone/randomise/randomise_action = new(src)
 	randomise_action.UpdateButtonIcon()
 
+/datum/action/item_action/chameleon/tongue_change
+	name = "Tongue Change"
+	icon_icon = 'icons/obj/surgery.dmi'
+	button_icon_state = "tonguebone"
+	var/list/tongue_list = list()
+
+/datum/action/item_action/chameleon/tongue_change/proc/generate_tongue_list()
+	for(var/V in typesof(/obj/item/organ/tongue))
+		if(ispath(V))
+			var/obj/item/I = V
+			if((initial(I.item_flags) & ABSTRACT) || !initial(I.icon_state))
+				continue
+			var/tongue_name = "[initial(I.name)] ([initial(I.icon_state)])"
+			tongue_list[tongue_name] = I
+
+/datum/action/item_action/chameleon/tongue_change/Trigger()
+	if(!IsAvailable())
+		return
+	if(!isitem(target))
+		return
+	var/obj/item/clothing/mask/M = target
+	var/obj/item/organ/tongue/picked_tongue
+	var/picked_name
+	picked_name = input("Select tongue to change into", "Chameleon tongue", picked_name) as null|anything in sort_list(tongue_list, GLOBAL_PROC_REF(cmp_typepaths_asc))
+	if(!picked_name)
+		return
+	picked_tongue = tongue_list[picked_name]
+	if(!picked_tongue)
+		M.chosen_tongue = null
+		return
+	M.chosen_tongue = new picked_tongue
+	return TRUE
+
 /obj/item/clothing/mask/chameleon
 	name = "gas mask"
 	desc = "A face-covering mask that can be connected to an air supply. While good for concealing your identity, it isn't good for blocking gas flow." //More accurate
@@ -593,9 +626,10 @@
 	permeability_coefficient = 0.01
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
 
-	var/vchange = 1
+	voice_change = TRUE
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
+	var/datum/action/item_action/chameleon/tongue_change/tongue_action
 
 /obj/item/clothing/mask/chameleon/Initialize(mapload)
 	. = ..()
@@ -604,6 +638,8 @@
 	chameleon_action.chameleon_name = "Mask"
 	chameleon_action.chameleon_blacklist = typecacheof(/obj/item/clothing/mask/changeling, only_root_path = TRUE)
 	chameleon_action.initialize_disguises()
+	tongue_action = new(src)
+	tongue_action.generate_tongue_list()
 
 /obj/item/clothing/mask/chameleon/emp_act(severity)
 	. = ..()
@@ -616,15 +652,15 @@
 	chameleon_action.emp_randomise(INFINITY)
 
 /obj/item/clothing/mask/chameleon/attack_self(mob/user)
-	vchange = !vchange
-	to_chat(user, "<span class='notice'>The voice changer is now [vchange ? "on" : "off"]!</span>")
+	voice_change = !voice_change
+	to_chat(user, "<span class='notice'>The voice changer is now [voice_change ? "on" : "off"]!</span>")
 
 
 /obj/item/clothing/mask/chameleon/drone
 	//Same as the drone chameleon hat, undroppable and no protection
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
 	// Can drones use the voice changer part? Let's not find out.
-	vchange = 0
+	voice_change = FALSE
 
 /obj/item/clothing/mask/chameleon/drone/Initialize(mapload)
 	. = ..()

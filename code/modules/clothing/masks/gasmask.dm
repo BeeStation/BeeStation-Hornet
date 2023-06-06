@@ -209,3 +209,21 @@
 	desc = "A face-covering mask that can be connected to an air supply. This one appears to be one of the older models."
 	icon_state = "gas_alt_old"
 	item_state = "gas_alt_old"
+
+/obj/item/clothing/mask/gas/old/modulator
+	name = "modified gas mask"
+	desc = "A face-covering mask that can be connected to an air supply. This one appears to be one of the older models."
+	voice_change = TRUE
+	chosen_tongue = new /obj/item/organ/tongue/robot
+
+/obj/item/clothing/mask/gas/old/modulator/examine()
+	. += "<span class='notice'>It was modified to make the user's voice sound robotic.</span>"
+	. += "The modulator is currently [voice_change ? "<b>ON</b>" : "<b>OFF</b>"]."
+
+/obj/item/clothing/mask/gas/old/modulator/attack_self(mob/user)
+	voice_change = !voice_change
+	to_chat(user, "<span class='notice'>The modulator is now [voice_change ? "on" : "off"]!</span>")
+
+/obj/item/clothing/mask/gas/old/modulator/AltClick(mob/user)
+	voice_change = !voice_change
+	to_chat(user, "<span class='notice'>The modulator is now [voice_change ? "on" : "off"]!</span>")
