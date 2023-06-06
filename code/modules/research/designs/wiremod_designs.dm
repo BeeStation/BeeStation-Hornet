@@ -167,6 +167,12 @@
 	build_path = /obj/item/circuit_component/species
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_LOGIC_COMPONENTS, WIREMOD_INPUT_COMPONENTS)
 
+/datum/design/component/get_name
+	name = "Get Name Component"
+	id = "comp_get_name"
+	build_path = /obj/item/circuit_component/get_name
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_LOGIC_COMPONENTS, WIREMOD_INPUT_COMPONENTS)
+
 /datum/design/component/speech
 	name = "Speech Component"
 	id = "comp_speech"

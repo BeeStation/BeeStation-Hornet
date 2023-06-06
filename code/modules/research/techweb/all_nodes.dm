@@ -182,6 +182,7 @@
 		"comp_delay",
 		"comp_direction",
 		"comp_get_column",
+		"comp_get_name",
 		"comp_gps",
 		"comp_health",
 		"comp_hear",
