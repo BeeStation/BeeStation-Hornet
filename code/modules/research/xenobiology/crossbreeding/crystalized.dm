@@ -10,8 +10,6 @@
 	. = ..()
 
 	// Check before the progress bar so they don't wait for nothing
-	var/obj/structure/slime_crystal/C = locate(/obj/structure/slime_crystal) in range(6,get_turf(user))
-
 	if(locate(/obj/structure/slime_crystal) in range(6,get_turf(user)))
 		to_chat(user,"<span class='notice'>You can't build crystals that close to each other!</span>")
 		return
