@@ -40,19 +40,25 @@
 /obj/structure/sign/warning/biohazard,
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
 /area/ruin/powered/seedvault)
+"by" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/grown/banana{
+	pixel_x = 7;
+	pixel_y = -2
+	},
+/obj/item/reagent_containers/food/snacks/grown/banana{
+	pixel_x = -2;
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/food/snacks/grown/banana{
+	pixel_x = -1
+	},
+/turf/open/floor/pod,
+/area/ruin/powered/seedvault)
 "cp" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/template_noop/open,
 /area/lavaland/surface/outdoors)
-"cA" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/pod,
-/area/ruin/powered/seedvault)
 "dw" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/glass,
@@ -65,14 +71,6 @@
 /area/ruin/powered/seedvault)
 "dM" = (
 /turf/closed/wall/mineral/titanium/survival,
-/area/ruin/powered/seedvault)
-"dO" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 5
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "dX" = (
 /obj/machinery/light/broken{
@@ -127,6 +125,20 @@
 	dir = 1
 	},
 /turf/open/floor/grass,
+/area/ruin/powered/seedvault)
+"gp" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 5
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plating,
+/area/ruin/powered/seedvault)
+"gE" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "gT" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -247,6 +259,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
+"kF" = (
+/obj/machinery/atmospherics/pipe/layer_manifold,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/grass,
+/area/ruin/powered/seedvault)
 "kG" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4
@@ -300,18 +318,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/closed/wall/mineral/titanium/survival,
 /area/ruin/powered/seedvault)
-"nL" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 5
-	},
-/obj/machinery/light/small/broken{
-	dir = 8;
-	icon_state = "bulb-broken"
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating,
-/area/ruin/powered/seedvault)
 "nO" = (
 /obj/structure/table,
 /obj/item/reagent_containers/glass/bucket{
@@ -362,6 +368,10 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
+"pp" = (
+/obj/structure/window/shuttle/survival_pod,
+/turf/open/floor/plating,
+/area/ruin/powered/seedvault)
 "pA" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -403,16 +413,6 @@
 	dir = 8
 	},
 /area/lavaland/surface/outdoors)
-"qV" = (
-/obj/effect/mob_spawn/human/seed_vault,
-/obj/effect/turf_decal/box,
-/obj/machinery/button{
-	id = "lifebring";
-	pixel_x = 32;
-	pixel_y = -1
-	},
-/turf/open/floor/pod/light,
-/area/ruin/powered/seedvault)
 "qX" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -423,16 +423,6 @@
 /obj/machinery/hydroponics/constructable,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/pod,
-/area/ruin/powered/seedvault)
-"rI" = (
-/obj/machinery/atmospherics/pipe/layer_manifold,
-/obj/machinery/light/small/broken{
-	dir = 8;
-	icon_state = "bulb-broken"
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/grass,
 /area/ruin/powered/seedvault)
 "sn" = (
 /obj/structure/closet/crate/hydroponics,
@@ -480,32 +470,19 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
+"ty" = (
+/obj/machinery/door/poddoor{
+	id = "lifebring"
+	},
+/obj/structure/window/shuttle/survival_pod,
+/turf/open/floor/plating,
+/area/ruin/powered/seedvault)
 "tE" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
 	},
 /obj/machinery/door/airlock/survival_pod,
 /turf/open/floor/pod/light,
-/area/ruin/powered/seedvault)
-"uv" = (
-/obj/structure/table,
-/obj/item/paper_bin{
-	pixel_x = 7;
-	pixel_y = 2
-	},
-/obj/item/pen{
-	pixel_x = 7;
-	pixel_y = 3
-	},
-/obj/item/folder{
-	pixel_x = -6;
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/spray/plantbgone{
-	pixel_x = 10;
-	pixel_y = 14
-	},
-/turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "uB" = (
 /obj/structure/railing/corner{
@@ -600,6 +577,18 @@
 	},
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
+"AE" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 5
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/blood/old,
+/obj/machinery/light/small/broken{
+	dir = 8;
+	icon_state = "bulb-broken"
+	},
+/turf/open/floor/pod,
+/area/ruin/powered/seedvault)
 "AF" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -657,16 +646,6 @@
 "Ds" = (
 /obj/item/caution,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating,
-/area/ruin/powered/seedvault)
-"Du" = (
-/obj/structure/shuttle/engine/heater{
-	dir = 4
-	},
-/obj/structure/window/reinforced/survival_pod{
-	dir = 8;
-	icon_state = "pwindow"
-	},
 /turf/open/floor/plating,
 /area/ruin/powered/seedvault)
 "Dx" = (
@@ -745,6 +724,16 @@
 	dir = 4
 	},
 /turf/open/floor/pod,
+/area/ruin/powered/seedvault)
+"FX" = (
+/obj/machinery/atmospherics/components/binary/valve,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/light/small/broken{
+	dir = 8;
+	icon_state = "bulb-broken"
+	},
+/turf/open/floor/plating,
 /area/ruin/powered/seedvault)
 "FY" = (
 /turf/template_noop/closed,
@@ -859,12 +848,6 @@
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
-"Ke" = (
-/obj/machinery/atmospherics/components/binary/valve,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plating,
-/area/ruin/powered/seedvault)
 "KA" = (
 /obj/structure/railing{
 	dir = 1
@@ -958,11 +941,6 @@
 /area/ruin/powered/seedvault)
 "ML" = (
 /turf/open/floor/pod,
-/area/ruin/powered/seedvault)
-"MS" = (
-/obj/structure/window/plastitanium,
-/obj/structure/grille,
-/turf/open/floor/plating,
 /area/ruin/powered/seedvault)
 "MU" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -1112,6 +1090,19 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
+"PP" = (
+/obj/effect/mob_spawn/human/seed_vault,
+/obj/effect/turf_decal/box,
+/obj/machinery/button{
+	id = "lifebring";
+	pixel_x = 32;
+	pixel_y = -1
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/pod/light,
+/area/ruin/powered/seedvault)
 "PU" = (
 /obj/machinery/light/small{
 	icon_state = "bulb"
@@ -1208,6 +1199,30 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/grass,
 /area/ruin/powered/seedvault)
+"Rw" = (
+/obj/structure/table,
+/obj/item/paper_bin{
+	pixel_x = 7;
+	pixel_y = 2
+	},
+/obj/item/pen{
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/obj/item/folder{
+	pixel_x = -6;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/spray/plantbgone{
+	pixel_x = 10;
+	pixel_y = 14
+	},
+/obj/machinery/light/broken{
+	dir = 4;
+	icon_state = "tube-broken"
+	},
+/turf/open/floor/pod,
+/area/ruin/powered/seedvault)
 "RA" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/kirbyplants,
@@ -1237,6 +1252,19 @@
 	dir = 10
 	},
 /turf/open/floor/grass,
+/area/ruin/powered/seedvault)
+"SF" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8;
+	icon_state = "pwindow"
+	},
+/obj/machinery/door/poddoor{
+	id = "lifebring"
+	},
+/turf/open/floor/plating,
 /area/ruin/powered/seedvault)
 "SK" = (
 /obj/machinery/light{
@@ -1285,30 +1313,21 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
+"Um" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/obj/machinery/door/poddoor{
+	id = "lifebring"
+	},
+/obj/structure/window/shuttle/survival_pod,
+/turf/open/floor/plating,
+/area/ruin/powered/seedvault)
 "UB" = (
 /obj/machinery/hydroponics/constructable,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
-/turf/open/floor/pod,
-/area/ruin/powered/seedvault)
-"UF" = (
-/obj/machinery/light/broken{
-	dir = 4;
-	icon_state = "tube-broken"
-	},
-/obj/structure/table,
-/obj/item/reagent_containers/food/snacks/grown/banana{
-	pixel_x = 7;
-	pixel_y = -2
-	},
-/obj/item/reagent_containers/food/snacks/grown/banana{
-	pixel_x = -2;
-	pixel_y = 7
-	},
-/obj/item/reagent_containers/food/snacks/grown/banana{
-	pixel_x = -1
-	},
 /turf/open/floor/pod,
 /area/ruin/powered/seedvault)
 "UL" = (
@@ -1330,13 +1349,6 @@
 	},
 /turf/template_noop/open,
 /area/ruin/powered/seedvault)
-"VQ" = (
-/obj/structure/window/plastitanium,
-/obj/machinery/door/poddoor{
-	id = "lifebring"
-	},
-/turf/open/floor/plating,
-/area/ruin/powered/seedvault)
 "Wm" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
@@ -1351,16 +1363,6 @@
 	dir = 8
 	},
 /turf/open/floor/grass,
-/area/ruin/powered/seedvault)
-"Wz" = (
-/obj/structure/window/plastitanium,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 1
-	},
-/obj/machinery/door/poddoor{
-	id = "lifebring"
-	},
-/turf/open/floor/plating,
 /area/ruin/powered/seedvault)
 "WD" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland{
@@ -1439,10 +1441,10 @@ ab
 ab
 FY
 FY
-VQ
-VQ
-VQ
-VQ
+ty
+ty
+ty
+ty
 FY
 FY
 ab
@@ -1461,10 +1463,10 @@ ab
 FY
 FY
 dM
-VQ
+ty
 wa
 Po
-VQ
+ty
 dM
 FY
 FY
@@ -1564,7 +1566,7 @@ FY
 "}
 (7,1,1) = {"
 FY
-VQ
+ty
 fk
 NF
 mo
@@ -1581,12 +1583,12 @@ hj
 iQ
 RR
 bm
-VQ
+ty
 FY
 "}
 (8,1,1) = {"
 FY
-VQ
+ty
 fk
 lF
 JD
@@ -1603,16 +1605,16 @@ MJ
 SC
 is
 LG
-VQ
+ty
 FY
 "}
 (9,1,1) = {"
 FY
-VQ
-qV
-cA
+ty
+PP
+gE
 sn
-MS
+pp
 al
 bm
 Nn
@@ -1621,18 +1623,18 @@ mE
 Nn
 UQ
 TG
-MS
+pp
 Io
-UF
-uv
-VQ
+by
+Rw
+ty
 FY
 "}
 (10,1,1) = {"
 dM
 MJ
 dM
-MS
+pp
 dM
 sN
 wW
@@ -1645,7 +1647,7 @@ Rv
 IL
 MJ
 dM
-MS
+pp
 dM
 MJ
 dM
@@ -1653,8 +1655,8 @@ dM
 (11,1,1) = {"
 dM
 jY
-Ke
-rI
+FX
+kF
 Tk
 OC
 NO
@@ -1667,8 +1669,8 @@ ji
 tg
 KD
 Wm
-nL
-dO
+gp
+AE
 jm
 dM
 "}
@@ -1678,7 +1680,7 @@ vK
 Be
 QJ
 Fr
-MS
+pp
 Ex
 sG
 dK
@@ -1687,7 +1689,7 @@ GA
 Nn
 Qb
 Ex
-MS
+pp
 Ds
 FB
 ae
@@ -1718,24 +1720,24 @@ dM
 "}
 (14,1,1) = {"
 MJ
-Du
-Du
-Du
+SF
+SF
+SF
 MJ
 GC
-VQ
+ty
 QK
 os
 Em
 Xx
 NC
 oj
-Wz
+Um
 UY
 MJ
-Du
-Du
-Du
+SF
+SF
+SF
 MJ
 "}
 (15,1,1) = {"
@@ -1745,14 +1747,14 @@ GC
 NL
 aj
 GC
-VQ
+ty
 nO
 ZS
 Wr
 UL
 ja
 KJ
-VQ
+ty
 GC
 aj
 GC
