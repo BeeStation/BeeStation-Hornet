@@ -796,7 +796,7 @@ const TechNode = (props, context) => {
             </Button>
           )}
           {(tier > 0 && !destructive && !!researchable) && (
-            (node_tier > tier+1) ? (
+            (node_tier > tech_tier+1) ? (
               <Button.Confirm
                 icon="lightbulb"
                 disabled={!can_unlock || tier > 1}
