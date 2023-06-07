@@ -36,7 +36,7 @@
 	build_path = /obj/item/usb_cable/bluespace
 	build_type = PROTOLATHE | COMPONENT_PRINTER
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_CORE)
-	materials = list(/datum/material/iron = 1000, /datum/material/copper = 1500, /datum/material/bluespace = 500)
+	materials = list(/datum/material/iron = 1000, /datum/material/copper = 1500, /datum/material/bluespace = 250)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/component
