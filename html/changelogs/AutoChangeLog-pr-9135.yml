@@ -1,0 +1,5 @@
+author: Dejaku51
+delete-after: true
+changes:
+  - bugfix: Fixed xenobio infinite pylons exploit that could potentially crash the
+      server
