@@ -192,8 +192,9 @@
 			if(istype(DR, type))
 				weight = max(weight-repeatable_weight_decrease,1)
 	var/list/repeated_mode_adjust = CONFIG_GET(number_list/repeated_mode_adjust)
-	if(CHECK_BITFIELD(flags, PERSISTENT_RULESET) && LAZYLEN(repeated_mode_adjust))
+	if(CHECK_BITFIELD(flags, PERSISTENT_RULESET) && length(repeated_mode_adjust))
 		var/adjustment = 0
+		var/occurances = 0
 		for(var/rounds_ago = 1 to min(length(SSpersistence.saved_dynamic_rulesets), length(repeated_mode_adjust)))
 			var/list/round = SSpersistence.saved_dynamic_rulesets[rounds_ago]
 			if(!round)
@@ -202,6 +203,13 @@
 				round = list(round)
 			if(name in round)
 				adjustment += repeated_mode_adjust[rounds_ago]
+				occurances += 1
+		if(occurances >= 2)
+			if(!logged_repeated_mode_adjust)
+				log_game("DYNAMIC: [src] has been disabled due to happening twice within the last [length(repeated_mode_adjust)] rounds")
+				logged_repeated_mode_adjust = TRUE
+			weight = 0
+			return weight
 		if(adjustment)
 			var/old_weight = weight
 			weight *= ((100 - adjustment) / 100)
