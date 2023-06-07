@@ -758,7 +758,7 @@ const TechNode = (props, context) => {
     tech_tier,
   } = data;
   const { node, nodetails, nocontrols, destructive } = props;
-  const { id, can_unlock, col_idx, costs } = node;
+  const { id, can_unlock, tier, costs } = node;
   const {
     name,
     description,
@@ -795,21 +795,22 @@ const TechNode = (props, context) => {
               Details
             </Button>
           )}
-          {(col_idx > 0 && !destructive && !!researchable && (
-            node_tier > col_idx+1) ? (
+          {(tier > 0 && !destructive && !!researchable) && (
+            (node_tier > tier+1) ? (
               <Button.Confirm
                 icon="lightbulb"
-                disabled={!can_unlock || col_idx > 1}
+                disabled={!can_unlock || tier > 1}
                 onClick={() => act("researchNode", { node_id: id })}
                 content="Research" />
             ) : (
               <Button
                 icon="lightbulb"
-                disabled={!can_unlock || col_idx > 1}
+                disabled={!can_unlock || tier > 1}
                 onClick={() => act("researchNode", { node_id: id })}>
                 Research
               </Button>
-            ))}
+            )
+          )}
           {
             (node_tier > tech_tier+1) && (
               <Tooltip
@@ -827,7 +828,7 @@ const TechNode = (props, context) => {
             </Button>
           )}
         </>)}
-      {col_idx !== 0 && !!compact && !destructive && (
+      {tier !== 0 && !!compact && !destructive && (
         <Flex className="Techweb__NodeProgress">
           {!!costs && Object.keys(costs).map(key => {
             const cost = costs[key];

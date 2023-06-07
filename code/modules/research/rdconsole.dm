@@ -286,7 +286,7 @@ Nothing else in the console has ID requirements.
 		.["nodes"] += list(list(
 			"id" = n.id,
 			"can_unlock" = stored_research.can_afford(costs),
-			"col_idx" = stored_research.tiers[n.id],
+			"tier" = stored_research.tiers[n.id],
 			"costs" = costs
 		))
 
