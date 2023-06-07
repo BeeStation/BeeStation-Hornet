@@ -45,6 +45,7 @@
 
 	speak = list("Hi!","Hello!","Cracker?","BAWWWWK george mellons griffing me!")
 	speak_emote = list("squawks","says","yells")
+	speak_language = /datum/language/common // parent has the same value, but just in case
 	emote_hear = list("squawks.","bawks!")
 	emote_see = list("flutters its wings.")
 
@@ -1016,6 +1017,9 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	icon_living = "clock_hawk_fly"
 	icon_sit = "clock_hawk_sit"
 	speak = list("Penpxre!", "Ratvar vf n qhzo anzr naljnl!")
+	// speak_language variable can be set to Ratvarian, but this speak was made too long ago.
+	// If you have any idea what these exactly mean, change it to original speeches, and set 'speak_language = /datum/language/ratvar'
+	speak_language = /datum/language/metalanguage
 	speak_emote = list("squawks rustily", "says crassly", "yells brassly")
 	emote_hear = list("squawks rustily.", "bawks metallically!")
 	emote_see = list("flutters its metal wings.")

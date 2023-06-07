@@ -397,28 +397,23 @@
 	alpha = 200 //Mappers can also just set this to 255 if they want curtains that can't be seen through
 	layer = SIGN_LAYER
 	anchored = TRUE
-	opacity = 0
+	opacity = FALSE
 	density = FALSE
 	var/open = TRUE
-
-/obj/structure/curtain/proc/toggle()
-	open = !open
-
-	update_appearance()
 
 /obj/structure/curtain/update_icon()
 	if(!open)
 		icon_state = "[icon_type]-closed"
 		layer = WALL_OBJ_LAYER
 		set_density(TRUE)
-		set_opacity(1)
+		set_opacity(TRUE)
 		open = FALSE
 
 	else
 		icon_state = "[icon_type]-open"
 		layer = SIGN_LAYER
 		set_density(FALSE)
-		set_opacity(0)
+		set_opacity(FALSE)
 		open = TRUE
 
 /obj/structure/curtain/attackby(obj/item/W, mob/user)
@@ -448,8 +443,7 @@
 	. = ..()
 	if(.)
 		return
-	playsound(loc, 'sound/effects/curtain.ogg', 50, 1)
-	toggle()
+	toggle(user)
 
 /obj/structure/curtain/deconstruct(disassembled = TRUE)
 	new /obj/item/stack/sheet/cotton/cloth (loc, 2)
@@ -472,3 +466,25 @@
 	icon_state = "bounty-open"
 	color = null
 	alpha = 255
+
+/obj/structure/curtain/proc/toggle(mob/M)
+    if (check(M))
+        open = !open
+        playsound(loc, 'sound/effects/curtain.ogg', 50, 1)
+        update_appearance()
+
+/obj/structure/curtain/proc/check(mob/M)
+    return TRUE
+
+/obj/structure/curtain/directional
+	icon_type = "bounty"
+	icon_state = "bounty-open"
+	color = null
+	alpha = 255
+	name = "window curtain"
+
+/obj/structure/curtain/directional/check(mob/M)
+	if (get_dir(src, M) & dir)
+		return TRUE
+	else
+		return FALSE

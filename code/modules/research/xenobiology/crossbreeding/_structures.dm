@@ -574,14 +574,14 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 	colour = "black"
 
 /obj/structure/slime_crystal/black/on_mob_effect(mob/living/affected_mob)
-	if(!ishuman(affected_mob) || isjellyperson(affected_mob))
+	if(!ishuman(affected_mob) || isoozeling(affected_mob))
 		return
 
 	if(affected_mobs[affected_mob] < 60) //Around 2 minutes
 		return
 
 	var/mob/living/carbon/human/human_transformed = affected_mob
-	human_transformed.set_species(pick(typesof(/datum/species/jelly)))
+	human_transformed.set_species(pick(typesof(/datum/species/oozeling)))
 
 /obj/structure/slime_crystal/lightpink
 	colour = "light pink"

@@ -183,6 +183,7 @@
 	icon_dead = "scary_clown"
 	icon_gib = "scary_clown"
 	speak = list("...", ". . .")
+	speak_language = /datum/language/metalanguage
 	maxHealth = 1e6
 	health = 1e6
 	emote_see = list("silently stares")

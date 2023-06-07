@@ -26,3 +26,6 @@
 /datum/antagonist/guardian/antag_panel_data()
 	var/mob/living/simple_animal/hostile/guardian/G = owner.current
 	return "<B>Summoner: [G.summoner.name]/([ckey(G.summoner.key)])</B>"
+
+/datum/antagonist/guardian/get_antag_name() // good to recognise whose holoparasite is
+	return "Guardian of [summoner.name]"

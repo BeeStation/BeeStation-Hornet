@@ -7,6 +7,7 @@
 	icon_dead = "goat_dead"
 	speak = list("EHEHEHEHEH","eh?")
 	speak_emote = list("brays")
+	speak_language = /datum/language/metalanguage
 	emote_hear = list("brays.")
 	emote_see = list("shakes its head.", "stamps a foot.", "glares around.")
 	speak_chance = 1
@@ -116,6 +117,7 @@
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	speak = list("moo?","moo","MOOOOOO")
 	speak_emote = list("moos","moos hauntingly")
+	speak_language = /datum/language/metalanguage
 	emote_hear = list("brays.")
 	emote_see = list("shakes its head.")
 	speak_chance = 1
@@ -200,6 +202,7 @@
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	speak = list("Cherp.","Cherp?","Chirrup.","Cheep!")
 	speak_emote = list("cheeps")
+	speak_language = /datum/language/metalanguage
 	emote_hear = list("cheeps.")
 	emote_see = list("pecks at the ground.","flaps its tiny wings.")
 	density = FALSE
@@ -260,6 +263,7 @@
 	icon_dead = "chicken_brown_dead"
 	speak = list("Cluck!","BWAAAAARK BWAK BWAK BWAK!","Bwaak bwak.")
 	speak_emote = list("clucks","croons")
+	speak_language = /datum/language/metalanguage
 	emote_hear = list("clucks.")
 	emote_see = list("pecks at the ground.","flaps its wings viciously.")
 	density = FALSE
@@ -361,6 +365,7 @@
 	icon_dead = "turkey_plain_dead"
 	speak = list("Gobble!","GOBBLE GOBBLE GOBBLE!","Cluck.")
 	speak_emote = list("clucks","gobbles")
+	speak_language = /datum/language/metalanguage
 	emote_hear = list("gobbles.")
 	emote_see = list("pecks at the ground.","flaps its wings viciously.")
 	density = FALSE
