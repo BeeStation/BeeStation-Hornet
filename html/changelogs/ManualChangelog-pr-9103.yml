@@ -1,0 +1,4 @@
+author: Absolucy
+delete-after: true
+changes:
+  - tweak: Sacrificing a DNR corpse will no longer force the unwilling ghost back into their body, and will instead poll ghosts for who wants to be the shade.
