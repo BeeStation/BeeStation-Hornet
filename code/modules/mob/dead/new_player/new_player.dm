@@ -209,7 +209,7 @@
 
 	var/this_is_like_playing_right = "Yes"
 	if(!force_observe)
-		this_is_like_playing_right = alert(src,"Are you sure you wish to observe? You will not be able to play this round!","Player Setup","Yes","No")
+		this_is_like_playing_right = tgui_alert(src, "Are you sure you wish to observe? You will not be able to play this round!", "Player Setup", list("Yes", "No"))
 
 	if(QDELETED(src) || !src.client || this_is_like_playing_right != "Yes")
 		ready = PLAYER_NOT_READY
@@ -289,18 +289,18 @@
 /mob/dead/new_player/proc/AttemptLateSpawn(job_key)
 	var/error = IsJobUnavailable(job_key)
 	if(error != JOB_AVAILABLE)
-		alert(src, get_job_unavailable_error_message(error, job_key))
+		tgui_alert(src, get_job_unavailable_error_message(error, job_key))
 		return FALSE
 
 	if(SSticker.late_join_disabled)
-		alert(src, "An administrator has disabled late join spawning.")
+		tgui_alert(src, "An administrator has disabled late join spawning.")
 		return FALSE
 
 	var/arrivals_docked = TRUE
 	if(SSshuttle.arrivals)
 		close_spawn_windows()	//In case we get held up
 		if(SSshuttle.arrivals.damaged && CONFIG_GET(flag/arrivals_shuttle_require_safe_latejoin))
-			src << alert("The arrivals shuttle is currently malfunctioning! You cannot join.")
+			tgui_alert(src, "The arrivals shuttle is currently malfunctioning! You cannot join.")
 			return FALSE
 
 		if(CONFIG_GET(flag/arrivals_shuttle_require_undocked))

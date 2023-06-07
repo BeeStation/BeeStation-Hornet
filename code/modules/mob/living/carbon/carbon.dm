@@ -174,7 +174,7 @@
 	if(thrown_thing)
 		visible_message("<span class='danger'>[src] throws [thrown_thing].</span>", \
 						"<span class='danger'>You throw [thrown_thing].</span>")
-		log_message("has thrown [I]", LOG_ATTACK)
+		log_message("has thrown [thrown_thing]", LOG_ATTACK)
 		newtonian_move(get_dir(target, src))
 		thrown_thing.safe_throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
 		return TRUE

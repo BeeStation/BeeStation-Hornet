@@ -297,7 +297,7 @@
 
 			if (O.client?.eye == src)
 				to_chat(O, "[user] holds \a [itemname] up to one of the cameras ...")
-				O << browse(text("<HTML><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>", itemname, info), text("window=[]", itemname))
+				O << browse("<HTML><HEAD><TITLE>[itemname]</TITLE></HEAD><BODY><TT>[info]</TT></BODY></HTML>", "window=[itemname]")
 		return
 
 	if(istype(attacking_item, /obj/item/paper))
