@@ -262,27 +262,31 @@ const TechwebOverview = (props, context) => {
     setSearchText,
   ] = useLocalState(context, 'searchText');
 
-  // Only search when 3 or more characters have been input
-  const searching = searchText && searchText.trim().length > 1;
-
-  let displayedNodes = nodes;
-  let researchednodes = nodes;
-  let futurenodes = nodes;
-  if (searching) {
-    displayedNodes = displayedNodes.filter(x => {
+  const filterSearchNodes = (target_nodes) => {
+    const filtered_search_nodes = target_nodes.filter(x => {
       const n = node_cache[x.id];
       return n.name.toLowerCase().includes(searchText)
         || n.description.toLowerCase().includes(searchText)
         || n.design_ids.some(e =>
           design_cache[e].name.toLowerCase().includes(searchText));
     });
-  } else {
-    displayedNodes = sortBy(x => node_cache[x.id].name)(
-      nodes.filter(x => x.tier === 0));
-    researchednodes = sortBy(x => node_cache[x.id].name)(
-      nodes.filter(x => x.tier === 1));
-    futurenodes = sortBy(x => node_cache[x.id].name)(
-      nodes.filter(x => x.tier === 2));
+    return filtered_search_nodes; };
+  // Only search when 3 or more characters have been input
+  const searching = searchText && searchText.trim().length > 1;
+
+  let displayedNodes = nodes;
+  let researchednodes = nodes;
+  let futurenodes = nodes;
+  displayedNodes = sortBy(x => node_cache[x.id].name)(
+    nodes.filter(x => x.tier === 0));
+  researchednodes = sortBy(x => node_cache[x.id].name)(
+    nodes.filter(x => x.tier === 1));
+  futurenodes = sortBy(x => node_cache[x.id].name)(
+    nodes.filter(x => x.tier === 2));
+  if (searching) {
+    displayedNodes = filterSearchNodes(displayedNodes);
+    researchednodes = filterSearchNodes(researchednodes);
+    futurenodes = filterSearchNodes(futurenodes);
   }
 
   const switchTab = tab => {
@@ -317,39 +321,55 @@ const TechwebOverview = (props, context) => {
       </Flex.Item>
       <Flex.Item className={"Techweb__OverviewNodes"} height="100%">
         <Flex height="100%">
-          {!searching && (
+          {!searching && ( // is not searching
             <>
               <Flex.Item mr={1}>
-                {displayedNodes.map(n => {
+                {displayedNodes.map(each_node => {
                   return (
-                    <TechNode node={n} key={n.id} />
+                    <TechNode node={each_node} key={each_node.id} />
                   );
                 })}
               </Flex.Item>
               <Flex.Item mr={1}>
-                {researchednodes.map(n => {
+                {researchednodes.map(each_node => {
                   return (
-                    <TechNode node={n} key={n.id} />
+                    <TechNode node={each_node} key={each_node.id} />
                   );
                 })}
               </Flex.Item>
               <Flex.Item mr={1}>
-                {futurenodes.map(n => {
+                {futurenodes.map(each_node => {
                   return (
-                    <TechNode node={n} key={n.id} />
+                    <TechNode node={each_node} key={each_node.id} />
                   );
                 })}
               </Flex.Item>
             </>
           )}
-          {!!searching && (
-            <Flex.Item mr={1}>
-              {displayedNodes.map(n => {
-                return (
-                  <TechNode node={n} key={n.id} />
-                );
-              })}
-            </Flex.Item>
+          {!!searching && ( // is searching
+            <>
+              <Flex.Item mr={1}>
+                {displayedNodes.map(each_node => {
+                  return (
+                    <TechNode node={each_node} key={each_node.id} />
+                  );
+                })}
+              </Flex.Item>
+              <Flex.Item mr={1}>
+                {researchednodes.map(each_node => {
+                  return (
+                    <TechNode node={each_node} key={each_node.id} />
+                  );
+                })}
+              </Flex.Item>
+              <Flex.Item mr={1}>
+                {futurenodes.map(each_node => {
+                  return (
+                    <TechNode node={each_node} key={each_node.id} />
+                  );
+                })}
+              </Flex.Item>
+            </>
           )}
         </Flex>
       </Flex.Item>
@@ -733,13 +753,12 @@ const TechNode = (props, context) => {
     node_cache,
     design_cache,
     points,
-    nodes,
     compact,
     researchable,
     tech_tier,
   } = data;
   const { node, nodetails, nocontrols, destructive } = props;
-  const { id, can_unlock, tier, costs } = node;
+  const { id, can_unlock, col_idx, costs } = node;
   const {
     name,
     description,
@@ -776,17 +795,17 @@ const TechNode = (props, context) => {
               Details
             </Button>
           )}
-          {((tier > 0) && (!destructive)) && (!!researchable) && ((
-            node_tier > tech_tier+1) ? (
+          {(col_idx > 0 && !destructive && !!researchable && (
+            node_tier > col_idx+1) ? (
               <Button.Confirm
                 icon="lightbulb"
-                disabled={!can_unlock || tier > 1}
+                disabled={!can_unlock || col_idx > 1}
                 onClick={() => act("researchNode", { node_id: id })}
                 content="Research" />
             ) : (
               <Button
                 icon="lightbulb"
-                disabled={!can_unlock || tier > 1}
+                disabled={!can_unlock || col_idx > 1}
                 onClick={() => act("researchNode", { node_id: id })}>
                 Research
               </Button>
@@ -808,7 +827,7 @@ const TechNode = (props, context) => {
             </Button>
           )}
         </>)}
-      {tier !== 0 && !!compact && !destructive && (
+      {col_idx !== 0 && !!compact && !destructive && (
         <Flex className="Techweb__NodeProgress">
           {!!costs && Object.keys(costs).map(key => {
             const cost = costs[key];
