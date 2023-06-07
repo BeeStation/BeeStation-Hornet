@@ -353,7 +353,7 @@
 	if (isnull(bci_to_implant_resolved))
 		. += "<span class='notice'>There is no BCI inserted.</span>"
 	else
-		. += "<span class='notice'>Control-click to remove [bci_to_implant_resolved].</span>"
+		. += "<span class='notice'>Alt-click to remove [bci_to_implant_resolved].</span>"
 
 /obj/machinery/bci_implanter/proc/set_busy(status, working_icon)
 	busy = status
@@ -388,7 +388,7 @@
 
 	return overlays
 
-/obj/machinery/bci_implanter/CtrlClick(mob/user)
+/obj/machinery/bci_implanter/AltClick(mob/user)
 	. = ..()
 	if(!user.Adjacent(src) || !can_interact(user))
 		return
