@@ -1,0 +1,6 @@
+author: Absolucy
+delete-after: true
+changes:
+  - bugfix: Fixed roundstart persistent dynamic rulesets ignoring repeated mode weight
+      adjustment (roundstart rulesets will no longer recur as often directly after
+      each other)
