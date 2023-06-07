@@ -676,7 +676,7 @@
 	description = "Research the technology required to create and use basic shuttles."
 	prereq_ids = list(
 		"adv_engi",
-		"adv_plasma",
+		"basic_plasma",
 	)
 	design_ids = list(
 		"engine_heater",
