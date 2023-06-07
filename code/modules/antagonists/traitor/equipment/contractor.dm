@@ -12,6 +12,7 @@
 
 /// Team for storing both the contractor and their support unit - only really for the HUD and admin logging.
 /datum/team/contractor_team
+	name = "Contractors"
 	show_roundend_report = FALSE
 
 /datum/antagonist/traitor/contractor_support/forge_traitor_objectives()
@@ -280,6 +281,7 @@
 	minimum_range = 25
 	has_owner = TRUE
 	ignore_suit_sensor_level = TRUE
+	tracks_grand_z = TRUE
 
 /obj/item/storage/box/contractor/fulton_extraction
 	name = "Fulton Extraction Kit"

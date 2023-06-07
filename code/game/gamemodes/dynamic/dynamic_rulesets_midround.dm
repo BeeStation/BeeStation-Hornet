@@ -196,6 +196,7 @@
 	cost = 8
 	requirements = list(8,8,8,8,8,8,8,8,8,8)
 	repeatable = TRUE
+	flags = INTACT_STATION_RULESET
 	blocking_rules = list(
 		/datum/dynamic_ruleset/roundstart/bloodcult,
 		/datum/dynamic_ruleset/roundstart/clockcult,
@@ -226,9 +227,8 @@
 	return ..()
 
 /datum/dynamic_ruleset/midround/autotraitor/execute()
-	var/mob/M = pick(candidates)
+	var/mob/M = antag_pick_n_take(candidates)
 	assigned += M
-	candidates -= M
 	var/datum/antagonist/traitor/newTraitor = new
 	M.mind.add_antag_datum(newTraitor)
 	return TRUE
@@ -253,7 +253,7 @@
 	cost = 13
 	required_type = /mob/living/silicon/ai
 	blocking_rules = list(/datum/dynamic_ruleset/roundstart/nuclear)
-	flags = HIGH_IMPACT_RULESET
+	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET|PERSISTENT_RULESET
 	var/ion_announce = 33
 	var/removeDontImproveChance = 10
 
@@ -281,7 +281,7 @@
 	return ..()
 
 /datum/dynamic_ruleset/midround/malf/execute()
-	var/mob/living/silicon/ai/M = pick_n_take(candidates)
+	var/mob/living/silicon/ai/M = antag_pick_n_take(candidates)
 	assigned += M.mind
 	var/datum/antagonist/traitor/AI = new
 	M.mind.special_role = antag_flag
@@ -311,7 +311,7 @@
 	weight = 1
 	cost = 15
 	requirements = REQUIREMENTS_VERY_HIGH_THREAT_NEEDED
-	flags = HIGH_IMPACT_RULESET
+	flags = HIGH_IMPACT_RULESET|PERSISTENT_RULESET
 
 /datum/dynamic_ruleset/midround/from_ghosts/wizard/ready(forced = FALSE)
 	if (!check_candidates())
@@ -346,7 +346,7 @@
 	requirements = REQUIREMENTS_VERY_HIGH_THREAT_NEEDED
 	var/list/operative_cap = list(2,2,3,3,4,5,5,5,5,5)
 	var/datum/team/nuclear/nuke_team
-	flags = HIGH_IMPACT_RULESET
+	flags = HIGH_IMPACT_RULESET|PERSISTENT_RULESET
 
 /datum/dynamic_ruleset/midround/from_ghosts/nuclear/acceptable(population=0, threat=0)
 	if (locate(/datum/dynamic_ruleset/roundstart/nuclear) in mode.executed_rules)
@@ -388,7 +388,7 @@
 	weight = 3
 	cost = 12
 	minimum_players = 25
-	flags = HIGH_IMPACT_RULESET
+	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET|PERSISTENT_RULESET
 
 /datum/dynamic_ruleset/midround/from_ghosts/blob/generate_ruleset_body(mob/applicant)
 	var/body = applicant.become_overmind()
@@ -412,7 +412,7 @@
 	weight = 3
 	cost = 12
 	minimum_players = 25
-	flags = HIGH_IMPACT_RULESET
+	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET|PERSISTENT_RULESET
 	var/list/vents = list()
 
 /datum/dynamic_ruleset/midround/from_ghosts/xenomorph/execute()
@@ -504,6 +504,7 @@
 	cost = 11
 	minimum_players = 25
 	repeatable = TRUE
+	flags = INTACT_STATION_RULESET|PERSISTENT_RULESET
 	var/list/spawn_locs = list()
 
 /datum/dynamic_ruleset/midround/from_ghosts/space_dragon/execute()
@@ -661,6 +662,7 @@
 	weight = 3
 	cost = 5
 	repeatable = TRUE
+	consider_antag_rep = TRUE
 
 /datum/dynamic_ruleset/midround/obsessed/trim_candidates()
 	..()
@@ -682,7 +684,7 @@
 	return ..()
 
 /datum/dynamic_ruleset/midround/obsessed/execute()
-	var/mob/living/carbon/human/obsessed = pick_n_take(candidates)
+	var/mob/living/carbon/human/obsessed = antag_pick_n_take(candidates)
 	obsessed.gain_trauma(/datum/brain_trauma/special/obsessed)
 	message_admins("[ADMIN_LOOKUPFLW(obsessed)] has been made Obsessed by the midround ruleset.")
 	log_game("[key_name(obsessed)] was made Obsessed by the midround ruleset.")
@@ -705,6 +707,7 @@
 	weight = 3
 	cost = 11
 	repeatable = TRUE
+	flags = INTACT_STATION_RULESET|PERSISTENT_RULESET
 	minimum_players = 27
 	var/fed = 1
 	var/list/vents = list()
@@ -763,6 +766,7 @@
 	cost = 10
 	minimum_players = 15
 	repeatable = FALSE // please no
+	flags = INTACT_STATION_RULESET|PERSISTENT_RULESET
 	var/announce_chance = 25
 
 /datum/dynamic_ruleset/midround/from_ghosts/swarmer/execute()

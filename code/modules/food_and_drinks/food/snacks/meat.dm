@@ -37,7 +37,7 @@
 	cooked_type = /obj/item/reagent_containers/food/snacks/meat/steak/plain/human
 	slice_path = /obj/item/reagent_containers/food/snacks/meat/rawcutlet/plain/human
 	tastes = list("tender meat" = 1)
-	foodtype = MEAT | RAW | GROSS
+	foodtype = MEAT | RAW | GORE
 
 /obj/item/reagent_containers/food/snacks/meat/slab/human/initialize_slice(obj/item/reagent_containers/food/snacks/meat/rawcutlet/plain/human/slice, reagents_per_slice)
 	..()
@@ -85,7 +85,7 @@
 	desc = "Delicious dino damage."
 	filling_color = "#6B8E23"
 	tastes = list("meat" = 4, "scales" = 1)
-	foodtype = MEAT | RAW
+	foodtype = MEAT | RAW | GORE
 
 /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/plant
 	icon_state = "plantmeat"
@@ -99,21 +99,21 @@
 	desc = "Ow, the edge."
 	filling_color = "#202020"
 	tastes = list("darkness" = 1, "meat" = 1)
-	foodtype = MEAT | RAW
+	foodtype = MEAT | RAW | GORE
 
 /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/fly
 	icon_state = "flymeat"
 	desc = "Nothing says tasty like maggot filled radioactive mutant flesh."
 	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/uranium = 3)
 	tastes = list("maggots" = 1, "the inside of a reactor" = 1)
-	foodtype = MEAT | RAW | GROSS
+	foodtype = MEAT | RAW | GROSS | GORE
 
 /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/moth
 	icon_state = "mothmeat"
 	desc = "Unpleasantly powdery and dry. Kind of pretty, though."
 	filling_color = "#BF896B"
 	tastes = list("dust" = 1, "powder" = 1, "meat" = 2)
-	foodtype = MEAT | RAW
+	foodtype = MEAT | RAW | GORE
 
 /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/skeleton
 	name = "bone"
@@ -122,7 +122,7 @@
 	filling_color = "#F0F0F0"
 	tastes = list("bone" = 1)
 	slice_path = null  //can't slice a bone into cutlets
-	foodtype = GROSS
+	foodtype = GROSS | GORE
 
 /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/zombie
 	name = " meat (rotten)"
@@ -130,7 +130,7 @@
 	desc = "Halfway to becoming fertilizer for your garden."
 	filling_color = "#6B8E23"
 	tastes = list("brains" = 1, "meat" = 1)
-	foodtype = RAW | MEAT | TOXIC
+	foodtype = RAW | MEAT | TOXIC | GORE | GROSS // who the hell would eat this
 
 /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/ethereal
 	icon_state = "etherealmeat"
@@ -138,14 +138,14 @@
 	filling_color = "#97ee63"
 	list_reagents = list(/datum/reagent/consumable/liquidelectricity = 15)
 	tastes = list("pure electrictiy" = 2, "meat" = 1)
-	foodtype = RAW | MEAT | TOXIC
+	foodtype = RAW | MEAT | TOXIC | GORE
 
 /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/apid
 	icon_state = "apidmeat"
 	desc = "Smells like flowers, hopefully doesn't taste like them."
 	filling_color = "#BEAD07"
 	tastes = list("honey" = 1, "flowers" = 1, "meat" = 2)
-	foodtype = MEAT | RAW
+	foodtype = MEAT | RAW | GORE
 
 ////////////////////////////////////// OTHER MEATS ////////////////////////////////////////////////////////
 
@@ -167,24 +167,24 @@
 /obj/item/reagent_containers/food/snacks/meat/slab/mouse
 	name = "mouse meat"
 	desc = "A slab of mouse meat. Best not eat it raw."
-	foodtype = RAW | MEAT | GROSS
+	foodtype = RAW | MEAT | GORE
 
 /obj/item/reagent_containers/food/snacks/meat/slab/corgi
 	name = "corgi meat"
 	desc = "Tastes like... well you know..."
 	tastes = list("meat" = 4, "a fondness for wearing hats" = 1)
-	foodtype = RAW | MEAT | GROSS
+	foodtype = RAW | MEAT | GORE
 
 /obj/item/reagent_containers/food/snacks/meat/slab/pug
 	name = "pug meat"
 	desc = "Tastes like... well you know..."
-	foodtype = RAW | MEAT | GROSS
+	foodtype = RAW | MEAT | GORE
 
 /obj/item/reagent_containers/food/snacks/meat/slab/hamster
 	name = "hamster meat"
 	desc = "A slab of hamster meat."
 	tastes = list("meat" = 4, "fluffly adorableness" = 1)
-	foodtype = RAW | MEAT | GROSS
+	foodtype = RAW | MEAT | GORE
 
 /obj/item/reagent_containers/food/snacks/meat/slab/killertomato
 	name = "killer tomato meat"
@@ -333,7 +333,7 @@
 	name = "mothroach meat"
 	desc = "a light slab of mothroach meat"
 	tastes = list("gross" = 1)
-	foodtype = RAW | MEAT | GROSS
+	foodtype = RAW | MEAT | GORE
 
 ////////////////////////////////////// MEAT STEAKS ///////////////////////////////////////////////////////////
 
@@ -354,7 +354,7 @@
 
 /obj/item/reagent_containers/food/snacks/meat/steak/plain/human
 	tastes = list("tender meat" = 1)
-	foodtype = MEAT | GROSS
+	foodtype = MEAT | GORE
 
 /obj/item/reagent_containers/food/snacks/meat/steak/killertomato
 	name = "killer tomato steak"
@@ -391,7 +391,7 @@
 	tastes = list("beef" = 1, "cod fish" = 1)
 
 /obj/item/reagent_containers/food/snacks/meat/steak/chicken
-	name = "chicken steak" //Can you have chicken steaks? Maybe this should be renamed once it gets new sprites.
+	name = "chicken steak" //Can you have chicken steaks? Maybe this should be renamed once it gets new sprites. //I concur
 	tastes = list("chicken" = 1)
 
 //////////////////////////////// MEAT CUTLETS ///////////////////////////////////////////////////////
@@ -421,7 +421,7 @@
 /obj/item/reagent_containers/food/snacks/meat/rawcutlet/plain/human
 	cooked_type = /obj/item/reagent_containers/food/snacks/meat/cutlet/plain/human
 	tastes = list("tender meat" = 1)
-	foodtype = MEAT | RAW | GROSS
+	foodtype = MEAT | RAW | GORE
 
 /obj/item/reagent_containers/food/snacks/meat/rawcutlet/plain/human/initialize_cooked_food(obj/item/reagent_containers/food/snacks/S, cooking_efficiency)
 	..()
@@ -500,7 +500,7 @@
 
 /obj/item/reagent_containers/food/snacks/meat/cutlet/plain/human
 	tastes = list("tender meat" = 1)
-	foodtype = MEAT | GROSS
+	foodtype = MEAT | GORE
 
 /obj/item/reagent_containers/food/snacks/meat/cutlet/killertomato
 	name = "killer tomato cutlet"
@@ -530,6 +530,7 @@
 /obj/item/reagent_containers/food/snacks/meat/cutlet/chicken
 	name = "chicken cutlet"
 	tastes = list("chicken" = 1)
+	
 /obj/item/reagent_containers/food/snacks/meat/cutlet/grub
 	name = "redgrub rind"
 	desc = "Cooking redgrub meat causes it to 'pop', and renders it non-toxic, crunchy and deliciously sweet"

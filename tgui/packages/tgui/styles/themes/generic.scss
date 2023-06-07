@@ -7,6 +7,7 @@ $accent: #4f56a5;
 @use '../colors.scss' with (
   $fg-map-keys: (),
   $bg-map-keys: (),
+  $primary: $accent,
 );
 @use '../base.scss' with (
   $color-bg: color.scale($generic, $lightness: -45%),
@@ -24,6 +25,10 @@ $accent: #4f56a5;
     'background-color': rgba(0, 0, 0, 0.5),
   ));
   @include meta.load-css('../components/Section.scss');
+
+  @include meta.load-css('../components/Input.scss', $with: (
+    'border-color': #7b86ff,
+  ));
 
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');

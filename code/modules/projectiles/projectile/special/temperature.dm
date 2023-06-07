@@ -20,10 +20,11 @@
 /obj/item/projectile/temp/cryo
 	name = "cryo beam"
 	range = 3
+	temperature = -240
 
 /obj/item/projectile/temp/cryo/on_range()
 	var/turf/T = get_turf(src)
 	if(isopenturf(T))
 		var/turf/open/O = T
-		O.freon_gas_act()
+		O.freeze_turf()
 	return ..()

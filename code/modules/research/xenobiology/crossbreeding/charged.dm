@@ -107,7 +107,7 @@ Charged extracts:
 	effect_desc = "Creates a slime cake and some drinks."
 
 /obj/item/slimecross/charged/silver/do_effect(mob/user)
-	new /obj/item/reagent_containers/food/snacks/store/cake/slimecake(get_turf(user))
+	new /obj/item/food/cake/slimecake(get_turf(user))
 	for(var/i in 1 to 10)
 		var/drink_type = get_random_drink()
 		new drink_type(get_turf(user))
@@ -168,7 +168,7 @@ Charged extracts:
 	if(!istype(H))
 		to_chat(user, "<span class='warning'>You must be a humanoid to use this!</span>")
 		return
-	var/racechoice = input(H, "Choose your slime subspecies.", "Slime Selection") as null|anything in sort_list(subtypesof(/datum/species/jelly), GLOBAL_PROC_REF(cmp_typepaths_asc))
+	var/racechoice = input(H, "Choose your slime subspecies.", "Slime Selection") as null|anything in sort_list(subtypesof(/datum/species/oozeling), GLOBAL_PROC_REF(cmp_typepaths_asc))
 	if(!racechoice)
 		to_chat(user, "<span class='notice'>You decide not to become a slime for now.</span>")
 		return

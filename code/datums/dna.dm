@@ -67,6 +67,15 @@
 	new_dna.update_body_size() //Must come after features.Copy()
 	new_dna.mutations = mutations.Copy()
 
+/datum/dna/proc/compare_dna(datum/dna/other)
+	if (!other)
+		return FALSE
+	return unique_enzymes == other.unique_enzymes \
+		&& uni_identity == other.uni_identity \
+		&& blood_type == other.blood_type \
+		&& species?.type == other.species?.type \
+		&& real_name == other.real_name
+
 //See mutation.dm for what 'class' does. 'time' is time till it removes itself in decimals. 0 for no timer
 /datum/dna/proc/add_mutation(mutation, class = MUT_OTHER, time)
 	var/mutation_type = mutation
@@ -401,11 +410,11 @@
 		return
 	switch(deconstruct_block(getblock(dna.uni_identity, DNA_GENDER_BLOCK), 3))
 		if(G_MALE)
-			set_gender(MALE, TRUE)
+			set_gender(MALE, TRUE, forced = TRUE)
 		if(G_FEMALE)
-			set_gender(FEMALE, TRUE)
+			set_gender(FEMALE, TRUE, forced = TRUE)
 		else
-			set_gender(PLURAL, TRUE)
+			set_gender(PLURAL, TRUE, forced = TRUE)
 
 /mob/living/carbon/human/updateappearance(icon_update=1, mutcolor_update=0, mutations_overlay_update=0)
 	..()
@@ -418,6 +427,11 @@
 	hair_style = GLOB.hair_styles_list[deconstruct_block(getblock(structure, DNA_HAIR_STYLE_BLOCK), GLOB.hair_styles_list.len)]
 	gradient_color = sanitize_hexcolor(getblock(structure, DNA_HAIR_GRADIENT_COLOR_BLOCK))
 	gradient_style = GLOB.hair_gradients_list[deconstruct_block(getblock(structure, DNA_HAIR_GRADIENT_STYLE_BLOCK), GLOB.hair_gradients_list.len)]
+	// Ensure we update the skin tone of all non-foreign bodyparts
+	for(var/obj/item/bodypart/part in bodyparts)
+		if(part.no_update)
+			continue
+		part.update_limb(dropping_limb = FALSE, source = src, is_creating = TRUE)
 	if(icon_update)
 		update_body()
 		update_hair()

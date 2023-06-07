@@ -130,7 +130,7 @@
 	animate(M, transform = m180, time = 3)
 	M.pixel_y = M.get_standard_pixel_y_offset(180)
 	M.adjustBruteLoss(30)
-	src.visible_message(text("<span class='danger'>[M] falls free of [src]!</span>"))
+	src.visible_message("<span class='danger'>[M] falls free of [src]!</span>")
 	unbuckle_mob(M,force=1)
 	M.emote("scream")
 	M.AdjustParalyzed(20)

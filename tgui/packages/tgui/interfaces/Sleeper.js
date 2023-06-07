@@ -10,7 +10,7 @@ export const Sleeper = (props, context) => {
     open,
     occupant = {},
     occupied,
-    chems = {},
+    chems = [],
   } = data;
 
   const damageTypes = [
@@ -31,6 +31,14 @@ export const Sleeper = (props, context) => {
       type: 'oxyLoss',
     },
   ];
+
+  const ELLIPSIS_STYLE = { // enforces overflow ellipsis
+    "max-width": "1px",
+    "white-space": "nowrap",
+    "text-overflow": "ellipsis",
+    "overflow": "hidden",
+  };
+
 
   return (
     <Window
@@ -69,7 +77,7 @@ export const Sleeper = (props, context) => {
                       value={occupant[type.type]}
                       minValue={0}
                       maxValue={occupant.maxHealth}
-                      color="bad" />
+                      color={occupant[type.type] === 0 ? "good" : "bad"} />
                   </LabeledList.Item>
                 ))}
                 <LabeledList.Item
@@ -109,15 +117,28 @@ export const Sleeper = (props, context) => {
               onClick={() => act('door')} />
           )}>
           <Table>
+            <style>{`
+              .Button--fluid.button-ellipsis {
+                max-width: 100%;
+              }
+              .button-ellipsis .Button__content {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+              }
+            `}
+            </style>
             {chems.map(chem => (
               <Table.Row
                 key={chem.id} >
-                <Table.Cell>
+                <Table.Cell style={ELLIPSIS_STYLE}>
                   <Button
                     key={chem.id}
                     icon="flask"
-                    width="100%"
+                    className="button-ellipsis"
+                    fluid
                     content={chem.name + ' (' + chem.amount + 'u)'}
+                    tooltip={chem.amount + 'u'}
                     disabled={!(occupied && chem.allowed)}
                     onClick={() => act('inject', {
                       chem: chem.id,

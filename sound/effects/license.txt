@@ -6,3 +6,6 @@ hit_punch.ogg and hit_kick.ogg are made by Taira Komori
 
 cartoon_pop.ogg by Tobiasz 'unfa' Karoń
 (https://freesound.org/people/unfa/sounds/245645/)
+
+admin_alert.ogg by FoolBoyMedia
+(https://freesound.org/people/FoolBoyMedia/sounds/352659/)
