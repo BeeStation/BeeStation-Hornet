@@ -88,11 +88,6 @@
 		return FALSE
 	if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_LIVING_MOVE) & COMSIG_MOB_CLIENT_BLOCK_PRE_LIVING_MOVE)
 		return FALSE
-	if(mob.shifting)
-		mob.pixel_shift(direct)
-		return FALSE
-	else if(mob.is_shifted) //Cancels pixel offset on movement
-		mob.unpixel_shift()
 
 	var/mob/living/L = mob  //Already checked for isliving earlier
 	if(L.incorporeal_move)	//Move though walls
