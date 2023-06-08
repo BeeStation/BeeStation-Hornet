@@ -1,6 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - bugfix: Removes the ability for players to selectively refuse revivals by quickly
-      leaving their body after being forced back into it. DNR will still prevent resuscitations,
-      this only applies to players who have not enabled this.
