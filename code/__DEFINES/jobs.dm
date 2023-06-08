@@ -110,6 +110,8 @@
 #define DEPT_BITFLAG_SEC (1<<7)
 #define DEPT_BITFLAG_VIP (1<<8)
 #define DEPT_BITFLAG_SILICON  (1<<9)
+#define DEPT_BITFLAG_CAPTAIN (1<<10)
+#define DEPT_BITFLAG_ASSISTANT (1<<11)
 // should check the ones in `\_DEFINES\economy.dm`
 // It's true that bitflags shouldn't be separated in two DEFINES if these are same, but just in case the system can be devided, it's remained separated.
 

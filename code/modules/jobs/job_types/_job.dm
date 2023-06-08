@@ -2,6 +2,10 @@
 	///The name of the job , used for preferences, bans and more. Make sure you know what you're doing before changing this.
 	var/title = "NOPE"
 
+	/// The description of the job, used for preferences menu.
+	/// Keep it short and useful. Avoid in-jokes, these are for new players.
+	var/description = "Someone didn't fill this out... please report this bug!" // TODO tgui-prefs change this to null
+
 	///Job access. The use of minimal_access or access is determined by a config setting: config.jobs_have_minimal_access
 	var/list/minimal_access = list()		//Useful for servers which prefer to only have access given to the places a job absolutely needs (Larger server population)
 	var/list/access = list()				//Useful for servers which either have fewer players, so each person needs to fill more than one role, or servers which like to give more access, so players can't hide forever in their super secure departments (I'm looking at you, chemistry!)
@@ -77,6 +81,8 @@
 
 	///Bitfield of departments this job belongs with
 	var/departments = NONE
+	/// Same as the departments bitflag, but only one is allowed. Used in the preferences menu.
+	var/department_for_prefs = null
 	///Is this job affected by weird spawns like the ones from station traits
 	var/random_spawns_possible = TRUE
 	/// Should this job be allowed to be picked for the bureaucratic error event?
