@@ -351,9 +351,9 @@
 	to_chat(usr, "<span class='brass'>You begin manipulating [src]!</span>")
 	if(do_after(eminence, 20, target=get_turf(eminence)))
 		if(welded)
-			to_chat(eminence, text("The airlock has been welded shut!"))
+			to_chat(eminence, "The airlock has been welded shut!")
 		else if(locked)
-			to_chat(eminence, text("The door bolts are down!"))
+			to_chat(eminence, "The door bolts are down!")
 		else if(!density)
 			close()
 		else
@@ -1422,7 +1422,7 @@
 				message = "unshocked"
 			else
 				message = "temp shocked for [secondsElectrified] seconds"
-		LAZYADD(shockedby, text("\[[time_stamp()]\] [key_name(user)] - ([uppertext(message)])"))
+		LAZYADD(shockedby, "\[[time_stamp()]\] [key_name(user)] - ([uppertext(message)])")
 		log_combat(user, src, message)
 		add_hiddenprint(user)
 
@@ -1655,9 +1655,9 @@
 	if(!user_allowed(user))
 		return
 	if(welded)
-		to_chat(user, text("The airlock has been welded shut!"))
+		to_chat(user, "The airlock has been welded shut!")
 	else if(locked)
-		to_chat(user, text("The door bolts are down!"))
+		to_chat(user, "The door bolts are down!")
 	else if(!density)
 		close()
 	else

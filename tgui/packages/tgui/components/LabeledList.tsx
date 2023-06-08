@@ -5,7 +5,7 @@
  */
 
 import { BooleanLike, classes, pureComponentHooks } from 'common/react';
-import type { Inferno } from 'inferno';
+import type { InfernoNode } from 'inferno';
 import { Box, unit } from './Box';
 import { Divider } from './Divider';
 
@@ -26,14 +26,15 @@ LabeledList.defaultHooks = pureComponentHooks;
 
 type LabeledListItemProps = {
   className?: string | BooleanLike;
-  label?: string | Inferno.InfernoNode | BooleanLike;
+  label?: string | InfernoNode | BooleanLike;
   labelColor?: string | BooleanLike;
+  labelWrap?: boolean;
   color?: string | BooleanLike;
   textAlign?: string | BooleanLike;
-  buttons?: Inferno.InfernoNode,
+  buttons?: InfernoNode,
   /** @deprecated */
   content?: any,
-  children?: Inferno.InfernoNode;
+  children?: InfernoNode;
   verticalAlign?: string;
 };
 
@@ -42,6 +43,7 @@ const LabeledListItem = (props: LabeledListItemProps) => {
     className,
     label,
     labelColor = 'label',
+    labelWrap,
     color,
     textAlign,
     buttons,
@@ -60,7 +62,8 @@ const LabeledListItem = (props: LabeledListItemProps) => {
         color={labelColor}
         className={classes([
           'LabeledList__cell',
-          'LabeledList__label',
+          // Kinda flipped because we want nowrap as default. Cleaner CSS this way though.
+          !labelWrap && 'LabeledList__label--nowrap',
         ])}
         verticalAlign={verticalAlign}>
         {label ? typeof(label) === "string" ? label + ':' : label : null}

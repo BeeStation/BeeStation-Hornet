@@ -166,7 +166,7 @@
 				medical_records = GLOB.data_core.get_general_records()
 			if(params["list"] == "security")
 				security_records = GLOB.data_core.get_security_records()
-			ui.send_full_update()
+			ui.send_full_update(bypass_cooldown = TRUE)
 			addtimer(CALLBACK(src, PROC_REF(refresh_again)), 3 SECONDS)
 		if("remote_signaler")
 			signaler.ui_interact(src)

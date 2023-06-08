@@ -8,13 +8,13 @@ import { BooleanLike, classes, pureComponentHooks } from 'common/react';
 import { createVNode } from 'inferno';
 import { ChildFlags, VNodeFlags } from 'inferno-vnode-flags';
 import { CSS_COLORS } from '../constants';
-import type { Inferno } from 'inferno';
+import type { Inferno, InfernoNode } from 'inferno';
 
 export interface BoxProps {
   [key: string]: any;
   as?: string;
   className?: string | BooleanLike;
-  children?: Inferno.InfernoNode;
+  children?: InfernoNode;
   position?: string | BooleanLike;
   overflow?: string | BooleanLike;
   overflowX?: string | BooleanLike;
@@ -93,9 +93,7 @@ export const halfUnit = (value: unknown): string | undefined => {
 const isColorCode = (str: unknown) => !isColorClass(str);
 
 const isColorClass = (str: unknown): boolean => {
-  if (typeof str === 'string') {
-    return CSS_COLORS.includes(str);
-  }
+  return typeof str === "string" && CSS_COLORS.includes(str);
 };
 
 const mapRawPropTo = attrName => (style, value) => {

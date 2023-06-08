@@ -1,4 +1,3 @@
-import { toArray } from 'common/collections';
 import { useBackend, useSharedState } from '../backend';
 import { AnimatedNumber, Box, Button, Flex, LabeledList, Section, Table, Tabs } from '../components';
 import { formatMoney } from '../format';
@@ -135,7 +134,7 @@ export const CargoCatalog = (props, context) => {
     app_cost,
     points,
   } = data;
-  const supplies = toArray(data.supplies);
+  const supplies = Object.values(data.supplies);
   const [
     activeSupplyName,
     setActiveSupplyName,

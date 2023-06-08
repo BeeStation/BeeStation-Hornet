@@ -478,8 +478,8 @@
 				M.visible_message(pick("<b>[M]</b>'s collar pops up without warning.</span>", "<b>[M]</b> flexes [M.p_their()] arms."))
 			else
 				M.visible_message("<b>[M]</b> flexes [M.p_their()] arms.")
-		if(prob(10))
-			M.say(pick("Shit was SO cash.", "You are everything bad in the world.", "What sports do you play, other than 'jack off to naked drawn Japanese people?'", "Don???t be a stranger. Just hit me with your best shot.", "My name is John and I hate every single one of you."), forced = /datum/reagent/spraytan)
+		if(prob(2))
+			M.say(pick("Shit was SO cash.", "Duuuuuude. Yeah bro.", "Check my muscles, broooo!", "Hell yeah brooo!"), forced = /datum/reagent/spraytan)
 
 #define MUT_MSG_IMMEDIATE 1
 #define MUT_MSG_EXTENDED 2

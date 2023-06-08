@@ -1,8 +1,6 @@
-import { range } from "common/collections";
 import { BooleanLike, classes } from "common/react";
-import { resolveAsset } from "../assets";
 import { useBackend } from "../backend";
-import { Box, Button, Flex, Stack, Table } from "../components";
+import { Button, Flex, Table } from "../components";
 import { Window } from "../layouts";
 
 
@@ -254,19 +252,25 @@ export const StripMenu = (props, context) => {
       .map(slot => {
         const item = items[slot.id];
 
-        const alternate = item
-          && ("alternate" in item)
-          && ALTERNATE_ACTIONS[item.alternate];
+        let alternate: AlternateAction|undefined;
+        if (item && item["alternate"] !== undefined) {
+          alternate = ALTERNATE_ACTIONS[item["alternate"]];
+        }
+
+        let name: string | undefined;
+        if (item && item["name"] !== undefined) {
+          name = item["name"];
+        }
 
         return (
           <StripMenuRow
             slotName={SLOTS[slot.id]}
-            itemName={item && ("name" in item) && item.name}
+            itemName={name}
             obscured={item && ("obscured" in item) ? item.obscured : 0}
             indented={slot.indented}
             slotID={slot.id}
             unavailable={item && ("unavailable" in item) && item.unavailable}
-            alternates={alternate ? [alternate] : null}
+            alternates={alternate ? [alternate] : undefined}
             empty={!item || !(("name" in item) || ("obscured" in item))}
             interacting={item && ("interacting" in item) && item.interacting}
             key={slot.id}

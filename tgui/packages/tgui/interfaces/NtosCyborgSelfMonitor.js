@@ -91,7 +91,7 @@ export const NtosCyborgSelfMonitorContent = (_, context) => {
                 </LabeledList>
               </Section>
             </Flex.Item>
-            <Flex.Item grow={1} ml={1}>
+            <Flex.Item grow={1} ml={1} basis="content">
               <Section title="Status">
                 Charge:
                 <Button
