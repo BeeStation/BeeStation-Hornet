@@ -273,7 +273,7 @@ export class IntegratedCircuit extends Component {
             top="5px"
             height="22px">
             <Stack>
-              <Stack.Item grow>
+              <Stack.Item grow basis="content">
                 <Input
                   fluid
                   placeholder="Circuit Name"
