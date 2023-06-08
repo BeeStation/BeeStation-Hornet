@@ -417,3 +417,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SUIT_SENSORS "suit_sensors"
 ///Mob is tracked by nanites, and on glob suit sensors list
 #define TRAIT_NANITE_SENSORS "nanite_sensors"
+
+/// This human wants to see the color of their glasses, for some reason
+#define TRAIT_SEE_GLASS_COLORS "see_glass_colors"

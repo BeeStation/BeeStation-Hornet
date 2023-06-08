@@ -831,3 +831,8 @@
 		parts += "<span class='redtext big'>The swarm has failed.</span>"
 
 	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"
+
+/datum/antagonist/swarmer/get_preview_icon()
+	var/icon/swarmer_icon = icon('icons/mob/swarmer.dmi', "swarmer")
+	swarmer_icon.Shift(NORTH, 8)
+	return finish_preview_icon(swarmer_icon)

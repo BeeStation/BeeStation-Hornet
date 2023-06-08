@@ -43,16 +43,10 @@
 		return
 	H.mind?.holy_role = HOLY_ROLE_HIGHPRIEST
 
-	var/new_religion = DEFAULT_RELIGION
-	if(M.client && M.client.prefs.active_character.custom_names["religion"])
-		new_religion = M.client.prefs.active_character.custom_names["religion"]
-
-	var/new_deity = DEFAULT_DEITY
-	if(M.client && M.client.prefs.active_character.custom_names["deity"])
-		new_deity = M.client.prefs.active_character.custom_names["deity"]
+	var/new_religion = player_client?.prefs?.read_preference(/datum/preference/name/religion) || DEFAULT_RELIGION
+	var/new_deity = player_client?.prefs?.read_preference(/datum/preference/name/deity) || DEFAULT_DEITY
 
 	B.deity_name = new_deity
-
 
 	switch(lowertext(new_religion))
 		if("christianity") // DEFAULT_RELIGION

@@ -185,6 +185,22 @@ GLOBAL_LIST_INIT(skin_tones, sort_list(list(
 	"african2"
 	)))
 
+GLOBAL_LIST_INIT(skin_tone_names, list(
+	"african1" = "Medium brown",
+	"african2" = "Dark brown",
+	"albino" = "Albino",
+	"arab" = "Light brown",
+	"asian1" = "Ivory",
+	"asian2" = "Beige",
+	"caucasian1" = "Porcelain",
+	"caucasian2" = "Light peach",
+	"caucasian3" = "Peach",
+	"indian" = "Brown",
+	"latino" = "Light beige",
+	"mediterranean" = "Olive",
+))
+
+/// An assoc list of species IDs to type paths
 GLOBAL_LIST_EMPTY(species_list)
 
 /proc/age2agedescription(age)
@@ -682,7 +698,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	return .
 
 //// Generalised helper proc for letting mobs rename themselves. Used to be clname() and ainame()
-/mob/proc/apply_pref_name(role, client/C)
+/mob/proc/apply_pref_name(preference_type, client/C)
 	if(!C)
 		C = client
 	var/oldname = real_name
@@ -693,20 +709,11 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	var/banned = C ? is_banned_from(C.ckey, "Appearance") : null
 
 	while(loop && safety < 5)
-		if(C?.prefs.active_character.custom_names[role] && !safety && !banned)
-			newname = C.prefs.active_character.custom_names[role]
+		if(!safety && !banned)
+			newname = C?.prefs?.read_preference(preference_type)
 		else
-			switch(role)
-				if("human")
-					newname = random_unique_name(gender)
-				if("clown")
-					newname = pick(GLOB.clown_names)
-				if("mime")
-					newname = pick(GLOB.mime_names)
-				if("ai")
-					newname = pick(GLOB.ai_names)
-				else
-					return FALSE
+			var/datum/preference/preference = GLOB.preference_entries[preference_type]
+			newname = preference.create_informed_default_value(C.prefs)
 
 		for(var/mob/living/M in GLOB.player_list)
 			if(M == src)

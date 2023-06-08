@@ -32,6 +32,16 @@
 	create_objectives()
 	. = ..()
 
+/datum/antagonist/blob/get_preview_icon()
+	var/datum/blobstrain/reagent/reactive_spines/reactive_spines = /datum/blobstrain/reagent/reactive_spines
+
+	var/icon/icon = icon('icons/mob/blob.dmi', "blob_core")
+	icon.Blend(initial(reactive_spines.color), ICON_MULTIPLY)
+	icon.Blend(icon('icons/mob/blob.dmi', "blob_core_overlay"), ICON_OVERLAY)
+	icon.Scale(ANTAGONIST_PREVIEW_ICON_SIZE, ANTAGONIST_PREVIEW_ICON_SIZE)
+
+	return icon
+
 /datum/antagonist/blob/proc/create_objectives()
 	if(!give_objectives)
 		return

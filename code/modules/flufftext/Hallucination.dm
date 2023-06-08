@@ -710,10 +710,10 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	feedback_details += "Type: [is_radio ? "Radio" : "Talk"], Source: [person.real_name], Message: [message]"
 
 	// Display message
-	if (!is_radio && !(target.client?.prefs.toggles & PREFTOGGLE_RUNECHAT_GLOBAL))
+	if (!is_radio && !target.client?.prefs.read_preference(/datum/preference/toggle/enable_runechat))
 		var/image/speech_overlay = image('icons/mob/talk.dmi', person, "default0", layer = ABOVE_MOB_LAYER)
 		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay), speech_overlay, list(target.client), 30)
-	if (target.client?.prefs.toggles & PREFTOGGLE_RUNECHAT_GLOBAL)
+	if (target.client?.prefs.read_preference(/datum/preference/toggle/enable_runechat))
 		create_chat_message(person, understood_language, list(target), chosen, spans)
 	to_chat(target, message)
 	qdel(src)

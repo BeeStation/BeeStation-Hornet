@@ -99,3 +99,6 @@
 #define AMBIENT_OCCLUSION filter(type="drop_shadow", x=0, y=-2, size=4, color="#04080FAA")
 /// Icon filter that creates gaussian blur
 #define GAUSSIAN_BLUR(filter_size) filter(type="blur", size=filter_size)
+
+// The default color for admin say, used as a fallback when the preference is not enabled
+#define DEFAULT_ASAY_COLOR "#FF4500"

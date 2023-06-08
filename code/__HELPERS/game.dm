@@ -515,7 +515,7 @@
 		var/mob/M = C
 		if(M.client)
 			C = M.client
-	if(!C || (!(C.prefs.toggles2 & PREFTOGGLE_2_WINDOW_FLASHING) && !ignorepref))
+	if(!C || (!C.prefs.read_preference(/datum/preference/toggle/window_flashing) && !ignorepref))
 		return
 	winset(C, "mainwindow", "flash=5")
 

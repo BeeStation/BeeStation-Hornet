@@ -36,7 +36,6 @@ SUBSYSTEM_DEF(job)
 		SetupOccupations()
 	if(CONFIG_GET(flag/load_jobs_from_txt))
 		LoadJobs()
-
 	set_overflow_role(CONFIG_GET(string/overflow_job))
 
 	spare_id_safe_code = "[rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)]"
@@ -435,26 +434,34 @@ SUBSYSTEM_DEF(job)
 
 //We couldn't find a job from prefs for this guy.
 /datum/controller/subsystem/job/proc/HandleUnassigned(mob/dead/new_player/player)
+	var/jobless_role = player.client.prefs.read_preference(/datum/preference/choiced/jobless_role)
+
 	if(PopcapReached() && !IS_PATRON(player.ckey))
 		RejectPlayer(player)
-	else if(player.client.prefs.active_character.joblessrole == BEOVERFLOW)
-		var/allowed_to_be_a_loser = !is_banned_from(player.ckey, SSjob.overflow_role)
-		if(QDELETED(player) || !allowed_to_be_a_loser)
-			RejectPlayer(player)
-		else
-			if(!AssignRole(player, SSjob.overflow_role))
+		return
+
+	switch (jobless_role)
+		if (BEOVERFLOW)
+			var/datum/job/overflow_role_datum = GetJobType(overflow_role)
+			var/allowed_to_be_a_loser = !is_banned_from(player.ckey, overflow_role_datum.title)
+			if(QDELETED(player) || !allowed_to_be_a_loser)
 				RejectPlayer(player)
-	else if(player.client.prefs.active_character.joblessrole == BERANDOMJOB)
-		if(!GiveRandomJob(player))
+			else
+				if(!AssignRole(player, overflow_role_datum))
+					RejectPlayer(player)
+		if (BERANDOMJOB)
+			if(!GiveRandomJob(player))
+				RejectPlayer(player)
+		if (RETURNTOLOBBY)
 			RejectPlayer(player)
-	else if(player.client.prefs.active_character.joblessrole == RETURNTOLOBBY)
-		RejectPlayer(player)
-	else //Something gone wrong if we got here.
-		var/message = "DO: [player] fell through handling unassigned"
-		JobDebug(message)
-		log_game(message)
-		message_admins(message)
-		RejectPlayer(player)
+		else //Something gone wrong if we got here.
+			var/message = "DO: [player] fell through handling unassigned"
+			JobDebug(message)
+			log_game(message)
+			message_admins(message)
+			RejectPlayer(player)
+
+
 //Gives the player the stuff he should have with his rank
 /datum/controller/subsystem/job/proc/EquipRank(mob/M, rank, joined_late = FALSE)
 	var/mob/dead/new_player/newplayer

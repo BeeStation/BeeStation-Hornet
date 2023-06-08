@@ -143,9 +143,10 @@ export const releaseHeldKeys = () => {
 };
 
 export const updateHotkeyMode = () =>
-  Byond.winget('mainwindow', 'macro').then((macro) => {
-    hotkeyMode = macro !== 'old_default';
-  });
+  Byond.winget("mainwindow", "macro")
+    .then(macro => {
+      hotkeyMode = macro !== "old_default";
+    });
 
 type ByondSkinMacro = {
   command: string;

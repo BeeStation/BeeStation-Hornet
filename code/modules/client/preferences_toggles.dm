@@ -2,8 +2,9 @@
 	set name = "Game Preferences"
 	set category = "Preferences"
 	set desc = "Open Game Preferences Window"
-	prefs.current_tab = 1
-	prefs.ShowChoices(usr)
+	prefs.current_window = PREFERENCE_TAB_CHARACTER_PREFERENCES
+	prefs.update_static_data(usr)
+	prefs.ui_interact(usr)
 
 /client/verb/toggle_ghost_ears()
 	set name = "Show/Hide GhostEars"

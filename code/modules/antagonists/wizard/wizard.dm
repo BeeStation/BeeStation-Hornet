@@ -5,6 +5,7 @@
 	banning_key = BAN_ROLE_WIZARD
 	antag_moodlet = /datum/mood_event/focused
 	hijack_speed = 0.5
+	preview_outfit = /datum/outfit/wizard
 	var/strip = TRUE //strip before equipping
 	var/allow_rename = TRUE
 	var/hud_version = "wizard"

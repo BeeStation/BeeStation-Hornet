@@ -55,6 +55,18 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	var/list/atom/movable/plane_master_controller/plane_master_controllers = list()
 	var/list/team_finder_arrows = list()
 
+	/// Whether or not screentips are enabled.
+	/// This is updated by the preference for cheaper reads than would be
+	/// had with a proc call, especially on one of the hottest procs in the
+	/// game (MouseEntered).
+	var/screentips_enabled = TRUE
+
+	/// The color to use for the screentips.
+	/// This is updated by the preference for cheaper reads than would be
+	/// had with a proc call, especially on one of the hottest procs in the
+	/// game (MouseEntered).
+	var/screentip_color
+
 	var/atom/movable/screen/movable/action_button/hide_toggle/hide_actions_toggle
 	var/action_buttons_hidden = FALSE
 
@@ -70,12 +82,12 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 
 	if (!ui_style)
 		// will fall back to the default if any of these are null
-		ui_style = ui_style2icon(owner.client && owner.client.prefs && owner.client.prefs.UI_style)
+		ui_style = ui_style2icon(owner.client?.prefs?.read_preference(/datum/preference/choiced/ui_style))
 
 	hide_actions_toggle = new
 	hide_actions_toggle.InitialiseIcon(src)
 	if(mymob.client)
-		hide_actions_toggle.locked = mymob.client.prefs.toggles2 & PREFTOGGLE_2_LOCKED_BUTTONS
+		hide_actions_toggle.locked = mymob.client.prefs.read_preference(/datum/preference/toggle/buttons_locked)
 
 	hand_slots = list()
 

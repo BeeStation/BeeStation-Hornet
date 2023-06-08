@@ -96,3 +96,7 @@
 	HSL[3] = min(HSL[3],0.4)
 	var/list/RGB = hsl2rgb(arglist(HSL))
 	return "#[num2hex(RGB[1],2)][num2hex(RGB[2],2)][num2hex(RGB[3],2)]"
+
+/// Makes sure the input color is text with a # at the start followed by 6 hexadecimal characters. Examples: "#ff1234", "#A38321", COLOR_GREEN_GRAY
+/proc/sanitize_color(color)
+	return findtext(color, GLOB.is_color) ? color : GLOB.normal_ooc_colour

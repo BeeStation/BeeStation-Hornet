@@ -25,11 +25,11 @@
 /datum/viewData/proc/assertFormat()//T-Pose
 	winset(chief, "mapwindow.map", "zoom=0")
 
-/datum/viewData/proc/resetFormat()//Cuck
-	winset(chief, "mapwindow.map", "zoom=[chief.prefs.pixel_size]")
+/datum/viewData/proc/resetFormat()
+	winset(chief, "mapwindow.map", "zoom=[chief.prefs.read_preference(/datum/preference/numeric/pixel_size)]")
 
 /datum/viewData/proc/setZoomMode()
-	winset(chief, "mapwindow.map", "zoom-mode=[chief.prefs.scaling_method]")
+	winset(chief, "mapwindow.map", "zoom-mode=[chief.prefs.read_preference(/datum/preference/choiced/scaling_method)]")
 
 /datum/viewData/proc/isZooming()
 	return (width || height)

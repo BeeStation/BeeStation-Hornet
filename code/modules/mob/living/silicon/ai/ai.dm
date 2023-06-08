@@ -138,7 +138,7 @@
 	create_modularInterface()
 	create_eye()
 	if(client)
-		apply_pref_name("ai",client)
+		INVOKE_ASYNC(src, .proc/apply_pref_name, /datum/preference/name/ai, client)
 
 	INVOKE_ASYNC(src, PROC_REF(set_core_display_icon))
 
@@ -214,10 +214,10 @@
 /mob/living/silicon/ai/proc/set_core_display_icon(input, client/C)
 	if(client && !C)
 		C = client
-	if(!input && !C?.prefs?.active_character.preferred_ai_core_display)
+	if(!input && !C?.prefs?.read_preference(/datum/preference/choiced/ai_core_display))
 		icon_state = initial(icon_state)
 	else
-		var/preferred_icon = input ? input : C.prefs.active_character.preferred_ai_core_display
+		var/preferred_icon = input ? input : C.prefs.read_preference(/datum/preference/choiced/ai_core_display)
 		icon_state = resolve_ai_icon(preferred_icon)
 
 /mob/living/silicon/ai/verb/pick_icon()

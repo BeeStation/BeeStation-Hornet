@@ -19,7 +19,6 @@
 			role_preference_key = role_preference
 		))
 			candidates.Remove(P)
-			continue
 
 /datum/dynamic_ruleset/latejoin/ready(forced = 0)
 	if (forced)

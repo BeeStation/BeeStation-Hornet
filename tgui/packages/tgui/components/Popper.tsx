@@ -64,7 +64,14 @@ export class Popper extends Component<PopperProps> {
   }
 
   renderPopperContent(callback: () => void) {
-    render(this.props.popperContent, this.renderedContent, callback);
+    // `render` errors when given false, so we convert it to `null`,
+    // which is supported.
+    render(
+      this.props.popperContent || null,
+      this.renderedContent,
+      callback,
+      this.context
+    );
   }
 
   render() {

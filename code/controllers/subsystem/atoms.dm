@@ -215,6 +215,14 @@ SUBSYSTEM_DEF(atoms)
 		if(fails & BAD_INIT_SLEPT)
 			. += "- Slept during Initialize()\n"
 
+/// Prepares an atom to be deleted once the atoms SS is initialized.
+/datum/controller/subsystem/atoms/proc/prepare_deletion(atom/target)
+	if (initialized == INITIALIZATION_INNEW_REGULAR)
+		// Atoms SS has already completed, just kill it now.
+		qdel(target)
+	else
+		queued_deletions += WEAKREF(target)
+
 /datum/controller/subsystem/atoms/Shutdown()
 	var/initlog = InitLog()
 	if(initlog)

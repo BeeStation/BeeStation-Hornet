@@ -1044,7 +1044,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		openToolTip(user,src,params,title = name,content = "[desc]<br><b>Force:</b> [force_string]",theme = "")
 
 /obj/item/MouseEntered(location, control, params)
-	if((item_flags & PICKED_UP || item_flags & IN_STORAGE) && (usr.client.prefs.toggles2 & PREFTOGGLE_2_ENABLE_TIPS) && !QDELETED(src))
+	if((item_flags & PICKED_UP || item_flags & IN_STORAGE) && usr.client.prefs.read_preference(/datum/preference/toggle/enable_tooltips) && !QDELETED(src))
 		var/timedelay = usr.client.prefs.tip_delay/100
 		var/user = usr
 		tip_timer = addtimer(CALLBACK(src, PROC_REF(openTip), location, control, params, user), timedelay, TIMER_STOPPABLE)//timer takes delay in deciseconds, but the pref is in milliseconds. dividing by 100 converts it.
@@ -1066,9 +1066,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/apply_outline(colour = null)
 	if(!(item_flags & PICKED_UP || item_flags & IN_STORAGE) || QDELETED(src) || isobserver(usr))
 		return
-	if(usr.client)
-		if(!(usr.client.prefs.toggles & PREFTOGGLE_OUTLINE_ENABLED))
-			return
+	if(!usr.client?.prefs?.read_preference(/datum/preference/toggle/item_outlines))
+		return
 	if(!colour)
 		if(usr.client)
 			colour = usr.client.prefs.outline_color

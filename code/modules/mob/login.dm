@@ -35,7 +35,7 @@
 		create_mob_hud()
 	if(hud_used)
 		hud_used.show_hud(hud_used.hud_version)
-		hud_used.update_ui_style(ui_style2icon(client.prefs.UI_style))
+		hud_used.update_ui_style(ui_style2icon(client.prefs?.read_preference(/datum/preference/choiced/ui_style)))
 
 	next_move = 1
 
@@ -72,11 +72,15 @@
 		if(client.view_size)
 			client.view_size.resetToDefault(getScreenSize(src))	// Sets the defaul view_size because it can be different to what it was on the lobby.
 		else
+<<<<<<< HEAD
 			client.change_view(getScreenSize(src)) // Resets the client.view in case it was changed.
 
 		//Reset verb information, give verbs accessible to the mob.
 		if(client.tgui_panel)
 			client.tgui_panel.set_verb_infomation(client)
+=======
+			client.change_view(getScreenSize(client.prefs.read_preference(/datum/preference/toggle/widescreen)))
+>>>>>>> 5a4c87a9fc3 (tgui Preferences Menu + total rewrite of the preferences backend (#61313))
 
 		if(client.player_details.player_actions.len)
 			for(var/datum/action/A in client.player_details.player_actions)

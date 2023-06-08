@@ -184,6 +184,17 @@
 			qdel(rift)
 	rift_list.Cut()
 
+/datum/antagonist/space_dragon/get_preview_icon()
+	var/icon/icon = icon('icons/mob/spacedragon.dmi', "spacedragon")
+
+	icon.Blend(COLOR_STRONG_VIOLET, ICON_MULTIPLY)
+	icon.Blend(icon('icons/mob/spacedragon.dmi', "overlay_base"), ICON_OVERLAY)
+
+	icon.Crop(10, 9, 54, 53)
+	icon.Scale(ANTAGONIST_PREVIEW_ICON_SIZE, ANTAGONIST_PREVIEW_ICON_SIZE)
+
+	return icon
+
 /datum/objective/summon_carp
 	var/datum/antagonist/space_dragon/dragon
 	explanation_text = "Summon 3 rifts in order to flood the station with carp. Your possible rift locations are: (ERROR)."
