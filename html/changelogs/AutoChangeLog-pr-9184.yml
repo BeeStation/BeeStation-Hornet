@@ -1,0 +1,5 @@
+author: Haliris
+delete-after: true
+changes:
+  - tweak: tweaked the string/names files to prevent some bad names from being randomly
+      generated.
