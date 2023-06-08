@@ -13,7 +13,7 @@ export const sortChoices = sortBy<[string, InfernoNode]>(([name]) => name);
 export type Feature<
   TReceiving,
   TSending = TReceiving,
-  TServerData = undefined,
+  TServerData = unknown,
 > = {
   name: string;
   component: FeatureValue<
@@ -34,7 +34,7 @@ export type Feature<
 type FeatureValue<
   TReceiving,
   TSending = TReceiving,
-  TServerData = undefined,
+  TServerData = unknown,
 >
   = ComponentType<FeatureValueProps<
       TReceiving,
