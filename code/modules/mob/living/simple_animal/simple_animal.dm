@@ -14,6 +14,7 @@
 
 	var/list/speak = list()
 	var/list/speak_emote = list()//	Emotes while speaking IE: Ian [emote], [text] -- Ian barks, "WOOF!". Spoken text is generated from the speak variable.
+	var/speak_language = /datum/language/common // set this to a desired language path when list/speak should be spoken in a specific language. Dog barking / cat meowing / rat squeak would need to be metalanguage.
 	var/speak_chance = 0
 	var/list/emote_hear = list()	//Hearable emotes
 	var/list/emote_see = list()		//Unlike speak_emote, the list of things in this variable only show by themselves with no spoken text. IE: Ian barks, Ian yaps
@@ -107,10 +108,13 @@
 	if(!loc)
 		stack_trace("Simple animal being instantiated in nullspace")
 	update_simplemob_varspeed()
+
+/mob/living/simple_animal/ComponentInitialize()
+	. = ..()
 	if(dextrous)
 		AddComponent(/datum/component/personal_crafting)
 	if(discovery_points)
-		AddComponent(/datum/component/discoverable, discovery_points)
+		AddComponent(/datum/component/discoverable, discovery_points, get_discover_id = CALLBACK(src, PROC_REF(get_discovery_id)))
 
 /mob/living/simple_animal/Destroy()
 	GLOB.simple_animals[AIStatus] -= src
@@ -196,7 +200,7 @@
 						length += emote_see.len
 					var/randomValue = rand(1,length)
 					if(randomValue <= speak.len)
-						say(pick(speak), forced = "simple_animal")
+						say(pick(speak), language = speak_language, forced = "simple_animal")
 					else
 						randomValue -= speak.len
 						if(emote_see && randomValue <= emote_see.len)
@@ -204,7 +208,7 @@
 						else
 							emote("me [pick(emote_hear)]", 2)
 				else
-					say(pick(speak), forced = "simple_animal")
+					say(pick(speak), language = speak_language, forced = "simple_animal")
 			else
 				if(!(emote_hear && emote_hear.len) && (emote_see && emote_see.len))
 					emote("me", 1, pick(emote_see))
@@ -609,6 +613,9 @@
 			AIStatus = togglestatus
 		else
 			stack_trace("Something attempted to set simple animals AI to an invalid state: [togglestatus]")
+
+/mob/living/simple_animal/proc/get_discovery_id()
+	return type
 
 /mob/living/simple_animal/proc/consider_wakeup()
 	if (pulledby || shouldwakeup)

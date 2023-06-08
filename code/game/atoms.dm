@@ -301,19 +301,19 @@
 	P.setAngle(new_angle_s)
 	return TRUE
 
-///Can the mover object pass this atom, while heading for the target turf
-/atom/proc/CanPass(atom/movable/mover, turf/target)
+/// Whether the mover object can avoid being blocked by this atom, while arriving from (or leaving through) the border_dir.
+/atom/proc/CanPass(atom/movable/mover, border_dir)
 	SHOULD_CALL_PARENT(TRUE)
 	SHOULD_BE_PURE(TRUE)
 	if(mover.movement_type & PHASING)
 		return TRUE
-	. = CanAllowThrough(mover, target)
+	. = CanAllowThrough(mover, border_dir)
 	// This is cheaper than calling the proc every time since most things dont override CanPassThrough
 	if(!mover.generic_canpass)
-		return mover.CanPassThrough(src, target, .)
+		return mover.CanPassThrough(src, REVERSE_DIR(border_dir), .)
 
 /// Returns true or false to allow the mover to move through src
-/atom/proc/CanAllowThrough(atom/movable/mover, turf/target)
+/atom/proc/CanAllowThrough(atom/movable/mover, border_dir)
 	SHOULD_CALL_PARENT(TRUE)
 	//SHOULD_BE_PURE(TRUE)
 	if(mover.pass_flags & pass_flags_self)
@@ -404,21 +404,23 @@
   *
   * Otherwise it simply forceMoves the atom into this atom
   */
-/atom/proc/CheckParts(list/parts_list)
-	for(var/A in parts_list)
-		if(istype(A, /datum/reagent))
-			if(!reagents)
-				reagents = new()
-			reagents.reagent_list.Add(A)
-			reagents.conditional_update()
-		else if(ismovable(A))
-			var/atom/movable/M = A
-			if(isliving(M.loc))
-				var/mob/living/L = M.loc
-				L.transferItemToLoc(M, src)
-			else
-				M.forceMove(src)
-	parts_list.Cut()
+/atom/proc/CheckParts(list/parts_list, datum/crafting_recipe/R)
+	SEND_SIGNAL(src, COMSIG_ATOM_CHECKPARTS, parts_list, R)
+	if(parts_list)
+		for(var/A in parts_list)
+			if(istype(A, /datum/reagent))
+				if(!reagents)
+					reagents = new()
+				reagents.reagent_list.Add(A)
+				reagents.conditional_update()
+			else if(ismovable(A))
+				var/atom/movable/M = A
+				if(isliving(M.loc))
+					var/mob/living/L = M.loc
+					L.transferItemToLoc(M, src)
+				else
+					M.forceMove(src)
+		parts_list.Cut()
 
 ///Hook for multiz???
 /atom/proc/update_multiz(prune_on_fail = FALSE)
@@ -1281,26 +1283,70 @@
   */
 /atom/proc/tool_act(mob/living/user, obj/item/I, tool_type)
 	var/signal_result
-	signal_result = SEND_SIGNAL(src, COMSIG_ATOM_TOOL_ACT(tool_type), user, I)
-	if(signal_result & COMPONENT_BLOCK_TOOL_ATTACK) // The COMSIG_ATOM_TOOL_ACT signal is blocking the act
-		return TOOL_ACT_SIGNAL_BLOCKING
+	
+	var/list/processing_recipes = list() //List of recipes that can be mutated by sending the signal
+	signal_result = SEND_SIGNAL(src, COMSIG_ATOM_TOOL_ACT(tool_type), user, I, processing_recipes)
+	if(processing_recipes.len)
+		process_recipes(user, I, processing_recipes)
+	if(QDELETED(I))
+		return TRUE
 	switch(tool_type)
 		if(TOOL_CROWBAR)
-			return crowbar_act(user, I)
+			. = crowbar_act(user, I)
 		if(TOOL_MULTITOOL)
-			return multitool_act(user, I)
+			. = multitool_act(user, I)
 		if(TOOL_SCREWDRIVER)
-			return screwdriver_act(user, I)
+			. = screwdriver_act(user, I)
 		if(TOOL_WRENCH)
-			return wrench_act(user, I)
+			. = wrench_act(user, I)
 		if(TOOL_WIRECUTTER)
-			return wirecutter_act(user, I)
+			. = wirecutter_act(user, I)
 		if(TOOL_WELDER)
-			return welder_act(user, I)
+			. = welder_act(user, I)
 		if(TOOL_ANALYZER)
-			return analyzer_act(user, I)
+			. = analyzer_act(user, I)
+	if(. || signal_result & COMPONENT_BLOCK_TOOL_ATTACK) //Either the proc or the signal handled the tool's events in some way.
+		return TRUE
 
-//! Tool-specific behavior procs. To be overridden in subtypes.
+/atom/proc/process_recipes(mob/living/user, obj/item/I, list/processing_recipes)
+	//Only one recipe? use the first
+	if(processing_recipes.len == 1)
+		StartProcessingAtom(user, I, processing_recipes[1])
+		return
+	//Otherwise, select one with a radial
+	ShowProcessingGui(user, I, processing_recipes)
+
+///Creates the radial and processes the selected option
+/atom/proc/ShowProcessingGui(mob/living/user, obj/item/I, list/possible_options)
+	var/list/choices_to_options = list() //Dict of object name | dict of object processing settings
+	var/list/choices = list()
+
+	for(var/i in possible_options)
+		var/list/current_option = i
+		var/atom/current_option_type = current_option[TOOL_PROCESSING_RESULT]
+		choices_to_options[initial(current_option_type.name)] = current_option
+		var/image/option_image = image(icon = initial(current_option_type.icon), icon_state = initial(current_option_type.icon_state))
+		choices += list("[initial(current_option_type.name)]" = option_image)
+
+	var/pick = show_radial_menu(user, src, choices, radius = 36, require_near = TRUE)
+
+	StartProcessingAtom(user, I, choices_to_options[pick])
+
+
+/atom/proc/StartProcessingAtom(mob/living/user, obj/item/I, list/chosen_option)
+	to_chat(user, "<span class='notice'>You start working on [src]</span>")
+	if(I.use_tool(src, user, chosen_option[TOOL_PROCESSING_TIME], volume=50))
+		var/atom/atom_to_create = chosen_option[TOOL_PROCESSING_RESULT]
+		for(var/i = 1 to chosen_option[TOOL_PROCESSING_AMOUNT])
+			new atom_to_create(loc)
+		to_chat(user, "<span class='notice'>You manage to create [chosen_option[TOOL_PROCESSING_AMOUNT]] [initial(atom_to_create.name)] from [src]</span>")
+		qdel(src)
+		return
+
+/atom/proc/OnCreatedFromProcessing(mob/living/user, obj/item/I, list/chosen_option, atom/original_atom)
+	return
+
+//! Tool-specific behavior procs.
 ///
 
 ///Crowbar act
@@ -1530,9 +1576,6 @@
 /atom/proc/clear_filters()
 	filter_data = null
 	filters = null
-
-/atom/proc/intercept_zImpact(atom/movable/AM, levels = 1)
-	. |= SEND_SIGNAL(src, COMSIG_ATOM_INTERCEPT_Z_FALL, AM, levels)
 
 ///Sets the custom materials for an item.
 /atom/proc/set_custom_materials(var/list/materials, multiplier = 1)

@@ -50,7 +50,7 @@
 	if(keep_original_species)
 		for(var/datum/mutation/race/M in O.dna.mutations)
 			if(!isnull(dna.species))
-				M.original_species = dna.species
+				M.original_species = dna.species.type
 			break //Can't be more than one monkified in a DNA set so, no need to continue the loop
 
 	if(suiciding)
@@ -434,10 +434,16 @@
 		original_species = /datum/species/human
 
 	if(O.dna.species && !istype(O.dna.species, /datum/species/monkey))
-		O.set_species(O.dna.species)
+		if(isnull(O.dna.species))
+			O.set_species(/datum/species/human)
+		else
+			O.set_species(O.dna.species)
 	else
 		if(keep_original_species)
-			O.set_species(original_species)
+			if(isnull(original_species) || !ispath(original_species, /datum/species))
+				O.set_species(/datum/species/human)
+			else
+				O.set_species(original_species)
 		else
 			O.set_species(/datum/species/human)
 
@@ -520,7 +526,7 @@
 	if(client)
 		R.updatename(client)
 
-	if(mind)		//TODO
+	if(mind)//TODO //huh?
 		if(!transfer_after)
 			mind.active = FALSE
 		mind.transfer_to(R)
@@ -539,7 +545,19 @@
 	R.notify_ai(NEW_BORG)
 
 	. = R
+	if(R.ckey && is_banned_from(R.ckey, JOB_NAME_CYBORG))
+		INVOKE_ASYNC(R, TYPE_PROC_REF(/mob/living/silicon/robot, replace_banned_cyborg))
 	qdel(src)
+
+/mob/living/silicon/robot/proc/replace_banned_cyborg()
+	to_chat(src, "<span class='userdanger'>You are job banned from cyborg! Appeal your job ban if you want to avoid this in the future!</span>")
+	ghostize(FALSE)
+
+	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [src]?", "[src]", null, JOB_NAME_CYBORG, 50, src)
+	if(LAZYLEN(candidates))
+		var/mob/dead/observer/chosen_candidate = pick(candidates)
+		message_admins("[key_name_admin(chosen_candidate)] has taken control of ([key_name_admin(src)]) to replace a jobbanned player.")
+		key = chosen_candidate.key
 
 //human -> alien
 /mob/living/carbon/human/proc/Alienize()

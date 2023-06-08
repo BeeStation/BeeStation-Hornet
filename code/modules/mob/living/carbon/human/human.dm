@@ -380,8 +380,8 @@
 					return
 				to_chat(human_user, "<b>Comments/Log:</b>")
 				var/counter = 1
-				while(target_record.fields[text("com_[]", counter)])
-					to_chat(human_user, target_record.fields[text("com_[]", counter)])
+				while(target_record.fields["com_[counter]"])
+					to_chat(human_user, target_record.fields["com_[counter]"])
 					to_chat(human_user, "----------")
 					counter++
 				return
@@ -395,9 +395,9 @@
 				if(!HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
 					return
 				var/counter = 1
-				while(target_record.fields[text("com_[]", counter)])
+				while(target_record.fields["com_[counter]"])
 					counter++
-				target_record.fields[text("com_[]", counter)] = text("Made by [] on [] [], []<BR>[]", allowed_access, station_time_timestamp(), time2text(world.realtime, "MMM DD"), GLOB.year_integer+YEAR_OFFSET, t1)
+				target_record.fields["com_[counter]"] = "Made by [allowed_access] on [station_time_timestamp()] [time2text(world.realtime, "MMM DD")], [GLOB.year_integer+YEAR_OFFSET]<BR>[t1]"
 				to_chat(human_user, "<span class='notice'>Successfully added comment.</span>")
 				return
 	..() //end of this massive fucking chain. TODO: make the hud chain not spooky.
@@ -769,6 +769,7 @@
 	VV_DROPDOWN_OPTION(VV_HK_MAKE_ALIEN, "Make Alien")
 	VV_DROPDOWN_OPTION(VV_HK_SET_SPECIES, "Set Species")
 	VV_DROPDOWN_OPTION(VV_HK_PURRBATION, "Toggle Purrbation")
+	VV_DROPDOWN_OPTION(VV_HK_RANDOM_NAME, "Randomize Name")
 
 /mob/living/carbon/human/vv_do_topic(list/href_list)
 	. = ..()
@@ -851,6 +852,16 @@
 			var/msg = "<span class='notice'>[key_name_admin(usr)] has removed [key_name(src)] from purrbation.</span>"
 			message_admins(msg)
 			admin_ticket_log(src, msg)
+	if(href_list[VV_HK_RANDOM_NAME])
+		if(!check_rights(R_ADMIN))//mods can rename people with VV so they should be able to do this too
+			return
+		if(isnull(dna.species))
+			to_chat(usr, "The species of [src] is null, aborting.")
+		var/old_name = real_name
+		fully_replace_character_name(real_name, dna.species.random_name(gender))
+		log_admin("[key_name(usr)] has randomly generated a new name for [key_name(src)], replacing their old name of [old_name].")
+		message_admins("<span class='notice'>[key_name_admin(usr)] has randomly generated a new name for [key_name(src)], replacing their old name of [old_name].</span>")
+
 
 /mob/living/carbon/human/MouseDrop_T(mob/living/target, mob/living/user)
 	if(pulling != target || grab_state < GRAB_AGGRESSIVE || stat != CONSCIOUS || a_intent != INTENT_GRAB)
@@ -1080,12 +1091,6 @@
 			battery.set_charge_scaled(change)
 		return FALSE
 	return ..()
-
-/mob/living/carbon/human/ZImpactDamage(turf/T, levels)
-	var/datum/species/species_datum = dna?.species
-	if(!istype(species_datum))
-		return ..()
-	species_datum.z_impact_damage(src, T, levels)
 
 /mob/living/carbon/human/proc/stub_toe(var/power)
 	if(HAS_TRAIT(src, TRAIT_LIGHT_STEP))

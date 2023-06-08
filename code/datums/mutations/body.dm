@@ -131,7 +131,12 @@
 			if(1)
 				owner.emote("twitch")
 			if(2 to 3)
-				owner.say("[prob(50) ? ";" : ""][pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS")]", forced="tourette's syndrome")
+				var/list/spans = list()
+				if(owner.has_trauma_type(/datum/brain_trauma/special/godwoken) || owner.has_functioning_organ(ORGAN_SLOT_VOICE, /obj/item/organ/vocal_cords/colossus))
+					playsound(get_turf(owner), 'sound/magic/clockwork/invoke_general.ogg', 300, 1, 5)
+					spans = list("colossus", "yell")
+				owner.say("[prob(50) ? ";" : ""][pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS")]", spans=spans, forced="tourette's syndrome")
+
 		var/x_offset_old = owner.pixel_x
 		var/y_offset_old = owner.pixel_y
 		var/x_offset = owner.pixel_x + rand(-2,2)
@@ -170,7 +175,7 @@
 /datum/mutation/race/on_acquiring(mob/living/carbon/human/owner)
 	if(..())
 		return
-	original_species = owner.dna.species
+	original_species = owner.dna.species.type
 	. = owner.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE | TR_KEEPAI, FALSE, TRUE)
 
 /datum/mutation/race/on_losing(mob/living/carbon/monkey/owner)

@@ -36,8 +36,7 @@
 	if(!can_afford(user))
 		return FALSE
 	var/turf/T = get_turf(religious_tool)
-	var/area/A = T.loc
-	if(!istype(A, /area/chapel))
+	if(!T.is_holy())
 		to_chat(user, "<span class='warning'>The altar can only function in a holy area!</span>")
 		return FALSE
 	if(!GLOB.religious_sect.altar_anchored)
@@ -410,7 +409,7 @@
 	new /obj/effect/temp_visual/cult/blood/long(altar_turf)
 	new /obj/effect/temp_visual/dir_setting/curse/long(altar_turf)
 	var/list/jobbans = list(ROLE_BRAINWASHED, ROLE_DEATHSQUAD, ROLE_DRONE, ROLE_LAVALAND, ROLE_MIND_TRANSFER, ROLE_POSIBRAIN, ROLE_SENTIENCE)
-	var/list/candidates = pollGhostCandidates("Do you wish to be resurrected as a Holy Summoned Undead?", jobbans, null, FALSE,)
+	var/list/candidates = pollGhostCandidates("Do you wish to be resurrected as a Holy Summoned Undead?", jobbans, null, FALSE, 100, POLL_IGNORE_HOLYUNDEAD)
 	if(!length(candidates))
 		to_chat(user, "<span class='warning'>The soul pool is empty...")
 		new /obj/effect/gibspawner/human/bodypartless(altar_turf)
@@ -441,6 +440,8 @@
 		GLOB.religious_sect?.on_conversion(undead)
 	if(is_special_character(user))
 		to_chat(undead, "<span class='userdanger'>You are grateful to have been summoned into this word by [user]. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
+	else
+		to_chat(undead, "<span class='big notice'>You are grateful to have been summoned into this world. You are now a member of this station's crew, Try not to cause any trouble.</span>")
 	playsound(altar_turf, pick('sound/hallucinations/growl1.ogg','sound/hallucinations/growl2.ogg','sound/hallucinations/growl3.ogg',), 50, TRUE)
 	return ..()
 
@@ -584,7 +585,7 @@
 	new /obj/effect/temp_visual/bluespace_fissure/long(altar_turf)
 	user.visible_message("<span class'notice'>A tear in reality appears above the altar!</span>")
 	var/list/jobbans = list(ROLE_BRAINWASHED, ROLE_DEATHSQUAD, ROLE_DRONE, ROLE_LAVALAND, ROLE_MIND_TRANSFER, ROLE_POSIBRAIN, ROLE_SENTIENCE)
-	var/list/candidates = pollGhostCandidates("Do you wish to be summoned as a Holy Carp?", jobbans, null, FALSE)
+	var/list/candidates = pollGhostCandidates("Do you wish to be summoned as a Holy Carp?", jobbans, null, FALSE, 100, POLL_IGNORE_HOLYCARP)
 	if(!length(candidates))
 		new /obj/effect/gibspawner/generic(altar_turf)
 		user.visible_message("<span class='warning'>The carp pool was not strong enough to bring forth a space carp.")
@@ -604,6 +605,10 @@
 		carp.mind?.holy_role = HOLY_ROLE_PRIEST
 		to_chat(carp, "There is already an established religion onboard the station. You are an acolyte of [GLOB.deity]. Defer to the Chaplain.")
 		GLOB.religious_sect?.on_conversion(carp)
+	if(is_special_character(user))
+		to_chat(carp, "<span class='userdanger'>You are grateful to have been summoned into this word by [user]. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
+	else
+		to_chat(carp, "<span class='big notice'>You are grateful to have been summoned into this world. You are now a member of this station's crew, Try not to cause any trouble.</span>")
 	playsound(altar_turf, 'sound/effects/slosh.ogg', 50, TRUE)
 	return ..()
 

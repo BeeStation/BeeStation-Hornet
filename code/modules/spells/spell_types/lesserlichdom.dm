@@ -95,13 +95,12 @@
 	name = "lesser phylactery of [mind.name]"
 
 	active_phylacteries++
-	GLOB.poi_list |= src
+	AddElement(/datum/element/point_of_interest)
 	START_PROCESSING(SSobj, src)
 
 /obj/item/lesserphylactery/Destroy(force=FALSE)
 	STOP_PROCESSING(SSobj, src)
 	active_phylacteries--
-	GLOB.poi_list -= src
 	return ..()
 
 /obj/item/lesserphylactery/process()

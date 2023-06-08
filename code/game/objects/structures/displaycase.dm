@@ -28,6 +28,8 @@
 	var/list/start_showpieces = list()
 	var/trophy_message = ""
 	var/glass_fix = TRUE
+	///Represents a signal source of screaming when broken
+	var/datum/alarm_handler/alarm_manager
 
 /obj/structure/displaycase/Initialize(mapload)
 	. = ..()
@@ -39,24 +41,26 @@
 				trophy_message = showpiece_entry["trophy_message"]
 	if(start_showpiece_type)
 		showpiece = new start_showpiece_type (src)
-	update_icon()
+	update_appearance()
+	alarm_manager = new(src)
 
 /obj/structure/displaycase/vv_edit_var(vname, vval)
 	. = ..()
 	if(vname in list(NAMEOF(src, open), NAMEOF(src, showpiece), NAMEOF(src, custom_glass_overlay)))
-		update_icon()
+		update_appearance()
 
 /obj/structure/displaycase/handle_atom_del(atom/A)
 	if(A == electronics)
 		electronics = null
 	if(A == showpiece)
 		showpiece = null
-		update_icon()
+		update_appearance()
 	return ..()
 
 /obj/structure/displaycase/Destroy()
 	QDEL_NULL(electronics)
 	QDEL_NULL(showpiece)
+	QDEL_NULL(alarm_manager)
 	return ..()
 
 /obj/structure/displaycase/examine(mob/user)
@@ -74,7 +78,7 @@
 		return
 	showpiece.forceMove(drop_location())
 	showpiece = null
-	update_icon()
+	update_appearance()
 
 /obj/structure/displaycase/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	if(!shatter)
@@ -104,7 +108,7 @@
 			playsound(src, "shatter", 70, TRUE)
 		else
 			playsound(src, "sound/magic/summonitems_generic.ogg", 70, TRUE)
-		update_icon()
+		update_appearance()
 		trigger_alarm()
 
 ///Anti-theft alarm triggered when broken.
@@ -113,6 +117,10 @@
 		return
 	var/area/alarmed = get_area(src)
 	alarmed.burglaralert(src)
+
+	alarm_manager.send_alarm(ALARM_BURGLAR)
+	addtimer(CALLBACK(alarm_manager, TYPE_PROC_REF(/datum/alarm_handler, clear_alarm), ALARM_BURGLAR), 1 MINUTES)
+
 	playsound(src, 'sound/effects/alert.ogg', 50, TRUE)
 
 /obj/structure/displaycase/update_overlays()
@@ -132,12 +140,12 @@
 /obj/structure/displaycase/attackby(obj/item/W, mob/user, params)
 	if(W.GetID() && !broken && openable)
 		if(open)	//You do not require access to close a case, only to open it.
-			to_chat(user,  "<span class='notice'>You close [src].</span>")
+			to_chat(user, "<span class='notice'>You close [src].</span>")
 			toggle_lock(user)
 		else if(security_level_locked > GLOB.security_level || !allowed(user))
-			to_chat(user,  "<span class='alert'>Access denied.</span>")
+			to_chat(user, "<span class='alert'>Access denied.</span>")
 		else
-			to_chat(user,  "<span class='notice'>You open [src].</span>")
+			to_chat(user, "<span class='notice'>You open [src].</span>")
 			toggle_lock(user)
 	else if(W.tool_behaviour == TOOL_WELDER && user.a_intent == INTENT_HELP && !broken)
 		if(obj_integrity < max_integrity)
