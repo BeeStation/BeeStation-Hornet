@@ -10,7 +10,7 @@
 	icon_state = "setup_stationary"
 
 	density = TRUE
-	//light_system = MOVABLE_LIGHT
+	light_system = MOVABLE_LIGHT
 	light_range = 0
 
 /obj/structure/server/Initialize(mapload)
