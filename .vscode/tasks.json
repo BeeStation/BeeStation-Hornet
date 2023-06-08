@@ -91,6 +91,16 @@
 			"problemMatcher": ["$tsc", "$eslint-stylish"],
 			"group": "build",
 			"label": "tgui: sonar"
+		},
+		{
+			"type": "shell",
+			"command": "bin/tgui-prettier",
+			"windows": {
+				"command": ".\\bin\\tgui-prettier.cmd"
+			},
+			"problemMatcher": ["$tsc", "$eslint-stylish"],
+			"group": "build",
+			"label": "tgui: prettier-formatter"
 		}
 	]
 }
