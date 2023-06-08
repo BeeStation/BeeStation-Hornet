@@ -18,8 +18,7 @@ export const handleViewHistory = function (this: Modal) {
     this.fields.value = this.fields.tempHistory;
     this.fields.tempHistory = '';
     this.setState({
-      buttonContent:
-        RADIO_PREFIXES[this.fields.radioPrefix]?.label || CHANNELS[channel],
+      buttonContent: RADIO_PREFIXES[this.fields.radioPrefix]?.label || CHANNELS[channel],
       edited: true,
     });
   }

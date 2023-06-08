@@ -8,17 +8,17 @@ const DEFAULT_MIN = 0;
 const DEFAULT_MAX = 10000;
 
 /**
- * Takes a string input and parses integers from it.
+ * Takes a string input and parses integers or floats from it.
  * If none: Minimum is set.
  * Else: Clamps it to the given range.
  */
-const getClampedNumber = (value, minValue, maxValue) => {
+const getClampedNumber = (value, minValue, maxValue, allowFloats) => {
   const minimum = minValue || DEFAULT_MIN;
   const maximum = maxValue || maxValue === 0 ? maxValue : DEFAULT_MAX;
   if (!value || !value.length) {
     return String(minimum);
   }
-  let parsedValue = parseInt(value.replace(/\D/g, ''), 10);
+  let parsedValue = allowFloats ? parseFloat(value.replace(/[^\-\d.]/g, '')) : parseInt(value.replace(/[^\-\d]/g, ''), 10);
   if (isNaN(parsedValue)) {
     return String(minimum);
   } else {
@@ -40,8 +40,8 @@ export class RestrictedInput extends Component {
       }
     };
     this.handleChange = (e) => {
-      const { maxValue, minValue, onChange } = this.props;
-      e.target.value = getClampedNumber(e.target.value, minValue, maxValue);
+      const { maxValue, minValue, onChange, allowFloats } = this.props;
+      e.target.value = getClampedNumber(e.target.value, minValue, maxValue, allowFloats);
       if (onChange) {
         onChange(e, +e.target.value);
       }
@@ -63,9 +63,9 @@ export class RestrictedInput extends Component {
       }
     };
     this.handleKeyDown = (e) => {
-      const { maxValue, minValue, onChange, onEnter } = this.props;
+      const { maxValue, minValue, onChange, onEnter, allowFloats } = this.props;
       if (e.keyCode === KEY_ENTER) {
-        const safeNum = getClampedNumber(e.target.value, minValue, maxValue);
+        const safeNum = getClampedNumber(e.target.value, minValue, maxValue, allowFloats);
         this.setEditing(false);
         if (onChange) {
           onChange(e, +safeNum);
@@ -90,11 +90,11 @@ export class RestrictedInput extends Component {
   }
 
   componentDidMount() {
-    const { maxValue, minValue } = this.props;
+    const { maxValue, minValue, allowFloats } = this.props;
     const nextValue = this.props.value?.toString();
     const input = this.inputRef.current;
     if (input) {
-      input.value = getClampedNumber(nextValue, minValue, maxValue);
+      input.value = getClampedNumber(nextValue, minValue, maxValue, allowFloats);
     }
     if (this.props.autoFocus || this.props.autoSelect) {
       setTimeout(() => {
@@ -108,14 +108,14 @@ export class RestrictedInput extends Component {
   }
 
   componentDidUpdate(prevProps, _) {
-    const { maxValue, minValue } = this.props;
+    const { maxValue, minValue, allowFloats } = this.props;
     const { editing } = this.state;
     const prevValue = prevProps.value?.toString();
     const nextValue = this.props.value?.toString();
     const input = this.inputRef.current;
     if (input && !editing) {
       if (nextValue !== prevValue && nextValue !== input.value) {
-        input.value = getClampedNumber(nextValue, minValue, maxValue);
+        input.value = getClampedNumber(nextValue, minValue, maxValue, allowFloats);
       }
     }
   }
@@ -129,14 +129,7 @@ export class RestrictedInput extends Component {
     const { onChange, onEnter, onInput, value, ...boxProps } = props;
     const { className, fluid, monospace, ...rest } = boxProps;
     return (
-      <Box
-        className={classes([
-          'Input',
-          fluid && 'Input--fluid',
-          monospace && 'Input--monospace',
-          className,
-        ])}
-        {...rest}>
+      <Box className={classes(['Input', fluid && 'Input--fluid', monospace && 'Input--monospace', className])} {...rest}>
         <div className="Input__baseline">.</div>
         <input
           className="Input__input"
