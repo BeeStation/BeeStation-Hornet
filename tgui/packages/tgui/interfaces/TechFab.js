@@ -98,7 +98,7 @@ const Material = (props, context) => {
         <Flex.Item width="100%">
           {capitalize(material.name)}
         </Flex.Item>
-        <Flex.Item grow>
+        <Flex.Item grow basis="content">
           <Flex align="baseline">
             <Flex.Item shrink px={1}>
               {formatBigNumber(material.amount, 4)}
@@ -306,7 +306,7 @@ const Recipe = (props, context) => {
             </Box>
           </Flex.Item>
         </ConditionalTooltip>
-        <Flex.Item grow>
+        <Flex.Item grow basis="content">
           <Flex className="TechFab__ButtonsContainer">
             {
               craft_amounts.map(amount => {

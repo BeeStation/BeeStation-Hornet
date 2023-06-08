@@ -79,7 +79,7 @@ export const NtosCardContent = (props, context) => {
       </Section>
       {(!!has_id && !!authenticated) && (
         <Box>
-          <Tabs>
+          <Tabs textAlign="center">
             <Tabs.Tab
               selected={tab === 1}
               onClick={() => setTab(1)}>

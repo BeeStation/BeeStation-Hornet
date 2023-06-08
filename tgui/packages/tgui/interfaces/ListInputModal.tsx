@@ -1,6 +1,7 @@
 import { Loader } from './common/Loader';
-import { InputButtons, Preferences } from './common/InputButtons';
+import { InputButtons } from './common/InputButtons';
 import { Button, Input, Section, Stack } from '../components';
+import { useBackend, useLocalState } from '../backend';
 import {
   KEY_A,
   KEY_DOWN,
@@ -10,21 +11,26 @@ import {
   KEY_Z,
 } from '../../common/keycodes';
 import { Window } from '../layouts';
-import { useBackend, useLocalState } from '../backend';
 
 type ListInputData = {
-  items: string[];
-  message: string;
   init_value: string;
-  preferences: Preferences;
+  items: string[];
+  large_buttons: boolean;
+  message: string;
   timeout: number;
   title: string;
 };
 
 export const ListInputModal = (_, context) => {
   const { act, data } = useBackend<ListInputData>(context);
-  const { items = [], message, init_value, preferences, timeout, title } = data;
-  const { large_buttons } = preferences;
+  const {
+    items = [],
+    message = '',
+    init_value,
+    large_buttons,
+    timeout,
+    title,
+  } = data;
   const [selected, setSelected] = useLocalState<number>(
     context,
     'selected',
@@ -105,7 +111,7 @@ export const ListInputModal = (_, context) => {
   );
   // Dynamically changes the window height based on the message.
   const windowHeight
-    = 325 + Math.ceil(message?.length / 3) + (large_buttons ? 5 : 0);
+    = 325 + Math.ceil(message.length / 3) + (large_buttons ? 5 : 0);
   // Grabs the cursor when no search bar is visible.
   if (!searchBarVisible) {
     setTimeout(() => document!.getElementById(selected.toString())?.focus(), 1);
@@ -186,8 +192,7 @@ export const ListInputModal = (_, context) => {
  */
 const ListDisplay = (props, context) => {
   const { act } = useBackend<ListInputData>(context);
-  const { filteredItems, onClick, onFocusSearch, searchBarVisible, selected }
-    = props;
+  const { filteredItems, onClick, onFocusSearch, searchBarVisible, selected } = props;
 
   return (
     <Section fill scrollable tabIndex={0}>
