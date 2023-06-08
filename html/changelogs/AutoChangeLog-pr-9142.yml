@@ -1,5 +1,0 @@
-author: JixS4v, Timberpoes
-delete-after: true
-changes:
-  - bugfix: Printing a long recording from a tape recorder no longer freezes clients
-  - tweak: Tape recorders can now print multi-page transcripts
