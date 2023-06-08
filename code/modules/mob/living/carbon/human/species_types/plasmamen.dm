@@ -80,7 +80,7 @@
 			var/helmet = O.helmet_variants[selected_style]
 			qdel(H.head)
 			H.equip_to_slot(new helmet, ITEM_SLOT_HEAD)
-			H.open_internals(H.get_item_for_held_index(2))*/
+			H.open_internals(H.get_item_for_held_index(2))
 
 /datum/species/plasmaman/qualifies_for_rank(rank, list/features)
 	if(rank in GLOB.security_positions)

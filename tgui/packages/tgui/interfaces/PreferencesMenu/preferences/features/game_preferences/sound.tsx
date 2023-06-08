@@ -40,8 +40,15 @@ export const sound_midi: FeatureToggle = {
 };
 
 export const sound_prayers: FeatureToggle = {
-  name: 'Enable prayer sound',
+  name: 'Enable prayer sounds',
   category: 'ADMIN',
+  component: CheckboxInput,
+};
+
+export const sound_adminalert: FeatureToggle = {
+  name: 'Enable admin alert sounds',
+  category: 'ADMIN',
+  description: 'Enables sound on various admin notifications such as midround and event triggers.',
   component: CheckboxInput,
 };
 

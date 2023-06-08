@@ -143,11 +143,11 @@
 	if(isipc(owner.current))//Due to IPCs having a mechanical heart it messes with the living heart, so no IPC heretics for now
 		var/mob/living/carbon/C = owner.current	//only carbons have dna now, so we have to typecast
 		C.set_species(/datum/species/human)
-		var/replacementName = random_unique_name(C.gender)
-		if(C.client.prefs.active_character.custom_names["human"])
-			C.fully_replace_character_name(C.real_name, C.client.prefs.active_character.custom_names["human"])
+		var/prefs_name = C.client?.prefs?.read_character_preference(/datum/preference/name/backup_human)
+		if(prefs_name)
+			C.fully_replace_character_name(C.real_name, prefs_name)
 		else
-			C.fully_replace_character_name(C.real_name, replacementName)
+			C.fully_replace_character_name(C.real_name, random_unique_name(C.gender))
 	if(give_objectives)
 		forge_objectives()
 

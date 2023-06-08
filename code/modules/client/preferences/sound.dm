@@ -66,6 +66,11 @@
 	db_key = "sound_prayers"
 	preference_type = PREFERENCE_PLAYER
 
+/datum/preference/toggle/sound_adminalert
+	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
+	db_key = "sound_adminalert"
+	preference_type = PREFERENCE_PLAYER
+
 /datum/preference/toggle/sound_announcements
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 	db_key = "sound_announcements"

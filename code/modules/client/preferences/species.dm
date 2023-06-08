@@ -42,9 +42,9 @@
 
 		if (!(TRAIT_NOHUNGER in species.inherent_traits))
 			diet = list(
-				"liked_food" = bitfield2list(initial(species.mutanttongue.liked_food), food_flags),
-				"disliked_food" = bitfield2list(initial(species.mutanttongue.disliked_food), food_flags),
-				"toxic_food" = bitfield2list(initial(species.mutanttongue.toxic_food), food_flags),
+				"liked_food" = bitfield_to_list(initial(species.mutanttongue.liked_food), food_flags),
+				"disliked_food" = bitfield_to_list(initial(species.mutanttongue.disliked_food), food_flags),
+				"toxic_food" = bitfield_to_list(initial(species.mutanttongue.toxic_food), food_flags),
 			)
 
 		data[species_id] = list(

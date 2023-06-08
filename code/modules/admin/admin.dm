@@ -796,5 +796,5 @@
 	if(isnull(sound))
 		return
 	for(var/client/C as anything in GLOB.admins)
-		if(C.prefs.toggles & PREFTOGGLE_2_SOUND_ADMINALERT)
+		if(C.prefs.read_player_preference(/datum/preference/toggle/sound_adminalert))
 			SEND_SOUND(C, sound)
