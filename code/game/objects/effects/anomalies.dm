@@ -36,7 +36,9 @@
 
 /obj/effect/anomaly/Initialize(mapload, new_lifespan)
 	. = ..()
-	GLOB.poi_list |= src
+
+	AddElement(/datum/element/point_of_interest)
+
 	START_PROCESSING(SSobj, src)
 	impact_area = get_area(src)
 
@@ -69,7 +71,6 @@
 		qdel(src)
 
 /obj/effect/anomaly/Destroy()
-	GLOB.poi_list.Remove(src)
 	STOP_PROCESSING(SSobj, src)
 	QDEL_NULL(countdown)
 	return ..()
