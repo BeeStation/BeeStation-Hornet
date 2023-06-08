@@ -1,5 +1,0 @@
-author: RKz, Mothblocks
-delete-after: true
-changes:
-  - code_imp: points of interest use an element
-  - bugfix: fix incorrect pathing for a swarmer spawn
