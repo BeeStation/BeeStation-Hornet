@@ -71,6 +71,7 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Frills"
 	should_generate_icons = TRUE
+	relevant_mutant_bodypart =  "frills"
 
 /datum/preference/choiced/lizard_frills/init_possible_values()
 	return generate_lizard_side_shots(GLOB.frills_list, "frills")
@@ -84,6 +85,7 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Horns"
 	should_generate_icons = TRUE
+	relevant_mutant_bodypart =  "horns"
 
 /datum/preference/choiced/lizard_horns/init_possible_values()
 	return generate_lizard_side_shots(GLOB.horns_list, "horns")
@@ -109,6 +111,7 @@
 	category = PREFERENCE_CATEGORY_FEATURES
 	main_feature_name = "Snout"
 	should_generate_icons = TRUE
+	relevant_mutant_bodypart = "snout"
 
 /datum/preference/choiced/lizard_snout/init_possible_values()
 	return generate_lizard_side_shots(GLOB.snouts_list, "snout", include_snout = FALSE)
