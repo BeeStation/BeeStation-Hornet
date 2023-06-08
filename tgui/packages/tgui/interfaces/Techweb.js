@@ -1,7 +1,21 @@
 import { filter, map, sortBy } from 'common/collections';
 import { flow } from 'common/fp';
 import { useBackend, useLocalState } from '../backend';
-import { Button, Section, Modal, Dropdown, Tabs, Box, Input, Flex, ProgressBar, Collapsible, Icon, Divider, Tooltip } from '../components';
+import {
+  Button,
+  Section,
+  Modal,
+  Dropdown,
+  Tabs,
+  Box,
+  Input,
+  Flex,
+  ProgressBar,
+  Collapsible,
+  Icon,
+  Divider,
+  Tooltip,
+} from '../components';
 import { Window, NtosWindow } from '../layouts';
 
 // Data reshaping / ingestion (thanks stylemistake for the help, very cool!)
@@ -219,26 +233,25 @@ const TechwebOverview = (props, context) => {
   const [searchText, setSearchText] = useLocalState(context, 'searchText');
 
   const filterSearchNodes = (target_nodes) => {
-    const filtered_search_nodes = target_nodes.filter(x => {
+    const filtered_search_nodes = target_nodes.filter((x) => {
       const n = node_cache[x.id];
-      return n.name.toLowerCase().includes(searchText)
-        || n.description.toLowerCase().includes(searchText)
-        || n.design_ids.some(e =>
-          design_cache[e].name.toLowerCase().includes(searchText));
+      return (
+        n.name.toLowerCase().includes(searchText) ||
+        n.description.toLowerCase().includes(searchText) ||
+        n.design_ids.some((e) => design_cache[e].name.toLowerCase().includes(searchText))
+      );
     });
-    return filtered_search_nodes; };
+    return filtered_search_nodes;
+  };
   // Only search when 3 or more characters have been input
   const searching = searchText && searchText.trim().length > 1;
 
   let displayedNodes = nodes;
   let researchednodes = nodes;
   let futurenodes = nodes;
-  displayedNodes = sortBy(x => node_cache[x.id].name)(
-    nodes.filter(x => x.tier === 0));
-  researchednodes = sortBy(x => node_cache[x.id].name)(
-    nodes.filter(x => x.tier === 1));
-  futurenodes = sortBy(x => node_cache[x.id].name)(
-    nodes.filter(x => x.tier === 2));
+  displayedNodes = sortBy((x) => node_cache[x.id].name)(nodes.filter((x) => x.tier === 0));
+  researchednodes = sortBy((x) => node_cache[x.id].name)(nodes.filter((x) => x.tier === 1));
+  futurenodes = sortBy((x) => node_cache[x.id].name)(nodes.filter((x) => x.tier === 2));
   if (searching) {
     displayedNodes = filterSearchNodes(displayedNodes);
     researchednodes = filterSearchNodes(researchednodes);
@@ -270,24 +283,18 @@ const TechwebOverview = (props, context) => {
           {!searching && ( // is not searching
             <>
               <Flex.Item mr={1}>
-                {displayedNodes.map(each_node => {
-                  return (
-                    <TechNode node={each_node} key={each_node.id} />
-                  );
+                {displayedNodes.map((each_node) => {
+                  return <TechNode node={each_node} key={each_node.id} />;
                 })}
               </Flex.Item>
               <Flex.Item mr={1}>
-                {researchednodes.map(each_node => {
-                  return (
-                    <TechNode node={each_node} key={each_node.id} />
-                  );
+                {researchednodes.map((each_node) => {
+                  return <TechNode node={each_node} key={each_node.id} />;
                 })}
               </Flex.Item>
               <Flex.Item mr={1}>
-                {futurenodes.map(each_node => {
-                  return (
-                    <TechNode node={each_node} key={each_node.id} />
-                  );
+                {futurenodes.map((each_node) => {
+                  return <TechNode node={each_node} key={each_node.id} />;
                 })}
               </Flex.Item>
             </>
@@ -295,24 +302,18 @@ const TechwebOverview = (props, context) => {
           {!!searching && ( // is searching
             <>
               <Flex.Item mr={1}>
-                {displayedNodes.map(each_node => {
-                  return (
-                    <TechNode node={each_node} key={each_node.id} />
-                  );
+                {displayedNodes.map((each_node) => {
+                  return <TechNode node={each_node} key={each_node.id} />;
                 })}
               </Flex.Item>
               <Flex.Item mr={1}>
-                {researchednodes.map(each_node => {
-                  return (
-                    <TechNode node={each_node} key={each_node.id} />
-                  );
+                {researchednodes.map((each_node) => {
+                  return <TechNode node={each_node} key={each_node.id} />;
                 })}
               </Flex.Item>
               <Flex.Item mr={1}>
-                {futurenodes.map(each_node => {
-                  return (
-                    <TechNode node={each_node} key={each_node.id} />
-                  );
+                {futurenodes.map((each_node) => {
+                  return <TechNode node={each_node} key={each_node.id} />;
                 })}
               </Flex.Item>
             </>
@@ -491,13 +492,7 @@ const TechwebDesignDisk = (props, context) => {
                 width="100%"
                 options={designOptions}
                 onSelected={(val) => {
-                  const idx = parseInt(
-                    val
-                      .split('[')
-                      .pop()
-                      .split(']')[0],
-                    10
-                  );
+                  const idx = parseInt(val.split('[').pop().split(']')[0], 10);
                   setSelectedDesign(designIdByIdx[idx]);
                 }}
               />
@@ -628,14 +623,7 @@ const DesignTooltip = (props, _context) => {
 
 const TechNode = (props, context) => {
   const { act, data } = useRemappedBackend(context);
-  const {
-    node_cache,
-    design_cache,
-    points,
-    compact,
-    researchable,
-    tech_tier,
-  } = data;
+  const { node_cache, design_cache, points, compact, researchable, tech_tier } = data;
   const { node, nodetails, nocontrols, destructive } = props;
   const { id, can_unlock, tier, costs } = node;
   const { name, description, design_ids, prereq_ids, node_tier } = node_cache[id];
@@ -659,8 +647,10 @@ const TechNode = (props, context) => {
               Details
             </Button>
           )}
-          {(tier > 0 && !destructive && !!researchable) && (
-            (node_tier > tech_tier+1) ? (
+          {tier > 0 &&
+            !destructive &&
+            !!researchable &&
+            (node_tier > tech_tier + 1 ? (
               <Button.Confirm
                 icon="lightbulb"
                 disabled={!can_unlock || tier > 1}
@@ -671,16 +661,17 @@ const TechNode = (props, context) => {
               <Button icon="lightbulb" disabled={!can_unlock || tier > 1} onClick={() => act('researchNode', { node_id: id })}>
                 Research
               </Button>
-            )
+            ))}
+          {node_tier > tech_tier + 1 && (
+            <Tooltip
+              content={
+                'Researching this node will cost additional discovery points. Please research more tier ' +
+                (tech_tier + 1) +
+                ' technology nodes first.'
+              }>
+              <Icon style={{ 'margin-left': '3px' }} mr={1} name="exclamation-triangle" color="yellow" />
+            </Tooltip>
           )}
-          {
-            (node_tier > tech_tier+1) && (
-              <Tooltip
-                content={"Researching this node will cost additional discovery points. Please research more tier "+(tech_tier+1)+" technology nodes first."}>
-                <Icon style={{ 'margin-left': '3px' }} mr={1} name="exclamation-triangle" color="yellow" />
-              </Tooltip>
-            )
-          }
           {destructive && (
             <Button icon="trash" color="red" onClick={() => act('destroyfortech', { node_id: id })}>
               Destroy item for node
