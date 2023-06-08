@@ -106,7 +106,7 @@
 		ghost_ready = TRUE
 		LAZYADD(GLOB.mob_spawners[name], src)
 		SSmobs.update_spawners()
-		GLOB.poi_list |= src
+		AddElement(/datum/element/point_of_interest)
 	if(amount_grown >= grow_time *3)
 		make_AI_spider()
 
@@ -132,7 +132,6 @@
 		take_damage(5, BURN, 0, 0)
 
 /obj/structure/spider/eggcluster/Destroy()
-	GLOB.poi_list -= src
 	var/list/spawners = GLOB.mob_spawners[name]
 	LAZYREMOVE(spawners, src)
 	if(!LAZYLEN(spawners))
@@ -226,7 +225,9 @@
 	pixel_x = rand(6,-6)
 	pixel_y = rand(6,-6)
 	START_PROCESSING(SSobj, src)
+	AddElement(/datum/element/point_of_interest)
 	AddComponent(/datum/component/swarming)
+	return ..()
 
 /obj/structure/spider/spiderling/hunter
 	grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/hunter

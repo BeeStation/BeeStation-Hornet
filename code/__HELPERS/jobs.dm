@@ -76,7 +76,7 @@
 
 // This returns a hud icon (from `hud.dmi`) by given job name.
 // Some custom title is from `PDApainter.dm`. You neec to check it if you're going to remove custom job.
-/proc/get_hud_by_jobname(jobname)
+/proc/get_hud_by_jobname(jobname, returns_unknown=TRUE)
 	if(!jobname)
 		CRASH("The proc has taken a null value")
 
@@ -153,7 +153,9 @@
 		"Unassigned" = JOB_HUD_UNKNOWN,
 		JOB_NAME_PRISONER = JOB_HUD_PRISONER
 	)
-	return id_to_hud[jobname] || JOB_HUD_UNKNOWN // default: a grey unknown hud
+	if(returns_unknown)
+		return id_to_hud[jobname] || JOB_HUD_UNKNOWN // default: a grey unknown hud
+	return id_to_hud[jobname] // this will return null
 
 // used to determine chat color by HUD in `chatmessage.dm`
 // Note: custom colors are what I really didn't put much attention into. feel free to change its color when you feel off.

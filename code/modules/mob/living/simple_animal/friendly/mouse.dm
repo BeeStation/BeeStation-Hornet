@@ -6,6 +6,7 @@
 	icon_dead = "mouse_gray_dead"
 	speak = list("Squeak!","SQUEAK!","Squeak?")
 	speak_emote = list("squeaks")
+	speak_language = /datum/language/metalanguage
 	emote_hear = list("squeaks.")
 	emote_see = list("runs in a circle.", "shakes.")
 	speak_chance = 1

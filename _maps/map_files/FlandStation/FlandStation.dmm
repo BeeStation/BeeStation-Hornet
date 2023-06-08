@@ -428,6 +428,9 @@
 	name = "command camera"
 	},
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
+/obj/machinery/light_switch{
+	pixel_x = 24
+	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "agn" = (
@@ -579,7 +582,7 @@
 /area/solar/port/fore)
 "aia" = (
 /obj/structure/sign/map/left{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
 	icon_state = "map-left-fland";
 	pixel_y = 32
 	},
@@ -3300,8 +3303,8 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/item/radio/intercom{
-	pixel_x = -28
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -26
 	},
 /turf/open/floor/plasteel/dark/airless,
 /area/medical/surgery)
@@ -3421,7 +3424,7 @@
 /area/gateway)
 "aPp" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/junction,
-/turf/closed/wall/r_wall,
+/turf/closed/wall,
 /area/maintenance/department/engine)
 "aPA" = (
 /obj/structure/cable{
@@ -4334,6 +4337,9 @@
 	},
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /obj/machinery/light/small,
+/obj/structure/sign/warning/fire{
+	pixel_y = -32
+	},
 /turf/open/floor/engine,
 /area/maintenance/disposal/incinerator)
 "aXT" = (
@@ -5246,6 +5252,9 @@
 /area/science/shuttle)
 "bkP" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
@@ -6419,7 +6428,7 @@
 /area/science/lab)
 "bBu" = (
 /obj/structure/sign/map/left{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
 	icon_state = "map-left-fland";
 	pixel_y = 32
 	},
@@ -7236,6 +7245,19 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
+"bOU" = (
+/obj/effect/turf_decal/trimline/purple/filled/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/purple/line{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/light_switch{
+	pixel_x = -24
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/science/research)
 "bOW" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
 /obj/machinery/portable_atmospherics/pump{
@@ -7343,7 +7365,7 @@
 /area/drydock)
 "bQy" = (
 /obj/structure/sign/map/right{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
 	icon_state = "map-right-fland";
 	pixel_y = 32
 	},
@@ -10401,14 +10423,14 @@
 	name = "Miscellaneous medical Supplies";
 	req_access_txt = "5"
 	},
-/obj/structure/sign/map/right{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
-	icon_state = "map-right-fland";
-	pixel_y = 32
-	},
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/structure/window/reinforced{
 	dir = 4
+	},
+/obj/structure/sign/map/right{
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	icon_state = "map-right-fland";
+	pixel_y = 32
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/storage)
@@ -10747,6 +10769,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/purple/opposingcorners,
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -30
+	},
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/apothecary)
 "cQD" = (
@@ -11319,9 +11344,9 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/virology)
 "cWM" = (
-/obj/structure/sign/warning/securearea,
 /obj/machinery/atmospherics/pipe/simple/general/hidden,
-/turf/closed/wall/r_wall,
+/obj/effect/spawner/structure/window/reinforced/tinted,
+/turf/open/floor/plating,
 /area/engine/engine_room)
 "cXc" = (
 /obj/effect/turf_decal/bot,
@@ -11544,7 +11569,7 @@
 /obj/machinery/atmospherics/pipe/simple/dark/visible{
 	dir = 4
 	},
-/turf/closed/wall/r_wall,
+/turf/closed/wall,
 /area/maintenance/disposal/incinerator)
 "das" = (
 /obj/effect/turf_decal/siding/wood{
@@ -16263,6 +16288,7 @@
 /obj/structure/chair/fancy/bench/pew/left{
 	dir = 1
 	},
+/obj/machinery/light/small,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
 "ere" = (
@@ -17840,18 +17866,18 @@
 /turf/open/floor/plasteel,
 /area/vacant_room/commissary/commissary1)
 "eKf" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	pixel_y = 24
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
+/obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark,
-/area/security/courtroom)
+/obj/effect/turf_decal/trimline/purple/line{
+	dir = 8
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/light_switch{
+	pixel_x = 24
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/science/research)
 "eKp" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -18223,6 +18249,9 @@
 "eOj" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/modular_fabricator/exosuit_fab,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/robotics/lab)
 "eOs" = (
@@ -19917,6 +19946,10 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/machinery/light_switch{
+	pixel_x = 24;
+	pixel_y = 24
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain/private)
 "fkK" = (
@@ -20087,21 +20120,12 @@
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
 "fnP" = (
-/obj/effect/turf_decal/guideline/guideline_in/bar{
-	dir = 8
+/obj/structure/reagent_dispensers/watertank,
+/obj/machinery/light/small{
+	dir = 4
 	},
-/obj/effect/turf_decal/guideline/guideline_mid/darkblue{
-	dir = 8
-	},
-/obj/effect/turf_decal/guideline/guideline_out/blue{
-	dir = 8
-	},
-/obj/machinery/airalarm{
-	dir = 4;
-	pixel_x = -22
-	},
-/turf/open/floor/plasteel,
-/area/hallway/primary/port)
+/turf/open/floor/plating,
+/area/maintenance/port/fore)
 "fnR" = (
 /obj/item/kirbyplants/random,
 /obj/item/toy/plush/moth/redish,
@@ -21499,6 +21523,9 @@
 	name = "science camera";
 	network = list("ss13","rd")
 	},
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
 "fEp" = (
@@ -21514,7 +21541,7 @@
 "fEu" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/medical{
 	name = "Surgery";
 	req_access_txt = "45"
 	},
@@ -22920,10 +22947,6 @@
 /turf/open/floor/plasteel/techmaint,
 /area/maintenance/department/engine)
 "fXt" = (
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	pixel_y = 24
-	},
 /obj/effect/turf_decal/trimline/brown/filled/warning,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
@@ -23378,10 +23401,6 @@
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
 /obj/item/pen,
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	pixel_y = 24
-	},
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/dark/side,
 /area/quartermaster/sorting)
@@ -23930,6 +23949,11 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
+"gkw" = (
+/obj/structure/grille,
+/obj/structure/lattice,
+/turf/open/space/basic,
+/area/space/nearstation)
 "gkE" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -23978,7 +24002,7 @@
 /area/maintenance/aft)
 "glq" = (
 /obj/structure/sign/map/left{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
 	icon_state = "map-left-fland";
 	pixel_y = 32
 	},
@@ -24666,10 +24690,6 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	pixel_y = 24
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
@@ -25448,7 +25468,6 @@
 	dir = 10
 	},
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/machinery/firealarm/directional/west,
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "gEs" = (
@@ -26040,10 +26059,6 @@
 /turf/open/floor/plasteel/techmaint,
 /area/science/mixing)
 "gNb" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Atmospherics Maintenance";
-	req_one_access_txt = "10;24"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -26053,6 +26068,10 @@
 	},
 /obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
+	},
+/obj/machinery/door/airlock/atmos/glass{
+	name = "Distribution Loop";
+	req_access_txt = "24"
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/engine/atmos)
@@ -28843,12 +28862,15 @@
 /turf/open/floor/plasteel/checker,
 /area/quartermaster/storage)
 "hBC" = (
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	pixel_y = 24
+/obj/effect/turf_decal/siding/wideplating/dark{
+	dir = 8
 	},
+/obj/structure/chair/fancy/bench/pew/right{
+	dir = 1
+	},
+/obj/machinery/light/small,
 /turf/open/floor/plasteel/dark,
-/area/quartermaster/storage)
+/area/chapel/main)
 "hBE" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -29259,10 +29281,10 @@
 /obj/structure/disposaloutlet{
 	dir = 4
 	},
-/obj/structure/lattice/catwalk,
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
+/obj/effect/turf_decal/stripes/box,
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "hIb" = (
@@ -30027,7 +30049,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/techmaint,
-/area/science/mixing)
+/area/science/mixing/chamber)
 "hRK" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -30333,7 +30355,7 @@
 /obj/effect/turf_decal/guideline/guideline_out/yellow,
 /obj/effect/turf_decal/guideline/guideline_in/blue,
 /obj/structure/sign/map/left{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
 	icon_state = "map-left-fland";
 	pixel_y = 32
 	},
@@ -30595,7 +30617,7 @@
 /area/maintenance/port/aft)
 "hZG" = (
 /obj/structure/sign/map/left{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
 	icon_state = "map-left-fland";
 	pixel_y = 32
 	},
@@ -30635,10 +30657,6 @@
 /turf/open/floor/plasteel/dark,
 /area/security/checkpoint/customs)
 "hZN" = (
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	pixel_y = 24
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/disposalpipe/segment{
@@ -32025,6 +32043,9 @@
 /area/asteroid/nearstation/bomb_site)
 "irF" = (
 /obj/item/kirbyplants/random,
+/obj/machinery/light_switch{
+	pixel_x = 24
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "irW" = (
@@ -33486,6 +33507,18 @@
 	dir = 9
 	},
 /obj/structure/lattice/catwalk/over,
+/obj/machinery/button/door/incinerator_vent_atmos_main{
+	pixel_x = 24;
+	pixel_y = -8
+	},
+/obj/machinery/button/door/incinerator_vent_atmos_aux{
+	pixel_x = 24;
+	pixel_y = 8
+	},
+/obj/machinery/button/ignition/incinerator/atmos{
+	pixel_x = 34;
+	pixel_y = 8
+	},
 /turf/open/floor/plating,
 /area/maintenance/disposal/incinerator)
 "iKl" = (
@@ -35182,7 +35215,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/job_scale/armoury/wt550,
+/obj/item/gun/ballistic/automatic/wt550/rubber_loaded,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "jka" = (
@@ -36895,13 +36928,13 @@
 /turf/open/floor/plasteel/techmaint,
 /area/maintenance/port)
 "jKy" = (
-/obj/structure/sign/map/right{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
-	icon_state = "map-right-fland";
-	pixel_y = 32
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/sign/map/right{
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	icon_state = "map-right-fland";
+	pixel_y = 32
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
@@ -37906,7 +37939,7 @@
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/structure/sign/map/left{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
 	icon_state = "map-left-fland";
 	pixel_y = 32
 	},
@@ -37967,11 +38000,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/atmos{
-	name = "Turbine Generator Access";
-	req_one_access_txt = "24;10"
-	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/airlock/maintenance{
+	name = "Turbine Maintenance";
+	req_one_access_txt = "10;24"
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/maintenance/disposal/incinerator)
 "jYk" = (
@@ -38402,6 +38435,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
+	},
+/obj/machinery/light_switch{
+	pixel_x = -24;
+	pixel_y = -24
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/sorting)
@@ -39797,6 +39834,10 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/machinery/light_switch{
+	pixel_x = -24;
+	pixel_y = 24
+	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/chief)
 "kyo" = (
@@ -40403,10 +40444,6 @@
 	},
 /obj/effect/turf_decal/tile/red/opposingcorners{
 	dir = 1
-	},
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	pixel_y = 24
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/execution/transfer)
@@ -41647,8 +41684,8 @@
 /turf/open/floor/plating,
 /area/engine/atmos)
 "kWV" = (
-/obj/effect/spawner/structure/window/reinforced/tinted,
 /obj/machinery/atmospherics/pipe/simple/general/visible,
+/obj/effect/spawner/structure/window/reinforced/tinted,
 /turf/open/floor/plating,
 /area/engine/engine_room)
 "kWW" = (
@@ -42203,18 +42240,6 @@
 "lcI" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 4
-	},
-/obj/machinery/button/door/incinerator_vent_atmos_aux{
-	pixel_x = 24;
-	pixel_y = 8
-	},
-/obj/machinery/button/door/incinerator_vent_atmos_main{
-	pixel_x = 24;
-	pixel_y = -8
-	},
-/obj/machinery/button/ignition/incinerator/atmos{
-	pixel_x = 34;
-	pixel_y = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/effect/turf_decal/stripes/corner{
@@ -42939,7 +42964,7 @@
 /area/hallway/secondary/service)
 "llb" = (
 /obj/structure/sign/map/right{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
 	icon_state = "map-right-fland";
 	pixel_y = 32
 	},
@@ -43303,6 +43328,16 @@
 	},
 /turf/open/floor/plating,
 /area/security/checkpoint/customs)
+"lpl" = (
+/obj/effect/turf_decal/trimline/red/filled/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/red/line{
+	dir = 4
+	},
+/obj/machinery/firealarm/directional/west,
+/turf/open/floor/plasteel/dark,
+/area/security/main)
 "lpr" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -44042,12 +44077,11 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
 "lxN" = (
-/obj/machinery/airalarm{
-	dir = 8;
-	pixel_x = 22
-	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 4
 	},
 /turf/open/floor/carpet,
 /area/hallway/secondary/entry)
@@ -47429,6 +47463,9 @@
 	pixel_x = 24;
 	pixel_y = 24
 	},
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 30
+	},
 /turf/open/floor/plasteel/dark,
 /area/medical/surgery)
 "muq" = (
@@ -48837,6 +48874,14 @@
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/plasteel/dark,
 /area/medical/exam_room)
+"mMf" = (
+/obj/structure/sign/map/right{
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	icon_state = "map-right-fland";
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/port)
 "mMk" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -48951,12 +48996,12 @@
 /obj/item/clothing/neck/stethoscope,
 /obj/item/storage/belt/medical,
 /obj/item/storage/belt/medical,
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/structure/sign/map/left{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
 	icon_state = "map-left-fland";
 	pixel_y = 32
 	},
-/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/medical/storage)
 "mNx" = (
@@ -49357,6 +49402,9 @@
 /area/medical/break_room)
 "mSH" = (
 /obj/machinery/vending/wardrobe/law_wardrobe,
+/obj/machinery/light_switch{
+	pixel_x = 24
+	},
 /turf/open/floor/wood,
 /area/lawoffice)
 "mTi" = (
@@ -50263,10 +50311,6 @@
 "nep" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
-	},
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	pixel_y = 24
 	},
 /turf/open/floor/plasteel/dark,
 /area/storage/tech)
@@ -51348,6 +51392,19 @@
 	},
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
+"nsU" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/siding/white{
+	dir = 4
+	},
+/obj/machinery/airalarm{
+	dir = 8;
+	pixel_x = 22
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/port)
 "nsW" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/components/trinary/filter/critical{
@@ -52426,7 +52483,7 @@
 "nGk" = (
 /obj/effect/turf_decal/guideline/guideline_in/red,
 /obj/structure/sign/map/right{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
 	icon_state = "map-right-fland";
 	pixel_y = 32
 	},
@@ -54200,6 +54257,9 @@
 /obj/item/tank/internals/emergency_oxygen{
 	pixel_x = 6
 	},
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "oeU" = (
@@ -55159,6 +55219,9 @@
 /obj/structure/closet/firecloset,
 /obj/machinery/atmospherics/pipe/simple/general/hidden,
 /obj/item/toy/plush/moth/ragged,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/engine/engine_room)
 "osl" = (
@@ -55414,6 +55477,9 @@
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
 	dir = 1
 	},
+/obj/machinery/light_switch{
+	pixel_x = -24
+	},
 /turf/open/floor/plasteel,
 /area/science/breakroom)
 "ovY" = (
@@ -55528,7 +55594,6 @@
 	},
 /mob/living/simple_animal/parrot/Poly,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/obj/machinery/firealarm/directional/west,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/chief)
 "oxU" = (
@@ -57931,7 +57996,7 @@
 "phi" = (
 /obj/effect/turf_decal/guideline/guideline_in/red,
 /obj/structure/sign/map/left{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
 	icon_state = "map-left-fland";
 	pixel_y = 32
 	},
@@ -59382,6 +59447,9 @@
 /obj/structure/lattice/catwalk/over,
 /obj/machinery/atmospherics/pipe/simple/dark/hidden{
 	dir = 10
+	},
+/obj/structure/sign/warning/fire{
+	pixel_x = 32
 	},
 /turf/open/floor/plating,
 /area/maintenance/disposal/incinerator)
@@ -61223,10 +61291,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	pixel_y = 24
-	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
@@ -62193,6 +62257,9 @@
 	dir = 4
 	},
 /obj/item/toy/plush/moth/moonfly,
+/obj/machinery/light_switch{
+	pixel_x = 24
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/storage/tech)
 "qiI" = (
@@ -62730,6 +62797,7 @@
 /obj/machinery/camera{
 	c_tag = "Brig - Hallway - Center"
 	},
+/obj/machinery/firealarm/directional/north,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "qpE" = (
@@ -63184,7 +63252,7 @@
 /area/tcommsat/server)
 "que" = (
 /obj/structure/sign/map/right{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
 	icon_state = "map-right-fland";
 	pixel_y = 32
 	},
@@ -65904,6 +65972,10 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/apc/auto_name/east,
+/obj/machinery/light_switch{
+	pixel_x = 24;
+	pixel_y = 24
+	},
 /turf/open/floor/wood,
 /area/bridge/showroom/corporate)
 "rde" = (
@@ -68546,12 +68618,14 @@
 /area/maintenance/solars/port)
 "rIA" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/obj/machinery/keycard_auth{
-	pixel_y = 24
-	},
 /obj/effect/turf_decal/tile/red/opposingcorners,
 /obj/effect/turf_decal/tile/yellow/opposingcorners{
 	dir = 1
+	},
+/obj/machinery/firealarm/directional/north,
+/obj/machinery/keycard_auth{
+	pixel_x = 26;
+	pixel_y = 24
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/chief)
@@ -70336,15 +70410,15 @@
 /turf/open/floor/plasteel,
 /area/storage/primary)
 "sfg" = (
-/obj/structure/sign/map/right{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
-	icon_state = "map-right-fland";
-	pixel_y = 32
-	},
 /obj/machinery/camera{
 	c_tag = "Port Primary Hallway - Starboard";
 	dir = 6;
 	name = "hallway camera"
+	},
+/obj/structure/sign/map/right{
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	icon_state = "map-right-fland";
+	pixel_y = 32
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
@@ -71243,7 +71317,7 @@
 /obj/effect/turf_decal/guideline/guideline_out/yellow,
 /obj/effect/turf_decal/guideline/guideline_in/blue,
 /obj/structure/sign/map/right{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
 	icon_state = "map-right-fland";
 	pixel_y = 32
 	},
@@ -72177,6 +72251,9 @@
 /obj/effect/turf_decal/trimline/purple/line{
 	dir = 8
 	},
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/research)
 "sCD" = (
@@ -73035,6 +73112,10 @@
 /obj/structure/chair/fancy/sofa/old/right{
 	color = "#742925";
 	dir = 1
+	},
+/obj/machinery/airalarm{
+	dir = 8;
+	pixel_x = 22
 	},
 /turf/open/floor/carpet,
 /area/hallway/secondary/entry)
@@ -74740,7 +74821,7 @@
 	dir = 1
 	},
 /obj/structure/sign/map/right{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
 	icon_state = "map-right-fland";
 	pixel_y = 32
 	},
@@ -75306,6 +75387,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/robotics/lab)
 "trL" = (
@@ -76649,7 +76733,7 @@
 /obj/machinery/door/airlock/engineering/glass/critical{
 	heat_proof = 1;
 	name = "Supermatter Chamber";
-	req_access_txt = "10"
+	req_one_access_txt = "10;24"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
@@ -80037,7 +80121,7 @@
 /area/chapel/office)
 "uyt" = (
 /obj/structure/sign/warning/securearea,
-/turf/closed/wall/r_wall,
+/turf/closed/wall,
 /area/maintenance/disposal/incinerator)
 "uyu" = (
 /obj/effect/landmark/event_spawn,
@@ -82842,12 +82926,12 @@
 "vhn" = (
 /obj/structure/bed,
 /obj/item/bedsheet/rd,
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	pixel_y = 24
-	},
 /obj/machinery/newscaster{
 	pixel_y = -28
+	},
+/obj/machinery/light_switch{
+	pixel_x = -24;
+	pixel_y = -8
 	},
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
@@ -84055,7 +84139,8 @@
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 4
 	},
-/turf/closed/wall/r_wall,
+/obj/effect/spawner/structure/window/depleteduranium,
+/turf/open/floor/plating/airless,
 /area/maintenance/disposal/incinerator)
 "vty" = (
 /obj/effect/landmark/start/geneticist,
@@ -84975,6 +85060,11 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/sign/map/left{
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	icon_state = "map-left-fland";
+	pixel_y = 32
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "vDh" = (
@@ -85309,6 +85399,7 @@
 	dir = 1;
 	pixel_y = -22
 	},
+/obj/machinery/light,
 /turf/open/floor/plasteel/dark/side,
 /area/engine/atmos)
 "vIh" = (
@@ -86203,6 +86294,12 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/brig)
+"vRj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small,
+/turf/open/floor/plating,
+/area/maintenance/port/fore)
 "vRu" = (
 /obj/machinery/camera{
 	c_tag = "Atmospherics - Carbon Dioxide Cell";
@@ -86244,6 +86341,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
+	},
+/obj/machinery/light_switch{
+	pixel_x = -24;
+	pixel_y = 24
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/miningdock)
@@ -86826,13 +86927,13 @@
 	},
 /area/medical/surgery)
 "vYE" = (
-/obj/structure/sign/map/left{
-	desc = "A framed detailed picture of the station. there's even the permanent prison wing in the bottom left!";
-	icon_state = "map-left-fland";
-	pixel_y = 32
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/sign/map/left{
+	desc = "A framed outdated, yet detailed picture of the station. there's even the permanent prison wing in the bottom left!";
+	icon_state = "map-left-fland";
+	pixel_y = 32
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
@@ -88248,10 +88349,6 @@
 "wqQ" = (
 /obj/effect/turf_decal/trimline/red/filled/warning{
 	dir = 4
-	},
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	pixel_y = 24
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
@@ -90432,6 +90529,9 @@
 /area/science/lobby)
 "wQP" = (
 /obj/effect/turf_decal/tile/purple,
+/obj/effect/turf_decal/trimline/purple/filled/corner{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/science/lobby)
 "wQQ" = (
@@ -90913,10 +91013,6 @@
 /obj/item/radio/intercom{
 	pixel_x = -28
 	},
-/obj/machinery/light_switch{
-	pixel_x = -24;
-	pixel_y = 24
-	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "wVh" = (
@@ -91183,9 +91279,6 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/lab)
-"wXJ" = (
-/turf/closed/wall/r_wall,
-/area/maintenance/disposal/incinerator)
 "wXP" = (
 /obj/effect/turf_decal/trimline/blue/line{
 	dir = 8
@@ -91230,9 +91323,14 @@
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison)
 "wYf" = (
-/obj/machinery/atmospherics/pipe/simple/general/hidden,
-/turf/closed/wall/r_wall,
-/area/engine/engine_room)
+/obj/effect/turf_decal/pool{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/noslip,
+/area/crew_quarters/fitness/recreation)
 "wYg" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -91473,16 +91571,16 @@
 /turf/open/floor/plasteel/sepia,
 /area/engine/break_room)
 "wZZ" = (
-/obj/machinery/door/airlock/engineering/glass/critical{
-	heat_proof = 1;
-	name = "Supermatter Chamber";
-	req_access_txt = "10"
-	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
+	},
+/obj/machinery/door/airlock/engineering/glass/critical{
+	heat_proof = 1;
+	name = "Supermatter Chamber";
+	req_one_access_txt = "10;24"
 	},
 /turf/open/floor/engine,
 /area/engine/supermatter)
@@ -91791,10 +91889,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/wood,
 /area/crew_quarters/theatre)
-"xdz" = (
-/obj/structure/sign/warning/fire,
-/turf/closed/wall/r_wall,
-/area/maintenance/disposal/incinerator)
 "xdD" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -91809,6 +91903,10 @@
 /obj/structure/disposalpipe/junction/flip,
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/effect/turf_decal/siding/purple,
+/obj/machinery/light_switch{
+	pixel_x = 24;
+	pixel_y = -24
+	},
 /turf/open/floor/plasteel/white,
 /area/science/lobby)
 "xdK" = (
@@ -92722,6 +92820,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -26
+	},
 /turf/open/floor/plasteel/dark/side{
 	dir = 8
 	},
@@ -94135,9 +94236,6 @@
 /obj/item/gps,
 /obj/item/clothing/glasses/science,
 /obj/item/assembly/flash/handheld/weak,
-/obj/item/radio/intercom{
-	pixel_y = -28
-	},
 /obj/item/assembly/signaler,
 /obj/effect/turf_decal/siding/dark/corner,
 /obj/effect/turf_decal/trimline/purple/filled/corner{
@@ -94802,6 +94900,12 @@
 	},
 /turf/closed/wall,
 /area/janitor)
+"xFL" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/plating/rust,
+/area/maintenance/port/fore)
 "xFN" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
@@ -113632,7 +113736,7 @@ eoO
 hxK
 pyE
 leT
-dWC
+vRj
 eFZ
 cXA
 fam
@@ -116447,7 +116551,7 @@ kHH
 aeN
 eFZ
 aBt
-jOT
+xFL
 leT
 yjW
 yjW
@@ -116456,7 +116560,7 @@ yjW
 yjW
 yjW
 vNZ
-ddP
+fnP
 yfU
 cIP
 oOp
@@ -119803,7 +119907,7 @@ frp
 pdV
 szu
 rza
-szu
+hBC
 eAy
 hqg
 sXL
@@ -120887,7 +120991,7 @@ dnT
 hUV
 ewN
 lsk
-fnP
+jjS
 jjS
 jjS
 jjS
@@ -121401,7 +121505,7 @@ xMW
 ejA
 rZX
 cbk
-xWO
+nsU
 xWO
 xWO
 xWO
@@ -125286,7 +125390,7 @@ xYg
 xZW
 lCT
 vGD
-hBC
+xxw
 nNh
 rHr
 myk
@@ -128575,7 +128679,7 @@ kHi
 jjl
 sUb
 wVj
-sUb
+lpl
 siM
 sCK
 tCp
@@ -130671,7 +130775,7 @@ rio
 veC
 isS
 isS
-xUL
+mMf
 qbd
 gtO
 yfq
@@ -132230,7 +132334,7 @@ wEL
 hRU
 gAu
 hRU
-ifo
+bOU
 ifo
 eCG
 vLF
@@ -135312,7 +135416,7 @@ uwQ
 dhQ
 oDd
 pAj
-pAj
+eKf
 sQL
 pAj
 yeR
@@ -139622,7 +139726,7 @@ qFd
 flF
 fAw
 geb
-eKf
+aFA
 lCN
 qSu
 rPR
@@ -141695,7 +141799,7 @@ vtk
 dNa
 qPc
 wId
-wYc
+wYf
 lky
 xII
 xUm
@@ -143002,8 +143106,8 @@ fOM
 yif
 dRb
 skT
-qos
 aRe
+qos
 qos
 nZM
 qos
@@ -147136,7 +147240,6 @@ hgB
 yaw
 wRN
 xtQ
-wXJ
 rTo
 rTo
 rTo
@@ -147144,7 +147247,8 @@ rTo
 rTo
 rTo
 rTo
-wXJ
+rTo
+rTo
 xWY
 xWY
 xWY
@@ -147393,7 +147497,7 @@ lXU
 yaw
 qPG
 yaw
-wXJ
+rTo
 eeo
 bVm
 pIq
@@ -147907,7 +148011,7 @@ wnB
 pLM
 jZL
 wLN
-wXJ
+rTo
 tby
 tQQ
 uam
@@ -147915,7 +148019,7 @@ pip
 uam
 aqG
 bPL
-wXJ
+rTo
 vXB
 jVC
 vXB
@@ -148153,18 +148257,18 @@ bNY
 rHd
 xCJ
 vBw
-vpD
-rXm
+hKD
+hgB
 rTd
 rTd
 rTd
 rTd
 rTd
-rXm
-rXm
-rXm
+hgB
+hgB
+hgB
 ble
-wXJ
+rTo
 wSL
 tQQ
 xyv
@@ -148172,7 +148276,7 @@ frM
 gLO
 aqG
 bsm
-wXJ
+rTo
 air
 ylJ
 qri
@@ -148421,7 +148525,7 @@ gNU
 cfM
 hgB
 ufE
-wXJ
+rTo
 toW
 eek
 mrz
@@ -148429,7 +148533,7 @@ wkL
 udf
 hiT
 rqz
-wXJ
+rTo
 iQD
 jtj
 eZm
@@ -148667,7 +148771,7 @@ jXl
 wWM
 nLC
 jLt
-rXm
+hgB
 vLM
 vPv
 nLx
@@ -148678,7 +148782,7 @@ nLx
 lGr
 hgB
 rSR
-wXJ
+rTo
 wUB
 nih
 ahp
@@ -148686,7 +148790,7 @@ qxK
 kCA
 gsd
 ymc
-wXJ
+rTo
 vXB
 nwT
 vXB
@@ -148921,7 +149025,7 @@ kWV
 vNA
 nkF
 vQp
-wYf
+cWM
 qvc
 bGF
 rTd
@@ -148935,7 +149039,7 @@ pLj
 eXB
 hgB
 itO
-wXJ
+rTo
 gzZ
 pAX
 sgY
@@ -148943,7 +149047,7 @@ apI
 lcI
 iKk
 hoD
-wXJ
+rTo
 mmz
 vjf
 vjf
@@ -149192,15 +149296,15 @@ lGr
 eXB
 vjf
 reh
-wXJ
+rTo
 vOV
-xdz
+rTo
 dap
 lZI
 vtx
-xdz
+rTo
 voV
-wXJ
+rTo
 fDn
 abN
 abN
@@ -149241,8 +149345,8 @@ wXD
 nnx
 csJ
 csJ
-cZO
-cZO
+gkw
+gkw
 nnx
 nnx
 nnx
@@ -149451,11 +149555,11 @@ abN
 vfL
 upj
 jSq
-wXJ
+rTo
 apJ
 duk
 aXP
-wXJ
+rTo
 pdG
 vjf
 hzW
@@ -149499,7 +149603,7 @@ nnx
 csJ
 nnx
 nnx
-cZO
+gkw
 nnx
 nnx
 nnx
@@ -149708,11 +149812,11 @@ wHW
 abN
 abN
 sXg
-wXJ
+rTo
 vtx
 wVv
 vtx
-wXJ
+rTo
 trG
 nnx
 abN
@@ -149969,7 +150073,7 @@ qNr
 vvA
 vby
 kaB
-wXJ
+rTo
 trG
 nnx
 nnx
@@ -150013,7 +150117,7 @@ nnx
 csJ
 nnx
 nnx
-cZO
+gkw
 nnx
 nnx
 nnx
@@ -150222,11 +150326,11 @@ csJ
 csJ
 wYL
 vLM
-wXJ
-wXJ
+rTo
+rTo
 hIV
-wXJ
-wXJ
+rTo
+rTo
 trG
 nnx
 nnx
@@ -150269,8 +150373,8 @@ wXD
 nnx
 csJ
 csJ
-cZO
-cZO
+gkw
+gkw
 nnx
 nnx
 nnx
@@ -150480,9 +150584,9 @@ nnx
 nnx
 vLM
 vLM
-wXJ
+rTo
 azz
-wXJ
+rTo
 vLM
 trG
 nnx
@@ -150737,9 +150841,9 @@ xJu
 xJu
 csJ
 wbm
-wXJ
+rTo
 tVl
-wXJ
+rTo
 vLM
 hHX
 csJ
