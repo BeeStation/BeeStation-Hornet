@@ -1,5 +1,0 @@
-author: itsmeow, jlsnow301
-delete-after: true
-changes:
-  - code_imp: 'Standardized TGUI code formatting using PrettierX. Developers: Install
-      the Prettier extension for VSCode.'
