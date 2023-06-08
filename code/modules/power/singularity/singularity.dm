@@ -34,8 +34,9 @@
 /obj/anomaly/singularity/Initialize(mapload, starting_energy = 50)
 	. = ..()
 	START_PROCESSING(SSsinguloprocess, src)
-	GLOB.poi_list |= src
+	AddElement(/datum/element/point_of_interest)
 	GLOB.singularities |= src
+
 	var/datum/component/singularity/new_component = AddComponent(
 		/datum/component/singularity, \
 		consume_callback = CALLBACK(src, PROC_REF(consume)), \
@@ -56,7 +57,6 @@
 
 /obj/anomaly/singularity/Destroy()
 	STOP_PROCESSING(SSsinguloprocess, src)
-	GLOB.poi_list.Remove(src)
 	GLOB.singularities.Remove(src)
 	return ..()
 
@@ -226,6 +226,8 @@
 	return 1
 
 /obj/anomaly/singularity/proc/consume(atom/thing)
+	if(thing == src)
+		CRASH("consume() called on self by singularity [src]")
 	var/gain = thing.singularity_act(current_size, src)
 	energy += gain
 	if(istype(thing, /obj/machinery/power/supermatter_crystal) && !consumed_supermatter)
@@ -367,6 +369,7 @@
 	var/dist = max((current_size - 2),1)
 	explosion(src.loc,(dist),(dist*2),(dist*4))
 	qdel(src)
+	log_game("Singularity [src] consumed by another singularity at [AREACOORD(src)]")
 	return(gain)
 
 /obj/anomaly/singularity/deadchat_controlled

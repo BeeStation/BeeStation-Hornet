@@ -25,27 +25,27 @@ export const NtosConfiguration = (props, context) => {
               overflow-y="scroll"
               width="240px"
               options={Object.keys(themes)}
-              selected={Object.keys(themes).find(key => themes[key] === PC_device_theme) || "NtOS Default"}
-              onSelected={value => act('PC_select_theme', {
-                theme: value,
-              })} />
-            {PC_device_theme === "thinktronic-classic" ? <Button icon="palette" content="Set Color" onClick={() => act("PC_set_classic_color")} /> : null}
+              selected={Object.keys(themes).find((key) => themes[key] === PC_device_theme) || 'NtOS Default'}
+              onSelected={(value) =>
+                act('PC_select_theme', {
+                  theme: value,
+                })
+              }
+            />
+            {PC_device_theme === 'thinktronic-classic' ? (
+              <Button icon="palette" content="Set Color" onClick={() => act('PC_set_classic_color')} />
+            ) : null}
           </Section>
         ) : null}
         <Section
           title="Power Supply"
-          buttons={(
-            <Box
-              inline
-              bold
-              mr={1}>
+          buttons={
+            <Box inline bold mr={1}>
               Power Draw: {power_usage}W
             </Box>
-          )}>
+          }>
           <LabeledList>
-            <LabeledList.Item
-              label="Battery Status"
-              color={!battery_exists && 'average'}>
+            <LabeledList.Item label="Battery Status" color={!battery_exists && 'average'}>
               {battery_exists ? (
                 <ProgressBar
                   value={battery.charge}
@@ -58,45 +58,42 @@ export const NtosConfiguration = (props, context) => {
                   }}>
                   {battery.charge} / {battery.max}
                 </ProgressBar>
-              ) : 'Not Available'}
+              ) : (
+                'Not Available'
+              )}
             </LabeledList.Item>
           </LabeledList>
         </Section>
         <Section title="File System">
-          <ProgressBar
-            value={disk_used}
-            minValue={0}
-            maxValue={disk_size}
-            color="good">
+          <ProgressBar value={disk_used} minValue={0} maxValue={disk_size} color="good">
             {disk_used} GQ / {disk_size} GQ
           </ProgressBar>
         </Section>
         <Section title="Hardware Components">
-          {hardware.map(component => (
+          {hardware.map((component) => (
             <Section
               key={component.name}
               title={component.name}
               level={2}
-              buttons={(
+              buttons={
                 <>
                   {!component.critical && (
                     <Button.Checkbox
                       content="Enabled"
                       checked={component.enabled}
                       mr={1}
-                      onClick={() => act('PC_toggle_component', {
-                        name: component.name,
-                      })}
+                      onClick={() =>
+                        act('PC_toggle_component', {
+                          name: component.name,
+                        })
+                      }
                     />
                   )}
-                  <Box
-                    inline
-                    bold
-                    mr={1}>
+                  <Box inline bold mr={1}>
                     Power Usage: {component.powerusage}W
                   </Box>
                 </>
-              )}>
+              }>
               {component.desc}
             </Section>
           ))}

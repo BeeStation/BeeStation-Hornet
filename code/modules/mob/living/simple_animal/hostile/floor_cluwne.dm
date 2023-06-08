@@ -444,11 +444,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	. = ..()
 	GLOB.floor_cluwnes++
 	name += " ([GLOB.floor_cluwnes])"
-	GLOB.poi_list += src
-
-/obj/effect/dummy/floorcluwne_orbit/Destroy()
-	. = ..()
-	GLOB.poi_list -= src
+	AddElement(/datum/element/point_of_interest)
 
 #undef STAGE_HAUNT
 #undef STAGE_SPOOK

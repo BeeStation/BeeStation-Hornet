@@ -4,18 +4,11 @@ import { COLORS } from '../constants';
 import { Window } from '../layouts';
 import { sortBy } from 'common/collections';
 
-export const HEALTH_COLOR_BY_LEVEL = [
-  '#17d568',
-  '#2ecc71',
-  '#e67e22',
-  '#ed5100',
-  '#e74c3c',
-  '#ed2814',
-];
+export const HEALTH_COLOR_BY_LEVEL = ['#17d568', '#2ecc71', '#e67e22', '#ed5100', '#e74c3c', '#ed2814'];
 
-export const jobIsHead = jobId => jobId % 10 === 0;
+export const jobIsHead = (jobId) => jobId % 10 === 0;
 
-export const jobToColor = jobId => {
+export const jobToColor = (jobId) => {
   if (jobId >= 0 && jobId < 10) {
     return COLORS.department.captain;
   }
@@ -49,14 +42,10 @@ export const healthToColor = (oxy, tox, burn, brute) => {
   return HEALTH_COLOR_BY_LEVEL[level];
 };
 
-export const HealthStat = props => {
+export const HealthStat = (props) => {
   const { type, value } = props;
   return (
-    <Box
-      inline
-      width={2}
-      color={COLORS.damageType[type]}
-      textAlign="center">
+    <Box inline width={2} color={COLORS.damageType[type]} textAlign="center">
       {value}
     </Box>
   );
@@ -64,9 +53,7 @@ export const HealthStat = props => {
 
 export const CrewConsole = () => {
   return (
-    <Window
-      width={800}
-      height={600}>
+    <Window width={800} height={600}>
       <Window.Content scrollable>
         <Section minHeight="540px">
           <CrewTable />
@@ -78,29 +65,23 @@ export const CrewConsole = () => {
 
 const CrewTable = (props, context) => {
   const { act, data } = useBackend(context);
-  const sensors = sortBy(
-    s => s.ijob
-  )(data.sensors ?? []);
+  const sensors = sortBy((s) => s.ijob)(data.sensors ?? []);
   return (
     <Table>
       <Table.Row>
-        <Table.Cell bold>
-          Name
-        </Table.Cell>
+        <Table.Cell bold>Name</Table.Cell>
         <Table.Cell bold collapsing />
         <Table.Cell bold collapsing textAlign="center">
           Vitals
         </Table.Cell>
-        <Table.Cell bold>
-          Position
-        </Table.Cell>
+        <Table.Cell bold>Position</Table.Cell>
         {!!data.link_allowed && (
           <Table.Cell bold collapsing>
             Tracking
           </Table.Cell>
         )}
       </Table.Row>
-      {sensors.map(sensor => (
+      {sensors.map((sensor) => (
         <CrewTableEntry sensor_data={sensor} key={sensor.ref} />
       ))}
     </Table>
@@ -111,37 +92,16 @@ const CrewTableEntry = (props, context) => {
   const { act, data } = useBackend(context);
   const { link_allowed } = data;
   const { sensor_data } = props;
-  const {
-    name,
-    assignment,
-    ijob,
-    life_status,
-    oxydam,
-    toxdam,
-    burndam,
-    brutedam,
-    area,
-    can_track,
-  } = sensor_data;
+  const { name, assignment, ijob, life_status, oxydam, toxdam, burndam, brutedam, area, can_track } = sensor_data;
 
   return (
     <Table.Row>
-      <Table.Cell
-        bold={jobIsHead(ijob)}
-        color={jobToColor(ijob)}>
-        {name}{assignment !== undefined ? ` (${assignment})` : ""}
+      <Table.Cell bold={jobIsHead(ijob)} color={jobToColor(ijob)}>
+        {name}
+        {assignment !== undefined ? ` (${assignment})` : ''}
       </Table.Cell>
       <Table.Cell collapsing textAlign="center">
-        {life_status ? (
-          <ColorBox
-            color={healthToColor(
-              oxydam,
-              toxdam,
-              burndam,
-              brutedam)} />
-        ) : (
-          <ColorBox color={'#ed2814'} />
-        )}
+        {life_status ? <ColorBox color={healthToColor(oxydam, toxdam, burndam, brutedam)} /> : <ColorBox color={'#ed2814'} />}
       </Table.Cell>
       <Table.Cell collapsing textAlign="center">
         {oxydam !== undefined ? (
@@ -154,21 +114,24 @@ const CrewTableEntry = (props, context) => {
             {'/'}
             <HealthStat type="brute" value={brutedam} />
           </Box>
+        ) : life_status ? (
+          'Alive'
         ) : (
-          life_status ? 'Alive' : 'Dead'
+          'Dead'
         )}
       </Table.Cell>
-      <Table.Cell>
-        {area !== undefined ? area : 'N/A'}
-      </Table.Cell>
+      <Table.Cell>{area !== undefined ? area : 'N/A'}</Table.Cell>
       {!!link_allowed && (
         <Table.Cell collapsing>
           <Button
             content="Track"
             disabled={!can_track}
-            onClick={() => act('select_person', {
-              name: name,
-            })} />
+            onClick={() =>
+              act('select_person', {
+                name: name,
+              })
+            }
+          />
         </Table.Cell>
       )}
     </Table.Row>
