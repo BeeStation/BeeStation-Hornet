@@ -1,0 +1,5 @@
+author: RKz
+delete-after: true
+changes:
+  - bugfix: you can edit crew records with medhuds again, with the timeout properly
+      applying
