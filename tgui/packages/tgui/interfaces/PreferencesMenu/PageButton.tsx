@@ -1,4 +1,4 @@
-import type { Inferno } from "inferno";
+import type { InfernoNode } from "inferno";
 import { Button } from "../../components";
 
 export const PageButton = <P extends unknown>(props: {
@@ -8,7 +8,7 @@ export const PageButton = <P extends unknown>(props: {
 
   setPage: (page: P) => void,
 
-  children?: Inferno.InfernoNode,
+  children?: InfernoNode,
 }) => {
   const pageIsActive = props.currentPage === props.page
     || (

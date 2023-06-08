@@ -1,5 +1,5 @@
 import { Component } from "inferno";
-import type { Inferno } from "inferno";
+import type { InfernoNode } from "inferno";
 import { resolveAsset } from "../../assets";
 import { fetchRetry } from "../../http";
 import { ServerData } from "./data";
@@ -8,7 +8,7 @@ import { ServerData } from "./data";
 let fetchServerData: Promise<ServerData> | undefined;
 
 export class ServerPreferencesFetcher extends Component<{
-  render: (serverData: ServerData | undefined) => Inferno.InfernoNode,
+  render: (serverData: ServerData | undefined) => InfernoNode,
 }, {
   serverData?: ServerData;
 }> {
@@ -38,6 +38,6 @@ export class ServerPreferencesFetcher extends Component<{
   }
 
   render() {
-    return this.props.render(this.state.serverData);
+    return this.state !== null && this.state.serverData !== null ? this.props.render(this.state.serverData) : "Error: Unable to fetch preferences data.";
   }
 }

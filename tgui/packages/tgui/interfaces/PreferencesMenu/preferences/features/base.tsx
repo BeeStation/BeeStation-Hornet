@@ -1,14 +1,14 @@
 import { sortBy, sortStrings } from "common/collections";
 import { BooleanLike, classes } from "common/react";
 import { createComponentVNode } from "inferno";
-import type { Inferno, ComponentType } from "inferno";
+import type { InfernoNode, ComponentType } from "inferno";
 import { VNodeFlags } from "inferno-vnode-flags";
 import { sendAct, useBackend, useLocalState } from "../../../../backend";
 import { Box, Button, Dropdown, Input, NumberInput, Stack } from "../../../../components";
 import { createSetPreference, PreferencesMenuData } from "../../data";
 import { ServerPreferencesFetcher } from "../../ServerPreferencesFetcher";
 
-export const sortChoices = sortBy<[string, Inferno.InfernoNode]>(([name]) => name);
+export const sortChoices = sortBy<[string, InfernoNode]>(([name]) => name);
 
 export type Feature<
   TReceiving,
@@ -124,7 +124,7 @@ export const CheckboxInputInverse = (
 
 export const createDropdownInput = <T extends string | number = string>(
   // Map of value to display texts
-  choices: Record<T, Inferno.InfernoNode>,
+  choices: Record<T, InfernoNode>,
   dropdownProps?: Record<T, unknown>,
 ): FeatureValue<T> => {
   return (props: FeatureValueProps<T>) => {
@@ -160,7 +160,7 @@ const capitalizeFirstLetter = (text: string) => (
 export const StandardizedDropdown = (props: {
   choices: string[],
   disabled?: boolean,
-  displayNames: Record<string, Inferno.InfernoNode>,
+  displayNames: Record<string, InfernoNode>,
   onSetValue: (newValue: string) => void,
   value: string,
 }) => {
@@ -239,7 +239,7 @@ export const FeatureIconnedDropdownInput = (
 
   const displayNames = Object.fromEntries(
     Object.entries(textNames).map(([choice, textName]) => {
-      let element: Inferno.InfernoNode = textName;
+      let element: InfernoNode = textName;
 
       if (icons && icons[choice]) {
         const icon = icons[choice];

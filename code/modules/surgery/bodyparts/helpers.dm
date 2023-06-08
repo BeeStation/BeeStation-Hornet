@@ -236,7 +236,7 @@
 	. = L
 
 
-/proc/skintone2hex(skin_tone, include_tag = FALSE)
+/proc/skintone2hex(skin_tone, include_tag = TRUE)
 	. = 0
 	switch(skin_tone)
 		if("caucasian1")

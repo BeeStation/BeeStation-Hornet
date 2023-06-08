@@ -1,5 +1,5 @@
 import { binaryInsertWith, sortBy } from "common/collections";
-import type { Inferno } from "inferno";
+import type { InfernoNode } from "inferno";
 import { useBackend } from "../../backend";
 import { Box, Flex, Tooltip } from "../../components";
 import { PreferencesMenuData } from "./data";
@@ -9,7 +9,7 @@ import { TabbedMenu } from "./TabbedMenu";
 
 type PreferenceChild = {
   name: string,
-  children: Inferno.InfernoNode,
+  children: InfernoNode,
 };
 
 const binaryInsertPreference = binaryInsertWith<PreferenceChild>(
@@ -28,7 +28,7 @@ export const GamePreferencesPage = (props, context) => {
   )) {
     const feature = features[featureId];
 
-    let nameInner: Inferno.InfernoNode = feature?.name || featureId;
+    let nameInner: InfernoNode = feature?.name || featureId;
 
     if (feature?.description) {
       nameInner = (
@@ -40,7 +40,7 @@ export const GamePreferencesPage = (props, context) => {
       );
     }
 
-    let name: Inferno.InfernoNode = (
+    let name: InfernoNode = (
       <Flex.Item grow={1} pr={2} basis={0} ml={2}>
         {nameInner}
       </Flex.Item>
@@ -84,7 +84,7 @@ export const GamePreferencesPage = (props, context) => {
       = binaryInsertPreference(gamePreferences[category] || [], entry);
   }
 
-  const gamePreferenceEntries: [string, Inferno.InfernoNode][] = sortByName(
+  const gamePreferenceEntries: [string, InfernoNode][] = sortByName(
     Object.entries(gamePreferences)
   ).map(
     ([category, preferences]) => {
