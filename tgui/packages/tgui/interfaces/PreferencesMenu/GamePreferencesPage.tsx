@@ -1,5 +1,5 @@
 import { binaryInsertWith, sortBy } from "common/collections";
-import { InfernoNode } from "inferno";
+import type { Inferno } from "inferno";
 import { useBackend } from "../../backend";
 import { Box, Flex, Tooltip } from "../../components";
 import { PreferencesMenuData } from "./data";
@@ -9,7 +9,7 @@ import { TabbedMenu } from "./TabbedMenu";
 
 type PreferenceChild = {
   name: string,
-  children: InfernoNode,
+  children: Inferno.InfernoNode,
 };
 
 const binaryInsertPreference = binaryInsertWith<PreferenceChild>(
@@ -28,7 +28,7 @@ export const GamePreferencesPage = (props, context) => {
   )) {
     const feature = features[featureId];
 
-    let nameInner: InfernoNode = feature?.name || featureId;
+    let nameInner: Inferno.InfernoNode = feature?.name || featureId;
 
     if (feature?.description) {
       nameInner = (
@@ -84,7 +84,7 @@ export const GamePreferencesPage = (props, context) => {
       = binaryInsertPreference(gamePreferences[category] || [], entry);
   }
 
-  const gamePreferenceEntries: [string, InfernoNode][] = sortByName(
+  const gamePreferenceEntries: [string, Inferno.InfernoNode][] = sortByName(
     Object.entries(gamePreferences)
   ).map(
     ([category, preferences]) => {

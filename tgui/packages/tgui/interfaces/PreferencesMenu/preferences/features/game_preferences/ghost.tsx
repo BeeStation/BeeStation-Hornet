@@ -2,7 +2,7 @@ import { multiline } from "common/string";
 import { CheckboxInput, FeatureChoiced, FeatureChoicedServerData, FeatureDropdownInput, FeatureToggle, FeatureValueProps } from "../base";
 import { Box, Dropdown, Flex } from "../../../../../components";
 import { classes } from "common/react";
-import { InfernoNode } from "inferno";
+import type { Inferno } from "inferno";
 import { binaryInsertWith } from "common/collections";
 import { useBackend } from "../../../../../backend";
 import { PreferencesMenuData } from "../../../data";
@@ -16,7 +16,7 @@ export const ghost_accs: FeatureChoiced = {
 
 const insertGhostForm
   = binaryInsertWith<{
-    displayText: InfernoNode,
+    displayText: Inferno.InfernoNode,
     value: string,
   }>(({ value }) => value);
 
@@ -42,7 +42,7 @@ const GhostFormInput = (
 
   const displayTexts = {};
   let options: {
-    displayText: InfernoNode,
+    displayText: Inferno.InfernoNode,
     value: string,
   }[] = [];
 

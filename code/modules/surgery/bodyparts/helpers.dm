@@ -236,7 +236,7 @@
 	. = L
 
 
-/proc/skintone2hex(skin_tone)
+/proc/skintone2hex(skin_tone, include_tag = FALSE)
 	. = 0
 	switch(skin_tone)
 		if("caucasian1")
@@ -267,3 +267,5 @@
 			. = "ffc905"
 		if("pink")
 			. = "D7377D"
+	if(include_tag && .)
+		return "#" + .

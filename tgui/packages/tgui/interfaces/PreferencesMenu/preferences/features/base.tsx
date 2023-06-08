@@ -8,7 +8,7 @@ import { Box, Button, Dropdown, Input, NumberInput, Stack } from "../../../../co
 import { createSetPreference, PreferencesMenuData } from "../../data";
 import { ServerPreferencesFetcher } from "../../ServerPreferencesFetcher";
 
-export const sortChoices = sortBy<[string, InfernoNode]>(([name]) => name);
+export const sortChoices = sortBy<[string, Inferno.InfernoNode]>(([name]) => name);
 
 export type Feature<
   TReceiving,
@@ -124,7 +124,7 @@ export const CheckboxInputInverse = (
 
 export const createDropdownInput = <T extends string | number = string>(
   // Map of value to display texts
-  choices: Record<T, InfernoNode>,
+  choices: Record<T, Inferno.InfernoNode>,
   dropdownProps?: Record<T, unknown>,
 ): FeatureValue<T> => {
   return (props: FeatureValueProps<T>) => {
@@ -160,7 +160,7 @@ const capitalizeFirstLetter = (text: string) => (
 export const StandardizedDropdown = (props: {
   choices: string[],
   disabled?: boolean,
-  displayNames: Record<string, InfernoNode>,
+  displayNames: Record<string, Inferno.InfernoNode>,
   onSetValue: (newValue: string) => void,
   value: string,
 }) => {

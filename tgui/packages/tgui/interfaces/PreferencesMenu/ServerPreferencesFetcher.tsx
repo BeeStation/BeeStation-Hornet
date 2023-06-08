@@ -1,4 +1,5 @@
-import { Component, InfernoNode } from "inferno";
+import { Component } from "inferno";
+import type { Inferno } from "inferno";
 import { resolveAsset } from "../../assets";
 import { fetchRetry } from "../../http";
 import { ServerData } from "./data";
@@ -7,7 +8,7 @@ import { ServerData } from "./data";
 let fetchServerData: Promise<ServerData> | undefined;
 
 export class ServerPreferencesFetcher extends Component<{
-  render: (serverData: ServerData | undefined) => InfernoNode,
+  render: (serverData: ServerData | undefined) => Inferno.InfernoNode,
 }, {
   serverData?: ServerData;
 }> {
