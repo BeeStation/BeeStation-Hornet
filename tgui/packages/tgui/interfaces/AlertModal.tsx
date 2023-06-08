@@ -1,13 +1,6 @@
 import { Loader } from './common/Loader';
 import { useBackend, useLocalState } from '../backend';
-import {
-  KEY_ENTER,
-  KEY_ESCAPE,
-  KEY_LEFT,
-  KEY_RIGHT,
-  KEY_SPACE,
-  KEY_TAB,
-} from '../../common/keycodes';
+import { KEY_ENTER, KEY_ESCAPE, KEY_LEFT, KEY_RIGHT, KEY_SPACE, KEY_TAB } from '../../common/keycodes';
 import { Autofocus, Box, Button, Flex, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
@@ -26,20 +19,11 @@ const KEY_INCREMENT = 1;
 
 export const AlertModal = (_, context) => {
   const { act, data } = useBackend<AlertModalData>(context);
-  const {
-    autofocus,
-    buttons = [],
-    large_buttons,
-    message = '',
-    timeout,
-    title,
-  } = data;
+  const { autofocus, buttons = [], large_buttons, message = '', timeout, title } = data;
   const [selected, setSelected] = useLocalState<number>(context, 'selected', 0);
   // Dynamically sets window dimensions
-  const windowHeight
-    = 115
-    + (message.length > 30 ? Math.ceil(message.length / 4) : 0)
-    + (message.length && large_buttons ? 5 : 0);
+  const windowHeight =
+    115 + (message.length > 30 ? Math.ceil(message.length / 4) : 0) + (message.length && large_buttons ? 5 : 0);
   const windowWidth = 325 + (buttons.length > 2 ? 55 : 0);
   const onKey = (direction: number) => {
     if (selected === 0 && direction === KEY_DECREMENT) {
@@ -52,11 +36,7 @@ export const AlertModal = (_, context) => {
   };
 
   return (
-    <Window
-      height={windowHeight}
-      title={title}
-      width={windowWidth}
-      theme="generic">
+    <Window height={windowHeight} title={title} width={windowWidth} theme="generic">
       {!!timeout && <Loader value={timeout} />}
       <Window.Content
         onKeyDown={(e) => {
@@ -106,28 +86,15 @@ const ButtonDisplay = (props, context) => {
   const { selected } = props;
 
   return (
-    <Flex
-      align="center"
-      direction={!swapped_buttons ? 'row-reverse' : 'row'}
-      fill
-      justify="space-around"
-      wrap>
+    <Flex align="center" direction={!swapped_buttons ? 'row-reverse' : 'row'} fill justify="space-around" wrap>
       {buttons?.map((button, index) =>
         !!large_buttons && buttons.length < 3 ? (
           <Flex.Item grow key={index}>
-            <AlertButton
-              button={button}
-              id={index.toString()}
-              selected={selected === index}
-            />
+            <AlertButton button={button} id={index.toString()} selected={selected === index} />
           </Flex.Item>
         ) : (
           <Flex.Item key={index}>
-            <AlertButton
-              button={button}
-              id={index.toString()}
-              selected={selected === index}
-            />
+            <AlertButton button={button} id={index.toString()} selected={selected === index} />
           </Flex.Item>
         )
       )}

@@ -7,121 +7,61 @@ import { classes, shallowDiffers } from '../../../common/react';
 import { resolveAsset } from '../../assets';
 import { CircuitInfo } from './CircuitInfo';
 
-const NULL_REF = "[0x0]";
+const NULL_REF = '[0x0]';
 const ABSOLUTE_Y_OFFSET = -32;
 const SVG_CURVE_INTENSITY = 64;
 
 const BasicInput = (props, context) => {
-  const {
-    children,
-    name,
-    setValue,
-    defaultValue,
-    value,
-  } = props;
-  return (value !== null) && (
-    <Stack onMouseDown={e => e.stopPropagation()}>
-      <Stack.Item>
-        <Button
-          color="transparent"
-          compact
-          icon="times"
-          onClick={() => setValue(null, { set_null: true })}
-        />
-      </Stack.Item>
-      <Stack.Item>
-        {children}
-      </Stack.Item>
-    </Stack>
-  ) || (
-    <Button
-      content={name}
-      color="transparent"
-      compact
-      onClick={() => setValue(defaultValue)}
-    />
+  const { children, name, setValue, defaultValue, value } = props;
+  return (
+    (value !== null && (
+      <Stack onMouseDown={(e) => e.stopPropagation()}>
+        <Stack.Item>
+          <Button color="transparent" compact icon="times" onClick={() => setValue(null, { set_null: true })} />
+        </Stack.Item>
+        <Stack.Item>{children}</Stack.Item>
+      </Stack>
+    )) || <Button content={name} color="transparent" compact onClick={() => setValue(defaultValue)} />
   );
 };
 
 const FUNDAMENTAL_DATA_TYPES = {
-  "string": (props, context) => {
+  'string': (props, context) => {
     const { name, value, setValue, color } = props;
     return (
-      <BasicInput
-        name={name}
-        setValue={setValue}
-        value={value}
-        defaultValue="">
-        <Input
-          placeholder={name}
-          value={value}
-          onChange={(e, val) => setValue(val)}
-        />
+      <BasicInput name={name} setValue={setValue} value={value} defaultValue="">
+        <Input placeholder={name} value={value} onChange={(e, val) => setValue(val)} />
       </BasicInput>
     );
   },
-  "number": (props, context) => {
+  'number': (props, context) => {
     const { name, value, setValue, color } = props;
     return (
-      <BasicInput
-        name={name}
-        setValue={setValue}
-        value={value}
-        defaultValue={0}>
-        <NumberInput
-          value={value}
-          color={color}
-          onChange={(e, val) => setValue(val)}
-          unit={name}
-        />
+      <BasicInput name={name} setValue={setValue} value={value} defaultValue={0}>
+        <NumberInput value={value} color={color} onChange={(e, val) => setValue(val)} unit={name} />
       </BasicInput>
     );
   },
-  "entity": (props, context) => {
+  'entity': (props, context) => {
     const { name, setValue, color } = props;
     return (
-      <Button
-        content={name}
-        color="transparent"
-        icon="upload"
-        compact
-        onClick={() => setValue(null, { marked_atom: true })}
-      />
+      <Button content={name} color="transparent" icon="upload" compact onClick={() => setValue(null, { marked_atom: true })} />
     );
   },
-  "signal": (props, context) => {
+  'signal': (props, context) => {
     const { name, setValue } = props;
-    return (
-      <Button
-        content={name}
-        color="transparent"
-        compact
-        onClick={() => setValue()}
-      />
-    );
+    return <Button content={name} color="transparent" compact onClick={() => setValue()} />;
   },
-  "any": (props, context) => {
+  'any': (props, context) => {
     const { name, value, setValue, color } = props;
     return (
-      <BasicInput
-        name={name}
-        setValue={setValue}
-        value={value}
-        defaultValue={""}>
+      <BasicInput name={name} setValue={setValue} value={value} defaultValue={''}>
         <Stack>
           <Stack.Item>
-            <Button
-              color={color}
-              icon="upload"
-              onClick={() => setValue(null, { marked_atom: true })}
-            />
+            <Button color={color} icon="upload" onClick={() => setValue(null, { marked_atom: true })} />
           </Stack.Item>
           <Stack.Item>
-            <Input
-              placeholder={name}
-              value={value}
-              onChange={(e, val) => setValue(val)}
-            />
+            <Input placeholder={name} value={value} onChange={(e, val) => setValue(val)} />
           </Stack.Item>
         </Stack>
       </BasicInput>
@@ -166,10 +106,11 @@ export class IntegratedCircuit extends Component {
     const position = this.getPosition(dom);
     position.color = port.color;
 
-    if (isNaN(position.x) || isNaN(position.y)
-      || (lastPosition
-      && lastPosition.x === position.x
-      && lastPosition.y === position.y)) {
+    if (
+      isNaN(position.x) ||
+      isNaN(position.y) ||
+      (lastPosition && lastPosition.x === position.x && lastPosition.y === position.y)
+    ) {
       return;
     }
     locations[port.ref] = position;
@@ -177,60 +118,48 @@ export class IntegratedCircuit extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener("mousedown", this.handleMouseDown);
+    window.addEventListener('mousedown', this.handleMouseDown);
   }
 
   componentWillUnmount() {
-    window.removeEventListener("mousedown", this.handleMouseDown);
+    window.removeEventListener('mousedown', this.handleMouseDown);
   }
 
   handleMouseDown(event) {
     const { act, data } = useBackend(this.context);
     const { examined_name } = data;
     if (examined_name) {
-      act("remove_examined_component");
+      act('remove_examined_component');
     }
   }
 
   render() {
     const { act, data } = useBackend(this.context);
-    const {
-      components,
-      display_name,
-      examined_name,
-      examined_desc,
-      examined_notices,
-      examined_rel_x,
-      examined_rel_y,
-    } = data;
+    const { components, display_name, examined_name, examined_desc, examined_notices, examined_rel_x, examined_rel_y } = data;
     const { locations } = this.state;
 
     return (
       <Window
         width={600}
         height={600}
-        buttons={(
+        buttons={
           <Input
             fluid
             placeholder="Circuit Name"
             value={display_name}
-            onChange={(e, value) => act("set_display_name", { display_name: value })}
+            onChange={(e, value) => act('set_display_name', { display_name: value })}
           />
-        )}>
+        }>
         <Window.Content
           style={{
-            "background-image": "none",
+            'background-image': 'none',
           }}>
-          <InfinitePlane
-            width="100%"
-            height="100%"
-            backgroundImage={resolveAsset('grid_background.png')}
-            imageWidth={900}>
+          <InfinitePlane width="100%" height="100%" backgroundImage={resolveAsset('grid_background.png')} imageWidth={900}>
             {components.map((comp, index) => (
               <ObjectComponent
                 key={index}
                 {...comp}
-                index={index+1}
+                index={index + 1}
                 onPortUpdated={this.handlePortLocation}
                 onPortLoaded={this.handlePortLocation}
               />
@@ -266,7 +195,7 @@ const Connections = (props, context) => {
         if (connected_port === NULL_REF) continue;
         const output_port = locations[connected_port];
         connections.push({
-          color: output_port && output_port.color || "blue",
+          color: (output_port && output_port.color) || 'blue',
           from: output_port,
           to: locations[port.ref],
         });
@@ -274,7 +203,7 @@ const Connections = (props, context) => {
     }
   }
 
-  const isColorClass = str => {
+  const isColorClass = (str) => {
     if (typeof str === 'string') {
       return CSS_COLORS.includes(str);
     }
@@ -285,9 +214,9 @@ const Connections = (props, context) => {
       width="100%"
       height="100%"
       style={{
-        "position": "absolute",
-        "pointer-events": "none",
-        "z-index": -1,
+        'position': 'absolute',
+        'pointer-events': 'none',
+        'z-index': -1,
       }}>
       {connections.map((val, index) => {
         const from = val.from;
@@ -297,16 +226,14 @@ const Connections = (props, context) => {
         }
         // Starting point
         let path = `M ${from.x} ${from.y}`;
-        path += `C ${from.x+SVG_CURVE_INTENSITY}, ${from.y},`;
-        path += `${to.x-SVG_CURVE_INTENSITY}, ${to.y},`;
+        path += `C ${from.x + SVG_CURVE_INTENSITY}, ${from.y},`;
+        path += `${to.x - SVG_CURVE_INTENSITY}, ${to.y},`;
         path += `${to.x}, ${to.y}`;
 
-        val.color = val.color || "blue";
+        val.color = val.color || 'blue';
         return (
           <path
-            className={classes([
-              isColorClass(val.color) && `color-stroke-${val.color}`,
-            ])}
+            className={classes([isColorClass(val.color) && `color-stroke-${val.color}`])}
             key={index}
             d={path}
             fill="transparent"
@@ -351,7 +278,7 @@ export class ObjectComponent extends Component {
     const { dragPos } = this.state;
     const { index } = this.props;
     if (dragPos) {
-      act("set_component_coordinates", {
+      act('set_component_coordinates', {
         component_id: index,
         rel_x: dragPos.x,
         rel_y: dragPos.y,
@@ -388,10 +315,10 @@ export class ObjectComponent extends Component {
     const { input_ports, output_ports } = this.props;
 
     return (
-      shallowDiffers(this.props, nextProps)
-      || shallowDiffers(this.state, nextState)
-      || shallowDiffers(input_ports, nextProps.input_ports)
-      || shallowDiffers(output_ports, nextProps.output_ports)
+      shallowDiffers(this.props, nextProps) ||
+      shallowDiffers(this.state, nextState) ||
+      shallowDiffers(input_ports, nextProps.input_ports) ||
+      shallowDiffers(output_ports, nextProps.output_ports)
     );
   }
 
@@ -403,7 +330,7 @@ export class ObjectComponent extends Component {
       x,
       y,
       index,
-      color = "blue",
+      color = 'blue',
       options,
       option,
       removable,
@@ -430,11 +357,7 @@ export class ObjectComponent extends Component {
         onMouseDown={this.handleStartDrag}
         onMouseUp={this.handleStopDrag}
         onComponentWillUnmount={this.handleDrag}>
-        <Box
-          backgroundColor={color}
-          py={1}
-          px={1}
-          className="ObjectComponent__Titlebar">
+        <Box backgroundColor={color} py={1} px={1} className="ObjectComponent__Titlebar">
           <Stack>
             <Stack.Item grow={1} basis="content" unselectable="on">
               {name}
@@ -448,10 +371,12 @@ export class ObjectComponent extends Component {
                   options={options}
                   displayText={option}
                   noscroll
-                  onSelected={selected => act("set_component_option", {
-                    component_id: index,
-                    option: selected,
-                  })}
+                  onSelected={(selected) =>
+                    act('set_component_option', {
+                      component_id: index,
+                      option: selected,
+                    })
+                  }
                 />
               </Stack.Item>
             )}
@@ -460,11 +385,13 @@ export class ObjectComponent extends Component {
                 color="transparent"
                 icon="info"
                 compact
-                onClick={(e) => act("set_examined_component", {
-                  component_id: index,
-                  x: e.pageX,
-                  y: e.pageY + ABSOLUTE_Y_OFFSET,
-                })}
+                onClick={(e) =>
+                  act('set_examined_component', {
+                    component_id: index,
+                    x: e.pageX,
+                    y: e.pageY + ABSOLUTE_Y_OFFSET,
+                  })
+                }
               />
             </Stack.Item>
             {!!removable && (
@@ -473,17 +400,13 @@ export class ObjectComponent extends Component {
                   color="transparent"
                   icon="times"
                   compact
-                  onClick={() => act("detach_component", { component_id: index })}
+                  onClick={() => act('detach_component', { component_id: index })}
                 />
               </Stack.Item>
             )}
           </Stack>
         </Box>
-        <Box
-          className="ObjectComponent__Content"
-          unselectable="on"
-          py={1}
-          px={1}>
+        <Box className="ObjectComponent__Content" unselectable="on" py={1} px={1}>
           <Stack>
             <Stack.Item grow={1} basis="content">
               <Stack vertical fill>
@@ -491,7 +414,7 @@ export class ObjectComponent extends Component {
                   <Stack.Item key={portIndex}>
                     <Port
                       port={port}
-                      portIndex={portIndex+1}
+                      portIndex={portIndex + 1}
                       componentId={index}
                       onPortLoaded={onPortLoaded}
                       onPortUpdated={onPortUpdated}
@@ -506,7 +429,7 @@ export class ObjectComponent extends Component {
                   <Stack.Item key={portIndex}>
                     <Port
                       port={port}
-                      portIndex={portIndex+1}
+                      portIndex={portIndex + 1}
                       componentId={index}
                       onPortLoaded={onPortLoaded}
                       onPortUpdated={onPortUpdated}
@@ -536,15 +459,9 @@ export class Port extends Component {
 
   handlePortClick() {
     const { act } = useBackend(this.context);
-    const [selectedPort, setSelectedPort]
-      = useLocalState(this.context, "selected_port", null);
+    const [selectedPort, setSelectedPort] = useLocalState(this.context, 'selected_port', null);
 
-    const {
-      port,
-      portIndex,
-      componentId,
-      isOutput,
-    } = this.props;
+    const { port, portIndex, componentId, isOutput } = this.props;
 
     if (selectedPort) {
       if (selectedPort.ref === port.ref) {
@@ -571,7 +488,7 @@ export class Port extends Component {
             output_component_id: selectedPort.component_id,
           };
         }
-        act("add_connection", data);
+        act('add_connection', data);
         setSelectedPort(null);
         return;
       }
@@ -582,21 +499,14 @@ export class Port extends Component {
       is_output: isOutput,
       ref: port.ref,
     });
-
   }
 
   handlePortRightClick(e) {
     const { act } = useBackend(this.context);
-    const {
-      port,
-      portIndex,
-      componentId,
-      isOutput,
-      ...rest
-    } = this.props;
+    const { port, portIndex, componentId, isOutput, ...rest } = this.props;
 
     e.preventDefault();
-    act("remove_connection", {
+    act('remove_connection', {
       component_id: componentId,
       is_input: !isOutput,
       port_id: portIndex,
@@ -618,51 +528,30 @@ export class Port extends Component {
   }
 
   render() {
-    const {
-      port,
-      portIndex,
-      componentId,
-      isOutput,
-      ...rest
-    } = this.props;
+    const { port, portIndex, componentId, isOutput, ...rest } = this.props;
 
-    const [selectedPort, setSelectedPort]
-      = useLocalState(this.context, "selected_port", null);
+    const [selectedPort, setSelectedPort] = useLocalState(this.context, 'selected_port', null);
 
     return (
-      <Stack {...rest} justify={isOutput? "flex-end" : "flex-start"}>
+      <Stack {...rest} justify={isOutput ? 'flex-end' : 'flex-start'}>
         {!!isOutput && (
           <Stack.Item>
-            <DisplayName
-              port={port}
-              isOutput={isOutput}
-              componentId={componentId}
-              portIndex={portIndex}
-            />
+            <DisplayName port={port} isOutput={isOutput} componentId={componentId} portIndex={portIndex} />
           </Stack.Item>
         )}
         <Stack.Item>
           <Icon
-            color={port.color || "blue"}
-            name={selectedPort && selectedPort.ref === port.ref
-              ? "dot-circle" : "circle"}
+            color={port.color || 'blue'}
+            name={selectedPort && selectedPort.ref === port.ref ? 'dot-circle' : 'circle'}
             position="relative"
             onClick={this.handlePortClick}
             onContextMenu={this.handlePortRightClick}>
-            <span
-              ref={this.iconRef}
-              className="ObjectComponent__PortPos"
-            />
+            <span ref={this.iconRef} className="ObjectComponent__PortPos" />
           </Icon>
         </Stack.Item>
         {!isOutput && (
           <Stack.Item>
-            <DisplayName
-              port={port}
-              isOutput={isOutput}
-              componentId={componentId}
-              portIndex={portIndex}
-            />
+            <DisplayName port={port} isOutput={isOutput} componentId={componentId} portIndex={portIndex} />
           </Stack.Item>
         )}
       </Stack>
@@ -672,56 +561,49 @@ export class Port extends Component {
 
 const DisplayName = (props, context) => {
   const { act } = useBackend(context);
-  const {
-    port,
-    isOutput,
-    componentId,
-    portIndex,
-    ...rest
-  } = props;
+  const { port, isOutput, componentId, portIndex, ...rest } = props;
 
   const InputComponent = FUNDAMENTAL_DATA_TYPES[port.type || 'any'];
 
-  const hasInput = !isOutput
-    && port.connected_to.length === 0
-    && InputComponent;
+  const hasInput = !isOutput && port.connected_to.length === 0 && InputComponent;
 
   return (
     <Box {...rest}>
       <Flex direction="column">
         <Flex.Item>
-          {hasInput && (
+          {(hasInput && (
             <InputComponent
-              setValue={(val, extraParams) => act("set_component_input", {
-                component_id: componentId,
-                port_id: portIndex,
-                input: val,
-                ...extraParams,
-              })}
+              setValue={(val, extraParams) =>
+                act('set_component_input', {
+                  component_id: componentId,
+                  port_id: portIndex,
+                  input: val,
+                  ...extraParams,
+                })
+              }
               color={port.color}
               name={port.name}
               value={port.current_data}
             />
-          ) || isOutput && (
-            <Button
-              compact
-              color="transparent"
-              onClick={() => act("get_component_value", {
-                component_id: componentId,
-                port_id: portIndex,
-              })}>
-              <Box color="white">
-                {port.name}
-              </Box>
-            </Button>
-          ) || port.name}
+          )) ||
+            (isOutput && (
+              <Button
+                compact
+                color="transparent"
+                onClick={() =>
+                  act('get_component_value', {
+                    component_id: componentId,
+                    port_id: portIndex,
+                  })
+                }>
+                <Box color="white">{port.name}</Box>
+              </Button>
+            )) ||
+            port.name}
         </Flex.Item>
         <Flex.Item>
-          <Box
-            fontSize={0.75}
-            opacity={0.25}
-            textAlign={isOutput? "right" : "left"}>
-            {port.type || "any"}
+          <Box fontSize={0.75} opacity={0.25} textAlign={isOutput ? 'right' : 'left'}>
+            {port.type || 'any'}
           </Box>
         </Flex.Item>
       </Flex>

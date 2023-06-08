@@ -1,10 +1,8 @@
 import { Component } from 'inferno';
 
 // AnimatedNumber Copypaste
-const isSafeNumber = value => {
-  return typeof value === 'number'
-    && Number.isFinite(value)
-    && !Number.isNaN(value);
+const isSafeNumber = (value) => {
+  return typeof value === 'number' && Number.isFinite(value) && !Number.isNaN(value);
 };
 
 export class TimeDisplay extends Component {
@@ -35,7 +33,7 @@ export class TimeDisplay extends Component {
       this.last_seen_value = this.props.value;
       current = this.props.value;
     }
-    const mod = this.props.auto === "up" ? 10 : -10; // Time down by default.
+    const mod = this.props.auto === 'up' ? 10 : -10; // Time down by default.
     const value = Math.max(0, current + mod); // one sec tick
     this.setState({ value });
   }
@@ -59,9 +57,9 @@ export class TimeDisplay extends Component {
     // THERE IS AS YET INSUFFICIENT DATA FOR A MEANINGFUL ANSWER
     // HH:MM:SS
     // 00:02:13
-    const seconds = toFixed(Math.floor((val/10) % 60)).padStart(2, "0");
-    const minutes = toFixed(Math.floor((val/(10*60)) % 60)).padStart(2, "0");
-    const hours = toFixed(Math.floor((val/(10*60*60)) % 24)).padStart(2, "0");
+    const seconds = toFixed(Math.floor((val / 10) % 60)).padStart(2, '0');
+    const minutes = toFixed(Math.floor((val / (10 * 60)) % 60)).padStart(2, '0');
+    const hours = toFixed(Math.floor((val / (10 * 60 * 60)) % 24)).padStart(2, '0');
     const formattedValue = `${hours}:${minutes}:${seconds}`;
     return formattedValue;
   }
