@@ -7,7 +7,7 @@
 
 
 /datum/keybinding/living/resist
-	key = "B"
+	keys = list("B")
 	name = "resist"
 	full_name = "Resist"
 	description = "Break free of your current state. Handcuffs, on fire, being trapped in an alien nest? Resist!"
@@ -23,7 +23,7 @@
 
 
 /datum/keybinding/living/rest
-	key = "V"
+	keys = list("V")
 	name = "rest"
 	full_name = "Rest"
 	description = "Lay down, or get up."
@@ -38,7 +38,7 @@
 	return TRUE
 
 /datum/keybinding/living/look_up
-	key = "L"
+	keys = list("L")
 	name = "look up"
 	full_name = "Look Up"
 	description = "Look up at the next z-level. Only works if below any nearby open space within a 3x3 square."
@@ -61,7 +61,7 @@
 	return TRUE
 
 /datum/keybinding/living/look_down
-	key = ";"
+	keys = list(";")
 	name = "look down"
 	full_name = "Look Down"
 	description = "Look down at the previous z-level. Only works if above any nearby open space within a 3x3 square."

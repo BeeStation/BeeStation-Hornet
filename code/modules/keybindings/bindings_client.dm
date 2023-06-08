@@ -52,12 +52,15 @@ GLOBAL_LIST_INIT(valid_keys, list(
 
 	// Client-level keybindings are ones anyone should be able to do at any time
 	// Things like taking screenshots, hitting tab, and adminhelps.
-	var/AltMod = keys_held["Alt"] ? "Alt-" : ""
-	var/CtrlMod = keys_held["Ctrl"] ? "Ctrl-" : ""
-	var/ShiftMod = keys_held["Shift"] ? "Shift-" : ""
-	var/full_key = "[_key]"
-	if (!(_key in list("Alt", "Ctrl", "Shift")))
-		full_key = "[AltMod][CtrlMod][ShiftMod][_key]"
+	var/AltMod = keys_held["Alt"] ? "Alt" : ""
+	var/CtrlMod = keys_held["Ctrl"] ? "Ctrl" : ""
+	var/ShiftMod = keys_held["Shift"] ? "Shift" : ""
+	var/full_key
+	switch(_key)
+		if("Alt", "Ctrl", "Shift")
+			full_key = "[AltMod][CtrlMod][ShiftMod]"
+		else
+			full_key = "[AltMod][CtrlMod][ShiftMod][_key]"
 
 	var/list/kbs = list()
 	for (var/kb_name in prefs.key_bindings[full_key])
@@ -77,10 +80,8 @@ GLOBAL_LIST_INIT(valid_keys, list(
 		if(kb.can_use(src) && kb.down(src))
 			break
 
-	if(holder)
-		holder.key_down(_key, src)  //full_key is not necessary here, _key is enough
-	if(mob.focus)
-		mob.focus.key_down(_key, src) //same as above
+	holder?.key_down(_key, src)  //full_key is not necessary here, _key is enough
+	mob.focus?.key_down(_key, src) //same as above
 
 /client/verb/keyUp(_key as text)
 	set instant = TRUE

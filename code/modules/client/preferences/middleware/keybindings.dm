@@ -1,3 +1,4 @@
+/// Number of unique keycombos allowed to be bound to one keybinding
 #define MAX_HOTKEY_SLOTS 3
 
 /// Middleware to handle keybindings
@@ -24,8 +25,7 @@
 	)
 
 /datum/preference_middleware/keybindings/proc/reset_all_keybinds(list/params, mob/user)
-	preferences.key_bindings = deep_copy_list(GLOB.keybindings_by_name)
-	preferences.key_bindings_by_key = deep_copy_list(GLOB.keybinding_list_by_key)
+	preferences.set_default_key_bindings()
 	preferences.update_static_data(user)
 
 	return TRUE
@@ -37,9 +37,7 @@
 	if (isnull(keybinding))
 		return FALSE
 
-	// TODO tgui-prefs
-	//preferences.key_bindings[keybind_name] = preferences.parent.hotkeys ? keybinding.hotkey_keys : keybinding.classic_keys
-	//preferences.key_bindings_by_key = preferences.get_key_bindings_by_key(preferences.key_bindings)
+	preferences.key_bindings[keybind_name] = keybinding.keys
 
 	preferences.update_static_data(user)
 
@@ -71,9 +69,7 @@
 
 		hotkeys += hotkey
 
-	preferences.key_bindings[keybind_name] = hotkeys
-	preferences.key_bindings_by_key = preferences.get_key_bindings_by_key(preferences.key_bindings)
-
+	preferences.set_keybind(keybind_name, hotkeys)
 	return TRUE
 
 /datum/asset/json/keybindings

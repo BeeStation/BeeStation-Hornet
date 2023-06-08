@@ -31,7 +31,7 @@
  */
 /*
 	check_keybindings() // this apparently fails every time and overwrites any unloaded prefs with the default values, so don't load anything after this line or it won't actually save
-	key_bindings_by_key = get_key_bindings_by_key(key_bindings) */
+*/
 /*
 	//Sanitize
 	lastchangelog = sanitize_text(lastchangelog, initial(lastchangelog))

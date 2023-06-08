@@ -28,12 +28,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/list/be_special = list() //Special role selection
 
 	/// Custom keybindings. Map of keybind names to keyboard inputs.
-	/// For example, by default would have "swap_hands" -> list("X")
+	/// For example, by default would have "swap_hands" -> "X"
 	var/list/key_bindings = list()
-
-	/// Cached list of keybindings, mapping keys to actions.
-	/// For example, by default would have "X" -> list("swap_hands")
-	var/list/key_bindings_by_key = list()
 
 	var/toggles = TOGGLES_DEFAULT
 	var/toggles2 = TOGGLES_2_DEFAULT
@@ -60,6 +56,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/list/ignoring = list()
 
 	var/list/exp = list()
+	var/job_exempt = 0
 
 	var/action_buttons_screen_locs = list()
 
@@ -100,8 +97,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		CRASH("attempted to create a preferences datum without a client!")
 
 	// give them default keybinds and update their movement keys
-	//key_bindings = GLOB.default_hotkeys.Copy()
-	//key_bindings_by_key = get_key_bindings_by_key(key_bindings)
+	set_default_key_bindings()
 	//randomise = get_default_randomization()
 
 	var/loaded_preferences_successfully = load_preferences()
@@ -498,16 +494,6 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 		character.update_hair()
 		character.update_body_parts()
 
-/// Inverts the key_bindings list such that it can be used for key_bindings_by_key
-/datum/preferences/proc/get_key_bindings_by_key(list/key_bindings)
-	var/list/output = list()
-
-	for (var/action in key_bindings)
-		for (var/key in key_bindings[action])
-			LAZYADD(output[key], action)
-
-	return output
-
 /// Returns the default `randomise` variable ouptut
 /datum/preferences/proc/get_default_randomization()
 	var/list/default_randomization = list()
@@ -518,3 +504,18 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 			default_randomization[preference_key] = RANDOM_ENABLED
 
 	return default_randomization
+
+/datum/preferences/proc/set_key_bindings(list/_key_bindings)
+	if(!istype(_key_bindings))
+		return
+	key_bindings = _key_bindings
+
+/datum/preferences/proc/set_default_key_bindings()
+	key_bindings = deep_copy_list(GLOB.keybinding_list_by_key)
+
+/datum/preferences/proc/set_keybind(keybind_name, hotkeys)
+	if (!(keybind_name in GLOB.keybindings_by_name))
+		return FALSE
+	if(!islist(hotkeys))
+		return
+	key_bindings[keybind_name] = hotkeys

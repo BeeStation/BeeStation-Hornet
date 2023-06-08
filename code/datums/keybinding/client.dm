@@ -4,7 +4,7 @@
 
 
 /datum/keybinding/client/get_help
-	key = "F1"
+	keys = list("F1")
 	name = "get_help"
 	full_name = "Get Help"
 	description = "Ask an admin or mentor for help."
@@ -19,7 +19,7 @@
 
 
 /datum/keybinding/client/screenshot
-	key = "F2"
+	keys = list("F2")
 	name = "screenshot"
 	full_name = "Screenshot"
 	description = "Take a screenshot."
@@ -34,7 +34,7 @@
 
 
 /datum/keybinding/client/toggleminimalhud
-	key = "F12"
+	keys = list("F12")
 	name = "toggleminimalhud"
 	full_name = "Toggle Minimal HUD"
 	description = "Toggle the minimalized state of your hud."
@@ -49,7 +49,7 @@
 
 
 /datum/keybinding/client/zoomin
-	key = "\]"
+	keys = list("\]")
 	name = "zoomin"
 	full_name = "Zoom In"
 	description = "Temporary switch icon scaling mode to 4x until unpressed"
