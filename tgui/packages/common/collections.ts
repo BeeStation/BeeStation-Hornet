@@ -73,9 +73,7 @@ export const map: MapFunction =
  * Given a collection, will run each element through an iteratee function.
  * Will then filter out undefined values.
  */
-export const filterMap = <T, U>(collection: T[], iterateeFn: (
-  value: T
-) => U | undefined): U[] => {
+export const filterMap = <T, U>(collection: T[], iterateeFn: (value: T) => U | undefined): U[] => {
   const finalCollection: U[] = [];
 
   for (const value of collection) {
@@ -257,11 +255,7 @@ export const zipWith =
     return map((values: T[]) => iterateeFn(...values))(zip(...arrays));
   };
 
-const binarySearch = <T, U = unknown>(
-  getKey: (value: T) => U,
-  collection: readonly T[],
-  inserting: T,
-): number => {
+const binarySearch = <T, U = unknown>(getKey: (value: T) => U, collection: readonly T[], inserting: T): number => {
   if (collection.length === 0) {
     return 0;
   }
@@ -292,9 +286,7 @@ const binarySearch = <T, U = unknown>(
   return compare > insertingKey ? middle : middle + 1;
 };
 
-export const binaryInsertWith = <T, U = unknown>(getKey: (value: T) => U):
-  ((collection: readonly T[], value: T) => T[]) =>
-{
+export const binaryInsertWith = <T, U = unknown>(getKey: (value: T) => U): ((collection: readonly T[], value: T) => T[]) => {
   return (collection, value) => {
     const copy = [...collection];
     copy.splice(binarySearch(getKey, collection, value), 0, value);

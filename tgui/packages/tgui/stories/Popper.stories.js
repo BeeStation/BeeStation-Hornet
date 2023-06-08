@@ -1,4 +1,4 @@
-import { Box, Popper } from "../components";
+import { Box, Popper } from '../components';
 
 export const meta = {
   title: 'Popper',

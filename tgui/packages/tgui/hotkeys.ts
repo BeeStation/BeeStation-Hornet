@@ -146,10 +146,9 @@ export const releaseHeldKeys = () => {
 };
 
 export const updateHotkeyMode = () =>
-  Byond.winget("mainwindow", "macro")
-    .then(macro => {
-      hotkeyMode = macro !== "old_default";
-    });
+  Byond.winget('mainwindow', 'macro').then((macro) => {
+    hotkeyMode = macro !== 'old_default';
+  });
 
 type ByondSkinMacro = {
   command: string;
@@ -212,9 +211,7 @@ export const setupHotKeys = () => {
  * @param callback The function to call whenever a key event occurs
  * @returns A callback to stop listening
  */
-export const listenForKeyEvents = (
-  callback: (key: KeyEvent) => void,
-): () => void => {
+export const listenForKeyEvents = (callback: (key: KeyEvent) => void): (() => void) => {
   keyListeners.push(callback);
 
   let removed = false;

@@ -1,9 +1,9 @@
-import { useBackend } from "../../../../backend";
-import { Button, Stack } from "../../../../components";
-import { PreferencesMenuData, RandomSetting } from "../../data";
-import { RandomizationButton } from "../../RandomizationButton";
-import { useRandomToggleState } from "../../useRandomToggleState";
-import { CheckboxInput, Feature, FeatureToggle } from "./base";
+import { useBackend } from '../../../../backend';
+import { Button, Stack } from '../../../../components';
+import { PreferencesMenuData, RandomSetting } from '../../data';
+import { RandomizationButton } from '../../RandomizationButton';
+import { useRandomToggleState } from '../../useRandomToggleState';
+import { CheckboxInput, Feature, FeatureToggle } from './base';
 
 export const body_is_always_random: Feature<RandomSetting> = {
   name: 'Random body',
@@ -13,10 +13,7 @@ export const body_is_always_random: Feature<RandomSetting> = {
     return (
       <Stack>
         <Stack.Item>
-          <RandomizationButton
-            setValue={(newValue) => props.handleSetValue(newValue)}
-            value={props.value}
-          />
+          <RandomizationButton setValue={(newValue) => props.handleSetValue(newValue)} value={props.value} />
         </Stack.Item>
 
         {randomToggle ? (
@@ -49,35 +46,32 @@ export const body_is_always_random: Feature<RandomSetting> = {
 };
 
 export const random_hardcore: FeatureToggle = {
-  name: "Hardcore random",
+  name: 'Hardcore random',
   component: CheckboxInput,
 };
 
 export const name_is_always_random: Feature<RandomSetting> = {
-  name: "Random name",
+  name: 'Random name',
   component: (props, context) => {
-    return (
-      <RandomizationButton
-        setValue={value => props.handleSetValue(value)}
-        value={props.value}
-      />
-    );
+    return <RandomizationButton setValue={(value) => props.handleSetValue(value)} value={props.value} />;
   },
 };
 
 export const random_species: Feature<RandomSetting> = {
-  name: "Random species",
+  name: 'Random species',
   component: (props, context) => {
     const { act, data } = useBackend<PreferencesMenuData>(context);
 
-    const species = data.character_preferences.randomization["species"];
+    const species = data.character_preferences.randomization['species'];
 
     return (
       <RandomizationButton
-        setValue={(newValue) => act("set_random_preference", {
-          preference: "species",
-          value: newValue,
-        })}
+        setValue={(newValue) =>
+          act('set_random_preference', {
+            preference: 'species',
+            value: newValue,
+          })
+        }
         value={species || RandomSetting.Disabled}
       />
     );

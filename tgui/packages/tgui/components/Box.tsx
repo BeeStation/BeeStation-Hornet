@@ -57,7 +57,7 @@ export type BoxProps = {
   textColor?: string | BooleanLike;
   backgroundColor?: string | BooleanLike;
   fillPositionedParent?: boolean;
-}
+};
 
 /**
  * Coverts our rem-like spacing unit into a CSS unit.
@@ -239,12 +239,7 @@ export const computeBoxClassName = (props: BoxProps) => {
 };
 
 export const Box: Inferno.SFC<BoxProps> = (props: BoxProps) => {
-  const {
-    as = 'div',
-    className,
-    children,
-    ...rest
-  } = props;
+  const { as = 'div', className, children, ...rest } = props;
   // Render props
   if (typeof children === 'function') {
     return children(computeBoxProps(props));
@@ -253,13 +248,7 @@ export const Box: Inferno.SFC<BoxProps> = (props: BoxProps) => {
     typeof className === 'string' ? className + ' ' + computeBoxClassName(rest) : computeBoxClassName(rest);
   const computedProps = computeBoxProps(rest);
   // Render a wrapper element
-  return createVNode(
-    VNodeFlags.HtmlElement,
-    as,
-    computedClassName,
-    children,
-    ChildFlags.UnknownChildren,
-    computedProps);
+  return createVNode(VNodeFlags.HtmlElement, as, computedClassName, children, ChildFlags.UnknownChildren, computedProps);
 };
 
 Box.defaultHooks = pureComponentHooks;

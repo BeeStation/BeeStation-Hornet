@@ -11,11 +11,7 @@ export const LoadoutPage = (props, context) => {
         if (!data) {
           return <Box>Loading loadout data...</Box>;
         }
-        const {
-          categories = [],
-          purchased_gear = [],
-          equipped_gear = [],
-        } = data.loadout;
+        const { categories = [], purchased_gear = [], equipped_gear = [] } = data.loadout;
 
         return (
           <Tabs>

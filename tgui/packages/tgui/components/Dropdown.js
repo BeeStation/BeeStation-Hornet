@@ -47,10 +47,10 @@ export class Dropdown extends Component {
 
   buildMenu() {
     const { options = [] } = this.props;
-    const ops = options.map(option => {
+    const ops = options.map((option) => {
       let displayText, value;
 
-      if (typeof option === "string") {
+      if (typeof option === 'string') {
         displayText = option;
         value = option;
       } else {
@@ -135,16 +135,12 @@ export class Dropdown extends Component {
               onOpen(event);
             }
           }}>
-          {icon && (
-            <Icon
-              name={icon}
-              rotation={iconRotation}
-              spin={iconSpin}
-              mr={1} />
-          )}
-          <span className="Dropdown__selected-text" style={{
-            "overflow": clipSelectedText ? "hidden" : "visible",
-          }}>
+          {icon && <Icon name={icon} rotation={iconRotation} spin={iconSpin} mr={1} />}
+          <span
+            className="Dropdown__selected-text"
+            style={{
+              'overflow': clipSelectedText ? 'hidden' : 'visible',
+            }}>
             {displayText ? displayText : this.state.selected}
           </span>
           {!!nochevron || (

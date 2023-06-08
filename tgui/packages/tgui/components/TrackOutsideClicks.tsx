@@ -1,7 +1,7 @@
-import { Component, createRef } from "inferno";
+import { Component, createRef } from 'inferno';
 
 export class TrackOutsideClicks extends Component<{
-  onOutsideClick: () => void,
+  onOutsideClick: () => void;
 }> {
   ref = createRef<HTMLDivElement>();
 
@@ -10,11 +10,11 @@ export class TrackOutsideClicks extends Component<{
 
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
 
-    document.addEventListener("click", this.handleOutsideClick);
+    document.addEventListener('click', this.handleOutsideClick);
   }
 
   componentWillUnmount() {
-    document.removeEventListener("click", this.handleOutsideClick);
+    document.removeEventListener('click', this.handleOutsideClick);
   }
 
   handleOutsideClick(event: MouseEvent) {
@@ -28,11 +28,6 @@ export class TrackOutsideClicks extends Component<{
   }
 
   render() {
-    return (
-      <div ref={this.ref}>
-        {this.props.children}
-      </div>
-    );
+    return <div ref={this.ref}>{this.props.children}</div>;
   }
 }
-

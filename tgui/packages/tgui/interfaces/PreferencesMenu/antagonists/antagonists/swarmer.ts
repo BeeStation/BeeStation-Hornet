@@ -1,9 +1,9 @@
-import { Antagonist, Category } from "../base";
-import { multiline } from "common/string";
+import { Antagonist, Category } from '../base';
+import { multiline } from 'common/string';
 
 const Swarmer: Antagonist = {
-  key: "swarmer",
-  name: "Swarmer",
+  key: 'swarmer',
+  name: 'Swarmer',
   description: [
     multiline`
       A swarmer is a small robot that replicates itself autonomously with

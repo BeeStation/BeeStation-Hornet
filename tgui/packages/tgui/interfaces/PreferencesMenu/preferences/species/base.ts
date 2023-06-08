@@ -1,9 +1,9 @@
 export type Species = {
   description: string;
   features: {
-    good: Feature[],
-    neutral: Feature[],
-    bad: Feature[],
+    good: Feature[];
+    neutral: Feature[];
+    bad: Feature[];
   };
   lore?: string[];
 };
@@ -15,7 +15,7 @@ export type Feature = {
 };
 
 export const fallbackSpecies: Species = {
-  description: "No description! File a bug report!",
+  description: 'No description! File a bug report!',
   features: {
     good: [],
     neutral: [],
@@ -25,9 +25,8 @@ export const fallbackSpecies: Species = {
 
 export const createLanguagePerk = (language: string): Feature => {
   return {
-    icon: "comment",
-    name: "Native Speaker",
-    description:
-      `Alongside Galactic Common, gain the ability to speak ${language}.`,
+    icon: 'comment',
+    name: 'Native Speaker',
+    description: `Alongside Galactic Common, gain the ability to speak ${language}.`,
   };
 };

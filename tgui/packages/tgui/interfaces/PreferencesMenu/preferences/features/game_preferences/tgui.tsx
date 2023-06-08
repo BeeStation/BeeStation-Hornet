@@ -17,8 +17,7 @@ export const tgui_lock: FeatureToggle = {
 export const tgui_say_show_prefix: FeatureToggle = {
   name: 'Say: Show Prefix',
   category: 'UI',
-  description:
-    'If radio prefixes should remain in the chatbox after being typed.',
+  description: 'If radio prefixes should remain in the chatbox after being typed.',
   component: CheckboxInput,
 };
 
@@ -39,8 +38,7 @@ export const tgui_input_large: FeatureToggle = {
 export const tgui_input_swapped: FeatureToggle = {
   name: 'Input: Swap Submit/Cancel buttons',
   category: 'UI',
-  description:
-    'Switches the location of the Submit and Cancel buttons. On means Submit will be on the left.',
+  description: 'Switches the location of the Submit and Cancel buttons. On means Submit will be on the left.',
   component: CheckboxInput,
 };
 

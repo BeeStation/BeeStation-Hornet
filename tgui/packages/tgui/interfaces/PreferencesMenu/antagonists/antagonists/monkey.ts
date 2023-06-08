@@ -1,9 +1,9 @@
-import { Antagonist, Category } from "../base";
-import { multiline } from "common/string";
+import { Antagonist, Category } from '../base';
+import { multiline } from 'common/string';
 
 const Monkey: Antagonist = {
-  key: "monkey",
-  name: "Monkey",
+  key: 'monkey',
+  name: 'Monkey',
   description: [
     multiline`
       When the round starts, become infected with Jungle Fever, a disease which
