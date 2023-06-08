@@ -53,7 +53,7 @@
 /datum/preference_middleware/quirks/proc/give_quirk(list/params, mob/user)
 	var/quirk_name = params["quirk"]
 
-	var/list/new_quirks = preferences.all_quirks | quirk_name
+	var/list/new_quirks = preferences.all_quirks | quirk_name // TODO tgui-prefs
 	/*if (SSquirks.filter_invalid_quirks(new_quirks) != new_quirks)
 		// If the client is sending an invalid give_quirk, that means that
 		// something went wrong with the client prediction, so we should

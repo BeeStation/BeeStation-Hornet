@@ -463,6 +463,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 	return TRUE
 
 /datum/preferences/proc/GetQuirkBalance()
+	// TODO tgui-prefs
 	/*var/bal = 0
 	for(var/V in all_quirks)
 		var/datum/quirk/T = SSquirks.quirks[V]

@@ -68,6 +68,26 @@ export type QuirkInfo = {
   quirk_blacklist: string[][];
 };
 
+export type LoadoutInfo = {
+  categories: LoadoutCategory[];
+  purchased_gear: string[];
+  equipped_gear: string[];
+};
+
+export type LoadoutGear = {
+  id: string;
+  display_name: string;
+  skirt_display_name: string | null;
+  donator: BooleanLike;
+  cost: number;
+  allowed_roles: string[] | null;
+};
+
+export type LoadoutCategory = {
+  name: string;
+  gear: LoadoutGear[];
+};
+
 export enum RandomSetting {
   AntagOnly = 1,
   Disabled = 2,
@@ -85,12 +105,13 @@ export enum GamePreferencesSelectedPage {
   Keybindings,
 }
 
-export const createSetPreference = (act: typeof sendAct, preference: string) => (value: unknown) => {
-  act('set_preference', {
-    preference,
-    value,
-  });
-};
+export const createSetPreference =
+  (act: typeof sendAct, preference: string) => (value: unknown) => {
+    act('set_preference', {
+      preference,
+      value,
+    });
+  };
 
 export enum Window {
   Character = 0,
@@ -161,6 +182,7 @@ export type ServerData = {
     types: Record<string, Name>;
   };
   quirks: QuirkInfo;
+  loadout: LoadoutInfo;
   random: {
     randomizable: string[];
   };

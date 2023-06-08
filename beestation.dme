@@ -2186,6 +2186,7 @@
 #include "code\modules\client\preferences\middleware\antags.dm"
 #include "code\modules\client\preferences\middleware\jobs.dm"
 #include "code\modules\client\preferences\middleware\keybindings.dm"
+#include "code\modules\client\preferences\middleware\loadout.dm"
 #include "code\modules\client\preferences\middleware\names.dm"
 #include "code\modules\client\preferences\middleware\quirks.dm"
 #include "code\modules\client\preferences\middleware\random.dm"

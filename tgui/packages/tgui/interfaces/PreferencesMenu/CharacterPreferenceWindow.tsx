@@ -9,6 +9,7 @@ import { JobsPage } from "./JobsPage";
 import { MainPage } from "./MainPage";
 import { SpeciesPage } from "./SpeciesPage";
 import { QuirksPage } from "./QuirksPage";
+import { LoadoutPage } from "./LoadoutPage";
 
 enum Page {
   Antags,
@@ -16,6 +17,7 @@ enum Page {
   Jobs,
   Species,
   Quirks,
+  Loadout
 }
 
 const CharacterProfiles = (props: {
@@ -71,6 +73,9 @@ export const CharacterPreferenceWindow = (props, context) => {
       break;
     case Page.Quirks:
       pageContents = <QuirksPage />;
+      break;
+    case Page.Loadout:
+      pageContents = <LoadoutPage />;
       break;
     default:
       exhaustiveCheck(currentPage);
@@ -128,6 +133,15 @@ export const CharacterPreferenceWindow = (props, context) => {
                   */}
 
                   Occupations
+                </PageButton>
+              </Stack.Item>
+
+              <Stack.Item grow>
+                <PageButton
+                  currentPage={currentPage}
+                  page={Page.Loadout}
+                  setPage={setCurrentPage}>
+                  Loadout
                 </PageButton>
               </Stack.Item>
 
