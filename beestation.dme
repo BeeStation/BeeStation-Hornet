@@ -746,6 +746,7 @@
 #include "code\datums\elements\light_blocking.dm"
 #include "code\datums\elements\mechanical_repair.dm"
 #include "code\datums\elements\openspace_item_click_handler.dm"
+#include "code\datums\elements\point_of_interest.dm"
 #include "code\datums\elements\rust.dm"
 #include "code\datums\elements\squish.dm"
 #include "code\datums\elements\strippable.dm"
