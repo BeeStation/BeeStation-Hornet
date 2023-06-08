@@ -20,6 +20,7 @@ enum Page {
 
 const CharacterProfiles = (props: {
   activeSlot: number,
+  maxSlot: number,
   onClick: (index: number) => void,
   profiles: (string | null)[],
 }) => {
@@ -31,6 +32,7 @@ const CharacterProfiles = (props: {
         <Stack.Item key={slot}>
           <Button
             selected={slot === props.activeSlot}
+            disabled={slot >= props.maxSlot}
             onClick={() => {
               props.onClick(slot);
             }} fluid>{profile ?? "New Character"}
@@ -78,13 +80,13 @@ export const CharacterPreferenceWindow = (props, context) => {
     <Window
       title="Character Preferences"
       width={920}
-      height={770}
-    >
+      height={770}>
       <Window.Content scrollable>
         <Stack vertical fill>
           <Stack.Item>
             <CharacterProfiles
               activeSlot={data.active_slot - 1}
+              maxSlot={data.max_slot}
               onClick={(slot) => {
                 act("change_slot", {
                   slot: slot + 1,
@@ -109,8 +111,7 @@ export const CharacterPreferenceWindow = (props, context) => {
                   currentPage={currentPage}
                   page={Page.Main}
                   setPage={setCurrentPage}
-                  otherActivePages={[Page.Species]}
-                >
+                  otherActivePages={[Page.Species]}>
                   Character
                 </PageButton>
               </Stack.Item>
@@ -119,8 +120,7 @@ export const CharacterPreferenceWindow = (props, context) => {
                 <PageButton
                   currentPage={currentPage}
                   page={Page.Jobs}
-                  setPage={setCurrentPage}
-                >
+                  setPage={setCurrentPage}>
                   {/*
                     Fun fact: This isn't "Jobs" so that it intentionally
                     catches your eyes, because it's really important!
@@ -134,8 +134,7 @@ export const CharacterPreferenceWindow = (props, context) => {
                 <PageButton
                   currentPage={currentPage}
                   page={Page.Antags}
-                  setPage={setCurrentPage}
-                >
+                  setPage={setCurrentPage}>
                   Antagonists
                 </PageButton>
               </Stack.Item>
@@ -144,8 +143,7 @@ export const CharacterPreferenceWindow = (props, context) => {
                 <PageButton
                   currentPage={currentPage}
                   page={Page.Quirks}
-                  setPage={setCurrentPage}
-                >
+                  setPage={setCurrentPage}>
                   Quirks
                 </PageButton>
               </Stack.Item>

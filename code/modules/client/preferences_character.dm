@@ -143,3 +143,31 @@
 				index++
 
 			return "[output][input[index]]=VALUES([input[index]])"
+
+
+/datum/preferences_holder/preferences_character/proc/get_all_character_names(datum/preferences/prefs)
+	if(!SSdbcore.IsConnected())
+		return list() // No names if DB is not connected
+	var/datum/DBQuery/Q = SSdbcore.NewQuery(
+		"SELECT slot,real_name FROM [format_table_name("characters")] WHERE ckey=:ckey",
+		list("ckey" = prefs.parent.ckey)
+	)
+	if(!Q.warn_execute())
+		qdel(Q)
+		CRASH("An SQL error occurred while retrieving character profile data.")
+	var/list/data = list()
+	for(var/index in 1 to TRUE_MAX_SAVE_SLOTS)
+		data += null
+	while(Q.NextRow())
+		var/list/values = Q.item
+		if(length(values) != 2)
+			CRASH("Error querying character profile data: the returned value length is greater than the number of columns requested.")
+		if(!isnum(values[1]))
+			CRASH("Error querying character profile data: slot number was not a number")
+		if(!istext(values[2]))
+			CRASH("Error querying character profile data: character name was not a string")
+		if(values[1] > TRUE_MAX_SAVE_SLOTS)
+			CRASH("Slot number in database is greater than the maximum allowed slots! Please purge this character entry or increase the slot number.")
+		data[values[1]] = values[2] // data[1] = "John Smith"
+	qdel(Q)
+	return data

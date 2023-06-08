@@ -162,6 +162,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	data["character_preferences"] = compile_character_preferences(user)
 
 	data["active_slot"] = default_slot
+	data["max_slot"] = max_save_slots
 
 	for (var/datum/preference_middleware/preference_middleware as anything in middleware)
 		data += preference_middleware.get_ui_data(user)
@@ -237,7 +238,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if (!update_preference(requested_preference, value))
 				return FALSE
 
-			if (istype(requested_preference, /datum/preference/name))
+			if (istype(requested_preference, /datum/preference/name/real_name))
 				tainted_character_profiles = TRUE
 
 			return TRUE
@@ -421,16 +422,15 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 
 /datum/preferences/proc/create_character_profiles()
 	var/list/profiles = list()
-
 	for(var/index in 1 to TRUE_MAX_SAVE_SLOTS)
-		var/name = read_preference(/datum/preference/name/real_name, index)
-
-		if (isnull(name))
-			profiles += null
+		profiles += null
+	var/list/slot_to_name = character_data.get_all_character_names(src)
+	if(!islist(slot_to_name))
+		return profiles
+	for(var/index in 1 to TRUE_MAX_SAVE_SLOTS)
+		if(index > length(slot_to_name))
 			continue
-
-		profiles += name
-
+		profiles[index] = slot_to_name[index]
 	return profiles
 
 /datum/preferences/proc/set_job_preference_level(datum/job/job, level)

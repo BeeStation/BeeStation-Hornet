@@ -137,6 +137,7 @@ export type PreferencesMenuData = {
   selected_antags: string[];
 
   active_slot: number;
+  max_slot: number;
   name_to_use: string;
 
   window: Window;

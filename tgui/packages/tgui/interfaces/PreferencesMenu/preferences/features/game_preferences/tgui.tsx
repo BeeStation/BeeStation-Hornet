@@ -13,3 +13,10 @@ export const tgui_lock: FeatureToggle = {
   description: "Locks tgui windows to your main monitor.",
   component: CheckboxInput,
 };
+
+export const tgui_say_show_prefix: FeatureToggle = {
+  name: 'Say: Show Prefix',
+  category: 'UI',
+  description: 'If radio prefixes should remain in the chatbox after being typed.',
+  component: CheckboxInput,
+};
