@@ -16,7 +16,10 @@
 	"gitlens.advanced.blame.customArguments": ["-w"],
 	"tgstationTestExplorer.project.resultsType": "json",
 	"tgstationTestExplorer.project.DMEName": "beestation.dme",
-	"tgstationTestExplorer.project.defines": ["#define UNIT_TESTS", "#define CBT"],
+	"tgstationTestExplorer.project.defines": [
+		"#define UNIT_TESTS",
+		"#define CBT"
+	],
 	"[javascript]": {
 		"editor.rulers": [80],
 		"editor.defaultFormatter": "esbenp.prettier-vscode",

@@ -42,8 +42,7 @@ export class Tooltip extends Component<TooltipProps, TooltipState> {
   static singletonPopper: ReturnType<typeof createPopper> | undefined;
   static currentHoveredElement: Element | undefined;
   static virtualElement: VirtualElement = {
-    getBoundingClientRect: () =>
-      Tooltip.currentHoveredElement?.getBoundingClientRect() ?? NULL_RECT,
+    getBoundingClientRect: () => Tooltip.currentHoveredElement?.getBoundingClientRect() ?? NULL_RECT,
   };
 
   getDOMNode() {
@@ -107,14 +106,10 @@ export class Tooltip extends Component<TooltipProps, TooltipState> {
       () => {
         let singletonPopper = Tooltip.singletonPopper;
         if (singletonPopper === undefined) {
-          singletonPopper = createPopper(
-            Tooltip.virtualElement,
-            renderedTooltip!,
-            {
-              ...DEFAULT_OPTIONS,
-              placement: this.props.position || 'auto',
-            }
-          );
+          singletonPopper = createPopper(Tooltip.virtualElement, renderedTooltip!, {
+            ...DEFAULT_OPTIONS,
+            placement: this.props.position || 'auto',
+          });
 
           Tooltip.singletonPopper = singletonPopper;
         } else {

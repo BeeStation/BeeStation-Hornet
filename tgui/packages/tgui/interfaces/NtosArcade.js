@@ -5,20 +5,15 @@ import { NtosWindow } from '../layouts';
 export const NtosArcade = (props, context) => {
   const { act, data } = useBackend(context);
   return (
-    <NtosWindow
-      width={450}
-      height={350}>
+    <NtosWindow width={450} height={350}>
       <NtosWindow.Content>
-        <Section
-          title="Outbomb Cuban Pete Ultra"
-          textAlign="center">
+        <Section title="Outbomb Cuban Pete Ultra" textAlign="center">
           <Box>
             <Grid>
               <Grid.Column size={2}>
                 <Box m={1} />
                 <LabeledList>
-                  <LabeledList.Item
-                    label="Player Health">
+                  <LabeledList.Item label="Player Health">
                     <ProgressBar
                       value={data.PlayerHitpoints}
                       minValue={0}
@@ -32,8 +27,7 @@ export const NtosArcade = (props, context) => {
                       {data.PlayerHitpoints}HP
                     </ProgressBar>
                   </LabeledList.Item>
-                  <LabeledList.Item
-                    label="Player Magic">
+                  <LabeledList.Item label="Player Magic">
                     <ProgressBar
                       value={data.PlayerMP}
                       minValue={0}
@@ -48,12 +42,7 @@ export const NtosArcade = (props, context) => {
                   </LabeledList.Item>
                 </LabeledList>
                 <Box my={1} mx={4} />
-                <Section
-                  backgroundColor={
-                    data.PauseState === 1 ? "#1b3622" : "#471915"
-                  }>
-                  {data.Status}
-                </Section>
+                <Section backgroundColor={data.PauseState === 1 ? '#1b3622' : '#471915'}>{data.Status}</Section>
               </Grid.Column>
               <Grid.Column>
                 <ProgressBar
@@ -69,10 +58,7 @@ export const NtosArcade = (props, context) => {
                   HP
                 </ProgressBar>
                 <Box m={1} />
-                <Section
-                  inline
-                  width="156px"
-                  textAlign="center">
+                <Section inline width="156px" textAlign="center">
                   <img src={data.BossID} />
                 </Section>
               </Grid.Column>
@@ -84,21 +70,24 @@ export const NtosArcade = (props, context) => {
               tooltipPosition="top"
               disabled={data.GameActive === 0 || data.PauseState === 1}
               onClick={() => act('Attack')}
-              content="Attack!" />
+              content="Attack!"
+            />
             <Button
               icon="band-aid"
               tooltip="Heal yourself!"
               tooltipPosition="top"
               disabled={data.GameActive === 0 || data.PauseState === 1}
               onClick={() => act('Heal')}
-              content="Heal!" />
+              content="Heal!"
+            />
             <Button
               icon="magic"
               tooltip="Recharge your magic!"
               tooltipPosition="top"
               disabled={data.GameActive === 0 || data.PauseState === 1}
               onClick={() => act('Recharge_Power')}
-              content="Recharge!" />
+              content="Recharge!"
+            />
           </Box>
           <Box>
             <Button
@@ -107,7 +96,8 @@ export const NtosArcade = (props, context) => {
               tooltipPosition="top"
               disabled={data.GameActive === 1}
               onClick={() => act('Start_Game')}
-              content="Begin Game" />
+              content="Begin Game"
+            />
           </Box>
         </Section>
       </NtosWindow.Content>
