@@ -2,17 +2,7 @@ import { classes } from 'common/react';
 import { useBackend, useLocalState } from '../backend';
 import { resolveAsset } from '../assets';
 import { Window } from '../layouts';
-import {
-  Button,
-  Box,
-  Stack,
-  Section,
-  Icon,
-  Input,
-  Flex,
-  Tabs,
-  Tooltip,
-} from '../components';
+import { Button, Box, Stack, Section, Icon, Input, Flex, Tabs, Tooltip } from '../components';
 import { createSearch } from 'common/string';
 
 export const ChameleonPanel = (_, context) => {
@@ -30,11 +20,7 @@ export const ChameleonPanel = (_, context) => {
         <>
           {!!manual.can_craft && (
             <Button
-              content={
-                manual.cooldown > 0
-                  ? `Create Manual (in ${manual.cooldown}s)`
-                  : 'Create Manual'
-              }
+              content={manual.cooldown > 0 ? `Create Manual (in ${manual.cooldown}s)` : 'Create Manual'}
               disabled={manual.cooldown > 0}
               icon="book"
               m={1}
@@ -92,18 +78,10 @@ const ChameleonPanelTabs = (_, context) => {
   const [tab, setTab] = useLocalState(context, 'tab', 1);
   return (
     <Tabs>
-      <Tabs.Tab
-        icon="id-card"
-        selected={tab === 1}
-        lineHeight="24px"
-        onClick={() => setTab(1)}>
+      <Tabs.Tab icon="id-card" selected={tab === 1} lineHeight="24px" onClick={() => setTab(1)}>
         Chameleon Editor
       </Tabs.Tab>
-      <Tabs.Tab
-        icon="user"
-        selected={tab === 2}
-        lineHeight="24px"
-        onClick={() => setTab(2)}>
+      <Tabs.Tab icon="user" selected={tab === 2} lineHeight="24px" onClick={() => setTab(2)}>
         Outfits
       </Tabs.Tab>
     </Tabs>
@@ -114,43 +92,27 @@ const OutfitsPanel = (_, context) => {
   const [compact] = useLocalState(context, 'compact', false);
   const { data } = useBackend(context);
   const { outfits } = data;
-  const [searchText, setSearchText] = useLocalState(
-    context,
-    'outfitsSearchText',
-    ''
-  );
+  const [searchText, setSearchText] = useLocalState(context, 'outfitsSearchText', '');
   const search = createSearch(searchText, (item) => {
     return item.name;
   });
-  const outfits_filtered = outfits
-    ? searchText.length > 0
-      ? outfits.filter(search)
-      : outfits
-    : [];
+  const outfits_filtered = outfits ? (searchText.length > 0 ? outfits.filter(search) : outfits) : [];
   return (
     <Section
       title="Outfits"
       buttons={
         <Flex>
           <Flex.Item>
-            <Icon
-              name="search"
-              mr={1} />
+            <Icon name="search" mr={1} />
           </Flex.Item>
           <Flex.Item grow={1}>
-            <Input
-              placeholder="Search..."
-              fluid
-              value={searchText}
-              onInput={(_, value) => setSearchText(value)} />
+            <Input placeholder="Search..." fluid value={searchText} onInput={(_, value) => setSearchText(value)} />
           </Flex.Item>
         </Flex>
       }>
       <Stack fill>
         <Stack.Item grow>
-          {(compact && <OutfitsCompact outfits={outfits_filtered} />) || (
-            <Outfits outfits={outfits_filtered} />
-          )}
+          {(compact && <OutfitsCompact outfits={outfits_filtered} />) || <Outfits outfits={outfits_filtered} />}
         </Stack.Item>
       </Stack>
     </Section>
@@ -167,13 +129,8 @@ const OutfitsCompact = (props, context) => {
       <Flex key={outfit.type} justify="space-between" className="candystripe">
         <Flex.Item m={0.5}>{outfit.name}</Flex.Item>
         <Flex.Item m={0.5}>
-          <Tooltip
-            content={<ChameleonIcon assetName={outfit_icon} />}
-            position="left">
-            <Button
-              onClick={() => act('equip_outfit', { outfit: outfit.type })}>
-              Disguise
-            </Button>
+          <Tooltip content={<ChameleonIcon assetName={outfit_icon} />} position="left">
+            <Button onClick={() => act('equip_outfit', { outfit: outfit.type })}>Disguise</Button>
           </Tooltip>
         </Flex.Item>
       </Flex>
@@ -190,13 +147,11 @@ const Outfits = (props, context) => {
     return (
       <Flex inline direction="column" width="80px" key={outfit.type}>
         <Flex.Item>
-          <Button
-            key={outfit.type}
-            onClick={() => act('equip_outfit', { outfit: outfit.type })}>
+          <Button key={outfit.type} onClick={() => act('equip_outfit', { outfit: outfit.type })}>
             <ChameleonIcon assetName={outfit_icon} />
           </Button>
         </Flex.Item>
-        <Flex.Item textAlign="center" fontSize="10px" style={{ "overflow-wrap": "anywhere" }}>
+        <Flex.Item textAlign="center" fontSize="10px" style={{ 'overflow-wrap': 'anywhere' }}>
           {outfit.name}
         </Flex.Item>
       </Flex>
@@ -228,18 +183,12 @@ const DisguisePanel = (_, context) => {
   const { act, data } = useBackend(context);
   const { chameleon_items } = data;
   const [compact] = useLocalState(context, 'compact', false);
-  const [searchText, setSearchText] = useLocalState(
-    context,
-    'disguiseSearchText',
-    ''
-  );
+  const [searchText, setSearchText] = useLocalState(context, 'disguiseSearchText', '');
   const search = createSearch(searchText, (item) => {
     return item.name;
   });
   const [selected] = useLocalState(context, 'selected');
-  const selectedChameleon = chameleon_items.find(
-    (chameleon) => chameleon.ref === selected
-  );
+  const selectedChameleon = chameleon_items.find((chameleon) => chameleon.ref === selected);
   const disguises = selectedChameleon
     ? searchText.length > 0
       ? selectedChameleon.disguises.filter(search)
@@ -257,17 +206,12 @@ const DisguisePanel = (_, context) => {
           buttons={
             <Stack>
               {!!selectedChameleon && (
-                <ExtraActions
-                  actions={selectedChameleon.extra_actions}
-                  itemRef={selectedChameleon.ref}
-                />
+                <ExtraActions actions={selectedChameleon.extra_actions} itemRef={selectedChameleon.ref} />
               )}
               <Stack.Item>
                 <Flex>
                   <Flex.Item>
-                    <Icon
-                      name="search"
-                      mr={1} />
+                    <Icon name="search" mr={1} />
                   </Flex.Item>
                   <Flex.Item>
                     <Input
@@ -275,22 +219,15 @@ const DisguisePanel = (_, context) => {
                       fluid
                       width="200px"
                       value={searchText}
-                      onInput={(_, value) => setSearchText(value)} />
+                      onInput={(_, value) => setSearchText(value)}
+                    />
                   </Flex.Item>
                 </Flex>
               </Stack.Item>
             </Stack>
           }>
-          {(!!compact && (
-            <DisguisesCompact
-              selectedChameleon={selectedChameleon}
-              disguises={disguises}
-            />
-          )) || (
-            <Disguises
-              selectedChameleon={selectedChameleon}
-              disguises={disguises}
-            />
+          {(!!compact && <DisguisesCompact selectedChameleon={selectedChameleon} disguises={disguises} />) || (
+            <Disguises selectedChameleon={selectedChameleon} disguises={disguises} />
           )}
         </Section>
       </Stack.Item>
@@ -305,9 +242,7 @@ const DisguiseItems = (_, context) => {
   return (
     <Stack vertical fill>
       {chameleon_items.map((disguise, _) => {
-        const disguise_icon = disguise.type
-          .replace('/obj/item/', '')
-          .replace(/\//g, '-');
+        const disguise_icon = disguise.type.replace('/obj/item/', '').replace(/\//g, '-');
         return (
           <Stack.Item key={disguise.ref}>
             <Flex direction="column" width="80px">
@@ -335,9 +270,7 @@ const Disguises = (props, context) => {
   const { disguises, selectedChameleon } = props;
   const { act } = useBackend(context);
   return (disguises || []).map((disguise, _) => {
-    const disguise_icon = disguise.type
-      .replace('/obj/item/', '')
-      .replace(/\//g, '-');
+    const disguise_icon = disguise.type.replace('/obj/item/', '').replace(/\//g, '-');
     return (
       <Flex inline direction="column" width="80px" key={disguise.type}>
         <Flex.Item>
@@ -348,11 +281,12 @@ const Disguises = (props, context) => {
               act('disguise', {
                 ref: selectedChameleon.ref,
                 type: disguise.type,
-              })}>
+              })
+            }>
             <ChameleonIcon assetClass={disguise_icon} />
           </Button>
         </Flex.Item>
-        <Flex.Item textAlign="center" fontSize="10px" style={{ "overflow-wrap": "anywhere" }}>
+        <Flex.Item textAlign="center" fontSize="10px" style={{ 'overflow-wrap': 'anywhere' }}>
           {`${disguise.name}`}
         </Flex.Item>
       </Flex>
@@ -364,28 +298,21 @@ const DisguisesCompact = (props, context) => {
   const { disguises, selectedChameleon } = props;
   const { act } = useBackend(context);
   return (disguises || []).map((disguise, _) => {
-    const disguise_icon = disguise.type
-      .replace('/obj/item/', '')
-      .replace(/\//g, '-');
+    const disguise_icon = disguise.type.replace('/obj/item/', '').replace(/\//g, '-');
     return (
       <Flex key={disguise.type} justify="space-between" className="candystripe">
+        <Flex.Item m={0.5}>{`${disguise.name} (${disguise.icon_name})`}</Flex.Item>
         <Flex.Item m={0.5}>
-          {`${disguise.name} (${disguise.icon_name})`}
-        </Flex.Item>
-        <Flex.Item m={0.5}>
-          <Tooltip
-            content={<ChameleonIcon assetClass={disguise_icon} />}
-            position="left">
+          <Tooltip content={<ChameleonIcon assetClass={disguise_icon} />} position="left">
             <Button
               selected={selectedChameleon.current_disguise === disguise.type}
               onClick={() =>
                 act('disguise', {
                   ref: selectedChameleon.ref,
                   type: disguise.type,
-                })}>
-              {selectedChameleon.current_disguise === disguise.type
-                ? 'Disguised'
-                : 'Disguise'}
+                })
+              }>
+              {selectedChameleon.current_disguise === disguise.type ? 'Disguised' : 'Disguise'}
             </Button>
           </Tooltip>
         </Flex.Item>
