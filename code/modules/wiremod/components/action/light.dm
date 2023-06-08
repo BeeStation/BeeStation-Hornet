@@ -27,10 +27,10 @@
 	. += create_ui_notice("Maximum Brightness: [max_power]", "orange", "lightbulb")
 
 /obj/item/circuit_component/light/populate_ports()
-	red = add_input_port("Red", PORT_TYPE_NUMBER)
-	green = add_input_port("Green", PORT_TYPE_NUMBER)
-	blue = add_input_port("Blue", PORT_TYPE_NUMBER)
-	brightness = add_input_port("Brightness", PORT_TYPE_NUMBER)
+	red = add_input_port("Red", PORT_TYPE_NUMBER, default = 255)
+	green = add_input_port("Green", PORT_TYPE_NUMBER, default = 255)
+	blue = add_input_port("Blue", PORT_TYPE_NUMBER, default = 255)
+	brightness = add_input_port("Brightness", PORT_TYPE_NUMBER, default = 1)
 
 	on = add_input_port("On", PORT_TYPE_NUMBER)
 
@@ -58,6 +58,10 @@
 		set_atom_light(parent.shell)
 
 /obj/item/circuit_component/light/proc/set_atom_light(atom/movable/target_atom)
-	target_atom.set_light_on(on.value)
-	target_atom.set_light_color(shell_light_color)
+	target_atom.set_light_power(brightness.value)
 	target_atom.set_light_range(brightness.value)
+	target_atom.set_light_color(shell_light_color)
+	target_atom.set_light_on(!!on.value)
+
+	if(target_atom.light_system == STATIC_LIGHT)
+		target_atom.update_light()
