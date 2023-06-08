@@ -30,14 +30,14 @@ export const VariableMenu = (props, context) => {
       fill
       height="100%">
       <Stack height="100%">
-        <Stack.Item grow={1} mr={2}>
+        <Stack.Item grow={1} basis="content" mr={2}>
           <Section fill scrollable>
             <Stack vertical>
               {variables.map(val => (
                 <Stack.Item key={val.name}>
                   <Box backgroundColor="transparent" px="1px" py="1px" height="100%">
                     <Stack align="center">
-                      <Stack.Item grow={1}>
+                      <Stack.Item grow={1} basis="content">
                         <Box textAlign="center">
                           {val.name}
                         </Box>
@@ -81,7 +81,7 @@ export const VariableMenu = (props, context) => {
                   onSelected={(selectedVal) => setType(selectedVal)}
                 />
               </Stack.Item>
-              <Stack.Item grow={1}>
+              <Stack.Item grow={1} basis="content">
                 <Button
                   content="Add Variable"
                   onClick={(e) => onAddVariable(name, type, e)}

@@ -138,7 +138,7 @@ export class ObjectComponent extends Component {
           px={1}
           className="ObjectComponent__Titlebar">
           <Stack>
-            <Stack.Item grow={1} unselectable="on">
+            <Stack.Item grow={1} basis="content" unselectable="on">
               {name}
             </Stack.Item>
             {!!ui_buttons && Object.keys(ui_buttons).map(icon => (
@@ -182,7 +182,7 @@ export class ObjectComponent extends Component {
           py={1}
           px={1}>
           <Stack>
-            <Stack.Item grow={1}>
+            <Stack.Item grow={1} basis="content">
               <Stack vertical fill>
                 {input_ports.map((port, portIndex) => (
                   <Stack.Item key={portIndex}>
