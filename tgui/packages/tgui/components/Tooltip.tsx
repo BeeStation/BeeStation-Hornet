@@ -1,10 +1,10 @@
 import { createPopper, Placement, VirtualElement } from '@popperjs/core';
 import { Component, findDOMFromVNode, render } from 'inferno';
-import type { Inferno } from 'inferno';
+import type { InfernoNode } from 'inferno';
 
 type TooltipProps = {
-  children?: Inferno.InfernoNode;
-  content: Inferno.InfernoNode;
+  children?: InfernoNode;
+  content: InfernoNode;
   position?: Placement;
 };
 
@@ -21,7 +21,7 @@ const DEFAULT_OPTIONS = {
   ],
 };
 
-const NULL_RECT = {
+const NULL_RECT: DOMRect = {
   width: 0,
   height: 0,
   top: 0,

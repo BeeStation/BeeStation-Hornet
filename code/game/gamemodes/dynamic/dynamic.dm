@@ -545,7 +545,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 			rule.candidates = candidates.Copy()
 			rule.trim_candidates()
 			if (rule.ready(roundstart_pop_ready) && rule.candidates.len > 0)
-				drafted_rules[rule] = rule.weight
+				drafted_rules[rule] = rule.get_weight()
 
 	var/list/rulesets_picked = list()
 

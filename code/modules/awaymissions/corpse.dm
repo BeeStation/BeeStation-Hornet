@@ -55,7 +55,7 @@
 	if(instant || (roundstart && (mapload || (SSticker && SSticker.current_state > GAME_STATE_SETTING_UP))))
 		create()
 	else if(ghost_usable)
-		GLOB.poi_list |= src
+		AddElement(/datum/element/point_of_interest)
 		LAZYADD(GLOB.mob_spawners[name], src)
 		SSmobs.update_spawners()
 	if(spawner_special_role in GLOB.midround_antag_list) // if the role is in the antag list, prob you should bancheck that too
@@ -63,7 +63,6 @@
 	bancheck_list |= spawner_special_role
 
 /obj/effect/mob_spawn/Destroy()
-	GLOB.poi_list -= src
 	var/list/spawners = GLOB.mob_spawners[name]
 	LAZYREMOVE(spawners, src)
 	if(!LAZYLEN(spawners))
