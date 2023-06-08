@@ -462,25 +462,66 @@ em {
   font-weight: bold;
 }
 
-.deadsay				{color: #b866ff}
-.binarysay    			{color: #20c20e; background-color: #000000; display: block;}
-.binarysay a  			{color: #00ff00;}
-.binarysay a:active, .binarysay a:visited {color: #88ff88;}
-.radio					{color: #1ecc43;}
-.sciradio				{color: #c68cfa;}
-.explradio				{color: #7ed4c2;}
-.comradio				{color: #5177ff;}
-.secradio				{color: #dd3535;}
-.medradio				{color: #33ccff;}
-.engradio				{color: #f37746;}
-.suppradio				{color: #b88646;}
-.servradio				{color: #4e7a1f}
-.syndradio				{color: #8f4a4b;}
-.centcomradio			{color: #2681a5;}
-.aiprivradio			{color: #d65d95;}
-.redteamradio           {color: #ff4444;}
-.blueteamradio          {color: #3434fd;}
-.holocall               {color: #c5285c;}
+.deadsay {
+  color: #b866ff;
+}
+.binarysay {
+  color: #20c20e;
+  background-color: #000000;
+  display: block;
+}
+.binarysay a {
+  color: #00ff00;
+}
+.binarysay a:active,
+.binarysay a:visited {
+  color: #88ff88;
+}
+.radio {
+  color: #1ecc43;
+}
+.sciradio {
+  color: #c68cfa;
+}
+.explradio {
+  color: #7ed4c2;
+}
+.comradio {
+  color: #5177ff;
+}
+.secradio {
+  color: #dd3535;
+}
+.medradio {
+  color: #33ccff;
+}
+.engradio {
+  color: #f37746;
+}
+.suppradio {
+  color: #b88646;
+}
+.servradio {
+  color: #4e7a1f;
+}
+.syndradio {
+  color: #8f4a4b;
+}
+.centcomradio {
+  color: #2681a5;
+}
+.aiprivradio {
+  color: #d65d95;
+}
+.redteamradio {
+  color: #ff4444;
+}
+.blueteamradio {
+  color: #3434fd;
+}
+.holocall {
+  color: #c5285c;
+}
 
 .yell {
   font-weight: bold;
