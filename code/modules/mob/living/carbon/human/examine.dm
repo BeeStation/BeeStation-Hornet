@@ -80,6 +80,8 @@
 			. += "[t_He] [t_has] [glasses.get_examine_string(user)] covering [t_his] eyes."
 		else if(eye_color == BLOODCULT_EYE && iscultist(src) && HAS_TRAIT(src, CULT_EYES))
 			. += "<span class='warning'><B>[t_His] eyes are glowing an unnatural red!</B></span>"
+		else if(mind?.has_antag_datum(/datum/antagonist/brainwashed))
+			. += "<span class='warning'>[t_His] gaze seems distant and unfocused.</span>"
 
 	//ears
 	if(ears && !(obscured & ITEM_SLOT_EARS) && !(ears.item_flags & EXAMINE_SKIP))
