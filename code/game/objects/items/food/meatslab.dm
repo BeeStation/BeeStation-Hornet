@@ -9,7 +9,7 @@
 	name = "meat"
 	desc = "A slab of meat."
 	icon_state = "meat"
-	//dried_type = /obj/item/reagent_containers/food/snacks/sosjerky/healthy
+	//dried_type = /obj/item/food//sosjerky/healthy
 	bite_consumption = 3
 	food_reagents = list(
 		/datum/reagent/consumable/nutriment/protein = 6,

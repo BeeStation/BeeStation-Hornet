@@ -5483,10 +5483,10 @@
 /area/hallway/primary/central)
 "bOn" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/dough{
+/obj/item/food/dough{
 	pixel_x = -4
 	},
-/obj/item/reagent_containers/food/snacks/dough{
+/obj/item/food/dough{
 	pixel_y = 1
 	},
 /obj/item/kitchen/rollingpin{
@@ -21470,7 +21470,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/vending/sustenance{
-	products = list(/obj/item/reagent_containers/food/snacks/tofu/prison = 24, /obj/item/reagent_containers/food/drinks/ice/prison = 12, /obj/item/reagent_containers/food/snacks/candy_corn/prison = 6, /obj/item/storage/fancy/cigarettes = 5, /obj/item/storage/box/matches = 10)
+	products = list(/obj/item/food/tofu/prison = 24, /obj/item/reagent_containers/food/drinks/ice/prison = 12, /obj/item/food/candy_corn/prison = 6, /obj/item/storage/fancy/cigarettes = 5, /obj/item/storage/box/matches = 10)
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
@@ -29290,7 +29290,7 @@
 	pixel_y = 1
 	},
 /obj/effect/turf_decal/stripes/corner,
-/obj/item/reagent_containers/food/snacks/piedough,
+/obj/item/food/piedough,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen)
 "jme" = (
@@ -44152,7 +44152,7 @@
 	pixel_x = 8;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/snacks/mint,
+/obj/item/food/mint,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters{
 	id = "Chefwindow";
@@ -54722,8 +54722,8 @@
 "rvD" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
 /obj/effect/turf_decal/bot,
-/obj/item/reagent_containers/food/snacks/meat/slab/penguin,
-/obj/item/reagent_containers/food/snacks/meat/slab/penguin,
+/obj/item/food/meat/slab/penguin,
+/obj/item/food/meat/slab/penguin,
 /obj/machinery/power/apc/auto_name/north{
 	pixel_y = 24
 	},
