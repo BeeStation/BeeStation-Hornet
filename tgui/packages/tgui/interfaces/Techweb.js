@@ -1,21 +1,7 @@
 import { filter, map, sortBy } from 'common/collections';
 import { flow } from 'common/fp';
 import { useBackend, useLocalState } from '../backend';
-import {
-  Button,
-  Section,
-  Modal,
-  Dropdown,
-  Tabs,
-  Box,
-  Input,
-  Flex,
-  ProgressBar,
-  Collapsible,
-  Icon,
-  Divider,
-  Tooltip,
-} from '../components';
+import { Button, Section, Modal, Dropdown, Tabs, Box, Input, Flex, ProgressBar, Collapsible, Icon, Divider, Tooltip } from '../components';
 import { Window, NtosWindow } from '../layouts';
 
 // Data reshaping / ingestion (thanks stylemistake for the help, very cool!)
@@ -492,7 +478,13 @@ const TechwebDesignDisk = (props, context) => {
                 width="100%"
                 options={designOptions}
                 onSelected={(val) => {
-                  const idx = parseInt(val.split('[').pop().split(']')[0], 10);
+                  const idx = parseInt(
+                    val
+                      .split('[')
+                      .pop()
+                      .split(']')[0],
+                    10
+                  );
                   setSelectedDesign(designIdByIdx[idx]);
                 }}
               />
