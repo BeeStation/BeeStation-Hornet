@@ -92,7 +92,7 @@ const EquipmentSection = (_props, _context) => {
               <Box inline textColor="blue">
                 Sleep
               </Box>
-              : Knocks someone out, as long as they&apos;re stunned.
+              : Knocks someone out, as long as they&apos;re stunned. Only one person can be asleep at a time, however!
               <br />
               <Box inline textColor="red">
                 Cuff
