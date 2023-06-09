@@ -15,26 +15,19 @@
 	light_color = LIGHT_COLOR_BLUE
 
 /obj/machinery/computer/operating/Initialize(mapload)
-	. = ..()
+	..()
 	linked_techweb = SSresearch.science_tech
-	if(mapload)
-		return INITIALIZE_HINT_LATELOAD
-	else
-		find_table()
+	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/computer/operating/LateInitialize()
 	. = ..()
-	find_table()
+	link_with_table()
 
 /obj/machinery/computer/operating/Destroy()
-	for(var/direction in GLOB.cardinals)
-		table = locate(/obj/structure/table/optable) in get_step(src, direction)
-		if(table && table.computer == src)
-			table.computer = null
-		else
-			sbed = locate(/obj/machinery/stasis) in get_step(src, direction)
-			if(sbed && sbed.op_computer == src)
-				sbed.op_computer = null
+	if(table?.computer == src)
+		table.computer = null
+	if(sbed?.op_computer == src)
+		sbed.op_computer = null
 	. = ..()
 
 /obj/machinery/computer/operating/attackby(obj/item/O, mob/user, params)
@@ -55,17 +48,23 @@
 			continue
 		advanced_surgeries |= D.surgery
 
-/obj/machinery/computer/operating/proc/find_table()
-	for(var/direction in GLOB.alldirs)
-		table = locate(/obj/structure/table/optable) in get_step(src, direction)
-		if(table && !table.computer)
-			table.computer = src
-			break
-		else
-			sbed = locate(/obj/machinery/stasis) in get_step(src, direction)
-			if(sbed && !sbed.op_computer)
-				sbed.op_computer = src
-				break
+/obj/machinery/computer/operating/proc/link_with_table(obj/structure/table/optable/table, obj/machinery/stasis/sbed)
+	if(!table && !sbed)
+		for(var/direction in GLOB.alldirs)
+			if(!table)
+				var/obj/structure/table/optable/new_table = locate(/obj/structure/table/optable) in get_step(src, direction)
+				if(new_table && !new_table.computer)
+					table = new_table
+			if(!sbed)
+				var/obj/machinery/stasis/new_bed = locate(/obj/machinery/stasis) in get_step(src, direction)
+				if(new_bed && !new_bed.op_computer)
+					sbed = new_bed
+	if(table)
+		table.computer = src
+		src.table = table
+	if(sbed)
+		sbed.op_computer = src
+		src.sbed = sbed
 
 
 /obj/machinery/computer/operating/ui_state(mob/user)

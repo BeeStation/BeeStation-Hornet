@@ -20,11 +20,8 @@
 	var/obj/machinery/computer/operating/op_computer
 
 /obj/machinery/stasis/Initialize(mapload)
-	. = ..()
-	if(mapload)
-		return INITIALIZE_HINT_LATELOAD
-	else
-		initial_link()
+	..()
+	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/stasis/LateInitialize()
 	. = ..()
@@ -44,8 +41,7 @@
 	for(var/direction in GLOB.alldirs)
 		var/obj/machinery/computer/operating/op_computer = locate(/obj/machinery/computer/operating) in get_step(src, direction)
 		if(op_computer && !op_computer.sbed)
-			op_computer.sbed = src
-			src.op_computer = op_computer
+			op_computer.link_with_table(sbed = src)
 			break
 
 /obj/machinery/stasis/proc/play_power_sound()

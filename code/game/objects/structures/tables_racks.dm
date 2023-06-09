@@ -552,11 +552,8 @@
 	var/obj/machinery/computer/operating/computer = null
 
 /obj/structure/table/optable/Initialize(mapload)
-	. = ..()
-	if(mapload)
-		return INITIALIZE_HINT_LATELOAD
-	else
-		initial_link()
+	..()
+	return INITIALIZE_HINT_LATELOAD
 
 /obj/structure/table/optable/LateInitialize()
 	. = ..()
@@ -565,8 +562,8 @@
 /obj/structure/table/optable/proc/initial_link()
 	for(var/direction in GLOB.alldirs)
 		computer = locate(/obj/machinery/computer/operating) in get_step(src, direction)
-		if(computer)
-			computer.table = src
+		if(computer && !computer.table)
+			computer.link_with_table(table = src)
 			break
 
 /obj/structure/table/optable/Destroy()
