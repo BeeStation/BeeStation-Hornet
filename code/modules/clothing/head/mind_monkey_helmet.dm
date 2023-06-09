@@ -71,7 +71,7 @@
 	M.ghostize(FALSE)
 	if(prob(10))
 		M.apply_damage(500,BRAIN,BODY_ZONE_HEAD,FALSE,FALSE,FALSE) //brain death
-	magnification = null
+	qdel(magnification)
 
 /obj/item/clothing/head/monkey_sentience_helmet/proc/disconnect()
 	if(!magnification) //not put on a viable head
