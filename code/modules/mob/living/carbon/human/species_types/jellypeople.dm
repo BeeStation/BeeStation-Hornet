@@ -509,7 +509,7 @@ GLOBAL_LIST_EMPTY(slime_linked_with)
 /datum/species/oozeling/stargazer/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
 	to_chat(C, "<span class='big notice'>You can use :[MODE_KEY_SLIMELINK] or .[MODE_KEY_SLIMELINK] to talk over your slime link!</span>")
-	RegisterSignal(C, COMSIG_MOB_LOGIN, PROC_REF(login_notify))
+	register_mob_signals(C)
 
 /datum/species/oozeling/stargazer/on_species_loss(mob/living/carbon/C)
 	..()
@@ -541,12 +541,31 @@ GLOBAL_LIST_EMPTY(slime_linked_with)
 		return
 	var/datum/action/innate/linked_speech/action = linked_actions[link_id]
 	if(!QDELETED(old_body))
-		UnregisterSignal(old_body, list(COMSIG_MOB_LOGIN, COMSIG_MOB_DEATH))
+		unregister_mob_signals(old_body, mind_transfer = FALSE)
 		action.Remove(old_body)
 	if(!QDELETED(new_body))
-		RegisterSignal(new_body, COMSIG_MOB_LOGIN, PROC_REF(login_notify))
-		RegisterSignal(new_body, COMSIG_MOB_DEATH, PROC_REF(link_death))
+		register_mob_signals(new_body, death = TRUE)
 		action.Grant(new_body)
+
+/datum/species/oozeling/stargazer/proc/register_mob_signals(mob/living/target, death = FALSE, mind_transfer = FALSE)
+	RegisterSignal(target, COMSIG_MOB_LOGIN, PROC_REF(login_notify))
+	if(death)
+		RegisterSignal(target, COMSIG_MOB_DEATH, PROC_REF(link_death))
+	if(mind_transfer && target.mind)
+		RegisterSignal(target.mind, COMSIG_MIND_TRANSFER_TO, PROC_REF(mind_transfer))
+
+/datum/species/oozeling/stargazer/proc/unregister_mob_signals(target, mind_transfer = TRUE)
+	if(istype(target, /mob/living))
+		var/mob/living/living_target = target
+		UnregisterSignal(living_target, list(COMSIG_MOB_LOGIN, COMSIG_MOB_DEATH), PROC_REF(login_notify))
+		if(mind_transfer && living_target.mind)
+			UnregisterSignal(living_target.mind, COMSIG_MIND_TRANSFER_TO)
+	else if(istype(target, /datum/mind))
+		var/datum/mind/mind_target = target
+		if(mind_transfer)
+			UnregisterSignal(mind_target, COMSIG_MIND_TRANSFER_TO)
+		if(mind_target.current)
+			UnregisterSignal(mind_target.current, list(COMSIG_MOB_LOGIN, COMSIG_MOB_DEATH))
 
 /datum/species/oozeling/stargazer/proc/link_death(mob/living/source_mob)
 	SIGNAL_HANDLER
@@ -590,9 +609,7 @@ GLOBAL_LIST_EMPTY(slime_linked_with)
 	action.Grant(mind.current)
 	to_chat(mind.current, "<span class='notice'>You are now connected to [owner.real_name]'s Slime Link.</span>")
 	GLOB.slime_linked_with[mind] = WEAKREF(src)
-	RegisterSignal(mind.current, COMSIG_MOB_LOGIN, PROC_REF(login_notify))
-	RegisterSignal(mind.current, COMSIG_MOB_DEATH, PROC_REF(link_death))
-	RegisterSignal(mind, COMSIG_MIND_TRANSFER_TO, PROC_REF(mind_transfer))
+	register_mob_signals(mind.current, death = TRUE, mind_transfer = TRUE)
 	to_chat(mind.current, "<span class='big notice'>You can use :[MODE_KEY_SLIMELINK] or .[MODE_KEY_SLIMELINK] to talk over the slime link!</span>")
 	return TRUE
 
@@ -602,11 +619,10 @@ GLOBAL_LIST_EMPTY(slime_linked_with)
 		return
 	var/mob/living/carbon/human/owner = slimelink_owner.resolve()
 	var/datum/action/innate/linked_speech/action = linked_actions[link_id]
+	unregister_mob_signals(mind)
 	if(mind.current)
 		action.Remove(mind.current)
 		to_chat(mind.current, "<span class='notice'>You are no longer connected to [owner.real_name]'s Slime Link.</span>")
-		UnregisterSignal(mind.current, list(COMSIG_MOB_LOGIN, COMSIG_MOB_DEATH))
-	UnregisterSignal(mind, COMSIG_MIND_TRANSFER_TO)
 	linked_actions -= action
 	linked_minds -= mind
 	if(GLOB.slime_linked_with[mind])
