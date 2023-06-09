@@ -106,4 +106,3 @@
 			else
 				pill_name = new_name + " pill"
 			. = TRUE
-
