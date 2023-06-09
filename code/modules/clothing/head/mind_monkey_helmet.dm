@@ -6,6 +6,7 @@
 	icon_state = "monkeymind1" //For mapping?
 	item_state = "monkeymind"
 	strip_delay = 100
+	clothing_flags = EFFECT_HAT
 	var/cooldown_expiry //It'll get annoying quick when someone tries to remove their own helmet 20 times a second
 	var/datum/weakref/magnification = null ///A weak reference to the monkey we're on
 	var/polling = FALSE///if the helmet is currently polling for targets (special code for removal)
