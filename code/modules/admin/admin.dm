@@ -69,7 +69,7 @@
 		body += "<a href='?_src_=holder;[HrefToken()];modantagtokens=subtract;mob=[REF(M)]'>-</a> "
 		body += "<a href='?_src_=holder;[HrefToken()];modantagtokens=set;mob=[REF(M)]'>=</a> "
 		body += "<a href='?_src_=holder;[HrefToken()];modantagtokens=zero;mob=[REF(M)]'>0</a>"
-		var/metabalance = M.client.get_metabalance()
+		var/metabalance = M.client.get_metabalance_db()
 		body += "<br><b>[CONFIG_GET(string/metacurrency_name)]s</b>: [metabalance] "
 		var/full_version = "Unknown"
 		if(M.client.byond_version)
