@@ -24,6 +24,7 @@
 #define POLL_IGNORE_SPLITPERSONALITY "split_personality"
 #define POLL_IGNORE_SWARMER "swarmer"
 #define POLL_IGNORE_SYNDICATE "syndicate"
+#define POLL_IGNORE_MONKEY_HELMET "monkey_helmet"
 
 GLOBAL_LIST_INIT(poll_ignore_desc, list(
 	POLL_IGNORE_ALIEN_LARVA = "Xenomorph larva",
@@ -49,6 +50,7 @@ GLOBAL_LIST_INIT(poll_ignore_desc, list(
 	POLL_IGNORE_SPLITPERSONALITY = "Split Personality",
 	POLL_IGNORE_SWARMER = "Swarmer shells",
 	POLL_IGNORE_SYNDICATE = "Syndicate",
+	POLL_IGNORE_MONKEY_HELMET = "Monkey Sentience Helmet"
 ))
 GLOBAL_LIST_INIT(poll_ignore, init_poll_ignore())
 
