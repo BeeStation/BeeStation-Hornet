@@ -55,6 +55,7 @@
 /datum/antagonist/traitor/ui_static_data(mob/user)
 	var/datum/component/uplink/uplink = uplink_ref?.resolve()
 	var/list/data = list()
+	data["antag_name"] = name
 	data["has_codewords"] = should_give_codewords
 	if(should_give_codewords)
 		data["phrases"] = jointext(GLOB.syndicate_code_phrase, ", ")

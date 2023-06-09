@@ -1,7 +1,8 @@
 import { useBackend } from '../backend';
-import { Section, Stack } from '../components';
+import { Box, Section, Stack } from '../components';
 import { BooleanLike } from 'common/react';
 import { Window } from '../layouts';
+import { resolveAsset } from '../assets';
 
 const teleportstyle = {
   color: 'yellow',
@@ -31,11 +32,6 @@ const ritualstyle = {
   color: 'violet',
 };
 
-const grandritualstyle = {
-  fontWeight: 'bold',
-  color: '#bd54e0',
-};
-
 type Objective = {
   count: number;
   name: string;
@@ -45,32 +41,65 @@ type Objective = {
   reward: number;
 };
 
-type GrandRitual = {
-  remaining: number;
-  next_area: string;
-};
-
 type Info = {
   objectives: Objective[];
-  ritual: GrandRitual;
 };
 
-export const AntagInfoWizard = (props, context) => {
+const IntroSection = (_props, _context) => {
+  return (
+    <Stack>
+      <Stack.Item>
+        <Box
+          inline
+          as="img"
+          src={resolveAsset('wizard.png')}
+          width="64px"
+          style={{ '-ms-interpolation-mode': 'nearest-neighbor' }}
+        />
+      </Stack.Item>
+      <Stack.Item grow>
+        <h1 style={{ 'position': 'relative', 'top': '25%', 'left': '25%' }}>
+          You are the{' '}
+          <Box inline textColor="bad">
+            Wizard
+          </Box>
+          !
+        </h1>
+      </Stack.Item>
+    </Stack>
+  );
+};
+
+const ObjectivesSection = (_props, context) => {
+  const { data } = useBackend<Info>(context);
+  const { objectives } = data;
+  return (
+    <Section fill title="Objectives" scrollable>
+      <Stack vertical>
+        <Stack.Item bold>Your current objectives:</Stack.Item>
+        <Stack.Item>
+          {(!objectives && 'None!') ||
+            objectives.map((objective) => (
+              <Stack.Item key={objective.count}>
+                #{objective.count}: {objective.explanation}
+              </Stack.Item>
+            ))}
+        </Stack.Item>
+      </Stack>
+    </Section>
+  );
+};
+
+export const AntagInfoWizard = (_props, _context) => {
   return (
     <Window width={620} height={620} theme="wizard">
       <Window.Content>
         <Stack vertical fill>
+          <Stack.Item>
+            <IntroSection />
+          </Stack.Item>
           <Stack.Item grow>
-            <Section scrollable fill>
-              <Stack vertical>
-                <Stack.Item textColor="red" fontSize="20px">
-                  You are the Space Wizard!
-                </Stack.Item>
-                <Stack.Item>
-                  <ObjectivePrintout />
-                </Stack.Item>
-              </Stack>
-            </Section>
+            <ObjectivesSection />
           </Stack.Item>
           <Stack.Item>
             <Section fill title="Spellbook">
@@ -98,10 +127,6 @@ export const AntagInfoWizard = (props, context) => {
                     The rituals page has powerful global effects, that will pit the station against itself. Do mind that these
                     are either expensive, or just for panache.
                   </span>
-                </Stack.Item>
-                <Stack.Item textColor="lightgreen">
-                  (If you are unsure what to get or are new to the Federation, go to the &quot;Wizard Approved Loadouts&quot;
-                  section. There you will find some kits that work fairly well for new wizards.)
                 </Stack.Item>
               </Stack>
             </Section>
@@ -132,7 +157,7 @@ export const AntagInfoWizard = (props, context) => {
 
 const ObjectivePrintout = (props, context) => {
   const { data } = useBackend<Info>(context);
-  const { objectives, ritual } = data;
+  const { objectives } = data;
   return (
     <Stack vertical>
       <Stack.Item bold>The Space Wizards Federation has given you the following tasks:</Stack.Item>

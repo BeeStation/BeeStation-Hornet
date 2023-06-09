@@ -242,6 +242,7 @@ GLOBAL_LIST(admin_antag_list)
 			"name" = objective.name,
 			"explanation" = objective.explanation_text,
 			"complete" = objective.completed,
+			"optional" = objective.optional,
 		))
 		objective_count++
 	return objective_data
@@ -251,6 +252,11 @@ GLOBAL_LIST(admin_antag_list)
 	data["antag_name"] = name
 	data["objectives"] = get_objectives()
 	return data
+
+/datum/antagonist/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/simple/bee_antags),
+	)
 
 //ADMIN TOOLS
 
