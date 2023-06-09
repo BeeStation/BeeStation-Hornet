@@ -1,6 +1,0 @@
-author: Absolucy
-delete-after: true
-changes:
-  - tweak: Nanite scanners now have a more visually pleasing output.
-  - tweak: Nanite scanners now display program rules, including which ones are active
-      or not.

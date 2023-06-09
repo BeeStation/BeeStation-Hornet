@@ -1,4 +1,0 @@
-author: Tyranicranger4, Fikou
-delete-after: true
-changes:
-  - admin: Individual player logs can now be viewed even after someone has disconnected.

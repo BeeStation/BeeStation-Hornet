@@ -1,5 +1,0 @@
-author: Absolucy
-delete-after: true
-changes:
-  - tweak: Forceful nanite syncs (slime/person splitting, nanite sting, infective
-      exo-locomotion) now copy settings such as cloud ID.
