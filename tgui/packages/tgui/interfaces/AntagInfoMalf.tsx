@@ -1,7 +1,8 @@
-import { useBackend, useLocalState } from '../backend';
-import { BlockQuote, Button, Section, Stack, Tabs } from '../components';
+import { useBackend } from '../backend';
+import { Box, BlockQuote, Section, Stack } from '../components';
 import { BooleanLike } from 'common/react';
 import { Window } from '../layouts';
+import { ObjectivesSection, Objective } from './common/ObjectiveSection';
 
 const allystyle = {
   fontWeight: 'bold',
@@ -18,12 +19,6 @@ const goalstyle = {
   fontWeight: 'bold',
 };
 
-type Objective = {
-  count: number;
-  name: string;
-  explanation: string;
-};
-
 type Info = {
   has_codewords: BooleanLike;
   phrases: string;
@@ -31,28 +26,16 @@ type Info = {
   objectives: Objective[];
 };
 
-const ObjectivePrintout = (_props, context) => {
-  const { data } = useBackend<Info>(context);
-  const { objectives } = data;
+const IntroSection = (_props, _context) => {
   return (
-    <Stack vertical>
-      <Stack.Item bold>Your prime objectives:</Stack.Item>
-      <Stack.Item>
-        {(!objectives && 'None!') ||
-          objectives.map((objective) => (
-            <Stack.Item key={objective.count}>
-              &#8805-{objective.count}: {objective.explanation}
-            </Stack.Item>
-          ))}
-      </Stack.Item>
-    </Stack>
-  );
-};
-
-const ObjectivesSection = (_props, _context) => {
-  return (
-    <Section fill title="Objectives" scrollable>
-      <ObjectivePrintout />
+    <Section>
+      <h1 style={{ 'position': 'relative', 'top': '25%', 'left': '25%' }}>
+        You are the{' '}
+        <Box inline textColor="bad">
+          Malfunctioning AI
+        </Box>
+        !
+      </h1>
     </Section>
   );
 };
@@ -99,13 +82,18 @@ const CodewordsSection = (_props, context) => {
   );
 };
 
-export const AntagInfoMalf = (_props, _context) => {
+export const AntagInfoMalf = (_props, context) => {
+  const { data } = useBackend<Info>(context);
+  const { objectives } = data;
   return (
     <Window width={660} height={530} theme="hackerman">
       <Window.Content style={{ 'font-family': 'Consolas, monospace' }}>
         <Stack vertical fill>
+          <Stack.Item>
+            <IntroSection />
+          </Stack.Item>
           <Stack.Item grow>
-            <ObjectivesSection />
+            <ObjectivesSection objectives={objectives} />
           </Stack.Item>
           <Stack.Item>
             <CodewordsSection />

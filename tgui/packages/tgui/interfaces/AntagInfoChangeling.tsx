@@ -2,6 +2,7 @@ import { useBackend } from '../backend';
 import { Box, Section, Stack } from '../components';
 import { Window } from '../layouts';
 import { resolveAsset } from '../assets';
+import { ObjectivesSection, Objective } from './common/ObjectiveSection';
 
 const hivestyle = {
   fontWeight: 'bold',
@@ -38,12 +39,6 @@ const fallenstyle = {
   fontWeight: 'bold',
 };
 
-type Objective = {
-  count: number;
-  name: string;
-  explanation: string;
-};
-
 type Info = {
   true_name: string;
   // TODO: changeling refactor from tg
@@ -52,7 +47,9 @@ type Info = {
   objectives: Objective[];
 };
 
-export const AntagInfoChangeling = (_props, _context) => {
+export const AntagInfoChangeling = (_props, context) => {
+  const { data } = useBackend<Info>(context);
+  const { objectives } = data;
   return (
     <Window width={720} height={500}>
       <Window.Content
@@ -64,7 +61,7 @@ export const AntagInfoChangeling = (_props, _context) => {
             <IntroductionSection />
           </Stack.Item>
           <Stack.Item>
-            <ObjectivesSection />
+            <ObjectivesSection objectives={objectives} />
           </Stack.Item>
           <Stack.Item grow={4}>
             <AbilitiesSection />
@@ -91,7 +88,7 @@ TODO: changeling refactor from tg
 
 const IntroductionSection = (_props, context) => {
   const { data } = useBackend<Info>(context);
-  const { true_name, objectives } = data;
+  const { true_name } = data;
   return (
     <Section fill>
       <Stack>
@@ -114,32 +111,6 @@ const IntroductionSection = (_props, context) => {
           </h1>
         </Stack.Item>
       </Stack>
-    </Section>
-  );
-};
-
-const ObjectivePrintout = (_props, context) => {
-  const { data } = useBackend<Info>(context);
-  const { objectives } = data;
-  return (
-    <Stack vertical>
-      <Stack.Item bold>Your current objectives:</Stack.Item>
-      <Stack.Item>
-        {(!objectives && 'None!') ||
-          objectives.map((objective) => (
-            <Stack.Item key={objective.count}>
-              #{objective.count}: {objective.explanation}
-            </Stack.Item>
-          ))}
-      </Stack.Item>
-    </Stack>
-  );
-};
-
-const ObjectivesSection = (_props, _context) => {
-  return (
-    <Section grow title="Objectives" scrollable>
-      <ObjectivePrintout />
     </Section>
   );
 };

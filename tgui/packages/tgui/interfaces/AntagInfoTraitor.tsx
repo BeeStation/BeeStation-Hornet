@@ -3,6 +3,7 @@ import { Box, BlockQuote, Section, Stack } from '../components';
 import { BooleanLike } from 'common/react';
 import { Window } from '../layouts';
 import { resolveAsset } from '../assets';
+import { ObjectivesSection, Objective } from './common/ObjectiveSection';
 
 const allystyle = {
   fontWeight: 'bold',
@@ -17,13 +18,6 @@ const badstyle = {
 const goalstyle = {
   color: 'lightblue',
   fontWeight: 'bold',
-};
-
-type Objective = {
-  count: number;
-  name: string;
-  explanation: string;
-  optional: BooleanLike;
 };
 
 type Info = {
@@ -62,32 +56,6 @@ const IntroSection = (_props, context) => {
         </h1>
       </Stack.Item>
     </Stack>
-  );
-};
-
-const ObjectivesSection = (_props, context) => {
-  const { data } = useBackend<Info>(context);
-  const { objectives } = data;
-  return (
-    <Section fill title="Objectives" scrollable>
-      <Stack vertical>
-        <Stack.Item bold>Your current objectives:</Stack.Item>
-        <Stack.Item>
-          {(!objectives && 'None!') ||
-            objectives.map((objective) => (
-              <Stack.Item key={objective.count}>
-                #{objective.count}:{' '}
-                {!!objective.optional && (
-                  <Box inline textColor="green">
-                    Optional:
-                  </Box>
-                )}{' '}
-                {objective.explanation}{' '}
-              </Stack.Item>
-            ))}
-        </Stack.Item>
-      </Stack>
-    </Section>
   );
 };
 
@@ -164,7 +132,9 @@ const CodewordsSection = (_props, context) => {
   );
 };
 
-export const AntagInfoTraitor = (_props, _context) => {
+export const AntagInfoTraitor = (_props, context) => {
+  const { data } = useBackend<Info>(context);
+  const { objectives } = data;
   return (
     <Window width={620} height={620} theme="syndicate">
       <Window.Content>
@@ -173,7 +143,7 @@ export const AntagInfoTraitor = (_props, _context) => {
             <IntroSection />
           </Stack.Item>
           <Stack.Item grow>
-            <ObjectivesSection />
+            <ObjectivesSection objectives={objectives} />
           </Stack.Item>
           <Stack.Item>
             <UplinkSection />

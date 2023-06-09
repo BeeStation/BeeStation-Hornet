@@ -34,7 +34,7 @@ export const AntagInfoBrainwashed = () => {
               <ObjectivePrintout />
             </Stack.Item>
             <Stack.Item fontSize="20px" textColor="#61e4b9">
-              Follow the directives at any cost!
+              Follow the directives at <b>any cost</b>!
             </Stack.Item>
             <Stack.Item fontFamily="Wingdings">You ruined my cool font effect.</Stack.Item>
           </Stack>

@@ -1,57 +1,44 @@
 import { useBackend } from '../backend';
-import { Section, Stack } from '../components';
-import { BooleanLike } from 'common/react';
+import { Box, Section, Stack } from '../components';
 import { Window } from '../layouts';
-
-type Objective = {
-  count: number;
-  name: string;
-  explanation: string;
-  complete: BooleanLike;
-  was_uncompleted: BooleanLike;
-  reward: number;
-};
+import { ObjectivesSection, Objective } from './common/ObjectiveSection';
 
 type Info = {
   antag_name: string;
   objectives: Objective[];
 };
 
-export const AntagInfoGeneric = (props, context) => {
+const IntroSection = (_props, context) => {
   const { data } = useBackend<Info>(context);
   const { antag_name } = data;
   return (
-    <Window width={620} height={250}>
-      <Window.Content>
-        <Section scrollable fill>
-          <Stack vertical>
-            <Stack.Item textColor="red" fontSize="20px">
-              You are the {antag_name}!
-            </Stack.Item>
-            <Stack.Item>
-              <ObjectivePrintout />
-            </Stack.Item>
-          </Stack>
-        </Section>
-      </Window.Content>
-    </Window>
+    <Section>
+      <h1 style={{ 'position': 'relative', 'top': '25%', 'left': '25%' }}>
+        You are the{' '}
+        <Box inline textColor="bad">
+          {antag_name || 'Antagonist'}
+        </Box>
+        !
+      </h1>
+    </Section>
   );
 };
 
-const ObjectivePrintout = (props, context) => {
+export const AntagInfoGeneric = (_props, context) => {
   const { data } = useBackend<Info>(context);
   const { objectives } = data;
   return (
-    <Stack vertical>
-      <Stack.Item bold>Your objectives:</Stack.Item>
-      <Stack.Item>
-        {(!objectives && 'None!') ||
-          objectives.map((objective) => (
-            <Stack.Item key={objective.count}>
-              #{objective.count}: {objective.explanation}
-            </Stack.Item>
-          ))}
-      </Stack.Item>
-    </Stack>
+    <Window width={620} height={250}>
+      <Window.Content>
+        <Stack vertical fill>
+          <Stack.Item>
+            <IntroSection />
+          </Stack.Item>
+          <Stack.Item grow>
+            <ObjectivesSection objectives={objectives} />
+          </Stack.Item>
+        </Stack>
+      </Window.Content>
+    </Window>
   );
 };
