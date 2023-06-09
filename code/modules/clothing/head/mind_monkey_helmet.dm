@@ -5,6 +5,7 @@
 	icon_state = "monkeymind"
 	item_state = "monkeymind"
 	strip_delay = 100
+	var/cooldown_expiry //It'll get annoying quick when someone tries to remove their own helmet 20 times a second
 	var/mob/living/carbon/monkey/magnification = null ///if the helmet is on a valid target (just works like a normal helmet if not (cargo please stop))
 	var/polling = FALSE///if the helmet is currently polling for targets (special code for removal)
 
@@ -73,3 +74,23 @@
 /obj/item/clothing/head/mind_monkey_helmet/monkey_sentience/dropped(mob/user)
 	. = ..()
 	disconnect()
+
+/obj/item/clothing/head/mind_monkey_helmet/monkey_sentience/attack_paw(mob/user)
+	//Typecasting to monkey just to see if we're on the user's head
+	if (!istype(user, /mob/living/carbon/monkey))
+		return ..()
+	var/mob/living/carbon/monkey/M = user
+	if(src!=M.head)
+		return ..()
+
+	//Spam? No thanks, we're good.
+	if(cooldown_expiry > world.time)
+		return
+	cooldown_expiry = world.time
+
+	//Give them a fair chance to realize they're about to commit mind death
+	user.visible_message("<span class='userdanger'>A sharp pain forms as you take the [src] off!</span>", \
+		"<span class='warning'>[user.name] [user.p_are()] trying to take the [src] off [user.p_their()] head!</span>")
+	if (do_after(user, 8 SECONDS, user))
+		return ..()
+	return
