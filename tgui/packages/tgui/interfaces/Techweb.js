@@ -229,7 +229,6 @@ const TechwebOverview = (props, context) => {
     });
     return filtered_search_nodes;
   };
-  // Only search when 3 or more characters have been input
   const searching = searchText && searchText.trim().length > 1;
 
   let displayedNodes = nodes;
