@@ -58,7 +58,7 @@
 #define ROLE_SPACE_PIRATE		"Space Pirate"
 #define ROLE_FUGITIVE			"Fugitive"
 #define ROLE_FUGITIVE_HUNTER	"Fugitive Hunter"
-#define ROLE_MONKEY_HELMET		"Monkey Mind Magnification Helmet"
+#define ROLE_MONKEY_HELMET		"Sentient Monkey"
 
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
 //The gamemode specific ones are just so the gamemodes can query whether a player is old enough
@@ -99,6 +99,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_SPACE_PIRATE,
 	ROLE_FUGITIVE,
 	ROLE_FUGITIVE_HUNTER,
+	ROLE_MONKEY_HELMET,
 ))
 
 //Job defines for what happens when you fail to qualify for any job during job selection
