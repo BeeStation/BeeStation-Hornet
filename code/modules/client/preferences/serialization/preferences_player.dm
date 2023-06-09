@@ -35,7 +35,7 @@
 	return TRUE
 
 /datum/preferences_holder/preferences_player/proc/write_to_database(datum/preferences/prefs)
-	write_data(prefs)
+	. = write_data(prefs)
 	dirty_prefs.Cut() // clear all dirty preferences
 
 /datum/preferences_holder/preferences_player/proc/write_data(datum/preferences/prefs)
