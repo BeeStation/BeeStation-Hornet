@@ -1,4 +1,4 @@
-/obj/item/clothing/head/mind_monkey_helmet/monkey_sentience
+/obj/item/clothing/head/monkey_sentience_helmet
 	name = "monkey mind magnification helmet"
 	desc = "A fragile, circuitry embedded helmet for boosting the intelligence of a monkey to a higher level. You see several warning labels..."
 
@@ -10,12 +10,12 @@
 	var/mob/living/carbon/monkey/magnification = null ///if the helmet is on a valid target (just works like a normal helmet if not (cargo please stop))
 	var/polling = FALSE///if the helmet is currently polling for targets (special code for removal)
 
-/obj/item/clothing/head/mind_monkey_helmet/monkey_sentience/Initialize()
+/obj/item/clothing/head/monkey_sentience_helmet/Initialize()
 	. = ..()
 	base_icon_state = "[base_icon_state][rand(1,3)]"
 	update_icon()
 
-/obj/item/clothing/head/mind_monkey_helmet/monkey_sentience/update_icon(updates)
+/obj/item/clothing/head/monkey_sentience_helmet/update_icon(updates)
 	. = ..()
 	if (magnification)
 		icon_state = "[base_icon_state]up"
@@ -23,7 +23,7 @@
 	icon_state = "[base_icon_state]"
 
 
-/obj/item/clothing/head/mind_monkey_helmet/monkey_sentience/examine(mob/user)
+/obj/item/clothing/head/monkey_sentience_helmet/examine(mob/user)
 	. = ..()
 	. += "<span class='boldwarning'>---WARNING: REMOVAL OF HELMET ON SUBJECT MAY LEAD TO:---</span>"
 	. += "<span class='warning'>BLOOD RAGE</span>"
@@ -32,7 +32,7 @@
 	. += "<span class='warning'>GENETIC MAKEUP MASS SUSCEPTIBILITY</span>"
 	. += "<span class='boldnotice'>Ask your CMO if mind magnification is right for you.</span>"
 
-/obj/item/clothing/head/mind_monkey_helmet/monkey_sentience/equipped(mob/user, slot)
+/obj/item/clothing/head/monkey_sentience_helmet/equipped(mob/user, slot)
 	. = ..()
 	if(slot != ITEM_SLOT_HEAD)
 		return
@@ -59,11 +59,11 @@
 		to_chat(magnification, "<span class='notice'>You're a mind magnified monkey! Protect your helmet with your life- if you lose it, your sentience goes with it!</span>")
 		update_icon()
 
-/obj/item/clothing/head/mind_monkey_helmet/monkey_sentience/Destroy()
+/obj/item/clothing/head/monkey_sentience_helmet/Destroy()
 	. = ..()
 	disconnect()
 
-/obj/item/clothing/head/mind_monkey_helmet/monkey_sentience/proc/disconnect()
+/obj/item/clothing/head/monkey_sentience_helmet/proc/disconnect()
 	if(!magnification) //not put on a viable head
 		return
 	if(polling)//put on a viable head, but taken off after polling finished.
@@ -82,11 +82,11 @@
 		magnification = null
 		update_icon()
 
-/obj/item/clothing/head/mind_monkey_helmet/monkey_sentience/dropped(mob/user)
+/obj/item/clothing/head/monkey_sentience_helmet/dropped(mob/user)
 	. = ..()
 	disconnect()
 
-/obj/item/clothing/head/mind_monkey_helmet/monkey_sentience/attack_paw(mob/user)
+/obj/item/clothing/head/monkey_sentience_helmet/attack_paw(mob/user)
 	//Typecasting to monkey just to see if we're on the user's head
 	if (!istype(user, /mob/living/carbon/monkey))
 		return ..()
