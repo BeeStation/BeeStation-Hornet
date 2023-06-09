@@ -52,12 +52,12 @@
 		magnification = null
 		user.visible_message("<span class='notice'>[src] falls silent. Maybe you should try again later?</span>")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
-	else
-		var/mob/picked = pick(candidates)
-		magnification.key = picked.key
-		playsound(src, 'sound/machines/microwave/microwave-end.ogg', 100, FALSE)
-		to_chat(magnification, "<span class='notice'>You're a mind magnified monkey! Protect your helmet with your life- if you lose it, your sentience goes with it!</span>")
-		update_icon()
+		return
+	var/mob/picked = pick(candidates)
+	magnification.key = picked.key
+	playsound(src, 'sound/machines/microwave/microwave-end.ogg', 100, FALSE)
+	to_chat(magnification, "<span class='notice'>You're a mind magnified monkey! Protect your helmet with your life- if you lose it, your sentience goes with it!</span>")
+	update_icon()
 
 /obj/item/clothing/head/monkey_sentience_helmet/Destroy()
 	. = ..()
