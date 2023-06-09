@@ -65,6 +65,7 @@
 		return
 	if(TG.id in preferences.equipped_gear)
 		preferences.equipped_gear -= TG.id
+		preferences.character_preview_view?.update_body()
 		return TRUE
 	else
 		var/list/type_blacklist = list()
@@ -79,6 +80,7 @@
 		if((TG.id in preferences.purchased_gear))
 			if(!(TG.subtype_path in type_blacklist) || !(TG.slot in slot_blacklist))
 				preferences.equipped_gear += TG.id
+				preferences.character_preview_view?.update_body()
 				return TRUE
 			else
 				to_chat(user, "<span class='warning'>Can't equip [TG.display_name]. It conflicts with an already-equipped item.</span>")
