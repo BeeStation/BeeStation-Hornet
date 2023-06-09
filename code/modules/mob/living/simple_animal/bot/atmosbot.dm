@@ -68,9 +68,9 @@
 
 /mob/living/simple_animal/bot/atmosbot/Initialize(mapload, new_toolbox_color)
 	. = ..()
-	var/datum/job/station_engineer/J = new/datum/job/station_engineer
-	access_card.access += J.get_access()
-	prev_access = access_card.access
+	var/datum/job/J = SSjob.GetJob(JOB_NAME_STATIONENGINEER)
+	access_card.access = J.get_access()
+	prev_access = access_card.access.Copy()
 
 /mob/living/simple_animal/bot/atmosbot/turn_on()
 	. = ..()
@@ -252,7 +252,7 @@
 /mob/living/simple_animal/bot/atmosbot/proc/return_nearest_breach()
 	var/turf/origin = get_turf(src)
 
-	if(origin.blocks_air)
+	if(isclosedturf(origin))
 		return null
 
 	var/room_limit = ATMOSBOT_MAX_AREA_SCAN

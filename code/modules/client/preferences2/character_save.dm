@@ -57,7 +57,11 @@
 						"ipc_screen" = "Blue",
 						"ipc_antenna" = "None",
 						"ipc_chassis" = "Morpheus Cyberkinetics(Greyscale)",
-						"insect_type" = "Common Fly"
+						"insect_type" = "Common Fly",
+						"apid_antenna" = "Curled",
+						"apid_stripes" = "Thick",
+						"apid_headstripes" = "Thick",
+						"body_model" = MALE
 					)
 	var/list/custom_names = list()
 	var/preferred_ai_core_display = "Blue"
@@ -182,16 +186,11 @@
 	be_random_name	= sanitize_integer(be_random_name, 0, 1, initial(be_random_name))
 	be_random_body	= sanitize_integer(be_random_body, 0, 1, initial(be_random_body))
 
-	if(gender == MALE)
-		hair_style = sanitize_inlist(hair_style, GLOB.hair_styles_male_list)
-		facial_hair_style = sanitize_inlist(facial_hair_style, GLOB.facial_hair_styles_male_list)
-		underwear = sanitize_inlist(underwear, GLOB.underwear_m)
-		undershirt = sanitize_inlist(undershirt, GLOB.undershirt_m)
-	else
-		hair_style = sanitize_inlist(hair_style, GLOB.hair_styles_female_list)
-		facial_hair_style = sanitize_inlist(facial_hair_style, GLOB.facial_hair_styles_female_list)
-		underwear = sanitize_inlist(underwear, GLOB.underwear_f)
-		undershirt = sanitize_inlist(undershirt, GLOB.undershirt_f)
+	hair_style = sanitize_inlist(hair_style, GLOB.hair_styles_list)
+	facial_hair_style = sanitize_inlist(facial_hair_style, GLOB.facial_hair_styles_list)
+	underwear = sanitize_inlist(underwear, GLOB.underwear_list)
+	undershirt = sanitize_inlist(undershirt, GLOB.undershirt_list)
+	features["body_model"] = sanitize_gender(features["body_model"], FALSE, FALSE, gender == FEMALE ? FEMALE : MALE)
 	socks = sanitize_inlist(socks, GLOB.socks_list)
 	age = sanitize_integer(age, AGE_MIN, AGE_MAX, initial(age))
 	hair_color = sanitize_hexcolor(hair_color, 3, 0)
@@ -216,13 +215,17 @@
 	features["spines"] = sanitize_inlist(features["spines"], GLOB.spines_list)
 	features["body_markings"] = sanitize_inlist(features["body_markings"], GLOB.body_markings_list)
 	features["feature_lizard_legs"]	= sanitize_inlist(features["legs"], GLOB.legs_list, "Normal Legs")
-	features["moth_wings"] = sanitize_inlist(features["moth_wings"], GLOB.moth_wings_list, "Plain")
-	features["moth_antennae"] = sanitize_inlist(features["moth_antennae"], GLOB.moth_antennae_list, "Plain")
-	features["moth_markings"] = sanitize_inlist(features["moth_markings"], GLOB.moth_markings_list, "None")
+	features["moth_wings"] = sanitize_inlist(features["moth_wings"], GLOB.moth_wings_roundstart_list, "Plain")
+	features["moth_antennae"] = sanitize_inlist(features["moth_antennae"], GLOB.moth_antennae_roundstart_list, "Plain")
+	features["moth_markings"] = sanitize_inlist(features["moth_markings"], GLOB.moth_markings_roundstart_list, "None")
 	features["ipc_screen"] = sanitize_inlist(features["ipc_screen"], GLOB.ipc_screens_list)
 	features["ipc_antenna"]	= sanitize_inlist(features["ipc_antenna"], GLOB.ipc_antennas_list)
 	features["ipc_chassis"]	= sanitize_inlist(features["ipc_chassis"], GLOB.ipc_chassis_list)
 	features["insect_type"]	= sanitize_inlist(features["insect_type"], GLOB.insect_type_list)
+	features["apid_antenna"] = sanitize_inlist(features["apid_antenna"], GLOB.apid_antenna_list)
+	features["apid_stripes"] = sanitize_inlist(features["apid_stripes"], GLOB.apid_stripes_list)
+	features["apid_headstripes"] = sanitize_inlist(features["apid_headstripes"], GLOB.apid_headstripes_list)
+
 
 	//Validate species forced mutant parts
 	for(var/forced_part in pref_species.forced_features)
@@ -262,6 +265,8 @@
 		var/datum/species/spath = GLOB.species_list[pick(GLOB.roundstart_races)]
 		pref_species = new spath
 	features = random_features()
+	if(gender)
+		features["body_model"] = pick(MALE,FEMALE)
 	age = rand(AGE_MIN,AGE_MAX)
 
 /datum/character_save/proc/update_preview_icon(client/parent)
@@ -469,8 +474,10 @@
 		pref_species = new /datum/species/human
 		save(usr.client, async = FALSE) // This entire proc is called a lot at roundstart, and we dont want to lag that
 
+
 	character.dna.features = features.Copy()
 	character.set_species(chosen_species, icon_update = FALSE, pref_load = TRUE)
+
 	//Because of how set_species replaces all bodyparts with new ones, hair needs to be set AFTER species.
 	character.dna.real_name = character.real_name
 	character.hair_color = hair_color

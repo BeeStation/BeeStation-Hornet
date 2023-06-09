@@ -24,6 +24,7 @@
 	var/on = FALSE
 	tool_behaviour = TOOL_SAW
 	toolspeed = 0.5
+	item_flags = ISWEAPON
 
 /obj/item/chainsaw/Initialize(mapload)
 	. = ..()

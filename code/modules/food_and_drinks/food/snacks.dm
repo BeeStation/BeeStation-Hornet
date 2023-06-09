@@ -45,8 +45,6 @@ All foods are distributed among various categories. Use common sense.
 	var/eatverb
 	var/dried_type = null
 	var/dry = 0
-	var/dunkable = FALSE // for dunkable food, make true
-	var/dunk_amount = 10 // how much reagent is transferred per dunk
 	var/cooked_type = null  //for microwave cooking. path of the resulting item after microwaving
 	var/filling_color = "#FFFFFF" //color to use when added to custom food.
 	var/custom_food_type = null  //for food customizing. path of the custom food to create
@@ -56,6 +54,16 @@ All foods are distributed among various categories. Use common sense.
 	var/list/tastes  // for example list("crisps" = 2, "salt" = 1)
 
 	//Placeholder for effect that trigger on eating that aren't tied to reagents.
+
+/obj/item/reagent_containers/food/snacks/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ITEM_FRIED, PROC_REF(on_fried))
+
+
+/obj/item/reagent_containers/food/snacks/proc/on_fried(fry_object)
+	reagents.trans_to(fry_object, reagents.total_volume)
+	qdel()
+	return COMSIG_FRYING_HANDLED
 
 /obj/item/reagent_containers/food/snacks/add_initial_reagents()
 	if(tastes?.len)
@@ -127,7 +135,7 @@ All foods are distributed among various categories. Use common sense.
 										"<span class='warning'>[user] cannot force any more of [src] down your throat!</span>")
 					return FALSE
 
-				if(!do_mob(user, M))
+				if(!do_after(user, target = M))
 					return
 				log_combat(user, M, "fed", reagents.log_list())
 				M.visible_message("<span class='danger'>[user] forces [M] to eat [src]!</span>", \
@@ -175,7 +183,7 @@ All foods are distributed among various categories. Use common sense.
 			if(S.w_class > WEIGHT_CLASS_SMALL)
 				to_chat(user, "<span class='warning'>[S] is too big for [src]!</span>")
 				return 0
-			if(!S.customfoodfilling || istype(W, /obj/item/reagent_containers/food/snacks/customizable) || istype(W, /obj/item/reagent_containers/food/snacks/pizzaslice/custom) || istype(W, /obj/item/reagent_containers/food/snacks/cakeslice/custom))
+			if(!S.customfoodfilling || istype(W, /obj/item/reagent_containers/food/snacks/customizable) || istype(W, /obj/item/reagent_containers/food/snacks/pizzaslice/custom))
 				to_chat(user, "<span class='warning'>[src] can't be filled with [S]!</span>")
 				return 0
 			if(contents.len >= 20)
@@ -282,17 +290,25 @@ All foods are distributed among various categories. Use common sense.
 	add_overlay(filling)
 
 // initialize_cooked_food() is called when microwaving the food
-/obj/item/reagent_containers/food/snacks/proc/initialize_cooked_food(obj/item/reagent_containers/food/snacks/S, cooking_efficiency = 1)
-	S.create_reagents(S.volume)
-	if(reagents)
-		reagents.trans_to(S, reagents.total_volume)
-	if(S.bonus_reagents && S.bonus_reagents.len)
-		for(var/r_id in S.bonus_reagents)
-			var/amount = S.bonus_reagents[r_id] * cooking_efficiency
-			if(r_id == /datum/reagent/consumable/nutriment || r_id == /datum/reagent/consumable/nutriment/vitamin)
-				S.reagents.add_reagent(r_id, amount, tastes)
-			else
-				S.reagents.add_reagent(r_id, amount)
+/obj/item/reagent_containers/food/snacks/proc/initialize_cooked_food(obj/item/S, cooking_efficiency = 1)
+	if(istype(S, /obj/item/reagent_containers/food/snacks))
+		var/obj/item/reagent_containers/food/snacks/snackyfood = S
+		snackyfood.create_reagents(snackyfood.volume)
+		if(reagents)
+			reagents.trans_to(snackyfood, reagents.total_volume)
+		if(length(snackyfood.bonus_reagents))
+			for(var/r_id in snackyfood.bonus_reagents)
+				var/amount = snackyfood.bonus_reagents[r_id] * cooking_efficiency
+				if(r_id == /datum/reagent/consumable/nutriment || r_id == /datum/reagent/consumable/nutriment/vitamin)
+					snackyfood.reagents.add_reagent(r_id, amount, tastes)
+				else
+					snackyfood.reagents.add_reagent(r_id, amount)
+		return
+	if(istype(S, /obj/item/food))
+		var/obj/item/food/non_snackyfood = S
+		non_snackyfood.create_reagents(non_snackyfood.max_volume)
+		if(reagents)
+			reagents.trans_to(non_snackyfood, reagents.total_volume)
 
 /obj/item/reagent_containers/food/snacks/microwave_act(obj/machinery/microwave/M)
 	var/turf/T = get_turf(src)
@@ -345,46 +361,14 @@ All foods are distributed among various categories. Use common sense.
 					M.emote("me", 1, "[satisfaction_text]")
 				qdel(src)
 
-/obj/item/reagent_containers/food/snacks/afterattack(obj/item/reagent_containers/M, mob/user, proximity)
-	. = ..()
-	if(!dunkable || !proximity)
-		return
-	if(istype(M, /obj/item/reagent_containers/glass) || istype(M, /obj/item/reagent_containers/food/drinks))	//you can dunk dunkable snacks into beakers or drinks
-		if(!M.is_drainable())
-			to_chat(user, "<span class='warning'>[M] is unable to be dunked in!</span>")
-			return
-		if(M.reagents.trans_to(src, dunk_amount, transfered_by = user))	//if reagents were transfered, show the message
-			to_chat(user, "<span class='notice'>You dunk \the [src] into \the [M].</span>")
-			return
-		if(!M.reagents.total_volume)
-			to_chat(user, "<span class='warning'>[M] is empty!</span>")
-		else
-			to_chat(user, "<span class='warning'>[src] is full!</span>")
-
 // //////////////////////////////////////////////Store////////////////////////////////////////
 /// All the food items that can store an item inside itself, like bread or cake.
 /obj/item/reagent_containers/food/snacks/store
 	w_class = WEIGHT_CLASS_NORMAL
-	var/stored_item = 0
 
-/obj/item/reagent_containers/food/snacks/store/attackby(obj/item/W, mob/user, params)
-	..()
-	if(W.w_class <= WEIGHT_CLASS_SMALL & !istype(W, /obj/item/reagent_containers/food/snacks)) //can't slip snacks inside, they're used for custom foods.
-		if(W.is_sharp())
-			return 0
-		if(stored_item)
-			return 0
-		if(!iscarbon(user))
-			return 0
-		if(contents.len >= 20)
-			to_chat(user, "<span class='warning'>[src] is full.</span>")
-			return 0
-		to_chat(user, "<span class='notice'>You slip [W] inside [src].</span>")
-		user.transferItemToLoc(W, src)
-		add_fingerprint(user)
-		contents += W
-		stored_item = 1
-		return 1 // no afterattack here
+/obj/item/reagent_containers/food/snacks/store/Initialize()
+	. = ..()
+	AddComponent(/datum/component/food_storage)
 
 /obj/item/reagent_containers/food/snacks/MouseDrop(atom/over)
 	var/turf/T = get_turf(src)

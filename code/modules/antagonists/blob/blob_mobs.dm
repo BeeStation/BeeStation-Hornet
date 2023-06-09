@@ -59,7 +59,7 @@
 	else
 		adjustFireLoss(5)
 
-/mob/living/simple_animal/hostile/blob/CanAllowThrough(atom/movable/mover, turf/target)
+/mob/living/simple_animal/hostile/blob/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(istype(mover, /obj/structure/blob))
 		return TRUE
@@ -163,6 +163,7 @@
 	H.update_hair()
 	H.forceMove(src)
 	oldguy = H
+	role = ROLE_BLOB
 	update_icons()
 	visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
 	if(!key)

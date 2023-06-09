@@ -27,6 +27,15 @@ SUBSYSTEM_DEF(atoms)
 	initialized = INITIALIZATION_INSSATOMS
 
 /datum/controller/subsystem/atoms/Initialize(timeofday)
+	//Wait until map loading is completed
+	if (length(SSmap_generator.executing_generators) > 0)
+		to_chat(world, "<span class='boldannounce'>Waiting for [length(SSmap_generator.executing_generators)] map generators...</bold>")
+		do
+			SSmap_generator.fire()
+			sleep(0.5)
+		while (length(SSmap_generator.executing_generators) > 0)
+		to_chat(world, "<span class='boldannounce'>Map generators completed, initializing atoms.</bold>")
+
 	GLOB.fire_overlay.appearance_flags = RESET_COLOR
 	setupGenetics() //to set the mutations' sequence
 	initialized = INITIALIZATION_INNEW_MAPLOAD

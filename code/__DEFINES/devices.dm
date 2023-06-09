@@ -43,6 +43,7 @@
 
 #define THEME_SYNDICATE "syndicate"
 
+/// Map of theme name -> theme ID
 GLOBAL_LIST_INIT(ntos_device_themes_default, list(
 	"NtOS Default" = THEME_NTOS,
 	"Thinktronic Classic" = THEME_THINKTRONIC,
@@ -67,6 +68,47 @@ GLOBAL_LIST_INIT(ntos_device_themes_default, list(
 	"Retro" = THEME_RETRO
 ))
 
+// I hate BYOND lists. just let me reverse the map please
+/// Sanitization list for the database, allowed roundstart theme IDs
+GLOBAL_LIST_INIT(ntos_device_themes_default_content, list(
+	THEME_NTOS,
+	THEME_THINKTRONIC,
+	THEME_NTOS_LIGHT,
+	THEME_NTOS_DARK,
+	THEME_NTOS_RED,
+	THEME_NTOS_ORANGE,
+	THEME_NTOS_YELLOW,
+	THEME_NTOS_OLIVE,
+	THEME_NTOS_GREEN,
+	THEME_NTOS_TEAL,
+	THEME_NTOS_BLUE,
+	THEME_NTOS_VIOLET,
+	THEME_NTOS_PURPLE,
+	THEME_NTOS_PINK,
+	THEME_NTOS_BROWN,
+	THEME_NTOS_GREY,
+	THEME_NTOS_CLOWN_PINK,
+	THEME_NTOS_CLOWN_YELLOW,
+	THEME_NTOS_HACKERMAN,
+	THEME_HACKERMAN,
+	THEME_RETRO
+))
+
 GLOBAL_LIST_INIT(ntos_device_themes_emagged, list(
 	"Syndix" = THEME_SYNDICATE
 ) + GLOB.ntos_device_themes_default)
+
+/// Reverse map of GLOB.ntos_device_themes_emagged
+/proc/theme_name_for_id(id)
+	for(var/key in GLOB.ntos_device_themes_emagged)
+		if(GLOB.ntos_device_themes_emagged[key] == id)
+			return key
+	return null
+
+//chem grenades defines
+/// Grenade is empty
+#define GRENADE_EMPTY 1
+/// Grenade has wires
+#define GRENADE_WIRED 2
+/// Grenade is ready to be activated
+#define GRENADE_READY 3

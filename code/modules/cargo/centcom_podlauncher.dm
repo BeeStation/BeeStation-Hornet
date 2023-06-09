@@ -9,7 +9,7 @@
 //This was originally created as a way to get adminspawned items to the station in an IC manner. It's evolved to contain a few more
 //features such as item removal, smiting, controllable delivery mobs, and more.
 
-//This works by creating a supplypod (refered to as temp_pod) in a special room in the centcom map.
+//This works by creating a supplypod (referred to as temp_pod) in a special room in the centcom map.
 //IMPORTANT: Even though we call it a supplypod for our purposes, it can take on the appearance and function of many other things: Eg. cruise missiles, boxes, or walking, living gondolas.
 //When the user launched the pod, items from special "bays" on the centcom map are taken and put into the supplypod
 
@@ -29,7 +29,7 @@
 /datum/centcom_podlauncher
 	var/static/list/ignored_atoms = typecacheof(list(null, /mob/dead, /obj/effect/landmark, /obj/docking_port, /atom/movable/lighting_object, /obj/effect/particle_effect/sparks, /obj/effect/pod_landingzone, /obj/effect/hallucination/simple/supplypod_selector,  /obj/effect/hallucination/simple/dropoff_location))
 	var/turf/oldTurf //Keeps track of where the user was at if they use the "teleport to centcom" button, so they can go back
-	var/client/holder //client of whoever is using this datum
+	var/client/owner_client //client of whoever is using this datum
 	var/area/centcom/supplypod/loading/bay //What bay we're using to launch shit from.
 	var/bayNumber //Quick reference to what bay we're in. Usually set to the loading_id variable for the related area type
 	var/customDropoff = FALSE
@@ -66,25 +66,25 @@
 /datum/centcom_podlauncher/proc/setup(user) //H can either be a client or a mob
 	if (istype(user,/client))
 		var/client/user_client = user
-		holder = user_client //if its a client, assign it to holder
+		owner_client = user_client //if its a client, assign it to owner_client
 	else
 		var/mob/user_mob = user
-		holder = user_mob.client //if its a mob, assign the mob's client to holder
+		owner_client = user_mob.client //if its a mob, assign the mob's client to owner_client
 	bay =  locate(/area/centcom/supplypod/loading/one) in GLOB.sortedAreas //Locate the default bay (one) from the centcom map
 	bayNumber = bay.loading_id //Used as quick reference to what bay we're taking items from
 	var/area/pod_storage_area = locate(/area/centcom/supplypod/pod_storage) in GLOB.sortedAreas
 	temp_pod = new(pick(get_area_turfs(pod_storage_area))) //Create a new temp_pod in the podStorage area on centcom (so users are free to look at it and change other variables if needed)
 	orderedArea = createOrderedArea(bay) //Order all the turfs in the selected bay (top left to bottom right) to a single list. Used for the "ordered" mode (launchChoice = 1)
-	selector = new(null, holder.mob)
-	indicator = new(null, holder.mob)
+	selector = new(null, owner_client.mob)
+	indicator = new(null, owner_client.mob)
 	setDropoff(bay)
 	initMap()
 	refreshBay()
-	ui_interact(holder.mob)
+	ui_interact(owner_client.mob)
 
 /datum/centcom_podlauncher/proc/initMap()
 	if(map_name)
-		holder.clear_map(map_name)
+		owner_client.clear_map(map_name)
 
 	map_name = "admin_supplypod_bay_[REF(src)]_map"
 	// Initialize map objects
@@ -94,10 +94,12 @@
 	cam_screen.del_on_map_removal = TRUE
 	cam_screen.screen_loc = "[map_name]:1,1"
 	cam_plane_masters = list()
-	for(var/plane in subtypesof(/atom/movable/screen/plane_master))
-		var/atom/movable/screen/instance = new plane()
+	for(var/plane in subtypesof(/atom/movable/screen/plane_master) - /atom/movable/screen/plane_master/blackness)
+		var/atom/movable/screen/plane_master/instance = new plane()
 		if (!renderLighting && instance.plane == LIGHTING_PLANE)
 			instance.alpha = 100
+		if(instance.blend_mode_override)
+			instance.blend_mode = instance.blend_mode_override
 		instance.assigned_map = map_name
 		instance.del_on_map_removal = TRUE
 		instance.screen_loc = "[map_name]:CENTER"
@@ -106,10 +108,10 @@
 	cam_background.assigned_map = map_name
 	cam_background.del_on_map_removal = TRUE
 	refreshView()
-	holder.register_map_obj(cam_screen)
+	owner_client.register_map_obj(cam_screen)
 	for(var/plane in cam_plane_masters)
-		holder.register_map_obj(plane)
-	holder.register_map_obj(cam_background)
+		owner_client.register_map_obj(plane)
+	owner_client.register_map_obj(cam_background)
 
 
 /datum/centcom_podlauncher/ui_state(mob/user)
@@ -183,18 +185,18 @@
 
 /datum/centcom_podlauncher/ui_act(action, params)
 	. = ..()
-	if(.)
+	if(. || !owner_client.holder)
 		return
 	switch(action)
 		////////////////////////////UTILITIES//////////////////
 		if("gamePanel")
-			holder.holder.Game()
+			owner_client.holder.Game()
 			SSblackbox.record_feedback("tally", "admin_verb", 1, "Game Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 			. = TRUE
 		if("buildMode")
-			var/mob/holder_mob = holder.mob
-			if (holder_mob)
-				togglebuildmode(holder_mob)
+			var/mob/owner_client_mob = owner_client.mob
+			if (owner_client_mob)
+				togglebuildmode(owner_client_mob)
 			SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Build Mode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 			. = TRUE
 		if("loadDataFromPreset")
@@ -221,7 +223,7 @@
 			updateCursor()
 			. = TRUE
 		if("teleportDropoff") //Teleports the user to the dropoff point.
-			var/mob/M = holder.mob //We teleport whatever mob the client is attached to at the point of clicking
+			var/mob/M = owner_client.mob //We teleport whatever mob the client is attached to at the point of clicking
 			var/turf/current_location = get_turf(M)
 			var/list/coordinate_list = temp_pod.reverse_dropoff_coords
 			var/turf/dropoff_turf = locate(coordinate_list[1], coordinate_list[2], coordinate_list[3])
@@ -232,26 +234,24 @@
 			message_admins("[key_name_admin(usr)] jumped to [AREACOORD(dropoff_turf)]")
 			. = TRUE
 		if("teleportCentcom") //Teleports the user to the centcom supply loading facility.
-			var/mob/holder_mob = holder.mob //We teleport whatever mob the client is attached to at the point of clicking
-			var/turf/current_location = get_turf(holder_mob)
+			var/mob/owner_client_mob = owner_client.mob //We teleport whatever mob the client is attached to at the point of clicking
+			var/turf/current_location = get_turf(owner_client_mob)
 			var/area/bay_area = bay
 			if (current_location.loc != bay_area)
 				oldTurf = current_location
 			var/turf/teleport_turf = pick(get_area_turfs(bay_area))
-			holder_mob.forceMove(teleport_turf) //Perform the actual teleport
-			if (holder.holder)
-				log_admin("[key_name(usr)] jumped to [AREACOORD(teleport_turf)]")
-				message_admins("[key_name_admin(usr)] jumped to [AREACOORD(teleport_turf)]")
+			owner_client_mob.forceMove(teleport_turf) //Perform the actual teleport
+			log_admin("[key_name(usr)] jumped to [AREACOORD(teleport_turf)]")
+			message_admins("[key_name_admin(usr)] jumped to [AREACOORD(teleport_turf)]")
 			. = TRUE
 		if("teleportBack") //After teleporting to centcom/dropoff, this button allows the user to teleport to the last spot they were at.
-			var/mob/M = holder.mob
+			var/mob/M = owner_client.mob
 			if (!oldTurf) //If theres no turf to go back to, error and cancel
 				to_chat(M, "Nowhere to jump to!")
 				return
 			M.forceMove(oldTurf) //Perform the actual teleport
-			if (holder.holder)
-				log_admin("[key_name(usr)] jumped to [AREACOORD(oldTurf)]")
-				message_admins("[key_name_admin(usr)] jumped to [AREACOORD(oldTurf)]")
+			log_admin("[key_name(usr)] jumped to [AREACOORD(oldTurf)]")
+			message_admins("[key_name_admin(usr)] jumped to [AREACOORD(oldTurf)]")
 			. = TRUE
 
 		////////////////////////////LAUNCH STYLE CHANGES//////////////////
@@ -346,7 +346,7 @@
 			if (temp_pod.effectShrapnel == TRUE) //If already doing custom damage, set back to default (no shrapnel)
 				temp_pod.effectShrapnel = FALSE
 			else
-				var/shrapnelInput = input("Please enter the type of pellet cloud you'd like to create on landing (Can be any projectile!)", "Projectile Typepath",  0) in sortList(subtypesof(/obj/item/projectile), /proc/cmp_typepaths_asc)
+				var/shrapnelInput = input("Please enter the type of pellet cloud you'd like to create on landing (Can be any projectile!)", "Projectile Typepath",  0) in sort_list(subtypesof(/obj/item/projectile), GLOBAL_PROC_REF(cmp_typepaths_asc))
 				if (isnull(shrapnelInput))
 					return
 				var/shrapnelMagnitude = input("Enter the magnitude of the pellet cloud. This is usually a value around 1-5. Please note that Ryll-Ryll has asked me to tell you that if you go too crazy with the projectiles you might crash the server. So uh, be gentle!", "Shrapnel Magnitude", 0) as null|num
@@ -435,12 +435,12 @@
 				temp_pod.fallingSound = initial(temp_pod.fallingSound)
 				temp_pod.fallingSoundLength = initial(temp_pod.fallingSoundLength)
 			else
-				var/soundInput = input(holder, "Please pick a sound file to play when the pod lands! Sound will start playing and try to end when the pod lands", "Pick a Sound File") as null|sound
+				var/soundInput = input(owner_client, "Please pick a sound file to play when the pod lands! Sound will start playing and try to end when the pod lands", "Pick a Sound File") as null|sound
 				if (isnull(soundInput))
 					return
 				var/sound/tempSound = sound(soundInput)
-				playsound(holder.mob, tempSound, 1)
-				var/list/sounds_list = holder.SoundQuery()
+				playsound(owner_client.mob, tempSound, 1)
+				var/list/sounds_list = owner_client.SoundQuery()
 				var/soundLen = 0
 				for (var/playing_sound in sounds_list)
 					if (isnull(playing_sound))
@@ -450,7 +450,7 @@
 					if (found.file == tempSound.file)
 						soundLen = found.len
 				if (!soundLen)
-					soundLen =  input(holder, "Couldn't auto-determine sound file length. What is the exact length of the sound file, in seconds. This number will be used to line the sound up so that it finishes right as the pod lands!", "Pick a Sound File", 0.3) as null|num
+					soundLen =  input(owner_client, "Couldn't auto-determine sound file length. What is the exact length of the sound file, in seconds. This number will be used to line the sound up so that it finishes right as the pod lands!", "Pick a Sound File", 0.3) as null|num
 					if (isnull(soundLen))
 						return
 					if (!isnum(soundLen))
@@ -462,7 +462,7 @@
 			if (!isnull(temp_pod.landingSound))
 				temp_pod.landingSound = null
 			else
-				var/soundInput = input(holder, "Please pick a sound file to play when the pod lands! I reccomend a nice \"oh shit, i'm sorry\", incase you hit someone with the pod.", "Pick a Sound File") as null|sound
+				var/soundInput = input(owner_client, "Please pick a sound file to play when the pod lands! I reccomend a nice \"oh shit, i'm sorry\", incase you hit someone with the pod.", "Pick a Sound File") as null|sound
 				if (isnull(soundInput))
 					return
 				temp_pod.landingSound = soundInput
@@ -471,7 +471,7 @@
 			if (!isnull(temp_pod.openingSound))
 				temp_pod.openingSound = null
 			else
-				var/soundInput = input(holder, "Please pick a sound file to play when the pod opens! I reccomend a stock sound effect of kids cheering at a party, incase your pod is full of fun exciting stuff!", "Pick a Sound File") as null|sound
+				var/soundInput = input(owner_client, "Please pick a sound file to play when the pod opens! I reccomend a stock sound effect of kids cheering at a party, incase your pod is full of fun exciting stuff!", "Pick a Sound File") as null|sound
 				if (isnull(soundInput))
 					return
 				temp_pod.openingSound = soundInput
@@ -480,7 +480,7 @@
 			if (!isnull(temp_pod.leavingSound))
 				temp_pod.leavingSound = null
 			else
-				var/soundInput = input(holder, "Please pick a sound file to play when the pod leaves! I reccomend a nice slide whistle sound, especially if you're using the reverse pod effect.", "Pick a Sound File") as null|sound
+				var/soundInput = input(owner_client, "Please pick a sound file to play when the pod leaves! I reccomend a nice slide whistle sound, especially if you're using the reverse pod effect.", "Pick a Sound File") as null|sound
 				if (isnull(soundInput))
 					return
 				temp_pod.leavingSound = soundInput
@@ -489,7 +489,7 @@
 			if (temp_pod.soundVolume != initial(temp_pod.soundVolume))
 				temp_pod.soundVolume = initial(temp_pod.soundVolume)
 			else
-				var/soundInput = input(holder, "Please pick a volume. Default is between 1 and 100 with 50 being average, but pick whatever. I'm a notification, not a cop. If you still cant hear your sound, consider turning on the Quiet effect. It will silence all pod sounds except for the custom admin ones set by the previous three buttons.", "Pick Admin Sound Volume") as null|num
+				var/soundInput = input(owner_client, "Please pick a volume. Default is between 1 and 100 with 50 being average, but pick whatever. I'm a notification, not a cop. If you still cant hear your sound, consider turning on the Quiet effect. It will silence all pod sounds except for the custom admin ones set by the previous three buttons.", "Pick Admin Sound Volume") as null|num
 				if (isnull(soundInput))
 					return
 				temp_pod.soundVolume = soundInput
@@ -560,23 +560,23 @@
 	cam_background.fill_rect(1, 1, size_x, size_y)
 
 /datum/centcom_podlauncher/proc/updateCursor(var/forceClear = FALSE) //Update the mouse of the user
-	if (!holder) //Can't update the mouse icon if the client doesnt exist!
+	if (!owner_client) //Can't update the mouse icon if the client doesnt exist!
 		return
 	if (!forceClear && (launcherActivated || picking_dropoff_turf)) //If the launching param is true, we give the user new mouse icons.
 		if(launcherActivated)
-			holder.mouse_up_icon = 'icons/effects/supplypod_target.dmi' //Icon for when mouse is released
-			holder.mouse_down_icon = 'icons/effects/supplypod_down_target.dmi' //Icon for when mouse is pressed
+			owner_client.mouse_up_icon = 'icons/effects/supplypod_target.dmi' //Icon for when mouse is released
+			owner_client.mouse_down_icon = 'icons/effects/supplypod_down_target.dmi' //Icon for when mouse is pressed
 		else if(picking_dropoff_turf)
-			holder.mouse_up_icon = 'icons/effects/supplypod_pickturf.dmi' //Icon for when mouse is released
-			holder.mouse_down_icon = 'icons/effects/supplypod_pickturf_down.dmi' //Icon for when mouse is pressed
-		holder.mouse_pointer_icon = holder.mouse_up_icon //Icon for idle mouse (same as icon for when released)
-		holder.click_intercept = src //Create a click_intercept so we know where the user is clicking
+			owner_client.mouse_up_icon = 'icons/effects/supplypod_pickturf.dmi' //Icon for when mouse is released
+			owner_client.mouse_down_icon = 'icons/effects/supplypod_pickturf_down.dmi' //Icon for when mouse is pressed
+		owner_client.mouse_pointer_icon = owner_client.mouse_up_icon //Icon for idle mouse (same as icon for when released)
+		owner_client.click_intercept = src //Create a click_intercept so we know where the user is clicking
 	else
-		var/mob/holder_mob = holder.mob
-		holder.mouse_up_icon = null
-		holder.mouse_down_icon = null
-		holder.click_intercept = null
-		holder_mob?.update_mouse_pointer() //set the moues icons to null, then call update_moues_pointer() which resets them to the correct values based on what the mob is doing (in a mech, holding a spell, etc)()
+		var/mob/owner_client_mob = owner_client.mob
+		owner_client.mouse_up_icon = null
+		owner_client.mouse_down_icon = null
+		owner_client.click_intercept = null
+		owner_client_mob?.update_mouse_pointer() //set the moues icons to null, then call update_moues_pointer() which resets them to the correct values based on what the mob is doing (in a mech, holding a spell, etc)()
 
 /datum/centcom_podlauncher/proc/InterceptClickOn(user,params,atom/target) //Click Intercept so we know where to send pods where the user clicks
 	var/list/pa = params2list(params)
@@ -590,31 +590,28 @@
 
 		if(left_click) //When we left click:
 			preLaunch() //Fill the acceptableTurfs list from the orderedArea list. Then, fill up the launchList list with items from the acceptableTurfs list based on the manner of launch (ordered, random, etc)
+			var/turf/target_turf = specificTarget
 			if (!isnull(specificTarget))
-				target = get_turf(specificTarget) //if we have a specific target, then always launch the pod at the turf of the target
+				target_turf = get_turf(specificTarget) //if we have a specific target, then always launch the pod at the turf of the target
 			else if (target)
-				target = get_turf(target) //Make sure we're aiming at a turf rather than an item or effect or something
+				target_turf = get_turf(target) //Make sure we're aiming at a turf rather than an item or effect or something
 			else
 				return //if target is null and we don't have a specific target, cancel
 			if (effectAnnounce)
-				deadchat_broadcast("<span class='deadsay'>A special package is being launched at the station!</span>", turf_target = target)
-			var/list/bouttaDie = list()
-			for (var/mob/living/target_mob in target)
-				bouttaDie.Add(target_mob)
-			if (holder.holder)
-				supplypod_punish_log(bouttaDie)
+				deadchat_broadcast("<span class='deadsay'>A special package is being launched at the station!</span>", turf_target = target_turf)
+
 			if (!effectBurst) //If we're not using burst mode, just launch normally.
-				launch(target)
+				launch(target_turf)
 			else
 				for (var/i in 1 to 5) //If we're using burst mode, launch 5 pods
-					if (isnull(target))
+					if (isnull(target_turf))
 						break //if our target gets deleted during this, we stop the show
 					preLaunch() //Same as above
-					var/landingzone = locate(target.x + rand(-1,1), target.y + rand(-1,1), target.z) //Pods are randomly adjacent to (or the same as) the target
+					var/landingzone = locate(target_turf.x + rand(-1,1), target_turf.y + rand(-1,1), target_turf.z) //Pods are randomly adjacent to (or the same as) the target
 					if (landingzone) //just incase we're on the edge of the map or something that would cause target.x+1 to fail
 						launch(landingzone) //launch the pod at the adjacent turf
 					else
-						launch(target) //If we couldn't locate an adjacent turf, just launch at the normal target
+						launch(target_turf) //If we couldn't locate an adjacent turf, just launch at the normal target
 					sleep(rand()*2) //looks cooler than them all appearing at once. Gives the impression of burst fire.
 	else if (picking_dropoff_turf)
 		//Clicking on UI elements shouldn't pick a dropoff turf
@@ -651,7 +648,7 @@
 
 /datum/centcom_podlauncher/proc/createOrderedArea(area/area_to_order) //This assumes the area passed in is a continuous square
 	if (isnull(area_to_order)) //If theres no supplypod bay mapped into centcom, throw an error
-		to_chat(holder.mob, "No /area/centcom/supplypod/loading/one (or /two or /three or /four) in the world! You can make one yourself (then refresh) for now, but yell at a mapper to fix this, today!")
+		to_chat(owner_client.mob, "No /area/centcom/supplypod/loading/one (or /two or /three or /four) in the world! You can make one yourself (then refresh) for now, but yell at a mapper to fix this, today!")
 		CRASH("No /area/centcom/supplypod/loading/one (or /two or /three or /four) has been mapped into the centcom z-level!")
 	orderedArea = list()
 	if (length(area_to_order.contents)) //Go through the area passed into the proc, and figure out the top left and bottom right corners by calculating max and min values
@@ -755,6 +752,13 @@
 				else
 					var/atom/movable/movable_to_launch = thing_to_launch
 					movable_to_launch.forceMove(toLaunch) //and forceMove any atom/moveable into the supplypod
+	var/list/nearby_mobs = list()
+	for (var/mob/living/target_mob in range(2, target_turf))
+		nearby_mobs.Add(target_mob)
+	var/list/target_mobs = list()
+	for (var/mob/living/target_mob in target_turf)
+		target_mobs.Add(target_mob)
+	supplypod_punish_log(target_turf, nearby_mobs, target_mobs, toLaunch.contents)
 	new /obj/effect/pod_landingzone(target_turf, toLaunch) //Then, create the DPTarget effect, which will eventually forceMove the temp_pod to it's location
 	if (launchClone)
 		launchCounter++ //We only need to increment launchCounter if we are cloning objects.
@@ -788,18 +792,36 @@
 	QDEL_NULL(indicator)
 	. = ..()
 
-/datum/centcom_podlauncher/proc/supplypod_punish_log(var/list/whoDyin)
+/datum/centcom_podlauncher/proc/supplypod_punish_log(turf/target_turf, list/nearby_mobs, list/targeted_mobs, list/pod_contents)
 	var/podString = effectBurst ? "5 pods" : "a pod"
-	var/whomString = ""
-	if (LAZYLEN(whoDyin))
-		for (var/mob/living/M in whoDyin)
-			whomString += "[key_name(M)], "
-
-	var/msg = "launched [podString] towards [whomString]"
-	message_admins("[key_name_admin(usr)] [msg] in [ADMIN_VERBOSEJMP(specificTarget)].")
-	if (length(whoDyin))
-		for (var/mob/living/M in whoDyin)
+	var/whomstring_flw = ""
+	var/whomstring = ""
+	if (length(nearby_mobs))
+		var/list/keynames = list()
+		var/list/keynames_flw = list()
+		for (var/mob/living/M in nearby_mobs)
+			keynames += key_name(M)
+			keynames_flw += "[key_name_admin(M)][ADMIN_FLW(M)]"
+		whomstring = english_list(keynames, final_comma_text = ",")
+		whomstring_flw = english_list(keynames_flw, final_comma_text = ",")
+	var/hitstring = ""
+	var/mobs_differ = !compare_list(nearby_mobs, targeted_mobs)
+	if(length(targeted_mobs) && mobs_differ)
+		var/list/keynames = list()
+		for (var/mob/living/M in targeted_mobs)
+			keynames += key_name(M)
+		hitstring = " (at [english_list(keynames, final_comma_text = ",")])"
+	var/pod_contents_str = english_list(pod_contents, final_comma_text = ",")
+	var/msg = "launched [podString]"
+	var/hit_msg_flw = length(nearby_mobs) ? "[!length(targeted_mobs) || mobs_differ ? "near" : "at"] [whomstring_flw][hitstring] in" : "at"
+	var/hit_msg = length(nearby_mobs) ? "[!length(targeted_mobs) || mobs_differ ? "near" : "at"] [whomstring][hitstring] in" : "at"
+	message_admins("[key_name_admin(usr)] [msg] containing [trim(pod_contents_str, 60)] [hit_msg_flw] [ADMIN_VERBOSEJMP(target_turf)].")
+	var/log_msg = "[key_name_admin(usr)] [msg] containing [trim(pod_contents_str, 500)] [hit_msg] [AREACOORD(target_turf)]."
+	usr.log_message(log_msg, LOG_ADMIN, log_globally = TRUE)
+	if (length(targeted_mobs))
+		for (var/mob/living/M in targeted_mobs)
 			admin_ticket_log(M, "[key_name_admin(usr)] [msg]")
+			M.log_message(log_msg, LOG_ADMIN, log_globally = FALSE)
 
 /datum/centcom_podlauncher/proc/loadData(var/list/dataToLoad)
 	bayNumber = dataToLoad["bayNumber"]

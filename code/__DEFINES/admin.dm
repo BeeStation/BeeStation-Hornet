@@ -101,10 +101,6 @@
 #define STICKYBAN_DB_CACHE_TIME 10 SECONDS
 #define STICKYBAN_ROGUE_CHECK_TIME 5
 
-
-#define POLICY_POLYMORPH "polymorph" //Shown to vicitm of staff of change and related effects.
-#define POLICY_VERB_HEADER "policy_verb_header" //Shown on top of policy verb window
-
 // allowed ghost roles this round, starts as everything allowed
 GLOBAL_VAR_INIT(ghost_role_flags, (~0))
 

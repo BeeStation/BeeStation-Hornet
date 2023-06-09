@@ -89,7 +89,7 @@
 
 	limb.embedded_objects |= weapon // on the inside... on the inside...
 	weapon.forceMove(victim)
-	RegisterSignal(weapon, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING), .proc/weaponDeleted)
+	RegisterSignal(weapon, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING), PROC_REF(weaponDeleted))
 	victim.visible_message("<span class='danger'>[weapon] [harmful ? "embeds" : "sticks"] itself [harmful ? "in" : "to"] [victim]'s [limb.name]!</span>", "<span class='userdanger'>[weapon] [harmful ? "embeds" : "sticks"] itself [harmful ? "in" : "to"] your [limb.name]!</span>")
 
 	if(harmful)
@@ -110,11 +110,11 @@
 	return ..()
 
 /datum/component/embedded/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/jostleCheck)
-	RegisterSignal(parent, COMSIG_CARBON_EMBED_RIP, .proc/ripOut)
-	RegisterSignal(parent, COMSIG_CARBON_EMBED_REMOVAL, .proc/safeRemove)
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, .proc/checkRemoval)
-	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND, .proc/tryPullOutOther)
+	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(jostleCheck))
+	RegisterSignal(parent, COMSIG_CARBON_EMBED_RIP, PROC_REF(ripOut))
+	RegisterSignal(parent, COMSIG_CARBON_EMBED_REMOVAL, PROC_REF(safeRemove))
+	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(checkRemoval))
+	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND, PROC_REF(tryPullOutOther))
 
 /datum/component/embedded/UnregisterFromParent()
 	UnregisterSignal(parent, list(COMSIG_MOVABLE_MOVED, COMSIG_CARBON_EMBED_RIP, COMSIG_CARBON_EMBED_REMOVAL, COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_ATTACK_HAND))
@@ -193,7 +193,7 @@
 
 	var/mob/living/carbon/victim = parent
 	var/time_taken = rip_time * weapon.w_class
-	INVOKE_ASYNC(src, .proc/complete_rip_out, victim, I, limb, time_taken)
+	INVOKE_ASYNC(src, PROC_REF(complete_rip_out), victim, I, limb, time_taken)
 
 /// everything async that ripOut used to do
 /datum/component/embedded/proc/complete_rip_out(mob/living/carbon/victim, obj/item/I, obj/item/bodypart/limb, time_taken)
@@ -226,9 +226,9 @@
 		UnregisterSignal(weapon, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING))
 		//If a mob was passed in and it can hold items, put it in the mob's hand.
 		if(istype(to_hands) && to_hands.can_hold_items())
-			INVOKE_ASYNC(to_hands, /mob.proc/put_in_hands, weapon)
+			INVOKE_ASYNC(to_hands, TYPE_PROC_REF(/mob, put_in_hands), weapon)
 		else
-			INVOKE_ASYNC(weapon, /atom/movable.proc/forceMove, get_turf(victim))
+			INVOKE_ASYNC(weapon, TYPE_PROC_REF(/atom/movable, forceMove), get_turf(victim))
 
 	qdel(src)
 
@@ -248,7 +248,7 @@
 		to_chat(user, "<span class='warning'>[weapon] embedding in \the [limb.name] of [parent] is too small to pull out with your bare hands!</span>")
 		return
 
-	INVOKE_ASYNC(src, .proc/pluckOut, user, 1, 2, "pulling out")
+	INVOKE_ASYNC(src, PROC_REF(pluckOut), user, 1, 2, "pulling out")
 	return COMPONENT_NO_ATTACK_HAND
 
 /datum/component/embedded/proc/checkRemoval(mob/living/carbon/victim, obj/item/I, mob/user)
@@ -283,7 +283,7 @@
 		if(!victim_human.can_inject(user, TRUE, limb.body_zone, penetrate_thick = FALSE))
 			return TRUE
 
-	INVOKE_ASYNC(src, .proc/pluckOut, user, damage_multiplier, max(damage_multiplier, 0.2), remove_verb)
+	INVOKE_ASYNC(src, PROC_REF(pluckOut), user, damage_multiplier, max(damage_multiplier, 0.2), remove_verb)
 	return COMPONENT_NO_AFTERATTACK
 
 /// The actual action for pulling out an embedded object with any tools that work
@@ -310,7 +310,7 @@
 			to_chat(victim, "<span class='danger'>[user] fails to remove [weapon] from your [limb.name].</span>")
 		return
 
-	//Removed succesfully
+	//Removed successfully
 	if(self_pluck)
 		to_chat(user, "<span class='notice'>You successfully remove [weapon] from your [limb.name].</span>")
 	else

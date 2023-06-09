@@ -312,7 +312,7 @@ Nothing else in the console has ID requirements.
 		node_cache[compressed_id] = list(
 			"name" = node.display_name,
 			"description" = node.description,
-			"tech_tier" = node.tech_tier,
+			"node_tier" = node.tech_tier,
 		)
 		if (LAZYLEN(node.prereq_ids))
 			node_cache[compressed_id]["prereq_ids"] = list()
@@ -337,6 +337,7 @@ Nothing else in the console has ID requirements.
 		var/size = spritesheet.icon_size_id(design.id)
 		design_cache[compressed_id] = list(
 			design.name,
+			design.desc,
 			"[size == size32x32 ? "" : "[size] "][design.id]"
 		)
 

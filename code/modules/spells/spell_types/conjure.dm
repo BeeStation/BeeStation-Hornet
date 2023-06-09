@@ -21,7 +21,7 @@
 		if(T.density && !summon_ignore_density)
 			targets -= T
 
-	for(var/i=0,i<summon_amt,i++)
+	for(var/i in 1 to summon_amt)
 		if(!targets.len)
 			break
 		var/summoned_object_type = pick(summon_type)
@@ -74,7 +74,7 @@
 /obj/effect/proc_holder/spell/targeted/conjure_item
 	name = "Summon weapon"
 	desc = "A generic spell that should not exist.  This summons an instance of a specific type of item, or if one already exists, un-summons it.  Summons into hand if possible."
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	include_user = TRUE
 	range = -1
 	clothes_req = FALSE

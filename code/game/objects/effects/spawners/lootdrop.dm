@@ -6,14 +6,26 @@
 	var/lootdoubles = TRUE	//if the same item can be spawned twice
 	var/list/loot			//a list of possible items to spawn e.g. list(/obj/item, /obj/structure, /obj/effect)
 	var/fan_out_items = FALSE //Whether the items should be distributed to offsets 0,1,-1,2,-2,3,-3.. This overrides pixel_x/y on the spawner itself
+	var/late_spawn = FALSE
 
 /obj/effect/spawner/lootdrop/Initialize(mapload)
-	..()
+	. = ..()
+	if (!late_spawn)
+		spawn_loot()
+		return INITIALIZE_HINT_QDEL
+	else
+		RegisterSignal(SSdcs, COMSIG_GLOB_POST_START, PROC_REF(late_spawn_loot))
+
+/obj/effect/spawner/lootdrop/proc/late_spawn_loot()
+	spawn_loot()
+	qdel(src)
+
+/obj/effect/spawner/lootdrop/proc/spawn_loot()
 	if(loot?.len)
 		var/turf/T = get_turf(src)
 		var/loot_spawned = 0
 		while((lootcount-loot_spawned) && loot.len)
-			var/lootspawn = pickweight(loot)
+			var/lootspawn = pick_weight(loot)
 			if(!lootdoubles)
 				loot.Remove(lootspawn)
 
@@ -28,7 +40,6 @@
 					if (loot_spawned)
 						spawned_loot.pixel_x = spawned_loot.pixel_y = ((!(loot_spawned%2)*loot_spawned/2)*-1)+((loot_spawned%2)*(loot_spawned+1)/2*1)
 			loot_spawned++
-	return INITIALIZE_HINT_QDEL
 
 /obj/effect/spawner/lootdrop/donkpockets
 	icon_state = "random_donk"
@@ -265,7 +276,8 @@
 		/obj/item/organ/wings/cybernetic = 2,
 		/obj/item/organ/tongue/robot/clockwork/better = 2,
 		/obj/effect/gibspawner/robot = 4,
-		/obj/item/drone_shell = 1)
+		/obj/effect/mob_spawn/drone = 1,
+		)
 
 /obj/effect/spawner/lootdrop/teratoma/major/clown
 	name = "funny teratoma spawner"

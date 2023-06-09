@@ -17,19 +17,25 @@
 
 /obj/structure/Initialize(mapload)
 	if (!armor)
-		armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 0)
+		armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, STAMINA = 0)
 	. = ..()
-	if(smooth)
-		queue_smooth(src)
-		queue_smooth_neighbors(src)
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+		QUEUE_SMOOTH(src)
+		QUEUE_SMOOTH_NEIGHBORS(src)
 		icon_state = ""
 	GLOB.cameranet.updateVisibility(src)
 
 /obj/structure/Destroy()
 	GLOB.cameranet.updateVisibility(src)
-	if(smooth)
-		queue_smooth_neighbors(src)
-	return ..()
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+		QUEUE_SMOOTH_NEIGHBORS(src)
+	var/turf/current_turf = loc
+	. = ..()
+	// Attempt zfalling for anything standing on this structure
+	if(!isopenspace(current_turf))
+		return
+	for(var/atom/movable/A in current_turf)
+		current_turf.try_start_zFall(A)
 
 /obj/structure/attack_hand(mob/user)
 	. = ..()
@@ -65,9 +71,10 @@
 
 /obj/structure/proc/do_climb(atom/movable/A)
 	if(climbable)
-		density = FALSE
-		. = step(A,get_dir(A,src.loc))
-		density = TRUE
+		set_density(FALSE)
+		var/step_dir = (get_turf(A) == get_turf(src)) ? dir : get_dir(A, src.loc)
+		. = step(A, step_dir)
+		set_density(TRUE)
 
 /obj/structure/proc/climb_structure(mob/living/user)
 	add_fingerprint(user)
@@ -81,7 +88,7 @@
 	if(HAS_TRAIT(user, TRAIT_FREERUNNING)) //do you have any idea how fast I am???
 		adjusted_climb_time *= 0.8
 	structureclimber = user
-	if(do_mob(user, user, adjusted_climb_time))
+	if(do_after(user, adjusted_climb_time))
 		if(src.loc) //Checking if structure has been destroyed
 			if(do_climb(user))
 				user.visible_message("<span class='warning'>[user] climbs onto [src].</span>", \
@@ -117,4 +124,5 @@
 				return  "<span class='warning'>It's falling apart!</span>"
 
 /obj/structure/rust_heretic_act()
-	take_damage(500, BRUTE, "melee", 1)
+	take_damage(500, BRUTE, MELEE, 1)
+	return TRUE

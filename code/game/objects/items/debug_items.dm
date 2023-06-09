@@ -71,7 +71,7 @@
 		"Wire Brush" = image(icon = 'icons/obj/tools.dmi', icon_state = "wirebrush")
 	)
 
-	var/tool_result = show_radial_menu(user, src, tool_list, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
+	var/tool_result = show_radial_menu(user, src, tool_list, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 	if(!check_menu(user))
 		return
 	switch(tool_result)
@@ -111,3 +111,218 @@
 			tool_behaviour = TOOL_SHOVEL
 		if("Wire Brush")
 			tool_behaviour = TOOL_RUSTSCRAPER
+
+/obj/item/construction/rcd/arcd/debug
+	name = "\improper CentCom Admin RCD"
+	icon_state = "ircd"
+	item_state = "ircd"
+	w_class = WEIGHT_CLASS_TINY
+	max_matter = INFINITY
+	matter = INFINITY
+	delay_mod = 0.1
+	ranged = TRUE
+	upgrade = RCD_UPGRADE_FRAMES | RCD_UPGRADE_SIMPLE_CIRCUITS
+	canRturf = TRUE
+
+/obj/item/construction/rld/debug
+	name = "\improper CentCom Admin RLD"
+	w_class = WEIGHT_CLASS_TINY
+	max_matter = INFINITY
+	matter = INFINITY
+	walldelay = 0.1
+	floordelay = 0.1
+	decondelay = 0.1
+
+/obj/item/holosign_creator/atmos/debug
+	name = "\improper CentCom ATMOS holofan projector"
+	w_class = WEIGHT_CLASS_TINY
+	max_signs = 999
+	ranged = TRUE
+
+/obj/item/pipe_dispenser/debug
+	name= "\improper CentCom Rapid Pipe Dispenser (RPD)"
+	w_class = WEIGHT_CLASS_TINY
+	atmos_build_speed = 0.1
+	disposal_build_speed = 0.1
+	transit_build_speed = 0.1
+	plumbing_build_speed = 0.1
+	destroy_speed = 0.1
+	paint_speed = 0.1
+	ranged = TRUE
+	upgrade_flags = RPD_UPGRADE_UNWRENCH
+
+/obj/item/spellbook/debug
+	name = "\improper Robehator's spell book"
+	uses = 200
+	everything_robeless = TRUE
+	bypass_lock = TRUE
+
+//Debug suit
+/obj/item/clothing/head/helmet/space/hardsuit/debug
+	name = "\improper Central Command black hardsuit helmet"
+	desc = "very powerful."
+	icon_state = "hardsuit0-syndielite"
+	hardsuit_type = "syndielite"
+	armor = list(MELEE = 300,  BULLET = 300, LASER = 300, ENERGY = 300, BOMB = 300, BIO = 300, RAD = 300, FIRE = 300, ACID = 300, STAMINA = 300) // prevent armor penetration
+	strip_delay = 6000
+	heat_protection = HEAD
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+
+/obj/item/clothing/suit/space/hardsuit/debug
+	name = "\improper Central Command black hardsuit"
+	desc = "very powerful."
+	icon_state = "hardsuit0-syndielite"
+	hardsuit_type = "syndielite"
+	w_class = WEIGHT_CLASS_TINY
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/debug
+	armor = list(MELEE = 300,  BULLET = 300, LASER = 300, ENERGY = 300, BOMB = 300, BIO = 300, RAD = 300, FIRE = 300, ACID = 300, STAMINA = 300) // prevent armor penetration
+	gas_transfer_coefficient = 0
+	permeability_coefficient = 0
+	siemens_coefficient = 0
+	slowdown = -1
+	equip_delay_other = 6000 // stripping an admin for 10 minutes
+	cold_protection = FULL_BODY
+	heat_protection = FULL_BODY
+	body_parts_covered = FULL_BODY
+	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+
+
+// debug bag
+/obj/item/storage/backpack/debug
+	name = "bag of portable hole"
+	desc = "A backpack that opens into a localized pocket of nullspace."
+	icon_state = "holdingpack"
+	item_state = "holdingpack"
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	item_flags = NO_MAT_REDEMPTION
+	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 0)
+
+/obj/item/storage/backpack/debug/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.allow_big_nesting = TRUE
+	STR.max_w_class = WEIGHT_CLASS_GIGANTIC
+	STR.max_items = 1000
+	STR.max_combined_w_class = 1000
+
+/obj/item/storage/box/debugtools
+	name = "box of debug tools"
+	icon_state = "syndiebox"
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/storage/box/debugtools/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_combined_w_class = 1000
+	STR.max_w_class = WEIGHT_CLASS_GIGANTIC
+	STR.max_items = 1000
+	STR.allow_big_nesting = TRUE
+
+/obj/item/storage/box/debugtools/PopulateContents()
+	var/static/items_inside = list(
+		/obj/item/flashlight/emp/debug=1,
+		/obj/item/modular_computer/tablet/pda=1,
+		/obj/item/modular_computer/tablet/preset/advanced=1,
+		/obj/item/storage/belt/military/abductor/full=1,
+		/obj/item/geiger_counter=1,
+		/obj/item/holosign_creator/atmos/debug=1,
+		/obj/item/pipe_dispenser/debug=1,
+		/obj/item/construction/rcd/arcd/debug=1,
+		/obj/item/construction/rld/debug=1,
+		/obj/item/areaeditor/blueprints=1,
+		/obj/item/card/emag=1,
+		/obj/item/storage/belt/medical/ert=1,
+		/obj/item/disk/tech_disk/debug=1,
+		/obj/item/disk/surgery/debug=1,
+		/obj/item/disk/data/debug=1,
+		/obj/item/uplink/debug=1,
+		/obj/item/uplink/nuclear/debug=1,
+		/obj/item/spellbook/debug=1,
+		/obj/item/storage/box/beakers/bluespace=1,
+		/obj/item/storage/box/beakers/variety=1,
+		/obj/item/storage/box/material=1
+	)
+	generate_items_inside(items_inside,src)
+
+/obj/item/debug/orb_of_power
+	name = "\improper Orb of Power"
+	desc = "grants incredible power to its owner."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "sp_green"
+	w_class = WEIGHT_CLASS_TINY
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	var/traits_to_give = list(
+		TRAIT_MADNESS_IMMUNE,
+		TRAIT_FEARLESS,
+		TRAIT_SHOCKIMMUNE,
+		TRAIT_SLEEPIMMUNE,
+		TRAIT_STUNIMMUNE,
+		TRAIT_PUSHIMMUNE,
+		TRAIT_CONFUSEIMMUNE,
+		TRAIT_RADIMMUNE,
+		TRAIT_VIRUSIMMUNE,
+		TRAIT_PIERCEIMMUNE,
+		TRAIT_IGNORESLOWDOWN,
+		TRAIT_IGNOREDAMAGESLOWDOWN,
+		TRAIT_NODISMEMBER,
+		TRAIT_NOLIMBDISABLE,
+		TRAIT_XENO_IMMUNE,
+		TRAIT_NOFIRE,
+		TRAIT_TOXIMMUNE,
+		TRAIT_NOCLONELOSS,
+		TRAIT_NOCRITDAMAGE,
+		TRAIT_NOSLIPALL,
+		TRAIT_NOHUNGER,
+		TRAIT_NOVOMIT,
+		TRAIT_RESISTHEAT,
+		TRAIT_RESISTCOLD,
+		TRAIT_RESISTHIGHPRESSURE,
+		TRAIT_RESISTLOWPRESSURE,
+		TRAIT_NOBREATH,
+		TRAIT_MINDSHIELD,
+		TRAIT_SELF_AWARE,
+		TRAIT_SIXTHSENSE,
+		TRAIT_XRAY_VISION,
+		TRAIT_MEDICAL_HUD,
+		TRAIT_SECURITY_HUD,
+		TRAIT_BARMASTER,
+		TRAIT_METALANGUAGE_KEY_ALLOWED
+	)
+
+/obj/item/debug/orb_of_power/pickup(mob/user)
+	. = ..()
+	for(var/each in traits_to_give)
+		ADD_TRAIT(user, each, "debug")
+	user.grant_all_languages(TRUE, TRUE, TRUE, "debug")
+	user.grant_language(/datum/language/metalanguage, TRUE, TRUE, "debug")
+	user.update_sight()
+	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	hud.add_hud_to(user)
+	hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
+	hud.add_hud_to(user)
+	hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
+	hud.add_hud_to(user)
+
+
+/obj/item/debug/orb_of_power/dropped(mob/living/carbon/human/user)
+	. = ..()
+	var/obj/item/debug/orb_of_power/orb = locate() in user.get_contents()
+	if(orb)
+		return
+	for(var/each in traits_to_give)
+		REMOVE_TRAIT(user, each, "debug")
+	user.remove_all_languages("debug")
+	user.remove_language(/datum/language/metalanguage, TRUE, TRUE, "debug")
+	user.update_sight()
+
+	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
+	hud.remove_hud_from(user)
+	if(!HAS_TRAIT(user, TRAIT_MEDICAL_HUD))
+		hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+		hud.remove_hud_from(user)
+	if(!HAS_TRAIT(user, TRAIT_SECURITY_HUD))
+		hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
+		hud.remove_hud_from(user)

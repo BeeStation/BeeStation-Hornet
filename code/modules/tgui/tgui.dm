@@ -31,10 +31,14 @@
 	var/closing = FALSE
 	/// The status/visibility of the UI.
 	var/status = UI_INTERACTIVE
+	/// Timed refreshing state
+	var/refreshing = FALSE
 	/// Topic state used to determine status/interactability.
 	var/datum/ui_state/state = null
 	/// If the window should update
 	var/needs_update = FALSE
+	/// Rate limit client refreshes to prevent DoS.
+	COOLDOWN_DECLARE(refresh_cooldown)
 
 /**
  * public
@@ -96,12 +100,22 @@
 	window.acquire_lock(src)
 	if(!window.is_ready())
 		window.initialize(
+			strict_mode = TRUE,
 			fancy = (user.client.prefs.toggles & PREFTOGGLE_2_FANCY_TGUI),
 			assets = list(
 				get_asset_datum(/datum/asset/simple/tgui),
 			))
 	else
 		window.send_message("ping")
+	send_assets()
+	window.send_message("update", get_payload(
+		with_data = TRUE,
+		with_static_data = TRUE))
+	SStgui.on_open(src)
+
+	return TRUE
+
+/datum/tgui/proc/send_assets()
 	var/flush_queue = window.send_asset(get_asset_datum(
 		/datum/asset/simple/namespaced/fontawesome))
 	flush_queue |= window.send_asset(get_asset_datum(
@@ -110,12 +124,6 @@
 		flush_queue |= window.send_asset(asset)
 	if (flush_queue)
 		user.client.browse_queue_flush()
-	window.send_message("update", get_payload(
-		with_data = TRUE,
-		with_static_data = TRUE))
-	SStgui.on_open(src)
-
-	return TRUE
 
 /**
  * public
@@ -183,14 +191,20 @@
  * optional custom_data list Custom data to send instead of ui_data.
  * optional force bool Send an update even if UI is not interactive.
  */
-/datum/tgui/proc/send_full_update(custom_data, force)
+/datum/tgui/proc/send_full_update(custom_data, force, bypass_cooldown = FALSE)
 	if(!user.client || !initialized || closing)
 		return
+	if(!bypass_cooldown && !COOLDOWN_FINISHED(src, refresh_cooldown))
+		refreshing = TRUE
+		addtimer(CALLBACK(src, PROC_REF(send_full_update)), TGUI_REFRESH_FULL_UPDATE_COOLDOWN, TIMER_UNIQUE)
+		return
+	refreshing = FALSE
 	var/should_update_data = force || status >= UI_UPDATE
 	window.send_message("update", get_payload(
 		custom_data,
 		with_data = should_update_data,
 		with_static_data = TRUE))
+	COOLDOWN_START(src, refresh_cooldown, TGUI_REFRESH_FULL_UPDATE_COOLDOWN)
 
 /**
  * public
@@ -221,6 +235,7 @@
 		"title" = title,
 		"status" = status,
 		"interface" = interface,
+		"refreshing" = refreshing,
 		"window" = list(
 			"key" = window_key,
 			"size" = window_size,
@@ -307,6 +322,9 @@
 		return FALSE
 	switch(type)
 		if("ready")
+			// Send a full update when the user manually refreshes the UI
+			if(initialized)
+				send_full_update()
 			initialized = TRUE
 		if("pingReply")
 			initialized = TRUE

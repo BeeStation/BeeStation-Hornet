@@ -3,6 +3,7 @@
 	desc = "..."
 	icon = 'icons/obj/chemical.dmi'
 	w_class = WEIGHT_CLASS_TINY
+	item_flags = ISWEAPON
 	/// this is to support when you don't want to display "bottle" part with a custom name. i.e.) "Bica-Kelo mix" rather than "Bica-Kelo mix bottle"
 	var/label_name
 	///How many units are we currently transferring?
@@ -102,7 +103,7 @@
 /obj/item/reagent_containers/proc/bartender_check(atom/target)
 	. = FALSE
 	var/mob/thrown_by = thrownby?.resolve()
-	if(target.CanPass(src, get_turf(src)) && thrown_by && HAS_TRAIT(thrown_by, TRAIT_BOOZE_SLIDER))
+	if(target.CanPass(src, get_dir(target, src)) && thrown_by && HAS_TRAIT(thrown_by, TRAIT_BOOZE_SLIDER))
 		. = TRUE
 
 /obj/item/reagent_containers/proc/SplashReagents(atom/target, thrown = FALSE)

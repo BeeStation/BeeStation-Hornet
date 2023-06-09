@@ -46,7 +46,7 @@
 
 /obj/item/integrated_circuit/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_ATOM_USB_CABLE_TRY_ATTACH, .proc/on_atom_usb_cable_try_attach)
+	RegisterSignal(src, COMSIG_ATOM_USB_CABLE_TRY_ATTACH, PROC_REF(on_atom_usb_cable_try_attach))
 
 /obj/item/integrated_circuit/loaded/Initialize(mapload)
 	. = ..()
@@ -113,7 +113,7 @@
 	remove_current_shell()
 	on = TRUE
 	shell = new_shell
-	RegisterSignal(shell, COMSIG_PARENT_QDELETING, .proc/remove_current_shell)
+	RegisterSignal(shell, COMSIG_PARENT_QDELETING, PROC_REF(remove_current_shell))
 	for(var/obj/item/circuit_component/attached_component as anything in attached_components)
 		attached_component.register_shell(shell)
 		// Their input ports may be updated with user values, but the outputs haven't updated
@@ -165,7 +165,7 @@
 	to_add.rel_y = rand(COMPONENT_MIN_RANDOM_POS, COMPONENT_MAX_RANDOM_POS)
 	to_add.parent = src
 	attached_components += to_add
-	RegisterSignal(to_add, COMSIG_MOVABLE_MOVED, .proc/component_move_handler)
+	RegisterSignal(to_add, COMSIG_MOVABLE_MOVED, PROC_REF(component_move_handler))
 	SStgui.update_uis(src)
 
 	if(shell)

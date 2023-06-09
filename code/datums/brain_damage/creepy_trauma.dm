@@ -5,7 +5,7 @@
 	gain_text = "If you see this message, make a github issue report. The trauma initialized wrong."
 	lose_text = "<span class='warning'>The voices in your head fall silent.</span>"
 	can_gain = TRUE
-	random_gain = FALSE
+	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM | TRAUMA_SPECIAL_CURE_PROOF
 	resilience = TRAUMA_RESILIENCE_SURGERY
 	var/mob/living/obsession
 	var/datum/objective/spendtime/attachedobsessedobj
@@ -25,7 +25,7 @@
 			lose_text = ""
 			qdel(src)
 			return
-	RegisterSignal(obsession.mind, COMSIG_MIND_CRYOED, .proc/on_obsession_cryoed)
+	RegisterSignal(obsession.mind, COMSIG_MIND_CRYOED, PROC_REF(on_obsession_cryoed))
 	gain_text = "<span class='warning'>You hear a sickening, raspy voice in your head. It wants one small task of you...</span>"
 	owner.mind.add_antag_datum(/datum/antagonist/obsessed)
 	antagonist = owner.mind.has_antag_datum(/datum/antagonist/obsessed)
@@ -37,7 +37,7 @@
 
 /datum/brain_trauma/special/obsessed/on_life()
 	if(!obsession || obsession.stat == DEAD)
-		viewing = FALSE//important, makes sure you no longer stutter when happy if you murdered them while viewing
+		viewing = FALSE
 		return
 	if(get_dist(get_turf(owner), get_turf(obsession)) > 7)
 		viewing = FALSE //they are further than our viewrange they are not viewing us
@@ -70,13 +70,6 @@
 	antagonist?.trauma = null
 	owner.mind.remove_antag_datum(/datum/antagonist/obsessed)
 
-/datum/brain_trauma/special/obsessed/handle_speech(datum/source, list/speech_args)
-	if(!viewing)
-		return
-	var/datum/component/mood/mood = owner.GetComponent(/datum/component/mood)
-	if(mood && mood.sanity >= SANITY_GREAT && social_interaction())
-		speech_args[SPEECH_MESSAGE] = ""
-
 /datum/brain_trauma/special/obsessed/on_hug(mob/living/hugger, mob/living/hugged)
 	if(hugged == obsession)
 		obsession_hug_count++
@@ -91,36 +84,12 @@
 		lose_text = "<span class='warning'>[message] The voices in your head fall silent.</span>"
 		qdel(src)
 		return
-	RegisterSignal(obsession.mind, COMSIG_MIND_CRYOED, .proc/on_obsession_cryoed)
+	RegisterSignal(obsession.mind, COMSIG_MIND_CRYOED, PROC_REF(on_obsession_cryoed))
 	to_chat(owner, "<span class='warning'>[message] The voices have a new task for you...</span>")
 	antagonist.objectives = list()
 	antagonist.forge_objectives(obsession.mind)
 	to_chat(owner, "<B>You don't know their connection, but The Voices compel you to stalk [obsession], forcing them into a state of constant paranoia.</B>")
 	owner.mind.announce_objectives()
-
-/datum/brain_trauma/special/obsessed/proc/social_interaction()
-	var/fail = FALSE //whether you can finish a sentence while doing it
-	owner.stuttering = max(3, owner.stuttering)
-	owner.blur_eyes(10)
-	switch(rand(1,4))
-		if(1)
-			shake_camera(owner, 15, 1)
-			owner.vomit()
-			fail = TRUE
-		if(2)
-			INVOKE_ASYNC(owner, /mob.proc/emote, "cough")
-			owner.dizziness += 10
-			fail = TRUE
-		if(3)
-			to_chat(owner, "<span class='userdanger'>You feel your heart lurching in your chest...</span>")
-			owner.Stun(20)
-			shake_camera(owner, 15, 1)
-		if(4)
-			to_chat(owner, "<span class='warning'>You faint.</span>")
-			owner.Unconscious(80)
-			fail = TRUE
-	return fail
-
 
 /datum/brain_trauma/special/obsessed/proc/find_obsession()
 	var/chosen_victim

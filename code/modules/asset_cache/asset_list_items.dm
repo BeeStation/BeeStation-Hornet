@@ -14,6 +14,14 @@
 		"tgui-panel.bundle.css" = file("tgui/public/tgui-panel.bundle.css"),
 	)
 
+//For development purposes only
+/datum/asset/simple/tgui_say
+	keep_local_name = TRUE
+	assets = list(
+		"tgui-say.bundle.js" = file("tgui/public/tgui-say.bundle.js"),
+		"tgui-say.bundle.css" = file("tgui/public/tgui-say.bundle.css"),
+	)
+
 /datum/asset/simple/headers
 	assets = list(
 		"alarm_green.gif" = 'icons/program_icons/alarm_green.gif',
@@ -96,6 +104,7 @@
 		"stamp-clown" = 'icons/stamp_icons/large_stamp-clown.png',
 		"stamp-deny" = 'icons/stamp_icons/large_stamp-deny.png',
 		"stamp-ok" = 'icons/stamp_icons/large_stamp-ok.png',
+		"stamp-void" = 'icons/stamp_icons/large_stamp-void.png',
 		"stamp-hop" = 'icons/stamp_icons/large_stamp-hop.png',
 		"stamp-cmo" = 'icons/stamp_icons/large_stamp-cmo.png',
 		"stamp-ce" = 'icons/stamp_icons/large_stamp-ce.png',
@@ -245,32 +254,26 @@
 		"default" = 'icons/UI_Icons/Achievements/default.png'
 	)
 
-/datum/asset/spritesheet/simple/pills
-	name ="pills"
-	assets = list(
-		"pill1" = 'icons/UI_Icons/Pills/pill1.png',
-		"pill2" = 'icons/UI_Icons/Pills/pill2.png',
-		"pill3" = 'icons/UI_Icons/Pills/pill3.png',
-		"pill4" = 'icons/UI_Icons/Pills/pill4.png',
-		"pill5" = 'icons/UI_Icons/Pills/pill5.png',
-		"pill6" = 'icons/UI_Icons/Pills/pill6.png',
-		"pill7" = 'icons/UI_Icons/Pills/pill7.png',
-		"pill8" = 'icons/UI_Icons/Pills/pill8.png',
-		"pill9" = 'icons/UI_Icons/Pills/pill9.png',
-		"pill10" = 'icons/UI_Icons/Pills/pill10.png',
-		"pill11" = 'icons/UI_Icons/Pills/pill11.png',
-		"pill12" = 'icons/UI_Icons/Pills/pill12.png',
-		"pill13" = 'icons/UI_Icons/Pills/pill13.png',
-		"pill14" = 'icons/UI_Icons/Pills/pill14.png',
-		"pill15" = 'icons/UI_Icons/Pills/pill15.png',
-		"pill16" = 'icons/UI_Icons/Pills/pill16.png',
-		"pill17" = 'icons/UI_Icons/Pills/pill17.png',
-		"pill18" = 'icons/UI_Icons/Pills/pill18.png',
-		"pill19" = 'icons/UI_Icons/Pills/pill19.png',
-		"pill20" = 'icons/UI_Icons/Pills/pill20.png',
-		"pill21" = 'icons/UI_Icons/Pills/pill21.png',
-		"pill22" = 'icons/UI_Icons/Pills/pill22.png',
-	)
+/datum/asset/spritesheet/simple/medicine_containers
+	name ="medicine_containers"
+
+/datum/asset/spritesheet/simple/medicine_containers/register()
+	var/dmi_file = 'icons/obj/medicine_containers.dmi'
+	for(var/each_pill_shape in PILL_SHAPE_LIST_WITH_DUMMY)
+		var/icon/target_icon = icon(dmi_file, each_pill_shape, SOUTH, 1)
+		if(!target_icon)
+			continue
+		target_icon.Crop(11,10, 21,20)
+		target_icon.Scale(22, 22)
+		Insert(each_pill_shape, target_icon)
+	for(var/each_patch_shape in PATCH_SHAPE_LIST)
+		var/icon/target_icon = icon(dmi_file, each_patch_shape, SOUTH, 1)
+		if(!target_icon)
+			continue
+		target_icon.Crop(11,12, 21,22)
+		target_icon.Scale(22, 22)
+		Insert(each_patch_shape, target_icon)
+	return ..()
 
 //this exists purely to avoid meta by pre-loading all language icons.
 /datum/asset/language/register()
@@ -431,6 +434,7 @@
 
 		Insert(imgid, I)
 	return ..()
+
 /datum/asset/simple/bee_antags
 	assets = list(
 		"traitor.png" = 'html/img/traitor.png',
@@ -466,7 +470,12 @@
 		"mech.png" = 'html/img/mech.png',
 		"scitool.png" = 'html/img/scitool.png',
 		"alienorgan.png"= 'html/img/alienorgan.png',
-		"abaton.png"= 'html/img/abaton.png'
+		"spiderguard.png"= 'html/img/spiderguard.png',
+		"spiderbroodmother.png"= 'html/img/spiderbroodmother.png',
+		"spidernurse.png"= 'html/img/spidernurse.png',
+		"spiderhunter.png"= 'html/img/spiderhunter.png',
+		"spiderviper.png"= 'html/img/spiderviper.png',
+		"spidertarantula.png"= 'html/img/spidertarantula.png'
 	)
 
 /datum/asset/simple/orbit
@@ -483,7 +492,9 @@
 	name = "sheetmaterials"
 
 /datum/asset/spritesheet/sheetmaterials/register()
-	InsertAll("", 'icons/obj/stack_objects.dmi')
+	InsertAll("", 'icons/obj/stacks/minerals.dmi')//figure to do a list here
+//	InsertAll("", 'icons/obj/stacks/miscellaneous.dmi')
+//	InsertAll("", 'icons/obj/stacks/organic.dmi')
 
 	// Special case to handle Bluespace Crystals
 	Insert("polycrystal", 'icons/obj/telescience.dmi', "polycrystal")

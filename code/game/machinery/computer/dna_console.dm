@@ -203,8 +203,8 @@
 		UnregisterSignal(connected_scanner, COMSIG_MACHINE_CLOSE)
 
 	if(scanner)
-		RegisterSignal(scanner, COMSIG_MACHINE_OPEN, .proc/on_scanner_open)
-		RegisterSignal(scanner, COMSIG_MACHINE_CLOSE, .proc/on_scanner_close)
+		RegisterSignal(scanner, COMSIG_MACHINE_OPEN, PROC_REF(on_scanner_open))
+		RegisterSignal(scanner, COMSIG_MACHINE_CLOSE, PROC_REF(on_scanner_close))
 
 	connected_scanner = scanner
 
@@ -1646,7 +1646,7 @@
 	// No code will ever null this list, we can safely Cut it.
 	tgui_genetic_makeup.Cut()
 
-	for(var/i=1, i <= NUMBER_OF_BUFFERS, i++)
+	for(var/i in 1 to NUMBER_OF_BUFFERS)
 		if(genetic_makeup_buffer[i])
 			tgui_genetic_makeup["[i]"] = genetic_makeup_buffer[i].Copy()
 		else

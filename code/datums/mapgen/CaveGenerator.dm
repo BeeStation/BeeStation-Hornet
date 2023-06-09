@@ -80,16 +80,15 @@
 		if(gen_turf.flags_1 & NO_RUINS_1)
 			stored_flags |= NO_RUINS_1
 
-		var/turf/new_turf = pickweight(closed ? closed_turf_types : open_turf_types)
+		var/turf/new_turf = pick_weight(closed ? closed_turf_types : open_turf_types)
 
 		new_turf = gen_turf.ChangeTurf(new_turf, initial(new_turf.baseturfs), CHANGETURF_DEFER_CHANGE)
 
 		new_turf.flags_1 |= stored_flags
 
-		if(!closed)//Open turfs have some special behavior related to spawning flora and mobs.
+		if(!closed && !(new_turf.flags_1 & NO_RUINS_1))//Open turfs have some special behavior related to spawning flora and mobs.
 
 			var/turf/open/new_open_turf = new_turf
-
 			///Spawning isn't done in procs to save on overhead on the 60k turfs we're going through.
 
 			//FLORA SPAWNING HERE
@@ -100,7 +99,7 @@
 				if(!(A.area_flags & FLORA_ALLOWED))
 					can_spawn = FALSE
 				if(can_spawn)
-					spawned_flora = pickweight(flora_spawn_list)
+					spawned_flora = pick_weight(flora_spawn_list)
 					spawned_flora = new spawned_flora(new_open_turf)
 
 			//FEATURE SPAWNING HERE
@@ -111,7 +110,7 @@
 				if(!(A.area_flags & FLORA_ALLOWED)) //checks the same flag because lol dunno
 					can_spawn = FALSE
 
-				var/atom/picked_feature = pickweight(feature_spawn_list)
+				var/atom/picked_feature = pick_weight(feature_spawn_list)
 
 				for(var/obj/structure/F in range(7, new_open_turf))
 					if(istype(F, picked_feature))
@@ -128,13 +127,13 @@
 				if(!(A.area_flags & MOB_SPAWN_ALLOWED))
 					can_spawn = FALSE
 
-				var/atom/picked_mob = pickweight(mob_spawn_list)
+				var/atom/picked_mob = pick_weight(mob_spawn_list)
 
 				if(picked_mob == SPAWN_MEGAFAUNA) //
 					if((A.area_flags & MEGAFAUNA_SPAWN_ALLOWED) && megafauna_spawn_list?.len) //this is danger. it's boss time.
-						picked_mob = pickweight(megafauna_spawn_list)
+						picked_mob = pick_weight(megafauna_spawn_list)
 					else //this is not danger, don't spawn a boss, spawn something else
-						picked_mob = pickweight(mob_spawn_list - SPAWN_MEGAFAUNA) //What if we used 100% of the brain...and did something (slightly) less shit than a while loop?
+						picked_mob = pick_weight(mob_spawn_list - SPAWN_MEGAFAUNA) //What if we used 100% of the brain...and did something (slightly) less shit than a while loop?
 
 				for(var/thing in urange(12, new_open_turf)) //prevents mob clumps
 					if(!ishostile(thing) && !istype(thing, /obj/structure/spawner))

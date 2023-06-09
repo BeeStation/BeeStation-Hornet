@@ -10,6 +10,7 @@ import './styles/themes/abductor.scss';
 import './styles/themes/admin.scss';
 import './styles/themes/cardtable.scss';
 import './styles/themes/clockwork.scss';
+import './styles/themes/elevator.scss';
 import './styles/themes/hackerman.scss';
 import './styles/themes/malfunction.scss';
 import './styles/themes/neutral.scss';
@@ -82,12 +83,7 @@ const setupApp = () => {
   // Enable hot module reloading
   if (module.hot) {
     setupHotReloading();
-    module.hot.accept([
-      './components',
-      './debug',
-      './layouts',
-      './routes',
-    ], () => {
+    module.hot.accept(['./components', './debug', './layouts', './routes'], () => {
       renderApp();
     });
   }

@@ -6,7 +6,7 @@
 	item_state = "cleaner"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
-	item_flags = NOBLUDGEON
+	item_flags = NOBLUDGEON | ISWEAPON
 	reagent_flags = OPENCONTAINER
 	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0
@@ -138,7 +138,7 @@
 
 /obj/item/reagent_containers/spray/cleaner/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting the nozzle of \the [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	if(do_mob(user,user,30))
+	if(do_after(user, 3 SECONDS))
 		if(reagents.total_volume >= amount_per_transfer_from_this)//if not empty
 			user.visible_message("<span class='suicide'>[user] pulls the trigger!</span>")
 			src.spray(user)
@@ -278,7 +278,7 @@
 	var/turf/T2 = get_step(T,turn(direction, -90))
 	var/list/the_targets = list(T,T1,T2)
 
-	for(var/i=1, i<=3, i++) // intialize sprays
+	for(var/i in 1 to 3) // intialize sprays
 		if(reagents.total_volume < 1)
 			return
 		..(the_targets[i], user)
@@ -384,6 +384,6 @@
 
 /obj/item/reagent_containers/spray/cyborg/acid
 	name = "acid spray"
-	desc = "A spray filled with sulphuric acid for offensive use."
+	desc = "A spray filled with sulfuric acid for offensive use."
 	color = "#00FF32"
 	set_reagent = /datum/reagent/toxin/acid

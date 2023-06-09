@@ -34,24 +34,17 @@
 
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
 /obj/effect/mob_spawn/attack_ghost(mob/user)
-	if(!SSticker.HasRoundStarted() || !loc || !ghost_usable)
-		return
-	if(!(GLOB.ghost_role_flags & GHOSTROLE_SPAWNER) && !(flags_1 & ADMIN_SPAWNED_1))
-		to_chat(user, "<span class='warning'>An admin has temporarily disabled non-admin ghost roles!</span>")
+	if(!loc || !ghost_usable)
 		return
 	if(!uses)
 		to_chat(user, "<span class='warning'>This spawner is out of charges!</span>")
 		return
-	if(is_banned_from(user.key, banType))
-		to_chat(user, "<span class='warning'>You are jobanned!</span>")
+	if(!user?.client.canGhostRole(banType, use_cooldown, flags_1))
 		return
 	if(QDELETED(src) || QDELETED(user))
 		return
-	if(use_cooldown && user.client.next_ghost_role_tick > world.time)
-		to_chat(user, "<span class='warning'>You have died recently, you must wait [(user.client.next_ghost_role_tick - world.time)/10] seconds until you can use a ghost spawner.</span>")
-		return
 	var/ghost_role = alert("Become [mob_name]? (Warning, You can no longer be cloned!)",,"Yes","No")
-	if(ghost_role == "No" || !loc)
+	if(ghost_role != "Yes" || !loc)
 		return
 	log_game("[key_name(user)] became [mob_name]")
 	create(ckey = user.ckey)
@@ -61,12 +54,11 @@
 	if(instant || (roundstart && (mapload || (SSticker && SSticker.current_state > GAME_STATE_SETTING_UP))))
 		create()
 	else if(ghost_usable)
-		GLOB.poi_list |= src
+		AddElement(/datum/element/point_of_interest)
 		LAZYADD(GLOB.mob_spawners[name], src)
 		SSmobs.update_spawners()
 
 /obj/effect/mob_spawn/Destroy()
-	GLOB.poi_list -= src
 	var/list/spawners = GLOB.mob_spawners[name]
 	LAZYREMOVE(spawners, src)
 	if(!LAZYLEN(spawners))
@@ -225,14 +217,11 @@
 	var/obj/item/card/id/W = H.wear_id
 	if(W)
 		if(id_access)
-			for(var/jobtype in typesof(/datum/job))
-				var/datum/job/J = new jobtype
+			for(var/datum/job/J in SSjob.occupations)
 				if(J.title == id_access)
 					W.access = J.get_access()
 					break
 		if(id_access_list)
-			if(!islist(W.access))
-				W.access = list()
 			W.access |= id_access_list
 		if(id_job)
 			W.assignment = id_job
@@ -598,7 +587,7 @@
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/effect/mob_spawn/human/alive/space_bar_patron/attack_hand(mob/user)
 	var/despawn = alert("Return to cryosleep? (Warning, Your mob will be deleted!)",,"Yes","No")
-	if(despawn == "No" || !loc || !Adjacent(user))
+	if(despawn != "Yes" || !loc || !Adjacent(user))
 		return
 	user.visible_message("<span class='notice'>[user.name] climbs back into cryosleep...</span>")
 	qdel(user)

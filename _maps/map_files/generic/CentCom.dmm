@@ -1894,7 +1894,7 @@
 	pixel_x = -6;
 	pixel_y = 6
 	},
-/obj/item/stack/telecrystal/five,
+/obj/item/stack/sheet/telecrystal/five,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
 /turf/open/floor/plasteel,
 /area/syndicate_mothership/control)
@@ -3578,8 +3578,8 @@
 /obj/item/reagent_containers/food/snacks/meat/slab/xeno,
 /obj/item/reagent_containers/food/snacks/meat/slab/xeno,
 /obj/item/reagent_containers/food/snacks/meat/slab/xeno,
-/obj/item/reagent_containers/food/snacks/spaghetti,
-/obj/item/reagent_containers/food/snacks/spaghetti,
+/obj/item/food/spaghetti/raw,
+/obj/item/food/spaghetti/raw,
 /obj/item/reagent_containers/food/snacks/meat/rawcutlet,
 /obj/item/reagent_containers/food/snacks/meat/rawcutlet,
 /obj/item/reagent_containers/food/snacks/meat/rawcutlet,
@@ -3789,8 +3789,7 @@
 /obj/machinery/smartfridge,
 /turf/closed/indestructible{
 	icon = 'icons/turf/walls/wood_wall.dmi';
-	icon_state = "wood";
-	smooth = 1
+	icon_state = "wood"
 	},
 /area/centcom/holding)
 "pz" = (
@@ -6969,11 +6968,7 @@
 /area/ctf)
 "BV" = (
 /obj/machinery/chem_dispenser/drinks/beer,
-/turf/closed/indestructible{
-	icon = 'icons/turf/walls/wood_wall.dmi';
-	icon_state = "wood";
-	smooth = 1
-	},
+/turf/closed/indestructible/hotelwall,
 /area/centcom/holding)
 "BW" = (
 /obj/item/storage/firstaid/regular,
@@ -7489,8 +7484,7 @@
 /obj/machinery/vending/boozeomat,
 /turf/closed/indestructible{
 	icon = 'icons/turf/walls/wood_wall.dmi';
-	icon_state = "wood";
-	smooth = 1
+	icon_state = "wood"
 	},
 /area/centcom/holding)
 "EG" = (
@@ -8195,6 +8189,10 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/tdome/tdomeobserve)
+"HN" = (
+/obj/machinery/smartfridge,
+/turf/closed/indestructible/hotelwall,
+/area/centcom/holding)
 "HP" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
@@ -9505,11 +9503,7 @@
 /turf/open/floor/plasteel,
 /area/tdome/tdomeobserve)
 "Nd" = (
-/turf/closed/indestructible{
-	icon = 'icons/turf/walls/wood_wall.dmi';
-	icon_state = "wood";
-	smooth = 1
-	},
+/turf/closed/indestructible/hotelwall,
 /area/centcom/holding)
 "Nf" = (
 /obj/item/kirbyplants{
@@ -10335,11 +10329,7 @@
 /area/tdome/tdomeadmin)
 "QT" = (
 /obj/machinery/chem_dispenser/drinks,
-/turf/closed/indestructible{
-	icon = 'icons/turf/walls/wood_wall.dmi';
-	icon_state = "wood";
-	smooth = 1
-	},
+/turf/closed/indestructible/hotelwall,
 /area/centcom/holding)
 "QU" = (
 /obj/structure/table/glass,
@@ -38224,7 +38214,7 @@ Nd
 XL
 Nd
 Nd
-py
+HN
 Nd
 Xk
 Yo

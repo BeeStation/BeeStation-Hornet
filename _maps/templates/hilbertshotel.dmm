@@ -60,6 +60,14 @@
 /area/hilbertshotel)
 "l" = (
 /obj/structure/table/wood/poker,
+/obj/item/gps{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/food/drinks/coffee{
+	pixel_x = 9;
+	pixel_y = 2
+	},
 /turf/open/indestructible/hotelwood,
 /area/hilbertshotel)
 "m" = (
@@ -98,7 +106,7 @@
 /area/hilbertshotel)
 "s" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/grown/poppy,
+/obj/item/reagent_containers/food/snacks/grown/flower/poppy,
 /turf/open/indestructible/hotelwood,
 /area/hilbertshotel)
 "t" = (
@@ -270,6 +278,29 @@
 /obj/effect/spawner/lootdrop/three_course_meal,
 /turf/open/indestructible/hotelwood,
 /area/hilbertshotel)
+"W" = (
+/obj/structure/table/wood/poker,
+/obj/item/paper/crumpled/hilbertsstaffnotice{
+	pixel_y = 3
+	},
+/turf/open/indestructible/hotelwood,
+/area/hilbertshotel)
+"Y" = (
+/obj/structure/closet/emcloset,
+/turf/open/indestructible/hotelwood,
+/area/hilbertshotel)
+"Z" = (
+/obj/structure/table/wood/poker,
+/obj/item/reagent_containers/food/drinks/coffee{
+	pixel_x = -6;
+	pixel_y = 2
+	},
+/obj/item/gps{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/turf/open/indestructible/hotelwood,
+/area/hilbertshotel)
 
 (1,1,1) = {"
 a
@@ -308,7 +339,7 @@ a
 (3,1,1) = {"
 a
 b
-d
+Y
 d
 k
 d
@@ -327,7 +358,7 @@ a
 b
 e
 d
-l
+Z
 o
 d
 d
@@ -344,7 +375,7 @@ a
 b
 f
 d
-l
+W
 o
 d
 d

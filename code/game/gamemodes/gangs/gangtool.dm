@@ -173,13 +173,13 @@
 	gang.message_gangtools("[user] is attempting to recall the emergency shuttle.")
 	recalling = TRUE
 	to_chat(user, "<span class='info'>[icon2html(src, loc)]Generating shuttle recall order with codes retrieved from last call signal...</span>")
-	addtimer(CALLBACK(src, .proc/recall2, user), rand(100,300))
+	addtimer(CALLBACK(src, PROC_REF(recall2), user), rand(100,300))
 
 /obj/item/device/gangtool/proc/recall2(mob/user)
 	if(!recallchecks(user))
 		return
 	to_chat(user, "<span class='info'>[icon2html(src, loc)]Shuttle recall order generated. Accessing station long-range communication arrays...</span>")
-	addtimer(CALLBACK(src, .proc/recall3, user), rand(100,300))
+	addtimer(CALLBACK(src, PROC_REF(recall3), user), rand(100,300))
 
 /obj/item/device/gangtool/proc/recall3(mob/user)
 	if(!recallchecks(user))
@@ -192,7 +192,7 @@
 		recalling = FALSE
 		return
 	to_chat(user, "<span class='info'>[icon2html(src, loc)]Comm arrays accessed. Broadcasting recall signal...</span>")
-	addtimer(CALLBACK(src, .proc/recallfinal, user), rand(100,300))
+	addtimer(CALLBACK(src, PROC_REF(recallfinal), user), rand(100,300))
 
 /obj/item/device/gangtool/proc/recallfinal(mob/user)
 	if(!recallchecks(user))

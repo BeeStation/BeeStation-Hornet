@@ -99,7 +99,7 @@
 			flash()
 
 /obj/machinery/flasher/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == "melee" && damage_amount < 10) //any melee attack below 10 dmg does nothing
+	if(damage_flag == MELEE && damage_amount < 10) //any melee attack below 10 dmg does nothing
 		return 0
 	. = ..()
 
@@ -117,7 +117,7 @@
 	playsound(src.loc, 'sound/weapons/flash.ogg', 100, 1)
 	flick("[base_state]_flash", src)
 	set_light_on(TRUE)
-	addtimer(CALLBACK(src, .proc/flash_end), FLASH_LIGHT_DURATION, TIMER_OVERRIDE|TIMER_UNIQUE)
+	addtimer(CALLBACK(src, PROC_REF(flash_end)), FLASH_LIGHT_DURATION, TIMER_OVERRIDE|TIMER_UNIQUE)
 
 	last_flash = world.time
 	use_power(1000)

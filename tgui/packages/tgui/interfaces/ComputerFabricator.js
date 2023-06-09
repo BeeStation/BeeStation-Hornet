@@ -6,33 +6,16 @@ import { Window } from '../layouts';
 export const ComputerFabricator = (props, context) => {
   const { act, data } = useBackend(context);
   return (
-    <Window
-      width={500}
-      height={400}>
+    <Window width={500} height={400}>
       <Window.Content>
         <Section italic fontSize="20px">
           Your perfect device, only three steps away...
         </Section>
-        {data.state !== 0 && (
-          <Button
-            fluid
-            mb={1}
-            icon="circle"
-            content="Clear Order"
-            onClick={() => act('clean_order')} />
-        )}
-        {data.state === 0 && (
-          <CfStep1 />
-        )}
-        {data.state === 1 && (
-          <CfStep2 />
-        )}
-        {data.state === 2 && (
-          <CfStep3 />
-        )}
-        {data.state === 3 && (
-          <CfStep4 />
-        )}
+        {data.state !== 0 && <Button fluid mb={1} icon="circle" content="Clear Order" onClick={() => act('clean_order')} />}
+        {data.state === 0 && <CfStep1 />}
+        {data.state === 1 && <CfStep2 />}
+        {data.state === 2 && <CfStep3 />}
+        {data.state === 3 && <CfStep4 />}
       </Window.Content>
     </Window>
   );
@@ -43,14 +26,8 @@ export const ComputerFabricator = (props, context) => {
 const CfStep1 = (props, context) => {
   const { act, data } = useBackend(context);
   return (
-    <Section
-      title="Step 1"
-      minHeight="306px">
-      <Box
-        mt={5}
-        bold
-        textAlign="center"
-        fontSize="40px">
+    <Section title="Step 1" minHeight="306px">
+      <Box mt={5} bold textAlign="center" fontSize="40px">
         Choose your Device
       </Box>
       <Box mt={3}>
@@ -63,9 +40,12 @@ const CfStep1 = (props, context) => {
               textAlign="center"
               fontSize="30px"
               lineHeight="50px"
-              onClick={() => act('pick_device', {
-                pick: '1',
-              })} />
+              onClick={() =>
+                act('pick_device', {
+                  pick: '1',
+                })
+              }
+            />
           </Grid.Column>
           <Grid.Column>
             <Button
@@ -75,9 +55,12 @@ const CfStep1 = (props, context) => {
               textAlign="center"
               fontSize="30px"
               lineHeight="50px"
-              onClick={() => act('pick_device', {
-                pick: '2',
-              })} />
+              onClick={() =>
+                act('pick_device', {
+                  pick: '2',
+                })
+              }
+            />
           </Grid.Column>
         </Grid>
       </Box>
@@ -91,16 +74,14 @@ const CfStep2 = (props, context) => {
     <Section
       title="Step 2: Customize your device"
       minHeight="282px"
-      buttons={(
+      buttons={
         <Box bold color="good">
           {data.totalprice} cr
         </Box>
-      )}>
+      }>
       <Table>
         <Table.Row>
-          <Table.Cell
-            bold
-            position="relative">
+          <Table.Cell bold position="relative">
             <Tooltip
               content={multiline`
                 Allows your device to operate without external utility power
@@ -110,35 +91,42 @@ const CfStep2 = (props, context) => {
               Battery:
             </Tooltip>
           </Table.Cell>
-          <Table.Cell >
+          <Table.Cell>
             <Button
               content="Standard"
               selected={data.hw_battery === 1}
-              onClick={() => act('hw_battery', {
-                battery: '1',
-              })} />
+              onClick={() =>
+                act('hw_battery', {
+                  battery: '1',
+                })
+              }
+            />
           </Table.Cell>
           <Table.Cell>
             <Button
               content="Upgraded"
               selected={data.hw_battery === 2}
-              onClick={() => act('hw_battery', {
-                battery: '2',
-              })} />
+              onClick={() =>
+                act('hw_battery', {
+                  battery: '2',
+                })
+              }
+            />
           </Table.Cell>
           <Table.Cell>
             <Button
               content="Advanced"
               selected={data.hw_battery === 3}
-              onClick={() => act('hw_battery', {
-                battery: '3',
-              })} />
+              onClick={() =>
+                act('hw_battery', {
+                  battery: '3',
+                })
+              }
+            />
           </Table.Cell>
         </Table.Row>
         <Table.Row>
-          <Table.Cell
-            bold
-            position="relative">
+          <Table.Cell bold position="relative">
             <Tooltip
               content={multiline`
                 Stores file on your device. Advanced drives can store more
@@ -152,25 +140,34 @@ const CfStep2 = (props, context) => {
             <Button
               content="Standard"
               selected={data.hw_disk === 1}
-              onClick={() => act('hw_disk', {
-                disk: '1',
-              })} />
+              onClick={() =>
+                act('hw_disk', {
+                  disk: '1',
+                })
+              }
+            />
           </Table.Cell>
           <Table.Cell>
             <Button
               content="Upgraded"
               selected={data.hw_disk === 2}
-              onClick={() => act('hw_disk', {
-                disk: '2',
-              })} />
+              onClick={() =>
+                act('hw_disk', {
+                  disk: '2',
+                })
+              }
+            />
           </Table.Cell>
           <Table.Cell>
             <Button
               content="Advanced"
               selected={data.hw_disk === 3}
-              onClick={() => act('hw_disk', {
-                disk: '3',
-              })} />
+              onClick={() =>
+                act('hw_disk', {
+                  disk: '3',
+                })
+              }
+            />
           </Table.Cell>
         </Table.Row>
         <Table.Row>
@@ -190,25 +187,34 @@ const CfStep2 = (props, context) => {
             <Button
               content="None"
               selected={data.hw_netcard === 0}
-              onClick={() => act('hw_netcard', {
-                netcard: '0',
-              })} />
+              onClick={() =>
+                act('hw_netcard', {
+                  netcard: '0',
+                })
+              }
+            />
           </Table.Cell>
           <Table.Cell>
             <Button
               content="Standard"
               selected={data.hw_netcard === 1}
-              onClick={() => act('hw_netcard', {
-                netcard: '1',
-              })} />
+              onClick={() =>
+                act('hw_netcard', {
+                  netcard: '1',
+                })
+              }
+            />
           </Table.Cell>
           <Table.Cell>
             <Button
               content="Advanced"
               selected={data.hw_netcard === 2}
-              onClick={() => act('hw_netcard', {
-                netcard: '2',
-              })} />
+              onClick={() =>
+                act('hw_netcard', {
+                  netcard: '2',
+                })
+              }
+            />
           </Table.Cell>
         </Table.Row>
         <Table.Row>
@@ -228,17 +234,23 @@ const CfStep2 = (props, context) => {
             <Button
               content="None"
               selected={data.hw_nanoprint === 0}
-              onClick={() => act('hw_nanoprint', {
-                print: '0',
-              })} />
+              onClick={() =>
+                act('hw_nanoprint', {
+                  print: '0',
+                })
+              }
+            />
           </Table.Cell>
           <Table.Cell>
             <Button
               content="Standard"
               selected={data.hw_nanoprint === 1}
-              onClick={() => act('hw_nanoprint', {
-                print: '1',
-              })} />
+              onClick={() =>
+                act('hw_nanoprint', {
+                  print: '1',
+                })
+              }
+            />
           </Table.Cell>
         </Table.Row>
         <Table.Row>
@@ -252,23 +264,30 @@ const CfStep2 = (props, context) => {
                 allow the device to read your identification, but one
                 is included in the base price.
               `}
-              position="right" />
+              position="right"
+            />
           </Table.Cell>
           <Table.Cell>
             <Button
               content="None"
               selected={data.hw_card === 0}
-              onClick={() => act('hw_card', {
-                card: '0',
-              })} />
+              onClick={() =>
+                act('hw_card', {
+                  card: '0',
+                })
+              }
+            />
           </Table.Cell>
           <Table.Cell>
             <Button
               content="Standard"
               selected={data.hw_card === 1}
-              onClick={() => act('hw_card', {
-                card: '1',
-              })} />
+              onClick={() =>
+                act('hw_card', {
+                  card: '1',
+                })
+              }
+            />
           </Table.Cell>
         </Table.Row>
         {data.devtype !== 2 && (
@@ -290,17 +309,23 @@ const CfStep2 = (props, context) => {
                 <Button
                   content="Standard"
                   selected={data.hw_cpu === 1}
-                  onClick={() => act('hw_cpu', {
-                    cpu: '1',
-                  })} />
+                  onClick={() =>
+                    act('hw_cpu', {
+                      cpu: '1',
+                    })
+                  }
+                />
               </Table.Cell>
               <Table.Cell>
                 <Button
                   content="Advanced"
                   selected={data.hw_cpu === 2}
-                  onClick={() => act('hw_cpu', {
-                    cpu: '2',
-                  })} />
+                  onClick={() =>
+                    act('hw_cpu', {
+                      cpu: '2',
+                    })
+                  }
+                />
               </Table.Cell>
             </Table.Row>
             <Table.Row>
@@ -320,17 +345,23 @@ const CfStep2 = (props, context) => {
                 <Button
                   content="None"
                   selected={data.hw_tesla === 0}
-                  onClick={() => act('hw_tesla', {
-                    tesla: '0',
-                  })} />
+                  onClick={() =>
+                    act('hw_tesla', {
+                      tesla: '0',
+                    })
+                  }
+                />
               </Table.Cell>
               <Table.Cell>
                 <Button
                   content="Standard"
                   selected={data.hw_tesla === 1}
-                  onClick={() => act('hw_tesla', {
-                    tesla: '1',
-                  })} />
+                  onClick={() =>
+                    act('hw_tesla', {
+                      tesla: '1',
+                    })
+                  }
+                />
               </Table.Cell>
             </Table.Row>
           </>
@@ -344,7 +375,8 @@ const CfStep2 = (props, context) => {
         textAlign="center"
         fontSize="18px"
         lineHeight="26px"
-        onClick={() => act('confirm_order')} />
+        onClick={() => act('confirm_order')}
+      />
     </Section>
   );
 };
@@ -352,41 +384,20 @@ const CfStep2 = (props, context) => {
 const CfStep3 = (props, context) => {
   const { act, data } = useBackend(context);
   return (
-    <Section
-      title="Step 3: Payment"
-      minHeight="282px">
-      <Box
-        italic
-        textAlign="center"
-        fontSize="20px">
+    <Section title="Step 3: Payment" minHeight="282px">
+      <Box italic textAlign="center" fontSize="20px">
         Your device is ready for fabrication...
       </Box>
-      <Box
-        bold
-        mt={2}
-        textAlign="center"
-        fontSize="16px">
-        <Box inline>
-          Please insert the required
-        </Box>
-        {' '}
+      <Box bold mt={2} textAlign="center" fontSize="16px">
+        <Box inline>Please insert the required</Box>{' '}
         <Box inline color="good">
           {data.totalprice} cr
         </Box>
       </Box>
-      <Box
-        bold
-        mt={1}
-        textAlign="center"
-        fontSize="18px">
+      <Box bold mt={1} textAlign="center" fontSize="18px">
         Current:
       </Box>
-      <Box
-        bold
-        mt={0.5}
-        textAlign="center"
-        fontSize="18px"
-        color={data.credits >= data.totalprice ? "good" : "bad"}>
+      <Box bold mt={0.5} textAlign="center" fontSize="18px" color={data.credits >= data.totalprice ? 'good' : 'bad'}>
         {data.credits} cr
       </Box>
       <Button
@@ -398,28 +409,20 @@ const CfStep3 = (props, context) => {
         textAlign="center"
         fontSize="20px"
         lineHeight="28px"
-        onClick={() => act('purchase')} />
+        onClick={() => act('purchase')}
+      />
     </Section>
   );
 };
 
 const CfStep4 = (props, context) => {
   return (
-    <Section
-      minHeight="282px">
-      <Box
-        bold
-        textAlign="center"
-        fontSize="28px"
-        mt={10}>
+    <Section minHeight="282px">
+      <Box bold textAlign="center" fontSize="28px" mt={10}>
         Thank you for your purchase!
       </Box>
-      <Box
-        italic
-        mt={1}
-        textAlign="center">
-        If you experience any difficulties with your new device, please
-        contact your local network administrator.
+      <Box italic mt={1} textAlign="center">
+        If you experience any difficulties with your new device, please contact your local network administrator.
       </Box>
     </Section>
   );

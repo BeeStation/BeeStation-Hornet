@@ -5,6 +5,10 @@
 	id = SPECIES_MONKEY
 	skinned_type = /obj/item/stack/sheet/animalhide/
 	changesource_flags = MIRROR_BADMIN
+	offset_features = list(
+	OFFSET_HEAD = list(0,-3),
+	OFFSET_FACEMASK = list(0,-3)
+	)
 
 	species_chest = /obj/item/bodypart/chest/monkey
 	species_head = /obj/item/bodypart/head/monkey

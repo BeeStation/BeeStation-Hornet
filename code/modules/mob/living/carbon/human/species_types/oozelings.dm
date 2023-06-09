@@ -7,14 +7,15 @@
 	inherent_traits = list(TRAIT_TOXINLOVER,TRAIT_NOFIRE,TRAIT_ALWAYS_CLEAN,TRAIT_EASYDISMEMBER)
 	hair_color = "mutcolor"
 	hair_alpha = 150
-	mutantlungs = /obj/item/organ/lungs/oozeling
+	mutantlungs = /obj/item/organ/lungs/slime
 	mutanttongue = /obj/item/organ/tongue/slime
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/slime
-	exotic_blood = /datum/reagent/toxin/slimeooze
+	exotic_blood = /datum/reagent/toxin/slimejelly
 	damage_overlay_type = ""
 	var/datum/action/innate/regenerate_limbs/regenerate_limbs
 	coldmod = 6   // = 3x cold damage
 	heatmod = 0.5 // = 1/4x heat damage
+	inherent_factions = list("slime")
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/oozeling
 	swimming_component = /datum/component/swimming/dissolve
@@ -165,3 +166,46 @@
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
 	return ..()
+
+/datum/species/oozeling/z_impact_damage(mob/living/carbon/human/H, turf/T, levels)
+	// Splat!
+	H.visible_message("<span class='notice'>[H] hits the ground, flattening on impact!</span>",
+		"<span class='warning'>You fall [levels] level\s into [T]. Your body flattens upon landing!</span>")
+	H.Paralyze(levels * 8 SECONDS)
+	var/amount_total = H.get_distributed_zimpact_damage(levels) * 0.45
+	H.adjustBruteLoss(amount_total)
+	playsound(H, 'sound/effects/blobattack.ogg', 40, TRUE)
+	playsound(H, 'sound/effects/splat.ogg', 50, TRUE)
+	H.AddElement(/datum/element/squish, levels * 15 SECONDS)
+	// SPLAT!
+	// 5: 25%, 4: 16%, 3: 9%
+	if(levels >= 3 && prob(min((levels ** 2), 50)))
+		H.gib()
+		return
+
+/datum/species/oozeling/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	. = ..()
+	if(. && target != user && target.on_fire)
+		target.visible_message("<span class='notice'>[user] begins to closely hug [target]...</span>", "<span class='boldnotice'>[user] holds you closely in a tight hug!</span>")
+		if(do_after(user, 1 SECONDS, target, IGNORE_HELD_ITEM))
+			target.visible_message("<span class='notice'>[user] extingushes [target] with a hug!</span>", "<span class='boldnotice'>[user] extingushes you with a hug!</span>", "<span class='italics'>You hear a fire sizzle out.</span>")
+			target.fire_stacks = max(target.fire_stacks - 5, 0)
+			if(target.fire_stacks <= 0)
+				target.ExtinguishMob()
+		else
+			target.visible_message("<span class='notice'>[target] wriggles out of [user]'s close hug!</span>", "<span class='notice'>You wriggle out of [user]'s close hug.</span>")
+
+/datum/species/oozeling/get_cough_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_COUGH_SOUND(user)
+
+/datum/species/oozeling/get_gasp_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_GASP_SOUND(user)
+
+/datum/species/oozeling/get_sigh_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SIGH_SOUND(user)
+
+/datum/species/oozeling/get_sneeze_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SNEEZE_SOUND(user)
+
+/datum/species/oozeling/get_sniff_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SNIFF_SOUND(user)

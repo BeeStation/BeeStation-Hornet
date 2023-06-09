@@ -489,7 +489,7 @@ SUBSYSTEM_DEF(networks)
 		var/string = md5("[num2text(rand(HID_RESTRICTED_END, 999999999), 12)]")
 		if(!string)
 			log_runtime("Could not generagea m5 hash from address, problem with md5?")
-			return		//errored
+			return //errored
 		. = "[copytext_char(string, 1, 9)]"		//16 ^ 8 possibilities I think.
 	while(interfaces_by_hardware_id[.])
 

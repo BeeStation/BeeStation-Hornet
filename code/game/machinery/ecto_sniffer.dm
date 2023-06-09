@@ -4,19 +4,28 @@
 	icon = 'icons/obj/machines/research.dmi'
 	icon_state = "ecto_sniffer"
 	density = FALSE
-	anchored = FALSE
+	anchored = TRUE
 	pass_flags = PASSTABLE
 	circuit = /obj/item/circuitboard/machine/ecto_sniffer
 	///determines if the device if the power switch is turned on or off. Useful if the ghosts are too annoying.
 	var/on = TRUE
 	///If this var set to false the ghosts will not be able interact with the machine, say if the machine is silently disabled by cutting the internal wire.
 	var/sensor_enabled = TRUE
-	///List of ckeys containing players who have recently activated the device, players on this list are prohibited from activating the device untill their residue decays.
+	///List of ckeys containing players who have recently activated the device, players on this list are prohibited from activating the device until their residue decays.
 	var/list/ectoplasmic_residues = list()
+	///Internal radio
+	var/obj/item/radio/radio
+	///Cooldown for radio, prevents spam
+	COOLDOWN_DECLARE(radio_cooldown)
 
 /obj/machinery/ecto_sniffer/Initialize()
 	. = ..()
 	wires = new/datum/wires/ecto_sniffer(src)
+	radio = new(src)
+	radio.keyslot = new /obj/item/encryptionkey/headset_sci
+	radio.subspace_transmission = TRUE
+	radio.canhear_range = 0
+	radio.recalculateChannels()
 
 /obj/machinery/ecto_sniffer/attack_ghost(mob/user)
 	if(!on || !sensor_enabled || !is_operational)
@@ -29,16 +38,24 @@
 	if(is_banned_from(user.ckey, ROLE_POSIBRAIN))
 		to_chat(user, "<span class='warning'>Central Command outlawed your soul from interacting with the living...</span>")
 		return
+
 	activate(user)
 
 /obj/machinery/ecto_sniffer/proc/activate(mob/activator)
 	flick("ecto_sniffer_flick", src)
 	playsound(loc, 'sound/machines/ectoscope_beep.ogg', 25)
-	visible_message("<span class='notice'>[src] beeps, detecting ectoplasm! There may be additional positronic brain matrixes available!</span>")
+
+	if(COOLDOWN_FINISHED(src, radio_cooldown))
+		COOLDOWN_START(src, radio_cooldown, 3 MINUTES)
+		radio.talk_into(src, "Ectoplasm has been detected! There may be additional positronic brain matrices available!", RADIO_CHANNEL_SCIENCE)
+	else
+		visible_message("<span class='notice'>[src] has detected ectoplasm! There may be additional positronic brain matrices available!</span>")
+
 	use_power(10)
 	if(activator?.ckey)
 		ectoplasmic_residues[activator.ckey] = TRUE
-		addtimer(CALLBACK(src, .proc/clear_residue, activator.ckey), 30 SECONDS)
+		activator.log_message("activated an ecto sniffer", LOG_ATTACK)
+		addtimer(CALLBACK(src, PROC_REF(clear_residue), activator.ckey), 30 SECONDS)
 
 /obj/machinery/ecto_sniffer/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
@@ -57,7 +74,8 @@
 
 
 /obj/machinery/ecto_sniffer/wrench_act(mob/living/user, obj/item/tool)
-	return default_unfasten_wrench(user, tool)
+	to_chat(user, "<span class='notice'>You need to deconstruct the [src] before moving it.</span>")
+	return TRUE
 
 /obj/machinery/ecto_sniffer/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
@@ -70,6 +88,7 @@
 
 /obj/machinery/ecto_sniffer/Destroy()
 	QDEL_NULL(wires)
+	QDEL_NULL(radio)
 	ectoplasmic_residues = null
 	. = ..()
 

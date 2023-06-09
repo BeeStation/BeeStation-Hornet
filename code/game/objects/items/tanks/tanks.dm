@@ -1,3 +1,6 @@
+#define TTV_NO_CASING_MOD 0.25
+#define REACTIONS_BEFORE_EXPLOSION 3
+
 /obj/item/tank
 	name = "tank"
 	icon = 'icons/obj/tank.dmi'
@@ -13,43 +16,47 @@
 	throw_range = 4
 	materials = list(/datum/material/iron = 500)
 	actions_types = list(/datum/action/item_action/set_internals)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 30, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 80, ACID = 30, STAMINA = 0)
 	var/datum/gas_mixture/air_contents = null
 	var/distribute_pressure = ONE_ATMOSPHERE
 	var/integrity = 3
 	var/volume = 70
+	/// Mob that is currently breathing from the tank.
+	var/mob/living/carbon/breathing_mob = null
+
+/obj/item/tank/dropped(mob/living/user, silent)
+	. = ..()
+	// Close open air tank if its current user got sent to the shadowrealm.
+	if (QDELETED(breathing_mob))
+		breathing_mob = null
+		return
+	// Close open air tank if it got dropped by it's current user.
+	if (loc != breathing_mob)
+		breathing_mob.cutoff_internals()
+
+/// Closes the tank if given to another mob while open.
+/obj/item/tank/equipped(mob/living/user, slot, initial)
+	. = ..()
+	// Close open air tank if it was equipped by a mob other than the current user.
+	if (breathing_mob && (user != breathing_mob))
+		breathing_mob.cutoff_internals()
+
+/// Called by carbons after they connect the tank to their breathing apparatus.
+/obj/item/tank/proc/after_internals_opened(mob/living/carbon/carbon_target)
+	breathing_mob = carbon_target
+	carbon_target.update_internals_hud_icon(1)
+
+/// Called by carbons after they disconnect the tank from their breathing apparatus.
+/obj/item/tank/proc/after_internals_closed(mob/living/carbon/carbon_target)
+	breathing_mob = null
+	carbon_target.update_internals_hud_icon(0)
+
+/// Attempts to toggle the mob's internals on or off using this tank. Returns TRUE if successful.
+/obj/item/tank/proc/toggle_internals(mob/living/carbon/mob_target)
+	return mob_target.toggle_internals(src)
 
 /obj/item/tank/ui_action_click(mob/user)
 	toggle_internals(user)
-
-/obj/item/tank/proc/toggle_internals(mob/user)
-	var/mob/living/carbon/human/H = user
-	if(!istype(H))
-		return
-
-	if(H.internal == src)
-		to_chat(H, "<span class='notice'>You close [src] valve.</span>")
-		H.internal = null
-		H.update_internals_hud_icon(0)
-	else
-		if(!H.getorganslot(ORGAN_SLOT_BREATHING_TUBE))
-			if(!H.wear_mask)
-				to_chat(H, "<span class='warning'>You need a mask!</span>")
-				return
-			if(H.wear_mask.mask_adjusted)
-				H.wear_mask.adjustmask(H)
-			if(!(H.wear_mask.clothing_flags & MASKINTERNALS))
-				to_chat(H, "<span class='warning'>[H.wear_mask] can't use [src]!</span>")
-				return
-
-		if(H.internal)
-			to_chat(H, "<span class='notice'>You switch your internals to [src].</span>")
-		else
-			to_chat(H, "<span class='notice'>You open [src] valve.</span>")
-		H.internal = src
-		H.update_internals_hud_icon(1)
-	H.update_action_buttons_icon()
-
 
 /obj/item/tank/Initialize(mapload)
 	. = ..()
@@ -143,11 +150,7 @@
 
 /obj/item/tank/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)
-	if(istype(W, /obj/item/assembly_holder))
-		bomb_assemble(W,user)
-	else
-		. = ..()
-
+	return ..()
 
 /obj/item/tank/ui_state(mob/user)
 	return GLOB.hands_state
@@ -173,7 +176,7 @@
 	if(!istype(C))
 		return data
 
-	if(C.internal == src)
+	if(istype(C) && C.internal == src)
 		data["connected"] = TRUE
 
 	return data
@@ -260,18 +263,20 @@
 	var/temperature = air_contents.return_temperature()
 
 	if(pressure > TANK_FRAGMENT_PRESSURE)
+		var/explosion_mod = 1
 		if(!istype(src.loc, /obj/item/transfer_valve))
-			log_bomber(get_mob_by_ckey(fingerprintslast), "was last key to touch", src, "which ruptured explosively")
+			log_bomber("[src.fingerprintslast], was last key to touch [src], which ruptured explosively")
+		else if(!istype(src.loc?.loc, /obj/machinery/syndicatebomb))
+			explosion_mod = TTV_NO_CASING_MOD
 		//Give the gas a chance to build up more pressure through reacting
-		air_contents.react(src)
-		air_contents.react(src)
-		air_contents.react(src)
+		for(var/i in 1 to REACTIONS_BEFORE_EXPLOSION)
+			air_contents.react(src)
 		pressure = air_contents.return_pressure()
 		var/range = (pressure-TANK_FRAGMENT_PRESSURE)/TANK_FRAGMENT_SCALE
 		var/turf/epicenter = get_turf(loc)
 
 
-		explosion(epicenter, round(range*0.25), round(range*0.5), round(range), round(range*1.5))
+		explosion(epicenter, round(range*0.25), round(range*0.5), round(range), round(range*1.5), cap_modifier = explosion_mod)
 		if(istype(src.loc, /obj/item/transfer_valve))
 			qdel(src.loc)
 		else
@@ -300,3 +305,6 @@
 
 	else if(integrity < 3)
 		integrity++
+
+#undef TTV_NO_CASING_MOD
+#undef REACTIONS_BEFORE_EXPLOSION

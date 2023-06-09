@@ -48,7 +48,7 @@
 				return
 			Remove(owner)
 		owner = M
-		RegisterSignal(owner, COMSIG_PARENT_QDELETING, .proc/owner_deleted)
+		RegisterSignal(owner, COMSIG_PARENT_QDELETING, PROC_REF(owner_deleted))
 
 		//button id generation
 		var/counter = 0
@@ -149,11 +149,10 @@
 		return TRUE
 
 /datum/action/proc/ApplyIcon(atom/movable/screen/movable/action_button/current_button, force = FALSE)
-	if(icon_icon && button_icon_state && ((current_button.button_icon_state != button_icon_state) || force))
+	if(icon_icon && button_icon_state || force)
 		current_button.cut_overlays()
 		current_button.add_overlay(mutable_appearance(icon_icon, button_icon_state))
 		current_button.button_icon_state = button_icon_state
-
 
 //Presets for item actions
 /datum/action/item_action
@@ -185,7 +184,7 @@
 /datum/action/item_action/ApplyIcon(atom/movable/screen/movable/action_button/current_button, force)
 	if(button_icon && button_icon_state)
 		// If set, use the custom icon that we set instead
-		// of the item appearence
+		// of the item appearance
 		..()
 	else if((target && current_button.appearance_cache != target.appearance) || force) //replace with /ref comparison if this is not valid.
 		var/obj/item/I = target
@@ -352,6 +351,9 @@
 	name = "Toggle Hardsuit Locator HUD"
 	icon_icon = 'icons/mob/actions.dmi'
 	button_icon_state = "toggle-hud"
+
+/datum/action/item_action/toggle_beacon_hud/explorer
+	button_icon_state = "toggle-hud-explo"
 
 /datum/action/item_action/toggle_beacon_frequency
 	name = "Toggle Hardsuit Locator Frequency"
@@ -716,7 +718,7 @@
 //Small sprites
 /datum/action/small_sprite
 	name = "Toggle Giant Sprite"
-	desc = "Others will always see you as giant"
+	desc = "Others will always see you as giant."
 	icon_icon = 'icons/mob/actions/actions_xeno.dmi'
 	button_icon_state = "smallqueen"
 	background_icon_state = "bg_alien"
@@ -730,8 +732,6 @@
 
 /datum/action/small_sprite/megafauna
 	icon_icon = 'icons/mob/actions/actions_xeno.dmi'
-	button_icon_state = "smallqueen"
-	background_icon_state = "bg_alien"
 	small_icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 
 /datum/action/small_sprite/megafauna/drake
@@ -746,9 +746,19 @@
 /datum/action/small_sprite/megafauna/legion
 	small_icon_state = "dwarf_legion"
 
-/datum/action/small_sprite/megafauna/spacedragon
+/datum/action/small_sprite/space_dragon
 	small_icon = 'icons/mob/carp.dmi'
 	small_icon_state = "carp"
+	icon_icon = 'icons/mob/carp.dmi'
+	button_icon_state = "carp"
+
+/datum/action/small_sprite/space_dragon/Trigger()
+	..()
+	if(small) // parent call already reversed this. Effectively !small
+		owner.cut_overlays() // remove the overlays. can't be done with signals, unfortunately
+	else if(istype(owner, /mob/living/simple_animal/hostile/space_dragon))
+		var/mob/living/simple_animal/hostile/space_dragon/D = owner
+		D.update_dragon_overlay() // restore overlays
 
 /datum/action/small_sprite/Trigger()
 	..()

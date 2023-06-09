@@ -16,6 +16,8 @@
 	throwforce = 2
 	throw_speed = 3
 	throw_range = 7
+	drop_sound = 'sound/items/handling/component_drop.ogg'
+	pickup_sound = 'sound/items/handling/component_pickup.ogg'
 
 	var/is_position_sensitive = FALSE	//set to true if the device has different icons for each position.
 										//This will prevent things such as visible lasers from facing the incorrect direction when transformed by assembly_holder's update_icon()
@@ -68,9 +70,9 @@
 //Called when another assembly acts on this one, var/radio will determine where it came from for wire calcs
 /obj/item/assembly/proc/pulsed(radio = FALSE)
 	if(wire_type & WIRE_RECEIVE)
-		INVOKE_ASYNC(src, .proc/activate)
+		INVOKE_ASYNC(src, PROC_REF(activate))
 	if(radio && (wire_type & WIRE_RADIO_RECEIVE))
-		INVOKE_ASYNC(src, .proc/activate)
+		INVOKE_ASYNC(src, PROC_REF(activate))
 	return TRUE
 
 

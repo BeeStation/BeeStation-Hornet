@@ -110,7 +110,7 @@
 	throw_speed = 3
 	throw_range = 5
 	materials = list(/datum/material/iron=10000)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/list/active_portal_pairs
 	var/max_portal_pairs = 3
@@ -275,7 +275,7 @@
 	if(recharging)
 		return
 	if(charges < max_charges)
-		recharge_timer = addtimer(CALLBACK(src, .proc/recharge), recharge_time, TIMER_STOPPABLE)
+		recharge_timer = addtimer(CALLBACK(src, PROC_REF(recharge)), recharge_time, TIMER_STOPPABLE)
 		recharging = TRUE
 
 /obj/item/teleporter/proc/recharge()
@@ -364,7 +364,7 @@
 /obj/item/paper/teleporter
 	name = "Teleporter Guide"
 	icon_state = "paper"
-	info = {"<b>Instructions on your new prototype syndicate teleporter:</b><br>
+	default_raw_text = {"<b>Instructions on your new prototype syndicate teleporter:</b><br>
 	<br>
 	This experimental teleporter will teleport the user 4-8 meters in the direction they are facing. Anything you are pulling will not be teleported with you.<br>
 	<br>

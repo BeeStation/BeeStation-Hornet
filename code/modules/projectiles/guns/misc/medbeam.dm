@@ -54,7 +54,7 @@
 	current_target = target
 	active = TRUE
 	current_beam = new(user,current_target,time=6000,beam_icon_state="medbeam",btype=/obj/effect/ebeam/medical)
-	INVOKE_ASYNC(current_beam, /datum/beam.proc/Start)
+	INVOKE_ASYNC(current_beam, TYPE_PROC_REF(/datum/beam, Start))
 
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 
@@ -90,24 +90,36 @@
 	else if(!istype(user_turf))
 		return 0
 	var/obj/dummy = new(user_turf)
-	dummy.pass_flags |= PASSTABLE|PASSGLASS|PASSGRILLE //Grille/Glass so it can be used through common windows
-	for(var/turf/turf in getline(user_turf,target))
-		if(mounted && turf == user_turf)
+	dummy.pass_flags |= PASSTABLE|PASSTRANSPARENT|PASSGRILLE //Grille/Glass so it can be used through common windows
+	var/turf/previous_step = user_turf
+	var/first_step = TRUE
+	for(var/turf/next_step as anything in (getline(user_turf, target) - user_turf))
+		if(first_step)
+			for(var/obj/blocker in user_turf)
+				if(!blocker.density || !(blocker.flags_1 & ON_BORDER_1))
+					continue
+				if(blocker.CanPass(dummy, get_dir(user_turf, next_step)))
+					continue
+				return FALSE // Could not leave the first turf.
+			first_step = FALSE
+		if(mounted && next_step == user_turf)
+
 			continue //Mechs are dense and thus fail the check
-		if(turf.density)
+		if(next_step.density)
 			qdel(dummy)
-			return 0
-		for(var/atom/movable/AM in turf)
-			if(!AM.CanPass(dummy,turf,1))
+			return FALSE
+		for(var/atom/movable/movable as anything in next_step)
+			if(!movable.CanPass(dummy, get_dir(next_step, previous_step)))
 				qdel(dummy)
-				return 0
-		for(var/obj/effect/ebeam/medical/B in turf)// Don't cross the str-beams!
+				return FALSE
+		for(var/obj/effect/ebeam/medical/B in next_step)// Don't cross the str-beams!
 			if(B.owner.origin != current_beam.origin)
 				explosion(B.loc,0,3,5,8)
 				qdel(dummy)
-				return 0
+				return FALSE
+		previous_step = next_step
 	qdel(dummy)
-	return 1
+	return TRUE
 
 /obj/item/gun/medbeam/proc/on_beam_hit(var/mob/living/target)
 	return

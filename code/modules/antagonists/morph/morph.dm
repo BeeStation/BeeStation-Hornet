@@ -263,6 +263,16 @@
 	else
 		..()
 
+/mob/living/simple_animal/hostile/morph/mind_initialize()
+	. = ..()
+	to_chat(src, playstyle_string)
+	// sometimes the datum is not added for a bit
+	addtimer(CALLBACK(src, PROC_REF(notify_non_antag)), 3 SECONDS)
+
+/mob/living/simple_animal/hostile/morph/proc/notify_non_antag()
+	if(!mind.has_antag_datum(/datum/antagonist/morph))
+		to_chat(src, "<span class='boldwarning'>If you were not an antagonist before you did not become one now. You still retain your retain your original loyalties and mind!</span>")
+
 //Spawn Event
 
 /datum/round_event_control/morph
@@ -273,10 +283,10 @@
 
 /datum/round_event/ghost_role/morph
 	minimum_required = 1
-	role_name = "morphling"
+	role_name = ROLE_MORPH
 
 /datum/round_event/ghost_role/morph/spawn_role()
-	var/list/candidates = get_candidates(ROLE_ALIEN, null, ROLE_ALIEN)
+	var/list/candidates = get_candidates(ROLE_MORPH, null, ROLE_MORPH)
 	if(!candidates.len)
 		return NOT_ENOUGH_PLAYERS
 
@@ -288,8 +298,8 @@
 		return MAP_ERROR
 	var/mob/living/simple_animal/hostile/morph/S = new /mob/living/simple_animal/hostile/morph(pick(GLOB.xeno_spawn))
 	player_mind.transfer_to(S)
-	player_mind.assigned_role = "Morph"
-	player_mind.special_role = "Morph"
+	player_mind.assigned_role = ROLE_MORPH
+	player_mind.special_role = ROLE_MORPH
 	player_mind.add_antag_datum(/datum/antagonist/morph)
 	to_chat(S, S.playstyle_string)
 	SEND_SOUND(S, sound('sound/magic/mutate.ogg'))

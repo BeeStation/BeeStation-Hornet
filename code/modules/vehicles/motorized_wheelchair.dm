@@ -11,6 +11,7 @@
 							/obj/item/stock_parts/manipulator,
 							/obj/item/stock_parts/capacitor)
 	var/obj/item/stock_parts/cell/power_cell
+	var/low_power_alerted = FALSE
 
 /obj/vehicle/ridden/wheelchair/motorized/CheckParts(list/parts_list)
 	..()
@@ -57,19 +58,26 @@
 			canmove = FALSE
 			addtimer(VARSET_CALLBACK(src, canmove, TRUE), 20)
 			return FALSE
-		power_cell.use(power_usage / max(power_efficiency, 1))
 	return ..()
+
+/obj/vehicle/ridden/wheelchair/motorized/Moved()
+	. = ..()
+	power_cell.use(power_usage / max(power_efficiency, 1))
+	if(!low_power_alerted && power_cell.charge <= (power_cell.maxcharge / 4))
+		playsound(src, 'sound/machines/twobeep.ogg', 30, 1)
+		say("Warning: Power low!")
+		low_power_alerted = TRUE
 
 /obj/vehicle/ridden/wheelchair/motorized/set_move_delay(mob/living/user)
 	return
 
 /obj/vehicle/ridden/wheelchair/motorized/post_buckle_mob(mob/living/user)
 	. = ..()
-	density = TRUE
+	set_density(TRUE)
 
 /obj/vehicle/ridden/wheelchair/motorized/post_unbuckle_mob()
 	. = ..()
-	density = FALSE
+	set_density(FALSE)
 
 /obj/vehicle/ridden/wheelchair/motorized/attack_hand(mob/living/user)
 	if(power_cell && panel_open)
@@ -77,6 +85,7 @@
 		user.put_in_hands(power_cell)
 		power_cell = null
 		to_chat(user, "<span class='notice'>You remove the power cell from [src].</span>")
+		low_power_alerted = FALSE
 		return
 	return ..()
 

@@ -75,17 +75,26 @@
 		to_chat(owner, "<span class='warning'>Due to significant interference, this area cannot be warped to!</span>")
 		return
 
+	var/specimin_nearby = FALSE
+	var/agent_nearby = FALSE
 	for(var/mob/living/carbon/human/specimin in view(5, target_loc))
+		//They are an abductor agent, we can always go near them
+		if (isabductor(specimin))
+			agent_nearby = TRUE
+			break
 		var/obj/item/organ/heart/gland/temp = locate() in specimin.internal_organs
 		//Not a specimin
 		if(istype(temp))
 			continue
 		//No heart, not considered a specimin
-		if (!specimin.getorganslot(ORGAN_SLOT_HEART) || isabductor(specimin))
+		if (!specimin.getorganslot(ORGAN_SLOT_HEART))
 			continue
 		//Technically a specimin, however we should avoid meta tactics
 		if (!specimin.client)
 			continue
+		specimin_nearby = TRUE
+
+	if (specimin_nearby && !agent_nearby)
 		to_chat(owner, "<span class='warning'>You cannot warp to this location, an unprocessed specimen might spot you, tampering with the experiment!</span>")
 		return
 
@@ -121,17 +130,26 @@
 		to_chat(owner, "<span class='warning'>Due to significant interference, this area cannot be warped to!</span>")
 		return
 
+	var/specimin_nearby = FALSE
+	var/agent_nearby = FALSE
 	for(var/mob/living/carbon/human/specimin in view(5, target_loc))
+		//They are an abductor agent, we can always go near them
+		if (isabductor(specimin))
+			agent_nearby = TRUE
+			break
 		var/obj/item/organ/heart/gland/temp = locate() in specimin.internal_organs
 		//Not a specimin
 		if(istype(temp))
 			continue
 		//No heart, not considered a specimin
-		if (!specimin.getorganslot(ORGAN_SLOT_HEART) || isabductor(specimin))
+		if (!specimin.getorganslot(ORGAN_SLOT_HEART))
 			continue
 		//Technically a specimin, however we should avoid meta tactics
 		if (!specimin.client)
 			continue
+		specimin_nearby = TRUE
+
+	if (specimin_nearby && !agent_nearby)
 		to_chat(owner, "<span class='warning'>You cannot warp to this location, an unprocessed specimen might spot you, tampering with the experiment!</span>")
 		return
 

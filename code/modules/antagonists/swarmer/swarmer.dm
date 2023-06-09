@@ -18,16 +18,8 @@
 	mob_name = "a swarmer"
 	death = FALSE
 	roundstart = FALSE
-	short_desc = "You are a swarmer, a weapon of a long dead civilization."
-	flavour_text = {"
-	<b>You are a swarmer, a weapon of a long dead civilization. Until further orders from your original masters are received, you must continue to consume and replicate.</b>
-	<b>Clicking on any object will try to consume it, either deconstructing it into its components, destroying it, or integrating any materials it has into you if successful.</b>
-	<b>Ctrl-Clicking on a mob will attempt to remove it from the area and place it in a safe environment for storage.</b>
-	<b>Objectives:</b>
-	1. Consume resources and replicate until there are no more resources left.
-	2. Ensure that this location is fit for invasion at a later date; do not perform actions that would render it dangerous or inhospitable.
-	3. Biological resources will be harvested at a later date; do not harm them.
-	"}
+	assignedrole = ROLE_SWARMER
+	banType = ROLE_SWARMER
 
 /obj/effect/mob_spawn/swarmer/Initialize(mapload)
 	. = ..()
@@ -46,6 +38,7 @@
 		user.visible_message("<span class='warning'>[usr.name] deactivates [src].</span>",
 			"<span class='notice'>After some fiddling, you find a way to disable [src]'s power source.</span>",
 			"<span class='italics'>You hear clicking.</span>")
+		W.play_tool_sound(src, 50)
 		new /obj/item/deactivated_swarmer(get_turf(src))
 		qdel(src)
 	else
@@ -114,6 +107,11 @@
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(src)
 
+/mob/living/simple_animal/hostile/swarmer/mind_initialize()
+	. = ..()
+	var/datum/antagonist/swarmer/S = new()
+	mind.add_antag_datum(S)
+
 /mob/living/simple_animal/hostile/swarmer/med_hud_set_health()
 	var/image/holder = hud_list[DIAG_HUD]
 	var/icon/I = icon(icon, icon_state, dir)
@@ -140,11 +138,11 @@
 	else
 		death()
 
-/mob/living/simple_animal/hostile/swarmer/CanAllowThrough(atom/movable/O)
+/mob/living/simple_animal/hostile/swarmer/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	if(istype(O, /obj/item/projectile/beam/disabler))//Allows for swarmers to fight as a group without wasting their shots hitting each other
+	if(istype(mover, /obj/item/projectile/beam/disabler))//Allows for swarmers to fight as a group without wasting their shots hitting each other
 		return TRUE
-	if(isswarmer(O))
+	else if(isswarmer(mover))
 		return TRUE
 
 ////CTRL CLICK FOR SWARMERS AND SWARMER_ACT()'S////
@@ -204,7 +202,7 @@
 /obj/item/clockwork/alloy_shards/IntegrateAmount()
 	return 10
 
-/obj/item/stack/tile/brass/IntegrateAmount()
+/obj/item/stack/sheet/brass/IntegrateAmount()
 	return 5
 
 /obj/item/clockwork/alloy_shards/medium/gear_bit/large/IntegrateAmount()
@@ -444,6 +442,7 @@
 		return TRUE
 	if(resource_gain)
 		resources += resource_gain
+		add_to_total_resources_eaten(resource_gain)
 		do_attack_animation(target)
 		changeNext_move(CLICK_CD_MELEE)
 		var/obj/effect/temp_visual/swarmer/integrate/I = new /obj/effect/temp_visual/swarmer/integrate(get_turf(target))
@@ -460,6 +459,11 @@
 	else
 		to_chat(src, "<span class='warning'>[target] is incompatible with our internal matter recycler.</span>")
 	return FALSE
+
+/mob/living/simple_animal/hostile/swarmer/proc/add_to_total_resources_eaten(var/gains)
+	var/datum/antagonist/swarmer/S = mind?.has_antag_datum(/datum/antagonist/swarmer)
+	if(S)
+		S.swarm.total_resources_eaten += gains
 
 
 /mob/living/simple_animal/hostile/swarmer/proc/DisIntegrate(atom/movable/target)
@@ -478,7 +482,7 @@
 
 	to_chat(src, "<span class='info'>Attempting to remove this being from our presence.</span>")
 
-	if(!do_mob(src, target, 30))
+	if(!do_after(src, 3 SECONDS, target))
 		return
 
 	var/turf/open/floor/F
@@ -513,7 +517,7 @@
 	D.pixel_x = target.pixel_x
 	D.pixel_y = target.pixel_y
 	D.pixel_z = target.pixel_z
-	if(do_mob(src, target, 100))
+	if(do_after(src, 10 SECONDS, target))
 		to_chat(src, "<span class='info'>Dismantling complete.</span>")
 		var/atom/Tsec = target.drop_location()
 		new /obj/item/stack/sheet/iron(Tsec, 5)
@@ -591,7 +595,7 @@
 /obj/structure/swarmer/trap/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -627,7 +631,7 @@
 	if(resources < 5)
 		to_chat(src, "<span class='warning'>We do not have the resources for this!</span>")
 		return
-	if(do_mob(src, src, 10))
+	if(do_after(src, 1 SECONDS))
 		Fabricate(/obj/structure/swarmer/blockade, 5)
 
 
@@ -639,12 +643,10 @@
 	max_integrity = 50
 	density = TRUE
 
-/obj/structure/swarmer/blockade/CanAllowThrough(atom/movable/O)
+/obj/structure/swarmer/blockade/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	if(isswarmer(O))
-		return 1
-	if(istype(O, /obj/item/projectile/beam/disabler))
-		return 1
+	if(isswarmer(mover) || istype(mover, /obj/item/projectile/beam/disabler))
+		return TRUE
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateSwarmer()
 	set name = "Replicate"
@@ -657,7 +659,7 @@
 	if(!isturf(loc))
 		to_chat(src, "<span class='warning'>This is not a suitable location for replicating ourselves. We need more room.</span>")
 		return
-	if(do_mob(src, src, 100))
+	if(do_after(src, 10 SECONDS))
 		var/createtype = SwarmerTypeToCreate()
 		if(createtype && Fabricate(createtype, 50))
 			playsound(loc,'sound/items/poster_being_created.ogg',50, 1, -1)
@@ -674,7 +676,7 @@
 	if(!isturf(loc))
 		return
 	to_chat(src, "<span class='info'>Attempting to repair damage to our body, stand by...</span>")
-	if(do_mob(src, src, 100))
+	if(do_after(src, 10 SECONDS))
 		adjustHealth(-100)
 		to_chat(src, "<span class='info'>We successfully repaired ourselves.</span>")
 
@@ -696,3 +698,135 @@
 	// TODO get swarmers their own colour rather than just boldtext
 	if(message)
 		swarmer_chat(message)
+
+/datum/antagonist/swarmer
+	name = "Swarmer"
+	job_rank = ROLE_SWARMER
+	roundend_category = "Swarmer"
+	antagpanel_category = "Swarmer"
+	show_to_ghosts = TRUE
+	var/datum/team/swarmer/swarm
+
+/datum/antagonist/swarmer/on_gain()
+	if(swarm)
+		objectives |= swarm.objectives
+	return ..()
+
+/datum/antagonist/swarmer/greet()
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Swarmer",
+		"You are a swarmer, a weapon of a long dead civilization. Until further orders from your original masters are received, you must continue to consume and replicate. \
+		Clicking on any object will try to consume it, either deconstructing it into its components, destroying it, or integrating any materials it has into you if successful. \
+		Ctrl-Clicking on a mob will attempt to remove it from the area and place it in a safe environment for storage.")
+
+/datum/team/swarmer
+	name = "Swarmers"
+	var/total_resources_eaten = 0
+
+/datum/antagonist/swarmer/get_team()
+	return swarm
+
+/datum/antagonist/swarmer/create_team(datum/team/swarmer/new_team)
+	if(!new_team)
+		//For now only one swarm at a time
+		for(var/datum/antagonist/swarmer/S in GLOB.antagonists)
+			if(!S.owner)
+				continue
+			if(S.swarm)
+				swarm = S.swarm
+				return
+		swarm = new /datum/team/swarmer
+		swarm.gain_objectives()
+		return
+	if(!istype(new_team))
+		stack_trace("Wrong team type passed to [type] initialization.")
+	swarm = new_team
+
+/datum/team/swarmer/proc/gain_objectives()
+	var/datum/objective/replicate/replicating = new()
+	replicating.team = src
+	objectives += replicating
+	var/datum/objective/ensure_station_is_fit/ensure = new()
+	ensure.team = src
+	objectives += ensure
+	var/datum/objective/do_not_harm_organisms/noharm = new()
+	noharm.team = src
+	objectives += noharm
+	for(var/datum/mind/M in members)
+		var/datum/antagonist/swarmer/S = M.has_antag_datum(/datum/antagonist/swarmer)
+		if(S)
+			S.objectives |= objectives
+
+/datum/antagonist/swarmer/on_gain()
+	if(swarm)
+		objectives |= swarm.objectives
+	return ..()
+
+/datum/antagonist/swarmer/apply_innate_effects(mob/living/mob_override)
+	. = ..()
+	//Give swarmer appearance on hud (If they are not an antag already)
+	var/datum/atom_hud/antag/swarmerhud = GLOB.huds[ANTAG_HUD_SWARMER]
+	swarmerhud.join_hud(owner.current)
+	if(!owner.antag_hud_icon_state)
+		set_antag_hud(owner.current, "swarmer")
+
+/datum/antagonist/swarmer/remove_innate_effects(mob/living/mob_override)
+	. = ..()
+	//Clear the hud if they haven't become something else and had the hud overwritten
+	var/datum/atom_hud/antag/swarmerhud = GLOB.huds[ANTAG_HUD_SWARMER]
+	swarmerhud.leave_hud(owner.current)
+	if(owner.antag_hud_icon_state == "swarmer")
+		set_antag_hud(owner.current, null)
+
+/datum/antagonist/swarmer/admin_add(datum/mind/new_owner,mob/admin)
+	var/mob/living/M = new_owner.current
+	if(alert(admin,"Transform the player into a swarmer?","Species Change","Yes","No") == "Yes")
+		if(!QDELETED(M) && !M.notransform)
+			M.notransform = 1
+			M.unequip_everything()
+			var/mob/living/new_mob = new /mob/living/simple_animal/hostile/swarmer(M.loc)
+			if(istype(new_mob))
+				new_mob.a_intent = INTENT_HARM
+				M.mind.transfer_to(new_mob)
+				new_owner.assigned_role = ROLE_SWARMER
+				new_owner.special_role = ROLE_SWARMER
+			qdel(M)
+	return ..()
+
+/datum/objective/replicate
+	explanation_text = "Consume resources and replicate until there are no more resources left."
+
+/datum/objective/replicate/check_completion()
+	var/swarmer_check = FALSE
+	for(var/i in GLOB.mob_living_list)
+		var/mob/living/L = i
+		if(istype(L, /mob/living/simple_animal/hostile/swarmer) && L.client) //If there is a swarmer with an active client, we've found our swarmer
+			swarmer_check = TRUE
+	var/list/spawners = GLOB.mob_spawners["unactivated swarmer"]
+	if(LAZYLEN(spawners))
+		swarmer_check = TRUE
+	return swarmer_check
+
+/datum/objective/ensure_station_is_fit
+	explanation_text = "Ensure that this location is fit for invasion at a later date; do not perform actions that would render it dangerous or inhospitable."
+	completed = TRUE
+
+/datum/objective/do_not_harm_organisms
+	explanation_text = "Biological resources will be harvested at a later date; do not harm them."
+	completed = TRUE
+
+/datum/team/swarmer/roundend_report()
+	var/list/parts = list()
+
+	parts += "<span class='header'>The Swarm consisted of :</span>"
+
+	parts += printplayerlist(members)
+
+	parts += "Total amount of matter consumed : [total_resources_eaten]"
+
+	var/datum/objective/replicate/R = locate() in objectives
+	if(R.check_completion() && total_resources_eaten> 0)
+		parts += "<span class='greentext big'>The swarm was successful!</span>"
+	else
+		parts += "<span class='redtext big'>The swarm has failed.</span>"
+
+	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"

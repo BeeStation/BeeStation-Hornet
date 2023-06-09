@@ -269,11 +269,18 @@
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/arrival)
 "aB" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8
 	},
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/turf/open/floor/mineral/titanium/white,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/docking_port/mobile/arrivals{
+	dir = 4;
+	name = "kilo arrivals shuttle";
+	
+	},
+/turf/open/floor/plating/airless,
 /area/shuttle/arrival)
 "aC" = (
 /obj/effect/turf_decal/tile/blue{
@@ -409,39 +416,6 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "aQ" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/arrival)
-"aR" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/arrival)
-"aS" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/chair/fancy/shuttle{
-	dir = 1
-	},
-/obj/machinery/light,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/arrival)
-"aT" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/arrival)
-"aU" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/bot,
 /obj/item/radio{
@@ -460,7 +434,84 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
+"aR" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/arrival)
+"aS" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
+/obj/machinery/light,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/arrival)
+"aT" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/arrival)
+"aU" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/arrival)
 "aV" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/arrival)
+"aW" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/arrival)
+"aX" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/arrival)
+"aY" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner,
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/arrival)
+"aZ" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/chair/fancy/shuttle,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/arrival)
+"lo" = (
+/obj/effect/turf_decal/arrows{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/arrival)
+"mB" = (
 /obj/effect/turf_decal/arrows{
 	dir = 1
 	},
@@ -473,64 +524,7 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
-"aW" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/arrival)
-"aX" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/corner,
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/arrival)
-"aY" = (
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/arrival)
-"aZ" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/chair/fancy/shuttle,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/arrival)
-"gN" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/arrival)
-"kG" = (
-/obj/effect/turf_decal/arrows{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/arrival)
-"Ae" = (
-/obj/effect/turf_decal/arrows{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue/opposingcorners,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/arrival)
-"WG" = (
+"SZ" = (
 /obj/item/radio/intercom{
 	pixel_x = 28
 	},
@@ -544,12 +538,32 @@
 /obj/effect/turf_decal/tile/blue/opposingcorners,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
+"UZ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/arrival)
+"XS" = (
+/obj/effect/turf_decal/arrows{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners,
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/arrival)
 
 (1,1,1) = {"
 aa
 aa
 an
-au
+aB
 aG
 aa
 aa
@@ -567,72 +581,72 @@ ab
 ac
 ai
 ap
-aU
+aQ
 aH
 ai
 ac
 "}
 (4,1,1) = {"
 ad
-Ae
-aV
-aW
-aX
+XS
+mB
 aT
+aY
+aV
 af
 "}
 (5,1,1) = {"
 ae
 aZ
-gN
-aY
+UZ
 aR
+aU
 aS
 ae
 "}
 (6,1,1) = {"
 af
 ak
-gN
+UZ
 ay
-aR
+aU
 aN
 af
 "}
 (7,1,1) = {"
 af
 ak
-gN
+UZ
 az
-aR
+aU
 aN
 af
 "}
 (8,1,1) = {"
 af
 ak
-gN
+UZ
 aA
-aR
+aU
 aN
 af
 "}
 (9,1,1) = {"
 ac
 al
-gN
-aY
+UZ
 aR
+aU
 aP
 ac
 "}
 (10,1,1) = {"
 ad
-kG
-WG
-aB
-aQ
+lo
+SZ
 aW
+aX
+aT
 af
 "}
 (11,1,1) = {"
@@ -648,7 +662,7 @@ ab
 ac
 ae
 at
-aW
+aT
 aM
 ae
 ac
@@ -657,7 +671,7 @@ ac
 ag
 ac
 ak
-aY
+aR
 aN
 ac
 ag

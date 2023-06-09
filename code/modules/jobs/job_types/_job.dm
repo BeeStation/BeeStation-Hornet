@@ -132,7 +132,7 @@
 					continue
 
 				if(G.slot)
-					if(H.equip_to_slot_or_del(G.spawn_item(H), G.slot))
+					if(H.equip_to_slot_or_del(G.spawn_item(H, skirt_pref = M.client.prefs.active_character.jumpsuit_style), G.slot))
 						to_chat(M, "<span class='notice'>Equipping you with [G.display_name]!</span>")
 					else
 						gear_leftovers += G
@@ -145,7 +145,7 @@
 	if(gear_leftovers.len)
 		for(var/datum/gear/G in gear_leftovers)
 			var/metadata = M.client.prefs.active_character.equipped_gear[G.id]
-			var/item = G.spawn_item(null, metadata)
+			var/item = G.spawn_item(null, metadata, M.client.prefs.active_character.jumpsuit_style)
 			var/atom/placed_in = human.equip_or_collect(item)
 
 			if(istype(placed_in))
@@ -164,7 +164,7 @@
 
 			var/obj/item/storage/B = (locate() in H)
 			if(B)
-				G.spawn_item(B, metadata)
+				G.spawn_item(B, metadata, M.client.prefs.active_character.jumpsuit_style)
 				to_chat(M, "<span class='notice'>Placing [G.display_name] in [B.name]!</span>")
 				continue
 
@@ -239,7 +239,7 @@
 /datum/job/proc/announce_head(var/mob/living/carbon/human/H, var/channels) //tells the given channel that the given mob is the new department head. See communications.dm for valid channels.
 	if(H && GLOB.announcement_systems.len)
 		//timer because these should come after the captain announcement
-		SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, .proc/_addtimer, CALLBACK(pick(GLOB.announcement_systems), /obj/machinery/announcement_system/proc/announce, "NEWHEAD", H.real_name, H.job, channels), 1))
+		SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_addtimer), CALLBACK(pick(GLOB.announcement_systems), /obj/machinery/announcement_system/proc/announce, "NEWHEAD", H.real_name, H.job, channels), 1))
 
 //If the configuration option is set to require players to be logged as old enough to play certain jobs, then this proc checks that they are, otherwise it just returns 1
 /datum/job/proc/player_old_enough(client/C)
@@ -361,7 +361,7 @@
 		return list(ACCESS_MAINT_TUNNELS)
 	return list()
 
-//why is this as part of a job? because it's something every human recieves at roundstart after all other initializations and factors job in. it fits best with the equipment proc
+//why is this as part of a job? because it's something every human receives at roundstart after all other initializations and factors job in. it fits best with the equipment proc
 //this gives a dormant disease for the virologist to check for. if this disease actually does something to the mob... call me, or your local coder
 /datum/job/proc/dormant_disease_check(mob/living/carbon/human/H)
 	var/datum/symptom/guaranteed

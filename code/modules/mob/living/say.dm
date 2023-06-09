@@ -94,6 +94,8 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		return
 
 	var/list/message_mods = list()
+	if(language) // if a language is specified already, the language is added into the list
+		message_mods[LANGUAGE_EXTENSION] = istype(language) ? language.type : language
 	var/original_message = message
 	message = get_message_mods(message, message_mods)
 	var/datum/saymode/saymode = SSradio.saymodes[message_mods[RADIO_KEY]]
@@ -101,6 +103,8 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 	if(!message)
 		return
+
+	message = check_for_custom_say_emote(message, message_mods)
 
 	if(stat == DEAD)
 		say_dead(original_message)
@@ -126,10 +130,15 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		if(end)
 			return
 
-	language = message_mods[LANGUAGE_EXTENSION]
+	if(!language) // get_message_mods() proc finds a language key, and add the language to LANGUAGE_EXTENSION
+		language = message_mods[LANGUAGE_EXTENSION]
 
-	if(!language)
+	if(!language) // there's no language argument and LANGUAGE_EXTENSION has no language. failsafe.
 		language = get_selected_language()
+
+	// if you add a new language that works like everyone doesn't understand (i.e. anti-metalanguage), add an additional condition after this
+	// i.e.) if(!language) language = /datum/language/nobody_understands
+	// This works as an additional failsafe for get_selected_language() has no language to return
 
 	if(!can_speak_vocal(message))
 		to_chat(src, "<span class='warning'>You find yourself unable to speak!</span>")
@@ -139,25 +148,29 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 	var/succumbed = FALSE
 
-	var/fullcrit = InFullCritical()
-	if((in_critical && !fullcrit) || message_mods[WHISPER_MODE] == MODE_WHISPER)
-		if(saymode || message_mods[RADIO_EXTENSION]) //no radio while in crit
-			saymode = null
-			message_mods -= RADIO_EXTENSION
-		message_range = 1
-		message_mods[WHISPER_MODE] = MODE_WHISPER
-		log_talk(message, LOG_WHISPER)
-		if(fullcrit)
-			var/health_diff = round(-HEALTH_THRESHOLD_DEAD + health)
-			// If we cut our message short, abruptly end it with a-..
-			var/message_len = length_char(message)
-			message = copytext_char(message, 1, health_diff) + "[message_len > health_diff ? "-.." : "..."]"
-			message = Ellipsis(message, 10, 1)
-			last_words = message
-			message_mods[WHISPER_MODE] = MODE_WHISPER_CRIT
-			succumbed = TRUE
-	else
-		log_talk(message, LOG_SAY, forced_by = forced)
+	if(message_mods[MODE_CUSTOM_SAY_EMOTE])
+		log_message(message_mods[MODE_CUSTOM_SAY_EMOTE], LOG_RADIO_EMOTE)
+
+	if(!message_mods[MODE_CUSTOM_SAY_ERASE_INPUT])
+		var/fullcrit = InFullCritical()
+		if((in_critical && !fullcrit) || message_mods[WHISPER_MODE] == MODE_WHISPER)
+			if(saymode || message_mods[RADIO_EXTENSION]) //no radio while in crit
+				saymode = null
+				message_mods -= RADIO_EXTENSION
+			message_range = 1
+			message_mods[WHISPER_MODE] = MODE_WHISPER
+			log_talk(message, LOG_WHISPER, custom_say_emote = message_mods[MODE_CUSTOM_SAY_EMOTE])
+			if(fullcrit)
+				var/health_diff = round(-HEALTH_THRESHOLD_DEAD + health)
+				// If we cut our message short, abruptly end it with a-..
+				var/message_len = length_char(message)
+				message = copytext_char(message, 1, health_diff) + "[message_len > health_diff ? "-.." : "..."]"
+				message = Ellipsis(message, 10, 1)
+				last_words = message
+				message_mods[WHISPER_MODE] = MODE_WHISPER_CRIT
+				succumbed = TRUE
+		else
+			log_talk(message, LOG_SAY, forced_by = forced, custom_say_emote = message_mods[MODE_CUSTOM_SAY_EMOTE])
 
 	message = treat_message(message) // unfortunately we still need this
 	var/sigreturn = SEND_SIGNAL(src, COMSIG_MOB_SAY, args)
@@ -194,6 +207,11 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(radio_return & NOPASS)
 		return TRUE
 
+	//now that the radio message is sent, if the custom say message was just an emote we return
+	if (message_mods[MODE_CUSTOM_SAY_ERASE_INPUT] && message_mods[MODE_CUSTOM_SAY_EMOTE])
+		emote("me", 1, message_mods[MODE_CUSTOM_SAY_EMOTE], TRUE)
+		return
+
 	//No screams in space, unless you're next to someone.
 	var/turf/T = get_turf(src)
 	var/datum/gas_mixture/environment = T.return_air()
@@ -226,7 +244,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		avoid_highlight = src == speaker
 
 	if(speaker != src)
-		if(!radio_freq) //These checks have to be seperate, else people talking on the radio will make "You can't hear yourself!" appear when hearing people over the radio while deaf.
+		if(!radio_freq) //These checks have to be separate, else people talking on the radio will make "You can't hear yourself!" appear when hearing people over the radio while deaf.
 			deaf_message = "<span class='name'>[speaker]</span> [speaker.verb_say] something but you cannot hear [speaker.p_them()]."
 			deaf_type = 1
 	else
@@ -299,7 +317,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 			speech_bubble_recipients.Add(M.client)
 	var/image/I = image('icons/mob/talk.dmi', src, "[bubble_type][say_test(message)]", FLY_LAYER)
 	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-	INVOKE_ASYNC(GLOBAL_PROC, /.proc/animate_speechbubble, I, speech_bubble_recipients, 30)
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(animate_speechbubble), I, speech_bubble_recipients, 30)
 
 /proc/animate_speechbubble(image/I, list/show_to, duration)
 	var/matrix/M = matrix()
@@ -367,10 +385,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	return treat_message_min(message)
 
 /mob/proc/treat_message_min(message)
-	var/end = copytext(message, length(message))
-	if(!(end in list("!", ".", "?", ":", "\"", "-", "~")))
-		message += "."
-
+	message = punctuate(message)
 	message = capitalize(message)
 	return message
 

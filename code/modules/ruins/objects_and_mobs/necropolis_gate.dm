@@ -47,7 +47,7 @@
 	add_overlay(dais_overlay)
 
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_EXIT = .proc/on_exit,
+		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
 	)
 
 	AddElement(/datum/element/connect_loc, loc_connections)
@@ -62,13 +62,19 @@
 /obj/structure/necropolis_gate/singularity_pull()
 	return 0
 
-/obj/structure/necropolis_gate/CanAllowThrough(atom/movable/mover, turf/target)
+/obj/structure/necropolis_gate/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	if(!(get_dir(loc, target) == dir))
+	if(border_dir != dir)
 		return TRUE
 
 /obj/structure/necropolis_gate/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
+
+	if(leaving.movement_type & PHASING)
+		return
+
+	if(leaving == src)
+		return // Let's not block ourselves.
 
 	if (direction == dir && density)
 		leaving.Bump(src)
@@ -109,11 +115,11 @@
 	if(open)
 		new /obj/effect/temp_visual/necropolis(T)
 		visible_message("<span class='boldwarning'>The door slams closed!</span>")
-		sleep(1)
+		sleep(0.1 SECONDS)
 		playsound(T, 'sound/effects/stonedoor_openclose.ogg', 300, TRUE, frequency = 80000)
-		sleep(1)
-		density = TRUE
-		sleep(1)
+		sleep(0.1 SECONDS)
+		set_density(TRUE)
+		sleep(0.1 SECONDS)
 		var/turf/sight_blocker_turf = get_turf(src)
 		if(sight_blocker_distance)
 			for(var/i in 1 to sight_blocker_distance)
@@ -123,20 +129,20 @@
 		if(sight_blocker_turf)
 			sight_blocker.pixel_y = initial(sight_blocker.pixel_y) - (32 * sight_blocker_distance)
 			sight_blocker.forceMove(sight_blocker_turf)
-		sleep(2.5)
+		sleep(0.25 SECONDS)
 		playsound(T, 'sound/magic/clockwork/invoke_general.ogg', 30, TRUE, frequency = 15000)
 		add_overlay(door_overlay)
 		open = FALSE
 	else
 		cut_overlay(door_overlay)
 		new /obj/effect/temp_visual/necropolis/open(T)
-		sleep(2)
+		sleep(0.2 SECONDS)
 		visible_message("<span class='warning'>The door starts to grind open...</span>")
 		playsound(T, 'sound/effects/stonedoor_openclose.ogg', 300, TRUE, frequency = 20000)
-		sleep(22)
+		sleep(2.2 SECONDS)
 		sight_blocker.forceMove(src)
-		sleep(5)
-		density = FALSE
+		sleep(0.5 SECONDS)
+		set_density(FALSE)
 		sleep(5)
 		open = TRUE
 	changing_openness = FALSE
@@ -170,7 +176,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 			return
 		user.visible_message("<span class='warning'>[user] knocks on [src]...</span>", "<span class='boldannounce'>You tentatively knock on [src]...</span>")
 		playsound(user.loc, 'sound/effects/shieldbash.ogg', 100, 1)
-		sleep(50)
+		sleep(5 SECONDS)
 	return ..()
 
 /obj/structure/necropolis_gate/legion_gate/toggle_the_gate(mob/user, legion_damaged)
@@ -262,7 +268,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	. = ..()
 	icon_state = "[tile_key][rand(1, tile_random_sprite_max)]"
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -292,7 +298,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	switch(fall_on_cross)
 		if(COLLAPSE_ON_CROSS, DESTROY_ON_CROSS)
 			if((I && I.w_class >= WEIGHT_CLASS_BULKY) || (L && !(L.movement_type & FLYING) && L.mob_size >= MOB_SIZE_HUMAN)) //too heavy! too big! aaah!
-				INVOKE_ASYNC(src, .proc/collapse)
+				INVOKE_ASYNC(src, PROC_REF(collapse))
 		if(UNIQUE_EFFECT)
 			crossed_effect(AM)
 
@@ -301,7 +307,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	var/break_that_sucker = fall_on_cross == DESTROY_ON_CROSS
 	playsound(src, 'sound/effects/pressureplate.ogg', 50, TRUE)
 	Shake(-1, -1, 25)
-	sleep(5)
+	sleep(0.5 SECONDS)
 	if(break_that_sucker)
 		playsound(src, 'sound/effects/break_stone.ogg', 50, TRUE)
 	else
@@ -311,7 +317,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	if(break_that_sucker)
 		QDEL_IN(src, 10)
 	else
-		addtimer(CALLBACK(src, .proc/rebuild), 55)
+		addtimer(CALLBACK(src, PROC_REF(rebuild)), 55)
 
 /obj/structure/stone_tile/proc/rebuild()
 	pixel_x = initial(pixel_x)
