@@ -53,9 +53,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	return
 
 /datum/asset/proc/send(client)
-	if(!client)
-		return FALSE
-	return TRUE
+	return
 
 /// Returns whether or not the asset should attempt to read from cache
 /datum/asset/proc/should_refresh()
@@ -87,10 +85,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		assets[asset_name] = ACI
 
 /datum/asset/simple/send(client)
-	if(!client)
-		return FALSE
-	SSassets.transport.send_assets(client, assets)
-	return TRUE
+	. = SSassets.transport.send_assets(client, assets)
 
 /datum/asset/simple/get_url_mappings()
 	. = list()
@@ -108,8 +103,6 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		load_asset_datum(type)
 
 /datum/asset/group/send(client/C)
-	if(!C)
-		return FALSE
 	for(var/type in children)
 		var/datum/asset/A = get_asset_datum(type)
 		. = A.send(C) || .
@@ -220,10 +213,8 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	return ..()
 
 /datum/asset/spritesheet/send(client/client)
-	if (!client)
-		return FALSE
 	if (!name)
-		return FALSE
+		return
 
 	if (!should_refresh())
 		return send_from_cache(client)
