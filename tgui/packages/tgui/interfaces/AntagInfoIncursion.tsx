@@ -112,8 +112,8 @@ const BasicLoreSubsection = (_props, _context) => {
       <BlockQuote>
         You have formed a team of Syndicate members with a similar mindset and must infiltrate the ranks of the station!
         <br />
-        You've been implanted with an internal syndicate radio implant for communication with your team. This headset can only
-        be heard by you directly and if those pigs at Nanotrasen try to steal it they will violently explode!
+        You&apos;ve been implanted with an internal syndicate radio implant for communication with your team. This headset can
+        only be heard by you directly and if those pigs at Nanotrasen try to steal it they will violently explode!
         <br />
         Talk over the{' '}
         <Box inline textColor="red">
