@@ -1,4 +1,4 @@
-import { Box, Tabs, Button, Section, Stack, Flex, Table } from '../../components';
+import { Box, Tabs, Button, Section, Stack, Flex, Table, Icon } from '../../components';
 import { PreferencesMenuData } from './data';
 import { useBackend, useLocalState } from '../../backend';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
@@ -16,6 +16,7 @@ export const LoadoutPage = (props, context) => {
         }
         const { categories = [], metacurrency_name } = serverData.loadout;
         const [selectedCategory, setSelectedCategory] = useLocalState(context, 'category', categories[0].name);
+        const [onlyPurchased, setOnlyPurchased] = useLocalState(context, 'only_purchased', false);
 
         let selectedCategoryObject = categories.filter((c) => c.name === selectedCategory)[0];
 
@@ -53,6 +54,13 @@ export const LoadoutPage = (props, context) => {
                           {category.name}
                         </Tabs.Tab>
                       ))}
+                    <Tabs.Tab
+                      style={{ 'margin-left': 'auto' }}
+                      textColor="lightgray"
+                      onClick={() => setOnlyPurchased(!onlyPurchased)}>
+                      <Icon name={onlyPurchased ? 'check-square-o' : 'square-o'} mr={1} />
+                      Show Purchased Only
+                    </Tabs.Tab>
                   </Tabs>
                 </Flex.Item>
                 <Flex.Item grow basis="content" height="0">
@@ -73,48 +81,55 @@ export const LoadoutPage = (props, context) => {
                         <Table.Cell style={{ 'min-width': '7rem' }} collapsing />
                       </Table.Row>
                       {selectedCategoryObject &&
-                        selectedCategoryObject.gear.map((gear) => (
-                          <Table.Row key={gear.id}>
-                            <Table.Cell m={0} p={0}>
-                              <Box
-                                inline
-                                className={`preferences_loadout32x32 loadout_gear___${gear.id}${
-                                  jumpsuit_style === 'Jumpskirt' && gear.skirt_display_name ? '_skirt' : ''
-                                }`}
-                                style={{
-                                  'vertical-align': 'middle',
-                                  'horizontal-align': 'middle',
-                                }}
-                              />
-                            </Table.Cell>
-                            <Table.Cell style={{ 'vertical-align': 'middle' }}>
-                              {jumpsuit_style === 'Jumpskirt' && gear.skirt_display_name
-                                ? gear.skirt_display_name
-                                : gear.display_name}
-                            </Table.Cell>
-                            {!gear.donator && <Table.Cell textAlign="center">{gear.cost}</Table.Cell>}
-                            <Table.Cell textAlign="center">
-                              <Button
-                                disabled={
-                                  (!purchased_gear.includes(gear.id) && gear.cost > metacurrency_balance) ||
-                                  (gear.donator && !is_donator)
-                                }
-                                content={
-                                  purchased_gear.includes(gear.id)
-                                    ? equipped_gear.includes(gear.id)
-                                      ? 'Unequip'
-                                      : 'Equip'
-                                    : 'Purchase'
-                                }
-                                onClick={() =>
-                                  act(purchased_gear.includes(gear.id) ? 'equip_gear' : 'purchase_gear', {
-                                    id: gear.id,
-                                  })
-                                }
-                              />
-                            </Table.Cell>
-                          </Table.Row>
-                        ))}
+                        selectedCategoryObject.gear
+                          .filter((gear) => !onlyPurchased || purchased_gear.includes(gear.id))
+                          .map((gear) => (
+                            <Table.Row key={gear.id}>
+                              <Table.Cell m={0} p={0}>
+                                <Box
+                                  inline
+                                  className={`preferences_loadout32x32 loadout_gear___${gear.id}${
+                                    jumpsuit_style === 'Jumpskirt' && gear.skirt_display_name ? '_skirt' : ''
+                                  }`}
+                                  style={{
+                                    'vertical-align': 'middle',
+                                    'horizontal-align': 'middle',
+                                  }}
+                                />
+                              </Table.Cell>
+                              <Table.Cell style={{ 'vertical-align': 'middle' }}>
+                                {jumpsuit_style === 'Jumpskirt' && gear.skirt_display_name
+                                  ? gear.skirt_display_name
+                                  : gear.display_name}
+                              </Table.Cell>
+                              {!gear.donator && <Table.Cell textAlign="center">{gear.cost}</Table.Cell>}
+                              <Table.Cell textAlign="center">
+                                <Button
+                                  disabled={
+                                    (!purchased_gear.includes(gear.id) && gear.cost > metacurrency_balance) ||
+                                    (gear.donator && !is_donator)
+                                  }
+                                  tooltip={
+                                    !purchased_gear.includes(gear.id) && gear.cost > metacurrency_balance
+                                      ? 'Not Enough ' + metacurrency_name
+                                      : null
+                                  }
+                                  content={
+                                    purchased_gear.includes(gear.id)
+                                      ? equipped_gear.includes(gear.id)
+                                        ? 'Unequip'
+                                        : 'Equip'
+                                      : 'Purchase'
+                                  }
+                                  onClick={() =>
+                                    act(purchased_gear.includes(gear.id) ? 'equip_gear' : 'purchase_gear', {
+                                      id: gear.id,
+                                    })
+                                  }
+                                />
+                              </Table.Cell>
+                            </Table.Row>
+                          ))}
                     </Table>
                   </Box>
                 </Flex.Item>
