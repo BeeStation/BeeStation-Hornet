@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, BlockQuote, Section, Stack, LabeledList } from '../components';
+import { Box, BlockQuote, Section, Stack } from '../components';
 import { BooleanLike } from 'common/react';
 import { Window } from '../layouts';
 import { resolveAsset } from '../assets';

@@ -468,6 +468,9 @@
 		"nuke.png" = 'html/img/nuke.png',
 		"eshield.png" = 'html/img/eshield.png',
 		"mech.png" = 'html/img/mech.png',
+		"abaton.png" = 'html/img/abaton.png',
+		"atool.png" = 'html/img/atool.png',
+		"apistol.png" = 'html/img/apistol.png',
 		"scitool.png" = 'html/img/scitool.png',
 		"alienorgan.png"= 'html/img/alienorgan.png',
 		"spiderguard.png"= 'html/img/spiderguard.png',
@@ -475,7 +478,7 @@
 		"spidernurse.png"= 'html/img/spidernurse.png',
 		"spiderhunter.png"= 'html/img/spiderhunter.png',
 		"spiderviper.png"= 'html/img/spiderviper.png',
-		"spidertarantula.png"= 'html/img/spidertarantula.png'
+		"spidertarantula.png"= 'html/img/spidertarantula.png',
 	)
 
 /datum/asset/simple/orbit
