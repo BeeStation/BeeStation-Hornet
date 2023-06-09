@@ -1034,6 +1034,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			return FALSE
 		if (NAMEOF(src, cached_badges))
 			return FALSE
+		if (NAMEOF(src, metabalance_cached))
+			return FALSE
 		if (NAMEOF(src, view))
 			view_size.setDefault(var_value)
 			return TRUE
