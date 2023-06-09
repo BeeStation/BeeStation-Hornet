@@ -101,7 +101,7 @@
 	cooldown_expiry = world.time
 
 	//Give them a fair chance to realize they're about to commit mind death
-	user.visible_message("<span class='userdanger'>A sharp pain forms as you take the [src] off!</span>", \
+	user.visible_message("<span class='userdanger'>You feel a sharp pain as you take the [src] off!</span>", \
 		"<span class='warning'>[user.name] [user.p_are()] trying to take the [src] off [user.p_their()] head!</span>")
 	if (do_after(user, 8 SECONDS, user))
 		return ..()
