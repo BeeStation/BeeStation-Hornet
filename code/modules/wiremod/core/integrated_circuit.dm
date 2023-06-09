@@ -70,6 +70,9 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 	/// The current size of the circuit.
 	var/current_size = 0
 
+	/// How much this costs by itself. Keep this updated with /datum/design/integrated_circuit
+	materials = list(/datum/material/glass = 1000, /datum/material/iron = 1000, /datum/material/copper = 500)
+
 /obj/item/integrated_circuit/Initialize(mapload)
 	. = ..()
 
@@ -264,6 +267,15 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 	SEND_SIGNAL(to_remove, COMSIG_CIRCUIT_COMPONENT_REMOVED, src)
 	SStgui.update_uis(src)
 	to_remove.removed_from(src)
+
+/obj/item/integrated_circuit/proc/get_material_cost()
+	. = list()
+	for(var/self_mat in materials)
+		.[self_mat] += materials[self_mat]
+	for(var/obj/item/circuit_component/comp in attached_components)
+		var/list/comp_cost = comp.get_material_cost()
+		for(var/comp_mat in comp_cost)
+			.[comp_mat] += comp_cost[comp_mat]
 
 /obj/item/integrated_circuit/get_cell()
 	return cell

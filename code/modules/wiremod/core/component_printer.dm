@@ -52,22 +52,34 @@
 
 	var/list/scanned_designs = list()
 
-	var/cost_per_component = 1000
+	//Viewing mobs of the UI to update
+	var/list/mob/viewing_mobs = list()
+
+	///the multiplier for how much materials the created object takes from this machines stored materials
+	var/creation_efficiency = 1.2
 
 /obj/machinery/module_duplicator/Initialize(mapload)
-	. = ..()
-
 	materials = AddComponent( \
 		/datum/component/remote_materials, \
 		"lathe", \
-		mapload, \
+		mapload \
 	)
+	. = ..()
 
-/obj/machinery/module_duplicator/ui_interact(mob/user, datum/tgui/ui)
+/obj/machinery/module_duplicator/ui_interact(mob/user, datum/tgui/ui = null)
+	if(!is_operational)
+		return
+
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ComponentPrinter", name)
 		ui.open()
+		ui.set_autoupdate(TRUE)
+		viewing_mobs += user
+
+/obj/machinery/modular_fabricator/ui_close(mob/user, datum/tgui/tgui)
+	. = ..()
+	viewing_mobs -= user
 
 /obj/machinery/module_duplicator/ui_assets(mob/user)
 	return list(
@@ -109,6 +121,7 @@
 
 			// SAFETY: eject_sheets checks for valid mats
 			materials.eject_sheets(material, amount)
+			update_viewer_statics()
 
 	return TRUE
 
@@ -131,6 +144,7 @@
 		created_atom = module
 	created_atom.pixel_x = initial(created_atom.pixel_x) + rand(-5, 5)
 	created_atom.pixel_y = initial(created_atom.pixel_y) + rand(-5, 5)
+	update_viewer_statics()
 
 /obj/machinery/module_duplicator/attackby(obj/item/weapon, mob/user, params)
 	var/list/data = list()
@@ -141,20 +155,21 @@
 		data["dupe_data"] = list()
 		module.save_data_to_list(data["dupe_data"])
 		data["name"] = module.display_name
-		data["desc"] = "A module that has been loaded in by [user]."
-		data["materials"] = list(/datum/material/glass = module.circuit_size * cost_per_component)
+
+		var/length = length(module.internal_circuit.attached_components) - 2
+		data["desc"] = "A module that has been loaded in by [user]. It has [length == 0 ? "no" : length] internal [length == 1 ? "component" : "components"]."
+
+		data["materials"] = module.get_material_cost()
 	else if(istype(weapon, /obj/item/integrated_circuit))
 		var/obj/item/integrated_circuit/integrated_circuit = weapon
 
 		data["dupe_data"] = integrated_circuit.convert_to_json()
 		data["name"] = integrated_circuit.display_name
-		data["desc"] = "An integrated circuit that has been loaded in by [user]."
 
-		var/datum/design/integrated_circuit/circuit_design = SSresearch.techweb_design_by_id("integrated_circuit")
-		var/materials = list(/datum/material/glass = integrated_circuit.current_size * cost_per_component)
-		for(var/material_type in circuit_design.materials)
-			materials[material_type] += circuit_design.materials[material_type]
-		data["materials"] = materials
+		var/length = length(integrated_circuit.attached_components)
+		data["desc"] = "An integrated circuit that has been loaded in by [user]. It has [length == 0 ? "no" : length] attached [length == 1 ? "component" : "components"]."
+
+		data["materials"] = integrated_circuit.get_material_cost()
 		data["integrated_circuit"] = TRUE
 
 	if(!length(data))
@@ -177,29 +192,43 @@
 
 	balloon_alert(user, "module has been saved.")
 	playsound(src, 'sound/machines/ping.ogg', 50)
+	update_viewer_statics()
 
+/obj/machinery/module_duplicator/RefreshParts()
+	var/efficiency = 1.2
+	for(var/obj/item/stock_parts/manipulator/new_manipulator in component_parts)
+		efficiency -= new_manipulator.rating * 0.15
+	creation_efficiency = max(0.1,efficiency)
+	update_viewer_statics()
 
-/obj/machinery/module_duplicator/ui_data(mob/user)
-	var/list/data = list()
-	data["materials"] = materials.mat_container.ui_data()
-	return data
+/obj/machinery/module_duplicator/proc/update_viewer_statics()
+	for(var/mob/M in viewing_mobs)
+		if(QDELETED(M) || !(M.client || M.mind))
+			continue
+		update_static_data(M)
 
 /obj/machinery/module_duplicator/ui_static_data(mob/user)
 	var/list/data = list()
-
 	var/list/designs = list()
 
 	var/index = 1
-	for (var/list/design as anything in scanned_designs)
+	for (var/list/D as anything in scanned_designs)
+		//Calculate cost
+		var/list/material_cost = list()
+		for(var/mat_id in D["materials"])
+			material_cost[mat_id] = D["materials"][mat_id] * creation_efficiency
+
+		//Add
 		designs["[index]"] = list(
-			"name" = design["name"],
-			"description" = design["desc"],
-			"materials" = get_material_cost_data(design["materials"]),
+			"name" = D["name"],
+			"description" = D["desc"],
+			"materials" = material_cost,
 			"categories" = list("Circuitry"),
 		)
 		index++
 
 	data["designs"] = designs
+	data["materials"] = materials.mat_container.ui_data()
 
 	return data
 

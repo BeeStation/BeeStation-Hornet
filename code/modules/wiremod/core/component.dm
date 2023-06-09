@@ -58,6 +58,9 @@
 	/// The UI buttons of this circuit component. An assoc list that has this format: "button_icon" = "action_name"
 	var/ui_buttons = null
 
+	/// How much this costs by itself. Keep this updated with /datum/design/integrated_circuit
+	materials = list(/datum/material/glass = 500, /datum/material/copper = 150)
+
 /// Called when the option ports should be set up
 /obj/item/circuit_component/proc/populate_options()
 	return
@@ -354,3 +357,8 @@
 
 /obj/item/circuit_component/proc/unregister_usb_parent(atom/movable/parent)
 	return
+
+/obj/item/circuit_component/proc/get_material_cost()
+	. = list()
+	for(var/mat in materials)
+		.[mat] += materials[mat]

@@ -21,6 +21,13 @@
 		"edit" = "action"
 	)
 
+/obj/item/circuit_component/module/get_material_cost()
+	. = ..()
+	if(internal_circuit)
+		var/list/internal_cost = internal_circuit.get_material_cost()
+		for(var/mat in internal_cost)
+			.[mat] += internal_cost[mat]
+
 /obj/item/integrated_circuit/module
 	var/obj/item/circuit_component/module/attached_module
 
@@ -53,9 +60,9 @@
 		attached_module.circuit_size += to_add.circuit_size
 
 /obj/item/integrated_circuit/module/remove_component(obj/item/circuit_component/to_remove)
+	. = ..()
 	if(attached_module)
 		attached_module.circuit_size -= to_remove.circuit_size
-	return ..()
 
 /obj/item/integrated_circuit/module/Destroy()
 	attached_module = null

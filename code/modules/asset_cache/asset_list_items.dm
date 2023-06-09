@@ -492,12 +492,11 @@
 	name = "sheetmaterials"
 
 /datum/asset/spritesheet/sheetmaterials/register()
-	InsertAll("", 'icons/obj/stacks/minerals.dmi')//figure to do a list here
-//	InsertAll("", 'icons/obj/stacks/miscellaneous.dmi')
-//	InsertAll("", 'icons/obj/stacks/organic.dmi')
+	InsertAll("", 'icons/obj/stacks/minerals.dmi')
 
-	// Special case to handle Bluespace Crystals
-	Insert("polycrystal", 'icons/obj/telescience.dmi', "polycrystal")
+
+	// Special bee edit to handle Bluespace Crystals
+	Insert("polycrystal", 'icons/obj/stacks/minerals.dmi', "refined_bluespace_crystal_3")
 	..()
 
 /datum/asset/simple/pAI
