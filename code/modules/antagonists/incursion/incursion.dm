@@ -38,7 +38,7 @@
 /datum/antagonist/incursion/antag_panel_data()
 	return "Conspirators : [get_team_members()]]"
 
-/datum/antagonist/traitor/ui_static_data(mob/user)
+/datum/antagonist/incursion/ui_static_data(mob/user)
 	var/datum/component/uplink/uplink = uplink_ref?.resolve()
 	var/list/data = list()
 	data["antag_name"] = name
@@ -46,6 +46,7 @@
 	data["failsafe_code"] = uplink?.failsafe_code
 	data["uplink_unlock_info"] = uplink?.unlock_text
 	data["objectives"] = get_objectives()
+	data["members"] = team.get_member_names()
 	return data
 
 /datum/antagonist/incursion/proc/get_team_members()

@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, BlockQuote, Section, Stack } from '../components';
+import { Box, BlockQuote, Section, Stack, LabeledList } from '../components';
 import { BooleanLike } from 'common/react';
 import { Window } from '../layouts';
 import { resolveAsset } from '../assets';
@@ -45,7 +45,7 @@ const IntroSection = (_props, context) => {
         />
       </Stack.Item>
       <Stack.Item grow>
-        <h1 style={{ 'position': 'relative', 'top': '25%', 'left': '25%' }}>
+        <h1 style={{ 'position': 'relative', 'top': '25%', 'left': '7%' }}>
           You are the{' '}
           <Box inline textColor="bad">
             {antag_name || 'Syndicate Incursion Member'}
@@ -57,7 +57,7 @@ const IntroSection = (_props, context) => {
   );
 };
 
-const UplinkSection = (_props, context) => {
+const UplinkSubsection = (_props, context) => {
   const { data } = useBackend<Info>(context);
   const { has_uplink, uplink_unlock_info, code, failsafe_code } = data;
   return (
@@ -90,6 +90,72 @@ const UplinkSection = (_props, context) => {
   );
 };
 
+const MembersSubsection = (_props, context) => {
+  const { data } = useBackend<Info>(context);
+  const { members } = data;
+  return (
+    <Section title="Members">
+      <Stack>
+        {members.map((member) => (
+          <Stack.Item key={member} className="candystripe">
+            {member}
+          </Stack.Item>
+        ))}
+      </Stack>
+    </Section>
+  );
+};
+
+const BasicLoreSubsection = (_props, _context) => {
+  return (
+    <Section>
+      <BlockQuote>
+        You have formed a team of Syndicate members with a similar mindset and must infiltrate the ranks of the station!
+        <br />
+        You've been implanted with an internal syndicate radio implant for communication with your team. This headset can only
+        be heard by you directly and if those pigs at Nanotrasen try to steal it they will violently explode!
+        <br />
+        Talk over the{' '}
+        <Box inline textColor="red">
+          Syndicate radio channel
+        </Box>{' '}
+        with{' '}
+        <Box inline textColor="red">
+          :t
+        </Box>{' '}
+        /{' '}
+        <Box inline textColor="red">
+          .t
+        </Box>
+      </BlockQuote>
+    </Section>
+  );
+};
+
+const InfoSection = (_props, _context) => {
+  return (
+    <Section>
+      <Stack vertical>
+        <Stack.Item>
+          <Stack>
+            <Stack.Item>
+              <MembersSubsection />
+            </Stack.Item>
+            <Stack.Divider />
+            <Stack.Item>
+              <BasicLoreSubsection />
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
+        <Stack.Divider />
+        <Stack.Item>
+          <UplinkSubsection />
+        </Stack.Item>
+      </Stack>
+    </Section>
+  );
+};
+
 export const AntagInfoIncursion = (_props, context) => {
   const { data } = useBackend<Info>(context);
   const { objectives } = data;
@@ -100,11 +166,11 @@ export const AntagInfoIncursion = (_props, context) => {
           <Stack.Item>
             <IntroSection />
           </Stack.Item>
+          <Stack.Item>
+            <InfoSection />
+          </Stack.Item>
           <Stack.Item grow>
             <ObjectivesSection objectives={objectives} />
-          </Stack.Item>
-          <Stack.Item>
-            <UplinkSection />
           </Stack.Item>
         </Stack>
       </Window.Content>
