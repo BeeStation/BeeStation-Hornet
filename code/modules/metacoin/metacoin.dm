@@ -25,7 +25,7 @@
 	inc_metabalance(METACOIN_TENMINUTELIVING_REWARD, FALSE)
 
 /// Never-blocking method to retrieve cached metabalance. This CAN be null and runtimes if it is.
-/// Use get_metabalance_db() for a more accurate measure. Never use this in modifynig calculations.
+/// Use get_metabalance_db() for a more accurate measure. Never use this in modifying calculations.
 /// The cached metabalance is initialized during client/Login()
 /client/proc/get_metabalance()
 	SHOULD_NOT_SLEEP(TRUE)

@@ -250,6 +250,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			new /datum/admins(localhost_rank, ckey, 1, 1)
 	// Retrieve cached metabalance
 	metabalance_cached = get_metabalance_db()
+	// Retrieve cached antag token count
+	antag_token_count_cached = get_antag_token_count_db()
 	//preferences datum - also holds some persistent data for the client (because we may as well keep these datums to a minimum)
 	prefs = GLOB.preferences_datums[ckey]
 	if(prefs)
