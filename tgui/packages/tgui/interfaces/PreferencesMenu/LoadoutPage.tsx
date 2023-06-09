@@ -6,7 +6,7 @@ import { CharacterPreview } from './CharacterPreview';
 
 export const LoadoutPage = (props, context) => {
   const { act, data } = useBackend<PreferencesMenuData>(context);
-  const { purchased_gear = [], equipped_gear = [], character_preferences, metacurrency_balance = 0 } = data;
+  const { purchased_gear = [], equipped_gear = [], character_preferences, metacurrency_balance = 0, is_donator = false } = data;
   const jumpsuit_style = character_preferences.clothing.jumpsuit_style;
   return (
     <ServerPreferencesFetcher
@@ -42,15 +42,17 @@ export const LoadoutPage = (props, context) => {
               <Flex direction="column" height="100%">
                 <Flex.Item>
                   <Tabs>
-                    {categories.map((category) => (
-                      <Tabs.Tab
-                        key={category.name}
-                        textAlign="center"
-                        selected={selectedCategory === category.name}
-                        onClick={() => setSelectedCategory(category.name)}>
-                        {category.name}
-                      </Tabs.Tab>
-                    ))}
+                    {categories
+                      .filter((c) => c.name !== 'Donator' || is_donator)
+                      .map((category) => (
+                        <Tabs.Tab
+                          key={category.name}
+                          textAlign="center"
+                          selected={selectedCategory === category.name}
+                          onClick={() => setSelectedCategory(category.name)}>
+                          {category.name}
+                        </Tabs.Tab>
+                      ))}
                   </Tabs>
                 </Flex.Item>
                 <Flex.Item grow basis="content" height="0">
@@ -68,7 +70,7 @@ export const LoadoutPage = (props, context) => {
                             Cost
                           </Table.Cell>
                         )}
-                        <Table.Cell collapsing />
+                        <Table.Cell style={{ 'min-width': '7rem' }} collapsing />
                       </Table.Row>
                       {selectedCategoryObject &&
                         selectedCategoryObject.gear.map((gear) => (

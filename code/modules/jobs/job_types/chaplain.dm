@@ -28,9 +28,9 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/chaplain
 	)
 
-/datum/job/chaplain/after_spawn(mob/living/H, mob/M, latejoin = FALSE, client/preference_source)
+/datum/job/chaplain/after_spawn(mob/living/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
 	. = ..()
-	if(!M.client)
+	if(!M.client || on_dummy)
 		return
 
 	var/obj/item/storage/book/bible/booze/B = new

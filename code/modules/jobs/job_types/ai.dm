@@ -27,7 +27,7 @@
 		CRASH("dynamic preview is unsupported")
 	. = H.AIize(latejoin,preference_source)
 
-/datum/job/ai/after_spawn(mob/H, mob/M, latejoin = FALSE, client/preference_source)
+/datum/job/ai/after_spawn(mob/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
 	. = ..()
 	if(latejoin)
 		var/obj/structure/AIcore/latejoin_inactive/lateJoinCore

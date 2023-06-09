@@ -111,7 +111,7 @@
 /// do actions on H but send messages to M as the key may not have been transferred_yet
 /// preference_source allows preferences to be retrieved if the original mob (M) is null - for use on preference dummies.
 /// Don't do non-visual changes if M.client is null, since that means it's just a dummy and doesn't need them.
-/datum/job/proc/after_spawn(mob/living/H, mob/M, latejoin = FALSE, client/preference_source)
+/datum/job/proc/after_spawn(mob/living/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
 	//do actions on H but send messages to M as the key may not have been transferred_yet
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_JOB_AFTER_SPAWN, src, H, M, latejoin)
 	if(mind_traits && H?.mind)
@@ -120,6 +120,9 @@
 
 	if(!ishuman(H))
 		return
+	apply_loadout_to_mob(H, M, preference_source, on_dummy)
+
+/proc/apply_loadout_to_mob(mob/living/carbon/human/H, mob/M, client/preference_source, on_dummy = FALSE)
 	var/mob/living/carbon/human/human = H
 	var/list/gear_leftovers = list()
 	var/jumpsuit_style = preference_source.prefs.read_character_preference(/datum/preference/choiced/jumpsuit_style)
@@ -148,9 +151,15 @@
 					continue
 
 				if(G.slot)
+					var/obj/o
+					if(on_dummy) // remove the old item
+						o = H.get_item_by_slot(G.slot)
+						H.doUnEquip(H.get_item_by_slot(G.slot), newloc = H.drop_location(), invdrop = FALSE, silent = TRUE)
 					if(H.equip_to_slot_or_del(G.spawn_item(H, skirt_pref = jumpsuit_style), G.slot))
 						if(M.client)
 							to_chat(M, "<span class='notice'>Equipping you with [G.display_name]!</span>")
+						if(on_dummy && o)
+							qdel(o)
 					else
 						gear_leftovers += G
 				else

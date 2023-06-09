@@ -9,7 +9,7 @@
 	data["equipped_gear"] = preferences.equipped_gear
 	data["purchased_gear"] = preferences.purchased_gear
 	data["metacurrency_balance"] = preferences.parent.get_metabalance()
-	data["is_donator"] = IS_PATRON(user.ckey) || (user in GLOB.admins)
+	data["is_donator"] = (IS_PATRON(preferences.parent.ckey) || (preferences.parent in GLOB.admins))
 	return data
 
 /datum/preference_middleware/loadout/get_constant_data()

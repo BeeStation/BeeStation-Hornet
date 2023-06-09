@@ -43,7 +43,7 @@
 
 GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, SEC_DEPT_SCIENCE, SEC_DEPT_SUPPLY))
 
-/datum/job/security_officer/after_spawn(mob/living/carbon/human/H, mob/M, latejoin = FALSE, client/preference_source)
+/datum/job/security_officer/after_spawn(mob/living/carbon/human/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
 	. = ..()
 	// Assign department security
 	var/department
@@ -97,6 +97,9 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 	var/obj/item/card/id/W = H.wear_id
 	W.access |= dep_access
 
+	if(!M.client || on_dummy)
+		return
+
 	var/teleport = 0
 	if(!CONFIG_GET(flag/sec_start_brig))
 		if(destination || spawn_point)
@@ -115,8 +118,6 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 					continue
 				else
 					break
-	if(!M.client)
-		return
 	if(department)
 		to_chat(M, "<b>You have been assigned to [department]!</b>")
 	else

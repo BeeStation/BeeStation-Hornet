@@ -10,7 +10,8 @@
 	path = /obj/item/toy/figure/captain
 
 /datum/gear/ooc/char_slot/purchase(var/client/C)
-// TODO tgui-prefs 	C?.prefs?.set_max_character_slots(C.prefs.max_usable_slots + 1)
+	// This is only locally immediately after purchase - this will be incremented on load in preferences.dm
+	C.prefs.max_save_slots += 1
 
 /datum/gear/ooc/real_antagtoken
 	display_name = "antag token"
@@ -19,6 +20,6 @@
 	path = /obj/item/coin/antagtoken
 
 /datum/gear/ooc/real_antagtoken/purchase(var/client/C)
-	C.inc_antag_token_count(1)
+	INVOKE_ASYNC(C, TYPE_PROC_REF(/client, inc_antag_token_count), 1)
 	message_admins("[C.ckey] has purchased a genuine antag token.")
 	log_game("[C.ckey] has purchased a genuine antag token.")
