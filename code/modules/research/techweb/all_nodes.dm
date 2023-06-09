@@ -692,7 +692,7 @@
 	description = "Research the technology required to create and use basic shuttles."
 	prereq_ids = list(
 		"adv_engi",
-		"bluespace_travel",
+		"basic_plasma",
 	)
 	design_ids = list(
 		"engine_heater",
@@ -701,7 +701,7 @@
 		"shuttle_creator",
 		"wingpack",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
 /datum/techweb_node/nullspacebreaching
@@ -1447,8 +1447,6 @@
 		"damagemod",
 		"drill",
 		"exploration_equipment_vendor",
-		"furnace_console",
-		"furnace",
 		"hypermod",
 		"mining_equipment_vendor",
 		"ore_redemption",
@@ -1600,7 +1598,6 @@
 	prereq_ids = list("engineering")
 	design_ids = list(
 		"pin_testing",
-		"sleepy",
 		"tele_shield",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)

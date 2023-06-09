@@ -1,12 +1,5 @@
 import { useBackend } from '../../backend';
-import {
-  Input,
-  InfinitePlane,
-  Stack,
-  Box,
-  Button,
-  Section,
-} from '../../components';
+import { Input, InfinitePlane, Stack, Box, Button, Section } from '../../components';
 import { Component } from 'inferno';
 import { Layout, Window } from '../../layouts';
 import { resolveAsset } from '../../assets';
@@ -70,11 +63,9 @@ export class IntegratedCircuit extends Component {
     position.color = port.color;
 
     if (
-      isNaN(position.x)
-      || isNaN(position.y)
-      || (lastPosition
-        && lastPosition.x === position.x
-        && lastPosition.y === position.y)
+      isNaN(position.x) ||
+      isNaN(position.y) ||
+      (lastPosition && lastPosition.x === position.x && lastPosition.y === position.y)
     ) {
       return;
     }
@@ -107,9 +98,7 @@ export class IntegratedCircuit extends Component {
   // exists and do perform some actions if it does.
   handlePortUp(portIndex, componentId, port, isOutput, event) {
     const { act } = useBackend(this.context);
-    const {
-      selectedPort,
-    } = this.state;
+    const { selectedPort } = this.state;
     if (!selectedPort) {
       return;
     }
@@ -132,7 +121,7 @@ export class IntegratedCircuit extends Component {
         output_component_id: selectedPort.component_id,
       };
     }
-    act("add_connection", data);
+    act('add_connection', data);
   }
 
   handlePortDrag(event) {
@@ -204,7 +193,7 @@ export class IntegratedCircuit extends Component {
     const { act } = useBackend(this.context);
     const { backgroundX, backgroundY } = this.state;
     if (backgroundX && backgroundY) {
-      act("move_screen", {
+      act('move_screen', {
         screen_x: backgroundX,
         screen_y: backgroundY,
       });
@@ -252,13 +241,13 @@ export class IntegratedCircuit extends Component {
       const isOutput = selectedPort.is_output;
       const portLocation = locations[selectedPort.ref];
       const mouseCoords = {
-        x: (mouseX)*Math.pow(zoom, -1),
-        y: (mouseY + ABSOLUTE_Y_OFFSET)*Math.pow(zoom, -1),
+        x: mouseX * Math.pow(zoom, -1),
+        y: (mouseY + ABSOLUTE_Y_OFFSET) * Math.pow(zoom, -1),
       };
       connections.push({
         color: (portLocation && portLocation.color) || 'blue',
-        from: isOutput? portLocation : mouseCoords,
-        to: isOutput? mouseCoords : portLocation,
+        from: isOutput ? portLocation : mouseCoords,
+        to: isOutput ? mouseCoords : portLocation,
       });
     }
 
@@ -266,19 +255,15 @@ export class IntegratedCircuit extends Component {
       <Window
         width={600}
         height={600}
-        buttons={(
-          <Box
-            width="160px"
-            position="absolute"
-            top="5px"
-            height="22px">
+        buttons={
+          <Box width="160px" position="absolute" top="5px" height="22px">
             <Stack>
               <Stack.Item grow basis="content">
                 <Input
                   fluid
                   placeholder="Circuit Name"
                   value={display_name}
-                  onChange={(e, value) => act("set_display_name", { display_name: value })}
+                  onChange={(e, value) => act('set_display_name', { display_name: value })}
                 />
               </Stack.Item>
               <Stack.Item basis="24px">
@@ -288,25 +273,21 @@ export class IntegratedCircuit extends Component {
                   color="transparent"
                   icon="cog"
                   selected={menuOpen}
-                  onClick={() => this.setState((state) => ({
-                    menuOpen: !state.menuOpen,
-                  }))}
+                  onClick={() =>
+                    this.setState((state) => ({
+                      menuOpen: !state.menuOpen,
+                    }))
+                  }
                 />
               </Stack.Item>
               {!!is_admin && (
                 <Stack.Item>
-                  <Button
-                    position="absolute"
-                    top={0}
-                    color="transparent"
-                    onClick={() => act("save_circuit")}
-                    icon="save"
-                  />
+                  <Button position="absolute" top={0} color="transparent" onClick={() => act('save_circuit')} icon="save" />
                 </Stack.Item>
               )}
             </Stack>
           </Box>
-        )}>
+        }>
         <Window.Content
           style={{
             'background-image': 'none',
@@ -349,30 +330,31 @@ export class IntegratedCircuit extends Component {
             />
           )}
           {!!menuOpen && (
-            <Box
-              position="absolute"
-              bottom={0}
-              left={0}
-              height="50%"
-              minHeight="300px"
-              width="100%"
-              backgroundColor="#202020">
+            <Box position="absolute" bottom={0} left={0} height="50%" minHeight="300px" width="100%" backgroundColor="#202020">
               <VariableMenu
                 variables={variables}
                 types={global_basic_types}
-                onAddVariable={(name, type, event) => act("add_variable", {
-                  variable_name: name,
-                  variable_datatype: type,
-                })}
-                onRemoveVariable={(name, event) => act("remove_variable", {
-                  variable_name: name,
-                })}
-                handleAddSetter={(e) => act("add_setter_or_getter", {
-                  is_setter: true,
-                })}
-                handleAddGetter={(e) => act("add_setter_or_getter", {
-                  is_setter: false,
-                })}
+                onAddVariable={(name, type, event) =>
+                  act('add_variable', {
+                    variable_name: name,
+                    variable_datatype: type,
+                  })
+                }
+                onRemoveVariable={(name, event) =>
+                  act('remove_variable', {
+                    variable_name: name,
+                  })
+                }
+                handleAddSetter={(e) =>
+                  act('add_setter_or_getter', {
+                    is_setter: true,
+                  })
+                }
+                handleAddGetter={(e) =>
+                  act('add_setter_or_getter', {
+                    is_setter: false,
+                  })
+                }
               />
             </Box>
           )}
