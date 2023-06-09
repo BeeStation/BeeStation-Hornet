@@ -15,6 +15,7 @@ import './styles/themes/hackerman.scss';
 import './styles/themes/malfunction.scss';
 import './styles/themes/neutral.scss';
 import './styles/themes/ntos.scss';
+import './styles/themes/wizard.scss';
 import './styles/themes-ntos/ntos-colors.scss';
 import './styles/themes-ntos/default.scss';
 import './styles/themes-ntos/dark.scss';
