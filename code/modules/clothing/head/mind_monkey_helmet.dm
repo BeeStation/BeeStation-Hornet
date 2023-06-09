@@ -97,7 +97,7 @@
 	//Spam? No thanks, we're good.
 	if(cooldown_expiry > world.time)
 		return
-	cooldown_expiry = world.time
+	cooldown_expiry = world.time + 50
 
 	//Give them a fair chance to realize they're about to commit mind death
 	user.visible_message( \
