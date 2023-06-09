@@ -7,6 +7,7 @@
 	display_name = "extra character slot"
 	description = "An extra charslot. Pretty self-explanatory."
 	cost = 10000
+	path = /obj/item/toy/figure/captain
 
 /datum/gear/ooc/char_slot/purchase(var/client/C)
 // TODO tgui-prefs 	C?.prefs?.set_max_character_slots(C.prefs.max_usable_slots + 1)
@@ -15,6 +16,7 @@
 	display_name = "antag token"
 	description = "If you can afford it, you deserve it."
 	cost = 100000
+	path = /obj/item/coin/antagtoken
 
 /datum/gear/ooc/real_antagtoken/purchase(var/client/C)
 	C.inc_antag_token_count(1)

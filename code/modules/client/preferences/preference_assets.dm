@@ -41,6 +41,23 @@
 /datum/preference/proc/get_spritesheet_key(value)
 	return "[db_key]___[sanitize_css_class_name(value)]"
 
+/datum/asset/spritesheet/preferences_loadout
+	name = "preferences_loadout"
+	early = TRUE
+
+/datum/asset/spritesheet/preferences_loadout/register()
+	for(var/gear_id in GLOB.gear_datums)
+		var/datum/gear/G = GLOB.gear_datums[gear_id]
+		if(!ispath(G.path, /atom))
+			continue
+		var/icon/regular_icon = get_display_icon_for(G.path)
+		Insert("loadout_gear___[gear_id]", regular_icon)
+		if(!ispath(G.skirt_path, /atom))
+			continue
+		var/icon/skirt_icon = get_display_icon_for(G.skirt_path)
+		Insert("loadout_gear___[gear_id]_skirt", skirt_icon)
+	return ..()
+
 /// Sends information needed for shared details on individual preferences
 /datum/asset/json/preferences
 	name = "preferences"

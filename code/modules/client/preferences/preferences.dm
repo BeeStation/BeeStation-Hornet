@@ -194,6 +194,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 /datum/preferences/ui_assets(mob/user)
 	var/list/assets = list(
 		get_asset_datum(/datum/asset/spritesheet/preferences),
+		get_asset_datum(/datum/asset/spritesheet/preferences_loadout),
 		get_asset_datum(/datum/asset/json/preferences),
 	)
 
@@ -547,7 +548,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 /// Handles adding and removing donator items from clients
 /datum/preferences/proc/handle_donator_items()
 	var/datum/loadout_category/DLC = GLOB.loadout_categories["Donator"] // stands for donator loadout category but the other def for DLC works too xD
-	if(!LAZYLEN(GLOB.patrons) || !CONFIG_GET(flag/donator_items)) // donator items are only accesibile by servers with a patreon
+	if(!CONFIG_GET(flag/donator_items)) // donator items are only accesibile by servers with a patreon
 		return
 	if(IS_PATRON(parent.ckey) || (parent in GLOB.admins))
 		for(var/gear_id in DLC.gear)

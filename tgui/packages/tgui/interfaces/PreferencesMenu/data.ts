@@ -72,6 +72,7 @@ export type LoadoutInfo = {
   categories: LoadoutCategory[];
   purchased_gear: string[];
   equipped_gear: string[];
+  metacurrency_name: string;
 };
 
 export type LoadoutGear = {
@@ -160,6 +161,11 @@ export type PreferencesMenuData = {
   keybindings: Record<string, string[]>;
   overflow_role: string;
   selected_quirks: string[];
+
+  purchased_gear: string[];
+  equipped_gear: string[];
+  metacurrency_balance: number;
+  is_donator: BooleanLike;
 
   antag_bans?: string[];
   antag_days_left?: Record<string, number>;

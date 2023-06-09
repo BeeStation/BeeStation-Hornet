@@ -265,12 +265,14 @@
 /obj/item/clothing/accessory/armband/blue
 	name = "blue armband"
 	desc = "A fancy blue armband!"
-	color = list(0,0,1, 0,1,0, 1,0,0)
+	icon_state = "medband"
+	color = "#0000ff"
 
 /obj/item/clothing/accessory/armband/green
 	name = "green armband"
 	desc = "A fancy green armband!"
-	color = list(0,1,0, 1,0,0, 0,0,1)
+	icon_state = "medband"
+	color = "#00ff00"
 
 /obj/item/clothing/accessory/armband/deputy
 	name = "security deputy armband"
