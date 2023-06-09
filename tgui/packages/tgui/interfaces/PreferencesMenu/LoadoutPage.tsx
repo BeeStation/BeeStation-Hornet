@@ -95,6 +95,10 @@ export const LoadoutPage = (props, context) => {
                             {!gear.donator && <Table.Cell textAlign="center">{gear.cost}</Table.Cell>}
                             <Table.Cell textAlign="center">
                               <Button
+                                disabled={
+                                  (!purchased_gear.includes(gear.id) && gear.cost > metacurrency_balance) ||
+                                  (gear.donator && !is_donator)
+                                }
                                 content={
                                   purchased_gear.includes(gear.id)
                                     ? equipped_gear.includes(gear.id)
