@@ -1,13 +1,9 @@
 import { useBackend } from '../../backend';
-import {
-  Box,
-  Stack, Button, Dropdown,
-} from '../../components';
+import { Box, Stack, Button, Dropdown } from '../../components';
 import { Component } from 'inferno';
 import { shallowDiffers } from '../../../common/react';
 import { ABSOLUTE_Y_OFFSET } from './constants';
-import { Port } from "./Port";
-
+import { Port } from './Port';
 
 export class ObjectComponent extends Component {
   constructor() {
@@ -79,10 +75,10 @@ export class ObjectComponent extends Component {
     const { input_ports, output_ports } = this.props;
 
     return (
-      shallowDiffers(this.props, nextProps)
-      || shallowDiffers(this.state, nextState)
-      || shallowDiffers(input_ports, nextProps.input_ports)
-      || shallowDiffers(output_ports, nextProps.output_ports)
+      shallowDiffers(this.props, nextProps) ||
+      shallowDiffers(this.state, nextState) ||
+      shallowDiffers(input_ports, nextProps.input_ports) ||
+      shallowDiffers(output_ports, nextProps.output_ports)
     );
   }
 
@@ -132,38 +128,40 @@ export class ObjectComponent extends Component {
         onMouseDown={this.handleStartDrag}
         onMouseUp={this.handleStopDrag}
         onComponentWillUnmount={this.handleDrag}>
-        <Box
-          backgroundColor={color}
-          py={1}
-          px={1}
-          className="ObjectComponent__Titlebar">
+        <Box backgroundColor={color} py={1} px={1} className="ObjectComponent__Titlebar">
           <Stack>
             <Stack.Item grow={1} basis="content" unselectable="on">
               {name}
             </Stack.Item>
-            {!!ui_buttons && Object.keys(ui_buttons).map(icon => (
-              <Stack.Item key={icon}>
-                <Button
-                  icon={icon}
-                  color="transparent"
-                  compact
-                  onClick={() => act('perform_action', {
-                    component_id: index,
-                    action_name: ui_buttons[icon],
-                  })}
-                />
-              </Stack.Item>
-            ))}
+            {!!ui_buttons &&
+              Object.keys(ui_buttons).map((icon) => (
+                <Stack.Item key={icon}>
+                  <Button
+                    icon={icon}
+                    color="transparent"
+                    compact
+                    onClick={() =>
+                      act('perform_action', {
+                        component_id: index,
+                        action_name: ui_buttons[icon],
+                      })
+                    }
+                  />
+                </Stack.Item>
+              ))}
             <Stack.Item>
               <Button
                 color="transparent"
                 icon="info"
                 compact
-                onClick={(e) => act('set_examined_component', {
-                  component_id: index,
-                  x: e.pageX,
-                  y: e.pageY + ABSOLUTE_Y_OFFSET,
-                })} />
+                onClick={(e) =>
+                  act('set_examined_component', {
+                    component_id: index,
+                    x: e.pageX,
+                    y: e.pageY + ABSOLUTE_Y_OFFSET,
+                  })
+                }
+              />
             </Stack.Item>
             {!!removable && (
               <Stack.Item>
@@ -171,27 +169,19 @@ export class ObjectComponent extends Component {
                   color="transparent"
                   icon="times"
                   compact
-                  onClick={() => act('detach_component', { component_id: index })} />
+                  onClick={() => act('detach_component', { component_id: index })}
+                />
               </Stack.Item>
             )}
           </Stack>
         </Box>
-        <Box
-          className="ObjectComponent__Content"
-          unselectable="on"
-          py={1}
-          px={1}>
+        <Box className="ObjectComponent__Content" unselectable="on" py={1} px={1}>
           <Stack>
             <Stack.Item grow={1} basis="content">
               <Stack vertical fill>
                 {input_ports.map((port, portIndex) => (
                   <Stack.Item key={portIndex}>
-                    <Port
-                      port={port}
-                      portIndex={portIndex + 1}
-                      componentId={index}
-                      {...PortOptions}
-                    />
+                    <Port port={port} portIndex={portIndex + 1} componentId={index} {...PortOptions} />
                   </Stack.Item>
                 ))}
               </Stack>
@@ -200,12 +190,7 @@ export class ObjectComponent extends Component {
               <Stack vertical>
                 {output_ports.map((port, portIndex) => (
                   <Stack.Item key={portIndex}>
-                    <Port
-                      port={port}
-                      portIndex={portIndex + 1}
-                      componentId={index}
-                      {...PortOptions}
-                      isOutput />
+                    <Port port={port} portIndex={portIndex + 1} componentId={index} {...PortOptions} isOutput />
                   </Stack.Item>
                 ))}
               </Stack>

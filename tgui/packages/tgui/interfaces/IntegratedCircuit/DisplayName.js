@@ -10,11 +10,9 @@ export const DisplayName = (props, context) => {
   const InputComponent = FUNDAMENTAL_DATA_TYPES[port.type || 'unknown'];
   const TypeDisplayHandler = DATATYPE_DISPLAY_HANDLERS[port.type || 'unknown'];
 
-  const hasInput = !isOutput
-    && !port.connected_to?.length
-    && InputComponent;
+  const hasInput = !isOutput && !port.connected_to?.length && InputComponent;
 
-  const displayType = TypeDisplayHandler? TypeDisplayHandler(port) : port.type;
+  const displayType = TypeDisplayHandler ? TypeDisplayHandler(port) : port.type;
 
   return (
     <Box {...rest}>
@@ -28,14 +26,15 @@ export const DisplayName = (props, context) => {
                   port_id: portIndex,
                   input: val,
                   ...extraParams,
-                })}
+                })
+              }
               color={port.color}
               name={port.name}
               value={port.current_data}
               extraData={port.datatype_data}
             />
-          ))
-            || (isOutput && (
+          )) ||
+            (isOutput && (
               <Button
                 compact
                 color="transparent"
@@ -43,17 +42,15 @@ export const DisplayName = (props, context) => {
                   act('get_component_value', {
                     component_id: componentId,
                     port_id: portIndex,
-                  })}>
+                  })
+                }>
                 <Box color="white">{port.name}</Box>
               </Button>
-            ))
-            || port.name}
+            )) ||
+            port.name}
         </Flex.Item>
         <Flex.Item>
-          <Box
-            fontSize={0.75}
-            opacity={0.25}
-            textAlign={isOutput ? 'right' : 'left'}>
+          <Box fontSize={0.75} opacity={0.25} textAlign={isOutput ? 'right' : 'left'}>
             {displayType || 'unknown'}
           </Box>
         </Flex.Item>

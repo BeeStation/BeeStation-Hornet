@@ -1,10 +1,6 @@
-import {
-  Stack,
-  Icon,
-} from '../../components';
+import { Stack, Icon } from '../../components';
 import { Component, createRef } from 'inferno';
-import { DisplayName } from "./DisplayName";
-
+import { DisplayName } from './DisplayName';
 
 export class Port extends Component {
   constructor() {
@@ -18,35 +14,17 @@ export class Port extends Component {
   }
 
   handlePortMouseDown(e) {
-    const {
-      port,
-      portIndex,
-      componentId,
-      isOutput,
-      onPortMouseDown,
-    } = this.props;
+    const { port, portIndex, componentId, isOutput, onPortMouseDown } = this.props;
     onPortMouseDown(portIndex, componentId, port, isOutput, e);
   }
 
   handlePortMouseUp(e) {
-    const {
-      port,
-      portIndex,
-      componentId,
-      isOutput,
-      onPortMouseUp,
-    } = this.props;
+    const { port, portIndex, componentId, isOutput, onPortMouseUp } = this.props;
     onPortMouseUp(portIndex, componentId, port, isOutput, e);
   }
 
   handlePortRightClick(e) {
-    const {
-      port,
-      portIndex,
-      componentId,
-      isOutput,
-      onPortRightClick,
-    } = this.props;
+    const { port, portIndex, componentId, isOutput, onPortRightClick } = this.props;
     onPortRightClick(portIndex, componentId, port, isOutput, e);
   }
 
@@ -65,23 +43,13 @@ export class Port extends Component {
   }
 
   render() {
-    const {
-      port,
-      portIndex,
-      componentId,
-      isOutput,
-      ...rest
-    } = this.props;
+    const { port, portIndex, componentId, isOutput, ...rest } = this.props;
 
     return (
       <Stack {...rest} justify={isOutput ? 'flex-end' : 'flex-start'}>
         {!!isOutput && (
           <Stack.Item>
-            <DisplayName
-              port={port}
-              isOutput={isOutput}
-              componentId={componentId}
-              portIndex={portIndex} />
+            <DisplayName port={port} isOutput={isOutput} componentId={componentId} portIndex={portIndex} />
           </Stack.Item>
         )}
         <Stack.Item>
@@ -97,11 +65,7 @@ export class Port extends Component {
         </Stack.Item>
         {!isOutput && (
           <Stack.Item>
-            <DisplayName
-              port={port}
-              isOutput={isOutput}
-              componentId={componentId}
-              portIndex={portIndex} />
+            <DisplayName port={port} isOutput={isOutput} componentId={componentId} portIndex={portIndex} />
           </Stack.Item>
         )}
       </Stack>

@@ -42,9 +42,7 @@ export const Connections = (props, context) => {
         val.color = val.color || 'blue';
         return (
           <path
-            className={classes([
-              isColorClass(val.color) && `color-stroke-${val.color}`,
-            ])}
+            className={classes([isColorClass(val.color) && `color-stroke-${val.color}`])}
             key={index}
             d={path}
             fill="transparent"
