@@ -1118,7 +1118,7 @@
 	/// How much "charge" the transformation has left. It's randomly set upon creation,
 	/// and ticks down every second if there's mutadone in the target's system.
 	var/charge_left
-	/// Whether the
+	/// Whether the transformation has already been applied or not (i.e is this a new transformation, or an old one being transferred?)
 	var/already_applied = FALSE
 
 /datum/status_effect/ling_transformation/on_creation(mob/living/new_owner, datum/dna/target_dna, datum/dna/original_dna, already_applied = FALSE)
