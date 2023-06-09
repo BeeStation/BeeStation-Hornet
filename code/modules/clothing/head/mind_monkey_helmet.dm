@@ -2,7 +2,8 @@
 	name = "monkey mind magnification helmet"
 	desc = "A fragile, circuitry embedded helmet for boosting the intelligence of a monkey to a higher level. You see several warning labels..."
 
-	icon_state = "monkeymind"
+	base_icon_state = "monkeymind"
+	icon_state = "monkeymind1" //For mapping?
 	item_state = "monkeymind"
 	strip_delay = 100
 	var/cooldown_expiry //It'll get annoying quick when someone tries to remove their own helmet 20 times a second
@@ -11,7 +12,16 @@
 
 /obj/item/clothing/head/mind_monkey_helmet/monkey_sentience/Initialize()
 	. = ..()
-	icon_state = "[icon_state][rand(1,3)]"
+	base_icon_state = "[base_icon_state][rand(1,3)]"
+	update_icon()
+
+/obj/item/clothing/head/mind_monkey_helmet/monkey_sentience/update_icon(updates)
+	. = ..()
+	if (magnification)
+		icon_state = "[base_icon_state]up"
+		return
+	icon_state = "[base_icon_state]"
+
 
 /obj/item/clothing/head/mind_monkey_helmet/monkey_sentience/examine(mob/user)
 	. = ..()
@@ -47,7 +57,7 @@
 		magnification.key = picked.key
 		playsound(src, 'sound/machines/microwave/microwave-end.ogg', 100, FALSE)
 		to_chat(magnification, "<span class='notice'>You're a mind magnified monkey! Protect your helmet with your life- if you lose it, your sentience goes with it!</span>")
-		icon_state = "[icon_state]up"
+		update_icon()
 
 /obj/item/clothing/head/mind_monkey_helmet/monkey_sentience/Destroy()
 	. = ..()
@@ -62,6 +72,8 @@
 			magnification.ghostize(FALSE)
 		if(prob(10))
 			magnification.apply_damage(500,BRAIN,BODY_ZONE_HEAD,FALSE,FALSE,FALSE) //brain death
+		magnification = null
+		update_icon()
 	else
 		//either used up correctly or taken off before polling finished (punish this by destroying the helmet)
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
