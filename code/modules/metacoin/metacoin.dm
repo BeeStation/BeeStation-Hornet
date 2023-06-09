@@ -24,12 +24,16 @@
 /client/proc/process_ten_minute_living()
 	inc_metabalance(METACOIN_TENMINUTELIVING_REWARD, FALSE)
 
+/// Never-blocking method to retrieve cached metabalance. This CAN be null and runtimes if it is.
+/// Use get_metabalance_db() for a more accurate measure. Never use this in modifynig calculations.
+/// The cached metabalance is initialized during client/Login()
 /client/proc/get_metabalance()
 	SHOULD_NOT_SLEEP(TRUE)
 	if(metabalance_cached == null)
 		CRASH("Metacoin amount fetched before value initialized")
 	return metabalance_cached
 
+/// Gets the user's metabalance from the DB. Blocking.
 /client/proc/get_metabalance_db()
 	var/datum/DBQuery/query_get_metacoins = SSdbcore.NewQuery(
 		"SELECT metacoins FROM [format_table_name("player")] WHERE ckey = :ckey",
@@ -43,6 +47,9 @@
 	qdel(query_get_metacoins)
 	return text2num(mc_count)
 
+/// Sets metabalance in the local cache, then invokes a database update.
+/// mc_count: Amount to increment the metabalance by
+/// ann: If we should announce this modification to the user.
 /client/proc/set_metacoin_count(mc_count, ann=TRUE)
 	SHOULD_NOT_SLEEP(TRUE)
 	if(metabalance_cached == null)
@@ -50,8 +57,12 @@
 	metabalance_cached = mc_count
 	if(ann)
 		to_chat(src, "<span class='rose bold'>Your new metacoin balance is [mc_count]!</span>")
-	INVOKE_ASYNC(src, PROC_REF(db_set_metabalance), metabalance_cached)
+	INVOKE_ASYNC(src, PROC_REF(db_set_metabalance), mc_count)
 
+/// Increases metabalance in the local cache, then invokes a database update.
+/// mc_count: Amount to increment the metabalance by
+/// ann: If we should announce this modification to the user.
+/// reason: The reason the metabalance was modified, echoed to the user.
 /client/proc/inc_metabalance(mc_count, ann=TRUE, reason=null)
 	SHOULD_NOT_SLEEP(TRUE)
 	if(mc_count >= 0 && !CONFIG_GET(flag/grant_metacurrency))
@@ -64,11 +75,19 @@
 			to_chat(src, "<span class='rose bold'>[abs(mc_count)] [CONFIG_GET(string/metacurrency_name)]\s have been [mc_count >= 0 ? "deposited to" : "withdrawn from"] your account! Reason: [reason]</span>")
 		else
 			to_chat(src, "<span class='rose bold'>[abs(mc_count)] [CONFIG_GET(string/metacurrency_name)]\s have been [mc_count >= 0 ? "deposited to" : "withdrawn from"] your account!</span>")
-	INVOKE_ASYNC(src, PROC_REF(db_set_metabalance), metabalance_cached)
+	INVOKE_ASYNC(src, PROC_REF(db_inc_metabalance), mc_count)
+
+/client/proc/db_inc_metabalance(mc_count)
+	var/datum/DBQuery/query_set_metacoins = SSdbcore.NewQuery(
+		"UPDATE [format_table_name("player")] SET metacoins = metacoins + :mc_count WHERE ckey = :ckey",
+		list("mc_count" = mc_count, "ckey" = ckey)
+	)
+	query_set_metacoins.warn_execute()
+	qdel(query_set_metacoins)
 
 /client/proc/db_set_metabalance(mc_count)
 	var/datum/DBQuery/query_set_metacoins = SSdbcore.NewQuery(
-		"UPDATE [format_table_name("player")] SET metacoins = metacoins + :mc_count WHERE ckey = :ckey",
+		"UPDATE [format_table_name("player")] SET metacoins = :mc_count WHERE ckey = :ckey",
 		list("mc_count" = mc_count, "ckey" = ckey)
 	)
 	query_set_metacoins.warn_execute()

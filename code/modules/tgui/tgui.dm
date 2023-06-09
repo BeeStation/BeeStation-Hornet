@@ -259,13 +259,13 @@
 	var/data = custom_data || with_data && src_object.ui_data(user)
 	if(data)
 		json_data["data"] = data
-	// ui_data can sleep, protect against that
+	// if ui_data sleeps, prevent errors
 	if(!user?.client || !initialized || closing || QDELETED(src_object) || QDELETED(user) || QDELETED(window))
 		return
 	var/static_data = with_static_data && src_object.ui_static_data(user)
 	if(static_data)
 		json_data["static_data"] = static_data
-	// ui_static_data can sleep, protect against that
+	// if ui_static_data sleeps, prevent errors
 	if(!user?.client || !initialized || closing || QDELETED(src_object) || QDELETED(user) || QDELETED(window))
 		return
 	if(src_object.tgui_shared_states)
