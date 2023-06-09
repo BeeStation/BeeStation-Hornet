@@ -360,7 +360,7 @@
 	// If not locked, handle these message types
 	switch(type)
 		if("ping")
-			send_message("ping/reply", payload)
+			send_message("pingReply", payload)
 		if("suspend")
 			close(can_be_suspended = TRUE)
 		if("close")
