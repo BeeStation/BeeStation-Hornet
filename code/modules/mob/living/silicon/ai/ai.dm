@@ -913,6 +913,7 @@
 
 	// renders message for ghosts
 	rendered = "<span class='holocall'><b>\[Holocall\] [language_icon]<span class='name'>[speaker.GetVoice()]</span></b>[treated_message]</span>"
+	var/rendered_scrambled_message
 	for(var/mob/dead/observer/each_ghost in GLOB.dead_mob_list)
 		if(!(each_ghost.client.prefs.toggles & CHAT_GHOSTRADIO))
 			continue
