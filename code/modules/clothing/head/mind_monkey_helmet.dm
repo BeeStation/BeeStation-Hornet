@@ -43,14 +43,14 @@
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 		return
 	magnification = user //this polls ghosts
-	visible_message("<span class='warning'>[src] powers up!</span>")
+	user.visible_message("<span class='warning'>[src] powers up!</span>")
 	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
 	polling = TRUE
 	var/list/candidates = pollCandidatesForMob("Do you want to play as a mind magnified monkey?", ROLE_MONKEY_HELMET, null, ROLE_MONKEY_HELMET, 50, magnification, POLL_IGNORE_MONKEY_HELMET)
 	polling = FALSE
 	if(!candidates.len)
 		magnification = null
-		visible_message("<span class='notice'>[src] falls silent. Maybe you should try again later?</span>")
+		user.visible_message("<span class='notice'>[src] falls silent. Maybe you should try again later?</span>")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 	else
 		var/mob/picked = pick(candidates)
