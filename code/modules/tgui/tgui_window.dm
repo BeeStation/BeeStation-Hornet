@@ -18,7 +18,6 @@
 	var/message_queue
 	var/sent_assets = list()
 	// Vars passed to initialize proc (and saved for later)
-	var/initial_strict_mode
 	var/initial_fancy
 	var/initial_assets
 	var/initial_inline_html
@@ -118,23 +117,6 @@
 	// Instruct the client to signal UI when the window is closed.
 	if(!is_browser)
 		winset(client, id, "on-close=\"uiclose [id]\"")
-
-/**
- * public
- *
- * Reinitializes the panel with previous data used for initialization.
- */
-/datum/tgui_window/proc/reinitialize()
-	initialize(
-		strict_mode = initial_strict_mode,
-		fancy = initial_fancy,
-		assets = initial_assets,
-		inline_html = initial_inline_html,
-		inline_js = initial_inline_js,
-		inline_css = initial_inline_css)
-	// Resend assets
-	for(var/datum/asset/asset in sent_assets)
-		send_asset(asset)
 
 /**
  * public
