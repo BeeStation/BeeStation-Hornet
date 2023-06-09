@@ -1,0 +1,5 @@
+author: Absolucy
+delete-after: true
+changes:
+  - admin: Selecting a typepath as admin (i.e through the Spawn verb) will now use
+      tgui input, which includes an actual search thingy.
