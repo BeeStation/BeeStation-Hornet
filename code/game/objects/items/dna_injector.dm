@@ -60,7 +60,7 @@
 	if(target != user)
 		target.visible_message("<span class='danger'>[user] is trying to inject [target] with [src]!</span>", \
 			"<span class='userdanger'>[user] is trying to inject you with [src]!</span>")
-		if(!do_mob(user, target) || used)
+		if(!do_after(user, target = target) || used)
 			return
 		target.visible_message("<span class='danger'>[user] injects [target] with the syringe with [src]!", \
 						"<span class='userdanger'>[user] injects you with the syringe with [src]!</span>")

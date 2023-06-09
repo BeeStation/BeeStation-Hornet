@@ -8,7 +8,7 @@
 	icon_state = null
 	lefthand_file = 'icons/mob/inhands/misc/food_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/food_righthand.dmi'
-	reagent_flags = OPENCONTAINER
+	reagent_flags = OPENCONTAINER | DUNKABLE
 	var/gulp_size = 5 //This is now officially broken ... need to think of a nice way to fix it.
 	possible_transfer_amounts = list(5,10,15,20,25,30,50)
 	volume = 50
@@ -38,7 +38,7 @@
 			beingChugged = TRUE
 			user.visible_message("<span class='notice'>[user] starts chugging [src].</span>", \
 				"<span class='notice'>You start chugging [src].</span>")
-			if(!do_mob(user, M))
+			if(!do_after(user, target = M))
 				return
 			if(!reagents || !reagents.total_volume)
 				return
@@ -55,7 +55,7 @@
 	else
 		M.visible_message("<span class='danger'>[user] attempts to feed [M] the contents of [src].</span>", \
 			"<span class='userdanger'>[user] attempts to feed you the contents of [src].</span>")
-		if(!do_mob(user, M))
+		if(!do_after(user, target = M))
 			return
 		if(!reagents || !reagents.total_volume)
 			return // The drink might be empty after the delay, such as by spam-feeding

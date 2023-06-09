@@ -85,7 +85,7 @@
 			if(H != user)
 				to_chat(user, "<span class='notice'>You begin to rub the regenerative core on [H]...</span>")
 				to_chat(H, "<span class='userdanger'>[user] begins to smear the regenerative core all over you...</span>")
-				if(do_mob(user, H, 30))
+				if(do_after(user, 3 SECONDS, H))
 					H.visible_message("[user] forces [H] to apply [src]... [H.p_they()] quickly regenerates all injuries!")
 					SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "other"))
 				else

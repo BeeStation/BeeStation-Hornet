@@ -351,9 +351,9 @@
 	to_chat(usr, "<span class='brass'>You begin manipulating [src]!</span>")
 	if(do_after(eminence, 20, target=get_turf(eminence)))
 		if(welded)
-			to_chat(eminence, text("The airlock has been welded shut!"))
+			to_chat(eminence, "The airlock has been welded shut!")
 		else if(locked)
-			to_chat(eminence, text("The door bolts are down!"))
+			to_chat(eminence, "The door bolts are down!")
 		else if(!density)
 			close()
 		else
@@ -1215,6 +1215,7 @@
 	update_freelook_sight()
 	sleep(open_speed - 1)
 	density = FALSE
+	obj_flags &= ~(BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP)
 	air_update_turf(1)
 	sleep(1)
 	layer = OPEN_DOOR_LAYER
@@ -1261,10 +1262,12 @@
 	layer = CLOSED_DOOR_LAYER
 	if(air_tight)
 		set_density(TRUE)
+		obj_flags |= (BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP)
 		air_update_turf(1)
 	sleep(1)
 	if(!air_tight)
 		set_density(TRUE)
+		obj_flags |= (BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP)
 		air_update_turf(1)
 	sleep(open_speed - 1)
 	if(!safe)
@@ -1300,7 +1303,7 @@
 		return
 
 	// reads from the airlock painter's `available paintjob` list. lets the player choose a paint option, or cancel painting
-	var/current_paintjob = input(user, "Please select a paintjob for this airlock.") as null|anything in sortList(painter.available_paint_jobs)
+	var/current_paintjob = input(user, "Please select a paintjob for this airlock.") as null|anything in sort_list(painter.available_paint_jobs)
 	if(!current_paintjob) // if the user clicked cancel on the popup, return
 		return
 
@@ -1419,7 +1422,7 @@
 				message = "unshocked"
 			else
 				message = "temp shocked for [secondsElectrified] seconds"
-		LAZYADD(shockedby, text("\[[time_stamp()]\] [key_name(user)] - ([uppertext(message)])"))
+		LAZYADD(shockedby, "\[[time_stamp()]\] [key_name(user)] - ([uppertext(message)])")
 		log_combat(user, src, message)
 		add_hiddenprint(user)
 
@@ -1652,9 +1655,9 @@
 	if(!user_allowed(user))
 		return
 	if(welded)
-		to_chat(user, text("The airlock has been welded shut!"))
+		to_chat(user, "The airlock has been welded shut!")
 	else if(locked)
-		to_chat(user, text("The door bolts are down!"))
+		to_chat(user, "The door bolts are down!")
 	else if(!density)
 		close()
 	else

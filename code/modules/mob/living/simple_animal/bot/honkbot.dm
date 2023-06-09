@@ -41,9 +41,10 @@
 	. = ..()
 	update_icon()
 	auto_patrol = TRUE
-	var/datum/job/clown/J = new/datum/job/clown
-	access_card.access += J.get_access()
-	prev_access = access_card.access
+
+	var/datum/job/J = SSjob.GetJob(JOB_NAME_CLOWN)
+	access_card.access = J.get_access()
+	prev_access = access_card.access.Copy()
 
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
@@ -87,18 +88,14 @@
 	var/dat
 	dat += hack(user)
 	dat += showpai(user)
-	dat += text({"
-<TT><B>Honkomatic Bike Horn Unit v1.0.7 controls</B></TT><BR><BR>
-Status: []<BR>
-Behaviour controls are [locked ? "locked" : "unlocked"]<BR>
-Maintenance panel panel is [open ? "opened" : "closed"]"},
-
-"<A href='?src=[REF(src)];power=[TRUE]'>[on ? "On" : "Off"]</A>" )
+	dat += "<TT><B>Honkomatic Bike Horn Unit v1.0.7 controls</B></TT><BR>"
+	dat += "<BR>Status: <A href='?src=[REF(src)];power=[TRUE]'>[on ? "On" : "Off"]</A>"
+	dat += "<BR>Behaviour controls are [locked ? "locked" : "unlocked"]"
+	dat += "<BR>Maintenance panel panel is [open ? "opened" : "closed"]"
 
 	if(!locked || issilicon(user) || IsAdminGhost(user))
-		dat += text({"<BR> Auto Patrol: []"},
-
-"<A href='?src=[REF(src)];operation=patrol'>[auto_patrol ? "On" : "Off"]</A>" )
+		dat += "<BR>"
+		dat += "<BR> Auto Patrol: <A href='?src=[REF(src)];operation=patrol'>[auto_patrol ? "On" : "Off"]</A>"
 	return	dat
 
 /mob/living/simple_animal/bot/honkbot/proc/judgment_criteria()

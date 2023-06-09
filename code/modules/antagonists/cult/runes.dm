@@ -143,7 +143,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		to_chat(user, "<span class='warning'>You do not possess a strong enough physical binding to activate this rune!</span>")
 	if(req_cultists > 1 || istype(src, /obj/effect/rune/convert))
 		var/obj/item/toy/plush/narplush/plushsie = locate() in range(1, src)
-		if(plushsie?.is_invoker)
+		if(plushsie?.invoker_charges > 0)
 			invokers += plushsie
 		for(var/mob/living/L in viewers(1, src))
 			if(iscultist(L))
@@ -174,6 +174,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		else if(istype(M, /obj/item/toy/plush/narplush))
 			var/obj/item/toy/plush/narplush/P = M
 			P.visible_message("<span class='cult italic'>[P] squeaks loudly!</span>")
+			P.invoker_charges -= 1
 	do_invoke_glow()
 
 /obj/effect/rune/proc/do_invoke_glow()
@@ -188,7 +189,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/oldcolor = color
 	color = rgb(255, 0, 0)
 	animate(src, color = oldcolor, time = 5)
-	addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 5)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 5)
 
 //Malformed Rune: This forms if a rune is not drawn correctly. Invoking it does nothing but hurt the user.
 /obj/effect/rune/malformed
@@ -253,7 +254,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		..()
 		do_sacrifice(L, invokers)
 	animate(src, color = oldcolor, time = 5)
-	addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 5)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 5)
 	Cult_team.check_size() // Triggers the eye glow or aura effects if the cult has grown large enough relative to the crew
 	rune_in_use = FALSE
 
@@ -377,7 +378,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	LAZYADD(GLOB.teleport_runes, src)
 
 /obj/effect/rune/teleport/Destroy()
-	GLOB.teleport_runes -= src
+	LAZYREMOVE(GLOB.teleport_runes, src)
 	if(inner_portal)
 		QDEL_NULL(inner_portal)
 	if(outer_portal)
@@ -412,7 +413,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		return
 
 	var/turf/target = get_turf(actual_selected_rune)
-	if(is_blocked_turf(target, TRUE))
+	if(target.is_blocked_turf(TRUE))
 		to_chat(user, "<span class='warning'>The target rune is blocked. Attempting to teleport to it would be massively unwise.</span>")
 		fail_invoke()
 		return
@@ -500,11 +501,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 /obj/effect/rune/narsie/Initialize(mapload, set_keyword)
 	. = ..()
-	GLOB.poi_list |= src
-
-/obj/effect/rune/narsie/Destroy()
-	GLOB.poi_list -= src
-	. = ..()
+	AddElement(/datum/element/point_of_interest)
 
 /obj/effect/rune/narsie/conceal() //can't hide this, and you wouldn't want to
 	return

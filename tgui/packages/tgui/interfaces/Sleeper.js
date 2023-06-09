@@ -6,24 +6,7 @@ import { toFixed } from 'common/math';
 export const Sleeper = (props, context) => {
   const { act, data } = useBackend(context);
 
-  const {
-    open,
-    occupant = {},
-    occupied,
-  } = data;
-
-  const preSortChems = data.chems || [];
-  const chems = preSortChems.sort((a, b) => {
-    const descA = a.name.toLowerCase();
-    const descB = b.name.toLowerCase();
-    if (descA < descB) {
-      return -1;
-    }
-    if (descA > descB) {
-      return 1;
-    }
-    return 0;
-  });
+  const { open, occupant = {}, occupied, chems = [] } = data;
 
   const damageTypes = [
     {
@@ -44,22 +27,27 @@ export const Sleeper = (props, context) => {
     },
   ];
 
+  const ELLIPSIS_STYLE = {
+    // enforces overflow ellipsis
+    'max-width': '1px',
+    'white-space': 'nowrap',
+    'text-overflow': 'ellipsis',
+    'overflow': 'hidden',
+  };
+
   return (
-    <Window
-      width={310}
-      height={520}>
+    <Window width={310} height={520}>
       <Window.Content>
         <Section
           title={occupant.name ? occupant.name : 'No Occupant'}
           minHeight="250px"
-          buttons={!!occupant.stat && (
-            <Box
-              inline
-              bold
-              color={occupant.statstate}>
-              {occupant.stat}
-            </Box>
-          )}>
+          buttons={
+            !!occupant.stat && (
+              <Box inline bold color={occupant.statstate}>
+                {occupant.stat}
+              </Box>
+            )
+          }>
           {!!occupied && (
             <>
               <ProgressBar
@@ -70,38 +58,32 @@ export const Sleeper = (props, context) => {
                   good: [50, Infinity],
                   average: [0, 50],
                   bad: [-Infinity, 0],
-                }} />
+                }}
+              />
               <Box mt={1} />
               <LabeledList>
-                {damageTypes.map(type => (
-                  <LabeledList.Item
-                    key={type.type}
-                    label={type.label}>
+                {damageTypes.map((type) => (
+                  <LabeledList.Item key={type.type} label={type.label}>
                     <ProgressBar
                       value={occupant[type.type]}
                       minValue={0}
                       maxValue={occupant.maxHealth}
-                      color="bad" />
+                      color={occupant[type.type] === 0 ? 'good' : 'bad'}
+                    />
                   </LabeledList.Item>
                 ))}
-                <LabeledList.Item
-                  label="Cells"
-                  color={occupant.cloneLoss ? 'bad' : 'good'}>
+                <LabeledList.Item label="Cells" color={occupant.cloneLoss ? 'bad' : 'good'}>
                   {occupant.cloneLoss ? 'Damaged' : 'Healthy'}
                 </LabeledList.Item>
-                <LabeledList.Item
-                  label="Brain"
-                  color={occupant.brainLoss ? 'bad' : 'good'}>
+                <LabeledList.Item label="Brain" color={occupant.brainLoss ? 'bad' : 'good'}>
                   {occupant.brainLoss ? 'Abnormal' : 'Healthy'}
                 </LabeledList.Item>
                 <LabeledList.Item label="Reagents">
                   <Box color="label">
                     {occupant.reagents.length === 0 && '—'}
-                    {occupant.reagents.map(chemical => (
+                    {occupant.reagents.map((chemical) => (
                       <Box key={chemical.name}>
-                        <AnimatedNumber
-                          value={chemical.volume}
-                          format={value => toFixed(value, 1)} />
+                        <AnimatedNumber value={chemical.volume} format={(value) => toFixed(value, 1)} />
                         {` units of ${chemical.name}`}
                       </Box>
                     ))}
@@ -114,26 +96,38 @@ export const Sleeper = (props, context) => {
         <Section
           title="Medicines"
           minHeight="205px"
-          buttons={(
-            <Button
-              icon={open ? 'door-open' : 'door-closed'}
-              content={open ? 'Open' : 'Closed'}
-              onClick={() => act('door')} />
-          )}>
+          buttons={
+            <Button icon={open ? 'door-open' : 'door-closed'} content={open ? 'Open' : 'Closed'} onClick={() => act('door')} />
+          }>
           <Table>
-            {chems.map(chem => (
-              <Table.Row
-                key={chem.id} >
-                <Table.Cell>
+            <style>
+              {`
+              .Button--fluid.button-ellipsis {
+                max-width: 100%;
+              }
+              .button-ellipsis .Button__content {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+              }
+            `}
+            </style>
+            {chems.map((chem) => (
+              <Table.Row key={chem.id}>
+                <Table.Cell style={ELLIPSIS_STYLE}>
                   <Button
                     key={chem.id}
                     icon="flask"
-                    width="100%"
+                    className="button-ellipsis"
+                    fluid
                     content={chem.name + ' (' + chem.amount + 'u)'}
+                    tooltip={chem.amount + 'u'}
                     disabled={!(occupied && chem.allowed)}
-                    onClick={() => act('inject', {
-                      chem: chem.id,
-                    })}
+                    onClick={() =>
+                      act('inject', {
+                        chem: chem.id,
+                      })
+                    }
                   />
                 </Table.Cell>
                 <Table.Cell collapsing>
@@ -141,9 +135,11 @@ export const Sleeper = (props, context) => {
                     key={chem.id}
                     icon="eject"
                     content="Eject"
-                    onClick={() => act('eject', {
-                      chem: chem.id,
-                    })}
+                    onClick={() =>
+                      act('eject', {
+                        chem: chem.id,
+                      })
+                    }
                   />
                 </Table.Cell>
               </Table.Row>

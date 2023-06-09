@@ -14,6 +14,14 @@
 		"tgui-panel.bundle.css" = file("tgui/public/tgui-panel.bundle.css"),
 	)
 
+//For development purposes only
+/datum/asset/simple/tgui_say
+	keep_local_name = TRUE
+	assets = list(
+		"tgui-say.bundle.js" = file("tgui/public/tgui-say.bundle.js"),
+		"tgui-say.bundle.css" = file("tgui/public/tgui-say.bundle.css"),
+	)
+
 /datum/asset/simple/headers
 	assets = list(
 		"alarm_green.gif" = 'icons/program_icons/alarm_green.gif',
@@ -96,6 +104,7 @@
 		"stamp-clown" = 'icons/stamp_icons/large_stamp-clown.png',
 		"stamp-deny" = 'icons/stamp_icons/large_stamp-deny.png',
 		"stamp-ok" = 'icons/stamp_icons/large_stamp-ok.png',
+		"stamp-void" = 'icons/stamp_icons/large_stamp-void.png',
 		"stamp-hop" = 'icons/stamp_icons/large_stamp-hop.png',
 		"stamp-cmo" = 'icons/stamp_icons/large_stamp-cmo.png',
 		"stamp-ce" = 'icons/stamp_icons/large_stamp-ce.png',

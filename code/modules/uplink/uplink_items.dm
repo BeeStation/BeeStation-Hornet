@@ -425,7 +425,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			to get flying! All syndicate agents are advised to ignore the Nanotrasen labels on products. Space proof suits not included."
 	cost = 15	//There are multiple uses for the RCD and plasma canister, but both are easilly accessible for items that cost less than all of their TC.
 	contents = list(
-		/obj/machinery/portable_atmospherics/canister/toxins = 1,
+		/obj/machinery/portable_atmospherics/canister/plasma = 1,
 		/obj/item/construction/rcd/combat = 1,
 		/obj/item/rcd_ammo/large = 2,
 		/obj/item/shuttle_creator = 1,
@@ -623,7 +623,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/dangerous/sniper
 	name = "Sniper Rifle"
 	desc = "Ranged fury, Syndicate style. Guaranteed to cause shock and awe or your TC back!"
-	item = /obj/item/gun/ballistic/automatic/sniper_rifle/syndicate
+	item = /obj/item/gun/ballistic/sniper_rifle/syndicate
 	cost = 16
 	surplus = 25
 	purchasable_from = UPLINK_NUKE_OPS
@@ -942,27 +942,58 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	illegal_tech = FALSE
 
 /datum/uplink_item/ammo/sniper
-	cost = 4
 	purchasable_from = UPLINK_NUKE_OPS
 	illegal_tech = FALSE
 
-/datum/uplink_item/ammo/sniper/basic
+/datum/uplink_item/ammo/sniper/magazine
 	name = ".50 Magazine"
-	desc = "An additional standard 6-round magazine for use with .50 sniper rifles."
-	item = /obj/item/ammo_box/magazine/sniper_rounds
+	desc = "An additional standard 6-round magazine for use with .50 sniper rifles. Bullets are not included."
+	item = /obj/item/ammo_box/magazine/sniper_rounds/empty
+	cost = 2
+
+/datum/uplink_item/ammo/sniper/basic
+	name = ".50 Rounds"
+	desc = "An ammo box containing 6 highly powerful .50 caliber projectiles which can be inserted into .50 magazines to be used in a sniper rifle."
+	item = /obj/item/ammo_box/sniper
+	cost = 2
 
 /datum/uplink_item/ammo/sniper/penetrator
-	name = ".50 Penetrator Magazine"
-	desc = "A 5-round magazine of penetrator ammo designed for use with .50 sniper rifles. \
+	name = ".50 Penetrator Rounds"
+	desc = "2 rounds of penetrator ammo designed for use with .50 sniper rifles. \
 			Can pierce walls and multiple enemies."
-	item = /obj/item/ammo_box/magazine/sniper_rounds/penetrator
-	cost = 5
+	item = /obj/item/ammo_box/sniper/penetrator
+	cost = 2
 
 /datum/uplink_item/ammo/sniper/soporific
-	name = ".50 Soporific Magazine"
-	desc = "A 3-round magazine of soporific ammo designed for use with .50 sniper rifles. Put your enemies to sleep today!"
-	item = /obj/item/ammo_box/magazine/sniper_rounds/soporific
-	cost = 6
+	name = ".50 Soporific Rounds"
+	desc = "2 rounds of .50 cal soporific bullets, for use in a sniper rifle's magazine. Put your enemies to sleep today!"
+	item = /obj/item/ammo_box/sniper/soporific
+	cost = 3
+
+/datum/uplink_item/ammo/sniper/emp
+	name = ".50 Emp Shell"
+	desc = "A single EMP shell for the sniper rifle. Upon impact will release an EMP which disables nearby electronics \
+		temporarilly."
+	item = /obj/item/ammo_casing/p50/emp
+	cost = 1
+
+/datum/uplink_item/ammo/sniper/explosive
+	name = ".50 Explosive Shell"
+	desc = "An explosive shell for the sniper rifle, upon impact will create a small explosion which damages nearby targets."
+	item = /obj/item/ammo_casing/p50/explosive
+	cost = 3
+
+/datum/uplink_item/ammo/sniper/inferno
+	name = ".50 Inferno Shell"
+	desc = "A shell for the sniper rifle with a highly volatile flammable core. Upon impact will release a fireball which consumes anything nearby."
+	item = /obj/item/ammo_casing/p50/inferno
+	cost = 2
+
+/datum/uplink_item/ammo/sniper/antimatter
+	name = ".50 Antimatter-tipped Shell"
+	desc = "An antimatter-tipped sniper rifle shell. Upon impact the antimatter core will collapse, releasing the energy contained within. Handle with extreme care."
+	item = /obj/item/ammo_casing/p50/antimatter
+	cost = 14
 
 /datum/uplink_item/ammo/carbine
 	name = "5.56mm Toploader Magazine"
@@ -1477,7 +1508,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/suits/hardsuit/spawn_item(spawn_path, mob/user, datum/component/uplink/U)
 	var/obj/item/clothing/suit/space/hardsuit/suit = ..()
 	var/datum/component/tracking_beacon/beacon = suit.GetComponent(/datum/component/tracking_beacon)
-	var/datum/component/team_monitor/hud = suit.helmet.GetComponent(/datum/component/team_monitor)
+	var/datum/component/team_monitor/worn/hud = suit.helmet.GetComponent(/datum/component/team_monitor/worn)
 
 	var/datum/antagonist/nukeop/nukie = is_nuclear_operative(user)
 	if(nukie?.nuke_team?.team_frequency)
@@ -1994,6 +2025,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	restricted_roles = list(JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_ROBOTICIST, JOB_NAME_PARAMEDIC, JOB_NAME_BRIGPHYSICIAN)
 	cost = 3
 
+/datum/uplink_item/role_restricted/perfect_surgeon
+	name = "Syndicate Surgery Implant"
+	desc = "A powerful brain implant, capable of uploading perfect, forbidden surgical knowledge to its users mind, \
+			allowing them to do just about any surgery, anywhere, without making any (unintentional) mistakes. \
+			Comes with a syndicate autosurgeon for immediate self-application."
+	item = /obj/item/autosurgeon/syndicate/perfect_surgeon
+	restricted_roles = list(JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_ROBOTICIST, JOB_NAME_PARAMEDIC, JOB_NAME_BRIGPHYSICIAN)
+	purchasable_from = ~(UPLINK_INCURSION | UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	cost = 12
+
 /datum/uplink_item/role_restricted/syndicate_mmi
 	name = "Syndicate MMI"
 	desc = "An MMI which autmatically applies the Syndimov laws to any borg it is placed in. Great for adding known allies to assist you with a little more stealth than a fully emagged borg."
@@ -2137,7 +2178,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A bottle of cursed blood, full of angry spirits which will burn all the heretics with the fires of hell.\
 			At least. thats what the label says"
 	item = /obj/item/reagent_containers/glass/bottle/fluspanish
-	cost = 14
+	cost = 12
 	restricted_roles = list(JOB_NAME_CHAPLAIN, JOB_NAME_VIROLOGIST)
 
 /datum/uplink_item/role_restricted/retrovirus
@@ -2145,16 +2186,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A bottle of contagious DNA bugs, which will manually rearrange the DNA of hosts.\
 			At least, that's what the label says."
 	item = /obj/item/reagent_containers/glass/bottle/retrovirus
-	cost = 14
+	cost = 12
 	restricted_roles = list(JOB_NAME_VIROLOGIST, JOB_NAME_GENETICIST)
-
-/datum/uplink_item/role_restricted/random_disease
-	name = "Experimental Disease"
-	desc = "A random disease. Maybe you'll get lucky with another level nine."
-	item = /obj/item/reagent_containers/glass/bottle/random_virus
-	cost = 5
-	restricted_roles = list(JOB_NAME_VIROLOGIST)
-	surplus = 20
 
 /datum/uplink_item/role_restricted/anxiety
 	name = "Anxiety Culture Bottle"

@@ -4,8 +4,9 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "shield-old"
 	density = TRUE
+	obj_flags = CAN_BE_HIT | BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 	move_resist = INFINITY
-	opacity = 0
+	opacity = FALSE
 	anchored = TRUE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	max_integrity = 200 //The shield can only take so much beating (prevents perma-prisons)
@@ -29,7 +30,7 @@
 		if(1)
 			qdel(src)
 		if(2)
-			take_damage(50, BRUTE, "energy", 0)
+			take_damage(50, BRUTE, ENERGY, 0)
 
 /obj/structure/emergency_shield/play_attack_sound(damage, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -70,7 +71,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "shieldoff"
 	density = TRUE
-	opacity = 0
+	opacity = FALSE
 	anchored = FALSE
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	req_access = list(ACCESS_ENGINE)
@@ -408,6 +409,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "shieldwall"
 	density = TRUE
+	obj_flags = CAN_BE_HIT | BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	light_range = 3
 	var/needs_power = FALSE
@@ -462,7 +464,7 @@
 	SIGNAL_HANDLER
 	return SINGULARITY_TRY_MOVE_BLOCK
 
-/obj/machinery/shieldwall/CanAllowThrough(atom/movable/mover, turf/target)
+/obj/machinery/shieldwall/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(istype(mover) && (mover.pass_flags & PASSTRANSPARENT))
 		return prob(20)

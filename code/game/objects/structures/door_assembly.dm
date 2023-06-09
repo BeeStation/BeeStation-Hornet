@@ -5,6 +5,7 @@
 	var/overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 	anchored = FALSE
 	density = TRUE
+	obj_flags = CAN_BE_HIT | BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 	max_integrity = 200
 	var/state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
 	var/base_name = "airlock"

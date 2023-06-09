@@ -98,8 +98,8 @@
 	icon_state = "[initial(icon_state)]-on"
 	if(ion_trail)
 		ion_trail.start()
-	if(full_speed)
-		known_user.add_movespeed_modifier(MOVESPEED_ID_JETPACK, priority=100, multiplicative_slowdown=-2, movetypes=FLOATING, conflict=MOVE_CONFLICT_JETPACK)
+
+	JETPACK_SPEED_CHECK(known_user, MOVESPEED_ID_JETPACK, -1, full_speed)
 
 /obj/item/tank/jetpack/proc/turn_off(mob/user)
 	if(!known_user)
@@ -116,6 +116,8 @@
 	SIGNAL_HANDLER
 	if(on)
 		allow_thrust(THRUST_REQUIREMENT_SPACEMOVE, user)
+		// Update speed according to pressure
+		JETPACK_SPEED_CHECK(known_user, MOVESPEED_ID_JETPACK, -1, full_speed)
 
 /obj/item/tank/jetpack/proc/allow_thrust(num, mob/living/user, use_fuel = TRUE)
 	if(!on || !known_user)
@@ -132,7 +134,7 @@
 /obj/item/tank/jetpack/suicide_act(mob/user)
 	if (istype(user, /mob/living/carbon/human/))
 		var/mob/living/carbon/human/H = user
-		H.forcesay("WHAT THE FUCK IS CARBON DIOXIDE?")
+		H.say(";WHAT THE FUCK IS CARBON DIOXIDE?", forced="jetpack suicide")
 		H.visible_message("<span class='suicide'>[user] is suffocating [user.p_them()]self with [src]! It looks like [user.p_they()] didn't read what that jetpack says!</span>")
 		return (OXYLOSS)
 	else

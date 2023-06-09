@@ -27,21 +27,15 @@ const MorphContents = (props, context) => {
         <Tabs.Tab selected={tab === 'items'} onClick={() => setTab('items')}>
           Items ({Object.keys(data.contents.items).length})
         </Tabs.Tab>
-        <Tabs.Tab
-          selected={tab === 'favorites'}
-          onClick={() => setTab('favorites')}>
+        <Tabs.Tab selected={tab === 'favorites'} onClick={() => setTab('favorites')}>
           Favorites ({favorites.length})
         </Tabs.Tab>
       </Tabs>
       <LabeledList>
         {tab === 'favorites' ? (
-          favorites.map((A) => (
-            <MorphItem key={A.id} throw_ref={data.throw_ref} {...A} />
-          ))
+          favorites.map((A) => <MorphItem key={A.id} throw_ref={data.throw_ref} {...A} />)
         ) : data.contents[tab] ? (
-          Object.values(data.contents[tab]).map((A) => (
-            <MorphItem key={A.id} throw_ref={data.throw_ref} {...A} />
-          ))
+          Object.values(data.contents[tab]).map((A) => <MorphItem key={A.id} throw_ref={data.throw_ref} {...A} />)
         ) : (
           <span>
             <strong>Your stomach is empty!</strong>
@@ -52,10 +46,7 @@ const MorphContents = (props, context) => {
   );
 };
 
-const MorphItem = (
-  { name, id, img, living, favorite, digestable, throw_ref },
-  context
-) => {
+const MorphItem = ({ name, id, img, living, favorite, digestable, throw_ref }, context) => {
   return (
     <LabeledList.Item
       label={
@@ -69,9 +60,7 @@ const MorphItem = (
               }}
             />
           ) : null}
-          <span title={name}>
-            {name.length > 26 ? name.substring(0, 24) + '...' : name}
-          </span>
+          <span title={name}>{name.length > 26 ? name.substring(0, 24) + '...' : name}</span>
         </>
       }>
       <MorphItemButtons {...{ id, living, favorite, digestable, throw_ref }} />
@@ -79,10 +68,7 @@ const MorphItem = (
   );
 };
 
-const MorphItemButtons = (
-  { id, living, favorite, digestable, throw_ref },
-  context
-) => {
+const MorphItemButtons = ({ id, living, favorite, digestable, throw_ref }, context) => {
   const { act } = useBackend(context);
   return (
     <>
@@ -91,16 +77,9 @@ const MorphItemButtons = (
         icon={favorite ? 'star' : 'star-o'}
         onClick={() => act('favorite', { id: id })}
       />
-      <Button
-        content="Disguise As"
-        onClick={() => act('disguise', { id: id })}
-      />
+      <Button content="Disguise As" onClick={() => act('disguise', { id: id })} />
       <Button content="Drop" onClick={() => act('drop', { id: id })} />
-      <Button
-        content="Digest"
-        disabled={!digestable}
-        onClick={() => act('digest', { id: id })}
-      />
+      <Button content="Digest" disabled={!digestable} onClick={() => act('digest', { id: id })} />
       <Button
         content={throw_ref === id ? 'Unthrow' : 'Throw'}
         onClick={() => act(throw_ref === id ? 'unthrow' : 'throw', { id: id })}
@@ -108,11 +87,7 @@ const MorphItemButtons = (
       {living ? null : (
         <>
           <Button content="Use" onClick={() => act('use', { id: id })} />
-          <Button
-            content="Use and Throw"
-            disabled={throw_ref === id}
-            onClick={() => act('usethrow', { id: id })}
-          />
+          <Button content="Use and Throw" disabled={throw_ref === id} onClick={() => act('usethrow', { id: id })} />
         </>
       )}
     </>

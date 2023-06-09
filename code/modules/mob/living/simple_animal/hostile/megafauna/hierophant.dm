@@ -214,7 +214,7 @@ Difficulty: Hard
 			blinking = TRUE
 			SLEEP_CHECK_DEATH(4 + target_slowness)
 		animate(src, color = oldcolor, time = 8)
-		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
 		SLEEP_CHECK_DEATH(8)
 		blinking = FALSE
 	else
@@ -235,7 +235,7 @@ Difficulty: Hard
 			INVOKE_ASYNC(src, PROC_REF(blasts), target, GLOB.diagonals)
 		SLEEP_CHECK_DEATH(6 + target_slowness)
 	animate(src, color = oldcolor, time = 8)
-	addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
 	SLEEP_CHECK_DEATH(8)
 	blinking = FALSE
 
@@ -263,7 +263,7 @@ Difficulty: Hard
 		SLEEP_CHECK_DEATH(8 + target_slowness)
 	chaser_cooldown = world.time + initial(chaser_cooldown)
 	animate(src, color = oldcolor, time = 8)
-	addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
 	SLEEP_CHECK_DEATH(8)
 	blinking = FALSE
 
@@ -579,7 +579,7 @@ Difficulty: Hard
 				sleep(speed)
 			targetturf = get_turf(target)
 /obj/effect/temp_visual/hierophant/chaser/proc/make_blast()
-	var/obj/effect/temp_visual/hierophant/blast/B = new(loc, caster, friendly_fire_check)
+	var/obj/effect/temp_visual/hierophant/blast/B = new(loc, caster, friendly_fire_check, TRUE)
 	B.damage = damage
 	B.monster_damage_boost = monster_damage_boost
 
@@ -617,7 +617,7 @@ Difficulty: Hard
 	var/friendly_fire_check = FALSE
 	var/bursting = FALSE //if we're bursting and need to hit anyone crossing us
 
-/obj/effect/temp_visual/hierophant/blast/Initialize(mapload, new_caster, friendly_fire)
+/obj/effect/temp_visual/hierophant/blast/Initialize(mapload, new_caster, friendly_fire, defuse)
 	. = ..()
 	friendly_fire_check = friendly_fire
 	if(new_caster)
@@ -625,6 +625,9 @@ Difficulty: Hard
 	if(ismineralturf(loc)) //drill mineral turfs
 		var/turf/closed/mineral/M = loc
 		M.gets_drilled(caster)
+		if(defuse && istype(loc, /turf/closed/mineral/gibtonite))
+			var/turf/closed/mineral/gibtonite/G = loc
+			G.defuse()
 	INVOKE_ASYNC(src, PROC_REF(blast))
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
@@ -660,7 +663,7 @@ Difficulty: Hard
 		playsound(L,'sound/weapons/sear.ogg', 50, 1, -4)
 		to_chat(L, "<span class='userdanger'>You're struck by a [name]!</span>")
 		var/limb_to_hit = L.get_bodypart(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
-		var/armor = L.run_armor_check(limb_to_hit, "melee", "Your armor absorbs [src]!", "Your armor blocks part of [src]!", 50, "Your armor was penetrated by [src]!")
+		var/armor = L.run_armor_check(limb_to_hit, MELEE, "Your armor absorbs [src]!", "Your armor blocks part of [src]!", 50, "Your armor was penetrated by [src]!")
 		L.apply_damage(damage, BURN, limb_to_hit, armor)
 		if(ishostile(L))
 			var/mob/living/simple_animal/hostile/H = L //mobs find and damage you...

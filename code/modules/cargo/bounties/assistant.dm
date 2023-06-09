@@ -129,7 +129,7 @@
 	description = "Commander Zot really wants to sweep Security Officer Olivia off her feet. Send a shipment of Poppies - her favorite flower - and he'll happily reward you."
 	reward = 1000
 	required_count = 3
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/grown/poppy)
+	wanted_types = list(/obj/item/reagent_containers/food/snacks/grown/flower/poppy)
 	include_subtypes = FALSE
 
 /datum/bounty/item/assistant/shadyjims

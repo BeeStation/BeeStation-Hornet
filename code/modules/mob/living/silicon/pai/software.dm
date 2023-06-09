@@ -45,9 +45,9 @@
 	var/mob/living/silicon/pai/pai = user
 	data["available"] = available_software
 	data["records"] = list()
-	if("medical records" in pai.software)
+	if(PAI_PROGRAM_MEDICAL_RECORDS in pai.software)
 		data["records"]["medical"] = medical_records
-	if("security records" in pai.software)
+	if(PAI_PROGRAM_SECURITY_RECORDS in pai.software)
 		data["records"]["security"] = security_records
 	return data
 
@@ -166,7 +166,7 @@
 				medical_records = GLOB.data_core.get_general_records()
 			if(params["list"] == "security")
 				security_records = GLOB.data_core.get_security_records()
-			ui.send_full_update()
+			ui.send_full_update(bypass_cooldown = TRUE)
 			addtimer(CALLBACK(src, PROC_REF(refresh_again)), 3 SECONDS)
 		if("remote_signaler")
 			signaler.ui_interact(src)

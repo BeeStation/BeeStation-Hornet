@@ -427,14 +427,19 @@
 	)
 	decal_list = list(
 		list("Corner", "tile_corner"),
+		list("Half", "tile_half_contrasted"),
+		list("Opposing Corners", "tile_opposing_corners"),
+		list("3 Corners", "tile_anticorner_contrasted"),
+		list("4 Corners", "tile_fourcorners_contrasted"),
 		list("Trimline Corner", "trimline_corner_fill"),
 		list("Trimline Fill", "trimline_fill"),
 		list("Trimline Fill L", "trimline_fill__8"), // This is a hack that lives in the spritesheet builder and paint_floor
 		list("Trimline End", "trimline_end_fill"),
 		list("Trimline Box", "trimline_box_fill"),
+		list("Carat", "tile_carat"), // :^)
 	)
 	nondirectional_decals = list(
-		"tile_fourcorners",
+		"tile_fourcorners_contrasted",
 		"trimline_box_fill",
 	)
 

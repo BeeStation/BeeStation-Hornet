@@ -152,7 +152,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 
 	bwoink = is_bwoink
 	if(!bwoink)
-		discordsendmsg("ahelp", "**ADMINHELP: (#[id]) [initiator.key]: ** \"[msg]\" [heard_by_no_admins ? "**(NO ADMINS)**" : "" ]")
+		sendadminhelp2ext("**ADMINHELP: (#[id]) [initiator.key]: ** \"[msg]\" [heard_by_no_admins ? "**(NO ADMINS)**" : "" ]")
 	return TRUE
 
 /datum/help_ticket/admin/NewFrom(datum/help_ticket/old_ticket)
@@ -165,7 +165,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 	if(admin_number_present <= 0)
 		to_chat(initiator, "<span class='notice'>No active admins are online, your adminhelp was sent through TGS to admins who are available. This may use IRC or Discord.</span>")
 		heard_by_no_admins = TRUE
-	discordsendmsg("ahelp", "**ADMINHELP: (#[id]) [initiator.key]: ** \"[initial_msg]\" [heard_by_no_admins ? "**(NO ADMINS)**" : "" ]")
+	sendadminhelp2ext("**ADMINHELP: (#[id]) [initiator.key]: ** \"[initial_msg]\" [heard_by_no_admins ? "**(NO ADMINS)**" : "" ]")
 	return TRUE
 
 /datum/help_ticket/admin/AddInteraction(msg_color, message, name_from, name_to, safe_from, safe_to)
@@ -193,11 +193,12 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 /datum/help_ticket/admin/message_ticket_managers(msg)
 	message_admins(msg)
 
-/datum/help_ticket/admin/MessageNoRecipient(msg, add_to_ticket = TRUE)
+/datum/help_ticket/admin/MessageNoRecipient(msg, add_to_ticket = TRUE, sanitized = FALSE)
 	var/ref_src = "[REF(src)]"
+	var/sanitized_msg = sanitized ? msg : sanitize(msg)
 
 	//Message to be sent to all admins
-	var/admin_msg = "<span class='adminnotice'><span class='adminhelp'>Ticket [TicketHref("#[id]", ref_src)]</span><b>: [LinkedReplyName(ref_src)] [FullMonty(ref_src)]:</b> <span class='linkify'>[keywords_lookup(msg)]</span></span>"
+	var/admin_msg = "<span class='adminnotice'><span class='adminhelp'>Ticket [TicketHref("#[id]", ref_src)]</span><b>: [LinkedReplyName(ref_src)] [FullMonty(ref_src)]:</b> <span class='linkify'>[keywords_lookup(sanitized_msg)]</span></span>"
 
 	if(add_to_ticket)
 		AddInteraction("red", msg, initiator_key_name, claimee_key_name, "You", "Administrator")
@@ -216,7 +217,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 	if(add_to_ticket)
 		to_chat(initiator,
 			type = message_type,
-			html = "<span class='adminnotice'>PM to-<b>Admins</b>: <span class='linkify'>[msg]</span></span>")
+			html = "<span class='adminnotice'>PM to-<b>Admins</b>: <span class='linkify'>[sanitized_msg]</span></span>")
 
 
 /datum/help_ticket/admin/proc/FullMonty(ref_src)
@@ -271,7 +272,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 	Resolve(silent = TRUE)
 
 	if(!bwoink)
-		discordsendmsg("ahelp", "Ticket #[id] marked as IC by [key_name(usr, include_link = FALSE)]")
+		sendadminhelp2ext("Ticket #[id] marked as IC by [key_name(usr, include_link = FALSE)]")
 
 /datum/help_ticket/admin/proc/MHelpThis(key_name = key_name_ticket(usr))
 	if(state > TICKET_ACTIVE)
@@ -289,7 +290,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 	var/msg = "<span class='[span_class]'>Ticket [TicketHref("#[id]")] transferred to mentorhelp by [key_name]</span>"
 	AddInteraction("red", "Transferred to mentorhelp by [key_name].")
 	if(!bwoink)
-		discordsendmsg("ahelp", "Ticket #[id] transferred to mentorhelp by [key_name(usr, include_link = FALSE)]")
+		sendadminhelp2ext("Ticket #[id] transferred to mentorhelp by [key_name(usr, include_link = FALSE)]")
 	Close(silent = TRUE, hide_interaction = TRUE)
 	if(initiator.prefs.muted & MUTE_MHELP)
 		message_admins(src, "<span class='danger'>Attempted de-escalation to mentorhelp failed because [initiator_key_name] is mhelp muted.</span>")
@@ -325,25 +326,25 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 /datum/help_ticket/admin/Claim(key_name = key_name_ticket(usr), silent = FALSE)
 	..()
 	if(!bwoink && !silent && !claimee)
-		discordsendmsg("ahelp", "Ticket #[id] is being investigated by [key_name(usr, include_link = FALSE)]")
+		sendadminhelp2ext("Ticket #[id] is being investigated by [key_name(usr, include_link = FALSE)]")
 
 /datum/help_ticket/admin/Close(key_name = key_name_ticket(usr), silent = FALSE, hide_interaction = FALSE)
 	..()
 	if(!bwoink && !silent)
-		discordsendmsg("ahelp", "Ticket #[id] closed by [key_name(usr, include_link = FALSE)]")
+		sendadminhelp2ext("Ticket #[id] closed by [key_name(usr, include_link = FALSE)]")
 
 /datum/help_ticket/admin/Resolve(key_name = key_name_ticket(usr), silent = FALSE)
 	..()
 	addtimer(CALLBACK(initiator, TYPE_PROC_REF(/client, giveadminhelpverb)), 5 SECONDS)
 	if(!bwoink)
-		discordsendmsg("ahelp", "Ticket #[id] resolved by [key_name(usr, include_link = FALSE)]")
+		sendadminhelp2ext("Ticket #[id] resolved by [key_name(usr, include_link = FALSE)]")
 
 /datum/help_ticket/admin/Reject(key_name = key_name_ticket(usr), extra_text = ", and clearly state the names of anybody you are reporting")
 	..()
 	if(initiator)
 		initiator.giveadminhelpverb()
 	if(!bwoink)
-		discordsendmsg("ahelp", "Ticket #[id] rejected by [key_name(usr, include_link = FALSE)]")
+		sendadminhelp2ext("Ticket #[id] rejected by [key_name(usr, include_link = FALSE)]")
 
 /datum/help_ticket/admin/resolve_message(status = "Resolved", message = null, extratext = " If your ticket was a report, then the appropriate action has been taken where necessary.")
 	..()

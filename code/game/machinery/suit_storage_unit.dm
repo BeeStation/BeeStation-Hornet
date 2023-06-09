@@ -4,6 +4,7 @@
 	desc = "An industrial unit made to hold and decontaminate irradiated equipment. It comes with a built-in UV cauterization mechanism. A small warning label advises that organic matter should not be placed into the unit."
 	icon = 'icons/obj/machines/suit_storage.dmi'
 	icon_state = "close"
+	obj_flags = CAN_BE_HIT | USES_TGUI
 	use_power = ACTIVE_POWER_USE
 	active_power_usage = 60
 	power_channel = AREA_USAGE_EQUIP
@@ -141,6 +142,12 @@
 	helmet_type = /obj/item/clothing/head/radiation
 	storage_type = /obj/item/geiger_counter
 
+/obj/machinery/suit_storage_unit/bounty
+	name = "bounty suit storage unit"
+	helmet_type = /obj/item/clothing/head/helmet/space/hunter
+	suit_type = /obj/item/clothing/suit/space/hunter
+	mask_type = /obj/item/clothing/mask/breath
+
 /obj/machinery/suit_storage_unit/open
 	state_open = TRUE
 	density = FALSE
@@ -255,7 +262,7 @@
 	else
 		target.visible_message("<span class='warning'>[user] starts shoving [target] into [src]!</span>", "<span class='userdanger'>[user] starts shoving you into [src]!</span>")
 
-	if(do_mob(user, target, 30))
+	if(do_after(user, 30, target))
 		if(occupant || helmet || suit || storage)
 			return
 		if(target == user)
@@ -298,13 +305,13 @@
 				visible_message("<span class='warning'>[src]'s door creaks open with a loud whining noise. A cloud of foul black smoke escapes from its chamber.</span>")
 			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 50, TRUE)
 			if(helmet)
-				helmet.take_damage(burn_damage * 10,BURN,"fire")
+				helmet.take_damage(burn_damage * 10, BURN, FIRE)
 			if(suit)
-				suit.take_damage(burn_damage * 10,BURN,"fire")
+				suit.take_damage(burn_damage * 10, BURN, FIRE)
 			if(mask)
-				mask.take_damage(burn_damage * 10,BURN,"fire")
+				mask.take_damage(burn_damage * 10, BURN, FIRE)
 			if(storage)
-				storage.take_damage(burn_damage * 10,BURN,"fire")
+				storage.take_damage(burn_damage * 10, BURN, FIRE)
 			// The wires get damaged too.
 			wires.cut_all()
 		if(!toasted) //Special toast check to prevent a double finishing message.
@@ -372,23 +379,12 @@
 			return
 		user.visible_message("<span class='warning'>[user] successfully broke out of [src]!</span>", \
 			"<span class='notice'>You successfully break out of [src]!</span>")
+		locked = FALSE
 		open_machine()
 		dump_contents()
 
 	add_fingerprint(user)
-	if(locked)
-		visible_message("<span class='notice'>You see [user] kicking against the doors of [src]!</span>", \
-			"<span class='notice'>You start kicking against the doors...</span>")
-		addtimer(CALLBACK(src, PROC_REF(resist_open), user), 300)
-	else
-		open_machine()
-		dump_contents()
 
-/obj/machinery/suit_storage_unit/proc/resist_open(mob/user)
-	if(!state_open && occupant && (user in src) && user.stat == 0) // Check they're still here.
-		visible_message("<span class='notice'>You see [user] burst out of [src]!</span>", \
-			"<span class='notice'>You escape the cramped confines of [src]!</span>")
-		open_machine()
 
 /obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_CROWBAR && user.a_intent == INTENT_HARM && !panel_open && machine_stat & NOPOWER)
