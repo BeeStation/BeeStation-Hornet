@@ -1,4 +1,4 @@
-/*!
+/**
  * Copyright (c) 2020 Aleksej Komarov
  * SPDX-License-Identifier: MIT
  */
@@ -18,6 +18,7 @@
 	var/message_queue
 	var/sent_assets = list()
 	// Vars passed to initialize proc (and saved for later)
+	var/initial_strict_mode
 	var/initial_fancy
 	var/initial_assets
 	var/initial_inline_html
@@ -61,7 +62,7 @@
 		inline_html = "",
 		inline_js = "",
 		inline_css = "")
-	log_tgui(client, context = "[id]/initialize")
+	log_tgui(client, "[id]/initialize")
 	if(!client)
 		return
 	src.initial_fancy = fancy
@@ -93,7 +94,8 @@
 				inline_assets_str += "Byond.loadCss('[url]', true);\n"
 			else if(copytext(name, -3) == ".js")
 				inline_assets_str += "Byond.loadJs('[url]', true);\n"
-		asset.send(client)
+		if(!asset.send(client))
+			return
 	if(length(inline_assets_str))
 		inline_assets_str = "<script>\n" + inline_assets_str + "</script>\n"
 	html = replacetextEx(html, "<!-- tgui:assets -->\n", inline_assets_str)
@@ -123,6 +125,7 @@
  */
 /datum/tgui_window/proc/reinitialize()
 	initialize(
+		strict_mode = initial_strict_mode,
 		fancy = initial_fancy,
 		assets = initial_assets,
 		inline_html = initial_inline_html,
@@ -216,11 +219,11 @@
 	if(!client)
 		return
 	if(can_be_suspended && can_be_suspended())
-		log_tgui(client,context = "[id]/close (suspending)")
+		log_tgui(client, "[id]/close: suspending")
 		status = TGUI_WINDOW_READY
 		send_message("suspend")
 		return
-	log_tgui(client, context = "[id]/close")
+	log_tgui(client, "[id]/close")
 	release_lock()
 	status = TGUI_WINDOW_CLOSED
 	message_queue = null

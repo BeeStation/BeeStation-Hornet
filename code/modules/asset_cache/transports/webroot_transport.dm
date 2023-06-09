@@ -70,7 +70,6 @@
 	if (length(legacy_assets))
 		. = ..(client, legacy_assets)
 
-
 /// webroot slow asset sending - does nothing.
 /datum/asset_transport/webroot/send_assets_slow(client/client, list/files, filerate)
 	return FALSE

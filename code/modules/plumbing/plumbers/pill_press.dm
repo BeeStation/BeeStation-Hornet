@@ -72,6 +72,7 @@
 		get_asset_datum(/datum/asset/spritesheet/simple/medicine_containers),
 	)
 
+
 /obj/machinery/plumbing/pill_press/ui_state(mob/user)
 	return GLOB.default_state
 
