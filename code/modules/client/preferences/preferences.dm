@@ -226,7 +226,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 			return TRUE
 		if ("rotate")
-			character_preview_view.dir = turn(character_preview_view.dir, -90)
+			if(isatom(character_preview_view.body))
+				character_preview_view.body.dir = turn(character_preview_view.body.dir, -90)
 
 			return TRUE
 		if ("set_preference")
@@ -399,15 +400,17 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 		create_body()
 	else
 		body.wipe_state()
-	appearance = preferences.render_new_preview_appearance(body)
+	body.appearance = preferences.render_new_preview_appearance(body)
 
 /atom/movable/screen/character_preview_view/proc/create_body()
+	vis_contents.Cut()
 	QDEL_NULL(body)
 
 	body = new
 
 	// Without this, it doesn't show up in the menu
 	body.appearance_flags &= ~KEEP_TOGETHER
+	vis_contents += body
 
 /// Registers the relevant map objects to a client
 /atom/movable/screen/character_preview_view/proc/register_to_client(client/client)
