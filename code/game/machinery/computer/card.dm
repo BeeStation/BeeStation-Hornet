@@ -401,8 +401,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if (authenticated && inserted_modify_id)
 
-			var/carddesc = text("")
-			var/jobs = text("")
+			var/carddesc = ""
+			var/jobs = ""
 			if( authenticated == 2)
 				carddesc += {"<script type="text/javascript">
 									function markRed(){

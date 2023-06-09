@@ -16,29 +16,18 @@ import { selectChat, selectCurrentChatPage } from './selectors';
 import { logger } from 'tgui/logging';
 
 // List of blacklisted tags
-const FORBID_TAGS = [
-  'a',
-  'iframe',
-  'link',
-  'video',
-];
+const FORBID_TAGS = ['a', 'iframe', 'link', 'video'];
 
-const saveChatToStorage = async store => {
+const saveChatToStorage = async (store) => {
   const state = selectChat(store.getState());
-  const fromIndex = Math.max(0,
-    chatRenderer.messages.length - MAX_PERSISTED_MESSAGES);
-  const messages = chatRenderer.messages
-    .slice(fromIndex)
-    .map(message => serializeMessage(message));
+  const fromIndex = Math.max(0, chatRenderer.messages.length - MAX_PERSISTED_MESSAGES);
+  const messages = chatRenderer.messages.slice(fromIndex).map((message) => serializeMessage(message));
   storage.set('chat-state', state);
   storage.set('chat-messages', messages);
 };
 
-const loadChatFromStorage = async store => {
-  const [state, messages] = await Promise.all([
-    storage.get('chat-state'),
-    storage.get('chat-messages'),
-  ]);
+const loadChatFromStorage = async (store) => {
+  const [state, messages] = await Promise.all([storage.get('chat-state'), storage.get('chat-messages')]);
   // Discard incompatible versions
   if (state && state.version <= 4) {
     store.dispatch(loadChat());
@@ -65,10 +54,10 @@ const loadChatFromStorage = async store => {
   store.dispatch(loadChat(state));
 };
 
-export const chatMiddleware = store => {
+export const chatMiddleware = (store) => {
   let initialized = false;
   let loaded = false;
-  chatRenderer.events.on('batchProcessed', countByType => {
+  chatRenderer.events.on('batchProcessed', (countByType) => {
     // Use this flag to workaround unread messages caused by
     // loading them from storage. Side effect of that, is that
     // message count can not be trusted, only unread count.
@@ -76,11 +65,11 @@ export const chatMiddleware = store => {
       store.dispatch(updateMessageCount(countByType));
     }
   });
-  chatRenderer.events.on('scrollTrackingChanged', scrollTracking => {
+  chatRenderer.events.on('scrollTrackingChanged', (scrollTracking) => {
     store.dispatch(changeScrollTracking(scrollTracking));
   });
   setInterval(() => saveChatToStorage(store), MESSAGE_SAVE_INTERVAL);
-  return next => action => {
+  return (next) => (action) => {
     const { type, payload } = action;
     if (!initialized) {
       initialized = true;
@@ -100,10 +89,12 @@ export const chatMiddleware = store => {
       loaded = true;
       return;
     }
-    if (type === changeChatPage.type
-        || type === addChatPage.type
-        || type === removeChatPage.type
-        || type === toggleAcceptedType.type) {
+    if (
+      type === changeChatPage.type ||
+      type === addChatPage.type ||
+      type === removeChatPage.type ||
+      type === toggleAcceptedType.type
+    ) {
       next(action);
       const page = selectCurrentChatPage(store.getState());
       chatRenderer.changePage(page);
@@ -121,10 +112,9 @@ export const chatMiddleware = store => {
         settings.highlightColor,
         settings.matchWord,
         settings.matchCase,
-        settings.highlightSelf);
-      chatRenderer.setHighContrast(
-        settings.highContrast,
+        settings.highlightSelf
       );
+      chatRenderer.setHighContrast(settings.highContrast);
       return;
     }
     if (type === 'roundrestart') {
