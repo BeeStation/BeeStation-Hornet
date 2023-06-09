@@ -66,22 +66,21 @@
 /obj/item/clothing/head/mind_monkey_helmet/monkey_sentience/proc/disconnect()
 	if(!magnification) //not put on a viable head
 		return
-	if(!polling)//put on a viable head, but taken off after polling finished.
-		if(magnification.client)
-			to_chat(magnification, "<span class='userdanger'>You feel your flicker of sentience ripped away from you, as everything becomes dim...</span>")
-			magnification.ghostize(FALSE)
-		if(prob(10))
-			magnification.apply_damage(500,BRAIN,BODY_ZONE_HEAD,FALSE,FALSE,FALSE) //brain death
-		magnification = null
-		update_icon()
-	else
-		//either used up correctly or taken off before polling finished (punish this by destroying the helmet)
+	if(polling)//put on a viable head, but taken off after polling finished.
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 		playsound(src, "sparks", 100, TRUE)
 		visible_message("<span class='warning'>[src] fizzles and breaks apart!</span>")
 		magnification = null
 		new /obj/effect/decal/cleanable/ash/crematorium(drop_location()) //just in case they're in a locker or other containers it needs to use crematorium ash, see the path itself for an explanation
 		qdel(src)
+	else
+		if(magnification.client) //either used up correctly or taken off before polling finished (punish this by destroying the helmet)
+			to_chat(magnification, "<span class='userdanger'>You feel your flicker of sentience ripped away from you, as everything becomes dim...</span>")
+			magnification.ghostize(FALSE)
+		if(prob(10))
+			magnification.apply_damage(500,BRAIN,BODY_ZONE_HEAD,FALSE,FALSE,FALSE) //brain death
+		magnification = null
+		update_icon()
 
 /obj/item/clothing/head/mind_monkey_helmet/monkey_sentience/dropped(mob/user)
 	. = ..()
