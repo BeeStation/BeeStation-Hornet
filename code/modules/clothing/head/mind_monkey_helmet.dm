@@ -7,7 +7,7 @@
 	item_state = "monkeymind"
 	strip_delay = 100
 	var/cooldown_expiry //It'll get annoying quick when someone tries to remove their own helmet 20 times a second
-	var/mob/living/carbon/monkey/magnification = null ///if the helmet is on a valid target (just works like a normal helmet if not (cargo please stop))
+	var/datum/weakref/magnification = null ///A weak reference to the monkey we're on
 	var/polling = FALSE///if the helmet is currently polling for targets (special code for removal)
 
 /obj/item/clothing/head/monkey_sentience_helmet/Initialize()
@@ -42,21 +42,20 @@
 		something.apply_damage(5,BRUTE,BODY_ZONE_HEAD,FALSE,FALSE,FALSE) //notably: no damage resist (it's in your helmet), no damage spread (it's in your helmet)
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 		return
-	magnification = user //this polls ghosts
 	user.visible_message("<span class='warning'>[src] powers up!</span>")
 	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
 	polling = TRUE
-	var/list/candidates = pollCandidatesForMob("Do you want to play as a mind magnified monkey?", ROLE_MONKEY_HELMET, null, ROLE_MONKEY_HELMET, 50, magnification, POLL_IGNORE_MONKEY_HELMET)
+	var/list/candidates = pollCandidatesForMob("Do you want to play as a mind magnified monkey?", ROLE_MONKEY_HELMET, null, ROLE_MONKEY_HELMET, 50, user, POLL_IGNORE_MONKEY_HELMET)
 	polling = FALSE
 	if(!candidates.len)
-		magnification = null
 		user.visible_message("<span class='notice'>[src] falls silent. Maybe you should try again later?</span>")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 		return
 	var/mob/picked = pick(candidates)
-	magnification.key = picked.key
+	user.key = picked.ckey
+	magnification = WEAKREF(user)
 	playsound(src, 'sound/machines/microwave/microwave-end.ogg', 100, FALSE)
-	to_chat(magnification, "<span class='notice'>You're a mind magnified monkey! Protect your helmet with your life- if you lose it, your sentience goes with it!</span>")
+	to_chat(user, "<span class='notice'>You're a mind magnified monkey! Protect your helmet with your life- if you lose it, your sentience goes with it!</span>")
 	update_icon()
 
 /obj/item/clothing/head/monkey_sentience_helmet/Destroy()
@@ -64,12 +63,13 @@
 	sever_mind()
 
 /obj/item/clothing/head/monkey_sentience_helmet/proc/sever_mind()
-	if(!magnification?.client)
+	var/mob/living/M = magnification?.resolve()
+	if(!M)
 		return
 	to_chat(magnification, "<span class='userdanger'>You feel your flicker of sentience ripped away from you, as everything becomes dim...</span>")
-	magnification.ghostize(FALSE)
+	M.ghostize(FALSE)
 	if(prob(10))
-		magnification.apply_damage(500,BRAIN,BODY_ZONE_HEAD,FALSE,FALSE,FALSE) //brain death
+		M.apply_damage(500,BRAIN,BODY_ZONE_HEAD,FALSE,FALSE,FALSE) //brain death
 	magnification = null
 
 /obj/item/clothing/head/monkey_sentience_helmet/proc/disconnect()
