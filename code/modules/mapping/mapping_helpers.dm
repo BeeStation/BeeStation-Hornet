@@ -243,7 +243,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	var/area/a = get_area(src)
 	var/list/trays = list()
 	for (var/i in a.contents)
-		if(ignore_morgue)
+		if(no_random)
 			break
 		if (istype(i, /obj/structure/bodycontainer/morgue))
 			trays += i
