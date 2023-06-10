@@ -130,6 +130,8 @@
 		for(var/gear in preference_source.prefs.equipped_gear)
 			var/datum/gear/G = GLOB.gear_datums[gear]
 			if(G)
+				if(!G.is_equippable)
+					continue
 				var/permitted = FALSE
 
 				if(G.allowed_roles && H.mind && (H.mind.assigned_role in G.allowed_roles))

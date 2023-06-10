@@ -406,6 +406,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 
 	// Without this, it doesn't show up in the menu
 	body.appearance_flags &= ~KEEP_TOGETHER
+	body.wipe_state() // cleanup the body immediately since it spawns with overlays, AI and cyborgs will retain them.
 	vis_contents += body
 
 /// Registers the relevant map objects to a client

@@ -82,6 +82,8 @@ export type LoadoutGear = {
   donator: BooleanLike;
   cost: number;
   allowed_roles: string[] | null;
+  is_equippable: BooleanLike;
+  multi_purchase: BooleanLike;
 };
 
 export type LoadoutCategory = {

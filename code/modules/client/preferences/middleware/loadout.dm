@@ -31,6 +31,8 @@
 			gear_entry["donator"] = G.sort_category == "Donator"
 			gear_entry["cost"] = G.cost
 			gear_entry["allowed_roles"] = G.allowed_roles
+			gear_entry["is_equippable"] = G.is_equippable
+			gear_entry["multi_purchase"] = G.multi_purchase
 			gear += list(gear_entry)
 		category["gear"] = gear
 		categories += list(category)
@@ -42,7 +44,7 @@
 	var/datum/gear/TG = GLOB.gear_datums[params["id"]]
 	if(!istype(TG))
 		return
-	if(TG.id in preferences.equipped_gear)
+	if(((TG.id in preferences.purchased_gear) || (TG.id in preferences.equipped_gear)) && !TG.multi_purchase)
 		to_chat(user, "<span class='warning'>You already own \the [TG.display_name]!</span>")
 		return TRUE
 	if(TG.sort_category == "Donator")

@@ -2,6 +2,7 @@
 	subtype_path = /datum/gear/ooc
 	sort_category = "OOC"
 	cost = 10000
+	is_equippable = FALSE
 
 /datum/gear/ooc/char_slot
 	display_name = "extra character slot"
@@ -18,6 +19,7 @@
 	description = "If you can afford it, you deserve it."
 	cost = 100000
 	path = /obj/item/coin/antagtoken
+	multi_purchase = TRUE
 
 /datum/gear/ooc/real_antagtoken/purchase(var/client/C)
 	INVOKE_ASYNC(C, TYPE_PROC_REF(/client, inc_antag_token_count), 1)

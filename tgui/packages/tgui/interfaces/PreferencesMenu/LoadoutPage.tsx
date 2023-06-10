@@ -1,5 +1,5 @@
 import { Box, Tabs, Button, Section, Stack, Flex, Table, Icon } from '../../components';
-import { PreferencesMenuData } from './data';
+import { LoadoutGear, PreferencesMenuData } from './data';
 import { useBackend, useLocalState } from '../../backend';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 import { CharacterPreview } from './CharacterPreview';
@@ -19,6 +19,8 @@ export const LoadoutPage = (props, context) => {
         const [onlyPurchased, setOnlyPurchased] = useLocalState(context, 'only_purchased', false);
 
         let selectedCategoryObject = categories.filter((c) => c.name === selectedCategory)[0];
+
+        const isPurchased = (gear: LoadoutGear) => purchased_gear.includes(gear.id) && !gear.multi_purchase;
 
         return (
           <Stack height="100%">
@@ -82,7 +84,7 @@ export const LoadoutPage = (props, context) => {
                       </Table.Row>
                       {selectedCategoryObject &&
                         selectedCategoryObject.gear
-                          .filter((gear) => !onlyPurchased || purchased_gear.includes(gear.id))
+                          .filter((gear) => !onlyPurchased || isPurchased(gear))
                           .map((gear) => (
                             <Table.Row key={gear.id}>
                               <Table.Cell m={0} p={0}>
@@ -102,12 +104,12 @@ export const LoadoutPage = (props, context) => {
                                   ? gear.skirt_display_name
                                   : gear.display_name}
                               </Table.Cell>
-                              {!gear.donator && <Table.Cell textAlign="center">{gear.cost}</Table.Cell>}
                               <Table.Cell textAlign="center">
                                 <Button
                                   disabled={
                                     (!purchased_gear.includes(gear.id) && gear.cost > metacurrency_balance) ||
-                                    (gear.donator && !is_donator)
+                                    (gear.donator && !is_donator) ||
+                                    (isPurchased(gear) && !gear.is_equippable && !gear.multi_purchase)
                                   }
                                   tooltip={
                                     !purchased_gear.includes(gear.id) && gear.cost > metacurrency_balance
@@ -115,14 +117,16 @@ export const LoadoutPage = (props, context) => {
                                       : null
                                   }
                                   content={
-                                    purchased_gear.includes(gear.id)
+                                    isPurchased(gear)
                                       ? equipped_gear.includes(gear.id)
                                         ? 'Unequip'
-                                        : 'Equip'
+                                        : !gear.is_equippable
+                                          ? 'Purchased'
+                                          : 'Equip'
                                       : 'Purchase'
                                   }
                                   onClick={() =>
-                                    act(purchased_gear.includes(gear.id) ? 'equip_gear' : 'purchase_gear', {
+                                    act(isPurchased(gear) ? 'equip_gear' : 'purchase_gear', {
                                       id: gear.id,
                                     })
                                   }
