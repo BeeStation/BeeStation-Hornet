@@ -342,25 +342,25 @@
 	return law_amount
 
 /datum/ai_laws/proc/set_law_sixsixsix(laws)
-	devillaws = stripped_html_decode(laws)
+	devillaws = laws
 
 /datum/ai_laws/proc/set_valentines_law(laws)
-	valentine_laws = stripped_html_decode(laws)
+	valentine_laws = laws
 
 /datum/ai_laws/proc/set_zeroth_law(law, law_borg = null)
-	zeroth = stripped_html_decode(law)
+	zeroth = law
 	if(law_borg) //Making it possible for slaved borgs to see a different law 0 than their AI. --NEO
 		zeroth_borg = law_borg
 
 /datum/ai_laws/proc/add_inherent_law(law)
 	if (!(law in inherent))
-		inherent += stripped_html_decode(law)
+		inherent += law
 
 /datum/ai_laws/proc/add_ion_law(law)
-	ion += stripped_html_decode(law)
+	ion += law
 
 /datum/ai_laws/proc/add_hacked_law(law)
-	hacked += stripped_html_decode(law)
+	hacked += law
 
 /datum/ai_laws/proc/clear_inherent_laws()
 	qdel(inherent)
@@ -370,7 +370,7 @@
 	while (supplied.len < number + 1)
 		supplied += ""
 
-	supplied[number + 1] = stripped_html_decode(law)
+	supplied[number + 1] = law
 
 /datum/ai_laws/proc/replace_random_law(law,groups)
 	var/replaceable_groups = list()

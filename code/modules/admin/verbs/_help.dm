@@ -351,7 +351,7 @@
 /// Call this on its own to create a ticket, don't manually assign current_ticket, msg is the title of the ticket: usually the ahelp text
 /datum/help_ticket/proc/Create(msg)
 	//Clean the input message
-	msg = stripped_html_decode(sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN)))
+	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
 	if(!msg || !initiator || !initiator.mob)
 		qdel(src)
 		return FALSE
@@ -479,7 +479,7 @@
 			"color" = message.message_color,
 			"from" = message.from_user,
 			"to" = message.to_user,
-			"message" = message.sanitize_needed ? stripped_html_decode(sanitize(message.message)) : message.message
+			"message" = message.sanitize_needed ? sanitize(message.message) : message.message
 		)
 		data["messages"] += list(msg)
 	data = get_ticket_additional_data(user, data)

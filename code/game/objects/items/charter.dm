@@ -40,7 +40,7 @@
 	var/new_name = stripped_input(user, message="What do you want to name \
 		[station_name()]? Keep in mind particularly terrible names may be \
 		rejected by your employers, while names using the standard format, \
-		will automatically be accepted.", max_length=MAX_CHARTER_LEN)
+		will automatically be accepted.", max_length=MAX_CHARTER_LEN, strip_method=STRIP_HTML_SIMPLE)
 
 	if(response_timer_id)
 		to_chat(user, "You're still waiting for approval from your employers about your proposed name change, it'd be best to wait for now.")
@@ -55,8 +55,6 @@
 
 	log_game("[key_name(user)] has proposed to name the station as \
 		[new_name]")
-
-	new_name = stripped_html_decode(new_name) // we don't want to see &#39;
 
 	if(standard_station_regex.Find(new_name))
 		to_chat(user, "Your name has been automatically approved.")

@@ -58,7 +58,7 @@
 	if(!check_rights(R_SERVER|R_DEBUG,0))//no sending html to the poor bots
 		msg = sanitize_simple(msg)
 		if(!html_encoded)
-			msg = stripped_html_decode(html_encode(msg))
+			msg = html_encode(msg)
 		msg = trim(msg, MAX_MESSAGE_LEN)
 		if(!msg)
 			return
