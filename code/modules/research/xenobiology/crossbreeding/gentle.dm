@@ -21,14 +21,14 @@
 	extract.forceMove(src)
 
 /obj/item/slimecross/gentle/attack_self(mob/living/carbon/user)
-	if(activate_core(user))
+	if(preactivate_core(user))
 		COOLDOWN_START(src, use_cooldown, extract.activate(user, user.dna.species, SLIME_ACTIVATE_MINOR))
 
 /obj/item/slimecross/gentle/AltClick(mob/living/carbon/user, obj/item/I)
-	if(activate_core(user))
+	if(preactivate_core(user))
 		COOLDOWN_START(src, use_cooldown, extract.activate(user, user.dna.species, SLIME_ACTIVATE_MAJOR))
 
-/obj/item/slimecross/gentle/proc/activate_core(mob/living/carbon/user)
+/obj/item/slimecross/gentle/proc/preactivate_core(mob/living/carbon/user)
 	if(user.incapacitated() || !iscarbon(user))
 		return FALSE
 	if(!COOLDOWN_FINISHED(src, use_cooldown))
