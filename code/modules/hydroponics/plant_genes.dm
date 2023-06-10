@@ -393,7 +393,7 @@
 	// 2x to max reagents volume.
 	name = "Densified Chemicals"
 	rate = 2
-	trait_id = "chem_boots"
+	trait_id = "chem_boost"
 
 /datum/plant_gene/trait/maxchem/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
 	..()
