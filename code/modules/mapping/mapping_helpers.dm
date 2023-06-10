@@ -237,27 +237,39 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	late = TRUE
 	icon_state = "deadbodyplacer"
 	var/bodycount = 2 //number of bodies to spawn
+	var/no_random = FALSE // set it TRUE in mapping if you want to put it into a specific container (when you don't want a random morgue)
 
 /obj/effect/mapping_helpers/dead_body_placer/LateInitialize()
 	var/area/a = get_area(src)
 	var/list/trays = list()
 	for (var/i in a.contents)
+		if(ignore_morgue)
+			break
 		if (istype(i, /obj/structure/bodycontainer/morgue))
 			trays += i
-		if (istype(i, /obj/structure/closet))
-			trays += i
-	if(!trays.len)
-		log_mapping("[src] at [x],[y] could not find any morgues.")
-		return
-	for (var/i = 1 to bodycount)
-		var/obj/j = pick(trays)
-		var/mob/living/carbon/human/h = new /mob/living/carbon/human(j, 1)
-		h.death()
-		for (var/part in h.internal_organs) //randomly remove organs from each body, set those we keep to be in stasis
-			if (prob(40))
-				qdel(part)
-			else
-				var/obj/item/organ/O = part
-				O.organ_flags |= ORGAN_FROZEN
-		j.update_icon()
+	if(length(trays))
+		while(bodycount--)
+			spawn_dead_human_in_tray(pick(trays))
+	else
+		var/obj/container = locate(/obj/structure/closet) in get_turf(src)
+		if(!container)
+			container = locate(/obj/structure/bodycontainer/morgue) in get_turf(src)
+		if(container)
+			while(bodycount--)
+				spawn_dead_human_in_tray(container)
+
+	if(bodycount)
+		log_mapping("[src] at [x],[y] could not find any morgues or container.")
+		return // do not do qdel so that we can see what's wrong with it
 	qdel(src)
+
+/obj/effect/mapping_helpers/dead_body_placer/proc/spawn_dead_human_in_tray(obj/container)
+	var/mob/living/carbon/human/H = new /mob/living/carbon/human(container)
+	H.death()
+	for (var/part in H.internal_organs) //randomly remove organs from each body, set those we keep to be in stasis
+		if (prob(40))
+			qdel(part)
+		else
+			var/obj/item/organ/O = part
+			O.organ_flags |= ORGAN_FROZEN
+	container.update_icon()
