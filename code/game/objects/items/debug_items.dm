@@ -297,7 +297,6 @@
 		ADD_TRAIT(user, each, "debug")
 	user.grant_all_languages(TRUE, TRUE, TRUE, "debug")
 	user.grant_language(/datum/language/metalanguage, TRUE, TRUE, "debug")
-	user.see_override = SEE_INVISIBLE_OBSERVER
 
 	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	hud.add_hud_to(user)
@@ -307,8 +306,10 @@
 	hud.add_hud_to(user)
 	
 	if(!isliving(user))
+		user.update_sight()
 		return .
 	var/mob/living/picker = user
+	picker.see_override = SEE_INVISIBLE_OBSERVER
 	picker.update_sight()
 
 
