@@ -158,7 +158,7 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 	var/admin_msg = "<span class='mentornotice'><span class='mentorhelp'>Mentor Ticket [TicketHref("#[id]", ref_src)]</span>: [LinkedReplyName(ref_src)] [ClosureLinks(ref_src)]: <span class='linkify'>[sanitized_msg]</span></span>"
 
 	if(add_to_ticket)
-		AddInteraction("red", msg, initiator_key_name, claimee_key_name, "You", "Mentor", sanitizing=TRUE)
+		AddInteraction("red", msg, initiator_key_name, claimee_key_name, "You", "Mentor")
 	log_admin_private("Mentor Ticket #[id]: [key_name_ticket(initiator)]: [msg]")
 
 	//send this msg to all admins
