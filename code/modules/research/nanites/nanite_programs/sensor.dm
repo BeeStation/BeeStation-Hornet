@@ -328,3 +328,136 @@
 	rule.mode_rule = mode.get_value()
 	rule.species_name_rule = species_name.get_value()
 	return rule
+
+/datum/nanite_program/sensor/nutrition
+	name = "Nutrition Sensor"
+	desc = "The nanites receive a signal when the host's nutrition is above/below a target percentage."
+	can_rule = TRUE
+	var/static/list/possible_nutrition_values = list(
+		"Fat (100%)" = NUTRITION_LEVEL_FAT,
+		"Full (90%)" = NUTRITION_LEVEL_FULL,
+		"Well Fed (75%)" = NUTRITION_LEVEL_WELL_FED,
+		"Fed (60%)" = NUTRITION_LEVEL_FED,
+		"Hungry (40%)" = NUTRITION_LEVEL_HUNGRY,
+		"Starving (25%)" = NUTRITION_LEVEL_STARVING
+	)
+	var/spent = TRUE
+
+/datum/nanite_program/sensor/nutrition/check_conditions()
+	return ..() && !HAS_TRAIT(host_mob, TRAIT_NOHUNGER)
+
+/datum/nanite_program/sensor/nutrition/register_extra_settings()
+	. = ..()
+	extra_settings[NES_NUTRITION] = new /datum/nanite_extra_setting/type(possible_nutrition_values[NUTRITION_LEVEL_HUNGRY], assoc_list_strip_value(possible_nutrition_values))
+	extra_settings[NES_DIRECTION] = new /datum/nanite_extra_setting/boolean(FALSE, "Above", "Below")
+
+/datum/nanite_program/sensor/nutrition/check_event()
+	var/datum/nanite_extra_setting/nutrition = extra_settings[NES_NUTRITION]
+	var/threshold = possible_nutrition_values[nutrition.get_value()]
+	var/datum/nanite_extra_setting/direction = extra_settings[NES_DIRECTION]
+	var/detected = FALSE
+	if(direction.get_value())
+		if(host_mob.nutrition >= threshold)
+			detected = TRUE
+	else
+		if(host_mob.nutrition < threshold)
+			detected = TRUE
+
+	if(detected)
+		if(!spent)
+			spent = TRUE
+			return TRUE
+		return FALSE
+	else
+		spent = FALSE
+		return FALSE
+
+/datum/nanite_program/sensor/nutrition/make_rule(datum/nanite_program/target)
+	var/datum/nanite_rule/nutrition/rule = new(target)
+	var/datum/nanite_extra_setting/direction = extra_settings[NES_DIRECTION]
+	var/datum/nanite_extra_setting/nutrition = extra_settings[NES_NUTRITION]
+	rule.above = direction.get_value()
+	rule.threshold = possible_nutrition_values[nutrition.get_value()]
+	return rule
+
+/datum/nanite_program/sensor/blood
+	name = "Blood Sensor"
+	desc = "The nanites receive a signal when the host's blood level is above/below a target percentage."
+	can_rule = TRUE
+	var/spent = FALSE
+
+/datum/nanite_program/sensor/blood/register_extra_settings()
+	. = ..()
+	extra_settings[NES_BLOOD_PERCENT] = new /datum/nanite_extra_setting/number(80, -99, 100, "%")
+	extra_settings[NES_DIRECTION] = new /datum/nanite_extra_setting/boolean(TRUE, "Above", "Below")
+
+/datum/nanite_program/sensor/blood/check_conditions()
+	. = ..()
+	if(!.)
+		return FALSE
+	if(!iscarbon(host_mob))
+		return FALSE
+	if(ishuman(host_mob))
+		var/mob/living/carbon/human/host_human = host_mob
+		if(NOBLOOD in host_human.dna?.species?.species_traits)
+			return FALSE
+
+/datum/nanite_program/sensor/blood/check_event()
+	var/blood_percent =  round((host_mob.blood_volume / BLOOD_VOLUME_NORMAL) * 100)
+	var/datum/nanite_extra_setting/percent = extra_settings[NES_HEALTH_PERCENT]
+	var/datum/nanite_extra_setting/direction = extra_settings[NES_DIRECTION]
+	var/detected = FALSE
+	if(direction.get_value())
+		if(blood_percent >= percent.get_value())
+			detected = TRUE
+	else
+		if(blood_percent < percent.get_value())
+			detected = TRUE
+
+	if(detected)
+		if(!spent)
+			spent = TRUE
+			return TRUE
+		return FALSE
+	else
+		spent = FALSE
+		return FALSE
+
+/datum/nanite_program/sensor/blood/make_rule(datum/nanite_program/target)
+	var/datum/nanite_rule/blood/rule = new(target)
+	var/datum/nanite_extra_setting/direction = extra_settings[NES_DIRECTION]
+	var/datum/nanite_extra_setting/percent = extra_settings[NES_BLOOD_PERCENT]
+	rule.above = direction.get_value()
+	rule.threshold = percent.get_value()
+	return rule
+
+/datum/nanite_program/sensor/receiver
+	name = "Remote Signal Receiver"
+	desc = "The nanites receive signals from remote signalers, and translate them into nanite signals."
+	var/datum/radio_frequency/radio_connection
+
+/datum/nanite_program/sensor/receiver/register_extra_settings()
+	. = ..()
+	extra_settings[NES_SIGNAL_FREQUENCY] = new /datum/nanite_extra_setting/number(FREQ_SIGNALER, MIN_FREQ, MAX_FREQ)
+	extra_settings[NES_SIGNAL_CODE] = new /datum/nanite_extra_setting/number(DEFAULT_SIGNALER_CODE, 1, 99)
+	extra_settings[NES_SENT_CODE] = new /datum/nanite_extra_setting/number(0, 1, 9999)
+
+/datum/nanite_program/sensor/receiver/enable_passive_effect()
+	. = ..()
+	var/datum/nanite_extra_setting/frequency = extra_settings[NES_SIGNAL_FREQUENCY]
+	radio_connection = SSradio.add_object(src, frequency.get_value(), RADIO_SIGNALER)
+
+/datum/nanite_program/sensor/receiver/disable_passive_effect()
+	. = ..()
+	var/datum/nanite_extra_setting/frequency = extra_settings[NES_SIGNAL_FREQUENCY]
+	SSradio.remove_object(src, frequency.get_value())
+
+/datum/nanite_program/sensor/receiver/proc/receive_signal(datum/signal/signal)
+	. = FALSE
+	if(!signal || !radio_connection)
+		return
+	var/datum/nanite_extra_setting/code = extra_settings[NES_SIGNAL_CODE]
+	if(signal.data["code"] != code.get_value())
+		return
+	send_code()
+	return TRUE

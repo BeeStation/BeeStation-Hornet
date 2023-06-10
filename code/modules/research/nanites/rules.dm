@@ -1,14 +1,13 @@
 /datum/nanite_rule
 	var/name = "Generic Condition"
 	var/desc = "When triggered, the program is active"
+	var/combinable = TRUE
 	var/datum/nanite_program/program
 
-/datum/nanite_rule/New(datum/nanite_program/new_program)
+/datum/nanite_rule/New(datum/nanite_program/new_program, copy_to_rules = TRUE)
 	program = new_program
-	if(LAZYLEN(new_program.rules) <= 5) //Avoid infinite stacking rules
+	if(copy_to_rules)
 		new_program.rules += src
-	else
-		qdel(src)
 
 /datum/nanite_rule/proc/remove()
 	program.rules -= src
@@ -21,8 +20,8 @@
 /datum/nanite_rule/proc/display()
 	return name
 
-/datum/nanite_rule/proc/copy_to(datum/nanite_program/new_program)
-	new type(new_program)
+/datum/nanite_rule/proc/copy_to(datum/nanite_program/new_program, copy_to_rules = TRUE)
+	return new type(new_program, copy_to_rules)
 
 /datum/nanite_rule/health
 	name = "Health"
@@ -42,12 +41,13 @@
 	return FALSE
 
 /datum/nanite_rule/health/display()
-	return "[name] [above ? ">" : "<"] [threshold]%"
+	return "[name] [above ? ">=" : "<"] [threshold]%"
 
-/datum/nanite_rule/health/copy_to(datum/nanite_program/new_program)
-	var/datum/nanite_rule/health/rule = new(new_program)
+/datum/nanite_rule/health/copy_to(datum/nanite_program/new_program, copy_to_rules = TRUE)
+	var/datum/nanite_rule/health/rule = new(new_program, copy_to_rules)
 	rule.above = above
 	rule.threshold = threshold
+	return rule
 
 //TODO allow inversion
 /datum/nanite_rule/crit
@@ -79,9 +79,10 @@
 	else
 		return !program.nanites.cloud_active
 
-/datum/nanite_rule/cloud_sync/copy_to(datum/nanite_program/new_program)
-	var/datum/nanite_rule/cloud_sync/rule = new(new_program)
+/datum/nanite_rule/cloud_sync/copy_to(datum/nanite_program/new_program, copy_to_rules = TRUE)
+	var/datum/nanite_rule/cloud_sync/rule = new(new_program, copy_to_rules)
 	rule.check_type = check_type
+	return rule
 
 /datum/nanite_rule/cloud_sync/display()
 	return "[name]:[check_type]"
@@ -103,13 +104,14 @@
 			return TRUE
 	return FALSE
 
-/datum/nanite_rule/nanites/copy_to(datum/nanite_program/new_program)
-	var/datum/nanite_rule/nanites/rule = new(new_program)
+/datum/nanite_rule/nanites/copy_to(datum/nanite_program/new_program, copy_to_rules = TRUE)
+	var/datum/nanite_rule/nanites/rule = new(new_program, copy_to_rules)
 	rule.above = above
 	rule.threshold = threshold
+	return rule
 
 /datum/nanite_rule/nanites/display()
-	return "[name] [above ? ">" : "<"] [threshold]%"
+	return "[name] [above ? ">=" : "<"] [threshold]%"
 
 /datum/nanite_rule/damage
 	name = "Damage"
@@ -141,14 +143,15 @@
 			return TRUE
 	return FALSE
 
-/datum/nanite_rule/damage/copy_to(datum/nanite_program/new_program)
-	var/datum/nanite_rule/damage/rule = new(new_program)
+/datum/nanite_rule/damage/copy_to(datum/nanite_program/new_program, copy_to_rules = TRUE)
+	var/datum/nanite_rule/damage/rule = new(new_program, copy_to_rules)
 	rule.above = above
 	rule.threshold = threshold
 	rule.damage_type = damage_type
+	return rule
 
 /datum/nanite_rule/damage/display()
-	return "[damage_type] [above ? ">" : "<"] [threshold]"
+	return "[damage_type] [above ? ">=" : "<"] [threshold]"
 
 /datum/nanite_rule/species
 	name = "Species"
@@ -172,11 +175,118 @@
 
 	return species_match_rule ? mode_rule : !mode_rule
 
-/datum/nanite_rule/species/copy_to(datum/nanite_program/new_program)
-	var/datum/nanite_rule/species/rule = new(new_program)
+/datum/nanite_rule/species/copy_to(datum/nanite_program/new_program, copy_to_rules = TRUE)
+	var/datum/nanite_rule/species/rule = new(new_program, copy_to_rules)
 	rule.species_rule = species_rule
 	rule.mode_rule = mode_rule
 	rule.species_name_rule = species_name_rule
+	return rule
 
 /datum/nanite_rule/species/display()
 	return "[mode_rule ? "IS" : "IS NOT"] [species_name_rule]"
+
+/datum/nanite_rule/nutrition
+	name = "Nutrition"
+	desc = "Checks the host's nutrition"
+
+	var/above = FALSE
+	var/threshold = NUTRITION_LEVEL_HUNGRY
+
+/datum/nanite_rule/nutrition/check_rule()
+	if(above)
+		return program.host_mob.nutrition >= threshold
+	else
+		return program.host_mob.nutrition < threshold
+
+/datum/nanite_rule/nutrition/copy_to(datum/nanite_program/new_program, copy_to_rules = TRUE)
+	var/datum/nanite_rule/nutrition/rule = new(new_program, copy_to_rules)
+	rule.above = above
+	rule.threshold = threshold
+	return rule
+
+/datum/nanite_rule/nutrition/display()
+	return "Nutrition [above ? ">=" : "<"] [min(round(threshold / NUTRITION_LEVEL_FAT, 5), 100)]%"
+
+/datum/nanite_rule/blood
+	name = "Blood"
+	desc = "Checks the host's blood level."
+
+	var/threshold = 80
+	var/above = TRUE
+
+/datum/nanite_rule/blood/check_rule()
+	var/blood_percent =  round((program.host_mob.blood_volume / BLOOD_VOLUME_NORMAL) * 100)
+	if(above)
+		if(blood_percent >= threshold)
+			return TRUE
+	else
+		if(blood_percent < threshold)
+			return TRUE
+	return FALSE
+
+/datum/nanite_rule/blood/display()
+	return "[name] [above ? ">=" : "<"] [threshold]%"
+
+/datum/nanite_rule/blood/copy_to(datum/nanite_program/new_program, copy_to_rules = TRUE)
+	var/datum/nanite_rule/blood/rule = new(new_program, copy_to_rules)
+	rule.above = above
+	rule.threshold = threshold
+	return rule
+
+/datum/nanite_rule/combined
+	name = "Combined"
+	desc = "Combines multiple nanite rules into one."
+	combinable = FALSE
+	var/list/datum/nanite_rule/rules = list()
+	var/op = NL_AND
+
+/datum/nanite_rule/combined/New(datum/nanite_program/new_program, copy_to_rules, list/datum/nanite_rule/rules, op = NL_AND)
+	..()
+	if(!length(rules) || length(rules) > 5)
+		qdel(src)
+		return
+	src.rules = rules
+	src.op = sanitize_inlist(op, NL_ALL, NL_AND)
+
+/datum/nanite_rule/combined/display()
+	var/list/rule_displays = list()
+	for(var/R in rules)
+		var/datum/nanite_rule/rule = R
+		rule_displays += rule.display()
+	return "[op]([rule_displays.Join(", ")])"
+
+/datum/nanite_rule/combined/check_rule()
+	switch(op)
+		if(NL_AND)
+			for(var/R in rules)
+				var/datum/nanite_rule/rule = R
+				if(!rule.check_rule())
+					return FALSE
+		if(NL_OR)
+			for(var/R in rules)
+				var/datum/nanite_rule/rule = R
+				if(rule.check_rule())
+					return TRUE
+			return FALSE
+		if(NL_NOR)
+			for(var/R in rules)
+				var/datum/nanite_rule/rule = R
+				if(rule.check_rule())
+					return FALSE
+		if(NL_NAND)
+			for(var/R in rules)
+				var/datum/nanite_rule/rule = R
+				if(!rule.check_rule())
+					return TRUE
+			return FALSE
+	return TRUE
+
+/datum/nanite_rule/combined/copy_to(datum/nanite_program/new_program, copy_to_rules = TRUE)
+	var/datum/nanite_rule/combined/rule = new(new_program, copy_to_rules)
+	rule.op = op
+	for(var/R in rules)
+		var/datum/nanite_rule/subrule = R
+		var/datum/nanite_rule/new_subrule = subrule.copy_to(new_program, FALSE)
+		if(new_subrule)
+			rule.rules += new_subrule
+	return rule

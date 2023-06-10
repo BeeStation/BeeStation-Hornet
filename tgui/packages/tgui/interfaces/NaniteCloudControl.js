@@ -1,5 +1,5 @@
-import { useBackend } from '../backend';
-import { Box, Button, Collapsible, Grid, LabeledList, NoticeBox, NumberInput, Section } from '../components';
+import { useBackend, useLocalState } from '../backend';
+import { Box, Button, Collapsible, Dropdown, Grid, LabeledList, NoticeBox, NumberInput, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
 export const NaniteDiskBox = (props, context) => {
@@ -133,9 +133,12 @@ export const NaniteCloudBackupList = (props, context) => {
   ));
 };
 
-export const NaniteCloudBackupDetails = (props, context) => {
+export const NaniteCloudBackupDetails = (_props, context) => {
   const { act, data } = useBackend(context);
   const { current_view, disk, has_program, cloud_backup } = data;
+  const [combineSelection, setCombineSelection] = useLocalState(context, 'combineSelection', false);
+  const [toCombine, setToCombine] = useLocalState(context, 'toCombine', []);
+  const [combineOp, setCombineOp] = useLocalState(context, 'combineOp', 'AND');
 
   const can_rule = (disk && disk.can_rule) || false;
 
@@ -178,21 +181,70 @@ export const NaniteCloudBackupDetails = (props, context) => {
                   level={2}
                   buttons={
                     !!can_rule && (
-                      <Button
-                        icon="plus"
-                        content="Add Rule from Disk"
-                        color="good"
-                        onClick={() =>
-                          act('add_rule', {
-                            program_id: program.id,
-                          })
-                        }
-                      />
+                      <Stack>
+                        <Stack.Item>
+                          <Button
+                            icon="plus"
+                            content="Add Rule from Disk"
+                            color="good"
+                            onClick={() =>
+                              act('add_rule', {
+                                program_id: program.id,
+                              })
+                            }
+                          />
+                        </Stack.Item>
+                        <Stack.Item>
+                          <Button
+                            content="Combine"
+                            selected={combineSelection}
+                            onClick={() => {
+                              if (combineSelection) {
+                                setCombineSelection(false);
+                                if (toCombine.length <= 0) {
+                                  return;
+                                }
+                                act('combine_rules', {
+                                  program_id: program.id,
+                                  rule_ids: toCombine,
+                                  op: combineOp,
+                                });
+                              } else {
+                                setCombineSelection(true);
+                              }
+                              setToCombine([]);
+                            }}
+                          />
+                        </Stack.Item>
+                        <Stack.Item>
+                          <Dropdown
+                            width="75px"
+                            disabled={!combineSelection}
+                            selected={combineOp}
+                            options={['AND', 'OR', 'NOR', 'NAND']}
+                            onSelected={(value) => setCombineOp(value)}
+                          />
+                        </Stack.Item>
+                      </Stack>
                     )
                   }>
                   {program.has_rules ? (
                     rules.map((rule) => (
                       <Box key={rule.display}>
+                        {combineSelection && (
+                          <Button.Checkbox
+                            checked={toCombine.includes(rule.id)}
+                            onClick={() => {
+                              const index = toCombine.indexOf(rule.id);
+                              if (index !== -1) {
+                                toCombine.splice(index, 1);
+                              } else {
+                                toCombine.push(rule.id);
+                              }
+                              setToCombine(toCombine);
+                            }}
+                          />
+                        )}
                         <Button
                           icon="minus-circle"
                           color="bad"
@@ -224,7 +276,7 @@ export const NaniteCloudControl = (props, context) => {
   const { has_disk, current_view, new_backup_id } = data;
 
   return (
-    <Window width={375} height={700}>
+    <Window width={450} height={700}>
       <Window.Content scrollable>
         <Section
           title="Program Disk"

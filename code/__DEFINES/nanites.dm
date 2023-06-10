@@ -48,9 +48,24 @@
 #define NES_ICON "Icon"
 #define NES_COLOR "Color"
 #define NES_RULE_LOGIC "Logic"
+#define NES_NUTRITION "Nutrition"
+#define NES_BLOOD_PERCENT "Blood Percent"
+#define NES_SIGNAL_FREQUENCY "Signal Frequency"
+#define NES_SIGNAL_CODE "Signal Code"
+#define NES_ACTIVATION_CODE "Sent Activation Code"
+#define NES_DEACTIVATION_CODE "Sent Deactivation Code"
 
 //Nanite Logic
 #define NL_AND "AND"
 #define NL_OR "OR"
 #define NL_NOR "NOR"
 #define NL_NAND "NAND"
+#define NL_ALL list(NL_AND, NL_OR, NL_NOR, NL_NAND)
+
+//Nanite excess thresholds
+#define NANITE_EXCESS_MINOR 25
+#define NANITE_EXCESS_VOMIT 100
+#define NANITE_EXCESS_BURST 350
+
+/// How many nanites/sec to add to the regen rate once nanite harmonics are researched
+#define HARMONIC_REGEN_BOOST 0.1

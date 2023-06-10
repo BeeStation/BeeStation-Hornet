@@ -146,15 +146,12 @@
 
 /datum/nanite_program/metabolic_synthesis
 	name = "Metabolic Synthesis"
-	desc = "The nanites use the metabolic cycle of the host to speed up their replication rate, using their extra nutrition as fuel."
+	desc = "The nanites use the metabolic cycle of the host to speed up their replication rate, using their extra nutrition as fuel. Does not have a built-in safety limiter."
 	use_rate = -0.5 //generates nanites
 	rogue_types = list(/datum/nanite_program/toxic)
 
 /datum/nanite_program/metabolic_synthesis/check_conditions()
 	if(!iscarbon(host_mob))
-		return FALSE
-	var/mob/living/carbon/C = host_mob
-	if(C.nutrition <= NUTRITION_LEVEL_WELL_FED)
 		return FALSE
 	return ..()
 
@@ -244,27 +241,30 @@
 			resulting in an extremely infective strain of nanites."
 	use_rate = 1.50
 	rogue_types = list(/datum/nanite_program/aggressive_replication, /datum/nanite_program/necrotic)
-	var/spread_cooldown = 0
+	COOLDOWN_DECLARE(spread_cooldown)
 
 /datum/nanite_program/spreading/active_effect()
-	if(spread_cooldown < world.time)
+	if(!COOLDOWN_FINISHED(src, spread_cooldown))
 		return
-	spread_cooldown = world.time + 50
 	var/list/mob/living/target_hosts = list()
-	for(var/mob/living/L in ohearers(5, host_mob))
-		if(!prob(25))
+	for(var/mob/living/target in ohearers(5, host_mob))
+		if(prob(15 * max(get_dist(host_mob, target) - 1, 0)))
 			continue
-		if(!(MOB_ORGANIC in L.mob_biotypes) && !(MOB_UNDEAD in L.mob_biotypes) && !HAS_TRAIT(host_mob, TRAIT_NANITECOMPATIBLE))
+		if(!(MOB_ORGANIC in target.mob_biotypes) && !(MOB_UNDEAD in target.mob_biotypes) && !HAS_TRAIT(host_mob, TRAIT_NANITECOMPATIBLE))
 			continue
-		target_hosts += L
+		target_hosts += target
 	if(!target_hosts.len)
+		COOLDOWN_START(src, spread_cooldown, 2 SECONDS)
 		return
 	var/mob/living/infectee = pick(target_hosts)
 	if(prob(100 - (infectee.get_permeability_protection() * 100)))
+		COOLDOWN_START(src, spread_cooldown, 7.5 SECONDS)
 		//this will potentially take over existing nanites!
 		infectee.AddComponent(/datum/component/nanites, 10)
 		SEND_SIGNAL(infectee, COMSIG_NANITE_SYNC, nanites)
 		infectee.investigate_log("was infected by spreading nanites by [key_name(host_mob)] at [AREACOORD(infectee)].", INVESTIGATE_NANITES)
+	else
+		COOLDOWN_START(src, spread_cooldown, 2 SECONDS)
 
 /datum/nanite_program/nanite_sting
 	name = "Nanite Sting"
@@ -303,7 +303,7 @@
 /datum/nanite_program/mitosis/active_effect()
 	var/rep_rate = round(nanites.nanite_volume / 50, 1) //0.5 per 50 nanite volume
 	rep_rate *= 0.5
-	nanites.adjust_nanites(null, rep_rate)
+	nanites.adjust_nanites(amount = rep_rate)
 	if(prob(rep_rate))
 		var/datum/nanite_program/fault = pick(nanites.programs)
 		if(fault == src)
@@ -319,16 +319,15 @@
 /datum/nanite_program/dermal_button/register_extra_settings()
 	extra_settings[NES_SENT_CODE] = new /datum/nanite_extra_setting/number(1, 1, 9999)
 	extra_settings[NES_BUTTON_NAME] = new /datum/nanite_extra_setting/text("Button")
-	extra_settings[NES_ICON] = new /datum/nanite_extra_setting/type("power", list("one","two","three","four","five","plus","minus","power"))
-	extra_settings[NES_COLOR] = new /datum/nanite_extra_setting/type("green", list("green","red","yellow","blue"))
+	extra_settings[NES_ICON] = new /datum/nanite_extra_setting/type("power", list("one", "two", "three", "four", "five", "plus", "minus", "power"))
+	extra_settings[NES_COLOR] = new /datum/nanite_extra_setting/type("green", list("green", "red", "yellow", "blue"))
 
 /datum/nanite_program/dermal_button/enable_passive_effect()
 	. = ..()
 	var/datum/nanite_extra_setting/bn_name = extra_settings[NES_BUTTON_NAME]
 	var/datum/nanite_extra_setting/bn_icon = extra_settings[NES_ICON]
-	var/datum/nanite_extra_setting/bn_color = extra_settings[NES_COLOR]
 	if(!button)
-		button = new(src, bn_name.get_value(), bn_icon.get_value(), bn_color.get_value())
+		button = new(src, bn_name.get_value(), bn_icon.get_value(), "red")
 	button.target = host_mob
 	button.Grant(host_mob)
 
@@ -363,3 +362,72 @@
 
 /datum/action/innate/nanite_button/Activate()
 	program.press()
+
+/datum/action/innate/nanite_button/proc/update_icon(icon, color)
+	button_icon_state = "[icon]_[color]"
+	UpdateButtonIcon()
+
+/datum/nanite_program/dermal_button/toggle
+	name = "Dermal Toggle"
+	desc = "Displays a switch on the host's skin, which can be used to send an activation and deactivation signal to the nanites."
+	var/active = FALSE
+
+/datum/nanite_program/dermal_button/toggle/register_extra_settings()
+	extra_settings[NES_ACTIVATION_CODE] = new /datum/nanite_extra_setting/number(1, 1, 9999)
+	extra_settings[NES_DEACTIVATION_CODE] = new /datum/nanite_extra_setting/number(1, 1, 9999)
+	extra_settings[NES_BUTTON_NAME] = new /datum/nanite_extra_setting/text("Toggle")
+	extra_settings[NES_ICON] = new /datum/nanite_extra_setting/type("power", list("one", "two", "three", "four", "five", "plus", "minus", "power"))
+
+/datum/nanite_program/dermal_button/toggle/press()
+	if(!activated)
+		return
+
+	var/datum/nanite_extra_setting/icon = extra_settings[NES_ICON]
+	var/datum/nanite_extra_setting/sent_code = extra_settings[active ? NES_DEACTIVATION_CODE : NES_ACTIVATION_CODE]
+	button.update_icon(icon.get_value(), active ? "red" : "green")
+	host_mob.visible_message("<span class='notice'>[host_mob] flicks a switch on [host_mob.p_their()] forearm.</span>",
+								"<span class='notice'>You flick the nanite button on your forearm [active ? "off" : "on"].</span>", null, 2)
+	active = !active
+	SEND_SIGNAL(host_mob, COMSIG_NANITE_SIGNAL, sent_code.get_value(), "a [name] program")
+
+/datum/nanite_program/signaler
+	name = "Remote Signaler"
+	desc = "The nanites send a pulse to all remote signalers on a given frequency and code."
+	can_trigger = TRUE
+	trigger_cost = 10
+	trigger_cooldown = 5
+	var/datum/radio_frequency/radio_connection
+
+/datum/nanite_program/signaler/register_extra_settings()
+	extra_settings[NES_SIGNAL_FREQUENCY] = new /datum/nanite_extra_setting/number(FREQ_SIGNALER, MIN_FREQ, MAX_FREQ)
+	extra_settings[NES_SIGNAL_CODE] = new /datum/nanite_extra_setting/number(DEFAULT_SIGNALER_CODE, 1, 99)
+
+/datum/nanite_program/signaler/enable_passive_effect()
+	. = ..()
+	var/datum/nanite_extra_setting/frequency = extra_settings[NES_SIGNAL_FREQUENCY]
+	radio_connection = SSradio.return_frequency(frequency.get_value())
+
+/datum/nanite_program/signaler/on_trigger()
+	if(!radio_connection)
+		return
+	var/datum/nanite_extra_setting/code = extra_settings[NES_SIGNAL_CODE]
+	radio_connection.post_signal(src, new /datum/signal(list("code" = code.get_value())), filter = RADIO_SIGNALER)
+
+/datum/nanite_program/vampire
+	name = "Vampiric Synthesis"
+	desc = "The nanites can consume the host's blood in order to replicate much faster. Does not have a built-in safety limiter."
+	use_rate = -0.75
+
+/datum/nanite_program/vampire/check_conditions()
+	. = ..()
+	if(!.)
+		return FALSE
+	if(!iscarbon(host_mob))
+		return FALSE
+	if(ishuman(host_mob))
+		var/mob/living/carbon/human/host_human = host_mob
+		if(NOBLOOD in host_human.dna?.species?.species_traits)
+			return FALSE
+
+/datum/nanite_program/vampire/active_effect()
+	host_mob.blood_volume -= 1.5

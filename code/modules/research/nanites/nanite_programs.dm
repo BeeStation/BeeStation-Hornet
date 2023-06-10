@@ -217,36 +217,38 @@
 //If false, disables active and passive effects, but doesn't consume nanites
 //Can be used to avoid consuming nanites for nothing
 /datum/nanite_program/proc/check_conditions()
-	var/datum/nanite_extra_setting/logictype = extra_settings[NES_RULE_LOGIC]
-	if(logictype)
-		switch(logictype.get_value())
-			if(NL_AND)
-				for(var/R in rules)
-					var/datum/nanite_rule/rule = R
-					if(!rule.check_rule())
-						return FALSE
-			if(NL_OR)
-				for(var/R in rules)
-					var/datum/nanite_rule/rule = R
-					if(rule.check_rule())
-						return TRUE
-				return FALSE
-			if(NL_NOR)
-				for(var/R in rules)
-					var/datum/nanite_rule/rule = R
-					if(rule.check_rule())
-						return FALSE
-			if(NL_NAND)
-				for(var/R in rules)
-					var/datum/nanite_rule/rule = R
-					if(!rule.check_rule())
-						return TRUE
-				return FALSE
-	else
-		for(var/R in rules)
-			var/datum/nanite_rule/rule = R
-			if(!rule.check_rule())
-				return FALSE
+	var/rule_amt = length(rules)
+	if(rule_amt)
+		var/datum/nanite_extra_setting/logictype = extra_settings[NES_RULE_LOGIC]
+		if(logictype)
+			switch(logictype.get_value())
+				if(NL_AND)
+					for(var/R in 1 to min(rule_amt, 5))
+						var/datum/nanite_rule/rule = rules[R]
+						if(!rule.check_rule())
+							return FALSE
+				if(NL_OR)
+					for(var/R in 1 to min(rule_amt, 5))
+						var/datum/nanite_rule/rule = rules[R]
+						if(rule.check_rule())
+							return TRUE
+					return FALSE
+				if(NL_NOR)
+					for(var/R in 1 to min(rule_amt, 5))
+						var/datum/nanite_rule/rule = rules[R]
+						if(rule.check_rule())
+							return FALSE
+				if(NL_NAND)
+					for(var/R in 1 to min(rule_amt, 5))
+						var/datum/nanite_rule/rule = rules[R]
+						if(!rule.check_rule())
+							return TRUE
+					return FALSE
+		else
+			for(var/R in 1 to min(rule_amt, 5))
+				var/datum/nanite_rule/rule = rules[R]
+				if(!rule.check_rule())
+					return FALSE
 	return TRUE
 
 //Constantly procs as long as the program is active
@@ -326,7 +328,7 @@
 			nanites.add_program(null, rogue, src)
 			qdel(src)
 
-/datum/nanite_program/proc/receive_signal(code, source)
+/datum/nanite_program/proc/receive_nanite_signal(code, source)
 	if(activation_code && code == activation_code && !activated)
 		activate()
 		host_mob.investigate_log("'s [name] nanite program was activated by [source] with code [code]. Cloud No.[nanites.cloud_id]", INVESTIGATE_NANITES)
