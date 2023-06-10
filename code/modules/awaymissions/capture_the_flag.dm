@@ -613,7 +613,7 @@
 /obj/effect/ctf
 	density = FALSE
 	anchored = TRUE
-	invisibility = INVISIBILITY_OOC_INFORMATION
+	invisibility = INVISIBILITY_OBSERVER
 	alpha = 100
 	resistance_flags = INDESTRUCTIBLE
 

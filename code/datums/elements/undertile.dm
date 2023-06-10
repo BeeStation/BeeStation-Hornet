@@ -8,7 +8,7 @@
 
 	///the invisiblity trait applied, like TRAIT_T_RAY_VISIBLE
 	var/invisibility_trait
-	///level of invisibility applied when under a tile. Could be INVISIBILITY_OOC_INFORMATION if you still want it to be visible to ghosts
+	///level of invisibility applied when under a tile. Could be INVISIBILITY_OBSERVER if you still want it to be visible to ghosts
 	var/invisibility_level
 	///an overlay for the tile if we wish to apply that
 	var/tile_overlay

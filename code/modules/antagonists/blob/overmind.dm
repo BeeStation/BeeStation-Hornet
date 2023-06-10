@@ -14,7 +14,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	mouse_opacity = MOUSE_OPACITY_ICON
 	move_on_shuttle = 1
 	see_in_dark = 8
-	invisibility = INVISIBILITY_OOC_INFORMATION
+	invisibility = INVISIBILITY_OBSERVER
 	layer = FLY_LAYER
 
 	pass_flags = PASSBLOB

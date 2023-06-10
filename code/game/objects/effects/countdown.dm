@@ -11,7 +11,7 @@
 	var/started = FALSE
 	var/displayed_text
 	var/atom/attached_to
-	invisibility = INVISIBILITY_OOC_INFORMATION
+	invisibility = INVISIBILITY_OBSERVER
 	layer = TEXT_EFFECT_UI_LAYER
 
 /obj/effect/countdown/Initialize(mapload)
