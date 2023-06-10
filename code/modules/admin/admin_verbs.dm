@@ -19,7 +19,8 @@ GLOBAL_PROTECT(admin_verbs_default)
 	/client/proc/cmd_admin_pm_panel,		/*admin-pm list*/
 	/client/proc/stop_sounds,
 	/client/proc/mark_datum_mapview,
-	/client/proc/requests
+	/client/proc/requests,
+	/client/proc/fax_manager
 	)
 GLOBAL_LIST_INIT(admin_verbs_admin, world.AVerbsAdmin())
 GLOBAL_PROTECT(admin_verbs_admin)
@@ -73,6 +74,7 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/client/proc/colorasay,
 	/client/proc/resetasaycolor,
 	/client/proc/toggleadminhelpsound,
+	/client/proc/toggleadminalertsound,
 	/client/proc/respawn_character,
 	/datum/admins/proc/open_borgopanel,
 	/client/proc/fix_say,

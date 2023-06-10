@@ -39,6 +39,7 @@
 	icon_dead = "rabbit_white_dead"
 	speak = list("Hop into Easter!","Come get your eggs!","Prizes for everyone!")
 	speak_emote = list("sniffles","twitches")
+	speak_language = /datum/language/metalanguage // everyone should understand happy easter
 	emote_hear = list("hops.")
 	emote_see = list("hops around","bounces up and down")
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 1)
@@ -90,7 +91,6 @@
 	icon_state = "bunnyhead"
 	item_state = "bunnyhead"
 	desc = "Considerably more cute than 'Frank'."
-	slowdown = -1
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 
 /obj/item/clothing/suit/bunnysuit
@@ -98,7 +98,7 @@
 	desc = "Hop Hop Hop!"
 	icon_state = "bunnysuit"
 	item_state = "bunnysuit"
-	slowdown = -1
+	slowdown = -0.2
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 

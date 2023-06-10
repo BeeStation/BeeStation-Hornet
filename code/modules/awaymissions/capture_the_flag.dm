@@ -188,11 +188,7 @@
 
 /obj/machinery/capture_the_flag/Initialize(mapload)
 	. = ..()
-	GLOB.poi_list |= src
-
-/obj/machinery/capture_the_flag/Destroy()
-	GLOB.poi_list.Remove(src)
-	..()
+	AddElement(/datum/element/point_of_interest)
 
 /obj/machinery/capture_the_flag/process(delta_time)
 	for(var/mob/living/M as() in spawned_mobs)

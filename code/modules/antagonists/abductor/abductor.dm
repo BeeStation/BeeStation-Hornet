@@ -95,12 +95,12 @@
 
 /datum/antagonist/abductor/scientist/on_gain()
 	ADD_TRAIT(owner, TRAIT_ABDUCTOR_SCIENTIST_TRAINING, ABDUCTOR_ANTAGONIST)
-	ADD_TRAIT(owner, TRAIT_SURGEON, ABDUCTOR_ANTAGONIST)
+	ADD_TRAIT(owner, TRAIT_ALL_SURGERIES, ABDUCTOR_ANTAGONIST)
 	. = ..()
 
 /datum/antagonist/abductor/scientist/on_removal()
 	REMOVE_TRAIT(owner, TRAIT_ABDUCTOR_SCIENTIST_TRAINING, ABDUCTOR_ANTAGONIST)
-	REMOVE_TRAIT(owner, TRAIT_SURGEON, ABDUCTOR_ANTAGONIST)
+	REMOVE_TRAIT(owner, TRAIT_ALL_SURGERIES, ABDUCTOR_ANTAGONIST)
 	. = ..()
 
 /datum/antagonist/abductor/admin_add(datum/mind/new_owner,mob/admin)
@@ -142,8 +142,12 @@
 
 /datum/team/abductor_team/New()
 	..()
+	var/static/list/left_team_names = GLOB.greek_letters.Copy() //TODO Ensure unique and actual alieny names (this is a TO-DO from 2018)
 	team_number = team_count++
-	name = "Mothership [pick(GLOB.possible_changeling_IDs)]" //TODO Ensure unique and actual alieny names
+	if(length(left_team_names))
+		name = "Mothership [pick_n_take(left_team_names)]"
+	else
+		name = "No.[team_number] Mothership [pick(GLOB.greek_letters)]"
 	add_objective(new/datum/objective/experiment)
 
 /datum/team/abductor_team/is_solo()

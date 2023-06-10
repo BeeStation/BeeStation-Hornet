@@ -74,7 +74,7 @@
 	bonus_reagents = list(/datum/reagent/consumable/ketchup = 1)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/ketchup = 2)
 	tastes = list("meat" = 1)
-	foodtype = JUNKFOOD | MEAT | GROSS | FRIED | BREAKFAST
+	foodtype = JUNKFOOD | MEAT | GORE | FRIED | BREAKFAST
 	is_decorated = TRUE
 
 /obj/item/reagent_containers/food/snacks/donut/berry
@@ -347,6 +347,31 @@
 	tastes = list("muffin" = 3, "spookiness" = 1)
 	foodtype = GRAIN | FRUIT | SUGAR | BREAKFAST
 
+/obj/item/reagent_containers/food/snacks/muffin/moffin
+	name = "moffin"
+	icon_state = "moffin"
+	desc = "A delicous and spongy little cake."
+	tastes = list("muffin" = 3, "dust" = 1, "lint" = 1)
+	foodtype = CLOTH | GRAIN | SUGAR | BREAKFAST
+
+/obj/item/reagent_containers/food/snacks/muffin/moffin/Initialize(mapload)
+	. = ..()
+	icon_state = "[icon_state]_[rand(1, 3)]"
+
+/obj/item/reagent_containers/food/snacks/muffin/moffin/examine(mob/user)
+	. = ..()
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
+
+		if(!T) ///no tongue means no taste
+			return
+
+		if(foodtype & T.toxic_food & T.disliked_food)
+			to_chat(H,"<span class='warning'>You're not too sure what's on top though...</span>")
+		else if(foodtype & T.liked_food)
+			to_chat(H,"<span class='nicegreen'>Ooh! It's even got bits of clothes on it! Yummy!</span>")
+
 /obj/item/reagent_containers/food/snacks/chawanmushi
 	name = "chawanmushi"
 	desc = "A legendary egg custard that makes friends out of enemies. Probably too hot for a cat to eat."
@@ -372,14 +397,15 @@
 
 /obj/item/reagent_containers/food/snacks/soylentgreen
 	name = "\improper Soylent Green"
-	desc = "Not made of people. Honest." //Totally people.
+	desc = "Not made of people. Honest*." //Totally people.
 	icon_state = "soylent_green"
 	trash = /obj/item/trash/waffles
 	bonus_reagents = list(/datum/reagent/consumable/nutriment/vitamin = 1)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/nutriment/vitamin = 1)
 	filling_color = "#9ACD32"
 	tastes = list("waffles" = 7, "people" = 1)
-	foodtype = GRAIN | GROSS | MEAT
+	// The wafers are supposed to be flavorful and nutritious in the movie. They shouldn't be gross in a dystopian future where the chef regularly feeds people from the morgue to you.
+	foodtype = GRAIN | MEAT
 
 /obj/item/reagent_containers/food/snacks/soylenviridians
 	name = "\improper Soylent Virdians"

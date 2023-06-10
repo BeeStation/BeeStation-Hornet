@@ -286,6 +286,7 @@
 				log_game("The blood cult was given halos at cult population of [cultplayers].")
 				addtimer(CALLBACK(src, PROC_REF(ascend), B.current), 200)
 		cult_ascendent = TRUE
+		set_dynamic_high_impact_event("cult has gained halos")
 
 
 /datum/team/cult/proc/rise(cultist)

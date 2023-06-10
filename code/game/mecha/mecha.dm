@@ -139,7 +139,7 @@
 	add_scanmod()
 	add_capacitor()
 	START_PROCESSING(SSobj, src)
-	GLOB.poi_list |= src
+	AddElement(/datum/element/point_of_interest)
 	log_message("[src.name] created.", LOG_MECHA)
 	GLOB.mechas_list += src //global mech list
 	prepare_huds()
@@ -187,7 +187,6 @@
 	if(AI)
 		AI.gib() //No wreck, no AI to recover
 	STOP_PROCESSING(SSobj, src)
-	GLOB.poi_list.Remove(src)
 	equipment.Cut()
 	cell = null
 	scanmod = null
@@ -668,7 +667,7 @@
 			if(nextsmash < world.time)
 				obstacle.mech_melee_attack(src)
 				nextsmash = world.time + smashcooldown
-				if(!obstacle || obstacle.CanPass(src,get_step(src,dir)))
+				if(!obstacle || obstacle.CanPass(src, get_dir(obstacle, src) || dir)) // The else is in case the obstacle is in the same turf.
 					step(src,dir)
 		if(isobj(obstacle))
 			var/obj/O = obstacle

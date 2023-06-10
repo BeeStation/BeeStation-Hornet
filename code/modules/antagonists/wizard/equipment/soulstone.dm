@@ -333,7 +333,7 @@
 	var/mob/dead/observer/chosen_ghost
 
 	for(var/mob/dead/observer/ghost in GLOB.player_list) //We put them back in their body
-		if(ghost.mind && ghost.mind.current == T && ghost.client)
+		if(ghost.mind && ghost.mind.current == T && ghost.client && ghost.can_reenter_corpse)
 			chosen_ghost = ghost
 			break
 

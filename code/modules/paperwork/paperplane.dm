@@ -24,10 +24,8 @@
 
 /obj/item/origami/paperplane/update_icon()
 	cut_overlays()
-	var/list/stamped = internalPaper.stamped
-	if(stamped)
-		for(var/S in stamped)
-			add_overlay("paperplane_[S]")
+	for(var/stamp in internalPaper.stamp_cache)
+		add_overlay("paperplane_[stamp]")
 
 /obj/item/origami/paperplane/attack_self(mob/user)
 	to_chat(user, "<span class='notice'>You unfold [src].</span>")

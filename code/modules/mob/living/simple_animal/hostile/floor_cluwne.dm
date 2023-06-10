@@ -52,7 +52,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 /mob/living/simple_animal/hostile/floor_cluwne/Initialize(mapload)
 	. = ..()
 	access_card = new /obj/item/card/id(src)
-	access_card.access = get_all_accesses()//THERE IS NO ESCAPE
+	access_card.access = get_all_accesses() //THERE IS NO ESCAPE
 	ADD_TRAIT(access_card, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 	invalid_area_typecache = typecacheof(invalid_area_typecache)
 	Manifest()
@@ -444,11 +444,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	. = ..()
 	GLOB.floor_cluwnes++
 	name += " ([GLOB.floor_cluwnes])"
-	GLOB.poi_list += src
-
-/obj/effect/dummy/floorcluwne_orbit/Destroy()
-	. = ..()
-	GLOB.poi_list -= src
+	AddElement(/datum/element/point_of_interest)
 
 #undef STAGE_HAUNT
 #undef STAGE_SPOOK
