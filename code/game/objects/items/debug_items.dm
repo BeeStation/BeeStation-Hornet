@@ -291,8 +291,10 @@
 		TRAIT_METALANGUAGE_KEY_ALLOWED
 	)
 
-/obj/item/debug/orb_of_power/pickup(mob/living/user)
+/obj/item/debug/orb_of_power/pickup(mob/user)
 	. = ..()
+	if(!isliving(user))
+		return .
 	for(var/each in traits_to_give)
 		ADD_TRAIT(user, each, "debug")
 	user.grant_all_languages(TRUE, TRUE, TRUE, "debug")
