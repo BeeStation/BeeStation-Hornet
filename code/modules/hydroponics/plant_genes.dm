@@ -526,7 +526,7 @@
 /datum/plant_gene/trait/richer_juice
 	name = "Richer Juice"
 	rate = 2
-	trait_id = "chem_boots"
+	trait_id = "chem_boost"
 
 /datum/plant_gene/trait/plant_type // Parent type
 	name = "you shouldn't see this"
