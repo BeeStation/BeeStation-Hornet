@@ -15,7 +15,7 @@
 	var/stasis = FALSE
 	mob_biotypes = list(MOB_SPIRIT)
 	incorporeal_move = INCORPOREAL_MOVE_JAUNT
-	see_invisible = SEE_INVISIBLE_OBSERVER
+	see_invisible = SEE_INVISIBLE_GHOSTLY
 	invisibility = INVISIBILITY_GHOSTLY
 	health = INFINITY //Revenants don't use health, they use essence instead
 	maxHealth = INFINITY
