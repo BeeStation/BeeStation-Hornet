@@ -52,6 +52,7 @@
 		preferences.be_special |= antags
 	else
 		preferences.be_special -= antags
+	preferences.mark_undatumized_dirty_player()
 
 	// This is predicted on the client
 	return FALSE

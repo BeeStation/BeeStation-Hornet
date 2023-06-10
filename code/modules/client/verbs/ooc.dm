@@ -231,7 +231,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	else
 		prefs.ignoring |= C.key
 	to_chat(src, "You are [(C.key in prefs.ignoring) ? "now" : "no longer"] ignoring [displayed_key] on the OOC channel.")
-	prefs.save_preferences()
+	prefs.mark_undatumized_dirty_player()
 
 /client/verb/select_ignore()
 	set name = "Ignore"

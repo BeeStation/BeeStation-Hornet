@@ -169,6 +169,7 @@
 
 			else
 				preference_source.prefs.equipped_gear -= gear
+				preference_source.prefs.mark_undatumized_dirty_character()
 
 	if(gear_leftovers.len)
 		for(var/datum/gear/G in gear_leftovers)

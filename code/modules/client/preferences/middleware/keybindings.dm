@@ -25,7 +25,7 @@
 	)
 
 /datum/preference_middleware/keybindings/proc/reset_all_keybinds(list/params, mob/user)
-	preferences.set_default_key_bindings()
+	preferences.set_default_key_bindings(save = TRUE)
 	preferences.update_static_data(user)
 
 	return TRUE
@@ -40,6 +40,7 @@
 	preferences.key_bindings[keybind_name] = keybinding.keys
 
 	preferences.update_static_data(user)
+	preferences.mark_undatumized_dirty_player()
 
 	return TRUE
 

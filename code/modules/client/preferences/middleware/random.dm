@@ -52,7 +52,7 @@
 		preferences.randomise -= requested_preference_key
 	else
 		return FALSE
-
+	preferences.mark_undatumized_dirty_character()
 	return TRUE
 
 /// Returns if a preference should be randomized.

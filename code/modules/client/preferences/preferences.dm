@@ -104,17 +104,19 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		CRASH("attempted to create a preferences datum without a client!")
 
 	// give them default keybinds and update their movement keys
-	set_default_key_bindings()
+	set_default_key_bindings(save = FALSE) // no point in saving these since everyone gets them. They'll be saved if needed.
 	randomise = get_default_randomization()
 
 	var/loaded_preferences_successfully = load_preferences()
 	if(loaded_preferences_successfully)
 		if("6030fe461e610e2be3a2c3e75c06067e" in purchased_gear) //MD5 hash of, "extra character slot"
 			max_save_slots += 1
-		if(load_character())
+		if(load_character()) // This returns true if there is a database and character, or a new character was created.
 			return
+	// Begin no database OR new player logic. This ONLY fires if there is an SQL error or no database OR the player is new.
+
 	// TODO tgui-prefs implement fallback species
-	if(!loaded_preferences_successfully)
+	if(!loaded_preferences_successfully) // create a new character object
 		character_data = new(src, default_slot)
 	// We couldn't load character data so just randomize the character appearance
 	randomise_appearance_prefs()
@@ -122,11 +124,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		apply_all_client_preferences() // apply now since normally this is done in load_preferences(). Defaults were set in preferences_player
 		parent.set_macros()
 
-	// If this was a NEW CKEY ENTRY, and not a guest key, save it.
+	// If this was a NEW CKEY ENTRY, and not a guest key (handled in save_preferences()), save it.
 	if(!loaded_preferences_successfully)
+		// new players needs to write all entries, but no point in queueing a write since we're doing it anyway right now.
+		dirty_undatumized_preferences_character = TRUE
+		dirty_undatumized_preferences_player = TRUE
 		save_preferences()
-	// Save the newly created random character
-	save_character()
+		save_character()
 
 /datum/preferences/ui_interact(mob/user, datum/tgui/ui)
 	// If you leave and come back, re-register the character preview
@@ -211,6 +215,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 			// SAFETY: `load_character` performs sanitization the slot number
 			if (!load_character(params["slot"]))
+				// there is no character in the slot. Make a new one. Save it.
 				tainted_character_profiles = TRUE
 				randomise_appearance_prefs()
 				save_character()
@@ -286,7 +291,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	return FALSE
 
 /datum/preferences/ui_close(mob/user)
-	save_character(user.client)
+	save_character()
 	save_preferences()
 	QDEL_NULL(character_preview_view)
 
@@ -460,6 +465,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 		job_preferences -= job.title
 	else
 		job_preferences[job.title] = level
+	mark_undatumized_dirty_character()
 
 	return TRUE
 
@@ -532,10 +538,13 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 		return
 	key_bindings = _key_bindings
 	key_bindings_by_key = get_key_bindings_by_key(key_bindings)
+	mark_undatumized_dirty_player()
 
-/datum/preferences/proc/set_default_key_bindings()
+/datum/preferences/proc/set_default_key_bindings(save = FALSE)
 	key_bindings = deep_copy_list(GLOB.keybindings_by_name_to_key)
 	key_bindings_by_key = get_key_bindings_by_key(key_bindings)
+	if(save)
+		mark_undatumized_dirty_player()
 
 /datum/preferences/proc/set_keybind(keybind_name, hotkeys)
 	if (!(keybind_name in GLOB.keybindings_by_name))
@@ -544,23 +553,33 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 		return
 	key_bindings[keybind_name] = hotkeys
 	key_bindings_by_key = get_key_bindings_by_key(key_bindings)
+	mark_undatumized_dirty_player()
 
 /// Handles adding and removing donator items from clients
 /datum/preferences/proc/handle_donator_items()
 	var/datum/loadout_category/DLC = GLOB.loadout_categories["Donator"] // stands for donator loadout category but the other def for DLC works too xD
 	if(!CONFIG_GET(flag/donator_items)) // donator items are only accesibile by servers with a patreon
 		return
-	if(IS_PATRON(parent.ckey) || (parent in GLOB.admins))
+	if(IS_PATRON(parent.ckey) || is_admin(preferences.parent))
+		var/any_changed = FALSE
 		for(var/gear_id in DLC.gear)
 			var/datum/gear/AG = DLC.gear[gear_id]
 			if(AG.id in purchased_gear)
 				continue
+			any_changed = TRUE
 			purchased_gear += AG.id
 			AG.purchase(parent)
-		save_preferences()
+		if(any_changed)
+			mark_undatumized_dirty_player()
 	else if(length(purchased_gear) || length(equipped_gear))
+		var/any_changed = FALSE
 		for(var/gear_id in DLC.gear)
 			var/datum/gear/RG = DLC.gear[gear_id]
+			if(!(RG.id in purchased_gear) && !(RG.id in equipped_gear))
+				continue
+			any_changed = TRUE
 			equipped_gear -= RG.id
 			purchased_gear -= RG.id
-		save_preferences()
+		if(any_changed)
+			mark_undatumized_dirty_player()
+			mark_undatumized_dirty_character()

@@ -144,3 +144,22 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 // randomise_appearance_prefs() and randomize_human_appearance() proc flags
 #define RANDOMIZE_SPECIES (1<<0)
 #define RANDOMIZE_NAME (1<<1)
+
+
+// Undatumized preference tags
+
+#define PREFERENCE_TAG_TOGGLES			"toggles"
+#define PREFERENCE_TAG_LAST_CL			"last_changelog"
+#define PREFERENCE_TAG_DEFAULT_SLOT		"default_slot"
+#define PREFERENCE_TAG_IGNORING			"ignoring"
+#define PREFERENCE_TAG_KEYBINDS			"key_bindings"
+#define PREFERENCE_TAG_PURCHASED_GEAR	"purchased_gear"
+#define PREFERENCE_TAG_BE_SPECIAL		"be_special"
+#define PREFERENCE_TAG_PAI_NAME			"pai_name"
+#define PREFERENCE_TAG_PAI_DESCRIPTION	"pai_description"
+#define PREFERENCE_TAG_PAI_COMMENT		"pai_comment"
+
+#define CHARACTER_PREFERENCE_RANDOMISE "randomise"
+#define CHARACTER_PREFERENCE_JOB_PREFERENCES "job_preferences"
+#define CHARACTER_PREFERENCE_ALL_QUIRKS "all_quirks"
+#define CHARACTER_PREFERENCE_EQUIPPED_GEAR "equipped_gear"

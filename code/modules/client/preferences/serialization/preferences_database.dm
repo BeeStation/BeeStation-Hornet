@@ -1,3 +1,32 @@
+/datum/preferences/var/dirty_undatumized_preferences_player = FALSE
+/datum/preferences/var/dirty_undatumized_preferences_character = FALSE
+
+/// Marks undatumized preferences as dirty, so it will be serialized on the next preference write.
+/// Queues a preference write.
+/// Use this for player preferences only.
+/datum/preferences/proc/mark_undatumized_dirty_player()
+	if(IS_GUEST_KEY(parent.ckey)) // NO saving guests to the DB!
+		return FALSE
+	dirty_undatumized_preferences_player = TRUE
+	SSpreferences.queue_write(src)
+
+/// Marks undatumized preferences as dirty, so it will be serialized on the next preference write.
+/// Queues a preference write.
+/// Use this for character preferences only.
+/datum/preferences/proc/mark_undatumized_dirty_character()
+	if(IS_GUEST_KEY(parent.ckey)) // NO saving guests to the DB!
+		return FALSE
+	dirty_undatumized_preferences_character = TRUE
+	SSpreferences.queue_write(src)
+
+/// If any character preference is dirty.
+/datum/preferences/proc/ready_to_save_character()
+	return dirty_undatumized_preferences_character || length(character_data.dirty_prefs)
+
+/// If any player preference is dirty.
+/datum/preferences/proc/ready_to_save_player()
+	return dirty_undatumized_preferences_player || length(player_data.dirty_prefs)
+
 // Defines for list sanity
 #define READPREF_STR(target, tag) if(prefmap[tag]) target = prefmap[tag]
 #define READPREF_INT(target, tag) if(prefmap[tag]) target = text2num(prefmap[tag])
@@ -11,17 +40,6 @@
 	} catch {\
 		pass();\
 	} // we dont need error handling where were going
-
-#define PREFERENCE_TAG_TOGGLES			"toggles"
-#define PREFERENCE_TAG_LAST_CL			"last_changelog"
-#define PREFERENCE_TAG_DEFAULT_SLOT		"default_slot"
-#define PREFERENCE_TAG_IGNORING			"ignoring"
-#define PREFERENCE_TAG_KEYBINDS			"key_bindings"
-#define PREFERENCE_TAG_PURCHASED_GEAR	"purchased_gear"
-#define PREFERENCE_TAG_BE_SPECIAL		"be_special"
-#define PREFERENCE_TAG_PAI_NAME			"pai_name"
-#define PREFERENCE_TAG_PAI_DESCRIPTION	"pai_description"
-#define PREFERENCE_TAG_PAI_COMMENT		"pai_comment"
 
 /datum/preferences/proc/load_preferences()
 	// Get the datumized stuff first
@@ -77,7 +95,7 @@
 	key_bindings 	= sanitize_islist(key_bindings, deep_copy_list(GLOB.keybindings_by_name_to_key))
 	key_bindings_by_key = get_key_bindings_by_key(key_bindings)
 	if (!length(key_bindings))
-		set_default_key_bindings()
+		set_default_key_bindings(save = TRUE)
 	else
 		var/any_changed = FALSE
 		for(var/key_name in GLOB.keybindings_by_name)
@@ -88,7 +106,7 @@
 			set_keybind(key_name, keybind.keys.Copy())
 			any_changed = TRUE
 		if(any_changed)
-			save_keybinds() // Write the new keybinds to the database.
+			mark_undatumized_dirty_player() // Write the new keybinds to the database.
 	apply_all_client_preferences()
 	return TRUE
 
@@ -106,6 +124,10 @@
 		return FALSE
 	if(!player_data?.write_to_database(src))
 		return FALSE
+	if(!dirty_undatumized_preferences_player) // Nothing to write. Call it a success.
+		return TRUE
+	dirty_undatumized_preferences_player = FALSE // we edit this immediately, since the DB query sleeps, the var could be modified during the sleep.
+	to_chat(parent, "<span class='notice'>Writing player undatumized</span>") // debug tgui-prefs
 	var/list/datum/DBQuery/write_queries = list() // do not rename this you muppet
 
 	PREP_WRITEPREF_STR(default_slot, PREFERENCE_TAG_DEFAULT_SLOT)
@@ -125,24 +147,8 @@
 	SSdbcore.QuerySelect(write_queries, TRUE, TRUE)
 	return TRUE
 
-/datum/preferences/proc/save_keybinds()
-	var/list/datum/DBQuery/write_queries = list()
-	PREP_WRITEPREF_JSONENC(key_bindings, PREFERENCE_TAG_KEYBINDS)
-	SSdbcore.QuerySelect(write_queries, TRUE, TRUE)
-
 #undef PREP_WRITEPREF_STR
 #undef PREP_WRITEPREF_JSONENC
-
-#undef PREFERENCE_TAG_TOGGLES
-#undef PREFERENCE_TAG_LAST_CL
-#undef PREFERENCE_TAG_DEFAULT_SLOT
-#undef PREFERENCE_TAG_IGNORING
-#undef PREFERENCE_TAG_KEYBINDS
-#undef PREFERENCE_TAG_PURCHASED_GEAR
-#undef PREFERENCE_TAG_BE_SPECIAL
-#undef PREFERENCE_TAG_PAI_NAME
-#undef PREFERENCE_TAG_PAI_DESCRIPTION
-#undef PREFERENCE_TAG_PAI_COMMENT
 
 #define JSONREAD_PREF(target, tag) \
 	try {\
@@ -157,17 +163,13 @@
 		pass();\
 	} // we dont need error handling where were going
 
-#define CHARACTER_PREFERENCE_RANDOMISE "randomise"
-#define CHARACTER_PREFERENCE_JOB_PREFERENCES "job_preferences"
-#define CHARACTER_PREFERENCE_ALL_QUIRKS "all_quirks"
-#define CHARACTER_PREFERENCE_EQUIPPED_GEAR "equipped_gear"
-
 /datum/preferences/proc/load_character(slot)
 	if(!slot)
 		slot = default_slot
 	slot = sanitize_integer(slot, 1, max_save_slots, initial(default_slot))
 	if(slot != default_slot)
 		default_slot = slot
+		mark_undatumized_dirty_player()
 
 	character_data = new(src, slot)
 	if(!character_data.load_from_database(src)) // checks db connection
@@ -221,6 +223,7 @@
 	for(var/j in job_preferences)
 		if(job_preferences[j] != JP_LOW && job_preferences[j] != JP_MEDIUM && job_preferences[j] != JP_HIGH)
 			job_preferences -= j
+			mark_undatumized_dirty_character()
 	return TRUE
 
 #undef JSONREAD_PREF
@@ -235,6 +238,10 @@
 		return FALSE
 	if(!character_data?.write_to_database(src))
 		return FALSE
+	if(!dirty_undatumized_preferences_character) // Nothing to write. Call it a success.
+		return TRUE
+	dirty_undatumized_preferences_character = FALSE // we edit this immediately, since the DB query sleeps, the var could be modified during the sleep.
+	to_chat(parent, "<span class='notice'>Writing character undatumized</span>") // debug tgui-prefs
 
 	// DO NOT RENAME THESE LISTS! THANKS!! <3
 	var/list/column_names = list()
@@ -258,10 +265,6 @@
 
 #undef WRITEPREF_STR
 #undef WRITEPREF_JSONENC
-#undef CHARACTER_PREFERENCE_RANDOMISE
-#undef CHARACTER_PREFERENCE_JOB_PREFERENCES
-#undef CHARACTER_PREFERENCE_ALL_QUIRKS
-#undef CHARACTER_PREFERENCE_EQUIPPED_GEAR
 
 /datum/preferences_holder
 	/// A map of db_key -> value. Data type varies.
@@ -307,5 +310,8 @@
 	if (!preference.is_valid(new_value))
 		return FALSE
 	preference_data[preference.db_key] = new_value
+	if(IS_GUEST_KEY(parent.ckey)) // NO saving guests to the DB!
+		return TRUE
 	dirty_prefs |= preference.db_key
+	SSpreferences.queue_write(preferences)
 	return TRUE

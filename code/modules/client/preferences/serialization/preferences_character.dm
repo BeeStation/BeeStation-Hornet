@@ -80,6 +80,7 @@
 			column_names_short += column_name
 	if(!length(column_names_short)) // nothing to update
 		return TRUE
+	to_chat(prefs.parent, "<span class='notice'>Writing character datumized</span>") // debug tgui-prefs
 	new_data["ckey"] = prefs.parent.ckey
 	new_data["slot"] = slot_number
 	var/datum/DBQuery/Q = SSdbcore.NewQuery(

@@ -9,7 +9,7 @@
 	data["equipped_gear"] = preferences.equipped_gear
 	data["purchased_gear"] = preferences.purchased_gear
 	data["metacurrency_balance"] = preferences.parent.get_metabalance()
-	data["is_donator"] = (IS_PATRON(preferences.parent.ckey) || (preferences.parent in GLOB.admins))
+	data["is_donator"] = (IS_PATRON(preferences.parent.ckey) || is_admin(preferences.parent))
 	return data
 
 /datum/preference_middleware/loadout/get_constant_data()
@@ -56,7 +56,7 @@
 		preferences.purchased_gear += TG.id
 		TG.purchase(user.client)
 		user.client.inc_metabalance((TG.cost * -1), TRUE, "Purchased [TG.display_name].")
-		preferences.save_preferences()
+		preferences.mark_undatumized_dirty_player()
 		return TRUE
 	else
 		to_chat(user, "<span class='warning'>You don't have enough [CONFIG_GET(string/metacurrency_name)]s to purchase \the [TG.display_name]!</span>")
@@ -68,6 +68,7 @@
 	if(TG.id in preferences.equipped_gear)
 		preferences.equipped_gear -= TG.id
 		preferences.character_preview_view?.update_body()
+		preferences.mark_undatumized_dirty_character()
 		return TRUE
 	else
 		var/list/type_blacklist = list()
@@ -83,10 +84,10 @@
 			if(!(TG.subtype_path in type_blacklist) || !(TG.slot in slot_blacklist))
 				preferences.equipped_gear += TG.id
 				preferences.character_preview_view?.update_body()
+				preferences.mark_undatumized_dirty_character()
 				return TRUE
 			else
 				to_chat(user, "<span class='warning'>Can't equip [TG.display_name]. It conflicts with an already-equipped item.</span>")
 		else
 			log_href_exploit(user, "Attempting to equip [TG.type] when they do not own it.")
 			return TRUE
-	preferences.save_preferences()

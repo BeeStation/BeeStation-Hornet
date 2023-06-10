@@ -62,7 +62,7 @@
 		return TRUE*/
 
 	preferences.all_quirks = new_quirks
-
+	preferences.mark_undatumized_dirty_character()
 	return TRUE
 
 /datum/preference_middleware/quirks/proc/remove_quirk(list/params, mob/user)
@@ -80,7 +80,7 @@
 		return TRUE*/
 
 	preferences.all_quirks = new_quirks
-
+	preferences.mark_undatumized_dirty_character()
 	return TRUE
 
 /datum/preference_middleware/quirks/proc/get_selected_quirks()

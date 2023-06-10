@@ -528,7 +528,6 @@
 				if(src == H.glasses)
 					var/current_color = H.client.prefs.read_player_preference(/datum/preference/toggle/glasses_color)
 					H.client.prefs.update_preference(/datum/preference/toggle/glasses_color, !current_color)
-					H.client.prefs.save_preferences()
 					if(!current_color)
 						to_chat(H, "You will now see glasses colors.")
 					else

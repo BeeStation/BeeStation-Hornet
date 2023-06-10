@@ -9,6 +9,8 @@
 			if (preference.preference_type != pref_type)
 				continue
 			preference_data[preference.db_key] = preference.deserialize(preference.create_informed_default_value(prefs), prefs)
+		// TODO tgui-prefs initialize undatumized prefs here?
+		// no idiot put that in save_preferences() if this returns false.
 		return FALSE
 	return TRUE
 
@@ -22,6 +24,7 @@
 	if(!Q.warn_execute())
 		qdel(Q)
 		return FALSE
+	var/any_data = FALSE
 	while(Q.NextRow())
 		var/db_key = Q.item[1]
 		var/value = Q.item[2]
@@ -31,8 +34,9 @@
 			//CRASH("Unknown preference tag in database: [db_key] for ckey [prefs.parent.ckey]")
 			continue
 		preference_data[db_key] = isnull(value) ? null : preference.deserialize(value, prefs)
+		any_data = TRUE
 	qdel(Q)
-	return TRUE
+	return any_data
 
 /datum/preferences_holder/preferences_player/proc/write_to_database(datum/preferences/prefs)
 	. = write_data(prefs)
@@ -55,7 +59,7 @@
 		))
 	if(!length(sql_inserts)) // nothing to update
 		return TRUE
-
+	to_chat(prefs.parent, "<span class='notice'>Writing player datumized</span>") // debug tgui-prefs
 	var/success = SSdbcore.MassInsert(format_table_name("preferences"), sql_inserts, duplicate_key = TRUE, warn = TRUE)
 	if(!success)
 		to_chat(usr, "<span class='boldannounce'>Failed to save your player preferences. Please inform the server operator.</span>")

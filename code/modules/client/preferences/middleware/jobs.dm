@@ -7,6 +7,7 @@
 /datum/preference_middleware/jobs/proc/clear_job_preferences(list/params, mob/user)
 	preferences.job_preferences = list()
 	preferences.character_preview_view?.update_body()
+	preferences.mark_undatumized_dirty_character()
 	return TRUE
 
 /datum/preference_middleware/jobs/proc/set_job_preference(list/params, mob/user)
@@ -28,7 +29,6 @@
 		return FALSE
 
 	preferences.character_preview_view?.update_body()
-
 	return TRUE
 
 /datum/preference_middleware/jobs/get_constant_data()
