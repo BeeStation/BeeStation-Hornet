@@ -244,7 +244,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MOTH_BURNT		"moth_burnt"
 #define TRAIT_SPECIAL_TRAUMA_BOOST "special_trauma_boost" ///Increases chance of getting special traumas, makes them harder to cure
 #define TRAIT_METALANGUAGE_KEY_ALLOWED "metalanguage_key_allowed" // you can use language key for metalanguage (,`) and but also you see lang icon
-#define TRAIT_MINDREAD          "mindread" // reads your reckon
+#define TRAIT_MINDREAD          "mindread"  // reads your reckon
 #define TRAIT_THOUGHTBARRIOR       "thoughtbarrior" // protection from mindread - unable to read your reckon
 
 // You can stare into the abyss, but it does not stare back.
