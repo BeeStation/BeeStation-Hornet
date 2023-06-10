@@ -101,10 +101,7 @@
 	if(src!=M.head)
 		return ..()
 	if(!magnification)
-		if(!user.ckey)
-			connect(user)
-			return
-		return ..() //I don't know how we got here, but we did
+		return ..() //In case the monkey was already sentient
 
 	//Spam? No thanks, we're good.
 	if(cooldown_expiry > world.time)
