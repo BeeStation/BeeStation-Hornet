@@ -1,9 +1,6 @@
 /datum/antagonist/nukeop
 	tips = "nukie"
 
-/datum/antagonist/abductor
-	tips = "abductor"
-
 /datum/antagonist/cult
 	tips = "cult"
 
