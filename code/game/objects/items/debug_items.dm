@@ -293,14 +293,11 @@
 
 /obj/item/debug/orb_of_power/pickup(mob/user)
 	. = ..()
-	if(!isliving(user))
-		return .
 	for(var/each in traits_to_give)
 		ADD_TRAIT(user, each, "debug")
 	user.grant_all_languages(TRUE, TRUE, TRUE, "debug")
 	user.grant_language(/datum/language/metalanguage, TRUE, TRUE, "debug")
 	user.see_override = SEE_INVISIBLE_OBSERVER
-	user.update_sight()
 
 	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	hud.add_hud_to(user)
@@ -308,6 +305,11 @@
 	hud.add_hud_to(user)
 	hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
 	hud.add_hud_to(user)
+	
+	if(!isliving(user))
+		return .
+	var/mob/living/picker = user
+	picker.update_sight()
 
 
 /obj/item/debug/orb_of_power/dropped(mob/living/carbon/human/user)
