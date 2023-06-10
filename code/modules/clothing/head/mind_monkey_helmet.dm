@@ -77,9 +77,9 @@
 	qdel(magnification)
 
 /obj/item/clothing/head/monkey_sentience_helmet/proc/disconnect()
-	if(!magnification) //not put on a viable head
+	if(!magnification) //Are we important right now?
 		return
-	if(polling)//put on a viable head, but taken off after polling finished.
+	if(polling) //In case somehow the timers are changed or someone else figures out how to, this is retribution for disturbing the dead for no reason
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 		playsound(src, "sparks", 100, TRUE)
 		visible_message("<span class='warning'>[src] fizzles and breaks apart!</span>")
