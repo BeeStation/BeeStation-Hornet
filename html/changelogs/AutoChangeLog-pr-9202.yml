@@ -1,0 +1,4 @@
+author: Archanial
+delete-after: true
+changes:
+  - bugfix: fixed nanite healing program without a host.
