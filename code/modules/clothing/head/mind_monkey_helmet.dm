@@ -37,6 +37,9 @@
 	. = ..()
 	if(slot != ITEM_SLOT_HEAD)
 		return
+	connect(user)
+
+/obj/item/clothing/head/monkey_sentience_helmet/proc/connect(mob/user)
 	if(!ismonkey(user) || user.ckey)
 		var/mob/living/something = user
 		to_chat(something, "<span class='boldnotice'>You feel a stabbing pain in the back of your head for a moment.</span>")
@@ -97,6 +100,11 @@
 	var/mob/living/carbon/monkey/M = user
 	if(src!=M.head)
 		return ..()
+	if(!magnification)
+		if(!user.ckey)
+			connect(user)
+			return
+		return ..() //I don't know how we got here, but we did
 
 	//Spam? No thanks, we're good.
 	if(cooldown_expiry > world.time)
