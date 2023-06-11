@@ -1,23 +1,33 @@
+#define REAGENT_AMOUNT_PER_ITEM 20 //The amount of reagents medical items contain, for both application and grinding purposes.
+
 /obj/item/stack/medical
 	name = "medical pack"
 	singular_name = "medical pack"
 	icon = 'icons/obj/stacks/miscellaneous.dmi'
-	amount = 6
-	max_amount = 6
+	amount = 12
+	max_amount = 12
 	w_class = WEIGHT_CLASS_TINY
 	full_w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
 	resistance_flags = FLAMMABLE
 	max_integrity = 40
 	novariants = FALSE
-	///How much brute does it heal?
-	var/heal_brute = 0
-	///How much burn does it heal?
-	var/heal_burn = 0
+	///What reagent does it apply?
+	var/list/reagent
+	///Is this for bruises?
+	var/heal_brute = FALSE
+	///Is this for burns?
+	var/heal_burn = FALSE
 	///For how long does it stop bleeding?
 	var/stop_bleeding = 0
 	///How long does it take to apply on yourself?
 	var/self_delay = 2 SECONDS
+
+/obj/item/stack/medical/Initialize(mapload, new_amount, merge, mob/user)
+	. = ..()
+	if(reagent)
+		create_reagents(REAGENT_AMOUNT_PER_ITEM)
+		reagents.add_reagent_list(reagent)
 
 /obj/item/stack/medical/attack(mob/living/M, mob/user)
 	if(!M || !user || (isliving(M) && !M.can_inject(user, TRUE))) //If no mob, user and if we can't inject the mob just return
@@ -33,16 +43,16 @@
 
 	if(isanimal(M))
 		var/mob/living/simple_animal/critter = M
-		if(!(critter.healable) || stop_bleeding)
+		if(!(critter.healable))
 			to_chat(user, "<span class='notice'>You cannot use [src] on [M]!</span>")
 			return
 		if(critter.health == critter.maxHealth)
 			to_chat(user, "<span class='notice'>[M] is at full health.</span>")
 			return
-		if(heal_brute < DAMAGE_PRECISION)
+		if(!heal_brute) //simplemobs can only take brute damage, and can only benefit from items intended to heal it
 			to_chat(user, "<span class='notice'>[src] won't help [M] at all.</span>")
 			return
-		M.heal_bodypart_damage((heal_brute * 0.5), (heal_burn * 0.5)) //half as effective on animals, since it's not made for them
+		M.heal_bodypart_damage(REAGENT_AMOUNT_PER_ITEM)
 		user.visible_message("<span class='green'>[user] applies [src] on [M].</span>", "<span class='green'>You apply [src] on [M].</span>")
 		use(1)
 		return
@@ -85,12 +95,21 @@
 		user.visible_message("<span class='notice'>[user] starts to apply [src] on [user.p_them()]self...</span>", "<span class='notice'>You begin applying [src] on yourself...</span>")
 		if(!do_after(user, self_delay, M))
 			return
+		//After the do_mob to ensure metabolites have had time to process at least one tick. 
+		if(reagent && (C.reagents.get_reagent_amount(/datum/reagent/metabolite/medicine/styptic_powder) || C.reagents.get_reagent_amount(/datum/reagent/metabolite/medicine/silver_sulfadiazine)))
+			to_chat(user, "<span class='warning'>That stuff really hurt! You'll need to wait for the pain to go away before you can apply [src] to your wounds again, maybe someone else can help put it on for you.</span>")
+			return
 
 	user.visible_message("<span class='green'>[user] applies [src] on [M].</span>", "<span class='green'>You apply [src] on [M].</span>")
-
-	if(affecting.heal_damage(heal_brute, heal_burn) || stop_bleeding)
+	if(reagent)
+		reagents.reaction(M, PATCH, affecting = affecting)
+		M.reagents.add_reagent_list(reagent) //Stack size is reduced by one instead of actually removing reagents from the stack.
 		C.update_damage_overlays()
-		use(1)
+	use(1)
+
+/obj/item/stack/medical/on_grind()
+	reagents.clear_reagents() //By default grinding returns all contained reagents + grind_results, and for stackable items we only want grind_results
+	. = ..()
 
 /obj/item/stack/medical/bruise_pack
 	name = "bruise pack"
@@ -99,8 +118,9 @@
 	icon_state = "brutepack"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	heal_brute = 40
-	grind_results = list(/datum/reagent/medicine/styptic_powder = 40)
+	heal_brute = TRUE
+	reagent = list(/datum/reagent/medicine/styptic_powder = REAGENT_AMOUNT_PER_ITEM)
+	grind_results = list(/datum/reagent/medicine/styptic_powder = REAGENT_AMOUNT_PER_ITEM)
 
 /obj/item/stack/medical/bruise_pack/one
 	amount = 1
@@ -115,8 +135,9 @@
 	icon_state = "ointment"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	heal_burn = 40
-	grind_results = list(/datum/reagent/medicine/silver_sulfadiazine = 40)
+	heal_burn = TRUE
+	reagent = list(/datum/reagent/medicine/silver_sulfadiazine = REAGENT_AMOUNT_PER_ITEM)
+	grind_results = list(/datum/reagent/medicine/silver_sulfadiazine = REAGENT_AMOUNT_PER_ITEM)
 
 /obj/item/stack/medical/ointment/one
 	amount = 1
@@ -130,7 +151,7 @@
 	desc = "A roll of elastic cloth that is extremely effective at stopping bleeding, heals minor bruising."
 	icon_state = "gauze"
 	stop_bleeding = 1800
-	heal_brute = 5 //Reminder that you can not stack healing thus you wait out the 1800 timer.
+	heal_brute = TRUE //Enables gauze to be used on simplemobs for healing
 	max_amount = 12
 
 /obj/item/stack/medical/gauze/attackby(obj/item/I, mob/user, params)

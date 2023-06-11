@@ -9,7 +9,7 @@
 	..()
 	var/static/list/anomaly_armour_types = list(
 		/obj/effect/anomaly/bluespace 	            = /obj/item/clothing/suit/armor/reactive/teleport,
-		/obj/effect/anomaly/delimber				= /obj/item/clothing/suit/armor/reactive/delimbering,
+		/obj/effect/anomaly/bioscrambler			= /obj/item/clothing/suit/armor/reactive/bioscrambling,
 		/obj/effect/anomaly/flux 	           		= /obj/item/clothing/suit/armor/reactive/tesla,
 		/obj/effect/anomaly/grav	                = /obj/item/clothing/suit/armor/reactive/repulse,
 		/obj/effect/anomaly/hallucination			= /obj/item/clothing/suit/armor/reactive/hallucinating
@@ -365,28 +365,28 @@
 	owner.hallucination = clamp(owner.hallucination, 0, 150)
 	return TRUE
 
-//Delimbering
+//Bioscrambling
 
-/obj/item/clothing/suit/armor/reactive/delimbering
-	name = "reactive delimbering armor"
+/obj/item/clothing/suit/armor/reactive/bioscrambling
+	name = "reactive bioscrambling armor"
 	desc = "An experimental suit of armor with sensitive detectors hooked up to a biohazard release valve. It scrambles the bodies of those around."
 	cooldown_message = "<span class='danger'>The connection is currently out of sync... Recalibrating.</span>"
 	emp_message = "<span class='warning'>You feel the armor squirm.</span>"
 	///Range of the effect.
 	var/range = 4
 
-/obj/item/clothing/suit/armor/reactive/delimbering/cooldown_activation(mob/living/carbon/human/owner)
+/obj/item/clothing/suit/armor/reactive/bioscrambling/cooldown_activation(mob/living/carbon/human/owner)
 	var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
 	sparks.set_up(1, 1, src)
 	sparks.start()
 	return ..()
 
-/obj/item/clothing/suit/armor/reactive/delimbering/reactive_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/clothing/suit/armor/reactive/bioscrambling/reactive_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	owner.visible_message("<span class='danger'>[src] blocks [attack_text], biohazard body scramble released!</span>")
-	delimber_pulse(owner, range, FALSE, TRUE)
+	bioscrambler_pulse(owner, range, FALSE, TRUE)
 	return TRUE
 
-/obj/item/clothing/suit/armor/reactive/delimbering/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/clothing/suit/armor/reactive/bioscrambling/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	owner.visible_message("<span class='danger'>[src] blocks [attack_text], but pulls a massive charge of biohazard material into [owner] from the surrounding environment!</span>")
-	delimber_pulse(owner, range, TRUE, TRUE)
+	bioscrambler_pulse(owner, range, TRUE, TRUE)
 	return TRUE

@@ -12,6 +12,7 @@
 	response_disarm = "gently pushes aside"
 	response_harm = "robusts"
 	speak = list("HONK", "Honk!", "Welcome to clown planet!")
+	speak_language = /datum/language/metalanguage // somehow clown speaks in this (same to all clown mobs)
 	emote_see = list("honks", "squeaks")
 	speak_chance = 1
 	a_intent = INTENT_HARM
@@ -151,6 +152,7 @@
 	maxHealth = 150
 	health = 150
 	pixel_x = -16
+	base_pixel_x = -16
 	speed = 10
 	melee_damage = 5
 	attacktext = "YA-HONKs"
@@ -171,6 +173,7 @@
 	maxHealth = 400
 	health = 400
 	pixel_x = -16
+	base_pixel_x = -16
 	speed = 2
 	melee_damage = 17
 	attacktext = "pummels"
@@ -250,6 +253,7 @@
 	maxHealth = 130
 	health = 130
 	pixel_x = -16
+	base_pixel_x = -16
 	speed = -5
 	melee_damage = 15
 	attacktext = "awkwardly flails at"
