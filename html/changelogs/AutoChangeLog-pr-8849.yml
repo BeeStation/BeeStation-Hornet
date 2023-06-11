@@ -1,0 +1,6 @@
+author: Rkz, Kapu1178, Azarak, Gandalf2k15, Rohesie
+delete-after: true
+changes:
+  - code_imp: adds a neutered pixelshifting system. It has no keybind and thus cannot
+      be accessed by players.
+  - code_imp: Added base_pixel vars to atom/movable, replaced most uses of initial(pixel).
