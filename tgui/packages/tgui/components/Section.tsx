@@ -8,12 +8,12 @@ import { canRender, classes } from 'common/react';
 import { Component, createRef, RefObject } from 'inferno';
 import { addScrollableNode, removeScrollableNode } from '../events';
 import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
-import type { Inferno } from 'inferno';
+import type { InfernoNode } from 'inferno';
 
 interface SectionProps extends BoxProps {
   className?: string;
   title?: string;
-  buttons?: Inferno.InfernoNode;
+  buttons?: InfernoNode;
   fill?: boolean;
   fitted?: boolean;
   scrollable?: boolean;
@@ -55,17 +55,7 @@ export class Section extends Component<SectionProps> {
   }
 
   render() {
-    const {
-      className,
-      title,
-      buttons,
-      fill,
-      fitted,
-      independent,
-      scrollable,
-      children,
-      ...rest
-    } = this.props;
+    const { className, title, buttons, fill, fitted, independent, scrollable, children, ...rest } = this.props;
     const hasTitle = canRender(title) || canRender(buttons);
     return (
       <div
@@ -82,12 +72,8 @@ export class Section extends Component<SectionProps> {
         {...computeBoxProps(rest)}>
         {hasTitle && (
           <div className="Section__title">
-            <span className="Section__titleText">
-              {title}
-            </span>
-            <div className="Section__buttons">
-              {buttons}
-            </div>
+            <span className="Section__titleText">{title}</span>
+            <div className="Section__buttons">{buttons}</div>
           </div>
         )}
         <div className="Section__rest">

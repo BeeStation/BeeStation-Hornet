@@ -254,7 +254,7 @@
 				if(stepTurf.flags_1 & NOJAUNT_1)
 					to_chat(L, "<span class='warning'>Some strange aura is blocking the way.</span>")
 					return
-				if(locate(/obj/effect/blessing) in stepTurf)
+				if(stepTurf.is_holy())
 					to_chat(L, "<span class='warning'>Holy energies block your path!</span>")
 					return
 				L.forceMove(stepTurf)
@@ -274,7 +274,7 @@
 					if(!is_reebe(loccheck.z))
 						to_chat(L, "<span class='warning'>Some strange aura is blocking the way.</span>")
 						return
-				if(locate(/obj/effect/blessing) in stepTurf)
+				if(stepTurf.is_holy())
 					to_chat(L, "<span class='warning'>Holy energies block your path!</span>")
 					return
 				L.forceMove(stepTurf)

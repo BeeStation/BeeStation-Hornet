@@ -49,7 +49,7 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "k" = (
-/obj/machinery/vending/boozeomat/pubby_maint,
+ /obj/machinery/vending/boozeomat/maint,
 /turf/closed/wall,
 /area/template_noop)
 "l" = (

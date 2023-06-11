@@ -139,7 +139,7 @@
 	add_scanmod()
 	add_capacitor()
 	START_PROCESSING(SSobj, src)
-	GLOB.poi_list |= src
+	AddElement(/datum/element/point_of_interest)
 	log_message("[src.name] created.", LOG_MECHA)
 	GLOB.mechas_list += src //global mech list
 	prepare_huds()
@@ -187,7 +187,6 @@
 	if(AI)
 		AI.gib() //No wreck, no AI to recover
 	STOP_PROCESSING(SSobj, src)
-	GLOB.poi_list.Remove(src)
 	equipment.Cut()
 	cell = null
 	scanmod = null

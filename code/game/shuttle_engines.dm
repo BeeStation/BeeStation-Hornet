@@ -156,6 +156,25 @@
 	bound_height = 96
 	appearance_flags = 0
 
+/obj/structure/shuttle/engine/hugeionengine
+	name = "Nanotrasen MkIII BPDT engine"
+	icon = 'icons/obj/4x7.dmi'
+	icon_state = "huge_ion_engine"
+	desc = "An extremely large bluespace-plasmadynamic ion engine used to propel objects reaching the size of stations."
+	bound_width = 128
+	bound_height = 224
+	appearance_flags = NONE
+
+/obj/structure/shuttle/engine/hugeionafterburn
+	name = "Nanotrasen MkIII BPDT engine afterburner"
+	opacity = 1
+	icon = 'icons/obj/4x7.dmi'
+	icon_state = "huge_ion_afterburn"
+	desc = "Quite hot, don't get too close to the glowing end!"
+	bound_width = 128
+	bound_height = 224
+	appearance_flags = NONE
+
 #undef ENGINE_UNWRENCHED
 #undef ENGINE_WRENCHED
 #undef ENGINE_WELDED

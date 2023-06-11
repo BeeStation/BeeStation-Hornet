@@ -577,3 +577,11 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		if(turf_to_check.density || LinkBlockedWithAccess(turf_to_check, caller, ID))
 			continue
 		. += turf_to_check
+
+/// Checks if the turf was blessed with holy water OR the area its in is Chapel
+/turf/proc/is_holy()
+	if(locate(/obj/effect/blessing) in src)
+		return TRUE
+	if(istype(loc, /area/chapel))
+		return TRUE
+	return FALSE
