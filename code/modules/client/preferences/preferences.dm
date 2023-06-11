@@ -21,6 +21,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	/// Last CID that this client has connected from
 	var/last_id
 
+	// pAI profile
+	var/pai_name = ""
+	var/pai_description = ""
+	var/pai_comment = ""
+
 	/// Cached changelog size, to detect new changelogs since last join
 	var/lastchangelog = ""
 

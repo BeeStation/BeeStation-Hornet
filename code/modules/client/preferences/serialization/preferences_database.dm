@@ -67,11 +67,10 @@
 	READPREF_INT(default_slot, PREFERENCE_TAG_DEFAULT_SLOT)
 	READPREF_INT(toggles, PREFERENCE_TAG_TOGGLES)
 	READPREF_STR(lastchangelog, PREFERENCE_TAG_LAST_CL)
-	/*
+
 	READPREF_STR(pai_name, PREFERENCE_TAG_PAI_NAME)
 	READPREF_STR(pai_description, PREFERENCE_TAG_PAI_DESCRIPTION)
 	READPREF_STR(pai_comment, PREFERENCE_TAG_PAI_COMMENT)
-	*/
 
 	READPREF_JSONDEC(ignoring, PREFERENCE_TAG_IGNORING)
 	READPREF_JSONDEC(purchased_gear, PREFERENCE_TAG_PURCHASED_GEAR)
@@ -88,9 +87,9 @@
 	purchased_gear	= SANITIZE_LIST(purchased_gear)
 	be_special		= SANITIZE_LIST(be_special)
 
-	//pai_name		= sanitize_text(pai_name, initial(pai_name))
-	//pai_description	= sanitize_text(pai_description, initial(pai_description))
-	//pai_comment		= sanitize_text(pai_comment, initial(pai_comment))
+	pai_name		= sanitize_text(pai_name, initial(pai_name))
+	pai_description	= sanitize_text(pai_description, initial(pai_description))
+	pai_comment		= sanitize_text(pai_comment, initial(pai_comment))
 
 	key_bindings 	= sanitize_islist(key_bindings, deep_copy_list(GLOB.keybindings_by_name_to_key))
 	key_bindings_by_key = get_key_bindings_by_key(key_bindings)
@@ -134,9 +133,9 @@
 	PREP_WRITEPREF_STR(toggles, PREFERENCE_TAG_TOGGLES)
 	PREP_WRITEPREF_STR(lastchangelog, PREFERENCE_TAG_LAST_CL)
 
-	/*PREP_WRITEPREF_STR(pai_name, PREFERENCE_TAG_PAI_NAME)
+	PREP_WRITEPREF_STR(pai_name, PREFERENCE_TAG_PAI_NAME)
 	PREP_WRITEPREF_STR(pai_description, PREFERENCE_TAG_PAI_DESCRIPTION)
-	PREP_WRITEPREF_STR(pai_comment, PREFERENCE_TAG_PAI_COMMENT)*/
+	PREP_WRITEPREF_STR(pai_comment, PREFERENCE_TAG_PAI_COMMENT)
 
 	PREP_WRITEPREF_JSONENC(ignoring, PREFERENCE_TAG_IGNORING)
 	PREP_WRITEPREF_JSONENC(key_bindings, PREFERENCE_TAG_KEYBINDS)
