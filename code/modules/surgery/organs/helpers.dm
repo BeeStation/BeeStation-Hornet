@@ -45,15 +45,3 @@
 
 /mob/living/carbon/getorganslot(slot)
 	return internal_organs_slot[slot]
-
-/mob/living/carbon/proc/has_functioning_organ(slot, path)
-	if(!slot)
-		return FALSE
-	var/obj/item/organ/organ = getorganslot(slot)
-	if(QDELETED(organ) || !istype(organ))
-		return FALSE
-	if(ispath(path) && !istype(organ, path))
-		return FALSE
-	if(CHECK_BITFIELD(organ.organ_flags, ORGAN_FAILING))
-		return FALSE
-	return TRUE
