@@ -10026,6 +10026,10 @@
 	},
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
+"dpl" = (
+/obj/effect/landmark/blobstart,
+/turf/open/floor/plating,
+/area/maintenance/department/science)
 "dpq" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
@@ -10573,6 +10577,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/gateway)
+"dyb" = (
+/obj/effect/spawner/room/threexthree,
+/turf/open/floor/plating,
+/area/maintenance/department/science)
 "dye" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 8
@@ -19386,6 +19394,7 @@
 /area/science/research)
 "gdM" = (
 /obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/landmark/xeno_spawn,
 /turf/template_noop,
 /area/maintenance/department/medical/morgue)
@@ -22527,11 +22536,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/sleeper)
-"haK" = (
-/obj/effect/landmark/blobstart,
-/obj/effect/decal/cleanable/dirt,
-/turf/template_noop,
-/area/maintenance/central)
 "haM" = (
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
@@ -30839,6 +30843,11 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/security/prison)
+"jMw" = (
+/obj/effect/landmark/xeno_spawn,
+/obj/effect/landmark/blobstart,
+/turf/template_noop,
+/area/maintenance/department/science)
 "jMy" = (
 /obj/machinery/airalarm/directional/east,
 /obj/structure/cable/yellow{
@@ -41877,16 +41886,6 @@
 /obj/structure/table,
 /turf/open/floor/plasteel,
 /area/engine/break_room)
-"nqn" = (
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/red,
-/obj/machinery/firealarm/directional/south,
-/turf/open/floor/plasteel,
-/area/security/main{
-	name = "Security Viewing Hall"
-	})
 "nqM" = (
 /obj/effect/turf_decal/tile/neutral/anticorner{
 	dir = 6
@@ -44561,6 +44560,10 @@
 "oiI" = (
 /turf/closed/wall,
 /area/vacant_room/office)
+"oiJ" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/template_noop,
+/area/maintenance/department/medical/morgue)
 "oiV" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-18";
@@ -55778,6 +55781,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
+"rTD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/room/fivexthree,
+/turf/template_noop,
+/area/maintenance/central)
 "rTK" = (
 /obj/structure/table,
 /obj/machinery/microwave{
@@ -57261,6 +57269,10 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/storage)
+"suU" = (
+/obj/effect/landmark/xeno_spawn,
+/turf/open/floor/plating,
+/area/maintenance/department/science)
 "svm" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/hydroponics/constructable,
@@ -66416,13 +66428,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
-"vmj" = (
-/obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 4
-	},
-/turf/open/space/basic,
-/area/space/nearstation)
 "vmt" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -97882,9 +97887,9 @@ cxk
 xnQ
 iTF
 hnk
-xbO
-xbO
-mfO
+cCS
+cCS
+dyb
 hnk
 pvm
 rBQ
@@ -98139,9 +98144,9 @@ xnQ
 vJE
 qTz
 tIR
-xbO
-dDa
-xbO
+cCS
+dpl
+cCS
 hnk
 xzi
 eRd
@@ -98396,9 +98401,9 @@ wnT
 hiU
 gUG
 hnk
-xbO
-wRZ
-xbO
+cCS
+suU
+cCS
 tIR
 xmo
 nsd
@@ -102283,7 +102288,7 @@ dDa
 xbO
 hnk
 xbO
-dDa
+jMw
 xbO
 iOK
 lFf
@@ -104518,7 +104523,7 @@ fvP
 kKn
 sVb
 eZn
-nqn
+dVX
 ntc
 aum
 rza
@@ -104804,13 +104809,13 @@ gHl
 oiI
 yfv
 yfv
-egS
+rTD
 hdp
 wYO
 nJY
 iMw
 yfv
-haK
+jlk
 yfv
 rQd
 qie
@@ -107088,7 +107093,7 @@ bpg
 wCG
 nRq
 ell
-nqn
+dVX
 seT
 fxe
 qKl
@@ -111994,7 +111999,7 @@ bGs
 jDy
 mZE
 gdM
-mZE
+oiJ
 dFC
 xgu
 eGd
@@ -112251,7 +112256,7 @@ tJM
 npc
 tfA
 mZE
-mZE
+oiJ
 dFC
 eNB
 eGd
