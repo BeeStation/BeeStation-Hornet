@@ -8,10 +8,8 @@
 	if(armor <= 0)
 		return armor
 
-	// Calculate over-armour diminishing returns
-	if (armor > armour_dropoff_start)
-		// This equation will reach a max value of 75
-		armor = STANDARDISE_ARMOUR(armour)
+	// This equation will reach a max value of 75
+	armor = STANDARDISE_ARMOUR(armor)
 
 	if(silent)
 		return armor
