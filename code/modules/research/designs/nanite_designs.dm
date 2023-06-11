@@ -279,13 +279,6 @@
 	program_type = /datum/nanite_program/adrenaline
 	category = list("Augmentation Nanites")
 
-/datum/design/nanites/selfresp
-	name = "Rebreathing"
-	desc = "The nanites efficiently recycle respiratory waste products from the host back into oxygen while active, negating the need to breathe."
-	id = "selfresp_nanites"
-	program_type = /datum/nanite_program/selfresp
-	category = list("Augmentation Nanites")
-
 ////////////////////DEFECTIVE NANITES//////////////////////////////////////
 
 /datum/design/nanites/glitch

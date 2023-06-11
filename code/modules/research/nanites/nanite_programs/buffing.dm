@@ -138,23 +138,6 @@
 	host_mob.set_resting(FALSE)
 	host_mob.reagents.add_reagent(/datum/reagent/medicine/amphetamine, 3)
 
-/datum/nanite_program/selfresp
-	name = "Rebreathing"
-	desc = "The nanites efficiently recycle respiratory waste products from the host back into oxygen while active, negating the need to breathe."
-	use_rate = 0.5
-	rogue_types = list(/datum/nanite_program/suffocating)
-
-/datum/nanite_program/selfresp/enable_passive_effect()
-	. = ..()
-	ADD_TRAIT(host_mob, TRAIT_NOBREATH, "nanites")
-
-/datum/nanite_program/selfresp/disable_passive_effect()
-	. = ..()
-	REMOVE_TRAIT(host_mob, TRAIT_NOBREATH, "nanites")
-
-/datum/nanite_program/selfresp/active_effect()
-	host_mob.adjustOxyLoss(-5)
-
 /datum/nanite_program/armblade
 	name = "Nanite Blade"
 	desc = "The nanites form a sharp blade around the user's arm when activated."

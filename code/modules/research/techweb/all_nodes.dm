@@ -2261,7 +2261,7 @@
 /datum/techweb_node/nanite_hazard
 	id = "nanite_hazard"
 	tech_tier = 5
-	display_name = "Alien Nanite Programs"
+	display_name = "Hazard Nanite Programs"
 	description = "Extremely advanced nanite programs using knowledge gained from advanced alien technology."
 	prereq_ids = list(
 		"alientech",
@@ -2270,8 +2270,7 @@
 	design_ids = list(
 		"mindcontrol_nanites",
 		"mitosis_nanites",
-		"spreading_nanites",
-		"selfresp_nanites",
+		"spreading_nanites"
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000, TECHWEB_POINT_TYPE_NANITES = 4000)
 	export_price = 15000
