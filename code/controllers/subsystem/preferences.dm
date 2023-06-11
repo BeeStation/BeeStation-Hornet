@@ -3,7 +3,7 @@
 SUBSYSTEM_DEF(preferences)
 	name = "Preference Serialization"
 	priority = FIRE_PRIORITY_DEFAULT
-	flags = SS_BACKGROUND|SS_POST_FIRE_TIMING|SS_NO_INIT
+	flags = SS_POST_FIRE_TIMING|SS_NO_INIT
 	runlevels = RUNLEVEL_LOBBY|RUNLEVELS_DEFAULT
 	// Length we should queue preferences writes against - prevents short-term unnecessary rewrites to the database.
 	wait = 5 SECONDS
