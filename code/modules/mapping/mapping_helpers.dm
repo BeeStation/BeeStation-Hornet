@@ -356,5 +356,3 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	pipe.paint(pipe_color)
 	// prevents duplicates on the station blueprints mode since the effect is on
 	pipe.obj_flags &= ~ON_BLUEPRINTS
-	icon = pipe.icon
-	icon_state = pipe.icon_state
