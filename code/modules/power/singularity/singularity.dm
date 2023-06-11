@@ -34,8 +34,9 @@
 /obj/anomaly/singularity/Initialize(mapload, starting_energy = 50)
 	. = ..()
 	START_PROCESSING(SSsinguloprocess, src)
-	GLOB.poi_list |= src
+	AddElement(/datum/element/point_of_interest)
 	GLOB.singularities |= src
+
 	var/datum/component/singularity/new_component = AddComponent(
 		/datum/component/singularity, \
 		consume_callback = CALLBACK(src, PROC_REF(consume)), \
@@ -56,7 +57,6 @@
 
 /obj/anomaly/singularity/Destroy()
 	STOP_PROCESSING(SSsinguloprocess, src)
-	GLOB.poi_list.Remove(src)
 	GLOB.singularities.Remove(src)
 	return ..()
 

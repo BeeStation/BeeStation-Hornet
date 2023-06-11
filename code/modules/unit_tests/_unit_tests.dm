@@ -75,10 +75,12 @@
 #include "projectiles.dm"
 #include "subsystem_init.dm"
 #include "subsystem_metric_sanity.dm"
+#include "techweb_sanity.dm"
 #include "tgui_create_message.dm"
 #include "timer_sanity.dm"
 #include "unit_test.dm"
 #include "random_ruin_mapsize.dm"
+#include "walls_have_sheets.dm"
 
 #ifdef REFERENCE_TRACKING_DEBUG //Don't try and parse this file if ref tracking isn't turned on. IE: don't parse ref tracking please mr linter
 #include "find_reference_sanity.dm"
