@@ -38730,7 +38730,7 @@
 	dir = 9
 	},
 /obj/structure/cable/yellow{
-	icon_state = "1-2"
+	icon_state = "1-8"
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
