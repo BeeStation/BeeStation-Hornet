@@ -56,6 +56,9 @@
 	equip_item(test_dummy, armor200)
 	TEST_ASSERT_EQUAL(STANDARDISE_ARMOUR(46), round(test_dummy.run_armor_check(BODY_ZONE_CHEST, MELEE, armour_penetration = 80), 1), "Mob wearing 200+50 armour vest did not return 46 armour when 80% armour penetration was applied.")
 
+	TEST_ASSERT_EQUAL(STANDARDISE_ARMOUR(50), 50, "50 armour should be 50.")
+	TEST_ASSERT_EQUAL(STANDARDISE_ARMOUR(100), 70, "100 armour should be 70.")
+
 /datum/unit_test/armour_checks/proc/equip_item(mob/living/carbon/human/user, obj/item/item)
 	// Drop all items
 	for (var/obj/item/I in user.contents)
