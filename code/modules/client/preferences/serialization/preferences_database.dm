@@ -310,7 +310,7 @@
 	if (!preference.is_valid(new_value))
 		return FALSE
 	preference_data[preference.db_key] = new_value
-	if(IS_GUEST_KEY(parent.ckey)) // NO saving guests to the DB!
+	if(IS_GUEST_KEY(preferences.parent.ckey)) // NO saving guests to the DB!
 		return TRUE
 	dirty_prefs |= preference.db_key
 	SSpreferences.queue_write(preferences)

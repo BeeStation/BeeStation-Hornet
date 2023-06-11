@@ -560,7 +560,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 	var/datum/loadout_category/DLC = GLOB.loadout_categories["Donator"] // stands for donator loadout category but the other def for DLC works too xD
 	if(!CONFIG_GET(flag/donator_items)) // donator items are only accesibile by servers with a patreon
 		return
-	if(IS_PATRON(parent.ckey) || is_admin(preferences.parent))
+	if(IS_PATRON(parent.ckey) || is_admin(parent.ckey))
 		var/any_changed = FALSE
 		for(var/gear_id in DLC.gear)
 			var/datum/gear/AG = DLC.gear[gear_id]
