@@ -76,7 +76,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/list/favorite_outfits = list()
 
 	/// A preview of the current character
-	var/atom/movable/screen/character_preview_view/character_preview_view
+	var/atom/movable/screen/map_view/character_preview_view/character_preview_view
 
 	/// A list of instantiated middleware
 	var/list/datum/preference_middleware/middleware = list()
@@ -151,6 +151,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		ui = new(user, src, "PreferencesMenu")
 		ui.set_autoupdate(FALSE)
 		ui.open()
+
+		// HACK: Without this the character starts out really tiny because of https://www.byond.com/forum/post/2873835
+		// You can fix it by updating the atom's appearance (in any way), so let's just do something unexpensive and change its name!
+		addtimer(CALLBACK(character_preview_view, TYPE_PROC_REF(/atom/movable/screen/map_view/character_preview_view, rename_byond_bug_moment)), 1 SECONDS)
 
 /datum/preferences/ui_state(mob/user)
 	return GLOB.always_state

@@ -29,14 +29,13 @@
 
 // This is necessary because you can open the set preferences menu before
 // the atoms SS is done loading.
-INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
+INITIALIZE_IMMEDIATE(/atom/movable/screen/map_view/character_preview_view)
 
 /// A preview of a character for use in the preferences menu
-/atom/movable/screen/character_preview_view
+/atom/movable/screen/map_view/character_preview_view
 	name = "character_preview"
 	del_on_map_removal = FALSE
-	layer = GAME_PLANE
-	plane = GAME_PLANE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 	/// The body that is displayed
 	var/mob/living/carbon/human/dummy/body
@@ -49,7 +48,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 	/// The client that is watching this view
 	var/client/client
 
-/atom/movable/screen/character_preview_view/Initialize(mapload, datum/preferences/preferences, client/client)
+/atom/movable/screen/map_view/character_preview_view/Initialize(mapload, datum/preferences/preferences, client/client)
 	. = ..()
 
 	assigned_map = "character_preview_[REF(src)]"
@@ -57,7 +56,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 
 	src.preferences = preferences
 
-/atom/movable/screen/character_preview_view/Destroy()
+/atom/movable/screen/map_view/character_preview_view/Destroy()
 	QDEL_NULL(body)
 
 	for (var/plane_master in plane_masters)
@@ -75,15 +74,22 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 
 	return ..()
 
+/// I know this looks stupid but it fixes a really important bug. https://www.byond.com/forum/post/2873835
+/// Also the mouse opacity blocks this from being visible ever
+/atom/movable/screen/map_view/character_preview_view/proc/rename_byond_bug_moment()
+	name = name == "character_preview" ? "character_preview_1" : "character_preview"
+	// Do it again, bitch!
+	addtimer(CALLBACK(src, PROC_REF(rename_byond_bug_moment)), 1 SECONDS)
+
 /// Updates the currently displayed body
-/atom/movable/screen/character_preview_view/proc/update_body()
+/atom/movable/screen/map_view/character_preview_view/proc/update_body()
 	if (isnull(body))
 		create_body()
 	else
 		body.wipe_state()
 	body.appearance = preferences.render_new_preview_appearance(body)
 
-/atom/movable/screen/character_preview_view/proc/create_body()
+/atom/movable/screen/map_view/character_preview_view/proc/create_body()
 	vis_contents.Cut()
 	QDEL_NULL(body)
 
@@ -95,7 +101,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 	vis_contents += body
 
 /// Registers the relevant map objects to a client
-/atom/movable/screen/character_preview_view/proc/register_to_client(client/client)
+/atom/movable/screen/map_view/character_preview_view/proc/register_to_client(client/client)
 	QDEL_LIST(plane_masters)
 
 	src.client = client
