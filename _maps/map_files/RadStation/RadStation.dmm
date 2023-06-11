@@ -53546,9 +53546,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
-"rlH" = (
-/turf/open/floor/noslip/standard,
-/area/construction/mining/aux_base)
 "rlQ" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/northright{
@@ -97696,7 +97693,7 @@ cxk
 cxk
 cxk
 cxk
-rlH
+cxk
 cxk
 cxk
 cxk
