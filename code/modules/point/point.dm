@@ -38,12 +38,11 @@
 
 	/// Set rotation
 	var/matrix/rotated_matrix = new()
-	var/matrix/old_visual = visual.transform
 	rotated_matrix.TurnTo(0, get_pixel_angle(-final_y, -final_x))
 	visual.transform = rotated_matrix
 	//
 
-	animate(visual, pixel_x = final_x, pixel_y = final_y, time = 1.7, easing = EASE_OUT, transform = old_visual)
+	animate(visual, pixel_x = final_x, pixel_y = final_y, time = 1.7, easing = EASE_OUT)
 
 /atom/movable/proc/create_point_bubble(atom/pointed_atom)
 	var/obj/effect/thought_bubble_effect = new
