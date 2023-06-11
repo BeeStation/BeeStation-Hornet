@@ -1895,6 +1895,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk/over,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "aIj" = (
@@ -4486,6 +4489,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
@@ -5725,6 +5729,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "bVJ" = (
@@ -6850,6 +6855,7 @@
 	name = "Maintenance Hatch";
 	req_one_access_txt = "12;7;29"
 	},
+/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "cma" = (
@@ -12592,6 +12598,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/blobstart,
+/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "edP" = (
@@ -13830,6 +13837,7 @@
 	dir = 1
 	},
 /mob/living/simple_animal/cockroach,
+/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
@@ -15587,7 +15595,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel,
+/obj/structure/lattice/catwalk/over,
+/turf/open/floor/plating,
 /area/maintenance/port/aft)
 "eXD" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -15947,12 +15956,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "fbg" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
@@ -16948,12 +16951,12 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk/over,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "fpE" = (
@@ -19071,6 +19074,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/lattice/catwalk/over,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "gai" = (
@@ -23103,9 +23109,6 @@
 /turf/open/floor/plasteel/tech,
 /area/engine/engine_room)
 "hlU" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
@@ -25018,6 +25021,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/lattice/catwalk/over,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "hRy" = (
@@ -25699,6 +25705,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/xeno_spawn,
+/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "ifl" = (
@@ -26574,6 +26581,7 @@
 /obj/item/storage/pod{
 	pixel_x = 32
 	},
+/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "iuO" = (
@@ -28069,10 +28077,13 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/structure/lattice/catwalk/over,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "iYu" = (
@@ -31460,9 +31471,6 @@
 /obj/item/trash/popcorn,
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/effect/landmark/blobstart,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 1
@@ -32825,9 +32833,6 @@
 /area/space/nearstation)
 "kzz" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/effect/turf_decal/tile/neutral/anticorner{
 	dir = 10
 	},
@@ -32835,9 +32840,10 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/shreds,
 /obj/structure/cable/yellow{
-	icon_state = "2-8"
+	icon_state = "1-8"
 	},
-/turf/open/floor/plasteel,
+/obj/structure/lattice/catwalk/over,
+/turf/open/floor/plating,
 /area/maintenance/port/aft)
 "kzA" = (
 /obj/effect/turf_decal/tile/brown/half/contrasted,
@@ -37965,13 +37971,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
-"mkw" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/turf/open/floor/plasteel,
-/area/maintenance/port/aft)
 "mky" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
@@ -38444,6 +38443,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "mqZ" = (
@@ -40898,6 +40898,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
+/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "neX" = (
@@ -42490,6 +42491,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "nDt" = (
@@ -44655,9 +44657,6 @@
 /area/hallway/secondary/service)
 "ons" = (
 /obj/item/trash/chips,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/effect/turf_decal/tile/neutral/anticorner{
 	dir = 6
 	},
@@ -46756,6 +46755,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
+/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "paR" = (
@@ -47122,6 +47122,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/lattice/catwalk/over,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "phP" = (
@@ -51563,10 +51566,13 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk/over,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /mob/living/simple_animal/cockroach,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "qBp" = (
@@ -51800,6 +51806,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
+/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "qEp" = (
@@ -54771,6 +54778,7 @@
 	name = "Maintenance Hatch";
 	req_one_access_txt = "12;7"
 	},
+/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "rFq" = (
@@ -61501,6 +61509,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
+/obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
@@ -62386,6 +62395,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/lattice/catwalk/over,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "tZU" = (
@@ -62404,9 +62416,6 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "uaj" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/turf_decal/numbers/two_nine{
 	dir = 2
@@ -65896,9 +65905,6 @@
 /area/medical/sleeper)
 "veD" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/effect/landmark/xeno_spawn,
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
 /obj/effect/decal/cleanable/dirt,
@@ -71001,6 +71007,9 @@
 	dir = 5
 	},
 /obj/structure/lattice/catwalk/over,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "wIr" = (
@@ -75787,7 +75796,8 @@
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel,
+/obj/structure/lattice/catwalk/over,
+/turf/open/floor/plating/rust,
 /area/maintenance/port/aft)
 "yjY" = (
 /obj/effect/decal/cleanable/dirt,
@@ -103112,7 +103122,7 @@ uaj
 veD
 kbt
 hlU
-mkw
+jvu
 fbg
 fps
 qyd
