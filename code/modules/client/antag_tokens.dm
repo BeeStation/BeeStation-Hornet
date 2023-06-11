@@ -17,14 +17,9 @@
 		list("ckey" = ckey)
 	)
 	var/token_count = 0
-	if(!query_get_antag_tokens.warn_execute())
-		qdel(query_get_antag_tokens)
-		return text2num(token_count)
-	if(!query_get_antag_tokens.NextRow())
-		qdel(query_get_antag_tokens)
-		return text2num(token_count)
-	else
+	if(query_get_antag_tokens.warn_execute() && query_get_antag_tokens.NextRow())
 		token_count = query_get_antag_tokens.item[1]
+
 	qdel(query_get_antag_tokens)
 	var/count = text2num(token_count)
 	antag_token_count_cached = count

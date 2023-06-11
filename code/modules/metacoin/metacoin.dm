@@ -40,9 +40,8 @@
 		list("ckey" = ckey)
 	)
 	var/mc_count = 0
-	if(query_get_metacoins.warn_execute())
-		if(query_get_metacoins.NextRow())
-			mc_count = query_get_metacoins.item[1]
+	if(query_get_metacoins.warn_execute() && query_get_metacoins.NextRow())
+		mc_count = query_get_metacoins.item[1]
 
 	qdel(query_get_metacoins)
 	var/count = text2num(mc_count)
