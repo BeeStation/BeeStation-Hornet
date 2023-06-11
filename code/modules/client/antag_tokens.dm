@@ -4,7 +4,7 @@
 /// Never-blocking method to retrieve cached antag token count. This CAN be null and runtimes if it is.
 /// Use get_antag_token_count_db() for a more accurate measure. Never use this in modifying calculations.
 /// The cached antag token count is initialized during client/Login()
-/client/proc/get_antag_token_count()
+/client/proc/get_antag_token_count_unreliable()
 	SHOULD_NOT_SLEEP(TRUE)
 	if(antag_token_count_cached == null)
 		CRASH("Antag token amount fetched before value initialized")
@@ -26,7 +26,9 @@
 	else
 		token_count = query_get_antag_tokens.item[1]
 	qdel(query_get_antag_tokens)
-	return text2num(token_count)
+	var/count = text2num(token_count)
+	antag_token_count_cached = count
+	return count
 
 /// Sets antag token count in the local cache, then invokes a database update.
 /// token_count: Amount to increment the antag token count by

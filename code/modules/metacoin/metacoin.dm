@@ -27,7 +27,7 @@
 /// Never-blocking method to retrieve cached metabalance. This CAN be null and runtimes if it is.
 /// Use get_metabalance_db() for a more accurate measure. Never use this in modifying calculations.
 /// The cached metabalance is initialized during client/Login()
-/client/proc/get_metabalance()
+/client/proc/get_metabalance_unreliable()
 	SHOULD_NOT_SLEEP(TRUE)
 	if(metabalance_cached == null)
 		CRASH("Metacoin amount fetched before value initialized")
@@ -45,7 +45,9 @@
 			mc_count = query_get_metacoins.item[1]
 
 	qdel(query_get_metacoins)
-	return text2num(mc_count)
+	var/count = text2num(mc_count)
+	metabalance_cached = count
+	return count
 
 /// Sets metabalance in the local cache, then invokes a database update.
 /// mc_count: Amount to increment the metabalance by
