@@ -229,8 +229,8 @@ export const NaniteCloudBackupDetails = (_props, context) => {
                     )
                   }>
                   {program.has_rules ? (
-                    rules.map((rule) => (
-                      <Box key={rule.display}>
+                    rules.map((rule, index) => (
+                      <Box key={rule.display} color={index >= 5 && 'bad'}>
                         {combineSelection && (
                           <Button.Checkbox
                             checked={toCombine.includes(rule.id)}
