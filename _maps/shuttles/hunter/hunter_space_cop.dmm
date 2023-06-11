@@ -215,7 +215,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
+/obj/machinery/atmospherics/pipe/simple/purple/hidden{
 	dir = 9
 	},
 /turf/open/floor/plating/rust,
@@ -295,7 +295,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/oil,
-/obj/machinery/atmospherics/pipe/simple/purple/visible,
+/obj/machinery/atmospherics/pipe/simple/purple/hidden,
 /turf/open/floor/plating,
 /area/shuttle/hunter)
 "kb" = (
@@ -350,7 +350,7 @@
 	pixel_y = 3
 	},
 /obj/machinery/atmospherics/pipe/simple/purple/visible{
-	dir = 4
+	dir = 8
 	},
 /turf/open/floor/engine,
 /area/shuttle/hunter)
@@ -359,7 +359,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
+/obj/machinery/atmospherics/pipe/simple/purple/hidden{
 	dir = 10
 	},
 /turf/open/floor/plating,
@@ -448,7 +448,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
+/obj/machinery/atmospherics/pipe/simple/purple/hidden{
 	dir = 10
 	},
 /turf/open/floor/plasteel/tech/grid,
@@ -493,7 +493,7 @@
 /obj/item/kirbyplants{
 	icon_state = "plant-21"
 	},
-/obj/machinery/atmospherics/pipe/manifold4w/purple/visible,
+/obj/machinery/atmospherics/pipe/manifold4w/purple/hidden,
 /turf/open/floor/engine,
 /area/shuttle/hunter)
 "pY" = (
@@ -515,7 +515,7 @@
 	pixel_x = -6;
 	pixel_y = 5
 	},
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
+/obj/machinery/atmospherics/pipe/simple/purple/hidden{
 	dir = 9
 	},
 /turf/open/floor/plasteel/techmaint,
@@ -880,7 +880,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/machinery/atmospherics/pipe/simple/purple/visible,
+/obj/machinery/atmospherics/pipe/simple/purple/hidden,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/hunter)
 "Gl" = (
@@ -948,7 +948,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/purple/visible,
+/obj/machinery/atmospherics/pipe/simple/purple/hidden,
 /turf/open/floor/plasteel/stairs,
 /area/shuttle/hunter)
 "Jh" = (
@@ -1247,7 +1247,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/greenglow,
-/obj/machinery/atmospherics/pipe/manifold4w/purple/visible,
+/obj/machinery/atmospherics/pipe/manifold4w/purple/hidden,
 /turf/open/floor/engine,
 /area/shuttle/hunter)
 "TA" = (
@@ -1264,7 +1264,7 @@
 	pixel_x = -8;
 	pixel_y = 6
 	},
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+/obj/machinery/atmospherics/pipe/manifold/purple/hidden{
 	dir = 1
 	},
 /turf/open/floor/engine,
@@ -1358,7 +1358,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/purple/visible,
+/obj/machinery/atmospherics/pipe/simple/purple/hidden,
 /turf/open/floor/plating,
 /area/shuttle/hunter)
 "Wt" = (
