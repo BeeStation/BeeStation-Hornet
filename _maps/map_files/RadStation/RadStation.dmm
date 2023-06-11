@@ -38202,6 +38202,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
+"mkA" = (
+/obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow,
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
+/turf/open/floor/plasteel,
+/area/maintenance/department/science)
 "mkC" = (
 /obj/structure/sink{
 	dir = 8;
@@ -42185,10 +42194,7 @@
 "nsj" = (
 /obj/effect/decal/cleanable/oil,
 /obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/machinery/power/apc/auto_name/north{
-	pixel_y = 24
+	icon_state = "4-8"
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/science)
@@ -50936,6 +50942,20 @@
 	},
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/captain/private)
+"qje" = (
+/obj/effect/turf_decal/tile/neutral/anticorner{
+	dir = 6
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/plasteel,
+/area/maintenance/department/science)
 "qjo" = (
 /obj/structure/frame/machine,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
@@ -98795,8 +98815,8 @@ oVx
 sDa
 psX
 kXu
-xzi
-eRd
+qje
+mkA
 tIR
 ggJ
 ggJ
