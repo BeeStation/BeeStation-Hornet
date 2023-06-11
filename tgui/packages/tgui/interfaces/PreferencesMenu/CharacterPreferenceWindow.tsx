@@ -1,6 +1,6 @@
 import { exhaustiveCheck } from 'common/exhaustive';
 import { useBackend, useLocalState } from '../../backend';
-import { Button, Stack } from '../../components';
+import { Button, Stack, Box } from '../../components';
 import { Window } from '../../layouts';
 import { PreferencesMenuData } from './data';
 import { PageButton } from './PageButton';
@@ -49,6 +49,7 @@ const CharacterProfiles = (props: {
 
 export const CharacterPreferenceWindow = (props, context) => {
   const { act, data } = useBackend<PreferencesMenuData>(context);
+  const { save_in_progress = false } = data;
 
   const [currentPage, setCurrentPage] = useLocalState(context, 'currentPage', Page.Main);
 
@@ -80,7 +81,34 @@ export const CharacterPreferenceWindow = (props, context) => {
   }
 
   return (
-    <Window title="Character Preferences" width={1200} height={770} theme="generic">
+    <Window
+      title="Character Preferences"
+      width={1200}
+      height={770}
+      theme="generic"
+      buttons={
+        <Box
+          backgroundColor={save_in_progress ? '#666666' : '#00cc00'}
+          textColor="white"
+          textAlign="center"
+          ml={1}
+          style={{
+            'border-radius': '2px',
+            display: 'inline',
+            padding: '2px 5px',
+          }}>
+          {save_in_progress ? (
+            <span>
+              Saving
+              <span class="loading-one">.</span>
+              <span class="loading-two">.</span>
+              <span class="loading-three">.</span>
+            </span>
+          ) : (
+            <strong>Saved</strong>
+          )}
+        </Box>
+      }>
       <Window.Content scrollable>
         <Stack vertical fill>
           <Stack.Item>

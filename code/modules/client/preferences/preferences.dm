@@ -182,6 +182,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	data["active_slot"] = default_slot
 	data["max_slot"] = max_save_slots
+	data["save_in_progress"] = !isnull(SSpreferences.datums[parent.ckey])
 
 	for (var/datum/preference_middleware/preference_middleware as anything in middleware)
 		data += preference_middleware.get_ui_data(user)

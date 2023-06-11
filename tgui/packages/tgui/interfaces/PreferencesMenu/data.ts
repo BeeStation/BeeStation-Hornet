@@ -176,6 +176,7 @@ export type PreferencesMenuData = {
   active_slot: number;
   max_slot: number;
   name_to_use: string;
+  save_in_progress: BooleanLike;
 
   window: Window;
 };

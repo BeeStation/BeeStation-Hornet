@@ -18,6 +18,7 @@ SUBSYSTEM_DEF(preferences)
 	if(datums[ckey]) // already queued
 		return
 	datums[ckey] = WEAKREF(prefs)
+	prefs.ui_update() // for queue preview
 
 /datum/controller/subsystem/preferences/fire(resumed)
 	for(var/ckey in datums)
@@ -33,5 +34,6 @@ SUBSYSTEM_DEF(preferences)
 			prefs.save_preferences()
 			to_chat(prefs.parent, "<span class='notice'>Player preferences saved!</span>") // debug tgui-prefs
 		datums -= ckey
+		prefs.ui_update() // for queue preview
 		if (MC_TICK_CHECK)
 			return
