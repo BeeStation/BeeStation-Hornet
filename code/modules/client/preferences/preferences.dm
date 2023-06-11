@@ -116,9 +116,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	if(loaded_preferences_successfully)
 		if("6030fe461e610e2be3a2c3e75c06067e" in purchased_gear) //MD5 hash of, "extra character slot"
 			max_save_slots += 1
-		if(load_character()) // This returns true if there is a database and character, or a new character was created.
+		if(load_character()) // This returns true if there is a database and character in the active slot.
 			return
-	// Begin no database OR new player logic. This ONLY fires if there is an SQL error or no database OR the player is new.
+	// Begin no database / new player logic. This ONLY fires if there is an SQL error or no database / the player and character is new.
 
 	// TODO tgui-prefs implement fallback species
 	if(!loaded_preferences_successfully) // create a new character object
@@ -129,13 +129,17 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		apply_all_client_preferences() // apply now since normally this is done in load_preferences(). Defaults were set in preferences_player
 		parent.set_macros()
 
+	// The character name is fresh, update the character list.
+	tainted_character_profiles = TRUE
+
 	// If this was a NEW CKEY ENTRY, and not a guest key (handled in save_preferences()), save it.
+	// Guest keys are ignored by mark_undatumized_dirty
 	if(!loaded_preferences_successfully)
-		// new players needs to write all entries, but no point in queueing a write since we're doing it anyway right now.
-		dirty_undatumized_preferences_character = TRUE
-		dirty_undatumized_preferences_player = TRUE
-		save_preferences()
-		save_character()
+		// This will essentially force a write, while also using the queueing system.
+		// For new ckeys, it is almost guaranteed we already hit the queue, since write_preference (used for when a datumized entry is null)
+		// Will also queue the CKEY. But this will also ensure that undatumized prefs get written.
+		mark_undatumized_dirty_player()
+	mark_undatumized_dirty_character()
 
 /datum/preferences/ui_interact(mob/user, datum/tgui/ui)
 	// If you leave and come back, re-register the character preview
@@ -215,7 +219,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	switch (action)
 		if ("change_slot")
-			// Save existing character
+			// Save previous character (immediately, delaying this could mean data is lost)
 			save_character()
 
 			// SAFETY: `load_character` performs sanitization the slot number
@@ -223,7 +227,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				// there is no character in the slot. Make a new one. Save it.
 				tainted_character_profiles = TRUE
 				randomise_appearance_prefs()
-				save_character()
+				// Queue an undatumized save, just in case (it's likely already queued, but we should write undatumized data as well)
+				mark_undatumized_dirty_character()
 
 			for (var/datum/preference_middleware/preference_middleware as anything in middleware)
 				preference_middleware.on_new_character(usr)
@@ -296,6 +301,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	return FALSE
 
 /datum/preferences/ui_close(mob/user)
+	// Save immediately. This should also handle if the player disconnects before their mob/ckey/client is null.
 	save_character()
 	save_preferences()
 	QDEL_NULL(character_preview_view)
