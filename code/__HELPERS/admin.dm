@@ -3,8 +3,9 @@
 	var/ckey = ""
 	if(istext(client))
 		ckey = client
-	else if(istype(client))
-		ckey = client.ckey
+	else if(istype(client, /client))
+		var/client/C = client
+		ckey = C.ckey
 	else
 		return FALSE
 	return !isnull(GLOB.admin_datums[ckey]) || !isnull(GLOB.deadmins[ckey])
