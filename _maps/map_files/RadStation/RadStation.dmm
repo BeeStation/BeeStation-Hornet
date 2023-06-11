@@ -10222,6 +10222,10 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Server Room";
+	req_access_txt = "61"
+	},
 /turf/open/floor/engine{
 	initial_gas_mix = "n2=100;TEMP=80";
 	name = "mainframe floor"
@@ -61863,10 +61867,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
-/obj/machinery/door/airlock/engineering/glass{
-	name = "Server Room";
-	req_access_txt = "61"
-	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "tMP" = (
