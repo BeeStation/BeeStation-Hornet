@@ -436,9 +436,9 @@
 
 	if(fully_randomize)
 		if(require_human)
-			player_client.prefs.randomise_appearance_prefs(~RANDOMIZE_SPECIES)
+			player_client.prefs.randomize_appearance_prefs(~RANDOMIZE_SPECIES)
 		else
-			player_client.prefs.randomise_appearance_prefs()
+			player_client.prefs.randomize_appearance_prefs()
 
 		player_client.prefs.apply_prefs_to(src)
 

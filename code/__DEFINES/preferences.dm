@@ -141,7 +141,7 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 #define RANDOM_DISABLED 2
 #define RANDOM_ENABLED 3
 
-// randomise_appearance_prefs() and randomize_human_appearance() proc flags
+// randomize_appearance_prefs() and randomize_human_appearance() proc flags
 #define RANDOMIZE_SPECIES (1<<0)
 #define RANDOMIZE_NAME (1<<1)
 
