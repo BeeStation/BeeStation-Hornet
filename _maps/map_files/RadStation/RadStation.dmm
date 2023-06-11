@@ -727,10 +727,10 @@
 	dir = 10
 	},
 /obj/structure/cable/yellow{
-	icon_state = "1-2"
+	icon_state = "1-4"
 	},
 /obj/structure/cable/yellow{
-	icon_state = "1-4"
+	icon_state = "2-4"
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
@@ -5226,13 +5226,13 @@
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
 "bNR" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
@@ -12024,23 +12024,6 @@
 /obj/machinery/airalarm/directional/east,
 /turf/open/floor/plasteel/dark,
 /area/engine/engine_room)
-"dTU" = (
-/obj/machinery/atmospherics/pipe/simple/orange/hidden,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted{
-	alpha = 180
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/turf/open/floor/plasteel,
-/area/engine/engineering)
 "dUi" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/visible{
 	dir = 1
@@ -21441,9 +21424,6 @@
 	pixel_x = -1;
 	pixel_y = 5
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/door/window/brigdoor{
 	dir = 8;
 	name = "Arrivals Security Checkpoint";
@@ -21451,7 +21431,7 @@
 	req_access_txt = "1"
 	},
 /obj/structure/cable/yellow{
-	icon_state = "1-4"
+	icon_state = "1-2"
 	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/engineering)
@@ -22673,9 +22653,6 @@
 /turf/open/floor/plasteel/tech,
 /area/engine/engine_room)
 "hcS" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
@@ -35210,9 +35187,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -36789,9 +36763,6 @@
 	alpha = 180;
 	dir = 8
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -36807,6 +36778,9 @@
 /obj/effect/turf_decal/guideline/guideline_tri/_corner/yellow,
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
@@ -37377,10 +37351,10 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
-	icon_state = "1-2"
+	icon_state = "2-4"
 	},
 /obj/structure/cable/yellow{
-	icon_state = "2-4"
+	icon_state = "1-2"
 	},
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
@@ -40528,6 +40502,9 @@
 	alpha = 180
 	},
 /obj/machinery/airalarm/directional/south,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/checkpoint/engineering)
 "mYI" = (
@@ -41627,6 +41604,23 @@
 	},
 /turf/open/floor/plasteel,
 /area/medical/medbay/lobby)
+"nqw" = (
+/obj/machinery/atmospherics/pipe/simple/orange/hidden,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/effect/turf_decal/tile/yellow/fourcorners/contrasted{
+	alpha = 180
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/open/floor/plasteel,
+/area/engine/engineering)
 "nqB" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
@@ -49201,7 +49195,7 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow{
-	icon_state = "4-8"
+	icon_state = "2-8"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/checkpoint/engineering)
@@ -50375,11 +50369,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
 	},
 /turf/open/floor/plasteel,
 /area/engine/engine_room)
@@ -59394,6 +59388,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -68413,9 +68410,6 @@
 	})
 "vRo" = (
 /obj/effect/turf_decal/tile/purple/fourcorners/contrasted,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -68427,6 +68421,9 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
@@ -71861,7 +71858,7 @@
 	},
 /obj/effect/turf_decal/guideline/guideline_in/yellow,
 /obj/structure/cable/yellow{
-	icon_state = "4-8"
+	icon_state = "2-8"
 	},
 /turf/open/floor/plasteel,
 /area/engine/break_room)
@@ -72417,6 +72414,12 @@
 	req_access_txt = "63"
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/engineering)
 "xgQ" = (
@@ -74417,9 +74420,6 @@
 /turf/open/floor/plasteel/dark,
 /area/science/mixing)
 "xLD" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/effect/turf_decal/guideline/guideline_edge/neutral{
 	alpha = 255;
 	dir = 1
@@ -74429,6 +74429,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 10
@@ -110315,8 +110318,8 @@ ghB
 vNX
 vHf
 tlq
-dTU
 gfY
+nqw
 hqN
 jeJ
 iIy
