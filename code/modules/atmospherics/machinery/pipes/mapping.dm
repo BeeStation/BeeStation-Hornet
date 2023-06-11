@@ -1,6 +1,6 @@
 //Colored pipes, use these for mapping
 
-#define HELPER_MAIN(Fulltype, Type, Iconbase, Color, Name) \
+#define HELPER_PARTIAL(Fulltype, Type, Iconbase, Color, Name) \
 	##Fulltype {						\
 		pipe_color = Color;				\
 		color = Color;					\
@@ -48,16 +48,16 @@
 	}
 
 #define HELPER(Type, Color) \
-	HELPER_MAIN(/obj/machinery/atmospherics/pipe/simple/##Type, #Type, "pipe11", Color, "pipe") 		\
-	HELPER_MAIN(/obj/machinery/atmospherics/pipe/manifold/##Type, #Type, "manifold", Color, "pipe manifold")		\
-	HELPER_MAIN(/obj/machinery/atmospherics/pipe/manifold4w/##Type, #Type, "manifold4w", Color, "4-way pipe manifold") \
-	HELPER_MAIN(/obj/effect/mapping_helpers/simple_pipes/##Type, #Type, "manifold4w", Color, "pipe")
+	HELPER_PARTIAL(/obj/machinery/atmospherics/pipe/simple/##Type, #Type, "pipe11", Color, "pipe") 		\
+	HELPER_PARTIAL(/obj/machinery/atmospherics/pipe/manifold/##Type, #Type, "manifold", Color, "pipe manifold")		\
+	HELPER_PARTIAL(/obj/machinery/atmospherics/pipe/manifold4w/##Type, #Type, "manifold4w", Color, "4-way pipe manifold") \
+	HELPER_PARTIAL(/obj/effect/mapping_helpers/simple_pipes/##Type, #Type, "manifold4w", Color, "pipe")
 
 #define HELPER_NAMED(Type, Name, Color) \
-	HELPER_MAIN(/obj/machinery/atmospherics/pipe/simple/##Type, #Type, "pipe11", Color, Name) 		\
-	HELPER_MAIN(/obj/machinery/atmospherics/pipe/manifold/##Type, #Type, "manifold", Color, Name)		\
-	HELPER_MAIN(/obj/machinery/atmospherics/pipe/manifold4w/##Type, #Type, "manifold4w", Color, Name) \
-	HELPER_MAIN(/obj/effect/mapping_helpers/simple_pipes/##Type, #Type, "manifold4w", Color, Name)
+	HELPER_PARTIAL(/obj/machinery/atmospherics/pipe/simple/##Type, #Type, "pipe11", Color, Name) 		\
+	HELPER_PARTIAL(/obj/machinery/atmospherics/pipe/manifold/##Type, #Type, "manifold", Color, Name)		\
+	HELPER_PARTIAL(/obj/machinery/atmospherics/pipe/manifold4w/##Type, #Type, "manifold4w", Color, Name) \
+	HELPER_PARTIAL(/obj/effect/mapping_helpers/simple_pipes/##Type, #Type, "manifold4w", Color, Name)
 
 HELPER(general, null)
 HELPER(yellow, rgb(255, 198, 0))
@@ -75,4 +75,4 @@ HELPER_NAMED(supplymain, "main air supply pipe", rgb(130, 43, 255))
 
 #undef HELPER_NAMED
 #undef HELPER
-#undef HELPER_MAIN
+#undef HELPER_PARTIAL
