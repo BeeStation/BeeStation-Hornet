@@ -348,8 +348,8 @@
 
 /datum/nanite_program/sensor/nutrition/register_extra_settings()
 	. = ..()
-	extra_settings[NES_NUTRITION] = new /datum/nanite_extra_setting/type(possible_nutrition_values[NUTRITION_LEVEL_HUNGRY], assoc_list_strip_value(possible_nutrition_values))
-	extra_settings[NES_DIRECTION] = new /datum/nanite_extra_setting/boolean(FALSE, "Above", "Below")
+	extra_settings[NES_NUTRITION] = new /datum/nanite_extra_setting/type("Fed (60%)", assoc_list_strip_value(possible_nutrition_values))
+	extra_settings[NES_DIRECTION] = new /datum/nanite_extra_setting/boolean(TRUE, "Above", "Below")
 
 /datum/nanite_program/sensor/nutrition/check_event()
 	var/datum/nanite_extra_setting/nutrition = extra_settings[NES_NUTRITION]
