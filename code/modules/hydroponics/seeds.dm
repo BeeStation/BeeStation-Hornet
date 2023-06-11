@@ -201,7 +201,7 @@
 		output_multiply = richer_juice.rate
 
 	for(var/rid in reagents_add)
-		var/amount = 1 + round(potency * reagents_add[rid] * output_multiply, 1)
+		var/amount = (1 + round(potency * reagents_add[rid], 1)) * output_multiply
 
 		var/list/data = null
 		if(rid == /datum/reagent/blood) // Hack to make blood in plants always O-
