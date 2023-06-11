@@ -79,7 +79,6 @@
 	send_item_attack_message(I, user, parse_zone(affecting.body_zone))
 	if(I.force)
 		var/armour_block = run_armor_check(affecting, MELEE, armour_penetration = I.armour_penetration)
-		armour_block = min(armour_block, 90)
 		apply_damage(I.force, I.damtype, affecting, armour_block)
 		if(I.damtype == BRUTE && (IS_ORGANIC_LIMB(affecting)))
 			if(I.is_sharp() || I.force >= 10)
