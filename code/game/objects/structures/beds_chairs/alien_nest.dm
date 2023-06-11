@@ -66,15 +66,17 @@
 		M.visible_message(\
 			"[user.name] secretes a thick vile goo, securing [M.name] into [src]!",\
 			"<span class='danger'>[user.name] drenches you in a foul-smelling resin, trapping you in [src]!</span>",\
-			"<span class='italics'>You hear squelching...</span>")
+			"<span class='hear'>You hear squelching...</span>")
 
 /obj/structure/bed/nest/post_buckle_mob(mob/living/M)
+	ADD_TRAIT(M, TRAIT_RESTRAINED, type)
 	M.pixel_y = M.base_pixel_y
 	M.pixel_x = M.base_pixel_x + 2
 	M.layer = BELOW_MOB_LAYER
 	add_overlay(nest_overlay)
 
 /obj/structure/bed/nest/post_unbuckle_mob(mob/living/M)
+	REMOVE_TRAIT(M, TRAIT_RESTRAINED, type)
 	M.pixel_x = M.base_pixel_x + M.get_standard_pixel_x_offset(M.lying)
 	M.pixel_y = M.base_pixel_y + M.get_standard_pixel_y_offset(M.lying)
 	M.layer = initial(M.layer)
