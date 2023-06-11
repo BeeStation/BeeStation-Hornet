@@ -69609,6 +69609,9 @@
 /turf/open/floor/plating,
 /area/maintenance/department/medical/morgue)
 "wge" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/science/misc_lab/range)
 "wgz" = (
