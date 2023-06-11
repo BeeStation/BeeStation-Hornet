@@ -13589,6 +13589,7 @@
 /obj/machinery/light{
 	dir = 2
 	},
+/obj/item/stack/cable_coil/cyan,
 /turf/open/floor/plating,
 /area/ai_monitored/storage/satellite)
 "etz" = (
