@@ -208,7 +208,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				return
 			var/dat = "<B>Bombing List</B><HR>"
 			for(var/l in GLOB.bombers)
-				dat += text("[l]<BR>")
+				dat += "[l]<BR>"
 			usr << browse(dat, "window=bombers")
 
 		if("list_signalers")
@@ -826,7 +826,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 	if (usr)
 		log_admin("[key_name(usr)] used secret [action]")
 		if (ok)
-			to_chat(world, text("<B>A secret has been activated by []!</B>", usr.key))
+			to_chat(world, "<B>A secret has been activated by [usr.key]!</B>")
 
 /proc/portalAnnounce(announcement, playlightning)
 	set waitfor = 0
