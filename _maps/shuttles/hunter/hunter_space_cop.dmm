@@ -349,7 +349,7 @@
 	pixel_x = -7;
 	pixel_y = 3
 	},
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
+/obj/machinery/atmospherics/pipe/simple/purple/hidden{
 	dir = 8
 	},
 /turf/open/floor/engine,
