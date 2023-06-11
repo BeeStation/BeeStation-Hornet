@@ -180,6 +180,7 @@
 		area.power_equip = FALSE
 		area.power_environ = FALSE
 		area.power_change()
+		area.apc = null
 	QDEL_NULL(alarm_manager)
 	if(occupier)
 		malfvacate(TRUE)
@@ -202,27 +203,33 @@
 /obj/machinery/power/apc/Initialize(mapload)
 	. = ..()
 	alarm_manager = new(src)
+
 	if(!mapload)
 		return
 	has_electronics = APC_ELECTRONICS_SECURED
 	// is starting with a power cell installed, create it and set its charge level
 	if(cell_type)
 		cell = new cell_type
-		cell.charge = start_charge * cell.maxcharge / 100 		// (convert percentage to actual value)
+		cell.charge = start_charge * cell.maxcharge / 100 // (convert percentage to actual value)
 
-	var/area/A = loc.loc
+	var/area/our_area = loc.loc
 
 	//if area isn't specified use current
 	if(areastring)
 		area = get_area_instance_from_text(areastring)
 		if(!area)
-			area = A
+			area = our_area
 			stack_trace("Bad areastring path for [src], [areastring]")
-	else if(isarea(A) && areastring == null)
-		area = A
+	else if(isarea(our_area) && areastring == null)
+		area = our_area
 
 	if(auto_name)
 		name = "\improper [get_area_name(area, TRUE)] APC"
+
+	if(area)
+		if(area.apc)
+			log_mapping("Duplicate APC created at [AREACOORD(src)] [area.type]. Original at [AREACOORD(area.apc)] [area.type].")
+		area.apc = src
 
 	update_appearance()
 
