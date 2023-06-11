@@ -541,7 +541,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		V.name = "metallic slurry"
 		V.desc = "A puddle of metallic slurry that looks vaguely like very fine sand. It almost seems like it's moving..."
 		V.icon_state = "vomitnanite_[pick(1,4)]"
-	if (iscarbon(M))
+	if (purge && iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(C.reagents)
 			clear_reagents_to_vomit_pool(C,V)
