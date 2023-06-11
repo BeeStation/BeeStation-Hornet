@@ -1,0 +1,12 @@
+{
+	"map_name": "Rad Station",
+	"map_link": "RadStation",
+	"map_path": "map_files/RadStation",
+	"map_file": "RadStation.dmm",
+	"shuttles": {
+		"cargo": "cargo_rad",
+		"ferry": "ferry_fancy",
+		"whiteship": "whiteship_box",
+		"emergency": "emergency_delta"
+	}
+}

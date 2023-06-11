@@ -6,11 +6,6 @@ GLOBAL_VAR_INIT(TAB, "&nbsp;&nbsp;&nbsp;&nbsp;")
 
 GLOBAL_DATUM_INIT(data_core, /datum/datacore, new)
 
-GLOBAL_VAR_INIT(CELLRATE, 0.002)  //! conversion ratio between a watt-tick and kilojoule
-GLOBAL_VAR_INIT(CHARGELEVEL, 0.001) //! Cap for how fast cells charge, as a percentage-per-tick (.001 means cellcharge is capped to 1% per second)
-
-GLOBAL_LIST_EMPTY(powernets)
-
 GLOBAL_VAR_INIT(bsa_unlock, FALSE)	//! BSA unlocked by head ID swipes
 
 GLOBAL_LIST_EMPTY(player_details)	//! ckey -> /datum/player_details
@@ -49,8 +44,8 @@ GLOBAL_PROTECT(topic_servers)
 GLOBAL_LIST_EMPTY(tooltips)
 
 //Should be in the form of "tag to be replaced" = list("replacement for beginning", "replacement for end")
-GLOBAL_LIST_INIT(markup_tags, list("/"  = list("<i>", "</i>"),
+GLOBAL_LIST_INIT(markup_tags, list("_"  = list("<i>", "</i>"),
 								   "**" = list("<b>", "</b>")))
 //Should be in the form of "((\\W|^)@)(\[^@\]*)(@(\\W|$)), "g"", where @ is the appropriate tag from markup_tags
-GLOBAL_LIST_INIT(markup_regex, list("/"  = new /regex("((\\W|^)_)(\[^_\]*)(_(\\W|$))", "g"),
+GLOBAL_LIST_INIT(markup_regex, list("_"  = new /regex("((\\W|^)_)(\[^_\]*)(_(\\W|$))", "g"),
 									"**" = new /regex("((\\W|^)\\*\\*)(\[^\\*\\*\]*)(\\*\\*(\\W|$))", "g")))

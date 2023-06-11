@@ -38,6 +38,7 @@
 	var/active = 0
 
 	var/memory
+	var/list/quirks = list()
 
 	var/assigned_role
 	var/special_role
@@ -96,7 +97,7 @@
 		UnregisterSignal(src, COMSIG_PARENT_QDELETING)
 	current = new_current
 	if(current)
-		RegisterSignal(src, COMSIG_PARENT_QDELETING, .proc/clear_current)
+		RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(clear_current))
 
 /datum/mind/proc/clear_current(datum/source)
 	SIGNAL_HANDLER
@@ -128,16 +129,20 @@
 		current.transfer_observers_to(new_character)	//transfer anyone observing the old character to the new one
 	set_current(new_character)								//associate ourself with our new body
 	new_character.mind = src							//and associate our new body with ourself
+
+	for(var/datum/quirk/T as() in quirks) //Retarget all traits this mind has
+		T.transfer_mob(new_character)
 	for(var/a in antag_datums)	//Makes sure all antag datums effects are applied in the new body
 		var/datum/antagonist/A = a
 		A.on_body_transfer(old_current, current)
+
 	if(iscarbon(new_character))
 		var/mob/living/carbon/C = new_character
 		C.last_mind = src
 	transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
 	transfer_actions(new_character)
 	transfer_martial_arts(new_character)
-	RegisterSignal(new_character, COMSIG_MOB_DEATH, .proc/set_death_time)
+	RegisterSignal(new_character, COMSIG_MOB_DEATH, PROC_REF(set_death_time))
 	if(active || force_key_move)
 		new_character.key = key		//now transfer the key to link the client to our new body
 	current.update_atom_languages()
@@ -440,7 +445,7 @@
 		A.admin_remove(usr)
 
 	if (href_list["role_edit"])
-		var/new_role = input("Select new role", "Assigned role", assigned_role) as null|anything in sortList(get_all_jobs())
+		var/new_role = input("Select new role", "Assigned role", assigned_role) as null|anything in sort_list(get_all_jobs())
 		if (!new_role)
 			return
 		assigned_role = new_role
@@ -480,7 +485,7 @@
 					if(1)
 						target_antag = antag_datums[1]
 					else
-						var/datum/antagonist/target = input("Which antagonist gets the objective:", "Antagonist", "(new custom antag)") as null|anything in sortList(antag_datums) + "(new custom antag)"
+						var/datum/antagonist/target = input("Which antagonist gets the objective:", "Antagonist", "(new custom antag)") as null|anything in sort_list(antag_datums) + "(new custom antag)"
 						if (QDELETED(target))
 							return
 						else if(target == "(new custom antag)")
@@ -729,7 +734,7 @@
 				continue
 		S.charge_counter = delay
 		S.updateButtonIcon()
-		INVOKE_ASYNC(S, /obj/effect/proc_holder/spell.proc/start_recharge)
+		INVOKE_ASYNC(S, TYPE_PROC_REF(/obj/effect/proc_holder/spell, start_recharge))
 
 /datum/mind/proc/get_ghost(even_if_they_cant_reenter, ghosts_with_clients)
 	for(var/mob/dead/observer/G in (ghosts_with_clients ? GLOB.player_list : GLOB.dead_mob_list))
@@ -808,3 +813,32 @@
 	..()
 	mind.assigned_role = ROLE_PAI
 	mind.special_role = ""
+
+// Quirk Procs //
+
+/datum/mind/proc/add_quirk(quirktype, spawn_effects) //separate proc due to the way these ones are handled
+	if(HAS_TRAIT(src, quirktype))
+		return
+	var/datum/quirk/T = quirktype
+	var/qname = initial(T.name)
+	if(!SSquirks || !SSquirks.quirks[qname])
+		return
+	new quirktype (src, current, spawn_effects)
+	return TRUE
+
+/datum/mind/proc/remove_quirk(quirktype)
+	for(var/datum/quirk/Q in quirks)
+		if(Q.type == quirktype)
+			qdel(Q)
+			return TRUE
+	return FALSE
+
+/datum/mind/proc/remove_all_quirks()
+	for(var/datum/quirk/Q in quirks)
+		qdel(Q)
+
+/datum/mind/proc/has_quirk(quirktype)
+	for(var/datum/quirk/Q in quirks)
+		if(Q.type == quirktype)
+			return TRUE
+	return FALSE

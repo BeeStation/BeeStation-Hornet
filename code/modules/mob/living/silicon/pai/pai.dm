@@ -88,7 +88,7 @@
 	var/can_transmit = TRUE
 	var/can_receive = TRUE
 	var/chassis = "repairbot"
-	var/list/possible_chassis = list("bat" = TRUE, "bee" = TRUE, "butterfly" = TRUE, "carp" = TRUE, "cat" = TRUE, "corgi" = TRUE, "corgi_puppy" = TRUE, "crow" = TRUE, "duffel" = TRUE, "fox" = TRUE, "frog" = TRUE, "hawk" = TRUE, "lizard" = TRUE, "monkey" = TRUE, "mouse" = TRUE, "mushroom" = TRUE, "phantom" = TRUE, "rabbit" = TRUE, "repairbot" = TRUE, "snake" = TRUE, "spider" = TRUE)		//assoc value is whether it can be picked up.
+	var/list/possible_chassis = list("bat" = TRUE, "bee" = TRUE, "butterfly" = TRUE, "carp" = TRUE, "cat" = TRUE, "corgi" = TRUE, "corgi_puppy" = TRUE, "crow" = TRUE, "duffel" = TRUE, "fox" = TRUE, "frog" = TRUE, "hawk" = TRUE, "lizard" = TRUE, "monkey" = TRUE, "mothroach" = TRUE, "mouse" = TRUE, "mushroom" = TRUE, "phantom" = TRUE, "rabbit" = TRUE, "repairbot" = TRUE, "snake" = TRUE, "spider" = TRUE)		//assoc value is whether it can be picked up.
 	var/static/item_head_icon = 'icons/mob/pai_item_head.dmi'
 	var/static/item_lh_icon = 'icons/mob/pai_item_lh.dmi'
 	var/static/item_rh_icon = 'icons/mob/pai_item_rh.dmi'
@@ -175,7 +175,7 @@
 	create_modularInterface()
 
 	emittersemicd = TRUE
-	addtimer(CALLBACK(src, .proc/emittercool), 600)
+	addtimer(CALLBACK(src, PROC_REF(emittercool)), 600)
 	return INITIALIZE_HINT_LATELOAD
 
 
@@ -239,7 +239,7 @@
 
 // See software.dm for Topic()
 
-/mob/living/silicon/pai/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
+/mob/living/silicon/pai/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
 	if(be_close && !in_range(M, src))
 		to_chat(src, "<span class='warning'>You are too far away!</span>")
 		return FALSE

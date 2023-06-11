@@ -307,7 +307,7 @@
 		return
 	time--
 	use_power(500)
-	addtimer(CALLBACK(src, .proc/loop, type, time, wait), wait)
+	addtimer(CALLBACK(src, PROC_REF(loop), type, time, wait), wait)
 
 /obj/machinery/microwave/proc/loop_finish()
 	operating = FALSE

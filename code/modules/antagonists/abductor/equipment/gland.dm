@@ -4,6 +4,7 @@
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "gland"
 	status = ORGAN_ROBOTIC
+	organ_flags = NONE
 	beating = TRUE
 	var/true_name = "baseline placebo referencer"
 	var/cooldown_low = 300
@@ -61,7 +62,7 @@
 	update_gland_hud()
 	var/atom/movable/screen/alert/mind_control/mind_alert = owner.throw_alert("mind_control", /atom/movable/screen/alert/mind_control)
 	mind_alert.command = command
-	addtimer(CALLBACK(src, .proc/clear_mind_control), mind_control_duration)
+	addtimer(CALLBACK(src, PROC_REF(clear_mind_control)), mind_control_duration)
 
 /obj/item/organ/heart/gland/proc/clear_mind_control()
 	if(!ownerCheck() || !active_mind_control)
@@ -309,7 +310,7 @@
 	owner.visible_message("<span class='danger'>[owner]'s skin starts emitting electric arcs!</span>",\
 	"<span class='warning'>You feel electric energy building up inside you!</span>")
 	playsound(get_turf(owner), "sparks", 100, 1, -1)
-	addtimer(CALLBACK(src, .proc/zap), rand(30, 100))
+	addtimer(CALLBACK(src, PROC_REF(zap)), rand(30, 100))
 
 /obj/item/organ/heart/gland/electric/proc/zap()
 	tesla_zap(owner, 4, 8000, TESLA_MOB_DAMAGE | TESLA_OBJ_DAMAGE | TESLA_MOB_STUN)
@@ -345,8 +346,8 @@
 
 /obj/item/organ/heart/gland/plasma/activate()
 	to_chat(owner, "<span class='warning'>You feel bloated.</span>")
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, owner, "<span class='userdanger'>A massive stomachache overcomes you.</span>"), 150)
-	addtimer(CALLBACK(src, .proc/vomit_plasma), 200)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), owner, "<span class='userdanger'>A massive stomachache overcomes you.</span>"), 150)
+	addtimer(CALLBACK(src, PROC_REF(vomit_plasma)), 200)
 
 /obj/item/organ/heart/gland/plasma/proc/vomit_plasma()
 	if(!owner)

@@ -31,7 +31,7 @@
 	cooldown = TRUE
 	icon_state = "pen_blink"
 	var/cooldown_time = 600/gang.leaders.len
-	addtimer(CALLBACK(src, .proc/cooldown), cooldown_time)
+	addtimer(CALLBACK(src, PROC_REF(cooldown)), cooldown_time)
 
 /obj/item/pen/gang/proc/cooldown()
 	cooldown = FALSE

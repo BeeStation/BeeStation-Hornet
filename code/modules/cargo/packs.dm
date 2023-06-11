@@ -22,7 +22,7 @@
 
 /datum/supply_pack/New()
 	. = ..()
-	//Randomise the starting supply to promote variation in purchases. Higher tendancy to have lower roundstart supply as it builds up over time.
+	//Randomise the starting supply to promote variation in purchases. Higher tendency to have lower roundstart supply as it builds up over time.
 	current_supply = rand(0, rand(1, max_supply))
 
 /datum/supply_pack/proc/generate(atom/A, datum/bank_account/paying_account)
@@ -1146,7 +1146,7 @@
 	cost = 5000
 	max_supply = 2
 	contains = list(
-		/obj/machinery/portable_atmospherics/canister/toxins,
+		/obj/machinery/portable_atmospherics/canister/plasma,
 		/obj/item/construction/rcd/loaded,
 		/obj/item/rcd_ammo/large,
 		/obj/item/rcd_ammo/large,
@@ -2330,8 +2330,8 @@
 					/obj/item/seeds/banana,
 					/obj/item/seeds/bamboo,
 					/obj/item/seeds/eggplant/eggy,
-					/obj/item/seeds/rainbow_bunch,
-					/obj/item/seeds/rainbow_bunch,
+					/obj/item/seeds/flower/rainbow_bunch,
+					/obj/item/seeds/flower/rainbow_bunch,
 					/obj/item/seeds/random,
 					/obj/item/seeds/random)
 	crate_name = "exotic seeds crate"
@@ -2436,7 +2436,7 @@
 				anomalous_box_provided = TRUE
 				log_game("An anomalous pizza box was provided in a pizza crate at during cargo delivery")
 				if(prob(50))
-					addtimer(CALLBACK(src, .proc/anomalous_pizza_report), rand(300, 1800))
+					addtimer(CALLBACK(src, PROC_REF(anomalous_pizza_report)), rand(300, 1800))
 				else
 					message_admins("An anomalous pizza box was silently created with no command report in a pizza crate delivery.")
 				break
@@ -2960,7 +2960,7 @@
 	var/the_toy
 	for(var/i in 1 to num_contained)
 		if(prob(50))
-			the_toy = pickweight(GLOB.arcade_prize_pool)
+			the_toy = pick_weight(GLOB.arcade_prize_pool)
 		else
 			the_toy = pick(subtypesof(/obj/item/toy/plush))
 		new the_toy(C)
@@ -3291,8 +3291,8 @@
 	max_supply = 4
 	access_budget = ACCESS_CHAPEL_OFFICE
 	contains = list(/obj/item/clothing/under/misc/burial,
-					/obj/item/reagent_containers/food/snacks/grown/harebell,
-					/obj/item/reagent_containers/food/snacks/grown/poppy/geranium)
+					/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
+					/obj/item/reagent_containers/food/snacks/grown/flower/geranium)
 	crate_name = "coffin"
 	crate_type = /obj/structure/closet/crate/coffin
 

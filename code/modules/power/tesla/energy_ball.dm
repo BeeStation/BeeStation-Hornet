@@ -17,7 +17,6 @@
 	pixel_x = -32
 	pixel_y = -32
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
-	flags_1 = SUPERMATTER_IGNORES_1
 	var/target
 	var/list/orbiting_balls = list()
 	dissipate = TRUE //Do we lose energy over time?
@@ -103,7 +102,7 @@
 		energy_to_raise = energy_to_raise * 1.25
 
 		playsound(src.loc, 'sound/magic/lightning_chargeup.ogg', 100, 1, extrarange = 30)
-		addtimer(CALLBACK(src, .proc/new_mini_ball), 100)
+		addtimer(CALLBACK(src, PROC_REF(new_mini_ball)), 100)
 
 	else if(energy < energy_to_lower && orbiting_balls.len)
 		energy_to_raise = energy_to_raise / 1.25

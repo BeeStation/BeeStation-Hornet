@@ -14,7 +14,7 @@
 		spawn_loot()
 		return INITIALIZE_HINT_QDEL
 	else
-		RegisterSignal(SSdcs, COMSIG_GLOB_POST_START, .proc/late_spawn_loot)
+		RegisterSignal(SSdcs, COMSIG_GLOB_POST_START, PROC_REF(late_spawn_loot))
 
 /obj/effect/spawner/lootdrop/proc/late_spawn_loot()
 	spawn_loot()
@@ -25,7 +25,7 @@
 		var/turf/T = get_turf(src)
 		var/loot_spawned = 0
 		while((lootcount-loot_spawned) && loot.len)
-			var/lootspawn = pickweight(loot)
+			var/lootspawn = pick_weight(loot)
 			if(!lootdoubles)
 				loot.Remove(lootspawn)
 
@@ -276,7 +276,8 @@
 		/obj/item/organ/wings/cybernetic = 2,
 		/obj/item/organ/tongue/robot/clockwork/better = 2,
 		/obj/effect/gibspawner/robot = 4,
-		/obj/item/drone_shell = 1)
+		/obj/effect/mob_spawn/drone = 1,
+		)
 
 /obj/effect/spawner/lootdrop/teratoma/major/clown
 	name = "funny teratoma spawner"

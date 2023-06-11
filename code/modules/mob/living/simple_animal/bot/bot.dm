@@ -151,7 +151,7 @@
 	GLOB.bots_list += src
 	access_card = new /obj/item/card/id(src)
 //This access is so bots can be immediately set to patrol and leave Robotics, instead of having to be let out first.
-	access_card.access += ACCESS_ROBOTICS
+	access_card.access |= ACCESS_ROBOTICS
 	set_custom_texts()
 	Radio = new/obj/item/radio(src)
 	if(radio_key)
@@ -177,8 +177,8 @@
 	if(path_hud)
 		path_hud.add_to_hud(src)
 		path_hud.add_hud_to(src)
-	RegisterSignal(src, COMSIG_ATOM_ON_EMAG, .proc/on_emag)
-	RegisterSignal(src, COMSIG_ATOM_SHOULD_EMAG, .proc/should_emag)
+	RegisterSignal(src, COMSIG_ATOM_ON_EMAG, PROC_REF(on_emag))
+	RegisterSignal(src, COMSIG_ATOM_SHOULD_EMAG, PROC_REF(should_emag))
 
 /mob/living/simple_animal/bot/update_mobility()
 	. = ..()
@@ -563,7 +563,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/proc/check_bot_access()
 	if(mode != BOT_SUMMON && mode != BOT_RESPONDING)
-		access_card.access = prev_access
+		access_card.access = prev_access.Copy()
 
 /mob/living/simple_animal/bot/proc/call_bot(caller, turf/waypoint, message=TRUE)
 	bot_reset() //Reset a bot before setting it to call mode.
@@ -591,7 +591,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 			turn_on() //Saves the AI the hassle of having to activate a bot manually.
 		access_card = all_access //Give the bot all-access while under the AI's command.
 		if(client)
-			reset_access_timer_id = addtimer(CALLBACK (src, .proc/bot_reset), 600, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE) //if the bot is player controlled, they get the extra access for a limited time
+			reset_access_timer_id = addtimer(CALLBACK (src, PROC_REF(bot_reset)), 600, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE) //if the bot is player controlled, they get the extra access for a limited time
 			to_chat(src, "<span class='notice'><span class='big'>Priority waypoint set by [icon2html(calling_ai, src)] <b>[caller]</b>. Proceed to <b>[end_area]</b>.</span><br>[path.len-1] meters to destination. You have been granted additional door access for 60 seconds.</span>")
 		if(message)
 			to_chat(calling_ai, "<span class='notice'>[icon2html(src, calling_ai)] [name] called to [end_area]. [path.len-1] meters to destination.</span>")
@@ -623,7 +623,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	set_path(null)
 	summon_target = null
 	pathset = 0
-	access_card.access = prev_access
+	access_card.access = prev_access.Copy()
 	tries = 0
 	mode = BOT_IDLE
 	hard_reset()
@@ -1014,7 +1014,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 				bot_name = name
 				name = paicard.pai.name
 				faction = user.faction.Copy()
-				copy_languages(paicard.pai)
+				copy_languages(paicard.pai, blocked=TRUE) // this is full-copy, so it should be blocked=TRUE
 				log_combat(user, paicard.pai, "uploaded to [bot_name],")
 				return TRUE
 			else
@@ -1051,7 +1051,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/Login()
 	. = ..()
-	access_card.access += player_access
+	access_card.access |= player_access
 	diag_hud_set_botmode()
 
 /mob/living/simple_animal/bot/Logout()
@@ -1137,6 +1137,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/rust_heretic_act()
 	adjustBruteLoss(400)
+	return TRUE
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1256,7 +1257,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 			turn_on() //Saves the AI the hassle of having to activate a bot manually.
 		access_card = all_access //Give the bot all-access while under the AI's command.
 		if(client)
-			reset_access_timer_id = addtimer(CALLBACK (src, .proc/bot_reset), 600, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE) //if the bot is player controlled, they get the extra access for a limited time
+			reset_access_timer_id = addtimer(CALLBACK (src, PROC_REF(bot_reset)), 600, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE) //if the bot is player controlled, they get the extra access for a limited time
 			to_chat(src, "<span class='notice'><span class='big'>Priority waypoint set by [icon2html(calling_ai, src)] <b>[caller]</b>. Proceed to <b>[end_area]</b>.</span><br>[path.len-1] meters to destination. You have been granted additional door access for 60 seconds.</span>")
 		pathset = 1
 		mode = BOT_RESPONDING
@@ -1271,8 +1272,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 /mob/living/simple_animal/bot/proc/go_up_or_down(direction)
 	//For giving the bot temporary all-access.
 	var/obj/item/card/id/all_access = new /obj/item/card/id
-	var/datum/job/captain/all = new/datum/job/captain
-	all_access.access = all.get_access()
+	all_access.access = get_all_accesses()
 	bot_z_mode = BOT_Z_MODE_PATROLLING
 
 	if(!is_reserved_level(z) && is_station_level(z))
@@ -1296,4 +1296,3 @@ Pass a positive integer as an argument to override a bot's default speed.
 		last_summon = summon_target
 		summon_target = target
 		set_path(get_path_to(src, summon_target, 200, id=access_card))
-

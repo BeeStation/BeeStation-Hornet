@@ -135,7 +135,7 @@ SUBSYSTEM_DEF(mapping)
 		message_admins("Shuttles in transit detected. Attempting to fast travel. Timeout is [wipe_safety_delay/10] seconds.")
 	var/list/cleared = list()
 	for(var/i in in_transit)
-		INVOKE_ASYNC(src, .proc/safety_clear_transit_dock, i, in_transit[i], cleared)
+		INVOKE_ASYNC(src, PROC_REF(safety_clear_transit_dock), i, in_transit[i], cleared)
 	UNTIL((go_ahead < world.time) || (cleared.len == in_transit.len))
 	do_wipe_turf_reservations()
 	clearing_reserved_turfs = FALSE
@@ -257,7 +257,7 @@ SUBSYSTEM_DEF(mapping)
 				continue
 			possibletemplates[candidate] = candidate.weight
 		if(possibletemplates.len)
-			var/datum/map_template/random_room/template = pickweight(possibletemplates)
+			var/datum/map_template/random_room/template = pick_weight(possibletemplates)
 			template.stock--
 			template.weight = (template.weight / 2)
 			if(template.stock <= 0)
@@ -380,7 +380,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 			// Don't force them to play the same map when MAPROTATION actually rolls to change the map
 			mapvotes.Remove(map)
 
-	var/pickedmap = pickweight(mapvotes)
+	var/pickedmap = pick_weight(mapvotes)
 	if (!pickedmap)
 		return
 	var/datum/map_config/VM = global.config.maplist[pickedmap]
@@ -427,7 +427,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	var/list/banned = generateMapList("lavaruinblacklist.txt")
 	banned += generateMapList("spaceruinblacklist.txt")
 
-	for(var/item in sortList(subtypesof(/datum/map_template/ruin), /proc/cmp_ruincost_priority))
+	for(var/item in sort_list(subtypesof(/datum/map_template/ruin), GLOBAL_PROC_REF(cmp_ruincost_priority)))
 		var/datum/map_template/ruin/ruin_type = item
 		// screen out the abstract subtypes
 		if(!initial(ruin_type.id))

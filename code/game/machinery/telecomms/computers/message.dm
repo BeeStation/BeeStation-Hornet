@@ -32,13 +32,13 @@
 	..()
 	ui_update()
 	do_sparks(5, FALSE, src)
-	addtimer(CALLBACK(src, .proc/after_emag), 10 * length(linked_server.decryptkey) SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(after_emag)), 10 * length(linked_server.decryptkey) SECONDS)
 
 /obj/machinery/computer/message_monitor/proc/after_emag()
 	// Print an "error" decryption key, leaving physical evidence of the hack.
 	if(linked_server)
-		var/obj/item/paper/monitorkey/MK = new(loc, linked_server)
-		MK.info += "<br><br><font color='red'>£%@%(*$%&(£&?*(%&£/{}</font>"
+		var/obj/item/paper/monitorkey/monitor_key_paper = new(loc, linked_server)
+		monitor_key_paper.add_raw_text("<br><br><font color='red'>£%@%(*$%&(£&?*(%&£/{}</font>")
 	else
 		say("Error: Server link lost!")
 	obj_flags &= ~EMAGGED
@@ -74,7 +74,7 @@
 		authenticated = FALSE
 	linked_server = server
 	if(server)
-		RegisterSignal(server, COMSIG_PARENT_QDELETING, .proc/server_deleting)
+		RegisterSignal(server, COMSIG_PARENT_QDELETING, PROC_REF(server_deleting))
 	ui_update()
 
 /obj/machinery/computer/message_monitor/proc/server_deleting()
@@ -166,7 +166,7 @@
 			var/duration = 10 * length(linked_server.decryptkey) SECONDS
 			var/approx_duration = max(duration + rand(-20, 20), 1)
 			to_chat(S, "<span class='warning'>Brute-force decryption started. This will take approximately [DisplayTimeText(approx_duration, round_seconds_to = 10)].</span>")
-			addtimer(CALLBACK(src, .proc/finish_hack, S), duration)
+			addtimer(CALLBACK(src, PROC_REF(finish_hack), S), duration)
 			return TRUE
 		if("link")
 			var/list/message_servers = list()
@@ -290,7 +290,7 @@
 		return INITIALIZE_HINT_LATELOAD
 
 /obj/item/paper/monitorkey/proc/print(obj/machinery/telecomms/message_server/server)
-	info = "<h2>Telecommunications Security Notice</h2><br />\
+	add_raw_text("<h2>Telecommunications Security Notice</h2><br />\
 	<strong><pre>INCOMING TRANSMISSION - KEY RESET REPORT</pre></strong><br />\
 	<p>\
 	<pre>\
@@ -304,8 +304,9 @@
 	UPDATE KEY IF NECESSARY.<br />\
 	TRANSMISSION END.<br />\
 	SENDER: CentCom Telecommunications Data Retention\
-	</pre></p>"
+	</pre></p>")
 	add_overlay("paper_words")
+	update_appearance()
 
 /obj/item/paper/monitorkey/LateInitialize()
 	for (var/obj/machinery/telecomms/message_server/preset/server in GLOB.telecomms_list)

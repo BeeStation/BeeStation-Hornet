@@ -5,7 +5,7 @@
 	charge_max = 600
 	range = 1
 	max_targets = 0
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	clothes_req = 0
 	human_req = 1
 	action_icon = 'icons/mob/actions/actions_hive.dmi'
@@ -55,7 +55,7 @@
 				user.visible_message("<span class='danger'>[target] begins to look frantic!</span>", "<span class='notice'>We begin to override [target]'s consciousness with our own.</span>")
 				to_chat(target, "<span class='userdanger'>Your consciousness beings to waver!</span>")
 
-		if(!do_mob(user, target, 20))
+		if(!do_after(user, 2 SECONDS, target))
 			to_chat(user, "<span class='warning'>Our awakening of [target] has been interrupted!</span>")
 			hivehost.isintegrating = FALSE
 			return

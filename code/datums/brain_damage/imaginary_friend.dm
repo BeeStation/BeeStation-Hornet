@@ -19,7 +19,7 @@
 		qdel(src)
 		return
 	if(!friend.client && friend_initialized)
-		addtimer(CALLBACK(src, .proc/reroll_friend), 600)
+		addtimer(CALLBACK(src, PROC_REF(reroll_friend)), 600)
 
 /datum/brain_trauma/special/imaginary_friend/on_death()
 	..()
@@ -66,6 +66,7 @@
 	see_invisible = SEE_INVISIBLE_LIVING
 	invisibility = INVISIBILITY_MAXIMUM
 	can_hear_init = TRUE // Enable hearing sensitive trait
+	initial_language_holder = /datum/language_holder/empty // language will be changed from init()
 	var/icon/human_image
 	var/image/current_image
 	var/hidden = FALSE
@@ -91,7 +92,9 @@
 
 	trauma = _trauma
 	owner = trauma.owner
-	copy_languages(owner, LANGUAGE_FRIEND)
+	copy_languages(owner, LANGUAGE_FRIEND, spoken=FALSE) // they don't have to speak in a language of their owner knows - as their language is imaginary echoes from their owner.
+	grant_language(/datum/language/metalanguage) // they only speak in metalanguage
+	language_holder.selected_language = /datum/language/metalanguage
 
 	setup_friend()
 
@@ -101,10 +104,10 @@
 	hide.Grant(src)
 
 	// Update icon on turn
-	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, .proc/Show)
+	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(Show))
 
 	// Hear owner if they're out of range
-	RegisterSignal(owner, COMSIG_MOB_SAY, .proc/owner_speech)
+	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(owner_speech))
 
 /mob/camera/imaginary_friend/Destroy()
 	qdel(join)
@@ -188,7 +191,7 @@
 	if (!owner_chat_map)
 		var/mutable_appearance/MA = mutable_appearance('icons/mob/talk.dmi', src, "default[say_test(message)]", FLY_LAYER)
 		MA.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-		INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, MA, list(owner.client), 30)
+		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay), MA, list(owner.client), 30)
 
 	if(owner_chat_map || friend_chat_map)
 		var/list/hearers = list()
@@ -239,7 +242,7 @@
 	animate(arrow, pixel_x = (tile.x - our_tile.x) * world.icon_size + A.pixel_x, pixel_y = (tile.y - our_tile.y) * world.icon_size + A.pixel_y, time = 1.7, easing = EASE_OUT)
 	owner?.client?.images += arrow
 	client?.images += arrow
-	addtimer(CALLBACK(src, .proc/remove_arrow, arrow, client, owner?.client), 2.5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(remove_arrow), arrow, client, owner?.client), 2.5 SECONDS)
 	return TRUE
 
 /mob/camera/imaginary_friend/proc/remove_arrow(image/arrow, client/client_1, client/client_2)
@@ -291,7 +294,7 @@
 	desc = "Patient appears to be targeted by an invisible entity."
 	gain_text = ""
 	lose_text = ""
-	random_gain = FALSE
+	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
 
 /datum/brain_trauma/special/imaginary_friend/trapped_owner/make_friend()
 	friend = new /mob/camera/imaginary_friend/trapped(get_turf(owner), src)

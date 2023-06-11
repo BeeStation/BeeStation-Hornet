@@ -34,6 +34,7 @@ SUBSYSTEM_DEF(enumeration)
 			//Disgusting O(n) removal proc. Maybe we should use dictionaries, but this should be short enough that it will be quicker than dictionaries
 			//anyway.
 			tick_enumerations -= enumerator
+			qdel(enumerator)
 		//Split the tick for the next run
 		MC_SPLIT_TICK
 

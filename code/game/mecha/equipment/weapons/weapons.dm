@@ -73,7 +73,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/start_cooldown()
 	set_ready_state(0)
 	chassis.use_power(energy_drain*get_shot_amount())
-	addtimer(CALLBACK(src, .proc/set_ready_state, 1), equip_cooldown)
+	addtimer(CALLBACK(src, PROC_REF(set_ready_state), 1), equip_cooldown)
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser
 	equip_cooldown = 8
@@ -362,7 +362,7 @@
 	var/turf/T = get_turf(src)
 	message_admins("[ADMIN_LOOKUPFLW(chassis.occupant)] fired a [src] in [ADMIN_VERBOSEJMP(T)]")
 	log_game("[key_name(chassis.occupant)] fired a [src] in [AREACOORD(T)]")
-	addtimer(CALLBACK(F, /obj/item/grenade/flashbang.proc/prime), det_time)
+	addtimer(CALLBACK(F, TYPE_PROC_REF(/obj/item/grenade/flashbang, prime)), det_time)
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/flashbang/clusterbang //Because I am a heartless bastard -Sieve //Heartless? for making the poor man's honkblast? - Kaze
 	name = "\improper SOB-3 grenade launcher"

@@ -109,7 +109,7 @@
 						C.jitteriness += 1000
 						C.do_jitter_animation(jitteriness)
 						C.stuttering += 1
-						addtimer(CALLBACK(src, .proc/lower_jitter, C), 20)
+						addtimer(CALLBACK(src, PROC_REF(lower_jitter), C), 20)
 					L.visible_message(
 						"<span class='danger'>[L] was shocked by the lightning chain!</span>", \
 						"<span class='userdanger'>You are shocked by the lightning chain!</span>", \

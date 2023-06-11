@@ -107,7 +107,7 @@ GLOBAL_LIST_INIT(ghost_forms_with_accessories_list, list(
 	"ghost_camo",))
 	//stores the ghost forms that support hair and other such things
 
-GLOBAL_LIST_INIT(ai_core_display_screens, sortList(list(
+GLOBAL_LIST_INIT(ai_core_display_screens, sort_list(list(
 	":thinking:",
 	"Alien",
 	"Angel",
@@ -161,7 +161,7 @@ GLOBAL_LIST_INIT(ai_core_display_screens, sortList(list(
 			return "ai-portrait" //just take this until they decide
 		return "ai-[lowertext(input)]"
 
-GLOBAL_LIST_INIT(security_depts_prefs, sortList(list(
+GLOBAL_LIST_INIT(security_depts_prefs, sort_list(list(
 	SEC_DEPT_ENGINEERING,
 	SEC_DEPT_MEDICAL,
 	SEC_DEPT_NONE,
@@ -204,16 +204,6 @@ GLOBAL_LIST_INIT(uplink_spawn_loc_list_save, list(
 
 	//Female Uniforms
 GLOBAL_LIST_EMPTY(female_clothing_icons)
-
-	//radical shit
-GLOBAL_LIST_INIT(hit_appends, list(
-	"-ACK",
-	"-GLORF",
-	"-HRNK",
-	"-HURGH",
-	"-OOF",
-	"-UGH",
-))
 
 GLOBAL_LIST_INIT(scarySounds, list(
 	'sound/effects/clownstep1.ogg',
@@ -281,36 +271,36 @@ GLOBAL_LIST_INIT(scarySounds, list(
 //If you insist on changing the order, you'll have to change every sort junction to reflect the new order. --Pete
 
 GLOBAL_LIST_INIT(TAGGERLOCATIONS, list(
-	"Atmospherics",
-	"Bar",
-	"Cargo Bay",
-	"CE Office",
-	"Chapel",
-	"Chemistry",
-	"CMO Office",
-	"Detective's Office",
 	"Disposals",
-	"Dormitories",
+	"Cargo Bay",
+	"QM Office",
 	"Engineering",
-	"Genetics",
-	"HoP Office",
+	"CE Office",
+	"Atmospherics",
+	"Security",
 	"HoS Office",
+	"Medbay",
+	"CMO Office",
+	"Chemistry",
+	"Research",
+	"RD Office",
+	"Robotics",
+	"HoP Office",
+	"Library",
+	"Chapel",
+	"Theatre",
+	"Bar",
+	"Kitchen",
 	"Hydroponics",
 	"Janitor Closet",
-	"Kitchen",
-	"Law Office",
-	"Library",
-	"Medbay",
-	"QM Office",
-	"RD Office",
-	"Research",
-	"Robotics",
-	"Security",
+	"Genetics",
 	"Testing Range",
-	"Theatre",
 	"Toxins",
+	"Dormitories",
 	"Virology",
 	"Xenobiology",
+	"Law Office",
+	"Detective's Office",
 ))
 
 GLOBAL_LIST_INIT(station_prefixes, world.file2list("strings/station_prefixes.txt") + "")

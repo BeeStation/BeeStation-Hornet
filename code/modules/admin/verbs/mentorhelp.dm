@@ -137,12 +137,12 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 /datum/help_ticket/mentor/NewFrom(datum/help_ticket/old_ticket)
 	if(!..())
 		return FALSE
-	MessageNoRecipient(initial_msg, FALSE)
+	MessageNoRecipient(initial_msg, add_to_ticket = FALSE, sanitized = TRUE) // initial_msg is sanitized already
 	return TRUE
 
 /datum/help_ticket/mentor/TimeoutVerb()
 	initiator.remove_verb(/client/verb/mentorhelp)
-	initiator.mentorhelptimerid = addtimer(CALLBACK(initiator, /client/proc/givementorhelpverb), 1200, TIMER_STOPPABLE)
+	initiator.mentorhelptimerid = addtimer(CALLBACK(initiator, TYPE_PROC_REF(/client, givementorhelpverb)), 1200, TIMER_STOPPABLE)
 
 /datum/help_ticket/mentor/key_name_ticket(mob/user)
 	return key_name_mentor(user)
@@ -150,11 +150,12 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 /datum/help_ticket/mentor/message_ticket_managers(msg)
 	message_mentors(msg)
 
-/datum/help_ticket/mentor/MessageNoRecipient(msg, add_to_ticket = TRUE)
+/datum/help_ticket/mentor/MessageNoRecipient(msg, add_to_ticket = TRUE, sanitized = FALSE)
 	var/ref_src = "[REF(src)]"
+	var/sanitized_msg = sanitized ? msg : sanitize(msg)
 
 	//Message to be sent to all admins
-	var/admin_msg = "<span class='mentornotice'><span class='mentorhelp'>Mentor Ticket [TicketHref("#[id]", ref_src)]</span>: [LinkedReplyName(ref_src)] [ClosureLinks(ref_src)]: <span class='linkify'>[keywords_lookup(msg)]</span></span>"
+	var/admin_msg = "<span class='mentornotice'><span class='mentorhelp'>Mentor Ticket [TicketHref("#[id]", ref_src)]</span>: [LinkedReplyName(ref_src)] [ClosureLinks(ref_src)]: <span class='linkify'>[sanitized_msg]</span></span>"
 
 	if(add_to_ticket)
 		AddInteraction("red", msg, initiator_key_name, claimee_key_name, "You", "Mentor")
@@ -169,7 +170,7 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 
 	//show it to the person adminhelping too
 	if(add_to_ticket)
-		to_chat(initiator, "<span class='mentornotice'>PM to-<b>Mentors</b>: <span class='linkify'>[msg]</span></span>", type = message_type)
+		to_chat(initiator, "<span class='mentornotice'>PM to-<b>Mentors</b>: <span class='linkify'>[sanitized_msg]</span></span>", type = message_type)
 
 /datum/help_ticket/mentor/proc/ClosureLinks(ref_src)
 	if(state > TICKET_ACTIVE)
@@ -242,7 +243,7 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 
 /datum/help_ticket/mentor/Resolve(key_name = key_name_ticket(usr), silent = FALSE)
 	..()
-	addtimer(CALLBACK(initiator, /client/proc/givementorhelpverb), 50)
+	addtimer(CALLBACK(initiator, TYPE_PROC_REF(/client, givementorhelpverb)), 50)
 
 /datum/help_ticket/mentor/Reject(key_name = key_name_ticket(usr))
 	..()

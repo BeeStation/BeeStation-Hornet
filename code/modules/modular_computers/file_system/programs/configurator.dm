@@ -28,7 +28,7 @@
 	if(!computer)
 		return FALSE
 
-	var/list/data = get_header_data()
+	var/list/data = list()
 	data["disk_size"] = hard_drive.max_capacity
 	data["disk_used"] = hard_drive.used_capacity
 	data["power_usage"] = computer.last_power_usage

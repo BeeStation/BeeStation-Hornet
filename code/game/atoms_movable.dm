@@ -43,8 +43,6 @@
 	var/datum/component/orbiter/orbiting
 	var/can_be_z_moved = TRUE
 
-	var/zfalling = FALSE
-
 	/// Either FALSE, [EMISSIVE_BLOCK_GENERIC], or [EMISSIVE_BLOCK_UNIQUE]
 	var/blocks_emissive = FALSE
 	///Internal holder for emissive blocker object, do not use directly use blocks_emissive
@@ -60,6 +58,9 @@
 	///Highest-intensity light affecting us, which determines our visibility.
 	var/affecting_dynamic_lumi = 0
 
+	/// Whether this atom should have its dir automatically changed when it moves. Setting this to FALSE allows for things such as directional windows to retain dir on moving without snowflake code all of the place.
+	var/set_dir_on_move = TRUE
+
 
 /atom/movable/Initialize(mapload)
 	. = ..()
@@ -72,6 +73,8 @@
 		if(EMISSIVE_BLOCK_UNIQUE)
 			render_target = ref(src)
 			em_block = new(src, render_target)
+	if(opacity)
+		AddElement(/datum/element/light_blocking)
 
 	QDEL_NULL(em_block)
 
@@ -98,50 +101,6 @@
 /atom/movable/update_overlays()
 	. = ..()
 	. += update_emissive_block()
-
-/atom/movable/proc/can_zFall(turf/source, turf/target, direction)
-	if(!direction)
-		direction = DOWN
-	if(!source)
-		source = get_turf(src)
-		if(!source)
-			return FALSE
-	if(!target)
-		target = get_step_multiz(source, direction)
-		if(!target)
-			return FALSE
-	return !(movement_type & FLYING) && has_gravity(src) && !throwing
-
-/atom/movable/proc/onZImpact(turf/T, levels)
-	var/atom/highest = null
-	for(var/i in T.contents)
-		var/atom/A = i
-		if(!A.density)
-			continue
-		if(isobj(A) || ismob(A))
-			if(!highest || A.layer > highest.layer)
-				highest = A
-	INVOKE_ASYNC(src, .proc/SpinAnimation, 5, 2)
-	if(highest)
-		throw_impact(highest)
-	return TRUE
-
-//For physical constraints to travelling up/down.
-/atom/movable/proc/can_zTravel(turf/destination, direction)
-	var/turf/T = get_turf(src)
-	if(!T)
-		return FALSE
-	if(!direction)
-		if(!destination)
-			return FALSE
-		direction = get_dir(T, destination)
-	if(direction != UP && direction != DOWN)
-		return FALSE
-	if(!destination)
-		destination = get_step_multiz(src, direction)
-		if(!destination)
-			return FALSE
-	return T.zPassOut(src, direction, destination) && destination.zPassIn(src, direction, T)
 
 /atom/movable/vv_edit_var(var_name, var_value)
 	var/static/list/banned_edits = list("step_x", "step_y", "step_size", "bounds")
@@ -225,7 +184,7 @@
 /atom/movable/proc/Move_Pulled(atom/A)
 	if(!pulling)
 		return
-	if(pulling.anchored || pulling.move_resist > move_force || !pulling.Adjacent(src))
+	if(pulling.anchored || pulling.move_resist > move_force || !pulling.Adjacent(src, src, pulling))
 		stop_pulling()
 		return
 	if(isliving(pulling))
@@ -291,14 +250,16 @@
 // Here's where we rewrite how byond handles movement except slightly different
 // To be removed on step_ conversion
 // All this work to prevent a second bump
-/atom/movable/Move(atom/newloc, direction)
+/atom/movable/Move(atom/newloc, direction, update_dir = TRUE)
 	. = FALSE
 	if(!newloc || newloc == loc)
 		return
 
 	if(!direction)
 		direction = get_dir(src, newloc)
-	setDir(direction)
+
+	if(set_dir_on_move && dir != direction && update_dir)
+		setDir(direction)
 
 	var/is_multi_tile_object = bound_width > 32 || bound_height > 32
 
@@ -363,7 +324,7 @@
 
 ////////////////////////////////////////
 
-/atom/movable/Move(atom/newloc, direct)
+/atom/movable/Move(atom/newloc, direct, update_dir = TRUE)
 	var/atom/movable/pullee = pulling
 	var/turf/T = loc
 	if(!moving_from_pull)
@@ -421,7 +382,7 @@
 						moving_diagonally = SECOND_DIAG_STEP
 						. = step(src, SOUTH)
 			if(moving_diagonally == SECOND_DIAG_STEP)
-				if(!.)
+				if(!. && set_dir_on_move && update_dir)
 					setDir(first_step_dir)
 				else if (!inertia_moving)
 					newtonian_move(direct)
@@ -445,7 +406,8 @@
 			check_pulling()
 
 	last_move = direct
-	if(flat_direct)
+
+	if(set_dir_on_move && flat_direct)
 		setDir(flat_direct)
 	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc,direct)) //movement failed due to buckled mob(s)
 		return FALSE
@@ -475,22 +437,26 @@
 /atom/movable/Destroy(force)
 	QDEL_NULL(proximity_monitor)
 	QDEL_NULL(language_holder)
+	QDEL_NULL(em_block)
 
-	unbuckle_all_mobs(force=1)
+	unbuckle_all_mobs(force = TRUE)
 
-	. = ..()
 	if(loc)
 		//Restore air flow if we were blocking it (movables with ATMOS_PASS_PROC will need to do this manually if necessary)
 		if(((CanAtmosPass == ATMOS_PASS_DENSITY && density) || CanAtmosPass == ATMOS_PASS_NO) && isturf(loc))
 			CanAtmosPass = ATMOS_PASS_YES
 			air_update_turf(TRUE)
 		loc.handle_atom_del(src)
-	for(var/atom/movable/AM in contents)
-		qdel(AM)
-	moveToNullspace()
+
+	if(opacity)
+		RemoveElement(/datum/element/light_blocking)
+
 	invisibility = INVISIBILITY_ABSTRACT
+
 	if(pulledby)
 		pulledby.stop_pulling()
+	if(pulling)
+		stop_pulling()
 
 	if(orbiting)
 		orbiting.end_orbit(src)
@@ -500,17 +466,33 @@
 		if(!QDELETED(move_packet))
 			qdel(move_packet)
 		move_packet = null
+/*
+	LAZYCLEARLIST(client_mobs_in_contents)
+*/
+	. = ..()
 
+	for(var/movable_content in contents)
+		qdel(movable_content)
+
+	moveToNullspace()
+
+	//This absolutely must be after moveToNullspace()
+	//We rely on Entered and Exited to manage this list, and the copy of this list that is on any /atom/movable "Containers"
+	//If we clear this before the nullspace move, a ref to this object will be hung in any of its movable containers
 	LAZYCLEARLIST(important_recursive_contents)
 
-	vis_contents.Cut()
+	vis_locs = null //clears this atom out of all viscontents
+
+	// Checking length(vis_contents) before cutting has significant speed benefits
+	if (length(vis_contents))
+		vis_contents.Cut()
 
 // Make sure you know what you're doing if you call this, this is intended to only be called by byond directly.
 // You probably want CanPass()
 /atom/movable/Cross(atom/movable/AM)
 	. = TRUE
 	SEND_SIGNAL(src, COMSIG_MOVABLE_CROSS, AM)
-	return CanPass(AM, AM.loc, TRUE)
+	return CanPass(AM, get_dir(src, AM))
 
 ///default byond proc that is deprecated for us in lieu of signals. do not call
 /atom/movable/Crossed(atom/movable/AM, oldloc)
@@ -519,7 +501,7 @@
 
 /**
  * `Uncross()` is a default BYOND proc that is called when something is *going*
- * to exit this atom's turf. It is prefered over `Uncrossed` when you want to
+ * to exit this atom's turf. It is preferred over `Uncrossed` when you want to
  * deny that movement, such as in the case of border objects, objects that allow
  * you to walk through them in any direction except the one they block
  * (think side windows).
@@ -613,12 +595,6 @@
 				old_area.Exited(src, null)
 
 	Moved(oldloc, NONE, TRUE)
-
-/atom/movable/proc/onTransitZ(old_z,new_z)
-	SEND_SIGNAL(src, COMSIG_MOVABLE_Z_CHANGED, old_z, new_z)
-	for (var/item in src) // Notify contents of Z-transition. This can be overridden IF we know the items contents do not care.
-		var/atom/movable/AM = item
-		AM.onTransitZ(old_z,new_z)
 
 /atom/movable/proc/setMovetype(newval)
 	movement_type = newval
@@ -782,13 +758,13 @@
 /atom/movable/proc/move_crushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
 
-/atom/movable/CanAllowThrough(atom/movable/mover, turf/target)
+/atom/movable/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(mover in buckled_mobs)
 		return TRUE
 
 /// Returns true or false to allow src to move through the blocker, mover has final say
-/atom/movable/proc/CanPassThrough(atom/blocker, turf/target, blocker_opinion)
+/atom/movable/proc/CanPassThrough(atom/blocker, movement_dir, blocker_opinion)
 	SHOULD_CALL_PARENT(TRUE)
 	return blocker_opinion
 
@@ -812,7 +788,7 @@
 			return turf
 		else
 			var/atom/movable/AM = A
-			if(!AM.CanPass(src) || AM.density)
+			if(AM.density || !AM.CanPass(src, get_dir(src, AM)))
 				if(AM.anchored)
 					return AM
 				dense_object_backup = AM
@@ -961,7 +937,7 @@
 		animate(pixel_y = -2, time = 10, loop = -1, flags = ANIMATION_RELATIVE)
 		setMovetype(movement_type | FLOATING)
 	else if (!on && (movement_type & FLOATING))
-		animate(src, pixel_y = initial(pixel_y), time = 10)
+		animate(src, pixel_y = base_pixel_y, time = 10)
 		setMovetype(movement_type & ~FLOATING)
 /* 	Language procs
 *	Unless you are doing something very specific, these are the ones you want to use.
@@ -1034,12 +1010,12 @@
 
 /// Copies all languages into the supplied atom/language holder. Source should be overridden when you
 /// do not want the language overwritten by later atom updates or want to avoid blocked languages.
-/atom/movable/proc/copy_languages(from_holder, source_override)
+/atom/movable/proc/copy_languages(from_holder, source_override=FALSE, spoken=TRUE, understood=TRUE, blocked=TRUE)
 	if(isatom(from_holder))
 		var/atom/movable/thing = from_holder
 		from_holder = thing.get_language_holder()
 	var/datum/language_holder/LH = get_language_holder()
-	return LH.copy_languages(from_holder, source_override)
+	return LH.copy_languages(from_holder, source_override, spoken, understood, blocked)
 
 /// Empties out the atom specific languages and updates them according to the current atoms language holder.
 /// As a side effect, it also creates missing language holders in the process.
@@ -1072,33 +1048,77 @@
 	set waitfor = FALSE
 	if(!istype(loc, /turf))
 		return
-	var/image/I = image(icon = src, loc = loc, layer = layer + 0.1)
-	I.plane = GAME_PLANE
-	I.transform *= 0.75
-	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-	var/turf/T = get_turf(src)
-	var/direction
-	var/to_x = 0
-	var/to_y = 0
+	var/image/pickup_animation = image(icon = src, loc = loc, layer = layer + 0.1)
+	pickup_animation.plane = GAME_PLANE
+	pickup_animation.transform *= 0.75
+	pickup_animation.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+	var/turf/current_turf = get_turf(src)
+	var/direction = get_dir(current_turf, target)
+	var/to_x = target.base_pixel_x
+	var/to_y = target.base_pixel_y
 
-	if(!QDELETED(T) && !QDELETED(target))
-		direction = get_dir(T, target)
 	if(direction & NORTH)
-		to_y = 32
+		to_y += 32
 	else if(direction & SOUTH)
-		to_y = -32
+		to_y -= 32
 	if(direction & EAST)
-		to_x = 32
+		to_x += 32
 	else if(direction & WEST)
-		to_x = -32
+		to_x -= 32
 	if(!direction)
-		to_y = 16
-	flick_overlay(I, GLOB.clients, 6)
-	var/matrix/M = new
-	M.Turn(pick(-30, 30))
-	animate(I, alpha = 175, pixel_x = to_x, pixel_y = to_y, time = 3, transform = M, easing = CUBIC_EASING)
-	sleep(1)
-	animate(I, alpha = 0, transform = matrix(), time = 1)
+		to_y += 10
+		pickup_animation.pixel_x += 6 * (prob(50) ? 1 : -1) //6 to the right or left, helps break up the straight upward move
+
+	flick_overlay(pickup_animation, GLOB.clients, 6)
+	var/matrix/animation_matrix = new(pickup_animation.transform)
+	animation_matrix.Turn(pick(-30, 30))
+	animation_matrix.Scale(0.65)
+
+	animate(pickup_animation, alpha = 175, pixel_x = to_x, pixel_y = to_y, time = 3, transform = animation_matrix, easing = CUBIC_EASING)
+	animate(alpha = 0, transform = matrix().Scale(0.7), time = 1)
+
+/obj/item/proc/do_drop_animation(atom/moving_from)
+	set waitfor = FALSE
+	if(item_flags & WAS_THROWN)
+		return
+	if(movement_type & THROWN)
+		return
+	if(!istype(loc, /turf))
+		return
+
+	var/turf/current_turf = get_turf(src)
+	var/direction = get_dir(moving_from, current_turf)
+	var/from_x = moving_from.base_pixel_x
+	var/from_y = moving_from.base_pixel_y
+
+	if(direction & NORTH)
+		from_y -= 32
+	else if(direction & SOUTH)
+		from_y += 32
+	if(direction & EAST)
+		from_x -= 32
+	else if(direction & WEST)
+		from_x += 32
+	if(!direction)
+		from_y += 10
+		from_x += 6 * (prob(50) ? 1 : -1) //6 to the right or left, helps break up the straight upward move
+
+	//We're moving from these chords to our current ones
+	var/old_x = pixel_x
+	var/old_y = pixel_y
+	var/old_alpha = alpha
+	var/matrix/old_transform = transform
+	var/matrix/animation_matrix = new(old_transform)
+	animation_matrix.Turn(pick(-30, 30))
+	animation_matrix.Scale(0.7) // Shrink to start, end up normal sized
+
+	pixel_x = from_x
+	pixel_y = from_y
+	alpha = 0
+	transform = animation_matrix
+
+	// This is instant on byond's end, but to our clients this looks like a quick drop
+	animate(src, alpha = old_alpha, pixel_x = old_x, pixel_y = old_y, transform = old_transform, time = 3, easing = CUBIC_EASING)
 
 /atom/movable/proc/get_spawner_desc()
 	return name
@@ -1116,7 +1136,7 @@
 ///allows this movable to hear and adds itself to the important_recursive_contents list of itself and every movable loc its in
 /atom/movable/proc/become_hearing_sensitive(trait_source = TRAIT_GENERIC)
 	if(!HAS_TRAIT(src, TRAIT_HEARING_SENSITIVE))
-		RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_HEARING_SENSITIVE), .proc/on_hearing_sensitive_trait_loss)
+		RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_HEARING_SENSITIVE), PROC_REF(on_hearing_sensitive_trait_loss))
 		for(var/atom/movable/location as anything in get_nested_locs(src) + src)
 			LAZYADDASSOCLIST(location.important_recursive_contents, RECURSIVE_CONTENTS_HEARING_SENSITIVE, src)
 	ADD_TRAIT(src, TRAIT_HEARING_SENSITIVE, trait_source)

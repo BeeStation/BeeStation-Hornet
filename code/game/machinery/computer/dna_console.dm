@@ -203,8 +203,8 @@
 		UnregisterSignal(connected_scanner, COMSIG_MACHINE_CLOSE)
 
 	if(scanner)
-		RegisterSignal(scanner, COMSIG_MACHINE_OPEN, .proc/on_scanner_open)
-		RegisterSignal(scanner, COMSIG_MACHINE_CLOSE, .proc/on_scanner_close)
+		RegisterSignal(scanner, COMSIG_MACHINE_OPEN, PROC_REF(on_scanner_open))
+		RegisterSignal(scanner, COMSIG_MACHINE_CLOSE, PROC_REF(on_scanner_close))
 
 	connected_scanner = scanner
 

@@ -133,7 +133,7 @@
 /datum/status_effect/bugged/on_apply(mob/living/new_owner, mob/living/tracker)
 	. = ..()
 	if (.)
-		RegisterSignal(new_owner, COMSIG_MOVABLE_HEAR, .proc/handle_hearing)
+		RegisterSignal(new_owner, COMSIG_MOVABLE_HEAR, PROC_REF(handle_hearing))
 
 /datum/status_effect/bugged/on_remove()
 	. = ..()
@@ -179,8 +179,8 @@
 		qdel(src)
 		return
 
-	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, .proc/check_owner_in_range)
-	RegisterSignal(offered_item, list(COMSIG_PARENT_QDELETING, COMSIG_ITEM_DROPPED), .proc/dropped_item)
+	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(check_owner_in_range))
+	RegisterSignal(offered_item, list(COMSIG_PARENT_QDELETING, COMSIG_ITEM_DROPPED), PROC_REF(dropped_item))
 
 /datum/status_effect/offering/Destroy()
 	for(var/i in possible_takers)
@@ -195,7 +195,7 @@
 	if(!G)
 		return
 	LAZYADD(possible_takers, possible_candidate)
-	RegisterSignal(possible_candidate, COMSIG_MOVABLE_MOVED, .proc/check_taker_in_range)
+	RegisterSignal(possible_candidate, COMSIG_MOVABLE_MOVED, PROC_REF(check_taker_in_range))
 	G.setup(possible_candidate, owner, offered_item)
 
 /// Remove the alert and signals for the specified carbon mob. Automatically removes the status effect when we lost the last taker

@@ -35,6 +35,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define isfloorturf(A) (istype(A, /turf/open/floor))
 
+#define isanyfloor(A) (isfloorturf(A) || isindestructiblefloor(A))
+
 #define isclosedturf(A) (istype(A, /turf/closed))
 
 #define isindestructiblewall(A) (istype(A, /turf/closed/indestructible))
@@ -74,10 +76,9 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define isplasmaman(A) (is_species(A, /datum/species/plasmaman))
 #define ispodperson(A) (is_species(A, /datum/species/pod))
 #define isflyperson(A) (is_species(A, /datum/species/fly))
-#define isjellyperson(A) (is_species(A, /datum/species/jelly))
-#define isslimeperson(A) (is_species(A, /datum/species/jelly/slime))
-#define isluminescent(A) (is_species(A, /datum/species/jelly/luminescent))
-#define isstargazer(A) (is_species(A, /datum/species/jelly/stargazer))
+#define isslimeperson(A) (is_species(A, /datum/species/oozeling/slime))
+#define isluminescent(A) (is_species(A, /datum/species/oozeling/luminescent))
+#define isstargazer(A) (is_species(A, /datum/species/oozeling/stargazer))
 #define isoozeling(A) (is_species(A, /datum/species/oozeling))
 #define iszombie(A) (is_species(A, /datum/species/zombie))
 #define isskeleton(A) (is_species(A, /datum/species/skeleton))
@@ -140,6 +141,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define iscat(A) (istype(A, /mob/living/simple_animal/pet/cat))
 
 #define iscorgi(A) (istype(A, /mob/living/simple_animal/pet/dog/corgi))
+
+#define isdog(A) (istype(A, /mob/living/simple_animal/pet/dog))
 
 #define ishostile(A) (istype(A, /mob/living/simple_animal/hostile))
 
@@ -226,6 +229,8 @@ GLOBAL_LIST_INIT(heavyfootmob, typecacheof(list(
 #define isobj(A) istype(A, /obj) //override the byond proc because it returns true on children of /atom/movable that aren't objs
 
 #define isitem(A) (istype(A, /obj/item))
+
+#define isstack(A) (istype(A, /obj/item/stack))
 
 #define isgrenade(A) (istype(A, /obj/item/grenade))
 

@@ -1,25 +1,10 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/turf/closed/wall,
-/area/template_noop)
-"b" = (
-/obj/structure/flora/ausbushes/ywflowers,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/grass,
-/area/template_noop)
 "c" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/radio/intercom{
 	pixel_x = 29
 	},
 /obj/item/seeds/cannabis,
-/turf/open/floor/grass,
-/area/template_noop)
-"h" = (
-/obj/machinery/newscaster{
-	pixel_x = 28;
-	pixel_y = 1
-	},
 /turf/open/floor/grass,
 /area/template_noop)
 "k" = (
@@ -78,7 +63,7 @@
 /turf/open/floor/grass,
 /area/template_noop)
 "w" = (
-/turf/closed/wall/r_wall,
+/turf/template_noop/closed,
 /area/template_noop)
 "y" = (
 /obj/machinery/hydroponics/soil,
@@ -243,12 +228,11 @@ r
 z
 G
 A
-F
 y
 C
 m
 Q
-a
+w
 "}
 (2,1,1) = {"
 W
@@ -256,7 +240,6 @@ v
 D
 P
 l
-b
 l
 H
 Y
@@ -265,16 +248,15 @@ J
 "}
 (3,1,1) = {"
 W
-S
+F
 p
 v
 V
-F
 S
 n
 V
 N
-a
+w
 "}
 (4,1,1) = {"
 U
@@ -282,7 +264,6 @@ R
 L
 G
 c
-h
 O
 V
 k
@@ -290,15 +271,14 @@ Z
 w
 "}
 (5,1,1) = {"
-a
-a
+w
+w
 U
 U
-a
-a
+w
 U
 U
-a
-a
+w
+w
 w
 "}

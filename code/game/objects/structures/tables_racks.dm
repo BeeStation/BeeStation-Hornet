@@ -110,7 +110,7 @@
 /obj/structure/table/attack_tk()
 	return FALSE
 
-/obj/structure/table/CanAllowThrough(atom/movable/mover, turf/target)
+/obj/structure/table/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(.)
 		return
@@ -259,7 +259,7 @@
 	canSmoothWith = null
 	max_integrity = 70
 	resistance_flags = ACID_PROOF
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100, STAMINA = 0)
 	var/list/debris = list()
 
 /obj/structure/table/glass/Initialize(mapload)
@@ -267,7 +267,7 @@
 	debris += new frame
 	debris += new /obj/item/shard
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -284,7 +284,7 @@
 		return
 	// Don't break if they're just flying past
 	if(AM.throwing)
-		addtimer(CALLBACK(src, .proc/throw_check, AM), 5)
+		addtimer(CALLBACK(src, PROC_REF(throw_check), AM), 5)
 	else
 		check_break(AM)
 
@@ -340,7 +340,7 @@
 	base_icon_state = "plasmaglass_table"
 	buildstack = /obj/item/stack/sheet/plasmaglass
 	max_integrity = 270
-	armor = list("melee" = 10, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
+	armor = list(MELEE = 10,  BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 80, ACID = 100)
 
 /obj/structure/table/glass/plasma/Initialize(mapload)
 	. = ..()
@@ -461,7 +461,7 @@
 	buildstack = /obj/item/stack/sheet/plasteel
 	max_integrity = 200
 	integrity_failure = 50
-	armor = list("melee" = 10, "bullet" = 30, "laser" = 30, "energy" = 100, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70, "stamina" = 0)
+	armor = list(MELEE = 10,  BULLET = 30, LASER = 30, ENERGY = 100, BOMB = 20, BIO = 0, RAD = 0, FIRE = 80, ACID = 70, STAMINA = 0)
 
 /obj/structure/table/reinforced/deconstruction_hints(mob/user)
 	if(deconstruction_ready)
@@ -584,7 +584,7 @@
 		UnregisterSignal(patient, COMSIG_PARENT_QDELETING)
 	patient = new_patient
 	if(patient)
-		RegisterSignal(patient, COMSIG_PARENT_QDELETING, .proc/patient_deleted)
+		RegisterSignal(patient, COMSIG_PARENT_QDELETING, PROC_REF(patient_deleted))
 
 /obj/structure/table/optable/proc/patient_deleted(datum/source)
 	SIGNAL_HANDLER
@@ -616,7 +616,7 @@
 	. = ..()
 	. += "<span class='notice'>It's held together by a couple of <b>bolts</b>.</span>"
 
-/obj/structure/rack/CanAllowThrough(atom/movable/mover, turf/target)
+/obj/structure/rack/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(src.density == 0) //Because broken racks -Agouri |TODO: SPRITE!|
 		return TRUE
@@ -655,7 +655,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
 	user.visible_message("<span class='danger'>[user] kicks [src].</span>", null, null, COMBAT_MESSAGE_RANGE)
-	take_damage(rand(4,8), BRUTE, "melee", 1)
+	take_damage(rand(4,8), BRUTE, MELEE, 1)
 
 /obj/structure/rack/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -704,7 +704,7 @@
 		return
 	building = TRUE
 	to_chat(user, "<span class='notice'>You start constructing a rack...</span>")
-	if(do_after(user, 50, target = user, progress=TRUE))
+	if(do_after(user, 50, target = user))
 		if(!user.temporarilyRemoveItemFromInventory(src))
 			return
 		var/obj/structure/rack/R = new /obj/structure/rack(user.loc)

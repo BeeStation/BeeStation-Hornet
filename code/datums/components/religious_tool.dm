@@ -29,8 +29,8 @@
 		catalyst_type = override_catalyst_type
 
 /datum/component/religious_tool/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY,.proc/AttemptActions)
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, .proc/on_examine)
+	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY,PROC_REF(AttemptActions))
+	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 
 /datum/component/religious_tool/UnregisterFromParent()
 	UnregisterSignal(parent, list(COMSIG_PARENT_ATTACKBY, COMSIG_PARENT_EXAMINE))
@@ -54,13 +54,12 @@
 /datum/component/religious_tool/proc/AttemptActions(datum/source, obj/item/the_item, mob/living/user)
 	SIGNAL_HANDLER
 	var/turf/T = get_turf(parent)
-	var/area/A = T.loc
-	if(!istype(A, /area/chapel))
+	if(!T.is_holy())
 		to_chat(user, "<span class='warning'>The [source] can only function in a holy area!</span>")
 		return COMPONENT_NO_AFTERATTACK
 
 	if(istype(the_item, catalyst_type))
-		INVOKE_ASYNC(src, /datum.proc/ui_interact, user) //asynchronous to avoid sleeping in a signal
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/datum, ui_interact), user) //asynchronous to avoid sleeping in a signal
 
 	/**********Sacrificing**********/
 	else if(operation_flags & RELIGION_TOOL_SACRIFICE)
@@ -242,6 +241,9 @@
 	if(!can_i_see)
 		return
 	examine_list += ("<span class='notice'>Use a bible to interact with this.</span>")
+	if(user.mind?.holy_role)
+		var/obj/structure/altar_of_gods/altar = parent
+		examine_list +=("<span class='notice'>You can tap this with your holy weapon to [altar.anchored ? "un" : ""]anchor it.</span>")
 	if(!easy_access_sect)
 		if(operation_flags & RELIGION_TOOL_SECTSELECT)
 			examine_list += ("<span class='notice'>This looks like it can be used to select a sect.</span>")

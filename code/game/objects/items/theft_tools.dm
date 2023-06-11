@@ -62,7 +62,7 @@
 	core = ncore
 	icon_state = "core_container_loaded"
 	to_chat(user, "<span class='warning'>Container is sealing...</span>")
-	addtimer(CALLBACK(src, .proc/seal), 50)
+	addtimer(CALLBACK(src, PROC_REF(seal)), 50)
 	return TRUE
 
 /obj/item/nuke_core_container/proc/seal()
@@ -96,7 +96,7 @@
 	greyscale_config_inhand_right = null
 
 /obj/item/paper/guides/antag/nuke_instructions
-	info = "How to break into a Nanotrasen self-destruct terminal and remove its plutonium core:<br>\
+	default_raw_text = "How to break into a Nanotrasen self-destruct terminal and remove its plutonium core:<br>\
 	<ul>\
 	<li>Use a screwdriver with a very thin tip (provided) to unscrew the terminal's front panel</li>\
 	<li>Dislodge and remove the front panel with a crowbar</li>\
@@ -109,7 +109,7 @@
 // STEALING SUPERMATTER
 
 /obj/item/paper/guides/antag/supermatter_sliver
-	info = "How to safely extract a supermatter sliver:<br>\
+	default_raw_text = "How to safely extract a supermatter sliver:<br>\
 	<ul>\
 	<li>Approach an active supermatter crystal with radiation shielded personal protective equipment. DO NOT MAKE PHYSICAL CONTACT.</li>\
 	<li>Use a supermatter scalpel (provided) to slice off a sliver of the crystal.</li>\
@@ -182,7 +182,7 @@
 	T.icon_state = "supermatter_tongs"
 	icon_state = "core_container_loaded"
 	to_chat(user, "<span class='warning'>Container is sealing...</span>")
-	addtimer(CALLBACK(src, .proc/seal), 50)
+	addtimer(CALLBACK(src, PROC_REF(seal)), 50)
 	return TRUE
 
 /obj/item/nuke_core_container/supermatter/seal()
@@ -206,7 +206,7 @@
 	icon = 'icons/obj/nuke_tools.dmi'
 	icon_state = "supermatter_scalpel"
 	toolspeed = 0.5
-	damtype = "fire"
+	damtype = BURN
 	usesound = 'sound/weapons/bladeslice.ogg'
 	var/usesLeft
 
@@ -220,7 +220,7 @@
 	icon = 'icons/obj/nuke_tools.dmi'
 	icon_state = "supermatter_tongs"
 	toolspeed = 0.75
-	damtype = "fire"
+	damtype = BURN
 	var/obj/item/nuke_core/supermatter_sliver/sliver
 
 /obj/item/hemostat/supermatter/Destroy()

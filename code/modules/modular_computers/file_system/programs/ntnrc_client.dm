@@ -218,8 +218,6 @@
 
 	var/list/data = list()
 
-	data = get_header_data()
-
 	var/list/all_channels = list()
 	for(var/C in SSnetworks.station_network.chat_channels)
 		var/datum/ntnet_conversation/conv = C

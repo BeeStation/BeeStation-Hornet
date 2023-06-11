@@ -37,7 +37,7 @@
 	if(!door_anim_time == 0 && !animation_math["[door_anim_time]-[door_anim_angle]-[azimuth_angle_2]-[radius_2]-[door_hinge]"])
 		animation_list()
 
-/obj/structure/closet/crate/CanAllowThrough(atom/movable/mover, turf/target)
+/obj/structure/closet/crate/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(!istype(mover, /obj/structure/closet))
 		var/obj/structure/closet/crate/locatedcrate = locate(/obj/structure/closet/crate) in get_turf(mover)
@@ -86,7 +86,7 @@
 			animate(door_obj, transform = M, icon_state = door_state, layer = door_layer, time = world.tick_lag, flags = ANIMATION_END_NOW)
 		else
 			animate(transform = M, icon_state = door_state, layer = door_layer, time = world.tick_lag)
-	addtimer(CALLBACK(src,.proc/end_door_animation),door_anim_time,TIMER_UNIQUE|TIMER_OVERRIDE)
+	addtimer(CALLBACK(src,PROC_REF(end_door_animation)),door_anim_time,TIMER_UNIQUE|TIMER_OVERRIDE)
 
 /obj/structure/closet/crate/end_door_animation()
 	is_animating_door = FALSE

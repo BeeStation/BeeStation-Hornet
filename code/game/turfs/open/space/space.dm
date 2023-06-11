@@ -60,7 +60,7 @@
 		update_light()
 
 	if (opacity)
-		has_opaque_atom = TRUE
+		directional_opacity = ALL_CARDINALS
 
 	ComponentInitialize()
 

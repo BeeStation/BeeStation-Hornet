@@ -104,3 +104,11 @@ GLOBAL_LIST_INIT(ntos_device_themes_emagged, list(
 		if(GLOB.ntos_device_themes_emagged[key] == id)
 			return key
 	return null
+
+//chem grenades defines
+/// Grenade is empty
+#define GRENADE_EMPTY 1
+/// Grenade has wires
+#define GRENADE_WIRED 2
+/// Grenade is ready to be activated
+#define GRENADE_READY 3

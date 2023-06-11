@@ -147,6 +147,8 @@ All ShuttleMove procs go here
 		update_light()
 	if(rotation)
 		shuttleRotate(rotation)
+	if(proximity_monitor)
+		proximity_monitor.HandleMove()
 
 	return TRUE
 
@@ -208,7 +210,7 @@ All ShuttleMove procs go here
 	for(var/obj/machinery/door/airlock/A in range(1, src))  // includes src
 		A.shuttledocked = FALSE
 		A.air_tight = TRUE
-		INVOKE_ASYNC(A, /obj/machinery/door/.proc/close)
+		INVOKE_ASYNC(A, TYPE_PROC_REF(/obj/machinery/door, close))
 
 /obj/machinery/door/airlock/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
 	. = ..()
@@ -414,5 +416,5 @@ All ShuttleMove procs go here
 
 /obj/effect/abstract/proximity_checker/onShuttleMove(turf/newT, turf/oldT, list/movement_force, move_dir, obj/docking_port/stationary/old_dock, obj/docking_port/mobile/moving_dock, list/obj/docking_port/mobile/towed_shuttles)
 	//timer so it only happens once
-	addtimer(CALLBACK(monitor, /datum/proximity_monitor/proc/SetRange, monitor.current_range, TRUE), 0, TIMER_UNIQUE)
+	addtimer(CALLBACK(monitor, TYPE_PROC_REF(/datum/proximity_monitor, SetRange), monitor.current_range, TRUE), 0, TIMER_UNIQUE)
 	return FALSE

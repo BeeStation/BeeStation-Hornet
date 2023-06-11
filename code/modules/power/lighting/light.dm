@@ -94,7 +94,7 @@
 		UnregisterSignal(cell, COMSIG_PARENT_QDELETING)
 	cell = new_cell
 	if(cell)
-		RegisterSignal(cell, COMSIG_PARENT_QDELETING, .proc/remove_cell)
+		RegisterSignal(cell, COMSIG_PARENT_QDELETING, PROC_REF(remove_cell))
 
 /obj/machinery/light/proc/remove_cell()
 	SIGNAL_HANDLER
@@ -207,7 +207,7 @@
 			switchcount++
 			if(rigged)
 				if(status == LIGHT_OK && trigger)
-					explode()
+					plasma_ignition(4)
 			else if( prob( min(60, (switchcount**2)*0.01) ) )
 				if(trigger)
 					burn_out()
@@ -243,7 +243,7 @@
 		if(!start_only)
 			do_sparks(3, TRUE, src)
 		var/delay = rand(BROKEN_SPARKS_MIN, BROKEN_SPARKS_MAX)
-		addtimer(CALLBACK(src, .proc/broken_sparks), delay, TIMER_UNIQUE | TIMER_NO_HASH_WAIT)
+		addtimer(CALLBACK(src, PROC_REF(broken_sparks)), delay, TIMER_UNIQUE | TIMER_NO_HASH_WAIT)
 
 /obj/machinery/light/process()
 	if (!cell)
@@ -324,7 +324,7 @@
 				qdel(L)
 
 				if(on && rigged)
-					explode()
+					plasma_ignition(4)
 			else
 				to_chat(user, "<span class='warning'>This type of light requires a [fitting]!</span>")
 
@@ -572,7 +572,7 @@
 	if(status == LIGHT_EMPTY || status == LIGHT_BROKEN)
 		return
 
-	if(!skip_sound_and_sparks && Master.current_runlevel) //not completly sure disabling this during initialize is needed but then again there are broken lights after initialize
+	if(!skip_sound_and_sparks && Master.current_runlevel) //not completely sure disabling this during initialize is needed but then again there are broken lights after initialize
 		if(status == LIGHT_OK || status == LIGHT_BURNED)
 			playsound(src.loc, 'sound/effects/glasshit.ogg', 75, 1)
 		if(on)
@@ -610,17 +610,6 @@
 /obj/machinery/light/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(prob(max(0, exposed_temperature - 673)))   //0% at <400C, 100% at >500C
 		break_light_tube()
-
-// explode the light
-
-/obj/machinery/light/proc/explode()
-	set waitfor = 0
-	var/turf/T = get_turf(src.loc)
-	break_light_tube()	// break it first to give a warning
-	sleep(2)
-	explosion(T, 0, 0, 2, 2)
-	sleep(1)
-	qdel(src)
 
 /obj/machinery/light/eminence_act(mob/living/simple_animal/eminence/eminence)
 	. = ..()

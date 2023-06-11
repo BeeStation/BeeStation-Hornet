@@ -120,11 +120,11 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 	for(var/area/A in world)
 		GLOB.sortedAreas.Add(A)
 
-	sortTim(GLOB.sortedAreas, /proc/cmp_name_asc)
+	sortTim(GLOB.sortedAreas, GLOBAL_PROC_REF(cmp_name_asc))
 
 /area/proc/addSorted()
 	GLOB.sortedAreas.Add(src)
-	sortTim(GLOB.sortedAreas, /proc/cmp_name_asc)
+	sortTim(GLOB.sortedAreas, GLOBAL_PROC_REF(cmp_name_asc))
 
 //Takes: Area type as a text string from a variable.
 //Returns: Instance for the area in the world.

@@ -6,6 +6,7 @@
 	icon_dead = "frog_dead"
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	speak = list("ribbit","croak")
+	speak_language = /datum/language/metalanguage
 	emote_see = list("hops in a circle.", "shakes.")
 	speak_chance = 1
 	turns_per_move = 5
@@ -37,7 +38,7 @@
 		butcher_results = list(/obj/item/reagent_containers/food/snacks/nugget = 5)
 
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 

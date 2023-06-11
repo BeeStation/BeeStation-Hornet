@@ -32,14 +32,14 @@
 		var/obj/O = user.get_item_by_slot(ITEM_SLOT_HANDCUFFED)
 		if(istype(O))
 			to_chat(user, "<span class='warning'>We vomit acidic ooze onto our restraints!</span>")
-			addtimer(CALLBACK(src, .proc/dissolve_handcuffs, user, O), 30)
+			addtimer(CALLBACK(src, PROC_REF(dissolve_handcuffs), user, O), 30)
 			. = TRUE
 
 	if(user.wear_suit && user.wear_suit.breakouttime)
 		var/obj/item/clothing/suit/S = user.get_item_by_slot(ITEM_SLOT_OCLOTHING)
 		if(istype(S))
 			to_chat(user, "<span class='warning'>We vomit acidic ooze onto our straight jacket!</span>")
-			addtimer(CALLBACK(src, .proc/dissolve_straightjacket, user, S), 30)
+			addtimer(CALLBACK(src, PROC_REF(dissolve_straightjacket), user, S), 30)
 			. = TRUE
 
 
@@ -48,7 +48,7 @@
 		if(istype(C))
 			C.visible_message("<span class='warning'>[C]'s hinges suddenly begin to melt and run!</span>")
 			to_chat(user, "<span class='warning'>We vomit acidic goop onto the interior of [C]!</span>")
-			addtimer(CALLBACK(src, .proc/open_closet, user, C), 70)
+			addtimer(CALLBACK(src, PROC_REF(open_closet), user, C), 70)
 			. = TRUE
 
 	if(istype(user.loc, /obj/structure/spider/cocoon))
@@ -56,7 +56,7 @@
 		if(istype(C))
 			C.visible_message("<span class='warning'>[src] shifts and starts to fall apart!</span>")
 			to_chat(user, "<span class='warning'>We secrete acidic enzymes from our skin and begin melting our cocoon...</span>")
-			addtimer(CALLBACK(src, .proc/dissolve_cocoon, user, C), 25) //Very short because it's just webs
+			addtimer(CALLBACK(src, PROC_REF(dissolve_cocoon), user, C), 25) //Very short because it's just webs
 			. = TRUE
 	..()
 

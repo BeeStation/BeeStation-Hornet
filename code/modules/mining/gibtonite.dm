@@ -87,7 +87,7 @@
 		else
 			user.visible_message("<span class='warning'>[user] strikes \the [src], causing a chain reaction!</span>", "<span class='danger'>You strike \the [src], causing a chain reaction.</span>")
 			log_bomber(user, "has primed a", src, "for detonation", notify_admins)
-		det_timer = addtimer(CALLBACK(src, .proc/detonate, notify_admins), det_time, TIMER_STOPPABLE)
+		det_timer = addtimer(CALLBACK(src, PROC_REF(detonate), notify_admins), det_time, TIMER_STOPPABLE)
 
 /obj/item/gibtonite/proc/detonate(notify_admins)
 	if(primed)

@@ -64,7 +64,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 /mob/dead/observer/Initialize(mapload)
 	set_invisibility(GLOB.observer_default_invisibility)
 
-	RegisterSignal(src, COMSIG_MOB_MOUSE_SCROLL_ON, .proc/mouse_wheeled)
+	RegisterSignal(src, COMSIG_MOB_MOUSE_SCROLL_ON, PROC_REF(mouse_wheeled))
 
 	add_verb(list(
 		/mob/dead/observer/proc/dead_tele,
@@ -152,7 +152,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	show_data_huds()
 	data_huds_on = 1
 
-	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE)
+	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE, "#490066")
 
 /mob/dead/observer/get_photo_description(obj/item/camera/camera)
 	return "You can also see a g-g-g-g-ghooooost!"
@@ -161,13 +161,13 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/old_color = color
 	color = "#960000"
 	animate(src, color = old_color, time = 10, flags = ANIMATION_PARALLEL)
-	addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 10)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 10)
 
 /mob/dead/observer/Destroy()
 	UnregisterSignal(src, COMSIG_MOB_MOUSE_SCROLL_ON)
 	// Update medhud on their body (soul departed?)
 	if(isliving(mind?.current))
-		addtimer(CALLBACK(mind.current, /mob/living.proc/med_hud_set_status), 1 SECONDS)
+		addtimer(CALLBACK(mind.current, TYPE_PROC_REF(/mob/living, med_hud_set_status)), 1 SECONDS)
 	if(data_huds_on)
 		remove_data_huds()
 	if(ai_hud_on)
@@ -193,14 +193,13 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 /*
  * This proc will update the icon of the ghost itself, with hair overlays, as well as the ghost image.
- * Please call update_icon(icon_state) from now on when you want to update the icon_state of the ghost,
+ * Please call update_icon(new_form = icon_state) from now on when you want to update the icon_state of the ghost,
  * or you might end up with hair on a sprite that's not supposed to get it.
  * Hair will always update its dir, so if your sprite has no dirs the haircut will go all over the place.
  * |- Ricotez
  */
-/mob/dead/observer/update_icon(new_form)
+/mob/dead/observer/update_icon(updates = ALL, new_form)
 	. = ..()
-
 	if(client) //We update our preferences in case they changed right before update_icon was called.
 		ghost_accs = client.prefs.ghost_accs
 		ghost_others = client.prefs.ghost_others
@@ -310,7 +309,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(stat == DEAD)
 		ghostize(1)
 	else
-		var/response = alert(src, "Are you -sure- you want to ghost?\n(You are alive. If you ghost whilst still alive you may not play again this round! You can't change your mind so choose wisely!!)","Are you sure you want to ghost?","Ghost","Stay in body")
+		var/response = tgui_alert(src, "Are you -sure- you want to ghost?\n(You are alive. If you ghost whilst still alive you may not play again this round! You can't change your mind so choose wisely!!)", "Are you sure you want to ghost?", list("Ghost", "Stay in body"))
 		if(response != "Ghost")
 			return	//didn't want to ghost after-all
 		ghostize(FALSE,SENTIENCE_RETAIN)						//0 parameter is so we can never re-enter our body, "Charlie, you can never come baaaack~" :3
@@ -320,7 +319,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Ghost"
 	set desc = "Relinquish your life and enter the land of the dead."
 
-	var/response = alert(src, "Are you -sure- you want to ghost?\n(You are alive. If you ghost whilst still alive you may not play again this round! You can't change your mind so choose wisely!!)","Are you sure you want to ghost?","Ghost","Stay in body")
+	var/response = tgui_alert(src, "Are you -sure- you want to ghost?\n(You are alive. If you ghost whilst still alive you may not play again this round! You can't change your mind so choose wisely!!)", "Are you sure you want to ghost?", list("Ghost", "Stay in body"))
 	if(response != "Ghost")
 		return
 	ghostize(FALSE,SENTIENCE_RETAIN)
@@ -380,7 +379,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(usr, "<span class='warning'>You're already stuck out of your body!</span>")
 		return FALSE
 
-	var/response = alert(src, "Are you sure you want to prevent (almost) all means of resuscitation? This cannot be undone. ","Are you sure you want to stay dead?","DNR","Save Me")
+	var/response = tgui_alert(src, "Are you sure you want to prevent (almost) all means of resuscitation? This cannot be undone. ", "Are you sure you want to stay dead?", list("DNR","Save Me"))
 	if(response != "DNR")
 		return
 
@@ -424,7 +423,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		var/area/A = V
 		if(!(A.area_flags & HIDDEN_AREA))
 			filtered += A
-	var/area/thearea  = input("Area to jump to", "BOOYEA") as null|anything in filtered
+	var/area/thearea  = tgui_input_list(src, "Area to jump to", "BOOYEA", filtered)
 
 	if(!thearea)
 		return
@@ -482,8 +481,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/stop_orbit(datum/component/orbiter/orbits)
 	. = ..()
 	//restart our floating animation after orbit is done.
-	pixel_y = 0
-	animate(src, pixel_y = 2, time = 10, loop = -1)
+	pixel_y = base_pixel_y
+	animate(src, pixel_y = base_pixel_y + 2, time = 1 SECONDS, loop = -1)
 	animate(pixel_y = -2, time = 10, loop = -1, flags = ANIMATION_RELATIVE)
 
 /mob/dead/observer/verb/jumptomob() //Moves the ghost instead of just changing the ghosts's eye -Nodrak
@@ -498,7 +497,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		var/target = null	   //Chosen target.
 
 		dest += getpois(mobs_only=1) //Fill list, prompt user with list
-		target = input("Please, select a player!", "Jump to Mob", null, null) as null|anything in dest
+		target = tgui_input_list(src, "Please, select a player!", "Jump to Mob", dest)
 
 		if (!target)//Make sure we actually have a target
 			return
@@ -522,7 +521,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		var/list/views = list()
 		for(var/i in 7 to max_view)
 			views |= i
-		var/new_view = input("Choose your new view", "Modify view range", 0) as null|anything in views
+		var/new_view = tgui_input_list(src, "Choose your new view", "Modify view range", views)
 		if(new_view)
 			client.view_size.setTo(clamp(new_view, 7, max_view) - 7)
 	else
@@ -596,8 +595,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	..()
 
 /proc/updateallghostimages()
-	listclearnulls(GLOB.ghost_images_default)
-	listclearnulls(GLOB.ghost_images_simple)
+	list_clear_nulls(GLOB.ghost_images_default)
+	list_clear_nulls(GLOB.ghost_images_simple)
 
 	for (var/mob/dead/observer/O in GLOB.player_list)
 		O.updateghostimages()
@@ -634,7 +633,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(!(L in GLOB.player_list) && !L.mind)
 			possessible += L
 
-	var/mob/living/target = input("Your new life begins today!", "Possess Mob", null, null) as null|anything in sortNames(possessible)
+	var/mob/living/target = tgui_input_list(src, "Your new life begins today!", "Possess Mob", items = sort_names(possessible))
 
 	if(!target)
 		return 0
@@ -644,7 +643,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return 0
 
 	if(can_reenter_corpse && mind && mind.current)
-		if(alert(src, "Your soul is still tied to your former life as [mind.current.name], if you go forward there is no going back to that life. Are you sure you wish to continue?", "Move On", "Yes", "No") != "Yes")
+		if(tgui_alert(src, "Your soul is still tied to your former life as [mind.current.name], if you go forward there is no going back to that life. Are you sure you wish to continue?", "Move On", list("Yes", "No")) != "Yes")
 			return 0
 	if(target.key)
 		to_chat(src, "<span class='warning'>Someone has taken this body while you were choosing!</span>")
@@ -815,7 +814,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	update_icon()
 
-/mob/dead/observer/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
+/mob/dead/observer/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
 	return IsAdminGhost(usr)
 
 /mob/dead/observer/is_literate()
@@ -861,7 +860,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	var/eye_name = null
 
-	eye_name = input("Please, select a player!", "Observe", null, null) as null|anything in creatures
+	eye_name = tgui_input_list(src, "Please, select a player!", "Observe", creatures)
 
 	if (!eye_name)
 		return

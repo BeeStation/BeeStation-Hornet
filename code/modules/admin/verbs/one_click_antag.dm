@@ -36,7 +36,7 @@
 		var/turf/T = get_turf(applicant)
 		if(!is_station_level(T.z))
 			return FALSE
-	if(conscious && applicant.stat) //incase you don't care about a certain antag being unconcious when made, ie if they have selfhealing abilities.
+	if(conscious && applicant.stat) //incase you don't care about a certain antag being unconscious when made, ie if they have selfhealing abilities.
 		return FALSE
 	if(!considered_alive(applicant.mind) || considered_afk(applicant.mind)) //makes sure the player isn't a zombie, brain, or just afk all together
 		return FALSE
@@ -319,9 +319,9 @@
 		ertemplate = new /datum/ert/centcom_official
 
 	var/list/settings = list(
-		"preview_callback" = CALLBACK(src, .proc/makeERTPreviewIcon),
+		"preview_callback" = CALLBACK(src, PROC_REF(makeERTPreviewIcon)),
 		"mainsettings" = list(
-		"template" = list("desc" = "Template", "callback" = CALLBACK(src, .proc/makeERTTemplateModified), "type" = "datum", "path" = "/datum/ert", "subtypesonly" = TRUE, "value" = ertemplate.type),
+		"template" = list("desc" = "Template", "callback" = CALLBACK(src, PROC_REF(makeERTTemplateModified)), "type" = "datum", "path" = "/datum/ert", "subtypesonly" = TRUE, "value" = ertemplate.type),
 		"teamsize" = list("desc" = "Team Size", "type" = "number", "value" = ertemplate.teamsize),
 		"mission" = list("desc" = "Mission", "type" = "string", "value" = ertemplate.mission),
 		"polldesc" = list("desc" = "Ghost poll description", "type" = "string", "value" = ertemplate.polldesc),

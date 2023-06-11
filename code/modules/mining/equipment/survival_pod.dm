@@ -176,6 +176,7 @@
 /obj/machinery/sleeper/survival_pod
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	icon_state = "sleeper"
+	roundstart_vials = list()
 
 /obj/machinery/sleeper/survival_pod/update_icon()
 	if(state_open)

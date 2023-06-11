@@ -615,6 +615,15 @@
 		/obj/item/stack/sheet/glass = 1,
 		/obj/item/vending_refill/donksoft = 1)
 
+/obj/item/circuitboard/machine/fax
+	name = "Fax Machine"
+	build_path = /obj/machinery/fax
+	req_components = list(
+		/obj/item/stock_parts/subspace/crystal = 1,
+		/obj/item/stock_parts/scanning_module = 1,
+		/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/stock_parts/manipulator = 1)
+
 
 
 //Medical
@@ -696,6 +705,8 @@
 		/obj/item/reagent_containers/glass/beaker = 2,
 		/obj/item/stock_parts/manipulator = 1,
 		/obj/item/stack/sheet/glass = 1)
+	def_components = list(
+		/obj/item/reagent_containers/glass/beaker = /obj/item/reagent_containers/glass/beaker/large)
 	needs_anchored = FALSE
 
 /obj/item/circuitboard/machine/chem_master/attackby(obj/item/I, mob/user, params)
@@ -1250,6 +1261,19 @@
 	req_components = list(
 		/obj/item/stack/sheet/glass = 2,
 		/obj/item/stack/cable_coil = 5)
+
+/obj/item/circuitboard/machine/processing_unit
+	name = "furnace (Machine Board)"
+	build_path = /obj/machinery/mineral/processing_unit
+	req_components = list(
+		/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/stock_parts/matter_bin = 2,
+		/obj/item/assembly/igniter = 1)
+
+/obj/item/circuitboard/machine/processing_unit_console
+	name = "furnace console (Machine Board)"
+	build_path = /obj/machinery/mineral/processing_unit_console
+	req_components = list()
 
 
 //Misc

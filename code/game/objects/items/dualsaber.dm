@@ -16,6 +16,7 @@
 	var/w_class_on = WEIGHT_CLASS_BULKY
 	hitsound = "swing_hit"
 	armour_penetration = 35
+	item_flags = ISWEAPON
 	var/saber_color = "green"
 	light_color = "#00ff00"//green
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
@@ -25,7 +26,7 @@
 	block_sound = 'sound/weapons/egloves.ogg'
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70, STAMINA = 0)
 	resistance_flags = FIRE_PROOF
 	light_system = MOVABLE_LIGHT
 	light_range = 6
@@ -48,8 +49,8 @@
 			if("purple")
 				set_light_color(LIGHT_COLOR_LAVENDER)
 	. = ..()
-	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, .proc/on_wield)
-	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, .proc/on_unwield)
+	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, PROC_REF(on_wield))
+	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, PROC_REF(on_unwield))
 
 /obj/item/dualsaber/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -128,7 +129,7 @@
 		impale(user)
 		return
 	if(wielded && prob(50))
-		INVOKE_ASYNC(src, .proc/jedi_spin, user)
+		INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
 
 /obj/item/dualsaber/proc/jedi_spin(mob/living/user) //rip complex code, but this fucked up blocking
 	user.emote("flip")
@@ -175,7 +176,7 @@
 	playsound(loc, hitsound, get_clamped_volume(), TRUE, -1)
 	add_fingerprint(user)
 	// Light your candles while spinning around the room
-	INVOKE_ASYNC(src, .proc/jedi_spin, user)
+	INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
 
 /obj/item/dualsaber/green
 	possible_colors = list("green")

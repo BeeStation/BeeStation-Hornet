@@ -12,7 +12,7 @@ RLD
 /obj/item/construction
 	name = "not for ingame use"
 	desc = "A device used to rapidly build and deconstruct. Reload with iron, plasteel, glass or compressed matter cartridges."
-	opacity = 0
+	opacity = FALSE
 	density = FALSE
 	anchored = FALSE
 	flags_1 = CONDUCT_1
@@ -24,7 +24,7 @@ RLD
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(/datum/material/iron=100000)
 	req_access_txt = "11"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50, STAMINA = 0)
 	resistance_flags = FIRE_PROOF
 	var/datum/effect_system/spark_spread/spark_system
 	var/matter = 0
@@ -257,7 +257,7 @@ RLD
 		"SOUTH" = image(icon = 'icons/mob/radial.dmi', icon_state = "csouth"),
 		"WEST" = image(icon = 'icons/mob/radial.dmi', icon_state = "cwest")
 		)
-	var/computerdirs = show_radial_menu(user, src, computer_dirs, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
+	var/computerdirs = show_radial_menu(user, src, computer_dirs, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 	if(!check_menu(user))
 		return
 	switch(computerdirs)
@@ -316,13 +316,13 @@ RLD
 		"External Maintenance" = get_airlock_image(/obj/machinery/door/airlock/maintenance/external/glass)
 	)
 
-	var/airlockcat = show_radial_menu(user, src, solid_or_glass_choices, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
+	var/airlockcat = show_radial_menu(user, src, solid_or_glass_choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 	if(!check_menu(user))
 		return
 	switch(airlockcat)
 		if("Solid")
 			if(advanced_airlock_setting == 1)
-				var/airlockpaint = show_radial_menu(user, src, solid_choices, radius = 42, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
+				var/airlockpaint = show_radial_menu(user, src, solid_choices, radius = 42, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 				if(!check_menu(user))
 					return
 				switch(airlockpaint)
@@ -367,7 +367,7 @@ RLD
 
 		if("Glass")
 			if(advanced_airlock_setting == 1)
-				var/airlockpaint = show_radial_menu(user, src , glass_choices, radius = 42, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
+				var/airlockpaint = show_radial_menu(user, src , glass_choices, radius = 42, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 				if(!check_menu(user))
 					return
 				switch(airlockpaint)
@@ -469,7 +469,7 @@ RLD
 		choices += list(
 			"Change Window Type" = image(icon = 'icons/mob/radial.dmi', icon_state = "windowtype")
 		)
-	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
+	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 	if(!check_menu(user))
 		return
 	switch(choice)
@@ -523,7 +523,7 @@ RLD
 		buzz loudly!</b></span>","<span class='danger'><b>[src] begins \
 		vibrating violently!</b></span>")
 	// 5 seconds to get rid of it
-	addtimer(CALLBACK(src, .proc/detonate_pulse_explode), 50)
+	addtimer(CALLBACK(src, PROC_REF(detonate_pulse_explode)), 50)
 
 /obj/item/construction/rcd/proc/detonate_pulse_explode()
 	explosion(src, 0, 0, 3, 1, flame_range = 1)
@@ -588,6 +588,7 @@ RLD
 	max_matter = 500
 	matter = 500
 	canRturf = TRUE
+	item_flags = ISWEAPON
 
 /obj/item/rcd_ammo
 	name = "compressed matter cartridge"
@@ -820,7 +821,7 @@ RLD
 				machinery_data["cost"][A] = initial(M.rcd_cost)
 				machinery_data["delay"][A] = initial(M.rcd_delay)
 
-	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
+	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 	if(!check_menu(user))
 		return
 

@@ -42,7 +42,7 @@
 	if(!user?.client.canGhostRole(banType, use_cooldown, flags_1))
 		return
 	if(QDELETED(src) || QDELETED(user))
-		return	
+		return
 	var/ghost_role = alert("Become [mob_name]? (Warning, You can no longer be cloned!)",,"Yes","No")
 	if(ghost_role != "Yes" || !loc)
 		return
@@ -54,12 +54,11 @@
 	if(instant || (roundstart && (mapload || (SSticker && SSticker.current_state > GAME_STATE_SETTING_UP))))
 		create()
 	else if(ghost_usable)
-		GLOB.poi_list |= src
+		AddElement(/datum/element/point_of_interest)
 		LAZYADD(GLOB.mob_spawners[name], src)
 		SSmobs.update_spawners()
 
 /obj/effect/mob_spawn/Destroy()
-	GLOB.poi_list -= src
 	var/list/spawners = GLOB.mob_spawners[name]
 	LAZYREMOVE(spawners, src)
 	if(!LAZYLEN(spawners))
@@ -218,14 +217,11 @@
 	var/obj/item/card/id/W = H.wear_id
 	if(W)
 		if(id_access)
-			for(var/jobtype in typesof(/datum/job))
-				var/datum/job/J = new jobtype
+			for(var/datum/job/J in SSjob.occupations)
 				if(J.title == id_access)
 					W.access = J.get_access()
 					break
 		if(id_access_list)
-			if(!islist(W.access))
-				W.access = list()
 			W.access |= id_access_list
 		if(id_job)
 			W.assignment = id_job

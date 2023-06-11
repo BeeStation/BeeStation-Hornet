@@ -451,7 +451,7 @@ By design, d1 is the smallest direction and d2 is the highest
 		moveToNullspace()
 	powernet.remove_cable(src) //remove the cut cable from its powernet
 
-	addtimer(CALLBACK(O, .proc/auto_propogate_cut_cable, O), 0) //so we don't rebuild the network X times when singulo/explosion destroys a line of X cables
+	addtimer(CALLBACK(O, PROC_REF(auto_propogate_cut_cable), O), 0) //so we don't rebuild the network X times when singulo/explosion destroys a line of X cables
 
 	// Disconnect machines connected to nodes
 	if(d1 == 0) // if we cut a node (O-X) cable
@@ -522,8 +522,8 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	if(cable_colors[cable_color])
 		cable_color = cable_colors[cable_color]
 
-	pixel_x = rand(-2,2)
-	pixel_y = rand(-2,2)
+	pixel_x = base_pixel_x + rand(-2,2)
+	pixel_y = base_pixel_y + rand(-2,2)
 	update_icon()
 	recipes = GLOB.cable_coil_recipes
 
@@ -774,6 +774,9 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 /obj/item/stack/cable_coil/red
 	cable_color = "red"
 	color = "#ff0000"
+
+/obj/item/stack/cable_coil/red/one
+	amount = 1
 
 /obj/item/stack/cable_coil/yellow
 	cable_color = "yellow"

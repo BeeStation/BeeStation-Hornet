@@ -102,10 +102,10 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	anchored = TRUE // Crap like fireball projectiles are proc_holders, this is needed so fireballs don't get blown back into your face via atmos etc.
 	pass_flags = PASSTABLE
 	density = FALSE
-	opacity = 0
+	opacity = FALSE
 
 	var/school = "evocation" //not relevant at now, but may be important later if there are changes to how spells work. the ones I used for now will probably be changed... maybe spell presets? lacking flexibility but with some other benefit?
-
+	var/requires_heretic_focus = FALSE //If the spell requires one of the heretic focus items to cast
 	var/charge_type = "recharge" //can be recharge or charges, see charge_max and charge_counter descriptions; can also be based on the holder's vars now, use "holder_var" for that
 
 	var/charge_max = 10 SECONDS //recharge time in deciseconds if charge_type = "recharge" or starting charges if charge_type = "charges"
@@ -125,7 +125,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	var/antimagic_allowed = FALSE // If false, the spell cannot be cast while under the effect of antimagic
 	var/invocation = "HURP DURP" //what is uttered when the wizard casts the spell
 	var/invocation_emote_self = null
-	var/invocation_type = "none" //can be none, whisper, emote and shout
+	var/invocation_type = INVOCATION_NONE //can be none, whisper, emote and shout
 	var/range = 7 //the range of the spell; outer radius for aoe spells
 	var/message = "" //whatever it says to the guy affected by it
 	var/selection_type = "view" //can be "range" or "view"
@@ -167,6 +167,9 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	base_action = /datum/action/spell_action/spell
 
 /obj/effect/proc_holder/spell/proc/cast_check(skipcharge = 0,mob/user = usr) //checks if the spell can be cast based on its settings; skipcharge is used when an additional cast_check is called inside the spell
+	if(SEND_SIGNAL(user, COMSIG_MOB_PRE_CAST_SPELL, src) & COMPONENT_CANCEL_SPELL)
+		return FALSE
+
 	if(player_lock)
 		if(!user.mind || !(src in user.mind.spell_list) && !(src in user.mob_spell_list))
 			to_chat(user, "<span class='warning'>You shouldn't have this spell! Something's wrong.</span>")
@@ -371,7 +374,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 		else if(isturf(target))
 			location = target
 		if(isliving(target) && message)
-			to_chat(target, text("[message]"))
+			to_chat(target, "[message]")
 		if(sparks_spread)
 			do_sparks(sparks_amt, FALSE, location)
 		if(smoke_spread)
@@ -571,13 +574,24 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	//Checks for obstacles from A to B
 	var/obj/dummy = new(A.loc)
 	dummy.pass_flags |= PASSTABLE
-	for(var/turf/turf in getline(A,B))
-		for(var/atom/movable/AM in turf)
-			if(!AM.CanPass(dummy,turf,1))
+	var/turf/previous_step = get_turf(A)
+	var/first_step = TRUE
+	for(var/turf/next_step as anything in (getline(A, B) - previous_step))
+		if(first_step)
+			for(var/obj/blocker in previous_step)
+				if(!blocker.density || !(blocker.flags_1 & ON_BORDER_1))
+					continue
+				if(blocker.CanPass(dummy, get_dir(previous_step, next_step)))
+					continue
+				return FALSE // Could not leave the first turf.
+			first_step = FALSE
+		for(var/atom/movable/movable as anything in next_step)
+			if(!movable.CanPass(dummy, get_dir(next_step, previous_step)))
 				qdel(dummy)
-				return 0
+				return FALSE
+		previous_step = next_step
 	qdel(dummy)
-	return 1
+	return TRUE
 
 /obj/effect/proc_holder/spell/proc/can_cast(mob/user = usr)
 	if(((!user.mind) || !(src in user.mind.spell_list)) && !(src in user.mob_spell_list))
@@ -672,7 +686,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	charge_max = 100
 	cooldown_min = 50
 	invocation = "Victus sano!"
-	invocation_type = "whisper"
+	invocation_type = INVOCATION_WHISPER
 	school = "restoration"
 	sound = 'sound/magic/staff_healing.ogg'
 

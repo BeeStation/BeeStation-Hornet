@@ -57,17 +57,18 @@
 	. = ..()
 
 /datum/antagonist/changeling/proc/generate_name()
+	var/static/list/left_changling_names = GLOB.greek_letters.Copy()
+
 	var/honorific
 	if(owner.current.gender == FEMALE)
 		honorific = "Ms."
 	else
 		honorific = "Mr."
-	if(GLOB.possible_changeling_IDs.len)
-		changelingID = pick(GLOB.possible_changeling_IDs)
-		GLOB.possible_changeling_IDs -= changelingID
+	if(length(left_changling_names))
+		changelingID = pick_n_take(left_changling_names)
 		changelingID = "[honorific] [changelingID]"
 	else
-		changelingID = "[honorific] [rand(1,999)]"
+		changelingID = "[honorific] [pick(GLOB.greek_letters)] No.[rand(1,9)]"
 
 /datum/antagonist/changeling/proc/create_actions()
 	cellular_emporium = new(src)
@@ -381,7 +382,7 @@
 		if(B)
 			B.organ_flags &= ~ORGAN_VITAL
 			B.decoy_override = TRUE
-		RegisterSignal(C, list(COMSIG_MOB_MIDDLECLICKON, COMSIG_MOB_ALTCLICKON), .proc/stingAtom)
+		RegisterSignal(C, list(COMSIG_MOB_MIDDLECLICKON, COMSIG_MOB_ALTCLICKON), PROC_REF(stingAtom))
 	update_changeling_icons_added()
 
 /datum/antagonist/changeling/remove_innate_effects()
@@ -508,7 +509,7 @@
 /datum/antagonist/changeling/get_admin_commands()
 	. = ..()
 	if(stored_profiles.len && (owner.current.real_name != first_prof.name))
-		.["Transform to initial appearance."] = CALLBACK(src,.proc/admin_restore_appearance)
+		.["Transform to initial appearance."] = CALLBACK(src,PROC_REF(admin_restore_appearance))
 
 /datum/antagonist/changeling/proc/admin_restore_appearance(mob/admin)
 	if(!stored_profiles.len || !iscarbon(owner.current))

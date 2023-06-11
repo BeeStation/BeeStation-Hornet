@@ -102,7 +102,7 @@
 			maxHealth = (100 + (20 * LAZYLEN(victims)))
 		else
 			maxHealth = (300 + (5 * (LAZYLEN(victims)-10)))
-		switch(LAZYLEN(victims))	
+		switch(LAZYLEN(victims))
 			if(2)
 				projectiletype = /obj/item/projectile/bullet/dart/tranq/plus
 			if(4)//gain space adaptation to make cheesing harder
@@ -175,7 +175,7 @@
 				Targets[H] = CLAMP(healthdiff,1,12)
 	if(!Targets.len)//sanity check
 		return
-	return pickweight(Targets)//Pick the remaining targets (if any) at random
+	return pick_weight(Targets)//Pick the remaining targets (if any) at random
 
 /mob/living/simple_animal/hostile/cat_butcherer/death(gibbed)
 	if(LAZYLEN(victims) >= 5)

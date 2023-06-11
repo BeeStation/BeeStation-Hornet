@@ -112,9 +112,6 @@
 	///What directions this is currently smoothing with. IMPORTANT: This uses the smoothing direction flags as defined in icon_smoothing.dm, instead of the BYOND flags.
 	var/smoothing_junction = null //This starts as null for us to know when it's first set, but after that it will hold a 8-bit mask ranging from 0 to 255.
 
-	///Used for changing icon states for different base sprites.
-	var/base_icon_state
-
 	///The config type to use for greyscaled sprites. Both this and greyscale_colors must be assigned to work.
 	var/greyscale_config
 	///A string of hex format colors to be used by greyscale sprites, ex: "#0054aa#badcff"
@@ -128,6 +125,14 @@
 
 	/// Lazylist of all messages currently on this atom
 	var/list/chat_messages
+
+	// Use SET_BASE_PIXEL(x, y) to set these in typepath definitions, it'll handle pixel_x and y for you
+	///Default pixel x shifting for the atom's icon.
+	var/base_pixel_x = 0
+	///Default pixel y shifting for the atom's icon.
+	var/base_pixel_y = 0
+	///Used for changing icon states for different base sprites.
+	var/base_icon_state
 
 	///LazyList of all balloon alerts currently on this atom
 	var/list/balloon_alerts
@@ -208,10 +213,6 @@
 
 	if (light_system == STATIC_LIGHT && light_power && light_range)
 		update_light()
-
-	if (opacity && isturf(loc))
-		var/turf/T = loc
-		T.has_opaque_atom = TRUE // No need to recalculate it in this case, it's guaranteed to be on afterwards anyways.
 
 	if(custom_materials && custom_materials.len)
 		var/temp_list = list()
@@ -298,26 +299,26 @@
 	var/a_incidence_s = abs(incidence_s)
 	if(a_incidence_s > 90 && a_incidence_s < 270)
 		return FALSE
-	if((P.flag in list("bullet", "bomb")) && P.ricochet_incidence_leeway)
+	if((P.armor_flag in list(BULLET, BOMB)) && P.ricochet_incidence_leeway)
 		if((a_incidence_s < 90 && a_incidence_s < 90 - P.ricochet_incidence_leeway) || (a_incidence_s > 270 && a_incidence_s -270 > P.ricochet_incidence_leeway))
 			return FALSE
 	var/new_angle_s = SIMPLIFY_DEGREES(face_angle + incidence_s)
 	P.setAngle(new_angle_s)
 	return TRUE
 
-///Can the mover object pass this atom, while heading for the target turf
-/atom/proc/CanPass(atom/movable/mover, turf/target)
+/// Whether the mover object can avoid being blocked by this atom, while arriving from (or leaving through) the border_dir.
+/atom/proc/CanPass(atom/movable/mover, border_dir)
 	SHOULD_CALL_PARENT(TRUE)
 	SHOULD_BE_PURE(TRUE)
 	if(mover.movement_type & PHASING)
 		return TRUE
-	. = CanAllowThrough(mover, target)
+	. = CanAllowThrough(mover, border_dir)
 	// This is cheaper than calling the proc every time since most things dont override CanPassThrough
 	if(!mover.generic_canpass)
-		return mover.CanPassThrough(src, target, .)
+		return mover.CanPassThrough(src, REVERSE_DIR(border_dir), .)
 
 /// Returns true or false to allow the mover to move through src
-/atom/proc/CanAllowThrough(atom/movable/mover, turf/target)
+/atom/proc/CanAllowThrough(atom/movable/mover, border_dir)
 	SHOULD_CALL_PARENT(TRUE)
 	//SHOULD_BE_PURE(TRUE)
 	if(mover.pass_flags & pass_flags_self)
@@ -408,21 +409,23 @@
   *
   * Otherwise it simply forceMoves the atom into this atom
   */
-/atom/proc/CheckParts(list/parts_list)
-	for(var/A in parts_list)
-		if(istype(A, /datum/reagent))
-			if(!reagents)
-				reagents = new()
-			reagents.reagent_list.Add(A)
-			reagents.conditional_update()
-		else if(ismovable(A))
-			var/atom/movable/M = A
-			if(isliving(M.loc))
-				var/mob/living/L = M.loc
-				L.transferItemToLoc(M, src)
-			else
-				M.forceMove(src)
-	parts_list.Cut()
+/atom/proc/CheckParts(list/parts_list, datum/crafting_recipe/R)
+	SEND_SIGNAL(src, COMSIG_ATOM_CHECKPARTS, parts_list, R)
+	if(parts_list)
+		for(var/A in parts_list)
+			if(istype(A, /datum/reagent))
+				if(!reagents)
+					reagents = new()
+				reagents.reagent_list.Add(A)
+				reagents.conditional_update()
+			else if(ismovable(A))
+				var/atom/movable/M = A
+				if(isliving(M.loc))
+					var/mob/living/L = M.loc
+					L.transferItemToLoc(M, src)
+				else
+					M.forceMove(src)
+		parts_list.Cut()
 
 ///Hook for multiz???
 /atom/proc/update_multiz(prune_on_fail = FALSE)
@@ -621,7 +624,7 @@
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
 /**
- * Updates the appearence of the icon
+ * Updates the appearance of the icon
  *
  * Mostly delegates to update_name, update_desc, and update_icon
  *
@@ -769,7 +772,7 @@
 /atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
 	if(density && !has_gravity(AM)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
-		addtimer(CALLBACK(src, .proc/hitby_react, AM), 2)
+		addtimer(CALLBACK(src, PROC_REF(hitby_react), AM), 2)
 
 /**
   * We have have actually hit the passed in atom
@@ -825,12 +828,6 @@
 	if(!blood_dna)
 		return FALSE
 	return add_blood_DNA(blood_dna)
-
-///wash cream off this object
-///
-///(for the love of space jesus please make this a component)
-/atom/proc/wash_cream()
-	return TRUE
 
 ///Is this atom in space
 /atom/proc/isinspace()
@@ -980,7 +977,7 @@
 	var/list/things = src_object.contents()
 	var/datum/progressbar/progress = new(user, things.len, src)
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	while (do_after(user, 10, TRUE, src, FALSE, CALLBACK(STR, /datum/component/storage.proc/handle_mass_item_insertion, things, src_object, user, progress)))
+	while (do_after(user, 1 SECONDS, src, NONE, FALSE, CALLBACK(STR, TYPE_PROC_REF(/datum/component/storage, handle_mass_item_insertion), things, src_object, user, progress)))
 		stoplag(1)
 	qdel(progress)
 	to_chat(user, "<span class='notice'>You dump as much of [src_object.parent]'s contents into [STR.insert_preposition]to [src] as you can.</span>")
@@ -1121,9 +1118,23 @@
   * the object has been admin edited
   */
 /atom/vv_edit_var(var_name, var_value)
+	switch(var_name)
+		if(NAMEOF(src, base_pixel_x))
+			set_base_pixel_x(var_value)
+			. = TRUE
+		if(NAMEOF(src, base_pixel_y))
+			set_base_pixel_y(var_value)
+			. = TRUE
+
+	if(!isnull(.))
+		datum_flags |= DF_VAR_EDITED
+		return
+
 	if(!GLOB.Debug2)
 		flags_1 |= ADMIN_SPAWNED_1
+
 	. = ..()
+
 	switch(var_name)
 		if(NAMEOF(src, color))
 			add_atom_colour(color, ADMIN_COLOUR_PRIORITY)
@@ -1291,26 +1302,70 @@
   */
 /atom/proc/tool_act(mob/living/user, obj/item/I, tool_type)
 	var/signal_result
-	signal_result = SEND_SIGNAL(src, COMSIG_ATOM_TOOL_ACT(tool_type), user, I)
-	if(signal_result & COMPONENT_BLOCK_TOOL_ATTACK) // The COMSIG_ATOM_TOOL_ACT signal is blocking the act
-		return TOOL_ACT_SIGNAL_BLOCKING
+
+	var/list/processing_recipes = list() //List of recipes that can be mutated by sending the signal
+	signal_result = SEND_SIGNAL(src, COMSIG_ATOM_TOOL_ACT(tool_type), user, I, processing_recipes)
+	if(processing_recipes.len)
+		process_recipes(user, I, processing_recipes)
+	if(QDELETED(I))
+		return TRUE
 	switch(tool_type)
 		if(TOOL_CROWBAR)
-			return crowbar_act(user, I)
+			. = crowbar_act(user, I)
 		if(TOOL_MULTITOOL)
-			return multitool_act(user, I)
+			. = multitool_act(user, I)
 		if(TOOL_SCREWDRIVER)
-			return screwdriver_act(user, I)
+			. = screwdriver_act(user, I)
 		if(TOOL_WRENCH)
-			return wrench_act(user, I)
+			. = wrench_act(user, I)
 		if(TOOL_WIRECUTTER)
-			return wirecutter_act(user, I)
+			. = wirecutter_act(user, I)
 		if(TOOL_WELDER)
-			return welder_act(user, I)
+			. = welder_act(user, I)
 		if(TOOL_ANALYZER)
-			return analyzer_act(user, I)
+			. = analyzer_act(user, I)
+	if(. || signal_result & COMPONENT_BLOCK_TOOL_ATTACK) //Either the proc or the signal handled the tool's events in some way.
+		return TRUE
 
-//! Tool-specific behavior procs. To be overridden in subtypes.
+/atom/proc/process_recipes(mob/living/user, obj/item/I, list/processing_recipes)
+	//Only one recipe? use the first
+	if(processing_recipes.len == 1)
+		StartProcessingAtom(user, I, processing_recipes[1])
+		return
+	//Otherwise, select one with a radial
+	ShowProcessingGui(user, I, processing_recipes)
+
+///Creates the radial and processes the selected option
+/atom/proc/ShowProcessingGui(mob/living/user, obj/item/I, list/possible_options)
+	var/list/choices_to_options = list() //Dict of object name | dict of object processing settings
+	var/list/choices = list()
+
+	for(var/i in possible_options)
+		var/list/current_option = i
+		var/atom/current_option_type = current_option[TOOL_PROCESSING_RESULT]
+		choices_to_options[initial(current_option_type.name)] = current_option
+		var/image/option_image = image(icon = initial(current_option_type.icon), icon_state = initial(current_option_type.icon_state))
+		choices += list("[initial(current_option_type.name)]" = option_image)
+
+	var/pick = show_radial_menu(user, src, choices, radius = 36, require_near = TRUE)
+
+	StartProcessingAtom(user, I, choices_to_options[pick])
+
+
+/atom/proc/StartProcessingAtom(mob/living/user, obj/item/I, list/chosen_option)
+	to_chat(user, "<span class='notice'>You start working on [src]</span>")
+	if(I.use_tool(src, user, chosen_option[TOOL_PROCESSING_TIME], volume=50))
+		var/atom/atom_to_create = chosen_option[TOOL_PROCESSING_RESULT]
+		for(var/i = 1 to chosen_option[TOOL_PROCESSING_AMOUNT])
+			new atom_to_create(loc)
+		to_chat(user, "<span class='notice'>You manage to create [chosen_option[TOOL_PROCESSING_AMOUNT]] [initial(atom_to_create.name)] from [src]</span>")
+		qdel(src)
+		return
+
+/atom/proc/OnCreatedFromProcessing(mob/living/user, obj/item/I, list/chosen_option, atom/original_atom)
+	return
+
+//! Tool-specific behavior procs.
 ///
 
 ///Crowbar act
@@ -1398,6 +1453,8 @@
 			log_mecha(log_text)
 		if(LOG_RADIO_EMOTE)
 			log_radio_emote(log_text)
+		if(LOG_SPEECH_INDICATORS)
+			log_speech_indicators(log_text)
 		else
 			stack_trace("Invalid individual logging type: [message_type]. Defaulting to [LOG_GAME] (LOG_GAME).")
 			log_game(log_text)
@@ -1447,6 +1504,10 @@
 
 	var/mob/living/living_target = target
 	var/hp = istype(living_target) ? " (NEWHP: [living_target.health]) " : ""
+	var/stam
+	if(iscarbon(living_target))
+		var/mob/living/carbon/C = living_target
+		stam = "(STAM: [C.getStaminaLoss()]) "
 
 	var/sobject = ""
 	if(object)
@@ -1455,7 +1516,7 @@
 	if(addition)
 		saddition = " [addition]"
 
-	var/postfix = "[sobject][saddition][hp]"
+	var/postfix = "[sobject][saddition][hp][stam]"
 
 	var/message = "has [what_done] [starget][postfix]"
 	user.log_message(message, LOG_ATTACK, color="red")
@@ -1486,7 +1547,7 @@
 
 /atom/proc/update_filters()
 	filters = null
-	filter_data = sortTim(filter_data, /proc/cmp_filter_data_priority, TRUE)
+	filter_data = sortTim(filter_data, GLOBAL_PROC_REF(cmp_filter_data_priority), TRUE)
 	for(var/f in filter_data)
 		var/list/data = filter_data[f]
 		var/list/arguments = data.Copy()
@@ -1535,9 +1596,6 @@
 	filter_data = null
 	filters = null
 
-/atom/proc/intercept_zImpact(atom/movable/AM, levels = 1)
-	. |= SEND_SIGNAL(src, COMSIG_ATOM_INTERCEPT_Z_FALL, AM, levels)
-
 ///Sets the custom materials for an item.
 /atom/proc/set_custom_materials(var/list/materials, multiplier = 1)
 	if(custom_materials) //Only runs if custom materials existed at first. Should usually be the case but check anyways
@@ -1555,6 +1613,11 @@
 
 		custom_material.on_applied(src, materials[custom_material] * multiplier, material_flags)
 		custom_materials[custom_material] += materials[custom_material] * multiplier
+
+/// Returns the indice in filters of the given filter name.
+/// If it is not found, returns null.
+/atom/proc/get_filter_index(name)
+	return filter_data?.Find(name)
 
 ///Setter for the `density` variable to append behavior related to its changing.
 /atom/proc/set_density(new_value)
@@ -1596,3 +1659,62 @@
 /atom/proc/InitializeAIController()
 	if(ai_controller)
 		ai_controller = new ai_controller(src)
+
+///Setter for the "base_pixel_x" var to append behavior related to it's changing
+/atom/proc/set_base_pixel_x(var/new_value)
+	if(base_pixel_x == new_value)
+		return
+	. = base_pixel_x
+	base_pixel_x = new_value
+
+	pixel_x = pixel_x + base_pixel_x - .
+
+///Setter for the "base_pixel_y" var to append behavior related to it's changing
+/atom/proc/set_base_pixel_y(new_value)
+	if(base_pixel_y == new_value)
+		return
+	. = base_pixel_y
+	base_pixel_y = new_value
+
+	pixel_y = pixel_y + base_pixel_y - .
+
+/*
+* Called when something made out of plasma is exposed to high temperatures.
+* Intended for use only with plasma that is ignited outside of some form of containment
+* Contained plasma ignitions (such as power cells or light fixtures) should explode with proper force
+*/
+/atom/proc/plasma_ignition(strength, mob/user, reagent_reaction)
+	var/turf/T = get_turf(src)
+	var/datum/gas_mixture/environment = T.return_air()
+	if(environment.get_moles(GAS_O2) >= PLASMA_MINIMUM_OXYGEN_NEEDED) //Flashpoint ignition can only occur with at least this much oxygen present
+		//no reason to alert admins or create an explosion if there's not enough power to actually make an explosion
+		if(strength > 1)
+			if(user)
+				message_admins("[src] ignited by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(T)]")
+				log_game("[src] ignited by [key_name(user)] in [AREACOORD(T)]")
+			else
+				//if we can't get a direct source for ignition, we'll take the last person who touched what is blowing up
+				var/mob/toucher = get_mob_by_ckey(fingerprintslast)
+				if(toucher)
+					message_admins("[src] ignited in [ADMIN_VERBOSEJMP(T)], last touched by [ADMIN_LOOKUPFLW(toucher)]")
+					log_game("[src] ignited in [AREACOORD(T)], last touched by [key_name(toucher)]")
+				else
+					//Nobody directly touched the source of ignition or what ignited. Probably caused by burning atmos.
+					message_admins("[src] ignited by unidentified causes in [ADMIN_VERBOSEJMP(T)]")
+					log_game("[src] ignited by unidentified causes in [AREACOORD(T)]")
+			explosion(T, 0, 0, light_impact_range = strength/4, flash_range = strength/2, flame_range = strength, silent = TRUE)
+		else
+			new /obj/effect/hotspot(T)
+		//Regardless of power, whatever is burning will go up in a brilliant flash with at least a fizzle
+		playsound(T,'sound/magic/fireball.ogg', max(strength*20, 20), 1)
+		T.visible_message("<b><span class='userdanger'>[src] ignites in a brilliant flash!</span></b>")
+		if(reagent_reaction) // Don't qdel(src). It's a reaction inside of something (or someone) important.
+			return TRUE
+		else if(isturf(src))
+			var/turf/srcTurf = src
+			srcTurf.ScrapeAway() //Can't just qdel turfs
+		else
+			qdel(src)
+		return TRUE
+	return FALSE
+

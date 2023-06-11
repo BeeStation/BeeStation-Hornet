@@ -122,7 +122,7 @@
 	var/damage = 10
 	var/damage_type = BRUTE //BRUTE, BURN, TOX, OXY, CLONE are the only things that should be in here
 	var/nodamage = FALSE //Determines if the projectile will skip any damage inflictions
-	var/flag = "bullet" //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb
+	var/armor_flag = BULLET //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb
 	var/projectile_type = /obj/item/projectile
 	var/range = 50 //This will de-increment every step. When 0, it will deletze the projectile.
 	var/decayedRange			//stores original range
@@ -156,7 +156,7 @@
 	decayedRange = range
 
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -478,7 +478,7 @@
 	if(!isliving(target))
 		if(isturf(target))		// non dense turfs
 			return FALSE
-		if(target.layer < PROJECTILE_HIT_THRESHHOLD_LAYER)
+		if(target.layer < PROJECTILE_HIT_THRESHOLD_LAYER)
 			return FALSE
 		else if(!direct_target)		// non dense objects do not get hit unless specifically clicked
 			return FALSE
@@ -537,7 +537,7 @@
  * Projectile can pass through
  * Used to not even attempt to Bump() or fail to Cross() anything we already hit.
  */
-/obj/item/projectile/CanPassThrough(atom/blocker, turf/target, blocker_opinion)
+/obj/item/projectile/CanPassThrough(atom/blocker, movement_dir, blocker_opinion)
 	return impacted[blocker]? TRUE : ..()
 
 /**
@@ -581,10 +581,10 @@
 	return FALSE
 
 /obj/item/projectile/proc/check_ricochet_flag(atom/A)
-	if((flag in list("energy", "laser")) && (A.flags_ricochet & RICOCHET_SHINY))
+	if((armor_flag in list(ENERGY, LASER)) && (A.flags_ricochet & RICOCHET_SHINY))
 		return TRUE
 
-	if((flag in list("bomb", "bullet")) && (A.flags_ricochet & RICOCHET_HARD))
+	if((armor_flag in list(BOMB, BULLET)) && (A.flags_ricochet & RICOCHET_HARD))
 		return TRUE
 
 	return FALSE
@@ -665,7 +665,7 @@
 	last_projectile_move = world.time
 	fired = TRUE
 	if(hitscan)
-		INVOKE_ASYNC(src, .proc/process_hitscan)
+		INVOKE_ASYNC(src, PROC_REF(process_hitscan))
 	if(!(datum_flags & DF_ISPROCESSING))
 		START_PROCESSING(SSprojectiles, src)
 	pixel_move(1, FALSE)	//move it now!

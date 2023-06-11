@@ -31,7 +31,7 @@
 				targets["[T.mob.real_name](as [T.mob.name]) - [T]"] = T
 		else
 			targets["(No Mob) - [T]"] = T
-	var/target = input(src,"To whom shall we send a message?","Admin PM",null) as null|anything in sortList(targets)
+	var/target = input(src,"To whom shall we send a message?","Admin PM",null) as null|anything in sort_list(targets)
 	cmd_admin_pm(targets[target],null)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Admin PM") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -128,7 +128,7 @@
 					to_chat(src, msg)
 				return
 			else if(msg) // you want to continue if there's no message instead of returning now
-				current_adminhelp_ticket.MessageNoRecipient(msg)
+				current_adminhelp_ticket.MessageNoRecipient(msg, sanitized = html_encoded)
 				return
 
 		//get message text, limit it's length.and clean/escape html
@@ -148,7 +148,7 @@
 				if(holder)
 					to_chat(src, "<span class='danger'>Error: Admin-PM: Client not found.</span>", type = MESSAGE_TYPE_ADMINPM)
 				else
-					current_adminhelp_ticket.MessageNoRecipient(msg)
+					current_adminhelp_ticket.MessageNoRecipient(msg, sanitized = html_encoded)
 				return
 
 	if (src.handle_spam_prevention(msg,MUTE_ADMINHELP))

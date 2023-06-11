@@ -4,7 +4,7 @@
 	icon_state = "chronohelmet"
 	item_state = "chronohelmet"
 	slowdown = 1
-	armor = list("melee" = 60, "bullet" = 60, "laser" = 60, "energy" = 60, "bomb" = 30, "bio" = 90, "rad" = 90, "fire" = 100, "acid" = 100, "stamina" = 70)
+	armor = list(MELEE = 60,  BULLET = 60, LASER = 60, ENERGY = 60, BOMB = 30, BIO = 90, RAD = 90, FIRE = 100, ACID = 100, STAMINA = 70)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/obj/item/clothing/suit/space/chronos/suit
 
@@ -24,7 +24,7 @@
 	icon_state = "chronosuit"
 	item_state = "chronosuit"
 	actions_types = list(/datum/action/item_action/toggle)
-	armor = list("melee" = 60, "bullet" = 60, "laser" = 60, "energy" = 60, "bomb" = 30, "bio" = 90, "rad" = 90, "fire" = 100, "acid" = 1000, "stamina" = 70)
+	armor = list(MELEE = 60,  BULLET = 60, LASER = 60, ENERGY = 60, BOMB = 30, BIO = 90, RAD = 90, FIRE = 100, ACID = 1000, STAMINA = 70)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/list/chronosafe_items = list(/obj/item/chrono_eraser, /obj/item/gun/energy/chrono_gun)
 	var/obj/item/clothing/head/helmet/space/chronos/helmet
@@ -141,12 +141,12 @@
 		user.Stun(INFINITY)
 
 		animate(user, color = "#00ccee", time = 3)
-		phase_timer_id = addtimer(CALLBACK(src, .proc/phase_2, user, to_turf, phase_in_ds), 3, TIMER_STOPPABLE)
+		phase_timer_id = addtimer(CALLBACK(src, PROC_REF(phase_2), user, to_turf, phase_in_ds), 3, TIMER_STOPPABLE)
 
 /obj/item/clothing/suit/space/chronos/proc/phase_2(mob/living/carbon/human/user, turf/to_turf, phase_in_ds)
 	if(teleporting && activated && user)
 		animate(user, color = list(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 1,1,1,0), time = 2)
-		phase_timer_id = addtimer(CALLBACK(src, .proc/phase_3, user, to_turf, phase_in_ds), 2, TIMER_STOPPABLE)
+		phase_timer_id = addtimer(CALLBACK(src, PROC_REF(phase_3), user, to_turf, phase_in_ds), 2, TIMER_STOPPABLE)
 	else
 		finish_chronowalk(user, to_turf)
 
@@ -154,14 +154,14 @@
 	if(teleporting && activated && user)
 		do_teleport(user, to_turf, no_effects = TRUE, channel = TELEPORT_CHANNEL_FREE)
 		animate(user, color = "#00ccee", time = phase_in_ds)
-		phase_timer_id = addtimer(CALLBACK(src, .proc/phase_4, user, to_turf), phase_in_ds, TIMER_STOPPABLE)
+		phase_timer_id = addtimer(CALLBACK(src, PROC_REF(phase_4), user, to_turf), phase_in_ds, TIMER_STOPPABLE)
 	else
 		finish_chronowalk(user, to_turf)
 
 /obj/item/clothing/suit/space/chronos/proc/phase_4(mob/living/carbon/human/user, turf/to_turf)
 	if(teleporting && activated && user)
 		animate(user, color = "#ffffff", time = 3)
-		phase_timer_id = addtimer(CALLBACK(src, .proc/finish_chronowalk, user, to_turf), 3, TIMER_STOPPABLE)
+		phase_timer_id = addtimer(CALLBACK(src, PROC_REF(finish_chronowalk), user, to_turf), 3, TIMER_STOPPABLE)
 	else
 		finish_chronowalk(user, to_turf)
 
@@ -248,7 +248,7 @@
 	density = FALSE
 	anchored = TRUE
 	invisibility = INVISIBILITY_ABSTRACT
-	opacity = 0
+	opacity = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/mob/holder
 	var/phase_time = 0

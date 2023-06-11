@@ -38,11 +38,11 @@
 	var/obj/machinery/xenoartifact_inbox/linked_inbox
 	///List of linked machines for UI purposes
 	var/list/linked_machines = list()
-	///Which science server recieves points
+	///Which science server receives points
 	var/datum/techweb/linked_techweb
 	///Actually just a general list of items you've sold
 	var/list/sold_artifacts = list()
-	///Which department's budget recieves profit
+	///Which department's budget receives profit
 	var/datum/bank_account/budget
 	///Stability - lowers as people buy artifacts, stops spam buying
 	var/stability = 100
@@ -162,7 +162,7 @@
 				stability = max(0, stability - STABILITY_COST)
 				budget.adjust_money(-1*S.price)
 				say("Purchase complete. [budget.account_balance] credits remaining in Research Budget")
-				addtimer(CALLBACK(src, .proc/generate_new_seller), (rand(1,3)*60) SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(generate_new_seller)), (rand(1,3)*60) SECONDS)
 				A = null
 	update_icon()
 
@@ -176,7 +176,7 @@
 		for(var/datum/xenoartifact_seller/buyer/B as() in buyers)
 			if(istype(I, B.buying))
 				buyers -= B
-				addtimer(CALLBACK(src, .proc/generate_new_buyer), (rand(1,3)*60) SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(generate_new_buyer)), (rand(1,3)*60) SECONDS)
 				selling_item = I
 				break
 		if(selling_item)
@@ -245,7 +245,7 @@
 			linked_machines += I.name
 			I.linked_console = src
 			I.RegisterSignal(src, COMSIG_PARENT_QDELETING, /obj/machinery/xenoartifact_inbox/proc/on_machine_del)
-			RegisterSignal(I, COMSIG_PARENT_QDELETING, .proc/on_inbox_del)
+			RegisterSignal(I, COMSIG_PARENT_QDELETING, PROC_REF(on_inbox_del))
 			say("Successfully linked [I].")
 			return
 	say("Unable to find linkable hadrware.")
@@ -295,7 +295,7 @@
 		if(701 to 800)
 			difficulty = XENOA_BANANIUM
 	price = price * rand(1.0, 1.5) //Measure of error for no particular reason
-	addtimer(CALLBACK(src, .proc/change_item), (rand(1,3)*60) SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(change_item)), (rand(1,3)*60) SECONDS)
 
 /datum/xenoartifact_seller/proc/change_item()
 	generate()
@@ -308,7 +308,7 @@
 	buying = pick(/obj/item/xenoartifact)
 	if(buying == /obj/item/xenoartifact) //Don't bother trying to use istype here
 		dialogue = "[name] is requesting: Anomaly : Class : Artifact"
-	addtimer(CALLBACK(src, .proc/change_item), (rand(1,3)*60) SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(change_item)), (rand(1,3)*60) SECONDS)
 
 //Used to hold information about artifact transactions. Might get standrardized sooner or later.
 /datum/xenoartifact_info_entry

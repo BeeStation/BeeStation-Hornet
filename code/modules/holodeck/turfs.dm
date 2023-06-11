@@ -142,7 +142,7 @@
 
 /turf/open/floor/holofloor/carpet/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, /atom/.proc/update_icon), 1)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 1)
 
 /turf/open/floor/holofloor/carpet/update_icon()
 	. = ..()
