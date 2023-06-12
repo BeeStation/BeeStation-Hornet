@@ -24,7 +24,7 @@
 /obj/machinery/dominator/Initialize(mapload)
 	. = ..()
 	set_light(2)
-	GLOB.poi_list |= src
+	AddElement(/datum/element/point_of_interest)
 	spark_system = new
 	spark_system.set_up(5, TRUE, src)
 	countdown = new(src)
@@ -33,7 +33,6 @@
 /obj/machinery/dominator/Destroy()
 	if(!(stat & BROKEN))
 		set_broken()
-	GLOB.poi_list.Remove(src)
 	gang = null
 	QDEL_NULL(spark_system)
 	QDEL_NULL(countdown)

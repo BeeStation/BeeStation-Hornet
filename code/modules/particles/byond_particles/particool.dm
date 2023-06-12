@@ -172,7 +172,7 @@ GLOBAL_LIST_INIT(master_particle_info, list())
 				world.log << nodeName
 				debugOutput(elem, nodeName + ":LIST" + elem)
 			else
-				world.log << nodeName + ":" + elem + ":" + text("[]",elem)
+				world.log << nodeName + ":" + elem + ":" + "[elem]"
 	else
 		world.log << L
 

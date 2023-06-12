@@ -154,7 +154,8 @@
 /obj/item/spellbook/debug
 	name = "\improper Robehator's spell book"
 	uses = 200
-	debug = TRUE
+	everything_robeless = TRUE
+	bypass_lock = TRUE
 
 //Debug suit
 /obj/item/clothing/head/helmet/space/hardsuit/debug

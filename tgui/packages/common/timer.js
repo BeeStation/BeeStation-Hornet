@@ -41,10 +41,7 @@ export const throttle = (fn, time) => {
       fn.apply(null, args);
       previouslyRun = now;
     } else {
-      queuedToRun = setTimeout(
-        invokeFn.bind(null, ...args),
-        time - (now - previouslyRun)
-      );
+      queuedToRun = setTimeout(invokeFn.bind(null, ...args), time - (now - previouslyRun));
     }
   };
 };
@@ -54,5 +51,4 @@ export const throttle = (fn, time) => {
  *
  * @param {number} time
  */
-export const sleep = (time) =>
-  new Promise((resolve) => setTimeout(resolve, time));
+export const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));

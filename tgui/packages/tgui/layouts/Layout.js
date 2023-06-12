@@ -8,35 +8,19 @@ import { classes } from 'common/react';
 import { computeBoxClassName, computeBoxProps } from '../components/Box';
 import { addScrollableNode, removeScrollableNode } from '../events';
 
-export const Layout = props => {
-  const {
-    className,
-    theme = 'nanotrasen',
-    children,
-    ...rest
-  } = props;
+export const Layout = (props) => {
+  const { className, theme = 'nanotrasen', children, ...rest } = props;
   return (
     <div className={'theme-' + theme}>
-      <div
-        className={classes([
-          'Layout',
-          className,
-          computeBoxClassName(rest),
-        ])}
-        {...computeBoxProps(rest)}>
+      <div className={classes(['Layout', className, computeBoxClassName(rest)])} {...computeBoxProps(rest)}>
         {children}
       </div>
     </div>
   );
 };
 
-const LayoutContent = props => {
-  const {
-    className,
-    scrollable,
-    children,
-    ...rest
-  } = props;
+const LayoutContent = (props) => {
+  const { className, scrollable, children, ...rest } = props;
   return (
     <div
       className={classes([
@@ -52,8 +36,8 @@ const LayoutContent = props => {
 };
 
 LayoutContent.defaultHooks = {
-  onComponentDidMount: node => addScrollableNode(node),
-  onComponentWillUnmount: node => removeScrollableNode(node),
+  onComponentDidMount: (node) => addScrollableNode(node),
+  onComponentWillUnmount: (node) => removeScrollableNode(node),
 };
 
 Layout.Content = LayoutContent;
