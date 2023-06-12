@@ -1,8 +1,14 @@
-/client/verb/setup_character()
+/client/verb/game_preferences()
 	set name = "Game Preferences"
 	set category = "Preferences"
 	set desc = "Open Game Preferences Window"
 	prefs.current_tab = 1
+	prefs.ShowChoices(usr)
+
+/client/verb/character_preferences()
+	set name = "Character Preferences"
+	set category = "Preferences"
+	set desc = "Open Character Preferences Window"
 	prefs.ShowChoices(usr)
 
 /client/verb/toggle_ghost_ears()
