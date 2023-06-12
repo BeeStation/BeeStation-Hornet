@@ -518,10 +518,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/name
 
 /datum/asset/json/send(client)
-	if(!..())
-		return FALSE
-	SSassets.transport.send_assets(client, "[name].json")
-	return TRUE
+	return SSassets.transport.send_assets(client, "[name].json")
 
 /datum/asset/json/get_url_mappings()
 	return list(
