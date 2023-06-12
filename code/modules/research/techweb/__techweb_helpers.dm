@@ -6,10 +6,6 @@
 	var/static/list/L = typesof(/datum/design)
 	return L.len
 
-/proc/node_boost_error(id, message)
-	WARNING("Invalid boost information for node \[[id]\]: [message]")
-	SSresearch.invalid_node_boost[id] = message
-
 /proc/techweb_item_boost_check(obj/item/I)			//Returns an associative list of techweb node datums with values of the boost it gives.	var/list/returned = list()
 	. = list()
 	if(SSresearch.techweb_boost_items[I.type])
