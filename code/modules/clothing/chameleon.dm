@@ -603,7 +603,9 @@
 	var/obj/item/clothing/mask/M = target
 	var/obj/item/organ/tongue/picked_tongue
 	var/picked_name
-	picked_name = input("Select tongue to change into", "Chameleon tongue", picked_name) as null|anything in sort_list(tongue_list, GLOBAL_PROC_REF(cmp_typepaths_asc))
+	var/list/sorted_list = sort_list(tongue_list)
+	//picked_name = input("Select tongue to change into", "Chameleon tongue", picked_name) as null|anything in sort_list(tongue_list)
+	picked_name = tgui_input_list(owner,"select tongue to change into", "Chameleon tongue selection", sorted_list)
 	if(!picked_name)
 		return
 	picked_tongue = tongue_list[picked_name]
