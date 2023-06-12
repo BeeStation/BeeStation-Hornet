@@ -1,0 +1,5 @@
+author: Absolucy
+delete-after: true
+changes:
+  - bugfix: Transformation sting is no longer unfixable if you're monkeyized after
+      being stung.
