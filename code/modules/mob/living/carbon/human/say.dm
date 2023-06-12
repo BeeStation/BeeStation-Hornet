@@ -18,22 +18,9 @@
 		. = ..()
 
 /mob/living/carbon/human/GetVoice()
-	if(istype(wear_mask, /obj/item/clothing/mask/chameleon))
-		var/obj/item/clothing/mask/chameleon/V = wear_mask
-		if(V.voice_change && wear_id)
-			var/obj/item/card/id/idcard = wear_id.GetID()
-			if(istype(idcard) && idcard.electric)
-				return idcard.registered_name
-			else
-				return real_name
-		else
-			return real_name
-	if(istype(wear_mask, /obj/item/clothing/mask/gas/old/modulator))
+	if(wear_mask)
 		var/obj/item/clothing/mask/gas/old/modulator/V = wear_mask
-		if(V.voice_change)
-			return "Unknown"
-		else
-			return real_name
+		return V.get_name(usr)
 	if(mind)
 		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling && changeling.mimicing )
