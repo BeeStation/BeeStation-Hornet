@@ -612,7 +612,7 @@
 	if(!picked_tongue)
 		M.chosen_tongue = null
 		return
-	M.chosen_tongue = new picked_tongue
+	M.chosen_tongue = picked_tongue
 	return TRUE
 
 /obj/item/clothing/mask/chameleon

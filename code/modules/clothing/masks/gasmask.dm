@@ -214,7 +214,7 @@
 	name = "modified gas mask"
 	desc = "A face-covering mask that can be connected to an air supply. This one appears to be one of the older models."
 	voice_change = TRUE
-	chosen_tongue = new /obj/item/organ/tongue/robot
+	chosen_tongue = /obj/item/organ/tongue/robot
 
 /obj/item/clothing/mask/gas/old/modulator/get_name(mob/user)
 	if(voice_change)

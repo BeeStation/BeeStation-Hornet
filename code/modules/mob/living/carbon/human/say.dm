@@ -8,10 +8,10 @@
 	if(wear_mask)
 		var/obj/item/clothing/mask/M = wear_mask
 		if(!isnull(M.chosen_tongue))
-			verb_say = pick(M.chosen_tongue.say_mod)
-			verb_ask = pick(M.chosen_tongue.ask_mod)
-			verb_yell = pick(M.chosen_tongue.yell_mod)
-			verb_exclaim = pick(M.chosen_tongue.exclaim_mod)
+			verb_say = pick(initial(M.chosen_tongue.say_mod))
+			verb_ask = pick(initial(M.chosen_tongue.ask_mod))
+			verb_yell = pick(initial(M.chosen_tongue.yell_mod))
+			verb_exclaim = pick(initial(M.chosen_tongue.exclaim_mod))
 	if(slurring || !T)
 		return "slurs"
 	else
