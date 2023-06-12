@@ -10,6 +10,7 @@
 	siemens_coefficient = 1
 	var/spamcheck = 0
 	var/list/voicespan = list(SPAN_MEGAPHONE)
+	var/cooldown = 5 SECONDS
 
 /obj/item/megaphone/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] is uttering [user.p_their()] last words into \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -36,7 +37,7 @@
 			to_chat(user, "<span class='warning'>\The [src] needs to recharge!</span>")
 		else
 			playsound(loc, 'sound/items/megaphone.ogg', 100, 0, 1)
-			spamcheck = world.time + 50
+			spamcheck = world.time + cooldown
 			speech_args[SPEECH_SPANS] |= voicespan
 
 /obj/item/megaphone/on_emag(mob/user)
@@ -65,3 +66,6 @@
 	icon_state = "megaphone-clown"
 	item_state = "megaphone-clown"
 	voicespan = list(SPAN_CLOWN)
+
+/obj/item/megaphone/nospam
+	cooldown = 30 SECONDS
