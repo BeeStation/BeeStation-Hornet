@@ -1,4 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - bugfix: piano no longer throws runtime because of null-user
