@@ -148,7 +148,12 @@
 		if(environment)
 			pressure = environment.return_pressure()
 	var/maxpressure = (exterior_pressure && (cyclestate == AIRLOCK_CYCLESTATE_OUTCLOSING || cyclestate == AIRLOCK_CYCLESTATE_OUTOPENING || cyclestate == AIRLOCK_CYCLESTATE_OUTOPEN)) ? exterior_pressure : interior_pressure
-	var/pressure_bars = round(pressure / maxpressure * 5 + 0.01)
+	var/pressure_bars
+	if(maxpressure == 0)
+		//1 is the lowest value found in monitors.dmi
+		pressure_bars = 1
+	else
+		pressure_bars = round(pressure / maxpressure * 5 + 0.01)
 
 	var/new_overlays_hash = "[pressure_bars]-[cyclestate]-[buildstage]-[panel_open]-[machine_stat]-[shorted]-[locked]-\ref[vis_target]"
 	if(use_hash && new_overlays_hash == overlays_hash)

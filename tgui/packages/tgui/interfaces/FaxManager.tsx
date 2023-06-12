@@ -33,32 +33,12 @@ type RequestsList = {
 export const FaxManager = (props, context) => {
   const { act } = useBackend(context);
   const { data } = useBackend<FaxManagerData>(context);
-  const faxes = data.faxes
-    ? sortBy((sortFax: FaxInfo) => sortFax.fax_name)(
-      data.faxes
-    )
-    : [];
+  const faxes = data.faxes ? sortBy((sortFax: FaxInfo) => sortFax.fax_name)(data.faxes) : [];
 
-  const [messagingAssociates, setMessagingAssociates] = useLocalState(
-    context,
-    'messaging_associates',
-    false
-  );
-  const [selectedFaxId, setSelectedFaxId] = useLocalState(
-    context,
-    'selectedFaxId',
-    ''
-  );
-  const [selectedFaxName, setSelectedFaxName] = useLocalState(
-    context,
-    'selectedFaxName',
-    ''
-  );
-  const [messageText, setMessageText] = useLocalState(
-    context,
-    'setMessageText',
-    ''
-  );
+  const [messagingAssociates, setMessagingAssociates] = useLocalState(context, 'messaging_associates', false);
+  const [selectedFaxId, setSelectedFaxId] = useLocalState(context, 'selectedFaxId', '');
+  const [selectedFaxName, setSelectedFaxName] = useLocalState(context, 'selectedFaxName', '');
+  const [messageText, setMessageText] = useLocalState(context, 'setMessageText', '');
   return (
     <Window title="Fax Manager" width={600} height={700} theme="admin">
       <Window.Content scrollable>
@@ -85,23 +65,23 @@ export const FaxManager = (props, context) => {
         </Section>
         <Section title="Messages">
           <Flex direction="column">
-            {!!data.requests
-            && data.requests.map((request: RequestsList) => (
-              <Flex.Item key={request.id_message}>
-                <RequestControl
-                  id_message={request.id_message}
-                  sender_fax_id={request.sender_fax_id}
-                  receiver_fax_name={request.receiver_fax_name}
-                  time={request.time}
-                  sender_name={request.sender_name}
-                  sender_fax_name={request.sender_fax_name}
-                  paper_raw_text={request.paper_raw_text}
-                  onRead={(paper_raw_text) => {
-                    setMessageText(paper_raw_text);
-                  }}
-                />
-              </Flex.Item>
-            ))}
+            {!!data.requests &&
+              data.requests.map((request: RequestsList) => (
+                <Flex.Item key={request.id_message}>
+                  <RequestControl
+                    id_message={request.id_message}
+                    sender_fax_id={request.sender_fax_id}
+                    receiver_fax_name={request.receiver_fax_name}
+                    time={request.time}
+                    sender_name={request.sender_name}
+                    sender_fax_name={request.sender_fax_name}
+                    paper_raw_text={request.paper_raw_text}
+                    onRead={(paper_raw_text) => {
+                      setMessageText(paper_raw_text);
+                    }}
+                  />
+                </Flex.Item>
+              ))}
           </Flex>
         </Section>
       </Window.Content>
@@ -131,22 +111,10 @@ export const FaxManager = (props, context) => {
 
 const FaxMessageModal = (props, context) => {
   const { data } = useBackend<FaxManagerData>(context);
-  const [messageInput, setMessageInput] = useLocalState(
-    context,
-    props.messageInput,
-    ''
-  );
+  const [messageInput, setMessageInput] = useLocalState(context, props.messageInput, '');
 
-  const [selectedSenderName, setSelectedSenderName] = useLocalState(
-    context,
-    'selectedSenderName',
-    ''
-  );
-  const [сustomSenderName, setCustomSenderName] = useLocalState(
-    context,
-    'сustomSenderName',
-    ''
-  );
+  const [selectedSenderName, setSelectedSenderName] = useLocalState(context, 'selectedSenderName', '');
+  const [сustomSenderName, setCustomSenderName] = useLocalState(context, 'сustomSenderName', '');
 
   const additional_faxes: string[] = [];
   for (let fax of data.additional_faxes) {
@@ -207,28 +175,17 @@ const FaxMessageModal = (props, context) => {
             onClick={() => {
               if (messageInput && messageInput.length !== 0) {
                 if (selectedSenderName !== 'Custom Name' && selectedSenderName.length !== 0) {
-                  props.onSubmit(
-                    props.selectedFaxId,
-                    selectedSenderName,
-                    messageInput
-                  );
+                  props.onSubmit(props.selectedFaxId, selectedSenderName, messageInput);
                 } else if (сustomSenderName && сustomSenderName.length !== 0) {
-                  props.onSubmit(
-                    props.selectedFaxId,
-                    сustomSenderName,
-                    messageInput
-                  );
+                  props.onSubmit(props.selectedFaxId, сustomSenderName, messageInput);
                   setCustomSenderName('');
                   setSelectedSenderName(additional_faxes[0]);
                   setMessageInput('');
                 } else if (selectedSenderName.length === 0) {
-                  props.onSubmit(
-                    props.selectedFaxId,
-                    additional_faxes[0],
-                    messageInput
-                  );
+                  props.onSubmit(props.selectedFaxId, additional_faxes[0], messageInput);
                 }
-              } }}
+              }
+            }}
           />
           <Button
             icon="times"
@@ -248,9 +205,7 @@ const FaxMessageModal = (props, context) => {
             }}
           />
         </Flex.Item>
-        {!!props.notice && (
-          <Flex.Item maxWidth="90vw">{props.notice}</Flex.Item>
-        )}
+        {!!props.notice && <Flex.Item maxWidth="90vw">{props.notice}</Flex.Item>}
       </Flex>
     </Modal>
   );
@@ -263,39 +218,19 @@ const RequestControl = (props, context) => {
       title={props.receiver_fax_name}
       buttons={
         <>
-          <Button
-            onClick={() =>
-              act('read_message', { id_message: props.id_message })}
-            color="good">
+          <Button onClick={() => act('read_message', { id_message: props.id_message })} color="good">
             Read
           </Button>
-          <Button
-            onClick={() => act('flw_fax', { fax_id: props.sender_fax_id })}>
-            FLW Fax
-          </Button>
-          <Button onClick={() => act('flw', { id_message: props.id_message })}>
-            FLW
-          </Button>
-          <Button onClick={() => act('pp', { id_message: props.id_message })}>
-            PP
-          </Button>
-          <Button onClick={() => act('vv', { id_message: props.id_message })}>
-            VV
-          </Button>
-          <Button onClick={() => act('sm', { id_message: props.id_message })}>
-            SM
-          </Button>
-          <Button onClick={() => act('logs', { id_message: props.id_message })}>
-            LOGS
-          </Button>
-          <Button
-            onClick={() => act('smite', { id_message: props.id_message })}>
-            SMITE
-          </Button>
+          <Button onClick={() => act('flw_fax', { fax_id: props.sender_fax_id })}>FLW Fax</Button>
+          <Button onClick={() => act('flw', { id_message: props.id_message })}>FLW</Button>
+          <Button onClick={() => act('pp', { id_message: props.id_message })}>PP</Button>
+          <Button onClick={() => act('vv', { id_message: props.id_message })}>VV</Button>
+          <Button onClick={() => act('sm', { id_message: props.id_message })}>SM</Button>
+          <Button onClick={() => act('logs', { id_message: props.id_message })}>LOGS</Button>
+          <Button onClick={() => act('smite', { id_message: props.id_message })}>SMITE</Button>
         </>
       }>
-      [{props.time}] Message received from {props.sender_fax_name}/
-      {props.sender_name}
+      [{props.time}] Message received from {props.sender_fax_name}/{props.sender_name}
     </Section>
   );
 };
