@@ -260,13 +260,13 @@
 	if(data)
 		json_data["data"] = data
 	// if ui_data sleeps, prevent errors
-	if(!user?.client || !initialized || closing || QDELETED(src_object) || QDELETED(user) || QDELETED(window))
+	if(!user?.client || closing || QDELETED(src_object) || QDELETED(user) || QDELETED(window))
 		return
 	var/static_data = with_static_data && src_object.ui_static_data(user)
 	if(static_data)
 		json_data["static_data"] = static_data
 	// if ui_static_data sleeps, prevent errors
-	if(!user?.client || !initialized || closing || QDELETED(src_object) || QDELETED(user) || QDELETED(window))
+	if(!user?.client || closing || QDELETED(src_object) || QDELETED(user) || QDELETED(window))
 		return
 	if(src_object.tgui_shared_states)
 		json_data["shared"] = src_object.tgui_shared_states
