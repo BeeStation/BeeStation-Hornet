@@ -72,7 +72,7 @@
 	. = ..()
 	disconnect()
 
-/obj/item/clothing/head/monkey_sentience_helmet/proc/disconnect(mob/old_mob, mob/new_mob)
+/obj/item/clothing/head/monkey_sentience_helmet/proc/disconnect(datum/mind/signaller, mob/old_mob, mob/new_mob)
 	SIGNAL_HANDLER
 	if(!magnification)
 		return
