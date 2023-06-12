@@ -1,0 +1,5 @@
+author: HowToLoLu
+delete-after: true
+changes:
+  - bugfix: PAI can no longer phase out of solid structures and machines such as closets
+      (even when they were welded) and disposal pipes
