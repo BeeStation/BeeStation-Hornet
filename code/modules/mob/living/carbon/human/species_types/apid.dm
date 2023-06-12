@@ -100,7 +100,7 @@
 	to_add += list(
 		list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
-			SPECIES_PERK_ICON = "hive",
+			SPECIES_PERK_ICON = "bug",
 			SPECIES_PERK_NAME = "Hive-Friend",
 			SPECIES_PERK_DESC = "Apids are naturally friends with bees, and can make honeycombs!",
 		),
