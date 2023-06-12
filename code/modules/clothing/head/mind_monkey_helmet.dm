@@ -24,20 +24,21 @@
 	if(!ismonkey(user) || user.key)
 		to_chat(user, "<span class='boldnotice'>You feel a stabbing pain in the back of your head for a moment.</span>")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
-		if(!isliving(user)) //I don't know what normally would force us to check this, but it's worth checking
+		if(isliving(user)) //I don't know what normally would force us to check this, but it's worth checking
 			var/mob/living/M = user
 			M.apply_damage(5,BRUTE,BODY_ZONE_HEAD,FALSE,FALSE,FALSE) //notably: no damage resist (it's in your helmet), no damage spread (it's in your helmet)
 			return
 		return
+	INVOKE_ASYNC(src, PROC_REF(poll), user)
+
+/obj/item/clothing/head/monkey_sentience_helmet/proc/poll(mob/user)
 	user.visible_message("<span class='warning'>[src] powers up!</span>")
 	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
 	var/list/candidates = pollCandidatesForMob("Do you want to play as a mind magnified monkey?", ROLE_MONKEY_HELMET, null, ROLE_MONKEY_HELMET, 50, user, POLL_IGNORE_MONKEY_HELMET)
-	//Some time has passed, and we could've been disintegrated for all we know (especially if polling was interupted)
-
-/obj/item/clothing/head/monkey_sentience_helmet/proc/after_polling()
+	//Some time has passed, and we could've been disintegrated for all we know (especially if we touch touch supermatter)
 	if(QDELETED(src))
 		return
-	if(!user || user.key) //Either they're gone, or they gained a new sense of awareness without us
+	if(!user || user.key) //Either they're gone, or someone used a mind transfer potion (which would collide badly)
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 		return
 	if(!candidates.len)
