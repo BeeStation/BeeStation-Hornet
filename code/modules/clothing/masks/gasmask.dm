@@ -78,7 +78,6 @@
 /obj/item/clothing/mask/gas/clown_hat/ui_action_click(mob/user)
 	if(!istype(user) || user.incapacitated())
 		return
-	message_admins("UI action click detected")
 	var/list/options = list()
 	options["True Form"] = "clown"
 	options["The Feminist"] = "sexyclown"
@@ -87,10 +86,8 @@
 	options["The Jester"] ="chaos" //Nepeta33Leijon is holding me captive and forced me to help with this please send help
 	options["The Lunatic"] = "trickymask"
 
-	//var/choice = input(user,"To what form do you wish to Morph this mask?","Morph Mask") in sort_list(options)
 	var/choice = show_radial_menu(user, user, mask_designs, custom_check = FALSE, radius = 40)
 	if(!choice)
-		message_admins("No choice detected, returning")
 		return FALSE
 
 	if(src && choice && !user.incapacitated() && in_range(user,src))
@@ -120,7 +117,14 @@
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
 	actions_types = list(/datum/action/item_action/adjust)
+	var/list/mask_designs = list()
 
+/obj/item/clothing/mask/gas/mime/Initialize(mapload)
+	.=..()
+	mask_designs["Blanc"] = image(icon = src.icon, icon_state = "mime")
+	mask_designs["Triste"] = image(icon = src.icon, icon_state = "sadmime")
+	mask_designs["Effrayé"] = image(icon = src.icon, icon_state = "scaredmime")
+	mask_designs["Excité"] = image(icon = src.icon, icon_state = "sexymime")
 
 /obj/item/clothing/mask/gas/mime/ui_action_click(mob/user)
 	if(!istype(user) || user.incapacitated())
@@ -132,7 +136,9 @@
 	options["Effrayé"] = "scaredmime"
 	options["Excité"] ="sexymime"
 
-	var/choice = input(user,"To what form do you wish to Morph this mask?","Morph Mask") in sort_list(options)
+	var/choice = show_radial_menu(user, user, mask_designs, custom_check = FALSE, radius = 40)
+	if(!choice)
+		return FALSE
 
 	if(src && choice && !user.incapacitated() && in_range(user,src))
 		icon_state = options[choice]
@@ -194,7 +200,14 @@
 	max_integrity = 100
 	actions_types = list(/datum/action/item_action/adjust)
 	dog_fashion = null
+	var/list/mask_designs = list()
 
+/obj/item/clothing/mask/gas/tiki_mask/Initialize(mapload)
+	.=..()
+	mask_designs["Original Tiki"] = image(icon = src.icon, icon_state = "tiki_eyebrow")
+	mask_designs["Happy Tikie"] = image(icon = src.icon, icon_state = "tiki_happy")
+	mask_designs["Confused Tiki"] = image(icon = src.icon, icon_state = "tiki_confused")
+	mask_designs["Angry Tiki"] = image(icon = src.icon, icon_state = "tiki_angry")
 
 /obj/item/clothing/mask/gas/tiki_mask/ui_action_click(mob/user)
 	var/mob/M = usr
@@ -204,7 +217,9 @@
 	options["Confused Tiki"] = "tiki_confused"
 	options["Angry Tiki"] ="tiki_angry"
 
-	var/choice = input(M,"To what form do you wish to change this mask?","Morph Mask") in sort_list(options)
+	var/choice = show_radial_menu(user, user, mask_designs, custom_check = FALSE, radius = 40)
+	if(!choice)
+		return FALSE
 
 	if(src && choice && !M.stat && in_range(M,src))
 		icon_state = options[choice]
