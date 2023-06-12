@@ -21,6 +21,7 @@ export const LoadoutPage = (props, context) => {
         let selectedCategoryObject = categories.filter((c) => c.name === selectedCategory)[0];
 
         const isPurchased = (gear: LoadoutGear) => purchased_gear.includes(gear.id) && !gear.multi_purchase;
+        let currency_text = metacurrency_balance.toLocaleString() + ' ' + metacurrency_name + 's';
 
         return (
           <Stack height="100%">
@@ -35,8 +36,8 @@ export const LoadoutPage = (props, context) => {
                 <Flex.Item>
                   <Button icon="undo" tooltip="Rotate" tooltipPosition="top" onClick={() => act('rotate')} />
                 </Flex.Item>
-                <Flex.Item grow textAlign="center">
-                  {metacurrency_balance} {metacurrency_name}
+                <Flex.Item grow textAlign="center" fontSize={Math.max(Math.min(19, 34 - currency_text.length), 13) + 'px'}>
+                  {currency_text}
                 </Flex.Item>
               </Flex>
               <CharacterPreview height="calc(100vh - 170px)" id={data.character_preview_view} />
@@ -104,6 +105,11 @@ export const LoadoutPage = (props, context) => {
                                   ? gear.skirt_display_name
                                   : gear.display_name}
                               </Table.Cell>
+                              {selectedCategory !== 'Donator' && (
+                                <Table.Cell collapsing textAlign="center">
+                                  {gear.cost.toLocaleString()}
+                                </Table.Cell>
+                              )}
                               <Table.Cell textAlign="center">
                                 <Button
                                   disabled={
