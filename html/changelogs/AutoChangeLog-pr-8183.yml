@@ -1,0 +1,8 @@
+author: LemonInTheDark, MrStonedOne, Mothblocks, EvilDragonfiend
+delete-after: true
+changes:
+  - rscadd: Added cross-round serverside spritesheet caching, and various fixes and
+      improvements for it.
+  - config: Added CACHE_ASSETS, which enables asset caching when enabled. It is disabled
+      in development, but should be enabled n production.
+  - bugfix: Fixed vending machine showing icons as glass when they failed to load.
