@@ -67,17 +67,18 @@
 	var/list/mask_designs = list()
 
 /obj/item/clothing/mask/gas/clown_hat/Initialize(mapload)
+	.=..()
 	mask_designs["True Form"] = image(icon = src.icon, icon_state = "clown")
 	mask_designs["The Feminist"] = image(icon = src.icon, icon_state = "sexyclown")
 	mask_designs["The Madman"] = image(icon = src.icon, icon_state = "joker")
-	mask_designs["The Rainbow Color"] = image(icon = src.icon, icon_state = "color")
+	mask_designs["The Rainbow Color"] = image(icon = src.icon, icon_state = "rainbow")
 	mask_designs["The Jester"] = image(icon = src.icon, icon_state = "chaos")
 	mask_designs["The Lunatic"] = image(icon = src.icon, icon_state = "trickymask")
 
 /obj/item/clothing/mask/gas/clown_hat/ui_action_click(mob/user)
 	if(!istype(user) || user.incapacitated())
 		return
-
+	message_admins("UI action click detected")
 	var/list/options = list()
 	options["True Form"] = "clown"
 	options["The Feminist"] = "sexyclown"
@@ -87,8 +88,9 @@
 	options["The Lunatic"] = "trickymask"
 
 	//var/choice = input(user,"To what form do you wish to Morph this mask?","Morph Mask") in sort_list(options)
-	var/choice = show_radial_menu(user, src, mask_designs, custom_check = FALSE, radius = 40, require_near = TRUE)
+	var/choice = show_radial_menu(user, user, mask_designs, custom_check = FALSE, radius = 40)
 	if(!choice)
+		message_admins("No choice detected, returning")
 		return FALSE
 
 	if(src && choice && !user.incapacitated() && in_range(user,src))
