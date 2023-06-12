@@ -259,8 +259,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 				spawn_dead_human_in_tray(container)
 
 	if(bodycount)
-		log_mapping("[src] at [x],[y] could not find any morgues or container.")
-		return // do not do qdel so that we can see what's wrong with it
+		while(bodycount--)
+			spawn_dead_human_in_tray(get_turf(src)) // spawn onto turf
 	qdel(src)
 
 /obj/effect/mapping_helpers/dead_body_placer/proc/spawn_dead_human_in_tray(obj/container)
