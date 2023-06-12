@@ -64,6 +64,15 @@
 	resistance_flags = FLAMMABLE
 	actions_types = list(/datum/action/item_action/adjust)
 	dog_fashion = /datum/dog_fashion/head/clown
+	var/list/mask_designs = list()
+
+/obj/item/clothing/mask/gas/clown_hat/Initialize(mapload)
+	mask_designs["True Form"] = image(icon = src.icon, icon_state = "clown")
+	mask_designs["The Feminist"] = image(icon = src.icon, icon_state = "sexyclown")
+	mask_designs["The Madman"] = image(icon = src.icon, icon_state = "joker")
+	mask_designs["The Rainbow Color"] = image(icon = src.icon, icon_state = "color")
+	mask_designs["The Jester"] = image(icon = src.icon, icon_state = "chaos")
+	mask_designs["The Lunatic"] = image(icon = src.icon, icon_state = "trickymask")
 
 /obj/item/clothing/mask/gas/clown_hat/ui_action_click(mob/user)
 	if(!istype(user) || user.incapacitated())
@@ -77,7 +86,10 @@
 	options["The Jester"] ="chaos" //Nepeta33Leijon is holding me captive and forced me to help with this please send help
 	options["The Lunatic"] = "trickymask"
 
-	var/choice = input(user,"To what form do you wish to Morph this mask?","Morph Mask") in sort_list(options)
+	//var/choice = input(user,"To what form do you wish to Morph this mask?","Morph Mask") in sort_list(options)
+	var/choice = show_radial_menu(user, src, mask_designs, custom_check = FALSE, radius = 40, require_near = TRUE)
+	if(!choice)
+		return FALSE
 
 	if(src && choice && !user.incapacitated() && in_range(user,src))
 		icon_state = options[choice]
