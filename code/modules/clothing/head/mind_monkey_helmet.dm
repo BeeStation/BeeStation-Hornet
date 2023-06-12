@@ -37,33 +37,35 @@
 	. = ..()
 	if(slot != ITEM_SLOT_HEAD)
 		return
-	var/mob/living/M = user
-	if(!ismonkey(M) || M.ckey)
-		to_chat(M, "<span class='boldnotice'>You feel a stabbing pain in the back of your head for a moment.</span>")
-		M.apply_damage(5,BRUTE,BODY_ZONE_HEAD,FALSE,FALSE,FALSE) //notably: no damage resist (it's in your helmet), no damage spread (it's in your helmet)
+	if(!ismonkey(user) || user.key)
+		to_chat(user, "<span class='boldnotice'>You feel a stabbing pain in the back of your head for a moment.</span>")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
+		if(!isliving(user)) //I don't know what normally would force us to check this, but it's worth checking
+			var/mob/living/M = user
+			M.apply_damage(5,BRUTE,BODY_ZONE_HEAD,FALSE,FALSE,FALSE) //notably: no damage resist (it's in your helmet), no damage spread (it's in your helmet)
+			return
 		return
-	M.visible_message("<span class='warning'>[src] powers up!</span>")
+	user.visible_message("<span class='warning'>[src] powers up!</span>")
 	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
 	polling = TRUE
-	var/list/candidates = pollCandidatesForMob("Do you want to play as a mind magnified monkey?", ROLE_MONKEY_HELMET, null, ROLE_MONKEY_HELMET, 50, M, POLL_IGNORE_MONKEY_HELMET)
+	var/list/candidates = pollCandidatesForMob("Do you want to play as a mind magnified monkey?", ROLE_MONKEY_HELMET, null, ROLE_MONKEY_HELMET, 50, user, POLL_IGNORE_MONKEY_HELMET)
 	polling = FALSE
 	//Some time has passed, and we could've been disintegrated for all we know (especially if polling was interupted)
 	if(QDELETED(src))
 		return
-	if(!M || M.key) //Either they're gone, or they gained a new sense of awareness without us
+	if(!user || user.key) //Either they're gone, or they gained a new sense of awareness without us
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 		return
 	if(!candidates.len)
-		M.visible_message("<span class='notice'>[src] falls silent. Maybe you should try again later?</span>")
+		user.visible_message("<span class='notice'>[src] falls silent. Maybe you should try again later?</span>")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 		return
 	var/mob/picked = pick(candidates)
-	M.key = picked.key
-	magnification = M.mind
+	user.key = picked.key
+	magnification = user.mind
 	RegisterSignal(magnification, COMSIG_MIND_TRANSFER_TO, PROC_REF(disconnect))
 	playsound(src, 'sound/machines/microwave/microwave-end.ogg', 100, FALSE)
-	to_chat(M, "<span class='notice'>You're a mind magnified monkey! Protect your helmet with your life- if you lose it, your sentience goes with it!</span>")
+	to_chat(user, "<span class='notice'>You're a mind magnified monkey! Protect your helmet with your life- if you lose it, your sentience goes with it!</span>")
 	update_icon()
 
 /obj/item/clothing/head/monkey_sentience_helmet/Destroy()
