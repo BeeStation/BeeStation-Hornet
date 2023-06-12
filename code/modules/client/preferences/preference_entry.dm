@@ -411,13 +411,13 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	abstract_type = /datum/preference/color
 
 /datum/preference/color/deserialize(input, datum/preferences/preferences)
-	return sanitize_hexcolor(input)
+	return sanitize_hexcolor(input, desired_format = 6, include_crunch = TRUE)
 
 /datum/preference/color/create_default_value()
 	return random_color()
 
 /datum/preference/color/serialize(input)
-	return sanitize_hexcolor(input)
+	return sanitize_hexcolor(input, desired_format = 6, include_crunch = TRUE)
 
 /datum/preference/color/is_valid(value)
 	return findtext(value, GLOB.is_color)
