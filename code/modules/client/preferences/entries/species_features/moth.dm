@@ -9,18 +9,14 @@
 /datum/preference/choiced/moth_antennae/init_possible_values()
 	var/list/values = list()
 
-	var/icon/moth_head = icon('icons/mob/human_parts.dmi', "moth_head_m")
-	moth_head.Blend(icon('icons/mob/human_face.dmi', "motheyes"), ICON_OVERLAY)
-
 	for (var/antennae_name in GLOB.moth_antennae_roundstart_list)
 		var/datum/sprite_accessory/antennae = GLOB.moth_antennae_roundstart_list[antennae_name]
 
-		var/icon/icon_with_antennae = new(moth_head)
-		icon_with_antennae.Blend(icon(antennae.icon, "m_moth_antennae_[antennae.icon_state]_FRONT"), ICON_OVERLAY)
+		var/icon/icon_with_antennae = icon('icons/mob/species/moth/bodyparts.dmi', "moth_head_m", dir = SOUTH)
+		icon_with_antennae.Blend(icon(antennae.icon, "m_moth_antennae_[antennae.icon_state]_FRONT", dir = SOUTH), ICON_OVERLAY)
 		icon_with_antennae.Scale(64, 64)
 		icon_with_antennae.Crop(15, 64, 15 + 31, 64 - 31)
-
-		values[antennae.name] = icon_with_antennae
+		values[antennae.name] = icon(icon_with_antennae, dir = SOUTH)
 
 	return values
 
@@ -51,9 +47,7 @@
 
 	for (var/body_part in body_parts)
 		var/gender = (body_part == "chest" || body_part == "head") ? "_m" : ""
-		moth_body.Blend(icon('icons/mob/human_parts.dmi', "moth_[body_part][gender]"), ICON_OVERLAY)
-
-	moth_body.Blend(icon('icons/mob/human_face.dmi', "motheyes"), ICON_OVERLAY)
+		moth_body.Blend(icon('icons/mob/species/moth/bodyparts.dmi', "moth_[body_part][gender]", dir = SOUTH), ICON_OVERLAY)
 
 	for (var/markings_name in GLOB.moth_markings_roundstart_list)
 		var/datum/sprite_accessory/markings = GLOB.moth_markings_roundstart_list[markings_name]
@@ -61,7 +55,7 @@
 
 		if (markings_name != "None")
 			for (var/body_part in body_parts)
-				var/icon/body_part_icon = icon(markings.icon, "[markings.icon_state]_[body_part]")
+				var/icon/body_part_icon = icon(markings.icon, "[markings.icon_state]_[body_part]", dir = SOUTH)
 				body_part_icon.Crop(1, 1, 32, 32)
 				icon_with_markings.Blend(body_part_icon, ICON_OVERLAY)
 

@@ -1,29 +1,29 @@
 /proc/generate_lizard_side_shots(list/sprite_accessories, key, include_snout = TRUE)
 	var/list/values = list()
 
-	var/icon/lizard = icon('icons/mob/human_parts_greyscale.dmi', "lizard_head_m", EAST)
+	var/icon/lizard = icon('icons/mob/species/lizard/bodyparts.dmi', "lizard_head_m", dir = EAST)
 
-	var/icon/eyes = icon('icons/mob/human_face.dmi', "eyes", EAST)
+	var/icon/eyes = icon('icons/mob/human_face.dmi', "eyes", dir = EAST)
 	eyes.Blend(COLOR_GRAY, ICON_MULTIPLY)
 	lizard.Blend(eyes, ICON_OVERLAY)
 
 	if (include_snout)
-		lizard.Blend(icon('icons/mob/mutant_bodyparts.dmi', "m_snout_round_ADJ", EAST), ICON_OVERLAY)
+		lizard.Blend(icon('icons/mob/mutant_bodyparts.dmi', "m_snout_round_ADJ", dir = EAST), ICON_OVERLAY)
 
 	for (var/name in sprite_accessories)
 		var/datum/sprite_accessory/sprite_accessory = sprite_accessories[name]
 
-		var/icon/final_icon = icon(lizard)
+		var/icon/final_icon = new(lizard)
 
 		if (sprite_accessory.icon_state != "none")
-			var/icon/accessory_icon = icon(sprite_accessory.icon, "m_[key]_[sprite_accessory.icon_state]_ADJ", EAST)
+			var/icon/accessory_icon = icon(sprite_accessory.icon, "m_[key]_[sprite_accessory.icon_state]_ADJ", dir = EAST)
 			final_icon.Blend(accessory_icon, ICON_OVERLAY)
 
 		final_icon.Crop(11, 20, 23, 32)
 		final_icon.Scale(32, 32)
-		final_icon.Blend(COLOR_VIBRANT_LIME, ICON_MULTIPLY)
+		final_icon.Blend(COLOR_LIME, ICON_MULTIPLY)
 
-		values[name] = final_icon
+		values[name] = icon(final_icon, dir = EAST)
 
 	return values
 
@@ -38,27 +38,28 @@
 /datum/preference/choiced/lizard_body_markings/init_possible_values()
 	var/list/values = list()
 
-	var/icon/lizard = icon('icons/mob/human_parts_greyscale.dmi', "lizard_chest_m")
+	var/icon/lizard = icon('icons/mob/species/lizard/bodyparts.dmi', "lizard_chest_m", dir = SOUTH)
 
 	for (var/name in GLOB.body_markings_list)
 		var/datum/sprite_accessory/sprite_accessory = GLOB.body_markings_list[name]
 
-		var/icon/final_icon = icon(lizard)
+		var/icon/final_icon = icon(lizard, dir = SOUTH)
 
 		if (sprite_accessory.icon_state != "none")
 			var/icon/body_markings_icon = icon(
 				'icons/mob/mutant_bodyparts.dmi',
 				"m_body_markings_[sprite_accessory.icon_state]_ADJ",
+				dir = SOUTH
 			)
 
 			final_icon.Blend(body_markings_icon, ICON_OVERLAY)
 
-		final_icon.Blend(COLOR_VIBRANT_LIME, ICON_MULTIPLY)
+		final_icon.Blend(COLOR_LIME, ICON_MULTIPLY)
 		final_icon.Crop(10, 8, 22, 23)
 		final_icon.Scale(26, 32)
 		final_icon.Crop(-2, 1, 29, 32)
 
-		values[name] = final_icon
+		values[name] = icon(final_icon, dir = SOUTH)
 
 	return values
 
