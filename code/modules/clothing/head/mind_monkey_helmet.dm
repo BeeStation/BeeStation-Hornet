@@ -5,7 +5,7 @@
 	icon_state = "monkeymind"
 	strip_delay = 100
 	clothing_flags = EFFECT_HAT
-	var/cooldown_expiry //It'll get annoying quick when someone tries to remove their own helmet 20 times a second
+	COOLDOWN_DECLARE(message_cooldown) //It'll get annoying quick when someone tries to remove their own helmet 20 times a second
 	var/datum/mind/magnification = null ///A reference to the mind we govern
 
 /obj/item/clothing/head/monkey_sentience_helmet/examine(mob/user)
@@ -31,14 +31,14 @@
 		return
 	INVOKE_ASYNC(src, PROC_REF(poll), user)
 
-/obj/item/clothing/head/monkey_sentience_helmet/proc/poll(mob/user)
+/obj/item/clothing/head/monkey_sentience_helmet/proc/poll(mob/living/carbon/monkey/user) //At this point, we can assume we're given a monkey, since this'll put them in the body anyways
 	user.visible_message("<span class='warning'>[src] powers up!</span>")
 	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
 	var/list/candidates = pollCandidatesForMob("Do you want to play as a mind magnified monkey?", ROLE_MONKEY_HELMET, null, ROLE_MONKEY_HELMET, 50, user, POLL_IGNORE_MONKEY_HELMET)
 	//Some time has passed, and we could've been disintegrated for all we know (especially if we touch touch supermatter)
-	if(QDELETED(src))
+	if(QDELETED(src) || !user || magnification)
 		return
-	if(!user || user.key) //Either they're gone, or someone used a mind transfer potion (which would collide badly)
+	if(user.key || (src != user.head)) //Something important about the monkey changed, abort
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 		return
 	if(!candidates.len)
@@ -90,11 +90,11 @@
 		return ..() //In case the monkey was already sentient
 
 	//Spam? No thanks, we're good.
-	if(cooldown_expiry <= world.time)
+	if(COOLDOWN_FINISHED(src, message_cooldown))
 		user.visible_message( \
 		"<span class='warning'>[user.name] [user.p_are()] trying to take [src] off [user.p_their()] head!</span>", \
 		"<span class='userdanger'>You feel a sharp pain as you take [src] off!</span>")
-		cooldown_expiry = world.time + 50
+		COOLDOWN_START(src, message_cooldown, 5 SECONDS)
 
 	//Give them a fair chance to realize they're about to commit mind death
 	if (do_after(user, 8 SECONDS, user))
