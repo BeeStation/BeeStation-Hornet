@@ -1,5 +1,0 @@
-author: Absolucy
-delete-after: true
-changes:
-  - bugfix: Fixed victims of Toxoplasmosis Sapiens pouncing on cats whenever unconscious/crit,
-      instead of when NOT unconscious/crit.
