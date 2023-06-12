@@ -1,29 +1,14 @@
-/obj/item/clothing/head/mind_monkey_helmet/monkey_sentience
+/obj/item/clothing/head/monkey_sentience_helmet
 	name = "monkey mind magnification helmet"
 	desc = "A fragile, circuitry embedded helmet for boosting the intelligence of a monkey to a higher level. You see several warning labels..."
 
-	base_icon_state = "monkeymind"
-	icon_state = "monkeymind1" //For mapping?
-	item_state = "monkeymind"
+	icon_state = "monkeymind"
 	strip_delay = 100
+	clothing_flags = EFFECT_HAT
 	var/cooldown_expiry //It'll get annoying quick when someone tries to remove their own helmet 20 times a second
-	var/mob/living/carbon/monkey/magnification = null ///if the helmet is on a valid target (just works like a normal helmet if not (cargo please stop))
-	var/polling = FALSE///if the helmet is currently polling for targets (special code for removal)
+	var/datum/mind/magnification = null ///A reference to the mind we govern
 
-/obj/item/clothing/head/mind_monkey_helmet/monkey_sentience/Initialize()
-	. = ..()
-	base_icon_state = "[base_icon_state][rand(1,3)]"
-	update_icon()
-
-/obj/item/clothing/head/mind_monkey_helmet/monkey_sentience/update_icon(updates)
-	. = ..()
-	if (magnification)
-		icon_state = "[base_icon_state]up"
-		return
-	icon_state = "[base_icon_state]"
-
-
-/obj/item/clothing/head/mind_monkey_helmet/monkey_sentience/examine(mob/user)
+/obj/item/clothing/head/monkey_sentience_helmet/examine(mob/user)
 	. = ..()
 	. += "<span class='boldwarning'>---WARNING: REMOVAL OF HELMET ON SUBJECT MAY LEAD TO:---</span>"
 	. += "<span class='warning'>BLOOD RAGE</span>"
@@ -32,76 +17,90 @@
 	. += "<span class='warning'>GENETIC MAKEUP MASS SUSCEPTIBILITY</span>"
 	. += "<span class='boldnotice'>Ask your CMO if mind magnification is right for you.</span>"
 
-/obj/item/clothing/head/mind_monkey_helmet/monkey_sentience/equipped(mob/user, slot)
+/obj/item/clothing/head/monkey_sentience_helmet/equipped(mob/user, slot)
 	. = ..()
 	if(slot != ITEM_SLOT_HEAD)
 		return
-	if(!ismonkey(user) || user.ckey)
-		var/mob/living/something = user
-		to_chat(something, "<span class='boldnotice'>You feel a stabbing pain in the back of your head for a moment.</span>")
-		something.apply_damage(5,BRUTE,BODY_ZONE_HEAD,FALSE,FALSE,FALSE) //notably: no damage resist (it's in your helmet), no damage spread (it's in your helmet)
+	if(!ismonkey(user) || user.key)
+		to_chat(user, "<span class='boldnotice'>You feel a stabbing pain in the back of your head for a moment.</span>")
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
+		if(isliving(user)) //I don't know what normally would force us to check this, but it's worth checking
+			var/mob/living/M = user
+			M.apply_damage(5,BRUTE,BODY_ZONE_HEAD,FALSE,FALSE,FALSE) //notably: no damage resist (it's in your helmet), no damage spread (it's in your helmet)
+			return
+		return
+	INVOKE_ASYNC(src, PROC_REF(poll), user)
+
+/obj/item/clothing/head/monkey_sentience_helmet/proc/poll(mob/user)
+	user.visible_message("<span class='warning'>[src] powers up!</span>")
+	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
+	var/list/candidates = pollCandidatesForMob("Do you want to play as a mind magnified monkey?", ROLE_MONKEY_HELMET, null, ROLE_MONKEY_HELMET, 50, user, POLL_IGNORE_MONKEY_HELMET)
+	//Some time has passed, and we could've been disintegrated for all we know (especially if we touch touch supermatter)
+	if(QDELETED(src))
+		return
+	if(!user || user.key) //Either they're gone, or someone used a mind transfer potion (which would collide badly)
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 		return
-	magnification = user //this polls ghosts
-	visible_message("<span class='warning'>[src] powers up!</span>")
-	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
-	polling = TRUE
-	var/list/candidates = pollCandidatesForMob("Do you want to play as a mind magnified monkey?", ROLE_MONKEY_HELMET, null, ROLE_MONKEY_HELMET, 50, magnification, POLL_IGNORE_MONKEY_HELMET)
-	polling = FALSE
 	if(!candidates.len)
-		magnification = null
-		visible_message("<span class='notice'>[src] falls silent. Maybe you should try again later?</span>")
+		user.visible_message("<span class='notice'>[src] falls silent. Maybe you should try again later?</span>")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
-	else
-		var/mob/picked = pick(candidates)
-		magnification.key = picked.key
-		playsound(src, 'sound/machines/microwave/microwave-end.ogg', 100, FALSE)
-		to_chat(magnification, "<span class='notice'>You're a mind magnified monkey! Protect your helmet with your life- if you lose it, your sentience goes with it!</span>")
-		update_icon()
+		return
+	var/mob/picked = pick(candidates)
+	user.key = picked.key
+	magnification = user.mind
+	RegisterSignal(magnification, COMSIG_MIND_TRANSFER_TO, PROC_REF(disconnect))
+	playsound(src, 'sound/machines/microwave/microwave-end.ogg', 100, FALSE)
+	to_chat(user, "<span class='notice'>You're a mind magnified monkey! Protect your helmet with your life- if you lose it, your sentience goes with it!</span>")
 
-/obj/item/clothing/head/mind_monkey_helmet/monkey_sentience/Destroy()
+/obj/item/clothing/head/monkey_sentience_helmet/Destroy()
 	. = ..()
 	disconnect()
 
-/obj/item/clothing/head/mind_monkey_helmet/monkey_sentience/proc/disconnect()
-	if(!magnification) //not put on a viable head
+/obj/item/clothing/head/monkey_sentience_helmet/proc/disconnect(datum/mind/signaller, mob/old, mob/current)
+	SIGNAL_HANDLER
+	if(!magnification)
 		return
-	if(polling)//put on a viable head, but taken off after polling finished.
+	UnregisterSignal(magnification, COMSIG_MIND_TRANSFER_TO)
+	if(!current)
+		current = magnification.current //In case we weren't called by COMSIG_MIND_TRANSFER_TO
+	magnification = null
+	to_chat(current, "<span class='userdanger'>You feel your flicker of sentience ripped away from you, as everything becomes dim...</span>")
+	current.ghostize(FALSE)
+
+	if(QDELING(src)) //The rest of this is stuff that would be pointless if we're being destroyed
+		return
+	if(old) //If the helmet was put through an attempted mind transfer, this is retribution
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 		playsound(src, "sparks", 100, TRUE)
-		visible_message("<span class='warning'>[src] fizzles and breaks apart!</span>")
-		magnification = null
+		current.visible_message("<span class='warning'>[src] fizzles and breaks apart!</span>")
 		new /obj/effect/decal/cleanable/ash/crematorium(drop_location()) //just in case they're in a locker or other containers it needs to use crematorium ash, see the path itself for an explanation
 		qdel(src)
-	else
-		if(magnification.client) //either used up correctly or taken off before polling finished (punish this by destroying the helmet)
-			to_chat(magnification, "<span class='userdanger'>You feel your flicker of sentience ripped away from you, as everything becomes dim...</span>")
-			magnification.ghostize(FALSE)
-		if(prob(10))
-			magnification.apply_damage(500,BRAIN,BODY_ZONE_HEAD,FALSE,FALSE,FALSE) //brain death
-		magnification = null
-		update_icon()
+		return
+	playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
+	current.visible_message("<span class='warning'>[src] powers down!</span>")
 
-/obj/item/clothing/head/mind_monkey_helmet/monkey_sentience/dropped(mob/user)
-	. = ..()
-	disconnect()
-
-/obj/item/clothing/head/mind_monkey_helmet/monkey_sentience/attack_paw(mob/user)
+/obj/item/clothing/head/monkey_sentience_helmet/attack_paw(mob/user)
 	//Typecasting to monkey just to see if we're on the user's head
 	if (!istype(user, /mob/living/carbon/monkey))
 		return ..()
 	var/mob/living/carbon/monkey/M = user
 	if(src!=M.head)
 		return ..()
+	if(!magnification)
+		return ..() //In case the monkey was already sentient
 
 	//Spam? No thanks, we're good.
-	if(cooldown_expiry > world.time)
-		return
-	cooldown_expiry = world.time
+	if(cooldown_expiry <= world.time)
+		user.visible_message( \
+		"<span class='warning'>[user.name] [user.p_are()] trying to take [src] off [user.p_their()] head!</span>", \
+		"<span class='userdanger'>You feel a sharp pain as you take [src] off!</span>")
+		cooldown_expiry = world.time + 50
 
 	//Give them a fair chance to realize they're about to commit mind death
-	user.visible_message("<span class='userdanger'>You feel a sharp pain as you take the [src] off!</span>", \
-		"<span class='warning'>[user.name] [user.p_are()] trying to take the [src] off [user.p_their()] head!</span>")
 	if (do_after(user, 8 SECONDS, user))
 		return ..()
 	return
+
+/obj/item/clothing/head/monkey_sentience_helmet/dropped(mob/user)
+	. = ..()
+	disconnect()
