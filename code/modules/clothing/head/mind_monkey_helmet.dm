@@ -64,11 +64,8 @@
 	if(!new_mob)
 		new_mob = magnification.current //In case we weren't called by COMSIG_MIND_TRANSFER_TO
 	magnification = null
-	var/mob/living/M = new_mob
-	to_chat(M, "<span class='userdanger'>You feel your flicker of sentience ripped away from you, as everything becomes dim...</span>")
-	M.ghostize(FALSE)
-	if(prob(10))
-		M.apply_damage(500,BRAIN,BODY_ZONE_HEAD,FALSE,FALSE,FALSE) //brain death
+	to_chat(new_mob, "<span class='userdanger'>You feel your flicker of sentience ripped away from you, as everything becomes dim...</span>")
+	new_mob.ghostize(FALSE)
 
 	if(QDELING(src)) //The rest of this is stuff that would be pointless if we're being destroyed
 		return
