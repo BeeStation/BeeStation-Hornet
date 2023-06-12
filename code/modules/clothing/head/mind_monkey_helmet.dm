@@ -31,14 +31,14 @@
 		return
 	INVOKE_ASYNC(src, PROC_REF(poll), user)
 
-/obj/item/clothing/head/monkey_sentience_helmet/proc/poll(mob/user)
+/obj/item/clothing/head/monkey_sentience_helmet/proc/poll(mob/living/carbon/monkey/user) //At this point, we can assume we're given a monkey, since this'll put them in the body anyways
 	user.visible_message("<span class='warning'>[src] powers up!</span>")
 	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
 	var/list/candidates = pollCandidatesForMob("Do you want to play as a mind magnified monkey?", ROLE_MONKEY_HELMET, null, ROLE_MONKEY_HELMET, 50, user, POLL_IGNORE_MONKEY_HELMET)
 	//Some time has passed, and we could've been disintegrated for all we know (especially if we touch touch supermatter)
-	if(QDELETED(src))
+	if(QDELETED(src) || !user || magnification)
 		return
-	if(!user || user.key) //Either they're gone, or someone used a mind transfer potion (which would collide badly)
+	if(user.key || (src != user.head)) //Something important about the monkey changed, abort
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 		return
 	if(!candidates.len)
