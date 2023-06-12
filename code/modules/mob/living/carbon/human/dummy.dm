@@ -37,7 +37,7 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 	dna.features["ethcolor"] = COLOR_WHITE
 	dna.features["frills"] = "None"
 	dna.features["horns"] = "None"
-	dna.features["mcolor"] = COLOR_VIBRANT_LIME
+	dna.features["mcolor"] = COLOR_LIME
 	dna.features["moth_antennae"] = "Plain"
 	dna.features["moth_markings"] = "None"
 	dna.features["moth_wings"] = "Plain"

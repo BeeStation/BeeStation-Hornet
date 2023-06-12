@@ -2178,6 +2178,7 @@
 #include "code\modules\client\preferences\entries\underwear_color.dm"
 #include "code\modules\client\preferences\entries\uplink_location.dm"
 #include "code\modules\client\preferences\entries\window_flashing.dm"
+#include "code\modules\client\preferences\entries\species_features\apid.dm"
 #include "code\modules\client\preferences\entries\species_features\basic.dm"
 #include "code\modules\client\preferences\entries\species_features\ethereal.dm"
 #include "code\modules\client\preferences\entries\species_features\felinid.dm"
