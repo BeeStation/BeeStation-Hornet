@@ -9,7 +9,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	siemens_coefficient = 1
 	var/spamcheck = 0
-	var/cooldown_duration = 5 SECONDS
 	var/list/voicespan = list(SPAN_MEGAPHONE)
 
 /obj/item/megaphone/suicide_act(mob/living/carbon/user)
@@ -37,7 +36,7 @@
 			to_chat(user, "<span class='warning'>\The [src] needs to recharge!</span>")
 		else
 			playsound(loc, 'sound/items/megaphone.ogg', 100, 0, 1)
-			spamcheck = world.time + cooldown_duration
+			spamcheck = world.time + 50
 			speech_args[SPEECH_SPANS] |= voicespan
 
 /obj/item/megaphone/on_emag(mob/user)
@@ -66,6 +65,3 @@
 	icon_state = "megaphone-clown"
 	item_state = "megaphone-clown"
 	voicespan = list(SPAN_CLOWN)
-
-/obj/item/megaphone/nospam
-	cooldown_duration = 30 SECONDS
