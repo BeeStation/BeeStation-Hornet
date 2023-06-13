@@ -116,6 +116,11 @@
 	LAZYINITLIST(history)
 	var/mob/living/carbon/human/H = occupant
 
+	 if(custom_objective && OOC_FILTER_CHECK(custom_objective))
+	 	log_admin("[key_name(user)] attempd to imprint [key_name(occupant)] with the custom abductee objective '[custom_objective]', however it was blocked by the OOC filter!")
+		message_admins("[ADMIN_LOOKUP(user)] attempd to imprint [ADMIN_LOOKUP(occupant)] with the custom abductee objective '[custom_objective]', however it was blocked by the OOC filter!")
+	 	custom_objective = null
+
 	var/datum/antagonist/abductor/user_abductor = user.mind.has_antag_datum(/datum/antagonist/abductor)
 	if(!user_abductor)
 		return "Authorization failure. Contact mothership immediately."
