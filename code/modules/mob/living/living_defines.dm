@@ -134,3 +134,9 @@
 	var/playable = FALSE
 	var/flavor_text = FLAVOR_TEXT_NONE
 	var/role //Used for determining whether a player is banned from taking control of a given mob, if it is assigned to a category.
+
+	///Default X offset
+	var/body_pixel_x_offset = 0
+	///Default Y offset
+	var/body_pixel_y_offset = 0
+
