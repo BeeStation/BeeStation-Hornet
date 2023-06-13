@@ -12,6 +12,8 @@
 	var/preview_outfit
 	/// The base abstract path for this subtype.
 	var/abstract_type = /datum/role_preference
+	/// Role preference path to use the icon of, if we're duplicating another.
+	var/use_icon
 
 /// Creates an icon from the preview outfit.
 /// Custom implementors of `get_preview_icon` should use this, as the

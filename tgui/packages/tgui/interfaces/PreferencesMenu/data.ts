@@ -107,6 +107,16 @@ export type LoadoutCategory = {
   gear: LoadoutGear[];
 };
 
+export type AntagonistData = {
+  name: string;
+  description: string;
+  category: string;
+  role_key?: string;
+  poll_ignore_key?: string;
+  path: string;
+  icon_path: string;
+};
+
 export enum RandomSetting {
   AntagOnly = 1,
   Disabled = 2,
@@ -198,6 +208,10 @@ export type PreferencesMenuData = {
 };
 
 export type ServerData = {
+  antags: {
+    antagonists: AntagonistData[];
+    categories: string[];
+  };
   jobs: {
     departments: Record<string, Department>;
     jobs: Record<string, Job>;

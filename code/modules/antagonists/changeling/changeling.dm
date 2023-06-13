@@ -353,7 +353,7 @@
 				E.fields["species"] = "\improper Human"
 				var/client/Clt = C.client
 				var/static/list/show_directions = list(SOUTH, WEST)
-				var/image = GLOB.data_core.get_id_photo(C, Clt, show_directions)// TODO tguip-test
+				var/image = GLOB.data_core.get_id_photo(C, Clt, show_directions)// TODO tgui-prefs test
 				var/datum/picture/pf = new
 				var/datum/picture/ps = new
 				pf.picture_name = "[C]"
@@ -603,17 +603,8 @@
 
 	return parts.Join("<br>")
 
-/datum/antagonist/changeling/get_preview_icon()
-	// TODO tgui-prefs
-	var/icon/final_icon = render_preview_outfit(/datum/outfit/ashwalker) // <---
-	var/icon/split_icon = render_preview_outfit(/datum/outfit/job/engineer)
+/datum/antagonist/changeling/antag_listing_name()
+	return ..() + "([changelingID])"
 
-	final_icon.Shift(WEST, world.icon_size / 2)
-	final_icon.Shift(EAST, world.icon_size / 2)
-
-	split_icon.Shift(EAST, world.icon_size / 2)
-	split_icon.Shift(WEST, world.icon_size / 2)
-
-	final_icon.Blend(split_icon, ICON_OVERLAY)
-
-	return finish_preview_icon(final_icon)
+/datum/antagonist/changeling/xenobio/antag_listing_name()
+	return ..() + "(Xenobio)"

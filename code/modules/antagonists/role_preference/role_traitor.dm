@@ -13,7 +13,7 @@
 	name = "Traitor (Sleeper Agent)"
 	description = TRAITOR_DESC
 	antag_datum = /datum/antagonist/traitor
-	preview_outfit = /datum/outfit/traitor
+	use_icon = /datum/role_preference/antagonist/traitor
 
 #undef TRAITOR_DESC
 

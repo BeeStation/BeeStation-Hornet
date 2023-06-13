@@ -1,35 +1,13 @@
-import { binaryInsertWith } from 'common/collections';
 import { classes } from 'common/react';
 import { useBackend, useLocalState } from '../../backend';
-import { Box, Button, Divider, Flex, Section, Stack, Tooltip } from '../../components';
-import { Antagonist, Category } from './antagonists/base';
+import { Box, Button, Flex, Section, Stack, Tooltip } from '../../components';
 import { PreferencesMenuData } from './data';
-
-const requireAntag = require.context('./antagonists/antagonists', false, /.ts$/);
-
-const antagsByCategory = new Map<Category, Antagonist[]>();
-
-// This will break at priorities higher than 10, but that almost definitely
-// will not happen.
-const binaryInsertAntag = binaryInsertWith((antag: Antagonist) => {
-  return `${antag.priority}_${antag.name}`;
-});
-
-for (const antagKey of requireAntag.keys()) {
-  const antag = requireAntag<{
-    default?: Antagonist;
-  }>(antagKey).default;
-
-  if (!antag) {
-    continue;
-  }
-
-  antagsByCategory.set(antag.category, binaryInsertAntag(antagsByCategory.get(antag.category) || [], antag));
-}
+import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
+import { AntagonistData } from './data';
 
 const AntagSelection = (
   props: {
-    antagonists: Antagonist[];
+    antagonists: AntagonistData[];
     name: string;
   },
   context
@@ -73,7 +51,7 @@ const AntagSelection = (
     });
   };
 
-  const antagonistKeys = props.antagonists.map((antagonist) => antagonist.key);
+  const antagonistKeys = props.antagonists.map((antagonist) => antagonist.path);
 
   return (
     <Section
@@ -91,19 +69,19 @@ const AntagSelection = (
       }>
       <Flex className={className} align="flex-end" wrap>
         {props.antagonists.map((antagonist) => {
-          const isBanned = data.antag_bans && data.antag_bans.indexOf(antagonist.key) !== -1;
+          const isBanned = data.antag_bans && data.antag_bans.indexOf(antagonist.path) !== -1;
 
-          const daysLeft = (data.antag_days_left && data.antag_days_left[antagonist.key]) || 0;
+          const daysLeft = (data.antag_days_left && data.antag_days_left[antagonist.path]) || 0;
 
           return (
             <Flex.Item
               className={classes([
                 `${className}__antagonist`,
                 `${className}__antagonist--${
-                  isBanned || daysLeft > 0 ? 'banned' : predictedState.has(antagonist.key) ? 'on' : 'off'
+                  isBanned || daysLeft > 0 ? 'banned' : predictedState.has(antagonist.path) ? 'on' : 'off'
                 }`,
               ])}
-              key={antagonist.key}>
+              key={antagonist.path}>
               <Stack align="center" vertical>
                 <Stack.Item
                   style={{
@@ -117,18 +95,7 @@ const AntagSelection = (
 
                 <Stack.Item align="center">
                   <Tooltip
-                    content={
-                      isBanned
-                        ? `You are banned from ${antagonist.name}.`
-                        : antagonist.description.map((text, index) => {
-                          return (
-                            <div key={antagonist.key + index}>
-                              {text}
-                              {index !== antagonist.description.length - 1 && <Divider />}
-                            </div>
-                          );
-                        })
-                    }
+                    content={isBanned ? `You are banned from ${antagonist.name}.` : antagonist.description}
                     position="bottom">
                     <Box
                       className={'antagonist-icon-parent'}
@@ -137,13 +104,13 @@ const AntagSelection = (
                           return;
                         }
 
-                        if (predictedState.has(antagonist.key)) {
-                          disableAntags([antagonist.key]);
+                        if (predictedState.has(antagonist.path)) {
+                          disableAntags([antagonist.path]);
                         } else {
-                          enableAntags([antagonist.key]);
+                          enableAntags([antagonist.path]);
                         }
                       }}>
-                      <Box className={classes(['antagonists96x96', antagonist.key, 'antagonist-icon'])} />
+                      <Box className={classes(['antagonists96x96', antagonist.icon_path, 'antagonist-icon'])} />
 
                       {isBanned && <Box className="antagonist-banned-slash" />}
 
@@ -166,12 +133,25 @@ const AntagSelection = (
 
 export const AntagsPage = () => {
   return (
-    <Box className="PreferencesMenu__Antags">
-      <AntagSelection name="Roundstart" antagonists={antagsByCategory.get(Category.Roundstart)!} />
+    <ServerPreferencesFetcher
+      render={(serverData) => {
+        if (!serverData) {
+          return <Box>Loading loadout data...</Box>;
+        }
+        const { antagonists = [], categories = [] } = serverData.antags;
 
-      <AntagSelection name="Midround" antagonists={antagsByCategory.get(Category.Midround)!} />
-
-      <AntagSelection name="Latejoin" antagonists={antagsByCategory.get(Category.Latejoin)!} />
-    </Box>
+        return (
+          <Box className="PreferencesMenu__Antags">
+            {categories.map((category) => (
+              <AntagSelection
+                name={category}
+                key={category}
+                antagonists={antagonists.filter((a) => a.category === category)!}
+              />
+            ))}
+          </Box>
+        );
+      }}
+    />
   );
 };

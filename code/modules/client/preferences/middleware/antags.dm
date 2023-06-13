@@ -28,6 +28,29 @@
 
 	return data
 
+/datum/preference_middleware/antags/get_constant_data()
+	var/list/antags = list()
+	var/list/categories = list()
+
+	for(var/pref_type in GLOB.role_preference_entries)
+		var/datum/role_preference/pref = GLOB.role_preference_entries[pref_type]
+		antags += list(list(
+			"name" = pref.name,
+			"description" = pref.description,
+			"category" = pref.category,
+			"role_key" = pref.role_key,
+			"poll_ignore_key" = pref.poll_ignore_key,
+			"path" = "[pref_type]",
+			"icon_path" = "[serialize_antag_name("[pref.use_icon || pref_type]")]"
+		))
+		if(!(pref.category in categories))
+			categories += pref.category
+
+	return list(
+		"antagonists" = antags,
+		"categories" = categories,
+	)
+
 /datum/preference_middleware/antags/get_ui_assets()
 	return list(
 		get_asset_datum(/datum/asset/spritesheet/antagonists),
@@ -117,46 +140,33 @@
 	cross_round_cachable = TRUE
 
 /datum/asset/spritesheet/antagonists/create_spritesheets()
-	// Antagonists that don't have a dynamic ruleset, but do have a preference
-	var/static/list/non_ruleset_antagonists = list(
-		ROLE_LONE_OPERATIVE = /datum/antagonist/nukeop/lone,
-	)
-
-	var/list/antagonists = non_ruleset_antagonists.Copy()
-
-	for (var/datum/dynamic_ruleset/ruleset as anything in subtypesof(/datum/dynamic_ruleset))
-		var/datum/antagonist/antagonist_type = initial(ruleset.antag_datum)
-		if (isnull(antagonist_type))
-			continue
-
-		// antag_flag is guaranteed to be unique by unit tests.
-		antagonists[initial(ruleset.antag_flag)] = antagonist_type
-
 	var/list/generated_icons = list()
 	var/list/to_insert = list()
 
-	for (var/antag_flag in antagonists)
-		var/datum/antagonist/antagonist_type = antagonists[antag_flag]
+	for(var/pref_type in GLOB.role_preference_entries)
+		var/datum/role_preference/pref = GLOB.role_preference_entries[pref_type]
+		if(ispath(pref.use_icon, /datum/role_preference))
+			pref_type = pref.use_icon
+			var/datum/role_preference/other_pref = GLOB.role_preference_entries[pref.use_icon]
+			if(istype(other_pref))
+				pref = other_pref
 
 		// antag_flag is guaranteed to be unique by unit tests.
-		var/spritesheet_key = serialize_antag_name(antag_flag)
+		var/spritesheet_key = serialize_antag_name("[pref_type]")
 
-		if (!isnull(generated_icons[antagonist_type]))
-			to_insert[spritesheet_key] = generated_icons[antagonist_type]
+		if (!isnull(generated_icons["[pref_type]"]))
+			to_insert[spritesheet_key] = generated_icons["[pref_type]"]
 			continue
 
-		var/datum/antagonist/antagonist = new antagonist_type
-		var/icon/preview_icon = antagonist.get_preview_icon()
+		var/icon/preview_icon = pref.get_preview_icon()
 
 		if (isnull(preview_icon))
 			continue
 
-		qdel(antagonist)
-
 		// preview_icons are not scaled at this stage INTENTIONALLY.
 		// If an icon is not prepared to be scaled to that size, it looks really ugly, and this
 		// makes it harder to figure out what size it *actually* is.
-		generated_icons[antagonist_type] = preview_icon
+		generated_icons["[pref_type]"] = preview_icon
 		to_insert[spritesheet_key] = preview_icon
 
 	for (var/spritesheet_key in to_insert)
@@ -165,4 +175,4 @@
 /// Serializes an antag name to be used for preferences UI
 /proc/serialize_antag_name(antag_name)
 	// These are sent through CSS, so they need to be safe to use as class names.
-	return lowertext(sanitize_css_class_name(antag_name))
+	return lowertext(sanitize_css_class_name(replacetext(antag_name, "/", "_")))
