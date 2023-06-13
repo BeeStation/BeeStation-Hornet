@@ -1,5 +1,0 @@
-author: Absolucy
-delete-after: true
-changes:
-  - bugfix: Fixed roundstart operating computers only partially linking to their given
-      stasis bed/operating table.
