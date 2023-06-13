@@ -236,7 +236,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	name = "Dead Body placer"
 	late = TRUE
 	icon_state = "deadbodyplacer"
-	/// number of bodies to spawn
+	/// number of bodies to spawn 
 	var/bodycount = 2
 	/// set it TRUE in mapping if you want to put it into a specific container (when you don't want a random morgue)
 	var/no_random = FALSE
