@@ -48,24 +48,27 @@
 			continue
 		advanced_surgeries |= D.surgery
 
-/obj/machinery/computer/operating/proc/link_with_table(obj/structure/table/optable/table, obj/machinery/stasis/sbed)
-	if(!table && !sbed)
-		for(var/direction in GLOB.alldirs)
-			if(!table)
-				var/obj/structure/table/optable/new_table = locate(/obj/structure/table/optable) in get_step(src, direction)
-				if(new_table && !new_table.computer)
-					table = new_table
-			if(!sbed)
-				var/obj/machinery/stasis/new_bed = locate(/obj/machinery/stasis) in get_step(src, direction)
-				if(new_bed && !new_bed.op_computer)
-					sbed = new_bed
-	if(table)
-		table.computer = src
-		src.table = table
-	if(sbed)
-		sbed.op_computer = src
-		src.sbed = sbed
+/obj/machinery/computer/operating/proc/find_op_table()
+	for(var/direction in GLOB.alldirs)
+		var/obj/structure/table/optable/table = locate(/obj/structure/table/optable) in get_step(src, direction)
+		if(table && !table.computer)
+			return table
 
+/obj/machinery/computer/operating/proc/find_sbed()
+	for(var/direction in GLOB.alldirs)
+		var/obj/machinery/stasis/sbed = locate(/obj/machinery/stasis) in get_step(src, direction)
+		if(sbed && !sbed.op_computer)
+			return sbed
+
+/obj/machinery/computer/operating/proc/link_with_table(obj/structure/table/optable/new_table, obj/machinery/stasis/new_sbed)
+	new_table = new_table || find_op_table()
+	new_sbed = new_sbed || find_sbed()
+	if(new_table)
+		new_table.computer = src
+		table = new_table
+	if(new_sbed)
+		new_sbed.op_computer = src
+		new_sbed = sbed
 
 /obj/machinery/computer/operating/ui_state(mob/user)
 	return GLOB.not_incapacitated_state
