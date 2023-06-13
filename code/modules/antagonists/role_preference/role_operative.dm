@@ -11,12 +11,14 @@
 	antag_datum = /datum/antagonist/nukeop
 
 /datum/role_preference/antagonist/nuclear_operative/get_preview_icon()
-	var/icon/final_icon = render_preview_outfit(/datum/outfit/nuclear_operative)
-	var/icon/teammate = render_preview_outfit(/datum/outfit/nuclear_operative)
-	teammate.Blend(rgb(206, 206, 206, 197), ICON_MULTIPLY)
+	var/icon/final_icon = icon('icons/effects/effects.dmi', "nothing")
+	var/icon/foreground = render_preview_outfit(/datum/outfit/nuclear_operative)
+	var/icon/background = icon(foreground)
+	background.Blend(rgb(206, 206, 206, 220), ICON_MULTIPLY)
 
-	final_icon.Blend(teammate, ICON_OVERLAY, -world.icon_size / 4, 0)
-	final_icon.Blend(teammate, ICON_OVERLAY, world.icon_size / 4, 0)
+	final_icon.Blend(background, ICON_OVERLAY, -world.icon_size / 4, 0)
+	final_icon.Blend(background, ICON_OVERLAY, world.icon_size / 4, 0)
+	final_icon.Blend(foreground, ICON_OVERLAY, 0, 0)
 
 	return finish_preview_icon(final_icon)
 
