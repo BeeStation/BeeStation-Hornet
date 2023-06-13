@@ -102,7 +102,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	if(istype(parent))
 		if(!IS_GUEST_KEY(parent.key))
-			unlock_content = TRUE //!!parent.IsByondMember() TODO tgui-prefs (i need this for testing)
+			unlock_content = !!parent.IsByondMember()
 			if(unlock_content)
 				max_save_slots = 8
 	else
