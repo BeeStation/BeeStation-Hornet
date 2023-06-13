@@ -248,19 +248,17 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 		for (var/obj/structure/bodycontainer/morgue/morgue in a.contents)
 			trays += morgue
 	if(length(trays))
-		while(bodycount)
-			bodycount-- // I hate this but Byond makes infinite loop if I do `while(bodycount--)` WTF??
+		while(bodycount-- > 0)
 			spawn_dead_human_in_tray(pick(trays))
 	else
 		var/obj/container = locate(/obj/structure/closet) in get_turf(src)
 		if(!container)
 			container = locate(/obj/structure/bodycontainer/morgue) in get_turf(src)
 		if(container)
-			while(bodycount)
-				bodycount-- // same fuckery above
+			while(bodycount-- > 0)
 				spawn_dead_human_in_tray(container)
 
-	while(bodycount--) // This doesn't make the issue.
+	while(bodycount-- > 0)
 		spawn_dead_human_in_tray(get_turf(src)) // spawn onto turf
 	qdel(src)
 
