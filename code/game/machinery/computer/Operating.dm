@@ -62,7 +62,7 @@
 
 /obj/machinery/computer/operating/proc/link_with_table(obj/structure/table/optable/new_table, obj/machinery/stasis/new_sbed)
 	if(!new_table && !table)
-		new_table = find_table()
+		new_table = find_op_table()
 	if(!new_sbed && !sbed)
 		new_sbed = find_sbed()
 	if(new_table)
