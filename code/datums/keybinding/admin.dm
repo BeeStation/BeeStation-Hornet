@@ -16,10 +16,7 @@
 	. = ..()
 	if(.)
 		return
-	if(!user.prefs || CHECK_BITFIELD(user.prefs.toggles2, PREFTOGGLE_2_TGUI_SAY))
-		winset(user, null, "command=[user.tgui_say_create_open_command(ASAY_CHANNEL)]")
-	else
-		user.get_admin_say()
+	user.get_admin_say()
 	return TRUE
 
 
@@ -34,10 +31,7 @@
 	. = ..()
 	if(.)
 		return
-	if(!user.prefs || CHECK_BITFIELD(user.prefs.toggles2, PREFTOGGLE_2_TGUI_SAY))
-		winset(user, null, "command=[user.tgui_say_create_open_command(MSAY_CHANNEL)]")
-	else
-		user.get_mentor_say()
+	user.get_mentor_say()
 	return TRUE
 
 //Snowflakey fix for mentors not being able to use the hotkey, without moving the hotkey to a new category
@@ -116,8 +110,5 @@
 	. = ..()
 	if(.)
 		return
-	if(!user.prefs || CHECK_BITFIELD(user.prefs.toggles2, PREFTOGGLE_2_TGUI_SAY))
-		winset(user, null, "command=[user.tgui_say_create_open_command(DSAY_CHANNEL)]")
-	else
-		user.get_dead_say()
+	user.get_dead_say()
 	return TRUE
