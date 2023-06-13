@@ -45,7 +45,7 @@
 	core = new /obj/item/nuke_core(src)
 	STOP_PROCESSING(SSobj, core)
 	update_icon()
-	GLOB.poi_list |= src
+	AddElement(/datum/element/point_of_interest)
 	previous_level = get_security_level()
 
 /obj/machinery/nuclearbomb/Destroy()
@@ -53,7 +53,6 @@
 	if(!exploding)
 		// If we're not exploding, set the alert level back to normal
 		set_safety()
-	GLOB.poi_list -= src
 	GLOB.nuke_list -= src
 	QDEL_NULL(countdown)
 	QDEL_NULL(core)
@@ -666,7 +665,7 @@ This is here to make the tiles around the station mininuke change when it's arme
 	. = ..()
 	AddElement(/datum/element/bed_tuckable, 6, -6, 0)
 	if(!fake)
-		GLOB.poi_list |= src
+		AddElement(/datum/element/point_of_interest)
 		last_disk_move = world.time
 		START_PROCESSING(SSobj, src)
 
@@ -733,12 +732,6 @@ This is here to make the tiles around the station mininuke change when it's arme
 		H.nuke_disk = src
 		return TRUE
 	return ..()
-
-/obj/item/disk/nuclear/Destroy(force=FALSE)
-	// respawning is handled in /obj/Destroy()
-	if(force)
-		GLOB.poi_list -= src
-	. = ..()
 
 /obj/item/disk/nuclear/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is going delta! It looks like [user.p_theyre()] trying to commit suicide!</span>")
