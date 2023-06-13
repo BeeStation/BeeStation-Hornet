@@ -25,7 +25,7 @@ const IntroSection = (_props, context) => {
         />
       </Stack.Item>
       <Stack.Item grow>
-        <h1 style={{ 'position': 'relative', 'top': '25%', 'left': '3%' }}>
+        <h1 style={{ 'position': 'relative', 'top': '25%', 'left': '-2%' }}>
           You are the{' '}
           <Box inline textColor="purple">
             Abductor
@@ -180,7 +180,7 @@ export const AntagInfoAbductorAgent = (_props, context) => {
   const { data } = useBackend<Info>(context);
   const { objectives } = data;
   return (
-    <Window width={620} height={620} theme="abductor">
+    <Window width={620} height={650} theme="abductor">
       <Window.Content>
         <Stack vertical fill>
           <Stack.Item>

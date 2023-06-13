@@ -25,7 +25,7 @@ const IntroSection = (_props, context) => {
         />
       </Stack.Item>
       <Stack.Item grow>
-        <h1 style={{ 'position': 'relative', 'top': '25%', 'left': '3%' }}>
+        <h1 style={{ 'position': 'relative', 'top': '25%', 'left': '-2%' }}>
           You are the{' '}
           <Box inline textColor="purple">
             Abductor
@@ -156,6 +156,7 @@ const EquipmentSection = (_props, _context) => {
               </Box>
               : Marks a subject, allowing them to be beamed up by your camera console. You can mark your agent instantly from
               any range (even from the cameras), however test subjects require you to beam down to them and mark them yourself!
+              <br />
               <Box inline textColor="red">
                 Scan
               </Box>
