@@ -61,8 +61,10 @@
 			return sbed
 
 /obj/machinery/computer/operating/proc/link_with_table(obj/structure/table/optable/new_table, obj/machinery/stasis/new_sbed)
-	new_table = new_table || find_op_table()
-	new_sbed = new_sbed || find_sbed()
+	if(!new_table && !table)
+		new_table = find_table()
+	if(!new_sbed && !sbed)
+		new_sbed = find_sbed()
 	if(new_table)
 		new_table.computer = src
 		table = new_table
