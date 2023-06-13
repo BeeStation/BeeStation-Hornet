@@ -29,7 +29,7 @@ export const AntagInfoBrother = (_props, context) => {
   const { data } = useBackend<Info>(context);
   const { objectives } = data;
   return (
-    <Window width={620} height={250}>
+    <Window width={620} height={250} theme="syndicate">
       <Window.Content>
         <Stack vertical fill>
           <Stack.Item>

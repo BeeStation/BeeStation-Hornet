@@ -25,7 +25,7 @@ const BLOB_COLOR = '#556b2f';
 
 export const AntagInfoBlob = (_props, _context) => {
   return (
-    <Window width={400} height={550}>
+    <Window width={400} height={550} theme="neutral">
       <Window.Content>
         <Section fill scrollable>
           <Overview />

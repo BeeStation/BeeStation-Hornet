@@ -51,7 +51,7 @@ export const AntagInfoChangeling = (_props, context) => {
   const { data } = useBackend<Info>(context);
   const { objectives } = data;
   return (
-    <Window width={720} height={500}>
+    <Window width={720} height={500} theme="neutral">
       <Window.Content
         style={{
           'backgroundImage': 'none',
