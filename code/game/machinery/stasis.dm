@@ -41,7 +41,7 @@
 	for(var/direction in GLOB.alldirs)
 		var/obj/machinery/computer/operating/op_computer = locate(/obj/machinery/computer/operating) in get_step(src, direction)
 		if(op_computer && !op_computer.sbed)
-			op_computer.link_with_table(sbed = src)
+			op_computer.link_with_table(new_sbed = src)
 			break
 
 /obj/machinery/stasis/proc/play_power_sound()

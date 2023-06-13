@@ -563,7 +563,7 @@
 	for(var/direction in GLOB.alldirs)
 		computer = locate(/obj/machinery/computer/operating) in get_step(src, direction)
 		if(computer && !computer.table)
-			computer.link_with_table(table = src)
+			computer.link_with_table(new_table = src)
 			break
 
 /obj/structure/table/optable/Destroy()
