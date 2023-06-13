@@ -90,7 +90,7 @@
 	. = anyone_can_use
 	if(!istype(user))
 		return FALSE
-	if((!dist_limit && !(parent in user.contents)) || (dist_limit && get_dist(user, parent) > dist_limit))
+	if(dist_limit ? (get_dist(user, parent) > dist_limit) : !(parent in user.contents))
 		return FALSE
 	if(HAS_TRAIT(user, TRAIT_CHAMELEON_USER) || HAS_TRAIT(user?.mind, TRAIT_CHAMELEON_USER))
 		return TRUE
