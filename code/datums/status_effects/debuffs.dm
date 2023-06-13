@@ -1118,8 +1118,10 @@
 	/// How much "charge" the transformation has left. It's randomly set upon creation,
 	/// and ticks down every second if there's mutadone in the target's system.
 	var/charge_left
+	/// Whether the transformation has already been applied or not (i.e is this a new transformation, or an old one being transferred?)
+	var/already_applied = FALSE
 
-/datum/status_effect/ling_transformation/on_creation(mob/living/new_owner, datum/dna/target_dna, datum/dna/original_dna)
+/datum/status_effect/ling_transformation/on_creation(mob/living/new_owner, datum/dna/target_dna, datum/dna/original_dna, already_applied = FALSE)
 	if(!iscarbon(new_owner) || QDELETED(target_dna))
 		qdel(src)
 		return
@@ -1129,6 +1131,7 @@
 	if(original_dna)
 		src.original_dna = new original_dna.type
 		original_dna.copy_dna(src.original_dna)
+	src.already_applied = already_applied
 	return ..()
 
 /datum/status_effect/ling_transformation/on_apply()
@@ -1143,8 +1146,10 @@
 	else if(!original_dna)
 		original_dna = new carbon_owner.dna.type
 		carbon_owner.dna.copy_dna(original_dna)
-	apply_dna(target_dna)
-	to_chat(owner, "<span class='warning'>You don't feel like yourself anymore...</span>")
+	RegisterSignal(owner, COMSIG_CARBON_TRANSFORMED, PROC_REF(on_transformation))
+	if(!already_applied)
+		apply_dna(target_dna)
+		to_chat(owner, "<span class='warning'>You don't feel like yourself anymore...</span>")
 
 /datum/status_effect/ling_transformation/on_remove()
 	. = ..()
@@ -1152,6 +1157,7 @@
 		return
 	apply_dna(original_dna)
 	to_chat(owner, "<span class='notice'>You feel like yourself again!</span>")
+	UnregisterSignal(owner, COMSIG_CARBON_TRANSFORMED)
 
 /datum/status_effect/ling_transformation/tick()
 	. = ..()
@@ -1170,3 +1176,11 @@
 	carbon_owner.real_name = carbon_owner.dna.real_name
 	carbon_owner.updateappearance(mutcolor_update = TRUE)
 	carbon_owner.domutcheck()
+
+/datum/status_effect/ling_transformation/proc/on_transformation(mob/living/carbon/source, mob/living/carbon/new_body)
+	SIGNAL_HANDLER
+	if(!istype(source) || !istype(new_body))
+		return
+	var/datum/status_effect/ling_transformation/new_effect = new_body.apply_status_effect(/datum/status_effect/ling_transformation, target_dna, original_dna, TRUE)
+	if(new_effect)
+		new_effect.charge_left = charge_left
