@@ -1,21 +1,12 @@
 /obj/item/clothing/head/monkey_sentience_helmet
-	name = "monkey mind magnification helmet"
-	desc = "A fragile, circuitry embedded helmet for boosting the intelligence of a monkey to a higher level. You see several warning labels..."
+	name = "Monkey mind-magnification helmet"
+	desc = "Reverse engineered from an artifact found on the head of a martian primate's skeleton, this hat rapidly stimulates the ape's mind to increase brain function. Simply put, hat make chimp more smarter."
 
 	icon_state = "monkeymind"
 	strip_delay = 100
 	clothing_flags = EFFECT_HAT
 	COOLDOWN_DECLARE(message_cooldown) //It'll get annoying quick when someone tries to remove their own helmet 20 times a second
 	var/datum/mind/magnification = null ///A reference to the mind we govern
-
-/obj/item/clothing/head/monkey_sentience_helmet/examine(mob/user)
-	. = ..()
-	. += "<span class='boldwarning'>---WARNING: REMOVAL OF HELMET ON SUBJECT MAY LEAD TO:---</span>"
-	. += "<span class='warning'>BLOOD RAGE</span>"
-	. += "<span class='warning'>BRAIN DEATH</span>"
-	. += "<span class='warning'>PRIMAL GENE ACTIVATION</span>"
-	. += "<span class='warning'>GENETIC MAKEUP MASS SUSCEPTIBILITY</span>"
-	. += "<span class='boldnotice'>Ask your CMO if mind magnification is right for you.</span>"
 
 /obj/item/clothing/head/monkey_sentience_helmet/equipped(mob/user, slot)
 	. = ..()
