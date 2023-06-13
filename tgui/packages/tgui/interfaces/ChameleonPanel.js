@@ -49,13 +49,16 @@ const ChameleonIcon = (props, _) => {
   const { assetName, assetClass } = props;
   if (assetName) {
     return (
-      <img
+      <Box
+        inline
+        as="img"
         src={resolveAsset(assetName)}
         style={{
           'vertical-align': 'middle',
           'horizontal-align': 'middle',
           'width': '64px',
           'height': '64px',
+          '-ms-interpolation-mode': 'nearest-neighbor',
         }}
       />
     );
