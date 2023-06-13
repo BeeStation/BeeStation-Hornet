@@ -108,7 +108,6 @@
 /datum/component/chameleon/proc/disguise(mob/living/user, disguise_path)
 	if(!ispath(disguise_path, /obj/item))
 		CRASH("[user ? key_name(user) : "null"] attempted to disguise using an invalid path: [disguise_path]")
-		return
 	if(!(disguise_path in disguise_paths))
 		if(user && ispath(disguise_path, /obj/item))
 			var/obj/item/failed_disguise = disguise_path
