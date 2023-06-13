@@ -34,7 +34,15 @@
 /obj/item/clothing/head/monkey_sentience_helmet/proc/poll(mob/living/carbon/monkey/user) //At this point, we can assume we're given a monkey, since this'll put them in the body anyways
 	user.visible_message("<span class='warning'>[src] powers up!</span>")
 	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
-	var/list/candidates = pollCandidatesForMob("Do you want to play as a mind magnified monkey?", ROLE_MONKEY_HELMET, null, ROLE_MONKEY_HELMET, 50, user, POLL_IGNORE_MONKEY_HELMET)
+	var/list/candidates = pollCandidatesForMob(
+		Question = "Do you want to play as a mind magnified monkey?",
+		jobbanType = ROLE_MONKEY_HELMET,
+		gametypeCheck = null,
+		be_special_flag = null,
+		poll_time = 100,
+		M = user,
+		ignore_category = POLL_IGNORE_MONKEY_HELMET)
+
 	//Some time has passed, and we could've been disintegrated for all we know (especially if we touch touch supermatter)
 	if(QDELETED(src) || !user || magnification)
 		return

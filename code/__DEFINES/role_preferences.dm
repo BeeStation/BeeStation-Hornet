@@ -98,8 +98,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_SWARMER,
 	ROLE_SPACE_PIRATE,
 	ROLE_FUGITIVE,
-	ROLE_FUGITIVE_HUNTER,
-	ROLE_MONKEY_HELMET,
+	ROLE_FUGITIVE_HUNTER
 ))
 
 //Job defines for what happens when you fail to qualify for any job during job selection
