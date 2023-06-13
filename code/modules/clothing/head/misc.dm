@@ -443,7 +443,7 @@
 /obj/item/clothing/head/flowercrown/rainbowbunch
 	name = "rainbow flower crown"
 	desc = "A flower crown made out of the flowers of the rainbow bunch plant."
-	reference_icon_state = "rainbow_bunch_crown_1"
+	icon_state_preview = "rainbow_bunch_crown_1"
 
 /obj/item/clothing/head/flowercrown/rainbowbunch/Initialize(mapload)
 	. = ..()

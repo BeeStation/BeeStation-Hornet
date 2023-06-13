@@ -52,11 +52,7 @@ export const PersonalCrafting = (props, context) => {
   const [tab, setTab] = useLocalState(context, 'tab', categories[0]?.name);
   const shownRecipes = recipes.filter((recipe) => recipe.category === tab);
   return (
-    <Window
-      theme="generic"
-      title="Crafting Menu"
-      width={700}
-      height={800}>
+    <Window theme="generic" title="Crafting Menu" width={700} height={800}>
       <style>
         {`table, th, td {
             vertical-align: middle;
@@ -124,19 +120,14 @@ const CraftingList = (props, context) => {
       return (
         <LabeledList.Item
           key={craftable.name}
-          label={(
+          label={
             <table>
               <tr>
-                <td className={classes([
-                  'crafting42x42',
-                  craftable.path,
-                ])} />
-                <td>
-                  {craftable.name}
-                </td>
+                <td className={classes(['crafting42x42', craftable.path])} />
+                <td>{craftable.name}</td>
               </tr>
             </table>
-          )}
+          }
           verticalAlign="middle"
           className="candystripe"
           buttons={
@@ -164,12 +155,7 @@ const CraftingList = (props, context) => {
         key={craftable.name}
         title={
           <>
-            <span
-              style={{ 'margin-right': '2px' }}
-              className={classes([
-                'crafting42x42',
-                craftable.path,
-              ])} />
+            <span style={{ 'margin-right': '2px' }} className={classes(['crafting42x42', craftable.path])} />
             {craftable.name}
           </>
         }

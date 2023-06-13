@@ -2,7 +2,7 @@
 	name = "wooden bow"
 	desc = "some sort of primitive projectile weapon. used to fire arrows."
 	icon_state = "bow"
-	reference_icon_state = "bow_unloaded"
+	icon_state_preview = "bow_unloaded"
 	item_state = "bow"
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_HEAVY //need both hands to fire
@@ -58,7 +58,7 @@
 	desc = "Some sort of primitive projectile weapon made of bone and wrapped sinew."
 	icon_state = "ashenbow"
 	item_state = "ashenbow"
-	reference_icon_state = "ashenbow_unloaded"
+	icon_state_preview = "ashenbow_unloaded"
 	force = 8
 
 /obj/item/gun/ballistic/bow/pipe
@@ -66,5 +66,5 @@
 	desc = "A crude projectile weapon made from silk string, pipe and lots of bending."
 	icon_state = "pipebow"
 	item_state = "pipebow"
-	reference_icon_state = "pipebow_unloaded"
+	icon_state_preview = "pipebow_unloaded"
 	force = 7

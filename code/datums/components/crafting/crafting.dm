@@ -47,7 +47,6 @@
 	var/datum/action/innate/crafting/button
 	var/display_craftable_only = FALSE
 	var/display_compact = TRUE
-	var/static/list/base64_cache = list()
 
 /*	This is what procs do:
 	get_environment - gets a list of things accessable for crafting by user

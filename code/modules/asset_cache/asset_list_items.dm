@@ -433,27 +433,28 @@
 /datum/asset/spritesheet/crafting
 	name = "crafting"
 
-/datum/asset/spritesheet/crafting/register()
+/datum/asset/spritesheet/crafting/create_spritesheets()
+	var/chached_list = list()
 	for(var/datum/crafting_recipe/R in GLOB.crafting_recipes)
 		var/atom/A = R.result
 		if(!ispath(A, /atom))
+			stack_trace("[A] is not atom. This is because our crafting system is not up-to-date to TG's.")
 			continue
+		if(chached_list[A]) // this prevents an icon to be inserted again
+			continue
+		chached_list[A] = TRUE
 
-		var/icon_file
-		if (initial(A.greyscale_colors) && initial(A.greyscale_config))
-			icon_file = SSgreyscale.GetColoredIconByType(initial(A.greyscale_config), initial(A.greyscale_colors))
-		else
-			icon_file = initial(A.icon)
-		var/icon_state = initial(A.reference_icon_state) || initial(A.icon_state)
+		var/icon_file = initial(A.icon)
+		var/icon_state = initial(A.icon_state_preview) || initial(A.icon_state)
 		var/icon/I
 
 		var/icon_states_list = icon_states(icon_file)
 		if(icon_state in icon_states_list)
-			I = icon(icon_file, icon_state, SOUTH, 1)
+			I = icon(icon_file, icon_state, SOUTH)
 			var/c = initial(A.color)
 			if (!isnull(c) && c != "#FFFFFF")
 				I.Blend(c, ICON_MULTIPLY)
-		else
+		else // Failed to find an icon: build an error message
 			var/icon_states_string
 			for (var/an_icon_state in icon_states_list)
 				if (!icon_states_string)
@@ -464,12 +465,9 @@
 			I = icon('icons/turf/floors.dmi', "", SOUTH)
 		var/imgid = replacetext(copytext("[A]", 2), "/", "-")
 
-		if(sprites[imgid])
-			continue
 		if(I)
-			I.Scale(42, 42)
+			I.Scale(42, 42) // 32px is too small. 42px might be fine...
 		Insert(imgid, I)
-	return ..()
 
 /datum/asset/simple/bee_antags
 	assets = list(

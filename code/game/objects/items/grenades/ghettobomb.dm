@@ -7,7 +7,7 @@
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "improvised_grenade"
 	item_state = "flashbang"
-	reference_icon_state = "chemg" // a black stick is bad to recognise as a reference
+	icon_state_preview = "chemg" // a black stick is bad to recognise as a reference
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	throw_speed = 3
