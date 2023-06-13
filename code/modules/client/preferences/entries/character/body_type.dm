@@ -13,8 +13,8 @@
 	else
 		target.dna.features["body_model"] = target.gender
 
-/datum/preference/choiced/body_type/is_accessible(datum/preferences/preferences)
-	if (!..(preferences))
+/datum/preference/choiced/body_type/is_accessible(datum/preferences/preferences, ignore_page = FALSE)
+	if (!..())
 		return FALSE
 
 	var/gender = preferences.read_character_preference(/datum/preference/choiced/gender)

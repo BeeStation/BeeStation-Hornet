@@ -53,4 +53,4 @@
 	if (!istype(name_preference))
 		return FALSE
 
-	return preferences.update_preference(name_preference, name_preference.create_random_value(preferences))
+	return preferences.update_preference(name_preference, name_preference.create_random_value(preferences), in_menu = TRUE)

@@ -28,8 +28,8 @@
 /datum/preference/choiced/skin_tone/apply_to_human(mob/living/carbon/human/target, value)
 	target.skin_tone = value
 
-/datum/preference/choiced/skin_tone/is_accessible(datum/preferences/preferences)
-	if (!..(preferences))
+/datum/preference/choiced/skin_tone/is_accessible(datum/preferences/preferences, ignore_page = FALSE)
+	if (!..())
 		return FALSE
 
 	var/datum/species/species_type = preferences.read_character_preference(/datum/preference/choiced/species)

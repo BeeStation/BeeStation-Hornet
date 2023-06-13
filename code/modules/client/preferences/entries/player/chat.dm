@@ -8,8 +8,8 @@
 	db_key = "chat_dead"
 	preference_type = PREFERENCE_PLAYER
 
-/datum/preference/toggle/chat_dead/is_accessible(datum/preferences/preferences)
-	if (!..(preferences))
+/datum/preference/toggle/chat_dead/is_accessible(datum/preferences/preferences, ignore_page = FALSE)
+	if (!..())
 		return FALSE
 	return is_admin(preferences.parent)
 
@@ -63,8 +63,8 @@
 	db_key = "chat_prayer"
 	preference_type = PREFERENCE_PLAYER
 
-/datum/preference/toggle/chat_prayer/is_accessible(datum/preferences/preferences)
-	if (!..(preferences))
+/datum/preference/toggle/chat_prayer/is_accessible(datum/preferences/preferences, ignore_page = FALSE)
+	if (!..())
 		return FALSE
 	return is_admin(preferences.parent)
 

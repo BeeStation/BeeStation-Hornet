@@ -6,8 +6,8 @@
 /datum/preference/color/asay_color/create_default_value()
 	return DEFAULT_ASAY_COLOR
 
-/datum/preference/color/asay_color/is_accessible(datum/preferences/preferences)
-	if (!..(preferences))
+/datum/preference/color/asay_color/is_accessible(datum/preferences/preferences, ignore_page = FALSE)
+	if (!..())
 		return FALSE
 
 	return is_admin(preferences.parent) && CONFIG_GET(flag/allow_admin_asaycolor)

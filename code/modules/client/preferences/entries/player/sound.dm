@@ -3,8 +3,8 @@
 	db_key = "sound_adminhelp"
 	preference_type = PREFERENCE_PLAYER
 
-/datum/preference/toggle/sound_adminhelp/is_accessible(datum/preferences/preferences)
-	if (!..(preferences))
+/datum/preference/toggle/sound_adminhelp/is_accessible(datum/preferences/preferences, ignore_page = FALSE)
+	if (!..())
 		return FALSE
 
 	return is_admin(preferences.parent)

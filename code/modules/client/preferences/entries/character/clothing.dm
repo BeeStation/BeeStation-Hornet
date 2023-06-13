@@ -135,8 +135,8 @@
 /datum/preference/choiced/underwear/apply_to_human(mob/living/carbon/human/target, value)
 	target.underwear = value
 
-/datum/preference/choiced/underwear/is_accessible(datum/preferences/preferences)
-	if (!..(preferences))
+/datum/preference/choiced/underwear/is_accessible(datum/preferences/preferences, ignore_page = FALSE)
+	if (!..())
 		return FALSE
 
 	var/species_type = preferences.read_character_preference(/datum/preference/choiced/species)

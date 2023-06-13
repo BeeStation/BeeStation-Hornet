@@ -240,8 +240,16 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 /// Will perform a write on the preference and update the relevant locations.
 /// This will, for instance, update the character preference view.
 /// Performs sanity checks.
-/datum/preferences/proc/update_preference(datum/preference/preference, preference_value)
-	if (!preference.is_accessible(src))
+/datum/preferences/proc/update_preference(preference_or_typepath, preference_value, in_menu = FALSE)
+	var/datum/preference/preference
+	if (ispath(preference_or_typepath, /datum/preference))
+		preference = GLOB.preference_entries[preference_or_typepath]
+	else if (istype(preference_or_typepath, /datum/preference))
+		preference = preference_or_typepath
+	if (isnull(preference))
+		CRASH("Preference type `[preference_or_typepath]` is invalid!")
+
+	if (!preference.is_accessible(src, ignore_page = !in_menu))
 		return FALSE
 
 	write_preference(preference, preference_value)
@@ -275,7 +283,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 
 /// Returns whether or not this preference is accessible.
 /// If FALSE, will not show in the UI and will not be editable (by update_preference).
-/datum/preference/proc/is_accessible(datum/preferences/preferences)
+/datum/preference/proc/is_accessible(datum/preferences/preferences, ignore_page = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
 	SHOULD_NOT_SLEEP(TRUE)
 
@@ -286,7 +294,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 		if (!(db_key in species.get_features()))
 			return FALSE
 
-	if (!should_show_on_page(preferences.current_window))
+	if (!ignore_page && !should_show_on_page(preferences.current_window))
 		return FALSE
 
 	return TRUE

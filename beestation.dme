@@ -2137,6 +2137,7 @@
 #include "code\modules\client\loadout\loadout_uniform.dm"
 #include "code\modules\client\preferences\preference_entry.dm"
 #include "code\modules\client\preferences\preference_verbs.dm"
+#include "code\modules\client\preferences\preference_verbs_toggles.dm"
 #include "code\modules\client\preferences\preferences.dm"
 #include "code\modules\client\preferences\entries\character\age.dm"
 #include "code\modules\client\preferences\entries\character\ai_core_display.dm"

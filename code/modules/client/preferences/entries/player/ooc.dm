@@ -5,10 +5,10 @@
 	preference_type = PREFERENCE_PLAYER
 
 /datum/preference/color/ooc_color/create_default_value()
-	return "#c43b23"
+	return DEFAULT_BONUS_OOC_COLOR
 
-/datum/preference/color/ooc_color/is_accessible(datum/preferences/preferences)
-	if (!..(preferences))
+/datum/preference/color/ooc_color/is_accessible(datum/preferences/preferences, ignore_page = FALSE)
+	if (!..())
 		return FALSE
 
 	return is_admin(preferences.parent) || preferences.unlock_content

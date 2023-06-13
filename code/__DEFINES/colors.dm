@@ -103,5 +103,7 @@
 /// Icon filter that creates gaussian blur
 #define GAUSSIAN_BLUR(filter_size) filter(type="blur", size=filter_size)
 
-// The default color for admin say, used as a fallback when the preference is not enabled
+/// The default color for admin say, used as a fallback when the preference is not enabled
 #define DEFAULT_ASAY_COLOR "#FF4500"
+/// The default color for Byond Member / ADMIN OOC, used as a fallback when the preference is not enabled
+#define DEFAULT_BONUS_OOC_COLOR "#c43b23"
