@@ -26,13 +26,13 @@
 
 /datum/preference/toggle/sound_ambience/apply_to_client(client/client, value)
 	if(value)
-		SSambience.add_ambience_client(src)
+		SSambience.add_ambience_client(client)
 	else
 		client.mob?.stop_sound_channel(CHANNEL_AMBIENT_EFFECTS)
 		client.mob?.stop_sound_channel(CHANNEL_AMBIENT_MUSIC)
 		client.mob?.stop_sound_channel(CHANNEL_BUZZ)
 		client.buzz_playing = FALSE
-		SSambience.remove_ambience_client(src)
+		SSambience.remove_ambience_client(client)
 
 /datum/preference/toggle/sound_lobby
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
