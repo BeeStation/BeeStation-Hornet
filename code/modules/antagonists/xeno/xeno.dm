@@ -53,10 +53,13 @@
 
 
 //XENO
-/mob/living/carbon/alien/mind_initialize(already_initialized=FALSE)
+/mob/living/carbon/alien/mind_initialize(skip_initialization=FALSE)
 	..()
-	if(already_initialized)
-		to_chat(src, "<span class='boldwarning'>If you were not an antagonist before you did not become one now. You still retain your retain your original loyalties and mind!</span>")
+	if(skip_initialization)
+		if(!mind.has_antag_datum(/datum/antagonist, TRUE))
+			var/non_antag_mind_msg = CONFIG_GET(string/non_antag_mind)
+			if(non_antag_mind_msg)
+				to_chat(src, non_antag_mind_msg)
 	else if(!mind.has_antag_datum(/datum/antagonist/xeno))
 		mind.add_antag_datum(/datum/antagonist/xeno)
 
