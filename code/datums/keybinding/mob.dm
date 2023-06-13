@@ -414,3 +414,4 @@
 	if(.)
 		return
 	user.movement_locked = FALSE
+

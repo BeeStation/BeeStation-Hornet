@@ -49,17 +49,7 @@ const PlaytimeSection = (props) => {
 
 export const TrackedPlaytime = (props, context) => {
   const { data } = useBackend(context);
-  const {
-    failReason,
-    jobPlaytimes,
-    antagPlaytimes,
-    specialPlaytimes,
-    outdatedPlaytimes,
-    livingTime,
-    deadTime,
-    observerTime,
-    ghostTime,
-  } = data;
+  const { failReason, jobPlaytimes, antagPlaytimes, specialPlaytimes, outdatedPlaytimes, livingTime, deadTime, observerTime, ghostTime } = data;
   const SCREEN_MODE_JOB = 1;
   const SCREEN_MODE_ANTAG = 2;
   const SCREEN_MODE_SPECIAL = 3;

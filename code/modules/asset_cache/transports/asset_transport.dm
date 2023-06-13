@@ -72,6 +72,7 @@
 		|| asset_cache_item.legacy \
 		|| asset_cache_item.keep_local_name \
 		|| (asset_cache_item.namespace && !asset_cache_item.namespace_parent)
+	// Runtime note: "null.legacy" happens, but that's because a client requested it while the server is still setting up. not that an issue. if it happens, check the comment at "Chat" sprite asset.
 	if (keep_local_name)
 		return url_encode(asset_cache_item.name)
 	return url_encode("asset.[asset_cache_item.hash][asset_cache_item.ext]")

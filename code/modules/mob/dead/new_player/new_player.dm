@@ -43,8 +43,7 @@
 		return
 
 	var/datum/asset/asset_datum = get_asset_datum(/datum/asset/simple/lobby)
-	if(!asset_datum.send(client))
-		return
+	asset_datum.send(client)
 	var/output = "<center><p><a href='byond://?src=[REF(src)];show_preferences=1'>Setup Character</a></p>"
 
 	if(SSticker.current_state <= GAME_STATE_PREGAME)

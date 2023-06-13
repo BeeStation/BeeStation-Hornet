@@ -17,14 +17,14 @@
 	..()
 	no_coexistence_typecache = typecacheof(no_coexistence_typecache)
 
-/datum/spellbook_entry/proc/IsAvailable() // For config prefs / gamemode restrictions - these are round applied
+/datum/spellbook_entry/proc/IsAvailable(obj/item/spellbook/book) // For config prefs / gamemode restrictions - these are round applied
 	return TRUE
 
 /datum/spellbook_entry/proc/CanBuy(mob/living/carbon/human/user,obj/item/spellbook/book) // Specific circumstances
 	if(book.uses<cost || limit == 0)
 		return FALSE
 	for(var/spell in user.mind.spell_list)
-		if(is_type_in_typecache(spell, no_coexistence_typecache))
+		if(is_type_in_typecache(spell, no_coexistence_typecache) && !book.bypass_lock)
 			return FALSE
 	return TRUE
 
@@ -61,11 +61,11 @@
 				SSblackbox.record_feedback("nested tally", "wizard_spell_improved", 1, list("[name]", "[aspell.spell_level]"))
 				return TRUE
 	//debug handling
-	if(!book.debug)
-		SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
-	else
+	if(book.everything_robeless)
 		SSblackbox.record_feedback("tally", "debug_wizard_spell_learned", 1, name)
 		S.clothes_req = FALSE // You'd want no cloth req if you learned spells from a debug spellbook
+	else
+		SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
 
 	//No same spell found - just learn it
 	user.mind.AddSpell(S)
@@ -502,9 +502,11 @@
 	desc = "Nothing could possibly go wrong with arming a crew of lunatics just itching for an excuse to kill you. There is a good chance that they will shoot each other first."
 	ritual_invocation = "ALADAL DESINARI ODORI'IN DOL'G FLAM OVOR'E POR"
 
-/datum/spellbook_entry/summon/guns/IsAvailable()
+/datum/spellbook_entry/summon/guns/IsAvailable(obj/item/spellbook/book)
 	if(!SSticker.mode) // In case spellbook is placed on map
 		return FALSE
+	if(book.bypass_lock)
+		return TRUE
 	if(istype(SSticker.mode, /datum/game_mode/dynamic)) // Disable events on dynamic
 		var/datum/game_mode/dynamic/mode = SSticker.mode
 		if(mode.threat_level < MINIMUM_THREAT_FOR_RITUALS)
@@ -525,9 +527,11 @@
 	desc = "Share the wonders of magic with the crew and show them why they aren't to be trusted with it at the same time."
 	ritual_invocation = "ALADAL DESINARI ODORI'IN IDO'LEX SPERMITA OVOR'E POR"
 
-/datum/spellbook_entry/summon/magic/IsAvailable()
+/datum/spellbook_entry/summon/magic/IsAvailable(obj/item/spellbook/book)
 	if(!SSticker.mode) // In case spellbook is placed on map
 		return FALSE
+	if(book.bypass_lock)
+		return TRUE
 	if(istype(SSticker.mode, /datum/game_mode/dynamic)) // Disable events on dynamic
 		var/datum/game_mode/dynamic/mode = SSticker.mode
 		if(mode.threat_level < MINIMUM_THREAT_FOR_RITUALS)
@@ -549,9 +553,11 @@
 	var/times = 0
 	ritual_invocation = "ALADAL DESINARI ODORI'IN IDO'LEX MANAG'ROKT OVOR'E POR"
 
-/datum/spellbook_entry/summon/events/IsAvailable()
+/datum/spellbook_entry/summon/events/IsAvailable(obj/item/spellbook/book)
 	if(!SSticker.mode) // In case spellbook is placed on map
 		return FALSE
+	if(book.bypass_lock)
+		return TRUE
 	if(istype(SSticker.mode, /datum/game_mode/dynamic)) // Disable events on dynamic
 		var/datum/game_mode/dynamic/mode = SSticker.mode
 		if(mode.threat_level < MINIMUM_THREAT_FOR_RITUALS)
@@ -634,7 +640,8 @@
 	var/mob/living/carbon/human/owner
 	var/list/datum/spellbook_entry/entries = list()
 	var/list/categories = list()
-	var/debug = FALSE
+	var/everything_robeless = FALSE //! if TRUE, all spells you learn become robeless. Ask admin.
+	var/bypass_lock = FALSE //! bypasses some locked ritual & spell combinations. Ask admin.
 
 /obj/item/spellbook/examine(mob/user)
 	. = ..()
@@ -651,7 +658,7 @@
 	var/entry_types = subtypesof(/datum/spellbook_entry) - /datum/spellbook_entry/item - /datum/spellbook_entry/summon
 	for(var/T in entry_types)
 		var/datum/spellbook_entry/E = new T
-		if(E.IsAvailable())
+		if(E.IsAvailable(src))
 			entries |= E
 			categories |= E.category
 		else

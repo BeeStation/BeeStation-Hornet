@@ -42,11 +42,12 @@ export const NtosJobManagerContent = (props, context) => {
                 fluid
                 content={slot.title}
                 disabled={slot.total <= 0}
-                checked={slot.total > 0 && prioritized.includes(slot.jkey)}
+                checked={slot.total > 0 && prioritized.includes(slot.title)}
                 onClick={() =>
                   act('PRG_priority', {
-                    target: slot.jkey,
-                  })}
+                    target: slot.title,
+                  })
+                }
               />
             </Table.Cell>
             <Table.Cell collapsing>
@@ -58,7 +59,7 @@ export const NtosJobManagerContent = (props, context) => {
                 disabled={!slot.status_open}
                 onClick={() =>
                   act('PRG_open_job', {
-                    target: slot.jkey,
+                    target: slot.title,
                   })}
               />
               <Button
@@ -66,7 +67,7 @@ export const NtosJobManagerContent = (props, context) => {
                 disabled={!slot.status_close}
                 onClick={() =>
                   act('PRG_close_job', {
-                    target: slot.jkey,
+                    target: slot.title,
                   })}
               />
             </Table.Cell>

@@ -307,12 +307,12 @@
 
 /datum/asset/spritesheet/antag_hud
 	name = "antag-hud"
+	cross_round_cachable = TRUE
 
-/datum/asset/spritesheet/antag_hud/register()
+/datum/asset/spritesheet/antag_hud/create_spritesheets()
 	var/icon/I = icon('icons/mob/hud.dmi')
 	// Get the antag hud part
 	I.Crop(24, 24, 32, 32)
 	// Scale it up
 	I.Scale(16, 16)
 	InsertAll("antag-hud", I)
-	..()

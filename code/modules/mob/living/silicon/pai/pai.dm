@@ -217,8 +217,7 @@
 	..()
 	var/datum/asset/notes_assets = get_asset_datum(/datum/asset/simple/pAI)
 	mind.assign_special_role(ROLE_KEY_PAI)
-	if(!notes_assets.send(client))
-		return
+	notes_assets.send(client)
 	client.perspective = EYE_PERSPECTIVE
 	if(holoform)
 		client.eye = src
