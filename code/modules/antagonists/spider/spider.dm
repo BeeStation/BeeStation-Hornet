@@ -47,6 +47,7 @@
 	show_in_antagpanel = FALSE
 	prevent_roundtype_conversion = FALSE
 	show_to_ghosts = TRUE
+	ui_name = "AntagInfoSpider"
 	var/datum/team/spiders/spider_team
 
 /datum/antagonist/spider/create_team(datum/team/spiders/new_team)

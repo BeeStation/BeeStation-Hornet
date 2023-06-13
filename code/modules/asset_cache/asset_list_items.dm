@@ -434,6 +434,10 @@
 	assets = list(
 		"traitor.png" = 'html/img/traitor.png',
 		"bloodcult.png" = 'html/img/bloodcult.png',
+		"cult-archives.gif" = 'html/img/cult-archives.gif',
+		"cult-altar.gif" = 'html/img/cult-altar.gif',
+		"cult-forge.gif" = 'html/img/cult-forge.gif',
+		"cult-pylon.gif" = 'html/img/cult-pylon.gif',
 		"dagger.png" = 'html/img/dagger.png',
 		"sacrune.png" = 'html/img/sacrune.png',
 		"archives.png" = 'html/img/archives.png',
