@@ -149,9 +149,9 @@
 		user_abductor.team.abductees += H.mind
 		if(custom_objective)
 			if(OOC_FILTER_CHECK(custom_objective))
-	 			log_admin("[key_name(user)] attempted to imprint [key_name(occupant)] with the custom abductee objective '[custom_objective]', however it was blocked by the OOC filter!")
 				message_admins("[ADMIN_LOOKUPFLW(user)] attempted to imprint [ADMIN_LOOKUPFLW(occupant)] with the custom abductee objective '[custom_objective]', however it was blocked by the OOC filter!")
-	 			custom_objective = null
+				log_admin("[key_name(user)] attempted to imprint [key_name(occupant)] with the custom abductee objective '[custom_objective]', however it was blocked by the OOC filter!")
+				custom_objective = null
 			else
 				deadchat_broadcast("<span class='deadsay'><b>[H]</b> has been imprinted with the custom abductee objective: <b>[custom_objective]</b></span>", follow_target = occupant, turf_target = get_turf(occupant), message_type = DEADCHAT_REGULAR)
 				log_game("[key_name(user)] imprinted [key_name(occupant)] with the custom abductee objective '[custom_objective]'.")
