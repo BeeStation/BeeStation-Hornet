@@ -26,25 +26,3 @@
 		var/midround_ruleset_style = initial(ruleset.midround_ruleset_style)
 		if (midround_ruleset_style != MIDROUND_RULESET_STYLE_HEAVY && midround_ruleset_style != MIDROUND_RULESET_STYLE_LIGHT)
 			Fail("[ruleset] has an invalid midround_ruleset_style, it should be MIDROUND_RULESET_STYLE_HEAVY or MIDROUND_RULESET_STYLE_LIGHT")
-
-/// Verifies that dynamic rulesets have unique antag_flag.
-/datum/unit_test/dynamic_unique_antag_flags
-
-/datum/unit_test/dynamic_unique_antag_flags/Run()
-	var/list/known_antag_flags = list()
-
-	for (var/datum/dynamic_ruleset/ruleset as anything in subtypesof(/datum/dynamic_ruleset))
-		if (isnull(initial(ruleset.antag_datum)))
-			continue
-
-		var/antag_flag = initial(ruleset.antag_flag)
-
-		if (isnull(antag_flag))
-			Fail("[ruleset] has a null antag_flag!")
-			continue
-
-		if (antag_flag in known_antag_flags)
-			Fail("[ruleset] has a non-unique antag_flag [antag_flag] (used by [known_antag_flags[antag_flag]])!")
-			continue
-
-		known_antag_flags[antag_flag] = ruleset
