@@ -21,7 +21,7 @@
 			for(var/clothing_path in outfit.get_chameleon_disguise_info())
 				if(!clothing_path || (clothing_path in .) || !ispath(clothing_path, base_disguise_path) || is_type_in_typecache(clothing_path, disguise_blacklist))
 					continue
-				if((base_disguise_path && !ispath(clothing_path, base_disguise_path)) || (disguise_whitelist && !is_type_in_typecache(clothing_path, clothing_path)))
+				if((base_disguise_path && !ispath(clothing_path, base_disguise_path)) || (disguise_whitelist && !is_type_in_typecache(clothing_path, disguise_whitelist)))
 					continue
 				var/obj/item/base_disguise = clothing_path
 				if((initial(base_disguise.item_flags) & ABSTRACT) || !initial(base_disguise.icon_state))

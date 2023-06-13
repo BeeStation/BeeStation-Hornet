@@ -79,6 +79,7 @@
 
 /datum/component/chameleon/id
 	original_name = "ID"
+	base_disguise_path = /obj/item/card/id
 	disguise_whitelist = list(
 		/obj/item/card/id/job,
 		/obj/item/card/id/syndicate

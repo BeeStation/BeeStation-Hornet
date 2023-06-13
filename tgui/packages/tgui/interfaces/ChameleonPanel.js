@@ -104,14 +104,14 @@ const OutfitsPanel = (_, context) => {
     <Section
       title="Outfits"
       buttons={
-        <Flex>
-          <Flex.Item>
+        <>
+          <Box inline>
             <Icon name="search" mr={1} />
-          </Flex.Item>
-          <Flex.Item grow={1}>
-            <Input placeholder="Search..." fluid value={searchText} onInput={(_, value) => setSearchText(value)} />
-          </Flex.Item>
-        </Flex>
+          </Box>
+          <Box inline>
+            <Input placeholder="Search..." width="200px" value={searchText} onInput={(_, value) => setSearchText(value)} />
+          </Box>
+        </>
       }>
       <Stack fill>
         <Stack.Item grow>
@@ -129,7 +129,7 @@ const OutfitsCompact = (props, context) => {
   return outfits.map((outfit, _) => {
     const outfit_icon = icons['outfits'][outfit.type];
     return (
-      <Flex key={outfit.type} justify="space-between" className="candystripe">
+      <Flex key={outfit.type} justify="space-between" className="candystripe" mb={1}>
         <Flex.Item m={0.5}>{outfit.name}</Flex.Item>
         <Flex.Item m={0.5}>
           <Tooltip content={<ChameleonIcon assetName={outfit_icon} />} position="left">
@@ -148,7 +148,13 @@ const Outfits = (props, context) => {
   return outfits.map((outfit, _) => {
     const outfit_icon = icons['outfits'][outfit.type];
     return (
-      <Flex inline direction="column" width="80px" key={outfit.type}>
+      <Flex
+        inline
+        direction="column"
+        width="80px"
+        key={outfit.type}
+        mb={1}
+        style={{ 'justify-content': 'center', 'flex-wrap': 'wrap' }}>
         <Flex.Item>
           <Button key={outfit.type} onClick={() => act('equip_outfit', { outfit: outfit.type })}>
             <ChameleonIcon assetName={outfit_icon} />
@@ -183,7 +189,7 @@ const ExtraActions = (props, context) => {
 };
 
 const DisguisePanel = (_, context) => {
-  const { act, data } = useBackend(context);
+  const { data } = useBackend(context);
   const { chameleon_items } = data;
   const [compact] = useLocalState(context, 'compact', false);
   const [searchText, setSearchText] = useLocalState(context, 'disguiseSearchText', '');
@@ -212,20 +218,19 @@ const DisguisePanel = (_, context) => {
                 <ExtraActions actions={selectedChameleon.extra_actions} itemRef={selectedChameleon.ref} />
               )}
               <Stack.Item>
-                <Flex>
-                  <Flex.Item>
+                <>
+                  <Box inline>
                     <Icon name="search" mr={1} />
-                  </Flex.Item>
-                  <Flex.Item>
+                  </Box>
+                  <Box inline>
                     <Input
                       placeholder="Search..."
-                      fluid
                       width="200px"
                       value={searchText}
                       onInput={(_, value) => setSearchText(value)}
                     />
-                  </Flex.Item>
-                </Flex>
+                  </Box>
+                </>
               </Stack.Item>
             </Stack>
           }>
@@ -248,7 +253,7 @@ const DisguiseItems = (_, context) => {
         const disguise_icon = disguise.type.replace('/obj/item/', '').replace(/\//g, '-');
         return (
           <Stack.Item key={disguise.ref}>
-            <Flex direction="column" width="80px">
+            <Flex direction="column" width="80px" mb={1} style={{ 'justify-content': 'center', 'flex-wrap': 'wrap' }}>
               <Flex.Item>
                 <Button
                   key={disguise.ref}
@@ -275,7 +280,13 @@ const Disguises = (props, context) => {
   return (disguises || []).map((disguise, _) => {
     const disguise_icon = disguise.type.replace('/obj/item/', '').replace(/\//g, '-');
     return (
-      <Flex inline direction="column" width="80px" key={disguise.type}>
+      <Flex
+        inline
+        direction="column"
+        width="80px"
+        key={disguise.type}
+        mb={1}
+        style={{ 'justify-content': 'center', 'flex-wrap': 'wrap' }}>
         <Flex.Item>
           <Button
             selected={selectedChameleon.current_disguise === disguise.type}
@@ -303,7 +314,7 @@ const DisguisesCompact = (props, context) => {
   return (disguises || []).map((disguise, _) => {
     const disguise_icon = disguise.type.replace('/obj/item/', '').replace(/\//g, '-');
     return (
-      <Flex key={disguise.type} justify="space-between" className="candystripe">
+      <Flex key={disguise.type} justify="space-between" className="candystripe" mb={1}>
         <Flex.Item m={0.5}>{`${disguise.name} (${disguise.icon_name})`}</Flex.Item>
         <Flex.Item m={0.5}>
           <Tooltip content={<ChameleonIcon assetClass={disguise_icon} />} position="left">

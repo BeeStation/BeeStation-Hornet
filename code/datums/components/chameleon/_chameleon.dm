@@ -36,8 +36,8 @@
 	if(disguise_whitelist)
 		src.disguise_whitelist = disguise_whitelist
 	else if(src.disguise_whitelist)
-		src.disguise_whitelist = typecacheof(disguise_whitelist)
-	else if(base_disguise_path)
+		src.disguise_whitelist = typecacheof(src.disguise_whitelist)
+	if(base_disguise_path)
 		src.base_disguise_path = base_disguise_path
 	if(disguise_blacklist)
 		src.disguise_blacklist = disguise_blacklist
