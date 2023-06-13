@@ -236,34 +236,35 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	name = "Dead Body placer"
 	late = TRUE
 	icon_state = "deadbodyplacer"
-	var/bodycount = 2 //number of bodies to spawn
-	var/no_random = FALSE // set it TRUE in mapping if you want to put it into a specific container (when you don't want a random morgue)
+	/// number of bodies to spawn
+	var/bodycount = 2
+	/// set it TRUE in mapping if you want to put it into a specific container (when you don't want a random morgue)
+	var/no_random = FALSE
 
 /obj/effect/mapping_helpers/dead_body_placer/LateInitialize()
 	var/area/a = get_area(src)
 	var/list/trays = list()
-	for (var/i in a.contents)
-		if(no_random)
-			break
-		if (istype(i, /obj/structure/bodycontainer/morgue))
-			trays += i
+	if(!no_random)
+		for (var/obj/structure/bodycontainer/morgue/morgue in a.contents)
+			trays += morgue
 	if(length(trays))
-		while(bodycount--)
+		while(bodycount)
+			bodycount-- // I hate this but Byond makes infinite loop if I do `while(bodycount--)` WTF??
 			spawn_dead_human_in_tray(pick(trays))
 	else
 		var/obj/container = locate(/obj/structure/closet) in get_turf(src)
 		if(!container)
 			container = locate(/obj/structure/bodycontainer/morgue) in get_turf(src)
 		if(container)
-			while(bodycount--)
+			while(bodycount)
+				bodycount-- // same fuckery above
 				spawn_dead_human_in_tray(container)
 
-	if(bodycount)
-		while(bodycount--)
-			spawn_dead_human_in_tray(get_turf(src)) // spawn onto turf
+	while(bodycount--) // This doesn't make the issue.
+		spawn_dead_human_in_tray(get_turf(src)) // spawn onto turf
 	qdel(src)
 
-/obj/effect/mapping_helpers/dead_body_placer/proc/spawn_dead_human_in_tray(obj/container)
+/obj/effect/mapping_helpers/dead_body_placer/proc/spawn_dead_human_in_tray(atom/container)
 	var/mob/living/carbon/human/H = new /mob/living/carbon/human(container)
 	H.death()
 	for (var/part in H.internal_organs) //randomly remove organs from each body, set those we keep to be in stasis
