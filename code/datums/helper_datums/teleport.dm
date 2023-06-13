@@ -242,7 +242,9 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = null
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	hud_possible = list(DIAG_WAKE_HUD)
 	var/turf/destination
+	var/has_hud_icon = FALSE
 
 /obj/effect/temp_visual/teleportation_wake/Initialize(mapload, turf/destination)
 	// Replace any portals on the current turf
@@ -253,9 +255,20 @@
 		return INITIALIZE_HINT_QDEL
 	. = ..()
 	src.destination = destination
-	var/image/I = image(icon = 'icons/effects/effects.dmi', icon_state = "bluestream", layer = HIGH_OBJ_LAYER, loc = src)
-	I.appearance_flags = RESET_ALPHA | RESET_COLOR
-	I.alpha = 255
-	// Holy people can see the wakes
-	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/blessedAware, "slipspace_wake", I)
+	prepare_huds()
+	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
+		diag_hud.add_to_hud(src)
+	var/image/holder = hud_list[DIAG_WAKE_HUD]
+	var/mutable_appearance/MA = new /mutable_appearance()
+	MA.icon = 'icons/effects/effects.dmi'
+	MA.icon_state = "bluestream"
+	MA.layer = ABOVE_OPEN_TURF_LAYER
+	MA.plane = GAME_PLANE
+	holder.appearance = MA
+	has_hud_icon = TRUE
 
+/obj/effect/temp_visual/teleportation_wake/Destroy()
+	if (has_hud_icon)
+		for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
+			diag_hud.remove_from_hud(src)
+	return ..()
