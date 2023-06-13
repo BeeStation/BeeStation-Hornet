@@ -116,11 +116,6 @@
 	LAZYINITLIST(history)
 	var/mob/living/carbon/human/H = occupant
 
-	 if(custom_objective && OOC_FILTER_CHECK(custom_objective))
-	 	log_admin("[key_name(user)] attempd to imprint [key_name(occupant)] with the custom abductee objective '[custom_objective]', however it was blocked by the OOC filter!")
-		message_admins("[ADMIN_LOOKUP(user)] attempd to imprint [ADMIN_LOOKUP(occupant)] with the custom abductee objective '[custom_objective]', however it was blocked by the OOC filter!")
-	 	custom_objective = null
-
 	var/datum/antagonist/abductor/user_abductor = user.mind.has_antag_datum(/datum/antagonist/abductor)
 	if(!user_abductor)
 		return "Authorization failure. Contact mothership immediately."
@@ -153,9 +148,14 @@
 		sleep(5)
 		user_abductor.team.abductees += H.mind
 		if(custom_objective)
-			deadchat_broadcast("<span class='deadsay'><b>[H]</b> has been imprinted with the custom abductee objective: <b>[custom_objective]</b></span>", follow_target = occupant, turf_target = get_turf(occupant), message_type = DEADCHAT_REGULAR)
-			log_game("[key_name(user)] imprinted [key_name(occupant)] with the custom abductee objective '[custom_objective]'.")
-			message_admins("[ADMIN_LOOKUPFLW(user)] imprinted [ADMIN_LOOKUPFLW(occupant)] with the custom abductee objective '[custom_objective]'.")
+			if(OOC_FILTER_CHECK(custom_objective))
+	 			log_admin("[key_name(user)] attempted to imprint [key_name(occupant)] with the custom abductee objective '[custom_objective]', however it was blocked by the OOC filter!")
+				message_admins("[ADMIN_LOOKUP(user)] attempted to imprint [ADMIN_LOOKUP(occupant)] with the custom abductee objective '[custom_objective]', however it was blocked by the OOC filter!")
+	 			custom_objective = null
+			else
+				deadchat_broadcast("<span class='deadsay'><b>[H]</b> has been imprinted with the custom abductee objective: <b>[custom_objective]</b></span>", follow_target = occupant, turf_target = get_turf(occupant), message_type = DEADCHAT_REGULAR)
+				log_game("[key_name(user)] imprinted [key_name(occupant)] with the custom abductee objective '[custom_objective]'.")
+				message_admins("[ADMIN_LOOKUPFLW(user)] imprinted [ADMIN_LOOKUPFLW(occupant)] with the custom abductee objective '[custom_objective]'.")
 		H.mind.add_antag_datum(new /datum/antagonist/abductee(custom_objective))
 
 		for(var/obj/item/organ/heart/gland/G in H.internal_organs)
