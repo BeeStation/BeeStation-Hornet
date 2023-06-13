@@ -266,13 +266,10 @@
 /mob/living/simple_animal/hostile/morph/mind_initialize(skip_initialization=FALSE)
 	. = ..()
 	to_chat(src, playstyle_string)
-	if(skip_initialization)
-		if(!mind.has_antag_datum(/datum/antagonist, TRUE))
-			var/non_antag_mind_msg = CONFIG_GET(string/non_antag_mind)
-			if(non_antag_mind_msg)
-				to_chat(src, non_antag_mind_msg)
-	else if(!mind.has_antag_datum(/datum/antagonist/morph))
+	if(!skip_initialization && !mind.has_antag_datum(/datum/antagonist/morph))
 		mind.add_antag_datum(/datum/antagonist/morph)
+
+	announce_non_antag_mind_policy(src)
 
 //Spawn Event
 /datum/round_event_control/morph

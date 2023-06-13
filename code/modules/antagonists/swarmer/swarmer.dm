@@ -109,13 +109,10 @@
 
 /mob/living/simple_animal/hostile/swarmer/mind_initialize(skip_initialization=FALSE)
 	. = ..()
-	if(skip_initialization)
-		if(!mind.has_antag_datum(/datum/antagonist, TRUE))
-			var/non_antag_mind_msg = CONFIG_GET(string/non_antag_mind)
-			if(non_antag_mind_msg)
-				to_chat(src, non_antag_mind_msg)
-	else if(!mind.has_antag_datum(/datum/antagonist/swarmer))
+	if(!skip_initialization && !mind.has_antag_datum(/datum/antagonist/swarmer))
 		mind.add_antag_datum(/datum/antagonist/swarmer)
+
+	announce_non_antag_mind_policy(src)
 
 /mob/living/simple_animal/hostile/swarmer/med_hud_set_health()
 	var/image/holder = hud_list[DIAG_HUD]

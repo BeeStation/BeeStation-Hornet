@@ -82,17 +82,14 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/mind_initialize(skip_initialization=FALSE)
 	. = ..()
-	if(skip_initialization)
-		if(!mind.has_antag_datum(/datum/antagonist, TRUE))
-			var/non_antag_mind_msg = CONFIG_GET(string/non_antag_mind)
-			if(non_antag_mind_msg)
-				to_chat(src, non_antag_mind_msg)
-	else if(!mind.has_antag_datum(/datum/antagonist/spider))
+	if(!skip_initialization && !mind.has_antag_datum(/datum/antagonist/spider))
 		var/datum/antagonist/spider/spooder = new
 		if(!spider_team)
 			spooder.create_team()
 			spider_team = spooder.spider_team
 		mind.add_antag_datum(spooder, spider_team)
+
+	announce_non_antag_mind_policy(src)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/Destroy()
 	RemoveAbility(lesserwrap)

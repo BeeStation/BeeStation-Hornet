@@ -776,9 +776,11 @@
 /mob/dead/observer/sync_mind()
 	return
 
-//Initialisation procs
+/// This is also called by `sync_mind()`.
+/// skip_initialization parameter is used to prevent a transformed player (person -> xeno) getting a bad mind init.
+/// For example, if a crew becomes a morph, a xenomorph, they're really not an antag, but they get antag datum...
 /mob/proc/mind_initialize(skip_initialization=FALSE)
-	if(!skip_initialization)
+	if(skip_initialization) // they have mind already. No need to make a new one.
 		mind.key = key
 	else
 		mind = new /datum/mind(key)

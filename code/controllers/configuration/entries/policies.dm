@@ -6,3 +6,11 @@
 
 /datum/config_entry/string/non_antag_mind
 	config_entry_value = "<span class='boldannounce'>You're playing a character that is known as an antagonist, but your mind IS NOT antagonist. Please avoid antagonism.</span>"
+
+/// announces the policy as long as their mind is not antag
+/proc/announce_non_antag_mind_policy(mob/living/target_user)
+	var/datum/mind/mind = target_user.mind
+	if(!mind.has_antag_datum(/datum/antagonist, TRUE))
+		var/non_antag_mind_msg = CONFIG_GET(string/non_antag_mind)
+		if(non_antag_mind_msg)
+			to_chat(target_user, non_antag_mind_msg)
