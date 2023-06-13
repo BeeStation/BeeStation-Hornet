@@ -154,7 +154,6 @@
 	disguise_paths.Cut()
 	for(var/path in list_chameleon_disguises(base_disguise_path, disguise_whitelist, disguise_blacklist, hide_duplicates))
 		disguise_paths += path
-		GLOB.all_available_chameleon_types |= path
 
 /datum/component/chameleon/proc/setup_action(mob/living/user, include_self = TRUE)
 	if(!istype(user))
