@@ -1,14 +1,14 @@
 /datum/asset/spritesheet/chameleon
 	name = "chameleon"
 
-/datum/asset/spritesheet/chameleon/register()
+/datum/asset/spritesheet/chameleon/create_spritesheets()
 	var/list/disguises = list()
 	// First, get everything we need to make icons of.
 	for(var/chameleon_path in subtypesof(/datum/component/chameleon))
 		var/datum/component/chameleon/chameleon = chameleon_path
 		if(!initial(chameleon.base_disguise_path))
 			continue
-		disguises |= list_chameleon_disguises(initial(chameleon.base_disguise_path), initial(chameleon.disguise_blacklist), initial(chameleon.hide_duplicates))
+		disguises |= list_chameleon_disguises(initial(chameleon.base_disguise_path), initial(chameleon.disguise_whitelist), initial(chameleon.disguise_blacklist), initial(chameleon.hide_duplicates))
 	// Then, we need to generate the actual icons.
 	for(var/item_path in disguises)
 		add_item(item_path)
@@ -18,7 +18,6 @@
 		if(!findtext(item_path_txt, "/chameleon") || findtext(item_path_txt, "/broken") || (item_path in disguises))
 			continue
 		add_item(item_path)
-	..()
 
 /datum/asset/spritesheet/chameleon/proc/add_item(item_path)
 	var/icon/asset

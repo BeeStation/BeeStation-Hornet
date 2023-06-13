@@ -3,6 +3,8 @@
 	var/original_name = "Object"
 	/// The base type that disguises will be fetched from.
 	var/base_disguise_path
+	/// A typecache of items allowed to be selected for this item. Will be used instead of `base_disguise_path` if set.
+	var/list/disguise_whitelist
 	/// A typecache of items not allowed to be selected for this item.
 	var/list/disguise_blacklist
 	/// A normal list of paths of which disguises can be selected.
@@ -20,12 +22,22 @@
 	///	Whenever the EMP effect will end.
 	COOLDOWN_DECLARE(emp_timer)
 
-/datum/component/chameleon/Initialize(original_name, base_disguise_path, list/disguise_blacklist, anyone_can_use, hide_duplicates, list/extra_actions, datum/callback/on_disguise)
-	if((!src.base_disguise_path && (!base_disguise_path || !ispath(base_disguise_path, /obj/item))) || (original_name && !istext(original_name)))
+/datum/component/chameleon/Initialize(original_name, base_disguise_path, list/disguise_whitelist, list/disguise_blacklist, anyone_can_use, hide_duplicates, list/extra_actions, datum/callback/on_disguise)
+	if(!(base_disguise_path || src.base_disguise_path) && !(disguise_whitelist || src.disguise_whitelist))
+		return COMPONENT_INCOMPATIBLE
+	if(original_name && !istext(original_name))
+		return COMPONENT_INCOMPATIBLE
+	if(base_disguise_path && !ispath(base_disguise_path, /obj/item))
+		return COMPONENT_INCOMPATIBLE
+	if(disguise_whitelist && !islist(disguise_whitelist))
 		return COMPONENT_INCOMPATIBLE
 	if(original_name)
 		src.original_name = original_name
-	if(base_disguise_path)
+	if(disguise_whitelist)
+		src.disguise_whitelist = disguise_whitelist
+	else if(src.disguise_whitelist)
+		src.disguise_whitelist = typecacheof(disguise_whitelist)
+	else if(base_disguise_path)
 		src.base_disguise_path = base_disguise_path
 	if(disguise_blacklist)
 		src.disguise_blacklist = disguise_blacklist
@@ -95,7 +107,7 @@
 
 /datum/component/chameleon/proc/disguise(mob/living/user, disguise_path)
 	if(!ispath(disguise_path, /obj/item))
-		stack_trace("[user ? key_name(user) : "null"] attempted to disguise using an invalid path: [disguise_path]")
+		CRASH("[user ? key_name(user) : "null"] attempted to disguise using an invalid path: [disguise_path]")
 		return
 	if(!(disguise_path in disguise_paths))
 		if(user && ispath(disguise_path, /obj/item))
@@ -140,7 +152,7 @@
 
 /datum/component/chameleon/proc/setup_disguises()
 	disguise_paths.Cut()
-	for(var/path in list_chameleon_disguises(base_disguise_path, disguise_blacklist, hide_duplicates))
+	for(var/path in list_chameleon_disguises(base_disguise_path, disguise_whitelist, disguise_blacklist, hide_duplicates))
 		disguise_paths += path
 		GLOB.all_available_chameleon_types |= path
 

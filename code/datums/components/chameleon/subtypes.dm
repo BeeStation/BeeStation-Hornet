@@ -79,24 +79,12 @@
 
 /datum/component/chameleon/id
 	original_name = "ID"
-	base_disguise_path = /obj/item/card/id
+	disguise_whitelist = list(
+		/obj/item/card/id/job,
+		/obj/item/card/id/syndicate
+	)
 	disguise_blacklist = list(
-		/obj/item/card/id,
-		/obj/item/card/id/away/deep_storage,
-		/obj/item/card/id/away/old/apc,
-		/obj/item/card/id/changeling,
-		/obj/item/card/id/departmental_budget,
-		/obj/item/card/id/golem,
-		/obj/item/card/id/pass,
-		/obj/item/card/id/pass/deputy,
-		/obj/item/card/id/pass/mining_access_card,
-		/obj/item/card/id/prisoner/five,
-		/obj/item/card/id/prisoner/four,
-		/obj/item/card/id/prisoner/one,
-		/obj/item/card/id/prisoner/seven,
-		/obj/item/card/id/prisoner/six,
-		/obj/item/card/id/prisoner/three,
-		/obj/item/card/id/prisoner/two,
+		/obj/item/card/id/job,
 		/obj/item/card/id/syndicate/anyone,
 		/obj/item/card/id/syndicate/broken,
 		/obj/item/card/id/syndicate/debug,

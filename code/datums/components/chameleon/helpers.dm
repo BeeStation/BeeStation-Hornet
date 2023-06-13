@@ -8,7 +8,7 @@
 		parts += "[initial(atom.greyscale_colors)]"
 	return rustg_hash_string(RUSTG_HASH_XXH64, parts.Join("~"))
 
-/proc/list_chameleon_disguises(base_disguise_path, disguise_blacklist = list(), hide_duplicates = TRUE)
+/proc/list_chameleon_disguises(base_disguise_path, disguise_whitelist, disguise_blacklist = list(), hide_duplicates = TRUE)
 	. = list()
 	var/list/used_hashes = list()
 	// To prevent issues with our duplicate detection, first we're gonna loop through all the job outfits and add their thingies first.
@@ -21,6 +21,8 @@
 			for(var/clothing_path in outfit.get_chameleon_disguise_info())
 				if(!clothing_path || (clothing_path in .) || !ispath(clothing_path, base_disguise_path) || is_type_in_typecache(clothing_path, disguise_blacklist))
 					continue
+				if((base_disguise_path && !ispath(clothing_path, base_disguise_path)) || (disguise_whitelist && !is_type_in_typecache(clothing_path, clothing_path)))
+					continue
 				var/obj/item/base_disguise = clothing_path
 				if((initial(base_disguise.item_flags) & ABSTRACT) || !initial(base_disguise.icon_state))
 					continue
@@ -30,7 +32,7 @@
 				used_hashes += icon_hash
 				. += clothing_path
 			qdel(outfit)
-	for(var/path in typesof(base_disguise_path))
+	for(var/path in disguise_whitelist ? assoc_list_strip_value(disguise_whitelist) : typesof(base_disguise_path))
 		if(!path || (path in .) || !ispath(path, /obj/item) || is_type_in_typecache(path, disguise_blacklist))
 			continue
 		var/obj/item/base_disguise = path

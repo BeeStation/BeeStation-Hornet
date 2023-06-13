@@ -137,8 +137,8 @@ GLOBAL_VAR_INIT(cmp_field, "name")
 /proc/cmp_mob_realname_dsc(mob/A,mob/B)
 	return sorttext(A.real_name,B.real_name)
 
-/proc/cmp_list_name_asc(list/a, list/b)
-	return sorttext(b["name"], a["name"])
+/proc/cmp_list_type_asc(list/a, list/b)
+	return sorttext("[b["type"]]", "[a["type"]]")
 
 /proc/cmp_list_slot_id_asc(list/a, list/b)
 	return a["slot_id"] - b["slot_id"]

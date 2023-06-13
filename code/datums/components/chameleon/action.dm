@@ -45,7 +45,7 @@
 				.["icons"]["outfits"]["[outfit]"] = SSassets.transport.get_asset_url(outfit_asset)
 				assets_to_send += outfit_asset
 			CHECK_TICK
-	sortTim(.["outfits"], GLOBAL_PROC_REF(cmp_list_name_asc))
+	sortTim(.["outfits"], GLOBAL_PROC_REF(cmp_list_type_asc))
 	if(user.client && LAZYLEN(assets_to_send))
 		SSassets.transport.send_assets(user.client, assets_to_send)
 
@@ -73,7 +73,7 @@
 				"type" = "[D]"
 			))
 			CHECK_TICK
-		sortTim(disguise_choices, GLOBAL_PROC_REF(cmp_list_name_asc))
+		sortTim(disguise_choices, GLOBAL_PROC_REF(cmp_list_type_asc))
 		.["chameleon_items"] += list(list(
 			"name" = item_name,
 			"slot" = slot_name,
@@ -84,7 +84,7 @@
 			"current_disguise" = "[chameleon.current_disguise]"
 		))
 		CHECK_TICK
-	sortTim(.["chameleon_items"], GLOBAL_PROC_REF(cmp_list_name_asc))
+	sortTim(.["chameleon_items"], GLOBAL_PROC_REF(cmp_list_type_asc))
 
 /datum/action/chameleon_panel/ui_act(action, list/params)
 	if(..())
