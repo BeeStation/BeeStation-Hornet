@@ -100,8 +100,7 @@ const StructureArchives = (_props, _context) => {
       <Box inline textColor="red">
         <b>Shuttle Curse</b>
       </Box>
-      : A mysterious orb, that will delay the emergency shuttle whenever it is smashed.{' '}
-      <i>This can only be used a limited number of times.</i>
+      : A mysterious orb, that will delay the emergency shuttle whenever it is smashed. <i>This can only be used once.</i>
       <br />
       <Box inline textColor="red">
         <b>Veil Walker Set</b>
