@@ -83,14 +83,14 @@
 
 /datum/component/chameleon/proc/on_examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
-	if(isobserver(user) || can_use(user))
+	if(isobserver(user) || can_use(user, dist_limit = 3))
 		examine_list += "<span class='boldnotice'>It has a hidden panel, revealing a mechanism for changing its appearance!</span>"
 
-/datum/component/chameleon/proc/can_use(mob/living/user)
+/datum/component/chameleon/proc/can_use(mob/living/user, dist_limit = 0)
 	. = anyone_can_use
 	if(!istype(user))
 		return FALSE
-	if(!(parent in user.contents))
+	if((!dist_limit && !(parent in user.contents)) || (dist_limit && get_dist(user, parent) > dist_limit))
 		return FALSE
 	if(HAS_TRAIT(user, TRAIT_CHAMELEON_USER) || HAS_TRAIT(user?.mind, TRAIT_CHAMELEON_USER))
 		return TRUE
