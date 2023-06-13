@@ -60,7 +60,8 @@ export const NtosJobManagerContent = (props, context) => {
                 onClick={() =>
                   act('PRG_open_job', {
                     target: slot.title,
-                  })}
+                  })
+                }
               />
               <Button
                 content="Close"
@@ -68,7 +69,8 @@ export const NtosJobManagerContent = (props, context) => {
                 onClick={() =>
                   act('PRG_close_job', {
                     target: slot.title,
-                  })}
+                  })
+                }
               />
             </Table.Cell>
           </Table.Row>
