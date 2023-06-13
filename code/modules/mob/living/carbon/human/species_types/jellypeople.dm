@@ -567,6 +567,19 @@ GLOBAL_LIST_EMPTY(slime_linked_with)
 		if(mind_target.current)
 			UnregisterSignal(mind_target.current, list(COMSIG_MOB_LOGIN, COMSIG_MOB_DEATH))
 
+/datum/species/oozeling/stargazer/proc/validate_mind(datum/mind/mind, silent = FALSE)
+	. = TRUE
+	if(QDELETED(mind) || QDELETED(mind.current) || mind.current.stat == DEAD)
+		return FALSE
+	if(istype(mind.current.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		if(!silent)
+			var/mob/living/carbon/human/owner = slimelink_owner.resolve()
+			if(owner)
+				to_chat(mind.current, "<span class='danger'>[owner.real_name]'s no-good syndicate mind-slime is blocked by your protective headgear!</span>")
+		return FALSE
+	if(HAS_TRAIT_NOT_FROM(mind.current, TRAIT_MINDSHIELD, "nanites")) //mindshield implant, no dice
+		return FALSE
+
 /datum/species/oozeling/stargazer/proc/link_death(mob/living/source_mob)
 	SIGNAL_HANDLER
 	if(!source_mob.mind || !(source_mob.mind in linked_minds))
@@ -590,15 +603,9 @@ GLOBAL_LIST_EMPTY(slime_linked_with)
 	slimelink_owner = WEAKREF(C)
 
 /datum/species/oozeling/stargazer/proc/link_mind(datum/mind/mind)
-	if(QDELETED(mind) || QDELETED(mind.current) || mind.current.stat == DEAD)
-		return FALSE
-	if(HAS_TRAIT(mind.current, TRAIT_MINDSHIELD)) //mindshield implant, no dice
+	if(!validate_mind(mind))
 		return FALSE
 	var/mob/living/carbon/human/owner = slimelink_owner.resolve()
-	if(istype(mind.current.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
-		if(owner)
-			to_chat(mind.current, "<span class='danger'>[owner.real_name]'s no-good syndicate mind-slime is blocked by your protective headgear!</span>")
-		return FALSE
 	if(mind in linked_minds)
 		return FALSE
 	if(!owner)
@@ -649,7 +656,7 @@ GLOBAL_LIST_EMPTY(slime_linked_with)
 		targets += link_owner.mind
 	for(var/M in targets)
 		var/datum/mind/linked_mind = M
-		if(QDELETED(linked_mind) || QDELETED(linked_mind.current) || linked_mind.current.stat == DEAD)
+		if(!validate_mind(linked_mind, silent = TRUE))
 			unlink_mind(linked_mind)
 			continue
 		to_chat(linked_mind.current, msg)
