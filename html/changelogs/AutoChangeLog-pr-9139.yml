@@ -1,0 +1,9 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Fixed admin player panel bluescreening/runtiming when closed.
+  - tweak: Metabalance is now cached on the player's client datum to reduce database
+      use.
+  - bugfix: You can now purchase items that cost exactly your metabalance.
+  - tweak: Antag token count is now cached on the player's client datum to reduce
+      database use.
