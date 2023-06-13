@@ -436,9 +436,11 @@
 /datum/asset/spritesheet/crafting/create_spritesheets()
 	var/chached_list = list()
 	for(var/datum/crafting_recipe/R in GLOB.crafting_recipes)
+		if(!R.name)
+			continue
 		var/atom/A = R.result
 		if(!ispath(A, /atom))
-			stack_trace("[A] is not atom. This is because our crafting system is not up-to-date to TG's.")
+			stack_trace("The recipe '[R.type]' has '[A]' which is not atom. This is because our crafting system is not up-to-date to TG's.")
 			continue
 		if(chached_list[A]) // this prevents an icon to be inserted again
 			continue
@@ -452,7 +454,7 @@
 		if(icon_state in icon_states_list)
 			I = icon(icon_file, icon_state, SOUTH)
 			var/c = initial(A.color)
-			if (!isnull(c) && c != "#FFFFFF")
+			if (!isnull(c) && c != "#FFFFFF") // there're colourful burgers...
 				I.Blend(c, ICON_MULTIPLY)
 		else // Failed to find an icon: build an error message
 			var/icon_states_string
