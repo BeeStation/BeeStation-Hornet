@@ -37,7 +37,7 @@
 	playsound(src, 'sound/machines/click.ogg', 50)
 	if(occupant)
 		to_chat(occupant, "<span class='notice'>You enter [src]</span>")
-		addtimer(CALLBACK(src, .proc/begin_conversion), 20, TIMER_OVERRIDE|TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(begin_conversion)), 20, TIMER_OVERRIDE|TIMER_UNIQUE)
 		update_icon()
 
 /obj/machinery/species_converter/open_machine(mob/user)
@@ -99,7 +99,7 @@
 		if(brainwash)
 			to_chat(C, "<span class='userdanger'>A new compulsion fills your mind... you feel forced to obey it!</span>")
 			var/objective = "Convert as many people as possible into a [initial(desired_race.name)]. Racewar!"
-			brainwash(C, objective)
+			brainwash(C, objective, "species converter")
 			log_game("[key_name(C)] has been brainwashed with the objective '[objective]' via the species converter.")
 
 	iterations++

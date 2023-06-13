@@ -9,6 +9,7 @@
 	name = "shuttle thruster"
 	desc = "A thruster for shuttles."
 	density = TRUE
+	obj_flags = CAN_BE_HIT | BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 	obj_integrity = 250
 	max_integrity = 250
 	icon = 'icons/turf/shuttle.dmi'

@@ -16,15 +16,60 @@
 	var/list/fields = list()
 
 /datum/data/record/Destroy()
-	if(src in GLOB.data_core.medical)
-		GLOB.data_core.medical -= src
-	if(src in GLOB.data_core.security)
-		GLOB.data_core.security -= src
-	if(src in GLOB.data_core.general)
-		GLOB.data_core.general -= src
-	if(src in GLOB.data_core.locked)
-		GLOB.data_core.locked -= src
+	GLOB.data_core.medical -= src
+	GLOB.data_core.security -= src
+	GLOB.data_core.general -= src
+	GLOB.data_core.locked -= src
 	. = ..()
+
+/// A helper proc to get the front photo of a character from the record.
+/// Handles calling `get_photo()`, read its documentation for more information.
+/datum/data/record/proc/get_front_photo()
+	return get_photo("photo_front", SOUTH)
+
+/// A helper proc to get the side photo of a character from the record.
+/// Handles calling `get_photo()`, read its documentation for more information.
+/datum/data/record/proc/get_side_photo()
+	return get_photo("photo_side", WEST)
+
+/**
+ * You shouldn't be calling this directly, use `get_front_photo()` or `get_side_photo()`
+ * instead.
+ *
+ * This is the proc that handles either fetching (if it was already generated before) or
+ * generating (if it wasn't) the specified photo from the specified record. This is only
+ * intended to be used by records that used to try to access `fields["photo_front"]` or
+ * `fields["photo_side"]`, and will return an empty icon if there isn't any of the necessary
+ * fields.
+ *
+ * Arguments:
+ * * field_name - The name of the key in the `fields` list, of the record itself.
+ * * orientation - The direction in which you want the character appearance to be rotated
+ * in the outputed photo.
+ *
+ * Returns an empty `/icon` if there was no `character_appearance` entry in the `fields` list,
+ * returns the generated/cached photo otherwise.
+ */
+/datum/data/record/proc/get_photo(field_name, orientation)
+	if(fields[field_name])
+		return fields[field_name]
+
+	if(!fields["character_appearance"])
+		return new /icon()
+
+	var/mutable_appearance/character_appearance = fields["character_appearance"]
+	character_appearance.setDir(orientation)
+
+	var/icon/picture_image = getFlatIcon(character_appearance)
+
+	var/datum/picture/picture = new
+	picture.picture_name = "[fields["name"]]"
+	picture.picture_desc = "This is [fields["name"]]."
+	picture.picture_image = picture_image
+
+	var/obj/item/photo/photo = new(null, picture)
+	fields[field_name] = photo
+	return photo
 
 /datum/data/crime
 	name = "crime"
@@ -130,7 +175,7 @@
 		if(N.new_character)
 			log_manifest(N.ckey,N.new_character.mind,N.new_character)
 		if(ishuman(N.new_character))
-			manifest_inject(N.new_character, N.client)
+			manifest_inject(N.new_character)
 		CHECK_TICK
 
 /datum/datacore/proc/manifest_modify(name, assignment, hudstate)
@@ -210,7 +255,7 @@
 	return dat
 
 
-/datum/datacore/proc/manifest_inject(mob/living/carbon/human/H, client/C)
+/datum/datacore/proc/manifest_inject(mob/living/carbon/human/H)
 	set waitfor = FALSE
 	var/static/list/show_directions = list(SOUTH, WEST)
 	if(H.mind && (H.mind.assigned_role != H.mind.special_role))
@@ -224,19 +269,9 @@
 
 		var/static/record_id_num = 1001
 		var/id = num2hex(record_id_num++,6)
-		if(!C)
-			C = H.client
-		var/image = get_id_photo(H, C, show_directions)
-		var/datum/picture/pf = new
-		var/datum/picture/ps = new
-		pf.picture_name = "[H]"
-		ps.picture_name = "[H]"
-		pf.picture_desc = "This is [H]."
-		ps.picture_desc = "This is [H]."
-		pf.picture_image = icon(image, dir = SOUTH)
-		ps.picture_image = icon(image, dir = WEST)
-		var/obj/item/photo/photo_front = new(null, pf)
-		var/obj/item/photo/photo_side = new(null, ps)
+		// We need to compile the overlays now, otherwise we're basically copying an empty icon.
+		COMPILE_OVERLAYS(H)
+		var/mutable_appearance/character_appearance = new(H.appearance)
 
 		//These records should ~really~ be merged or something
 		//General Record
@@ -251,9 +286,12 @@
 		G.fields["fingerprint"]	= rustg_hash_string(RUSTG_HASH_MD5, H.dna.uni_identity)
 		G.fields["p_stat"]		= "Active"
 		G.fields["m_stat"]		= "Stable"
-		G.fields["sex"]			= H.gender
-		G.fields["photo_front"]	= photo_front
-		G.fields["photo_side"]	= photo_side
+		switch(H.gender)
+			if(MALE, FEMALE)
+				G.fields["gender"] = capitalize(H.gender)
+			if(PLURAL)
+				G.fields["gender"] = "Other"
+		G.fields["character_appearance"] = character_appearance
 		general += G
 
 		//Medical Record
@@ -289,22 +327,65 @@
 		L.fields["name"]		= H.real_name
 		L.fields["rank"] 		= H.mind.assigned_role
 		L.fields["age"]			= H.age
-		L.fields["sex"]			= H.gender
+		switch(H.gender)
+			if(MALE, FEMALE)
+				L.fields["gender"] = capitalize(H.gender)
+			if(PLURAL)
+				L.fields["gender"] = "Other"
 		L.fields["blood_type"]	= H.dna.blood_type
 		L.fields["b_dna"]		= H.dna.unique_enzymes
 		L.fields["identity"]	= H.dna.uni_identity
 		L.fields["species"]		= H.dna.species.type
 		L.fields["features"]	= H.dna.features
-		L.fields["image"]		= image
+		L.fields["character_appearance"] = character_appearance
 		L.fields["mindref"]		= H.mind
 		locked += L
 	return
 
-/datum/datacore/proc/get_id_photo(mob/living/carbon/human/H, client/C, show_directions = list(SOUTH))
-	var/datum/job/J = SSjob.GetJob(H.mind.assigned_role)
-	var/datum/character_save/CS
-	if(!C)
-		C = H.client
-	if(C)
-		CS = C.prefs.active_character
-	return get_flat_human_icon(null, J, CS, DUMMY_HUMAN_SLOT_MANIFEST, show_directions)
+/**
+ * Supporing proc for getting general records
+ * and using them as pAI ui data. This gets
+ * medical information - or what I would deem
+ * medical information - and sends it as a list.
+ *
+ * @return - list(general_records_out)
+ */
+/datum/datacore/proc/get_general_records()
+	if(!GLOB.data_core.general)
+		return list()
+	/// The array of records
+	var/list/general_records_out = list()
+	for(var/datum/data/record/gen_record as anything in GLOB.data_core.general)
+		/// The object containing the crew info
+		var/list/crew_record = list()
+		crew_record["ref"] = REF(gen_record)
+		crew_record["name"] = gen_record.fields["name"]
+		crew_record["physical_health"] = gen_record.fields["p_stat"]
+		crew_record["mental_health"] = gen_record.fields["m_stat"]
+		general_records_out += list(crew_record)
+	return general_records_out
+
+/**
+ * Supporing proc for getting secrurity records
+ * and using them as pAI ui data. Sends it as a
+ * list.
+ *
+ * @return - list(security_records_out)
+ */
+/datum/datacore/proc/get_security_records()
+	if(!GLOB.data_core.security)
+		return list()
+	/// The array of records
+	var/list/security_records_out = list()
+	for(var/datum/data/record/sec_record as anything in GLOB.data_core.security)
+		/// The object containing the crew info
+		var/list/crew_record = list()
+		crew_record["ref"] = REF(sec_record)
+		crew_record["name"] = sec_record.fields["name"]
+		crew_record["status"] = sec_record.fields["criminal"] // wanted status
+		crew_record["crimes"] = length(sec_record.fields["crim"])
+		security_records_out += list(crew_record)
+	return security_records_out
+
+/datum/datacore/proc/get_id_photo(mob/living/carbon/human/human, show_directions = list(SOUTH))
+	return get_flat_existing_human_icon(human, show_directions)

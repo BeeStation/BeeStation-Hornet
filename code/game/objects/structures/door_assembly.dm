@@ -5,6 +5,7 @@
 	var/overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 	anchored = FALSE
 	density = TRUE
+	obj_flags = CAN_BE_HIT | BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 	max_integrity = 200
 	var/state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
 	var/base_name = "airlock"
@@ -266,7 +267,7 @@
 				//door.req_access = req_access
 				door.electronics = electronics
 				door.heat_proof = heat_proof_finished
-				door.security_level = 0
+				door.security_level = AIRLOCK_SECURITY_NONE
 				if(electronics.one_access)
 					door.req_one_access = electronics.accesses
 				else

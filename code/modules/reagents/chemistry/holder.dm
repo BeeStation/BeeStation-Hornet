@@ -935,20 +935,18 @@
 		CHEMICAL_RNG_GENERAL,   // (1<<3)
 		CHEMICAL_RNG_FUN,       // (1<<4)
 		CHEMICAL_RNG_BOTANY,    // (1<<5)
-		CHEMICAL_GOAL_CHEMIST_DRUG,         // (1<<23) - goal_define starts at 23 and goes reversed.
-		CHEMICAL_GOAL_CHEMIST_BLOODSTREAM,  // (1<<22)
-		CHEMICAL_GOAL_BOTANIST_HARVEST,     // (1<<21)
-		CHEMICAL_GOAL_BARTENDER_SERVING)    // (1<<20)
+		CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE,         // (1<<23) - goal_define starts at 23 and goes reversed.
+		CHEMICAL_GOAL_BOTANIST_HARVEST,     // (1<<22)
+		CHEMICAL_GOAL_BARTENDER_SERVING)    // (1<<21)
 	var/static/list/random_reagents_a = list()  // CHEMICAL_NOT_SYNTH
 	var/static/list/random_reagents_b = list()  // CHEMICAL_BASIC_ELEMENT
 	var/static/list/random_reagents_c = list()  // CHEMICAL_BASIC_DRINK
 	var/static/list/random_reagents_d = list()  // CHEMICAL_RNG_GENERAL
 	var/static/list/random_reagents_e = list()  // CHEMICAL_RNG_FUN
 	var/static/list/random_reagents_f = list()  // CHEMICAL_RNG_BOTANY
-	var/static/list/random_reagents_goal_a = list()  // CHEMICAL_GOAL_CHEMIST_DRUG
-	var/static/list/random_reagents_goal_b = list()  // CHEMICAL_GOAL_CHEMIST_BLOODSTREAM
-	var/static/list/random_reagents_goal_c = list()  // CHEMICAL_GOAL_BOTANIST_HARVEST
-	var/static/list/random_reagents_goal_d = list()  // CHEMICAL_GOAL_BARTENDER_SERVING
+	var/static/list/random_reagents_goal_a = list()  // CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
+	var/static/list/random_reagents_goal_b = list()  // CHEMICAL_GOAL_BOTANIST_HARVEST
+	var/static/list/random_reagents_goal_c = list()  // CHEMICAL_GOAL_BARTENDER_SERVING
 	var/static/list/random_reagent = list(
 		random_reagents_a,
 		random_reagents_b,
@@ -958,8 +956,7 @@
 		random_reagents_f,
 		random_reagents_goal_a,
 		random_reagents_goal_b,
-		random_reagents_goal_c,
-		random_reagents_goal_d)
+		random_reagents_goal_c)
 	// ----above is a section you might want to edit for more chem RNGs----
 
 	// initialize random reagent static lists

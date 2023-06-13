@@ -223,7 +223,7 @@
 			return
 		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
-		if(!SSticker.is_mode("dynamic"))
+		if(!istype(SSticker.mode, /datum/game_mode/dynamic))
 			return alert(usr, "The game mode has to be dynamic mode.", null, null, null, null)
 		var/roundstart_rules = list()
 		for (var/rule in subtypesof(/datum/dynamic_ruleset/roundstart))
@@ -258,7 +258,7 @@
 			return
 		if(!SSticker || !SSticker.mode)
 			return alert(usr, "The game must start first.", null, null, null, null)
-		if(!SSticker.is_mode("dynamic"))
+		if(!istype(SSticker.mode, /datum/game_mode/dynamic))
 			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
 		var/latejoin_rules = list()
 		var/datum/game_mode/dynamic/mode = SSticker.mode
@@ -288,7 +288,7 @@
 			return
 		if(!SSticker || !SSticker.mode)
 			return alert(usr, "The game must start first.", null, null, null, null)
-		if(!SSticker.is_mode("dynamic"))
+		if(!istype(SSticker.mode, /datum/game_mode/dynamic))
 			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
 		var/midround_rules = list()
 		var/datum/game_mode/dynamic/mode = SSticker.mode
@@ -308,7 +308,7 @@
 
 		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
-		if(!SSticker.is_mode("dynamic"))
+		if(!istype(SSticker.mode, /datum/game_mode/dynamic))
 			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
 
 		dynamic_mode_options(usr)
@@ -317,7 +317,7 @@
 		if(!check_rights(R_ADMIN))
 			return
 
-		if(!SSticker.is_mode("dynamic"))
+		if(!istype(SSticker.mode, /datum/game_mode/dynamic))
 			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
 
 		GLOB.dynamic_forced_extended = !GLOB.dynamic_forced_extended
@@ -329,7 +329,7 @@
 		if(!check_rights(R_ADMIN))
 			return
 
-		if(!SSticker.is_mode("dynamic"))
+		if(!istype(SSticker.mode, /datum/game_mode/dynamic))
 			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
 
 		GLOB.dynamic_no_stacking = !GLOB.dynamic_no_stacking
@@ -341,7 +341,7 @@
 		if(!check_rights(R_ADMIN))
 			return
 
-		if(!SSticker.is_mode("dynamic"))
+		if(!istype(SSticker.mode, /datum/game_mode/dynamic))
 			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
 
 		GLOB.dynamic_stacking_limit = input(usr,"Change the threat limit at which round-endings rulesets will start to stack.", "Change stacking limit", null) as num
@@ -356,7 +356,7 @@
 		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
 
-		if(!SSticker.is_mode("dynamic"))
+		if(!istype(SSticker.mode, /datum/game_mode/dynamic))
 			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
 
 		var/new_value = input(usr, "Enter the forced threat level for dynamic mode.", "Forced threat level") as num
@@ -1702,10 +1702,9 @@
 		if(!check_rights(R_ADMIN))
 			return
 		var/confirm = alert("Are you sure you want to reboot the server?", "Confirm Reboot", "Yes", "No")
-		if(confirm == "No")
+		if(confirm != "Yes")
 			return
-		if(confirm == "Yes")
-			restart()
+		restart()
 
 	else if(href_list["check_teams"])
 		if(!check_rights(R_ADMIN))
@@ -1843,6 +1842,7 @@
 
 	else if(href_list["reloadpolls"])
 		GLOB.polls.Cut()
+		GLOB.active_polls.Cut()
 		GLOB.poll_options.Cut()
 		load_poll_data()
 		poll_list_panel()
@@ -1858,6 +1858,11 @@
 		var/datum/poll_question/poll = locate(href_list["deletepoll"]) in GLOB.polls
 		poll.delete_poll()
 		poll_list_panel()
+
+	else if(href_list["resultspoll"])
+		var/datum/poll_question/poll = locate(href_list["resultspoll"]) in GLOB.polls
+		var/start_index = text2num(href_list["startat"]) || 0
+		poll_results_panel(poll, start_index)
 
 	else if(href_list["initializepoll"])
 		poll_parse_href(href_list)
@@ -1901,6 +1906,16 @@
 		if(!check_rights(R_ADMIN))
 			return
 		GLOB.interviews.ui_interact(usr)
+
+	else if(href_list["backstory_select"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/list/L = locate(href_list["backstory_select"])
+		var/choice = input(usr, "Select backstory to use", "Select backstory") as null|anything in L
+		if(choice != null)
+			GLOB.fugitive_backstory_selection = list(choice)
+			message_admins("[key_name_admin(usr)] selected backstory: [choice]")
+			log_admin("[key_name(usr)] selected backstory: [choice]")
 
 /datum/admins/proc/HandleCMode()
 	if(!check_rights(R_ADMIN))

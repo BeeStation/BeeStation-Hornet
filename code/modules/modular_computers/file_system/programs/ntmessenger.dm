@@ -67,11 +67,11 @@
 
 	var/sortmode
 	if(sort_by_job)
-		sortmode = /proc/cmp_pdajob_asc
+		sortmode = GLOBAL_PROC_REF(cmp_pdajob_asc)
 	else
-		sortmode = /proc/cmp_pdaname_asc
+		sortmode = GLOBAL_PROC_REF(cmp_pdaname_asc)
 
-	for(var/obj/item/modular_computer/P in sortList(GLOB.TabletMessengers, sortmode))
+	for(var/obj/item/modular_computer/P in sort_list(GLOB.TabletMessengers, sortmode))
 		var/obj/item/computer_hardware/hard_drive/drive = P.all_components[MC_HDD]
 		if(!drive)
 			continue
@@ -91,11 +91,6 @@
 		var/deter_path = "tmp_msg_photo[rand(0, 99999)].png"
 		usr << browse_rsc(img, deter_path) // funny random assignment for now, i'll make an actual key later
 		photo_path = deter_path
-
-/datum/computer_file/program/messenger/ui_state(mob/user)
-	if(istype(user, /mob/living/silicon))
-		return GLOB.reverse_contained_state
-	return GLOB.default_state
 
 /datum/computer_file/program/messenger/ui_assets(mob/user)
 	return list(
@@ -117,15 +112,14 @@
 			var/mob/living/usr_mob = usr
 			if(!in_range(computer, usr_mob) || computer.loc != usr_mob)
 				return
-			var/t = stripped_input(usr, "Enter a new ringtone", "Ringtone", "", 20)
-			if(!t)
+			var/new_ringtone = stripped_input(usr, "Enter a new ringtone", "Ringtone", ringtone, 20)
+			if(!new_ringtone)
 				return
-			if(SEND_SIGNAL(computer, COMSIG_TABLET_CHANGE_RINGTONE, usr_mob, t) & COMPONENT_STOP_RINGTONE_CHANGE)
+			if(SEND_SIGNAL(computer, COMSIG_TABLET_CHANGE_RINGTONE, usr_mob, new_ringtone) & COMPONENT_STOP_RINGTONE_CHANGE)
 				ui.close(can_be_suspended = FALSE)
 				return
-			else
-				ringtone = t
-				return TRUE
+			ringtone = new_ringtone
+			return TRUE
 		if("PDA_ringer_status")
 			ringer_status = !ringer_status
 			return TRUE
@@ -149,7 +143,7 @@
 			if(!disk?.spam_delay)
 				if(!disk)
 					return
-				log_href_exploit(usr)
+				log_href_exploit(usr, " Attempted sending PDA message to all without a disk capable of doing so: [disk].")
 				return
 
 			var/list/targets = list()
@@ -214,7 +208,7 @@
 			return TRUE
 
 /datum/computer_file/program/messenger/ui_data(mob/user)
-	var/list/data = get_header_data()
+	var/list/data = list()
 
 	var/obj/item/computer_hardware/hard_drive/role/disk = computer.all_components[MC_HDD_JOB]
 
@@ -223,7 +217,7 @@
 	for(var/list/message as() in messages)
 		var/datum/picture/pic = message["photo_obj"]
 		if(!message["photo"] && istype(pic))
-			message["photo"] = rsc_image(pic, message["ref"], user)
+			message["photo"] = pda_rsc_image(pic, message["ref"], user)
 			message["photo_width"] = pic.psize_x
 			message["photo_height"] = pic.psize_y
 	data["messages"] = messages
@@ -242,7 +236,7 @@
 
 	return data
 
-/datum/computer_file/program/messenger/proc/rsc_image(datum/picture/photo, ref, user)
+/proc/pda_rsc_image(datum/picture/photo, ref, user)
 	if(!istype(photo) || !photo.picture_image)
 		return
 	var/path = "pda_img[ref].png"
@@ -257,24 +251,28 @@
 
 // Gets the input for a message being sent.
 
-/datum/computer_file/program/messenger/proc/msg_input(mob/living/U = usr)
-	var/t = null
+/datum/computer_file/program/messenger/proc/msg_input(mob/living/user = usr, target_name = null)
+	var/message = null
 
 	if(mime_mode)
-		t = emoji_sanitize(tgui_input_emoji(U, "NT Messaging"))
+		message = emoji_sanitize(tgui_input_emoji(user, "NT Messaging"))
 	else
-		t = stripped_input(U, "Enter a message", "NT Messaging")
+		message = tgui_input_text(user, "Enter a message", "NT Messaging[target_name ? " ([target_name])" : ""]")
 
-	if (!t || !sending_and_receiving)
+	if (!message || !sending_and_receiving)
 		return
-	if(!U.canUseTopic(computer, BE_CLOSE))
+	if(!user.canUseTopic(computer, BE_CLOSE))
 		return
-	return sanitize(t)
+	return sanitize(message)
 
 /datum/computer_file/program/messenger/proc/send_message(mob/living/user, list/obj/item/modular_computer/targets, everyone = FALSE, fake_name = null, fake_job = null, multi_delay = 0)
-	var/message = msg_input(user)
-	if(!message || !targets.len)
+	if(!targets.len)
 		return FALSE
+	var/target_name = length(targets) == 1 ? targets[1].saved_identification : "Everyone"
+	var/message = msg_input(user, target_name)
+	if(!message)
+		return FALSE
+	// notifying is done somewhere else, this is just a sanity check
 	if((last_text && world.time < last_text + 10) || (everyone && last_text_everyone && world.time < (last_text_everyone + PDA_SPAM_DELAY * multi_delay)))
 		return FALSE
 	if(prob(1))

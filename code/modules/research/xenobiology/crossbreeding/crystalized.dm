@@ -9,15 +9,19 @@
 /obj/item/slimecross/crystalline/attack_self(mob/user)
 	. = ..()
 
-	var/obj/structure/slime_crystal/C = locate(/obj/structure/slime_crystal) in range(6,get_turf(user))
-
-	if(C)
+	// Check before the progress bar so they don't wait for nothing
+	if(locate(/obj/structure/slime_crystal) in range(6,get_turf(user)))
 		to_chat(user,"<span class='notice'>You can't build crystals that close to each other!</span>")
 		return
 
 	var/user_turf = get_turf(user)
 
-	if(!do_after(user,15 SECONDS,FALSE,user_turf))
+	if(!do_after(user, 15 SECONDS, src))
+		return
+
+	// check after in case someone placed a crystal in the meantime (im watching you aramix)
+	if(locate(/obj/structure/slime_crystal) in range(6,get_turf(user)))
+		to_chat(user,"<span class='notice'>You can't build crystals that close to each other!</span>")
 		return
 
 	new crystal_type(user_turf)
@@ -30,6 +34,7 @@
 /obj/item/slimecross/crystalline/orange
 	crystal_type = /obj/structure/slime_crystal/orange
 	colour = "orange"
+	dangerous = TRUE
 
 /obj/item/slimecross/crystalline/purple
 	crystal_type = /obj/structure/slime_crystal/purple
@@ -82,6 +87,7 @@
 /obj/item/slimecross/crystalline/green
 	crystal_type = /obj/structure/slime_crystal/green
 	colour = "green"
+	dangerous = TRUE
 
 /obj/item/slimecross/crystalline/pink
 	crystal_type = /obj/structure/slime_crystal/pink

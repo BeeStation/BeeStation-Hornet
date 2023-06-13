@@ -76,8 +76,8 @@
 
 /datum/antagonist/overthrow/get_admin_commands()
 	. = ..()
-	.["Give storage with random item"] = CALLBACK(src,.proc/equip_overthrow)
-	.["Give overthrow boss equip"] = CALLBACK(src,.proc/equip_initial_overthrow_agent)
+	.["Give storage with random item"] = CALLBACK(src,PROC_REF(equip_overthrow))
+	.["Give overthrow boss equip"] = CALLBACK(src,PROC_REF(equip_initial_overthrow_agent))
 
 // Dynamically creates the HUD for the team if it doesn't exist already, inserting it into the global huds list, and assigns it to the user. The index is saved into a var owned by the team datum.
 /datum/antagonist/overthrow/proc/update_overthrow_icons_added(datum/mind/traitor_mind)

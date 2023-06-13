@@ -11,7 +11,6 @@ GLOBAL_LIST(admin_antag_list)
 	var/silent = FALSE							//Silent will prevent the gain/lose texts to show
 	var/can_coexist_with_others = TRUE			//Whether or not the person will be able to have more than one datum
 	var/list/typecache_datum_blacklist = list()	//List of datums this type can't coexist with
-	var/delete_on_mind_deletion = TRUE
 	var/job_rank
 	var/give_objectives = TRUE //Should the default objectives be generated?
 	var/replace_banned = TRUE //Should replace jobbanned player with ghosts if granted.
@@ -19,6 +18,7 @@ GLOBAL_LIST(admin_antag_list)
 	var/delay_roundend = TRUE
 	var/antag_memory = ""//These will be removed with antag datum
 	var/antag_moodlet //typepath of moodlet that the mob will gain with their status
+	var/ui_name = "AntagInfo"
 
 	var/can_elimination_hijack = ELIMINATION_NEUTRAL //If these antags are alone when a shuttle elimination happens.
 	/// If above 0, this is the multiplier for the speed at which we hijack the shuttle. Do not directly read, use hijack_speed().
@@ -151,6 +151,10 @@ GLOBAL_LIST(admin_antag_list)
 /datum/antagonist/proc/farewell()
 	return
 
+/// gets antag name for orbit category. Reasoning is described in each subtype
+/datum/antagonist/proc/get_antag_name()
+	return name
+
 /datum/antagonist/proc/give_antag_moodies()
 	if(!antag_moodlet)
 		return
@@ -197,6 +201,37 @@ GLOBAL_LIST(admin_antag_list)
 /datum/antagonist/proc/roundend_report_footer()
 	return
 
+///ANTAGONIST UI STUFF
+
+/datum/antagonist/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, ui_name, name)
+		ui.open()
+
+/datum/antagonist/ui_state(mob/user)
+	return GLOB.always_state
+
+///generic helper to send objectives as data through tgui.
+/datum/antagonist/proc/get_objectives()
+	var/objective_count = 1
+	var/list/objective_data = list()
+	//all obj
+	for(var/datum/objective/objective in objectives)
+		objective_data += list(list(
+			"count" = objective_count,
+			"name" = objective.name,
+			"explanation" = objective.explanation_text,
+			"complete" = objective.completed,
+		))
+		objective_count++
+	return objective_data
+
+/datum/antagonist/ui_static_data(mob/user)
+	var/list/data = list()
+	data["antag_name"] = name
+	data["objectives"] = get_objectives()
+	return data
 
 //ADMIN TOOLS
 

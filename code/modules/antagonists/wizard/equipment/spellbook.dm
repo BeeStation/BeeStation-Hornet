@@ -1,5 +1,3 @@
-#define WIZARD_WILDMAGIC_SPELLPOINT_MULTIPLIER 1.7
-
 /datum/spellbook_entry
 	var/name = "Entry Name"
 
@@ -12,20 +10,21 @@
 	var/obj/effect/proc_holder/spell/S = null //Since spellbooks can be used by only one person anyway we can track the actual spell
 	var/buy_word = "Learn"
 	var/limit //used to prevent a spellbook_entry from being bought more than X times with one wizard spellbook
-	var/list/no_coexistance_typecache //Used so you can't have specific spells together
+	var/list/no_coexistence_typecache //Used so you can't have specific spells together
+	var/no_random = FALSE // This is awful one to be a part of randomness - i.e.) soul tap
 
 /datum/spellbook_entry/New()
 	..()
-	no_coexistance_typecache = typecacheof(no_coexistance_typecache)
+	no_coexistence_typecache = typecacheof(no_coexistence_typecache)
 
-/datum/spellbook_entry/proc/IsAvailable() // For config prefs / gamemode restrictions - these are round applied
+/datum/spellbook_entry/proc/IsAvailable(obj/item/spellbook/book) // For config prefs / gamemode restrictions - these are round applied
 	return TRUE
 
 /datum/spellbook_entry/proc/CanBuy(mob/living/carbon/human/user,obj/item/spellbook/book) // Specific circumstances
 	if(book.uses<cost || limit == 0)
 		return FALSE
 	for(var/spell in user.mind.spell_list)
-		if(is_type_in_typecache(spell, no_coexistance_typecache))
+		if(is_type_in_typecache(spell, no_coexistence_typecache) && !book.bypass_lock)
 			return FALSE
 	return TRUE
 
@@ -61,8 +60,14 @@
 					to_chat(user, "<span class='notice'>This spell cannot be strengthened any further.</span>")
 				SSblackbox.record_feedback("nested tally", "wizard_spell_improved", 1, list("[name]", "[aspell.spell_level]"))
 				return TRUE
+	//debug handling
+	if(book.everything_robeless)
+		SSblackbox.record_feedback("tally", "debug_wizard_spell_learned", 1, name)
+		S.clothes_req = FALSE // You'd want no cloth req if you learned spells from a debug spellbook
+	else
+		SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
+
 	//No same spell found - just learn it
-	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
 	user.mind.AddSpell(S)
 	to_chat(user, "<span class='notice'>You have learned [S.name].</span>")
 	return TRUE
@@ -209,6 +214,7 @@
 	spell_type = /obj/effect/proc_holder/spell/targeted/lichdom
 	category = "Defensive"
 	cost = 3
+	no_random = WIZARD_NORANDOM_WILDAPPRENTICE
 
 /datum/spellbook_entry/teslablast
 	name = "Tesla Blast"
@@ -226,12 +232,12 @@
 	name = "Lesser Summon Guns"
 	spell_type = /obj/effect/proc_holder/spell/targeted/infinite_guns/gun
 	cost = 3
-	no_coexistance_typecache = /obj/effect/proc_holder/spell/targeted/infinite_guns/arcane_barrage
+	no_coexistence_typecache = /obj/effect/proc_holder/spell/targeted/infinite_guns/arcane_barrage
 
 /datum/spellbook_entry/arcane_barrage
 	name = "Arcane Barrage"
 	spell_type = /obj/effect/proc_holder/spell/targeted/infinite_guns/arcane_barrage
-	no_coexistance_typecache = /obj/effect/proc_holder/spell/targeted/infinite_guns/gun
+	no_coexistence_typecache = /obj/effect/proc_holder/spell/targeted/infinite_guns/gun
 
 /datum/spellbook_entry/barnyard
 	name = "Barnyard Curse"
@@ -254,6 +260,7 @@
 	spell_type = /obj/effect/proc_holder/spell/self/tap
 	category = "Assistance"
 	cost = 1
+	no_random = WIZARD_NORANDOM_WILDAPPRENTICE
 
 /datum/spellbook_entry/spacetime_dist
 	name = "Spacetime Distortion"
@@ -417,7 +424,7 @@
 /datum/spellbook_entry/item/mjolnir
 	name = "Mjolnir"
 	desc = "A mighty hammer on loan from Thor, God of Thunder. It crackles with barely contained power."
-	item_path = /obj/item/mjollnir
+	item_path = /obj/item/mjolnir
 
 /datum/spellbook_entry/item/singularity_hammer
 	name = "Singularity Hammer"
@@ -495,9 +502,11 @@
 	desc = "Nothing could possibly go wrong with arming a crew of lunatics just itching for an excuse to kill you. There is a good chance that they will shoot each other first."
 	ritual_invocation = "ALADAL DESINARI ODORI'IN DOL'G FLAM OVOR'E POR"
 
-/datum/spellbook_entry/summon/guns/IsAvailable()
+/datum/spellbook_entry/summon/guns/IsAvailable(obj/item/spellbook/book)
 	if(!SSticker.mode) // In case spellbook is placed on map
 		return FALSE
+	if(book.bypass_lock)
+		return TRUE
 	if(istype(SSticker.mode, /datum/game_mode/dynamic)) // Disable events on dynamic
 		var/datum/game_mode/dynamic/mode = SSticker.mode
 		if(mode.threat_level < MINIMUM_THREAT_FOR_RITUALS)
@@ -518,9 +527,11 @@
 	desc = "Share the wonders of magic with the crew and show them why they aren't to be trusted with it at the same time."
 	ritual_invocation = "ALADAL DESINARI ODORI'IN IDO'LEX SPERMITA OVOR'E POR"
 
-/datum/spellbook_entry/summon/magic/IsAvailable()
+/datum/spellbook_entry/summon/magic/IsAvailable(obj/item/spellbook/book)
 	if(!SSticker.mode) // In case spellbook is placed on map
 		return FALSE
+	if(book.bypass_lock)
+		return TRUE
 	if(istype(SSticker.mode, /datum/game_mode/dynamic)) // Disable events on dynamic
 		var/datum/game_mode/dynamic/mode = SSticker.mode
 		if(mode.threat_level < MINIMUM_THREAT_FOR_RITUALS)
@@ -542,9 +553,11 @@
 	var/times = 0
 	ritual_invocation = "ALADAL DESINARI ODORI'IN IDO'LEX MANAG'ROKT OVOR'E POR"
 
-/datum/spellbook_entry/summon/events/IsAvailable()
+/datum/spellbook_entry/summon/events/IsAvailable(obj/item/spellbook/book)
 	if(!SSticker.mode) // In case spellbook is placed on map
 		return FALSE
+	if(book.bypass_lock)
+		return TRUE
 	if(istype(SSticker.mode, /datum/game_mode/dynamic)) // Disable events on dynamic
 		var/datum/game_mode/dynamic/mode = SSticker.mode
 		if(mode.threat_level < MINIMUM_THREAT_FOR_RITUALS)
@@ -627,6 +640,8 @@
 	var/mob/living/carbon/human/owner
 	var/list/datum/spellbook_entry/entries = list()
 	var/list/categories = list()
+	var/everything_robeless = FALSE //! if TRUE, all spells you learn become robeless. Ask admin.
+	var/bypass_lock = FALSE //! bypasses some locked ritual & spell combinations. Ask admin.
 
 /obj/item/spellbook/examine(mob/user)
 	. = ..()
@@ -643,7 +658,7 @@
 	var/entry_types = subtypesof(/datum/spellbook_entry) - /datum/spellbook_entry/item - /datum/spellbook_entry/summon
 	for(var/T in entry_types)
 		var/datum/spellbook_entry/E = new T
-		if(E.IsAvailable())
+		if(E.IsAvailable(src))
 			entries |= E
 			categories |= E.category
 		else
@@ -804,5 +819,3 @@
 			tab = sanitize(href_list["page"])
 	attack_self(H)
 	return
-
-#undef WIZARD_WILDMAGIC_SPELLPOINT_MULTIPLIER

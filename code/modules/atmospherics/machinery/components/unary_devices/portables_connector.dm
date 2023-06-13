@@ -7,9 +7,9 @@
 	can_unwrench = TRUE
 
 	use_power = NO_POWER_USE
-	level = 0
 	layer = GAS_FILTER_LAYER
 	shift_underlay_only = FALSE
+	hide = TRUE
 
 	pipe_flags = PIPING_ONE_PER_TURF
 	pipe_state = "connector"
@@ -59,7 +59,7 @@
 	icon_state = "connector_map-4"
 
 /obj/machinery/atmospherics/components/unary/portables_connector/visible
-	level = 2
+	hide = FALSE
 
 /obj/machinery/atmospherics/components/unary/portables_connector/visible/layer2
 	piping_layer = 2

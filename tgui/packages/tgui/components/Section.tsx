@@ -5,9 +5,10 @@
  */
 
 import { canRender, classes } from 'common/react';
-import { Component, createRef, InfernoNode, RefObject } from 'inferno';
+import { Component, createRef, RefObject } from 'inferno';
 import { addScrollableNode, removeScrollableNode } from '../events';
 import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
+import type { InfernoNode } from 'inferno';
 
 interface SectionProps extends BoxProps {
   className?: string;
@@ -20,21 +21,30 @@ interface SectionProps extends BoxProps {
   level?: boolean;
   /** @deprecated Please use `scrollable` property */
   overflowY?: any;
+  /** @member Allows external control of scrolling. */
+  scrollableRef?: RefObject<HTMLDivElement>;
+  /** @member Callback function for the `scroll` event */
+  onScroll?: (this: GlobalEventHandlers, ev: Event) => any;
 }
 
 export class Section extends Component<SectionProps> {
   scrollableRef: RefObject<HTMLDivElement>;
   scrollable: boolean;
+  onScroll?: (this: GlobalEventHandlers, ev: Event) => any;
 
   constructor(props) {
     super(props);
-    this.scrollableRef = createRef();
+    this.scrollableRef = props.scrollableRef || createRef();
     this.scrollable = props.scrollable;
+    this.onScroll = props.onScroll;
   }
 
   componentDidMount() {
     if (this.scrollable) {
       addScrollableNode(this.scrollableRef.current);
+      if (this.onScroll && this.scrollableRef.current) {
+        this.scrollableRef.current.onscroll = this.onScroll;
+      }
     }
   }
 
@@ -45,17 +55,7 @@ export class Section extends Component<SectionProps> {
   }
 
   render() {
-    const {
-      className,
-      title,
-      buttons,
-      fill,
-      fitted,
-      independent,
-      scrollable,
-      children,
-      ...rest
-    } = this.props;
+    const { className, title, buttons, fill, fitted, independent, scrollable, children, ...rest } = this.props;
     const hasTitle = canRender(title) || canRender(buttons);
     return (
       <div
@@ -72,12 +72,8 @@ export class Section extends Component<SectionProps> {
         {...computeBoxProps(rest)}>
         {hasTitle && (
           <div className="Section__title">
-            <span className="Section__titleText">
-              {title}
-            </span>
-            <div className="Section__buttons">
-              {buttons}
-            </div>
+            <span className="Section__titleText">{title}</span>
+            <div className="Section__buttons">{buttons}</div>
           </div>
         )}
         <div className="Section__rest">

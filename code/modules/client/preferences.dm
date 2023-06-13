@@ -44,7 +44,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/ghost_accs = GHOST_ACCS_DEFAULT_OPTION
 	var/ghost_others = GHOST_OTHERS_DEFAULT_OPTION
 	var/preferred_map = null
-	var/pda_style = MONO
+	var/pda_theme = THEME_NTOS
 	var/pda_color = "#808000"
 
 	// Custom Keybindings
@@ -76,6 +76,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	var/action_buttons_screen_locs = list()
 
+	var/pai_name = ""
+	var/pai_description = ""
+	var/pai_comment = ""
+
 /datum/preferences/proc/set_max_character_slots(newmax)
 	max_usable_slots = min(TRUE_MAX_SAVE_SLOTS, newmax) // Make sure they dont go over
 	check_usable_slots()
@@ -96,7 +100,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if(unlock_content)
 				set_max_character_slots(8)
 		else if(!length(key_bindings)) // Guests need default keybinds
-			key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
+			key_bindings = deep_copy_list(GLOB.keybinding_list_by_key)
 	var/loaded_preferences_successfully = load_from_database()
 	if(loaded_preferences_successfully)
 		if("6030fe461e610e2be3a2c3e75c06067e" in purchased_gear) //MD5 hash of, "extra character slot"
@@ -111,6 +115,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	//we couldn't load character data so just randomize the character appearance + name
 	active_character = character_saves[1]
+	var/fallback_default_species = CONFIG_GET(string/fallback_default_species)
+	if(!active_character.pref_species && fallback_default_species != "random")
+		var/datum/species/spath = GLOB.species_list[fallback_default_species || "human"]
+		active_character.pref_species = new spath
 	active_character.randomise()		//let's create a random character then - rather than a fat, bald and naked man.
 	active_character.real_name = active_character.pref_species.random_name(active_character.gender, TRUE)
 	if(!loaded_preferences_successfully)
@@ -125,7 +133,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	if(!user || !user.client)
 		return
 	active_character.update_preview_icon(user.client)
-	var/list/dat = list("<center>")
+	var/list/dat = list(TOOLTIP_CSS_SETUP, "<center>")
 
 	dat += "<a href='?_src_=prefs;preference=tab;tab=0' [current_tab == 0 ? "class='linkOn'" : ""]>Character Settings</a>"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=1' [current_tab == 1 ? "class='linkOn'" : ""]>Game Preferences</a>"
@@ -169,11 +177,20 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<a href='?_src_=prefs;preference=name;task=random'>Random Name</A> "
 			dat += "<a href='?_src_=prefs;preference=name'>Always Random Name: [active_character.be_random_name ? "Yes" : "No"]</a><BR>"
 
-			dat += "<b>Name:</b> "
+			dat += "<b>[TOOLTIP_CONFIG_CALLER("Name:", 400, "preferences.naming_policy")] </b>"
 			dat += "<a href='?_src_=prefs;preference=name;task=input'>[active_character.real_name]</a><BR>"
 
 			if(!(AGENDER in active_character.pref_species.species_traits))
-				dat += "<b>Gender:</b> <a href='?_src_=prefs;preference=gender'>[active_character.gender == MALE ? "Male" : "Female"]</a><BR>"
+				var/dispGender
+				if(active_character.gender == MALE)
+					dispGender = "Male"
+				else if(active_character.gender == FEMALE)
+					dispGender = "Female"
+				else
+					dispGender = "Other"
+				dat += "<b>Gender:</b> <a href='?_src_=prefs;preference=gender'>[dispGender]</a><BR>"
+				if(active_character.gender == PLURAL || active_character.gender == NEUTER)
+					dat += "<b>Body Model:</b><a href='?_src_=prefs;preference=body_model'>[active_character.features["body_model"] == MALE ? "Masculine" : "Feminine"]</a><BR>"
 			dat += "<b>Age:</b> <a href='?_src_=prefs;preference=age;task=input'>[active_character.age]</a><BR>"
 
 			dat += "<b>Special Names:</b><BR>"
@@ -488,6 +505,45 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					dat += "</td>"
 					mutant_category = 0
 
+			if("apid_antenna" in active_character.pref_species.mutant_bodyparts)
+				if(!mutant_category)
+					dat += APPEARANCE_CATEGORY_COLUMN
+
+				dat += "<h3>Antenna Style</h3>"
+
+				dat += "<a href='?_src_=prefs;preference=apid_antenna;task=input'>[active_character.features["apid_antenna"]]</a><BR>"
+
+				mutant_category++
+				if(mutant_category >= MAX_MUTANT_ROWS)
+					dat += "</td>"
+					mutant_category = 0
+
+			if("apid_stripes" in active_character.pref_species.mutant_bodyparts)
+				if(!mutant_category)
+					dat += APPEARANCE_CATEGORY_COLUMN
+
+				dat += "<h3>Stripe Pattern</h3>"
+
+				dat += "<a href='?_src_=prefs;preference=apid_stripes;task=input'>[active_character.features["apid_stripes"]]</a><BR>"
+
+				mutant_category++
+				if(mutant_category >= MAX_MUTANT_ROWS)
+					dat += "</td>"
+					mutant_category = 0
+
+			if("apid_headstripes" in active_character.pref_species.mutant_bodyparts)
+				if(!mutant_category)
+					dat += APPEARANCE_CATEGORY_COLUMN
+
+				dat += "<h3>Headstripe Pattern</h3>"
+
+				dat += "<a href='?_src_=prefs;preference=apid_headstripes;task=input'>[active_character.features["apid_headstripes"]]</a><BR>"
+
+				mutant_category++
+				if(mutant_category >= MAX_MUTANT_ROWS)
+					dat += "</td>"
+					mutant_category = 0
+
 			if("ears" in active_character.pref_species.default_features)
 				if(!mutant_category)
 					dat += APPEARANCE_CATEGORY_COLUMN
@@ -541,8 +597,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<b>UI Style:</b> <a href='?_src_=prefs;task=input;preference=ui'>[UI_style]</a><br>"
 			dat += "<b>Outline:</b> <a href='?_src_=prefs;preference=outline_enabled'>[toggles & PREFTOGGLE_OUTLINE_ENABLED ? "Enabled" : "Disabled"]</a><br>"
 			dat += "<b>Outline Color:</b> <span style='border:1px solid #161616; background-color: [outline_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=outline_color'>Change</a><BR>"
-			dat += "<b>tgui Monitors:</b> <a href='?_src_=prefs;preference=tgui_lock'>[(toggles2 & PREFTOGGLE_2_LOCKED_TGUI) ? "Primary" : "All"]</a><br>"
-			dat += "<b>tgui Style:</b> <a href='?_src_=prefs;preference=tgui_fancy'>[(toggles2 & PREFTOGGLE_2_FANCY_TGUI) ? "Fancy" : "No Frills"]</a><br>"
 			dat += "<b>Show Runechat Chat Bubbles:</b> <a href='?_src_=prefs;preference=chat_on_map'>[toggles & PREFTOGGLE_RUNECHAT_GLOBAL ? "Enabled" : "Disabled"]</a><br>"
 			dat += "<b>See Runechat for non-mobs:</b> <a href='?_src_=prefs;preference=see_chat_non_mob'>[toggles & PREFTOGGLE_RUNECHAT_NONMOBS ? "Enabled" : "Disabled"]</a><br>"
 			dat += "<b>See Runechat emotes:</b> <a href='?_src_=prefs;preference=see_rc_emotes'>[toggles & PREFTOGGLE_RUNECHAT_EMOTES ? "Enabled" : "Disabled"]</a><br>"
@@ -551,8 +605,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<b>Action Buttons:</b> <a href='?_src_=prefs;preference=action_buttons'>[(toggles2 & PREFTOGGLE_2_LOCKED_BUTTONS) ? "Locked In Place" : "Unlocked"]</a><br>"
 			dat += "<b>Hotkey Mode:</b> <a href='?_src_=prefs;preference=hotkeys'>[(toggles2 & PREFTOGGLE_2_HOTKEYS) ? "Hotkeys" : "Default"]</a><br>"
 			dat += "<br>"
-			dat += "<b>PDA Color:</b> <span style='border:1px solid #161616; background-color: [pda_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=pda_color;task=input'>Change</a><BR>"
-			dat += "<b>PDA Style:</b> <a href='?_src_=prefs;task=input;preference=pda_style'>[pda_style]</a><br>"
+			dat += "<b>PDA Theme:</b> <a href='?_src_=prefs;task=input;preference=pda_theme'>[theme_name_for_id(pda_theme)]</a><br>"
+			dat += "<b>PDA Classic Color:</b> <span style='border:1px solid #161616; background-color: [pda_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=pda_color;task=input'>Change</a><BR>"
 			dat += "<br>"
 			dat += "<b>Crew Objectives:</b> <a href='?_src_=prefs;preference=crewobj'>[(toggles2 & PREFTOGGLE_2_CREW_OBJECTIVES) ? "Yes" : "No"]</a><br>"
 			dat += "<br>"
@@ -562,6 +616,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<b>Ghost Whispers:</b> <a href='?_src_=prefs;preference=ghost_whispers'>[(chat_toggles & CHAT_GHOSTWHISPER) ? "All Speech" : "Nearest Creatures"]</a><br>"
 			dat += "<b>Ghost PDA:</b> <a href='?_src_=prefs;preference=ghost_pda'>[(chat_toggles & CHAT_GHOSTPDA) ? "All Messages" : "Nearest Creatures"]</a><br>"
 			dat += "<b>Ghost Law Changes:</b> <a href='?_src_=prefs;preference=ghost_laws'>[(chat_toggles & CHAT_GHOSTLAWS) ? "All Law Changes" : "No Law Changes"]</a><br>"
+			dat += "<b>Ghost (F) Chat toggle:</b> <a href='?_src_=prefs;preference=ghost_follow'>[(chat_toggles & CHAT_GHOSTFOLLOWMINDLESS) ? "All mobs" : "Only mobs with mind"]</a><br>"
 
 			if(unlock_content)
 				dat += "<b>Ghost Form:</b> <a href='?_src_=prefs;task=input;preference=ghostform'>[ghost_form]</a><br>"
@@ -590,8 +645,22 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<br>"
 
 			dat += "<b>Income Updates:</b> <a href='?_src_=prefs;preference=income_pings'>[(chat_toggles & CHAT_BANKCARD) ? "Allowed" : "Muted"]</a><br>"
-			dat += "<br>"
 
+			dat += "<h2>TGUI Settings</h2>"
+			dat += "<b>Monitor Lock:</b> <a href='?_src_=prefs;preference=tgui_lock'>[(toggles2 & PREFTOGGLE_2_LOCKED_TGUI) ? "Primary" : "All"]</a><br>"
+			dat += "<b>Window Style:</b> <a href='?_src_=prefs;preference=tgui_fancy'>[(toggles2 & PREFTOGGLE_2_FANCY_TGUI) ? "Fancy (Borderless)" : "System Window"]</a><br>"
+			dat += "<br>"
+			dat += "<h3>TGUI Input</h3>"
+			dat += "<b>Input Engine:</b> <a href='?_src_=prefs;preference=tgui_input'>[(toggles2 & PREFTOGGLE_2_TGUI_INPUT) ? "TGUI" : "Classic"]</a><br>"
+			dat += "<b>Button Size:</b> <a href='?_src_=prefs;preference=tgui_big_buttons'>[(toggles2 & PREFTOGGLE_2_BIG_BUTTONS) ? "Large" : "Small"]</a><br>"
+			dat += "<b>Button Location:</b> <a href='?_src_=prefs;preference=tgui_switched_buttons'>[(toggles2 & PREFTOGGLE_2_SWITCHED_BUTTONS) ? "OK - Cancel" : "Cancel - OK"]</a><br>"
+			dat += "<br>"
+			dat += "<h3>TGUI Say</h3>"
+			dat += "<b>Say Engine:</b> <a href='?_src_=prefs;preference=tgui_say'>[(toggles2 & PREFTOGGLE_2_TGUI_SAY) ? "TGUI" : "Classic"]</a><br>"
+			dat += "<b>Say Theme:</b> <a href='?_src_=prefs;preference=tgui_say_light'>[(toggles2 & PREFTOGGLE_2_SAY_LIGHT_THEME) ? "Light" : "Dark"]</a><br>"
+			dat += "<b>Radio Prefixes:</b> <a href='?_src_=prefs;preference=tgui_say_radio_prefix'>[(toggles2 & PREFTOGGLE_2_SAY_SHOW_PREFIX) ? "Show" : "Hidden"]</a><br>"
+
+			dat += "<h2>Graphics Settings</h2>"
 			dat += "<b>FPS:</b> <a href='?_src_=prefs;preference=clientfps;task=input'>[clientfps]</a><br>"
 
 			dat += "<b>Parallax (Fancy Space):</b> <a href='?_src_=prefs;preference=parallaxdown' oncontextmenu='window.location.href=\"?_src_=prefs;preference=parallaxup\";return false;'>"
@@ -736,7 +805,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				var/datum/gear/G = LC.gear[gear_id]
 				var/ticked = (G.id in active_character.equipped_gear)
 
-				dat += "<tr style='vertical-align:top;'><td width=15%>[G.display_name]\n"
+				if(active_character.jumpsuit_style == PREF_SKIRT && !isnull(G.skirt_display_name))
+					dat += "<tr style='vertical-align:top;'><td width=15%>[G.skirt_display_name]\n"
+				else
+					dat += "<tr style='vertical-align:top;'><td width=15%>[G.display_name]\n"
 				var/donator = G.sort_category == "Donator" // purchase box and cost coloumns doesn't appear on donator items
 				if(G.id in purchased_gear)
 					if(G.sort_category == "OOC")
@@ -752,7 +824,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					for(var/role in G.allowed_roles)
 						dat += role + ",	 "
 					dat += "</font>"
-				dat += "</td><td><font size=2><i>[G.description]</i></font></td></tr>"
+				if(active_character.jumpsuit_style == PREF_SKIRT && !isnull(G.skirt_path))
+					dat += "</td><td><font size=2><i>[G.skirt_description]</i></font></td></tr>"
+				else
+					dat += "</td><td><font size=2><i>[G.description]</i></font></td></tr>"
 			dat += "</table>"
 
 		if(3) //OOC Preferences
@@ -762,6 +837,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<br>"
 			dat += "<b>Play Admin MIDIs:</b> <a href='?_src_=prefs;preference=hear_midis'>[(toggles & PREFTOGGLE_SOUND_MIDI) ? "Enabled":"Disabled"]</a><br>"
 			dat += "<b>Play Lobby Music:</b> <a href='?_src_=prefs;preference=lobby_music'>[(toggles & PREFTOGGLE_SOUND_LOBBY) ? "Enabled":"Disabled"]</a><br>"
+			dat += "<b>Play Game Soundtrack:</b> <a href='?_src_=prefs;preference=soundtrack'>[(toggles2 & PREFTOGGLE_2_SOUNDTRACK) ? "Enabled":"Disabled"]</a><br>"
 			dat += "<b>See Pull Requests:</b> <a href='?_src_=prefs;preference=pull_requests'>[(chat_toggles & CHAT_PULLR) ? "Enabled":"Disabled"]</a><br>"
 			dat += "<br>"
 
@@ -781,6 +857,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				dat += "<h2>Admin Settings</h2>"
 
 				dat += "<b>Adminhelp Sounds:</b> <a href='?_src_=prefs;preference=hear_adminhelps'>[(toggles & PREFTOGGLE_SOUND_ADMINHELP)?"Enabled":"Disabled"]</a><br>"
+				dat += "<b>Admin Alert Sounds:</b> <a href='?_src_=prefs;preference=hear_adminalertsounds'>[(toggles & PREFTOGGLE_2_SOUND_ADMINALERT)?"Enabled":"Disabled"]</a><br>"
 				dat += "<b>Prayer Sounds:</b> <a href = '?_src_=prefs;preference=hear_prayers'>[(toggles & PREFTOGGLE_SOUND_PRAYERS)?"Enabled":"Disabled"]</a><br>"
 				dat += "<b>Announce Login:</b> <a href='?_src_=prefs;preference=announce_login'>[(toggles & PREFTOGGLE_ANNOUNCE_LOGIN)?"Enabled":"Disabled"]</a><br>"
 				dat += "<br>"
@@ -834,7 +911,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	dat += "</center>"
 
 	winshow(user, "preferences_window", TRUE)
-	var/datum/browser/popup = new(user, "preferences_browser", "<div align='center'>Character Setup</div>", 640, 770)
+	var/datum/browser/popup = new(user, "preferences_browser", "<div align='center'>Character Setup</div>", 640, 830)
 	popup.set_content(dat.Join())
 	popup.open(FALSE)
 	onclose(user, "preferences_window", src)
@@ -872,7 +949,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 		var/datum/job/overflow = SSjob.GetJob(SSjob.overflow_role)
 
-		for(var/datum/job/job in sortList(SSjob.occupations, /proc/cmp_job_display_asc))
+		for(var/datum/job/job in sort_list(SSjob.occupations, GLOBAL_PROC_REF(cmp_job_display_asc)))
 			if(job.gimmick) //Gimmick jobs run off of a single pref
 				continue
 			index += 1
@@ -1384,12 +1461,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					var/new_hair = input(user, "Choose your character's hair colour:", "Character Preference","#" + active_character.hair_color) as color|null
 					if(new_hair)
 						active_character.hair_color = sanitize_hexcolor(new_hair)
+
 				if("hair_style")
-					var/new_hair_style
-					if(active_character.gender == MALE)
-						new_hair_style = input(user, "Choose your character's hair style:", "Character Preference")  as null|anything in GLOB.hair_styles_male_list
-					else
-						new_hair_style = input(user, "Choose your character's hair style:", "Character Preference")  as null|anything in GLOB.hair_styles_female_list
+					var/new_hair_style = tgui_input_list(user, "Choose your character's hair style:", "Character Preference", GLOB.hair_styles_list, active_character.hair_style)
 					if(new_hair_style)
 						active_character.hair_style = new_hair_style
 
@@ -1405,16 +1479,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						active_character.gradient_color = sanitize_hexcolor(new_hair_gradient)
 
 				if("next_hair_style")
-					if(active_character.gender == MALE)
-						active_character.hair_style = next_list_item(active_character.hair_style, GLOB.hair_styles_male_list)
-					else
-						active_character.hair_style = next_list_item(active_character.hair_style, GLOB.hair_styles_female_list)
+					active_character.hair_style = next_list_item(active_character.hair_style, GLOB.hair_styles_list)
 
 				if("previous_hair_style")
-					if(active_character.gender == MALE)
-						active_character.hair_style = previous_list_item(active_character.hair_style, GLOB.hair_styles_male_list)
-					else
-						active_character.hair_style = previous_list_item(active_character.hair_style, GLOB.hair_styles_female_list)
+					active_character.hair_style = previous_list_item(active_character.hair_style, GLOB.hair_styles_list)
 
 				if("next_gradient_style")
 					active_character.gradient_style = next_list_item(active_character.gradient_style, GLOB.hair_gradients_list)
@@ -1428,32 +1496,18 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						active_character.facial_hair_color = sanitize_hexcolor(new_facial)
 
 				if("facial_hair_style")
-					var/new_facial_hair_style
-					if(active_character.gender == MALE)
-						new_facial_hair_style = input(user, "Choose your character's facial-hair style:", "Character Preference")  as null|anything in GLOB.facial_hair_styles_male_list
-					else
-						new_facial_hair_style = input(user, "Choose your character's facial-hair style:", "Character Preference")  as null|anything in GLOB.facial_hair_styles_female_list
+					var/new_facial_hair_style = tgui_input_list(user, "Choose your character's facial-hair style:", "Character Preference", GLOB.facial_hair_styles_list, active_character.facial_hair_style)
 					if(new_facial_hair_style)
 						active_character.facial_hair_style = new_facial_hair_style
 
 				if("next_facehair_style")
-					if (active_character.gender == MALE)
-						active_character.facial_hair_style = next_list_item(active_character.facial_hair_style, GLOB.facial_hair_styles_male_list)
-					else
-						active_character.facial_hair_style = next_list_item(active_character.facial_hair_style, GLOB.facial_hair_styles_female_list)
+					active_character.facial_hair_style = next_list_item(active_character.facial_hair_style, GLOB.facial_hair_styles_list)
 
 				if("previous_facehair_style")
-					if (active_character.gender == MALE)
-						active_character.facial_hair_style = previous_list_item(active_character.facial_hair_style, GLOB.facial_hair_styles_male_list)
-					else
-						active_character.facial_hair_style = previous_list_item(active_character.facial_hair_style, GLOB.facial_hair_styles_female_list)
+					active_character.facial_hair_style = previous_list_item(active_character.facial_hair_style, GLOB.facial_hair_styles_list)
 
 				if("underwear")
-					var/new_underwear
-					if(active_character.gender == MALE)
-						new_underwear = input(user, "Choose your character's underwear:", "Character Preference")  as null|anything in GLOB.underwear_m
-					else
-						new_underwear = input(user, "Choose your character's underwear:", "Character Preference")  as null|anything in GLOB.underwear_f
+					var/new_underwear = tgui_input_list(user, "Choose your character's underwear:", "Character Preference", GLOB.underwear_list, active_character.underwear)
 					if(new_underwear)
 						active_character.underwear = new_underwear
 
@@ -1463,17 +1517,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						active_character.underwear_color = sanitize_hexcolor(new_underwear_color)
 
 				if("undershirt")
-					var/new_undershirt
-					if(active_character.gender == MALE)
-						new_undershirt = input(user, "Choose your character's undershirt:", "Character Preference") as null|anything in GLOB.undershirt_m
-					else
-						new_undershirt = input(user, "Choose your character's undershirt:", "Character Preference") as null|anything in GLOB.undershirt_f
+					var/new_undershirt = tgui_input_list(user, "Choose your character's undershirt:", "Character Preference", GLOB.undershirt_list, active_character.undershirt)
 					if(new_undershirt)
 						active_character.undershirt = new_undershirt
 
 				if("socks")
 					var/new_socks
-					new_socks = input(user, "Choose your character's socks:", "Character Preference") as null|anything in GLOB.socks_list
+					new_socks = tgui_input_list(user, "Choose your character's socks:", "Character Preference", GLOB.socks_list, active_character.socks)
 					if(new_socks)
 						active_character.socks = new_socks
 
@@ -1527,7 +1577,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					var/new_etherealcolor = input(user, "Choose your ethereal color", "Character Preference") as null|anything in GLOB.color_list_ethereal
 					if(new_etherealcolor)
 						active_character.features["ethcolor"] = GLOB.color_list_ethereal[new_etherealcolor]
-
 
 				if("helmet_style")
 					var/style = input(user, "Choose your helmet style", "Character Preference") as null|anything in list(HELMET_DEFAULT, HELMET_MK2, HELMET_PROTECTIVE)
@@ -1596,19 +1645,19 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				if("moth_wings")
 					var/new_moth_wings
-					new_moth_wings = input(user, "Choose your character's wings:", "Character Preference") as null|anything in GLOB.moth_wings_list
+					new_moth_wings = input(user, "Choose your character's wings:", "Character Preference") as null|anything in GLOB.moth_wings_roundstart_list
 					if(new_moth_wings)
 						active_character.features["moth_wings"] = new_moth_wings
 
 				if("moth_antennae")
 					var/new_moth_antennae
-					new_moth_antennae = input(user, "Choose your character's antennae:", "Character Preference") as null|anything in GLOB.moth_antennae_list
+					new_moth_antennae = input(user, "Choose your character's antennae:", "Character Preference") as null|anything in GLOB.moth_antennae_roundstart_list
 					if(new_moth_antennae)
 						active_character.features["moth_antennae"] = new_moth_antennae
 
 				if("moth_markings")
 					var/new_moth_markings
-					new_moth_markings = input(user, "Choose your character's markings:", "Character Preference") as null|anything in GLOB.moth_markings_list
+					new_moth_markings = input(user, "Choose your character's markings:", "Character Preference") as null|anything in GLOB.moth_markings_roundstart_list
 					if(new_moth_markings)
 						active_character.features["moth_markings"] = new_moth_markings
 
@@ -1644,6 +1693,30 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(new_insect_type)
 						active_character.features["insect_type"] = new_insect_type
 
+				if("apid_antenna")
+					var/new_apid_antenna
+
+					new_apid_antenna = input(user, "Choose your apid antennae:", "Character Preference") as null|anything in GLOB.apid_antenna_list
+
+					if(new_apid_antenna)
+						active_character.features["apid_antenna"] = new_apid_antenna
+
+				if("apid_stripes")
+					var/new_apid_stripes
+
+					new_apid_stripes = input(user, "Choose your apid stripes:", "Character Preference") as null|anything in GLOB.apid_stripes_list
+
+					if(new_apid_stripes)
+						active_character.features["apid_stripes"] = new_apid_stripes
+
+				if("apid_headstripes")
+					var/new_apid_headstripes
+
+					new_apid_headstripes = input(user, "Choose your apid headstripes:", "Character Preference") as null|anything in GLOB.apid_headstripes_list
+
+					if(new_apid_headstripes)
+						active_character.features["apid_headstripes"] = new_apid_headstripes
+
 				if("s_tone")
 					var/new_s_tone = input(user, "Choose your character's skin-tone:", "Character Preference")  as null|anything in GLOB.skin_tones
 					if(new_s_tone)
@@ -1657,7 +1730,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("asaycolor")
 					var/new_asaycolor = input(user, "Choose your ASAY color:", "Game Preference",asaycolor) as color|null
 					if(new_asaycolor)
-						asaycolor = new_asaycolor
+						asaycolor = sanitize_ooccolor(new_asaycolor)
 
 				if("bag")
 					var/new_backbag = input(user, "Choose your character's style of bag:", "Character Preference")  as null|anything in GLOB.backbaglist
@@ -1700,7 +1773,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							friendlyname += " (disabled)"
 						maplist[friendlyname] = VM.map_name
 					maplist[default] = null
-					var/pickedmap = input(user, "Choose your preferred map. This will be used to help weight random map selection.", "Character Preference")  as null|anything in sortList(maplist)
+					var/pickedmap = input(user, "Choose your preferred map. This will be used to help weight random map selection.", "Character Preference")  as null|anything in sort_list(maplist)
 					if (pickedmap)
 						preferred_map = maplist[pickedmap]
 
@@ -1715,12 +1788,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						UI_style = pickedui
 						if (parent && parent.mob && parent.mob.hud_used)
 							parent.mob.hud_used.update_ui_style(ui_style2icon(UI_style))
-				if("pda_style")
-					var/pickedPDAStyle = input(user, "Choose your PDA style.", "Character Preference", pda_style)  as null|anything in GLOB.pda_styles
+				if("pda_theme")
+					var/pickedPDAStyle = input(user, "Choose your default PDA theme.", "Character Preference", pda_theme)  as null|anything in GLOB.ntos_device_themes_default
 					if(pickedPDAStyle)
-						pda_style = pickedPDAStyle
+						pda_theme = GLOB.ntos_device_themes_default[pickedPDAStyle]
 				if("pda_color")
-					var/pickedPDAColor = input(user, "Choose your PDA Interface color.", "Character Preference", pda_color) as color|null
+					var/pickedPDAColor = input(user, "Choose your default Thinktronic Classic theme background color.", "Character Preference", pda_color) as color|null
 					if(pickedPDAColor)
 						pda_color = pickedPDAColor
 				if ("see_balloon_alerts")
@@ -1734,16 +1807,17 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(unlock_content)
 						toggles ^= PREFTOGGLE_MEMBER_PUBLIC
 				if("gender")
-					if(active_character.gender == MALE)
-						active_character.gender = FEMALE
-					else
-						active_character.gender = MALE
-					active_character.underwear = random_underwear(active_character.gender)
-					active_character.undershirt = random_undershirt(active_character.gender)
-					active_character.socks = random_socks()
-					active_character.facial_hair_style = random_facial_hair_style(active_character.gender)
-					active_character.hair_style = random_hair_style(active_character.gender)
-
+					var/list/friendlyGenders = list("Male" = "male", "Female" = "female", "Other" = "plural")
+					var/pickedGender = input(user, "Choose your gender.", "Character Preference", active_character.gender) as null|anything in friendlyGenders
+					if(pickedGender && friendlyGenders[pickedGender] != active_character.gender)
+						switch(friendlyGenders[pickedGender])
+							if("plural")
+								active_character.features["body_model"] = pick(MALE, FEMALE)
+							else
+								active_character.features["body_model"] = friendlyGenders[pickedGender]
+						active_character.gender = friendlyGenders[pickedGender]
+				if("body_model")
+					active_character.features["body_model"] = active_character.features["body_model"] == MALE ? FEMALE : MALE
 				if("hotkeys")
 					toggles2 ^= PREFTOGGLE_2_HOTKEYS
 					if(toggles2 & PREFTOGGLE_2_HOTKEYS)
@@ -1770,6 +1844,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				//here lies the badmins
 				if("hear_adminhelps")
 					user.client.toggleadminhelpsound()
+				if("hear_adminalertsounds")
+					user.client.toggleadminalertsound()
 				if("hear_prayers")
 					user.client.toggle_prayer_sound()
 				if("announce_login")
@@ -1817,6 +1893,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					else
 						user.stop_sound_channel(CHANNEL_LOBBYMUSIC)
 
+				if("soundtrack")
+					toggles2 ^= PREFTOGGLE_2_SOUNDTRACK
+					if((toggles2 & PREFTOGGLE_2_SOUNDTRACK))
+						user.play_current_soundtrack()
+					else
+						user.stop_sound_channel(CHANNEL_SOUNDTRACK)
+
 				if("ghost_ears")
 					chat_toggles ^= CHAT_GHOSTEARS
 
@@ -1835,6 +1918,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("ghost_laws")
 					chat_toggles ^= CHAT_GHOSTLAWS
 
+				if("ghost_follow")
+					chat_toggles ^= CHAT_GHOSTFOLLOWMINDLESS
+
 				if("income_pings")
 					chat_toggles ^= CHAT_BANKCARD
 
@@ -1843,6 +1929,32 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				if("allow_midround_antag")
 					toggles ^= PREFTOGGLE_MIDROUND_ANTAG
+
+				if("tgui_input")
+					toggles2 ^= PREFTOGGLE_2_TGUI_INPUT
+
+				if("tgui_big_buttons")
+					toggles2 ^= PREFTOGGLE_2_BIG_BUTTONS
+
+				if("tgui_switched_buttons")
+					toggles2 ^= PREFTOGGLE_2_SWITCHED_BUTTONS
+
+				if("tgui_say")
+					toggles2 ^= PREFTOGGLE_2_TGUI_SAY
+					if(parent)
+						if(parent.tgui_say)
+							parent.tgui_say.close()
+						parent.set_macros()
+
+				if("tgui_say_light")
+					toggles2 ^= PREFTOGGLE_2_SAY_LIGHT_THEME
+					if(parent && parent.tgui_say) // change the theme
+						parent.tgui_say.load()
+
+				if("tgui_say_radio_prefix")
+					toggles2 ^= PREFTOGGLE_2_SAY_SHOW_PREFIX
+					if(parent && parent.tgui_say) // update the UI
+						parent.tgui_say.load()
 
 				if("parallaxup")
 					parallax = WRAP(parallax + 1, PARALLAX_INSANE, PARALLAX_DISABLE + 1)
@@ -1966,7 +2078,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(old_key && (old_key in key_bindings))
 						key_bindings[old_key] -= kb_name
 					key_bindings[full_key] += list(kb_name)
-					key_bindings[full_key] = sortList(key_bindings[full_key])
+					key_bindings[full_key] = sort_list(key_bindings[full_key])
 
 					save_preferences()
 					user << browse(null, "window=capturekeypress")
@@ -1977,7 +2089,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					user << browse(null, "window=keybindings")
 
 				if("keybindings_reset")
-					key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
+					key_bindings = deep_copy_list(GLOB.keybinding_list_by_key)
 					save_preferences()
 					ShowKeybindings(user)
 					return

@@ -25,6 +25,8 @@ GLOBAL_PROTECT(href_token)
 
 	var/deadmined
 
+	var/ooc_confirmation_enabled = TRUE
+
 	//Admin help manager
 	var/datum/help_ui/admin/admin_interface
 

@@ -36,7 +36,7 @@
 	if(!SSdbcore.IsConnected())
 		// TODO - Loading of sane defaults
 		if (!length(key_bindings))
-			key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
+			key_bindings = deep_copy_list(GLOB.keybinding_list_by_key)
 
 		return
 
@@ -77,8 +77,11 @@
 	READPREF_RAW(ghost_orbit, PREFERENCE_TAG_GHOST_ORBIT)
 	READPREF_RAW(ghost_accs, PREFERENCE_TAG_GHOST_ACCS)
 	READPREF_RAW(ghost_others, PREFERENCE_TAG_GHOST_OTHERS)
-	READPREF_RAW(pda_style, PREFERENCE_TAG_PDA_STYLE)
+	READPREF_RAW(pda_theme, PREFERENCE_TAG_PDA_THEME)
 	READPREF_RAW(pda_color, PREFERENCE_TAG_PDA_COLOUR)
+	READPREF_RAW(pai_name, PREFERENCE_TAG_PAI_NAME)
+	READPREF_RAW(pai_description, PREFERENCE_TAG_PAI_DESCRIPTION)
+	READPREF_RAW(pai_comment, PREFERENCE_TAG_PAI_COMMENT)
 
 	READPREF_JSONDEC(ignoring, PREFERENCE_TAG_IGNORING)
 	READPREF_JSONDEC(key_bindings, PREFERENCE_TAG_KEYBINDS)
@@ -105,12 +108,16 @@
 	ghost_others	= sanitize_inlist(ghost_others, GLOB.ghost_others_options, GHOST_OTHERS_DEFAULT_OPTION)
 	be_special		= SANITIZE_LIST(be_special)
 
-	pda_style		= sanitize_inlist(pda_style, GLOB.pda_styles, initial(pda_style))
+	pda_theme		= sanitize_inlist(pda_theme, GLOB.ntos_device_themes_default_content, initial(pda_theme))
 	pda_color		= sanitize_hexcolor(pda_color, 6, TRUE, initial(pda_color))
 
-	key_bindings 	= sanitize_islist(key_bindings, deepCopyList(GLOB.keybinding_list_by_key))
+	pai_name		= sanitize_text(pai_name, initial(pai_name))
+	pai_description	= sanitize_text(pai_description, initial(pai_description))
+	pai_comment		= sanitize_text(pai_comment, initial(pai_comment))
+
+	key_bindings 	= sanitize_islist(key_bindings, deep_copy_list(GLOB.keybinding_list_by_key))
 	if (!length(key_bindings))
-		key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
+		key_bindings = deep_copy_list(GLOB.keybinding_list_by_key)
 	else
 		var/any_changed = FALSE
 		for(var/key_name in GLOB.keybindings_by_name)
@@ -167,7 +174,7 @@
 	PREP_WRITEPREF_RAW(parallax, PREFERENCE_TAG_PARALLAX)
 	PREP_WRITEPREF_RAW(pixel_size, PREFERENCE_TAG_PIXELSIZE)
 	PREP_WRITEPREF_RAW(tip_delay, PREFERENCE_TAG_TIP_DELAY)
-	PREP_WRITEPREF_RAW(pda_style, PREFERENCE_TAG_PDA_STYLE)
+	PREP_WRITEPREF_RAW(pda_theme, PREFERENCE_TAG_PDA_THEME)
 	PREP_WRITEPREF_RAW(pda_color, PREFERENCE_TAG_PDA_COLOUR)
 
 	PREP_WRITEPREF_RAW(asaycolor, PREFERENCE_TAG_ASAY_COLOUR)
@@ -181,6 +188,9 @@
 	PREP_WRITEPREF_RAW(ghost_orbit, PREFERENCE_TAG_GHOST_ORBIT)
 	PREP_WRITEPREF_RAW(ghost_accs, PREFERENCE_TAG_GHOST_ACCS)
 	PREP_WRITEPREF_RAW(ghost_others, PREFERENCE_TAG_GHOST_OTHERS)
+	PREP_WRITEPREF_RAW(pai_name, PREFERENCE_TAG_PAI_NAME)
+	PREP_WRITEPREF_RAW(pai_description, PREFERENCE_TAG_PAI_DESCRIPTION)
+	PREP_WRITEPREF_RAW(pai_comment, PREFERENCE_TAG_PAI_COMMENT)
 
 	PREP_WRITEPREF_JSONENC(ignoring, PREFERENCE_TAG_IGNORING)
 	PREP_WRITEPREF_JSONENC(key_bindings, PREFERENCE_TAG_KEYBINDS)

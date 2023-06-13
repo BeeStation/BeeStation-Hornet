@@ -576,7 +576,7 @@
 /obj/item/stack/sheet/glass{
 	amount = 10
 	},
-/obj/item/stack/rods/twentyfive,
+/obj/item/stack/rods/twenty,
 /obj/item/wrench,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
@@ -2460,7 +2460,7 @@
 	name = "Salvage Ship";
 	port_direction = 8;
 	preferred_direction = 4;
-	width = 33
+	width = 26
 	},
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/plating,

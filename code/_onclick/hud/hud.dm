@@ -5,14 +5,15 @@
 */
 
 // The default UI style is the first one in the list
-GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
+GLOBAL_LIST_INIT(available_ui_styles, list(
 	"Midnight" = 'icons/mob/screen_midnight.dmi',
-	"Retro" = 'icons/mob/screen_retro.dmi',
 	"Plasmafire" = 'icons/mob/screen_plasmafire.dmi',
 	"Slimecore" = 'icons/mob/screen_slimecore.dmi',
 	"Operative" = 'icons/mob/screen_operative.dmi',
-	"Clockwork" = 'icons/mob/screen_clockwork.dmi'
-)))
+	"Clockwork" = 'icons/mob/screen_clockwork.dmi',
+	"Trasen-Knox" = 'icons/mob/screen_trasenknox.dmi',
+	"Retro" = 'icons/mob/screen_retro.dmi'
+))
 
 /proc/ui_style2icon(ui_style)
 	return GLOB.available_ui_styles[ui_style] || GLOB.available_ui_styles[GLOB.available_ui_styles[1]]
@@ -78,7 +79,7 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 
 	hand_slots = list()
 
-	for(var/mytype in subtypesof(/atom/movable/screen/plane_master))
+	for(var/mytype in subtypesof(/atom/movable/screen/plane_master)- /atom/movable/screen/plane_master/rendering_plate)
 		var/atom/movable/screen/plane_master/instance = new mytype()
 		plane_masters["[instance.plane]"] = instance
 		instance.backdrop(mymob)

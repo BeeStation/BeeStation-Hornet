@@ -18,7 +18,7 @@
 	return data
 
 /datum/computer_file/program/crew_manifest/ui_data(mob/user)
-	var/list/data = get_header_data()
+	var/list/data = list()
 
 	var/obj/item/computer_hardware/printer/printer
 	if(computer)
@@ -45,7 +45,7 @@
 								<br>
 								[GLOB.data_core ? GLOB.data_core.get_manifest_html(0) : ""]
 								"}
-				if(!printer.print_text(contents,text("crew manifest ([])", station_time_timestamp())))
+				if(!printer.print_text(contents,"crew manifest ([station_time_timestamp()])"))
 					to_chat(usr, "<span class='notice'>Hardware error: Printer was unable to print the file. It may be out of paper.</span>")
 					return
 				else

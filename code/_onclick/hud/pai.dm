@@ -21,7 +21,7 @@
 	if(!..())
 		return
 	var/mob/living/silicon/pai/pAI = usr
-	pAI.paiInterface()
+	pAI.ui_interact(pAI)
 
 /atom/movable/screen/pai/shell
 	name = "Toggle Holoform"
@@ -69,7 +69,7 @@
 /atom/movable/screen/pai/newscaster
 	name = "pAI Newscaster"
 	icon_state = "newscaster"
-	required_software = "newscaster"
+	required_software = PAI_PROGRAM_NEWSCASTER
 
 /atom/movable/screen/pai/newscaster/Click()
 	if(!..())
@@ -80,22 +80,23 @@
 /atom/movable/screen/pai/host_monitor
 	name = "Host Health Scan"
 	icon_state = "host_monitor"
-	required_software = "host scan"
+	required_software = PAI_PROGRAM_HOST_SCAN
 
 /atom/movable/screen/pai/host_monitor/Click()
 	if(!..())
 		return
 	var/mob/living/silicon/pai/pAI = usr
-	if(iscarbon(pAI.card.loc))
-		pAI.hostscan.attack(pAI.card.loc, pAI)
+	var/mob/living/carbon/holder = get(pAI.card.loc, /mob/living/carbon)
+	if(holder)
+		pAI.hostscan.attack(holder, pAI)
 	else
-		to_chat(src, "You are not being carried by anyone!")
+		to_chat(usr, "<span class='warning'>You are not being carried by anyone!</span>")
 		return 0
 
 /atom/movable/screen/pai/crew_manifest
 	name = "Crew Manifest"
 	icon_state = "manifest"
-	required_software = "crew manifest"
+	required_software = PAI_PROGRAM_CREW_MANIFEST
 
 /atom/movable/screen/pai/crew_manifest/Click()
 	if(!..())
@@ -116,6 +117,7 @@
 /atom/movable/screen/pai/modpc
 	name = "Messenger"
 	icon_state = "pda_send"
+	required_software = PAI_PROGRAM_DIGITAL_MESSENGER
 	var/mob/living/silicon/pai/pAI
 
 /atom/movable/screen/pai/modpc/Click()
@@ -128,10 +130,24 @@
 		pAI.modularInterface.interact(pAI)
 		break
 
+/atom/movable/screen/pai/internal_gps
+	name = "Internal GPS"
+	icon_state = "internal_gps"
+	required_software = PAI_PROGRAM_INTERNAL_GPS
+
+/atom/movable/screen/pai/internal_gps/Click()
+	. = ..()
+	if(!.)
+		return
+	var/mob/living/silicon/pai/pAI = usr
+	if(!pAI.internal_gps)
+		pAI.internal_gps = new(pAI)
+	pAI.internal_gps.attack_self(pAI)
+
 /atom/movable/screen/pai/image_take
 	name = "Take Image"
 	icon_state = "take_picture"
-	required_software = "photography module"
+	required_software = PAI_PROGRAM_PHOTOGRAPHY_MODULE
 
 /atom/movable/screen/pai/image_take/Click()
 	if(!..())
@@ -142,7 +158,7 @@
 /atom/movable/screen/pai/image_view
 	name = "View Images"
 	icon_state = "view_images"
-	required_software = "photography module"
+	required_software = PAI_PROGRAM_PHOTOGRAPHY_MODULE
 
 /atom/movable/screen/pai/image_view/Click()
 	if(!..())
@@ -223,6 +239,11 @@
 	mypai.interface_button = using
 	var/atom/movable/screen/pai/modpc/tablet_button = using
 	tablet_button.pAI = mypai
+
+// Internal GPS
+	using = new /atom/movable/screen/pai/internal_gps()
+	using.screen_loc = ui_pai_internal_gps
+	static_inventory += using
 
 // Take image
 	using = new /atom/movable/screen/pai/image_take()

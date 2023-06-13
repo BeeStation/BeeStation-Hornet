@@ -11,7 +11,7 @@
 
 	var/mob/living/carbon/C = target
 	var/was_lying = (C.lying != 0)
-	addtimer(CALLBACK(src, .proc/Detach, C, was_lying), duration)
+	addtimer(CALLBACK(src, PROC_REF(Detach), C, was_lying), duration)
 
 	C.transform = C.transform.Scale(TALL, SHORT)
 

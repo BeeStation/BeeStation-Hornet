@@ -33,7 +33,7 @@
 	src.effects_we_clear = typecacheof(effects_we_clear)
 
 /datum/component/effect_remover/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK_EFFECT, .proc/try_remove_effect)
+	RegisterSignal(parent, COMSIG_ITEM_ATTACK_EFFECT, PROC_REF(try_remove_effect))
 
 /datum/component/effect_remover/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_ITEM_ATTACK_EFFECT)
@@ -48,7 +48,7 @@
 		return
 
 	if(effects_we_clear[target.type]) // Make sure we get all subtypes and everything
-		INVOKE_ASYNC(src, .proc/do_remove_effect, target, user)
+		INVOKE_ASYNC(src, PROC_REF(do_remove_effect), target, user)
 		return COMPONENT_NO_AFTERATTACK
 
 /*

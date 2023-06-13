@@ -7,10 +7,10 @@
 	attached_console = null
 	. = ..()
 
-/datum/orbital_object/shuttle/custom_shuttle/process()
+/datum/orbital_object/shuttle/custom_shuttle/process(delta_time)
 	if(!attached_console)
 		return
-	attached_console.consume_fuel(ORBITAL_UPDATE_RATE_SECONDS * fuel_consumption_rate * thrust / 100)
+	attached_console.consume_fuel(ORBITAL_UPDATE_RATE_SECONDS * fuel_consumption_rate * delta_time * thrust / 100)
 	if(attached_console.check_stranded())
 		return
 	max_thrust = (5 * arctan(attached_console.calculated_acceleration / 20)) / 90

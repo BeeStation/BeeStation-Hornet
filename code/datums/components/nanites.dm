@@ -40,31 +40,31 @@
 			cloud_sync()
 
 /datum/component/nanites/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_HAS_NANITES, .proc/confirm_nanites)
-	RegisterSignal(parent, COMSIG_NANITE_IS_STEALTHY, .proc/check_stealth)
-	RegisterSignal(parent, COMSIG_NANITE_DELETE, .proc/delete_nanites)
-	RegisterSignal(parent, COMSIG_NANITE_UI_DATA, .proc/nanite_ui_data)
-	RegisterSignal(parent, COMSIG_NANITE_GET_PROGRAMS, .proc/get_programs)
-	RegisterSignal(parent, COMSIG_NANITE_SET_VOLUME, .proc/set_volume)
-	RegisterSignal(parent, COMSIG_NANITE_ADJUST_VOLUME, .proc/adjust_nanites)
-	RegisterSignal(parent, COMSIG_NANITE_SET_MAX_VOLUME, .proc/set_max_volume)
-	RegisterSignal(parent, COMSIG_NANITE_SET_CLOUD, .proc/set_cloud)
-	RegisterSignal(parent, COMSIG_NANITE_SET_CLOUD_SYNC, .proc/set_cloud_sync)
-	RegisterSignal(parent, COMSIG_NANITE_SET_SAFETY, .proc/set_safety)
-	RegisterSignal(parent, COMSIG_NANITE_SET_REGEN, .proc/set_regen)
-	RegisterSignal(parent, COMSIG_NANITE_ADD_PROGRAM, .proc/add_program)
-	RegisterSignal(parent, COMSIG_NANITE_SCAN, .proc/nanite_scan)
-	RegisterSignal(parent, COMSIG_NANITE_SYNC, .proc/sync)
+	RegisterSignal(parent, COMSIG_HAS_NANITES, PROC_REF(confirm_nanites))
+	RegisterSignal(parent, COMSIG_NANITE_IS_STEALTHY, PROC_REF(check_stealth))
+	RegisterSignal(parent, COMSIG_NANITE_DELETE, PROC_REF(delete_nanites))
+	RegisterSignal(parent, COMSIG_NANITE_UI_DATA, PROC_REF(nanite_ui_data))
+	RegisterSignal(parent, COMSIG_NANITE_GET_PROGRAMS, PROC_REF(get_programs))
+	RegisterSignal(parent, COMSIG_NANITE_SET_VOLUME, PROC_REF(set_volume))
+	RegisterSignal(parent, COMSIG_NANITE_ADJUST_VOLUME, PROC_REF(adjust_nanites))
+	RegisterSignal(parent, COMSIG_NANITE_SET_MAX_VOLUME, PROC_REF(set_max_volume))
+	RegisterSignal(parent, COMSIG_NANITE_SET_CLOUD, PROC_REF(set_cloud))
+	RegisterSignal(parent, COMSIG_NANITE_SET_CLOUD_SYNC, PROC_REF(set_cloud_sync))
+	RegisterSignal(parent, COMSIG_NANITE_SET_SAFETY, PROC_REF(set_safety))
+	RegisterSignal(parent, COMSIG_NANITE_SET_REGEN, PROC_REF(set_regen))
+	RegisterSignal(parent, COMSIG_NANITE_ADD_PROGRAM, PROC_REF(add_program))
+	RegisterSignal(parent, COMSIG_NANITE_SCAN, PROC_REF(nanite_scan))
+	RegisterSignal(parent, COMSIG_NANITE_SYNC, PROC_REF(sync))
 
 	if(isliving(parent))
-		RegisterSignal(parent, COMSIG_ATOM_EMP_ACT, .proc/on_emp)
-		RegisterSignal(parent, COMSIG_MOB_DEATH, .proc/on_death)
-		RegisterSignal(parent, COMSIG_MOB_ALLOWED, .proc/check_access)
-		RegisterSignal(parent, COMSIG_LIVING_ELECTROCUTE_ACT, .proc/on_shock)
-		RegisterSignal(parent, COMSIG_LIVING_MINOR_SHOCK, .proc/on_minor_shock)
-		RegisterSignal(parent, COMSIG_SPECIES_GAIN, .proc/check_viable_biotype)
-		RegisterSignal(parent, COMSIG_NANITE_SIGNAL, .proc/receive_signal)
-		RegisterSignal(parent, COMSIG_NANITE_COMM_SIGNAL, .proc/receive_comm_signal)
+		RegisterSignal(parent, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp))
+		RegisterSignal(parent, COMSIG_MOB_DEATH, PROC_REF(on_death))
+		RegisterSignal(parent, COMSIG_MOB_ALLOWED, PROC_REF(check_access))
+		RegisterSignal(parent, COMSIG_LIVING_ELECTROCUTE_ACT, PROC_REF(on_shock))
+		RegisterSignal(parent, COMSIG_LIVING_MINOR_SHOCK, PROC_REF(on_minor_shock))
+		RegisterSignal(parent, COMSIG_SPECIES_GAIN, PROC_REF(check_viable_biotype))
+		RegisterSignal(parent, COMSIG_NANITE_SIGNAL, PROC_REF(receive_signal))
+		RegisterSignal(parent, COMSIG_NANITE_COMM_SIGNAL, PROC_REF(receive_comm_signal))
 
 /datum/component/nanites/UnregisterFromParent()
 	UnregisterSignal(parent, list(COMSIG_HAS_NANITES,
@@ -126,7 +126,7 @@
 	qdel(src)
 
 //Syncs the nanite component to another, making it so programs are the same with the same programming (except activation status)
-/datum/component/nanites/proc/sync(datum/signal_source, datum/component/nanites/source, full_overwrite = TRUE, copy_activation = FALSE)
+/datum/component/nanites/proc/sync(datum/signal_source, datum/component/nanites/source, full_overwrite = TRUE, copy_settings = TRUE, copy_activation = FALSE)
 	SIGNAL_HANDLER
 
 	var/list/programs_to_remove = programs.Copy()
@@ -143,6 +143,10 @@
 	if(full_overwrite)
 		for(var/X in programs_to_remove)
 			qdel(X)
+	if(copy_settings)
+		cloud_active = source.cloud_active
+		cloud_id = source.cloud_id
+		safety_threshold = source.safety_threshold
 	for(var/X in programs_to_add)
 		var/datum/nanite_program/SNP = X
 		add_program(null, SNP.copy())
@@ -153,7 +157,7 @@
 		if(backup)
 			var/datum/component/nanites/cloud_copy = backup.nanites
 			if(cloud_copy)
-				sync(null, cloud_copy)
+				sync(source = cloud_copy)
 				return
 	//Without cloud syncing nanites can accumulate errors and/or defects
 	if(prob(8) && programs.len)
@@ -270,7 +274,7 @@
 
 	for(var/datum/nanite_program/access/access_program in programs)
 		if(access_program.activated)
-			return O.check_access_list(access_program.access)
+			return O.check_access_list(access_program.nanite_access)
 		else
 			return FALSE
 	return FALSE
@@ -345,27 +349,33 @@
 /datum/component/nanites/proc/nanite_scan(datum/source, mob/user, full_scan)
 	SIGNAL_HANDLER
 
+	var/list/message = list()
+
 	if(!full_scan)
+		. = TRUE
 		if(!stealth)
-			to_chat(user, "<span class='notice'><b>Nanites Detected</b></span>")
-			to_chat(user, "<span class='notice'>Saturation: [nanite_volume]/[max_nanites]</span>")
-			return TRUE
+			message += "<span class='info bold'>Nanites Detected</span>"
+			message += "<span class='info'>Saturation: [nanite_volume]/[max_nanites]</span>"
 	else
-		to_chat(user, "<span class='info'>NANITES DETECTED</span>")
-		to_chat(user, "<span class='info'>================</span>")
-		to_chat(user, "<span class='info'>Saturation: [nanite_volume]/[max_nanites]</span>")
-		to_chat(user, "<span class='info'>Safety Threshold: [safety_threshold]</span>")
-		to_chat(user, "<span class='info'>Cloud ID: [cloud_id ? cloud_id : "None"]</span>")
-		to_chat(user, "<span class='info'>Cloud Sync: [cloud_active ? "Active" : "Disabled"]</span>")
-		to_chat(user, "<span class='info'>================</span>")
-		to_chat(user, "<span class='info'>Program List:</span>")
+		message += "<span class='info bold'>Nanites Detected</span>"
+		message += "<span class='info'>================</span>"
+		message += "<span class='info'>Saturation: [nanite_volume]/[max_nanites]</span>"
+		message += "<span class='info'>Safety Threshold: [safety_threshold]</span>"
+		message += "<span class='info'>Cloud ID: [cloud_id ? cloud_id : "None"]</span>"
+		message += "<span class='info'>Cloud Sync: [cloud_active ? "Active" : "Disabled"]</span>"
+		message += "<span class='info'>================</span>"
+		message += "<span class='info'>Program List:</span>"
 		if(!diagnostics)
-			to_chat(user, "<span class='alert'>Diagnostics Disabled</span>")
+			message += "<span class='alert'>Diagnostics Disabled</span>"
 		else
 			for(var/X in programs)
-				var/datum/nanite_program/NP = X
-				to_chat(user, "<span class='info'><b>[NP.name]</b> | [NP.activated ? "Active" : "Inactive"]</span>")
-		return TRUE
+				var/datum/nanite_program/program = X
+				message += "<span class='info'><b>[program.name]</b> | [program.activated ? "<span class='green'>Active</span>" : "<span class='red'>Inactive</span>"]</span>"
+				for(var/datum/nanite_rule/rule in program.rules)
+					message += "<span class='[rule.check_rule() ? "green" : "red"]'>[GLOB.TAB][rule.display()]</span>"
+		. = TRUE
+	if(length(message))
+		to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
 
 /datum/component/nanites/proc/nanite_ui_data(datum/source, list/data, scan_level)
 	SIGNAL_HANDLER

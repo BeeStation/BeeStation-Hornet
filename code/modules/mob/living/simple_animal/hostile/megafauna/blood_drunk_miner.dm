@@ -22,8 +22,8 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner
 	name = "blood-drunk miner"
 	desc = "A miner destined to wander forever, engaged in an endless hunt."
-	health = 900
-	maxHealth = 900
+	health = 450
+	maxHealth = 450
 	icon_state = "miner"
 	icon_living = "miner"
 	icon = 'icons/mob/broadMobs.dmi'
@@ -38,6 +38,7 @@ Difficulty: Medium
 	ranged = TRUE
 	ranged_cooldown_time = 16
 	pixel_x = -16
+	base_pixel_x = -16
 	loot = list(/obj/structure/closet/crate/necropolis/bdm)
 	wander = FALSE
 	del_on_death = TRUE
@@ -178,7 +179,7 @@ Difficulty: Medium
 		wander = TRUE
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/proc/dash_attack()
-	INVOKE_ASYNC(src, .proc/dash, target)
+	INVOKE_ASYNC(src, PROC_REF(dash), target)
 	shoot_ka()
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/proc/shoot_ka()
@@ -205,7 +206,7 @@ Difficulty: Medium
 		if(get_dist(src, O) >= MINER_DASH_RANGE && turf_dist_to_target <= self_dist_to_target && !islava(O) && !ischasm(O))
 			var/valid = TRUE
 			for(var/turf/T in getline(own_turf, O))
-				if(is_blocked_turf(T, TRUE))
+				if(T.is_blocked_turf(TRUE))
 					valid = FALSE
 					continue
 			if(valid)
@@ -260,7 +261,7 @@ Difficulty: Medium
 
 /obj/effect/temp_visual/dir_setting/miner_death/Initialize(mapload, set_dir)
 	. = ..()
-	INVOKE_ASYNC(src, .proc/fade_out)
+	INVOKE_ASYNC(src, PROC_REF(fade_out))
 
 /obj/effect/temp_visual/dir_setting/miner_death/proc/fade_out()
 	var/matrix/M = new
@@ -281,6 +282,6 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/hunter/AttackingTarget()
 	. = ..()
 	if(. && prob(12))
-		INVOKE_ASYNC(src, .proc/dash)
+		INVOKE_ASYNC(src, PROC_REF(dash))
 
 #undef MINER_DASH_RANGE

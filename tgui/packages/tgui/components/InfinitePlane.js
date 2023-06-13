@@ -1,7 +1,7 @@
-import { computeBoxProps } from "./Box";
-import { Stack } from "./Stack";
-import { ProgressBar } from "./ProgressBar";
-import { Button } from "./Button";
+import { computeBoxProps } from './Box';
+import { Stack } from './Stack';
+import { ProgressBar } from './ProgressBar';
+import { Button } from './Button';
 import { Component } from 'inferno';
 
 const ZOOM_MIN_VAL = 0.5;
@@ -33,19 +33,19 @@ export class InfinitePlane extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener("mouseup", this.onMouseUp);
+    window.addEventListener('mouseup', this.onMouseUp);
 
-    window.addEventListener("mousedown", this.doOffsetMouse);
-    window.addEventListener("mousemove", this.doOffsetMouse);
-    window.addEventListener("mouseup", this.doOffsetMouse);
+    window.addEventListener('mousedown', this.doOffsetMouse);
+    window.addEventListener('mousemove', this.doOffsetMouse);
+    window.addEventListener('mouseup', this.doOffsetMouse);
   }
 
   componentWillUnmount() {
-    window.removeEventListener("mouseup", this.onMouseUp);
+    window.removeEventListener('mouseup', this.onMouseUp);
 
-    window.removeEventListener("mousedown", this.doOffsetMouse);
-    window.removeEventListener("mousemove", this.doOffsetMouse);
-    window.removeEventListener("mouseup", this.doOffsetMouse);
+    window.removeEventListener('mousedown', this.doOffsetMouse);
+    window.removeEventListener('mousemove', this.doOffsetMouse);
+    window.removeEventListener('mouseup', this.doOffsetMouse);
   }
 
   doOffsetMouse(event) {
@@ -82,17 +82,8 @@ export class InfinitePlane extends Component {
   }
 
   render() {
-    const {
-      children,
-      backgroundImage,
-      imageWidth,
-      ...rest
-    } = this.props;
-    const {
-      left,
-      top,
-      zoom,
-    } = this.state;
+    const { children, backgroundImage, imageWidth, ...rest } = this.props;
+    const { left, top, zoom } = this.state;
 
     return (
       <div
@@ -101,61 +92,60 @@ export class InfinitePlane extends Component {
           ...rest,
           style: {
             ...rest.style,
-            overflow: "hidden",
-            position: "relative",
+            overflow: 'hidden',
+            position: 'relative',
           },
         })}>
         <div
           onMouseDown={this.handleMouseDown}
           onMouseMove={this.handleMouseMove}
           style={{
-            "position": "fixed",
-            "height": "100%",
-            "width": "100%",
-            "background-image": `url("${backgroundImage}")`,
-            "background-position": `${left}px ${top}px`,
-            "background-repeat": "repeat",
-            "background-size": `${zoom*imageWidth}px`,
+            'position': 'fixed',
+            'height': '100%',
+            'width': '100%',
+            'background-image': `url("${backgroundImage}")`,
+            'background-position': `${left}px ${top}px`,
+            'background-repeat': 'repeat',
+            'background-size': `${zoom * imageWidth}px`,
           }}
         />
         <div
           onMouseDown={this.handleMouseDown}
           onMouseMove={this.handleMouseMove}
           style={{
-            "position": "fixed",
-            "transform": `translate(${left}px, ${top}px) scale(${zoom})`,
-            "transform-origin": "top left",
-            "height": "100%",
-            "width": "100%",
+            'position': 'fixed',
+            'transform': `translate(${left}px, ${top}px) scale(${zoom})`,
+            'transform-origin': 'top left',
+            'height': '100%',
+            'width': '100%',
           }}>
           {children}
         </div>
 
-        <Stack
-          position="absolute"
-          width="100%">
+        <Stack position="absolute" width="100%">
           <Stack.Item>
             <Button
               icon="minus"
-              onClick={() => this.setState({
-                zoom: Math.max(zoom-ZOOM_INCREMENT, ZOOM_MIN_VAL),
-              })}
+              onClick={() =>
+                this.setState({
+                  zoom: Math.max(zoom - ZOOM_INCREMENT, ZOOM_MIN_VAL),
+                })
+              }
             />
           </Stack.Item>
           <Stack.Item grow={1}>
-            <ProgressBar
-              minValue={ZOOM_MIN_VAL}
-              value={zoom}
-              maxValue={ZOOM_MAX_VAL}>
+            <ProgressBar minValue={ZOOM_MIN_VAL} value={zoom} maxValue={ZOOM_MAX_VAL}>
               {zoom}x
             </ProgressBar>
           </Stack.Item>
           <Stack.Item>
             <Button
               icon="plus"
-              onClick={() => this.setState({
-                zoom: Math.min(zoom+ZOOM_INCREMENT, ZOOM_MAX_VAL),
-              })}
+              onClick={() =>
+                this.setState({
+                  zoom: Math.min(zoom + ZOOM_INCREMENT, ZOOM_MAX_VAL),
+                })
+              }
             />
           </Stack.Item>
         </Stack>

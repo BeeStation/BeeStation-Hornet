@@ -76,6 +76,7 @@
 #define MOVESPEED_ID_COLD                               "COLD"
 
 #define MOVESPEED_ID_HUNGRY                             "HUNGRY"
+#define MOVESPEED_ID_NO_POWERCELL                       "NO POWERCELL"
 
 #define MOVESPEED_ID_DAMAGE_SLOWDOWN                    "DAMAGE"
 #define MOVESPEED_ID_DAMAGE_SLOWDOWN_FLYING				"FLYING"
@@ -90,3 +91,5 @@
 #define MOVESPEED_ID_LIGHT_VIRUS_SLOWDOWN				"LIGHT_VIRUS"
 
 #define MOVESPEED_ID_SWIMMING							"SWIMMING_SPEED_MOD"
+
+#define MOVESPEED_ID_DRAGON_RAGE                        "DRAGON_RAGE"

@@ -42,10 +42,15 @@ SUBSYSTEM_DEF(job)
 	spare_id_safe_code = "[rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)]"
 
 	crew_obj_list = subtypesof(/datum/objective/crew)
-	for(var/datum/objective/crew/obj as() in crew_obj_list) //taken from old Hippie's "job2obj" proc with adjustments.
-		var/list/availableto = splittext(initial(obj.jobs),",")
-		for(var/job in availableto)
-			crew_obj_jobs["[job]"] += list(obj)
+	for(var/type as() in crew_obj_list)
+		// Unfortunately, this is necessary because initial() doesn't work on lists
+		var/datum/objective/crew/obj = new type
+		var/list/obj_jobs = obj.jobs
+		if(!istype(obj_jobs))
+			obj_jobs = list(obj_jobs)
+		for(var/job in obj_jobs)
+			crew_obj_jobs["[job]"] += list(type)
+		qdel(obj)
 
 	return ..()
 
@@ -649,7 +654,7 @@ SUBSYSTEM_DEF(job)
 	var/oldjobs = SSjob.occupations
 	sleep(20)
 	for (var/datum/job/J in oldjobs)
-		INVOKE_ASYNC(src, .proc/RecoverJob, J)
+		INVOKE_ASYNC(src, PROC_REF(RecoverJob), J)
 
 /datum/controller/subsystem/job/proc/RecoverJob(datum/job/J)
 	var/datum/job/newjob = GetJob(J.title)
@@ -682,21 +687,21 @@ SUBSYSTEM_DEF(job)
 		return
 
 	//bad mojo
-	var/area/shuttle/arrival/A = GLOB.areas_by_type[/area/shuttle/arrival]
-	if(A)
+	var/area/shuttle/arrival/arrivals_area = GLOB.areas_by_type[/area/shuttle/arrival]
+	if(arrivals_area)
 		//first check if we can find a chair
-		var/obj/structure/chair/C = locate() in A
+		var/obj/structure/chair/C = locate() in arrivals_area
 		if(C)
 			C.JoinPlayerHere(M, buckle)
 			return
 
 		//last hurrah
-		var/list/avail = list()
-		for(var/turf/T in A)
-			if(!is_blocked_turf(T, TRUE))
-				avail += T
-		if(avail.len)
-			destination = pick(avail)
+		var/list/turf/available_turfs = list()
+		for(var/turf/arrivals_turf in arrivals_area)
+			if(!arrivals_turf.is_blocked_turf(TRUE))
+				available_turfs += arrivals_turf
+		if(available_turfs.len)
+			destination = pick(available_turfs)
 			destination.JoinPlayerHere(M, FALSE)
 			return
 
@@ -704,7 +709,7 @@ SUBSYSTEM_DEF(job)
 	var/list/arrivals_turfs = shuffle(get_area_turfs(/area/shuttle/arrival))
 	if(arrivals_turfs.len)
 		for(var/turf/T in arrivals_turfs)
-			if(!is_blocked_turf(T, TRUE))
+			if(!T.is_blocked_turf(TRUE))
 				T.JoinPlayerHere(M, FALSE)
 				return
 		//last chance, pick ANY spot on arrivals and dump em
@@ -783,9 +788,9 @@ SUBSYSTEM_DEF(job)
 	desc = "Proof that you have been approved for Captaincy, with all its glory and all its horror."
 
 /obj/item/paper/fluff/spare_id_safe_code/Initialize(mapload)
-	. = ..()
 	var/id_safe_code = SSjob.spare_id_safe_code
-	info = "Captain's Spare ID safe code combination: [id_safe_code ? id_safe_code : "\[REDACTED\]"]<br><br>The spare ID can be found in its dedicated safe on the bridge."
+	default_raw_text = "Captain's Spare ID safe code combination: [id_safe_code ? id_safe_code : "\[REDACTED\]"]<br><br>The spare ID can be found in its dedicated safe on the bridge."
+	return ..()
 
 /datum/controller/subsystem/job/proc/promote_to_captain(var/mob/dead/new_player/new_captain, acting_captain = FALSE)
 	var/mob/living/carbon/human/H = new_captain.new_character

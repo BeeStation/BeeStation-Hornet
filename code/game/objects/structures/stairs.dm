@@ -24,7 +24,7 @@
 	update_surrounding()
 
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_EXIT = .proc/on_exit,
+		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
 	)
 
 	AddElement(/datum/element/connect_loc, loc_connections)
@@ -58,7 +58,7 @@
 	SIGNAL_HANDLER
 
 	if(!isobserver(leaving) && isTerminator() && direction == dir)
-		INVOKE_ASYNC(src, .proc/stair_ascend, leaving)
+		INVOKE_ASYNC(src, PROC_REF(stair_ascend), leaving)
 		leaving.Bump(src)
 		return COMPONENT_ATOM_BLOCK_EXIT
 
@@ -101,7 +101,7 @@
 	if(listeningTo)
 		UnregisterSignal(listeningTo, COMSIG_TURF_MULTIZ_NEW)
 	var/turf/open/openspace/T = get_step_multiz(get_turf(src), UP)
-	RegisterSignal(T, COMSIG_TURF_MULTIZ_NEW, .proc/on_multiz_new)
+	RegisterSignal(T, COMSIG_TURF_MULTIZ_NEW, PROC_REF(on_multiz_new))
 	listeningTo = T
 
 /obj/structure/stairs/proc/force_open_above()

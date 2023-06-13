@@ -42,6 +42,8 @@
 	var/list/active_rites
 	/// Whether the structure has CANDLE OVERLAYS!
 	var/candle_overlay = TRUE
+	/// Whether the altar of the gods is anchored
+	var/altar_anchored = TRUE
 
 
 /datum/religion_sect/New()
@@ -251,8 +253,6 @@
 	qdel(N)
 	return TRUE
 
-
-
 /**** Carp Sect ****/
 
 /datum/religion_sect/carp_sect
@@ -281,5 +281,30 @@
 		return
 	adjust_favor(20, L)
 	to_chat(L, "<span class='notice'>You offer [meat] to [GLOB.deity], pleasing them and gaining 20 favor in the process.</span>")
+	qdel(N)
+	return TRUE
+
+/**** Plant Sect ****/
+
+/datum/religion_sect/plant_sect
+	name = "Nature"
+	desc = "A sect dedicated to nature, plants, and animals. Sacrificing seeds grants you favor."
+	quote = "Living plant people? What has the world come to!"
+	tgui_icon = "tree"
+	alignment = ALIGNMENT_GOOD
+	max_favor = 10000
+	desired_items = list(/obj/item/seeds)
+	rites_list = list(/datum/religion_rites/create_podperson, /datum/religion_rites/create_sandstone, /datum/religion_rites/grass_generator, /datum/religion_rites/summon_animals)
+	altar_icon_state = "convertaltar-green"
+
+//plant bibles don't heal or do anything special apart from the standard holy water blessings
+/datum/religion_sect/plant_sect/sect_bless(mob/living/blessed, mob/living/user)
+	return TRUE
+
+/datum/religion_sect/plant_sect/on_sacrifice(obj/item/N, mob/living/L)
+	if(!istype(N, /obj/item/seeds))
+		return
+	adjust_favor(25, L)
+	to_chat(L, "<span class='notice'>You offer [N] to [GLOB.deity], pleasing them and gaining 25 favor in the process.</span>")
 	qdel(N)
 	return TRUE

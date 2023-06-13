@@ -138,7 +138,7 @@
 			new_corgi.place_on_head(hat,null,FALSE)
 	H = new(new_corgi,src,L)
 	//Restore after this time
-	addtimer(CALLBACK(src, .proc/restore, L), 5 * (volume / metabolization_rate))
+	addtimer(CALLBACK(src, PROC_REF(restore), L), 5 * (volume / metabolization_rate))
 
 /datum/reagent/corgium/proc/restore(mob/living/L)
 	//The mob was qdeleted by an explosion or something
@@ -210,9 +210,9 @@
 		var/obj/item/toy/plush/carpplushie/dehy_carp/dehy = O
 		dehy.Swell() // Makes a carp
 
-	else if(istype(O, /obj/item/stack/sheet/hairlesshide))
-		var/obj/item/stack/sheet/hairlesshide/HH = O
-		new /obj/item/stack/sheet/wetleather(get_turf(HH), HH.amount)
+	else if(istype(O, /obj/item/stack/sheet/leather/hairlesshide))
+		var/obj/item/stack/sheet/leather/hairlesshide/HH = O
+		new /obj/item/stack/sheet/leather/wetleather(get_turf(HH), HH.amount)
 		qdel(HH)
 
 /*
@@ -478,8 +478,8 @@
 				M.visible_message(pick("<b>[M]</b>'s collar pops up without warning.</span>", "<b>[M]</b> flexes [M.p_their()] arms."))
 			else
 				M.visible_message("<b>[M]</b> flexes [M.p_their()] arms.")
-		if(prob(10))
-			M.say(pick("Shit was SO cash.", "You are everything bad in the world.", "What sports do you play, other than 'jack off to naked drawn Japanese people?'", "Don???t be a stranger. Just hit me with your best shot.", "My name is John and I hate every single one of you."), forced = /datum/reagent/spraytan)
+		if(prob(2))
+			M.say(pick("Shit was SO cash.", "Duuuuuude. Yeah bro.", "Check my muscles, broooo!", "Hell yeah brooo!"), forced = /datum/reagent/spraytan)
 
 #define MUT_MSG_IMMEDIATE 1
 #define MUT_MSG_EXTENDED 2
@@ -536,14 +536,14 @@
 	description = "A corruptive toxin."
 	color = "#13BC5E" // rgb: 19, 188, 94
 	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	race = /datum/species/jelly/slime
+	race = /datum/species/oozeling/slime
 
 /datum/reagent/mutationtoxin/unstable
 	name = "Unstable Mutation Toxin"
 	description = "A mostly safe mutation toxin."
 	color = "#13BC5E" // rgb: 19, 188, 94
 	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	race = list(/datum/species/jelly/slime,
+	race = list(/datum/species/oozeling/slime,
 						/datum/species/human,
 						/datum/species/human/felinid,
 						/datum/species/lizard,
@@ -551,7 +551,7 @@
 						/datum/species/moth,
 						/datum/species/apid,
 						/datum/species/pod,
-						/datum/species/jelly,
+						/datum/species/oozeling,
 						/datum/species/abductor,
 						/datum/species/skeleton)
 
@@ -607,13 +607,13 @@
 	description = "A jellyfying toxin."
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	race = /datum/species/jelly
+	race = /datum/species/oozeling
 	taste_description = "grandma's gelatin"
 
 /datum/reagent/mutationtoxin/jelly/on_mob_life(mob/living/carbon/human/H)
-	if(isjellyperson(H))
-		to_chat(H, "<span class='warning'>Your jelly shifts and morphs, turning you into another subspecies!</span>")
-		var/species_type = pick(subtypesof(/datum/species/jelly))
+	if(isoozeling(H))
+		to_chat(H, "<span class='warning'>Your body shifts and morphs, turning you into another subspecies!</span>")
+		var/species_type = pick(subtypesof(/datum/species/oozeling))
 		H.set_species(species_type)
 		H.reagents.del_reagent(type)
 		return TRUE
@@ -797,7 +797,7 @@
 	if(istype(O, /obj/item/stack/sheet/iron))
 		var/obj/item/stack/sheet/iron/M = O
 		reac_volume = min(reac_volume, M.amount)
-		new/obj/item/stack/tile/bronze(get_turf(M), reac_volume)
+		new/obj/item/stack/sheet/bronze(get_turf(M), reac_volume)
 		M.use(reac_volume)
 
 /datum/reagent/nitrogen
@@ -1050,7 +1050,7 @@
 		to_chat(M, "<span class='warning'>You feel unstable...</span>")
 		M.Jitter(2)
 		current_cycle = 1
-		addtimer(CALLBACK(M, /mob/living/proc/bluespace_shuffle), 30)
+		addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living, bluespace_shuffle)), 30)
 	..()
 
 /mob/living/proc/bluespace_shuffle()
@@ -1159,7 +1159,6 @@
 				if(H.shoes)
 					if(SEND_SIGNAL(H.shoes, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD))
 						H.update_inv_shoes()
-				H.wash_cream()
 			SEND_SIGNAL(M, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD)
 	else if(method == INGEST || method == INJECT) //why the fuck did you drink space cleaner you fucking buffoon
 		toxic = TRUE
@@ -1384,7 +1383,7 @@
 /datum/reagent/stimulum/on_mob_life(mob/living/carbon/M)
 	M.adjustStaminaLoss(-2*REM, 0)
 	if(M.losebreath <= 10)
-		M.losebreath += min(current_cycle*0.05, 2) // gradually builds up suffocation, will not be noticable for several ticks but effects will linger afterwards
+		M.losebreath += min(current_cycle*0.05, 2) // gradually builds up suffocation, will not be noticeable for several ticks but effects will linger afterwards
 	if(M.losebreath > 2 && !warned)
 		M.visible_message("<span class='danger'>You feel like you can't breathe!</span>")
 		warned = TRUE
@@ -1428,55 +1427,55 @@
 		description = "\An [colorname] powder, used for coloring things [colorname]."
 
 /datum/reagent/colorful_reagent/powder/red
-	name = "Red Powder"
+	name = "Red Dye Powder"
 	colorname = "red"
 	color = "#DA0000" // red
 	random_color_list = list("#FC7474")
 
 /datum/reagent/colorful_reagent/powder/orange
-	name = "Orange Powder"
+	name = "Orange Dye Powder"
 	colorname = "orange"
 	color = "#FF9300" // orange
 	random_color_list = list("#FF9300")
 
 /datum/reagent/colorful_reagent/powder/yellow
-	name = "Yellow Powder"
+	name = "Yellow Dye Powder"
 	colorname = "yellow"
 	color = "#FFF200" // yellow
 	random_color_list = list("#FFF200")
 
 /datum/reagent/colorful_reagent/powder/green
-	name = "Green Powder"
+	name = "Green Dye Powder"
 	colorname = "green"
 	color = "#A8E61D" // green
 	random_color_list = list("#A8E61D")
 
 /datum/reagent/colorful_reagent/powder/blue
-	name = "Blue Powder"
+	name = "Blue Dye Powder"
 	colorname = "blue"
 	color = "#00B7EF" // blue
 	random_color_list = list("#00B7EF")
 
 /datum/reagent/colorful_reagent/powder/purple
-	name = "Purple Powder"
+	name = "Purple Dye Powder"
 	colorname = "purple"
 	color = "#DA00FF" // purple
 	random_color_list = list("#BD8FC4")
 
 /datum/reagent/colorful_reagent/powder/invisible
-	name = "Invisible Powder"
+	name = "Invisible Dye Powder"
 	colorname = "invisible"
 	color = "#FFFFFF00" // white + no alpha
 	random_color_list = list(null)	//because using the powder color turns things invisible
 
 /datum/reagent/colorful_reagent/powder/black
-	name = "Black Powder"
+	name = "Black Dye Powder"
 	colorname = "black"
 	color = "#1C1C1C" // not quite black
 	random_color_list = list("#404040")
 
 /datum/reagent/colorful_reagent/powder/white
-	name = "White Powder"
+	name = "White Dye Powder"
 	colorname = "white"
 	color = "#FFFFFF" // white
 	random_color_list = list("#FFFFFF") //doesn't actually change appearance at all
@@ -1612,7 +1611,7 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	chem_flags = CHEMICAL_GOAL_BARTENDER_SERVING // this is lame one to put random. at least good as bartender flavor.
-	taste_description = "carpet" // Your tounge feels furry.
+	taste_description = "carpet" // Your tongue feels furry.
 
 /datum/reagent/carpet/reaction_turf(turf/T, reac_volume)
 	if(isplatingturf(T) || istype(T, /turf/open/floor/plasteel))
@@ -1977,21 +1976,6 @@
 	REMOVE_TRAIT(L, TRAIT_PACIFISM, type)
 	..()
 
-/datum/reagent/bz_metabolites
-	name = "BZ metabolites"
-	description = "A harmless metabolite of BZ gas."
-	color = "#FAFF00"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN // botany can't spam this. lings will have this disaster from scrub or maint pill.
-	taste_description = "acrid cinnamon"
-	metabolization_rate = 0.2 * REAGENTS_METABOLISM
-
-/datum/reagent/bz_metabolites/on_mob_life(mob/living/L)
-	if(L.mind)
-		var/datum/antagonist/changeling/changeling = L.mind.has_antag_datum(/datum/antagonist/changeling)
-		if(changeling)
-			changeling.chem_charges = max(changeling.chem_charges-2, 0)
-	return ..()
-
 /datum/reagent/pax/peaceborg
 	name = "Synthpax"
 	description = "A colorless liquid that suppresses violent urges in its subjects. Cheaper to synthesize than normal Pax, but wears off faster."
@@ -2074,9 +2058,15 @@
 	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
 	taste_description = "upside down"
 
-/datum/reagent/eldritch //unholy water, but for eldritch cultists. why couldn't they have both just used the same reagent? who knows. maybe nar'sie is considered to be too "mainstream" of a god to worship in the cultist community.
+// unholy water, but for heretics.
+// why couldn't they have both just used the same reagent?
+// who knows.
+// maybe nar'sie is considered to be too "mainstream" of a god to worship in the heretic community.
+/datum/reagent/eldritch
 	name = "Eldritch Essence"
-	description = "A strange liquid that defies the laws of physics. It re-energizes and heals those who can see beyond this fragile reality, but is incredibly harmful to the closed-minded. It metabolizes very quickly."
+	description = "A strange liquid that defies the laws of physics. \
+		It re-energizes and heals those who can see beyond this fragile reality, \
+		but is incredibly harmful to the closed-minded. It metabolizes very quickly."
 	taste_description = "Ag'hsj'saje'sh"
 	color = "#1f8016"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
@@ -2099,7 +2089,8 @@
 		M.adjustFireLoss(2, FALSE)
 		M.adjustOxyLoss(2, FALSE)
 		M.adjustBruteLoss(2, FALSE)
-	return ..()
+	..()
+	return TRUE
 
 /datum/reagent/consumable/ratlight
 	name = "Ratvarian Light"
@@ -2130,3 +2121,74 @@
 	L.set_light(-1)
 
 	..()
+
+/datum/reagent/helgrasp
+	name = "Helgrasp"
+	description = "This rare and forbidden concoction is thought to bring you closer to the grasp of the Norse goddess Hel."
+	metabolization_rate = 1*REM //This is fast
+	//Compensates for delta_time lag by spawning multiple hands at the end
+	var/lag_remainder = 0
+	//Keeps track of the hand timer so we can cleanup on removal
+	var/list/timer_ids
+
+//Warns you about the impending hands
+/datum/reagent/helgrasp/on_mob_add(mob/living/L, amount)
+	to_chat(L, "<span class='hierophant'>You hear laughter as malevolent hands apparate before you, eager to drag you down to hell...! Look out!</span>")
+	playsound(L.loc, 'sound/misc/ahaha.ogg', 80, TRUE, -1) //Very obvious tell so people can be ready
+	. = ..()
+
+//Sends hands after you for your hubris
+/*
+How it works:
+Standard delta_time for a reagent is 2s - and volume consumption is equal to the volume * delta_time.
+In this chem, I want to consume 0.5u for 1 hand created (since 1*REM is 0.5) so on a single tick I create a hand and set up a callback for another one in 1s from now. But since delta time can vary, I want to be able to create more hands for when the delay is longer.
+Initally I round delta_time to the nearest whole number, and take the part that I am rounding down from (i.e. the decimal numbers) and keep track of them. If the decimilised numbers go over 1, then the number is reduced down and an extra hand is created that tick.
+Then I attempt to calculate the how many hands to created based off the current delta_time, since I can't know the delay to the next one it assumes the next will be in 2s.
+I take the 2s interval period and divide it by the number of hands I want to make (i.e. the current delta_time) and I keep track of how many hands I'm creating (since I always create one on a tick, then I start at 1 hand). For each hand I then use this time value multiplied by the number of hands. Since we're spawning one now, and it checks to see if hands is less than, but not less than or equal to, delta_time, no hands will be created on the next expected tick.
+Basically, we fill the time between now and 2s from now with hands based off the current lag.
+*/
+/datum/reagent/helgrasp/on_mob_life(mob/living/carbon/owner, delta_time = 2, times_fired)
+	spawn_hands(owner)
+	lag_remainder += delta_time - FLOOR(delta_time, 1)
+	delta_time = FLOOR(delta_time, 1)
+	if(lag_remainder >= 1)
+		delta_time += 1
+		lag_remainder -= 1
+	var/hands = 1
+	var/time = 2 / delta_time
+	while(hands < delta_time) //we already made a hand now so start from 1
+		LAZYADD(timer_ids, addtimer(CALLBACK(src, PROC_REF(spawn_hands), owner), (time*hands) SECONDS, TIMER_STOPPABLE)) //keep track of all the timers we set up
+		hands += time
+	return ..()
+
+/datum/reagent/helgrasp/proc/spawn_hands(mob/living/carbon/owner)
+	if(!owner && iscarbon(holder.my_atom))//Catch timer
+		owner = holder.my_atom
+	//Adapted from the end of the curse - but lasts a short time
+	var/grab_dir = turn(owner.dir, pick(-90, 90, 180, 180)) //grab them from a random direction other than the one faced, favoring grabbing from behind
+	var/turf/spawn_turf = get_ranged_target_turf(owner, grab_dir, 8)//Larger range so you have more time to dodge
+	if(!spawn_turf)
+		return
+	new/obj/effect/temp_visual/dir_setting/curse/grasp_portal(spawn_turf, owner.dir)
+	playsound(spawn_turf, 'sound/effects/curse2.ogg', 80, TRUE, -1)
+	var/obj/item/projectile/curse_hand/hel/hand = new (spawn_turf)
+	hand.preparePixelProjectile(owner, spawn_turf)
+	if(QDELETED(hand)) //safety check if above fails - above has a stack trace if it does fail
+		return
+	hand.fire()
+
+//At the end, we clear up any loose hanging timers just in case and spawn any remaining lag_remaining hands all at once.
+/datum/reagent/helgrasp/on_mob_delete(mob/living/owner)
+	var/hands = 0
+	while(lag_remainder > hands)
+		spawn_hands(owner)
+		hands++
+	for(var/id in timer_ids) // So that we can be certain that all timers are deleted at the end.
+		deltimer(id)
+	timer_ids.Cut()
+	return ..()
+
+/datum/reagent/helgrasp/heretic
+	name = "Grasp of the Mansus"
+	description = "The Hand of the Mansus is at your neck."
+	metabolization_rate = 1 * REM

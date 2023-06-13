@@ -59,7 +59,7 @@
 		if(M != user)
 			user.visible_message("<span class='notice'>[user] begins to untie the noose over [M]'s neck...</span>")
 			to_chat(user, "<span class='notice'>You begin to untie the noose over [M]'s neck...</span>")
-			if(!do_mob(user, M, 100))
+			if(!do_after(user, 10 SECONDS, M))
 				return
 			user.visible_message("<span class='notice'>[user] unties the noose over [M]'s neck!</span>")
 			to_chat(user,"<span class='notice'>You untie the noose over [M]'s neck!</span>")
@@ -99,7 +99,7 @@
 	M.visible_message("<span class='danger'>[user] attempts to tie \the [src] over [M]'s neck!</span>")
 	if(user != M)
 		to_chat(user, "<span class='notice'>It will take 20 seconds and you have to stand still.</span>")
-	if(do_mob(user, M, user == M ? 0:200))
+	if(do_after(user, user == M ? 0:20 SECONDS, M))
 		if(buckle_mob(M))
 			user.visible_message("<span class='warning'>[user] ties \the [src] over [M]'s neck!</span>")
 			if(user == M)

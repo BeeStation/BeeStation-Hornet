@@ -99,17 +99,16 @@ NO_INTERCEPT_REPORT
 ## Default probablity is 1, increase to make that mode more likely to be picked.
 ## Set to 0 to disable that mode.
 
-PROBABILITY DYNAMIC 9
-PROBABILITY TRAITOR 8
-PROBABILITY CULT 6
-PROBABILITY TRAITORCHAN 5
-PROBABILITY CHANGELING 5
-PROBABILITY ASSIMILATION 4
-PROBABILITY REVOLUTION 4
-PROBABILITY INCURSION 4
-PROBABILITY NUCLEAR 4
-PROBABILITY CLOCKCULT 2
-PROBABILITY SECRET_EXTENDED 1
+PROBABILITY DYNAMIC 1
+PROBABILITY TRAITOR 0
+PROBABILITY CULT 0
+PROBABILITY TRAITORCHAN 0
+PROBABILITY CHANGELING 0
+PROBABILITY ASSIMILATION 0
+PROBABILITY INCURSION 0
+PROBABILITY NUCLEAR 0
+PROBABILITY CLOCKCULT 0
+PROBABILITY SECRET_EXTENDED 0
 PROBABILITY CLOWNOPS 0
 PROBABILITY DEVIL 0
 PROBABILITY DEVIL_AGENTS 0
@@ -119,6 +118,7 @@ PROBABILITY INTERNAL_AFFAIRS 0
 PROBABILITY METEOR 0
 PROBABILITY TRAITORBRO 0
 PROBABILITY WIZARD 0
+PROBABILITY REVOLUTION 0
 
 ## Creates issues when NO_INTERCEPT_REPORT is enabled
 PROBABILITY EXTENDED 0
@@ -267,6 +267,9 @@ PROTECT_HEADS_FROM_ANTAGONIST
 
 ## If late-joining players have a chance to become a traitor/changeling
 ALLOW_LATEJOIN_ANTAGONISTS
+
+## The minimum amount of players for malfunctioning AI to be occur.
+MALF_AI_MINIMUM_POP 30
 
 ## Incursion Rules
 ## The more incursion-traitors spawn, the most pop is required to spawn the next
@@ -468,6 +471,13 @@ LAW_WEIGHT buildawall,0
 ## The maximum number of laws a silicon can have
 ## Attempting to upload laws past this point will fail unless the AI is reset
 SILICON_MAX_LAW_AMOUNT 12
+
+# Fallback Default Species
+##-------------------------------------------
+## The default character slot species used as a fallback for when there is no database. You probably want this to be human.
+## Using "FALLBACK_DEFAULT_SPECIES random" will just pick a random species
+
+FALLBACK_DEFAULT_SPECIES human
 
 ## Roundstart Races
 ##-------------------------------------------------------------------------------------------

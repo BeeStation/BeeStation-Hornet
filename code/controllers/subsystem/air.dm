@@ -19,6 +19,8 @@ SUBSYSTEM_DEF(air)
 	var/cost_equalize = 0
 	var/thread_wait_ticks = 0
 	var/cur_thread_wait_ticks = 0
+	///The last time the subsystem completely processed
+	var/last_complete_process = 0
 
 	var/low_pressure_turfs = 0
 	var/high_pressure_turfs = 0
@@ -297,6 +299,7 @@ SUBSYSTEM_DEF(air)
 		currentpart = SSAIR_HOTSPOTS
 	*/
 	currentpart = SSAIR_REBUILD_PIPENETS
+	last_complete_process = world.time
 
 /datum/controller/subsystem/air/Recover()
 	thread_wait_ticks = SSair.thread_wait_ticks
@@ -367,7 +370,10 @@ SUBSYSTEM_DEF(air)
 			var/datum/callback/cb = cur_op[3]
 			cb.Invoke(air1, air2)
 		else
-			air1.transfer_ratio_to(air2, cur_op[3])
+			if(cur_op[3] == 0)
+				air1.transfer_to(air2, air1.total_moles())
+			else
+				air1.transfer_ratio_to(air2, cur_op[3])
 		if(MC_TICK_CHECK)
 			return
 
@@ -377,12 +383,15 @@ SUBSYSTEM_DEF(air)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(currentrun.len)
-		var/obj/machinery/M = currentrun[currentrun.len]
+		var/obj/machinery/current_machinery = currentrun[currentrun.len]
 		currentrun.len--
-		if(M == null)
-			atmos_machinery.Remove(M)
-		if(!M || (M.process_atmos() == PROCESS_KILL))
-			atmos_machinery.Remove(M)
+		if(!current_machinery)
+			atmos_machinery -= current_machinery
+		// Prevents uninitalized atmos machinery from processing.
+		if (!(current_machinery.flags_1 & INITIALIZED_1))
+			continue
+		if(current_machinery.process_atmos() == PROCESS_KILL)
+			stop_processing_machine(current_machinery)
 		if(MC_TICK_CHECK)
 			return
 
@@ -393,12 +402,55 @@ SUBSYSTEM_DEF(air)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(currentrun.len)
-		var/obj/machinery/M = currentrun[currentrun.len]
+		var/obj/machinery/current_machinery = currentrun[currentrun.len]
 		currentrun.len--
-		if(!M || (M.process_atmos(seconds) == PROCESS_KILL))
-			atmos_air_machinery.Remove(M)
+		// Prevents uninitalized atmos machinery from processing.
+		if (!(current_machinery.flags_1 & INITIALIZED_1))
+			continue
+		if(!current_machinery)
+			atmos_air_machinery -= current_machinery
+		if(current_machinery.process_atmos(seconds) == PROCESS_KILL)
+			stop_processing_machine(current_machinery)
 		if(MC_TICK_CHECK)
 			return
+
+/**
+ * Adds a given machine to the processing system for SSAIR_ATMOSMACHINERY processing.
+ *
+ * Arguments:
+ * * machine - The machine to start processing. Can be any /obj/machinery.
+ */
+/datum/controller/subsystem/air/proc/start_processing_machine(obj/machinery/machine)
+	if(machine.atmos_processing)
+		return
+	machine.atmos_processing = TRUE
+	if(machine.interacts_with_air)
+		atmos_air_machinery += machine
+	else
+		atmos_machinery += machine
+
+/**
+ * Removes a given machine to the processing system for SSAIR_ATMOSMACHINERY processing.
+ *
+ * Arguments:
+ * * machine - The machine to stop processing.
+ */
+/datum/controller/subsystem/air/proc/stop_processing_machine(obj/machinery/machine)
+	if(!machine.atmos_processing)
+		return
+	machine.atmos_processing = FALSE
+	if(machine.interacts_with_air)
+		atmos_air_machinery -= machine
+	else
+		atmos_machinery -= machine
+
+	// If we're currently processing atmos machines, there's a chance this machine is in
+	// the currentrun list, which is a cache of atmos_machinery. Remove it from that list
+	// as well to prevent processing qdeleted objects in the cache.
+	if(currentpart == SSAIR_ATMOSMACHINERY)
+		currentrun -= machine
+	if(machine.interacts_with_air && currentpart == SSAIR_ATMOSMACHINERY_AIR)
+		currentrun -= machine
 
 /datum/controller/subsystem/air/proc/process_turf_heat()
 
@@ -514,7 +566,7 @@ SUBSYSTEM_DEF(air)
 
 	for(var/thing in turfs_to_init)
 		var/turf/T = thing
-		if (T.blocks_air)
+		if (isclosedturf(T))
 			continue
 		T.Initalize_Atmos(times_fired)
 		CHECK_TICK

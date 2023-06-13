@@ -13,6 +13,9 @@
 	var/can_be_bought = TRUE
 	var/illegal_shuttle = FALSE	//makes you able to buy the shuttle at a hacked/emagged comms console even if can_be_bought is FALSE
 
+	/// How dangerous this shuttle is, used for alerting foolish captains not to buy it (or traitors to buy it)
+	var/danger_level = SHUTTLE_DANGER_SAFE
+
 	var/list/movement_force // If set, overrides default movement_force on shuttle
 	var/untowable = FALSE // If set, the shuttle becomes untowable
 
@@ -63,21 +66,25 @@
 				++xcrd
 			--ycrd
 
-/datum/map_template/shuttle/load(turf/T, centered, init_atmos = TRUE, finalize = TRUE, register=TRUE)
+/datum/map_template/shuttle/load(turf/T, centered, init_atmos, finalize = TRUE, register = TRUE)
 	if(centered)
 		T = locate(T.x - round(width/2) , T.y - round(height/2) , T.z)
 		centered = FALSE
 	//This assumes a non-multi-z shuttle. If you are making a multi-z shuttle, you'll need to change the z bounds for this block. Good luck.
 	var/list/turfs = block(locate(max(T.x, 1), max(T.y, 1),  T.z),
-							locate(min(T.x+width, world.maxx), min(T.y+height, world.maxy), T.z))
+							locate(min(T.x+width-1, world.maxx), min(T.y+height-1, world.maxy), T.z))
 	for(var/turf/turf in turfs)
 		turfs[turf] = turf.loc
 	keep_cached_map = TRUE //We need to access some stuff here below for shuttle skipovers
-	. = ..(T, centered, init_atmos = TRUE, finalize = FALSE)
+	. = ..(T, centered, init_atmos, finalize, register, turfs)
+
+/datum/map_template/shuttle/on_placement_completed(datum/map_generator/map_gen, turf/T, init_atmos, datum/parsed_map/parsed, finalize = TRUE, register = TRUE, list/turfs)
+	. = ..(map_gen, T, TRUE, parsed, FALSE)
 	keep_cached_map = initial(keep_cached_map)
 	if(!.)
-		cached_map = keep_cached_map ? cached_map : null
+		log_runtime("Failed to load shuttle [map_gen.get_name()].")
 		return
+
 	var/obj/docking_port/mobile/my_port
 	for(var/turf/place in turfs)
 		if(place.loc == turfs[place] || !istype(place.loc, /area/shuttle)) //If not part of the shuttle, ignore it
@@ -158,11 +165,13 @@
 	//If this is a superfunction call, we don't want to initialize atoms here, let the subfunction handle that
 	if(finalize)
 		//initialize things that are normally initialized after map load
-		initTemplateBounds(cached_map.bounds, init_atmos)
+		initTemplateBounds(., init_atmos)
 
 		log_game("[name] loaded at [T.x],[T.y],[T.z]")
 
-	cached_map = keep_cached_map ? cached_map : null
+	maps_loading --
+	if (!maps_loading)
+		cached_map = keep_cached_map ? cached_map : null
 
 //Whatever special stuff you want
 /datum/map_template/shuttle/proc/post_load(obj/docking_port/mobile/M)
@@ -252,7 +261,7 @@
 /datum/map_template/shuttle/emergency/airless/post_load()
 	. = ..()
 	//enable buying engines from cargo
-	var/datum/supply_pack/P = SSshuttle.supply_packs[/datum/supply_pack/engineering/shuttle_engine]
+	var/datum/supply_pack/P = SSsupply.supply_packs[/datum/supply_pack/engineering/shuttle_engine]
 	P.special_enabled = TRUE
 
 
@@ -283,6 +292,7 @@
 	description = "Dis is a high-quality shuttle, da. Many seats, lots of space, all equipment! Even includes entertainment! Such as lots to drink, and a fighting arena for drunk crew to have fun! If arena not fun enough, simply press button of releasing bears. Do not worry, bears trained not to break out of fighting pit, so totally safe so long as nobody stupid or drunk enough to leave door open. Try not to let asimov babycons ruin fun!"
 	admin_notes = "Includes a small variety of weapons. And bears. Only captain-access can release the bears. Bears won't smash the windows themselves, but they can escape if someone lets them."
 	credit_cost = 5000 // While the shuttle is rusted and poorly maintained, trained bears are costly.
+	danger_level = SHUTTLE_DANGER_SUBPAR
 
 /datum/map_template/shuttle/emergency/meteor
 	suffix = "meteor"
@@ -291,6 +301,7 @@
 	admin_notes = "This shuttle will likely crush escape, killing anyone there."
 	credit_cost = 15000
 	movement_force = list("KNOCKDOWN" = 3, "THROW" = 2)
+	danger_level = SHUTTLE_DANGER_HIGH
 
 /datum/map_template/shuttle/emergency/luxury
 	suffix = "luxury"
@@ -299,6 +310,7 @@
 	extra_desc = "This shuttle costs 500 credits to board."
 	admin_notes = "Due to the limited space for non paying crew, this shuttle may cause a riot."
 	credit_cost = 10000
+	danger_level = SHUTTLE_DANGER_SUBPAR
 
 /datum/map_template/shuttle/emergency/discoinferno
 	suffix = "discoinferno"
@@ -306,13 +318,15 @@
 	description = "The glorious results of centuries of plasma research done by Nanotrasen employees. This is the reason why you are here. Get on and dance like you're on fire, burn baby burn!"
 	admin_notes = "Flaming hot. The main area has a dance machine as well as plasma floor tiles that will be ignited by players every single time."
 	credit_cost = 10000
+	danger_level = SHUTTLE_DANGER_HIGH
 
 /datum/map_template/shuttle/emergency/arena
 	suffix = "arena"
 	name = "The Arena"
 	description = "The crew must pass through an otherworldy arena to board this shuttle. Expect massive casualties. The source of the Bloody Signal must be tracked down and eliminated to unlock this shuttle."
-	admin_notes = "RIP AND TEAR."
+	admin_notes = "RIP AND TEAR. Creates an entire internal Z-level where you have to kill each other in a massive battle royale to get to the actual shuttle."
 	credit_cost = 10000
+	danger_level = SHUTTLE_DANGER_HIGH
 	/// Whether the arena z-level has been created
 	var/arena_loaded = FALSE
 
@@ -360,6 +374,7 @@
 	Have a fun ride!"
 	admin_notes = "Brig is replaced by anchored greentext book surrounded by lavaland chasms, stationside door has been removed to prevent accidental dropping. No brig."
 	credit_cost = 8000
+	danger_level = SHUTTLE_DANGER_SUBPAR
 
 /datum/map_template/shuttle/emergency/cramped
 	suffix = "cramped"
@@ -367,8 +382,9 @@
 	description = "Well, looks like CentCom only had this ship in the area, they probably weren't expecting you to need evac for a while. \
 	Probably best if you don't rifle around in whatever equipment they were transporting. I hope you're friendly with your coworkers, because there is very little space in this thing.\n\
 	\n\
-	Contains contraband armory guns, maintenance loot, and abandoned crates!"
+	Contains contraband armory guns, some random stuff we found in maintenance, and potentially explosive abandoned crates!"
 	admin_notes = "Due to origin as a solo piloted secure vessel, has an active GPS onboard labeled STV5. Has roughly as much space as Hi Daniel, except with explosive crates."
+	danger_level = SHUTTLE_DANGER_HIGH
 
 /datum/map_template/shuttle/emergency/meta
 	suffix = "meta"
@@ -408,6 +424,7 @@
 	description = "Due to a lack of functional emergency shuttles, we bought this second hand from a scrapyard and pressed it into service. Please do not lean too heavily on the exterior windows, they are fragile."
 	admin_notes = "An abomination with no functional medbay, sections missing, and some very fragile windows. Surprisingly airtight."
 	movement_force = list("KNOCKDOWN" = 3, "THROW" = 2)
+	danger_level = SHUTTLE_DANGER_SUBPAR
 
 /datum/map_template/shuttle/emergency/narnar
 	suffix = "narnar"
@@ -415,6 +432,7 @@
 	description = "Looks like this shuttle may have wandered into the darkness between the stars on route to the station. Let's not think too hard about where all the bodies came from."
 	admin_notes = "Contains real cult ruins, mob eyeballs, and inactive constructs. Cult mobs will automatically be sentienced by fun balloon. \
 	Cloning pods in 'medbay' area are showcases and nonfunctional."
+	danger_level = SHUTTLE_DANGER_SUBPAR
 
 /datum/map_template/shuttle/emergency/narnar/prerequisites_met()
 	if(SHUTTLE_UNLOCK_NARNAR in SSshuttle.shuttle_purchase_requirements_met)
@@ -449,15 +467,17 @@
 	Emitters spawn powered on, expect admin notices, they are harmless."
 	credit_cost = 100000
 	movement_force = list("KNOCKDOWN" = 3, "THROW" = 2)
+	danger_level = SHUTTLE_DANGER_HIGH
 
 /datum/map_template/shuttle/emergency/imfedupwiththisworld
 	suffix = "imfedupwiththisworld"
 	name = "Oh, Hi Daniel"
 	description = "How was space work today? Oh, pretty good. We got a new space station and the company will make a lot of money. What space station? I cannot tell you; it's space confidential. \
-	Aw, come space on. Why not? No, I can't. Anyway, how is your space roleplay life?"
+	Aw, come space on. Why not? No, I can't. Anyway, how is your space life?"
 	admin_notes = "Tiny, with a single airlock and wooden walls. What could go wrong?"
 	credit_cost = -5000
 	movement_force = list("KNOCKDOWN" = 3, "THROW" = 2)
+	danger_level = SHUTTLE_DANGER_SUBPAR
 
 /datum/map_template/shuttle/emergency/goon
 	suffix = "goon"
@@ -473,6 +493,7 @@
 	Needless to say, no engineering team wanted to go near the thing, and it's only being used as an Emergency Escape Shuttle because there is literally nothing else available."
 	admin_notes = "If the crew can solve the puzzle, they will wake the wabbajack statue. It will likely not end well. There's a reason it's boarded up. Maybe they should have just left it alone."
 	credit_cost = 15000
+	danger_level = SHUTTLE_DANGER_HIGH
 
 /datum/map_template/shuttle/emergency/omega
 	suffix = "omega"
@@ -625,6 +646,14 @@
 	suffix = "large"
 	name = "mining shuttle (Large)"
 
+/datum/map_template/shuttle/mining/rad
+	suffix = "rad"
+	name = "mining shuttle (Rad)"
+
+/datum/map_template/shuttle/cargo/rad
+	suffix = "rad"
+	name = "cargo ferry (Rad)"
+
 /datum/map_template/shuttle/science
 	port_id = "science"
 	suffix = "outpost"
@@ -648,6 +677,10 @@
 /datum/map_template/shuttle/exploration/kilo
 	suffix = "kilo"
 	name = "kilo exploration shuttle"
+
+/datum/map_template/shuttle/exploration/rad
+	suffix = "rad"
+	name = "rad exploration shuttle"
 
 /datum/map_template/shuttle/labour/delta
 	suffix = "delta"
@@ -736,14 +769,6 @@
 /datum/map_template/shuttle/snowdin/excavation
 	suffix = "excavation"
 	name = "Snowdin Excavation Elevator"
-
- // Turbolifts
-/datum/map_template/shuttle/turbolift/debug/primary
-	prefix = "_maps/shuttles/turbolifts/"
-	port_id = "debug"
-	suffix = "primary"
-	name = "primary turbolift (multi-z debug)"
-	can_be_bought = FALSE
 
 /datum/map_template/shuttle/tram
 	port_id = "tram"

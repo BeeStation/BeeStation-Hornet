@@ -69,8 +69,8 @@
 					/obj/item/clothing/under/rank/medical/doctor/skirt= 4,
 					/obj/item/clothing/under/plasmaman/medical = 4,
 					/obj/item/clothing/head/helmet/space/plasmaman/medical = 4,
-					/obj/item/clothing/suit/toggle/labcoat = 4,
-					/obj/item/clothing/suit/toggle/labcoat/paramedic = 4,
+					/obj/item/clothing/suit/toggle/labcoat/med = 4,
+					/obj/item/clothing/suit/toggle/labcoat/med/paramedic = 4,
 					/obj/item/clothing/shoes/sneakers/white = 4,
 					/obj/item/clothing/head/soft/paramedic = 4,
 					/obj/item/clothing/suit/apron/surgical = 4,
@@ -97,6 +97,7 @@
 					/obj/item/clothing/suit/hooded/wintercoat/engineering = 3,
 					/obj/item/clothing/under/rank/engineering/engineer = 3,
 					/obj/item/clothing/under/rank/engineering/engineer/hazard = 3,
+					/obj/item/clothing/under/rank/engineering/engineer/skirt = 3,
 					/obj/item/clothing/suit/hazardvest = 3,
 					/obj/item/clothing/shoes/workboots = 3,
 					/obj/item/clothing/head/hardhat = 3,
@@ -123,6 +124,7 @@
 					/obj/item/clothing/head/helmet/space/plasmaman/engineering/atmospherics = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos = 3,
 					/obj/item/clothing/under/rank/engineering/atmospheric_technician = 3,
+					/obj/item/clothing/under/rank/engineering/atmospheric_technician/skirt = 3,
 					/obj/item/clothing/shoes/sneakers/black = 3,
 					/obj/item/clothing/head/beret/atmos = 3)
 	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos/old = 3)
@@ -254,7 +256,8 @@
 	product_ads = "Glasses for your eyes and literature for your soul, Curadrobe has it all!; Impress & enthrall your library guests with Curadrobe's extended line of pens!"
 	vend_reply = "Thank you for using the CuraDrobe!"
 	light_color = LIGHT_COLOR_WHITE
-	products = list(/obj/item/clothing/under/rank/civilian/curator/skirt = 2,
+	products = list(/obj/item/clothing/under/rank/civilian/curator = 2,
+					/obj/item/clothing/under/rank/civilian/curator/skirt = 2,
 					/obj/item/pen = 4,
 					/obj/item/pen/red = 2,
 					/obj/item/pen/blue = 2,
@@ -522,7 +525,7 @@
 					/obj/item/clothing/shoes/laceup = 2,
 					/obj/item/clothing/suit/det_suit/grey = 1,
 					/obj/item/clothing/suit/det_suit/noir = 1,
-					/obj/item/clothing/head/fedora = 2,
+					/obj/item/clothing/head/fedora/det_hat/noir = 2,
 					/obj/item/clothing/gloves/color/black = 2,
 					/obj/item/clothing/gloves/color/latex = 2,
 					/obj/item/reagent_containers/food/drinks/flask/det = 2,

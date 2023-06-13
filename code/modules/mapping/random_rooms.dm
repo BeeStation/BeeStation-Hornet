@@ -1374,13 +1374,86 @@
 	template_height = 5
 	template_width = 3
 
-/datum/map_template/random_room/sk_rdm161
+/datum/map_template/random_room/sk_rdm161 // rare. has hostile spiders
 	name = "Bank Vault"
 	room_id = "sk_rdm161_kilovault"
 	mappath = "_maps/RandomRooms/10x5/sk_rdm161_kilovault.dmm"
 	centerspawner = FALSE
-	template_height = 10
+	template_height = 5
+	template_width = 10
+	weight = 1
+
+/datum/map_template/random_room/sk_rdm162
+	name = "Control Room"
+	room_id = "sk_rdm162_control_room"
+	mappath = "_maps/RandomRooms/3x3/sk_rdm162_control_room.dmm"
+	centerspawner = FALSE
+	template_height = 3
+	template_width = 3
+	weight = 6
+
+/datum/map_template/random_room/sk_rdm163 // potentially traumatising
+	name = "Corgi Butcher"
+	room_id = "sk_rdm163_corgi_butcher"
+	mappath = "_maps/RandomRooms/3x3/sk_rdm163_corgi_butcher.dmm"
+	centerspawner = FALSE
+	template_height = 3
+	template_width = 3
+	weight = 2
+
+/datum/map_template/random_room/sk_rdm164
+	name = "Cornucopia"
+	room_id = "sk_rdm164_cornucopia"
+	mappath = "_maps/RandomRooms/3x3/sk_rdm164_cornucopia.dmm"
+	centerspawner = FALSE
+	template_height = 3
+	template_width = 3
+	weight = 4
+
+/datum/map_template/random_room/sk_rdm165
+	name = "Mini Library"
+	room_id = "sk_rdm165_library"
+	mappath = "_maps/RandomRooms/3x3/sk_rdm165_library.dmm"
+	centerspawner = FALSE
+	template_height = 3
+	template_width = 3
+	weight = 4
+
+/datum/map_template/random_room/sk_rdm166
+	name = "Printing Press"
+	room_id = "sk_rdm166_printing_press"
+	mappath = "_maps/RandomRooms/5x4/sk_rdm166_printing_press.dmm"
+	centerspawner = FALSE
+	template_height = 4
 	template_width = 5
+	weight = 4
+
+/datum/map_template/random_room/sk_rdm167 // has a real (but nonfunctional) cult rune
+	name = "Library Ritual"
+	room_id = "sk_rdm167_library_ritual"
+	mappath = "_maps/RandomRooms/10x10/sk_rdm167_library_ritual.dmm"
+	centerspawner = FALSE
+	template_height = 10
+	template_width = 10
+	weight = 1
+
+/datum/map_template/random_room/sk_rdm168
+	name = "Offish"
+	room_id = "sk_rdm168_offish"
+	mappath = "_maps/RandomRooms/3x5/sk_rdm168_offish.dmm"
+	centerspawner = FALSE
+	template_height = 5
+	template_width = 3
+	weight = 2
+
+/datum/map_template/random_room/sk_rdm169
+	name = "Maint Solars"
+	room_id = "sk_rdm168_solars"
+	mappath = "_maps/RandomRooms/5x4/sk_rdm168_solars.dmm"
+	centerspawner = FALSE
+	template_height = 4
+	template_width = 5
+	weight = 2
 
 //Flandstation Dedicated Random Room
 
@@ -1389,7 +1462,7 @@
 	room_id = "sk_rdm_fln_01_scooterpark"
 	mappath = "_maps/RandomRooms/fland/sk_rdm_fln_01_scooterpark.dmm"
 	centerspawner = FALSE
-	template_height = 11
+	template_height = 10
 	template_width = 5
 
 /datum/map_template/random_room/sk_rdm_fln_02
@@ -1397,7 +1470,7 @@
 	room_id = "sk_rdm_fln_02_beelounge"
 	mappath = "_maps/RandomRooms/fland/sk_rdm_fln_02_beelounge.dmm"
 	centerspawner = FALSE
-	template_height = 11
+	template_height = 10
 	template_width = 5
 
 /datum/map_template/random_room/sk_rdm_fln_03
@@ -1405,7 +1478,7 @@
 	room_id = "sk_rdm_fln_03_vendingminimarket"
 	mappath = "_maps/RandomRooms/fland/sk_rdm_fln_03_vendingminimarket.dmm"
 	centerspawner = FALSE
-	template_height = 11
+	template_height = 10
 	template_width = 5
 
 /datum/map_template/random_room/sk_rdm_fln_04
@@ -1413,7 +1486,7 @@
 	room_id = "sk_rdm_fln_04_conveniencestore"
 	mappath = "_maps/RandomRooms/fland/sk_rdm_fln_04_conveniencestore.dmm"
 	centerspawner = FALSE
-	template_height = 11
+	template_height = 10
 	template_width = 5
 
 /datum/map_template/random_room/sk_rdm_fln_05
@@ -1421,7 +1494,7 @@
 	room_id = "sk_rdm_fln_05_apiary"
 	mappath = "_maps/RandomRooms/fland/sk_rdm_fln_05_apiary.dmm"
 	centerspawner = FALSE
-	template_height = 11
+	template_height = 10
 	template_width = 5
 
 /datum/map_template/random_room/sk_rdm_fln_06
@@ -1429,7 +1502,7 @@
 	room_id = "sk_rdm_fln_06_publicgarden"
 	mappath = "_maps/RandomRooms/fland/sk_rdm_fln_06_publicgarden.dmm"
 	centerspawner = FALSE
-	template_height = 11
+	template_height = 10
 	template_width = 5
 
 /datum/map_template/random_room/sk_rdm_fln_07
@@ -1437,7 +1510,7 @@
 	room_id = "sk_rdm_fln_07_theletterh"
 	mappath = "_maps/RandomRooms/fland/sk_rdm_fln_07_theletterh.dmm"
 	centerspawner = FALSE
-	template_height = 11
+	template_height = 10
 	template_width = 5
 
 /datum/map_template/random_room/sk_rdm_fln_08
@@ -1445,7 +1518,7 @@
 	room_id = "sk_rdm_fln_08_zenroom"
 	mappath = "_maps/RandomRooms/fland/sk_rdm_fln_08_zenroom.dmm"
 	centerspawner = FALSE
-	template_height = 11
+	template_height = 10
 	template_width = 5
 
 /datum/map_template/random_room/sk_rdm_fln_09
@@ -1453,7 +1526,7 @@
 	room_id = "sk_rdm_fln_09_barbershop"
 	mappath = "_maps/RandomRooms/fland/sk_rdm_fln_09_barbershop.dmm"
 	centerspawner = FALSE
-	template_height = 11
+	template_height = 10
 	template_width = 5
 
 /datum/map_template/random_room/sk_rdm_fln_10
@@ -1461,7 +1534,7 @@
 	room_id = "sk_rdm_fln_10_readingroom"
 	mappath = "_maps/RandomRooms/fland/sk_rdm_fln_10_readingroom.dmm"
 	centerspawner = FALSE
-	template_height = 11
+	template_height = 10
 	template_width = 5
 
 /datum/map_template/random_room/sk_rdm_fln_11
@@ -1469,7 +1542,7 @@
 	room_id = "sk_rdm_fln_11_hobobox"
 	mappath = "_maps/RandomRooms/fland/sk_rdm_fln_11_hobobox.dmm"
 	centerspawner = FALSE
-	template_height = 11
+	template_height = 10
 	template_width = 5
 
 /datum/map_template/random_room/sk_rdm_fln_12
@@ -1477,5 +1550,14 @@
 	room_id = "sk_rdm_fln_12_magicstage"
 	mappath = "_maps/RandomRooms/fland/sk_rdm_fln_12_magicstage.dmm"
 	centerspawner = FALSE
-	template_height = 11
+	template_height = 10
+	template_width = 5
+a
+
+/datum/map_template/random_room/sk_rdm_fln_13
+	name = "Cheese room"
+	room_id = "sk_rdm_fln_13_cheeseroom"
+	mappath = "_maps/RandomRooms/fland/sk_rdm_fln_13_cheeseroom.dmm"
+	centerspawner = FALSE
+	template_height = 10
 	template_width = 5

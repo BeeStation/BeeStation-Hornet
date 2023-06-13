@@ -42,8 +42,6 @@
 	var/incorporeal_move = FALSE //FALSE is off, INCORPOREAL_MOVE_BASIC is normal, INCORPOREAL_MOVE_SHADOW is for ninjas
 								 //and INCORPOREAL_MOVE_JAUNT is blocked by holy water/salt
 
-	var/list/roundstart_quirks = list()
-
 	var/list/surgeries = list()	//a list of surgery datums. generally empty, they're added when the player wants them.
 
 	var/now_pushing = null //used by living/Bump() and living/PushAM() to prevent potential infinite loop.
@@ -135,3 +133,10 @@
 	//is mob player controllable
 	var/playable = FALSE
 	var/flavor_text = FLAVOR_TEXT_NONE
+	var/role //Used for determining whether a player is banned from taking control of a given mob, if it is assigned to a category.
+
+	///Default X offset
+	var/body_pixel_x_offset = 0
+	///Default Y offset
+	var/body_pixel_y_offset = 0
+

@@ -1,3 +1,11 @@
+GLOBAL_VAR_INIT(pirates_spawned, FALSE)
+
+// Pirates threat
+/// No way
+#define PIRATE_RESPONSE_NO_PAY "pirate_answer_no_pay"
+/// We'll pay
+#define PIRATE_RESPONSE_PAY "pirate_answer_pay"
+
 /datum/round_event_control/pirates
 	name = "Space Pirates"
 	typepath = /datum/round_event/pirates
@@ -14,14 +22,16 @@
 	return ..()
 
 /datum/round_event/pirates/start()
-	send_pirate_threat()
+	if(!GLOB.pirates_spawned)
+		send_pirate_threat()
 
 /proc/send_pirate_threat()
+	GLOB.pirates_spawned = TRUE
 	var/ship_name = "Space Privateers Association"
 	var/payoff_min = 20000
 	var/payoff = 0
 	var/initial_send_time = world.time
-	var/response_max_time = 2 MINUTES
+	var/response_max_time = rand(4,7) MINUTES
 	priority_announce("Incoming subspace communication. Secure channel opened at all communication consoles.", "Incoming Message", SSstation.announcer.get_rand_report_sound())
 	var/datum/comm_message/threat = new
 	var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
@@ -29,13 +39,13 @@
 		payoff = max(payoff_min, FLOOR(D.account_balance * 0.80, 1000))
 	ship_name = pick(strings(PIRATE_NAMES_FILE, "ship_names"))
 	threat.title = "Business proposition"
-	threat.content = "This is [ship_name]. Pay up [payoff] credits or you'll walk the plank."
+	threat.content = "Avast, ye scurvy dogs! Our fine ship <i>[ship_name]</i> has come for yer booty. Immediately transfer [payoff] space doubloons from yer Cargo budget or ye'll be walkin' the plank. Don't try and cheat us, make sure it's all tharr!"
 	threat.possible_answers = list(
 		PIRATE_RESPONSE_PAY = "We'll pay.",
 		PIRATE_RESPONSE_NO_PAY = "No way.",
 	)
-	threat.answer_callback = CALLBACK(GLOBAL_PROC, .proc/pirates_answered, threat, payoff, ship_name, initial_send_time, response_max_time)
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/spawn_pirates, threat, FALSE), response_max_time)
+	threat.answer_callback = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(pirates_answered), threat, payoff, ship_name, initial_send_time, response_max_time)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(spawn_pirates), threat, FALSE), response_max_time)
 	SScommunications.send_message(threat,unique = TRUE)
 
 /proc/pirates_answered(datum/comm_message/threat, payoff, ship_name, initial_send_time, response_max_time)
@@ -61,7 +71,7 @@
 	if(!skip_answer_check && threat?.answered == PIRATE_RESPONSE_PAY)
 		return
 
-	var/list/candidates = pollGhostCandidates("Do you wish to be considered for pirate crew?", ROLE_TRAITOR)
+	var/list/candidates = pollGhostCandidates("Do you wish to be considered for pirate crew?", ROLE_SPACE_PIRATE)
 	shuffle_inplace(candidates)
 
 	var/datum/map_template/shuttle/pirate/default/ship = new
@@ -72,9 +82,12 @@
 	if(!T)
 		CRASH("Pirate event found no turf to load in")
 
-	if(!ship.load(T))
-		CRASH("Loading pirate ship failed!")
+	var/datum/map_generator/template_placer = ship.load(T)
+	template_placer.on_completion(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(after_pirate_spawn), ship, candidates))
 
+	priority_announce("Unidentified armed ship detected near the station.", sound = SSstation.announcer.get_rand_alert_sound())
+
+/proc/after_pirate_spawn(datum/map_template/shuttle/pirate/default/ship, list/candidates, datum/map_generator/map_generator, turf/T)
 	for(var/turf/A in ship.get_affected_turfs(T))
 		for(var/obj/effect/mob_spawn/human/pirate/spawner in A)
 			if(candidates.len > 0)
@@ -84,8 +97,6 @@
 				notify_ghosts("The pirate ship has an object of interest: [M]!", source=M, action=NOTIFY_ORBIT, header="Something's Interesting!")
 			else
 				notify_ghosts("The pirate ship has an object of interest: [spawner]!", source=spawner, action=NOTIFY_ORBIT, header="Something's Interesting!")
-
-	priority_announce("Unidentified armed ship detected near the station.", sound = SSstation.announcer.get_rand_alert_sound())
 
 //Shuttle equipment
 
@@ -127,7 +138,7 @@
 
 /obj/machinery/shuttle_scrambler/interact(mob/user)
 	if(!active)
-		if(alert(user, "Turning the scrambler on will make the shuttle trackable by GPS. Are you sure you want to do it?", "Scrambler", "Yes", "Cancel") == "Cancel")
+		if(alert(user, "Turning the scrambler on will make the shuttle trackable by GPS. Are you sure you want to do it?", "Scrambler", "Yes", "Cancel") != "Yes")
 			return
 		if(active || !user.canUseTopic(src, BE_CLOSE))
 			return
@@ -282,7 +293,7 @@
 	pad = newpad
 
 	if(pad)
-		RegisterSignal(pad, COMSIG_PARENT_QDELETING, .proc/handle_pad_deletion)
+		RegisterSignal(pad, COMSIG_PARENT_QDELETING, PROC_REF(handle_pad_deletion))
 
 /obj/machinery/computer/piratepad_control/proc/handle_pad_deletion()
 	pad = null
@@ -391,7 +402,7 @@
 	status_report = "Sending..."
 	pad.visible_message("<span class='notice'>[pad] starts charging up.</span>")
 	pad.icon_state = pad.warmup_state
-	sending_timer = addtimer(CALLBACK(src,.proc/send),warmup_time, TIMER_STOPPABLE)
+	sending_timer = addtimer(CALLBACK(src,PROC_REF(send)),warmup_time, TIMER_STOPPABLE)
 
 /obj/machinery/computer/piratepad_control/proc/stop_sending()
 	if(!sending)
@@ -461,3 +472,6 @@
 /datum/export/pirate/holochip/get_cost(atom/movable/AM)
 	var/obj/item/holochip/H = AM
 	return H.credits
+
+#undef PIRATE_RESPONSE_NO_PAY
+#undef PIRATE_RESPONSE_PAY

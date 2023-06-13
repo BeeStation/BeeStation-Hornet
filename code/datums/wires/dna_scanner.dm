@@ -26,7 +26,7 @@
 	switch(wire)
 		if(WIRE_IDSCAN)
 			S.ignore_id = !S.ignore_id
-			addtimer(CALLBACK(S, /obj/machinery/dna_scannernew.proc/reset, wire), 1200)
+			addtimer(CALLBACK(S, TYPE_PROC_REF(/obj/machinery/dna_scannernew, reset), wire), 1200)
 		if(WIRE_BOLTS)
 			S.locked = !S.locked
 			S.update_icon()

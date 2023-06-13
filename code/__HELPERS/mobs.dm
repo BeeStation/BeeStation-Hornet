@@ -1,3 +1,11 @@
+//check_target_facings() return defines
+/// Two mobs are facing the same direction
+#define FACING_SAME_DIR 1
+/// Two mobs are facing each others
+#define FACING_EACHOTHER 2
+/// Two mobs one is facing a person, but the other is perpendicular
+#define FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR 3 //! Do I win the most informative but also most stupid define award?
+
 /proc/random_blood_type()
 	return pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
 
@@ -68,12 +76,12 @@
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/body_markings, GLOB.body_markings_list)
 	if(!GLOB.wings_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/wings, GLOB.wings_list)
-	if(!GLOB.moth_wings_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_wings, GLOB.moth_wings_list)
-	if(!GLOB.moth_antennae_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_antennae, GLOB.moth_antennae_list)
-	if(!GLOB.moth_markings_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_markings, GLOB.moth_markings_list)
+	if(!GLOB.moth_wings_roundstart_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_wings, GLOB.moth_wings_roundstart_list)
+	if(!GLOB.moth_antennae_roundstart_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_antennae, GLOB.moth_antennae_roundstart_list)
+	if(!GLOB.moth_markings_roundstart_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_markings, GLOB.moth_markings_roundstart_list)
 	if(!GLOB.ipc_screens_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/ipc_screens, GLOB.ipc_screens_list)
 	if(!GLOB.ipc_antennas_list.len)
@@ -82,6 +90,12 @@
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/ipc_chassis, GLOB.ipc_chassis_list)
 	if(!GLOB.insect_type_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/insect_type, GLOB.insect_type_list)
+	if(!GLOB.apid_antenna_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/apid_antenna, GLOB.apid_antenna_list)
+	if(!GLOB.apid_stripes_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/apid_stripes, GLOB.apid_stripes_list)
+	if(!GLOB.apid_headstripes_list.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/apid_headstripes, GLOB.apid_headstripes_list)
 	//For now we will always return none for tail_human and ears.
 	return(
 		list(
@@ -99,13 +113,17 @@
 		"body_markings" = pick(GLOB.body_markings_list),
 		"legs" = "Normal Legs",
 		"caps" = pick(GLOB.caps_list),
-		"moth_wings" = pick(GLOB.moth_wings_list),
-		"moth_antennae" = pick(GLOB.moth_antennae_list),
-		"moth_markings" = pick(GLOB.moth_markings_list),
+		"moth_wings" = pick(GLOB.moth_wings_roundstart_list),
+		"moth_antennae" = pick(GLOB.moth_antennae_roundstart_list),
+		"moth_markings" = pick(GLOB.moth_markings_roundstart_list),
 		"ipc_screen" = pick(GLOB.ipc_screens_list),
 		"ipc_antenna" = pick(GLOB.ipc_antennas_list),
 		"ipc_chassis" = pick(GLOB.ipc_chassis_list),
-		"insect_type" = pick(GLOB.insect_type_list)
+		"insect_type" = pick(GLOB.insect_type_list),
+		"apid_antenna" = pick(GLOB.apid_antenna_list),
+		"apid_stripes" = pick(GLOB.apid_stripes_list),
+		"apid_headstripes" = pick(GLOB.apid_headstripes_list),
+		"body_model" = MALE
 		)
 	)
 
@@ -131,8 +149,10 @@
 	for(var/i in 1 to attempts_to_find_unique_name)
 		if(gender==FEMALE)
 			. = capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names))
-		else
+		else if(gender==MALE)
 			. = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
+		else if(gender==PLURAL)
+			. = capitalize(pick(GLOB.first_names)) + " " + capitalize(pick(GLOB.last_names))
 
 		if(!findname(.))
 			break
@@ -150,7 +170,7 @@
 /proc/random_skin_tone()
 	return pick(GLOB.skin_tones)
 
-GLOBAL_LIST_INIT(skin_tones, sortList(list(
+GLOBAL_LIST_INIT(skin_tones, sort_list(list(
 	"albino",
 	"caucasian1",
 	"caucasian2",
@@ -190,52 +210,6 @@ GLOBAL_LIST_EMPTY(species_list)
 		else
 			return "unknown"
 
-/proc/do_mob(mob/user , mob/target, time = 30, uninterruptible = 0, progress = 1, datum/callback/extra_checks = null)
-	if(!user || !target)
-		return FALSE
-	var/user_loc = user.loc
-
-	var/drifting = FALSE
-	if(SSmove_manager.processing_on(user, SSspacedrift))
-		drifting = TRUE
-
-	LAZYADD(user.do_afters, target)
-	LAZYADD(target.targeted_by, user)
-
-	var/target_loc = target.loc
-
-	var/holding = user.get_active_held_item()
-	var/datum/progressbar/progbar
-	if(progress)
-		progbar = new(user, time, target)
-
-	var/endtime = world.time+time
-	var/starttime = world.time
-	. = TRUE
-	while(world.time < endtime)
-		stoplag(1)
-		if(progress)
-			progbar.update(world.time - starttime)
-		if(QDELETED(user) || QDELETED(target))
-			. = FALSE
-			break
-		if(uninterruptible)
-			continue
-
-		if(drifting && SSmove_manager.processing_on(user, SSspacedrift))
-			drifting = FALSE
-			user_loc = user.loc
-
-		if((!drifting && user.loc != user_loc) || target.loc != target_loc || user.get_active_held_item() != holding || user.incapacitated() || (extra_checks && !extra_checks.Invoke()))
-			. = FALSE
-			break
-	if(progress)
-		qdel(progbar)
-
-	if(!QDELETED(target))
-		LAZYREMOVE(user.do_afters, target)
-		LAZYREMOVE(target.targeted_by, user)
-
 //some additional checks as a callback for for do_afters that want to break on losing health or on the mob taking action
 /mob/proc/break_do_after_checks(list/checked_health, check_clicks)
 	if(check_clicks && next_move > world.time)
@@ -250,18 +224,30 @@ GLOBAL_LIST_EMPTY(species_list)
 		checked_health["health"] = health
 	return ..()
 
-/proc/do_after(mob/user, var/delay, needhand = 1, atom/target = null, progress = 1, datum/callback/extra_checks = null)
+/**
+ * Timed action involving one mob user. A target can also be specified, but it is optional.
+ *
+ * Checks that `user` does not move, change hands, get stunned, etc. for the
+ * given `delay`. Returns `TRUE` on success or `FALSE` on failure.
+ * 
+ * Arguments:
+ * * user - the primary "user" of the do_after.
+ * * delay - how long the do_after takes. Defaults to 3 SECONDS.
+ * * target - the (optional) target mob of the do_after. If they move/cease to exist, the do_after is cancelled.
+ * * timed_action_flags - optional flags to override certain do_after checks (see DEFINES/timed_action.dm).
+ * * progress - if TRUE, a progress bar is displayed.
+ * * extra_checks - a callback that can be used to add extra checks to the do_after. Returning false in this callback will cancel the do_after.
+ */
+/proc/do_after(mob/user, delay = 3 SECONDS, atom/target, timed_action_flags = NONE, progress = TRUE, datum/callback/extra_checks)
 	if(!user)
 		return FALSE
-	var/atom/Tloc = null
-	if(target && !isturf(target))
-		Tloc = target.loc
 
 	if(target)
 		LAZYADD(user.do_afters, target)
 		LAZYADD(target.targeted_by, user)
 
-	var/atom/Uloc = user.loc
+	var/atom/user_loc = user.loc
+	var/atom/target_loc = target?.loc
 
 	var/drifting = FALSE
 	if(SSmove_manager.processing_on(user, SSspacedrift))
@@ -269,57 +255,57 @@ GLOBAL_LIST_EMPTY(species_list)
 
 	var/holding = user.get_active_held_item()
 
-	var/holdingnull = TRUE //User's hand started out empty, check for an empty hand
-	if(holding)
-		holdingnull = FALSE //Users hand started holding something, check to see if it's still holding that
-
 	delay *= user.cached_multiplicative_actions_slowdown
 
 	var/datum/progressbar/progbar
 	if(progress)
-		progbar = new(user, delay, target)
+		if(target) // the progress bar needs a target, so if we don't have one just pass it the user.
+			progbar = new(user, delay, target)
+		else
+			progbar = new(user, delay, user)
 
 	var/endtime = world.time + delay
 	var/starttime = world.time
 	. = TRUE
 	while(world.time < endtime)
 		stoplag(1)
+
+		if(QDELETED(user))
+			. = FALSE
+			break
+
 		if(progress)
 			progbar.update(world.time - starttime)
 
 		if(drifting && SSmove_manager.processing_on(user, SSspacedrift))
 			drifting = FALSE
-			Uloc = user.loc
+			user_loc = user.loc
 
-		if(QDELETED(user) || user.stat || (!drifting && user.loc != Uloc) || (extra_checks && !extra_checks.Invoke()))
+		// Check flags
+		if(!(timed_action_flags & IGNORE_USER_LOC_CHANGE) && !drifting && user.loc != user_loc)
 			. = FALSE
+
+		if(!(timed_action_flags & IGNORE_HELD_ITEM) && user.get_active_held_item() != holding)
+			. = FALSE
+
+		if(!(timed_action_flags & IGNORE_INCAPACITATED) && user.incapacitated(ignore_restraints = (timed_action_flags & IGNORE_RESTRAINED)))
+			. = FALSE
+
+
+		if(extra_checks && !extra_checks.Invoke())
+			. = FALSE
+
+		// If we have a target, we check for them moving here. We don't care about it if we're drifting or we ignore target loc change
+		if(!(timed_action_flags & IGNORE_TARGET_LOC_CHANGE) && !drifting)
+			if(target_loc && user != target && (QDELETED(target) || target_loc != target.loc))
+				. = FALSE
+
+		if(target && !(timed_action_flags & IGNORE_TARGET_IN_DOAFTERS) && !(target in user.do_afters))
+			. = FALSE
+
+		if(!.)
 			break
 
-		if(isliving(user))
-			var/mob/living/L = user
-			if(L.IsStun() || L.IsParalyzed())
-				. = FALSE
-				break
-
-		if(!QDELETED(Tloc) && (QDELETED(target) || Tloc != target.loc))
-			if((Uloc != Tloc || Tloc != user) && !drifting)
-				. = FALSE
-				break
-
-		if(target && !(target in user.do_afters))
-			. = FALSE
-			break
-
-		if(needhand)
-			//This might seem like an odd check, but you can still need a hand even when it's empty
-			//i.e the hand is used to pull some item/tool out of the construction
-			if(!holdingnull)
-				if(!holding)
-					. = FALSE
-					break
-			if(user.get_active_held_item() != holding)
-				. = FALSE
-				break
 	if(progress)
 		qdel(progbar)
 
@@ -680,7 +666,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	var/list/borgs = active_free_borgs()
 	if(borgs.len)
 		if(user)
-			. = input(user,"Unshackled cyborg signals detected:", "Cyborg Selection", borgs[1]) in sortList(borgs)
+			. = input(user,"Unshackled cyborg signals detected:", "Cyborg Selection", borgs[1]) in sort_list(borgs)
 		else
 			. = pick(borgs)
 	return .
@@ -690,7 +676,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	var/list/ais = active_ais()
 	if(ais.len)
 		if(user)
-			. = input(user,"AI signals detected:", "AI Selection", ais[1]) in sortList(ais)
+			. = input(user,"AI signals detected:", "AI Selection", ais[1]) in sort_list(ais)
 		else
 			. = pick(ais)
 	return .
@@ -753,3 +739,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		if("range")
 			. = orange(distance,center)
 	return
+
+#undef FACING_SAME_DIR
+#undef FACING_EACHOTHER
+#undef FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR

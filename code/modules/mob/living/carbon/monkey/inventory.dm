@@ -70,11 +70,11 @@
 	return items
 
 //Hopefully this doesn't fuck with anything
-/mob/living/carbon/monkey/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, was_thrown = FALSE)
+/mob/living/carbon/monkey/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, was_thrown = FALSE, silent = FALSE)
 	. = ..()
 	if(!. || !I) //We don't want to set anything to null if the parent returned 0.
 		return
-		
+
 	if(I == w_uniform)
 		w_uniform = null
 		if(!QDELETED(src))

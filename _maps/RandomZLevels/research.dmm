@@ -1615,14 +1615,7 @@
 	},
 /area/awaymission/research/interior/dorm)
 "jp" = (
-/obj/structure/barricade/wooden{
-	desc = "A wooden table hastily flipped over for cover.";
-	icon = 'icons/obj/smooth_structures/wood_table.dmi';
-	icon_state = "wood_table";
-	max_integrity = 55;
-	name = "flipped table";
-	obj_integrity = 55
-	},
+/obj/structure/barricade/wooden,
 /turf/open/floor/plasteel/yellowsiding{
 	dir = 1
 	},
@@ -1646,17 +1639,6 @@
 	},
 /area/awaymission/research/interior/dorm)
 "jF" = (
-/turf/open/floor/plasteel,
-/area/awaymission/research/interior/dorm)
-"jG" = (
-/obj/structure/barricade/wooden{
-	desc = "A wooden table hastily flipped over for cover.";
-	icon = 'icons/obj/smooth_structures/wood_table.dmi';
-	icon_state = "wood_table";
-	max_integrity = 55;
-	name = "flipped table";
-	obj_integrity = 55
-	},
 /turf/open/floor/plasteel,
 /area/awaymission/research/interior/dorm)
 "jK" = (
@@ -1721,14 +1703,7 @@
 /turf/open/floor/plasteel/yellowsiding/corner,
 /area/awaymission/research/interior/dorm)
 "kb" = (
-/obj/structure/barricade/wooden{
-	desc = "A wooden table hastily flipped over for cover.";
-	icon = 'icons/obj/smooth_structures/wood_table.dmi';
-	icon_state = "wood_table";
-	max_integrity = 55;
-	name = "flipped table";
-	obj_integrity = 55
-	},
+/obj/structure/barricade/wooden,
 /turf/open/floor/plasteel/yellowsiding,
 /area/awaymission/research/interior/dorm)
 "kc" = (
@@ -41691,7 +41666,7 @@ id
 iT
 iX
 jp
-jG
+kR
 kb
 iX
 iX

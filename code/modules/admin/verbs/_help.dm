@@ -129,7 +129,7 @@
 		if("claim")
 			if(ticket.claimee)
 				var/confirm = alert("This ticket is already claimed, override claim?", null,"Yes", "No")
-				if(confirm == "No")
+				if(confirm != "Yes")
 					return
 			claim_ticket = CLAIM_OVERRIDE
 		if("reject")
@@ -559,7 +559,7 @@
 		claim_ticket = CLAIM_OVERRIDE
 	return claim_ticket
 
-/datum/help_ticket/proc/MessageNoRecipient(msg)
+/datum/help_ticket/proc/MessageNoRecipient(msg, sanitized = FALSE)
 	return
 
 /datum/help_ticket/proc/key_name_ticket(mob/user)
@@ -840,7 +840,7 @@
 					surname_found = i
 					break
 			//forenames
-			for(var/i=1, i<surname_found, i++)
+			for(var/i in 1 to surname_found-1)
 				var/word = ckey(L[i])
 				if(word)
 					forenames[word] = M
