@@ -375,6 +375,53 @@
 	mob_species = /datum/species/plasmaman
 	outfit = /datum/outfit/plasmaman
 
+/obj/effect/mob_spawn/human/bartender
+	name = "Space Bartender"
+	id_job = JOB_NAME_BARTENDER
+	id_access_list = list(ACCESS_BAR)
+	outfit = /datum/outfit/spacebartender
+
+/obj/effect/mob_spawn/human/bartender/alive
+	death = FALSE
+	roundstart = FALSE
+	random = TRUE
+	name = "bartender sleeper"
+	icon = 'icons/obj/machines/sleeper.dmi'
+	icon_state = "sleeper"
+	short_desc = "You are a space bartender!"
+	flavour_text = "Time to mix drinks and change lives. Smoking space drugs makes it easier to understand your patrons' odd dialect."
+	assignedrole = "Space Bartender"
+	id_job = JOB_NAME_BARTENDER
+	use_cooldown = TRUE
+
+/obj/effect/mob_spawn/human/bartender/alive/beach
+	assignedrole = "Beach Bartender"
+	banType = BAN_ROLE_BEACH_BUM
+	outfit = /datum/outfit/spacebartender/beach
+
+/datum/outfit/spacebartender/beach/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+	H.dna.add_mutation(STONER)
+
+/datum/outfit/spacebartender
+	name = "Space Bartender"
+	uniform = /obj/item/clothing/under/rank/civilian/bartender
+	back = /obj/item/storage/backpack
+	shoes = /obj/item/clothing/shoes/sneakers/black
+	suit = /obj/item/clothing/suit/armor/vest
+	glasses = /obj/item/clothing/glasses/sunglasses/advanced/reagent
+	id = /obj/item/card/id
+
+/datum/outfit/spacebartender/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+
+	if(visualsOnly)
+		return
+
+	ADD_TRAIT(H, TRAIT_SOMMELIER, ROUNDSTART_TRAIT)
+
 /obj/effect/mob_spawn/human/beach
 	outfit = /datum/outfit/beachbum
 
