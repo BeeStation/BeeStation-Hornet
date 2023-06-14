@@ -58,9 +58,9 @@
 		return
 	var/mob/living/carbon/human/ethereal = C
 	default_color = "#[ethereal.dna.features["ethcolor"]]"
-	r1 = GETREDPART(default_color)
-	g1 = GETGREENPART(default_color)
-	b1 = GETBLUEPART(default_color)
+	r1 = color_red(default_color)
+	g1 = color_green(default_color)
+	b1 = color_blue(default_color)
 	RegisterSignal(ethereal, COMSIG_ATOM_SHOULD_EMAG, PROC_REF(should_emag))
 	RegisterSignal(ethereal, COMSIG_ATOM_ON_EMAG, PROC_REF(on_emag))
 	RegisterSignal(ethereal, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
@@ -97,6 +97,10 @@
 	update_light(H)
 
 /datum/species/ethereal/proc/on_dna_ui_updated(datum/dna/source)
+	default_color = "#[source.features["ethcolor"]]"
+	r1 = color_red(default_color)
+	g1 = color_green(default_color)
+	b1 = color_blue(default_color)
 	update_light(source.holder)
 
 /datum/species/ethereal/proc/update_light(mob/living/carbon/human/H)

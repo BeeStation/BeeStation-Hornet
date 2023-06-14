@@ -714,16 +714,12 @@
 	features["mcolor"] = new_colour
 	// Snowflake handling for ethcolour that picks the closest eth colour to the mutant
 	// colour available.
-	var/red = color_red(new_colour)
-	var/green = color_green(new_colour)
-	var/blue = color_blue(new_colour)
+	var/hue = rgb2hsl(color_red(new_colour), color_green(new_colour), color_blue(new_colour))[1]
 	var/best_distance = INFINITY
 	for (var/colour_name in GLOB.color_list_ethereal)
 		var/colour_value = GLOB.color_list_ethereal[colour_name]
-		var/red_delta = red - color_red(colour_value)
-		var/green_delta = green - color_green(colour_value)
-		var/blue_delta = blue - color_blue(colour_value)
-		var/colour_distance = sqrt(red_delta * red_delta + green_delta * green_delta + blue_delta * blue_delta)
+		var/new_hue = rgb2hsl(color_red(colour_value), color_green(colour_value), color_blue(colour_value))[1]
+		var/colour_distance = abs(new_hue - hue)
 		if (colour_distance < best_distance)
 			features["ethcolor"] = colour_value
 			best_distance = colour_distance
