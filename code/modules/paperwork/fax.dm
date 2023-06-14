@@ -79,8 +79,8 @@
 		return
 	for(var/obj/machinery/fax/fax in GLOB.machines)
 		if(fax.fax_name == fax_name)
-			CRASH("Duplicate fax_name [fax_name] detected! Loc 1 [AREACOORD(src)]; Loc 2 [AREACOORD(fax)]; Falling back on random names.")
 			fax_name = "Unregistered Fax Machine " + fax_id
+			CRASH("Duplicate fax_name [fax_name] detected! Loc 1 [AREACOORD(src)]; Loc 2 [AREACOORD(fax)]; Falling back on random names.")
 
 /obj/machinery/fax/Destroy()
 	QDEL_NULL(loaded_item_ref)
