@@ -136,6 +136,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/list/dat = list(TOOLTIP_CSS_SETUP, "<center>")
 
 	dat += "<a href='?_src_=prefs;preference=tab;tab=0' [current_tab == 0 ? "class='linkOn'" : ""]>Character Settings</a>"
+	dat += "<a href='?_src_=prefs;preference=tab;tab=4' [current_tab == 4 ? "class='linkOn'" : ""]>Antagonist Preferences</a>"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=1' [current_tab == 1 ? "class='linkOn'" : ""]>Game Preferences</a>"
 	var/shop_name = "[CONFIG_GET(string/metacurrency_name)] Shop"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=2' [current_tab == 2 ? "class='linkOn'" : ""]>[shop_name]</a>"
@@ -592,7 +593,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 
 		if (1) // Game Preferences
-			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
+			dat += "<table><tr>"
+			// left box
+			dat += "<td width='340px' height='300px' valign='top'>"
 			dat += "<h2>General Settings</h2>"
 			dat += "<b>UI Style:</b> <a href='?_src_=prefs;task=input;preference=ui'>[UI_style]</a><br>"
 			dat += "<b>Outline:</b> <a href='?_src_=prefs;preference=outline_enabled'>[toggles & PREFTOGGLE_OUTLINE_ENABLED ? "Enabled" : "Disabled"]</a><br>"
@@ -645,7 +648,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<br>"
 
 			dat += "<b>Income Updates:</b> <a href='?_src_=prefs;preference=income_pings'>[(chat_toggles & CHAT_BANKCARD) ? "Allowed" : "Muted"]</a><br>"
+			dat += "</td>" // left box closed
 
+			// right box
+			dat += "<td width='400px' height='300px' valign='top'>"
 			dat += "<h2>TGUI Settings</h2>"
 			dat += "<b>Monitor Lock:</b> <a href='?_src_=prefs;preference=tgui_lock'>[(toggles2 & PREFTOGGLE_2_LOCKED_TGUI) ? "Primary" : "All"]</a><br>"
 			dat += "<b>Window Style:</b> <a href='?_src_=prefs;preference=tgui_fancy'>[(toggles2 & PREFTOGGLE_2_FANCY_TGUI) ? "Fancy (Borderless)" : "System Window"]</a><br>"
@@ -710,34 +716,61 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if(CONFIG_GET(flag/preference_map_voting))
 					dat += "<b>Preferred Map:</b> <a href='?_src_=prefs;preference=preferred_map;task=input'>[p_map]</a><br>"
 
-			dat += "</td><td width='300px' height='300px' valign='top'>"
+			dat += "</td>"
+			// right box closed
 
-			dat += "<h2>Special Role Settings</h2>"
-
-			if(is_banned_from(user.ckey, ROLE_SYNDICATE))
-				dat += "<font color=red><b>You are banned from antagonist roles.</b></font><br>"
-				src.be_special = list()
-
-
-			for (var/i in GLOB.special_roles)
-				if(is_banned_from(user.ckey, i))
-					dat += "<b>Be [capitalize(i)]:</b> <a href='?_src_=prefs;bancheck=[i]'>BANNED</a><br>"
-				else
-					var/days_remaining = null
-					if(ispath(GLOB.special_roles[i]) && CONFIG_GET(flag/use_age_restriction_for_jobs)) //If it's a game mode antag, check if the player meets the minimum age
-						var/mode_path = GLOB.special_roles[i]
-						var/datum/game_mode/temp_mode = new mode_path
-						days_remaining = temp_mode.get_remaining_days(user.client)
-
-					if(days_remaining)
-						dat += "<b>Be [capitalize(i)]:</b> <font color=red> \[IN [days_remaining] DAYS]</font><br>"
-					else
-						dat += "<b>Be [capitalize(i)]:</b> <a href='?_src_=prefs;preference=be_special;be_special_type=[i]'>[(i in be_special) ? "Enabled" : "Disabled"]</a><br>"
-			dat += "<br>"
-
-			dat += "</td></tr><tr><td> </td></tr>" // i hate myself for this
+			dat += "</tr> <tr><td> </td></tr>"
 			dat += "<tr><td colspan='2' width='100%'><center><a style='font-size: 18px;' href='?_src_=prefs;preference=keybindings_menu'>Customize Keybinds</a></center></td></tr>"
 			dat += "</table>"
+
+		if(4) // antagonist preferences window
+			dat += "<table><tr>"
+			// <first left box>
+			dat += "<td width='400px' height='300px' valign='top'>"
+			// --------------------------------------------
+			// warning pannel
+			var/banned = is_banned_from(user.ckey, BAN_ROLE_ALL_ANTAGONISTS)
+			if(banned)
+				dat += "<h2>Notification</h2>"
+				dat += "<b>You are banned from all antagonist type roles.</b><br>"
+
+			// --------------------------------------------
+			//  Antagonist roles
+			dat += "<h2>Antagonists</h2>"
+			for (var/typepath in GLOB.role_preference_entries)
+				var/datum/role_preference/pref = GLOB.role_preference_entries[typepath]
+				if(pref.category != ROLE_PREFERENCE_CATEGORY_ANAGONIST)
+					continue
+				dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;preference=be_special;be_special_type=[typepath]'>[role_preference_enabled(parent, typepath) ? "Enabled" : "Disabled"]</a><br>"
+			dat += "<h2>Midrounds (Living)</h2>"
+			for (var/typepath in GLOB.role_preference_entries)
+				var/datum/role_preference/pref = GLOB.role_preference_entries[typepath]
+				if(pref.category != ROLE_PREFERENCE_CATEGORY_MIDROUND_LIVING)
+					continue
+				dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;preference=be_special;be_special_type=[typepath]'>[role_preference_enabled(parent, typepath) ? "Enabled" : "Disabled"]</a><br>"
+			dat += "</td>"
+			// left box closed
+
+			// <secont right box>
+			// --------------------------------------------
+			// Midround antagonists + ghostspawn roles
+			dat += "<td width='400px' valign='top'>"
+			dat += "<h2>Midrounds (Ghost)</h2>"
+			for (var/typepath in GLOB.role_preference_entries)
+				var/datum/role_preference/pref = GLOB.role_preference_entries[typepath]
+				if(pref.category != ROLE_PREFERENCE_CATEGORY_MIDROUND_GHOST)
+					continue
+				dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;preference=be_special;be_special_type=[typepath]'>[role_preference_enabled(parent, typepath) ? "Enabled" : "Disabled"]</a><br>"
+			/*dat += "<h2>Ghost Polls</h2>"
+			for (var/typepath in GLOB.role_preference_entries)
+				var/datum/role_preference/pref = GLOB.role_preference_entries[typepath]
+				if(pref.category != ROLE_PREFERENCE_CATEGORY_GHOST_ROLES)
+					continue
+				dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;preference=be_special;be_special_type=[typepath]'>[role_preference_enabled(parent, typepath) ? "Enabled" : "Disabled"]</a><br>"*/
+			dat += "</td>"
+			// right box closed
+
+			dat += "</tr></table>"
 
 		if(2) //Loadout
 			var/list/type_blacklist = list()
@@ -1871,10 +1904,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				if("be_special")
 					var/be_special_type = href_list["be_special_type"]
-					if(be_special_type in be_special)
-						be_special -= be_special_type
-					else
-						be_special += be_special_type
+					var/current = be_special["[be_special_type]"]
+					if(isnum(current))
+						be_special["[be_special_type]"] = !current
+					else // not set, we assume it's on, so turn it off.
+						be_special["[be_special_type]"] = FALSE
 
 				if("name")
 					active_character.be_random_name = !active_character.be_random_name

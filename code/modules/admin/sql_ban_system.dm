@@ -1,6 +1,19 @@
 #define MAX_ADMINBANS_PER_ADMIN 1
 #define MAX_ADMINBANS_PER_HEADMIN 3
 
+/// Process global ban types
+/proc/check_role_ban(ban_cache, role)
+	if(role in GLOB.antagonist_bannable_roles)
+		if((BAN_ROLE_ALL_ANTAGONISTS in ban_cache) || ("Syndicate" in ban_cache)) // Legacy "Syndicate" ban
+			return TRUE
+	if(role in GLOB.forced_bannable_roles)
+		if(BAN_ROLE_FORCED_ANTAGONISTS in ban_cache)
+			return TRUE
+	if(role in GLOB.ghost_role_bannable_roles)
+		if(BAN_ROLE_ALL_GHOST in ban_cache)
+			return TRUE
+	return role in ban_cache
+
 //checks client ban cache or DB ban table if ckey is banned from one or more roles
 //doesn't return any details, use only for if statements
 /proc/is_banned_from(player_ckey, list/roles)
@@ -12,9 +25,9 @@
 			build_ban_cache(C)
 		if(islist(roles))
 			for(var/R in roles)
-				if(R in C.ban_cache)
+				if(check_role_ban(C.ban_cache, R))
 					return TRUE //they're banned from at least one role, no need to keep checking
-		else if(roles in C.ban_cache)
+		else if(check_role_ban(C.ban_cache, roles))
 			return TRUE
 	else
 		var/values = list(
@@ -327,10 +340,9 @@
 			output += "</div></div>"
 		var/list/long_job_lists = list(
 			"Civilian" = GLOB.civilian_positions | JOB_NAME_GIMMICK,
-			"Special Ban Types" = list(BAN_ROLE_ALL_ANTAGONISTS, BAN_ROLE_ALL_ANTAGONISTS_AND_FORCED, BAN_ROLE_ALL_GHOST_ROLES),
-			"Antagonist Positions" = GLOB.antagonist_bannable_roles,
-			"Forced Antagonist Positions" = GLOB.forced_bannable_roles,
-			"Ghost Roles" = GLOB.ghost_role_bannable_roles,
+			"Antagonist Positions" = list(BAN_ROLE_ALL_ANTAGONISTS) + GLOB.antagonist_bannable_roles,
+			"Forced Antagonist Positions" = list(BAN_ROLE_FORCED_ANTAGONISTS) + GLOB.forced_bannable_roles,
+			"Ghost Roles" = list(BAN_ROLE_ALL_GHOST) + GLOB.ghost_role_bannable_roles,
 			"Other" = GLOB.other_bannable_roles,
 		)
 

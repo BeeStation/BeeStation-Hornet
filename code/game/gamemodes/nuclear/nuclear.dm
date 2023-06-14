@@ -10,7 +10,6 @@
 	recommended_enemies = 5
 	banning_key = BAN_ROLE_OPERATIVE
 	role_preference = /datum/role_preference/antagonist/nuclear_operative
-	enemy_minimum_age = 14
 
 	announce_span = "danger"
 	announce_text = "Syndicate forces are approaching the station in an attempt to destroy it!\n\

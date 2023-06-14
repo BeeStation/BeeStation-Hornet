@@ -34,7 +34,6 @@ GLOBAL_VAR(clockcult_eminence)
 	recommended_enemies = 4
 	banning_key = BAN_ROLE_SERVANT_OF_RATVAR
 	role_preference = /datum/role_preference/antagonist/clock_cultist
-	enemy_minimum_age = 14
 
 	title_icon = "clockcult"
 	announce_span = "danger"

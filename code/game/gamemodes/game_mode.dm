@@ -37,7 +37,6 @@
 	var/round_converted = 0 //0: round not converted, 1: round going to convert, 2: round converted
 	var/reroll_friendly 	//During mode conversion only these are in the running
 	var/continuous_sanity_checked	//Catches some cases where config options could be used to suggest that modes without antagonists should end when all antagonists die
-	var/enemy_minimum_age = 7 //How many days must players have been playing before they can play this antagonist
 	var/list/allowed_special = list()	//Special roles that can spawn (Add things like /datum/antagonist/special/undercover for them to be able to spawn during this gamemode)
 	var/list/active_specials = list()	//Special roles that have spawned, and can now spawn late
 
@@ -125,10 +124,10 @@
 				return	//No more candidates, end the selection process, and active specials at this time will be handled by latejoins or not included
 			var/mob/person
 			if(special.use_antag_rep)
-				person = antag_pick(candidates, special.special_role_preference)
+				person = antag_pick(candidates, special.preference_type)
 			else
 				person = pick_n_take(candidates)
-			if(is_banned_from(person.ckey, special.preference_type))
+			if(is_banned_from(person.ckey, special.banning_key))
 				continue
 			if(!person)
 				continue
@@ -516,8 +515,7 @@
 		if(player.client && player.ready == PLAYER_READY_TO_PLAY)
 			if(role_preference_enabled(player.client, role_preference))
 				if(!is_banned_from(player.ckey, banning_key) && !QDELETED(player))
-					if(age_check(player.client)) //Must be older than the minimum age
-						candidates += player.mind				// Get a list of all the people who want to be the antagonist for this round
+					candidates += player.mind				// Get a list of all the people who want to be the antagonist for this round
 
 	if(restricted_jobs)
 		for(var/datum/mind/player in candidates)
@@ -740,25 +738,6 @@
 
 	for (var/C in GLOB.admins)
 		to_chat(C, msg.Join())
-
-//If the configuration option is set to require players to be logged as old enough to play certain jobs, then this proc checks that they are, otherwise it just returns 1
-/datum/game_mode/proc/age_check(client/C)
-	if(get_remaining_days(C) == 0)
-		return 1	//Available in 0 days = available right now = player is old enough to play.
-	return 0
-
-
-/datum/game_mode/proc/get_remaining_days(client/C)
-	if(!C)
-		return 0
-	if(!CONFIG_GET(flag/use_age_restriction_for_jobs))
-		return 0
-	if(!isnum_safe(C.player_age))
-		return 0 //This is only a number if the db connection is established, otherwise it is text: "Requires database", meaning these restrictions cannot be enforced
-	if(!isnum_safe(enemy_minimum_age))
-		return 0
-
-	return max(0, enemy_minimum_age - C.player_age)
 
 /datum/game_mode/proc/remove_antag_for_borging(datum/mind/newborgie)
 	SSticker.mode.remove_cultist(newborgie, 0, 0)

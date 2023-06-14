@@ -10,9 +10,8 @@
 #define MINUTES_REQUIRED_COMMAND 1200 		//For command positions, to be weighed against the relevant department
 
 
-// Banning snowflake - global antag ban. Does not include ghost roles that aren't antagonists
+// Banning snowflake - global antag ban. Does not include ghost roles that aren't antagonists or forced antagonists
 #define BAN_ROLE_ALL_ANTAGONISTS			"All Antagonists"
-#define BAN_ROLE_ALL_ANTAGONISTS_AND_FORCED	"All Antagonists and Forced Antagonists"
 
 //These are synced with the Database, if you change the values of the defines
 //then you MUST update the database!
@@ -51,6 +50,8 @@
 #define BAN_ROLE_FUGITIVE			"Fugitive"
 #define BAN_ROLE_FUGITIVE_HUNTER	"Fugitive Hunter"
 #define BAN_ROLE_SLAUGHTER_DEMON	"Slaughter Demon"
+#define BAN_ROLE_CONTRACTOR_SUPPORT_UNIT "Contractor Support Unit"
+#define BAN_ROLE_PYRO_SLIME			"Pyroclastic Anomaly Slime"
 
 /// Roles that are antagonists, roundstart or not, and have passes to do.. antagonistry
 GLOBAL_LIST_INIT(antagonist_bannable_roles, list(
@@ -89,7 +90,10 @@ GLOBAL_LIST_INIT(antagonist_bannable_roles, list(
 	BAN_ROLE_FUGITIVE,
 	BAN_ROLE_FUGITIVE_HUNTER,
 	BAN_ROLE_SLAUGHTER_DEMON,
+	BAN_ROLE_CONTRACTOR_SUPPORT_UNIT,
 ))
+
+#define BAN_ROLE_FORCED_ANTAGONISTS			"Forced Antagonists"
 
 #define BAN_ROLE_BRAINWASHED		"Brainwashed Victim"
 #define BAN_ROLE_HYPNOTIZED			"Hypnotized Victim"
@@ -111,7 +115,23 @@ GLOBAL_LIST_INIT(forced_bannable_roles, list(
 #define BAN_ROLE_EXPERIMENTAL_CLONE "Experimental Clone"
 #define BAN_ROLE_LAVALAND_ELITE		"Lavaland Elite"
 #define BAN_ROLE_SPECTRAL_BLADE		"Spectral Blade"
-#define BAN_ROLE_ASHKWALKER			"Ashwalker"
+#define BAN_ROLE_ASHWALKER			"Ashwalker"
+#define BAN_ROLE_LIFEBRINGER		"Lifebringer"
+#define BAN_ROLE_FREE_GOLEM			"Free Golem"
+#define BAN_ROLE_HERMIT				"Hermit"
+#define BAN_ROLE_TRANSLOCATED_VET	"Translocated Vet"
+#define BAN_ROLE_LAVALAND_ESCAPED_PRISONER	"Lavaland Escaped Prisoner"
+#define BAN_ROLE_BEACH_BUM			"Beach Bum"
+#define BAN_ROLE_HOTEL_STAFF		"Hotel Staff"
+#define BAN_ROLE_LAVALAND_SYNDICATE	"Lavaland Syndicate"
+#define BAN_ROLE_DEMONIC_FRIEND		"Demonic Friend"
+#define BAN_ROLE_ANCIENT_CREW		"Ancient Crew"
+#define BAN_ROLE_SKELETAL_REMAINS	"Skeletal Remains"
+#define BAN_ROLE_SENTIENT_ANIMAL	"Sentient Animal"
+#define BAN_ROLE_HOLY_SUMMONED		"Holy Summoned"
+#define BAN_ROLE_SURVIVALIST		"Exploration Survivalist"
+#define BAN_ROLE_EXPLORATION_VIP	"Exploration VIP"
+#define BAN_ROLE_SENTIENT_XENOARTIFACT "Sentient Xenoartifiact"
 
 /// Any ghost role that is not really an antagonist or doesn't antagonize (lavaland, sentience potion, etc)
 GLOBAL_LIST_INIT(ghost_role_bannable_roles, list(
@@ -122,7 +142,20 @@ GLOBAL_LIST_INIT(ghost_role_bannable_roles, list(
 	BAN_ROLE_EXPERIMENTAL_CLONE,
 	BAN_ROLE_LAVALAND_ELITE,
 	BAN_ROLE_SPECTRAL_BLADE,
-	BAN_ROLE_ASHKWALKER,
+	BAN_ROLE_ASHWALKER,
+	BAN_ROLE_LIFEBRINGER,
+	BAN_ROLE_FREE_GOLEM,
+	BAN_ROLE_HERMIT,
+	BAN_ROLE_TRANSLOCATED_VET,
+	BAN_ROLE_LAVALAND_ESCAPED_PRISONER,
+	BAN_ROLE_BEACH_BUM,
+	BAN_ROLE_HOTEL_STAFF,
+	BAN_ROLE_LAVALAND_SYNDICATE,
+	BAN_ROLE_DEMONIC_FRIEND,
+	BAN_ROLE_ANCIENT_CREW,
+	BAN_ROLE_SKELETAL_REMAINS,
+	BAN_ROLE_SENTIENT_ANIMAL,
+	BAN_ROLE_HOLY_SUMMONED,
 ))
 
 #define BAN_ROLE_IMAGINARY_FRIEND	"Imaginary Friend"
@@ -142,8 +175,8 @@ GLOBAL_LIST_INIT(other_bannable_roles, list(
 		CRASH("Invalid role_preference_key [role_preference_key] passed to role_preference_enabled!")
 	if(!istype(player) || !player.prefs)
 		return FALSE
-	var/role_preference_value = player.prefs.be_special[role_preference_key]
-	if(isnum(role_preference_value) && role_preference_value == 0) // explicitly disabled and not null
+	var/role_preference_value = player.prefs.be_special["[role_preference_key]"]
+	if(isnum(role_preference_value) && !role_preference_value) // explicitly disabled and not null
 		return FALSE
 	return TRUE
 
@@ -167,11 +200,6 @@ GLOBAL_LIST_INIT(other_bannable_roles, list(
 			if(feedback)
 				to_chat(player, "<span class='warning'>You are banned from this role!</span>")
 			return FALSE
-	if(gamemode_for_age)
-		if(!gamemode_for_age.age_check(player))
-			if(feedback)
-				to_chat(player, "<span class='warning'>Your account is not old enough to take this role!</span>")
-			return FALSE
 	if(req_hours) //minimum living hour count
 		if((player.get_exp_living(TRUE)/60) < req_hours)
 			if(feedback)
@@ -179,11 +207,11 @@ GLOBAL_LIST_INIT(other_bannable_roles, list(
 			return FALSE
 	return TRUE
 
-/proc/can_take_ghost_spawner(client/player, banning_key = BAN_ROLE_ALL_ANTAGONISTS, use_cooldown = TRUE, is_admin_spawned = FALSE)
-	if(!SSticker.HasRoundStarted() || !istype(player))
+/proc/can_take_ghost_spawner(client/player, banning_key = BAN_ROLE_ALL_ANTAGONISTS, use_cooldown = TRUE, is_ghost_role = FALSE, is_admin_spawned = FALSE)
+	if(!istype(player))
 		return FALSE
-	if(!(GLOB.ghost_role_flags & GHOSTROLE_SPAWNER) && !is_admin_spawned)
-		to_chat(src, "<span class='warning'>An admin has temporarily disabled non-admin ghost roles!</span>")
+	if(is_ghost_role && !(GLOB.ghost_role_flags & GHOSTROLE_SPAWNER) && !is_admin_spawned)
+		to_chat(player, "<span class='warning'>An admin has temporarily disabled non-admin ghost roles!</span>")
 		return FALSE
 	if(!should_include_for_role(
 		player,
@@ -192,7 +220,7 @@ GLOBAL_LIST_INIT(other_bannable_roles, list(
 	))
 		return FALSE
 	if(use_cooldown && player.next_ghost_role_tick > world.time)
-		to_chat(src, "<span class='warning'>You have died recently, you must wait [(player.next_ghost_role_tick - world.time)/10] seconds until you can use a ghost spawner.</span>")
+		to_chat(player, "<span class='warning'>You have died recently, you must wait [(player.next_ghost_role_tick - world.time)/10] seconds until you can use a ghost spawner.</span>")
 		return FALSE
 	return TRUE
 
@@ -204,6 +232,7 @@ GLOBAL_LIST_INIT(other_bannable_roles, list(
 #define ROLE_PREFERENCE_CATEGORY_ANAGONIST "Antagonists"
 #define ROLE_PREFERENCE_CATEGORY_MIDROUND_LIVING "Midrounds (Living)"
 #define ROLE_PREFERENCE_CATEGORY_MIDROUND_GHOST "Midrounds (Ghost Poll)"
+#define ROLE_PREFERENCE_CATEGORY_GHOST_ROLES "Ghost Roles"
 
 GLOBAL_LIST_INIT(role_preference_entries, init_role_preference_entries())
 

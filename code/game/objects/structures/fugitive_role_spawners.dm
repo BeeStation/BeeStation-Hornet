@@ -11,6 +11,7 @@
 	icon = 'icons/obj/machines/sleeper.dmi'
 	icon_state = "sleeper"
 	banType = BAN_ROLE_FUGITIVE_HUNTER
+	is_antagonist = TRUE
 	/// This is set by the shuttle template
 	var/datum/fugitive_type/hunter/backstory
 	var/static/leader_spawned = FALSE

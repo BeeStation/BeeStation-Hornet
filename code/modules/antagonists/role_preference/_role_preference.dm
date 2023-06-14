@@ -1,16 +1,7 @@
 /datum/role_preference
 	var/name
-	/// A brief description of this role, to display in the preferences menu.
-	var/description
-	/// The main gamemode that spawns this ROLE_X roundstart.
-	/// This is used to get exp_living requirements by the prefs menu.
-	/// TODO tgui-prefs replace this
-	var/gamemode
 	/// What heading to display this entry under in the preferences menu. Use ROLE_PREFERENCE_CATEGORY defines.
 	var/category
-	/// If this preference is enabled by default. This should be true for ghost polled antagonists,
-	/// but disabled for roundstart, latejoin, or midround assigned antagonists.
-	var/enabled_by_default = FALSE
 	/// The base abstract path for this subtype.
 	var/abstract_type = /datum/role_preference
 
@@ -24,8 +15,12 @@
 	category = ROLE_PREFERENCE_CATEGORY_MIDROUND_LIVING
 	abstract_type = /datum/role_preference/midround_living
 
-/// Includes anything polled from ghosts.
+/// Includes anything polled from ghosts that does antagonist stuff
 /datum/role_preference/midround_ghost
 	category = ROLE_PREFERENCE_CATEGORY_MIDROUND_GHOST
 	abstract_type = /datum/role_preference/midround_ghost
-	enabled_by_default = TRUE
+
+/// Ghost roles that are non antagonists
+/datum/role_preference/ghost_role
+	category = ROLE_PREFERENCE_CATEGORY_GHOST_ROLES
+	abstract_type = /datum/role_preference/ghost_role

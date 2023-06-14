@@ -6,12 +6,11 @@ GLOBAL_LIST_EMPTY(gangs)
 	name = "gang war"
 	config_tag = "gang"
 	banning_key = BAN_ROLE_GANG
-	role_preference = /datum/role_preference/antagonist/gang
+	role_preference = /datum/role_preference/antagonist/gangster
 	restricted_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_AI, JOB_NAME_CYBORG,JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_HEADOFSECURITY)
 	required_players = 30
 	required_enemies = 2
 	recommended_enemies = 3
-	enemy_minimum_age = 14
 
 	announce_span = "danger"
 	announce_text = "A violent turf war has erupted on the station!\n\

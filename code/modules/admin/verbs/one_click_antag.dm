@@ -60,9 +60,8 @@
 
 	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
 		if(isReadytoRumble(applicant, BAN_ROLE_TRAITOR, /datum/role_preference/midround_living/traitor))
-			if(temp.age_check(applicant.client))
-				if(!(applicant.job in temp.restricted_jobs))
-					candidates += applicant
+			if(!(applicant.job in temp.restricted_jobs))
+				candidates += applicant
 
 	if(candidates.len)
 		var/numTraitors = min(candidates.len, maxCount)
@@ -95,9 +94,8 @@
 
 	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
 		if(isReadytoRumble(applicant, BAN_ROLE_CHANGELING, /datum/role_preference/antagonist/changeling))
-			if(temp.age_check(applicant.client))
-				if(!(applicant.job in temp.restricted_jobs))
-					candidates += applicant
+			if(!(applicant.job in temp.restricted_jobs))
+				candidates += applicant
 
 	if(candidates.len)
 		var/numChangelings = min(candidates.len, maxCount)
@@ -125,9 +123,8 @@
 
 	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
 		if(isReadytoRumble(applicant, BAN_ROLE_REV_HEAD, /datum/role_preference/antagonist/revolutionary))
-			if(temp.age_check(applicant.client))
-				if(!(applicant.job in temp.restricted_jobs))
-					candidates += applicant
+			if(!(applicant.job in temp.restricted_jobs))
+				candidates += applicant
 
 	if(candidates.len)
 		var/numRevs = min(candidates.len, maxCount)
@@ -167,9 +164,8 @@
 
 	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
 		if(isReadytoRumble(applicant, BAN_ROLE_CULTIST, /datum/role_preference/antagonist/blood_cultist))
-			if(temp.age_check(applicant.client))
-				if(!(applicant.job in temp.restricted_jobs))
-					candidates += applicant
+			if(!(applicant.job in temp.restricted_jobs))
+				candidates += applicant
 
 	if(candidates.len)
 		var/numCultists = min(candidates.len, maxCount)

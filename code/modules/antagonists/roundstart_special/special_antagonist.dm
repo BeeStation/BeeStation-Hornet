@@ -24,9 +24,10 @@
 	var/max_occurrences = 1
 	var/holidayID = ""
 	//Preferences
-	var/preference_type = /datum/role_preference/antagonist/traitor
-	/// If we should use antag rep.
-	var/use_antag_rep = FALSE
+	var/preference_type = null
+	/// If we should use antag rep. Do note that having a preference_type enables checking during gamemode execution.
+	var/use_antag_rep = TRUE
+	var/banning_key = BAN_ROLE_TRAITOR
 
 /datum/special_role/proc/setup()
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
@@ -47,6 +48,7 @@
 	E.antagonist_datum = attached_antag_datum
 	E.antag_name = role_name
 	E.preference_type = preference_type
+	E.banning_key = banning_key
 	E.protected_jobs = restricted_jobs
 	E.typepath = /datum/round_event/create_special_antag
 	E.weight = weight

@@ -20,6 +20,7 @@
 	roundstart = FALSE
 	assignedrole = BAN_ROLE_SWARMER
 	banType = BAN_ROLE_SWARMER
+	is_antagonist = TRUE
 
 /obj/effect/mob_spawn/swarmer/Initialize(mapload)
 	. = ..()

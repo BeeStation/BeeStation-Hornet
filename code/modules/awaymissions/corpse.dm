@@ -31,6 +31,8 @@
 	var/banType
 	var/ghost_usable = TRUE
 	var/use_cooldown = FALSE
+	/// If this should ignore admins disabling ghost roles (like lavaland roles), since it's actually an antagonist.
+	var/is_antagonist = FALSE
 
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
 /obj/effect/mob_spawn/attack_ghost(mob/user)
@@ -39,7 +41,9 @@
 	if(!uses)
 		to_chat(user, "<span class='warning'>This spawner is out of charges!</span>")
 		return
-	if(!can_take_ghost_spawner(user?.client, banType, use_cooldown, flags_1 & ADMIN_SPAWNED_1))
+	if(!SSticker.HasRoundStarted())
+		return
+	if(!can_take_ghost_spawner(user?.client, banType, use_cooldown, is_ghost_role = !is_antagonist, is_admin_spawned = flags_1 & ADMIN_SPAWNED_1))
 		return
 	if(QDELETED(src) || QDELETED(user))
 		return

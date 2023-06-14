@@ -5,7 +5,7 @@ GLOBAL_LIST_EMPTY(hivehosts)
 	config_tag = "hivemind"
 	report_type = "hivemind"
 	banning_key = BAN_ROLE_HIVE
-	role_preference = /datum/role_preference/antagonist/hivemind
+	role_preference = /datum/role_preference/antagonist/hivemind_host
 	false_report_weight = 5
 	protected_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	restricted_jobs = list(JOB_NAME_AI, JOB_NAME_CYBORG)
@@ -13,7 +13,6 @@ GLOBAL_LIST_EMPTY(hivehosts)
 	required_enemies = 3
 	recommended_enemies = 3
 	reroll_friendly = 1
-	enemy_minimum_age = 0
 
 	announce_span = "danger"
 	announce_text = "The hosts of several psionic hiveminds have infiltrated the station and are looking to assimilate the crew!\n\

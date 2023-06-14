@@ -131,7 +131,7 @@
 		man.key = M.ckey
 
 /datum/xenoartifact_trait/minor/sentient/proc/get_canidate(obj/item/xenoartifact/X, mob/M)
-	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the maleviolent force inside the [X.name]?", BAN_ROLE_XENOARTIFACT, null, FALSE, 8 SECONDS, POLL_IGNORE_XENOARTIFACT)
+	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the maleviolent force inside the [X.name]?", BAN_ROLE_SENTIENT_XENOARTIFACT, null, null, 8 SECONDS, null/*TODO POLL_IGNORE_XENOARTIFACT*/)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		setup_sentience(X, C.ckey)

@@ -497,6 +497,7 @@
 	flavour_text = "The station refused to pay for your protection, protect the ship, siphon the credits from the station and raid it for even more loot."
 	assignedrole = BAN_ROLE_SPACE_PIRATE
 	banType = BAN_ROLE_SPACE_PIRATE
+	is_antagonist = TRUE
 	var/rank = "Mate"
 
 /obj/effect/mob_spawn/human/pirate/special(mob/living/new_spawn)

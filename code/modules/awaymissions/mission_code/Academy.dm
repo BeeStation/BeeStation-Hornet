@@ -133,7 +133,7 @@
 		current_wizard.ghostize(FALSE) // on the off chance braindead defender gets back in
 		current_wizard.key = C.key
 	else
-		affected_mob.playable_bantype = BAN_ROLE_WIZARD
+		current_wizard.playable_bantype = BAN_ROLE_WIZARD
 		current_wizard.ghostize(FALSE,SENTIENCE_FORCE)
 
 /obj/structure/academy_wizard_spawner/proc/summon_wizard()

@@ -22,8 +22,6 @@
 	var/role_preference = null
 	/// The antagonist datum that is assigned to the mobs mind on ruleset execution.
 	var/datum/antagonist/antag_datum = null
-	/// The required minimum account age for this ruleset.
-	var/minimum_required_age = 7
 	/// If set, and config flag protect_roles_from_antagonist is false, then the rule will not pick players from these roles.
 	var/list/protected_roles = list()
 	/// If set, rule will deny candidates from those roles always.
@@ -55,8 +53,6 @@
 	var/list/requirements = list(40,30,20,10,10,10,10,10,10,10)
 	/// Reference to the mode, use this instead of SSticker.mode.
 	var/datum/game_mode/dynamic/mode = null
-	/// If a role is to be considered another for the purpose of banning.
-	var/antag_flag_override = null
 	/// If a ruleset type which is in this list has been executed, then the ruleset will not be executed.
 	var/list/blocking_rules = list()
 	/// The minimum amount of players required for the rule to be considered.
@@ -307,9 +303,6 @@
 		))
 			continue
 
-		if(!mode.check_age(client, minimum_required_age))
-			candidates.Remove(P)
-			continue
 		if(P.mind.special_role) // We really don't want to give antag to an antag.
 			candidates.Remove(P)
 			continue

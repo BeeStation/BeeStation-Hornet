@@ -9,7 +9,6 @@
 	name = "Traitors"
 	role_preference = /datum/role_preference/antagonist/traitor
 	antag_datum = /datum/antagonist/traitor
-	minimum_required_age = 0
 	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	restricted_roles = list(JOB_NAME_CYBORG)
 	required_candidates = 1
@@ -175,7 +174,6 @@
 	role_preference = /datum/role_preference/antagonist/wizard
 	antag_datum = /datum/antagonist/wizard
 	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET | PERSISTENT_RULESET
-	minimum_required_age = 14
 	restricted_roles = list(JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN) // Just to be sure that a wizard getting picked won't ever imply a Captain or HoS not getting drafted
 	required_candidates = 1
 	weight = 2
@@ -216,9 +214,8 @@
 
 /datum/dynamic_ruleset/roundstart/bloodcult
 	name = "Blood Cult"
-	role_preference = /datum/role_preference/antagonist/blood_cult
+	role_preference = /datum/role_preference/antagonist/blood_cultist
 	antag_datum = /datum/antagonist/cult
-	minimum_required_age = 14
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN, JOB_NAME_HEADOFPERSONNEL)
 	required_candidates = 2
 	weight = 3
@@ -275,7 +272,6 @@
 	role_preference = /datum/role_preference/antagonist/nuclear_operative
 	antag_datum = /datum/antagonist/nukeop
 	var/datum/antagonist/antag_leader_datum = /datum/antagonist/nukeop/leader
-	minimum_required_age = 14
 	restricted_roles = list(JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN) // Just to be sure that a nukie getting picked won't ever imply a Captain or HoS not getting drafted
 	required_candidates = 5
 	weight = 3
@@ -300,7 +296,6 @@
 		assigned += M.mind
 		M.mind.assigned_role = BAN_ROLE_OPERATIVE
 		M.mind.special_role = BAN_ROLE_OPERATIVE
-		GLOB.pre_setup_antags += M.mind
 	return TRUE
 
 /datum/dynamic_ruleset/roundstart/nuclear/execute()
@@ -313,7 +308,6 @@
 		else
 			var/datum/antagonist/nukeop/new_op = new antag_datum()
 			M.add_antag_datum(new_op)
-		GLOB.pre_setup_antags -= M
 	return TRUE
 
 /datum/dynamic_ruleset/roundstart/nuclear/round_result()
@@ -361,7 +355,6 @@
 	persistent = TRUE
 	role_preference = /datum/role_preference/antagonist/revolutionary
 	antag_datum = /datum/antagonist/rev/head
-	minimum_required_age = 14
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CHIEFENGINEER, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_RESEARCHDIRECTOR)
 	required_candidates = 3
 	weight = 3

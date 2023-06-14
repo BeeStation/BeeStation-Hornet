@@ -8,9 +8,8 @@
 	restricted_jobs = list(JOB_NAME_AI, JOB_NAME_CYBORG)
 	protected_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE,JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_HEADOFSECURITY, JOB_NAME_CHIEFENGINEER, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CHIEFMEDICALOFFICER)
 	banning_key = BAN_ROLE_INCURSION
-	role_preference = /datum/role_preference/antagonist/incursion
+	role_preference = /datum/role_preference/antagonist/incursionist
 	false_report_weight = 10
-	enemy_minimum_age = 0
 
 	announce_span = "danger"
 	announce_text = "A large force of syndicate operatives have infiltrated the ranks of the station and wish to take it by force!\n\

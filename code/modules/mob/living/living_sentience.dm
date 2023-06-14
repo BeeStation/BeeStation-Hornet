@@ -38,6 +38,8 @@
 	if(key)
 		to_chat(user, "<span class='notice'>Someone else already took [name].</span>")
 		return TRUE
+	if(!SSticker.HasRoundStarted())
+		return
 	if(!can_take_ghost_spawner(user?.client, playable_bantype, TRUE, flags_1 & ADMIN_SPAWNED_1))
 		return
 	key = user.key
