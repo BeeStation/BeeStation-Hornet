@@ -8129,7 +8129,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "ccd" = (
-/obj/machinery/computer/scan_consolenew{
+/obj/machinery/computer/scanconsole{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -21043,7 +21043,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "fyJ" = (
-/obj/machinery/computer/scan_consolenew,
+/obj/machinery/computer/scanconsole,
 /obj/machinery/newscaster{
 	pixel_y = 31
 	},

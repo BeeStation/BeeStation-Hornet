@@ -19507,7 +19507,7 @@
 	},
 /area/crew_quarters/kitchen)
 "bQG" = (
-/obj/machinery/computer/scan_consolenew{
+/obj/machinery/computer/scanconsole{
 	dir = 8
 	},
 /obj/machinery/light{
@@ -48905,7 +48905,7 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
 "lbg" = (
-/obj/machinery/computer/scan_consolenew{
+/obj/machinery/computer/scanconsole{
 	dir = 4
 	},
 /obj/machinery/camera{

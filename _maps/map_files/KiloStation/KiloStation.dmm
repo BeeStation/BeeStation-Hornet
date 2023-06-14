@@ -45935,7 +45935,7 @@
 	},
 /area/quartermaster/warehouse)
 "fkI" = (
-/obj/machinery/computer/scan_consolenew{
+/obj/machinery/computer/scanconsole{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
@@ -82106,7 +82106,7 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/maintenance/department/science)
 "uJk" = (
-/obj/machinery/computer/scan_consolenew{
+/obj/machinery/computer/scanconsole{
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,

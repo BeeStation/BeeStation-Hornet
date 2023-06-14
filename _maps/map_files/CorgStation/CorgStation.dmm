@@ -15826,7 +15826,7 @@
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/central)
 "faL" = (
-/obj/machinery/computer/scan_consolenew{
+/obj/machinery/computer/scanconsole{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
@@ -60155,7 +60155,7 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "tEB" = (
-/obj/machinery/computer/scan_consolenew,
+/obj/machinery/computer/scanconsole,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)

@@ -51187,7 +51187,7 @@
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "qkw" = (
-/obj/machinery/computer/scan_consolenew,
+/obj/machinery/computer/scanconsole,
 /obj/effect/turf_decal/bot{
 	dir = 1
 	},
@@ -57908,7 +57908,7 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
 "szG" = (
-/obj/machinery/computer/scan_consolenew,
+/obj/machinery/computer/scanconsole,
 /obj/effect/turf_decal/bot{
 	dir = 1
 	},

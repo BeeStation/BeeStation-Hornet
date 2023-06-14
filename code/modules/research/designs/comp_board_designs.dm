@@ -99,7 +99,7 @@
 /datum/design/board/scanconsole
 	name = "Computer Design (DNA Machine)"
 	desc = "Allows for the construction of circuit boards used to build a new DNA scanning console."
-	id = "scanconsole"
+	id = "scan_console"
 	build_path = /obj/item/circuitboard/computer/scanconsole
 	category = list("Computer Boards")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL | DEPARTMENTAL_FLAG_SCIENCE

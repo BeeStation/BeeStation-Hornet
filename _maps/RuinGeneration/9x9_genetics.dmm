@@ -184,14 +184,14 @@
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "S" = (
-/obj/machinery/computer/scan_consolenew{
+/obj/machinery/computer/scanconsole{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "U" = (
-/obj/machinery/computer/scan_consolenew,
+/obj/machinery/computer/scanconsole,
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
