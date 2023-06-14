@@ -132,9 +132,7 @@
 				flick(icon_deny, src)
 				return
 			to_chat(usr, "<span class='notice'>[src] clanks to life briefly before vending [prize.equipment_name]!</span>")
-			var/obj/created = new prize.equipment_path(loc)
-			if (M.CanReach(src))
-				M.put_in_hands(created)
+			new prize.equipment_path(loc)
 			SSblackbox.record_feedback("nested tally", "mining_equipment_bought", 1, list("[type]", "[prize.equipment_path]"))
 			. = TRUE
 
