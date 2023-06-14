@@ -67,6 +67,7 @@
 		if(S.failed_step)
 			nonharmfulhit = FALSE //No freebies, if you fail a surgery step you should hit your patient
 			S.failed_step = FALSE //In theory the hit should only happen once, upon failing the step
+			break
 
 	if(item_flags & NOBLUDGEON)
 		nonharmfulhit = TRUE
