@@ -18,7 +18,7 @@
 	var/start_x
 	var/start_y
 	var/datum/orbital_object/station_target
-	var/meteor_time = 15 MINUTES
+	var/meteor_time = 25 MINUTES
 
 /datum/round_event/meteor_wave/New()
 	..()
@@ -80,7 +80,7 @@
 			kill()
 
 /datum/round_event/meteor_wave/announce(fake)
-	priority_announce("Meteors have been detected on collision course with the station. Estimated time until impact: 10 MINUTES. Anti-meteor point defense is available for purchase via the station's cargo shuttle.", "Meteor Alert", ANNOUNCER_METEORS)
+	priority_announce("Meteors have been detected on collision course with the station. Estimated time until impact: 20 MINUTES. Anti-meteor point defense is available for purchase via the station's cargo shuttle.", "Meteor Alert", ANNOUNCER_METEORS)
 
 /datum/round_event_control/meteor_wave/threatening
 	name = "Meteor Wave: Threatening"
