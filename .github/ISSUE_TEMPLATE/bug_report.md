@@ -1,5 +1,6 @@
 ---
 name: Bug report
+labels: Bug
 about: Create a report to help reproduce and fix unexpected behaviour.
 ---
 
