@@ -62,6 +62,7 @@
 
 /obj/machinery/fax/Initialize(mapload)
 	. = ..()
+	GLOB.fax_machines += src
 	if(!fax_id)
 		fax_id = SSnetworks.assign_random_name()
 	if(!fax_name)
@@ -77,12 +78,15 @@
 	// Mapping Error checking
 	if(!mapload)
 		return
-	for(var/obj/machinery/fax/fax in GLOB.machines)
+	for(var/obj/machinery/fax/fax as anything in GLOB.fax_machines)
+		if(fax == src) // skip self
+			continue
 		if(fax.fax_name == fax_name)
 			fax_name = "Unregistered Fax Machine " + fax_id
-			CRASH("Duplicate fax_name [fax_name] detected! Loc 1 [AREACOORD(src)]; Loc 2 [AREACOORD(fax)]; Falling back on random names.")
+			CRASH("Duplicate fax_name [fax.fax_name] detected! Loc 1 [AREACOORD(src)]; Loc 2 [AREACOORD(fax)]; Falling back on random names.")
 
 /obj/machinery/fax/Destroy()
+	GLOB.fax_machines -= src
 	QDEL_NULL(loaded_item_ref)
 	QDEL_NULL(wires)
 	QDEL_NULL(radio)
@@ -271,7 +275,7 @@
 /obj/machinery/fax/ui_data(mob/user)
 	var/list/data = list()
 	//Record a list of all existing faxes.
-	for(var/obj/machinery/fax/fax in GLOB.machines)
+	for(var/obj/machinery/fax/fax as anything in GLOB.fax_machines)
 		if(fax.fax_id == fax_id) //skip yourself
 			continue
 		if(!fax.visible_to_network) //skip invisible fax machines
@@ -365,7 +369,7 @@
  * * id - The network ID of the fax machine you want to send the item to.
  */
 /obj/machinery/fax/proc/send(obj/item/loaded, id)
-	for(var/obj/machinery/fax/fax in GLOB.machines)
+	for(var/obj/machinery/fax/fax as anything in GLOB.fax_machines)
 		if(fax.fax_id != id)
 			continue
 		if(!fax.visible_to_network) //skip fax machines meant to be invisible
@@ -519,7 +523,7 @@
  * * new_fax_name - The text of the name to be checked for a match.
  */
 /obj/machinery/fax/proc/fax_name_exist(new_fax_name)
-	for(var/obj/machinery/fax/fax in GLOB.machines)
+	for(var/obj/machinery/fax/fax as anything in GLOB.fax_machines)
 		if (fax.fax_name == new_fax_name)
 			return TRUE
 	return FALSE
