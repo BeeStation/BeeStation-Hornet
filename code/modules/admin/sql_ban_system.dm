@@ -10,7 +10,7 @@
 		if(BAN_ROLE_FORCED_ANTAGONISTS in ban_cache)
 			return TRUE
 	if(role in GLOB.ghost_role_bannable_roles)
-		if(BAN_ROLE_ALL_GHOST in ban_cache)
+		if((BAN_ROLE_ALL_GHOST in ban_cache) || ("Lavaland" in ban_cache)) // Legacy "Lavaland" ban
 			return TRUE
 	return role in ban_cache
 
