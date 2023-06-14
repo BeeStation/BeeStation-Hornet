@@ -6,7 +6,7 @@
 	name = "Servant Of Ratvar"
 	roundend_category = "clock cultists"
 	antagpanel_category = "Clockcult"
-	ui_name = "AntagInfoClockCult"
+	// TODO: ui_name = "AntagInfoClockCult"
 	antag_moodlet = /datum/mood_event/cult
 	job_rank = ROLE_SERVANT_OF_RATVAR
 
