@@ -581,8 +581,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	else if(HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30)
 		to_chat(owner, "<span_class='danger'>You're too exausted to block the attack!</span>")
 		return 0
-	if(owner.a_intent == INTENT_HELP) //you can choose not to block an attack
-		return 0
 	if(block_flags & BLOCKING_ACTIVE && owner.get_active_held_item() != src) //you can still parry with the offhand
 		return 0
 	if(isprojectile(hitby)) //fucking bitflags broke this when coded in other ways
