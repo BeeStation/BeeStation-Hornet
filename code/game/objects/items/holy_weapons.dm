@@ -580,7 +580,7 @@
 
 	possessed = TRUE
 
-	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the spirit of [user.real_name]'s blade?", ROLE_PAI, null, FALSE, 100, POLL_IGNORE_POSSESSED_BLADE)
+	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the spirit of [user.real_name]'s blade?", BAN_ROLE_SPECTRAL_BLADE, null, FALSE, 100, POLL_IGNORE_POSSESSED_BLADE)
 
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)

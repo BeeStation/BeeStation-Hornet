@@ -10,102 +10,191 @@
 #define MINUTES_REQUIRED_COMMAND 1200 		//For command positions, to be weighed against the relevant department
 
 
-// Banning snowflake - global antag ban. Badly named.
-#define ROLE_SYNDICATE			"Syndicate"
+// Banning snowflake - global antag ban. Does not include ghost roles that aren't antagonists
+#define BAN_ROLE_ALL_ANTAGONISTS			"All Antagonists"
+#define BAN_ROLE_ALL_ANTAGONISTS_AND_FORCED	"All Antagonists and Forced Antagonists"
 
 //These are synced with the Database, if you change the values of the defines
 //then you MUST update the database!
-#define ROLE_TRAITOR			"Traitor"
+#define BAN_ROLE_TRAITOR			"Traitor"
+#define BAN_ROLE_OPERATIVE			"Nuclear Operative"
+#define BAN_ROLE_CHANGELING			"Changeling"
+#define BAN_ROLE_WIZARD				"Wizard"
+//#define BAN_ROLE_MALF				"Malf AI" // Currently under traitor datum, so we can't have this separate.
+#define BAN_ROLE_INCURSION			"Incursion Team"
+#define BAN_ROLE_EXCOMM				"Excommunicated Syndicate Agent"
+#define BAN_ROLE_REV				"Revolutionary"
+#define BAN_ROLE_REV_HEAD			"Head Revolutionary"
+#define BAN_ROLE_ALIEN				"Xenomorph"
+#define BAN_ROLE_CULTIST			"Cultist"
+#define BAN_ROLE_SERVANT_OF_RATVAR	"Servant of Ratvar"
+#define BAN_ROLE_HERETIC			"Heretic"
+#define BAN_ROLE_BLOB				"Blob"
+#define BAN_ROLE_NINJA				"Space Ninja"
+#define BAN_ROLE_ABDUCTOR			"Abductor"
+#define BAN_ROLE_REVENANT			"Revenant"
+#define BAN_ROLE_DEVIL				"Devil"
+#define BAN_ROLE_BROTHER			"Blood Brother"
+#define BAN_ROLE_OVERTHROW			"Syndicate Mutineer"
+#define BAN_ROLE_HIVE				"Hivemind Host"
+#define BAN_ROLE_OBSESSED			"Obsessed"
+#define BAN_ROLE_SPACE_DRAGON		"Space Dragon"
+#define BAN_ROLE_INTERNAL_AFFAIRS	"Internal Affairs Agent"
+#define BAN_ROLE_GANG				"Gangster"
+#define BAN_ROLE_HOLOPARASITE		"Holoparasite"
+#define BAN_ROLE_TERATOMA			"Teratoma"
+#define BAN_ROLE_SPIDER				"Spider"
+#define BAN_ROLE_SWARMER			"Swarmer"
+#define BAN_ROLE_MORPH				"Morph"
+#define BAN_ROLE_NIGHTMARE			"Nightmare"
+#define BAN_ROLE_SPACE_PIRATE		"Space Pirate"
+#define BAN_ROLE_FUGITIVE			"Fugitive"
+#define BAN_ROLE_FUGITIVE_HUNTER	"Fugitive Hunter"
+#define BAN_ROLE_SLAUGHTER_DEMON	"Slaughter Demon"
 
-#define ROLE_OPERATIVE			"Operative"
-#define ROLE_CHANGELING			"Changeling"
-#define ROLE_WIZARD				"Wizard"
-#define ROLE_MALF				"Malf AI"
-#define ROLE_INCURSION			"Incursion Team"
-#define ROLE_EXCOMM				"Excommunicated Syndicate Agent"
-#define ROLE_REV				"Revolutionary"
-#define ROLE_REV_HEAD			"Head Revolutionary"
-#define ROLE_REV_SUCCESSFUL		"Victorious Revolutionary"
-#define ROLE_ALIEN				"Xenomorph"
-#define ROLE_PAI				"pAI"
-#define ROLE_CULTIST			"Cultist"
-#define ROLE_SERVANT_OF_RATVAR	"Servant of Ratvar"
-#define ROLE_HERETIC			"Heretic"
-#define ROLE_BLOB				"Blob"
-#define ROLE_NINJA				"Space Ninja"
-#define ROLE_ABDUCTOR			"Abductor"
-#define ROLE_REVENANT			"Revenant"
-#define ROLE_DEVIL				"Devil"
-#define ROLE_BROTHER			"Blood Brother"
-#define ROLE_BRAINWASHED		"Brainwashed Victim"
-#define ROLE_HYPNOTIZED			"Hypnotized Victim"
-#define ROLE_OVERTHROW			"Syndicate Mutineer"
-#define ROLE_HIVE				"Hivemind Host"
-#define ROLE_HIVE_VESSEL		"Awakened Vessel"
-#define ROLE_OBSESSED			"Obsessed"
-#define ROLE_SPACE_DRAGON		"Space Dragon"
-#define ROLE_SENTIENCE			"Sentience Potion Spawn"
-#define ROLE_MIND_TRANSFER		"Mind Transfer Potion"
-#define ROLE_POSIBRAIN			"Posibrain"
-#define ROLE_DRONE				"Drone"
-#define ROLE_DEATHSQUAD			"Deathsquad"
-#define ROLE_LAVALAND			"Lavaland"
-#define ROLE_INTERNAL_AFFAIRS	"Internal Affairs Agent"
-#define ROLE_GANG				"Gangster"
-#define ROLE_HOLOPARASITE		"Holoparasite"
-#define ROLE_TERATOMA			"Teratoma"
-#define ROLE_EXPERIMENTAL_CLONE "Experimental Clone"
-
-
-
-#define ROLE_SPIDER				"Spider"
-#define ROLE_SWARMER			"Swarmer"
-#define ROLE_MORPH				"Morph"
-#define ROLE_NIGHTMARE			"Nightmare"
-#define ROLE_SPACE_PIRATE		"Space Pirate"
-#define ROLE_FUGITIVE			"Fugitive"
-#define ROLE_FUGITIVE_HUNTER	"Fugitive Hunter"
-
-//Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
-//The gamemode specific ones are just so the gamemodes can query whether a player is old enough
-//(in game days played) to play that role
-GLOBAL_LIST_INIT(special_roles, list(
-	ROLE_TRAITOR = /datum/game_mode/traitor,
-	ROLE_BROTHER = /datum/game_mode/traitor/bros,
-	ROLE_INCURSION = /datum/game_mode/incursion,
-	ROLE_EXCOMM = /datum/game_mode/incursion,
-	ROLE_OPERATIVE = /datum/game_mode/nuclear,
-	ROLE_CHANGELING = /datum/game_mode/changeling,
-	ROLE_WIZARD = /datum/game_mode/wizard,
-	ROLE_MALF,
-	ROLE_REV = /datum/game_mode/revolution,
-	ROLE_ALIEN,
-	ROLE_SPIDER,
-	ROLE_PAI,
-	ROLE_CULTIST = /datum/game_mode/cult,
-	ROLE_SERVANT_OF_RATVAR = /datum/game_mode/clockcult,
-	ROLE_BLOB,
-	ROLE_NINJA,
-	ROLE_OBSESSED,
-	ROLE_SPACE_DRAGON,
-	ROLE_REVENANT,
-	ROLE_ABDUCTOR,
-	ROLE_DEVIL = /datum/game_mode/devil,
-	ROLE_OVERTHROW = /datum/game_mode/overthrow,
-	ROLE_HIVE = /datum/game_mode/hivemind,
-	ROLE_INTERNAL_AFFAIRS = /datum/game_mode/traitor/internal_affairs,
-	ROLE_SENTIENCE,
-	ROLE_GANG = /datum/game_mode/gang,
-	ROLE_HOLOPARASITE,
-	ROLE_HERETIC = /datum/game_mode/heretics,
-	ROLE_TERATOMA,
-	ROLE_MORPH,
-	ROLE_NIGHTMARE,
-	ROLE_SWARMER,
-	ROLE_SPACE_PIRATE,
-	ROLE_FUGITIVE,
-	ROLE_FUGITIVE_HUNTER,
+/// Roles that are antagonists, roundstart or not, and have passes to do.. antagonistry
+GLOBAL_LIST_INIT(antagonist_bannable_roles, list(
+	BAN_ROLE_TRAITOR,
+	BAN_ROLE_OPERATIVE,
+	BAN_ROLE_CHANGELING,
+	BAN_ROLE_WIZARD,
+//	BAN_ROLE_MALF,
+	BAN_ROLE_INCURSION,
+	BAN_ROLE_EXCOMM,
+	BAN_ROLE_REV,
+	BAN_ROLE_REV_HEAD,
+	BAN_ROLE_ALIEN,
+	BAN_ROLE_CULTIST,
+	BAN_ROLE_SERVANT_OF_RATVAR,
+	BAN_ROLE_HERETIC,
+	BAN_ROLE_BLOB,
+	BAN_ROLE_NINJA,
+	BAN_ROLE_ABDUCTOR,
+	BAN_ROLE_REVENANT,
+	BAN_ROLE_DEVIL,
+	BAN_ROLE_BROTHER,
+	BAN_ROLE_OVERTHROW,
+	BAN_ROLE_HIVE,
+	BAN_ROLE_OBSESSED,
+	BAN_ROLE_SPACE_DRAGON,
+	BAN_ROLE_INTERNAL_AFFAIRS,
+	BAN_ROLE_GANG,
+	BAN_ROLE_HOLOPARASITE,
+	BAN_ROLE_TERATOMA,
+	BAN_ROLE_SPIDER,
+	BAN_ROLE_SWARMER,
+	BAN_ROLE_MORPH,
+	BAN_ROLE_NIGHTMARE,
+	BAN_ROLE_SPACE_PIRATE,
+	BAN_ROLE_FUGITIVE,
+	BAN_ROLE_FUGITIVE_HUNTER,
+	BAN_ROLE_SLAUGHTER_DEMON,
 ))
+
+#define BAN_ROLE_BRAINWASHED		"Brainwashed Victim"
+#define BAN_ROLE_HYPNOTIZED			"Hypnotized Victim"
+#define BAN_ROLE_HIVE_VESSEL		"Awakened Vessel"
+
+/// Forced antagonist roles
+GLOBAL_LIST_INIT(forced_bannable_roles, list(
+	BAN_ROLE_BRAINWASHED,
+	BAN_ROLE_HYPNOTIZED,
+	BAN_ROLE_HIVE_VESSEL,
+))
+
+#define BAN_ROLE_ALL_GHOST	"Non-Antagonist Ghost Roles"
+
+#define BAN_ROLE_PAI				"pAI"
+#define BAN_ROLE_POSIBRAIN			"Posibrain"
+#define BAN_ROLE_DRONE				"Drone"
+#define BAN_ROLE_SENTIENCE			"Sentience Potion Spawn"
+#define BAN_ROLE_EXPERIMENTAL_CLONE "Experimental Clone"
+#define BAN_ROLE_LAVALAND_ELITE		"Lavaland Elite"
+#define BAN_ROLE_SPECTRAL_BLADE		"Spectral Blade"
+#define BAN_ROLE_ASHKWALKER			"Ashwalker"
+
+/// Any ghost role that is not really an antagonist or doesn't antagonize (lavaland, sentience potion, etc)
+GLOBAL_LIST_INIT(ghost_role_bannable_roles, list(
+	BAN_ROLE_PAI,
+	BAN_ROLE_POSIBRAIN,
+	BAN_ROLE_DRONE,
+	BAN_ROLE_SENTIENCE,
+	BAN_ROLE_EXPERIMENTAL_CLONE,
+	BAN_ROLE_LAVALAND_ELITE,
+	BAN_ROLE_SPECTRAL_BLADE,
+	BAN_ROLE_ASHKWALKER,
+))
+
+#define BAN_ROLE_IMAGINARY_FRIEND	"Imaginary Friend"
+#define BAN_ROLE_SPLIT_PERSONALITY	"Split Personality"
+#define BAN_ROLE_MIND_TRANSFER		"Mind Transfer Potion"
+
+/// Other roles that don't really fit any of the above, and probably shouldn't be banned with the others as a group
+/// Little to no impact on anything
+GLOBAL_LIST_INIT(other_bannable_roles, list(
+	BAN_ROLE_IMAGINARY_FRIEND,
+	BAN_ROLE_SPLIT_PERSONALITY,
+	BAN_ROLE_MIND_TRANSFER,
+))
+
+/proc/role_preference_enabled(client/player, role_preference_key)
+	if(!ispath(role_preference_key, /datum/role_preference))
+		CRASH("Invalid role_preference_key [role_preference_key] passed to role_preference_enabled!")
+	if(!istype(player) || !player.prefs)
+		return FALSE
+	var/role_preference_value = player.prefs.be_special[role_preference_key]
+	if(isnum(role_preference_value) && role_preference_value == 0) // explicitly disabled and not null
+		return FALSE
+	return TRUE
+
+/// If the client given is fit for a given role based on the arguments passed
+/// banning_key: BAN_ROLE_X used for this role - to check if the player is banned.
+/// role_preference_key: The /datum/role_preference typepath to check if the player has the role enabled and would like to receive the poll.
+/// poll_ignore_key: The POLL_IGNORE_X define for this role, used for temporarily disabling ghost polls for high volume roles.
+/// gamemode_for_age: The gamemode that this role is typically belonging to, since gamemodes store experience requirements, it checks the player's account age.
+/// req_hours: The amount of living hours required to receive this role.
+/// feedback: if we should send a to_chat
+/proc/should_include_for_role(client/player, banning_key = BAN_ROLE_ALL_ANTAGONISTS, role_preference_key = null, poll_ignore_key = null, datum/game_mode/gamemode_for_age = null, req_hours = 0, feedback = FALSE)
+	if(QDELETED(player) || (poll_ignore_key && GLOB.poll_ignore[poll_ignore_key] && (player.ckey in GLOB.poll_ignore[poll_ignore_key])))
+		return FALSE
+	if(role_preference_key)
+		if(!ispath(role_preference_key, /datum/role_preference))
+			CRASH("Invalid role_preference_key [role_preference_key] passed to should_include_for_role!")
+		if(!role_preference_enabled(player, role_preference_key))
+			return FALSE
+	if(banning_key)
+		if(is_banned_from(player.ckey, banning_key))
+			if(feedback)
+				to_chat(player, "<span class='warning'>You are banned from this role!</span>")
+			return FALSE
+	if(gamemode_for_age)
+		if(!gamemode_for_age.age_check(player))
+			if(feedback)
+				to_chat(player, "<span class='warning'>Your account is not old enough to take this role!</span>")
+			return FALSE
+	if(req_hours) //minimum living hour count
+		if((player.get_exp_living(TRUE)/60) < req_hours)
+			if(feedback)
+				to_chat(player, "<span class='warning'>You do not have enough living hours to take this role ([req_hours]hrs required)!</span>")
+			return FALSE
+	return TRUE
+
+/proc/can_take_ghost_spawner(client/player, banning_key = BAN_ROLE_ALL_ANTAGONISTS, use_cooldown = TRUE, is_admin_spawned = FALSE)
+	if(!SSticker.HasRoundStarted() || !istype(player))
+		return FALSE
+	if(!(GLOB.ghost_role_flags & GHOSTROLE_SPAWNER) && !is_admin_spawned)
+		to_chat(src, "<span class='warning'>An admin has temporarily disabled non-admin ghost roles!</span>")
+		return FALSE
+	if(!should_include_for_role(
+		player,
+		banning_key = banning_key,
+		feedback = TRUE
+	))
+		return FALSE
+	if(use_cooldown && player.next_ghost_role_tick > world.time)
+		to_chat(src, "<span class='warning'>You have died recently, you must wait [(player.next_ghost_role_tick - world.time)/10] seconds until you can use a ghost spawner.</span>")
+		return FALSE
+	return TRUE
 
 //Job defines for what happens when you fail to qualify for any job during job selection
 #define BEOVERFLOW 	1
@@ -115,3 +204,13 @@ GLOBAL_LIST_INIT(special_roles, list(
 #define ROLE_PREFERENCE_CATEGORY_ANAGONIST "Antagonists"
 #define ROLE_PREFERENCE_CATEGORY_MIDROUND_LIVING "Midrounds (Living)"
 #define ROLE_PREFERENCE_CATEGORY_MIDROUND_GHOST "Midrounds (Ghost Poll)"
+
+GLOBAL_LIST_INIT(role_preference_entries, init_role_preference_entries())
+
+/proc/init_role_preference_entries()
+	var/list/output = list()
+	for (var/datum/role_preference/preference_type as anything in subtypesof(/datum/role_preference))
+		if (initial(preference_type.abstract_type) == preference_type)
+			continue
+		output[preference_type] = new preference_type
+	return output

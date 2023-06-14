@@ -12,7 +12,8 @@
 	recommended_enemies = 8
 	reroll_friendly = 0
 	traitor_name = "Nanotrasen Internal Affairs Agent"
-	antag_flag = ROLE_INTERNAL_AFFAIRS
+	banning_key = BAN_ROLE_INTERNAL_AFFAIRS
+	role_preference = /datum/role_preference/antagonist/internal_affairs
 
 	traitors_possible = 10 //hard limit on traitors if scaling is turned off
 	num_modifier = 4 // Four additional traitors

@@ -13,6 +13,7 @@
 #define POLL_IGNORE_HOLYCARP "holy_carp"
 #define POLL_IGNORE_HOLYUNDEAD "holy_undead"
 #define POLL_IGNORE_IMAGINARYFRIEND "imaginary_friend"
+#define POLL_IGNORE_MRAT "mrat"
 #define POLL_IGNORE_PAI "pai"
 #define POLL_IGNORE_POSIBRAIN "posibrain"
 #define POLL_IGNORE_POSSESSED_BLADE "possessed_blade"

@@ -2,7 +2,8 @@
 	name = "devil"
 	config_tag = "devil"
 	report_type = "devil"
-	antag_flag = ROLE_DEVIL
+	banning_key = BAN_ROLE_DEVIL
+	role_preference = /datum/role_preference/antagonist/devil
 	false_report_weight = 1
 	protected_jobs = list(JOB_NAME_LAWYER, JOB_NAME_CURATOR, JOB_NAME_CHAPLAIN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE)
 	required_players = 0
@@ -42,7 +43,7 @@
 	for(var/j = 0, j < num_devils, j++)
 		if (!antag_candidates.len)
 			break
-		var/datum/mind/devil = antag_pick(antag_candidates, ROLE_DEVIL)
+		var/datum/mind/devil = antag_pick(antag_candidates)
 		devils += devil
 		devil.special_role = traitor_name
 		devil.restricted_roles = restricted_jobs

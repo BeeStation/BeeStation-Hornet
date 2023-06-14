@@ -2,7 +2,7 @@
 	name = "Fugitive Hunter pod"
 	desc = "A small sleeper typically used to make long distance travel a bit more bearable."
 	mob_name = "a fugitive hunter"
-	assignedrole = ROLE_FUGITIVE_HUNTER
+	assignedrole = BAN_ROLE_FUGITIVE_HUNTER
 	roundstart = FALSE
 	death = FALSE
 	random = TRUE
@@ -10,7 +10,7 @@
 	density = TRUE
 	icon = 'icons/obj/machines/sleeper.dmi'
 	icon_state = "sleeper"
-	banType = ROLE_FUGITIVE_HUNTER
+	banType = BAN_ROLE_FUGITIVE_HUNTER
 	/// This is set by the shuttle template
 	var/datum/fugitive_type/hunter/backstory
 	var/static/leader_spawned = FALSE
@@ -30,7 +30,6 @@
 	var/datum/antagonist/fugitive_hunter/fughunter = new
 	fughunter.backstory = backstory
 	new_spawn.mind.add_antag_datum(fughunter)
-	new_spawn.mind.assigned_role = ROLE_FUGITIVE_HUNTER
 	var/outfit = leader ? backstory.leader_outfit : backstory.outfit
 	if(islist(outfit))
 		var/static/index = 1 // incredibly jank, but no two fugitive teams should exist or I will explode reality

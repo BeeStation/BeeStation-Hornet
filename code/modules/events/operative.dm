@@ -11,7 +11,7 @@
 	fakeable = FALSE
 
 /datum/round_event/ghost_role/operative/spawn_role()
-	var/list/candidates = get_candidates(ROLE_OPERATIVE, null, ROLE_OPERATIVE)
+	var/list/candidates = get_candidates(BAN_ROLE_OPERATIVE, null, /datum/role_preference/midround_ghost/nuclear_operative)
 	if(!candidates.len)
 		return NOT_ENOUGH_PLAYERS
 

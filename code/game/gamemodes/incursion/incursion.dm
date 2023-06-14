@@ -7,7 +7,8 @@
 	config_tag = "incursion"
 	restricted_jobs = list(JOB_NAME_AI, JOB_NAME_CYBORG)
 	protected_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE,JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_HEADOFSECURITY, JOB_NAME_CHIEFENGINEER, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CHIEFMEDICALOFFICER)
-	antag_flag = ROLE_INCURSION
+	banning_key = BAN_ROLE_INCURSION
+	role_preference = /datum/role_preference/antagonist/incursion
 	false_report_weight = 10
 	enemy_minimum_age = 0
 
@@ -30,8 +31,6 @@
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
 		restricted_jobs += JOB_NAME_ASSISTANT
 
-	var/list/datum/mind/possible_traitors = get_players_for_role(ROLE_INCURSION)
-
 	var/datum/team/incursion/team = new
 	var/cost_base = CONFIG_GET(number/incursion_cost_base)
 	var/cost_increment = CONFIG_GET(number/incursion_cost_increment)
@@ -41,14 +40,13 @@
 	team_size = CLAMP(team_size, CONFIG_GET(number/incursion_count_min), CONFIG_GET(number/incursion_count_max))
 
 	for(var/k = 1 to team_size)
-		var/datum/mind/incursion = antag_pick(possible_traitors, ROLE_INCURSION)
+		var/datum/mind/incursion = antag_pick(antag_candidates)
 		if(!incursion)
 			message_admins("Ran out of people to put in an incursion team, wanted [team_size] but only got [k-1]")
 			break
-		possible_traitors -= incursion
 		antag_candidates -= incursion
 		team.add_member(incursion)
-		incursion.special_role = ROLE_INCURSION
+		incursion.special_role = BAN_ROLE_INCURSION
 		incursion.restricted_roles = restricted_jobs
 		log_game("[key_name(incursion)] has been selected as a member of the incursion")
 	pre_incursionist_team = team

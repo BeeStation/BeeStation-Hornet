@@ -28,7 +28,10 @@
 	var/maximum_players = -1 // -1 is no maximum, positive numbers limit the selection of a mode on overstaffed stations
 	var/required_enemies = 0
 	var/recommended_enemies = 0
-	var/antag_flag = null //preferences flag such as BE_WIZARD that need to be turned on for players to be antag
+	/// BAN_ROLE_X key / special role key.
+	var/banning_key
+	/// The role preference used to poll players.
+	var/role_preference
 	var/mob/living/living_antag_player = null
 	var/datum/game_mode/replacementmode = null
 	var/round_converted = 0 //0: round not converted, 1: round going to convert, 2: round converted
@@ -87,7 +90,7 @@
 	return 1
 
 /datum/game_mode/proc/setup_antag_candidates()
-	antag_candidates = get_players_for_role(antag_flag)
+	antag_candidates = get_players_for_role(banning_key, role_preference)
 
 ///Attempts to select players for special roles the mode might have.
 /datum/game_mode/proc/pre_setup()
@@ -121,8 +124,8 @@
 			if(candidates.len == 0)
 				return	//No more candidates, end the selection process, and active specials at this time will be handled by latejoins or not included
 			var/mob/person
-			if(special.special_role_flag)
-				person = antag_pick(candidates, special.special_role_flag)
+			if(special.use_antag_rep)
+				person = antag_pick(candidates, special.special_role_preference)
 			else
 				person = pick_n_take(candidates)
 			if(is_banned_from(person.ckey, special.preference_type))
@@ -256,7 +259,7 @@
 	var/list/antag_candidates = list()
 
 	for(var/mob/living/carbon/human/H in living_crew)
-		if(H.client && (H.client.prefs.toggles & PREFTOGGLE_MIDROUND_ANTAG) && !is_centcom_level(H.z))
+		if(H.client && !is_centcom_level(H.z))
 			antag_candidates += H
 
 	if(!antag_candidates)
@@ -427,7 +430,8 @@
 // The odds become:
 //     Player A: 150 / 250 = 0.6 = 60%
 //     Player B: 100 / 250 = 0.4 = 40%
-/datum/game_mode/proc/antag_pick(list/datum/candidates, role)
+/// The role_preference argument is optional, but candidates will not be considered if the preference is disabled. Passing null will consider all candidates.
+/datum/game_mode/proc/antag_pick(list/datum/candidates, role_preference = null)
 	if(!CONFIG_GET(flag/use_antag_rep)) // || candidates.len <= 1)
 		return pick(candidates)
 
@@ -458,7 +462,10 @@
 		if(!player)
 			candidates -= candidate
 			continue
-		total_tickets += min(((role in player.client.prefs.be_special) ? SSpersistence.antag_rep[p_ckey] : 0) + DEFAULT_ANTAG_TICKETS, MAX_TICKETS_PER_ROLL)
+		var/role_enabled = TRUE
+		if(role_preference && player.client)
+			role_enabled = role_preference_enabled(player.client, role_preference)
+		total_tickets += min((role_enabled ? SSpersistence.antag_rep[p_ckey] : 0) + DEFAULT_ANTAG_TICKETS, MAX_TICKETS_PER_ROLL)
 
 	var/antag_select = rand(1,total_tickets)
 	var/current = 1
@@ -475,9 +482,11 @@
 		else
 			continue
 		p_rep = SSpersistence.antag_rep[p_ckey]
-
+		var/role_enabled = TRUE
+		if(role_preference && player.client)
+			role_enabled = role_preference_enabled(player.client, role_preference)
 		var/previous = current
-		var/spend = min(((role in player.client.prefs.be_special) ? p_rep : 0) + DEFAULT_ANTAG_TICKETS, MAX_TICKETS_PER_ROLL)
+		var/spend = min((role_enabled ? p_rep : 0) + DEFAULT_ANTAG_TICKETS, MAX_TICKETS_PER_ROLL)
 		current += spend
 
 		if(antag_select >= previous && antag_select <= (current-1))
@@ -488,7 +497,7 @@
 	WARNING("Something has gone terribly wrong. /datum/game_mode/proc/antag_pick failed to select a candidate. Falling back to pick()")
 	return pick(candidates)
 
-/datum/game_mode/proc/get_players_for_role(role)
+/datum/game_mode/proc/get_players_for_role(banning_key = null, role_preference = null)
 	var/list/players = list()
 	var/list/candidates = list()
 	var/list/drafted = list()
@@ -505,8 +514,8 @@
 
 	for(var/mob/dead/new_player/player in players)
 		if(player.client && player.ready == PLAYER_READY_TO_PLAY)
-			if(role in player.client.prefs.be_special)
-				if(!is_banned_from(player.ckey, list(role, ROLE_SYNDICATE)) && !QDELETED(player))
+			if(role_preference_enabled(player.client, role_preference))
+				if(!is_banned_from(player.ckey, banning_key) && !QDELETED(player))
 					if(age_check(player.client)) //Must be older than the minimum age
 						candidates += player.mind				// Get a list of all the people who want to be the antagonist for this round
 
@@ -519,8 +528,8 @@
 	if(candidates.len < recommended_enemies)
 		for(var/mob/dead/new_player/player in players)
 			if(player.client && player.ready == PLAYER_READY_TO_PLAY)
-				if(!(role in player.client.prefs.be_special)) // We don't have enough people who want to be antagonist, make a separate list of people who don't want to be one
-					if(!is_banned_from(player.ckey, list(role, ROLE_SYNDICATE)) && !QDELETED(player))
+				if(!role_preference_enabled(player.client, role_preference)) // We don't have enough people who want to be antagonist, make a separate list of people who don't want to be one
+					if(!is_banned_from(player.ckey, banning_key) && !QDELETED(player))
 						drafted += player.mind
 
 	if(restricted_jobs)
@@ -564,15 +573,13 @@
 							//			Less if there are not enough valid players in the game entirely to make recommended_enemies.
 
 
-/datum/game_mode/proc/get_alive_non_antagonsist_players_for_role(role, list/restricted_roles)
+/datum/game_mode/proc/get_alive_non_antagonsist_players_for_role(banning_key, role_preference, list/restricted_roles)
 	var/list/candidates = list()
 
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
-		if(player.client && is_station_level(player.z))
-			if(role in player.client.prefs.be_special)
-				if(!is_banned_from(player.ckey, list(role, ROLE_SYNDICATE)) && !QDELETED(player))
-					if(age_check(player.client) && !player.mind.special_role) //Must be older than the minimum age
-						candidates += player.mind				// Get a list of all the people who want to be the antagonist for this round
+		if(!QDELETED(player) && player.client && is_station_level(player.z) && !player.mind.special_role)
+			if(should_include_for_role(player.client, banning_key = banning_key, role_preference_key = role_preference, gamemode_for_age = src))
+				candidates += player.mind				// Get a list of all the people who want to be the antagonist for this round
 
 	var/restricted_list = length(restricted_roles) ? restricted_roles : restricted_jobs
 	if(restricted_list)

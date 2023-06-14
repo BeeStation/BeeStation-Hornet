@@ -6,12 +6,10 @@
 /datum/role_preference/antagonist/traitor
 	name = "Traitor"
 	description = TRAITOR_DESC
-	role_key = ROLE_TRAITOR
 	gamemode = /datum/game_mode/traitor
 
 /datum/role_preference/midround_living/traitor
 	name = "Traitor (Sleeper Agent)"
 	description = TRAITOR_DESC
-	role_key = ROLE_TRAITOR
 
 #undef TRAITOR_DESC

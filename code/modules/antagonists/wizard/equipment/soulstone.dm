@@ -338,7 +338,7 @@
 			break
 
 	if(!chosen_ghost)	//Failing that, we grab a ghost
-		var/list/consenting_candidates = pollGhostCandidates("Would you like to play as a Shade?", "Cultist", null, ROLE_CULTIST, 50, POLL_IGNORE_SHADE)
+		var/list/consenting_candidates = pollGhostCandidates("Would you like to play as a Shade?", BAN_ROLE_CULTIST, null, null, 50, POLL_IGNORE_SHADE)
 		if(consenting_candidates.len)
 			chosen_ghost = pick(consenting_candidates)
 	if(!T)

@@ -88,7 +88,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 /obj/item/mmi/posibrain/proc/activate(mob/user)
 	if(QDELETED(brainmob))
 		return
-	if(is_banned_from(user.ckey, ROLE_POSIBRAIN))
+	if(is_banned_from(user.ckey, BAN_ROLE_POSIBRAIN))
 		to_chat(user, "<span class='warning'>You are restricted from taking positronic brain spawns at this time.</span>")
 		return
 	if(user.client.get_exp_living(TRUE) <= MINUTES_REQUIRED_BASIC)

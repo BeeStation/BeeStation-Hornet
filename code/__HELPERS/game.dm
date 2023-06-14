@@ -438,29 +438,25 @@
 
 	return pollCandidates(Question, jobbanType, gametypeCheck, be_special_flag, poll_time, ignore_category, flashwindow, candidates, req_hours)
 
-/proc/pollCandidates(Question, jobbanType, datum/game_mode/gametypeCheck, be_special_flag = 0, poll_time = 300, ignore_category = null, flashwindow = TRUE, list/group = null, req_hours = 0)
+/proc/pollCandidates(Question, banning_key, datum/game_mode/gamemode_for_age, role_preference_key = null, poll_time = 300, poll_ignore_key = null, flashwindow = TRUE, list/group = null, req_hours = 0)
 	var/time_passed = world.time
 	if (!Question)
 		Question = "Would you like to be a special role?"
 	var/list/result = list()
 	for(var/m in group)
 		var/mob/M = m
-		if(!M.key || !M.client || (ignore_category && GLOB.poll_ignore[ignore_category] && (M.ckey in GLOB.poll_ignore[ignore_category])))
+		if(QDELETED(M) || !M.key || !M.client)
 			continue
-		if(be_special_flag)
-			if(!(M.client.prefs) || !(be_special_flag in M.client.prefs.be_special))
-				continue
-		if(gametypeCheck)
-			if(!gametypeCheck.age_check(M.client))
-				continue
-		if(jobbanType)
-			if(QDELETED(M) || is_banned_from(M.ckey, list(jobbanType, ROLE_SYNDICATE)))
-				continue
-		if(req_hours) //minimum living hour count
-			if((M.client.get_exp_living(TRUE)/60) < req_hours)
-				continue
-
-		showCandidatePollWindow(M, poll_time, Question, result, ignore_category, time_passed, flashwindow)
+		if(!should_include_for_role(
+			M.client,
+			banning_key = banning_key,
+			role_preference_key = role_preference_key,
+			poll_ignore_key = poll_ignore_key,
+			gamemode_for_age = gamemode_for_age,
+			req_hours = req_hours
+		))
+			continue
+		showCandidatePollWindow(M, poll_time, Question, result, poll_ignore_key, time_passed, flashwindow)
 	sleep(poll_time)
 
 	//Check all our candidates, to make sure they didn't log off or get deleted during the wait period.

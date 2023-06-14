@@ -24,8 +24,9 @@
 	var/max_occurrences = 1
 	var/holidayID = ""
 	//Preferences
-	var/preference_type = ROLE_TRAITOR
-	var/special_role_flag = null	//Will use antag rep if enabled
+	var/preference_type = /datum/role_preference/antagonist/traitor
+	/// If we should use antag rep.
+	var/use_antag_rep = FALSE
 
 /datum/special_role/proc/setup()
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
@@ -72,8 +73,8 @@
 //The datum associated with the role
 
 /datum/antagonist/special
-	name = "Role that should not be accessable in game."
-	job_rank = ROLE_SYNDICATE
+	name = "Role that should not be accessible in game."
+	banning_key = BAN_ROLE_ALL_ANTAGONISTS
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = FALSE
 	prevent_roundtype_conversion = FALSE

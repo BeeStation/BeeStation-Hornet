@@ -165,10 +165,8 @@ GLOBAL_VAR(antag_prototypes)
 					continue
 				pref_source = prototype
 				break
-		if(pref_source.job_rank)
-			if(!is_banned_from(src.key, pref_source.job_rank))
-				antag_header_parts += pref_source.enabled_in_preferences(src) ? "Enabled in Prefs" : "Disabled in Prefs"
-			else
+		if(pref_source.banning_key)
+			if(is_banned_from(src.key, pref_source.banning_key))
 				antag_header_parts += "<span class='bad'><b>\[BANNED\]</b></span>"
 
 		//Traitor : None | Traitor | IAA

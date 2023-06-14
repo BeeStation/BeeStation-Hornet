@@ -734,7 +734,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					else
 						dat += "<b>Be [capitalize(i)]:</b> <a href='?_src_=prefs;preference=be_special;be_special_type=[i]'>[(i in be_special) ? "Enabled" : "Disabled"]</a><br>"
 			dat += "<br>"
-			dat += "<b>Midround Antagonist:</b> <a href='?_src_=prefs;preference=allow_midround_antag'>[(toggles & PREFTOGGLE_MIDROUND_ANTAG) ? "Enabled" : "Disabled"]</a><br>"
 
 			dat += "</td></tr><tr><td> </td></tr>" // i hate myself for this
 			dat += "<tr><td colspan='2' width='100%'><center><a style='font-size: 18px;' href='?_src_=prefs;preference=keybindings_menu'>Customize Keybinds</a></center></td></tr>"
@@ -1926,9 +1925,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				if("pull_requests")
 					chat_toggles ^= CHAT_PULLR
-
-				if("allow_midround_antag")
-					toggles ^= PREFTOGGLE_MIDROUND_ANTAG
 
 				if("tgui_input")
 					toggles2 ^= PREFTOGGLE_2_TGUI_INPUT

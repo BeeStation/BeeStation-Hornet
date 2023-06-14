@@ -123,8 +123,8 @@
 	to_chat(src, "<b>Be sure to read <a href=\"https://tgstation13.org/wiki/Revenant\">the wiki page</a> to learn more.</b>")
 	if(!generated_objectives_and_spells)
 		generated_objectives_and_spells = TRUE
-		mind.assigned_role = ROLE_REVENANT
-		mind.special_role = ROLE_REVENANT
+		mind.assigned_role = BAN_ROLE_REVENANT
+		mind.special_role = BAN_ROLE_REVENANT
 		SEND_SOUND(src, sound('sound/effects/ghost.ogg'))
 		mind.add_antag_datum(/datum/antagonist/revenant)
 
@@ -494,7 +494,7 @@
 				break
 	if(!key_of_revenant)
 		message_admins("The new revenant's old client either could not be found or is in a new, living mob - grabbing a random candidate instead...")
-		var/list/candidates = pollCandidatesForMob("Do you want to be [revenant.name] (reforming)?", ROLE_REVENANT, null, ROLE_REVENANT, 50, revenant)
+		var/list/candidates = pollCandidatesForMob("Do you want to be [revenant.name] (reforming)?", BAN_ROLE_REVENANT, null, /datum/role_preference/midround_ghost/revenant, 50, revenant)
 		if(!LAZYLEN(candidates))
 			qdel(revenant)
 			message_admins("No candidates were found for the new revenant. Oh well!")

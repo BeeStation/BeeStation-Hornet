@@ -7,7 +7,7 @@
 	can_malf_fake_alert = TRUE
 
 /datum/round_event/ghost_role/spider_infestation
-	role_name = ROLE_SPIDER
+	role_name = BAN_ROLE_SPIDER
 	announceWhen = 400
 	fakeable = TRUE
 	minimum_required = 1
@@ -37,7 +37,7 @@
 		message_admins("An event attempted to spawn spiders but no suitable vents were found. Aborting.")
 		return MAP_ERROR
 
-	var/list/candidates = get_candidates(ROLE_SPIDER, null, ROLE_SPIDER)
+	var/list/candidates = get_candidates(BAN_ROLE_SPIDER, null, /datum/role_preference/midround_ghost/spider)
 
 	if(!length(candidates))
 		return NOT_ENOUGH_PLAYERS

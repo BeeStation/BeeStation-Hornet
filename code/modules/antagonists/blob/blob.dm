@@ -3,7 +3,7 @@
 	roundend_category = "blobs"
 	antagpanel_category = "Blob"
 	show_to_ghosts = TRUE
-	job_rank = ROLE_BLOB
+	banning_key = BAN_ROLE_BLOB
 
 	var/datum/action/innate/blobpop/pop_action
 	var/starting_points_human_blob = 60

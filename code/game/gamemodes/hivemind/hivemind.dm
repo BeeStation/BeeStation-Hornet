@@ -4,7 +4,8 @@ GLOBAL_LIST_EMPTY(hivehosts)
 	name = "assimilation"
 	config_tag = "hivemind"
 	report_type = "hivemind"
-	antag_flag = ROLE_HIVE
+	banning_key = BAN_ROLE_HIVE
+	role_preference = /datum/role_preference/antagonist/hivemind
 	false_report_weight = 5
 	protected_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	restricted_jobs = list(JOB_NAME_AI, JOB_NAME_CYBORG)
@@ -62,9 +63,9 @@ GLOBAL_LIST_EMPTY(hivehosts)
 	for(var/j = 0, j < num_hosts, j++)
 		if (!antag_candidates.len)
 			break
-		var/datum/mind/host = antag_pick(antag_candidates, ROLE_HIVE)
+		var/datum/mind/host = antag_pick(antag_candidates)
 		hosts += host
-		host.special_role = ROLE_HIVE
+		host.special_role = BAN_ROLE_HIVE
 		host.restricted_roles = restricted_jobs
 		log_game("[key_name(host)] has been selected as a hivemind host")
 		antag_candidates.Remove(host)

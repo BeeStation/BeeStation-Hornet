@@ -31,7 +31,7 @@
 	if(owner.stat == DEAD || !owner.mind)
 		qdel(src)
 		return
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [owner]'s split personality?", ROLE_PAI, null, null, 75, stranger_backseat, POLL_IGNORE_SPLITPERSONALITY)
+	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [owner]'s split personality?", BAN_ROLE_SPLIT_PERSONALITY, null, null, 75, stranger_backseat, POLL_IGNORE_SPLITPERSONALITY)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		stranger_backseat.key = C.key

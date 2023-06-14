@@ -41,7 +41,7 @@
 
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
 /obj/effect/mob_spawn/drone/attack_ghost(mob/user)
-	if(is_banned_from(user.ckey, ROLE_DRONE) || QDELETED(src) || QDELETED(user))
+	if(is_banned_from(user.ckey, BAN_ROLE_DRONE) || QDELETED(src) || QDELETED(user))
 		return
 	if(CONFIG_GET(flag/use_age_restriction_for_jobs))
 		if(!isnum_safe(user.client.player_age)) //apparently what happens when there's no DB connected. just don't let anybody be a drone without admin intervention

@@ -5,10 +5,10 @@
 	name = "Traitor"
 	roundend_category = "traitors"
 	antagpanel_category = "Traitor"
-	job_rank = ROLE_TRAITOR
+	banning_key = BAN_ROLE_TRAITOR
 	antag_moodlet = /datum/mood_event/focused
 	hijack_speed = 0.5				//10 seconds per hijack stage by default
-	var/special_role = ROLE_TRAITOR
+	var/special_role = BAN_ROLE_TRAITOR
 	var/employer = "The Syndicate"
 	var/should_give_codewords = TRUE
 	var/should_equip = TRUE

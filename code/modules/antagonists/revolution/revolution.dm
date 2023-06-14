@@ -7,7 +7,7 @@
 	name = "Revolutionary"
 	roundend_category = "revolutionaries" // if by some miracle revolutionaries without revolution happen
 	antagpanel_category = "Revolution"
-	job_rank = ROLE_REV
+	banning_key = BAN_ROLE_REV
 	antag_moodlet = /datum/mood_event/revolution
 	var/hud_type = "rev"
 	var/datum/team/revolution/rev_team
@@ -159,6 +159,7 @@
 /datum/antagonist/rev/head
 	name = "Head Revolutionary"
 	hud_type = "rev_head"
+	banning_key = BAN_ROLE_REV_HEAD
 	var/remove_clumsy = FALSE
 	var/give_flash = FALSE
 	var/give_hud = TRUE
@@ -196,7 +197,7 @@
 			carbon_mob.flash_act(1, 1)
 		rev_mind.current.Stun(100)
 	rev_mind.add_antag_datum(/datum/antagonist/rev,rev_team)
-	rev_mind.special_role = ROLE_REV
+	rev_mind.special_role = BAN_ROLE_REV
 	return TRUE
 
 /datum/antagonist/rev/head/proc/demote()
@@ -342,7 +343,7 @@
 			var/list/datum/mind/nonhuman_promotable = list()
 			for(var/datum/mind/khrushchev in non_heads)
 				if(khrushchev.current && !khrushchev.current.incapacitated() && !khrushchev.current.restrained() && khrushchev.current.client && khrushchev.current.stat != DEAD)
-					if(ROLE_REV in khrushchev.current.client.prefs.be_special)
+					if(role_preference_enabled(khrushchev.current.client, /datum/role_preference/antagonist/revolutionary))
 						if(ishuman(khrushchev.current))
 							promotable += khrushchev
 						else

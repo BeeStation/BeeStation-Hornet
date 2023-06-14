@@ -2,7 +2,7 @@
 	name = "Nuclear Operative"
 	roundend_category = "syndicate operatives" //just in case
 	antagpanel_category = "NukeOp"
-	job_rank = ROLE_OPERATIVE
+	banning_key = BAN_ROLE_OPERATIVE
 	antag_moodlet = /datum/mood_event/focused
 	show_to_ghosts = TRUE
 	hijack_speed = 2 //If you can't take out the station, take the shuttle instead.
@@ -144,7 +144,7 @@
 	nuke_team = new_team
 
 /datum/antagonist/nukeop/admin_add(datum/mind/new_owner,mob/admin)
-	new_owner.assigned_role = ROLE_SYNDICATE
+	new_owner.assigned_role = BAN_ROLE_OPERATIVE
 	new_owner.add_antag_datum(src)
 	message_admins("[key_name_admin(admin)] has nuke op'ed [key_name_admin(new_owner)].")
 	log_admin("[key_name(admin)] has nuke op'ed [key_name(new_owner)].")

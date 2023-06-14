@@ -22,7 +22,7 @@
 /datum/game_mode/traitor/changeling/can_start()
 	if(!..())
 		return 0
-	possible_changelings = get_players_for_role(ROLE_CHANGELING)
+	possible_changelings = get_players_for_role(BAN_ROLE_CHANGELING, /datum/role_preference/antagonist/changeling)
 	if(possible_changelings.len < required_enemies)
 		return 0
 	return 1
@@ -37,7 +37,7 @@
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		restricted_jobs += GLOB.command_positions
 
-	var/list/datum/mind/possible_changelings = get_players_for_role(ROLE_CHANGELING)
+	var/list/datum/mind/possible_changelings = get_players_for_role(BAN_ROLE_CHANGELING, /datum/role_preference/antagonist/changeling)
 
 	var/num_changelings = 1
 
@@ -51,10 +51,10 @@
 		for(var/j = 0, j < num_changelings, j++)
 			if(!possible_changelings.len)
 				break
-			var/datum/mind/changeling = antag_pick(possible_changelings, ROLE_CHANGELING)
+			var/datum/mind/changeling = antag_pick(possible_changelings)
 			antag_candidates -= changeling
 			possible_changelings -= changeling
-			changeling.special_role = ROLE_CHANGELING
+			changeling.special_role = BAN_ROLE_CHANGELING
 			changelings += changeling
 			changeling.restricted_roles = restricted_jobs
 		return ..()
@@ -73,12 +73,15 @@
 		..()
 		return
 	if(changelings.len <= (changelingcap - 2) || prob(100 / (csc * 4)))
-		if(ROLE_CHANGELING in character.client.prefs.be_special)
-			if(!is_banned_from(character.ckey, list(ROLE_CHANGELING, ROLE_SYNDICATE)) && !QDELETED(character))
-				if(age_check(character.client))
-					if(!(character.job in restricted_jobs))
-						character.mind.make_Changeling()
-						changelings += character.mind
+		if(!QDELETED(character) && character.client && should_include_for_role(
+			character.client,
+			banning_key = BAN_ROLE_CHANGELING,
+			role_preference_key = /datum/role_preference/antagonist/changeling,
+			gamemode_for_age = src
+		))
+			if(!(character.job in restricted_jobs))
+				character.mind.make_Changeling()
+				changelings += character.mind
 	if(QDELETED(character))
 		return
 	..()

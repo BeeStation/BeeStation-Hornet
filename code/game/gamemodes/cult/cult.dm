@@ -36,7 +36,8 @@
 	name = "cult"
 	config_tag = "cult"
 	report_type = "cult"
-	antag_flag = ROLE_CULTIST
+	banning_key = BAN_ROLE_CULTIST
+	role_preference = /datum/role_preference/antagonist/blood_cultist
 	false_report_weight = 1
 	restricted_jobs = list(JOB_NAME_CHAPLAIN,JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL)
 	protected_jobs = list()
@@ -84,13 +85,13 @@
 	for(var/cultists_number = 1 to recommended_enemies)
 		if(!antag_candidates.len)
 			break
-		var/datum/mind/cultist = antag_pick(antag_candidates, ROLE_CULTIST)
+		var/datum/mind/cultist = antag_pick(antag_candidates)
 		antag_candidates -= cultist
 		if(!cultist)
 			cultists_number--
 			continue
 		cultists_to_cult += cultist
-		cultist.special_role = ROLE_CULTIST
+		cultist.special_role = BAN_ROLE_CULTIST
 		cultist.restricted_roles = restricted_jobs
 		log_game("[key_name(cultist)] has been selected as a cultist")
 

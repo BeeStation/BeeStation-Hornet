@@ -8,7 +8,6 @@
 /datum/role_preference/antagonist/nuclear_operative
 	name = "Nuclear Operative"
 	description = OPERATIVE_DESC
-	role_key = ROLE_OPERATIVE
 	gamemode = /datum/game_mode/nuclear
 
 /datum/role_preference/midround_ghost/nuclear_operative

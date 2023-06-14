@@ -27,10 +27,10 @@
 	popup.set_content(dat)
 	popup.open()
 
-/datum/admins/proc/isReadytoRumble(mob/living/carbon/human/applicant, targetrole, onstation = TRUE, conscious = TRUE)
+/datum/admins/proc/isReadytoRumble(mob/living/carbon/human/applicant, targetrole, preference, onstation = TRUE, conscious = TRUE)
 	if(applicant.mind.special_role)
 		return FALSE
-	if(!(targetrole in applicant.client.prefs.be_special))
+	if(!role_preference_enabled(applicant.client, preference))
 		return FALSE
 	if(onstation)
 		var/turf/T = get_turf(applicant)
@@ -40,7 +40,7 @@
 		return FALSE
 	if(!considered_alive(applicant.mind) || considered_afk(applicant.mind)) //makes sure the player isn't a zombie, brain, or just afk all together
 		return FALSE
-	return !is_banned_from(applicant.ckey, list(targetrole, ROLE_SYNDICATE))
+	return !is_banned_from(applicant.ckey, targetrole)
 
 
 /datum/admins/proc/makeTraitors(maxCount = 3)
@@ -59,7 +59,7 @@
 	var/mob/living/carbon/human/H = null
 
 	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
-		if(isReadytoRumble(applicant, ROLE_TRAITOR))
+		if(isReadytoRumble(applicant, BAN_ROLE_TRAITOR, /datum/role_preference/midround_living/traitor))
 			if(temp.age_check(applicant.client))
 				if(!(applicant.job in temp.restricted_jobs))
 					candidates += applicant
@@ -94,7 +94,7 @@
 	var/mob/living/carbon/human/H = null
 
 	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
-		if(isReadytoRumble(applicant, ROLE_CHANGELING))
+		if(isReadytoRumble(applicant, BAN_ROLE_CHANGELING, /datum/role_preference/antagonist/changeling))
 			if(temp.age_check(applicant.client))
 				if(!(applicant.job in temp.restricted_jobs))
 					candidates += applicant
@@ -124,7 +124,7 @@
 	var/mob/living/carbon/human/H = null
 
 	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
-		if(isReadytoRumble(applicant, ROLE_REV))
+		if(isReadytoRumble(applicant, BAN_ROLE_REV_HEAD, /datum/role_preference/antagonist/revolutionary))
 			if(temp.age_check(applicant.client))
 				if(!(applicant.job in temp.restricted_jobs))
 					candidates += applicant
@@ -142,7 +142,7 @@
 
 /datum/admins/proc/makeWizard()
 
-	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for the position of a Wizard Federation 'diplomat'?", ROLE_WIZARD, null)
+	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for the position of a Wizard Federation 'diplomat'?", BAN_ROLE_WIZARD, null, /datum/role_preference/midround_ghost/wizard)
 
 	var/mob/dead/observer/selected = pick_n_take(candidates)
 
@@ -166,7 +166,7 @@
 	var/mob/living/carbon/human/H = null
 
 	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
-		if(isReadytoRumble(applicant, ROLE_CULTIST))
+		if(isReadytoRumble(applicant, BAN_ROLE_CULTIST, /datum/role_preference/antagonist/blood_cultist))
 			if(temp.age_check(applicant.client))
 				if(!(applicant.job in temp.restricted_jobs))
 					candidates += applicant
@@ -186,8 +186,7 @@
 
 
 /datum/admins/proc/makeNukeTeam(maxCount = 5)
-	var/datum/game_mode/nuclear/temp = new
-	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for a nuke team being sent in?", ROLE_OPERATIVE, temp)
+	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for a nuke team being sent in?", BAN_ROLE_OPERATIVE, null, /datum/role_preference/midround_ghost/nuclear_operative)
 	var/list/mob/dead/observer/chosen = list()
 	var/mob/dead/observer/theghost = null
 

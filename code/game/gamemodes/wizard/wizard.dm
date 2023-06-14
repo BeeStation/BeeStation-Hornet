@@ -6,7 +6,8 @@
 	name = "wizard"
 	config_tag = "wizard"
 	report_type = "wizard"
-	antag_flag = ROLE_WIZARD
+	banning_key = BAN_ROLE_WIZARD
+	role_preference = /datum/role_preference/antagonist/wizard
 	false_report_weight = 10
 	required_players = 20
 	required_enemies = 1
@@ -22,10 +23,10 @@
 	title_icon = "wizard"
 
 /datum/game_mode/wizard/pre_setup()
-	var/datum/mind/wizard = antag_pick(antag_candidates, ROLE_WIZARD)
+	var/datum/mind/wizard = antag_pick(antag_candidates)
 	wizards += wizard
-	wizard.assigned_role = ROLE_WIZARD
-	wizard.special_role = ROLE_WIZARD
+	wizard.assigned_role = BAN_ROLE_WIZARD
+	wizard.special_role = BAN_ROLE_WIZARD
 	log_game("[key_name(wizard)] has been selected as a Wizard") //TODO: Move these to base antag datum
 	if(GLOB.wizardstart.len == 0)
 		setup_error = "No wizard starting location found"

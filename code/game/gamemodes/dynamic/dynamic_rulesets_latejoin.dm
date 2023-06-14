@@ -22,8 +22,13 @@
 				continue
 		if (P.mind.assigned_role in restricted_roles) // Does their job allow for it?
 			candidates.Remove(P)
-			continue
-		if ((exclusive_roles.len > 0) && !(P.mind.assigned_role in exclusive_roles)) // Is the rule exclusive to their job?
+		else if(length(exclusive_roles) && !(P.mind.assigned_role in exclusive_roles)) // Is the rule exclusive to their job?
+			candidates.Remove(P)
+		else if(!should_include_for_role(
+			P.client,
+			banning_key = initial(antag_datum.banning_key),
+			role_preference_key = role_preference
+		))
 			candidates.Remove(P)
 			continue
 
@@ -53,7 +58,7 @@
 /datum/dynamic_ruleset/latejoin/execute()
 	var/mob/M = pick(candidates)
 	assigned += M.mind
-	M.mind.special_role = antag_flag
+	M.mind.special_role = initial(antag_datum.banning_key)
 	M.mind.add_antag_datum(antag_datum)
 	return TRUE
 
@@ -66,7 +71,7 @@
 /datum/dynamic_ruleset/latejoin/infiltrator
 	name = "Syndicate Infiltrator"
 	antag_datum = /datum/antagonist/traitor
-	antag_flag = ROLE_TRAITOR
+	role_preference = /datum/role_preference/antagonist/traitor
 	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL)
 	restricted_roles = list(JOB_NAME_AI,JOB_NAME_CYBORG)
 	required_candidates = 1
@@ -94,8 +99,7 @@
 	name = "Provocateur"
 	persistent = TRUE
 	antag_datum = /datum/antagonist/rev/head
-	antag_flag = ROLE_REV_HEAD
-	antag_flag_override = ROLE_REV
+	role_preference = /datum/role_preference/antagonist/revolutionary
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CHIEFENGINEER, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_RESEARCHDIRECTOR)
 	enemy_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER,JOB_NAME_DETECTIVE,JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_WARDEN)
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
@@ -127,7 +131,7 @@
 	var/mob/M = pick(candidates)	// This should contain a single player, but in case.
 	if(check_eligible(M.mind))	// Didnt die/run off z-level/get implanted since leaving shuttle.
 		assigned += M.mind
-		M.mind.special_role = antag_flag
+		M.mind.special_role = BAN_ROLE_REV_HEAD
 		revolution = new()
 		var/datum/antagonist/rev/head/new_head = new()
 		new_head.give_flash = TRUE
@@ -170,7 +174,7 @@
 /datum/dynamic_ruleset/latejoin/heretic_smuggler
 	name = "Heretic Smuggler"
 	antag_datum = /datum/antagonist/heretic
-	antag_flag = ROLE_HERETIC
+	role_preference = /datum/role_preference/antagonist/heretic
 	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	restricted_roles = list(JOB_NAME_AI,JOB_NAME_CYBORG)
 	required_candidates = 1
@@ -190,7 +194,7 @@
 /datum/dynamic_ruleset/latejoin/heretic_smuggler/execute()
 	var/mob/picked_mob = pick(candidates)
 	assigned += picked_mob.mind
-	picked_mob.mind.special_role = antag_flag
+	picked_mob.mind.special_role = BAN_ROLE_HERETIC
 	var/datum/antagonist/heretic/new_heretic = picked_mob.mind.add_antag_datum(antag_datum)
 
 	// Heretics passively gain influence over time.

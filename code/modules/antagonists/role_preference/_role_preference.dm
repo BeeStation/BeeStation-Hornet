@@ -2,14 +2,10 @@
 	var/name
 	/// A brief description of this role, to display in the preferences menu.
 	var/description
-	/// The ROLE_X define for this preference. Optional, but must have a poll_ignore_key otherwise.
-	var/role_key
 	/// The main gamemode that spawns this ROLE_X roundstart.
 	/// This is used to get exp_living requirements by the prefs menu.
 	/// TODO tgui-prefs replace this
 	var/gamemode
-	/// The POLL_IGNORE_X define for this preference. Optional, but must have a role_key otherwise.
-	var/poll_ignore_key
 	/// What heading to display this entry under in the preferences menu. Use ROLE_PREFERENCE_CATEGORY defines.
 	var/category
 	/// If this preference is enabled by default. This should be true for ghost polled antagonists,
