@@ -96,8 +96,7 @@
 		if(!QDELETED(character) && character.client && should_include_for_role(
 			character.client,
 			banning_key = banning_key,
-			role_preference_key = role_preference,
-			gamemode_for_age = src
+			role_preference_key = role_preference
 		))
 			if(!(character.job in restricted_jobs))
 				add_latejoin_traitor(character.mind)

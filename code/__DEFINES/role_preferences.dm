@@ -189,7 +189,6 @@ GLOBAL_LIST_INIT(other_bannable_roles, list(
 /// banning_key: BAN_ROLE_X used for this role - to check if the player is banned.
 /// role_preference_key: The /datum/role_preference typepath to check if the player has the role enabled and would like to receive the poll.
 /// poll_ignore_key: The POLL_IGNORE_X define for this role, used for temporarily disabling ghost polls for high volume roles.
-/// gamemode_for_age: The gamemode that this role is typically belonging to, since gamemodes store experience requirements, it checks the player's account age.
 /// req_hours: The amount of living hours required to receive this role.
 /// feedback: if we should send a to_chat
 /proc/should_include_for_role(client/player, banning_key = BAN_ROLE_ALL_ANTAGONISTS, role_preference_key = null, poll_ignore_key = null, req_hours = 0, feedback = FALSE)
