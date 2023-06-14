@@ -379,7 +379,7 @@
 			balloon_alert(usr, "destination port jammed")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, -9)
 			return FALSE
-		fax.receive(loaded, fax_name, fax.radio_channel == RADIO_CHANNEL_CENTCOM)
+		fax.receive(loaded, fax_name, important = radio_channel == RADIO_CHANNEL_CENTCOM)
 		playback_sending(loaded, fax.fax_name)
 		return TRUE
 	return FALSE
