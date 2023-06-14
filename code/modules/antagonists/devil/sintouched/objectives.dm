@@ -1,5 +1,6 @@
 /datum/objective/sintouched
 	completed = 1
+	banning_key = UNBANNABLE_ANTAGONIST
 
 /datum/objective/sintouched/gluttony
 	explanation_text = "Everything is so delicious. Go eat everything."

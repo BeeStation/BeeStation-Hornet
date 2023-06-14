@@ -172,6 +172,9 @@ GLOBAL_LIST_INIT(other_bannable_roles, list(
 	BAN_ROLE_ERT,
 ))
 
+/// Do not ban this role. Oh my god. Please.
+#define UNBANNABLE_ANTAGONIST "Unbannable"
+
 /proc/role_preference_enabled(client/player, role_preference_key)
 	if(!ispath(role_preference_key, /datum/role_preference))
 		CRASH("Invalid role_preference_key [role_preference_key] passed to role_preference_enabled!")

@@ -290,6 +290,7 @@
 /datum/antagonist/revolution_enemy
 	name = "Enemy of the Revolution"
 	show_in_antagpanel = FALSE
+	banning_key = UNBANNABLE_ANTAGONIST
 
 /datum/antagonist/revolution_enemy/on_gain()
 	owner.special_role = "revolution enemy"

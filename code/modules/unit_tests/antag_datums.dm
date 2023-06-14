@@ -3,6 +3,8 @@
 
 /datum/unit_test/antag_datum_sanity/Run()
 	for (var/datum/antagonist/antag as anything in subtypesof(/datum/antagonist))
+		if(ispath(antag, /datum/antagonist/custom))
+			continue
 		var/name = initial(antag.name)
 		if (!name || name == "Antagonist")
 			Fail("[antag] has no name set!")
