@@ -589,7 +589,7 @@
 /datum/action/item_action/chameleon/tongue_change/proc/generate_tongue_list()
 	var/obj/item/I
 	var/tongue_name
-    var/static/list/predefined_tongues = typesof(/obj/item/organ/tongue)
+	var/static/list/predefined_tongues = typesof(/obj/item/organ/tongue)
 	for(var/V in predefined_tongues)
 		I = V
 		if((initial(I.item_flags) & ABSTRACT) || !initial(I.icon_state))
