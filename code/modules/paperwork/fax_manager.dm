@@ -65,7 +65,7 @@ GLOBAL_DATUM_INIT(fax_manager, /datum/fax_manager, new)
 					var/obj/item/paper/paper = new()
 					paper.add_raw_text(params["message"])
 					paper.update_appearance()
-					fax.receive(paper, params["fax_name"], TRUE)
+					fax.receive(paper, params["fax_name"], important = TRUE)
 					return TRUE
 		if("flw_fax")
 			for(var/obj/machinery/fax/fax as anything in GLOB.fax_machines)
