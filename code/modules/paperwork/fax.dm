@@ -428,8 +428,7 @@
 		if(important)
 			spans |= SPAN_COMMAND
 		radio.talk_into(src, msg, radio_channel, spans)
-	else
-		say(msg)
+	say(msg)
 
 	history_add("Receive", sender_name)
 	addtimer(CALLBACK(src, PROC_REF(vend_item), loaded), 1.9 SECONDS)
