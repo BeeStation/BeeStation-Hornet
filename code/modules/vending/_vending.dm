@@ -1024,6 +1024,10 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 					if(compartmentLoadAccessCheck(usr))
 						vending_machine_input[N] = max(vending_machine_input[N] - 1, 0)
 						S.forceMove(drop_location())
+						if (usr.CanReach(src) && usr.put_in_hands(S))
+							to_chat(usr, "<span class='notice'>You take [S.name] out of the slot.</span>")
+						else
+							to_chat(usr, "<span class='warning'>[capitalize(S.name)] falls onto the floor!</span>")
 						loaded_items--
 						use_power(5)
 						vend_ready = TRUE
@@ -1036,6 +1040,10 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 							SSblackbox.record_feedback("amount", "vending_spent", S.custom_price)
 						vending_machine_input[N] = max(vending_machine_input[N] - 1, 0)
 						S.forceMove(drop_location())
+						if (usr.CanReach(src) && usr.put_in_hands(S))
+							to_chat(usr, "<span class='notice'>You take [S.name] out of the slot.</span>")
+						else
+							to_chat(usr, "<span class='warning'>[capitalize(S.name)] falls onto the floor!</span>")
 						loaded_items--
 						use_power(5)
 						if(last_shopper != REF(usr) || purchase_message_cooldown < world.time)
