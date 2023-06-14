@@ -65,7 +65,7 @@ GLOBAL_DATUM_INIT(fax_manager, /datum/fax_manager, new)
 					var/obj/item/paper/paper = new()
 					paper.add_raw_text(params["message"])
 					paper.update_appearance()
-					fax.receive(paper, params["fax_name"], important = TRUE)
+					fax.receive(paper, params["fax_name"], TRUE)
 					return TRUE
 		if("flw_fax")
 			for(var/obj/machinery/fax/fax as anything in GLOB.fax_machines)
@@ -131,9 +131,12 @@ GLOBAL_DATUM_INIT(fax_manager, /datum/fax_manager, new)
 	requests += list(request)
 	var/msg = "<span class='adminnotice'><b><font color=[receiver_color]>[sanitize(receiver_fax_name)] fax</font> received a message from [sanitize(sender_fax.fax_name)][ADMIN_FLW(sender)][ADMIN_JMP(sender_fax)]/[ADMIN_FULLMONTY(sender)]</b></span>"
 	to_chat(GLOB.admins, msg)
+
 	for(var/obj/machinery/fax/fax as anything in GLOB.fax_machines)
 		if(fax.radio_channel == RADIO_CHANNEL_CENTCOM)
 			fax.receive(paper, sender_fax.fax_name)
+			break
+
 	for(var/client/admin in GLOB.admins)
 		if((admin.prefs.chat_toggles & CHAT_PRAYER) && (admin.prefs.toggles & PREFTOGGLE_SOUND_PRAYERS))
 			SEND_SOUND(admin, sound('sound/items/poster_being_created.ogg'))
