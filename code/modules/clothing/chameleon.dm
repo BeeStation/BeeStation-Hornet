@@ -587,19 +587,18 @@
 	var/list/tongue_list = list()
 
 /datum/action/item_action/chameleon/tongue_change/proc/generate_tongue_list()
+	var/obj/item/I
+	var/tongue_name
 	for(var/V in typesof(/obj/item/organ/tongue))
-		if(ispath(V))
-			var/obj/item/I = V
-			if((initial(I.item_flags) & ABSTRACT) || !initial(I.icon_state))
-				continue
-			var/tongue_name = "[initial(I.name)] ([initial(I.icon_state)])"
-			tongue_list[tongue_name] = I
+		I = V
+		if((initial(I.item_flags) & ABSTRACT) || !initial(I.icon_state))
+			continue
+		tongue_name = "[initial(I.name)] ([initial(I.icon_state)])"
+		tongue_list[tongue_name] = I
 
 /datum/action/item_action/chameleon/tongue_change/Trigger()
-	if(!IsAvailable())
-		return
-	if(!isitem(target))
-		return
+	if(!IsAvailable() || !isitem(target))
+		return FALSE
 	var/obj/item/clothing/mask/M = target
 	var/obj/item/organ/tongue/picked_tongue
 	var/picked_name
@@ -607,11 +606,11 @@
 	//picked_name = input("Select tongue to change into", "Chameleon tongue", picked_name) as null|anything in sort_list(tongue_list)
 	picked_name = tgui_input_list(owner,"select tongue to change into", "Chameleon tongue selection", sorted_list)
 	if(!picked_name)
-		return
+		return FALSE
 	picked_tongue = tongue_list[picked_name]
 	if(!picked_tongue)
 		M.chosen_tongue = null
-		return
+		return FALSE
 	M.chosen_tongue = picked_tongue
 	return TRUE
 
@@ -659,14 +658,12 @@
 
 /obj/item/clothing/mask/chameleon/get_name(mob/user)
 	var/mob/living/carbon/human/H = user
+	var/name = H.real_name
 	if(voice_change && H.wear_id)
 		var/obj/item/card/id/idcard = H.wear_id.GetID()
 		if(istype(idcard) && idcard.electric)
-			return idcard.registered_name
-		else
-			return H.real_name
-	else
-		return H.real_name
+			name = idcard.registered_name
+	return name
 
 /obj/item/clothing/mask/chameleon/drone
 	//Same as the drone chameleon hat, undroppable and no protection

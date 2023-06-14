@@ -219,8 +219,7 @@
 /obj/item/clothing/mask/gas/old/modulator/get_name(mob/user)
 	if(voice_change)
 		return "Unknown"
-	else
-		return user.real_name
+	return user.real_name
 
 /obj/item/clothing/mask/gas/old/modulator/examine()
 	. += "<span class='notice'>It was modified to make the user's voice sound robotic.</span>"
