@@ -139,7 +139,7 @@
 
 /datum/admins/proc/makeWizard()
 
-	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for the position of a Wizard Federation 'diplomat'?", BAN_ROLE_WIZARD, /datum/role_preference/midround_ghost/wizard)
+	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for the position of a Wizard Federation 'diplomat'?", BAN_ROLE_WIZARD, /datum/role_preference/midround_ghost/wizard, ignore_category = POLL_IGNORE_WIZARD_HELPER)
 
 	var/mob/dead/observer/selected = pick_n_take(candidates)
 

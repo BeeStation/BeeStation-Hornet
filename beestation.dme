@@ -2664,7 +2664,6 @@
 #include "code\modules\mob\dead\new_player\sprite_accessories.dm"
 #include "code\modules\mob\dead\observer\login.dm"
 #include "code\modules\mob\dead\observer\logout.dm"
-#include "code\modules\mob\dead\observer\notificationprefs.dm"
 #include "code\modules\mob\dead\observer\observer.dm"
 #include "code\modules\mob\dead\observer\observer_movement.dm"
 #include "code\modules\mob\dead\observer\orbit.dm"

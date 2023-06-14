@@ -49,11 +49,11 @@
 		to_chat(src, "<span class='notice'>[get_spawner_flavour_text()]</span>")
 	return TRUE
 
-/mob/living/proc/set_playable(ban_type = null)
+/mob/living/proc/set_playable(ban_type = null, poll_ignore_key = null)
 	playable = TRUE
 	playable_bantype = ban_type
 	if (!key)	//check if there is nobody already inhibiting this mob
-		notify_ghosts("[name] can be controlled", null, enter_link="<a href=?src=[REF(src)];activate=1>(Click to play)</a>", source=src, action=NOTIFY_ATTACK, ignore_key = name)
+		notify_ghosts("[name] can be controlled", null, enter_link="<a href=?src=[REF(src)];activate=1>(Click to play)</a>", source=src, action=NOTIFY_ATTACK, ignore_key = poll_ignore_key)
 		LAZYADD(GLOB.mob_spawners["[name]"], src)
 		AddElement(/datum/element/point_of_interest)
 		SSmobs.update_spawners()
