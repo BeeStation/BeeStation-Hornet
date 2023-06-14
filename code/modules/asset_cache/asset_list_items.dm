@@ -432,6 +432,7 @@
 
 /datum/asset/spritesheet/crafting
 	name = "crafting"
+	cross_round_cachable = TRUE
 
 /datum/asset/spritesheet/crafting/create_spritesheets()
 	var/chached_list = list()
@@ -452,7 +453,7 @@
 
 		var/icon_states_list = icon_states(icon_file)
 		if(icon_state in icon_states_list)
-			I = icon(icon_file, icon_state, SOUTH)
+			I = icon(icon_file, icon_state, SOUTH, 1)
 			var/c = initial(A.color)
 			if (!isnull(c) && c != "#FFFFFF") // there're colourful burgers...
 				I.Blend(c, ICON_MULTIPLY)
@@ -469,7 +470,7 @@
 
 		if(I)
 			I.Scale(42, 42) // 32px is too small. 42px might be fine...
-		Insert(imgid, I)
+		Insert(imgid, I, icon_state)
 
 /datum/asset/simple/bee_antags
 	assets = list(
