@@ -76,7 +76,7 @@
 	playsound(M, 'sound/effects/attackblob.ogg', 50, 1)
 
 	if(M.applied >= SLIME_EXTRACT_CROSSING_REQUIRED)
-		M.spawn_corecross()
+		M.spawn_corecross(user)
 
 /obj/item/slime_extract/grey
 	name = "grey slime extract"
@@ -254,13 +254,13 @@
 /obj/item/slime_extract/yellow/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
-			if(istype(species,/datum/species/jelly/luminescent))
-				var/datum/species/jelly/luminescent/lum_species = species
+			if(istype(species,/datum/species/oozeling/luminescent))
+				var/datum/species/oozeling/luminescent/lum_species = species
 				if(lum_species.glow_intensity != LUMINESCENT_DEFAULT_GLOW)
 					to_chat(user, "<span class='warning'>Your glow is already enhanced!</span>")
 					return
 				lum_species.update_glow(user, 5)
-				addtimer(CALLBACK(lum_species, /datum/species/jelly/luminescent.proc/update_glow, user, LUMINESCENT_DEFAULT_GLOW), 600)
+				addtimer(CALLBACK(lum_species, TYPE_PROC_REF(/datum/species/oozeling/luminescent, update_glow), user, LUMINESCENT_DEFAULT_GLOW), 600)
 				to_chat(user, "<span class='notice'>You start glowing brighter.</span>")
 				return 60 SECONDS
 			else
@@ -360,12 +360,7 @@
 				to_chat(user, "<span class='warning'>You can't swap your gender!</span>")
 				return 5 SECONDS
 
-			if(user.gender == MALE)
-				user.gender = FEMALE
-				user.visible_message("<span class='boldnotice'>[user] suddenly looks more feminine!</span>", "<span class='boldwarning'>You suddenly feel more feminine!</span>")
-			else
-				user.gender = MALE
-				user.visible_message("<span class='boldnotice'>[user] suddenly looks more masculine!</span>", "<span class='boldwarning'>You suddenly feel more masculine!</span>")
+			user.set_gender(user.gender == MALE ? FEMALE : MALE, forced = TRUE) //You are doing this to yourself.
 			return 10 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)
@@ -395,7 +390,7 @@
 			to_chat(user, "<span class='warning'>You feel yourself radically changing your slime type...</span>")
 			if(do_after(user, 120, target = user))
 				to_chat(user, "<span class='warning'>You feel different!</span>")
-				user.set_species(pick(/datum/species/jelly/slime, /datum/species/jelly/stargazer))
+				user.set_species(pick(/datum/species/oozeling/slime, /datum/species/oozeling/stargazer))
 				return 60 SECONDS
 			to_chat(user, "<span class='notice'>You stop the transformation.</span>")
 
@@ -483,7 +478,7 @@
 				return
 			to_chat(user, "<span class='notice'>You feel your skin harden and become more resistant.</span>")
 			species.armor += 25
-			addtimer(CALLBACK(src, .proc/reset_armor, species), 120 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(reset_armor), species), 120 SECONDS)
 			return 45 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)
@@ -642,8 +637,8 @@
 		if(SLIME_ACTIVATE_MINOR)
 			user.dna.set_mcolor(pick("FFF","888", "8F8", "88F", "F88", "8FF", "F8F", "FF8"))
 			user.updateappearance(mutcolor_update = TRUE)
-			if(istype(species,/datum/species/jelly/luminescent))
-				var/datum/species/jelly/luminescent/lum_species = species
+			if(istype(species,/datum/species/oozeling/luminescent))
+				var/datum/species/oozeling/luminescent/lum_species = species
 				lum_species.update_glow(user)
 			to_chat(user, "<span class='notice'>You feel different...</span>")
 			return 10 SECONDS
@@ -684,6 +679,7 @@
 	name = "slime potion"
 	desc = "A hard yet gelatinous capsule excreted by a slime, containing mysterious substances."
 	w_class = WEIGHT_CLASS_TINY
+	item_flags = ISWEAPON
 
 /obj/item/slimepotion/afterattack(obj/item/reagent_containers/target, mob/user , proximity)
 	. = ..()
@@ -735,7 +731,7 @@
 	if(being_used || !ismob(M))
 		return
 	if(!(GLOB.ghost_role_flags & GHOSTROLE_SPAWNER))
-		to_chat(user, "<span class='warning'>[src] seems to fizzle out of existance. Guess the universe is unable to support more intelligence right now.</span>")
+		to_chat(user, "<span class='warning'>[src] seems to fizzle out of existence. Guess the universe is unable to support more intelligence right now.</span>")
 		do_sparks(5, FALSE, get_turf(src))
 		qdel(src)
 		return
@@ -758,13 +754,13 @@
 		var/mob/dead/observer/C = pick(candidates)
 		SM.key = C.key
 		SM.mind.enslave_mind_to_creator(user)
-		SM.sentience_act()
+		SM.sentience_act(user)
 		to_chat(SM, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
 		to_chat(SM, "<span class='userdanger'>You are grateful to be self aware and owe [user.real_name] a great debt. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
 		if(SM.flags_1 & HOLOGRAM_1) //Check to see if it's a holodeck creature
 			to_chat(SM, "<span class='userdanger'>You also become depressingly aware that you are not a real creature, but instead a holoform. Your existence is limited to the parameters of the holodeck.</span>")
 		to_chat(user, "<span class='notice'>[SM] accepts [src] and suddenly becomes attentive and aware. It worked!</span>")
-		SM.copy_languages(user)
+		SM.copy_languages(user, blocked=TRUE) // source_override does not exist. we follow 'blocked=TRUE' rule in the proc.
 		after_success(user, SM)
 		qdel(src)
 	else
@@ -773,13 +769,14 @@
 		..()
 
 /obj/item/slimepotion/slime/sentience/proc/after_success(mob/living/user, mob/living/simple_animal/SM)
-	return
+	SM.faction = user.faction.Copy()
 
 /obj/item/slimepotion/slime/sentience/nuclear
 	name = "syndicate intelligence potion"
 	desc = "A miraculous chemical mix that grants human like intelligence to living beings. It has been modified with Syndicate technology to also grant an internal radio implant to the target and authenticate with identification systems."
 
 /obj/item/slimepotion/slime/sentience/nuclear/after_success(mob/living/user, mob/living/simple_animal/SM)
+	..()
 	var/obj/item/implant/radio/syndicate/imp = new(src)
 	imp.implant(SM, user)
 
@@ -825,7 +822,7 @@
 
 	user.mind.transfer_to(SM)
 	SM.faction = user.faction.Copy()
-	SM.sentience_act() //Same deal here as with sentience
+	SM.sentience_act(user) //Same deal here as with sentience
 	user.death()
 	to_chat(SM, "<span class='notice'>In a quick flash, you feel your consciousness flow into [SM]!</span>")
 	to_chat(SM, "<span class='warning'>You are now [SM]. Your allegiances, alliances, and role is still the same as it was prior to consciousness transfer!</span>")
@@ -930,7 +927,7 @@
 		var/obj/vehicle/V = C
 		var/datum/component/riding/R = V.GetComponent(/datum/component/riding)
 		if(R)
-			var/vehicle_speed_mod = round(CONFIG_GET(number/movedelay/run_delay) * 0.85, 0.01)
+			var/vehicle_speed_mod = round(1.5 * 0.85, 0.01)
 			if(R.vehicle_move_delay <= vehicle_speed_mod)
 				to_chat(user, "<span class='warning'>The [C] can't be made any faster!</span>")
 				return ..()
@@ -996,18 +993,13 @@
 
 	to_chat(user, "<span class='notice'>You feed [L] the gender change potion!</span>")
 
-	if(L.gender == MALE)
-		L.gender = FEMALE
-		L.visible_message("<span class='boldnotice'>[L] suddenly looks more feminine!</span>", "<span class='boldwarning'>You suddenly feel more feminine!</span>")
-	else
-		L.gender = MALE
-		L.visible_message("<span class='boldnotice'>[L] suddenly looks more masculine!</span>", "<span class='boldwarning'>You suddenly feel more masculine!</span>")
-	L.regenerate_icons()
+	if(!L.set_gender(L.gender == MALE ? FEMALE : MALE, forced = TRUE))
+		return
 	qdel(src)
 
 /obj/item/slimepotion/slime/renaming
 	name = "renaming potion"
-	desc = "A potion that allows a self-aware being to change what name it subconciously presents to the world."
+	desc = "A potion that allows a self-aware being to change what name it subconsciously presents to the world."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "potgreen"
 
@@ -1100,6 +1092,7 @@
 	name = "cerulean prints"
 	desc = "A one use yet of blueprints made of jelly like organic material. Extends the reach of the management console."
 	color = "#2956B2"
+	investigate_flags = NONE
 
 /obj/item/areaeditor/blueprints/slime/edit_area()
 	..()

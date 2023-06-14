@@ -6,11 +6,12 @@
 	block_flags = BLOCKING_PROJECTILE
 	block_power = 50
 	max_integrity =  75
+	item_flags = ISWEAPON
 	var/transparent = FALSE	// makes beam projectiles pass through the shield
 	var/durability = TRUE //the shield uses durability instead of stamina
 
 /obj/item/shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(transparent && (hitby.pass_flags & PASSGLASS))
+	if(transparent && (hitby.pass_flags & PASSTRANSPARENT))
 		return FALSE
 	return ..()
 
@@ -157,7 +158,7 @@
 
 /obj/item/shield/riot/buckler/shatter(mob/living/carbon/human/owner)
 	playsound(owner, 'sound/effects/bang.ogg', 50)
-	new /obj/item/stack/sheet/mineral/wood(get_turf(src))
+	new /obj/item/stack/sheet/wood(get_turf(src))
 	qdel(src)
 
 /obj/item/shield/riot/goliath
@@ -258,7 +259,7 @@
 	max_integrity = 50
 	block_sound = 'sound/weapons/egloves.ogg'
 	block_flags = BLOCKING_PROJECTILE
-	var/base_icon_state = "eshield" // [base_icon_state]1 for expanded, [base_icon_state]0 for contracted
+	base_icon_state = "eshield" // [base_icon_state]1 for expanded, [base_icon_state]0 for contracted
 	var/on_force = 10
 	var/on_throwforce = 8
 	var/on_throw_speed = 2
@@ -272,7 +273,7 @@
 	src.attack_self(owner)
 	to_chat(owner, "<span class='warning'>The [src] overheats!.</span>")
 	cooldown_timer = world.time + cooldown_duration
-	addtimer(CALLBACK(src, .proc/recharged, owner), cooldown_duration)
+	addtimer(CALLBACK(src, PROC_REF(recharged), owner), cooldown_duration)
 
 /obj/item/shield/energy/proc/recharged(mob/living/carbon/human/owner)//ree. i hate addtimer. ree.
 	playsound(owner, 'sound/effects/beepskyspinsabre.ogg', 35, 1)

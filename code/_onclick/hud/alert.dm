@@ -65,7 +65,7 @@
 	animate(thealert, transform = matrix(), time = 2.5, easing = CUBIC_EASING)
 
 	if(thealert.timeout)
-		addtimer(CALLBACK(src, .proc/alert_timeout, thealert, category), thealert.timeout)
+		addtimer(CALLBACK(src, PROC_REF(alert_timeout), thealert, category), thealert.timeout)
 		thealert.timeout = world.time + thealert.timeout - world.tick_lag
 	return thealert
 
@@ -304,7 +304,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	src.receiving = receiving
 	src.offerer = offerer
 	src.offerer = offerer
-	RegisterSignal(taker, COMSIG_MOVABLE_MOVED, .proc/check_in_range)
+	RegisterSignal(taker, COMSIG_MOVABLE_MOVED, PROC_REF(check_in_range))
 
 /atom/movable/screen/alert/give/Click(location, control, params)
 	. = ..()
@@ -428,7 +428,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 		desc = "You are currently tracking [real_target.real_name] in [get_area_name(blood_target)]."
 	else
 		desc = "You are currently tracking [blood_target] in [get_area_name(blood_target)]."
-	var/target_angle = Get_Angle(Q, P)
+	var/target_angle = get_angle(Q, P)
 	var/target_dist = get_dist(P, Q)
 	cut_overlays()
 	switch(target_dist)
@@ -481,7 +481,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	var/datum/antagonist/servant_of_ratvar/servant_antagonist = is_servant_of_ratvar(owner)
 	if(!(servant_antagonist?.team))
 		return
-	desc = "Stored Power - <b>[DisplayPower(GLOB.clockcult_power)]</b>.<br>"
+	desc = "Stored Power - <b>[display_power(GLOB.clockcult_power)]</b>.<br>"
 	desc += "Stored Vitality - <b>[GLOB.clockcult_vitality]</b>.<br>"
 	if(GLOB.ratvar_arrival_tick)
 		if(GLOB.ratvar_arrival_tick - world.time > 6000)
@@ -619,13 +619,15 @@ so as to remain in compliance with the most up-to-date laws."
 	var/mob/dead/observer/ghost_owner = usr
 	if(!istype(ghost_owner))
 		return
+	//Any actions that cause you to jump to the target turf
+	if (action == NOTIFY_ATTACK || action == NOTIFY_JUMP)
+		var/turf/T = get_turf(target)
+		if(isturf(T))
+			ghost_owner.abstract_move(T)
+	//Other additional actions
 	switch(action)
 		if(NOTIFY_ATTACK)
 			target.attack_ghost(ghost_owner)
-		if(NOTIFY_JUMP)
-			var/turf/T = get_turf(target)
-			if(T && isturf(T))
-				ghost_owner.abstract_move(T)
 		if(NOTIFY_ORBIT)
 			ghost_owner.ManualFollow(target)
 
@@ -669,10 +671,10 @@ so as to remain in compliance with the most up-to-date laws."
 		return
 	var/list/alerts = mymob.alerts
 	if(!hud_shown)
-		for(var/i = 1, i <= alerts.len, i++)
+		for(var/i in 1 to alerts.len)
 			screenmob.client.screen -= alerts[alerts[i]]
 		return 1
-	for(var/i = 1, i <= alerts.len, i++)
+	for(var/i in 1 to alerts.len)
 		var/atom/movable/screen/alert/alert = alerts[alerts[i]]
 		if(alert.icon_state == "template")
 			alert.icon = ui_style

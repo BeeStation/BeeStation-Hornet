@@ -3,6 +3,8 @@
 
 /datum/dynamic_ruleset
 	/// For admin logging and round end screen.
+	// If you want to change this variable name, the force latejoin/midround rulesets
+	// to not use sort_names.
 	var/name = ""
 	/// For admin logging and round end screen, do not change this unless making a new rule type.
 	var/ruletype = ""
@@ -69,6 +71,8 @@
 	/// Delay for when execute will get called from the time of post_setup (roundstart) or process (midround/latejoin).
 	/// Make sure your ruleset works with execute being called during the game when using this, and that the clean_up proc reverts it properly in case of faliure.
 	var/delay = 0
+	/// Whether antag rep should be considered when rolling candidates or not.
+	var/consider_antag_rep = FALSE
 
 	/// Judges the amount of antagonists to apply, for both solo and teams.
 	/// Note that some antagonists (such as traitors, lings, heretics, etc) will add more based on how many times they've been scaled.
@@ -76,18 +80,26 @@
 	/// If written as a linear equation, will be in the form of `list("denominator" = denominator, "offset" = offset).
 	var/antag_cap = 0
 
+	/// Whether thie ruleset has been determined to be dead or not already.
+	/// Currently only used for logging.
+	var/dead = FALSE
+
+	/// Whether repeated_mode_adjust weight changes have been logged already.
+	var/logged_repeated_mode_adjust = FALSE
+
 
 /datum/dynamic_ruleset/New()
+	// Rulesets can be instantiated more than once, such as when an admin clicks
+	// "Execute Midround Ruleset". Thus, it would be wrong to perform any
+	// side effects here. Dynamic rulesets should be stateless anyway.
+	SHOULD_NOT_OVERRIDE(TRUE)
+
+	mode = SSticker.mode
 	..()
-
-	if (istype(SSticker.mode, /datum/game_mode/dynamic))
-		mode = SSticker.mode
-	else if (!SSticker.is_mode("dynamic")) // This is here to make roundstart forced ruleset function.
-		qdel(src)
-
 
 /datum/dynamic_ruleset/roundstart // One or more of those drafted at roundstart
 	ruletype = "Roundstart"
+	consider_antag_rep = TRUE
 
 // Can be drafted when a player joins the server
 /datum/dynamic_ruleset/latejoin
@@ -97,13 +109,20 @@
 /// If your rule has extra checks, such as counting security officers, do that in ready() instead
 /datum/dynamic_ruleset/proc/acceptable(population = 0, threat_level = 0)
 	if(minimum_players > population)
+		log_game("DYNAMIC: FAIL: [src] failed acceptable: minimum_players ([minimum_players]) > population ([population])")
 		return FALSE
+
 	if(maximum_players > 0 && population > maximum_players)
+		log_game("DYNAMIC: FAIL: [src] failed acceptable: maximum_players ([maximum_players]) < population ([population])")
 		return FALSE
 
 	pop_per_requirement = pop_per_requirement > 0 ? pop_per_requirement : mode.pop_per_requirement
 	indice_pop = min(requirements.len,round(population/pop_per_requirement)+1)
-	return (threat_level >= requirements[indice_pop])
+	if (threat_level < requirements[indice_pop])
+		log_game("DYNAMIC: FAIL: [src] failed acceptable: threat_level ([threat_level]) < requirement ([requirements[indice_pop]])")
+		return FALSE
+
+	return TRUE
 
 /// When picking rulesets, if dynamic picks the same one multiple times, it will "scale up".
 /// However, doing this blindly would result in lowpop rounds (think under 10 people) where over 80% of the crew is antags!
@@ -138,7 +157,7 @@
 
 /// Called on game mode pre_setup for roundstart rulesets.
 /// Do everything you need to do before job is assigned here.
-/// IMPORTANT: ASSIGN special_role HERE
+/// IMPORTANT: ASSIGN special_role HERE (for midrounds, this doesn't apply)
 /datum/dynamic_ruleset/proc/pre_execute()
 	return TRUE
 
@@ -153,15 +172,16 @@
 /// Remember that on roundstart no one knows what their job is at this point.
 /// IMPORTANT: If ready() returns TRUE, that means pre_execute() or execute() should never fail!
 /datum/dynamic_ruleset/proc/ready(forced = 0)
-	if (required_candidates > candidates.len)
-		return FALSE
-	return TRUE
+	return check_candidates()
 
 /// Runs from gamemode process() if ruleset fails to start, like delayed rulesets not getting valid candidates.
 /// This one only handles refunding the threat, override in ruleset to clean up the rest.
 /datum/dynamic_ruleset/proc/clean_up()
 	mode.refund_threat(cost + (scaled_times * scaling_cost))
-	mode.threat_log += "[worldtime2text()]: [ruletype] [name] refunded [cost + (scaled_times * scaling_cost)]. Failed to execute."
+	var/msg = "[ruletype] [name] refunded [cost + (scaled_times * scaling_cost)]. Failed to execute."
+	mode.threat_log += "[worldtime2text()]: [msg]"
+	message_admins(msg)
+	log_game("DYNAMIC: [ruletype] [name] is cleaning up, failed to execute.")
 
 /// Gets weight of the ruleset
 /// Note that this decreases weight if repeatable is TRUE and repeatable_weight_decrease is higher than 0
@@ -171,7 +191,32 @@
 		for(var/datum/dynamic_ruleset/DR in mode.executed_rules)
 			if(istype(DR, type))
 				weight = max(weight-repeatable_weight_decrease,1)
+	var/list/repeated_mode_adjust = CONFIG_GET(number_list/repeated_mode_adjust)
+	if(CHECK_BITFIELD(flags, PERSISTENT_RULESET) && LAZYLEN(repeated_mode_adjust))
+		var/adjustment = 0
+		for(var/rounds_ago = 1 to min(length(SSpersistence.saved_dynamic_rulesets), length(repeated_mode_adjust)))
+			var/list/round = SSpersistence.saved_dynamic_rulesets[rounds_ago]
+			if(!round)
+				continue
+			if(!islist(round))
+				round = list(round)
+			if(name in round)
+				adjustment += repeated_mode_adjust[rounds_ago]
+		if(adjustment)
+			var/old_weight = weight
+			weight *= ((100 - adjustment) / 100)
+			if(!logged_repeated_mode_adjust)
+				log_game("DYNAMIC: weight of [src] adjusted from [old_weight] to [weight] by repeated_mode_adjust")
+				logged_repeated_mode_adjust = TRUE
 	return weight
+
+/// Checks if there are enough candidates to run, and logs otherwise
+/datum/dynamic_ruleset/proc/check_candidates()
+	if (required_candidates <= candidates.len)
+		return TRUE
+
+	log_game("DYNAMIC: FAIL: [src] does not have enough candidates ([required_candidates] needed, [candidates.len] found)")
+	return FALSE
 
 /// Here you can remove candidates that do not meet your requirements.
 /// This means if their job is not correct or they have disconnected you can remove them from candidates here.
@@ -182,6 +227,64 @@
 /// Set mode result and news report here.
 /// Only called if ruleset is flagged as HIGH_IMPACT_RULESET
 /datum/dynamic_ruleset/proc/round_result()
+
+
+/// Checks if the ruleset is "dead", where all the antags are either dead or deconverted.
+/datum/dynamic_ruleset/proc/is_dead()
+	for(var/datum/mind/mind in assigned)
+		var/mob/living/body = mind.current
+		// If they have no body, they're dead for realsies.
+		if(QDELETED(body))
+			continue
+		// Well, if there's nobody in the body, they might as well be dead.
+		if(!body.ckey)
+			continue
+		// Have they been AFK for over 20 minutes? If so, eh, we won't take them into consdideration.
+		if(body.client?.is_afk(20 MINUTES))
+			continue
+		// Have they been husked by a non-burn source? Probably really really dead.
+		if(HAS_TRAIT_NOT_FROM(body, TRAIT_HUSK, "burn"))
+			continue
+		// Alright, they have a body with a ckey, but are they actually dead?
+		if(body.stat == DEAD)
+			// Has their soul departed or been ripped out? If so, yep, they dead alright.
+			if(body.soul_departed() || mind.hellbound)
+				continue
+			// Are they in medbay or an operating table/stasis bed, and have been dead for less than 20 minutes? If so, they're probably being revived.
+			if(world.time <= (mind.last_death + 15 MINUTES) && (istype(get_area(body), /area/medical) || (locate(/obj/machinery/stasis) in body.loc) || (locate(/obj/structure/table/optable) in body.loc)))
+				log_undead()
+				return FALSE
+		else
+			// Are they a silicon? If so, might as well be dead.
+			if(issilicon(body) && mind.assigned_role != JOB_NAME_AI)
+				continue
+			// Well, they're at least somewhat alive. But are they still antag?
+			if(antag_datum && mind.has_antag_datum(antag_datum))
+				// They're still antag and not dead.
+				log_undead()
+				return FALSE
+	log_dead()
+	return TRUE
+
+/datum/dynamic_ruleset/proc/log_dead()
+	if(dead)
+		return
+	dead = TRUE
+	log_game("DYNAMIC: ruleset [src] is considered dead now, new midround rulesets may be able to roll now")
+	message_admins("DYNAMIC: ruleset [src] is considered dead now, new midround rulesets may be able to roll now")
+
+/datum/dynamic_ruleset/proc/log_undead()
+	if(!dead)
+		return
+	dead = FALSE
+	log_game("DYNAMIC: ruleset [src] is no longer considered dead")
+	message_admins("DYNAMIC: ruleset [src] is no longer considered dead")
+
+/// Picks a candidate from a list, while potentially taking antag rep into consideration.
+/datum/dynamic_ruleset/proc/antag_pick_n_take(list/candidates)
+	. = (mode && consider_antag_rep) ? mode.antag_pick(candidates, antag_flag) : pick(candidates)
+	if(.)
+		candidates -= .
 
 //////////////////////////////////////////////
 //                                          //

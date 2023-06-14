@@ -34,7 +34,7 @@
 			mapname += "\]"
 
 		maprotatechoices[mapname] = VM
-	var/chosenmap = input("Choose a map to change to", "Change Map")  as null|anything in sortList(maprotatechoices)
+	var/chosenmap = input("Choose a map to change to", "Change Map")  as null|anything in sort_list(maprotatechoices)
 	if (!chosenmap)
 		return
 	SSticker.maprotatechecked = 1
@@ -49,8 +49,8 @@
 	set name = "Debug Force Map"
 
 	//Locked behind permissions since it needs serious protection.
-	if(!check_rights(R_DEBUG) || !check_rights(R_SERVER) || !check_rights(R_PERMISSIONS))
-		to_chat(src, "<span class='warning'>Insufficient rights (Requires debug, server and permissions).</span>")
+	if(!check_rights(R_DEBUG) || !check_rights(R_SERVER))
+		to_chat(src, "<span class='warning'>Insufficient rights (Requires debug and server).</span>")
 		return
 
 	var/json_settings = input(usr, "Enter map json name:", "Map Json Name", "") as text|null

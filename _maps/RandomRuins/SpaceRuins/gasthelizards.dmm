@@ -131,32 +131,6 @@
 /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/lizard,
 /turf/open/floor/plasteel/airless/dark,
 /area/ruin/space/has_grav/gasthelizard)
-"p" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/ruin/space/has_grav/gasthelizard)
-"q" = (
-/obj/machinery/door/window/brigdoor/northleft,
-/obj/machinery/atmospherics/components/binary/pump{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/ruin/space/has_grav/gasthelizard)
 "r" = (
 /turf/open/floor/plasteel/airless/dark,
 /area/ruin/space/has_grav/gasthelizard)
@@ -243,7 +217,7 @@
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/gasthelizard)
 "F" = (
@@ -364,6 +338,26 @@
 "W" = (
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/gasthelizard)
+"X" = (
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/space/has_grav/gasthelizard)
+"Y" = (
+/obj/machinery/door/window/brigdoor/northleft,
+/obj/machinery/atmospherics/components/binary/pump{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/space/has_grav/gasthelizard)
 "Z" = (
 /obj/machinery/door/airlock/external,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -458,7 +452,7 @@ b
 c
 d
 i
-p
+X
 u
 B
 B
@@ -474,7 +468,7 @@ b
 c
 e
 j
-q
+Y
 v
 B
 B
@@ -490,7 +484,7 @@ b
 c
 f
 k
-p
+X
 u
 B
 B
@@ -506,7 +500,7 @@ b
 c
 e
 j
-q
+Y
 v
 B
 G
@@ -522,7 +516,7 @@ a
 c
 g
 k
-p
+X
 u
 B
 B
@@ -538,7 +532,7 @@ b
 c
 e
 j
-q
+Y
 v
 B
 B
@@ -554,7 +548,7 @@ a
 c
 f
 k
-p
+X
 u
 B
 B
@@ -570,7 +564,7 @@ b
 c
 h
 l
-q
+Y
 w
 B
 B

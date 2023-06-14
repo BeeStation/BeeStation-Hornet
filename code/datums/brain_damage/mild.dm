@@ -1,5 +1,5 @@
 //Mild traumas are the most common; they are generally minor annoyances.
-//They can be cured with mannitol and patience, although brain surgery still works.
+//They can be cured with mannitol and patience, although brain recalibration still works.
 //Most of the old brain damage effects have been transferred to the dumbness trauma.
 
 /datum/brain_trauma/mild
@@ -178,8 +178,8 @@
 			to_chat(owner, "<span notice='warning'>[pick("You have a coughing fit!", "You can't stop coughing!")]</span>")
 			owner.Immobilize(20)
 			owner.emote("cough")
-			addtimer(CALLBACK(owner, /mob/.proc/emote, "cough"), 6)
-			addtimer(CALLBACK(owner, /mob/.proc/emote, "cough"), 12)
+			addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob, emote), "cough"), 6)
+			addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob, emote), "cough"), 12)
 		owner.emote("cough")
 	..()
 

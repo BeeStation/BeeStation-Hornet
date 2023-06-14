@@ -145,7 +145,7 @@ SUBSYSTEM_DEF(explosions)
 		else
 			continue
 
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/wipe_color_and_text, wipe_colours), 100)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(wipe_color_and_text), wipe_colours), 100)
 
 /proc/wipe_color_and_text(list/atom/wiping)
 	for(var/i in wiping)
@@ -153,12 +153,12 @@ SUBSYSTEM_DEF(explosions)
 		A.color = null
 		A.maptext = ""
 
-/proc/dyn_explosion(turf/epicenter, power, flash_range, adminlog = TRUE, ignorecap = TRUE, flame_range = 0, silent = FALSE, smoke = TRUE)
+/proc/dyn_explosion(turf/epicenter, power, flash_range, adminlog = TRUE, ignorecap = TRUE, flame_range = 0, silent = FALSE, smoke = TRUE, list/explosion_multiplier = list(1, 1, 1, 1))
 	if(!power)
 		return
 	var/range = 0
 	range = round((2 * power)**GLOB.DYN_EX_SCALE)
-	explosion(epicenter, round(range * 0.25), round(range * 0.5), round(range), flash_range*range, adminlog, ignorecap, flame_range*range, silent, smoke)
+	explosion(epicenter, round(range * 0.25 * explosion_multiplier[1]), round(range * 0.5 * explosion_multiplier[2]), round(range * explosion_multiplier[3]), flash_range * range * explosion_multiplier[4], adminlog, ignorecap, flame_range*range, silent, smoke)
 
 // Using default dyn_ex scale:
 // 100 explosion power is a (5, 10, 20) explosion.
@@ -169,7 +169,7 @@ SUBSYSTEM_DEF(explosions)
 // 5 explosion power is a (0, 1, 3) explosion.
 // 1 explosion power is a (0, 0, 1) explosion.
 
-/proc/explosion(atom/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = TRUE, ignorecap = FALSE, flame_range = 0, silent = FALSE, smoke = FALSE, magic = FALSE, holy = FALSE)
+/proc/explosion(atom/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = TRUE, ignorecap = FALSE, flame_range = 0, silent = FALSE, smoke = FALSE, magic = FALSE, holy = FALSE, cap_modifier = 1)
 	. = SSexplosions.explode(arglist(args))
 
 #define CREAK_DELAY 5 SECONDS //Time taken for the creak to play after explosion, if applicable.
@@ -182,7 +182,7 @@ SUBSYSTEM_DEF(explosions)
 #define FREQ_UPPER 40 //The upper limit for the randomly selected frequency.
 #define FREQ_LOWER 25 //The lower of the above.
 
-/datum/controller/subsystem/explosions/proc/explode(atom/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog, ignorecap, flame_range, silent, smoke, magic, holy, explode_z = TRUE)
+/datum/controller/subsystem/explosions/proc/explode(atom/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog, ignorecap, flame_range, silent, smoke, magic, holy, cap_modifier, explode_z = TRUE)
 	epicenter = get_turf(epicenter)
 	if(!epicenter)
 		return
@@ -201,8 +201,11 @@ SUBSYSTEM_DEF(explosions)
 
 	//Zlevel specific bomb cap multiplier.
 	var/cap_multiplier = SSmapping.level_trait(epicenter.z, ZTRAIT_BOMBCAP_MULTIPLIER)
-	if (isnull(cap_multiplier))
+	if(isnull(cap_multiplier))
 		cap_multiplier = 1
+	if(isnull(cap_modifier))
+		cap_modifier = 1
+	cap_multiplier *= cap_modifier
 
 	if(!ignorecap)
 		devastation_range = min(GLOB.MAX_EX_DEVESTATION_RANGE * cap_multiplier, devastation_range)
@@ -286,7 +289,7 @@ SUBSYSTEM_DEF(explosions)
 					M.playsound_local(epicenter, null, echo_volume, 1, frequency, S = explosion_echo_sound, distance_multiplier = 0)
 
 				if(creaking_explosion) // 5 seconds after the bang, the station begins to creak
-					addtimer(CALLBACK(M, /mob/proc/playsound_local, epicenter, null, rand(FREQ_LOWER, FREQ_UPPER), 1, frequency, null, null, TRUE, hull_creaking_sound, 0), CREAK_DELAY)
+					addtimer(CALLBACK(M, TYPE_PROC_REF(/mob, playsound_local), epicenter, null, rand(FREQ_LOWER, FREQ_UPPER), 1, frequency, null, null, TRUE, hull_creaking_sound, 0), CREAK_DELAY)
 
 	if(heavy_impact_range > 1)
 		var/datum/effect_system/explosion/E
@@ -320,7 +323,7 @@ SUBSYSTEM_DEF(explosions)
 		var/dist = init_dist
 
 		//Phew, that was a close one.
-		if(holy && (locate(/obj/effect/blessing) in T))
+		if(holy && T.is_holy())
 			continue
 
 		if(reactionary)
@@ -406,7 +409,8 @@ SUBSYSTEM_DEF(explosions)
 	//Calculate above and below Zs
 	//Multi-z explosions only work on station levels.
 	if(explode_z)
-		var/max_z_range = max(devastation_range, heavy_impact_range, light_impact_range, flash_range, flame_range) / (MULTI_Z_DISTANCE + 1)
+		var/largest_range = max(devastation_range, heavy_impact_range, light_impact_range, flash_range, flame_range)
+		var/max_z_range = largest_range / (MULTI_Z_DISTANCE + 1)
 		var/list/z_list = get_zs_in_range(epicenter.z, max_z_range)
 		//Dont blow up our level again
 		z_list -= epicenter.z
@@ -415,7 +419,9 @@ SUBSYSTEM_DEF(explosions)
 			var/turf/T = locate(epicenter.x, epicenter.y, affecting_z)
 			if(!T)
 				continue
-			SSexplosions.explode(T,
+			if(largest_range - z_reduction <= 0) // explosion is size 0,0,0,0 - no need
+				continue
+			explode(T,
 				max(devastation_range - z_reduction, 0),
 				max(heavy_impact_range - z_reduction, 0),
 				max(light_impact_range - z_reduction, 0),

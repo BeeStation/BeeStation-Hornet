@@ -7,10 +7,9 @@
 	icon_state = "navbeacon0-f"
 	name = "navigation beacon"
 	desc = "A radio beacon used for bot navigation."
-	level = 1		// underfloor
 	layer = UNDER_CATWALK
 	max_integrity = 500
-	armor = list("melee" = 70, "bullet" = 70, "laser" = 70, "energy" = 70, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80, "stamina" = 0)
+	armor = list(MELEE = 70,  BULLET = 70, LASER = 70, ENERGY = 70, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, STAMINA = 0)
 
 	var/open = FALSE		// true if cover is open
 	var/locked = TRUE		// true if controls are locked
@@ -26,8 +25,8 @@
 
 	set_codes()
 
-	var/turf/T = loc
-	hide(T.intact)
+	AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE)
+
 	if(codes?["patrol"])
 		if(!GLOB.navbeacons["[z]"])
 			GLOB.navbeacons["[z]"] = list()
@@ -67,22 +66,9 @@
 		else
 			codes[e] = "1"
 
-
-// called when turf state changes
-// hide the object if turf is intact
-/obj/machinery/navbeacon/hide(intact)
-	invisibility = intact ? INVISIBILITY_MAXIMUM : 0
-	update_icon()
-
 // update the icon_state
 /obj/machinery/navbeacon/update_icon()
-	var/state="navbeacon[open]"
-
-	if(invisibility)
-		icon_state = "[state]-f"	// if invisible, set icon to faded version
-									// in case revealed by T-scanner
-	else
-		icon_state = "[state]"
+	icon_state = "navbeacon[open]"
 
 /obj/machinery/navbeacon/attackby(obj/item/I, mob/user, params)
 	var/turf/T = loc
@@ -96,7 +82,7 @@
 
 		update_icon()
 
-	else if (istype(I, /obj/item/card/id)||istype(I, /obj/item/pda))
+	else if (istype(I, /obj/item/card/id) || istype(I, /obj/item/modular_computer/tablet))
 		if(open)
 			if (src.allowed(user))
 				src.locked = !src.locked

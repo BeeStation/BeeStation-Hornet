@@ -6,12 +6,12 @@
 	icon = 'icons/effects/effects.dmi'
 	anchored = TRUE
 	max_integrity = 1
-	armor = list("melee" = 0, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 20, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 20, STAMINA = 0)
 	layer = BELOW_OBJ_LAYER
 	var/obj/item/holosign_creator/projector
 
 /obj/structure/holosign/emp_act(severity)
-	take_damage(max_integrity/severity, BRUTE, "melee", 1)
+	take_damage(max_integrity/severity, BRUTE, MELEE, 1)
 
 /obj/structure/holosign/New(loc, source_projector)
 	if(source_projector)
@@ -36,7 +36,7 @@
 		return
 	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 	user.changeNext_move(CLICK_CD_MELEE)
-	take_damage(5 , BRUTE, "melee", 1)
+	take_damage(5 , BRUTE, MELEE, 1)
 
 /obj/structure/holosign/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -55,12 +55,12 @@
 	name = "holobarrier"
 	desc = "A short holographic barrier which can only be passed by walking."
 	icon_state = "holosign_sec"
-	pass_flags_self = PASSTABLE | PASSGRILLE | PASSGLASS | LETPASSTHROW
+	pass_flags_self = PASSTABLE | PASSGRILLE | PASSTRANSPARENT | LETPASSTHROW
 	density = TRUE
 	max_integrity = 20
 	var/allow_walk = 1 //can we pass through it on walk intent
 
-/obj/structure/holosign/barrier/CanAllowThrough(atom/movable/mover, turf/target)
+/obj/structure/holosign/barrier/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(.)
 		return
@@ -75,7 +75,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "holosign"
 
-/obj/structure/holosign/barrier/wetsign/CanAllowThrough(atom/movable/mover, turf/target)
+/obj/structure/holosign/barrier/wetsign/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(istype(mover, /obj/vehicle/ridden/janicart))
 		return TRUE
@@ -95,6 +95,13 @@
 	alpha = 150
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	rad_insulation = RAD_LIGHT_INSULATION
+
+/obj/structure/holosign/barrier/atmos/robust
+	name = "holo blast door"
+	desc = "A really robust holographic barrier resembling a blast door. Though it does not prevent solid objects from passing through, gas is kept out."
+	icon_state = "holo_blastlock"
+	max_integrity = 500
+
 
 /obj/structure/holosign/barrier/atmos/Initialize(mapload)
 	. = ..()
@@ -120,11 +127,11 @@
 	allow_walk = 0
 
 /obj/structure/holosign/barrier/cyborg/bullet_act(obj/item/projectile/P)
-	take_damage((P.damage / 5) , BRUTE, "melee", 1)	//Doesn't really matter what damage flag it is.
+	take_damage((P.damage / 5) , BRUTE, MELEE, 1)	//Doesn't really matter what damage flag it is.
 	if(istype(P, /obj/item/projectile/energy/electrode))
-		take_damage(10, BRUTE, "melee", 1)	//Tasers aren't harmful.
+		take_damage(10, BRUTE, MELEE, 1)	//Tasers aren't harmful.
 	if(istype(P, /obj/item/projectile/beam/disabler))
-		take_damage(5, BRUTE, "melee", 1)	//Disablers aren't harmful.
+		take_damage(5, BRUTE, MELEE, 1)	//Disablers aren't harmful.
 	return BULLET_ACT_HIT
 
 /obj/structure/holosign/barrier/medical
@@ -139,7 +146,7 @@
 	. = ..()
 	. += "<span class='notice'>The biometric scanners are <b>[force_allaccess ? "off" : "on"]</b>.</span>"
 
-/obj/structure/holosign/barrier/medical/CanAllowThrough(atom/movable/mover, turf/target)
+/obj/structure/holosign/barrier/medical/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(force_allaccess)
 		return TRUE
@@ -166,8 +173,8 @@
 	else
 		return TRUE //nice or benign diseases!
 
-/obj/structure/holosign/barrier/medical/attack_hand(mob/living/user)
-	if(CanPass(user) && user.a_intent == INTENT_HELP)
+/obj/structure/holosign/barrier/medical/attack_hand(mob/living/user, list/modifiers)
+	if(user.a_intent == INTENT_HELP && CanPass(user, get_dir(src, user)))
 		force_allaccess = !force_allaccess
 		to_chat(user, "<span class='warning'>You [force_allaccess ? "deactivate" : "activate"] the biometric scanners.</span>") //warning spans because you can make the station sick!
 	else
@@ -180,7 +187,7 @@
 	var/shockcd = 0
 
 /obj/structure/holosign/barrier/cyborg/hacked/bullet_act(obj/item/projectile/P)
-	take_damage(P.damage, BRUTE, "melee", 1)	//Yeah no this doesn't get projectile resistance.
+	take_damage(P.damage, BRUTE, MELEE, 1)	//Yeah no this doesn't get projectile resistance.
 	return BULLET_ACT_HIT
 
 /obj/structure/holosign/barrier/cyborg/hacked/proc/cooldown()
@@ -195,7 +202,7 @@
 			var/mob/living/M = user
 			M.electrocute_act(15,"Energy Barrier", safety=1)
 			shockcd = TRUE
-			addtimer(CALLBACK(src, .proc/cooldown), 5)
+			addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)
 
 /obj/structure/holosign/barrier/cyborg/hacked/Bumped(atom/movable/AM)
 	if(shockcd)
@@ -207,4 +214,4 @@
 	var/mob/living/M = AM
 	M.electrocute_act(15,"Energy Barrier", safety=1)
 	shockcd = TRUE
-	addtimer(CALLBACK(src, .proc/cooldown), 5)
+	addtimer(CALLBACK(src, PROC_REF(cooldown)), 5)

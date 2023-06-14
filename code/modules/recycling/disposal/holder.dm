@@ -47,22 +47,11 @@
 	// now everything inside the disposal gets put into the holder
 	// note AM since can contain mobs or objs
 	for(var/A in D)
-		var/atom/movable/AM = A
-		if(AM == src)
+		var/atom/movable/atom_in_transit = A
+		if(atom_in_transit == src)
 			continue
-		SEND_SIGNAL(AM, COMSIG_MOVABLE_DISPOSING, src, D)
-		AM.forceMove(src)
-		if(istype(AM, /obj/structure/bigDelivery) && !hasmob)
-			var/obj/structure/bigDelivery/T = AM
-			src.destinationTag = T.sortTag
-		else if(istype(AM, /obj/item/smallDelivery) && !hasmob)
-			var/obj/item/smallDelivery/T = AM
-			src.destinationTag = T.sortTag
-		else if(istype(AM, /mob/living/silicon/robot))
-			var/obj/item/destTagger/borg/tagger = locate() in AM
-			if (tagger)
-				src.destinationTag = tagger.currTag
-
+		SEND_SIGNAL(atom_in_transit, COMSIG_MOVABLE_DISPOSING, src, D, hasmob)
+		atom_in_transit.forceMove(src)
 
 // start the movement process
 // argument is the disposal unit the holder started in
@@ -80,9 +69,9 @@
 	var/delay = world.tick_lag
 	var/datum/move_loop/our_loop = SSmove_manager.move_disposals(src, delay = delay, timeout = delay * count)
 	if(our_loop)
-		RegisterSignal(our_loop, COMSIG_MOVELOOP_PREPROCESS_CHECK, .proc/pre_move)
-		RegisterSignal(our_loop, COMSIG_MOVELOOP_POSTPROCESS, .proc/try_expel)
-		RegisterSignal(our_loop, COMSIG_PARENT_QDELETING, .proc/movement_stop)
+		RegisterSignal(our_loop, COMSIG_MOVELOOP_PREPROCESS_CHECK, PROC_REF(pre_move))
+		RegisterSignal(our_loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(try_expel))
+		RegisterSignal(our_loop, COMSIG_PARENT_QDELETING, PROC_REF(movement_stop))
 		current_pipe = loc
 
 /obj/structure/disposalholder/proc/pre_move(datum/move_loop/source)

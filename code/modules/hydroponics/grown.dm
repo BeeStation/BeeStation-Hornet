@@ -35,8 +35,8 @@
 		seed = new seed()
 		seed.adjust_potency(50-seed.potency)
 
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+	pixel_x = base_pixel_x + rand(-5, 5)
+	pixel_y = base_pixel_y + rand(-5, 5)
 
 	if(dried_type == -1)
 		dried_type = src.type
@@ -47,7 +47,7 @@
 		seed.prepare_result(src)
 		transform *= TRANSFORM_USING_VARIABLE(seed.potency, 100) + 0.5 //Makes the resulting produce's sprite larger or smaller based on potency!
 		add_juice()
-	
+
 	if(discovery_points)
 		AddComponent(/datum/component/discoverable, discovery_points)
 
@@ -70,7 +70,7 @@
 /obj/item/reagent_containers/food/snacks/grown/attackby(obj/item/O, mob/user, params)
 	..()
 	if (istype(O, /obj/item/plant_analyzer))
-		var/msg = "<span class='info'>*---------*\n This is \a <span class='name'>[src]</span>.\n"
+		var/msg = "<span class='info'>This is \a <span class='name'>[src]</span>.\n"
 		if(seed)
 			msg += seed.get_analyzer_text()
 		var/reag_txt = ""
@@ -82,8 +82,7 @@
 
 		if(reag_txt)
 			msg += reag_txt
-			msg += "<br><span class='info'>*---------*</span>"
-		to_chat(user, msg)
+		to_chat(user, EXAMINE_BLOCK(msg))
 	else
 		if(seed)
 			for(var/datum/plant_gene/trait/T in seed.genes)
@@ -185,3 +184,11 @@
 		qdel(src)
 		user.put_in_hands(T, FALSE)
 		to_chat(user, "<span class='notice'>You open [src]\'s shell, revealing \a [T].</span>")
+
+/obj/item/reagent_containers/food/snacks/grown/dropped(mob/user, silent)
+	. = ..()
+	if(GetComponent(/datum/component/slippery))
+		var/investigated_plantname = seed.get_product_true_name_for_investigate()
+		var/investigate_data = seed.get_gene_datas_for_investigate()
+		log_game("[key_name(user)] dropped \"slippery\" [investigated_plantname]/[investigate_data]/Location: [AREACOORD(src)]")
+		investigate_log("[key_name(user)] dropped \"slippery\" [investigated_plantname]/[investigate_data]/Location: [AREACOORD(src)]", INVESTIGATE_BOTANY)

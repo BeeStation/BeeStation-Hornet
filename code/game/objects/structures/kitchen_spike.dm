@@ -46,6 +46,7 @@
 	buckle_lying = 0
 	can_buckle = 1
 	max_integrity = 250
+	move_resist = MOVE_FORCE_STRONG
 
 /obj/structure/kitchenspike/attack_paw(mob/user)
 	return attack_hand(user)
@@ -64,7 +65,7 @@
 /obj/structure/kitchenspike/attack_hand(mob/user)
 	if(VIABLE_MOB_CHECK(user.pulling) && user.a_intent == INTENT_GRAB && !has_buckled_mobs())
 		var/mob/living/L = user.pulling
-		if(do_mob(user, src, 120))
+		if(do_after(user, 12 SECONDS, src))
 			if(has_buckled_mobs()) //to prevent spam/queing up attacks
 				return
 			if(L.buckled)
@@ -82,7 +83,7 @@
 			var/matrix/m180 = matrix(L.transform)
 			m180.Turn(180)
 			animate(L, transform = m180, time = 3)
-			L.pixel_y = L.get_standard_pixel_y_offset(180)
+			L.pixel_y = L.get_standard_pixel_y_offset(TRUE)
 	else if (has_buckled_mobs())
 		for(var/mob/living/L in buckled_mobs)
 			user_unbuckle_mob(L, user)
@@ -115,7 +116,7 @@
 			"<span class='notice'>You struggle to break free from [src], exacerbating your wounds! (Stay still for two minutes.)</span>",\
 			"<span class='italics'>You hear a wet squishing noise..</span>")
 			M.adjustBruteLoss(30)
-			if(!do_after(M, 1200, target = src))
+			if(!do_after(M, 1200, target = src, timed_action_flags = IGNORE_RESTRAINED))
 				if(M && M.buckled)
 					to_chat(M, "<span class='warning'>You fail to free yourself!</span>")
 				return
@@ -127,9 +128,9 @@
 	var/matrix/m180 = matrix(M.transform)
 	m180.Turn(180)
 	animate(M, transform = m180, time = 3)
-	M.pixel_y = M.get_standard_pixel_y_offset(180)
+	M.pixel_y = M.base_pixel_y + M.get_standard_pixel_y_offset(TRUE)
 	M.adjustBruteLoss(30)
-	src.visible_message(text("<span class='danger'>[M] falls free of [src]!</span>"))
+	src.visible_message("<span class='danger'>[M] falls free of [src]!</span>")
 	unbuckle_mob(M,force=1)
 	M.emote("scream")
 	M.AdjustParalyzed(20)

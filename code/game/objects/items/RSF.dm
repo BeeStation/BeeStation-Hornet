@@ -10,11 +10,11 @@ RSF
 	icon_state = "rcd"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
-	opacity = 0
+	opacity = FALSE
 	density = FALSE
 	anchored = FALSE
 	item_flags = NOBLUDGEON
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
 	var/matter = 0
 	var/mode = 1
 	w_class = WEIGHT_CLASS_NORMAL
@@ -127,10 +127,12 @@ RSF
 	icon_state = "rcd"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
+	emag_toggleable = TRUE
 	var/matter = 10
 	var/toxin = 0
 	var/cooldown = 0
 	var/cooldowndelay = 10
+	var/safety = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/cookiesynth/examine(mob/user)
@@ -140,8 +142,8 @@ RSF
 /obj/item/cookiesynth/attackby()
 	return
 
-/obj/item/cookiesynth/emag_act(mob/user)
-	obj_flags ^= EMAGGED
+/obj/item/cookiesynth/on_emag(mob/user)
+	..()
 	if(obj_flags & EMAGGED)
 		to_chat(user, "<span class='warning'>You short out [src]'s reagent safety checker!</span>")
 	else

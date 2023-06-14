@@ -68,8 +68,8 @@
 	SSticker.mode.update_incursion_icons_removed(owner)
 
 /datum/antagonist/incursion/proc/finalize_incursion()
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE)
 	equip()
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE)
 
 /datum/antagonist/incursion/admin_add(datum/mind/new_owner,mob/admin)
 	//show list of possible brothers
@@ -91,18 +91,7 @@
 	log_admin("[key_name(admin)] made [key_name(new_owner)] and [key_name(new_owner.current)] into incursion traitor team.")
 
 /datum/antagonist/incursion/proc/equip(var/silent = FALSE)
-	var/obj/item/uplink/incursion/uplink = new(get_turf(owner.current), owner.key, 15)
-	var/where
-	if(ishuman(owner.current))		//if he's not a human, uplink will spawn under his feet
-		var/mob/living/carbon/human/H = owner.current
-		var/static/list/slots = list(
-			"in your backpack" = ITEM_SLOT_BACKPACK,
-			"in your left pocket" = ITEM_SLOT_LPOCKET,
-			"in your right pocket" = ITEM_SLOT_RPOCKET,
-			"in your hands" = ITEM_SLOT_HANDS
-		)
-		where = H.equip_in_one_of_slots(uplink, slots, FALSE)
-	to_chat(owner.current, "<span class='notice'><b>You have been equipped with a syndicate uplink located [where ? where : "at your feet"]. Activate the transponder in hand to access the market.</b></span>")
+	owner.equip_traitor("The Syndicate", FALSE, src, 15)
 	var/obj/item/implant/radio/syndicate/selfdestruct/syndio = new
 	syndio.implant(owner.current)
 
@@ -112,6 +101,12 @@
 
 /datum/team/incursion/is_solo()
 	return FALSE
+
+/datum/team/incursion/proc/check_incursion_victory()
+	for(var/datum/objective/objective in objectives)
+		if(!objective.check_completion())
+			return FALSE
+	return TRUE
 
 /datum/team/incursion/roundend_report()
 	var/list/parts = list()
@@ -156,18 +151,18 @@
 	for(var/datum/mind/member in members)
 		log_objective(member, O.explanation_text)
 
-/datum/team/incursion/proc/forge_team_objectives()
+/datum/team/incursion/proc/forge_team_objectives(list/restricted_jobs)
 	objectives = list()
 	var/is_hijacker = GLOB.player_details.len >= 35 ? prob(15) : 0
 	for(var/i = 1 to max(1, CONFIG_GET(number/incursion_objective_amount)))
-		forge_single_objective(CLAMP((5 + !is_hijacker)-i, 1, 3))	//Hijack = 3, 2, 1, 1 no hijack = 3, 3, 2, 1
+		forge_single_objective(CLAMP((5 + !is_hijacker)-i, 1, 3), restricted_jobs)	//Hijack = 3, 2, 1, 1 no hijack = 3, 3, 2, 1
 	if(is_hijacker)
 		if(!(locate(/datum/objective/hijack) in objectives))
 			add_objective(new/datum/objective/hijack)
 	else if(!(locate(/datum/objective/escape/single) in objectives))
 		add_objective(new/datum/objective/escape/single, FALSE)
 
-/datum/team/incursion/proc/forge_single_objective(difficulty=1)
+/datum/team/incursion/proc/forge_single_objective(difficulty=1, list/restricted_jobs)
 	difficulty = CLAMP(difficulty, 1, 3)
 	switch(difficulty)
 		if(3)
@@ -179,31 +174,31 @@
 				var/datum/objective/assassinate/killchosen = new
 				var/list/current_heads = SSjob.get_all_heads()
 				if(!current_heads.len)
-					generate_traitor_kill_objective()
+					generate_traitor_kill_objective(restricted_jobs)
 					return
 				var/datum/mind/selected = pick(current_heads)
 				if(selected.special_role)
-					generate_traitor_kill_objective()
+					generate_traitor_kill_objective(restricted_jobs)
 					return
 				killchosen.set_target(selected)
 				add_objective(killchosen, FALSE)
 			else									//~50%
 				//Kill traitor
-				generate_traitor_kill_objective()
+				generate_traitor_kill_objective(restricted_jobs)
 		if(2)
 			if(prob(30))
 				add_objective(new/datum/objective/steal, TRUE)
 			else
-				generate_traitor_kill_objective()
+				generate_traitor_kill_objective(restricted_jobs)
 		if(1)
 			if(prob(70))
 				add_objective(new/datum/objective/steal, TRUE)
 			else
-				generate_traitor_kill_objective()
+				generate_traitor_kill_objective(restricted_jobs)
 
-/datum/team/incursion/proc/generate_traitor_kill_objective()
+/datum/team/incursion/proc/generate_traitor_kill_objective(list/restricted_jobs)
 	//Spawn someone as a traitor
-	var/list/datum/mind/people = SSticker.mode.get_alive_non_antagonsist_players_for_role(ROLE_EXCOMM)
+	var/list/datum/mind/people = SSticker.mode.get_alive_non_antagonsist_players_for_role(ROLE_EXCOMM, restricted_jobs)
 	if(!LAZYLEN(people))
 		log_game("Not enough players for incursion role. [LAZYLEN(people)]")
 		return

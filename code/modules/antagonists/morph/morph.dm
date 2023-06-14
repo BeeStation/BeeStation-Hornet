@@ -55,107 +55,37 @@
 
 	mobchatspan = "blob"
 	discovery_points = 2000
+	var/datum/morph_stomach/morph_stomach
+	var/datum/action/innate/morph_stomach/stomach_action
 
 /mob/living/simple_animal/hostile/morph/Initialize(mapload)
-	var/datum/action/innate/morph/stomach/S = new
-	S.Grant(src)
+	morph_stomach = new(src)
+	stomach_action = new(morph_stomach)
+	stomach_action.Grant(src)
 	. = ..()
 
-/datum/action/innate/morph/stomach
-	name = "Stomach Contents"
-	button_icon_state = "morph"
+/mob/living/simple_animal/hostile/morph/Destroy()
+	QDEL_NULL(morph_stomach)
+	QDEL_NULL(stomach_action)
+	. = ..()
 
-/datum/action/innate/morph/stomach/Activate()
-	var/mob/living/simple_animal/hostile/morph/M = owner
-	M.manipulate(M)
+/mob/living/simple_animal/hostile/morph/proc/RemoveContents(atom/movable/A, throwatom_required = FALSE)
+	A.forceMove(loc)
+	morph_stomach.favorites -= REF(A)
+	if(throwatom == A && !throwatom_required)
+		throwatom = null
 
-/mob/living/simple_animal/hostile/morph/proc/manipulate(var/mob/living/simple_animal/hostile/morph/M)
-	var/list/choices = list()
-	var/list/mobfunctions = list("Drop", "Digest", "Disguise as", "Throw", "Strip")
-	var/list/itemfunctions = list("Use", "Throw", "Drop", "Use and Throw", "Digest", "Disguise as")
-	for(var/atom/movable/A in contents)
-		choices += A
-	var/atom/movable/target = input(src,"What do you wish to use") in null|choices
-	if(isliving(target))
-		var/mob/living/L = target
-		var/action = input(src,"What do you wish to do with [L]") in null|mobfunctions
-		switch(action)
-			if("Drop")
-				if(throwatom == L)
-					throwatom = null
-				L.forceMove(loc)
-				visible_message("<span class='warning'>[src] spits [L] out!</span>")
-				playsound(src, 'sound/effects/splat.ogg', 50, 1)
-			if("Digest")
-				if(throwatom == L)
-					throwatom = null
-				to_chat(src, "<span class ='danger'> You begin digesting [L]</span>")
-				if(do_mob(src, src, L.maxHealth))
-					for(var/atom/movable/AM in L.contents)
-						src.contents += AM
-					L.dust()
-					adjustHealth(-(L.maxHealth / 2))
-					to_chat(src, "<span class ='danger'> You digest [L], restoring some health</span>")
-					playsound(src, 'sound/effects/splat.ogg', 50, 1)
-			if("Disguise as")
-				ShiftClickOn(L)
-			if("Throw")
-				if(throwatom)
-					to_chat(src, "<span class ='danger'> You are already preparing to throw [throwatom]</span>")
-				else
-					throwatom = L
-					to_chat(src, "<span class ='danger'> You prepare to throw [L]</span>")
-			if("Strip")
-				to_chat(src, "<span class ='danger'> You start removing [L]'s possessions</span>")
-				if(do_mob(src, L, 30))
-					for(var/atom/movable/AM in L.contents)
-						src.contents += AM
-					to_chat(src, "<span class ='danger'> You place [L]'s possessions into your stomach</span>")
-	else if(isitem(target))
-		var/obj/item/I = target
-		var/action = input(src,"What do you wish to do with [I]") in null|itemfunctions
-		switch(action)
-			if("Drop")
-				if(throwatom == I)
-					throwatom = null
-				I.forceMove(loc)
-				visible_message("<span class='warning'>[src] spits [I] out!</span>")
-				playsound(src, 'sound/effects/splat.ogg', 50, 1)
-			if("Disguise as")
-				ShiftClickOn(I)
-			if("Throw")
-				if(throwatom)
-					to_chat(src, "<span class ='danger'> You are already preparing to throw [throwatom]</span>")
-				else
-					throwatom = I
-					to_chat(src, "<span class ='danger'> You prepare to throw [I]</span>")
-			if("Use")
-				I.attack_self(src)
-			if("Use and Throw")
-				if(throwatom)
-					to_chat(src, "<span class ='danger'> You are already preparing to throw [throwatom]</span>")
-				else
-					throwatom = I
-					to_chat(src, "<span class ='danger'> You prepare to throw [I]</span>")
-					I.attack_self(src)
-			if("Digest")
-				if(throwatom == I)
-					throwatom = null
-				if((I.resistance_flags & UNACIDABLE) || (I.resistance_flags & ACID_PROOF) || (I.resistance_flags & INDESTRUCTIBLE))
-					to_chat(src, "<span class ='danger'>[I] cannot be digested.</span>")
-				else
-					playsound(src, 'sound/items/welder.ogg', 150, 1)
-					qdel(I)
-					to_chat(src, "<span class ='danger'>You digest [I].</span>")
-
+/mob/living/simple_animal/hostile/morph/proc/AddContents(atom/movable/A)
+	A.forceMove(src)
 
 /mob/living/simple_animal/hostile/morph/ClickOn(atom/A)
 	if(throwatom)
-		throwatom.forceMove(loc)
-		throwatom.safe_throw_at(A, throwatom.throw_range, throwatom.throw_speed, src, null, null, null, move_force)
+		RemoveContents(throwatom, TRUE)
+		throwatom.safe_throw_at(A, throwatom.throw_range, throwatom.throw_speed, src, null, null, null, ismob(throwatom) ? MOVE_FORCE_VERY_WEAK : move_force)
 		visible_message("<span class='warning'>[src] spits [throwatom] at [A]!</span>")
 		throwatom = null
 		playsound(src, 'sound/effects/splat.ogg', 50, 1)
+		morph_stomach.ui_update()
 	. = ..()
 
 
@@ -190,25 +120,22 @@
 		return FALSE
 	if(A && A.loc != src)
 		visible_message("<span class='warning'>[src] swallows [A] whole!</span>")
-		A.forceMove(src)
+		AddContents(A)
+		morph_stomach.ui_update()
 		return TRUE
 	return FALSE
 
 /mob/living/simple_animal/hostile/morph/ShiftClickOn(atom/movable/A)
 	if(morph_time <= world.time && !stat)
 		if(A == src)
-			restore()
+			restore(TRUE)
 			return
 		if(allowed(A))
 			assume(A)
 	else
 		to_chat(src, "<span class='warning'>Your chameleon skin is still repairing itself!</span>")
-		..()
 
 /mob/living/simple_animal/hostile/morph/proc/assume(atom/movable/target)
-	if(morphed)
-		to_chat(src, "<span class='warning'>You must restore to your original form first!</span>")
-		return
 	morphed = TRUE
 	form = target
 
@@ -219,8 +146,8 @@
 		add_overlay(target.vis_contents)
 	alpha = max(alpha, 150)	//fucking chameleons
 	transform = initial(transform)
-	pixel_y = initial(pixel_y)
-	pixel_x = initial(pixel_x)
+	pixel_y = base_pixel_y
+	pixel_x = base_pixel_x
 	density = target.density
 
 	if(isliving(target))
@@ -238,9 +165,10 @@
 	med_hud_set_status() //we're an object honest
 	return
 
-/mob/living/simple_animal/hostile/morph/proc/restore()
+/mob/living/simple_animal/hostile/morph/proc/restore(var/intentional = FALSE)
 	if(!morphed)
-		to_chat(src, "<span class='warning'>You're already in your normal form!</span>")
+		if(intentional)
+			to_chat(src, "<span class='warning'>You're already in your normal form!</span>")
 		return
 	morphed = FALSE
 	form = null
@@ -275,9 +203,10 @@
 
 /mob/living/simple_animal/hostile/morph/proc/barf_contents()
 	for(var/atom/movable/AM in src)
-		AM.forceMove(loc)
+		RemoveContents(AM)
 		if(prob(90))
 			step(AM, pick(GLOB.alldirs))
+	morph_stomach.ui_update()
 
 /mob/living/simple_animal/hostile/morph/wabbajack_act(mob/living/new_mob)
 	barf_contents()
@@ -327,12 +256,22 @@
 	if(morphed)
 		M.Knockdown(40)
 		M.reagents.add_reagent(/datum/reagent/toxin/morphvenom, 7)
-		M.visible_message("<span class='userdanger'>[src] bites you!</span>")
+		to_chat(M, "<span class='userdanger'>[src] bites you!</span>")
 		visible_message("<span class='danger'>[src] violently bites [M]!</span>",\
 				"<span class='userdanger'>You ambush [M]!</span>", null, COMBAT_MESSAGE_RANGE)
 		restore()
 	else
 		..()
+
+/mob/living/simple_animal/hostile/morph/mind_initialize()
+	. = ..()
+	to_chat(src, playstyle_string)
+	// sometimes the datum is not added for a bit
+	addtimer(CALLBACK(src, PROC_REF(notify_non_antag)), 3 SECONDS)
+
+/mob/living/simple_animal/hostile/morph/proc/notify_non_antag()
+	if(!mind.has_antag_datum(/datum/antagonist/morph))
+		to_chat(src, "<span class='boldwarning'>If you were not an antagonist before you did not become one now. You still retain your retain your original loyalties and mind!</span>")
 
 //Spawn Event
 
@@ -344,10 +283,10 @@
 
 /datum/round_event/ghost_role/morph
 	minimum_required = 1
-	role_name = "morphling"
+	role_name = ROLE_MORPH
 
 /datum/round_event/ghost_role/morph/spawn_role()
-	var/list/candidates = get_candidates(ROLE_ALIEN, null, ROLE_ALIEN)
+	var/list/candidates = get_candidates(ROLE_MORPH, null, ROLE_MORPH)
 	if(!candidates.len)
 		return NOT_ENOUGH_PLAYERS
 
@@ -359,8 +298,8 @@
 		return MAP_ERROR
 	var/mob/living/simple_animal/hostile/morph/S = new /mob/living/simple_animal/hostile/morph(pick(GLOB.xeno_spawn))
 	player_mind.transfer_to(S)
-	player_mind.assigned_role = "Morph"
-	player_mind.special_role = "Morph"
+	player_mind.assigned_role = ROLE_MORPH
+	player_mind.special_role = ROLE_MORPH
 	player_mind.add_antag_datum(/datum/antagonist/morph)
 	to_chat(S, S.playstyle_string)
 	SEND_SOUND(S, sound('sound/magic/mutate.ogg'))

@@ -17,8 +17,6 @@
 	breathid = "tox"
 	damage_overlay_type = ""//let's not show bloody wounds or burns over bones.
 	var/internal_fire = FALSE //If the bones themselves are burning clothes won't help you much
-	disliked_food = FRUIT
-	liked_food = VEGETABLES
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
 	outfit_important_for_life = /datum/outfit/plasmaman
 	species_language_holder = /datum/language_holder/skeleton
@@ -46,7 +44,7 @@
 		var/datum/gas_mixture/environment = H.loc.return_air()
 		if(environment)
 			if(environment.total_moles())
-				if(environment.get_moles(GAS_O2) >= 1) //Same threshhold that extinguishes fire
+				if(environment.get_moles(GAS_O2) >= 1) //Same threshold that extinguishes fire
 					H.adjust_fire_stacks(0.5)
 					if(!H.on_fire && H.fire_stacks > 0)
 						H.visible_message("<span class='danger'>[H]'s body reacts with the atmosphere and bursts into flames!</span>","<span class='userdanger'>Your body reacts with the atmosphere and bursts into flame!</span>")
@@ -67,24 +65,27 @@
 	. = ..()
 
 /datum/species/plasmaman/after_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE, client/preference_source = null)
-	H.internal = H.get_item_for_held_index(2)
-	H.update_internals_hud_icon(1)
+	H.open_internals(H.get_item_for_held_index(2))
 
 	if(!preference_source)
 		return
-	var/path = J.species_outfits[SPECIES_PLASMAMAN]
+	var/path = J.species_outfits?[SPECIES_PLASMAMAN]
+	if (!path) //Somehow we were given a job without a plasmaman suit, use the default one so we don't go in naked!
+		path = /datum/outfit/plasmaman
+		stack_trace("Job [J] lacks a species_outfits entry for plasmamen!")
 	var/datum/outfit/plasmaman/O = new path
-	var/datum/preferences/prefs = preference_source.prefs
-	if(prefs.helmet_style != HELMET_DEFAULT)
-		if(O.helmet_variants[prefs.helmet_style])
-			var/helmet = O.helmet_variants[prefs.helmet_style]
+	var/datum/character_save/CS = preference_source.prefs.active_character
+	if(CS.helmet_style != HELMET_DEFAULT)
+		if(O.helmet_variants[CS.helmet_style])
+			var/helmet = O.helmet_variants[CS.helmet_style]
 			qdel(H.head)
 			H.equip_to_slot(new helmet, ITEM_SLOT_HEAD)
+			H.open_internals(H.get_item_for_held_index(2))
 
 /datum/species/plasmaman/qualifies_for_rank(rank, list/features)
 	if(rank in GLOB.security_positions)
 		return 0
-	if(rank == "Clown" || rank == "Mime")//No funny bussiness
+	if(rank == JOB_NAME_CLOWN || rank == JOB_NAME_MIME)//No funny bussiness
 		return 0
 	return ..()
 
@@ -129,3 +130,18 @@
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
 	return ..()
+
+/datum/species/plasmaman/get_cough_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_COUGH_SOUND(user)
+
+/datum/species/plasmaman/get_gasp_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_GASP_SOUND(user)
+
+/datum/species/plasmaman/get_sigh_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SIGH_SOUND(user)
+
+/datum/species/plasmaman/get_sneeze_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SNEEZE_SOUND(user)
+
+/datum/species/plasmaman/get_sniff_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SNIFF_SOUND(user)

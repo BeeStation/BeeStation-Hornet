@@ -57,17 +57,18 @@
 	. = ..()
 
 /datum/antagonist/changeling/proc/generate_name()
+	var/static/list/left_changling_names = GLOB.greek_letters.Copy()
+
 	var/honorific
 	if(owner.current.gender == FEMALE)
 		honorific = "Ms."
 	else
 		honorific = "Mr."
-	if(GLOB.possible_changeling_IDs.len)
-		changelingID = pick(GLOB.possible_changeling_IDs)
-		GLOB.possible_changeling_IDs -= changelingID
+	if(length(left_changling_names))
+		changelingID = pick_n_take(left_changling_names)
 		changelingID = "[honorific] [changelingID]"
 	else
-		changelingID = "[honorific] [rand(1,999)]"
+		changelingID = "[honorific] [pick(GLOB.greek_letters)] No.[rand(1,9)]"
 
 /datum/antagonist/changeling/proc/create_actions()
 	cellular_emporium = new(src)
@@ -100,12 +101,11 @@
 /datum/antagonist/changeling/proc/reset_properties()
 	changeling_speak = 0
 	chosen_sting = null
-	geneticpoints = initial(geneticpoints)
+	mimicing = ""
 	sting_range = initial(sting_range)
 	chem_recharge_rate = initial(chem_recharge_rate)
 	chem_charges = min(chem_charges, chem_storage)
 	chem_recharge_slowdown = initial(chem_recharge_slowdown)
-	mimicing = ""
 
 /datum/antagonist/changeling/proc/remove_changeling_powers()
 	if(ishuman(owner.current) || ismonkey(owner.current))
@@ -113,6 +113,7 @@
 		for(var/datum/action/changeling/p in purchasedpowers)
 			purchasedpowers -= p
 			p.Remove(owner.current)
+			geneticpoints += p.dna_cost
 
 	//MOVE THIS
 	if(owner.current.hud_used?.lingstingdisplay)
@@ -136,6 +137,14 @@
 		var/datum/action/changeling/S = power
 		if(istype(S) && S.needs_button)
 			S.Grant(owner.current)
+
+///Handles stinging without verbs.
+/datum/antagonist/changeling/proc/stingAtom(mob/living/carbon/ling, atom/A)
+	if(!chosen_sting || A == ling || !istype(ling) || ling.stat)
+		return
+	chosen_sting.try_to_sting(ling, A)
+	ling.changeNext_move(CLICK_CD_MELEE)
+	return COMSIG_MOB_CANCEL_CLICKON
 
 /datum/antagonist/changeling/proc/has_sting(datum/action/changeling/power)
 	for(var/P in purchasedpowers)
@@ -276,9 +285,10 @@
 	prof.socks = H.socks
 
 	if(H.wear_id?.GetID())
-		var/obj/item/card/id/I = H.wear_id
+		var/obj/item/card/id/I = H.wear_id.GetID()
 		if(istype(I))
 			prof.id_job_name = I.assignment
+			prof.id_hud_state = I.hud_state
 
 	var/list/slots = list("head", "wear_mask", "back", "wear_suit", "w_uniform", "shoes", "belt", "gloves", "glasses", "ears", "wear_id", "s_store")
 	for(var/slot in slots)
@@ -338,10 +348,29 @@
 	if(isipc(C))
 		C.set_species(/datum/species/human)
 		var/replacementName = random_unique_name(C.gender)
-		if(C.client.prefs.custom_names["human"])
-			C.fully_replace_character_name(C.real_name, C.client.prefs.custom_names["human"])
+		if(C.client.prefs.active_character.custom_names["human"])
+			C.fully_replace_character_name(C.real_name, C.client.prefs.active_character.custom_names["human"])
 		else
 			C.fully_replace_character_name(C.real_name, replacementName)
+		for(var/datum/data/record/E in GLOB.data_core.general)
+			if(E.fields["name"] == C.real_name)
+				E.fields["species"] = "\improper Human"
+				var/client/Clt = C.client
+				var/static/list/show_directions = list(SOUTH, WEST)
+				var/image = GLOB.data_core.get_id_photo(C, Clt, show_directions, TRUE)
+				var/datum/picture/pf = new
+				var/datum/picture/ps = new
+				pf.picture_name = "[C]"
+				ps.picture_name = "[C]"
+				pf.picture_desc = "This is [C]."
+				ps.picture_desc = "This is [C]."
+				pf.picture_image = icon(image, dir = SOUTH)
+				ps.picture_image = icon(image, dir = WEST)
+				var/obj/item/photo/photo_front = new(null, pf)
+				var/obj/item/photo/photo_side = new(null, ps)
+				E.fields["photo_front"]	= photo_front
+				E.fields["photo_side"]	= photo_side
+				E.fields["sex"] = C.gender
 	if(ishuman(C))
 		add_new_profile(C)
 
@@ -353,12 +382,12 @@
 		if(B)
 			B.organ_flags &= ~ORGAN_VITAL
 			B.decoy_override = TRUE
+		RegisterSignal(C, list(COMSIG_MOB_MIDDLECLICKON, COMSIG_MOB_ALTCLICKON), PROC_REF(stingAtom))
 	update_changeling_icons_added()
-	return
 
 /datum/antagonist/changeling/remove_innate_effects()
 	update_changeling_icons_removed()
-	return
+	UnregisterSignal(owner.current, list(COMSIG_MOB_MIDDLECLICKON, COMSIG_MOB_ALTCLICKON))
 
 
 /datum/antagonist/changeling/greet()
@@ -480,7 +509,7 @@
 /datum/antagonist/changeling/get_admin_commands()
 	. = ..()
 	if(stored_profiles.len && (owner.current.real_name != first_prof.name))
-		.["Transform to initial appearance."] = CALLBACK(src,.proc/admin_restore_appearance)
+		.["Transform to initial appearance."] = CALLBACK(src,PROC_REF(admin_restore_appearance))
 
 /datum/antagonist/changeling/proc/admin_restore_appearance(mob/admin)
 	if(!stored_profiles.len || !iscarbon(owner.current))
@@ -516,6 +545,7 @@
 
 	/// ID HUD icon associated with the profile
 	var/id_job_name
+	var/id_hud_state
 
 /datum/changelingprofile/Destroy()
 	qdel(dna)
@@ -539,6 +569,7 @@
 	newprofile.undershirt = undershirt
 	newprofile.socks = socks
 	newprofile.id_job_name = id_job_name
+	newprofile.id_hud_state = id_hud_state
 
 /datum/antagonist/changeling/xenobio
 	name = "Xenobio Changeling"

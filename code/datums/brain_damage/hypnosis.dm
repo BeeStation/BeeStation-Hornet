@@ -5,7 +5,7 @@
 	gain_text = ""
 	lose_text = ""
 	resilience = TRAUMA_RESILIENCE_SURGERY
-
+	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
 	var/hypnotic_phrase = ""
 	var/regex/target_phrase
 
@@ -21,34 +21,23 @@
 	..()
 
 /datum/brain_trauma/hypnosis/on_gain()
-	message_admins("[ADMIN_LOOKUPFLW(owner)] was hypnotized with the phrase '[hypnotic_phrase]'.")
-	log_game("[key_name(owner)] was hypnotized with the phrase '[hypnotic_phrase]'.")
-	to_chat(owner, "<span class='reallybig hypnophrase'>[hypnotic_phrase]</span>")
-	to_chat(owner, "<span class='notice'>[pick("You feel your thoughts focusing on this phrase... you can't seem to get it out of your head.",\
-												"Your head hurts, but this is all you can think of. It must be vitally important.",\
-												"You feel a part of your mind repeating this over and over. You need to follow these words.",\
-												"Something about this sounds... right, for some reason. You feel like you should follow these words.",\
-												"These words keep echoing in your mind. You find yourself completely fascinated by them.")]</span>")
-	to_chat(owner, "<span class='boldwarning'>You've been hypnotized by this sentence. You must follow these words. If it isn't a clear order, you can freely interpret how to do so,\
-										as long as you act like the words are your highest priority.</span>")
-	var/atom/movable/screen/alert/hypnosis/hypno_alert = owner.throw_alert("hypnosis", /atom/movable/screen/alert/hypnosis)
-	hypno_alert.desc = "\"[hypnotic_phrase]\"... your mind seems to be fixated on this concept."
-	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_BRAINWASHED]
-	traitorhud.join_hud(owner.mind.current)
-	if(!owner.mind.antag_hud_icon_state)
-		set_antag_hud(owner.mind.current, "brainwash")
+	hypnotize(owner, hypnotic_phrase)
 	..()
 
 /datum/brain_trauma/hypnosis/on_lose()
 	message_admins("[ADMIN_LOOKUPFLW(owner)] is no longer hypnotized with the phrase '[hypnotic_phrase]'.")
 	log_game("[key_name(owner)] is no longer hypnotized with the phrase '[hypnotic_phrase]'.")
+	owner.log_message("is no longer hypnotized with the phrase '[hypnotic_phrase]'.", LOG_ATTACK, color="red")
 	to_chat(owner, "<span class='userdanger'>You suddenly snap out of your hypnosis. The phrase '[hypnotic_phrase]' no longer feels important to you.</span>")
 	owner.clear_alert("hypnosis")
-	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_BRAINWASHED]
-	traitorhud.leave_hud(owner.mind.current)
-	if(owner.mind.antag_hud_icon_state == "brainwash")
-		set_antag_hud(owner.mind.current, null)
-	..()
+	var/datum/mind/M = owner.mind
+	var/datum/antagonist/hypnotized/B = M.has_antag_datum(/datum/antagonist/hypnotized)
+	if(!B)
+		return
+	for(var/O in hypnotic_phrase)
+		var/datum/objective/hypnotized/objective = new(O)
+		B.objectives -= objective
+	M.remove_antag_datum(/datum/antagonist/hypnotized)
 
 /datum/brain_trauma/hypnosis/on_life()
 	..()
@@ -61,3 +50,7 @@
 
 /datum/brain_trauma/hypnosis/handle_hearing(datum/source, list/hearing_args)
 	hearing_args[HEARING_RAW_MESSAGE] = target_phrase.Replace(hearing_args[HEARING_RAW_MESSAGE], "<span class='hypnophrase'>$1</span>")
+
+/// A "hardened" variant of the hypnosis trauma, used by hypnoflashes so that nanites can't cure it.
+/datum/brain_trauma/hypnosis/hardened
+	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM | TRAUMA_SPECIAL_CURE_PROOF

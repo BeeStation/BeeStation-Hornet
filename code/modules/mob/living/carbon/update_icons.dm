@@ -11,8 +11,8 @@
 			final_pixel_y = get_standard_pixel_y_offset()
 		else //if(lying != 0)
 			if(lying_prev == 0) //Standing to lying
-				pixel_y = get_standard_pixel_y_offset()
-				final_pixel_y = get_standard_pixel_y_offset(lying)
+				pixel_y = base_pixel_y + get_standard_pixel_y_offset()
+				final_pixel_y = base_pixel_y + get_standard_pixel_y_offset(lying)
 				if(dir & (EAST|WEST)) //Facing east or west
 					final_dir = pick(NORTH, SOUTH) //So you fall on your side rather than your face or ass
 	if(resize != RESIZE_DEFAULT_SIZE)
@@ -162,7 +162,6 @@
 		update_hud_head(head)
 
 	apply_overlay(HEAD_LAYER)
-
 
 /mob/living/carbon/update_inv_handcuffed()
 	remove_overlay(HANDCUFF_LAYER)

@@ -70,7 +70,7 @@
 	break_connections()
 	return ..()
 
-///Lose connections and reset the merged powernet so it makes 2 new seperated ones
+///Lose connections and reset the merged powernet so it makes 2 new separated ones
 /obj/machinery/power/deck_relay/proc/break_connections()
 	if(above)
 		var/turf/above_deck_relay = get_turf(above)
@@ -98,11 +98,11 @@
 		to_chat(user, "<span class='danger'>The [src] isn't in proper shape to get a reading!</span>")
 		return TRUE
 	if(powernet && (above || below))//we have a powernet and at least one connected relay
-		to_chat(user, "<span class='danger'>Total power: [DisplayPower(powernet.avail)]\nLoad: [DisplayPower(powernet.load)]\nExcess power: [DisplayPower(surplus())]</span>")
+		to_chat(user, "<span class='danger'>Total power: [display_power(powernet.avail)]\nLoad: [display_power(powernet.load)]\nExcess power: [display_power(surplus())]</span>")
 	if(!above && !below)
 		to_chat(user, "<span class='danger'>Cannot access valid powernet. Attempting to re-establish. Ensure any relays above and below are aligned properly and on cable nodes.</span>")
 		find_relays()
-		addtimer(CALLBACK(src, .proc/refresh), 20) //Wait a bit so we can find the one below, then get powering
+		addtimer(CALLBACK(src, PROC_REF(refresh)), 20) //Wait a bit so we can find the one below, then get powering
 	return TRUE
 
 /obj/machinery/power/deck_relay/Initialize(mapload)
@@ -135,7 +135,7 @@
 	if(C && XR)
 		if(!XR.powernet || !C.powernet)
 			//Try again in 10 seconds.
-			addtimer(CALLBACK(src, .proc/refresh, failures + 1), 10 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(refresh), failures + 1), 10 SECONDS)
 			return
 		merge_powernets(XR.powernet,C.powernet)
 	else

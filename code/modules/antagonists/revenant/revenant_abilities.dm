@@ -11,6 +11,10 @@
 		AltClickNoInteract(src, A)
 		return
 
+	if(modifiers["ctrl"])
+		CtrlClickOn(A)
+		return
+
 	if(ishuman(A))
 		if(A in drained_mobs)
 			to_chat(src, "<span class='revenwarning'>[A]'s soul is dead and empty.</span>" )
@@ -20,7 +24,42 @@
 	if(isturf(A))
 		var/turf/T = A
 		if(T == get_turf(src))
-			T.check_z_travel(src)
+			T.show_zmove_radial(src)
+
+
+// double-click or ctrl-click for two abilities
+/mob/living/simple_animal/revenant/CtrlClickOn(atom/A)
+	if(incorporeal_move == INCORPOREAL_MOVE_JAUNT)
+		check_orbitable(A)
+		return
+	..() // pull the thing
+
+/mob/living/simple_animal/revenant/DblClickOn(atom/A, params)
+	if(get_dist(src, A) < 5) // message spam when you spam phase shift is annoying
+		check_orbitable(A)
+	..()
+
+// Orbit: literally obrits people like how ghosts do
+/mob/living/simple_animal/revenant/proc/check_orbitable(atom/A)
+	if(revealed)
+		to_chat(src, "<span class='revenwarning'>You can't orbit while you're revealed!</span>")
+		return
+	if(!Adjacent(A))
+		to_chat(src, "<span class='revenwarning'>You can only orbit things that are next to you!</span>")
+		return
+	if(isobserver(A) || isrevenant(A))
+		to_chat(src, "<span class='revenwarning'>You can't orbit a ghost!</span>")
+		return
+	if(notransform || inhibited || !incorporeal_move_check(A))
+		return
+	var/icon/I = icon(A.icon, A.icon_state, A.dir)
+	var/orbitsize = (I.Width()+I.Height())*0.5
+	orbitsize -= (orbitsize/world.icon_size)*(world.icon_size*0.25)
+	orbit(A, orbitsize)
+
+/mob/living/simple_animal/revenant/orbit(atom/target)
+	setDir(SOUTH) // reset dir so the right directional sprites show up
+	return ..()
 
 
 //Harvest; activated by clicking the target, will try to drain their essence.
@@ -30,7 +69,10 @@
 	if(draining)
 		to_chat(src, "<span class='revenwarning'>You are already siphoning the essence of a soul!</span>")
 		return
-	if(!target.stat)
+	if(orbiting)
+		to_chat(src, "<span class='revenwarning'>You can't siphon essence during orbiting!</span>")
+		return
+	if(!target.stat && !target.stam_paralyzed)
 		to_chat(src, "<span class='revennotice'>[target.p_their(TRUE)] soul is too strong to harvest.</span>")
 		if(prob(10))
 			to_chat(target, "You feel as if you are being watched.")
@@ -38,7 +80,7 @@
 	draining = TRUE
 	essence_drained += rand(15, 20)
 	to_chat(src, "<span class='revennotice'>You search for the soul of [target].</span>")
-	if(do_after(src, rand(10, 20), 0, target)) //did they get deleted in that second?
+	if(do_after(src, rand(10, 20), target, timed_action_flags = IGNORE_HELD_ITEM)) //did they get deleted in that second?
 		if(target.ckey)
 			to_chat(src, "<span class='revennotice'>[target.p_their(TRUE)] soul burns with intelligence.</span>")
 			essence_drained += rand(20, 30)
@@ -47,7 +89,7 @@
 			essence_drained += rand(40, 50)
 		else
 			to_chat(src, "<span class='revennotice'>[target.p_their(TRUE)] soul is weak and faltering.</span>")
-		if(do_after(src, rand(15, 20), 0, target)) //did they get deleted NOW?
+		if(do_after(src, rand(15, 20), target, timed_action_flags = IGNORE_HELD_ITEM)) //did they get deleted NOW?
 			switch(essence_drained)
 				if(1 to 30)
 					to_chat(src, "<span class='revennotice'>[target] will not yield much essence. Still, every bit counts.</span>")
@@ -57,8 +99,8 @@
 					to_chat(src, "<span class='revenboldnotice'>Such a feast! [target] will yield much essence to you.</span>")
 				if(90 to INFINITY)
 					to_chat(src, "<span class='revenbignotice'>Ah, the perfect soul. [target] will yield massive amounts of essence to you.</span>")
-			if(do_after(src, rand(15, 25), 0, target)) //how about now
-				if(!target.stat)
+			if(do_after(src, rand(15, 25), target, timed_action_flags = IGNORE_HELD_ITEM)) //how about now
+				if(!target.stat && !target.stam_paralyzed)
 					to_chat(src, "<span class='revenwarning'>[target.p_theyre(TRUE)] now powerful enough to fight off your draining.</span>")
 					to_chat(target, "<span class='boldannounce'>You feel something tugging across your body before subsiding.</span>")
 					draining = 0
@@ -79,7 +121,7 @@
 					draining = FALSE
 					return
 				var/datum/beam/B = Beam(target,icon_state="drain_life",time=INFINITY)
-				if(do_after(src, 46, 0, target)) //As one cannot prove the existance of ghosts, ghosts cannot prove the existance of the target they were draining.
+				if(do_after(src, 46, target, timed_action_flags = IGNORE_HELD_ITEM)) //As one cannot prove the existance of ghosts, ghosts cannot prove the existance of the target they were draining.
 					change_essence_amount(essence_drained, FALSE, target)
 					if(essence_drained <= 90 && target.stat != DEAD)
 						essence_regen_cap += 5
@@ -104,6 +146,10 @@
 	draining = FALSE
 	essence_drained = 0
 
+// -------------------------------------------
+// ------------- action skills ---------------
+// -------------------------------------------
+
 //Toggle night vision: lets the revenant toggle its night vision
 /obj/effect/proc_holder/spell/targeted/night_vision/revenant
 	charge_max = 0
@@ -112,6 +158,39 @@
 	action_icon = 'icons/mob/actions/actions_revenant.dmi'
 	action_icon_state = "r_nightvision"
 	action_background_icon_state = "bg_revenant"
+
+// Recall to Station: teleport & recall to the station
+/obj/effect/proc_holder/spell/self/rev_teleport
+	name = "Recall to Station"
+	desc = "Teleport to the station."
+	charge_max = 0
+	panel = "Revenant Abilities"
+	action_icon = 'icons/mob/actions/actions_revenant.dmi'
+	action_icon_state = "r_teleport"
+	action_background_icon_state = "bg_revenant"
+	clothes_req = FALSE
+
+/obj/effect/proc_holder/spell/self/rev_teleport/cast(mob/living/simple_animal/revenant/user = usr)
+	if(!isrevenant(user))
+		return
+	if(is_station_level(user.z))
+		to_chat(user, "<span class='revenwarning'>Recalling yourself to the station is only available when you're not in the station.</span>")
+		return
+	else
+		if(user.revealed)
+			to_chat(user, "<span class='revenwarning'>Recalling yourself to the station is only available when you're invisible.</span>")
+			return
+
+		to_chat(user, "<span class='revennotice'>You start to concentrate recalling yourself to the station.</span>")
+		if(do_after(user, 30) && !user.revealed)
+			if(QDELETED(src)) // it's bad when someone spams this...
+				return
+			var/turf/targetturf = get_random_station_turf()
+			if(!do_teleport(user, targetturf, channel = TELEPORT_CHANNEL_CULT, forced=TRUE))
+				to_chat(user,  "<span class='revenwarning'>You have failed to recall yourself to the station... You should try again.</span>")
+			else
+				user.reveal(80)
+				user.stun(40)
 
 //Transmit: the revemant's only direct way to communicate. Sends a single message silently to a single mob
 /obj/effect/proc_holder/spell/targeted/telepathy/revenant
@@ -123,6 +202,38 @@
 	notice = "revennotice"
 	boldnotice = "revenboldnotice"
 	holy_check = TRUE
+
+/obj/effect/proc_holder/spell/self/revenant_phase_shift
+	name = "Phase Shift"
+	desc = "Shift in and out of your corporeal form"
+	panel = "Revenant Abilities"
+	action_icon = 'icons/mob/actions/actions_revenant.dmi'
+	action_icon_state = "r_phase"
+	action_background_icon_state = "bg_revenant"
+	clothes_req = FALSE
+	charge_max = 0
+
+/obj/effect/proc_holder/spell/self/revenant_phase_shift/cast(mob/user = usr)
+	if(!isrevenant(user))
+		return FALSE
+	var/mob/living/simple_animal/revenant/revenant = user
+	// if they're trapped in consecrated tiles, they can get out with this. but they can't hide back on these tiles.
+	if(revenant.incorporeal_move != INCORPOREAL_MOVE_JAUNT)
+		var/turf/open/floor/stepTurf = get_turf(user)
+		if(stepTurf)
+			var/obj/effect/decal/cleanable/food/salt/salt = locate() in stepTurf
+			if(salt)
+				to_chat(user, "<span class='warning'>[salt] blocks your way to spirit realm!</span>")
+				// the purpose is just letting not them hide onto salt tiles incorporeally. no need to stun.
+				return
+			if(stepTurf.flags_1 & NOJAUNT_1)
+				to_chat(user, "<span class='warning'>Some strange aura blocks your way to spirit realm.</span>")
+				return
+			if(stepTurf.is_holy())
+				to_chat(user, "<span class='warning'>Holy energies block your way to spirit realm!</span>")
+				return
+	revenant.phase_shift()
+	revenant.orbiting?.end_orbit(revenant)
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant
 	clothes_req = 0
@@ -200,7 +311,7 @@
 /obj/effect/proc_holder/spell/aoe_turf/revenant/overload/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	if(attempt_cast(user))
 		for(var/turf/T in targets)
-			INVOKE_ASYNC(src, .proc/overload, T, user)
+			INVOKE_ASYNC(src, PROC_REF(overload), T, user)
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/overload/proc/overload(turf/T, mob/user)
 	for(var/obj/machinery/light/L in T)
@@ -211,7 +322,7 @@
 		s.set_up(4, 0, L)
 		s.start()
 		new /obj/effect/temp_visual/revenant(get_turf(L))
-		addtimer(CALLBACK(src, .proc/overload_shock, L, user), 20)
+		addtimer(CALLBACK(src, PROC_REF(overload_shock), L, user), 20)
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/overload/proc/overload_shock(obj/machinery/light/L, mob/user)
 	if(!L.on) //wait, wait, don't shock me
@@ -241,7 +352,7 @@
 /obj/effect/proc_holder/spell/aoe_turf/revenant/defile/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	if(attempt_cast(user))
 		for(var/turf/T in targets)
-			INVOKE_ASYNC(src, .proc/defile, T)
+			INVOKE_ASYNC(src, PROC_REF(defile), T)
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/defile/proc/defile(turf/T)
 	for(var/obj/effect/blessing/B in T)
@@ -292,7 +403,7 @@
 /obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	if(attempt_cast(user))
 		for(var/turf/T in targets)
-			INVOKE_ASYNC(src, .proc/malfunction, T, user)
+			INVOKE_ASYNC(src, PROC_REF(malfunction), T, user)
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction/proc/malfunction(turf/T, mob/user)
 	for(var/mob/living/simple_animal/bot/bot in T)
@@ -300,7 +411,7 @@
 			new /obj/effect/temp_visual/revenant(bot.loc)
 			bot.locked = FALSE
 			bot.open = TRUE
-			bot.emag_act()
+			bot.use_emag()
 	for(var/mob/living/carbon/human/human in T)
 		if(human == user)
 			continue
@@ -315,7 +426,7 @@
 		if(prob(20))
 			if(prob(50))
 				new /obj/effect/temp_visual/revenant(thing.loc)
-			thing.emag_act(null)
+			thing.use_emag(null)
 		else
 			if(!istype(thing, /obj/machinery/clonepod)) //I hate everything but mostly the fact there's no better way to do this without just not affecting it at all
 				thing.emp_act(EMP_HEAVY)
@@ -338,7 +449,7 @@
 /obj/effect/proc_holder/spell/aoe_turf/revenant/blight/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	if(attempt_cast(user))
 		for(var/turf/T in targets)
-			INVOKE_ASYNC(src, .proc/blight, T, user)
+			INVOKE_ASYNC(src, PROC_REF(blight), T, user)
 
 /obj/effect/proc_holder/spell/aoe_turf/revenant/blight/proc/blight(turf/T, mob/user)
 	for(var/mob/living/mob in T)

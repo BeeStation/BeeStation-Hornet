@@ -10,8 +10,9 @@
 	integrity_failure = 100
 	flags_ricochet = RICOCHET_SHINY
 	layer = ABOVE_WINDOW_LAYER
+	var/magical = FALSE
 
-/obj/structure/mirror/Initialize(mapload)
+/obj/structure/mirror/Initialize(mapload, dir, building)
 	. = ..()
 	if(icon_state == "mirror_broke" && !broken)
 		obj_break(null, mapload)
@@ -23,29 +24,28 @@
 	if(broken || !Adjacent(user))
 		return
 
-	if(ishuman(user))
+	if(ishuman(user) && !magical)
 		var/mob/living/carbon/human/H = user
 
 		//see code/modules/mob/dead/new_player/preferences.dm at approx line 545 for comments!
 		//this is largely copypasted from there.
-
-		//handle facial hair (if necessary)
-		if(H.gender == MALE)
-			var/new_style = input(user, "Select a facial hair style", "Grooming")  as null|anything in GLOB.facial_hair_styles_list
-			if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
-				return	//no tele-grooming
-			if(new_style)
-				H.facial_hair_style = new_style
-		else
-			H.facial_hair_style = "Shaved"
-
-		//handle normal hair
-		var/new_style = input(user, "Select a hair style", "Grooming")  as null|anything in GLOB.hair_styles_list
-		if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
-			return	//no tele-grooming
-		if(new_style)
-			H.hair_style = new_style
-
+		var/options = list("Hair", "Facial")
+		var/choice = tgui_input_list(user, "Style your Hair or Facial Hair?", "Grooming", options, null)
+		switch(choice)
+			if("Hair")
+				//handle normal hair
+				var/new_style = tgui_input_list(user, "Select a hair style", "Grooming", GLOB.hair_styles_list, H.hair_style)
+				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+					return	//no tele-grooming
+				if(new_style)
+					H.hair_style = new_style
+			if("Facial")
+				//handle facial hair
+				var/new_style = tgui_input_list(user, "Select a facial hair style", "Grooming", GLOB.facial_hair_styles_list, H.facial_hair_style)
+				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+					return	//no tele-grooming
+				if(new_style)
+					H.facial_hair_style = new_style
 		H.update_hair()
 
 /obj/structure/mirror/examine_status(mob/user)
@@ -94,12 +94,12 @@
 		if(BURN)
 			playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, 1)
 
-
 /obj/structure/mirror/magic
 	name = "magic mirror"
 	desc = "Turn and face the strange... face."
 	icon_state = "magic_mirror"
 	var/list/choosable_races = list()
+	magical = TRUE
 
 /obj/structure/mirror/magic/Initialize(mapload)
 	. = ..()
@@ -108,7 +108,7 @@
 			var/datum/species/S = speciestype
 			if(initial(S.changesource_flags) & MIRROR_MAGIC)
 				choosable_races += initial(S.id)
-		choosable_races = sortList(choosable_races)
+		choosable_races = sort_list(choosable_races)
 
 /obj/structure/mirror/magic/lesser/Initialize(mapload)
 	choosable_races = GLOB.roundstart_races.Copy()
@@ -267,3 +267,10 @@
 			P.setAngle(new_angle_s)
 
 	return BULLET_ACT_FORCE_PIERCE // complete projectile permutation
+
+/obj/item/wallframe/mirror
+	name = "wall mirror frame"
+	desc = "Now with 100% less lead!"
+	icon_state = "wallmirror"
+	result_path = /obj/structure/mirror
+	pixel_shift = -28

@@ -56,7 +56,7 @@
 	priority_announce(thanks_msg, "Cargo shuttle commandeered by CentCom.", SSstation.announcer.get_rand_alert_sound())
 
 	dispatched = 1
-	var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
+	var/datum/bank_account/D = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 	if(D)
 		D.adjust_money(bonus_points)
 	endWhen = activeFor + 1
@@ -100,7 +100,7 @@
 		for(var/place in shuttle_areas)
 			var/area/shuttle/shuttle_area = place
 			for(var/turf/open/floor/T in shuttle_area)
-				if(is_blocked_turf(T))
+				if(T.is_blocked_turf())
 					continue
 				empty_shuttle_turfs += T
 		if(!empty_shuttle_turfs.len)
@@ -109,7 +109,7 @@
 		var/list/shuttle_spawns = list()
 		switch(dispatch_type)
 			if(HIJACK_SYNDIE)
-				var/datum/supply_pack/pack = SSshuttle.supply_packs[/datum/supply_pack/emergency/specialops]
+				var/datum/supply_pack/pack = SSsupply.supply_packs[/datum/supply_pack/emergency/specialops]
 				pack.generate(pick_n_take(empty_shuttle_turfs))
 
 				shuttle_spawns.Add(/mob/living/simple_animal/hostile/syndicate/ranged/infiltrator)
@@ -120,7 +120,7 @@
 					shuttle_spawns.Add(/mob/living/simple_animal/hostile/syndicate/ranged/infiltrator)
 
 			if(RUSKY_PARTY)
-				var/datum/supply_pack/pack = SSshuttle.supply_packs[/datum/supply_pack/service/party]
+				var/datum/supply_pack/pack = SSsupply.supply_packs[/datum/supply_pack/service/party]
 				pack.generate(pick_n_take(empty_shuttle_turfs))
 
 				shuttle_spawns.Add(/mob/living/simple_animal/hostile/russian)
@@ -132,7 +132,7 @@
 					shuttle_spawns.Add(/mob/living/simple_animal/hostile/bear/russian)
 
 			if(SPIDER_GIFT)
-				var/datum/supply_pack/pack = SSshuttle.supply_packs[/datum/supply_pack/emergency/specialops]
+				var/datum/supply_pack/pack = SSsupply.supply_packs[/datum/supply_pack/emergency/specialops]
 				pack.generate(pick_n_take(empty_shuttle_turfs))
 
 				shuttle_spawns.Add(/mob/living/simple_animal/hostile/poison/giant_spider)
@@ -154,7 +154,7 @@
 			if(ANTIDOTE_NEEDED)
 				var/obj/effect/mob_spawn/human/corpse/assistant/infected_assistant = pick(/obj/effect/mob_spawn/human/corpse/assistant/beesease_infection, /obj/effect/mob_spawn/human/corpse/assistant/brainrot_infection, /obj/effect/mob_spawn/human/corpse/assistant/spanishflu_infection)
 				var/turf/T
-				for(var/i=0, i<10, i++)
+				for(var/i in 1 to 10)
 					if(prob(15))
 						shuttle_spawns.Add(/obj/item/reagent_containers/glass/bottle)
 					else if(prob(15))
@@ -180,7 +180,7 @@
 					/datum/supply_pack/medical/supplies
 					)
 				for(var/crate in crate_types)
-					var/datum/supply_pack/pack = SSshuttle.supply_packs[crate]
+					var/datum/supply_pack/pack = SSsupply.supply_packs[crate]
 					pack.generate(pick_n_take(empty_shuttle_turfs))
 
 				for(var/i in 1 to 5)
@@ -192,7 +192,7 @@
 				for(var/i in 1 to 6)
 					shuttle_spawns.Add(pick(prob(5) ? naughtypizza : nicepizza))
 			if(ITS_HIP_TO)
-				var/datum/supply_pack/pack = SSshuttle.supply_packs[/datum/supply_pack/organic/hydroponics/beekeeping_fullkit]
+				var/datum/supply_pack/pack = SSsupply.supply_packs[/datum/supply_pack/organic/hydroponics/beekeeping_fullkit]
 				pack.generate(pick_n_take(empty_shuttle_turfs))
 
 				shuttle_spawns.Add(/obj/effect/mob_spawn/human/corpse/bee_terrorist)
@@ -245,7 +245,7 @@
 
 /obj/item/paper/fluff/bee_objectives
 	name = "Objectives of a Bee Liberation Front Operative"
-	info = "<b>Objective #1</b>. Liberate all bees on the NT transport vessel 2416/B. <b>Success!</b>  <br><b>Objective #2</b>. Escape alive. <b>Failed.</b>"
+	default_raw_text = "<b>Objective #1</b>. Liberate all bees on the NT transport vessel 2416/B. <b>Success!</b>  <br><b>Objective #2</b>. Escape alive. <b>Failed.</b>"
 
 /obj/machinery/syndicatebomb/shuttle_loan/Initialize(mapload)
 	. = ..()
@@ -256,10 +256,10 @@
 
 /obj/item/paper/fluff/cargo/bomb
 	name = "hastly scribbled note"
-	info = "GOOD LUCK!"
+	default_raw_text = "GOOD LUCK!"
 
 /obj/item/paper/fluff/cargo/bomb/allyourbase
-	info = "Somebody set us up the bomb!"
+	default_raw_text = "Somebody set us up the bomb!"
 
 #undef HIJACK_SYNDIE
 #undef RUSKY_PARTY

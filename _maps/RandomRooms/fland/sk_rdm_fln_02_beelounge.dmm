@@ -2,22 +2,6 @@
 "a" = (
 /turf/closed/wall,
 /area/template_noop)
-"d" = (
-/obj/structure/flora/grass/jungle/b,
-/obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/flora/ausbushes/brflowers,
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/grass,
-/area/template_noop)
 "e" = (
 /obj/machinery/light{
 	dir = 8
@@ -33,13 +17,9 @@
 /turf/open/floor/wax,
 /area/template_noop)
 "o" = (
-/obj/structure/chair/sofa/corp/right{
+/obj/structure/chair/fancy/sofa/corp/right{
 	color = "#ffd966";
 	dir = 8
-	},
-/obj/machinery/newscaster{
-	pixel_x = 28;
-	pixel_y = 1
 	},
 /turf/open/floor/wax,
 /area/template_noop)
@@ -78,7 +58,7 @@
 /turf/open/floor/wax,
 /area/template_noop)
 "C" = (
-/obj/structure/chair/sofa/corp/corner{
+/obj/structure/chair/fancy/sofa/corp/corner/concave{
 	color = "#ffd966";
 	dir = 8
 	},
@@ -109,15 +89,15 @@
 /turf/open/floor/noslip/standard,
 /area/template_noop)
 "G" = (
-/obj/structure/chair/sofa/corp/right{
-	color = "#ffd966";
-	dir = 1
-	},
 /obj/machinery/light_switch{
 	pixel_x = -4;
 	pixel_y = -32
 	},
 /obj/item/toy/plush/beeplushie,
+/obj/structure/chair/fancy/sofa/corp/left{
+	color = "#ffd966";
+	dir = 1
+	},
 /turf/open/floor/wax,
 /area/template_noop)
 "H" = (
@@ -150,7 +130,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/open/floor/noslip/standard,
+/turf/open/floor/plasteel,
 /area/template_noop)
 "P" = (
 /obj/structure/beebox,
@@ -163,7 +143,7 @@
 /turf/open/floor/wax,
 /area/template_noop)
 "R" = (
-/turf/closed/wall/r_wall,
+/turf/template_noop/closed,
 /area/template_noop)
 "S" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -187,6 +167,7 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/template_noop)
 "X" = (
+/obj/machinery/door/airlock/public,
 /turf/open/floor/noslip/standard,
 /area/template_noop)
 
@@ -196,18 +177,16 @@ V
 V
 E
 e
-V
 P
 a
 p
 k
-a
+R
 "}
 (2,1,1) = {"
 W
 V
 S
-K
 K
 x
 t
@@ -221,20 +200,18 @@ W
 V
 Q
 V
-V
 M
 G
 a
 X
 a
-a
+R
 "}
 (4,1,1) = {"
 U
 s
 H
 V
-d
 o
 C
 a
@@ -243,15 +220,14 @@ O
 R
 "}
 (5,1,1) = {"
-a
-a
+R
+R
 U
 U
-a
-a
-a
-a
-a
-a
+R
+R
+R
+R
+R
 R
 "}

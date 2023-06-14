@@ -1,18 +1,7 @@
-//supposedly the fastest way to do this according to https://gist.github.com/Giacom/be635398926bb463b42a
-#define RANGE_TURFS(RADIUS, CENTER) \
-  block( \
-    locate(max(CENTER.x-(RADIUS),1),          max(CENTER.y-(RADIUS),1),          CENTER.z), \
-    locate(min(CENTER.x+(RADIUS),world.maxx), min(CENTER.y+(RADIUS),world.maxy), CENTER.z) \
-  )
-
-#define RANGE_TURFS_XY(XRADIUS, YRADIUS, CENTER) \
-  block( \
-    locate(max(CENTER.x-(XRADIUS),1),          max(CENTER.y-(YRADIUS),1),          CENTER.z), \
-    locate(min(CENTER.x+(XRADIUS),world.maxx), min(CENTER.y+(YRADIUS),world.maxy), CENTER.z) \
-  )
-
-#define Z_TURFS(ZLEVEL) block(locate(1,1,ZLEVEL), locate(world.maxx, world.maxy, ZLEVEL))
 #define CULT_POLL_WAIT 2400
+
+/// 200 proc calls deep and shit breaks, this is a bit lower to give some safety room
+#define MAX_PROC_DEPTH 195 // no idea where to put this
 
 /proc/get_area_name(atom/X, format_text = FALSE)
 	var/area/A = isarea(X) ? X : get_area(X)
@@ -37,7 +26,7 @@
 			get_area(get_ranged_target_turf(center, SOUTH, 1)),
 			get_area(get_ranged_target_turf(center, EAST, 1)),
 			get_area(get_ranged_target_turf(center, WEST, 1)))
-	listclearnulls(.)
+	list_clear_nulls(.)
 
 /proc/get_open_turf_in_dir(atom/center, dir)
 	var/turf/open/T = get_ranged_target_turf(center, dir, 1)
@@ -49,7 +38,7 @@
 			get_open_turf_in_dir(center, SOUTH),
 			get_open_turf_in_dir(center, EAST),
 			get_open_turf_in_dir(center, WEST))
-	listclearnulls(.)
+	list_clear_nulls(.)
 
 /proc/get_adjacent_open_areas(atom/center)
 	. = list()
@@ -282,7 +271,7 @@
 			Y1+=s
 			while(Y1!=Y2)
 				T=locate(X1,Y1,Z)
-				if(T.opacity)
+				if(IS_OPAQUE_TURF(T))
 					return 0
 				Y1+=s
 	else
@@ -298,7 +287,7 @@
 			else
 				X1+=signX //Line exits tile horizontally
 			T=locate(X1,Y1,Z)
-			if(T.opacity)
+			if(IS_OPAQUE_TURF(T))
 				return 0
 	return 1
 #undef SIGNV
@@ -381,7 +370,7 @@
 /proc/flick_overlay(image/I, list/show_to, duration)
 	for(var/client/C in show_to)
 		C.images += I
-	addtimer(CALLBACK(GLOBAL_PROC, /proc/remove_images_from_clients, I, show_to), duration, TIMER_CLIENT_TIME)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(remove_images_from_clients), I, show_to), duration, TIMER_CLIENT_TIME)
 
 /proc/flick_overlay_view(image/I, atom/target, duration) //wrapper for the above, flicks to everyone who can see the target atom
 	var/list/viewing = list()
@@ -479,7 +468,7 @@
 		if(!M.key || !M.client)
 			result -= M
 
-	listclearnulls(result)
+	list_clear_nulls(result)
 
 	return result
 
@@ -510,7 +499,7 @@
 	var/mob/living/carbon/human/new_character = new//The mob being spawned.
 	SSjob.SendToLateJoin(new_character)
 
-	G_found.client.prefs.copy_to(new_character)
+	G_found.client.prefs.active_character.copy_to(new_character)
 	new_character.dna.update_dna_identity()
 	new_character.key = G_found.key
 
@@ -526,7 +515,7 @@
 		var/mob/M = C
 		if(M.client)
 			C = M.client
-	if(!C || (!C.prefs.windowflashing && !ignorepref))
+	if(!C || (!(C.prefs.toggles2 & PREFTOGGLE_2_WINDOW_FLASHING) && !ignorepref))
 		return
 	winset(C, "mainwindow", "flash=5")
 
@@ -553,7 +542,7 @@
 	deadchat_broadcast(message, follow_target = character, message_type=DEADCHAT_ARRIVALRATTLE)
 	if((!GLOB.announcement_systems.len) || (!character.mind))
 		return
-	if((character.mind.assigned_role == "Cyborg") || (character.mind.assigned_role == character.mind.special_role))
+	if((character.mind.assigned_role == JOB_NAME_CYBORG) || (character.mind.assigned_role == character.mind.special_role))
 		return
 
 	var/obj/machinery/announcement_system/announcer = pick(GLOB.announcement_systems)
@@ -567,7 +556,7 @@
 	if(!istype(environment))
 		return
 	var/pressure = environment.return_pressure()
-	if(pressure <= LAVALAND_EQUIPMENT_EFFECT_PRESSURE)
+	if(pressure <= MAXIMUM_LAVALAND_EQUIPMENT_EFFECT_PRESSURE)
 		. = TRUE
 
 /proc/ispipewire(item)
@@ -592,7 +581,7 @@
 				continue
 
 		if (!isspaceturf(found_turf))
-			if (!is_blocked_turf(found_turf))
+			if (!found_turf.is_blocked_turf())
 				possible_loc.Add(found_turf)
 
 	// Need at least one free location.
@@ -610,3 +599,49 @@
 				continue
 
 			C.energy_fail(rand(duration_min,duration_max))
+
+/**
+  * Poll all mentor ghosts for looking for a candidate
+  *
+  * Poll all mentor ghosts a question
+  * returns people who voted yes in a list
+  * Arguments:
+  * * Question: String, what do you want to ask them
+  * * jobbanType: List, Which roles/jobs to exclude from being asked
+  * * gametypeCheck: Datum, Check if they have the time required for that role
+  * * be_special_flag: Bool, Only notify ghosts with special antag on
+  * * poll_time: Integer, How long to poll for in deciseconds(0.1s)
+  * * ignore_category: Define, ignore_category: People with this category(defined in poll_ignore.dm) turned off dont get the message
+  * * flashwindow: Bool, Flash their window to grab their attention
+  */
+/proc/pollMentorGhostCandidates(Question, jobbanType, datum/game_mode/gametypeCheck, be_special_flag = 0, poll_time = 300, ignore_category = null, flashwindow = TRUE)
+	var/list/candidates = list()
+	if(!(GLOB.ghost_role_flags & GHOSTROLE_STATION_SENTIENCE))
+		return candidates
+
+	for(var/mob/dead/observer/G in GLOB.player_list)
+		if(G.client?.is_mentor())
+			candidates += G
+
+	return pollCandidates(Question, jobbanType, gametypeCheck, be_special_flag, poll_time, ignore_category, flashwindow, candidates)
+
+/**
+  * Poll mentor ghosts to take control of a mob
+  *
+  * Poll mentor ghosts for mob control
+  * returns people who voted yes in a list
+  * Arguments:
+  * * Question: String, what do you want to ask them
+  * * jobbanType: List, Which roles/jobs to exclude from being asked
+  * * gametypeCheck: Datum, Check if they have the time required for that role
+  * * be_special_flag: Bool, Only notify ghosts with special antag on
+  * * poll_time: Integer, How long to poll for in deciseconds(0.1s)
+  * * M: Mob, /mob to offer
+  * * ignore_category: Unknown
+  */
+/proc/pollMentorCandidatesForMob(Question, jobbanType, datum/game_mode/gametypeCheck, be_special_flag = 0, poll_time = 300, mob/M, ignore_category = null)
+	var/list/L = pollMentorGhostCandidates(Question, jobbanType, gametypeCheck, be_special_flag, poll_time, ignore_category)
+	if(!M || QDELETED(M) || !M.loc)
+		return list()
+	return L
+

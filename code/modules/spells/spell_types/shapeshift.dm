@@ -8,7 +8,7 @@
 	range = -1
 	include_user = TRUE
 	invocation = "RAC'WA NO!"
-	invocation_type = "shout"
+	invocation_type = INVOCATION_SHOUT
 	action_icon_state = "shapeshift"
 
 	var/revert_on_death = TRUE
@@ -21,7 +21,7 @@
 		/mob/living/simple_animal/pet/dog/corgi,\
 		/mob/living/simple_animal/hostile/carp/ranged/chaos,\
 		/mob/living/simple_animal/bot/ed209,\
-		/mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper,\
+		/mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper/wizard,\
 		/mob/living/simple_animal/hostile/construct/armored)
 
 /obj/effect/proc_holder/spell/targeted/shapeshift/cast(list/targets,mob/user = usr)
@@ -36,7 +36,7 @@
 			for(var/path in possible_shapes)
 				var/mob/living/simple_animal/A = path
 				animal_list[initial(A.name)] = path
-			var/new_shapeshift_type = input(M, "Choose Your Animal Form!", "It's Morphing Time!", null) as null|anything in sortList(animal_list)
+			var/new_shapeshift_type = input(M, "Choose Your Animal Form!", "It's Morphing Time!", null) as null|anything in sort_list(animal_list)
 			if(shapeshift_type)
 				return
 			shapeshift_type = new_shapeshift_type
@@ -92,7 +92,7 @@
 	var/datum/soullink/shapeshift/slink
 	var/obj/effect/proc_holder/spell/targeted/shapeshift/source
 
-/obj/shapeshift_holder/Initialize(mapload,obj/effect/proc_holder/spell/targeted/shapeshift/source,mob/living/caster)
+/obj/shapeshift_holder/Initialize(mapload,obj/effect/proc_holder/spell/targeted/shapeshift/source,mob/living/caster, convert_damage = FALSE)
 	. = ..()
 	src.source = source
 	shape = loc
@@ -103,7 +103,7 @@
 		stored.mind.transfer_to(shape)
 	stored.forceMove(src)
 	stored.notransform = TRUE
-	if(source.convert_damage)
+	if(convert_damage || istype(source) && source.convert_damage)
 		var/damage_percent = (stored.maxHealth - stored.health)/stored.maxHealth;
 		var/damapply = damage_percent * shape.maxHealth;
 
@@ -140,15 +140,17 @@
 	else
 		shape.death()
 
-/obj/shapeshift_holder/proc/shapeDeath()
+/obj/shapeshift_holder/proc/shapeDeath(death=TRUE)
 	//Shape dies.
-	if(source.die_with_shapeshifted_form)
-		if(source.revert_on_death)
+	if(death || istype(source) && source.die_with_shapeshifted_form)
+		if(death || istype(source) && source.revert_on_death)
 			restore(death=TRUE)
 	else
 		restore()
 
-/obj/shapeshift_holder/proc/restore(death=FALSE)
+/obj/shapeshift_holder/proc/restore(death=FALSE, convert_damage = TRUE)
+	if(!stored) //somehow this proc is getting called twice and it runtimes on the second pass because stored has been hit with qdel()
+		return FALSE
 	restoring = TRUE
 	qdel(slink)
 	stored.forceMove(get_turf(src))
@@ -157,14 +159,17 @@
 		shape.mind.transfer_to(stored)
 	if(death)
 		stored.death()
-	else if(source.convert_damage)
+	else if(convert_damage || (istype(source) && source.convert_damage))
+		var/original_blood_volume = stored.blood_volume
 		stored.revive(full_heal = TRUE)
 
 		var/damage_percent = (shape.maxHealth - shape.health)/shape.maxHealth;
 		var/damapply = stored.maxHealth * damage_percent
 
-		stored.apply_damage(damapply, source.convert_damage_type, forced = TRUE)
-	qdel(shape)
+		stored.apply_damage(damapply, (istype(source) ? source.convert_damage_type : BRUTE), forced = TRUE) //brute is the default damage convert
+		stored.blood_volume = original_blood_volume
+	if(!QDELETED(shape))
+		qdel(shape)
 	qdel(src)
 
 /datum/soullink/shapeshift
@@ -176,4 +181,4 @@
 
 /datum/soullink/shapeshift/sharerDies(gibbed, mob/living/sharer)
 	if(source)
-		source.shapeDeath(gibbed)
+		source.shapeDeath(!gibbed)

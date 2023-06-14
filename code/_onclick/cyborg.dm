@@ -87,6 +87,7 @@
 
 //Middle click cycles through selected modules.
 /mob/living/silicon/robot/MiddleClickOn(atom/A)
+	. = ..()
 	cycle_modules()
 	return
 

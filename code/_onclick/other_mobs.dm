@@ -47,7 +47,7 @@
 	return FALSE
 
 /atom/proc/can_interact(mob/user)
-	if(!user.can_interact_with(src))
+	if(!user.can_interact_with(src, interaction_flags_atom & INTERACT_ATOM_ALLOW_USER_LOCATION))
 		return FALSE
 	if((interaction_flags_atom & INTERACT_ATOM_REQUIRES_DEXTERITY) && !user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
@@ -58,6 +58,7 @@
 
 /atom/ui_status(mob/user)
 	. = ..()
+	//Check if both user and atom are at the same location
 	if(!can_interact(user))
 		. = min(., UI_UPDATE)
 
@@ -87,6 +88,8 @@
 
 /mob/living/carbon/RangedAttack(atom/A, mouseparams)
 	. = ..()
+	if(!dna)
+		return
 	for(var/datum/mutation/HM as() in dna.mutations)
 		HM.on_ranged_attack(A, mouseparams)
 
@@ -152,7 +155,7 @@
 		if(ishuman(ML))
 			var/mob/living/carbon/human/H = ML
 			affecting = H.get_bodypart(ran_zone(dam_zone))
-		var/armor = ML.run_armor_check(affecting, "melee")
+		var/armor = ML.run_armor_check(affecting, MELEE)
 		if(prob(75))
 			ML.apply_damage(rand(1,3), BRUTE, affecting, armor)
 			ML.visible_message("<span class='danger'>[name] bites [ML]!</span>", \
@@ -233,9 +236,11 @@
 	pAI
 */
 
-/mob/living/silicon/pai/UnarmedAttack(atom/A)//Stops runtimes due to attack_animal being the default
-	return
+/mob/living/silicon/pai/UnarmedAttack(atom/attack_target, proximity_flag, list/modifiers)
+	attack_target.attack_pai(src, modifiers)
 
+/atom/proc/attack_pai(mob/user, list/modifiers)
+	return
 
 /*
 	Simple animals

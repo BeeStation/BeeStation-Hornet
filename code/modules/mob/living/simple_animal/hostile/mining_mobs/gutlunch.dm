@@ -69,6 +69,7 @@
 	return FALSE
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/Destroy()
+	reagents = null
 	QDEL_NULL(udder)
 	return ..()
 

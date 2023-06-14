@@ -35,7 +35,7 @@
 /area/ruin/space/has_grav/hilbertresearchfacility)
 "h" = (
 /obj/structure/table/glass,
-/obj/item/stack/sheet/bluespace_crystal{
+/obj/item/stack/ore/bluespace_crystal/refined{
 	amount = 37
 	},
 /turf/open/floor/plasteel/grimy{

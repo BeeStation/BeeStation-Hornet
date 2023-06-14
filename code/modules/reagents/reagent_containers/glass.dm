@@ -4,10 +4,10 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5, 10, 15, 20, 25, 30, 50)
 	volume = 50
-	reagent_flags = OPENCONTAINER
+	obj_flags = UNIQUE_RENAME
+	reagent_flags = OPENCONTAINER | DUNKABLE
 	spillable = TRUE
 	resistance_flags = ACID_PROOF
-
 
 /obj/item/reagent_containers/glass/attack(mob/M, mob/user, obj/target)
 	if(!canconsume(M, user))
@@ -39,7 +39,7 @@
 			if(M != user)
 				M.visible_message("<span class='danger'>[user] attempts to feed [M] something from [src].</span>", \
 						"<span class='userdanger'>[user] attempts to feed you something from [src].</span>")
-				if(!do_mob(user, M))
+				if(!do_after(user, target = M))
 					return
 				if(!reagents || !reagents.total_volume)
 					return // The drink might be empty after the delay, such as by spam-feeding
@@ -50,7 +50,7 @@
 				to_chat(user, "<span class='notice'>You swallow a gulp of [src].</span>")
 			var/fraction = min(5/reagents.total_volume, 1)
 			reagents.reaction(M, INGEST, fraction)
-			addtimer(CALLBACK(reagents, /datum/reagents.proc/trans_to, M, 5), 5)
+			addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, trans_to), M, 5), 5)
 			playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
 
 /obj/item/reagent_containers/glass/afterattack(obj/target, mob/user, proximity)
@@ -189,7 +189,7 @@
 /obj/item/reagent_containers/glass/beaker/cryoxadone
 	list_reagents = list(/datum/reagent/medicine/cryoxadone = 30)
 
-/obj/item/reagent_containers/glass/beaker/sulphuric
+/obj/item/reagent_containers/glass/beaker/sulfuric
 	list_reagents = list(/datum/reagent/toxin/acid = 50)
 
 /obj/item/reagent_containers/glass/beaker/slime
@@ -230,7 +230,7 @@
 	flags_inv = HIDEHAIR
 	slot_flags = ITEM_SLOT_HEAD
 	resistance_flags = NONE
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 75, "acid" = 50, "stamina" = 0) //Weak melee protection, because you can wear it on your head
+	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 75, ACID = 50, STAMINA = 0) //Weak melee protection, because you can wear it on your head
 	slot_equipment_priority = list( \
 		ITEM_SLOT_BACK, ITEM_SLOT_ID,\
 		ITEM_SLOT_ICLOTHING, ITEM_SLOT_OCLOTHING,\
@@ -304,7 +304,12 @@
 	cap_overlay = mutable_appearance(icon, cap_icon_state)
 	if(cap_on)
 		spillable = FALSE
-		add_overlay(cap_overlay, TRUE)
+		update_icon()
+
+/obj/item/reagent_containers/glass/waterbottle/update_overlays()
+	. = ..()
+	if(cap_on)
+		. += cap_overlay
 
 /obj/item/reagent_containers/glass/waterbottle/examine(mob/user)
 	. = ..()
@@ -316,6 +321,8 @@
 		. += "<span class='notice'>The cap has been taken off. Alt-click to put a cap on.</span>"
 
 /obj/item/reagent_containers/glass/waterbottle/AltClick(mob/user)
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
 	if(cap_lost)
 		to_chat(user, "<span class='warning'>The cap seems to be missing! Where did it go?</span>")
 		return
@@ -324,7 +331,6 @@
 	if(cap_on || fumbled)
 		cap_on = FALSE
 		spillable = TRUE
-		cut_overlay(cap_overlay, TRUE)
 		animate(src, transform = null, time = 2, loop = 0)
 		if(fumbled)
 			to_chat(user, "<span class='warning'>You fumble with [src]'s cap! The cap falls onto the ground and simply vanishes. Where the hell did it go?</span>")
@@ -334,7 +340,6 @@
 	else
 		cap_on = TRUE
 		spillable = FALSE
-		add_overlay(cap_overlay, TRUE)
 		to_chat(user, "<span class='notice'>You put the cap on [src].</span>")
 	update_icon()
 
@@ -371,7 +376,8 @@
 	if(cap_on && reagents.total_volume)
 		if(prob(flip_chance)) // landed upright
 			src.visible_message("<span class='notice'>[src] lands upright!</span>")
-			SEND_SIGNAL(throwingdatum.thrower, COMSIG_ADD_MOOD_EVENT, "bottle_flip", /datum/mood_event/bottle_flip)
+			if(throwingdatum?.thrower)
+				SEND_SIGNAL(throwingdatum.thrower, COMSIG_ADD_MOOD_EVENT, "bottle_flip", /datum/mood_event/bottle_flip)
 		else // landed on it's side
 			animate(src, transform = matrix(prob(50)? 90 : -90, MATRIX_ROTATE), time = 3, loop = 0)
 
@@ -415,6 +421,8 @@
 	var/obj/item/grinded
 
 /obj/item/reagent_containers/glass/mortar/AltClick(mob/user)
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
 	if(grinded)
 		grinded.forceMove(drop_location())
 		grinded = null

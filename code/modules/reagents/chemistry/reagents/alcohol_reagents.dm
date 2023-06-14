@@ -12,7 +12,7 @@
 	color = "#404030" // rgb: 64, 64, 48
 	nutriment_factor = 0
 	taste_description = "alcohol"
-	chem_flags = CHEMICAL_BASIC_ELEMENT | CHEMICAL_BASIC_DRINK | CHEMICAL_GOAL_BARTENDER_SERVING | CHEMICAL_RNG_GENERAL
+	chem_flags = CHEMICAL_BASIC_ELEMENT | CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	var/boozepwr = 65 //Higher numbers equal higher hardness, higher hardness equals more intense alcohol poisoning
 
@@ -23,7 +23,7 @@ In addition, severe effects won't always trigger unless the drink is poisonously
 All effects don't start immediately, but rather get worse over time; the rate is affected by the imbiber's alcohol tolerance
 
 0: Non-alcoholic
-1-10: Barely classifiable as alcohol - occassional slurring
+1-10: Barely classifiable as alcohol - occasional slurring
 11-20: Slight alcohol content - slurring
 21-30: Below average - imbiber begins to look slightly drunk
 31-40: Just below average - no unique effects
@@ -56,7 +56,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 /datum/reagent/consumable/ethanol/reaction_obj(obj/O, reac_volume)
 	if(istype(O, /obj/item/paper))
 		var/obj/item/paper/paperaffected = O
-		paperaffected.clearpaper()
+		paperaffected.clear_paper()
 		to_chat(usr, "<span class='notice'>[paperaffected]'s ink washes away.</span>")
 	if(istype(O, /obj/item/book))
 		if(reac_volume >= 5)
@@ -88,10 +88,11 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	name = "Beer"
 	description = "An alcoholic beverage brewed since ancient times on Old Earth. Still popular today."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_GOAL_BARTENDER_SERVING | CHEMICAL_RNG_GENERAL
+	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	boozepwr = 25
 	taste_description = "piss water"
+	glass_icon_state = "beerglass"
 	glass_name = "glass of beer"
 	glass_desc = "A freezing pint of beer."
 
@@ -114,7 +115,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 		M.become_nearsighted("ftliver")
 		shake_camera(M,15)
 		M.playsound_local(M.loc,"sound/effects/hyperspace_end.ogg",50)
-		addtimer(CALLBACK(src, .proc/Recover, M), 55)
+		addtimer(CALLBACK(src, PROC_REF(Recover), M), 55)
 	return ..()
 
 /datum/reagent/consumable/ethanol/ftliver/proc/Recover(mob/living/M)
@@ -151,7 +152,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	name = "Kahlua"
 	description = "A widely known, Mexican coffee-flavoured liqueur. In production since 1936!"
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_GOAL_BARTENDER_SERVING | CHEMICAL_RNG_GENERAL
+	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 45
 	glass_icon_state = "kahluaglass"
 	glass_name = "glass of RR coffee liquor"
@@ -171,7 +172,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	name = "Whiskey"
 	description = "A superb and well-aged single-malt whiskey. Damn."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_GOAL_BARTENDER_SERVING | CHEMICAL_RNG_GENERAL
+	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 75
 	taste_description = "molasses"
 	glass_icon_state = "whiskeyglass"
@@ -220,7 +221,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 	if(prob(5) && iscarbon(M))
 		var/obj/item/organ/eyes/eyes = M.getorganslot(ORGAN_SLOT_EYES)
-		if(HAS_TRAIT(M, TRAIT_BLIND))
+		if(M.is_blind())
 			if(istype(eyes))
 				eyes.Remove(M)
 				eyes.forceMove(get_turf(M))
@@ -247,7 +248,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	name = "Vodka"
 	description = "Number one drink AND fueling choice for Russians worldwide."
 	color = "#0064C8" // rgb: 0, 100, 200
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_GOAL_BARTENDER_SERVING | CHEMICAL_RNG_GENERAL
+	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 65
 	taste_description = "grain alcohol"
 	glass_icon_state = "ginvodkaglass"
@@ -297,7 +298,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	name = "Gin"
 	description = "It's gin. In space. I say, good sir."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_GOAL_BARTENDER_SERVING | CHEMICAL_RNG_GENERAL
+	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 45
 	taste_description = "an alcoholic christmas tree"
 	glass_icon_state = "ginvodkaglass"
@@ -308,7 +309,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	name = "Rum"
 	description = "Yohoho and all that."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_GOAL_BARTENDER_SERVING | CHEMICAL_RNG_GENERAL
+	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 60
 	taste_description = "spiked butterscotch"
 	glass_icon_state = "rumglass"
@@ -320,7 +321,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	name = "Tequila"
 	description = "A strong and mildly flavoured Mexican produced spirit. Feeling thirsty, hombre?"
 	color = "#FFFF91" // rgb: 255, 255, 145
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_GOAL_BARTENDER_SERVING | CHEMICAL_RNG_GENERAL
+	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 70
 	taste_description = "paint stripper"
 	glass_icon_state = "tequilaglass"
@@ -332,7 +333,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	name = "Vermouth"
 	description = "You suddenly feel a craving for a martini..."
 	color = "#91FF91" // rgb: 145, 255, 145
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_GOAL_BARTENDER_SERVING | CHEMICAL_RNG_GENERAL
+	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 45
 	taste_description = "dry alcohol"
 	glass_icon_state = "vermouthglass"
@@ -344,7 +345,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	name = "Wine"
 	description = "A premium alcoholic beverage made from distilled grape juice."
 	color = "#7E4043" // rgb: 126, 64, 67
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_GOAL_BARTENDER_SERVING | CHEMICAL_RNG_GENERAL
+	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 35
 	taste_description = "bitter sweetness"
 	glass_icon_state = "wineglass"
@@ -376,9 +377,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	name = "Cognac"
 	description = "A sweet and strongly alcoholic drink, made after numerous distillations and years of maturing. Classy as fornication."
 	color = "#AB3C05" // rgb: 171, 60, 5
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_GOAL_BARTENDER_SERVING | CHEMICAL_RNG_GENERAL
+	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 75
-	taste_description = "angry and irish"
+	taste_description = "classy French brandy"
 	glass_icon_state = "cognacglass"
 	glass_name = "glass of cognac"
 	glass_desc = "Damn, you feel like some kind of French aristocrat just by holding this."
@@ -388,7 +389,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	name = "Absinthe"
 	description = "A powerful alcoholic drink. Rumored to cause hallucinations, but does not."
 	color = rgb(10, 206, 0)
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_GOAL_BARTENDER_SERVING | CHEMICAL_RNG_GENERAL
+	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 80 //Very strong even by default
 	taste_description = "death and licorice"
 	glass_icon_state = "absinthe"
@@ -413,7 +414,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_desc = "You've really hit rock bottom now... your liver packed its bags and left last night."
 
 /datum/reagent/consumable/ethanol/hooch/on_mob_life(mob/living/carbon/M)
-	if(M.mind?.assigned_role == "Assistant")
+	if(M.mind?.assigned_role == JOB_NAME_ASSISTANT)
 		M.heal_bodypart_damage(1,1)
 		. = 1
 	return ..() || .
@@ -422,7 +423,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	name = "Ale"
 	description = "A dark alcoholic beverage made with malted barley and yeast."
 	color = "#664300" // rgb: 102, 67, 0
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_GOAL_BARTENDER_SERVING | CHEMICAL_RNG_GENERAL
+	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 65
 	taste_description = "hearty barley ale"
 	glass_icon_state = "aleglass"
@@ -562,7 +563,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_desc = "A simple, yet superb mixture of Vodka and orange juice. Just the thing for the tired engineer."
 
 /datum/reagent/consumable/ethanol/screwdrivercocktail/on_mob_life(mob/living/carbon/M)
-	if(M.mind && (M.mind.assigned_role in list("Station Engineer", "Atmospheric Technician", "Chief Engineer"))) //Engineers lose radiation poisoning at a massive rate.
+	if(M.mind && (M.mind.assigned_role in list(JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN, JOB_NAME_CHIEFENGINEER))) //Engineers lose radiation poisoning at a massive rate.
 		M.radiation = max(M.radiation - 25, 0)
 	return ..()
 
@@ -1209,7 +1210,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_desc = "A drink from Clown Heaven."
 
 /datum/reagent/consumable/ethanol/bananahonk/on_mob_life(mob/living/carbon/M)
-	if((ishuman(M) && M.job == "Clown") || ismonkey(M))
+	if((ishuman(M) && M.job == JOB_NAME_CLOWN) || ismonkey(M))
 		M.heal_bodypart_damage(1,1)
 		. = 1
 	return ..() || .
@@ -1229,7 +1230,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/silencer/on_mob_life(mob/living/carbon/M)
 	M.silent = max(M.silent, 1.25)
-	if(ishuman(M) && M.job == "Mime")
+	if(ishuman(M) && M.job == JOB_NAME_MIME)
 		M.heal_bodypart_damage(1 , 1)
 		. = 1
 	return ..() || .
@@ -1262,7 +1263,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	name = "Hard Cider"
 	description = "Tastes like autumn. No wait, fall!"
 	color = "#CD6839"
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_GOAL_BARTENDER_SERVING | CHEMICAL_RNG_GENERAL
+	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	boozepwr = 25
 	taste_description = "the season that <i>falls</i> between summer and winter"
@@ -1519,7 +1520,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	name = "Triple Sec"
 	description = "A sweet and vibrant orange liqueur."
 	color = "#ffcc66"
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_GOAL_BARTENDER_SERVING | CHEMICAL_RNG_GENERAL
+	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 30
 	taste_description = "a warm flowery orange taste which recalls the ocean air and summer wind of the caribbean"
 	glass_icon_state = "glass_orange"
@@ -1530,7 +1531,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	name = "Creme de Menthe"
 	description = "A minty liqueur excellent for refreshing, cool drinks."
 	color = "#00cc00"
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_GOAL_BARTENDER_SERVING | CHEMICAL_RNG_GENERAL
+	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 20
 	taste_description = "a minty, cool, and invigorating splash of cold streamwater"
 	glass_icon_state = "glass_green"
@@ -1541,7 +1542,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	name = "Creme de Cacao"
 	description = "A chocolatey liqueur excellent for adding dessert notes to beverages and bribing sororities."
 	color = "#996633"
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_GOAL_BARTENDER_SERVING | CHEMICAL_RNG_GENERAL
+	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 20
 	taste_description = "a slick and aromatic hint of chocolates swirling in a bite of alcohol"
 	glass_icon_state = "glass_brown"
@@ -1552,7 +1553,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	name = "Creme de Coconut"
 	description = "A coconut liqueur for smooth, creamy, tropical drinks."
 	color = "#F7F0D0"
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_GOAL_BARTENDER_SERVING | CHEMICAL_RNG_GENERAL
+	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 20
 	taste_description = "a sweet milky flavor with notes of toasted sugar"
 	glass_icon_state = "glass_white"
@@ -1731,7 +1732,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	name = "Sake"
 	description = "A sweet rice wine of questionable legality and extreme potency."
 	color = "#DDDDDD"
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_GOAL_BARTENDER_SERVING | CHEMICAL_RNG_GENERAL
+	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 70
 	taste_description = "sweet rice wine"
 	glass_icon_state = "sakecup"
@@ -1853,7 +1854,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	name = "Fernet"
 	description = "An incredibly bitter herbal liqueur used as a digestif."
 	color = "#1B2E24" // rgb: 27, 46, 36
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_GOAL_BARTENDER_SERVING | CHEMICAL_RNG_GENERAL
+	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 80
 	taste_description = "utter bitterness"
 	glass_name = "glass of fernet"
@@ -1949,7 +1950,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/blank_paper/on_mob_life(mob/living/carbon/M)
 	M.silent = max(M.silent, MIMEDRINK_SILENCE_DURATION)
-	if(ishuman(M) && M.job == "Mime")
+	if(ishuman(M) && M.job == JOB_NAME_MIME)
 		M.heal_bodypart_damage(1,1)
 		. = 1
 	return ..()
@@ -2010,7 +2011,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 	var/minimum_name_percent = 0.35
 	name = ""
-	var/list/names_in_order = sortTim(names, /proc/cmp_numeric_dsc, TRUE)
+	var/list/names_in_order = sortTim(names, GLOBAL_PROC_REF(cmp_numeric_dsc), TRUE)
 	var/named = FALSE
 	for(var/fruit_name in names)
 		if(names[fruit_name] >= minimum_name_percent)
@@ -2064,7 +2065,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	name = "Champagne"
 	description = "A sparkling wine known for its ability to strike fast and hard."
 	color = "#ffffc1"
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_GOAL_BARTENDER_SERVING | CHEMICAL_RNG_GENERAL
+	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 40
 	taste_description = "auspicious occasions and bad decisions"
 	glass_icon_state = "champagne_glass"
@@ -2120,7 +2121,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	name = "Applejack"
 	description = "The perfect beverage for when you feel the need to horse around."
 	color = "#ff6633"
-	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_GOAL_BARTENDER_SERVING | CHEMICAL_RNG_GENERAL
+	chem_flags = CHEMICAL_BASIC_DRINK | CHEMICAL_RNG_GENERAL
 	boozepwr = 20
 	taste_description = "an honest day's work at the orchard"
 	glass_icon_state = "applejack_glass"
@@ -2236,7 +2237,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 /datum/reagent/consumable/ethanol/blazaam
 	name = "Blazaam"
 	description = "A strange drink that few people seem to remember existing. Doubles as a Berenstain remover."
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY // don't put CHEMICAL_GOAL_BARTENDER_SERVING. peach juice is totally RNG to get
 	boozepwr = 70
 	quality = DRINK_FANTASTIC
 	taste_description = "alternate realities"
@@ -2361,7 +2362,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	var/list/trauma_list
 
 /datum/reagent/consumable/ethanol/fourthwall/proc/traumaweightpick(var/mild,var/severe,var/special)
-	return pick(pickweight(list(subtypesof(/datum/brain_trauma/mild) = mild, subtypesof(/datum/brain_trauma/severe) - /datum/brain_trauma/severe/split_personality - /datum/brain_trauma/severe/hypnotic_stupor = severe, subtypesof(/datum/brain_trauma/special) - /datum/brain_trauma/special/imaginary_friend = special)))
+	return pick(pick_weight(list(subtypesof(/datum/brain_trauma/mild) = mild, subtypesof(/datum/brain_trauma/severe) - /datum/brain_trauma/severe/split_personality - /datum/brain_trauma/severe/hypnotic_stupor = severe, subtypesof(/datum/brain_trauma/special) - /datum/brain_trauma/special/imaginary_friend = special)))
 
 /datum/reagent/consumable/ethanol/fourthwall/on_mob_metabolize(mob/living/carbon/M)
 	trauma_list = list()

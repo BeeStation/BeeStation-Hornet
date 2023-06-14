@@ -63,7 +63,7 @@
 
 	if(isnum_safe(.)) //Numerical values of drained handle their feedback here, Alpha values handle it themselves (Research hacking)
 		if(.)
-			to_chat(H, "<span class='notice'>Gained <B>[DisplayEnergy(.)]</B> of energy from [A].</span>")
+			to_chat(H, "<span class='notice'>Gained <B>[display_energy(.)]</B> of energy from [A].</span>")
 		else
 			to_chat(H, "<span class='danger'>\The [A] has run dry of energy, you must find another source!</span>")
 	else

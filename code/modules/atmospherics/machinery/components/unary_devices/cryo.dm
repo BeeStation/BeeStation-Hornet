@@ -8,7 +8,7 @@
 	icon_state = "pod-off"
 	density = TRUE
 	max_integrity = 350
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 30, "acid" = 30, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 30, ACID = 30, STAMINA = 0)
 	layer = ABOVE_WINDOW_LAYER
 	state_open = FALSE
 	circuit = /obj/item/circuitboard/machine/cryo_tube
@@ -38,7 +38,7 @@
 	var/message_cooldown
 	var/breakout_time = 300
 	fair_market_price = 10
-	payment_department = ACCOUNT_MED
+	dept_req_for_free = ACCOUNT_MED_BITFLAG
 
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/Initialize(mapload)
@@ -51,11 +51,9 @@
 	radio.canhear_range = 0
 	radio.recalculateChannels()
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/Exited(atom/movable/AM, atom/newloc)
-	var/oldoccupant = occupant
-	. = ..() // Parent proc takes care of removing occupant if necessary
-	if (AM == oldoccupant)
-		update_icon()
+/obj/machinery/atmospherics/components/unary/cryo_cell/set_occupant(atom/movable/new_occupant)
+	. = ..()
+	update_icon()
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/on_construction()
 	..(dir, dir)
@@ -139,7 +137,7 @@
 		occupant_overlay.dir = SOUTH
 		occupant_overlay.pixel_y = 22
 
-		if(on && !running_anim && is_operational())
+		if(on && !running_anim && is_operational)
 			icon_state = "pod-on"
 			running_anim = TRUE
 			run_anim(TRUE, occupant_overlay)
@@ -148,7 +146,7 @@
 			add_overlay(occupant_overlay)
 			add_overlay("cover-off")
 
-	else if(on && is_operational())
+	else if(on && is_operational)
 		icon_state = "pod-on"
 		add_overlay("cover-on")
 	else
@@ -156,7 +154,7 @@
 		add_overlay("cover-off")
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/proc/run_anim(anim_up, image/occupant_overlay)
-	if(!on || !occupant || !is_operational())
+	if(!on || !occupant || !is_operational)
 		running_anim = FALSE
 		return
 	cut_overlays()
@@ -168,7 +166,7 @@
 		occupant_overlay.pixel_y--
 	add_overlay(occupant_overlay)
 	add_overlay("cover-on")
-	addtimer(CALLBACK(src, .proc/run_anim, anim_up, occupant_overlay), 7, TIMER_UNIQUE)
+	addtimer(CALLBACK(src, PROC_REF(run_anim), anim_up, occupant_overlay), 7, TIMER_UNIQUE)
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/nap_violation(mob/violator)
 	open_machine()
@@ -177,7 +175,7 @@
 	if(!on)
 		return
 
-	if(!is_operational())
+	if(!is_operational)
 		on = FALSE
 		update_icon()
 		return
@@ -247,8 +245,8 @@
 		var/cold_protection = 0
 		var/temperature_delta = air1.return_temperature() - mob_occupant.bodytemperature // The only semi-realistic thing here: share temperature between the cell and the occupant.
 
-		if(ishuman(occupant))
-			var/mob/living/carbon/human/H = occupant
+		if(ishuman(mob_occupant))
+			var/mob/living/carbon/human/H = mob_occupant
 			cold_protection = H.get_cold_protection(air1.return_temperature())
 
 		if(abs(temperature_delta) > 1)
@@ -280,7 +278,7 @@
 		if(isliving(M))
 			var/mob/living/L = M
 			L.update_mobility()
-	occupant = null
+	set_occupant(null)
 	flick("pod-open-anim", src)
 	..()
 

@@ -52,7 +52,7 @@
 /obj/item/newspaper,
 /turf/open/floor/plating,
 /area/template_noop)
-"h" = (
+"t" = (
 /obj/structure/table/wood,
 /obj/item/crowbar/red,
 /obj/item/book/manual/wiki/security_space_law{
@@ -61,16 +61,7 @@
 	},
 /obj/item/book/manual/wiki/detective,
 /obj/item/camera/detective,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
+/obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 
@@ -87,5 +78,5 @@ d
 (3,1,1) = {"
 c
 f
-h
+t
 "}

@@ -49,7 +49,7 @@
 	var/list/image/showing = list()
 	var/client/viewing
 	var/legend = FALSE	//Viewing the wire legend
-
+	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
 /obj/item/areaeditor/blueprints/Destroy()
 	clear_viewer()
@@ -205,6 +205,7 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "blueprints"
 	fluffnotice = "Intellectual Property of Nanotrasen. For use in engineering cyborgs only. Wipe from memory upon departure from the station."
+	investigate_flags = NONE
 
 /proc/rename_area(a, new_name)
 	var/area/A = get_area(a)

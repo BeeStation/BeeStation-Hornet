@@ -15,6 +15,6 @@
 
 	for(var/turf/T in view(range,src))
 		T.AddElement(/datum/element/forced_gravity, forced_value)
-		addtimer(CALLBACK(T, /datum/.proc/_RemoveElement, list(/datum/element/forced_gravity, forced_value)), duration) //we can't use the macro define here because this needs an actual proc
+		addtimer(CALLBACK(T, TYPE_PROC_REF(/datum, _RemoveElement), list(/datum/element/forced_gravity, forced_value)), duration) //we can't use the macro define here because this needs an actual proc
 
 	qdel(src)

@@ -38,9 +38,14 @@
 	get_targets()
 	icon_state = "cleanbot[on]"
 
-	var/datum/job/janitor/J = new/datum/job/janitor
-	access_card.access += J.get_access()
-	prev_access = access_card.access
+	var/datum/job/J = SSjob.GetJob(JOB_NAME_JANITOR)
+	access_card.access = J.get_access()
+	prev_access = access_card.access.Copy()
+	GLOB.janitor_devices += src
+
+/mob/living/simple_animal/bot/cleanbot/Destroy()
+	GLOB.janitor_devices -= src
+	return ..()
 
 /mob/living/simple_animal/bot/cleanbot/turn_on()
 	..()
@@ -64,7 +69,7 @@
 	text_dehack_fail = "[name] does not seem to respond to your repair code!"
 
 /mob/living/simple_animal/bot/cleanbot/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
+	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/modular_computer/tablet/pda))
 		if(bot_core.allowed(user) && !open && !emagged)
 			locked = !locked
 			to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] \the [src] behaviour controls.</span>")
@@ -78,7 +83,7 @@
 	else
 		return ..()
 
-/mob/living/simple_animal/bot/cleanbot/emag_act(mob/user)
+/mob/living/simple_animal/bot/cleanbot/on_emag(atom/target, mob/user)
 	..()
 	if(emagged == 2)
 		if(user)
@@ -210,7 +215,7 @@
 		icon_state = "cleanbot-c"
 		visible_message("<span class='notice'>[src] begins to clean up [A].</span>")
 		mode = BOT_CLEANING
-		addtimer(CALLBACK(src, .proc/clean, A), 50)
+		addtimer(CALLBACK(src, PROC_REF(clean), A), 50)
 	else if(istype(A, /obj/item) || istype(A, /obj/effect/decal/remains))
 		visible_message("<span class='danger'>[src] sprays hydrofluoric acid at [A]!</span>")
 		playsound(src, 'sound/effects/spray2.ogg', 50, 1, -6)
@@ -308,10 +313,6 @@
 	get_targets()
 	icon_state = "larry[on]"
 
-	var/datum/job/janitor/J = new/datum/job/janitor
-	access_card.access += J.get_access()
-	prev_access = access_card.access
-
 /mob/living/simple_animal/bot/cleanbot/larry/turn_on()
 	..()
 	icon_state = "larry[on]"
@@ -328,7 +329,7 @@
 		icon_state = "larry-c"
 		visible_message("<span class='notice'>[src] begins to clean up [A].</span>")
 		mode = BOT_CLEANING
-		addtimer(CALLBACK(src, .proc/clean, A), 50)
+		addtimer(CALLBACK(src, PROC_REF(clean), A), 50)
 	else if(istype(A, /obj/item) || istype(A, /obj/effect/decal/remains))
 		visible_message("<span class='danger'>[src] sprays hydrofluoric acid at [A]!</span>")
 		playsound(src, 'sound/effects/spray2.ogg', 50, 1, -6)
@@ -428,10 +429,11 @@
 	var/dat
 	dat += hack(user)
 	dat += showpai(user)
-	dat += text({"
-Status: <A href='?src=[REF(src)];power=1'>[on ? "On" : "Off"]</A><BR>
-Behaviour controls are [locked ? "locked" : "unlocked"]<BR>
-Maintenance panel panel is [open ? "opened" : "closed"]"})
+	// missing bot program name here
+	dat += "<BR>Status: <A href='?src=[REF(src)];power=1'>[on ? "On" : "Off"]</A>"
+	dat += "<BR>Behaviour controls are [locked ? "locked" : "unlocked"]"
+	dat += "<BR>Maintenance panel panel is [open ? "opened" : "closed"]"
+
 	if(!locked || issilicon(user)|| IsAdminGhost(user))
 		dat += "<BR>Clean Blood: <A href='?src=[REF(src)];operation=blood'>[blood ? "Yes" : "No"]</A>"
 		dat += "<BR>Clean Trash: <A href='?src=[REF(src)];operation=trash'>[trash ? "Yes" : "No"]</A>"

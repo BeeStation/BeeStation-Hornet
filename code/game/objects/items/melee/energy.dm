@@ -3,7 +3,7 @@
 	hitsound_on = 'sound/weapons/blade1.ogg'
 	heat = 3500
 	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30, STAMINA = 0)
 	resistance_flags = FIRE_PROOF
 	light_system = MOVABLE_LIGHT
 	light_range = 3
@@ -120,7 +120,7 @@
 		return ..()
 	return 0
 
-/obj/item/melee/transforming/energy/sword/esaw //Energy Saw Arm Implant
+/obj/item/melee/transforming/energy/sword/esaw //Energy Saw on it's own
 	name = "energy saw"
 	desc = "For heavy duty cutting. It has a carbon-fiber blade in addition to a toggleable hard-light edge to dramatically increase sharpness."
 	force_on = 30
@@ -157,8 +157,8 @@
 	force = 18 //About as much as a spear
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	icon = 'icons/obj/surgery.dmi'
-	icon_state = "esaw_0"
-	icon_state_on = "esaw_1"
+	icon_state = "implant-esaw_0"
+	icon_state_on = "implant-esaw_1"
 	sword_color = null //stops icon from breaking when turned on.
 	hitcost = 75 //Costs more than a standard cyborg esword
 	w_class = WEIGHT_CLASS_NORMAL
@@ -175,14 +175,12 @@
 /obj/item/melee/transforming/energy/sword/cyborg/saw/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0
 
-/*
-/obj/item/melee/transforming/energy/sword/cyborg/saw/implant //Energy Saw Arm Implant
-	icon_state = "saw"
-	icon_state_on = "saw"
+/obj/item/melee/transforming/energy/sword/esaw/implant //Energy Saw Arm Implant
+	icon_state = "implant-esaw_0"
+	icon_state_on = "implant-esaw_1"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	hitcost = 0
-*/
+
 
 /obj/item/melee/transforming/energy/sword/saber
 	var/list/possible_colors = list("red" = LIGHT_COLOR_RED, "blue" = LIGHT_COLOR_LIGHT_CYAN, "green" = LIGHT_COLOR_GREEN, "purple" = LIGHT_COLOR_LAVENDER)

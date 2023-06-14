@@ -122,14 +122,14 @@
 	description = "Commander Pat is unhappy with his chair. He claims it hurts his back. Ship some alternatives out to humor him."
 	reward = 1500
 	required_count = 5
-	wanted_types = list(/obj/structure/chair/comfy)
+	wanted_types = list(/obj/structure/chair/fancy/comfy)
 
 /datum/bounty/item/assistant/poppy
 	name = "Poppies"
 	description = "Commander Zot really wants to sweep Security Officer Olivia off her feet. Send a shipment of Poppies - her favorite flower - and he'll happily reward you."
 	reward = 1000
 	required_count = 3
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/grown/poppy)
+	wanted_types = list(/obj/item/reagent_containers/food/snacks/grown/flower/poppy)
 	include_subtypes = FALSE
 
 /datum/bounty/item/assistant/shadyjims

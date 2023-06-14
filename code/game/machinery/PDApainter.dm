@@ -6,98 +6,67 @@
 	max_integrity = 200
 	density = TRUE
 	anchored = TRUE
-	var/obj/item/pda/storedpda = null
+	var/obj/item/modular_computer/tablet/pda/storedpda = null
 	var/obj/item/card/id/storedid = null
 	var/pda_icons = list(
-		"neutral" = "pda",
-		"Assistant" = "pda-assistant",
-		"Atmospheric Technician" = "pda-atmos",
-		"Bartender" = "pda-bartender",
-		"Service" = "pda-service",
-		"Captain" = "pda-captain",
-		"Cargo Technician" = "pda-cargo",
-		"Chaplain" = "pda-chaplain",
-		"Chemist" = "pda-chemistry",
-		"Chief Medical Officer" = "pda-cmo",
-		"Chief Engineer" = "pda-ce",
-		"Clown" = "pda-clown",
-		"Cook" = "pda-cook",
-		"Curator" = "pda-library",
-		"Detective" = "pda-detective",
-		"Engineer" = "pda-engineer",
-		"Geneticist" = "pda-genetics",
-		"Head of Personnel" = "pda-hop",
-		"Head of Security" = "pda-hos",
-		"Lawyer" = "pda-lawyer",
-		"Janitor" = "pda-janitor",
-		"Medical Doctor" = "pda-medical",
-		"Paramedic" = "pda-paramedical",
-		"Mime" = "pda-mime",
-		"Quartermaster" = "pda-qm",
-		"Research Director" = "pda-rd",
-		"Roboticist" = "pda-roboticist",
-		"Scienctist" = "pda-science",
-		"Security Officer" = "pda-security",
-		"Shaft Miner" = "pda-miner",
-		"Virologist" = "pda-virology",
-		"Warden" = "pda-warden",
-		"Exploration Crew" = "pda-exploration"
-		)
-	var/id_icons = list(
-		"Assistant" = "id",
-		"Atmospheric Technician" = "atmos",
-		"Cargo" = "cargo",
-		"Chaplain" = "chap",
-		"Captain" = "captain",
-		"Chief Engineer" = "ce",
-		"Chief Medical Officer" = "cmo",
-		"Clown" = "clown",
-		"Detective" = "detective",
-		"Engineering" = "engi",
-		"Head of Personnel" = "hop",
-		"Head of Security" = "hos",
-		"Lawyer" = "lawyer",
-		"Medical" = "med",
-		"Mime" = "mime",
-		"Quartermaster" = "qm",
-		"Research Director" = "rd",
-		"Science" = "sci",
-		"Security" = "sec",
-		"Service" = "serv",
-		"Shaft Miner" = "miner",
-		"Warden" = "warden",
-		"Paramedic" = "paramed",
-		"Virologist" = "viro",
-		"Chemist" = "chemist",
-		"Geneticist" = "gene",
-		"Brig Physician" = "brigphys",
-		"Deputy" = "deputy",
-		"Roboticist" = "roboticist",
-		"Janitor" = "janitor",
-		"Exploration Crew" = "exploration"
-		)
+		"Misc: Neutral" = "pda",
+		"Misc: Assistant" = "pda-assistant",
+		"Command (Standard)" = "pda-heads",
+		"Command: Captain" = "pda-captain",
+		"Service (Standard)" = "pda-service",
+		"Service: Head of Personnel" = "pda-hop",
+		"Service: Bartender" = "pda-bartender",
+		"Service: Chaplain" = "pda-chaplain",
+		"Service: Clown" = "pda-clown",
+		"Service: Cook" = "pda-cook",
+		"Service: Curator" = "pda-library",
+		"Service: Janitor" = "pda-janitor",
+		"Service: Lawyer" = "pda-lawyer",
+		"Service: Mime" = "pda-mime",
+		"Cargo (Standard)" = "pda-cargo",
+		"Cargo: Quartermaster" = "pda-qm",
+		"Cargo: Cargo Technician" = "pda-cargo",
+		"Cargo: Shaft Miner" = "pda-miner",
+		"Engineering (Standard)" = "pda-engineer",
+		"Engineering: Chief Engineer" = "pda-ce",
+		"Engineering: Station Engineer" = "pda-engineer",
+		"Engineering: Atmospheric Technician" = "pda-atmos",
+		"Science (Standard)" = "pda-science",
+		"Science: Research Director" = "pda-rd",
+		"Science: Roboticist" = "pda-roboticist",
+		"Science: Scienctist" = "pda-science",
+		"Science: Exploration Crew" = "pda-exploration",
+		"Medical (Standard)" = "pda-medical",
+		"Medical: Chief Medical Officer" = "pda-cmo",
+		"Medical: Medical Doctor" = "pda-medical",
+		"Medical: Chemist" = "pda-chemistry",
+		"Medical: Paramedic" = "pda-paramedical",
+		"Medical: Geneticist" = "pda-genetics",
+		"Medical: Virologist" = "pda-virology",
+		"Security (Standard)" = "pda-security",
+		"Security: Head of Security" = "pda-hos",
+		"Security: Warden" = "pda-warden",
+		"Security: Security Officier" = "pda-security",
+		"Security: Detective" = "pda-detective",
+		"Security: Brig Physician" = "pda-brigphys",
+		"Security: Deputy" = "pda-deputy",
+		"Misc: Prisoner" = "pda-prisoner"
+	)
 	max_integrity = 200
 	var/list/colorlist = list()
 
-/obj/machinery/pdapainter/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
+/obj/machinery/pdapainter/on_emag(mob/user)
+	..()
 	pda_icons += list(
 		"Transparent" = "pda-clear",
 		"Syndicate" = "pda-syndi"
-		)
-	id_icons += list(
-		"CentCom" = "centcom",
-		"ERT" = "ert",
-		"Syndicate" = "syndicate",
-		"Clown Operative" = "clown_op",
-		)
+	)
 	to_chat(user, "<span class='warning'>You short out the design locking circuitry, allowing contraband and special designs.</span>")
-	obj_flags |= EMAGGED
+
 /obj/machinery/pdapainter/update_icon()
 	cut_overlays()
 
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		icon_state = "coloriser-broken"
 		return
 
@@ -117,16 +86,14 @@
 /obj/machinery/pdapainter/Initialize(mapload)
 	. = ..()
 	var/list/blocked = list(
-		/obj/item/pda/ai/pai,
-		/obj/item/pda/ai,
-		/obj/item/pda/heads,
-		/obj/item/pda/clear,
-		/obj/item/pda/syndicate,
-		/obj/item/pda/chameleon,
-		/obj/item/pda/chameleon/broken)
+		/obj/item/modular_computer/tablet/pda/heads,
+		/obj/item/modular_computer/tablet/pda/clear,
+		/obj/item/modular_computer/tablet/pda/syndicate,
+		/obj/item/modular_computer/tablet/pda/chameleon,
+		/obj/item/modular_computer/tablet/pda/chameleon/broken)
 
-	for(var/P in typesof(/obj/item/pda) - blocked)
-		var/obj/item/pda/D = new P
+	for(var/P in typesof(/obj/item/modular_computer/tablet/pda) - blocked)
+		var/obj/item/modular_computer/tablet/pda/D = new P
 
 		//D.name = "PDA Style [colorlist.len+1]" //Gotta set the name, otherwise it all comes up as "PDA"
 		D.name = D.icon_state //PDAs don't have unique names, but using the sprite names works.
@@ -165,7 +132,7 @@
 		power_change()
 		return
 
-	else if(istype(O, /obj/item/pda))
+	else if(istype(O, /obj/item/modular_computer/tablet/pda))
 		if(storedpda)
 			to_chat(user, "<span class='warning'>There is already a PDA inside!</span>")
 			return
@@ -176,6 +143,9 @@
 		update_icon()
 
 	else if(istype(O, /obj/item/card/id))
+		var/obj/item/card/id/new_id = O
+		if(!new_id.electric)
+			return
 		if(storedid)
 			to_chat(user, "<span class='warning'>There is already an ID card inside!</span>")
 			return
@@ -186,17 +156,17 @@
 		update_icon()
 
 	else if(O.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
-		if(stat & BROKEN)
+		if(machine_stat & BROKEN)
 			if(!O.tool_start_check(user, amount=0))
 				return
 			user.visible_message("[user] is repairing [src].", \
 							"<span class='notice'>You begin repairing [src]...</span>", \
 							"<span class='italics'>You hear welding.</span>")
 			if(O.use_tool(src, user, 40, volume=50))
-				if(!(stat & BROKEN))
+				if(!(machine_stat & BROKEN))
 					return
 				to_chat(user, "<span class='notice'>You repair [src].</span>")
-				stat &= ~BROKEN
+				set_machine_stat(machine_stat & ~BROKEN)
 				obj_integrity = max_integrity
 				update_icon()
 		else
@@ -205,10 +175,7 @@
 		return ..()
 
 /obj/machinery/pdapainter/deconstruct(disassembled = TRUE)
-	if(!(flags_1 & NODECONSTRUCT_1))
-		if(!(stat & BROKEN))
-			stat |= BROKEN
-			update_icon()
+	obj_break()
 
 /obj/machinery/pdapainter/attack_hand(mob/user)
 	if(!..())
@@ -227,20 +194,27 @@
 				ejectpda()
 			if(storedid)
 				var/newidskin
-				newidskin = input(user, "Select an ID skin!", "ID  Painting") as null|anything in id_icons
+				newidskin = input(user, "Select an ID skin!", "ID  Painting") as null|anything in get_card_style_list(obj_flags & EMAGGED)
 				if(!newidskin)
+					return
+				if(newidskin[1] == "-")
 					return
 				if(!in_range(src, user))
 					return
 				if(!storedid)//is the ID still there?
 					return
-				storedid.icon_state = id_icons[newidskin]
+				storedid.icon_state = get_cardstyle_by_jobname(newidskin)
+				storedid.hud_state = get_hud_by_jobname(newidskin)
+
+				// QoL to correct the system behavior
+				GLOB.data_core.manifest_modify(storedid.registered_name, storedid.assignment, storedid.hud_state) // update crew manifest
+				// There are the same code lines in `card.dm`
 				ejectid()
 		else
 			to_chat(user, "<span class='notice'>[src] is empty.</span>")
 
 /obj/machinery/pdapainter/AltClick(mob/user)
-	if(usr.stat || usr.restrained())
+	if(!user.canUseTopic(src, !issilicon(user)) || usr.stat || usr.restrained())
 		return
 	if(storedpda || storedid)
 		ejectid()
@@ -267,3 +241,32 @@
 /obj/machinery/pdapainter/power_change()
 	..()
 	update_icon()
+
+
+/proc/get_card_style_list(emagged)
+	var/static/valid_jobs = list(
+		"----Command----", "Command (Custom)",JOB_NAME_CAPTAIN,"Acting Captain",
+		"----Service----", "Service (Custom)", JOB_NAME_ASSISTANT, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_BARTENDER, JOB_NAME_COOK,
+			JOB_NAME_BOTANIST, JOB_NAME_JANITOR, JOB_NAME_CURATOR,JOB_NAME_CHAPLAIN, JOB_NAME_LAWYER,
+			JOB_NAME_CLOWN, JOB_NAME_MIME, JOB_NAME_BARBER, JOB_NAME_STAGEMAGICIAN,
+		"----Cargo----","Cargo (Custom)",JOB_NAME_QUARTERMASTER, JOB_NAME_CARGOTECHNICIAN,JOB_NAME_SHAFTMINER,
+		"----Engineering----","Engineering (Custom)",JOB_NAME_CHIEFENGINEER, JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN,
+		"----Science----","Science (Custom)",JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST, JOB_NAME_EXPLORATIONCREW,
+		"----Medical----","Medical (Custom)",JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST,
+			JOB_NAME_VIROLOGIST, JOB_NAME_PARAMEDIC, JOB_NAME_PSYCHIATRIST,
+		"----Security----","Security (Custom)",JOB_NAME_HEADOFSECURITY, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_SECURITYOFFICER,
+			JOB_NAME_BRIGPHYSICIAN, JOB_NAME_DEPUTY,
+		"----MISC----","Unassigned",JOB_NAME_PRISONER
+	)
+	var/static/emagged_jobs = list(
+		"CentCom (Custom)",
+		"CentCom",
+		"ERT",
+		"VIP",
+		"King",
+		"Syndicate Agent",
+		"Clown Operative"
+	)
+	if(emagged)
+		return valid_jobs+emagged_jobs
+	return valid_jobs

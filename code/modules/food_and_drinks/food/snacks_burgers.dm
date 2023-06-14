@@ -33,7 +33,7 @@
 	desc = "A bloody burger."
 	bonus_reagents = list(/datum/reagent/consumable/nutriment/vitamin = 4)
 	tastes = list("bun" = 2, "long pig" = 4)
-	foodtype = MEAT | GRAIN | GROSS
+	foodtype = MEAT | GRAIN | GORE
 
 /obj/item/reagent_containers/food/snacks/burger/human/CheckParts(list/parts_list)
 	..()
@@ -52,7 +52,7 @@
 	name = "corgi burger"
 	desc = "You monster."
 	bonus_reagents = list(/datum/reagent/consumable/nutriment/vitamin = 5)
-	foodtype = GRAIN | MEAT | GROSS
+	foodtype = GRAIN | MEAT | GORE
 
 /obj/item/reagent_containers/food/snacks/burger/appendix
 	name = "appendix burger"
@@ -60,7 +60,7 @@
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 6)
 	icon_state = "appendixburger"
 	tastes = list("bun" = 4, "grass" = 2)
-	foodtype = GRAIN | MEAT | GROSS
+	foodtype = GRAIN | MEAT | GORE
 
 /obj/item/reagent_containers/food/snacks/burger/fish
 	name = "fillet -o- carp sandwich"
@@ -102,7 +102,7 @@
 	desc = "Smells caustic. Tastes like heresy."
 	icon_state = "xburger"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/vitamin = 6)
-	tastes = list("bun" = 4, "acid" = 4)
+	tastes = list("bun" = 4, ACID = 4)
 	foodtype = GRAIN | MEAT
 
 /obj/item/reagent_containers/food/snacks/burger/bearger
@@ -133,7 +133,7 @@
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/medicine/mannitol = 6, /datum/reagent/consumable/nutriment/vitamin = 5)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/medicine/mannitol = 5, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("bun" = 4, "brains" = 2)
-	foodtype = GRAIN | MEAT | GROSS
+	foodtype = GRAIN | MEAT | GORE
 
 /obj/item/reagent_containers/food/snacks/burger/ghost
 	name = "ghost burger"
@@ -305,7 +305,7 @@
 	desc = "Pretty much what you'd expect..."
 	icon_state = "ratburger"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 1)
-	foodtype = GRAIN | MEAT | GROSS
+	foodtype = GRAIN | MEAT | GORE
 
 /obj/item/reagent_containers/food/snacks/burger/baseball
 	name = "home run baseball burger"
@@ -364,9 +364,9 @@
 
 /obj/item/reagent_containers/food/snacks/burger/chicken
 	name = "chicken sandwich" //Apparently the proud people of Americlapstan object to this thing being called a burger. Apparently McDonald's just calls it a burger in Europe as to not scare and confuse us.
-	desc = "A delicious chicken sandwich, it is said the proceeds from this treat helps criminalize homosexuality on the space frontier."
+	desc = "The so-called classic poultry bread cage. Considering how processed this is, the taste holds up pretty well."
 	icon_state = "chickenburger"
-	tastes = list("bun" = 2, "chicken" = 4, "God's covenant" = 1)
+	tastes = list("bun" = 2, "chicken" = 4)
 	bonus_reagents = list(/datum/reagent/consumable/mayonnaise = 3, /datum/reagent/consumable/cooking_oil = 2, /datum/reagent/consumable/nutriment = 2)
 	foodtype = GRAIN | MEAT | FRIED
 
@@ -389,5 +389,5 @@
 	icon_state = "crazyhamburger"
 	tastes = list("bread made in turkey" = 2, "horse meat" = 4, "cheese from sao paulo from brazil" = 3, "red hot chili peppers" = 3, "oil from iraq" = 2, "grass of death" = 3)
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1)
-	foodtype = GRAIN | MEAT | DAIRY | TOXIC | GROSS | FRUIT
+	foodtype = GRAIN | MEAT | DAIRY | TOXIC | GROSS | FRUIT | GORE
 	w_class = WEIGHT_CLASS_NORMAL   // The crazy hamburger in the video was bigger than joker's hand therefore i think this weight class is adequate.

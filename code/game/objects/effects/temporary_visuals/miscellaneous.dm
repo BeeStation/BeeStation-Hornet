@@ -114,10 +114,18 @@
 	duration = 32
 	var/fades = TRUE
 
+/obj/effect/temp_visual/dir_setting/curse/long // Necro Sect Usage
+	duration = 330
+
 /obj/effect/temp_visual/dir_setting/curse/Initialize(mapload, set_dir)
 	. = ..()
 	if(fades)
 		animate(src, alpha = 0, time = 32)
+
+/obj/effect/temp_visual/dir_setting/curse/long/Initialize(mapload, set_dir)
+	. = ..()
+	if(fades)
+		animate(src, alpha = 0, time = 330)
 
 /obj/effect/temp_visual/dir_setting/curse/blob
 	icon_state = "curseblob"
@@ -238,6 +246,9 @@
 	name = "spooky lights"
 	icon_state = "purplesparkles"
 
+/obj/effect/temp_visual/revenant/blightcure
+	icon_state = "blessed"
+
 /obj/effect/temp_visual/blightdisease
 	name = "spreadingsickness"
 	icon_state = "greenshatter"
@@ -276,6 +287,9 @@
 	name = "bluespace fissure"
 	icon_state = "bluestream_fade"
 	duration = 9
+
+/obj/effect/temp_visual/bluespace_fissure/long
+	duration = 300
 
 /obj/effect/temp_visual/gib_animation
 	icon = 'icons/mob/mob.dmi'
@@ -480,7 +494,7 @@
 	status = rcd_status
 	delay = rcd_delay
 	if (status == RCD_DECONSTRUCT)
-		addtimer(CALLBACK(src, /atom/.proc/update_icon), 11)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 11)
 		delay -= 11
 		icon_state = "rcd_end_reverse"
 	else
@@ -502,7 +516,7 @@
 		qdel(src)
 	else
 		icon_state = "rcd_end"
-		addtimer(CALLBACK(src, .proc/end), 15)
+		addtimer(CALLBACK(src, PROC_REF(end)), 15)
 
 /obj/effect/constructing_effect/proc/end()
 	qdel(src)

@@ -18,8 +18,7 @@ In all, this is a lot like the monkey code. /N
 		return
 
 	switch(M.a_intent)
-
-		if ("help")
+		if("help")
 			if(M == src && check_self_for_injuries())
 				return
 			set_resting(FALSE)
@@ -31,15 +30,15 @@ In all, this is a lot like the monkey code. /N
 			AdjustSleeping(-100)
 			visible_message("<span class='notice'>[M.name] nuzzles [src] trying to wake [p_them()] up!</span>")
 
-		if ("grab")
+		if("grab")
 			grabbedby(M)
 
 		else
-			if(health > 0)
+			if(health > 1)
 				M.do_attack_animation(src, ATTACK_EFFECT_BITE)
 				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-				visible_message("<span class='danger'>[M.name] bites [src]!</span>", \
-						"<span class='userdanger'>[M.name] bites you!</span>", null, COMBAT_MESSAGE_RANGE)
+				visible_message("<span class='danger'>[M.name] playfully bites [src]!</span>", \
+						"<span class='userdanger'>[M.name] playfully bites you!</span>", null, COMBAT_MESSAGE_RANGE)
 				adjustBruteLoss(1)
 				log_combat(M, src, "attacked")
 				updatehealth()
@@ -50,76 +49,81 @@ In all, this is a lot like the monkey code. /N
 /mob/living/carbon/alien/attack_larva(mob/living/carbon/alien/larva/L)
 	return attack_alien(L)
 
+/mob/living/carbon/alien/attack_paw(mob/living/carbon/monkey/M)
+	if(!..())
+		return
+	if(stat != DEAD)
+		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.zone_selected))
+		apply_damage(rand(3), BRUTE, affecting)
 
 /mob/living/carbon/alien/attack_hand(mob/living/carbon/human/M)
 	if(..())	//to allow surgery to return properly.
-		return 0
+		return
 
 	switch(M.a_intent)
-		if("help")
-			help_shake_act(M)
-		if("grab")
-			grabbedby(M)
-		if ("harm")
+		if("harm", "disarm") //harm and disarm will do the same, I doubt trying to shove a xeno would go well for you
 			if(HAS_TRAIT(M, TRAIT_PACIFISM))
 				to_chat(M, "<span class='notice'>You don't want to hurt [src]!</span>")
-				return 0
-			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-			return 1
-		if("disarm")
-			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
-			return 1
-	return 0
-
-
-/mob/living/carbon/alien/attack_paw(mob/living/carbon/monkey/M)
-	if(..())
-		if (stat != DEAD)
+				return
+			playsound(loc, "punch", 25, 1, -1)
+			visible_message("<span class='danger'>[M] punches [src]!</span>", \
+					"<span class='userdanger'>[M] punches you!</span>", null, COMBAT_MESSAGE_RANGE)
 			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.zone_selected))
-			apply_damage(rand(3), BRUTE, affecting)
+			apply_damage(M.dna.species.punchdamage, BRUTE, affecting)
+			log_combat(M, src, "attacked")
+			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 
+		if("help")
+			M.visible_message("<span class='notice'>[M] hugs [src] to make [src.p_them()] feel better!</span>", \
+								"<span class='notice'>You hug [src] to make [src.p_them()] feel better!</span>")
+			playsound(M.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+
+		if("grab")
+			grabbedby(M)
 
 /mob/living/carbon/alien/attack_animal(mob/living/simple_animal/M)
-	. = ..()
-	if(.)
-		var/damage = M.melee_damage
-		switch(M.melee_damage_type)
-			if(BRUTE)
-				adjustBruteLoss(damage)
-			if(BURN)
-				adjustFireLoss(damage)
-			if(TOX)
-				adjustToxLoss(damage)
-			if(OXY)
-				adjustOxyLoss(damage)
-			if(CLONE)
-				adjustCloneLoss(damage)
-			if(STAMINA)
-				adjustStaminaLoss(damage)
+	if(!..())
+		return
+	var/damage = M.melee_damage
+	switch(M.melee_damage_type)
+		if(BRUTE)
+			adjustBruteLoss(damage)
+		if(BURN)
+			adjustFireLoss(damage)
+		if(TOX)
+			adjustToxLoss(damage)
+		if(OXY)
+			adjustOxyLoss(damage)
+		if(CLONE)
+			adjustCloneLoss(damage)
+		if(STAMINA)
+			adjustStaminaLoss(damage)
 
 /mob/living/carbon/alien/attack_slime(mob/living/simple_animal/slime/M)
-	if(..()) //successful slime attack
-		var/damage = rand(20)
-		if(M.is_adult)
-			damage = rand(30)
-		if(M.transformeffects & SLIME_EFFECT_RED)
-			damage *= 1.1
-		adjustBruteLoss(damage)
-		log_combat(M, src, "attacked")
-		updatehealth()
+	if(!..())
+		return //gotta be a successful slime attack
+	var/damage = rand(20)
+	if(M.is_adult)
+		damage = rand(30)
+	if(M.transformeffects & SLIME_EFFECT_RED)
+		damage *= 1.1
+	adjustBruteLoss(damage)
+	log_combat(M, src, "attacked")
+	updatehealth()
 
 /mob/living/carbon/alien/ex_act(severity, target, origin)
 	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
 		return
-	..()
+	. = ..()
 	if(QDELETED(src))
 		return
-	switch (severity)
-		if (EXPLODE_DEVASTATE)
+
+	switch(severity)
+		if(EXPLODE_DEVASTATE)
 			gib()
 			return
 
-		if (EXPLODE_HEAVY)
+		if(EXPLODE_HEAVY)
 			take_overall_damage(60, 60)
 			adjustEarDamage(30,120)
 
@@ -130,7 +134,7 @@ In all, this is a lot like the monkey code. /N
 			adjustEarDamage(15,60)
 
 /mob/living/carbon/alien/soundbang_act(intensity = 1, stun_pwr = 20, damage_pwr = 5, deafen_pwr = 15)
-	return 0
+	return FALSE
 
 /mob/living/carbon/alien/acid_act(acidpwr, acid_volume)
-	return 0//aliens are immune to acid.
+	return FALSE//aliens are immune to acid.

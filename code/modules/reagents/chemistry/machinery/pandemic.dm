@@ -6,7 +6,7 @@
 	desc = "Used to work with viruses."
 	density = TRUE
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "mixer0"
+	icon_state = "pand0"
 	use_power = TRUE
 	idle_power_usage = 20
 	resistance_flags = ACID_PROOF
@@ -133,11 +133,11 @@
 	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
 
 /obj/machinery/computer/pandemic/update_icon()
-	if(stat & BROKEN)
-		icon_state = (beaker ? "mixer1_b" : "mixer0_b")
+	if(machine_stat & BROKEN)
+		icon_state = (beaker ? "pand1_b" : "pand0_b")
 		return
 
-	icon_state = "mixer[(beaker) ? "1" : "0"][powered() ? "" : "_nopower"]"
+	icon_state = "pand[(beaker) ? "1" : "0"][powered() ? "" : "_nopower"]"
 	if(wait)
 		add_overlay("waitlight")
 	else
@@ -227,7 +227,7 @@
 			update_icon()
 			var/turf/source_turf = get_turf(src)
 			log_virus("A culture bottle was printed for the virus [A.admin_details()] at [loc_name(source_turf)] by [key_name(usr)]")
-			addtimer(CALLBACK(src, .proc/reset_replicator_cooldown), 50)
+			addtimer(CALLBACK(src, PROC_REF(reset_replicator_cooldown)), 50)
 			. = TRUE
 		if("create_vaccine_bottle")
 			if (wait)
@@ -239,14 +239,14 @@
 			B.reagents.add_reagent(/datum/reagent/vaccine, 15, list(id))
 			wait = TRUE
 			update_icon()
-			addtimer(CALLBACK(src, .proc/reset_replicator_cooldown), 200)
+			addtimer(CALLBACK(src, PROC_REF(reset_replicator_cooldown)), 200)
 			. = TRUE
 
 
 /obj/machinery/computer/pandemic/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers) && !(I.item_flags & ABSTRACT) && I.is_open_container())
 		. = TRUE //no afterattack
-		if(stat & (NOPOWER|BROKEN))
+		if(machine_stat & (NOPOWER|BROKEN))
 			return
 		if(beaker)
 			to_chat(user, "<span class='warning'>A container is already loaded into [src]!</span>")

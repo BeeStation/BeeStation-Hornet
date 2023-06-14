@@ -213,8 +213,8 @@
 "bc" = (
 /obj/machinery/porta_turret{
 	dir = 8;
-	set_obj_flags = "EMAGGED";
-	installation = /obj/item/gun/energy/lasercannon
+	installation = /obj/item/gun/energy/lasercannon;
+	set_obj_flags = "EMAGGED"
 	},
 /turf/open/floor/plating,
 /area/awaymission/spacebattle/syndicate2)
@@ -309,8 +309,8 @@
 "by" = (
 /obj/machinery/porta_turret{
 	dir = 8;
-	set_obj_flags = "EMAGGED";
-	installation = /obj/item/gun/energy/lasercannon
+	installation = /obj/item/gun/energy/lasercannon;
+	set_obj_flags = "EMAGGED"
 	},
 /turf/open/floor/plating,
 /area/awaymission/spacebattle/syndicate3)
@@ -327,8 +327,8 @@
 "bG" = (
 /obj/machinery/porta_turret{
 	dir = 8;
-	set_obj_flags = "EMAGGED";
-	installation = /obj/item/gun/energy/lasercannon
+	installation = /obj/item/gun/energy/lasercannon;
+	set_obj_flags = "EMAGGED"
 	},
 /turf/open/floor/plating,
 /area/awaymission/spacebattle/syndicate1)
@@ -659,13 +659,6 @@
 "cZ" = (
 /turf/open/floor/plating/airless,
 /area/awaymission/spacebattle/cruiser)
-"da" = (
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
 "db" = (
 /mob/living/simple_animal/hostile/syndicate/ranged/spacebattle,
 /turf/open/floor/mineral/plastitanium/red,
@@ -733,14 +726,6 @@
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
-"dn" = (
-/obj/effect/decal/cleanable/blood,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
 "dr" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "spacebattlepod2";
@@ -751,57 +736,6 @@
 "du" = (
 /obj/effect/decal/cleanable/blood,
 /turf/closed/wall/mineral/titanium,
-/area/awaymission/spacebattle/cruiser)
-"dx" = (
-/obj/structure/chair,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
-"dy" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
-"dz" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
-"dA" = (
-/obj/effect/landmark/awaystart,
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
-"dB" = (
-/obj/structure/closet/secure_closet/security,
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "dC" = (
 /obj/effect/turf_decal/stripes/line{
@@ -870,61 +804,6 @@
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/plating,
 /area/awaymission/spacebattle/cruiser)
-"dQ" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
-"dR" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/condiment/peppermill,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
-"dS" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
-"dT" = (
-/obj/structure/chair{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
-"dU" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
-"dV" = (
-/obj/structure/closet/secure_closet/security,
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
 "dW" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -949,8 +828,8 @@
 "dZ" = (
 /obj/machinery/porta_turret{
 	dir = 8;
-	set_obj_flags = "EMAGGED";
-	installation = /obj/item/gun/energy/lasercannon
+	installation = /obj/item/gun/energy/lasercannon;
+	set_obj_flags = "EMAGGED"
 	},
 /turf/open/floor/engine,
 /area/awaymission/spacebattle/cruiser)
@@ -1002,14 +881,6 @@
 /mob/living/simple_animal/hostile/syndicate/melee/spacebattle,
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate1)
-"ei" = (
-/obj/structure/closet/l3closet/security,
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
 "ej" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/turf_decal/stripes/line{
@@ -1042,16 +913,6 @@
 	},
 /turf/open/floor/plating,
 /area/awaymission/spacebattle/cruiser)
-"ep" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
 "er" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/awaymission/spacebattle/syndicate4)
@@ -1075,15 +936,6 @@
 /obj/structure/chair,
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate3)
-"ex" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
 "ey" = (
 /obj/effect/mob_spawn/human/bridgeofficer{
 	mob_name = "Davis Hume";
@@ -1100,43 +952,6 @@
 /mob/living/simple_animal/hostile/syndicate/ranged/spacebattle,
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate1)
-"eC" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
-"eD" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
-"eE" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
 "eG" = (
 /obj/structure/chair,
 /turf/open/floor/mineral/plastitanium/red,
@@ -1157,15 +972,6 @@
 /obj/machinery/computer/shuttle_flight,
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate4)
-"eM" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
 "eN" = (
 /obj/item/shield/energy,
 /turf/open/floor/plasteel,
@@ -1173,22 +979,6 @@
 "eO" = (
 /obj/structure/chair{
 	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
-"eP" = (
-/obj/machinery/computer/med_data{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
@@ -1206,24 +996,6 @@
 "eT" = (
 /obj/structure/closet/crate,
 /turf/open/floor/plating,
-/area/awaymission/spacebattle/cruiser)
-"eU" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/condiment/saltshaker,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
-"eV" = (
-/obj/structure/table/reinforced,
-/obj/item/kitchen/fork,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "eW" = (
 /obj/effect/mob_spawn/human/syndicatesoldier,
@@ -1245,22 +1017,6 @@
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
-"eZ" = (
-/obj/machinery/computer/crew{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
 "fa" = (
 /obj/effect/mob_spawn/human/engineer/rig{
 	id_job = "Gunner";
@@ -1274,23 +1030,6 @@
 /obj/structure/closet/crate,
 /obj/item/clothing/glasses/night,
 /turf/open/floor/plating,
-/area/awaymission/spacebattle/cruiser)
-"fc" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
-"fd" = (
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "fe" = (
 /obj/structure/chair{
@@ -1345,40 +1084,6 @@
 /obj/item/light/tube,
 /turf/open/floor/plating,
 /area/awaymission/spacebattle/cruiser)
-"fo" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
-"fp" = (
-/obj/effect/mob_spawn/human/syndicatesoldier,
-/obj/item/gun/ballistic/automatic/c20r,
-/obj/item/ammo_casing/c10mm,
-/obj/item/ammo_casing/c10mm,
-/obj/effect/decal/cleanable/blood,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
-"fq" = (
-/obj/item/ammo_casing/c10mm,
-/obj/item/ammo_casing/c10mm,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
 "fr" = (
 /obj/effect/mob_spawn/human/nanotrasensoldier,
 /obj/item/gun/ballistic/automatic/wt550,
@@ -1407,22 +1112,6 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/blood,
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
-"fv" = (
-/obj/machinery/computer/shuttle_flight{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
 /turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "fw" = (
@@ -1503,66 +1192,14 @@
 	dir = 2
 	},
 /area/awaymission/spacebattle/cruiser)
-"fJ" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
-"fK" = (
-/obj/item/ammo_casing/c10mm,
-/obj/item/ammo_casing/c10mm,
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
 "fL" = (
 /obj/item/stack/sheet/iron,
 /turf/open/floor/plasteel{
 	icon_state = "damaged1"
 	},
 /area/awaymission/spacebattle/cruiser)
-"fM" = (
-/obj/item/ammo_casing/shotgun,
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
-"fN" = (
-/obj/effect/mob_spawn/human/syndicatesoldier,
-/obj/item/gun/ballistic/automatic/c20r,
-/obj/item/ammo_casing/c10mm,
-/obj/item/ammo_casing/c10mm,
-/obj/effect/decal/cleanable/blood,
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
 "fO" = (
 /obj/item/ammo_casing/c10mm,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
-"fP" = (
-/obj/machinery/computer/communications{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
@@ -1821,22 +1458,6 @@
 /mob/living/simple_animal/hostile/syndicate,
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/cruiser)
-"gK" = (
-/obj/machinery/computer/security{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
 "gL" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green,
@@ -1845,22 +1466,6 @@
 "gM" = (
 /obj/structure/table/wood,
 /turf/open/floor/wood,
-/area/awaymission/spacebattle/cruiser)
-"gN" = (
-/obj/machinery/computer/secure_data{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "gO" = (
 /obj/effect/mob_spawn/human/engineer/rig{
@@ -1873,8 +1478,8 @@
 "gP" = (
 /obj/machinery/porta_turret{
 	dir = 8;
-	set_obj_flags = "EMAGGED";
-	installation = /obj/item/gun/energy/lasercannon
+	installation = /obj/item/gun/energy/lasercannon;
+	set_obj_flags = "EMAGGED"
 	},
 /turf/open/floor/plating/airless,
 /area/awaymission/spacebattle/syndicate7)
@@ -1919,25 +1524,6 @@
 	dir = 8
 	},
 /turf/open/floor/wood,
-/area/awaymission/spacebattle/cruiser)
-"gY" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
-"gZ" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "ha" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/end,
@@ -2074,15 +1660,6 @@
 "hB" = (
 /obj/machinery/door/unpowered/shuttle,
 /turf/open/floor/plasteel/white,
-/area/awaymission/spacebattle/cruiser)
-"hC" = (
-/obj/structure/chair,
-/obj/effect/landmark/awaystart,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "hD" = (
 /obj/structure/table/reinforced,
@@ -2426,14 +2003,10 @@
 "jk" = (
 /turf/open/floor/plating/asteroid/airless,
 /area/space/nearstation)
-"jl" = (
-/turf/closed/wall/mineral/plasma,
-/area/awaymission/spacebattle/secret)
 "jm" = (
 /turf/open/floor/plasteel/rockvault/alien,
 /area/awaymission/spacebattle/secret)
 "jn" = (
-/obj/machinery/door/airlock/plasma,
 /turf/closed/wall/mineral/plasma,
 /area/awaymission/spacebattle/secret)
 "jo" = (
@@ -2475,51 +2048,6 @@
 /mob/living/simple_animal/hostile/nanotrasen/ranged,
 /turf/open/floor/plating,
 /area/awaymission/spacebattle/cruiser)
-"jw" = (
-/obj/structure/table/reinforced,
-/obj/machinery/button/door{
-	dir = 2;
-	id = "spacebattlearmory";
-	name = "Weapon Cache"
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
-"jx" = (
-/obj/structure/table/reinforced,
-/obj/machinery/button/door{
-	dir = 2;
-	id = "spacebattlearmory2";
-	name = "Weapon Cache"
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
-"jy" = (
-/obj/structure/table/reinforced,
-/obj/machinery/button/door{
-	dir = 2;
-	id = "spacebattlearmory1";
-	name = "Weapon Cache"
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
 "jz" = (
 /mob/living/simple_animal/hostile/syndicate/mecha_pilot{
 	spawn_mecha_type = /obj/mecha/combat/gygax/dark/loaded
@@ -2535,17 +2063,6 @@
 /obj/structure/window/reinforced,
 /obj/item/gun/energy/disabler,
 /turf/open/floor/engine,
-/area/awaymission/spacebattle/cruiser)
-"jC" = (
-/obj/structure/chair{
-	dir = 8
-	},
-/obj/effect/landmark/awaystart,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "jD" = (
 /obj/structure/barricade/security,
@@ -2584,16 +2101,6 @@
 /obj/effect/spawner/lootdrop/armory_contraband,
 /turf/open/floor/plating,
 /area/awaymission/spacebattle/cruiser)
-"jK" = (
-/mob/living/simple_animal/hostile/syndicate/melee/sword,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/awaymission/spacebattle/cruiser)
 "jL" = (
 /obj/machinery/door/poddoor{
 	id = "spacebattlearmory";
@@ -2618,17 +2125,6 @@
 /obj/structure/closet/crate,
 /obj/item/ammo_box/magazine/recharge,
 /turf/open/floor/plating,
-/area/awaymission/spacebattle/cruiser)
-"jO" = (
-/obj/item/ammo_casing/shotgun,
-/obj/item/ammo_casing/c10mm,
-/obj/item/ammo_casing/c10mm,
-/obj/item/stack/sheet/iron,
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "jP" = (
 /obj/structure/closet/crate/internals,
@@ -2764,8 +2260,8 @@
 "kq" = (
 /obj/machinery/porta_turret{
 	dir = 8;
-	set_obj_flags = "EMAGGED";
-	installation = /obj/item/gun/energy/lasercannon
+	installation = /obj/item/gun/energy/lasercannon;
+	set_obj_flags = "EMAGGED"
 	},
 /turf/open/floor/engine/vacuum,
 /area/awaymission/spacebattle/cruiser)
@@ -2879,23 +2375,348 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/ion,
 /turf/open/floor/plating,
 /area/awaymission/spacebattle/cruiser)
+"ld" = (
+/obj/machinery/computer/shuttle_flight{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"mP" = (
+/obj/structure/table/reinforced,
+/obj/item/kitchen/fork,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"nh" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"nG" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"nQ" = (
+/obj/structure/table/reinforced,
+/obj/machinery/button/door{
+	dir = 2;
+	id = "spacebattlearmory2";
+	name = "Weapon Cache"
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"om" = (
+/obj/effect/landmark/awaystart,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"ow" = (
+/obj/structure/table/reinforced,
+/obj/machinery/button/door{
+	dir = 2;
+	id = "spacebattlearmory1";
+	name = "Weapon Cache"
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"oS" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/condiment/saltshaker,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"qg" = (
+/obj/machinery/computer/crew{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"ue" = (
+/obj/effect/mob_spawn/human/syndicatesoldier,
+/obj/item/gun/ballistic/automatic/c20r,
+/obj/item/ammo_casing/c10mm,
+/obj/item/ammo_casing/c10mm,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"uk" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"ux" = (
+/obj/machinery/computer/secure_data{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"uF" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
 "vw" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/awaymission/spacebattle/syndicate5)
+"vH" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/condiment/peppermill,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"xd" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"xn" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"xx" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
 "zS" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/awaymission/spacebattle/syndicate6)
+"Ae" = (
+/obj/structure/chair,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"Bp" = (
+/obj/effect/mob_spawn/human/syndicatesoldier,
+/obj/item/gun/ballistic/automatic/c20r,
+/obj/item/ammo_casing/c10mm,
+/obj/item/ammo_casing/c10mm,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
 "BO" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/awaymission/spacebattle/syndicate2)
+"Ck" = (
+/obj/structure/closet/l3closet/security,
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"Cv" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"CL" = (
+/obj/item/ammo_casing/shotgun,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
 "Dv" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/awaymission/spacebattle/syndicate3)
+"EG" = (
+/mob/living/simple_animal/hostile/syndicate/melee/sword,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"ER" = (
+/obj/machinery/computer/security{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"FV" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"Gy" = (
+/obj/structure/closet/secure_closet/security,
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"Hn" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/effect/landmark/awaystart,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"HI" = (
+/obj/machinery/computer/communications{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"Id" = (
+/obj/item/ammo_casing/shotgun,
+/obj/item/ammo_casing/c10mm,
+/obj/item/ammo_casing/c10mm,
+/obj/item/stack/sheet/iron,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"IG" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"IP" = (
+/obj/item/ammo_casing/c10mm,
+/obj/item/ammo_casing/c10mm,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"JP" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"NZ" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"On" = (
+/obj/effect/turf_decal/tile/red/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"OJ" = (
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"Qt" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"QT" = (
+/obj/structure/chair,
+/obj/effect/landmark/awaystart,
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"RG" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"Sm" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"St" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"SH" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/bar/opposingcorners,
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"TH" = (
+/obj/machinery/computer/med_data{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
 "UZ" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/awaymission/spacebattle/syndicate1)
 "Wv" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
+/area/awaymission/spacebattle/cruiser)
+"WP" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"Xk" = (
+/obj/structure/closet/secure_closet/security,
+/obj/effect/turf_decal/tile/red/half/contrasted,
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"XU" = (
+/obj/structure/table/reinforced,
+/obj/machinery/button/door{
+	dir = 2;
+	id = "spacebattlearmory";
+	name = "Weapon Cache"
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"XY" = (
+/obj/item/ammo_casing/c10mm,
+/obj/item/ammo_casing/c10mm,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "Yq" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
@@ -31031,16 +30852,16 @@ cC
 cP
 cP
 bT
-da
-da
-da
-da
-da
-da
-da
-dQ
-dQ
-da
+OJ
+OJ
+OJ
+OJ
+OJ
+OJ
+OJ
+FV
+FV
+OJ
 bT
 cc
 cc
@@ -31288,16 +31109,16 @@ cD
 cP
 cP
 cT
-da
-da
-da
-da
-da
-da
-dx
-dS
-eU
-ep
+OJ
+OJ
+OJ
+OJ
+OJ
+OJ
+Ae
+xn
+oS
+Qt
 bT
 cc
 cc
@@ -31545,16 +31366,16 @@ cE
 cP
 fI
 bT
-da
-dn
-da
-da
-da
-da
-dx
-dS
-dS
-ep
+OJ
+uF
+OJ
+OJ
+OJ
+OJ
+Ae
+xn
+xn
+Qt
 bT
 cc
 cc
@@ -31802,16 +31623,16 @@ cF
 cP
 cP
 cU
-da
-dn
-dn
-da
-da
-da
-da
-jC
-jC
-da
+OJ
+uF
+uF
+OJ
+OJ
+OJ
+OJ
+Hn
+Hn
+OJ
 bT
 cc
 cc
@@ -32059,16 +31880,16 @@ cG
 cP
 cP
 cU
-da
-da
-da
-dQ
-dQ
-da
-da
-dQ
-dQ
-da
+OJ
+OJ
+OJ
+FV
+FV
+OJ
+OJ
+FV
+FV
+OJ
 bT
 cc
 cc
@@ -32316,16 +32137,16 @@ cH
 cP
 cP
 cV
-da
-da
-hC
-dR
-dS
-ep
-dx
-dR
-dS
-ep
+OJ
+OJ
+QT
+vH
+xn
+Qt
+Ae
+vH
+xn
+Qt
 bT
 cc
 cc
@@ -32573,16 +32394,16 @@ cI
 cP
 cP
 cW
-da
-da
-hC
-dS
-dS
-ep
-dx
-dS
-eV
-ep
+OJ
+OJ
+QT
+xn
+xn
+Qt
+Ae
+xn
+mP
+Qt
 bT
 cc
 cc
@@ -32830,16 +32651,16 @@ cI
 cP
 cP
 cW
-da
-da
-da
-dT
-dT
-da
-da
-dT
-dT
-da
+OJ
+OJ
+OJ
+SH
+SH
+OJ
+OJ
+SH
+SH
+OJ
 bT
 cc
 cc
@@ -34117,17 +33938,17 @@ bT
 cc
 cc
 bT
-dy
-dU
-dU
-dU
-ex
+nh
+uk
+uk
+uk
+St
 cp
 fL
-fc
+On
 bT
-fo
-fJ
+JP
+xd
 bT
 gx
 gI
@@ -34374,17 +34195,17 @@ bT
 cc
 cc
 bT
-dz
+IG
 cc
 cc
 cc
 ey
 cQ
 cc
-fd
+WP
 bT
-fp
-fK
+Bp
+IP
 bT
 gy
 gy
@@ -34631,7 +34452,7 @@ bT
 cc
 cc
 bT
-dz
+IG
 cc
 cc
 cc
@@ -34640,8 +34461,8 @@ cc
 cc
 cp
 cd
-fq
-jO
+XY
+Id
 cd
 jR
 gy
@@ -34888,7 +34709,7 @@ bT
 cc
 cc
 bT
-dA
+om
 cc
 cc
 cc
@@ -35145,17 +34966,17 @@ bT
 cc
 cc
 bT
-dB
-dV
-ei
-ei
+Gy
+Xk
+Ck
+Ck
 cn
 cm
 cm
 cn
 cK
 hF
-fM
+CL
 bT
 gy
 gy
@@ -35411,8 +35232,8 @@ hs
 cK
 bT
 ct
-fo
-fN
+JP
+ue
 ct
 bT
 bT
@@ -35663,18 +35484,18 @@ dh
 dh
 dh
 bT
-eC
+RG
 cn
 fL
 cp
-jK
+EG
 fs
 fO
-jK
-eM
-eM
-eM
-gY
+EG
+Cv
+Cv
+Cv
+NZ
 bT
 hq
 dh
@@ -35920,7 +35741,7 @@ cm
 cc
 cc
 bT
-jw
+XU
 eN
 eW
 cc
@@ -35931,7 +35752,7 @@ cM
 cc
 cr
 cc
-gZ
+nG
 bT
 cc
 cQ
@@ -36177,7 +35998,7 @@ cm
 hQ
 cc
 bT
-jy
+ow
 cc
 cc
 cr
@@ -36188,7 +36009,7 @@ cM
 cc
 cc
 cc
-gZ
+nG
 bT
 cc
 cc
@@ -36434,7 +36255,7 @@ hF
 cc
 cc
 bT
-jx
+nQ
 cc
 cc
 cc
@@ -36445,7 +36266,7 @@ gd
 gz
 cc
 it
-gZ
+nG
 bT
 cc
 cc
@@ -36691,7 +36512,7 @@ cc
 cc
 cc
 bT
-eD
+xx
 cc
 cc
 cc
@@ -36702,7 +36523,7 @@ eY
 cc
 cc
 cc
-gZ
+nG
 bT
 cc
 cc
@@ -36948,7 +36769,7 @@ cc
 cc
 cc
 bT
-eD
+xx
 cr
 eX
 ez
@@ -36959,7 +36780,7 @@ cc
 cc
 cc
 cc
-gZ
+nG
 bT
 cc
 cc
@@ -37205,7 +37026,7 @@ cc
 cc
 cc
 bT
-eD
+xx
 cc
 eY
 cc
@@ -37216,7 +37037,7 @@ cc
 cc
 cc
 cc
-gZ
+nG
 bT
 cc
 cc
@@ -37462,7 +37283,7 @@ cc
 cc
 cc
 bT
-eD
+xx
 eO
 eO
 ff
@@ -37473,7 +37294,7 @@ eO
 cc
 eO
 eO
-gZ
+nG
 bT
 cc
 cc
@@ -37719,18 +37540,18 @@ dC
 dW
 ej
 bT
-eE
-eP
-eZ
-eE
+Sm
+TH
+qg
+Sm
 fj
-fv
-fP
+ld
+HI
 fj
-eE
-gK
-gN
-eE
+Sm
+ER
+ux
+Sm
 bT
 hr
 dW
@@ -64306,17 +64127,17 @@ jk
 jk
 jk
 aa
-jl
-jl
-jl
-jl
-jl
 jn
-jl
-jl
-jl
-jl
-jl
+jn
+jn
+jn
+jn
+jn
+jn
+jn
+jn
+jn
+jn
 aa
 aa
 aa
@@ -64563,7 +64384,7 @@ jk
 jk
 jk
 aa
-jl
+jn
 jm
 jm
 jm
@@ -64573,7 +64394,7 @@ jm
 jm
 jm
 jm
-jl
+jn
 aa
 aa
 aa
@@ -64820,7 +64641,7 @@ jk
 jk
 jk
 aa
-jl
+jn
 jm
 jm
 jm
@@ -64830,7 +64651,7 @@ jm
 jm
 jm
 jm
-jl
+jn
 aa
 aa
 aa
@@ -65077,7 +64898,7 @@ aa
 jk
 jk
 aa
-jl
+jn
 jm
 jm
 jm
@@ -65087,7 +64908,7 @@ jm
 jm
 jm
 jm
-jl
+jn
 aa
 aa
 aa
@@ -65334,7 +65155,7 @@ jk
 jk
 jk
 aa
-jl
+jn
 jm
 jm
 jm
@@ -65344,7 +65165,7 @@ jm
 jm
 jm
 jm
-jl
+jn
 aa
 aa
 aa
@@ -65591,7 +65412,7 @@ jk
 jk
 jk
 aa
-jl
+jn
 jm
 jm
 jm
@@ -65601,7 +65422,7 @@ jm
 jm
 jm
 jm
-jl
+jn
 aa
 aa
 aa
@@ -65848,7 +65669,7 @@ jk
 jk
 jk
 aa
-jl
+jn
 jm
 jm
 jm
@@ -65858,7 +65679,7 @@ jm
 jm
 jm
 jm
-jl
+jn
 aa
 aa
 aa
@@ -66105,7 +65926,7 @@ jk
 jk
 aa
 aa
-jl
+jn
 jm
 jm
 jm
@@ -66115,7 +65936,7 @@ jm
 jm
 jm
 jm
-jl
+jn
 aa
 aa
 aa
@@ -66362,7 +66183,7 @@ aa
 aa
 aa
 aa
-jl
+jn
 jm
 jm
 jm
@@ -66372,7 +66193,7 @@ jm
 jm
 jm
 jm
-jl
+jn
 aa
 aa
 aa
@@ -66619,7 +66440,7 @@ aa
 aa
 aa
 aa
-jl
+jn
 jm
 jm
 jm
@@ -66629,7 +66450,7 @@ jm
 jm
 jm
 jm
-jl
+jn
 aa
 aa
 aa
@@ -66876,7 +66697,7 @@ aa
 aa
 aa
 aa
-jl
+jn
 jm
 jm
 jm
@@ -66886,7 +66707,7 @@ jm
 jm
 jm
 jm
-jl
+jn
 aa
 aa
 aa
@@ -67133,7 +66954,7 @@ aa
 aa
 aa
 aa
-jl
+jn
 jm
 jm
 jm
@@ -67143,7 +66964,7 @@ jm
 jm
 jm
 jm
-jl
+jn
 aa
 aa
 aa
@@ -67390,17 +67211,17 @@ aa
 aa
 aa
 aa
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
+jn
+jn
+jn
+jn
+jn
+jn
+jn
+jn
+jn
+jn
+jn
 aa
 aa
 aa

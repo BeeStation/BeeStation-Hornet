@@ -63,7 +63,7 @@
 
 /datum/chemical_reaction/plasmasolidification/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	for(var/i = 1, i <= created_volume, i++)
+	for(var/i in 1 to created_volume)
 		new /obj/item/stack/sheet/mineral/plasma(location)
 
 /datum/chemical_reaction/goldsolidification
@@ -74,7 +74,7 @@
 
 /datum/chemical_reaction/goldsolidification/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	for(var/i = 1, i <= created_volume, i++)
+	for(var/i in 1 to created_volume)
 		new /obj/item/stack/sheet/mineral/gold(location)
 
 /datum/chemical_reaction/adamantinesolidification
@@ -85,7 +85,7 @@
 
 /datum/chemical_reaction/adamantinesolidification/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	for(var/i = 1, i <= created_volume, i++)
+	for(var/i in 1 to created_volume)
 		new /obj/item/stack/sheet/mineral/adamantine(location)
 
 /datum/chemical_reaction/capsaicincondensation
@@ -103,7 +103,7 @@
 
 /datum/chemical_reaction/soapification/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	for(var/i = 1, i <= created_volume, i++)
+	for(var/i in 1 to created_volume)
 		new /obj/item/soap/homemade(location)
 
 /datum/chemical_reaction/candlefication
@@ -115,7 +115,7 @@
 
 /datum/chemical_reaction/candlefication/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	for(var/i = 1, i <= created_volume, i++)
+	for(var/i in 1 to created_volume)
 		new /obj/item/candle(location)
 
 /datum/chemical_reaction/meatification
@@ -126,7 +126,7 @@
 
 /datum/chemical_reaction/meatification/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	for(var/i = 1, i <= created_volume, i++)
+	for(var/i in 1 to created_volume)
 		new /obj/item/reagent_containers/food/snacks/meat/slab/meatproduct(location)
 	return
 
@@ -248,7 +248,7 @@
 		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
 		if(D)
 			D.Evolve(level_min, level_max)
-
+			D.logchanges(holder, "EVOLVE")
 
 /datum/chemical_reaction/mix_virus/mix_virus_2
 	name = "Mix Virus 2"
@@ -355,6 +355,7 @@
 		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
 		if(D)
 			D.Devolve()
+			D.logchanges(holder, "DEVOLVE")
 
 //prevents a random symptom from showing while keeping the stats
 /datum/chemical_reaction/mix_virus/neuter_virus
@@ -370,6 +371,7 @@
 		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
 		if(D)
 			D.Neuter()
+			D.logchanges(holder, "NEUTER")
 
 //prevents the altering of disease symptoms
 /datum/chemical_reaction/mix_virus/preserve_virus
@@ -385,6 +387,7 @@
 		var/datum/disease/advance/D = locate(/datum/disease/advance) in B.data["viruses"]
 		if(D)
 			D.mutable = FALSE
+			D.logchanges(holder, "PRESERVE")
 
 //prevents the disease from spreading via symptoms
 /datum/chemical_reaction/mix_virus/falter_virus
@@ -402,6 +405,7 @@
 			D.faltered = TRUE
 			D.spread_flags = DISEASE_SPREAD_FALTERED
 			D.spread_text = "Intentional Injection"
+			D.logchanges(holder, "FALTER")
 
 
 ////////////////////////////////// foam and foam precursor ///////////////////////////////////////////////////
@@ -748,7 +752,7 @@
 	results = list(/datum/reagent/mutationtoxin/skeleton = 5)
 	required_reagents  = list(/datum/reagent/aslimetoxin = 5, /datum/reagent/consumable/milk = 30, /datum/reagent/toxin/acid/fluacid = 30) //Because acid melts flesh off.
 
-///datum/chemical_reaction/mutationtoxin/zombie //No zombies untill holopara issue is fixed.
+///datum/chemical_reaction/mutationtoxin/zombie //No zombies until holopara issue is fixed.
 //	name = /datum/reagent/mutationtoxin/zombie
 //	id = /datum/reagent/mutationtoxin/zombie
 //	results = list(/datum/reagent/mutationtoxin/zombie = 1)

@@ -21,6 +21,10 @@
 	. = ..()
 	wires = new /datum/wires/dna_scanner(src)
 
+/obj/machinery/dna_scannernew/Destroy()
+	QDEL_NULL(wires)
+	return ..()
+
 /obj/machinery/dna_scannernew/RefreshParts()
 	scan_level = 0
 	damage_coeff = 0
@@ -42,11 +46,11 @@
 /obj/machinery/dna_scannernew/update_icon()
 	cut_overlays()
 
-	if((stat & MAINT) || panel_open)
+	if((machine_stat & MAINT) || panel_open)
 		add_overlay("maintenance")
 
 	//no power or maintenance
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		icon_state = initial(icon_state)+ (state_open ? "_open" : "") + "_unpowered"
 		return
 	else if(locked)
@@ -159,7 +163,7 @@
 	if(!target.has_dna() || HAS_TRAIT(target, TRAIT_BADDNA))
 		return
 
-	var/resist = target.getarmor(null, "rad")
+	var/resist = target.getarmor(null, RAD)
 	if(prob(max(0,100-resist)))
 		target.randmuti()
 		if(prob(20))
@@ -170,7 +174,7 @@
 			target.domutcheck()
 
 /obj/machinery/dna_scannernew/proc/shock(mob/user, prb)
-	if(stat & (BROKEN|NOPOWER))		// unpowered, no shock
+	if(machine_stat & (BROKEN|NOPOWER))		// unpowered, no shock
 		return FALSE
 	if(!prob(prb))
 		return FALSE

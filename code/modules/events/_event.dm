@@ -1,4 +1,4 @@
-#define RANDOM_EVENT_ADMIN_INTERVENTION_TIME 10
+#define RANDOM_EVENT_ADMIN_INTERVENTION_TIME 30
 
 //this singleton datum is used by the events controller to dictate how it selects events
 /datum/round_event_control
@@ -39,6 +39,9 @@
 	if(config && !wizardevent) // Magic is unaffected by configs
 		earliest_start = CEILING(earliest_start * CONFIG_GET(number/events_min_time_mul), 1)
 		min_players = CEILING(min_players * CONFIG_GET(number/events_min_players_mul), 1)
+	if(max_occurrences <= 0)
+		name = "\[Admin only\] [name]"
+
 
 /datum/round_event_control/wizard
 	wizardevent = TRUE
@@ -81,6 +84,7 @@
 	triggering = TRUE
 	if (alert_observers)
 		message_admins("Random Event triggering in [RANDOM_EVENT_ADMIN_INTERVENTION_TIME] seconds: [name] (<a href='?src=[REF(src)];cancel=1'>CANCEL</a>)")
+		play_sound_to_all_admins('sound/effects/admin_alert.ogg')
 		sleep(RANDOM_EVENT_ADMIN_INTERVENTION_TIME SECONDS)
 		var/gamemode = SSticker.mode.config_tag
 		var/players_amt = get_active_player_count(alive_check = TRUE, afk_check = TRUE, human_check = TRUE)

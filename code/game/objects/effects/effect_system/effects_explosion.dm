@@ -1,7 +1,7 @@
 /obj/effect/particle_effect/expl_particles
 	name = "fire"
 	icon_state = "explosion_particle"
-	opacity = 1
+	opacity = TRUE
 	anchored = TRUE
 
 /obj/effect/particle_effect/expl_particles/Initialize(mapload)
@@ -12,7 +12,7 @@
 	var/step_amt = pick(25;1,50;2,100;3,200;4)
 
 	var/datum/move_loop/loop = SSmove_manager.move(src, pick(GLOB.alldirs), 1, timeout = step_amt, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
-	RegisterSignal(loop, COMSIG_PARENT_QDELETING, .proc/end_particle)
+	RegisterSignal(loop, COMSIG_PARENT_QDELETING, PROC_REF(end_particle))
 
 /obj/effect/particle_effect/expl_particles/proc/end_particle(datum/source)
 	SIGNAL_HANDLER
@@ -31,7 +31,7 @@
 	name = "fire"
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "explosion"
-	opacity = 1
+	opacity = TRUE
 	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	pixel_x = -32
@@ -60,4 +60,4 @@
 	S.start()
 /datum/effect_system/explosion/smoke/start()
 	..()
-	addtimer(CALLBACK(src, .proc/create_smoke), 5)
+	addtimer(CALLBACK(src, PROC_REF(create_smoke)), 5)

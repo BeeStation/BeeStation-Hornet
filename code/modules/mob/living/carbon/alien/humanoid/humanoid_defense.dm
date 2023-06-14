@@ -1,5 +1,3 @@
-
-
 /mob/living/carbon/alien/humanoid/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
 	if(user.a_intent == INTENT_HARM)
 		..(user, 1)
@@ -13,41 +11,9 @@
 		playsound(loc, "punch", 25, 1, -1)
 		visible_message("<span class='danger'>[user] [hitverb] [src]!</span>", \
 		"<span class='userdanger'>[user] [hitverb] you!</span>", null, COMBAT_MESSAGE_RANGE)
-		return 1
-
-/mob/living/carbon/alien/humanoid/attack_hand(mob/living/carbon/human/M)
-	if(..())
-		switch(M.a_intent)
-			if ("harm")
-				playsound(loc, "punch", 25, 1, -1)
-				visible_message("<span class='danger'>[M] punches [src]!</span>", \
-						"<span class='userdanger'>[M] punches you!</span>", null, COMBAT_MESSAGE_RANGE)
-				var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.zone_selected))
-				apply_damage(M.dna.species.punchdamage, BRUTE, affecting)
-				log_combat(M, src, "attacked")
-
-			if ("disarm")
-				if (!(mobility_flags & MOBILITY_STAND))
-					if (prob(5))
-						Unconscious(40)
-						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-						log_combat(M, src, "pushed")
-						visible_message("<span class='danger'>[M] pushed [src] down!</span>", \
-							"<span class='userdanger'>[M] pushed you down!</span>")
-					else
-						if (prob(50))
-							dropItemToGround(get_active_held_item())
-							playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-							visible_message("<span class='danger'>[M] disarms [src]!</span>", \
-							"<span class='userdanger'>[M] disarms you!</span>", null, COMBAT_MESSAGE_RANGE)
-						else
-							playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-							visible_message("<span class='danger'>[M] fails to disarm [src]!</span>",\
-								"<span class='userdanger'>[M] fails to disarm you!</span>", null, COMBAT_MESSAGE_RANGE)
-
-
+		return TRUE
 
 /mob/living/carbon/alien/humanoid/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
 	if(!no_effect && !visual_effect_icon)
 		visual_effect_icon = ATTACK_EFFECT_CLAW
-	..()
+	return ..()

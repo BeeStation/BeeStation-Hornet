@@ -29,9 +29,10 @@ GLOBAL_VAR_INIT(hsboxspawn, TRUE)
 	//items that shouldn't spawn on the floor because they would bug or act weird
 	var/static/list/spawn_forbidden = list(
 		/obj/item/tk_grab, /obj/item/implant, // not implanter, the actual thing that is inside you
-		/obj/item/assembly, /obj/item/onetankbomb, /obj/item/pda/ai,
-		/obj/item/smallDelivery, /obj/item/projectile,
-		/obj/item/borg/sight, /obj/item/borg/stun, /obj/item/robot_module)
+		/obj/item/assembly, /obj/item/robot_module,
+		/obj/item/small_delivery, /obj/item/projectile,
+		/obj/item/borg/sight, /obj/item/borg/stun
+	)
 
 /datum/hSB/proc/update()
 	var/static/list/hrefs = list(
@@ -84,7 +85,7 @@ GLOBAL_VAR_INIT(hsboxspawn, TRUE)
 			hsbinfo += "- <a href='?src=[REF(src)];hsb=hsbtobj'>Toggle Object Spawning</a><br>"
 			hsbinfo += "- <a href='?src=[REF(src)];hsb=hsbtac'>Toggle Item Spawn Panel Auto-close</a><br>"
 			hsbinfo += "<b>Canister Spawning</b><br>"
-			hsbinfo += "- <a href='?src=[REF(src)];hsb=hsbspawn&path=[/obj/machinery/portable_atmospherics/canister/toxins]'>Spawn Plasma Canister</a><br>"
+			hsbinfo += "- <a href='?src=[REF(src)];hsb=hsbspawn&path=[/obj/machinery/portable_atmospherics/canister/plasma]'>Spawn Plasma Canister</a><br>"
 			hsbinfo += "- <a href='?src=[REF(src)];hsb=hsbspawn&path=[/obj/machinery/portable_atmospherics/canister/carbon_dioxide]'>Spawn CO2 Canister</a><br>"
 			hsbinfo += "- <a href='?src=[REF(src)];hsb=hsbspawn&path=[/obj/machinery/portable_atmospherics/canister/nitrogen]'>Spawn Nitrogen Canister</a><br>"
 			hsbinfo += "- <a href='?src=[REF(src)];hsb=hsbspawn&path=[/obj/machinery/portable_atmospherics/canister/nitrous_oxide]'>Spawn N2O Canister</a><hr>"
@@ -149,7 +150,6 @@ GLOBAL_VAR_INIT(hsboxspawn, TRUE)
 					P.wear_suit.plane = initial(P.wear_suit.plane)
 					P.wear_suit = null
 				P.wear_suit = new/obj/item/clothing/suit/space(P)
-				P.wear_suit.layer = ABOVE_HUD_LAYER
 				P.wear_suit.plane = ABOVE_HUD_PLANE
 				P.update_inv_wear_suit()
 				if(P.head)
@@ -158,7 +158,6 @@ GLOBAL_VAR_INIT(hsboxspawn, TRUE)
 					P.head.plane = initial(P.head.plane)
 					P.head = null
 				P.head = new/obj/item/clothing/head/helmet/space(P)
-				P.head.layer = ABOVE_HUD_LAYER
 				P.head.plane = ABOVE_HUD_PLANE
 				P.update_inv_head()
 				if(P.wear_mask)
@@ -167,7 +166,6 @@ GLOBAL_VAR_INIT(hsboxspawn, TRUE)
 					P.wear_mask.plane = initial(P.wear_mask.plane)
 					P.wear_mask = null
 				P.wear_mask = new/obj/item/clothing/mask/gas(P)
-				P.wear_mask.layer = ABOVE_HUD_LAYER
 				P.wear_mask.plane = ABOVE_HUD_PLANE
 				P.update_inv_wear_mask()
 				if(P.back)
@@ -176,7 +174,6 @@ GLOBAL_VAR_INIT(hsboxspawn, TRUE)
 					P.back.plane = initial(P.back.plane)
 					P.back = null
 				P.back = new/obj/item/tank/jetpack/oxygen(P)
-				P.back.layer = ABOVE_HUD_LAYER
 				P.back.plane = ABOVE_HUD_PLANE
 				P.update_inv_back()
 				P.internal = P.back
@@ -203,7 +200,7 @@ GLOBAL_VAR_INIT(hsboxspawn, TRUE)
 				new/obj/item/stack/sheet/glass{amount=50}(usr.loc)
 
 			if("hsbwood")
-				new/obj/item/stack/sheet/mineral/wood{amount=50}(usr.loc)
+				new/obj/item/stack/sheet/wood{amount=50}(usr.loc)
 
 			//
 			// All access ID
@@ -237,7 +234,7 @@ GLOBAL_VAR_INIT(hsboxspawn, TRUE)
 					var/list/all_items = subtypesof(/obj/item/clothing)
 					for(var/typekey in spawn_forbidden)
 						all_items -= typesof(typekey)
-					for(var/O in reverseRange(all_items))
+					for(var/O in reverse_range(all_items))
 						clothinfo += "<a href='?src=[REF(src)];hsb=hsb_safespawn&path=[O]'>[O]</a><br>"
 
 				usr << browse(clothinfo,"window=sandbox")
@@ -251,7 +248,7 @@ GLOBAL_VAR_INIT(hsboxspawn, TRUE)
 					var/list/all_items = subtypesof(/obj/item/reagent_containers)
 					for(var/typekey in spawn_forbidden)
 						all_items -= typesof(typekey)
-					for(var/O in reverseRange(all_items))
+					for(var/O in reverse_range(all_items))
 						reaginfo += "<a href='?src=[REF(src)];hsb=hsb_safespawn&path=[O]'>[O]</a><br>"
 
 				usr << browse(reaginfo,"window=sandbox")
@@ -266,7 +263,7 @@ GLOBAL_VAR_INIT(hsboxspawn, TRUE)
 					for(var/typekey in spawn_forbidden)
 						all_items -= typesof(typekey)
 
-					for(var/O in reverseRange(all_items))
+					for(var/O in reverse_range(all_items))
 						objinfo += "<a href='?src=[REF(src)];hsb=hsb_safespawn&path=[O]'>[O]</a><br>"
 
 				usr << browse(objinfo,"window=sandbox")

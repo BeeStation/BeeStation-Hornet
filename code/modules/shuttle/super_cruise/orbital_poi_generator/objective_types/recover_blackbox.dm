@@ -4,8 +4,8 @@
 	//The blackbox required to recover.
 	var/obj/item/blackbox/objective/linked_blackbox
 	//Relatively easy mission.
-	min_payout = 5000	//1k credits for sci/sec/eng, 500 for ser / civ
-	max_payout = 10000	//2k credits for sci/sec/eng, 1k for serv / civ
+	min_payout = 5000
+	max_payout = 20000
 
 /datum/orbital_objective/recover_blackbox/generate_objective_stuff(turf/chosen_turf)
 	generated = TRUE
@@ -36,6 +36,7 @@
 /obj/item/blackbox/objective/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/gps, "BLACKBOX #[rand(1000, 9999)]", TRUE)
+	AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#ecdf94", TRUE, TRUE)
 
 /obj/item/blackbox/objective/proc/setup_recover(linked_mission)
 	AddComponent(/datum/component/recoverable, linked_mission)
@@ -49,10 +50,10 @@
 	var/datum/orbital_objective/recover_blackbox/linked_obj
 
 /datum/component/recoverable/Initialize(_linked_obj)
-	if(!ismovableatom(parent))
+	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE
 	linked_obj = _linked_obj
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, .proc/attack_self)
+	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(attack_self))
 
 /datum/component/recoverable/proc/attack_self(mob/user)
 	var/atom/movable/pA = parent

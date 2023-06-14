@@ -5,7 +5,7 @@
 	illustration = "writing_syndie"
 
 /obj/item/storage/box/syndie_kit/bundle_A/PopulateContents()
-	switch (pickweight(list("recon" = 2, "bloodyspai" = 3, "stealth" = 2, "screwed" = 2, "sabotage" = 3, "guns" = 2, "murder" = 2, "implant" = 1, "hacker" = 3, "sniper" = 1, "metaops" = 1)))
+	switch (pick_weight(list("recon" = 2, "bloodyspai" = 3, "stealth" = 2, "screwed" = 2, "sabotage" = 3, "guns" = 2, "murder" = 2, "implant" = 1, "hacker" = 3, "sniper" = 1, "metaops" = 1)))
 		if("recon")
 			new /obj/item/clothing/glasses/thermal/xray(src) // ~8 tc?
 			new /obj/item/storage/briefcase/launchpad(src) //6 tc
@@ -103,13 +103,13 @@
 			new /obj/item/doorCharge(src)
 			new /obj/item/camera_bug(src)
 			new /obj/item/sbeacondrop/powersink(src)
-			new /obj/item/cartridge/virus/syndicate(src)
+			new /obj/item/computer_hardware/hard_drive/role/virus/syndicate(src)
 			new /obj/item/storage/toolbox/syndicate(src) //To actually get to those places
 			new /obj/item/pizzabox/bomb(src)
 			new /obj/item/storage/box/syndie_kit/emp(src)
 
 		if("sniper") //This shit is unique so can't really balance it around tc, also no silencer because getting killed without ANY indicator on what killed you sucks
-			new /obj/item/gun/ballistic/automatic/sniper_rifle(src) // 12 tc
+			new /obj/item/gun/ballistic/sniper_rifle(src) // 12 tc
 			new /obj/item/ammo_box/magazine/sniper_rounds/penetrator(src)
 			new /obj/item/clothing/glasses/thermal/syndi(src)
 			new /obj/item/clothing/gloves/color/latex/nitrile(src)
@@ -127,7 +127,7 @@
 			new /obj/item/card/emag(src) // 6 tc
 
 /obj/item/storage/box/syndie_kit/bundle_B/PopulateContents()
-	switch (pickweight(list( "bond" = 2, "ninja" = 1, "darklord" = 1, "white_whale_holy_grail" = 2, "mad_scientist" = 2, "bee" = 2, "mr_freeze" = 2)))
+	switch (pick_weight(list( "bond" = 2, "ninja" = 1, "darklord" = 1, "white_whale_holy_grail" = 2, "mad_scientist" = 2, "bee" = 2, "mr_freeze" = 2)))
 		if("bond")
 			new /obj/item/gun/ballistic/automatic/pistol(src)
 			new /obj/item/suppressor(src)
@@ -218,7 +218,7 @@
 	name = "Contractor Guide"
 
 /obj/item/paper/contractor_guide/Initialize(mapload)
-	info = {"<p>Welcome agent, congratulations on your new position as contractor. On top of your already assigned objectives,
+	default_raw_text = {"<p>Welcome agent, congratulations on your new position as contractor. On top of your already assigned objectives,
 			this kit will provide you contracts to take on for TC payments.</p>
 
 			<p>Provided within, we give your specialist contractor space suit. It's even more compact, being able to fit into a pocket, and faster than the
@@ -273,7 +273,7 @@
 /obj/item/storage/box/syndie_kit/contract_kit/PopulateContents()
 	new /obj/item/modular_computer/tablet/syndicate_contract_uplink/preset/uplink(src)
 	new /obj/item/storage/box/syndie_kit/contractor_loadout(src)
-	new /obj/item/melee/classic_baton/contractor_baton(src)
+	new /obj/item/melee/classic_baton/retractible_stun/contractor_baton(src)
 
 	// All about 4 TC or less - some nukeops only items, but fit nicely to the theme.
 	var/list/item_list = list(
@@ -464,7 +464,7 @@
 	new /obj/item/storage/backpack/chameleon(src)
 	new /obj/item/radio/headset/chameleon(src)
 	new /obj/item/stamp/chameleon(src)
-	new /obj/item/pda/chameleon(src)
+	new /obj/item/modular_computer/tablet/pda/chameleon(src)
 	new /obj/item/razor(src)
 	new /obj/item/handmirror(src)
 	new /obj/item/clothing/head/wig(src)
@@ -484,7 +484,7 @@
 	new /obj/item/storage/backpack/chameleon(src)
 	new /obj/item/radio/headset/chameleon(src)
 	new /obj/item/stamp/chameleon(src)
-	new /obj/item/pda/chameleon(src)
+	new /obj/item/modular_computer/tablet/pda/chameleon(src)
 
 //5*(2*4) = 5*8 = 45, 45 damage if you hit one person with all 5 stars.
 //Not counting the damage it will do while embedded (2*4 = 8, at 15% chance)
@@ -524,7 +524,7 @@
 	new /obj/item/radio/headset/headset_cent/empty(src)
 	new /obj/item/clothing/glasses/sunglasses/advanced(src)
 	new /obj/item/storage/backpack/satchel(src)
-	new /obj/item/pda/heads(src)
+	new /obj/item/modular_computer/tablet/pda/heads(src)
 	new /obj/item/clipboard(src)
 
 /obj/item/storage/box/syndie_kit/chameleon/broken/PopulateContents()
@@ -538,7 +538,8 @@
 	new /obj/item/storage/backpack/chameleon/broken(src)
 	new /obj/item/radio/headset/chameleon/broken(src)
 	new /obj/item/stamp/chameleon/broken(src)
-	new /obj/item/pda/chameleon/broken(src)
+	new /obj/item/modular_computer/tablet/pda/chameleon/broken(src)
+	new /obj/item/card/id/syndicate/broken(src)
 	// No chameleon laser, they can't randomise for //REASONS//
 
 /obj/item/storage/box/syndie_kit/bee_grenades
@@ -560,7 +561,7 @@
 
 /obj/item/storage/box/syndie_kit/mimesabrekit
 	name = "Baguette blade bundle"
-	desc = "Provides you with a hardly noticable blade hidden inside a baguette disguise."
+	desc = "Provides you with a hardly noticeable blade hidden inside a baguette disguise."
 
 /obj/item/storage/box/syndie_kit/mimesabrekit/PopulateContents()
 	new /obj/item/storage/belt/sabre/mime(src)
@@ -582,3 +583,33 @@
 	for(var/i in implants)
 		group.register(i)
 	desc += " The implants are registered to the \"[group.name]\" group."
+
+
+/obj/item/storage/box/syndie_kit/toy_box
+	name = "Box of DonkCo. toys"
+	desc = "filled with safe toys that have passed Nanotrasen saftey assurance, but contained in a suspicious red box \"for no reason.\""
+
+/obj/item/storage/box/syndie_kit/toy_box/PopulateContents()
+	new /obj/item/toy/spinningtoy(src)
+	new /obj/item/toy/talking/AI(src)
+	new /obj/item/toy/talking/codex_gigas(src)
+	new /obj/item/toy/eldrich_book(src)
+	new /obj/item/clothing/head/syndicatefake(src)
+	new /obj/item/clothing/suit/syndicatefake(src)
+	new /obj/item/card/emagfake(src)
+	new /obj/item/hot_potato/harmless/toy(src)
+	new /obj/item/toy/batong(src)
+	new /obj/item/toy/clockwork_watch(src)
+	for(var/i in 1 to 2)
+		new /obj/item/toy/cog(src)
+	new /obj/item/restraints/handcuffs/fake(src)
+	new /obj/item/toy/windupToolbox(src)
+	new /obj/item/toy/toy_dagger(src)
+	new /obj/item/toy/sword(src)
+	new /obj/item/dualsaber/toy(src)
+	new /obj/item/toy/gun(src)
+	new /obj/item/toy/foamblade(src)
+	new /obj/item/toy/redbutton(src)
+	new /obj/item/disk/nuclear/fake/obvious
+	for(var/i in 1 to 4)
+		new /obj/item/toy/reality_pierce(src)

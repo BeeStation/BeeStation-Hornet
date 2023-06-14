@@ -40,8 +40,8 @@ BADGES
 ## To speed things up make the number negative, to slow things down, make the number positive.
 
 ## These modify the run/walk speed of all mobs before the mob-specific modifiers are applied.
-RUN_DELAY 1.5
-WALK_DELAY 3
+RUN_DELAY 2
+WALK_DELAY 3.5
 
 ## The variables below affect the movement of specific mob types. THIS AFFECTS ALL SUBTYPES OF THE TYPE YOU CHOOSE!
 ## Entries completely override all subtypes. Later entries have precedence over earlier entries.
@@ -99,16 +99,16 @@ NO_INTERCEPT_REPORT
 ## Default probablity is 1, increase to make that mode more likely to be picked.
 ## Set to 0 to disable that mode.
 
-PROBABILITY DYNAMIC 9
-PROBABILITY TRAITOR 8
-PROBABILITY CULT 6
-PROBABILITY TRAITORCHAN 5
-PROBABILITY CHANGELING 5
-PROBABILITY REVOLUTION 4
-PROBABILITY INCURSION 4
-PROBABILITY NUCLEAR 4
-PROBABILITY CLOCKCULT 2
-PROBABILITY SECRET_EXTENDED 1
+PROBABILITY DYNAMIC 1
+PROBABILITY TRAITOR 0
+PROBABILITY CULT 0
+PROBABILITY TRAITORCHAN 0
+PROBABILITY CHANGELING 0
+PROBABILITY ASSIMILATION 0
+PROBABILITY INCURSION 0
+PROBABILITY NUCLEAR 0
+PROBABILITY CLOCKCULT 0
+PROBABILITY SECRET_EXTENDED 0
 PROBABILITY CLOWNOPS 0
 PROBABILITY DEVIL 0
 PROBABILITY DEVIL_AGENTS 0
@@ -116,9 +116,9 @@ PROBABILITY GANG 0
 PROBABILITY HERESY 0
 PROBABILITY INTERNAL_AFFAIRS 0
 PROBABILITY METEOR 0
-PROBABILITY MONKEY 0
 PROBABILITY TRAITORBRO 0
 PROBABILITY WIZARD 0
+PROBABILITY REVOLUTION 0
 
 ## Creates issues when NO_INTERCEPT_REPORT is enabled
 PROBABILITY EXTENDED 0
@@ -143,10 +143,10 @@ CONTINUOUS INTERNAL_AFFAIRS
 CONTINUOUS CULT
 CONTINUOUS CHANGELING
 CONTINUOUS WIZARD
-#CONTINUOUS MONKEY
 CONTINUOUS HIVEMIND
 CONTINUOUS CLOCKCULT
 CONTINUOUS HERESY
+CONTINUOUS ASSIMILATION
 
 #Prevents the death of round-ending antagonist rulesets ending the round immediately.
 
@@ -172,7 +172,6 @@ MIDROUND_ANTAG INTERNAL_AFFAIRS
 MIDROUND_ANTAG CULT
 MIDROUND_ANTAG CHANGELING
 MIDROUND_ANTAG WIZARD
-#MIDROUND_ANTAG  MONKEY
 
 ## Uncomment these for overrides of the minimum / maximum number of players in a round type.
 ## If you set any of these occasionally check to see if you still need them as the modes
@@ -207,9 +206,6 @@ MAX_POP CHANGELING -1
 MIN_POP WIZARD 20
 MAX_POP WIZARD -1
 
-MIN_POP MONKEY 20
-MAX_POP MONKEY -1
-
 MIN_POP METEOR 0
 MAX_POP METEOR -1
 
@@ -232,6 +228,9 @@ MAX_POP CLOCKCULT -1
 MIN_POP HERESY 25
 MAX_POP HERESY -1
 
+MIN_POP ASSIMILATION 0
+MAX_POP ASSIMILATION -1
+
 ## The amount of time it takes for the emergency shuttle to be called, from round start.
 SHUTTLE_REFUEL_DELAY 12000
 
@@ -250,7 +249,7 @@ SECURITY_SCALING_COEFF 10
 
 ## The number of objectives traitors get.
 ## Not including escaping/hijacking.
-TRAITOR_OBJECTIVES_AMOUNT 2
+TRAITOR_OBJECTIVES_AMOUNT 3
 BROTHER_OBJECTIVES_AMOUNT 2
 
 ## Uncomment to prohibit jobs that start with loyalty
@@ -268,6 +267,9 @@ PROTECT_HEADS_FROM_ANTAGONIST
 
 ## If late-joining players have a chance to become a traitor/changeling
 ALLOW_LATEJOIN_ANTAGONISTS
+
+## The minimum amount of players for malfunctioning AI to be occur.
+MALF_AI_MINIMUM_POP 30
 
 ## Incursion Rules
 ## The more incursion-traitors spawn, the most pop is required to spawn the next
@@ -361,7 +363,7 @@ MINIMAL_ACCESS_THRESHOLD 20
 ## Uncomment to give assistants maint access.
 #ASSISTANTS_HAVE_MAINT_ACCESS
 
-## Uncoment to give security maint access. Note that if you dectivate JOBS_HAVE_MINIMAL_ACCESS security already gets maint from that.
+## Uncomment to give security maint access. Note that if you dectivate JOBS_HAVE_MINIMAL_ACCESS security already gets maint from that.
 SECURITY_HAS_MAINT_ACCESS
 
 ## Uncomment to give everyone maint access.
@@ -469,6 +471,13 @@ LAW_WEIGHT buildawall,0
 ## The maximum number of laws a silicon can have
 ## Attempting to upload laws past this point will fail unless the AI is reset
 SILICON_MAX_LAW_AMOUNT 12
+
+# Fallback Default Species
+##-------------------------------------------
+## The default character slot species used as a fallback for when there is no database. You probably want this to be human.
+## Using "FALLBACK_DEFAULT_SPECIES random" will just pick a random species
+
+FALLBACK_DEFAULT_SPECIES human
 
 ## Roundstart Races
 ##-------------------------------------------------------------------------------------------
@@ -635,5 +644,5 @@ DONATOR_ITEMS
 ## Do we want all the heads to get codes to spare safe, or just one highest in CoC?
 SPARE_ENFORCE_COC
 
-## Uncoment to disable local bans, effectively enforcing only global bans
+## Uncomment to disable local bans, effectively enforcing only global bans
 DISABLE_LOCAL_BANS

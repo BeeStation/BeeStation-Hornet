@@ -31,25 +31,32 @@
 
 //Set ignoregloves to add prints irrespective of the mob having gloves on.
 /atom/proc/add_fingerprint(mob/M, ignoregloves = FALSE)
+	if(QDELING(src))
+		return
 	var/datum/component/forensics/D = AddComponent(/datum/component/forensics)
-	. = D.add_fingerprint(M, ignoregloves)
+	. = D?.add_fingerprint(M, ignoregloves)
+
+	if(!ishuman(M))
+		return
+	var/mob/living/carbon/human/H = M
+	///the current amount of blood on the thing
+	var/old_blood = blood_DNA_length()
+	if(H.gloves && isclothing(H.gloves))
+		var/obj/item/clothing/gloves/G = H.gloves
+		if(G.transfer_blood > 1 && G.blood_DNA_length() > old_blood) //bloodied gloves transfer blood to touched objects
+			if(add_blood_DNA(G.return_blood_DNA()))
+				G.transfer_blood--
+				H.visible_message("<span class='danger'>[H] smears blood from [H.p_their()] gloves all over \the [src]!</span>","<span class='danger'>You smear blood from your gloves all over \the [src]!")
+	else if(H.bloody_hands > 1)
+		if(add_blood_DNA(H.return_blood_DNA()) && H.blood_DNA_length() > old_blood) //if the onject you're touching is already drenched in blood, the blood from your hands won't get used up again
+			H.bloody_hands-- //we don't update icon after so you still have to wash your hands off, I don't think you'd be able to completely wipe your hands off just on the floor
+			H.visible_message("<span class='danger'>[H] smears blood from [H.p_their()] hands all over \the [src]!</span>","<span class='danger'>You smear blood from your hands all over \the [src]!")
 
 /atom/proc/add_fiber_list(list/fibertext)				//ASSOC LIST FIBERTEXT = FIBERTEXT
 	if(length(fibertext))
 		. = AddComponent(/datum/component/forensics, null, null, null, fibertext)
 
 /atom/proc/add_fibers(mob/living/carbon/human/M)
-	var/old = 0
-	if(M.gloves && isclothing(M.gloves))
-		var/obj/item/clothing/gloves/G = M.gloves
-		old = length(G.return_blood_DNA())
-		if(G.transfer_blood > 1) //bloodied gloves transfer blood to touched objects
-			if(add_blood_DNA(G.return_blood_DNA()) && length(G.return_blood_DNA()) > old) //only reduces the bloodiness of our gloves if the item wasn't already bloody
-				G.transfer_blood--
-	else if(M.bloody_hands > 1)
-		old = length(M.return_blood_DNA())
-		if(add_blood_DNA(M.return_blood_DNA()) && length(M.return_blood_DNA()) > old)
-			M.bloody_hands--
 	var/datum/component/forensics/D = AddComponent(/datum/component/forensics)
 	. = D.add_fibers(M)
 

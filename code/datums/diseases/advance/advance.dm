@@ -25,6 +25,8 @@
 	spread_text = "Unknown"
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey, /mob/living/carbon/monkey/tumor)
 
+	/// last player to modify the disease.
+	var/last_modified_by = "no CKEY"
 	var/resistance
 	var/stealth
 	var/stage_rate
@@ -44,15 +46,15 @@
 	var/archivecure
 	var/static/list/advance_cures = list(
 		list(/datum/reagent/water, /datum/reagent/consumable/nutriment, /datum/reagent/ash, /datum/reagent/iron),
-		list(/datum/reagent/consumable/ethanol, /datum/reagent/uranium/radium, /datum/reagent/oil, /datum/reagent/potassium, /datum/reagent/lithium), 
+		list(/datum/reagent/consumable/ethanol, /datum/reagent/uranium/radium, /datum/reagent/oil, /datum/reagent/potassium, /datum/reagent/lithium),
 		list(/datum/reagent/consumable/sodiumchloride, /datum/reagent/drug/nicotine, /datum/reagent/drug/space_drugs),
-		list(/datum/reagent/medicine/salglu_solution, /datum/reagent/medicine/antihol, /datum/reagent/fuel, /datum/reagent/space_cleaner), 
-		list(/datum/reagent/medicine/spaceacillin, /datum/reagent/toxin/mindbreaker, /datum/reagent/toxin/itching_powder, /datum/reagent/medicine/cryoxadone, /datum/reagent/medicine/epinephrine), 
-		list(/datum/reagent/medicine/mine_salve, /datum/reagent/medicine/oxandrolone, /datum/reagent/medicine/atropine), 
-		list(/datum/reagent/medicine/leporazine, /datum/reagent/water/holywater, /datum/reagent/medicine/neurine), 
-		list(/datum/reagent/concentrated_barbers_aid, /datum/reagent/drug/happiness, /datum/reagent/medicine/pen_acid), 
+		list(/datum/reagent/medicine/salglu_solution, /datum/reagent/medicine/antihol, /datum/reagent/fuel, /datum/reagent/space_cleaner),
+		list(/datum/reagent/medicine/spaceacillin, /datum/reagent/toxin/mindbreaker, /datum/reagent/toxin/itching_powder, /datum/reagent/medicine/cryoxadone, /datum/reagent/medicine/epinephrine),
+		list(/datum/reagent/medicine/mine_salve, /datum/reagent/medicine/oxandrolone, /datum/reagent/medicine/atropine),
+		list(/datum/reagent/medicine/leporazine, /datum/reagent/water/holywater, /datum/reagent/medicine/neurine),
+		list(/datum/reagent/concentrated_barbers_aid, /datum/reagent/drug/happiness, /datum/reagent/medicine/pen_acid),
 		list(/datum/reagent/medicine/haloperidol, /datum/reagent/pax, /datum/reagent/blackpowder, /datum/reagent/medicine/diphenhydramine),
-		list(/datum/reagent/toxin/lipolicide, /datum/reagent/drug/ketamine, /datum/reagent/drug/methamphetamine), 
+		list(/datum/reagent/toxin/lipolicide, /datum/reagent/drug/ketamine, /datum/reagent/drug/methamphetamine),
 		list(/datum/reagent/drug/krokodil, /datum/reagent/hair_dye, /datum/reagent/medicine/modafinil)
 		)
 /*
@@ -92,7 +94,7 @@
 			advance_diseases += P
 	var/replace_num = advance_diseases.len + 1 - DISEASE_LIMIT //amount of diseases that need to be removed to fit this one
 	if(replace_num > 0)
-		sortTim(advance_diseases, /proc/cmp_advdisease_resistance_asc)
+		sortTim(advance_diseases, GLOBAL_PROC_REF(cmp_advdisease_resistance_asc))
 		for(var/i in 1 to replace_num)
 			var/datum/disease/advance/competition = advance_diseases[i]
 			if(transmission > (competition.resistance * 2))
@@ -104,7 +106,7 @@
 
 /datum/disease/advance/after_add()
 	if(affected_mob)
-		RegisterSignal(affected_mob, COMSIG_MOB_DEATH, .proc/on_mob_death)
+		RegisterSignal(affected_mob, COMSIG_MOB_DEATH, PROC_REF(on_mob_death))
 
 /datum/disease/advance/proc/on_mob_death()
 	SIGNAL_HANDLER
@@ -171,7 +173,8 @@
 	var/list/name_symptoms = list()
 	for(var/datum/symptom/S in symptoms)
 		name_symptoms += S.name
-	return "[name] sym:[english_list(name_symptoms)] r:[resistance] s:[stealth] ss:[stage_rate] t:[transmission]"
+
+	return "[name], last modified by: [last_modified_by] symptoms:[english_list(name_symptoms)] resistance:[resistance] stealth:[stealth] speed:[stage_rate] transmission:[transmission] faltered:[faltered ? "Yes" : "No"]"
 
 /*
 
@@ -242,12 +245,12 @@
 	var/c1sev
 	var/c2sev
 	var/c3sev
-	for(var/datum/symptom/S as() in symptoms) 
+	for(var/datum/symptom/S as() in symptoms)
 		resistance += S.resistance
 		stealth += S.stealth
 		stage_rate += S.stage_speed
 		transmission += S.transmission
-	for(var/datum/symptom/S as() in symptoms) 
+	for(var/datum/symptom/S as() in symptoms)
 		S.severityset(src)
 		if(S.neutered)
 			continue
@@ -261,7 +264,7 @@
 			if(5 to INFINITY)
 				if(c3sev >= 5)
 					c3sev += (S.severity -3)//diminishing returns
-				else 
+				else
 					c3sev += S.severity
 	severity += (max(c2sev, c3sev) + c1sev)
 
@@ -273,8 +276,7 @@
 	else
 		visibility_flags &= ~HIDDEN_SCANNER
 
-	SetSpread(CLAMP(2 ** (transmission - symptoms.len), DISEASE_SPREAD_BLOOD, DISEASE_SPREAD_AIRBORNE))
-
+	SetSpread()
 	permeability_mod = max(CEILING(0.4 * transmission, 1), 1)
 	cure_chance = 15 - CLAMP(resistance, -5, 5) // can be between 10 and 20
 	stage_prob = max(stage_rate, 2)
@@ -284,7 +286,7 @@
 
 
 // Assign the spread type and give it the correct description.
-/datum/disease/advance/proc/SetSpread(spread_id)
+/datum/disease/advance/proc/SetSpread()
 	if(faltered)
 		spread_flags = DISEASE_SPREAD_FALTERED
 		spread_text = "Intentional Injection"
@@ -292,25 +294,16 @@
 		spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
 		spread_text = "None"
 	else
-		switch(spread_id)
-			if(DISEASE_SPREAD_NON_CONTAGIOUS)
-				spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
-				spread_text = "None"
-			if(DISEASE_SPREAD_SPECIAL)
-				spread_flags = DISEASE_SPREAD_SPECIAL
-				spread_text = "None"
-			if(DISEASE_SPREAD_BLOOD)
+		switch(transmission)
+			if(-INFINITY to 5)
 				spread_flags = DISEASE_SPREAD_BLOOD
 				spread_text = "Blood"
-			if(DISEASE_SPREAD_CONTACT_FLUIDS)
+			if(6 to 10)
 				spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS
 				spread_text = "Fluids"
-			if(DISEASE_SPREAD_CONTACT_SKIN)
+			if(11 to INFINITY)
 				spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS | DISEASE_SPREAD_CONTACT_SKIN
 				spread_text = "On contact"
-			if(DISEASE_SPREAD_AIRBORNE)
-				spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS | DISEASE_SPREAD_CONTACT_SKIN | DISEASE_SPREAD_AIRBORNE
-				spread_text = "Airborne"
 
 /datum/disease/advance/proc/SetDanger(level_sev)
 	switch(level_sev)
@@ -416,7 +409,7 @@
 				L += "[S.id]N"
 			else
 				L += S.id
-		L = sortList(L) // Sort the list so it doesn't matter which order the symptoms are in.
+		L = sort_list(L) // Sort the list so it doesn't matter which order the symptoms are in.
 		var/result = jointext(L, ":")
 		id = result
 	return id
@@ -510,7 +503,7 @@
 	symptoms += SSdisease.list_symptoms.Copy()
 	do
 		if(user)
-			var/symptom = input(user, "Choose a symptom to add ([i] remaining)", "Choose a Symptom") in sortList(symptoms, /proc/cmp_typepaths_asc)
+			var/symptom = input(user, "Choose a symptom to add ([i] remaining)", "Choose a Symptom") in sort_list(symptoms, GLOBAL_PROC_REF(cmp_typepaths_asc))
 			if(isnull(symptom))
 				return
 			else if(istext(symptom))
@@ -559,11 +552,11 @@
 			A.Evolve(minimum, CLAMP(A.severity + 4, minimum, 9))
 			A.id = GetDiseaseID()
 			A.keepid = TRUE//this is really janky, but basically mutated diseases count as the original disease
-				//if you want to evolve a higher level symptom you need to test and spread a deadly virus among test subjects. 
+				//if you want to evolve a higher level symptom you need to test and spread a deadly virus among test subjects.
 				//this is to give monkey testing a use, and add a bit more of a roleplay element to virology- testing deadly diseases on and curing/vaccinating monkeys
 				//this also adds the risk of disease escape if strict biohazard protocol is not followed, however
 				//the immutability of resistant diseases discourages this with hard-to-cure diseases.
-				//if players intentionally grief/cant seem to get biohazard protocol down, this can be changed to not use severity. 
+				//if players intentionally grief/cant seem to get biohazard protocol down, this can be changed to not use severity.
 	else
 		A.initial = FALSE //diseases *only* mutate when spreading. they wont mutate from any other kind of injection
 	infectee.diseases += A
@@ -637,20 +630,20 @@
 			prefixes += pick("[H.first_name()]'s", "[H.name]'s", "[H.job]'s", "[H.dna.species]'s")
 			bodies += pick("[H.first_name()]", "[H.job]", "[H.dna.species]")
 			if(islizard(H) || iscatperson(H))//add rat-origin prefixes to races that eat rats
-				prefixes += list("Vermin ", "Zoo", "Maintenance ") 
+				prefixes += list("Vermin ", "Zoo", "Maintenance ")
 				bodies += list("Rat", "Maint")
 		else switch(diseasesource.type)
 			if(/mob/living/simple_animal/pet/hamster/vector)
 				prefixes += list("Vector's ", "Hamster ")
 				bodies += list("Freebie")
 			if(/obj/effect/decal/cleanable)
-				prefixes += list("Bloody ", "Maintenance ") 
+				prefixes += list("Bloody ", "Maintenance ")
 				bodies += list("Maint")
 			if(/mob/living/simple_animal/mouse)
-				prefixes += list("Vermin ", "Zoo", "Maintenance ") 
+				prefixes += list("Vermin ", "Zoo", "Maintenance ")
 				bodies += list("Rat", "Maint")
 			if(/obj/item/reagent_containers/syringe)
-				prefixes += list("Junkie ", "Maintenance ") 
+				prefixes += list("Junkie ", "Maintenance ")
 				bodies += list("Needle", "Maint")
 			if(/obj/item/fugu_gland)
 				prefixes += "Wumbo"
@@ -669,3 +662,13 @@
 			return "[pick(prefixes)][pick(bodies)][pick(suffixes)]"
 		if(3)
 			return "[pick(bodies)][pick(suffixes)]"
+
+/datum/disease/advance/proc/logchanges(datum/reagents/holder, var/modification_type)
+	if(holder?.my_atom?.fingerprintslast)
+		last_modified_by = holder.my_atom.fingerprintslast
+	else
+		message_admins("[name], a disease, has been modified ([modification_type]) without logging a CKEY. Please report this to coders")
+		log_virus("[name], a disease, has been modified ([modification_type]) without logging a CKEY. Please report this to coders")
+		// if someone finds a way to avoid being logged while modifiying a virus, admins should be notified so coders can be notified.
+		return FALSE
+	log_virus("[modification_type]: [admin_details()]")

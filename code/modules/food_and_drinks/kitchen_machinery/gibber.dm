@@ -42,7 +42,7 @@
 	cut_overlays()
 	if (dirty)
 		add_overlay("grbloody")
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		return
 	if (!occupant)
 		add_overlay("grjam")
@@ -64,7 +64,7 @@
 	. = ..()
 	if(.)
 		return
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		return
 	if(operating)
 		to_chat(user, "<span class='danger'>It's locked and running.</span>")
@@ -98,7 +98,7 @@
 			if(C && user.pulling == C && !C.buckled && !C.has_buckled_mobs() && !occupant)
 				user.visible_message("<span class='danger'>[user] stuffs [C] into the gibber!</span>")
 				C.forceMove(src)
-				occupant = C
+				set_occupant(C)
 				update_icon()
 	else
 		startgibbing(user)
@@ -136,14 +136,14 @@
 	update_icon()
 
 /obj/machinery/gibber/proc/startgibbing(mob/user)
-	if(src.operating)
+	if(operating)
 		return
-	if(!src.occupant)
+	if(!occupant)
 		visible_message("<span class='italics'>You hear a loud metallic grinding sound.</span>")
 		return
 	use_power(1000)
 	visible_message("<span class='italics'>You hear a loud squelchy grinding sound.</span>")
-	playsound(src.loc, 'sound/machines/juicer.ogg', 50, 1)
+	playsound(loc, 'sound/machines/juicer.ogg', 50, 1)
 	operating = TRUE
 	update_icon()
 
@@ -199,8 +199,9 @@
 	log_combat(user, occupant, "gibbed")
 	mob_occupant.death(1)
 	mob_occupant.ghostize()
-	qdel(src.occupant)
-	addtimer(CALLBACK(src, .proc/make_meat, skin, allmeat, meat_produced, gibtype, diseases), gibtime)
+	set_occupant(null)
+	qdel(mob_occupant)
+	addtimer(CALLBACK(src, PROC_REF(make_meat), skin, allmeat, meat_produced, gibtype, diseases), gibtime)
 
 /obj/machinery/gibber/proc/make_meat(obj/item/stack/sheet/animalhide/skin, list/obj/item/reagent_containers/food/snacks/meat/slab/allmeat, meat_produced, gibtype, list/datum/disease/diseases)
 	playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
@@ -219,7 +220,7 @@
 			if (!gibturf.density && (src in view(gibturf)))
 				new gibtype(gibturf,i,diseases)
 
-	pixel_x = initial(pixel_x) //return to its spot after shaking
+	pixel_x = base_pixel_x //return to its spot after shaking
 	operating = FALSE
 	update_icon()
 

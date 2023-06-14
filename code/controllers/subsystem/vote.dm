@@ -92,7 +92,7 @@ SUBSYSTEM_DEF(vote)
 				choices["Initiate Crew Transfer"] += round(non_voters.len * factor)
 	. = list()
 	if(mode == "map")
-		. += pickweight(choices) //map is chosen by drawing votes from a hat, instead of automatically going to map with the most votes. 
+		. += pick_weight(choices) //map is chosen by drawing votes from a hat, instead of automatically going to map with the most votes.
 		return .
 	//get all options with that many votes and return them in a list
 	if(greatest_votes)
@@ -102,6 +102,10 @@ SUBSYSTEM_DEF(vote)
 	return .
 
 /datum/controller/subsystem/vote/proc/announce_result()
+	var/total_votes = 0
+	for(var/option in choices)
+		var/votes = choices[option]
+		total_votes += votes
 	var/list/winners = get_result()
 	var/text
 	if(winners.len > 0)
@@ -109,11 +113,15 @@ SUBSYSTEM_DEF(vote)
 			text += "<b>[question]</b>"
 		else
 			text += "<b>[capitalize(mode)] Vote</b>"
-		for(var/i=1,i<=choices.len,i++)
+		for(var/i in 1 to choices.len)
 			var/votes = choices[choices[i]]
 			if(!votes)
 				votes = 0
-			text += "\n<b>[choices[i]]:</b> [votes]"
+			text += "\n<b>[choices[i]]:</b> [votes] ([total_votes ? (round((votes/total_votes), 0.01)*100) : "0"]%"
+			if(mode == "map")
+				text += " chance)"
+			else
+				text += ")"
 		if(mode != "custom")
 			if(winners.len > 1)
 				text = "\n<b>Vote Tied Between:</b>"
@@ -223,7 +231,7 @@ SUBSYSTEM_DEF(vote)
 				question = stripped_input(usr,"What is the vote for?")
 				if(!question)
 					return 0
-				for(var/i=1,i<=10,i++)
+				for(var/i in 1 to 10)
 					var/option = capitalize(stripped_input(usr,"Please enter an option or hit cancel to finish"))
 					if(!option || mode || !usr.client)
 						break
@@ -239,6 +247,7 @@ SUBSYSTEM_DEF(vote)
 		log_vote(text)
 		var/vp = CONFIG_GET(number/vote_period)
 		to_chat(world, "\n<font color='purple'><b>[text]</b>\nType <b>vote</b> or click <a href='byond://winset?command=vote'>here</a> to place your votes.\nYou have [DisplayTimeText(vp)] to vote.</font>")
+		sound_to_playing_players('sound/misc/server-ready.ogg')
 		time_remaining = round(vp/10)
 		for(var/c in GLOB.clients)
 			var/client/C = c

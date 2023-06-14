@@ -41,7 +41,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	attack_hand()
 
 /obj/machinery/computer/cryopod/attack_hand(mob/user = usr)
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		return
 
 	user.set_machine(src)
@@ -223,7 +223,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 /obj/machinery/cryopod/open_machine()
 	..()
 	icon_state = "cryopod-open"
-	density = TRUE
+	set_density(TRUE)
 	name = initial(name)
 
 /obj/machinery/cryopod/container_resist(mob/living/user)
@@ -290,7 +290,10 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 	if(GLOB.announcement_systems.len)
 		var/obj/machinery/announcement_system/announcer = pick(GLOB.announcement_systems)
-		announcer.announce("CRYOSTORAGE", mob_occupant.real_name, announce_rank, list())
+		if(mob_occupant.job == JOB_NAME_CAPTAIN)
+			minor_announce("[JOB_NAME_CAPTAIN] [mob_occupant.real_name] has entered cryogenic storage.")  // for when the admins do a stupid british gimmick that makes 0 sense cough
+		else
+			announcer.announce("CRYOSTORAGE", mob_occupant.real_name, announce_rank, list())
 		visible_message("<span class='notice'>\The [src] hums and hisses as it moves [mob_occupant.real_name] into storage.</span>")
 
 
@@ -309,6 +312,17 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	for(var/obj/item/W in mob_occupant.GetAllContents())
 		qdel(W)//because we moved all items to preserve away
 		//and yes, this totally deletes their bodyparts one by one, I just couldn't bother
+
+	// Suspend their bank payment
+	if(mob_occupant.mind?.account_id)
+		var/datum/bank_account/target_account = SSeconomy.get_bank_account_by_id(mob_occupant.mind.account_id)
+		if(target_account)
+			for(var/D in target_account.payment_per_department)
+				target_account.payment_per_department[D] = 0
+				target_account.bonus_per_department[D] = 0
+			target_account.suspended = TRUE // bank account will not be deleted, just suspended
+
+	// This should be done after item removal because it checks if your ID card still exists
 
 	if(iscyborg(mob_occupant))
 		var/mob/living/silicon/robot/R = occupant
@@ -348,7 +362,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 			to_chat(user, "<span class='danger'>You can't put [target] into [src]. They're conscious.</span>")
 		return
 	else if(target.client)
-		if(alert(target,"Would you like to enter cryosleep?",,"Yes","No") == "No")
+		if(alert(target,"Would you like to enter cryosleep?",,"Yes","No") != "Yes")
 			return
 
 	var/generic_plsnoleave_message = " Please adminhelp before leaving the round, even if there are no administrators online!"

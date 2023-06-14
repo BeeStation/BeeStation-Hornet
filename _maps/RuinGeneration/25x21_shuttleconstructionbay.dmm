@@ -4,17 +4,15 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
-"aS" = (
-/obj/structure/frame/computer,
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
+"ay" = (
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/mineral/titanium/airless,
-/area/template_noop)
+/obj/effect/turf_decal/tile/neutral/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "aY" = (
 /obj/machinery/door/airlock/external/glass,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -25,6 +23,13 @@
 "bf" = (
 /obj/machinery/door/airlock/maintenance_hatch,
 /turf/open/floor/plating/airless,
+/area/template_noop)
+"bj" = (
+/obj/structure/frame/computer,
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium/airless,
 /area/template_noop)
 "cY" = (
 /obj/machinery/door/airlock/external/glass,
@@ -43,13 +48,20 @@
 /turf/template_noop/open,
 /area/template_noop)
 "eR" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/mineral/titanium/airless,
 /area/template_noop)
 "hf" = (
 /turf/closed/wall,
+/area/ruin/unpowered)
+"hB" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "ib" = (
 /obj/machinery/shuttle/engine/plasma{
@@ -67,13 +79,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/template_noop)
-"kv" = (
-/obj/effect/turf_decal/tile/neutral/tile_marquee,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
 "mf" = (
 /obj/structure/closet/firecloset/full,
 /turf/open/floor/plating/airless,
@@ -95,13 +100,9 @@
 /obj/machinery/atmospherics/components/unary/portables_connector{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/plating/airless,
 /area/template_noop)
-"oh" = (
-/obj/effect/turf_decal/tile/neutral/tile_marquee,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
 "rJ" = (
 /obj/structure/door_assembly/door_assembly_com,
 /turf/open/floor/mineral/titanium/airless,
@@ -163,6 +164,10 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
+"BT" = (
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "Cc" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -212,16 +217,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/template_noop)
-"Gb" = (
-/obj/machinery/computer/shuttle_flight/custom_shuttle,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium/airless,
-/area/template_noop)
 "Gl" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -244,19 +239,46 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"HL" = (
+/obj/structure/frame/computer,
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/airless,
+/area/template_noop)
+"IO" = (
+/obj/structure/sign/poster/random{
+	pixel_x = 32
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"Ky" = (
+/obj/machinery/computer/shuttle_flight/custom_shuttle,
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/airless,
+/area/template_noop)
 "KA" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
+/area/ruin/unpowered)
+"Lp" = (
+/obj/effect/turf_decal/tile/neutral/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "MD" = (
 /obj/structure/girder,
 /turf/open/floor/plating/airless,
 /area/template_noop)
-"NC" = (
-/obj/effect/turf_decal/tile/neutral/tile_marquee,
+"Oy" = (
 /obj/structure/sign/nanotrasen{
 	pixel_x = 32
 	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "OB" = (
@@ -280,12 +302,6 @@
 /obj/machinery/atmospherics/pipe/simple/purple/visible,
 /turf/open/floor/plating/airless,
 /area/template_noop)
-"Qf" = (
-/obj/effect/turf_decal/tile/neutral/tile_marquee{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
 "Qz" = (
 /obj/structure/tank_dispenser/oxygen,
 /turf/open/floor/plating/airless,
@@ -308,13 +324,6 @@
 /obj/machinery/door/window/northright,
 /turf/open/floor/plating/airless,
 /area/template_noop)
-"Tc" = (
-/obj/structure/sign/poster/random{
-	pixel_x = 32
-	},
-/obj/effect/turf_decal/tile/neutral/tile_marquee,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
 "Th" = (
 /obj/machinery/vending/coffee,
 /obj/effect/turf_decal/stripes/line{
@@ -357,33 +366,11 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
-"XF" = (
-/obj/effect/turf_decal/tile/neutral/tile_marquee{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
 "XY" = (
 /obj/machinery/atmospherics/pipe/simple/purple/visible{
 	dir = 4
 	},
 /turf/open/floor/plating/airless,
-/area/template_noop)
-"Yw" = (
-/obj/structure/frame/computer,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium/airless,
 /area/template_noop)
 "Zp" = (
 /turf/open/floor/plasteel,
@@ -577,7 +564,7 @@ es
 Hx
 es
 PH
-Yw
+bj
 nu
 nT
 Wh
@@ -600,7 +587,7 @@ es
 Hx
 es
 PH
-Gb
+Ky
 eR
 nu
 rJ
@@ -623,7 +610,7 @@ es
 Hx
 es
 PH
-aS
+HL
 nu
 nu
 Wh
@@ -877,23 +864,23 @@ Hx
 KA
 KA
 KA
-XF
-Qf
-Qf
-Qf
-Qf
-Qf
-Qf
-Qf
-Qf
-Qf
-Qf
-Qf
-Qf
-Qf
-Qf
-Qf
-Qf
+ay
+Lp
+Lp
+Lp
+Lp
+Lp
+Lp
+Lp
+Lp
+Lp
+Lp
+Lp
+Lp
+Lp
+Lp
+Lp
+Lp
 "}
 (23,1,1) = {"
 Hx
@@ -923,23 +910,23 @@ Hx
 KA
 KA
 KA
-kv
-oh
-oh
-oh
-oh
-oh
-NC
-oh
-oh
-oh
-Tc
-oh
-oh
-oh
-oh
-oh
-oh
+hB
+BT
+BT
+BT
+BT
+BT
+Oy
+BT
+BT
+BT
+IO
+BT
+BT
+BT
+BT
+BT
+BT
 "}
 (25,1,1) = {"
 Hx

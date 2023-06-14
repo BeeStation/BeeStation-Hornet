@@ -5,16 +5,17 @@
 	job_rank = ROLE_OBSESSED
 	show_name_in_check_antagonists = TRUE
 	roundend_category = "obsessed"
+	count_against_dynamic_roll_chance = FALSE
 	silent = TRUE //not actually silent, because greet will be called by the trauma anyway.
 	var/datum/brain_trauma/special/obsessed/trauma
 
 /datum/antagonist/obsessed/admin_add(datum/mind/new_owner,mob/admin)
 	var/mob/living/carbon/C = new_owner.current
 	if(!istype(C))
-		to_chat(admin, "[roundend_category] come from a brain trauma, so they need to at least be a carbon!")
+		to_chat(admin, "[roundend_category] comes from a brain trauma, so they need to at least be a carbon!")
 		return
 	if(!C.getorgan(/obj/item/organ/brain)) // If only I had a brain
-		to_chat(admin, "[roundend_category] come from a brain trauma, so they need to HAVE A BRAIN.")
+		to_chat(admin, "[roundend_category] comes from a brain trauma, so they need to HAVE A BRAIN.")
 		return
 	message_admins("[key_name_admin(admin)] made [key_name_admin(new_owner)] into [name].")
 	log_admin("[key_name(admin)] made [key_name(new_owner)] into [name].")
@@ -54,14 +55,10 @@
 	kill.set_target(obsessionmind)
 	var/datum/quirk/family_heirloom/family_heirloom
 
-	for(var/datum/quirk/quirky in obsessionmind.current.roundstart_quirks)
-		if(istype(quirky, /datum/quirk/family_heirloom))
-			family_heirloom = quirky
-			break
-	if(family_heirloom)//oh, they have an heirloom? Well you know we have to steal that.
+	if(obsessionmind.has_quirk(family_heirloom))//oh, they have an heirloom? Well you know we have to steal that.
 		objectives_left += "heirloom"
 
-	if(obsessionmind.assigned_role && obsessionmind.assigned_role != "Captain")
+	if(obsessionmind.assigned_role && obsessionmind.assigned_role != JOB_NAME_CAPTAIN)
 		objectives_left += "jealous"//if they have no coworkers, jealousy will pick someone else on the station. this will never be a free objective, nice.
 
 	for(var/i in 1 to 3)

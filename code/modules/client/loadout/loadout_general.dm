@@ -10,6 +10,12 @@
 	path = /obj/item/dice/d20
 	cost = 300
 
+/datum/gear/misc/eightball
+	display_name = "Magic Eightball"
+	description = "A black ball with a stenciled number eight in white on the side. It seems full of dark liquid. The instructions state that you should ask your question aloud, and then shake."
+	path = /obj/item/toy/eightball
+	cost = 500
+
 /datum/gear/misc/antagtoken
 	display_name = "Discount Antag Token"
 	description = "Says \"Made in China\" on the back. Seems fishy."

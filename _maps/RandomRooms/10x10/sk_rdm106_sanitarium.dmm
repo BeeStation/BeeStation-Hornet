@@ -4,7 +4,7 @@
 /turf/open/floor/carpet/blue,
 /area/template_noop)
 "bI" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/fancy/sofa/old/right{
 	dir = 1
 	},
 /turf/open/floor/carpet/blue,
@@ -151,7 +151,7 @@
 /turf/open/floor/carpet/blue,
 /area/template_noop)
 "pk" = (
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/fancy/sofa/old/left,
 /turf/open/floor/carpet/blue,
 /area/template_noop)
 "ql" = (
@@ -182,19 +182,19 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "tz" = (
-/obj/structure/chair/sofa/corner{
+/obj/structure/chair/fancy/sofa/old/corner/concave{
 	dir = 8
 	},
 /turf/open/floor/carpet/blue,
 /area/template_noop)
 "uS" = (
 /obj/structure/chair/office,
-/obj/effect/landmark/start/randommaint/shrink,
+/obj/effect/landmark/start/randommaint/psychiatrist,
 /turf/open/floor/carpet/blue,
 /area/template_noop)
 "yb" = (
 /obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/plating,
 /area/template_noop)
 "yM" = (
 /obj/structure/sign/poster/contraband/clown{
@@ -277,7 +277,7 @@
 /turf/closed/wall,
 /area/template_noop)
 "Eq" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/fancy/sofa/old/right,
 /turf/open/floor/carpet/blue,
 /area/template_noop)
 "Eu" = (
@@ -361,7 +361,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "KL" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/fancy/sofa/old/left{
 	dir = 1
 	},
 /turf/open/floor/carpet/blue,
@@ -410,7 +410,7 @@
 /turf/open/floor/carpet/cyan,
 /area/template_noop)
 "Pg" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/fancy/sofa/old/right{
 	dir = 8
 	},
 /obj/structure/sign/poster/contraband/donut_corp{
@@ -442,7 +442,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/chair/comfy/brown,
+/obj/structure/chair/fancy/comfy,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/sign/poster/official/cleanliness{
 	pixel_y = 30

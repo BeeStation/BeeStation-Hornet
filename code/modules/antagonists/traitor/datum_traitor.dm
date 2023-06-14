@@ -40,6 +40,8 @@
 		A.remove_verb(/mob/living/silicon/ai/proc/choose_modules)
 		A.malf_picker.remove_malf_verbs(A)
 		qdel(A.malf_picker)
+		QDEL_NULL(A.radio.keyslot)
+		A.radio.recalculateChannels()
 
 	SSticker.mode.traitors -= owner
 	if(!silent && owner.current)
@@ -83,7 +85,7 @@
 			assign_exchange_role(SSticker.mode.exchange_blue)
 		objective_count += 1					//Exchange counts towards number of objectives
 	var/toa = CONFIG_GET(number/traitor_objectives_amount)
-	for(var/i = objective_count, i < toa-1, i++)
+	for(var/i = objective_count, i < toa - 1, i++)
 		forge_single_objective()
 
 	//Add a gimmick objective
@@ -164,7 +166,7 @@
 			kill_objective.find_target()
 			add_objective(kill_objective)
 	else
-		if(prob(15) && !(locate(/datum/objective/download) in objectives) && !(owner.assigned_role in list("Research Director", "Scientist", "Roboticist")))
+		if(prob(15) && !(locate(/datum/objective/download) in objectives) && !(owner.assigned_role in list(JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST)))
 			var/datum/objective/download/download_objective = new
 			download_objective.owner = owner
 			download_objective.gen_amount_goal()
@@ -240,7 +242,7 @@
 	if(isAI(M) && traitor_kind == TRAITOR_AI)
 		var/mob/living/silicon/ai/A = M
 		A.hack_software = TRUE
-	RegisterSignal(M, COMSIG_MOVABLE_HEAR, .proc/handle_hearing)
+	RegisterSignal(M, COMSIG_MOVABLE_HEAR, PROC_REF(handle_hearing))
 
 /datum/antagonist/traitor/remove_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -248,7 +250,7 @@
 	var/mob/living/silicon/ai/A = mob_override || owner.current
 	if(istype(A)  && traitor_kind == TRAITOR_AI)
 		A.hack_software = FALSE
-	UnregisterSignal(owner.current, COMSIG_MOVABLE_HEAR, .proc/handle_hearing)
+	UnregisterSignal(owner.current, COMSIG_MOVABLE_HEAR, PROC_REF(handle_hearing))
 
 /datum/antagonist/traitor/proc/give_codewords()
 	if(!owner.current)

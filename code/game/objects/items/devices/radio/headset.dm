@@ -8,6 +8,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	RADIO_CHANNEL_SECURITY = RADIO_TOKEN_SECURITY,
 	RADIO_CHANNEL_CENTCOM = RADIO_TOKEN_CENTCOM,
 	RADIO_CHANNEL_SYNDICATE = RADIO_TOKEN_SYNDICATE,
+	RADIO_CHANNEL_UPLINK = RADIO_TOKEN_UPLINK,  // shouldnt show up in game
 	RADIO_CHANNEL_SUPPLY = RADIO_TOKEN_SUPPLY,
 	RADIO_CHANNEL_EXPLORATION = RADIO_TOKEN_EXPLORATION,
 	RADIO_CHANNEL_SERVICE = RADIO_TOKEN_SERVICE,
@@ -111,6 +112,11 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	icon_state = "sec_headset"
 	keyslot = new /obj/item/encryptionkey/headset_sec
 
+/obj/item/radio/headset/headset_spacepol
+	name = "spacepol radio headset"
+	desc = "This is used by the intergalatic organization SpacePol."
+	icon_state = "sec_headset"
+
 /obj/item/radio/headset/headset_medsec
 	name = "medical-security radio headset"
 	desc = "Used to hear how many security officers need to be stiched back together."
@@ -148,12 +154,6 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	icon_state = "sci_headset"
 	keyslot = new /obj/item/encryptionkey/headset_sci
 
-/obj/item/radio/headset/headset_medsci
-	name = "medical research radio headset"
-	desc = "A headset that is a result of the mating between medical and science."
-	icon_state = "medsci_headset"
-	keyslot = new /obj/item/encryptionkey/headset_medsci
-
 /obj/item/radio/headset/headset_srvsec
 	name = "law and order headset"
 	desc = "In the criminal justice headset, the encryption key represents two separate but equally important groups. Sec, who investigate crime, and Service, who provide services. These are their comms."
@@ -182,7 +182,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	item_state = "com_headset_alt"
 	bang_protect = 1
 
-/obj/item/radio/headset/heads/rd
+/obj/item/radio/headset/heads/research_director
 	name = "\proper the research director's headset"
 	desc = "Headset of the fellow who keeps society marching towards technological singularity."
 	icon_state = "com_headset"
@@ -201,7 +201,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	item_state = "com_headset_alt"
 	bang_protect = 1
 
-/obj/item/radio/headset/heads/ce
+/obj/item/radio/headset/heads/chief_engineer
 	name = "\proper the chief engineer's headset"
 	desc = "The headset of the guy in charge of keeping the station powered and undamaged."
 	icon_state = "com_headset"
@@ -213,7 +213,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	icon_state = "com_headset"
 	keyslot = new /obj/item/encryptionkey/heads/cmo
 
-/obj/item/radio/headset/heads/hop
+/obj/item/radio/headset/heads/head_of_personnel
 	name = "\proper the head of personnel's headset"
 	desc = "The headset of the guy who will one day be captain."
 	icon_state = "com_headset"
@@ -237,7 +237,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	icon_state = "exploration_headset"
 	keyslot = new /obj/item/encryptionkey/headset_expteam
 
-/obj/item/radio/headset/headset_cargo/mining
+/obj/item/radio/headset/headset_cargo/shaft_miner
 	name = "mining radio headset"
 	desc = "Headset used by shaft miners."
 	icon_state = "mine_headset"
@@ -269,6 +269,9 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 /obj/item/radio/headset/headset_cent/commander
 	keyslot = new /obj/item/encryptionkey/heads/captain
 
+/obj/item/radio/headset/headset_cent/debug
+	keyslot = new /obj/item/encryptionkey/debug
+
 /obj/item/radio/headset/headset_cent/alt
 	name = "\improper CentCom bowman headset"
 	desc = "A headset especially for emergency response personnel. Protects ears from flashbangs."
@@ -281,6 +284,8 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	name = "\proper mini Integrated Subspace Transceiver "
 	subspace_transmission = FALSE
 
+/obj/item/radio/headset/silicon/pai/ui_status(mob/user, state)
+	return UI_INTERACTIVE
 
 /obj/item/radio/headset/silicon/ai
 	name = "\proper Integrated Subspace Transceiver "
@@ -348,6 +353,8 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 			syndie = TRUE
 		if (keyslot2.independent)
 			independent = TRUE
+		if (keyslot2.amplification)
+			command = TRUE
 
 	for(var/ch_name in channels)
 		secure_radio_connections[ch_name] = add_radio(src, GLOB.radiochannels[ch_name])

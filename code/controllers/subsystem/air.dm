@@ -19,6 +19,8 @@ SUBSYSTEM_DEF(air)
 	var/cost_equalize = 0
 	var/thread_wait_ticks = 0
 	var/cur_thread_wait_ticks = 0
+	///The last time the subsystem completely processed
+	var/last_complete_process = 0
 
 	var/low_pressure_turfs = 0
 	var/high_pressure_turfs = 0
@@ -63,6 +65,11 @@ SUBSYSTEM_DEF(air)
 	var/excited_group_pressure_goal = 1
 
 	var/list/paused_z_levels	//Paused z-levels will not add turfs to active
+	var/list/unpausing_z_levels = list()
+	var/list/unpause_processing = list()
+
+	var/list/pausing_z_levels = list()
+	var/list/pause_processing = list()
 
 /datum/controller/subsystem/air/stat_entry(msg)
 	msg += "C:{"
@@ -128,6 +135,41 @@ SUBSYSTEM_DEF(air)
 /datum/controller/subsystem/air/fire(resumed = 0)
 
 	var/timer = TICK_USAGE_REAL
+
+		//If we have unpausing z-level, process them first
+	if(length(unpausing_z_levels) && !length(unpause_processing))
+		var/z_value = unpausing_z_levels[1]
+		unpausing_z_levels.Remove(z_value)
+		unpause_processing = block(locate(1, 1, z_value), locate(world.maxx, world.maxy, z_value))
+
+	while(length(unpause_processing))
+		var/turf/T = unpause_processing[length(unpause_processing)]
+		if(!isspaceturf(T))	//Skip space turfs, since they won't have atmos
+			T.Initalize_Atmos()
+		//Goodbye
+		unpause_processing.len --
+		//We overran this tick, stop processing
+		//This may result in a very brief atmos freeze when running unpause_z at high loads
+		//but that is better than freezing the entire MC
+		if(MC_TICK_CHECK)
+			return
+
+	//If we have unpausing z-level, process them first
+	if(length(pausing_z_levels) && !length(pause_processing))
+		var/z_value = pausing_z_levels[1]
+		pausing_z_levels.Remove(z_value)
+		pause_processing = block(locate(1, 1, z_value), locate(world.maxx, world.maxy, z_value))
+
+	while(length(pause_processing))
+		var/turf/T = pause_processing[length(pause_processing)]
+		T.ImmediateDisableAdjacency()
+		//Goodbye
+		pause_processing.len --
+		//We overran this tick, stop processing
+		//This may result in a very brief atmos freeze when running unpause_z at high loads
+		//but that is better than freezing the entire MC
+		if(MC_TICK_CHECK)
+			return
 
 	if(currentpart == SSAIR_REBUILD_PIPENETS)
 		timer = TICK_USAGE_REAL
@@ -257,6 +299,7 @@ SUBSYSTEM_DEF(air)
 		currentpart = SSAIR_HOTSPOTS
 	*/
 	currentpart = SSAIR_REBUILD_PIPENETS
+	last_complete_process = world.time
 
 /datum/controller/subsystem/air/Recover()
 	thread_wait_ticks = SSair.thread_wait_ticks
@@ -327,7 +370,10 @@ SUBSYSTEM_DEF(air)
 			var/datum/callback/cb = cur_op[3]
 			cb.Invoke(air1, air2)
 		else
-			air1.transfer_ratio_to(air2, cur_op[3])
+			if(cur_op[3] == 0)
+				air1.transfer_to(air2, air1.total_moles())
+			else
+				air1.transfer_ratio_to(air2, cur_op[3])
 		if(MC_TICK_CHECK)
 			return
 
@@ -337,12 +383,15 @@ SUBSYSTEM_DEF(air)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(currentrun.len)
-		var/obj/machinery/M = currentrun[currentrun.len]
+		var/obj/machinery/current_machinery = currentrun[currentrun.len]
 		currentrun.len--
-		if(M == null)
-			atmos_machinery.Remove(M)
-		if(!M || (M.process_atmos() == PROCESS_KILL))
-			atmos_machinery.Remove(M)
+		if(!current_machinery)
+			atmos_machinery -= current_machinery
+		// Prevents uninitalized atmos machinery from processing.
+		if (!(current_machinery.flags_1 & INITIALIZED_1))
+			continue
+		if(current_machinery.process_atmos() == PROCESS_KILL)
+			stop_processing_machine(current_machinery)
 		if(MC_TICK_CHECK)
 			return
 
@@ -353,12 +402,55 @@ SUBSYSTEM_DEF(air)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(currentrun.len)
-		var/obj/machinery/M = currentrun[currentrun.len]
+		var/obj/machinery/current_machinery = currentrun[currentrun.len]
 		currentrun.len--
-		if(!M || (M.process_atmos(seconds) == PROCESS_KILL))
-			atmos_air_machinery.Remove(M)
+		// Prevents uninitalized atmos machinery from processing.
+		if (!(current_machinery.flags_1 & INITIALIZED_1))
+			continue
+		if(!current_machinery)
+			atmos_air_machinery -= current_machinery
+		if(current_machinery.process_atmos(seconds) == PROCESS_KILL)
+			stop_processing_machine(current_machinery)
 		if(MC_TICK_CHECK)
 			return
+
+/**
+ * Adds a given machine to the processing system for SSAIR_ATMOSMACHINERY processing.
+ *
+ * Arguments:
+ * * machine - The machine to start processing. Can be any /obj/machinery.
+ */
+/datum/controller/subsystem/air/proc/start_processing_machine(obj/machinery/machine)
+	if(machine.atmos_processing)
+		return
+	machine.atmos_processing = TRUE
+	if(machine.interacts_with_air)
+		atmos_air_machinery += machine
+	else
+		atmos_machinery += machine
+
+/**
+ * Removes a given machine to the processing system for SSAIR_ATMOSMACHINERY processing.
+ *
+ * Arguments:
+ * * machine - The machine to stop processing.
+ */
+/datum/controller/subsystem/air/proc/stop_processing_machine(obj/machinery/machine)
+	if(!machine.atmos_processing)
+		return
+	machine.atmos_processing = FALSE
+	if(machine.interacts_with_air)
+		atmos_air_machinery -= machine
+	else
+		atmos_machinery -= machine
+
+	// If we're currently processing atmos machines, there's a chance this machine is in
+	// the currentrun list, which is a cache of atmos_machinery. Remove it from that list
+	// as well to prevent processing qdeleted objects in the cache.
+	if(currentpart == SSAIR_ATMOSMACHINERY)
+		currentrun -= machine
+	if(machine.interacts_with_air && currentpart == SSAIR_ATMOSMACHINERY_AIR)
+		currentrun -= machine
 
 /datum/controller/subsystem/air/proc/process_turf_heat()
 
@@ -457,16 +549,12 @@ SUBSYSTEM_DEF(air)
 
 /datum/controller/subsystem/air/proc/pause_z(z_level)
 	LAZYADD(paused_z_levels, z_level)
-	var/list/turfs_to_disable = block(locate(1, 1, z_level), locate(world.maxx, world.maxy, z_level))
-	for(var/turf/T as anything in turfs_to_disable)
-		T.ImmediateDisableAdjacency(FALSE)
-		CHECK_TICK
+	unpausing_z_levels -= z_level
+	pausing_z_levels |= z_level
 
 /datum/controller/subsystem/air/proc/unpause_z(z_level)
-	var/list/turfs_to_reinit = block(locate(1, 1, z_level), locate(world.maxx, world.maxy, z_level))
-	for(var/turf/T as anything in turfs_to_reinit)
-		T.Initalize_Atmos()
-		CHECK_TICK
+	pausing_z_levels -= z_level
+	unpausing_z_levels |= z_level
 	LAZYREMOVE(paused_z_levels, z_level)
 
 /datum/controller/subsystem/air/proc/setup_allturfs()
@@ -478,7 +566,7 @@ SUBSYSTEM_DEF(air)
 
 	for(var/thing in turfs_to_init)
 		var/turf/T = thing
-		if (T.blocks_air)
+		if (isclosedturf(T))
 			continue
 		T.Initalize_Atmos(times_fired)
 		CHECK_TICK
@@ -499,13 +587,14 @@ SUBSYSTEM_DEF(air)
 /datum/controller/subsystem/air/proc/setup_template_machinery(list/atmos_machines)
 	if(!initialized) // yogs - fixes randomized bars
 		return // yogs
-	for(var/A in atmos_machines)
-		var/obj/machinery/atmospherics/AM = A
+	var/obj/machinery/atmospherics/AM
+	for(var/A in 1 to atmos_machines.len)
+		AM = atmos_machines[A]
 		AM.atmosinit()
 		CHECK_TICK
 
-	for(var/A in atmos_machines)
-		var/obj/machinery/atmospherics/AM = A
+	for(var/A in 1 to atmos_machines.len)
+		AM = atmos_machines[A]
 		AM.build_network()
 		CHECK_TICK
 

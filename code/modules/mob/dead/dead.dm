@@ -31,13 +31,6 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 /mob/dead/gib()		//ghosts can't be gibbed.
 	return
 
-/mob/dead/abstract_move(atom/destination)
-	var/turf/old_turf = get_turf(src)
-	var/turf/new_turf = get_turf(destination)
-	if (old_turf?.z != new_turf?.z)
-		onTransitZ(old_turf?.z, new_turf?.z)
-	return ..()
-
 /mob/dead/get_stat_tab_status()
 	var/list/tab_data = ..()
 	if(!SSticker.hide_mode)
@@ -58,7 +51,7 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 
 /mob/dead/proc/server_hop()
 	set category = "OOC"
-	set name = "Server Hop!"
+	set name = "Server Hop"
 	set desc= "Jump to the other server"
 	if(notransform)
 		return
@@ -71,14 +64,14 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 		if(1)
 			pick = csa[1]
 		else
-			pick = input(src, "Pick a server to jump to", "Server Hop") as null|anything in csa
+			pick = tgui_input_list(src, "Pick a server to jump to", "Server Hop", csa)
 
 	if(!pick)
 		return
 
 	var/addr = csa[pick]
 
-	if(alert(src, "Jump to server [pick] ([addr])?", "Server Hop", "Yes", "No") != "Yes")
+	if(tgui_alert(src, "Jump to server [pick] ([addr])?", "Server Hop", list("Yes", "No")) != "Yes")
 		return
 
 	var/client/C = client
@@ -112,6 +105,9 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 	var/turf/T = get_turf(src)
 	if (isturf(T))
 		update_z(T.z)
+	// Update SSD indicator for ghost's body
+	if(isliving(mind?.current))
+		mind.current.med_hud_set_status()
 
 /mob/dead/auto_deadmin_on_login()
 	return
@@ -123,3 +119,7 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 /mob/dead/onTransitZ(old_z,new_z)
 	..()
 	update_z(new_z)
+
+// Ghosts cannot fall
+/mob/dead/has_gravity(turf/T)
+	return FALSE

@@ -13,6 +13,9 @@
 	maxHealth = 500
 	layer = BELOW_MOB_LAYER
 	can_be_held = TRUE
+	move_force = 0
+	pull_force = 0
+	move_resist = 0
 	worn_slot_flags = ITEM_SLOT_HEAD
 	held_lh = 'icons/mob/pai_item_lh.dmi'
 	held_rh = 'icons/mob/pai_item_rh.dmi'
@@ -24,54 +27,68 @@
 	light_range = 5
 	light_on = FALSE
 
-	var/ram = 100	// Used as currency to purchase different abilities
+	/// Used as currency to purchase different abilities
+	var/ram = 100
+	/// Installed software on the pAI
 	var/list/software = list()
-	var/userDNA		// The DNA string of our assigned user
-	var/obj/item/paicard/card	// The card we inhabit
-	var/hacking = FALSE		//Are we hacking a door?
+	/// current user's DNA
+	var/userDNA
+	/// The card we inhabit
+	var/obj/item/paicard/card
+	/// Are we hacking a door?
+	var/hacking = FALSE
+	/// The progress for hacking
+	var/datum/progressbar/hackbar
+	/// Changes the display to syndi if true
+	var/emagged = FALSE
 
 	var/speakStatement = "states"
 	var/speakExclamation = "declares"
 	var/speakDoubleExclamation = "alarms"
 	var/speakQuery = "queries"
 
-	var/obj/item/pai_cable/cable		// The cable we produce and use when door or camera jacking
-
-	var/master				// Name of the one who commands us
-	var/master_dna			// DNA string for owner verification
+	/// The cable we produce when hacking a door
+	var/obj/item/pai_cable/hacking_cable
+	/// Name of the one who commands us
+	var/master
+	/// DNA string for owner verification
+	var/master_dna
 
 // Various software-specific vars
 
-	var/temp				// General error reporting text contained here will typically be shown once and cleared
-	var/screen				// Which screen our main window displays
-	var/subscreen			// Which specific function of the main screen is being displayed
+	/// Toggles whether the Security HUD is active or not
+	var/secHUD = FALSE
+	/// Toggles whether the Medical  HUD is active or not
+	var/medHUD = FALSE
+	/// Toggles whether universal translator has been activated. Cannot be reversed
+	var/languages_granted = FALSE
+	/// The airlock being hacked
+	var/obj/machinery/door/hackdoor
+	/// Possible values: 0 - 100, >= 100 means the hack is complete and will be reset upon next check
+	var/hackprogress = 0
 
-	var/secHUD = 0			// Toggles whether the Security HUD is active or not
-	var/medHUD = 0			// Toggles whether the Medical  HUD is active or not
-
-	var/datum/data/record/medicalActive1		// Datacore record declarations for record software
-	var/datum/data/record/medicalActive2
-
-	var/datum/data/record/securityActive1		// Could probably just combine all these into one
-	var/datum/data/record/securityActive2
-
-	var/obj/machinery/door/hackdoor		// The airlock being hacked
-	var/hackprogress = 0				// Possible values: 0 - 100, >= 100 means the hack is complete and will be reset upon next check
-
-	var/obj/item/integrated_signaler/signaler // AI's signaller
-
+	// Software
+	/// Atmospheric analyzer
+	var/obj/item/analyzer/atmos_analyzer
+	/// AI's signaler
+	var/obj/item/assembly/signaler/internal/signaler
+	/// Synthesizer
 	var/obj/item/instrument/piano_synth/internal_instrument
-	var/obj/machinery/newscaster			//pAI Newscaster
-	var/obj/item/healthanalyzer/hostscan				//pAI healthanalyzer
+	/// pAI Newscaster
+	var/obj/machinery/newscaster/pai/newscaster
+	/// pAI healthanalyzer
+	var/obj/item/healthanalyzer/hostscan
+	/// Internal pAI GPS, enabled if pAI downloads GPS software, and then uses it.
+	var/obj/item/gps/pai/internal_gps = null
+
 
 	var/encryptmod = FALSE
 	var/holoform = FALSE
 	var/canholo = TRUE
 	var/can_transmit = TRUE
 	var/can_receive = TRUE
-	var/obj/item/card/id/access_card = null
 	var/chassis = "repairbot"
-	var/list/possible_chassis = list("bat" = TRUE, "bee" = TRUE, "butterfly" = TRUE, "carp" = TRUE, "cat" = TRUE, "corgi" = TRUE, "corgi_puppy" = TRUE, "crow" = TRUE, "duffel" = TRUE, "fox" = TRUE, "frog" = TRUE, "hawk" = TRUE, "lizard" = TRUE, "monkey" = TRUE, "mouse" = TRUE, "mushroom" = TRUE, "phantom" = TRUE, "rabbit" = TRUE, "repairbot" = TRUE, "snake" = TRUE, "spider" = TRUE)		//assoc value is whether it can be picked up.
+	var/list/possible_chassis = list("bat" = TRUE, "bee" = TRUE, "butterfly" = TRUE, "carp" = TRUE, "cat" = TRUE, "corgi" = TRUE, "corgi_puppy" = TRUE, "crow" = TRUE, "duffel" = TRUE, "fox" = TRUE, "frog" = TRUE, "hawk" = TRUE, "lizard" = TRUE, "monkey" = TRUE, "mothroach" = TRUE, "mouse" = TRUE, "mushroom" = TRUE, "phantom" = TRUE, "rabbit" = TRUE, "repairbot" = TRUE, "snake" = TRUE, "spider" = TRUE)		//assoc value is whether it can be picked up.
 	var/static/item_head_icon = 'icons/mob/pai_item_head.dmi'
 	var/static/item_lh_icon = 'icons/mob/pai_item_lh.dmi'
 	var/static/item_rh_icon = 'icons/mob/pai_item_rh.dmi'
@@ -87,6 +104,7 @@
 	var/overload_bulletblock = 0	//Why is this a good idea?
 	var/overload_maxhealth = 0
 	var/silent = FALSE
+	var/atom/movable/screen/ai/modpc/interface_button
 
 
 /mob/living/silicon/pai/can_unbuckle()
@@ -95,8 +113,33 @@
 /mob/living/silicon/pai/can_buckle()
 	return FALSE
 
+/mob/living/silicon/pai/handle_atom_del(atom/A)
+	if(A == hacking_cable)
+		hacking_cable = null
+		if(!QDELETED(card))
+			card.update_icon()
+	if(A == atmos_analyzer)
+		atmos_analyzer = null
+	if(A == internal_instrument)
+		internal_instrument = null
+	if(A == newscaster)
+		newscaster = null
+	if(A == signaler)
+		signaler = null
+	if(A == hostscan)
+		hostscan = null
+	if(A == internal_gps)
+		internal_gps = null
+	return ..()
+
 /mob/living/silicon/pai/Destroy()
+	QDEL_NULL(atmos_analyzer)
 	QDEL_NULL(internal_instrument)
+	QDEL_NULL(internal_gps)
+	QDEL_NULL(hacking_cable)
+	QDEL_NULL(newscaster)
+	QDEL_NULL(signaler)
+	QDEL_NULL(hostscan)
 	if (loc != card)
 		card.forceMove(drop_location())
 	card.pai = null
@@ -116,49 +159,56 @@
 		P.setPersonality(src)
 	forceMove(P)
 	card = P
-	job = "Personal AI"
-	signaler = new(src)
+	job = JOB_NAME_PAI
+	signaler = new /obj/item/assembly/signaler/internal(src)
 	hostscan = new /obj/item/healthanalyzer(src)
+	atmos_analyzer = new /obj/item/analyzer(src)
 	if(!radio)
 		radio = new /obj/item/radio/headset/silicon/pai(src)
-	newscaster = new /obj/machinery/newscaster(src)
+	newscaster = new /obj/machinery/newscaster/pai(src)
 	if(!aicamera)
 		aicamera = new /obj/item/camera/siliconcam/ai_camera(src)
 		aicamera.flash_enabled = TRUE
 
-	//PDA
-	aiPDA = new/obj/item/pda/ai(src)
-	aiPDA.owner = real_name
-	aiPDA.ownjob = "pAI Messenger"
-	aiPDA.name = real_name + " (" + aiPDA.ownjob + ")"
-
 	. = ..()
 
-	emittersemicd = TRUE
-	addtimer(CALLBACK(src, .proc/emittercool), 600)
+	create_modularInterface()
 
-/mob/living/silicon/pai/Life()
+	emittersemicd = TRUE
+	addtimer(CALLBACK(src, PROC_REF(emittercool)), 600)
+	return INITIALIZE_HINT_LATELOAD
+
+
+/mob/living/silicon/pai/Life(delta_time = SSMOBS_DT, times_fired)
 	if(hacking)
-		process_hack()
+		process_hack(delta_time)
 	return ..()
 
-/mob/living/silicon/pai/proc/process_hack()
-
-	if(cable && cable.machine && istype(cable.machine, /obj/machinery/door) && cable.machine == hackdoor && get_dist(src, hackdoor) <= 1)
-		hackprogress = CLAMP(hackprogress + 4, 0, 100)
+/mob/living/silicon/pai/proc/process_hack(delta_time)
+	if(hacking_cable?.machine && istype(hacking_cable.machine, /obj/machinery/door) && hacking_cable.machine == hackdoor && get_dist(src, hackdoor) <= 1)
+		hackprogress = clamp(hackprogress + (2 * delta_time), 0, 100)
+		hackbar.update(hackprogress)
 	else
-		temp = "Door Jack: Connection to airlock has been lost. Hack aborted."
+		to_chat(src, "<span class='notice'>Door Jack: Connection to airlock has been lost. Hack aborted.</span>")
 		hackprogress = 0
 		hacking = FALSE
 		hackdoor = null
+		QDEL_NULL(hackbar)
+		QDEL_NULL(hacking_cable)
+		if(!QDELETED(card))
+			card.update_icon()
 		return
-	if(screen == "doorjack" && subscreen == 0) // Update our view, if appropriate
-		paiInterface()
 	if(hackprogress >= 100)
 		hackprogress = 0
-		var/obj/machinery/door/D = cable.machine
-		D.open()
 		hacking = FALSE
+		var/obj/machinery/door/door = hacking_cable.machine
+		door.open()
+		QDEL_NULL(hackbar)
+		QDEL_NULL(hacking_cable)
+
+/mob/living/silicon/pai/LateInitialize()
+	. = ..()
+	modularInterface.saved_identification = name
 
 /mob/living/silicon/pai/make_laws()
 	laws = new /datum/ai_laws/pai()
@@ -167,9 +217,8 @@
 /mob/living/silicon/pai/Login()
 	..()
 	var/datum/asset/notes_assets = get_asset_datum(/datum/asset/simple/pAI)
-	mind.assigned_role = "Personal AI"
-	if(!notes_assets.send(client))
-		return
+	mind.assigned_role = JOB_NAME_PAI
+	notes_assets.send(client)
 	client.perspective = EYE_PERSPECTIVE
 	if(holoform)
 		client.eye = src
@@ -189,7 +238,7 @@
 
 // See software.dm for Topic()
 
-/mob/living/silicon/pai/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
+/mob/living/silicon/pai/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
 	if(be_close && !in_range(M, src))
 		to_chat(src, "<span class='warning'>You are too far away!</span>")
 		return FALSE
@@ -198,7 +247,7 @@
 /mob/proc/makePAI(delold)
 	var/obj/item/paicard/card = new /obj/item/paicard(get_turf(src))
 	var/mob/living/silicon/pai/pai = new /mob/living/silicon/pai(card)
-	pai.key = key
+	pai.ckey = ckey
 	pai.name = name
 	card.setPersonality(pai)
 	if(delold)
@@ -221,7 +270,7 @@
 
 /datum/action/innate/pai/software/Trigger()
 	..()
-	P.paiInterface()
+	P.ui_act()
 
 /datum/action/innate/pai/shell
 	name = "Toggle Holoform"
@@ -278,12 +327,15 @@
 /mob/living/silicon/pai/Life()
 	if(stat == DEAD)
 		return
-	if(cable)
-		if(get_dist(src, cable) > 1)
+	if(hacking_cable)
+		if(get_dist(src, hacking_cable) > 1)
 			var/turf/T = get_turf(src.loc)
-			T.visible_message("<span class='warning'>[src.cable] rapidly retracts back into its spool.</span>", "<span class='italics'>You hear a click and the sound of wire spooling rapidly.</span>")
-			qdel(src.cable)
-			cable = null
+			T.visible_message("<span class='warning'>[hacking_cable] rapidly retracts back into its spool.</span>", "<span class='hear'>You hear a click and the sound of wire spooling rapidly.</span>")
+			QDEL_NULL(hacking_cable)
+			if(!QDELETED(card))
+				card.update_icon()
+		else if(hacking)
+			process_hack()
 	silent = max(silent - 1, 0)
 	. = ..()
 
@@ -296,23 +348,38 @@
 /mob/living/silicon/pai/process(delta_time)
 	emitterhealth = CLAMP((emitterhealth + (emitterregen * delta_time)), -50, emittermaxhealth)
 
-/obj/item/paicard/attackby(obj/item/W, mob/user, params)
-	..()
-	user.set_machine(src)
-	if(pai?.encryptmod == TRUE)
-		if(W.tool_behaviour == TOOL_SCREWDRIVER)
-			pai.radio.attackby(W, user, params)
-		else if(istype(W, /obj/item/encryptionkey))
-			pai.radio.attackby(W, user, params)
-	else
-		to_chat(user, "Encryption Key ports not configured.")
+/mob/living/silicon/pai/can_interact_with(atom/A)
+	if(A == signaler) // Bypass for signaler
+		return TRUE
 
-/obj/item/paicard/emag_act(mob/user) // Emag to wipe the master DNA and supplemental directive
-	if(!pai)
+	return ..()
+
+/obj/item/paicard/attackby(obj/item/used, mob/user, params)
+	if(pai && (istype(used, /obj/item/encryptionkey) || used.tool_behaviour == TOOL_SCREWDRIVER))
+		if(!pai.encryptmod)
+			to_chat(user, "<span class='alert'>Encryption Key ports not configured.</span>")
+			return
+		user.set_machine(src)
+		pai.radio.attackby(used, user, params)
+		to_chat(user, "<span class='notice'>You insert [used] into the [src].</span>")
 		return
+
+	return ..()
+
+/mob/living/silicon/pai/can_interact_with(atom/A)
+	if(A == modularInterface)
+		return TRUE
+	return ..()
+
+/obj/item/paicard/should_emag(mob/user)
+	return !!pai
+
+/obj/item/paicard/on_emag(mob/user) // Emag to wipe the master DNA and supplemental directive
+	..()
 	to_chat(user, "<span class='notice'>You override [pai]'s directive system, clearing its master string and supplied directive.</span>")
 	to_chat(pai, "<span class='danger'>Warning: System override detected, check directive sub-system for any changes.'</span>")
 	log_game("[key_name(user)] emagged [key_name(pai)], wiping their master DNA and supplemental directive.")
+	pai.emagged = TRUE
 	pai.master = null
 	pai.master_dna = null
 	pai.laws.supplied[1] = "None." // Sets supplemental directive to this

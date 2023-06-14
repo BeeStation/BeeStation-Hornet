@@ -1,5 +1,5 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
+"aa" = (
 /obj/structure/bookcase,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner{
@@ -7,17 +7,17 @@
 	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
-"b" = (
+"ab" = (
 /obj/structure/table,
 /obj/machinery/computer/libraryconsole/bookmanagement,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/tdome/arena)
-"c" = (
+"ac" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/tdome/arena)
-"d" = (
+"ad" = (
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -26,7 +26,7 @@
 	},
 /turf/open/floor/plating,
 /area/tdome/arena)
-"e" = (
+"ae" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
@@ -40,7 +40,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/tdome/arena)
-"f" = (
+"af" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
@@ -51,7 +51,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/tdome/arena)
-"g" = (
+"ag" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
@@ -63,11 +63,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/tdome/arena)
-"h" = (
+"ah" = (
 /obj/machinery/seed_extractor,
 /turf/open/floor/plating,
 /area/tdome/arena)
-"i" = (
+"ai" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -76,39 +76,37 @@
 	},
 /turf/open/floor/plating,
 /area/tdome/arena)
-"j" = (
+"aj" = (
 /obj/machinery/vending/sustenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/tdome/arena)
-"k" = (
+"ak" = (
 /obj/machinery/vending/cola/random,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/plasteel,
 /area/tdome/arena)
-"l" = (
+"al" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 8;
-	icon_state = "warningline"
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
-"m" = (
+"am" = (
 /turf/open/floor/plating,
 /area/tdome/arena)
-"n" = (
+"an" = (
 /turf/open/floor/plasteel,
 /area/tdome/arena)
-"o" = (
+"ao" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
-	dir = 4;
-	icon_state = "warningline"
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
-"p" = (
+"ap" = (
 /obj/structure/window/reinforced,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
@@ -116,7 +114,7 @@
 /obj/item/cultivator,
 /turf/open/floor/plasteel,
 /area/tdome/arena)
-"q" = (
+"aq" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 8
 	},
@@ -129,7 +127,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/tdome/arena)
-"r" = (
+"ar" = (
 /obj/effect/turf_decal/tile/green,
 /obj/effect/turf_decal/tile/green{
 	dir = 8
@@ -139,7 +137,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/tdome/arena)
-"s" = (
+"as" = (
 /obj/effect/turf_decal/tile/green,
 /obj/effect/turf_decal/tile/green{
 	dir = 4
@@ -152,35 +150,34 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/tdome/arena)
-"t" = (
+"at" = (
 /obj/structure/window/reinforced,
 /obj/machinery/biogenerator,
 /turf/open/floor/plating,
 /area/tdome/arena)
-"u" = (
+"au" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 4;
-	icon_state = "warningline"
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
-"v" = (
+"av" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/storage/box/cups,
 /turf/open/floor/plasteel,
 /area/tdome/arena)
-"w" = (
+"aw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/open/floor/plasteel,
 /area/tdome/arena)
-"x" = (
+"ax" = (
 /obj/structure/chair/stool,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/tdome/arena)
-"y" = (
+"ay" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/storage/box/donkpockets{
@@ -189,7 +186,7 @@
 	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
-"z" = (
+"az" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/machinery/microwave{
@@ -198,20 +195,19 @@
 	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
-"A" = (
+"aA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
-	dir = 8;
-	icon_state = "warningline"
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
-"B" = (
+"aB" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/tdome/arena)
-"C" = (
+"aC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/toy/cards/deck/cas,
@@ -221,7 +217,7 @@
 	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
-"D" = (
+"aD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -235,35 +231,34 @@
 /obj/item/pen,
 /turf/open/floor/plasteel,
 /area/tdome/arena)
-"E" = (
+"aE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/toy/cards/deck,
 /turf/open/floor/plasteel,
 /area/tdome/arena)
-"F" = (
+"aF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/storage/pill_bottle/dice,
 /turf/open/floor/plasteel,
 /area/tdome/arena)
-"G" = (
+"aG" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 8;
-	icon_state = "warningline"
+	dir = 8
 	},
 /turf/open/floor/plasteel/freezer,
 /area/tdome/arena)
-"H" = (
+"aH" = (
 /turf/open/floor/plasteel/freezer,
 /area/tdome/arena)
-"I" = (
+"aI" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /turf/open/floor/plasteel/freezer,
 /area/tdome/arena)
-"J" = (
+"aJ" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
@@ -275,7 +270,7 @@
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/tdome/arena)
-"K" = (
+"aK" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
@@ -284,7 +279,7 @@
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/tdome/arena)
-"L" = (
+"aL" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
@@ -292,12 +287,11 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 4;
-	icon_state = "warningline"
+	dir = 4
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/tdome/arena)
-"M" = (
+"aM" = (
 /obj/machinery/shower{
 	dir = 1
 	},
@@ -306,13 +300,13 @@
 	},
 /turf/open/floor/plasteel/freezer,
 /area/tdome/arena)
-"N" = (
+"aN" = (
 /obj/machinery/shower{
 	dir = 1
 	},
 /turf/open/floor/plasteel/freezer,
 /area/tdome/arena)
-"O" = (
+"aO" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -321,19 +315,19 @@
 	},
 /turf/open/floor/plasteel/freezer,
 /area/tdome/arena)
-"P" = (
+"aP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/computer/arcade{
 	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
-"Q" = (
+"aQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/stool,
 /turf/open/floor/plasteel,
 /area/tdome/arena)
-"R" = (
+"aR" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
@@ -346,7 +340,7 @@
 /obj/machinery/washing_machine,
 /turf/open/floor/plasteel/cafeteria,
 /area/tdome/arena)
-"S" = (
+"aS" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
@@ -358,7 +352,7 @@
 /obj/item/toy/dummy,
 /turf/open/floor/plasteel/cafeteria,
 /area/tdome/arena)
-"T" = (
+"aT" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
@@ -371,161 +365,284 @@
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/tdome/arena)
-"V" = (
+"aU" = (
+/obj/structure/table,
+/obj/structure/bedsheetbin,
+/obj/item/toy/dummy,
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/tdome/arena)
+"aV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/computer/arcade{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
+"aW" = (
+/obj/structure/chair/stool{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/tdome/arena)
+"aX" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/washing_machine,
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/tdome/arena)
+"aY" = (
+/obj/structure/chair/stool{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/tdome/arena)
+"aZ" = (
+/obj/structure/chair/stool{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/tdome/arena)
+"gO" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/tdome/arena)
+"hK" = (
+/obj/structure/window/reinforced,
+/obj/machinery/hydroponics/soil,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/tdome/arena)
+"DH" = (
+/obj/machinery/hydroponics/soil,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/tdome/arena)
+"FK" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/tdome/arena)
+"Ls" = (
+/obj/machinery/hydroponics/soil,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/tdome/arena)
+"LA" = (
+/obj/structure/window/reinforced,
+/obj/machinery/hydroponics/soil,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/tdome/arena)
+"MF" = (
+/obj/structure/window/reinforced,
+/obj/machinery/hydroponics/soil,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/green/anticorner/contrasted,
+/turf/open/floor/plasteel,
+/area/tdome/arena)
+"OA" = (
+/obj/machinery/hydroponics/soil,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/green/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/tdome/arena)
+"Pf" = (
+/obj/machinery/washing_machine,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/tdome/arena)
+"VV" = (
+/obj/effect/turf_decal/tile/blue/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/tdome/arena)
 
 (1,1,1) = {"
-a
-l
-l
-l
-A
-A
-G
-M
+aa
+al
+al
+al
+aA
+aA
+aG
+aM
 "}
 (2,1,1) = {"
-b
-c
-n
-c
-c
-c
-H
-N
+ab
+ac
+an
+ac
+ac
+ac
+aH
+aN
 "}
 (3,1,1) = {"
-c
-c
-c
-n
-n
-c
-I
-O
+ac
+ac
+ac
+an
+an
+ac
+aI
+aO
 "}
 (4,1,1) = {"
-d
-m
-p
-v
-n
-n
-c
-P
+ad
+am
+ap
+av
+an
+an
+ac
+aP
 "}
 (5,1,1) = {"
-e
-m
-q
-w
-n
-c
-c
-Q
+Ls
+am
+LA
+aw
+an
+ac
+ac
+aQ
 "}
 (6,1,1) = {"
-f
-m
-r
-c
-c
-x
-c
-c
+OA
+am
+hK
+ac
+ac
+aY
+ac
+ac
 "}
 (7,1,1) = {"
-g
-m
-s
-n
-B
-E
-c
-c
+DH
+am
+MF
+an
+aB
+aE
+ac
+ac
 "}
 (8,1,1) = {"
-h
-m
-t
-x
-C
-B
-x
-n
+ah
+am
+at
+ax
+aC
+aB
+aW
+an
 "}
 (9,1,1) = {"
-e
-m
-q
-c
-D
-F
-n
-n
+Ls
+am
+LA
+ac
+aD
+aF
+an
+an
 "}
 (10,1,1) = {"
-f
-m
-r
-c
-x
-c
-c
-n
+OA
+am
+hK
+ac
+aZ
+ac
+ac
+an
 "}
 (11,1,1) = {"
-g
-m
-s
-y
-c
-c
-c
-Q
+DH
+am
+MF
+ay
+ac
+ac
+ac
+aQ
 "}
 (12,1,1) = {"
-i
-m
-p
-z
-n
-c
-c
-V
+ai
+am
+ap
+az
+an
+ac
+ac
+aV
 "}
 (13,1,1) = {"
-c
-c
-c
-c
-c
-n
-J
-R
+ac
+ac
+ac
+ac
+ac
+an
+gO
+aX
 "}
 (14,1,1) = {"
-j
-n
-c
-n
-c
-n
-K
-S
+aj
+an
+ac
+an
+ac
+an
+VV
+aU
 "}
 (15,1,1) = {"
-k
-o
-u
-u
-u
-o
-L
-T
+ak
+ao
+au
+au
+au
+ao
+FK
+Pf
 "}

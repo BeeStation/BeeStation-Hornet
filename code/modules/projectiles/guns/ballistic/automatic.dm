@@ -6,7 +6,6 @@
 	semi_auto = TRUE
 	fire_sound = "sound/weapons/smgshot.ogg"
 	fire_sound_volume = 80
-	vary_fire_sound = FALSE
 	automatic = 1
 	rack_sound = "sound/weapons/smgrack.ogg"
 	weapon_weight = WEAPON_MEDIUM
@@ -18,9 +17,11 @@
 	mag_type = /obj/item/ammo_box/magazine/smgm9mm
 	pin = null
 	fire_rate = 5
+	fire_delay = 2
 	bolt_type = BOLT_TYPE_LOCKING
 	mag_display = TRUE
 	weapon_weight = WEAPON_LIGHT
+	burst_size = 3
 
 /obj/item/gun/ballistic/automatic/proto/unrestricted
 	pin = /obj/item/firing_pin
@@ -249,6 +250,8 @@
 
 
 /obj/item/gun/ballistic/automatic/l6_saw/AltClick(mob/user)
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
 	cover_open = !cover_open
 	to_chat(user, "<span class='notice'>You [cover_open ? "open" : "close"] [src]'s cover.</span>")
 	if(cover_open)
@@ -287,39 +290,6 @@
 		return
 	..()
 
-
-
-// SNIPER //
-
-/obj/item/gun/ballistic/automatic/sniper_rifle
-	name = "sniper rifle"
-	desc = "A long ranged weapon that does significant damage. No, you can't quickscope."
-	icon_state = "sniper"
-	item_state = "sniper"
-	fire_sound = "sound/weapons/sniper_shot.ogg"
-	fire_sound_volume = 90
-	vary_fire_sound = FALSE
-	load_sound = "sound/weapons/sniper_mag_insert.ogg"
-	rack_sound = "sound/weapons/sniper_rack.ogg"
-	recoil = 2
-	weapon_weight = WEAPON_HEAVY
-	mag_type = /obj/item/ammo_box/magazine/sniper_rounds
-	fire_delay = 40
-	burst_size = 1
-	w_class = WEIGHT_CLASS_NORMAL
-	zoomable = TRUE
-	zoom_amt = 10 //Long range, enough to see in front of you, but no tiles behind you.
-	zoom_out_amt = 5
-	slot_flags = ITEM_SLOT_BACK
-	actions_types = list()
-	mag_display = TRUE
-
-/obj/item/gun/ballistic/automatic/sniper_rifle/syndicate
-	name = "syndicate sniper rifle"
-	desc = "An illegally modified .50 cal sniper rifle with suppression compatibility. Quickscoping still doesn't work."
-	can_suppress = TRUE
-	can_unsuppress = TRUE
-	pin = /obj/item/firing_pin/implant/pindicate
 
 // Old Semi-Auto Rifle //
 

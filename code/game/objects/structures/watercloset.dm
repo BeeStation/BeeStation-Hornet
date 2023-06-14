@@ -38,7 +38,7 @@
 				if(open)
 					GM.visible_message("<span class='danger'>[user] starts to give [GM] a swirlie!</span>", "<span class='userdanger'>[user] starts to give you a swirlie...</span>")
 					swirlie = GM
-					if(do_after(user, 30, 0, target = src))
+					if(do_after(user, 30, target = src, timed_action_flags = IGNORE_HELD_ITEM))
 						GM.visible_message("<span class='danger'>[user] gives [GM] a swirlie!</span>", "<span class='userdanger'>[user] gives you a swirlie!</span>", "<span class='italics'>You hear a toilet flushing.</span>")
 						if(iscarbon(GM))
 							var/mob/living/carbon/C = GM
@@ -239,7 +239,7 @@
 
 /obj/structure/sinkframe/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, .proc/can_be_rotated))
+	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, PROC_REF(can_be_rotated)))
 
 /obj/structure/sinkframe/proc/can_be_rotated(mob/user, rotation_type)
 	if(anchored)
@@ -277,11 +277,11 @@
 	user.visible_message("<span class='notice'>[user] washes [user.p_their()] [washing_face ? "face" : "hands"] using [src].</span>", \
 						"<span class='notice'>You wash your [washing_face ? "face" : "hands"] using [src].</span>")
 	if(washing_face)
+		SEND_SIGNAL(user, COMSIG_COMPONENT_CLEAN_FACE_ACT, CLEAN_STRENGTH_BLOOD)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			H.lip_style = null //Washes off lipstick
 			H.lip_color = initial(H.lip_color)
-			H.wash_cream()
 			H.regenerate_icons()
 		user.drowsyness = max(user.drowsyness - rand(2,3), 0) //Washing your face wakes you up if you're falling asleep
 	else
@@ -388,7 +388,7 @@
 
 
 /obj/structure/curtain
-	name = "curtain"
+	name = "plastic curtain"
 	desc = "Contains less than 1% mercury."
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "bathroom-open"
@@ -397,25 +397,23 @@
 	alpha = 200 //Mappers can also just set this to 255 if they want curtains that can't be seen through
 	layer = SIGN_LAYER
 	anchored = TRUE
-	opacity = 0
+	opacity = FALSE
 	density = FALSE
 	var/open = TRUE
-
-/obj/structure/curtain/proc/toggle()
-	open = !open
-	update_icon()
 
 /obj/structure/curtain/update_icon()
 	if(!open)
 		icon_state = "[icon_type]-closed"
 		layer = WALL_OBJ_LAYER
-		density = TRUE
+		set_density(TRUE)
+		set_opacity(TRUE)
 		open = FALSE
 
 	else
 		icon_state = "[icon_type]-open"
 		layer = SIGN_LAYER
-		density = FALSE
+		set_density(FALSE)
+		set_opacity(FALSE)
 		open = TRUE
 
 /obj/structure/curtain/attackby(obj/item/W, mob/user)
@@ -445,8 +443,7 @@
 	. = ..()
 	if(.)
 		return
-	playsound(loc, 'sound/effects/curtain.ogg', 50, 1)
-	toggle()
+	toggle(user)
 
 /obj/structure/curtain/deconstruct(disassembled = TRUE)
 	new /obj/item/stack/sheet/cotton/cloth (loc, 2)
@@ -469,3 +466,25 @@
 	icon_state = "bounty-open"
 	color = null
 	alpha = 255
+
+/obj/structure/curtain/proc/toggle(mob/M)
+    if (check(M))
+        open = !open
+        playsound(loc, 'sound/effects/curtain.ogg', 50, 1)
+        update_appearance()
+
+/obj/structure/curtain/proc/check(mob/M)
+    return TRUE
+
+/obj/structure/curtain/directional
+	icon_type = "bounty"
+	icon_state = "bounty-open"
+	color = null
+	alpha = 255
+	name = "window curtain"
+
+/obj/structure/curtain/directional/check(mob/M)
+	if (get_dir(src, M) & dir)
+		return TRUE
+	else
+		return FALSE

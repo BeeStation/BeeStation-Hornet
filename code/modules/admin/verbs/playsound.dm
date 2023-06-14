@@ -1,3 +1,8 @@
+//world/proc/shelleo
+#define SHELLEO_ERRORLEVEL 1
+#define SHELLEO_STDOUT 2
+#define SHELLEO_STDERR 3
+
 /client/proc/play_sound(S as sound)
 	set category = "Fun"
 	set name = "Play Global Sound"
@@ -31,7 +36,7 @@
 	message_admins("[key_name_admin(src)] played sound [S]")
 
 	for(var/mob/M in GLOB.player_list)
-		if(M.client.prefs.toggles & SOUND_MIDI)
+		if(M.client.prefs.toggles & PREFTOGGLE_SOUND_MIDI)
 			admin_sound.volume = vol * M.client.admin_music_volume
 			SEND_SOUND(M, admin_sound)
 			admin_sound.volume = vol
@@ -126,7 +131,7 @@
 			for(var/m in GLOB.player_list)
 				var/mob/M = m
 				var/client/C = M.client
-				if(C.prefs.toggles & SOUND_MIDI)
+				if(C.prefs.toggles & PREFTOGGLE_SOUND_MIDI)
 					if(!stop_web_sounds)
 						C.tgui_panel?.play_music(web_sound_url, music_extra_data)
 					else
@@ -146,6 +151,24 @@
 	message_admins("[key_name_admin(src)] set the round end sound to [S]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Round End Sound") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/proc/play_soundtrack()
+	set category = "Fun"
+	set name = "Play Soundtrack Music"
+	set desc = "Choose a song to play from the available soundtrack."
+
+	var/station_only = alert(usr, "Play only on station?", "Station Setting", "Station Only", "All", "Cancel")
+	if(station_only == "Cancel" || station_only == null)
+		return
+	var/soundtracks = subtypesof(/datum/soundtrack_song)
+	for(var/datum/soundtrack_song/song as() in soundtracks)
+		if(initial(song.file) != null)
+			continue
+		soundtracks -= song
+	var/song_choice = input(usr, "Choose a song", "Song Choice", null) as null|anything in soundtracks
+	if(!ispath(song_choice, /datum/soundtrack_song))
+		return
+	play_soundtrack_music(song_choice, only_station = (station_only == "Station Only" ? SOUNDTRACK_PLAY_ONLYSTATION : SOUNDTRACK_PLAY_ALL))
+
 /client/proc/stop_sounds()
 	set category = "Debug"
 	set name = "Stop All Playing Sounds"
@@ -160,3 +183,7 @@
 			var/client/C = M.client
 			C?.tgui_panel?.stop_music()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Stop All Playing Sounds") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+#undef SHELLEO_ERRORLEVEL
+#undef SHELLEO_STDOUT
+#undef SHELLEO_STDERR

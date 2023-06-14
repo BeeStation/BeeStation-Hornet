@@ -42,6 +42,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		/obj/item/toy/clockwork_watch = 2,
 		/obj/item/toy/toy_dagger = 2,
 		/obj/item/toy/cog = 2,
+		/obj/item/toy/batong = 1,
 		/obj/item/toy/replica_fabricator = 1,
 		/obj/item/extendohand/acme = 1,
 		/obj/item/hot_potato/harmless/toy = 1,
@@ -87,7 +88,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		var/list/gameodds = list(/obj/item/circuitboard/computer/arcade/battle = 49,
 							/obj/item/circuitboard/computer/arcade/orion_trail = 49,
 							/obj/item/circuitboard/computer/arcade/amputation = 2)
-		var/thegame = pickweight(gameodds)
+		var/thegame = pick_weight(gameodds)
 		var/obj/item/circuitboard/CB = new thegame()
 		new CB.build_path(loc, CB)
 		return INITIALIZE_HINT_QDEL
@@ -105,7 +106,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	visible_message("<span class='notice'>[src] dispenses [the_prize]!</span>", "<span class='notice'>You hear a chime and a clunk.</span>")
 
 /obj/machinery/computer/arcade/proc/redeem(mob/user)
-	var/redeemselect = pickweight(length(prize_override) ? prize_override : GLOB.arcade_prize_pool)
+	var/redeemselect = pick_weight(length(prize_override) ? prize_override : GLOB.arcade_prize_pool)
 
 	var/atom/movable/the_prize = new redeemselect(drop_location())
 	visible_message("<span class='notice'>[src] dispenses [the_prize]!</span>", "<span class='notice'>You hear a chime and a clunk.</span>")
@@ -123,7 +124,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	if(prize_override)
 		override = TRUE
 
-	if(stat & (NOPOWER|BROKEN) || . & EMP_PROTECT_SELF)
+	if(machine_stat & (NOPOWER|BROKEN) || . & EMP_PROTECT_SELF)
 		return
 
 	var/empprize = null
@@ -135,9 +136,9 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 			num_of_prizes = rand(0,2)
 	for(var/i = num_of_prizes; i > 0; i--)
 		if(override)
-			empprize = pickweight(prize_override)
+			empprize = pick_weight(prize_override)
 		else
-			empprize = pickweight(GLOB.arcade_prize_pool)
+			empprize = pick_weight(GLOB.arcade_prize_pool)
 		new empprize(loc)
 	explosion(loc, -1, 0, 1+num_of_prizes, flame_range = 1+num_of_prizes)
 
@@ -325,10 +326,8 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	blocked = FALSE
 	return
 
-
-/obj/machinery/computer/arcade/battle/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
+/obj/machinery/computer/arcade/battle/on_emag(mob/user)
+	..()
 	to_chat(user, "<span class='warning'>A mesmerizing Rhumba beat starts playing from the arcade machine's speakers!</span>")
 	temp = "If you die in the game, you die for real!"
 	player_hp = 30
@@ -337,16 +336,9 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	enemy_mp = 20
 	gameover = FALSE
 	blocked = FALSE
-
-	obj_flags |= EMAGGED
-
 	enemy_name = "Cuban Pete"
 	name = "Outbomb Cuban Pete"
-
-
 	updateUsrDialog()
-
-
 
 // *** THE ORION TRAIL ** //
 
@@ -588,7 +580,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 					event = ORION_TRAIL_COLLISION
 					event()
 				else if(prob(75))
-					event = pickweight(events)
+					event = pick_weight(events)
 					if(lings_aboard)
 						if(event == ORION_TRAIL_LING || prob(55))
 							event = ORION_TRAIL_LING_ATTACK
@@ -717,7 +709,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 						var/mob/living/L = usr
 						L.Stun(200, ignore_canstun = TRUE) //you can't run :^)
 					var/S = new /obj/anomaly/singularity/academy(usr.loc)
-					addtimer(CALLBACK(src, /atom/movable/proc/say, "[S] winks out, just as suddenly as it appeared."), 50)
+					addtimer(CALLBACK(src, TYPE_PROC_REF(/atom/movable, say), "[S] winks out, just as suddenly as it appeared."), 50)
 					QDEL_IN(S, 50)
 			else
 				event = null
@@ -812,7 +804,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 						if(obj_flags & EMAGGED)
 							say("WEEWOO! WEEWOO! Spaceport security en route!")
 							playsound(src, 'sound/items/weeoo1.ogg', 100, FALSE)
-							for(var/i, i<=3, i++)
+							for(var/i in 1 to 3)
 								var/mob/living/simple_animal/hostile/syndicate/ranged/smg/orion/O = new/mob/living/simple_animal/hostile/syndicate/ranged/smg/orion(get_turf(src))
 								O.target = usr
 
@@ -1181,14 +1173,12 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	name = "The Orion Trail"
 	desc = "Learn how our ancestors got to Orion, and have fun in the process!"
 
-/obj/machinery/computer/arcade/orion_trail/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
+/obj/machinery/computer/arcade/orion_trail/on_emag(mob/user)
+	..()
 	to_chat(user, "<span class='notice'>You override the cheat code menu and skip to Cheat #[rand(1, 50)]: Realism Mode.</span>")
 	name = "The Orion Trail: Realism Edition"
 	desc = "Learn how our ancestors got to Orion, and try not to die in the process!"
 	newgame()
-	obj_flags |= EMAGGED
 
 /obj/machinery/computer/arcade/orion_trail/Destroy()
 	QDEL_NULL(Radio)
@@ -1290,13 +1280,11 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 			to_chat(c_user, "<span class='notice'>You (wisely) decide against putting your hand in the machine.</span>")
 
 
-/obj/machinery/computer/arcade/amputation/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
+/obj/machinery/computer/arcade/amputation/on_emag(mob/user)
+	..()
 	to_chat(user, "<span class='notice'>You override the safety systems on the arcade machine.</span>")
 	name = "Mediborg's Amputation Adventure: Deluxe Edition"
 	desc = "A picture of a blood-soaked medical cyborg flashes on the screen. The mediborg has glowing red eyes, and a speech bubble that says, \"Put your hand in the machine if you aren't a <b>coward!</b>\""
-	obj_flags |= EMAGGED
 
 #undef ORION_TRAIL_WINTURN
 #undef ORION_TRAIL_RAIDERS

@@ -1,7 +1,7 @@
 /**********************Jaunter**********************/
 /obj/item/wormhole_jaunter
 	name = "wormhole jaunter"
-	desc = "A single use device harnessing outdated wormhole technology, Nanotrasen has since turned its eyes to bluespace for more accurate teleportation. The wormholes it creates are unpleasant to travel through, to say the least.\nThanks to modifications provided by the Free Golems, this jaunter can be worn on the belt to provide protection from chasms."
+	desc = "A single use device harnessing outdated wormhole technology, Nanotrasen has since turned its eyes to bluespace for more accurate teleportation. The wormholes it creates are unpleasant to travel through, to say the least.\nThis jaunter can be worn on the belt to provide protection from chasms."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "Jaunter"
 	item_state = "electronic"
@@ -14,7 +14,7 @@
 	slot_flags = ITEM_SLOT_BELT
 
 /obj/item/wormhole_jaunter/attack_self(mob/user)
-	user.visible_message("<span class='notice'>[user.name] activates the [src.name]!</span>")
+	user.visible_message("<span class='notice'>[user.name] activates the [src]!</span>", "<span class='notice'>You activate the [src]!</span>")
 	SSblackbox.record_feedback("tally", "jaunter", 1, "User") // user activated
 	activate(user, TRUE)
 
@@ -30,12 +30,12 @@
 
 	for(var/obj/item/beacon/B in GLOB.teleportbeacons)
 		var/turf/T = get_turf(B)
-		if(is_station_level(T.z))
+		if(is_station_level(T.z) && !isspaceturf(T))
 			destinations += B
 
 	return destinations
 
-/obj/item/wormhole_jaunter/proc/activate(mob/user, adjacent)
+/obj/item/wormhole_jaunter/proc/activate(mob/living/user, adjacent)
 	if(!turf_check(user))
 		return
 
@@ -47,6 +47,10 @@
 	var/obj/effect/portal/jaunt_tunnel/J = new (get_turf(src), src, 100, null, FALSE, get_turf(chosen_beacon))
 	if(adjacent)
 		try_move_adjacent(J)
+	else
+		user.Paralyze(2 SECONDS, TRUE, TRUE) //Ignore stun immunity here, for their own good
+		user.setMovetype(user.movement_type | FLOATING) //Prevents falling into chasm during delay, automatically removed upon movement
+		addtimer(CALLBACK(J, TYPE_PROC_REF(/atom, attackby), null, user), 1 SECONDS) //Forcibly teleport them away from the chasm after a brief dramatic delay
 	playsound(src,'sound/effects/sparks4.ogg',50,1)
 	qdel(src)
 
@@ -71,9 +75,9 @@
 
 /obj/item/wormhole_jaunter/proc/chasm_react(mob/user)
 	if(user.get_item_by_slot(ITEM_SLOT_BELT) == src)
-		to_chat(user, "Your [name] activates, saving you from the chasm!</span>")
+		user.visible_message("<span class='notice'>[user] is saved by their [src]!</span>", "<span class='warning'>Your [src] activates, saving you from the chasm!</span>")
 		SSblackbox.record_feedback("tally", "jaunter", 1, "Chasm") // chasm automatic activation
-		INVOKE_ASYNC(user.client, /client.proc/give_award, /datum/award/achievement/misc/chasmjaunt, user)
+		INVOKE_ASYNC(user.client, TYPE_PROC_REF(/client, give_award), /datum/award/achievement/misc/chasmjaunt, user)
 		activate(user, FALSE)
 	else
 		to_chat(user, "[src] is not attached to your belt, preventing it from saving you from the chasm. RIP.</span>")
@@ -97,4 +101,4 @@
 			L.Paralyze(60)
 			if(ishuman(L))
 				shake_camera(L, 20, 1)
-				addtimer(CALLBACK(L, /mob/living/carbon.proc/vomit), 20)
+				addtimer(CALLBACK(L, TYPE_PROC_REF(/mob/living/carbon, vomit)), 40)

@@ -12,7 +12,7 @@
 	max_amount = 5
 	allowAntagTargets = TRUE
 	latejoin_allowed = TRUE
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain")
+	protected_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 
 	special_role_flag = ROLE_TRAITOR
 	role_name = ROLE_TRAITOR
@@ -23,7 +23,7 @@
 	probability = 60
 
 /datum/special_role/traitor/add_antag_status_to(datum/mind/M)
-	addtimer(CALLBACK(src, .proc/reveal_antag_status, M), rand(10,100))
+	addtimer(CALLBACK(src, PROC_REF(reveal_antag_status), M), rand(10,100))
 
 /datum/special_role/traitor/proc/reveal_antag_status(datum/mind/M)
 	M.special_role = role_name

@@ -26,7 +26,7 @@
 	var/area/A = get_area(src)
 	if(A)
 		notify_ghosts("A drone shell has been created in \the [A.name].", source = src, action=NOTIFY_ATTACK, flashwindow = FALSE, ignore_key = POLL_IGNORE_DRONE, notify_suiciders = FALSE)
-	GLOB.poi_list |= src
+	AddElement(/datum/element/point_of_interest)
 	if(isnull(possible_seasonal_hats))
 		build_seasonal_hats()
 
@@ -38,10 +38,6 @@
 		var/datum/holiday/holiday = SSevents.holidays[V]
 		if(holiday.drone_hat)
 			possible_seasonal_hats += holiday.drone_hat
-
-/obj/item/drone_shell/Destroy()
-	GLOB.poi_list -= src
-	. = ..()
 
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
 /obj/effect/mob_spawn/drone/attack_ghost(mob/user)
@@ -57,7 +53,7 @@
 		to_chat(user, "Can't become a drone before the game has started.")
 		return
 	var/be_drone = alert("Become a drone? (Warning, You can no longer be cloned!)",,"Yes","No")
-	if(be_drone == "No" || QDELETED(src) || !isobserver(user))
+	if(be_drone != "Yes" || QDELETED(src) || !isobserver(user))
 		return
 	var/mob/living/simple_animal/drone/D = new mob_type(get_turf(loc))
 	if(!D.default_hatmask && seasonal_hats && possible_seasonal_hats.len)

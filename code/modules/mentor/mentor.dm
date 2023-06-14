@@ -9,7 +9,7 @@ GLOBAL_PROTECT(mentor_href_token)
 	var/client/owner // the actual mentor, client type
 	var/target // the mentor's ckey
 	var/href_token // href token for mentor commands, uses the same token used by admins.
-	var/mob/following
+	var/datum/help_ui/mentor/mentor_interface
 
 /datum/mentors/New(ckey)
 	if(!ckey)
@@ -56,6 +56,27 @@ GLOBAL_PROTECT(mentor_href_token)
 
 /proc/MentorHrefToken(forceGlobal = FALSE)
 	return "mentor_token=[RawMentorHrefToken(forceGlobal)]"
+
+/datum/mentors/Topic(href, href_list)
+	..()
+
+	if(usr.client != src.owner || !GLOB.mentor_datums[usr.ckey])
+		message_admins("[usr.key] has attempted to override the mentor panel!")
+		log_admin("[key_name(usr)] tried to use the mentor panel without authorization.")
+		return
+
+	if(!CheckMentorHREF(href, href_list))
+		return
+
+	if(href_list["mhelp"])
+		var/mhelp_ref = href_list["mhelp"]
+		var/datum/help_ticket/mentor/MH = locate(mhelp_ref)
+		if(istype(MH))
+			MH.Action(href_list["mhelp_action"])
+		else
+			to_chat(usr, "Ticket [mhelp_ref] has been deleted!")
+	else if(href_list["mhelp_tickets"])
+		GLOB.mhelp_tickets.BrowseTickets(usr)
 
 /proc/load_mentors()
 	GLOB.mentor_datums.Cut()

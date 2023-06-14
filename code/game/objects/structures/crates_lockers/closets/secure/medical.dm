@@ -80,36 +80,49 @@
 
 /obj/structure/closet/secure_closet/CMO/PopulateContents()
 	..()
-	new /obj/item/gun/energy/e_gun/mini/heads(src)
-	new /obj/item/clothing/head/beret/cmo(src)
-	new /obj/item/clothing/neck/cloak/cmo(src)
+	new /obj/item/storage/box/suitbox/cmo(src)
 	new /obj/item/storage/backpack/duffelbag/med(src)
+	new /obj/item/clothing/suit/toggle/labcoat/med/cmo(src)
+	new /obj/item/clothing/gloves/color/latex/nitrile(src)
+	new /obj/item/radio/headset/heads/cmo(src)
+
 	new /obj/item/clothing/suit/bio_suit/cmo(src)
 	new /obj/item/clothing/head/bio_hood/cmo(src)
-	new /obj/item/clothing/suit/toggle/labcoat/cmo(src)
-	new /obj/item/clothing/under/rank/medical/chief_medical_officer(src)
-	new /obj/item/clothing/under/rank/medical/chief_medical_officer/skirt(src)
-	new /obj/item/clothing/shoes/sneakers/brown	(src)
-	new /obj/item/cartridge/cmo(src)
-	new /obj/item/radio/headset/heads/cmo(src)
-	new /obj/item/megaphone/command(src)
-	new /obj/item/defibrillator/compact/loaded(src)
-	new /obj/item/clothing/gloves/color/latex/nitrile(src)
-	new /obj/item/storage/belt/medical(src)
-	new /obj/item/healthanalyzer/advanced(src)
-	new /obj/item/assembly/flash/handheld(src)
-	new /obj/item/reagent_containers/hypospray/CMO(src)
-	new /obj/item/autosurgeon/cmo(src)
-	new /obj/item/door_remote/chief_medical_officer(src)
 	new /obj/item/clothing/neck/petcollar(src)
 	new /obj/item/pet_carrier(src)
-	new /obj/item/wallframe/defib_mount(src)
-	new /obj/item/circuitboard/machine/techfab/department/medical(src)
 	new /obj/item/storage/photo_album/CMO(src)
-	new /obj/item/reagent_containers/food/drinks/bottle/synthflesh(src)
-	new /obj/item/card/id/departmental_budget/med(src)
-	new /obj/item/extrapolator(src)
+
+	new /obj/item/storage/box/radiokey/med(src)
+	new /obj/item/storage/box/command_keys(src)
+	new /obj/item/megaphone/command(src)
+	new /obj/item/computer_hardware/hard_drive/role/cmo(src)
 	new /obj/item/storage/lockbox/medal/med(src)
+
+	new /obj/item/circuitboard/machine/techfab/department/medical(src)
+	new /obj/item/reagent_containers/food/drinks/bottle/synthflesh(src)
+
+	// prioritized items
+	new /obj/item/door_remote/chief_medical_officer(src)
+	new /obj/item/card/id/departmental_budget/med(src)
+	new /obj/item/reagent_containers/hypospray/CMO(src)
+	new /obj/item/autosurgeon/cmo(src)
+	new /obj/item/extrapolator(src)
+	new /obj/item/storage/belt/medical(src)
+	new /obj/item/clothing/neck/cloak/cmo(src)
+	new /obj/item/defibrillator/compact/loaded(src)
+	new /obj/item/assembly/flash/handheld(src)
+	new /obj/item/healthanalyzer/advanced(src)
+	new /obj/item/wallframe/defib_mount(src)
+	new /obj/item/gun/energy/e_gun/mini/heads(src)
+
+/obj/item/storage/box/suitbox/cmo
+	name = "compression box of chief medical officer outfits"
+
+/obj/item/storage/box/suitbox/cmo/PopulateContents()
+	new /obj/item/clothing/under/rank/medical/chief_medical_officer(src)
+	new /obj/item/clothing/under/rank/medical/chief_medical_officer/skirt(src)
+	new /obj/item/clothing/shoes/sneakers/brown(src)
+	new /obj/item/clothing/head/beret/cmo(src)
 
 /obj/structure/closet/secure_closet/animal
 	name = "animal control"

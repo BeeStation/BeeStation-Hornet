@@ -1,7 +1,7 @@
 /proc/translate_legacy_chem_id(id)
 	switch (id)
 		if ("sacid")
-			return "sulphuricacid"
+			return "sulfuricacid"
 		if ("facid")
 			return "fluorosulfuricacid"
 		if ("co2")
@@ -85,11 +85,11 @@
 
 /obj/machinery/chem_dispenser/Initialize(mapload)
 	. = ..()
-	dispensable_reagents = sortList(dispensable_reagents, /proc/cmp_reagents_asc)
+	dispensable_reagents = sort_list(dispensable_reagents, GLOBAL_PROC_REF(cmp_reagents_asc))
 	if(emagged_reagents)
-		emagged_reagents = sortList(emagged_reagents, /proc/cmp_reagents_asc)
+		emagged_reagents = sort_list(emagged_reagents, GLOBAL_PROC_REF(cmp_reagents_asc))
 	if(upgrade_reagents)
-		upgrade_reagents = sortList(upgrade_reagents, /proc/cmp_reagents_asc)
+		upgrade_reagents = sort_list(upgrade_reagents, GLOBAL_PROC_REF(cmp_reagents_asc))
 	update_icon()
 
 /obj/machinery/chem_dispenser/Destroy()
@@ -108,7 +108,7 @@
 
 /obj/machinery/chem_dispenser/process(delta_time)
 	if (recharge_counter >= 8)
-		if(!is_operational())
+		if(!is_operational)
 			return
 		var/usedpower = cell.give(recharge_amount)
 		if(usedpower)
@@ -140,15 +140,10 @@
 		beaker_overlay = display_beaker()
 		add_overlay(beaker_overlay)
 
-
-
-/obj/machinery/chem_dispenser/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		to_chat(user, "<span class='warning'>[src] has no functional safeties to emag.</span>")
-		return
+/obj/machinery/chem_dispenser/on_emag(mob/user)
+	..()
 	to_chat(user, "<span class='notice'>You short out [src]'s safeties.</span>")
 	dispensable_reagents |= emagged_reagents//add the emagged reagents to the dispensable ones
-	obj_flags |= EMAGGED
 
 /obj/machinery/chem_dispenser/ex_act(severity, target)
 	if(severity < 3)
@@ -237,7 +232,7 @@
 			replace_beaker(usr)
 			. = TRUE
 
-	if(!is_operational())
+	if(!is_operational)
 		return
 
 	switch(action)
@@ -302,10 +297,14 @@
 				else
 					recording_recipe[key] += dispense_amount
 			. = TRUE
-		if("clear_recipes")
-			var/yesno = alert("Clear all recipes?",, "Yes","No")
-			if(yesno == "Yes")
-				saved_recipes = list()
+		if("delete_recipe")
+			var/recipe_name = params["recipe"]
+			if(!recipe_name || !saved_recipes[recipe_name])
+				return
+			saved_recipes -= recipe_name
+			. = TRUE
+		if("clear_all_recipes")
+			saved_recipes.Cut()
 			. = TRUE
 		if("record_recipe")
 			recording_recipe = list()
@@ -314,7 +313,7 @@
 			var/name = stripped_input(usr,"Name","What do you want to name this recipe?", "Recipe", MAX_NAME_LEN)
 			if(!usr.canUseTopic(src, !issilicon(usr)))
 				return
-			if(saved_recipes[name] && alert("\"[name]\" already exists, do you want to overwrite it?",, "Yes", "No") == "No")
+			if(saved_recipes[name] && alert("\"[name]\" already exists, do you want to overwrite it?",, "Yes", "No") != "Yes")
 				return
 			if(name && recording_recipe)
 				for(var/reagent in recording_recipe)
@@ -348,7 +347,7 @@
 		to_chat(user, "<span class='notice'>You add [B] to [src].</span>")
 		updateUsrDialog()
 		update_icon()
-	else if(user.a_intent != INTENT_HARM && !istype(I, /obj/item/card/emag))
+	else if(user.a_intent != INTENT_HARM && !istype(I, /obj/item/card/emag) && !istype(I, /obj/item/stock_parts/cell))
 		to_chat(user, "<span class='warning'>You can't load [I] into [src]!</span>")
 		return ..()
 	else

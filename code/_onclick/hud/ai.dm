@@ -46,6 +46,21 @@
 	var/mob/living/silicon/ai/AI = usr
 	AI.toggle_camera_light()
 
+/atom/movable/screen/ai/modpc
+	name = "Messenger"
+	icon_state = "pda_send"
+	var/mob/living/silicon/ai/robot
+
+/atom/movable/screen/ai/modpc/Click()
+	. = ..()
+	if(. || !robot.modularInterface?.turn_on(robot, open_ui = FALSE))
+		return
+	var/obj/item/computer_hardware/hard_drive/drive = robot.modularInterface.all_components[MC_HDD]
+	for(var/datum/computer_file/program/messenger/app in drive?.stored_files)
+		robot.modularInterface.open_program(robot, app)
+		robot.modularInterface.interact(robot)
+		break
+
 /atom/movable/screen/ai/crew_monitor
 	name = "Crew Monitoring Console"
 	icon_state = "crew_monitor"
@@ -74,7 +89,7 @@
 	if(..())
 		return
 	var/mob/living/silicon/ai/AI = usr
-	AI.ai_alerts()
+	AI.alert_control.ui_interact(AI)
 
 /atom/movable/screen/ai/announcement
 	name = "Make Vox Announcement"
@@ -106,26 +121,6 @@
 	var/mob/living/silicon/ai/AI = usr
 	AI.checklaws()
 
-/atom/movable/screen/ai/pda_msg_send
-	name = "PDA - Send Message"
-	icon_state = "pda_send"
-
-/atom/movable/screen/ai/pda_msg_send/Click()
-	if(..())
-		return
-	var/mob/living/silicon/ai/AI = usr
-	AI.cmd_send_pdamesg(usr)
-
-/atom/movable/screen/ai/pda_msg_show
-	name = "PDA - Show Message Log"
-	icon_state = "pda_receive"
-
-/atom/movable/screen/ai/pda_msg_show/Click()
-	if(..())
-		return
-	var/mob/living/silicon/ai/AI = usr
-	AI.cmd_show_message_log(usr)
-
 /atom/movable/screen/ai/image_take
 	name = "Take Image"
 	icon_state = "take_picture"
@@ -150,9 +145,6 @@
 	if(isAI(usr))
 		var/mob/living/silicon/ai/AI = usr
 		AI.aicamera.viewpictures(usr)
-	else if(iscyborg(usr))
-		var/mob/living/silicon/robot/R = usr
-		R.aicamera.viewpictures(usr)
 
 /atom/movable/screen/ai/sensors
 	name = "Sensor Augmentation"
@@ -198,6 +190,7 @@
 	if(isturf(target))
 		AI.eyeobj.forceMove(target)
 		AI.overlay_fullscreen("flash", /atom/movable/screen/fullscreen/flash/static)
+		AI.camera_visibility(AI.eyeobj)
 		AI.clear_fullscreen("flash", 5)
 	else
 		to_chat(AI, "<span class='warning'>There is nothing in that direction!</span>")
@@ -213,6 +206,7 @@
 /datum/hud/ai/New(mob/owner)
 	..()
 	var/atom/movable/screen/using
+	var/mob/living/silicon/ai/myai = mymob
 
 // Language menu
 	using = new /atom/movable/screen/language_menu
@@ -280,17 +274,14 @@
 	using.hud = src
 	static_inventory += using
 
-//PDA message
-	using = new /atom/movable/screen/ai/pda_msg_send()
-	using.screen_loc = ui_ai_pda_send
+// Modular Interface
+	using = new /atom/movable/screen/ai/modpc()
+	using.screen_loc = ui_ai_mod_int
 	using.hud = src
 	static_inventory += using
-
-//PDA log
-	using = new /atom/movable/screen/ai/pda_msg_show()
-	using.screen_loc = ui_ai_pda_log
-	using.hud = src
-	static_inventory += using
+	myai.interfaceButton = using
+	var/atom/movable/screen/ai/modpc/tabletbutton = using
+	tabletbutton.robot = myai
 
 //Take image
 	using = new /atom/movable/screen/ai/image_take()

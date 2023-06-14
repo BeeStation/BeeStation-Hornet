@@ -20,8 +20,8 @@
 		seed = new seed()
 		seed.adjust_potency(50-seed.potency)
 
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+	pixel_x = base_pixel_x + rand(-5, 5)
+	pixel_y = base_pixel_y + rand(-5, 5)
 
 	if(seed)
 		for(var/datum/plant_gene/trait/T in seed.genes)
@@ -38,11 +38,11 @@
 /obj/item/grown/attackby(obj/item/O, mob/user, params)
 	..()
 	if (istype(O, /obj/item/plant_analyzer))
-		var/msg = "<span class='info'>*---------*\n This is \a <span class='name'>[src]</span>\n"
+		var/msg = "<span class='info'>This is \a <span class='name'>[src]</span>\n"
 		if(seed)
 			msg += seed.get_analyzer_text()
 		msg += "</span>"
-		to_chat(usr, msg)
+		to_chat(usr, EXAMINE_BLOCK(msg))
 		return
 
 /obj/item/grown/proc/add_juice()

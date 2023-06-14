@@ -24,8 +24,8 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/megafauna/colossus
 	name = "colossus"
 	desc = "A monstrous creature protected by heavy shielding."
-	health = 2500
-	maxHealth = 2500
+	health = 1250
+	maxHealth = 1250
 	attacktext = "judges"
 	attack_sound = 'sound/magic/clockwork/ratvar_attack.ogg'
 	icon_state = "eva"
@@ -40,13 +40,13 @@ Difficulty: Very Hard
 	move_to_delay = 10
 	ranged = TRUE
 	pixel_x = -32
+	base_pixel_x = -32
 	del_on_death = TRUE
 	gps_name = "Angelic Signal"
 	achievement_type = /datum/award/achievement/boss/colussus_kill
 	crusher_achievement_type = /datum/award/achievement/boss/colussus_crusher
 	score_achievement_type = /datum/award/score/colussus_score
-	crusher_loot = list(/obj/structure/closet/crate/necropolis/colossus, /obj/item/crusher_trophy/blaster_tubes)
-	loot = list(/obj/structure/closet/crate/necropolis/colossus)
+	loot = list(/obj/effect/spawner/lootdrop/megafaunaore, /obj/structure/closet/crate/necropolis/colossus)
 	deathmessage = "disintegrates, leaving a glowing core in its wake."
 	deathsound = 'sound/magic/demon_dies.ogg'
 	attack_action_types = list(/datum/action/innate/megafauna_attack/spiral_attack,
@@ -54,6 +54,7 @@ Difficulty: Very Hard
 							   /datum/action/innate/megafauna_attack/shotgun,
 							   /datum/action/innate/megafauna_attack/alternating_cardinals)
 	small_sprite_type = /datum/action/small_sprite/megafauna/colossus
+	var/invulnerable_finale = FALSE
 
 /datum/action/innate/megafauna_attack/spiral_attack
 	name = "Spiral Shots"
@@ -84,25 +85,43 @@ Difficulty: Very Hard
 	chosen_attack_num = 4
 
 /mob/living/simple_animal/hostile/megafauna/colossus/OpenFire()
-	anger_modifier = CLAMP(((maxHealth - health)/50),0,20)
-	ranged_cooldown = world.time + 120
+	ranged_cooldown = world.time + 600 //prevents abilities from being spammed by AttackingTarget() while an attack is already underway.
+	anger_modifier = CLAMP(((maxHealth - health)/20),0,20)
 
-	if(client)
+	if(client) //Player controlled handled a bit differently.
 		switch(chosen_attack)
 			if(1)
-				select_spiral_attack()
+				if(health <= maxHealth/10)
+					final_attack()
+				else
+					telegraph()
+					say("Judgment")
+					visible_message("<span class='colossus'>\"<b>Judgment</b>\"</span>")
+					select_spiral_attack()
+					ranged_cooldown = world.time + 30
 			if(2)
+				telegraph()
+				say("Wrath")
+				visible_message("<span class='colossus'>\"<b>Wrath</b>\"</span>")
 				random_shots()
+				ranged_cooldown = world.time + 30
 			if(3)
+				telegraph()
+				say("Retribution")
+				visible_message("<span class='colossus'>\"<b>Retribution</b>\"</span>")
 				blast()
+				ranged_cooldown = world.time + 30
 			if(4)
+				telegraph()
+				say("Lament")
+				visible_message("<span class='colossus'>\"<b>Lament</b>\"</span>")
 				alternating_dir_shots()
+				ranged_cooldown = world.time + 30
 		return
 
 	if(enrage(target))
 		if(move_to_delay == initial(move_to_delay))
 			visible_message("<span class='colossus'>\"<b>You can't dodge.</b>\"</span>")
-		ranged_cooldown = world.time + 30
 		telegraph()
 		dir_shots(GLOB.alldirs)
 		move_to_delay = 3
@@ -110,15 +129,42 @@ Difficulty: Very Hard
 	else
 		move_to_delay = initial(move_to_delay)
 
-	if(prob(20+anger_modifier)) //Major attack
-		select_spiral_attack()
-	else if(prob(20))
-		random_shots()
-	else
-		if(prob(70))
+	switch(random_attack_num)
+		if(1)
+			select_spiral_attack()
+		if(2)
+			random_shots()
+		if(3)
 			blast()
-		else
+		if(4)
 			alternating_dir_shots()
+		if(5)
+			final_attack()
+
+	if(health <= maxHealth/10) 					//Ultimate attack guaranteed at below 10% HP
+		say("Die..")
+		visible_message("<span class='colossus'>\"<b>Die..</b>\"</span>")
+		random_attack_num = 5
+	else if(prob(20+anger_modifier))			//If more than 10% HP, determine next attack randomly
+		say("Judgment")
+		visible_message("<span class='colossus'>\"<b>Judgment</b>\"</span>")
+		random_attack_num = 1
+	else
+		switch(rand(1, 3))
+			if(1)
+				say("Wrath")
+				visible_message("<span class='colossus'>\"<b>Wrath</b>\"</span>")
+				random_attack_num = 2
+			if(2)
+				say("Retribution")
+				visible_message("<span class='colossus'>\"<b>Retribution</b>\"</span>")
+				random_attack_num = 3
+			if(3)
+				say("Lament")
+				visible_message("<span class='colossus'>\"<b>Lament</b>\"</span>")
+				random_attack_num = 4
+	telegraph()
+	ranged_cooldown = world.time + 30
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/enrage(mob/living/L)
 	if(ishuman(L))
@@ -128,7 +174,6 @@ Difficulty: Very Hard
 				. = TRUE
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/alternating_dir_shots()
-	ranged_cooldown = world.time + 40
 	dir_shots(GLOB.diagonals)
 	sleep(10)
 	dir_shots(GLOB.cardinals)
@@ -138,18 +183,44 @@ Difficulty: Very Hard
 	dir_shots(GLOB.cardinals)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/select_spiral_attack()
-	telegraph()
-	if(health < maxHealth/3)
+	if(health <= maxHealth/3)
 		return double_spiral()
-	visible_message("<span class='colossus'>\"<b>Judgment.</b>\"</span>")
 	return spiral_shoot()
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/double_spiral()
-	visible_message("<span class='colossus'>\"<b>Die.</b>\"</span>")
-
 	SLEEP_CHECK_DEATH(10)
-	INVOKE_ASYNC(src, .proc/spiral_shoot, FALSE)
-	INVOKE_ASYNC(src, .proc/spiral_shoot, TRUE)
+	INVOKE_ASYNC(src, PROC_REF(spiral_shoot), FALSE, 16)
+	spiral_shoot(FALSE, 8)
+
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/final_attack() //not actually necessarily the final attack, but has a very long cooldown.
+	var/finale_counter = 10
+	var/turf/U = get_turf(src)
+	invulnerable_finale = TRUE
+	for(var/i in 1 to 20)
+		if(finale_counter > 4)
+			telegraph()
+			say("Die!!")
+			visible_message("<span class='colossus'>\"<b>Die!</b>\"</span>")
+			blast()
+		if(finale_counter > 1)
+			finale_counter--
+		for(var/T in RANGE_TURFS(12, U) - U)
+			if(prob(min(finale_counter, 2)))
+				shoot_projectile(T)
+		sleep(finale_counter + 1)
+	for(var/ii in 1 to 3)
+		telegraph()
+		say("Die")
+		visible_message("<span class='colossus'>\"<b>Die..</b>\"</span>")
+		random_shots()
+		finale_counter += 6
+		sleep(finale_counter)
+	for(var/iii in 1 to 4)
+		telegraph()
+		say("Die..")
+		visible_message("<span class='colossus'>\"<b>Die..</b>\"</span>")
+		invulnerable_finale = FALSE
+		sleep(30) //Long cooldown (total 15 seconds with one last 30 applied in ) after this attack finally concludes
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/spiral_shoot(negative = pick(TRUE, FALSE), counter_start = 8)
 	var/turf/start_turf = get_step(src, pick(GLOB.alldirs))
@@ -179,7 +250,6 @@ Difficulty: Very Hard
 	P.fire(set_angle)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/random_shots()
-	ranged_cooldown = world.time + 30
 	var/turf/U = get_turf(src)
 	playsound(U, 'sound/magic/clockwork/invoke_general.ogg', 300, 1, 5)
 	for(var/T in RANGE_TURFS(12, U) - U)
@@ -187,11 +257,10 @@ Difficulty: Very Hard
 			shoot_projectile(T)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/blast(set_angle)
-	ranged_cooldown = world.time + 20
 	var/turf/target_turf = get_turf(target)
 	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 200, 1, 2)
 	newtonian_move(get_dir(target_turf, src))
-	var/angle_to_target = Get_Angle(src, target_turf)
+	var/angle_to_target = get_angle(src, target_turf)
 	if(isnum_safe(set_angle))
 		angle_to_target = set_angle
 	var/static/list/colossus_shotgun_shot_angles = list(12.5, 7.5, 2.5, -2.5, -7.5, -12.5)
@@ -212,11 +281,6 @@ Difficulty: Very Hard
 			flash_color(M.client, "#C80000", 1)
 			shake_camera(M, 4, 3)
 	playsound(src, 'sound/magic/clockwork/narsie_attack.ogg', 200, 1)
-
-
-/mob/living/simple_animal/hostile/megafauna/colossus/devour(mob/living/L)
-	visible_message("<span class='colossus'>[src] disintegrates [L]!</span>")
-	L.dust()
 
 /obj/effect/temp_visual/at_shield
 	name = "anti-toolbox field"
@@ -437,7 +501,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	if(istype(P, /obj/item/projectile/magic))
 		ActivationReaction(P.firer, ACTIVATE_MAGIC, P.damage_type)
 		return
-	ActivationReaction(P.firer, P.flag, P.damage_type)
+	ActivationReaction(P.firer, P.armor_flag, P.damage_type)
 
 /obj/machinery/anomalous_crystal/proc/ActivationReaction(mob/user, method, damtype)
 	if(world.time < last_use_timer)
@@ -468,9 +532,8 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 		var/mob/living/carbon/human/H = user
 		for(var/obj/item/W in H)
 			H.dropItemToGround(W)
-		var/datum/job/clown/C = new /datum/job/clown()
+		var/datum/job/C = SSjob.GetJob(JOB_NAME_CLOWN)
 		C.equip(H)
-		qdel(C)
 		affected_targets.Add(H)
 
 /obj/machinery/anomalous_crystal/theme_warp //Warps the area you're in to look like a new one
@@ -525,7 +588,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 					var/turf/T = Stuff
 					if((isspaceturf(T) || isfloorturf(T)) && NewTerrainFloors)
 						var/turf/open/O = T.ChangeTurf(NewTerrainFloors, flags = CHANGETURF_INHERIT_AIR)
-						if(prob(florachance) && NewFlora.len && !is_blocked_turf(O, TRUE))
+						if(prob(florachance) && NewFlora.len && !O.is_blocked_turf(TRUE))
 							var/atom/Picked = pick(NewFlora)
 							new Picked(O)
 						continue
@@ -602,13 +665,9 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	activation_sound = 'sound/effects/ghost2.ogg'
 	var/ready_to_deploy = FALSE
 
-/obj/machinery/anomalous_crystal/helpers/Destroy()
-	GLOB.poi_list -= src
-	. = ..()
-
 /obj/machinery/anomalous_crystal/helpers/ActivationReaction(mob/user, method)
 	if(..() && !ready_to_deploy)
-		GLOB.poi_list |= src
+		AddElement(/datum/element/point_of_interest)
 		ready_to_deploy = TRUE
 		notify_ghosts("An anomalous crystal has been activated in [get_area(src)]! This crystal can always be used by ghosts hereafter.", enter_link = "<a href=?src=[REF(src)];ghostjoin=1>(Click to enter)</a>", ghost_sound = 'sound/effects/ghost2.ogg', source = src, action = NOTIFY_ATTACK, header = "Anomalous crystal activated")
 
@@ -696,7 +755,15 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	activation_method = ACTIVATE_TOUCH
 	cooldown_add = 50
 	activation_sound = 'sound/magic/timeparadox2.ogg'
-	var/static/list/banned_items_typecache = typecacheof(list(/obj/item/storage, /obj/item/implant, /obj/item/implanter, /obj/item/disk/nuclear, /obj/item/projectile, /obj/item/spellbook))
+	var/static/list/banned_items_typecache = typecacheof(list(
+		/obj/item/storage,
+		/obj/item/implant,
+		/obj/item/implanter,
+		/obj/item/disk/nuclear,
+		/obj/item/projectile,
+		/obj/item/spellbook,
+		/obj/item/dice/d20/fate
+	))
 
 /obj/machinery/anomalous_crystal/refresher/ActivationReaction(mob/user, method)
 	if(..())
@@ -789,7 +856,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	desc = "Exits the body you are possessing."
 	charge_max = 60
 	clothes_req = 0
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	max_targets = 1
 	range = -1
 	include_user = TRUE

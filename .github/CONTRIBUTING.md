@@ -10,7 +10,8 @@ CONTRIBUTING
 4. Code Standards
 5. Codebase-specific Policies
 6. Asset Policy
-7. Banned Content
+7. Pull Request Standards
+8. Banned Content
 
 ## 1. Introduction
 Hello and welcome to BeeStation's contributing page. You are presumably here because you are interested in contributing - thank you! Everyone is free to contribute to this project as long as they follow the simple guidelines and specifications below; at BeeStation, we strive to maintain code stability and maintainability, and to do that, we need all pull requests to meet our standards. It's in everyone's best interests - including yours!
@@ -42,11 +43,13 @@ You can of course, as always, ask for help on our discord.
 
 In addition to VSCode, several other tools exist to make your life easier.
 
-* Git client - [GitKraken](https://www.gitkraken.com/)
+* Git client - [GitKraken](https://www.gitkraken.com/) or [Command line (recommended)](https://git-scm.com/downloads)
+    * See [Guide to git](https://wiki.beestation13.com/view/Guide_to_git) for more detailed information
 * Code editing - [VSCode](https://code.visualstudio.com/) (NOT THE SAME AS VISUAL STUDIO)
 * VSCode Extensions - You will be prompted to install this recommended extension automatically: [Goonstation Extension Pack](https://marketplace.visualstudio.com/items?itemName=Goonstation.goonstation-extpack)
 * Map editing - [StrongDMM](https://github.com/SpaiR/StrongDMM) or [FastDMM2](https://fastdmm2.ss13.io/). Dream Maker works but requires additional steps for SS13 that these automate.
 * Icon editing - Dream Maker or your image editor of choice. Any PNG can be imported into Dream Maker.
+* Database - MariaDB: [Setup guide](https://wiki.beestation13.com/view/Working_with_the_database#Database_Setup)
 
 ## 4. Code Standards
 There are a variety of ways you can write valid DM code. However, BeeStation is not as lenient. Maintaining good code standards is important for performance and readability reasons. You can find details about our code standards [here](https://github.com/BeeStation/BeeStation-Hornet/wiki/Code-Standards).
@@ -96,7 +99,21 @@ If you are adding new assets that are not already explicitly licensed under CC-B
 
 If at any point you are confused or unsure of an asset's license or our policy, ask a Maintainer to help you.
 
-## 7. Banned Content
+## 7. Pull Request Standards
+
+You should complete the pull-request template in its entirety.
+
+Any pull-request that does not adequately complete the provided template may be closed or marked 'do not merge' by maintainers.
+ - Any changes that may affect game balance should be documented as a balance change. This also applies to bug fixes which directly alter the game's balance.
+ - Changes must be documented in their entirety including the extent of their effects. (For example, if you change it so all mobs are half speed, don't label the PR as 'monkeys now move twice as slow'). Failing to document the full extent of the changes may result in a repo-ban if the intent of hiding changes is seen as malicious.
+ - The section labeled 'about this pull request' should describe the pull request's changes in detail. This includes the changes being made, any important details about how it was implemented, the issues it closes, and links to any other pull requests if code is being ported from another codebase.
+ - The section labeled "why it's good for the game" should include the reasons behind the changes and how they will be good for the game.
+ - The testing section should contain screenshots, videos, and/or reproducible testing procedures showing that the PR works as specified. Pull-requests that ignore this section, or are not tested, may be closed by maintainers. This applies to small PRs that may seem trivial.
+ - The changelog should include a short summary of the changes made. If your pull request includes things made by other people, you should list everybody who contributed, including yourself, after the :cl: tag.
+
+If a pull-request requires updates to the wiki, these changes should be made on your user account page (For example: https://wiki.beestation13.com/view/User:PowerfulBacon), so that the original page can be updated on merge.
+
+## 8. Banned Content
 
 Do not add any of the following in a Pull Request or risk getting the PR closed:
 

@@ -55,6 +55,7 @@
 #define CATCLAWS    /datum/mutation/catclaws
 #define OVERLOAD    /datum/mutation/overload
 #define ACIDOOZE    /datum/mutation/acidooze
+#define MEDIEVAL    /datum/mutation/medieval
 
 #define UI_CHANGED "ui changed"
 #define UE_CHANGED "ue changed"
@@ -77,15 +78,17 @@
 // DNA - Because fuck you and your magic numbers being all over the codebase.
 #define DNA_BLOCK_SIZE				3
 
-#define DNA_UNI_IDENTITY_BLOCKS		8
-#define DNA_HAIR_COLOR_BLOCK		1
-#define DNA_FACIAL_HAIR_COLOR_BLOCK	2
-#define DNA_SKIN_TONE_BLOCK			3
-#define DNA_EYE_COLOR_BLOCK			4
-#define DNA_GENDER_BLOCK			5
-#define DNA_FACIAL_HAIR_STYLE_BLOCK	6
-#define DNA_HAIR_STYLE_BLOCK		7
-#define DNA_MUTANT_COLOUR			8
+#define DNA_UNI_IDENTITY_BLOCKS			10
+#define DNA_HAIR_COLOR_BLOCK			1
+#define DNA_FACIAL_HAIR_COLOR_BLOCK		2
+#define DNA_SKIN_TONE_BLOCK				3
+#define DNA_EYE_COLOR_BLOCK				4
+#define DNA_GENDER_BLOCK				5
+#define DNA_FACIAL_HAIR_STYLE_BLOCK		6
+#define DNA_HAIR_STYLE_BLOCK			7
+#define DNA_HAIR_GRADIENT_COLOR_BLOCK	8
+#define DNA_HAIR_GRADIENT_STYLE_BLOCK	9
+#define DNA_MUTANT_COLOUR			10
 
 #define DNA_SEQUENCE_LENGTH			4
 #define DNA_MUTATION_BLOCKS			8
@@ -128,6 +131,14 @@
 #define NOHUSK			20 // Can't be husked.
 #define NOMOUTH			21
 #define NOSOCKS       22 // You cannot wear socks.
+
+/// Used for determining which wounds are applicable to this species.
+/// if we have flesh (can suffer slash/piercing/burn wounds, requires they don't have NOBLOOD)
+// #define HAS_FLESH 23 [add if we ever port TGs wound system]
+/// if we have bones (can suffer bone wounds)
+// #define HAS_BONE 24 [add if we ever port TGs wound system]
+/// If we have a limb-specific overlay sprite
+#define HAS_MARKINGS 25
 
 //organ slots
 #define ORGAN_SLOT_BRAIN "brain"

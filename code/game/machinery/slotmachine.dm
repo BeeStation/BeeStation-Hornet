@@ -44,7 +44,7 @@
 	toggle_reel_spin(1) //The reels won't spin unless we activate them
 
 	var/list/reel = reels[1]
-	for(var/i = 0, i < reel.len, i++) //Populate the reels.
+	for(var/i in 1 to reel.len) //Populate the reels.
 		randomize_reels()
 
 	toggle_reel_spin(0)
@@ -66,10 +66,10 @@
 	money += round(delta_time / 2) //SPESSH MAJICKS
 
 /obj/machinery/computer/slot_machine/update_icon()
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		icon_state = "slots0"
 
-	else if(stat & BROKEN)
+	else if(machine_stat & BROKEN)
 		icon_state = "slotsb"
 
 	else if(working)
@@ -87,7 +87,7 @@
 		var/obj/item/coin/C = I
 		if(paymode == COIN)
 			if(prob(2))
-				if(!user.transferItemToLoc(C, drop_location()))
+				if(!user.transferItemToLoc(C, drop_location(), silent = FALSE))
 					return
 				C.throw_at(user, 3, 10)
 				if(prob(10))
@@ -125,10 +125,8 @@
 	else
 		return ..()
 
-/obj/machinery/computer/slot_machine/emag_act()
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+/obj/machinery/computer/slot_machine/on_emag(mob/user)
+	..()
 	var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(4, 0, src.loc)
 	spark_system.start()
@@ -180,7 +178,7 @@
 
 /obj/machinery/computer/slot_machine/emp_act(severity)
 	. = ..()
-	if(stat & (NOPOWER|BROKEN) || . & EMP_PROTECT_SELF)
+	if(machine_stat & (NOPOWER|BROKEN) || . & EMP_PROTECT_SELF)
 		return
 	if(prob(15 * severity))
 		return
@@ -226,9 +224,9 @@
 		updateDialog()
 
 /obj/machinery/computer/slot_machine/proc/can_spin(mob/user)
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		to_chat(user, "<span class='warning'>The slot machine has no power!</span>")
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		to_chat(user, "<span class='warning'>The slot machine is broken!</span>")
 	if(working)
 		to_chat(user, "<span class='warning'>You need to wait until the machine stops spinning before you can play again!</span>")
@@ -256,14 +254,14 @@
 
 	if(reels[1][2] + reels[2][2] + reels[3][2] + reels[4][2] + reels[5][2] == "[SEVEN][SEVEN][SEVEN][SEVEN][SEVEN]")
 		visible_message("<b>[src]</b> says, 'JACKPOT! You win [money] credits!'")
-		priority_announce("Congratulations to [user ? user.real_name : usrname] for winning the jackpot at the slot machine in [get_area(src)]!", sound = SSstation.announcer.get_rand_alert_sound())
+		priority_announce("Congratulations to [user ? user.real_name : usrname] for winning the jackpot of [money] credits at the slot machine in [get_area(src)]!", sound = SSstation.announcer.get_rand_alert_sound())
 		jackpots += 1
 		balance += money - give_payout(JACKPOT)
 		money = 0
 		if(paymode == HOLOCHIP)
 			new /obj/item/holochip(loc,JACKPOT)
 		else
-			for(var/i = 0, i < 5, i++)
+			for(var/i in 1 to 5)
 				cointype = pick(subtypesof(/obj/item/coin))
 				var/obj/item/coin/C = new cointype(loc)
 				random_step(C, 2, 50)
@@ -287,7 +285,7 @@
 /obj/machinery/computer/slot_machine/proc/get_lines()
 	var/amountthesame
 
-	for(var/i = 1, i <= 3, i++)
+	for(var/i in 1 to 3)
 		var/inputtext = reels[1][i] + reels[2][i] + reels[3][i] + reels[4][i] + reels[5][i]
 		for(var/symbol in symbols)
 			var/j = 3 //The lowest value we have to check for.

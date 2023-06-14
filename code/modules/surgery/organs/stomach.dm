@@ -18,10 +18,10 @@
 	var/disgust_metabolism = 1
 
 /obj/item/organ/stomach/on_life()
+	. = ..()
 	var/mob/living/carbon/human/H = owner
-	var/datum/reagent/Nutri
+	var/datum/reagent/nutriment
 
-	..()
 	if(istype(H))
 		if(!(organ_flags & ORGAN_FAILING))
 			H.dna.species.handle_digestion(H)
@@ -30,15 +30,15 @@
 	if(damage < low_threshold)
 		return
 
-	Nutri = locate(/datum/reagent/consumable/nutriment) in H.reagents.reagent_list
+	nutriment = locate(/datum/reagent/consumable/nutriment) in H.reagents.reagent_list
 
-	if(Nutri)
-		if(prob((damage/40) * Nutri.volume * Nutri.volume))
+	if(nutriment)
+		if(prob((damage/40) * nutriment.volume * nutriment.volume))
 			H.vomit(damage)
 			to_chat(H, "<span class='warning'>Your stomach reels in pain as you're incapable of holding down all that food!</span>")
 
-	else if(Nutri && damage > high_threshold)
-		if(prob((damage/10) * Nutri.volume * Nutri.volume))
+	else if(nutriment && damage > high_threshold)
+		if(prob((damage/10) * nutriment.volume * nutriment.volume))
 			H.vomit(damage)
 			to_chat(H, "<span class='warning'>Your stomach reels in pain as you're incapable of holding down all that food!</span>")
 
@@ -82,7 +82,7 @@
 	if(istype(H))
 		H.clear_alert("disgust")
 		SEND_SIGNAL(H, COMSIG_CLEAR_MOOD_EVENT, "disgust")
-	..()
+	return ..()
 
 /obj/item/organ/stomach/fly
 	name = "insectoid stomach"
@@ -94,7 +94,6 @@
 	icon_state = "stomach-p"
 	desc = "A strange crystal that is responsible for metabolizing the unseen energy force that feeds plasmamen."
 
-
 /obj/item/organ/stomach/battery
 	name = "implantable battery"
 	icon_state = "implant-power"
@@ -103,8 +102,8 @@
 	var/charge = 5000
 
 /obj/item/organ/stomach/battery/Insert(mob/living/carbon/M, special = 0)
-	..()
-	RegisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, .proc/charge)
+	. = ..()
+	RegisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(charge))
 	update_nutrition()
 
 /obj/item/organ/stomach/battery/Remove(mob/living/carbon/M, special = 0)
@@ -112,7 +111,7 @@
 	if(!HAS_TRAIT(owner, TRAIT_NOHUNGER) && HAS_TRAIT(owner, TRAIT_POWERHUNGRY))
 		owner.nutrition = 0
 		owner.throw_alert("nutrition", /atom/movable/screen/alert/nocell)
-	..()
+	return ..()
 
 /obj/item/organ/stomach/battery/proc/charge(datum/source, amount, repairs)
 	SIGNAL_HANDLER
@@ -142,10 +141,10 @@
 /obj/item/organ/stomach/battery/emp_act(severity)
 	switch(severity)
 		if(1)
-			adjust_charge(-0.5*max_charge)
+			adjust_charge(-0.5 * max_charge)
 			applyOrganDamage(30)
 		if(2)
-			adjust_charge(-0.25*max_charge)
+			adjust_charge(-0.25 * max_charge)
 			applyOrganDamage(15)
 
 /obj/item/organ/stomach/battery/ipc
@@ -160,7 +159,7 @@
 	charge = 2750
 
 /obj/item/organ/stomach/battery/ipc/emp_act(severity)
-	..()
+	. = ..()
 	switch(severity)
 		if(1)
 			to_chat(owner, "<span class='warning'>Alert: Heavy EMP Detected. Rebooting power cell to prevent damage.</span>")
@@ -175,12 +174,12 @@
 	charge = 2500
 
 /obj/item/organ/stomach/battery/ethereal/Insert(mob/living/carbon/M, special = 0)
-	..()
-	RegisterSignal(owner, COMSIG_LIVING_ELECTROCUTE_ACT, .proc/on_electrocute)
+	RegisterSignal(owner, COMSIG_LIVING_ELECTROCUTE_ACT, PROC_REF(on_electrocute))
+	return ..()
 
 /obj/item/organ/stomach/battery/ethereal/Remove(mob/living/carbon/M, special = 0)
 	UnregisterSignal(owner, COMSIG_LIVING_ELECTROCUTE_ACT)
-	..()
+	return ..()
 
 /obj/item/organ/stomach/battery/ethereal/proc/on_electrocute(datum/source, shock_damage, shock_source, siemens_coeff = 1, safety = 0, tesla_shock = 0, illusion = 0, stun = TRUE)
 	SIGNAL_HANDLER
@@ -189,3 +188,30 @@
 		return
 	adjust_charge(shock_damage * siemens_coeff * 20)
 	to_chat(owner, "<span class='notice'>You absorb some of the shock into your body!</span>")
+
+/obj/item/organ/stomach/cybernetic
+	name = "basic cybernetic stomach"
+	icon_state = "stomach-c"
+	desc = "A basic device designed to mimic the functions of a human stomach"
+	organ_flags = ORGAN_SYNTHETIC
+	maxHealth = STANDARD_ORGAN_THRESHOLD * 0.5
+	var/emp_vulnerability = 80 //Chance of permanent effects if emp-ed.
+	COOLDOWN_DECLARE(severe_cooldown)
+
+/obj/item/organ/stomach/cybernetic/upgraded
+	name = "cybernetic stomach"
+	icon_state = "stomach-c-u"
+	desc = "An electronic device designed to mimic the functions of a human stomach. Handles disgusting food a bit better."
+	maxHealth = 1.5 * STANDARD_ORGAN_THRESHOLD
+	disgust_metabolism = 2
+	emp_vulnerability = 40
+
+/obj/item/organ/stomach/cybernetic/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
+	if(!COOLDOWN_FINISHED(src, severe_cooldown)) //So we cant just spam emp to kill people.
+		owner.vomit(stun = FALSE)
+		COOLDOWN_START(src, severe_cooldown, 10 SECONDS)
+	if(prob(emp_vulnerability/severity)) //Chance of permanent effects
+		organ_flags |= ORGAN_FAILING //Starts organ failure - gonna need replacing soon.

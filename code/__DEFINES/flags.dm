@@ -17,6 +17,10 @@
 /// Currently covers (1<<0) to (1<<22)
 GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288, 1048576, 2097152, 4194304))
 
+/* Directions */
+///All the cardinal direction bitflags.
+#define ALL_CARDINALS (NORTH|SOUTH|EAST|WEST)
+
 // for /datum/var/datum_flags
 #define DF_USE_TAG (1<<0)
 #define DF_VAR_EDITED (1<<1)
@@ -34,8 +38,7 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define ADMIN_SPAWNED_1				(1<<15) 		//! was this spawned by an admin? used for stat tracking stuff.
 #define PREVENT_CONTENTS_EXPLOSION_1 (1<<16)
 #define UNPAINTABLE_1 				(1<<17)
-/// Does the supermatter skip over this atom?
-#define SUPERMATTER_IGNORES_1 (1 << 18) //set this to 18 because tg has some other flags appearantly too if that gets ever ported fix this !!!!
+#define HTML_USE_INITAL_ICON_1		(1<<18) 			//! Should we use the initial icon for display? Mostly used by overlay only objects
 
 /// If the thing can reflect light (lasers/energy)
 #define RICOCHET_SHINY			(1<<0)
@@ -77,7 +80,7 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 */
 //flags for pass_flags
 #define PASSTABLE		(1<<0)
-#define PASSGLASS		(1<<1)
+#define PASSTRANSPARENT	(1<<1)
 #define PASSGRILLE		(1<<2)
 #define PASSBLOB		(1<<3)
 #define PASSMOB			(1<<4)
@@ -95,7 +98,7 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define FLYING			(1<<1)
 #define VENTCRAWLING	(1<<2)
 #define FLOATING		(1<<3)
-#define PHASING		(1<<4)			//! When moving, will Bump()/Cross() everything, but won't be stopped.
+#define PHASING			(1<<4)			//! When moving, will Bump()/Cross() everything, but won't be stopped.
 #define THROWN			(1<<5) //! while an atom is being thrown
 
 //! ## Fire and Acid stuff, for resistance_flags
@@ -145,8 +148,19 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define AA_TARGET_SEE_APPEARANCE (1<<0)
 #define AA_MATCH_TARGET_OVERLAYS (1<<1)
 
-/// 33554431 (2^24 - 1) is the maximum value our bitflags can reach.
-#define MAX_BITFLAG_DIGITS 8
+//dir macros
+///Returns true if the dir is diagonal, false otherwise
+#define ISDIAGONALDIR(d) (d&(d-1))
+///True if the dir is north or south, false therwise
+#define NSCOMPONENT(d)   (d&(NORTH|SOUTH))
+///True if the dir is east/west, false otherwise
+#define EWCOMPONENT(d)   (d&(EAST|WEST))
+///Flips the dir for north/south directions
+#define NSDIRFLIP(d)     (d^(NORTH|SOUTH))
+///Flips the dir for east/west directions
+#define EWDIRFLIP(d)     (d^(EAST|WEST))
+///Turns the dir by 180 degrees
+#define DIRFLIP(d)       turn(d, 180)
 
 //religious_tool flags
 #define RELIGION_TOOL_INVOKE (1<<0)

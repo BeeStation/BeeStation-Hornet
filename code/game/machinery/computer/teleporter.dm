@@ -115,7 +115,7 @@
 			calibrating = TRUE
 			power_station.update_icon()
 			var/calibrationtime = 50 * (3 - power_station.teleporter_hub.accuracy)
-			addtimer(CALLBACK(src, .proc/calibrate), calibrationtime)
+			addtimer(CALLBACK(src, PROC_REF(calibrate)), calibrationtime)
 			. = TRUE
 
 /obj/machinery/computer/teleporter/proc/calibrate()
@@ -164,7 +164,7 @@
 				if(is_eligible(I))
 					L[avoid_assoc_duplicate_keys("[M.real_name] ([get_area(M)])", areaindex)] = I
 
-		var/desc = input("Please select a location to lock in.", "Locking Computer") as null|anything in sortList(L)
+		var/desc = input("Please select a location to lock in.", "Locking Computer") as null|anything in sort_list(L)
 		target_ref = WEAKREF(L[desc])
 		var/turf/T = get_turf(L[desc])
 		log_game("[key_name(user)] has set the teleporter target to [L[desc]] at [AREACOORD(T)]")
@@ -178,7 +178,7 @@
 		if(!L.len)
 			to_chat(user, "<span class='alert'>No active connected stations located.</span>")
 			return
-		var/desc = input("Please select a station to lock in.", "Locking Computer") as null|anything in sortList(L)
+		var/desc = input("Please select a station to lock in.", "Locking Computer") as null|anything in sort_list(L)
 		var/obj/machinery/teleport/station/target_station = L[desc]
 		if(!target_station || !target_station.teleporter_hub)
 			return
@@ -186,12 +186,12 @@
 		log_game("[key_name(user)] has set the teleporter target to [target_station] at [AREACOORD(T)]")
 		target_ref = WEAKREF(target_station.teleporter_hub)
 		target_station.linked_stations |= power_station
-		target_station.stat &= ~NOPOWER
+		target_station.teleporter_hub.set_machine_stat(target_station.teleporter_hub.machine_stat & ~NOPOWER)
 		if(target_station.teleporter_hub)
-			target_station.teleporter_hub.stat &= ~NOPOWER
+			target_station.teleporter_console.set_machine_stat(target_station.teleporter_console.machine_stat & ~NOPOWER)
 			target_station.teleporter_hub.update_icon()
 		if(target_station.teleporter_console)
-			target_station.teleporter_console.stat &= ~NOPOWER
+			target_station.teleporter_console.machine_stat &= ~NOPOWER
 			target_station.teleporter_console.update_icon()
 
 /obj/machinery/computer/teleporter/proc/is_eligible(atom/movable/AM)

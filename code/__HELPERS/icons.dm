@@ -182,7 +182,7 @@ mob
 
 		Add_Overlay()
 			set name = "4. Add Overlay"
-			add_overlay(image(icon='old_or_unused.dmi',icon_state="yellow",pixel_x = rand(-64,32), pixel_y = rand(-64,32))
+			add_overlay(image(icon='old_or_unused.dmi',icon_state="yellow",pixel_x = rand(-64,32), pixel_y = rand(-64,32)))
 
 		Stress_Test()
 			set name = "5. Stress Test"
@@ -215,6 +215,9 @@ world
 
 #define TO_HEX_DIGIT(n) ascii2text((n&15) + ((n&15)<10 ? 48 : 87))
 
+//Dummy mob reserve slots
+#define DUMMY_HUMAN_SLOT_PREFERENCES "dummy_preference_preview"
+#define DUMMY_HUMAN_SLOT_ADMIN "admintools"
 
 	// Multiply all alpha values by this float
 /icon/proc/ChangeOpacity(opacity = 1)
@@ -833,7 +836,7 @@ world
 						break
 				layers[current] = current_layer
 
-		//sortTim(layers, /proc/cmp_image_layer_asc)
+		//sortTim(layers, GLOBAL_PROC_REF(cmp_image_layer_asc))
 
 		var/icon/add // Icon of overlay being added
 
@@ -917,7 +920,7 @@ world
 	var/icon/overlayIcon = new /icon()
 	var/isEmpty = TRUE	//So the overlay icon isn't empty.
 	//==== OVERLAYS ====
-	//Do sorting :(
+	//Do sorting :( // I am putting a :) here so the colouriser doesnt cry -aa07
 	var/list/layers = list()
 
 	var/direction = directionless ? SOUTH : A.dir
@@ -989,7 +992,7 @@ world
 	var/icon/alpha_mask = getIconMask(src)//getFlatIcon(src) is accurate but SLOW. Not designed for running each tick. This is also a little slow since it's blending a bunch of icons together but good enough.
 	opacity_icon.AddAlphaMask(alpha_mask)//Likely the main source of lag for this proc. Probably not designed to run each tick.
 	opacity_icon.ChangeOpacity(0.4)//Front end for MapColors so it's fast. 0.5 means half opacity and looks the best in my opinion.
-	for(var/i=0,i<5,i++)//And now we add it as overlays. It's faster than creating an icon and then merging it.
+	for(var/i in 0 to 4)//And now we add it as overlays. It's faster than creating an icon and then merging it.
 		var/image/I = image("icon" = opacity_icon, "icon_state" = A.icon_state, "layer" = layer+0.8)//So it's above other stuff but below weapons and the like.
 		switch(i)//Now to determine offset so the result is somewhat blurred.
 			if(1)
@@ -1105,14 +1108,15 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 		return J
 	return 0
 
-//For creating consistent icons for human looking simple animals
-/proc/get_flat_human_icon(icon_id, datum/job/J, datum/preferences/prefs, dummy_key, showDirs = GLOB.cardinals, outfit_override = null)
+/// # If you already have a human and need to get its flat icon, call `get_flat_existing_human_icon()` instead.
+/// For creating consistent icons for human looking simple animals.
+/proc/get_flat_human_icon(icon_id, datum/job/J, datum/character_save/CS, dummy_key, showDirs = GLOB.cardinals, outfit_override = null)
 	var/static/list/humanoid_icon_cache = list()
 	if(!icon_id || !humanoid_icon_cache[icon_id])
 		var/mob/living/carbon/human/dummy/body = generate_or_wait_for_human_dummy(dummy_key)
 
-		if(prefs)
-			prefs.copy_to(body,TRUE,FALSE)
+		if(CS)
+			CS.copy_to(body,TRUE,FALSE)
 		if(J)
 			J.equip(body, TRUE, FALSE, outfit_override = outfit_override)
 		else if (outfit_override)
@@ -1132,34 +1136,54 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	else
 		return humanoid_icon_cache[icon_id]
 
+/**
+ * A simpler version of get_flat_human_icon() that uses an existing human as a base to create the icon.
+ * Does not feature caching yet, since I could not think of a good way to cache them without having a possibility
+ * of using the cached version when we don't want to, so only use this proc if you just need this flat icon
+ * generated once and handle the caching yourself if you need to access that icon multiple times, or
+ * refactor this proc to feature caching of icons.
+ *
+ * Arguments:
+ * * existing_human - The human we want to get a flat icon out of.
+ * * directions_to_output - The directions of the resulting flat icon, defaults to all cardinal directions.
+ */
+/proc/get_flat_existing_human_icon(mob/living/carbon/human/existing_human, directions_to_output = GLOB.cardinals)
+	RETURN_TYPE(/icon)
+	if(!existing_human || !istype(existing_human))
+		CRASH("Attempted to call get_flat_existing_human_icon on a [existing_human ? existing_human.type : "null"].")
+
+	// We need to force the dir of the human so we can take those pictures, we'll set it back afterwards.
+	var/initial_human_dir = existing_human.dir
+	existing_human.dir = SOUTH
+	var/icon/out_icon = icon('icons/effects/effects.dmi', "nothing")
+	COMPILE_OVERLAYS(existing_human)
+	for(var/direction in directions_to_output)
+		var/icon/partial = getFlatIcon(existing_human, defdir = direction)
+		out_icon.Insert(partial, dir = direction)
+
+	existing_human.dir = initial_human_dir
+
+	return out_icon
+
 //Hook, override to run code on- wait this is images
 //Images have dir without being an atom, so they get their own definition.
 //Lame.
 /image/proc/setDir(newdir)
 	dir = newdir
 
-GLOBAL_LIST_INIT(freon_color_matrix, list("#2E5E69", "#60A2A8", "#A1AFB1", rgb(0,0,0)))
+/// generates a filename for a given asset.
+/// like generate_asset_name(), except returns the rsc reference and the rsc file hash as well as the asset name (sans extension)
+/// used so that certain asset files dont have to be hashed twice
+/proc/generate_and_hash_rsc_file(file, dmi_file_path)
+	var/rsc_ref = fcopy_rsc(file)
+	var/hash
+	//if we have a valid dmi file path we can trust md5'ing the rsc file because we know it doesnt have the bug described in http://www.byond.com/forum/post/2611357
+	if(dmi_file_path)
+		hash = md5(rsc_ref)
+	else //otherwise, we need to do the expensive fcopy() workaround
+		hash = md5asfile(rsc_ref)
 
-/obj/proc/make_frozen_visual()
-	// Used to make the frozen item visuals for Freon.
-	if(resistance_flags & FREEZE_PROOF)
-		return
-	if(!(obj_flags & FROZEN))
-		name = "frozen [name]"
-		add_atom_colour(GLOB.freon_color_matrix, TEMPORARY_COLOUR_PRIORITY)
-		alpha -= 25
-		obj_flags |= FROZEN
-
-//Assumes already frozed
-/obj/proc/make_unfrozen()
-	if(obj_flags & FROZEN)
-		name = replacetext(name, "frozen ", "")
-		remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, GLOB.freon_color_matrix)
-		alpha += 25
-		obj_flags &= ~FROZEN
-
-/// Save file used in icon2base64. Used for converting icons to base64.
-GLOBAL_DATUM_INIT(dummySave, /savefile, new("tmp/dummySave.sav")) //Cache of icons for the browser output
+	return list(rsc_ref, hash, "asset.[hash]")
 
 /// Generate a filename for this asset
 /// The same asset will always lead to the same asset name
@@ -1175,17 +1199,95 @@ GLOBAL_DATUM_INIT(dummySave, /savefile, new("tmp/dummySave.sav")) //Cache of ico
 /proc/icon2base64(icon/icon)
 	if (!isicon(icon))
 		return FALSE
-	WRITE_FILE(GLOB.dummySave["dummy"], icon)
-	var/iconData = GLOB.dummySave.ExportText("dummy")
+	var/savefile/dummySave = new("tmp/dummySave.sav")
+	WRITE_FILE(dummySave["dummy"], icon)
+	var/iconData = dummySave.ExportText("dummy")
 	var/list/partial = splittext(iconData, "{")
-	return replacetext(copytext_char(partial[2], 3, -5), "\n", "")
+	. = replacetext(copytext_char(partial[2], 3, -5), "\n", "") //if cleanup fails we want to still return the correct base64
+	dummySave.Unlock()
+	dummySave = null
+	fdel("tmp/dummySave.sav") //if you get the idea to try and make this more optimized, make sure to still call unlock on the savefile after every write to unlock it.
 
-/proc/icon2html(thing, target, icon_state, dir = SOUTH, frame = 1, moving = FALSE, sourceonly = FALSE)
+///given a text string, returns whether it is a valid dmi icons folder path
+/proc/is_valid_dmi_file(icon_path)
+	if(!istext(icon_path) || !length(icon_path))
+		return FALSE
+
+	var/is_in_icon_folder = findtextEx(icon_path, "icons/")
+	var/is_dmi_file = findtextEx(icon_path, ".dmi")
+
+	if(is_in_icon_folder && is_dmi_file)
+		return TRUE
+	return FALSE
+
+/// given an icon object, dmi file path, or atom/image/mutable_appearance, attempts to find and return an associated dmi file path.
+/// a weird quirk about dm is that /icon objects represent both compile-time or dynamic icons in the rsc,
+/// but stringifying rsc references returns a dmi file path
+/// ONLY if that icon represents a completely unchanged dmi file from when the game was compiled.
+/// so if the given object is associated with an icon that was in the rsc when the game was compiled, this returns a path. otherwise it returns ""
+/proc/get_icon_dmi_path(icon/icon)
+	/// the dmi file path we attempt to return if the given object argument is associated with a stringifiable icon
+	/// if successful, this looks like "icons/path/to/dmi_file.dmi"
+	var/icon_path = ""
+
+	if(isatom(icon) || istype(icon, /image) || istype(icon, /mutable_appearance))
+		var/atom/atom_icon = icon
+		icon = atom_icon.icon
+		//atom icons compiled in from 'icons/path/to/dmi_file.dmi' are weird and not really icon objects that you generate with icon().
+		//if theyre unchanged dmi's then they're stringifiable to "icons/path/to/dmi_file.dmi"
+
+	if(isicon(icon) && isfile(icon))
+		//icons compiled in from 'icons/path/to/dmi_file.dmi' at compile time are weird and arent really /icon objects,
+		///but they pass both isicon() and isfile() checks. theyre the easiest case since stringifying them gives us the path we want
+		var/icon_ref = "\ref[icon]"
+		var/locate_icon_string = "[locate(icon_ref)]"
+
+		icon_path = locate_icon_string
+
+	else if(isicon(icon) && "[icon]" == "/icon")
+		// icon objects generated from icon() at runtime are icons, but they ARENT files themselves, they represent icon files.
+		// if the files they represent are compile time dmi files in the rsc, then
+		// the rsc reference returned by fcopy_rsc() will be stringifiable to "icons/path/to/dmi_file.dmi"
+		var/rsc_ref = fcopy_rsc(icon)
+
+		var/icon_ref = "\ref[rsc_ref]"
+
+		var/icon_path_string = "[locate(icon_ref)]"
+
+		icon_path = icon_path_string
+
+	else if(istext(icon))
+		var/rsc_ref = fcopy_rsc(icon)
+		//if its the text path of an existing dmi file, the rsc reference returned by fcopy_rsc() will be stringifiable to a dmi path
+
+		var/rsc_ref_ref = "\ref[rsc_ref]"
+		var/rsc_ref_string = "[locate(rsc_ref_ref)]"
+
+		icon_path = rsc_ref_string
+
+	if(is_valid_dmi_file(icon_path))
+		return icon_path
+
+	return FALSE
+
+/**
+ * generate an asset for the given icon or the icon of the given appearance for [thing], and send it to any clients in target.
+ * Arguments:
+ * * thing - either a /icon object, or an object that has an appearance (atom, image, mutable_appearance).
+ * * target - either a reference to or a list of references to /client's or mobs with clients
+ * * icon_state - string to force a particular icon_state for the icon to be used
+ * * dir - dir number to force a particular direction for the icon to be used
+ * * frame - what frame of the icon_state's animation for the icon being used
+ * * moving - whether or not to use a moving state for the given icon
+ * * sourceonly - if TRUE, only generate the asset and send back the asset url, instead of tags that display the icon to players
+ * * extra_clases - string of extra css classes to use when returning the icon string
+ */
+/proc/icon2html(atom/thing, client/target, icon_state, dir = SOUTH, frame = 1, moving = FALSE, sourceonly = FALSE)
 	if (!thing)
 		return
 
 	var/key
-	var/icon/I = thing
+	var/icon/icon2collapse = thing
 	if (!target)
 		return
 	if (target == world)
@@ -1196,35 +1298,40 @@ GLOBAL_DATUM_INIT(dummySave, /savefile, new("tmp/dummySave.sav")) //Cache of ico
 		targets = list(target)
 	else
 		targets = target
-		if (!targets.len)
-			return
-	if (!isicon(I))
+	if(!length(targets))
+		return
+
+	//check if the given object is associated with a dmi file in the icons folder. if it is then we dont need to do a lot of work
+	//for asset generation to get around byond limitations
+	var/icon_path = get_icon_dmi_path(thing)
+	if (!isicon(icon2collapse))
 		if (isfile(thing)) //special snowflake
 			var/name = SANITIZE_FILENAME("[generate_asset_name(thing)].png")
-			SSassets.transport.register_asset(name, thing)
+			if (!SSassets.cache[name])
+				SSassets.transport.register_asset(name, thing)
 			for (var/thing2 in targets)
 				SSassets.transport.send_assets(thing2, name)
 			if(sourceonly)
 				return SSassets.transport.get_asset_url(name)
 			return "<img class='icon icon-misc' src='[SSassets.transport.get_asset_url(name)]'>"
-		var/atom/A = thing
 
-		I = A.icon
+		//its either an atom, image, or mutable_appearance, we want its icon var
+		icon2collapse = thing.icon
 		if (isnull(icon_state))
-			icon_state = A.icon_state
+			icon_state = thing.icon_state
 
-			if (!(icon_state in icon_states(I, 1)))
-				icon_state = initial(A.icon_state)
+			if (isnull(icon_state) ||(isatom(thing) && thing.flags_1 & HTML_USE_INITAL_ICON_1))
+				icon_state = initial(thing.icon_state)
 				if (isnull(dir))
-					dir = initial(A.dir)
+					dir = initial(thing.dir)
 
 		if (isnull(dir))
-			dir = A.dir
+			dir = thing.dir
 
 		if (ishuman(thing)) // Shitty workaround for a BYOND issue.
-			var/icon/temp = I
-			I = icon()
-			I.Insert(temp, dir = SOUTH)
+			var/icon/temp = icon2collapse
+			icon2collapse = icon()
+			icon2collapse.Insert(temp, dir = SOUTH)
 			dir = SOUTH
 	else
 		if (isnull(dir))
@@ -1232,12 +1339,18 @@ GLOBAL_DATUM_INIT(dummySave, /savefile, new("tmp/dummySave.sav")) //Cache of ico
 		if (isnull(icon_state))
 			icon_state = ""
 
-	I = icon(I, icon_state, dir, frame, moving)
+	icon2collapse = icon(icon2collapse, icon_state, dir, frame, moving)
 
-	key = "[generate_asset_name(I)].png"
-	SSassets.transport.register_asset(key, I)
-	for (var/thing2 in targets)
-		SSassets.transport.send_assets(thing2, key)
+	var/list/name_and_ref = generate_and_hash_rsc_file(icon2collapse, icon_path)//pretend that tuples exist
+
+	var/rsc_ref = name_and_ref[1] //weird object thats not even readable to the debugger, represents a reference to the icons rsc entry
+	var/file_hash = name_and_ref[2]
+	key = "[name_and_ref[3]].png"
+
+	if(!SSassets.cache[key])
+		SSassets.transport.register_asset(key, rsc_ref, file_hash, icon_path)
+	for (var/client_target in targets)
+		SSassets.transport.send_assets(client_target, key)
 	if(sourceonly)
 		return SSassets.transport.get_asset_url(key)
 	return "<img class='icon icon-[icon_state]' src='[SSassets.transport.get_asset_url(key)]'>"
@@ -1291,3 +1404,58 @@ GLOBAL_DATUM_INIT(dummySave, /savefile, new("tmp/dummySave.sav")) //Cache of ico
 	var/list/states = icon_states(file)
 	if(states.Find(state))
 		return TRUE
+
+/**
+ * Center's an image.
+ * Requires:
+ * The Image
+ * The x dimension of the icon file used in the image
+ * The y dimension of the icon file used in the image
+ * eg: center_image(image_to_center, 32,32)
+ * eg2: center_image(image_to_center, 96,96)
+**/
+/proc/center_image(image/image_to_center, x_dimension = 0, y_dimension = 0)
+	if(!image_to_center)
+		return
+
+	if(!x_dimension || !y_dimension)
+		return
+
+	if((x_dimension == world.icon_size) && (y_dimension == world.icon_size))
+		return image_to_center
+
+	//Offset the image so that it's bottom left corner is shifted this many pixels
+	//This makes it infinitely easier to draw larger inhands/images larger than world.iconsize
+	//but still use them in game
+	var/x_offset = -((x_dimension / world.icon_size) - 1) * (world.icon_size * 0.5)
+	var/y_offset = -((y_dimension / world.icon_size) - 1) * (world.icon_size * 0.5)
+
+	//Correct values under world.icon_size
+	if(x_dimension < world.icon_size)
+		x_offset *= -1
+	if(y_dimension < world.icon_size)
+		y_offset *= -1
+
+	image_to_center.pixel_x = x_offset
+	image_to_center.pixel_y = y_offset
+
+	return image_to_center
+
+///Flickers an overlay on an atom
+/proc/flick_overlay_static(overlay_image, atom/source, duration)
+	set waitfor = FALSE
+	if(!source || !overlay_image)
+		return
+	source.add_overlay(overlay_image)
+	sleep(duration)
+	source.cut_overlay(overlay_image)
+
+///Perform a shake on an atom, resets its position afterwards
+/atom/proc/Shake(pixelshiftx = 15, pixelshifty = 15, duration = 250)
+	var/initialpixelx = pixel_x
+	var/initialpixely = pixel_y
+	var/shiftx = rand(-pixelshiftx,pixelshiftx)
+	var/shifty = rand(-pixelshifty,pixelshifty)
+	animate(src, pixel_x = pixel_x + shiftx, pixel_y = pixel_y + shifty, time = 0.2, loop = duration)
+	pixel_x = initialpixelx
+	pixel_y = initialpixely

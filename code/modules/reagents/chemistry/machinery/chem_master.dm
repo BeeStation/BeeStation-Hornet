@@ -16,23 +16,37 @@
 	var/obj/item/storage/pill_bottle/bottle = null
 	var/mode = 1
 	var/condi = FALSE
-	var/chosenPillStyle = 1
+	var/chosen_pill_style = "pill_shape_capsule_purple_pink"
+	var/chosen_patch_style = "bandaid_small_cross"
 	var/screen = "home"
 	var/analyzeVars[0]
 	var/useramount = 30 // Last used amount
-	var/list/pillStyles = null
+	var/static/list/pill_styles = list()
+	var/static/list/patch_styles = list()
+
+	// Persistent UI states
+	var/saved_name_state = "Auto"
+	var/saved_volume_state = "Auto"
+	/// UNSANITIZED. DO NOT DISPLAY OUTSIDE TGUI WITHOUT HTML_ENCODE AND TRIM.
+	var/saved_name = ""
+	var/saved_volume = 10
 
 /obj/machinery/chem_master/Initialize(mapload)
 	create_reagents(100)
 
 	//Calculate the span tags and ids fo all the available pill icons
-	var/datum/asset/spritesheet/simple/assets = get_asset_datum(/datum/asset/spritesheet/simple/pills)
-	pillStyles = list()
-	for (var/x in 1 to PILL_STYLE_COUNT)
-		var/list/SL = list()
-		SL["id"] = x
-		SL["className"] = assets.icon_class_name("pill[x]")
-		pillStyles += list(SL)
+	if(!length(pill_styles))
+		for (var/each_pill_shape in PILL_SHAPE_LIST_WITH_DUMMY)
+			var/list/style_list = list()
+			style_list["id"] = each_pill_shape
+			style_list["pill_icon_name"] = each_pill_shape
+			pill_styles += list(style_list)
+	if(!length(patch_styles))
+		for (var/each_patch_shape in PATCH_SHAPE_LIST)
+			var/list/style_list = list()
+			style_list["id"] = each_patch_shape
+			style_list["patch_icon_name"] = each_patch_shape
+			patch_styles += list(style_list)
 
 	. = ..()
 
@@ -82,7 +96,7 @@
 
 /obj/machinery/chem_master/update_icon()
 	cut_overlays()
-	if (stat & BROKEN)
+	if (machine_stat & BROKEN)
 		add_overlay("waitlight")
 	if(beaker)
 		icon_state = "mixer1"
@@ -166,7 +180,7 @@
 
 /obj/machinery/chem_master/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/simple/pills)
+		get_asset_datum(/datum/asset/spritesheet/simple/medicine_containers)
 	)
 
 /obj/machinery/chem_master/ui_data(mob/user)
@@ -174,11 +188,18 @@
 	data["isBeakerLoaded"] = beaker ? 1 : 0
 	data["beakerCurrentVolume"] = beaker ? beaker.reagents.total_volume : null
 	data["beakerMaxVolume"] = beaker ? beaker.volume : null
+	data["machineCurrentVolume"] = reagents.total_volume
+	data["machineMaxVolume"] = reagents.maximum_volume
 	data["mode"] = mode
 	data["condi"] = condi
 	data["screen"] = screen
+	data["saved_name"] = saved_name
+	data["saved_volume"] = saved_volume
+	data["saved_name_state"] = saved_name_state
+	data["saved_volume_state"] = saved_volume_state
 	data["analyzeVars"] = analyzeVars
-	data["chosenPillStyle"] = chosenPillStyle
+	data["chosen_pill_style"] = chosen_pill_style
+	data["chosen_patch_style"] = chosen_patch_style
 	data["isPillBottleLoaded"] = bottle ? 1 : 0
 	if(bottle)
 		var/datum/component/storage/STRB = bottle.GetComponent(/datum/component/storage)
@@ -198,7 +219,8 @@
 	data["bufferContents"] = bufferContents
 
 	//Calculated at init time as it never changes
-	data["pillStyles"] = pillStyles
+	data["pill_styles"] = pill_styles
+	data["patch_styles"] = patch_styles
 	return data
 
 /obj/machinery/chem_master/ui_act(action, params)
@@ -206,6 +228,32 @@
 		return
 
 	switch(action)
+		if("setSavedNameState")
+			var/state = params["name_state"]
+			if(!state || (state != "Auto" && state != "Manual"))
+				return
+			saved_name_state = state
+			. = TRUE
+		if("setSavedName")
+			var/name = trim(params["name"], MAX_NAME_LEN)
+			if(!name)
+				return
+			if(CHAT_FILTER_CHECK(name))
+				to_chat(usr, "<span class='warning'>ERROR: Packaging name contains prohibited word(s).</span>")
+				return
+			saved_name = name
+			. = TRUE
+		if("setSavedVolumeState")
+			if(!params["volume_state"] || (params["volume_state"] != "Auto" && params["volume_state"] != "Exact"))
+				return
+			saved_volume_state = params["volume_state"]
+			. = TRUE
+		if("setSavedVolume")
+			var/vol = text2num(params["volume"])
+			if(!vol || vol < 0.01 || vol > 50)
+				return
+			saved_volume = vol
+			. = TRUE
 		if("eject")
 			replace_beaker(usr)
 			. = TRUE
@@ -242,8 +290,10 @@
 			mode = !mode
 			. = TRUE
 		if("pillStyle")
-			var/id = text2num(params["id"])
-			chosenPillStyle = id
+			chosen_pill_style = "[params["id"]]"
+			. = TRUE
+		if("patchStyle")
+			chosen_patch_style = "[params["id"]]"
 			. = TRUE
 		if("create")
 			if(reagents.total_volume == 0)
@@ -268,6 +318,8 @@
 				vol_each_max = min(40, vol_each_max)
 			else if (item_type == "bottle" && !condi)
 				vol_each_max = min(30, vol_each_max)
+			else if (item_type == "bag" && !condi)
+				vol_each_max = min(200, vol_each_max)
 			else if (item_type == "condimentPack" && condi)
 				vol_each_max = min(10, vol_each_max)
 			else if (item_type == "condimentBottle" && condi)
@@ -286,6 +338,14 @@
 				return
 			// Get item name
 			var/name = params["name"]
+			if(CHAT_FILTER_CHECK(name))
+				to_chat(usr, "<span class='warning'>ERROR: Packaging name contains prohibited word(s).</span>")
+				return
+			if(name) // if we were passed a name from UI, html_encode it before adding to the world.
+				name = trim(html_encode(name), MAX_NAME_LEN)
+				if(!name) // our saved name was bad, clear it
+					saved_name = ""
+					return TRUE
 			var/name_has_units = item_type == "pill" || item_type == "patch"
 			if(!name)
 				var/name_default = reagents.get_master_reagent_name()
@@ -310,52 +370,67 @@
 						if(STRB)
 							drop_threshold = STRB.max_items - bottle.contents.len
 							target_loc = bottle
-					for(var/i = 0; i < amount; i++)
-						if(i < drop_threshold)
+					for(var/i in 1 to amount)
+						if(i-1 < drop_threshold)
 							P = new/obj/item/reagent_containers/pill(target_loc)
 						else
 							P = new/obj/item/reagent_containers/pill(drop_location())
 						P.name = trim("[name] pill")
-						if(chosenPillStyle == RANDOM_PILL_STYLE)
-							P.icon_state ="pill[rand(1,21)]"
+						P.label_name = trim(name)
+						if(chosen_pill_style == "pill_random_dummy")
+							P.icon_state = pick(PILL_SHAPE_LIST)
 						else
-							P.icon_state = "pill[chosenPillStyle]"
-						if(P.icon_state == "pill4")
+							P.icon_state = chosen_pill_style
+						if(P.icon_state == "pill_shape_capsule_bloodred")
 							P.desc = "A tablet or capsule, but not just any, a red one, one taken by the ones not scared of knowledge, freedom, uncertainty and the brutal truths of reality."
 						adjust_item_drop_location(P)
 						reagents.trans_to(P, vol_each, transfered_by = usr)
 					. = TRUE
 				if("patch")
 					var/obj/item/reagent_containers/pill/patch/P
-					for(var/i = 0; i < amount; i++)
+					for(var/i in 1 to amount)
 						P = new/obj/item/reagent_containers/pill/patch(drop_location())
 						P.name = trim("[name] patch")
+						P.label_name = trim(name)
+						P.icon_state = chosen_patch_style
 						adjust_item_drop_location(P)
 						reagents.trans_to(P, vol_each, transfered_by = usr)
 					. = TRUE
 				if("bottle")
 					var/obj/item/reagent_containers/glass/bottle/P
-					for(var/i = 0; i < amount; i++)
+					for(var/i in 1 to amount)
 						P = new/obj/item/reagent_containers/glass/bottle(drop_location())
 						P.name = trim("[name] bottle")
+						P.label_name = trim(name)
+						adjust_item_drop_location(P)
+						reagents.trans_to(P, vol_each, transfered_by = usr)
+					. = TRUE
+				if("bag")
+					var/obj/item/reagent_containers/chem_bag/P
+					for(var/i in 1 to amount)
+						P = new/obj/item/reagent_containers/chem_bag(drop_location())
+						P.name = trim("[name] chemical bag")
+						P.label_name = trim(name)
 						adjust_item_drop_location(P)
 						reagents.trans_to(P, vol_each, transfered_by = usr)
 					. = TRUE
 				if("condimentPack")
 					var/obj/item/reagent_containers/food/condiment/pack/P
-					for(var/i = 0; i < amount; i++)
+					for(var/i in 1 to amount)
 						P = new/obj/item/reagent_containers/food/condiment/pack(drop_location())
 						P.originalname = name
 						P.name = trim("[name] pack")
+						P.label_name = trim(name)
 						P.desc = "A small condiment pack. The label says it contains [name]."
 						reagents.trans_to(P, vol_each, transfered_by = usr)
 					. = TRUE
 				if("condimentBottle")
 					var/obj/item/reagent_containers/food/condiment/P
-					for(var/i = 0; i < amount; i++)
+					for(var/i in 1 to amount)
 						P = new/obj/item/reagent_containers/food/condiment(drop_location())
 						P.originalname = name
 						P.name = trim("[name] bottle")
+						P.label_name = trim(name)
 						reagents.trans_to(P, vol_each, transfered_by = usr)
 					. = TRUE
 		if("analyze")
@@ -393,14 +468,14 @@
 
 /obj/machinery/chem_master/adjust_item_drop_location(atom/movable/AM) // Special version for chemmasters and condimasters
 	if (AM == beaker)
-		AM.pixel_x = -8
-		AM.pixel_y = 8
+		AM.pixel_x = AM.base_pixel_x - 8
+		AM.pixel_y = AM.base_pixel_y + 8
 		return null
 	else if (AM == bottle)
 		if (length(bottle.contents))
-			AM.pixel_x = -13
+			AM.pixel_x = AM.base_pixel_x - 13
 		else
-			AM.pixel_x = -7
+			AM.pixel_x = AM.base_pixel_x - 7
 		AM.pixel_y = -8
 		return null
 	else
@@ -408,8 +483,8 @@
 		for (var/i in 1 to 32)
 			. += hex2num(md5[i])
 		. = . % 9
-		AM.pixel_x = ((.%3)*6)
-		AM.pixel_y = -8 + (round( . / 3)*8)
+		AM.pixel_x = AM.base_pixel_x + ((.%3)*6)
+		AM.pixel_y = AM.base_pixel_y - 8 + (round( . / 3)*8)
 
 /obj/machinery/chem_master/condimaster
 	name = "CondiMaster 3000"

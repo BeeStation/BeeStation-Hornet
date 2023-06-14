@@ -1,0 +1,6 @@
+#include "code\_rustg.dm"
+#include "code\character_parser.dm"
+#include "code\world.dm"
+#include "code\dbcore.dm"
+#include "code\glob.dm"
+#include "code\savefile_parser.dm"

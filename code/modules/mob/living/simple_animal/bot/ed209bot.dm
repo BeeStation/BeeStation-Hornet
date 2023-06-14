@@ -54,9 +54,10 @@
 		lasercolor = created_lasercolor
 	icon_state = "[lasercolor]ed209[on]"
 	set_weapon() //giving it the right projectile and firing sound.
-	var/datum/job/detective/J = new/datum/job/detective
-	access_card.access += J.get_access()
-	prev_access = access_card.access
+
+	var/datum/job/J = SSjob.GetJob(JOB_NAME_DETECTIVE)
+	access_card.access = J.get_access()
+	prev_access = access_card.access.Copy()
 	if(lasercolor)
 		shot_delay = 6//Longer shot delay because JESUS CHRIST
 		check_records = 0//Don't actively target people set to arrest
@@ -102,31 +103,20 @@
 	var/dat
 	dat += hack(user)
 	dat += showpai(user)
-	dat += text({"
-<TT><B>Security Unit v2.6 controls</B></TT><BR><BR>
-Status: []<BR>
-Behaviour controls are [locked ? "locked" : "unlocked"]<BR>
-Maintenance panel panel is [open ? "opened" : "closed"]<BR>"},
-
-"<A href='?src=[REF(src)];power=1'>[on ? "On" : "Off"]</A>" )
+	dat += "<TT><B>Security Unit v2.6 controls</B></TT><BR>"
+	dat += "<BR>Status: <A href='?src=[REF(src)];power=1'>[on ? "On" : "Off"]</A>"
+	dat += "<BR>Behaviour controls are [locked ? "locked" : "unlocked"]"
+	dat += "<BR>Maintenance panel panel is [open ? "opened" : "closed"]"
 
 	if(!locked || issilicon(user)|| IsAdminGhost(user))
 		if(!lasercolor)
-			dat += text({"<BR>
-Arrest Unidentifiable Persons: []<BR>
-Arrest for Unauthorized Weapons: []<BR>
-Arrest for Warrant: []<BR>
-Operating Mode: []<BR>
-Report Arrests[]<BR>
-Auto Patrol[]"},
-
-"<A href='?src=[REF(src)];operation=idcheck'>[idcheck ? "Yes" : "No"]</A>",
-"<A href='?src=[REF(src)];operation=weaponscheck'>[weaponscheck ? "Yes" : "No"]</A>",
-"<A href='?src=[REF(src)];operation=ignorerec'>[check_records ? "Yes" : "No"]</A>",
-"<A href='?src=[REF(src)];operation=switchmode'>[arrest_type ? "Detain" : "Arrest"]</A>",
-"<A href='?src=[REF(src)];operation=declarearrests'>[declare_arrests ? "Yes" : "No"]</A>",
-"<A href='?src=[REF(src)];operation=patrol'>[auto_patrol ? "On" : "Off"]</A>" )
-
+			dat += "<BR>"
+			dat += "<BR>Arrest Unidentifiable Persons: <A href='?src=[REF(src)];operation=idcheck'>[idcheck ? "Yes" : "No"]</A>"
+			dat += "<BR>Arrest for Unauthorized Weapons: <A href='?src=[REF(src)];operation=weaponscheck'>[weaponscheck ? "Yes" : "No"]</A>"
+			dat += "<BR>Arrest for Warrant: <A href='?src=[REF(src)];operation=ignorerec'>[check_records ? "Yes" : "No"]</A>"
+			dat += "<BR>Operating Mode: <A href='?src=[REF(src)];operation=switchmode'>[arrest_type ? "Detain" : "Arrest"]</A>"
+			dat += "<BR>Report Arrests <A href='?src=[REF(src)];operation=declarearrests'>[declare_arrests ? "Yes" : "No"]</A>"
+			dat += "<BR>Auto Patrol <A href='?src=[REF(src)];operation=patrol'>[auto_patrol ? "On" : "Off"]</A>"
 	return dat
 
 /mob/living/simple_animal/bot/ed209/Topic(href, href_list)
@@ -172,7 +162,7 @@ Auto Patrol[]"},
 
 /mob/living/simple_animal/bot/ed209/proc/retaliate(mob/living/carbon/human/H)
 	var/judgment_criteria = judgment_criteria()
-	threatlevel = H.assess_threat(judgment_criteria, weaponcheck=CALLBACK(src, .proc/check_for_weapons))
+	threatlevel = H.assess_threat(judgment_criteria, weaponcheck=CALLBACK(src, PROC_REF(check_for_weapons)))
 	threatlevel += 6
 	if(threatlevel >= 4)
 		target = H
@@ -193,7 +183,7 @@ Auto Patrol[]"},
 			if(lasercolor)//To make up for the fact that lasertag bots don't hunt
 				shootAt(user)
 
-/mob/living/simple_animal/bot/ed209/emag_act(mob/user)
+/mob/living/simple_animal/bot/ed209/on_emag(atom/target, mob/user)
 	..()
 	if(emagged == 2)
 		if(user)
@@ -224,8 +214,8 @@ Auto Patrol[]"},
 		var/threatlevel = 0
 		if(C.incapacitated())
 			continue
-		threatlevel = C.assess_threat(judgment_criteria, lasercolor, weaponcheck=CALLBACK(src, .proc/check_for_weapons))
-		//speak(C.real_name + text(": threat: []", threatlevel))
+		threatlevel = C.assess_threat(judgment_criteria, lasercolor, weaponcheck=CALLBACK(src, PROC_REF(check_for_weapons)))
+		//speak(C.real_name + ": threat: [threatlevel]")
 		if(threatlevel < 4 )
 			continue
 
@@ -326,13 +316,13 @@ Auto Patrol[]"},
 	target = null
 	last_found = world.time
 	frustration = 0
-	INVOKE_ASYNC(src, .proc/handle_automated_action) //ensure bot quickly responds
+	INVOKE_ASYNC(src, PROC_REF(handle_automated_action)) //ensure bot quickly responds
 
 /mob/living/simple_animal/bot/ed209/proc/back_to_hunt()
 	anchored = FALSE
 	frustration = 0
 	mode = BOT_HUNT
-	INVOKE_ASYNC(src, .proc/handle_automated_action) //ensure bot quickly responds
+	INVOKE_ASYNC(src, PROC_REF(handle_automated_action)) //ensure bot quickly responds
 
 // look for a criminal in view of the bot
 
@@ -349,7 +339,7 @@ Auto Patrol[]"},
 		if((C.name == oldtarget_name) && (world.time < last_found + 100))
 			continue
 
-		threatlevel = C.assess_threat(judgment_criteria, lasercolor, weaponcheck=CALLBACK(src, .proc/check_for_weapons))
+		threatlevel = C.assess_threat(judgment_criteria, lasercolor, weaponcheck=CALLBACK(src, PROC_REF(check_for_weapons)))
 
 		if(!threatlevel)
 			continue
@@ -506,7 +496,7 @@ Auto Patrol[]"},
 			icon_state = "[lasercolor]ed2090"
 			disabled = TRUE
 			target = null
-			addtimer(CALLBACK(src, .proc/reenable), 100)
+			addtimer(CALLBACK(src, PROC_REF(reenable)), 100)
 			return BULLET_ACT_HIT
 		else
 			. = ..()
@@ -559,7 +549,7 @@ Auto Patrol[]"},
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		var/judgment_criteria = judgment_criteria()
-		threat = H.assess_threat(judgment_criteria, weaponcheck=CALLBACK(src, .proc/check_for_weapons))
+		threat = H.assess_threat(judgment_criteria, weaponcheck=CALLBACK(src, PROC_REF(check_for_weapons)))
 	log_combat(src,C,"stunned")
 	if(declare_arrests)
 		var/area/location = get_area(src)
@@ -572,7 +562,7 @@ Auto Patrol[]"},
 	playsound(src, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
 	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",\
 						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
-	addtimer(CALLBACK(src, .proc/attempt_handcuff, C), 60)
+	addtimer(CALLBACK(src, PROC_REF(attempt_handcuff), C), 60)
 
 /mob/living/simple_animal/bot/ed209/proc/attempt_handcuff(mob/living/carbon/C)
 	if(!on || !Adjacent(C) || !isturf(C.loc) ) //if he's in a closet or not adjacent, we cancel cuffing.

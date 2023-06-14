@@ -23,7 +23,7 @@
 /datum/atom_hud/data/human/medical/basic
 
 /datum/atom_hud/data/human/medical/basic/proc/check_sensors(mob/living/carbon/human/H)
-	if(!istype(H))
+	if(!istype(H) && !ismonkey(H))
 		return 0
 	var/obj/item/clothing/under/U = H.w_uniform
 	if(!istype(U))
@@ -173,6 +173,7 @@
 
 //called when a carbon changes stat, virus or XENO_HOST
 /mob/living/proc/med_hud_set_status()
+	SIGNAL_HANDLER
 	var/image/holder = hud_list[STATUS_HUD]
 	if(holder)
 		var/icon/I = icon(icon, icon_state, dir)
@@ -192,13 +193,24 @@
 		holder.pixel_y = I.Height() - world.icon_size
 		if(HAS_TRAIT(src, TRAIT_XENO_HOST))
 			holder.icon_state = "hudxeno"
-		else if(stat == DEAD || (HAS_TRAIT(src, TRAIT_FAKEDEATH)))
+		else if(stat == DEAD)
+			if(!getorgan(/obj/item/organ/brain) || soul_departed() || ishellbound())
+				holder.icon_state = "huddead-permanent"
+				return
 			if(tod)
 				var/tdelta = round(world.time - timeofdeath)
 				if(tdelta < (DEFIB_TIME_LIMIT * 10))
+					if(!client && key)
+						holder.icon_state = "huddefib-ssd"
+						return
 					holder.icon_state = "huddefib"
 					return
+			if(!client && key)
+				holder.icon_state = "huddead-ssd"
+				return
 			holder.icon_state = "huddead"
+		else if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
+			holder.icon_state = "huddefib"
 		else
 			switch(virus_threat)
 				if(DISEASE_PANDEMIC)
@@ -237,7 +249,7 @@
 	holder.pixel_y = I.Height() - world.icon_size
 	holder.icon_state = "hudno_id"
 	if(wear_id?.GetID())
-		holder.icon_state = "hud[ckey(wear_id.GetJobName())]"
+		holder.icon_state = "hud[ckey(wear_id.GetJobIcon())]"
 	sec_hud_set_security_status()
 
 /mob/living/proc/sec_hud_set_implants()

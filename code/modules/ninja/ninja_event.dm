@@ -22,12 +22,8 @@ Contents:
 	role_name = "space ninja"
 	minimum_required = 1
 
-	var/helping_station
 	var/spawn_loc
 	var/give_objectives = TRUE
-
-/datum/round_event/ghost_role/ninja/setup()
-	helping_station = rand(0,1)
 
 /datum/round_event/ghost_role/ninja/kill()
 	if(!success_spawn && control)
@@ -66,15 +62,14 @@ Contents:
 	var/mob/living/carbon/human/Ninja = create_space_ninja(spawn_loc)
 	Mind.transfer_to(Ninja)
 	var/datum/antagonist/ninja/ninjadatum = new
-	ninjadatum.helping_station = pick(TRUE,FALSE)
 	Mind.add_antag_datum(ninjadatum)
 
 	if(Ninja.mind != Mind)			//something has gone wrong!
 		CRASH("Ninja created with incorrect mind")
 
 	spawned_mobs += Ninja
-	message_admins("[ADMIN_LOOKUPFLW(Ninja)] has been made into a ninja by an event. They are employed by [ninjadatum.helping_station?"Nanotrasen":"The Syndicate"].")
-	log_game("[key_name(Ninja)] was spawned as a ninja by an event. They are employed by [ninjadatum.helping_station?"Nanotrasen":"The Syndicate"]")
+	message_admins("[ADMIN_LOOKUPFLW(Ninja)] has been made into a ninja by an event")
+	log_game("[key_name(Ninja)] was spawned as a ninja by an event.")
 
 	return SUCCESSFUL_SPAWN
 
@@ -83,8 +78,8 @@ Contents:
 
 /proc/create_space_ninja(spawn_loc)
 	var/mob/living/carbon/human/new_ninja = new(spawn_loc)
-	var/datum/preferences/A = new()//Randomize appearance for the ninja.
-	A.real_name = "[pick(GLOB.ninja_titles)] [pick(GLOB.ninja_names)]"
-	A.copy_to(new_ninja)
+	var/datum/character_save/CS = new()//Randomize appearance for the ninja.
+	CS.real_name = "[pick(GLOB.ninja_titles)] [pick(GLOB.ninja_names)]"
+	CS.copy_to(new_ninja)
 	new_ninja.dna.update_dna_identity()
 	return new_ninja

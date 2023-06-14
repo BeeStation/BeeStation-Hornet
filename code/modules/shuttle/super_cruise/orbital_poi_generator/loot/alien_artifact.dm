@@ -10,7 +10,7 @@
 /obj/item/alienartifact/examine(mob/user)
 	. = ..()
 	var/mob/living/L = user
-	if(istype(L) && L.mind?.assigned_role != "Curator")
+	if(istype(L) && L.mind?.assigned_role != JOB_NAME_CURATOR)
 		return
 	for(var/datum/artifact_effect/effect in effects)
 		for(var/verb in effect.effect_act_descs)
@@ -22,6 +22,7 @@
 /obj/item/alienartifact/objective/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/gps, "[scramble_message_replace_chars("#########", 100)]", TRUE)
+	AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#eb4d4d", TRUE, TRUE)
 
 /obj/item/alienartifact/Initialize(mapload)
 	. = ..()
@@ -103,7 +104,7 @@
 	effect_act_descs = list("thrown")
 
 /datum/artifact_effect/throwchaos/register_signals(source)
-	RegisterSignal(source, COMSIG_MOVABLE_PRE_THROW, .proc/throw_thing_randomly)
+	RegisterSignal(source, COMSIG_MOVABLE_PRE_THROW, PROC_REF(throw_thing_randomly))
 
 /datum/artifact_effect/throwchaos/proc/throw_thing_randomly(datum/source, list/arguments)
 	if(prob(40))
@@ -138,7 +139,7 @@
 	effect_act_descs = list("examined")
 
 /datum/artifact_effect/inducespasm/register_signals(source)
-	RegisterSignal(source, COMSIG_PARENT_EXAMINE, .proc/do_effect)
+	RegisterSignal(source, COMSIG_PARENT_EXAMINE, PROC_REF(do_effect))
 
 /datum/artifact_effect/inducespasm/proc/do_effect(datum/source, mob/observer, list/examine_text)
 	if(ishuman(observer))
@@ -175,7 +176,7 @@
 	if(monitor_holder)
 		QDEL_NULL(monitor_holder)
 	var/datum/proximity_monitor/monitor = new(source, 3, FALSE)
-	monitor_holder = new(null, monitor, CALLBACK(src, .proc/HasProximity))
+	monitor_holder = new(null, monitor, CALLBACK(src, PROC_REF(HasProximity)))
 
 /datum/artifact_effect/projreflect/Destroy()
 	QDEL_NULL(monitor_holder)
@@ -200,7 +201,7 @@
 	source.CanAtmosPass = ATMOS_PASS_NO
 
 /datum/artifact_effect/airfreeze/register_signals(source)
-	RegisterSignal(source, COMSIG_MOVABLE_MOVED, .proc/updateAir)
+	RegisterSignal(source, COMSIG_MOVABLE_MOVED, PROC_REF(updateAir))
 
 /datum/artifact_effect/airfreeze/proc/updateAir(atom/source, atom/oldLoc)
 	if(isturf(oldLoc))
@@ -233,7 +234,7 @@
 	var/next_use_world_time = 0
 
 /datum/artifact_effect/gravity_well/register_signals(source)
-	RegisterSignal(source, COMSIG_ITEM_ATTACK_SELF, .proc/suck)
+	RegisterSignal(source, COMSIG_ITEM_ATTACK_SELF, PROC_REF(suck))
 
 /datum/artifact_effect/gravity_well/proc/suck(datum/source, mob/warper)
 	if(world.time < next_use_world_time)
@@ -268,7 +269,7 @@
 	var/list/accesses_to_add = get_all_accesses()
 	for(var/obj/item/card/id/id_card as() in idcards)
 		if(length(id_card.access))
-			id_card.access.Remove(pick(id_card.access))
+			id_card.access -= pick(id_card.access)
 			id_card.access |= pick(accesses_to_add)
 
 //===================
@@ -325,7 +326,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 
 /datum/artifact_effect/reality_destabilizer/proc/destabilize(atom/movable/AM)
 	//Banish to the void
-	addtimer(CALLBACK(src, .proc/restabilize, AM, get_turf(AM)), rand(10 SECONDS, 90 SECONDS))
+	addtimer(CALLBACK(src, PROC_REF(restabilize), AM, get_turf(AM)), rand(10 SECONDS, 90 SECONDS))
 	//Forcemove to ignore teleport checks
 	AM.forceMove(pick(GLOB.destabilization_spawns))
 	contained_things += AM
@@ -352,14 +353,14 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	var/next_use_world_time = 0
 
 /datum/artifact_effect/warp/register_signals(source)
-	RegisterSignal(source, COMSIG_ITEM_ATTACK_SELF, .proc/teleport)
+	RegisterSignal(source, COMSIG_ITEM_ATTACK_SELF, PROC_REF(teleport))
 
 /datum/artifact_effect/warp/proc/teleport(datum/source, mob/warper)
 	if(world.time < next_use_world_time)
 		return
 	var/turf/T = get_turf(warper)
 	if(T)
-		do_teleport(warper, pick(RANGE_TURFS(10, T)), channel = TELEPORT_CHANNEL_FREE)
+		do_teleport(warper, pick(RANGE_TURFS(10, T)), channel = TELEPORT_CHANNEL_BLINK)
 		next_use_world_time = world.time + 150
 
 //===================
@@ -372,7 +373,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	signal_types = list(COMSIG_ITEM_PICKUP)
 
 /datum/artifact_effect/curse/register_signals(source)
-	RegisterSignal(source, COMSIG_ITEM_PICKUP, .proc/curse)
+	RegisterSignal(source, COMSIG_ITEM_PICKUP, PROC_REF(curse))
 
 /datum/artifact_effect/curse/proc/curse(datum/source, mob/taker)
 	var/mob/living/carbon/human/H = taker
@@ -406,9 +407,9 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 
 /datum/artifact_effect/gas_remove/Initialize(source)
 	. = ..()
-	input = pickweight(valid_inputs)
+	input = pick_weight(valid_inputs)
 	effect_act_descs = list("near gas")
-	output = pickweight(valid_outputs)
+	output = pick_weight(valid_outputs)
 
 /datum/artifact_effect/gas_remove/process(delta_time)
 	var/turf/T = get_turf(source_object)
@@ -451,7 +452,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	if(world.time < next_world_time)
 		return
 	var/turf/T = get_turf(source_object)
-	for(var/datum/light_source/light_source in T.affecting_lights)
+	for(var/datum/light_source/light_source in T.light_sources)
 		var/atom/movable/AM = light_source.source_atom
 		//Starts at light but gets stronger the longer it is in light.
 		AM.lighteater_act()
@@ -473,7 +474,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	cooldown = rand(5 MINUTES, 15 MINUTES)
 
 /datum/artifact_effect/insanity_pulse/register_signals(source)
-	RegisterSignal(source, COMSIG_ITEM_ATTACK_SELF, .proc/pulse)
+	RegisterSignal(source, COMSIG_ITEM_ATTACK_SELF, PROC_REF(pulse))
 
 /datum/artifact_effect/insanity_pulse/proc/pulse(datum/source, mob/living/pulser)
 	if(!istype(pulser))

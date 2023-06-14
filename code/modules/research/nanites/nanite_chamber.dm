@@ -11,6 +11,8 @@
 	idle_power_usage = 300
 	active_power_usage = 1200
 
+	var/nanite_coeff = 1
+	var/speed_coeff = 1
 	var/locked = FALSE
 	var/breakout_time = 1200
 	var/scan_level
@@ -25,8 +27,16 @@
 
 /obj/machinery/nanite_chamber/RefreshParts()
 	scan_level = 0
+	nanite_coeff = 0
+	speed_coeff = 1
 	for(var/obj/item/stock_parts/scanning_module/P in component_parts)
 		scan_level += P.rating
+	for(var/obj/item/stock_parts/manipulator/manipulator in component_parts)
+		nanite_coeff += manipulator.rating
+	var/total_laser_rating = 0
+	for(var/obj/item/stock_parts/micro_laser/micro_laser in component_parts)
+		total_laser_rating += micro_laser.rating
+	speed_coeff = 1 / (total_laser_rating * 0.5)
 
 /obj/machinery/nanite_chamber/examine(mob/user)
 	. = ..()
@@ -50,9 +60,9 @@
 	SEND_SIGNAL(occupant, COMSIG_NANITE_SET_CLOUD, cloud_id)
 
 /obj/machinery/nanite_chamber/proc/inject_nanites()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		return
-	if((stat & MAINT) || panel_open)
+	if((machine_stat & MAINT) || panel_open)
 		return
 	if(!occupant || busy)
 		return
@@ -62,11 +72,11 @@
 
 	//TODO OMINOUS MACHINE SOUNDS
 	set_busy(TRUE, "Initializing injection protocol...", "[initial(icon_state)]_raising")
-	addtimer(CALLBACK(src, .proc/set_busy, TRUE, "Analyzing host bio-structure...", "[initial(icon_state)]_active"),20)
-	addtimer(CALLBACK(src, .proc/set_busy, TRUE, "Priming nanites...", "[initial(icon_state)]_active"),40)
-	addtimer(CALLBACK(src, .proc/set_busy, TRUE, "Injecting...", "[initial(icon_state)]_active"),70)
-	addtimer(CALLBACK(src, .proc/set_busy, TRUE, "Activating nanites...", "[initial(icon_state)]_falling"),110)
-	addtimer(CALLBACK(src, .proc/complete_injection, locked_state),130)
+	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "Analyzing host bio-structure...", "[initial(icon_state)]_active"), 20 * speed_coeff)
+	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "Priming nanites...", "[initial(icon_state)]_active"), 40 * speed_coeff)
+	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "Injecting...", "[initial(icon_state)]_active"), 70 * speed_coeff)
+	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "Activating nanites...", "[initial(icon_state)]_falling"), 110 * speed_coeff)
+	addtimer(CALLBACK(src, PROC_REF(complete_injection), locked_state),130)
 
 /obj/machinery/nanite_chamber/proc/complete_injection(locked_state)
 	//TODO MACHINE DING
@@ -74,12 +84,12 @@
 	set_busy(FALSE)
 	if(!occupant)
 		return
-	occupant.AddComponent(/datum/component/nanites, 100)
+	occupant.AddComponent(/datum/component/nanites, 100 * nanite_coeff)
 
 /obj/machinery/nanite_chamber/proc/remove_nanites(datum/nanite_program/NP)
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		return
-	if((stat & MAINT) || panel_open)
+	if((machine_stat & MAINT) || panel_open)
 		return
 	if(!occupant || busy)
 		return
@@ -89,11 +99,11 @@
 
 	//TODO OMINOUS MACHINE SOUNDS
 	set_busy(TRUE, "Initializing cleanup protocol...", "[initial(icon_state)]_raising")
-	addtimer(CALLBACK(src, .proc/set_busy, TRUE, "Analyzing host bio-structure...", "[initial(icon_state)]_active"),20)
-	addtimer(CALLBACK(src, .proc/set_busy, TRUE, "Pinging nanites...", "[initial(icon_state)]_active"),40)
-	addtimer(CALLBACK(src, .proc/set_busy, TRUE, "Initiating graceful self-destruct sequence...", "[initial(icon_state)]_active"),70)
-	addtimer(CALLBACK(src, .proc/set_busy, TRUE, "Removing debris...", "[initial(icon_state)]_falling"),110)
-	addtimer(CALLBACK(src, .proc/complete_removal, locked_state),130)
+	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "Analyzing host bio-structure...", "[initial(icon_state)]_active"), 20 * speed_coeff)
+	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "Pinging nanites...", "[initial(icon_state)]_active"), 40 * speed_coeff)
+	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "Initiating graceful self-destruct sequence...", "[initial(icon_state)]_active"), 70 * speed_coeff)
+	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "Removing debris...", "[initial(icon_state)]_falling"), 110 * speed_coeff)
+	addtimer(CALLBACK(src, PROC_REF(complete_removal), locked_state), 130 * speed_coeff)
 
 /obj/machinery/nanite_chamber/proc/complete_removal(locked_state)
 	//TODO MACHINE DING
@@ -106,10 +116,10 @@
 /obj/machinery/nanite_chamber/update_icon()
 	cut_overlays()
 
-	if((stat & MAINT) || panel_open)
+	if((machine_stat & MAINT) || panel_open)
 		add_overlay("maint")
 
-	else if(!(stat & (NOPOWER|BROKEN)))
+	else if(!(machine_stat & (NOPOWER|BROKEN)))
 		if(busy || locked)
 			add_overlay("red")
 			if(locked)

@@ -9,6 +9,7 @@
 	var/enabled = TRUE
 	var/renamed = FALSE
 	var/nettingportal = FALSE
+	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
 /obj/item/beacon/Initialize(mapload)
 	. = ..()

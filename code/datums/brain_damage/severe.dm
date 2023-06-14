@@ -1,6 +1,6 @@
 //Severe traumas, when your brain gets abused way too much.
 //These range from very annoying to completely debilitating.
-//They cannot be cured with chemicals, and require brain surgery to solve.
+//They cannot be cured with chemicals, and require brain recalibration to solve.
 
 /datum/brain_trauma/severe
 	resilience = TRAUMA_RESILIENCE_SURGERY
@@ -113,9 +113,9 @@
 	owner.update_disabled_bodyparts()
 
 /datum/brain_trauma/severe/paralysis/paraplegic
-	random_gain = FALSE
 	paralysis_type = "legs"
 	resilience = TRAUMA_RESILIENCE_ABSOLUTE
+	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
 
 /datum/brain_trauma/severe/narcolepsy
 	name = "Narcolepsy"
@@ -165,7 +165,7 @@
 		stress = max(stress - 4, 0)
 
 /datum/brain_trauma/severe/monophobia/proc/check_alone()
-	if(HAS_TRAIT(owner, TRAIT_BLIND))
+	if(owner.is_blind())
 		return TRUE
 	for(var/mob/living/M in oview(7, owner))
 		if((istype(M, /mob/living/simple_animal/pet)) || M.ckey)
@@ -183,7 +183,7 @@
 				to_chat(owner, "<span class='warning'>You feel sick...</span>")
 			else
 				to_chat(owner, "<span class='warning'>You feel really sick at the thought of being alone!</span>")
-			addtimer(CALLBACK(owner, /mob/living/carbon.proc/vomit, high_stress), 50) //blood vomit if high stress
+			addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob/living/carbon, vomit), high_stress), 50) //blood vomit if high stress
 		if(2)
 			if(!high_stress)
 				to_chat(owner, "<span class='warning'>You can't stop shaking...</span>")
@@ -256,7 +256,7 @@
 	gain_text = "<span class='warning'>You feel somewhat dazed.</span>"
 	lose_text = "<span class='notice'>You feel like a fog was lifted from your mind.</span>"
 
-/datum/brain_trauma/severe/hypnotic_stupor/on_lose() //hypnosis must be cleared separately, but brain surgery should get rid of both anyway
+/datum/brain_trauma/severe/hypnotic_stupor/on_lose() //hypnosis must be cleared separately, but brain recalibration should get rid of both anyway
 	..()
 	owner.remove_status_effect(/datum/status_effect/trance)
 

@@ -1,18 +1,16 @@
-import { multiline, decodeHtmlEntities } from 'common/string';
-import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Flex, Input, Section, Table, Tabs, NoticeBox, Collapsible, BlockQuote, Slider, Divider } from '../components';
-import { Window, Layout } from '../layouts';
+import { decodeHtmlEntities } from 'common/string';
+import { useBackend } from '../backend';
+import { Box, Button, Input, Section, Table, Divider } from '../components';
+import { Window } from '../layouts';
 import { round } from 'common/math';
+import { ButtonConfirm } from '../components/Button';
+import { Component, createRef } from 'inferno';
 
 export const TicketMessenger = (props, context) => {
   return (
-    <Window
-      theme="admin"
-      width={620}
-      height={500}>
+    <Window theme="admin" width={620} height={500}>
       <Window.Content>
-        <Section
-          height="85px">
+        <Section height="85px">
           <TicketActionBar />
         </Section>
         <Section>
@@ -25,185 +23,152 @@ export const TicketMessenger = (props, context) => {
 
 export const TicketActionBar = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    disconnected,
-    time_opened,
-    time_closed,
-    world_time,
-    ticket_state,
-    claimee,
-    claimee_key,
-    antag_status,
-    id,
-    sender,
-  } = data;
+  const { disconnected, time_opened, world_time, claimee_key, antag_status, id, sender, is_admin_type, open } = data;
   return (
     <Box>
-      <Box
-        bold
-        inline>
-        Admin Help Ticket #{id} : {sender}
+      <Box bold inline>
+        {is_admin_type ? 'Admin' : 'Mentor'} Help Ticket #{id} by {sender}
       </Box>
-      <Box
-        inline
-        color={antag_status==="None"?"green":"red"}>
-        Antag: {antag_status}
-      </Box>
+      {antag_status ? (
+        <>
+          &nbsp;|&nbsp;
+          <Box inline color={antag_status === 'None' ? 'green' : 'red'}>
+            Antag: {antag_status}
+          </Box>
+        </>
+      ) : null}
       <Box />
-      <Box
-        inline
-        color={claimee_key?"blue":"red"}
-        bold>
-        Claimed by {claimee_key ? claimee_key : "Nobody"}
+      <Box inline color={claimee_key ? 'blue' : 'red'} bold>
+        Claimed by {claimee_key ? claimee_key : 'Nobody'}
       </Box>
-      <Box
-        inline>
-        |
+      <Box inline>&nbsp;|&nbsp;</Box>
+      <Box inline bold>
+        Opened {round((world_time - time_opened) / 600)} minutes ago
       </Box>
-      <Box
-        inline
-        bold>
-        Opened {round((world_time - time_opened)/600)} minutes ago
+      <Box inline>
+        &nbsp;|&nbsp;
+        <Button content="Re-title" onClick={() => act('retitle')} />
+        {!open ? (
+          <>
+            &nbsp;|&nbsp;
+            <Button content="Reopen" onClick={() => act('reopen')} />
+          </>
+        ) : null}
       </Box>
-      <Box
-        inline>
-        {" |"}
-        <Button
-          color="transparent"
-          content="Re-title"
-          onClick={() => act("retitle")} />
-        |
-        <Button
-          color="transparent"
-          content="Reopen"
-          onClick={() => act("reopen")} />
-        |
-      </Box>
+
       <Divider />
       <Box>
-        {disconnected
-          ? "DISCONNECTED"
-          : <TicketFullMonty /> }
-        <TicketClosureStates />
+        {is_admin_type ? disconnected ? 'DISCONNECTED' : <TicketFullMonty /> : null}
+        <TicketClosureStates admin={is_admin_type} />
       </Box>
     </Box>
   );
 };
 
-export const TicketFullMonty = (props, context) => {
+export const TicketFullMonty = (_, context) => {
   const { act } = useBackend(context);
   return (
     <Box inline>
-      <Button
-        color="purple"
-        content="?"
-        onClick={() => act("moreinfo")} />
-      <Button
-        color="blue"
-        content="PP"
-        onClick={() => act("playerpanel")} />
-      <Button
-        color="blue"
-        content="VV"
-        onClick={() => act("viewvars")} />
-      <Button
-        color="blue"
-        content="SM"
-        onClick={() => act("subtlemsg")} />
-      <Button
-        color="blue"
-        content="FLW"
-        onClick={() => act("flw")} />
-      <Button
-        color="blue"
-        content="TP"
-        onClick={() => act("traitorpanel")} />
-      <Button
-        color="green"
-        content="LOG"
-        onClick={() => act("viewlogs")} />
-      <Button
-        color="red"
-        content="SMITE"
-        onClick={() => act("smite")} />
+      <Button color="purple" content="?" onClick={() => act('moreinfo')} />
+      <Button color="blue" content="PP" onClick={() => act('playerpanel')} />
+      <Button color="blue" content="VV" onClick={() => act('viewvars')} />
+      <Button color="blue" content="SM" onClick={() => act('subtlemsg')} />
+      <Button color="blue" content="FLW" onClick={() => act('flw')} />
+      <Button color="blue" content="TP" onClick={() => act('traitorpanel')} />
+      <Button color="green" content="LOG" onClick={() => act('viewlogs')} />
+      <Button color="red" content="SMITE" onClick={() => act('smite')} />
     </Box>
   );
 };
 
-export const TicketClosureStates = (props, context) => {
+export const TicketClosureStates = ({ admin }, context) => {
   const { act } = useBackend(context);
   return (
     <Box inline>
-      <Button
-        content="REJT"
-        onClick={() => act("reject")} />
-      <Button
-        content="IC"
-        onClick={() => act("markic")} />
-      <Button
-        content="CLOSE"
-        onClick={() => act("close")} />
-      <Button
-        content="RSLVE"
-        onClick={() => act("resolve")} />
-      <Button
-        content="MHELP"
-        onClick={() => act("mentorhelp")} />
+      <ButtonConfirm content="REJT" onClick={() => act('reject')} />
+      {admin ? (
+        <>
+          <ButtonConfirm content="IC" onClick={() => act('markic')} />
+          <ButtonConfirm content="CLOSE" onClick={() => act('close')} />
+        </>
+      ) : null}
+      <Button content="RSLVE" onClick={() => act('resolve')} />
+      <ButtonConfirm content={admin ? 'MHELP' : 'AHELP'} onClick={() => act(`${admin ? 'mentor' : 'admin'}help`)} />
     </Box>
   );
 };
 
-export const TicketChatWindow = (props, context) => {
+export const TicketChatWindow = (_, context) => {
   const { act, data } = useBackend(context);
-  const {
-    messages = [],
-  } = data;
+  const { messages = [] } = data;
   return (
     <Box>
-      <Box
-        overflowY="scroll"
-        height="315px">
+      <Box overflowY="scroll" height="315px">
         <Table>
-          {messages.map(message => (
-            <Section independent
-              key={message.time}>
-              <Table.Row>
-                <Table.Cell>
-                  {message.time}
-                </Table.Cell>
-                <Table.Cell
-                  color={message.color}>
-                  <Box>
-                    <Box
-                      inline
-                      bold>
-                      {message.from && message.to
-                        ? "PM from " + decodeHtmlEntities(message.from)
-                        + " to " + decodeHtmlEntities(message.to)
-                        : decodeHtmlEntities(message.from)
-                          ? "Reply PM from " + decodeHtmlEntities(message.from)
-                          : decodeHtmlEntities(message.to)
-                            ? "PM to " + decodeHtmlEntities(message.to)
-                            : ""}
-                    </Box>
-                    <Box
-                      inline>
-                      {decodeHtmlEntities(message.message)}
-                    </Box>
-                  </Box>
-                </Table.Cell>
-              </Table.Row>
-            </Section>
-          ))}
+          <TicketMessages messages={messages} />
         </Table>
       </Box>
       <Divider />
       <Input
         fluid
         selfClear
-        onEnter={(e, value) => act("sendpm", {
-          text: value,
-        })} />
+        onEnter={(e, value) =>
+          act('sendpm', {
+            text: value,
+          })
+        }
+      />
     </Box>
   );
 };
+
+class TicketMessages extends Component {
+  constructor(props) {
+    super(props);
+    this.messagesEndRef = createRef();
+  }
+
+  componentDidMount() {
+    this.scrollToBottom();
+  }
+
+  componentDidUpdate(oldProps) {
+    if (oldProps.messages.length !== this.props.messages.length) {
+      this.scrollToBottom();
+    }
+  }
+
+  scrollToBottom = () => {
+    this.messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  render() {
+    const { messages } = this.props;
+    return (
+      <>
+        {messages.map((message) => (
+          <Section independent key={message.time}>
+            <Table.Row>
+              <Table.Cell>{message.time}</Table.Cell>
+              <Table.Cell color={message.color}>
+                <Box>
+                  <Box bold>
+                    {message.from && message.to
+                      ? 'PM from ' + decodeHtmlEntities(message.from) + ' to ' + decodeHtmlEntities(message.to)
+                      : decodeHtmlEntities(message.from)
+                        ? 'Reply PM from ' + decodeHtmlEntities(message.from)
+                        : decodeHtmlEntities(message.to)
+                          ? 'PM to ' + decodeHtmlEntities(message.to)
+                          : ''}
+                  </Box>
+                  <Box>{decodeHtmlEntities(message.message)}</Box>
+                </Box>
+              </Table.Cell>
+            </Table.Row>
+          </Section>
+        ))}
+        <div ref={this.messagesEndRef} />
+      </>
+    );
+  }
+}

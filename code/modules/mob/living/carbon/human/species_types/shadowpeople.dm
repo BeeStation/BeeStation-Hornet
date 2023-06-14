@@ -1,4 +1,4 @@
-#define HEART_RESPAWN_THRESHHOLD 40
+#define HEART_RESPAWN_THRESHOLD 40
 #define HEART_SPECIAL_SHADOWIFY 2
 
 /datum/species/shadow
@@ -146,7 +146,7 @@
 		if(light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD)
 			respawn_progress++
 			playsound(owner,'sound/effects/singlebeat.ogg',40,1)
-	if(respawn_progress >= HEART_RESPAWN_THRESHHOLD)
+	if(respawn_progress >= HEART_RESPAWN_THRESHOLD)
 		owner.revive(full_heal = TRUE)
 		if(!(owner.dna.species.id == "shadow" || owner.dna.species.id == "nightmare"))
 			var/mob/living/carbon/old_owner = owner
@@ -171,13 +171,14 @@
 	armour_penetration = 35
 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
-	item_flags = ABSTRACT | DROPDEL
+	item_flags = ABSTRACT | DROPDEL | ISWEAPON
 	w_class = WEIGHT_CLASS_HUGE
 	sharpness = IS_SHARP
 
 /obj/item/light_eater/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, HAND_REPLACEMENT_TRAIT)
+	ADD_TRAIT(src, TRAIT_DOOR_PRYER, INNATE_TRAIT)
 	AddComponent(/datum/component/butchering, 80, 70)
 
 /obj/item/light_eater/afterattack(atom/movable/AM, mob/user, proximity)
@@ -186,14 +187,14 @@
 		return
 	AM.lighteater_act(src)
 
-/atom/movable/lighteater_act(obj/item/light_eater/light_eater)
+/atom/movable/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	..()
 	for(var/datum/component/overlay_lighting/light_source in affected_dynamic_lights)
 		if(light_source.parent != src)
 			var/atom/A = light_source.parent
-			A.lighteater_act(light_eater)
+			A.lighteater_act(light_eater, src)
 
-/mob/living/lighteater_act(obj/item/light_eater/light_eater)
+/mob/living/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	..()
 	if(on_fire)
 		ExtinguishMob()
@@ -201,24 +202,28 @@
 	if(pulling)
 		pulling.lighteater_act(light_eater)
 
-/mob/living/carbon/human/lighteater_act(obj/item/light_eater/light_eater)
+/mob/living/carbon/human/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	..()
 	if(isethereal(src))
 		emp_act(EMP_LIGHT)
 
-/mob/living/silicon/robot/lighteater_act(obj/item/light_eater/light_eater)
+/mob/living/silicon/robot/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	..()
-	if(!lamp_cooldown)
-		update_headlamp(TRUE, INFINITY)
-		to_chat(src, "<span class='danger'>Your headlamp is fried! You'll need a human to help replace it.</span>")
+	if(lamp_enabled)
+		smash_headlamp()
 
-/obj/structure/bonfire/lighteater_act(obj/item/light_eater/light_eater)
+/obj/structure/bonfire/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	if(burning)
 		extinguish()
 		playsound(src, 'sound/items/cig_snuff.ogg', 50, 1)
 	..()
 
-/obj/item/lighteater_act(obj/item/light_eater/light_eater)
+/obj/structure/glowshroom/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
+	..()
+	if (light_power > 0)
+		acid_act()
+
+/obj/item/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	..()
 	if(!light_range || !light_power || !light_on)
 		return
@@ -227,16 +232,49 @@
 	burn()
 	playsound(src, 'sound/items/welder.ogg', 50, 1)
 
+/obj/item/modular_computer/tablet/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
+	if(light_range && light_power > 0 && light_on)
+		// Only the queen of Beetania can save our IDs from this infernal nightmare
+		var/obj/item/computer_hardware/card_slot/card_slot2 = all_components[MC_CARD2]
+		var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
+		card_slot2?.try_eject()
+		card_slot?.try_eject()
+	..()
 
-/obj/item/pda/lighteater_act(obj/item/light_eater/light_eater)
-	if(light_range && light_power && light_on)
-		//Eject the ID card
-		if(id)
-			id.forceMove(get_turf(src))
-			id = null
-			update_icon()
-			playsound(src, 'sound/machines/terminal_eject.ogg', 50, TRUE)
+/obj/item/clothing/head/helmet/space/hardsuit/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
+	if(!light_range || !light_power || !light_on || light_broken)
+		return ..()
+	if(light_eater)
+		visible_message("<span class='danger'>The headlamp of [src] is disintegrated by [light_eater]!</span>")
+	light_broken = TRUE
+	var/mob/user = ismob(parent) ? parent : null
+	attack_self(user)
+	playsound(src, 'sound/items/welder.ogg', 50, 1)
+	..()
+
+/obj/item/clothing/head/helmet/space/plasmaman/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
+	if(!lamp_functional)
+		return
+	if(helmet_on)
+		smash_headlamp()
+	..()
+
+/turf/open/floor/light/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
+	. = ..()
+	if(!light_range || !light_power || !light_on)
+		return
+	if(light_eater)
+		visible_message("<span class='danger'>The light bulb of [src] is disintegrated by [light_eater]!</span>")
+	break_tile()
+	playsound(src, 'sound/items/welder.ogg', 50, 1)
+
+/obj/item/weldingtool/cyborg/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
+	if(!isOn())
+		return
+	if(light_eater)
+		loc.visible_message("<span class='danger'>The the integrated welding tool is snuffed out by [light_eater]!</span>")
+		disable()
 	..()
 
 #undef HEART_SPECIAL_SHADOWIFY
-#undef HEART_RESPAWN_THRESHHOLD
+#undef HEART_RESPAWN_THRESHOLD

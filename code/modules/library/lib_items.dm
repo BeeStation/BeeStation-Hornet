@@ -17,12 +17,12 @@
 	desc = "A great place for storing knowledge."
 	anchored = FALSE
 	density = TRUE
-	opacity = 0
+	opacity = FALSE
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0, STAMINA = 0)
 	var/state = 0
-	var/list/allowed_books = list(/obj/item/book, /obj/item/spellbook, /obj/item/storage/book) //Things allowed in the bookcase
+	var/list/allowed_books = list(/obj/item/book, /obj/item/spellbook, /obj/item/storage/book, /obj/item/codex_cicatrix) //Things allowed in the bookcase
 	/// When enabled, books_to_load number of random books will be generated for this bookcase when first interacted with.
 	var/load_random_books = FALSE
 	/// The category of books to pick from when populating random books.
@@ -70,8 +70,8 @@
 					deconstruct(TRUE)
 
 		if(1)
-			if(istype(I, /obj/item/stack/sheet/mineral/wood))
-				var/obj/item/stack/sheet/mineral/wood/W = I
+			if(istype(I, /obj/item/stack/sheet/wood))
+				var/obj/item/stack/sheet/wood/W = I
 				if(W.get_amount() >= 2)
 					W.use(2)
 					to_chat(user, "<span class='notice'>You add a shelf.</span>")
@@ -112,7 +112,7 @@
 				else
 					I.play_tool_sound(src, 100)
 					to_chat(user, "<span class='notice'>You pry the shelf out.</span>")
-					new /obj/item/stack/sheet/mineral/wood(drop_location(), 2)
+					new /obj/item/stack/sheet/wood(drop_location(), 2)
 					state = 1
 					icon_state = "bookempty"
 			else
@@ -129,7 +129,7 @@
 		create_random_books(books_to_load, src, FALSE, random_category)
 		load_random_books = FALSE
 	if(contents.len)
-		var/obj/item/book/choice = input(user, "Which book would you like to remove from the shelf?") as null|obj in sortNames(contents)
+		var/obj/item/book/choice = input(user, "Which book would you like to remove from the shelf?") as null|obj in sort_names(contents)
 		if(choice)
 			if(!(user.mobility_flags & MOBILITY_USE) || user.stat || user.restrained() || !in_range(loc, user))
 				return
@@ -142,7 +142,7 @@
 
 
 /obj/structure/bookcase/deconstruct(disassembled = TRUE)
-	new /obj/item/stack/sheet/mineral/wood(loc, 4)
+	new /obj/item/stack/sheet/wood(loc, 4)
 	for(var/obj/item/book/B in contents)
 		B.forceMove(get_turf(src))
 	qdel(src)
@@ -197,6 +197,9 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = WEIGHT_CLASS_NORMAL		 //upped to three because books are, y'know, pretty big. (and you could hide them inside eachother recursively forever)
+	item_flags = ISWEAPON
+	drop_sound = 'sound/items/handling/book_drop.ogg'
+	pickup_sound =  'sound/items/handling/book_pickup.ogg'
 	attack_verb = list("bashed", "whacked", "educated")
 	resistance_flags = FLAMMABLE
 	var/dat				//Actual page content
@@ -224,7 +227,7 @@
 
 /obj/item/book/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pen))
-		if(is_blind(user))
+		if(user.is_blind())
 			to_chat(user, "<span class='warning'> As you are trying to write on the book, you suddenly feel very stupid!</span>")
 			return
 		if(unique)

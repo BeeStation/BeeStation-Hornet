@@ -23,6 +23,11 @@
 /obj/item/mop/Initialize(mapload)
 	. = ..()
 	create_reagents(mopcap)
+	GLOB.janitor_devices += src
+
+/obj/item/mop/Destroy()
+	GLOB.janitor_devices -= src
+	return ..()
 
 /obj/item/mop/proc/clean(turf/A)
 	if(reagents.has_reagent(/datum/reagent/water, 1) || reagents.has_reagent(/datum/reagent/water/holywater, 1) || reagents.has_reagent(/datum/reagent/consumable/ethanol/vodka, 1) || reagents.has_reagent(/datum/reagent/space_cleaner, 1))
@@ -54,14 +59,6 @@
 		if(do_after(user, src.mopspeed, target = T))
 			to_chat(user, "<span class='notice'>You finish mopping.</span>")
 			clean(T)
-
-
-/obj/effect/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/mop) || istype(I, /obj/item/soap))
-		return
-	else
-		return ..()
-
 
 /obj/item/mop/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	if(insertable)

@@ -49,9 +49,6 @@
 /obj/machinery/power/emitter/energycannon/magical/ex_act(severity)
 	return
 
-/obj/machinery/power/emitter/energycannon/magical/emag_act(mob/user)
-	return
-
 /obj/structure/table/abductor/wabbajack
 	name = "wabbajack altar"
 	desc = "Whether you're sleeping or waking, it's going to be quite chaotic."
@@ -96,7 +93,7 @@
 		L.visible_message("<span class='revennotice'>A strange purple glow wraps itself around [L] as [L.p_they()] suddenly fall[L.p_s()] unconscious.</span>",
 			"<span class='revendanger'>[desc]</span>")
 		// Don't let them sit suround unconscious forever
-		addtimer(CALLBACK(src, .proc/sleeper_dreams, L), 100)
+		addtimer(CALLBACK(src, PROC_REF(sleeper_dreams), L), 100)
 
 	// Existing sleepers
 	for(var/i in found)
@@ -149,6 +146,9 @@
 /mob/living/simple_animal/drone/snowflake/bardrone/Initialize(mapload)
 	. = ..()
 	access_card.access |= ACCESS_CENT_BAR
+	ADD_TRAIT(src, TRAIT_BARMASTER, ROUNDSTART_TRAIT)
+	ADD_TRAIT(src, TRAIT_SOMMELIER, ROUNDSTART_TRAIT)
+
 
 /mob/living/simple_animal/hostile/alien/maid/barmaid
 	gold_core_spawnable = NO_SPAWN
@@ -164,10 +164,11 @@
 /mob/living/simple_animal/hostile/alien/maid/barmaid/Initialize(mapload)
 	. = ..()
 	access_card = new /obj/item/card/id(src)
-	var/datum/job/captain/C = new /datum/job/captain
-	access_card.access = C.get_access()
+	access_card.access = get_all_accesses()
 	access_card.access |= ACCESS_CENT_BAR
 	ADD_TRAIT(access_card, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
+	ADD_TRAIT(src, TRAIT_BARMASTER, ROUNDSTART_TRAIT)
+	ADD_TRAIT(src, TRAIT_SOMMELIER, ROUNDSTART_TRAIT)
 
 /mob/living/simple_animal/hostile/alien/maid/barmaid/Destroy()
 	qdel(access_card)
@@ -186,7 +187,7 @@
 /obj/structure/table/wood/bar/Initialize(mapload, _buildstack)
 	. = ..()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -205,7 +206,7 @@
 	. = FALSE
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H.mind?.assigned_role == "Bartender")
+		if(H.mind?.assigned_role == JOB_NAME_BARTENDER)
 			return TRUE
 
 	var/obj/item/card/id/ID = user.get_idcard(FALSE)

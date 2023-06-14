@@ -167,7 +167,7 @@
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "E" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
 /turf/open/floor/holofloor/carpet,
@@ -227,7 +227,7 @@
 	},
 /area/template_noop)
 "M" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	buildstackamount = 0;
 	dir = 1
 	},
@@ -246,7 +246,6 @@
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "P" = (
-/obj/structure/table/wood/poker,
 /obj/structure/table/wood/poker,
 /obj/effect/holodeck_effect/cards,
 /turf/open/floor/holofloor{

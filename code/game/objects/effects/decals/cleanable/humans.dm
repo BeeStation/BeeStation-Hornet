@@ -43,7 +43,7 @@
 	random_icon_states = list("gibbl1", "gibbl2", "gibbl3", "gibbl4", "gibbl5")
 
 /obj/effect/decal/cleanable/blood/tracks
-	icon_state = "tracks"
+	name = "tracks"
 	desc = "They look like tracks left by wheels."
 	icon_state = "tracks"
 	random_icon_states = null
@@ -74,11 +74,11 @@
 /obj/effect/decal/cleanable/blood/gibs/Initialize(mapload, list/datum/disease/diseases)
 	. = ..()
 	reagents.add_reagent(/datum/reagent/liquidgibs, 5)
-	RegisterSignal(src, COMSIG_MOVABLE_PIPE_EJECTING, .proc/on_pipe_eject)
+	RegisterSignal(src, COMSIG_MOVABLE_PIPE_EJECTING, PROC_REF(on_pipe_eject))
 	if(already_rotting)
 		start_rotting(rename=FALSE)
 	else
-		addtimer(CALLBACK(src, .proc/start_rotting), 2 MINUTES)
+		addtimer(CALLBACK(src, PROC_REF(start_rotting)), 2 MINUTES)
 
 /obj/effect/decal/cleanable/blood/gibs/proc/start_rotting(rename=TRUE)
 	if(rename)
@@ -123,7 +123,7 @@
 		return
 
 	var/datum/move_loop/loop = SSmove_manager.move_to(src, get_step(src, direction), delay = delay, timeout = range * delay, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
-	RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, .proc/spread_movement_effects)
+	RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(spread_movement_effects))
 
 /obj/effect/decal/cleanable/blood/gibs/proc/spread_movement_effects(datum/move_loop/has_target/source)
 	SIGNAL_HANDLER
@@ -227,6 +227,11 @@
 				exited_dirs |= H.dir
 				update_icon()
 
+//Cache of bloody footprint images
+//Key:
+//"entered-[blood_state]-[dir_of_image]"
+//or: "exited-[blood_state]-[dir_of_image]"
+GLOBAL_LIST_EMPTY(bloody_footprints_cache)
 
 /obj/effect/decal/cleanable/blood/footprints/update_icon()
 	cut_overlays()

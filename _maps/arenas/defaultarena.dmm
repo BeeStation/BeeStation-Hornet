@@ -1,45 +1,30 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"e" = (
+/obj/effect/turf_decal/tile/green/half/contrasted,
+/turf/open/floor/plasteel/techmaint,
+/area/space)
 "h" = (
 /turf/open/floor/monotile/steel,
 /area/space)
 "x" = (
 /turf/open/floor/plasteel/techmaint,
 /area/space)
-"A" = (
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/green,
-/turf/open/floor/plasteel/techmaint,
-/area/space)
-"J" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/red{
+"W" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
-	},
-/turf/open/floor/plasteel/techmaint,
-/area/space)
-"O" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/space)
 
 (1,1,1) = {"
-O
-J
-J
-J
-J
-J
-J
-J
+W
+W
+W
+W
+W
+W
+W
+W
 "}
 (2,1,1) = {"
 x
@@ -172,12 +157,12 @@ h
 x
 "}
 (15,1,1) = {"
-A
-A
-A
-A
-A
-A
-A
-A
+e
+e
+e
+e
+e
+e
+e
+e
 "}

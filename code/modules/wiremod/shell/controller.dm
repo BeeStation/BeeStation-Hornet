@@ -42,8 +42,8 @@
 	return ..()
 
 /obj/item/circuit_component/controller/register_shell(atom/movable/shell)
-	RegisterSignal(shell, COMSIG_ITEM_ATTACK_SELF, .proc/send_trigger)
-	RegisterSignal(shell, COMSIG_CLICK_ALT, .proc/send_alternate_signal)
+	RegisterSignal(shell, COMSIG_ITEM_ATTACK_SELF, PROC_REF(send_trigger))
+	RegisterSignal(shell, COMSIG_CLICK_ALT, PROC_REF(send_alternate_signal))
 
 /obj/item/circuit_component/controller/unregister_shell(atom/movable/shell)
 	UnregisterSignal(shell, list(
@@ -72,6 +72,7 @@
 	source.balloon_alert(user, "Clicked the alternate button.")
 	playsound(source, get_sfx("terminal_type"), 25, FALSE)
 	alt.set_output(COMPONENT_SIGNAL)
+	return COMPONENT_INTERCEPT_ALT
 
 /obj/item/circuit_component/controller/proc/send_right_signal(atom/source, mob/user)
 	SIGNAL_HANDLER

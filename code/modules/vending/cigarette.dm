@@ -22,7 +22,7 @@
 	refill_canister = /obj/item/vending_refill/cigarette
 	default_price = 5
 	extra_price = 40
-	payment_department = ACCOUNT_SRV
+	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 
 /obj/machinery/vending/cigarette/syndicate
 	products = list(/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 7,

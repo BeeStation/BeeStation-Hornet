@@ -2,7 +2,12 @@
 
 //Values for antag preferences, event roles, etc. unified here
 
+//Hour requirements before players can choose to be specific jobs
 
+#define MINUTES_REQUIRED_BASIC 120 			//For jobs that are easy to grief with, but not necessarily hard for new players
+#define MINUTES_REQUIRED_INTERMEDIATE 600 	//For jobs that require a more detailed understanding of either the game in general, or a specific department.
+#define MINUTES_REQUIRED_ADVANCED 900 		//For jobs that aren't command, but hold a similar level of importance to either their department or the round as a whole.
+#define MINUTES_REQUIRED_COMMAND 1200 		//For command positions, to be weighed against the relevant department
 
 //These are synced with the Database, if you change the values of the defines
 //then you MUST update the database!
@@ -24,15 +29,17 @@
 #define ROLE_HERETIC			"Heretic"
 #define ROLE_BLOB				"Blob"
 #define ROLE_NINJA				"Space Ninja"
-#define ROLE_MONKEY				"Monkey"
 #define ROLE_ABDUCTOR			"Abductor"
 #define ROLE_REVENANT			"Revenant"
 #define ROLE_DEVIL				"Devil"
 #define ROLE_BROTHER			"Blood Brother"
 #define ROLE_BRAINWASHED		"Brainwashed Victim"
+#define ROLE_HYPNOTIZED			"Hypnotized Victim"
 #define ROLE_OVERTHROW			"Syndicate Mutineer"
 #define ROLE_HIVE				"Hivemind Host"
+#define ROLE_HIVE_VESSEL		"Awakened Vessel"
 #define ROLE_OBSESSED			"Obsessed"
+#define ROLE_SPACE_DRAGON		"Space Dragon"
 #define ROLE_SENTIENCE			"Sentience Potion Spawn"
 #define ROLE_MIND_TRANSFER		"Mind Transfer Potion"
 #define ROLE_POSIBRAIN			"Posibrain"
@@ -44,6 +51,13 @@
 #define ROLE_HOLOPARASITE		"Holoparasite"
 #define ROLE_TERATOMA			"Teratoma"
 #define ROLE_EXPERIMENTAL_CLONE "Experimental Clone"
+#define ROLE_SPIDER				"Spider"
+#define ROLE_SWARMER			"Swarmer"
+#define ROLE_MORPH				"Morph"
+#define ROLE_NIGHTMARE			"Nightmare"
+#define ROLE_SPACE_PIRATE		"Space Pirate"
+#define ROLE_FUGITIVE			"Fugitive"
+#define ROLE_FUGITIVE_HUNTER	"Fugitive Hunter"
 
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
 //The gamemode specific ones are just so the gamemodes can query whether a player is old enough
@@ -59,13 +73,14 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_MALF,
 	ROLE_REV = /datum/game_mode/revolution,
 	ROLE_ALIEN,
+	ROLE_SPIDER,
 	ROLE_PAI,
 	ROLE_CULTIST = /datum/game_mode/cult,
 	ROLE_SERVANT_OF_RATVAR = /datum/game_mode/clockcult,
 	ROLE_BLOB,
 	ROLE_NINJA,
 	ROLE_OBSESSED,
-	ROLE_MONKEY = /datum/game_mode/monkey,
+	ROLE_SPACE_DRAGON,
 	ROLE_REVENANT,
 	ROLE_ABDUCTOR,
 	ROLE_DEVIL = /datum/game_mode/devil,
@@ -76,7 +91,13 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_GANG = /datum/game_mode/gang,
 	ROLE_HOLOPARASITE,
 	ROLE_HERETIC = /datum/game_mode/heretics,
-	ROLE_TERATOMA
+	ROLE_TERATOMA,
+	ROLE_MORPH,
+	ROLE_NIGHTMARE,
+	ROLE_SWARMER,
+	ROLE_SPACE_PIRATE,
+	ROLE_FUGITIVE,
+	ROLE_FUGITIVE_HUNTER,
 ))
 
 //Job defines for what happens when you fail to qualify for any job during job selection

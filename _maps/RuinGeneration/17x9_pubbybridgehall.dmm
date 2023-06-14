@@ -2,12 +2,28 @@
 "a" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
+"b" = (
+/obj/effect/turf_decal/tile/neutral/opposingcorners{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "f" = (
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "h" = (
 /obj/machinery/vending/cigarette,
 /obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"i" = (
+/obj/machinery/vending/coffee,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
@@ -27,22 +43,6 @@
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
-"q" = (
-/obj/effect/turf_decal/tile/neutral/tile_marquee{
-	dir = 1
-	},
-/obj/item/kirbyplants/random,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"r" = (
-/obj/effect/turf_decal/tile/neutral/tile_marquee{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
 "s" = (
 /obj/structure/closet/firecloset/full,
 /obj/effect/turf_decal/stripes/line{
@@ -54,14 +54,24 @@
 /obj/structure/closet/emcloset,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
+"v" = (
+/obj/machinery/vending/snack/random,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "w" = (
 /obj/effect/abstract/open_area_marker,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
-"x" = (
-/obj/effect/turf_decal/tile/neutral/tile_marquee,
-/obj/structure/closet/emcloset,
+"z" = (
+/obj/item/kirbyplants/random,
 /obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
@@ -71,6 +81,14 @@
 	req_access_txt = "12"
 	},
 /turf/open/floor/plating,
+/area/ruin/unpowered)
+"F" = (
+/obj/structure/closet/emcloset,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "G" = (
 /obj/effect/abstract/open_area_marker{
@@ -92,14 +110,6 @@
 	},
 /turf/template_noop,
 /area/space)
-"L" = (
-/obj/effect/turf_decal/tile/neutral/tile_marquee,
-/obj/machinery/vending/snack/random,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
 "M" = (
 /obj/structure/lattice,
 /obj/structure/sign/logo{
@@ -120,18 +130,8 @@
 	},
 /turf/template_noop,
 /area/space)
-"R" = (
-/obj/effect/turf_decal/tile/neutral/tile_marquee,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"U" = (
-/obj/effect/turf_decal/tile/neutral/tile_marquee{
-	dir = 1
-	},
-/obj/machinery/vending/coffee,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
+"V" = (
+/obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "W" = (
@@ -164,21 +164,21 @@ a
 a
 a
 a
-R
+V
 G
-r
+b
 a
 "}
 (2,1,1) = {"
 m
-q
-r
+z
+b
 f
 f
 f
 f
 f
-r
+b
 "}
 (3,1,1) = {"
 m
@@ -193,22 +193,22 @@ w
 "}
 (4,1,1) = {"
 m
-x
-R
+F
+V
 f
 f
 f
-R
-R
-R
+V
+V
+V
 "}
 (5,1,1) = {"
 a
 a
 a
-R
+V
 f
-r
+b
 a
 a
 a
@@ -217,9 +217,9 @@ a
 a
 I
 a
-R
+V
 f
-r
+b
 a
 O
 a
@@ -228,9 +228,9 @@ a
 a
 J
 m
-R
+V
 f
-r
+b
 C
 o
 p
@@ -239,9 +239,9 @@ p
 a
 M
 m
-R
+V
 f
-r
+b
 a
 o
 a
@@ -250,9 +250,9 @@ a
 a
 P
 m
-R
+V
 f
-r
+b
 a
 u
 a
@@ -261,9 +261,9 @@ a
 a
 X
 m
-R
+V
 f
-r
+b
 a
 a
 a
@@ -272,9 +272,9 @@ a
 a
 Y
 m
-R
+V
 f
-r
+b
 a
 W
 a
@@ -283,9 +283,9 @@ a
 a
 I
 a
-R
+V
 f
-r
+b
 a
 k
 a
@@ -294,23 +294,23 @@ a
 a
 a
 a
-R
+V
 f
-r
+b
 a
 a
 a
 "}
 (14,1,1) = {"
 m
-U
-r
+i
+b
 f
 f
 f
-r
-r
-r
+b
+b
+b
 "}
 (15,1,1) = {"
 m
@@ -325,14 +325,14 @@ w
 "}
 (16,1,1) = {"
 m
-L
-R
+v
+V
 f
 f
 f
 f
 f
-R
+V
 "}
 (17,1,1) = {"
 a

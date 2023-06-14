@@ -23,9 +23,10 @@
 /obj/machinery/plumbing/patch_dispenser/Initialize(mapload, bolt)
 	. = ..()
 	AddComponent(/datum/component/plumbing/simple_demand, bolt)
+	update_appearance() //so the input/output pipes will overlay properly during init
 
 /obj/machinery/plumbing/patch_dispenser/process()
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		return
 	if((reagents.total_volume >= patch_size) && (stored_patches.len < max_stored_patches))
 		var/obj/item/reagent_containers/pill/patch/P = new(src)

@@ -2,7 +2,7 @@
 /obj/item/projectile/energy/nuclear_particle
 	name = "nuclear particle"
 	icon_state = "nuclear_particle"
-	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
+	pass_flags = PASSTABLE | PASSTRANSPARENT | PASSGRILLE
 	damage = 10
 	damage_type = TOX
 	irradiate = 2500 //enough to knockdown and induce vomiting

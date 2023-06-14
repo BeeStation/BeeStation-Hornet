@@ -42,13 +42,13 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	begin_processing()
 
 /obj/machinery/conveyor/auto/update()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		icon_state = "conveyor-broken"
 		set_operating(FALSE)
 		return
 	else if(!operable)
 		set_operating(FALSE)
-	else if(stat & NOPOWER)
+	else if(machine_stat & NOPOWER)
 		set_operating(FALSE)
 	else
 		set_operating(TRUE)
@@ -68,9 +68,9 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	///Leaving onto conveyor detection won't work at this point, but that's alright since it's an optimization anyway
 	///Should be fine without it
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_EXITED = .proc/conveyable_exit,
-		COMSIG_ATOM_ENTERED = .proc/conveyable_enter,
-		COMSIG_ATOM_CREATED = .proc/conveyable_enter
+		COMSIG_ATOM_EXITED = PROC_REF(conveyable_exit),
+		COMSIG_ATOM_ENTERED = PROC_REF(conveyable_enter),
+		COMSIG_ATOM_CREATED = PROC_REF(conveyable_enter)
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 	update_move_direction()
@@ -117,10 +117,10 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 			continue
 		neighbors["[direction]"] = TRUE
 		valid.neighbors["[turn(direction, 180)]"] = TRUE
-		RegisterSignal(valid, COMSIG_MOVABLE_MOVED, .proc/nearby_belt_changed, override=TRUE)
-		RegisterSignal(valid, COMSIG_PARENT_QDELETING, .proc/nearby_belt_changed, override=TRUE)
-		valid.RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/nearby_belt_changed, override=TRUE)
-		valid.RegisterSignal(src, COMSIG_PARENT_QDELETING, .proc/nearby_belt_changed, override=TRUE)
+		RegisterSignal(valid, COMSIG_MOVABLE_MOVED, PROC_REF(nearby_belt_changed), override=TRUE)
+		RegisterSignal(valid, COMSIG_PARENT_QDELETING, PROC_REF(nearby_belt_changed), override=TRUE)
+		valid.RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(nearby_belt_changed), override=TRUE)
+		valid.RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(nearby_belt_changed), override=TRUE)
 
 /obj/machinery/conveyor/proc/nearby_belt_changed(datum/source)
 	SIGNAL_HANDLER
@@ -169,18 +169,19 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	operating = new_value
 	update_icon_state()
 	update_move_direction()
-	if(!operating) //If we ever turn off, disable moveloops
+	//If we ever turn off, disable moveloops
+	if(!operating)
 		for(var/atom/movable/movable in get_turf(src))
 			stop_conveying(movable)
 
 /obj/machinery/conveyor/proc/update()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		icon_state = "conveyor-broken"
 		set_operating(FALSE)
 		return
 	if(!operable)
 		set_operating(FALSE)
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		set_operating(FALSE)
 	icon_state = "conveyor[operating * verted]"
 	if(operating)
@@ -192,10 +193,6 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	if(!operating)
 		SSmove_manager.stop_looping(convayable, SSconveyors)
 		return
-	var/datum/move_loop/move/moving_loop = SSmove_manager.processing_on(convayable, SSconveyors)
-	if(moving_loop)
-		moving_loop.direction = movedir
-		return
 	start_conveying(convayable)
 
 /obj/machinery/conveyor/proc/conveyable_exit(datum/source, atom/convayable, direction)
@@ -205,6 +202,12 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		SSmove_manager.stop_looping(convayable, SSconveyors)
 
 /obj/machinery/conveyor/proc/start_conveying(atom/movable/moving)
+	var/datum/move_loop/move/moving_loop = SSmove_manager.processing_on(moving, SSconveyors)
+	if(moving_loop)
+		moving_loop.direction = movedir
+		moving_loop.delay = 0.2 SECONDS
+		return
+
 	var/static/list/unconveyables = typecacheof(list(/obj/effect, /mob/dead))
 	if(!istype(moving) || is_type_in_typecache(moving, unconveyables) || moving == src)
 		return
@@ -222,7 +225,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		"<span class='notice'>You struggle to pry up \the [src] with \the [I].</span>")
 		if(I.use_tool(src, user, 40, volume=40))
 			set_operating(FALSE)
-			if(!(stat & BROKEN))
+			if(!(machine_stat & BROKEN))
 				var/obj/item/stack/conveyor/C = new /obj/item/stack/conveyor(loc, 1, TRUE, null, id)
 				if(!QDELETED(C)) //God I hate stacks
 					transfer_fingerprints_to(C)
@@ -231,14 +234,14 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 			qdel(src)
 
 	else if(I.tool_behaviour == TOOL_WRENCH)
-		if(!(stat & BROKEN))
+		if(!(machine_stat & BROKEN))
 			I.play_tool_sound(src)
 			setDir(turn(dir,-45))
 			update_move_direction()
 			to_chat(user, "<span class='notice'>You rotate [src].</span>")
 
 	else if(I.tool_behaviour == TOOL_SCREWDRIVER)
-		if(!(stat & BROKEN))
+		if(!(machine_stat & BROKEN))
 			verted = verted * -1
 			update_move_direction()
 			to_chat(user, "<span class='notice'>You reverse [src]'s direction.</span>")
@@ -247,6 +250,20 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		user.transferItemToLoc(I, drop_location())
 	else
 		return ..()
+
+/obj/machinery/conveyor/multitool_act(mob/living/user, obj/item/multitool/tool)
+	if(!multitool_check_buffer(user, tool)) //make sure it has a data buffer
+		return TRUE
+	var/obj/machinery/conveyor_switch/cswitch = tool.buffer
+	if(!cswitch || !istype(cswitch))
+		return TRUE
+
+	// Set up the conveyor with our new ID
+	LAZYREMOVE(GLOB.conveyors_by_id[id], src)
+	id = cswitch.id
+	LAZYADD(GLOB.conveyors_by_id[id], src)
+	to_chat(user, "<span class='notice'>You link [src] to [cswitch].</span>")
+	return TRUE
 
 // attack with hand, move pulled object onto conveyor
 /obj/machinery/conveyor/attack_hand(mob/user)
@@ -258,7 +275,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 // make the conveyor broken
 // also propagate inoperability to any connected conveyor with the same ID
 /obj/machinery/conveyor/proc/broken()
-	stat |= BROKEN
+	set_machine_stat(machine_stat | BROKEN)
 	update()
 
 	var/obj/machinery/conveyor/C = locate() in get_step(src, dir)
@@ -381,13 +398,35 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	update_linked_switches()
 
 
-/obj/machinery/conveyor_switch/attackby(obj/item/I, mob/user, params)
-	if(I.tool_behaviour == TOOL_CROWBAR)
-		var/obj/item/conveyor_switch_construct/C = new/obj/item/conveyor_switch_construct(src.loc)
-		C.id = id
-		transfer_fingerprints_to(C)
-		to_chat(user, "<span class='notice'>You detach the conveyor switch.</span>")
-		qdel(src)
+/obj/machinery/conveyor_switch/crowbar_act(mob/living/user, obj/item/I)
+	var/obj/item/conveyor_switch_construct/C = new/obj/item/conveyor_switch_construct(src.loc)
+	C.id = id
+	transfer_fingerprints_to(C)
+	to_chat(user, "<span class='notice'>You detach the conveyor switch.</span>")
+	qdel(src)
+	return TRUE
+
+/obj/machinery/conveyor_switch/multitool_act(mob/living/user, obj/item/multitool/tool)
+	if(!istype(tool))
+		return
+	tool.buffer = src
+	to_chat(user, "<span class='notice'>You store [src] in [tool]'s buffer.</span>")
+	return TRUE
+
+/obj/machinery/conveyor_switch/screwdriver_act(mob/living/user, obj/item/I)
+	var/newdirtext = ""
+	switch(oneway)
+		if(-1)
+			oneway = 0
+			newdirtext = "two-way"
+		if(0)
+			oneway = 1
+			newdirtext = "one-way"
+		if(1)
+			oneway = -1
+			newdirtext = "reverse one-way"
+	to_chat(user, "<span class='notice'>You set the conveyor switch to [newdirtext] mode.</span>")
+	return TRUE
 
 /obj/machinery/conveyor_switch/oneway
 	icon_state = "conveyor_switch_oneway"
@@ -476,5 +515,5 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 
 /obj/item/paper/guides/conveyor
 	name = "paper- 'Nano-it-up U-build series, #9: Build your very own conveyor belt, in SPACE'"
-	info = "<h1>Congratulations!</h1><p>You are now the proud owner of the best conveyor set available for space mail order! We at Nano-it-up know you love to prepare your own structures without wasting time, so we have devised a special streamlined assembly procedure that puts all other mail-order products to shame!</p><p>Firstly, you need to link the conveyor switch assembly to each of the conveyor belt assemblies. After doing so, you simply need to install the belt assemblies onto the floor, et voila, belt built. Our special Nano-it-up smart switch will detected any linked assemblies as far as the eye can see! This convenience, you can only have it when you Nano-it-up. Stay nano!</p>"
+	default_raw_text = "<h1>Congratulations!</h1><p>You are now the proud owner of the best conveyor set available for space mail order! We at Nano-it-up know you love to prepare your own structures without wasting time, so we have devised a special streamlined assembly procedure that puts all other mail-order products to shame!</p><p>Firstly, you need to link the conveyor switch assembly to each of the conveyor belt assemblies. After doing so, you simply need to install the belt assemblies onto the floor, et voila, belt built. Our special Nano-it-up smart switch will detected any linked assemblies as far as the eye can see! This convenience, you can only have it when you Nano-it-up. Stay nano!</p>"
 #undef MAX_CONVEYOR_ITEMS_MOVE

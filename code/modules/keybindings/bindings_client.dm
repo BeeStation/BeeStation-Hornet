@@ -35,7 +35,6 @@ GLOBAL_LIST_INIT(valid_keys, list(
 		message_admins("Mob [(C.mob)] with the ckey [(C.ckey)] just attempted to send an invalid keypress with length over 32 characters, likely malicious.")
 	else
 		log_admin_private("[key_name(C)] just attempted to send an invalid keypress - \"[key]\".")
-		message_admins("Mob [(C.mob)] with the ckey [(C.ckey)] just attempted to send an invalid keypress - \"[sanitize(key)]\".")
 
 	return TRUE
 
@@ -73,7 +72,7 @@ GLOBAL_LIST_INIT(valid_keys, list(
 			var/datum/keybinding/kb = GLOB.keybindings_by_name[kb_name]
 			if (kb.any_modifier)
 				kbs += kb
-	kbs = sortList(kbs, /proc/cmp_keybinding_dsc)
+	kbs = sort_list(kbs, GLOBAL_PROC_REF(cmp_keybinding_dsc))
 	for(var/datum/keybinding/kb in kbs)
 		if(kb.can_use(src) && kb.down(src))
 			break
@@ -101,7 +100,7 @@ GLOBAL_LIST_INIT(valid_keys, list(
 	for (var/kb_name in prefs.key_bindings[_key])
 		var/datum/keybinding/kb = GLOB.keybindings_by_name[kb_name]
 		kbs += kb
-	kbs = sortList(kbs, /proc/cmp_keybinding_dsc)
+	kbs = sort_list(kbs, GLOBAL_PROC_REF(cmp_keybinding_dsc))
 	for(var/datum/keybinding/kb in kbs)
 		if(kb.can_use(src) && kb.up(src))
 			break

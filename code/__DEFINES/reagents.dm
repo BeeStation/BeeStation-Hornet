@@ -1,16 +1,19 @@
-#define SOLID 			1
-#define LIQUID			2
-#define GAS				3
+#define SOLID 1
+#define LIQUID 2
+#define GAS 3
 
-#define INJECTABLE		(1<<0)	//! Makes it possible to add reagents through droppers and syringes.
-#define DRAWABLE		(1<<1)	//! Makes it possible to remove reagents through syringes.
+#define INJECTABLE (1<<0) // Makes it possible to add reagents through droppers and syringes.
+#define DRAWABLE (1<<1) // Makes it possible to remove reagents through syringes.
 
-#define REFILLABLE		(1<<2)	//! Makes it possible to add reagents through any reagent container.
-#define DRAINABLE		(1<<3)	//! Makes it possible to remove reagents through any reagent container.
+#define REFILLABLE (1<<2) // Makes it possible to add reagents through any reagent container.
+#define DRAINABLE (1<<3) // Makes it possible to remove reagents through any reagent container.
+#define DUNKABLE (1<<4) // Allows items to be dunked into this container for transfering reagents. Used in conjunction with the dunkable component.
 
-#define TRANSPARENT		(1<<4)	//! Used on containers which you want to be able to see the reagents off.
-#define AMOUNT_VISIBLE	(1<<5)	//! For non-transparent containers that still have the general amount of reagents in them visible.
-#define NO_REACT        (1<<6)  //! Applied to a reagent holder, the contents will not react with each other.
+#define TRANSPARENT (1<<5) // Used on containers which you want to be able to see the reagents off.
+#define AMOUNT_VISIBLE (1<<6) // For non-transparent containers that still have the general amount of reagents in them visible.
+#define NO_REACT (1<<7) // Applied to a reagent holder, the contents will not react with each other.
+
+#define ABSOLUTELY_GRINDABLE   (1<<8)  //! used in 'All-In-One Grinder' that it can grind anything if it has this bitflag
 
 /// Is an open container for all intents and purposes.
 #define OPENCONTAINER 	(REFILLABLE | DRAINABLE | TRANSPARENT)
@@ -32,9 +35,6 @@
 #define MIMEDRINK_SILENCE_DURATION 30  //ends up being 60 seconds given 1 tick every 2 seconds
 #define THRESHOLD_UNHUSK 50 //Health treshold for synthflesh and rezadone to unhusk someone
 
-//used by chem masters and pill presses
-#define PILL_STYLE_COUNT 22 //Update this if you add more pill icons or you die
-#define RANDOM_PILL_STYLE 22 //Dont change this one though
 
 
 // synthesizable part - can this reagent be synthesized? (for example: odysseus syringe gun)
@@ -51,7 +51,70 @@
 
 // crew objective part - having this flag will allow an objective having a reagent
 // Note: to be not disruptive for adding another rng define, goal flags starts at (1<<23) and reversed. (because 23 is max)
-#define CHEMICAL_GOAL_CHEMIST_DRUG         (1<<23)  // chemist objective - i.e.) make 24 pills of 12u meth
-#define CHEMICAL_GOAL_CHEMIST_BLOODSTREAM  (1<<22)  // chemist objective - i.e.) eat meth in your bloodstream
-#define CHEMICAL_GOAL_BOTANIST_HARVEST     (1<<21)  // botanist objective - i.e.) make 12 crops of 10u omnizine
-#define CHEMICAL_GOAL_BARTENDER_SERVING    (1<<20) // !NOTE: not implemented, but refactored for preparation - i.e.) serve Bacchus' blessing to 10 crews
+#define CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE         (1<<23)  // chemist objective - i.e.) make at least 5 units of synthflesh
+#define CHEMICAL_GOAL_BOTANIST_HARVEST     (1<<22)  // botanist objective - i.e.) make 12 crops of 10u omnizine
+#define CHEMICAL_GOAL_BARTENDER_SERVING    (1<<21) // !NOTE: not implemented, but refactored for preparation - i.e.) serve Bacchus' blessing to 10 crews
+
+
+
+/*	<pill sprite size standard>
+		Since sprite asset code crops the pill image, you are required to make a pill image within [11,10,21,20] squared area.
+		There is a dummy image that you can recognise the size of a cropped pill image in 'pills.dmi'
+		The black line counts, so you can use that area for your sprite as well.
+
+	<what are the grey lines in the capsule example?>
+		it's a margin that should exist for capsules because it looks bad in TGUI if there's no margin.
+ */
+
+// pill shapes - check 'pills.dmi' for the shape
+GLOBAL_LIST_INIT(pill_shape_list, list(
+		"pill_shape_capsule_purple_pink",
+		"pill_shape_capsule_bloodred",
+		"pill_shape_capsule_red_whitelined",
+		"pill_shape_capsule_orange",
+		"pill_shape_capsule_yellow",
+		"pill_shape_capsule_green",
+		"pill_shape_capsule_skyblue",
+		"pill_shape_capsule_indigo",
+		"pill_shape_capsule_pink",
+		"pill_shape_capsule_white",
+		"pill_shape_capsule_white_redlined",
+		"pill_shape_capsule_red_orange",
+		"pill_shape_capsule_yellow_green",
+		"pill_shape_capsule_green_white",
+		"pill_shape_capsule_cyan_brown",
+		"pill_shape_capsule_purple_yellow",
+		"pill_shape_capsule_black_white",
+		"pill_shape_capsule_lightgreen_white",
+		"pill_shape_tablet_red_lined",
+		"pill_shape_tablet_lightred_flat",
+		"pill_shape_tablet_orange_flat",
+		"pill_shape_tablet_yellow_lined",
+		"pill_shape_tablet_green_lined",
+		"pill_shape_tablet_lightgreen_flat",
+		"pill_shape_tablet_skyblue_lined",
+		"pill_shape_tablet_navy_flat",
+		"pill_shape_tablet_purple_lined",
+		"pill_shape_tablet_pink_lined",
+		"pill_shape_tablet_white_lined",
+		"pill_shape_tablet_red_yellow_lined",
+		"pill_shape_tablet_yellow_purple_lined",
+		"pill_shape_tablet_green_purple_lined",
+		"pill_shape_tablet_blue_skyblue_lined",
+		"pill_shape_tablet_happy",
+		"pill_shape_tablet_angry",
+		"pill_shape_tablet_sad"))
+
+// using these defines will be consistently manageable
+#define PILL_SHAPE_LIST (GLOB.pill_shape_list)
+#define PILL_SHAPE_LIST_WITH_DUMMY (GLOB.pill_shape_list+"pill_random_dummy")
+
+GLOBAL_LIST_INIT(patch_shape_list, list(
+		"bandaid_small_cross",
+		"bandaid_small_blank",
+		"bandaid_big_brute",
+		"bandaid_big_burn",
+		"bandaid_big_both",
+		"bandaid_big_blank",))
+
+#define PATCH_SHAPE_LIST (GLOB.patch_shape_list)

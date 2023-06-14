@@ -23,6 +23,7 @@
 
 // Mail sorting junction, uses package tags to sort objects.
 /obj/structure/disposalpipe/sorting/mail
+	desc = "An underfloor disposal pipe that sorts wrapped objects based on their destination tags."
 	flip_type = /obj/structure/disposalpipe/sorting/mail/flip
 	var/sortType = 0
 	// sortType is to be set in map editor.
@@ -51,15 +52,15 @@
 /obj/structure/disposalpipe/sorting/mail/examine(mob/user)
 	. = ..()
 	if(sortTypes.len)
-		. += "It is tagged with the following tags:"
+		. += "<span class='notice'>It is tagged with the following tags:</span>"
 		for(var/t in sortTypes)
-			. += "\t[GLOB.TAGGERLOCATIONS[t]]."
+			. += "<span class='notice'>\t[GLOB.TAGGERLOCATIONS[t]]</span>."
 	else
-		. += "It has no sorting tags set."
+		. += "<span class='notice'>It has no sorting tags set. You can use a destination tagger on it to set its sorting tags.</span>"
 
 /obj/structure/disposalpipe/sorting/mail/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/destTagger))
-		var/obj/item/destTagger/O = I
+	if(istype(I, /obj/item/dest_tagger))
+		var/obj/item/dest_tagger/O = I
 
 		if(O.currTag)// Tagger has a tag set
 			if(O.currTag in sortTypes)
@@ -80,6 +81,7 @@
 
 // Wrap sorting junction, sorts objects destined for the mail office mail table (tomail = 1)
 /obj/structure/disposalpipe/sorting/wrap
+	name = "package sorting disposal pipe"
 	desc = "An underfloor disposal pipe which sorts wrapped and unwrapped objects."
 	flip_type = /obj/structure/disposalpipe/sorting/wrap/flip
 	initialize_dirs = DISP_DIR_RIGHT | DISP_DIR_FLIP

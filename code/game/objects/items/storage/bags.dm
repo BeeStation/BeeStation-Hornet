@@ -11,6 +11,7 @@
  *		Sheet Snatcher
  *		Book Bag
  *      Biowaste Bag
+ * 		mail bag
  *
  *	-Sayu
  */
@@ -133,7 +134,8 @@
 	STR.allow_quick_empty = TRUE
 	STR.can_hold = typecacheof(list(/obj/item/stack/ore))
 	STR.max_w_class = WEIGHT_CLASS_HUGE
-	STR.max_combined_stack_amount = 50
+	STR.max_items = 20
+	STR.max_combined_stack_amount = 250
 
 /obj/item/storage/bag/ore/equipped(mob/user)
 	. = ..()
@@ -141,7 +143,7 @@
 		return
 	if(listeningTo)
 		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
-	RegisterSignal(user, COMSIG_MOVABLE_MOVED, .proc/Pickup_ores)
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(Pickup_ores))
 	listeningTo = user
 
 /obj/item/storage/bag/ore/dropped()
@@ -178,6 +180,7 @@
 					continue
 	if(show_message)
 		playsound(user, "rustle", 50, TRUE)
+		STR.animate_parent()
 		if (box)
 			user.visible_message("<span class='notice'>[user] offloads the ores beneath [user.p_them()] into [box].</span>", \
 			"<span class='notice'>You offload the ores beneath you into your [box].</span>")
@@ -306,7 +309,7 @@
 	STR.max_combined_w_class = 21
 	STR.max_items = 7
 	STR.display_numerical_stacking = FALSE
-	STR.can_hold = typecacheof(list(/obj/item/book, /obj/item/storage/book, /obj/item/spellbook))
+	STR.can_hold = typecacheof(list(/obj/item/book, /obj/item/storage/book, /obj/item/spellbook, /obj/item/codex_cicatrix))
 
 /*
  * Trays - Agouri
@@ -351,7 +354,7 @@
 	var/delay = rand(2,4)
 	var/datum/move_loop/loop = SSmove_manager.move_rand(tray_item, list(NORTH,SOUTH,EAST,WEST), delay, timeout = rand(1, 2) * delay, flags = MOVEMENT_LOOP_START_FAST)
 	//This does mean scattering is tied to the tray. Not sure how better to handle it
-	RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, .proc/change_speed)
+	RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(change_speed))
 
 /obj/item/storage/bag/tray/proc/change_speed(datum/move_loop/source)
 	SIGNAL_HANDLER
@@ -434,3 +437,28 @@
 	STR.max_w_class = WEIGHT_CLASS_SMALL
 	STR.insert_preposition = "in"
 	STR.can_hold = typecacheof(list(/obj/item/stack/ore/bluespace_crystal, /obj/item/assembly, /obj/item/stock_parts, /obj/item/reagent_containers/glass/beaker, /obj/item/stack/cable_coil, /obj/item/circuitboard, /obj/item/electronics))
+
+// -----------------------------
+//           mail bag
+// -----------------------------
+
+/obj/item/storage/bag/mail
+	name = "mail bag"
+	desc = "A bag for letters, envelopes, and other postage."
+	icon = 'icons/obj/bureaucracy.dmi'
+	icon_state = "mailbag"
+	resistance_flags = FLAMMABLE
+
+/obj/item/storage/bag/mail/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_w_class = WEIGHT_CLASS_NORMAL
+	STR.max_combined_w_class = 32
+	STR.max_items = 32
+	STR.display_numerical_stacking = FALSE
+	STR.can_hold = typecacheof (list(	/obj/item/mail,
+										/obj/item/small_delivery,
+										/obj/item/paper,
+										/obj/item/reagent_containers/food/condiment/milk,
+										/obj/item/food/bread/plain
+									))

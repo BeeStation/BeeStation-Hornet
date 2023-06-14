@@ -6,14 +6,26 @@
 	var/lootdoubles = TRUE	//if the same item can be spawned twice
 	var/list/loot			//a list of possible items to spawn e.g. list(/obj/item, /obj/structure, /obj/effect)
 	var/fan_out_items = FALSE //Whether the items should be distributed to offsets 0,1,-1,2,-2,3,-3.. This overrides pixel_x/y on the spawner itself
+	var/late_spawn = FALSE
 
 /obj/effect/spawner/lootdrop/Initialize(mapload)
-	..()
+	. = ..()
+	if (!late_spawn)
+		spawn_loot()
+		return INITIALIZE_HINT_QDEL
+	else
+		RegisterSignal(SSdcs, COMSIG_GLOB_POST_START, PROC_REF(late_spawn_loot))
+
+/obj/effect/spawner/lootdrop/proc/late_spawn_loot()
+	spawn_loot()
+	qdel(src)
+
+/obj/effect/spawner/lootdrop/proc/spawn_loot()
 	if(loot?.len)
 		var/turf/T = get_turf(src)
 		var/loot_spawned = 0
 		while((lootcount-loot_spawned) && loot.len)
-			var/lootspawn = pickweight(loot)
+			var/lootspawn = pick_weight(loot)
 			if(!lootdoubles)
 				loot.Remove(lootspawn)
 
@@ -28,7 +40,6 @@
 					if (loot_spawned)
 						spawned_loot.pixel_x = spawned_loot.pixel_y = ((!(loot_spawned%2)*loot_spawned/2)*-1)+((loot_spawned%2)*(loot_spawned+1)/2*1)
 			loot_spawned++
-	return INITIALIZE_HINT_QDEL
 
 /obj/effect/spawner/lootdrop/donkpockets
 	icon_state = "random_donk"
@@ -236,7 +247,6 @@
 		/obj/item/organ/vocal_cords/adamantine = 1,
 		/obj/effect/gibspawner/xeno = 1,
 		/obj/effect/mob_spawn/human/corpse/assistant = 1,
-		/obj/effect/mob_spawn/teratomamonkey = 1,
 		/obj/item/organ/wings/moth/robust = 1,
 		/obj/item/organ/wings/dragon = 1)
 
@@ -266,7 +276,8 @@
 		/obj/item/organ/wings/cybernetic = 2,
 		/obj/item/organ/tongue/robot/clockwork/better = 2,
 		/obj/effect/gibspawner/robot = 4,
-		/obj/item/drone_shell = 1)
+		/obj/effect/mob_spawn/drone = 1,
+		)
 
 /obj/effect/spawner/lootdrop/teratoma/major/clown
 	name = "funny teratoma spawner"
@@ -432,7 +443,9 @@
 				/obj/item/circuitboard/computer/nanite_cloud_controller,
 				/obj/item/circuitboard/machine/nanite_chamber,
 				/obj/item/circuitboard/machine/nanite_programmer,
-				/obj/item/circuitboard/machine/nanite_program_hub
+				/obj/item/circuitboard/machine/nanite_program_hub,
+				/obj/item/circuitboard/machine/xenoartifact_inbox,
+				/obj/item/circuitboard/computer/xenoartifact_console
 				)
 
 /obj/effect/spawner/lootdrop/techstorage/security
@@ -524,7 +537,7 @@
 
 /obj/effect/spawner/lootdrop/megafaunaore
 	name = "megafauna ore drop"
-	lootcount = 100
+	lootcount = 50
 	lootdoubles = TRUE
 	loot = list(
 		/obj/item/stack/ore/iron = 5,
@@ -536,3 +549,4 @@
 		/obj/item/stack/ore/titanium = 2,
 		/obj/item/stack/ore/uranium = 2,
 		/obj/item/stack/ore/diamond = 2)
+

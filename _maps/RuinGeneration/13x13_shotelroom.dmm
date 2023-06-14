@@ -11,6 +11,12 @@
 /obj/machinery/computer/scanconsole,
 /turf/open/floor/plasteel/tiled,
 /area/ruin/unpowered)
+"c" = (
+/obj/structure/table/wood/fancy/purple,
+/obj/item/food/cake/chocolate,
+/obj/item/kitchen/knife,
+/turf/open/floor/carpet/orange,
+/area/ruin/unpowered)
 "d" = (
 /obj/structure/table/wood/fancy/purple,
 /obj/item/reagent_containers/food/drinks/bottle/orangejuice{
@@ -79,11 +85,12 @@
 /obj/effect/mapping_helpers/airlock/locked,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
-"r" = (
-/obj/structure/table/wood/fancy/purple,
-/obj/item/reagent_containers/food/snacks/store/cake/chocolate,
-/obj/item/kitchen/knife,
-/turf/open/floor/carpet/orange,
+"s" = (
+/obj/machinery/washing_machine,
+/obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "t" = (
 /obj/structure/chair/office/light{
@@ -92,7 +99,7 @@
 /turf/open/floor/plasteel/tiled,
 /area/ruin/unpowered)
 "u" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/fancy/sofa/old/left{
 	dir = 4
 	},
 /turf/open/floor/wood,
@@ -105,6 +112,12 @@
 /obj/machinery/dna_scannernew,
 /turf/open/floor/plasteel/tiled,
 /area/ruin/unpowered)
+"y" = (
+/obj/structure/table,
+/obj/structure/bedsheetbin,
+/obj/effect/turf_decal/tile/purple/anticorner/contrasted,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "z" = (
 /obj/structure/table/glass,
 /obj/item/storage/box/monkeycubes,
@@ -114,6 +127,14 @@
 /obj/structure/table/wood,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
+"B" = (
+/obj/structure/table,
+/obj/structure/bedsheetbin,
+/obj/effect/turf_decal/tile/purple/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "C" = (
 /obj/structure/table/glass,
 /obj/structure/sign/departments/minsky/research/genetics{
@@ -122,22 +143,10 @@
 /turf/open/floor/plasteel/tiled,
 /area/ruin/unpowered)
 "D" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/fancy/sofa/old/right{
 	dir = 4
 	},
 /turf/open/floor/wood,
-/area/ruin/unpowered)
-"F" = (
-/obj/structure/table,
-/obj/structure/bedsheetbin,
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "G" = (
 /obj/structure/table/glass,
@@ -185,23 +194,6 @@
 /obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
-"O" = (
-/obj/item/paper/crumpled/bloody/ruins/lavaland/clown_planet/escape{
-	info = "lol";
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/pen/fountain/captain{
-	pixel_x = 3;
-	pixel_y = -1
-	},
-/obj/structure/table/glass,
-/obj/item/reagent_containers/food/drinks/britcup{
-	pixel_x = -8;
-	pixel_y = -1
-	},
-/turf/open/floor/wood,
-/area/ruin/unpowered)
 "P" = (
 /obj/structure/chair/comfy/black{
 	dir = 1
@@ -219,16 +211,21 @@
 /turf/open/floor/plasteel/tiled,
 /area/ruin/unpowered)
 "S" = (
-/obj/structure/table,
-/obj/structure/bedsheetbin,
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
+/obj/item/paper/crumpled/bloody/ruins/lavaland/clown_planet/escape{
+	default_raw_text = "lol";
+	pixel_x = 3;
+	pixel_y = 3
 	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
+/obj/item/pen/fountain/captain{
+	pixel_x = 3;
+	pixel_y = -1
 	},
-/obj/effect/turf_decal/tile/purple,
-/turf/open/floor/plasteel,
+/obj/structure/table/glass,
+/obj/item/reagent_containers/food/drinks/britcup{
+	pixel_x = -8;
+	pixel_y = -1
+	},
+/turf/open/floor/wood,
 /area/ruin/unpowered)
 "T" = (
 /obj/effect/turf_decal/tile/purple{
@@ -251,21 +248,13 @@
 /area/ruin/unpowered)
 "W" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
+/obj/item/reagent_containers/food/snacks/grown/flower/harebell,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "X" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"Y" = (
-/obj/machinery/washing_machine,
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/purple,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "Z" = (
@@ -297,7 +286,7 @@ m
 m
 m
 T
-S
+B
 j
 V
 G
@@ -312,7 +301,7 @@ m
 m
 m
 m
-Y
+s
 j
 K
 Q
@@ -327,9 +316,9 @@ m
 m
 m
 m
-Y
+s
 j
-O
+S
 h
 h
 h
@@ -342,7 +331,7 @@ m
 m
 m
 f
-F
+y
 j
 v
 h
@@ -445,7 +434,7 @@ k
 j
 h
 L
-r
+c
 d
 P
 v

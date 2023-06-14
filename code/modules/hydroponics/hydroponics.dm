@@ -369,7 +369,7 @@
 		if(14 to 15)
 			myseed = new /obj/item/seeds/nettle(src)
 		if(12 to 13)
-			myseed = new /obj/item/seeds/harebell(src)
+			myseed = new /obj/item/seeds/flower/harebell(src)
 		if(10 to 11)
 			myseed = new /obj/item/seeds/amanita(src)
 		if(8 to 9)
@@ -399,6 +399,11 @@
 /obj/machinery/hydroponics/proc/hardmutate()
 	mutate(4, 10, 2, 4, 50, 4, 10, 3)
 
+/obj/machinery/hydroponics/proc/glowmutate()
+	if(!myseed)
+		return
+	myseed.add_random_glow()
+
 
 /obj/machinery/hydroponics/proc/mutatespecie() // Mutagent produced a new plant!
 	if(!myseed || dead)
@@ -421,7 +426,7 @@
 	weedlevel = 0 // Reset
 
 	var/message = "<span class='warning'>[oldPlantName] suddenly mutates into [myseed.plantname]!</span>"
-	addtimer(CALLBACK(src, .proc/after_mutation, message), 0.5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(after_mutation), message), 0.5 SECONDS)
 
 
 /obj/machinery/hydroponics/proc/mutateweed() // If the weeds gets the mutagent instead. Mind you, this pretty much destroys the old plant
@@ -440,7 +445,7 @@
 		weedlevel = 0 // Reset
 
 		var/message = "<span class='warning'>The mutated weeds in [src] spawn some [myseed.plantname]!</span>"
-		addtimer(CALLBACK(src, .proc/after_mutation, message), 0.5 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(after_mutation), message), 0.5 SECONDS)
 	else
 		to_chat(usr, "<span class='warning'>The few weeds in [src] seem to react, but only for a moment...</span>")
 
@@ -500,6 +505,10 @@
 		hardmutate()
 	else if(S.has_reagent(/datum/reagent/toxin/mutagen, 1) || S.has_reagent(/datum/reagent/uranium/radium, 2) || S.has_reagent(/datum/reagent/uranium, 2))
 		mutate()
+
+	//Bioluminescence only mutation
+	if(S.has_reagent(/datum/reagent/colorful_reagent, 1))
+		glowmutate()
 
 	// After handling the mutating, we now handle the damage from adding crude radioactives...
 	if(S.has_reagent(/datum/reagent/uranium, 1))
@@ -703,13 +712,17 @@
 
 /obj/machinery/hydroponics/attackby(obj/item/O, mob/user, params)
 	//Called when mob user "attacks" it with object O
-	if(istype(O, /obj/item/reagent_containers) )  // Syringe stuff (and other reagent containers now too)
+	if(istype(O, /obj/item/reagent_containers) || IS_EDIBLE(O))  // Syringe stuff (and other reagent containers now too). Edibles also have reagents.
+		if(SEND_SIGNAL(O, COMSIG_EDIBLE_ON_COMPOST) & COMPONENT_EDIBLE_BLOCK_COMPOST)
+			to_chat(user, "<span class='warning'>You can't compost that!</span>")
+			return ..()
+
 		var/obj/item/reagent_containers/reagent_source = O
 
 		if(istype(reagent_source, /obj/item/reagent_containers/syringe))
 			var/obj/item/reagent_containers/syringe/syr = reagent_source
 			if(syr.mode != 1)
-				to_chat(user, "<span class='warning'>You can't get any extract out of this plant.</span>"		)
+				to_chat(user, "<span class='warning'>You can't get any extract out of this plant.</span>")
 				return
 
 		if(!reagent_source.reagents.total_volume)
@@ -722,7 +735,7 @@
 		var/irrigate = 0	//How am I supposed to irrigate pill contents?
 		var/transfer_amount
 
-		if(istype(reagent_source, /obj/item/reagent_containers/food/snacks) || istype(reagent_source, /obj/item/reagent_containers/pill))
+		if(istype(reagent_source, /obj/item/reagent_containers/food/snacks) || istype(reagent_source, /obj/item/reagent_containers/pill) || IS_EDIBLE(reagent_source))
 			if(istype(reagent_source, /obj/item/reagent_containers/food/snacks))
 				var/obj/item/reagent_containers/food/snacks/R = reagent_source
 				if (R.trash)
@@ -764,7 +777,7 @@
 			S.my_atom = H
 
 			reagent_source.reagents.trans_to(S,split, transfered_by = user)
-			if(istype(reagent_source, /obj/item/reagent_containers/food/snacks) || istype(reagent_source, /obj/item/reagent_containers/pill))
+			if(istype(reagent_source, /obj/item/reagent_containers/food/snacks) || istype(reagent_source, /obj/item/reagent_containers/pill) || IS_EDIBLE(reagent_source))
 				qdel(reagent_source)
 
 			H.applyChemicals(S, user)
@@ -794,20 +807,21 @@
 			to_chat(user, "<span class='warning'>[src] already has seeds in it!</span>")
 
 	else if(istype(O, /obj/item/plant_analyzer))
+		var/list/message = list()
 		if(myseed)
-			to_chat(user, "*** <B>[myseed.plantname]</B> ***" )
-			to_chat(user, "- Plant Age: <span class='notice'>[age]</span>")
+			message += "*** <B>[myseed.plantname]</B> ***"
+			message += "- Plant Age: <span class='notice'>[age]</span>"
 			var/list/text_string = myseed.get_analyzer_text()
 			if(text_string)
-				to_chat(user, text_string)
+				message += text_string
 		else
-			to_chat(user, "<B>No plant found.</B>")
-		to_chat(user, "- Weed level: <span class='notice'>[weedlevel] / 10</span>")
-		to_chat(user, "- Pest level: <span class='notice'>[pestlevel] / 10</span>")
-		to_chat(user, "- Toxicity level: <span class='notice'>[toxic] / 100</span>")
-		to_chat(user, "- Water level: <span class='notice'>[waterlevel] / [maxwater]</span>")
-		to_chat(user, "- Nutrition level: <span class='notice'>[nutrilevel] / [maxnutri]</span>")
-		to_chat(user, "")
+			message += "<B>No plant found.</B>"
+		message += "- Weed level: <span class='notice'>[weedlevel] / 10</span>"
+		message += "- Pest level: <span class='notice'>[pestlevel] / 10</span>"
+		message += "- Toxicity level: <span class='notice'>[toxic] / 100</span>"
+		message += "- Water level: <span class='notice'>[waterlevel] / [maxwater]</span>"
+		message += "- Nutrition level: <span class='notice'>[nutrilevel] / [maxnutri]</span>"
+		to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")))
 
 	else if(istype(O, /obj/item/cultivator))
 		if(weedlevel > 0)
@@ -942,13 +956,14 @@
 	self_sustaining = TRUE
 	update_icon()
 
-/obj/machinery/hydroponics/proc/update_name()
+/obj/machinery/hydroponics/update_name()
 	if(renamedByPlayer)
 		return
 	if(myseed)
 		name = "[initial(name)] ([myseed.plantname])"
 	else
 		name = initial(name)
+	return ..()
 
 ///////////////////////////////////////////////////////////////////////////////
 /obj/machinery/hydroponics/soil //Not actually hydroponics at all! Honk!

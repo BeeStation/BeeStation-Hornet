@@ -36,7 +36,7 @@
 			. += "<span class='notice'>[src] has been upgraded to support automatic repairs.</span>"
 
 /obj/machinery/recharge_station/process(delta_time)
-	if(!is_operational())
+	if(!is_operational)
 		return
 	if(occupant)
 		process_occupant(delta_time)
@@ -49,7 +49,7 @@
 
 /obj/machinery/recharge_station/emp_act(severity)
 	. = ..()
-	if(!(stat & (BROKEN|NOPOWER)))
+	if(!(machine_stat & (BROKEN|NOPOWER)))
 		if(occupant && !(. & EMP_PROTECT_CONTENTS))
 			occupant.emp_act(severity)
 		if (!(. & EMP_PROTECT_SELF))
@@ -88,7 +88,7 @@
 		add_fingerprint(occupant)
 
 /obj/machinery/recharge_station/update_icon()
-	if(is_operational())
+	if(is_operational)
 		if(state_open)
 			icon_state = "borgcharger0"
 		else

@@ -11,12 +11,15 @@ $text-color: rgba(255, 255, 255, 0.75) !default;
 $background-color: #363636 !default;
 $shadow-color-core: #161616 !default;
 $shadow-color: rgba(0, 0, 0, 0.1) !default;
+$shadow-core-height: 1px !default;
+$shadow-height: 2px !default;
 
 .TitleBar {
   background-color: $background-color;
-  border-bottom: 1px solid $shadow-color-core;
-  box-shadow: 0 2px 2px $shadow-color;
-  box-shadow: 0 base.rem(2px) base.rem(2px) $shadow-color;
+  box-sizing: content-box;
+  border-bottom: $shadow-core-height solid $shadow-color-core;
+  box-shadow: 0 $shadow-height $shadow-height $shadow-color;
+  box-shadow: 0 base.rem($shadow-height) base.rem($shadow-height) $shadow-color;
   user-select: none;
   -ms-user-select: none;
 }
@@ -24,10 +27,10 @@ $shadow-color: rgba(0, 0, 0, 0.1) !default;
 .TitleBar__clickable {
   color: color.change($text-color, $alpha: 0.5);
   background-color: $background-color;
-  transition: color 250ms, background-color 250ms;
+  transition: color 250ms ease-out, background-color 250ms ease-out;
 
   &:hover {
-    color: rgba(255, 255, 255, 1.0);
+    color: rgba(255, 255, 255, 1);
     background-color: #cc0000;
     transition: color 0ms, background-color 0ms;
   }
@@ -51,7 +54,6 @@ $shadow-color: rgba(0, 0, 0, 0.1) !default;
 .TitleBar__buttons {
   pointer-events: initial;
   display: inline-block;
-  width: 100%;
   margin-left: 10px;
 }
 
@@ -78,16 +80,16 @@ $shadow-color: rgba(0, 0, 0, 0.1) !default;
 
 .TitleBar__close {
   position: absolute;
-  top: -1px;
+  top: -$shadow-core-height;
   right: 0;
   width: 45px;
   width: base.rem(45px);
-  height: 32px;
-  height: base.rem(32px);
+  height: 32px + $shadow-core-height;
+  height: base.rem(32px + $shadow-core-height);
   font-size: 20px;
   font-size: base.rem(20px);
-  line-height: 31px;
-  line-height: base.rem(31px);
+  line-height: 31px + $shadow-core-height;
+  line-height: base.rem(31px + $shadow-core-height);
   text-align: center;
 }
 

@@ -1,6 +1,6 @@
 /datum/species/vampire
 	name = "\improper Vampire"
-	id = "vampire"
+	id = SPECIES_VAMPIRE
 	default_color = "FFF"
 	species_traits = list(EYECOLOR,HAIR,FACEHAIR,LIPS)
 	inherent_traits = list(TRAIT_NOHUNGER,TRAIT_NOBREATH,TRAIT_DRINKSBLOOD)
@@ -138,4 +138,4 @@
 	invocation = "Squeak!"
 	charge_max = 50
 	cooldown_min = 50
-	shapeshift_type = /mob/living/simple_animal/hostile/retaliate/bat
+	shapeshift_type = /mob/living/simple_animal/hostile/retaliate/bat/vampire

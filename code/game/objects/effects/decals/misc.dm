@@ -1,18 +1,3 @@
-/obj/effect/temp_visual/point
-	name = "pointer"
-	icon = 'icons/mob/screen_gen.dmi'
-	icon_state = "arrow"
-	layer = POINT_LAYER
-	duration = 25
-
-/obj/effect/temp_visual/point/Initialize(mapload, set_invis = 0)
-	. = ..()
-	var/atom/old_loc = loc
-	abstract_move(get_turf(src))
-	pixel_x = old_loc.pixel_x
-	pixel_y = old_loc.pixel_y
-	invisibility = set_invis
-
 //Used by spraybottles.
 /obj/effect/decal/chempuff
 	name = "chemicals"
@@ -43,31 +28,29 @@
 	qdel(src)
 
 /obj/effect/decal/chempuff/proc/check_move(datum/move_loop/source, succeeded)
-	if(QDELETED(src)) //Reasons PLEASE WORK I SWEAR TO GOD
+	if(QDELETED(src))
 		return
-	if(!succeeded) //If we hit something
+	if(!succeeded || lifetime < 0)
 		qdel(src)
 		return
 
-	var/puff_reagents_string = reagents.log_list()
+	var/puff_reagents_string = reagents?.log_list()
 	var/travelled_max_distance = (source.lifetime - source.delay <= 0)
 	var/turf/our_turf = get_turf(src)
 
 	for(var/atom/movable/turf_atom in our_turf)
-		if(turf_atom == src || turf_atom.invisibility) //we ignore the puff itself and stuff below the floor
-			continue
-
 		if(lifetime < 0)
+			qdel(src)
 			break
 
-		if(!stream)
-			reagents.reaction(turf_atom, VAPOR)
-			log_combat(user, turf_atom, "sprayed", sprayer, addition="which had [puff_reagents_string]")
-			if(ismob(turf_atom))
-				lifetime -= 1
+		//we ignore the puff itself and stuff below the floor
+		if(turf_atom == src || turf_atom.invisibility)
 			continue
 
-		if(isliving(turf_atom))
+		if(!stream)
+			if(ismob(turf_atom))
+				lifetime--
+		else if(isliving(turf_atom))
 			var/mob/living/turf_mob = turf_atom
 
 			if(!turf_mob.can_inject())
@@ -75,27 +58,22 @@
 			if(!(turf_mob.mobility_flags & MOBILITY_STAND) && !travelled_max_distance)
 				continue
 
-			reagents.reaction(turf_mob, VAPOR)
-			log_combat(user, turf_mob, "sprayed", sprayer, addition="which had [puff_reagents_string]")
-			lifetime -= 1
-
+			lifetime--
 		else if(travelled_max_distance)
-			reagents.reaction(turf_atom, VAPOR)
+			lifetime--
+		reagents?.reaction(turf_atom, VAPOR)
+		if(user)
 			log_combat(user, turf_atom, "sprayed", sprayer, addition="which had [puff_reagents_string]")
-			lifetime -= 1
 
 	if(lifetime >= 0 && (!stream || travelled_max_distance))
-		reagents.reaction(our_turf, VAPOR)
-		log_combat(user, our_turf, "sprayed", sprayer, addition="which had [puff_reagents_string]")
-		lifetime -= 1
-
-	// Did we use up all the puff early?
-	if(lifetime < 0)
-		qdel(src)
+		reagents?.reaction(our_turf, VAPOR)
+		lifetime--
+		if(user)
+			log_combat(user, our_turf, "sprayed", sprayer, addition="which had [puff_reagents_string]")
 
 /obj/effect/decal/fakelattice
 	name = "lattice"
 	desc = "A lightweight support lattice."
-	icon = 'icons/obj/smooth_structures/lattice.dmi'
+	icon = 'icons/obj/smooth_structures/catwalks/lattice.dmi'
 	icon_state = "lattice"
 	density = TRUE

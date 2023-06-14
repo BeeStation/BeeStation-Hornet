@@ -117,7 +117,6 @@
 	pixel_y = 16
 	},
 /obj/structure/stone_tile/surrounding_tile{
-	dir = 2;
 	pixel_y = 16
 	},
 /obj/structure/stone_tile/block{
@@ -196,8 +195,7 @@
 	},
 /obj/structure/stone_tile/slab/cracked{
 	dir = 8;
-	name = "cracked stone block";
-	
+	name = "cracked stone block"
 	},
 /turf/open/lava/smooth,
 /area/tdome/arena)
@@ -260,8 +258,7 @@
 /obj/structure/stone_tile/block/cracked,
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 4;
-	pixel_x = 16;
-	
+	pixel_x = 16
 	},
 /obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 8;
@@ -307,9 +304,7 @@
 /turf/open/lava/smooth,
 /area/tdome/arena)
 "aJ" = (
-/obj/structure/stone_tile{
-	dir = 2
-	},
+/obj/structure/stone_tile,
 /obj/structure/stone_tile/burnt{
 	dir = 1
 	},
@@ -321,14 +316,11 @@
 	dir = 1
 	},
 /obj/structure/stone_tile/surrounding_tile{
-	dir = 2;
-	pixel_x = -16;
-	
+	pixel_x = -16
 	},
 /obj/structure/stone_tile/surrounding_tile/burnt{
 	dir = 1;
-	pixel_x = -16;
-	
+	pixel_x = -16
 	},
 /turf/open/indestructible/necropolis/air,
 /area/tdome/arena)
@@ -342,13 +334,11 @@
 "aM" = (
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 8;
-	pixel_x = 16;
-	
+	pixel_x = 16
 	},
 /obj/structure/stone_tile/surrounding_tile/burnt{
 	dir = 4;
-	pixel_x = 16;
-	
+	pixel_x = 16
 	},
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile/block/burnt{
@@ -365,7 +355,6 @@
 "aO" = (
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile/surrounding_tile{
-	dir = 2;
 	pixel_y = 16
 	},
 /turf/open/lava/smooth,
@@ -421,7 +410,6 @@
 	dir = 4
 	},
 /obj/structure/stone_tile/surrounding_tile{
-	dir = 2;
 	pixel_y = 16
 	},
 /obj/structure/stone_tile/surrounding_tile{

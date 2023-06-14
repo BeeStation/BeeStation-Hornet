@@ -73,7 +73,7 @@
 /turf/open/floor/wood/cold,
 /area/awaymission/cabin/lumbermill)
 "am" = (
-/obj/structure/chair/comfy{
+/obj/structure/chair/fancy/comfy{
 	color = "#B22222";
 	dir = 8
 	},
@@ -388,7 +388,6 @@
 	anchored = 1;
 	density = 1;
 	desc = "Generates power from lava!";
-	dir = 2;
 	icon = 'icons/obj/atmospherics/pipes/simple.dmi';
 	icon_state = "turbine";
 	name = "geothermal generator"
@@ -456,9 +455,7 @@
 /turf/open/floor/plasteel/freezer,
 /area/awaymission/cabin)
 "bl" = (
-/obj/machinery/vending/autodrobe{
-	req_access_txt = "0"
-	},
+/obj/machinery/vending/autodrobe,
 /turf/open/floor/wood,
 /area/awaymission/cabin)
 "bm" = (
@@ -615,9 +612,7 @@
 /turf/open/floor/wood,
 /area/awaymission/cabin)
 "bN" = (
-/obj/machinery/vending/boozeomat{
-	req_access_txt = "0"
-	},
+/obj/machinery/vending/boozeomat,
 /turf/open/floor/wood,
 /area/awaymission/cabin)
 "bO" = (
@@ -1082,7 +1077,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	desc = "A comfortable, secure seat. It has a more sturdy looking buckling system, for making it harder to get dragged into the ring.";
 	name = "announcer seat"
 	},
@@ -1133,12 +1128,11 @@
 /area/awaymission/cabin/snowforest/sovietsurface)
 "dm" = (
 /obj/structure/table/reinforced,
-/obj/item/pda/syndicate{
-	background_color = "#0039A6";
-	default_cartridge = /obj/item/cartridge/virus/mime;
+/obj/item/modular_computer/tablet/pda/syndicate{
+	default_disk = /obj/item/computer_hardware/hard_drive/role/virus/mime;
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. Seems like it may have useful information on it.";
-	name = "soviet PDA";
-	note = "<b>TRANSLATED TO GALACTIC COMMON:</b><br>My partner has left to help those Nanotrasen fucks three days ago. They said that a distress signal came from down south and they had to check it out. How fucking long does it take to investigate a mining outpost? Either those Nanotrasen fuckers betrayed us or something really did go wrong. Either way, I'm leaving before this becomes an issue for me and anyone else here. That dumb idiot."
+	name = "soviet tablet";
+	note = "TRANSLATED TO GALACTIC COMMON: My partner has left to help those Nanotrasen fucks three days ago. They said that a distress signal came from down south and they had to check it out. How fucking long does it take to investigate a mining outpost? Either those Nanotrasen fuckers betrayed us or something really did go wrong. Either way, I'm leaving before this becomes an issue for me and anyone else here. That dumb idiot."
 	},
 /turf/open/floor/plating/snowed/temperatre,
 /area/awaymission/cabin/snowforest/sovietsurface)
@@ -1200,8 +1194,7 @@
 	desc = "It's a polar bear, in space, but not actually in space. It's actually on a planet. This is a planet.";
 	melee_damage = 15;
 	name = "fat space polar bear";
-	speed = 3;
-	wander = 1
+	speed = 3
 	},
 /turf/open/floor/plating/snowed/temperatre,
 /area/awaymission/cabin/snowforest/sovietsurface)
@@ -1362,8 +1355,7 @@
 	desc = "It's a polar bear, in space, but not actually in space. It's actually on a planet. This is a planet.";
 	melee_damage = 15;
 	name = "fat space polar bear";
-	speed = 3;
-	wander = 1
+	speed = 3
 	},
 /turf/open/floor/plating/snowed/temperatre,
 /area/awaymission/cabin/snowforest/sovietsurface)
@@ -1510,39 +1502,39 @@
 /area/awaymission/cabin)
 "ew" = (
 /obj/structure/closet/crate/wooden,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
 /turf/open/floor/wood/cold,
 /area/awaymission/cabin/lumbermill)
 "ex" = (
 /obj/structure/closet/crate/wooden,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
 /turf/open/floor/wood/cold,
 /area/awaymission/cabin/lumbermill)
 "ey" = (
@@ -1562,7 +1554,7 @@
 /turf/open/floor/wood/cold,
 /area/awaymission/cabin/lumbermill)
 "eB" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/fancy/sofa/old/right,
 /turf/open/floor/wood,
 /area/awaymission/cabin/caves/mountain)
 "eC" = (
@@ -1656,7 +1648,7 @@
 /turf/open/floor/plating/asteroid/snow,
 /area/awaymission/cabin/snowforest)
 "eP" = (
-/obj/structure/chair/sofa,
+/obj/structure/chair/fancy/sofa/old,
 /turf/open/floor/wood,
 /area/awaymission/cabin/caves/mountain)
 "eQ" = (
@@ -1721,38 +1713,38 @@
 /area/awaymission/cabin/snowforest)
 "eY" = (
 /obj/structure/closet/crate/wooden,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
 /turf/open/floor/wood/cold,
 /area/awaymission/cabin/lumbermill)
 "eZ" = (
 /obj/structure/closet/crate/wooden,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
-/obj/item/stack/sheet/mineral/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood,
 /turf/open/floor/wood/cold,
 /area/awaymission/cabin/lumbermill)
 "fa" = (
@@ -1801,19 +1793,17 @@
 /turf/open/floor/wood/cold,
 /area/awaymission/cabin/lumbermill)
 "fg" = (
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/fancy/sofa/old/left,
 /turf/open/floor/wood,
 /area/awaymission/cabin/caves/mountain)
 "fh" = (
 /obj/structure{
-	alpha = 255;
 	anchored = 1;
 	desc = "It is a ghostly cat.";
 	icon = 'icons/mob/mob.dmi';
 	icon_state = "catghost";
 	layer = 3;
 	max_integrity = 66666;
-	mouse_opacity = 1;
 	name = "Cat"
 	},
 /turf/open/floor/wood,
@@ -1871,83 +1861,6 @@
 /obj/structure/sign/poster/contraband/fun_police,
 /turf/closed/indestructible/riveted,
 /area/awaymission/cabin/caves/mountain)
-"fr" = (
-/obj/structure/reagent_dispensers/water_cooler,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/awaymission/cabin/caves/mountain)
-"fs" = (
-/obj/structure/reagent_dispensers/peppertank{
-	pixel_y = 32
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/awaymission/cabin/caves/mountain)
-"ft" = (
-/obj/structure/filingcabinet/security,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/awaymission/cabin/caves/mountain)
-"fu" = (
-/obj/machinery/computer/prisoner/management{
-	desc = "Used to manage tracking implants placed inside criminals and the prison cells.";
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/awaymission/cabin/caves/mountain)
-"fv" = (
-/obj/structure/chair/office/light{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/structure/ladder/unbreakable/rune{
-	alpha = 0;
-	color = "#000000";
-	desc = "Examining things is a good idea after all.";
-	height = 1;
-	id = "TheRealSecretPlace";
-	name = "\improper Tear In The Fabric of Reality"
-	},
-/obj/structure/sign/plaques/golden{
-	desc = "Holding the record for about 500 years now.";
-	name = "The Most Annoying Organization Ever";
-	pixel_y = 32
-	},
-/turf/open/floor/plasteel/dark,
-/area/awaymission/cabin/caves/mountain)
 "fw" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
@@ -1957,29 +1870,6 @@
 "fx" = (
 /turf/open/floor/plating/snowed,
 /area/awaymission/cabin/snowforest)
-"fy" = (
-/obj/machinery/computer/secure_data{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/awaymission/cabin/caves/mountain)
-"fz" = (
-/obj/structure/filingcabinet/security,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/awaymission/cabin/caves/mountain)
 "fA" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
@@ -2005,58 +1895,6 @@
 	},
 /turf/open/floor/plating/snowed,
 /area/awaymission/cabin/snowforest)
-"fE" = (
-/obj/structure/reagent_dispensers/peppertank{
-	pixel_y = 32
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/awaymission/cabin/caves/mountain)
-"fF" = (
-/obj/machinery/vending/sustenance{
-	desc = "A vending machine which vends food.";
-	name = "\improper Snack Machine";
-	product_ads = "Sufficiently healthy.;Mmm! So good!;Have a meal.;You need food to live!";
-	product_slogans = "Enjoy your meal."
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/awaymission/cabin/caves/mountain)
-"fG" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/awaymission/cabin/caves/mountain)
-"fH" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/awaymission/cabin/caves/mountain)
 "fI" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -2072,112 +1910,11 @@
 "fK" = (
 /turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
-"fL" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/turf/open/floor/plasteel/dark,
-/area/awaymission/cabin/caves/mountain)
 "fM" = (
 /turf/closed/indestructible/fakedoor{
 	desc = "It looks like there really is no way out this time.";
 	name = "Cell Block Y8"
 	},
-/area/awaymission/cabin/caves/mountain)
-"fN" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/floor/plasteel/dark,
-/area/awaymission/cabin/caves/mountain)
-"fO" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/floor/plasteel/dark,
-/area/awaymission/cabin/caves/mountain)
-"fP" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue,
-/turf/open/floor/plasteel/dark,
-/area/awaymission/cabin/caves/mountain)
-"fQ" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue,
-/turf/open/floor/plasteel/dark,
-/area/awaymission/cabin/caves/mountain)
-"fR" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/floor/plasteel/dark,
-/area/awaymission/cabin/caves/mountain)
-"fS" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/awaymission/cabin/caves/mountain)
-"fT" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/awaymission/cabin/caves/mountain)
-"fU" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
 "fV" = (
 /turf/closed/indestructible/fakeglass,
@@ -2265,184 +2002,6 @@
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/engine,
 /area/awaymission/cabin/caves/mountain)
-"gi" = (
-/obj/item/toy/spinningtoy{
-	anchored = 1;
-	desc = "He keeps breaking out somehow due to the help of cultists that utilize cargo shipments or atmospherical sabotage."
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/indestructible,
-/area/awaymission/cabin/caves/mountain)
-"gj" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/indestructible,
-/area/awaymission/cabin/caves/mountain)
-"gk" = (
-/obj/item/gun/ballistic/automatic/toy{
-	anchored = 1;
-	desc = "Don't try it.";
-	name = "Nanotrasen Saber SMG"
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/indestructible,
-/area/awaymission/cabin/caves/mountain)
-"gl" = (
-/obj/structure/sign/poster/contraband/free_drone{
-	desc = "This poster is just really ironic right now."
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/indestructible,
-/area/awaymission/cabin/caves/mountain)
-"gm" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/indestructible,
-/area/awaymission/cabin/caves/mountain)
-"gn" = (
-/obj/structure/ladder/unbreakable/rune{
-	alpha = 0;
-	color = "#000000";
-	desc = "It is time to bust out of this joint";
-	height = 1;
-	id = "whatkindofnerdusesmapmakertocheattheirwaytoateleportrune";
-	mouse_opacity = 0;
-	name = "\improper secret escape route"
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/indestructible,
-/area/awaymission/cabin/caves/mountain)
-"go" = (
-/obj/structure/easel{
-	desc = "Art so fine, the universe can't handle it!";
-	name = "Canvas Art"
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/indestructible,
-/area/awaymission/cabin/caves/mountain)
-"gp" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/item/nullrod/claymore/multiverse{
-	anchored = 1;
-	force = 4
-	},
-/turf/open/indestructible,
-/area/awaymission/cabin/caves/mountain)
-"gq" = (
-/obj/structure/fluff/empty_sleeper{
-	desc = "An open sleeper. It looks as though it would be awaiting another patient, were it not LOCKED BEHIND BARS!!!";
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/indestructible,
-/area/awaymission/cabin/caves/mountain)
-"gr" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/structure/showcase/mecha/marauder{
-	desc = "Used by vigilantes to fight the ruffians causing trouble in neighborhoods and space stations";
-	icon_state = "seraph";
-	name = "gang warfare seraph"
-	},
-/turf/open/indestructible,
-/area/awaymission/cabin/caves/mountain)
 "gs" = (
 /obj/effect/light_emitter{
 	name = "outdoor light";
@@ -2454,27 +2013,10 @@
 /area/awaymission/cabin/caves/mountain)
 "gt" = (
 /obj/structure/sign/poster/contraband/pwr_game{
-	pixel_x = 32;
-	
+	pixel_x = 32
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/engine,
-/area/awaymission/cabin/caves/mountain)
-"gu" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/structure/sign/poster/official/do_not_question{
-	pixel_x = 32
-	},
-/turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
 "gv" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -2497,71 +2039,6 @@
 	name = "Exercise Room"
 	},
 /area/awaymission/cabin/caves/mountain)
-"gz" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/obj/structure/signpost/salvation{
-	density = 0;
-	desc = "An intercomm. Someone seems to be on the other end. I should use it.";
-	icon = 'icons/obj/radio.dmi';
-	icon_state = "intercom";
-	max_integrity = 99999;
-	name = "\proper Fun Jail intercom";
-	pixel_y = 32;
-	question = "We have a case of fun happening. Get out there and do your job."
-	},
-/turf/open/floor/plasteel/dark,
-/area/awaymission/cabin/caves/mountain)
-"gA" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/structure/sign/poster/official/space_cops{
-	pixel_y = 32
-	},
-/obj/effect/light_emitter{
-	name = "outdoor light";
-	set_cap = 3;
-	set_luminosity = 6
-	},
-/turf/open/floor/plasteel/dark,
-/area/awaymission/cabin/caves/mountain)
-"gB" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/structure/sign/poster/official/no_erp{
-	pixel_y = -32
-	},
-/turf/open/floor/plasteel/dark,
-/area/awaymission/cabin/caves/mountain)
 "gC" = (
 /obj/effect/baseturf_helper/asteroid/snow,
 /turf/closed/indestructible/rock/snow/ice,
@@ -2572,43 +2049,6 @@
 	desc = "<span class='boldwarning'>Leave this place, insect.</span>";
 	name = "Abyss"
 	},
-/area/awaymission/cabin/caves/mountain)
-"gE" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/item/reagent_containers/food/snacks/egg/rainbow{
-	anchored = 0;
-	desc = "Was an egg really worth this much effort?";
-	name = "easter egg"
-	},
-/obj/structure/table,
-/turf/open/floor/plasteel/dark,
-/area/awaymission/cabin/caves/mountain)
-"gF" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/item/banhammer{
-	desc = "I'm sorry, sir, but fun actions are illegal.";
-	name = "fun baton"
-	},
-/obj/structure/table,
-/turf/open/floor/plasteel/dark,
 /area/awaymission/cabin/caves/mountain)
 "gG" = (
 /turf/closed/indestructible{
@@ -2753,7 +2193,6 @@
 	alpha = 0;
 	color = "#000000";
 	desc = "EXAMINING THAT WAS A MISTAKE!";
-	height = 0;
 	icon_state = "7";
 	id = "TheRealSecretPlace";
 	light_range = 10;
@@ -3275,8 +2714,7 @@
 /area/awaymission/cabin/caves/sovietcave)
 "io" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -24;
-	
+	pixel_x = -24
 	},
 /turf/open/floor/wood,
 /area/awaymission/cabin)
@@ -4262,35 +3700,35 @@
 "kM" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/table/reinforced,
-/obj/item/stack/sheet/mineral/sandbags{
+/obj/item/stack/sheet/sandbags{
 	pixel_x = -2;
 	pixel_y = 3
 	},
-/obj/item/stack/sheet/mineral/sandbags{
+/obj/item/stack/sheet/sandbags{
 	pixel_x = -2;
 	pixel_y = 3
 	},
-/obj/item/stack/sheet/mineral/sandbags{
+/obj/item/stack/sheet/sandbags{
 	pixel_x = -2;
 	pixel_y = 3
 	},
-/obj/item/stack/sheet/mineral/sandbags{
+/obj/item/stack/sheet/sandbags{
 	pixel_x = -2;
 	pixel_y = 3
 	},
-/obj/item/stack/sheet/mineral/sandbags{
+/obj/item/stack/sheet/sandbags{
 	pixel_x = -2;
 	pixel_y = 3
 	},
-/obj/item/stack/sheet/mineral/sandbags{
+/obj/item/stack/sheet/sandbags{
 	pixel_x = -2;
 	pixel_y = 3
 	},
-/obj/item/stack/sheet/mineral/sandbags{
+/obj/item/stack/sheet/sandbags{
 	pixel_x = -2;
 	pixel_y = 3
 	},
-/obj/item/stack/sheet/mineral/sandbags,
+/obj/item/stack/sheet/sandbags,
 /turf/open/floor/mineral/plastitanium/red{
 	name = "soviet floor"
 	},
@@ -4690,28 +4128,6 @@
 /obj/item/pickaxe/drill,
 /turf/open/floor/plating/asteroid/snow,
 /area/awaymission/cabin/caves)
-"lO" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/item/clothing/shoes/sneakers/brown,
-/obj/item/clothing/head/helmet/police{
-	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 2, "bomb" = 15, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 20, "stamina" = 5);
-	desc = "I am the law!"
-	},
-/obj/structure/closet{
-	anchored = 1;
-	name = "uniform closet"
-	},
-/turf/open/floor/plasteel/dark,
-/area/awaymission/cabin/caves/mountain)
 "lP" = (
 /obj/effect/light_emitter{
 	name = "outdoor light";
@@ -4733,7 +4149,7 @@
 	name = "wooden box"
 	},
 /obj/item/paper{
-	info = "Moving these crates through a tunnel that isn't even finished yet is really annoying. It's such a pain in the ass to haul even a single crate to the cabin. It made sense to haul food and other goods however these are fake fucking trophies. Why do they even need these fake artifacts for some asshole's trophy case? We'll just leave the crates in the cave that has all those bones inside. Fuck it.";
+	default_raw_text = "Moving these crates through a tunnel that isn't even finished yet is really annoying. It's such a pain in the ass to haul even a single crate to the cabin. It made sense to haul food and other goods however these are fake fucking trophies. Why do they even need these fake artifacts for some asshole's trophy case? We'll just leave the crates in the cave that has all those bones inside. Fuck it.";
 	name = "Shipment Delivery Note"
 	},
 /turf/open/floor/plating/asteroid/snow,
@@ -4855,7 +4271,6 @@
 /mob/living/simple_animal/hostile/bear/russian{
 	desc = "He'll hold the line against you!";
 	light_range = 3;
-	melee_damage = 30;
 	name = "Artyom";
 	speak = list("Blyat!","Rawr!","GRR!","Growl!");
 	wander = 0
@@ -5234,12 +4649,11 @@
 /area/awaymission/cabin/caves)
 "nb" = (
 /obj/effect/turf_decal/weather/snow,
-/obj/item/pda/syndicate{
-	background_color = "#0039A6";
-	default_cartridge = /obj/item/cartridge/virus/clown;
+/obj/item/modular_computer/tablet/pda/syndicate{
+	default_disk = /obj/item/computer_hardware/hard_drive/role/virus/clown;
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. Seems like it may have useful information on it.";
-	name = "soviet PDA";
-	note = "<b>TRANSLATED TO GALACTIC COMMON:</b><br>DO NOT GO SOUTH."
+	name = "soviet tablet";
+	note = "TRANSLATED TO GALACTIC COMMON: DO NOT GO SOUTH."
 	},
 /obj/effect/decal/remains/human{
 	color = "#72e4fa"
@@ -5321,7 +4735,6 @@
 "no" = (
 /obj/structure/ladder/unbreakable{
 	desc = "Finally.";
-	height = 0;
 	icon_state = "ladder10";
 	id = "whyisitcalledladder10andnotladder1";
 	name = "Freedom"
@@ -5354,24 +4767,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/hoteltile,
 /area/awaymission/cabin/caves/mountain)
-"ns" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/structure/ladder/unbreakable{
-	desc = "Who left the grate open?";
-	height = 1;
-	icon = 'icons/obj/structures.dmi';
-	icon_state = "ladder01";
-	id = "dealwentoffwithoutahitchBRO";
-	name = "Grate";
-	pixel_y = -10
-	},
-/turf/open/floor/plasteel/dark,
-/area/awaymission/cabin/caves/mountain)
 "nt" = (
 /obj/effect/decal/cleanable/insectguts,
 /obj/effect/decal/cleanable/dirt,
@@ -5399,23 +4794,6 @@
 /obj/item/mop,
 /turf/open/indestructible/hoteltile,
 /area/awaymission/cabin/caves/mountain)
-"ny" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/structure/displaycase{
-	start_showpiece_type = /obj/item/dice/d6/space;
-	trophy_message = "Stolen from dice collector before he could enjoy his day."
-	},
-/turf/open/floor/plasteel/dark,
-/area/awaymission/cabin/caves/mountain)
 "nz" = (
 /obj/effect/light_emitter{
 	name = "outdoor light";
@@ -5437,7 +4815,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/ladder/unbreakable{
 	desc = "Yeah, I'll just go back to jail instead of this. It's not like there is an escape out of here, right?";
-	height = 0;
 	icon_state = "ladder10";
 	id = "dealwentoffwithoutahitchBRO";
 	name = "Sewer Ladder"
@@ -5539,9 +4916,7 @@
 	},
 /area/awaymission/cabin/caves/sovietcave)
 "nN" = (
-/obj/machinery/light/small{
-	dir = 2
-	},
+/obj/machinery/light/small,
 /turf/open/floor/wood,
 /area/awaymission/cabin)
 "nO" = (
@@ -5573,6 +4948,353 @@
 	},
 /turf/open/floor/plasteel/freezer,
 /area/awaymission/cabin)
+"oo" = (
+/obj/effect/light_emitter{
+	name = "outdoor light";
+	set_cap = 3;
+	set_luminosity = 6
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/awaymission/cabin/caves/mountain)
+"qH" = (
+/obj/structure/ladder/unbreakable/rune{
+	alpha = 0;
+	color = "#000000";
+	desc = "It is time to bust out of this joint";
+	height = 1;
+	id = "whatkindofnerdusesmapmakertocheattheirwaytoateleportrune";
+	mouse_opacity = 0;
+	name = "\improper secret escape route"
+	},
+/obj/effect/light_emitter{
+	name = "outdoor light";
+	set_cap = 3;
+	set_luminosity = 6
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/indestructible,
+/area/awaymission/cabin/caves/mountain)
+"rp" = (
+/obj/item/toy/spinningtoy{
+	anchored = 1;
+	desc = "He keeps breaking out somehow due to the help of cultists that utilize cargo shipments or atmospherical sabotage."
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/indestructible,
+/area/awaymission/cabin/caves/mountain)
+"rP" = (
+/obj/structure/fluff/empty_sleeper{
+	desc = "An open sleeper. It looks as though it would be awaiting another patient, were it not LOCKED BEHIND BARS!!!";
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/indestructible,
+/area/awaymission/cabin/caves/mountain)
+"sU" = (
+/obj/effect/light_emitter{
+	name = "outdoor light";
+	set_cap = 3;
+	set_luminosity = 6
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/indestructible,
+/area/awaymission/cabin/caves/mountain)
+"ww" = (
+/obj/structure/sign/poster/official/do_not_question{
+	pixel_x = 32
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/awaymission/cabin/caves/mountain)
+"xn" = (
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/awaymission/cabin/caves/mountain)
+"xV" = (
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/awaymission/cabin/caves/mountain)
+"zK" = (
+/obj/structure/sign/poster/official/no_erp{
+	pixel_y = -32
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/awaymission/cabin/caves/mountain)
+"Bk" = (
+/obj/structure/reagent_dispensers/peppertank{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/awaymission/cabin/caves/mountain)
+"Cq" = (
+/obj/item/nullrod/claymore/multiverse{
+	anchored = 1;
+	force = 4
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/indestructible,
+/area/awaymission/cabin/caves/mountain)
+"Dh" = (
+/obj/effect/light_emitter{
+	name = "outdoor light";
+	set_cap = 3;
+	set_luminosity = 6
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/awaymission/cabin/caves/mountain)
+"DU" = (
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/awaymission/cabin/caves/mountain)
+"Fm" = (
+/obj/item/clothing/shoes/sneakers/brown,
+/obj/item/clothing/head/helmet/police{
+	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 2, "bomb" = 15, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 20, "stamina" = 5);
+	desc = "I am the law!"
+	},
+/obj/structure/closet{
+	anchored = 1;
+	name = "uniform closet"
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/awaymission/cabin/caves/mountain)
+"Gi" = (
+/obj/structure/showcase/mecha/marauder{
+	desc = "Used by vigilantes to fight the ruffians causing trouble in neighborhoods and space stations";
+	icon_state = "seraph";
+	name = "gang warfare seraph"
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/indestructible,
+/area/awaymission/cabin/caves/mountain)
+"Ha" = (
+/obj/structure/chair/office/light{
+	dir = 4
+	},
+/obj/structure/ladder/unbreakable/rune{
+	alpha = 0;
+	color = "#000000";
+	desc = "Examining things is a good idea after all.";
+	height = 1;
+	id = "TheRealSecretPlace";
+	name = "\improper Tear In The Fabric of Reality"
+	},
+/obj/structure/sign/plaques/golden{
+	desc = "Holding the record for about 500 years now.";
+	name = "The Most Annoying Organization Ever";
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/awaymission/cabin/caves/mountain)
+"Ik" = (
+/obj/item/reagent_containers/food/snacks/egg/rainbow{
+	desc = "Was an egg really worth this much effort?";
+	name = "easter egg"
+	},
+/obj/structure/table,
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/awaymission/cabin/caves/mountain)
+"II" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/awaymission/cabin/caves/mountain)
+"Jk" = (
+/obj/effect/light_emitter{
+	name = "outdoor light";
+	set_cap = 3;
+	set_luminosity = 6
+	},
+/obj/structure/signpost/salvation{
+	density = 0;
+	desc = "An intercomm. Someone seems to be on the other end. I should use it.";
+	icon = 'icons/obj/radio.dmi';
+	icon_state = "intercom";
+	max_integrity = 99999;
+	name = "\proper Fun Jail intercom";
+	pixel_y = 32;
+	question = "We have a case of fun happening. Get out there and do your job."
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/awaymission/cabin/caves/mountain)
+"Kc" = (
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/awaymission/cabin/caves/mountain)
+"Km" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/awaymission/cabin/caves/mountain)
+"MH" = (
+/obj/structure/sign/poster/official/space_cops{
+	pixel_y = 32
+	},
+/obj/effect/light_emitter{
+	name = "outdoor light";
+	set_cap = 3;
+	set_luminosity = 6
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/awaymission/cabin/caves/mountain)
+"Pw" = (
+/obj/machinery/computer/secure_data{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/awaymission/cabin/caves/mountain)
+"PA" = (
+/obj/structure/reagent_dispensers/peppertank{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/awaymission/cabin/caves/mountain)
+"PH" = (
+/obj/item/gun/ballistic/automatic/toy{
+	anchored = 1;
+	desc = "Don't try it.";
+	name = "Nanotrasen Saber SMG"
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/indestructible,
+/area/awaymission/cabin/caves/mountain)
+"Qo" = (
+/obj/machinery/vending/sustenance{
+	desc = "A vending machine which vends food.";
+	name = "\improper Snack Machine";
+	product_ads = "Sufficiently healthy.;Mmm! So good!;Have a meal.;You need food to live!";
+	product_slogans = "Enjoy your meal."
+	},
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/awaymission/cabin/caves/mountain)
+"RR" = (
+/obj/structure/sign/poster/contraband/free_drone{
+	desc = "This poster is just really ironic right now."
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/indestructible,
+/area/awaymission/cabin/caves/mountain)
+"So" = (
+/obj/structure/reagent_dispensers/water_cooler,
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/awaymission/cabin/caves/mountain)
+"SH" = (
+/obj/structure/filingcabinet/security,
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/awaymission/cabin/caves/mountain)
+"TC" = (
+/obj/effect/light_emitter{
+	name = "outdoor light";
+	set_cap = 3;
+	set_luminosity = 6
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/awaymission/cabin/caves/mountain)
+"UB" = (
+/obj/structure/displaycase{
+	start_showpiece_type = /obj/item/dice/d6/space;
+	trophy_message = "Stolen from dice collector before he could enjoy his day."
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/awaymission/cabin/caves/mountain)
+"Wa" = (
+/obj/structure/ladder/unbreakable{
+	desc = "Who left the grate open?";
+	height = 1;
+	icon_state = "ladder01";
+	id = "dealwentoffwithoutahitchBRO";
+	name = "Grate";
+	pixel_y = -10
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/awaymission/cabin/caves/mountain)
+"Wl" = (
+/obj/structure/easel{
+	desc = "Art so fine, the universe can't handle it!";
+	name = "Canvas Art"
+	},
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/indestructible,
+/area/awaymission/cabin/caves/mountain)
+"Wx" = (
+/obj/item/banhammer{
+	desc = "I'm sorry, sir, but fun actions are illegal.";
+	name = "fun baton"
+	},
+/obj/structure/table,
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/floor/plasteel/dark,
+/area/awaymission/cabin/caves/mountain)
+"Xa" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/turf/open/indestructible,
+/area/awaymission/cabin/caves/mountain)
+"Yh" = (
+/obj/machinery/computer/prisoner/management{
+	desc = "Used to manage tracking implants placed inside criminals and the prison cells.";
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/awaymission/cabin/caves/mountain)
+"Yn" = (
+/obj/effect/turf_decal/tile/blue/half/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/awaymission/cabin/caves/mountain)
+"YJ" = (
+/obj/structure/filingcabinet/security,
+/obj/effect/turf_decal/tile/blue/anticorner/contrasted{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/awaymission/cabin/caves/mountain)
 
 (1,1,1) = {"
 ab
@@ -8158,16 +7880,16 @@ fm
 fm
 fp
 fp
-fG
-fN
-fN
-fS
+DU
+TC
+TC
+xV
 fV
-gi
+rp
 fp
 fp
-gz
-fN
+Jk
+TC
 fp
 fp
 fm
@@ -8415,17 +8137,17 @@ fm
 fm
 fp
 fq
-fH
-fH
-fQ
-fT
+Yn
+Yn
+II
+II
 fW
-gj
+sU
 fp
 fp
-fP
-fP
-gE
+Km
+Km
+Ik
 fp
 fm
 fm
@@ -8671,18 +8393,18 @@ fm
 fm
 fm
 fp
-fr
+So
 fI
-fH
-fQ
-fT
+Yn
+II
+II
 fp
 fp
 fp
 fp
-fP
-fP
-gF
+Km
+Km
+Wx
 fp
 fm
 fm
@@ -8928,18 +8650,18 @@ fm
 fm
 fm
 fp
-fs
+Bk
 fJ
-fH
-fQ
-fT
+Yn
+II
+II
 fV
-gk
+PH
 fp
 fp
-fP
-fN
-lO
+Km
+TC
+Fm
 fp
 fm
 fm
@@ -9186,16 +8908,16 @@ fm
 fm
 fp
 fq
-fH
-fH
-fQ
-fT
+Yn
+Yn
+II
+II
 fX
-gj
+sU
 fp
 fp
-fP
-fP
+Km
+Km
 fp
 fp
 fm
@@ -9443,16 +9165,16 @@ fm
 fm
 fp
 fp
-fH
-fH
-fQ
-fT
+Yn
+Yn
+II
+II
 fp
 fp
 fp
 fp
-fP
-fP
+Km
+Km
 fp
 fp
 fm
@@ -9700,16 +9422,16 @@ fm
 fm
 fp
 fq
-fH
-fH
-fQ
-fT
+Yn
+Yn
+II
+II
 fV
-gl
+RR
 fp
 fp
-fP
-fP
+Km
+Km
 fp
 fp
 fm
@@ -9957,16 +9679,16 @@ fm
 fm
 fp
 fp
-fH
-ns
-fQ
-fT
+Yn
+Wa
+II
+II
 fY
-gj
+sU
 fp
 fp
-fP
-fP
+Km
+Km
 fp
 fp
 fm
@@ -10214,16 +9936,16 @@ fm
 fm
 fp
 fq
-fH
-fH
-fQ
-fT
+Yn
+Yn
+II
+II
 fp
 fp
 fp
 fp
-fP
-gB
+Km
+zK
 fp
 fp
 fm
@@ -10470,17 +10192,17 @@ fm
 fm
 fm
 fp
-ft
+SH
 fI
-fH
-fQ
-fT
+Yn
+II
+II
 fZ
-gm
+Xa
 fp
 fp
-fP
-fP
+Km
+Km
 fp
 fp
 fm
@@ -10727,17 +10449,17 @@ fm
 fm
 fm
 fp
-fu
+Yh
 fK
-fO
-fR
-fT
+oo
+Dh
+II
 gb
-gn
+qH
 fp
 fp
-fP
-fP
+Km
+Km
 fp
 fp
 fm
@@ -10984,17 +10706,17 @@ fm
 fm
 fm
 fp
-fv
+Ha
 fK
-fO
-fR
-fT
+oo
+Dh
+II
 fp
 fp
 fp
 fp
-fP
-fN
+Km
+TC
 fp
 fp
 fm
@@ -11241,17 +10963,17 @@ fm
 fm
 fm
 fp
-fy
+Pw
 fK
-fO
-fR
-fT
+oo
+Dh
+II
 fV
-go
+Wl
 fp
 fp
-fP
-fP
+Km
+Km
 fp
 fp
 fm
@@ -11498,17 +11220,17 @@ fm
 fm
 fm
 fp
-fz
+YJ
 fJ
-fH
-fQ
-fT
+Yn
+II
+II
 gc
-gj
+sU
 fp
 fp
-fP
-fP
+Km
+Km
 fp
 fp
 fm
@@ -11756,16 +11478,16 @@ fm
 fm
 fp
 fq
-fH
-fH
-fQ
-fT
+Yn
+Yn
+II
+II
 fp
 fp
 fp
 fp
-fP
-fP
+Km
+Km
 fp
 fp
 fm
@@ -12013,16 +11735,16 @@ fm
 fm
 fp
 fp
-fH
-fH
-fQ
-fT
+Yn
+Yn
+II
+II
 fV
-gp
+Cq
 fp
 fp
-fP
-fP
+Km
+Km
 fp
 fp
 fm
@@ -12270,16 +11992,16 @@ fm
 fm
 fp
 fq
-fH
-fH
-fQ
-fT
+Yn
+Yn
+II
+II
 gd
-gj
+sU
 fp
 fp
-fP
-fP
+Km
+Km
 fp
 fp
 fm
@@ -12527,16 +12249,16 @@ fm
 fm
 fp
 fp
-fH
-fH
-fQ
-fT
+Yn
+Yn
+II
+II
 fp
 fp
 fp
 fp
-gA
-fP
+MH
+Km
 fp
 fp
 fm
@@ -12784,16 +12506,16 @@ fm
 fm
 fp
 fq
-fH
-fH
-fQ
-fT
+Yn
+Yn
+II
+II
 fV
-gq
+rP
 fp
 fp
-fP
-fP
+Km
+Km
 fp
 fp
 fm
@@ -13040,17 +12762,17 @@ fm
 fm
 fm
 fp
-fE
+PA
 fI
-fH
-fQ
-fT
+Yn
+II
+II
 ge
-gj
+sU
 fp
 fp
-fP
-fP
+Km
+Km
 fp
 fp
 fm
@@ -13297,17 +13019,17 @@ fm
 fm
 fm
 fp
-fF
+Qo
 fJ
-fH
-fQ
-fT
+Yn
+II
+II
 fp
 fp
 fp
 fp
-fP
-fP
+Km
+Km
 fp
 fp
 fm
@@ -13555,16 +13277,16 @@ fm
 fm
 fp
 fq
-fH
-fH
-fQ
-fT
+Yn
+Yn
+II
+II
 fV
-gr
+Gi
 fp
 fp
-fP
-fP
+Km
+Km
 fp
 fp
 fm
@@ -13812,16 +13534,16 @@ fm
 fm
 fp
 fp
-fL
-fN
-fN
-fU
+xn
+TC
+TC
+Kc
 gf
-gj
+sU
 fp
 fp
-fP
-fP
+Km
+Km
 fp
 fp
 fm
@@ -14077,8 +13799,8 @@ fp
 fp
 fp
 fp
-fP
-fP
+Km
+Km
 fp
 fp
 fm
@@ -14327,15 +14049,15 @@ fm
 fp
 fp
 fp
-fP
-fN
+Km
+TC
 fp
 gg
 gs
 gv
 gy
-fP
-fN
+Km
+TC
 fp
 fp
 fm
@@ -14583,16 +14305,16 @@ fm
 fm
 fp
 fp
-fP
-fP
-fP
+Km
+Km
+Km
 fp
 gh
 gt
 gw
 fp
-fP
-fP
+Km
+Km
 fp
 fp
 fm
@@ -14839,17 +14561,17 @@ fm
 fm
 fm
 fp
-ny
-fP
-fP
-fP
+UB
+Km
+Km
+Km
 fp
 fp
 fp
 fp
 fp
-fP
-fP
+Km
+Km
 fp
 fp
 fm
@@ -15097,16 +14819,16 @@ fm
 fm
 fp
 fp
-fP
-fP
-fP
-fP
-fP
-fP
-fN
-fP
-fP
-fP
+Km
+Km
+Km
+Km
+Km
+Km
+TC
+Km
+Km
+Km
 fp
 fp
 fm
@@ -15355,15 +15077,15 @@ fm
 fp
 fp
 fp
-fN
-fP
-fP
-fP
-gu
-fP
-fP
-fP
-fN
+TC
+Km
+Km
+Km
+ww
+Km
+Km
+Km
+TC
 fp
 fp
 fm

@@ -3,34 +3,28 @@
 	icon = 'icons/obj/atmos.dmi'
 	use_power = NO_POWER_USE
 	max_integrity = 250
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 60, "acid" = 30, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 60, ACID = 30, STAMINA = 0)
 	anchored = FALSE
+	interacts_with_air = TRUE
 
 	var/datum/gas_mixture/air_contents
 	var/obj/machinery/atmospherics/components/unary/portables_connector/connected_port
 	var/obj/item/tank/holding
 
 	var/volume = 0
-
 	var/maximum_pressure = 90 * ONE_ATMOSPHERE
 
-/obj/machinery/portable_atmospherics/New()
-	..()
-	SSair.atmos_air_machinery += src
-
+/obj/machinery/portable_atmospherics/Initialize(mapload)
+	. = ..()
 	air_contents = new(volume)
 	air_contents.set_temperature(T20C)
-
-	return 1
+	SSair.start_processing_machine(src)
 
 /obj/machinery/portable_atmospherics/Destroy()
-	SSair.atmos_air_machinery -= src
+	SSair.stop_processing_machine(src)
 	disconnect()
 	qdel(air_contents)
 	air_contents = null
-	
-	SSair.atmos_machinery -= src
-
 	return ..()
 
 /obj/machinery/portable_atmospherics/ex_act(severity, target)
@@ -121,7 +115,7 @@
 
 /obj/machinery/portable_atmospherics/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/tank))
-		if(!(stat & BROKEN))
+		if(!(machine_stat & BROKEN))
 			var/obj/item/tank/T = W
 			if(!user.transferItemToLoc(T, src))
 				return
@@ -130,7 +124,7 @@
 			replace_tank(user, FALSE, T)
 			update_icon()
 	else if(W.tool_behaviour == TOOL_WRENCH)
-		if(!(stat & BROKEN))
+		if(!(machine_stat & BROKEN))
 			if(connected_port)
 				investigate_log("was disconnected from [connected_port] by [key_name(user)].", INVESTIGATE_ATMOS)
 				disconnect()
@@ -160,7 +154,7 @@
 		return ..()
 
 /obj/machinery/portable_atmospherics/attacked_by(obj/item/I, mob/user)
-	if(I.force < 10 && !(stat & BROKEN))
+	if(I.force < 10 && !(machine_stat & BROKEN))
 		take_damage(0)
 	else
 		investigate_log("was smacked with \a [I] by [key_name(user)].", INVESTIGATE_ATMOS)

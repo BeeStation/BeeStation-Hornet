@@ -39,7 +39,6 @@ By design, d1 is the smallest direction and d2 is the highest
 	desc = "A flexible, superconducting insulated cable for heavy-duty power transfer."
 	icon = 'icons/obj/power_cond/cables.dmi'
 	icon_state = "0-1"
-	level = 1 //is underfloor
 	layer = WIRE_LAYER //Above hidden pipes, GAS_PIPE_HIDDEN_LAYER
 	anchored = TRUE
 	obj_flags = CAN_BE_HIT | ON_BLUEPRINTS
@@ -93,10 +92,9 @@ By design, d1 is the smallest direction and d2 is the highest
 	d1 = text2num(copytext(icon_state, 1, dash))
 	d2 = text2num(copytext(icon_state, dash + length(icon_state[dash])))
 
-	var/turf/T = get_turf(src)			// hide if turf is not intact
-	if(level==1)
-		hide(T.intact)
 	GLOB.cable_list += src //add it to the global cable list
+
+	AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE)
 
 	var/list/cable_colors = GLOB.cable_colors
 	cable_color = param_color || cable_color || pick(cable_colors)
@@ -126,13 +124,6 @@ By design, d1 is the smallest direction and d2 is the highest
 ///////////////////////////////////
 // General procedures
 ///////////////////////////////////
-
-//If underfloor, hide the cable
-/obj/structure/cable/hide(i)
-
-	if(level == 1 && isturf(loc))
-		invisibility = i ? INVISIBILITY_MAXIMUM : 0
-	update_icon()
 
 /obj/structure/cable/update_icon()
 	icon_state = "[d1]-[d2]"
@@ -203,7 +194,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable/proc/get_power_info()
 	if(powernet && (powernet.avail > 0))		// is it powered?
-		return "<span class='danger'>Total power: [DisplayPower(powernet.avail)]\nLoad: [DisplayPower(powernet.load)]\nExcess power: [DisplayPower(surplus())]</span>"
+		return "<span class='danger'>Total power: [display_power(powernet.avail)]\nLoad: [display_power(powernet.load)]\nExcess power: [display_power(surplus())]</span>"
 	else
 		return "<span class='danger'>The cable is not powered.</span>"
 
@@ -460,7 +451,7 @@ By design, d1 is the smallest direction and d2 is the highest
 		moveToNullspace()
 	powernet.remove_cable(src) //remove the cut cable from its powernet
 
-	addtimer(CALLBACK(O, .proc/auto_propogate_cut_cable, O), 0) //so we don't rebuild the network X times when singulo/explosion destroys a line of X cables
+	addtimer(CALLBACK(O, PROC_REF(auto_propogate_cut_cable), O), 0) //so we don't rebuild the network X times when singulo/explosion destroys a line of X cables
 
 	// Disconnect machines connected to nodes
 	if(d1 == 0) // if we cut a node (O-X) cable
@@ -531,33 +522,14 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	if(cable_colors[cable_color])
 		cable_color = cable_colors[cable_color]
 
-	pixel_x = rand(-2,2)
-	pixel_y = rand(-2,2)
+	pixel_x = base_pixel_x + rand(-2,2)
+	pixel_y = base_pixel_y + rand(-2,2)
 	update_icon()
 	recipes = GLOB.cable_coil_recipes
 
 ///////////////////////////////////
 // General procedures
 ///////////////////////////////////
-
-
-//you can use wires to heal robotics
-/obj/item/stack/cable_coil/attack(mob/living/carbon/human/H, mob/user)
-	if(!istype(H))
-		return ..()
-
-	var/obj/item/bodypart/affecting = H.get_bodypart(check_zone(user.zone_selected))
-	if(affecting && (!IS_ORGANIC_LIMB(affecting)))
-		if(user == H)
-			user.visible_message("<span class='notice'>[user] starts to fix some of the wires in [H]'s [parse_zone(affecting.body_zone)].</span>", "<span class='notice'>You start fixing some of the wires in [H == user ? "your" : "[H]'s"] [parse_zone(affecting.body_zone)].</span>")
-			if(!do_mob(user, H, 50))
-				return
-		if(item_heal_robotic(H, user, 0, 15))
-			use(1)
-		return
-	else
-		return ..()
-
 
 /obj/item/stack/cable_coil/update_icon()
 	icon_state = "[initial(item_state)][amount < 3 ? amount : ""]"
@@ -802,6 +774,9 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 /obj/item/stack/cable_coil/red
 	cable_color = "red"
 	color = "#ff0000"
+
+/obj/item/stack/cable_coil/red/one
+	amount = 1
 
 /obj/item/stack/cable_coil/yellow
 	cable_color = "yellow"

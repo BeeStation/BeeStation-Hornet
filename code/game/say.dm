@@ -38,7 +38,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 /atom/movable/proc/send_speech(message, range = 7, obj/source = src, bubble_type, list/spans, datum/language/message_language = null, list/message_mods = list())
 	var/rendered = compose_message(src, message_language, message, , spans, message_mods)
 	var/list/show_overhead_message_to = list()
-	for(var/atom/movable/AM as() in get_hearers_in_view(range, source))
+	for(var/atom/movable/AM as() in get_hearers_in_view(range, source, SEE_INVISIBLE_MAXIMUM))
 		if(ismob(AM))
 			var/mob/M = AM
 			if(M.should_show_chat_message(source, message_language, FALSE, is_heard = TRUE))
@@ -48,7 +48,6 @@ GLOBAL_LIST_INIT(freqtospan, list(
 		create_chat_message(src, message_language, show_overhead_message_to, message, spans, message_mods)
 
 /atom/movable/proc/compose_message(atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), face_name = FALSE)
-	//This proc uses text() because it is faster than appending strings. Thanks BYOND.
 	//Basic span
 	var/spanpart1 = "<span class='[radio_freq ? get_radio_span(radio_freq) : "game say"]'>"
 	//Start name span.
@@ -62,21 +61,12 @@ GLOBAL_LIST_INIT(freqtospan, list(
 		if(face_name)
 			namepart = "[H.get_face_name()]" //So "fake" speaking like in hallucinations does not give the speaker away if disguised
 		if(!radio_freq)
-			if(H.wear_id)
-				var/datum/job/wearer_job = SSjob.GetJob(H.wear_id.GetJobName())
-				var/wearer_say_span
-				if(wearer_job)
-					wearer_say_span = wearer_job.say_span
+			if(H.wear_id?.GetID())
+				var/obj/item/card/id/idcard = H.wear_id.GetID()
+				if(idcard.hud_state == JOB_HUD_UNKNOWN)
+					spanpart2 = "<span class='name unassigned'>"
 				else
-					switch(H.wear_id.GetJobName())
-						if("CentCom")
-							wearer_say_span = "centcom"
-						if("Prisoner")
-							wearer_say_span = "prisoner"
-						else
-							wearer_say_span = "unknown"
-				if(wearer_say_span)
-					spanpart2 = "<span class='name [wearer_say_span]'>"
+					spanpart2 = "<span class='name [idcard.hud_state]'>"
 			else
 				spanpart2 = "<span class='name unknown'>"
 	else if(isliving(speaker) && !radio_freq)
@@ -87,12 +77,19 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	var/endspanpart = "</span>"
 
 	//Message
-	var/messagepart = " <span class='message'>[lang_treat(speaker, message_language, raw_message, spans, message_mods)]</span></span>"
+	var/messagepart
 
 	var/languageicon = ""
-	var/datum/language/D = GLOB.language_datum_instances[message_language]
-	if(istype(D) && D.display_icon(src))
-		languageicon = "[D.get_icon()] "
+	if(message_mods[MODE_CUSTOM_SAY_ERASE_INPUT])
+		messagepart = message_mods[MODE_CUSTOM_SAY_EMOTE]
+	else
+		messagepart = lang_treat(speaker, message_language, raw_message, spans, message_mods)
+
+		var/datum/language/D = GLOB.language_datum_instances[message_language]
+		if(istype(D) && D.display_icon(src))
+			languageicon = "[D.get_icon()] "
+
+	messagepart = " <span class='message'>[say_emphasis(messagepart)]</span></span>"
 
 	return "[spanpart1][spanpart2][freqpart][languageicon][compose_track_href(speaker, namepart)][namepart][compose_job(speaker, message_language, raw_message, radio_freq)][endspanpart][messagepart]"
 
@@ -120,24 +117,30 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	if(copytext_char(input, -2) == "!!")
 		spans |= SPAN_YELL
 
+	var/say_mod = message_mods[MODE_CUSTOM_SAY_EMOTE]
+	if(!say_mod)
+		say_mod = say_mod(input, message_mods)
+
 	var/spanned = attach_spans(input, spans)
-	return "[say_mod(input, message_mods)], \"[spanned]\""
+	return "[say_mod], \"[spanned]\""
+
+/// Scans the input sentence for speech emphasis modifiers, notably _italics_ and **bold**
+/atom/proc/say_emphasis(message, var/list/ignore = list())
+	var/regex/markup
+	for(var/tag in (GLOB.markup_tags - ignore))
+		markup = GLOB.markup_regex[tag]
+		message = markup.Replace_char(message, "$2[GLOB.markup_tags[tag][1]]$3[GLOB.markup_tags[tag][2]]$5")
+
+	return message
 
 /atom/movable/proc/lang_treat(atom/movable/speaker, datum/language/language, raw_message, list/spans, list/message_mods = list(), no_quote = FALSE)
+	var/atom/movable/source = speaker.GetSource() || speaker //is the speaker virtual
 	if(has_language(language))
-		var/atom/movable/AM = speaker.GetSource()
-		if(AM) //Basically means "if the speaker is virtual"
-			return no_quote ? raw_message : AM.say_quote(raw_message, spans, message_mods)
-		else
-			return no_quote ? raw_message : speaker.say_quote(raw_message, spans, message_mods)
+		return no_quote ? raw_message : source.say_quote(raw_message, spans, message_mods)
 	else if(language)
-		var/atom/movable/AM = speaker.GetSource()
 		var/datum/language/D = GLOB.language_datum_instances[language]
 		raw_message = D.scramble(raw_message)
-		if(AM)
-			return no_quote ? raw_message : AM.say_quote(raw_message, spans, message_mods)
-		else
-			return no_quote ? raw_message : speaker.say_quote(raw_message, spans, message_mods)
+		return no_quote ? raw_message : source.say_quote(raw_message, spans, message_mods)
 	else
 		return "makes a strange sound."
 

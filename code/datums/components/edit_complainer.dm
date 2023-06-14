@@ -3,7 +3,7 @@
 	var/list/say_lines
 
 /datum/component/edit_complainer/Initialize(list/text)
-	if(!ismovableatom(parent))
+	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	var/static/list/default_lines = list(
@@ -16,7 +16,7 @@
 		)
 	say_lines = text || default_lines
 
-	RegisterSignal(SSdcs, COMSIG_GLOB_VAR_EDIT, .proc/var_edit_react)
+	RegisterSignal(SSdcs, COMSIG_GLOB_VAR_EDIT, PROC_REF(var_edit_react))
 
 /datum/component/edit_complainer/proc/var_edit_react(datum/source, list/arguments)
 	SIGNAL_HANDLER

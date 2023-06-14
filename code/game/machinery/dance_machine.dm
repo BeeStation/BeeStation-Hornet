@@ -18,7 +18,8 @@
 	name = "radiant dance machine mark IV"
 	desc = "The first three prototypes were discontinued after mass casualty incidents."
 	icon_state = "disco"
-	req_access = list(ACCESS_ENGINE)
+	req_access = null
+	req_one_access = list(ACCESS_HEADS, ACCESS_THEATRE, ACCESS_BAR) // you need one of these
 	anchored = FALSE
 	var/list/spotlights = list()
 	var/list/sparkles = list()
@@ -27,6 +28,7 @@
 	name = "radiant dance machine mark V"
 	desc = "Now redesigned with data gathered from the extensive disco and plasma research."
 	req_access = null
+	req_one_access = null
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags_1 = NODECONSTRUCT_1
@@ -324,7 +326,7 @@
 				glow.update_light()
 				continue
 		if(prob(2))  // Unique effects for the dance floor that show up randomly to mix things up
-			INVOKE_ASYNC(src, .proc/hierofunk)
+			INVOKE_ASYNC(src, PROC_REF(hierofunk))
 		sleep(selection.song_beat)
 
 #undef DISCO_INFENO_RANGE
@@ -435,7 +437,7 @@
 					continue
 				L.stop_sound_channel(CHANNEL_JUKEBOX)
 		for(var/mob/M as() in hearers(10,src))
-			if(!M.client || !(M.client.prefs.toggles & SOUND_INSTRUMENTS))
+			if(!M.client || !(M.client.prefs.toggles & PREFTOGGLE_SOUND_INSTRUMENTS))
 				continue
 			if(!(M in rangers))
 				rangers += M

@@ -1,7 +1,7 @@
 /datum/species/pod
 	// A mutation caused by a human being ressurected in a revival pod. These regain health in light, and begin to wither in darkness.
 	name = "\improper Podperson"
-	id = "pod"
+	id = SPECIES_PODPERSON
 	default_color = "6D0"
 	species_traits = list(MUTCOLORS,EYECOLOR)
 	inherent_traits = list(TRAIT_ALWAYS_CLEAN, TRAIT_BEEFRIEND, TRAIT_NONECRODISEASE)
@@ -13,8 +13,6 @@
 	burnmod = 1.25
 	heatmod = 1.5
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/plant
-	disliked_food = MEAT | DAIRY
-	liked_food = VEGETABLES | FRUIT | GRAIN
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/plant
 
@@ -24,6 +22,7 @@
 	species_r_arm = /obj/item/bodypart/r_arm/pod
 	species_l_leg = /obj/item/bodypart/l_leg/pod
 	species_r_leg = /obj/item/bodypart/r_leg/pod
+	mutanttongue = /obj/item/organ/tongue/podperson
 
 /datum/species/pod/spec_life(mob/living/carbon/human/H)
 	if(H.stat == DEAD)

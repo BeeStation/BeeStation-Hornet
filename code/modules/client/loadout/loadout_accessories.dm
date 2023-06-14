@@ -9,6 +9,14 @@
 	subtype_path = /datum/gear/accessory/scarf
 	cost = 1000
 
+/datum/gear/accessory/scarf/black
+	display_name = "scarf, black"
+	path = /obj/item/clothing/neck/scarf/black
+
+/datum/gear/accessory/scarf/pink
+	display_name = "scarf, pink"
+	path = /obj/item/clothing/neck/scarf/pink
+
 /datum/gear/accessory/scarf/red
 	display_name = "scarf, red"
 	path = /obj/item/clothing/neck/scarf/red
@@ -20,6 +28,22 @@
 /datum/gear/accessory/scarf/darkblue
 	display_name = "scarf, dark blue"
 	path = /obj/item/clothing/neck/scarf/darkblue
+
+/datum/gear/accessory/scarf/purple
+	display_name = "scarf, purple"
+	path = /obj/item/clothing/neck/scarf/purple
+
+/datum/gear/accessory/scarf/yellow
+	display_name = "scarf, yellow"
+	path = /obj/item/clothing/neck/scarf/yellow
+
+/datum/gear/accessory/scarf/orange
+	display_name = "scarf, orange"
+	path = /obj/item/clothing/neck/scarf/orange
+
+/datum/gear/accessory/scarf/cyan
+	display_name = "scarf, cyan"
+	path = /obj/item/clothing/neck/scarf/cyan
 
 /datum/gear/accessory/scarf/zebra
 	display_name = "scarf, zebra"
@@ -34,6 +58,11 @@
 /datum/gear/accessory/scarf/stripedblue
 	display_name = "scarf, striped blue"
 	path = /obj/item/clothing/neck/stripedbluescarf
+	cost = 1200
+
+/datum/gear/accessory/scarf/stripedgreen
+	display_name = "scarf, striped green"
+	path = /obj/item/clothing/neck/stripedgreenscarf
 	cost = 1200
 
 //armbands
@@ -183,4 +212,4 @@
 /datum/gear/accessory/cloak/blackbishop
 	display_name = "black bishop's cloak"
 	path = /obj/item/clothing/neck/cloak/chap/bishop/black
-	allowed_roles = list("Chaplain")
+	allowed_roles = list(JOB_NAME_CHAPLAIN)
