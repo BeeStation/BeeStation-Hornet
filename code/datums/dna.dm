@@ -225,6 +225,7 @@
 		if(DNA_MUTANT_COLOUR)
 			var/mutant_colour = H.dna?.features["mcolor"] || "FFF"
 			setblock(uni_identity, blocknumber, sanitize_hexcolor(mutant_colour))
+	SEND_SIGNAL(src, DNA_UI_UPDATED)
 
 //Please use add_mutation or activate_mutation instead
 /datum/dna/proc/force_give(datum/mutation/HM)
@@ -434,7 +435,7 @@
 	gradient_style = GLOB.hair_gradients_list[deconstruct_block(getblock(structure, DNA_HAIR_GRADIENT_STYLE_BLOCK), GLOB.hair_gradients_list.len)]
 	var/new_colour = sanitize_hexcolor(getblock(structure, DNA_MUTANT_COLOUR))
 	if(new_colour != dna.features["mcolor"])
-		dna.features["mcolor"] = new_colour
+		dna.set_mcolor(new_colour)
 		mutcolor_update = TRUE
 	// Ensure we update the skin tone of all non-foreign bodyparts
 	for(var/obj/item/bodypart/part in bodyparts)
@@ -711,4 +712,19 @@
 
 /datum/dna/proc/set_mcolor(new_colour)
 	features["mcolor"] = new_colour
+	// Snowflake handling for ethcolour that picks the closest eth colour to the mutant
+	// colour available.
+	var/red = color_red(new_colour)
+	var/green = color_green(new_colour)
+	var/blue = color_blue(new_colour)
+	var/best_distance = INFINITY
+	for (var/colour_name in GLOB.color_list_ethereal)
+		var/colour_value = GLOB.color_list_ethereal[colour_name]
+		var/red_delta = red - color_red(colour_value)
+		var/green_delta = green - color_green(colour_value)
+		var/blue_delta = blue - color_blue(colour_value)
+		var/colour_distance = sqrt(red_delta * red_delta + green_delta * green_delta + blue_delta * blue_delta)
+		if (colour_distance < best_distance)
+			features["ethcolor"] = colour_value
+			best_distance = colour_distance
 	update_ui_block(DNA_MUTANT_COLOUR)

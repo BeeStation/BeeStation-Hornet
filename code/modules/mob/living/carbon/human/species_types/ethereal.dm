@@ -64,6 +64,7 @@
 	RegisterSignal(ethereal, COMSIG_ATOM_SHOULD_EMAG, PROC_REF(should_emag))
 	RegisterSignal(ethereal, COMSIG_ATOM_ON_EMAG, PROC_REF(on_emag))
 	RegisterSignal(ethereal, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
+	RegisterSignal(ethereal.dna, DNA_UI_UPDATED, PROC_REF(on_dna_ui_updated))
 
 	spec_updatehealth(ethereal)
 
@@ -78,9 +79,9 @@
 	UnregisterSignal(C, COMSIG_ATOM_SHOULD_EMAG)
 	UnregisterSignal(C, COMSIG_ATOM_ON_EMAG)
 	UnregisterSignal(C, COMSIG_ATOM_EMP_ACT)
+	UnregisterSignal(C.dna, DNA_UI_UPDATED)
 	QDEL_NULL(ethereal_light)
 	return ..()
-
 
 /datum/species/ethereal/random_name(gender, unique, lastname, attempts)
 	. = "[pick(GLOB.ethereal_names)] [random_capital_letter()]"
@@ -91,9 +92,14 @@
 		if(findname(.))
 			. = .(gender, TRUE, lastname, ++attempts)
 
-
 /datum/species/ethereal/spec_updatehealth(mob/living/carbon/human/H)
 	. = ..()
+	update_light(H)
+
+/datum/species/ethereal/proc/on_dna_ui_updated(datum/dna/source)
+	update_light(source.holder)
+
+/datum/species/ethereal/proc/update_light(mob/living/carbon/human/H)
 	if(H.stat != DEAD && !EMPeffect)
 		var/healthpercent = max(H.health, 0) / 100
 		if(!emageffect)

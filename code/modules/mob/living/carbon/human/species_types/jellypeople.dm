@@ -125,7 +125,7 @@
 
 	spare.underwear = "Nude"
 	H.dna.transfer_identity(spare, transfer_SE=1)
-	spare.dna.features["mcolor"] = pick("FFF","888", "8F8", "88F", "F88", "8FF", "F8F", "FF8")
+	spare.dna.set_mcolor(pick("FFF","888", "8F8", "88F", "F88", "8FF", "F8F", "FF8"))
 	spare.real_name = spare.dna.real_name
 	spare.name = spare.dna.real_name
 	spare.updateappearance(mutcolor_update=1)

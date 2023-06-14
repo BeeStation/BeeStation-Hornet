@@ -111,3 +111,6 @@
 
 ///Called to all children when a parent moves, as long as it has the moved relay component.
 #define COMSIG_PARENT_MOVED_RELAY "parent_moved_relay"
+
+/// DNA signals
+#define DNA_UI_UPDATED "dna_ui_updated"	//(datum/source) Called when dna UI is updated
