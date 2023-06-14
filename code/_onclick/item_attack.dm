@@ -66,7 +66,7 @@
 	for(var/datum/surgery/S in M.surgeries)
 		if(S.failed_step)
 			nonharmfulhit = FALSE //No freebies, if you fail a surgery step you should hit your patient
-			failed_step = FALSE //In theory the hit should only happen once, upon failing the step
+			S.failed_step = FALSE //In theory the hit should only happen once, upon failing the step
 
 	if(item_flags & NOBLUDGEON)
 		nonharmfulhit = TRUE
