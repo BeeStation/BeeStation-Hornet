@@ -161,6 +161,7 @@ GLOBAL_LIST_INIT(ghost_role_bannable_roles, list(
 #define BAN_ROLE_IMAGINARY_FRIEND	"Imaginary Friend"
 #define BAN_ROLE_SPLIT_PERSONALITY	"Split Personality"
 #define BAN_ROLE_MIND_TRANSFER		"Mind Transfer Potion"
+#define BAN_ROLE_ERT				"Emergency Response Team"
 
 /// Other roles that don't really fit any of the above, and probably shouldn't be banned with the others as a group
 /// Little to no impact on anything
@@ -168,6 +169,7 @@ GLOBAL_LIST_INIT(other_bannable_roles, list(
 	BAN_ROLE_IMAGINARY_FRIEND,
 	BAN_ROLE_SPLIT_PERSONALITY,
 	BAN_ROLE_MIND_TRANSFER,
+	BAN_ROLE_ERT,
 ))
 
 /proc/role_preference_enabled(client/player, role_preference_key)
@@ -187,7 +189,7 @@ GLOBAL_LIST_INIT(other_bannable_roles, list(
 /// gamemode_for_age: The gamemode that this role is typically belonging to, since gamemodes store experience requirements, it checks the player's account age.
 /// req_hours: The amount of living hours required to receive this role.
 /// feedback: if we should send a to_chat
-/proc/should_include_for_role(client/player, banning_key = BAN_ROLE_ALL_ANTAGONISTS, role_preference_key = null, poll_ignore_key = null, datum/game_mode/gamemode_for_age = null, req_hours = 0, feedback = FALSE)
+/proc/should_include_for_role(client/player, banning_key = BAN_ROLE_ALL_ANTAGONISTS, role_preference_key = null, poll_ignore_key = null, req_hours = 0, feedback = FALSE)
 	if(QDELETED(player) || (poll_ignore_key && GLOB.poll_ignore[poll_ignore_key] && (player.ckey in GLOB.poll_ignore[poll_ignore_key])))
 		return FALSE
 	if(role_preference_key)

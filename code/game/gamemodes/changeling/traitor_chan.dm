@@ -76,8 +76,7 @@
 		if(!QDELETED(character) && character.client && should_include_for_role(
 			character.client,
 			banning_key = BAN_ROLE_CHANGELING,
-			role_preference_key = /datum/role_preference/antagonist/changeling,
-			gamemode_for_age = src
+			role_preference_key = /datum/role_preference/antagonist/changeling
 		))
 			if(!(character.job in restricted_jobs))
 				character.mind.make_Changeling()

@@ -12,7 +12,7 @@
 	fakeable = FALSE
 
 /datum/round_event/ghost_role/nightmare/spawn_role()
-	var/list/candidates = get_candidates(BAN_ROLE_NIGHTMARE, null, /datum/role_preference/midround_ghost/nightmare)
+	var/list/candidates = get_candidates(BAN_ROLE_NIGHTMARE, /datum/role_preference/midround_ghost/nightmare)
 	if(!candidates.len)
 		return NOT_ENOUGH_PLAYERS
 

@@ -428,7 +428,7 @@
 		else
 			candidates -= M
 
-/proc/pollGhostCandidates(Question, jobbanType, datum/game_mode/gametypeCheck, be_special_flag = 0, poll_time = 300, ignore_category = null, flashwindow = TRUE, req_hours = 0)
+/proc/pollGhostCandidates(Question, jobbanType, be_special_flag = 0, poll_time = 300, ignore_category = null, flashwindow = TRUE, req_hours = 0)
 	var/list/candidates = list()
 	if(!(GLOB.ghost_role_flags & GHOSTROLE_STATION_SENTIENCE))
 		return candidates
@@ -436,9 +436,9 @@
 	for(var/mob/dead/observer/G in GLOB.player_list)
 		candidates += G
 
-	return pollCandidates(Question, jobbanType, gametypeCheck, be_special_flag, poll_time, ignore_category, flashwindow, candidates, req_hours)
+	return pollCandidates(Question, jobbanType, be_special_flag, poll_time, ignore_category, flashwindow, candidates, req_hours)
 
-/proc/pollCandidates(Question, banning_key, datum/game_mode/gamemode_for_age, role_preference_key = null, poll_time = 300, poll_ignore_key = null, flashwindow = TRUE, list/group = null, req_hours = 0)
+/proc/pollCandidates(Question, banning_key, role_preference_key = null, poll_time = 300, poll_ignore_key = null, flashwindow = TRUE, list/group = null, req_hours = 0)
 	var/time_passed = world.time
 	if (!Question)
 		Question = "Would you like to be a special role?"
@@ -452,7 +452,6 @@
 			banning_key = banning_key,
 			role_preference_key = role_preference_key,
 			poll_ignore_key = poll_ignore_key,
-			gamemode_for_age = gamemode_for_age,
 			req_hours = req_hours
 		))
 			continue
@@ -469,13 +468,13 @@
 	return result
 
 /proc/pollCandidatesForMob(Question, jobbanType, datum/game_mode/gametypeCheck, be_special_flag = 0, poll_time = 300, mob/M, ignore_category = null)
-	var/list/L = pollGhostCandidates(Question, jobbanType, gametypeCheck, be_special_flag, poll_time, ignore_category)
+	var/list/L = pollGhostCandidates(Question, jobbanType, be_special_flag, poll_time, ignore_category)
 	if(QDELETED(M) || !M.loc)
 		return list()
 	return L
 
 /proc/pollCandidatesForMobs(Question, jobbanType, datum/game_mode/gametypeCheck, be_special_flag = 0, poll_time = 300, list/mobs, ignore_category = null)
-	var/list/L = pollGhostCandidates(Question, jobbanType, gametypeCheck, be_special_flag, poll_time, ignore_category)
+	var/list/L = pollGhostCandidates(Question, jobbanType, be_special_flag, poll_time, ignore_category)
 	var/i=1
 	for(var/v in mobs)
 		var/atom/A = v

@@ -139,7 +139,7 @@
 
 /datum/admins/proc/makeWizard()
 
-	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for the position of a Wizard Federation 'diplomat'?", BAN_ROLE_WIZARD, null, /datum/role_preference/midround_ghost/wizard)
+	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for the position of a Wizard Federation 'diplomat'?", BAN_ROLE_WIZARD, /datum/role_preference/midround_ghost/wizard)
 
 	var/mob/dead/observer/selected = pick_n_take(candidates)
 
@@ -182,7 +182,7 @@
 
 
 /datum/admins/proc/makeNukeTeam(maxCount = 5)
-	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for a nuke team being sent in?", BAN_ROLE_OPERATIVE, null, /datum/role_preference/midround_ghost/nuclear_operative)
+	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for a nuke team being sent in?", BAN_ROLE_OPERATIVE, /datum/role_preference/midround_ghost/nuclear_operative)
 	var/list/mob/dead/observer/chosen = list()
 	var/mob/dead/observer/theghost = null
 
@@ -346,7 +346,7 @@
 		ertemplate.enforce_human = prefs["enforce_human"]["value"] == "Yes" ? TRUE : FALSE
 		ertemplate.opendoors = prefs["open_armory"]["value"] == "Yes" ? TRUE : FALSE
 
-		var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for [ertemplate.polldesc] ?", "deathsquad", null, req_hours = 50)
+		var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for [ertemplate.polldesc] ?", BAN_ROLE_ERT, req_hours = 50)
 		var/teamSpawned = FALSE
 
 		if(candidates.len > 0)

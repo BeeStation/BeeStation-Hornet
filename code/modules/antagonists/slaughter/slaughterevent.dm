@@ -14,7 +14,7 @@
 	role_name = "slaughter demon"
 
 /datum/round_event/ghost_role/slaughter/spawn_role()
-	var/list/candidates = get_candidates(BAN_ROLE_SLAUGHTER_DEMON, null, null, null/*TODO POLL_IGNORE_SLAUGHTER_DEMON*/)
+	var/list/candidates = get_candidates(BAN_ROLE_SLAUGHTER_DEMON, null, null/*TODO POLL_IGNORE_SLAUGHTER_DEMON*/)
 	if(!candidates.len)
 		return NOT_ENOUGH_PLAYERS
 

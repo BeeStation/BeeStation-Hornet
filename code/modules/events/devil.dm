@@ -19,7 +19,7 @@
 		return MAP_ERROR
 
 	//selecting a candidate player
-	var/list/candidates = get_candidates(BAN_ROLE_DEVIL, null, /datum/role_preference/midround_ghost/devil)
+	var/list/candidates = get_candidates(BAN_ROLE_DEVIL, /datum/role_preference/midround_ghost/devil)
 	if(!candidates.len)
 		return NOT_ENOUGH_PLAYERS
 

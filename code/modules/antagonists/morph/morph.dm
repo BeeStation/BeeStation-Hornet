@@ -286,7 +286,7 @@
 	role_name = BAN_ROLE_MORPH
 
 /datum/round_event/ghost_role/morph/spawn_role()
-	var/list/candidates = get_candidates(BAN_ROLE_MORPH, null, /datum/role_preference/midround_ghost/morph)
+	var/list/candidates = get_candidates(BAN_ROLE_MORPH, /datum/role_preference/midround_ghost/morph)
 	if(!candidates.len)
 		return NOT_ENOUGH_PLAYERS
 

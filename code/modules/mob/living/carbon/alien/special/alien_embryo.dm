@@ -86,7 +86,7 @@
 
 	bursting = TRUE
 
-	var/list/candidates = pollGhostCandidates("Do you want to play as an alien larva that will burst out of [owner]?", BAN_ROLE_ALIEN, null, /datum/role_preference/midround_ghost/xenomorph, 100, POLL_IGNORE_ALIEN_LARVA)
+	var/list/candidates = pollGhostCandidates("Do you want to play as an alien larva that will burst out of [owner]?", BAN_ROLE_ALIEN, /datum/role_preference/midround_ghost/xenomorph, 100, POLL_IGNORE_ALIEN_LARVA)
 
 	if(QDELETED(src) || QDELETED(owner))
 		return

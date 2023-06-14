@@ -576,7 +576,7 @@
 
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(!QDELETED(player) && player.client && is_station_level(player.z) && !player.mind.special_role)
-			if(should_include_for_role(player.client, banning_key = banning_key, role_preference_key = role_preference, gamemode_for_age = src))
+			if(should_include_for_role(player.client, banning_key = banning_key, role_preference_key = role_preference))
 				candidates += player.mind				// Get a list of all the people who want to be the antagonist for this round
 
 	var/restricted_list = length(restricted_roles) ? restricted_roles : restricted_jobs
