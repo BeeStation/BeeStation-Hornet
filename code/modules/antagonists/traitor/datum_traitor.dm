@@ -225,10 +225,10 @@
 			.=2
 
 /datum/antagonist/traitor/greet()
-	to_chat(owner.current, "<span class='alertsyndie'>You are the [owner.special_role].</span>")
-	owner.announce_objectives()
-	if(should_give_codewords)
-		give_codewords()
+	var/list/msg = list()
+	msg += "<span class='alertsyndie'>You are the [owner.special_role].</span>"
+	msg += "<span class='alertsyndie'>Use the 'Open [owner.special_role] Information' action at the top left in order to re-review your objectives, codewords, and such!</span>"
+	to_chat(owner.current, EXAMINE_BLOCK(msg.Join("\n")))
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Traitor",
 		"Complete your objectives, no matter the cost.")
 
@@ -269,24 +269,6 @@
 	if(istype(A)  && traitor_kind == TRAITOR_AI)
 		A.hack_software = FALSE
 	UnregisterSignal(owner.current, COMSIG_MOVABLE_HEAR, PROC_REF(handle_hearing))
-
-/datum/antagonist/traitor/proc/give_codewords()
-	if(!owner.current)
-		return
-	var/mob/traitor_mob=owner.current
-
-	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
-	var/responses = jointext(GLOB.syndicate_code_response, ", ")
-
-	to_chat(traitor_mob, "<U><B>The Syndicate have provided you with the following codewords to identify fellow agents:</B></U>")
-	to_chat(traitor_mob, "<B>Code Phrase</B>: <span class='blue'>[phrases]</span>")
-	to_chat(traitor_mob, "<B>Code Response</B>: <span class='red'>[responses]</span>")
-
-	antag_memory += "<b>Code Phrase</b>: <span class='blue'>[phrases]</span><br>"
-	antag_memory += "<b>Code Response</b>: <span class='red'>[responses]</span><br>"
-
-	to_chat(traitor_mob, "Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
-	to_chat(traitor_mob, "<span class='alertwarning'>You memorize the codewords, allowing you to recognise them when heard.</span>")
 
 /datum/antagonist/traitor/proc/add_law_zero()
 	var/mob/living/silicon/ai/killer = owner.current

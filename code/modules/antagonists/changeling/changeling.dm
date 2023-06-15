@@ -404,7 +404,6 @@
 	to_chat(owner.current, "<b>You must complete the following tasks:</b>")
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ling_aler.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
-	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Changeling",
 		"You have absorbed the form of [owner.current] and have infiltrated the station. Use your changeling powers to complete your objectives.")
 

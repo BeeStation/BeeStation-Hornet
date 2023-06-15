@@ -392,7 +392,7 @@ GLOBAL_LIST(admin_antag_list)
 
 /datum/action/antag_info/New(Target)
 	. = ..()
-	name = "Open [target] Information:"
+	name = "Open [target] Information"
 
 /datum/action/antag_info/Trigger(trigger_flags)
 	. = ..()
