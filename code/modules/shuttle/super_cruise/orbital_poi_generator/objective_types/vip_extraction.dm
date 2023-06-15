@@ -74,7 +74,6 @@
 		new belt_type(T)
 	generated = TRUE
 
-
 //=====================
 // BASE VIP Outfit
 //=====================
