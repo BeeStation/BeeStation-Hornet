@@ -438,6 +438,8 @@
 		"cult-altar.gif" = 'html/img/cult-altar.gif',
 		"cult-forge.gif" = 'html/img/cult-forge.gif',
 		"cult-pylon.gif" = 'html/img/cult-pylon.gif',
+		"cult-carve.png" = 'html/img/cult-carve.png',
+		"cult-comms.png" = 'html/img/cult-comms.png',
 		"dagger.png" = 'html/img/dagger.png',
 		"sacrune.png" = 'html/img/sacrune.png',
 		"archives.png" = 'html/img/archives.png',

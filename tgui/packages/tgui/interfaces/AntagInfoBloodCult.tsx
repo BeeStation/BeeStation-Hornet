@@ -8,8 +8,7 @@ type Info = {
   objectives: Objective[];
 };
 
-const IntroSection = (_props, context) => {
-  const { data } = useBackend<Info>(context);
+const IntroSection = (_props, _context) => {
   return (
     <Stack>
       <Stack.Item>
@@ -229,8 +228,150 @@ const PowersSection = (_props, _context) => {
           on the floor, which have a variety of abilities!
         </Stack.Item>
         <Stack.Divider />
-        <Stack.Item>tbd</Stack.Item>
+        <Stack.Item>
+          <Box
+            inline
+            as="img"
+            src={resolveAsset('cult-comms.png')}
+            width="32px"
+            style={{ '-ms-interpolation-mode': 'nearest-neighbor', 'float': 'left' }}
+          />
+          Use{' '}
+          <Box inline textColor="red">
+            Communion
+          </Box>{' '}
+          to communicate with your fellow cultists. Messages communicated this way can be heard by all cultists.
+          <br />
+          Be warned though, those standing close to you will also hear you!
+        </Stack.Item>
       </Stack>
+    </Section>
+  );
+};
+
+const BloodMagicSection = (_props, context) => {
+  const [tab, setTab] = useLocalState(context, 'magicTab', 1);
+  return (
+    <Section name="Blood Magic">
+      <Tabs>
+        <Tabs.Tab selected={tab === 1} onClick={() => setTab(1)}>
+          Blood Magic
+        </Tabs.Tab>
+        <Tabs.Tab selected={tab === 2} onClick={() => setTab(2)}>
+          Stun
+        </Tabs.Tab>
+        <Tabs.Tab selected={tab === 3} onClick={() => setTab(3)}>
+          Teleport
+        </Tabs.Tab>
+        <Tabs.Tab selected={tab === 4} onClick={() => setTab(4)}>
+          Electromagnetic Pulse
+        </Tabs.Tab>
+        <Tabs.Tab selected={tab === 5} onClick={() => setTab(5)}>
+          Shadow Shackles
+        </Tabs.Tab>
+        <Tabs.Tab selected={tab === 6} onClick={() => setTab(6)}>
+          Twisted Construction
+        </Tabs.Tab>
+        <Tabs.Tab selected={tab === 7} onClick={() => setTab(7)}>
+          Summon Combat Equipment
+        </Tabs.Tab>
+        <Tabs.Tab selected={tab === 8} onClick={() => setTab(8)}>
+          Summon Ritual Dagger
+        </Tabs.Tab>
+        <Tabs.Tab selected={tab === 9} onClick={() => setTab(9)}>
+          Hallucinations
+        </Tabs.Tab>
+        <Tabs.Tab selected={tab === 10} onClick={() => setTab(10)}>
+          Conceal Presence
+        </Tabs.Tab>
+        <Tabs.Tab selected={tab === 11} onClick={() => setTab(11)}>
+          Blood Rites
+        </Tabs.Tab>
+        {tab === 1 && (
+          <Box>
+            <Box
+              inline
+              as="img"
+              src={resolveAsset('cult-carve.png')}
+              width="32px"
+              style={{ '-ms-interpolation-mode': 'nearest-neighbor', 'float': 'left' }}
+            />
+            <Box inline textColor="red">
+              Prepare Blood Magic
+            </Box>{' '}
+            allows you to carve runes into yourself in order to cast blood magic. These are undetectable until they are used,
+            and can help in various situations.
+            <br />
+            This only allows a maximum of 1 piece of magic to be carved into you, however, with an <b>Empower</b> rune, you can
+            carve up to 4 pieces of blood magic into you!
+            <br />
+            <b>Note</b>: Most blood magic is completely ineffective on holy people (the chaplain) or someone with antimagic (i.e
+            someone holding an holymelon).
+          </Box>
+        )}
+        {tab === 2 && (
+          <Box>
+            <h2>
+              <Box inline textColor="#FF0000">
+                <i>Fuu ma&apos;jin!</i>
+              </Box>
+            </h2>
+            <br />
+            <b>Name</b>: Stun
+            <br />
+            <b>Charges</b>: 1
+            <br />
+            <b>Effect</b>: When used on someone at melee range, flood their mind with the forbidden whispers of Nar&apos;sie,
+            causing them to collapse to the floor as a gibbering mess. People with mindshields are <b>completely immune</b> to
+            this magic! Pairs well with Shadow Shackles.
+          </Box>
+        )}
+        {tab === 3 && (
+          <Box>
+            <h2>
+              <Box inline textColor="#551A8B">
+                <i>Sas&apos;so c&apos;arta forbici!</i>
+              </Box>
+            </h2>
+            <br />
+            <b>Name</b>: Teleport
+            <br />
+            <b>Charges</b>: 1
+            <br />
+            <b>Effect</b>: Instantly teleports yourself, someone, or something to a scribed teleport rune.
+          </Box>
+        )}
+        {tab === 4 && (
+          <Box>
+            <h2>
+              <Box inline textColor="#551A8B">
+                <i>Ta&apos;gh fara&apos;qha fel d&apos;amar det!!</i>
+              </Box>
+            </h2>
+            <br />
+            <b>Name</b>: Teleport
+            <br />
+            <b>Charges</b>: 1
+            <br />
+            <b>Effect</b>: Instantly teleports yourself, someone, or something to a scribed teleport rune.
+          </Box>
+        )}
+        {tab === 5 && (
+          <Box>
+            <h2>
+              <Box inline textColor="#2a2a2a">
+                <i>In&apos;otum Lig&apos;abis!</i>
+              </Box>
+            </h2>
+            <br />
+            <b>Name</b>: Shadow Shackles
+            <br />
+            <b>Charges</b>: 4
+            <br />
+            <b>Effect</b>: Cuffs someone with unholy shadow shackles when used on someone at melee range. Pairs well with Stun.
+          </Box>
+        )}
+      </Tabs>
     </Section>
   );
 };
@@ -247,6 +388,9 @@ export const AntagInfoBloodCult = (_props, context) => {
           </Stack.Item>
           <Stack.Item>
             <PowersSection />
+          </Stack.Item>
+          <Stack.Item>
+            <BloodMagicSection />
           </Stack.Item>
           <Stack.Item>
             <StructureSection />
