@@ -91,7 +91,7 @@
 	var/regression_label = CONFIG_GET(string/regression_issue_label)
 	if (regression_label && isRegression)
 		labels += regression_label
-	DIRECT_OUTPUT(owner, link("[githuburl]/issues/new?body=[rustg_url_encode(body)][length(labels) ? "&labels=[rustg_url_encode(jointext(labels, ","))]" : ""]"))
+	DIRECT_OUTPUT(owner, link("[githuburl]/issues/new?title=[rustg_url_encode(title)]&body=[rustg_url_encode(body)][length(labels) ? "&labels=[rustg_url_encode(jointext(labels, ","))]" : ""]"))
 
 /datum/issue_reporter/ui_close(mob/user, datum/tgui/tgui)
 	. = ..()

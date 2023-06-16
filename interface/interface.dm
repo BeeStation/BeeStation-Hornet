@@ -58,7 +58,7 @@
 	set desc = "Report an issue"
 	set hidden = 1
 
-	if(tgalert(src, "What kind of issue are you facing?", "Report Issue", "In-game Bug", "UI issue", "Other") != "UI issue")
+	if(alert(src, "What kind of issue are you facing?", "Report Issue", "In-game Bug", "UI issue", "Other") != "UI issue")
 		new /datum/issue_reporter(src)
 		return
 	var/githuburl = CONFIG_GET(string/githuburl)
@@ -76,7 +76,7 @@
 		var/url_params = "Reporting client version: [byond_version].[byond_build]\n\n[issue_template]"
 		if(GLOB.round_id || servername)
 			url_params = "Issue reported from [GLOB.round_id ? " Round ID: [GLOB.round_id][servername ? " ([servername])" : ""]" : servername]\n\n[url_params]"
-		var/issue_label = CONFIG_GET(string/issue_label)
+		var/issue_label = CONFIG_GET(string/default_issue_label)
 		DIRECT_OUTPUT(src, link("[githuburl]/issues/new?body=[rustg_url_encode(url_params)][issue_label ? "&labels=[rustg_url_encode(issue_label)]" : ""]"))
 	else
 		to_chat(src, "<span class='danger'>The Github URL is not set in the server configuration.</span>")
