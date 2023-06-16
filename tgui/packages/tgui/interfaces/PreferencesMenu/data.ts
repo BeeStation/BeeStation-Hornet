@@ -111,10 +111,9 @@ export type AntagonistData = {
   name: string;
   description: string;
   category: string;
-  role_key?: string;
-  poll_ignore_key?: string;
   path: string;
   icon_path: string;
+  ban_key?: string;
 };
 
 export enum RandomSetting {
@@ -196,8 +195,7 @@ export type PreferencesMenuData = {
   is_donator: BooleanLike;
 
   antag_bans?: string[];
-  antag_days_left?: Record<string, number>;
-  selected_antags: string[];
+  enabled_antags: string[];
 
   active_slot: number;
   max_slot: number;

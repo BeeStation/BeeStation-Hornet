@@ -8,7 +8,7 @@
 	var/list/data = list()
 	data["equipped_gear"] = preferences.equipped_gear
 	data["purchased_gear"] = preferences.purchased_gear
-	data["metacurrency_balance"] = preferences.parent.get_metabalance()
+	data["metacurrency_balance"] = preferences.parent.get_metabalance_unreliable()
 	data["is_donator"] = (IS_PATRON(preferences.parent.ckey) || is_admin(preferences.parent))
 	return data
 

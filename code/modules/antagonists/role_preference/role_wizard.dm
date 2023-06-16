@@ -10,6 +10,6 @@
 	name = "Wizard (Midround)"
 	description = WIZARD_DESC
 	antag_datum = /datum/antagonist/wizard
-	use_preview_icon = /datum/role_preference/antagonist/wizard
+	use_icon = /datum/role_preference/antagonist/wizard
 
 #undef WIZARD_DESC

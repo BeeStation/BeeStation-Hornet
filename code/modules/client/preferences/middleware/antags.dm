@@ -3,29 +3,24 @@
 		"set_antags" = PROC_REF(set_antags),
 	)
 
+/datum/preference_middleware/antags/ui_data(mob/user)
+	if (preferences.current_window != PREFERENCE_TAB_CHARACTER_PREFERENCES)
+		return list()
+	var/list/data = list()
+	var/list/enabled_antags = list()
+	for(var/pref_type in GLOB.role_preference_entries)
+		if(role_preference_enabled(preferences.parent, pref_type))
+			enabled_antags += "[pref_type]"
+	data["enabled_antags"] = enabled_antags
+	return data
+
 /datum/preference_middleware/antags/get_ui_static_data(mob/user)
 	if (preferences.current_window != PREFERENCE_TAB_CHARACTER_PREFERENCES)
 		return list()
-
 	var/list/data = list()
-
-	var/list/selected_antags = list()
-
-	for (var/antag in preferences.be_special)
-		selected_antags += serialize_antag_name(antag)
-
-	data["selected_antags"] = selected_antags
-
 	var/list/antag_bans = get_antag_bans()
 	if (antag_bans.len)
 		data["antag_bans"] = antag_bans
-
-	/*
-	var/list/antag_days_left = get_antag_days_left()
-	if (antag_days_left?.len)
-		data["antag_days_left"] = antag_days_left
-	*/
-
 	return data
 
 /datum/preference_middleware/antags/get_constant_data()
@@ -34,12 +29,12 @@
 
 	for(var/pref_type in GLOB.role_preference_entries)
 		var/datum/role_preference/pref = GLOB.role_preference_entries[pref_type]
+		var/datum/antagonist/antag_datum = pref.antag_datum
 		antags += list(list(
 			"name" = pref.name,
 			"description" = pref.description,
 			"category" = pref.category,
-			"role_key" = pref.role_key,
-			"poll_ignore_key" = pref.poll_ignore_key,
+			"ban_key" = ispath(antag_datum, /datum/antagonist) ? initial(antag_datum.banning_key) : null,
 			"path" = "[pref_type]",
 			"icon_path" = "[serialize_antag_name("[pref.use_icon || pref_type]")]"
 		))
@@ -62,76 +57,29 @@
 	var/sent_antags = params["antags"]
 	var/toggled = params["toggled"]
 
-	var/antags = list()
+	var/list/valid_antags = list()
+	for(var/type in GLOB.role_preference_entries)
+		valid_antags += "[type]"
 
-	var/serialized_antags = get_serialized_antags()
-
+	var/any_changed = FALSE
 	for (var/sent_antag in sent_antags)
-		var/special_role = serialized_antags[sent_antag]
-		if (!special_role)
+		if(!(sent_antag in valid_antags))
 			continue
-
-		antags += special_role
-
-	if (toggled)
-		preferences.be_special |= antags
-	else
-		preferences.be_special -= antags
-	preferences.mark_undatumized_dirty_player()
-
-	// This is predicted on the client
-	return FALSE
+		preferences.be_special["[sent_antag]"] = toggled
+		any_changed = TRUE
+	if(any_changed)
+		preferences.mark_undatumized_dirty_player()
+	return any_changed
 
 /datum/preference_middleware/antags/proc/get_antag_bans()
 	var/list/antag_bans = list()
-
-	for (var/datum/dynamic_ruleset/dynamic_ruleset as anything in subtypesof(/datum/dynamic_ruleset))
-		var/antag_flag = initial(dynamic_ruleset.antag_flag)
-		var/antag_flag_override = initial(dynamic_ruleset.antag_flag_override)
-
-		if (isnull(antag_flag))
-			continue
-
-		if (is_banned_from(preferences.parent.ckey, list(antag_flag_override || antag_flag, ROLE_SYNDICATE)))
-			antag_bans += serialize_antag_name(antag_flag)
-
+	for(var/type in GLOB.role_preference_entries)
+		var/datum/role_preference/pref = GLOB.role_preference_entries[type]
+		var/datum/antagonist/antag_datum = pref.antag_datum
+		var/role_ban_key = initial(antag_datum.banning_key)
+		if(role_ban_key && is_banned_from(preferences.parent.ckey, role_ban_key))
+			antag_bans += role_ban_key
 	return antag_bans
-
-/*
-/datum/preference_middleware/antags/proc/get_antag_days_left()
-	if (!CONFIG_GET(flag/use_age_restriction_for_jobs))
-		return
-
-	var/list/antag_days_left = list()
-
-	for (var/datum/dynamic_ruleset/dynamic_ruleset as anything in subtypesof(/datum/dynamic_ruleset))
-		var/antag_flag = initial(dynamic_ruleset.antag_flag)
-		var/antag_flag_override = initial(dynamic_ruleset.antag_flag_override)
-
-		if (isnull(antag_flag))
-			continue
-
-		var/days_needed = preferences.parent?.get_remaining_days(
-			GLOB.special_roles[antag_flag_override || antag_flag]
-		)
-
-		if (days_needed > 0)
-			antag_days_left[serialize_antag_name(antag_flag)] = days_needed
-
-	return antag_days_left
-
-*/
-
-/datum/preference_middleware/antags/proc/get_serialized_antags()
-	var/list/serialized_antags
-
-	if (isnull(serialized_antags))
-		serialized_antags = list()
-
-		for (var/special_role in GLOB.special_roles)
-			serialized_antags[serialize_antag_name(special_role)] = special_role
-
-	return serialized_antags
 
 /// Sprites generated for the antagonists panel
 /datum/asset/spritesheet/antagonists

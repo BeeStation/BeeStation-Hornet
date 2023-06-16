@@ -10,8 +10,6 @@
 	var/antag_datum
 	/// The typepath for the outfit to show in the preview for the preferences menu.
 	var/preview_outfit
-	/// The base abstract path for this subtype.
-	var/abstract_type = /datum/role_preference
 	/// Role preference path to use the icon of, if we're duplicating another.
 	var/use_icon
 
