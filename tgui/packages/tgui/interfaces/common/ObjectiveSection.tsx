@@ -1,5 +1,6 @@
-import { Box, Section, Stack } from '../../components';
 import { BooleanLike } from 'common/react';
+import { Box, Section, Stack } from '../../components';
+import { sanitizeText } from '../../sanitize';
 
 export type Objective = {
   count: number;
@@ -28,7 +29,12 @@ export const ObjectivesSection = (props: Props, _context) => {
                     Optional:
                   </Box>
                 )}{' '}
-                {objective.explanation}{' '}
+                <span
+                  // eslint-disable-next-line react/no-danger
+                  dangerouslySetInnerHTML={{
+                    __html: sanitizeText(objective.explanation),
+                  }}
+                />
               </Stack.Item>
             ))}
         </Stack.Item>
