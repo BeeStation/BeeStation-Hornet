@@ -71,6 +71,7 @@
 	var/list/equipped_gear = list()
 	var/joblessrole = BERANDOMJOB  //defaults to 1 for fewer assistants
 	var/uplink_spawn_loc = UPLINK_PDA
+	var/list/role_preferences_character = list()
 
 
 /datum/character_save/New()
@@ -161,6 +162,11 @@
 	SAFE_READ_QUERY(31, loadout_tmp)
 	equipped_gear = json_decode(loadout_tmp)
 
+	// Role prefs
+	var/role_preferences_character_tmp
+	SAFE_READ_QUERY(32, role_preferences_character_tmp)
+	role_preferences_character = json_decode(role_preferences_character_tmp)
+
 	//Sanitize. Please dont put query reads below this point. Please.
 
 	real_name = reject_bad_name(real_name, pref_species.allow_numbers_in_name)
@@ -241,6 +247,14 @@
 			job_preferences -= j
 
 	all_quirks = SANITIZE_LIST(all_quirks)
+	role_preferences_character = SANITIZE_LIST(role_preferences_character)
+	// Remove any invalid entries
+	for(var/preference in role_preferences_character)
+		var/path = text2path(preference)
+		var/datum/role_preference/entry = GLOB.role_preference_entries[path]
+		if(istype(entry) && entry.per_character)
+			continue
+		role_preferences_character -= preference
 
 	return TRUE
 
@@ -342,7 +356,8 @@
 			joblessrole,
 			job_preferences,
 			all_quirks,
-			equipped_gear
+			equipped_gear,
+			role_preferences
 		) VALUES (
 			:slot,
 			:ckey,
@@ -375,7 +390,8 @@
 			:joblessrole,
 			:job_preferences,
 			:all_quirks,
-			:equipped_gear
+			:equipped_gear,
+			:role_preferences
 		)
 	"}, list(
 		// Now for the above but in a fucking monsterous list
@@ -410,7 +426,8 @@
 		"joblessrole" = joblessrole,
 		"job_preferences" = json_encode(job_preferences),
 		"all_quirks" = json_encode(all_quirks),
-		"equipped_gear" = json_encode(equipped_gear)
+		"equipped_gear" = json_encode(equipped_gear),
+		"role_preferences" = json_encode(role_preferences_character)
 	))
 
 	if(!insert_query.warn_execute())

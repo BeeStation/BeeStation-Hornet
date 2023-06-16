@@ -526,8 +526,8 @@
 	if(candidates.len < recommended_enemies)
 		for(var/mob/dead/new_player/player in players)
 			if(player.client && player.ready == PLAYER_READY_TO_PLAY)
-				if(!role_preference_enabled(player.client, role_preference)) // We don't have enough people who want to be antagonist, make a separate list of people who don't want to be one
-					if(!is_banned_from(player.ckey, banning_key) && !QDELETED(player))
+				if(role_preference && !role_preference_enabled(player.client, role_preference)) // We don't have enough people who want to be antagonist, make a separate list of people who don't want to be one
+					if(!banning_key || !is_banned_from(player.ckey, banning_key) && !QDELETED(player))
 						drafted += player.mind
 
 	if(restricted_jobs)

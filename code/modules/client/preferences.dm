@@ -24,10 +24,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/tip_delay = 500 //tip delay in milliseconds
 
 	//Antag preferences
-	var/list/be_special = list()		//Special role selection
-	var/tmp/old_be_special = 0			//Bitflag version of be_special, used to update old savefiles and nothing more
-										//If it's 0, that's good, if it's anything but 0, the owner of this prefs file's antag choices were,
-										//autocorrected this round, not that you'd need to check that.
+	var/list/role_preferences = list()		//Special role selection
 
 	var/UI_style = null
 	var/outline_color = COLOR_BLUE_GRAY
@@ -733,21 +730,21 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if(banned)
 				dat += "<h2>Notification</h2>"
 				dat += "<b>You are banned from all antagonist type roles.</b><br>"
-
+			dat += "<h2>Per-Character Preferences</h2>"
 			// --------------------------------------------
 			//  Antagonist roles
-			dat += "<h2>Antagonists</h2>"
+			dat += "<h3>Antagonists</h3>"
 			for (var/typepath in GLOB.role_preference_entries)
 				var/datum/role_preference/pref = GLOB.role_preference_entries[typepath]
 				if(pref.category != ROLE_PREFERENCE_CATEGORY_ANAGONIST)
 					continue
-				dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;preference=be_special;be_special_type=[typepath]'>[role_preference_enabled(parent, typepath) ? "Enabled" : "Disabled"]</a><br>"
-			dat += "<h2>Midrounds (Living)</h2>"
+				dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;preference=role_preferences;role_preference_type=[typepath]'>[role_preference_enabled(parent, typepath) ? "Enabled" : "Disabled"]</a><br>"
+			dat += "<h3>Midrounds (Living)</h3>"
 			for (var/typepath in GLOB.role_preference_entries)
 				var/datum/role_preference/pref = GLOB.role_preference_entries[typepath]
 				if(pref.category != ROLE_PREFERENCE_CATEGORY_MIDROUND_LIVING)
 					continue
-				dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;preference=be_special;be_special_type=[typepath]'>[role_preference_enabled(parent, typepath) ? "Enabled" : "Disabled"]</a><br>"
+				dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;preference=role_preferences;role_preference_type=[typepath]'>[role_preference_enabled(parent, typepath) ? "Enabled" : "Disabled"]</a><br>"
 			dat += "</td>"
 			// left box closed
 
@@ -755,18 +752,19 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			// --------------------------------------------
 			// Midround antagonists + ghostspawn roles
 			dat += "<td width='400px' valign='top'>"
-			dat += "<h2>Midrounds (Ghost)</h2>"
+			dat += "<h2>Per-Player Preferences</h2>"
+			dat += "<h3>Midrounds (Ghost)</h3>"
 			for (var/typepath in GLOB.role_preference_entries)
 				var/datum/role_preference/pref = GLOB.role_preference_entries[typepath]
 				if(pref.category != ROLE_PREFERENCE_CATEGORY_MIDROUND_GHOST)
 					continue
-				dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;preference=be_special;be_special_type=[typepath]'>[role_preference_enabled(parent, typepath) ? "Enabled" : "Disabled"]</a><br>"
-			/*dat += "<h2>Ghost Polls</h2>"
+				dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;preference=role_preferences;role_preference_type=[typepath]'>[role_preference_enabled(parent, typepath) ? "Enabled" : "Disabled"]</a><br>"
+			/*dat += "<h3>Ghost Polls</h3>"
 			for (var/typepath in GLOB.role_preference_entries)
 				var/datum/role_preference/pref = GLOB.role_preference_entries[typepath]
 				if(pref.category != ROLE_PREFERENCE_CATEGORY_GHOST_ROLES)
 					continue
-				dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;preference=be_special;be_special_type=[typepath]'>[role_preference_enabled(parent, typepath) ? "Enabled" : "Disabled"]</a><br>"*/
+				dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;preference=role_preferences;role_preference_type=[typepath]'>[role_preference_enabled(parent, typepath) ? "Enabled" : "Disabled"]</a><br>"*/
 			dat += "</td>"
 			// right box closed
 
@@ -1902,13 +1900,17 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					toggles ^= PREFTOGGLE_DEADMIN_POSITION_SILICON
 
 
-				if("be_special")
-					var/be_special_type = href_list["be_special_type"]
-					var/current = be_special["[be_special_type]"]
-					if(isnum(current))
-						be_special["[be_special_type]"] = !current
-					else // not set, we assume it's on, so turn it off.
-						be_special["[be_special_type]"] = FALSE
+				if("role_preferences")
+					var/role_preference_type = href_list["role_preference_type"]
+					var/role_preference_path = text2path(role_preference_type)
+					var/datum/role_preference/role_pref = GLOB.role_preference_entries[role_preference_path]
+					if(istype(role_pref))
+						var/list/prefsource = role_pref.per_character ? active_character.role_preferences_character : role_preferences
+						var/current = prefsource["[role_preference_type]"]
+						if(isnum(current))
+							prefsource["[role_preference_type]"] = !current
+						else // not set, we assume it's on, so turn it off.
+							prefsource["[role_preference_type]"] = FALSE
 
 				if("name")
 					active_character.be_random_name = !active_character.be_random_name
