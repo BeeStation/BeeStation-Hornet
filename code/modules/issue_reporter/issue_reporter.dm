@@ -98,4 +98,6 @@
 	terminate_reporter()
 
 /datum/issue_reporter/proc/terminate_reporter()
+	if (QDELETED(src))
+		return
 	qdel(src)
