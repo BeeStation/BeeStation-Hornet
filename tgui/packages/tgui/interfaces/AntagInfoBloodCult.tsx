@@ -600,7 +600,7 @@ const RunesSection = (_props, context) => {
             <b>Name</b>: Summon Cultist
             <br />
             <b>Cultists Required</b>: 2
-            <p> This rune allows you to instantly summon any living cultist to the rune, consuming it afterward.</p>
+            <p>This rune allows you to instantly summon any living cultist to the rune, consuming it afterward.</p>
             <p>
               <b>This rune will only work on the main space station</b>, but can grab cultists from almost any location!
             </p>
@@ -618,10 +618,9 @@ const RunesSection = (_props, context) => {
             <br />
             <b>Cultists Required</b>: 3
             <p>
-              {' '}
               When invoked, it saps some health from the invokers to send three damaging pulses to anyone who can see the rune,
               causing 25/50/75 damage split evenly between brute and burn. When the effect is over the rune will briefly set
-              fire to anything over it.{' '}
+              fire to anything over it.
             </p>
             <p>
               Some species, such as golems, do not have blood, and thus are immune to this rune. Will also deal extra stamina
