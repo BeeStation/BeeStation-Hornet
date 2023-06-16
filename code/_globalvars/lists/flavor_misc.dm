@@ -17,7 +17,7 @@ GLOBAL_LIST_EMPTY(undershirt_m)	 //stores only undershirt name
 GLOBAL_LIST_EMPTY(undershirt_f)	 //stores only undershirt name
 	//Socks
 GLOBAL_LIST_EMPTY(socks_list)		//stores /datum/sprite_accessory/socks indexed by name
-	//Body Sizes
+/// Body sizes. The names (keys) are what is actually stored in the database. Don't get crazy with changing them.
 GLOBAL_LIST_INIT(body_sizes, list(
 	"Normal" = BODY_SIZE_NORMAL,
 	"Short" = BODY_SIZE_SHORT,

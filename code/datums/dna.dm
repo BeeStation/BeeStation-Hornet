@@ -302,7 +302,7 @@
 
 	var/desired_size = GLOB.body_sizes[features["body_size"]]
 
-	if(desired_size == current_body_size)
+	if(desired_size == current_body_size || current_body_size == 0)
 		return
 
 	var/change_multiplier = desired_size / current_body_size

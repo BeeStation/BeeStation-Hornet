@@ -143,6 +143,9 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	if(!screenmob.client)
 		return FALSE
 
+	if(screenmob.client.prefs?.character_preview_view) // Changing HUDs clears the screen, we need to reregister then.
+		screenmob.client.prefs.character_preview_view.unregister_from_client(screenmob.client)
+
 	screenmob.client.screen = list()
 	screenmob.client.apply_clickcatcher()
 
@@ -220,6 +223,9 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 			show_hud(hud_version, M)
 	else if (viewmob.hud_used)
 		viewmob.hud_used.plane_masters_update()
+
+	if(screenmob.client.prefs?.character_preview_view) // Changing HUDs clears the screen, we need to reregister then.
+		screenmob.client.prefs.character_preview_view.register_to_client(screenmob.client)
 
 	return TRUE
 
