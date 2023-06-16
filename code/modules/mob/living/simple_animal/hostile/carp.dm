@@ -245,7 +245,9 @@
 
 /mob/living/simple_animal/hostile/carp/advanced/examine(mob/user)
 	. = ..()
-	if(!isnull(client))
+	if(mind)
 		. += "<span class='notice'>This one seems to be self-aware.</span>"
+	else if(!isnull(client))
+		. += "<span class='notice'>This one seems to be self-aware, but distant.</span>"
 
 #undef REGENERATION_DELAY
