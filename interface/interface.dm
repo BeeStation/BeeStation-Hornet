@@ -58,7 +58,7 @@
 	set desc = "Report an issue"
 	set hidden = 1
 
-	if(tgalert(src, message, "What kind of issue are you facing?","TGUI","Other")!="TGUI")
+	if(tgalert(src, "What kind of issue are you facing?", "Report Issue", "In-game Bug", "UI issue", "Other") != "UI issue")
 		new /datum/issue_reporter(src)
 		return
 	var/githuburl = CONFIG_GET(string/githuburl)
