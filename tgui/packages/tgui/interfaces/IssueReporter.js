@@ -40,7 +40,7 @@ export const IssueReporter = (props, context) => {
   }
 
   return (
-    <Window width={340} height={windowHeight} overflow="auto" theme="generic" title={'Issue reporter ' + stage + '/3'}>
+    <Window width={340} height={windowHeight} overflow="auto" theme="generic" title={`Issue reporter (${stage}/3)`}>
       <Window.Content>
         <Flex direction="column" height="100%">
           <Flex.Item grow={1}>{content}</Flex.Item>
@@ -109,7 +109,7 @@ const Regression = (props, context) => {
             overflowX="wrap"
             ml={1}
             style={{ 'font-weight': 'normal', 'font-size': '12px' }}
-            content={isRegression ? 'Yes - This is a new issue' : "No - This hasn't been known to work"}
+            content={'Yes - This is a new issue'}
             checked={isRegression}
             onClick={() => {
               setIsRegression(!isRegression);
