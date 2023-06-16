@@ -240,7 +240,8 @@
 	head = /obj/item/clothing/head/helmet/space/space_ninja
 	gloves = /obj/item/clothing/gloves/space_ninja
 	back = /obj/item/tank/jetpack/carbondioxide
-	belt = /obj/item/energy_katana
+	// No katana because it has trouble GCing
+	//belt = /obj/item/energy_katana
 
 /datum/role_preference/midround_living/malfunctioning_ai
 	name = "Malfunctioning AI"
