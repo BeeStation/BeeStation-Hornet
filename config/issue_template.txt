@@ -1,0 +1,22 @@
+## Occurance Details
+
+**Round Date:** %DATE%
+
+**Round ID:** %ROUNDID%
+
+**Testmerges**:
+%TESTMERGES%
+
+## Bug Details
+
+### Expected Behaviour:
+
+%EXPECTED%
+
+### Actual Behaviour:
+
+%ACTUAL%
+
+### Reproduction:
+
+%REPRODUCTION%

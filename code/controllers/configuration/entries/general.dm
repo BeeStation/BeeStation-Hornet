@@ -225,7 +225,13 @@
 /datum/config_entry/string/githuburl
 	config_entry_value = "https://github.com/BeeStation/BeeStation-Hornet"
 
-/datum/config_entry/string/issue_label
+/datum/config_entry/string/default_issue_label
+
+/datum/config_entry/string/regression_issue_label
+
+/datum/config_entry/string/issue_template
+	config_entry_value = "config/issue_template.txt"
+	protection = CONFIG_ENTRY_LOCKED
 
 /datum/config_entry/string/donateurl
 	config_entry_value = "https://www.patreon.com/user?u=10639001"

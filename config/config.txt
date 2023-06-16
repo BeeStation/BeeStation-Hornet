@@ -274,9 +274,14 @@ RULESURL https://beestation13.com/rules
 ## Github address
 GITHUBURL https://www.github.com/beestation/beestation-hornet
 
-## Label to tag ingame-registered issues with.
-## Uncomment this to enable them.
-#ISSUE_LABEL Ingame Issue Report
+## The default labels to apply to issues reported in game, seperated by commas
+DEFAULT_ISSUE_LABEL Bug
+
+## The label to apply to regression PRs
+REGRESSION_ISSUE_LABEL Regression
+
+## The filepath that the issue template to use is stored at
+ISSUE_TEMPLATE config/issue_template.txt
 
 ## Donation URL
 DONATEURL https://www.patreon.com/user?u=10639001

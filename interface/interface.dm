@@ -57,6 +57,10 @@
 	set name = "report-issue"
 	set desc = "Report an issue"
 	set hidden = 1
+
+	if(tgalert(src, message, "What kind of issue are you facing?","TGUI","Other")!="TGUI")
+		new /datum/issue_reporter(src)
+		return
 	var/githuburl = CONFIG_GET(string/githuburl)
 	if(githuburl)
 		var/message = "This will open the Github issue reporter in your browser. Are you sure?"
@@ -76,7 +80,6 @@
 		DIRECT_OUTPUT(src, link("[githuburl]/issues/new?body=[rustg_url_encode(url_params)][issue_label ? "&labels=[rustg_url_encode(issue_label)]" : ""]"))
 	else
 		to_chat(src, "<span class='danger'>The Github URL is not set in the server configuration.</span>")
-	return
 
 /client/verb/hotkeys_help()
 	set name = "hotkeys-help"
