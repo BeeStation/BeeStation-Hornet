@@ -4,7 +4,6 @@
 	can_coexist_with_others = FALSE
 	banning_key = BAN_ROLE_GANG
 	antagpanel_category = "Gang"
-	preview_outfit = /datum/outfit/gangster
 	var/hud_type = "gangster"
 	var/message_name = "Gangster"
 	var/datum/team/gang/gang
@@ -268,12 +267,6 @@
 /datum/antagonist/gang/boss/lieutenant
 	name = "Gang Lieutenant"
 	message_name = "Lieutenant"
-
-/datum/outfit/gangster
-	name = "Gangster (Preview only)"
-	// TODO TGUI-prefs
-	uniform = /obj/item/clothing/under/suit/black
-	back = /obj/item/storage/backpack/clown
 
 #define INFLUENCE_SWAG 2
 #define INFLUENCE_TERRITORY 0

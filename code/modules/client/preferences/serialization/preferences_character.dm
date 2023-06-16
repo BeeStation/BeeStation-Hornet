@@ -152,7 +152,13 @@
 
 /datum/preferences_holder/preferences_character/proc/get_all_character_names(datum/preferences/prefs)
 	if(!SSdbcore.IsConnected())
-		return list() // No names if DB is not connected
+		var/list/data = list()
+		for(var/index in 1 to TRUE_MAX_SAVE_SLOTS)
+			data += null
+		// Only the current slot is valid
+		data[prefs.default_slot] = read_preference(prefs, /datum/preference/name/real_name)
+		prefs.character_profiles_cached = data
+		return
 	var/datum/DBQuery/Q = SSdbcore.NewQuery(
 		"SELECT slot,real_name FROM [format_table_name("characters")] WHERE ckey=:ckey",
 		list("ckey" = prefs.parent.ckey)
@@ -175,4 +181,4 @@
 			CRASH("Slot number in database is greater than the maximum allowed slots! Please purge this character entry or increase the slot number.")
 		data[values[1]] = values[2] // data[1] = "John Smith"
 	qdel(Q)
-	return data
+	prefs.character_profiles_cached = data

@@ -63,8 +63,3 @@
 /datum/role_preference/midround_ghost
 	category = ROLE_PREFERENCE_CATEGORY_MIDROUND_GHOST
 	abstract_type = /datum/role_preference/midround_ghost
-
-/// Ghost roles that are non antagonists
-/datum/role_preference/ghost_role
-	category = ROLE_PREFERENCE_CATEGORY_GHOST_ROLES
-	abstract_type = /datum/role_preference/ghost_role

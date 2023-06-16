@@ -51,9 +51,6 @@
 	if(owner.antag_hud_icon_state == "xenomorph")
 		set_antag_hud(owner.current, null)
 
-/datum/antagonist/xeno/get_preview_icon()
-	return finish_preview_icon(icon('icons/mob/alien.dmi', "alienh"))
-
 //XENO
 /mob/living/carbon/alien/mind_initialize()
 	..()

@@ -238,7 +238,6 @@
 	always_new_team = TRUE
 	send_to_spawnpoint = FALSE //Handled by event
 	nukeop_outfit = /datum/outfit/syndicate/full
-	preview_outfit = /datum/outfit/nuclear_operative
 
 /datum/antagonist/nukeop/lone/assign_nuke()
 	if(nuke_team && !nuke_team.tracked_nuke)

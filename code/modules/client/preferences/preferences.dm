@@ -3,12 +3,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 /datum/preferences
 	var/client/parent
 
-	/// Ensures that we always load the last used save, QOL
+	/// The current active slot, and the one that will be saved as active
 	var/default_slot = 1
 	/// The maximum number of slots we're allowed to contain
 	var/max_save_slots = 3
-	/// The current active character slot
-	var/selected_slot = 1
 	/// Cache for the current active character slot
 	var/datum/preferences_holder/preferences_character/character_data
 	/// Cache for player datumized preferences
@@ -84,8 +82,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	/// A list of keys that have been updated since the last save.
 	var/list/recently_updated_keys = list()
 
-	/// If set to TRUE, will update character_profiles on the next ui_data tick.
-	var/tainted_character_profiles = FALSE
+	/// List of slot index -> character names
+	var/list/character_profiles_cached
 
 /datum/preferences/Destroy(force, ...)
 	QDEL_NULL(character_preview_view)
@@ -117,12 +115,16 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		if("6030fe461e610e2be3a2c3e75c06067e" in purchased_gear) //MD5 hash of, "extra character slot"
 			max_save_slots += 1
 		if(load_character()) // This returns true if there is a database and character in the active slot.
+			// Get the profile data
+			fetch_character_profiles()
 			return
 	// Begin no database / new player logic. This ONLY fires if there is an SQL error or no database / the player and character is new.
 
 	// TODO tgui-prefs implement fallback species
 	if(!loaded_preferences_successfully) // create a new character object
 		character_data = new(src, default_slot)
+		// Get the profile data
+		fetch_character_profiles()
 	// We couldn't load character data so just randomize the character appearance
 	randomize_appearance_prefs()
 	if(parent)
@@ -130,7 +132,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		parent.set_macros()
 
 	// The character name is fresh, update the character list.
-	tainted_character_profiles = TRUE
+	update_current_character_profile()
 
 	// If this was a NEW CKEY ENTRY, and not a guest key (handled in save_preferences()), save it.
 	// Guest keys are ignored by mark_undatumized_dirty
@@ -174,9 +176,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		// carry emissives.
 		character_preview_view.register_to_client(parent)
 
-	if (tainted_character_profiles)
-		data["character_profiles"] = create_character_profiles()
-		tainted_character_profiles = FALSE
+	data["character_profiles"] = character_profiles_cached
 
 	data["character_preferences"] = compile_character_preferences(user)
 
@@ -191,8 +191,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 /datum/preferences/ui_static_data(mob/user)
 	var/list/data = list()
-
-	data["character_profiles"] = create_character_profiles()
 
 	data["character_preview_view"] = character_preview_view.assigned_map
 	data["overflow_role"] = SSjob.GetJob(SSjob.overflow_role).title
@@ -230,7 +228,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			// SAFETY: `load_character` performs sanitization the slot number
 			if (!load_character(params["slot"]))
 				// there is no character in the slot. Make a new one. Save it.
-				tainted_character_profiles = TRUE
+				update_current_character_profile()
 				randomize_appearance_prefs()
 				// Queue an undatumized save, just in case (it's likely already queued, but we should write undatumized data as well)
 				mark_undatumized_dirty_character()
@@ -263,7 +261,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				return FALSE
 
 			if (istype(requested_preference, /datum/preference/name/real_name))
-				tainted_character_profiles = TRUE
+				update_current_character_profile()
 
 			return TRUE
 		if ("set_color_preference")
@@ -356,18 +354,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			continue
 		preference.apply_to_client(parent, read_player_preference(preference.type))
 
-/datum/preferences/proc/create_character_profiles()
-	var/list/profiles = list()
-	for(var/index in 1 to TRUE_MAX_SAVE_SLOTS)
-		profiles += null
-	var/list/slot_to_name = character_data.get_all_character_names(src)
-	if(!islist(slot_to_name))
-		return profiles
-	for(var/index in 1 to TRUE_MAX_SAVE_SLOTS)
-		if(index > length(slot_to_name))
-			continue
-		profiles[index] = slot_to_name[index]
-	return profiles
+/// Updates cached character list with new real_name
+/datum/preferences/proc/update_current_character_profile()
+	character_profiles_cached[default_slot] = read_character_preference(/datum/preference/name/real_name)
+
+/// Immediately refetch the character list
+/datum/preferences/proc/fetch_character_profiles()
+	character_data.get_all_character_names(src)
 
 /// Applies the given preferences to a human mob.
 /datum/preferences/proc/apply_prefs_to(mob/living/carbon/human/character, icon_updates = TRUE)

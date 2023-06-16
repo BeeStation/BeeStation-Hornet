@@ -27,6 +27,7 @@ export class Input extends Component {
       if (onInput) {
         onInput(e, e.target.value);
       }
+      e.preventDefault();
     };
     this.handleFocus = (e) => {
       const { editing } = this.state;

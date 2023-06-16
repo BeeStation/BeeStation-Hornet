@@ -3,7 +3,7 @@
 		"set_antags" = PROC_REF(set_antags),
 	)
 
-/datum/preference_middleware/antags/ui_data(mob/user)
+/datum/preference_middleware/antags/get_ui_data(mob/user)
 	if (preferences.current_window != PREFERENCE_TAB_CHARACTER_PREFERENCES)
 		return list()
 	var/list/data = list()
@@ -25,7 +25,6 @@
 
 /datum/preference_middleware/antags/get_constant_data()
 	var/list/antags = list()
-	var/list/categories = list()
 
 	for(var/pref_type in GLOB.role_preference_entries)
 		var/datum/role_preference/pref = GLOB.role_preference_entries[pref_type]
@@ -38,12 +37,10 @@
 			"path" = "[pref_type]",
 			"icon_path" = "[serialize_antag_name("[pref.use_icon || pref_type]")]"
 		))
-		if(!(pref.category in categories))
-			categories += pref.category
 
 	return list(
 		"antagonists" = antags,
-		"categories" = categories,
+		"categories" = GLOB.role_preference_categories,
 	)
 
 /datum/preference_middleware/antags/get_ui_assets()

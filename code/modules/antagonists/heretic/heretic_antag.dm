@@ -696,17 +696,6 @@
 
 	return completed || (num_we_have >= target_amount)
 
-/datum/outfit/heretic
-	name = "Heretic (Preview only)"
-
-	suit = /obj/item/clothing/suit/hooded/cultrobes/eldritch
-	r_hand = /obj/item/melee/touch_attack/mansus_fist
-
-/datum/outfit/heretic/post_equip(mob/living/carbon/human/equipper, visualsOnly)
-	var/obj/item/clothing/suit/hooded/hooded = locate() in equipper
-	hooded.MakeHood() // This is usually created on Initialize, but we run before atoms
-	hooded.ToggleHood()
-
 /datum/action/innate/hereticmenu
 	name = "Forbidden Knowledge"
 	desc = "Utilize your connection to the beyond to unlock new eldritch abilities"
