@@ -1,6 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - tweak: Being able to see ghosts no longer lets you see OOC information such as
-      countdown objects.
-  - bugfix: Countdown timers are now properly visible over most objects

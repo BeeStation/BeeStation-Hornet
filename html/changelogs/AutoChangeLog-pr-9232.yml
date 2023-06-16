@@ -1,4 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - bugfix: Fixed failed surgery steps not hitting the patient
