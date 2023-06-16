@@ -52,7 +52,7 @@
 			user.client.donate()
 		return
 
-	if(TG.cost < user.client.get_metabalance_db())
+	if(TG.cost <= user.client.get_metabalance_db())
 		preferences.purchased_gear += TG.id
 		TG.purchase(user.client)
 		user.client.inc_metabalance((TG.cost * -1), TRUE, "Purchased [TG.display_name].")
