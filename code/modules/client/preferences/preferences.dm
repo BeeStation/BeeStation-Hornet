@@ -117,6 +117,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		if(load_character()) // This returns true if there is a database and character in the active slot.
 			// Get the profile data
 			fetch_character_profiles()
+			create_character_preview_view()
 			return
 	// Begin no database / new player logic. This ONLY fires if there is an SQL error or no database / the player and character is new.
 
@@ -133,6 +134,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	// The character name is fresh, update the character list.
 	update_current_character_profile()
+	create_character_preview_view()
 
 	// If this was a NEW CKEY ENTRY, and not a guest key (handled in save_preferences()), save it.
 	// Guest keys are ignored by mark_undatumized_dirty
@@ -148,9 +150,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	// Do NOT call ui_assets until the jobs are loaded.
 	if(!length(SSjob.occupations))
 		return
-	// If you leave and come back, re-register the character preview
+
+	// If you leave and come back, re-register the character preview. This also runs the first time it's opened
 	if (!isnull(character_preview_view) && !(character_preview_view in user.client?.screen))
-		user.client?.register_map_obj(character_preview_view)
+		character_preview_view.register_to_client(user.client)
+		character_preview_view.update_body() // For first opens, this needs to update.
 
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -172,13 +176,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 /datum/preferences/ui_data(mob/user)
 	var/list/data = list()
-
-	if (isnull(character_preview_view))
-		character_preview_view = create_character_preview_view(user)
-	else if (character_preview_view.client != parent)
-		// The client re-logged, and doing this when they log back in doesn't seem to properly
-		// carry emissives.
-		character_preview_view.register_to_client(parent)
 
 	data["character_profiles"] = character_profiles_cached
 
@@ -311,7 +308,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	// Save immediately. This should also handle if the player disconnects before their mob/ckey/client is null.
 	save_character()
 	save_preferences()
-	QDEL_NULL(character_preview_view)
+	character_preview_view.unregister_from_client(user.client)
 
 /datum/preferences/Topic(href, list/href_list)
 	. = ..()

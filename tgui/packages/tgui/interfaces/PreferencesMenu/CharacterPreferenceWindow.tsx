@@ -1,6 +1,6 @@
 import { exhaustiveCheck } from 'common/exhaustive';
 import { useBackend, useLocalState } from '../../backend';
-import { Button, Stack, Box } from '../../components';
+import { Button, Flex, Stack, Box, Divider } from '../../components';
 import { Window } from '../../layouts';
 import { PreferencesMenuData } from './data';
 import { PageButton } from './PageButton';
@@ -10,6 +10,7 @@ import { MainPage } from './MainPage';
 import { SpeciesPage } from './SpeciesPage';
 import { QuirksPage } from './QuirksPage';
 import { LoadoutPage } from './LoadoutPage';
+import { BooleanLike } from 'common/react';
 
 enum Page {
   Antags,
@@ -25,25 +26,27 @@ const CharacterProfiles = (props: {
   maxSlot: number;
   onClick: (index: number) => void;
   profiles: (string | null)[];
+  content_unlocked: BooleanLike;
 }) => {
   const { profiles } = props;
 
   return (
-    <Stack justify="center" wrap>
+    <Flex justify="center" wrap>
       {profiles.map((profile, slot) => (
-        <Stack.Item key={slot}>
+        <Flex.Item key={slot} mr={1} mt={1}>
           <Button
             selected={slot === props.activeSlot}
             disabled={slot >= props.maxSlot}
             onClick={() => {
               props.onClick(slot);
             }}
+            tooltip={!props.content_unlocked && slot >= props.maxSlot ? 'Buy BYOND Premium to unlock more slots!' : null}
             fluid>
             {profile ?? 'New Character'}
           </Button>
-        </Stack.Item>
+        </Flex.Item>
       ))}
-    </Stack>
+    </Flex>
   );
 };
 
@@ -110,11 +113,12 @@ export const CharacterPreferenceWindow = (props, context) => {
         </Box>
       }>
       <Window.Content scrollable>
-        <Stack vertical fill>
-          <Stack.Item>
+        <Flex direction="column" width="100%">
+          <Flex.Item mt={-1}>
             <CharacterProfiles
               activeSlot={data.active_slot - 1}
               maxSlot={data.max_slot}
+              content_unlocked={data.content_unlocked}
               onClick={(slot) => {
                 act('change_slot', {
                   slot: slot + 1,
@@ -122,13 +126,13 @@ export const CharacterPreferenceWindow = (props, context) => {
               }}
               profiles={data.character_profiles}
             />
-          </Stack.Item>
+          </Flex.Item>
 
-          {!data.content_unlocked && <Stack.Item align="center">Buy BYOND premium for more slots!</Stack.Item>}
+          <Flex.Item>
+            <Divider />
+          </Flex.Item>
 
-          <Stack.Divider />
-
-          <Stack.Item>
+          <Flex.Item>
             <Stack fill>
               <Stack.Item grow>
                 <PageButton
@@ -168,12 +172,14 @@ export const CharacterPreferenceWindow = (props, context) => {
                 </PageButton>
               </Stack.Item>
             </Stack>
-          </Stack.Item>
+          </Flex.Item>
 
-          <Stack.Divider />
+          <Flex.Item>
+            <Divider />
+          </Flex.Item>
 
-          <Stack.Item>{pageContents}</Stack.Item>
-        </Stack>
+          <Flex.Item>{pageContents}</Flex.Item>
+        </Flex>
       </Window.Content>
     </Window>
   );

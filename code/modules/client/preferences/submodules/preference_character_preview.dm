@@ -1,9 +1,5 @@
-/datum/preferences/proc/create_character_preview_view(mob/user)
-	character_preview_view = new(null, src, user.client)
-	character_preview_view.update_body()
-	character_preview_view.register_to_client(user.client)
-
-	return character_preview_view
+/datum/preferences/proc/create_character_preview_view()
+	character_preview_view = new(null, src)
 
 /datum/preferences/proc/render_new_preview_appearance(mob/living/carbon/human/dummy/mannequin)
 	var/datum/job/preview_job = get_highest_priority_job()
@@ -45,10 +41,10 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/map_view/character_preview_view)
 
 	var/list/plane_masters = list()
 
-	/// The client that is watching this view
-	var/client/client
+	/// List of clients with this registered to it.
+	var/list/viewing_clients = list()
 
-/atom/movable/screen/map_view/character_preview_view/Initialize(mapload, datum/preferences/preferences, client/client)
+/atom/movable/screen/map_view/character_preview_view/Initialize(mapload, datum/preferences/preferences)
 	. = ..()
 
 	assigned_map = "character_preview_[REF(src)]"
@@ -60,15 +56,14 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/map_view/character_preview_view)
 	QDEL_NULL(body)
 
 	for (var/plane_master in plane_masters)
-		client?.screen -= plane_master
 		qdel(plane_master)
 
-	client?.clear_map(assigned_map)
-	client?.screen -= src
+	for(var/client/C as anything in viewing_clients)
+		C?.clear_map(assigned_map)
 
 	preferences?.character_preview_view = null
 
-	client = null
+	viewing_clients = null
 	plane_masters = null
 	preferences = null
 
@@ -102,18 +97,25 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/map_view/character_preview_view)
 
 /// Registers the relevant map objects to a client
 /atom/movable/screen/map_view/character_preview_view/proc/register_to_client(client/client)
-	QDEL_LIST(plane_masters)
-
-	src.client = client
-
-	if (!client)
+	if(client in viewing_clients)
 		return
+	if(!length(plane_masters))
+		for(var/plane in subtypesof(/atom/movable/screen/plane_master) - /atom/movable/screen/plane_master/blackness)
+			var/atom/movable/screen/plane_master/instance = new plane()
+			instance.assigned_map = assigned_map
+			if(instance.blend_mode_override)
+				instance.blend_mode = instance.blend_mode_override
+			instance.del_on_map_removal = FALSE
+			instance.screen_loc = "[assigned_map]:CENTER"
+			plane_masters += instance
+	viewing_clients += client
+	client.register_map_obj(src)
+	for(var/plane_master in plane_masters)
+		client.register_map_obj(plane_master)
 
-	for (var/plane_master_type in subtypesof(/atom/movable/screen/plane_master))
-		var/atom/movable/screen/plane_master/plane_master = new plane_master_type
-		plane_master.screen_loc = "[assigned_map]:CENTER"
-		client?.screen |= plane_master
-
-		plane_masters += plane_master
-
-	client?.register_map_obj(src)
+/// Unregisters the relevant map objects to a client
+/atom/movable/screen/map_view/character_preview_view/proc/unregister_from_client(client/client)
+	if(!(client in viewing_clients))
+		return
+	client.clear_map(assigned_map)
+	viewing_clients -= client

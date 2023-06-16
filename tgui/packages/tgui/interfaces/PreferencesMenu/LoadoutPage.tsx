@@ -40,7 +40,7 @@ export const LoadoutPage = (props, context) => {
                   {currency_text}
                 </Flex.Item>
               </Flex>
-              <CharacterPreview height="calc(100vh - 170px)" id={data.character_preview_view} />
+              <CharacterPreview height="calc(100vh - 180px)" id={data.character_preview_view} />
             </Stack.Item>
             <Stack.Item grow height="100%">
               <Flex direction="column" height="100%">
