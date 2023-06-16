@@ -196,7 +196,7 @@
 	emergency_mode = FALSE
 	if(on)
 		if(maploaded)
-			turn_on(trigger)
+			turn_on(trigger, TRUE)
 			maploaded = FALSE
 		else if(!turning_on)
 			turning_on = TRUE
@@ -221,7 +221,7 @@
 
 	broken_sparks(start_only=TRUE)
 
-/obj/machinery/light/proc/turn_on(trigger)
+/obj/machinery/light/proc/turn_on(trigger, quiet = FALSE)
 	if(QDELETED(src))
 		return FALSE
 	turning_on = FALSE
@@ -252,7 +252,8 @@
 		else
 			use_power = ACTIVE_POWER_USE
 			set_light(BR, PO, CO)
-			playsound(src.loc, 'sound/effects/light_on.ogg', 65)
+			if(!quiet)
+				playsound(src.loc, 'sound/effects/light_on.ogg', 65)
 	return TRUE
 
 /obj/machinery/light/update_atom_colour()
