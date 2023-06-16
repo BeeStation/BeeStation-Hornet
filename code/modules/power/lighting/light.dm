@@ -252,7 +252,7 @@
 		else
 			use_power = ACTIVE_POWER_USE
 			set_light(BR, PO, CO)
-			playsound(src.loc, 'sound/effects/light_on.ogg', 65, 1)
+			playsound(src.loc, 'sound/effects/light_on.ogg', 65)
 	return TRUE
 
 /obj/machinery/light/update_atom_colour()
