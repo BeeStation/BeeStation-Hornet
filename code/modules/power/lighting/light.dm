@@ -650,7 +650,7 @@
 /proc/flicker_all_lights()
 	for(var/obj/machinery/light/L in GLOB.machines)
 		if(is_station_level(L.z))
-			addtimer(CALLBACK(L, TYPE_PROC_REF(/obj/machinery/light, flicker), rand(3, 6)), rand(0, 10))
+			addtimer(CALLBACK(L, TYPE_PROC_REF(/obj/machinery/light, flicker), rand(3, 6)), rand(0, 15))
 
 #undef LIGHT_ON_DELAY_UPPER
 #undef LIGHT_ON_DELAY_LOWER
