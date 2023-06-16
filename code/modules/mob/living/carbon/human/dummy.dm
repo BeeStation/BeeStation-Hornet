@@ -34,10 +34,10 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 	dna.initialize_dna(skip_index = TRUE)
 	dna.features["body_markings"] = "None"
 	dna.features["ears"] = "Cat"
-	dna.features["ethcolor"] = COLOR_WHITE
+	dna.features["ethcolor"] = GLOB.color_list_ethereal["Cyan"]
 	dna.features["frills"] = "None"
 	dna.features["horns"] = "None"
-	dna.features["mcolor"] = COLOR_LIME
+	dna.features["mcolor"] = "4c4"
 	dna.features["moth_antennae"] = "Plain"
 	dna.features["moth_markings"] = "None"
 	dna.features["moth_wings"] = "Plain"

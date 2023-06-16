@@ -144,6 +144,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	mark_undatumized_dirty_character()
 
 /datum/preferences/ui_interact(mob/user, datum/tgui/ui)
+	// IMPORTANT: If someone opens the prefs menu before jobs load, then the jobs menu will be empty for everyone.
+	// Do NOT call ui_assets until the jobs are loaded.
+	if(!length(SSjob.occupations))
+		return
 	// If you leave and come back, re-register the character preview
 	if (!isnull(character_preview_view) && !(character_preview_view in user.client?.screen))
 		user.client?.register_map_obj(character_preview_view)
