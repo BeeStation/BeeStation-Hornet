@@ -513,8 +513,8 @@
 
 	for(var/mob/dead/new_player/player in players)
 		if(player.client && player.ready == PLAYER_READY_TO_PLAY)
-			if(role_preference_enabled(player.client, role_preference))
-				if(!is_banned_from(player.ckey, banning_key) && !QDELETED(player))
+			if(!role_preference || role_preference_enabled(player.client, role_preference))
+				if((!banning_key || !is_banned_from(player.ckey, banning_key)) && !QDELETED(player))
 					candidates += player.mind				// Get a list of all the people who want to be the antagonist for this round
 
 	if(restricted_jobs)
