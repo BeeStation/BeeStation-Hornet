@@ -1,6 +1,3 @@
-/datum/antagonist/nukeop
-	tips = "nukie"
-
 /datum/antagonist/xeno
 	tips = "xeno"
 
