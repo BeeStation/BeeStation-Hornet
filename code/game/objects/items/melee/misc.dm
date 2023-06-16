@@ -1,5 +1,5 @@
 /obj/item/melee
-	item_flags = NEEDS_PERMIT | ISWEAPON | ISWEAPON
+	item_flags = NEEDS_PERMIT | ISWEAPON
 
 /obj/item/melee/proc/check_martial_counter(mob/living/carbon/human/target, mob/living/carbon/human/user)
 	if(target.check_block())
