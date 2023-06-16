@@ -195,42 +195,12 @@
 			on = FALSE
 	emergency_mode = FALSE
 	if(on)
-		/*
-		var/BR = brightness
-		var/PO = bulb_power
-		var/CO = bulb_colour
-		if(color)
-			CO = color
-		var/area/A = get_area(src)
-		if (A?.fire)
-			CO = bulb_emergency_colour
-		else if (A?.vacuum)
-			CO = bulb_vacuum_colour
-			BR = bulb_vacuum_brightness
-		else if (nightshift_enabled)
-			BR = nightshift_brightness
-			PO = nightshift_light_power
-			if(!color)
-				CO = nightshift_light_color
-		var/matching = light && BR == light.light_range && PO == light.light_power && CO == light.light_color
-		if(!matching)
-			switchcount++
-			if(rigged)
-				if(status == LIGHT_OK && trigger)
-					plasma_ignition(4)
-			else if( prob( min(60, (switchcount**2)*0.01) ) )
-				if(trigger)
-					burn_out()
-			else
-				use_power = ACTIVE_POWER_USE
-				set_light(BR, PO, CO)
-		*/
 		if(maploaded)
 			turn_on(trigger)
 			maploaded = FALSE
 		else if(!turning_on)
 			turning_on = TRUE
-			addtimer(CALLBACK(src, .proc/turn_on, trigger), rand(LIGHT_ON_DELAY_LOWER, LIGHT_ON_DELAY_UPPER))
+			addtimer(CALLBACK(src, PROC_REF(turn_on), trigger), rand(LIGHT_ON_DELAY_LOWER, LIGHT_ON_DELAY_UPPER))
 	else if(use_emergency_power(LIGHT_EMERGENCY_POWER_USE) && !turned_off())
 		use_power = IDLE_POWER_USE
 		emergency_mode = TRUE
@@ -675,6 +645,11 @@
 	layer = 2.5
 	light_type = /obj/item/light/bulb
 	fitting = "bulb"
+
+/proc/flicker_all_lights()
+	for(var/obj/machinery/light/L in GLOB.machines)
+		if(is_station_level(L.z))
+			addtimer(CALLBACK(L, TYPE_PROC_REF(/obj/machinery/light, flicker), rand(3, 6)), rand(0, 10))
 
 #undef LIGHT_ON_DELAY_UPPER
 #undef LIGHT_ON_DELAY_LOWER
