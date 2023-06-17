@@ -23,6 +23,9 @@
 	if (GLOB.dynamic_forced_extended)
 		return
 
+	if(!forced_injection && (EMERGENCY_AT_LEAST_DOCKED || EMERGENCY_ALMOST_HERE))
+		return
+
 	if (EMERGENCY_ESCAPED_OR_ENDGAMED)
 		return
 
