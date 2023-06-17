@@ -42,15 +42,9 @@
 
 /datum/dynamic_ruleset/roundstart/traitorbro
 	name = "Blood Brothers"
-<<<<<<< HEAD
 	role_preference = /datum/role_preference/antagonist/blood_brother
 	antag_datum = /datum/antagonist/brother
-	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
-=======
-	antag_flag = ROLE_BROTHER
-	antag_datum = /datum/antagonist/brother/
 	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
->>>>>>> origin/master
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
 	required_candidates = 2
 	weight = 2
