@@ -35,7 +35,7 @@ export const SaveStatus = (props, context) => {
     return (
       <Tooltip
         content={`Cannot save your preferences due to ${
-          !is_db ? 'not having a database connected.' : 'being a guest user. Please register and login in with a BYOND account.'
+          !is_db ? 'not having a database connected.' : 'being a guest user. Please register and log in with a BYOND account.'
         }`}
         position="bottom">
         {innerBox}
