@@ -286,6 +286,7 @@
 		on = FALSE
 		set_light(0)
 		playsound(src.loc, 'sound/effects/burnout.ogg', 65)
+		update_icon()
 
 // attempt to set the light's on/off status
 // will not switch on if broken/burned/empty
