@@ -598,7 +598,8 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		spawned ++
 
 /turf/proc/create_new_fake_reality(turf/F)
-	new new /obj/effect/visible_heretic_influence(F)
+	new /obj/effect/visible_heretic_influence(F)
+
 /// Checks if the turf was blessed with holy water OR the area its in is Chapel
 /turf/proc/is_holy()
 	if(locate(/obj/effect/blessing) in src)
