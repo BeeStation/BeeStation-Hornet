@@ -6,7 +6,7 @@
 	randomize_by_default = FALSE
 
 /datum/preference/choiced/species/deserialize(input, datum/preferences/preferences)
-	return GLOB.species_list[sanitize_inlist(input, get_choices_serialized(), "human")]
+	return GLOB.species_list[sanitize_inlist(input, get_acceptable_species(), get_fallback_species_id())]
 
 /datum/preference/choiced/species/serialize(input)
 	var/datum/species/species = input
@@ -32,7 +32,7 @@
 /datum/preference/choiced/species/compile_constant_data()
 	var/list/data = list()
 
-	for (var/species_id in get_selectable_species())
+	for (var/species_id in get_acceptable_species())
 		var/species_type = GLOB.species_list[species_id]
 		var/datum/species/species = new species_type()
 
@@ -46,6 +46,7 @@
 		data[species_id]["enabled_features"] = species.get_features()
 		data[species_id]["perks"] = species.get_species_perks()
 		data[species_id]["diet"] =  species.get_species_diet()
+		data[species_id]["selectable"] = species.check_roundstart_eligible()
 
 		qdel(species)
 

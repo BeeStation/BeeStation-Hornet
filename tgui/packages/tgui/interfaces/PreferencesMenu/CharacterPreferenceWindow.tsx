@@ -1,6 +1,6 @@
 import { exhaustiveCheck } from 'common/exhaustive';
 import { useBackend, useLocalState } from '../../backend';
-import { Button, Flex, Stack, Box, Divider } from '../../components';
+import { Button, Flex, Stack, Divider } from '../../components';
 import { Window } from '../../layouts';
 import { PreferencesMenuData } from './data';
 import { PageButton } from './PageButton';
@@ -11,6 +11,7 @@ import { SpeciesPage } from './SpeciesPage';
 import { QuirksPage } from './QuirksPage';
 import { LoadoutPage } from './LoadoutPage';
 import { BooleanLike } from 'common/react';
+import { SaveStatus } from './SaveStatus';
 
 enum Page {
   Antags,
@@ -52,8 +53,6 @@ const CharacterProfiles = (props: {
 
 export const CharacterPreferenceWindow = (props, context) => {
   const { act, data } = useBackend<PreferencesMenuData>(context);
-  const { save_in_progress = false } = data;
-
   const [currentPage, setCurrentPage] = useLocalState(context, 'currentPage', Page.Main);
 
   let pageContents;
@@ -84,34 +83,7 @@ export const CharacterPreferenceWindow = (props, context) => {
   }
 
   return (
-    <Window
-      title="Character Preferences"
-      width={1200}
-      height={770}
-      theme="generic"
-      buttons={
-        <Box
-          backgroundColor={save_in_progress ? '#666666' : '#00cc00'}
-          textColor="white"
-          textAlign="center"
-          ml={1}
-          style={{
-            'border-radius': '2px',
-            display: 'inline',
-            padding: '2px 5px',
-          }}>
-          {save_in_progress ? (
-            <span>
-              Saving
-              <span class="loading-one">.</span>
-              <span class="loading-two">.</span>
-              <span class="loading-three">.</span>
-            </span>
-          ) : (
-            <strong>Saved</strong>
-          )}
-        </Box>
-      }>
+    <Window title="Character Preferences" width={1200} height={770} theme="generic" buttons={<SaveStatus />}>
       <Window.Content scrollable>
         <Flex direction="column" width="100%">
           <Flex.Item mt={-1}>

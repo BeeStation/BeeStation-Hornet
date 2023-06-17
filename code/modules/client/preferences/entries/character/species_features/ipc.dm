@@ -34,6 +34,12 @@
 	return data
 
 /// God forgive me for this
+/// Yes, this does actually work and doesn't break anything.
+/// Why? Because it's only visible as a supplemental feature - when prefs does a lookup for is_accessible etc when it receives the db_key from the UI,
+/// It directs to this one. That is why EYECOLOR trait is still there, otherwise it would return false and block the otherwise valid request.
+/// Since the db_key is identical to the regular one, it saves correctly and syncs data with the other one properly.
+/// The other one basically serves as a filler to show up in the right category, this one is what actually handles the data.
+/// God I hate IPC shitcode - itsmeow 2023
 /datum/preference/color_legacy/eye_color/ipc
 	db_key = "eye_color"
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES

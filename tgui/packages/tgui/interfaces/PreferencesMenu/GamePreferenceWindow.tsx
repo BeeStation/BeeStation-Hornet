@@ -6,6 +6,7 @@ import { PageButton } from './PageButton';
 import { useBackend, useLocalState } from '../../backend';
 import { GamePreferencesSelectedPage, PreferencesMenuData } from './data';
 import { exhaustiveCheck } from 'common/exhaustive';
+import { SaveStatus } from './SaveStatus';
 
 export const GamePreferenceWindow = (
   props: {
@@ -35,7 +36,7 @@ export const GamePreferenceWindow = (
   }
 
   return (
-    <Window title="Game Preferences" width={920} height={770} theme="generic">
+    <Window title="Game Preferences" width={920} height={770} theme="generic" buttons={<SaveStatus />}>
       <Window.Content>
         <Stack vertical fill>
           <Stack.Item>

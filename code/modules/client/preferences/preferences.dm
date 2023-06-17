@@ -121,16 +121,16 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			return
 	// Begin no database / new player logic. This ONLY fires if there is an SQL error or no database / the player and character is new.
 
-	// TODO tgui-prefs implement fallback species
 	if(!loaded_preferences_successfully) // create a new character object
 		character_data = new(src, default_slot)
 		// Get the profile data
 		fetch_character_profiles()
+		var/new_species_path = GLOB.species_list[get_fallback_species_id() || "human"]
+		character_data.write_preference(src, GLOB.preference_entries[/datum/preference/choiced/species], new_species_path)
 	// We couldn't load character data so just randomize the character appearance
 	randomize_appearance_prefs()
 	if(parent)
 		apply_all_client_preferences() // apply now since normally this is done in load_preferences(). Defaults were set in preferences_player
-		parent.set_macros()
 
 	// The character name is fresh, update the character list.
 	update_current_character_profile()
@@ -184,6 +184,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	data["active_slot"] = default_slot
 	data["max_slot"] = max_save_slots
 	data["save_in_progress"] = !isnull(SSpreferences.datums[parent.ckey])
+	data["is_guest"] = !!IS_GUEST_KEY(parent.key)
+	data["is_db"] = !!SSdbcore.IsConnected()
 
 	for (var/datum/preference_middleware/preference_middleware as anything in middleware)
 		data += preference_middleware.get_ui_data(user)
@@ -223,11 +225,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	switch (action)
 		if ("change_slot")
+			var/new_slot = params["slot"]
+			if(new_slot == default_slot) // No need to change to the current character.
+				return
 			// Save previous character (immediately, delaying this could mean data is lost)
 			save_character()
 
 			// SAFETY: `load_character` performs sanitization the slot number
-			if (!load_character(params["slot"]))
+			if (!load_character(new_slot))
 				// there is no character in the slot. Make a new one. Save it.
 				update_current_character_profile()
 				randomize_appearance_prefs()

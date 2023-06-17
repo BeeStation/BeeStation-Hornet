@@ -19,7 +19,7 @@
 	..(prefs)
 
 /datum/preferences_holder/preferences_character/proc/load_from_database(datum/preferences/prefs)
-	if(!query_data(prefs)) // Query direct, otherwise create informed defaults
+	if(IS_GUEST_KEY(prefs.parent.key) || !query_data(prefs)) // Query direct, otherwise create informed defaults
 		for (var/preference_type in GLOB.preference_entries)
 			var/datum/preference/preference = GLOB.preference_entries[preference_type]
 			if (preference.preference_type != pref_type)
@@ -64,7 +64,7 @@
 	dirty_prefs.Cut() // clear all dirty preferences
 
 /datum/preferences_holder/preferences_character/proc/write_data(datum/preferences/prefs)
-	if(!SSdbcore.IsConnected() || IS_GUEST_KEY(prefs.parent.ckey))
+	if(!SSdbcore.IsConnected() || IS_GUEST_KEY(prefs.parent.key))
 		return FALSE
 	var/list/column_names_short = list()
 	var/list/new_data = list()
@@ -151,12 +151,12 @@
 
 
 /datum/preferences_holder/preferences_character/proc/get_all_character_names(datum/preferences/prefs)
-	if(!SSdbcore.IsConnected())
+	if(!SSdbcore.IsConnected() || IS_GUEST_KEY(prefs.parent.key))
 		var/list/data = list()
 		for(var/index in 1 to TRUE_MAX_SAVE_SLOTS)
 			data += null
 		// Only the current slot is valid
-		data[prefs.default_slot] = read_preference(prefs, /datum/preference/name/real_name)
+		data[prefs.default_slot] = read_preference(prefs, GLOB.preference_entries[/datum/preference/name/real_name])
 		prefs.character_profiles_cached = data
 		return
 	var/datum/DBQuery/Q = SSdbcore.NewQuery(

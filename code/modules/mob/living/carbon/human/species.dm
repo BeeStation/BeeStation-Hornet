@@ -1,6 +1,7 @@
 // This code handles different species in the game.
 
 GLOBAL_LIST_EMPTY(roundstart_races)
+GLOBAL_LIST_EMPTY(accepatable_no_hard_check_races)
 
 /// An assoc list of species types to their features (from get_features())
 GLOBAL_LIST_EMPTY(features_by_species)
@@ -138,9 +139,43 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			qdel(species)
 
 	if(!selectable_species.len)
-		selectable_species += SPECIES_HUMAN
+		selectable_species += get_fallback_species_id()
 
 	return selectable_species
+
+/proc/get_fallback_species_id()
+	var/fallback = CONFIG_GET(string/fallback_default_species)
+	var/id = fallback
+	if(fallback == "random") // absolute schizoposting
+		if(length(GLOB.roundstart_races))
+			id = pick(GLOB.roundstart_races)
+		else
+			var/datum/species/type = pick(subtypesof(/datum/species))
+			id = initial(type.id)
+	return id
+
+/// Gets a list of species that are allowed to be used from the DB even if they are disabled due to roundstart_no_hard_check
+/// Use get_selectable_species() for new/editing characters.
+/proc/get_acceptable_species()
+	RETURN_TYPE(/list)
+
+	if (!GLOB.accepatable_no_hard_check_races.len)
+		GLOB.accepatable_no_hard_check_races = generate_acceptable_species()
+
+	return GLOB.accepatable_no_hard_check_races
+
+/proc/generate_acceptable_species()
+	var/list/base = get_selectable_species() // normally allowed species.
+	var/list/no_hard_check = CONFIG_GET(keyed_list/roundstart_no_hard_check)
+	no_hard_check = no_hard_check.Copy()
+	for(var/species_id in no_hard_check)
+		if(!GLOB.species_list[species_id])
+			continue
+		base += species_id
+		no_hard_check -= species_id
+	for(var/species_id in no_hard_check) // warn any invalid species in the config.
+		stack_trace("WARNING: roundstart_no_hard_check contains invalid species ID: [species_id]")
+	return base
 
 /datum/species/proc/check_roundstart_eligible()
 	if(id in (CONFIG_GET(keyed_list/roundstart_races)))

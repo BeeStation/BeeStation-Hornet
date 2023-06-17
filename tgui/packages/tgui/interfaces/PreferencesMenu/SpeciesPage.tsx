@@ -208,6 +208,8 @@ const SpeciesPageInner = (
     return speciesKey === data.character_preferences.misc.species;
   })[0][1];
 
+  let selectableSpecies: [string, Species][] = species.filter(([_, s]) => s.selectable);
+
   return (
     <Stack vertical fill>
       <Stack.Item>
@@ -218,22 +220,67 @@ const SpeciesPageInner = (
         <Stack fill>
           <Stack.Item>
             <Box height="calc(100vh - 170px)" overflowY="auto" pr={3}>
-              {species.map(([speciesKey, species]) => {
-                return (
+              {selectableSpecies.map(([speciesKey, species]) => {
+                return !currentSpecies.selectable ? (
+                  <Button.Confirm
+                    key={speciesKey}
+                    onClick={() => setSpecies(speciesKey)}
+                    selected={data.character_preferences.misc.species === speciesKey}
+                    tooltip={
+                      <>
+                        <Box>{species.name}</Box>
+                        <Box textColor="red">
+                          <strong>
+                            Changing species will result in the loss of ability to select {currentSpecies.name} again. Are you
+                            sure?
+                          </strong>
+                        </Box>
+                      </>
+                    }
+                    content={<Box className={classes(['species64x64', species.icon])} ml={-1} />}
+                    style={{
+                      display: 'block',
+                      height: '64px',
+                      width: '64px',
+                    }}
+                  />
+                ) : (
                   <Button
                     key={speciesKey}
                     onClick={() => setSpecies(speciesKey)}
                     selected={data.character_preferences.misc.species === speciesKey}
                     tooltip={species.name}
+                    content={<Box className={classes(['species64x64', species.icon])} ml={-1} />}
                     style={{
                       display: 'block',
                       height: '64px',
                       width: '64px',
-                    }}>
-                    <Box className={classes(['species64x64', species.icon])} ml={-1} />
-                  </Button>
+                    }}
+                  />
                 );
               })}
+              {!currentSpecies.selectable && (
+                <Button
+                  selected
+                  tooltip={
+                    <>
+                      <Box>{currentSpecies.name}</Box>
+                      <Box textColor="red">
+                        <strong>
+                          Disabled for new characters, but allowed by roundstart_no_hard_check. Changing species will result in
+                          the inability to select this species again.
+                        </strong>
+                      </Box>
+                    </>
+                  }
+                  content={<Box className={classes(['species64x64', currentSpecies.icon])} ml={-1} />}
+                  style={{
+                    display: 'block',
+                    height: '64px',
+                    width: '64px',
+                  }}
+                />
+              )}
             </Box>
           </Stack.Item>
 
@@ -249,7 +296,17 @@ const SpeciesPageInner = (
                         // so we have nothing to show
                         currentSpecies.diet && <Diet diet={currentSpecies.diet} />
                       }>
-                      <Section title="Description">{currentSpecies.desc}</Section>
+                      <Section
+                        title="Description"
+                        buttons={
+                          !currentSpecies.selectable && (
+                            <Box textColor="red">
+                              <strong>Unselectable, but allowed due to your existing character.</strong>
+                            </Box>
+                          )
+                        }>
+                        {currentSpecies.desc}
+                      </Section>
 
                       <Section title="Features">
                         <SpeciesPerks perks={currentSpecies.perks} />

@@ -5,7 +5,7 @@
 /// Queues a preference write.
 /// Use this for player preferences only.
 /datum/preferences/proc/mark_undatumized_dirty_player()
-	if(IS_GUEST_KEY(parent.ckey)) // NO saving guests to the DB!
+	if(IS_GUEST_KEY(parent.key)) // NO saving guests to the DB!
 		return FALSE
 	dirty_undatumized_preferences_player = TRUE
 	SSpreferences.queue_write(src)
@@ -14,7 +14,7 @@
 /// Queues a preference write.
 /// Use this for character preferences only.
 /datum/preferences/proc/mark_undatumized_dirty_character()
-	if(IS_GUEST_KEY(parent.ckey)) // NO saving guests to the DB!
+	if(IS_GUEST_KEY(parent.key)) // NO saving guests to the DB!
 		return FALSE
 	dirty_undatumized_preferences_character = TRUE
 	SSpreferences.queue_write(src)
@@ -119,7 +119,7 @@
 /datum/preferences/proc/save_preferences()
 	if(!SSdbcore.IsConnected())
 		return FALSE
-	if(IS_GUEST_KEY(parent.ckey)) // NO saving guests to the DB!
+	if(IS_GUEST_KEY(parent.key)) // NO saving guests to the DB!
 		return FALSE
 	if(!player_data?.write_to_database(src))
 		return FALSE
@@ -233,7 +233,7 @@
 /datum/preferences/proc/save_character()
 	if(!SSdbcore.IsConnected())
 		return FALSE
-	if(IS_GUEST_KEY(parent.ckey)) // NO saving guests to the DB!
+	if(IS_GUEST_KEY(parent.key)) // NO saving guests to the DB!
 		return FALSE
 	if(!character_data?.write_to_database(src))
 		return FALSE
@@ -309,7 +309,7 @@
 	if (!preference.is_valid(new_value))
 		return FALSE
 	preference_data[preference.db_key] = new_value
-	if(IS_GUEST_KEY(preferences.parent.ckey)) // NO saving guests to the DB!
+	if(IS_GUEST_KEY(preferences.parent.key)) // NO saving guests to the DB!
 		return TRUE
 	dirty_prefs |= preference.db_key
 	SSpreferences.queue_write(preferences)

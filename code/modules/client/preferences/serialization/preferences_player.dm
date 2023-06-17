@@ -3,7 +3,7 @@
 	pref_type = PREFERENCE_PLAYER
 
 /datum/preferences_holder/preferences_player/proc/load_from_database(datum/preferences/prefs)
-	if(!query_data(prefs)) // Query direct, otherwise create informed defaults
+	if(IS_GUEST_KEY(prefs.parent.key) || !query_data(prefs)) // Query direct, otherwise create informed defaults
 		for (var/preference_type in GLOB.preference_entries)
 			var/datum/preference/preference = GLOB.preference_entries[preference_type]
 			if (preference.preference_type != pref_type)
@@ -43,7 +43,7 @@
 	dirty_prefs.Cut() // clear all dirty preferences
 
 /datum/preferences_holder/preferences_player/proc/write_data(datum/preferences/prefs)
-	if(!SSdbcore.IsConnected() || IS_GUEST_KEY(prefs.parent.ckey))
+	if(!SSdbcore.IsConnected() || IS_GUEST_KEY(prefs.parent.key))
 		return FALSE
 	var/list/sql_inserts = list()
 	for(var/db_key in dirty_prefs)

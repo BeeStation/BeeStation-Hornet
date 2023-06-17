@@ -42,6 +42,7 @@ export type Species = {
   sexes: BooleanLike;
 
   enabled_features: string[];
+  selectable: BooleanLike;
 
   perks: {
     positive: Perk[];
@@ -201,6 +202,8 @@ export type PreferencesMenuData = {
   max_slot: number;
   name_to_use: string;
   save_in_progress: BooleanLike;
+  is_guest: BooleanLike;
+  is_db: BooleanLike;
 
   window: Window;
 };
