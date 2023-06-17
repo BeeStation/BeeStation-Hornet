@@ -16,7 +16,7 @@ export const NowPlayingWidget = (props, context) => {
     settings = useSettings(context),
     title = audio.meta?.title,
     url = audio.meta?.link,
-    Artist = audio.meta?.artist || 'Unknown Artist',
+    artist = audio.meta?.artist || 'Unknown Artist',
     upload_date = audio.meta?.upload_date || 'Unknown Date',
     album = audio.meta?.album || 'Unknown Album',
     duration = audio.meta?.duration,
@@ -46,9 +46,9 @@ export const NowPlayingWidget = (props, context) => {
                 <Flex.Item grow={1} color="label">
                   Duration: {duration}
                 </Flex.Item>
-                {Artist !== 'Song Artist Hidden' && Artist !== 'Unknown Artist' && (
+                {artist !== 'Song Artist Hidden' && artist !== 'Unknown Artist' && (
                   <Flex.Item grow={1} color="label">
-                    Artist: {Artist}
+                    Artist: {artist}
                   </Flex.Item>
                 )}
                 {album !== 'Song Album Hidden' && album !== 'Unknown Album' && (
