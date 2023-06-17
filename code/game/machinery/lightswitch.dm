@@ -24,7 +24,9 @@
 		name = "light switch ([area.name])"
 
 	update_icon()
-	return INITIALIZE_HINT_LATELOAD
+	if(mapload)
+		return INITIALIZE_HINT_LATELOAD
+	return
 
 /obj/machinery/light_switch/LateInitialize()
 	var/area/source_area = get_area(get_turf(src))
