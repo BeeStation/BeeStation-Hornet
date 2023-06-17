@@ -13,7 +13,7 @@
 #define EMERGENCY_IDLE_OR_RECALLED (SSshuttle.emergency && ((SSshuttle.emergency.mode == SHUTTLE_IDLE) || (SSshuttle.emergency.mode == SHUTTLE_RECALL)))
 #define EMERGENCY_ESCAPED_OR_ENDGAMED (SSshuttle.emergency && ((SSshuttle.emergency.mode == SHUTTLE_ESCAPE) || (SSshuttle.emergency.mode == SHUTTLE_ENDGAME)))
 #define EMERGENCY_AT_LEAST_DOCKED (SSshuttle.emergency && SSshuttle.emergency.mode != SHUTTLE_IDLE && SSshuttle.emergency.mode != SHUTTLE_RECALL && SSshuttle.emergency.mode != SHUTTLE_CALL)
-#define EMERGENCY_ALMOST_HERE (SSshuttle.emergency && (SSshuttle.emergency.mode == SHUTTLE_CALL) && (SSshuttle.emergency.timeLeft() <= 2 MINUTES))
+#define EMERGENCY_ALMOST_HERE (SSshuttle.emergency && (SSshuttle.emergency.mode == SHUTTLE_CALL) && (SSshuttle.emergency.timeLeft(1) <= 2 MINUTES))
 
 // Shuttle return values
 #define SHUTTLE_CAN_DOCK "can_dock"
