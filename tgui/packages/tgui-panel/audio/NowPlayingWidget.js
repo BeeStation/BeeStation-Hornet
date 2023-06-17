@@ -15,7 +15,7 @@ export const NowPlayingWidget = (props, context) => {
     dispatch = useDispatch(context),
     settings = useSettings(context),
     title = audio.meta?.title,
-    URL = audio.meta?.link,
+    url = audio.meta?.link,
     Artist = audio.meta?.artist || 'Unknown Artist',
     upload_date = audio.meta?.upload_date || 'Unknown Date',
     album = audio.meta?.album || 'Unknown Album',
@@ -38,9 +38,9 @@ export const NowPlayingWidget = (props, context) => {
           {
             <Collapsible title={title || 'Unknown Track'} color={'blue'}>
               <Section>
-                {URL !== 'Song Link Hidden' && (
+                {url !== 'Song Link Hidden' && (
                   <Flex.Item grow={1} color="label">
-                    URL: {URL}
+                    URL: {url}
                   </Flex.Item>
                 )}
                 <Flex.Item grow={1} color="label">
