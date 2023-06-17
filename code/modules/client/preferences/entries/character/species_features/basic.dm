@@ -79,6 +79,11 @@
 /datum/preference/color_legacy/hair_color/apply_to_human(mob/living/carbon/human/target, value)
 	target.hair_color = value
 
+/datum/preference/color_legacy/hair_color/is_accessible(datum/preferences/preferences, ignore_page)
+	if (!ignore_page && !should_show_on_page(preferences.current_window))
+		return FALSE
+	return ..() || ispath(preferences.read_character_preference(/datum/preference/choiced/species), /datum/species/ipc)
+
 /datum/preference/choiced/hairstyle
 	db_key = "hair_style_name"
 	preference_type = PREFERENCE_CHARACTER

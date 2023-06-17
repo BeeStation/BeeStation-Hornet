@@ -2401,7 +2401,7 @@
 
 /datum/sprite_accessory/ipc_antennas/none
 	name = "None"
-	icon_state = "None"
+	icon_state = "none"
 
 /datum/sprite_accessory/ipc_antennas/angled
 	name = "Angled"

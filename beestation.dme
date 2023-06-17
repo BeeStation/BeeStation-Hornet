@@ -2150,6 +2150,7 @@
 #include "code\modules\client\preferences\entries\character\species_features\basic.dm"
 #include "code\modules\client\preferences\entries\character\species_features\ethereal.dm"
 #include "code\modules\client\preferences\entries\character\species_features\felinid.dm"
+#include "code\modules\client\preferences\entries\character\species_features\ipc.dm"
 #include "code\modules\client\preferences\entries\character\species_features\lizard.dm"
 #include "code\modules\client\preferences\entries\character\species_features\moth.dm"
 #include "code\modules\client\preferences\entries\character\species_features\mutants.dm"
