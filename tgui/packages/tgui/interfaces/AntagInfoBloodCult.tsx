@@ -773,7 +773,7 @@ export const AntagInfoBloodCult = (_props, context) => {
   const { data } = useBackend<Info>(context);
   const { objectives } = data;
   return (
-    <Window width={750} height={900} theme="neutral">
+    <Window width={750} height={900} theme="narsie">
       <Window.Content scrollable>
         <Stack vertical fill>
           <Stack.Item>
