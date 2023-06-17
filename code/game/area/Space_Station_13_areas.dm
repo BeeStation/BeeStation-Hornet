@@ -1515,6 +1515,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/ai_monitored
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
+	lights_always_start_on = TRUE
 
 /area/ai_monitored/security/armory
 	name = "Armory"
@@ -1580,6 +1581,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/aisat
 	name = "AI Satellite Exterior"
 	icon_state = "yellow"
+	lights_always_start_on = TRUE
 
 /area/ai_monitored/turret_protected/aisat/maint
 	name = "AI Satellite Maintenance"
