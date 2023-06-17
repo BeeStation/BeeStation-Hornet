@@ -149,11 +149,22 @@
 			for (var/datum/objective/open/objective as() in subtypesof(/datum/objective/open))
 				selectable_objectives[objective] = initial(objective.weight)
 		var/created_type = pick_weight(selectable_objectives)
-		var/datum/objective/obj = new created_type
-		obj.owner = owner
-		obj.find_target()
-		add_objective(obj)
-	else if(prob(50))
+		var/valid = TRUE
+		// Check if the objective conflicts with any other ones
+		// We don't want to have the same open objectives multiple times
+		// If we don't want this objective, fall back to normal ones
+		for (var/datum/objective/obj in objectives)
+			if (obj.type == created_type)
+				valid = FALSE
+				break
+		if (valid)
+			var/datum/objective/obj = new created_type
+			obj.owner = owner
+			obj.find_target()
+			add_objective(obj)
+			return
+
+	if(prob(50))
 		var/list/active_ais = active_ais()
 		if(active_ais.len && prob(100/GLOB.joined_player_list.len))
 			var/datum/objective/destroy/destroy_objective = new
