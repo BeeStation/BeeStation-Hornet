@@ -113,12 +113,12 @@ export const LoadoutPage = (props, context) => {
                               <Table.Cell textAlign="center">
                                 <Button
                                   disabled={
-                                    (!purchased_gear.includes(gear.id) && gear.cost > metacurrency_balance) ||
+                                    (!isPurchased(gear) && gear.cost > metacurrency_balance) ||
                                     (gear.donator && !is_donator) ||
                                     (isPurchased(gear) && !gear.is_equippable && !gear.multi_purchase)
                                   }
                                   tooltip={
-                                    !purchased_gear.includes(gear.id) && gear.cost > metacurrency_balance
+                                    !isPurchased(gear) && gear.cost > metacurrency_balance
                                       ? 'Not Enough ' + metacurrency_name
                                       : null
                                   }
