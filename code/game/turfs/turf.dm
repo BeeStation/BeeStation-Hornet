@@ -591,12 +591,14 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		var/list/nearby_things = range(1, chosen_location)
 		var/obj/effect/heretic_influence/what_if_i_have_one = locate() in nearby_things
 		var/obj/effect/visible_heretic_influence/what_if_i_had_one_but_its_used = locate() in nearby_things
-		if(what_if_i_have_one || what_if_i_had_one_but_its_used)
+		if(what_if_i_have_one || what_if_i_had_one_but_its_used || isspaceturf(chosen_location))
 			location_sanity++
 			continue
-		new /obj/effect/visible_heretic_influence(chosen_location)
+		addtimer(CALLBACK(src, PROC_REF(create_new_fake_reality), chosen_location), rand(0, 500))
 		spawned ++
 
+/turf/proc/create_new_fake_reality(turf/F)
+	new new /obj/effect/visible_heretic_influence(F)
 /// Checks if the turf was blessed with holy water OR the area its in is Chapel
 /turf/proc/is_holy()
 	if(locate(/obj/effect/blessing) in src)
