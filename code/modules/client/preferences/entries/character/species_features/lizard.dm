@@ -123,11 +123,13 @@
 /datum/preference/choiced/lizard_spines
 	db_key = "feature_lizard_spines"
 	preference_type = PREFERENCE_CHARACTER
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_FEATURES
+	main_feature_name = "Spines"
+	should_generate_icons = TRUE
 	relevant_mutant_bodypart = "spines"
 
 /datum/preference/choiced/lizard_spines/init_possible_values()
-	return assoc_to_keys(GLOB.spines_list)
+	return generate_lizard_body_shots(GLOB.spines_list, "spines", show_tail = TRUE)
 
 /datum/preference/choiced/lizard_spines/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["spines"] = value
@@ -135,12 +137,46 @@
 /datum/preference/choiced/lizard_tail
 	db_key = "feature_lizard_tail"
 	preference_type = PREFERENCE_CHARACTER
-	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	category = PREFERENCE_CATEGORY_FEATURES
+	main_feature_name = "Tail"
+	should_generate_icons = TRUE
 	relevant_mutant_bodypart = "tail_lizard"
 
 /datum/preference/choiced/lizard_tail/init_possible_values()
-	return assoc_to_keys(GLOB.tails_list_lizard)
+	return generate_lizard_body_shots(GLOB.tails_list_lizard, "tail")
 
 /datum/preference/choiced/lizard_tail/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["tail_lizard"] = value
 
+/proc/generate_lizard_body_shots(list/sprite_accessories, key, show_tail = FALSE, shift_x = -8)
+	var/list/values = list()
+	var/list/body_parts = list(
+		BODY_ZONE_CHEST,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_PRECISE_R_HAND,
+		BODY_ZONE_R_LEG,
+	)
+	var/icon/body_icon = icon('icons/effects/effects.dmi', "nothing")
+	for (var/body_part in body_parts)
+		var/gender = body_part == BODY_ZONE_CHEST ? "_m" : ""
+		body_icon.Blend(icon('icons/mob/species/lizard/bodyparts.dmi', "lizard_[body_part][gender]", dir = EAST), ICON_OVERLAY)
+	if(show_tail)
+		body_icon.Blend(icon('icons/mob/mutant_bodyparts.dmi', "m_tail_smooth_BEHIND", dir = EAST), ICON_OVERLAY)
+
+	for (var/sprite_name in sprite_accessories)
+		var/datum/sprite_accessory/sprite = sprite_accessories[sprite_name]
+		var/icon/icon_with_changes = new(body_icon)
+
+		if (sprite_name != "None")
+			var/ex = key == "spines" ? "ADJ" : "BEHIND"
+			var/icon/sprite_icon = icon('icons/mob/mutant_bodyparts.dmi', "m_[key]_[sprite.icon_state]_[ex]", dir = EAST)
+			icon_with_changes.Blend(sprite_icon, ICON_OVERLAY)
+		icon_with_changes.Blend(COLOR_LIME, ICON_MULTIPLY)
+
+		// Zoom in
+		icon_with_changes.Scale(64, 64)
+		icon_with_changes.Crop(15 + shift_x, 0, 15 + 31 + shift_x, 31)
+
+		values[sprite_name] = icon_with_changes
+
+	return values

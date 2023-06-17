@@ -102,6 +102,8 @@
 		BODY_ZONE_CHEST,
 		BODY_ZONE_L_ARM,
 		BODY_ZONE_R_ARM,
+		BODY_ZONE_PRECISE_L_HAND,
+		BODY_ZONE_PRECISE_R_HAND,
 		BODY_ZONE_L_LEG,
 		BODY_ZONE_R_LEG,
 	)
@@ -111,10 +113,6 @@
 
 		for (var/body_part in body_parts)
 			icon_with_chassis.Blend(icon('icons/mob/species/ipc/bodyparts.dmi', "[chassis.limbs_id]_[body_part]", dir = SOUTH), ICON_OVERLAY)
-
-		// Zoom in
-		icon_with_chassis.Scale(64, 64)
-		icon_with_chassis.Crop(15, 64, 15 + 31, 64 - 31)
 
 		values[chassis.name] = icon_with_chassis
 
