@@ -1,0 +1,5 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - tweak: the Detective can no longer roll antag
+  - rscadd: Gave the Detective the mindshield back
