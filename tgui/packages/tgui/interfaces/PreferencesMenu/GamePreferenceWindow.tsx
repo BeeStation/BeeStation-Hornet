@@ -18,7 +18,7 @@ export const GamePreferenceWindow = (
 
   const [currentPage, setCurrentPage] = useLocalState(
     context,
-    'currentPage',
+    'currentPage_game',
     props.startingPage ?? GamePreferencesSelectedPage.Settings
   );
 
