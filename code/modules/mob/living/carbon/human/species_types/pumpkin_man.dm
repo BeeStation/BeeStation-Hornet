@@ -22,7 +22,7 @@
 /datum/species/pod/pumpkin_man/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
 		return TRUE
-	return FALSE
+	return ..()
 
 /datum/species/pod/pumpkin_man/get_species_description()
 	return "A rare subspecies of the Podpeople, Pumpkinpeople are gourdy and orange, appearing every halloween."
