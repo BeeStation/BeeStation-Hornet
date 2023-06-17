@@ -37,10 +37,12 @@
 /datum/preference/color_legacy/eye_color/ipc
 	db_key = "eye_color"
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
-	relevant_species_trait = null
+	relevant_species_trait = EYECOLOR
 
 /datum/preference/color_legacy/eye_color/ipc/is_accessible(datum/preferences/preferences, ignore_page)
-	return ..() && ispath(preferences.read_character_preference(/datum/preference/choiced/species), /datum/species/ipc)
+	if (!ignore_page && !should_show_on_page(preferences.current_window))
+		return FALSE
+	return ..() || ispath(preferences.read_character_preference(/datum/preference/choiced/species), /datum/species/ipc)
 
 /datum/preference/choiced/ipc_antenna
 	db_key = "feature_ipc_antenna"
