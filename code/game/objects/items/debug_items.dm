@@ -307,7 +307,7 @@
 	
 	if(!isliving(user))
 		user.update_sight()
-		return .
+		return
 	var/mob/living/picker = user
 	picker.see_override = SEE_INVISIBLE_OBSERVER
 	picker.update_sight()
