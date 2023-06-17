@@ -285,6 +285,7 @@
 		icon_state = "[base_state]-burned"
 		on = FALSE
 		set_light(0)
+		playsound(src.loc, 'sound/effects/burnout.ogg', 65)
 
 // attempt to set the light's on/off status
 // will not switch on if broken/burned/empty
