@@ -4,7 +4,7 @@
 	description = "Follow your laws above all else, be the invisible eye that watches all."
 	department_for_prefs = DEPT_BITFLAG_SILICON
 	department_head_for_prefs = JOB_NAME_AI
-	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SILICON
+	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
 	department_flag = ENGSEC
 	faction = "Station"
 	total_positions = 1

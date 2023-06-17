@@ -3,7 +3,7 @@
 	flag = CHIEF
 	description = "Oversee the engineers and atmospheric technicians, keep a watchful eye on the station's engine, gravity generator, and telecomms. Send your staff to repair hull breaches and damaged equipment as necessary."
 	department_for_prefs = DEPT_BITFLAG_ENG
-	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD
+	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
 	head_announce = list("Engineering")

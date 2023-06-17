@@ -7,7 +7,7 @@
 	department_for_prefs = DEPT_BITFLAG_MED
 	department_head = list(JOB_NAME_CAPTAIN)
 	supervisors = "the captain"
-	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD
+	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
 	head_announce = list(RADIO_CHANNEL_MEDICAL)
 	faction = "Station"
 	total_positions = 1

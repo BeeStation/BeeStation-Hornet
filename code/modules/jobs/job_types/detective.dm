@@ -3,7 +3,7 @@
 	flag = DETECTIVE
 	description = "Investigate crimes, solve murder mysteries, report your findings to the rest of Security."
 	department_for_prefs = DEPT_BITFLAG_SEC
-	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SECURITY
+	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security"
 	faction = "Station"

@@ -3,7 +3,7 @@
 	flag = OFFICER
 	description = "Follow Space Law, patrol the station, arrest criminals and bring them to the Brig."
 	department_for_prefs = DEPT_BITFLAG_SEC
-	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SECURITY
+	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security, and the head of your assigned department (if applicable)"
 	faction = "Station"

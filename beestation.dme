@@ -2163,6 +2163,7 @@
 #include "code\modules\client\preferences\entries\player\buttons_locked.dm"
 #include "code\modules\client\preferences\entries\player\chat.dm"
 #include "code\modules\client\preferences\entries\player\crew_objectives.dm"
+#include "code\modules\client\preferences\entries\player\deadmin.dm"
 #include "code\modules\client\preferences\entries\player\fps.dm"
 #include "code\modules\client\preferences\entries\player\ghost.dm"
 #include "code\modules\client\preferences\entries\player\glasses.dm"

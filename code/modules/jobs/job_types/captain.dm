@@ -4,7 +4,7 @@
 	description = "Supreme leader of the station, oversee and appoint missing heads of staff, manage alert levels and contact CentCom if needed. Don't forget to secure the nuclear authentication disk."
 	department_for_prefs = DEPT_BITFLAG_CAPTAIN
 	department_head_for_prefs = JOB_NAME_CAPTAIN
-	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD|PREFTOGGLE_DEADMIN_POSITION_SECURITY
+	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD|DEADMIN_POSITION_SECURITY
 	department_head = list("CentCom")
 	supervisors = "Nanotrasen officials and Space law"
 	faction = "Station"

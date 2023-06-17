@@ -115,9 +115,9 @@
 /mob/proc/auto_deadmin_on_login() //return true if they're not an admin at the end.
 	if(!client?.holder)
 		return TRUE
-	if(CONFIG_GET(flag/auto_deadmin_players) || (client.prefs?.toggles & PREFTOGGLE_DEADMIN_ALWAYS))
+	if(CONFIG_GET(flag/auto_deadmin_players) || client?.prefs?.read_player_preference(/datum/preference/toggle/deadmin_always))
 		return client.holder.auto_deadmin()
-	if(mind.has_antag_datum(/datum/antagonist) && (CONFIG_GET(flag/auto_deadmin_antagonists) || client.prefs?.toggles & PREFTOGGLE_DEADMIN_ANTAGONIST))
+	if(mind.has_antag_datum(/datum/antagonist) && (CONFIG_GET(flag/auto_deadmin_antagonists) || client.prefs?.read_player_preference(/datum/preference/toggle/deadmin_antagonist)))
 		return client.holder.auto_deadmin()
 	if(job)
 		return SSjob.handle_auto_deadmin_roles(client, job)

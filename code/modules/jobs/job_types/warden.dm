@@ -3,7 +3,7 @@
 	flag = WARDEN
 	description = "Oversee prisoners in the brig and guard the armory. Hand out equipment when necessary and ensure it is returned after threats have been contained."
 	department_for_prefs = DEPT_BITFLAG_SEC
-	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SECURITY
+	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security"
 	faction = "Station"

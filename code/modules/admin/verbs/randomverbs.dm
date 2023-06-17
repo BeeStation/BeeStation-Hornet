@@ -881,7 +881,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	for(var/datum/atom_hud/antag/H in GLOB.huds) // add antag huds
 		(adding_hud) ? H.add_hud_to(usr) : H.remove_hud_from(usr)
 
-	if(prefs.toggles & PREFTOGGLE_COMBOHUD_LIGHTING)
+	if(prefs?.read_player_preference(/datum/preference/toggle/combohud_lighting))
 		if(adding_hud)
 			mob.lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
 		else
