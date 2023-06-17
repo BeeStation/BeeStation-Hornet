@@ -13075,6 +13075,10 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
+/obj/machinery/light_switch{
+	pixel_x = -22;
+	pixel_y = -8
+	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
 "bnE" = (
@@ -14767,7 +14771,8 @@
 /area/crew_quarters/heads/hop)
 "bvy" = (
 /obj/machinery/light_switch{
-	pixel_y = 28
+	pixel_x = -9;
+	pixel_y = 25
 	},
 /obj/structure/showcase/cyborg/old{
 	pixel_y = 20
@@ -17620,6 +17625,12 @@
 	},
 /obj/structure/table/wood,
 /obj/item/pen,
+/obj/machinery/light_switch{
+	area = /area/tcommsat/server;
+	name = "Server Room light switch";
+	pixel_x = 9;
+	pixel_y = -24
+	},
 /turf/open/floor/plasteel/grimy,
 /area/tcommsat/computer)
 "bJj" = (
@@ -34516,14 +34527,15 @@
 /obj/machinery/flasher{
 	id = "AI";
 	pixel_x = -26;
-	pixel_y = 3
+	pixel_y = 1
 	},
 /obj/item/radio/intercom{
 	broadcasting = 1;
 	frequency = 1447;
 	listening = 0;
 	name = "Station Intercom (AI Private)";
-	pixel_x = 28
+	pixel_x = 28;
+	pixel_y = -2
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/firedoor,
@@ -49350,6 +49362,17 @@
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
+"lii" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/light_switch{
+	pixel_x = -20
+	},
+/turf/open/floor/plasteel/dark,
+/area/aisat)
 "liI" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -74625,6 +74648,10 @@
 /obj/machinery/holopad,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/light_switch{
+	pixel_x = -21;
+	pixel_y = -22
+	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai)
 "wDx" = (
@@ -76130,6 +76157,9 @@
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
+	},
+/obj/machinery/light_switch{
+	pixel_y = -21
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat/foyer)
@@ -130967,7 +130997,7 @@ aSD
 rIV
 xER
 utM
-xER
+lii
 xER
 vNk
 inz
