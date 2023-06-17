@@ -1,0 +1,5 @@
+author: HowToLoLu
+delete-after: true
+changes:
+  - bugfix: Exploration VIP targets now memorize why they have strange abilities,
+      or an uplink in their head.
