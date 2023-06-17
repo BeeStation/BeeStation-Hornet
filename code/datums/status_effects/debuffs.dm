@@ -289,7 +289,7 @@
 	alert_type = null
 
 /datum/status_effect/cultghost/on_apply()
-	owner.see_invisible = SEE_INVISIBLE_OBSERVER
+	owner.see_invisible = SEE_INVISIBLE_SPIRIT
 	owner.see_in_dark = 2
 	return ..()
 
