@@ -131,7 +131,10 @@ const ChoicedSelection = (
                         height: `${CLOTHING_SELECTION_CELL_SIZE}px`,
                         width: `${CLOTHING_SELECTION_CELL_SIZE}px`,
                       }}>
-                      <Box className={classes(['preferences32x32', image, 'centered-image'])} />
+                      <Box
+                        className={classes(['preferences32x32', image, 'centered-image'])}
+                        style={{ transform: 'translateX(-50%) translateY(-50%) scale(1.3)' }}
+                      />
                     </Button>
                   </Flex.Item>
                 );

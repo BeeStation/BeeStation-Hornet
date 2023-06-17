@@ -1,4 +1,4 @@
-import { FeatureColorInput, Feature, FeatureChoiced, FeatureDropdownInput } from './base';
+import { FeatureColorInput, Feature, FeatureChoiced, FeatureDropdownInput } from '../base';
 
 export const eye_color: Feature<string> = {
   name: 'Eye color',
@@ -18,31 +18,6 @@ export const hair_color: Feature<string> = {
 export const gradient_color: Feature<string> = {
   name: 'Gradient color',
   component: FeatureColorInput,
-};
-
-export const feature_human_ears: FeatureChoiced = {
-  name: 'Ears',
-  component: FeatureDropdownInput,
-};
-
-export const feature_human_tail: FeatureChoiced = {
-  name: 'Tail',
-  component: FeatureDropdownInput,
-};
-
-export const feature_lizard_legs: FeatureChoiced = {
-  name: 'Legs',
-  component: FeatureDropdownInput,
-};
-
-export const feature_lizard_spines: FeatureChoiced = {
-  name: 'Spines',
-  component: FeatureDropdownInput,
-};
-
-export const feature_lizard_tail: FeatureChoiced = {
-  name: 'Tail',
-  component: FeatureDropdownInput,
 };
 
 export const feature_mcolor: Feature<string> = {
