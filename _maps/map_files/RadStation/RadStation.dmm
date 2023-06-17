@@ -19017,6 +19017,9 @@
 /area/security/main{
 	name = "Security Locker Room"
 	})
+"fWP" = (
+/turf/closed/wall,
+/area/space)
 "fWT" = (
 /obj/machinery/door/airlock{
 	id_tag = "Toilet 1";
@@ -48847,6 +48850,21 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
 /area/medical/chemistry)
+"pww" = (
+/obj/machinery/light_switch{
+	pixel_x = 28
+	},
+/obj/machinery/light_switch{
+	pixel_y = 26
+	},
+/obj/machinery/light_switch{
+	pixel_x = -28
+	},
+/obj/machinery/light_switch{
+	pixel_y = -26
+	},
+/turf/open/floor/plasteel,
+/area/space)
 "pwI" = (
 /obj/structure/sign/departments/medbay/alt2,
 /turf/closed/wall/r_wall,
@@ -112870,7 +112888,7 @@ yeA
 yeA
 yeA
 yeA
-yeA
+fWP
 yeA
 yeA
 yeA
@@ -113126,9 +113144,9 @@ yeA
 yeA
 yeA
 yeA
-yeA
-yeA
-yeA
+fWP
+pww
+fWP
 yeA
 yeA
 yeA
@@ -113384,7 +113402,7 @@ yeA
 yeA
 yeA
 yeA
-yeA
+fWP
 yeA
 yeA
 yeA
