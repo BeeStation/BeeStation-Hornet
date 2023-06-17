@@ -32,6 +32,7 @@ $accent: #4f56a5;
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
   @include meta.load-css('../layouts/TitleBar.scss', $with: ('background-color': color.scale($generic, $lightness: -25%)));
+  @include meta.load-css('../layouts/PopupWindow.scss');
 
   .Layout__content {
     background-image: none;

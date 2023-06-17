@@ -2,6 +2,7 @@ import { Component, createRef } from 'inferno';
 
 export class TrackOutsideClicks extends Component<{
   onOutsideClick: () => void;
+  removeOnOutsideClick?: boolean;
 }> {
   ref = createRef<HTMLDivElement>();
 
@@ -9,7 +10,6 @@ export class TrackOutsideClicks extends Component<{
     super();
 
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
-
     document.addEventListener('click', this.handleOutsideClick);
   }
 
@@ -24,6 +24,9 @@ export class TrackOutsideClicks extends Component<{
 
     if (this.ref.current && !this.ref.current.contains(event.target)) {
       this.props.onOutsideClick();
+      if (this.props.removeOnOutsideClick) {
+        document.removeEventListener('click', this.handleOutsideClick);
+      }
     }
   }
 

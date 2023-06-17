@@ -125,7 +125,9 @@ class KeybindingButton extends Component<{
     if (typingHotkey && onClick) {
       return (
         // onClick will cancel it
-        <TrackOutsideClicks onOutsideClick={onClick}>{child}</TrackOutsideClicks>
+        <TrackOutsideClicks onOutsideClick={onClick} removeOnOutsideClick>
+          {child}
+        </TrackOutsideClicks>
       );
     } else {
       return child;

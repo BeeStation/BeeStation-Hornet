@@ -67,10 +67,9 @@ const ChoicedSelection = (
 
   return (
     <Box
+      className="PopupWindow theme-generic"
       style={{
-        background: 'white',
         padding: '5px',
-
         height: `${CLOTHING_SELECTION_CELL_SIZE * CLOTHING_SELECTION_MULTIPLIER}px`,
         width: `${CLOTHING_SELECTION_CELL_SIZE * CLOTHING_SELECTION_WIDTH}px`,
       }}>
@@ -226,7 +225,7 @@ const MainFeature = (
       }}
       popperContent={
         isOpen && (
-          <TrackOutsideClicks onOutsideClick={props.handleClose}>
+          <TrackOutsideClicks onOutsideClick={props.handleClose} removeOnOutsideClick>
             <ChoicedSelection
               name={catalog.name}
               catalog={catalog}

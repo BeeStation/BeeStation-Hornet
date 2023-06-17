@@ -46,7 +46,7 @@ export const MultiNameInput = (
               'margin': '0 auto',
               'width': '40%',
             }}>
-            <TrackOutsideClicks onOutsideClick={props.handleClose}>
+            <TrackOutsideClicks onOutsideClick={props.handleClose} removeOnOutsideClick>
               <Section
                 buttons={
                   <Button color="red" onClick={props.handleClose}>
