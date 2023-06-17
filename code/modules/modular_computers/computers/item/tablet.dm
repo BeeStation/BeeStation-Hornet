@@ -363,13 +363,10 @@
 	equipped = TRUE
 	if(!user.client.prefs)
 		return
-	var/pref_theme = user.client.prefs.read_player_preference(/datum/preference/choiced/pda_theme)
-	if(!theme_locked && !ignore_theme_pref)
-		for(var/key in allowed_themes) // i am going to scream. DM lists stop sucking please
-			if(allowed_themes[key] == pref_theme)
-				device_theme = pref_theme
-				break
-	classic_color = user.client.prefs.read_player_preference(/datum/preference/color/pda_color)
+	var/pref_theme = user.client.prefs.read_character_preference(/datum/preference/choiced/pda_theme)
+	if(!theme_locked && !ignore_theme_pref && (pref_theme in allowed_themes))
+		device_theme = allowed_themes[pref_theme]
+	classic_color = user.client.prefs.read_character_preference(/datum/preference/color/pda_classic_color)
 
 /obj/item/modular_computer/tablet/pda/update_icon()
 	..()

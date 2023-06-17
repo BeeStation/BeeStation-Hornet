@@ -115,6 +115,8 @@ CREATE TABLE IF NOT EXISTS `SS13_characters` (
 	`backbag` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`jumpsuit_style` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`uplink_loc` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`pda_theme` VARCHAR(32) COLLATE 'utf8mb4_general_ci',
+	`pda_classic_color` VARCHAR(8) COLLATE 'utf8mb4_general_ci',
 	`feature_apid_stripes` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`feature_apid_antenna` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`feature_apid_headstripes` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
