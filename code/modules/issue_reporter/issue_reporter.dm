@@ -70,7 +70,7 @@
 %REPRODUCTION%
 "}
 	var/servername = CONFIG_GET(string/servername)
-	body = replacetext(body, "%DATE%", time2text(world.timeofday,"DD-MM-YYYY hh:mm:ss"))
+	body = replacetext(body, "%DATE%", time2text(world.timeofday,"YYYY-MM-DD hh:mm:ss"))
 	body = replacetext(body, "%ROUNDID%", "[GLOB.round_id ? " Round ID: [GLOB.round_id][servername ? " ([servername])" : ""]" : servername]")
 	body = replacetext(body, "%EXPECTED%", expected)
 	body = replacetext(body, "%ACTUAL%", actual)
