@@ -1,5 +1,5 @@
 import { Component } from 'inferno';
-import { Box, Button, KeyListener, Stack, Tooltip, TrackOutsideClicks } from '../../components';
+import { Box, Button, KeyListener, Stack, Tooltip, TrackOutsideClicks, Dimmer } from '../../components';
 import { resolveAsset } from '../../assets';
 import { PreferencesMenuData } from './data';
 import { useBackend } from '../../backend';
@@ -19,7 +19,7 @@ type KeybindingsPageState = {
   keybindings?: Keybindings;
   lastKeyboardEvent?: KeyboardEvent;
   selectedKeybindings?: PreferencesMenuData['keybindings'];
-
+  error: any;
   /**
    * The current hotkey that the user is rebinding.
    *
@@ -188,6 +188,7 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
     keybindings: undefined,
     selectedKeybindings: undefined,
     rebindingHotkey: undefined,
+    error: false,
   };
 
   constructor() {
@@ -249,6 +250,7 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
       return {
         lastKeyboardEvent: undefined,
         rebindingHotkey: undefined,
+        error: false,
         selectedKeybindings,
       };
     });
@@ -342,8 +344,14 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
   }
 
   async populateKeybindings() {
-    const keybindingsResponse = await fetchRetry(resolveAsset('keybindings.json'));
-    const keybindingsData: Keybindings = await keybindingsResponse.json();
+    const keybindingsResponse = await fetchRetry(resolveAsset('keybindings.json'))
+      .then((response) => response.json())
+      .catch((err) => {
+        this.setState({
+          error: err,
+        });
+      });
+    const keybindingsData: Keybindings = await keybindingsResponse;
 
     this.setState({
       keybindings: keybindingsData,
@@ -365,6 +373,29 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
   }
 
   render() {
+    if (this.state && this.state.error !== false) {
+      return (
+        <Dimmer
+          textColor="red"
+          fontSize="30px"
+          textAlign="center"
+          style={{
+            'background-color': 'rgba(0, 0, 0, 0.75)',
+            'font-weight': 'bold',
+          }}>
+          Error: Unable to fetch keybinding data.
+          <br />
+          Contact a maintainer or create an issue report by pressing Report Issue in the top right of the game window.
+          <br />
+          <Box textAlign="left" fontSize="12px" textColor="white" style={{ 'white-space': 'pre-wrap' }}>
+            Error Details:{'\n'}
+            {typeof this.state.error === 'object' && Object.keys(this.state.error).includes('stack')
+              ? this.state.error.stack
+              : this.state.error.toString()}
+          </Box>
+        </Dimmer>
+      );
+    }
     const { act } = useBackend(this.context);
     const keybindings = this.state?.keybindings;
 
