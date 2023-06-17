@@ -258,8 +258,9 @@
 	)
 	var/success = Q.warn_execute()
 	if(!success)
-		to_chat(usr, "<span class='boldannounce'>Failed to save your character. Please inform the server operator.</span>")
+		to_chat(parent, "<span class='boldannounce'>Failed to save your character. Please inform the server operator.</span>")
 	qdel(Q)
+	fail_state = success
 	return success
 
 #undef WRITEPREF_STR

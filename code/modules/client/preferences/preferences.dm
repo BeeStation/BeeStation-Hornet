@@ -85,6 +85,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	/// List of slot index -> character names
 	var/list/character_profiles_cached
 
+	/// If the last save was a success or not. True for success, false for fail.
+	var/fail_state = TRUE
+
 /datum/preferences/Destroy(force, ...)
 	QDEL_NULL(character_preview_view)
 	QDEL_LIST(middleware)
@@ -186,6 +189,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	data["save_in_progress"] = !isnull(SSpreferences.datums[parent.ckey])
 	data["is_guest"] = !!IS_GUEST_KEY(parent.key)
 	data["is_db"] = !!SSdbcore.IsConnected()
+	data["save_sucess"] = !!fail_state
 
 	for (var/datum/preference_middleware/preference_middleware as anything in middleware)
 		data += preference_middleware.get_ui_data(user)

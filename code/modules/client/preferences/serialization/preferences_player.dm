@@ -62,5 +62,6 @@
 	to_chat(prefs.parent, "<span class='notice'>Writing player datumized</span>") // debug tgui-prefs
 	var/success = SSdbcore.MassInsert(format_table_name("preferences"), sql_inserts, duplicate_key = TRUE, warn = TRUE)
 	if(!success)
-		to_chat(usr, "<span class='boldannounce'>Failed to save your player preferences. Please inform the server operator.</span>")
+		to_chat(prefs.parent, "<span class='boldannounce'>Failed to save your player preferences. Please inform the server operator.</span>")
+	prefs.fail_state = success
 	return success

@@ -4,10 +4,10 @@ import { useBackend } from '../../backend';
 
 export const SaveStatus = (props, context) => {
   const { data } = useBackend<PreferencesMenuData>(context);
-  const { save_in_progress = false, is_db = true, is_guest = false } = data;
+  const { save_in_progress = false, is_db = true, is_guest = false, save_sucess = true } = data;
   const innerBox = (
     <Box
-      backgroundColor={is_guest || !is_db ? '#cc0000' : save_in_progress ? '#666666' : '#00cc00'}
+      backgroundColor={is_guest || !is_db ? '#cc0000' : save_in_progress ? '#666666' : save_sucess ? '#00cc00' : '#cc0000'}
       textColor="white"
       textAlign="center"
       ml={1}
@@ -26,7 +26,7 @@ export const SaveStatus = (props, context) => {
             <span class="loading-three">.</span>
           </span>
         ) : (
-          <strong>Saved</strong>
+          <strong>{save_sucess ? 'Saved' : 'Error'}</strong>
         )
       ) : null}
     </Box>
@@ -38,6 +38,13 @@ export const SaveStatus = (props, context) => {
           !is_db ? 'not having a database connected.' : 'being a guest user. Please register and log in with a BYOND account.'
         }`}
         position="bottom">
+        {innerBox}
+      </Tooltip>
+    );
+  }
+  if (!save_in_progress && !save_sucess) {
+    return (
+      <Tooltip content={`Failed to save your data. Please inform the server operator of this error.`} position="bottom">
         {innerBox}
       </Tooltip>
     );

@@ -88,8 +88,9 @@
 	)
 	var/success = Q.warn_execute()
 	if(!success)
-		to_chat(usr, "<span class='boldannounce'>Failed to save your character. Please inform the server operator.</span>")
+		to_chat(prefs.parent, "<span class='boldannounce'>Failed to save your character. Please inform the server operator.</span>")
 	qdel(Q)
+	prefs.fail_state = success
 	return success
 
 /datum/preferences_holder/preferences_character/proc/get_column_names()

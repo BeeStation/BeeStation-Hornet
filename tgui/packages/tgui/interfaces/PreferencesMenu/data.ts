@@ -204,6 +204,7 @@ export type PreferencesMenuData = {
   save_in_progress: BooleanLike;
   is_guest: BooleanLike;
   is_db: BooleanLike;
+  save_sucess: BooleanLike;
 
   window: Window;
 };
