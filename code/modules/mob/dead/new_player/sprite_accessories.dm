@@ -1848,19 +1848,21 @@
 
 /datum/sprite_accessory/wings/apid
 	name = "Bee"
+	icon = 'icons/mob/apid_accessories/apid_wings.dmi'
 	icon_state = "apid"
 	color_src = 0
-	dimension_x = 46
+	dimension_x = 32
 	center = TRUE
-	dimension_y = 34
+	dimension_y = 32
 
 /datum/sprite_accessory/wings_open/apid
 	name = "Bee"
+	icon = 'icons/mob/apid_accessories/apid_wings.dmi'
 	icon_state = "apid"
 	color_src = 0
-	dimension_x = 46
+	dimension_x = 32
 	center = TRUE
-	dimension_y = 34
+	dimension_y = 32
 
 /datum/sprite_accessory/wings/robot
 	name = "Robot"
