@@ -89,6 +89,9 @@
 #define GASFIRE_LAYER 5.05
 #define RIPPLE_LAYER 5.1
 
+#define TEXT_EFFECT_UI_LAYER 5.90 // text effects shouldn't be displayed behind.
+	// maybe it should be custom layer category like 'UI_LAYER 6'
+
 #define BLACKNESS_PLANE 0 //To keep from conflicts with SEE_BLACKNESS internals
 
 #define AREA_PLANE 60
