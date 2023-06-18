@@ -424,6 +424,8 @@
 		return FALSE
 	if(!iscarbon(host_mob))
 		return FALSE
+	if(host_mob.blood_volume < 1.5)
+		return FALSE
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/host_human = host_mob
 		if(NOBLOOD in host_human.dna?.species?.species_traits)
