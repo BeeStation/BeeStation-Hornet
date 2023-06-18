@@ -1,0 +1,5 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - bugfix: Made sleek titanium tiles create the tile items of their respective color
+      when removed with a crowbar
