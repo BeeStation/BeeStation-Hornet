@@ -155,6 +155,10 @@
 		to_chat(user, "<span class='warning'>You cannot unwrench [src], turn it off first!</span>")
 		return FALSE
 
+/obj/machinery/atmospherics/components/binary/pressure_valve/can_crawl_through()
+	return (on && is_operational)
+
+// mapping
 
 /obj/machinery/atmospherics/components/binary/pressure_valve/layer2
 	piping_layer = 2
