@@ -437,4 +437,4 @@
 			return FALSE
 
 /datum/nanite_program/vampire/active_effect()
-	host_mob.blood_volume -= min(1.5, host_mob.blood_volume)
+	host_mob.blood_volume = max(host_mob.blood_volume - 1.5, 0)
