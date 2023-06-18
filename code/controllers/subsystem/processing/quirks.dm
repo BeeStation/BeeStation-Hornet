@@ -58,3 +58,66 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 		// save the new cleared quirks.
 		cli.prefs.mark_undatumized_dirty_character()
 		client_alert(cli, "You have one or more outdated quirks[length(bad_quirks) ? ": [english_list(bad_quirks)]" : ""]. Your eligible quirks are kept at this round, but your character preference has been reset. Please review them at any time.", "Oh, no!")
+
+/// Takes a list of quirk names and returns a new list of quirks that would
+/// be valid.
+/// If no changes need to be made, will return the same list.
+/// Expects all quirk names to be unique, but makes no other expectations.
+/datum/controller/subsystem/processing/quirks/proc/filter_invalid_quirks(list/quirks)
+	var/list/new_quirks = list()
+	var/list/positive_quirks = list()
+	var/balance = 0
+
+	var/list/all_quirks = get_quirks()
+
+	for (var/quirk_name in quirks)
+		var/datum/quirk/quirk = all_quirks[quirk_name]
+		if (isnull(quirk))
+			continue
+
+		if (initial(quirk.mood_quirk) && CONFIG_GET(flag/disable_human_mood))
+			continue
+
+		var/blacklisted = FALSE
+
+		for (var/list/blacklist as anything in quirk_blacklist)
+			if (!(quirk in blacklist))
+				continue
+
+			for (var/other_quirk in blacklist)
+				if (other_quirk in new_quirks)
+					blacklisted = TRUE
+					break
+
+			if (blacklisted)
+				break
+
+		if (blacklisted)
+			continue
+
+		var/value = initial(quirk.value)
+		if (value > 0)
+			if (positive_quirks.len == MAX_QUIRKS)
+				continue
+
+			positive_quirks[quirk_name] = value
+
+		balance += value
+		new_quirks += quirk_name
+
+	if (balance > 0)
+		var/balance_left_to_remove = balance
+
+		for (var/positive_quirk in positive_quirks)
+			var/value = positive_quirks[positive_quirk]
+			balance_left_to_remove -= value
+			new_quirks -= positive_quirk
+
+			if (balance_left_to_remove <= 0)
+				break
+
+	// It is guaranteed that if no quirks are invalid, you can simply check through `==`
+	if (new_quirks.len == quirks.len)
+		return quirks
+
+	return new_quirks

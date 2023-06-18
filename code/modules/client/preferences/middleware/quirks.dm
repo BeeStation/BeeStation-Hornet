@@ -53,13 +53,13 @@
 /datum/preference_middleware/quirks/proc/give_quirk(list/params, mob/user)
 	var/quirk_name = params["quirk"]
 
-	var/list/new_quirks = preferences.all_quirks | quirk_name // TODO tgui-prefs
-	/*if (SSquirks.filter_invalid_quirks(new_quirks) != new_quirks)
+	var/list/new_quirks = preferences.all_quirks | quirk_name
+	if (SSquirks.filter_invalid_quirks(new_quirks) != new_quirks)
 		// If the client is sending an invalid give_quirk, that means that
 		// something went wrong with the client prediction, so we should
 		// catch it back up to speed.
 		preferences.update_static_data(user)
-		return TRUE*/
+		return TRUE
 
 	preferences.all_quirks = new_quirks
 	preferences.mark_undatumized_dirty_character()
@@ -69,7 +69,7 @@
 	var/quirk_name = params["quirk"]
 
 	var/list/new_quirks = preferences.all_quirks - quirk_name
-	/*if ( \
+	if ( \
 		!(quirk_name in preferences.all_quirks) \
 		|| SSquirks.filter_invalid_quirks(new_quirks) != new_quirks \
 	)
@@ -77,7 +77,7 @@
 		// something went wrong with the client prediction, so we should
 		// catch it back up to speed.
 		preferences.update_static_data(user)
-		return TRUE*/
+		return TRUE
 
 	preferences.all_quirks = new_quirks
 	preferences.mark_undatumized_dirty_character()

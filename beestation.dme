@@ -2200,7 +2200,6 @@
 #include "code\modules\client\preferences\submodules\preference_jobs.dm"
 #include "code\modules\client\preferences\submodules\preference_keybindings.dm"
 #include "code\modules\client\preferences\submodules\preference_loadouts.dm"
-#include "code\modules\client\preferences\submodules\preference_quirks.dm"
 #include "code\modules\client\preferences\submodules\preference_randomization.dm"
 #include "code\modules\client\verbs\input_box.dm"
 #include "code\modules\client\verbs\looc.dm"
