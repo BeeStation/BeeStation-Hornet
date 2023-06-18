@@ -710,6 +710,14 @@ SUBSYSTEM_DEF(ticker)
 
 	world.Reboot()
 
+/datum/controller/subsystem/ticker/get_metrics()
+	. = ..()
+	if (mode)
+		var/list/game_mode_info = mode?.get_metrics()
+		if (length(game_mode_info))
+			.["custom"] = game_mode_info
+	return .
+
 /datum/controller/subsystem/ticker/Shutdown()
 	gather_newscaster() //called here so we ensure the log is created even upon admin reboot
 	save_admin_data()

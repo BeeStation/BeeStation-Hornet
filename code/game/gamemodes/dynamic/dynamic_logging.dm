@@ -87,6 +87,8 @@
 	serialized["threat_level"] = threat_level
 	serialized["round_start_budget"] = initial_round_start_budget
 	serialized["mid_round_budget"] = threat_level - initial_round_start_budget
+	serialized["current_danger"] = calculate_danger()
+	serialized["allowed_budget"] = get_allowed_midround_budget()
 
 	var/list/serialized_snapshots = list()
 	for (var/_snapshot in snapshots)

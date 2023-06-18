@@ -78,6 +78,7 @@
 	show_name_in_check_antagonists = FALSE
 	prevent_roundtype_conversion = FALSE
 	delay_roundend = FALSE
+	is_station_threat = FALSE
 
 /datum/antagonist/special/proc/equip()
 	return

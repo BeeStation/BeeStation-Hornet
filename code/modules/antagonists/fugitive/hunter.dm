@@ -7,6 +7,7 @@
 	show_to_ghosts = TRUE
 	prevent_roundtype_conversion = FALSE
 	count_against_dynamic_roll_chance = FALSE
+	is_station_threat = FALSE
 	var/datum/team/fugitive_hunters/hunter_team
 	var/datum/fugitive_type/hunter/backstory
 

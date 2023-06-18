@@ -3,6 +3,7 @@
 	show_name_in_check_antagonists = TRUE
 	show_in_antagpanel = FALSE
 	can_elimination_hijack = ELIMINATION_PREVENT
+	is_station_threat = FALSE
 	var/datum/objective/mission
 	var/datum/team/ert/ert_team
 	show_to_ghosts = TRUE

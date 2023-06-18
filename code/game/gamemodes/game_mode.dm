@@ -894,3 +894,9 @@
 		round_credits += list("<center><h2>The station was free of <s>greytide</s> assistance!</h2>", "<center><h2>Not a single Assistant showed up on the station today!</h2>")
 
 	return round_credits
+
+/datum/game_mode/proc/admin_stat_info()
+	return list()
+
+/datum/game_mode/proc/get_metrics()
+	return list()

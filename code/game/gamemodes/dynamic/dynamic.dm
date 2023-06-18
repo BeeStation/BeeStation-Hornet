@@ -208,6 +208,10 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	/// Cached value of is_station_intact.
 	var/cached_station_intact = TRUE
 
+	/// Time and value of previous cache heuristic values
+	var/previous_cache_heuristic = 0
+	var/previous_cache_heuristic_time
+
 	/// When the cached station intactness will expire.
 	COOLDOWN_DECLARE(intact_cache_expiry)
 
@@ -218,6 +222,8 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	dat += "Budgets (Roundstart/Midrounds): <b>[initial_round_start_budget]/[threat_level - initial_round_start_budget]</b><br/>"
 
 	dat += "Midround budget to spend: <b>[mid_round_budget]</b> <a href='?src=\ref[src];[HrefToken()];adjustthreat=1'>\[Adjust\]</A> <a href='?src=\ref[src];[HrefToken()];threatlog=1'>\[View Log\]</a><br/>"
+	dat += "Midround budget reduction: <b>[calculate_danger()]</b>"
+	dat += "Midround budget final: <b>[get_allowed_midround_budget()]</b>"
 	dat += "<br/>"
 	dat += "Parameters: centre = [threat_curve_centre] ; width = [threat_curve_width].<br/>"
 	dat += "            reduction_threshold = [threat_curve_centre_lowpop_reduction_threshold] ; reduction_coeff = [threat_curve_centre_lowpop_reduction_coeff].<br/>"
@@ -653,7 +659,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 				return FALSE
 
 	var/population =  current_players[CURRENT_LIVING_PLAYERS].len
-	if((new_rule.acceptable(population, threat_level) && (ignore_cost || new_rule.cost <= mid_round_budget)) || forced)
+	if((new_rule.acceptable(population, threat_level) && (ignore_cost || new_rule.cost <= get_allowed_midround_budget())) || forced)
 		new_rule.trim_candidates()
 		if (new_rule.ready(forced))
 			if (!ignore_cost)
@@ -743,7 +749,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 				continue
 			if (CHECK_BITFIELD(rule.flags, INTACT_STATION_RULESET) && !is_station_intact())
 				continue
-			if (rule.acceptable(current_players[CURRENT_LIVING_PLAYERS].len, threat_level) && mid_round_budget >= rule.cost)
+			if (rule.acceptable(current_players[CURRENT_LIVING_PLAYERS].len, threat_level) && get_allowed_midround_budget() >= rule.cost)
 				// No stacking : only one round-ender, unless threat level > stacking_limit.
 				if (threat_level < GLOB.dynamic_stacking_limit && GLOB.dynamic_no_stacking)
 					if(CHECK_BITFIELD(rule.flags, HIGH_IMPACT_RULESET) && high_impact_ruleset_active())

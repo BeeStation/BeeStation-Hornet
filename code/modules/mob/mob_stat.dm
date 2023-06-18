@@ -165,11 +165,19 @@
 	if(SSticker.round_start_time)
 		tab_data["Security Level"] = GENERATE_STAT_TEXT("[capitalize(get_security_level())]")
 
-	tab_data["divider_3"] = GENERATE_STAT_DIVIDER
 	if(SSshuttle.emergency)
+		tab_data["divider_3"] = GENERATE_STAT_DIVIDER
 		var/ETA = SSshuttle.emergency.getModeStr()
 		if(ETA)
 			tab_data[ETA] = GENERATE_STAT_TEXT(SSshuttle.emergency.getTimerStr())
+
+	// Admin information
+	if (check_rights_for(client, R_ADMIN | R_DEBUG))
+		var/list/admin_tab_data = list()
+		admin_tab_data += SSticker.mode?.admin_stat_info() || list()
+		if (length(admin_tab_data))
+			tab_data["divider_4"] = GENERATE_STAT_DIVIDER
+			tab_data += admin_tab_data
 	return tab_data
 
 /mob/proc/get_stat_tab_master_controller()

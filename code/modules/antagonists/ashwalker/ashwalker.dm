@@ -11,6 +11,7 @@
 	antagpanel_category = "Ash Walkers"
 	delay_roundend = FALSE
 	count_against_dynamic_roll_chance = FALSE
+	is_station_threat = FALSE
 	var/datum/team/ashwalkers/ashie_team
 
 /datum/antagonist/ashwalker/create_team(datum/team/team)

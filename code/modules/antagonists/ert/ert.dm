@@ -22,6 +22,7 @@
 	show_to_ghosts = TRUE
 	antag_moodlet = /datum/mood_event/focused
 	count_against_dynamic_roll_chance = FALSE
+	is_station_threat = FALSE
 
 /datum/antagonist/ert/on_gain()
 	if(random_names)

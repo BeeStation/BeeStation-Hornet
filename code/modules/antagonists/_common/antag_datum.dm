@@ -29,6 +29,23 @@ GLOBAL_LIST(admin_antag_list)
 	var/antagpanel_category = "Uncategorized"	//Antagpanel will display these together, REQUIRED
 	var/show_name_in_check_antagonists = FALSE //Will append antagonist name in admin listings - use for categories that share more than one antag type
 	var/show_to_ghosts = FALSE // Should this antagonist be shown as antag to ghosts? Shouldn't be used for stealthy antagonists like traitors
+	/// Should this antagonist count towards the station threat heuristic
+	var/is_station_threat = TRUE
+	/// The time that this antagonist was created at
+	var/created_at
+
+/datum/antagonist/New()
+	. = ..()
+	GLOB.antagonists += src
+	typecache_datum_blacklist = typecacheof(typecache_datum_blacklist)
+	created_at = world.time
+
+/datum/antagonist/Destroy()
+	GLOB.antagonists -= src
+	if(owner)
+		LAZYREMOVE(owner.antag_datums, src)
+	owner = null
+	return ..()
 
 /datum/antagonist/proc/show_tips(fileid)
 	if(!owner || !owner.current || !owner.current.client)
@@ -43,17 +60,6 @@ GLOBAL_LIST(admin_antag_list)
 
 /datum/antagonist/proc/get_asset_url_from(match)
 	return SSassets.transport.get_asset_url(match)
-
-/datum/antagonist/New()
-	GLOB.antagonists += src
-	typecache_datum_blacklist = typecacheof(typecache_datum_blacklist)
-
-/datum/antagonist/Destroy()
-	GLOB.antagonists -= src
-	if(owner)
-		LAZYREMOVE(owner.antag_datums, src)
-	owner = null
-	return ..()
 
 /datum/antagonist/proc/can_be_owned(datum/mind/new_owner)
 	. = TRUE
