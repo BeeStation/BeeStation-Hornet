@@ -33037,6 +33037,9 @@
 	dir = 4;
 	name = "Gas to Chamber"
 	},
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "dNT" = (
@@ -34352,6 +34355,7 @@
 	dir = 8;
 	name = "Gas to Filter"
 	},
+/obj/machinery/light/small,
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "evj" = (
@@ -60700,6 +60704,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/miningoffice)
+"qsN" = (
+/obj/machinery/light_switch{
+	pixel_x = -20;
+	pixel_y = 22
+	},
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "qtz" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -121213,7 +121224,7 @@ deC
 deC
 dlI
 dNO
-aMk
+qsN
 evh
 dlI
 dfp

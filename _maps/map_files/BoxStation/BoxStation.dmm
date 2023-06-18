@@ -17237,6 +17237,10 @@
 "cqZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_switch{
+	pixel_x = 21;
+	pixel_y = 22
+	},
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "cra" = (
@@ -17256,6 +17260,9 @@
 	name = "Gas to Chamber"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/open/floor/engine,
 /area/engine/supermatter)
 "crc" = (
