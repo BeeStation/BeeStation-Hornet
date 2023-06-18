@@ -721,16 +721,31 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "</table>"
 
 		if(4) // antagonist preferences window
+			dat += "<center>"
+			var/name
+			var/unspaced_slots = 0
+			for(var/datum/character_save/CS as anything in character_saves)
+				unspaced_slots++
+				if(unspaced_slots > 4)
+					dat += "<br>"
+					unspaced_slots = 0
+				name = CS.real_name
+				if(!name)
+					name = "Character [CS.slot_number]"
+				if(CS.slot_locked)
+					dat += "<a style='white-space:nowrap;' class='linkOff'>[name] (Locked)</a> "
+				else
+					dat += "<a style='white-space:nowrap;' href='?_src_=prefs;preference=changeslot;num=[CS.slot_number];' [CS.slot_number == default_slot ? "class='linkOn'" : ""]>[name]</a> "
+			dat += "</center>"
 			dat += "<table><tr>"
 			// <first left box>
-			dat += "<td width='400px' height='300px' valign='top'>"
+			dat += "<td width='450px' height='300px' valign='top'>"
 			// --------------------------------------------
 			// warning pannel
 			var/banned = is_banned_from(user.ckey, BAN_ROLE_ALL_ANTAGONISTS)
 			if(banned)
 				dat += "<h2>Notification</h2>"
 				dat += "<b>You are banned from all antagonist type roles.</b><br>"
-			dat += "<h2>Per-Character Preferences</h2>"
 			// --------------------------------------------
 			//  Antagonist roles
 			dat += "<h3>Antagonists</h3>"
@@ -738,17 +753,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				var/datum/role_preference/pref = GLOB.role_preference_entries[typepath]
 				if(pref.category != ROLE_PREFERENCE_CATEGORY_ANAGONIST)
 					continue
-				dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;preference=role_preferences;role_preference_type=[typepath]'>[parent.role_preference_enabled(typepath) ? "Enabled" : "Disabled"]</a> \
-				<a href='?_src_=prefs;preference=role_preferences_enableall;role_preference_type=[typepath]'>Enable for all characters</a> \
-				<a href='?_src_=prefs;preference=role_preferences_disableall;role_preference_type=[typepath]'>Disable for all characters</a><br>"
-			dat += "<h3>Midrounds (Living)</h3>"
-			for (var/typepath in GLOB.role_preference_entries)
-				var/datum/role_preference/pref = GLOB.role_preference_entries[typepath]
-				if(pref.category != ROLE_PREFERENCE_CATEGORY_MIDROUND_LIVING)
-					continue
-				dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;preference=role_preferences;role_preference_type=[typepath]'>[parent.role_preference_enabled(typepath) ? "Enabled" : "Disabled"]</a> \
-				<a href='?_src_=prefs;preference=role_preferences_enableall;role_preference_type=[typepath]'>Enable for all characters</a> \
-				<a href='?_src_=prefs;preference=role_preferences_disableall;role_preference_type=[typepath]'>Disable for all characters</a><br>"
+				dat += "<b>[pref.name]</b> \
+				<br> - Character: <a href='?_src_=prefs;preference=role_preferences;role_preference_type=[typepath]'>[parent.role_preference_enabled(typepath) ? "Enabled" : "Disabled"]</a>\
+				<br> - Global: <a href='?_src_=prefs;preference=role_preferences_enableall;role_preference_type=[typepath]'>Enable</a>\
+				<a href='?_src_=prefs;preference=role_preferences_disableall;role_preference_type=[typepath]'>Disable</a><br>"
 			dat += "</td>"
 			// left box closed
 
@@ -756,7 +764,15 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			// --------------------------------------------
 			// Midround antagonists + ghostspawn roles
 			dat += "<td width='400px' valign='top'>"
-			dat += "<h2>Per-Player Preferences</h2>"
+			dat += "<h3>Midrounds (Living)</h3>"
+			for (var/typepath in GLOB.role_preference_entries)
+				var/datum/role_preference/pref = GLOB.role_preference_entries[typepath]
+				if(pref.category != ROLE_PREFERENCE_CATEGORY_MIDROUND_LIVING)
+					continue
+				dat += "<b>[pref.name]</b> \
+				<br> - Character: <a href='?_src_=prefs;preference=role_preferences;role_preference_type=[typepath]'>[parent.role_preference_enabled(typepath) ? "Enabled" : "Disabled"]</a>\
+				<br> - Global: <a href='?_src_=prefs;preference=role_preferences_enableall;role_preference_type=[typepath]'>Enable</a>\
+				<a href='?_src_=prefs;preference=role_preferences_disableall;role_preference_type=[typepath]'>Disable</a><br>"
 			dat += "<h3>Midrounds (Ghost)</h3>"
 			for (var/typepath in GLOB.role_preference_entries)
 				var/datum/role_preference/pref = GLOB.role_preference_entries[typepath]
@@ -1915,14 +1931,16 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					var/role_preference_path = text2path(role_preference_type)
 					var/datum/role_preference/role_pref = GLOB.role_preference_entries[role_preference_path]
 					if(istype(role_pref) && role_pref.per_character)
-						active_character.role_preferences_character["[role_preference_type]"] = TRUE
+						for(var/datum/character_save/CS in character_saves)
+							CS.role_preferences_character["[role_preference_type]"] = TRUE
 
 				if("role_preferences_disableall")
 					var/role_preference_type = href_list["role_preference_type"]
 					var/role_preference_path = text2path(role_preference_type)
 					var/datum/role_preference/role_pref = GLOB.role_preference_entries[role_preference_path]
 					if(istype(role_pref) && role_pref.per_character)
-						active_character.role_preferences_character["[role_preference_type]"] = FALSE
+						for(var/datum/character_save/CS in character_saves)
+							CS.role_preferences_character["[role_preference_type]"] = FALSE
 
 				if("name")
 					active_character.be_random_name = !active_character.be_random_name
