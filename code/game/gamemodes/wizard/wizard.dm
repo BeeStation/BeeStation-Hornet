@@ -22,7 +22,7 @@
 	title_icon = "wizard"
 
 /datum/game_mode/wizard/pre_setup()
-	var/datum/mind/wizard = antag_pick(antag_candidates)
+	var/datum/mind/wizard = antag_pick(antag_candidates, /datum/role_preference/antagonist/wizard)
 	wizards += wizard
 	wizard.assigned_role = BAN_ROLE_WIZARD
 	wizard.special_role = BAN_ROLE_WIZARD

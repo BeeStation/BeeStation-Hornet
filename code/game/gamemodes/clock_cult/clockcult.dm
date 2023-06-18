@@ -58,7 +58,7 @@ GLOBAL_VAR(clockcult_eminence)
 	for(var/i in 1 to clock_cultists)
 		if(!antag_candidates.len)
 			break
-		var/datum/mind/clockie = antag_pick(antag_candidates)
+		var/datum/mind/clockie = antag_pick(antag_candidate, /datum/role_preference/antagonist/clock_cultist)
 		//In case antag_pick breaks
 		if(!clockie)
 			continue

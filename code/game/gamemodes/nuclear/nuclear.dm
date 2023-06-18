@@ -31,7 +31,7 @@
 	var/n_agents = min(round(num_players() / 10), antag_candidates.len, agents_possible)
 	if(n_agents >= required_enemies)
 		for(var/i = 0, i < n_agents, ++i)
-			var/datum/mind/new_op = antag_pick(antag_candidates)
+			var/datum/mind/new_op = antag_pick(antag_candidates, /datum/role_preference/antagonist/nuclear_operative)
 			pre_nukeops += new_op
 			new_op.assigned_role = "Nuclear Operative"
 			new_op.special_role = "Nuclear Operative"

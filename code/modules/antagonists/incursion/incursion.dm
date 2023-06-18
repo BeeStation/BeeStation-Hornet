@@ -202,7 +202,7 @@
 	if(!LAZYLEN(people))
 		log_game("Not enough players for incursion role. [LAZYLEN(people)]")
 		return
-	var/datum/mind/target = SSticker.mode.antag_pick(people)
+	var/datum/mind/target = SSticker.mode.antag_pick(people, /datum/role_preference/antagonist/excommunicate)
 	if(!target)
 		log_game("No mind selected.")
 		return

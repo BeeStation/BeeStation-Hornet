@@ -62,7 +62,7 @@ GLOBAL_LIST_EMPTY(hivehosts)
 	for(var/j = 0, j < num_hosts, j++)
 		if (!antag_candidates.len)
 			break
-		var/datum/mind/host = antag_pick(antag_candidates)
+		var/datum/mind/host = antag_pick(antag_candidates, /datum/role_preference/antagonist/hivemind_host)
 		hosts += host
 		host.special_role = BAN_ROLE_HIVE
 		host.restricted_roles = restricted_jobs

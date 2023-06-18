@@ -429,7 +429,8 @@
 // The odds become:
 //     Player A: 150 / 250 = 0.6 = 60%
 //     Player B: 100 / 250 = 0.4 = 40%
-/// The role_preference argument is optional, but candidates will not be considered if the preference is disabled. Passing null will consider all candidates.
+/// The role_preference argument is optional, but candidates will not use their PERSONAL antag rep if the preference is disabled, rather only using the "base" antag rep.
+/// This is mainly used in the situation where someone is drafted for a ruleset despite having the preference disabled (a feature of gamemodes) - we don't want to spend their rep.
 /datum/game_mode/proc/antag_pick(list/datum/candidates, role_preference = null)
 	if(!CONFIG_GET(flag/use_antag_rep)) // || candidates.len <= 1)
 		return pick(candidates)

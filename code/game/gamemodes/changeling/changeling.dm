@@ -52,7 +52,7 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 		for(var/i = 0, i < num_changelings, i++)
 			if(!antag_candidates.len)
 				break
-			var/datum/mind/changeling = antag_pick(antag_candidates)
+			var/datum/mind/changeling = antag_pick(antag_candidates, /datum/role_preference/antagonist/changeling)
 			antag_candidates -= changeling
 			changelings += changeling
 			changeling.special_role = BAN_ROLE_CHANGELING

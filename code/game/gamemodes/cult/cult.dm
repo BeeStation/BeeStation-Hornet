@@ -84,7 +84,7 @@
 	for(var/cultists_number = 1 to recommended_enemies)
 		if(!antag_candidates.len)
 			break
-		var/datum/mind/cultist = antag_pick(antag_candidates)
+		var/datum/mind/cultist = antag_pick(antag_candidates, /datum/role_preference/antagonist/blood_cultist)
 		antag_candidates -= cultist
 		if(!cultist)
 			cultists_number--

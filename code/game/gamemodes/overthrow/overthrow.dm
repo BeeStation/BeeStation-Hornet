@@ -29,7 +29,7 @@
 	for (var/i in 1 to sleeping_agents)
 		if (!antag_candidates.len)
 			break
-		var/datum/mind/sleeping_agent = antag_pick(antag_candidates)
+		var/datum/mind/sleeping_agent = antag_pick(antag_candidates, /datum/role_preference/antagonist/traitor)
 		antag_candidates -= sleeping_agent
 		initial_agents += sleeping_agent
 		sleeping_agent.restricted_roles = restricted_jobs
