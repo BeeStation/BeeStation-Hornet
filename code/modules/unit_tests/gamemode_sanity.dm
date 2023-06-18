@@ -10,7 +10,7 @@
 		if (!config_tag)
 			Fail("[mode] has no config_tag set!")
 		// These gamemodes don't spawn antags directly and are exempt.
-		if(name == "event" || name == "extended" || name == "meteor" || name == "sandbox" || name == "secret" || name == "secret extended" || name == "dynamic mode")
+		if(!initial(mode.required_enemies) && !initial(mode.recommended_enemies))
 			continue
 		if (!initial(mode.banning_key))
 			Fail("[mode] has no banning_key set!")
