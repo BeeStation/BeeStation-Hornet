@@ -54,7 +54,8 @@
 		if(!M.client.should_include_for_role(
 			banning_key = initial(antag_datum.banning_key),
 			role_preference_key = role_preference,
-			poll_ignore_key = role_preference
+			poll_ignore_key = role_preference,
+			req_hours = initial(antag_datum.required_living_playtime)
 		))
 			trimmed_list.Remove(M)
 			continue

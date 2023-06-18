@@ -3,6 +3,7 @@
 	roundend_category = "hiveminds"
 	antagpanel_category = "Hivemind Host"
 	banning_key = BAN_ROLE_HIVE
+	required_living_playtime = 4
 	antag_moodlet = /datum/mood_event/hivehost
 	var/list/hivemembers = list()
 	var/list/avessels = list()

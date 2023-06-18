@@ -3,6 +3,7 @@
 	roundend_category = "wizards/witches"
 	antagpanel_category = "Wizard"
 	banning_key = BAN_ROLE_WIZARD
+	required_living_playtime = 8
 	antag_moodlet = /datum/mood_event/focused
 	hijack_speed = 0.5
 	var/strip = TRUE //strip before equipping

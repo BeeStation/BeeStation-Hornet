@@ -298,7 +298,8 @@
 
 		if(!client.should_include_for_role(
 			banning_key = initial(antag_datum.banning_key),
-			role_preference_key = role_preference
+			role_preference_key = role_preference,
+			req_hours = initial(antag_datum.required_living_playtime)
 		))
 			candidates.Remove(P)
 			continue

@@ -2,6 +2,7 @@
 	name = "Syndicate Incursion Member"
 	antagpanel_category = "Incursion"
 	banning_key = BAN_ROLE_INCURSION
+	required_living_playtime = 4
 	var/datum/team/incursion/team
 	antag_moodlet = /datum/mood_event/focused
 	hijack_speed = 0.5

@@ -2,6 +2,7 @@
 	name = "Brother"
 	antagpanel_category = "Brother"
 	banning_key = BAN_ROLE_BROTHER
+	required_living_playtime = 4
 	hijack_speed = 0.5
 	var/datum/team/brother_team/team
 	antag_moodlet = /datum/mood_event/focused

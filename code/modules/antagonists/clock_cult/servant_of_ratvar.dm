@@ -8,6 +8,7 @@
 	antagpanel_category = "Clockcult"
 	antag_moodlet = /datum/mood_event/cult
 	banning_key = BAN_ROLE_SERVANT_OF_RATVAR
+	required_living_playtime = 4
 
 	//The class of the servant
 	var/datum/action/innate/clockcult/transmit/transmit_spell

@@ -201,7 +201,7 @@ GLOBAL_LIST_INIT(other_bannable_roles, list(
 	if(role_preference_key)
 		if(!ispath(role_preference_key, /datum/role_preference))
 			CRASH("Invalid role_preference_key [role_preference_key] passed to should_include_for_role!")
-		if(!role_preference_enabled(src, role_preference_key))
+		if(!src.role_preference_enabled(role_preference_key))
 			return FALSE
 	if(banning_key)
 		if(is_banned_from(src.ckey, banning_key))

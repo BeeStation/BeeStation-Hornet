@@ -6,6 +6,7 @@
 	roundend_category = "traitors"
 	antagpanel_category = "Traitor"
 	banning_key = BAN_ROLE_TRAITOR
+	required_living_playtime = 4
 	antag_moodlet = /datum/mood_event/focused
 	hijack_speed = 0.5				//10 seconds per hijack stage by default
 	var/special_role = BAN_ROLE_TRAITOR
