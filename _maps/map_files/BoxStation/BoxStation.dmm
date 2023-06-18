@@ -2324,7 +2324,7 @@
 /turf/open/floor/plating,
 /area/maintenance/solars/port/fore)
 "anj" = (
-/obj/machinery/atmospherics/pipe/manifold/supplymain/hidden{
+/obj/machinery/atmospherics/pipe/manifold/cyan/hidden{
 	dir = 8
 	},
 /turf/open/floor/plating,
@@ -2337,7 +2337,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "anl" = (
-/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+/obj/machinery/atmospherics/pipe/simple/cyan/hidden{
 	dir = 9
 	},
 /turf/open/floor/plating,
@@ -30889,7 +30889,7 @@
 /turf/open/space,
 /area/space/nearstation)
 "int" = (
-/obj/machinery/atmospherics/pipe/simple/supplymain/hidden/layer2{
+/obj/machinery/atmospherics/pipe/simple/cyan/hidden/layer2{
 	dir = 9
 	},
 /turf/open/floor/plating,
@@ -61485,7 +61485,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit)
 "xFF" = (
-/obj/machinery/atmospherics/pipe/simple/supplymain/hidden/layer2{
+/obj/machinery/atmospherics/pipe/simple/cyan/hidden/layer2{
 	dir = 8
 	},
 /turf/open/floor/plating,

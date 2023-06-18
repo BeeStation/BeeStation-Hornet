@@ -265,7 +265,6 @@
 		TRAIT_RADIMMUNE,
 		TRAIT_VIRUSIMMUNE,
 		TRAIT_PIERCEIMMUNE,
-		TRAIT_IGNORESLOWDOWN,
 		TRAIT_IGNOREDAMAGESLOWDOWN,
 		TRAIT_NODISMEMBER,
 		TRAIT_NOLIMBDISABLE,
@@ -282,13 +281,14 @@
 		TRAIT_RESISTHIGHPRESSURE,
 		TRAIT_RESISTLOWPRESSURE,
 		TRAIT_NOBREATH,
-		TRAIT_MINDSHIELD,
 		TRAIT_SELF_AWARE,
 		TRAIT_SIXTHSENSE,
 		TRAIT_XRAY_VISION,
 		TRAIT_MEDICAL_HUD,
 		TRAIT_SECURITY_HUD,
 		TRAIT_BARMASTER,
+		TRAIT_ALL_SURGERIES,
+		TRAIT_PERFECT_SURGEON,
 		TRAIT_METALANGUAGE_KEY_ALLOWED
 	)
 
@@ -298,13 +298,20 @@
 		ADD_TRAIT(user, each, "debug")
 	user.grant_all_languages(TRUE, TRUE, TRUE, "debug")
 	user.grant_language(/datum/language/metalanguage, TRUE, TRUE, "debug")
-	user.update_sight()
+
 	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	hud.add_hud_to(user)
 	hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
 	hud.add_hud_to(user)
 	hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
 	hud.add_hud_to(user)
+	
+	if(!isliving(user))
+		user.update_sight()
+		return
+	var/mob/living/picker = user
+	picker.see_override = SEE_INVISIBLE_OBSERVER
+	picker.update_sight()
 
 
 /obj/item/debug/orb_of_power/dropped(mob/living/carbon/human/user)
@@ -316,6 +323,7 @@
 		REMOVE_TRAIT(user, each, "debug")
 	user.remove_all_languages("debug")
 	user.remove_language(/datum/language/metalanguage, TRUE, TRUE, "debug")
+	user.see_override = initial(user.see_override)
 	user.update_sight()
 
 	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
