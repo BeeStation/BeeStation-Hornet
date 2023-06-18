@@ -13,8 +13,8 @@ In any query remember to add a prefix to the table names if you use one.
 Version 6.2 - 16 June 2023 by itsmeow
 Add per-character role preferences.
 
-ALTER TABLE `SS13_characters` ADD `role_preferences` MEDIUMTEXT NOT NULL COLLATE 'utf8mb4_general_ci' AFTER `equipped_gear`;
-UPDATE `SS13_characters` SET `role_preferences` = '[]';
+ALTER TABLE `SS13_characters` ADD COLUMN IF NOT EXISTS `role_preferences` MEDIUMTEXT NOT NULL COLLATE 'utf8mb4_general_ci' AFTER `equipped_gear`;
+UPDATE `SS13_characters` SET `role_preferences` = '[]' WHERE `role_preferences` IS NULL;
 
 -----------------------------------------------------
 
