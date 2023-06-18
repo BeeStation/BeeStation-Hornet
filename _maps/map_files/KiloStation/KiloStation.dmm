@@ -1361,6 +1361,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/machinery/light_switch{
+	pixel_y = 22
+	},
 /turf/open/floor/engine,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "aeo" = (
@@ -5344,6 +5347,10 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
+/obj/machinery/light_switch{
+	pixel_x = 1;
+	pixel_y = -24
+	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
@@ -8111,6 +8118,9 @@
 	dir = 1;
 	name = "Gas to Filter"
 	},
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/open/floor/circuit/green{
 	luminosity = 2
 	},
@@ -10668,10 +10678,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/space/basic,
 /area/space/nearstation)
-"aJV" = (
-/obj/effect/spawner/structure/window,
-/turf/open/floor/plating,
-/area/medical/medbay)
 "aJZ" = (
 /turf/closed/wall/rust,
 /area/storage/primary)
@@ -13032,6 +13038,10 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
+	},
+/obj/machinery/light_switch{
+	pixel_x = -20;
+	pixel_y = 22
 	},
 /turf/open/floor/engine,
 /area/ai_monitored/turret_protected/ai_upload)
@@ -24577,6 +24587,10 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
+/obj/machinery/light_switch{
+	pixel_x = -20;
+	pixel_y = 22
+	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "bTD" = (
@@ -27813,6 +27827,9 @@
 	},
 /obj/machinery/atmospherics/components/binary/pump{
 	name = "Gas to Chamber"
+	},
+/obj/machinery/light/small{
+	dir = 4
 	},
 /turf/open/floor/circuit/green{
 	luminosity = 2
@@ -31702,6 +31719,9 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
+/obj/machinery/light_switch{
+	pixel_y = -20
+	},
 /turf/open/floor/plating,
 /area/maintenance/solars/port/aft)
 "csf" = (
@@ -31835,6 +31855,10 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
+	},
+/obj/machinery/light_switch{
+	pixel_x = -37;
+	pixel_y = -27
 	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
@@ -33832,6 +33856,10 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
+/obj/machinery/light_switch{
+	pixel_x = -21;
+	pixel_y = 23
+	},
 /turf/open/floor/engine,
 /area/engine/gravity_generator)
 "cyd" = (
@@ -40583,6 +40611,9 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/light_switch{
+	pixel_x = 21
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/cryopods)
 "cTQ" = (
@@ -41245,7 +41276,7 @@
 /obj/machinery/newscaster,
 /obj/machinery/newscaster,
 /turf/closed/wall,
-/area/medical/medbay)
+/area/medical/medbay/central)
 "dmh" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
@@ -41301,6 +41332,10 @@
 	},
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 8
+	},
+/obj/machinery/light_switch{
+	pixel_x = -20;
+	pixel_y = -21
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/genetics/cloning)
@@ -43414,7 +43449,9 @@
 /area/quartermaster/warehouse)
 "egb" = (
 /obj/machinery/light_switch{
-	pixel_x = -24
+	name = "Control Room light switch";
+	pixel_x = -20;
+	pixel_y = -5
 	},
 /obj/machinery/power/apc{
 	areastring = "/area/tcommsat/computer";
@@ -43426,6 +43463,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/machinery/light_switch/tcomms{
+	pixel_x = -20;
+	pixel_y = 5
+	},
 /turf/open/floor/plasteel/dark,
 /area/tcommsat/computer)
 "egq" = (
@@ -47119,6 +47160,10 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
+/obj/machinery/light_switch{
+	pixel_x = 13;
+	pixel_y = 21
+	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "fIq" = (
@@ -48898,6 +48943,10 @@
 	},
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
+	},
+/obj/machinery/light_switch{
+	pixel_x = -20;
+	pixel_y = 22
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/mixing/chamber)
@@ -51793,6 +51842,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral,
+/obj/machinery/light_switch{
+	pixel_y = -21
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/brig)
 "hNd" = (
@@ -53874,6 +53926,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/exit/departure_lounge)
+"iII" = (
+/obj/machinery/light_switch{
+	pixel_x = 21;
+	pixel_y = 22
+	},
+/turf/open/floor/engine,
+/area/engine/supermatter)
 "iIV" = (
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
@@ -58390,6 +58449,19 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/storage)
+"kxf" = (
+/obj/effect/turf_decal/tile/red/half/contrasted{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/machinery/light_switch{
+	pixel_x = 1;
+	pixel_y = 27
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/aft)
 "kxk" = (
 /obj/effect/turf_decal/plaque{
 	icon_state = "L1"
@@ -60024,6 +60096,10 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/machinery/light_switch{
+	pixel_x = 12;
+	pixel_y = -20
+	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
 "lpl" = (
@@ -61358,6 +61434,10 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral,
+/obj/machinery/light_switch{
+	pixel_x = 1;
+	pixel_y = -24
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/prison)
 "lPD" = (
@@ -64513,6 +64593,9 @@
 /obj/effect/turf_decal/tile/neutral/opposingcorners{
 	dir = 1
 	},
+/obj/machinery/light_switch{
+	pixel_x = -24
+	},
 /turf/open/floor/plasteel,
 /area/security/courtroom)
 "nke" = (
@@ -65677,9 +65760,6 @@
 "nOi" = (
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/bot,
-/obj/machinery/light_switch{
-	pixel_x = -24
-	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -69763,6 +69843,10 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/light_switch{
+	pixel_x = -20;
+	pixel_y = 22
+	},
 /turf/open/floor/plasteel/dark/corner{
 	dir = 1
 	},
@@ -70459,6 +70543,10 @@
 	icon_state = "0-4"
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/machinery/light_switch{
+	pixel_x = -18;
+	pixel_y = -11
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "pLk" = (
@@ -74208,6 +74296,10 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted,
+/obj/machinery/light_switch{
+	pixel_x = 21;
+	pixel_y = -21
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/cryo)
 "roc" = (
@@ -75584,6 +75676,10 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 1
+	},
+/obj/machinery/light_switch{
+	pixel_x = 21;
+	pixel_y = -10
 	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/starboard)
@@ -78722,6 +78818,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/machinery/light_switch{
+	pixel_x = -20
+	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "tdU" = (
@@ -80362,6 +80461,10 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
+/obj/machinery/light_switch{
+	pixel_x = -20;
+	pixel_y = 54
+	},
 /turf/open/floor/plasteel,
 /area/engine/break_room)
 "tOz" = (
@@ -80398,6 +80501,10 @@
 /obj/item/clipboard,
 /obj/item/clothing/glasses/meson/engine,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/machinery/light_switch{
+	pixel_x = -20;
+	pixel_y = 22
+	},
 /turf/open/floor/plasteel/dark,
 /area/engine/break_room)
 "tPB" = (
@@ -81180,6 +81287,9 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
+/obj/machinery/light_switch{
+	pixel_x = -20
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_dock)
 "uls" = (
@@ -81908,6 +82018,10 @@
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
+	},
+/obj/machinery/light_switch{
+	pixel_x = -20;
+	pixel_y = -10
 	},
 /turf/open/floor/plasteel/dark/corner{
 	dir = 1
@@ -83516,6 +83630,10 @@
 	},
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted,
+/obj/machinery/light_switch{
+	pixel_x = 1;
+	pixel_y = -24
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/shuttledock)
 "vkJ" = (
@@ -90255,6 +90373,10 @@
 "xVA" = (
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 1
+	},
+/obj/machinery/light_switch{
+	pixel_x = 1;
+	pixel_y = 26
 	},
 /turf/open/floor/plasteel/dark/corner{
 	dir = 1
@@ -112372,7 +112494,7 @@ eIE
 aNP
 cHv
 kix
-aJV
+aQb
 qJM
 sCT
 hLD
@@ -118327,7 +118449,7 @@ axF
 axF
 axF
 axF
-xci
+kxf
 ndb
 dtW
 bFa
@@ -126825,7 +126947,7 @@ axa
 cuZ
 azq
 aGD
-ayn
+iII
 aIn
 ayn
 azm
