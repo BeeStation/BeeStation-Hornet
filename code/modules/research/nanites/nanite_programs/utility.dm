@@ -153,10 +153,12 @@
 /datum/nanite_program/metabolic_synthesis/check_conditions()
 	if(!iscarbon(host_mob))
 		return FALSE
+	if(host_mob.nutrition <= 0)
+		return FALSE
 	return ..()
 
 /datum/nanite_program/metabolic_synthesis/active_effect()
-	host_mob.adjust_nutrition(-0.5)
+	host_mob.adjust_nutrition(-min(0.5, host_mob.nutrition))
 
 /datum/nanite_program/research
 	name = "Distributed Computing"
@@ -427,7 +429,7 @@
 		return FALSE
 	if(!iscarbon(host_mob))
 		return FALSE
-	if(host_mob.blood_volume < 1.5)
+	if(host_mob.blood_volume <= 0)
 		return FALSE
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/host_human = host_mob
@@ -435,4 +437,4 @@
 			return FALSE
 
 /datum/nanite_program/vampire/active_effect()
-	host_mob.blood_volume -= 1.5
+	host_mob.blood_volume -= min(1.5, host_mob.blood_volume)
