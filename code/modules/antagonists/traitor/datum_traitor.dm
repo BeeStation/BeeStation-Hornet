@@ -429,3 +429,8 @@
 
 /datum/antagonist/traitor/is_gamemode_hero()
 	return SSticker.mode.name == "traitor"
+
+/datum/antagonist/traitor/excommunicate
+	name = "Excommunicate Traitor"
+	banning_key = BAN_ROLE_EXCOMM
+	special_role = BAN_ROLE_EXCOMM
