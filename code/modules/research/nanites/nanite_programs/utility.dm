@@ -224,6 +224,9 @@
 	current_item = host_mob.get_inactive_held_item()
 	if(current_item)
 		nanite_access |= current_item.GetAccess()
+	current_item = host_mob.pulling
+	if(isitem(current_item))
+		nanite_access |= current_item.GetAccess()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
 		current_item = H.wear_id
