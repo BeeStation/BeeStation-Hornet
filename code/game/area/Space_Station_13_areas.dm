@@ -85,6 +85,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	mood_message = "<span class='warning'>You feel that you shouldn't stay here with such shuttle traffic...\n</span>"
 	lighting_colour_tube = "#1c748a"
 	lighting_colour_bulb = "#1c748a"
+	lights_always_start_on = TRUE
 
 /area/docking/arrival
 	name = "Arrival Docking Area"
