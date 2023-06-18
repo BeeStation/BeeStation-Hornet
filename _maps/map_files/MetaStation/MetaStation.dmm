@@ -17625,9 +17625,7 @@
 	},
 /obj/structure/table/wood,
 /obj/item/pen,
-/obj/machinery/light_switch{
-	area = /area/tcommsat/server;
-	name = "Server Room light switch";
+/obj/machinery/light_switch/tcomms{
 	pixel_x = 9;
 	pixel_y = -24
 	},
