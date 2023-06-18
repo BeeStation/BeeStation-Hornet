@@ -1,4 +1,0 @@
-author: Crossedfall
-delete-after: true
-changes:
-  - tweak: Adjusted the CI's caching to also target yarn and pip
