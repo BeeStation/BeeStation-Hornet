@@ -316,7 +316,7 @@ GLOBAL_LIST_INIT(atmos_adjacent_savings, list(0,0))
 #endif
 
 GLOBAL_LIST_INIT(pipe_paint_colors, sort_list(list(
-		"amethyst" = rgb(130,43,255), //supplymain
+		"amethyst" = rgb(130,43,255),
 		"blue" = rgb(0,0,255),
 		"brown" = rgb(178,100,56),
 		"cyan" = rgb(0,255,249),

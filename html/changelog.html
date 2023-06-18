@@ -56,6 +56,83 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">18 June 2023</h2>
+			<h3 class="author">Crossedfall updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Adjusted the CI's caching to also target yarn and pip</li>
+			</ul>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Made sleek titanium tiles create the tile items of their respective color when removed with a crowbar</li>
+			</ul>
+
+			<h2 class="date">17 June 2023</h2>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">the Detective can no longer roll antag</li>
+				<li class="rscadd">Gave the Detective the mindshield back</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">debug outfit is faster and knows all surgeries, and can see ghosts.</li>
+			</ul>
+			<h3 class="author">HowToLoLu updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Exploration VIP targets now memorize why they have strange abilities, or an uplink in their head.</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">AI tracking now requires a target to stand still for X seconds in order to acquire a track when used from the menu or from radio. X is calculated using the following formula. If the target has GPS tracking beacon, X is 0. If not X starts at 4. Subtract 1 second if the target is in the light. Subtract 1 second if the target's ID matches their name. Subtract 1 second if the target's face is visible and not disfigured.</li>
+				<li class="balance">AI tracking can instantly track a target if they have sensors enabled, or are a robot.</li>
+			</ul>
+
+			<h2 class="date">16 June 2023</h2>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed failed surgery steps not hitting the patient</li>
+				<li class="rscadd">Added Mentorhelp, Game Preferences and Character Preferences buttons to the bar in top left.</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Being able to see ghosts no longer lets you see OOC information such as countdown objects.</li>
+				<li class="bugfix">Countdown timers are now properly visible over most objects</li>
+			</ul>
+
+			<h2 class="date">13 June 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed roundstart operating computers only partially linking to their given stasis bed/operating table.</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed admin player panel bluescreening/runtiming when closed.</li>
+				<li class="tweak">Metabalance is now cached on the player's client datum to reduce database use.</li>
+				<li class="bugfix">You can now purchase items that cost exactly your metabalance.</li>
+				<li class="tweak">Antag token count is now cached on the player's client datum to reduce database use.</li>
+			</ul>
+
+			<h2 class="date">12 June 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed victims of Toxoplasmosis Sapiens pouncing on cats whenever unconscious/crit, instead of when NOT unconscious/crit.</li>
+				<li class="bugfix">Transformation sting is no longer unfixable if you're monkeyized after being stung.</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">piano no longer throws runtime because of null-user</li>
+				<li class="bugfix">Fixed abductor baton image is missing from asset</li>
+			</ul>
+			<h3 class="author">HowToLoLu updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">PAI can no longer phase out of solid structures and machines such as closets (even when they were welded) and disposal pipes</li>
+			</ul>
+			<h3 class="author">LemonInTheDark, MrStonedOne, Mothblocks, EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added cross-round serverside spritesheet caching, and various fixes and improvements for it.</li>
+				<li class="config">Added CACHE_ASSETS, which enables asset caching when enabled. It is disabled in development, but should be enabled n production.</li>
+				<li class="bugfix">Fixed vending machine showing icons as glass when they failed to load.</li>
+			</ul>
+
 			<h2 class="date">11 June 2023</h2>
 			<h3 class="author">BriggsIDP updated:</h3>
 			<ul class="changes bgimages16">
@@ -992,78 +1069,6 @@
 				<li class="bugfix">Fixed runtimes caused by falling items impacting objects on the turf.</li>
 				<li class="rscadd">Added missing OBJ_FLAGS to VV flag editor.</li>
 				<li class="tweak">Falling objects will now act as if they were thrown at the head. A hat falling from above will land on your head.</li>
-			</ul>
-
-			<h2 class="date">16 April 2023</h2>
-			<h3 class="author">PestoVerde322 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Resized Corgstation to the right size.</li>
-				<li class="bugfix">adjusted some icons being too clear in areas.dmi</li>
-			</ul>
-
-			<h2 class="date">14 April 2023</h2>
-			<h3 class="author">Absolucy updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Hair gradients now properly transfer with DNA.</li>
-			</ul>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added new positive moodlets for wearing flowers and flower crowns</li>
-				<li class="refactor">repathed grown flowers into /obj/item/reagent_containers/food/snacks/grown/flower/</li>
-				<li class="refactor">repathed flower seeds into /obj/item/seeds/flower/</li>
-				<li class="spellcheck">fixed a typo in the sunflower attack text</li>
-				<li class="tweak">Changed the heretic ritual text to reflect it accepting any flower, made them accept Harebells and Rainbow Bunch flowers</li>
-				<li class="tweak">Mutadone now transforms non-naturally spawned or monkey cubed monkeys into humans again</li>
-				<li class="bugfix">Fixed the race not being properly stored when transforming into a monkey/restored from a monkey</li>
-				<li class="code_imp">added the 'natural' variable to monkeys which determines if they're mutadone proof</li>
-			</ul>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">a missing pill sprite will appear</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">Sniper rifles now need to be chambered (Like a shotgun, one use to chamber)</li>
-				<li class="balance">Sniper rifles minimum fire delay decreased from 4s to 1.5s.</li>
-				<li class="balance">Sniper rifle ammo is now brought seperately from the magazine.</li>
-				<li class="balance">Added in explosive sniper rounsd.</li>
-				<li class="balance">Added in EMP sniper rounds.</li>
-				<li class="balance">Added in inferno sniper rounds.</li>
-				<li class="balance">Added in anti-matter sniper rounds.</li>
-			</ul>
-			<h3 class="author">Rukofamicom updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Plumbing pipes now display properly on all plumbing machines.</li>
-			</ul>
-			<h3 class="author">Wisemonster updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Swarmer catwalks are now visible.</li>
-			</ul>
-
-			<h2 class="date">13 April 2023</h2>
-			<h3 class="author">Absolucy updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Shuttle buying and night lighting should work again</li>
-			</ul>
-
-			<h2 class="date">12 April 2023</h2>
-			<h3 class="author">Crossedfall updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">Multikey warnings for clients and admins have been improved</li>
-				<li class="config">Converted the max recommended build for clients into a config entry</li>
-				<li class="config">Added a warning build config setting to lightly nudge clients using older builds towards newer versions</li>
-				<li class="bugfix">TGUI say should work again</li>
-			</ul>
-
-			<h2 class="date">10 April 2023</h2>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Radiation Storms no longer affect Solar Arrays</li>
-			</ul>
-			<h3 class="author">imsynthex updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">Beepsky now does 85 stamina damage a hit</li>
-				<li class="balance">It will now take 2 hits from beepsky to down an unarmored target and beepsky's hits will now be softened by armor that protects from stamina damage</li>
 			</ul>
 		</div>
 
