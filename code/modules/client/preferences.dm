@@ -742,10 +742,20 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<td width='450px' height='300px' valign='top'>"
 			// --------------------------------------------
 			// warning pannel
-			var/banned = is_banned_from(user.ckey, BAN_ROLE_ALL_ANTAGONISTS)
-			if(banned)
+			var/ban_antagonists = is_banned_from(parent.ckey, BAN_ROLE_ALL_ANTAGONISTS)
+			var/ban_forced_antagonists = is_banned_from(parent.ckey, BAN_ROLE_FORCED_ANTAGONISTS)
+			var/ban_ghost = is_banned_from(parent.ckey, BAN_ROLE_ALL_GHOST)
+			if(ban_antagonists || ban_forced_antagonists || ban_ghost)
 				dat += "<h2>Notification</h2>"
-				dat += "<b>You are banned from all antagonist type roles.</b><br>"
+				if(ban_antagonists)
+					dat += "<b>You are banned from all antagonist roles.</b><br> \
+					<a href='?_src_=prefs;bancheck=[BAN_ROLE_ALL_ANTAGONISTS]'><font color='red'>Show Info</font></a><br>"
+				if(ban_forced_antagonists)
+					dat += "<b>You are banned from all forced antagonist roles (such as brainwashing).</b><br> \
+					<a href='?_src_=prefs;bancheck=[BAN_ROLE_FORCED_ANTAGONISTS]'><font color='red'>Show Info</font></a><br>"
+				if(ban_ghost)
+					dat += "<b>You are banned from all non-antagonist ghost roles.</b><br> \
+					<a href='?_src_=prefs;bancheck=[BAN_ROLE_ALL_GHOST]'><font color='red'>Show Info</font></a><br>"
 			// --------------------------------------------
 			//  Antagonist roles
 			dat += "<h3>Antagonists</h3>"
@@ -753,10 +763,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				var/datum/role_preference/pref = GLOB.role_preference_entries[typepath]
 				if(pref.category != ROLE_PREFERENCE_CATEGORY_ANAGONIST)
 					continue
-				dat += "<b>[pref.name]</b> \
-				<br> - Character: <a href='?_src_=prefs;preference=role_preferences;role_preference_type=[typepath]'>[parent.role_preference_enabled(typepath) ? "Enabled" : "Disabled"]</a>\
-				<br> - Global: <a href='?_src_=prefs;preference=role_preferences_enableall;role_preference_type=[typepath]'>Enable</a>\
-				<a href='?_src_=prefs;preference=role_preferences_disableall;role_preference_type=[typepath]'>Disable</a><br>"
+				var/ban_key = initial(pref.antag_datum.banning_key)
+				if(is_banned_from(parent.ckey, ban_key))
+					dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;bancheck=[ban_key]'><font color='red'>BANNED</font></a><br>"
+				else
+					dat += "<b>[pref.name]</b> \
+					<br> - Character: <a href='?_src_=prefs;preference=role_preferences;role_preference_type=[typepath]'>[parent.role_preference_enabled(typepath) ? "Enabled" : "Disabled"]</a>\
+					<br> - Global: <a href='?_src_=prefs;preference=role_preferences_enableall;role_preference_type=[typepath]'>Enable</a>\
+					<a href='?_src_=prefs;preference=role_preferences_disableall;role_preference_type=[typepath]'>Disable</a><br>"
 			dat += "</td>"
 			// left box closed
 
@@ -769,16 +783,24 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				var/datum/role_preference/pref = GLOB.role_preference_entries[typepath]
 				if(pref.category != ROLE_PREFERENCE_CATEGORY_MIDROUND_LIVING)
 					continue
-				dat += "<b>[pref.name]</b> \
-				<br> - Character: <a href='?_src_=prefs;preference=role_preferences;role_preference_type=[typepath]'>[parent.role_preference_enabled(typepath) ? "Enabled" : "Disabled"]</a>\
-				<br> - Global: <a href='?_src_=prefs;preference=role_preferences_enableall;role_preference_type=[typepath]'>Enable</a>\
-				<a href='?_src_=prefs;preference=role_preferences_disableall;role_preference_type=[typepath]'>Disable</a><br>"
+				var/ban_key = initial(pref.antag_datum.banning_key)
+				if(is_banned_from(parent.ckey, ban_key))
+					dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;bancheck=[ban_key]'><font color='red'>BANNED</font></a><br>"
+				else
+					dat += "<b>[pref.name]</b> \
+					<br> - Character: <a href='?_src_=prefs;preference=role_preferences;role_preference_type=[typepath]'>[parent.role_preference_enabled(typepath) ? "Enabled" : "Disabled"]</a>\
+					<br> - Global: <a href='?_src_=prefs;preference=role_preferences_enableall;role_preference_type=[typepath]'>Enable</a>\
+					<a href='?_src_=prefs;preference=role_preferences_disableall;role_preference_type=[typepath]'>Disable</a><br>"
 			dat += "<h3>Midrounds (Ghost)</h3>"
 			for (var/typepath in GLOB.role_preference_entries)
 				var/datum/role_preference/pref = GLOB.role_preference_entries[typepath]
 				if(pref.category != ROLE_PREFERENCE_CATEGORY_MIDROUND_GHOST)
 					continue
-				dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;preference=role_preferences;role_preference_type=[typepath]'>[parent.role_preference_enabled(typepath) ? "Enabled" : "Disabled"]</a><br>"
+				var/ban_key = initial(pref.antag_datum.banning_key)
+				if(is_banned_from(parent.ckey, ban_key))
+					dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;bancheck=[ban_key]'><font color='red'>BANNED</font></a><br>"
+				else
+					dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;preference=role_preferences;role_preference_type=[typepath]'>[parent.role_preference_enabled(typepath) ? "Enabled" : "Disabled"]</a><br>"
 			dat += "</td>"
 			// right box closed
 

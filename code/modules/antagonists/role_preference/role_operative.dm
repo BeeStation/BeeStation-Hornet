@@ -3,5 +3,5 @@
 	antag_datum = /datum/antagonist/nukeop
 
 /datum/role_preference/midround_ghost/nuclear_operative
-	name = "Nuclear Operative (Assailant)"
+	name = "Nuclear Operative (Midround)"
 	antag_datum = /datum/antagonist/nukeop
