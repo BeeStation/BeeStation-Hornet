@@ -8,9 +8,9 @@
 	var/safety_threshold = 50	//how low nanites will get before they stop processing/triggering
 	var/cloud_id = 0 			//0 if not connected to the cloud, 1-100 to set a determined cloud backup to draw from
 	var/cloud_active = TRUE		//if false, won't sync to the cloud
-	var/next_sync = 0
 	var/list/datum/nanite_program/programs = list()
 	var/max_programs = NANITE_PROGRAM_LIMIT
+	COOLDOWN_DECLARE(next_sync)
 
 	var/list/datum/nanite_program/protocol/protocols = list() /// Separate list of protocol programs, to avoid looping through the whole programs list when cheking for conflicts
 	var/start_time = 0 ///Timestamp to when the nanites were first inserted in the host
@@ -103,20 +103,19 @@
 
 /datum/component/nanites/InheritComponent(datum/component/nanites/new_nanites, i_am_original, amount, cloud)
 	if(new_nanites)
-		adjust_nanites(null, new_nanites.nanite_volume)
+		adjust_nanites(amount = new_nanites.nanite_volume)
 	else
-		adjust_nanites(null, amount) //just add to the nanite volume
+		adjust_nanites(amount = amount) //just add to the nanite volume
 
 /datum/component/nanites/process(delta_time)
 	if(!IS_IN_STASIS(host_mob))
-		adjust_nanites(null, (regen_rate + (SSresearch.science_tech.researched_nodes["nanite_harmonic"] ? HARMONIC_REGEN_BOOST : 0)) * delta_time)
+		adjust_nanites(amount = (regen_rate + (SSresearch.science_tech.researched_nodes["nanite_harmonic"] ? HARMONIC_REGEN_BOOST : 0)) * delta_time)
 		add_research()
-		for(var/X in programs)
-			var/datum/nanite_program/NP = X
-			NP.on_process()
-		if(cloud_id && cloud_active && world.time > next_sync)
+		for(var/datum/nanite_program/program as anything in programs)
+			program.on_process()
+		if(cloud_id && cloud_active && COOLDOWN_FINISHED(src, next_sync))
 			cloud_sync()
-			next_sync = world.time + NANITE_SYNC_DELAY
+			COOLDOWN_START(src, next_sync, NANITE_SYNC_DELAY)
 	set_nanite_bar()
 
 
@@ -132,14 +131,12 @@
 
 	var/list/programs_to_remove = programs.Copy()
 	var/list/programs_to_add = source.programs.Copy()
-	for(var/X in programs)
-		var/datum/nanite_program/NP = X
-		for(var/Y in programs_to_add)
-			var/datum/nanite_program/SNP = Y
-			if(NP.type == SNP.type)
-				programs_to_remove -= NP
-				programs_to_add -= SNP
-				SNP.copy_programming(NP, copy_activation)
+	for(var/datum/nanite_program/current_program as anything in programs)
+		for(var/datum/nanite_program/new_program as anything in programs_to_add)
+			if(current_program.type == new_program.type)
+				programs_to_remove -= current_program
+				programs_to_add -= new_program
+				new_program.copy_programming(current_program, copy_activation)
 				break
 	if(full_overwrite)
 		for(var/X in programs_to_remove)
@@ -149,8 +146,8 @@
 		cloud_id = source.cloud_id
 		safety_threshold = source.safety_threshold
 	for(var/X in programs_to_add)
-		var/datum/nanite_program/SNP = X
-		add_program(null, SNP.copy())
+	for(var/datum/nanite_program/program as anything in programs_to_add)
+		add_program(new_program = program.copy())
 
 /// Syncs the nanites to their assigned cloud copy, if it is available. If it is not, there is a small chance of a software error instead.
 /datum/component/nanites/proc/cloud_sync()
@@ -170,10 +167,9 @@
 /datum/component/nanites/proc/add_program(datum/source, datum/nanite_program/new_program, datum/nanite_program/source_program)
 	SIGNAL_HANDLER
 
-	for(var/X in programs)
-		var/datum/nanite_program/NP = X
-		if(NP.unique && NP.type == new_program.type)
-			qdel(NP)
+	for(var/datum/nanite_program/program as anything in programs)
+		if(program.unique && program.type == new_program.type)
+			qdel(program)
 	if(programs.len >= max_programs)
 		return COMPONENT_PROGRAM_NOT_INSTALLED
 	if(source_program)
@@ -185,7 +181,7 @@
 /datum/component/nanites/proc/consume_nanites(amount, force = FALSE)
 	if(!force && safety_threshold && (nanite_volume - amount < safety_threshold))
 		return FALSE
-	adjust_nanites(null, -amount)
+	adjust_nanites(amount = -amount)
 	return (nanite_volume > 0)
 
 /// Modifies the current nanite volume, then checks if the nanites are depleted or exceeding the maximum amount
@@ -215,14 +211,14 @@
 		if(0 to NANITE_EXCESS_MINOR) //Minor excess amount, the extra nanites are quietly expelled without visible effects
 			return
 		if((NANITE_EXCESS_MINOR + 0.1) to NANITE_EXCESS_VOMIT) //Enough nanites getting rejected at once to be visible to the naked eye
-			host_mob.visible_message("<span class='warning'>A grainy grey slurry starts oozing out of [host_mob].</span>", "<span class='warning'>A grainy grey slurry starts oozing out of your skin.</span>", null, 4);
+			host_mob.visible_message("<span class='warning'>A grainy grey slurry starts oozing out of [host_mob].</span>", "<span class='warning'>A grainy grey slurry starts oozing out of your skin.</span>", vision_distance = 4);
 		if((NANITE_EXCESS_VOMIT + 0.1) to NANITE_EXCESS_BURST) //Nanites getting rejected in massive amounts, but still enough to make a semi-orderly exit through vomit
 			if(iscarbon(host_mob))
 				var/mob/living/carbon/C = host_mob
-				host_mob.visible_message("<span class='warning'>[host_mob] vomits a grainy grey slurry!</span>", "<span class='warning'>You suddenly vomit a metallic-tasting grainy grey slurry!</span>", null);
+				host_mob.visible_message("<span class='warning'>[host_mob] vomits a grainy grey slurry!</span>", "<span class='warning'>You suddenly vomit a metallic-tasting grainy grey slurry!</span>");
 				C.vomit(0, FALSE, TRUE, FLOOR(excess / 100, 1), FALSE, VOMIT_NANITE, FALSE)
 			else
-				host_mob.visible_message("<span class='warning'>A metallic grey slurry bursts out of [host_mob]'s skin!</span>", "<span class='userdanger'>A metallic grey slurry violently bursts out of your skin!</span>", null);
+				host_mob.visible_message("<span class='warning'>A metallic grey slurry bursts out of [host_mob]'s skin!</span>", "<span class='userdanger'>A metallic grey slurry violently bursts out of your skin!</span>");
 				if(isturf(host_mob.drop_location()))
 					var/turf/T = host_mob.drop_location()
 					T.add_vomit_floor(host_mob, VOMIT_NANITE, FALSE)
@@ -264,7 +260,7 @@
 	SIGNAL_HANDLER
 
 	nanite_volume *= (rand(60, 90) * 0.01)		//Lose 10-40% of nanites
-	adjust_nanites(null, -(rand(5, 50)))		//Lose 5-50 flat nanite volume
+	adjust_nanites(amount = -(rand(5, 50)))		//Lose 5-50 flat nanite volume
 	if(prob(40/severity))
 		cloud_id = 0
 	for(var/X in programs)
@@ -280,18 +276,16 @@
 
 	if(!HAS_TRAIT_NOT_FROM(host_mob, TRAIT_SHOCKIMMUNE, "nanites"))//Another shock protection must protect nanites too, but nanites protect only host
 		nanite_volume *= (rand(45, 80) * 0.01)		//Lose 20-55% of nanites
-		adjust_nanites(null, -(rand(5, 50)))			//Lose 5-50 flat nanite volume
-		for(var/X in programs)
-			var/datum/nanite_program/NP = X
-			NP.on_shock(shock_damage)
+		adjust_nanites(amount = -(rand(5, 50)))			//Lose 5-50 flat nanite volume
+		for(var/datum/nanite_program/program as anything in programs)
+			program.on_shock(shock_damage)
 
 /datum/component/nanites/proc/on_minor_shock(datum/source)
 	SIGNAL_HANDLER
 
-	adjust_nanites(null, -(rand(5, 15)))			//Lose 5-15 flat nanite volume
-	for(var/X in programs)
-		var/datum/nanite_program/NP = X
-		NP.on_minor_shock()
+	adjust_nanites(amount = -(rand(5, 15)))			//Lose 5-15 flat nanite volume
+	for(var/datum/nanite_program/program as anything in programs)
+		program.on_minor_shock()
 
 /datum/component/nanites/proc/check_stealth(datum/source)
 	SIGNAL_HANDLER
@@ -301,24 +295,20 @@
 /datum/component/nanites/proc/on_death(datum/source, gibbed)
 	SIGNAL_HANDLER
 
-	for(var/X in programs)
-		var/datum/nanite_program/NP = X
-		NP.on_death(gibbed)
+	for(var/datum/nanite_program/program as anything in programs)
+		program.on_death(gibbed)
 
 /datum/component/nanites/proc/receive_signal(datum/source, code, source = "an unidentified source")
 	SIGNAL_HANDLER
 
-	for(var/X in programs)
-		var/datum/nanite_program/NP = X
-		NP.receive_nanite_signal(code, source)
+	for(var/datum/nanite_program/program as anything in programs)
+		program.receive_nanite_signal(code, source)
 
 /datum/component/nanites/proc/receive_comm_signal(datum/source, comm_code, comm_message, comm_source = "an unidentified source")
 	SIGNAL_HANDLER
 
-	for(var/X in programs)
-		if(istype(X, /datum/nanite_program/comm))
-			var/datum/nanite_program/comm/NP = X
-			NP.receive_comm_signal(comm_code, comm_message, comm_source)
+	for(var/datum/nanite_program/comm/program in programs)
+		program.receive_comm_signal(comm_code, comm_message, comm_source)
 
 /datum/component/nanites/proc/check_viable_biotype()
 	SIGNAL_HANDLER
@@ -425,10 +415,9 @@
 		if(!diagnostics)
 			message += "<span class='alert'>Diagnostics Disabled</span>"
 		else
-			for(var/X in programs)
-				var/datum/nanite_program/program = X
+			for(var/datum/nanite_program/program as anything in programs)
 				message += "<span class='info'><b>[program.name]</b> | [program.activated ? "<span class='green'>Active</span>" : "<span class='red'>Inactive</span>"]</span>"
-				for(var/datum/nanite_rule/rule in program.rules)
+				for(var/datum/nanite_rule/rule as anything in program.rules)
 					message += "<span class='[rule.check_rule() ? "green" : "red"]'>[GLOB.TAB][rule.display()]</span>"
 		. = TRUE
 	if(length(message))
@@ -445,26 +434,25 @@
 	data["cloud_active"] = cloud_active
 	var/list/mob_programs = list()
 	var/id = 1
-	for(var/X in programs)
-		var/datum/nanite_program/P = X
+	for(var/datum/nanite_program/program as anything in programs)
 		var/list/mob_program = list()
-		mob_program["name"] = P.name
-		mob_program["desc"] = P.desc
+		mob_program["name"] = program.name
+		mob_program["desc"] = program.desc
 		mob_program["id"] = id
 
 		if(scan_level >= 2)
-			mob_program["activated"] = P.activated
-			mob_program["use_rate"] = P.use_rate
-			mob_program["can_trigger"] = P.can_trigger
-			mob_program["trigger_cost"] = P.trigger_cost
-			mob_program["trigger_cooldown"] = P.trigger_cooldown / 10
+			mob_program["activated"] = program.activated
+			mob_program["use_rate"] = program.use_rate
+			mob_program["can_trigger"] = program.can_trigger
+			mob_program["trigger_cost"] = program.trigger_cost
+			mob_program["trigger_cooldown"] = program.trigger_cooldown / 10
 
 		if(scan_level >= 3)
-			mob_program["timer_restart"] = P.timer_restart / 10
-			mob_program["timer_shutdown"] = P.timer_shutdown / 10
-			mob_program["timer_trigger"] = P.timer_trigger / 10
-			mob_program["timer_trigger_delay"] = P.timer_trigger_delay / 10
-			var/list/extra_settings = P.get_extra_settings_frontend()
+			mob_program["timer_restart"] = program.timer_restart / 10
+			mob_program["timer_shutdown"] = program.timer_shutdown / 10
+			mob_program["timer_trigger"] = program.timer_trigger / 10
+			mob_program["timer_trigger_delay"] = program.timer_trigger_delay / 10
+			var/list/extra_settings = program.get_extra_settings_frontend()
 			mob_program["extra_settings"] = extra_settings
 			if(LAZYLEN(extra_settings))
 				mob_program["has_extra_settings"] = TRUE
@@ -472,14 +460,13 @@
 				mob_program["has_extra_settings"] = FALSE
 
 		if(scan_level >= 4)
-			mob_program["activation_code"] = P.activation_code
-			mob_program["deactivation_code"] = P.deactivation_code
-			mob_program["kill_code"] = P.kill_code
-			mob_program["trigger_code"] = P.trigger_code
+			mob_program["activation_code"] = program.activation_code
+			mob_program["deactivation_code"] = program.deactivation_code
+			mob_program["kill_code"] = program.kill_code
+			mob_program["trigger_code"] = program.trigger_code
 			var/list/rules = list()
 			var/rule_id = 1
-			for(var/Z in P.rules)
-				var/datum/nanite_rule/nanite_rule = Z
+			for(var/datum/nanite_rule/nanite_rule as anything in program.rules)
 				var/list/rule = list()
 				rule["display"] = nanite_rule.display()
 				rule["program_id"] = id
