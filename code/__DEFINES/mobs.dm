@@ -599,7 +599,7 @@
 /// The mob will vomit a purple color
 #define VOMIT_PURPLE 2
 /// The mob will vomit up nanites
-#define VOMIT_NANITE 2
+#define VOMIT_NANITE 3
 
 
 /// Messages when (something) lays an egg
