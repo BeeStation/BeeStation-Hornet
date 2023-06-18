@@ -239,7 +239,6 @@ GLOBAL_LIST_INIT(other_bannable_roles, list(
 #define ROLE_PREFERENCE_CATEGORY_ANAGONIST "Antagonists"
 #define ROLE_PREFERENCE_CATEGORY_MIDROUND_LIVING "Midrounds (Living)"
 #define ROLE_PREFERENCE_CATEGORY_MIDROUND_GHOST "Midrounds (Ghost Poll)"
-#define ROLE_PREFERENCE_CATEGORY_GHOST_ROLES "Ghost Roles"
 
 GLOBAL_LIST_INIT(role_preference_entries, init_role_preference_entries())
 

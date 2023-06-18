@@ -738,13 +738,17 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				var/datum/role_preference/pref = GLOB.role_preference_entries[typepath]
 				if(pref.category != ROLE_PREFERENCE_CATEGORY_ANAGONIST)
 					continue
-				dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;preference=role_preferences;role_preference_type=[typepath]'>[parent.role_preference_enabled(typepath) ? "Enabled" : "Disabled"]</a><br>"
+				dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;preference=role_preferences;role_preference_type=[typepath]'>[parent.role_preference_enabled(typepath) ? "Enabled" : "Disabled"]</a> \
+				<a href='?_src_=prefs;preference=role_preferences_enableall;role_preference_type=[typepath]'>Enable for all characters</a> \
+				<a href='?_src_=prefs;preference=role_preferences_disableall;role_preference_type=[typepath]'>Disable for all characters</a><br>"
 			dat += "<h3>Midrounds (Living)</h3>"
 			for (var/typepath in GLOB.role_preference_entries)
 				var/datum/role_preference/pref = GLOB.role_preference_entries[typepath]
 				if(pref.category != ROLE_PREFERENCE_CATEGORY_MIDROUND_LIVING)
 					continue
-				dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;preference=role_preferences;role_preference_type=[typepath]'>[parent.role_preference_enabled(typepath) ? "Enabled" : "Disabled"]</a><br>"
+				dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;preference=role_preferences;role_preference_type=[typepath]'>[parent.role_preference_enabled(typepath) ? "Enabled" : "Disabled"]</a> \
+				<a href='?_src_=prefs;preference=role_preferences_enableall;role_preference_type=[typepath]'>Enable for all characters</a> \
+				<a href='?_src_=prefs;preference=role_preferences_disableall;role_preference_type=[typepath]'>Disable for all characters</a><br>"
 			dat += "</td>"
 			// left box closed
 
@@ -1905,6 +1909,20 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							prefsource["[role_preference_type]"] = !current
 						else // not set, we assume it's on, so turn it off.
 							prefsource["[role_preference_type]"] = FALSE
+
+				if("role_preferences_enableall")
+					var/role_preference_type = href_list["role_preference_type"]
+					var/role_preference_path = text2path(role_preference_type)
+					var/datum/role_preference/role_pref = GLOB.role_preference_entries[role_preference_path]
+					if(istype(role_pref) && role_pref.per_character)
+						active_character.role_preferences_character["[role_preference_type]"] = TRUE
+
+				if("role_preferences_disableall")
+					var/role_preference_type = href_list["role_preference_type"]
+					var/role_preference_path = text2path(role_preference_type)
+					var/datum/role_preference/role_pref = GLOB.role_preference_entries[role_preference_path]
+					if(istype(role_pref) && role_pref.per_character)
+						active_character.role_preferences_character["[role_preference_type]"] = FALSE
 
 				if("name")
 					active_character.be_random_name = !active_character.be_random_name
