@@ -51,12 +51,12 @@
 		if (!M.client) // Are they connected?
 			trimmed_list.Remove(M)
 			continue
-		if(!should_include_for_role(
-			M.client,
+		if(!M.client.should_include_for_role(
 			banning_key = initial(antag_datum.banning_key),
 			role_preference_key = role_preference,
 			poll_ignore_key = role_preference
 		))
+			trimmed_list.Remove(M)
 			continue
 		if (M.mind)
 			if (restrict_ghost_roles && (M.mind.assigned_role in GLOB.exp_specialmap[EXP_TYPE_SPECIAL])) // Are they playing a ghost role?

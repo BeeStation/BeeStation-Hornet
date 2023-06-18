@@ -738,13 +738,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				var/datum/role_preference/pref = GLOB.role_preference_entries[typepath]
 				if(pref.category != ROLE_PREFERENCE_CATEGORY_ANAGONIST)
 					continue
-				dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;preference=role_preferences;role_preference_type=[typepath]'>[role_preference_enabled(parent, typepath) ? "Enabled" : "Disabled"]</a><br>"
+				dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;preference=role_preferences;role_preference_type=[typepath]'>[parent.role_preference_enabled(typepath) ? "Enabled" : "Disabled"]</a><br>"
 			dat += "<h3>Midrounds (Living)</h3>"
 			for (var/typepath in GLOB.role_preference_entries)
 				var/datum/role_preference/pref = GLOB.role_preference_entries[typepath]
 				if(pref.category != ROLE_PREFERENCE_CATEGORY_MIDROUND_LIVING)
 					continue
-				dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;preference=role_preferences;role_preference_type=[typepath]'>[role_preference_enabled(parent, typepath) ? "Enabled" : "Disabled"]</a><br>"
+				dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;preference=role_preferences;role_preference_type=[typepath]'>[parent.role_preference_enabled(typepath) ? "Enabled" : "Disabled"]</a><br>"
 			dat += "</td>"
 			// left box closed
 
@@ -758,13 +758,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				var/datum/role_preference/pref = GLOB.role_preference_entries[typepath]
 				if(pref.category != ROLE_PREFERENCE_CATEGORY_MIDROUND_GHOST)
 					continue
-				dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;preference=role_preferences;role_preference_type=[typepath]'>[role_preference_enabled(parent, typepath) ? "Enabled" : "Disabled"]</a><br>"
-			/*dat += "<h3>Ghost Polls</h3>"
-			for (var/typepath in GLOB.role_preference_entries)
-				var/datum/role_preference/pref = GLOB.role_preference_entries[typepath]
-				if(pref.category != ROLE_PREFERENCE_CATEGORY_GHOST_ROLES)
-					continue
-				dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;preference=role_preferences;role_preference_type=[typepath]'>[role_preference_enabled(parent, typepath) ? "Enabled" : "Disabled"]</a><br>"*/
+				dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;preference=role_preferences;role_preference_type=[typepath]'>[parent.role_preference_enabled(typepath) ? "Enabled" : "Disabled"]</a><br>"
 			dat += "</td>"
 			// right box closed
 

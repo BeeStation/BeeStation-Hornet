@@ -93,8 +93,7 @@
 	if((SSticker.mode.traitors.len + pre_traitors.len) >= traitorcap) //Upper cap for number of latejoin antagonists
 		return
 	if((SSticker.mode.traitors.len + pre_traitors.len) <= (traitorcap - 2) || prob(100 / (tsc * 2)))
-		if(!QDELETED(character) && character.client && should_include_for_role(
-			character.client,
+		if(!QDELETED(character) && character.client.should_include_for_role(
 			banning_key = banning_key,
 			role_preference_key = role_preference
 		))

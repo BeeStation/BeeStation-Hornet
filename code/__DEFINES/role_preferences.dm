@@ -175,15 +175,15 @@ GLOBAL_LIST_INIT(other_bannable_roles, list(
 /// Do not ban this role. Oh my god. Please.
 #define UNBANNABLE_ANTAGONIST "Unbannable"
 
-/proc/role_preference_enabled(client/player, role_preference_key)
+/client/proc/role_preference_enabled(role_preference_key)
 	if(!ispath(role_preference_key, /datum/role_preference))
 		CRASH("Invalid role_preference_key [role_preference_key] passed to role_preference_enabled!")
-	if(!istype(player) || !player.prefs)
+	if(!src.prefs)
 		return FALSE
-	var/list/source = player.prefs.role_preferences
+	var/list/source = src.prefs.role_preferences
 	var/datum/role_preference/pref = role_preference_key
 	if(initial(pref.per_character))
-		source = player.prefs.active_character.role_preferences_character
+		source = src.prefs.active_character.role_preferences_character
 	var/role_preference_value = source["[role_preference_key]"]
 	if(isnum(role_preference_value) && !role_preference_value) // explicitly disabled and not null
 		return FALSE
@@ -195,40 +195,39 @@ GLOBAL_LIST_INIT(other_bannable_roles, list(
 /// poll_ignore_key: The POLL_IGNORE_X define for this role, used for temporarily disabling ghost polls for high volume roles.
 /// req_hours: The amount of living hours required to receive this role.
 /// feedback: if we should send a to_chat
-/proc/should_include_for_role(client/player, banning_key = BAN_ROLE_ALL_ANTAGONISTS, role_preference_key = null, poll_ignore_key = null, req_hours = 0, feedback = FALSE)
-	if(QDELETED(player) || (poll_ignore_key && GLOB.poll_ignore[poll_ignore_key] && (player.ckey in GLOB.poll_ignore[poll_ignore_key])))
+/client/proc/should_include_for_role(banning_key = BAN_ROLE_ALL_ANTAGONISTS, role_preference_key = null, poll_ignore_key = null, req_hours = 0, feedback = FALSE)
+	if(QDELETED(src) || (poll_ignore_key && GLOB.poll_ignore[poll_ignore_key] && (src.ckey in GLOB.poll_ignore[poll_ignore_key])))
 		return FALSE
 	if(role_preference_key)
 		if(!ispath(role_preference_key, /datum/role_preference))
 			CRASH("Invalid role_preference_key [role_preference_key] passed to should_include_for_role!")
-		if(!role_preference_enabled(player, role_preference_key))
+		if(!role_preference_enabled(src, role_preference_key))
 			return FALSE
 	if(banning_key)
-		if(is_banned_from(player.ckey, banning_key))
+		if(is_banned_from(src.ckey, banning_key))
 			if(feedback)
-				to_chat(player, "<span class='warning'>You are banned from this role!</span>")
+				to_chat(src, "<span class='warning'>You are banned from this role!</span>")
 			return FALSE
 	if(req_hours) //minimum living hour count
-		if((player.get_exp_living(TRUE)/60) < req_hours)
+		if((src.get_exp_living(TRUE)/60) < req_hours)
 			if(feedback)
-				to_chat(player, "<span class='warning'>You do not have enough living hours to take this role ([req_hours]hrs required)!</span>")
+				to_chat(src, "<span class='warning'>You do not have enough living hours to take this role ([req_hours]hrs required)!</span>")
 			return FALSE
 	return TRUE
 
-/proc/can_take_ghost_spawner(client/player, banning_key = BAN_ROLE_ALL_ANTAGONISTS, use_cooldown = TRUE, is_ghost_role = FALSE, is_admin_spawned = FALSE)
-	if(!istype(player))
+/client/proc/can_take_ghost_spawner(banning_key = BAN_ROLE_ALL_ANTAGONISTS, use_cooldown = TRUE, is_ghost_role = FALSE, is_admin_spawned = FALSE)
+	if(!istype(src))
 		return FALSE
 	if(is_ghost_role && !(GLOB.ghost_role_flags & GHOSTROLE_SPAWNER) && !is_admin_spawned)
-		to_chat(player, "<span class='warning'>An admin has temporarily disabled non-admin ghost roles!</span>")
+		to_chat(src, "<span class='warning'>An admin has temporarily disabled non-admin ghost roles!</span>")
 		return FALSE
-	if(!should_include_for_role(
-		player,
+	if(!src.should_include_for_role(
 		banning_key = banning_key,
 		feedback = TRUE
 	))
 		return FALSE
-	if(use_cooldown && player.next_ghost_role_tick > world.time)
-		to_chat(player, "<span class='warning'>You have died recently, you must wait [(player.next_ghost_role_tick - world.time)/10] seconds until you can use a ghost spawner.</span>")
+	if(use_cooldown && src.next_ghost_role_tick > world.time)
+		to_chat(src, "<span class='warning'>You have died recently, you must wait [(src.next_ghost_role_tick - world.time)/10] seconds until you can use a ghost spawner.</span>")
 		return FALSE
 	return TRUE
 

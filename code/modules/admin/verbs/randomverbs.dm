@@ -297,7 +297,7 @@
 		for(var/mob/M in GLOB.player_list)
 			if(M.stat != DEAD)
 				continue	//we are not dead!
-			if(!role_preference_enabled(M.client, /datum/role_preference/midround_ghost/xenomorph))
+			if(!M.client?.should_include_for_role(BAN_ROLE_ALIEN, /datum/role_preference/midround_ghost/xenomorph))
 				continue	//we don't want to be an alium
 			if(M.client.is_afk())
 				continue	//we are afk

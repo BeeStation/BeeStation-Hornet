@@ -75,8 +75,7 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 	if(changelings.len >= changelingcap) //Caps number of latejoin antagonists
 		return
 	if(changelings.len <= (changelingcap - 2) || prob(100 - (csc * 2)))
-		if(!QDELETED(character) && character.client && should_include_for_role(
-			character.client,
+		if(!QDELETED(character) && character.client.should_include_for_role(
 			banning_key = banning_key,
 			role_preference_key = role_preference
 		))

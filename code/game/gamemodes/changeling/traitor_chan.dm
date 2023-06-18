@@ -73,8 +73,7 @@
 		..()
 		return
 	if(changelings.len <= (changelingcap - 2) || prob(100 / (csc * 4)))
-		if(!QDELETED(character) && character.client && should_include_for_role(
-			character.client,
+		if(!QDELETED(character) && character.client.should_include_for_role(
 			banning_key = BAN_ROLE_CHANGELING,
 			role_preference_key = /datum/role_preference/antagonist/changeling
 		))

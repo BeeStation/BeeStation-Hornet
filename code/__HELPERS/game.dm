@@ -452,8 +452,7 @@
 		var/mob/M = m
 		if(QDELETED(M) || !M.key || !M.client)
 			continue
-		if(!should_include_for_role(
-			M.client,
+		if(!M.client.should_include_for_role(
 			banning_key = banning_key,
 			role_preference_key = role_preference_key,
 			poll_ignore_key = poll_ignore_key,

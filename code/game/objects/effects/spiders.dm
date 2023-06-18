@@ -120,7 +120,7 @@
 
 /obj/structure/spider/eggcluster/attack_ghost(mob/user)
 	. = ..()
-	if(!can_take_ghost_spawner(user?.client, BAN_ROLE_SPIDER, TRUE, is_ghost_role = FALSE))
+	if(!user?.client?.can_take_ghost_spawner(BAN_ROLE_SPIDER, TRUE, is_ghost_role = FALSE))
 		return
 	if(ghost_ready)
 		make_spider(user)

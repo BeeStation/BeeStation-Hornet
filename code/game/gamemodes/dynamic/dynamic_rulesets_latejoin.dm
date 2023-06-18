@@ -13,8 +13,7 @@
 			candidates.Remove(P)
 		else if(length(exclusive_roles) && !(P.mind.assigned_role in exclusive_roles)) // Is the rule exclusive to their job?
 			candidates.Remove(P)
-		else if(!should_include_for_role(
-			P.client,
+		else if(!P.client.should_include_for_role(
 			banning_key = initial(antag_datum.banning_key),
 			role_preference_key = role_preference
 		))

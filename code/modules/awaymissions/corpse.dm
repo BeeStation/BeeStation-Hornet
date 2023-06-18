@@ -43,7 +43,7 @@
 		return
 	if(!SSticker.HasRoundStarted())
 		return
-	if(!can_take_ghost_spawner(user?.client, banType, use_cooldown, is_ghost_role = !is_antagonist, is_admin_spawned = flags_1 & ADMIN_SPAWNED_1))
+	if(!user?.client?.can_take_ghost_spawner(banType, use_cooldown, is_ghost_role = !is_antagonist, is_admin_spawned = flags_1 & ADMIN_SPAWNED_1))
 		return
 	if(QDELETED(src) || QDELETED(user))
 		return

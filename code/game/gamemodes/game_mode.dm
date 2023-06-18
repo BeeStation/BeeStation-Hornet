@@ -463,7 +463,7 @@
 			continue
 		var/role_enabled = TRUE
 		if(role_preference && player.client)
-			role_enabled = role_preference_enabled(player.client, role_preference)
+			role_enabled = player.client.role_preference_enabled(role_preference)
 		total_tickets += min((role_enabled ? SSpersistence.antag_rep[p_ckey] : 0) + DEFAULT_ANTAG_TICKETS, MAX_TICKETS_PER_ROLL)
 
 	var/antag_select = rand(1,total_tickets)
@@ -483,7 +483,7 @@
 		p_rep = SSpersistence.antag_rep[p_ckey]
 		var/role_enabled = TRUE
 		if(role_preference && player.client)
-			role_enabled = role_preference_enabled(player.client, role_preference)
+			role_enabled = player.client.role_preference_enabled(role_preference)
 		var/previous = current
 		var/spend = min((role_enabled ? p_rep : 0) + DEFAULT_ANTAG_TICKETS, MAX_TICKETS_PER_ROLL)
 		current += spend
@@ -513,7 +513,7 @@
 
 	for(var/mob/dead/new_player/player in players)
 		if(player.client && player.ready == PLAYER_READY_TO_PLAY)
-			if(!role_preference || role_preference_enabled(player.client, role_preference))
+			if(!role_preference || player.client.role_preference_enabled(role_preference))
 				if((!banning_key || !is_banned_from(player.ckey, banning_key)) && !QDELETED(player))
 					candidates += player.mind				// Get a list of all the people who want to be the antagonist for this round
 
@@ -526,7 +526,7 @@
 	if(candidates.len < recommended_enemies)
 		for(var/mob/dead/new_player/player in players)
 			if(player.client && player.ready == PLAYER_READY_TO_PLAY)
-				if(role_preference && !role_preference_enabled(player.client, role_preference)) // We don't have enough people who want to be antagonist, make a separate list of people who don't want to be one
+				if(role_preference && !player.client.role_preference_enabled(role_preference)) // We don't have enough people who want to be antagonist, make a separate list of people who don't want to be one
 					if(!banning_key || !is_banned_from(player.ckey, banning_key) && !QDELETED(player))
 						drafted += player.mind
 
@@ -576,7 +576,7 @@
 
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(!QDELETED(player) && player.client && is_station_level(player.z) && !player.mind.special_role)
-			if(should_include_for_role(player.client, banning_key = banning_key, role_preference_key = role_preference))
+			if(player.client.should_include_for_role(banning_key = banning_key, role_preference_key = role_preference))
 				candidates += player.mind				// Get a list of all the people who want to be the antagonist for this round
 
 	var/restricted_list = length(restricted_roles) ? restricted_roles : restricted_jobs

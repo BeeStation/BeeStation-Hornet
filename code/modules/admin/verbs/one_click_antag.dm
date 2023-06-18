@@ -30,7 +30,7 @@
 /datum/admins/proc/isReadytoRumble(mob/living/carbon/human/applicant, targetrole, preference, onstation = TRUE, conscious = TRUE)
 	if(applicant.mind.special_role)
 		return FALSE
-	if(!role_preference_enabled(applicant.client, preference))
+	if(!applicant.client?.should_include_for_role(targetrole, preference))
 		return FALSE
 	if(onstation)
 		var/turf/T = get_turf(applicant)
@@ -40,7 +40,7 @@
 		return FALSE
 	if(!considered_alive(applicant.mind) || considered_afk(applicant.mind)) //makes sure the player isn't a zombie, brain, or just afk all together
 		return FALSE
-	return !is_banned_from(applicant.ckey, targetrole)
+	return TRUE
 
 
 /datum/admins/proc/makeTraitors(maxCount = 3)
