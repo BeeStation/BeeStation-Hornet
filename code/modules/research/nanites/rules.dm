@@ -250,32 +250,27 @@
 
 /datum/nanite_rule/combined/display()
 	var/list/rule_displays = list()
-	for(var/R in rules)
-		var/datum/nanite_rule/rule = R
+	for(var/datum/nanite_rule/rule as anything in rules)
 		rule_displays += rule.display()
 	return "[op]([rule_displays.Join(", ")])"
 
 /datum/nanite_rule/combined/check_rule()
 	switch(op)
 		if(NL_AND)
-			for(var/R in rules)
-				var/datum/nanite_rule/rule = R
+			for(var/datum/nanite_rule/rule as anything in rules)
 				if(!rule.check_rule())
 					return FALSE
 		if(NL_OR)
-			for(var/R in rules)
-				var/datum/nanite_rule/rule = R
+			for(var/datum/nanite_rule/rule as anything in rules)
 				if(rule.check_rule())
 					return TRUE
 			return FALSE
 		if(NL_NOR)
-			for(var/R in rules)
-				var/datum/nanite_rule/rule = R
+			for(var/datum/nanite_rule/rule as anything in rules)
 				if(rule.check_rule())
 					return FALSE
 		if(NL_NAND)
-			for(var/R in rules)
-				var/datum/nanite_rule/rule = R
+			for(var/datum/nanite_rule/rule as anything in rules)
 				if(!rule.check_rule())
 					return TRUE
 			return FALSE
@@ -284,8 +279,7 @@
 /datum/nanite_rule/combined/copy_to(datum/nanite_program/new_program, copy_to_rules = TRUE)
 	var/datum/nanite_rule/combined/rule = new(new_program, copy_to_rules)
 	rule.op = op
-	for(var/R in rules)
-		var/datum/nanite_rule/subrule = R
+	for(var/datum/nanite_rule/subrule as anything in rules)
 		var/datum/nanite_rule/new_subrule = subrule.copy_to(new_program, FALSE)
 		if(new_subrule)
 			rule.rules += new_subrule
