@@ -22,7 +22,7 @@
 /datum/game_mode/traitor/changeling/can_start()
 	if(!..())
 		return 0
-	possible_changelings = get_players_for_role(BAN_ROLE_CHANGELING, /datum/role_preference/antagonist/changeling)
+	possible_changelings = get_players_for_role(/datum/antagonist/changeling, /datum/role_preference/antagonist/changeling)
 	if(possible_changelings.len < required_enemies)
 		return 0
 	return 1
@@ -37,7 +37,7 @@
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		restricted_jobs += GLOB.command_positions
 
-	var/list/datum/mind/possible_changelings = get_players_for_role(BAN_ROLE_CHANGELING, /datum/role_preference/antagonist/changeling)
+	var/list/datum/mind/possible_changelings = get_players_for_role(/datum/antagonist/changeling, /datum/role_preference/antagonist/changeling)
 
 	var/num_changelings = 1
 
@@ -72,10 +72,12 @@
 	if(changelings.len >= changelingcap) //Caps number of latejoin antagonists
 		..()
 		return
+	var/datum/antagonist/aux_antag_datum = /datum/antagonist/changeling
 	if(changelings.len <= (changelingcap - 2) || prob(100 / (csc * 4)))
 		if(!QDELETED(character) && character.client.should_include_for_role(
-			banning_key = BAN_ROLE_CHANGELING,
-			role_preference_key = /datum/role_preference/antagonist/changeling
+			banning_key = initial(aux_antag_datum.banning_key),
+			role_preference_key = /datum/role_preference/antagonist/changeling,
+			req_hours = initial(aux_antag_datum.required_living_playtime)
 		))
 			if(!(character.job in restricted_jobs))
 				character.mind.make_Changeling()

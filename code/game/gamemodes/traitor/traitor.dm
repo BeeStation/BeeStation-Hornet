@@ -10,7 +10,7 @@
 	config_tag = "traitor"
 	report_type = "traitor"
 	role_preference = /datum/role_preference/antagonist/traitor
-	banning_key = BAN_ROLE_TRAITOR
+	antag_datum = /datum/antagonist/traitor
 	false_report_weight = 20 //Reports of traitors are pretty common.
 	restricted_jobs = list(JOB_NAME_CYBORG)//They are part of the AI if he is traitor so are they, they use to get double chances
 	protected_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
@@ -29,7 +29,6 @@
 	var/list/datum/mind/pre_traitors = list()
 	var/traitors_possible = 4 //hard limit on traitors if scaling is turned off
 	var/num_modifier = 0 // Used for gamemodes, that are a child of traitor, that need more than the usual.
-	var/antag_datum = /datum/antagonist/traitor //what type of antag to create
 	var/traitors_required = TRUE //Will allow no traitors
 
 
@@ -94,8 +93,9 @@
 		return
 	if((SSticker.mode.traitors.len + pre_traitors.len) <= (traitorcap - 2) || prob(100 / (tsc * 2)))
 		if(!QDELETED(character) && character.client.should_include_for_role(
-			banning_key = banning_key,
-			role_preference_key = role_preference
+			banning_key = initial(antag_datum.banning_key),
+			role_preference_key = role_preference,
+			req_hours = initial(antag_datum.required_living_playtime),
 		))
 			if(!(character.job in restricted_jobs))
 				add_latejoin_traitor(character.mind)

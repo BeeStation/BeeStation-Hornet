@@ -7,8 +7,8 @@
 	config_tag = "incursion"
 	restricted_jobs = list(JOB_NAME_AI, JOB_NAME_CYBORG)
 	protected_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE,JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_HEADOFSECURITY, JOB_NAME_CHIEFENGINEER, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CHIEFMEDICALOFFICER)
-	banning_key = BAN_ROLE_INCURSION
 	role_preference = /datum/role_preference/antagonist/incursionist
+	antag_datum = /datum/antagonist/incursion
 	false_report_weight = 10
 
 	announce_span = "danger"

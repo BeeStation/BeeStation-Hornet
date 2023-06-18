@@ -6,8 +6,8 @@
 	name = "wizard"
 	config_tag = "wizard"
 	report_type = "wizard"
-	banning_key = BAN_ROLE_WIZARD
 	role_preference = /datum/role_preference/antagonist/wizard
+	antag_datum = /datum/antagonist/wizard
 	false_report_weight = 10
 	required_players = 20
 	required_enemies = 1

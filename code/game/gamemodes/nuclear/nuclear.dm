@@ -8,8 +8,8 @@
 	required_players = 30 // 30 players - 3 players to be the nuke ops = 27 players remaining
 	required_enemies = 2
 	recommended_enemies = 5
-	banning_key = BAN_ROLE_OPERATIVE
 	role_preference = /datum/role_preference/antagonist/nuclear_operative
+	antag_datum = /datum/antagonist/nukeop
 
 	announce_span = "danger"
 	announce_text = "Syndicate forces are approaching the station in an attempt to destroy it!\n\

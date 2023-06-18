@@ -28,10 +28,10 @@
 	var/maximum_players = -1 // -1 is no maximum, positive numbers limit the selection of a mode on overstaffed stations
 	var/required_enemies = 0
 	var/recommended_enemies = 0
-	/// BAN_ROLE_X key / special role key.
-	var/banning_key
 	/// The role preference used to poll players.
 	var/role_preference
+	/// The antag datum typepath primarily spawned by this gamemode. Used for checking the banning key and required playtime.
+	var/datum/antagonist/antag_datum
 	var/mob/living/living_antag_player = null
 	var/datum/game_mode/replacementmode = null
 	var/round_converted = 0 //0: round not converted, 1: round going to convert, 2: round converted
@@ -89,7 +89,7 @@
 	return 1
 
 /datum/game_mode/proc/setup_antag_candidates()
-	antag_candidates = get_players_for_role(banning_key, role_preference)
+	antag_candidates = get_players_for_role(antag_datum, role_preference)
 
 ///Attempts to select players for special roles the mode might have.
 /datum/game_mode/proc/pre_setup()
@@ -496,7 +496,9 @@
 	WARNING("Something has gone terribly wrong. /datum/game_mode/proc/antag_pick failed to select a candidate. Falling back to pick()")
 	return pick(candidates)
 
-/datum/game_mode/proc/get_players_for_role(banning_key = null, role_preference = null)
+/datum/game_mode/proc/get_players_for_role(datum/antagonist/antag_datum, role_preference = null)
+	var/banning_key = ispath(antag_datum, /datum/antagonist) ? initial(antag_datum.banning_key) : null
+	var/req_hours = ispath(antag_datum, /datum/antagonist) ? initial(antag_datum.required_living_playtime) : 0
 	var/list/players = list()
 	var/list/candidates = list()
 	var/list/drafted = list()
@@ -512,10 +514,13 @@
 	players = shuffle(players)
 
 	for(var/mob/dead/new_player/player in players)
-		if(player.client && player.ready == PLAYER_READY_TO_PLAY)
-			if(!role_preference || player.client.role_preference_enabled(role_preference))
-				if((!banning_key || !is_banned_from(player.ckey, banning_key)) && !QDELETED(player))
-					candidates += player.mind				// Get a list of all the people who want to be the antagonist for this round
+		if(!QDELETED(player) && player.client && player.ready == PLAYER_READY_TO_PLAY)
+			if(player.client.should_include_for_role(
+				banning_key = banning_key,
+				role_preference_key = role_preference,
+				req_hours = req_hours
+			))
+				candidates += player.mind				// Get a list of all the people who want to be the antagonist for this round
 
 	if(restricted_jobs)
 		for(var/datum/mind/player in candidates)
@@ -525,10 +530,14 @@
 
 	if(candidates.len < recommended_enemies)
 		for(var/mob/dead/new_player/player in players)
-			if(player.client && player.ready == PLAYER_READY_TO_PLAY)
-				if(role_preference && !player.client.role_preference_enabled(role_preference)) // We don't have enough people who want to be antagonist, make a separate list of people who don't want to be one
-					if(!banning_key || !is_banned_from(player.ckey, banning_key) && !QDELETED(player))
-						drafted += player.mind
+			if(!QDELETED(player) && player.client && player.ready == PLAYER_READY_TO_PLAY)
+				// We don't have enough people who want to be antagonist, make a separate list of people who don't want to be one but are otherwise eligible
+				if(player.client.should_include_for_role(
+					banning_key = banning_key,
+					role_preference_key = null,
+					req_hours = req_hours
+				) && !player.client.role_preference_enabled(role_preference))
+					drafted += player.mind
 
 	if(restricted_jobs)
 		for(var/datum/mind/player in drafted)				// Remove people who can't be an antagonist

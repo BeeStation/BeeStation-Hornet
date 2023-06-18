@@ -4,8 +4,8 @@ GLOBAL_LIST_EMPTY(hivehosts)
 	name = "assimilation"
 	config_tag = "hivemind"
 	report_type = "hivemind"
-	banning_key = BAN_ROLE_HIVE
 	role_preference = /datum/role_preference/antagonist/hivemind_host
+	antag_datum = /datum/antagonist/hivemind
 	false_report_weight = 5
 	protected_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	restricted_jobs = list(JOB_NAME_AI, JOB_NAME_CYBORG)
