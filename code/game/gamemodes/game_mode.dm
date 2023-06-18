@@ -207,7 +207,7 @@
 				continue
 			if(!is_special_type(M, subantag.attached_antag_datum))
 				continue
-			if(is_banned_from(M.ckey, list(subantag.preference_type)))
+			if(is_banned_from(M.ckey, subantag.banning_key))
 				continue
 			count++
 		if(count >= subantag.max_amount)
@@ -580,12 +580,14 @@
 							//			Less if there are not enough valid players in the game entirely to make recommended_enemies.
 
 
-/datum/game_mode/proc/get_alive_non_antagonsist_players_for_role(banning_key, role_preference, list/restricted_roles)
+/datum/game_mode/proc/get_alive_non_antagonsist_players_for_role(datum/antagonist/antag_datum, role_preference, list/restricted_roles)
+	var/banning_key = ispath(antag_datum, /datum/antagonist) ? initial(antag_datum.banning_key) : null
+	var/req_hours = ispath(antag_datum, /datum/antagonist) ? initial(antag_datum.required_living_playtime) : 0
 	var/list/candidates = list()
 
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(!QDELETED(player) && player.client && is_station_level(player.z) && !player.mind.special_role)
-			if(player.client.should_include_for_role(banning_key = banning_key, role_preference_key = role_preference))
+			if(player.client.should_include_for_role(banning_key = banning_key, role_preference_key = role_preference, req_hours = req_hours))
 				candidates += player.mind				// Get a list of all the people who want to be the antagonist for this round
 
 	var/restricted_list = length(restricted_roles) ? restricted_roles : restricted_jobs

@@ -198,7 +198,7 @@
 
 /datum/team/incursion/proc/generate_traitor_kill_objective(list/restricted_jobs)
 	//Spawn someone as a traitor
-	var/list/datum/mind/people = SSticker.mode.get_alive_non_antagonsist_players_for_role(BAN_ROLE_EXCOMM, /datum/role_preference/antagonist/excommunicate, restricted_jobs)
+	var/list/datum/mind/people = SSticker.mode.get_alive_non_antagonsist_players_for_role(/datum/antagonist/traitor, /datum/role_preference/antagonist/excommunicate, restricted_jobs)
 	if(!LAZYLEN(people))
 		log_game("Not enough players for incursion role. [LAZYLEN(people)]")
 		return
