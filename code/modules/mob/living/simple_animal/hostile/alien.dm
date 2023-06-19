@@ -165,10 +165,16 @@
 	icon_state = "maid"
 	icon_living = "maid"
 	icon_dead = "maid_dead"
+	var/datum/action/cleaning_toggle/autoclean_toggle
 
 /mob/living/simple_animal/hostile/alien/maid/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/cleaning)
+	autoclean_toggle = new()
+	autoclean_toggle.icon_icon = 'icons/obj/clothing/gloves.dmi'
+	autoclean_toggle.button_icon_state = "maid_arms"
+	autoclean_toggle.toggle_target = usr
+	autoclean_toggle.Grant(usr)
 
 /mob/living/simple_animal/hostile/alien/maid/AttackingTarget()
 	if(ismovable(target))
