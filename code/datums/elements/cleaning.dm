@@ -48,6 +48,12 @@
 	var/toggled = TRUE
 	var/atom/movable/toggle_target = null
 
+/datum/action/cleaning_toggle/maid
+	name = "Floor Polish Toggle"
+	desc = "Toggles the automatic floor polishing"
+	icon_icon = 'icons/obj/clothing/gloves.dmi'
+	button_icon_state = "maid_arms"
+
 /datum/action/cleaning_toggle/Grant(mob/M)
 	. = ..()
 	if(isnull(toggle_target))
