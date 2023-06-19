@@ -470,7 +470,7 @@ class ChatRenderer {
         }
 
         // Highlight text
-        if (!message.avoidHighlighting && this.highlightParsers) {
+        if ((!message.avoidHighlighting || this.highlightSelf) && this.highlightParsers) {
           this.highlightParsers.map((parser) => {
             const highlighted = highlightNode(node, parser.highlightRegex, parser.highlightWords, (text) =>
               createHighlightNode(text, parser.highlightColor)

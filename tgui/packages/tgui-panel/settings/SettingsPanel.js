@@ -238,7 +238,8 @@ const TextHighlightSetting = (props, context) => {
   const { id, ...rest } = props;
   const highlightSettingById = useSelector(context, selectHighlightSettingById);
   const dispatch = useDispatch(context);
-  const { highlightColor, highlightText, highlightWholeMessage, matchWord, matchCase } = highlightSettingById[id];
+  const { highlightColor, highlightText, highlightSelf, highlightWholeMessage, matchWord, matchCase } =
+    highlightSettingById[id];
   return (
     <Flex.Item {...rest}>
       <Flex mb={1} color="label" align="baseline">
@@ -298,6 +299,21 @@ const TextHighlightSetting = (props, context) => {
                 updateHighlightSetting({
                   id: id,
                   matchCase: !matchCase,
+                })
+              )
+            }
+          />
+        </Flex.Item>
+        <Flex.Item>
+          <Button.Checkbox
+            content="Case"
+            tooltip="If this option is selected, your own messages will be highlighted too."
+            checked={matchCase}
+            onClick={() =>
+              dispatch(
+                updateHighlightSetting({
+                  id: id,
+                  highlightSelf: !highlightSelf,
                 })
               )
             }
