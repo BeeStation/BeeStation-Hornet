@@ -63,7 +63,7 @@
 		if(!istype(new_team))
 			CRASH("Wrong spider team type provided to create_team")
 		spider_team = new_team
-	update_static_data(owner.current)
+	update_static_data(owner?.current)
 
 /datum/antagonist/spider/proc/set_spider_team(datum/team/spiders/new_team)
 	var/datum/team/spiders/old_team = spider_team
