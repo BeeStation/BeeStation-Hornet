@@ -30,6 +30,12 @@ const spider_image = {
   'ice hunter': 'spiderhunter.png',
   'viper': 'spiderviper.png',
 };
+const colors = {
+  hp: 'red',
+  damage: 'orange',
+  venom: 'purple',
+  ability: 'yellow',
+};
 
 const IntroSection = (_props, context) => {
   const { data } = useBackend<Info>(context);
@@ -104,7 +110,7 @@ const AbilitiesSection = (_props, _context) => {
     <Section title="Abilities">
       <p>
         You can vent crawl by pressing [
-        <Box inline textColor="yellow">
+        <Box inline textColor={colors.ability}>
           ALT + CLICK
         </Box>
         ] on any vent. Utilize vents for surprise attacks and also to get away from attackers and regroup elsewhere when
@@ -112,7 +118,7 @@ const AbilitiesSection = (_props, _context) => {
       </p>
       <p>
         Use [
-        <Box inline textColor="yellow">
+        <Box inline textColor={colors.ability}>
           SPIN WEB
         </Box>
         ] to lay down sticky webs where you currently are. Webs may be placed up to three times in the same location and they
@@ -121,14 +127,14 @@ const AbilitiesSection = (_props, _context) => {
       </p>
       <p>
         Use [
-        <Box inline textColor="yellow">
+        <Box inline textColor={colors.ability}>
           WRAP
         </Box>
         ] to encase items in sticky web to prevent your prey from using them against you. Sometimes their tools and weapons may
         become stuck in your webs as they try in vain to resist.{' '}
         <i>
           Only broodmothers are able to [
-          <Box inline textColor="yellow">
+          <Box inline textColor={colors.ability}>
             WRAP
           </Box>
           ] prey and consume them!
@@ -136,7 +142,7 @@ const AbilitiesSection = (_props, _context) => {
       </p>
       <p>
         All of your direct attacks will inject [
-        <Box inline textColor="purple">
+        <Box inline textColor={colors.venom}>
           SPIDER VENOM
         </Box>
         ] into your prey, which will inhibit their movements and eventually result in paralysis. This venom is the most powerful
@@ -197,15 +203,15 @@ const SpiderTypesSection = (_props, context) => {
           <p>The matriarch of the brood that all other spiders should generally obey, protect and serve.</p>
           <p>
             Broodmothers have [
-            <Box inline textColor="red">
+            <Box inline textColor={colors.hp}>
               High HP
             </Box>
             ], [
-            <Box inline textColor="orange">
+            <Box inline textColor={colors.damage}>
               Moderate Damage
             </Box>
             ] and [
-            <Box inline textColor="purple">
+            <Box inline textColor={colors.venom}>
               Potent Venom
             </Box>
             ].
@@ -213,11 +219,11 @@ const SpiderTypesSection = (_props, context) => {
           <h2>Special Capabilities</h2>
           <p>
             Broodmothers are able to [
-            <Box inline textColor="yellow">
+            <Box inline textColor={colors.ability}>
               WRAP
             </Box>
             ] prey to feed on them, which will enable your ability to [
-            <Box inline textColor="yellow">
+            <Box inline textColor={colors.ability}>
               LAY EGGS
             </Box>
             ] and expand the size of the brood. Lay eggs in safe, protected locations and try not to put all your eggs in one
@@ -225,11 +231,11 @@ const SpiderTypesSection = (_props, context) => {
           </p>
           <p>
             Broodmothers can communicate with all other living spiders regardless of distance by using [
-            <Box inline textColor="yellow">
+            <Box inline textColor={colors.ability}>
               COMMAND
             </Box>
             ]. You can use [
-            <Box inline textColor="yellow">
+            <Box inline textColor={colors.ability}>
               SET DIRECTIVE
             </Box>
             ] to to issue a new focus for the brood which will be given even to freshly hatched spiders.
@@ -256,15 +262,15 @@ const SpiderTypesSection = (_props, context) => {
           <p>The stout warriors of the brood that should generally stay with established nests and near the broodmother.</p>
           <p>
             Guards have [
-            <Box inline textColor="red">
+            <Box inline textColor={colors.hp}>
               Very High HP
             </Box>
             ], [
-            <Box inline textColor="orange">
+            <Box inline textColor={colors.damage}>
               Very High Damage
             </Box>
             ] and [
-            <Box inline textColor="purple">
+            <Box inline textColor={colors.venom}>
               Weak Venom
             </Box>
             ].
@@ -272,7 +278,7 @@ const SpiderTypesSection = (_props, context) => {
           <h2>Special Capabilities</h2>
           <p>
             Guards can use their [
-            <Box inline textColor="yellow">
+            <Box inline textColor={colors.ability}>
               BLOCK
             </Box>
             ] ability to prevent others from passing around them and block doorways or even trap prey within nests. Toggle it
@@ -303,15 +309,15 @@ const SpiderTypesSection = (_props, context) => {
           </p>
           <p>
             Nurses have [
-            <Box inline textColor="red">
+            <Box inline textColor={colors.hp}>
               Low HP
             </Box>
             ], [
-            <Box inline textColor="orange">
+            <Box inline textColor={colors.damage}>
               Low Damage
             </Box>
             ] and [
-            <Box inline textColor="purple">
+            <Box inline textColor={colors.venom}>
               Moderate Venom
             </Box>
             ] and should avoid combat at any cost, as they rival the broodmother in terms of importance to the brood.
@@ -343,15 +349,15 @@ const SpiderTypesSection = (_props, context) => {
           <p>The well-rounded spider that&apos;s a useful to have in any situation, but should avoid being caught alone.</p>
           <p>
             Net Casters have [
-            <Box inline textColor="red">
+            <Box inline textColor={colors.hp}>
               High HP
             </Box>
             ], [
-            <Box inline textColor="orange">
+            <Box inline textColor={colors.damage}>
               Moderate Damage
             </Box>
             ] and [
-            <Box inline textColor="purple">
+            <Box inline textColor={colors.venom}>
               Moderate Venom
             </Box>
             ].
@@ -359,7 +365,7 @@ const SpiderTypesSection = (_props, context) => {
           <h2>Special Capabilities</h2>
           <p>
             Net casters can use [
-            <Box inline textColor="yellow">
+            <Box inline textColor={colors.ability}>
               THROW WEB
             </Box>
             ] to spin a web into their forelimbs rather than onto the ground. This web may then be thrown to place webbing at a
@@ -385,15 +391,15 @@ const SpiderTypesSection = (_props, context) => {
           <p>The fast and powerful hunters of the brood that seek and bring prey back to the nest.</p>
           <p>
             Hunters have [
-            <Box inline textColor="red">
+            <Box inline textColor={colors.hp}>
               Moderate HP
             </Box>
             ], [
-            <Box inline textColor="orange">
+            <Box inline textColor={colors.damage}>
               Moderate Damage
             </Box>
             ] and [
-            <Box inline textColor="purple">
+            <Box inline textColor={colors.venom}>
               Potent Venom
             </Box>
             ] as well as high speed even without webs to boost them.
@@ -425,15 +431,15 @@ const SpiderTypesSection = (_props, context) => {
           </p>
           <p>
             Vipers have [
-            <Box inline textColor="red">
+            <Box inline textColor={colors.hp}>
               Low HP
             </Box>
             ], [
-            <Box inline textColor="orange">
+            <Box inline textColor={colors.damage}>
               Low Damage
             </Box>
             ] and [
-            <Box inline textColor="purple">
+            <Box inline textColor={colors.venom}>
               Lethal Venom
             </Box>
             ].
