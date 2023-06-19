@@ -42,9 +42,8 @@
 	. = ..()
 	switch(var_name)
 		if(NAMEOF(src, toolspeed))
-			for(var/WR in items_list)
-				var/datum/weakref/item_ref = WR
-				var/obj/item/tool = item_ref?.resolve()
+			for(var/datum/weakref/item_ref as anything in items_list)
+				var/obj/item/tool = item_ref.resolve()
 				if(tool)
 					tool.toolspeed = var_value
 
@@ -68,9 +67,8 @@
 		items_list += WEAKREF(new_item)
 	if(href_list[VV_HK_DEL_IMPLANT_TOOL])
 		var/list/tools = list()
-		for(var/WR in items_list)
-			var/datum/weakref/item_ref = WR
-			var/obj/item/tool = item_ref?.resolve()
+		for(var/datum/weakref/item_ref as anything in items_list)
+			var/obj/item/tool = item_ref.resolve()
 			if(tool)
 				tools |= tool
 		var/obj/item/tool_to_remove = tgui_input_list(usr, "Which tool should be removed from \the [src]?", "Remove Tool From Implant", tools)
