@@ -167,7 +167,7 @@
 			balloon_alert(user, "Removed [mybroom]")
 			to_chat(user, "<span class='notice'>You take [mybroom] from [src].</span>")
 			user.put_in_hands(mybroom)
-			mymop = null
+			mybroom = null
 		if("Spray bottle")
 			if(!myspray)
 				return
@@ -225,7 +225,6 @@
 				continue //we'll do this after.
 			. += "\t[icon2html(thing, user)] \a [thing]"
 		if(signs > 0)
-			//var/obj/item/caution/object = new /obj/item/caution/object
 			var/obj/item/clothing/suit/caution/object = locate() in src
 			if(signs > 1)
 				. += "\t[icon2html(object, user)] [signs] [object.name]\s"
