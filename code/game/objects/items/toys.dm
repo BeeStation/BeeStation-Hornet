@@ -186,10 +186,10 @@
 			return 1
 		if (A.amount_left < (7 - src.bullets))
 			src.bullets += A.amount_left
-			to_chat(user, text("<span class='notice'>You reload [] cap\s.</span>", A.amount_left))
+			to_chat(user, "<span class='notice'>You reload [A.amount_left] cap\s.</span>")
 			A.amount_left = 0
 		else
-			to_chat(user, text("<span class='notice'>You reload [] cap\s.</span>", 7 - src.bullets))
+			to_chat(user, "<span class='notice'>You reload [7 - src.bullets] cap\s.</span>")
 			A.amount_left -= 7 - src.bullets
 			src.bullets = 7
 		A.update_icon()
@@ -225,7 +225,7 @@
 	var/amount_left = 7
 
 /obj/item/toy/ammo/gun/update_icon()
-	src.icon_state = text("357OLD-[]", src.amount_left)
+	src.icon_state = "357OLD-[src.amount_left]"
 
 /obj/item/toy/ammo/gun/examine(mob/user)
 	. = ..()

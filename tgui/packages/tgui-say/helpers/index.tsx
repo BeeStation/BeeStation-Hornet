@@ -74,8 +74,7 @@ const setClosed = () => {
 let savedMessages: string[] = [];
 
 /** Returns the chat history at specified index */
-export const getHistoryAt = (index: number): string =>
-  savedMessages[savedMessages.length - index];
+export const getHistoryAt = (index: number): string => savedMessages[savedMessages.length - index];
 
 /**
  * The length of chat history.
@@ -104,16 +103,8 @@ export const storeChat = (message: string): void => {
  * theme - optional string. The theme to apply.
  * options - optional string | number. Adds another css selector.
  */
-export const getCss = (
-  element: string,
-  theme?: string,
-  options?: string | number
-): string =>
-  classes([
-    element,
-    valueExists(theme) && `${element}-${theme}`,
-    valueExists(options) && `${element}-${options}`,
-  ]);
+export const getCss = (element: string, theme?: string, options?: string | number): string =>
+  classes([element, valueExists(theme) && `${element}-${theme}`, valueExists(options) && `${element}-${options}`]);
 
 /**
  * Returns a string that represents the css selector to use.
@@ -125,33 +116,19 @@ export const getCss = (
  * radioPrefix - string. If not empty, returns the radio prefix selector.
  * channel - number. The channel to use.
  */
-export const getTheme = (
-  lightMode: boolean,
-  radioPrefix: string,
-  channel: number
-): string => {
-  return (
-    (lightMode && 'lightMode')
-    || RADIO_PREFIXES[radioPrefix]?.id
-    || CHANNELS[channel]?.toLowerCase()
-  );
+export const getTheme = (lightMode: boolean, radioPrefix: string, channel: number): string => {
+  return (lightMode && 'lightMode') || RADIO_PREFIXES[radioPrefix]?.id || CHANNELS[channel]?.toLowerCase();
 };
 
 /** Checks keycodes for alpha/numeric characters */
-export const isAlphanumeric = (keyCode: number): boolean =>
-  keyCode >= KEY_0 && keyCode <= KEY_Z;
+export const isAlphanumeric = (keyCode: number): boolean => keyCode >= KEY_0 && keyCode <= KEY_Z;
 
 /** Timers: Prevents overloading the server, throttles messages */
 export const timers = {
   channelDebounce: debounce((mode) => Byond.sendMessage('thinking', mode), 400),
-  forceDebounce: debounce(
-    (entry) => Byond.sendMessage('force', entry),
-    1000,
-    true
-  ),
+  forceDebounce: debounce((entry) => Byond.sendMessage('force', entry), 1000, true),
   typingThrottle: throttle(() => Byond.sendMessage('typing'), 4000),
 };
 
 /** Checks if a parameter is null or undefined. Returns bool */
-export const valueExists = (param: any): boolean =>
-  param !== null && param !== undefined;
+export const valueExists = (param: any): boolean => param !== null && param !== undefined;
