@@ -36,6 +36,7 @@ const colors = {
   venom: 'purple',
   ability: 'yellow',
 };
+const image_style = { '-ms-interpolation-mode': 'nearest-neighbor', 'float': 'left' };
 
 const IntroSection = (_props, context) => {
   const { data } = useBackend<Info>(context);
@@ -43,13 +44,7 @@ const IntroSection = (_props, context) => {
   return (
     <Stack>
       <Stack.Item>
-        <Box
-          inline
-          as="img"
-          src={resolveAsset(spider_image[type] || default_spider_image)}
-          width="64px"
-          style={{ '-ms-interpolation-mode': 'nearest-neighbor' }}
-        />
+        <Box inline as="img" src={resolveAsset(spider_image[type] || default_spider_image)} width="64px" style={image_style} />
       </Stack.Item>
       <Stack.Item grow>
         <h1 style={{ 'position': 'relative', 'top': '25%', 'left': '27%' }}>
@@ -193,13 +188,7 @@ const SpiderTypesSection = (_props, context) => {
       </Tabs>
       {tab === 1 && (
         <Box>
-          <Box
-            inline
-            as="img"
-            src={resolveAsset('spiderbroodmother.png')}
-            width="48px"
-            style={{ '-ms-interpolation-mode': 'nearest-neighbor', 'float': 'left' }}
-          />
+          <Box inline as="img" src={resolveAsset('spiderbroodmother.png')} width="48px" style={image_style} />
           <p>The matriarch of the brood that all other spiders should generally obey, protect and serve.</p>
           <p>
             Broodmothers have [
@@ -252,13 +241,7 @@ const SpiderTypesSection = (_props, context) => {
       )}
       {tab === 2 && (
         <Box>
-          <Box
-            inline
-            as="img"
-            src={resolveAsset('spiderguard.png')}
-            width="48px"
-            style={{ '-ms-interpolation-mode': 'nearest-neighbor', 'float': 'left' }}
-          />
+          <Box inline as="img" src={resolveAsset('spiderguard.png')} width="48px" style={image_style} />
           <p>The stout warriors of the brood that should generally stay with established nests and near the broodmother.</p>
           <p>
             Guards have [
@@ -296,13 +279,7 @@ const SpiderTypesSection = (_props, context) => {
       )}
       {tab === 3 && (
         <Box>
-          <Box
-            inline
-            as="img"
-            src={resolveAsset('spidernurse.png')}
-            width="48px"
-            style={{ '-ms-interpolation-mode': 'nearest-neighbor', 'float': 'left' }}
-          />
+          <Box inline as="img" src={resolveAsset('spidernurse.png')} width="48px" style={image_style} />
           <p>
             The medics of the brood that should generally stay near guards or deeper within nests where they can heal spiders
             that have retreated from battle.
@@ -339,13 +316,7 @@ const SpiderTypesSection = (_props, context) => {
       )}
       {tab === 4 && (
         <Box>
-          <Box
-            inline
-            as="img"
-            src={resolveAsset('spidertarantula.png')}
-            width="48px"
-            style={{ '-ms-interpolation-mode': 'nearest-neighbor', 'float': 'left' }}
-          />
+          <Box inline as="img" src={resolveAsset('spidertarantula.png')} width="48px" style={image_style} />
           <p>The well-rounded spider that&apos;s a useful to have in any situation, but should avoid being caught alone.</p>
           <p>
             Net Casters have [
@@ -381,13 +352,7 @@ const SpiderTypesSection = (_props, context) => {
       )}
       {tab === 5 && (
         <Box>
-          <Box
-            inline
-            as="img"
-            src={resolveAsset('spiderhunter.png')}
-            width="48px"
-            style={{ '-ms-interpolation-mode': 'nearest-neighbor', 'float': 'left' }}
-          />
+          <Box inline as="img" src={resolveAsset('spiderhunter.png')} width="48px" style={image_style} />
           <p>The fast and powerful hunters of the brood that seek and bring prey back to the nest.</p>
           <p>
             Hunters have [
@@ -418,13 +383,7 @@ const SpiderTypesSection = (_props, context) => {
       )}
       {tab === 6 && (
         <Box>
-          <Box
-            inline
-            as="img"
-            src={resolveAsset('spiderviper.png')}
-            width="48px"
-            style={{ '-ms-interpolation-mode': 'nearest-neighbor', 'float': 'left' }}
-          />
+          <Box inline as="img" src={resolveAsset('spiderviper.png')} width="48px" style={image_style} />
           <p>
             The assassins of the brood that possess a substantially more powerful venom than the rest of the brood, but are very
             fragile.
