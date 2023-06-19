@@ -46568,6 +46568,10 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
+/obj/machinery/light_switch{
+	pixel_x = 1;
+	pixel_y = -24
+	},
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
 "pXS" = (
@@ -56790,6 +56794,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/medical)
+"vbY" = (
+/obj/machinery/light_switch{
+	pixel_x = 21;
+	pixel_y = 22
+	},
+/turf/open/floor/plasteel/freezer,
+/area/crew_quarters/kitchen)
 "vcg" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/public/glass{
@@ -101818,7 +101829,7 @@ mmx
 aJK
 aKV
 tMl
-aMF
+vbY
 aMF
 aJI
 aRG
