@@ -25,7 +25,7 @@
 		to_chat(spider.owner, "<span class='spiderlarge'>Your directives have been updated!</span>")
 		to_chat(spider.owner, "<span class='spiderlarge'>New directive: [directive]</span>")
 		spider.owner.store_memory("<b>Directive: [directive]</b>")
-		spider.update_static_data(spider.owner.current)
+		spider.update_static_data(spider.owner?.current)
 
 /datum/team/spiders/proc/handle_master_qdel()
 	SIGNAL_HANDLER
@@ -84,7 +84,7 @@
 
 	if(!length(old_team.get_team_antags()))
 		qdel(old_team)
-	update_static_data(owner.current)
+	update_static_data(owner?.current)
 
 /datum/antagonist/spider/ui_static_data(mob/user)
 	return list(
