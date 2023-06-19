@@ -33,7 +33,7 @@ body:
     id: testmerges
     attributes:
       label: Test merges
-      description: A list of currently active test merges (you can get this from the Message of the Day when you connect to the server)
+      description: A list of currently active test merges (you can get this from the Message of the Day when you connect to the server, or the `Show Server Revision` OOC verb)
       placeholder: |
         - #pr-number
         - #pr-number2
