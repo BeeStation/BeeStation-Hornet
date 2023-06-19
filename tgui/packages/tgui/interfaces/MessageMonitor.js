@@ -1,23 +1,20 @@
-import { Component, createRef } from "inferno";
-import { useBackend, useSharedState } from "../backend";
-import { Tabs, Section, Icon, Button, Box, Flex, Dimmer, Table, BlockQuote } from "../components";
-import { ButtonConfirm } from "../components/Button";
-import { Window } from "../layouts";
-import { MessageContent } from "./NtosMessenger";
-import { sanitizeText } from "../sanitize";
+import { Component, createRef } from 'inferno';
+import { useBackend, useSharedState } from '../backend';
+import { Tabs, Section, Icon, Button, Box, Flex, Dimmer, Table, BlockQuote } from '../components';
+import { ButtonConfirm } from '../components/Button';
+import { Window } from '../layouts';
+import { MessageContent } from './NtosMessenger';
+import { sanitizeText } from '../sanitize';
 
-const processedText = value => {
+const processedText = (value) => {
   return {
     __html: sanitizeText(value),
   };
 };
 
-
 export const MessageMonitor = (_, context) => {
   const { data } = useBackend(context);
-  const {
-    authenticated,
-  } = data;
+  const { authenticated } = data;
   return (
     <Window height={600} width={480}>
       <Window.Content scrollable={authenticated}>
@@ -39,7 +36,7 @@ export const MessageMonitorContent = (_, context) => {
     request_messages = [],
     emoji_names = [],
   } = data;
-  const [selectedTab, setSelectedTab] = useSharedState(context, "selected_tab", "pda");
+  const [selectedTab, setSelectedTab] = useSharedState(context, 'selected_tab', 'pda');
   if (hacking) {
     return (
       <Flex direction="column" height="100%">
@@ -48,8 +45,8 @@ export const MessageMonitorContent = (_, context) => {
             fontFamily="monospace"
             backgroundColor="black"
             style={{
-              "color": "red",
-              "white-space": "pre-wrap",
+              'color': 'red',
+              'white-space': 'pre-wrap',
             }}>
             {`-------------------
 Crypto-Breaker 5000
@@ -74,7 +71,7 @@ Please Wait...`}
             </Box>
           }
           fontSize={1.25}
-          color={!no_server && server_on ? "good" : "bad"}
+          color={!no_server && server_on ? 'good' : 'bad'}
           buttons={
             <>
               {!no_server && authenticated ? (
@@ -82,40 +79,36 @@ Please Wait...`}
                   fontSize={1.15}
                   mt={0.25}
                   icon="power-off"
-                  content={server_on ? "Disable Server" : "Enable Server"}
-                  color={server_on ? "bad" : "good"}
-                  onClick={() => act("power")} />
+                  content={server_on ? 'Disable Server' : 'Enable Server'}
+                  color={server_on ? 'bad' : 'good'}
+                  onClick={() => act('power')}
+                />
               ) : null}
               <Button
                 fontSize={1.15}
                 mt={0.25}
                 icon="sync-alt"
-                content={no_server ? "Link" : "Re-Link"}
-                color={no_server ? "good" : null}
-                onClick={() => act("link")} />
+                content={no_server ? 'Link' : 'Re-Link'}
+                color={no_server ? 'good' : null}
+                onClick={() => act('link')}
+              />
             </>
           }>
-          {no_server ? "NOT FOUND" : (server_on ? "OK" : "OFFLINE")}
+          {no_server ? 'NOT FOUND' : server_on ? 'OK' : 'OFFLINE'}
         </Section>
       </Flex.Item>
-      <Flex.Item mt={1} grow={!authenticated ? 1 : null} basis={!authenticated ? "78vh" : null}>
+      <Flex.Item mt={1} grow={!authenticated ? 1 : null} basis={!authenticated ? '78vh' : null}>
         <Section fill={!authenticated}>
           {!authenticated ? (
-            <Dimmer style={{
-              "background-color": "transparent",
-            }}>
+            <Dimmer
+              style={{
+                'background-color': 'transparent',
+              }}>
               <Flex direction="column" align="center" fontSize="15px">
-                <Flex.Item fontSize="20px">
-                  Awaiting Decryption Key...
-                </Flex.Item>
+                <Flex.Item fontSize="20px">Awaiting Decryption Key...</Flex.Item>
                 <Flex direction="column" align="stretch">
                   <Flex.Item mt={1}>
-                    <Button
-                      align="center"
-                      fluid
-                      content="Enter Key"
-                      color="good"
-                      onClick={() => act("login")} />
+                    <Button align="center" fluid content="Enter Key" color="good" onClick={() => act('login')} />
                   </Flex.Item>
                   {can_hack ? (
                     <Flex.Item mt={1}>
@@ -125,7 +118,8 @@ Please Wait...`}
                         icon="exclamation-circle"
                         content="Brute Force"
                         color="bad"
-                        onClick={() => act("hack")} />
+                        onClick={() => act('hack')}
+                      />
                     </Flex.Item>
                   ) : null}
                 </Flex>
@@ -135,15 +129,14 @@ Please Wait...`}
             <Table>
               <Table.Row>
                 <Table.Cell collapsing verticalAlign="middle" fontSize={1.25}>
-                  <strong><Icon name="key" mr={0.5} /> AUTHENTICATION</strong>
+                  <strong>
+                    <Icon name="key" mr={0.5} /> AUTHENTICATION
+                  </strong>
                 </Table.Cell>
                 <Table.Cell />
                 <Table.Cell collapsing verticalAlign="middle">
-                  <Button icon="key" content="Reset Encryption Key" onClick={() => act("reset_key")} />
-                  <Button
-                    content="Log Out"
-                    color="bad"
-                    onClick={() => act("logout")} />
+                  <Button icon="key" content="Reset Encryption Key" onClick={() => act('reset_key')} />
+                  <Button content="Log Out" color="bad" onClick={() => act('logout')} />
                 </Table.Cell>
               </Table.Row>
             </Table>
@@ -157,30 +150,31 @@ Please Wait...`}
               <Table.Row>
                 <Table.Cell collapsing verticalAlign="middle">
                   <Tabs>
-                    <Tabs.Tab
-                      selected={selectedTab === "pda"}
-                      onClick={() => setSelectedTab("pda")}>
+                    <Tabs.Tab selected={selectedTab === 'pda'} onClick={() => setSelectedTab('pda')}>
                       PDA Logs
                     </Tabs.Tab>
-                    <Tabs.Tab
-                      selected={selectedTab === "request"}
-                      onClick={() => setSelectedTab("request")}>
+                    <Tabs.Tab selected={selectedTab === 'request'} onClick={() => setSelectedTab('request')}>
                       Request Logs
                     </Tabs.Tab>
                   </Tabs>
                 </Table.Cell>
                 <Table.Cell />
                 <Table.Cell collapsing verticalAlign="middle">
-                  {selectedTab === "pda" ? (
-                    <Button icon="envelope" content="Send Admin Message" onClick={() => act("admin_message")} />
+                  {selectedTab === 'pda' ? (
+                    <Button icon="envelope" content="Send Admin Message" onClick={() => act('admin_message')} />
                   ) : null}
-                  <ButtonConfirm icon="times" content="Clear Logs" color="bad" onClick={() => act("clear_logs", { type: selectedTab })} />
+                  <ButtonConfirm
+                    icon="times"
+                    content="Clear Logs"
+                    color="bad"
+                    onClick={() => act('clear_logs', { type: selectedTab })}
+                  />
                 </Table.Cell>
               </Table.Row>
             </Table>
           </Section>
-          {selectedTab === "pda" ? (
-            pda_messages.map(message => (
+          {selectedTab === 'pda'
+            ? pda_messages.map((message) => (
               <Section
                 key={message.ref}
                 title={`${message.sender} to ${message.recipient}`}
@@ -188,7 +182,8 @@ Please Wait...`}
                   <ButtonConfirm
                     icon="times"
                     content="Delete"
-                    onClick={() => act("delete_log", { type: "pda", ref: message.ref })} />
+                    onClick={() => act('delete_log', { type: 'pda', ref: message.ref })}
+                  />
                 }
                 mb={2}>
                 <MessageContent
@@ -197,11 +192,11 @@ Please Wait...`}
                   photo_width={message.photo_width}
                   photo_height={message.photo_height}
                   emojis={message.emojis}
-                  emoji_names={emoji_names} />
+                  emoji_names={emoji_names}
+                />
               </Section>
             ))
-          ) : (
-            request_messages.map(request => (
+            : request_messages.map((request) => (
               <Section
                 key={request.ref}
                 title={`${request.sending_department} to ${request.receiving_department}`}
@@ -209,39 +204,35 @@ Please Wait...`}
                   <ButtonConfirm
                     icon="times"
                     content="Delete"
-                    onClick={() => act("delete_log", { type: "request", ref: request.ref })} />
+                    onClick={() => act('delete_log', { type: 'request', ref: request.ref })}
+                  />
                 }>
-                <Box inline bold={request.priority !== "Normal"} color={
-                  request.priority !== "Normal" ? "bad" : null
-                }>
+                <Box inline bold={request.priority !== 'Normal'} color={request.priority !== 'Normal' ? 'bad' : null}>
                   {request.priority} Priority
                 </Box>
                 <br />
-                {request.stamp && request.stamp !== "Unstamped" ? (
+                {request.stamp && request.stamp !== 'Unstamped' ? (
                   <>
                     <Box inline dangerouslySetInnerHTML={processedText(request.stamp)} />
                     <br />
                   </>
                 ) : null}
-                {request.id_auth && request.id_auth !== "Unauthenticated" ? (
+                {request.id_auth && request.id_auth !== 'Unauthenticated' ? (
                   <>
                     <Box inline dangerouslySetInnerHTML={processedText(request.id_auth)} />
                     <br />
                   </>
                 ) : null}
-                <BlockQuote>
-                  {request.message}
-                </BlockQuote>
+                <BlockQuote>{request.message}</BlockQuote>
               </Section>
-            ))
-          )}
-          {(selectedTab === "pda" && !pda_messages?.length) || (selectedTab === "request" && !request_messages?.length) ? (
+            ))}
+          {(selectedTab === 'pda' && !pda_messages?.length) || (selectedTab === 'request' && !request_messages?.length) ? (
             <Section fill minHeight="380px" maxHeight="calc(100% - 50px)">
               <Dimmer
                 color="label"
                 fontSize={2}
                 style={{
-                  "background-color": "transparent",
+                  'background-color': 'transparent',
                 }}>
                 No Data
               </Dimmer>
@@ -253,18 +244,56 @@ Please Wait...`}
   );
 };
 
-const L1 = ["the", "if", "of", "as", "in", "a", "you", "from", "to", "an", "too", "little", "snow", "dead", "drunk", "rosebud", "duck", "al", "le"];
-const L2 = ["diamond", "beer", "mushroom", "assistant", "clown", "captain", "twinkie", "security", "nuke", "small", "big", "escape", "yellow", "gloves", "monkey", "engine", "nuclear", "ai"];
-const L3 = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+const L1 = [
+  'the',
+  'if',
+  'of',
+  'as',
+  'in',
+  'a',
+  'you',
+  'from',
+  'to',
+  'an',
+  'too',
+  'little',
+  'snow',
+  'dead',
+  'drunk',
+  'rosebud',
+  'duck',
+  'al',
+  'le',
+];
+const L2 = [
+  'diamond',
+  'beer',
+  'mushroom',
+  'assistant',
+  'clown',
+  'captain',
+  'twinkie',
+  'security',
+  'nuke',
+  'small',
+  'big',
+  'escape',
+  'yellow',
+  'gloves',
+  'monkey',
+  'engine',
+  'nuclear',
+  'ai',
+];
+const L3 = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
 
 class PasswordScroller extends Component {
-
   constructor(props) {
     super(props);
     this.timer = null;
     this.reset();
     this.state = {
-      text: "---DECRYPTION KEY BRUTE-FORCE BEGIN---\n",
+      text: '---DECRYPTION KEY BRUTE-FORCE BEGIN---\n',
     };
     this.endRef = createRef();
   }
@@ -276,8 +305,8 @@ class PasswordScroller extends Component {
   }
 
   tick() {
-    this.setState(oldState => {
-      return { text: oldState.text + L1[this.index1] + L2[this.index2] + L3[this.index3] + "\n" };
+    this.setState((oldState) => {
+      return { text: oldState.text + L1[this.index1] + L2[this.index2] + L3[this.index3] + '\n' };
     });
     if (this.index3 < L3.length - 1) {
       this.index3++;
@@ -290,7 +319,7 @@ class PasswordScroller extends Component {
         } else {
           this.index1 = 0;
           this.setState({
-            text: "---DECRYPTION KEY BRUTE-FORCE BEGIN---\n",
+            text: '---DECRYPTION KEY BRUTE-FORCE BEGIN---\n',
           });
         }
         this.index2 = 0;
@@ -310,12 +339,16 @@ class PasswordScroller extends Component {
 
   render() {
     return (
-      <Section fill scrollable backgroundColor="black" fontFamily="monospace"
+      <Section
+        fill
+        scrollable
+        backgroundColor="black"
+        fontFamily="monospace"
         style={{
-          "color": "red",
-          "white-space": "pre-wrap",
-          "-ms-overflow-style": "none",
-          "scrollbar-width": "none",
+          'color': 'red',
+          'white-space': 'pre-wrap',
+          '-ms-overflow-style': 'none',
+          'scrollbar-width': 'none',
         }}>
         {this.state.text}
         <div ref={this.endRef} />

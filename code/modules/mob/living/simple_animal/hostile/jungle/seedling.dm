@@ -16,8 +16,7 @@
 	maxHealth = 100
 	health = 100
 	melee_damage = 30
-	pixel_x = -16
-	pixel_y = -14
+	SET_BASE_PIXEL(-16, -14)
 	minimum_distance = 3
 	move_to_delay = 20
 	vision_range = 9

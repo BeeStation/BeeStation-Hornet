@@ -54,7 +54,6 @@
 				but it would take another one of the miracles that kept you alive to get you home."
 			created_human.equipOutfit(/datum/outfit/vip_target/greytide)
 			antag_elligable = TRUE
-	created_human.mind.store_memory(created_human.flavor_text)
 	if(antag_elligable)
 		if(prob(7))
 			created_human.mind.make_Traitor()
@@ -64,6 +63,7 @@
 			created_human.mind.make_Changeling()
 			created_human.flavor_text += " - Or so's the cover story we've curated to sway the hearts of the hapless souls who, one day, may stumble upon \
 			our miserable, eeked out existence here... And inadvertently begin the hunt anew." //Ditto
+	created_human.mind.store_memory(created_human.flavor_text)
 	mob_to_recover = created_human
 	//Give them space-worthy suit and other equipment
 	var/turf/open/T = locate() in shuffle(view(1, created_human))

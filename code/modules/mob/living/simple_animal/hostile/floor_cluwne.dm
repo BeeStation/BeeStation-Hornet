@@ -196,7 +196,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 		cluwnehole = new(src.loc)
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/floor_cluwne, Appear)), MANIFEST_DELAY)
 	else
-		invisibility = INVISIBILITY_OBSERVER
+		invisibility = INVISIBILITY_SPIRIT
 		density = FALSE
 		mobility_flags |= MOBILITY_MOVE
 		update_mobility()
@@ -364,7 +364,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 		visible_message("<span class='danger'>[src] begins dragging [H] under the floor!</span>")
 		if(do_after(src, 50, target = H) && eating)
 			H.become_blind()
-			H.invisibility = INVISIBILITY_OBSERVER
+			H.invisibility = INVISIBILITY_SPIRIT
 			H.density = FALSE
 			H.anchored = TRUE
 			addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/floor_cluwne, Kill), H), 100, TIMER_OVERRIDE|TIMER_UNIQUE)
@@ -444,11 +444,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	. = ..()
 	GLOB.floor_cluwnes++
 	name += " ([GLOB.floor_cluwnes])"
-	GLOB.poi_list += src
-
-/obj/effect/dummy/floorcluwne_orbit/Destroy()
-	. = ..()
-	GLOB.poi_list -= src
+	AddElement(/datum/element/point_of_interest)
 
 #undef STAGE_HAUNT
 #undef STAGE_SPOOK

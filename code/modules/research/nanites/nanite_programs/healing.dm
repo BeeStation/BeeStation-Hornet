@@ -150,9 +150,13 @@
 
 /datum/nanite_program/purging_advanced/check_conditions()
 	var/foreign_reagent = FALSE
+	if(!host_mob) 
+		return FALSE
+
 	for(var/datum/reagent/toxin/R in host_mob.reagents.reagent_list)
 		foreign_reagent = TRUE
 		break
+		
 	if(!host_mob.getToxLoss() && !foreign_reagent)
 		return FALSE
 	return ..()
