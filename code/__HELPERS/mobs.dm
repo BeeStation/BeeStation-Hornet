@@ -715,7 +715,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	while(loop && safety < 5)
 		if(!safety && !banned)
-			newname = C?.prefs?.read_player_preference(preference_type)
+			newname = C?.prefs?.read_character_preference(preference_type)
 		else
 			var/datum/preference/preference = GLOB.preference_entries[preference_type]
 			newname = preference.create_informed_default_value(C.prefs)
