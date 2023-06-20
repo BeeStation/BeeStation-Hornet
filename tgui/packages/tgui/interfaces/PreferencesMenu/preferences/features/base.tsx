@@ -33,7 +33,7 @@ export type FeatureValueProps<TReceiving, TSending = TReceiving, TServerData = u
   handleSetValue: (newValue: TSending) => void;
   serverData: TServerData | undefined;
   shrink?: boolean;
-  value: TReceiving;
+  value?: TReceiving;
 };
 
 export const FeatureColorInput = (props: FeatureValueProps<string>) => {
@@ -48,7 +48,7 @@ export const FeatureColorInput = (props: FeatureValueProps<string>) => {
         <Stack.Item>
           <Box
             style={{
-              background: props.value.startsWith('#') ? props.value : `#${props.value}`,
+              background: props.value?.startsWith('#') ? props.value : `#${props.value}`,
               border: '2px solid white',
               'box-sizing': 'content-box',
               height: '11px',
@@ -139,7 +139,7 @@ export const StandardizedDropdown = (props: {
   disabled?: boolean;
   displayNames: Record<string, InfernoNode>;
   onSetValue: (newValue: string) => void;
-  value: string;
+  value?: string;
 }) => {
   const { choices, disabled, displayNames, onSetValue, value } = props;
 
@@ -149,7 +149,7 @@ export const StandardizedDropdown = (props: {
       selected={value}
       onSelected={onSetValue}
       width="100%"
-      displayText={displayNames[value]}
+      displayText={value ? displayNames[value] : ''}
       options={choices.map((choice) => {
         return {
           displayText: displayNames[choice],
@@ -236,7 +236,7 @@ export const FeatureIconnedDropdownInput = (
       choices={sortStrings(serverData.choices)}
       displayNames={displayNames}
       onSetValue={props.handleSetValue}
-      value={props.value.value}
+      value={props.value?.value}
     />
   );
 };
