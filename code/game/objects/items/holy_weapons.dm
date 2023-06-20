@@ -65,7 +65,7 @@
 		item_list = list()
 		var/list/templist = typesof(/obj/item/storage/box/holy)
 		for(var/V in templist)
-			var/obj/item/storage/box/hero/boxy = V
+			var/obj/item/storage/box/holy/boxy = V
 			var/image/outfit_icon = image(initial(boxy.item_icon_file), initial(boxy.item_icon_state))
 			var/datum/radial_menu_choice/choice = new
 			choice.image = outfit_icon
