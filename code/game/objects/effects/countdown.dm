@@ -5,13 +5,14 @@
 		And maybe we'll come back\n\
 		To Earth, who can tell?"
 
-	invisibility = INVISIBILITY_OBSERVER
 	anchored = TRUE
 	color = "#ff0000" // text color
 	var/text_size = 3 // larger values clip when the displayed text is larger than 2 digits.
 	var/started = FALSE
 	var/displayed_text
 	var/atom/attached_to
+	invisibility = INVISIBILITY_OBSERVER
+	layer = TEXT_EFFECT_UI_LAYER
 
 /obj/effect/countdown/Initialize(mapload)
 	. = ..()
