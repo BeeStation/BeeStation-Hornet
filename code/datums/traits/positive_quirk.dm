@@ -89,7 +89,7 @@
 
 /datum/quirk/musician/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
-	var/obj/item/choice_beacon/music/B = new(get_turf(H))
+	var/obj/item/choice_beacon/radial/music/B = new(get_turf(H))
 	var/list/slots = list (
 		"backpack" = ITEM_SLOT_BACKPACK,
 		"hands" = ITEM_SLOT_HANDS,
