@@ -19,7 +19,7 @@
 	throw_range = 7
 
 	var/cooldown_time = 0
-	var/activation_cooldown = 30 SECONDS
+	var/activation_cooldown = 0.5 SECONDS
 
 /obj/item/reagent_containers/peppercloud_deployer/empty //for protolathe printing
 	list_reagents = null
