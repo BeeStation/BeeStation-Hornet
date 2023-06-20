@@ -44,7 +44,7 @@
 	db_key = "facial_style_name"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
-	main_feature_name = "Facial hair"
+	main_feature_name = "Facial Hair"
 	should_generate_icons = TRUE
 	relevant_species_trait = FACEHAIR
 
@@ -88,7 +88,7 @@
 	db_key = "hair_style_name"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
-	main_feature_name = "Hairstyle"
+	main_feature_name = "Hair Style"
 	should_generate_icons = TRUE
 	relevant_species_trait = HAIR
 

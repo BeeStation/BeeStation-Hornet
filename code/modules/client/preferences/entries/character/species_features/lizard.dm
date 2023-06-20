@@ -31,7 +31,7 @@
 	db_key = "feature_lizard_body_markings"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
-	main_feature_name = "Body markings"
+	main_feature_name = "Body Markings"
 	should_generate_icons = TRUE
 	relevant_mutant_bodypart = "body_markings"
 

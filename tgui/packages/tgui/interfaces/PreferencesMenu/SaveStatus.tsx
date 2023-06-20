@@ -44,7 +44,18 @@ export const SaveStatus = (props, context) => {
   }
   if (!save_in_progress && !save_sucess) {
     return (
-      <Tooltip content={`Failed to save your data. Please inform the server operator of this error.`} position="bottom">
+      <Tooltip
+        content={`Failed to save your data. Please inform the server operator or a maintainer of this error.`}
+        position="bottom">
+        {innerBox}
+      </Tooltip>
+    );
+  }
+  if (save_in_progress) {
+    return (
+      <Tooltip
+        content={`Please wait up to 5 seconds for your data to be saved. Saving may take longer during high load - please be assured your data is still queued to be saved.`}
+        position="bottom">
         {innerBox}
       </Tooltip>
     );

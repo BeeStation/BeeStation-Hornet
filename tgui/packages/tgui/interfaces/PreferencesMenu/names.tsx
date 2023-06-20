@@ -53,7 +53,7 @@ export const MultiNameInput = (
                     Close
                   </Button>
                 }
-                title="Alternate names">
+                title="All Names">
                 <LabeledList>
                   {sortNameWithKeyEntries(Object.entries(namesIntoGroups)).map(([_, names], index, collection) => (
                     <>
@@ -151,26 +151,34 @@ export const NameInput = (
       onClick={() => {
         setLastNameBeforeEdit(props.name);
       }}
-      textAlign="center"
       width="100%"
       height="28px">
-      <Stack align="center" fill>
-        <Stack.Item>
+      <Stack fill style={{ 'align-items': 'center' }} align="center">
+        <Stack.Item width="20px">
           <Icon
             style={{
               'color': 'rgba(255, 255, 255, 0.5)',
               'font-size': '17px',
+              'margin-top': '5px',
+              'display': 'inline-block',
             }}
             name="edit"
           />
         </Stack.Item>
 
-        <Stack.Item grow position="relative">
+        <Stack.Item
+          width="160px"
+          position="relative"
+          textAlign="center"
+          style={{
+            'border-bottom': '2px dotted rgba(255, 255, 255, 0.8)',
+          }}>
           {(editing && (
             <Input
               autoSelect
               onEnter={updateName}
               onChange={updateName}
+              fluid
               onEscape={() => {
                 setLastNameBeforeEdit(null);
               }}
@@ -181,17 +189,6 @@ export const NameInput = (
               {props.name}
             </FitText>
           )}
-
-          <Box
-            style={{
-              'border-bottom': '2px dotted rgba(255, 255, 255, 0.8)',
-              right: '50%',
-              transform: 'translateX(50%)',
-              position: 'absolute',
-              width: '90%',
-              bottom: '-1px',
-            }}
-          />
         </Stack.Item>
 
         {/* We only know other names when the server tells us */}
@@ -206,10 +203,10 @@ export const NameInput = (
                   style={{
                     background: 'rgba(0, 0, 0, 0.7)',
                     position: 'absolute',
-                    right: '2px',
+                    right: '5px',
                     top: '50%',
                     transform: 'translateY(-50%)',
-                    width: '2%',
+                    width: '20px',
                   }}
                   onClick={(event) => {
                     props.openMultiNameInput();
@@ -220,10 +217,10 @@ export const NameInput = (
                     event.stopPropagation();
                   }}>
                   <Icon
-                    name="ellipsis-v"
+                    name="bars"
                     style={{
                       'position': 'relative',
-                      'left': '1px',
+                      'left': '2px',
                       'min-width': '0px',
                     }}
                   />

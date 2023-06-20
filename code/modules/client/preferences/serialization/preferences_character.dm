@@ -88,7 +88,7 @@
 	)
 	var/success = Q.warn_execute()
 	if(!success)
-		to_chat(prefs.parent, "<span class='boldannounce'>Failed to save your character. Please inform the server operator.</span>")
+		to_chat(prefs.parent, "<span class='boldannounce'>Failed to save your character. Please inform the server operator or a maintainer of this error.</span>")
 	qdel(Q)
 	prefs.fail_state = success
 	return success

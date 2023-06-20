@@ -2,7 +2,7 @@
 	db_key = "feature_ethcolor"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
-	main_feature_name = "Ethereal color"
+	main_feature_name = "Ethereal Color"
 	should_generate_icons = TRUE
 
 /datum/preference/choiced/ethereal_color/init_possible_values()

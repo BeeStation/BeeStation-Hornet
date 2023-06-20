@@ -20,6 +20,11 @@ export const gradient_color: Feature<string> = {
   component: FeatureColorInput,
 };
 
+export const feature_lizard_legs: FeatureChoiced = {
+  name: 'Leg Type',
+  component: FeatureDropdownInput,
+};
+
 export const feature_mcolor: Feature<string> = {
   name: 'Mutant color',
   component: FeatureColorInput,
