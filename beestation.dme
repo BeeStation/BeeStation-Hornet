@@ -1130,6 +1130,7 @@
 #include "code\game\objects\effects\effects.dm"
 #include "code\game\objects\effects\forcefields.dm"
 #include "code\game\objects\effects\glowshroom.dm"
+#include "code\game\objects\effects\icons.dm"
 #include "code\game\objects\effects\info.dm"
 #include "code\game\objects\effects\landmarks.dm"
 #include "code\game\objects\effects\mainttraps.dm"

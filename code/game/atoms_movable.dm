@@ -833,39 +833,40 @@
 
 /atom/movable/proc/do_item_attack_animation(atom/A, visual_effect_icon, obj/item/used_item)
 	var/image/I
+	var/obj/effect/icon/temp/attack_animation_object
 	if(visual_effect_icon)
 		I = image('icons/effects/effects.dmi', A, visual_effect_icon, A.layer + 0.1)
+		attack_animation_object = new(A.loc, I, 10)
 	else if(used_item)
 		I = image(icon = used_item, loc = A, layer = A.layer + 0.1)
 		I.plane = GAME_PLANE
-
-		// Scale the icon.
-		I.transform *= pick(0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55)
-		// The icon should not rotate.
-		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+		I.appearance_flags = NO_CLIENT_COLOR | PIXEL_SCALE
+		attack_animation_object = new(A.loc, I, 10)
 
 		// Set the direction of the icon animation.
 		var/direction = get_dir(src, A)
 		if(direction & NORTH)
-			I.pixel_y = rand(-15,-11)
+			attack_animation_object.pixel_y = rand(-15,-11)
 		else if(direction & SOUTH)
-			I.pixel_y = rand(11,15)
+			attack_animation_object.pixel_y = rand(11,15)
 
 		if(direction & EAST)
-			I.pixel_x = rand(-15,-11)
+			attack_animation_object.pixel_x = rand(-15,-11)
 		else if(direction & WEST)
-			I.pixel_x = rand(11,15)
+			attack_animation_object.pixel_x = rand(11,15)
 
 		if(!direction) // Attacked self?!
-			I.pixel_z = 16
+			attack_animation_object.pixel_z = 16
 
 	if(!I)
 		return
 
-	flick_overlay(I, GLOB.clients, 10) // 10 ticks/a whole second
+	// Scale the icon.
+	if (used_item)
+		attack_animation_object.transform *= pick(0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55)
 
 	// And animate the attack!
-	animate(I, alpha = 175, transform = matrix() * 0.75, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3)
+	animate(attack_animation_object, alpha = 175, transform = matrix() * 0.75, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3)
 	animate(time = 1)
 	animate(alpha = 0, time = 3, easing = CIRCULAR_EASING|EASE_OUT)
 
@@ -1050,8 +1051,7 @@
 		return
 	var/image/pickup_animation = image(icon = src, loc = loc, layer = layer + 0.1)
 	pickup_animation.plane = GAME_PLANE
-	pickup_animation.transform *= 0.75
-	pickup_animation.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+	pickup_animation.appearance_flags = NO_CLIENT_COLOR | PIXEL_SCALE
 	var/turf/current_turf = get_turf(src)
 	var/direction = get_dir(current_turf, target)
 	var/to_x = target.base_pixel_x
@@ -1069,12 +1069,13 @@
 		to_y += 10
 		pickup_animation.pixel_x += 6 * (prob(50) ? 1 : -1) //6 to the right or left, helps break up the straight upward move
 
-	flick_overlay(pickup_animation, GLOB.clients, 6)
-	var/matrix/animation_matrix = new(pickup_animation.transform)
+	var/obj/effect/icon/temp/pickup_animation_object = new(loc, pickup_animation, 4)
+	pickup_animation_object.transform *= 0.75
+	var/matrix/animation_matrix = new(pickup_animation_object.transform)
 	animation_matrix.Turn(pick(-30, 30))
 	animation_matrix.Scale(0.65)
 
-	animate(pickup_animation, alpha = 175, pixel_x = to_x, pixel_y = to_y, time = 3, transform = animation_matrix, easing = CUBIC_EASING)
+	animate(pickup_animation_object, alpha = 175, pixel_x = to_x, pixel_y = to_y, time = 3, transform = animation_matrix, easing = CUBIC_EASING)
 	animate(alpha = 0, transform = matrix().Scale(0.7), time = 1)
 
 /obj/item/proc/do_drop_animation(atom/moving_from)
