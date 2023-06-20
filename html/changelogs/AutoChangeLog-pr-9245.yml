@@ -1,0 +1,6 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - rscadd: Added a toggle for guard spiders that makes it impossible for other mobs
+      to force their way around.
+  - balance: Guards can now actually block narrow passages
