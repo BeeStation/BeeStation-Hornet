@@ -30,6 +30,8 @@
 			gear_entry["skirt_display_name"] = G.skirt_display_name
 			gear_entry["donator"] = G.sort_category == "Donator"
 			gear_entry["cost"] = G.cost
+			gear_entry["description"] = G.description
+			gear_entry["skirt_description"] = G.skirt_description
 			gear_entry["allowed_roles"] = G.allowed_roles
 			gear_entry["is_equippable"] = G.is_equippable
 			gear_entry["multi_purchase"] = G.multi_purchase

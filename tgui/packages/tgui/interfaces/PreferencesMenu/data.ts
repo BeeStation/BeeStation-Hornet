@@ -96,6 +96,8 @@ export type LoadoutGear = {
   id: string;
   display_name: string;
   skirt_display_name: string | null;
+  description: string;
+  skirt_description: string | null;
   donator: BooleanLike;
   cost: number;
   allowed_roles: string[] | null;

@@ -41,7 +41,7 @@ const CharacterProfiles = (props: {
             onClick={() => {
               props.onClick(slot);
             }}
-            tooltip={!props.content_unlocked && slot >= props.maxSlot ? 'Buy BYOND Premium to unlock more slots!' : null}
+            tooltip={!props.content_unlocked && slot >= props.maxSlot ? 'Buy a BYOND Membership to unlock more slots!' : null}
             fluid>
             {profile ?? 'New Character'}
           </Button>
