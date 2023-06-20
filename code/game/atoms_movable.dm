@@ -843,6 +843,9 @@
 		I.appearance_flags = NO_CLIENT_COLOR | PIXEL_SCALE
 		attack_animation_object = new(A.loc, I, 10)
 
+		// Scale the icon.
+		attack_animation_object.transform *= pick(0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55)
+
 		// Set the direction of the icon animation.
 		var/direction = get_dir(src, A)
 		if(direction & NORTH)
@@ -860,10 +863,6 @@
 
 	if(!I)
 		return
-
-	// Scale the icon.
-	if (used_item)
-		attack_animation_object.transform *= pick(0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55)
 
 	// And animate the attack!
 	animate(attack_animation_object, alpha = 175, transform = matrix() * 0.75, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3)
