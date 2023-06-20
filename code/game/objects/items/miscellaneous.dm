@@ -206,34 +206,68 @@
 	new choice(get_turf(M))
 	to_chat(M, "You hear something crackle from the beacon for a moment before a voice speaks.  \"Please stand by for a message from S.E.L.F. Message as follows: <span class='bold'>Item request received. Your package has been transported, use the autosurgeon supplied to apply the upgrade.</span> Message ends.\"")
 
-/obj/item/choice_beacon/magic
+/obj/item/choice_beacon/radial/magic
 	name = "beacon of summon magic"
 	desc = "Not actually magical."
 
-/obj/item/choice_beacon/magic/generate_display_names()
-	var/static/list/magic_item_list
-	if(!magic_item_list)
-		magic_item_list = list()
-		var/list/templist = typesof(/obj/item/storage/box/magic) //we have to convert type = name to name = type, how lovely!
-		for(var/V in templist)
+/obj/item/choice_beacon/radial/magic/generate_options(mob/living/M)
+	var/list/item_list = generate_item_list()
+	if(!item_list.len)
+		return
+	var/choice = show_radial_menu(M, src, item_list, radius = 36, require_near = TRUE, tooltips = TRUE)
+	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated() && in_range(M,src))
+		var/list/temp_list = typesof(/obj/item/storage/box/magic)
+		for(var/V in temp_list)
 			var/atom/A = V
-			magic_item_list[initial(A.name)] = A
-	return magic_item_list
+			if(initial(A.name) == choice)
+				spawn_option(A,M)
+				uses--
+				if(!uses)
+					qdel(src)
+				else
+					balloon_alert(M, "[uses] use[uses > 1 ? "s" : ""] remaining")
+					to_chat(M, "<span class='notice'>[uses] use[uses > 1 ? "s" : ""] remaining on the [src].</span>")
+				return
+
+/obj/item/choice_beacon/radial/magic/generate_item_list()
+	var/static/list/item_list
+	if(!item_list)
+		item_list = list()
+		var/list/templist = typesof(/obj/item/storage/box/magic)
+		for(var/V in templist)
+			var/obj/item/storage/box/magic/boxy = V
+			var/image/outfit_icon = image(initial(boxy.item_icon_file), initial(boxy.item_icon_state))
+			var/datum/radial_menu_choice/choice = new
+			choice.image = outfit_icon
+			var/info_text = "That's [icon2html(outfit_icon, usr)] "
+			info_text += initial(boxy.info_text)
+			choice.info = info_text
+			item_list[initial(boxy.name)] = choice
+	return item_list
 
 /obj/item/storage/box/magic
 	name = "Tele-Gloves"
+	var/icon/item_icon_file = 'icons/obj/clothing/gloves.dmi'
+	var/item_icon_state = "white"
+	var/info_text = "Tele-Gloves. \n<span class='notice'>Allow object manipulation from a distance.</span>"
 
 /obj/item/storage/box/magic/PopulateContents()
 	new /obj/item/clothing/gloves/color/white/magic(src)
 
 /obj/item/storage/box/magic/cloak
 	name = "Invisibility Cloak"
+	item_icon_file = 'icons/obj/beds_chairs/beds.dmi'
+	item_icon_state = "sheetmagician"
+	info_text = "Invisibility Cloak. \n<span class='notice'>Allows for temporary invisibility.</span>"
 
 /obj/item/storage/box/magic/cloak/PopulateContents()
 	new /obj/item/shadowcloak/magician(src)
 
 /obj/item/storage/box/magic/hat
 	name = "Bottomless Top Hat"
+	item_icon_file = 'icons/obj/clothing/hats.dmi'
+	item_icon_state = "tophat"
+	info_text = "Bottomless Top Hat. \n<span class='notice'>Allows for storage of items and living beings inside.</span>"
 
 /obj/item/storage/box/magic/hat/PopulateContents()
 	new /obj/item/clothing/head/that/bluespace(src)
