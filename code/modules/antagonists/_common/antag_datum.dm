@@ -102,12 +102,11 @@ GLOBAL_LIST(admin_antag_list)
 ///Called by the add_antag_datum() mind proc after the instanced datum is added to the mind's antag_datums list.
 /datum/antagonist/proc/on_gain()
 	SHOULD_CALL_PARENT(TRUE)
-	var/datum/action/antag_info/info_button
 	if(!owner)
 		CRASH("[src] ran on_gain() without a mind")
 	if(!owner.current)
 		CRASH("[src] ran on_gain() on a mind without a mob")
-	make_info_button()
+	var/datum/action/antag_info/info_button = make_info_button()
 	if(!silent)
 		if(tips)
 			show_tips(tips)
@@ -129,9 +128,10 @@ GLOBAL_LIST(admin_antag_list)
 /datum/antagonist/proc/make_info_button()
 	if(!ui_name)
 		return
-	info_button = new(src)
+	var/datum/action/antag_info/info_button = new(src)
 	info_button.Grant(owner.current)
 	info_button_ref = WEAKREF(info_button)
+	return info_button
 
 /datum/antagonist/proc/is_banned(mob/M)
 	if(!M)
