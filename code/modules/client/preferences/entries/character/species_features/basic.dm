@@ -141,7 +141,9 @@
 
 	for (var/name in values)
 		var/datum/sprite_accessory/accessory = GLOB.hair_gradients_list[name]
-		if (accessory == null || accessory.icon_state == null || accessory.icon_state == "none")
+		if (accessory == null)
+			if(accessory.icon_state == null || accessory.icon_state == "none")
+				values[name] = icon('icons/mob/landmarks.dmi', "x")
 			continue
 
 		var/icon/final_icon = new(body_icon)
