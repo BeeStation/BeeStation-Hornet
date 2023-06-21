@@ -20,7 +20,7 @@ export const skin_tone: Feature<string, string, SkinToneServerData> = {
     return (
       <StandardizedPalette
         choices={sortHexValues(Object.entries(serverData.to_hex)).map(([key]) => key)}
-        choices_to_hex={serverData.to_hex}
+        choices_to_hex={Object.fromEntries(Object.entries(serverData.to_hex).map(([key, hex]) => [key, hex.value]))}
         displayNames={serverData.display_names}
         onSetValue={handleSetValue}
         value={value}

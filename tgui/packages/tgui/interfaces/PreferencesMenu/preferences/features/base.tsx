@@ -15,6 +15,7 @@ export type Feature<TReceiving, TSending = TReceiving, TServerData = unknown> = 
   component: FeatureValue<TReceiving, TSending, TServerData>;
   category?: string;
   description?: string;
+  predictable?: boolean;
 };
 
 /**
@@ -279,61 +280,91 @@ export type HexValue = {
 
 export const StandardizedPalette = (props: {
   choices: string[];
-  choices_to_hex: Record<string, HexValue>;
+  choices_to_hex?: Record<string, string>;
   disabled?: boolean;
   displayNames: Record<string, InfernoNode>;
   onSetValue: (newValue: string) => void;
   value?: string;
+  hex_values?: boolean;
   allow_custom?: boolean;
   act?: typeof sendAct;
   featureId?: string;
 }) => {
-  const { choices, choices_to_hex, disabled, displayNames, onSetValue, value, allow_custom } = props;
+  const { choices, disabled, displayNames, onSetValue, hex_values, value, allow_custom } = props;
+  const choices_to_hex = hex_values ? Object.fromEntries(choices.map((v) => [v, v])) : props.choices_to_hex!;
+  const safeHex = (v: string) => {
+    if (v.length === 3) {
+      // sanitize short colors
+      v = v[0] + v[0] + v[1] + v[1] + v[2] + v[2];
+    } else if (v.length === 4) {
+      v = v[1] + v[1] + v[2] + v[2] + v[3] + v[3];
+    }
+    return (v.startsWith('#') ? v : `#${v}`).toLowerCase();
+  };
+  const safeValue = hex_values ? props.value && safeHex(props.value) : props.value;
   return (
     <Flex style={{ 'align-items': 'baseline' }}>
       <Flex.Item style={{ 'border-radius': '0.16em' }} backgroundColor="#4f56a5" p={0.5} height="26px">
-        {choices.map((choice) => (
-          <Tooltip key={choice} content={displayNames[choice]}>
-            <Box
-              key={choice + '_box'}
-              className={classes([
-                'ColorSelectBox',
-                choice === value && 'ColorSelectBox--selected',
-                disabled && 'ColorSelectBox--disabled',
-              ])}
-              onClick={disabled ? null : () => onSetValue(choice)}
-              width="13px"
-              height="13px"
-              mr="2px"
-              style={{
-                'background-color': choices_to_hex[choice].value,
-              }}
-            />
-          </Tooltip>
-        ))}
-        {allow_custom && (
-          <Tooltip content="Custom">
-            <Box
-              width="13px"
-              height="13px"
-              className="ColorSelectBox"
-              backgroundColor="#ffffff"
-              textColor="#000000"
-              onClick={() => {
-                if (props.act && props.featureId) {
-                  props.act('set_color_preference', {
-                    preference: props.featureId,
-                  });
-                }
-              }}>
-              <Flex style={{ 'justify-content': 'center', 'align-items': 'center' }} width="100%" height="100%">
-                <Flex.Item>
-                  <Icon name="plus" />
-                </Flex.Item>
-              </Flex>
-            </Box>
-          </Tooltip>
-        )}
+        <Stack fill>
+          {choices.map((choice) => (
+            <Stack.Item key={choice} ml={0}>
+              <Tooltip content={displayNames[choice]} position="bottom">
+                <Box
+                  className={classes([
+                    'ColorSelectBox',
+                    (hex_values ? safeHex(choice) : choice) === safeValue && 'ColorSelectBox--selected',
+                    disabled && 'ColorSelectBox--disabled',
+                  ])}
+                  onClick={disabled ? null : () => onSetValue(hex_values ? safeHex(choice) : choice)}
+                  width="13px"
+                  height="13px"
+                  style={{
+                    'background-color': hex_values ? choice : choices_to_hex[choice],
+                  }}
+                />
+              </Tooltip>
+            </Stack.Item>
+          ))}
+          {allow_custom && (
+            <Stack.Item ml={0.25}>
+              {!Object.values(choices_to_hex)
+                .map(safeHex)
+                .includes(safeValue!) && (
+                <Tooltip content="Your Selection" position="bottom">
+                  <Box
+                    className={classes(['ColorSelectBox', 'ColorSelectBox--selected'])}
+                    width="13px"
+                    height="13px"
+                    style={{
+                      'background-color': `#${value}`,
+                    }}
+                  />
+                </Tooltip>
+              )}
+              <Tooltip content="Choose Custom" position="bottom">
+                <Box
+                  width="13px"
+                  height="13px"
+                  className="ColorSelectBox"
+                  backgroundColor="#ffffff"
+                  textColor="#000000"
+                  onClick={() => {
+                    if (props.act && props.featureId) {
+                      props.act('set_color_preference', {
+                        preference: props.featureId,
+                      });
+                    }
+                  }}>
+                  <Flex style={{ 'justify-content': 'center', 'align-items': 'center' }} width="100%" height="100%">
+                    <Flex.Item>
+                      <Icon name="plus" style={{ 'height': '13px' }} />
+                    </Flex.Item>
+                  </Flex>
+                </Box>
+              </Tooltip>
+            </Stack.Item>
+          )}
+        </Stack>
       </Flex.Item>
     </Flex>
   );
@@ -380,11 +411,10 @@ export const FeatureValueInput = (
 
   const feature = props.feature;
 
-  const [predictedValue, setPredictedValue] = useLocalState(
-    context,
-    `${props.featureId}_predictedValue_${data.active_slot}`,
-    props.value
-  );
+  const [predictedValue, setPredictedValue] =
+    feature.predictable === undefined || feature.predictable
+      ? useLocalState(context, `${props.featureId}_predictedValue_${data.active_slot}`, props.value)
+      : [props.value, () => {}];
 
   const changeValue = (newValue: unknown) => {
     setPredictedValue(newValue);
