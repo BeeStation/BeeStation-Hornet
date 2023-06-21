@@ -227,7 +227,7 @@
 /datum/antagonist/traitor/greet()
 	var/list/msg = list()
 	msg += "<span class='alertsyndie'>You are the [owner.special_role].</span>"
-	msg += "<span class='alertsyndie'>Use the 'Open [owner.special_role] Information' action at the top left in order to re-review your objectives, codewords, and such!</span>"
+	msg += "<span class='alertsyndie'>Use the 'Open [owner.special_role] Information' action at the top left in order to review your objectives and codewords!</span>"
 	to_chat(owner.current, EXAMINE_BLOCK(msg.Join("\n")))
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Traitor",
 		"Complete your objectives, no matter the cost.")
