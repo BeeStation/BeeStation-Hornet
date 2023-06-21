@@ -94,7 +94,7 @@ export const LoadoutPage = (props, context) => {
                       <Table.Row header>
                         <Table.Cell collapsing />
                         <Table.Cell>Name</Table.Cell>
-                        {showRoles ? <Table.Cell style={{ 'width': '15rem' }}>Roles</Table.Cell> : null}
+                        {showRoles || searchText.length ? <Table.Cell style={{ 'width': '15rem' }}>Roles</Table.Cell> : null}
                         {selectedCategory !== 'Donator' && (
                           <Table.Cell collapsing textAlign="center">
                             Cost
@@ -123,6 +123,7 @@ export const LoadoutPage = (props, context) => {
                               gear={gear}
                               selectedCategory={selectedCategory}
                               metacurrency_name={metacurrency_name}
+                              showRoles
                             />
                           ))
                         : null}
