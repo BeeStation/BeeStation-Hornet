@@ -22,6 +22,10 @@ $accent-2: #ffbf00;
     $with: ('color-default': $accent, 'color-transparent-text': rgba(227, 240, 255, 0.75))
   );
   @include meta.load-css(
+    '../components/ColorSelectBox.scss',
+    $with: ('color-default': color.scale($generic, $lightness: -20%))
+  );
+  @include meta.load-css(
     '../components/ProgressBar.scss',
     $with: ('color-default-fill': $accent, 'background-color': rgba(0, 0, 0, 0.5))
   );

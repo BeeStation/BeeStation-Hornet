@@ -4,7 +4,7 @@ import { createComponentVNode } from 'inferno';
 import type { InfernoNode, ComponentType } from 'inferno';
 import { VNodeFlags } from 'inferno-vnode-flags';
 import { sendAct, useBackend, useLocalState } from '../../../../backend';
-import { Box, Button, Dropdown, Input, NumberInput, Stack } from '../../../../components';
+import { Box, Button, Dropdown, Icon, Input, NumberInput, Stack, Flex, Tooltip } from '../../../../components';
 import { createSetPreference, PreferencesMenuData } from '../../data';
 import { ServerPreferencesFetcher } from '../../ServerPreferencesFetcher';
 
@@ -173,8 +173,16 @@ export const FeatureDropdownInput = (
   const displayNames =
     serverData.display_names || Object.fromEntries(serverData.choices.map((choice) => [choice, capitalizeFirstLetter(choice)]));
 
-  return (
+  return serverData.choices.length > 5 ? (
     <StandardizedDropdown
+      choices={sortStrings(serverData.choices)}
+      disabled={props.disabled}
+      displayNames={displayNames}
+      onSetValue={props.handleSetValue}
+      value={props.value}
+    />
+  ) : (
+    <StandardizedChoiceButtons
       choices={sortStrings(serverData.choices)}
       disabled={props.disabled}
       displayNames={displayNames}
@@ -238,6 +246,96 @@ export const FeatureIconnedDropdownInput = (
       onSetValue={props.handleSetValue}
       value={props.value?.value}
     />
+  );
+};
+
+export const StandardizedChoiceButtons = (props: {
+  choices: string[];
+  disabled?: boolean;
+  displayNames: Record<string, InfernoNode>;
+  onSetValue: (newValue: string) => void;
+  value?: string;
+}) => {
+  const { choices, disabled, displayNames, onSetValue, value } = props;
+  return (
+    <>
+      {choices.map((choice) => (
+        <Button
+          key={choice}
+          content={displayNames[choice]}
+          selected={choice === value}
+          disabled={disabled}
+          onClick={() => onSetValue(choice)}
+        />
+      ))}
+    </>
+  );
+};
+
+export type HexValue = {
+  lightness: number;
+  value: string;
+};
+
+export const StandardizedPalette = (props: {
+  choices: string[];
+  choices_to_hex: Record<string, HexValue>;
+  disabled?: boolean;
+  displayNames: Record<string, InfernoNode>;
+  onSetValue: (newValue: string) => void;
+  value?: string;
+  allow_custom?: boolean;
+  act?: typeof sendAct;
+  featureId?: string;
+}) => {
+  const { choices, choices_to_hex, disabled, displayNames, onSetValue, value, allow_custom } = props;
+  return (
+    <Flex style={{ 'align-items': 'baseline' }}>
+      <Flex.Item style={{ 'border-radius': '0.16em' }} backgroundColor="#4f56a5" p={0.5} height="26px">
+        {choices.map((choice) => (
+          <Tooltip key={choice} content={displayNames[choice]}>
+            <Box
+              key={choice + '_box'}
+              className={classes([
+                'ColorSelectBox',
+                choice === value && 'ColorSelectBox--selected',
+                disabled && 'ColorSelectBox--disabled',
+              ])}
+              onClick={disabled ? null : () => onSetValue(choice)}
+              width="13px"
+              height="13px"
+              mr="2px"
+              style={{
+                'background-color': choices_to_hex[choice].value,
+              }}
+            />
+          </Tooltip>
+        ))}
+        {allow_custom && (
+          <Tooltip content="Custom">
+            <Box
+              width="13px"
+              height="13px"
+              className="ColorSelectBox"
+              backgroundColor="#ffffff"
+              textColor="#000000"
+              onClick={() => {
+                if (props.act && props.featureId) {
+                  props.act('set_color_preference', {
+                    preference: props.featureId,
+                  });
+                }
+              }}>
+              <Flex style={{ 'justify-content': 'center', 'align-items': 'center' }} width="100%" height="100%">
+                <Flex.Item>
+                  <Icon name="plus" />
+                </Flex.Item>
+              </Flex>
+            </Box>
+          </Tooltip>
+        )}
+      </Flex.Item>
+    </Flex>
   );
 };
 
