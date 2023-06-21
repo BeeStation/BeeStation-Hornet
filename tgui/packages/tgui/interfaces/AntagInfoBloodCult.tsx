@@ -3,34 +3,10 @@ import { Box, Section, Stack, Tabs } from '../components';
 import { Window } from '../layouts';
 import { ObjectivesSection, Objective } from './common/ObjectiveSection';
 import { resolveAsset } from '../assets';
+import { AntagInfoHeader } from './common/AntagInfoHeader';
 
 type Info = {
   objectives: Objective[];
-};
-
-const IntroSection = (_props, _context) => {
-  return (
-    <Stack>
-      <Stack.Item>
-        <Box
-          inline
-          as="img"
-          src={resolveAsset('bloodcult.png')}
-          width="64px"
-          style={{ '-ms-interpolation-mode': 'nearest-neighbor', 'float': 'left' }}
-        />
-      </Stack.Item>
-      <Stack.Item grow>
-        <h1 style={{ 'position': 'relative', 'top': '25%', 'left': '25%' }}>
-          You are the{' '}
-          <Box inline textColor="red">
-            Blood Cultist
-          </Box>
-          !
-        </h1>
-      </Stack.Item>
-    </Stack>
-  );
 };
 
 const StructureAltar = (_props, _context) => {
@@ -777,7 +753,7 @@ export const AntagInfoBloodCult = (_props, context) => {
       <Window.Content scrollable>
         <Stack vertical fill>
           <Stack.Item>
-            <IntroSection />
+            <AntagInfoHeader name="Blood Cultist" asset="bloodcult.png" />
           </Stack.Item>
           <Stack.Item>
             <PowersSection />

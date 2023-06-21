@@ -4,11 +4,6 @@ import { Window } from '../layouts';
 import { resolveAsset } from '../assets';
 import { ObjectivesSection, Objective } from './common/ObjectiveSection';
 
-const hivestyle = {
-  fontWeight: 'bold',
-  color: 'yellow',
-};
-
 const absorbstyle = {
   color: 'red',
   fontWeight: 'bold',
@@ -26,16 +21,6 @@ const transformstyle = {
 
 const storestyle = {
   color: 'lightgreen',
-  fontWeight: 'bold',
-};
-
-const hivemindstyle = {
-  color: 'violet',
-  fontWeight: 'bold',
-};
-
-const fallenstyle = {
-  color: 'black',
   fontWeight: 'bold',
 };
 

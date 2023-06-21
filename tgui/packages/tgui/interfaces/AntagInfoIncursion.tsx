@@ -2,13 +2,8 @@ import { useBackend } from '../backend';
 import { Box, BlockQuote, Section, Stack } from '../components';
 import { BooleanLike } from 'common/react';
 import { Window } from '../layouts';
-import { resolveAsset } from '../assets';
 import { ObjectivesSection, Objective } from './common/ObjectiveSection';
-
-const allystyle = {
-  fontWeight: 'bold',
-  color: 'yellow',
-};
+import { AntagInfoHeader } from './common/AntagInfoHeader';
 
 const badstyle = {
   color: 'red',
@@ -28,33 +23,6 @@ type Info = {
   uplink_unlock_info: string;
   objectives: Objective[];
   antag_name: string;
-};
-
-const IntroSection = (_props, context) => {
-  const { data } = useBackend<Info>(context);
-  const { antag_name } = data;
-  return (
-    <Stack>
-      <Stack.Item>
-        <Box
-          inline
-          as="img"
-          src={resolveAsset('traitor.png')}
-          width="64px"
-          style={{ '-ms-interpolation-mode': 'nearest-neighbor' }}
-        />
-      </Stack.Item>
-      <Stack.Item grow>
-        <h1 style={{ 'position': 'relative', 'top': '25%', 'left': '7%' }}>
-          You are the{' '}
-          <Box inline textColor="bad">
-            {antag_name || 'Syndicate Incursion Member'}
-          </Box>
-          !
-        </h1>
-      </Stack.Item>
-    </Stack>
-  );
 };
 
 const UplinkSubsection = (_props, context) => {
@@ -158,13 +126,13 @@ const InfoSection = (_props, _context) => {
 
 export const AntagInfoIncursion = (_props, context) => {
   const { data } = useBackend<Info>(context);
-  const { objectives } = data;
+  const { objectives, antag_name } = data;
   return (
     <Window width={620} height={620} theme="syndicate">
       <Window.Content>
         <Stack vertical fill>
           <Stack.Item>
-            <IntroSection />
+            <AntagInfoHeader name={antag_name || 'Syndicate Incursion Member'} asset="traitor.png" />
           </Stack.Item>
           <Stack.Item>
             <InfoSection />

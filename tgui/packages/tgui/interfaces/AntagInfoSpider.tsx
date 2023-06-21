@@ -2,6 +2,7 @@ import { useBackend, useLocalState } from '../backend';
 import { BlockQuote, Box, Section, Stack, Tabs } from '../components';
 import { Window } from '../layouts';
 import { resolveAsset } from '../assets';
+import { AntagInfoHeader } from './common/AntagInfoHeader';
 
 type Info = {
   directive?: string;
@@ -37,27 +38,6 @@ const colors = {
   ability: 'yellow',
 };
 const image_style = { '-ms-interpolation-mode': 'nearest-neighbor', 'float': 'left' };
-
-const IntroSection = (_props, context) => {
-  const { data } = useBackend<Info>(context);
-  const { color, type } = data;
-  return (
-    <Stack>
-      <Stack.Item>
-        <Box inline as="img" src={resolveAsset(spider_image[type] || default_spider_image)} width="64px" style={image_style} />
-      </Stack.Item>
-      <Stack.Item grow>
-        <h1 style={{ 'position': 'relative', 'top': '25%', 'left': '27%' }}>
-          You are the{' '}
-          <Box inline textColor={color}>
-            Spider
-          </Box>
-          !
-        </h1>
-      </Stack.Item>
-    </Stack>
-  );
-};
 
 const BasicInfoSection = (_props, context) => {
   const { data } = useBackend<Info>(context);
@@ -422,13 +402,15 @@ const SpiderTypesSection = (_props, context) => {
   );
 };
 
-export const AntagInfoSpider = (_props, _context) => {
+export const AntagInfoSpider = (_props, context) => {
+  const { data } = useBackend<Info>(context);
+  const { color, type } = data;
   return (
     <Window width={700} height={850} theme="neutral">
       <Window.Content scrollable>
         <Stack vertical grow>
           <Stack.Item>
-            <IntroSection />
+            <AntagInfoHeader name="Spider" color={color} asset={spider_image[type] || default_spider_image} />
           </Stack.Item>
           <Stack.Item>
             <BasicInfoSection />

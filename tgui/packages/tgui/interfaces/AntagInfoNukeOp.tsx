@@ -3,39 +3,13 @@ import { Box, BlockQuote, Section, Stack } from '../components';
 import { BooleanLike } from 'common/react';
 import { Window } from '../layouts';
 import { resolveAsset } from '../assets';
+import { AntagInfoHeader } from './common/AntagInfoHeader';
 
 type Info = {
   antag_name: string;
   nuke_code: string;
   leader: BooleanLike;
   lone: BooleanLike;
-};
-
-const IntroSection = (_props, context) => {
-  const { data } = useBackend<Info>(context);
-  const { antag_name } = data;
-  return (
-    <Stack>
-      <Stack.Item>
-        <Box
-          inline
-          as="img"
-          src={resolveAsset('nukie.png')}
-          width="64px"
-          style={{ '-ms-interpolation-mode': 'nearest-neighbor' }}
-        />
-      </Stack.Item>
-      <Stack.Item grow>
-        <h1 style={{ 'position': 'relative', 'top': '25%', 'left': '16%' }}>
-          You are the{' '}
-          <Box inline textColor="bad">
-            {antag_name || 'Nuclear Operative'}
-          </Box>
-          !
-        </h1>
-      </Stack.Item>
-    </Stack>
-  );
 };
 
 const MissionNormal = (_props, context) => {
@@ -155,12 +129,13 @@ const MissionSection = (_props, context) => {
 
 export const AntagInfoNukeOp = (_props, context) => {
   const { data } = useBackend<Info>(context);
+  const { antag_name } = data;
   return (
     <Window width={620} height={620} theme="syndicate">
       <Window.Content>
         <Stack vertical fill>
           <Stack.Item>
-            <IntroSection />
+            <AntagInfoHeader name={antag_name || 'Nuclear Operative'} asset="nukie.png" />
           </Stack.Item>
           <Stack.Item>
             <MissionSection />
