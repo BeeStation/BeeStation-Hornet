@@ -144,7 +144,7 @@ const ChoicedSelection = (
                 <Input
                   autoFocus
                   width={`${CLOTHING_SELECTION_CELL_SIZE * CLOTHING_SELECTION_WIDTH - 55}px`}
-                  placeholder="Search items"
+                  placeholder="Search options"
                   value={searchText}
                   onInput={(_, value) => setSearchText(value)}
                 />
