@@ -1578,7 +1578,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
-/turf/open/space/basic,
+/turf/open/floor/plasteel,
 /area/maintenance/department/science)
 "aCk" = (
 /obj/effect/turf_decal/stripes/line,
@@ -5114,9 +5114,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
 /obj/effect/turf_decal/guideline/guideline_half_in/darkblue{
 	dir = 8
 	},
@@ -6337,9 +6334,6 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 2
 	},
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/effect/turf_decal/guideline/guideline_edge/red{
@@ -12178,6 +12172,16 @@
 /area/security/main{
 	name = "Security EVA"
 	})
+"dVX" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 8
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/red,
+/obj/machinery/firealarm/directional/south,
+/turf/open/floor/plasteel,
+/area/security/main{
+	name = "Security Viewing Hall"
+	})
 "dVY" = (
 /obj/structure/sign/departments/restroom,
 /turf/closed/wall,
@@ -14549,7 +14553,7 @@
 /turf/open/floor/plasteel/dark/side,
 /area/hallway/secondary/exit/departure_lounge)
 "eHD" = (
- /obj/machinery/vending/boozeomat/maint,
+/obj/machinery/vending/boozeomat/maint,
 /turf/closed/wall,
 /area/maintenance/department/science)
 "eHT" = (
@@ -21470,7 +21474,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/vending/sustenance{
-	products = list(/obj/item/food/tofu/prison = 24, /obj/item/reagent_containers/food/drinks/ice/prison = 12, /obj/item/food/candy_corn/prison = 6, /obj/item/storage/fancy/cigarettes = 5, /obj/item/storage/box/matches = 10)
+	products = list(/obj/item/reagent_containers/food/snacks/tofu/prison=24,/obj/item/reagent_containers/food/drinks/ice/prison=12,/obj/item/reagent_containers/food/snacks/candy_corn/prison=6,/obj/item/storage/fancy/cigarettes=5,/obj/item/storage/box/matches=10)
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
@@ -25498,6 +25502,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "hTZ" = (
@@ -29081,7 +29088,7 @@
 	},
 /obj/machinery/vending/wallmed{
 	pixel_y = -32;
-	products = list(/obj/item/stack/medical/gauze = 4, /obj/item/reagent_containers/hypospray/medipen = 3, /obj/item/reagent_containers/hypospray/medipen/dexalin = 3, /obj/item/reagent_containers/glass/bottle/epinephrine = 2, /obj/item/reagent_containers/glass/bottle/charcoal = 2)
+	products = list(/obj/item/stack/medical/gauze=4,/obj/item/reagent_containers/hypospray/medipen=3,/obj/item/reagent_containers/hypospray/medipen/dexalin=3,/obj/item/reagent_containers/glass/bottle/epinephrine=2,/obj/item/reagent_containers/glass/bottle/charcoal=2)
 	},
 /obj/machinery/newscaster{
 	pixel_x = -32;
@@ -32471,7 +32478,7 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/security/prison)
 "kll" = (
- /obj/machinery/vending/boozeomat/captain,
+/obj/machinery/vending/boozeomat/captain,
 /turf/closed/wall/r_wall,
 /area/crew_quarters/heads/hop)
 "klq" = (
@@ -33447,7 +33454,7 @@
 	name = "AI View Blast door"
 	},
 /turf/open/floor/plasteel/dark,
-/area/ai_monitored/turret_protected/aisat/foyer)
+/area/ai_monitored/turret_protected/aisat_interior)
 "kDI" = (
 /obj/effect/turf_decal/tile/dark_red/fourcorners/contrasted{
 	alpha = 180;
@@ -38155,7 +38162,7 @@
 /area/engine/atmos)
 "mgF" = (
 /obj/machinery/smartfridge/sci{
-	initial_contents = list(/obj/item/stock_parts/capacitor = 2, /obj/item/stock_parts/manipulator = 2, /obj/item/stock_parts/micro_laser = 2, /obj/item/stock_parts/matter_bin = 2, /obj/item/stock_parts/scanning_module = 2);
+	initial_contents = list(/obj/item/stock_parts/capacitor=2,/obj/item/stock_parts/manipulator=2,/obj/item/stock_parts/micro_laser=2,/obj/item/stock_parts/matter_bin=2,/obj/item/stock_parts/scanning_module=2);
 	name = "Science vender"
 	},
 /turf/closed/wall,
@@ -39950,7 +39957,7 @@
 /obj/item/reagent_containers/glass/bottle/mutagen{
 	amount_per_transfer_from_this = 2;
 	desc = "A small bottle, almost empty. Has the words drink me, you wont written on it";
-	list_reagents = list(/datum/reagent/toxin/mutagen = 5);
+	list_reagents = list(/datum/reagent/toxin/mutagen=5);
 	pixel_x = -6;
 	pixel_y = 1
 	},
@@ -42349,7 +42356,7 @@
 /area/maintenance/department/engine)
 "nsH" = (
 /obj/machinery/smartfridge/sci{
-	initial_contents = list(/obj/item/stock_parts/capacitor = 2, /obj/item/stock_parts/manipulator = 2, /obj/item/stock_parts/micro_laser = 2, /obj/item/stock_parts/matter_bin = 2, /obj/item/stock_parts/scanning_module = 2);
+	initial_contents = list(/obj/item/stock_parts/capacitor=2,/obj/item/stock_parts/manipulator=2,/obj/item/stock_parts/micro_laser=2,/obj/item/stock_parts/matter_bin=2,/obj/item/stock_parts/scanning_module=2);
 	name = "Science vender"
 	},
 /turf/closed/wall,
@@ -46116,7 +46123,7 @@
 "oEY" = (
 /obj/structure/sign/warning/securearea,
 /turf/closed/wall/r_wall,
-/area/ai_monitored/turret_protected/aisat/foyer)
+/area/ai_monitored/turret_protected/aisat_interior)
 "oFr" = (
 /obj/structure/sign/departments/minsky/research/genetics,
 /turf/closed/wall,
@@ -49916,7 +49923,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
-/area/ai_monitored/turret_protected/aisat/foyer)
+/area/ai_monitored/turret_protected/aisat_interior)
 "pQB" = (
 /obj/effect/turf_decal/guideline/guideline_in/darkblue{
 	dir = 8
@@ -55897,9 +55904,6 @@
 	name = "Kitchen doors";
 	req_one_access_txt = "28;25;35"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "rQd" = (
@@ -56551,21 +56555,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
-"rZu" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/hallway/secondary/command)
 "rZA" = (
 /obj/machinery/camera/autoname{
 	dir = 8;
@@ -61525,15 +61514,8 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "tCJ" = (
-/obj/machinery/atmospherics/pipe/manifold4w/supply/hidden/layer2,
 /obj/structure/disposalpipe/segment{
 	dir = 2
-	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/guideline/guideline_in/darkblue{
 	dir = 4
@@ -61542,6 +61524,10 @@
 	alpha = 180;
 	dir = 2
 	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/command)
 "tCT" = (
@@ -66868,6 +66854,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"vmj" = (
+/obj/structure/lattice,
+/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
+	dir = 4
+	},
+/turf/open/space/basic,
+/area/space/nearstation)
 "vmt" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -76418,23 +76411,6 @@
 /obj/structure/closet/secure_closet/contraband/armory,
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
-"yml" = (
-/obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 4
-	},
-/turf/open/space/basic,
-/area/space/nearstation)
-"ymo" = (
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 8
-	},
-/obj/effect/turf_decal/guideline/guideline_edge/red,
-/obj/machinery/firealarm/directional/south,
-/turf/open/floor/plasteel,
-/area/security/main{
-	name = "Security Viewing Hall"
-	})
 
 (1,1,1) = {"
 yeA
@@ -105075,7 +105051,7 @@ fvP
 kKn
 sVb
 eZn
-ymo
+dVX
 ntc
 aum
 rza
@@ -106300,7 +106276,7 @@ yeA
 yeA
 yeA
 yeA
-uuQ
+wsM
 kDD
 oEY
 yeA
@@ -106447,9 +106423,9 @@ fJJ
 jsM
 fJJ
 xUD
-yml
+vmj
 gsA
-yml
+vmj
 jGx
 aem
 jGx
@@ -106557,9 +106533,9 @@ yeA
 yeA
 yeA
 yeA
-uuQ
+wsM
 pQu
-uuQ
+wsM
 yeA
 yeA
 yeA
@@ -107645,7 +107621,7 @@ bpg
 wCG
 nRq
 ell
-ymo
+dVX
 seT
 fxe
 qKl
@@ -108644,7 +108620,7 @@ rlD
 bHa
 qvr
 dCc
-rZu
+dCc
 dCc
 hkY
 jGA
@@ -109733,9 +109709,9 @@ mxy
 jDy
 jDy
 jDy
-cKs
-cKs
-cKs
+kHL
+kHL
+kHL
 cMR
 eAC
 eAC

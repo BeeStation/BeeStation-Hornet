@@ -48,8 +48,8 @@
 		stack_trace("Grown object created without a seed. WTF")
 		return INITIALIZE_HINT_QDEL
 
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+	pixel_x = base_pixel_x + rand(-5, 5)
+	pixel_y = base_pixel_y + rand(-5, 5)
 
 	make_dryable()
 

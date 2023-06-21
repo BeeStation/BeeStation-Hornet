@@ -56,18 +56,190 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">21 June 2023</h2>
+			<h3 class="author">Absolucy, SomeRandomOwl, stanalbatross, thedonkified updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="admin">Modified the Play Internet Sound Verb so it now displays extra info about any song being actively played as well as showing the link</li>
+				<li class="rscadd">added the ability to make up to 10 individual highlights in tgchat, customise their colours, and toggle if they highlight the whole message or not. Ported from CM and /tg/.</li>
+				<li class="rscadd">you can now use regex for text highlighting. The syntax is /[regex expression]/, eg /dog[0-9]/. There are no quantifiers, but you can use capture groups. The regex must read a minimum of two characters.</li>
+			</ul>
+
+			<h2 class="date">20 June 2023</h2>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Added the 'Crew Manifest' program to the list of default PDA apps</li>
+			</ul>
+			<h3 class="author">Rukofamicom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added a toggle for guard spiders that makes it impossible for other mobs to force their way around.</li>
+				<li class="balance">Guards can now actually block narrow passages</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Headmins can now ban more than 1 admin.</li>
+			</ul>
+
+			<h2 class="date">18 June 2023</h2>
+			<h3 class="author">Crossedfall updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Adjusted the CI's caching to also target yarn and pip</li>
+			</ul>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Made sleek titanium tiles create the tile items of their respective color when removed with a crowbar</li>
+			</ul>
+
+			<h2 class="date">17 June 2023</h2>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">the Detective can no longer roll antag</li>
+				<li class="rscadd">Gave the Detective the mindshield back</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">debug outfit is faster and knows all surgeries, and can see ghosts.</li>
+			</ul>
+			<h3 class="author">HowToLoLu updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Exploration VIP targets now memorize why they have strange abilities, or an uplink in their head.</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">AI tracking now requires a target to stand still for X seconds in order to acquire a track when used from the menu or from radio. X is calculated using the following formula. If the target has GPS tracking beacon, X is 0. If not X starts at 4. Subtract 1 second if the target is in the light. Subtract 1 second if the target's ID matches their name. Subtract 1 second if the target's face is visible and not disfigured.</li>
+				<li class="balance">AI tracking can instantly track a target if they have sensors enabled, or are a robot.</li>
+			</ul>
+
+			<h2 class="date">16 June 2023</h2>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed failed surgery steps not hitting the patient</li>
+				<li class="rscadd">Added Mentorhelp, Game Preferences and Character Preferences buttons to the bar in top left.</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Being able to see ghosts no longer lets you see OOC information such as countdown objects.</li>
+				<li class="bugfix">Countdown timers are now properly visible over most objects</li>
+			</ul>
+
+			<h2 class="date">13 June 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed roundstart operating computers only partially linking to their given stasis bed/operating table.</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed admin player panel bluescreening/runtiming when closed.</li>
+				<li class="tweak">Metabalance is now cached on the player's client datum to reduce database use.</li>
+				<li class="bugfix">You can now purchase items that cost exactly your metabalance.</li>
+				<li class="tweak">Antag token count is now cached on the player's client datum to reduce database use.</li>
+			</ul>
+
+			<h2 class="date">12 June 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed victims of Toxoplasmosis Sapiens pouncing on cats whenever unconscious/crit, instead of when NOT unconscious/crit.</li>
+				<li class="bugfix">Transformation sting is no longer unfixable if you're monkeyized after being stung.</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">piano no longer throws runtime because of null-user</li>
+				<li class="bugfix">Fixed abductor baton image is missing from asset</li>
+			</ul>
+			<h3 class="author">HowToLoLu updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">PAI can no longer phase out of solid structures and machines such as closets (even when they were welded) and disposal pipes</li>
+			</ul>
+			<h3 class="author">LemonInTheDark, MrStonedOne, Mothblocks, EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added cross-round serverside spritesheet caching, and various fixes and improvements for it.</li>
+				<li class="config">Added CACHE_ASSETS, which enables asset caching when enabled. It is disabled in development, but should be enabled n production.</li>
+				<li class="bugfix">Fixed vending machine showing icons as glass when they failed to load.</li>
+			</ul>
+
+			<h2 class="date">11 June 2023</h2>
+			<h3 class="author">BriggsIDP updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">edits lavaland_surface_seed_vault.dmm</li>
+			</ul>
+			<h3 class="author">Rkz, Kapu1178, Azarak, Gandalf2k15, Rohesie updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">adds a neutered pixelshifting system. It has no keybind and thus cannot be accessed by players.</li>
+				<li class="code_imp">Added base_pixel vars to atom/movable, replaced most uses of initial(pixel).</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">Morphs can no longer throw bodies significant distances.</li>
+			</ul>
+			<h3 class="author">mystery3525 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Gives kilostation science a component printer</li>
+			</ul>
+			<h3 class="author">someone543 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed duplicate small crack on carpet examine</li>
+			</ul>
+			<h3 class="author">spockye updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed a couple mapping errors on Rad station</li>
+			</ul>
+
+			<h2 class="date">10 June 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Blood filtering won't take forever trying to wean off the last 1 toxin damage in someone</li>
+				<li class="rscadd">Holding a health analyzer in your other hand during blood filtering surgery will show the remaining toxin damage and reagent volume, similar to wound tending surgery.</li>
+				<li class="tweak">Tweaked the surgery messages for filtering blood so that they appear properly to third party observers.</li>
+			</ul>
+			<h3 class="author">Archanial updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed nanite healing program without a host.</li>
+			</ul>
+
+			<h2 class="date">09 June 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Nanite scanners now have a more visually pleasing output.</li>
+				<li class="tweak">Nanite scanners now display program rules, including which ones are active or not.</li>
+				<li class="tweak">Forceful nanite syncs (slime/person splitting, nanite sting, infective exo-locomotion) now copy settings such as cloud ID.</li>
+				<li class="admin">Selecting a typepath as admin (i.e through the Spawn verb) will now use tgui input, which includes an actual search thingy.</li>
+			</ul>
+			<h3 class="author">Tyranicranger4, Fikou updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="admin">Individual player logs can now be viewed even after someone has disconnected.</li>
+			</ul>
+
 			<h2 class="date">08 June 2023</h2>
 			<h3 class="author">Absolucy updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="bugfix">Fixed roundstart persistent dynamic rulesets ignoring repeated mode weight adjustment (roundstart rulesets will no longer recur as often directly after each other)</li>
 			</ul>
+			<h3 class="author">Archanial updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed runtime in AAC</li>
+				<li class="bugfix">fixed runtime in express cargo console.</li>
+			</ul>
+			<h3 class="author">Crossedfall updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">New quick options to 'pretty' format TGUI</li>
+			</ul>
 			<h3 class="author">Haliris updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="tweak">tweaked the string/names files to prevent some bad names from being randomly generated.</li>
 			</ul>
+			<h3 class="author">JixS4v updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">botany belts are now able to hold droppers</li>
+				<li class="tweak">droppers can now only transfer 1u 2u, or 5u</li>
+			</ul>
+			<h3 class="author">JixS4v, Timberpoes updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Printing a long recording from a tape recorder no longer freezes clients</li>
+				<li class="tweak">Tape recorders can now print multi-page transcripts</li>
+			</ul>
 			<h3 class="author">RKz updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="tweak">tweaked "Basic Shuttle Research" tech to be easier to research</li>
+				<li class="bugfix">you can edit crew records with medhuds again, with the timeout properly applying</li>
 			</ul>
 			<h3 class="author">RKz, Mothblocks updated:</h3>
 			<ul class="changes bgimages16">
@@ -93,6 +265,11 @@
 			<h3 class="author">itsmeow, jlsnow301 updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="code_imp">Standardized TGUI code formatting using PrettierX. Developers: Install the Prettier extension for VSCode.</li>
+			</ul>
+			<h3 class="author">mystery3525 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Adds a unit test for techweb/build design id assignments</li>
+				<li class="refactor">Moved techweb initialization checks to a unit test</li>
 			</ul>
 
 			<h2 class="date">07 June 2023</h2>

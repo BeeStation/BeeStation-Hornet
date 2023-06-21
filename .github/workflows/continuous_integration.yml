@@ -22,7 +22,8 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.11"
-      - name: Setup cache
+          cache: 'pip'
+      - name: Cache SpacemanDMM
         id: cache-spacemandmm
         uses: actions/cache@v3
         with:
@@ -35,8 +36,17 @@ jobs:
         run: |
           pip install setuptools
           bash tools/ci/install_node.sh
-          bash tools/ci/install_auxmos.sh
           pip install -r tools/requirements.txt
+      - name: Cache Yarn
+        id: cache-yarn
+        uses: actions/cache@v3
+        with:
+          path: tgui/.yarn
+          key: ${{ runner.os }}-yarn-cache-${{ hashFiles('tgui/yarn.lock') }}
+      - name: TGUI fetch
+        if: steps.cache-yarn.outputs.cache-hit != 'true'
+        run: |
+          tools/build/build --ci yarn
       - name: Run Linters
         run: |
           bash tools/ci/check_filedirs.sh beestation.dme
@@ -78,7 +88,7 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
       - uses: actions/checkout@v3
-      - name: Setup cache
+      - name: Cache BYOND
         id: cache-byond
         uses: actions/cache@v3
         with:
@@ -101,6 +111,16 @@ jobs:
       - name: Install auxmos
         run: |
           bash tools/ci/install_auxmos.sh
+      - name: Cache Yarn
+        id: cache-yarn
+        uses: actions/cache@v3
+        with:
+          path: tgui/.yarn
+          key: ${{ runner.os }}-yarn-cache-${{ hashFiles('tgui/yarn.lock') }}
+      - name: TGUI fetch
+        if: steps.cache-yarn.outputs.cache-hit != 'true'
+        run: |
+          tools/build/build --ci yarn
       - name: Compile and run tests
         run: |
           source $HOME/BYOND/byond/bin/byondsetup
@@ -110,6 +130,22 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Cache Yarn
+        id: cache-yarn
+        uses: actions/cache@v3
+        with:
+          path: tgui/.yarn
+          key: ${{ runner.os }}-yarn-cache-${{ hashFiles('tgui/yarn.lock') }}
+      - name: Cache BYOND
+        id: cache-byond
+        uses: actions/cache@v3
+        with:
+          path: C:/byond
+          key: ${{ runner.os }}-byond-cache-${{ hashFiles('dependencies.sh') }}
+      - name: TGUI fetch
+        if: steps.cache-yarn.outputs.cache-hit != 'true'
+        run: |
+          tools/build/build --ci yarn
       - name: Compile
         run: pwsh tools/ci/build.ps1
         env:

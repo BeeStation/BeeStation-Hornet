@@ -1427,8 +1427,6 @@
 		"damagemod",
 		"drill",
 		"exploration_equipment_vendor",
-		"furnace_console",
-		"furnace",
 		"hypermod",
 		"mining_equipment_vendor",
 		"ore_redemption",
@@ -1580,7 +1578,6 @@
 	prereq_ids = list("engineering")
 	design_ids = list(
 		"pin_testing",
-		"sleepy",
 		"tele_shield",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
