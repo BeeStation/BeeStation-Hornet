@@ -306,9 +306,9 @@ const TextHighlightSetting = (props, context) => {
         </Flex.Item>
         <Flex.Item>
           <Button.Checkbox
-            content="Case"
+            content="Self"
             tooltip="If this option is selected, your own messages will be highlighted too."
-            checked={matchCase}
+            checked={highlightSelf}
             onClick={() =>
               dispatch(
                 updateHighlightSetting({
