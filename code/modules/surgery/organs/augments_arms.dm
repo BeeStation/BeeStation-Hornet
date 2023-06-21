@@ -38,6 +38,48 @@
 	items_list.Cut()
 	return ..()
 
+/obj/item/organ/cyberimp/arm/vv_edit_var(var_name, var_value)
+	. = ..()
+	switch(var_name)
+		if(NAMEOF(src, toolspeed))
+			for(var/datum/weakref/item_ref as anything in items_list)
+				var/obj/item/tool = item_ref.resolve()
+				if(tool)
+					tool.toolspeed = var_value
+
+/obj/item/organ/cyberimp/arm/vv_get_dropdown()
+	. = ..()
+	VV_DROPDOWN_OPTION("", "---")
+	VV_DROPDOWN_OPTION(VV_HK_ADD_IMPLANT_TOOL, "Add Tool To Implant")
+	VV_DROPDOWN_OPTION(VV_HK_DEL_IMPLANT_TOOL, "Remove Tool From Implant")
+
+/obj/item/organ/cyberimp/arm/vv_do_topic(href_list)
+	. = ..()
+	if(href_list[VV_HK_ADD_IMPLANT_TOOL])
+		var/type_to_search_for = tgui_input_text(usr, "Search for item type", "Typepath Search", "/obj/item")
+		var/item_type = pick_closest_path(type_to_search_for, make_types_fancy(subtypesof(/obj/item)))
+		if(!item_type)
+			return
+		var/obj/item/new_item = new item_type(src)
+		var/turf/turf = get_turf(src)
+		log_admin("[key_name(usr)] added [new_item] ([item_type]) to \the [src] ([type]) at [AREACOORD(turf)]")
+		message_admins("[key_name(usr)] added [new_item] ([item_type]) to \the [src] ([type]) at [ADMIN_VERBOSEJMP(turf)]")
+		items_list += WEAKREF(new_item)
+	if(href_list[VV_HK_DEL_IMPLANT_TOOL])
+		var/list/tools = list()
+		for(var/datum/weakref/item_ref as anything in items_list)
+			var/obj/item/tool = item_ref.resolve()
+			if(tool)
+				tools |= tool
+		var/obj/item/tool_to_remove = tgui_input_list(usr, "Which tool should be removed from \the [src]?", "Remove Tool From Implant", tools)
+		if(!tool_to_remove || !istype(tool_to_remove))
+			return
+		items_list -= tool_to_remove.weak_reference
+		var/turf/turf = get_turf(src)
+		log_admin("[key_name(usr)] removed [tool_to_remove] ([tool_to_remove.type]) from \the [src] ([type]) at [AREACOORD(turf)]")
+		message_admins("[key_name(usr)] added [tool_to_remove] ([tool_to_remove.type]) from \the [src] ([type]) at [ADMIN_VERBOSEJMP(turf)]")
+		qdel(tool_to_remove)
+
 /obj/item/organ/cyberimp/arm/proc/SetSlotFromZone()
 	switch(zone)
 		if(BODY_ZONE_L_ARM)
