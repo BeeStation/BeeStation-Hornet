@@ -89,6 +89,11 @@ const ChoicedSelection = (
     return name;
   });
 
+  const use_small_supplemental =
+    supplementalFeature &&
+    (features[supplementalFeature].small_supplemental === true ||
+      features[supplementalFeature].small_supplemental === undefined);
+
   return (
     <Box
       className="theme-generic-yellow"
@@ -100,7 +105,7 @@ const ChoicedSelection = (
         <Stack vertical fill>
           <Stack.Item>
             <Stack fill>
-              {supplementalFeature && (
+              {supplementalFeature && use_small_supplemental && (
                 <Stack.Item>
                   <FeatureValueInput
                     act={act}
@@ -132,20 +137,23 @@ const ChoicedSelection = (
             </Stack>
           </Stack.Item>
 
-          <Stack.Item overflowX="hidden" overflowY="auto">
+          {Object.keys(catalog.icons).length > 5 && (
+            <Stack.Item>
+              <Box>
+                <Icon mr={1} name="search" />
+                <Input
+                  autoFocus
+                  width={`${CLOTHING_SELECTION_CELL_SIZE * CLOTHING_SELECTION_WIDTH - 55}px`}
+                  placeholder="Search items"
+                  value={searchText}
+                  onInput={(_, value) => setSearchText(value)}
+                />
+              </Box>
+            </Stack.Item>
+          )}
+
+          <Stack.Item overflowX="hidden" overflowY="auto" grow className="section-background">
             <Flex wrap>
-              {Object.keys(catalog.icons).length > 5 && (
-                <Box>
-                  <Icon mr={1} name="search" />
-                  <Input
-                    autoFocus
-                    width={`${CLOTHING_SELECTION_CELL_SIZE * CLOTHING_SELECTION_WIDTH - 55}px`}
-                    placeholder="Search items"
-                    value={searchText}
-                    onInput={(_, value) => setSearchText(value)}
-                  />
-                </Box>
-              )}
               {Object.entries(catalog.icons)
                 .filter(([n, _]) => searchText?.length < 1 || search(n))
                 .map(([name, image], index) => {
@@ -180,6 +188,31 @@ const ChoicedSelection = (
                 })}
             </Flex>
           </Stack.Item>
+          {supplementalFeature && !use_small_supplemental && (
+            <>
+              <Stack.Item mt={0.25}>
+                <Box
+                  pb={0.25}
+                  style={{
+                    'border-bottom': '1px solid rgba(255, 255, 255, 0.1)',
+                    'font-weight': 'bold',
+                    'font-size': '14px',
+                    'text-align': 'center',
+                  }}>
+                  Select {features[supplementalFeature].name}
+                </Box>
+              </Stack.Item>
+              <Stack.Item shrink mt={0.5}>
+                <FeatureValueInput
+                  act={act}
+                  feature={features[supplementalFeature]}
+                  featureId={supplementalFeature}
+                  shrink
+                  value={supplementalValue}
+                />
+              </Stack.Item>
+            </>
+          )}
         </Stack>
       </Box>
     </Box>

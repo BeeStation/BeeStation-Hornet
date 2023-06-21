@@ -7,6 +7,7 @@ import { sendAct, useBackend, useLocalState } from '../../../../backend';
 import { Box, Button, Dropdown, Icon, Input, NumberInput, Stack, Flex, Tooltip } from '../../../../components';
 import { createSetPreference, PreferencesMenuData } from '../../data';
 import { ServerPreferencesFetcher } from '../../ServerPreferencesFetcher';
+import features from '.';
 
 export const sortChoices = sortBy<[string, InfernoNode]>(([name]) => name);
 
@@ -16,6 +17,7 @@ export type Feature<TReceiving, TSending = TReceiving, TServerData = unknown> = 
   category?: string;
   description?: string;
   predictable?: boolean;
+  small_supplemental?: boolean;
 };
 
 /**
@@ -40,6 +42,7 @@ export type FeatureValueProps<TReceiving, TSending = TReceiving, TServerData = u
 export const FeatureColorInput = (props: FeatureValueProps<string>) => {
   return (
     <Button
+      tooltip={features[props.featureId].name}
       onClick={() => {
         props.act('set_color_preference', {
           preference: props.featureId,
@@ -294,8 +297,21 @@ export const StandardizedPalette = (props: {
   allow_custom?: boolean;
   act?: typeof sendAct;
   featureId?: string;
+  maxWidth?: string;
+  backgroundColor?: string;
+  includeHex?: boolean;
 }) => {
-  const { choices, disabled, displayNames, onSetValue, hex_values, value, allow_custom } = props;
+  const {
+    choices,
+    disabled,
+    displayNames,
+    onSetValue,
+    hex_values,
+    allow_custom,
+    maxWidth = '100%',
+    backgroundColor = '#4f56a5',
+    includeHex = false,
+  } = props;
   const choices_to_hex = hex_values ? Object.fromEntries(choices.map((v) => [v, v])) : props.choices_to_hex!;
   const safeHex = (v: string) => {
     if (v.length === 3) {
@@ -308,12 +324,16 @@ export const StandardizedPalette = (props: {
   };
   const safeValue = hex_values ? props.value && safeHex(props.value) : props.value;
   return (
-    <Flex style={{ 'align-items': 'baseline' }}>
-      <Flex.Item style={{ 'border-radius': '0.16em' }} backgroundColor="#4f56a5" p={0.5} height="26px">
-        <Stack fill>
+    <Flex style={{ 'align-items': 'baseline', 'max-width': maxWidth }}>
+      <Flex.Item
+        shrink
+        style={{ 'border-radius': '0.16em', 'max-width': maxWidth, 'padding-bottom': '-5px' }}
+        backgroundColor={backgroundColor}
+        p={0.5}>
+        <Flex style={{ 'flex-wrap': 'wrap', 'max-width': maxWidth }}>
           {choices.map((choice) => (
-            <Stack.Item key={choice} ml={0}>
-              <Tooltip content={displayNames[choice]} position="bottom">
+            <Flex.Item key={choice} ml={0}>
+              <Tooltip content={`${displayNames[choice]}${includeHex ? ` (${safeHex(choice)})` : ''}`} position="bottom">
                 <Box
                   className={classes([
                     'ColorSelectBox',
@@ -331,14 +351,15 @@ export const StandardizedPalette = (props: {
                   />
                 </Box>
               </Tooltip>
-            </Stack.Item>
+            </Flex.Item>
           ))}
           {allow_custom && (
             <>
+              <Flex.Item grow />
               {!Object.values(choices_to_hex)
                 .map(safeHex)
                 .includes(safeValue!) && (
-                <Stack.Item ml={0.5}>
+                <Flex.Item>
                   <Tooltip content={`Your Custom Selection (${safeValue})`} position="bottom">
                     <Box className={classes(['ColorSelectBox', 'ColorSelectBox--selected'])} width="16px" height="16px">
                       <Box
@@ -349,10 +370,10 @@ export const StandardizedPalette = (props: {
                       />
                     </Box>
                   </Tooltip>
-                </Stack.Item>
+                </Flex.Item>
               )}
 
-              <Stack.Item ml={0.5}>
+              <Flex.Item ml={0.5}>
                 <Button
                   tooltip="Choose Custom"
                   tooltipPosition="bottom"
@@ -368,10 +389,10 @@ export const StandardizedPalette = (props: {
                     }
                   }}
                 />
-              </Stack.Item>
+              </Flex.Item>
             </>
           )}
-        </Stack>
+        </Flex>
       </Flex.Item>
     </Flex>
   );
