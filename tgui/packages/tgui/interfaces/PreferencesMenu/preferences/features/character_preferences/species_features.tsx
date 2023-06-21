@@ -25,7 +25,7 @@ const eyePresets = {
 };
 
 export const eye_color: Feature<string> = {
-  name: 'Eye color',
+  name: 'Eye Color',
   predictable: false,
   component: (props: FeatureValueProps<string>) => {
     const { handleSetValue, value, featureId, act } = props;
@@ -46,17 +46,17 @@ export const eye_color: Feature<string> = {
 };
 
 export const facial_hair_color: Feature<string> = {
-  name: 'Facial hair color',
+  name: 'Facial Hair Color',
   component: FeatureColorInput,
 };
 
 export const hair_color: Feature<string> = {
-  name: 'Hair color',
+  name: 'Hair Color',
   component: FeatureColorInput,
 };
 
 export const gradient_color: Feature<string> = {
-  name: 'Gradient color',
+  name: 'Gradient Color',
   component: FeatureColorInput,
 };
 
@@ -66,16 +66,26 @@ export const feature_lizard_legs: FeatureChoiced = {
 };
 
 export const feature_mcolor: Feature<string> = {
-  name: 'Mutant color',
+  name: 'Mutant Color',
   component: FeatureColorInput,
 };
 
 export const underwear_color: Feature<string> = {
-  name: 'Underwear color',
+  name: 'Underwear Color',
   component: FeatureColorInput,
 };
 
 export const helmet_style: FeatureChoiced = {
-  name: 'Helmet style',
+  name: 'Helmet Style',
+  component: FeatureDropdownInput,
+};
+
+export const feature_human_tail: FeatureChoiced = {
+  name: 'Tail',
+  component: FeatureDropdownInput,
+};
+
+export const feature_human_ears: FeatureChoiced = {
+  name: 'Ears',
   component: FeatureDropdownInput,
 };

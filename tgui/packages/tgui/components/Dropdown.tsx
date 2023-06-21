@@ -27,6 +27,7 @@ type DropdownUniqueProps = {
   selected?: any;
   onSelected?: (selected: any) => void;
   buttons?: boolean;
+  displayHeight?: string;
 };
 
 export type DropdownProps = BoxProps & DropdownUniqueProps;
@@ -288,6 +289,7 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
       selected,
       disabled,
       displayText,
+      displayHeight,
       buttons,
       ...boxProps
     } = props;
@@ -296,7 +298,7 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
     const adjustedOpen = over ? !this.state.open : this.state.open;
 
     return (
-      <Stack fill>
+      <Stack fill height={displayHeight}>
         <Stack.Item width={width}>
           <Box
             width={'100%'}
@@ -326,7 +328,7 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
               {displayText || this.state.selected}
             </span>
             {nochevron || (
-              <span className="Dropdown__arrow-button">
+              <span className="Dropdown__arrow-button" style={{ 'line-height': displayHeight }}>
                 <Icon name={adjustedOpen ? 'chevron-up' : 'chevron-down'} />
               </span>
             )}
@@ -337,7 +339,10 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
             <Stack.Item height={'100%'}>
               <Button
                 height={'100%'}
-                icon="chevron-left"
+                content={
+                  <Icon ml="0.25em" style={{ 'display': 'inline-block', 'line-height': displayHeight }} name="chevron-left" />
+                }
+                p={0}
                 disabled={disabled}
                 onClick={() => {
                   if (disabled) {
@@ -351,7 +356,10 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
             <Stack.Item height={'100%'}>
               <Button
                 height={'100%'}
-                icon="chevron-right"
+                content={
+                  <Icon ml="0.25em" style={{ 'display': 'inline-block', 'line-height': displayHeight }} name="chevron-right" />
+                }
+                p={0}
                 disabled={disabled}
                 onClick={() => {
                   if (disabled) {

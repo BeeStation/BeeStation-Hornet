@@ -142,8 +142,9 @@ export const StandardizedDropdown = (props: {
   onSetValue: (newValue: string) => void;
   value?: string;
   buttons?: boolean;
+  displayHeight?: string;
 }) => {
-  const { choices, disabled, buttons, displayNames, onSetValue, value } = props;
+  const { choices, disabled, buttons, displayNames, onSetValue, displayHeight, value } = props;
 
   return (
     <Dropdown
@@ -151,6 +152,8 @@ export const StandardizedDropdown = (props: {
       buttons={buttons}
       selected={value}
       onSelected={onSetValue}
+      clipSelectedText={false}
+      displayHeight={displayHeight}
       width="100%"
       displayText={value ? displayNames[value] : ''}
       options={choices.map((choice) => {
@@ -197,16 +200,8 @@ export const FeatureDropdownInput = (
   );
 };
 
-export type FeatureWithIcons<T> = Feature<{ value: T }, T, FeatureChoicedServerData>;
-
 export const FeatureIconnedDropdownInput = (
-  props: FeatureValueProps<
-    {
-      value: string;
-    },
-    string,
-    FeatureChoicedServerData
-  > & {
+  props: FeatureValueProps<string, string, FeatureChoicedServerData> & {
     buttons?: boolean;
   }
 ) => {
@@ -237,7 +232,9 @@ export const FeatureIconnedDropdownInput = (
               />
             </Stack.Item>
 
-            <Stack.Item grow>{element}</Stack.Item>
+            <Stack.Item grow style={{ 'line-height': '32px' }}>
+              {element}
+            </Stack.Item>
           </Stack>
         );
       }
@@ -252,7 +249,8 @@ export const FeatureIconnedDropdownInput = (
       choices={sortStrings(serverData.choices)}
       displayNames={displayNames}
       onSetValue={props.handleSetValue}
-      value={props.value?.value}
+      value={props.value}
+      displayHeight="32px"
     />
   );
 };
