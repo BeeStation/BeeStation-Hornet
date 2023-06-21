@@ -200,7 +200,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 
 	if(!IS_DYNAMIC_LIGHTING(src))
 		blend_mode = BLEND_MULTIPLY // Putting this in the constructor so that it stops the icons being screwed up in the map editor.
-		add_overlay(/obj/effect/fullbright)
+		add_overlay(GLOB.fullbright_overlay)
 	else if(lighting_overlay_opacity && lighting_overlay_colour)
 		generate_lighting_overlay()
 	reg_in_areas_in_z()
@@ -227,7 +227,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		//Delete the old lighting overlay object
 		QDEL_NULL(lighting_overlay)
 	//Create the lighting overlay object for this area
-	lighting_overlay = new /obj/effect/fullbright
+	lighting_overlay = create_fullbright_overlay()
 	lighting_overlay.color = lighting_overlay_colour
 	lighting_overlay.alpha = lighting_overlay_opacity
 	//Areas with a lighting overlay should be fully visible, and the tiles adjacent to them should also

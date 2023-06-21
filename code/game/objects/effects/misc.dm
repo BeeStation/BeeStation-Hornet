@@ -54,13 +54,6 @@
 		L.adjust_fire_stacks(5)
 		L.IgniteMob()
 
-//Makes a tile fully lit no matter what
-/obj/effect/fullbright
-	icon = 'icons/effects/alphacolors.dmi'
-	icon_state = "white"
-	plane = LIGHTING_PLANE
-	blend_mode = BLEND_ADD
-
 /obj/effect/abstract/marker
 	name = "marker"
 	icon = 'icons/effects/effects.dmi'

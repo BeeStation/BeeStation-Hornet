@@ -104,6 +104,10 @@
 #define DATA_HUD_PLANE 15
 
 //---------- LIGHTING -------------
+
+/// Default plane for lighting
+#define LIGHTING_PRIMARY_LAYER 15
+
 ///Normal 1 per turf dynamic lighting objects
 #define LIGHTING_PLANE 100
 
