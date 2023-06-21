@@ -1,0 +1,6 @@
+author: Absolucy
+delete-after: true
+changes:
+  - admin: Updating the tool speed of an arm implant will now update the tool speed
+      of all of its stored items.
+  - admin: Added VV options to add/remove items from arm implants.
