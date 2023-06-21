@@ -1,0 +1,9 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - rscadd: Crafting menu now shows icons
+  - rscadd: icon_state_preview variable to atom. this is used as an icon preview without
+      being changed.
+  - imageadd: bolas image references without frames. (bola_ref, gonbola_ref, bola_watcher_ref)
+  - bugfix: fixed a possible minor bug in morph UI
+  - bugfix: fixed 'Pingles.png' bad name format in dmi.
