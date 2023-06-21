@@ -74,6 +74,17 @@
 	// try to spell
 	// you do not need to define _s or _l sub-states, game automatically does this for you
 
+/// Don't move these two, they go first
+/datum/sprite_accessory/hair/bald
+	name = "Bald"
+	icon_state = null
+
+/datum/sprite_accessory/hair/bald2
+	name = "Bald 2"
+	icon_state = "hair_bald2"
+
+// --------
+
 /datum/sprite_accessory/hair/afro
 	name = "Afro"
 	icon_state = "hair_afro"
@@ -89,14 +100,6 @@
 /datum/sprite_accessory/hair/antenna
 	name = "Ahoge"
 	icon_state = "hair_antenna"
-
-/datum/sprite_accessory/hair/bald
-	name = "Bald"
-	icon_state = null
-
-/datum/sprite_accessory/hair/bald2
-	name = "Bald 2"
-	icon_state = "hair_bald2"
 
 /datum/sprite_accessory/hair/balding
 	name = "Balding Hair"
@@ -907,6 +910,12 @@
 
 // please make sure they're sorted alphabetically and categorized
 
+/// This one goes first. Don't move it
+/datum/sprite_accessory/facial_hair/shaved
+	name = "Shaved"
+	icon_state = null
+	gender = NEUTER
+
 /datum/sprite_accessory/facial_hair/eyebrows
 	name = "Eyebrows"
 	icon_state = "facial_eyebrows"
@@ -934,7 +943,6 @@
 /datum/sprite_accessory/facial_hair/croppedfullbeard
 	name = "Beard (Cropped Fullbeard)"
 	icon_state = "facial_croppedfullbeard"
-
 
 /datum/sprite_accessory/facial_hair/gt
 	name = "Beard (Goatee)"
@@ -1067,11 +1075,6 @@
 /datum/sprite_accessory/facial_hair/sideburn
 	name = "Sideburns"
 	icon_state = "facial_sideburn"
-
-/datum/sprite_accessory/facial_hair/shaved
-	name = "Shaved"
-	icon_state = null
-	gender = NEUTER
 
 ///////////////////////////
 // Underwear Definitions //
