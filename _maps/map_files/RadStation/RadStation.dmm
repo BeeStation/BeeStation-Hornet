@@ -7693,7 +7693,7 @@
 	},
 /obj/machinery/vending/wallmed{
 	pixel_y = -32;
-	products = list(/obj/item/stack/medical/gauze = 4, /obj/item/reagent_containers/hypospray/medipen = 3, /obj/item/reagent_containers/hypospray/medipen/dexalin = 3, /obj/item/reagent_containers/glass/bottle/epinephrine = 2, /obj/item/reagent_containers/glass/bottle/charcoal = 2)
+	products = list(/obj/item/stack/medical/gauze=4,/obj/item/reagent_containers/hypospray/medipen=3,/obj/item/reagent_containers/hypospray/medipen/dexalin=3,/obj/item/reagent_containers/glass/bottle/epinephrine=2,/obj/item/reagent_containers/glass/bottle/charcoal=2)
 	},
 /obj/machinery/newscaster{
 	pixel_x = -32;
@@ -25342,6 +25342,9 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
+"hPw" = (
+/turf/open/space/basic,
+/area/space/nearstation)
 "hPE" = (
 /obj/structure/closet,
 /obj/item/crowbar/red,
@@ -31495,7 +31498,7 @@
 /area/science/research)
 "jRW" = (
 /obj/machinery/smartfridge/sci{
-	initial_contents = list(/obj/item/stock_parts/capacitor = 2, /obj/item/stock_parts/manipulator = 2, /obj/item/stock_parts/micro_laser = 2, /obj/item/stock_parts/matter_bin = 2, /obj/item/stock_parts/scanning_module = 2);
+	initial_contents = list(/obj/item/stock_parts/capacitor=2,/obj/item/stock_parts/manipulator=2,/obj/item/stock_parts/micro_laser=2,/obj/item/stock_parts/matter_bin=2,/obj/item/stock_parts/scanning_module=2);
 	name = "Science vender"
 	},
 /turf/closed/wall,
@@ -32875,12 +32878,12 @@
 /area/solar/starboard/fore)
 "knL" = (
 /obj/docking_port/stationary{
-	dwidth = 4;
-	height = 14;
+	dwidth = 3;
+	height = 15;
 	id = "arrivals_stationary";
 	name = "RadStation arrivals";
 	roundstart_template = /datum/map_template/shuttle/arrival/kilo;
-	width = 8
+	width = 7
 	},
 /turf/open/space/basic,
 /area/space)
@@ -38496,7 +38499,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/vending/sustenance{
-	products = list(/obj/item/reagent_containers/food/snacks/tofu/prison = 24, /obj/item/reagent_containers/food/drinks/ice/prison = 12, /obj/item/reagent_containers/food/snacks/candy_corn/prison = 6, /obj/item/storage/fancy/cigarettes = 5, /obj/item/storage/box/matches = 10)
+	products = list(/obj/item/reagent_containers/food/snacks/tofu/prison=24,/obj/item/reagent_containers/food/drinks/ice/prison=12,/obj/item/reagent_containers/food/snacks/candy_corn/prison=6,/obj/item/storage/fancy/cigarettes=5,/obj/item/storage/box/matches=10)
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
@@ -38888,7 +38891,7 @@
 /obj/item/reagent_containers/glass/bottle/mutagen{
 	amount_per_transfer_from_this = 2;
 	desc = "A small bottle, almost empty. Has the words drink me, you wont written on it";
-	list_reagents = list(/datum/reagent/toxin/mutagen = 5);
+	list_reagents = list(/datum/reagent/toxin/mutagen=5);
 	pixel_x = -6;
 	pixel_y = 1
 	},
@@ -39559,7 +39562,7 @@
 /area/hallway/secondary/exit/departure_lounge)
 "mzy" = (
 /obj/machinery/smartfridge/sci{
-	initial_contents = list(/obj/item/stock_parts/capacitor = 2, /obj/item/stock_parts/manipulator = 2, /obj/item/stock_parts/micro_laser = 2, /obj/item/stock_parts/matter_bin = 2, /obj/item/stock_parts/scanning_module = 2);
+	initial_contents = list(/obj/item/stock_parts/capacitor=2,/obj/item/stock_parts/manipulator=2,/obj/item/stock_parts/micro_laser=2,/obj/item/stock_parts/matter_bin=2,/obj/item/stock_parts/scanning_module=2);
 	name = "Science vender"
 	},
 /turf/closed/wall,
@@ -121265,7 +121268,7 @@ gsA
 gsA
 gsA
 gsA
-gsA
+hPw
 yeA
 lkT
 ctw
@@ -121521,7 +121524,7 @@ gsA
 gsA
 gsA
 gsA
-gsA
+hPw
 yeA
 yeA
 lkT
@@ -121777,8 +121780,8 @@ gsA
 gsA
 gsA
 ewB
-gsA
-gsA
+hPw
+hPw
 yeA
 yeA
 yeA
@@ -122034,7 +122037,7 @@ gsA
 ewB
 gsA
 ewB
-gsA
+hPw
 yeA
 yeA
 yeA
@@ -123062,7 +123065,7 @@ yeA
 ewB
 gsA
 ewB
-gsA
+hPw
 yeA
 yeA
 yeA
@@ -123319,7 +123322,7 @@ yeA
 yeA
 gsA
 ewB
-gsA
+hPw
 yeA
 yeA
 yeA
