@@ -45,7 +45,7 @@ const MissionNormal = (_props, context) => {
       <p>
         Your mission is simple, blow up the station. To achieve this your team must get the Nuclear Authentification Disk. Once
         you have the disk, it&apos;s only a matter of getting the nuke aboard the station, arming it and then getting out before
-        it pulverizes you in it&apos;s blast.
+        it pulverizes you in its blast.
       </p>
       {(!!data.leader && (
         <p>
