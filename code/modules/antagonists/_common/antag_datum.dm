@@ -107,10 +107,7 @@ GLOBAL_LIST(admin_antag_list)
 		CRASH("[src] ran on_gain() without a mind")
 	if(!owner.current)
 		CRASH("[src] ran on_gain() on a mind without a mob")
-	if(ui_name) //in the future, this should entirely replace greet.
-		info_button = new(src)
-		info_button.Grant(owner.current)
-		info_button_ref = WEAKREF(info_button)
+	make_info_button()
 	if(!silent)
 		if(tips)
 			show_tips(tips)
@@ -127,6 +124,14 @@ GLOBAL_LIST(admin_antag_list)
 		owner.current.client.holder.auto_deadmin()
 	if(count_against_dynamic_roll_chance && owner.current.stat != DEAD && owner.current.client)
 		owner.current.add_to_current_living_antags()
+
+//in the future, this should entirely replace greet.
+/datum/antagonist/proc/make_info_button()
+	if(!ui_name)
+		return
+	info_button = new(src)
+	info_button.Grant(owner.current)
+	info_button_ref = WEAKREF(info_button)
 
 /datum/antagonist/proc/is_banned(mob/M)
 	if(!M)
