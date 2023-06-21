@@ -113,7 +113,6 @@ export const facial_hair_color: Feature<string> = {
         featureId={featureId}
         act={act}
         maxWidth="385px"
-        backgroundColor="#101010"
         includeHex
       />
     );
@@ -138,7 +137,6 @@ export const hair_color: Feature<string> = {
         featureId={featureId}
         act={act}
         maxWidth="385px"
-        backgroundColor="#101010"
         includeHex
       />
     );
@@ -163,7 +161,6 @@ export const gradient_color: Feature<string> = {
         featureId={featureId}
         act={act}
         maxWidth="385px"
-        backgroundColor="#101010"
         includeHex
       />
     );

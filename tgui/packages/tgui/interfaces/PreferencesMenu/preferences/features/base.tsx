@@ -309,7 +309,7 @@ export const StandardizedPalette = (props: {
     hex_values,
     allow_custom,
     maxWidth = '100%',
-    backgroundColor = '#4f56a5',
+    backgroundColor,
     includeHex = false,
   } = props;
   const choices_to_hex = hex_values ? Object.fromEntries(choices.map((v) => [v, v])) : props.choices_to_hex!;
@@ -328,6 +328,7 @@ export const StandardizedPalette = (props: {
       <Flex.Item
         shrink
         style={{ 'border-radius': '0.16em', 'max-width': maxWidth, 'padding-bottom': '-5px' }}
+        className="section-background"
         backgroundColor={backgroundColor}
         p={0.5}>
         <Flex style={{ 'flex-wrap': 'wrap', 'max-width': maxWidth }}>

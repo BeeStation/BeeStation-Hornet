@@ -399,8 +399,8 @@ const PreferenceList = (props: {
     <Stack.Item
       basis="50%"
       grow
+      className="section-background"
       style={{
-        background: 'rgba(0, 0, 0, 0.5)',
         padding: '4px',
       }}
       overflowX="hidden"
