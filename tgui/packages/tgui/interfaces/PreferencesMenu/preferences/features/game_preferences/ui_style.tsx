@@ -38,7 +38,7 @@ const UIStyleInput = (props: FeatureValueProps<string, string, FeatureChoicedSer
     <Dropdown
       selected={value}
       clipSelectedText={false}
-      displayText={choices[value]}
+      displayText={value ? choices[value] : null}
       onSelected={props.handleSetValue}
       width="100%"
       options={sortChoices(Object.entries(choices)).map(([dataValue, label]) => {
