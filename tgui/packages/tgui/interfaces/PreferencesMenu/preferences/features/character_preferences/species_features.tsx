@@ -79,13 +79,3 @@ export const helmet_style: FeatureChoiced = {
   name: 'Helmet Style',
   component: FeatureDropdownInput,
 };
-
-export const feature_human_tail: FeatureChoiced = {
-  name: 'Tail',
-  component: FeatureDropdownInput,
-};
-
-export const feature_human_ears: FeatureChoiced = {
-  name: 'Ears',
-  component: FeatureDropdownInput,
-};
