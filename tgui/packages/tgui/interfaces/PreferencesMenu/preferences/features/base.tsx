@@ -321,53 +321,55 @@ export const StandardizedPalette = (props: {
                     disabled && 'ColorSelectBox--disabled',
                   ])}
                   onClick={disabled ? null : () => onSetValue(hex_values ? safeHex(choice) : choice)}
-                  width="13px"
-                  height="13px"
-                  style={{
-                    'background-color': hex_values ? choice : choices_to_hex[choice],
-                  }}
-                />
+                  width="16px"
+                  height="16px">
+                  <Box
+                    className="ColorSelectBox--inner"
+                    style={{
+                      'background-color': hex_values ? choice : choices_to_hex[choice],
+                    }}
+                  />
+                </Box>
               </Tooltip>
             </Stack.Item>
           ))}
           {allow_custom && (
-            <Stack.Item ml={0.25}>
+            <>
               {!Object.values(choices_to_hex)
                 .map(safeHex)
                 .includes(safeValue!) && (
-                <Tooltip content="Your Selection" position="bottom">
-                  <Box
-                    className={classes(['ColorSelectBox', 'ColorSelectBox--selected'])}
-                    width="13px"
-                    height="13px"
-                    style={{
-                      'background-color': `#${value}`,
-                    }}
-                  />
-                </Tooltip>
+                <Stack.Item ml={0.5}>
+                  <Tooltip content={`Your Custom Selection (${safeValue})`} position="bottom">
+                    <Box className={classes(['ColorSelectBox', 'ColorSelectBox--selected'])} width="16px" height="16px">
+                      <Box
+                        className="ColorSelectBox--inner"
+                        style={{
+                          'background-color': `${safeValue}`,
+                        }}
+                      />
+                    </Box>
+                  </Tooltip>
+                </Stack.Item>
               )}
-              <Tooltip content="Choose Custom" position="bottom">
-                <Box
-                  width="13px"
-                  height="13px"
-                  className="ColorSelectBox"
-                  backgroundColor="#ffffff"
-                  textColor="#000000"
+
+              <Stack.Item ml={0.5}>
+                <Button
+                  tooltip="Choose Custom"
+                  tooltipPosition="bottom"
+                  height="20px"
+                  style={{ 'border-radius': '0' }}
+                  icon="plus"
+                  color="good"
                   onClick={() => {
                     if (props.act && props.featureId) {
                       props.act('set_color_preference', {
                         preference: props.featureId,
                       });
                     }
-                  }}>
-                  <Flex style={{ 'justify-content': 'center', 'align-items': 'center' }} width="100%" height="100%">
-                    <Flex.Item>
-                      <Icon name="plus" style={{ 'height': '13px' }} />
-                    </Flex.Item>
-                  </Flex>
-                </Box>
-              </Tooltip>
-            </Stack.Item>
+                  }}
+                />
+              </Stack.Item>
+            </>
           )}
         </Stack>
       </Flex.Item>
