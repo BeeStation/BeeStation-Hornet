@@ -83,7 +83,7 @@ export const CharacterPreferenceWindow = (props, context) => {
   }
 
   return (
-    <Window title="Character Preferences" width={1200} height={770} theme="generic" buttons={<SaveStatus />}>
+    <Window title="Character Preferences" width={1200} height={770} theme="generic-yellow" buttons={<SaveStatus />}>
       <Window.Content scrollable>
         <Flex direction="column" width="100%">
           <Flex.Item mt={-1}>

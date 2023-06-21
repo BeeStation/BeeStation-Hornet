@@ -31,19 +31,19 @@ const CharacterControls = (props: {
     <Stack>
       <Stack.Item>
         <Button
-          onClick={() => props.handleRotate(false)}
+          onClick={() => props.handleRotate(true)}
           fontSize="22px"
           icon="undo"
-          tooltip="Rotate Counter-Clockwise"
+          tooltip="Rotate -90°"
           tooltipPosition="top"
         />
       </Stack.Item>
       <Stack.Item>
         <Button
-          onClick={() => props.handleRotate(true)}
+          onClick={() => props.handleRotate(false)}
           fontSize="22px"
           icon="redo"
-          tooltip="Rotate Clockwise"
+          tooltip="Rotate 90°"
           tooltipPosition="top"
         />
       </Stack.Item>
@@ -91,7 +91,7 @@ const ChoicedSelection = (
 
   return (
     <Box
-      className="theme-generic"
+      className="theme-generic-yellow"
       style={{
         height: `${CLOTHING_SELECTION_CELL_SIZE * CLOTHING_SELECTION_MULTIPLIER}px`,
         width: `${CLOTHING_SELECTION_CELL_SIZE * CLOTHING_SELECTION_WIDTH}px`,
