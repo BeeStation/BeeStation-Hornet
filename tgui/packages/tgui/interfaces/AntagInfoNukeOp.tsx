@@ -49,7 +49,7 @@ const MissionNormal = (_props, context) => {
       </p>
       {(!!data.leader && (
         <p>
-          You have been made the leader of this mission, you must coodrinate with your team and devise a strategy. If you are
+          You have been made the leader of this mission, you must coordinate with your team and devise a strategy. If you are
           not up to the task, you can trade your leader ID card with another team member.
         </p>
       )) || (
