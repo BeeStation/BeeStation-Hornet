@@ -1,5 +1,0 @@
-author: Haliris
-delete-after: true
-changes:
-  - spellcheck: fixed atmosbots displaying their temperature in Celsius rather than
-      Kelvin.
