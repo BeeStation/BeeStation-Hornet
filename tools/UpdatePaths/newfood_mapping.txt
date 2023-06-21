@@ -1,0 +1,2 @@
+/obj/item/reagent_containers/food/snacks/grown : /obj/item/food/grown
+/obj/item/reagent_containers/food/snacks/ : /obj/item/food/
