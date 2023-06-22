@@ -29,26 +29,21 @@
 /datum/preference/choiced/ipc_screen/compile_constant_data()
 	var/list/data = ..()
 
-	data[SUPPLEMENTAL_FEATURE_KEY] = "eye_color"
+	data[SUPPLEMENTAL_FEATURE_KEY] = "feature_ipc_screen_color"
 
 	return data
 
-/// God forgive me for this
-/// Yes, this does actually work and doesn't break anything.
-/// Why? Because it's only visible as a supplemental feature - when prefs does a lookup for is_accessible etc when it receives the db_key from the UI,
-/// It directs to this one. That is why EYECOLOR trait is still there, otherwise it would return false and block the otherwise valid request.
-/// Since the db_key is identical to the regular one, it saves correctly and syncs data with the other one properly.
-/// The other one basically serves as a filler to show up in the right category, this one is what actually handles the data.
-/// God I hate IPC shitcode - itsmeow 2023
-/datum/preference/color_legacy/eye_color/ipc
-	db_key = "eye_color"
+/datum/preference/color_legacy/ipc_screen_color
+	db_key = "feature_ipc_screen_color"
+	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
-	relevant_species_trait = EYECOLOR
+	relevant_mutant_bodypart = "ipc_antenna"
 
-/datum/preference/color_legacy/eye_color/ipc/is_accessible(datum/preferences/preferences, ignore_page)
-	if (!ignore_page && !should_show_on_page(preferences.current_window))
-		return FALSE
-	return ..() || ispath(preferences.read_character_preference(/datum/preference/choiced/species), /datum/species/ipc)
+/datum/preference/color_legacy/ipc_screen_color/apply_to_human(mob/living/carbon/human/target, value)
+	target.eye_color = value
+
+/datum/preference/color_legacy/ipc_screen_color/create_default_value()
+	return "fff"
 
 /datum/preference/choiced/ipc_antenna
 	db_key = "feature_ipc_antenna"
@@ -83,9 +78,21 @@
 /datum/preference/choiced/ipc_antenna/compile_constant_data()
 	var/list/data = ..()
 
-	data[SUPPLEMENTAL_FEATURE_KEY] = "hair_color"
+	data[SUPPLEMENTAL_FEATURE_KEY] = "feature_ipc_antenna_color"
 
 	return data
+
+/datum/preference/color_legacy/ipc_antenna_color
+	db_key = "feature_ipc_antenna_color"
+	preference_type = PREFERENCE_CHARACTER
+	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
+	relevant_mutant_bodypart = "ipc_antenna"
+
+/datum/preference/color_legacy/ipc_antenna_color/apply_to_human(mob/living/carbon/human/target, value)
+	target.hair_color = value
+
+/datum/preference/color_legacy/ipc_antenna_color/create_default_value()
+	return "222"
 
 /datum/preference/choiced/ipc_chassis
 	db_key = "feature_ipc_chassis"

@@ -127,6 +127,8 @@ CREATE TABLE IF NOT EXISTS `SS13_characters` (
 	`feature_ipc_screen` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`feature_ipc_antenna` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`feature_ipc_chassis` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
+	`feature_ipc_screen_color` VARCHAR(8) COLLATE 'utf8mb4_general_ci',
+	`feature_ipc_antenna_color` VARCHAR(8) COLLATE 'utf8mb4_general_ci',
 	`feature_lizard_body_markings` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`feature_lizard_frills` VARCHAR(64) COLLATE 'utf8mb4_general_ci',
 	`feature_lizard_horns` VARCHAR(64) COLLATE 'utf8mb4_general_ci',

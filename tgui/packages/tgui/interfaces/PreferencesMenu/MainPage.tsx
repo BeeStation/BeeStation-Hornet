@@ -1,6 +1,6 @@
 import { classes } from 'common/react';
 import { sendAct, useBackend, useLocalState } from '../../backend';
-import { Box, Button, Flex, LabeledList, Popper, Stack, TrackOutsideClicks, Input, Icon } from '../../components';
+import { Box, Button, Flex, LabeledList, Popper, Stack, TrackOutsideClicks, Input, Icon, FitText } from '../../components';
 import { createSetPreference, PreferencesMenuData, RandomSetting } from './data';
 import { CharacterPreview } from './CharacterPreview';
 import { RandomizationButton } from './RandomizationButton';
@@ -125,7 +125,7 @@ const ChoicedSelection = (
                     'font-size': '14px',
                     'text-align': 'center',
                   }}>
-                  Select {props.name.toLowerCase()}
+                  Select {props.name}
                 </Box>
               </Stack.Item>
 
@@ -180,8 +180,10 @@ const ChoicedSelection = (
                           }}
                         />
                       </Button>
-                      <Box fontSize="11px" textAlign="center">
-                        {name}
+                      <Box textAlign="center">
+                        <FitText maxWidth={CLOTHING_SELECTION_CELL_SIZE} maxFontSize={12}>
+                          {name}
+                        </FitText>
                       </Box>
                     </Flex.Item>
                   );

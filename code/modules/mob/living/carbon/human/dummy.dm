@@ -50,7 +50,7 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 	dna.features["apid_antenna"] = "curled"
 	dna.features["ipc_screen"] = "BSOD"
 	dna.features["ipc_antenna"] = "None"
-	dna.features["ipc_chassis"] = "Morpheus Cyberkinetics(Greyscale)"
+	dna.features["ipc_chassis"] = "Morpheus Cyberkinetics (Custom)"
 
 //Inefficient pooling/caching way.
 GLOBAL_LIST_EMPTY(human_dummy_list)

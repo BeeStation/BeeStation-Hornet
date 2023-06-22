@@ -26,6 +26,7 @@ const eyePresets = {
 
 export const eye_color: Feature<string> = {
   name: 'Eye Color',
+  small_supplemental: false,
   predictable: false,
   component: (props: FeatureValueProps<string>) => {
     const { handleSetValue, value, featureId, act } = props;
@@ -40,6 +41,7 @@ export const eye_color: Feature<string> = {
         allow_custom
         featureId={featureId}
         act={act}
+        maxWidth="100%"
         includeHex
       />
     );
@@ -185,4 +187,14 @@ export const underwear_color: Feature<string> = {
 export const helmet_style: FeatureChoiced = {
   name: 'Helmet Style',
   component: FeatureDropdownInput,
+};
+
+export const feature_ipc_antenna_color: Feature<string> = {
+  name: 'Antenna Color',
+  component: FeatureColorInput,
+};
+
+export const feature_ipc_screen_color: Feature<string> = {
+  name: 'Screen Color',
+  component: FeatureColorInput,
 };
