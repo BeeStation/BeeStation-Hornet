@@ -227,7 +227,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		//Delete the old lighting overlay object
 		QDEL_NULL(lighting_overlay)
 	//Create the lighting overlay object for this area
-	lighting_overlay = create_fullbright_overlay()
+	lighting_overlay = new /obj/effect/fullbright
 	lighting_overlay.color = lighting_overlay_colour
 	lighting_overlay.alpha = lighting_overlay_opacity
 	//Areas with a lighting overlay should be fully visible, and the tiles adjacent to them should also

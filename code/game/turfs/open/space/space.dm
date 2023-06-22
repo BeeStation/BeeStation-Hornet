@@ -59,14 +59,6 @@
 	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
 		overlays += GLOB.fullbright_overlay
 
-	if (light_system == STATIC_LIGHT && light_power && light_range)
-		update_light()
-
-	if (opacity)
-		directional_opacity = ALL_CARDINALS
-
-	ComponentInitialize()
-
 	return INITIALIZE_HINT_NORMAL
 
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
