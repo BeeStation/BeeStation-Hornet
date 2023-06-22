@@ -4,6 +4,8 @@ const eyePresets = {
   // these need to be short color (3 byte) compatible
   '#aaccff': 'Baby Blue',
   '#0099bb': 'Blue-Green',
+  '#3399ff': 'Light Blue',
+  '#0066ff': 'Blue',
   '#337788': 'Teal Blue',
   '#005577': 'Dark Cerulean Blue',
   '#889988': 'Artichoke Green',
