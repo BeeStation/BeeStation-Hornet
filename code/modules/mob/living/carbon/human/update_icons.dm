@@ -282,7 +282,7 @@ There are several things that need to be remembered:
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_NECK) + 1]
 		inv.update_icon()
 
-	if(wear_neck)
+	if(wear_neck && !istype(wear_neck, /obj/item/clothing/head/wig)) //Wigs don't get rendered, they override hair instead
 		wear_neck.screen_loc = ui_neck
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)			//if the inventory is open
@@ -373,7 +373,7 @@ There are several things that need to be remembered:
 		inv.update_icon()
 
 	update_mutant_bodyparts()
-	if(head)
+	if(head && !istype(head, /obj/item/clothing/head/wig)) //Wigs don't get rendered, they override hair instead
 		update_hud_head(head)
 		var/icon_file = 'icons/mob/clothing/head.dmi'
 		if(istype(head, /obj/item/clothing/head))

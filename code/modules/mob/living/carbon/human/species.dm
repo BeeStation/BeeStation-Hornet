@@ -583,6 +583,10 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				if(OFFSET_FACE in H.dna.species.offset_features)
 					hair_overlay.pixel_x += H.dna.species.offset_features[OFFSET_FACE][1]
 					hair_overlay.pixel_y += H.dna.species.offset_features[OFFSET_FACE][2]
+		if(H.wear_neck && istype(H.wear_neck, /obj/item/clothing/head/wig))
+			hair_overlay = H.wear_neck.appearance
+		if(H.head && istype(H.head, /obj/item/clothing/head/wig))
+			hair_overlay = H.head.appearance
 		if(hair_overlay.icon)
 			standing += hair_overlay
 			standing += gradient_overlay
