@@ -1,0 +1,4 @@
+author: Absolucy
+delete-after: true
+changes:
+  - bugfix: The option to highlight your own chat messages works once again.
