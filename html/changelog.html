@@ -56,6 +56,65 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">21 June 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="admin">Updating the tool speed of an arm implant will now update the tool speed of all of its stored items.</li>
+				<li class="admin">Added VV options to add/remove items from arm implants.</li>
+			</ul>
+			<h3 class="author">Absolucy, SomeRandomOwl, stanalbatross, thedonkified updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="admin">Modified the Play Internet Sound Verb so it now displays extra info about any song being actively played as well as showing the link</li>
+				<li class="rscadd">added the ability to make up to 10 individual highlights in tgchat, customise their colours, and toggle if they highlight the whole message or not. Ported from CM and /tg/.</li>
+				<li class="rscadd">you can now use regex for text highlighting. The syntax is /[regex expression]/, eg /dog[0-9]/. There are no quantifiers, but you can use capture groups. The regex must read a minimum of two characters.</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Crafting menu now shows icons</li>
+				<li class="rscadd">icon_state_preview variable to atom. this is used as an icon preview without being changed.</li>
+				<li class="imageadd">bolas image references without frames. (bola_ref, gonbola_ref, bola_watcher_ref)</li>
+				<li class="bugfix">fixed a possible minor bug in morph UI</li>
+				<li class="bugfix">fixed 'Pingles.png' bad name format in dmi.</li>
+			</ul>
+			<h3 class="author">Haliris updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="spellcheck">fixed atmosbots displaying their temperature in Celsius rather than Kelvin.</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes projectiles sometimes failing to be blocked.</li>
+				<li class="bugfix">Fixes an exploit regarding limb grower categories.</li>
+			</ul>
+			<h3 class="author">Rukofamicom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed an exploit that allowed for gentle crossbreed cooldowns to be bypassed. They now properly mirror luminescent behavior.</li>
+			</ul>
+
+			<h2 class="date">20 June 2023</h2>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Added the 'Crew Manifest' program to the list of default PDA apps</li>
+			</ul>
+			<h3 class="author">Rukofamicom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added a toggle for guard spiders that makes it impossible for other mobs to force their way around.</li>
+				<li class="balance">Guards can now actually block narrow passages</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Headmins can now ban more than 1 admin.</li>
+			</ul>
+
+			<h2 class="date">18 June 2023</h2>
+			<h3 class="author">Crossedfall updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Adjusted the CI's caching to also target yarn and pip</li>
+			</ul>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Made sleek titanium tiles create the tile items of their respective color when removed with a crowbar</li>
+			</ul>
+
 			<h2 class="date">17 June 2023</h2>
 			<h3 class="author">CydiaLamiales updated:</h3>
 			<ul class="changes bgimages16">
@@ -1018,54 +1077,6 @@
 			<h3 class="author">Rukofamicom updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="admin">The recipient of an attack now has their current stamina damage logged alongside their current HP within attack logs.</li>
-			</ul>
-
-			<h2 class="date">19 April 2023</h2>
-			<h3 class="author">tiramisuapimancer updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">IPC antennas will now be hidden by things that hide ears and frills, rather than things that hide hair</li>
-				<li class="tweak">added some FRONT layer states for some of the IPC antennas, which were previously all ADJ, this means they'll layer over hats and things where they would make sense to</li>
-			</ul>
-
-			<h2 class="date">18 April 2023</h2>
-			<h3 class="author">Absolucy updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">You can now link stasis beds to operating computers with a multitool!</li>
-				<li class="tweak">Surgery tables and stasis beds will now only try to link to unused operating computers.</li>
-			</ul>
-			<h3 class="author">ss13-beebot updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="server">TGS DMAPI bumped to 6.4.1</li>
-			</ul>
-
-			<h2 class="date">17 April 2023</h2>
-			<h3 class="author">RKz updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixes AI icon mimicing not working</li>
-				<li class="bugfix">Fixed cult targets showing improperly on the action HUD</li>
-			</ul>
-			<h3 class="author">Wisemonster updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed medibots ignoring patients that stepped away from them.</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed transparency of shuttle landing overlay being hard to see.</li>
-				<li class="rscadd">You can now move up and down in the shuttle landing view using HUD buttons or F and C.</li>
-				<li class="rscadd">F and C multiz moves now call relaymove(), allowing it to be used to resist out of most containers as well as working with camera eyes.</li>
-				<li class="bugfix">You can no longer zmove or fall into/through solid structures like windows, airlocks, and grilles.</li>
-				<li class="bugfix">Moving an item around in your inventory while in openspace/flying no longer causes it to "fall" for a second before returning to your hand.</li>
-				<li class="tweak">Shuttles can now land on open ice turfs.</li>
-				<li class="bugfix">Fixed runtimes caused by falling items impacting objects on the turf.</li>
-				<li class="rscadd">Added missing OBJ_FLAGS to VV flag editor.</li>
-				<li class="tweak">Falling objects will now act as if they were thrown at the head. A hat falling from above will land on your head.</li>
-			</ul>
-
-			<h2 class="date">16 April 2023</h2>
-			<h3 class="author">PestoVerde322 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Resized Corgstation to the right size.</li>
-				<li class="bugfix">adjusted some icons being too clear in areas.dmi</li>
 			</ul>
 		</div>
 

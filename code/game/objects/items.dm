@@ -590,6 +590,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(block_flags & BLOCKING_PROJECTILE)
 			if(P.movement_type & PHASING) //you can't block piercing rounds!
 				return 0
+			// Recalculate the relative_dir based on the projectile angle
+			relative_dir = dir2angle(angle2dir(P.Angle)) - dir2angle(owner.dir)
 		else
 			return 0
 	if(owner.m_intent == MOVE_INTENT_WALK)
