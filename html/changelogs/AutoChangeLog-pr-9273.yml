@@ -1,4 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Speeds up init times by reducing the amount of work to load space turfs.

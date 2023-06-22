@@ -1,4 +1,0 @@
-author: RKz
-delete-after: true
-changes:
-  - bugfix: medhud medical eval doesnt time out immediately
