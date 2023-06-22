@@ -120,10 +120,27 @@ export const GamePreferencesPage = (props, context) => {
         [
           'Search Result',
           sortByNameTyped(Object.entries(gamePreferences))
-            .flatMap(([_, subcategory]) => Object.entries(subcategory))
-            .flatMap(([_, preferences]) => preferences)
-            .filter(search)
-            .map((preference) => preference.children),
+            .flatMap(([category, categoryObj]) =>
+              Object.entries(categoryObj).map<[string, PreferenceChild[]]>(([k, v]) => [category + (k ? ' > ' + k : ''), v])
+            )
+            .filter(([_, preferences]) => preferences.some(search))
+            .map(([subcategory, preferences], index) => (
+              <Box key={'search_result_' + subcategory + '_' + index}>
+                {subcategory?.length ? (
+                  <Flex pb={2} style={{ 'flex-wrap': 'wrap', 'flex-direction': 'row' }}>
+                    <Flex.Item grow={1} basis={0}>
+                      <Flex.Item grow={1} pr={2} basis={0} ml={2}>
+                        <Box inline fontSize={1.5} textColor="label" style={{ 'font-weight': 'bold' }}>
+                          {subcategory}
+                        </Box>
+                      </Flex.Item>
+                    </Flex.Item>
+                    <Flex.Item grow={1} basis={0} />
+                  </Flex>
+                ) : null}
+                {preferences.filter(search).map((preference) => preference.children)}
+              </Box>
+            )),
         ],
       ]
       : null;
