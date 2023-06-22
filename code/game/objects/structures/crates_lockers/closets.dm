@@ -48,7 +48,13 @@
 	if(mapload && !opened)		// if closed, any item at the crate's loc is put in the contents
 		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
 	. = ..()
+	populate_contents_immediate()
 	update_icon()
+
+/// Used to immediately fill a closet on spawn.
+/// Use this if you are spawning any items which can be tracked inside the closet.
+/obj/structure/closet/proc/populate_contents_immediate()
+	return
 
 //USE THIS TO FILL IT, NOT INITIALIZE OR NEW
 /obj/structure/closet/proc/PopulateContents()
