@@ -17,19 +17,18 @@
 	else
 		. = ..()
 
-/mob/living/carbon/human/GetVoice()
-	var/name = real_name
+/mob/living/carbon/human/GetVoice(var/current_name)
 	if(GetSpecialVoice())
-		name = GetSpecialVoice()
+		current_name = GetSpecialVoice()
 	if(mind)
 		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling && changeling.mimicing )
-			name = changeling.mimicing
+			current_name = changeling.mimicing
 	if(wear_mask && istype(wear_mask, /obj/item/clothing/mask))
 		var/obj/item/clothing/mask/gas/old/modulator/modulator = wear_mask
 		if(modulator.voice_change)
-			name = modulator.get_name(usr)
-	return name
+			current_name = modulator.get_name(usr)
+	return current_name
 
 /mob/living/carbon/human/IsVocal()
 	// how do species that don't breathe talk? magic, that's what.
@@ -79,5 +78,5 @@
 	return FALSE
 
 /mob/living/carbon/human/get_alt_name()
-	if(name != GetVoice())
+	if(name != GetVoice(name))
 		return " (as [get_id_name("Unknown")])"

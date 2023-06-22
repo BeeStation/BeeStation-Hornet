@@ -50,7 +50,7 @@
 			listening = FALSE
 			say("Activation message is '[recorded]'.", message_language)
 		if(RECOGNIZER_MODE)
-			recorded = speaker.GetVoice()
+			recorded = speaker.GetVoice(speaker.name)
 			listening = FALSE
 			say("Your voice pattern is saved.", message_language)
 		if(VOICE_SENSOR_MODE)
