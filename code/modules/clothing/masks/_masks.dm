@@ -17,10 +17,6 @@
 		var/status = !CHECK_BITFIELD(clothing_flags, VOICEBOX_DISABLED)
 		to_chat(user, "<span class='notice'>You turn the voice box in [src] [status ? "on" : "off"].</span>")
 
-/obj/item/clothing/mask/Destroy()
-	qdel(chosen_tongue)
-	return ..()
-
 /obj/item/clothing/mask/equipped(mob/M, slot)
 	. = ..()
 	if (slot == ITEM_SLOT_MASK && modifies_speech)

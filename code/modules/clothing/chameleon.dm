@@ -587,15 +587,15 @@
 	var/list/tongue_list = list()
 
 /datum/action/item_action/chameleon/tongue_change/proc/generate_tongue_list()
-	var/obj/item/I
+	var/obj/item/found_item
 	var/tongue_name
 	var/static/list/predefined_tongues = typesof(/obj/item/organ/tongue)
-	for(var/V in predefined_tongues)
-		I = V
-		if((initial(I.item_flags) & ABSTRACT) || !initial(I.icon_state))
+	for(var/found_var in predefined_tongues)
+		found_item = found_var
+		if((initial(found_item.item_flags) & ABSTRACT) || !initial(found_item.icon_state))
 			continue
-		tongue_name = "[initial(I.name)] ([initial(I.icon_state)])"
-		tongue_list[tongue_name] = I
+		tongue_name = "[initial(found_item.name)] ([initial(found_item.icon_state)])"
+		tongue_list[tongue_name] = found_item
 
 /datum/action/item_action/chameleon/tongue_change/Trigger()
 	if(!IsAvailable() || !isitem(target))

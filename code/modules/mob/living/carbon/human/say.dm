@@ -5,22 +5,22 @@
 		verb_ask = pick(T.ask_mod)
 		verb_yell = pick(T.yell_mod)
 		verb_exclaim = pick(T.exclaim_mod)
-	if(wear_mask)
-		var/obj/item/clothing/mask/M = wear_mask
-		if(!isnull(M.chosen_tongue))
-			verb_say = pick(initial(M.chosen_tongue.say_mod))
-			verb_ask = pick(initial(M.chosen_tongue.ask_mod))
-			verb_yell = pick(initial(M.chosen_tongue.yell_mod))
-			verb_exclaim = pick(initial(M.chosen_tongue.exclaim_mod))
+	if(wear_mask && istype(wear_mask, /obj/item/clothing/mask))
+		var/obj/item/clothing/mask/worn_mask = wear_mask
+		if(!isnull(worn_mask.chosen_tongue))
+			verb_say = pick(initial(worn_mask.chosen_tongue.say_mod))
+			verb_ask = pick(initial(worn_mask.chosen_tongue.ask_mod))
+			verb_yell = pick(initial(worn_mask.chosen_tongue.yell_mod))
+			verb_exclaim = pick(initial(worn_mask.chosen_tongue.exclaim_mod))
 	if(slurring || !T)
 		return "slurs"
 	else
 		. = ..()
 
 /mob/living/carbon/human/GetVoice()
-	if(wear_mask)
-		var/obj/item/clothing/mask/gas/old/modulator/V = wear_mask
-		return V.get_name(usr)
+	if(wear_mask && istype(wear_mask, /obj/item/clothing/mask))
+		var/obj/item/clothing/mask/gas/old/modulator/modulator = wear_mask
+		return modulator.get_name(usr)
 	if(mind)
 		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling && changeling.mimicing )
