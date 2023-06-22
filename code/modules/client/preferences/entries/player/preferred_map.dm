@@ -6,7 +6,7 @@
 
 /datum/preference/choiced/preferred_map/init_possible_values()
 	var/list/maps = list()
-	maps += ""
+	maps += "Default"
 
 	for (var/map in config.maplist)
 		var/datum/map_config/map_config = config.maplist[map]
@@ -18,7 +18,7 @@
 	return maps
 
 /datum/preference/choiced/preferred_map/create_default_value()
-	return ""
+	return "Default"
 
 /datum/preference/choiced/preferred_map/compile_constant_data()
 	var/list/data = ..()
@@ -26,12 +26,12 @@
 	var/display_names = list()
 
 	if (config.defaultmap)
-		display_names[""] = "Default ([config.defaultmap.map_name])"
+		display_names["Default"] = "Default ([config.defaultmap.map_name])"
 	else
-		display_names[""] = "Default"
+		display_names["Default"] = "Default"
 
 	for (var/choice in get_choices())
-		if (choice == "")
+		if (choice == "Default")
 			continue
 
 		var/datum/map_config/map_config = config.maplist[choice]

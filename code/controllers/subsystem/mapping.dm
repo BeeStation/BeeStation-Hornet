@@ -344,7 +344,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	if(pmv)
 		for (var/client/c in GLOB.clients)
 			var/vote = c.prefs.read_player_preference(/datum/preference/choiced/preferred_map)
-			if (!vote)
+			if (!vote || vote == "Default")
 				if (global.config.defaultmap)
 					mapvotes[global.config.defaultmap.map_name] += 1
 				continue
