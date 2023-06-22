@@ -656,14 +656,13 @@
 	voice_change = !voice_change
 	to_chat(user, "<span class='notice'>The voice changer is now [voice_change ? "on" : "off"]!</span>")
 
-/obj/item/clothing/mask/chameleon/get_name(mob/user)
+/obj/item/clothing/mask/chameleon/get_name(mob/user, var/default_name)
 	var/mob/living/carbon/human/H = user
-	var/name = H.real_name
 	if(voice_change && H.wear_id)
 		var/obj/item/card/id/idcard = H.wear_id.GetID()
 		if(istype(idcard) && idcard.electric)
-			name = idcard.registered_name
-	return name
+			default_name = idcard.registered_name
+	return default_name
 
 /obj/item/clothing/mask/chameleon/drone
 	//Same as the drone chameleon hat, undroppable and no protection

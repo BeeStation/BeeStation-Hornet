@@ -216,10 +216,8 @@
 	voice_change = TRUE
 	chosen_tongue = /obj/item/organ/tongue/robot
 
-/obj/item/clothing/mask/gas/old/modulator/get_name(mob/user)
-	if(voice_change)
-		return "Unknown"
-	return user.real_name
+/obj/item/clothing/mask/gas/old/modulator/get_name(mob/user, var/default_name)
+	return voice_change ? "Unknown" : default_name
 
 /obj/item/clothing/mask/gas/old/modulator/examine()
 	. += "<span class='notice'>It was modified to make the user's voice sound robotic.</span>"

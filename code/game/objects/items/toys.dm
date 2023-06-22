@@ -1496,7 +1496,7 @@
 	say(message, language)
 	return NOPASS
 
-/obj/item/toy/dummy/GetVoice(var/current_name)
+/obj/item/toy/dummy/GetVoice()
 	return doll_name
 
 /*

@@ -17,7 +17,8 @@
 	else
 		. = ..()
 
-/mob/living/carbon/human/GetVoice(var/current_name)
+/mob/living/carbon/human/GetVoice()
+	var/current_name = real_name
 	if(GetSpecialVoice())
 		current_name = GetSpecialVoice()
 	if(mind)
@@ -26,8 +27,7 @@
 			current_name = changeling.mimicing
 	if(wear_mask && istype(wear_mask, /obj/item/clothing/mask))
 		var/obj/item/clothing/mask/gas/old/modulator/modulator = wear_mask
-		if(modulator.voice_change)
-			current_name = modulator.get_name(usr)
+		current_name = modulator.get_name(usr, current_name)
 	return current_name
 
 /mob/living/carbon/human/IsVocal()
@@ -78,5 +78,5 @@
 	return FALSE
 
 /mob/living/carbon/human/get_alt_name()
-	if(name != GetVoice(name))
+	if(name != GetVoice())
 		return " (as [get_id_name("Unknown")])"

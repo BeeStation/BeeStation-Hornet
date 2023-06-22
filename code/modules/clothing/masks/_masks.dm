@@ -31,8 +31,8 @@
 /obj/item/clothing/mask/proc/handle_speech()
 	SIGNAL_HANDLER
 
-/obj/item/clothing/mask/proc/get_name(mob/user)
-	return user.real_name
+/obj/item/clothing/mask/proc/get_name(mob/user, var/default_name)
+	return default_name
 
 /obj/item/clothing/mask/worn_overlays(mutable_appearance/standing, isinhands = FALSE)
 	. = list()
