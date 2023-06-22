@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - bugfix: Changes the way item pickup works in order to reduce overtime from sending
+      images to all clients in the game.
