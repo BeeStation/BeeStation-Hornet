@@ -11,8 +11,11 @@ export interface DropdownEntry {
   value: string | number | Enumerator;
 }
 
-type DropdownUniqueProps = {
+export type DropdownRequiredProps = {
   options: string[] | DropdownEntry[];
+};
+
+export type DropdownOptionalProps = {
   icon?: string;
   iconRotation?: number;
   clipSelectedText?: boolean;
@@ -29,6 +32,8 @@ type DropdownUniqueProps = {
   buttons?: boolean;
   displayHeight?: string;
 };
+
+export type DropdownUniqueProps = DropdownRequiredProps & DropdownOptionalProps;
 
 export type DropdownProps = BoxProps & DropdownUniqueProps;
 

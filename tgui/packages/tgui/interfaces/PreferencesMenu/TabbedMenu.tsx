@@ -1,7 +1,8 @@
 import { Component, createRef, RefObject } from 'inferno';
 import type { InfernoNode } from 'inferno';
-import { Button, Section, Stack } from '../../components';
+import { Button, Section, Stack, Flex } from '../../components';
 import { FlexProps } from '../../components/Flex';
+import { CollapsibleSection } from 'tgui/components/CollapsibleSection';
 
 type TabbedMenuProps = {
   categoryEntries: [string, InfernoNode][];
@@ -23,37 +24,40 @@ export class TabbedMenu extends Component<TabbedMenuProps> {
   render() {
     return (
       <Stack vertical fill>
-        <Stack.Item>
-          <Stack fill px={5}>
-            {this.props.categoryEntries.map(([category]) => {
-              return (
-                <Stack.Item key={category} grow basis="content">
-                  <Button
-                    align="center"
-                    fontSize="1.2em"
-                    fluid
-                    onClick={() => {
-                      const offsetTop = this.categoryRefs[category].current?.offsetTop;
+        {this.props.children && <Stack.Item position="relative">{this.props.children}</Stack.Item>}
+        {this.props.categoryEntries?.length > 1 && (
+          <Stack.Item>
+            <Stack fill px={5}>
+              {this.props.categoryEntries.map(([category]) => {
+                return (
+                  <Stack.Item key={category} grow basis="content">
+                    <Button
+                      align="center"
+                      fontSize="1.2em"
+                      fluid
+                      onClick={() => {
+                        const offsetTop = this.categoryRefs[category].current?.offsetTop;
 
-                      if (offsetTop === undefined) {
-                        return;
-                      }
+                        if (offsetTop === undefined) {
+                          return;
+                        }
 
-                      const currentSection = this.sectionRef.current;
+                        const currentSection = this.sectionRef.current;
 
-                      if (!currentSection) {
-                        return;
-                      }
+                        if (!currentSection) {
+                          return;
+                        }
 
-                      currentSection.scrollTop = offsetTop;
-                    }}>
-                    {category}
-                  </Button>
-                </Stack.Item>
-              );
-            })}
-          </Stack>
-        </Stack.Item>
+                        currentSection.scrollTop = offsetTop;
+                      }}>
+                      {category}
+                    </Button>
+                  </Stack.Item>
+                );
+              })}
+            </Stack>
+          </Stack.Item>
+        )}
 
         <Stack.Item
           grow
@@ -66,17 +70,17 @@ export class TabbedMenu extends Component<TabbedMenuProps> {
             // Otherwise, TypeScript complains about invalid prop
             className: undefined,
           }}>
-          <Stack vertical fill px={2}>
+          <Flex direction="column" px={2}>
             {this.props.categoryEntries.map(([category, children]) => {
               return (
-                <Stack.Item key={category} innerRef={this.getCategoryRef(category)}>
-                  <Section fill title={category}>
+                <Flex.Item mb={2} key={category} innerRef={this.getCategoryRef(category)}>
+                  <CollapsibleSection fill title={category} sectionKey={category}>
                     {children}
-                  </Section>
-                </Stack.Item>
+                  </CollapsibleSection>
+                </Flex.Item>
               );
             })}
-          </Stack>
+          </Flex>
         </Stack.Item>
       </Stack>
     );

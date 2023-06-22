@@ -17,15 +17,17 @@ const FpsInput = (props: FeatureValueProps<number, number, FpsServerData>) => {
     <Stack fill>
       <Stack.Item basis="70%">
         <Dropdown
+          displayText={props.value === -1 ? recommened : 'Custom'}
           selected={props.value === -1 ? recommened : 'Custom'}
           onSelected={(value) => {
             if (value === recommened) {
               handleSetValue(-1);
             } else {
-              handleSetValue(serverData?.recommended_fps || 60);
+              handleSetValue(serverData?.recommended_fps || 40);
             }
           }}
           width="100%"
+          buttons
           options={[recommened, 'Custom']}
         />
       </Stack.Item>
@@ -48,6 +50,8 @@ const FpsInput = (props: FeatureValueProps<number, number, FpsServerData>) => {
 
 export const clientfps: Feature<number, number, FpsServerData> = {
   name: 'FPS',
-  category: 'GAMEPLAY',
+  category: 'GRAPHICS',
+  subcategory: 'Quality',
   component: FpsInput,
+  predictable: false,
 };

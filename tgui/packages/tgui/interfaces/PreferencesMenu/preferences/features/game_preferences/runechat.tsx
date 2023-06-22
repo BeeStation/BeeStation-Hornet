@@ -2,35 +2,40 @@ import { Feature, CheckboxInput, FeatureDropdownInput, FeatureNumberInput, Featu
 
 export const chat_on_map: FeatureToggle = {
   name: 'Enable Runechat',
-  category: 'RUNECHAT',
+  category: 'CHAT',
+  subcategory: 'Runechat',
   description: 'Chat messages will show above heads.',
   component: CheckboxInput,
 };
 
 export const see_chat_non_mob: FeatureToggle = {
   name: 'Enable Runechat on objects',
-  category: 'RUNECHAT',
+  category: 'CHAT',
+  subcategory: 'Runechat',
   description: 'Chat messages will show above objects when they speak.',
   component: CheckboxInput,
 };
 
 export const see_rc_emotes: FeatureToggle = {
   name: 'Enable Runechat emotes',
-  category: 'RUNECHAT',
+  category: 'CHAT',
+  subcategory: 'Runechat',
   description: 'Emotes will show above heads.',
   component: CheckboxInput,
 };
 
 export const max_chat_length: FeatureNumeric = {
-  name: 'Max chat length',
-  category: 'RUNECHAT',
+  name: 'Max runechat length',
+  category: 'CHAT',
+  subcategory: 'Runechat',
   description: 'The maximum length a Runechat message will show as.',
   component: FeatureNumberInput,
 };
 
 export const show_balloon_alerts: Feature<string> = {
   name: 'Show balloon alerts',
-  category: 'RUNECHAT',
+  category: 'CHAT',
+  subcategory: 'Runechat',
   description: 'Show text above items when certain interactions are used.',
   component: FeatureDropdownInput,
 };

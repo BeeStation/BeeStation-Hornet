@@ -33,9 +33,7 @@ export const Stack = (props: StackProps) => {
   );
 };
 
-type StackItemProps = FlexProps & {
-  innerRef?: RefObject<HTMLDivElement>;
-};
+type StackItemProps = FlexProps;
 
 const StackItem = (props: StackItemProps) => {
   const { className, innerRef, ...rest } = props;

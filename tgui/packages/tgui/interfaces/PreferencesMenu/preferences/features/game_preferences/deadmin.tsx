@@ -30,6 +30,7 @@ const DeadminCheckboxInput = (props: FeatureValueProps<BooleanLike, boolean, Fea
 export const deadmin_always: FeatureToggleDeadmin = {
   name: 'Always Deadmin',
   category: 'ADMIN',
+  subcategory: 'Deadmin',
   description: 'Whether you will always deadmin when joining a round.',
   component: DeadminCheckboxInput,
 };
@@ -37,6 +38,7 @@ export const deadmin_always: FeatureToggleDeadmin = {
 export const deadmin_antagonist: FeatureToggleDeadmin = {
   name: 'Deadmin As Antagonist',
   category: 'ADMIN',
+  subcategory: 'Deadmin',
   description: 'Whether you will always deadmin when joining a round as an antagonist.',
   component: DeadminCheckboxInput,
 };
@@ -44,6 +46,7 @@ export const deadmin_antagonist: FeatureToggleDeadmin = {
 export const deadmin_position_head: FeatureToggleDeadmin = {
   name: 'Deadmin As Head of Staff',
   category: 'ADMIN',
+  subcategory: 'Deadmin',
   description: 'Whether you will always deadmin when joining a round as a head of staff.',
   component: DeadminCheckboxInput,
 };
@@ -51,6 +54,7 @@ export const deadmin_position_head: FeatureToggleDeadmin = {
 export const deadmin_position_security: FeatureToggleDeadmin = {
   name: 'Deadmin As Security',
   category: 'ADMIN',
+  subcategory: 'Deadmin',
   description: 'Whether you will always deadmin when joining a round as security.',
   component: DeadminCheckboxInput,
 };
@@ -58,6 +62,7 @@ export const deadmin_position_security: FeatureToggleDeadmin = {
 export const deadmin_position_silicon: FeatureToggleDeadmin = {
   name: 'Deadmin As Silicon',
   category: 'ADMIN',
+  subcategory: 'Deadmin',
   description: 'Whether you will always deadmin when joining a round as a silicon.',
   component: DeadminCheckboxInput,
 };

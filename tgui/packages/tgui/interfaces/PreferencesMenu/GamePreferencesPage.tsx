@@ -1,11 +1,13 @@
 import { binaryInsertWith, sortBy } from 'common/collections';
-import type { InfernoNode } from 'inferno';
+import { useLocalState } from '../../backend';
+import type { Inferno, InfernoNode } from 'inferno';
 import { useBackend } from '../../backend';
-import { Box, Flex, Tooltip } from '../../components';
+import { Box, Flex, Tooltip, Input, Icon } from '../../components';
 import { PreferencesMenuData } from './data';
 import features from './preferences/features';
 import { FeatureValueInput } from './preferences/features/base';
 import { TabbedMenu } from './TabbedMenu';
+import { createSearch } from 'common/string';
 
 type PreferenceChild = {
   name: string;
@@ -14,12 +16,11 @@ type PreferenceChild = {
 
 const binaryInsertPreference = binaryInsertWith<PreferenceChild>((child) => child.name);
 
-const sortByName = sortBy<[string, PreferenceChild[]]>(([name]) => name);
-
 export const GamePreferencesPage = (props, context) => {
   const { act, data } = useBackend<PreferencesMenuData>(context);
+  let [searchText, setSearchText] = useLocalState(context, 'game_prefs_searchText', '');
 
-  const gamePreferences: Record<string, PreferenceChild[]> = {};
+  const gamePreferences: Record<string, Record<string, PreferenceChild[]>> = {};
 
   for (const [featureId, value] of Object.entries(data.character_preferences.game_preferences)) {
     const feature = features[featureId];
@@ -53,9 +54,10 @@ export const GamePreferencesPage = (props, context) => {
     }
 
     const child = (
-      <Flex align="center" key={featureId} pb={2}>
-        {name}
-
+      <Flex key={featureId} pb={2} style={{ 'flex-wrap': 'wrap', 'flex-direction': 'row' }}>
+        <Flex.Item grow={1} basis={0}>
+          {name}
+        </Flex.Item>
         <Flex.Item grow={1} basis={0}>
           {(feature && <FeatureValueInput feature={feature} featureId={featureId} value={value} act={act} />) || (
             <Box as="b" color="red">
@@ -72,22 +74,76 @@ export const GamePreferencesPage = (props, context) => {
     };
 
     const category = feature?.category || 'ERROR';
+    const subcategory = feature?.subcategory || '';
+    const curCategory = gamePreferences[category] || [];
+    gamePreferences[category] = curCategory;
 
-    gamePreferences[category] = binaryInsertPreference(gamePreferences[category] || [], entry);
+    gamePreferences[category][subcategory] = binaryInsertPreference(curCategory[subcategory] || [], entry);
   }
 
+  const sortByName = sortBy(([name]) => name);
+
   const gamePreferenceEntries: [string, InfernoNode][] = sortByName(Object.entries(gamePreferences)).map(
-    ([category, preferences]) => {
-      return [category, preferences.map((entry) => entry.children)];
+    ([category, subcategory]) => {
+      let subcategories = sortByName(Object.entries(subcategory));
+      return [
+        category,
+        <>
+          {subcategories.map(([subcategory, preferences], index) => (
+            <Box key={category + '_' + subcategory + '_' + index}>
+              {subcategory?.length ? (
+                <Flex pb={2} style={{ 'flex-wrap': 'wrap', 'flex-direction': 'row' }}>
+                  <Flex.Item grow={1} basis={0}>
+                    <Flex.Item grow={1} pr={2} basis={0} ml={2}>
+                      <Box inline fontSize={1.5} textColor="label" style={{ 'font-weight': 'bold' }}>
+                        {subcategory}
+                      </Box>
+                    </Flex.Item>
+                  </Flex.Item>
+                  <Flex.Item grow={1} basis={0} />
+                </Flex>
+              ) : null}
+              {preferences.map((preference) => preference.children)}
+            </Box>
+          ))}
+        </>,
+      ];
     }
   );
 
+  const sortByNameTyped = sortBy<[string, Record<string, PreferenceChild[]>]>(([name]) => name);
+
+  const search = createSearch(searchText, (preference: PreferenceChild) => preference.name);
+  const searchResult: null | [string, InfernoNode][] =
+    searchText?.length > 0
+      ? [
+        [
+          'Search Result',
+          sortByNameTyped(Object.entries(gamePreferences))
+            .flatMap(([_, subcategory]) => Object.entries(subcategory))
+            .flatMap(([_, preferences]) => preferences)
+            .filter(search)
+            .map((preference) => preference.children),
+        ],
+      ]
+      : null;
+
+  const result: [string, InfernoNode][] = searchResult || gamePreferenceEntries;
+
   return (
     <TabbedMenu
-      categoryEntries={gamePreferenceEntries}
+      categoryEntries={result}
       contentProps={{
         fontSize: 1.5,
-      }}
-    />
+      }}>
+      <Flex pl="15px" pr="25px" fontSize={1.5} mb="-5px" mt="5px" style={{ 'align-items': 'center' }}>
+        <Flex.Item mr={1}>
+          <Icon name="search" />
+        </Flex.Item>
+        <Flex.Item grow>
+          <Input autoFocus fluid placeholder="Search options" value={searchText} onInput={(_, value) => setSearchText(value)} />
+        </Flex.Item>
+      </Flex>
+    </TabbedMenu>
   );
 };

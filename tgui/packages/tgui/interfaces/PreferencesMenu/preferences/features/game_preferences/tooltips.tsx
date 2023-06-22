@@ -3,7 +3,8 @@ import { CheckboxInput, Feature, FeatureNumberInput, FeatureToggle } from '../ba
 
 export const enable_tips: FeatureToggle = {
   name: 'Enable tooltips',
-  category: 'TOOLTIPS',
+  category: 'UI',
+  subcategory: 'Tooltips',
   description: multiline`
     Do you want to see tooltips when hovering over items?
   `,
@@ -12,7 +13,8 @@ export const enable_tips: FeatureToggle = {
 
 export const tip_delay: Feature<number> = {
   name: 'Tooltip delay (in milliseconds)',
-  category: 'TOOLTIPS',
+  category: 'UI',
+  subcategory: 'Tooltips',
   description: multiline`
     How long should it take to see a tooltip when hovering over items?
   `,

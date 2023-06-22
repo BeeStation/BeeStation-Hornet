@@ -103,6 +103,9 @@
 
 	ghost.ghost_orbit = value
 
+/datum/preference/choiced/ghost_orbit/create_default_value()
+	return GHOST_ORBIT_CIRCLE
+
 /// Determines how to show other ghosts
 /datum/preference/choiced/ghost_others
 	db_key = "ghost_others"

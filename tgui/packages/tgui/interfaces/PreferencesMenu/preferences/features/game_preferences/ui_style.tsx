@@ -36,6 +36,7 @@ const UIStyleInput = (props: FeatureValueProps<string, string, FeatureChoicedSer
 
   return (
     <Dropdown
+      buttons
       selected={value}
       clipSelectedText={false}
       displayText={value ? choices[value] : null}
@@ -52,14 +53,16 @@ const UIStyleInput = (props: FeatureValueProps<string, string, FeatureChoicedSer
 };
 
 export const ui_style: FeatureChoiced = {
-  name: 'UI Style',
+  name: 'HUD Style',
   category: 'UI',
+  subcategory: 'HUD',
   component: UIStyleInput,
 };
 
 export const intent_style: FeatureToggle = {
   name: 'Enable intent hotclick',
   category: 'UI',
+  subcategory: 'HUD',
   description:
     'Clicking on intents will directly select if this is on, otherwise clicking them will rotate the selection clockwise.',
   component: CheckboxInput,

@@ -2158,7 +2158,6 @@
 #include "code\modules\client\preferences\entries\player\admin.dm"
 #include "code\modules\client\preferences\entries\player\ambient_occlusion.dm"
 #include "code\modules\client\preferences\entries\player\auto_fit_viewport.dm"
-#include "code\modules\client\preferences\entries\player\broadcast_login_logout.dm"
 #include "code\modules\client\preferences\entries\player\buttons_locked.dm"
 #include "code\modules\client\preferences\entries\player\chat.dm"
 #include "code\modules\client\preferences\entries\player\crew_objectives.dm"

@@ -48,11 +48,6 @@
 	db_key = "chat_ghostwhisper"
 	preference_type = PREFERENCE_PLAYER
 
-/datum/preference/toggle/chat_login_logout
-	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
-	db_key = "chat_login_logout"
-	preference_type = PREFERENCE_PLAYER
-
 /datum/preference/toggle/chat_ooc
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 	db_key = "chat_ooc"
