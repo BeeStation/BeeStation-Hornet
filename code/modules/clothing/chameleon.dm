@@ -600,7 +600,7 @@
 /datum/action/item_action/chameleon/tongue_change/Trigger()
 	if(!IsAvailable() || !isitem(target))
 		return FALSE
-	var/obj/item/clothing/mask/M = target
+	var/obj/item/clothing/mask/target_mask = target
 	var/obj/item/organ/tongue/picked_tongue
 	var/picked_name
 	var/list/sorted_list = sort_list(tongue_list)
@@ -609,9 +609,9 @@
 		return FALSE
 	picked_tongue = tongue_list[picked_name]
 	if(!picked_tongue)
-		M.chosen_tongue = null
+		target_mask.chosen_tongue = null
 		return FALSE
-	M.chosen_tongue = picked_tongue
+	target_mask.chosen_tongue = picked_tongue
 	return TRUE
 
 /obj/item/clothing/mask/chameleon
