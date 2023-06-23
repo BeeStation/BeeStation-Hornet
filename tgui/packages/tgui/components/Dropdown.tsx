@@ -345,7 +345,11 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
               <Button
                 height={'100%'}
                 content={
-                  <Icon ml="0.25em" style={{ 'display': 'inline-block', 'line-height': displayHeight }} name="chevron-left" />
+                  <Icon
+                    ml="0.25em"
+                    style={{ 'display': 'inline-block', 'line-height': displayHeight || 'unset' }}
+                    name="chevron-left"
+                  />
                 }
                 p={0}
                 disabled={disabled}
@@ -362,7 +366,11 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
               <Button
                 height={'100%'}
                 content={
-                  <Icon ml="0.25em" style={{ 'display': 'inline-block', 'line-height': displayHeight }} name="chevron-right" />
+                  <Icon
+                    ml="0.25em"
+                    style={{ 'display': 'inline-block', 'line-height': displayHeight || 'unset' }}
+                    name="chevron-right"
+                  />
                 }
                 p={0}
                 disabled={disabled}
