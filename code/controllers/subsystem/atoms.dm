@@ -78,11 +78,12 @@ SUBSYSTEM_DEF(atoms)
 		created_atoms = null
 
 #ifdef PROFILE_MAPLOAD_INIT_ATOM
-	var/csv = ""
+	var/list/lines = list()
+	lines += "Atom Path,Initialisation Time (ms)"
 	for (var/atom_type in mapload_init_times)
 		var/time = mapload_init_times[atom_type]
-		csv += "[atom_type],[time]\n"
-	rustg_file_write(csv, "[GLOB.log_directory]/init_times.csv")
+		lines += "[atom_type],[time]"
+	rustg_file_write(jointext(lines, "\n"), "[GLOB.log_directory]/init_times.csv")
 #endif
 
 /// Actually creates the list of atoms. Exists soley so a runtime in the creation logic doesn't cause initalized to totally break
