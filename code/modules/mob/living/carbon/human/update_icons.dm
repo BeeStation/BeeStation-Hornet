@@ -277,6 +277,7 @@ There are several things that need to be remembered:
 
 /mob/living/carbon/human/update_inv_neck()
 	remove_overlay(NECK_LAYER)
+
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_NECK) + 1]
 		inv.update_icon()

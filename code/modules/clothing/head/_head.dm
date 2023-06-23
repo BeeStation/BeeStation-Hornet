@@ -30,17 +30,6 @@
 		if(H.head == src)
 			H.update_inv_head()
 	attached_wig?.dropped(user)
-/*
-/obj/item/clothing/head/update_icon(updates)
-	. = ..()
-	if(attached_wig)
-		var/datum/sprite_accessory/S = GLOB.hair_styles_list[attached_wig.hair_style]
-		if(S)
-			var/mutable_appearance/M = mutable_appearance(S.icon,S.icon_state)
-			M.appearance_flags |= RESET_COLOR
-			M.color = attached_wig.hair_color
-			underlays += M
-*/
 
 /obj/item/clothing/head/attackby(obj/item/W, mob/user, params)
 	. = ..()

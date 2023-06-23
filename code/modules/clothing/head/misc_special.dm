@@ -260,30 +260,7 @@
 		M.appearance_flags |= RESET_COLOR
 		M.color = hair_color
 		add_overlay(M)
-		/*
-		if(gradient_style)
-			var/mutable_appearance/gradient_overlay
-			var/datum/sprite_accessory/gradient = GLOB.hair_gradients_list[gradient_style]
-			var/icon/temp = icon(gradient.icon, gradient.icon_state)
-			var/icon/temp_hair = icon(S.icon, S.icon_state)
-			temp.Blend(temp_hair, ICON_ADD)
-			gradient_overlay.icon = temp
-			gradient_overlay.color = "#" + gradient_color
-			add_overlay(gradient_overlay)
-		*/
 
-/*
-/obj/item/clothing/head/wig/worn_overlays(mutable_appearance/standing, isinhands = FALSE, file2use)
-	. = list()
-	if(!isinhands)
-		var/datum/sprite_accessory/S = GLOB.hair_styles_list[hair_style]
-		if(!S)
-			return
-		var/mutable_appearance/M = mutable_appearance(S.icon, S.icon_state,layer = -HAIR_LAYER)
-		M.appearance_flags |= RESET_COLOR
-		M.color = hair_color
-		. += M
-*/
 /obj/item/clothing/head/wig/attack_self(mob/user)
 	var/new_style = input(user, "Select a hair style", "Wig Styling")  as null|anything in (GLOB.hair_styles_list - "Bald")
 	if(!user.canUseTopic(src, BE_CLOSE))
