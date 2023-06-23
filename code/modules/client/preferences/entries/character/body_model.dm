@@ -16,6 +16,9 @@
 /datum/preference/choiced/body_model/is_accessible(datum/preferences/preferences, ignore_page = FALSE)
 	if (!..())
 		return FALSE
+	var/datum/species/species_type = preferences.read_character_preference(/datum/preference/choiced/species)
+	if(!initial(species_type.sexes))
+		return FALSE
 
 	var/gender = preferences.read_character_preference(/datum/preference/choiced/gender)
 	return gender != MALE && gender != FEMALE

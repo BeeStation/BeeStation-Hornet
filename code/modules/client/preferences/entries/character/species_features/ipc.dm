@@ -40,7 +40,14 @@
 	relevant_mutant_bodypart = "ipc_antenna"
 
 /datum/preference/color_legacy/ipc_screen_color/apply_to_human(mob/living/carbon/human/target, value)
+	if(!isipc(target))
+		return
 	target.eye_color = value
+	var/obj/item/organ/eyes/eyes_organ = target.getorgan(/obj/item/organ/eyes)
+	if (istype(eyes_organ))
+		if (!initial(eyes_organ.eye_color))
+			eyes_organ.eye_color = value
+		eyes_organ.old_eye_color = value
 
 /datum/preference/color_legacy/ipc_screen_color/create_default_value()
 	return "fff"
@@ -89,6 +96,8 @@
 	relevant_mutant_bodypart = "ipc_antenna"
 
 /datum/preference/color_legacy/ipc_antenna_color/apply_to_human(mob/living/carbon/human/target, value)
+	if(!isipc(target))
+		return
 	target.hair_color = value
 
 /datum/preference/color_legacy/ipc_antenna_color/create_default_value()

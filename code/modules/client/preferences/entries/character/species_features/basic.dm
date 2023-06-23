@@ -29,6 +29,8 @@
 	relevant_species_trait = EYECOLOR
 
 /datum/preference/color_legacy/eye_color/apply_to_human(mob/living/carbon/human/target, value)
+	if(isipc(target))
+		return
 	target.eye_color = value
 
 	var/obj/item/organ/eyes/eyes_organ = target.getorgan(/obj/item/organ/eyes)
@@ -77,6 +79,8 @@
 	relevant_species_trait = HAIR
 
 /datum/preference/color_legacy/hair_color/apply_to_human(mob/living/carbon/human/target, value)
+	if(isipc(target))
+		return
 	target.hair_color = value
 
 /datum/preference/choiced/hairstyle
