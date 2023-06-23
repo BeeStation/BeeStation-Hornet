@@ -31,4 +31,4 @@
 			if (item.resistance_flags & INDESTRUCTIBLE)
 				failures += "[closet_type] contains the indestructible item, [item.type], in PopulateContents(). This should be in populate_contents_immediate() instead."
 	if (length(failures))
-		Fail(jointext(failures, ", "))
+		Fail(jointext(failures, "\n"))
