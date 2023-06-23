@@ -1,5 +1,0 @@
-author: PowerfulBacon, MrStonedOne
-delete-after: true
-changes:
-  - tweak: Admins making SDQL requests from the command line will need to confirm
-      their action before running it.
