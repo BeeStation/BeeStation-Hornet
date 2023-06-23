@@ -334,7 +334,7 @@
 			if(!loaded)
 				return
 			if(istype(loaded, /obj/item/paper))
-				if(send_to_additional_faxes(loaded, usr, params["name"], params["color"]))
+				if(send_to_additional_faxes(loaded, usr, sanitize(params["name"]), sanitize_hexcolor(params["color"], 6, TRUE, "#0000ff")))
 					loaded_item_ref = null
 					update_icon()
 					return TRUE
