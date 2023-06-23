@@ -34,6 +34,7 @@
 	payment_per_department = list(
 		ACCOUNT_COM_ID = PAYCHECK_COMMAND_NT,
 		ACCOUNT_SCI_ID = PAYCHECK_COMMAND_DEPT)
+	mind_traits = list(TRAIT_ILLEGAL_TECH_IDENTIFIER)
 
 	display_order = JOB_DISPLAY_ORDER_RESEARCH_DIRECTOR
 	rpg_title = "Archmagister"

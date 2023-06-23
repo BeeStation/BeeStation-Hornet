@@ -25,7 +25,7 @@
 	payment_per_department = list(
 		ACCOUNT_COM_ID = PAYCHECK_COMMAND_NT,
 		ACCOUNT_SEC_ID = PAYCHECK_COMMAND_DEPT)
-	mind_traits = list(TRAIT_DISK_VERIFIER)
+	mind_traits = list(TRAIT_DISK_VERIFIER, TRAIT_ILLEGAL_TECH_IDENTIFIER)
 
 	display_order = JOB_DISPLAY_ORDER_CAPTAIN
 	rpg_title = "Star Duke"
