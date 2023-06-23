@@ -200,3 +200,13 @@ export const feature_ipc_screen_color: Feature<string> = {
   name: 'Screen Color',
   component: FeatureColorInput,
 };
+
+export const feature_human_tail: FeatureChoiced = {
+  name: 'Tail',
+  component: FeatureDropdownInput,
+};
+
+export const feature_human_ears: FeatureChoiced = {
+  name: 'Ears',
+  component: FeatureDropdownInput,
+};
