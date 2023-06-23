@@ -4,6 +4,7 @@
 	icon_state = "ce"
 
 /obj/structure/closet/secure_closet/engineering_chief/populate_contents_immediate()
+	..()
 	new /obj/item/card/id/departmental_budget/eng(src)
 	new /obj/item/areaeditor/blueprints(src)
 
