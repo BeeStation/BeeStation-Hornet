@@ -10,7 +10,7 @@
 	mutantstomach = /obj/item/organ/stomach/fly
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/fly
 	mutant_bodyparts = list("insect_type")
-	default_features = list("insect_type" = "housefly", "body_size" = "Normal")
+	default_features = list("insect_type" = "fly", "body_size" = "Normal")
 	burnmod = 1.4
 	brutemod = 1.4
 	speedmod = 0.7

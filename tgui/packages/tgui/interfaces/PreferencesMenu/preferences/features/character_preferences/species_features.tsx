@@ -210,3 +210,8 @@ export const feature_human_ears: FeatureChoiced = {
   name: 'Ears',
   component: FeatureDropdownInput,
 };
+
+export const feature_insect_type: FeatureChoiced = {
+  name: 'Insect Type',
+  component: FeatureDropdownInput,
+};
