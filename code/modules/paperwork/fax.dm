@@ -61,29 +61,7 @@
 	COOLDOWN_DECLARE(radio_cooldown)
 
 /obj/machinery/fax/Initialize(mapload)
-	. = ..()
-	GLOB.fax_machines += src
-	if(!fax_id)
-		fax_id = SSnetworks.assign_random_name()
-	if(!fax_name)
-		fax_name = "Unregistered Fax Machine " + fax_id
-	wires = new /datum/wires/fax(src)
-
-	radio = new(src)
-	radio.subspace_transmission = TRUE
-	radio.canhear_range = 0
-	// Override in subtypes
-	radio.on = FALSE
-
-	// Mapping Error checking
-	if(!mapload)
-		return
-	for(var/obj/machinery/fax/fax as anything in GLOB.fax_machines)
-		if(fax == src) // skip self
-			continue
-		if(fax.fax_name == fax_name)
-			fax_name = "Unregistered Fax Machine " + fax_id
-			CRASH("Duplicate fax_name [fax.fax_name] detected! Loc 1 [AREACOORD(src)]; Loc 2 [AREACOORD(fax)]; Falling back on random names.")
+	return INITIALIZE_HINT_QDEL
 
 /obj/machinery/fax/Destroy()
 	GLOB.fax_machines -= src

@@ -46,8 +46,7 @@
 	var/category
 
 /obj/machinery/photocopier/Initialize()
-	. = ..()
-	toner_cartridge = new(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/machinery/photocopier/handle_atom_del(atom/deleting_atom)
 	if(deleting_atom == paper_copy)
