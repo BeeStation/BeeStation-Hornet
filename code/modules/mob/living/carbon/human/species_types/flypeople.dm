@@ -40,6 +40,25 @@
 		return TRUE
 	return ..()
 
+/datum/species/fly/replace_body(mob/living/carbon/C, datum/species/new_species)
+	..()
+
+	var/datum/sprite_accessory/insect_type/type_selection = GLOB.insect_type_list[C.dna.features["insect_type"]]
+	if(!istype(type_selection))
+		return
+
+	for(var/obj/item/bodypart/BP as() in C.bodyparts) //Override bodypart data as necessary
+		BP.uses_mutcolor = !!type_selection.color_src
+		if(BP.uses_mutcolor)
+			BP.should_draw_greyscale = TRUE
+			BP.species_color = C.dna?.features["mcolor"]
+		// Hardcoded bullshit that will probably break. Woo shitcode. Bee insect_type has dimorphic parts while flies do not.
+		BP.is_dimorphic = type_selection.gender_specific && (istype(BP, /obj/item/bodypart/head) || istype(BP, /obj/item/bodypart/chest))
+
+		BP.limb_id = type_selection.limbs_id
+		BP.name = "\improper[type_selection.name] [parse_zone(BP.body_zone)]"
+		BP.update_limb()
+
 /datum/species/fly/check_species_weakness(obj/item/weapon, mob/living/attacker)
 	if(istype(weapon, /obj/item/melee/flyswatter))
 		return 29 //Flyswatters deal 30x damage to flypeople.

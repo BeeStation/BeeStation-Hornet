@@ -48,6 +48,7 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 	dna.features["apid_stripes"] = "thick"
 	dna.features["apid_headstripes"] = "thick"
 	dna.features["apid_antenna"] = "curled"
+	dna.features["insect_type"] = "fly"
 	dna.features["ipc_screen"] = "BSOD"
 	dna.features["ipc_antenna"] = "None"
 	dna.features["ipc_chassis"] = "Morpheus Cyberkinetics (Custom)"

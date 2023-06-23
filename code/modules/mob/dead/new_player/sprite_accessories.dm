@@ -2457,10 +2457,12 @@
 /datum/sprite_accessory/insect_type/fly
 	name = "Common Fly"
 	limbs_id = "fly"
+	gender_specific = FALSE
 
 /datum/sprite_accessory/insect_type/bee
 	name = "Hoverfly"
 	limbs_id = "bee"
+	gender_specific = TRUE
 
 /datum/sprite_accessory/ipc_chassis/mcgreyscale
 	name = "Morpheus Cyberkinetics (Custom)"
