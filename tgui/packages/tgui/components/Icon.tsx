@@ -16,7 +16,7 @@ type IconPropsUnique = {
   spin?: boolean;
   className?: string;
   rotation?: number;
-  style?: string | CSSProperties;
+  style?: string | Record<string, string>;
 };
 
 export type IconProps = IconPropsUnique & BoxProps;
