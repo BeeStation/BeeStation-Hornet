@@ -11,7 +11,7 @@
 	var/list/obj_item_paths = list()
 
 	for (var/datum/objective_item/objective_item_path as() in subtypesof(/datum/objective_item))
-		if (initial(objective_item_path.require_item_spawns_at_roundstart))
+		if (!initial(objective_item_path.require_item_spawns_at_roundstart))
 			continue
 		obj_item_paths |= initial(objective_item_path.targetitem)
 
