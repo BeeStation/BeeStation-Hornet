@@ -254,8 +254,15 @@ we use a hook instead
 	return copy
 
 /datum/gas_mixture/copy_from_turf(turf/model)
+	var/static/list/gas_templates = list()
+	// Attempt to find prototype to copy fromf
+	var/datum/gas_mixture/template = gas_templates[model.initial_gas_mix]
+	if (!template)
+		template = new
+		template.parse_gas_string(model.initial_gas_mix)
+		gas_templates[model.initial_gas_mix] = src
 	set_temperature(initial(model.initial_temperature))
-	parse_gas_string(model.initial_gas_mix)
+	copy_from(template)
 	return 1
 
 /datum/gas_mixture/proc/__auxtools_parse_gas_string(gas_string)
