@@ -42,6 +42,9 @@
 		return
 
 	leaping = TRUE
+	//Because the leaping sprite is bigger than the normal one
+	body_position_pixel_x_offset = -32
+	body_position_pixel_y_offset = -32
 	weather_immunities += "lava"
 	update_icons()
 	throw_at(A, MAX_ALIEN_LEAP_DIST, 1, src, FALSE, TRUE, callback = CALLBACK(src, PROC_REF(leap_end)))
@@ -50,6 +53,8 @@
 
 /mob/living/carbon/alien/humanoid/hunter/proc/leap_end()
 	leaping = FALSE
+	body_position_pixel_x_offset = 0
+	body_position_pixel_y_offset = 0
 	weather_immunities -= "lava"
 	update_icons()
 
@@ -78,11 +83,6 @@
 		else if(hit_atom.density && !hit_atom.CanPass(src, get_dir(hit_atom, src)))
 			visible_message("<span class ='danger'>[src] smashes into [hit_atom]!</span>", "<span class ='alertalien'>[src] smashes into [hit_atom]!</span>")
 			Paralyze(40, 1, 1)
-
-		if(leaping)
-			leaping = FALSE
-			update_icons()
-			update_mobility()
 
 /mob/living/carbon/alien/humanoid/float(on)
 	if(leaping)
