@@ -134,6 +134,10 @@
 	///Used for changing icon states for different base sprites.
 	var/base_icon_state
 
+	///Used to show a specific icon state in certain situations - i.e.) crafting menu
+	var/icon_state_preview
+	// This veriable exists BECAUSE animating sprite (bola) has an issue to render to TGUI crafting window - it shows wrong icons.
+
 	///LazyList of all balloon alerts currently on this atom
 	var/list/balloon_alerts
 

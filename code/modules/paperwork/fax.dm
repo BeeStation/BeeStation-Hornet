@@ -21,7 +21,7 @@
 	/// Determines the possibility of sending papers to the additional faxes.
 	var/access_additional_faxes = FALSE
 	/// Defines a list of accesses whose owners can open a connection with the additional faxes.
-	var/static/access_additional_faxes_required = list(ACCESS_HEADS, ACCESS_LAWYER, ACCESS_SECURITY)
+	var/static/access_additional_faxes_required = list(ACCESS_HEADS, ACCESS_LAWYER, ACCESS_SECURITY, ACCESS_CENT_GENERAL)
 	/// Necessary to hide syndicate faxes from the general list. Doesn't mean he's EMAGGED!
 	var/syndicate_network = FALSE
 	/// True if the fax machine should be visible to other fax machines in general.
@@ -53,18 +53,43 @@
 		/obj/item/card,
 		/obj/item/mail
 	)
+	/// Internal radio for announcing over comms
+	var/obj/item/radio/radio
+	/// Radio channel to speak into
+	var/radio_channel
+	/// Cooldown for aformentioned radio, prevents radio spam
+	COOLDOWN_DECLARE(radio_cooldown)
 
 /obj/machinery/fax/Initialize(mapload)
 	. = ..()
+	GLOB.fax_machines += src
 	if(!fax_id)
 		fax_id = SSnetworks.assign_random_name()
 	if(!fax_name)
-		fax_name = "Unregistered fax " + fax_id
+		fax_name = "Unregistered Fax Machine " + fax_id
 	wires = new /datum/wires/fax(src)
 
+	radio = new(src)
+	radio.subspace_transmission = TRUE
+	radio.canhear_range = 0
+	// Override in subtypes
+	radio.on = FALSE
+
+	// Mapping Error checking
+	if(!mapload)
+		return
+	for(var/obj/machinery/fax/fax as anything in GLOB.fax_machines)
+		if(fax == src) // skip self
+			continue
+		if(fax.fax_name == fax_name)
+			fax_name = "Unregistered Fax Machine " + fax_id
+			CRASH("Duplicate fax_name [fax.fax_name] detected! Loc 1 [AREACOORD(src)]; Loc 2 [AREACOORD(fax)]; Falling back on random names.")
+
 /obj/machinery/fax/Destroy()
+	GLOB.fax_machines -= src
 	QDEL_NULL(loaded_item_ref)
 	QDEL_NULL(wires)
+	QDEL_NULL(radio)
 	return ..()
 
 /obj/machinery/fax/update_overlays()
@@ -104,6 +129,19 @@
 		obj_flags |= EMAGGED
 		to_chat(user, "<span class='warning'>An image appears on [src] screen for a moment with Ian in the cap of a Syndicate officer.</span>")
 
+/**
+ * EMP Interaction
+ */
+/obj/machinery/fax/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
+	allow_exotic_faxes = !allow_exotic_faxes
+	visible_message("<span class='warning'>[src] [allow_exotic_faxes ? "starts beeping" : "stops beeping"] ominously[allow_exotic_faxes ? "..." : "."]")
+
+/**
+ * Unanchor/anchor
+ */
 /obj/machinery/fax/wrench_act(mob/living/user, obj/item/tool)
 	. = ..()
 	default_unfasten_wrench(user, tool)
@@ -171,7 +209,7 @@
 // Switches access to the "legal" administrator's fax list. Access to the "illegal" is switched by hacking.
 /obj/machinery/fax/proc/access_additional_faxes_toggle()
 	access_additional_faxes = !access_additional_faxes
-	say("The channel of communication with CentCom is [access_additional_faxes ? "open" : "close"].")
+	say("Additional communication channels have been [access_additional_faxes ? "opened" : "closed"].")
 
 /**
  * Attempts to clean out a jammed machine using a passed item.
@@ -237,8 +275,10 @@
 /obj/machinery/fax/ui_data(mob/user)
 	var/list/data = list()
 	//Record a list of all existing faxes.
-	for(var/obj/machinery/fax/fax in GLOB.machines)
+	for(var/obj/machinery/fax/fax as anything in GLOB.fax_machines)
 		if(fax.fax_id == fax_id) //skip yourself
+			continue
+		if(!fax.visible_to_network) //skip invisible fax machines
 			continue
 		var/list/fax_data = list()
 		fax_data["fax_name"] = fax.fax_name
@@ -329,15 +369,17 @@
  * * id - The network ID of the fax machine you want to send the item to.
  */
 /obj/machinery/fax/proc/send(obj/item/loaded, id)
-	for(var/obj/machinery/fax/fax in GLOB.machines)
+	for(var/obj/machinery/fax/fax as anything in GLOB.fax_machines)
 		if(fax.fax_id != id)
+			continue
+		if(!fax.visible_to_network) //skip fax machines meant to be invisible
 			continue
 		if(fax.jammed)
 			do_sparks(5, TRUE, src)
 			balloon_alert(usr, "destination port jammed")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, -9)
 			return FALSE
-		fax.receive(loaded, fax_name)
+		fax.receive(loaded, fax_name, important = radio_channel == RADIO_CHANNEL_CENTCOM)
 		playback_sending(loaded, fax.fax_name)
 		return TRUE
 	return FALSE
@@ -377,11 +419,21 @@
  * Arguments:
  * * loaded - The object to be printed.
  * * sender_name - The sender's name, which will be displayed in the message and recorded in the history of operations.
+ * * important - Whether the sender is SUPER important and NEEDS to be announced
  */
-/obj/machinery/fax/proc/receive(obj/item/loaded, sender_name)
+/obj/machinery/fax/proc/receive(obj/item/loaded, sender_name, important = FALSE)
 	playsound(src, 'sound/items/poster_being_created.ogg', 50, FALSE)
 	INVOKE_ASYNC(src, PROC_REF(animate_object_travel), loaded, "fax_receive", find_overlay_state(loaded, "receive"))
-	say("Received correspondence from [sender_name].")
+
+	var/msg = "Received[important ? " Priority " : " "]correspondence from [sender_name][important ? "!": "."]"
+	if(COOLDOWN_FINISHED(src, radio_cooldown) && !isnull(radio_channel))
+		COOLDOWN_START(src, radio_cooldown, 2 MINUTES)
+		var/list/spans = list(src.speech_span)
+		if(important)
+			spans |= SPAN_COMMAND
+		radio.talk_into(src, msg, radio_channel, spans)
+	say(msg)
+
 	history_add("Receive", sender_name)
 	addtimer(CALLBACK(src, PROC_REF(vend_item), loaded), 1.9 SECONDS)
 
@@ -471,7 +523,7 @@
  * * new_fax_name - The text of the name to be checked for a match.
  */
 /obj/machinery/fax/proc/fax_name_exist(new_fax_name)
-	for(var/obj/machinery/fax/fax in GLOB.machines)
+	for(var/obj/machinery/fax/fax as anything in GLOB.fax_machines)
 		if (fax.fax_name == new_fax_name)
 			return TRUE
 	return FALSE
@@ -491,3 +543,104 @@
 	do_sparks(5, TRUE, src)
 	var/check_range = TRUE
 	return electrocute_mob(user, get_area(src), src, 0.7, check_range)
+
+// Typepaths for departmental Fax machines
+/obj/machinery/fax/centcom
+	name = "Central Command Fax Machine"
+	fax_name = "Central Command"
+	radio_channel = RADIO_CHANNEL_CENTCOM
+	visible_to_network = FALSE
+
+/obj/machinery/fax/centcom/Initialize(mapload)
+	. = ..()
+	radio.on = TRUE
+	radio.keyslot = new /obj/item/encryptionkey/headset_cent
+	radio.recalculateChannels()
+
+/obj/machinery/fax/bridge
+	name = "Bridge Fax Machine"
+	fax_name = "Bridge"
+	radio_channel = RADIO_CHANNEL_COMMAND
+
+/obj/machinery/fax/bridge/Initialize(mapload)
+	. = ..()
+	radio.on = TRUE
+	radio.keyslot = new /obj/item/encryptionkey/headset_com
+	radio.recalculateChannels()
+
+/obj/machinery/fax/cargo
+	name = "Cargo Fax Machine"
+	fax_name = "Cargo"
+	radio_channel = RADIO_CHANNEL_SUPPLY
+
+/obj/machinery/fax/cargo/Initialize(mapload)
+	. = ..()
+	radio.on = TRUE
+	radio.keyslot = new /obj/item/encryptionkey/headset_cargo
+	radio.recalculateChannels()
+
+/obj/machinery/fax/eng
+	name = "Engineering Fax Machine"
+	fax_name = "Engineering"
+	radio_channel = RADIO_CHANNEL_ENGINEERING
+
+/obj/machinery/fax/eng/Initialize(mapload)
+	. = ..()
+	radio.on = TRUE
+	radio.keyslot = new /obj/item/encryptionkey/headset_eng
+	radio.recalculateChannels()
+
+/obj/machinery/fax/law
+	name = "Lawyer's Fax Machine"
+	fax_name = "Lawyer"
+	radio_channel = RADIO_CHANNEL_SERVICE
+
+/obj/machinery/fax/law/Initialize(mapload)
+	. = ..()
+	radio.on = TRUE
+	radio.keyslot = new /obj/item/encryptionkey/headset_srvsec
+	radio.recalculateChannels()
+
+/obj/machinery/fax/med
+	name = "Medbay Fax Machine"
+	fax_name = "Medbay"
+	radio_channel = RADIO_CHANNEL_MEDICAL
+
+/obj/machinery/fax/med/Initialize(mapload)
+	. = ..()
+	radio.on = TRUE
+	radio.keyslot = new /obj/item/encryptionkey/headset_med
+	radio.recalculateChannels()
+
+/obj/machinery/fax/sci
+	name = "Science Fax Machine"
+	fax_name = "Science"
+	radio_channel = RADIO_CHANNEL_SERVICE
+
+/obj/machinery/fax/sci/Initialize(mapload)
+	. = ..()
+	radio.on = TRUE
+	radio.keyslot = new /obj/item/encryptionkey/headset_sci
+	radio.recalculateChannels()
+
+/obj/machinery/fax/sec
+	name = "Security Fax Machine"
+	fax_name = "Security"
+	radio_channel = RADIO_CHANNEL_SECURITY
+
+/obj/machinery/fax/sec/Initialize(mapload)
+	. = ..()
+	radio.on = TRUE
+	radio.keyslot = new /obj/item/encryptionkey/headset_sec
+	radio.recalculateChannels()
+
+/obj/machinery/fax/service
+	name = "Service Fax Machine"
+	fax_name = "Service"
+	radio_channel = RADIO_CHANNEL_SERVICE
+
+/obj/machinery/fax/service/Initialize(mapload)
+	. = ..()
+	radio.on = TRUE
+	radio.keyslot = new /obj/item/encryptionkey/headset_service
+	radio.recalculateChannels()

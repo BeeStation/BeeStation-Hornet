@@ -13468,6 +13468,7 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 8
 	},
+/obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/lab)
 "bah" = (
@@ -17055,6 +17056,7 @@
 	},
 /obj/item/hand_labeler,
 /obj/machinery/light/small,
+/obj/machinery/fax/service,
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
@@ -18597,6 +18599,9 @@
 	dir = 4
 	},
 /area/chapel/main)
+"bwQ" = (
+/turf/open/floor/plasteel/dark,
+/area/science/lab)
 "bwT" = (
 /obj/structure/flora/grass/jungle/b,
 /obj/structure/flora/ausbushes/ywflowers,
@@ -40603,11 +40608,6 @@
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/aft)
 "cUk" = (
-/obj/machinery/fax{
-	fax_name = "Medical";
-	name = "Medical Fax Machine"
-	},
-/obj/structure/table,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
@@ -41692,6 +41692,7 @@
 /obj/item/clothing/mask/gas/sechailer/swat,
 /obj/item/screwdriver,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/item/crowbar/red,
 /turf/open/floor/plasteel,
 /area/security/main)
 "dtF" = (
@@ -45170,13 +45171,9 @@
 	},
 /area/maintenance/port/fore)
 "eUX" = (
-/obj/machinery/fax{
-	fax_name = "Security";
-	name = "Security Fax Machine"
-	},
 /obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/machinery/fax/sec,
 /turf/open/floor/plasteel,
 /area/security/main)
 "eVs" = (
@@ -46197,9 +46194,9 @@
 /area/security/courtroom)
 "fqB" = (
 /obj/structure/table/reinforced,
-/obj/item/crowbar/red,
-/obj/item/radio/headset/headset_sec,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/item/paper_bin,
+/obj/item/pen,
 /turf/open/floor/plasteel,
 /area/security/main)
 "fqQ" = (
@@ -46646,6 +46643,9 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 8
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
 /turf/open/floor/plasteel/showroomfloor,
@@ -50104,10 +50104,6 @@
 /turf/open/floor/plasteel/dark,
 /area/storage/primary)
 "hgk" = (
-/obj/machinery/fax{
-	fax_name = "Science";
-	name = "Science Fax Machine"
-	},
 /obj/structure/table,
 /obj/machinery/button/door{
 	id = "Biohazard";
@@ -50127,6 +50123,7 @@
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted{
 	dir = 8
 	},
+/obj/machinery/fax/sci,
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/research)
 "hgl" = (
@@ -53168,9 +53165,8 @@
 /area/hallway/primary/starboard)
 "irm" = (
 /obj/structure/table/reinforced,
-/obj/item/paper_bin,
-/obj/item/pen,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/item/storage/fancy/donut_box,
 /turf/open/floor/plasteel,
 /area/security/main)
 "iro" = (
@@ -54289,10 +54285,13 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
 	},
+/obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/lab)
 "iPg" = (
@@ -58969,9 +58968,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "kOt" = (
-/obj/machinery/computer/rdconsole/core{
-	dir = 4
-	},
 /obj/effect/turf_decal/bot,
 /obj/structure/window/reinforced{
 	dir = 8
@@ -58980,6 +58976,7 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
 	},
+/obj/machinery/rnd/destructive_analyzer,
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
 "kOw" = (
@@ -63717,10 +63714,6 @@
 /area/storage/primary)
 "mSg" = (
 /obj/structure/table/wood,
-/obj/machinery/fax{
-	fax_name = "Lawyer";
-	name = "Lawyer Fax Machine"
-	},
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},
@@ -63733,6 +63726,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
+/obj/machinery/fax/law,
 /turf/open/floor/plasteel/dark,
 /area/lawoffice)
 "mSz" = (
@@ -65179,15 +65173,6 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted,
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
-"nGV" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/obj/effect/turf_decal/tile/purple/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/plasteel/showroomfloor,
-/area/science/lab)
 "nHg" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -73034,12 +73019,6 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
 "qNQ" = (
@@ -73408,6 +73387,7 @@
 /obj/item/clipboard,
 /obj/item/reagent_containers/food/snacks/donut,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
+/obj/item/radio/headset/headset_sec,
 /turf/open/floor/plasteel,
 /area/security/main)
 "qXR" = (
@@ -74474,14 +74454,18 @@
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/fore)
 "ruf" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+/obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/purple/half/contrasted{
-	dir = 8
-	},
-/turf/open/floor/plasteel/showroomfloor,
+/obj/machinery/modular_fabricator/component_printer,
+/turf/open/floor/plasteel/dark,
 /area/science/lab)
 "ruh" = (
 /obj/effect/turf_decal/stripes/line{
@@ -74517,8 +74501,10 @@
 	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
 	},
 /turf/open/floor/plasteel/showroomfloor,
@@ -74956,6 +74942,10 @@
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
 	},
+/obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/lab)
 "rFY" = (
@@ -75195,6 +75185,9 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
 	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple/half/contrasted{
+	dir = 8
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/lab)
@@ -75611,6 +75604,9 @@
 	},
 /obj/item/clothing/glasses/welding,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
 	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
@@ -79422,6 +79418,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /obj/effect/turf_decal/tile/blue/half/contrasted,
+/obj/machinery/fax/med,
+/obj/structure/table,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/storage)
 "trP" = (
@@ -81130,14 +81128,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/fax{
-	fax_name = "Engineering";
-	name = "Engineering Fax Machine"
-	},
 /obj/structure/table,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
+/obj/machinery/fax/eng,
 /turf/open/floor/plasteel/dark,
 /area/engine/break_room)
 "ujr" = (
@@ -81198,7 +81193,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "ulW" = (
-/obj/effect/turf_decal/stripes/corner,
 /obj/effect/landmark/event_spawn,
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -81207,10 +81201,11 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
-	dir = 8
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
-/obj/effect/turf_decal/tile/purple,
+/obj/effect/turf_decal/tile/purple/half/contrasted,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/lab)
 "umm" = (
@@ -81345,10 +81340,6 @@
 /area/science/shuttledock)
 "upb" = (
 /obj/structure/table,
-/obj/machinery/fax{
-	fax_name = "Cargo";
-	name = "Cargo Fax Machine"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -81359,6 +81350,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
+/obj/machinery/fax/cargo,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "upp" = (
@@ -88172,10 +88164,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "wVv" = (
-/obj/machinery/fax{
-	fax_name = "Bridge";
-	name = "Bridge Fax Machine"
-	},
 /obj/structure/table,
 /obj/machinery/light{
 	dir = 4
@@ -88190,6 +88178,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
+/obj/machinery/fax/bridge,
 /turf/open/floor/plasteel,
 /area/bridge)
 "wVx" = (
@@ -90485,16 +90474,15 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_dock)
 "yaK" = (
-/obj/machinery/rnd/destructive_analyzer,
 /obj/effect/turf_decal/bot,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/window/reinforced{
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
-	dir = 1
+/obj/machinery/computer/rdconsole/core{
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
@@ -129331,8 +129319,8 @@ fdW
 aYe
 ygR
 iPf
-nGV
 kCy
+bwQ
 lLq
 xLw
 aYf

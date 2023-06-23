@@ -85,13 +85,15 @@
 
 
 //limb removal. The "special" argument is used for swapping a limb with a new one without the effects of losing a limb kicking in.
-/obj/item/bodypart/proc/drop_limb(special)
+/obj/item/bodypart/proc/drop_limb(special, dismembered)
 	if(!owner)
 		return
 	var/atom/Tsec = owner.drop_location()
 	var/mob/living/carbon/C = owner
-	update_limb(1)
-	C.remove_bodypart(src)
+	SEND_SIGNAL(owner, COMSIG_CARBON_REMOVE_LIMB, src, dismembered)
+	SEND_SIGNAL(src, COMSIG_BODYPART_REMOVED, owner, dismembered)
+	update_limb(TRUE)
+	C.bodyparts -= src
 
 	if(held_index)
 		C.dropItemToGround(owner.get_item_for_held_index(held_index), 1)
@@ -145,7 +147,7 @@
 		return
 
 	forceMove(Tsec)
-
+	SEND_SIGNAL(C, COMSIG_CARBON_POST_REMOVE_LIMB, src, dismembered)
 
 
 //when a limb is dropped, the internal organs are removed from the mob and put into the limb
@@ -278,6 +280,8 @@
 	attach_limb(C, special, is_creating)
 
 /obj/item/bodypart/proc/attach_limb(mob/living/carbon/C, special, is_creating = FALSE)
+	SEND_SIGNAL(C, COMSIG_CARBON_ATTACH_LIMB, src, special)
+	SEND_SIGNAL(src, COMSIG_BODYPART_ATTACHED, C, special)
 	moveToNullspace()
 	owner = C
 	C.add_bodypart(src)
@@ -313,6 +317,7 @@
 	C.updatehealth()
 	C.update_body()
 	C.update_hair()
+	SEND_SIGNAL(C, COMSIG_CARBON_POST_ATTACH_LIMB, src, special)
 
 
 
