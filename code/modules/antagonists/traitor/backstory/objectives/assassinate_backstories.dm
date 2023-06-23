@@ -145,7 +145,6 @@
 /datum/objective_filterable/objective_backstory/assassinate/political_syndicate
 	title = "Corruption"
 	personal_text = "The Syndicate have declared them a political enemy. It's my job to eliminate them. Anything to stop Nanotrasen from succeeding."
-	faction_text = "This person is in the way of the Syndicate's goals. Wipe them out. " + GENERAL_TEXT + " " + SYNDICATE_TEXT
 	recommended_backstories = list(
 		/datum/traitor_backstory/savior,
 		/datum/traitor_backstory/hater,
@@ -154,10 +153,16 @@
 		TRAITOR_FACTION_SYNDICATE,
 	)
 
+/datum/objective_filterable/objective_briefing/assassinate/political_syndicate
+	briefing = "This person is in the way of the Syndicate's goals. Wipe them out. " + GENERAL_TEXT + " " + SYNDICATE_TEXT
+	attach_to_objective_backstory = /datum/objective_filterable/objective_backstory/assassinate/political_syndicate
+	allowed_factions = list(
+		TRAITOR_FACTION_SYNDICATE,
+	)
+
 /datum/objective_filterable/objective_backstory/assassinate/loyal_syndicate
 	title = "Loyalty To Nanotrasen"
 	personal_text = "The Syndicate have declared them a political enemy. It's my job to eliminate them. Anything to stop Nanotrasen from succeeding."
-	faction_text = "The target is too loyal to Nanotrasen. Eliminate them. " + GENERAL_TEXT + " " + SYNDICATE_TEXT + " " + SADIST_TEXT
 	recommended_backstories = list(
 		/datum/traitor_backstory/savior,
 		/datum/traitor_backstory/hater,
@@ -169,13 +174,26 @@
 		TRAITOR_FACTION_SYNDICATE,
 	)
 
+/datum/objective_filterable/objective_briefing/assassinate/loyal_syndicate
+	briefing = "The target is too loyal to Nanotrasen. Eliminate them. " + GENERAL_TEXT + " " + SYNDICATE_TEXT + " " + SADIST_TEXT
+	attach_to_objective_backstory = /datum/objective_filterable/objective_backstory/assassinate/loyal_syndicate
+	allowed_factions = list(
+		TRAITOR_FACTION_SYNDICATE,
+	)
+
 /datum/objective_filterable/objective_backstory/assassinate/political_market
 	title = "Corruption"
 	personal_text = "The boss wants 'em gone... Anything to stop Nanotrasen from succeeding."
-	faction_text = "The target is responsible for damages to my company. Wipe them out. " + GENERAL_TEXT + " " + BLACK_MARKET_FREE_TEXT
 	recommended_backstories = list(
 		/datum/traitor_backstory/hater,
 	)
+	allowed_factions = list(
+		TRAITOR_FACTION_BLACK_MARKET,
+	)
+
+/datum/objective_filterable/objective_briefing/assassinate/political_market
+	briefing = "The target is responsible for damages to my company. Wipe them out. " + GENERAL_TEXT + " " + BLACK_MARKET_FREE_TEXT
+	attach_to_objective_backstory = /datum/objective_filterable/objective_backstory/assassinate/political_market
 	allowed_factions = list(
 		TRAITOR_FACTION_BLACK_MARKET,
 	)
@@ -212,52 +230,53 @@
 /datum/objective_filterable/objective_backstory/assassinate/classified_syndicate
 	title = "Classified"
 	personal_text = "The Syndicate isn't gonna give me a reason why, but I have a duty to them. Let's eliminate them."
-	faction_text = FREE_TEXT_PRE + " Why? It's classified. " + GENERAL_TEXT + " " + BLACK_MARKET_FREE_TEXT + " " + SADIST_TEXT
 	allowed_factions = list(
 		TRAITOR_FACTION_SYNDICATE,
 	)
 	recommend_free_only = TRUE
+
+/datum/objective_filterable/objective_briefing/assassinate/classified_syndicate
+	briefing = FREE_TEXT_PRE + " Why? It's classified. " + GENERAL_TEXT + " " + SYNDICATE_TEXT + " " + SYNDICATE_FREE_TEXT + " " + SADIST_TEXT
+	attach_to_objective_backstory = /datum/objective_filterable/objective_backstory/assassinate/classified_syndicate
+	allowed_factions = list(
+		TRAITOR_FACTION_SYNDICATE,
+	)
 
 /datum/objective_filterable/objective_backstory/assassinate/classified_market
 	title = "Classified"
 	personal_text = "The Syndicate isn't gonna give me a reason why, but I have a duty to them. Let's eliminate them."
-	faction_text = FREE_TEXT_PRE + " Why? It's classified. " + GENERAL_TEXT + " " + SYNDICATE_TEXT + " " + SYNDICATE_FREE_TEXT + " " + SADIST_TEXT
 	allowed_factions = list(
 		TRAITOR_FACTION_BLACK_MARKET,
 	)
 	recommend_free_only = TRUE
 
-/datum/objective_filterable/objective_backstory/assassinate/fun_syndicate
-	title = "Fun"
-	personal_text = "Heh. To hold their life in my hands... It would be my greatest pleasure."
-	faction_text = FREE_TEXT_PRE + " " + GENERAL_TEXT + " " + SYNDICATE_TEXT + " " + SYNDICATE_FREE_TEXT + " " + SADIST_TEXT
-	recommended_backstories = list(
-		/datum/traitor_backstory/machine,
-		/datum/traitor_backstory/sadist,
-	)
-	allowed_factions = list(
-		TRAITOR_FACTION_SYNDICATE,
-	)
-
-/datum/objective_filterable/objective_backstory/assassinate/fun_black_market
-	title = "Fun"
-	personal_text = "Heh. To hold their life in my hands... It would be my greatest pleasure."
-	faction_text = FREE_TEXT_PRE + " " + GENERAL_TEXT + " " + BLACK_MARKET_FREE_TEXT + " " + SADIST_TEXT
-	recommended_backstories = list(
-		/datum/traitor_backstory/sadist,
-	)
+/datum/objective_filterable/objective_briefing/assassinate/classified_market
+	briefing = FREE_TEXT_PRE + " Why? It's classified. " + GENERAL_TEXT + " " + BLACK_MARKET_FREE_TEXT + " " + SADIST_TEXT
+	attach_to_objective_backstory = /datum/objective_filterable/objective_backstory/assassinate/classified_market
 	allowed_factions = list(
 		TRAITOR_FACTION_BLACK_MARKET,
 	)
 
-/datum/objective_filterable/objective_backstory/assassinate/fun_independent
+/datum/objective_filterable/objective_backstory/assassinate/fun
 	title = "Fun"
 	personal_text = "Heh. To hold their life in my hands... It would be my greatest pleasure."
 	recommended_backstories = list(
+		/datum/traitor_backstory/machine,
 		/datum/traitor_backstory/sadist,
 	)
+
+/datum/objective_filterable/objective_briefing/assassinate/fun_syndicate
+	briefing = FREE_TEXT_PRE + " " + GENERAL_TEXT + " " + SYNDICATE_TEXT + " " + SYNDICATE_FREE_TEXT + " " + SADIST_TEXT
+	attach_to_objective_backstory = /datum/objective_filterable/objective_backstory/assassinate/fun
 	allowed_factions = list(
-		TRAITOR_FACTION_INDEPENDENT,
+		TRAITOR_FACTION_SYNDICATE,
+	)
+
+/datum/objective_filterable/objective_briefing/assassinate/fun_market
+	briefing = FREE_TEXT_PRE + " " + GENERAL_TEXT + " " + BLACK_MARKET_FREE_TEXT + " " + SADIST_TEXT
+	attach_to_objective_backstory = /datum/objective_filterable/objective_backstory/assassinate/fun
+	allowed_factions = list(
+		TRAITOR_FACTION_BLACK_MARKET,
 	)
 
 #undef FREE_TEXT_PRE
