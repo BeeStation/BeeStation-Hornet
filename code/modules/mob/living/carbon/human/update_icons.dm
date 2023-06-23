@@ -277,12 +277,11 @@ There are several things that need to be remembered:
 
 /mob/living/carbon/human/update_inv_neck()
 	remove_overlay(NECK_LAYER)
-
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_NECK) + 1]
 		inv.update_icon()
 
-	if(wear_neck && !istype(wear_neck, /obj/item/clothing/head/wig)) //Wigs don't get rendered, they override hair instead
+	if(wear_neck)
 		wear_neck.screen_loc = ui_neck
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)			//if the inventory is open
@@ -367,13 +366,13 @@ There are several things that need to be remembered:
 
 	if(!get_bodypart(BODY_ZONE_HEAD)) //Decapitated
 		return
-
+	update_hair()
 	if(client && hud_used && hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_HEAD) + 1])
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_HEAD) + 1]
 		inv.update_icon()
 
 	update_mutant_bodyparts()
-	if(head && !istype(head, /obj/item/clothing/head/wig)) //Wigs don't get rendered, they override hair instead
+	if(head)
 		update_hud_head(head)
 		var/icon_file = 'icons/mob/clothing/head.dmi'
 		if(istype(head, /obj/item/clothing/head))
