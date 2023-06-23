@@ -1,19 +1,19 @@
-/datum/preference/choiced/body_type
+/datum/preference/choiced/body_model
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
-	priority = PREFERENCE_PRIORITY_BODY_TYPE
-	db_key = "body_type"
+	priority = PREFERENCE_PRIORITY_BODY_MODEL
+	db_key = "body_model"
 	preference_type = PREFERENCE_CHARACTER
 
-/datum/preference/choiced/body_type/init_possible_values()
+/datum/preference/choiced/body_model/init_possible_values()
 	return list(MALE, FEMALE)
 
-/datum/preference/choiced/body_type/apply_to_human(mob/living/carbon/human/target, value)
+/datum/preference/choiced/body_model/apply_to_human(mob/living/carbon/human/target, value)
 	if (target.gender != MALE && target.gender != FEMALE)
 		target.dna.features["body_model"] = value
 	else
 		target.dna.features["body_model"] = target.gender
 
-/datum/preference/choiced/body_type/is_accessible(datum/preferences/preferences, ignore_page = FALSE)
+/datum/preference/choiced/body_model/is_accessible(datum/preferences/preferences, ignore_page = FALSE)
 	if (!..())
 		return FALSE
 

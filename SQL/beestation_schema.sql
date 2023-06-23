@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `SS13_characters` (
 	`name_is_always_random` TINYINT(1),
 	`body_is_always_random` TINYINT(1),
 	`gender` VARCHAR(16) COLLATE 'utf8mb4_general_ci',
-	`body_type` VARCHAR(16) COLLATE 'utf8mb4_general_ci',
+	`body_model` VARCHAR(16) COLLATE 'utf8mb4_general_ci',
 	`body_size` VARCHAR(16) COLLATE 'utf8mb4_general_ci',
 	`age` TINYINT(3) UNSIGNED,
 	`hair_color` VARCHAR(8) COLLATE 'utf8mb4_general_ci',

@@ -8,9 +8,9 @@
 /// The priority at which gender is determined, needed for proper randomization.
 #define PREFERENCE_PRIORITY_GENDER 3
 
-/// The priority at which body type is decided, applied after gender so we can
+/// The priority at which body model is decided, applied after gender so we can
 /// make sure they're non-binary.
-#define PREFERENCE_PRIORITY_BODY_TYPE 4
+#define PREFERENCE_PRIORITY_BODY_MODEL 4
 
 /// The priority at which names are decided, needed for proper randomization.
 #define PREFERENCE_PRIORITY_NAMES 5
