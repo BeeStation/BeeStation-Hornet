@@ -89,7 +89,7 @@
 	stored_items = list()
 
 
-/obj/item/organ/cyberimp/brain/anti_drop/Remove(var/mob/living/carbon/M, special = 0)
+/obj/item/organ/cyberimp/brain/anti_drop/Remove(var/mob/living/carbon/M, special = 0, pref_load = FALSE)
 	if(active)
 		ui_action_click()
 	..()
@@ -109,7 +109,7 @@
 
 	var/stun_cap_amount = 40
 
-/obj/item/organ/cyberimp/brain/anti_stun/Remove(mob/living/carbon/M, special = FALSE)
+/obj/item/organ/cyberimp/brain/anti_stun/Remove(mob/living/carbon/M, special = FALSE, pref_load = FALSE)
 	. = ..()
 	UnregisterSignal(M, signalCache)
 
@@ -226,13 +226,13 @@
 		/datum/surgery/organ_extraction
 	)
 
-/obj/item/organ/cyberimp/brain/linkedsurgery/perfect/Insert(mob/living/carbon/user, special, drop_if_replaced)
+/obj/item/organ/cyberimp/brain/linkedsurgery/perfect/Insert(mob/living/carbon/user, special, drop_if_replaced, pref_load = FALSE)
 	. = ..()
 	to_chat(user, "<span class='notice'>Detailed, forbidden medical knowledge begins to fill your brain... You feel as if you're a <span class='hypnophrase'>perfect</span> surgeon now!</span>")
 	ADD_TRAIT(user, TRAIT_PERFECT_SURGEON, ORGAN_TRAIT)
 	update_surgery()
 
-/obj/item/organ/cyberimp/brain/linkedsurgery/perfect/Remove(mob/living/carbon/user, special)
+/obj/item/organ/cyberimp/brain/linkedsurgery/perfect/Remove(mob/living/carbon/user, special, pref_load = FALSE)
 	. = ..()
 	if(!QDELETED(user))
 		to_chat(user, "<span class='warning'>You feel your perfect surgical knowledge leaving your mind!</span>")
