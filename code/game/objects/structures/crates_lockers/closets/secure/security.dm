@@ -3,6 +3,10 @@
 	req_access = list(ACCESS_CAPTAIN)
 	icon_state = "cap"
 
+/obj/structure/closet/secure_closet/captains/populate_contents_immediate()
+	..()
+	new /obj/item/card/id/departmental_budget/civ(src)
+
 /obj/structure/closet/secure_closet/captains/PopulateContents()
 	..()
 	new /obj/item/storage/box/suitbox/cap(src)
@@ -31,7 +35,6 @@
 	new /obj/item/restraints/handcuffs/cable/zipties(src)
 
 	// prioritized items
-	new /obj/item/card/id/departmental_budget/civ(src)
 	new /obj/item/clothing/neck/cloak/cap(src)
 	new /obj/item/door_remote/captain(src)
 	new /obj/item/storage/belt/sabre(src)
@@ -55,6 +58,10 @@
 	req_access = list(ACCESS_HOP)
 	icon_state = "hop"
 
+/obj/structure/closet/secure_closet/hop/populate_contents_immediate()
+	..()
+	new /obj/item/card/id/departmental_budget/srv(src)
+
 /obj/structure/closet/secure_closet/hop/PopulateContents()
 	..()
 	new /obj/item/storage/box/suitbox/hop(src)
@@ -73,7 +80,6 @@
 	new /obj/item/circuitboard/machine/techfab/department/service(src)
 
 	// prioritized items
-	new /obj/item/card/id/departmental_budget/srv(src)
 	new /obj/item/clothing/neck/cloak/hop(src)
 	new /obj/item/door_remote/civillian(src)
 	new /obj/item/assembly/flash/handheld(src)
@@ -119,6 +125,12 @@
 	req_access = list(ACCESS_HOS)
 	icon_state = "hos"
 
+/obj/structure/closet/secure_closet/hos/populate_contents_immediate()
+	..()
+	new /obj/item/card/id/departmental_budget/sec(src)
+	new /obj/item/gun/energy/e_gun/hos(src)
+	new /obj/item/pinpointer/nuke(src)
+
 /obj/structure/closet/secure_closet/hos/PopulateContents()
 	..()
 	new /obj/item/storage/box/suitbox/hos(src)
@@ -145,14 +157,11 @@
 	new /obj/item/circuitboard/machine/techfab/department/security(src)
 
 	// prioritized items
-	new /obj/item/card/id/departmental_budget/sec(src)
 	new /obj/item/clothing/neck/cloak/hos(src)
 	new /obj/item/clothing/suit/armor/hos(src)
 	new /obj/item/clothing/suit/armor/hos/trenchcoat(src)
 	new /obj/item/shield/riot/tele(src)
 	new /obj/item/storage/belt/security/full(src)
-	new /obj/item/gun/energy/e_gun/hos(src)
-	new /obj/item/pinpointer/nuke(src)
 
 /obj/item/storage/box/suitbox/hos
 	name = "compression box of head of security outfits"
@@ -334,9 +343,12 @@
 	req_access = list(ACCESS_ARMORY)
 	icon_state = "armory"
 
-/obj/structure/closet/secure_closet/armory1/PopulateContents()
+/obj/structure/closet/secure_closet/armory1/populate_contents_immediate()
 	..()
 	new /obj/item/clothing/suit/armor/laserproof(src)
+
+/obj/structure/closet/secure_closet/armory1/PopulateContents()
+	..()
 	for(var/i in 1 to 3)
 		new /obj/item/clothing/suit/armor/riot(src)
 	for(var/i in 1 to 3)
