@@ -318,7 +318,7 @@
 					user.last_played_vent = world.time
 					playsound(src, 'sound/machines/ventcrawl.ogg', 50, 1, -3)
 					if(prob(1))
-						audible_message("<span class='warning'>You hear something crawling through the ducts...</span>", ignored_mobs = list(user))
+						audible_message("<span class='warning'>You hear something crawling through the ducts...</span>")
 	else if(is_type_in_typecache(src, GLOB.ventcrawl_machinery) && can_crawl_through()) //if we move in a way the pipe can connect, but doesn't - or we're in a vent
 		user.forceMove(loc)
 		user.visible_message("<span class='notice'>You hear something squeezing through the ducts...</span>", "<span class='notice'>You climb out the ventilation system.")
