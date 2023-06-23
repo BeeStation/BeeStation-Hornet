@@ -33,7 +33,7 @@
 	db_key = "feature_apid_antenna"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
-	main_feature_name = "Antenna Style"
+	main_feature_name = "Antennae Style"
 	should_generate_icons = TRUE
 	relevant_mutant_bodypart = "apid_antenna"
 
