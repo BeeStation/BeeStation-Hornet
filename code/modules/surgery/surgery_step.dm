@@ -198,7 +198,7 @@
 				chems_required -= R
 				held_item.reagents.trans_id_to(target, R)
 	// Are we holding the required chems in our off-hand
-	var/obj/item/offhand_item = user.get_inactive_hand_index()
+	var/obj/item/offhand_item = user.get_inactive_held_item()
 	if (offhand_item?.reagents)
 		for(var/R in chems_needed)
 			if(offhand_item.reagents.has_reagent(R))
