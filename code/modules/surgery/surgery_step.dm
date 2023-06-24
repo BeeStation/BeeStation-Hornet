@@ -113,7 +113,7 @@
 
 	if(do_after(user, modded_time, target = target))
 
-		if(((prob(100 - fail_prob) || HAS_TRAIT(user, TRAIT_PERFECT_SURGEON) || iscyborg(user)) && chem_check(target)) && !try_to_fail)
+		if(((prob(100 - fail_prob) || HAS_TRAIT(user, TRAIT_PERFECT_SURGEON) || iscyborg(user)) && chem_check(user, target)) && !try_to_fail)
 			if(success(user, target, target_zone, tool, surgery))
 				play_success_sound(user, target, target_zone, tool, surgery)
 				advance = TRUE
@@ -180,20 +180,38 @@
 /datum/surgery_step/proc/tool_check(mob/user, obj/item/tool)
 	return TRUE
 
-/datum/surgery_step/proc/chem_check(mob/living/carbon/target)
+/datum/surgery_step/proc/chem_check(mob/living/user, mob/living/carbon/target)
 	if(!LAZYLEN(chems_needed))
 		return TRUE
 
+	var/list/chems_required = chems_needed.Copy()
+	// Check for chems in body
+	for(var/R in chems_needed)
+		if(target.reagents.has_reagent(R))
+			chems_required -= R
+	// Are we holding the required chems?
+	var/obj/item/held_item = user.get_active_held_item()
+	if (held_item?.reagents)
+		for(var/R in chems_needed)
+			if(held_item.reagents.has_reagent(R))
+				// Inject the reagent into the patient
+				chems_required -= R
+				held_item.reagents.trans_id_to(target, R)
+	// Are we holding the required chems in our off-hand
+	var/obj/item/offhand_item = user.get_inactive_hand_index()
+	if (offhand_item?.reagents)
+		for(var/R in chems_needed)
+			if(offhand_item.reagents.has_reagent(R))
+				// Inject the reagent into the patient
+				chems_required -= R
+				offhand_item.reagents.trans_id_to(target, R)
+
 	if(require_all_chems)
-		. = TRUE
-		for(var/R in chems_needed)
-			if(!target.reagents.has_reagent(R))
-				return FALSE
+		// We had all of the required reagents
+		return !length(chems_required)
 	else
-		. = FALSE
-		for(var/R in chems_needed)
-			if(target.reagents.has_reagent(R))
-				return TRUE
+		// We had any of the required reagents
+		return length(chems_required) != length(chems_needed)
 
 /datum/surgery_step/proc/get_chem_list()
 	if(!LAZYLEN(chems_needed))
