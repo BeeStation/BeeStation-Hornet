@@ -26,7 +26,7 @@
 		return TRUE
 	return ..()
 
-/datum/species/zombie/infectious
+/datum/species/zombie/real
 	name = "\improper Infectious Zombie"
 	id = "memezombies"
 	examine_limb_id = "zombie"
@@ -38,19 +38,18 @@
 	var/regen_cooldown = 0
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
 
-/datum/species/zombie/infectious/check_roundstart_eligible()
+/datum/species/zombie/real/check_roundstart_eligible()
 	return FALSE
 
-
-/datum/species/zombie/infectious/spec_stun(mob/living/carbon/human/H,amount)
+/datum/species/zombie/real/spec_stun(mob/living/carbon/human/H,amount)
 	. = min(20, amount)
 
-/datum/species/zombie/infectious/apply_damage(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H, forced = FALSE)
+/datum/species/zombie/real/apply_damage(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H, forced = FALSE)
 	. = ..()
 	if(.)
 		regen_cooldown = world.time + REGENERATION_DELAY
 
-/datum/species/zombie/infectious/spec_life(mob/living/carbon/C)
+/datum/species/zombie/real/spec_life(mob/living/carbon/C)
 	. = ..()
 	C.a_intent = INTENT_HARM // THE SUFFERING MUST FLOW
 
@@ -66,14 +65,14 @@
 		playsound(C, pick(spooks), 50, TRUE, 10)
 
 //Congrats you somehow died so hard you stopped being a zombie
-/datum/species/zombie/infectious/spec_death(gibbed, mob/living/carbon/C)
+/datum/species/zombie/real/spec_death(gibbed, mob/living/carbon/C)
 	. = ..()
 	var/obj/item/organ/zombie_infection/infection
 	infection = C.getorganslot(ORGAN_SLOT_ZOMBIE)
 	if(infection)
 		qdel(infection)
 
-/datum/species/zombie/infectious/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+/datum/species/zombie/real/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
 
 	// Deal with the source of this zombie corruption
@@ -85,7 +84,7 @@
 		infection = new()
 		infection.Insert(C)
 
-/datum/species/zombie/infectious/fast
+/datum/species/zombie/real/fast
 	name = "\improper Fast Infectious Zombie"
 	id = "memezombiesfast"
 	armor = 0
@@ -108,6 +107,9 @@
 	species_r_arm = /obj/item/bodypart/r_arm/zombie
 	species_l_leg = /obj/item/bodypart/l_leg/zombie
 	species_r_leg = /obj/item/bodypart/r_leg/zombie
+
+/datum/species/zombie/real/non_infectious
+	mutanthands = /obj/item/zombie_hand/non_infectious
 
 /datum/species/human/krokodil_addict/replace_body(mob/living/carbon/C, datum/species/new_species)
 	..()

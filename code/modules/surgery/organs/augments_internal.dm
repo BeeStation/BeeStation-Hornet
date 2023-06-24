@@ -222,7 +222,7 @@
 	var/list/blocked_surgeries = list(
 		/datum/surgery/advanced,
 		/datum/surgery/advanced/bioware,
-		/datum/surgery/advanced/necrotic_revival,
+		/datum/surgery/advanced/brainwashing,
 		/datum/surgery/organ_extraction
 	)
 

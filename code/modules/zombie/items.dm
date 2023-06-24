@@ -13,6 +13,7 @@
 	hitsound = 'sound/hallucinations/growl1.ogg'
 	force = 21 // Just enough to break airlocks with melee attacks
 	damtype = BRUTE
+	var/infectious = FALSE
 
 /obj/item/zombie_hand/Initialize(mapload)
 	. = ..()
@@ -37,7 +38,7 @@
 			var/flesh_wound = ran_zone(user.zone_selected)
 			if(H.check_shields(src, 0))
 				return
-			if(prob(100-H.getarmor(flesh_wound, MELEE)))
+			if(infectious && prob(100-H.getarmor(flesh_wound, MELEE)))
 				try_to_zombie_infect(target)
 		else
 			check_feast(target, user)
@@ -79,3 +80,6 @@
 		user.updatehealth()
 		user.adjustOrganLoss(ORGAN_SLOT_BRAIN, -hp_gained) // Zom Bee gibbers "BRAAAAISNSs!1!"
 		user.set_nutrition(min(user.nutrition + hp_gained, NUTRITION_LEVEL_FULL))
+
+/obj/item/zombie_hand/non_infectious
+	infectious = FALSE

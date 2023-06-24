@@ -1290,7 +1290,7 @@
 	race = /datum/species/zombie
 
 /mob/living/carbon/human/species/zombie/infectious
-	race = /datum/species/zombie/infectious
+	race = /datum/species/zombie/real
 
 /mob/living/carbon/human/species/zombie/krokodil_addict
 	race = /datum/species/human/krokodil_addict
