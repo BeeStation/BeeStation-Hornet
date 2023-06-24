@@ -177,7 +177,7 @@
 		if(istype(held_item, /obj/item/disk/surgery))
 			var/obj/item/disk/surgery/surgery_disk = held_item
 			for(var/surgery in surgery_disk.surgeries)
-				if(!(surgery in advanced_surgeries) && !(surgery_design.surgery in blocked_surgeries))
+				if(!(surgery in advanced_surgeries) && !(surgery in blocked_surgeries))
 					surgeries_to_add += surgery
 					new_surgeries++
 		else if(istype(held_item, /obj/item/disk/tech_disk))
