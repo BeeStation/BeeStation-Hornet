@@ -80,6 +80,7 @@
 	else if(M.a_intent == INTENT_HARM)
 		for(var/mob/living/L in oview(1, M))
 			M.changeNext_move(CLICK_CD_RAPID)
+			// Attack must be after the cooldown as martial arts resets the cooldown for clicking
 			L.attack_hand(M)
 			if(warcry)
 				M.say("[warcry]", ignore_spam = TRUE, forced = "north star warcry")
