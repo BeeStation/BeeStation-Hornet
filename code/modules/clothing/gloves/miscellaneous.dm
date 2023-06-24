@@ -79,8 +79,8 @@
 
 	else if(M.a_intent == INTENT_HARM)
 		for(var/mob/living/L in oview(1, M))
-			L.attack_hand(M)
 			M.changeNext_move(CLICK_CD_RAPID)
+			L.attack_hand(M)
 			if(warcry)
 				M.say("[warcry]", ignore_spam = TRUE, forced = "north star warcry")
 			break
