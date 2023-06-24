@@ -151,6 +151,12 @@
 	actions_types = list(/datum/action/item_action/update_linkedsurgery)
 	var/list/advanced_surgeries = list()
 	var/static/datum/techweb/linked_techweb
+	var/static/list/blocked_surgeries = list(
+		/datum/surgery/advanced,
+		/datum/surgery/advanced/bioware,
+		/datum/surgery/advanced/brainwashing,
+		/datum/surgery/organ_extraction
+	)
 
 /obj/item/organ/cyberimp/brain/linkedsurgery/Initialize()
 	. = ..()
@@ -171,7 +177,7 @@
 		if(istype(held_item, /obj/item/disk/surgery))
 			var/obj/item/disk/surgery/surgery_disk = held_item
 			for(var/surgery in surgery_disk.surgeries)
-				if(!(surgery in advanced_surgeries))
+				if(!(surgery in advanced_surgeries) && !(surgery_design.surgery in blocked_surgeries))
 					surgeries_to_add += surgery
 					new_surgeries++
 		else if(istype(held_item, /obj/item/disk/tech_disk))
@@ -180,7 +186,7 @@
 				var/datum/design/surgery/surgery_design = SSresearch.techweb_design_by_id(D)
 				if(!istype(surgery_design))
 					continue
-				if(!(surgery_design.surgery in advanced_surgeries))
+				if(!(surgery_design.surgery in advanced_surgeries) && !(surgery_design.surgery in blocked_surgeries))
 					surgeries_to_add += surgery_design.surgery
 					new_surgeries++
 		else if(istype(held_item, /obj/item/disk/nuclear))
@@ -219,12 +225,6 @@
 	desc = "A brain implant with a bluespace technology that lets you perform any advanced surgery through hacked Nanotrasen servers."
 	actions_types = list(/datum/action/item_action/toggle_perfect_surgeon)
 	syndicate_implant = TRUE
-	var/list/blocked_surgeries = list(
-		/datum/surgery/advanced,
-		/datum/surgery/advanced/bioware,
-		/datum/surgery/advanced/brainwashing,
-		/datum/surgery/organ_extraction
-	)
 
 /obj/item/organ/cyberimp/brain/linkedsurgery/perfect/Insert(mob/living/carbon/user, special, drop_if_replaced)
 	. = ..()
