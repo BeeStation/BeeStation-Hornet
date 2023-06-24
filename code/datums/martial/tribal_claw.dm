@@ -80,18 +80,21 @@ Deals 15 brute to head(reduced by armor) and causes a rapid bleeding effect simi
 		D.silent = CLAMP(D.silent + 10, 0, 10)
 
 /datum/martial_art/tribal_claw/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	A.changeNext_move(CLICK_CD_MELEE)
 	add_to_streak("H",D)
 	if(check_streak(A,D))
 		return TRUE
 	return FALSE
 
 /datum/martial_art/tribal_claw/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	A.changeNext_move(CLICK_CD_MELEE)
 	add_to_streak("D",D)
 	if(check_streak(A,D))
 		return TRUE
 	return FALSE
 
 /datum/martial_art/tribal_claw/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	A.changeNext_move(CLICK_CD_MELEE)
 	add_to_streak("G",D)
 	if(check_streak(A,D))
 		return TRUE

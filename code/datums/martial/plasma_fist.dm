@@ -61,6 +61,7 @@
 	return
 
 /datum/martial_art/plasma_fist/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	A.changeNext_move(CLICK_CD_MELEE)
 	add_to_streak("H",D)
 	if(check_streak(A,D))
 		return 1
@@ -68,6 +69,7 @@
 	return 1
 
 /datum/martial_art/plasma_fist/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	A.changeNext_move(CLICK_CD_MELEE)
 	add_to_streak("D",D)
 	if(check_streak(A,D))
 		return 1
@@ -75,6 +77,7 @@
 	return 1
 
 /datum/martial_art/plasma_fist/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	A.changeNext_move(CLICK_CD_MELEE)
 	add_to_streak("G",D)
 	if(check_streak(A,D))
 		return 1

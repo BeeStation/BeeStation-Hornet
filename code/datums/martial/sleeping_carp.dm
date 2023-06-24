@@ -111,6 +111,7 @@
 	return basic_hit(A,D)
 
 /datum/martial_art/the_sleeping_carp/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	A.changeNext_move(CLICK_CD_MELEE)
 	if(A==D)
 		return 0 //prevents grabbing yourself
 	if(A.a_intent == INTENT_GRAB)
@@ -129,6 +130,7 @@
 	return 1
 
 /datum/martial_art/the_sleeping_carp/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	A.changeNext_move(CLICK_CD_MELEE)
 	var/def_check = D.getarmor(BODY_ZONE_CHEST, MELEE)
 	add_to_streak("H",D)
 	if(check_streak(A,D))
@@ -144,6 +146,7 @@
 
 
 /datum/martial_art/the_sleeping_carp/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	A.changeNext_move(CLICK_CD_MELEE)
 	add_to_streak("D",D)
 	if(check_streak(A,D))
 		return 1

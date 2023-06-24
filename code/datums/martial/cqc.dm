@@ -125,6 +125,7 @@
 	return TRUE
 
 /datum/martial_art/cqc/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	A.changeNext_move(CLICK_CD_MELEE)
 	if(!can_use(A))
 		return FALSE
 	if(A==D)
@@ -145,6 +146,7 @@
 	return TRUE
 
 /datum/martial_art/cqc/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	A.changeNext_move(CLICK_CD_MELEE)
 	var/def_check = D.getarmor(BODY_ZONE_CHEST, MELEE)
 	if(!can_use(A))
 		return FALSE
@@ -176,6 +178,7 @@
 	return TRUE
 
 /datum/martial_art/cqc/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	A.changeNext_move(CLICK_CD_MELEE)
 	var/def_check = D.getarmor(BODY_ZONE_CHEST, MELEE)
 	if(!can_use(A))
 		return FALSE

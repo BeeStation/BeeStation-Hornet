@@ -11,7 +11,7 @@
 	return 1
 
 /datum/martial_art/boxing/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
-
+	A.changeNext_move(CLICK_CD_MELEE)
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 
 	var/atk_verb = pick("left hook","right hook","straight punch")

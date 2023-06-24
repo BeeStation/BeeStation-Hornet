@@ -121,12 +121,14 @@
 	return 1
 
 /datum/martial_art/krav_maga/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+	A.changeNext_move(CLICK_CD_MELEE)
 	if(check_streak(A,D))
 		return 1
 	log_combat(A, D, "grabbed (Krav Maga)")
 	..()
 
 /datum/martial_art/krav_maga/harm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+	A.changeNext_move(CLICK_CD_MELEE)
 	if(check_streak(A,D))
 		return 1
 	log_combat(A, D, "punched")
@@ -150,6 +152,7 @@
 	return 1
 
 /datum/martial_art/krav_maga/disarm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+	A.changeNext_move(CLICK_CD_MELEE)
 	if(check_streak(A,D))
 		return 1
 	var/obj/item/bodypart/affecting = D.get_bodypart(ran_zone(A.zone_selected))

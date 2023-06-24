@@ -120,6 +120,7 @@
 	strike.Remove(H)
 
 /datum/martial_art/wrestling/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	A.changeNext_move(CLICK_CD_MELEE)
 	if(check_streak(A,D))
 		return 1
 	log_combat(A, D, "punched with wrestling")
@@ -433,12 +434,14 @@
 	return
 
 /datum/martial_art/wrestling/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	A.changeNext_move(CLICK_CD_MELEE)
 	if(check_streak(A,D))
 		return 1
 	log_combat(A, D, "wrestling-disarmed")
 	..()
 
 /datum/martial_art/wrestling/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	A.changeNext_move(CLICK_CD_MELEE)
 	if(check_streak(A,D))
 		return 1
 	if(A.pulling == D)
