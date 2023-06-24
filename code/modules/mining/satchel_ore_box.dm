@@ -86,7 +86,7 @@
 
 	return data
 
-/obj/structure/ore_box/ui_act(action, params)
+/obj/structure/ore_box/ui_act(action, datum/params/params)
 	if(..())
 		return
 

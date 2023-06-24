@@ -82,7 +82,7 @@
 		data["occupant_status"] = mob_occupant.stat
 	return data
 
-/obj/machinery/abductor/experiment/ui_act(action, list/params)
+/obj/machinery/abductor/experiment/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return

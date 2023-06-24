@@ -99,7 +99,7 @@
 
 	return data
 
-/datum/computer_file/program/secureye/ui_act(action, params)
+/datum/computer_file/program/secureye/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return

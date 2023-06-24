@@ -68,7 +68,7 @@
 
 	return data
 
-/obj/item/xenoartifact_labeler/ui_act(action, params)
+/obj/item/xenoartifact_labeler/ui_act(action, datum/params/params)
 	if(..())
 		return
 	//Switch function could work here but it'd be pointless for the 1-2 cases

@@ -386,7 +386,7 @@
 
 //UI stuff below
 
-/obj/machinery/power/bluespace_tap/ui_act(action, params)
+/obj/machinery/power/bluespace_tap/ui_act(action, datum/params/params)
 	if(..())
 		return
 	. = TRUE	// we want to refresh in all the cases below
@@ -396,9 +396,9 @@
 		if("increase")
 			increase_level()
 		if("set")
-			set_level(text2num(params["set_level"]))
+			set_level(params.get_num(set_level))
 		if("vend")//it's not really vending as producing, but eh
-			var/key = text2num(params["target"])
+			var/key = params.get_num(target)
 			produce(key)
 
 /obj/machinery/power/bluespace_tap/ui_interact(mob/user, datum/tgui/ui)

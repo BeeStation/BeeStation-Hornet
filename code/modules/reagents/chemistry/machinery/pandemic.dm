@@ -182,7 +182,7 @@
 
 	return data
 
-/obj/machinery/computer/pandemic/ui_act(action, params)
+/obj/machinery/computer/pandemic/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)
@@ -199,7 +199,7 @@
 				eject_beaker()
 			. = TRUE
 		if("rename_disease")
-			var/id = get_virus_id_by_index(text2num(params["index"]))
+			var/id = get_virus_id_by_index(params.get_num(index))
 			var/datum/disease/advance/A = SSdisease.archive_diseases[id]
 			if(!A.mutable)
 				return
@@ -212,7 +212,7 @@
 		if("create_culture_bottle")
 			if (wait)
 				return
-			var/id = get_virus_id_by_index(text2num(params["index"]))
+			var/id = get_virus_id_by_index(params.get_num(index))
 			var/datum/disease/advance/A = SSdisease.archive_diseases[id]
 			if(!istype(A) || !A.mutable)
 				to_chat(usr, "<span class='warning'>ERROR: Cannot replicate virus strain.</span>")

@@ -63,7 +63,7 @@
 	//Being Build
 	return data
 
-/obj/machinery/modular_fabricator/autolathe/ui_act(action, params)
+/obj/machinery/modular_fabricator/autolathe/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return

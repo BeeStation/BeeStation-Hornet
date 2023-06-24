@@ -104,7 +104,7 @@
 		.["target"] = "[target.saved_identification] ([target.saved_job])"
 	.["everyone"] = send_all
 
-/datum/tgui_input_pda_message/ui_act(action, list/params)
+/datum/tgui_input_pda_message/ui_act(action, datum/params/params)
 	. = ..()
 	if (.)
 		return

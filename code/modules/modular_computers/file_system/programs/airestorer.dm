@@ -32,7 +32,7 @@
 
 	return
 
-/datum/computer_file/program/aidiag/ui_act(action, params)
+/datum/computer_file/program/aidiag/ui_act(action, datum/params/params)
 	if(..())
 		return
 

@@ -323,7 +323,7 @@
 
 	return data
 
-/obj/machinery/biogenerator/ui_act(action, list/params)
+/obj/machinery/biogenerator/ui_act(action, datum/params/params)
 	if(..())
 		return
 
@@ -335,7 +335,7 @@
 			detach(usr)
 			return TRUE
 		if("create")
-			var/amount = text2num(params["amount"])
+			var/amount = params.get_num(amount)
 			amount = clamp(amount, 1, 10)
 			if(!amount)
 				return

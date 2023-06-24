@@ -37,7 +37,7 @@
 	data["right"] = english_right
 	return data
 
-/obj/machinery/plumbing/filter/ui_act(action, params)
+/obj/machinery/plumbing/filter/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)

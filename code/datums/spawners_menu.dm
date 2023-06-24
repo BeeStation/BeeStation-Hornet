@@ -41,14 +41,11 @@
 /datum/spawners_menu/ui_state(mob/user)
 	return GLOB.observer_state
 
-/datum/spawners_menu/ui_act(action, params)
+/datum/spawners_menu/ui_act(action, datum/params/params)
 	if(..())
 		return
 
-	var/group_name = params["name"]
-	if(!group_name || !(group_name in GLOB.mob_spawners))
-		return
-	var/list/spawnerlist = GLOB.mob_spawners[group_name]
+	var/list/spawnerlist = params.get_from_lookup("name", GLOB.mob_spawners)
 	if(!LAZYLEN(spawnerlist))
 		return
 	var/atom/movable/MS = pick(spawnerlist)

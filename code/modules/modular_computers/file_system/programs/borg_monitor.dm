@@ -53,7 +53,7 @@
 		data["cyborgs"] += list(cyborg_data)
 	return data
 
-/datum/computer_file/program/borg_monitor/ui_act(action, params)
+/datum/computer_file/program/borg_monitor/ui_act(action, datum/params/params)
 	if(..())
 		return
 

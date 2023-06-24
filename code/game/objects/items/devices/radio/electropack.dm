@@ -103,7 +103,7 @@
 	data["maxFrequency"] = MAX_FREE_FREQ
 	return data
 
-/obj/item/electropack/ui_act(action, params)
+/obj/item/electropack/ui_act(action, datum/params/params)
 	if(..())
 		return
 
@@ -119,7 +119,7 @@
 				set_frequency(frequency)
 				. = TRUE
 		if("code")
-			var/value = text2num(params["code"])
+			var/value = params.get_num(code)
 			if(value)
 				value = round(value)
 				code = clamp(value, 1, 100)

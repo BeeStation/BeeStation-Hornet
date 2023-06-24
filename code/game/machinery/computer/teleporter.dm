@@ -79,7 +79,7 @@
 
 	return data
 
-/obj/machinery/computer/teleporter/ui_act(action, params)
+/obj/machinery/computer/teleporter/ui_act(action, datum/params/params)
 	if(..())
 		return
 

@@ -64,7 +64,7 @@
 
 	return data
 
-/obj/machinery/gulag_item_reclaimer/ui_act(action, params)
+/obj/machinery/gulag_item_reclaimer/ui_act(action, datum/params/params)
 	if(..())
 		return
 

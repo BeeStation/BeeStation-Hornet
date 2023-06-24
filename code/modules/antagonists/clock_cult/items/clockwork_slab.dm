@@ -167,7 +167,7 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 		data["scriptures"] += list(S)
 	return data
 
-/obj/item/clockwork/clockwork_slab/ui_act(action, params)
+/obj/item/clockwork/clockwork_slab/ui_act(action, datum/params/params)
 	var/mob/living/M = usr
 	if(!istype(M))
 		return FALSE

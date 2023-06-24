@@ -345,7 +345,7 @@
 	if (!QDELETED(remote_control) && user == remote_control.operator)
 		. = UI_INTERACTIVE
 
-/obj/machinery/power/apc/ui_act(action, params)
+/obj/machinery/power/apc/ui_act(action, datum/params/params)
 	if(..() || !can_use(usr, 1))
 		return
 
@@ -386,15 +386,15 @@
 			. = TRUE
 		if("channel")
 			if(params["eqp"])
-				equipment = setsubsystem(text2num(params["eqp"]))
+				equipment = setsubsystem(params.get_num(eqp))
 				update_appearance()
 				update()
 			else if(params["lgt"])
-				lighting = setsubsystem(text2num(params["lgt"]))
+				lighting = setsubsystem(params.get_num(lgt))
 				update_appearance()
 				update()
 			else if(params["env"])
-				environ = setsubsystem(text2num(params["env"]))
+				environ = setsubsystem(params.get_num(env))
 				update_appearance()
 				update()
 			else

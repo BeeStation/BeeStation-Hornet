@@ -155,7 +155,7 @@
 	if(timeout)
 		.["timeout"] = clamp((timeout - (world.time - start_time) - 1 SECONDS) / (timeout - 1 SECONDS), 0, 1)
 
-/datum/tgui_list_input/ui_act(action, list/params)
+/datum/tgui_list_input/ui_act(action, datum/params/params)
 	. = ..()
 	if (.)
 		return

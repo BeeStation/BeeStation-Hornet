@@ -79,7 +79,7 @@ SUBSYSTEM_DEF(pai)
 	default_candidate = null
 	return data
 
-/datum/controller/subsystem/pai/ui_act(action, list/params, datum/tgui/ui)
+/datum/controller/subsystem/pai/ui_act(action, datum/params/params, datum/tgui/ui)
 	. = ..()
 	if(.)
 		return
@@ -93,27 +93,33 @@ SUBSYSTEM_DEF(pai)
 		to_chat(usr, "<span class='warning'>There was an error. Please resubmit.</span>")
 		ui.close()
 		return FALSE
-	if(CHAT_FILTER_CHECK(params["candidate"]["comments"]))
+	var/datum/params/candidate = params.get_param_dict("candidate")
+	// These are sanitised by prefs anyway, so we might as well get them sanitised
+	// rather than storing them in message containers
+	var/comments = candidate.get_sanitised_text("comments")
+	var/description = candidate.get_sanitised_text("description")
+	var/name = candidate.get_sanitised_text("name")
+	if(CHAT_FILTER_CHECK(comments))
 		to_chat(usr, "<span class='warning'>Your OOC comment contains prohibited word(s)!</span>")
 		return FALSE
-	if(CHAT_FILTER_CHECK(params["candidate"]["description"]))
+	if(CHAT_FILTER_CHECK(description))
 		to_chat(usr, "<span class='warning'>Your description contains prohibited word(s)!</span>")
 		return FALSE
-	if(CHAT_FILTER_CHECK(params["candidate"]["name"]))
+	if(CHAT_FILTER_CHECK(name)
 		to_chat(usr, "<span class='warning'>Your name contains prohibited word(s)!</span>")
 		return FALSE
 	switch(action)
 		if("submit")
-			candidate.comments = params["candidate"]["comments"]
-			candidate.description = params["candidate"]["description"]
-			candidate.name = params["candidate"]["name"]
+			candidate.comments = comments
+			candidate.description = description
+			candidate.name = name
 			candidate.ready = TRUE
 			ui.close()
 			submit_alert()
 		if("save")
-			candidate.comments = params["candidate"]["comments"]
-			candidate.description = params["candidate"]["description"]
-			candidate.name = params["candidate"]["name"]
+			candidate.comments = comments
+			candidate.description = description
+			candidate.name = name
 			candidate.save(usr)
 	return TRUE
 

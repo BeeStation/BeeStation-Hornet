@@ -460,7 +460,7 @@
 	data["tray_open"] = open
 	return data
 
-/obj/structure/displaycase/forsale/ui_act(action, params)
+/obj/structure/displaycase/forsale/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return

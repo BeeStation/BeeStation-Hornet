@@ -126,7 +126,7 @@
 	data["beakerContents"] = beakerContents
 	return data
 
-/obj/machinery/chem_heater/ui_act(action, params)
+/obj/machinery/chem_heater/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)
@@ -134,7 +134,7 @@
 			on = !on
 			. = TRUE
 		if("temperature")
-			var/target = text2num(params["target"])
+			var/target = params.get_num(target)
 			if(target != null)
 				target_temperature = clamp(target, 0, 1000)
 				. = TRUE

@@ -127,7 +127,7 @@
 
 	return data
 
-/obj/machinery/atmospherics/components/trinary/filter/ui_act(action, params)
+/obj/machinery/atmospherics/components/trinary/filter/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)

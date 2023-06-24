@@ -132,7 +132,7 @@
 		))
 	return data
 
-/obj/machinery/computer/security/ui_act(action, params)
+/obj/machinery/computer/security/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return

@@ -947,7 +947,7 @@
 	data["shootCyborgs"] = shoot_cyborgs
 	return data
 
-/obj/machinery/turretid/ui_act(action, list/params)
+/obj/machinery/turretid/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return

@@ -114,7 +114,7 @@
 		data["holding"] = null
 	return data
 
-/obj/machinery/portable_atmospherics/pump/ui_act(action, params)
+/obj/machinery/portable_atmospherics/pump/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)

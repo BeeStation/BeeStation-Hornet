@@ -60,12 +60,12 @@
 	data["patch_name"] = patch_name
 	return data
 
-/obj/machinery/plumbing/patch_dispenser/ui_act(action, params)
+/obj/machinery/plumbing/patch_dispenser/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)
 		if("change_patch_size")
-			patch_size = CLAMP(text2num(params["volume"]), 0, 40)
+			patch_size = CLAMP(params.get_num(volume), 0, 40)
 			. = TRUE
 		if("change_patch_name")
 			var/new_name = stripped_input(usr, "Enter a patch name.", name, patch_name)

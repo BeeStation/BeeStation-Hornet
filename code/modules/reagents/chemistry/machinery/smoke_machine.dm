@@ -136,7 +136,7 @@
 	data["maxSetting"] = max_range
 	return data
 
-/obj/machinery/smoke_machine/ui_act(action, params)
+/obj/machinery/smoke_machine/ui_act(action, datum/params/params)
 	if(..() || !anchored)
 		return
 	switch(action)
@@ -145,7 +145,7 @@
 			update_icon()
 			. = TRUE
 		if("setting")
-			var/amount = text2num(params["amount"])
+			var/amount = params.get_num(amount)
 			if(amount in 1 to max_range)
 				setting = amount
 				. = TRUE

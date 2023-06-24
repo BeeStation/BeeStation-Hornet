@@ -181,7 +181,7 @@
 
 	return data
 
-/obj/item/tank/ui_act(action, params)
+/obj/item/tank/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)

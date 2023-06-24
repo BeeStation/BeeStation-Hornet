@@ -327,7 +327,7 @@
 	// Pass act type messages to ui_act
 	if(type && copytext(type, 1, 5) == "act/")
 		process_status()
-		if(src_object.ui_act(copytext(type, 5), payload, src, state))
+		if(src_object.ui_act(copytext(type, 5), new /datum/params(payload), src, state))
 			SStgui.update_uis(src_object)
 		return FALSE
 	switch(type)

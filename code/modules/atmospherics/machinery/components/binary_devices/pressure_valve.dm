@@ -98,7 +98,7 @@
 	data["max_pressure"] = round(ONE_ATMOSPHERE*100)
 	return data
 
-/obj/machinery/atmospherics/components/binary/pressure_valve/ui_act(action, params)
+/obj/machinery/atmospherics/components/binary/pressure_valve/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)

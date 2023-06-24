@@ -118,7 +118,7 @@
 	data = machine.get_machine_data()
 	return data
 
-/obj/machinery/mineral/processing_unit_console/ui_act(action, params)
+/obj/machinery/mineral/processing_unit_console/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)
@@ -155,7 +155,7 @@
 			machine.toggle_auto_shutdown()
 
 		if("set_smelt_amount")
-			machine.smelt_amount_limit = CLAMP(text2num(params["amount"]), 1, 100)
+			machine.smelt_amount_limit = CLAMP(params.get_num(amount), 1, 100)
 
 /obj/machinery/mineral/processing_unit_console/Destroy()
 	machine.console = null

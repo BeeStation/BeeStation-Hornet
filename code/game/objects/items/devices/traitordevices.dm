@@ -135,7 +135,7 @@ effective or pretty fucking useless.
 	data["cooldown"] = DisplayTimeText(get_cooldown())
 	return data
 
-/obj/item/healthanalyzer/rad_laser/ui_act(action, params)
+/obj/item/healthanalyzer/rad_laser/ui_act(action, datum/params/params)
 	if(..())
 		return
 
@@ -151,7 +151,7 @@ effective or pretty fucking useless.
 			. = TRUE
 		if("radintensity")
 			var/target = params["target"]
-			var/adjust = text2num(params["adjust"])
+			var/adjust = params.get_num(adjust)
 			if(target == "min")
 				target = 1
 				. = TRUE
@@ -169,7 +169,7 @@ effective or pretty fucking useless.
 				intensity = clamp(target, 1, 20)
 		if("radwavelength")
 			var/target = params["target"]
-			var/adjust = text2num(params["adjust"])
+			var/adjust = params.get_num(adjust)
 			if(target == "min")
 				target = 0
 				. = TRUE

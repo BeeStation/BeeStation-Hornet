@@ -148,7 +148,7 @@
 
 	return data
 
-/datum/computer_file/program/supermatter_monitor/ui_act(action, params)
+/datum/computer_file/program/supermatter_monitor/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return
@@ -162,7 +162,7 @@
 			refresh()
 			return TRUE
 		if("PRG_set")
-			var/newuid = text2num(params["target"])
+			var/newuid = params.get_num(target)
 			for(var/obj/machinery/power/supermatter_crystal/S in supermatters)
 				if(S.uid == newuid)
 					active = S

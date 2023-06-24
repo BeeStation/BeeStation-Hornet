@@ -91,7 +91,7 @@
 	data["max_temperature"] = round(max_temperature)
 	return data
 
-/obj/machinery/atmospherics/components/binary/temperature_gate/ui_act(action, params)
+/obj/machinery/atmospherics/components/binary/temperature_gate/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)

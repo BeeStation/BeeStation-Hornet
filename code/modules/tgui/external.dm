@@ -97,7 +97,7 @@
  *
  * return bool If the UI should be updated or not.
  */
-/datum/proc/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+/datum/proc/ui_act(action, datum/params/params, datum/tgui/ui, datum/ui_state/state)
 	// If UI is not interactive or usr calling Topic is not the UI user, bail.
 	if(!ui || ui.status != UI_INTERACTIVE)
 		return 1

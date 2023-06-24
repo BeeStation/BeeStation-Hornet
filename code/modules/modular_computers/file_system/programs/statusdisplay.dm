@@ -43,7 +43,7 @@
 		if("lower")
 			lower_text = text
 
-/datum/computer_file/program/status/ui_act(action, list/params, datum/tgui/ui)
+/datum/computer_file/program/status/ui_act(action, datum/params/params, datum/tgui/ui)
 	. = ..()
 	if(.)
 		return

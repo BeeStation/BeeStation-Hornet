@@ -117,7 +117,7 @@
 
 	return data
 
-/obj/machinery/computer/xenoartifact_console/ui_act(action, params) //I should probably use a switch statement for this but, the for statements look painful
+/obj/machinery/computer/xenoartifact_console/ui_act(action, datum/params/params) //I should probably use a switch statement for this but, the for statements look painful
 	. = TRUE
 	if(..())
 		return

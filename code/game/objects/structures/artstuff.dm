@@ -105,7 +105,7 @@
 	. = ..()
 	ui_interact(user)
 
-/obj/item/canvas/ui_act(action, params)
+/obj/item/canvas/ui_act(action, datum/params/params)
 	. = ..()
 	if(. || finalized)
 		return
@@ -116,8 +116,8 @@
 			var/color = get_paint_tool_color(I)
 			if(!color)
 				return FALSE
-			var/x = text2num(params["x"])
-			var/y = text2num(params["y"])
+			var/x = params.get_num(x)
+			var/y = params.get_num(y)
 			grid[x][y] = color
 			used = TRUE
 			update_icon()

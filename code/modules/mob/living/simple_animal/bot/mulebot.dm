@@ -270,7 +270,7 @@
 	data["id"] = id
 	return data
 
-/mob/living/simple_animal/bot/mulebot/ui_act(action, params)
+/mob/living/simple_animal/bot/mulebot/ui_act(action, datum/params/params)
 	if(..() || (locked && !usr.has_unlimited_silicon_privilege))
 		return
 	switch(action)

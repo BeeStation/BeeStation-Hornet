@@ -48,12 +48,12 @@
 		ui.open()
 		ui.set_autoupdate(TRUE) // Satellite stats (could probably be refactored to update when satellite status changes)
 
-/obj/machinery/computer/sat_control/ui_act(action, params)
+/obj/machinery/computer/sat_control/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)
 		if("toggle")
-			toggle(text2num(params["id"]))
+			toggle(params.get_num(id))
 			. = TRUE
 
 /obj/machinery/computer/sat_control/proc/toggle(id)

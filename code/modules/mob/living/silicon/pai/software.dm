@@ -67,7 +67,7 @@
 		data["master"]["dna"] = master_dna
 	return data
 
-/mob/living/silicon/pai/ui_act(action, list/params, datum/tgui/ui)
+/mob/living/silicon/pai/ui_act(action, datum/params/params, datum/tgui/ui)
 	. = ..()
 	if(.)
 		return

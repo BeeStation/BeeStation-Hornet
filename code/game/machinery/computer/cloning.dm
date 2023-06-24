@@ -441,7 +441,7 @@
 	data["experimental"] = experimental
 	return data
 
-/obj/machinery/computer/cloning/ui_act(action, params)
+/obj/machinery/computer/cloning/ui_act(action, datum/params/params)
 	if(..())
 		return
 

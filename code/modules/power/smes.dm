@@ -361,7 +361,7 @@
 	)
 	return data
 
-/obj/machinery/power/smes/ui_act(action, params)
+/obj/machinery/power/smes/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)
@@ -375,7 +375,7 @@
 			. = TRUE
 		if("input")
 			var/target = params["target"]
-			var/adjust = text2num(params["adjust"])
+			var/adjust = params.get_num(adjust)
 			if(target == "min")
 				target = 0
 				. = TRUE
@@ -392,7 +392,7 @@
 				input_level = clamp(target, 0, input_level_max)
 		if("output")
 			var/target = params["target"]
-			var/adjust = text2num(params["adjust"])
+			var/adjust = params.get_num(adjust)
 			if(target == "min")
 				target = 0
 				. = TRUE

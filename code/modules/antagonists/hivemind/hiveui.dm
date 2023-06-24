@@ -42,7 +42,7 @@
 
 	return data
 
-/datum/psychic_plane/ui_act(action, params)
+/datum/psychic_plane/ui_act(action, datum/params/params)
 	if(..())
 		return
 	if(action == "track")

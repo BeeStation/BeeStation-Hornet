@@ -58,12 +58,12 @@
 	data["bottle_name"] = bottle_name
 	return data
 
-/obj/machinery/plumbing/bottle_dispenser/ui_act(action, params)
+/obj/machinery/plumbing/bottle_dispenser/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)
 		if("change_bottle_size")
-			bottle_size = CLAMP(text2num(params["volume"]), 0, 30)
+			bottle_size = CLAMP(params.get_num(volume), 0, 30)
 			. = TRUE
 		if("change_bottle_name")
 			var/new_name = stripped_input(usr, "Enter a bottle name.", name, bottle_name)

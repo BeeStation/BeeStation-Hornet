@@ -127,13 +127,13 @@
 /datum/interview/ui_state(mob/user)
 	return GLOB.new_player_state
 
-/datum/interview/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+/datum/interview/ui_act(action, datum/params/params, datum/tgui/ui, datum/ui_state/state)
 	if (..())
 		return
 	switch(action)
 		if ("update_answer")
 			if (!read_only)
-				responses[text2num(params["qidx"])] = copytext_char(params["answer"], 1, 501) // byond indexing moment
+				responses[params.get_num(qidx)] = copytext_char(params["answer"], 1, 501) // byond indexing moment
 				return TRUE
 		if ("submit")
 			if (!read_only)

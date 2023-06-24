@@ -335,7 +335,7 @@
 
 	return data
 
-/obj/machinery/nuclearbomb/ui_act(action, params)
+/obj/machinery/nuclearbomb/ui_act(action, datum/params/params)
 	if(..())
 		return
 	playsound(src, "terminal_type", 20, FALSE)

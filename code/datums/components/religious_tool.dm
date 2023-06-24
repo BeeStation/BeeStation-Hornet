@@ -109,14 +109,14 @@
 	data["can_sacrifice_item"] = (operation_flags & RELIGION_TOOL_SACRIFICE)
 	return data
 
-/datum/component/religious_tool/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+/datum/component/religious_tool/ui_act(action, datum/params/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	switch(action)
 		if("sect_select")
-			select_sect(usr, params["path"])
+			select_sect(usr, params.get_subtype_path("path", /datum/religion_sect))
 			return TRUE //they picked a sect lets update so some weird spammy shit doesn't happen
 		if("perform_rite")
-			perform_rite(usr, params["path"])
+			perform_rite(usr, params.get_subtype_path("path", /datum/religion_rites))
 
 /// Select the sect, called from [/datum/component/religious_tool/proc/AttemptActions]
 /datum/component/religious_tool/proc/select_sect(mob/living/user, path)

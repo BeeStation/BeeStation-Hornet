@@ -62,7 +62,7 @@
 			data["alarms"] += list(nominal_category)
 	return data
 
-/datum/station_alert/ui_act(action, params)
+/datum/station_alert/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return
@@ -78,7 +78,7 @@
 			for(var/alarm_type in alarms)
 				alerts += alarms[alarm_type]
 
-			var/list/our_alert = locate(params["alert"]) in alerts
+			var/list/our_alert = params.locate_param("alert", alerts)
 			if(!length(our_alert))
 				return
 			var/chosen_alert = alerts[our_alert]

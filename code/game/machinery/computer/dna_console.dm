@@ -371,7 +371,7 @@
 
 	return data
 
-/obj/machinery/computer/scan_consolenew/ui_act(action, list/params)
+/obj/machinery/computer/scan_consolenew/ui_act(action, datum/params/params)
 	if(..())
 		return TRUE
 
@@ -511,7 +511,7 @@
 			if(length(newgene) > 1 || !(newgene in genecodes))
 				log_href_exploit(usr)
 				return
-			var/genepos = text2num(params["pos"])
+			var/genepos = params.get_num(pos)
 
 			// If the new gene is J, this means we're dealing with a JOKER
 			// GUARD CHECK - Is JOKER actually ready?
@@ -634,7 +634,7 @@
 			var/obj/item/dnainjector/activator/I = new /obj/item/dnainjector/activator(loc)
 			I.add_mutations += new HM.type(copymut = HM)
 
-			var/is_activator = text2num(params["is_activator"])
+			var/is_activator = params.get_num(is_activator)
 
 			// Activators are also called "research" injectors and are used to create
 			//  chromosomes by recycling at the DNA Console
@@ -1005,7 +1005,7 @@
 		// params["val"] - New strength value as text string, converted to number
 		//  later on in code
 		if("set_pulse_strength")
-			var/value = round(text2num(params["val"]))
+			var/value = round(params.get_num(val))
 			radstrength = WRAP(value, 1, RADIATION_STRENGTH_MAX+1)
 			return
 
@@ -1014,7 +1014,7 @@
 		// params["val"] - New strength value as text string, converted to number
 		//  later on in code
 		if("set_pulse_duration")
-			var/value = round(text2num(params["val"]))
+			var/value = round(params.get_num(val))
 			radduration = WRAP(value, 1, RADIATION_DURATION_MAX+1)
 			return
 
@@ -1035,7 +1035,7 @@
 				return
 
 			// Convert the index to a number and clamp within the array range
-			var/buffer_index = text2num(params["index"])
+			var/buffer_index = params.get_num(index)
 			buffer_index = clamp(buffer_index, 1, NUMBER_OF_BUFFERS)
 
 			var/list/buffer_slot = genetic_makeup_buffer[buffer_index]
@@ -1065,7 +1065,7 @@
 
 			// Convert the index to a number and clamp within the array range, then
 			//  copy the data from the disk to that buffer
-			var/buffer_index = text2num(params["index"])
+			var/buffer_index = params.get_num(index)
 			buffer_index = clamp(buffer_index, 1, NUMBER_OF_BUFFERS)
 			genetic_makeup_buffer[buffer_index] = diskette.genetic_makeup_buffer.Copy()
 			return
@@ -1099,7 +1099,7 @@
 
 			// Convert the index to a number and clamp within the array range, then
 			//  copy the data from the disk to that buffer
-			var/buffer_index = text2num(params["index"])
+			var/buffer_index = params.get_num(index)
 			buffer_index = clamp(buffer_index, 1, NUMBER_OF_BUFFERS)
 
 			// Set the new information
@@ -1120,7 +1120,7 @@
 		if("del_makeup_console")
 			// Convert the index to a number and clamp within the array range, then
 			//  copy the data from the disk to that buffer
-			var/buffer_index = text2num(params["index"])
+			var/buffer_index = params.get_num(index)
 			buffer_index = clamp(buffer_index, 1, NUMBER_OF_BUFFERS)
 			var/list/buffer_slot = genetic_makeup_buffer[buffer_index]
 
@@ -1151,7 +1151,7 @@
 		if("makeup_injector")
 			// Convert the index to a number and clamp within the array range, then
 			//  copy the data from the disk to that buffer
-			var/buffer_index = text2num(params["index"])
+			var/buffer_index = params.get_num(index)
 			buffer_index = clamp(buffer_index, 1, NUMBER_OF_BUFFERS)
 			var/list/buffer_slot = genetic_makeup_buffer[buffer_index]
 
@@ -1235,7 +1235,7 @@
 
 			// Convert the index to a number and clamp within the array range, then
 			//  copy the data from the disk to that buffer
-			var/buffer_index = text2num(params["index"])
+			var/buffer_index = params.get_num(index)
 			buffer_index = clamp(buffer_index, 1, NUMBER_OF_BUFFERS)
 			var/list/buffer_slot = genetic_makeup_buffer[buffer_index]
 
@@ -1267,7 +1267,7 @@
 		if("makeup_delay")
 			// Convert the index to a number and clamp within the array range, then
 			//  copy the data from the disk to that buffer
-			var/buffer_index = text2num(params["index"])
+			var/buffer_index = params.get_num(index)
 			buffer_index = clamp(buffer_index, 1, NUMBER_OF_BUFFERS)
 			var/list/buffer_slot = genetic_makeup_buffer[buffer_index]
 
@@ -1298,7 +1298,7 @@
 			//  later on in process()
 			var/len = length_char(scanner_occupant.dna.uni_identity)
 			rad_pulse_timer = world.time + (radduration*10)
-			rad_pulse_index = WRAP(text2num(params["index"]), 1, len+1)
+			rad_pulse_index = WRAP(params.get_num(index), 1, len+1)
 			START_PROCESSING(SSobj, src)
 			return
 

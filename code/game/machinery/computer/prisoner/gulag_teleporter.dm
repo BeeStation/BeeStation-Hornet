@@ -70,7 +70,7 @@
 
 	return data
 
-/obj/machinery/computer/prisoner/gulag_teleporter_computer/ui_act(action, list/params)
+/obj/machinery/computer/prisoner/gulag_teleporter_computer/ui_act(action, datum/params/params)
 	if(..())
 		return
 	if(isliving(usr))
@@ -92,7 +92,7 @@
 				id_insert(usr)
 			return TRUE
 		if("set_goal")
-			var/new_goal = text2num(params["value"])
+			var/new_goal = params.get_num(value)
 			if(!isnum_safe(new_goal) || !contained_id)
 				return
 			if(!new_goal)

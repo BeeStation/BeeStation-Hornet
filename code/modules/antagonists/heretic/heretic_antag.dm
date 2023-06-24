@@ -98,7 +98,7 @@
 
 	return data
 
-/datum/antagonist/heretic/ui_act(action, params)
+/datum/antagonist/heretic/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return

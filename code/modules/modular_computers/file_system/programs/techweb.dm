@@ -77,7 +77,7 @@
 		)
 	return data
 
-/datum/computer_file/program/science/ui_act(action, list/params)
+/datum/computer_file/program/science/ui_act(action, datum/params/params)
 	. = ..()
 	if (.)
 		return

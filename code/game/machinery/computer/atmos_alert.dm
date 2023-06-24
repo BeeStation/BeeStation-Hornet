@@ -43,7 +43,7 @@
 
 	return data
 
-/obj/machinery/computer/atmos_alert/ui_act(action, params)
+/obj/machinery/computer/atmos_alert/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)

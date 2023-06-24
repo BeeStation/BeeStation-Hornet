@@ -175,7 +175,7 @@
 			if(freqlock)
 				return
 			var/tune = params["tune"]
-			var/adjust = text2num(params["adjust"])
+			var/adjust = params.get_num(adjust)
 			if(tune == "input")
 				var/min = format_frequency(freerange ? MIN_FREE_FREQ : MIN_FREQ)
 				var/max = format_frequency(freerange ? MAX_FREE_FREQ : MAX_FREQ)

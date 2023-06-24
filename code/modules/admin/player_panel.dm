@@ -148,7 +148,7 @@
 	data["update_interval"] = update_interval
 	return data
 
-/datum/admin_player_panel/ui_act(action, params)
+/datum/admin_player_panel/ui_act(action, datum/params/params)
 	. = ..()
 	switch(action)
 		if("update")

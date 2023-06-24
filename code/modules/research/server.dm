@@ -208,7 +208,7 @@
 
 	return data
 
-/obj/machinery/computer/rdservercontrol/ui_act(action, params)
+/obj/machinery/computer/rdservercontrol/ui_act(action, datum/params/params)
 	if(..())
 		return
 	if(!allowed(usr))

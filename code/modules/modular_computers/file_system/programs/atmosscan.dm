@@ -42,6 +42,6 @@
 		data["AirData"] = list(list())
 	return data
 
-/datum/computer_file/program/atmosscan/ui_act(action, list/params)
+/datum/computer_file/program/atmosscan/ui_act(action, datum/params/params)
 	if(..())
 		return TRUE

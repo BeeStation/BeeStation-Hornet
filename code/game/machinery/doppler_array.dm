@@ -65,7 +65,7 @@
 		data["records"] += list(record_data)
 	return data
 
-/obj/machinery/doppler_array/ui_act(action, list/params)
+/obj/machinery/doppler_array/ui_act(action, datum/params/params)
 	if(..())
 		return
 

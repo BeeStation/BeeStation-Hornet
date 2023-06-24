@@ -222,7 +222,7 @@
 	data["recordingRecipe"] = recording_recipe
 	return data
 
-/obj/machinery/chem_dispenser/ui_act(action, params)
+/obj/machinery/chem_dispenser/ui_act(action, datum/params/params)
 	. = ..()
 	if(.) // Propagation only used by debug machine, but eh
 		return
@@ -239,7 +239,7 @@
 		if("amount")
 			if(QDELETED(beaker))
 				return
-			var/target = text2num(params["target"])
+			var/target = params.get_num(target)
 			if(target in beaker.possible_transfer_amounts)
 				amount = target
 				work_animation()
@@ -266,7 +266,7 @@
 		if("remove")
 			if(recording_recipe)
 				return
-			var/amount = text2num(params["amount"])
+			var/amount = params.get_num(amount)
 			if(beaker && (amount in beaker.possible_transfer_amounts))
 				beaker.reagents.remove_all(amount)
 				work_animation()

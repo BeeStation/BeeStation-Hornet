@@ -113,7 +113,7 @@
 		ui = new(user, src, "MechBayPowerConsole")
 		ui.open()
 
-/obj/machinery/computer/mech_bay_power_console/ui_act(action, params)
+/obj/machinery/computer/mech_bay_power_console/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)

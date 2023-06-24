@@ -55,7 +55,7 @@
 	return data
 
 
-/datum/computer_file/program/computerconfig/ui_act(action,params)
+/datum/computer_file/program/computerconfig/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)

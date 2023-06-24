@@ -130,7 +130,7 @@
 
 	set_frequency(frequency)
 
-/obj/machinery/atmospherics/components/binary/volume_pump/ui_act(action, params)
+/obj/machinery/atmospherics/components/binary/volume_pump/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)

@@ -16,7 +16,7 @@
 	var/assigned = FALSE
 	var/first_load = TRUE
 
-/datum/computer_file/program/contract_uplink/ui_act(action, params)
+/datum/computer_file/program/contract_uplink/ui_act(action, datum/params/params)
 	if(..())
 		return TRUE
 
@@ -25,7 +25,7 @@
 
 	switch(action)
 		if("PRG_contract-accept")
-			var/contract_id = text2num(params["contract_id"])
+			var/contract_id = params.get_num(contract_id)
 
 			// Set as the active contract
 			hard_drive.traitor_data.contractor_hub.assigned_contracts[contract_id].status = CONTRACT_STATUS_ACTIVE

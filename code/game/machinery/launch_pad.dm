@@ -362,7 +362,7 @@
 		return
 	pad.doteleport(user, sending)
 
-/obj/item/launchpad_remote/ui_act(action, params)
+/obj/item/launchpad_remote/ui_act(action, datum/params/params)
 	if(..())
 		return
 	var/obj/machinery/launchpad/briefcase/our_pad = pad?.resolve()
@@ -371,13 +371,13 @@
 		return TRUE
 	switch(action)
 		if("set_pos")
-			var/new_x = text2num(params["x"])
-			var/new_y = text2num(params["y"])
+			var/new_x = params.get_num(x)
+			var/new_y = params.get_num(y)
 			our_pad.set_offset(new_x, new_y)
 			. = TRUE
 		if("move_pos")
-			var/plus_x = text2num(params["x"])
-			var/plus_y = text2num(params["y"])
+			var/plus_x = params.get_num(x)
+			var/plus_y = params.get_num(y)
 			our_pad.set_offset(
 				x = our_pad.x_offset + plus_x,
 				y = our_pad.y_offset + plus_y

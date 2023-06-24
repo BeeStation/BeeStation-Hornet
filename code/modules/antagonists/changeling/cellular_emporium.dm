@@ -60,7 +60,7 @@
 
 	return data
 
-/datum/cellular_emporium/ui_act(action, params)
+/datum/cellular_emporium/ui_act(action, datum/params/params)
 	if(..())
 		return
 

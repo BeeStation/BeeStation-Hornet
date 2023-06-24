@@ -283,7 +283,7 @@
 			data["occupant"]["reagents"] += list(list("name" = R.name, "volume" = R.volume))
 	return data
 
-/obj/machinery/sleeper/ui_act(action, params)
+/obj/machinery/sleeper/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)

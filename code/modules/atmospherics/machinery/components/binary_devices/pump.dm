@@ -110,7 +110,7 @@
 	data["max_pressure"] = round(MAX_OUTPUT_PRESSURE)
 	return data
 
-/obj/machinery/atmospherics/components/binary/pump/ui_act(action, params)
+/obj/machinery/atmospherics/components/binary/pump/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)

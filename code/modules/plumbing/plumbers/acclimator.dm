@@ -91,23 +91,23 @@
 	data["emptying"] = emptying
 	return data
 
-/obj/machinery/plumbing/acclimator/ui_act(action, params)
+/obj/machinery/plumbing/acclimator/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)
 		if("set_target_temperature")
-			var/target = text2num(params["temperature"])
+			var/target = params.get_num(temperature)
 			target_temperature = clamp(target, 0, 1000)
 			. = TRUE
 		if("set_allowed_temperature_difference")
-			var/target = text2num(params["temperature"])
+			var/target = params.get_num(temperature)
 			allowed_temperature_difference = clamp(target, 0, 1000)
 			. = TRUE
 		if("toggle_power")
 			enabled = !enabled
 			. = TRUE
 		if("change_volume")
-			var/target = text2num(params["volume"])
+			var/target = params.get_num(volume)
 			reagents.maximum_volume = clamp(round(target), 1, buffer)
 			. = TRUE
 

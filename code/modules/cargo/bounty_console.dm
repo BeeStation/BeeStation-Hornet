@@ -53,7 +53,7 @@
 	data["bountydata"] = bountyinfo
 	return data
 
-/obj/machinery/computer/bounty/ui_act(action, params)
+/obj/machinery/computer/bounty/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)

@@ -40,13 +40,13 @@
 	data["max_transfer"] = max_transfer
 	return data
 
-/obj/machinery/plumbing/splitter/ui_act(action, params)
+/obj/machinery/plumbing/splitter/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)
 		if("set_amount")
 			var/direction = params["target"]
-			var/value = CLAMP(text2num(params["amount"]), 1, max_transfer)
+			var/value = CLAMP(params.get_num(amount), 1, max_transfer)
 			switch(direction)
 				if("straight")
 					transfer_straight = value

@@ -60,7 +60,7 @@
 	data["throw_ref"] = REF(morph.throwatom)
 	return data
 
-/datum/morph_stomach/ui_act(action, params)
+/datum/morph_stomach/ui_act(action, datum/params/params)
 	if(..())
 		return
 	var/ref = params["id"]

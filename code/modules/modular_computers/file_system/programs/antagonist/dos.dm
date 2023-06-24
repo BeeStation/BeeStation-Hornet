@@ -42,7 +42,7 @@
 
 	..()
 
-/datum/computer_file/program/ntnet_dos/ui_act(action, params)
+/datum/computer_file/program/ntnet_dos/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)

@@ -239,7 +239,7 @@
 
 	return data
 
-/datum/action/innate/swap_body/ui_act(action, params)
+/datum/action/innate/swap_body/ui_act(action, datum/params/params)
 	if(..())
 		return
 	var/mob/living/carbon/human/H = owner

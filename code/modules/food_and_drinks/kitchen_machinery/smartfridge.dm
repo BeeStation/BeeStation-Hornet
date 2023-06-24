@@ -228,7 +228,7 @@
 /obj/machinery/smartfridge/handle_atom_del(atom/A) // Update the UIs in case something inside gets deleted
 	SStgui.update_uis(src)
 
-/obj/machinery/smartfridge/ui_act(action, params)
+/obj/machinery/smartfridge/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return
@@ -241,7 +241,7 @@
 				return
 
 			if (params["amount"])
-				desired = text2num(params["amount"])
+				desired = params.get_num(amount)
 			else
 				desired = input("How many items?", "How many items would you like to take out?", 1) as null|num
 
@@ -299,7 +299,7 @@
 	.["drying"] = drying
 
 
-/obj/machinery/smartfridge/drying_rack/ui_act(action, params)
+/obj/machinery/smartfridge/drying_rack/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		update_icon() // This is to handle a case where the last item is taken out manually instead of through drying pop-out

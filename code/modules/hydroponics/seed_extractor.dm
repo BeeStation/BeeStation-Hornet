@@ -180,7 +180,7 @@
 	. = list()
 	.["seeds"] = V
 
-/obj/machinery/seed_extractor/ui_act(action, params)
+/obj/machinery/seed_extractor/ui_act(action, datum/params/params)
 	if(..())
 		return
 

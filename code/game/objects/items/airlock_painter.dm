@@ -325,7 +325,7 @@
 	.["current_dir"] = stored_dir
 	.["current_custom_color"] = stored_custom_color
 
-/obj/item/airlock_painter/decal/ui_act(action, list/params)
+/obj/item/airlock_painter/decal/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return
@@ -334,7 +334,7 @@
 		//Lists of decals and designs
 		if("select decal")
 			var/selected_decal = params["decal"]
-			var/selected_dir = text2num(params["dir"])
+			var/selected_dir = params.get_num(dir)
 			stored_decal = selected_decal
 			stored_dir = selected_dir
 		if("select color")

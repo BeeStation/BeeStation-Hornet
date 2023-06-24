@@ -17,7 +17,7 @@
 		ui.open()
 		ui.set_autoupdate(TRUE)
 
-/datum/orbit_menu/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+/datum/orbit_menu/ui_act(action, datum/params/params, datum/tgui/ui, datum/ui_state/state)
 	if (..())
 		return
 

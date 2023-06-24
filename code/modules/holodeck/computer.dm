@@ -145,7 +145,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 	data["can_toggle_safety"] = issilicon(user) || IsAdminGhost(user)
 	return data
 
-/obj/machinery/computer/holodeck/ui_act(action, params)
+/obj/machinery/computer/holodeck/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)

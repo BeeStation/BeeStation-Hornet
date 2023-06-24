@@ -301,7 +301,7 @@
 	data["fax_history"] = fax_history
 	return data
 
-/obj/machinery/fax/ui_act(action, list/params)
+/obj/machinery/fax/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return

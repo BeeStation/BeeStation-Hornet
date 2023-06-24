@@ -156,7 +156,7 @@
 	data["targets"] = fugitives
 	return data
 
-/obj/machinery/computer/fugitive_capture_computer/ui_act(action, list/params)
+/obj/machinery/computer/fugitive_capture_computer/ui_act(action, datum/params/params)
 	if(..())
 		return
 	if(isliving(usr))

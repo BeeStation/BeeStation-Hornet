@@ -226,7 +226,7 @@
 
 	return L
 
-/obj/machinery/rnd/production/ui_act(action, params)
+/obj/machinery/rnd/production/ui_act(action, datum/params/params)
 	if(..())
 		return
 	if(action == "build")

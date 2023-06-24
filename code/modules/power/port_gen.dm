@@ -245,7 +245,7 @@
 	data["current_heat"] = current_heat
 	. =  data
 
-/obj/machinery/power/port_gen/pacman/ui_act(action, params)
+/obj/machinery/power/port_gen/pacman/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)

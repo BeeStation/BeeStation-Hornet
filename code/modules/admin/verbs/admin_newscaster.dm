@@ -154,7 +154,7 @@
 	data["wanted"] = wanted_info
 	return data
 
-/datum/newspanel/ui_act(action, params)
+/datum/newspanel/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return

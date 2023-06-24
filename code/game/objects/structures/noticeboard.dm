@@ -64,7 +64,7 @@
 		data["items"] += list(content_data)
 	return data
 
-/obj/structure/noticeboard/ui_act(action, params)
+/obj/structure/noticeboard/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return

@@ -368,13 +368,13 @@
 	data["connected_tracker"] = (connected_tracker ? 1 : 0)
 	return data
 
-/obj/machinery/power/solar_control/ui_act(action, params)
+/obj/machinery/power/solar_control/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)
 		if("angle")
-			var/adjust = text2num(params["adjust"])
-			var/value = text2num(params["value"])
+			var/adjust = params.get_num(adjust)
+			var/value = params.get_num(value)
 			if(adjust)
 				value = currentdir + adjust
 			if(value != null)
@@ -383,8 +383,8 @@
 				set_panels(currentdir)
 				. = TRUE
 		if("rate")
-			var/adjust = text2num(params["adjust"])
-			var/value = text2num(params["value"])
+			var/adjust = params.get_num(adjust)
+			var/value = params.get_num(value)
 			if(adjust)
 				value = trackrate + adjust
 			if(value != null)
@@ -393,7 +393,7 @@
 					nexttime = world.time + 36000 / abs(trackrate)
 				. = TRUE
 		if("tracking")
-			var/mode = text2num(params["mode"])
+			var/mode = params.get_num(mode)
 			track = mode
 			if(mode == 2 && connected_tracker)
 				connected_tracker.set_angle(SSsun.angle)

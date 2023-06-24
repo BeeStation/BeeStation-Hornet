@@ -124,12 +124,12 @@
 	data["current_reagent"] = ckey(initial(reagent_id.name))
 	return data
 
-/obj/machinery/plumbing/synthesizer/ui_act(action, params)
+/obj/machinery/plumbing/synthesizer/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)
 		if("amount")
-			var/new_amount = text2num(params["target"])
+			var/new_amount = params.get_num(target)
 			if(new_amount in possible_amounts)
 				amount = new_amount
 				. = TRUE

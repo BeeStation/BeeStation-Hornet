@@ -92,7 +92,7 @@
 	data["BossID"] = SSassets.transport.get_asset_url("boss[boss_id].gif")
 	return data
 
-/datum/computer_file/program/arcade/ui_act(action, list/params)
+/datum/computer_file/program/arcade/ui_act(action, datum/params/params)
 	if(..())
 		return TRUE
 

@@ -352,7 +352,7 @@ Nothing else in the console has ID requirements.
 		"id_cache" = flat_id_cache
 	)
 
-/obj/machinery/computer/rdconsole/ui_act(action, list/params)
+/obj/machinery/computer/rdconsole/ui_act(action, datum/params/params)
 	. = ..()
 	if (.)
 		return
@@ -395,7 +395,7 @@ Nothing else in the console has ID requirements.
 			if(QDELETED(d_disk))
 				say("No Design Disk Inserted!")
 				return TRUE
-			var/slot = text2num(params["slot"])
+			var/slot = params.get_num(slot)
 			var/datum/design/design = SSresearch.techweb_design_by_id(params["selectedDesign"])
 			if(design)
 				var/autolathe_friendly = TRUE
@@ -417,14 +417,14 @@ Nothing else in the console has ID requirements.
 			if(QDELETED(d_disk))
 				say("No design disk found.")
 				return TRUE
-			var/n = text2num(params["slot"])
+			var/n = params.get_num(slot)
 			stored_research.add_design(d_disk.blueprints[n], TRUE)
 			return TRUE
 		if ("clearDesignSlot")
 			if(QDELETED(d_disk))
 				say("No design disk inserted!")
 				return TRUE
-			var/n = text2num(params["slot"])
+			var/n = params.get_num(slot)
 			var/datum/design/D = d_disk.blueprints[n]
 			say("Wiping design [D.name] from design disk.")
 			d_disk.blueprints[n] = null

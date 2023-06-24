@@ -109,7 +109,7 @@
 
 	return data
 
-/obj/machinery/nanite_program_hub/ui_act(action, params)
+/obj/machinery/nanite_program_hub/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)

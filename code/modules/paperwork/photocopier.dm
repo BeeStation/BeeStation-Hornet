@@ -110,7 +110,7 @@
 
 	return data
 
-/obj/machinery/photocopier/ui_act(action, params)
+/obj/machinery/photocopier/ui_act(action, datum/params/params)
 	if(..())
 		return
 
@@ -193,7 +193,7 @@
 
 		// Set the number of copies to be printed with 1 click of the "copy" button.
 		if("set_copies")
-			num_copies = clamp(text2num(params["num_copies"]), 1, MAX_COPIES_AT_ONCE)
+			num_copies = clamp(params.get_num(num_copies), 1, MAX_COPIES_AT_ONCE)
 			return TRUE
 		// Changes the forms displayed on Photocopier.js when you switch categories
 		if("choose_category")

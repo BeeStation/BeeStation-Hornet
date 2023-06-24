@@ -82,7 +82,7 @@
 		.["ais"] += list(list("name" = ai.name, "ref" = REF(ai), "connected" = (borg.connected_ai == ai)))
 
 
-/datum/borgpanel/ui_act(action, params)
+/datum/borgpanel/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch (action)

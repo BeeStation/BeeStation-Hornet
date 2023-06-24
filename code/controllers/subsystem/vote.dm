@@ -316,7 +316,7 @@ SUBSYSTEM_DEF(vote)
 
 	return data
 
-/datum/controller/subsystem/vote/ui_act(action, params)
+/datum/controller/subsystem/vote/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return
@@ -352,7 +352,7 @@ SUBSYSTEM_DEF(vote)
 			if(usr.client.holder)
 				initiate_vote("custom",usr.key)
 		if("vote")
-			submit_vote(round(text2num(params["index"])))
+			submit_vote(round(params.get_num(index)))
 	return TRUE
 
 /datum/controller/subsystem/vote/ui_close(mob/user, datum/tgui/tgui)

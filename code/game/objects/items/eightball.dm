@@ -199,7 +199,7 @@
 		data["answers"] += list(L)
 	return data
 
-/obj/item/toy/eightball/haunted/ui_act(action, params)
+/obj/item/toy/eightball/haunted/ui_act(action, datum/params/params)
 	if(..())
 		return
 	var/mob/user = usr

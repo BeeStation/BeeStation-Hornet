@@ -183,7 +183,7 @@
 	data["soundVolume"] = temp_pod.soundVolume //Admin sound to play when the pod leaves
 	return data
 
-/datum/centcom_podlauncher/ui_act(action, params)
+/datum/centcom_podlauncher/ui_act(action, datum/params/params)
 	. = ..()
 	if(. || !owner_client.holder)
 		return

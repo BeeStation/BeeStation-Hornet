@@ -512,7 +512,7 @@
 		data["occupied"] = FALSE
 	return data
 
-/obj/machinery/suit_storage_unit/ui_act(action, params)
+/obj/machinery/suit_storage_unit/ui_act(action, datum/params/params)
 	if(..() || uv)
 		return
 	switch(action)

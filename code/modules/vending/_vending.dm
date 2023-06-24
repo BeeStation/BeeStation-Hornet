@@ -714,7 +714,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 		.["stock"]["[replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-")]"] = R.amount
 	.["extended_inventory"] = extended_inventory
 
-/obj/machinery/vending/ui_act(action, params)
+/obj/machinery/vending/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return
@@ -990,7 +990,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 			)
 			.["vending_machine_input"] += list(data)
 
-/obj/machinery/vending/custom/ui_act(action, params)
+/obj/machinery/vending/custom/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return

@@ -104,7 +104,7 @@
 		"title" = title,
 	)
 
-/datum/tgui_input_emoji/ui_act(action, list/params)
+/datum/tgui_input_emoji/ui_act(action, datum/params/params)
 	. = ..()
 	if (.)
 		return

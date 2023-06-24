@@ -215,7 +215,7 @@
 	data["valve"] = valve_open
 	return data
 
-/obj/item/transfer_valve/ui_act(action, params)
+/obj/item/transfer_valve/ui_act(action, datum/params/params)
 	if(..())
 		return
 

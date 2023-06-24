@@ -193,7 +193,7 @@
 	.["maxTemperature"] = max_fluid_temp
 	.["fluidTypes"] = fluid_types
 
-/obj/structure/aquarium/ui_act(action, params)
+/obj/structure/aquarium/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return

@@ -200,7 +200,7 @@
 	data["recipes"] = recursively_build_recipes(recipes)
 	return data
 
-/obj/item/stack/ui_act(action, params)
+/obj/item/stack/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return
@@ -213,7 +213,7 @@
 			var/datum/stack_recipe/R = locate(params["ref"])
 			if(!is_valid_recipe(R, recipes)) //href exploit protection
 				return
-			var/multiplier = text2num(params["multiplier"])
+			var/multiplier = params.get_num(multiplier)
 			if(!isnum_safe(multiplier) || (multiplier <= 0)) //href exploit protection
 				return
 			if(!building_checks(R, multiplier))

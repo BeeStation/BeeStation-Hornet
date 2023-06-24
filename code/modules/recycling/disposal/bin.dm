@@ -291,7 +291,7 @@
 	data["isai"] = isAI(user)
 	return data
 
-/obj/machinery/disposal/bin/ui_act(action, params)
+/obj/machinery/disposal/bin/ui_act(action, datum/params/params)
 	if(..())
 		return
 

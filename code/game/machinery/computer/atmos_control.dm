@@ -340,7 +340,7 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 	data["maxOutputPressure"] = output_info ? MAX_OUTPUT_PRESSURE : 0
 	return data
 
-/obj/machinery/computer/atmos_control/tank/ui_act(action, params)
+/obj/machinery/computer/atmos_control/tank/ui_act(action, datum/params/params)
 	if(..() || !radio_connection)
 		return
 	var/datum/signal/signal = new(list("sigtype" = "command", "user" = usr))
@@ -352,7 +352,7 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 			signal.data += list("tag" = input_tag, "power_toggle" = TRUE)
 			. = TRUE
 		if("rate")
-			var/target = text2num(params["rate"])
+			var/target = params.get_num(rate)
 			if(!isnull(target))
 				target = clamp(target, 0, MAX_TRANSFER_RATE)
 				signal.data += list("tag" = input_tag, "set_volume_rate" = target)
@@ -361,7 +361,7 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 			signal.data += list("tag" = output_tag, "power_toggle" = TRUE)
 			. = TRUE
 		if("pressure")
-			var/target = text2num(params["pressure"])
+			var/target = params.get_num(pressure)
 			if(!isnull(target))
 				target = clamp(target, 0, MAX_OUTPUT_PRESSURE)
 				signal.data += list("tag" = output_tag, "set_internal_pressure" = target)

@@ -245,7 +245,7 @@
 		data["currentTemp"] = round(current_temperature - T0C, 1)
 	return data
 
-/obj/machinery/space_heater/ui_act(action, params)
+/obj/machinery/space_heater/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return

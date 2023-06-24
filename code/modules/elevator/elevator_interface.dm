@@ -77,7 +77,7 @@
 	data["in_transit"] = !!SSelevator_controller.elevator_group_timers[id]
 	return data
 
-/obj/machinery/elevator_interface/ui_act(action, list/params)
+/obj/machinery/elevator_interface/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return

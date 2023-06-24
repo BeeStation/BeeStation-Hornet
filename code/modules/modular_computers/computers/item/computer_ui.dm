@@ -153,7 +153,7 @@
 	return data
 
 // Handles user's GUI input
-/obj/item/modular_computer/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+/obj/item/modular_computer/ui_act(action, datum/params/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 	if(device_theme == THEME_THINKTRONIC)

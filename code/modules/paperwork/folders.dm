@@ -97,7 +97,7 @@
 
 	return data
 
-/obj/item/folder/ui_act(action, params)
+/obj/item/folder/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return

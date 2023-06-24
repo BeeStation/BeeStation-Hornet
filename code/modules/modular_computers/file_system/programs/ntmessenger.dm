@@ -102,7 +102,7 @@
 	data["emoji_names"] = icon_states('icons/emoji.dmi')
 	return data
 
-/datum/computer_file/program/messenger/ui_act(action, list/params, datum/tgui/ui)
+/datum/computer_file/program/messenger/ui_act(action, datum/params/params, datum/tgui/ui)
 	. = ..()
 	if(.)
 		return

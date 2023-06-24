@@ -135,7 +135,7 @@
 	data["sensitivity"] = sensitivity
 	return data
 
-/obj/item/assembly/prox_sensor/ui_act(action, params)
+/obj/item/assembly/prox_sensor/ui_act(action, datum/params/params)
 	if(..())
 		return
 
@@ -144,7 +144,7 @@
 			toggle_scan(!scanning)
 			. = TRUE
 		if("sense")
-			var/value = text2num(params["range"])
+			var/value = params.get_num(range)
 			if(value)
 				sensitivity_change(value)
 				. = TRUE
@@ -153,7 +153,7 @@
 			update_icon()
 			. = TRUE
 		if("input")
-			var/value = text2num(params["adjust"])
+			var/value = params.get_num(adjust)
 			if(value)
 				value = round(time + value)
 				time = clamp(value, 0, 600)

@@ -86,7 +86,7 @@
 	data["connection"] = !!radio_connection
 	return data
 
-/obj/item/assembly/signaler/ui_act(action, params)
+/obj/item/assembly/signaler/ui_act(action, datum/params/params)
 	if(..())
 		return
 
@@ -99,7 +99,7 @@
 			set_frequency(new_frequency)
 			. = TRUE
 		if("code")
-			code = text2num(params["code"])
+			code = params.get_num(code)
 			code = round(code)
 			. = TRUE
 		if("reset")

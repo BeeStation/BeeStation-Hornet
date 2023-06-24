@@ -109,12 +109,12 @@
 /datum/help_ui/proc/reply(whom)
 	return
 
-/datum/help_ui/ui_act(action, params)
+/datum/help_ui/ui_act(action, datum/params/params)
 	if(!check_permission(usr))
 		message_admins("[usr] sent a request to interact with the ticket browser without sufficient rights.")
 		log_admin_private("[usr] sent a request to interact with the ticket browser without sufficient rights.")
 		return
-	var/ticket_id = text2num(params["id"])
+	var/ticket_id = params.get_num(id)
 	var/datum/help_tickets/data_glob = get_data_glob()
 	if(!istype(data_glob))
 		return
@@ -489,7 +489,7 @@
 /datum/help_ticket/proc/reply(whom, msg)
 	return
 
-/datum/help_ticket/ui_act(action, params)
+/datum/help_ticket/ui_act(action, datum/params/params)
 	if(!check_permission_act(usr))
 		message_admins("[usr] sent a request to interact with the ticket window without sufficient rights.")
 		log_admin_private("[usr] sent a request to interact with the ticket window without sufficient rights.")

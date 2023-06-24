@@ -198,7 +198,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 						))
 	return data
 
-/obj/machinery/computer/shuttle_flight/ui_act(action, params)
+/obj/machinery/computer/shuttle_flight/ui_act(action, datum/params/params)
 	. = ..()
 
 	if(.)
@@ -301,8 +301,8 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		if("setTargetCoords")
 			if(QDELETED(shuttleObject))
 				return
-			var/x = text2num(params["x"])
-			var/y = text2num(params["y"])
+			var/x = params.get_num(x)
+			var/y = params.get_num(y)
 			if(!shuttleObject.shuttleTargetPos)
 				shuttleObject.shuttleTargetPos = new(x, y)
 			else

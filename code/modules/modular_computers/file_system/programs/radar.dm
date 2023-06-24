@@ -70,7 +70,7 @@
 		data["target"] = trackinfo
 	return data
 
-/datum/computer_file/program/radar/ui_act(action, params)
+/datum/computer_file/program/radar/ui_act(action, datum/params/params)
 	if(..())
 		return
 

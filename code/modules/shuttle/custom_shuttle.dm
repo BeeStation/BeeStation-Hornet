@@ -55,7 +55,7 @@
 
 	return data
 
-/obj/machinery/computer/shuttle_flight/custom_shuttle/ui_act(action, params)
+/obj/machinery/computer/shuttle_flight/custom_shuttle/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return

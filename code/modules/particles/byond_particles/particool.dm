@@ -176,7 +176,7 @@ GLOBAL_LIST_INIT(master_particle_info, list())
 	else
 		world.log << L
 
-/datum/particle_editor/ui_act(action, list/params)
+/datum/particle_editor/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return

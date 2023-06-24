@@ -86,7 +86,7 @@
 				return FALSE
 	return ..()
 
-/datum/computer_file/program/phys_scanner/ui_act(action, list/params, datum/tgui/ui)
+/datum/computer_file/program/phys_scanner/ui_act(action, datum/params/params, datum/tgui/ui)
 	. = ..()
 	if(.)
 		return

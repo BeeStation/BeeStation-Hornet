@@ -80,7 +80,7 @@
 		"button_text" = button_text,
 	)
 
-/datum/tgui_select_picture/ui_act(action, list/params)
+/datum/tgui_select_picture/ui_act(action, datum/params/params)
 	. = ..()
 	if (.)
 		return

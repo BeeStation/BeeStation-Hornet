@@ -101,7 +101,7 @@
 	data["sprites"] = sprite_data
 	return data
 
-/datum/greyscale_modify_menu/ui_act(action, params)
+/datum/greyscale_modify_menu/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return
@@ -134,7 +134,7 @@
 			queue_refresh()
 
 		if("recolor")
-			var/index = text2num(params["color_index"])
+			var/index = params.get_num(color_index)
 			var/new_color = lowertext(params["new_color"])
 			if(split_colors[index] != new_color)
 				split_colors[index] = new_color
@@ -159,7 +159,7 @@
 				queue_refresh()
 
 		if("random_color")
-			var/group = text2num(params["color_index"])
+			var/group = params.get_num(color_index)
 			randomize_color(group)
 			queue_refresh()
 

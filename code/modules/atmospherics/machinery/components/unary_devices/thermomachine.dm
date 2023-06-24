@@ -194,7 +194,7 @@
 	data["pressure"] = air1.return_pressure()
 	return data
 
-/obj/machinery/atmospherics/components/unary/thermomachine/ui_act(action, params)
+/obj/machinery/atmospherics/components/unary/thermomachine/ui_act(action, datum/params/params)
 
 	if(..())
 		return
@@ -211,7 +211,7 @@
 			. = TRUE
 		if("target")
 			var/target = params["target"]
-			var/adjust = text2num(params["adjust"])
+			var/adjust = params.get_num(adjust)
 			if(target == "input")
 				target = input("Set new target ([min_temperature]-[max_temperature] K):", name, target_temperature) as num|null
 				if(!isnull(target))

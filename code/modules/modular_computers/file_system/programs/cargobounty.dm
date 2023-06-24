@@ -53,7 +53,7 @@
 
 	return data
 
-/datum/computer_file/program/bounty/ui_act(action,params)
+/datum/computer_file/program/bounty/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)

@@ -118,7 +118,7 @@
 
 	return data
 
-/obj/machinery/computer/robotics/ui_act(action, params)
+/obj/machinery/computer/robotics/ui_act(action, datum/params/params)
 	if(..())
 		return
 	if(extracting)

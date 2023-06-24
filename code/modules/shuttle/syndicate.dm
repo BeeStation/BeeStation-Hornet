@@ -18,7 +18,7 @@
 	request_shuttle_message = "Recall Infiltrator"
 	recall_docking_port_id = "syndicate_away"
 
-/obj/machinery/computer/shuttle_flight/syndicate/ui_act(action, params)
+/obj/machinery/computer/shuttle_flight/syndicate/ui_act(action, datum/params/params)
 	if(!usr.canUseTopic(src))
 		return
 	var/obj/item/circuitboard/computer/syndicate_shuttle/board = circuit

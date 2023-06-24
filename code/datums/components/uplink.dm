@@ -204,19 +204,17 @@
 		data["categories"] += list(cat)
 	return data
 
-/datum/component/uplink/ui_act(action, params)
+/datum/component/uplink/ui_act(action, datum/params/params)
 	if(!active)
 		return
 	switch(action)
 		if("buy")
-			var/item_name = params["name"]
 			var/list/buyable_items = list()
 			for(var/category in uplink_items)
 				buyable_items += uplink_items[category]
-			if(item_name in buyable_items)
-				var/datum/uplink_item/I = buyable_items[item_name]
-				MakePurchase(usr, I)
-				return TRUE
+			var/datum/uplink_item/I = params.get_from_lookup("name", buyable_items)
+			MakePurchase(usr, I)
+			return TRUE
 		if("lock")
 			active = FALSE
 			locked = TRUE
@@ -224,7 +222,7 @@
 			hidden_crystals = 0
 			SStgui.close_uis(src)
 		if("select")
-			selected_cat = params["category"]
+			selected_cat = params.get_text_in_list("category", uplink_items)
 			return TRUE
 		if("compact_toggle")
 			compact_mode = !compact_mode

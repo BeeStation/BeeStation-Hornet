@@ -229,7 +229,7 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 
 	return results
 
-/datum/crewmonitor/ui_act(action,params)
+/datum/crewmonitor/ui_act(action, datum/params/params)
 
 	switch (action)
 		if ("select_person")

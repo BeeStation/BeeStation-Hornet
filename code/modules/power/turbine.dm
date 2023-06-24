@@ -277,7 +277,7 @@
 	data["temp"] = compressor?.gas_contained.return_temperature()
 	return data
 
-/obj/machinery/power/turbine/ui_act(action, params)
+/obj/machinery/power/turbine/ui_act(action, datum/params/params)
 	if(..())
 		return
 
@@ -343,7 +343,7 @@
 	data["temp"] = compressor?.gas_contained.return_temperature()
 	return data
 
-/obj/machinery/computer/turbine_computer/ui_act(action, params)
+/obj/machinery/computer/turbine_computer/ui_act(action, datum/params/params)
 	if(..())
 		return
 

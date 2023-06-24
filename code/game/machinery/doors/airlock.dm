@@ -1550,7 +1550,7 @@
 	data["wires"] = wire
 	return data
 
-/obj/machinery/door/airlock/ui_act(action, params)
+/obj/machinery/door/airlock/ui_act(action, datum/params/params)
 	if(..())
 		return
 	if(!user_allowed(usr))

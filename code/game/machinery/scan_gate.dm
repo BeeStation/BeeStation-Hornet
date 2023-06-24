@@ -210,7 +210,7 @@
 	data["target_nutrition"] = detect_nutrition
 	return data
 
-/obj/machinery/scanner_gate/ui_act(action, params)
+/obj/machinery/scanner_gate/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)
@@ -230,7 +230,7 @@
 			disease_threshold = new_threshold
 			. = TRUE
 		if("set_nanite_cloud")
-			var/new_cloud = text2num(params["new_cloud"])
+			var/new_cloud = params.get_num(new_cloud)
 			nanite_cloud = clamp(round(new_cloud, 1), 1, 100)
 			. = TRUE
 		//Some species are not scannable, like abductors (too unknown), androids (too artificial) or skeletons (too magic)

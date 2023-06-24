@@ -112,7 +112,7 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 /datum/request_manager/ui_state(mob/user)
 	return GLOB.admin_state
 
-/datum/request_manager/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+/datum/request_manager/ui_act(action, datum/params/params, datum/tgui/ui, datum/ui_state/state)
 	if (..())
 		return
 
@@ -122,7 +122,7 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 		return
 
 	// Get the request this relates to
-	var/id = params["id"] != null ? text2num(params["id"]) : null
+	var/id = params["id"] != null ? params.get_num(id) : null
 	if (!id)
 		to_chat(usr, "Failed to find a request ID in your action, please report this")
 		CRASH("Received an action without a request ID, this shouldn't happen!")

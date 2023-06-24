@@ -101,7 +101,7 @@
 
 	return data
 
-/obj/item/nanite_remote/ui_act(action, params)
+/obj/item/nanite_remote/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return
@@ -109,7 +109,7 @@
 		if("set_code")
 			if(locked)
 				return
-			var/new_code = text2num(params["code"])
+			var/new_code = params.get_num(code)
 			if(!isnull(new_code))
 				new_code = clamp(round(new_code, 1),0,9999)
 				code = new_code
@@ -117,7 +117,7 @@
 		if("set_relay_code")
 			if(locked)
 				return
-			var/new_code = text2num(params["code"])
+			var/new_code = params.get_num(code)
 			if(!isnull(new_code))
 				new_code = clamp(round(new_code, 1),0,9999)
 				relay_code = new_code
@@ -216,7 +216,7 @@
 
 	return data
 
-/obj/item/nanite_remote/comm/ui_act(action, params)
+/obj/item/nanite_remote/comm/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)

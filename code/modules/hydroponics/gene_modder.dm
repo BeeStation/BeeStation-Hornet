@@ -233,7 +233,7 @@
 		if(get_gene_id(gene) == gene_id)
 			return gene
 
-/obj/machinery/plantgenes/ui_act(action, params)
+/obj/machinery/plantgenes/ui_act(action, datum/params/params)
 	if(..())
 		return
 

@@ -48,14 +48,14 @@
 		data["glands"] += list(gland_information)
 	return data
 
-/obj/machinery/abductor/gland_dispenser/ui_act(action, list/params)
+/obj/machinery/abductor/gland_dispenser/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return
 
 	switch(action)
 		if("dispense")
-			var/gland_id = text2num(params["gland_id"])
+			var/gland_id = params.get_num(gland_id)
 			if(!gland_id)
 				return
 			Dispense(gland_id)

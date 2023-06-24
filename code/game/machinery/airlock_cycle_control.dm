@@ -676,7 +676,7 @@
 	. = ..()
 	vis_target = null
 
-/obj/machinery/advanced_airlock_controller/ui_act(action, params)
+/obj/machinery/advanced_airlock_controller/ui_act(action, datum/params/params)
 	if(..() || buildstage != 2)
 		return
 	// these actions can be done by anyone
@@ -692,7 +692,7 @@
 						spawn()
 							A.do_animate("deny")
 			if(is_allowed)
-				cycle_to(text2num(params["exterior"]))
+				cycle_to(params.get_num(exterior))
 				. = TRUE
 		if("skip")
 			if((world.time - skip_timer) >= skip_delay && (cyclestate == AIRLOCK_CYCLESTATE_OUTCLOSING || cyclestate == AIRLOCK_CYCLESTATE_OUTOPENING || cyclestate == AIRLOCK_CYCLESTATE_INOPENING || cyclestate == AIRLOCK_CYCLESTATE_INCLOSING))
@@ -711,7 +711,7 @@
 			if(vent == null || vents[vent] == null)
 				return
 			var/curr_role = vents[vent]
-			var/role_to_toggle = text2num(params["val"]) & 15
+			var/role_to_toggle = params.get_num(val) & 15
 			if(curr_role & role_to_toggle)
 				vents[vent] = curr_role & ~(role_to_toggle)
 			else
@@ -721,7 +721,7 @@
 			var/airlock = locate(params["airlock_id"])
 			if(airlock == null || airlocks[airlock] == null)
 				return
-			airlocks[airlock] = !!text2num(params["val"])
+			airlocks[airlock] = params.get_boolean(val)
 			. = TRUE
 		if("clear_vis")
 			vis_target = null
@@ -742,16 +742,16 @@
 			scan()
 			. = TRUE
 		if("interior_pressure")
-			interior_pressure = CLAMP(text2num(params["pressure"]), 0, ONE_ATMOSPHERE)
+			interior_pressure = CLAMP(params.get_num(pressure), 0, ONE_ATMOSPHERE)
 			. = TRUE
 		if("exterior_pressure")
-			exterior_pressure = CLAMP(text2num(params["pressure"]), 0, ONE_ATMOSPHERE)
+			exterior_pressure = CLAMP(params.get_num(pressure), 0, ONE_ATMOSPHERE)
 			. = TRUE
 		if("depressurization_margin")
-			depressurization_margin = CLAMP(text2num(params["pressure"]), 0.15, 40)
+			depressurization_margin = CLAMP(params.get_num(pressure), 0.15, 40)
 			. = TRUE
 		if("skip_delay")
-			skip_delay = CLAMP(text2num(params["skip_delay"]), 0, 1200)
+			skip_delay = CLAMP(params.get_num(skip_delay), 0, 1200)
 			. = TRUE
 
 	if(.)

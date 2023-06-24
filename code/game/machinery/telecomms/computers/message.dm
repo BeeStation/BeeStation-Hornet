@@ -135,7 +135,7 @@
 	data["request_messages"] = request_messages
 	return data
 
-/obj/machinery/computer/message_monitor/ui_act(action, params)
+/obj/machinery/computer/message_monitor/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return TRUE

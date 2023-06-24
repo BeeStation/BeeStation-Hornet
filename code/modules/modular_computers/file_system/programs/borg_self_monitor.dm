@@ -83,7 +83,7 @@
 	data["borgUpgrades"] = borgo.upgrades
 	return data
 
-/datum/computer_file/program/borg_self_monitor/ui_act(action, params)
+/datum/computer_file/program/borg_self_monitor/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return
@@ -130,7 +130,7 @@
 			borgo.toggle_ionpulse()
 
 		if("lampIntensity")
-			borgo.lamp_intensity = CLAMP(text2num(params["ref"]), 1, 5)
+			borgo.lamp_intensity = CLAMP(params.get_num(ref), 1, 5)
 			borgo.toggle_headlamp(FALSE, TRUE)
 
 		if("selfDestruct")

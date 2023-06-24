@@ -64,7 +64,7 @@
 /obj/item/book/codex_gigas/proc/ask_name(mob/reader)
 	ui_interact(reader)
 
-/obj/item/book/codex_gigas/ui_act(action, params)
+/obj/item/book/codex_gigas/ui_act(action, datum/params/params)
 	if(..())
 		return
 	if(!action)

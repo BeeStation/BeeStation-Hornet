@@ -11,7 +11,7 @@
 	tgui_id = "NtosNetMonitor"
 	program_icon = "network-wired"
 
-/datum/computer_file/program/ntnetmonitor/ui_act(action, params)
+/datum/computer_file/program/ntnetmonitor/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)
@@ -46,7 +46,7 @@
 		if("toggle_function")
 			if(!SSnetworks.station_network)
 				return
-			SSnetworks.station_network.toggle_function(text2num(params["id"]))
+			SSnetworks.station_network.toggle_function(params.get_num(id))
 			return TRUE
 
 /datum/computer_file/program/ntnetmonitor/ui_data(mob/user)

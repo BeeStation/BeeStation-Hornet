@@ -52,7 +52,7 @@
 
 	return data
 
-/obj/machinery/implantchair/ui_act(action, params)
+/obj/machinery/implantchair/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)

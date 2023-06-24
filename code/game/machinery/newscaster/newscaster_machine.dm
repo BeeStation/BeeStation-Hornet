@@ -252,7 +252,7 @@
 	return data
 
 
-/obj/machinery/newscaster/ui_act(action, params)
+/obj/machinery/newscaster/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return
@@ -501,7 +501,7 @@
 			return TRUE
 
 		if("bountyVal")
-			bounty_value = text2num(params["bountyval"])
+			bounty_value = params.get_num(bountyval)
 			if(!bounty_value)
 				bounty_value = 1
 

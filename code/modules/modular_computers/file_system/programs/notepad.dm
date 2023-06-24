@@ -11,7 +11,7 @@
 	program_icon = "book"
 	usage_flags = PROGRAM_TABLET
 
-/datum/computer_file/program/notepad/ui_act(action, list/params, datum/tgui/ui)
+/datum/computer_file/program/notepad/ui_act(action, datum/params/params, datum/tgui/ui)
 	. = ..()
 	if(.)
 		return

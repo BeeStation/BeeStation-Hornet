@@ -53,7 +53,7 @@
 	data["minigames"] = (new_role_flags & GHOSTROLE_MINIGAME)
 	return data
 
-/datum/ghost_pool_menu/ui_act(action, params)
+/datum/ghost_pool_menu/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return

@@ -26,7 +26,7 @@
 		ui.open()
 		ui.set_autoupdate(TRUE) // Cell charge
 
-/obj/machinery/chem_dispenser/chem_synthesizer/ui_act(action, params)
+/obj/machinery/chem_dispenser/chem_synthesizer/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)
@@ -64,7 +64,7 @@
 			visible_message("<span class='notice'>[src] dispenses a bluespace beaker.</span>")
 			. = TRUE
 		if("amount")
-			var/input = text2num(params["amount"])
+			var/input = params.get_num(amount)
 			if(input)
 				amount = input
 				. = TRUE

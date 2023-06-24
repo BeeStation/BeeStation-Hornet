@@ -54,7 +54,7 @@
 	data["emptying"] = emptying
 	return data
 
-/obj/machinery/plumbing/reaction_chamber/ui_act(action, params)
+/obj/machinery/plumbing/reaction_chamber/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)
@@ -66,7 +66,7 @@
 		if("add")
 			var/input_reagent = get_chem_id(params["chem"])
 			if(input_reagent && !required_reagents.Find(input_reagent))
-				var/input_amount = text2num(params["amount"])
+				var/input_amount = params.get_num(amount)
 				if(input_amount)
 					required_reagents[input_reagent] = input_amount
 					. = TRUE

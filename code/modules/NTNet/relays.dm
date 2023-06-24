@@ -112,7 +112,7 @@
 	return data
 
 
-/obj/machinery/ntnet_relay/ui_act(action, params)
+/obj/machinery/ntnet_relay/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)

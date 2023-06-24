@@ -373,7 +373,7 @@
 		data["holdingTank"]["tankPressure"] = round(holding.air_contents.return_pressure())
 	return data
 
-/obj/machinery/portable_atmospherics/canister/ui_act(action, params)
+/obj/machinery/portable_atmospherics/canister/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)

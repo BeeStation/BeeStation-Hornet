@@ -8,7 +8,7 @@
 	tgui_id = "NtosLogViewer"
 	program_icon = "database"
 
-/datum/computer_file/program/log_viewer/ui_act(action, list/params, datum/tgui/ui)
+/datum/computer_file/program/log_viewer/ui_act(action, datum/params/params, datum/tgui/ui)
 	. = ..()
 	if(.)
 		return

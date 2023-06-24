@@ -64,7 +64,7 @@
 
 	return data
 
-/obj/machinery/computer/nanite_chamber_control/ui_act(action, params)
+/obj/machinery/computer/nanite_chamber_control/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)
@@ -73,14 +73,14 @@
 			chamber.update_icon()
 			. = TRUE
 		if("set_safety")
-			var/threshold = text2num(params["value"])
+			var/threshold = params.get_num(value)
 			if(!isnull(threshold))
 				chamber.set_safety(clamp(round(threshold, 1),0,500))
 				playsound(src, "terminal_type", 25, FALSE)
 				chamber.occupant.investigate_log("'s nanites' safety threshold was set to [threshold] by [key_name(usr)] via [src] at [AREACOORD(src)].", INVESTIGATE_NANITES)
 			. = TRUE
 		if("set_cloud")
-			var/cloud_id = text2num(params["value"])
+			var/cloud_id = params.get_num(value)
 			if(!isnull(cloud_id))
 				chamber.set_cloud(clamp(round(cloud_id, 1),0,100))
 				playsound(src, "terminal_type", 25, FALSE)

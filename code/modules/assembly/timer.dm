@@ -109,7 +109,7 @@
 	data["loop"] = loop
 	return data
 
-/obj/item/assembly/timer/ui_act(action, params)
+/obj/item/assembly/timer/ui_act(action, datum/params/params)
 	if(..())
 		return
 
@@ -124,7 +124,7 @@
 			loop = !loop
 			. = TRUE
 		if("input")
-			var/value = text2num(params["adjust"])
+			var/value = params.get_num(adjust)
 			if(value)
 				value = round(time + value)
 				time = clamp(value, 1, 600)

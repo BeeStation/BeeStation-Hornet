@@ -79,7 +79,7 @@
 	data["wiping"] = flush
 	return data
 
-/obj/item/aicard/ui_act(action,params)
+/obj/item/aicard/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)

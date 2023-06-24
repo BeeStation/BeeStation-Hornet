@@ -72,7 +72,7 @@
 		data["unknown_languages"] = null
 	return data
 
-/datum/language_menu/ui_act(action, params)
+/datum/language_menu/ui_act(action, datum/params/params)
 	if(..())
 		return
 	var/mob/user = usr

@@ -33,7 +33,7 @@
 	conversations.Cut()
 	return ..()
 
-/datum/computer_file/program/chatclient/ui_act(action, params)
+/datum/computer_file/program/chatclient/ui_act(action, datum/params/params)
 	if(..())
 		return
 
@@ -68,7 +68,7 @@
 			user.log_talk(message, LOG_CHAT, tag="as [username] to channel [channel.title]")
 			return TRUE
 		if("PRG_joinchannel")
-			var/new_target = text2num(params["id"])
+			var/new_target = params.get_num(id)
 			if(isnull(new_target) || new_target == active_channel)
 				return
 

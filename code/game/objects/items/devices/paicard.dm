@@ -89,7 +89,7 @@
 	data["pai"]["receive"] = pai.can_receive
 	return data
 
-/obj/item/paicard/ui_act(action, list/params)
+/obj/item/paicard/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return FALSE

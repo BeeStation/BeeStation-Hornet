@@ -70,7 +70,7 @@
 
 	return data
 
-/datum/computer_file/program/robocontrol/ui_act(action, list/params)
+/datum/computer_file/program/robocontrol/ui_act(action, datum/params/params)
 	if(..())
 		return TRUE
 	var/obj/item/computer_hardware/card_slot/card_slot

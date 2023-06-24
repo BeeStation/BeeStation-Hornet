@@ -38,7 +38,7 @@
 	data["connection"] = !!radio_connection
 	return data
 
-/datum/computer_file/program/signaller/ui_act(action, list/params)
+/datum/computer_file/program/signaller/ui_act(action, datum/params/params)
 	if(..())
 		return TRUE
 	var/obj/item/computer_hardware/radio_card/sensor = computer?.get_modular_computer_part(MC_SIGNALLER)
@@ -54,7 +54,7 @@
 			set_frequency(new_signal_frequency)
 			. = TRUE
 		if("code")
-			signal_code = text2num(params["code"])
+			signal_code = params.get_num(code)
 			signal_code = round(signal_code)
 			. = TRUE
 		if("reset")

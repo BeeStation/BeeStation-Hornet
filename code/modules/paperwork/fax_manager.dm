@@ -52,7 +52,7 @@ GLOBAL_DATUM_INIT(fax_manager, /datum/fax_manager, new)
 		data["requests"] += list(request)
 	return data
 
-/datum/fax_manager/ui_act(action, list/params)
+/datum/fax_manager/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return

@@ -73,7 +73,7 @@
 	data["max_heat_transfer_rate"] = round(max_heat_transfer_rate)
 	return data
 
-/obj/machinery/atmospherics/components/binary/temperature_pump/ui_act(action, params)
+/obj/machinery/atmospherics/components/binary/temperature_pump/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)

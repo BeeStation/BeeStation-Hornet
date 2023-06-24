@@ -97,7 +97,7 @@
 			.["user"]["job"] = "the Budget Account"
 
 
-/obj/machinery/vendor/ui_act(action, params)
+/obj/machinery/vendor/ui_act(action, datum/params/params)
 	if(..())
 		return
 	var/mob/M = usr

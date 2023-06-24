@@ -171,7 +171,7 @@
 		data["cloud_backups"] = backup_list
 	return data
 
-/obj/machinery/computer/nanite_cloud_controller/ui_act(action, params)
+/obj/machinery/computer/nanite_cloud_controller/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)
@@ -179,10 +179,10 @@
 			eject(usr)
 			. = TRUE
 		if("set_view")
-			current_view = text2num(params["view"])
+			current_view = params.get_num(view)
 			. = TRUE
 		if("update_new_backup_value")
-			var/backup_value = text2num(params["value"])
+			var/backup_value = params.get_num(value)
 			new_backup_id = backup_value
 			. = TRUE
 		if("create_backup")
@@ -213,7 +213,7 @@
 			if(backup)
 				playsound(src, 'sound/machines/terminal_prompt.ogg', 50, FALSE)
 				var/datum/component/nanites/nanites = backup.nanites
-				var/datum/nanite_program/P = nanites.programs[text2num(params["program_id"])]
+				var/datum/nanite_program/P = nanites.programs[params.get_num(program_id)]
 				investigate_log("[key_name(usr)] deleted program [P.name] from cloud #[current_view]", INVESTIGATE_NANITES)
 				qdel(P)
 				. = TRUE
@@ -226,7 +226,7 @@
 				if(backup)
 					playsound(src, 'sound/machines/terminal_prompt.ogg', 50, 0)
 					var/datum/component/nanites/nanites = backup.nanites
-					var/datum/nanite_program/P = nanites.programs[text2num(params["program_id"])]
+					var/datum/nanite_program/P = nanites.programs[params.get_num(program_id)]
 					var/datum/nanite_rule/rule = rule_template.make_rule(P)
 
 					investigate_log("[key_name(usr)] added rule [rule.display()] to program [P.name] in cloud #[current_view]", INVESTIGATE_NANITES)
@@ -236,8 +236,8 @@
 			if(backup)
 				playsound(src, 'sound/machines/terminal_prompt.ogg', 50, 0)
 				var/datum/component/nanites/nanites = backup.nanites
-				var/datum/nanite_program/P = nanites.programs[text2num(params["program_id"])]
-				var/datum/nanite_rule/rule = P.rules[text2num(params["rule_id"])]
+				var/datum/nanite_program/P = nanites.programs[params.get_num(program_id)]
+				var/datum/nanite_rule/rule = P.rules[params.get_num(rule_id)]
 				rule.remove()
 
 				investigate_log("[key_name(usr)] removed rule [rule.display()] from program [P.name] in cloud #[current_view]", INVESTIGATE_NANITES)

@@ -89,7 +89,7 @@
 
 	return data
 
-/obj/structure/tank_dispenser/ui_act(action, params)
+/obj/structure/tank_dispenser/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)

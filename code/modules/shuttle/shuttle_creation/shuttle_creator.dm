@@ -104,7 +104,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 
 	return data
 
-/obj/item/shuttle_creator/ui_act(action, params)
+/obj/item/shuttle_creator/ui_act(action, datum/params/params)
 	if(..())
 		return
 

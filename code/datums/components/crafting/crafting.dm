@@ -404,7 +404,7 @@
 	data["crafting_recipes"] = crafting_recipes
 	return data
 
-/datum/component/personal_crafting/ui_act(action, params)
+/datum/component/personal_crafting/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)
@@ -412,7 +412,7 @@
 			if(busy) // Prevent potentially crafting multiple things at once
 				return
 			var/mob/user = usr
-			var/datum/crafting_recipe/TR = locate(params["recipe"]) in GLOB.crafting_recipes
+			var/datum/crafting_recipe/TR = params.locate_param("recipe", GLOB.crafting_recipes)
 			if(!TR)
 				return
 			busy = TRUE
@@ -425,8 +425,11 @@
 			display_compact = !display_compact
 			. = TRUE
 		if("set_category")
-			cur_category = params["category"]
-			cur_subcategory = params["subcategory"] || ""
+			cur_category = params.get_text_in_list("category", categories)
+			if (!cur_category)
+				return FALSE
+			var/list/subcategory = categories[cur_category]
+			cur_subcategory = params.get_text_in_list("subcategory", subcategory) || ""
 			. = TRUE
 
 /datum/component/personal_crafting/proc/build_recipe_data(datum/crafting_recipe/R)

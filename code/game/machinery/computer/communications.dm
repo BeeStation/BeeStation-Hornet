@@ -74,7 +74,7 @@
 	to_chat(user, "<span class='danger'>You scramble the communication routing circuits!</span>")
 	playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
 
-/obj/machinery/computer/communications/ui_act(action, list/params)
+/obj/machinery/computer/communications/ui_act(action, datum/params/params)
 	var/static/list/approved_states = list(STATE_BUYING_SHUTTLE, STATE_CHANGING_STATUS, STATE_MESSAGES)
 
 	. = ..()
@@ -89,7 +89,7 @@
 			if (!authenticated(usr))
 				return
 			var/answer_key = params["answer"]
-			var/message_index = text2num(params["message"])
+			var/message_index = params.get_num(message)
 			if (!answer_key || !message_index || message_index < 1)
 				return
 			var/datum/comm_message/message = messages[message_index]
@@ -145,7 +145,7 @@
 		if ("deleteMessage")
 			if (!authenticated(usr))
 				return
-			var/message_index = text2num(params["message"])
+			var/message_index = params.get_num(message)
 			if (!message_index)
 				return
 			LAZYREMOVE(messages, LAZYACCESS(messages, message_index))

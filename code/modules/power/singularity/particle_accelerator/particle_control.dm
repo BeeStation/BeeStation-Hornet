@@ -294,7 +294,7 @@
 	data["strength"] = strength
 	return data
 
-/obj/machinery/particle_accelerator/control_box/ui_act(action, params)
+/obj/machinery/particle_accelerator/control_box/ui_act(action, datum/params/params)
 	if(..())
 		return
 

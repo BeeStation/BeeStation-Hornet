@@ -133,7 +133,7 @@
 
 	return data
 
-/obj/item/clipboard/ui_act(action, params)
+/obj/item/clipboard/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return

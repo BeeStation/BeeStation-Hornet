@@ -51,7 +51,7 @@ GLOBAL_LIST_EMPTY(objective_computers)
 		)
 	return data
 
-/obj/machinery/computer/objective/ui_act(action, params)
+/obj/machinery/computer/objective/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return

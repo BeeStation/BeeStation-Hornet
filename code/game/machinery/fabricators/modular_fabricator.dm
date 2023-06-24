@@ -216,7 +216,7 @@
 	//Being Build
 	return data
 
-/obj/machinery/modular_fabricator/ui_act(action, params)
+/obj/machinery/modular_fabricator/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return
@@ -239,7 +239,7 @@
 					add_to_queue(item_queue, v, 1)
 
 		if("output_dir")
-			output_direction = text2num(params["direction"])
+			output_direction = params.get_num(direction)
 			. = TRUE
 
 		if("upload_disk")
@@ -266,7 +266,7 @@
 		if("eject_material")
 			var/datum/component/material_container/materials = get_material_container()
 			var/material_datum = params["material_datum"]	//Comes out as text
-			var/amount = text2num(params["amount"])
+			var/amount = params.get_num(amount)
 			if(amount <= 0 || amount > 50)
 				return
 			for(var/mat in materials.materials)
@@ -277,7 +277,7 @@
 					break
 
 		if("queue_repeat")
-			queue_repeating = text2num(params["repeating"])
+			queue_repeating = params.get_num(repeating)
 			. = TRUE
 
 		if("clear_queue")
@@ -286,7 +286,7 @@
 
 		if("item_repeat")
 			var/design_id = params["design_id"]
-			var/repeating_mode = text2num(params["repeating"])
+			var/repeating_mode = params.get_num(repeating)
 			if(!item_queue["[design_id]"])
 				return
 			item_queue["[design_id]"]["repeating"] = repeating_mode
@@ -299,7 +299,7 @@
 
 		if("queue_item")
 			var/design_id = params["design_id"]
-			var/amount = text2num(params["amount"])
+			var/amount = params.get_num(amount)
 			add_to_queue(item_queue, design_id, amount)
 			. = TRUE
 

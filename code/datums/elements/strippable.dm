@@ -427,7 +427,7 @@
 
 		.["layout"] = layout
 
-/datum/strip_menu/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+/datum/strip_menu/ui_act(action, datum/params/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
 		return
@@ -438,8 +438,7 @@
 
 	switch(action)
 		if("use")
-			var/key = params["key"]
-			var/datum/strippable_item/strippable_item = strippable.items[key]
+			var/datum/strippable_item/strippable_item = params.get_from_lookup("key", strippable.items)
 
 			if(isnull(strippable_item))
 				return
@@ -505,8 +504,7 @@
 
 				strippable_item.finish_unequip(owner, user)
 		if("alt")
-			var/key = params["key"]
-			var/datum/strippable_item/strippable_item = strippable.items[key]
+			var/datum/strippable_item/strippable_item = params.get_from_lookup("key", strippable.items)
 
 			if(isnull(strippable_item))
 				return

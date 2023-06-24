@@ -42,7 +42,7 @@
 	data["library_private"] = SSpersistence.paintings["library_private"] ? SSpersistence.paintings["library_private"] : 0 //i'm gonna regret this, won't i?
 	return data
 
-/datum/portrait_picker/ui_act(action, params)
+/datum/portrait_picker/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return

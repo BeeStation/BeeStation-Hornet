@@ -147,7 +147,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	data["signals"] = signals
 	return data
 
-/datum/component/gps/item/ui_act(action, params)
+/datum/component/gps/item/ui_act(action, datum/params/params)
 	if(..())
 		return
 	switch(action)

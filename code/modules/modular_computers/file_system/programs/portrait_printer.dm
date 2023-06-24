@@ -35,7 +35,7 @@
 		get_asset_datum(/datum/asset/simple/portraits/library_private)
 	)
 
-/datum/computer_file/program/portrait_printer/ui_act(action, params)
+/datum/computer_file/program/portrait_printer/ui_act(action, datum/params/params)
 	. = ..()
 	if(.)
 		return

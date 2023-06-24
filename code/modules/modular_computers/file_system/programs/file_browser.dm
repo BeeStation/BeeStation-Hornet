@@ -13,7 +13,7 @@
 	var/open_file
 	var/error
 
-/datum/computer_file/program/filemanager/ui_act(action, params)
+/datum/computer_file/program/filemanager/ui_act(action, datum/params/params)
 	if(..())
 		return
 
