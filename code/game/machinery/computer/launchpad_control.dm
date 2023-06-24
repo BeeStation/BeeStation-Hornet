@@ -83,7 +83,7 @@
 		if(pad_exists(i))
 			var/obj/machinery/launchpad/pad = get_pad(i)
 			var/list/this_pad = list()
-			this_pad["name"] = pad.display_name
+			this_pad["name"] = pad.display_name.get_unsafe_message()
 			this_pad["id"] = i
 			if(pad.machine_stat & NOPOWER)
 				this_pad["inactive"] = TRUE
@@ -96,7 +96,7 @@
 		var/obj/machinery/launchpad/current_pad = launchpads[selected_id]
 		data["x"] = current_pad.x_offset
 		data["y"] = current_pad.y_offset
-		data["pad_name"] = current_pad.display_name
+		data["pad_name"] = current_pad.display_name.get_unsafe_message()
 		data["range"] = current_pad.range
 		data["selected_pad"] = current_pad
 		if(QDELETED(current_pad) || (current_pad.machine_stat & NOPOWER))
@@ -128,7 +128,7 @@
 			)
 			. = TRUE
 		if("rename")
-			var/new_name = params["name"]
+			var/new_name = params.get_unsanitised_message_container("name")
 			if(!new_name)
 				return
 			current_pad.display_name = new_name

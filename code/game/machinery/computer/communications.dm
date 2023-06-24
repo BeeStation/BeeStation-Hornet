@@ -88,12 +88,12 @@
 		if ("answerMessage")
 			if (!authenticated(usr))
 				return
-			var/answer_key = params["answer"]
 			var/message_index = params.get_num(message)
-			if (!answer_key || !message_index || message_index < 1)
+			if (!message_index || message_index < 1)
 				return
 			var/datum/comm_message/message = messages[message_index]
-			if (!(answer_key in message.possible_answers) || message.answered)
+			var/answer_key = params.get_text_in_list("answer", message.possible_answers)
+			if (!answer_key || message.answered)
 				return
 			message.answered = answer_key
 			message.answer_callback.InvokeAsync()

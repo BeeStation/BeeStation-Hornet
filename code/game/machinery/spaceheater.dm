@@ -255,13 +255,13 @@
 			toggle_power()
 			. = TRUE
 		if("mode")
-			set_mode = params["mode"]
+			set_mode = params.get_text_in_list("mode", list(HEATER_MODE_AUTO, HEATER_MODE_COOL, HEATER_MODE_HEAT, HEATER_MODE_STANDBY))
 			. = TRUE
 		if("target")
 			if(!panel_open)
 				return
-			var/target = params["target"]
-			if(text2num(target) != null)
+			var/target = params.get_num("target")
+			if(target != null)
 				target= text2num(target) + T0C
 				. = TRUE
 			if(.)

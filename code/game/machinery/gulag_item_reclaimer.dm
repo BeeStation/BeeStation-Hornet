@@ -70,7 +70,7 @@
 
 	switch(action)
 		if("release_items")
-			var/mob/living/carbon/human/H = locate(params["mobref"]) in stored_items
+			var/mob/living/carbon/human/H = params.locate_param("mobref", stored_items)
 			if(H != usr && !allowed(usr))
 				to_chat(usr, "<span class='warning'>Access denied.</span>")
 				return

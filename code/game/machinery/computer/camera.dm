@@ -138,9 +138,8 @@
 		return
 
 	if(action == "switch_camera")
-		var/c_tag = params["name"]
 		var/list/cameras = get_available_cameras()
-		var/obj/machinery/camera/C = cameras[c_tag]
+		var/obj/machinery/camera/C = params.get_from_lookup("name", c_tag)
 		active_camera = C
 		ui_update()
 		playsound(src, get_sfx("terminal_type"), 25, FALSE)

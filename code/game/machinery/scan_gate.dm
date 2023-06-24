@@ -215,8 +215,7 @@
 		return
 	switch(action)
 		if("set_mode")
-			var/new_mode = params["new_mode"]
-			scangate_mode = new_mode
+			scangate_mode = params.get_text_in_list("new_mode", list(SCANGATE_NONE, SCANGATE_WANTED, SCANGATE_MINDSHIELD, SCANGATE_NANITES, SCANGATE_DISEASE, SCANGATE_SPECIES, SCANGATE_GUNS, SCANGATE_NUTRITION))
 			. = TRUE
 		if("toggle_reverse")
 			reverse = !reverse
@@ -226,30 +225,25 @@
 				locked = !locked
 			. = TRUE
 		if("set_disease_threshold")
-			var/new_threshold = params["new_threshold"]
-			disease_threshold = new_threshold
+			disease_threshold = params.get_text_in_list("new_threshold", list(DISEASE_BENEFICIAL, DISEASE_POSITIVE, DISEASE_NONTHREAT, DISEASE_MINOR, DISEASE_MEDIUM, DISEASE_HARMFUL, DISEASE_DANGEROUS, DISEASE_BIOHAZARD, DISEASE_PANDEMIC))
 			. = TRUE
 		if("set_nanite_cloud")
-			var/new_cloud = params.get_num(new_cloud)
-			nanite_cloud = clamp(round(new_cloud, 1), 1, 100)
+			nanite_cloud = params.get_int(new_cloud, 1, 100)
 			. = TRUE
 		//Some species are not scannable, like abductors (too unknown), androids (too artificial) or skeletons (too magic)
 		if("set_target_species")
-			var/new_species = params["new_species"]
-			detect_species = new_species
+			detect_species = params.get_text_in_list("new_species", list(SCANGATE_FELINID, SCANGATE_FLY, SCANGATE_GOLEM, SCANGATE_HUMAN, SCANGATE_LIZARD, SCANGATE_MOTH, SCANGATE_OOZE, SCANGATE_PLASMAMAN, SCANGATE_POD, SCANGATE_ZOMBIE))
 			. = TRUE
 		if("set_target_nutrition")
-			var/new_nutrition = params["new_nutrition"]
 			var/nutrition_list = list(
 				"Starving",
   				"Obese"
 			)
-			if(new_nutrition && (new_nutrition in nutrition_list))
-				switch(new_nutrition)
-					if("Starving")
-						detect_nutrition = NUTRITION_LEVEL_STARVING
-					if("Obese")
-						detect_nutrition = NUTRITION_LEVEL_FAT
+			switch(params.get_text_in_list("new_nutrition", nutrition_list))
+				if("Starving")
+					detect_nutrition = NUTRITION_LEVEL_STARVING
+				if("Obese")
+					detect_nutrition = NUTRITION_LEVEL_FAT
 			. = TRUE
 
 #undef SCANGATE_NONE

@@ -545,12 +545,13 @@
 				return
 
 			var/static/list/valid_items = list("helmet", "suit", "mask", "storage")
-			var/item_name = params["item"]
-			if(item_name in valid_items)
-				var/obj/item/I = vars[item_name]
-				vars[item_name] = null
-				if(I)
-					I.forceMove(loc)
+			var/item_name = params.get_text_in_list("item", valid_items)
+			if (!item_name)
+				return FALSE
+			var/obj/item/I = vars[item_name]
+			vars[item_name] = null
+			if(I)
+				I.forceMove(loc)
 			. = TRUE
 
 	if(.)

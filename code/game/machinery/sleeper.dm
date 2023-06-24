@@ -295,7 +295,7 @@
 				open_machine()
 			. = TRUE
 		if("eject")
-			var/chem = params["chem"]
+			var/chem = params.get_num("chem")
 			if(!is_operational || chem < 1 || chem > length(inserted_vials))
 				return
 			//Eject the canister
@@ -306,7 +306,7 @@
 			. = TRUE
 		if("inject")
 			check_nap_violations()
-			var/chem = params["chem"]
+			var/chem = params.get_num("chem")
 			if(!is_operational || !isliving(occupant) || chem < 1 || chem > length(inserted_vials))
 				return
 			if(obj_flags & EMAGGED)

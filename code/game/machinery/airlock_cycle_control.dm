@@ -707,7 +707,7 @@
 				. = TRUE
 				vis_target = null
 		if("toggle_role")
-			var/vent = locate(params["vent_id"])
+			var/vent = params.locate_param("vend_id", vents)
 			if(vent == null || vents[vent] == null)
 				return
 			var/curr_role = vents[vent]
@@ -718,7 +718,7 @@
 				vents[vent] = curr_role | role_to_toggle
 			. = TRUE
 		if("set_airlock_role")
-			var/airlock = locate(params["airlock_id"])
+			var/airlock = params.locate_param("airlock_id", airlocks)
 			if(airlock == null || airlocks[airlock] == null)
 				return
 			airlocks[airlock] = params.get_boolean(val)
@@ -727,13 +727,13 @@
 			vis_target = null
 			. = TRUE
 		if("set_vis_vent")
-			var/vent = locate(params["vent_id"])
+			var/vent = params.locate_param("vend_id", vents)
 			if(vent == null || vents[vent] == null)
 				return
 			vis_target = vent
 			. = TRUE
 		if("set_vis_airlock")
-			var/airlock = locate(params["airlock_id"])
+			var/airlock = params.locate_param("airlock_id", airlocks)
 			if(airlock == null || airlocks[airlock] == null)
 				return
 			vis_target = airlock

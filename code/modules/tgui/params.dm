@@ -21,9 +21,13 @@
 // Boolean Handling
 // =============================
 
+/// Returns true if the requested parameter is equal to the value
+/// Returns false otherwise
 /datum/params/proc/is_param_equal_to(param, value)
 	return _unsafe_params[param] == value
 
+/// Returns the requested parameter as either a true or false value depending
+/// on the truthyness of the parameter.
 /datum/params/proc/get_boolean(param)
 	return !!_unsafe_params[param]
 
@@ -31,6 +35,7 @@
 // Text Handling
 // =============================
 
+/// Returns the requested parameter as fully sanitised text, removing \n and \t as well as encoding HTML.
 /datum/params/proc/get_sanitised_text(param)
 	return sanitize_text(_unsafe_params[param])
 
@@ -41,11 +46,11 @@
 /// Returns the requested parameter as an unsanitised message holder which
 /// can be used to pass messages back into TGUI without encoding and then
 /// decoding the message to protect it while it is within byond-space.
-/datum/params/proc/get_unsanitised_message(param)
+/datum/params/proc/get_unsanitised_message_container(param)
 	RETURN_TYPE(/datum/unsafe_message)
 	var/unsafe_message = _unsafe_params[param]
 	if (isnull(unsafe_message))
-		return new /datum/unsafe_message(null)
+		return null
 	return new /datum/unsafe_message(unsafe_message)
 
 // =============================
@@ -53,8 +58,26 @@
 // =============================
 
 /// Returns the requested parameter as a number
-/datum/params/proc/get_num(param)
-	return text2num(_unsafe_params[param])
+/datum/params/proc/get_num(param, min = -INFINITY, max = INFINITY)
+	var/num = text2num(_unsafe_params[param])
+	if (num == null)
+		return null
+	if (num < min)
+		return min
+	if (num > max)
+		return max
+	return num
+
+/// Returns the requested parameter as an integer
+/datum/params/proc/get_int(param, min = -INFINITY, max = INFINITY)
+	var/num = round(text2num(_unsafe_params[param]))
+	if (num == null)
+		return null
+	if (num < min)
+		return min
+	if (num > max)
+		return max
+	return num
 
 // =============================
 // Path Handling

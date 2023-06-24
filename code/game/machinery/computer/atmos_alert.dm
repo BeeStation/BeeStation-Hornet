@@ -48,12 +48,13 @@
 		return
 	switch(action)
 		if("clear")
-			var/zone = params["zone"]
-			if(zone in priority_alarms)
+			var/zone = params.get_text_in_list("zone", priority_alarms)
+			if (zone)
 				to_chat(usr, "<span class='notice'>Priority alarm for [zone] cleared.</span>")
 				priority_alarms -= zone
 				. = TRUE
-			if(zone in minor_alarms)
+			zone = params.get_text_in_list("zone", minor_alarms)
+			if(zone)
 				to_chat(usr, "<span class='notice'>Minor alarm for [zone] cleared.</span>")
 				minor_alarms -= zone
 				. = TRUE

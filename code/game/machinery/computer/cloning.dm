@@ -459,13 +459,13 @@
 		if("toggle_lock")
 			. = Toggle_lock(usr)
 		if("clone")
-			Clone(usr, params["target"])
+			Clone(usr, params.get_sanitised_text("target"))
 			. = TRUE
 		if("delrecord")
-			DeleteRecord(usr, params["target"])
+			DeleteRecord(usr, params.get_sanitised_text("target"))
 			. = TRUE
 		if("save")
-			Save(usr, params["target"])
+			Save(usr, params.get_sanitised_text("target"))
 			. = TRUE
 		if("load")
 			Load(usr)

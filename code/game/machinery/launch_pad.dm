@@ -10,14 +10,14 @@
 	circuit = /obj/item/circuitboard/machine/launchpad
 	var/icon_teleport = "lpad-beam"
 	var/stationary = TRUE //to prevent briefcase pad deconstruction and such
-	var/display_name = "Launchpad"
+	var/datum/unsafe_message/display_name = new("Launchpad")
 	var/teleport_speed = 35
 	var/range = 15
 	var/teleporting = FALSE //if it's in the process of teleporting
 	var/power_efficiency = 1
 	var/x_offset = 0
 	var/y_offset = 0
-	var/indicator_icon = "launchpad_target"
+	var/indicator_icon = "lau5nchpad_target"
 
 /obj/machinery/launchpad/RefreshParts()
 	var/E = 0
@@ -347,7 +347,7 @@
 	if(!our_pad || our_pad.closed)
 		return data
 
-	data["pad_name"] = our_pad.display_name
+	data["pad_name"] = our_pad.display_name.get_unsafe_message()
 	data["range"] = our_pad.range
 	data["x"] = our_pad.x_offset
 	data["y"] = our_pad.y_offset
@@ -384,7 +384,7 @@
 			)
 			. = TRUE
 		if("rename")
-			var/new_name = params["name"]
+			var/datum/unsafe_message/new_name = params.get_unsanitised_message_container("name")
 			if(!new_name)
 				return
 			our_pad.display_name = new_name
