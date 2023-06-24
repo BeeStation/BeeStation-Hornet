@@ -274,7 +274,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	var/crashed = FALSE
 
 /obj/effect/mapping_helpers/simple_pipes/LateInitialize()
-	var/list/connections = list( dir2text(NORTH)  = FALSE, dir2text(SOUTH) = FALSE , dir2text(EAST) = FALSE , dir2text(WEST) = FALSE)
+	var/list/connections = list( dir2text(NORTH) = FALSE, dir2text(SOUTH) = FALSE , dir2text(EAST) = FALSE , dir2text(WEST) = FALSE)
 	var/list/valid_connectors = typecacheof(/obj/machinery/atmospherics)
 
 	// Check for duplicate helpers on a single turf
@@ -286,9 +286,9 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 			continue
 		if(helper.crashed)
 			return
-		CRASH("Duplicate simple_pipes mapping helper at [AREACOORD(src)]")
 		helper.crashed = TRUE
-		src.crashed = TRUE
+		crashed = TRUE
+		CRASH("Duplicate simple_pipes mapping helper at [AREACOORD(src)]")
 
 	for(var/direction in connections)
 		var/turf/T = get_step(src, text2dir(direction))
