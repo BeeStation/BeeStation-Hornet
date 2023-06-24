@@ -1,0 +1,5 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - rscdel: Replaces the barber's chainsaw with a hatchet because the baboons won't
+      stop valid-hunting with the chainsaw.
