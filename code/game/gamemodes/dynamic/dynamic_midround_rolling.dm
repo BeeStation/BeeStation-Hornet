@@ -23,8 +23,8 @@
 	if (GLOB.dynamic_forced_extended)
 		return
 
-	if(!forced_injection && (EMERGENCY_AT_LEAST_DOCKED || EMERGENCY_ALMOST_HERE))
-		dynamic_log("Not rolling a midround because the shuttle is almost here or already here.")
+	if(!forced_injection && (EMERGENCY_AT_LEAST_DOCKED || EMERGENCY_CALLED))
+		dynamic_log("Not rolling a midround because the shuttle is called or already here.")
 		return
 
 	if (EMERGENCY_ESCAPED_OR_ENDGAMED)
