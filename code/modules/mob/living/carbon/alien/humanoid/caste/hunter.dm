@@ -84,6 +84,11 @@
 			visible_message("<span class ='danger'>[src] smashes into [hit_atom]!</span>", "<span class ='alertalien'>[src] smashes into [hit_atom]!</span>")
 			Paralyze(40, 1, 1)
 
+		if(leaping) //check that toggles out of leaping mode if the alien gets hit or otherwise interrupted
+			leaping = FALSE
+			update_icons()
+			update_mobility()
+
 /mob/living/carbon/alien/humanoid/float(on)
 	if(leaping)
 		return
