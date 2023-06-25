@@ -37,7 +37,7 @@
 
 /// Returns the requested parameter as fully sanitised text, removing \n and \t as well as encoding HTML.
 /datum/params/proc/get_sanitised_text(param)
-	return sanitize_text(_unsafe_params[param])
+	return sanitize(_unsafe_params[param])
 
 /// Returns the requested parameter as HTML encoded text.
 /datum/params/proc/get_encoded_text(param)
