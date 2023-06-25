@@ -186,7 +186,7 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 			continue
 
 		// Radio transmitters are jammed
-		if(tracked_human.is_jammed(JAMMER_PROTECTION_WIRELESS))
+		if(tracked_human.is_jammed(JAMMER_PROTECTION_SENSOR_NETWORK))
 			continue
 
 		// The entry for this human

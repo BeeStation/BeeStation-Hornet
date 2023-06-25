@@ -43,9 +43,28 @@ menu "menu"
 		category = "&Help"
 		saved-params = "is-checked"
 	elem
+		name = "&Mentor Help"
+		command = "mentorhelp"
+		category = "&Help"
+		saved-params = "is-checked"
+	elem
 		name = "&Hotkeys"
 		command = "hotkeys-help"
 		category = "&Help"
+		saved-params = "is-checked"
+	elem
+		name = "&Preferences"
+		command = ""
+		saved-params = "is-checked"
+	elem
+		name = "&Character Preferences"
+		command = "character-preferences"
+		category = "&Preferences"
+		saved-params = "is-checked"
+	elem
+		name = "&Game Preferences"
+		command = "game-preferences"
+		category = "&Preferences"
 		saved-params = "is-checked"
 
 

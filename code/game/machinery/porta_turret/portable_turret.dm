@@ -9,7 +9,7 @@
 	icon = 'icons/obj/turrets.dmi'
 	icon_state = "turretCover"
 	layer = OBJ_LAYER
-	invisibility = INVISIBILITY_OBSERVER	//the turret is invisible if it's inside its cover
+	invisibility = INVISIBILITY_MAXIMUM //the turret is invisible if it's inside its cover
 	density = TRUE
 	desc = "A covered turret that shoots at its enemies."
 	use_power = IDLE_POWER_USE				//this turret uses and requires power

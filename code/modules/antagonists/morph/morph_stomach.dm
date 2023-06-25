@@ -36,7 +36,7 @@
 		element["favorite"] = favorites.Find(element["id"])
 		element["digestable"] = TRUE
 		var/base64 = null
-		var/icon_state_temp = A.icon_state
+		var/icon_state_temp = A.icon_state_preview || A.icon_state
 		if(icon_state_temp == "" || icon_state_temp == null)
 			if("[A.icon]" == "icons/mob/human.dmi")
 				icon_state_temp = "ghost"
