@@ -139,7 +139,7 @@
 	else if(victim.mobility_flags & ~MOBILITY_STAND)
 		pain_chance_current *= 0.2
 
-	if(harmful && prob(chance))
+	if(harmful && prob(pain_chance_current))
 		var/damage_left = max_damage - limb.get_damage()
 		var/damage_wanted = (1-pain_stam_pct) * damage
 		var/damage_to_deal = CLAMP(damage_wanted, 0, damage_left)

@@ -1228,9 +1228,9 @@
 			stop_pulling()
 	if(!(mobility_flags & MOBILITY_UI))
 		unset_machine()
-	density = !lying
-	var/changed = lying == lying_prev
-	if(lying)
+	density = !lying_angle
+	var/changed = lying_angle == lying_prev
+	if(lying_angle)
 		if(!lying_prev)
 			fall(!canstand_involuntary)
 		if(layer == initial(layer)) //to avoid special cases like hiding larvas.
@@ -1242,7 +1242,7 @@
 	if(changed)
 		if(client)
 			client.move_delay = world.time + movement_delay()
-	lying_prev = lying
+	lying_prev = lying_angle
 
 	// Movespeed mods based on arms/legs quantity
 	if(!get_leg_ignore())
