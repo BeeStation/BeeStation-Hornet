@@ -256,34 +256,27 @@
 	. = ..()
 	if(.)
 		return
-	var/current_ref_num = params["request"]
-	var/current_app_num = params["applicant"]
 	var/datum/bank_account/request_target
-	if(current_ref_num)
-		for(var/datum/station_request/iterated_station_request as anything in GLOB.request_list)
-			if(iterated_station_request.req_number == current_ref_num)
-				active_request = iterated_station_request
-				break
-	if(active_request)
-		for(var/datum/bank_account/iterated_bank_account as anything in active_request.applicants)
-			if(iterated_bank_account.account_id == current_app_num)
-				request_target = iterated_bank_account
-				break
+	for(var/datum/station_request/iterated_station_request as anything in GLOB.request_list)
+		if(params.is_param_equal_to("request", iterated_station_request.req_number))
+			active_request = iterated_station_request
+			break
+	for(var/datum/bank_account/iterated_bank_account as anything in active_request.applicants)
+		if(params.is_param_equal_to("applicant", iterated_bank_account.account_id))
+			request_target = iterated_bank_account
+			break
 	var/silicon = issilicon(usr)
 	switch(action)
 		if("setChannel")
-			var/prototype_channel = params["channel"]
-			if(isnull(prototype_channel))
-				return TRUE
 			for(var/datum/feed_channel/potential_channel as anything in GLOB.news_network.network_channels)
-				if(prototype_channel == potential_channel.channel_ID)
+				if(params.is_param_equal_to("channel", potential_channel.channel_ID))
 					current_channel = potential_channel
 
 		if("createStory")
 			if(!current_channel)
 				balloon_alert(usr, "select a channel first!")
 				return TRUE
-			var/prototype_channel = params["current"]
+			var/datum/unsafe_message/prototype_channel = params["current"]
 			create_story(channel_name = prototype_channel)
 
 		if("togglePhoto")

@@ -232,10 +232,9 @@
 		if("queue_category")
 			if(!can_print_category)
 				return
-			var/category_to_queue = params["category_name"]
 			for(var/v in stored_research.researched_designs)
 				var/datum/design/D = SSresearch.techweb_design_by_id(v)
-				if(category_to_queue in D.category)
+				if(params.is_in_list("category_name", D.category))
 					add_to_queue(item_queue, v, 1)
 
 		if("output_dir")
@@ -265,13 +264,12 @@
 
 		if("eject_material")
 			var/datum/component/material_container/materials = get_material_container()
-			var/material_datum = params["material_datum"]	//Comes out as text
 			var/amount = params.get_num(amount)
 			if(amount <= 0 || amount > 50)
 				return
 			for(var/mat in materials.materials)
 				var/datum/material/M = mat
-				if("[M.type]" == material_datum)
+				if(params.is_param_equal_to("material_datum", "[M.type]"))
 					materials.retrieve_sheets(amount, M, get_release_turf())
 					. = TRUE
 					break
@@ -285,20 +283,19 @@
 			. = TRUE
 
 		if("item_repeat")
-			var/design_id = params["design_id"]
+			var/list/design_id_list = params.get_from_lookup("design_id", item_queue)
 			var/repeating_mode = params.get_num(repeating)
-			if(!item_queue["[design_id]"])
+			if(design_id_list)
 				return
-			item_queue["[design_id]"]["repeating"] = repeating_mode
+			design_id_list["repeating"] = repeating_mode
 			. = TRUE
 
 		if("clear_item")
-			var/design_id = params["design_id"]
-			item_queue -= design_id
+			params.remove_from_list("design_id", item_queue)
 			. = TRUE
 
 		if("queue_item")
-			var/design_id = params["design_id"]
+			var/design_id = params.get_sanitised_text("design_id")
 			var/amount = params.get_num(amount)
 			add_to_queue(item_queue, design_id, amount)
 			. = TRUE

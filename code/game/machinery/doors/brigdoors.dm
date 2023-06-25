@@ -280,7 +280,7 @@
 					continue
 				flasher.flash()
 		if("preset")
-			var/preset = params["preset"]
+			var/preset = params.get_text_in_list("preset", list("short", "medium", "long"))
 			var/preset_time = time_left()
 			switch(preset)
 				if("short")

@@ -26,6 +26,10 @@
 /datum/params/proc/is_param_equal_to(param, value)
 	return _unsafe_params[param] == value
 
+/// Checks if a param is inside a list, or is a key of a dictionary
+/datum/params/proc/is_in_list(param, list/source)
+	return _unsafe_params[param] in source
+
 /// Returns the requested parameter as either a true or false value depending
 /// on the truthyness of the parameter.
 /datum/params/proc/get_boolean(param)
@@ -34,6 +38,18 @@
 // =============================
 // Text Handling
 // =============================
+
+/// Returns the requested parameter as a ref
+/datum/params/proc/get_ref(param)
+	var/static/regex/ref_regex = new(@"^\[(.*)\]$")
+	if (!ref_regex.Find(_unsafe_params[param]))
+		return
+	// Refs are either hex codes (0x010A...) or are url encoded tags [tag]
+	return "\[[url_encode(ref_regex.group[1])]\]"
+
+/// Returns the requested parameter as a name
+/datum/params/proc/get_name(param)
+	return reject_bad_name(_unsafe_params[param], TRUE, MAX_NAME_LEN, TRUE)
 
 /// Returns the requested parameter as fully sanitised text, removing \n and \t as well as encoding HTML.
 /datum/params/proc/get_sanitised_text(param)
@@ -110,6 +126,10 @@
 		return requested
 	// The href asked for was not present inside of the list
 	return null
+
+/// Removes the requested parameter from the list, or from a dictionary by key
+/datum/params/proc/remove_from_list(param, list/source)
+	source -= _unsafe_params[param]
 
 // =============================
 // Dictionary Handling

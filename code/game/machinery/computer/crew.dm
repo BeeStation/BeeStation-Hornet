@@ -236,7 +236,7 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 			var/mob/living/silicon/ai/AI = usr
 			if(!istype(AI))
 				return
-			AI.ai_camera_track(params["name"])
+			AI.ai_camera_track(params.get_name("name"))
 
 #undef SENSORS_UPDATE_PERIOD
 #undef UNKNOWN_JOB_ID
