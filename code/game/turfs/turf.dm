@@ -500,9 +500,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	return TRUE
 
 /// When someone falls over onto this turf (Knockdown() or similar), not related to zfalls
-/turf/handle_fall(mob/faller, forced)
-	if(!forced)
-		return
+/turf/handle_fall(mob/faller)
 	if(has_gravity(src))
 		playsound(src, "bodyfall", 50, 1)
 

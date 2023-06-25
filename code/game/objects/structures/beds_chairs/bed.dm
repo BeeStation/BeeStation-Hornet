@@ -248,7 +248,7 @@
 		RegisterSignal(goldilocks, COMSIG_PARENT_QDELETING, PROC_REF(goldilocks_deleted))
 
 /obj/structure/bed/double/post_unbuckle_mob(mob/living/M)
-	M.pixel_y = initial(M.pixel_y) + M.get_standard_pixel_y_offset(M.lying)
+	M.pixel_y = initial(M.pixel_y) + M.get_standard_pixel_y_offset(M.lying_angle)
 	if(M == goldilocks)
 		UnregisterSignal(goldilocks, COMSIG_PARENT_QDELETING)
 		goldilocks = null
