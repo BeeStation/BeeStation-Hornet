@@ -56,14 +56,10 @@
 	return reject_bad_name(_unsafe_params[param], TRUE, MAX_NAME_LEN, TRUE)
 
 /// Returns the requested parameter as fully sanitised text, removing \n and \t as well as encoding HTML.
-/// Use this for
+/// Use this when recieving text for the sake of checking it against UI components when it will not be displayed
+/// to other players in any way.
 /datum/params/proc/get_sanitised_text(param)
 	return sanitize(_unsafe_params[param])
-
-/// Returns the requested parameter as HTML encoded text.
-/// Depreciated and will be removed. Use get_sanitised_text, get_message or get_spoken_message instead
-/datum/params/proc/get_encoded_text(param)
-	return html_encode(_unsafe_params[param])
 
 /// Returns the requested parameter as an unsanitised message holder which
 /// can be used to pass messages back into TGUI without encoding and then
@@ -81,6 +77,7 @@
 
 /// Gets a spoken message, with IC words such as 'admins' stripped away.
 /// The filter may be applied liberally, so computer text speech should use get_message
+/// Messages through this may only be single line messages.
 /datum/params/proc/get_spoken_message(param, max_length = MAX_MESSAGE_LEN)
 	var/message = trim(get_sanitised_text(param), max_length)
 	if (!message)
@@ -92,8 +89,9 @@
 	return message
 
 /// Returns a message for UIs that are utilising non-IC things such as ghost/pAI descriptions.
+/// Allows for multi-line text.
 /datum/params/proc/get_message(param, max_length = MAX_MESSAGE_LEN)
-	var/message = trim(get_sanitised_text(param), max_length)
+	var/message = trim(html_encode(_unsafe_params[param]), max_length)
 	if (!message)
 		return null
 	if (OOC_FILTER_CHECK(message))

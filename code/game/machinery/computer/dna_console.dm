@@ -1487,7 +1487,7 @@
 				if (ref_tag)
 					tgui_view_state[key] = ref_tag
 					continue
-				tgui_view_state[key] = params.get_encoded_text(key)
+				tgui_view_state[key] = params.get_sanitised_text(key)
 			return TRUE
 	return FALSE
 
