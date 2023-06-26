@@ -58,8 +58,8 @@
 /// Returns the requested parameter as fully sanitised text, removing \n and \t as well as encoding HTML.
 /// Use this when recieving text for the sake of checking it against UI components when it will not be displayed
 /// to other players in any way.
-/datum/params/proc/get_sanitised_text(param)
-	return html_encode(_unsafe_params[param])
+/datum/params/proc/get_sanitised_text(param, max_length = MAX_MESSAGE_LEN)
+	return trim(html_encode(_unsafe_params[param]), max_length)
 
 /// Returns the requested parameter as an unsanitised message holder which
 /// can be used to pass messages back into TGUI without encoding and then

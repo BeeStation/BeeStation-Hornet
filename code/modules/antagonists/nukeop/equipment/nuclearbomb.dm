@@ -356,7 +356,7 @@
 					. = TRUE
 		if("keypad")
 			if(auth)
-				var/digit = params["digit"]
+				var/digit = params.get_sanitised_text("digit", 1)
 				switch(digit)
 					if("C")
 						if(auth && ui_mode == NUKEUI_AWAIT_ARM)
