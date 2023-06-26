@@ -59,7 +59,7 @@
 /// Use this when recieving text for the sake of checking it against UI components when it will not be displayed
 /// to other players in any way.
 /datum/params/proc/get_sanitised_text(param, max_length = MAX_MESSAGE_LEN)
-	return trim(html_encode(_unsafe_params[param]), max_length)
+	return html_encode(trim(_unsafe_params[param], max_length))
 
 /// Returns the requested parameter as an unsanitised message holder which
 /// can be used to pass messages back into TGUI without encoding and then
@@ -79,7 +79,7 @@
 /// The filter may be applied liberally, so computer text speech should use get_message
 /// Messages through this may only be single line messages.
 /datum/params/proc/get_spoken_message(param, max_length = MAX_MESSAGE_LEN)
-	var/message = trim(get_sanitised_text(param), max_length)
+	var/message = get_sanitised_text(param, max_length)
 	if (!message)
 		return null
 	if (CHAT_FILTER_CHECK(message))
@@ -91,7 +91,7 @@
 /// Returns a message for UIs that are utilising non-IC things such as ghost/pAI descriptions.
 /// Allows for multi-line text.
 /datum/params/proc/get_message(param, max_length = MAX_MESSAGE_LEN)
-	var/message = trim(html_encode(_unsafe_params[param]), max_length)
+	var/message = html_encode(trim(_unsafe_params[param], max_length))
 	if (!message)
 		return null
 	if (OOC_FILTER_CHECK(message))
