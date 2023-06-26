@@ -105,10 +105,10 @@
 		return
 	switch(action)
 		if("name")
-			guardian_name = params["name"]
+			guardian_name = sanitize(params["name"])
 			. = TRUE
 		if("set")
-			switch(params["name"])
+			switch(sanitize(params["name"]))
 				if("Damage")
 					var/lvl = CLAMP(text2num(params["level"]), 1, 5)
 					if((points + (saved_stats.damage > 1 ? saved_stats.damage - 1 : 0)) >= lvl - 1 || lvl == 1)
