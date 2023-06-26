@@ -286,10 +286,10 @@
 
 	switch(action)
 		if("add_connection")
-			var/input_component_id = params.get_num(input_component_id)
-			var/output_component_id = params.get_num(output_component_id)
-			var/input_port_id = params.get_num(input_port_id)
-			var/output_port_id = params.get_num(output_port_id)
+			var/input_component_id = params.get_num("input_component_id")
+			var/output_component_id = params.get_num("output_component_id")
+			var/input_port_id = params.get_num("input_port_id")
+			var/output_port_id = params.get_num("output_port_id")
 			if(!WITHIN_RANGE(input_component_id, attached_components) || !WITHIN_RANGE(output_component_id, attached_components))
 				return
 			var/obj/item/circuit_component/input_component = attached_components[input_component_id]
@@ -306,9 +306,9 @@
 			input_port.register_output_port(output_port)
 			. = TRUE
 		if("remove_connection")
-			var/component_id = params.get_num(component_id)
+			var/component_id = params.get_num("component_id")
 			var/is_input = params["is_input"]
-			var/port_id = params.get_num(port_id)
+			var/port_id = params.get_num("port_id")
 
 			if(!WITHIN_RANGE(component_id, attached_components))
 				return
@@ -327,7 +327,7 @@
 			port.disconnect()
 			. = TRUE
 		if("detach_component")
-			var/component_id = params.get_num(component_id)
+			var/component_id = params.get_num("component_id")
 			if(!WITHIN_RANGE(component_id, attached_components))
 				return
 			var/obj/item/circuit_component/component = attached_components[component_id]
@@ -339,15 +339,15 @@
 				usr.put_in_hands(component)
 			. = TRUE
 		if("set_component_coordinates")
-			var/component_id = params.get_num(component_id)
+			var/component_id = params.get_num("component_id")
 			if(!WITHIN_RANGE(component_id, attached_components))
 				return
 			var/obj/item/circuit_component/component = attached_components[component_id]
-			component.rel_x = min(max(-COMPONENT_MAX_POS, params.get_num(rel_x)), COMPONENT_MAX_POS)
-			component.rel_y = min(max(-COMPONENT_MAX_POS, params.get_num(rel_y)), COMPONENT_MAX_POS)
+			component.rel_x = min(max(-COMPONENT_MAX_POS, params.get_num("rel_x")), COMPONENT_MAX_POS)
+			component.rel_y = min(max(-COMPONENT_MAX_POS, params.get_num("rel_y")), COMPONENT_MAX_POS)
 			. = TRUE
 		if("set_component_option")
-			var/component_id = params.get_num(component_id)
+			var/component_id = params.get_num("component_id")
 			if(!WITHIN_RANGE(component_id, attached_components))
 				return
 			var/obj/item/circuit_component/component = attached_components[component_id]
@@ -357,8 +357,8 @@
 			component.set_option(option)
 			. = TRUE
 		if("set_component_input")
-			var/component_id = params.get_num(component_id)
-			var/port_id = params.get_num(port_id)
+			var/component_id = params.get_num("component_id")
+			var/port_id = params.get_num("port_id")
 			if(!WITHIN_RANGE(component_id, attached_components))
 				return
 			var/obj/item/circuit_component/component = attached_components[component_id]
@@ -401,8 +401,8 @@
 					port.set_input(COMPONENT_SIGNAL)
 			. = TRUE
 		if("get_component_value")
-			var/component_id = params.get_num(component_id)
-			var/port_id = params.get_num(port_id)
+			var/component_id = params.get_num("component_id")
+			var/port_id = params.get_num("port_id")
 			if(!WITHIN_RANGE(component_id, attached_components))
 				return
 			var/obj/item/circuit_component/component = attached_components[component_id]
@@ -433,12 +433,12 @@
 
 			. = TRUE
 		if("set_examined_component")
-			var/component_id = params.get_num(component_id)
+			var/component_id = params.get_num("component_id")
 			if(!WITHIN_RANGE(component_id, attached_components))
 				return
 			examined_component = WEAKREF(attached_components[component_id])
-			examined_rel_x = params.get_num(x)
-			examined_rel_y = params.get_num(y)
+			examined_rel_x = params.get_num("x")
+			examined_rel_y = params.get_num("y")
 			. = TRUE
 		if("remove_examined_component")
 			examined_component = null

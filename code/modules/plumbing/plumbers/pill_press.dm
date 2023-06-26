@@ -98,7 +98,7 @@
 			chosen_pill_style = "[params["id"]]"
 			. = TRUE
 		if("change_pill_size")
-			pill_size = CLAMP(params.get_num(volume), minimum_pill, maximum_pill)
+			pill_size = CLAMP(params.get_num("volume"), minimum_pill, maximum_pill)
 			. = TRUE
 		if("change_pill_name")
 			var/new_name = stripped_input(usr, "Enter a pill name.", name, pill_name)

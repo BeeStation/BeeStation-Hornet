@@ -257,7 +257,7 @@
 
 	switch(action)
 		if("time")
-			var/value = params.get_num(adjust)
+			var/value = params.get_num("adjust")
 			if(value)
 				. = !set_timer(time_left()+value)
 				investigate_log("[key_name(usr)] modified the timer by [value/10] seconds for cell [id], currently [time_left(seconds = TRUE)]", INVESTIGATE_RECORDS)

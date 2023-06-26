@@ -68,7 +68,7 @@
 			user.log_talk(message, LOG_CHAT, tag="as [username] to channel [channel.title]")
 			return TRUE
 		if("PRG_joinchannel")
-			var/new_target = params.get_num(id)
+			var/new_target = params.get_num("id")
 			if(isnull(new_target) || new_target == active_channel)
 				return
 
@@ -166,13 +166,13 @@
 		if("PRG_mute_user")
 			if(!authed)
 				return
-			var/datum/computer_file/program/chatclient/muted = locate(params["ref"]) in channel.active_clients + channel.offline_clients
+			var/datum/computer_file/program/chatclient/muted = params.locate_param(ref, channel.active_clients + channel.offline_clients)
 			channel.mute_user(src, muted)
 			return TRUE
 		if("PRG_ping_user")
 			if(!authed || (src in channel.muted_clients))
 				return
-			var/datum/computer_file/program/chatclient/pinged = locate(params["ref"]) in channel.active_clients + channel.offline_clients
+			var/datum/computer_file/program/chatclient/pinged = params.locate_param(ref, channel.active_clients + channel.offline_clients)
 			channel.ping_user(src, pinged)
 			return TRUE
 

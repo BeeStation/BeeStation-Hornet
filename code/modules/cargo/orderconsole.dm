@@ -241,7 +241,7 @@
 				message_cooldown = world.time + 30 SECONDS
 			. = TRUE
 		if("remove")
-			var/id = params.get_num(id)
+			var/id = params.get_num("id")
 			for(var/datum/supply_order/SO in SSsupply.shoppinglist)
 				if(SO.id == id)
 					SSsupply.shoppinglist -= SO
@@ -251,7 +251,7 @@
 			SSsupply.shoppinglist.Cut()
 			. = TRUE
 		if("approve")
-			var/id = params.get_num(id)
+			var/id = params.get_num("id")
 			for(var/datum/supply_order/SO in SSsupply.requestlist)
 				if(SO.id == id)
 					SSsupply.requestlist -= SO
@@ -259,7 +259,7 @@
 					. = TRUE
 					break
 		if("deny")
-			var/id = params.get_num(id)
+			var/id = params.get_num("id")
 			for(var/datum/supply_order/SO in SSsupply.requestlist)
 				if(SO.id == id)
 					SSsupply.requestlist -= SO

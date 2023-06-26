@@ -68,24 +68,24 @@
 			one_access = !one_access
 			. = TRUE
 		if("set")
-			var/access = params.get_num(access)
+			var/access = params.get_num("access")
 			if (!(access in accesses))
 				accesses += access
 			else
 				accesses -= access
 			. = TRUE
 		if("direc_set")
-			var/unres_direction = params.get_num(unres_direction)
+			var/unres_direction = params.get_num("unres_direction")
 			unres_sides ^= unres_direction //XOR, toggles only the bit that was clicked
 			. = TRUE
 		if("grant_region")
-			var/region = params.get_num(region)
+			var/region = params.get_num("region")
 			if(isnull(region))
 				return
 			accesses |= get_region_accesses(region)
 			. = TRUE
 		if("deny_region")
-			var/region = params.get_num(region)
+			var/region = params.get_num("region")
 			if(isnull(region))
 				return
 			accesses -= get_region_accesses(region)

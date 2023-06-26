@@ -301,7 +301,7 @@
 
 				var/desired = 0
 				if (params["sheets"])
-					desired = params.get_num(sheets)
+					desired = params.get_num("sheets")
 				else
 					desired = input("How many sheets?", "How many sheets would you like to smelt?", 1) as null|num
 
@@ -328,7 +328,7 @@
 				inserted_disk = null
 				. = TRUE
 		if("diskUpload")
-			var/n = params.get_num(design)
+			var/n = params.get_num("design")
 			if(inserted_disk && inserted_disk.blueprints && inserted_disk.blueprints[n])
 				stored_research.add_design(inserted_disk.blueprints[n])
 				. = TRUE
@@ -346,7 +346,7 @@
 				var/smelt_amount = can_smelt_alloy(alloy)
 				var/desired = 0
 				if (params["sheets"])
-					desired = params.get_num(sheets)
+					desired = params.get_num("sheets")
 				else
 					desired = input("How many sheets?", "How many sheets would you like to smelt?", 1) as null|num
 				var/amount = round(min(desired,50,smelt_amount))

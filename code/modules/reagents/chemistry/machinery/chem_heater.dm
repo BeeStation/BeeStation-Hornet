@@ -134,7 +134,7 @@
 			on = !on
 			. = TRUE
 		if("temperature")
-			var/target = params.get_num(target)
+			var/target = params.get_num("target")
 			if(target != null)
 				target_temperature = clamp(target, 0, 1000)
 				. = TRUE

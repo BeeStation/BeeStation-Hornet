@@ -396,9 +396,9 @@
 		if("increase")
 			increase_level()
 		if("set")
-			set_level(params.get_num(set_level))
+			set_level(params.get_num("set_level"))
 		if("vend")//it's not really vending as producing, but eh
-			var/key = params.get_num(target)
+			var/key = params.get_num("target")
 			produce(key)
 
 /obj/machinery/power/bluespace_tap/ui_interact(mob/user, datum/tgui/ui)

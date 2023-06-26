@@ -198,7 +198,7 @@
 				message_admins("[key_name_admin(user)] changed the module of [ADMIN_LOOKUPFLW(borg)] to [newmodulepath].")
 				log_admin("[key_name(user)] changed the module of [key_name(borg)] to [newmodulepath].")
 		if ("slavetoai")
-			var/mob/living/silicon/ai/newai = locate(params["slavetoai"]) in GLOB.ai_list
+			var/mob/living/silicon/ai/newai = params.locate_param(slavetoai, GLOB.ai_list)
 			if (newai && newai != borg.connected_ai)
 				borg.notify_ai(DISCONNECT)
 				if(borg.shell)

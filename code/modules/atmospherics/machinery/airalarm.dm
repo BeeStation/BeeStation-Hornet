@@ -388,10 +388,10 @@
 			send_signal(device_id, list("[action]" = params["val"]), usr)
 			. = TRUE
 		if("excheck")
-			send_signal(device_id, list("checks" = params.get_num(val)^1), usr)
+			send_signal(device_id, list("checks" = params.get_num("val")^1), usr)
 			. = TRUE
 		if("incheck")
-			send_signal(device_id, list("checks" = params.get_num(val)^2), usr)
+			send_signal(device_id, list("checks" = params.get_num("val")^2), usr)
 			. = TRUE
 		if("set_external_pressure", "set_internal_pressure")
 			var/target = params["value"]
@@ -422,7 +422,7 @@
 				investigate_log(" treshold value for [env]:[name] was set to [value] by [key_name(usr)]",INVESTIGATE_ATMOS)
 				. = TRUE
 		if("mode")
-			mode = params.get_num(mode)
+			mode = params.get_num("mode")
 			investigate_log("was turned to [get_mode_name(mode)] mode by [key_name(usr)]",INVESTIGATE_ATMOS)
 			apply_mode(usr)
 			. = TRUE

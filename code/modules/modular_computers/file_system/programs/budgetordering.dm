@@ -241,7 +241,7 @@
 					computer.say("Order processed. The price will be charged to [account.account_holder]'s bank account on delivery.")
 			. = TRUE
 		if("remove")
-			var/id = params.get_num(id)
+			var/id = params.get_num("id")
 			for(var/datum/supply_order/SO in SSsupply.shoppinglist)
 				if(SO.id == id)
 					SSsupply.shoppinglist -= SO
@@ -251,7 +251,7 @@
 			SSsupply.shoppinglist.Cut()
 			. = TRUE
 		if("approve")
-			var/id = params.get_num(id)
+			var/id = params.get_num("id")
 			for(var/datum/supply_order/SO in SSsupply.requestlist)
 				if(SO.id == id)
 					var/obj/item/card/id/id_card = get_buyer_id(usr)
@@ -264,7 +264,7 @@
 					. = TRUE
 					break
 		if("deny")
-			var/id = params.get_num(id)
+			var/id = params.get_num("id")
 			for(var/datum/supply_order/SO in SSsupply.requestlist)
 				if(SO.id == id)
 					SSsupply.requestlist -= SO

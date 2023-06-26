@@ -149,20 +149,20 @@
 				. = TRUE
 		// Take paper out
 		if("remove_paper")
-			var/obj/item/paper/paper = locate(params["ref"]) in src
+			var/obj/item/paper/paper = params.locate_param(ref, src)
 			if(istype(paper))
 				remove_paper(paper, usr)
 				. = TRUE
 		// Look at (or edit) the paper
 		if("edit_paper")
-			var/obj/item/paper/paper = locate(params["ref"]) in src
+			var/obj/item/paper/paper = params.locate_param(ref, src)
 			if(istype(paper))
 				paper.ui_interact(usr)
 				update_icon()
 				. = TRUE
 		// Move paper to the top
 		if("move_top_paper")
-			var/obj/item/paper/paper = locate(params["ref"]) in src
+			var/obj/item/paper/paper = params.locate_param(ref, src)
 			if(istype(paper))
 				toppaper_ref = WEAKREF(paper)
 				to_chat(usr, "<span class='notice'>You move [paper] to the top.</span>")
@@ -170,7 +170,7 @@
 				. = TRUE
 		// Rename the paper (it's a verb)
 		if("rename_paper")
-			var/obj/item/paper/paper = locate(params["ref"]) in src
+			var/obj/item/paper/paper = params.locate_param(ref, src)
 			if(istype(paper))
 				paper.rename()
 				update_icon()

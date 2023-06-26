@@ -46,7 +46,7 @@
 		if("toggle_function")
 			if(!SSnetworks.station_network)
 				return
-			SSnetworks.station_network.toggle_function(params.get_num(id))
+			SSnetworks.station_network.toggle_function(params.get_num("id"))
 			return TRUE
 
 /datum/computer_file/program/ntnetmonitor/ui_data(mob/user)

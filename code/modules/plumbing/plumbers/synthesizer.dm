@@ -129,7 +129,7 @@
 		return
 	switch(action)
 		if("amount")
-			var/new_amount = params.get_num(target)
+			var/new_amount = params.get_num("target")
 			if(new_amount in possible_amounts)
 				amount = new_amount
 				. = TRUE

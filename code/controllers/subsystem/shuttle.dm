@@ -207,8 +207,6 @@ SUBSYSTEM_DEF(shuttle)
 		to_chat(user, "<span class='alert'>[can_evac_or_fail_reason]</span>")
 		return
 
-	call_reason = trim(html_encode(call_reason))
-
 	if(length(call_reason) < CALL_SHUTTLE_REASON_LENGTH && seclevel2num(get_security_level()) > SEC_LEVEL_GREEN)
 		to_chat(user, "<span class='alert'>You must provide a reason.</span>")
 		return
@@ -837,10 +835,10 @@ SUBSYSTEM_DEF(shuttle)
 				selected = S
 				. = TRUE
 		if("jump_to")
-			if(params.is_param_equal_to("type", "mobile"))
+			if(params.are_equal("type", "mobile"))
 				for(var/i in mobile)
 					var/obj/docking_port/mobile/M = i
-					if(params.is_param_equal_to("id", M.id))
+					if(params.are_equal("id", M.id))
 						user.forceMove(get_turf(M))
 						. = TRUE
 						break
@@ -848,7 +846,7 @@ SUBSYSTEM_DEF(shuttle)
 		if("fly")
 			for(var/i in mobile)
 				var/obj/docking_port/mobile/M = i
-				if(params.is_param_equal_to("id", M.id))
+				if(params.are_equal("id", M.id))
 					. = TRUE
 					M.admin_fly_shuttle(user)
 					break
@@ -856,7 +854,7 @@ SUBSYSTEM_DEF(shuttle)
 		if("fast_travel")
 			for(var/i in mobile)
 				var/obj/docking_port/mobile/M = i
-				if(params.is_param_equal_to("id", M.id) && M.timer && M.timeLeft(1) >= 50)
+				if(params.are_equal("id", M.id) && M.timer && M.timeLeft(1) >= 50)
 					M.setTimer(50)
 					. = TRUE
 					message_admins("[key_name_admin(usr)] fast travelled [M]")

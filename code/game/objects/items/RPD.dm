@@ -387,7 +387,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 			paint_color = params["paint_color"]
 			. = TRUE
 		if("category")
-			category = params.get_num(category)
+			category = params.get_num("category")
 			switch(category)
 				if(DISPOSALS_CATEGORY)
 					recipe = first_disposal
@@ -401,27 +401,27 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 			playeffect = FALSE
 			. = TRUE
 		if("piping_layer")
-			piping_layer = params.get_num(piping_layer)
+			piping_layer = params.get_num("piping_layer")
 			playeffect = FALSE
 			. = TRUE
 		if("ducting_layer")
-			ducting_layer = params.get_num(ducting_layer)
+			ducting_layer = params.get_num("ducting_layer")
 			playeffect = FALSE
 			. = TRUE
 		if("pipe_type")
 			var/static/list/recipes
 			if(!recipes)
 				recipes = GLOB.disposal_pipe_recipes + GLOB.atmos_pipe_recipes + GLOB.transit_tube_recipes + GLOB.fluid_duct_recipes
-			recipe = recipes[params["category"]][params.get_num(pipe_type)]
+			recipe = recipes[params["category"]][params.get_num("pipe_type")]
 			p_dir = NORTH
 			. = TRUE
 		if("setdir")
 			p_dir = text2dir(params["dir"])
-			p_flipped = params.get_num(flipped)
+			p_flipped = params.get_num("flipped")
 			playeffect = FALSE
 			. = TRUE
 		if("mode")
-			var/n = params.get_num(mode)
+			var/n = params.get_num("mode")
 			. = TRUE
 			if(mode & n)
 				mode &= ~n

@@ -386,15 +386,15 @@
 			. = TRUE
 		if("channel")
 			if(params["eqp"])
-				equipment = setsubsystem(params.get_num(eqp))
+				equipment = setsubsystem(params.get_num("eqp"))
 				update_appearance()
 				update()
 			else if(params["lgt"])
-				lighting = setsubsystem(params.get_num(lgt))
+				lighting = setsubsystem(params.get_num("lgt"))
 				update_appearance()
 				update()
 			else if(params["env"])
-				environ = setsubsystem(params.get_num(env))
+				environ = setsubsystem(params.get_num("env"))
 				update_appearance()
 				update()
 			else

@@ -239,7 +239,7 @@
 		if("amount")
 			if(QDELETED(beaker))
 				return
-			var/target = params.get_num(target)
+			var/target = params.get_num("target")
 			if(target in beaker.possible_transfer_amounts)
 				amount = target
 				work_animation()
@@ -266,7 +266,7 @@
 		if("remove")
 			if(recording_recipe)
 				return
-			var/amount = params.get_num(amount)
+			var/amount = params.get_num("amount")
 			if(beaker && (amount in beaker.possible_transfer_amounts))
 				beaker.reagents.remove_all(amount)
 				work_animation()

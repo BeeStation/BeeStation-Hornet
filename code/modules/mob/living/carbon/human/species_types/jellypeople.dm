@@ -250,7 +250,7 @@
 	switch(action)
 		if("swap")
 			var/datum/species/oozeling/slime/SS = H.dna.species
-			var/mob/living/carbon/human/selected = locate(params["ref"]) in SS.bodies
+			var/mob/living/carbon/human/selected = params.locate_param(ref, SS.bodies)
 			if(!can_swap(selected))
 				return
 			SStgui.close_uis(src)

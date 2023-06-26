@@ -155,7 +155,7 @@
 			machine.toggle_auto_shutdown()
 
 		if("set_smelt_amount")
-			machine.smelt_amount_limit = CLAMP(params.get_num(amount), 1, 100)
+			machine.smelt_amount_limit = CLAMP(params.get_num("amount"), 1, 100)
 
 /obj/machinery/mineral/processing_unit_console/Destroy()
 	machine.console = null

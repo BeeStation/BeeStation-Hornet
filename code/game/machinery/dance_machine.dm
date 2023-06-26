@@ -157,13 +157,13 @@
 			selection = params.get_from_lookup("track", available)
 			return TRUE
 		if("set_volume")
-			if(params.is_param_equal_to("volume", "reset"))
+			if(params.are_equal("volume", "reset"))
 				volume = initial(volume)
 				return TRUE
-			else if(params.is_param_equal_to("volume", "min"))
+			else if(params.are_equal("volume", "min"))
 				volume = 0
 				return TRUE
-			else if(params.is_param_equal_to("volume", "max"))
+			else if(params.are_equal("volume", "max"))
 				volume = 100
 				return TRUE
 			else if(params.get_num("volume") != null)

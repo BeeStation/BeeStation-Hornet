@@ -88,7 +88,7 @@
 		if ("answerMessage")
 			if (!authenticated(usr))
 				return
-			var/message_index = params.get_num(message)
+			var/message_index = params.get_num("message")
 			if (!message_index || message_index < 1)
 				return
 			var/datum/comm_message/message = messages[message_index]
@@ -101,7 +101,7 @@
 		if ("callShuttle")
 			if (!authenticated(usr))
 				return
-			var/reason = trim(params["reason"], MAX_MESSAGE_LEN)
+			var/reason = params.get_message("reason")
 			if (length(reason) < CALL_SHUTTLE_REASON_LENGTH)
 				return
 			SSshuttle.requestEvac(usr, reason)
@@ -124,8 +124,9 @@
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 					return
 
-			var/new_sec_level = seclevel2num(params["newSecurityLevel"])
-			if (new_sec_level != SEC_LEVEL_GREEN && new_sec_level != SEC_LEVEL_BLUE)
+			var/sec_level_text = params.get_text_in_list("newSecurityLevel", list("green", "blue"))
+			var/new_sec_level = seclevel2num(sec_level_text)
+			if (!new_sec_level)
 				return
 			if (GLOB.security_level == new_sec_level)
 				return
@@ -136,19 +137,22 @@
 			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 
 			// Only notify people if an actual change happened
-			log_game("[key_name(usr)] has changed the security level to [params["newSecurityLevel"]] with [src] at [AREACOORD(usr)].")
-			message_admins("[ADMIN_LOOKUPFLW(usr)] has changed the security level to [params["newSecurityLevel"]] with [src] at [AREACOORD(usr)].")
-			deadchat_broadcast("<span class='deadsay'><span class='name'>[usr.real_name]</span> has changed the security level to [params["newSecurityLevel"]] with [src] at <span class='name'>[get_area_name(usr, TRUE)]</span>.</span>", usr)
+			log_game("[key_name(usr)] has changed the security level to [sec_level_text] with [src] at [AREACOORD(usr)].")
+			message_admins("[ADMIN_LOOKUPFLW(usr)] has changed the security level to [sec_level_text] with [src] at [AREACOORD(usr)].")
+			deadchat_broadcast("<span class='deadsay'><span class='name'>[usr.real_name]</span> has changed the security level to [sec_level_text] with [src] at <span class='name'>[get_area_name(usr, TRUE)]</span>.</span>", usr)
 
 			alert_level_tick += 1
 			. = TRUE
 		if ("deleteMessage")
 			if (!authenticated(usr))
 				return
-			var/message_index = params.get_num(message)
+			var/message_index = params.get_num("message")
 			if (!message_index)
 				return
-			LAZYREMOVE(messages, LAZYACCESS(messages, message_index))
+			var/to_remove = LAZYACCESS(messages, message_index)
+			if (!to_remove)
+				return FALSE
+			LAZYREMOVE(messages, to_remove)
 			. = TRUE
 		if ("makePriorityAnnouncement")
 			if (!authenticated_as_silicon_or_captain(usr))
@@ -162,7 +166,7 @@
 				return
 
 			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
-			var/message = trim(html_encode(params["message"]), MAX_MESSAGE_LEN)
+			var/message = params.get_message("message")
 
 			var/emagged = obj_flags & EMAGGED
 			if (emagged)
@@ -184,7 +188,7 @@
 					to_chat(usr, "<span class='alert'>[can_buy_shuttles_or_fail_reason]</span>")
 				return
 			var/list/shuttles = flatten_list(SSmapping.shuttle_templates)
-			var/datum/map_template/shuttle/shuttle = locate(params["shuttle"]) in shuttles
+			var/datum/map_template/shuttle/shuttle = params.locate_param("shuttle", shuttles)
 			if (!istype(shuttle))
 				return
 			if (!can_purchase_this_shuttle(shuttle))
@@ -215,7 +219,9 @@
 				return
 			if (!COOLDOWN_FINISHED(src, important_action_cooldown))
 				return
-			var/reason = trim(html_encode(params["reason"]), MAX_MESSAGE_LEN)
+			var/reason = params.get_message("reason")
+			if (!reason)
+				return
 			nuke_request(reason, usr)
 			to_chat(usr, "<span class='notice'>Request sent.</span>")
 			usr.log_message("has requested the nuclear codes from CentCom with reason \"[reason]\"", LOG_SAY)
@@ -240,11 +246,8 @@
 			if (!COOLDOWN_FINISHED(src, important_action_cooldown))
 				return
 
-			var/message = trim(html_encode(params["message"]), MAX_MESSAGE_LEN)
+			var/message = params.get_message("message")
 			if (!message)
-				return
-			if(CHAT_FILTER_CHECK(message))
-				to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
 				return
 
 			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
@@ -260,9 +263,9 @@
 		if ("setState")
 			if (!authenticated(usr))
 				return
-			if (!(params["state"] in approved_states))
+			var/newState = params.get_text_in_list("state", approved_states)
+			if (!newState)
 				return
-			var/newState = params["state"]
 			if (newState == STATE_BUYING_SHUTTLE && can_buy_shuttles(usr) != TRUE)
 				return
 			set_state(usr, newState)
@@ -271,8 +274,8 @@
 		if ("setStatusMessage")
 			if (!authenticated(usr))
 				return
-			var/line_one = reject_bad_text(params["lineOne"] || "", MAX_STATUS_LINE_LENGTH)
-			var/line_two = reject_bad_text(params["lineTwo"] || "", MAX_STATUS_LINE_LENGTH)
+			var/line_one = params.get_message("lineOne", MAX_STATUS_LINE_LENGTH) || ""
+			var/line_two = params.get_message("lineTwo", MAX_STATUS_LINE_LENGTH) || ""
 			message_admins("[ADMIN_LOOKUPFLW(usr)] changed the Status Message to - [line_one], [line_two] - From a Communications Console.")
 			log_game("[key_name(usr)] changed the Status Message to - [line_one], [line_two] - From a Communications Console.")
 			post_status("alert", "blank")
@@ -283,8 +286,8 @@
 		if ("setStatusPicture")
 			if (!authenticated(usr))
 				return
-			var/picture = params["picture"]
-			if (!(picture in GLOB.approved_status_pictures))
+			var/picture = params.get_text_in_list("picture", GLOB.approved_status_pictures)
+			if (!picture)
 				return
 			post_status("alert", picture)
 			playsound(src, "terminal_type", 50, FALSE)

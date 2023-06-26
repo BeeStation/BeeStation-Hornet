@@ -241,7 +241,7 @@
 				return
 
 			if (params["amount"])
-				desired = params.get_num(amount)
+				desired = params.get_num("amount")
 			else
 				desired = input("How many items?", "How many items would you like to take out?", 1) as null|num
 

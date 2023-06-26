@@ -92,7 +92,7 @@
 				id_insert(usr)
 			return TRUE
 		if("set_goal")
-			var/new_goal = params.get_num(value)
+			var/new_goal = params.get_num("value")
 			if(!isnum_safe(new_goal) || !contained_id)
 				return
 			if(!new_goal)

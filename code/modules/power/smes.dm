@@ -375,7 +375,7 @@
 			. = TRUE
 		if("input")
 			var/target = params["target"]
-			var/adjust = params.get_num(adjust)
+			var/adjust = params.get_num("adjust")
 			if(target == "min")
 				target = 0
 				. = TRUE
@@ -392,7 +392,7 @@
 				input_level = clamp(target, 0, input_level_max)
 		if("output")
 			var/target = params["target"]
-			var/adjust = params.get_num(adjust)
+			var/adjust = params.get_num("adjust")
 			if(target == "min")
 				target = 0
 				. = TRUE

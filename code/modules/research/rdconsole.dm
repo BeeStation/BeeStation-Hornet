@@ -395,7 +395,7 @@ Nothing else in the console has ID requirements.
 			if(QDELETED(d_disk))
 				say("No Design Disk Inserted!")
 				return TRUE
-			var/slot = params.get_num(slot)
+			var/slot = params.get_num("slot")
 			var/datum/design/design = SSresearch.techweb_design_by_id(params["selectedDesign"])
 			if(design)
 				var/autolathe_friendly = TRUE
@@ -417,14 +417,14 @@ Nothing else in the console has ID requirements.
 			if(QDELETED(d_disk))
 				say("No design disk found.")
 				return TRUE
-			var/n = params.get_num(slot)
+			var/n = params.get_num("slot")
 			stored_research.add_design(d_disk.blueprints[n], TRUE)
 			return TRUE
 		if ("clearDesignSlot")
 			if(QDELETED(d_disk))
 				say("No design disk inserted!")
 				return TRUE
-			var/n = params.get_num(slot)
+			var/n = params.get_num("slot")
 			var/datum/design/D = d_disk.blueprints[n]
 			say("Wiping design [D.name] from design disk.")
 			d_disk.blueprints[n] = null

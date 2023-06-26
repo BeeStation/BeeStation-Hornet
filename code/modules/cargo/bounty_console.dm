@@ -58,7 +58,7 @@
 		return
 	switch(action)
 		if("ClaimBounty")
-			var/datum/bounty/cashmoney = locate(params["bounty"]) in GLOB.bounties_list
+			var/datum/bounty/cashmoney = params.locate_param(bounty, GLOB.bounties_list)
 			if(cashmoney)
 				cashmoney.claim()
 			return TRUE

@@ -82,7 +82,7 @@
 
 	var/list/standard_actions = list("patroloff", "patrolon", "ejectpai")
 	var/list/MULE_actions = list("stop", "go", "home", "destination", "setid", "sethome", "unload", "autoret", "autopick", "report", "ejectpai")
-	var/mob/living/simple_animal/bot/selected_bot = locate(params["robot"]) in GLOB.bots_list
+	var/mob/living/simple_animal/bot/selected_bot = params.locate_param(robot, GLOB.bots_list)
 	switch(action)
 		if("summon")
 			if(!selected_bot)

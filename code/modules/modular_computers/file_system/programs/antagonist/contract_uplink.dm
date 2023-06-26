@@ -25,7 +25,7 @@
 
 	switch(action)
 		if("PRG_contract-accept")
-			var/contract_id = params.get_num(contract_id)
+			var/contract_id = params.get_num("contract_id")
 
 			// Set as the active contract
 			hard_drive.traitor_data.contractor_hub.assigned_contracts[contract_id].status = CONTRACT_STATUS_ACTIVE

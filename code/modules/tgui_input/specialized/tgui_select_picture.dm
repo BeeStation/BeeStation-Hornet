@@ -86,7 +86,7 @@
 		return
 	switch(action)
 		if("submit")
-			var/datum/picture/choice = locate(params["entry"]) in choices
+			var/datum/picture/choice = params.locate_param(entry, choices)
 			if(!istype(choice))
 				return
 			entry = choice

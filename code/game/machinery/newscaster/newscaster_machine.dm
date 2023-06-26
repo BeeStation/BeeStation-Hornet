@@ -258,18 +258,18 @@
 		return
 	var/datum/bank_account/request_target
 	for(var/datum/station_request/iterated_station_request as anything in GLOB.request_list)
-		if(params.is_param_equal_to("request", iterated_station_request.req_number))
+		if(params.are_equal("request", iterated_station_request.req_number))
 			active_request = iterated_station_request
 			break
 	for(var/datum/bank_account/iterated_bank_account as anything in active_request.applicants)
-		if(params.is_param_equal_to("applicant", iterated_bank_account.account_id))
+		if(params.are_equal("applicant", iterated_bank_account.account_id))
 			request_target = iterated_bank_account
 			break
 	var/silicon = issilicon(usr)
 	switch(action)
 		if("setChannel")
 			for(var/datum/feed_channel/potential_channel as anything in GLOB.news_network.network_channels)
-				if(params.is_param_equal_to("channel", potential_channel.channel_ID))
+				if(params.are_equal("channel", potential_channel.channel_ID))
 					current_channel = potential_channel
 
 		if("createStory")
@@ -494,7 +494,7 @@
 			return TRUE
 
 		if("bountyVal")
-			bounty_value = params.get_num(bountyval)
+			bounty_value = params.get_num("bountyval")
 			if(!bounty_value)
 				bounty_value = 1
 

@@ -162,7 +162,7 @@
 			refresh()
 			return TRUE
 		if("PRG_set")
-			var/newuid = params.get_num(target)
+			var/newuid = params.get_num("target")
 			for(var/obj/machinery/power/supermatter_crystal/S in supermatters)
 				if(S.uid == newuid)
 					active = S

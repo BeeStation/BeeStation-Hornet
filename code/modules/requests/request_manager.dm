@@ -122,7 +122,7 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 		return
 
 	// Get the request this relates to
-	var/id = params["id"] != null ? params.get_num(id) : null
+	var/id = params["id"] != null ? params.get_num("id") : null
 	if (!id)
 		to_chat(usr, "Failed to find a request ID in your action, please report this")
 		CRASH("Received an action without a request ID, this shouldn't happen!")

@@ -99,7 +99,7 @@
 			set_frequency(new_frequency)
 			. = TRUE
 		if("code")
-			code = params.get_num(code)
+			code = params.get_num("code")
 			code = round(code)
 			. = TRUE
 		if("reset")

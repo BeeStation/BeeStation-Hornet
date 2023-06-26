@@ -64,7 +64,7 @@
 			visible_message("<span class='notice'>[src] dispenses a bluespace beaker.</span>")
 			. = TRUE
 		if("amount")
-			var/input = params.get_num(amount)
+			var/input = params.get_num("amount")
 			if(input)
 				amount = input
 				. = TRUE

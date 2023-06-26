@@ -116,8 +116,8 @@
 			var/color = get_paint_tool_color(I)
 			if(!color)
 				return FALSE
-			var/x = params.get_num(x)
-			var/y = params.get_num(y)
+			var/x = params.get_num("x")
+			var/y = params.get_num("y")
 			grid[x][y] = color
 			used = TRUE
 			update_icon()

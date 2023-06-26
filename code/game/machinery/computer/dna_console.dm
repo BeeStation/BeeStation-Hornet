@@ -507,7 +507,7 @@
 			var/sequence = GET_GENE_STRING(path, scanner_occupant.dna)
 
 			var/newgene = params.get_text_in_list("gene", genecodes)
-			var/genepos = params.get_num(pos)
+			var/genepos = params.get_num("pos")
 
 			// If the new gene is J, this means we're dealing with a JOKER
 			// GUARD CHECK - Is JOKER actually ready?
@@ -572,7 +572,7 @@
 			// Look through our stored chromos and compare names to find a
 			// stored chromo we can apply.
 			for(var/obj/item/chromosome/CM in stored_chromosomes)
-				if(CM.can_apply(HM) && (CM.name == params.get_sanitised_text("chromo")))
+				if(CM.can_apply(HM) && params.are_equal("chromo", CM.name))
 					stored_chromosomes -= CM
 					CM.apply(HM)
 
@@ -630,7 +630,7 @@
 			var/obj/item/dnainjector/activator/I = new /obj/item/dnainjector/activator(loc)
 			I.add_mutations += new HM.type(copymut = HM)
 
-			var/is_activator = params.get_num(is_activator)
+			var/is_activator = params.get_num("is_activator")
 
 			// Activators are also called "research" injectors and are used to create
 			//  chromosomes by recycling at the DNA Console
@@ -1003,7 +1003,7 @@
 		// params["val"] - New strength value as text string, converted to number
 		//  later on in code
 		if("set_pulse_strength")
-			var/value = round(params.get_num(val))
+			var/value = round(params.get_num("val"))
 			radstrength = WRAP(value, 1, RADIATION_STRENGTH_MAX+1)
 			return
 
@@ -1012,7 +1012,7 @@
 		// params["val"] - New strength value as text string, converted to number
 		//  later on in code
 		if("set_pulse_duration")
-			var/value = round(params.get_num(val))
+			var/value = round(params.get_num("val"))
 			radduration = WRAP(value, 1, RADIATION_DURATION_MAX+1)
 			return
 
@@ -1033,7 +1033,7 @@
 				return
 
 			// Convert the index to a number and clamp within the array range
-			var/buffer_index = params.get_num(index)
+			var/buffer_index = params.get_num("index")
 			buffer_index = clamp(buffer_index, 1, NUMBER_OF_BUFFERS)
 
 			var/list/buffer_slot = genetic_makeup_buffer[buffer_index]
@@ -1063,7 +1063,7 @@
 
 			// Convert the index to a number and clamp within the array range, then
 			//  copy the data from the disk to that buffer
-			var/buffer_index = params.get_num(index)
+			var/buffer_index = params.get_num("index")
 			buffer_index = clamp(buffer_index, 1, NUMBER_OF_BUFFERS)
 			genetic_makeup_buffer[buffer_index] = diskette.genetic_makeup_buffer.Copy()
 			return
@@ -1097,7 +1097,7 @@
 
 			// Convert the index to a number and clamp within the array range, then
 			//  copy the data from the disk to that buffer
-			var/buffer_index = params.get_num(index)
+			var/buffer_index = params.get_num("index")
 			buffer_index = clamp(buffer_index, 1, NUMBER_OF_BUFFERS)
 
 			// Set the new information
@@ -1118,7 +1118,7 @@
 		if("del_makeup_console")
 			// Convert the index to a number and clamp within the array range, then
 			//  copy the data from the disk to that buffer
-			var/buffer_index = params.get_num(index)
+			var/buffer_index = params.get_num("index")
 			buffer_index = clamp(buffer_index, 1, NUMBER_OF_BUFFERS)
 			var/list/buffer_slot = genetic_makeup_buffer[buffer_index]
 
@@ -1149,7 +1149,7 @@
 		if("makeup_injector")
 			// Convert the index to a number and clamp within the array range, then
 			//  copy the data from the disk to that buffer
-			var/buffer_index = params.get_num(index)
+			var/buffer_index = params.get_num("index")
 			buffer_index = clamp(buffer_index, 1, NUMBER_OF_BUFFERS)
 			var/list/buffer_slot = genetic_makeup_buffer[buffer_index]
 
@@ -1233,7 +1233,7 @@
 
 			// Convert the index to a number and clamp within the array range, then
 			//  copy the data from the disk to that buffer
-			var/buffer_index = params.get_num(index)
+			var/buffer_index = params.get_num("index")
 			buffer_index = clamp(buffer_index, 1, NUMBER_OF_BUFFERS)
 			var/list/buffer_slot = genetic_makeup_buffer[buffer_index]
 
@@ -1265,7 +1265,7 @@
 		if("makeup_delay")
 			// Convert the index to a number and clamp within the array range, then
 			//  copy the data from the disk to that buffer
-			var/buffer_index = params.get_num(index)
+			var/buffer_index = params.get_num("index")
 			buffer_index = clamp(buffer_index, 1, NUMBER_OF_BUFFERS)
 			var/list/buffer_slot = genetic_makeup_buffer[buffer_index]
 
@@ -1296,7 +1296,7 @@
 			//  later on in process()
 			var/len = length_char(scanner_occupant.dna.uni_identity)
 			rad_pulse_timer = world.time + (radduration*10)
-			rad_pulse_index = WRAP(params.get_num(index), 1, len+1)
+			rad_pulse_index = WRAP(params.get_num("index"), 1, len+1)
 			START_PROCESSING(SSobj, src)
 			return
 
@@ -1319,7 +1319,7 @@
 
 			// GUARD CHECK - Sanitise and trim the proposed name. This prevents HTML
 			//  injection and equivalent as tgui input is not stripped
-			inj_name = trim(params.get_sanitised_text("name"))
+			var/inj_name = params.get_name("name")
 
 			// GUARD CHECK - If the name is null or blank, or the name is already in
 			//  the list of advanced injectors, we want to reject it as we can't have

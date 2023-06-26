@@ -249,7 +249,7 @@
 			saved_volume_state = params["volume_state"]
 			. = TRUE
 		if("setSavedVolume")
-			var/vol = params.get_num(volume)
+			var/vol = params.get_num("volume")
 			if(!vol || vol < 0.01 || vol > 50)
 				return
 			saved_volume = vol
@@ -268,7 +268,7 @@
 			if(!beaker)
 				return
 			var/reagent = GLOB.name2reagent[params["id"]]
-			var/amount = params.get_num(amount)
+			var/amount = params.get_num("amount")
 			var/to_container = params["to"]
 			// Custom amount
 			if (amount == -1)
@@ -300,7 +300,7 @@
 				return
 			var/item_type = params["type"]
 			// Get amount of items
-			var/amount = params.get_num(amount)
+			var/amount = params.get_num("amount")
 			if(amount == null)
 				amount = text2num(input(usr,
 					"Max 10. Buffer content will be split evenly.",
@@ -309,7 +309,7 @@
 			if (amount <= 0)
 				return
 			// Get units per item
-			var/vol_each = params.get_num(volume)
+			var/vol_each = params.get_num("volume")
 			var/vol_each_text = params["volume"]
 			var/vol_each_max = reagents.total_volume / amount
 			if (item_type == "pill" && !condi)

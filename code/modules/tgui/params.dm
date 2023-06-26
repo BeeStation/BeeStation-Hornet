@@ -23,7 +23,7 @@
 
 /// Returns true if the requested parameter is equal to the value
 /// Returns false otherwise
-/datum/params/proc/is_param_equal_to(param, value)
+/datum/params/proc/are_equal(param, value)
 	return _unsafe_params[param] == value
 
 /// Checks if a param is inside a list, or is a key of a dictionary
@@ -32,8 +32,12 @@
 
 /// Returns the requested parameter as either a true or false value depending
 /// on the truthyness of the parameter.
-/datum/params/proc/get_boolean(param)
+/datum/params/proc/get_truthy(param)
 	return !!_unsafe_params[param]
+
+/// Returns true if the requested parameter is equal to "1"
+/datum/params/proc/as_boolean(param)
+    return text2num(_unsafe_params[param]) == 1
 
 // =============================
 // Text Handling
@@ -52,10 +56,12 @@
 	return reject_bad_name(_unsafe_params[param], TRUE, MAX_NAME_LEN, TRUE)
 
 /// Returns the requested parameter as fully sanitised text, removing \n and \t as well as encoding HTML.
+/// Use this for
 /datum/params/proc/get_sanitised_text(param)
 	return sanitize(_unsafe_params[param])
 
 /// Returns the requested parameter as HTML encoded text.
+/// Depreciated and will be removed. Use get_sanitised_text, get_message or get_spoken_message instead
 /datum/params/proc/get_encoded_text(param)
 	return html_encode(_unsafe_params[param])
 
@@ -68,6 +74,34 @@
 	if (isnull(unsafe_message))
 		return null
 	return new /datum/unsafe_message(unsafe_message)
+
+/// Returns the requested parameter as a ckey
+/datum/params/proc/get_ckey(param)
+    return ckey(_unsafe_params[param])
+
+/// Gets a spoken message, with IC words such as 'admins' stripped away.
+/// The filter may be applied liberally, so computer text speech should use get_message
+/datum/params/proc/get_spoken_message(param, max_length = MAX_MESSAGE_LEN)
+	var/message = trim(get_sanitised_text(param), max_length)
+	if (!message)
+		return null
+	if (CHAT_FILTER_CHECK(message))
+		if (usr)
+			to_chat(usr, "<span class='warning'>Your message was rejected for containing words that violate our in-character speech policy.</span>")
+		return null
+	return message
+
+/// Returns a message for UIs that are utilising non-IC things such as ghost/pAI descriptions.
+/datum/params/proc/get_message(param, max_length = MAX_MESSAGE_LEN)
+	var/message = trim(get_sanitised_text(param), max_length)
+	if (!message)
+		return null
+	if (OOC_FILTER_CHECK(message))
+		if (usr)
+			to_chat(usr, "<span class='warning'>Your message was rejected for containing words that violate our server's allows content policy.</span>")
+		return null
+	return message
+
 
 // =============================
 // Numeric Handling
@@ -151,3 +185,15 @@
 	if (!islist(sub_params))
 		return null
 	return new /datum/params(sub_params)
+
+// =============================
+// Default Behaviour
+// =============================
+
+/// Default operator that shouldn't be used, but is included for compatability sake
+/datum/params/proc/operator[](idx)
+	// Log this, as it may break
+	if (Debugger?.enabled)
+		stack_trace("Attempting to access /datum/params by index. This should be updated to use an explicit call to one of the getter functions as the default behaviour may not be the intended behaviour.")
+	// Use a relatively strong thing by default
+	return get_message(idx)

@@ -53,7 +53,7 @@
 		return
 	switch(action)
 		if("toggle")
-			toggle(params.get_num(id))
+			toggle(params.get_num("id"))
 			. = TRUE
 
 /obj/machinery/computer/sat_control/proc/toggle(id)

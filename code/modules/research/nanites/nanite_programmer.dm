@@ -99,7 +99,7 @@
 			program.activated = !program.activated //we don't use the activation procs since we aren't in a mob
 			. = TRUE
 		if("set_code")
-			var/new_code = params.get_num(code)
+			var/new_code = params.get_num("code")
 			playsound(src, "terminal_type", 25, FALSE)
 			var/target_code = params["target_code"]
 			switch(target_code)
@@ -117,7 +117,7 @@
 			playsound(src, "terminal_type", 25, FALSE)
 			. = TRUE
 		if("set_restart_timer")
-			var/timer = params.get_num(delay)
+			var/timer = params.get_num("delay")
 			if(!isnull(timer))
 				playsound(src, "terminal_type", 25, FALSE)
 				timer = clamp(round(timer, 1), 0, 3600)
@@ -125,7 +125,7 @@
 				program.timer_restart = timer
 			. = TRUE
 		if("set_shutdown_timer")
-			var/timer = params.get_num(delay)
+			var/timer = params.get_num("delay")
 			if(!isnull(timer))
 				playsound(src, "terminal_type", 25, FALSE)
 				timer = clamp(round(timer, 1), 0, 3600)
@@ -133,7 +133,7 @@
 				program.timer_shutdown = timer
 			. = TRUE
 		if("set_trigger_timer")
-			var/timer = params.get_num(delay)
+			var/timer = params.get_num("delay")
 			if(!isnull(timer))
 				playsound(src, "terminal_type", 25, FALSE)
 				timer = clamp(round(timer, 1), 0, 3600)
@@ -141,7 +141,7 @@
 				program.timer_trigger = timer
 			. = TRUE
 		if("set_timer_trigger_delay")
-			var/timer = params.get_num(delay)
+			var/timer = params.get_num("delay")
 			if(!isnull(timer))
 				playsound(src, "terminal_type", 25, FALSE)
 				timer = clamp(round(timer, 1), 0, 3600)

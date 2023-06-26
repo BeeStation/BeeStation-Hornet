@@ -301,8 +301,8 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		if("setTargetCoords")
 			if(QDELETED(shuttleObject))
 				return
-			var/x = params.get_num(x)
-			var/y = params.get_num(y)
+			var/x = params.get_num("x")
+			var/y = params.get_num("y")
 			if(!shuttleObject.shuttleTargetPos)
 				shuttleObject.shuttleTargetPos = new(x, y)
 			else

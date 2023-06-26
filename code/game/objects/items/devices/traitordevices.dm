@@ -151,7 +151,7 @@ effective or pretty fucking useless.
 			. = TRUE
 		if("radintensity")
 			var/target = params["target"]
-			var/adjust = params.get_num(adjust)
+			var/adjust = params.get_num("adjust")
 			if(target == "min")
 				target = 1
 				. = TRUE
@@ -169,7 +169,7 @@ effective or pretty fucking useless.
 				intensity = clamp(target, 1, 20)
 		if("radwavelength")
 			var/target = params["target"]
-			var/adjust = params.get_num(adjust)
+			var/adjust = params.get_num("adjust")
 			if(target == "min")
 				target = 0
 				. = TRUE

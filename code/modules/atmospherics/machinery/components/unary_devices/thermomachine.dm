@@ -211,7 +211,7 @@
 			. = TRUE
 		if("target")
 			var/target = params["target"]
-			var/adjust = params.get_num(adjust)
+			var/adjust = params.get_num("adjust")
 			if(target == "input")
 				target = input("Set new target ([min_temperature]-[max_temperature] K):", name, target_temperature) as num|null
 				if(!isnull(target))

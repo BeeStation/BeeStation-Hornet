@@ -133,7 +133,7 @@
 	switch(action)
 		if ("update_answer")
 			if (!read_only)
-				responses[params.get_num(qidx)] = copytext_char(params["answer"], 1, 501) // byond indexing moment
+				responses[params.get_num("qidx")] = copytext_char(params["answer"], 1, 501) // byond indexing moment
 				return TRUE
 		if ("submit")
 			if (!read_only)

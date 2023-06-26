@@ -145,7 +145,7 @@
 			update_icon()
 			. = TRUE
 		if("setting")
-			var/amount = params.get_num(amount)
+			var/amount = params.get_num("amount")
 			if(amount in 1 to max_range)
 				setting = amount
 				. = TRUE

@@ -119,7 +119,7 @@
 					. = TRUE
 		if("tempfreq")
 			if(params["value"])
-				tempfreq = params.get_num(value) * 10
+				tempfreq = params.get_num("value") * 10
 				. = TRUE
 		if("freq")
 			var/newfreq = tempfreq			//* 10 was in original pr here but makes out of tempfreq something like 14590
@@ -136,7 +136,7 @@
 			log_game("[key_name(usr)] removed frequency [params["value"]] for [src] at [AREACOORD(src)].")
 			. = TRUE
 		if("unlink")
-			var/obj/machinery/telecomms/T = links[params.get_num(value)]
+			var/obj/machinery/telecomms/T = links[params.get_num("value")]
 			if(T)
 				// Remove link entries from both T and src.
 				if(T.links)
@@ -196,7 +196,7 @@
 /obj/machinery/telecomms/bus/add_act(action, params)
 	switch(action)
 		if("change_freq")
-			var/newfreq = params.get_num(value) * 10
+			var/newfreq = params.get_num("value") * 10
 			if(newfreq)
 				if(newfreq < 10000)
 					change_frequency = newfreq

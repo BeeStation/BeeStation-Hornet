@@ -241,7 +241,7 @@
 		if("PRG_access")
 			if(!authenticated)
 				return
-			var/access_type = params.get_num(access_target)
+			var/access_type = params.get_num("access_target")
 			if(access_type in (is_centcom ? get_all_centcom_access() : get_all_accesses()))
 				if(access_type in target_id_card.access)
 					target_id_card.access -= access_type
@@ -268,7 +268,7 @@
 		if("PRG_grantregion")
 			if(!authenticated)
 				return
-			var/region = params.get_num(region)
+			var/region = params.get_num("region")
 			if(isnull(region))
 				return
 			target_id_card.access |= get_region_accesses(region)
@@ -278,7 +278,7 @@
 		if("PRG_denyregion")
 			if(!authenticated)
 				return
-			var/region = params.get_num(region)
+			var/region = params.get_num("region")
 			if(isnull(region))
 				return
 			target_id_card.access -= get_region_accesses(region)

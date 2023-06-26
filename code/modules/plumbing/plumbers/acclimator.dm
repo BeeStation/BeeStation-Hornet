@@ -96,18 +96,18 @@
 		return
 	switch(action)
 		if("set_target_temperature")
-			var/target = params.get_num(temperature)
+			var/target = params.get_num("temperature")
 			target_temperature = clamp(target, 0, 1000)
 			. = TRUE
 		if("set_allowed_temperature_difference")
-			var/target = params.get_num(temperature)
+			var/target = params.get_num("temperature")
 			allowed_temperature_difference = clamp(target, 0, 1000)
 			. = TRUE
 		if("toggle_power")
 			enabled = !enabled
 			. = TRUE
 		if("change_volume")
-			var/target = params.get_num(volume)
+			var/target = params.get_num("volume")
 			reagents.maximum_volume = clamp(round(target), 1, buffer)
 			. = TRUE
 

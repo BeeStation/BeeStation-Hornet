@@ -46,7 +46,7 @@
 	switch(action)
 		if("set_amount")
 			var/direction = params["target"]
-			var/value = CLAMP(params.get_num(amount), 1, max_transfer)
+			var/value = CLAMP(params.get_num("amount"), 1, max_transfer)
 			switch(direction)
 				if("straight")
 					transfer_straight = value

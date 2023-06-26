@@ -335,7 +335,7 @@
 			detach(usr)
 			return TRUE
 		if("create")
-			var/amount = params.get_num(amount)
+			var/amount = params.get_num("amount")
 			amount = clamp(amount, 1, 10)
 			if(!amount)
 				return

@@ -183,7 +183,7 @@
 		if("pick_device")
 			if(state) // We've already picked a device type
 				return FALSE
-			devtype = params.get_num(pick)
+			devtype = params.get_num("pick")
 			state = 1
 			fabricate_and_recalc_price(FALSE)
 			return TRUE
@@ -201,31 +201,31 @@
 			fabricate_and_recalc_price(FALSE)
 			return TRUE
 		if("hw_cpu")
-			dev_cpu = params.get_num(cpu)
+			dev_cpu = params.get_num("cpu")
 			fabricate_and_recalc_price(FALSE)
 			return TRUE
 		if("hw_battery")
-			dev_battery = params.get_num(battery)
+			dev_battery = params.get_num("battery")
 			fabricate_and_recalc_price(FALSE)
 			return TRUE
 		if("hw_disk")
-			dev_disk = params.get_num(disk)
+			dev_disk = params.get_num("disk")
 			fabricate_and_recalc_price(FALSE)
 			return TRUE
 		if("hw_netcard")
-			dev_netcard = params.get_num(netcard)
+			dev_netcard = params.get_num("netcard")
 			fabricate_and_recalc_price(FALSE)
 			return TRUE
 		if("hw_tesla")
-			dev_apc_recharger = params.get_num(tesla)
+			dev_apc_recharger = params.get_num("tesla")
 			fabricate_and_recalc_price(FALSE)
 			return TRUE
 		if("hw_nanoprint")
-			dev_printer = params.get_num(print)
+			dev_printer = params.get_num("print")
 			fabricate_and_recalc_price(FALSE)
 			return TRUE
 		if("hw_card")
-			dev_card = params.get_num(card)
+			dev_card = params.get_num("card")
 			fabricate_and_recalc_price(FALSE)
 			return TRUE
 	return FALSE

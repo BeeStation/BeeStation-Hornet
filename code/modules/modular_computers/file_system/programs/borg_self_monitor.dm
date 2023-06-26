@@ -130,7 +130,7 @@
 			borgo.toggle_ionpulse()
 
 		if("lampIntensity")
-			borgo.lamp_intensity = CLAMP(params.get_num(ref), 1, 5)
+			borgo.lamp_intensity = CLAMP(params.get_num("ref"), 1, 5)
 			borgo.toggle_headlamp(FALSE, TRUE)
 
 		if("selfDestruct")

@@ -213,7 +213,7 @@
 			var/datum/stack_recipe/R = locate(params["ref"])
 			if(!is_valid_recipe(R, recipes)) //href exploit protection
 				return
-			var/multiplier = params.get_num(multiplier)
+			var/multiplier = params.get_num("multiplier")
 			if(!isnum_safe(multiplier) || (multiplier <= 0)) //href exploit protection
 				return
 			if(!building_checks(R, multiplier))

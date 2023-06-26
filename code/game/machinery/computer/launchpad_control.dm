@@ -112,16 +112,16 @@
 	var/obj/machinery/launchpad/current_pad = launchpads[selected_id]
 	switch(action)
 		if("select_pad")
-			selected_id = params.get_num(id)
+			selected_id = params.get_num("id")
 			. = TRUE
 		if("set_pos")
-			var/new_x = params.get_num(x)
-			var/new_y = params.get_num(y)
+			var/new_x = params.get_num("x")
+			var/new_y = params.get_num("y")
 			current_pad.set_offset(new_x, new_y)
 			. = TRUE
 		if("move_pos")
-			var/plus_x = params.get_num(x)
-			var/plus_y = params.get_num(y)
+			var/plus_x = params.get_num("x")
+			var/plus_y = params.get_num("y")
 			current_pad.set_offset(
 				x = current_pad.x_offset + plus_x,
 				y = current_pad.y_offset + plus_y

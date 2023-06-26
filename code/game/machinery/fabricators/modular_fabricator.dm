@@ -238,7 +238,7 @@
 					add_to_queue(item_queue, v, 1)
 
 		if("output_dir")
-			output_direction = params.get_num(direction)
+			output_direction = params.get_num("direction")
 			. = TRUE
 
 		if("upload_disk")
@@ -264,18 +264,18 @@
 
 		if("eject_material")
 			var/datum/component/material_container/materials = get_material_container()
-			var/amount = params.get_num(amount)
+			var/amount = params.get_num("amount")
 			if(amount <= 0 || amount > 50)
 				return
 			for(var/mat in materials.materials)
 				var/datum/material/M = mat
-				if(params.is_param_equal_to("material_datum", "[M.type]"))
+				if(params.are_equal("material_datum", "[M.type]"))
 					materials.retrieve_sheets(amount, M, get_release_turf())
 					. = TRUE
 					break
 
 		if("queue_repeat")
-			queue_repeating = params.get_num(repeating)
+			queue_repeating = params.get_num("repeating")
 			. = TRUE
 
 		if("clear_queue")
@@ -284,7 +284,7 @@
 
 		if("item_repeat")
 			var/list/design_id_list = params.get_from_lookup("design_id", item_queue)
-			var/repeating_mode = params.get_num(repeating)
+			var/repeating_mode = params.get_num("repeating")
 			if(design_id_list)
 				return
 			design_id_list["repeating"] = repeating_mode
@@ -296,7 +296,9 @@
 
 		if("queue_item")
 			var/design_id = params.get_sanitised_text("design_id")
-			var/amount = params.get_num(amount)
+			if (!design_id)
+				return
+			var/amount = params.get_num("amount")
 			add_to_queue(item_queue, design_id, amount)
 			. = TRUE
 

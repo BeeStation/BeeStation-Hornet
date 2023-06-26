@@ -373,8 +373,8 @@
 		return
 	switch(action)
 		if("angle")
-			var/adjust = params.get_num(adjust)
-			var/value = params.get_num(value)
+			var/adjust = params.get_num("adjust")
+			var/value = params.get_num("value")
 			if(adjust)
 				value = currentdir + adjust
 			if(value != null)
@@ -383,8 +383,8 @@
 				set_panels(currentdir)
 				. = TRUE
 		if("rate")
-			var/adjust = params.get_num(adjust)
-			var/value = params.get_num(value)
+			var/adjust = params.get_num("adjust")
+			var/value = params.get_num("value")
 			if(adjust)
 				value = trackrate + adjust
 			if(value != null)
@@ -393,7 +393,7 @@
 					nexttime = world.time + 36000 / abs(trackrate)
 				. = TRUE
 		if("tracking")
-			var/mode = params.get_num(mode)
+			var/mode = params.get_num("mode")
 			track = mode
 			if(mode == 2 && connected_tracker)
 				connected_tracker.set_angle(SSsun.angle)

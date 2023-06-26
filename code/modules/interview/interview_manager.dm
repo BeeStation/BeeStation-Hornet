@@ -264,7 +264,7 @@ GLOBAL_DATUM_INIT(interviews, /datum/interview_manager, new)
 		return
 	switch(action)
 		if ("open")
-			var/datum/interview/I = interview_by_id(params.get_num(id))
+			var/datum/interview/I = interview_by_id(params.get_num("id"))
 			if (I)
 				I.ui_interact(usr)
 

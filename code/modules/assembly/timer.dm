@@ -124,7 +124,7 @@
 			loop = !loop
 			. = TRUE
 		if("input")
-			var/value = params.get_num(adjust)
+			var/value = params.get_num("adjust")
 			if(value)
 				value = round(time + value)
 				time = clamp(value, 1, 600)

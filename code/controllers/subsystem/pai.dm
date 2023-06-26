@@ -93,21 +93,14 @@ SUBSYSTEM_DEF(pai)
 		to_chat(usr, "<span class='warning'>There was an error. Please resubmit.</span>")
 		ui.close()
 		return FALSE
-	var/datum/params/candidate = params.get_param_dict("candidate")
+	var/datum/params/candidate_options = params.get_param_dict("candidate")
 	// These are sanitised by prefs anyway, so we might as well get them sanitised
 	// rather than storing them in message containers
-	var/comments = candidate.get_sanitised_text("comments")
-	var/description = candidate.get_sanitised_text("description")
-	var/name = candidate.get_sanitised_text("name")
-	if(CHAT_FILTER_CHECK(comments))
-		to_chat(usr, "<span class='warning'>Your OOC comment contains prohibited word(s)!</span>")
-		return FALSE
-	if(CHAT_FILTER_CHECK(description))
-		to_chat(usr, "<span class='warning'>Your description contains prohibited word(s)!</span>")
-		return FALSE
-	if(CHAT_FILTER_CHECK(name)
-		to_chat(usr, "<span class='warning'>Your name contains prohibited word(s)!</span>")
-		return FALSE
+	var/comments = candidate_options.get_message("comments")
+	var/description = candidate_options.get_message("description")
+	var/name = candidate_options.get_name("name")
+	if (!comments || !description || !name)
+		return
 	switch(action)
 		if("submit")
 			candidate.comments = comments

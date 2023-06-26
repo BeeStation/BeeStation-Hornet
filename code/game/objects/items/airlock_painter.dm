@@ -334,7 +334,7 @@
 		//Lists of decals and designs
 		if("select decal")
 			var/selected_decal = params["decal"]
-			var/selected_dir = params.get_num(dir)
+			var/selected_dir = params.get_num("dir")
 			stored_decal = selected_decal
 			stored_dir = selected_dir
 		if("select color")

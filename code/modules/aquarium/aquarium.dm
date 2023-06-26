@@ -213,7 +213,7 @@
 			allow_breeding = !allow_breeding
 			. = TRUE
 		if("remove")
-			var/atom/movable/inside = locate(params["ref"]) in contents
+			var/atom/movable/inside = params.locate_param(ref, contents)
 			if(inside)
 				if(isitem(inside))
 					user.put_in_hands(inside)

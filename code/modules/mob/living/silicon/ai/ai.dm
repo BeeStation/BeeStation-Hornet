@@ -289,8 +289,8 @@
 	if(incapacitated())
 		return
 
-	if(trim(reason))
-		SSshuttle.requestEvac(src, reason)
+	if(reason)
+		SSshuttle.requestEvac(src, trim(sanitize(reason)))
 
 	// hack to display shuttle timer
 	if(!EMERGENCY_IDLE_OR_RECALLED)

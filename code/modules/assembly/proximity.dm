@@ -144,7 +144,7 @@
 			toggle_scan(!scanning)
 			. = TRUE
 		if("sense")
-			var/value = params.get_num(range)
+			var/value = params.get_num("range")
 			if(value)
 				sensitivity_change(value)
 				. = TRUE
@@ -153,7 +153,7 @@
 			update_icon()
 			. = TRUE
 		if("input")
-			var/value = params.get_num(adjust)
+			var/value = params.get_num("adjust")
 			if(value)
 				value = round(time + value)
 				time = clamp(value, 0, 600)

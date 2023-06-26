@@ -69,7 +69,7 @@
 	if(.)
 		return
 
-	var/obj/item/item = locate(params["ref"]) in contents
+	var/obj/item/item = params.locate_param(ref, contents)
 	if(!istype(item) || item.loc != src)
 		return
 

@@ -110,27 +110,27 @@
 		if("set")
 			switch(params["name"])
 				if("Damage")
-					var/lvl = CLAMP(params.get_num(level), 1, 5)
+					var/lvl = CLAMP(params.get_num("level"), 1, 5)
 					if((points + (saved_stats.damage > 1 ? saved_stats.damage - 1 : 0)) >= lvl - 1 || lvl == 1)
 						saved_stats.damage = lvl
 						. = TRUE
 				if("Defense")
-					var/lvl = CLAMP(params.get_num(level), 1, 5)
+					var/lvl = CLAMP(params.get_num("level"), 1, 5)
 					if((points + (saved_stats.defense > 1 ? saved_stats.defense - 1 : 0)) >= lvl - 1 || lvl == 1)
 						saved_stats.defense = lvl
 						. = TRUE
 				if("Speed")
-					var/lvl = CLAMP(params.get_num(level), 1, 5)
+					var/lvl = CLAMP(params.get_num("level"), 1, 5)
 					if((points + (saved_stats.speed > 1 ? saved_stats.speed - 1 : 0)) >= lvl - 1 || lvl == 1)
 						saved_stats.speed = lvl
 						. = TRUE
 				if("Potential")
-					var/lvl = CLAMP(params.get_num(level), 1, 5)
+					var/lvl = CLAMP(params.get_num("level"), 1, 5)
 					if((points + (saved_stats.potential > 1 ? saved_stats.potential - 1 : 0)) >= lvl - 1 || lvl == 1)
 						saved_stats.potential = lvl
 						. = TRUE
 				if("Range")
-					var/lvl = CLAMP(params.get_num(level), 1, 5)
+					var/lvl = CLAMP(params.get_num("level"), 1, 5)
 					if((points + (saved_stats.range > 1 ? saved_stats.range - 1 : 0)) >= lvl - 1 || lvl == 1)
 						saved_stats.range = lvl
 						. = TRUE

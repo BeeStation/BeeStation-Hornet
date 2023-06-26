@@ -55,7 +55,7 @@
 
 	switch(action)
 		if("dispense")
-			var/gland_id = params.get_num(gland_id)
+			var/gland_id = params.get_num("gland_id")
 			if(!gland_id)
 				return
 			Dispense(gland_id)

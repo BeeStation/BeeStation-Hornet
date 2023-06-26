@@ -54,7 +54,7 @@
 			set_frequency(new_signal_frequency)
 			. = TRUE
 		if("code")
-			signal_code = params.get_num(code)
+			signal_code = params.get_num("code")
 			signal_code = round(signal_code)
 			. = TRUE
 		if("reset")

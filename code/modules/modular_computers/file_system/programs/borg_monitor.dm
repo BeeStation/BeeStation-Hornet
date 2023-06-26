@@ -59,7 +59,7 @@
 
 	switch(action)
 		if("messagebot")
-			var/mob/living/silicon/robot/R = locate(params["ref"]) in GLOB.silicon_mobs
+			var/mob/living/silicon/robot/R = params.locate_param(ref, GLOB.silicon_mobs)
 			if(!istype(R))
 				return TRUE
 			var/sender_name = get_id_name()

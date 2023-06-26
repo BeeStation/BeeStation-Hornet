@@ -510,11 +510,11 @@
 					return TRUE
 
 
-			var/stamp_x = params.get_num(x)
-			var/stamp_y = params.get_num(y)
+			var/stamp_x = params.get_num("x")
+			var/stamp_y = params.get_num("y")
 
 			//var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/simple/paper)
-			var/stamp_rotation = params.get_num(rotation)
+			var/stamp_rotation = params.get_num("rotation")
 			var/stamp_icon_state = stamp_info["stamp_icon_state"]
 
 			if (LAZYLEN(raw_stamp_data) >= MAX_PAPER_STAMPS)

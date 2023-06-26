@@ -122,7 +122,7 @@
 				to_chat(usr, "<span class='alert'>Error: Something's bugged. Tell a coder!</span>")
 				flick(icon_deny, src)
 				CRASH("the mining vendor failed to find a target account for purchase.")
-			var/datum/data/vendor_equipment/prize = locate(params["ref"]) in prize_list
+			var/datum/data/vendor_equipment/prize = params.locate_param(ref, prize_list)
 			if(!prize || !(prize in prize_list))
 				to_chat(usr, "<span class='alert'>Error: Invalid choice!</span>")
 				flick(icon_deny, src)

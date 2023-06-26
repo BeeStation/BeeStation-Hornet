@@ -114,7 +114,7 @@
 		message_admins("[usr] sent a request to interact with the ticket browser without sufficient rights.")
 		log_admin_private("[usr] sent a request to interact with the ticket browser without sufficient rights.")
 		return
-	var/ticket_id = params.get_num(id)
+	var/ticket_id = params.get_num("id")
 	var/datum/help_tickets/data_glob = get_data_glob()
 	if(!istype(data_glob))
 		return

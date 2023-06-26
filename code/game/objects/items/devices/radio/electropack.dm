@@ -119,7 +119,7 @@
 				set_frequency(frequency)
 				. = TRUE
 		if("code")
-			var/value = params.get_num(code)
+			var/value = params.get_num("code")
 			if(value)
 				value = round(value)
 				code = clamp(value, 1, 100)
