@@ -1,0 +1,4 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - bugfix: fixed id card console and guardian builder html exploit
