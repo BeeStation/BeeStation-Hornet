@@ -59,7 +59,7 @@
 /// Use this when recieving text for the sake of checking it against UI components when it will not be displayed
 /// to other players in any way.
 /datum/params/proc/get_sanitised_text(param)
-	return sanitize(_unsafe_params[param])
+	return html_encode(_unsafe_params[param])
 
 /// Returns the requested parameter as an unsanitised message holder which
 /// can be used to pass messages back into TGUI without encoding and then
