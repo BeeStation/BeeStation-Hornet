@@ -1,5 +1,6 @@
 import { useBackend, useLocalState } from '../backend';
-import { Button, Dimmer, Flex, Icon, LabeledList, Section, Tabs } from '../components';
+import { classes } from 'common/react';
+import { Button, Dimmer, Flex, Icon, LabeledList, Section, Tabs, Box } from '../components';
 import { Window } from '../layouts';
 
 export const PersonalCrafting = (props, context) => {
@@ -52,6 +53,12 @@ export const PersonalCrafting = (props, context) => {
   const shownRecipes = recipes.filter((recipe) => recipe.category === tab);
   return (
     <Window theme="generic" title="Crafting Menu" width={700} height={800}>
+      <style>
+        {`table, th, td {
+            vertical-align: middle;
+          }
+        `}
+      </style>
       <Window.Content scrollable>
         {!!busy && (
           <Dimmer fontSize="32px">
@@ -113,12 +120,21 @@ const CraftingList = (props, context) => {
       return (
         <LabeledList.Item
           key={craftable.name}
-          label={craftable.name}
+          label={
+            <table>
+              <tr>
+                <td className={classes(['crafting42x42', craftable.path])} />
+                <td>{craftable.name}</td>
+              </tr>
+            </table>
+          }
+          verticalAlign="middle"
           className="candystripe"
           buttons={
             <Button
               icon="cog"
               content="Craft"
+              style={{ 'margin-top': '14px' }}
               disabled={!craftability[craftable.ref]}
               tooltip={craftable.tool_text && 'Tools needed: ' + craftable.tool_text}
               tooltipPosition="left"
@@ -137,12 +153,18 @@ const CraftingList = (props, context) => {
     return (
       <Section
         key={craftable.name}
-        title={craftable.name}
+        title={
+          <>
+            <span style={{ 'margin-right': '2px' }} className={classes(['crafting42x42', craftable.path])} />
+            {craftable.name}
+          </>
+        }
         level={2}
         buttons={
           <Button
             icon="cog"
             content="Craft"
+            style={{ 'margin-top': '14px' }}
             disabled={!craftability[craftable.ref]}
             onClick={() =>
               act('make', {
