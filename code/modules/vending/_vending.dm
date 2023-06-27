@@ -1021,9 +1021,9 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 				name = O,
 				price = price,
 				img = base64,
-				path = replacetext(replacetext("[item_path]", "/obj/item/", ""), "/", "-")
+				path = "[replacetext(replacetext("[item_path]", "/obj/item/", ""), "/", "-")]-[O]"
 			)
-			.["stock"]["[replacetext(replacetext("[item_path]", "/obj/item/", ""), "/", "-")]"] = vending_machine_input[O]
+			.["stock"]["[replacetext(replacetext("[item_path]", "/obj/item/", ""), "/", "-")]-[O]"] = vending_machine_input[O]
 			.["vending_machine_input"] += list(data)
 
 /obj/machinery/vending/custom/ui_act(action, params)
