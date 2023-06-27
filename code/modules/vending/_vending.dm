@@ -697,10 +697,19 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	if(ishuman(user))
 		H = user
 		C = H.get_idcard(TRUE)
+
+		var/held_cash = 0
+		if(istype(H.get_inactive_held_item(), /obj/item/holochip))
+			var/obj/item/holochip/chip_stack = H.get_inactive_held_item()
+			held_cash += chip_stack.credits
+		if(istype(H.get_active_held_item(), /obj/item/holochip))
+			var/obj/item/holochip/chip_stack = H.get_active_held_item()
+			held_cash += chip_stack.credits
+
 		if(C?.registered_account)
 			.["user"] = list()
 			.["user"]["name"] = C.registered_account.account_holder
-			.["user"]["cash"] = C.registered_account.account_balance
+			.["user"]["cash"] = C.registered_account.account_balance + held_cash
 			.["user"]["job"] = "No Job"
 			.["user"]["department_bitflag"] = 0
 			var/datum/data/record/R = find_record("name", C.registered_account.account_holder, GLOB.data_core.general)
@@ -709,6 +718,12 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 				.["user"]["department_bitflag"] = C.registered_account.active_departments
 			if(R)
 				.["user"]["job"] = R.fields["rank"]
+		else
+			.["user"] = list()
+			.["user"]["name"] = H.name
+			.["user"]["cash"] = held_cash
+			.["user"]["job"] = "No Job"
+			.["user"]["department_bitflag"] = 0
 	.["stock"] = list()
 	for (var/datum/data/vending_product/R in product_records + coin_records + hidden_records)
 		.["stock"]["[replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-")]"] = R.amount
@@ -753,26 +768,42 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 				var/mob/living/carbon/human/H = usr
 				var/obj/item/card/id/C = H.get_idcard(TRUE)
 
-				if(!C)
-					say("No card found.")
+				var/has_chips_inhand = FALSE
+				var/obj/item/holochip/chip_stack // Check if someone is holding holochips in hand
+				if(istype(H.get_inactive_held_item(), /obj/item/holochip))
+					has_chips_inhand = TRUE
+					chip_stack = H.get_inactive_held_item()
+				if(istype(H.get_active_held_item(), /obj/item/holochip))
+					has_chips_inhand = TRUE
+					chip_stack = H.get_active_held_item()
+
+				if(!C && !has_chips_inhand )
+					say("No cash accessible on user.")
 					flick(icon_deny,src)
 					vend_ready = TRUE
 					return
-				else if (!C.registered_account)
+				else if(!C?.registered_account && !has_chips_inhand)
 					say("No account found.")
 					flick(icon_deny,src)
 					vend_ready = TRUE
 					return
-				var/datum/bank_account/account = C.registered_account
-				if(account.account_job && (account.active_departments & dept_req_for_free))
+				var/datum/bank_account/account = C?.registered_account
+				if(account?.account_job && (account?.active_departments & dept_req_for_free))
 					price_to_use = 0
 				if(coin_records.Find(R))
 					price_to_use = R.custom_premium_price ? R.custom_premium_price : extra_price
-				if(price_to_use && !account.adjust_money(-price_to_use))
-					say("You do not possess the funds to purchase [R.name].")
-					flick(icon_deny,src)
-					vend_ready = TRUE
-					return
+				if(price_to_use)
+					if(has_chips_inhand)
+						if(!chip_stack.spend(price_to_use, FALSE) && !account?.has_money(price_to_use)) //Cash in hand takes priority over spending from the ID's linked bank account
+							say("You do not possess the funds to purchase [R.name].")
+							flick(icon_deny,src)
+							vend_ready = TRUE
+							return
+					else if(!account?.adjust_money(-price_to_use))
+						say("You do not possess the funds to purchase [R.name].")
+						flick(icon_deny,src)
+						vend_ready = TRUE
+						return
 
 				// each department (seller_department) will earn the profit
 				if(price_to_use && seller_department)
@@ -1012,12 +1043,6 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 
 				var/has_chips_inhand = FALSE
 				var/obj/item/holochip/chip_stack
-				if(istype(H.get_inactive_held_item(), /obj/item/holochip))
-					has_chips_inhand = TRUE
-					chip_stack = H.get_inactive_held_item()
-				if(istype(H.get_active_held_item(), /obj/item/holochip))
-					has_chips_inhand = TRUE
-					chip_stack = H.get_active_held_item()
 				if(istype(H.get_inactive_held_item(), /obj/item/holochip))
 					has_chips_inhand = TRUE
 					chip_stack = H.get_inactive_held_item()
