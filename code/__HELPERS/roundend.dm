@@ -252,9 +252,11 @@
 
 	//Set news report and mode result
 	mode.set_round_result()
+	log_world("\[reboot debug\] CHECK_TICK B+1")
 
 	send2tgs("Server", "Round just ended.")
 
+	log_world("\[reboot debug\] CHECK_TICK B+2")
 	if(length(CONFIG_GET(keyed_list/cross_server)))
 		send_news_report()
 
@@ -265,6 +267,7 @@
 	set_observer_default_invisibility(0, "<span class='warning'>The round is over! You are now visible to the living.</span>")
 	//These need update to actually reflect the real antagonists
 	//Print a list of antagonists to the server log
+	log_world("\[reboot debug\] CHECK_TICK C+1")
 	var/list/total_antagonists = list()
 	//Look into all mobs in world, dead or alive
 	for(var/datum/antagonist/A in GLOB.antagonists)
