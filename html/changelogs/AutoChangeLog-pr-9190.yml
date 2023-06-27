@@ -1,6 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - tweak: Techweb searched nodes are now sorted in where it belongs to - researched,
-      researchable, future
-  - rscadd: VV drop menu that adds research points. Accessible by R&D console.

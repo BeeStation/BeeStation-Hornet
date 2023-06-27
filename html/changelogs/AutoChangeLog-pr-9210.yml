@@ -1,7 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - rscadd: "Added a new botany trait: Richer Juice. Doubles 2x chem results. Not\
-      \ compatible with Densified Chemicals. You can't take both. available from 3D\
-      \ orange"
-  - balance: deathnettle now has 12% Fluorosulfuric acid
