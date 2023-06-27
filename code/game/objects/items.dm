@@ -391,7 +391,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			if(51 to INFINITY)
 				. += "[src] is as well weighted as possible for blocking"
 	if(item_flags & ILLEGAL && (HAS_TRAIT(user, TRAIT_ILLEGAL_TECH_IDENTIFIER) || HAS_TRAIT(user.mind, TRAIT_ILLEGAL_TECH_IDENTIFIER) || isobserver(user)))
-		. += "<span class='warning'>[src] appears to be made with illegal technology.</span>"
+		. += "<span class='warning'>it appears [src] can be disassembled for illegal technology analysis.</span>"
 	if(force)
 		if(!force_string)
 			set_force_string()
