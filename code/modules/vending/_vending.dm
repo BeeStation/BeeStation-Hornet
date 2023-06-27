@@ -937,7 +937,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	/// where the money is sent
 	var/datum/bank_account/private_a
 	/// max number of items that the custom vendor can hold
-	var/max_loaded_items = 20
+	var/max_loaded_items = 100
 	/// Base64 cache of custom icons.
 	var/list/base64_cache = list()
 
@@ -986,6 +986,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 			var/list/data = list(
 				name = O,
 				price = price,
+				amount = vending_machine_input[O],
 				img = base64
 			)
 			.["vending_machine_input"] += list(data)
@@ -1005,17 +1006,25 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 				var/mob/living/carbon/human/H = usr
 				var/obj/item/card/id/C = H.get_idcard(TRUE)
 
-				if(!C)
-					say("No card found.")
+				var/has_chips_inhand = FALSE
+				var/obj/item/holochip/chip_stack
+				if(istype(H.get_inactive_held_item(), /obj/item/holochip))
+					has_chips_inhand = TRUE
+					chip_stack = H.get_inactive_held_item()
+				if(istype(H.get_active_held_item(), /obj/item/holochip))
+					has_chips_inhand = TRUE
+					chip_stack = H.get_active_held_item()
+				if(istype(H.get_inactive_held_item(), /obj/item/holochip))
+					has_chips_inhand = TRUE
+					chip_stack = H.get_inactive_held_item()
+				if(istype(H.get_active_held_item(), /obj/item/holochip))
+					has_chips_inhand = TRUE
+					chip_stack = H.get_active_held_item()
+				if(!C && !has_chips_inhand )
+					say("No cash accessible on user.")
 					flick(icon_deny,src)
 					vend_ready = TRUE
 					return
-				else if (!C.registered_account)
-					say("No account found.")
-					flick(icon_deny,src)
-					vend_ready = TRUE
-					return
-				var/datum/bank_account/account = C.registered_account
 				for(var/obj/O in contents)
 					if(O.name == N)
 						S = O
@@ -1032,29 +1041,53 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 						use_power(5)
 						vend_ready = TRUE
 						return TRUE
-					if(account.has_money(S.custom_price))
-						account.adjust_money(-S.custom_price)
-						var/datum/bank_account/owner = private_a
-						if(owner)
-							owner.adjust_money(S.custom_price)
-							SSblackbox.record_feedback("amount", "vending_spent", S.custom_price)
-						vending_machine_input[N] = max(vending_machine_input[N] - 1, 0)
-						S.forceMove(drop_location())
-						if (usr.CanReach(src) && usr.put_in_hands(S))
-							to_chat(usr, "<span class='notice'>You take [S.name] out of the slot.</span>")
-						else
-							to_chat(usr, "<span class='warning'>[capitalize(S.name)] falls onto the floor!</span>")
-						loaded_items--
-						use_power(5)
-						if(last_shopper != REF(usr) || purchase_message_cooldown < world.time)
-							say("Thank you for buying local and purchasing [S]!")
-							purchase_message_cooldown = world.time + 5 SECONDS
-							last_shopper = REF(usr)
-						vend_ready = TRUE
-						return TRUE
+					var/datum/bank_account/account = C?.registered_account
+					if(has_chips_inhand)
+						if(chip_stack.spend(S.custom_price, FALSE))
+							make_purchase(S, H, N)
+							return TRUE
+						else if(!account)
+							say("You do not possess the funds to purchase this.")
+							flick(icon_deny,src)
+							vend_ready = TRUE
+							return
+					if(account)
+						if(account.has_money(S.custom_price))
+							account.adjust_money(-S.custom_price)
+							make_purchase(S, H, N)
+							return TRUE
 					else
-						say("You do not possess the funds to purchase this.")
+						say("No account found.")
+						flick(icon_deny,src)
+						vend_ready = TRUE
+						return
+					say("You do not possess the funds to purchase this.")
 			vend_ready = TRUE
+
+/obj/machinery/vending/custom/proc/make_purchase(var/obj/bought_item, var/mob/living/carbon/human/H, var/N)
+	var/datum/bank_account/owner = private_a
+	if(owner)
+		owner.adjust_money(bought_item.custom_price)
+		var/obj/item/card/id/id_card = H.get_idcard(TRUE)
+		if(id_card)
+			owner.bank_card_talk("Purchase made at your [name] by [id_card.registered_name] for [bought_item.custom_price] credits.")
+		else
+			owner.bank_card_talk("Purchase made at your [name] by [H] for [bought_item.custom_price] credits.")
+		SSblackbox.record_feedback("amount", "vending_spent", bought_item.custom_price)
+	vending_machine_input[N] = max(vending_machine_input[N] - 1, 0)
+	bought_item.forceMove(drop_location())
+	if (usr.CanReach(src) && usr.put_in_hands(bought_item))
+		to_chat(usr, "<span class='notice'>You take [bought_item.name] out of the slot.</span>")
+	else
+		to_chat(usr, "<span class='warning'>[capitalize(bought_item.name)] falls onto the floor!</span>")
+	playsound(src, 'sound/machines/machine_vend.ogg', 50, TRUE, extrarange = -3)
+	loaded_items--
+	use_power(5)
+	if(last_shopper != REF(usr) || purchase_message_cooldown < world.time)
+		say("Thank you for buying local and purchasing [bought_item]!")
+		purchase_message_cooldown = world.time + 5 SECONDS
+		last_shopper = REF(usr)
+	vend_ready = TRUE
 
 /obj/machinery/vending/custom/attackby(obj/item/I, mob/user, params)
 	if(!private_a)
@@ -1119,3 +1152,8 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 		var/obj/item/I = target
 		I.custom_price = price
 		to_chat(user, "<span class='notice'>You set the price of [I] to [price] cr.</span>")
+
+//productStock
+//for (var/datum/data/vending_product/R in product_records + coin_records + hidden_records)
+//for (var/obj/item/R in contents)
+		//.["stock"][R.name] = R.amount
