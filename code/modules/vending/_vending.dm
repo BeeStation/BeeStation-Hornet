@@ -972,6 +972,16 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	/// Base64 cache of custom icons.
 	var/list/base64_cache = list()
 
+/obj/machinery/vending/custom/examine(mob/user)
+	. = ..()
+	if(private_a)
+		if(private_a.account_job)
+			. += "<span class='notice'>It's owned by [private_a.account_holder], a [private_a.account_job.title].</span>"
+		else
+			. += "<span class='notice'>It's owned by [private_a.account_holder]</span>"
+	else
+		. += "<span class='notice'>It's not owned by anyone!<span>"
+
 /obj/machinery/vending/custom/compartmentLoadAccessCheck(mob/user)
 	. = FALSE
 	var/mob/living/carbon/human/H
@@ -1004,11 +1014,11 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	for (var/O in vending_machine_input)
 		if(vending_machine_input[O] > 0)
 			var/base64
-			var/price = 0
+			var/item_price = 0
 			var/item_path
 			for(var/obj/T in contents)
 				if(T.name == O)
-					price = T.custom_price
+					item_price = T.custom_price
 					item_path = T.type
 					if(!base64)
 						if(base64_cache[T.type])
@@ -1019,11 +1029,11 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 					break
 			var/list/data = list(
 				name = O,
-				price = price,
+				price = item_price,
 				img = base64,
-				path = "[replacetext(replacetext("[item_path]", "/obj/item/", ""), "/", "-")]-[O]-[price]"
+				path = "[replacetext(replacetext("[item_path]", "/obj/item/", ""), "/", "-")]-[O]"
 			)
-			.["stock"]["[replacetext(replacetext("[item_path]", "/obj/item/", ""), "/", "-")]-[O]-[price]"] = vending_machine_input[O]
+			.["stock"]["[replacetext(replacetext("[item_path]", "/obj/item/", ""), "/", "-")]-[O]"] = vending_machine_input[O]
 			.["vending_machine_input"] += list(data)
 
 /obj/machinery/vending/custom/ui_act(action, params)
@@ -1099,9 +1109,9 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 		owner.adjust_money(bought_item.custom_price)
 		var/obj/item/card/id/id_card = H.get_idcard(TRUE)
 		if(id_card)
-			owner.bank_card_talk("Purchase made at your [name] by [id_card.registered_name] for [bought_item.custom_price] credits.")
+			owner.bank_card_talk("[id_card.registered_name] has bought \a [bought_item] for [bought_item.custom_price] credits at your [name]!")
 		else
-			owner.bank_card_talk("Purchase made at your [name] by [H] for [bought_item.custom_price] credits.")
+			owner.bank_card_talk("[H.name] has bought \a [bought_item] for [bought_item.custom_price] credits at your [name]!")
 		SSblackbox.record_feedback("amount", "vending_spent", bought_item.custom_price)
 	vending_machine_input[N] = max(vending_machine_input[N] - 1, 0)
 	bought_item.forceMove(drop_location())
