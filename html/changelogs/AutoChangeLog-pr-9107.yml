@@ -1,0 +1,13 @@
+author: Isy232
+delete-after: true
+changes:
+  - balance: Security hardsuit ballistic armour 15 => 35
+  - balance: Security hardsuit disabler armour 40 => 50
+  - balance: Security hardsuit bomb armour 10 => 40
+  - balance: Head of Security's hardsuit is now equal in stats to the security hardsuit,
+      excluding the additional jetpack.
+  - balance: Security, Durathread and Syndicate jumpsuit stamina armour 30 => 10
+  - balance: The Captain's jumpsuit is now equal in stats to the security jumpsuit.
+  - balance: Syndicate hardsuit disabler armour 40 => 55
+  - balance: Elite syndicate hardsuit disabler armour 60 => 80
+  - tweak: Security jumpsuit description improved.
