@@ -710,8 +710,14 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 			if(R)
 				.["user"]["job"] = R.fields["rank"]
 	.["stock"] = list()
+	//.for (var/datum/data/vending_product/R in product_records + coin_records + hidden_records)
+		//.["stock"]["[replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-")]"] = R.amount
 	for (var/datum/data/vending_product/R in product_records + coin_records + hidden_records)
-		.["stock"]["[replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-")]"] = R.amount
+		var/list/product_data = list(
+			name = R.name,
+			amount = R.amount,
+		)
+		.["stock"]["[replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-")]"] = product_data
 	.["extended_inventory"] = extended_inventory
 
 /obj/machinery/vending/ui_act(action, params)
@@ -974,20 +980,20 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 			var/base64
 			var/price = 0
 			for(var/obj/T in contents)
-				if(T.name == O)
+				if(format_text(T.name == O))
 					price = T.custom_price
 					if(!base64)
 						if(base64_cache[T.type])
 							base64 = base64_cache[T.type]
 						else
-							base64 = icon2base64(icon(T.icon, T.icon_state, frame=1))
+							base64 = icon2base64(getFlatIcon(T, no_anim = TRUE))
 							base64_cache[T.type] = base64
 					break
 			var/list/data = list(
 				name = O,
 				price = price,
-				amount = vending_machine_input[O],
-				img = base64
+				img = base64,
+				amount = vending_machine_input[O]
 			)
 			.["vending_machine_input"] += list(data)
 
@@ -1026,7 +1032,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 					vend_ready = TRUE
 					return
 				for(var/obj/O in contents)
-					if(O.name == N)
+					if(format_text(O.name) == N)
 						S = O
 						break
 				if(S)
