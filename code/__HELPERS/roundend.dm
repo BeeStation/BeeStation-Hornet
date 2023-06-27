@@ -202,7 +202,7 @@
 
 /datum/controller/subsystem/ticker/proc/declare_completion()
 	set waitfor = FALSE
-
+	log_world("\[reboot debug\] Calling declare_completion()")
 	for(var/I in round_end_events)
 		var/datum/callback/cb = I
 		cb.InvokeAsync()
@@ -236,7 +236,9 @@
 	var/popcount = gather_roundend_feedback()
 	display_report(popcount)
 
+	log_world("\[reboot debug\] CHECK_TICK A-")
 	CHECK_TICK
+	log_world("\[reboot debug\] CHECK_TICK A+")
 
 	// Add AntagHUD to everyone, see who was really evil the whole time!
 	for(var/datum/atom_hud/antag/H in GLOB.huds)
@@ -244,7 +246,9 @@
 			var/mob/M = m
 			H.add_hud_to(M)
 
+	log_world("\[reboot debug\] CHECK_TICK B-")
 	CHECK_TICK
+	log_world("\[reboot debug\] CHECK_TICK B+")
 
 	//Set news report and mode result
 	mode.set_round_result()
@@ -254,7 +258,9 @@
 	if(length(CONFIG_GET(keyed_list/cross_server)))
 		send_news_report()
 
+	log_world("\[reboot debug\] CHECK_TICK C-")
 	CHECK_TICK
+	log_world("\[reboot debug\] CHECK_TICK C+")
 
 	set_observer_default_invisibility(0, "<span class='warning'>The round is over! You are now visible to the living.</span>")
 	//These need update to actually reflect the real antagonists
@@ -268,7 +274,9 @@
 			total_antagonists[A.name] = list()
 		total_antagonists[A.name] += "[key_name(A.owner)]"
 
+	log_world("\[reboot debug\] CHECK_TICK D-")
 	CHECK_TICK
+	log_world("\[reboot debug\] CHECK_TICK D+")
 
 	//Process veteran achievements
 	for(var/client/C as() in GLOB.clients)
@@ -282,7 +290,9 @@
 		if(hours > 4000)
 			C?.give_award(/datum/award/achievement/misc/fourkhours, C.mob)
 
+	log_world("\[reboot debug\] CHECK_TICK E-")
 	CHECK_TICK
+	log_world("\[reboot debug\] CHECK_TICK E+")
 
 	//Now print them all into the log!
 	log_game("Antagonists at round end were...")
@@ -290,7 +300,9 @@
 		var/list/L = total_antagonists[antag_name]
 		log_game("[antag_name]s :[L.Join(", ")].")
 
+	log_world("\[reboot debug\] CHECK_TICK F-")
 	CHECK_TICK
+	log_world("\[reboot debug\] CHECK_TICK F+")
 	SSdbcore.SetRoundEnd()
 	//Collects persistence features
 	if(mode.allow_persistence_save)
@@ -308,6 +320,7 @@
 	standard_reboot()
 
 /datum/controller/subsystem/ticker/proc/standard_reboot()
+	log_world("\[reboot debug\] Calling standard_reboot() - ready_for_reboot: [ready_for_reboot] (should be 1)")
 	if(ready_for_reboot)
 		if(mode.station_was_nuked)
 			Reboot("Station destroyed by Nuclear Device.", "nuke")

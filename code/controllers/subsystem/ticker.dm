@@ -676,7 +676,9 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/Reboot(reason, end_string, delay)
 	set waitfor = FALSE
+	log_world("\[reboot debug\] SSticker called Reboot()")
 	if(usr && !check_rights(R_ADMIN || R_SERVER, TRUE))
+		log_world("\[reboot debug\] SSticker.Reboot() return point A: current user: [usr]")
 		return
 
 	if(!delay)
@@ -685,6 +687,7 @@ SUBSYSTEM_DEF(ticker)
 	var/skip_delay = check_rights()
 	if(delay_end && !skip_delay)
 		to_chat(world, "<span class='boldannounce'>An admin has delayed the round end.</span>")
+		log_world("\[reboot debug\] SSticker.Reboot() return point B")
 		return
 
 	to_chat(world, "<span class='boldannounce'>Rebooting World in [DisplayTimeText(delay)]. [reason]</span>")
@@ -695,6 +698,7 @@ SUBSYSTEM_DEF(ticker)
 
 	if(delay_end && !skip_delay)
 		to_chat(world, "<span class='boldannounce'>Reboot was cancelled by an admin.</span>")
+		log_world("\[reboot debug\] SSticker.Reboot() return point C")
 		return
 	if(end_string)
 		end_state = end_string
