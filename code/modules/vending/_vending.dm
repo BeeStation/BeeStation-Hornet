@@ -710,14 +710,8 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 			if(R)
 				.["user"]["job"] = R.fields["rank"]
 	.["stock"] = list()
-	//.for (var/datum/data/vending_product/R in product_records + coin_records + hidden_records)
-		//.["stock"]["[replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-")]"] = R.amount
 	for (var/datum/data/vending_product/R in product_records + coin_records + hidden_records)
-		var/list/product_data = list(
-			name = R.name,
-			amount = R.amount,
-		)
-		.["stock"]["[replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-")]"] = product_data
+		.["stock"]["[replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-")]"] = R.amount
 	.["extended_inventory"] = extended_inventory
 
 /obj/machinery/vending/ui_act(action, params)
@@ -975,26 +969,30 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	. = ..()
 	.["access"] = compartmentLoadAccessCheck(user)
 	.["vending_machine_input"] = list()
+	.["stock"] = list()
 	for (var/O in vending_machine_input)
 		if(vending_machine_input[O] > 0)
 			var/base64
 			var/price = 0
+			var/item_path
 			for(var/obj/T in contents)
-				if(format_text(T.name == O))
+				if(T.name == O)
 					price = T.custom_price
+					item_path = T.type
 					if(!base64)
 						if(base64_cache[T.type])
 							base64 = base64_cache[T.type]
 						else
-							base64 = icon2base64(getFlatIcon(T, no_anim = TRUE))
+							base64 = icon2base64(icon(T.icon, T.icon_state, frame=1))
 							base64_cache[T.type] = base64
 					break
 			var/list/data = list(
 				name = O,
 				price = price,
 				img = base64,
-				amount = vending_machine_input[O]
+				path = replacetext(replacetext("[item_path]", "/obj/item/", ""), "/", "-")
 			)
+			.["stock"]["[replacetext(replacetext("[item_path]", "/obj/item/", ""), "/", "-")]"] = vending_machine_input[O]
 			.["vending_machine_input"] += list(data)
 
 /obj/machinery/vending/custom/ui_act(action, params)
@@ -1032,7 +1030,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 					vend_ready = TRUE
 					return
 				for(var/obj/O in contents)
-					if(format_text(O.name) == N)
+					if(O.name == N)
 						S = O
 						break
 				if(S)
@@ -1158,8 +1156,3 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 		var/obj/item/I = target
 		I.custom_price = price
 		to_chat(user, "<span class='notice'>You set the price of [I] to [price] cr.</span>")
-
-//productStock
-//for (var/datum/data/vending_product/R in product_records + coin_records + hidden_records)
-//for (var/obj/item/R in contents)
-		//.["stock"][R.name] = R.amount

@@ -3,76 +3,17 @@ import { useBackend } from '../backend';
 import { Box, Button, Section, Table } from '../components';
 import { Window } from '../layouts';
 
-type VendingData = {
-  onstation: boolean;
-  department_bitflag: bigint;
-  product_records: ProductRecord[];
-  coin_records: CoinRecord[];
-  hidden_records: HiddenRecord[];
-  user: UserData;
-  stock: StockItem[];
-  extended_inventory: boolean;
-  access: boolean;
-  vending_machine_input: CustomInput[];
-}
-
-type ProductRecord = {
-  path: string;
-  name: string;
-  price: number;
-  max_amount: number;
-  ref: string;
-}
-
-type CoinRecord = {
-  path: string;
-  name: string;
-  price: number;
-  max_amount: number;
-  ref: string;
-  premium: boolean;
-}
-
-type HiddenRecord = {
-  path: string;
-  name: string;
-  price: number;
-  max_amount: number;
-  ref: string;
-  premium: boolean;
-}
-
-type UserData = {
-  name: string;
-  cash: number;
-  job: string;
-  department_bitflag: bigint;
-}
-
-type StockItem = {
-  name: string;
-  amount: number;
-  colorable: boolean;
-}
-
-type CustomInput = {
-  name: string;
-  price: number;
-  img: string;
-}
-
 const VendingRow = (props, context) => {
-  const { act, data } = useBackend<VendingData>(context);
+  const { act, data } = useBackend(context);
   const { product, productStock, custom } = props;
-  const { onstation, department_bitflag, user } = data;
   const free =
     !data.onstation ||
     product.price === 0 ||
-    (!product.premium && department_bitflag && user && department_bitflag & user.department_bitflag);
+    (!product.premium && data.department_bitflag && data.user && data.department_bitflag & data.user.department_bitflag);
   return (
     <Table.Row>
       <Table.Cell collapsing>
-        {product.img && (
+        {product.img ? (
           <img
             src={`data:image/jpeg;base64,${product.img}`}
             style={{
@@ -80,7 +21,7 @@ const VendingRow = (props, context) => {
               'horizontal-align': 'middle',
             }}
           />
-        ) || (
+        ) : (
           <span
             className={classes(['vending32x32', product.path])}
             style={{
@@ -92,8 +33,8 @@ const VendingRow = (props, context) => {
       </Table.Cell>
       <Table.Cell bold>{product.name}</Table.Cell>
       <Table.Cell collapsing textAlign="center">
-        <Box color={custom ? 'good' : productStock.amount <= 0 ? 'bad' : productStock.amount <= product.max_amount / 2 ? 'average' : 'good'}>
-          {custom ? product.amount : productStock.amount} in stock
+        <Box color={custom ? 'good' : productStock <= 0 ? 'bad' : productStock <= product.max_amount / 2 ? 'average' : 'good'}>
+          {productStock} in stock
         </Box>
       </Table.Cell>
       <Table.Cell collapsing textAlign="center">
@@ -110,7 +51,7 @@ const VendingRow = (props, context) => {
         )) || (
           <Button
             fluid
-            disabled={productStock.amount === 0 || (!free && (!user || product.price > user.cash))}
+            disabled={productStock === 0 || (!free && (!data.user || product.price > data.user.cash))}
             content={free ? 'FREE' : product.price + ' cr'}
             onClick={() =>
               act('vend', {
@@ -125,8 +66,7 @@ const VendingRow = (props, context) => {
 };
 
 export const Vending = (props, context) => {
-  const { act, data } = useBackend<VendingData>(context);
-  const { user, onstation, product_records = [], coin_records = [], hidden_records = [], stock } = data;
+  const { act, data } = useBackend(context);
   let inventory;
   let custom = false;
   if (data.vending_machine_input) {
@@ -142,11 +82,11 @@ export const Vending = (props, context) => {
       <Window.Content scrollable>
         {!!data.onstation && (
           <Section title="User">
-            {(user && (
+            {(data.user && (
               <Box>
-                Welcome, <b>{user.name}</b>, <b>{user.job || 'Unemployed'}</b>!
+                Welcome, <b>{data.user.name}</b>, <b>{data.user.job || 'Unemployed'}</b>!
                 <br />
-                Your balance is <b>{user.cash} credits</b>.
+                Your balance is <b>{data.user.cash} credits</b>.
               </Box>
             )) || (
               <Box color="light-gray">
@@ -160,7 +100,7 @@ export const Vending = (props, context) => {
         <Section title="Products">
           <Table>
             {inventory.map((product) => (
-              <VendingRow key={product.name} custom={custom} product={product} productStock={stock[product.path]} />
+              <VendingRow key={product.name} custom={custom} product={product} productStock={data.stock[product.path]} />
             ))}
           </Table>
         </Section>
