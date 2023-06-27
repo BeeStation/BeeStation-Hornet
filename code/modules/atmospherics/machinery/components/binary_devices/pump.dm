@@ -173,7 +173,6 @@
 		to_chat(user, "<span class='warning'>You cannot unwrench [src], turn it off first!</span>")
 		return FALSE
 
-// mapping
 
 /obj/machinery/atmospherics/components/binary/pump/layer2
 	piping_layer = 2
