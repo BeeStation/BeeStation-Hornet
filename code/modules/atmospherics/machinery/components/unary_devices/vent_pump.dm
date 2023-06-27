@@ -285,7 +285,8 @@
 	update_icon_nopipes()
 
 /obj/machinery/atmospherics/components/unary/vent_pump/can_crawl_through()
-	return (on && is_operational) && !welded
+	. = ..()
+	return . && !welded
 
 /obj/machinery/atmospherics/components/unary/vent_pump/attack_alien(mob/user)
 	if(!welded || !(do_after(user, 20, target = src)))

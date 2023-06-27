@@ -331,8 +331,17 @@
 		L.handle_ventcrawl(src)
 		return
 
-
+/// Whether ventcrawling creatures can move in or out of this machine.
 /obj/machinery/atmospherics/proc/can_crawl_through()
+	// If it's broken, nothing can pass through
+	if(machine_stat & BROKEN)
+		return FALSE
+
+	// If it is powered on, but off, nothing can pass through
+	if(powered() && !on)
+		return FALSE
+
+	// All else, things can pass
 	return TRUE
 
 /obj/machinery/atmospherics/proc/returnPipenets()

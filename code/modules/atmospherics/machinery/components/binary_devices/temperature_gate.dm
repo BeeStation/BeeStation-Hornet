@@ -118,9 +118,6 @@
 		to_chat(user, "<span class='warning'>You cannot unwrench [src], turn it off first!</span>")
 		return FALSE
 
-/obj/machinery/atmospherics/components/binary/temperature_gate/can_crawl_through()
-	return (on && is_operational)
-
 /obj/machinery/atmospherics/components/binary/temperature_gate/multitool_act(mob/living/user, obj/item/multitool/I)
 	. = ..()
 	if(istype(I))
