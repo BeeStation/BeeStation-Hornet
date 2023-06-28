@@ -2552,10 +2552,6 @@
 /obj/effect/decal/cleanable/vomit/old,
 /turf/open/floor/carpet/royalblue,
 /area/mine/science)
-"rY" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/closed/mineral/random/volcanic,
-/area/lavaland/surface/outdoors)
 "sb" = (
 /obj/structure/spider/stickyweb,
 /turf/open/floor/carpet/royalblue,
@@ -51945,7 +51941,7 @@ im
 jh
 IJ
 IJ
-rY
+IJ
 IJ
 Zd
 Zd
