@@ -70639,10 +70639,6 @@
 	dir = 1
 	},
 /area/hallway/primary/starboard)
-"pQO" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/closed/wall,
-/area/maintenance/solars/starboard/fore)
 "pQX" = (
 /obj/machinery/computer/teleporter{
 	dir = 8
@@ -135729,7 +135725,7 @@ wHt
 cqe
 atY
 dLh
-pQO
+fPV
 ktS
 oPQ
 sem
@@ -135986,7 +135982,7 @@ wyc
 vGm
 atY
 wmR
-pQO
+fPV
 ktS
 oCo
 tnd
