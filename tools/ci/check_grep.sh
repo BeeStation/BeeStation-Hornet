@@ -101,9 +101,9 @@ done
 # /obj/structure/barricade/wooden/crude on the same tile here versus in the INCLUSIVE list
 ONLY_ONE_SUBTYPE_IDENTICAL=(
     "/obj/effect/mapping_helpers/airlock"
-    "/obj/structure/disposalpipe"
     "/obj/structure/barricade"
     "/obj/structure/chair"
+    "/obj/structure/disposalpipe"
     "/obj/structure/stairs"
 )
 for TYPEPATH in "${ONLY_ONE_SUBTYPE_IDENTICAL[@]}"
