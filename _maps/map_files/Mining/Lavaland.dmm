@@ -705,9 +705,6 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"fs" = (
-/turf/closed/wall/r_wall,
-/area/lavaland/surface/outdoors/explored)
 "fw" = (
 /obj/structure/closet/crate,
 /obj/item/dice/d6/space,
@@ -1571,7 +1568,7 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass,
 /obj/item/reagent_containers/food/drinks/beer{
 	desc = "Whatever it is, it reeks of foul, putrid froth.";
-	list_reagents = list(/datum/reagent/consumable/ethanol/bacchus_blessing = 15);
+	list_reagents = list(/datum/reagent/consumable/ethanol/bacchus_blessing=15);
 	name = "Delta-Down";
 	pixel_x = 5;
 	pixel_y = 5
@@ -3402,9 +3399,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/production)
-"yI" = (
-/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
-/area/mine/laborcamp)
 "yJ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -5410,12 +5404,6 @@
 	},
 /obj/machinery/light/small,
 /turf/open/floor/carpet/blue,
-/area/mine/living_quarters)
-"Nq" = (
-/obj/machinery/shower{
-	pixel_y = 12
-	},
-/turf/open/floor/noslip/white,
 /area/mine/living_quarters)
 "Nz" = (
 /obj/machinery/rnd/experimentor,
@@ -30105,7 +30093,7 @@ xT
 xT
 xT
 Vd
-yI
+xT
 qg
 ID
 ID
@@ -30362,7 +30350,7 @@ xT
 xT
 yv
 BZ
-fs
+BZ
 CL
 BZ
 BZ
@@ -34989,7 +34977,7 @@ Ln
 Ln
 Ln
 BZ
-Nq
+RH
 nJ
 Qt
 rA
