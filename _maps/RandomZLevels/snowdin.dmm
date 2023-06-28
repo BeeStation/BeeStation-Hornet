@@ -5721,20 +5721,20 @@
 /turf/open/floor/plasteel,
 /area/awaymission/snowdin/post/engineering)
 "qy" = (
-/obj/machinery/atmospherics/pipe/simple/supplymain/visible{
-	dir = 8
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/cyan/visible{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/awaymission/snowdin/post/engineering)
 "qz" = (
-/obj/machinery/atmospherics/pipe/simple/supplymain/visible{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/cyan/visible{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/awaymission/snowdin/post/engineering)
 "qA" = (
-/obj/machinery/atmospherics/pipe/simple/supplymain/visible{
+/obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 10
 	},
 /turf/open/floor/plating{
@@ -6009,7 +6009,7 @@
 /area/awaymission/snowdin/post/engineering)
 "ru" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/supplymain/visible,
+/obj/machinery/atmospherics/pipe/simple/cyan/visible,
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post/engineering)
 "rv" = (
@@ -12037,13 +12037,13 @@
 /turf/open/floor/plasteel,
 /area/awaymission/snowdin/post/mining_dock)
 "ND" = (
-/obj/machinery/atmospherics/pipe/simple/supplymain/visible,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/simple/cyan/visible,
 /turf/open/floor/plasteel,
 /area/awaymission/snowdin/post/engineering)
 "NH" = (

@@ -82,7 +82,7 @@
 	amount = 2
 	},
 /obj/item/stack/sheet/iron/ten,
-/obj/item/chainsaw,
+/obj/item/hatchet,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/item/clothing/head/wig/random,
 /obj/item/reagent_containers/medspray/spraytan,
