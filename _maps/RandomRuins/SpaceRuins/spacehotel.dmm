@@ -3778,7 +3778,6 @@
 /area/ruin/space/has_grav/hotel/bar)
 "tr" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -4467,7 +4466,6 @@
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/hotel/bar)
 "TW" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel/secondary_solars)
