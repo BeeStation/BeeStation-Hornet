@@ -76,16 +76,18 @@ ONLY_WALLCHECK=(
 )
 # The difference being that in this list you can have a /obj/structure/barricade/wooden and
 # /obj/structure/barricade/wooden/crude on the same tile here versus in the INCLUSIVE list
-ONLY_ONE_SUBTYPE_IDENTICAL_WALLCHECK=(
+DUPES_SUBTYPE_IDENTICAL_YES_WALLCHECK=(
 	"/obj/effect/mapping_helpers/airlock"
 	"/obj/structure/barricade"
 	"/obj/structure/chair"
-	"/obj/structure/disposalpipe"
 	"/obj/structure/stairs"
+)
+DUPES_SUBTYPE_IDENTICAL_NO_WALLCHECK=(
+	"/obj/structure/disposalpipe"
 )
 
 # This section checks to make sure only one of any type and its decendant subtypes exists on a tile at a time.
-CHECK_DUPES=(${DUPES_YES_WALLCHECK[@]} ${DUPES_NO_WALLCHECK[@]} ${ONLY_ONE_SUBTYPE_IDENTICAL_WALLCHECK[@]})
+CHECK_DUPES=(${DUPES_YES_WALLCHECK[@]} ${DUPES_NO_WALLCHECK[@]})
 for TYPEPATH in "${CHECK_DUPES[@]}"
 do
 	if grep -Pzo "\"\w+\" = \([^)]*?\n${TYPEPATH}[/\w,\n]*?[^)]*?\n${TYPEPATH}[/\w,\n]*?[^)]*?\n/area.+?\)" _maps/**/*.dmm;	then
@@ -96,7 +98,7 @@ do
 done
 
 # This section checks to make sure nothing is in walls/closed turfs that aren't supposed to be.
-CHECK_WALLS=(${DUPES_YES_WALLCHECK[@]} ${ONLY_WALLCHECK[@]})
+CHECK_WALLS=(${DUPES_YES_WALLCHECK[@]} ${DUPES_SUBTYPE_IDENTICAL_YES_WALLCHECK[@]} ${ONLY_WALLCHECK[@]})
 for TYPEPATH in "${CHECK_WALLS[@]}"
 do
     if grep -Pzo "\"\w+\" = \([^)]*?\n${TYPEPATH}[/\w,\n]*?[^)]*?\n/turf/closed[/\w,\n]*?[^)]*?\n/area/.+?\)" _maps/**/*.dmm;	then
@@ -107,7 +109,8 @@ do
 done
 
 # This section checks to make sure identical objects of the same typepath do not exist on the same tile
-for TYPEPATH in "${ONLY_ONE_SUBTYPE_IDENTICAL_WALLCHECK[@]}"
+CHECK_IDENTICAL_DUPES=(${DUPES_SUBTYPE_IDENTICAL_YES_WALLCHECK[@]} ${DUPES_SUBTYPE_IDENTICAL_NO_WALLCHECK[@]})
+for TYPEPATH in "${CHECK_IDENTICAL_DUPES[@]}"
 do
 	if grep -Pzo "\"\w+\" = \([^)]*?\n${TYPEPATH}(?<type>[/\w]*),[^)]*?\n${TYPEPATH}\g{type},[^)]*?\n/area/.+\)" _maps/**/*.dmm;	then
 		echo

@@ -2031,9 +2031,6 @@
 /turf/closed/indestructible/rock/snow/ice,
 /area/awaymission/cabin/caves/mountain)
 "gy" = (
-/obj/structure/barricade/wooden/crude{
-	desc = "Buffing things is illegal for it causes fun."
-	},
 /turf/closed/indestructible/fakedoor{
 	desc = "The room for buffing things.";
 	name = "Exercise Room"
@@ -2577,7 +2574,7 @@
 	name = "Who"
 	},
 /obj/item/clothing/head/helmet/knight/yellow{
-	armor = list("melee" = 11, "bullet" = 2, "laser" = 1, "energy" = 1, "bomb" = 5, "bio" = 2, "rad" = 0, "fire" = 0, "acid" = 10, "stamina" = 6);
+	armor = list("melee"=11,"bullet"=2,"laser"=1,"energy"=1,"bomb"=5,"bio"=2,"rad"=0,"fire"=0,"acid"=10,"stamina"=6);
 	desc = "A classic metal helmet. The cold has made it unreliable though.";
 	name = "old medieval helmet";
 	pixel_y = 7
@@ -4000,7 +3997,7 @@
 	name = "icy wind"
 	},
 /obj/item/clothing/head/helmet/skull{
-	armor = list("melee" = 15, "bullet" = 5, "laser" = 5, "energy" = 2, "bomb" = 10, "bio" = 5, "rad" = 20, "fire" = 20, "acid" = 20, "stamina" = 8);
+	armor = list("melee"=15,"bullet"=5,"laser"=5,"energy"=2,"bomb"=10,"bio"=5,"rad"=20,"fire"=20,"acid"=20,"stamina"=8);
 	desc = "It's not bloody for some reason. Dear god.";
 	name = "human skull"
 	},
@@ -5065,7 +5062,7 @@
 "Fm" = (
 /obj/item/clothing/shoes/sneakers/brown,
 /obj/item/clothing/head/helmet/police{
-	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 2, "bomb" = 15, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 20, "stamina" = 5);
+	armor = list("melee"=5,"bullet"=5,"laser"=5,"energy"=2,"bomb"=15,"bio"=0,"rad"=0,"fire"=20,"acid"=20,"stamina"=5);
 	desc = "I am the law!"
 	},
 /obj/structure/closet{
