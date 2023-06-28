@@ -52,31 +52,42 @@ if grep -P '\td[1-2] =' _maps/**/*.dmm;    then
 fi;
 
 # This section checks to make sure only one of any type and its decendant subtypes exists on a tile at a time.
-if grep -Pzo '"\w+" = \([^)]*?\n/obj/structure/lattice[/\w,\n]*?[^)]*?\n/obj/structure/lattice[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
-	echo
-    echo -e "${RED}ERROR: Found multiple lattices on the same tile, please remove them.${NC}"
-    st=1
-fi;
-if grep -Pzo '"\w+" = \([^)]*?\n/obj/machinery/power/apc[/\w,\n]*?[^)]*?\n/obj/machinery/power/apc[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
-	echo
-    echo -e "${RED}ERROR: Found multiple APCs on the same tile, please remove them.${NC}"
-    st=1
-fi;
-if grep -Pzo '"\w+" = \([^)]*?\n/obj/machinery/airalarm[/\w,\n]*?[^)]*?\n/obj/machinery/airalarm[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
-	echo
-    echo -e "${RED}ERROR: Found multiple air alarms on the same tile, please remove them.${NC}"
-    st=1
-fi;
-if grep -Pzo '"\w+" = \([^)]*?\n/obj/machinery/firealarm[/\w,\n]*?[^)]*?\n/obj/machinery/firealarm[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
-	echo
-    echo -e "${RED}ERROR: Found multiple fire alarms on the same tile, please remove them.${NC}"
-    st=1
-fi;
-if grep -Pzo '"\w+" = \([^)]*?\n/obj/effect/spawner/structure/window[/\w,\n]*?[^)]*?\n/obj/effect/spawner/structure/window[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
-	echo
-    echo -e "${RED}ERROR: Found multiple window spawners on the same tile, please remove them.${NC}"
-    st=1
-fi;
+ONLY_ONE_INCLUDE_SUBTYPE = (\
+	"/obj/structure/lattice",\
+	"/obj/machinery/power/apc",\
+	"/obj/machinery/airalarm",\
+	"/obj/machinery/firealarm",\
+	"/obj/effect/spawner/structure/window",\
+)
+for TYPEPATH in "${ONLY_ONE_INCLUDE_SUBTYPE}"
+do
+	GREP_STRING = "\"\w+\" = \([^)]*?\n${TYPE_PATH}[/\w,\n]*?[^)]*?\n${TYPE_PATH}[/\w,\n]*?[^)]*?\n/area.+?\)"
+	if grep -Pzo $GREP_STRING _maps/**/*.dmm;	then
+		echo
+		echo -e "${RED}ERROR: Found multiple of type ${TYPEPATH} on the same tile, please remove them.${NC}"
+		st=1
+	fi;
+done
+# if grep -Pzo '"\w+" = \([^)]*?\n/obj/machinery/power/apc[/\w,\n]*?[^)]*?\n/obj/machinery/power/apc[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
+# 	echo
+#     echo -e "${RED}ERROR: Found multiple APCs on the same tile, please remove them.${NC}"
+#     st=1
+# fi;
+# if grep -Pzo '"\w+" = \([^)]*?\n/obj/machinery/airalarm[/\w,\n]*?[^)]*?\n/obj/machinery/airalarm[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
+# 	echo
+#     echo -e "${RED}ERROR: Found multiple air alarms on the same tile, please remove them.${NC}"
+#     st=1
+# fi;
+# if grep -Pzo '"\w+" = \([^)]*?\n/obj/machinery/firealarm[/\w,\n]*?[^)]*?\n/obj/machinery/firealarm[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
+# 	echo
+#     echo -e "${RED}ERROR: Found multiple fire alarms on the same tile, please remove them.${NC}"
+#     st=1
+# fi;
+# if grep -Pzo '"\w+" = \([^)]*?\n/obj/effect/spawner/structure/window[/\w,\n]*?[^)]*?\n/obj/effect/spawner/structure/window[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
+# 	echo
+#     echo -e "${RED}ERROR: Found multiple window spawners on the same tile, please remove them.${NC}"
+#     st=1
+# fi;
 
 # This section checks to make sure identical objects of the same typepath do not exist on the same tile
 if grep -Pzo '"\w+" = \([^)]*?\n/obj/effect/mapping_helpers/airlock(?<type>[/\w]*),[^)]*?\n/obj/effect/mapping_helpers/airlock\g{type},[^)]*?\n/area/.+\)' _maps/**/*.dmm;	then
