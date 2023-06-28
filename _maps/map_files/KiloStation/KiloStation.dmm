@@ -32877,7 +32877,7 @@
 /area/engine/engineering)
 "cvF" = (
 /obj/structure/girder/displaced,
-/turf/closed/wall,
+/turf/open/floor/plating,
 /area/maintenance/port)
 "cvG" = (
 /obj/effect/turf_decal/stripes/corner{

@@ -52,126 +52,68 @@ if grep -P '\td[1-2] =' _maps/**/*.dmm;    then
 fi;
 
 # This section checks to make sure only one of any type and its decendant subtypes exists on a tile at a time.
-ONLY_ONE_SUBTYPE_INCLUSIVE=(
-	"/obj/structure/lattice"
-	"/obj/machinery/power/apc"
+# Example: A tile can only have ONE /obj/machinery/firealarm OR ONE /obj/machinery/firealarm/directional, etc.
+DUPES_YES_WALLCHECK=(
+	"/obj/effect/spawner/structure/window"
 	"/obj/machinery/airalarm"
 	"/obj/machinery/firealarm"
-	"/obj/effect/spawner/structure/window"
+	"/obj/machinery/power/apc"
+	"/obj/structure/lattice"
+    "/obj/machinery/atmospherics/components/binary/circulator" # Since it has PIPING_ONE_PER_TURF flag
+    "/obj/machinery/atmospherics/components/trinary" # Since it has PIPING_ONE_PER_TURF flag
+    "/obj/machinery/atmospherics/components/unary" # Since it has PIPING_ONE_PER_TURF flag
+    "/obj/machinery/door/airlock"
+    "/obj/machinery/door/firedoor"
+    "/obj/structure/closet"
+    "/obj/structure/girder"
+    "/obj/structure/table"
 )
-for TYPEPATH in "${ONLY_ONE_SUBTYPE_INCLUSIVE[@]}"
+DUPES_NO_WALLCHECK=(
+    "/obj/structure/grille"
+)
+# These can be duplicated, we only want to do a wall check for them.
+ONLY_WALLCHECK=(
+    "/obj/structure/window"
+)
+
+CHECK_DUPES=(${DUPES_YES_WALLCHECK[@]} ${DUPES_NO_WALLCHECK[@]})
+for TYPEPATH in "${CHECK_DUPES[@]}"
 do
-	GREP_STRING = "\"\w+\" = \([^)]*?\n${TYPEPATH}[/\w,\n]*?[^)]*?\n${TYPEPATH}[/\w,\n]*?[^)]*?\n/area.+?\)"
-	if grep -Pzo $GREP_STRING _maps/**/*.dmm;	then
+	if grep -Pzo "\"\w+\" = \([^)]*?\n${TYPEPATH}[/\w,\n]*?[^)]*?\n${TYPEPATH}[/\w,\n]*?[^)]*?\n/area.+?\)" _maps/**/*.dmm;	then
 		echo
 		echo -e "${RED}ERROR: Found multiple of type ${TYPEPATH} on the same tile, please remove them.${NC}"
 		st=1
 	fi;
 done
-# if grep -Pzo '"\w+" = \([^)]*?\n/obj/machinery/power/apc[/\w,\n]*?[^)]*?\n/obj/machinery/power/apc[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
-# 	echo
-#     echo -e "${RED}ERROR: Found multiple APCs on the same tile, please remove them.${NC}"
-#     st=1
-# fi;
-# if grep -Pzo '"\w+" = \([^)]*?\n/obj/machinery/airalarm[/\w,\n]*?[^)]*?\n/obj/machinery/airalarm[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
-# 	echo
-#     echo -e "${RED}ERROR: Found multiple air alarms on the same tile, please remove them.${NC}"
-#     st=1
-# fi;
-# if grep -Pzo '"\w+" = \([^)]*?\n/obj/machinery/firealarm[/\w,\n]*?[^)]*?\n/obj/machinery/firealarm[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
-# 	echo
-#     echo -e "${RED}ERROR: Found multiple fire alarms on the same tile, please remove them.${NC}"
-#     st=1
-# fi;
-# if grep -Pzo '"\w+" = \([^)]*?\n/obj/effect/spawner/structure/window[/\w,\n]*?[^)]*?\n/obj/effect/spawner/structure/window[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
-# 	echo
-#     echo -e "${RED}ERROR: Found multiple window spawners on the same tile, please remove them.${NC}"
-#     st=1
-# fi;
+
+CHECK_WALLS=(${DUPES_YES_WALLCHECK[@]} ${ONLY_WALLCHECK[@]})
+for TYPEPATH in "${CHECK_WALLS[@]}"
+do
+    if grep -Pzo "\"\w+\" = \([^)]*?\n${TYPEPATH}[/\w,\n]*?[^)]*?\n/turf/closed[/\w,\n]*?[^)]*?\n/area/.+?\)" _maps/**/*.dmm;	then
+		echo
+		echo -e "${RED}ERROR: Found ${TYPEPATH} inside a closed turf, please remove them.${NC}"
+		st=1
+	fi;
+done
 
 # This section checks to make sure identical objects of the same typepath do not exist on the same tile
-if grep -Pzo '"\w+" = \([^)]*?\n/obj/effect/mapping_helpers/airlock(?<type>[/\w]*),[^)]*?\n/obj/effect/mapping_helpers/airlock\g{type},[^)]*?\n/area/.+\)' _maps/**/*.dmm;	then
-	echo
-    echo -e "${RED}ERROR: Found multiple identical airlock mapping helpers on the same tile, please remove them.${NC}"
-    st=1
-fi;
-if grep -Pzo '"\w+" = \([^)]*?\n/obj/structure/disposalpipe(?<type>[/\w]*),[^)]*?\n/obj/structure/disposalpipe\g{type},[^)]*?\n/area/.+\)' _maps/**/*.dmm;	then
-	echo
-    echo -e "${RED}ERROR: Found multiple identical disposal components on the same tile, please remove them.${NC}"
-    st=1
-fi;
-if grep -Pzo '"\w+" = \([^)]*?\n/obj/structure/barricade(?<type>[/\w]*),[^)]*?\n/obj/structure/barricade\g{type},[^)]*?\n/area/.+\)' _maps/**/*.dmm;	then
-	echo
-    echo -e "${RED}ERROR: Found multiple identical barricades on the same tile, please remove them.${NC}"
-    st=1
-fi;
-if grep -Pzo '"\w+" = \([^)]*?\n/obj/structure/table(?<type>[/\w]*),[^)]*?\n/obj/structure/table\g{type},[^)]*?\n/area/.+\)' _maps/**/*.dmm;	then
-	echo
-    echo -e "${RED}ERROR: Found multiple identical tables on the same tile, please remove them.${NC}"
-    st=1
-fi;
-if grep -Pzo '"\w+" = \([^)]*?\n/obj/structure/chair(?<type>[/\w]*),[^)]*?\n/obj/structure/chair\g{type},[^)]*?\n/area/.+\)' _maps/**/*.dmm;	then
-	echo
-    echo -e "${RED}ERROR: Found multiple identical chairs on the same tile, please remove them.${NC}"
-    st=1
-fi;
-if grep -Pzo '"\w+" = \([^)]*?\n/obj/machinery/door/airlock[/\w,\n]*?[^)]*?\n/obj/machinery/door/airlock[/\w,\n]*?[^)]*?\n/area/.+\)' _maps/**/*.dmm;	then
-	echo
-    echo -e "${RED}ERROR: Found multiple airlocks on the same tile, please remove them.${NC}"
-    st=1
-fi;
-if grep -Pzo '"\w+" = \([^)]*?\n/obj/machinery/door/firedoor[/\w,\n]*?[^)]*?\n/obj/machinery/door/firedoor[/\w,\n]*?[^)]*?\n/area/.+\)' _maps/**/*.dmm;	then
-	echo
-    echo -e "${RED}ERROR: Found multiple firelocks on the same tile, please remove them.${NC}"
-    st=1
-fi;
-if grep -Pzo '"\w+" = \([^)]*?\n/obj/structure/closet(?<type>[/\w]*),[^)]*?\n/obj/structure/closet\g{type},[^)]*?\n/area/.+\)' _maps/**/*.dmm;	then
-	echo
-    echo -e "${RED}ERROR: Found multiple identical closets on the same tile, please remove them.${NC}"
-    st=1
-fi;
-if grep -Pzo '"\w+" = \([^)]*?\n/obj/structure/grille(?<type>[/\w]*),[^)]*?\n/obj/structure/grille\g{type},[^)]*?\n/area/.+\)' _maps/**/*.dmm;	then
-	echo
-    echo -e "${RED}ERROR: Found multiple identical grilles on the same tile, please remove them.${NC}"
-    st=1
-fi;
-if grep -Pzo '"\w+" = \([^)]*?\n/obj/structure/girder(?<type>[/\w]*),[^)]*?\n/obj/structure/girder\g{type},[^)]*?\n/area/.+\)' _maps/**/*.dmm;	then
-	echo
-    echo -e "${RED}ERROR: Found multiple identical girders on the same tile, please remove them.${NC}"
-    st=1
-fi;
-if grep -Pzo '"\w+" = \([^)]*?\n/obj/structure/stairs(?<type>[/\w]*),[^)]*?\n/obj/structure/stairs\g{type},[^)]*?\n/area/.+\)' _maps/**/*.dmm;	then
-	echo
-    echo -e "${RED}ERROR: Found multiple identical stairs on the same tile, please remove them.${NC}"
-	st=1
-fi;
-
-# This section checks for things in walls that are not supposed to be
-if grep -Pzo '"\w+" = \([^)]*?\n/obj/structure/lattice[/\w,\n]*?[^)]*?\n/turf/closed/wall[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
-	echo
-    echo -e "${RED}ERROR: Found a lattice stacked with a wall, please remove them.${NC}"
-    st=1
-fi;
-if grep -Pzo '"\w+" = \([^)]*?\n/obj/structure/lattice[/\w,\n]*?[^)]*?\n/turf/closed[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
-	echo
-    echo -e "${RED}ERROR: Found a lattice stacked within a wall, please remove them.${NC}"
-    st=1
-fi;
-if grep -Pzo '"\w+" = \([^)]*?\n/obj/structure/window[/\w,\n]*?[^)]*?\n/turf/closed[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
-	echo
-    echo -e "${RED}ERROR: Found a window stacked within a wall, please remove it.${NC}"
-    st=1
-fi;
-if grep -Pzo '"\w+" = \([^)]*?\n/obj/effect/spawner/structure/window[/\w,\n]*?[^)]*?\n/turf/closed[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
-	echo
-    echo -e "${RED}ERROR: Found a window spawner stacked within a wall, please remove it.${NC}"
-    st=1
-fi;
-if grep -Pzo '"\w+" = \([^)]*?\n/obj/machinery/door/airlock[/\w,\n]*?[^)]*?\n/turf/closed[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
-	echo
-    echo -e "${RED}ERROR: Found an airlock stacked within a wall, please remove it.${NC}"
-    st=1
-fi;
+# The difference being that in this list you can have a /obj/structure/barricade/wooden and
+# /obj/structure/barricade/wooden/crude on the same tile here versus in the INCLUSIVE list
+ONLY_ONE_SUBTYPE_IDENTICAL=(
+    "/obj/effect/mapping_helpers/airlock"
+    "/obj/structure/disposalpipe"
+    "/obj/structure/barricade"
+    "/obj/structure/chair"
+    "/obj/structure/stairs"
+)
+for TYPEPATH in "${ONLY_ONE_SUBTYPE_IDENTICAL[@]}"
+do
+	if grep -Pzo "\"\w+\" = \([^)]*?\n${TYPEPATH}(?<type>[/\w]*),[^)]*?\n${TYPEPATH}\g{type},[^)]*?\n/area/.+\)" _maps/**/*.dmm;	then
+		echo
+		echo -e "${RED}ERROR: Found multiple IDENTICAL of type ${TYPEPATH} on the same tile, please remove them.${NC}"
+		st=1
+	fi;
+done
 
 # This section checks for miscellaneous mapping errors
 if grep -Pzo '"\w+" = \([^)]*?\n/obj/structure/stairs[/\w,\n]*?[^)]*?\n/turf/open/genturf[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
@@ -213,6 +155,7 @@ if grep -Pzo '"\w+" = \([^)]*?\n/area/.+?,[^)]*?\n/area/.+?\)' _maps/**/*.dmm; t
 fi;
 
 # This section enforces code quality and common misspellings
+echo -e "${BLUE}Checking for code issues...${NC}"
 if grep -P '^/*var/' code/**/*.dm; then
     echo
     echo -e "${RED}ERROR: Unmanaged global var use detected in code, please use the helpers.${NC}"

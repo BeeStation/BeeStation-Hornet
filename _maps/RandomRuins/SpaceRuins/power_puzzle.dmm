@@ -446,7 +446,6 @@
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/storage/central2)
 "bD" = (
-/obj/structure/table/wood/fancy/red,
 /obj/structure/table/wood/fancy/cyan,
 /obj/item/storage/lockbox/dueling{
 	req_access = null
@@ -673,7 +672,6 @@
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/storage/central2)
 "cl" = (
-/obj/structure/table/wood/fancy/blue,
 /obj/structure/table/wood/fancy/purple,
 /obj/item/assembly/signaler/anomaly,
 /turf/open/floor/plasteel,

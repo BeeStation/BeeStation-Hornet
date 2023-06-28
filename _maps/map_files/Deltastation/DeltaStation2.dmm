@@ -672,12 +672,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/maintenance/department/medical/morgue)
-"acU" = (
-/obj/machinery/firealarm{
-	pixel_y = 8
-	},
-/turf/closed/wall,
-/area/crew_quarters/dorms)
 "acX" = (
 /obj/machinery/status_display/evac{
 	pixel_x = -32
@@ -91760,6 +91754,10 @@
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
 	},
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -26
+	},
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/cryopods)
 "wxf" = (
@@ -149249,7 +149247,7 @@ cYT
 guD
 eGB
 wwV
-acU
+cAw
 cAw
 cAw
 cAw
