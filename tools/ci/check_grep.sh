@@ -52,7 +52,7 @@ if grep -P '\td[1-2] =' _maps/**/*.dmm;    then
 fi;
 
 # This section checks to make sure only one of any type and its decendant subtypes exists on a tile at a time.
-declare -a ONLY_ONE_SUBTYPE_INCLUSIVE = (
+ONLY_ONE_SUBTYPE_INCLUSIVE = (
 	"/obj/structure/lattice"
 	"/obj/machinery/power/apc"
 	"/obj/machinery/airalarm"
