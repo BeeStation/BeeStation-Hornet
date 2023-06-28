@@ -527,7 +527,7 @@
 		N.pixel_x = target.pixel_x
 		N.pixel_y = target.pixel_y
 		N.pixel_z = target.pixel_z
-		target.dropContents()
+		target.dump_contents()
 		if(istype(target, /obj/machinery/computer))
 			var/obj/machinery/computer/C = target
 			if(C.circuit)

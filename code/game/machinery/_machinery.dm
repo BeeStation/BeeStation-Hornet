@@ -153,7 +153,7 @@ Class Procs:
 	GLOB.machines += src
 
 	if(ispath(circuit, /obj/item/circuitboard))
-		circuit = new circuit
+		circuit = new circuit(src)
 		circuit.apply_default_parts(src)
 
 	if(processing_flags & START_PROCESSING_ON_INIT)
@@ -188,7 +188,7 @@ Class Procs:
 	GLOB.machines.Remove(src)
 	if(datum_flags & DF_ISPROCESSING) // A sizeable portion of machines stops processing before qdel
 		end_processing()
-	dropContents()
+	dump_inventory_contents()
 	if(length(component_parts))
 		for(var/atom/A in component_parts)
 			qdel(A)
@@ -236,26 +236,65 @@ Class Procs:
 	//Update power
 	power_change()
 
+/**
+  * Opens the machine.
+  *
+  * Will update the machine icon and any user interfaces currently open.
+  * Arguments:
+  * * drop - Boolean. Whether to drop any stored items in the machine. Does not include components.
+  */
 /obj/machinery/proc/open_machine(drop = TRUE)
 	SEND_SIGNAL(src, COMSIG_MACHINE_OPEN, drop)
 	state_open = TRUE
 	set_density(FALSE)
 	if(drop)
-		dropContents()
+		dump_inventory_contents()
 	update_icon()
 	updateUsrDialog()
 	ui_update()
 
-/obj/machinery/proc/dropContents(list/subset = null)
-	var/turf/T = get_turf(src)
-	for(var/atom/movable/A in contents)
-		if(subset && !(A in subset))
-			continue
-		A.forceMove(T)
-		if(isliving(A))
-			var/mob/living/L = A
-			L.update_mobility()
+/**
+  * Drop every movable atom in the machine's contents list, including any components and circuit.
+  */
+/obj/machinery/dump_contents()
+	// Start by calling the dump_inventory_contents proc. Will allow machines with special contents
+	// to handle their dropping.
+	dump_inventory_contents()
+
+	// Then we can clean up and drop everything else.
+	var/turf/this_turf = get_turf(src)
+	for(var/atom/movable/movable_atom in contents)
+		movable_atom.forceMove(this_turf)
+
+	// We'll have dropped the occupant, circuit and component parts as part of this.
 	set_occupant(null)
+	circuit = null
+	LAZYCLEARLIST(component_parts)
+
+/**
+  * Drop every movable atom in the machine's contents list that is not a component_part.
+  *
+  * Proc does not drop components and will skip over anything in the component_parts list.
+  * Call dump_contents() to drop all contents including components.
+  * Arguments:
+  * * subset - If this is not null, only atoms that are also contained within the subset list will be dropped.
+  */
+/obj/machinery/proc/dump_inventory_contents(list/subset = null)
+	var/turf/this_turf = get_turf(src)
+	for(var/atom/movable/movable_atom in contents)
+		if(subset && !(movable_atom in subset))
+			continue
+
+		if(movable_atom in component_parts)
+			continue
+
+		movable_atom.forceMove(this_turf)
+		if(isliving(movable_atom))
+			var/mob/living/living_mob = movable_atom
+			living_mob.update_mobility()
+
+		if(occupant == movable_atom)
+			occupant = null
 
 /obj/machinery/proc/can_be_occupant(atom/movable/am)
 	return occupant_typecache ? is_type_in_typecache(am, occupant_typecache) : isliving(am)
@@ -449,14 +488,18 @@ Class Procs:
 		deconstruct(TRUE)
 
 /obj/machinery/deconstruct(disassembled = TRUE)
-	if(!(flags_1 & NODECONSTRUCT_1))
-		on_deconstruction()
-		if(component_parts?.len)
-			spawn_frame(disassembled)
-			for(var/obj/item/I in component_parts)
-				I.forceMove(loc)
-				component_parts.Cut()
-	qdel(src)
+	if(flags_1 & NODECONSTRUCT_1)
+		return
+
+	on_deconstruction()
+	if(!LAZYLEN(component_parts))
+		return ..() //We have no parts
+	spawn_frame(disassembled)
+
+	for(var/obj/item/I in component_parts)
+		I.forceMove(loc)
+	LAZYCLEARLIST(component_parts)
+	return ..()
 
 /**
  * Spawns a frame where this machine is. If the machine was not disassmbled, the
@@ -503,6 +546,16 @@ Class Procs:
 		set_occupant(null)
 		update_icon()
 		updateUsrDialog()
+		return ..()
+
+	// The circuit should also be in component parts, so don't early return.
+	if(A == circuit)
+		circuit = null
+	if((A in component_parts) && !QDELETED(src))
+		component_parts.Remove(A)
+		// It would be unusual for a component_part to be qdel'd ordinarily.
+		deconstruct(FALSE)
+	return ..()
 
 /obj/machinery/run_obj_armor(damage_amount, damage_type, damage_flag = NONE, attack_dir)
 	if(damage_flag == MELEE && damage_amount < damage_deflection)
@@ -617,7 +670,7 @@ Class Procs:
 							else
 								if(SEND_SIGNAL(W, COMSIG_TRY_STORAGE_TAKE, B, src))
 									component_parts += B
-									B.moveToNullspace()
+									B.forceMove(src)
 							SEND_SIGNAL(W, COMSIG_TRY_STORAGE_INSERT, A, null, null, TRUE)
 							component_parts -= A
 							to_chat(user, "<span class='notice'>[capitalize(A.name)] replaced with [B.name].</span>")

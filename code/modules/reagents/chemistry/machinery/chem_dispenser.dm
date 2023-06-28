@@ -487,7 +487,7 @@
 		/datum/reagent/toxin/staminatoxin
 	)
 
-/obj/machinery/chem_dispenser/drinks/fullupgrade //fully ugpraded stock parts, emagged
+/obj/machinery/chem_dispenser/drinks/fullupgrade //fully upgraded stock parts, emagged
 	desc = "Contains a large reservoir of soft drinks. This model has had its safeties shorted out."
 	obj_flags = CAN_BE_HIT | EMAGGED
 	flags_1 = NODECONSTRUCT_1

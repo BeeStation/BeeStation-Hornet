@@ -94,7 +94,9 @@
 	desc = "Uh oh!"
 
 /obj/machinery/vending/snack/random/Initialize(mapload)
-	..()
+	// No need to call parent, we're not doing anything with this machine. Just picking a new type of machine to use, spawning it and deleting ourselves.
+	SHOULD_CALL_PARENT(FALSE)
+
 	var/T = pick(subtypesof(/obj/machinery/vending/snack) - /obj/machinery/vending/snack/random)
 	new T(loc)
 	return INITIALIZE_HINT_QDEL
