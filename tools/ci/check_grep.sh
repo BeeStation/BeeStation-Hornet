@@ -52,13 +52,7 @@ if grep -P '\td[1-2] =' _maps/**/*.dmm;    then
 fi;
 
 # This section checks to make sure only one of any type and its decendant subtypes exists on a tile at a time.
-ONLY_ONE_INCLUDE_SUBTYPE = (\
-	"/obj/structure/lattice",\
-	"/obj/machinery/power/apc",\
-	"/obj/machinery/airalarm",\
-	"/obj/machinery/firealarm",\
-	"/obj/effect/spawner/structure/window",\
-)
+ONLY_ONE_INCLUDE_SUBTYPE = ( "/obj/structure/lattice", "/obj/machinery/power/apc", "/obj/machinery/airalarm", "/obj/machinery/firealarm", "/obj/effect/spawner/structure/window")
 for TYPEPATH in "${ONLY_ONE_INCLUDE_SUBTYPE}"
 do
 	GREP_STRING = "\"\w+\" = \([^)]*?\n${TYPE_PATH}[/\w,\n]*?[^)]*?\n${TYPE_PATH}[/\w,\n]*?[^)]*?\n/area.+?\)"
