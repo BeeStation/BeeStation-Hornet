@@ -164,6 +164,11 @@ if grep -Pzo '"\w+" = \([^)]*?\n/obj/structure/window[/\w,\n]*?[^)]*?\n/turf/clo
     echo -e "${RED}ERROR: Found a window stacked within a wall, please remove it.${NC}"
     st=1
 fi;
+if grep -Pzo '"\w+" = \([^)]*?\n/obj/effect/spawner/structure/window[/\w,\n]*?[^)]*?\n/turf/closed[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
+	echo
+    echo -e "${RED}ERROR: Found a window spawner stacked within a wall, please remove it.${NC}"
+    st=1
+fi;
 if grep -Pzo '"\w+" = \([^)]*?\n/obj/machinery/door/airlock[/\w,\n]*?[^)]*?\n/turf/closed[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
 	echo
     echo -e "${RED}ERROR: Found an airlock stacked within a wall, please remove it.${NC}"
