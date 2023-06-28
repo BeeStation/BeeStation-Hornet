@@ -61,7 +61,7 @@ ONLY_ONE_SUBTYPE_INCLUSIVE=(
 )
 for TYPEPATH in "${ONLY_ONE_SUBTYPE_INCLUSIVE[@]}"
 do
-	GREP_STRING = "\"\w+\" = \([^)]*?\n${TYPE_PATH}[/\w,\n]*?[^)]*?\n${TYPE_PATH}[/\w,\n]*?[^)]*?\n/area.+?\)"
+	GREP_STRING = "\"\w+\" = \([^)]*?\n${TYPEPATH}[/\w,\n]*?[^)]*?\n${TYPEPATH}[/\w,\n]*?[^)]*?\n/area.+?\)"
 	if grep -Pzo $GREP_STRING _maps/**/*.dmm;	then
 		echo
 		echo -e "${RED}ERROR: Found multiple of type ${TYPEPATH} on the same tile, please remove them.${NC}"
