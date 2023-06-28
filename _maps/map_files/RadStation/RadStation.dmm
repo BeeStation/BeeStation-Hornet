@@ -11623,11 +11623,6 @@
 /obj/structure/closet/secure_closet/security/sec,
 /turf/open/floor/plasteel/dark,
 /area/security/checkpoint/auxiliary)
-"dKm" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/space/nearstation)
 "dKE" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/beakers{
@@ -27013,7 +27008,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/structure/lattice/catwalk,
 /obj/item/toy/plush/opa{
 	pixel_x = -6;
 	pixel_y = -8
@@ -110098,10 +110092,10 @@ dFs
 jrr
 dFs
 dFs
-dKm
+gsA
 jGx
-dKm
-dKm
+gsA
+gsA
 msy
 rou
 mmG
