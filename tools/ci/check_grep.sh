@@ -51,7 +51,6 @@ if grep -P '\td[1-2] =' _maps/**/*.dmm;    then
     st=1
 fi;
 
-# This section checks to make sure only one of any type and its decendant subtypes exists on a tile at a time.
 # Example: A tile can only have ONE /obj/machinery/firealarm OR ONE /obj/machinery/firealarm/directional, etc.
 DUPES_YES_WALLCHECK=(
 	"/obj/effect/spawner/structure/window"
@@ -75,8 +74,18 @@ DUPES_NO_WALLCHECK=(
 ONLY_WALLCHECK=(
 	"/obj/structure/window"
 )
+# The difference being that in this list you can have a /obj/structure/barricade/wooden and
+# /obj/structure/barricade/wooden/crude on the same tile here versus in the INCLUSIVE list
+ONLY_ONE_SUBTYPE_IDENTICAL_WALLCHECK=(
+	"/obj/effect/mapping_helpers/airlock"
+	"/obj/structure/barricade"
+	"/obj/structure/chair"
+	"/obj/structure/disposalpipe"
+	"/obj/structure/stairs"
+)
 
-CHECK_DUPES=(${DUPES_YES_WALLCHECK[@]} ${DUPES_NO_WALLCHECK[@]})
+# This section checks to make sure only one of any type and its decendant subtypes exists on a tile at a time.
+CHECK_DUPES=(${DUPES_YES_WALLCHECK[@]} ${DUPES_NO_WALLCHECK[@]} ${ONLY_ONE_SUBTYPE_IDENTICAL_WALLCHECK[@]})
 for TYPEPATH in "${CHECK_DUPES[@]}"
 do
 	if grep -Pzo "\"\w+\" = \([^)]*?\n${TYPEPATH}[/\w,\n]*?[^)]*?\n${TYPEPATH}[/\w,\n]*?[^)]*?\n/area.+?\)" _maps/**/*.dmm;	then
@@ -86,6 +95,7 @@ do
 	fi;
 done
 
+# This section checks to make sure nothing is in walls/closed turfs that aren't supposed to be.
 CHECK_WALLS=(${DUPES_YES_WALLCHECK[@]} ${ONLY_WALLCHECK[@]})
 for TYPEPATH in "${CHECK_WALLS[@]}"
 do
@@ -97,16 +107,7 @@ do
 done
 
 # This section checks to make sure identical objects of the same typepath do not exist on the same tile
-# The difference being that in this list you can have a /obj/structure/barricade/wooden and
-# /obj/structure/barricade/wooden/crude on the same tile here versus in the INCLUSIVE list
-ONLY_ONE_SUBTYPE_IDENTICAL=(
-	"/obj/effect/mapping_helpers/airlock"
-	"/obj/structure/barricade"
-	"/obj/structure/chair"
-	"/obj/structure/disposalpipe"
-	"/obj/structure/stairs"
-)
-for TYPEPATH in "${ONLY_ONE_SUBTYPE_IDENTICAL[@]}"
+for TYPEPATH in "${ONLY_ONE_SUBTYPE_IDENTICAL_WALLCHECK[@]}"
 do
 	if grep -Pzo "\"\w+\" = \([^)]*?\n${TYPEPATH}(?<type>[/\w]*),[^)]*?\n${TYPEPATH}\g{type},[^)]*?\n/area/.+\)" _maps/**/*.dmm;	then
 		echo
