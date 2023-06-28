@@ -130,18 +130,6 @@ if grep -Pzo '"\w+" = \([^)]*?\n/obj/structure/stairs(?<type>[/\w]*),[^)]*?\n/ob
 	st=1
 fi;
 
-# This checks for miscellaneous
-if grep '^/area/.+[\{]' _maps/**/*.dmm;    then
-    echo
-    echo -e "${RED}ERROR: Variable editted /area path use detected in a map, please replace with a proper area path.${NC}"
-    st=1
-fi;
-if grep -P '\W\/turf\s*[,\){]' _maps/**/*.dmm; then
-    echo
-    echo -e "${RED}ERROR: Base /turf path use detected in maps, please replace a with proper turf path.${NC}"
-    st=1
-fi;
-
 # This section checks for things in walls that are not supposed to be
 if grep -Pzo '"\w+" = \([^)]*?\n/obj/structure/lattice[/\w,\n]*?[^)]*?\n/turf/closed/wall[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
 	echo
@@ -169,7 +157,7 @@ if grep -Pzo '"\w+" = \([^)]*?\n/obj/machinery/door/airlock[/\w,\n]*?[^)]*?\n/tu
     st=1
 fi;
 
-# This section checks for miscellaneous common mapping errors
+# This section checks for miscellaneous mapping errors
 if grep -Pzo '"\w+" = \([^)]*?\n/obj/structure/stairs[/\w,\n]*?[^)]*?\n/turf/open/genturf[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
 	echo
     echo -e "${RED}ERROR: Found a staircase on top of a gen_turf. Please replace the gen_turf with a proper turf.${NC}"
@@ -183,6 +171,16 @@ fi;
 if ls _maps/*.json | grep -P "[A-Z]"; then
     echo
     echo -e "${RED}ERROR: Uppercase in a map .JSON file detected, these must be all lowercase.${NC}"
+    st=1
+fi;
+if grep '^/area/.+[\{]' _maps/**/*.dmm;    then
+    echo
+    echo -e "${RED}ERROR: Variable editted /area path use detected in a map, please replace with a proper area path.${NC}"
+    st=1
+fi;
+if grep -P '\W\/turf\s*[,\){]' _maps/**/*.dmm; then
+    echo
+    echo -e "${RED}ERROR: Base /turf path use detected in maps, please replace a with proper turf path.${NC}"
     st=1
 fi;
 
