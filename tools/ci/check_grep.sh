@@ -53,10 +53,10 @@ fi;
 
 # This section checks to make sure only one of any type and its decendant subtypes exists on a tile at a time.
 declare -a ONLY_ONE_SUBTYPE_INCLUSIVE = (\
-	"/obj/structure/lattice", \
-	"/obj/machinery/power/apc", \
-	"/obj/machinery/airalarm", \
-	"/obj/machinery/firealarm", \
+	"/obj/structure/lattice" \
+	"/obj/machinery/power/apc" \
+	"/obj/machinery/airalarm" \
+	"/obj/machinery/firealarm" \
 	"/obj/effect/spawner/structure/window"
 )
 for TYPEPATH in "${ONLY_ONE_SUBTYPE_INCLUSIVE[@]}"
