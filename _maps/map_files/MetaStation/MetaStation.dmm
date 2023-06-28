@@ -66813,7 +66813,6 @@
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
 	},
-/obj/effect/spawner/structure/window/reinforced,
 /turf/closed/wall,
 /area/science/server)
 "tdp" = (
