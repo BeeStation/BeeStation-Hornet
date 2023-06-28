@@ -59,21 +59,21 @@ DUPES_YES_WALLCHECK=(
 	"/obj/machinery/firealarm"
 	"/obj/machinery/power/apc"
 	"/obj/structure/lattice"
-    "/obj/machinery/atmospherics/components/binary/circulator" # Since it has PIPING_ONE_PER_TURF flag
-    "/obj/machinery/atmospherics/components/trinary" # Since it has PIPING_ONE_PER_TURF flag
-    "/obj/machinery/atmospherics/components/unary" # Since it has PIPING_ONE_PER_TURF flag
-    "/obj/machinery/door/airlock"
-    "/obj/machinery/door/firedoor"
-    "/obj/structure/closet"
-    "/obj/structure/girder"
-    "/obj/structure/table"
+	"/obj/machinery/atmospherics/components/binary/circulator" # Since it has PIPING_ONE_PER_TURF flag
+	"/obj/machinery/atmospherics/components/trinary" # Since it has PIPING_ONE_PER_TURF flag
+	"/obj/machinery/atmospherics/components/unary" # Since it has PIPING_ONE_PER_TURF flag
+	"/obj/machinery/door/airlock"
+	"/obj/machinery/door/firedoor"
+	"/obj/structure/closet"
+	"/obj/structure/girder"
+	"/obj/structure/table"
 )
 DUPES_NO_WALLCHECK=(
-    "/obj/structure/grille"
+	"/obj/structure/grille"
 )
 # These can be duplicated, we only want to do a wall check for them.
 ONLY_WALLCHECK=(
-    "/obj/structure/window"
+	"/obj/structure/window"
 )
 
 CHECK_DUPES=(${DUPES_YES_WALLCHECK[@]} ${DUPES_NO_WALLCHECK[@]})
@@ -100,11 +100,11 @@ done
 # The difference being that in this list you can have a /obj/structure/barricade/wooden and
 # /obj/structure/barricade/wooden/crude on the same tile here versus in the INCLUSIVE list
 ONLY_ONE_SUBTYPE_IDENTICAL=(
-    "/obj/effect/mapping_helpers/airlock"
-    "/obj/structure/barricade"
-    "/obj/structure/chair"
-    "/obj/structure/disposalpipe"
-    "/obj/structure/stairs"
+	"/obj/effect/mapping_helpers/airlock"
+	"/obj/structure/barricade"
+	"/obj/structure/chair"
+	"/obj/structure/disposalpipe"
+	"/obj/structure/stairs"
 )
 for TYPEPATH in "${ONLY_ONE_SUBTYPE_IDENTICAL[@]}"
 do
