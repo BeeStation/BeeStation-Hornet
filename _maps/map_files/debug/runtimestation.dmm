@@ -709,7 +709,6 @@
 "cw" = (
 /obj/machinery/door/airlock,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plasteel,
 /area/bridge)
 "cx" = (
@@ -2528,22 +2527,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"xe" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/closed/wall/r_wall,
-/area/bridge)
-"xx" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/effect/spawner/structure/window/reinforced,
-/obj/effect/spawner/structure/window/reinforced,
-/obj/effect/spawner/structure/window/reinforced,
-/obj/effect/spawner/structure/window/reinforced,
-/obj/effect/spawner/structure/window/reinforced,
-/obj/effect/spawner/structure/window/reinforced,
-/obj/effect/spawner/structure/window/reinforced,
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/bridge)
 "zo" = (
 /obj/machinery/power/apc/auto_name/south,
 /obj/structure/cable{
@@ -2603,11 +2586,6 @@
 	},
 /turf/open/floor/plasteel/white/corner,
 /area/medical/medbay)
-"BE" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/effect/spawner/structure/window/reinforced,
-/turf/closed/wall/r_wall,
-/area/bridge)
 "BG" = (
 /obj/structure/table,
 /obj/item/ammo_box/c10mm,
@@ -2664,11 +2642,6 @@
 /obj/machinery/modular_fabricator/component_printer,
 /turf/open/floor/plasteel,
 /area/medical/chemistry)
-"DX" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/engine/atmos)
 "EG" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -2717,10 +2690,6 @@
 /obj/machinery/rnd/production/techfab/department,
 /turf/open/floor/plasteel,
 /area/science)
-"JD" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/closed/wall/r_wall,
-/area/engine/atmos)
 "JF" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
@@ -2816,14 +2785,6 @@
 "Tt" = (
 /turf/open/floor/plating,
 /area/maintenance/aft)
-"Tu" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/door/airlock,
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/bridge)
 "Ut" = (
 /obj/structure/closet/secure_closet/medical3{
 	locked = 0
@@ -2852,10 +2813,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/engine/atmos)
-"Ws" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/closed/wall/r_wall,
-/area/science)
 "WT" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -6648,7 +6605,7 @@ NZ
 bD
 cc
 co
-Ws
+bA
 wS
 bE
 bE
@@ -6731,16 +6688,16 @@ aa
 ah
 Wh
 ah
-JD
-DX
-JD
-JD
-JD
-BE
-xe
-Tu
-xe
-BE
+ah
+Wh
+ah
+ah
+ah
+bu
+bu
+cd
+bu
+bu
 cB
 bE
 bE
@@ -6832,7 +6789,7 @@ bu
 AT
 CS
 Cv
-xe
+bu
 ZW
 lX
 bE
@@ -6924,7 +6881,7 @@ bv
 bI
 cf
 MT
-xx
+bv
 sT
 bE
 bE
@@ -7016,7 +6973,7 @@ bv
 BG
 cf
 mP
-xe
+bu
 sT
 bE
 bE
