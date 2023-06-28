@@ -62,7 +62,7 @@ if grep -Pzo '"\w+" = \([^)]*?\n/obj/machinery/power/apc[/\w,\n]*?[^)]*?\n/obj/m
     echo -e "${RED}ERROR: Found multiple APCs on the same tile, please remove them.${NC}"
     st=1
 fi;
-if grep -Pzo '"\w+" = \([^)]*?\n/obj/machinery/power/apc[/\w,\n]*?[^)]*?\n/obj/machinery/power/apc[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
+if grep -Pzo '"\w+" = \([^)]*?\n/obj/machinery/airalarm[/\w,\n]*?[^)]*?\n/obj/machinery/airalarm[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
 	echo
     echo -e "${RED}ERROR: Found multiple air alarms on the same tile, please remove them.${NC}"
     st=1
