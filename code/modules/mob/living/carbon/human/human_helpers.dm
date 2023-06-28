@@ -98,7 +98,7 @@
 			. = id_card
 
 	//Check inventory slots
-	if(wear_id && !isnull(wear_id?.GetID()))//wallets return null if they don't have an ID
+	if(wear_id && !isnull(wear_id?.GetID()))//worn wallets return null if they don't have an ID
 		id_card = wear_id.GetID()
 		if(id_card)
 			return id_card
