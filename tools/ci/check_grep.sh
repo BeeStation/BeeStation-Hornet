@@ -54,6 +54,16 @@ if grep -Pzo '"\w+" = \([^)]*?\n/obj/structure/lattice[/\w,\n]*?[^)]*?\n/obj/str
     echo -e "${RED}ERROR: Found multiple lattices on the same tile, please remove them.${NC}"
     st=1
 fi;
+if grep -Pzo '"\w+" = \([^)]*?\n/obj/effect/spawner/structure/window[/\w,\n]*?[^)]*?\n/obj/effect/spawner/structure/window[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
+	echo
+    echo -e "${RED}ERROR: Found multiple window spawners on the same tile, please remove them.${NC}"
+    st=1
+fi;
+if grep -Pzo '"\w+" = \([^)]*?\n/obj/effect/mapping_helpers/airlock[/\w,\n]*?[^)]*?\n/obj/effect/mapping_helpers/airlock[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
+	echo
+    echo -e "${RED}ERROR: Found multiple airlock mapping helpers on the same tile, please remove them.${NC}"
+    st=1
+fi;
 if grep -Pzo '"\w+" = \([^)]*?\n/obj/structure/barricade(?<type>[/\w]*),[^)]*?\n/obj/structure/barricade\g{type},[^)]*?\n/area/.+\)' _maps/**/*.dmm;	then
 	echo
     echo -e "${RED}ERROR: Found multiple identical barricades on the same tile, please remove them.${NC}"
