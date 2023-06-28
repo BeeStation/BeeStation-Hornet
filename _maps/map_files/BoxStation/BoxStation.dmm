@@ -12605,10 +12605,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
-"bQy" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/closed/wall,
-/area/chapel/main)
 "bQA" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating/airless,
@@ -110821,7 +110817,7 @@ aEk
 aCR
 aCR
 aCR
-bQy
+aCR
 ijs
 mrj
 aCR
