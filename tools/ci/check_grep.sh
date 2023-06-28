@@ -84,6 +84,11 @@ if grep -Pzo '"\w+" = \([^)]*?\n/obj/effect/mapping_helpers/airlock(?<type>[/\w]
     echo -e "${RED}ERROR: Found multiple identical airlock mapping helpers on the same tile, please remove them.${NC}"
     st=1
 fi;
+if grep -Pzo '"\w+" = \([^)]*?\n/obj/structure/disposalpipe(?<type>[/\w]*),[^)]*?\n/obj/structure/disposalpipe\g{type},[^)]*?\n/area/.+\)' _maps/**/*.dmm;	then
+	echo
+    echo -e "${RED}ERROR: Found multiple identical airlock mapping helpers on the same tile, please remove them.${NC}"
+    st=1
+fi;
 if grep -Pzo '"\w+" = \([^)]*?\n/obj/structure/barricade(?<type>[/\w]*),[^)]*?\n/obj/structure/barricade\g{type},[^)]*?\n/area/.+\)' _maps/**/*.dmm;	then
 	echo
     echo -e "${RED}ERROR: Found multiple identical barricades on the same tile, please remove them.${NC}"
