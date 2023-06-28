@@ -98,7 +98,7 @@
 			. = id_card
 
 	//Check inventory slots
-	if(wear_id)
+	if(wear_id && !isnull(wear_id?.GetID()))//wallets return null if they don't have an ID
 		id_card = wear_id.GetID()
 		if(id_card)
 			return id_card
@@ -112,6 +112,89 @@
 	if(!held_item)
 		return
 	return held_item.GetID()
+
+/mob/living/carbon/human/proc/get_accessible_cash()
+	var/available_cash = 0
+	var/list/cash_list = get_cash_list()
+	if(!length(cash_list))
+		return 0
+	for(var/found_item in cash_list)
+		if(istype(found_item, /obj/item/holochip))
+			var/obj/item/holochip/chip_stack = found_item
+			available_cash += chip_stack.credits
+		if(istype(found_item, /obj/item/card/id))
+			var/obj/item/card/id/id_card = found_item
+			available_cash += id_card.registered_account.account_balance
+	return available_cash
+
+/mob/living/carbon/human/proc/spend_cash(var/to_spend)
+	if(!to_spend)
+		return FALSE
+	if(to_spend > get_accessible_cash()) //If we don't have enough money, early return
+		return FALSE
+	var/list/cash_list = get_cash_list()
+	if(!length(cash_list)) //Another check, just in case
+		return FALSE
+	for(var/obj/item/holochip/chip_stack in cash_list)//Holochips take priority over ID cards
+		if(chip_stack.credits >= to_spend)
+			chip_stack.spend(to_spend, TRUE)
+			return TRUE
+		else
+			var/temp_value_holder = to_spend
+			to_spend -= chip_stack.credits
+			chip_stack.spend(temp_value_holder, TRUE)
+	for(var/obj/item/card/id/id_card in cash_list)
+		var/temp_cash_holder = id_card.registered_account.account_balance
+		if(temp_cash_holder >= to_spend)
+			id_card.registered_account.adjust_money(-to_spend)
+			return TRUE
+		else
+			id_card.registered_account.adjust_money(-to_spend)
+			to_spend -= temp_cash_holder
+	return FALSE
+
+/mob/living/carbon/human/proc/get_cash_list()
+	var/list/found_list = list()
+	var/obj/item/checking = get_active_held_item()
+	if(checking)
+		var/obj/item/card/id/id_card = checking.GetID()
+		if(id_card?.registered_account)
+			found_list += id_card
+		if(istype(checking, /obj/item/storage/wallet))
+			for(var/found_var in checking.contents)
+				if(istype(found_var, /obj/item/holochip))
+					found_list += found_var
+		if(istype(checking, /obj/item/holochip))
+			found_list += checking
+	checking = null
+	checking = get_inactive_held_item()
+	if(checking)
+		var/obj/item/card/id/id_card = checking.GetID()
+		if(id_card?.registered_account)
+			found_list += id_card
+		if(istype(checking, /obj/item/storage/wallet))
+			for(var/found_var in checking.contents)
+				if(istype(found_var, /obj/item/holochip))
+					found_list += found_var
+		if(istype(checking, /obj/item/holochip))
+			found_list += checking
+	if(wear_id)
+		var/obj/item/card/id/id_card = wear_id.GetID()
+		if(id_card?.registered_account)
+			found_list += id_card
+		if(istype(wear_id, /obj/item/storage/wallet))
+			for(var/found_var in wear_id.contents)
+				if(istype(found_var, /obj/item/holochip))
+					found_list += found_var
+	if(belt)
+		var/obj/item/card/id/id_card = belt.GetID()
+		if(id_card?.registered_account)
+			found_list += id_card
+
+	if(length(found_list))
+		return found_list
+	else
+		return null
 
 /mob/living/carbon/human/IsAdvancedToolUser()
 	if(HAS_TRAIT(src, TRAIT_MONKEYLIKE))

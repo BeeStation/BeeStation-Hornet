@@ -692,38 +692,26 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 /obj/machinery/vending/ui_data(mob/user)
 	. = list()
 	var/mob/living/carbon/human/H
-	var/obj/item/card/id/C
+	var/obj/item/card/id/card
 	.["user"] = null
 	if(ishuman(user))
 		H = user
-		C = H.get_idcard(TRUE)
+		card = H.get_idcard(TRUE)
 
-		var/held_cash = 0
-		if(istype(H.get_inactive_held_item(), /obj/item/holochip))
-			var/obj/item/holochip/chip_stack = H.get_inactive_held_item()
-			held_cash += chip_stack.credits
-		if(istype(H.get_active_held_item(), /obj/item/holochip))
-			var/obj/item/holochip/chip_stack = H.get_active_held_item()
-			held_cash += chip_stack.credits
-
-		if(C?.registered_account)
-			.["user"] = list()
-			.["user"]["name"] = C.registered_account.account_holder
-			.["user"]["cash"] = C.registered_account.account_balance + held_cash
-			.["user"]["job"] = "No Job"
-			.["user"]["department_bitflag"] = 0
-			var/datum/data/record/R = find_record("name", C.registered_account.account_holder, GLOB.data_core.general)
-			if(C.registered_account.account_job)
-				.["user"]["job"] = C.registered_account.account_job.title
-				.["user"]["department_bitflag"] = C.registered_account.active_departments
-			if(R)
-				.["user"]["job"] = R.fields["rank"]
+		.["user"] = list()
+		if(card?.registered_account)
+			.["user"]["name"] = card.registered_account.account_holder
 		else
-			.["user"] = list()
 			.["user"]["name"] = H.name
-			.["user"]["cash"] = held_cash
-			.["user"]["job"] = "No Job"
-			.["user"]["department_bitflag"] = 0
+		.["user"]["cash"] = H.get_accessible_cash()
+		.["user"]["job"] = "No Job"
+		.["user"]["department_bitflag"] = 0
+		var/datum/data/record/R = find_record("name", card?.registered_account?.account_holder, GLOB.data_core.general)
+		if(card?.registered_account?.account_job)
+			.["user"]["job"] = card.registered_account.account_job.title
+			.["user"]["department_bitflag"] = card.registered_account.active_departments
+		if(R)
+			.["user"]["job"] = R.fields["rank"]
 	.["stock"] = list()
 	for (var/datum/data/vending_product/R in product_records + coin_records + hidden_records)
 		.["stock"]["[replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-")]"] = R.amount
@@ -768,39 +756,19 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 				var/mob/living/carbon/human/H = usr
 				var/obj/item/card/id/C = H.get_idcard(TRUE)
 
-				var/has_chips_inhand = FALSE
-				var/obj/item/holochip/chip_stack // Check if someone is holding holochips in hand
-				if(istype(H.get_inactive_held_item(), /obj/item/holochip))
-					has_chips_inhand = TRUE
-					chip_stack = H.get_inactive_held_item()
-				if(istype(H.get_active_held_item(), /obj/item/holochip))
-					has_chips_inhand = TRUE
-					chip_stack = H.get_active_held_item()
-
-				if(!C && !has_chips_inhand )
-					say("No cash accessible on user.")
-					flick(icon_deny,src)
-					vend_ready = TRUE
-					return
-				else if(!C?.registered_account && !has_chips_inhand)
-					say("No account found.")
-					flick(icon_deny,src)
-					vend_ready = TRUE
-					return
 				var/datum/bank_account/account = C?.registered_account
 				if(account?.account_job && (account?.active_departments & dept_req_for_free))
 					price_to_use = 0
 				if(coin_records.Find(R))
 					price_to_use = R.custom_premium_price ? R.custom_premium_price : extra_price
 				if(price_to_use)
-					if(has_chips_inhand)
-						if(!chip_stack.spend(price_to_use, FALSE) && !account?.has_money(price_to_use)) //Cash in hand takes priority over spending from the ID's linked bank account
-							say("You do not possess the funds to purchase [R.name].")
-							flick(icon_deny,src)
-							vend_ready = TRUE
-							return
-					else if(!account?.adjust_money(-price_to_use))
-						say("You do not possess the funds to purchase [R.name].")
+					if(!H.spend_cash(price_to_use))
+						var/additional_message = ""
+						if(!C)
+							additional_message += "No ID card found. "
+						if(!C?.registered_account)
+							additional_message += "No account found. "
+						say("[additional_message]Not enough funds to purchase [R.name].")
 						flick(icon_deny,src)
 						vend_ready = TRUE
 						return
@@ -988,7 +956,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	var/obj/item/card/id/C
 	if(ishuman(user))
 		H = user
-		C = H.get_idcard(FALSE)
+		C = H.get_idcard(TRUE)
 		if(C?.registered_account && C.registered_account == private_a)
 			return TRUE
 
@@ -1051,19 +1019,6 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 				var/mob/living/carbon/human/H = usr
 				var/obj/item/card/id/C = H.get_idcard(TRUE)
 
-				var/has_chips_inhand = FALSE
-				var/obj/item/holochip/chip_stack
-				if(istype(H.get_inactive_held_item(), /obj/item/holochip))
-					has_chips_inhand = TRUE
-					chip_stack = H.get_inactive_held_item()
-				if(istype(H.get_active_held_item(), /obj/item/holochip))
-					has_chips_inhand = TRUE
-					chip_stack = H.get_active_held_item()
-				if(!C && !has_chips_inhand )
-					say("No cash accessible on user.")
-					flick(icon_deny,src)
-					vend_ready = TRUE
-					return
 				for(var/obj/O in contents)
 					if(O.name == N)
 						S = O
@@ -1080,27 +1035,20 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 						use_power(5)
 						vend_ready = TRUE
 						return TRUE
-					var/datum/bank_account/account = C?.registered_account
-					if(has_chips_inhand)
-						if(chip_stack.spend(S.custom_price, FALSE))
-							make_purchase(S, H, N)
-							return TRUE
-						else if(!account)
-							say("You do not possess the funds to purchase this.")
-							flick(icon_deny,src)
-							vend_ready = TRUE
-							return
-					if(account)
-						if(account.has_money(S.custom_price))
-							account.adjust_money(-S.custom_price)
-							make_purchase(S, H, N)
-							return TRUE
+					//var/datum/bank_account/account = C?.registered_account
+					if(H.spend_cash(S.custom_price))
+						make_purchase(S, H, N)
+						return TRUE
 					else
-						say("No account found.")
+						var/additional_message = ""
+						if(!C)
+							additional_message += "No ID card found. "
+						if(!C?.registered_account)
+							additional_message += "No account found. "
+						say("[additional_message]Not enough funds to purchase [S.name].")
 						flick(icon_deny,src)
 						vend_ready = TRUE
 						return
-					say("You do not possess the funds to purchase this.")
 			vend_ready = TRUE
 
 /obj/machinery/vending/custom/proc/make_purchase(var/obj/bought_item, var/mob/living/carbon/human/H, var/N)
@@ -1112,7 +1060,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 			owner.bank_card_talk("[id_card.registered_name] has bought \a [bought_item] for [bought_item.custom_price] credits at your [name]!")
 		else
 			owner.bank_card_talk("[H.name] has bought \a [bought_item] for [bought_item.custom_price] credits at your [name]!")
-		SSblackbox.record_feedback("amount", "vending_spent", bought_item.custom_price)
+	SSblackbox.record_feedback("amount", "vending_spent", bought_item.custom_price)
 	vending_machine_input[N] = max(vending_machine_input[N] - 1, 0)
 	bought_item.forceMove(drop_location())
 	if (usr.CanReach(src) && usr.put_in_hands(bought_item))
@@ -1168,7 +1116,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 /obj/item/vending_refill/custom
 	machine_name = "Custom Vendor"
 	icon_state = "refill_custom"
-	custom_premium_price = 75
+	custom_premium_price = 150
 
 /obj/item/price_tagger
 	name = "price tagger"
