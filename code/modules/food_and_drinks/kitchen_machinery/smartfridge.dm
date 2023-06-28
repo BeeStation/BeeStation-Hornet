@@ -211,9 +211,13 @@
 
 	var/listofitems = list()
 	for (var/I in src)
+		// We do not vend our own components.
+		if(I in component_parts)
+			continue
+
 		var/atom/movable/O = I
 		if (!QDELETED(O))
-			var/md5name = rustg_hash_string(RUSTG_HASH_MD5, O.name)				// This needs to happen because of a bug in a TGUI component, https://github.com/ractivejs/ractive/issues/744
+			var/md5name = rustg_hash_string(RUSTG_HASH_MD5, O.name) // This needs to happen because of a bug in a TGUI component, https://github.com/ractivejs/ractive/issues/744
 			if (listofitems[md5name])				// which is fixed in a version we cannot use due to ie8 incompatibility
 				listofitems[md5name]["amount"]++	// The good news is, #30519 made smartfridge UIs non-auto-updating
 			else
@@ -243,23 +247,28 @@
 			if (params["amount"])
 				desired = text2num(params["amount"])
 			else
-				desired = input("How many items?", "How many items would you like to take out?", 1) as null|num
-
-			if(!isnum_safe(desired) || desired <= 0)
-				return
+				desired = tgui_input_number(usr, "How many items would you like to take out?", "Release", max_value = 50)
+				if(!desired)
+					return FALSE
 
 			if(QDELETED(src) || QDELETED(usr) || !usr.Adjacent(src)) // Sanity checkin' in case stupid stuff happens while we wait for input()
-				return
+				return FALSE
 
-			for(var/obj/item/O in src)
-				if(O.name == params["name"])
-					dispense(O, usr)
+			for(var/obj/item/dispensed_item in src)
+				if(desired <= 0)
+					break
+				// Grab the first item in contents which name matches our passed name.
+				// format_text() is used here to strip \improper and \proper from both names,
+				// which is required for correct string comparison between them.
+				if(format_text(dispensed_item.name) == format_text(params["name"]))
+					if(dispensed_item in component_parts)
+						CRASH("Attempted removal of [dispensed_item] component_part from smartfridge via smartfridge interface.")
+					dispense(dispensed_item, usr)
 					desired--
-					. = TRUE
-					if(desired <= 0)
-						break
-			if (visible_contents && .)
-				update_icon()
+
+			if (visible_contents)
+				update_appearance()
+			return TRUE
 
 
 // ----------------------------
