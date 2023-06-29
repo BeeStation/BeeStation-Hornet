@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - tweak: Atom init times now export to CSV instead of JSON if you compile the game
-      with the PROFILE_MAPLOAD_INIT_ATOM flag
