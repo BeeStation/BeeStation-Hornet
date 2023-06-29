@@ -178,17 +178,16 @@
 			if(found_chip.credits > 0)
 				found_list += found_chip
 			continue
-		if(istype(found_item, /obj/item/card/id))
-			var/obj/item/card/id/found_id = found_item
-			if(found_id?.registered_account)
-				found_list += found_id
-			continue
 		if(istype(found_item, /obj/item/modular_computer)) // if it's a PDA, we'll find a card
 			var/obj/item/modular_computer/found_PDA = found_item
 			var/obj/item/computer_hardware/card_slot/found_card_slot = found_PDA.all_components[MC_CARD]
 			found_item = found_card_slot?.stored_card
-			if(found_item)
-				found_list += found_item
+			if(!found_item) //Empty ID slot, skip it
+				continue
+		if(istype(found_item, /obj/item/card/id))
+			var/obj/item/card/id/found_id = found_item
+			if(found_id?.registered_account)
+				found_list += found_id
 			continue
 		if(istype(found_item, /obj/item/storage/wallet))
 			var/obj/item/storage/wallet/found_wallet = found_item
