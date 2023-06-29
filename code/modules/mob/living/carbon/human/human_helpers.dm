@@ -189,48 +189,6 @@
 		return found_list
 	else
 		return null
-	/*
-	var/obj/item/checking = get_active_held_item()
-	if(checking)
-		var/obj/item/card/id/id_card = checking.GetID()
-		if(id_card?.registered_account)
-			found_list += id_card
-		if(istype(checking, /obj/item/storage/wallet))
-			for(var/found_var in checking.contents)
-				if(istype(found_var, /obj/item/holochip))
-					found_list += found_var
-		if(istype(checking, /obj/item/holochip))
-			found_list += checking
-	checking = null
-	checking = get_inactive_held_item()
-	if(checking)
-		var/obj/item/card/id/id_card = checking.GetID()
-		if(id_card?.registered_account)
-			found_list += id_card
-		if(istype(checking, /obj/item/storage/wallet))
-			for(var/found_var in checking.contents)
-				if(istype(found_var, /obj/item/holochip))
-					found_list += found_var
-		if(istype(checking, /obj/item/holochip))
-			found_list += checking
-	if(wear_id)
-		var/obj/item/card/id/id_card = wear_id.GetID()
-		if(id_card?.registered_account)
-			found_list += id_card
-		if(istype(wear_id, /obj/item/storage/wallet))
-			for(var/found_var in wear_id.contents)
-				if(istype(found_var, /obj/item/holochip))
-					found_list += found_var
-	if(belt)
-		var/obj/item/card/id/id_card = belt.GetID()
-		if(id_card?.registered_account)
-			found_list += id_card
-
-	if(length(found_list))
-		return found_list
-	else
-		return null
-	*/
 
 /mob/living/carbon/human/IsAdvancedToolUser()
 	if(HAS_TRAIT(src, TRAIT_MONKEYLIKE))
