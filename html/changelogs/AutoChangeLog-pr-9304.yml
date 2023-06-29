@@ -1,0 +1,5 @@
+author: HowToLoLu
+delete-after: true
+changes:
+  - bugfix: Bartenders now are given a Weapons Permit regardless of player count at
+      the round start.
