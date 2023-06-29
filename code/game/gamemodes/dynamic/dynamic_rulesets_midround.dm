@@ -881,6 +881,7 @@
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	antag_flag = ROLE_NINJA
 	required_type = /mob/dead/observer
+	antag_datum = /datum/antagonist/ninja
 	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	required_enemies = list(2,2,2,2,2,2,2,2,2,2)
 	required_candidates = 1
