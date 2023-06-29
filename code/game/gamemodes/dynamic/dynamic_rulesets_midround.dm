@@ -869,3 +869,58 @@
 		log_game("DYNAMIC: Not enough players volunteered for the ruleset [name] - [candidates.len] out of [required_candidates].")
 		return FALSE
 	return TRUE
+
+//////////////////////////////////////////////
+//                                          //
+//           NINJA      (GHOST)             //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/midround/from_ghosts/ninja
+	name = "Space Ninja"
+	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
+	antag_flag = ROLE_NINJA
+	required_type = /mob/dead/observer
+	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
+	required_enemies = list(2,2,2,2,2,2,2,2,2,2)
+	required_candidates = 0
+	weight = 3
+	cost = 7
+	minimum_players = 20
+	repeatable = TRUE
+	var/spawn_loc
+
+/datum/dynamic_ruleset/midround/from_ghosts/ninja/execute()
+	//selecting a spawn_loc
+	if(!spawn_loc)
+		var/list/spawn_locs = list()
+		for(var/obj/effect/landmark/carpspawn/L in GLOB.landmarks_list)
+			if(isturf(L.loc))
+				spawn_locs += L.loc
+		if(!spawn_locs.len)
+			return FALSE
+		spawn_loc = pick(spawn_locs)
+	if(!spawn_loc)
+		return FALSE
+	return ..()
+
+/datum/dynamic_ruleset/midround/from_ghosts/ninja/generate_ruleset_body(mob/applicant)
+	//Prepare ninja player mind
+	var/datum/mind/Mind = new /datum/mind(applicant.key)
+	Mind.assigned_role = ROLE_NINJA
+	Mind.special_role = ROLE_NINJA
+	Mind.active = TRUE
+
+	//spawn the ninja and assign the candidate
+	var/mob/living/carbon/human/Ninja = create_space_ninja(spawn_loc)
+	Mind.transfer_to(Ninja)
+	var/datum/antagonist/ninja/ninjadatum = new
+	Mind.add_antag_datum(ninjadatum)
+
+	if(Ninja.mind != Mind)			//something has gone wrong!
+		CRASH("Ninja created with incorrect mind")
+
+	message_admins("[ADMIN_LOOKUPFLW(Ninja)] has been made into a ninja by an event")
+	log_game("[key_name(Ninja)] was spawned as a ninja by an event.")
+
+	return Ninja

@@ -31,8 +31,10 @@
 	var/auto_add = TRUE				//Auto add to the event pool, if not you have to do it yourself!
 	var/can_malf_fake_alert = FALSE	//Can be faked by malf ai?
 
-
-	var/dynamic_should_hijack = FALSE	// Whether or not dynamic should hijack this event
+	/// Whether or not dynamic should hijack this event to spawn its own events instead.
+	/// Do not enable this setting without adding a dynamic ruleset to replace it as it will significantly decrease
+	/// the event's spawn rate.
+	var/dynamic_should_hijack = FALSE
 	var/cannot_spawn_after_shuttlecall = FALSE	// Prevents the event from spawning after the shuttle was called
 
 /datum/round_event_control/New()
