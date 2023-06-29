@@ -127,7 +127,7 @@
 			available_cash += id_card.registered_account.account_balance
 	return available_cash
 
-/mob/living/carbon/human/proc/spend_cash(var/to_spend)
+/mob/living/carbon/human/proc/spend_cash(to_spend)
 	if(!to_spend)
 		return FALSE
 	if(to_spend > get_accessible_cash()) //If we don't have enough money, early return
