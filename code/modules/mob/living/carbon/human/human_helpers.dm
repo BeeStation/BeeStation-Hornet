@@ -113,6 +113,10 @@
 		return
 	return held_item.GetID()
 
+/**
+ * Used to fetch all the cash a vendor can access from the human
+ * See /mob/living/carbon/human/proc/get_cash_list() proc for the list of items and inventory slots it searches through
+ */
 /mob/living/carbon/human/proc/get_accessible_cash()
 	var/available_cash = 0
 	var/list/cash_list = get_cash_list()
@@ -127,6 +131,12 @@
 			available_cash += id_card.registered_account.account_balance
 	return available_cash
 
+/**
+ * Used by vendors to see if the human can spend a certain amount of cash.
+ * Returns FALSE if they cannot, TRUE if they can and withdraws the cash.
+ * Arguments:
+ * * to_spend = how much cash needs to be deducted
+ */
 /mob/living/carbon/human/proc/spend_cash(to_spend)
 	if(!to_spend)
 		return FALSE
@@ -153,8 +163,33 @@
 			to_spend -= temp_cash_holder
 	return FALSE
 
-/mob/living/carbon/human/proc/get_cash_list()
+/**
+ * Used to find which 'cash holding items' the human has that are accessible by a vendor.
+ * Searches through both hands, ID and belt slots. Looks inside of wallets and PDAs.
+ * Returns a list consisting of IDs and chip stacks.
+ */
+/mob/living/carbon/human/proc/get_cash_list(list/search_through = null)
 	var/list/found_list = list()
+	if(!search_through)
+		search_through = list(get_active_held_item(), get_inactive_held_item(), wear_id, belt)
+	for(var/obj/item/holochip/found_chip in search_through)
+		if(found_chip.credits > 0)//Just in case
+			found_list += found_chip
+	for(var/obj/item/storage/wallet/found_wallet in search_through)
+		if(length(found_wallet.contents))
+			found_list += get_cash_list(found_wallet.contents)
+	for(var/obj/item/card/id/found_id in search_through)
+		if(found_id?.registered_account)
+			found_list += found_id
+	for(var/obj/item/modular_computer/found_PDA in search_through)
+		var/obj/item/computer_hardware/card_slot/found_card_slot = found_PDA?.all_components[MC_CARD]
+		if(found_card_slot?.stored_card)
+			found_list += found_card_slot.stored_card
+	if(length(found_list))
+		return found_list
+	else
+		return null
+	/*
 	var/obj/item/checking = get_active_held_item()
 	if(checking)
 		var/obj/item/card/id/id_card = checking.GetID()
@@ -195,6 +230,7 @@
 		return found_list
 	else
 		return null
+	*/
 
 /mob/living/carbon/human/IsAdvancedToolUser()
 	if(HAS_TRAIT(src, TRAIT_MONKEYLIKE))
