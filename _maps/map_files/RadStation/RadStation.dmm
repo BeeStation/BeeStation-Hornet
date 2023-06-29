@@ -76084,6 +76084,7 @@
 	id = "toxinsdriver";
 	name = "Toxins Launcher Bay Door"
 	},
+/obj/structure/fans/tiny,
 /turf/open/floor/plasteel/techmaint,
 /area/science/misc_lab)
 "yde" = (
