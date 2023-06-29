@@ -173,13 +173,6 @@
 	if(!search_through)
 		search_through = list(get_active_held_item(), get_inactive_held_item(), wear_id, belt)
 	for(var/obj/item/found_item in search_through)
-		if(istype(found_item, /obj/item/modular_computer)) // if it's a PDA, we'll find a card
-			var/obj/item/modular_computer/found_PDA = found_item
-			var/obj/item/computer_hardware/card_slot/found_card_slot = found_PDA.all_components[MC_CARD]
-			found_item = found_card_slot?.stored_card
-			if(!found_item) // PDA has nothing inside. skip it.
-				continue
-		
 		if(istype(found_item, /obj/item/holochip))
 			var/obj/item/holochip/found_chip = found_item
 			if(found_chip.credits > 0)
@@ -189,6 +182,13 @@
 			var/obj/item/card/id/found_id = found_item
 			if(found_id?.registered_account)
 				found_list += found_id
+			continue
+		if(istype(found_item, /obj/item/modular_computer)) // if it's a PDA, we'll find a card
+			var/obj/item/modular_computer/found_PDA = found_item
+			var/obj/item/computer_hardware/card_slot/found_card_slot = found_PDA.all_components[MC_CARD]
+			found_item = found_card_slot?.stored_card
+			if(found_item)
+				found_list += found_item
 			continue
 		if(istype(found_item, /obj/item/storage/wallet))
 			var/obj/item/storage/wallet/found_wallet = found_item
