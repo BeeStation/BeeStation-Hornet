@@ -42,6 +42,7 @@
 			return
 		else
 			attached_wig = W
+			attached_wig.hat_attached_to = src
 			W.forceMove(src)
 			add_verb(/obj/item/clothing/head/verb/unattach_wig)
 			update_icon()
@@ -57,6 +58,7 @@
 	usr.put_in_hands(attached_wig)
 	if (usr.get_item_by_slot(ITEM_SLOT_HEAD) == src)
 		attached_wig.dropped(usr)
+	attached_wig.hat_attached_to = null
 	attached_wig = null
 	update_icon()
 	remove_verb(/obj/item/clothing/head/verb/unattach_wig)

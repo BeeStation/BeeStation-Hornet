@@ -238,10 +238,16 @@
 	var/gradient_color = "000"
 	var/adjustablecolor = TRUE //can color be changed manually?
 	strip_delay = 10 //It's fake hair, can't be too hard to just grab and pull it off
+	var/obj/item/clothing/head/hat_attached_to = null
 
 /obj/item/clothing/head/wig/Initialize(mapload)
 	. = ..()
 	update_icon()
+
+/obj/item/clothing/head/wig/Destroy()
+	. = ..()
+	if(hat_attached_to)
+		hat_attached_to.attached_wig = null
 
 /obj/item/clothing/head/wig/dropped(mob/user)
 	..()
