@@ -172,19 +172,28 @@
 	var/list/found_list = list()
 	if(!search_through)
 		search_through = list(get_active_held_item(), get_inactive_held_item(), wear_id, belt)
-	for(var/obj/item/holochip/found_chip in search_through)
-		if(found_chip.credits > 0)//Just in case
-			found_list += found_chip
-	for(var/obj/item/storage/wallet/found_wallet in search_through)
-		if(length(found_wallet.contents))
-			found_list += get_cash_list(found_wallet.contents)
-	for(var/obj/item/card/id/found_id in search_through)
-		if(found_id?.registered_account)
-			found_list += found_id
-	for(var/obj/item/modular_computer/found_PDA in search_through)
-		var/obj/item/computer_hardware/card_slot/found_card_slot = found_PDA?.all_components[MC_CARD]
-		if(found_card_slot?.stored_card)
-			found_list += found_card_slot.stored_card
+	for(var/found_item in search_through)
+		if(istype(found_item, /obj/item/holochip))
+			var/obj/item/holochip/found_chip = found_item
+			if(found_chip.credits > 0)
+				found_list += found_chip
+			continue
+		if(istype(found_item, /obj/item/card/id))
+			var/obj/item/card/id/found_id = found_item
+			if(found_id?.registered_account)
+				found_list += found_id
+			continue
+		if(istype(found_item, /obj/item/modular_computer))
+			var/obj/item/modular_computer/found_PDA = found_item
+			var/obj/item/computer_hardware/card_slot/found_card_slot = found_PDA.all_components[MC_CARD]
+			if(found_card_slot?.stored_card)
+				found_list += found_card_slot.stored_card
+			continue
+		if(istype(found_item, /obj/item/storage/wallet))
+			var/obj/item/storage/wallet/found_wallet = found_item
+			if(length(found_wallet.contents))
+				found_list += get_cash_list(found_wallet.contents)
+			continue
 	if(length(found_list))
 		return found_list
 	else
