@@ -72,3 +72,23 @@
 #define COOLDOWN_RESET(cd_source, cd_index) cd_source.cd_index = 0
 
 #define COOLDOWN_TIMELEFT(cd_source, cd_index) (max(0, cd_source.cd_index - world.time))
+
+
+
+// when a timer should track targets individually
+// this is useful when an item should individually trigger cooldown time per mob
+#define COOLDOWN_LIST_DECLARE(cd_index) var/list/##cd_index = list()
+
+#define COOLDOWN_STATIC_LIST_DECLARE(cd_index) var/static/list/##cd_index = list()
+
+/// IMPORTANT: "cd_target" should be individual because it's assoc key
+#define COOLDOWN_LIST_START(cd_target, cd_source, cd_index, cd_time) (cd_source.cd_index[cd_target] = world.time + (cd_time))
+
+#define COOLDOWN_LIST_FINISHED(cd_target, cd_source, cd_index) (cd_source.cd_index[cd_target] < world.time)
+
+#define COOLDOWN_LIST_RESET(cd_target, cd_source, cd_index) cd_source.cd_index[cd_target] = 0
+
+#define COOLDOWN_LIST_TIMELEFT(cd_target, cd_source, cd_index) (max(0, cd_source.cd_index[cd_target] - world.time))
+
+/// use to change existing cooldown
+#define COOLDOWN_LIST_ADJUST_TIME(cd_target, cd_source, cd_index, cd_time) (cd_source.cd_index[cd_target] = cd_source.cd_index[cd_target] - (cd_time))
