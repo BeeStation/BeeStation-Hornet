@@ -117,9 +117,10 @@
  * Used to fetch all the cash a vendor can access from the human
  * See /mob/living/carbon/human/proc/get_cash_list() proc for the list of items and inventory slots it searches through
  */
-/mob/living/carbon/human/proc/get_accessible_cash()
+/mob/living/carbon/human/proc/get_accessible_cash(list/cash_list = null)
 	var/available_cash = 0
-	var/list/cash_list = get_cash_list()
+	if(!cash_list)
+		cash_list = get_cash_list()
 	if(!length(cash_list))
 		return 0
 	for(var/found_item in cash_list)
@@ -140,10 +141,10 @@
 /mob/living/carbon/human/proc/spend_cash(to_spend)
 	if(!to_spend)
 		return FALSE
-	if(to_spend > get_accessible_cash()) //If we don't have enough money, early return
-		return FALSE
 	var/list/cash_list = get_cash_list()
-	if(!length(cash_list)) //Another check, just in case
+	if(!length(cash_list)) //We have no accessible cash items, early return
+		return FALSE
+	if(to_spend > get_accessible_cash(cash_list)) //If we don't have enough money, early return
 		return FALSE
 	for(var/obj/item/holochip/chip_stack in cash_list)//Holochips take priority over ID cards
 		if(chip_stack.credits >= to_spend)
