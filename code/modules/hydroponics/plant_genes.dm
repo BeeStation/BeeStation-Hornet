@@ -254,11 +254,11 @@
 	COOLDOWN_STATIC_LIST_DECLARE(recent_victims)
 
 /datum/plant_gene/trait/cell_charge/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
-	if(!COOLDOWN_LIST_FINISHED(C, src, recent_victims)) // if you were a victim recently, you won't get it again
+	if(!COOLDOWN_LIST_FINISHED(src, recent_victims, C)) // if you were a victim recently, you won't get it again
 		return
 	var/power = round(G.seed.potency*rate)
 	if(prob(power))
-		COOLDOWN_LIST_START(C, src, recent_victims, 2 SECONDS)
+		COOLDOWN_LIST_START(src, recent_victims, C, 2 SECONDS)
 		C.electrocute_act(power, G, 1, 1)
 		var/turf/T = get_turf(C)
 		if(C.ckey != G.fingerprintslast)
@@ -266,13 +266,13 @@
 			log_combat(C, G, "slipped on and got electrocuted by", null, "with the power of 10. Last fingerprint: [G.fingerprintslast]")
 
 /datum/plant_gene/trait/cell_charge/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
-	if(!COOLDOWN_LIST_FINISHED(target, src, recent_victims)) // if you were a victim recently, you won't get it again
+	if(!COOLDOWN_LIST_FINISHED(src, recent_victims, target)) // if you were a victim recently, you won't get it again
 		return
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
 		var/power = G.seed.potency*rate
 		if(prob(power))
-			COOLDOWN_LIST_START(C, src, recent_victims, 2 SECONDS)
+			COOLDOWN_LIST_START(src, recent_victims, C, 2 SECONDS)
 			C.electrocute_act(round(power), G, 1, 1)
 			if(C.ckey != G.fingerprintslast)
 				log_combat(G.thrownby, C, "hit and electrocuted", G, "at [AREACOORD(G)] with power of [power]")
@@ -480,7 +480,7 @@
 		prick_efficiency = 0.2 // bonus to "death" nettle (maximum: 20u)
 	else if(G.force)
 		prick_efficiency = 0.15 // bonus to blunt plants (miaxmum: 15u)
-	if(!COOLDOWN_LIST_FINISHED(L, src, recent_victims)) // until 10s cooldown time from a victim is finished, the effective becomes half
+	if(!COOLDOWN_LIST_FINISHED(src, recent_victims, L)) // until 10s cooldown time from a victim is finished, the effective becomes half
 		prick_efficiency = round(prick_efficiency/2, 0.01) // i.e) 15u to 7.5u
 
 	var/injecting_amount = round(max(1, G.seed.potency * prick_efficiency), 0.1) // mimumum 1u to maximum 5/10/15/20u
@@ -488,7 +488,7 @@
 	G.reagents.reaction(L, INJECT, fraction)
 	G.reagents.trans_to(L, injecting_amount)
 	to_chat(L, "<span class='danger'>You are pricked by [G]!</span>")
-	COOLDOWN_LIST_START(L, src, recent_victims, 10 SECONDS) // this refreshes 10s cooldown time. repeated attack will not be effective
+	COOLDOWN_LIST_START(src, recent_victims, L, 10 SECONDS) // this refreshes 10s cooldown time. repeated attack will not be effective
 	return TRUE
 
 /datum/plant_gene/trait/smoke

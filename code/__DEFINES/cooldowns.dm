@@ -32,14 +32,14 @@
 
 //TIMER COOLDOWN MACROS
 
-#define COMSIG_CD_STOP(cd_index) "cooldown_[cd_index]"
-#define COMSIG_CD_RESET(cd_index) "cd_reset_[cd_index]"
+#define COMSIG_CD_STOP(cd_name) "cooldown_[cd_name]"
+#define COMSIG_CD_RESET(cd_name) "cd_reset_[cd_name]"
 
-#define TIMER_COOLDOWN_START(cd_source, cd_index, cd_time) LAZYSET(cd_source.cooldowns, cd_index, addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(end_cooldown), cd_source, cd_index), cd_time))
+#define TIMER_COOLDOWN_START(cd_source, cd_name, cd_time) LAZYSET(cd_source.cooldowns, cd_name, addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(end_cooldown), cd_source, cd_name), cd_time))
 
-#define TIMER_COOLDOWN_CHECK(cd_source, cd_index) LAZYACCESS(cd_source.cooldowns, cd_index)
+#define TIMER_COOLDOWN_CHECK(cd_source, cd_name) LAZYACCESS(cd_source.cooldowns, cd_name)
 
-#define TIMER_COOLDOWN_END(cd_source, cd_index) LAZYREMOVE(cd_source.cooldowns, cd_index)
+#define TIMER_COOLDOWN_END(cd_source, cd_name) LAZYREMOVE(cd_source.cooldowns, cd_name)
 
 /*
  * Stoppable timer cooldowns.
@@ -48,11 +48,11 @@
  * A bit more expensive than the regular timers, but can be reset before they end and the time left can be checked.
 */
 
-#define S_TIMER_COOLDOWN_START(cd_source, cd_index, cd_time) LAZYSET(cd_source.cooldowns, cd_index, addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(end_cooldown), cd_source, cd_index), cd_time, TIMER_STOPPABLE))
+#define S_TIMER_COOLDOWN_START(cd_source, cd_name, cd_time) LAZYSET(cd_source.cooldowns, cd_name, addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(end_cooldown), cd_source, cd_name), cd_time, TIMER_STOPPABLE))
 
-#define S_TIMER_COOLDOWN_RESET(cd_source, cd_index) reset_cooldown(cd_source, cd_index)
+#define S_TIMER_COOLDOWN_RESET(cd_source, cd_name) reset_cooldown(cd_source, cd_name)
 
-#define S_TIMER_COOLDOWN_TIMELEFT(cd_source, cd_index) (timeleft(TIMER_COOLDOWN_CHECK(cd_source, cd_index)))
+#define S_TIMER_COOLDOWN_TIMELEFT(cd_source, cd_name) (timeleft(TIMER_COOLDOWN_CHECK(cd_source, cd_name)))
 
 
 /*
@@ -60,35 +60,35 @@
  * Better performance over timer cooldowns, lower control. Same functionality.
 */
 
-#define COOLDOWN_DECLARE(cd_index) var/##cd_index = 0
+#define COOLDOWN_DECLARE(cd_name) var/##cd_name = 0
 
-#define COOLDOWN_STATIC_DECLARE(cd_index) var/static/##cd_index = 0
+#define COOLDOWN_STATIC_DECLARE(cd_name) var/static/##cd_name = 0
 
-#define COOLDOWN_START(cd_source, cd_index, cd_time) (cd_source.cd_index = world.time + (cd_time))
+#define COOLDOWN_START(cd_source, cd_name, cd_time) (cd_source.cd_name = world.time + (cd_time))
 
 //Returns true if the cooldown has run its course, false otherwise
-#define COOLDOWN_FINISHED(cd_source, cd_index) (cd_source.cd_index < world.time)
+#define COOLDOWN_FINISHED(cd_source, cd_name) (cd_source.cd_name < world.time)
 
-#define COOLDOWN_RESET(cd_source, cd_index) cd_source.cd_index = 0
+#define COOLDOWN_RESET(cd_source, cd_name) cd_source.cd_name = 0
 
-#define COOLDOWN_TIMELEFT(cd_source, cd_index) (max(0, cd_source.cd_index - world.time))
+#define COOLDOWN_TIMELEFT(cd_source, cd_name) (max(0, cd_source.cd_name - world.time))
 
 
 
 // when a timer should track targets individually
 // this is useful when an item should individually trigger cooldown time per mob
-#define COOLDOWN_LIST_DECLARE(cd_index) var/list/##cd_index = list()
+#define COOLDOWN_LIST_DECLARE(cd_name) var/list/##cd_name = list()
 
-#define COOLDOWN_STATIC_LIST_DECLARE(cd_index) var/static/list/##cd_index = list()
+#define COOLDOWN_STATIC_LIST_DECLARE(cd_name) var/static/list/##cd_name = list()
 
-/// IMPORTANT: "cd_target" should be individual because it's assoc key
-#define COOLDOWN_LIST_START(cd_target, cd_source, cd_index, cd_time) (cd_source.cd_index[cd_target] = world.time + (cd_time))
+/// IMPORTANT: "cd_target_index" should be individual because it's assoc key
+#define COOLDOWN_LIST_START(cd_source, cd_name, cd_target_index, cd_time) (cd_source.cd_name[cd_target_index] = world.time + (cd_time))
 
-#define COOLDOWN_LIST_FINISHED(cd_target, cd_source, cd_index) (cd_source.cd_index[cd_target] < world.time)
+#define COOLDOWN_LIST_FINISHED(cd_source, cd_name, cd_target_index) (cd_source.cd_name[cd_target_index] < world.time)
 
-#define COOLDOWN_LIST_RESET(cd_target, cd_source, cd_index) cd_source.cd_index[cd_target] = 0
+#define COOLDOWN_LIST_RESET(cd_source, cd_name, cd_target_index) cd_source.cd_name[cd_target_index] = 0
 
-#define COOLDOWN_LIST_TIMELEFT(cd_target, cd_source, cd_index) (max(0, cd_source.cd_index[cd_target] - world.time))
+#define COOLDOWN_LIST_TIMELEFT(cd_source, cd_name, cd_target_index) (max(0, cd_source.cd_name[cd_target_index] - world.time))
 
 /// use to change existing cooldown
-#define COOLDOWN_LIST_ADJUST_TIME(cd_target, cd_source, cd_index, cd_time) (cd_source.cd_index[cd_target] = cd_source.cd_index[cd_target] - (cd_time))
+#define COOLDOWN_LIST_ADJUST_TIME(cd_source, cd_name, cd_target_index, cd_time) (cd_source.cd_name[cd_target_index] = cd_source.cd_name[cd_target_index] - (cd_time))
