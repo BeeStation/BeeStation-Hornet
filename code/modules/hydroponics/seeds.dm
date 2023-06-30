@@ -191,12 +191,17 @@
 	return result
 
 
-/obj/item/seeds/proc/prepare_result(var/obj/item/T)
+/obj/item/seeds/proc/prepare_result(obj/item/T)
 	if(!T.reagents)
 		CRASH("[T] has no reagents.")
 
+	var/output_multiply = 1
+	var/datum/plant_gene/trait/richer_juice/richer_juice = locate(/datum/plant_gene/trait/richer_juice) in genes
+	if(richer_juice)
+		output_multiply = richer_juice.rate
+
 	for(var/rid in reagents_add)
-		var/amount = 1 + round(potency * reagents_add[rid], 1)
+		var/amount = (1 + round(potency * reagents_add[rid], 1)) * output_multiply
 
 		var/list/data = null
 		if(rid == /datum/reagent/blood) // Hack to make blood in plants always O-

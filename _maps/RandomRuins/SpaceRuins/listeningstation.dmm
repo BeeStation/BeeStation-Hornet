@@ -46,7 +46,7 @@
 /turf/closed/wall/r_wall,
 /area/ruin/space/has_grav/listeningstation)
 "ah" = (
-/obj/machinery/computer/camera_advanced{
+/obj/machinery/computer/camera_advanced/syndie{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,

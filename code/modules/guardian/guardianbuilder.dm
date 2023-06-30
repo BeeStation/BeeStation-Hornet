@@ -105,7 +105,7 @@
 		return
 	switch(action)
 		if("name")
-			guardian_name = params["name"]
+			guardian_name = reject_bad_name(params["name"], TRUE)
 			. = TRUE
 		if("set")
 			switch(params["name"])
