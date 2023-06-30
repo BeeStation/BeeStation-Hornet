@@ -112,7 +112,7 @@
 			if(C.is_afk())
 				continue //Don't show afk admins to adminwho
 			if(!C.holder.fakekey)
-				if(check_rights_for(C, R_ADMIN)) // ahelp needs R_ADMIN. If they don't have this perm, it means they're not admin
+				if(check_rights_for(C, R_ADMIN)) // ahelp needs R_ADMIN. If they have R_ADMIN, they'll be listed in admin list.
 					var/rank = "\improper [C.holder.rank]"
 					admin_list += "\t[C] is \a [rank]\n"
 				else // admins without R_ADMIN perm should be sorted in different area, so that people won't believe coders will handle ahelp
