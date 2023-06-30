@@ -34,6 +34,7 @@
 	name = "moffin"
 	icon_state = "moffin_1"
 	base_icon_state = "moffin"
+	icon_state_preview = "moffin_1"
 	desc = "A delicious and spongy little cake."
 	tastes = list("muffin" = 3, "dust" = 1, "lint" = 1)
 	foodtypes = CLOTH | GRAIN | SUGAR | BREAKFAST

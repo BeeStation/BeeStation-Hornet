@@ -295,6 +295,7 @@
 		/datum/reagent/consumable/nutriment/vitamin = 1
 	)
 	icon = 'icons/obj/food/meat.dmi'
+	icon_state_preview = "nugget_lizard"
 	tastes = list("\"chicken\"" = 1)
 	foodtypes = MEAT
 	food_flags = FOOD_FINGER_FOOD
