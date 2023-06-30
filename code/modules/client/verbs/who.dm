@@ -118,14 +118,13 @@
 				else // admins without R_ADMIN perm should be sorted in different area, so that people won't believe coders will handle ahelp
 					var/rank = "\improper [C.holder.rank]"
 					non_admin_list += "\t[C] is \a [rank]\n"
-		admin_list += "\trandomckey1234 is an Admin\n"
-		non_admin_list += "\trandomckey6789 is a Coder\n"
+
 		msg = "<b>Current Admins:</b>\n"
 		for(var/each in admin_list)
 			msg += each
 		if(length(non_admin_list)) // notifying the absence of non-admins has no point
 			msg += "<b>Current Non-admin staffs:</b>\n"
-			msg += "\t<span class='info'>Please be aware that non-admin staffs can't handle adminhelp tickets.</span>\n"
+			msg += "\t(Note: non-admin staffs can't handle adminhelp tickets.)\n"
 			for(var/each in non_admin_list)
 				msg += each
 		msg += "<b>Current Mentors:</b>\n"
