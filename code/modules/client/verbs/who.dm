@@ -124,7 +124,7 @@
 			msg += each
 		if(length(non_admin_list)) // notifying the absence of non-admins has no point
 			msg += "<b>Current Non-admin staffs:</b>\n"
-			msg += "\t(Note: non-admin staffs can't handle adminhelp tickets.)\n"
+			msg += "\t(Note: non-admin staff are unable to handle adminhelp tickets.)\n"
 			for(var/each in non_admin_list)
 				msg += each
 		msg += "<b>Current Mentors:</b>\n"
