@@ -124,6 +124,7 @@
 	name = "omega cannabis leaf"
 	desc = "You feel dizzy looking at it. What the fuck?"
 	icon_state = "ocannabis"
-	volume = 270
+	volume = 420
+	bitesize = 1
 	wine_power = 90
 	discovery_points = 300

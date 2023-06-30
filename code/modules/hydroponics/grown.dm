@@ -56,7 +56,7 @@
 /obj/item/reagent_containers/food/snacks/grown/proc/add_juice()
 	if(reagents)
 		if(bitesize_mod)
-			bitesize = 1 + round(reagents.total_volume / bitesize_mod)
+			bitesize = max(1, round(reagents.total_volume / bitesize_mod))
 		return 1
 	return 0
 
