@@ -821,6 +821,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 
 /datum/objective/capture
 	name = "capture"
+	var/amount_captured
 
 /datum/objective/capture/proc/gen_amount_goal()
 	target_amount = rand(5,10)
@@ -832,32 +833,24 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	explanation_text = "Capture [target_amount] lifeform\s with an energy net. Live, rare specimens are worth more."
 
 /datum/objective/capture/check_completion()//Basically runs through all the mobs in the area to determine how much they are worth.
-	var/captured_amount = 0
-	var/area/centcom/holding/A = GLOB.areas_by_type[/area/centcom/holding]
-	for(var/mob/living/carbon/human/M in A)//Humans.
-		if(M.stat == DEAD)//Dead folks are worth less.
-			captured_amount+=0.5
-			continue
-		captured_amount+=1
-	for(var/mob/living/carbon/monkey/M in A)//Monkeys are almost worthless, you failure.
-		captured_amount+=0.1
-	for(var/mob/living/carbon/alien/larva/M in A)//Larva are important for research.
-		if(M.stat == DEAD)
-			captured_amount+=0.5
-			continue
-		captured_amount+=1
-	for(var/mob/living/carbon/alien/humanoid/M in A)//Aliens are worth twice as much as humans.
-		if(istype(M, /mob/living/carbon/alien/humanoid/royal/queen))//Queens are worth three times as much as humans.
-			if(M.stat == DEAD)
-				captured_amount+=1.5
-			else
-				captured_amount+=3
-			continue
-		if(M.stat == DEAD)
-			captured_amount+=1
-			continue
-		captured_amount+=2
-	return (captured_amount >= target_amount) || ..()
+	return (amount_captured >= target_amount) || ..()
+
+/datum/objective/capture/proc/register_capture(mob/living/L)
+	var/worth = 0
+	if (istype(L, /mob/living/carbon/human))
+		worth = 1
+	else if (istype(L, /mob/living/carbon/monkey))
+		worth = 0.1
+	else if (istype(L, /mob/living/carbon/alien/larva))
+		worth = 1
+	else if (istype(L, /mob/living/carbon/alien/humanoid/royal/queen))
+		worth = 3
+	else if (istype(L, /mob/living/carbon/alien/humanoid))
+		worth = 2
+	if (L.stat == DEAD)
+		worth /= 2
+	amount_captured += worth
+	return worth
 
 /datum/objective/capture/admin_edit(mob/admin)
 	var/count = input(admin,"How many mobs to capture ?","capture",target_amount) as num|null
