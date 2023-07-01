@@ -1,5 +1,0 @@
-author: Absolucy, tralezab
-delete-after: true
-changes:
-  - rscadd: Added tgui-based antag info popups for multiple antags, replacing the
-      previous basic popups and info.
