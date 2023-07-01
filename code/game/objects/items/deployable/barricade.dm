@@ -205,7 +205,6 @@
 	if(..())
 		var/obj/item/deployable/barricade/security/carryable = new(loc)
 		usr.put_in_hands(carryable)
-		qdel(src)
 
 #undef METAL
 #undef WOOD
