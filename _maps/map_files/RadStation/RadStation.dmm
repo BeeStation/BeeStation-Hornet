@@ -1852,6 +1852,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/aisat_interior)
 "aHb" = (
