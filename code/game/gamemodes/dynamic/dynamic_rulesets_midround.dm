@@ -906,22 +906,19 @@
 	return ..()
 
 /datum/dynamic_ruleset/midround/from_ghosts/ninja/generate_ruleset_body(mob/applicant)
+	//spawn the ninja and assign the candidate
+	var/mob/living/carbon/human/Ninja = create_space_ninja(spawn_loc)
+
 	//Prepare ninja player mind
 	var/datum/mind/Mind = new /datum/mind(applicant.key)
 	Mind.assigned_role = ROLE_NINJA
 	Mind.special_role = ROLE_NINJA
 	Mind.active = TRUE
-
-	//spawn the ninja and assign the candidate
-	var/mob/living/carbon/human/Ninja = create_space_ninja(spawn_loc)
 	Mind.transfer_to(Ninja)
 	var/datum/antagonist/ninja/ninjadatum = new
 	Mind.add_antag_datum(ninjadatum)
 
-	if(Ninja.mind != Mind)			//something has gone wrong!
-		CRASH("Ninja created with incorrect mind")
-
-	message_admins("[ADMIN_LOOKUPFLW(Ninja)] has been made into a ninja by an event")
-	log_game("[key_name(Ninja)] was spawned as a ninja by an event.")
+	message_admins("[ADMIN_LOOKUPFLW(Ninja)] has been made into a ninja by the midround ruleset")
+	log_game("[key_name(Ninja)] was spawned as a ninja by the midround ruleset.")
 
 	return Ninja
