@@ -123,7 +123,7 @@
 		for(var/each in admin_list)
 			msg += each
 		if(length(non_admin_list)) // notifying the absence of non-admins has no point
-			msg += "<b>Current Non-admin staffs:</b>\n"
+			msg += "<b>Current Maintainers:</b>\n"
 			msg += "\t(Note: non-admin staff are unable to handle adminhelp tickets.)\n"
 			for(var/each in non_admin_list)
 				msg += each
