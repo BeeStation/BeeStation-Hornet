@@ -320,7 +320,7 @@
 
 		// Check if we can move here
 		current_area = current_location.loc
-		if(!current_location || current_area.teleport_restriction || is_away_level(current_location.z) || is_centcom_level(current_location.z) || !isturf(user.loc))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
+		if(!do_teleport(C, current_location, no_effects = TRUE, channel = TELEPORT_CHANNEL_BLINK))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
 			current_location = previous
 			break
 		// If it contains objects, try to break it
@@ -338,7 +338,6 @@
 
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(get_turf(user))
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(current_location)
-	do_teleport(C, current_location, channel = TELEPORT_CHANNEL_BLINK)
 	charges--
 	check_charges()
 	playsound(current_location, 'sound/effects/phasein.ogg', 25, 1)
@@ -347,7 +346,7 @@
 /obj/item/teleporter/proc/telefrag(turf/fragging_location, mob/user)
 	for(var/mob/living/target in fragging_location)//Hit everything in the turf
 		// Skip any mobs that aren't standing, or aren't dense
-		if (!(target.mobility_flags & MOBILITY_STAND) || !target.density)
+		if (!(target.mobility_flags & MOBILITY_STAND) || !target.density || user == target)
 			continue
 		// Run armour checks and apply damage
 		var/armor_block = target.run_armor_check(BODY_ZONE_CHEST, MELEE)
