@@ -29,6 +29,13 @@ again.
 		pipe_astar_cost = 1\
 	)
 
+/obj/effect/spawner/structure/window/Initialize(mapload)
+	var/turf/T = get_turf(src)
+	if(!!T.density)
+		log_mapping("[src] is inside of a closed turf at [AREACOORD(src)]")
+		return INITIALIZE_HINT_QDEL //break and don't spawn whatever we were supposed to spawn
+	. = ..()
+
 /obj/effect/spawner/structure/window/hollow
 	name = "hollow window spawner"
 	icon_state = "hwindow_spawner_full"
