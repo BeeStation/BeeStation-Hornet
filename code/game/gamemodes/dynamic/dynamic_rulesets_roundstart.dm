@@ -73,7 +73,7 @@
 		pre_brother_teams += team
 	return TRUE
 
-/datum/dynamic_ruleset/roundstart/traitorbro/execute()
+/datum/dynamic_ruleset/roundstart/traitorbro/execute(forced = FALSE)
 	for(var/datum/team/brother_team/team in pre_brother_teams)
 		team.pick_meeting_area()
 		team.forge_brother_objectives()
@@ -81,7 +81,7 @@
 			M.add_antag_datum(/datum/antagonist/brother, team)
 		team.update_name()
 	mode.brother_teams += pre_brother_teams
-	return TRUE
+	return DYNAMIC_EXECUTE_SUCCESS
 
 //////////////////////////////////////////////
 //                                          //
@@ -112,12 +112,6 @@
 		assigned += M.mind
 		M.mind.restricted_roles = restricted_roles
 		M.mind.special_role = ROLE_CHANGELING
-	return TRUE
-
-/datum/dynamic_ruleset/roundstart/changeling/execute()
-	for(var/datum/mind/changeling in assigned)
-		var/datum/antagonist/changeling/new_antag = new antag_datum()
-		changeling.add_antag_datum(new_antag)
 	return TRUE
 
 //////////////////////////////////////////////
@@ -151,15 +145,6 @@
 		assigned += picked_candidate.mind
 		picked_candidate.mind.restricted_roles = restricted_roles
 		picked_candidate.mind.special_role = ROLE_HERETIC
-	return TRUE
-
-/datum/dynamic_ruleset/roundstart/heretics/execute()
-
-	for(var/c in assigned)
-		var/datum/mind/cultie = c
-		var/datum/antagonist/heretic/new_antag = new antag_datum()
-		cultie.add_antag_datum(new_antag)
-
 	return TRUE
 
 
@@ -202,11 +187,11 @@
 
 	return TRUE
 
-/datum/dynamic_ruleset/roundstart/wizard/execute()
+/datum/dynamic_ruleset/roundstart/wizard/execute(forced = FALSE)
 	for(var/datum/mind/M in assigned)
 		M.current.forceMove(pick(GLOB.wizardstart))
 		M.add_antag_datum(new antag_datum())
-	return TRUE
+	return DYNAMIC_EXECUTE_SUCCESS
 
 //////////////////////////////////////////////
 //                                          //
@@ -245,7 +230,7 @@
 		M.mind.restricted_roles = restricted_roles
 	return TRUE
 
-/datum/dynamic_ruleset/roundstart/bloodcult/execute()
+/datum/dynamic_ruleset/roundstart/bloodcult/execute(forced = FALSE)
 	main_cult = new
 	for(var/datum/mind/M in assigned)
 		var/datum/antagonist/cult/new_cultist = new antag_datum()
@@ -253,7 +238,7 @@
 		new_cultist.give_equipment = TRUE
 		M.add_antag_datum(new_cultist)
 	main_cult.setup_objectives()
-	return TRUE
+	return DYNAMIC_EXECUTE_SUCCESS
 
 /datum/dynamic_ruleset/roundstart/bloodcult/round_result()
 	..()
@@ -302,7 +287,7 @@
 		M.mind.special_role = "Nuclear Operative"
 	return TRUE
 
-/datum/dynamic_ruleset/roundstart/nuclear/execute()
+/datum/dynamic_ruleset/roundstart/nuclear/execute(forced = FALSE)
 	var/leader = TRUE
 	for(var/datum/mind/M in assigned)
 		if (leader)
@@ -312,7 +297,7 @@
 		else
 			var/datum/antagonist/nukeop/new_op = new antag_datum()
 			M.add_antag_datum(new_op)
-	return TRUE
+	return DYNAMIC_EXECUTE_SUCCESS
 
 /datum/dynamic_ruleset/roundstart/nuclear/round_result()
 	var result = nuke_team.get_result()
@@ -389,7 +374,7 @@
 		M.mind.special_role = antag_flag
 	return TRUE
 
-/datum/dynamic_ruleset/roundstart/revs/execute()
+/datum/dynamic_ruleset/roundstart/revs/execute(forced = FALSE)
 	revolution = new()
 	for(var/datum/mind/M in assigned)
 		if(check_eligible(M))
@@ -405,9 +390,9 @@
 		revolution.update_objectives()
 		revolution.update_heads()
 		SSshuttle.registerHostileEnvironment(revolution)
-		return TRUE
+		return DYNAMIC_EXECUTE_SUCCESS
 	log_game("DYNAMIC: [ruletype] [name] failed to get any eligible headrevs. Refunding [cost] threat.")
-	return FALSE
+	return DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS
 
 /datum/dynamic_ruleset/roundstart/revs/clean_up()
 	qdel(revolution)
@@ -514,11 +499,11 @@
 		log_game("[key_name(devil)] has been selected as a devil")
 	return TRUE
 
-/datum/dynamic_ruleset/roundstart/devil/execute()
+/datum/dynamic_ruleset/roundstart/devil/execute(forced = FALSE)
 	for(var/datum/mind/devil in assigned)
 		add_devil(devil.current, ascendable = TRUE)
 		add_devil_objectives(devil,2)
-	return TRUE
+	return DYNAMIC_EXECUTE_SUCCESS
 
 /datum/dynamic_ruleset/roundstart/devil/proc/add_devil_objectives(datum/mind/devil_mind, quantity)
 	var/list/validtypes = list(/datum/objective/devil/soulquantity, /datum/objective/devil/soulquality, /datum/objective/devil/sintouch, /datum/objective/devil/buy_target)
@@ -608,7 +593,7 @@
 	generate_clockcult_scriptures()
 	return TRUE
 
-/datum/dynamic_ruleset/roundstart/clockcult/execute()
+/datum/dynamic_ruleset/roundstart/clockcult/execute(forced = FALSE)
 	var/list/spawns = GLOB.servant_spawns.Copy()
 	main_cult = new
 	main_cult.setup_objectives()
@@ -622,7 +607,7 @@
 		S.prefix = CLOCKCULT_PREFIX_MASTER
 	//Setup the conversion limits for auto opening the ark
 	calculate_clockcult_values()
-	return ..()
+	return DYNAMIC_EXECUTE_SUCCESS
 
 /datum/dynamic_ruleset/roundstart/clockcult/round_result()
 	if(GLOB.ratvar_risen)
@@ -667,7 +652,7 @@
 		M.mind.restricted_roles = restricted_roles
 	return TRUE
 
-/datum/dynamic_ruleset/roundstart/incursion/execute()
+/datum/dynamic_ruleset/roundstart/incursion/execute(forced = FALSE)
 	incursion_team = new
 	incursion_team.forge_team_objectives(restricted_roles)
 	for(var/datum/mind/M in assigned)
@@ -675,7 +660,7 @@
 		new_incursionist.team = incursion_team
 		incursion_team.add_member(M)
 		M.add_antag_datum(new_incursionist)
-	return TRUE
+	return DYNAMIC_EXECUTE_SUCCESS
 
 /datum/dynamic_ruleset/roundstart/incursion/round_result()
 	..()
@@ -710,10 +695,4 @@
 		assigned += M.mind
 		M.mind.restricted_roles = restricted_roles
 		M.mind.special_role = ROLE_HIVE
-	return TRUE
-
-/datum/dynamic_ruleset/roundstart/hivemind/execute()
-	for(var/datum/mind/host in assigned)
-		var/datum/antagonist/hivemind/new_antag = new antag_datum()
-		host.add_antag_datum(new_antag)
 	return TRUE

@@ -465,7 +465,7 @@
 		return
 
 	if(species.current_extract)
-		species.extract_cooldown = world.time + 100
+		species.extract_cooldown = world.time + 10 SECONDS
 		var/cooldown = species.current_extract.activate(H, species, activation_type)
 		species.extract_cooldown = world.time + cooldown
 

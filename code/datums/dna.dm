@@ -432,6 +432,10 @@
 		if(part.no_update)
 			continue
 		part.update_limb(dropping_limb = FALSE, source = src, is_creating = TRUE)
+	var/obj/item/organ/eyes/organ_eyes = getorgan(/obj/item/organ/eyes)
+	if(organ_eyes)
+		organ_eyes.eye_color = eye_color
+		organ_eyes.old_eye_color = eye_color
 	if(icon_update)
 		update_body()
 		update_hair()
