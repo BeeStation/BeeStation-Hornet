@@ -14,10 +14,11 @@
 	icon_living = "mook"
 	icon_dead = "mook_dead"
 	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
-	SET_BASE_PIXEL(-16, -8)
+	pixel_x = -16
 	maxHealth = 45
 	health = 45
 	melee_damage = 30
+	pixel_y = -8
 	ranged = TRUE
 	ranged_cooldown_time = 10
 	pass_flags_self = LETPASSTHROW
@@ -213,7 +214,8 @@
 	icon = 'icons/mob/jungle/mook.dmi'
 	icon_state = "mook_leap_cloud"
 	layer = BELOW_MOB_LAYER
-	SET_BASE_PIXEL(-16, -16)
+	pixel_x = -16
+	pixel_y = -16
 	duration = 10
 
 #undef MOOK_ATTACK_NEUTRAL

@@ -22267,6 +22267,11 @@
 /area/medical/medbay/central)
 "cgl" = (
 /obj/structure/table/reinforced,
+/obj/item/paper/fluff/jobs/medical/hippocratic,
+/obj/item/pen{
+	pixel_x = -3;
+	pixel_y = 5
+	},
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -22279,14 +22284,6 @@
 	name = "isolation shutters"
 	},
 /obj/machinery/door/firedoor,
-/obj/item/paper_bin{
-	pixel_x = -2;
-	pixel_y = 3
-	},
-/obj/item/pen{
-	pixel_x = -3;
-	pixel_y = 5
-	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "cgm" = (
@@ -31897,10 +31894,6 @@
 	name = "isolation shutters"
 	},
 /obj/machinery/door/firedoor,
-/obj/item/folder/white{
-	pixel_x = 1;
-	pixel_y = 4
-	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "esg" = (
@@ -38631,13 +38624,9 @@
 /area/crew_quarters/cryopods)
 "hsT" = (
 /obj/structure/table/reinforced,
-/obj/item/paper,
-/obj/item/folder/red{
-	pixel_x = 3
-	},
-/obj/item/folder/blue{
-	pixel_x = -2;
-	pixel_y = 3
+/obj/machinery/fax{
+	fax_name = "Security";
+	name = "Security Fax Machine"
 	},
 /turf/open/floor/plasteel,
 /area/security/main)
@@ -43904,11 +43893,18 @@
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
 "jLU" = (
+/obj/item/paper_bin{
+	pixel_x = -2;
+	pixel_y = 3
+	},
+/obj/item/folder/white{
+	pixel_x = 1;
+	pixel_y = 4
+	},
 /obj/structure/table/glass,
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 1
 	},
-/obj/machinery/fax/med,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "jLY" = (
@@ -53260,7 +53256,10 @@
 	dir = 2
 	},
 /obj/structure/table,
-/obj/machinery/fax/service,
+/obj/machinery/fax{
+	fax_name = "Service";
+	name = "Service Fax Machine"
+	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
 "nKz" = (
@@ -57013,7 +57012,10 @@
 /obj/machinery/newscaster{
 	pixel_x = -31
 	},
-/obj/machinery/fax/law,
+/obj/machinery/fax{
+	fax_name = "Lawyer";
+	name = "Lawyer Fax Machine"
+	},
 /turf/open/floor/carpet/green,
 /area/lawoffice)
 "ptp" = (
@@ -66944,6 +66946,13 @@
 /area/bridge)
 "tGC" = (
 /obj/structure/table/reinforced,
+/obj/structure/desk_bell{
+	pixel_x = 8
+	},
+/obj/item/reagent_containers/food/drinks/britcup{
+	pixel_x = -5;
+	pixel_y = 1
+	},
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -66956,14 +66965,6 @@
 	name = "isolation shutters"
 	},
 /obj/machinery/door/firedoor,
-/obj/item/paper/fluff/jobs/medical/hippocratic,
-/obj/structure/desk_bell{
-	pixel_x = 8
-	},
-/obj/item/reagent_containers/food/drinks/britcup{
-	pixel_x = -5;
-	pixel_y = 1
-	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "tGR" = (
@@ -67538,7 +67539,14 @@
 /area/maintenance/department/science/xenobiology)
 "tTh" = (
 /obj/structure/table/reinforced,
-/obj/machinery/fax/sec,
+/obj/item/folder/red{
+	pixel_x = 3
+	},
+/obj/item/folder/blue{
+	pixel_x = -2;
+	pixel_y = 3
+	},
+/obj/item/paper,
 /turf/open/floor/plasteel,
 /area/security/main)
 "tTD" = (
@@ -71127,8 +71135,11 @@
 /turf/open/floor/plasteel,
 /area/security/range)
 "vsL" = (
+/obj/item/paper_bin{
+	pixel_x = -2;
+	pixel_y = 6
+	},
 /obj/structure/table,
-/obj/machinery/fax/sci,
 /turf/open/floor/plasteel/white,
 /area/science/lab)
 "vtN" = (
@@ -71994,12 +72005,12 @@
 	pixel_y = 2
 	},
 /obj/machinery/vending/wallmed{
-	contraband = list(/obj/item/reagent_containers/glass/bottle/chloralhydrate=1,/obj/item/storage/box/hug/medical=1,/obj/item/reagent_containers/glass/bottle/random_virus=1);
+	contraband = list(/obj/item/reagent_containers/glass/bottle/chloralhydrate = 1, /obj/item/storage/box/hug/medical = 1, /obj/item/reagent_containers/glass/bottle/random_virus = 1);
 	name = "Upgraded NanoMed";
 	pixel_x = -1;
 	pixel_y = -32;
-	premium = list(/obj/item/storage/firstaid/regular=3,/obj/item/storage/belt/medical=3,/obj/item/sensor_device=2,/obj/item/pinpointer/crew=2,/obj/item/healthanalyzer=2,/obj/item/wrench/medical=1);
-	products = list(/obj/item/reagent_containers/syringe=12,/obj/item/reagent_containers/dropper=3,/obj/item/reagent_containers/medspray=6,/obj/item/storage/pill_bottle=6,/obj/item/reagent_containers/glass/bottle=10,/obj/item/reagent_containers/spray/cleaner=1,/obj/item/stack/medical/gauze=8,/obj/item/reagent_containers/hypospray/medipen=8,/obj/item/reagent_containers/hypospray/medipen/dexalin=8,/obj/item/reagent_containers/glass/bottle/epinephrine=4,/obj/item/reagent_containers/glass/bottle/charcoal=4,/obj/item/reagent_containers/glass/bottle/salglu_solution=4,/obj/item/reagent_containers/glass/bottle/tricordrazine=1,/obj/item/reagent_containers/glass/bottle/spaceacillin=1,/obj/item/reagent_containers/glass/bottle/morphine=2,/obj/item/reagent_containers/glass/bottle/toxin=4,/obj/item/reagent_containers/medspray/sterilizine=4)
+	premium = list(/obj/item/storage/firstaid/regular = 3, /obj/item/storage/belt/medical = 3, /obj/item/sensor_device = 2, /obj/item/pinpointer/crew = 2, /obj/item/healthanalyzer = 2, /obj/item/wrench/medical = 1);
+	products = list(/obj/item/reagent_containers/syringe = 12, /obj/item/reagent_containers/dropper = 3, /obj/item/reagent_containers/medspray = 6, /obj/item/storage/pill_bottle = 6, /obj/item/reagent_containers/glass/bottle = 10, /obj/item/reagent_containers/spray/cleaner = 1, /obj/item/stack/medical/gauze = 8, /obj/item/reagent_containers/hypospray/medipen = 8, /obj/item/reagent_containers/hypospray/medipen/dexalin = 8, /obj/item/reagent_containers/glass/bottle/epinephrine = 4, /obj/item/reagent_containers/glass/bottle/charcoal = 4, /obj/item/reagent_containers/glass/bottle/salglu_solution = 4, /obj/item/reagent_containers/glass/bottle/tricordrazine = 1, /obj/item/reagent_containers/glass/bottle/spaceacillin = 1, /obj/item/reagent_containers/glass/bottle/morphine = 2, /obj/item/reagent_containers/glass/bottle/toxin = 4, /obj/item/reagent_containers/medspray/sterilizine = 4)
 	},
 /obj/item/reagent_containers/dropper{
 	pixel_x = 2;
@@ -72705,11 +72716,14 @@
 /obj/machinery/camera{
 	c_tag = "Bridge - Central"
 	},
+/obj/structure/table/glass,
 /obj/effect/turf_decal/tile/brown/half/contrasted{
 	dir = 4
 	},
-/obj/structure/table,
-/obj/machinery/fax/bridge,
+/obj/machinery/fax{
+	fax_name = "Bridge";
+	name = "Bridge Fax Machine"
+	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "vYt" = (
@@ -75550,7 +75564,10 @@
 "xhN" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/machinery/fax/eng,
+/obj/machinery/fax{
+	fax_name = "Engineering";
+	name = "Engineering Fax Machine"
+	},
 /turf/open/floor/plasteel/dark/corner{
 	dir = 8
 	},
@@ -78097,7 +78114,10 @@
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
 	dir = 8
 	},
-/obj/machinery/fax/cargo,
+/obj/machinery/fax{
+	fax_name = "Cargo";
+	name = "Cargo Fax Machine"
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "ygM" = (

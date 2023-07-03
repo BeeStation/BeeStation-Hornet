@@ -128,7 +128,6 @@
 
 /mob/camera/ai_eye/Destroy()
 	if(ai)
-		transfer_observers_to(ai) // eye mob is destroyed for some reason...
 		ai.all_eyes -= src
 		ai = null
 	for(var/V in visibleCameraChunks)
@@ -189,19 +188,18 @@
 		to_chat(src, "ERROR: Eyeobj not found. Creating new eye...")
 		create_eye()
 
-	transfer_observers_to(eyeobj) // ai core to eyemob
-	eyeobj.setLoc(loc)
+	eyeobj?.setLoc(loc)
 
 /mob/living/silicon/ai/proc/create_eye()
-	if(!eyeobj || QDELETED(eyeobj))
-		eyeobj = new /mob/camera/ai_eye()
-		all_eyes += eyeobj
-		eyeobj.ai = src
-		eyeobj.setLoc(loc)
-		eyeobj.name = "[name] (AI Eye)"
-		eyeobj.real_name = eyeobj.name
-		set_eyeobj_visible(TRUE)
-		transfer_observers_to(eyeobj)
+	if(eyeobj)
+		return
+	eyeobj = new /mob/camera/ai_eye()
+	all_eyes += eyeobj
+	eyeobj.ai = src
+	eyeobj.setLoc(loc)
+	eyeobj.name = "[name] (AI Eye)"
+	eyeobj.real_name = eyeobj.name
+	set_eyeobj_visible(TRUE)
 
 /mob/living/silicon/ai/proc/set_eyeobj_visible(state = TRUE)
 	if(!eyeobj)

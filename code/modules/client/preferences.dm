@@ -770,7 +770,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "</center>"
 
 			var/fcolor =  "#3366CC"
-			var/metabalance = user.client.get_metabalance_db()
+			var/metabalance = user.client.get_metabalance()
 			dat += "<table align='center' width='100%'>"
 			dat += "<tr><td colspan=4><center><b>Current balance: <font color='[fcolor]'>[metabalance]</font> [CONFIG_GET(string/metacurrency_name)]s.</b> \[<a href='?_src_=prefs;preference=gear;clear_loadout=1'>Clear Loadout</a>\]</center></td></tr>"
 			dat += "<tr><td colspan=4><center><b>"
@@ -1332,7 +1332,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if(TG.sort_category == "Donator")
 				if(CONFIG_GET(flag/donator_items) && alert(parent, "This item is only accessible to our patrons. Would you like to subscribe?", "Patron Locked", "Yes", "No") == "Yes")
 					parent.donate()
-			else if(TG.cost <= user.client.get_metabalance_db())
+			else if(TG.cost < user.client.get_metabalance())
 				purchased_gear += TG.id
 				TG.purchase(user.client)
 				user.client.inc_metabalance((TG.cost * -1), TRUE, "Purchased [TG.display_name].")

@@ -71,7 +71,6 @@
 			var/list/event_call = list(event_type)
 			if (event_type == TGS_EVENT_WATCHDOG_DETACH)
 				detached = TRUE
-				chat_channels.Cut() // https://github.com/tgstation/tgstation-server/issues/1490
 
 			if(event_parameters)
 				event_call += event_parameters
@@ -137,9 +136,7 @@
 			server_port = new_port
 			return TopicResponse()
 
-		if(DMAPI5_TOPIC_COMMAND_HEALTHCHECK)
-			if(event_handler?.receive_health_checks)
-				event_handler.HandleEvent(TGS_EVENT_HEALTH_CHECK)
+		if(DMAPI5_TOPIC_COMMAND_HEARTBEAT)
 			return TopicResponse()
 
 		if(DMAPI5_TOPIC_COMMAND_WATCHDOG_REATTACH)

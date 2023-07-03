@@ -12,7 +12,10 @@ export class Blink extends Component {
   }
 
   createTimer() {
-    const { interval = DEFAULT_BLINKING_INTERVAL, time = DEFAULT_BLINKING_TIME } = this.props;
+    const {
+      interval = DEFAULT_BLINKING_INTERVAL,
+      time = DEFAULT_BLINKING_TIME,
+    } = this.props;
 
     clearInterval(this.interval);
     clearTimeout(this.timer);
@@ -39,7 +42,8 @@ export class Blink extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.interval !== this.props.interval || prevProps.time !== this.props.time) {
+    if (prevProps.interval !== this.props.interval
+      || prevProps.time !== this.props.time) {
       this.createTimer();
     }
   }
@@ -51,10 +55,9 @@ export class Blink extends Component {
 
   render(props) {
     return (
-      <span
-        style={{
-          visibility: this.state.hidden ? 'hidden' : 'visible',
-        }}>
+      <span style={{
+        visibility: this.state.hidden ? "hidden" : "visible",
+      }}>
         {props.children}
       </span>
     );

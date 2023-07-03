@@ -18,7 +18,6 @@
 	maxHealth = 50
 	health = 50
 	pixel_x = -16
-	base_pixel_x = -16
 	obj_damage = 0
 	melee_damage = 0
 	attacktext = "chomps"

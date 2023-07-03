@@ -48,7 +48,8 @@
 	if(COOLDOWN_FINISHED(src, radio_cooldown))
 		COOLDOWN_START(src, radio_cooldown, 3 MINUTES)
 		radio.talk_into(src, "Ectoplasm has been detected! There may be additional positronic brain matrices available!", RADIO_CHANNEL_SCIENCE)
-	visible_message("<span class='notice'>[src] has detected ectoplasm! There may be additional positronic brain matrices available!</span>")
+	else
+		visible_message("<span class='notice'>[src] has detected ectoplasm! There may be additional positronic brain matrices available!</span>")
 
 	use_power(10)
 	if(activator?.ckey)

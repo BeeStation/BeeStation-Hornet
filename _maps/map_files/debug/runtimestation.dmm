@@ -688,8 +688,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/table,
-/obj/machinery/fax/bridge,
 /turf/open/floor/plasteel,
 /area/medical/chemistry)
 "ct" = (

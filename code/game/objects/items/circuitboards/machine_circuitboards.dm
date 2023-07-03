@@ -619,6 +619,7 @@
 	name = "Fax Machine"
 	build_path = /obj/machinery/fax
 	req_components = list(
+		/obj/item/stock_parts/subspace/crystal = 1,
 		/obj/item/stock_parts/scanning_module = 1,
 		/obj/item/stock_parts/micro_laser = 1,
 		/obj/item/stock_parts/manipulator = 1)

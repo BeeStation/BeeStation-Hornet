@@ -256,7 +256,7 @@ B --><-- A
 ///Returns a chosen path that is the closest to a list of matches
 /proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types())
 	if (value == FALSE) //nothing should be calling us with a number, so this is safe
-		value = tgui_input_text(usr, "Enter type to find (blank for all, cancel to cancel)", "Search for type", encode = FALSE)
+		value = input("Enter type to find (blank for all, cancel to cancel)", "Search for type") as null|text
 		if (isnull(value))
 			return
 	value = trim(value)
@@ -278,8 +278,7 @@ B --><-- A
 	else if(random)
 		chosen = pick(matches) || null
 	else
-		var/list/sorted_matches = sort_list(matches)
-		chosen = tgui_input_list(usr, "Select a type", "Pick Type", sorted_matches, sorted_matches[1])
+		chosen = input("Select a type", "Pick Type", matches[1]) as null|anything in sort_list(matches)
 	if(!chosen)
 		return
 	chosen = matches[chosen]

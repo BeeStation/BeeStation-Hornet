@@ -5,7 +5,7 @@
  */
 
 import { BooleanLike, classes, pureComponentHooks } from 'common/react';
-import type { InfernoNode } from 'inferno';
+import type { Inferno } from 'inferno';
 import { Box, unit } from './Box';
 import { Divider } from './Divider';
 
@@ -15,22 +15,25 @@ type LabeledListProps = {
 
 export const LabeledList = (props: LabeledListProps) => {
   const { children } = props;
-  return <table className="LabeledList">{children}</table>;
+  return (
+    <table className="LabeledList">
+      {children}
+    </table>
+  );
 };
 
 LabeledList.defaultHooks = pureComponentHooks;
 
 type LabeledListItemProps = {
   className?: string | BooleanLike;
-  label?: string | InfernoNode | BooleanLike;
+  label?: string | Inferno.InfernoNode | BooleanLike;
   labelColor?: string | BooleanLike;
-  labelWrap?: boolean;
   color?: string | BooleanLike;
   textAlign?: string | BooleanLike;
-  buttons?: InfernoNode;
+  buttons?: Inferno.InfernoNode,
   /** @deprecated */
-  content?: any;
-  children?: InfernoNode;
+  content?: any,
+  children?: Inferno.InfernoNode;
   verticalAlign?: string;
 };
 
@@ -39,38 +42,47 @@ const LabeledListItem = (props: LabeledListItemProps) => {
     className,
     label,
     labelColor = 'label',
-    labelWrap,
     color,
     textAlign,
     buttons,
     content,
     children,
-    verticalAlign = 'baseline',
+    verticalAlign = "baseline",
   } = props;
   return (
-    <tr className={classes(['LabeledList__row', className])}>
+    <tr
+      className={classes([
+        'LabeledList__row',
+        className,
+      ])}>
       <Box
         as="td"
         color={labelColor}
         className={classes([
           'LabeledList__cell',
-          // Kinda flipped because we want nowrap as default. Cleaner CSS this way though.
-          !labelWrap && 'LabeledList__label--nowrap',
+          'LabeledList__label',
         ])}
         verticalAlign={verticalAlign}>
-        {label ? (typeof label === 'string' ? label + ':' : label) : null}
+        {label ? typeof(label) === "string" ? label + ':' : label : null}
       </Box>
       <Box
         as="td"
         color={color}
         textAlign={textAlign}
-        className={classes(['LabeledList__cell', 'LabeledList__content'])}
+        className={classes([
+          'LabeledList__cell',
+          'LabeledList__content',
+        ])}
         colSpan={buttons ? undefined : 2}
         verticalAlign={verticalAlign}>
         {content}
         {children}
       </Box>
-      {buttons && <td className="LabeledList__cell LabeledList__buttons">{buttons}</td>}
+      {buttons && (
+        <td className="LabeledList__cell LabeledList__buttons">
+          {buttons}
+        </td>
+      )}
     </tr>
   );
 };
@@ -82,7 +94,9 @@ type LabeledListDividerProps = {
 };
 
 const LabeledListDivider = (props: LabeledListDividerProps) => {
-  const padding = props.size ? unit(Math.max(0, props.size - 1)) : 0;
+  const padding = props.size
+    ? unit(Math.max(0, props.size - 1))
+    : 0;
   return (
     <tr className="LabeledList__row">
       <td

@@ -51,8 +51,6 @@
 		/obj/item/melee/classic_baton/police=1)
 	mask = /obj/item/clothing/mask/cigarette
 
-	implants = list(/obj/item/implant/mindshield)
-
 	chameleon_extras = list(/obj/item/gun/ballistic/revolver/detective, /obj/item/clothing/glasses/sunglasses/advanced)
 
 /datum/outfit/job/detective/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

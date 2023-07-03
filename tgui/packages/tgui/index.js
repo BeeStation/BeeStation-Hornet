@@ -13,10 +13,8 @@ import './styles/themes/clockwork.scss';
 import './styles/themes/elevator.scss';
 import './styles/themes/hackerman.scss';
 import './styles/themes/malfunction.scss';
-import './styles/themes/narsie.scss';
 import './styles/themes/neutral.scss';
 import './styles/themes/ntos.scss';
-import './styles/themes/wizard.scss';
 import './styles/themes-ntos/ntos-colors.scss';
 import './styles/themes-ntos/default.scss';
 import './styles/themes-ntos/dark.scss';
@@ -85,7 +83,12 @@ const setupApp = () => {
   // Enable hot module reloading
   if (module.hot) {
     setupHotReloading();
-    module.hot.accept(['./components', './debug', './layouts', './routes'], () => {
+    module.hot.accept([
+      './components',
+      './debug',
+      './layouts',
+      './routes',
+    ], () => {
       renderApp();
     });
   }

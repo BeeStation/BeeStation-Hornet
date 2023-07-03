@@ -16,7 +16,11 @@
 
 /obj/item/stand_arrow/Initialize(mapload)
 	. = ..()
-	AddElement(/datum/element/point_of_interest)
+	GLOB.poi_list += src
+
+/obj/item/stand_arrow/Destroy()
+	GLOB.poi_list -= src
+	return ..()
 
 /obj/item/stand_arrow/attack(mob/living/M, mob/living/user)
 	if(in_use)

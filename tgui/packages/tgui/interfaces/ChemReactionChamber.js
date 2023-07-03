@@ -6,26 +6,47 @@ import { Window } from '../layouts';
 
 export const ChemReactionChamber = (props, context) => {
   const { act, data } = useBackend(context);
-  const [reagentName, setReagentName] = useLocalState(context, 'reagentName', '');
-  const [reagentQuantity, setReagentQuantity] = useLocalState(context, 'reagentQuantity', 1);
+  const [
+    reagentName,
+    setReagentName,
+  ] = useLocalState(context, 'reagentName', '');
+  const [
+    reagentQuantity,
+    setReagentQuantity,
+  ] = useLocalState(context, 'reagentQuantity', 1);
   const emptying = data.emptying;
   const reagents = data.reagents || [];
   return (
-    <Window width={250} height={225}>
+    <Window
+      width={250}
+      height={225}>
       <Window.Content scrollable>
         <Section
           title="Reagents"
-          buttons={
-            <Box inline bold color={emptying ? 'bad' : 'good'}>
-              {emptying ? 'Emptying' : 'Filling'}
+          buttons={(
+            <Box
+              inline
+              bold
+              color={emptying ? "bad" : "good"}>
+              {emptying ? "Emptying" : "Filling"}
             </Box>
-          }>
+          )}>
           <LabeledList>
             <tr className="LabledList__row">
-              <td colSpan="2" className="LabeledList__cell">
-                <Input fluid value="" placeholder="Reagent Name" onInput={(e, value) => setReagentName(value)} />
+              <td
+                colSpan="2"
+                className="LabeledList__cell">
+                <Input
+                  fluid
+                  value=""
+                  placeholder="Reagent Name"
+                  onInput={(e, value) => setReagentName(value)} />
               </td>
-              <td className={classes(['LabeledList__buttons', 'LabeledList__cell'])}>
+              <td
+                className={classes([
+                  "LabeledList__buttons",
+                  "LabeledList__cell",
+                ])}>
                 <NumberInput
                   value={reagentQuantity}
                   minValue={1}
@@ -33,35 +54,28 @@ export const ChemReactionChamber = (props, context) => {
                   step={1}
                   stepPixelSize={3}
                   width="39px"
-                  onDrag={(e, value) => setReagentQuantity(value)}
-                />
+                  onDrag={(e, value) => setReagentQuantity(value)} />
                 <Box inline mr={1} />
                 <Button
                   icon="plus"
-                  onClick={() =>
-                    act('add', {
-                      chem: reagentName,
-                      amount: reagentQuantity,
-                    })
-                  }
-                />
+                  onClick={() => act('add', {
+                    chem: reagentName,
+                    amount: reagentQuantity,
+                  })} />
               </td>
             </tr>
             {map((amount, reagent) => (
               <LabeledList.Item
                 key={reagent}
                 label={reagent}
-                buttons={
+                buttons={(
                   <Button
                     icon="minus"
                     color="bad"
-                    onClick={() =>
-                      act('remove', {
-                        chem: reagent,
-                      })
-                    }
-                  />
-                }>
+                    onClick={() => act('remove', {
+                      chem: reagent,
+                    })} />
+                )}>
                 {amount}
               </LabeledList.Item>
             ))(reagents)}

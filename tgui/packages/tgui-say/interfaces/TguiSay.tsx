@@ -21,12 +21,16 @@ export class TguiSay extends Component<{}, State> {
     value: '',
   };
   timers: Modal['timers'] = timers;
-  state: State = {
-    buttonContent: '',
-    channel: -1,
-    edited: false,
-    size: WINDOW_SIZES.small,
-  };
+
+  constructor() {
+    super();
+    this.state = {
+      buttonContent: '',
+      channel: -1,
+      edited: false,
+      size: WINDOW_SIZES.small,
+    };
+  }
 
   componentDidMount() {
     this.events.onComponentMount();

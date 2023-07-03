@@ -28,17 +28,11 @@
 	return ..()
 
 /obj/machinery/stasis/Initialize(mapload)
-	..()
-	return INITIALIZE_HINT_LATELOAD
-
-/obj/machinery/stasis/LateInitialize()
 	. = ..()
-		initial_link()
 	for(var/direction in GLOB.alldirs)
 		op_computer = locate(/obj/machinery/computer/operating) in get_step(src, direction)
 		if(op_computer)
 			op_computer.sbed = src
-			src.op_computer = op_computer
 			break
 
 /obj/machinery/stasis/Destroy()
@@ -50,13 +44,6 @@
 	. = ..()
 	. += "<span class='notice'>Alt-click to [stasis_enabled ? "turn off" : "turn on"] the machine.</span>"
 	. += "<span class='notice'>[src] is [op_computer ? "linked" : "<b>NOT</b> linked"] to an operating computer.</span>"
-
-/obj/machinery/stasis/proc/initial_link()
-	for(var/direction in GLOB.alldirs)
-		var/obj/machinery/computer/operating/op_computer = locate(/obj/machinery/computer/operating) in get_step(src, direction)
-		if(op_computer && !op_computer.sbed)
-			op_computer.link_with_table(new_sbed = src)
-			break
 
 /obj/machinery/stasis/proc/play_power_sound()
 	var/_running = stasis_running()

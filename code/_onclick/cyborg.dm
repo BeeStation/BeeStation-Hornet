@@ -22,7 +22,7 @@
 		CtrlShiftClickOn(A)
 		return
 	if(modifiers["shift"] && modifiers["middle"])
-		ShiftMiddleClickOn(A, params)
+		ShiftMiddleClickOn(A)
 		return
 	if(modifiers["middle"])
 		MiddleClickOn(A)

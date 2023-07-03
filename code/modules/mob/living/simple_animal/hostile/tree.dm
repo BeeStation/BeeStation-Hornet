@@ -19,7 +19,6 @@
 	mob_size = MOB_SIZE_LARGE
 
 	pixel_x = -16
-	base_pixel_x = -16
 
 	melee_damage = 10
 	attacktext = "bites"

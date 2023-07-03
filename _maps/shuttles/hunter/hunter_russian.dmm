@@ -267,7 +267,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/hunter)
 "rC" = (
-/obj/machinery/computer/camera_advanced/bounty_hunter{
+/obj/machinery/computer/camera_advanced{
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium,

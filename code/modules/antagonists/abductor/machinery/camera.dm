@@ -15,8 +15,12 @@
 	icon_state = "camera"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
-	reveal_camera_mob = TRUE
-	camera_mob_icon_state = "abductor_camera"
+/obj/machinery/computer/camera_advanced/abductor/CreateEye()
+	..()
+	eyeobj.visible_icon = TRUE
+	eyeobj.icon = 'icons/mob/cameramob.dmi'
+	eyeobj.icon_state = "abductor_camera"
+	eyeobj.invisibility = INVISIBILITY_OBSERVER
 
 /obj/machinery/computer/camera_advanced/abductor/GrantActions(mob/living/carbon/user)
 	..()

@@ -75,7 +75,7 @@
 	name = "Mjolnir"
 	desc = "A weapon worthy of a god, able to strike with the force of a lightning bolt. It crackles with barely contained energy."
 	icon = 'icons/obj/wizard_48x32.dmi'
-	icon_state = "anchored_mjolnir"
+	icon_state = "anchored_mjollnir"
 	flags_1 = CONDUCT_1
 	anchored = TRUE
 	move_resist = INFINITY

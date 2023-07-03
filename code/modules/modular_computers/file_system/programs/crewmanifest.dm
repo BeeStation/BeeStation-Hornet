@@ -6,9 +6,7 @@
 	extended_desc = "Program for viewing and printing the current crew manifest"
 	transfer_access = list(ACCESS_HEADS)
 	requires_ntnet = FALSE
-	size = 0
-	undeletable = TRUE // It comes by default in PDAs, can't be downloaded, takes no space and should obviously not be able to be deleted.
-	available_on_ntnet = FALSE
+	size = 4
 	tgui_id = "NtosCrewManifest"
 	program_icon = "clipboard-list"
 
@@ -47,7 +45,7 @@
 								<br>
 								[GLOB.data_core ? GLOB.data_core.get_manifest_html(0) : ""]
 								"}
-				if(!printer.print_text(contents,"crew manifest ([station_time_timestamp()])"))
+				if(!printer.print_text(contents,text("crew manifest ([])", station_time_timestamp())))
 					to_chat(usr, "<span class='notice'>Hardware error: Printer was unable to print the file. It may be out of paper.</span>")
 					return
 				else

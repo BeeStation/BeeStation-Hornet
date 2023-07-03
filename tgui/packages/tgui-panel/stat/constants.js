@@ -1,3 +1,4 @@
+
 export const STAT_TEXT = 0;
 export const STAT_BUTTON = 1;
 export const STAT_ATOM = 2;

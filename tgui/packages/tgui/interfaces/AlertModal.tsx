@@ -1,15 +1,22 @@
 import { Loader } from './common/Loader';
+import { Preferences } from './common/InputButtons';
 import { useBackend, useLocalState } from '../backend';
-import { KEY_ENTER, KEY_ESCAPE, KEY_LEFT, KEY_RIGHT, KEY_SPACE, KEY_TAB } from '../../common/keycodes';
+import {
+  KEY_ENTER,
+  KEY_ESCAPE,
+  KEY_LEFT,
+  KEY_RIGHT,
+  KEY_SPACE,
+  KEY_TAB,
+} from '../../common/keycodes';
 import { Autofocus, Box, Button, Flex, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
 type AlertModalData = {
   autofocus: boolean;
   buttons: string[];
-  large_buttons: boolean;
   message: string;
-  swapped_buttons: boolean;
+  preferences: Preferences;
   timeout: number;
   title: string;
 };
@@ -19,12 +26,22 @@ const KEY_INCREMENT = 1;
 
 export const AlertModal = (_, context) => {
   const { act, data } = useBackend<AlertModalData>(context);
-  const { autofocus, buttons = [], large_buttons, message = '', timeout, title } = data;
+  const {
+    autofocus,
+    buttons = [],
+    message,
+    preferences,
+    timeout,
+    title,
+  } = data;
+  const { large_buttons } = preferences;
   const [selected, setSelected] = useLocalState<number>(context, 'selected', 0);
-  // Dynamically sets window dimensions
-  const windowHeight =
-    115 + (message.length > 30 ? Math.ceil(message.length / 4) : 0) + (message.length && large_buttons ? 5 : 0);
-  const windowWidth = 325 + (buttons.length > 2 ? 55 : 0);
+  // Dynamically sets window height
+  const windowHeight
+    = 115
+    + (message.length > 30 ? Math.ceil(message.length / 3) : 0)
+    + (message.length && large_buttons ? 5 : 0)
+    + (buttons.length > 2 ? buttons.length * 25 : 0);
   const onKey = (direction: number) => {
     if (selected === 0 && direction === KEY_DECREMENT) {
       setSelected(buttons.length - 1);
@@ -36,8 +53,8 @@ export const AlertModal = (_, context) => {
   };
 
   return (
-    <Window height={windowHeight} title={title} width={windowWidth} theme="generic">
-      {!!timeout && <Loader value={timeout} />}
+    <Window height={windowHeight} title={title} width={325} theme="generic">
+      {timeout && <Loader value={timeout} />}
       <Window.Content
         onKeyDown={(e) => {
           const keyCode = window.event ? e.which : e.keyCode;
@@ -49,11 +66,12 @@ export const AlertModal = (_, context) => {
             act('choose', { choice: buttons[selected] });
           } else if (keyCode === KEY_ESCAPE) {
             act('cancel');
-          } else if (keyCode === KEY_LEFT) {
-            e.preventDefault();
+          } else if (
+            keyCode === KEY_LEFT
+            || (e.shiftKey && keyCode === KEY_TAB)
+          ) {
             onKey(KEY_DECREMENT);
-          } else if (keyCode === KEY_TAB || keyCode === KEY_RIGHT) {
-            e.preventDefault();
+          } else if (keyCode === KEY_RIGHT || keyCode === KEY_TAB) {
             onKey(KEY_INCREMENT);
           }
         }}>
@@ -82,19 +100,35 @@ export const AlertModal = (_, context) => {
  */
 const ButtonDisplay = (props, context) => {
   const { data } = useBackend<AlertModalData>(context);
-  const { buttons = [], large_buttons, swapped_buttons } = data;
+  const { buttons = [], preferences } = data;
   const { selected } = props;
+  const { large_buttons, swapped_buttons } = preferences;
+  const buttonDirection
+    = (buttons.length > 2 ? 'column' : 'row')
+    + (!swapped_buttons ? '-reverse' : '');
 
   return (
-    <Flex align="center" direction={!swapped_buttons ? 'row-reverse' : 'row'} fill justify="space-around" wrap>
+    <Flex
+      align="center"
+      direction={buttonDirection}
+      fill
+      justify="space-around">
       {buttons?.map((button, index) =>
         !!large_buttons && buttons.length < 3 ? (
           <Flex.Item grow key={index}>
-            <AlertButton button={button} id={index.toString()} selected={selected === index} />
+            <AlertButton
+              button={button}
+              id={index.toString()}
+              selected={selected === index}
+            />
           </Flex.Item>
         ) : (
           <Flex.Item key={index}>
-            <AlertButton button={button} id={index.toString()} selected={selected === index} />
+            <AlertButton
+              button={button}
+              id={index.toString()}
+              selected={selected === index}
+            />
           </Flex.Item>
         )
       )}
@@ -107,9 +141,9 @@ const ButtonDisplay = (props, context) => {
  */
 const AlertButton = (props, context) => {
   const { act, data } = useBackend<AlertModalData>(context);
-  const { large_buttons } = data;
+  const { preferences } = data;
+  const { large_buttons } = preferences;
   const { button, selected } = props;
-  const buttonWidth = button.length > 7 ? button.length : 7;
 
   return (
     <Button
@@ -121,8 +155,7 @@ const AlertButton = (props, context) => {
       pr={2}
       pt={large_buttons ? 0.33 : 0}
       selected={selected}
-      textAlign="center"
-      width={!large_buttons && buttonWidth}>
+      textAlign="center">
       {button}
     </Button>
   );

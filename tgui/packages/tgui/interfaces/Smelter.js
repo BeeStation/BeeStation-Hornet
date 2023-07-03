@@ -6,9 +6,19 @@ import { round, scale } from 'common/math';
 
 export const Smelter = (props, context) => {
   const { act, data } = useBackend(context);
-  const { on, allowredeem, stored_points, materials, alloys, auto_shutdown, smelt_amount_limit } = data;
+  const {
+    on,
+    allowredeem,
+    stored_points,
+    materials,
+    alloys,
+    auto_shutdown,
+    smelt_amount_limit,
+  } = data;
   return (
-    <Window width={440} height={550}>
+    <Window
+      width={440}
+      height={550}>
       <Window.Content scrollable>
         <Section>
           <Table.Row>
@@ -19,14 +29,16 @@ export const Smelter = (props, context) => {
               <Button
                 icon={auto_shutdown ? 'power-off' : 'times'}
                 content={auto_shutdown ? 'On' : 'Off'}
-                onClick={() => act('toggle_auto_shutdown')}
-              />
+                onClick={() => act('toggle_auto_shutdown')} />
             </Table.Cell>
             <Table.Cell>
               <Box inline color="label" mr={1}>
                 Machine Status:
               </Box>
-              <Button icon={on ? 'power-off' : 'times'} content={on ? 'On' : 'Off'} onClick={() => act('Toggle_on')} />
+              <Button
+                icon={on ? 'power-off' : 'times'}
+                content={on ? 'On' : 'Off'}
+                onClick={() => act('Toggle_on')} />
             </Table.Cell>
           </Table.Row>
           <Table.Row>
@@ -42,12 +54,9 @@ export const Smelter = (props, context) => {
                 maxValue={100}
                 step={10}
                 stepPixelSize={1}
-                onChange={(e, value) =>
-                  act('set_smelt_amount', {
-                    amount: value,
-                  })
-                }
-              />
+                onChange={(e, value) => act('set_smelt_amount', {
+                  amount: value,
+                })} />
             </Table.Cell>
             {!!allowredeem && (
               <Table.Cell collapsing textAlign="right">
@@ -56,7 +65,11 @@ export const Smelter = (props, context) => {
                     Stored Points:
                   </Box>
                   {stored_points}
-                  <Button ml={2} content="Redeem" disabled={stored_points === 0} onClick={() => act('Redeem')} />
+                  <Button
+                    ml={2}
+                    content="Redeem"
+                    disabled={stored_points === 0}
+                    onClick={() => act('Redeem')} />
                 </Box>
               </Table.Cell>
             )}
@@ -64,31 +77,25 @@ export const Smelter = (props, context) => {
         </Section>
         <Section title="Materials">
           <Table>
-            {materials.map((material) => (
+            {materials.map(material => (
               <MaterialRow
                 key={material.id}
                 material={material}
-                onRelease={() =>
-                  act('Material', {
-                    id: material.id,
-                  })
-                }
-              />
+                onRelease={() => act('Material', {
+                  id: material.id,
+                })} />
             ))}
           </Table>
         </Section>
         <Section title="Alloys">
           <Table>
-            {alloys.map((material) => (
+            {alloys.map(material => (
               <MaterialRow
                 key={material.id}
                 material={material}
-                onRelease={() =>
-                  act('Alloy', {
-                    id: material.id,
-                  })
-                }
-              />
+                onRelease={() => act('Alloy', {
+                  id: material.id,
+                })} />
             ))}
           </Table>
         </Section>
@@ -103,7 +110,9 @@ const MaterialRow = (props, context) => {
   const amountAvailable = Math.floor(material.amount);
   return (
     <Table.Row>
-      <Table.Cell>{toTitleCase(material.name).replace('Alloy', '')}</Table.Cell>
+      <Table.Cell>
+        {toTitleCase(material.name).replace('Alloy', '')}
+      </Table.Cell>
       <Table.Cell collapsing textAlign="right">
         <Box mr={2} color="label" inline>
           {amountAvailable} sheets
@@ -111,10 +120,9 @@ const MaterialRow = (props, context) => {
       </Table.Cell>
       <Table.Cell collapsing>
         <Button
-          color={material.smelting ? 'good' : 'bad'}
-          content={material.smelting ? 'Smelting' : 'Not Smelting'}
-          onClick={() => onRelease()}
-        />
+          color={material.smelting ? "good" : "bad"}
+          content={material.smelting ? "Smelting" : "Not Smelting"}
+          onClick={() => onRelease()} />
       </Table.Cell>
     </Table.Row>
   );

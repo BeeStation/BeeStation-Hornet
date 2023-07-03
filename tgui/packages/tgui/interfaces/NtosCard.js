@@ -5,7 +5,9 @@ import { AccessList } from './common/AccessList';
 
 export const NtosCard = (props, context) => {
   return (
-    <NtosWindow width={450} height={520}>
+    <NtosWindow
+      width={450}
+      height={520}>
       <NtosWindow.Content scrollable>
         <NtosCardContent />
       </NtosWindow.Content>
@@ -28,51 +30,64 @@ export const NtosCardContent = (props, context) => {
     have_id_slot,
     id_name,
   } = data;
-  const [selectedDepartment, setSelectedDepartment] = useLocalState(context, 'department', Object.keys(jobs)[0]);
+  const [
+    selectedDepartment,
+    setSelectedDepartment,
+  ] = useLocalState(context, 'department', Object.keys(jobs)[0]);
   if (!have_id_slot) {
-    return <NoticeBox>This program requires an ID slot in order to function</NoticeBox>;
+    return (
+      <NoticeBox>
+        This program requires an ID slot in order to function
+      </NoticeBox>
+    );
   }
   const departmentJobs = jobs[selectedDepartment] || [];
   return (
     <>
       <Section
-        title={
-          has_id && authenticated ? (
+        title={has_id && authenticated
+          ? (
             <Input
               value={id_owner}
               width="250px"
-              onInput={(e, value) =>
-                act('PRG_edit', {
-                  name: value,
-                })
-              }
-            />
-          ) : (
-            id_owner || 'No Card Inserted'
+              onInput={(e, value) => act('PRG_edit', {
+                name: value,
+              })} />
           )
-        }
-        buttons={
+          : (id_owner || 'No Card Inserted')}
+        buttons={(
           <>
-            <Button icon="print" content="Print" disabled={!have_printer || !has_id} onClick={() => act('PRG_print')} />
             <Button
-              icon={authenticated ? 'sign-out-alt' : 'sign-in-alt'}
-              content={authenticated ? 'Log Out' : 'Log In'}
-              color={authenticated ? 'bad' : 'good'}
+              icon="print"
+              content="Print"
+              disabled={!have_printer || !has_id}
+              onClick={() => act('PRG_print')} />
+            <Button
+              icon={authenticated ? "sign-out-alt" : "sign-in-alt"}
+              content={authenticated ? "Log Out" : "Log In"}
+              color={authenticated ? "bad" : "good"}
               onClick={() => {
                 act(authenticated ? 'PRG_logout' : 'PRG_authenticate');
-              }}
-            />
+              }} />
           </>
-        }>
-        <Button fluid icon="eject" content={id_name} onClick={() => act('PRG_eject')} />
+        )}>
+        <Button
+          fluid
+          icon="eject"
+          content={id_name}
+          onClick={() => act('PRG_eject')} />
       </Section>
-      {!!has_id && !!authenticated && (
+      {(!!has_id && !!authenticated) && (
         <Box>
-          <Tabs textAlign="center">
-            <Tabs.Tab selected={tab === 1} onClick={() => setTab(1)}>
+          <Tabs>
+            <Tabs.Tab
+              selected={tab === 1}
+              onClick={() => setTab(1)}>
               Access
             </Tabs.Tab>
-            <Tabs.Tab selected={tab === 2} onClick={() => setTab(2)}>
+            <Tabs.Tab
+              selected={tab === 2}
+              onClick={() => setTab(2)}>
               Jobs
             </Tabs.Tab>
           </Tabs>
@@ -80,50 +95,39 @@ export const NtosCardContent = (props, context) => {
             <AccessList
               accesses={regions}
               selectedList={access_on_card}
-              accessMod={(ref) =>
-                act('PRG_access', {
-                  access_target: ref,
-                })
-              }
+              accessMod={ref => act('PRG_access', {
+                access_target: ref,
+              })}
               grantAll={() => act('PRG_grantall')}
               denyAll={() => act('PRG_denyall')}
-              grantDep={(dep) =>
-                act('PRG_grantregion', {
-                  region: dep,
-                })
-              }
-              denyDep={(dep) =>
-                act('PRG_denyregion', {
-                  region: dep,
-                })
-              }
-            />
+              grantDep={dep => act('PRG_grantregion', {
+                region: dep,
+              })}
+              denyDep={dep => act('PRG_denyregion', {
+                region: dep,
+              })} />
           )}
           {tab === 2 && (
             <Section
               title={id_rank}
-              buttons={
+              buttons={(
                 <Button.Confirm
                   icon="exclamation-triangle"
                   content="Terminate"
                   color="bad"
-                  onClick={() => act('PRG_terminate')}
-                />
-              }>
+                  onClick={() => act('PRG_terminate')} />
+              )}>
               <Button.Input
                 fluid
                 content="Custom..."
-                onCommit={(e, value) =>
-                  act('PRG_assign', {
-                    assign_target: 'Custom',
-                    custom_name: value,
-                  })
-                }
-              />
+                onCommit={(e, value) => act('PRG_assign', {
+                  assign_target: 'Custom',
+                  custom_name: value,
+                })} />
               <Flex>
                 <Flex.Item>
                   <Tabs vertical>
-                    {Object.keys(jobs).map((department) => (
+                    {Object.keys(jobs).map(department => (
                       <Tabs.Tab
                         key={department}
                         selected={department === selectedDepartment}
@@ -134,17 +138,14 @@ export const NtosCardContent = (props, context) => {
                   </Tabs>
                 </Flex.Item>
                 <Flex.Item grow={1}>
-                  {departmentJobs.map((job) => (
+                  {departmentJobs.map(job => (
                     <Button
                       fluid
                       key={job.job}
                       content={job.display_name}
-                      onClick={() =>
-                        act('PRG_assign', {
-                          assign_target: job.job,
-                        })
-                      }
-                    />
+                      onClick={() => act('PRG_assign', {
+                        assign_target: job.job,
+                      })} />
                   ))}
                 </Flex.Item>
               </Flex>

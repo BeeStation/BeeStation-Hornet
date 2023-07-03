@@ -26,7 +26,15 @@ export const computeFlexClassName = (props: FlexProps) => {
 };
 
 export const computeFlexProps = (props: FlexProps) => {
-  const { className, direction, wrap, align, justify, inline, ...rest } = props;
+  const {
+    className,
+    direction,
+    wrap,
+    align,
+    justify,
+    inline,
+    ...rest
+  } = props;
   return computeBoxProps({
     style: {
       ...rest.style,
@@ -39,9 +47,17 @@ export const computeFlexProps = (props: FlexProps) => {
   });
 };
 
-export const Flex = (props) => {
+export const Flex = props => {
   const { className, ...rest } = props;
-  return <div className={classes([className, computeFlexClassName(rest)])} {...computeFlexProps(rest)} />;
+  return (
+    <div
+      className={classes([
+        className,
+        computeFlexClassName(rest),
+      ])}
+      {...computeFlexProps(rest)}
+    />
+  );
 };
 
 Flex.defaultHooks = pureComponentHooks;
@@ -55,25 +71,32 @@ export type FlexItemProps = BoxProps & {
 };
 
 export const computeFlexItemClassName = (props: FlexItemProps) => {
-  return classes(['Flex__item', Byond.IS_LTE_IE10 && 'Flex__item--iefix', computeBoxClassName(props)]);
+  return classes([
+    'Flex__item',
+    Byond.IS_LTE_IE10 && 'Flex__item--iefix',
+    computeBoxClassName(props),
+  ]);
 };
 
 export const computeFlexItemProps = (props: FlexItemProps) => {
-  const { className, style, grow, order, shrink, basis, align, ...rest } = props;
-  const computedBasis =
-    basis ??
-    // IE11: Set basis to specified width if it's known, which fixes certain
+  const {
+    className,
+    style,
+    grow,
+    order,
+    shrink,
+    // IE11: Always set basis to specified width, which fixes certain
     // bugs when rendering tables inside the flex.
-    props.width ??
-    // If grow is used, basis should be set to 0 to be consistent with
-    // flex css shorthand `flex: 1`.
-    (grow !== undefined ? 0 : undefined);
+    basis = props.width,
+    align,
+    ...rest
+  } = props;
   return computeBoxProps({
     style: {
       ...style,
       'flex-grow': grow !== undefined && Number(grow),
       'flex-shrink': shrink !== undefined && Number(shrink),
-      'flex-basis': unit(computedBasis),
+      'flex-basis': unit(basis),
       'order': order,
       'align-self': align,
     },
@@ -81,9 +104,17 @@ export const computeFlexItemProps = (props: FlexItemProps) => {
   });
 };
 
-const FlexItem = (props) => {
+const FlexItem = props => {
   const { className, ...rest } = props;
-  return <div className={classes([className, computeFlexItemClassName(props)])} {...computeFlexItemProps(rest)} />;
+  return (
+    <div
+      className={classes([
+        className,
+        computeFlexItemClassName(props),
+      ])}
+      {...computeFlexItemProps(rest)}
+    />
+  );
 };
 
 FlexItem.defaultHooks = pureComponentHooks;

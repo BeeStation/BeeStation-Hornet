@@ -3,6 +3,8 @@
 //Don't hear deadchat and are NOT normal ghosts
 //Admin-spawn or random event
 
+#define INVISIBILITY_REVENANT 50
+
 /mob/living/simple_animal/revenant
 	name = "revenant"
 	desc = "A malevolent spirit."
@@ -15,8 +17,7 @@
 	var/stasis = FALSE
 	mob_biotypes = list(MOB_SPIRIT)
 	incorporeal_move = INCORPOREAL_MOVE_JAUNT
-	see_invisible = SEE_INVISIBLE_SPIRIT
-	invisibility = INVISIBILITY_SPIRIT
+	invisibility = INVISIBILITY_REVENANT
 	health = INFINITY //Revenants don't use health, they use essence instead
 	maxHealth = INFINITY
 	plane = GHOST_PLANE
@@ -69,7 +70,6 @@
 
 /mob/living/simple_animal/revenant/Initialize(mapload)
 	. = ..()
-	// more rev abilities are in 'revenant_abilities.dm'
 	AddSpell(new /obj/effect/proc_holder/spell/targeted/night_vision/revenant(null))
 	AddSpell(new /obj/effect/proc_holder/spell/self/revenant_phase_shift(null))
 	AddSpell(new /obj/effect/proc_holder/spell/targeted/telepathy/revenant(null))
@@ -77,20 +77,8 @@
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/overload(null))
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/blight(null))
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction(null))
-	check_rev_teleport() // they're spawned in non-station for some reason...
 	random_revenant_name()
 	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE, "#490066")
-
-/mob/living/simple_animal/revenant/onTransitZ(old_z, new_z)
-	. = ..()
-	check_rev_teleport()
-
-/mob/living/simple_animal/revenant/proc/check_rev_teleport()
-	var/obj/effect/proc_holder/spell/self/rev_teleport/revtele = locate() in mob_spell_list
-	if(!is_station_level(src.z) && !revtele) // give them an ability to back to the station
-		AddSpell(new /obj/effect/proc_holder/spell/self/rev_teleport(null))
-	else if(is_station_level(src.z) && revtele) // you're back to the station. Remove tele spell.
-		RemoveSpell(revtele)
 
 /mob/living/simple_animal/revenant/Destroy()
 	. = ..()
@@ -136,7 +124,7 @@
 		unreveal_time = 0
 		revealed = FALSE
 		incorporeal_move = INCORPOREAL_MOVE_JAUNT
-		invisibility = INVISIBILITY_SPIRIT
+		invisibility = INVISIBILITY_REVENANT
 		to_chat(src, "<span class='revenboldnotice'>You are once more concealed.</span>")
 	if(unstun_time && world.time >= unstun_time)
 		unstun_time = 0
@@ -277,7 +265,7 @@
 	else if(revealed) //Okay, the revenant wasn't forced to be revealed, are they currently vulnerable
 		revealed = FALSE
 		incorporeal_move = INCORPOREAL_MOVE_JAUNT
-		invisibility = INVISIBILITY_SPIRIT
+		invisibility = INVISIBILITY_REVENANT
 
 
 	else //Revenant isn't revealed, whether by force or their own will, so this means they are currently invisible
@@ -383,9 +371,37 @@
 	inhibited = FALSE
 	draining = FALSE
 	incorporeal_move = INCORPOREAL_MOVE_JAUNT
-	invisibility = INVISIBILITY_SPIRIT
+	invisibility = INVISIBILITY_REVENANT
 	alpha=255
 	stasis = FALSE
+
+/mob/living/simple_animal/revenant/CtrlClickOn(atom/A)
+	if(incorporeal_move == INCORPOREAL_MOVE_JAUNT)
+		check_orbitable(A)
+		return
+	..()
+
+/mob/living/simple_animal/revenant/DblClickOn(atom/A, params)
+	check_orbitable(A)
+	..()
+
+/mob/living/simple_animal/revenant/proc/check_orbitable(atom/A)
+	if(revealed)
+		to_chat(src, "<span class='warning'>You can't orbit while you're revealed!</span>")
+		return
+	if(!Adjacent(A))
+		to_chat(src, "<span class='warning'>You can only orbit things that are next to you!</span>")
+		return
+	if(notransform || inhibited || !incorporeal_move_check(A))
+		return
+	var/icon/I = icon(A.icon, A.icon_state, A.dir)
+	var/orbitsize = (I.Width()+I.Height())*0.5
+	orbitsize -= (orbitsize/world.icon_size)*(world.icon_size*0.25)
+	orbit(A, orbitsize)
+
+/mob/living/simple_animal/revenant/orbit(atom/target)
+	setDir(SOUTH) // reset dir so the right directional sprites show up
+	return ..()
 
 /mob/living/simple_animal/revenant/Moved(atom/OldLoc)
 	if(!orbiting) // only needed when orbiting

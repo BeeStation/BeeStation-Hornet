@@ -1,10 +1,13 @@
-import { Section, Button, LabeledList, Box, NoticeBox } from '../components';
-import { useBackend } from '../backend';
-import { NtosWindow } from '../layouts';
+import { Section, Button, LabeledList, Box, NoticeBox } from "../components";
+import { useBackend } from "../backend";
+import { NtosWindow } from "../layouts";
 
 export const NtosNetDos = (props, context) => {
   return (
-    <NtosWindow theme="syndicate" width={400} height={250}>
+    <NtosWindow
+      theme="syndicate"
+      width={400}
+      height={250}>
       <NtosWindow.Content>
         <NtosNetDosContent />
       </NtosWindow.Content>
@@ -15,25 +18,40 @@ export const NtosNetDos = (props, context) => {
 export const NtosNetDosContent = (props, context) => {
   const { act, data } = useBackend(context);
 
-  const { relays = [], focus, target, speed, overload, capacity, error } = data;
+  const {
+    relays = [],
+    focus,
+    target,
+    speed,
+    overload,
+    capacity,
+    error,
+  } = data;
 
   if (error) {
     return (
       <>
-        <NoticeBox>{error}</NoticeBox>
-        <Button fluid content="Reset" textAlign="center" onClick={() => act('PRG_reset')} />
+        <NoticeBox>
+          {error}
+        </NoticeBox>
+        <Button
+          fluid
+          content="Reset"
+          textAlign="center"
+          onClick={() => act('PRG_reset')}
+        />
       </>
     );
   }
 
-  const generate10String = (length) => {
-    let outString = '';
-    const factor = overload / capacity;
+  const generate10String = length => {
+    let outString = "";
+    const factor = (overload / capacity);
     while (outString.length < length) {
       if (Math.random() > factor) {
-        outString += '0';
+        outString += "0";
       } else {
-        outString += '1';
+        outString += "1";
       }
     }
     return outString;
@@ -44,15 +62,25 @@ export const NtosNetDosContent = (props, context) => {
   if (target) {
     return (
       <Section fontFamily="monospace" textAlign="center">
-        <Box>CURRENT SPEED: {speed} GQ/s</Box>
+        <Box>
+          CURRENT SPEED: {speed} GQ/s
+        </Box>
         <Box>
           {/* I don't care anymore */}
           {generate10String(lineLength)}
         </Box>
-        <Box>{generate10String(lineLength)}</Box>
-        <Box>{generate10String(lineLength)}</Box>
-        <Box>{generate10String(lineLength)}</Box>
-        <Box>{generate10String(lineLength)}</Box>
+        <Box>
+          {generate10String(lineLength)}
+        </Box>
+        <Box>
+          {generate10String(lineLength)}
+        </Box>
+        <Box>
+          {generate10String(lineLength)}
+        </Box>
+        <Box>
+          {generate10String(lineLength)}
+        </Box>
       </Section>
     );
   }
@@ -61,16 +89,14 @@ export const NtosNetDosContent = (props, context) => {
     <Section>
       <LabeledList>
         <LabeledList.Item label="Target">
-          {relays.map((relay) => (
+          {relays.map(relay => (
             <Button
               key={relay.id}
               content={relay.id}
               selected={focus === relay.id}
-              onClick={() =>
-                act('PRG_target_relay', {
-                  targid: relay.id,
-                })
-              }
+              onClick={() => act('PRG_target_relay', {
+                targid: relay.id,
+              })}
             />
           ))}
         </LabeledList.Item>

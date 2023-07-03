@@ -1,10 +1,10 @@
 import { createPopper, Placement, VirtualElement } from '@popperjs/core';
 import { Component, findDOMFromVNode, render } from 'inferno';
-import type { InfernoNode } from 'inferno';
+import type { Inferno } from 'inferno';
 
 type TooltipProps = {
-  children?: InfernoNode;
-  content: InfernoNode;
+  children?: Inferno.InfernoNode;
+  content: Inferno.InfernoNode;
   position?: Placement;
 };
 
@@ -21,7 +21,7 @@ const DEFAULT_OPTIONS = {
   ],
 };
 
-const NULL_RECT: DOMRect = {
+const NULL_RECT = {
   width: 0,
   height: 0,
   top: 0,
@@ -42,7 +42,8 @@ export class Tooltip extends Component<TooltipProps, TooltipState> {
   static singletonPopper: ReturnType<typeof createPopper> | undefined;
   static currentHoveredElement: Element | undefined;
   static virtualElement: VirtualElement = {
-    getBoundingClientRect: () => Tooltip.currentHoveredElement?.getBoundingClientRect() ?? NULL_RECT,
+    getBoundingClientRect: () =>
+      Tooltip.currentHoveredElement?.getBoundingClientRect() ?? NULL_RECT,
   };
 
   getDOMNode() {
@@ -106,10 +107,14 @@ export class Tooltip extends Component<TooltipProps, TooltipState> {
       () => {
         let singletonPopper = Tooltip.singletonPopper;
         if (singletonPopper === undefined) {
-          singletonPopper = createPopper(Tooltip.virtualElement, renderedTooltip!, {
-            ...DEFAULT_OPTIONS,
-            placement: this.props.position || 'auto',
-          });
+          singletonPopper = createPopper(
+            Tooltip.virtualElement,
+            renderedTooltip!,
+            {
+              ...DEFAULT_OPTIONS,
+              placement: this.props.position || 'auto',
+            }
+          );
 
           Tooltip.singletonPopper = singletonPopper;
         } else {

@@ -66,7 +66,6 @@
 	see_invisible = SEE_INVISIBLE_LIVING
 	invisibility = INVISIBILITY_MAXIMUM
 	can_hear_init = TRUE // Enable hearing sensitive trait
-	initial_language_holder = /datum/language_holder/empty // language will be changed from init()
 	var/icon/human_image
 	var/image/current_image
 	var/hidden = FALSE
@@ -92,9 +91,7 @@
 
 	trauma = _trauma
 	owner = trauma.owner
-	copy_languages(owner, LANGUAGE_FRIEND, spoken=FALSE) // they don't have to speak in a language of their owner knows - as their language is imaginary echoes from their owner.
-	grant_language(/datum/language/metalanguage) // they only speak in metalanguage
-	language_holder.selected_language = /datum/language/metalanguage
+	copy_languages(owner, LANGUAGE_FRIEND)
 
 	setup_friend()
 

@@ -51,11 +51,17 @@ const PaiDownload = (_, context) => {
       buttons={
         <>
           {!!candidates.length && (
-            <Button icon="info" onClick={onClick} tooltip="Toggles between IC and OOC information.">
+            <Button
+              icon="info"
+              onClick={onClick}
+              tooltip="Toggles between IC and OOC information.">
               {tabInChar ? 'IC' : 'OOC'}
             </Button>
           )}
-          <Button icon="bell" onClick={() => act('request')} tooltip="Request candidates.">
+          <Button
+            icon="bell"
+            onClick={() => act('request')}
+            tooltip="Request candidates.">
             Request
           </Button>
         </>
@@ -70,7 +76,11 @@ const PaiDownload = (_, context) => {
           {candidates.map((candidate, index) => {
             return (
               <Stack.Item key={index}>
-                <CandidateDisplay candidate={candidate} index={index + 1} tabInChar={tabInChar} />
+                <CandidateDisplay
+                  candidate={candidate}
+                  index={index + 1}
+                  tabInChar={tabInChar}
+                />
               </Stack.Item>
             );
           })}
@@ -99,7 +109,10 @@ const CandidateDisplay = (props, context) => {
       }}>
       <Section
         buttons={
-          <Button icon="download" onClick={() => act('download', { ckey })} tooltip="Accepts this pAI candidate.">
+          <Button
+            icon="download"
+            onClick={() => act('download', { ckey })}
+            tooltip="Accepts this pAI candidate.">
             Download
           </Button>
         }
@@ -110,7 +123,9 @@ const CandidateDisplay = (props, context) => {
         <Box color="green" fontSize="16px">
           Name: {name || 'Randomized Name'}
         </Box>
-        {tabInChar ? `Description: ${description || 'None'}` : `OOC Comments: ${comments || 'None'}`}
+        {tabInChar
+          ? `Description: ${description || 'None'}`
+          : `OOC Comments: ${comments || 'None'}`}
       </Section>
     </Box>
   );
@@ -135,7 +150,10 @@ const PaiOptions = (_, context) => {
         {!!master && <LabeledList.Item label="DNA">{dna}</LabeledList.Item>}
         <LabeledList.Item label="Laws">{laws}</LabeledList.Item>
         <LabeledList.Item label="Holoform">
-          <Button icon={can_holo ? 'toggle-on' : 'toggle-off'} onClick={() => act('toggle_holo')} selected={can_holo}>
+          <Button
+            icon={can_holo ? 'toggle-on' : 'toggle-off'}
+            onClick={() => act('toggle_holo')}
+            selected={can_holo}>
             Toggle
           </Button>
         </LabeledList.Item>

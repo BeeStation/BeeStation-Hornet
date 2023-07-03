@@ -155,7 +155,6 @@
 		var/size = spritesheet.icon_size_id(design.id)
 		design_cache[compressed_id] = list(
 			design.name,
-			design.desc,
 			"[size == size32x32 ? "" : "[size] "][design.id]"
 		)
 

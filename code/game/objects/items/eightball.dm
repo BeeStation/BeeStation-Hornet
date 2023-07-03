@@ -105,7 +105,11 @@
 	. = ..()
 	become_hearing_sensitive()
 	votes = list()
-	AddElement(/datum/element/point_of_interest)
+	GLOB.poi_list |= src
+
+/obj/item/toy/eightball/haunted/Destroy()
+	GLOB.poi_list -= src
+	. = ..()
 
 /obj/item/toy/eightball/haunted/MakeHaunted()
 	return FALSE

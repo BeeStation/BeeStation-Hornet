@@ -26,7 +26,7 @@
 	var/area/A = get_area(src)
 	if(A)
 		notify_ghosts("A drone shell has been created in \the [A.name].", source = src, action=NOTIFY_ATTACK, flashwindow = FALSE, ignore_key = POLL_IGNORE_DRONE, notify_suiciders = FALSE)
-	AddElement(/datum/element/point_of_interest)
+	GLOB.poi_list |= src
 	if(isnull(possible_seasonal_hats))
 		build_seasonal_hats()
 
@@ -38,6 +38,10 @@
 		var/datum/holiday/holiday = SSevents.holidays[V]
 		if(holiday.drone_hat)
 			possible_seasonal_hats += holiday.drone_hat
+
+/obj/item/drone_shell/Destroy()
+	GLOB.poi_list -= src
+	. = ..()
 
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
 /obj/effect/mob_spawn/drone/attack_ghost(mob/user)

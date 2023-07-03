@@ -1,3 +1,4 @@
+
 export class StatPanel {
   constructor() {
     this.selectedTab = 'Status';
@@ -6,4 +7,5 @@ export class StatPanel {
   setTab(newTab) {
     this.selectedTab = newTab;
   }
+
 }

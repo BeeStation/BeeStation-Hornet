@@ -19,7 +19,9 @@ export const Stack = (props: StackProps) => {
       className={classes([
         'Stack',
         fill && 'Stack--fill',
-        vertical ? 'Stack--vertical' : 'Stack--horizontal',
+        vertical
+          ? 'Stack--vertical'
+          : 'Stack--horizontal',
         className,
         computeFlexClassName(props),
       ])}
@@ -34,7 +36,14 @@ export const Stack = (props: StackProps) => {
 const StackItem = (props: FlexProps) => {
   const { className, ...rest } = props;
   return (
-    <div className={classes(['Stack__item', className, computeFlexItemClassName(rest)])} {...computeFlexItemProps(rest)} />
+    <div
+      className={classes([
+        'Stack__item',
+        className,
+        computeFlexItemClassName(rest),
+      ])}
+      {...computeFlexItemProps(rest)}
+    />
   );
 };
 

@@ -90,6 +90,7 @@ export const NtosEmagConsole = (props, context) => {
 };
 
 export class EmagConsoleText extends Component {
+
   constructor(props) {
     super(props);
     this.timer = null;
@@ -102,13 +103,13 @@ export class EmagConsoleText extends Component {
   tick() {
     const { props, state } = this;
     if (state.index < this.text.length) {
-      this.setState({ index: state.index + 1 * (props?.frame_skip || 1) });
+      this.setState({ index: state.index + (1 * (props?.frame_skip || 1)) });
     } else {
       clearTimeout(this.timer);
       this.timer = setTimeout(() => {
         const { act } = useBackend(this.context);
         // All UI actions close the program
-        act('PC_exit');
+        act("PC_exit");
       }, this.props.end_pause || 500);
     }
   }
@@ -123,16 +124,17 @@ export class EmagConsoleText extends Component {
 
   render() {
     const { state } = this;
-    const toShow = this.text.substring(0, Math.min(state.index, this.text.length));
+    const toShow = this.text.substring(0,
+      Math.min(state.index, this.text.length));
     return (
       <Section fill scrollable backgroundColor="black">
-        {(logTextAlways + toShow).split('\n').map((log) =>
-          log !== '\n' ? (
+        {(logTextAlways + toShow).split("\n").map((log) => (
+          log !== "\n" ? (
             <Box mb={1} key={log}>
               <font color="white">{log}</font>
             </Box>
           ) : null
-        )}
+        ))}
       </Section>
     );
   }

@@ -5,7 +5,7 @@
 	icon_state = "eminence"
 	mob_biotypes = list(MOB_SPIRIT)
 	incorporeal_move = INCORPOREAL_MOVE_EMINENCE
-	invisibility = INVISIBILITY_SPIRIT
+	invisibility = INVISIBILITY_OBSERVER
 	health = INFINITY
 	maxHealth = INFINITY
 	plane = GHOST_PLANE

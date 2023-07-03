@@ -4,7 +4,6 @@
 	name = "Cultist"
 	roundend_category = "cultists"
 	antagpanel_category = "Cult"
-	ui_name = "AntagInfoBloodCult"
 	antag_moodlet = /datum/mood_event/cult
 	var/datum/action/innate/cult/comm/communion = new
 	var/datum/action/innate/cult/mastervote/vote = new
@@ -287,7 +286,6 @@
 				log_game("The blood cult was given halos at cult population of [cultplayers].")
 				addtimer(CALLBACK(src, PROC_REF(ascend), B.current), 200)
 		cult_ascendent = TRUE
-		set_dynamic_high_impact_event("cult has gained halos")
 
 
 /datum/team/cult/proc/rise(cultist)

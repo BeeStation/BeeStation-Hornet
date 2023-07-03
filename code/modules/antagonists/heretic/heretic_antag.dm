@@ -98,9 +98,6 @@
 
 	return data
 
-/datum/antagonist/heretic/make_info_button()
-	return // we already handle this with our own button
-
 /datum/antagonist/heretic/ui_act(action, params)
 	. = ..()
 	if(.)

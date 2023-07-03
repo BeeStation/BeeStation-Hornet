@@ -22,54 +22,53 @@ export const TicketBrowser = (_, context) => {
   return (
     <Window theme="admin" width={720} height={540}>
       <Window.Content scrollable>
-        <h2>
-          {is_admin_panel ? 'Administrator' : 'Mentor'}: {admin_ckey}
-        </h2>
+        <h2>{is_admin_panel ? 'Administrator' : 'Mentor'}: {admin_ckey}</h2>
         {is_admin_panel ? (
           <Section fill>
             <Tabs>
               <Tabs.Tab selected={tab === 'admin'} onClick={() => setTab('admin')}>
-                {`Admin${unclaimed_tickets.length ? ` (${unclaimed_tickets.length})` : ''}`}
+                {`Admin${unclaimed_tickets.length ? ` (${unclaimed_tickets.length})` : ""}`}
               </Tabs.Tab>
               <Tabs.Tab selected={tab === 'mentor'} onClick={() => setTab('mentor')}>
                 {/* eslint-disable-next-line max-len*/}
-                {`Mentor${unclaimed_tickets_mentor.length ? ` (${unclaimed_tickets_mentor.length})` : ''}`}
+                {`Mentor${unclaimed_tickets_mentor.length ? ` (${unclaimed_tickets_mentor.length})` : ""}`}
               </Tabs.Tab>
             </Tabs>
-            {tab === 'admin' ? (
-              <TicketMenus
-                unclaimed_tickets={unclaimed_tickets}
-                open_tickets={open_tickets}
-                resolved_tickets={resolved_tickets}
-                closed_tickets={closed_tickets}
-              />
-            ) : (
-              <TicketMenus
-                unclaimed_tickets={unclaimed_tickets_mentor}
-                open_tickets={open_tickets_mentor}
-                resolved_tickets={resolved_tickets_mentor}
-                closed_tickets={closed_tickets_mentor}
-              />
-            )}
+            {tab === 'admin' ? <TicketMenus
+              unclaimed_tickets={unclaimed_tickets}
+              open_tickets={open_tickets}
+              resolved_tickets={resolved_tickets}
+              closed_tickets={closed_tickets}
+            /> : <TicketMenus
+              unclaimed_tickets={unclaimed_tickets_mentor}
+              open_tickets={open_tickets_mentor}
+              resolved_tickets={resolved_tickets_mentor}
+              closed_tickets={closed_tickets_mentor}
+            />}
           </Section>
-        ) : (
-          <TicketMenus
-            unclaimed_tickets={unclaimed_tickets}
-            open_tickets={open_tickets}
-            resolved_tickets={resolved_tickets}
-            closed_tickets={closed_tickets}
-          />
-        )}
+        ) : (<TicketMenus
+          unclaimed_tickets={unclaimed_tickets}
+          open_tickets={open_tickets}
+          resolved_tickets={resolved_tickets}
+          closed_tickets={closed_tickets}
+        />)}
       </Window.Content>
     </Window>
   );
 };
 
 export const CollapsibleSection = ({ collapsible, children, ...remainder }) => (
-  <Section {...remainder}>{collapsible ? <Collapsible open>{children}</Collapsible> : children}</Section>
+  <Section {...remainder}>
+    {collapsible ? <Collapsible open>{children}</Collapsible> : children}
+  </Section>
 );
 
-export const TicketMenus = ({ unclaimed_tickets, open_tickets, resolved_tickets, closed_tickets }) => {
+export const TicketMenus = ({
+  unclaimed_tickets,
+  open_tickets,
+  resolved_tickets,
+  closed_tickets,
+}) => {
   return (
     <>
       <TicketMenu
@@ -78,7 +77,9 @@ export const TicketMenus = ({ unclaimed_tickets, open_tickets, resolved_tickets,
         actions={[['claim', 'good']]}
         actions_confirm={[['reject', 'bad']]}
         admin_actions={[['flw', 'blue']]}
-        admin_actions_confirm={[['ic', 'label']]}
+        admin_actions_confirm={[
+          ['ic', 'label'],
+        ]}
         conversion
       />
       <TicketMenu
@@ -88,12 +89,16 @@ export const TicketMenus = ({ unclaimed_tickets, open_tickets, resolved_tickets,
           ['claim', 'average'],
           ['resolve', 'good'],
         ]}
-        actions_confirm={[['reject', 'bad']]}
+        actions_confirm={[
+          ['reject', 'bad'],
+        ]}
         admin_actions={[
           ['flw', 'blue'],
           ['close', 'label'],
         ]}
-        admin_actions_confirm={[['ic', 'label']]}
+        admin_actions_confirm={[
+          ['ic', 'label'],
+        ]}
         conversion
       />
       <TicketMenu
@@ -138,9 +143,12 @@ export const TicketMenu = (props, context) => {
                   onClick={() =>
                     act('view', {
                       id: ticket.id,
-                    })
-                  }>
-                  <u>{(ticket.is_admin_type ? '' : '[MENTOR] ') + '#' + ticket.id}</u>
+                    })}>
+                  <u>
+                    {(ticket.is_admin_type ? '' : '[MENTOR] ')
+                      + '#'
+                      + ticket.id}
+                  </u>
                 </Button>
               </Table.Cell>
               <Table.Cell>
@@ -149,34 +157,48 @@ export const TicketMenu = (props, context) => {
                   onClick={() =>
                     act('pm', {
                       id: ticket.id,
-                    })
-                  }>
+                    })}>
                   <u>
-                    {ticket.initiator_key_name} \{ticket.disconnected ? '[DC]' : ''}
+                    {ticket.initiator_key_name} \
+                    {ticket.disconnected ? '[DC]' : ''}
                   </u>
                 </Button>
               </Table.Cell>
               {actions?.map((action) => (
-                <ActionButton key={action[0]} action={action} ticket_id={ticket.id} />
+                <ActionButton
+                  key={action[0]}
+                  action={action}
+                  ticket_id={ticket.id}
+                />
               ))}
               {actions_confirm?.map((action) => (
-                <ActionButton key={action[0]} action={action} ticket_id={ticket.id} confirm />
-              ))}
-              {ticket.is_admin_type
-                ? admin_actions?.map((action) => <ActionButton key={action[0]} action={action} ticket_id={ticket.id} />)
-                : null}
-              {ticket.is_admin_type
-                ? admin_actions_confirm?.map((action) => (
-                  <ActionButton key={action[0]} action={action} ticket_id={ticket.id} confirm />
-                ))
-                : null}
-              {conversion ? (
                 <ActionButton
-                  action={ticket.is_admin_type ? ['mhelp', 'label'] : ['ahelp', 'label']}
+                  key={action[0]}
+                  action={action}
                   ticket_id={ticket.id}
                   confirm
                 />
+              ))}
+              {ticket.is_admin_type ? admin_actions?.map((action) => (
+                <ActionButton
+                  key={action[0]}
+                  action={action}
+                  ticket_id={ticket.id}
+                />
+              )) : null}
+              {ticket.is_admin_type ? admin_actions_confirm?.map((action) =>
+                (<ActionButton
+                  key={action[0]}
+                  action={action}
+                  ticket_id={ticket.id}
+                  confirm
+                />)
               ) : null}
+              {conversion ? <ActionButton
+                action={ticket.is_admin_type ? ['mhelp', 'label'] : ['ahelp', 'label']}
+                ticket_id={ticket.id}
+                confirm
+              /> : null}
             </Table.Row>
             <BlockQuote>{ticket.name}</BlockQuote>
             <Box color={ticket.claimed_key_name ? 'good' : 'bad'}>
@@ -205,8 +227,7 @@ export const ActionButton = ({ action, confirm, ticket_id }, context) => {
           onClick={() =>
             act(action[0], {
               id: ticket_id,
-            })
-          }
+            })}
           color={action[1]}
         />
       ) : (
@@ -215,8 +236,7 @@ export const ActionButton = ({ action, confirm, ticket_id }, context) => {
           onClick={() =>
             act(action[0], {
               id: ticket_id,
-            })
-          }
+            })}
           color={action[1]}
         />
       )}

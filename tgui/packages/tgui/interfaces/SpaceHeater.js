@@ -12,7 +12,12 @@ export const SpaceHeater = (props, context) => {
           buttons={
             <>
               {!!data.chemHacked && (
-                <Button icon="eject" content="Eject beaker" disabled={!data.beaker} onClick={() => act('ejectBeaker')} />
+                <Button
+                  icon="eject"
+                  content="Eject beaker"
+                  disabled={!data.beaker}
+                  onClick={() => act('ejectBeaker')}
+                />
               )}
               <Button
                 icon="eject"
@@ -41,8 +46,8 @@ export const SpaceHeater = (props, context) => {
                   }}>
                   {data.powerLevel + '%'}
                 </ProgressBar>
-              )) ||
-                'None'}
+              ))
+                || 'None'}
             </LabeledList.Item>
           </LabeledList>
         </Section>
@@ -73,11 +78,10 @@ export const SpaceHeater = (props, context) => {
                   onChange={(e, value) =>
                     act('target', {
                       target: value,
-                    })
-                  }
+                    })}
                 />
-              )) ||
-                data.targetTemp + '°C'}
+              ))
+                || data.targetTemp + '°C'}
             </LabeledList.Item>
             <LabeledList.Item label="Mode">
               {(!data.open && 'Auto') || (
@@ -89,8 +93,7 @@ export const SpaceHeater = (props, context) => {
                     onClick={() =>
                       act('mode', {
                         mode: 'auto',
-                      })
-                    }
+                      })}
                   />
                   <Button
                     icon="fire-alt"
@@ -99,8 +102,7 @@ export const SpaceHeater = (props, context) => {
                     onClick={() =>
                       act('mode', {
                         mode: 'heat',
-                      })
-                    }
+                      })}
                   />
                   <Button
                     icon="fan"
@@ -109,8 +111,7 @@ export const SpaceHeater = (props, context) => {
                     onClick={() =>
                       act('mode', {
                         mode: 'cool',
-                      })
-                    }
+                      })}
                   />
                 </>
               )}

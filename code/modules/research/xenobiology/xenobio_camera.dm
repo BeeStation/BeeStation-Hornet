@@ -45,9 +45,6 @@
 
 	light_color = LIGHT_COLOR_PINK
 
-	reveal_camera_mob = TRUE
-	camera_mob_icon_state = "xeno"
-
 /obj/machinery/computer/camera_advanced/xenobio/Initialize(mapload)
 	. = ..()
 	slime_place_action = new
@@ -76,9 +73,9 @@
 /obj/machinery/computer/camera_advanced/xenobio/CreateEye()
 	eyeobj = new /mob/camera/ai_eye/remote/xenobio(get_turf(src))
 	eyeobj.origin = src
-	eyeobj.icon = camera_mob_icon
-	eyeobj.icon_state = camera_mob_icon_state
-	RevealCameraMob()
+	eyeobj.visible_icon = TRUE
+	eyeobj.icon = 'icons/mob/cameramob.dmi'
+	eyeobj.icon_state = "generic_camera"
 
 /obj/machinery/computer/camera_advanced/xenobio/GrantActions(mob/living/user)
 	..()

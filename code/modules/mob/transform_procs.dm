@@ -140,7 +140,6 @@
 
 	if (tr_flags & TR_DEFAULTMSG)
 		to_chat(O, "<B>You are now a monkey.</B>")
-	SEND_SIGNAL(src, COMSIG_CARBON_TRANSFORMED, O)
 
 	for(var/A in loc.vars)
 		if(loc.vars[A] == src)
@@ -283,8 +282,6 @@
 
 	if (tr_flags & TR_DEFAULTMSG)
 		to_chat(O, "<B>You are now a living teratoma.</B>")
-
-	SEND_SIGNAL(src, COMSIG_CARBON_TRANSFORMED, O)
 
 	for(var/A in loc.vars)
 		if(loc.vars[A] == src)
@@ -454,8 +451,6 @@
 	if (tr_flags & TR_DEFAULTMSG)
 		to_chat(O, "<B>You are now \a [O.dna.species]].</B>")
 
-	SEND_SIGNAL(src, COMSIG_CARBON_TRANSFORMED, O)
-
 	transfer_observers_to(O)
 
 	. = O
@@ -531,7 +526,7 @@
 	if(client)
 		R.updatename(client)
 
-	if(mind)//TODO //huh?
+	if(mind)		//TODO
 		if(!transfer_after)
 			mind.active = FALSE
 		mind.transfer_to(R)
@@ -550,19 +545,7 @@
 	R.notify_ai(NEW_BORG)
 
 	. = R
-	if(R.ckey && is_banned_from(R.ckey, JOB_NAME_CYBORG))
-		INVOKE_ASYNC(R, TYPE_PROC_REF(/mob/living/silicon/robot, replace_banned_cyborg))
 	qdel(src)
-
-/mob/living/silicon/robot/proc/replace_banned_cyborg()
-	to_chat(src, "<span class='userdanger'>You are job banned from cyborg! Appeal your job ban if you want to avoid this in the future!</span>")
-	ghostize(FALSE)
-
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [src]?", "[src]", null, JOB_NAME_CYBORG, 50, src)
-	if(LAZYLEN(candidates))
-		var/mob/dead/observer/chosen_candidate = pick(candidates)
-		message_admins("[key_name_admin(chosen_candidate)] has taken control of ([key_name_admin(src)]) to replace a jobbanned player.")
-		key = chosen_candidate.key
 
 //human -> alien
 /mob/living/carbon/human/proc/Alienize()
