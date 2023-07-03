@@ -51,7 +51,7 @@
 
 		playsound(user, 'sound/machines/click.ogg', 60, 1)
 		obj_flags &= ~IN_USE
-		user.pixel_y = 0
+		user.pixel_y = user.base_pixel_y
 		var/finishmessage = pick("You feel stronger!","You feel like you can take on the world!","You feel robust!","You feel indestructible!")
 
 

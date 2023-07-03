@@ -264,7 +264,6 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 			if (dump_amount >= 16)
 				return
 
-GLOBAL_LIST_EMPTY(vending_products)
 /**
   * Build the inventory of the vending machine from it's product and record lists
   *
@@ -282,7 +281,6 @@ GLOBAL_LIST_EMPTY(vending_products)
 
 		var/atom/temp = typepath
 		var/datum/data/vending_product/R = new /datum/data/vending_product()
-		GLOB.vending_products[typepath] = 1
 		R.name = initial(temp.name)
 		R.product_path = typepath
 		if(!start_empty)
@@ -361,14 +359,14 @@ GLOBAL_LIST_EMPTY(vending_products)
 /obj/machinery/vending/wrench_act(mob/living/user, obj/item/I)
 	..()
 	if(panel_open)
-		default_unfasten_wrench(user, I, time = 60)
+		default_unfasten_wrench(user, I, time = 6 SECONDS)
 		unbuckle_all_mobs(TRUE)
 	return TRUE
 
 /obj/machinery/vending/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
 		return TRUE
-	if(anchored)
+	if(anchored || (!anchored && !panel_open))
 		default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 		cut_overlays()
 		if(panel_open)
@@ -1026,6 +1024,10 @@ GLOBAL_LIST_EMPTY(vending_products)
 					if(compartmentLoadAccessCheck(usr))
 						vending_machine_input[N] = max(vending_machine_input[N] - 1, 0)
 						S.forceMove(drop_location())
+						if (usr.CanReach(src) && usr.put_in_hands(S))
+							to_chat(usr, "<span class='notice'>You take [S.name] out of the slot.</span>")
+						else
+							to_chat(usr, "<span class='warning'>[capitalize(S.name)] falls onto the floor!</span>")
 						loaded_items--
 						use_power(5)
 						vend_ready = TRUE
@@ -1038,6 +1040,10 @@ GLOBAL_LIST_EMPTY(vending_products)
 							SSblackbox.record_feedback("amount", "vending_spent", S.custom_price)
 						vending_machine_input[N] = max(vending_machine_input[N] - 1, 0)
 						S.forceMove(drop_location())
+						if (usr.CanReach(src) && usr.put_in_hands(S))
+							to_chat(usr, "<span class='notice'>You take [S.name] out of the slot.</span>")
+						else
+							to_chat(usr, "<span class='warning'>[capitalize(S.name)] falls onto the floor!</span>")
 						loaded_items--
 						use_power(5)
 						if(last_shopper != REF(usr) || purchase_message_cooldown < world.time)

@@ -493,5 +493,3 @@
 		character.update_body()
 		character.update_hair()
 		character.update_body_parts(TRUE)
-
-	character.dna.update_body_size()
