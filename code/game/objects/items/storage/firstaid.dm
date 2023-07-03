@@ -64,6 +64,7 @@
 	item_state = "firstaid-surgery"
 	desc = "A high capacity aid kit for doctors, full of medical supplies and basic surgical equipment"
 	skin_type = MEDBOT_SKIN_SURGERY
+	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/storage/firstaid/medical/ComponentInitialize()
 	. = ..()
