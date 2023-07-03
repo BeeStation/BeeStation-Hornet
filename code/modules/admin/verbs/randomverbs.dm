@@ -1079,7 +1079,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN) || !check_rights(R_FUN))
 		return
 
-	var/punishment = tgui_input_list(usr, "Choose a punishment", "DIVINE SMITING", GLOB.smites)
+	var/punishment = tgui_input_list(usr, "Choose a punishment", "DIVINE SMITING", GLOB.smite_list)
 
 	if(QDELETED(target) || !punishment)
 		return

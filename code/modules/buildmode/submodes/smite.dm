@@ -13,7 +13,7 @@
 		***********************************************************</span>")
 
 /datum/buildmode_mode/smite/change_settings(client/user)
-	var/punishment = tgui_input_list(user, "Choose a punishment", "DIVINE SMITING", GLOB.smites)
+	var/punishment = tgui_input_list(user, "Choose a punishment", "DIVINE SMITING", GLOB.smite_list)
 	var/smite_path = GLOB.smite_list[punishment]
 	var/datum/smite/picking_smite = new smite_path
 	var/configuration_success = picking_smite.configure(user)
