@@ -20,43 +20,36 @@
   @include meta.load-css('../atomic/color.scss');
 
   // Components
-  @include meta.load-css('../components/Button.scss', $with: (
-    'color-default': colors.$primary,
-    'color-disabled': #665c3c,
-    'color-selected': #CFBA47,
-    'color-caution':  #FFAE42,
-    'color-danger': #FFFF00,
-  ));
+  @include meta.load-css(
+    '../components/Button.scss',
+    $with: (
+      'color-default': colors.$primary,
+      'color-disabled': #665c3c,
+      'color-selected': #cfba47,
+      'color-caution': #ffae42,
+      'color-danger': #ffff00
+    )
+  );
   @include meta.load-css('../components/Input.scss');
-  @include meta.load-css('../components/Tooltip.scss', $with: (
-    'background-color': #2D1400,
-  ));
-  @include meta.load-css('../components/Section.scss', $with: (
-    'separator-color': #d6ca85,
-  ));
-  @include meta.load-css('../components/Divider.scss', $with: (
-    'color': #d6ca85,
-  ));
-  @include meta.load-css('../components/ProgressBar.scss', $with: (
-    'background-color': rgba(0, 0, 0, 0.5),
-  ));
+  @include meta.load-css('../components/Tooltip.scss', $with: ('background-color': #2d1400));
+  @include meta.load-css('../components/Section.scss', $with: ('separator-color': #d6ca85));
+  @include meta.load-css('../components/Divider.scss', $with: ('color': #d6ca85));
+  @include meta.load-css('../components/ProgressBar.scss', $with: ('background-color': rgba(0, 0, 0, 0.5)));
 
   //Layouts
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css('../layouts/TitleBar.scss', $with: (
-    'background-color': #5F380E,
-    'shadow-color': rgba(0, 0, 0, 0.1),
-    'text-color': #CFBA47,
-  ));
+  @include meta.load-css(
+    '../layouts/TitleBar.scss',
+    $with: ('background-color': #5f380e, 'shadow-color': rgba(0, 0, 0, 0.1), 'text-color': #cfba47)
+  );
 
   .Input {
-    color: #B18B25;
-    background-color: #CFBA47;
+    color: #b18b25;
+    background-color: #cfba47;
   }
 
   .Layout__content {
     background-image: none;
   }
-
 }

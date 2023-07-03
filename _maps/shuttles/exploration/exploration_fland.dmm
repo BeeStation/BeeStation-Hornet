@@ -194,7 +194,7 @@
 /turf/open/floor/wood,
 /area/shuttle/exploration)
 "iy" = (
-/obj/machinery/vending/boozeomat/pubby_maint,
+/obj/machinery/vending/boozeomat/maint,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
