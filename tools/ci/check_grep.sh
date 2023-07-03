@@ -12,9 +12,8 @@ NC="\033[0m" # No Color
 
 st=0
 
-echo -e "${BLUE}Checking for map issues...${NC}"
-
 # This section checks for artifacts with map merging
+echo -e "${BLUE}Checking for general map issues...${NC}"
 if grep -El '^\".+\" = \(.+\)' _maps/**/*.dmm;    then
     echo
     echo -e "${RED}ERROR: Non-TGM formatted map detected. Please convert it using Map Merger!${NC}"
@@ -51,6 +50,7 @@ if grep -P '\td[1-2] =' _maps/**/*.dmm;    then
     st=1
 fi;
 
+echo -e "${BLUE}Checking for map issues, if anything is in the wrong place...${NC}"
 # Example: A tile can only have ONE /obj/machinery/firealarm OR ONE /obj/machinery/firealarm/directional, etc.
 DUPES_YES_WALLCHECK=(
 	"/obj/effect/spawner/structure/window"
@@ -90,7 +90,7 @@ DUPES_SUBTYPE_IDENTICAL_NO_WALLCHECK=(
 CHECK_DUPES=(${DUPES_YES_WALLCHECK[@]} ${DUPES_NO_WALLCHECK[@]})
 for TYPEPATH in "${CHECK_DUPES[@]}"
 do
-	if grep -Pzo "\"\w+\" = \([^)]*?\n${TYPEPATH}[/\w,\n]*?[^)]*?\n${TYPEPATH}[/\w,\n]*?[^)]*?\n/area.+?\)" _maps/**/*.dmm;	then
+	if grep -Pzo "\"\w+\" = \([^)]*?\n${TYPEPATH}[/\w,\n]*?[^)]*?\n${TYPEPATH}[/\w,\n]*?[^)]*?\n/area/.+?\)" _maps/**/*.dmm;	then
 		echo
 		echo -e "${RED}ERROR: Found multiple of type ${TYPEPATH} on the same tile, please remove them.${NC}"
 		st=1
@@ -112,14 +112,16 @@ done
 CHECK_IDENTICAL_DUPES=(${DUPES_SUBTYPE_IDENTICAL_YES_WALLCHECK[@]} ${DUPES_SUBTYPE_IDENTICAL_NO_WALLCHECK[@]})
 for TYPEPATH in "${CHECK_IDENTICAL_DUPES[@]}"
 do
-	if grep -Pzo "\"\w+\" = \([^)]*?\n${TYPEPATH}(?<type>[/\w]*),[^)]*?\n${TYPEPATH}\g{type},[^)]*?\n/area/.+\)" _maps/**/*.dmm;	then
+	if grep -Pzo "\"\w+\" = \([^)]*?\n${TYPEPATH}(?<type>[/\w]*),[^)]*?\n${TYPEPATH}\g{type},[^)]*?\n/area/.+?\)" _maps/**/*.dmm;	then
 		echo
 		echo -e "${RED}ERROR: Found multiple IDENTICAL of type ${TYPEPATH} on the same tile, please remove them.${NC}"
 		st=1
 	fi;
 done
 
+
 # This section checks for miscellaneous mapping errors
+echo -e "${BLUE}Checking for specific map issues...${NC}"
 if grep -Pzo '"\w+" = \([^)]*?\n/obj/structure/stairs[/\w,\n]*?[^)]*?\n/turf/open/genturf[/\w,\n]*?[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
 	echo
     echo -e "${RED}ERROR: Found a staircase on top of a gen_turf. Please replace the gen_turf with a proper turf.${NC}"
@@ -130,7 +132,17 @@ if grep -Pzo '/obj/machinery/conveyor/inverted[/\w]*?\{\n[^}]*?dir = [1248];[^}]
     echo -e "${RED}ERROR: Found an inverted conveyor belt with a cardinal dir. Please replace it with a normal conveyor belt.${NC}"
     st=1
 fi;
-if ls _maps/*.json | grep -P "[A-Z]"; then
+if grep -Pzo '"\w+" = \([^)]*?/obj/machinery/power/apc/auto_name/((north)|(east)|(south)|(west))\{\n[^}]*?((pixel_x)|(pixel_y)|(dir))[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
+	echo
+    echo -e "${RED}ERROR: Manually var-edited auto_name APC detected. Please replace one of the 'north' 'east' 'south' 'west' subpaths.${NC}"
+    st=1
+fi;
+if grep -Pzo '"\w+" = \([^)]*?/obj/machinery/airalarm/directional/((north)|(east)|(south)|(west))\{\n[^}]*?((pixel_x)|(pixel_y)|(dir))[^)]*?\n/area/.+?\)' _maps/**/*.dmm;	then
+	echo
+    echo -e "${RED}ERROR: Manually var-edited directional airalarm detected. Please replace one of the 'north' 'east' 'south' 'west' subpaths.${NC}"
+    st=1
+fi;
+if ls _maps/*.json | grep -P "[A-Z]";	then
     echo
     echo -e "${RED}ERROR: Uppercase in a map .JSON file detected, these must be all lowercase.${NC}"
     st=1
