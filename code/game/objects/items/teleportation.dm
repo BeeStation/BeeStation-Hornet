@@ -320,7 +320,7 @@
 
 		// Check if we can move here
 		current_area = current_location.loc
-		if(!do_teleport(C, current_location, no_effects = TRUE, channel = TELEPORT_CHANNEL_BLINK))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
+		if(!do_teleport(C, current_location, no_effects = TRUE, channel = TELEPORT_CHANNEL_BLINK, commit = FALSE))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
 			current_location = previous
 			break
 		// If it contains objects, try to break it
@@ -335,6 +335,8 @@
 		if (!telefrag(current_location, user))
 			current_location = previous
 			break
+
+	do_teleport(C, current_location, channel = TELEPORT_CHANNEL_BLINK)
 
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(get_turf(user))
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(current_location)
