@@ -1,0 +1,4 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: Armblades will now damage targets on help intent.
