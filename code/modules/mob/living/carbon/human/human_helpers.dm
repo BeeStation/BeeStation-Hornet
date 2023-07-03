@@ -174,27 +174,26 @@
 	if(!search_through)
 		search_through = list(get_active_held_item(), get_inactive_held_item(), wear_id, belt)
 	for(var/obj/item/found_item in search_through)
-		if(istype(found_item, /obj/item/holochip))
-			var/obj/item/holochip/found_chip = found_item
-			if(found_chip.credits > 0)
-				found_list += found_chip
-			continue
 		if(istype(found_item, /obj/item/modular_computer)) // if it's a PDA, we'll find a card
 			var/obj/item/modular_computer/found_PDA = found_item
 			var/obj/item/computer_hardware/card_slot/found_card_slot = found_PDA.all_components[MC_CARD]
-			found_item = found_card_slot?.stored_card
+			found_item = found_card_slot?.stored_card // swap found_item to the actual ID card we want to add
 			if(!found_item) //Empty ID slot, skip it
 				continue
+				
+		// we store detected cards and holochips into the returning list
 		if(istype(found_item, /obj/item/card/id))
 			var/obj/item/card/id/found_id = found_item
 			if(found_id?.registered_account)
 				found_list += found_id
-			continue
-		if(istype(found_item, /obj/item/storage/wallet))
+		else if(istype(found_item, /obj/item/holochip))
+			var/obj/item/holochip/found_chip = found_item
+			if(found_chip.credits > 0)
+				found_list += found_chip
+		else if(istype(found_item, /obj/item/storage/wallet)) // if it's a wallet, find other cards and holochips recursively through this proc.
 			var/obj/item/storage/wallet/found_wallet = found_item
 			if(length(found_wallet.contents))
 				found_list += get_cash_list(found_wallet.contents)
-			continue
 	if(length(found_list))
 		return found_list
 	else
