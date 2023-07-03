@@ -63,8 +63,6 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	var/active = 1
 	///Are we ready to vend?? Is it time??
 	var/vend_ready = TRUE
-	///Next world time to send a purchase message
-	var/purchase_message_cooldown
 	///The ref of the last mob to shop with us
 	var/last_shopper
 	var/tilted = FALSE
@@ -73,7 +71,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	var/forcecrit = 0
 	var/num_shards = 7
 	var/list/pinned_mobs = list()
-
+	COOLDOWN_DECLARE(purchase_message_cooldown)
 
 	/**
 	  * List of products this machine sells
@@ -782,9 +780,9 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 							if(D)
 								D.adjust_money(price_to_use)
 
-			if(last_shopper != REF(usr) || purchase_message_cooldown < world.time)
+			if(last_shopper != REF(usr) || COOLDOWN_FINISHED(src, purchase_message_cooldown))
 				say("Thank you for shopping with [src]!")
-				purchase_message_cooldown = world.time + 5 SECONDS
+				COOLDOWN_START(src, purchase_message_cooldown, (5 SECONDS))
 				//This is not the best practice, but it's safe enough here since the chances of two people using a machine with the same ref in 5 seconds is fuck low
 				last_shopper = REF(usr)
 			use_power(5)
@@ -1070,9 +1068,9 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	playsound(src, 'sound/machines/machine_vend.ogg', 50, TRUE, extrarange = -3)
 	loaded_items--
 	use_power(5)
-	if(last_shopper != REF(usr) || purchase_message_cooldown < world.time)
+	if(last_shopper != REF(usr) || COOLDOWN_FINISHED(src, purchase_message_cooldown))
 		say("Thank you for buying local and purchasing [bought_item]!")
-		purchase_message_cooldown = world.time + 5 SECONDS
+		COOLDOWN_START(src, purchase_message_cooldown, (5 SECONDS))
 		last_shopper = REF(usr)
 	vend_ready = TRUE
 

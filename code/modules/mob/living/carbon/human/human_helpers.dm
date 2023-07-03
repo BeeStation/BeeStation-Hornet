@@ -146,7 +146,7 @@
 		return FALSE
 	if(to_spend > get_accessible_cash(cash_list)) //If we don't have enough money, early return
 		return FALSE
-	for(var/obj/item/holochip/chip_stack in cash_list)//Holochips take priority over ID cards
+	for(var/obj/item/holochip/chip_stack in cash_list)//Loops are separate because we prioritize taking cash from holochips first, then ID cards
 		if(chip_stack.credits >= to_spend)
 			chip_stack.spend(to_spend, TRUE)
 			return TRUE
