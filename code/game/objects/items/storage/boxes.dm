@@ -37,6 +37,9 @@
 
 /obj/item/storage/box/Initialize(mapload)
 	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 7
+	STR.max_combined_w_class = 7
 	update_icon()
 
 /obj/item/storage/box/suicide_act(mob/living/carbon/user)
