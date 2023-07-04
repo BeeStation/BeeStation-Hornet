@@ -269,17 +269,17 @@
 	SIGNAL_HANDLER
 
 	if(channel != TELEPORT_CHANNEL_GATEWAY)
-		return TRUE
+		return COMPONENT_ALLOW_TELEPORT
 
 	//Checking that there is an exile implant
 	if(!isnull(implants))
 		for(var/obj/item/implant/exile/E in implants)
 			to_chat(src, "<span class='warning'>The portal has detected your exile implant and is blocking your entry!</span>")
-			return FALSE
+			return COMPONENT_BLOCK_TELEPORT
 
 	// Ashwalker check
 	if(is_species(src, /datum/species/lizard/ashwalker))
 		to_chat(src, "<span class='warning'>The portal has blocked your entry!</span>")
-		return FALSE
+		return COMPONENT_BLOCK_TELEPORT
 
-	return TRUE
+	return COMPONENT_ALLOW_TELEPORT

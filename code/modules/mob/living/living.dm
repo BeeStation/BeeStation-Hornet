@@ -8,7 +8,7 @@
 
 /mob/living/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_ATOM_TELEPORT_ACT, PROC_REF(handle_teleport_interception))
+	RegisterSignal(src, COMSIG_ATOM_INTERCEPT_TELEPORT, PROC_REF(handle_teleport_interception))
 	if(unique_name)
 		name = "[name] ([rand(1, 1000)])"
 		real_name = name
