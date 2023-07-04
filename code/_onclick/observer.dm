@@ -69,13 +69,17 @@
 // Now you can click through portals, wormholes, gateways, and teleporters while observing. -Sayu
 
 /obj/machinery/gateway/attack_ghost(mob/user)
-	if(!centerpiece)
+	. = ..()
+	if(.)
 		return
+
+	if(!centerpiece)
+		return FALSE
 	if(linked_gateway)
 		user.abstract_move(linked_gateway.loc)
-	else
-		to_chat(user, "[src] has no destination.")
-	return ..()
+		return TRUE
+	to_chat(user, "[src] has no destination.")
+	return TRUE
 
 /obj/machinery/teleport/hub/attack_ghost(mob/user)
 	if(!power_station?.engaged || !power_station.teleporter_console || !power_station.teleporter_console.target_ref)

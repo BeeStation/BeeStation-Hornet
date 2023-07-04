@@ -34,20 +34,46 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	return ..()
 
 /obj/machinery/gateway/Bumped(atom/movable/AM)
-	if(!centerpiece)
-		return
-	if(!active)
-		return
-	if(!check_parts())
-		return
-	if(!linked_gateway || QDELETED(linked_gateway))
-		say_cooldown("Target destination not found.")
-		return
-	if(!linked_gateway.active)
-		say_cooldown("Destination gateway not active.")
+	self_teleport(AM)
+
+/obj/machinery/gateway/MouseDrop_T(atom/movable/AM, mob/user)
+	. = ..()
+	if(AM == user)
+		self_teleport(AM) // This is so that if you're drag-clicking yourself into the gateway it'll appear as if you're entering it
 		return
 
-	teleport(AM, linked_gateway)
+	if(ismob(AM))
+		var/mob/M = AM
+		user.visible_message(\
+			"<span class='warning'>[user] tries to shove [M] into [src]...</span>",\
+			"<span class='warning'>You try to shove [M] into [src]...</span>",
+			ignored_mobs = list(M))
+		to_chat(M, "<span class='userdanger'>[user] is pushing you into [src]!</span>")
+		if(do_after(user, 5 SECONDS, src))
+
+		else
+			return // failed do_after, we don't teleport
+	else
+		user.visible_message("<span class='notice'>[AM] is pushed into [src].</span>") //
+
+	var/turf/dest_turf = get_step(get_turf(linked_gateway), SOUTH)
+	actually_teleport(AM, dest_turf)
+
+/obj/machinery/gateway/proc/pre_check_teleport(atom/movable/AM, turf/dest_turf)
+	if(!centerpiece)
+		return FALSE
+	if(!active)
+		return FALSE
+	if(!check_parts())
+		return FALSE
+	if(!linked_gateway || QDELETED(linked_gateway))
+		say_cooldown("Target destination not found.")
+		return FALSE
+	if(!linked_gateway.active)
+		say_cooldown("Destination gateway not active.")
+		return FALSE
+
+	return check_teleport(AM, dest_turf, channel = TELEPORT_CHANNEL_GATEWAY)
 
 /obj/machinery/gateway/proc/check_parts()
 	. = TRUE
@@ -72,31 +98,34 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 		say(words)
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 
-/obj/machinery/gateway/proc/teleport(atom/movable/AM, obj/machinery/gateway/target)
-	var/turf/dest_turf = get_step(get_turf(target), SOUTH)
-
-	if(check_teleport(AM, dest_turf, channel = TELEPORT_CHANNEL_GATEWAY))
-		to_chat("<span class='warning'>You can't seem to pass through [src]!</span>")
+/// Do a teleport initiated by the target
+/obj/machinery/gateway/proc/self_teleport(atom/movable/AM)
+	var/turf/dest_turf = get_step(get_turf(linked_gateway), SOUTH)
+	if(!pre_check_teleport(AM, dest_turf))
 		return
 
 	if(ismob(AM))
 		var/mob/M = AM
-		M.visible_message("<span class='notice'>[AM] tries to climb into [src]...</span>", "<span class='notice'>You begin climbing into [src]...</span>")
+		M.visible_message( \
+			"<span class='notice'>[AM] tries to climb into [src]...</span>", \
+			"<span class='notice'>You begin climbing into [src]...</span>")
 		if(!do_after(M, 5 SECONDS, src, timed_action_flags = IGNORE_HELD_ITEM))
 			return
 	else
 		AM.visible_message("<span class='notice'>[AM] enters the gateway...</span>") // oooo~ ominous
 
+	actually_teleport(AM, dest_turf)
+
+
+/obj/machinery/gateway/proc/actually_teleport(atom/movable/AM, turf/dest_turf)
 	if(do_teleport(AM, dest_turf, no_effects = TRUE, channel = TELEPORT_CHANNEL_GATEWAY))
+		AM.visible_message("[AM] passes through [linked_gateway]!", "<span class='notice'>You pass through.</span>")
 		AM.setDir(SOUTH)
 
 /obj/machinery/gateway/update_icon()
 	icon_state = active ? "on" : "off"
 
-/obj/machinery/gateway/attack_hand(mob/user)
-	. = ..()
-	if(.)
-		return
+/obj/machinery/gateway/interact(mob/user)
 	if(!centerpiece)
 		return
 
@@ -110,6 +139,8 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	else
 		if(toggleon(user))
 			to_chat(user, "<span class='notice'>You turn [src] on.</span>")
+
+	. = ..()
 
 /obj/machinery/gateway/proc/toggleon(mob/user)
 	if(!centerpiece)
