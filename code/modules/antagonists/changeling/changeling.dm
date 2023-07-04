@@ -6,6 +6,7 @@
 	name = "Changeling"
 	roundend_category  = "changelings"
 	antagpanel_category = "Changeling"
+	ui_name = "AntagInfoChangeling"
 	job_rank = ROLE_CHANGELING
 	antag_moodlet = /datum/mood_event/focused
 	hijack_speed = 0.5
@@ -137,6 +138,13 @@
 		var/datum/action/changeling/S = power
 		if(istype(S) && S.needs_button)
 			S.Grant(owner.current)
+
+/datum/antagonist/changeling/ui_data(mob/user)
+	var/list/data = list()
+
+	data["true_name"] = changelingID
+	data["objectives"] = get_objectives()
+	return data
 
 ///Handles stinging without verbs.
 /datum/antagonist/changeling/proc/stingAtom(mob/living/carbon/ling, atom/A)
@@ -397,6 +405,7 @@
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ling_aler.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
 	owner.announce_objectives()
+
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Changeling",
 		"You have absorbed the form of [owner.current] and have infiltrated the station. Use your changeling powers to complete your objectives.")
 

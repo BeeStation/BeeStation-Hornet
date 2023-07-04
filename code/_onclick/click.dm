@@ -81,7 +81,7 @@
 	var/list/modifiers = params2list(params)
 	if(LAZYACCESS(modifiers, SHIFT_CLICK))
 		if(LAZYACCESS(modifiers, MIDDLE_CLICK))
-			ShiftMiddleClickOn(A)
+			ShiftMiddleClickOn(A, params)
 			return
 		if(LAZYACCESS(modifiers, CTRL_CLICK))
 			CtrlShiftClickOn(A)
@@ -365,8 +365,8 @@
 	A.CtrlShiftClick(src)
 	return
 
-/mob/proc/ShiftMiddleClickOn(atom/A)
-	src.pointed(A)
+/mob/proc/ShiftMiddleClickOn(atom/A, params)
+	src.pointed(A, params)
 	return
 
 /atom/proc/CtrlShiftClick(mob/user)

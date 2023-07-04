@@ -557,7 +557,8 @@
 		if(query_check_adminban_count.NextRow())
 			var/adminban_count = text2num(query_check_adminban_count.item[1])
 			var/max_adminbans = MAX_ADMINBANS_PER_ADMIN
-			if(R_EVERYTHING && !(R_EVERYTHING & rank.can_edit_rights)) //edit rights are a more effective way to check hierarchical rank since many non-headmins have R_PERMISSIONS now
+			//edit rights are a more effective way to check hierarchical rank since many non-headmins have R_PERMISSIONS
+			if(rank.can_edit_rights == R_EVERYTHING)
 				max_adminbans = MAX_ADMINBANS_PER_HEADMIN
 			if(adminban_count >= max_adminbans)
 				to_chat(usr, "<span class='danger'>You've already logged [max_adminbans] admin ban(s) or more. Do not abuse this function!</span>")

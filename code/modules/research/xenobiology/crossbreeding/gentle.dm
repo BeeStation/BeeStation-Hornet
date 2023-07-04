@@ -21,18 +21,21 @@
 	extract.forceMove(src)
 
 /obj/item/slimecross/gentle/attack_self(mob/living/carbon/user)
-	if(user.incapacitated() || !iscarbon(user))
-		return
-	if(!COOLDOWN_FINISHED(src, use_cooldown))
-		return
-	COOLDOWN_START(src, use_cooldown, extract.activate(user, user.dna.species, SLIME_ACTIVATE_MINOR))
+	if(preactivate_core(user))
+		COOLDOWN_START(src, use_cooldown, extract.activate(user, user.dna.species, SLIME_ACTIVATE_MINOR))
 
 /obj/item/slimecross/gentle/AltClick(mob/living/carbon/user, obj/item/I)
+	if(preactivate_core(user))
+		COOLDOWN_START(src, use_cooldown, extract.activate(user, user.dna.species, SLIME_ACTIVATE_MAJOR))
+
+/obj/item/slimecross/gentle/proc/preactivate_core(mob/living/carbon/user)
 	if(user.incapacitated() || !iscarbon(user))
-		return
+		return FALSE
 	if(!COOLDOWN_FINISHED(src, use_cooldown))
-		return
-	COOLDOWN_START(src, use_cooldown, extract.activate(user, user.dna.species, SLIME_ACTIVATE_MAJOR))
+		to_chat(user, "<span class='notice'>[src] isn't ready yet!</span>")
+		return FALSE
+	COOLDOWN_START(src, use_cooldown, 10 SECONDS) //This will be overwritten depending on exact activation, but prevents bypassing cooldowns on extracts with a do_after.
+	return TRUE
 
 /obj/item/slimecross/gentle/grey
 	extract_type = /obj/item/slime_extract/grey

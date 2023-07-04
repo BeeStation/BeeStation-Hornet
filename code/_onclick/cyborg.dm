@@ -23,7 +23,7 @@
 			CtrlShiftClickOn(A)
 			return
 		if(LAZYACCESS(modifiers, MIDDLE_CLICK))
-			ShiftMiddleClickOn(A)
+			ShiftMiddleClickOn(A, params)
 			return
 		ShiftClickOn(A)
 		return

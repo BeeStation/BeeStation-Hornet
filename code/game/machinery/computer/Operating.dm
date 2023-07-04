@@ -15,19 +15,19 @@
 	light_color = LIGHT_COLOR_BLUE
 
 /obj/machinery/computer/operating/Initialize(mapload)
-	. = ..()
+	..()
 	linked_techweb = SSresearch.science_tech
-	find_table()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/computer/operating/LateInitialize()
+	. = ..()
+	link_with_table()
 
 /obj/machinery/computer/operating/Destroy()
-	for(var/direction in GLOB.cardinals)
-		table = locate(/obj/structure/table/optable) in get_step(src, direction)
-		if(table && table.computer == src)
-			table.computer = null
-		else
-			sbed = locate(/obj/machinery/stasis) in get_step(src, direction)
-			if(sbed && sbed.op_computer == src)
-				sbed.op_computer = null
+	if(table?.computer == src)
+		table.computer = null
+	if(sbed?.op_computer == src)
+		sbed.op_computer = null
 	. = ..()
 
 /obj/machinery/computer/operating/attackby(obj/item/O, mob/user, params)
@@ -48,18 +48,29 @@
 			continue
 		advanced_surgeries |= D.surgery
 
-/obj/machinery/computer/operating/proc/find_table()
+/obj/machinery/computer/operating/proc/find_op_table()
 	for(var/direction in GLOB.alldirs)
-		table = locate(/obj/structure/table/optable) in get_step(src, direction)
+		var/obj/structure/table/optable/table = locate(/obj/structure/table/optable) in get_step(src, direction)
 		if(table && !table.computer)
-			table.computer = src
-			break
-		else
-			sbed = locate(/obj/machinery/stasis) in get_step(src, direction)
-			if(sbed && !sbed.op_computer)
-				sbed.op_computer = src
-				break
+			return table
 
+/obj/machinery/computer/operating/proc/find_sbed()
+	for(var/direction in GLOB.alldirs)
+		var/obj/machinery/stasis/sbed = locate(/obj/machinery/stasis) in get_step(src, direction)
+		if(sbed && !sbed.op_computer)
+			return sbed
+
+/obj/machinery/computer/operating/proc/link_with_table(obj/structure/table/optable/new_table, obj/machinery/stasis/new_sbed)
+	if(!new_table && !table)
+		new_table = find_op_table()
+	if(!new_sbed && !sbed)
+		new_sbed = find_sbed()
+	if(new_table)
+		new_table.computer = src
+		table = new_table
+	if(new_sbed)
+		new_sbed.op_computer = src
+		new_sbed = sbed
 
 /obj/machinery/computer/operating/ui_state(mob/user)
 	return GLOB.not_incapacitated_state
