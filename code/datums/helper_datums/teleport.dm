@@ -57,16 +57,23 @@
 
 	return TRUE
 
-// teleatom: atom to teleport
-// destination: destination to teleport to
-// precision: teleport precision (0 is most precise, the default)
-// effectin: effect to show right before teleportation
-// effectout: effect to show right after teleportation
-// asoundin: soundfile to play before teleportation
-// asoundout: soundfile to play after teleportation
-// no_effects: disable the default effectin/effectout of sparks
-// forced: whether or not to ignore no_teleport
-/proc/do_teleport(atom/movable/teleatom, atom/destination, precision = null, datum/effect_system/effectin = null, datum/effect_system/effectout = null, asoundin = null, asoundout = null, no_effects = FALSE, channel = TELEPORT_CHANNEL_BLUESPACE, forced = FALSE, teleport_mode = TELEPORT_MODE_DEFAULT)
+/**
+ * Returns TRUE if the teleport has been successful with the given arguments
+ *
+ * Arguments:
+ * * teleatom: The atom to teleport
+ * * destination: The destination turf for the atom to go
+ * * precision: How accurate should the teleport be (in tiles), defaults to 0
+ * * effectin: The effect played when and where the teleport starts
+ * * effectout: The effect played when and where the teleport ends up
+ * * asoundin: The sound played when and where the teleport starts
+ * * asoundout: The sound played when and where the teleport ends up
+ * * channel: Which teleport channel should we use (for checks), defaults to TELEPORT_CHANNEL_BLUESPACE
+ * * forced: Do we ignore atom and area TRAIT_NO_TELEPORT restrictions, defaults to FALSE
+ * * teleport_mode: Teleport mode which allows ONLY clockies and abductors to teleport in their area, and other restrictions
+ * * ignore_check_teleport: Set this to true ONLY IF you already run check_teleport()
+ */
+/proc/do_teleport(atom/movable/teleatom, atom/destination, precision = null, datum/effect_system/effectin = null, datum/effect_system/effectout = null, asoundin = null, asoundout = null, no_effects = FALSE, channel = TELEPORT_CHANNEL_BLUESPACE, forced = FALSE, teleport_mode = TELEPORT_MODE_DEFAULT, ignore_check_teleport = FALSE)
 	// teleporting most effects just deletes them
 	var/static/list/delete_atoms = typecacheof(list(
 		/obj/effect,
@@ -116,8 +123,9 @@
 		teleatom.abstract_move(destturf)
 		return TRUE
 
-	if(!check_teleport(teleatom, destturf, channel, forced, teleport_mode))
-		return FALSE
+	if(!ignore_check_teleport) // If we've already done it let's not check again
+		if(!check_teleport(teleatom, destturf, channel, forced, teleport_mode))
+			return FALSE
 
 	// Successful Teleport
 	teleport_play_specials(teleatom, curturf, effectin, asoundin)
@@ -274,12 +282,12 @@
 	//Checking that there is an exile implant
 	if(!isnull(implants))
 		for(var/obj/item/implant/exile/E in implants)
-			to_chat(src, "<span class='warning'>The portal has detected your exile implant and is blocking your entry!</span>")
+			visible_message("<span class='warning'>The portal rejects [src]!</span>", "<span class='warning'>The portal has detected your exile implant and is blocking your entry!</span>")
 			return COMPONENT_BLOCK_TELEPORT
 
 	// Ashwalker check
 	if(is_species(src, /datum/species/lizard/ashwalker))
-		to_chat(src, "<span class='warning'>The portal has blocked your entry!</span>")
+		visible_message("<span class='warning'>The portal rejects [src]!</span>", "<span class='warning'>The portal has blocked your entry!</span>")
 		return COMPONENT_BLOCK_TELEPORT
 
 	return COMPONENT_ALLOW_TELEPORT

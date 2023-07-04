@@ -42,6 +42,10 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 		self_teleport(AM) // This is so that if you're drag-clicking yourself into the gateway it'll appear as if you're entering it
 		return
 
+	var/turf/dest_turf = get_step(get_turf(linked_gateway), SOUTH)
+	if(!pre_check_teleport(AM, dest_turf))
+		return
+
 	if(ismob(AM))
 		var/mob/M = AM
 		user.visible_message(\
@@ -56,7 +60,6 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	else
 		user.visible_message("<span class='notice'>[AM] is pushed into [src].</span>") //
 
-	var/turf/dest_turf = get_step(get_turf(linked_gateway), SOUTH)
 	actually_teleport(AM, dest_turf)
 
 /obj/machinery/gateway/proc/pre_check_teleport(atom/movable/AM, turf/dest_turf)
@@ -112,13 +115,13 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 		if(!do_after(M, 5 SECONDS, src, timed_action_flags = IGNORE_HELD_ITEM))
 			return
 	else
-		AM.visible_message("<span class='notice'>[AM] enters the gateway...</span>") // oooo~ ominous
+		AM.visible_message("<span class='notice'>[AM] enters the gateway.</span>") // oooo~ ominous
 
 	actually_teleport(AM, dest_turf)
 
 
 /obj/machinery/gateway/proc/actually_teleport(atom/movable/AM, turf/dest_turf)
-	if(do_teleport(AM, dest_turf, no_effects = TRUE, channel = TELEPORT_CHANNEL_GATEWAY))
+	if(do_teleport(AM, dest_turf, no_effects = TRUE, channel = TELEPORT_CHANNEL_GATEWAY, ignore_check_teleport = TRUE)) // We've already done the check_teleport() hopefully
 		AM.visible_message("[AM] passes through [linked_gateway]!", "<span class='notice'>You pass through.</span>")
 		AM.setDir(SOUTH)
 
