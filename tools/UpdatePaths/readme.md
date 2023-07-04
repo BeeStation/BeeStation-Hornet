@@ -95,7 +95,7 @@ You will then result the following:
 
 As expected, all variables were discarded. This is only really useful in certain edgecases, and you shouldn't do something like this trivially in case someone has lovably named a variable special since it'll just nuke it.
 
-There are also a bunch of neat features you can use with UpdatePaths variable filtering, with it all documented here: (**LINK THE UPDATE_PATHS PYTHON DESC DUMBASS**). However, let's spin it all out for you here as well:
+There are also a bunch of neat features you can use with UpdatePaths variable filtering, with it all documented here: (https://github.com/BeeStation/BeeStation-Hornet/blob/master/tools/UpdatePaths/\_\_main\_\_.py#L9)[https://github.com/BeeStation/BeeStation-Hornet/blob/master/tools/UpdatePaths/__main__.py#L9]. However, let's spin it all out for you here as well:
 
 ### Deleting Entire Paths
 
