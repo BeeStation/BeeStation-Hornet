@@ -1,8 +1,0 @@
-author: RKz, Mothblocks
-delete-after: true
-changes:
-  - rscadd: adds smiting to buildmode
-  - code_imp: datumizes smiting
-  - admin: converts some rather obnoxious admin tools to TGUI lists. Should make em
-      easier to use
-  - rscadd: buildmode smiting sprite
