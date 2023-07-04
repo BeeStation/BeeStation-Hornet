@@ -2011,9 +2011,7 @@
 /turf/open/floor/plasteel,
 /area/awaymission/snowdin/post/gateway)
 "gx" = (
-/obj/machinery/gateway/centeraway{
-	calibrated = 0
-	},
+/obj/machinery/gateway/centeraway,
 /obj/effect/turf_decal/bot,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"

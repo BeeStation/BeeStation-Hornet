@@ -425,9 +425,7 @@
 	},
 /area/awaymission/caves/BMP_asteroid/level_four)
 "bm" = (
-/obj/machinery/gateway/centeraway{
-	calibrated = 0
-	},
+/obj/machinery/gateway/centeraway,
 /turf/open/floor/engine/cult{
 	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
 	},

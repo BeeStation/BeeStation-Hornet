@@ -190,9 +190,7 @@
 	},
 /area/awaymission/moonoutpost19/syndicate)
 "aP" = (
-/obj/machinery/gateway/centeraway{
-	calibrated = 0
-	},
+/obj/machinery/gateway/centeraway,
 /turf/open/floor/plasteel/dark{
 	heat_capacity = 1e+006
 	},
