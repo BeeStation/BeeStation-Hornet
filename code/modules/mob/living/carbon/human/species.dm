@@ -449,9 +449,18 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 	var/dynamic_hair_suffix = "" //if this is non-null, and hair+suffix matches an iconstate, then we render that hair instead
 	var/dynamic_fhair_suffix = ""
+	var/obj/item/clothing/head/wig/worn_wig
+
+	if(H.head)// Wig stuff
+		if(istype(H.head, /obj/item/clothing/head/wig))
+			worn_wig = H.head
+		if(istype(H.head, /obj/item/clothing/head))
+			var/obj/item/clothing/head/hat = H.head
+			if(hat.attached_wig)
+				worn_wig = hat.attached_wig
 
 	//for augmented heads
-	if(!IS_ORGANIC_LIMB(HD))
+	if(!IS_ORGANIC_LIMB(HD) && !worn_wig) //Wig overrides mechanical heads not having hair
 		return
 
 	//we check if our hat or helmet hides our facial hair.
@@ -531,8 +540,17 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				hair_overlay.icon = 'icons/mob/human_face.dmi'
 				hair_overlay.icon_state = "debrained"
 
-		else if(H.hair_style && (HAIR in species_traits))
-			S = GLOB.hair_styles_list[H.hair_style]
+		else if((H.hair_style && (HAIR in species_traits)) || worn_wig)
+			var/current_hair_style = H.hair_style
+			var/current_hair_color = H.hair_color
+			var/current_gradient_style = H.gradient_style
+			var/current_gradient_color = H.gradient_color
+			if(worn_wig)
+				current_hair_style = worn_wig.hair_style
+				current_hair_color = worn_wig.hair_color
+				current_gradient_style = worn_wig.gradient_style
+				current_gradient_color = worn_wig.gradient_color
+			S = GLOB.hair_styles_list[current_hair_style]
 			if(S)
 
 				//List of all valid dynamic_hair_suffixes
@@ -563,11 +581,12 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 						else
 							hair_overlay.color = "#" + hair_color
 					else
-						hair_overlay.color = "#" + H.hair_color
-
+						hair_overlay.color = "#" + current_hair_color
+					if(worn_wig)//Total override
+						hair_overlay.color = current_hair_color
 					//Gradients
-					var/gradient_style = H.gradient_style
-					var/gradient_color = H.gradient_color
+					var/gradient_style = current_gradient_style
+					var/gradient_color = current_gradient_color
 					if(gradient_style)
 						var/datum/sprite_accessory/gradient = GLOB.hair_gradients_list[gradient_style]
 						var/icon/temp = icon(gradient.icon, gradient.icon_state)
@@ -580,6 +599,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 					hair_overlay.color = forced_colour
 
 				hair_overlay.alpha = hair_alpha
+				if(worn_wig)
+					hair_overlay.alpha = 255
 				if(OFFSET_FACE in H.dna.species.offset_features)
 					hair_overlay.pixel_x += H.dna.species.offset_features[OFFSET_FACE][1]
 					hair_overlay.pixel_y += H.dna.species.offset_features[OFFSET_FACE][2]
