@@ -18,7 +18,8 @@
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	throw_speed = 3
 	throw_range = 7
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = ITEM_SLOT_BELT
 	var/skin_type = MEDBOT_SKIN_DEFAULT
 	var/empty = FALSE
 	var/damagetype_healed //defines damage type of the medkit. General ones stay null. Used for medibot healing bonuses
@@ -64,7 +65,6 @@
 	item_state = "firstaid-surgery"
 	desc = "A high capacity aid kit for doctors, full of medical supplies and basic surgical equipment"
 	skin_type = MEDBOT_SKIN_SURGERY
-	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/storage/firstaid/medical/ComponentInitialize()
 	. = ..()
