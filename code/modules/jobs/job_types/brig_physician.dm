@@ -41,7 +41,7 @@
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
 	suit = /obj/item/clothing/suit/hazardvest/brig_physician
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile
-	l_hand = /obj/item/storage/firstaid/medical
+	suit_store = /obj/item/storage/firstaid/medical
 	l_pocket = /obj/item/flashlight/seclite
 	head = /obj/item/clothing/head/soft/sec/brig_physician
 

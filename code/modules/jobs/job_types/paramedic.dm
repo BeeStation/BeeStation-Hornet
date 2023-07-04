@@ -43,7 +43,7 @@
 	suit =  /obj/item/clothing/suit/toggle/labcoat/med/paramedic
 	l_pocket = /obj/item/pinpointer/crew
 	r_pocket = /obj/item/sensor_device
-	l_hand = /obj/item/storage/firstaid/medical
+	suit_store = /obj/item/storage/firstaid/medical
 
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel/med
