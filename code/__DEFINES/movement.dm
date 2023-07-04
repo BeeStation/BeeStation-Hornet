@@ -35,6 +35,8 @@
 #define TELEPORT_CHANNEL_BLUESPACE "bluespace"
 /// Quantum-based teleportation, requires both sender and receiver, but is free from normal disruption
 #define TELEPORT_CHANNEL_QUANTUM "quantum"
+/// Snowflakey gateway teleportation from Stargate (idk) uses old technology
+#define TELEPORT_CHANNEL_GATEWAY "gateway"
 /// Wormhole teleportation, is not disrupted by bluespace fluctuations but tends to be very random or unsafe
 #define TELEPORT_CHANNEL_WORMHOLE "wormhole"
 /// Magic teleportation, does whatever it wants (unless there's antimagic)

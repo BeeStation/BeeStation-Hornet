@@ -1,3 +1,62 @@
+/**
+ * Returns FALSE if we SHOULDN'T do_teleport() with the given arguments
+ *
+ * Arguments:
+ * * teleatom: The atom to teleport
+ * * destination: The destination turf for the atom to go
+ * * precision: How accurate should the teleport be (in tiles), defaults to 0
+ * * channel: Which teleport channel should we use (for checks), defaults to TELEPORT_CHANNEL_BLUESPACE
+ * * forced: Do we ignore atom and area TRAIT_NO_TELEPORT restrictions, defaults to FALSE
+ * * teleport_mode: Teleport mode which allows ONLY clockies and abductors to teleport in their area
+ */
+/proc/check_teleport(atom/movable/teleatom, turf/dest_turf, channel = TELEPORT_CHANNEL_BLUESPACE, forced = FALSE, teleport_mode = TELEPORT_MODE_DEFAULT)
+	var/turf/cur_turf = get_turf(teleatom)
+
+	if(!cur_turf || !dest_turf || dest_turf.is_transition_turf())
+		return FALSE
+
+	// Check for bluespace anchors
+	if(channel != TELEPORT_CHANNEL_FREE && channel != TELEPORT_CHANNEL_WORMHOLE && channel != TELEPORT_CHANNEL_GATEWAY)
+		for (var/obj/machinery/bluespace_anchor/anchor as() in GLOB.active_bluespace_anchors)
+			var/cur_zlevel = anchor.get_virtual_z_level()
+			// Current not in range
+			if(cur_zlevel != cur_turf.get_virtual_z_level() && get_dist(cur_turf, anchor) > anchor.range)
+				continue
+			// Destination not in range
+			if(cur_zlevel != dest_turf.get_virtual_z_level() && get_dist(dest_turf, anchor) > anchor.range)
+				continue
+			// Try to activate the anchor, this also does the effect
+			if(!anchor.try_activate())
+				continue
+			// We're anchored, return false
+			return FALSE
+
+	// Check for NO_TELEPORT restrictions
+	if(!forced)
+		var/area/cur_area = cur_turf.loc
+		var/area/dest_area = dest_turf.loc
+		if(HAS_TRAIT(teleatom, TRAIT_NO_TELEPORT))
+			return FALSE
+		if(cur_area.teleport_restriction && cur_area.teleport_restriction != teleport_mode)
+			return FALSE
+		if(dest_area.teleport_restriction && dest_area.teleport_restriction != teleport_mode)
+			return FALSE
+
+	// Check for intercepting the teleport
+	if(SEND_SIGNAL(cur_turf, COMSIG_ATOM_INTERCEPT_TELEPORT, channel, cur_turf, dest_turf))
+		return FALSE
+	if(SEND_SIGNAL(dest_turf, COMSIG_ATOM_INTERCEPT_TELEPORT, channel, cur_turf, dest_turf))
+		return FALSE
+	if(SEND_SIGNAL(teleatom, COMSIG_ATOM_INTERCEPT_TELEPORT, channel, cur_turf, dest_turf))
+		return FALSE
+
+	// Recursively check contents to prevent cheese
+	for(var/atom/thing in teleatom.GetAllContents())
+		if(SEND_SIGNAL(thing, COMSIG_ATOM_INTERCEPT_TELEPORT, channel, cur_turf, dest_turf))
+			return FALSE
+
+	return TRUE
+
 // teleatom: atom to teleport
 // destination: destination to teleport to
 // precision: teleport precision (0 is most precise, the default)
@@ -7,7 +66,7 @@
 // asoundout: soundfile to play after teleportation
 // no_effects: disable the default effectin/effectout of sparks
 // forced: whether or not to ignore no_teleport
-/proc/do_teleport(atom/movable/teleatom, atom/destination, precision=null, datum/effect_system/effectin=null, datum/effect_system/effectout=null, asoundin=null, asoundout=null, no_effects=FALSE, channel=TELEPORT_CHANNEL_BLUESPACE, forced = FALSE, teleport_mode = TELEPORT_MODE_DEFAULT)
+/proc/do_teleport(atom/movable/teleatom, atom/destination, precision = null, datum/effect_system/effectin = null, datum/effect_system/effectout = null, asoundin = null, asoundout = null, no_effects = FALSE, channel = TELEPORT_CHANNEL_BLUESPACE, forced = FALSE, teleport_mode = TELEPORT_MODE_DEFAULT)
 	// teleporting most effects just deletes them
 	var/static/list/delete_atoms = typecacheof(list(
 		/obj/effect,
@@ -21,22 +80,6 @@
 	if(delete_atoms[teleatom.type])
 		qdel(teleatom)
 		return FALSE
-
-	//Check bluespace anchors
-	if(channel != TELEPORT_CHANNEL_FREE && channel != TELEPORT_CHANNEL_WORMHOLE)
-		for (var/obj/machinery/bluespace_anchor/anchor as() in GLOB.active_bluespace_anchors)
-			//Not nearby
-			if (anchor.get_virtual_z_level() != teleatom.get_virtual_z_level() || get_dist(teleatom, anchor) > anchor.range)
-				continue
-			//Check it
-			if(!anchor.try_activate())
-				continue
-			do_sparks(5, FALSE, teleatom)
-			playsound(anchor, 'sound/magic/repulse.ogg', 80, TRUE)
-			if(ismob(teleatom))
-				to_chat(teleatom, "<span class='warning'>You feel like you are being held in place.</span>")
-			//Anchored...
-			return FALSE
 
 	// argument handling
 	// if the precision is not specified, default to 0, but apply BoH penalties
@@ -68,30 +111,20 @@
 	var/turf/curturf = get_turf(teleatom)
 	var/turf/destturf = get_teleport_turf(get_turf(destination), precision)
 
-	if(!destturf || !curturf || destturf.is_transition_turf())
-		return FALSE
-
-	var/area/A = get_area(curturf)
-	var/area/B = get_area(destturf)
-	if(!forced && (HAS_TRAIT(teleatom, TRAIT_NO_TELEPORT)))
-		return FALSE
-
-	//Either area has teleport restriction and teleport mode isn't allowed in that area
-	if(!forced && ((A.teleport_restriction && A.teleport_restriction != teleport_mode) || (B.teleport_restriction && B.teleport_restriction != teleport_mode)))
-		return FALSE
-
-	if(SEND_SIGNAL(destturf, COMSIG_ATOM_INTERCEPT_TELEPORT, channel, curturf, destturf))
-		return FALSE
-
+	// ghosts get a free pass
 	if(isobserver(teleatom))
 		teleatom.abstract_move(destturf)
 		return TRUE
 
-	tele_play_specials(teleatom, curturf, effectin, asoundin)
+	if(!check_teleport(teleatom, destturf, channel, forced, teleport_mode))
+		return FALSE
+
+	// Successful Teleport
+	teleport_play_specials(teleatom, curturf, effectin, asoundin)
 	var/success = teleatom.forceMove(destturf)
 	if (success)
 		log_game("[key_name(teleatom)] has teleported from [loc_name(curturf)] to [loc_name(destturf)]")
-		tele_play_specials(teleatom, destturf, effectout, asoundout)
+		teleport_play_specials(teleatom, destturf, effectout, asoundout)
 		if(ismegafauna(teleatom))
 			message_admins("[teleatom] [ADMIN_FLW(teleatom)] has teleported from [ADMIN_VERBOSEJMP(curturf)] to [ADMIN_VERBOSEJMP(destturf)].")
 
@@ -99,17 +132,18 @@
 		var/mob/M = teleatom
 		M.cancel_camera()
 
-	teleatom.teleport_act()
+	SEND_SIGNAL(teleatom, COMSIG_ATOM_TELEPORT_ACT)
 
 	return TRUE
 
-/proc/tele_play_specials(atom/movable/teleatom, atom/location, datum/effect_system/effect, sound)
-	if (location && !isobserver(teleatom))
-		if (sound)
-			playsound(location, sound, 60, 1)
-		if (effect)
-			effect.attach(location)
-			effect.start()
+/proc/teleport_play_specials(atom/movable/teleatom, turf/location, datum/effect_system/effect, sound)
+	if(isobserver(teleatom))
+		return
+	if(sound)
+		playsound(location, sound, 60, 1)
+	if(effect)
+		effect.attach(location)
+		effect.start()
 
 // Safe location finder
 /proc/find_safe_turf(zlevel, list/zlevels, extended_safety_checks = FALSE, dense_atoms = TRUE)
@@ -229,3 +263,23 @@
 
 	if(do_teleport(affected_mob, pick(L), channel = TELEPORT_CHANNEL_MAGIC, no_effects = TRUE))
 		affected_mob.say("SCYAR NILA [uppertext(thearea.name)]!", forced = "wizarditis teleport")
+
+// This is here because I believe it makes the most sense here.
+/mob/living/proc/handle_teleport_interception(datum/source, channel, turf/origin, turf/destination)
+	SIGNAL_HANDLER
+
+	if(channel != TELEPORT_CHANNEL_GATEWAY)
+		return TRUE
+
+	//Checking that there is an exile implant
+	if(!isnull(implants))
+		for(var/obj/item/implant/exile/E in implants)
+			to_chat(src, "<span class='warning'>The portal has detected your exile implant and is blocking your entry!</span>")
+			return FALSE
+
+	// Ashwalker check
+	if(is_species(src, /datum/species/lizard/ashwalker))
+		to_chat(src, "<span class='warning'>The portal has blocked your entry!</span>")
+		return FALSE
+
+	return TRUE

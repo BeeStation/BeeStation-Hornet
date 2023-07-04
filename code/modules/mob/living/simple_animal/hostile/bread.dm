@@ -30,7 +30,17 @@
 	chat_color = "#CAA25B"
 	mobchatspan = "blob"
 
-/mob/living/simple_animal/hostile/breadloaf/teleport_act()
+/mob/living/simple_animal/hostile/breadloaf/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATOM_TELEPORT_ACT, PROC_REF(on_teleport))
+
+/mob/living/simple_animal/hostile/breadloaf/Destroy()
+	UnregisterSignal(src, COMSIG_ATOM_TELEPORT_ACT)
+	return ..()
+
+/mob/living/simple_animal/hostile/breadloaf/proc/on_teleport()
+	SIGNAL_HANDLER
+
 	if(mutations == 0)
 		mutationcap = rand(1,mutability)
 		if(prob(90))

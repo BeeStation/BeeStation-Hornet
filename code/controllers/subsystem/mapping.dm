@@ -533,8 +533,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 				new_gate = G
 				break
 		//Link station gate with away gate and remove wait time.
-		GLOB.the_gateway.awaygate = new_gate
-		GLOB.the_gateway.wait = world.time
+		GLOB.the_gateway.linked_gateway = new_gate
 
 /datum/controller/subsystem/mapping/proc/RequestBlockReservation(width, height, z, type = /datum/turf_reservation, turf_type_override)
 	UNTIL((!z || reservation_ready["[z]"]) && !clearing_reserved_turfs)

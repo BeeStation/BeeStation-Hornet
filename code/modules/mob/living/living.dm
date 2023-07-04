@@ -8,6 +8,7 @@
 
 /mob/living/Initialize(mapload)
 	. = ..()
+	RegisterSignal(src, COMSIG_ATOM_TELEPORT_ACT, PROC_REF(handle_teleport_interception))
 	if(unique_name)
 		name = "[name] ([rand(1, 1000)])"
 		real_name = name
@@ -35,6 +36,7 @@
 	med_hud_set_status()
 
 /mob/living/Destroy()
+	UnregisterSignal(src, COMSIG_ATOM_INTERCEPT_TELEPORT)
 	if(LAZYLEN(status_effects))
 		for(var/s in status_effects)
 			var/datum/status_effect/S = s

@@ -939,14 +939,6 @@
 	return FALSE
 
 /**
-  * Respond to our atom being teleported
-  *
-  * Default behaviour is to send COMSIG_ATOM_TELEPORT_ACT
-  */
-/atom/proc/teleport_act()
-	SEND_SIGNAL(src,COMSIG_ATOM_TELEPORT_ACT)
-
-/**
   * Respond to our atom being checked by a virus extrapolator
   *
   * Default behaviour is to send COMSIG_ATOM_EXTRAPOLATOR_ACT and return FALSE

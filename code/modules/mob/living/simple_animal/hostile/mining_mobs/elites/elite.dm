@@ -61,6 +61,14 @@
 		return TRUE
 	return FALSE
 
+/mob/living/simple_animal/hostile/asteroid/elite/handle_teleport_interception(datum/source, channel, turf/origin, turf/destination)
+	if(channel != TELEPORT_CHANNEL_GATEWAY)
+		return TRUE
+
+	visible_message("<span class='notice'>[src] can't seem to pierce through the portal...</span>", "<span class='warning'>You can't seem to pierce through the portal...</span>")
+
+	return FALSE
+
 /*Basic setup for elite attacks, based on Whoneedspace's megafauna attack setup.
 While using this makes the system rely on OnFire, it still gives options for timers not tied to OnFire, and it makes using attacks consistent across the board for player-controlled elites.*/
 

@@ -64,6 +64,11 @@ GLOBAL_LIST_EMPTY(active_bluespace_anchors)
 		src.Beam(L, icon_state="lightning[rand(1,12)]", time=5, maxdistance = INFINITY)
 		var/shock_damage = min(round(power_usage_per_teleport/600), 90) + rand(-5, 5)
 		L.electrocute_act(shock_damage, src)
+	// Give feedback
+	do_sparks(5, FALSE, teleatom)
+	playsound(src, 'sound/magic/repulse.ogg', 80, TRUE)
+	if(ismob(teleatom))
+		to_chat(teleatom, "<span class='warning'>You feel like you are being held in place...</span>")
 	return TRUE
 
 /obj/machinery/bluespace_anchor/proc/set_cell(cell)

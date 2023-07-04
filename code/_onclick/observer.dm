@@ -68,16 +68,11 @@
 // And here are some good things for free:
 // Now you can click through portals, wormholes, gateways, and teleporters while observing. -Sayu
 
-/obj/machinery/gateway/centerstation/attack_ghost(mob/user)
-	if(awaygate)
-		user.abstract_move(awaygate.loc)
-	else
-		to_chat(user, "[src] has no destination.")
-	return ..()
-
-/obj/machinery/gateway/centeraway/attack_ghost(mob/user)
-	if(stationgate)
-		user.abstract_move(stationgate.loc)
+/obj/machinery/gateway/attack_ghost(mob/user)
+	if(!centerpiece)
+		return
+	if(linked_gateway)
+		user.abstract_move(linked_gateway.loc)
 	else
 		to_chat(user, "[src] has no destination.")
 	return ..()

@@ -161,6 +161,15 @@
 		L.client.give_award(score_achievement_type, L) //Score progression for specific boss killed
 	return TRUE
 
+/// No fun allowed
+/mob/living/simple_animal/hostile/megafauna/handle_teleport_interception(datum/source, channel, turf/origin, turf/destination)
+	if(channel != TELEPORT_CHANNEL_GATEWAY)
+		return FALSE
+
+	visible_message("<span class='notice'>[src] can't seem to pierce through the portal...</span>", "<span class='warning'>You can't seem to pierce through the portal...</span>")
+
+	return TRUE
+
 /datum/action/innate/megafauna_attack
 	name = "Megafauna Attack"
 	icon_icon = 'icons/mob/actions/actions_animal.dmi'

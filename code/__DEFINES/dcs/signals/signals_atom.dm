@@ -84,8 +84,6 @@
 #define COMSIG_ATOM_EMINENCE_ACT "atom_eminence_act"
 ///! from base of atom/rcd_act(): (/mob, /obj/item/construction/rcd, passed_mode)
 #define COMSIG_ATOM_RCD_ACT "atom_rcd_act"
-///! from base of atom/teleport_act(): ()
-#define COMSIG_ATOM_TELEPORT_ACT "atom_teleport_act"
 ///! from base of atom/Exited(): (mob/user, var/obj/item/extrapolator/E, scan = TRUE)
 #define COMSIG_ATOM_EXTRAPOLATOR_ACT "atom_extrapolator_act"
 ///!from base of atom/singularity_pull(): (/datum/component/singularity, current_size)
@@ -118,6 +116,8 @@
 ///! called when teleporting into a protected turf: (channel, turf/origin)
 #define COMSIG_ATOM_INTERCEPT_TELEPORT "intercept_teleport"
 	#define COMPONENT_BLOCK_TELEPORT 1
+///! called when we've successfully teleported an atom: ()
+#define COMSIG_ATOM_TELEPORT_ACT "atom_teleport_act"
 ///called when an atom starts orbiting another atom: (atom)
 #define COMSIG_ATOM_ORBIT_BEGIN "atom_orbit_begin"
 /// called when an atom stops orbiting another atom: (atom)
