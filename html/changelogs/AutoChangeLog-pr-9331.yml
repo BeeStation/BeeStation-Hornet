@@ -1,5 +1,0 @@
-author: Absolucy
-delete-after: true
-changes:
-  - bugfix: Healing holoparasites will no longer damage toxinlovers (oozelings, etc)
-      when healing.
