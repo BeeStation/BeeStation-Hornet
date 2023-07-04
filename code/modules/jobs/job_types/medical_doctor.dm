@@ -39,7 +39,7 @@
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	suit =  /obj/item/clothing/suit/toggle/labcoat/med
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile
-	suit_store = /obj/item/storage/firstaid/medical
+	l_hand = /obj/item/storage/firstaid/medical
 	l_pocket = /obj/item/flashlight/pen
 
 	backpack = /obj/item/storage/backpack/medic

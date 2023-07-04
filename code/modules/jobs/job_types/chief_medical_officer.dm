@@ -52,7 +52,7 @@
 	uniform = /obj/item/clothing/under/rank/medical/chief_medical_officer
 	shoes = /obj/item/clothing/shoes/sneakers/brown
 	suit = /obj/item/clothing/suit/toggle/labcoat/med/cmo
-	suit_store = /obj/item/storage/firstaid/medical
+	l_hand = /obj/item/storage/firstaid/medical
 	backpack_contents = list(/obj/item/melee/classic_baton/police/telescopic=1)
 
 	backpack = /obj/item/storage/backpack/medic
