@@ -73,6 +73,12 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 
 /obj/machinery/gateway/proc/teleport(atom/movable/AM, obj/machinery/gateway/target)
+	var/turf/dest_turf = get_step(get_turf(target), SOUTH)
+
+	if(check_teleport(AM, dest_turf, channel = TELEPORT_CHANNEL_GATEWAY))
+		to_chat("<span class='warning'>You can't seem to pass through [src]!</span>")
+		return
+
 	if(ismob(AM))
 		var/mob/M = AM
 		M.visible_message("<span class='notice'>[AM] tries to climb into [src]...</span>", "<span class='notice'>You begin climbing into [src]...</span>")
@@ -81,7 +87,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	else
 		AM.visible_message("<span class='notice'>[AM] enters the gateway...</span>") // oooo~ ominous
 
-	if(do_teleport(AM, get_step(get_turf(target), SOUTH), no_effects = TRUE, channel = TELEPORT_CHANNEL_GATEWAY))
+	if(do_teleport(AM, dest_turf, no_effects = TRUE, channel = TELEPORT_CHANNEL_GATEWAY))
 		AM.setDir(SOUTH)
 
 /obj/machinery/gateway/update_icon()
