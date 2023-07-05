@@ -31,7 +31,7 @@ class DMM:
 
     def to_file(self, fname, *, tgm = True):
         self._presave_checks()
-        with open(fname, 'w', newline='\n', encoding=ENCODING) as f:
+        with open(fname, 'w', newline='\r\n', encoding=ENCODING) as f:
             (save_tgm if tgm else save_dmm)(self, f)
 
     def to_bytes(self, *, tgm = True):
