@@ -117,7 +117,9 @@
 
 			usr.visible_message("<span class='notice'>[usr] picks up [src].</span>", "<span class='notice'>You pick up [src].</span>")
 			qdel(src)
-			return TRUE
+			pick_up_barricade()
+
+/obj/structure/barricade/proc/pick_up_barricade()
 
 //Barricade types
 /obj/structure/barricade/wooden
@@ -146,10 +148,9 @@
 				return
 	return ..()
 
-/obj/structure/barricade/wooden/MouseDrop(over_object, src_location, over_location)
-	if(..())
-		var/obj/item/stack/sheet/wood/planks = new(loc, drop_amount)
-		usr.put_in_hands(planks)
+/obj/structure/barricade/wooden/pick_up_barricade()
+	var/obj/item/stack/sheet/wood/planks = new(loc, drop_amount)
+	usr.put_in_hands(planks)
 
 /obj/structure/barricade/wooden/crude
 	name = "crude plank barricade"
@@ -184,10 +185,9 @@
 	climbable = TRUE
 
 
-/obj/structure/barricade/sandbags/MouseDrop(over_object, src_location, over_location)
-	if(..())
-		var/obj/item/stack/sheet/sandbags/sandbag = new(loc)
-		usr.put_in_hands(sandbag)
+/obj/structure/barricade/sandbags/pick_up_barricade()
+	var/obj/item/stack/sheet/sandbags/sandbag = new(loc)
+	usr.put_in_hands(sandbag)
 
 /obj/structure/barricade/security
 	name = "security barrier"
@@ -201,10 +201,9 @@
 	pickup_damaged = FALSE
 	locked_down = TRUE
 
-/obj/structure/barricade/security/MouseDrop(over_object, src_location, over_location)
-	if(..())
-		var/obj/item/deployable/barricade/security/carryable = new(loc)
-		usr.put_in_hands(carryable)
+/obj/structure/barricade/security/pick_up_barricade()
+	var/obj/item/deployable/barricade/security/carryable = new(loc)
+	usr.put_in_hands(carryable)
 
 #undef METAL
 #undef WOOD
