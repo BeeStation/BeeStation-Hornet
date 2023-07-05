@@ -104,7 +104,7 @@
 	plane = GRAVITY_PULSE_PLANE
 	appearance_flags = PIXEL_SCALE // no tile bound so you can see it around corners and so
 	icon = 'icons/effects/288x288.dmi'
-	icon_state = "gravitational_lens"
+	icon_state = "gravitational_anti_lens"
 	pixel_x = -126
 	pixel_y = -128
 
