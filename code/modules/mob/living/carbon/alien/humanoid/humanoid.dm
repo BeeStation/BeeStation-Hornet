@@ -13,8 +13,6 @@
 	var/alt_icon = 'icons/mob/alienleap.dmi' //used to switch between the two alien icon files.
 	var/leap_on_click = FALSE
 	COOLDOWN_DECLARE(pounce_cooldown)
-	var/custom_pixel_x_offset = 0 //for admin fuckery.
-	var/custom_pixel_y_offset = 0
 	var/sneaking = FALSE //For sneaky-sneaky mode and appropriate slowdown
 	var/drooling = FALSE //For Neurotoxic spit overlays
 
@@ -42,22 +40,6 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 						"<span class='danger'>You break free of [pulledby]'s grip!</span>")
 	pulledby.stop_pulling()
 	. = 0
-
-/mob/living/carbon/alien/humanoid/get_standard_pixel_y_offset(lying = 0)
-	if(leaping)
-		return -32
-	else if(custom_pixel_y_offset)
-		return custom_pixel_y_offset
-	else
-		return initial(pixel_y)
-
-/mob/living/carbon/alien/humanoid/get_standard_pixel_x_offset(lying = 0)
-	if(leaping)
-		return -32
-	else if(custom_pixel_x_offset)
-		return custom_pixel_x_offset
-	else
-		return initial(pixel_x)
 
 /mob/living/carbon/alien/humanoid/get_permeability_protection()
 	return 0.8
