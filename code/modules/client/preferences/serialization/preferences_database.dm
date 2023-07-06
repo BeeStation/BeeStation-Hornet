@@ -65,7 +65,6 @@
 		qdel(read_player_data)
 
 	READPREF_INT(default_slot, PREFERENCE_TAG_DEFAULT_SLOT)
-	READPREF_INT(toggles, PREFERENCE_TAG_TOGGLES)
 	READPREF_STR(lastchangelog, PREFERENCE_TAG_LAST_CL)
 
 	READPREF_STR(pai_name, PREFERENCE_TAG_PAI_NAME)
@@ -82,7 +81,6 @@
 	//Sanitize
 	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
 	default_slot	= sanitize_integer(default_slot, 1, TRUE_MAX_SAVE_SLOTS, initial(default_slot))
-	toggles			= sanitize_integer(toggles, 0, (2**24)-1, initial(toggles)) // yes
 	ignoring		= SANITIZE_LIST(ignoring)
 	purchased_gear	= SANITIZE_LIST(purchased_gear)
 	be_special		= SANITIZE_LIST(be_special)
@@ -130,7 +128,6 @@
 	var/list/datum/DBQuery/write_queries = list() // do not rename this you muppet
 
 	PREP_WRITEPREF_STR(default_slot, PREFERENCE_TAG_DEFAULT_SLOT)
-	PREP_WRITEPREF_STR(toggles, PREFERENCE_TAG_TOGGLES)
 	PREP_WRITEPREF_STR(lastchangelog, PREFERENCE_TAG_LAST_CL)
 
 	PREP_WRITEPREF_STR(pai_name, PREFERENCE_TAG_PAI_NAME)
