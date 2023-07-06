@@ -28,6 +28,7 @@ const TELEMETRY_COLOR_MAP = {
   '???': '#e74c3c',
   '?': null,
   '...': null,
+  'dev': null,
   'N/A': null,
   'DC': '#aaaaaa',
 };
@@ -87,7 +88,7 @@ export const PlayerPanel = (_, context) => {
   const selected_player = players[selected_ckey];
   return (
     <Window
-      width={1000}
+      width={1100}
       height={615}
       theme="admin"
       buttons={
@@ -700,6 +701,7 @@ const PlayerTable = (_, context) => {
             ijob={player.ijob}
             ckey={player.ckey}
             has_mind={player.has_mind}
+            is_dead={player.is_dead}
             oxydam={player.oxydam}
             toxdam={player.toxdam}
             burndam={player.burndam}
@@ -710,6 +712,10 @@ const PlayerTable = (_, context) => {
             living_playtime={player.living_playtime}
             is_antagonist={player.is_antagonist}
             antag_hud={player.antag_hud}
+            true_job={player.true_job}
+            job_hud={player.job_hud}
+            lastping={player.lastping}
+            avgping={player.avgping}
             telemetry={player.telemetry}
             connected={player.connected}
           />
@@ -748,6 +754,9 @@ class PlayerTableHeadings extends PureComponent {
         <Table.Cell bold collapsing textAlign="center">
           TP
         </Table.Cell>
+        <Table.Cell bold collapsing textAlign="center">
+          JOB
+        </Table.Cell>
         <Table.Cell
           bold
           collapsing
@@ -774,6 +783,15 @@ class PlayerTableHeadings extends PureComponent {
             'min-width': '12em',
           }}>
           Position (PM)
+        </Table.Cell>
+        <Table.Cell
+          bold
+          collapsing
+          textAlign="center"
+          style={{
+            'min-width': '7em',
+          }}>
+          Ping(avg)
         </Table.Cell>
       </Table.Row>
     );
@@ -826,6 +844,7 @@ class PlayerTableEntry extends PureComponent {
       ijob = -1,
       ckey,
       has_mind,
+      is_dead,
       oxydam,
       toxdam,
       burndam,
@@ -835,7 +854,11 @@ class PlayerTableEntry extends PureComponent {
       position,
       living_playtime,
       is_antagonist,
+      true_job,
+      job_hud,
       antag_hud,
+      lastping,
+      avgping,
       telemetry = 'N/A',
       connected = false,
     } = this.props;
@@ -860,6 +883,9 @@ class PlayerTableEntry extends PureComponent {
             ckey={ckey}
           />
         </Table.Cell>
+        <Table.Cell collapsing textAlign="center">
+          <PlayerJobInfoButton job_hud={job_hud} true_job={true_job} />
+        </Table.Cell>
         <Table.Cell collapsing textAlign="center" style={ELLIPSIS_STYLE}>
           <PlayerJobSelectButton job={job} ijob={ijob} ckey={ckey} is_selected={selected_ckey === ckey} />
         </Table.Cell>
@@ -869,6 +895,7 @@ class PlayerTableEntry extends PureComponent {
         <Table.Cell collapsing textAlign="center">
           <PlayerVitalsButton
             ckey={ckey}
+            is_dead={is_dead}
             oxydam={oxydam}
             toxdam={toxdam}
             burndam={burndam}
@@ -879,6 +906,9 @@ class PlayerTableEntry extends PureComponent {
         </Table.Cell>
         <Table.Cell collapsing style={ELLIPSIS_STYLE}>
           <PlayerLocationButton position={position} ckey={ckey} />
+        </Table.Cell>
+        <Table.Cell collapsing textAlign="center" style={ELLIPSIS_STYLE}>
+          <PlayerPingBox lastping={lastping} avgping={avgping} />
         </Table.Cell>
       </Table.Row>
     );
@@ -984,6 +1014,22 @@ class PlayerTraitorPanelButton extends PureComponent {
   }
 }
 
+class PlayerJobInfoButton extends PureComponent {
+  render() {
+    const { job_hud, true_job } = this.props;
+    return true_job ? (
+      <Button
+        style={{
+          'padding': '0px 2px',
+        }}
+        content={<Box style={{ 'transform': 'translateY(2.5px)' }} className={`job-icon16x16 job-icon-${job_hud}`} />}
+        tooltip={`Roundstart job: ${true_job}`}
+      />
+    ) : (
+      ''
+    );
+  }
+}
 class PlayerJobSelectButton extends Component {
   render() {
     const { act } = useBackend(this.context);
@@ -1029,7 +1075,7 @@ class PlayerNameButton extends PureComponent {
 class PlayerVitalsButton extends PureComponent {
   render() {
     const { act } = useBackend(this.context);
-    const { ckey, oxydam, toxdam, burndam, brutedam, health, health_max } = this.props;
+    const { ckey, is_dead, oxydam, toxdam, burndam, brutedam, health, health_max } = this.props;
     return (
       <Button
         fluid
@@ -1039,9 +1085,9 @@ class PlayerVitalsButton extends PureComponent {
         content={
           <Box inline style={{ 'width': '100%' }}>
             {oxydam !== undefined ? (
-              <PlayerHumanVitals oxydam={oxydam} toxdam={toxdam} burndam={burndam} brutedam={brutedam} />
+              <PlayerHumanVitals is_dead={is_dead} oxydam={oxydam} toxdam={toxdam} burndam={burndam} brutedam={brutedam} />
             ) : health !== undefined ? (
-              <PlayerNonHumanVitals health={health} health_max={health_max} />
+              <PlayerNonHumanVitals is_dead={is_dead} health={health} health_max={health_max} />
             ) : (
               <Box inline>N/A</Box>
             )}
@@ -1054,10 +1100,10 @@ class PlayerVitalsButton extends PureComponent {
 
 class PlayerHumanVitals extends PureComponent {
   render() {
-    const { oxydam, toxdam, burndam, brutedam } = this.props;
+    const { is_dead, oxydam, toxdam, burndam, brutedam } = this.props;
     return (
       <Box inline style={{ 'display': 'inline-flex', 'align-items': 'center', 'width': '100%' }}>
-        <ColorBox color={healthToColor(oxydam, toxdam, burndam, brutedam)} />
+        <ColorBox color={is_dead ? 'gray' : healthToColor(oxydam, toxdam, burndam, brutedam)} />
         <Box inline style={{ 'flex': '1' }} />
         <Box inline style={{ 'overflow': 'hidden' }}>
           <HealthStatPure type="oxy" value={oxydam} />
@@ -1086,11 +1132,15 @@ class HealthStatPure extends PureComponent {
 
 class PlayerNonHumanVitals extends PureComponent {
   render() {
-    const { health, health_max } = this.props;
+    const { is_dead, health, health_max } = this.props;
     return (
       <Box inline style={{ 'display': 'inline-flex', 'align-items': 'center', 'width': '100%' }}>
         <ColorBox
-          color={HEALTH_COLOR_BY_LEVEL[Math.min(Math.max(Math.ceil((health_max - health) / (health_max / 5)), 0), 5)]}
+          color={
+            is_dead
+              ? 'gray'
+              : HEALTH_COLOR_BY_LEVEL[Math.min(Math.max(Math.ceil((health_max - health) / (health_max / 5)), 0), 5)]
+          }
         />
         <Box inline style={{ 'flex': '1' }} />
         <Box inline style={{ 'overflow': 'hidden' }}>
@@ -1115,6 +1165,21 @@ class PlayerLocationButton extends PureComponent {
         tooltip={'PM player - ' + position}
         onClick={() => act('pm', { who: ckey })}
       />
+    );
+  }
+}
+
+class PlayerPingBox extends PureComponent {
+  render() {
+    const { lastping, avgping } = this.props;
+    return (
+      <Box
+        inline
+        style={{ 'display': 'inline-flex', 'align-items': 'center', 'width': '100%' }}
+        textAlign={'center'}
+        color={avgping < 150 ? '#d8d8d8' : avgping < 350 ? 'orange' : 'danger'}>
+        {lastping ? `${lastping}(${avgping})` : ''}
+      </Box>
     );
   }
 }

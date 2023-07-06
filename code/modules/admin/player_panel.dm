@@ -25,6 +25,7 @@
 
 /datum/admin_player_panel/ui_assets(mob/user)
 	return list(
+		get_asset_datum(/datum/asset/spritesheet/job_icons),
 		get_asset_datum(/datum/asset/spritesheet/antag_hud)
 	)
 
@@ -84,14 +85,17 @@
 			continue
 		data_entry["last_ip"] = player.lastKnownIP
 		data_entry["is_antagonist"] = is_special_character(player)
-		if(ishuman(player))
-			var/mob/living/carbon/human/tracked_human = player
+		var/mob/player_mob = isobserver(player) ? player?.mind?.current : player
+		if(ishuman(player_mob))
+			var/mob/living/carbon/human/tracked_human = player_mob
+			data_entry["is_dead"] = player.stat == DEAD ? TRUE : FALSE
 			data_entry["oxydam"] = round(tracked_human.getOxyLoss(), 1)
 			data_entry["toxdam"] = round(tracked_human.getToxLoss(), 1)
 			data_entry["burndam"] = round(tracked_human.getFireLoss(), 1)
 			data_entry["brutedam"] = round(tracked_human.getBruteLoss(), 1)
-		else if(isliving(player))
-			var/mob/living/tracked_living = player
+		else if(isliving(player_mob))
+			var/mob/living/tracked_living = player_mob
+			data_entry["is_dead"] = player.stat == DEAD ? TRUE : FALSE
 			data_entry["health"] = tracked_living.health
 			data_entry["health_max"] = tracked_living.getMaxHealth()
 		var/turf/pos = get_turf(player)
@@ -107,6 +111,8 @@
 				data_entry["living_playtime"] = FLOOR(player.client.prefs.exp[EXP_TYPE_LIVING] / 60, 1)
 			data_entry["telemetry"] = player.client.tgui_panel?.get_alert_level()
 			data_entry["connected"] = TRUE
+			data_entry["lastping"] = round(player.client.lastping, 1)
+			data_entry["avgping"] = round(player.client.avgping, 1)
 			if(ckey == selected_ckey)
 				for(var/log_type in player.client.player_details.logging)
 					var/list/log_type_data = list()
@@ -125,6 +131,8 @@
 				if(player.client.byond_version)
 					data_entry["byond_version"] = "[player.client.byond_version].[player.client.byond_build ? player.client.byond_build : "xxx"]"
 		if(player.mind)
+			data_entry["true_job"] = player.mind.assigned_role // only shows their true job, not card job
+			data_entry["job_hud"] = player.mind.assigned_role ? "hud[get_hud_by_jobname(player.mind.assigned_role, returns_unknown=FALSE) || "none"]" : ""// if their job is hudless, shows a black hud
 			data_entry["antag_hud"] = player.mind.antag_hud_icon_state
 		if(ckey == selected_ckey)
 			for(var/log_type in player.logging)

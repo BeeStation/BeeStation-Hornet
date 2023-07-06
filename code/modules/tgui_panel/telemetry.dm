@@ -20,6 +20,7 @@
 	var/alert_low = FALSE
 	var/alert_med = FALSE
 	var/alert_high = FALSE
+	var/alert_dev = FALSE
 
 /**
  * private
@@ -99,7 +100,6 @@
 	var/list/all_cids
 	var/list/all_ips
 	var/skipped_entries
-	var/has_dev_ip
 	for(var/i in 1 to len)
 		if(QDELETED(client))
 			// He got cleaned up before we were done
@@ -118,7 +118,7 @@
 				LAZYADD(all_ckeys, row["ckey"])
 				LAZYADD(all_ips, "127.0.0.1")
 				LAZYADD(all_cids, row["computer_id"])
-				has_dev_ip = 1
+				alert_dev = TRUE
 				continue
 			LAZYSET(telemetry_notices, "TELEM_CORRUPT_[i]", "<span class='highlight'>CONN_ID:[i]|Entry corrupt. Data may be damaged or tampered with.</span>")
 			alert_high = TRUE
@@ -169,7 +169,7 @@
 		LAZYSET(telemetry_notices, "TGUI_CKEY_LIST", "ALL_CKEYS|[text_list_ckeys]")
 	switch(length(all_ips))
 		if(2)
-			if(!has_dev_ip) //If it's a dev IP we don't care.
+			if(!alert_dev) //If it's a dev IP we don't care.
 				LAZYSET(telemetry_notices, TGUI_TELEM_IP_WARNING, "<span class='average'>IPA_COUNT|User has changed IPs at least once.</span>")
 		if(3 to INFINITY)
 			if(length(all_ips) == len)
@@ -226,6 +226,8 @@
 				return "!"
 			if(alert_low)
 				return "?"
+			if(alert_dev)
+				return "dev"
 			return ""
 		if(TGUI_TELEMETRY_STAT_MISSING)
 			return "???"
