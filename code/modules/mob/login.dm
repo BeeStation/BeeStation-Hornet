@@ -106,8 +106,8 @@
   *
   * Configs:
   * * flag/auto_deadmin_players
-  * * client.prefs?.toggles & DEADMIN_ALWAYS
-  * * User is antag and flag/auto_deadmin_antagonists or client.prefs?.toggles & DEADMIN_ANTAGONIST
+  * * client?.prefs?.read_player_preference(/datum/preference/toggle/deadmin_always)
+  * * User is antag and flag/auto_deadmin_antagonists or client?.prefs?.read_player_preference(/datum/preference/toggle/deadmin_antagonist)
   * * or if their job demands a deadminning SSjob.handle_auto_deadmin_roles()
   *
   * Called from [login](mob.html#proc/Login)

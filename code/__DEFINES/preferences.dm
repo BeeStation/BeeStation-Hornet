@@ -1,9 +1,3 @@
-#define DEADMIN_ALWAYS				(1<<15)
-#define DEADMIN_ANTAGONIST			(1<<16)
-#define DEADMIN_POSITION_HEAD		(1<<17)
-#define DEADMIN_POSITION_SECURITY	(1<<18)
-#define DEADMIN_POSITION_SILICON		(1<<19)
-
 // Preferences value defines
 
 #define PARALLAX_INSANE "Insane"
@@ -143,7 +137,6 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 
 // Undatumized preference tags
 
-#define PREFERENCE_TAG_TOGGLES			"toggles"
 #define PREFERENCE_TAG_LAST_CL			"last_changelog"
 #define PREFERENCE_TAG_DEFAULT_SLOT		"default_slot"
 #define PREFERENCE_TAG_IGNORING			"ignoring"

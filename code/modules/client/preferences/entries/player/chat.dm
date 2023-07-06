@@ -67,3 +67,13 @@
 	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
 	db_key = "chat_pullr"
 	preference_type = PREFERENCE_PLAYER
+
+/datum/preference/toggle/chat_radio
+	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
+	db_key = "chat_radio"
+	preference_type = PREFERENCE_PLAYER
+
+/datum/preference/toggle/chat_radio/is_accessible(datum/preferences/preferences, ignore_page = FALSE)
+	if (!..())
+		return FALSE
+	return is_admin(preferences.parent)

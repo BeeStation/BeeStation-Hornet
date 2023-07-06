@@ -9,13 +9,6 @@ export const chat_bankcard: FeatureToggle = {
   component: CheckboxInput,
 };
 
-export const chat_dead: FeatureToggle = {
-  name: 'Enable Deadchat',
-  category: 'ADMIN',
-  subcategory: 'Chat',
-  component: CheckboxInput,
-};
-
 export const chat_followghostmindless: FeatureToggle = {
   name: '(F) Mindless',
   category: 'GHOST',
@@ -86,17 +79,35 @@ export const chat_ooc: FeatureToggle = {
   component: CheckboxInput,
 };
 
-export const chat_prayer: FeatureToggle = {
-  name: 'Recieve prayers',
-  category: 'ADMIN',
-  subcategory: 'Chat',
-  component: CheckboxInput,
-};
-
 export const chat_pullr: FeatureToggle = {
   name: 'Enable Pull Request Notifications',
   category: 'CHAT',
   subcategory: 'OOC',
   description: 'Be notified when a pull request is made, closed, or merged.',
+  component: CheckboxInput,
+};
+
+// Admin
+
+export const chat_dead: FeatureToggle = {
+  name: 'Hear Deadchat',
+  category: 'ADMIN',
+  subcategory: 'Chat',
+  description: 'Hear all deadchat while adminned.',
+  component: CheckboxInput,
+};
+
+export const chat_prayer: FeatureToggle = {
+  name: 'Hear Prayers',
+  category: 'ADMIN',
+  subcategory: 'Chat',
+  component: CheckboxInput,
+};
+
+export const chat_radio: FeatureToggle = {
+  name: 'Hear Radio',
+  category: 'ADMIN',
+  subcategory: 'Chat',
+  description: 'Hear all radio messages while adminned.',
   component: CheckboxInput,
 };
