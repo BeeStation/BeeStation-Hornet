@@ -635,6 +635,7 @@
 	requirements = list(100,90,80,60,40,30,10,10,10,10)
 	flags = HIGH_IMPACT_RULESET | PERSISTENT_RULESET
 	antag_cap = list("denominator" = 10, "offset" = 1)
+	minimum_players = 24
 	var/datum/team/incursion/incursion_team
 
 /datum/dynamic_ruleset/roundstart/incursion/ready(population, forced = FALSE)
