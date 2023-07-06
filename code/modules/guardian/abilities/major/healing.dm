@@ -30,7 +30,7 @@
 			L.adjustBruteLoss(heals)
 			L.adjustFireLoss(heals)
 			L.adjustOxyLoss(heals)
-			L.adjustToxLoss(heals)
+			L.adjustToxLoss(heals, forced = TRUE)
 			var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal(get_turf(L))
 			H.color = guardian.guardiancolor
 			if(L == guardian.summoner?.current)

@@ -135,8 +135,8 @@
 	var/flavor_text = FLAVOR_TEXT_NONE
 	var/role //Used for determining whether a player is banned from taking control of a given mob, if it is assigned to a category.
 
-	///Default X offset
-	var/body_pixel_x_offset = 0
-	///Default Y offset
-	var/body_pixel_y_offset = 0
+	///The y amount a mob's sprite should be offset due to the current position they're in (e.g. lying down moves your sprite down)
+	var/body_position_pixel_x_offset = 0
+	///The x amount a mob's sprite should be offset due to the current position they're in
+	var/body_position_pixel_y_offset = 0
 
