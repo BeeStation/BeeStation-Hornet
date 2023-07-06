@@ -795,7 +795,7 @@
 "Ln" = (
 /obj/effect/turf_decal/box/corners,
 /obj/machinery/iv_drip,
-/obj/item/roller{
+/obj/item/deployable/rollerbed{
 	pixel_x = -10;
 	pixel_y = 14
 	},

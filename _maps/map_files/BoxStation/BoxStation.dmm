@@ -54648,13 +54648,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
 "tWG" = (
-/obj/item/grenade/barrier{
-	pixel_x = 4
-	},
-/obj/item/grenade/barrier,
-/obj/item/grenade/barrier{
-	pixel_x = -4
-	},
+/obj/item/storage/box/sec_barricades,
 /obj/structure/table,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
