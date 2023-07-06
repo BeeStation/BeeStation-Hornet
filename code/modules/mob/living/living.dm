@@ -1221,21 +1221,6 @@
 			stop_pulling()
 	if(!(mobility_flags & MOBILITY_UI))
 		unset_machine()
-	density = !lying_angle
-	var/changed = lying_angle == lying_prev
-	if(lying_angle)
-		if(!lying_prev)
-			fall(!canstand_involuntary)
-		if(layer == initial(layer)) //to avoid special cases like hiding larvas.
-			layer = LYING_MOB_LAYER //so mob lying always appear behind standing mobs
-	else
-		if(layer == LYING_MOB_LAYER)
-			layer = initial(layer)
-	update_transform()
-	if(changed)
-		if(client)
-			client.move_delay = world.time + movement_delay()
-	lying_prev = lying_angle
 
 	// Movespeed mods based on arms/legs quantity
 	if(!get_leg_ignore())
