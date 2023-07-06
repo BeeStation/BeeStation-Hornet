@@ -4,6 +4,7 @@
 	show_name_in_check_antagonists = TRUE
 	show_to_ghosts = TRUE
 	banning_key = BAN_ROLE_REVENANT
+	// TODO: ui_name = "AntagInfoRevenant"
 
 /datum/antagonist/revenant/greet()
 	owner.announce_objectives()

@@ -9088,11 +9088,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/fax{
-	name = "Science Fax Machine";
-	fax_name = "Science"
-	},
 /obj/structure/table/glass,
+/obj/machinery/fax/sci,
 /turf/open/floor/plasteel/white/side{
 	dir = 8
 	},
@@ -18040,10 +18037,7 @@
 /area/maintenance/aft)
 "cwA" = (
 /obj/structure/table,
-/obj/machinery/fax{
-	name = "Security Fax Machine";
-	fax_name = "Security"
-	},
+/obj/machinery/fax/sec,
 /turf/open/floor/plasteel,
 /area/security/main)
 "cwC" = (
@@ -27024,10 +27018,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/obj/machinery/fax{
-	name = "Service Fax Machine";
-	fax_name = "Service"
-	},
+/obj/machinery/fax/service,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
 "grZ" = (
@@ -41140,10 +41131,7 @@
 /area/medical/medbay/central)
 "nlx" = (
 /obj/structure/table,
-/obj/machinery/fax{
-	name = "Cargo Fax Machine";
-	fax_name = "Cargo"
-	},
+/obj/machinery/fax/cargo,
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "nlG" = (
@@ -41524,10 +41512,7 @@
 /area/vacant_room/commissary)
 "nve" = (
 /obj/structure/table/wood,
-/obj/machinery/fax{
-	name = "Lawyer Fax Machine";
-	fax_name = "Lawyer"
-	},
+/obj/machinery/fax/law,
 /turf/open/floor/wood,
 /area/lawoffice)
 "nvs" = (
@@ -41822,11 +41807,8 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai)
 "nCY" = (
-/obj/machinery/fax{
-	name = "Engineering Fax Machine";
-	fax_name = "Engineering"
-	},
 /obj/structure/table,
+/obj/machinery/fax/eng,
 /turf/open/floor/plasteel,
 /area/engine/break_room)
 "nDm" = (
@@ -45538,10 +45520,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/machinery/fax{
-	name = "Medical Fax Machine";
-	fax_name = "Medical"
-	},
+/obj/machinery/fax/med,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "pFn" = (
@@ -55961,10 +55940,7 @@
 /obj/effect/turf_decal/tile/dark_blue/anticorner/contrasted{
 	dir = 1
 	},
-/obj/machinery/fax{
-	name = "Bridge Fax Machine";
-	fax_name = "Bridge"
-	},
+/obj/machinery/fax/bridge,
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "uHW" = (

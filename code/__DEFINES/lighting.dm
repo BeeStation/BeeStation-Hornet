@@ -137,3 +137,10 @@ do { \
 		source.lum_b = 1; \
 	}; \
 } while (FALSE)
+
+GLOBAL_DATUM_INIT(fullbright_overlay, /image, create_fullbright_overlay())
+
+/proc/create_fullbright_overlay()
+	var/image/lighting_effect = new()
+	lighting_effect.appearance = /obj/effect/fullbright
+	return lighting_effect

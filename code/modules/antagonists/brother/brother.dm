@@ -3,6 +3,7 @@
 	antagpanel_category = "Brother"
 	banning_key = BAN_ROLE_BROTHER
 	required_living_playtime = 4
+	ui_name = "AntagInfoBrother"
 	hijack_speed = 0.5
 	var/datum/team/brother_team/team
 	antag_moodlet = /datum/mood_event/focused
@@ -35,6 +36,13 @@
 
 /datum/antagonist/brother/antag_panel_data()
 	return "Conspirators : [get_brother_names()]"
+
+/datum/antagonist/brother/ui_static_data(mob/user)
+	var/list/data = list()
+	data["antag_name"] = name
+	data["objectives"] = get_objectives()
+	data["brothers"] = get_brother_names()
+	return data
 
 /datum/antagonist/brother/proc/get_brother_names()
 	var/list/brothers = team.members - owner

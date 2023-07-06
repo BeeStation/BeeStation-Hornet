@@ -1194,7 +1194,11 @@
 	mainframe.diag_hud_set_deployed()
 	if(mainframe.laws)
 		mainframe.laws.show_laws(mainframe) //Always remind the AI when switching
-	mainframe.eyeobj?.setLoc(get_turf(src))
+	if(!mainframe.eyeobj)
+		mainframe.create_eye()
+	mainframe.eyeobj.setLoc(get_turf(src))
+	transfer_observers_to(mainframe.eyeobj) // borg shell to eyemob
+	mainframe.transfer_observers_to(mainframe.eyeobj) // ai core to eyemob
 	mainframe = null
 
 /mob/living/silicon/robot/attack_ai(mob/user)

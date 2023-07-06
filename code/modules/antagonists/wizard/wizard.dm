@@ -6,6 +6,7 @@
 	required_living_playtime = 8
 	antag_moodlet = /datum/mood_event/focused
 	hijack_speed = 0.5
+	ui_name = "AntagInfoWizard"
 	var/strip = TRUE //strip before equipping
 	var/allow_rename = TRUE
 	var/hud_version = "wizard"
