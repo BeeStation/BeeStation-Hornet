@@ -129,7 +129,7 @@ GLOBAL_DATUM_INIT(fax_manager, /datum/fax_manager, new)
 	message.copy_properties(paper)
 	request["paper"] = message
 	requests += list(request)
-	var/msg = "<span class='adminnotice'><b><font color=[receiver_color]>[sanitize(receiver_fax_name)] fax</font> received a message from [sanitize(sender_fax.fax_name)][ADMIN_FLW(sender)][ADMIN_JMP(sender_fax)]/[ADMIN_FULLMONTY(sender)]</b></span>"
+	var/msg = "<span class='adminnotice'><b><font color=[receiver_color]>[receiver_fax_name] fax</font> received a message from [sanitize(sender_fax.fax_name)][ADMIN_FLW(sender)][ADMIN_JMP(sender_fax)]/[ADMIN_FULLMONTY(sender)]</b></span>"
 	to_chat(GLOB.admins, msg)
 
 	for(var/obj/machinery/fax/fax as anything in GLOB.fax_machines)
