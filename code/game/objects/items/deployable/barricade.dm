@@ -95,13 +95,13 @@
 	. = ..()
 	if(over_object == usr && Adjacent(usr))
 		if(!ishuman(usr) || !usr.canUseTopic(src, BE_CLOSE))
-			return FALSE
+			return
 		if(!pickup_damaged && obj_integrity < max_integrity)
 			to_chat(usr, "<span class='warning'>[src] is damaged! You'll have to repair it before you can relocate it.</span>")
-			return FALSE
+			return
 		if(locked_down)
 			to_chat(usr, "<span class='warning'>[src] is still locked down! Swipe your ID to unlock it.</span>")
-			return FALSE
+			return
 
 		usr.visible_message("<span class='notice'>[usr] begins breaking down [src]</span>", "<span class='notice'>You begin breaking down [src].</span>")
 		if(do_after(usr, pickup_delay, src))
@@ -113,7 +113,7 @@
 			else if(!prob(round((obj_integrity/max_integrity), 0.01) * 100))
 				usr.visible_message("<span class='notice'>[usr] tries to pick up [src] but it falls apart!</span>", "<span class='notice'>[src] is too damaged and falls apart!</span>")
 				qdel(src)
-				return FALSE
+				return
 
 			usr.visible_message("<span class='notice'>[usr] picks up [src].</span>", "<span class='notice'>You pick up [src].</span>")
 			qdel(src)
