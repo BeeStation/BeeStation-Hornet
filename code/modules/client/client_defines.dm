@@ -26,6 +26,7 @@
 	var/externalreplyamount = 0
 	var/cryo_warned = -3000//when was the last time we warned them about not cryoing without an ahelp, set to -5 minutes so that rounstart cryo still warns
 	var/staff_check_rate = 0 //when was the last time they checked online staff
+	var/mouse_hover_check_supresses_messaging = 0 // if cheaters too bullies the server within a short time, supress message
 
 		/////////
 		//OTHER//

@@ -576,6 +576,8 @@
   * Produces a signal COMSIG_PARENT_EXAMINE
   */
 /atom/proc/examine(mob/user)
+	invisibility_check(user, src, INVESTIGATE_VERB_EXAMINED)
+
 	. = list("[get_examine_string(user, TRUE)].")
 
 	if(desc)
@@ -1305,6 +1307,7 @@
   * Must return  parent proc ..() in the end if overridden
   */
 /atom/proc/tool_act(mob/living/user, obj/item/I, tool_type)
+	invisibility_check(user, src, INVESTIGATE_VERB_INTERACTED)
 	var/signal_result
 
 	var/list/processing_recipes = list() //List of recipes that can be mutated by sending the signal
@@ -1721,4 +1724,3 @@
 			qdel(src)
 		return TRUE
 	return FALSE
-

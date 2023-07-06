@@ -702,6 +702,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		item_flags &= ~WAS_THROWN
 	if(verbs && user.client)
 		user.client.add_verbs(verbs)
+	invisibility_check(user, src, INVESTIGATE_VERB_PICKEDUP)
 	log_item(user, INVESTIGATE_VERB_PICKEDUP)
 
 // called when "found" in pockets and storage items. Returns 1 if the search should end.

@@ -389,6 +389,13 @@
 			actverb = "possessed"
 		investigate_log("[src] was [actverb] by [key_name(user)] at [AREACOORD(user)]. [additional_info]", INVESTIGATE_ITEMS)
 
+/proc/invisibility_check(mob/user, atom/target, taken_action)
+	if(user == target)
+		return
+	if(user.see_invisible < target.invisibility)
+		user.log_message("has [taken_action] [target], but they should NOT see this. (sight: [user.see_invisible] < invisibility: [target.invisibility]) -- it's possible to happen if their ping is high: ([round(user.client.avgping, 1)]ms)", LOG_GAME)
+		message_admins("!!WARNING!! [ADMIN_LOOKUPFLW(user)] has [taken_action] [target], but they should NOT see this. (sight: [user.see_invisible] < invisibility: [target.invisibility]) -- it's possible to happen if their ping is high: ([round(user.client.avgping, 1)]ms)")
+
 //For returning special data when the object is saved
 //For example, or silos will return a list of their materials which will be dumped on top of them
 //Can be customised if you have something that contains something you want saved

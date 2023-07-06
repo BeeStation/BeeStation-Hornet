@@ -27,6 +27,7 @@
 
 // No comment
 /atom/proc/attackby(obj/item/W, mob/user, params)
+	invisibility_check(user, src, INVESTIGATE_VERB_ATTACKED)
 	if(SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY, W, user, params) & COMPONENT_NO_AFTERATTACK)
 		return TRUE
 	return FALSE

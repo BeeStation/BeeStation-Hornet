@@ -70,6 +70,7 @@
 		return FALSE
 
 /atom/proc/interact(mob/user)
+	invisibility_check(user, src, INVESTIGATE_VERB_INTERACTED)
 	if(interaction_flags_atom & INTERACT_ATOM_NO_FINGERPRINT_INTERACT)
 		add_hiddenprint(user)
 	else

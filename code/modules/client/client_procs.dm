@@ -1181,3 +1181,25 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 /client/proc/increase_score(achievement_type, mob/user, value)
 	return player_details.achievements.increase_score(achievement_type, user, value)
+
+// detects mouse hover
+/client/MouseEntered(object, location, control, params)
+	. = ..()
+	if(isatom(object) && (world.time > src.mouse_hover_check_supresses_messaging + 1 MINUTES))
+		var/atom/target = object
+		var/mob/user = src.mob
+		var/static/list/spam_check = list()
+		if(user == target)
+			return
+
+		// relevant to invisibility_check() proc, but it has its own code because this is good for hard spam
+		if(user.see_invisible < target.invisibility)
+			spam_check[src.ckey]++
+			if(spam_check[src.ckey] > 30)
+				user.log_message("is spamming hard the hovering warning message. supressing the mssage for a minute.", LOG_GAME)
+				message_admins("!!WARNING!! [ADMIN_LOOKUPFLW(user)] is spamming hard the hovering warning message. supressing the mssage for a minute.")
+				src.mouse_hover_check_supresses_messaging = world.time
+				spam_check[src.ckey] = 0
+				return
+			user.log_message("hovered their mouse cursor on [target], but that's not possible because -(their sight: [user.see_invisible] < invisibility: [target.invisibility]) -- it's possible to happen if their ping is high: ([round(user.client.avgping, 1)]ms)", LOG_GAME)
+			message_admins("!!WARNING!! [ADMIN_LOOKUPFLW(user)] hovered their mouse cursor on [target], but that's not possible because -(sight: [user.see_invisible] < invisibility: [target.invisibility]) -- it's possible to happen if their ping is high: ([round(user.client.avgping, 1)]ms)")

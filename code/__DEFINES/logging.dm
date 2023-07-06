@@ -20,6 +20,10 @@
 #define INVESTIGATE_VERB_PICKEDUP	"picked up"
 #define INVESTIGATE_VERB_DROPPED	"dropped"
 #define INVESTIGATE_VERB_EQUIPPED   "equipped"
+#define INVESTIGATE_VERB_EXAMINED   "examined"
+#define INVESTIGATE_VERB_ATTACKED   "attacked"
+#define INVESTIGATE_VERB_INTERACTED   "interacted"
+#define INVESTIGATE_VERB_CLICKED   "clicked"
 
 // Logging types for log_message()
 #define LOG_ATTACK				(1 << 0)
