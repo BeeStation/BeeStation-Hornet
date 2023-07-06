@@ -8254,6 +8254,9 @@
 "bjo" = (
 /obj/machinery/vending/wardrobe/cargo_wardrobe,
 /obj/machinery/camera/autoname,
+/obj/machinery/status_display/supply{
+	pixel_y = 30
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "bjp" = (
@@ -12245,11 +12248,11 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "bOL" = (
-/obj/structure/closet/crate,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance/four,
+/obj/machinery/status_display/supply{
+	pixel_y = -30
+	},
 /turf/open/floor/plasteel,
-/area/quartermaster/warehouse)
+/area/quartermaster/office)
 "bOM" = (
 /obj/structure/table,
 /obj/item/paper_bin,
@@ -20546,12 +20549,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
-"cVG" = (
-/obj/structure/closet/crate,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance/three,
-/turf/open/floor/plasteel,
-/area/quartermaster/warehouse)
 "cVR" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -21041,6 +21038,10 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 1
 	},
+/obj/item/screwdriver{
+	pixel_y = 10
+	},
+/obj/item/radio/off,
 /turf/open/floor/plasteel,
 /area/security/checkpoint/supply)
 "djn" = (
@@ -26428,6 +26429,9 @@
 "gby" = (
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/machinery/status_display/supply{
+	pixel_y = 30
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
@@ -33042,6 +33046,12 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/robotics/lab)
+"jwa" = (
+/obj/machinery/computer/bounty{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "jwy" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -34368,6 +34378,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
+"kbF" = (
+/obj/item/clothing/mask/cigarette/cigar/cohiba,
+/turf/closed/wall,
+/area/quartermaster/storage)
 "kbL" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -38946,6 +38960,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness)
+"mjC" = (
+/obj/structure/closet/crate,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/maintenance/four,
+/turf/open/floor/plasteel,
+/area/quartermaster/warehouse)
 "mkg" = (
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
@@ -49028,12 +49048,6 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
-"rnL" = (
-/obj/machinery/computer/bounty{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/quartermaster/office)
 "roc" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
@@ -61098,6 +61112,12 @@
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/circuit/green/off,
 /area/teleporter)
+"xvG" = (
+/obj/structure/closet/crate,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/maintenance/three,
+/turf/open/floor/plasteel,
+/area/quartermaster/warehouse)
 "xvI" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -62082,10 +62102,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "xVe" = (
-/obj/item/screwdriver{
-	pixel_y = 10
-	},
-/obj/item/radio/off,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
@@ -81313,7 +81329,7 @@ bjr
 bjr
 buB
 bvU
-aZE
+kbF
 aaf
 aaf
 aaa
@@ -84126,9 +84142,9 @@ lxt
 cBi
 bbS
 bcS
-cVG
+xvG
 qNU
-bOL
+mjC
 gjl
 aZE
 bkJ
@@ -84653,7 +84669,7 @@ xJL
 tEu
 cJh
 bbR
-bbR
+bOL
 bxy
 byF
 xOW
@@ -85163,7 +85179,7 @@ vFu
 bkx
 kaV
 uRN
-rnL
+jwa
 buy
 uON
 xzw
