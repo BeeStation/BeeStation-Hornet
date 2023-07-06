@@ -67,6 +67,17 @@
 				<li class="bugfix">xeno offsets dont get messed up again</li>
 				<li class="code_imp">made pixel offsets a var, instead of a getter</li>
 			</ul>
+			<h3 class="author">Rukofamicom, Pirill, Naevi updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added the bluespace capsule, available through applied bluespace research. Press the button and toss the capsule and watch as it expands into a tall storage device. Close it to shrink it back into a pocket-sized capsule. Has the same capacity as a normal crate but cannot hold bulky items or most mobs (Tiny mobs like mice will fit inside).</li>
+				<li class="rscadd">Added the ability to pick up most bots such as beepsky and medibots by powering them down (requires ID access) and then dragging them onto yourself. Mulebots and ED209 are too large to be carried and do not work with this functionality.</li>
+				<li class="tweak">All bots now have a 4-8 second startup sequence when powered on to prevent very sudden surprise attacks utilizing bot deployments.</li>
+				<li class="code_imp">Adds a new object type: "/obj/item/deployable" for items which can be toggled between a deployable form that is carried around and "deployed" form that is interactable within the environment</li>
+				<li class="refactor">Refactored body bags and roller beds to be subtypes of deployable mentioned above. There should be no functional difference in how these items behave.</li>
+				<li class="refactor">Refactored barrier grenades to be a subtype of deployable - these are no longer grenades and are instead collapsible barriers now. The barriers may only be dismantled after being unlocked by swiping an ID with security clearance.</li>
+				<li class="tweak">The amount of security barriers available at roundstart and within cargo orders has been roughly doubled because they are now always deployed one.</li>
+				<li class="tweak">Sandbags and wooden barricades can now be recollected as well by dragging them onto the user's sprite. Damage sustained to these barricades affects their return yield when picked up.</li>
+			</ul>
 
 			<h2 class="date">04 July 2023</h2>
 			<h3 class="author">Absolucy updated:</h3>
