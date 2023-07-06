@@ -92,6 +92,7 @@
 /obj/structure/bed/roller/post_buckle_mob(mob/living/M)
 	set_density(TRUE)
 	icon_state = "up"
+	//Push them up from the normal lying position
 	M.pixel_y = M.base_pixel_y
 
 /obj/structure/bed/roller/Moved()
@@ -102,8 +103,8 @@
 /obj/structure/bed/roller/post_unbuckle_mob(mob/living/M)
 	set_density(FALSE)
 	icon_state = "down"
-	M.pixel_x = M.base_pixel_x + M.get_standard_pixel_x_offset(M.lying)
-	M.pixel_y = M.base_pixel_y + M.get_standard_pixel_y_offset(M.lying)
+	//Set them back down to the normal lying position
+	M.pixel_y = M.base_pixel_y + M.body_position_pixel_y_offset
 
 /obj/item/roller
 	name = "roller bed"
@@ -243,12 +244,12 @@
 
 /obj/structure/bed/double/post_buckle_mob(mob/living/M)
 	if(buckled_mobs.len > 1 && !goldilocks) //Push the second buckled mob a bit higher from the normal lying position, also, if someone can figure out the same thing for plushes, i'll be really glad to know how to
-		M.pixel_y = initial(M.pixel_y) + 6
+		M.pixel_y = M.base_pixel_y + 6
 		goldilocks = M
 		RegisterSignal(goldilocks, COMSIG_PARENT_QDELETING, PROC_REF(goldilocks_deleted))
 
 /obj/structure/bed/double/post_unbuckle_mob(mob/living/M)
-	M.pixel_y = initial(M.pixel_y) + M.get_standard_pixel_y_offset(M.lying)
+	M.pixel_y = base_pixel_y + M.body_position_pixel_y_offset
 	if(M == goldilocks)
 		UnregisterSignal(goldilocks, COMSIG_PARENT_QDELETING)
 		goldilocks = null
