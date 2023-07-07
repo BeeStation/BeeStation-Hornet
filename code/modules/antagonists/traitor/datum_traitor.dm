@@ -40,9 +40,8 @@
 	if(traitor_kind == TRAITOR_AI && owner.current && isAI(owner.current))
 		var/mob/living/silicon/ai/A = owner.current
 		A.set_zeroth_law("")
-		A.remove_verb(/mob/living/silicon/ai/proc/choose_modules)
-		A.malf_picker.remove_malf_verbs(A)
-		qdel(A.malf_picker)
+		A.remove_malf_abilities()
+		QDEL_NULL(A.malf_picker)
 		QDEL_NULL(A.radio.keyslot)
 		A.radio.recalculateChannels()
 

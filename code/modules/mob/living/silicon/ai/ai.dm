@@ -88,6 +88,7 @@
 	var/mob/living/silicon/robot/deployed_shell = null //For shell control
 	var/datum/action/innate/deploy_shell/deploy_action = new
 	var/datum/action/innate/deploy_last_shell/redeploy_action = new
+	var/datum/action/innate/choose_modules/modules_action
 	var/chnotify = 0
 
 	var/multicam_on = FALSE
@@ -205,7 +206,16 @@
 	QDEL_NULL(alert_control)
 	malfhack = null
 	ShutOffDoomsdayDevice()
+
 	. = ..()
+
+/// Removes all malfunction-related abilities from the AI
+/mob/living/silicon/ai/proc/remove_malf_abilities()
+	QDEL_NULL(modules_action)
+	for(var/datum/AI_Module/AM in current_modules)
+		for(var/datum/action/A in actions)
+			if(istype(A, initial(AM.power_type)))
+				qdel(A)
 
 /mob/living/silicon/ai/IgniteMob()
 	fire_stacks = 0
@@ -389,13 +399,6 @@
 		mobility_flags = NONE
 	else
 		mobility_flags = ALL
-
-/mob/living/silicon/ai/proc/ai_cancel_call()
-	set category = "Malfunction"
-	if(control_disabled)
-		to_chat(src, "<span class='warning'>Wireless control is disabled!</span>")
-		return
-	SSshuttle.cancelEvac(src)
 
 /mob/living/silicon/ai/restrained(ignore_grab)
 	. = 0
@@ -635,13 +638,6 @@
 	to_chat(src, "<span class='notice'>Switched to the \"[uppertext(network)]\" camera network.</span>")
 //End of code by Mord_Sith
 
-
-/mob/living/silicon/ai/proc/choose_modules()
-	set category = "Malfunction"
-	set name = "Choose Module"
-
-	malf_picker.use(src)
-
 /mob/living/silicon/ai/proc/ai_statuschange()
 	set category = "AI Commands"
 	set name = "AI Status"
@@ -740,15 +736,19 @@
 						holo_icon = getHologramIcon(icon(icon_list[input], input))
 	return
 
-/mob/living/silicon/ai/proc/corereturn()
-	set category = "Malfunction"
-	set name = "Return to Main Core"
+/datum/action/innate/core_return
+	name = "Return to Main Core"
+	desc = "Leave the APC and resume normal core operations."
+	icon_icon = 'icons/mob/actions/actions_AI.dmi'
+	button_icon_state = "ai_malf_core"
 
-	var/obj/machinery/power/apc/apc = src.loc
+/datum/action/innate/core_return/Activate()
+	var/obj/machinery/power/apc/apc = owner.loc
 	if(!istype(apc))
-		to_chat(src, "<span class='notice'>You are already in your Main Core.</span>")
+		to_chat(owner, "<span class='notice'>You are already in your Main Core.</span>")
 		return
 	apc.malfvacate()
+	qdel(src)
 
 /mob/living/silicon/ai/proc/toggle_camera_light()
 	camera_light_on = !camera_light_on
@@ -891,49 +891,71 @@
 		for(var/mob/living/silicon/robot/Slave in connected_robots)
 			Slave.show_laws()
 
+/datum/action/innate/choose_modules
+	name = "Malfunction Modules"
+	desc = "Choose from a variety of insidious modules to aid you."
+	icon_icon = 'icons/mob/actions/actions_AI.dmi'
+	button_icon_state = "modules_menu"
+	var/datum/module_picker/module_picker
+
+/datum/action/innate/choose_modules/New(picker)
+	. = ..()
+	if(istype(picker, /datum/module_picker))
+		module_picker = picker
+	else
+		CRASH("choose_modules action created with non module picker")
+
+/datum/action/innate/choose_modules/Activate()
+	module_picker.ui_interact(owner)
+
 /mob/living/silicon/ai/proc/add_malf_picker()
-	to_chat(src, "In the top right corner of the screen you will find the Malfunctions tab, where you can purchase various abilities, from upgraded surveillance to station ending doomsday devices.")
+	to_chat(src, "In the top left corner of the screen you will find the Malfunction Modules button, where you can purchase various abilities, from upgraded surveillance to station ending doomsday devices.")
 	to_chat(src, "You are also capable of hacking APCs, which grants you more points to spend on your Malfunction powers. The drawback is that a hacked APC will give you away if spotted by the crew. Hacking an APC takes 60 seconds.")
 	view_core() //A BYOND bug requires you to be viewing your core before your verbs update
-	add_verb(/mob/living/silicon/ai/proc/choose_modules)
 	malf_picker = new /datum/module_picker
-
+	modules_action = new(malf_picker)
+	modules_action.Grant(src)
 
 /mob/living/silicon/ai/reset_perspective(atom/A)
+	//SHOULD_CALL_PARENT(FALSE)
 	if(camera_light_on)
 		light_cameras()
 	if(istype(A, /obj/machinery/camera))
 		current = A
-	if(client)
-		if(ismovable(A))
-			if(A != GLOB.ai_camera_room_landmark)
-				end_multicam()
-			client.perspective = EYE_PERSPECTIVE
-			client.eye = A
-		else
+	if(!client)
+		return
+
+	if(ismovable(A))
+		if(A != GLOB.ai_camera_room_landmark)
 			end_multicam()
-			if(isturf(loc))
-				if(eyeobj)
-					client.eye = eyeobj
-					client.perspective = EYE_PERSPECTIVE
-				else
-					client.eye = client.mob
-					client.perspective = MOB_PERSPECTIVE
-			else
+		client.perspective = EYE_PERSPECTIVE
+		client.eye = A
+	else
+		end_multicam()
+		if(isturf(loc))
+			if(eyeobj)
+				client.eye = eyeobj
 				client.perspective = EYE_PERSPECTIVE
-				client.eye = loc
-		update_sight()
-		if(client.eye != src)
-			var/atom/AT = client.eye
-			AT.get_remote_view_fullscreens(src)
+			else
+				client.eye = client.mob
+				client.perspective = MOB_PERSPECTIVE
 		else
-			clear_fullscreen("remote_view", 0)
+			client.perspective = EYE_PERSPECTIVE
+			client.eye = loc
+	update_sight()
+	if(client.eye != src)
+		var/atom/AT = client.eye
+		AT.get_remote_view_fullscreens(src)
+	else
+		clear_fullscreen("remote_view", 0)
 
 /mob/living/silicon/ai/revive(full_heal = 0, admin_revive = 0)
 	. = ..()
-	if(.) //successfully ressuscitated from death
-		set_core_display_icon(display_icon_override)
-		set_eyeobj_visible(TRUE)
+	if(!.) //successfully resuscitated from death
+		return
+
+	set_core_display_icon(display_icon_override)
+	set_eyeobj_visible(TRUE)
 
 /mob/living/silicon/ai/proc/malfhacked(obj/machinery/power/apc/apc)
 	malfhack = null
