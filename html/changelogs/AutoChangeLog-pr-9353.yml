@@ -1,0 +1,4 @@
+author: Absolucy
+delete-after: true
+changes:
+  - bugfix: Fix operating computers not linking to stasis beds automatically properly.
