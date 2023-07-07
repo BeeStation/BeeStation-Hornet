@@ -165,9 +165,10 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	if(is_main_engine && GLOB.main_supermatter_engine == src)
 		GLOB.main_supermatter_engine = null
 	QDEL_NULL(soundloop)
-	vis_contents -= distort
-	qdel(distort)
-	distort = null
+	distort.icon = 'icons/effects/32x32.dmi'
+	distort.icon_state = "SM_remnant"
+	distort.pixel_x = 0
+	distort.pixel_y = 0
 	return ..()
 
 /obj/machinery/power/supermatter_crystal/examine(mob/user)
