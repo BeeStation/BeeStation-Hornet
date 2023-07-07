@@ -1200,7 +1200,7 @@ GENE SCANNER
 				var/disease_color = get_danger_color(advance_disease)
 				message += "<span class='info'>[COLOR_SPAN(disease_color, "bold", advance_disease.name)], [advance_disease.dormant ? "dormant virus" : "stage [advance_disease.stage]/5"]</span>"
 				if(extracted_ids[advance_disease.GetDiseaseID()])
-					message += COLOR_SPAN(COLOR_PALE_GREEN_GRAY, "info italics", "This virus has been extracted by [src] previously.")
+					message += COLOR_SPAN(COLOR_PALE_GREEN_GRAY, "info italics", "This virus has been extracted by \the [src] previously.")
 				message += "<span class='info bold'>[COLOR(disease_color, advance_disease.name)] has the following symptoms:</span>"
 				for(var/datum/symptom/symptom in advance_disease.symptoms)
 					message += COLOR_SPAN(advance_disease.dormant ? COLOR_SILVER : get_danger_color(symptom.severity), "info", symptom.name)
