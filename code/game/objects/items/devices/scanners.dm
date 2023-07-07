@@ -1057,7 +1057,7 @@ GENE SCANNER
 	if(!scanner)
 		to_chat(user, "<span class='warning'>\The [src] has no scanner to remove!</span>")
 		return FALSE
-	to_chat(user, "<span class='notice'>You remove the [scanner.name] from \the [src].</span>")
+	to_chat(user, "<span class='notice'>You remove \the [scanner] from \the [src].</span>")
 	scanner.forceMove(drop_location())
 	scanner = null
 	item.play_tool_sound(src)
