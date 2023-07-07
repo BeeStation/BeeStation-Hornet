@@ -51,7 +51,7 @@
 	for(var/datum/symptom/symptom as anything in subtypesof(/datum/symptom))
 		if(initial(symptom.level) == 9)
 			potential_guaranteed_symptoms += symptom
-	extrapolator_diseases += new /datum/disease/advance/random(max_symptoms = rand(2, 5), max_levle = 9, min_level = 1 + rand(1, 3), guaranteed_symptoms = pick(potential_guaranteed_symptoms), infected = src)
+	extrapolator_diseases += new /datum/disease/advance/random(max_symptoms = rand(2, 5), max_level = 9, min_level = 1 + rand(1, 3), guaranteed_symptoms = pick(potential_guaranteed_symptoms), infected = src)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
