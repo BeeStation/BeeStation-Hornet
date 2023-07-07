@@ -20,9 +20,6 @@ const ProbingConsoleConfirmation = (_props, context) => {
           <b>{customObjective}</b>
         </Stack.Item>
         <Stack.Item>
-          This will be <i>irreversible</i>!
-        </Stack.Item>
-        <Stack.Item>
           <Stack>
             <Stack.Item grow>
               <Button
