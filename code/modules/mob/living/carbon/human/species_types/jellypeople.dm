@@ -489,7 +489,7 @@ GLOBAL_LIST_EMPTY(slime_linked_with)
 	id = SPECIES_STARGAZER
 	examine_limb_id = SPECIES_OOZELING
 	/**
-	 * The stargazer's telepathy ability
+	 * The stargazer's telepathy ability.
 	 */
 	var/datum/action/innate/project_thought/project_thought
 	/**
@@ -649,6 +649,9 @@ GLOBAL_LIST_EMPTY(slime_linked_with)
 
 /**
  * Handles the death of a linked mob, unlinking them from the slime link.
+ *
+ * Arguments
+ * * source_mob: The mob that died.
  */
 /datum/species/oozeling/stargazer/proc/link_death(mob/living/source_mob)
 	SIGNAL_HANDLER
