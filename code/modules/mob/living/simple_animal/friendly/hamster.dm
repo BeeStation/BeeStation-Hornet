@@ -38,7 +38,7 @@
 	name = "Vector"
 	desc = "It's Vector the hamster. Definitely not a source of deadly diseases."
 	var/datum/disease/vector_disease
-	var/list/extrapolatordisease = list()
+	var/list/datum/disease/extrapolator_diseases = list()
 
 
 /mob/living/simple_animal/pet/hamster/vector/Initialize(mapload)
@@ -48,21 +48,16 @@
 		vector_disease = new disease
 		message_admins("Vector was roundstart infected with [vector_disease.name]. Don't lynch the virologist!")
 		log_game("Vector was roundstart infected with [vector_disease.name].")
-	var/datum/disease/advance/R = new /datum/disease/advance/random(rand(2, 5), 9, 1+rand(1,3), infected = src)
-	extrapolatordisease += R
+	extrapolator_diseases += new /datum/disease/advance/random(rand(2, 5), 9, 1 + rand(1, 3), infected = src)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/mob/living/simple_animal/pet/hamster/vector/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
-	if(!extrapolatordisease.len)
-		return FALSE
-	if(scan)
-		E.scan(src, extrapolatordisease, user)
-	else
-		E.extrapolate(src, extrapolatordisease, user)
-	return TRUE
+/mob/living/simple_animal/pet/hamster/vector/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
+	. = ..() | extrapolator_diseases
+	if(vector_disease)
+		. |= vector_disease
 
 /mob/living/simple_animal/pet/hamster/vector/proc/on_entered(datum/source, M as mob)
 	SIGNAL_HANDLER

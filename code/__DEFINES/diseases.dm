@@ -31,3 +31,5 @@
 #define DISEASE_BIOHAZARD	"BIOHAZARD" //! Symptoms that can quickly kill an unprepared victim (fungal tb, gbs)
 #define DISEASE_PANDEMIC	"PANDEMIC"  //! Symptoms so deadly you will likely die before being cured (ARDS, autophageocytosis)
 
+#define EXTRAPOLATOR_SPECIAL_HANDLED	"magic extrapolator handle value" //! A magic value to return from extrapolator_act that determines that extrapolator_act has handled the action itself
+#define EXTRAPOLATOR_SPECIAL_ISOLATE	"magic extrapolator isolate value" //! A magic value to return from extrapolator_act that tells the extrapolator to isolate symptoms instead of extracting a virus.

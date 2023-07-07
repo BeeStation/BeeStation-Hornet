@@ -23,6 +23,12 @@
 /// Adds a generic box around whatever message you're sending in chat. Really makes things stand out.
 #define EXAMINE_BLOCK(str) ("<div class='examine_block'>" + str + "</div>")
 
+/// Easy wrapper for HTML font color.
+#define COLOR(color, text) "<font color='[color]'>[text]</font>"
+
+/// Combined COLOR and a span.
+#define COLOR_SPAN(color, span, text) "<span class='[span]'>[COLOR(color, text)]</span>"
+
 //debug printing macros
 /// Used for debug messages to the world
 #define debug_world(msg) if (GLOB.Debug2) to_chat(world, \

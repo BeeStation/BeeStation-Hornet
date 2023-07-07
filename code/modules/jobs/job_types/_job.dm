@@ -220,7 +220,7 @@
 
 	if(!visualsOnly && announce)
 		announce(H)
-	dormant_disease_check(H)
+	H.give_random_dormant_disease(biohazard, min_level = CHECK_BITFIELD(flag, CLOWN | MIME) ? 0 : 4)
 
 /datum/job/proc/get_access()
 	if(!config)	//Needed for robots.
@@ -360,32 +360,3 @@
 	if(CONFIG_GET(flag/security_has_maint_access))
 		return list(ACCESS_MAINT_TUNNELS)
 	return list()
-
-//why is this as part of a job? because it's something every human receives at roundstart after all other initializations and factors job in. it fits best with the equipment proc
-//this gives a dormant disease for the virologist to check for. if this disease actually does something to the mob... call me, or your local coder
-/datum/job/proc/dormant_disease_check(mob/living/carbon/human/H)
-	var/datum/symptom/guaranteed
-	var/sickrisk = 1
-	var/unfunny = 4
-	if((flag == CLOWN) || (flag == MIME))
-		unfunny = 0
-	if(islizard(H) || iscatperson(H))
-		sickrisk += 0.5 //these races like eating diseased mice, ew
-	if(MOB_INORGANIC in H.mob_biotypes)
-		sickrisk -= 0.5
-		guaranteed = /datum/symptom/inorganic_adaptation
-	else if(MOB_ROBOTIC in H.mob_biotypes)
-		sickrisk -= 0.75
-		guaranteed = /datum/symptom/robotic_adaptation
-	else if(MOB_UNDEAD in H.mob_biotypes)//this doesnt matter if it's not halloween, but...
-		sickrisk -= 0.25
-		guaranteed = /datum/symptom/undead_adaptation
-	else if(!(MOB_ORGANIC in H.mob_biotypes))
-		return //this mob cant be given a disease
-	if(prob (min(100, (biohazard * sickrisk))))
-		var/datum/disease/advance/scandisease = new /datum/disease/advance/random(rand(2, 4), 9, unfunny, guaranteed, infected = H)
-		scandisease.dormant = TRUE
-		scandisease.spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
-		scandisease.spread_text = "None"
-		scandisease.visibility_flags |= HIDDEN_SCANNER
-		H.ForceContractDisease(scandisease)

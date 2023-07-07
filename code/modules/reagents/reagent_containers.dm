@@ -173,14 +173,9 @@
 	add_overlay(filling)
 	return ..()
 
-/obj/item/reagent_containers/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = FALSE)
-	var/datum/reagent/blood/B = locate() in reagents.reagent_list
-	if(!B)
-		SEND_SIGNAL(src, COMSIG_ATOM_EXTRAPOLATOR_ACT, user, E, scan)
-		return FALSE
-	if(scan)
-		E.scan(src, B.get_diseases(), user)
-		return TRUE
-	else
-		E.extrapolate(src, B.get_diseases(), user, TRUE)
-		return TRUE
+/obj/item/reagent_containers/extrapolator_act(mob/living/user, obj/item/extrapolator/extrapolator, dry_run = FALSE)
+	// Always attempt to isolate diseases from reagent containers, if possible.
+	. = ..() | EXTRAPOLATOR_SPECIAL_ISOLATE
+	var/datum/reagent/blood/blood = locate() in reagents.reagent_list
+	if(blood)
+		. |= blood.get_diseases()
