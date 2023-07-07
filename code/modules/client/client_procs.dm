@@ -248,6 +248,10 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 				to_chat_immediate(src, "<span class='userdanger'>Debugger enabled. Make sure you untick \"Runtime errors\" in the bottom left of VSCode's Run and Debug tab.</span>")
 			var/datum/admin_rank/localhost_rank = new("!localhost!", R_EVERYTHING, R_DBRANKS, R_EVERYTHING) //+EVERYTHING -DBRANKS *EVERYTHING
 			new /datum/admins(localhost_rank, ckey, 1, 1)
+	// Retrieve cached metabalance
+	get_metabalance_db()
+	// Retrieve cached antag token count
+	get_antag_token_count_db()
 	//preferences datum - also holds some persistent data for the client (because we may as well keep these datums to a minimum)
 	prefs = GLOB.preferences_datums[ckey]
 	if(prefs)
@@ -1031,6 +1035,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		if (NAMEOF(src, key))
 			return FALSE
 		if (NAMEOF(src, cached_badges))
+			return FALSE
+		if (NAMEOF(src, metabalance_cached))
 			return FALSE
 		if (NAMEOF(src, view))
 			view_size.setDefault(var_value)

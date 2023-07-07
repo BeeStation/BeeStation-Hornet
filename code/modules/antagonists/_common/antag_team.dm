@@ -67,3 +67,9 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 		stack_trace("[type] has no team name")
 		return "Unnamed team"
 	return name
+
+/datum/team/proc/get_member_names()
+	. = list()
+	for(var/M in members)
+		var/datum/mind/member = M
+		. |= member.name

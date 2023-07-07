@@ -6,7 +6,9 @@
 	extended_desc = "Program for viewing and printing the current crew manifest"
 	transfer_access = list(ACCESS_HEADS)
 	requires_ntnet = FALSE
-	size = 4
+	size = 0
+	undeletable = TRUE // It comes by default in PDAs, can't be downloaded, takes no space and should obviously not be able to be deleted.
+	available_on_ntnet = FALSE
 	tgui_id = "NtosCrewManifest"
 	program_icon = "clipboard-list"
 
