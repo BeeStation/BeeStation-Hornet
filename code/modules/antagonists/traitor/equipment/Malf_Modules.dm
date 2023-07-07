@@ -807,7 +807,12 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/AI_Module))
 
 /datum/AI_Module/upgrade/upgrade_turrets/upgrade(mob/living/silicon/ai/AI)
 	for(var/obj/machinery/porta_turret/ai/turret in GLOB.machines)
-		turret.obj_integrity += 30
+		turret.max_integrity = 200
+		turret.obj_integrity = 200
+		turret.emp_proofing = TRUE
+		turret.AddComponent(/datum/component/empprotection, EMP_PROTECT_SELF | EMP_PROTECT_CONTENTS | EMP_PROTECT_WIRES)
+		turret.stun_projectile = /obj/item/projectile/beam/disabler/pass_glass //// AI defenses are often built with glass, so this is big.
+		turret.stun_projectile_sound = 'sound/weapons/lasercannonfire.ogg'
 		turret.lethal_projectile = /obj/item/projectile/beam/laser/heavylaser //Once you see it, you will know what it means to FEAR.
 		turret.lethal_projectile_sound = 'sound/weapons/lasercannonfire.ogg'
 
