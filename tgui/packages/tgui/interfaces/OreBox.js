@@ -7,31 +7,19 @@ export const OreBox = (props, context) => {
   const { act, data } = useBackend(context);
   const { materials } = data;
   return (
-    <Window
-      width={335}
-      height={415}>
+    <Window width={335} height={415}>
       <Window.Content scrollable>
-        <Section
-          title="Ores"
-          buttons={(
-            <Button
-              content="Empty"
-              onClick={() => act('removeall')} />
-          )}>
+        <Section title="Ores" buttons={<Button content="Empty" onClick={() => act('removeall')} />}>
           <Table>
             <Table.Row header>
-              <Table.Cell>
-                Ore
-              </Table.Cell>
+              <Table.Cell>Ore</Table.Cell>
               <Table.Cell collapsing textAlign="right">
                 Amount
               </Table.Cell>
             </Table.Row>
-            {materials.map(material => (
+            {materials.map((material) => (
               <Table.Row key={material.type}>
-                <Table.Cell>
-                  {toTitleCase(material.name)}
-                </Table.Cell>
+                <Table.Cell>{toTitleCase(material.name)}</Table.Cell>
                 <Table.Cell collapsing textAlign="right">
                   <Box color="label" inline>
                     {material.amount}
@@ -43,8 +31,8 @@ export const OreBox = (props, context) => {
         </Section>
         <Section>
           <Box>
-            All ores will be placed in here when you are wearing a mining
-            stachel on your belt or in a pocket while dragging the ore box.
+            All ores will be placed in here when you are wearing a mining stachel on your belt or in a pocket while dragging the
+            ore box.
             <br />
             Gibtonite is not accepted.
           </Box>
