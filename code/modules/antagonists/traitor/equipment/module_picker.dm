@@ -1,8 +1,6 @@
 /// The datum and interface for the malf unlock menu, which lets them choose actions to unlock.
 /datum/module_picker
 	var/name = "Malfunction Modules Menu"
-	var/ui_x = 620
-	var/ui_y = 525
 	var/selected_cat
 	var/compact_mode = FALSE
 	var/processing_time = 50
@@ -131,3 +129,4 @@
 				action.desc = "[initial(action.desc)] It has [action.uses] use\s remaining."
 				action.UpdateButtonIcon()
 	processing_time -= AM.cost
+	SSblackbox.record_feedback("nested tally", "malfunction_modules_bought", 1, list("[initial(AM.name)]", "[AM.cost]"))
