@@ -183,6 +183,7 @@
 	name = "Abductee"
 	roundend_category = "abductees"
 	antagpanel_category = "Abductee"
+	var/list/cured_objectives = list()
 	var/custom_objective
 
 /datum/antagonist/abductee/New(custom_objective)
@@ -220,6 +221,30 @@
 /datum/antagonist/abductee/remove_innate_effects(mob/living/mob_override)
 	update_abductor_icons_removed(mob_override ? mob_override.mind : owner)
 
+/datum/antagonist/abductee/roundend_report()
+	var/list/report = list()
+
+	if(!owner)
+		CRASH("antagonist datum without owner")
+
+	report += printplayer(owner)
+
+	if(length(objectives))
+		report += "<b>[owner.name] was <span class='redtext'>burdened</span> with the following obsessions:</b>"
+		var/count = 1
+		for(var/datum/objective/objective as() in objectives)
+			report += "<b>Objective #[count]</b>: [objective.explanation_text]"
+			count++
+	if(length(cured_objectives))
+		report += "<b>[owner.name] was <span class='greentext'>freed</span> from the following obsessions:</b>"
+		var/count = 1
+		for(var/cured_objective in cured_objectives)
+			report += "<b>Objective #[count]</b>: [cured_objective]"
+			count++
+	if(!length(objectives))
+		report += "<span class='big greentext'>[owner.name] was freed from the obsessions imprinted upon them!</span>"
+
+	return report.Join("<br>")
 
 // LANDMARKS
 /obj/effect/landmark/abductor
