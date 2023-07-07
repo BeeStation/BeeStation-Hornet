@@ -385,7 +385,10 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/AI_Module))
 
 /datum/action/innate/ai/ranged/override_machine/proc/animate_machine(obj/machinery/M)
 	if(M && !QDELETED(M))
-		new/mob/living/simple_animal/hostile/mimic/copy/machine(get_turf(M), M, owner, 1)
+		var/turf/T = get_turf(M)
+		message_admins("[ADMIN_LOOKUPFLW(owner)] overrided (animated) [M.name] at [ADMIN_VERBOSEJMP(T)].")
+		log_game("[key_name(owner)] overrided (animated) [M.name] at [AREACOORD(T)].")
+		new/mob/living/simple_animal/hostile/mimic/copy/machine(get_turf(M), M, owner)
 
 /obj/effect/proc_holder/ranged_ai/override_machine
 	active = FALSE
