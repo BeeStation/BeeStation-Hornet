@@ -5174,7 +5174,7 @@
 /turf/open/floor/plasteel,
 /area/centcom/evac)
 "uC" = (
-/obj/machinery/computer/camera_advanced,
+/obj/machinery/computer/camera_advanced/wizard,
 /turf/open/floor/wood,
 /area/wizard_station)
 "uD" = (
@@ -9385,7 +9385,7 @@
 /turf/open/floor/plating/asteroid/snow/airless,
 /area/syndicate_mothership)
 "ME" = (
-/obj/machinery/computer/camera_advanced{
+/obj/machinery/computer/camera_advanced/wizard{
 	dir = 4
 	},
 /turf/open/floor/wood,
@@ -10194,7 +10194,7 @@
 /obj/structure/closet,
 /obj/item/storage/backpack/duffelbag/med/surgery,
 /obj/machinery/iv_drip,
-/obj/item/roller,
+/obj/item/deployable/rollerbed,
 /obj/item/storage/firstaid/regular,
 /obj/item/reagent_containers/medspray/synthflesh,
 /obj/item/reagent_containers/medspray/synthflesh,

@@ -1369,7 +1369,7 @@
 /turf/open/floor/plasteel/tech/grid,
 /area/shuttle/hunter)
 "WJ" = (
-/obj/machinery/computer/camera_advanced{
+/obj/machinery/computer/camera_advanced/bounty_hunter{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt/dust,
