@@ -145,6 +145,14 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/AI_Module))
 /// Modules with stealthy and utility uses
 /datum/AI_Module/utility
 	category = "Utility Modules"
+
+/// Modules that are improving AI abilities and assets
+/datum/AI_Module/upgrade
+	category = "Upgrade Modules"
+
+/// Doomsday Device: Starts the self-destruct timer. It can only be stopped by killing the AI completely.
+/datum/AI_Module/destructive/nuke_station
+	name = "Doomsday Device"
 	description = "Activate the station's nuclear warhead that will disintegrate all organic life on the station after a 450 seconds delay. Can only be used while on the station, will fail if your core is moved off station or destroyed."
 	cost = 130
 	one_purchase = TRUE
@@ -314,6 +322,10 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/AI_Module))
 		L.dust()
 	to_chat(world, "<B>The AI cleansed the station of life with the Doomsday device!</B>")
 	SSticker.force_ending = 1
+
+//////////////////////////
+//////// DESTRUCTIVE /////
+//////////////////////////
 
 /// Hostile Station Lockdown: Locks, bolts, and electrifies every airlock on the station. After 90 seconds, the doors reset.
 /datum/AI_Module/destructive/lockdown
@@ -514,6 +526,10 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/AI_Module))
 		desc = "[initial(desc)] It has [uses] use\s remaining."
 		UpdateButtonIcon()
 
+//////////////////////////
+//////// UTILITY /////////
+//////////////////////////
+
 /// Robotic Factory: Places a large machine that converts humans that go through it into cyborgs. Unlocking this ability removes shunting.
 /datum/AI_Module/utility/place_cyborg_transformer
 	name = "Robotic Factory (Removes Shunting)"
@@ -708,6 +724,42 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/AI_Module))
 	if(src && uses) //Not sure if not having src here would cause a runtime, so it's here to be safe
 		desc = "[initial(desc)] There are [uses] reactivations remaining."
 
+//Fake Alert: Overloads a random number of lights across the station. Three uses.
+/datum/AI_Module/utility/fake_alert
+	name = "Fake Alert"
+	description = "Assess the most probable threats to the station, and send a distracting fake alert by hijacking the station's alert and threat identification systems."
+	cost = 20
+	power_type = /datum/action/innate/ai/fake_alert
+	unlock_text = "<span class='notice'>You gain control of the station's alert system.</span>"
+	unlock_sound = "sparks"
+
+/datum/action/innate/ai/fake_alert
+	name = "Fake Alert"
+	desc = "Scare the crew with a fake alert."
+	button_icon_state = "fake_alert"
+	uses = 1
+
+/datum/action/innate/ai/fake_alert/Activate()
+	var/list/events_to_chose = list()
+	for(var/datum/round_event_control/E in SSevents.control)
+		if(!E.can_malf_fake_alert)
+			continue
+		events_to_chose[E.name] = E
+	var/chosen_event = input(owner,"Send fake alert","Fake Alert") in events_to_chose
+	if (!chosen_event)
+		return FALSE
+	var/datum/round_event_control/event_control = events_to_chose[chosen_event]
+	if (!event_control)
+		return FALSE
+	var/datum/round_event/event_announcement = new event_control.typepath()
+	event_announcement.kill()
+	event_announcement.announce(TRUE)
+	owner.log_message("activated malf module [name] (TYPE: [chosen_event])", LOG_GAME)
+	return TRUE
+
+//////////////////////////
+//////// UPGRADES ////////
+//////////////////////////
 
 /// Upgrade Camera Network: EMP-proofs all cameras, in addition to giving them X-ray vision.
 /datum/AI_Module/upgrade/upgrade_cameras
@@ -784,39 +836,6 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/AI_Module))
 
 /datum/AI_Module/upgrade/mecha_domination/upgrade(mob/living/silicon/ai/AI)
 	AI.can_dominate_mechs = TRUE //Yep. This is all it does. Honk!
-
-//Fake Alert: Overloads a random number of lights across the station. Three uses.
-/datum/AI_Module/utility/fake_alert
-	name = "Fake Alert"
-	description = "Assess the most probable threats to the station, and send a distracting fake alert by hijacking the station's alert and threat identification systems."
-	cost = 20
-	power_type = /datum/action/innate/ai/fake_alert
-	unlock_text = "<span class='notice'>You gain control of the station's alert system.</span>"
-	unlock_sound = "sparks"
-
-/datum/action/innate/ai/fake_alert
-	name = "Fake Alert"
-	desc = "Scare the crew with a fake alert."
-	button_icon_state = "fake_alert"
-	uses = 1
-
-/datum/action/innate/ai/fake_alert/Activate()
-	var/list/events_to_chose = list()
-	for(var/datum/round_event_control/E in SSevents.control)
-		if(!E.can_malf_fake_alert)
-			continue
-		events_to_chose[E.name] = E
-	var/chosen_event = input(owner,"Send fake alert","Fake Alert") in events_to_chose
-	if (!chosen_event)
-		return FALSE
-	var/datum/round_event_control/event_control = events_to_chose[chosen_event]
-	if (!event_control)
-		return FALSE
-	var/datum/round_event/event_announcement = new event_control.typepath()
-	event_announcement.kill()
-	event_announcement.announce(TRUE)
-	owner.log_message("activated malf module [name] (TYPE: [chosen_event])", LOG_GAME)
-	return TRUE
 
 #undef DEFAULT_DOOMSDAY_TIMER
 #undef DOOMSDAY_ANNOUNCE_INTERVAL
