@@ -37,6 +37,7 @@ $intercom: #56bd03;
 $left: #4c0675;
 $right: #4c0675;
 $slime: #008ca2;
+$holoparasite: #b76e79;
 
 $_channel_map: (
   'say': $say,
@@ -63,6 +64,7 @@ $_channel_map: (
   'holo': $holo,
   'intercom': $intercom,
   'slime': $slime,
+  'holoparasite': $holoparasite,
 );
 
 $channel_keys: map.keys($_channel_map) !default;

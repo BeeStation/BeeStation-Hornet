@@ -150,6 +150,7 @@
 		update_time_of_death()
 		owner.reagents?.end_metabolization(owner, FALSE)
 		owner.update_mobility()
+		SEND_SIGNAL(owner, COMSIG_LIVING_ENTER_STASIS)
 
 /* Mobility refactor
 /datum/status_effect/grouped/stasis/on_apply()
@@ -170,6 +171,7 @@
 	*/
 	owner.update_mobility()
 	update_time_of_death()
+	SEND_SIGNAL(owner, COMSIG_LIVING_EXIT_STASIS)
 	return ..()
 
 /atom/movable/screen/alert/status_effect/stasis

@@ -3,15 +3,15 @@
 ///Spawns random wands and spellbooks near players and gives some players antag objectives
 #define SUMMON_MAGIC "magic"
 
-//guardian themes
+// holoparasite themes
 /// Tech
-#define GUARDIAN_TECH	"tech"
+#define HOLOPARASITE_TECH	"tech"
 /// Carp
-#define GUARDIAN_CARP	"carp"
+#define HOLOPARASITE_CARP	"carp"
 /// Magic
-#define GUARDIAN_MAGIC	"magic"
+#define HOLOPARASITE_MAGIC	"magic"
 /// Hive
-#define GUARDIAN_HIVE	"hive"
+#define HOLOPARASITE_HIVE	"hive"
 
 // magical invocation types
 ///Allows being able to cast the spell without saying anything.

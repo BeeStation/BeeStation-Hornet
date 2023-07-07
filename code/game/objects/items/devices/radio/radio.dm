@@ -401,6 +401,12 @@
 	on = TRUE
 	return TRUE
 
+/obj/item/radio/proc/get_specific_hearers()
+	if(istype(loc, /obj/item/implant))
+		var/obj/item/implant/radio_implant = loc
+		return radio_implant.imp_in
+
+
 ///////////////////////////////
 //////////Borg Radios//////////
 ///////////////////////////////

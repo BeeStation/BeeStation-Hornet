@@ -723,7 +723,8 @@ GLOBAL_LIST_EMPTY(possible_items)
 			continue
 
 		var/list/all_items = M.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
-
+		for(var/mob/living/simple_animal/hostile/holoparasite/holoparasite as anything in M.holoparasite_holder?.holoparasites)
+			all_items |= holoparasite.GetAllContents()
 		for(var/obj/I in all_items) //Check for items
 			if(istype(I, steal_target))
 				if(!targetinfo) //If there's no targetinfo, then that means it was a custom objective. At this point, we know you have the item, so return 1.
@@ -809,6 +810,8 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 					var/obj/item/clothing/suit/space/space_ninja/S = H.wear_suit
 					S.stored_research.copy_research_to(checking)
 			var/list/otherwise = M.GetAllContents()
+			for(var/mob/living/simple_animal/hostile/holoparasite/holoparasite as anything in owner.holoparasite_holder?.holoparasites)
+				otherwise |= holoparasite.GetAllContents()
 			for(var/obj/item/disk/tech_disk/TD in otherwise)
 				TD.stored_research.copy_research_to(checking)
 	return (checking.researched_nodes.len >= target_amount) || ..()
@@ -1013,6 +1016,8 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		if(!isliving(M.current))
 			continue
 		var/list/all_items = M.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
+		for(var/mob/living/simple_animal/hostile/holoparasite/holoparasite as anything in M.holoparasite_holder?.holoparasites)
+			all_items |= holoparasite.GetAllContents()
 		for(var/obj/I in all_items) //Check for wanted items
 			if(is_type_in_typecache(I, wanted_items))
 				stolen_count++
@@ -1038,6 +1043,8 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		if(!isliving(M.current))
 			continue
 		var/list/all_items = M.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
+		for(var/mob/living/simple_animal/hostile/holoparasite/holoparasite as anything in M.holoparasite_holder?.holoparasites)
+			all_items |= holoparasite.GetAllContents()
 		for(var/obj/I in all_items) //Check for wanted items
 			if(istype(I, /obj/item/book/granter/spell))
 				var/obj/item/book/granter/spell/spellbook = I

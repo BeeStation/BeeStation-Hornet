@@ -382,7 +382,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define HOLYWATER_TRAIT "holywater"
 #define VANGUARD_TRAIT "vanguard"
 #define STARGAZER_TRAIT "stargazer"
-#define GUARDIAN_TRAIT	"guardian_trait"
+#define HOLOPARASITE_TRAIT	"holopara_trait"
 #define PARRY_TRAIT	"parry_trait"
 #define ELEMENT_TRAIT(source) "element_trait_[source]"
 #define LIGHTPINK_TRAIT "lightpinktrait"

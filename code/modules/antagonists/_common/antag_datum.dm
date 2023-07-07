@@ -113,7 +113,7 @@ GLOBAL_LIST(admin_antag_list)
 	if(!silent)
 		if(tips)
 			show_tips(tips)
-		if(ui_name)
+		if(info_button)
 			to_chat(owner.current, "<span class='boldnotice'>For more info, read the panel. \
 				You can always come back to it using the button in the top left.</span>")
 			info_button?.Trigger()
@@ -235,9 +235,17 @@ GLOBAL_LIST(admin_antag_list)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, ui_name, name)
+		ui.set_autoupdate(TRUE)
 		ui.open()
 
+/datum/antagonist/ui_host(mob/user)
+	if(owner?.current)
+		return owner.current
+	return ..()
+
 /datum/antagonist/ui_state(mob/user)
+	if(owner?.current)
+		return GLOB.self_state
 	return GLOB.always_state
 
 ///generic helper to send objectives as data through tgui.

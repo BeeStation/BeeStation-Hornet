@@ -99,4 +99,8 @@ export const RADIO_PREFIXES = {
     id: 'slime',
     label: 'Slime',
   },
+  ':p ': {
+    id: 'holoparasite',
+    label: 'HPara',
+  },
 } as const;
