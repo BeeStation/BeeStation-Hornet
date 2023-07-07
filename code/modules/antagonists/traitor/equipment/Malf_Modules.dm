@@ -411,7 +411,7 @@ GLOBAL_LIST_INIT(malf_modules, subtypesof(/datum/AI_Module))
 		attached_action.desc = "[initial(attached_action.desc)] It has [attached_action.uses] use\s remaining."
 		attached_action.UpdateButtonIcon()
 	target.audible_message("<span class='userdanger'>You hear a loud electrical buzzing sound coming from [target]!</span>")
-	addtimer(CALLBACK(attached_action, /datum/action/innate/ai/ranged/override_machine.proc/animate_machine, target), 50) //kabeep!
+	addtimer(CALLBACK(attached_action, TYPE_PROC_REF(/datum/action/innate/ai/ranged/override_machine, animate_machine), target), 50) //kabeep!
 	remove_ranged_ability("<span class='danger'>Sending override signal...</span>")
 	return TRUE
 
