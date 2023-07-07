@@ -74,10 +74,7 @@
 		if(chosen_symptom)
 			symptoms += new chosen_symptom
 	for(var/guaranteed_symptom in guaranteed_symptoms)
-		if(ispath(guaranteed_symptom, /datum/symptom))
-			symptoms += new guaranteed_symptom
-		else if(istype(guaranteed_symptom, /datum/symptom))
-			symptoms += guaranteed_symptom
+		symptoms += new guaranteed_symptom
 	Finalize()
 	Refresh()
 	if(randomname)
