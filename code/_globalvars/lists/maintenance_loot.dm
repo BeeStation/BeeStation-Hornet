@@ -37,7 +37,7 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/assembly/prox_sensor = 4,
 	/obj/item/assembly/signaler = 2,
 	/obj/item/assembly/timer = 3,
-	/obj/item/bodybag = 1,
+	/obj/item/deployable/bodybag = 1,
 	/obj/item/book/manual/wiki/engineering_construction = 1,
 	/obj/item/book/manual/wiki/engineering_hacking = 1,
 	/obj/item/clothing/glasses/meson = 2,
