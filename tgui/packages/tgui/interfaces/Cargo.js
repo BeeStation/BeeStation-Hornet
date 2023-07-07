@@ -1,4 +1,4 @@
-import { useBackend, useLocalState, useSharedState } from '../backend';
+import { useBackend, useSharedState } from '../backend';
 import { AnimatedNumber, Box, Button, Flex, LabeledList, Section, Table, Tabs } from '../components';
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
@@ -15,7 +15,7 @@ export const Cargo = (props, context) => {
 
 export const CargoContent = (props, context) => {
   const { act, data } = useBackend(context);
-  const [tab, setTab] = useLocalState(context, 'tab', 'catalog');
+  const [tab, setTab] = useSharedState(context, 'tab', 'catalog');
   const { requestonly } = data;
   const cart = data.cart || [];
   const requests = data.requests || [];

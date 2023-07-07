@@ -1,10 +1,10 @@
-import { useBackend, useLocalState } from '../backend';
+import { useBackend, useSharedState } from '../backend';
 import { Box, Button, Flex, LabeledList, NoticeBox, Section, Tabs } from '../components';
 import { Window } from '../layouts';
 
 export const RoboticsControlConsole = (props, context) => {
   const { act, data } = useBackend(context);
-  const [tab, setTab] = useLocalState(context, 'tab', 1);
+  const [tab, setTab] = useSharedState(context, 'tab', 1);
   const { can_hack, is_silicon, extracting, cyborgs = [], drones = [], uploads = [] } = data;
   return (
     <Window width={500} height={460}>
