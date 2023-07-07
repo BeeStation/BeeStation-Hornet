@@ -1191,7 +1191,7 @@ GENE SCANNER
 	if(length(diseases))
 		// costly_icon2html should be okay, as the extrapolator has a cooldown and is NOT spammable
 		message += "<span class='boldnotice'>[isliving(target) ? costly_icon2html(target, user) : icon2html(target, user)] [target] scan results</span>"
-		message += "<span class='boldnotice'>[icon2html(src, user)] [src] detects the following diseases:</span>"
+		message += "<span class='boldnotice'>[icon2html(src, user)] \The [src] detects the following diseases:</span>"
 		for(var/datum/disease/disease in diseases)
 			if(istype(disease, /datum/disease/advance))
 				var/datum/disease/advance/advance_disease = disease
@@ -1200,7 +1200,7 @@ GENE SCANNER
 				var/disease_color = get_danger_color(advance_disease)
 				message += "<span class='info'>[COLOR_SPAN(disease_color, "bold", advance_disease.name)], [advance_disease.dormant ? "dormant virus" : "stage [advance_disease.stage]/5"]</span>"
 				if(extracted_ids[advance_disease.GetDiseaseID()])
-					message += COLOR_SPAN(COLOR_PALE_GREEN_GRAY, "info italics", "This virus has been extracted by this [src] previously.")
+					message += COLOR_SPAN(COLOR_PALE_GREEN_GRAY, "info italics", "This virus has been extracted by [src] previously.")
 				message += "<span class='info bold'>[COLOR(disease_color, advance_disease.name)] has the following symptoms:</span>"
 				for(var/datum/symptom/symptom in advance_disease.symptoms)
 					message += COLOR_SPAN(advance_disease.dormant ? COLOR_SILVER : get_danger_color(symptom.severity), "info", symptom.name)
