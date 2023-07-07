@@ -136,6 +136,11 @@
 						.["other"][A.type] += A.volume
 			.["other"][I.type] += 1
 
+/datum/component/personal_crafting/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/crafting),
+	)
+
 /datum/component/personal_crafting/proc/check_tools(atom/a, datum/crafting_recipe/R, list/contents)
 	if(!R.tools.len)
 		return TRUE
@@ -431,6 +436,9 @@
 	var/req_text = ""
 	var/tool_text = ""
 	var/catalyst_text = ""
+
+	// get icon
+	data["path"] = replacetext(copytext("[R.result]", 2), "/", "-")
 
 	for(var/a in R.reqs)
 		//We just need the name, so cheat-typecast to /atom for speed (even tho Reagents are /datum they DO have a "name" var)
