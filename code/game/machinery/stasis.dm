@@ -21,9 +21,9 @@
 // dir check for buckle_lying state
 /obj/machinery/stasis/Initialize()
 	switch(dir)
-		if(WEST,NORTH)
+		if(WEST, NORTH)
 			buckle_lying = 270
-		if(EAST,SOUTH)
+		if(EAST, SOUTH)
 			buckle_lying = 90
 	return ..()
 
@@ -33,7 +33,7 @@
 
 /obj/machinery/stasis/LateInitialize()
 	. = ..()
-		initial_link()
+	initial_link()
 	for(var/direction in GLOB.alldirs)
 		op_computer = locate(/obj/machinery/computer/operating) in get_step(src, direction)
 		if(op_computer)

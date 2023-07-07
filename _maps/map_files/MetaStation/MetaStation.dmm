@@ -71462,14 +71462,14 @@
 "vyS" = (
 /obj/machinery/airalarm/directional/north,
 /obj/structure/rack,
-/obj/item/roller{
+/obj/item/deployable/rollerbed{
 	pixel_x = -2
 	},
-/obj/item/roller{
+/obj/item/deployable/rollerbed{
 	pixel_x = 1;
 	pixel_y = 3
 	},
-/obj/item/roller{
+/obj/item/deployable/rollerbed{
 	pixel_x = 5;
 	pixel_y = 8
 	},
