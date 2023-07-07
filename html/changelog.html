@@ -56,6 +56,42 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">06 July 2023</h2>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">sorted dme contents properly</li>
+			</ul>
+			<h3 class="author">RKz, Yenwodyah updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">more things properly utilize basepixels, instead of the old `pixel_x = initial(pixel_x)`</li>
+				<li class="bugfix">xeno offsets dont get messed up again</li>
+				<li class="code_imp">made pixel offsets a var, instead of a getter</li>
+			</ul>
+			<h3 class="author">Rukofamicom, Pirill, Naevi updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added the bluespace capsule, available through applied bluespace research. Press the button and toss the capsule and watch as it expands into a tall storage device. Close it to shrink it back into a pocket-sized capsule. Has the same capacity as a normal crate but cannot hold bulky items or most mobs (Tiny mobs like mice will fit inside).</li>
+				<li class="rscadd">Added the ability to pick up most bots such as beepsky and medibots by powering them down (requires ID access) and then dragging them onto yourself. Mulebots and ED209 are too large to be carried and do not work with this functionality.</li>
+				<li class="tweak">All bots now have a 4-8 second startup sequence when powered on to prevent very sudden surprise attacks utilizing bot deployments.</li>
+				<li class="code_imp">Adds a new object type: "/obj/item/deployable" for items which can be toggled between a deployable form that is carried around and "deployed" form that is interactable within the environment</li>
+				<li class="refactor">Refactored body bags and roller beds to be subtypes of deployable mentioned above. There should be no functional difference in how these items behave.</li>
+				<li class="refactor">Refactored barrier grenades to be a subtype of deployable - these are no longer grenades and are instead collapsible barriers now. The barriers may only be dismantled after being unlocked by swiping an ID with security clearance.</li>
+				<li class="tweak">The amount of security barriers available at roundstart and within cargo orders has been roughly doubled because they are now always deployed one.</li>
+				<li class="tweak">Sandbags and wooden barricades can now be recollected as well by dragging them onto the user's sprite. Damage sustained to these barricades affects their return yield when picked up.</li>
+			</ul>
+
+			<h2 class="date">04 July 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Healing holoparasites will no longer damage toxinlovers (oozelings, etc) when healing.</li>
+			</ul>
+			<h3 class="author">RKz, Mothblocks updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">adds smiting to buildmode</li>
+				<li class="code_imp">datumizes smiting</li>
+				<li class="admin">converts some rather obnoxious admin tools to TGUI lists. Should make em easier to use</li>
+				<li class="rscadd">buildmode smiting sprite</li>
+			</ul>
+
 			<h2 class="date">03 July 2023</h2>
 			<h3 class="author">CydiaLamiales updated:</h3>
 			<ul class="changes bgimages16">
@@ -1076,22 +1112,6 @@
 				<li class="bugfix">Fixed a TGUI bluescreen when there are no chemicals in a sleeper.</li>
 				<li class="tweak">Having 0% brute/burn/toxin in the sleeper is now shown as green for good.</li>
 				<li class="tweak">Improved text overflow behavior on beaker medicine labels in the sleeper UI.</li>
-			</ul>
-
-			<h2 class="date">04 May 2023</h2>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">get_all_access() proc will give all accesses properly, but also changed some code</li>
-			</ul>
-
-			<h2 class="date">02 May 2023</h2>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Added the "ISWEAPON" flag to a bunch of items that should've had it</li>
-			</ul>
-			<h3 class="author">Rukofamicom updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Immobilize() procs now work on silicons and simplemobs</li>
 			</ul>
 		</div>
 
