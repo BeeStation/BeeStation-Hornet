@@ -627,6 +627,7 @@ GLOBAL_LIST_EMPTY(slime_linked_with)
  * * mind: The mind to validate for slime linking.
  * * initial_connection: Whether or not this is the first connection attempt (rather than validating to ensure a mind is still allowed to be in the slime link).
  * * silent: Whether to display messages when validating or not.
+ * Returns TRUE if the mind is a valid candidate for being slime linked, FALSE otherwise.
  */
 /datum/species/oozeling/stargazer/proc/validate_mind(datum/mind/mind, initial_connection = FALSE, silent = FALSE)
 	. = TRUE
