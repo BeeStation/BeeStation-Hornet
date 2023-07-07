@@ -1076,11 +1076,9 @@ GENE SCANNER
 			. += "<span class='notice'>The scanner is missing.</span>"
 		else
 			. += "<span class='notice'>A class <b>[scanner.rating]</b> scanning module is installed. It is <i>screwed</i> in place.</span>"
-			. += "<span class='notice'>Can detect diseases below <b>stealth [maximum_stealth]</b>, in <b>[DisplayTimeText(extract_time)]</b>.</span>"
-			if(maximum_level >= 9)
-				. += "<span class='notice'>Can isolate symptoms <b>of any level</b>, in <b>[DisplayTimeText(isolate_time)]</b>,</span>"
-			else
-				. += "<span class='notice'>Can isolate symptoms below <b>level [maximum_level]</b>, in <b>[DisplayTimeText(isolate_time)]</b>,</span>"
+			. += "<span class='notice'>Can detect diseases <b>below stealth [maximum_stealth]</b>.</span>"
+			. += "<span class='notice'>Can extract diseases in <b>[DisplayTimeText(extract_time)]</b>.</span>"
+			. += "<span class='notice'>Can isolate symptoms <b>[maximum_level >= 9 ? "of any level" : "below level [maximum_level]"]</b>, in <b>[DisplayTimeText(isolate_time)]</b>.</span>"
 
 /**
  * Updates the extraction and isolation times based on the scanner's rating.
