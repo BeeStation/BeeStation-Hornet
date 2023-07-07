@@ -1390,29 +1390,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 #define HEALTH_DEF_MOVESPEED_FLIGHT_DIV 1050
 #define HEALTH_DEF_MOVESPEED_POW 1.6
 
-/datum/species/proc/movement_delay(mob/living/carbon/human/H)
-	. = 0	//We start at 0.
-	var/gravity = 0
-	gravity = H.has_gravity()
-
-	if(!HAS_TRAIT(H, TRAIT_IGNORESLOWDOWN) && gravity)
-		if(H.wear_suit)
-			. += H.wear_suit.slowdown
-		if(H.shoes)
-			. += H.shoes.slowdown
-		if(H.back)
-			. += H.back.slowdown
-		for(var/obj/item/I in H.held_items)
-			if(I.item_flags & SLOWS_WHILE_IN_HAND)
-				. += I.slowdown
-
-		if(gravity > STANDARD_GRAVITY)
-			var/grav_force = min(gravity - STANDARD_GRAVITY,3)
-			. += 1 + grav_force
-
-	return .
-
-
 #undef HEALTH_DEF_MOVESPEED_DAMAGE_MIN
 #undef HEALTH_DEF_MOVESPEED_DELAY_MAX
 #undef HEALTH_DEF_MOVESPEED_DIV
