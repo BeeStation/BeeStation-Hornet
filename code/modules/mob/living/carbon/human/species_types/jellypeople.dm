@@ -480,7 +480,8 @@
 //Stargazers are the telepathic branch of jellypeople, able to project psychic messages and to link minds with willing participants.
 
 /// A global list of what mind is linked with what stargazer.
-/// [mind] = /datum/weakref -> /datum/species/oozeling/stargazer
+/// Does not include the host stargazer.
+/// [/datum/mind] = /datum/weakref -> /datum/species/oozeling/stargazer
 GLOBAL_LIST_EMPTY(slime_linked_with)
 
 /datum/species/oozeling/stargazer
