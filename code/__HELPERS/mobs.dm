@@ -5,6 +5,13 @@
 #define FACING_EACHOTHER 2
 /// Two mobs one is facing a person, but the other is perpendicular
 #define FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR 3 //! Do I win the most informative but also most stupid define award?
+/// Used for the image that replaces the progressbar in do_after
+#define BOUNDING_BOX_WIDTH 30
+#define BOUNDING_BOX_HEIGHT 25
+
+/// Gets the client of the mob, allowing for mocking of the client.
+/// You only need to use this if you know you're going to be mocking clients somewhere else.
+#define GET_CLIENT(mob) (##mob.client || ##mob.mock_client)
 
 /proc/random_blood_type()
 	return pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
@@ -229,23 +236,30 @@ GLOBAL_LIST_EMPTY(species_list)
  *
  * Checks that `user` does not move, change hands, get stunned, etc. for the
  * given `delay`. Returns `TRUE` on success or `FALSE` on failure.
- * 
+ *
  * Arguments:
  * * user - the primary "user" of the do_after.
  * * delay - how long the do_after takes. Defaults to 3 SECONDS.
  * * target - the (optional) target mob of the do_after. If they move/cease to exist, the do_after is cancelled.
  * * timed_action_flags - optional flags to override certain do_after checks (see DEFINES/timed_action.dm).
  * * progress - if TRUE, a progress bar is displayed.
+ * * show_to_target - if TRUE, shows the bar and item to the target
  * * extra_checks - a callback that can be used to add extra checks to the do_after. Returning false in this callback will cancel the do_after.
+ * * add_item - shows said item being 'filled up' instead of the progress bar
+ * * x_offset - moves left/right increase/decrease for the item rendered above the bar
+ * * y_offset - moves up/down the item rendered above the bar
+ * * scale - scales the height and width item rendered above the bar
  */
-/proc/do_after(mob/user, delay = 3 SECONDS, atom/target, timed_action_flags = NONE, progress = TRUE, datum/callback/extra_checks)
+/proc/do_after(mob/user, delay = 3 SECONDS, atom/target, timed_action_flags = NONE, progress = TRUE, show_to_target = FALSE, \
+datum/callback/extra_checks, atom/add_item, x_offset = 0, y_offset = 0, scale = 1)
 	if(!user)
 		return FALSE
 
 	if(target)
+		if(target in user.do_afters) // No stacking multiple do_afters on one target by a single person
+			return FALSE
 		LAZYADD(user.do_afters, target)
 		LAZYADD(target.targeted_by, user)
-
 	var/atom/user_loc = user.loc
 	var/atom/target_loc = target?.loc
 
@@ -257,13 +271,44 @@ GLOBAL_LIST_EMPTY(species_list)
 
 	delay *= user.cached_multiplicative_actions_slowdown
 
+	var/left_border = 1
+	var/right_border = 32
+	var/bottom_border = 1
+	var/top_border
+	if(add_item)
+		var/list/temp_list = add_item.get_bounding_box()
+		left_border = temp_list["left"]
+		right_border = temp_list["right"]
+		bottom_border = temp_list["bottom"]
+		top_border = temp_list["top"]
+		var/leftright_diff = 0
+		var/topbottom_diff = 0
+		if((right_border - left_border + 1) > BOUNDING_BOX_WIDTH)
+			leftright_diff = right_border - left_border + 1
+		if((top_border - bottom_border + 1) > BOUNDING_BOX_HEIGHT)
+			topbottom_diff = top_border - bottom_border + 1
+		if(leftright_diff != 0 || topbottom_diff != 0)
+			if(topbottom_diff > leftright_diff)
+				scale = BOUNDING_BOX_HEIGHT / top_border
+			else
+				scale = BOUNDING_BOX_WIDTH / right_border
+	var/client/targeted_client
+	if(show_to_target)
+		if(target == user)
+			show_to_target = FALSE
+		else if(ismob(target))
+			var/mob/temp_mob = target
+			targeted_client = temp_mob.client
+			if(isnull(targeted_client))
+				show_to_target = FALSE
+		else
+			show_to_target = FALSE
 	var/datum/progressbar/progbar
 	if(progress)
-		if(target) // the progress bar needs a target, so if we don't have one just pass it the user.
-			progbar = new(user, delay, target)
+		if(add_item)
+			progbar = new(user, delay, target || user, show_to_target, add_item.appearance, left_border, right_border, x_offset, y_offset, scale, targeted_client)
 		else
-			progbar = new(user, delay, user)
-
+			progbar = new(user, delay, target || user, show_to_target, targeted_client = targeted_client)
 	var/endtime = world.time + delay
 	var/starttime = world.time
 	. = TRUE
@@ -307,6 +352,7 @@ GLOBAL_LIST_EMPTY(species_list)
 			break
 
 	if(progress)
+		//progbar.end_progress()
 		qdel(progbar)
 
 	if(!QDELETED(target))
@@ -486,10 +532,6 @@ GLOBAL_LIST_EMPTY(species_list)
 	for(var/mob/living/carbon/human/player in GLOB.mob_living_list)
 		if(player.stat != DEAD && player.mind && is_station_level(player.z))
 			. |= player.mind
-
-/// Gets the client of the mob, allowing for mocking of the client.
-/// You only need to use this if you know you're going to be mocking clients somewhere else.
-#define GET_CLIENT(mob) (##mob.client || ##mob.mock_client)
 
 ///Return a string for the specified body zone. Should be used for parsing non-instantiated bodyparts, otherwise use [/obj/item/bodypart/var/plaintext_zone]
 /proc/parse_zone(zone)
@@ -743,3 +785,5 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 #undef FACING_SAME_DIR
 #undef FACING_EACHOTHER
 #undef FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR
+#undef BOUNDING_BOX_WIDTH
+#undef BOUNDING_BOX_HEIGHT

@@ -1459,3 +1459,84 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	animate(src, pixel_x = pixel_x + shiftx, pixel_y = pixel_y + shifty, time = 0.2, loop = duration)
 	pixel_x = initialpixelx
 	pixel_y = initialpixely
+
+/**
+ * Returns a list that contains the leftmost and rightmost pixel in an atom's icon
+ */
+/atom/proc/get_bounding_box()
+	var/list/return_list = list()
+	for(var/found_type in GLOB.cached_image_borders)
+		if(found_type == type)
+			return_list["left"] = GLOB.cached_image_borders[found_type]["left"]
+			return_list["right"] = GLOB.cached_image_borders[found_type]["right"]
+			return_list["top"] = GLOB.cached_image_borders[found_type]["top"]
+			return_list["bottom"] = GLOB.cached_image_borders[found_type]["bottom"]
+			return return_list
+
+	var/icon/tempicon = icon(icon, icon_state, dir, 1)
+	var/x_coord = 1
+	var/y_coord = 1
+	var/height = tempicon.Height()
+	var/width = tempicon.Width()
+	var/left_border = width
+	var/right_border = 1
+
+	tempicon.Scale(width, 1) //Flatten the icon into a 1 pixel high line
+	height = tempicon.Height()
+	while(y_coord <= height)
+		x_coord = 1
+		while(x_coord <= width)
+			var/pixel = tempicon.GetPixel(x_coord, y_coord)
+			if(!isnull(pixel))
+				if(left_border > x_coord)
+					left_border = x_coord
+					x_coord++
+					break
+			x_coord++
+		x_coord = width
+		while(x_coord > 0)
+			var/pixel = tempicon.GetPixel(x_coord, y_coord)
+			if(!isnull(pixel))
+				if(right_border < x_coord)
+					right_border = x_coord
+					x_coord--
+					break
+			x_coord--
+		y_coord++
+	return_list["left"] = left_border
+	return_list["right"] = right_border
+
+	tempicon = icon(icon, icon_state, dir, 1)
+	height = tempicon.Height()
+	width = tempicon.Width()
+	var/bottom_border = height
+	var/top_border = 1
+	x_coord = 1
+	y_coord = 1
+	tempicon.Scale(1, height) //Squash the icon into a 1 pixel wide pillar
+	width = tempicon.Width()
+
+	while(x_coord <= width)
+		y_coord = 1
+		while(y_coord <= height)
+			var/pixel = tempicon.GetPixel(x_coord, y_coord)
+			if(!isnull(pixel))
+				if(bottom_border > y_coord)
+					bottom_border = y_coord
+					y_coord++
+					break
+			y_coord++
+		y_coord = height
+		while(y_coord > 0)
+			var/pixel = tempicon.GetPixel(x_coord, y_coord)
+			if(!isnull(pixel))
+				if(top_border < y_coord)
+					top_border = y_coord
+					y_coord--
+					break
+			y_coord--
+		x_coord++
+	return_list["top"] = top_border
+	return_list["bottom"] = bottom_border
+	GLOB.cached_image_borders[type] = return_list
+	return return_list

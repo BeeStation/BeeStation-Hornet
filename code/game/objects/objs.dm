@@ -55,6 +55,7 @@
 	/// If the emag behavior should be toggleable
 	var/emag_toggleable = FALSE
 
+
 /obj/vv_edit_var(vname, vval)
 	switch(vname)
 		if("anchored")
