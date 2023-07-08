@@ -46,10 +46,18 @@
 		client = user.client
 	if(additional_image)
 		shown_image = image(additional_image.icon, target, additional_image.icon_state, (ABOVE_HUD_PLANE - 0.1))
+		shown_image.appearance_flags = KEEP_TOGETHER
+		shown_image.color = additional_image.color
+		shown_image.underlays = additional_image.underlays
+		shown_image.overlays = additional_image.overlays
 		shown_image.plane = HUD_PLANE
 		shown_image.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 		shown_image.transform = shown_image.transform.Scale(scale, scale)
 		shown_image_darkened = image(additional_image.icon, target, additional_image.icon_state, (ABOVE_HUD_PLANE - 0.2))
+		shown_image_darkened.appearance_flags = KEEP_TOGETHER
+		shown_image_darkened.color = additional_image.color
+		shown_image_darkened.underlays = additional_image.underlays
+		shown_image_darkened.overlays = additional_image.overlays
 		shown_image_darkened.plane = HUD_PLANE
 		shown_image_darkened.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 		shown_image_darkened.transform = shown_image_darkened.transform.Scale(scale, scale)
@@ -77,7 +85,7 @@
 
 		alpha_icon = icon('icons/effects/64x64.dmi', "black_pillar")
 		alpha_filter = filter(type = "alpha", x = -33 + leftmost_pixel , y = 0, icon = alpha_icon)
-		shown_image.filters += alpha_filter
+		shown_image.filters = alpha_filter
 		user?.client.images += shown_image
 		if(show_to_target)
 			target_client?.images += shown_image
@@ -117,9 +125,11 @@
 	if(show_bar)
 		bar.icon_state = "prog_bar_[round(((progress / goal) * 100), 5)]"
 	if(shown_image)
-		shown_image.filters -= alpha_filter
-		alpha_filter = filter(type = "alpha", x = -33 + leftmost_pixel + round(((progress / goal) * (rightmost_pixel - leftmost_pixel + 1)), 1) , y = 0, icon = alpha_icon)
-		shown_image.filters += alpha_filter
+		//shown_image.filters -= alpha_filter
+		//alpha_filter = filter(type = "alpha", x = -33 + leftmost_pixel + round(((progress / goal) * (rightmost_pixel - leftmost_pixel + 1)), 1) , y = 0, icon = alpha_icon)
+		//shown_image.filters += alpha_filter
+		alpha_filter = shown_image.filters[length(shown_image.filters)]
+		animate(alpha_filter, x = -33 + leftmost_pixel + round(((progress / goal) * (rightmost_pixel - leftmost_pixel + 1)), 1), time = 1, easing = SINE_EASING)
 	if (!shown)
 		if(show_bar)
 			user.client.images += bar

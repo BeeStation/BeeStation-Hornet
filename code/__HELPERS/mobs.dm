@@ -248,10 +248,9 @@ GLOBAL_LIST_EMPTY(species_list)
  * * add_item - shows said item being 'filled up' instead of the progress bar
  * * x_offset - moves left/right increase/decrease for the item rendered above the bar
  * * y_offset - moves up/down the item rendered above the bar
- * * scale - scales the height and width item rendered above the bar
  */
 /proc/do_after(mob/user, delay = 3 SECONDS, atom/target, timed_action_flags = NONE, progress = TRUE, show_to_target = FALSE, \
-datum/callback/extra_checks, atom/add_item, x_offset = 0, y_offset = 0, scale = 1)
+datum/callback/extra_checks, atom/add_item, x_offset = 0, y_offset = 0)
 	if(!user)
 		return FALSE
 
@@ -275,6 +274,7 @@ datum/callback/extra_checks, atom/add_item, x_offset = 0, y_offset = 0, scale = 
 	var/right_border = 32
 	var/bottom_border = 1
 	var/top_border
+	var/scale = 1
 	if(add_item)
 		var/list/temp_list = add_item.get_bounding_box()
 		left_border = temp_list["left"]
@@ -306,6 +306,10 @@ datum/callback/extra_checks, atom/add_item, x_offset = 0, y_offset = 0, scale = 
 	var/datum/progressbar/progbar
 	if(progress)
 		if(add_item)
+			//var/mutable_appearance/itemappearance = add_item.appearance
+			//itemappearance.color = add_item.color
+			//itemappearance.overlays = add_item.overlays
+			//itemappearance.underlays = add_item.underlays
 			progbar = new(user, delay, target || user, show_to_target, add_item.appearance, left_border, right_border, x_offset, y_offset, scale, targeted_client)
 		else
 			progbar = new(user, delay, target || user, show_to_target, targeted_client = targeted_client)

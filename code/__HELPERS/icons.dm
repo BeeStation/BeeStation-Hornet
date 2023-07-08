@@ -1461,7 +1461,7 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	pixel_y = initialpixely
 
 /**
- * Returns a list that contains the leftmost and rightmost pixel in an atom's icon
+ * Returns a list that contains the leftmost, rightmost, bottom and top pixels in an atom's icon
  */
 /atom/proc/get_bounding_box()
 	var/list/return_list = list()
