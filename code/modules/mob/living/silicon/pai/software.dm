@@ -256,9 +256,9 @@
 		if(hacker.put_in_hands(hacking_cable))
 			transfered_to_mob = TRUE
 			hacker.visible_message("<span class='warning'>A port on [src] opens to reveal \a [hacking_cable], which you quickly grab hold of.", "<span class='hear'>You hear the soft click of something light and manage to catch hold of [hacking_cable].</span></span>")
-		if(!transfered_to_mob)
-			hacking_cable.forceMove(drop_location())
-			hacking_cable.visible_message("<span class='warning'>A port on [src] opens to reveal \a [hacking_cable], which promptly falls to the floor.", "<span class='hear'>You hear the soft click of something light and hard falling to the ground.</span></span>")
+	if(!transfered_to_mob)
+		hacking_cable.forceMove(drop_location())
+		hacking_cable.visible_message("<span class='warning'>A port on [src] opens to reveal \a [hacking_cable], which promptly falls to the floor.", "<span class='hear'>You hear the soft click of something light and hard falling to the ground.</span></span>")
 
 /**
  * Door jacking supporting proc
