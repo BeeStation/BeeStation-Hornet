@@ -93,9 +93,9 @@
 
 	if(C == user)
 		user.visible_message("<span class='notice'>[user] starts to apply [src] on [user.p_them()]self...</span>", "<span class='notice'>You begin applying [src] on yourself...</span>")
-		if(!do_after(user, self_delay, M))
+		if(!do_after(user, self_delay, M, add_item = src))
 			return
-		//After the do_mob to ensure metabolites have had time to process at least one tick. 
+		//After the do_mob to ensure metabolites have had time to process at least one tick.
 		if(reagent && (C.reagents.get_reagent_amount(/datum/reagent/metabolite/medicine/styptic_powder) || C.reagents.get_reagent_amount(/datum/reagent/metabolite/medicine/silver_sulfadiazine)))
 			to_chat(user, "<span class='warning'>That stuff really hurt! You'll need to wait for the pain to go away before you can apply [src] to your wounds again, maybe someone else can help put it on for you.</span>")
 			return

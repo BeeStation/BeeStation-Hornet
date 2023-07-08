@@ -13,6 +13,9 @@
 	var/always_available = TRUE //Set to FALSE if it needs to be learned first.
 	var/one_per_turf = FALSE ///Should only one object exist on the same turf?
 	var/dangerous_craft = FALSE /// Should admins be notified about this getting created by a non-antagonist?
+	var/bar_x_offset = 0
+	var/bar_y_offset = 0
+	var/bar_scale = 1
 
 /datum/crafting_recipe/New()
 	if(!(result in reqs))

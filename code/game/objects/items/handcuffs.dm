@@ -58,7 +58,7 @@
 								"<span class='userdanger'>[user] is trying to put [src.name] on you!</span>")
 
 			playsound(loc, cuffsound, 30, 1, -2)
-			if(do_after(user, 4 SECONDS, C) && (C.get_num_arms(FALSE) >= 2 || C.get_arm_ignore()))
+			if(do_after(user, 4 SECONDS, C, show_to_target = TRUE, add_item = src) && (C.get_num_arms(FALSE) >= 2 || C.get_arm_ignore()))
 				if(iscyborg(user))
 					apply_cuffs(C, user, TRUE)
 				else
@@ -166,15 +166,17 @@
 			to_chat(user, "<span class='warning'>You need at least six iron sheets to make good enough weights!</span>")
 			return
 		to_chat(user, "<span class='notice'>You begin to apply [I] to [src]...</span>")
-		if(do_after(user, 35, target = src))
+		var/obj/item/restraints/legcuffs/bola/S = new /obj/item/restraints/legcuffs/bola
+		if(do_after(user, 35, target = src, add_item = S))
 			if(M.get_amount() < 6 || !M)
 				return
-			var/obj/item/restraints/legcuffs/bola/S = new /obj/item/restraints/legcuffs/bola
 			M.use(6)
 			user.put_in_hands(S)
 			to_chat(user, "<span class='notice'>You make some weights out of [I] and tie them to [src].</span>")
 			remove_item_from_storage(user)
 			qdel(src)
+		else
+			qdel(S)
 	else
 		return ..()
 

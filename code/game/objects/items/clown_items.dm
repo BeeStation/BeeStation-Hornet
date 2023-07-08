@@ -94,7 +94,7 @@
 		to_chat(user, "<span class='warning'>You need to take that [target.name] off before cleaning it!</span>")
 	else if(istype(target, /obj/effect/decal/cleanable))
 		user.visible_message("[user] begins to scrub \the [target.name] out with [src].", "<span class='warning'>You begin to scrub \the [target.name] out with [src]...</span>")
-		if(do_after(user, src.cleanspeed, target = target))
+		if(do_after(user, src.cleanspeed, target = target, show_to_target = TRUE, add_item = src))
 			to_chat(user, "<span class='notice'>You scrub \the [target.name] out.</span>")
 			qdel(target)
 			decreaseUses(user)
@@ -108,14 +108,14 @@
 		return
 	else if(istype(target, /obj/structure/window))
 		user.visible_message("[user] begins to clean \the [target.name] with [src]...", "<span class='notice'>You begin to clean \the [target.name] with [src]...</span>")
-		if(do_after(user, src.cleanspeed, target = target))
+		if(do_after(user, src.cleanspeed, target = target, show_to_target = TRUE, add_item = src))
 			to_chat(user, "<span class='notice'>You clean \the [target.name].</span>")
 			target.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 			target.set_opacity(initial(target.opacity))
 			decreaseUses(user)
 	else
 		user.visible_message("[user] begins to clean \the [target.name] with [src]...", "<span class='notice'>You begin to clean \the [target.name] with [src]...</span>")
-		if(do_after(user, src.cleanspeed, target = target))
+		if(do_after(user, src.cleanspeed, target = target, show_to_target = TRUE, add_item = src))
 			to_chat(user, "<span class='notice'>You clean \the [target.name].</span>")
 			if(isclothing(target) && HAS_TRAIT(target, TRAIT_SPRAYPAINTED))
 				var/obj/item/clothing/C = target
