@@ -1,0 +1,5 @@
+author: RKz
+delete-after: true
+changes:
+  - admin: All smites now accounted for. Readded apply_brain_damage, bsa, fireball,
+      gib, immerse, sleep, supply_pod_quick smites
