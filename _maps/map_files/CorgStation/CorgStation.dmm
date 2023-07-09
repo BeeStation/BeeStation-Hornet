@@ -29004,6 +29004,14 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
+"jtO" = (
+/obj/docking_port/stationary/random{
+	id = "pod_lavaland1";
+	name = "lavaland";
+	dir = 8
+	},
+/turf/open/space/basic,
+/area/space/nearstation)
 "jtW" = (
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
@@ -61975,6 +61983,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/medical/morgue)
+"ukP" = (
+/obj/docking_port/stationary/random{
+	id = "pod_lavaland1";
+	name = "lavaland"
+	},
+/turf/open/space/basic,
+/area/space/nearstation)
 "ukY" = (
 /obj/structure/sign/poster/random{
 	pixel_x = -32
@@ -93509,7 +93524,7 @@ xUf
 ivx
 kxH
 aMT
-aMT
+jtO
 aMT
 aMT
 aMT
@@ -110694,7 +110709,7 @@ aMT
 aMT
 aMT
 aMT
-aMT
+jtO
 aMT
 aMT
 anT
@@ -130748,7 +130763,7 @@ aMT
 aMT
 aMT
 aMT
-aMT
+ukP
 aMT
 aMT
 aMT
