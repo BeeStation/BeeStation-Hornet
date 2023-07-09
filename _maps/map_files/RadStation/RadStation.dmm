@@ -26984,6 +26984,13 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /turf/open/floor/plasteel,
 /area/engine/engine_room)
+"itj" = (
+/obj/docking_port/stationary/random{
+	id = "pod_lavaland1";
+	name = "lavaland"
+	},
+/turf/open/space/basic,
+/area/space/nearstation)
 "itt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -53724,6 +53731,13 @@
 /obj/machinery/light,
 /turf/open/floor/plasteel,
 /area/science/xenobiology)
+"qNl" = (
+/obj/docking_port/stationary/random{
+	id = "pod_lavaland2";
+	name = "lavaland"
+	},
+/turf/open/space/basic,
+/area/space/nearstation)
 "qNO" = (
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted{
 	dir = 8
@@ -59739,6 +59753,14 @@
 /obj/effect/turf_decal/tile/dark_blue/half,
 /turf/open/floor/plasteel,
 /area/maintenance/department/bridge)
+"sQy" = (
+/obj/docking_port/stationary/random{
+	dir = 8;
+	id = "pod_lavaland3";
+	name = "lavaland"
+	},
+/turf/open/space/basic,
+/area/space/nearstation)
 "sQB" = (
 /obj/machinery/power/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/simple/general/visible{
@@ -96387,7 +96409,7 @@ gsA
 gsA
 gsA
 yeA
-yeA
+sQy
 yeA
 yeA
 yeA
@@ -101705,7 +101727,7 @@ yeA
 yeA
 yeA
 yeA
-yeA
+itj
 yeA
 yeA
 yeA
@@ -116868,7 +116890,7 @@ gsA
 gsA
 gsA
 pia
-yeA
+qNl
 yeA
 yeA
 yeA
