@@ -51605,6 +51605,14 @@
 /obj/structure/closet/crate,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
+"qLQ" = (
+/obj/docking_port/stationary/random{
+	id = "pod_lavaland2";
+	name = "lavaland";
+	dir = 8
+	},
+/turf/open/space/basic,
+/area/space/nearstation)
 "qLZ" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -61985,7 +61993,7 @@
 /area/medical/morgue)
 "ukP" = (
 /obj/docking_port/stationary/random{
-	id = "pod_lavaland1";
+	id = "pod_lavaland3";
 	name = "lavaland"
 	},
 /turf/open/space/basic,
@@ -110709,7 +110717,7 @@ aMT
 aMT
 aMT
 aMT
-jtO
+qLQ
 aMT
 aMT
 anT
