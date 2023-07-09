@@ -576,11 +576,13 @@
 		owner_client.mouse_up_icon = null
 		owner_client.mouse_down_icon = null
 		owner_client.click_intercept = null
-		owner_client_mob?.update_mouse_pointer() //set the moues icons to null, then call update_moues_pointer() which resets them to the correct values based on what the mob is doing (in a mech, holding a spell, etc)()
+		owner_client_mob?.update_mouse_pointer() //set the moues icons to null, then call update_mouse_pointer() which resets them to the correct values based on what the mob is doing (in a mech, holding a spell, etc)()
 
 /datum/centcom_podlauncher/proc/InterceptClickOn(user,params,atom/target) //Click Intercept so we know where to send pods where the user clicks
-	var/list/pa = params2list(params)
-	var/left_click = pa.Find("left")
+	var/list/modifiers = params2list(params)
+
+	var/left_click = modifiers.Find("left")
+
 	if (launcherActivated)
 		//Clicking on UI elements shouldn't launch a pod
 		if(istype(target,/atom/movable/screen))
