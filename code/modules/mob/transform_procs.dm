@@ -659,8 +659,9 @@
 /mob/living/carbon/human/Animalize()
 
 	var/list/mobtypes = typesof(/mob/living/simple_animal)
-	var/mobpath = input("Which type of mob should [src] turn into?", "Choose a type") in sort_list(mobtypes, GLOBAL_PROC_REF(cmp_typepaths_asc))
-
+	var/mobpath = tgui_input_list(usr, "Which type of mob should [src] turn into?", "Choose a type", sort_list(mobtypes, GLOBAL_PROC_REF(cmp_typepaths_asc)))
+	if(isnull(mobpath))
+		return
 	if(!mobpath)
 		to_chat(usr, "<span class='danger'>Sorry but this mob type is currently unavailable.</span>")
 		return
@@ -673,15 +674,16 @@
 	new_mob.key = key
 	new_mob.a_intent = INTENT_HARM
 
-
 	to_chat(new_mob, "You suddenly feel more... animalistic.")
 	. = new_mob
 	qdel(src)
 
 /mob/proc/Animalize()
-	var/list/mobtypes = typesof(/mob/living/simple_animal)
-	var/mobpath = input("Which type of mob should [src] turn into?", "Choose a type") in sort_list(mobtypes, GLOBAL_PROC_REF(cmp_typepaths_asc))
 
+	var/list/mobtypes = typesof(/mob/living/simple_animal)
+	var/mobpath = tgui_input_list(usr, "Which type of mob should [src] turn into?", "Choose a type", sort_list(mobtypes, GLOBAL_PROC_REF(cmp_typepaths_asc)))
+	if(isnull(mobpath))
+		return
 	if(!mobpath)
 		to_chat(usr, "<span class='danger'>Sorry but this mob type is currently unavailable.</span>")
 		return
@@ -690,7 +692,7 @@
 
 	new_mob.key = key
 	new_mob.a_intent = INTENT_HARM
-	to_chat(new_mob, "You feel more... animalistic")
+	to_chat(new_mob, "<span class='boldnotice'>You feel more... animalistic!</span>")
 
 	. = new_mob
 	qdel(src)

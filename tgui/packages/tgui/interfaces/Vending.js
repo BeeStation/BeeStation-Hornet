@@ -86,7 +86,7 @@ export const Vending = (props, context) => {
               <Box>
                 Welcome, <b>{data.user.name}</b>, <b>{data.user.job || 'Unemployed'}</b>!
                 <br />
-                Your balance is <b>{data.user.cash} credits</b>.
+                You have <b>{data.user.cash} credits in possession</b>.
               </Box>
             )) || (
               <Box color="light-gray">
