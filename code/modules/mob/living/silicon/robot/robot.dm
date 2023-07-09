@@ -400,7 +400,7 @@
 			to_chat(user, "The wires seem fine, there's no need to fix them.")
 			return
 		var/obj/item/stack/cable_coil/coil = W
-		while((getFireLoss() || getToxLoss()) && do_after(user, 30, target = src))
+		while((getFireLoss() || getToxLoss()) && do_after(user, 30, target = src, show_to_target = TRUE, add_item = coil))
 			if(coil.use(1))
 				adjustFireLoss(-20)
 				adjustToxLoss(-20)

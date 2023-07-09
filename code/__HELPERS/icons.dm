@@ -1474,6 +1474,7 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 			return return_list
 
 	var/icon/tempicon = icon(icon, icon_state, dir, 1)
+	tempicon = getFlatIcon(src)
 	var/x_coord = 1
 	var/y_coord = 1
 	var/height = tempicon.Height()

@@ -22,6 +22,7 @@
 	if((!affecting || (IS_ORGANIC_LIMB(affecting))) || user.a_intent == INTENT_HARM)
 		return
 
+	//can only do one progress bar at a time
 	if(target in user.do_afters)
 		return COMPONENT_NO_AFTERATTACK
 
@@ -31,7 +32,7 @@
 			if(user == target)
 				user.visible_message("<span class='notice'>[user] starts to fix some of the dents on [target == user ? "[p_their()]" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>",
 				"<span class='notice'>You start fixing some of the dents on [target == user ? "your" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>")
-				if(!do_after(user, 1.5 SECONDS, target))
+				if(!do_after(user, 1.5 SECONDS, target, show_to_target = TRUE, add_item = I))
 					return COMPONENT_NO_AFTERATTACK
 			item_heal_robotic(target, user, 15, 0, affecting)
 		user.changeNext_move(CLICK_CD_MELEE * 0.5) //antispam
@@ -43,7 +44,7 @@
 		if(user == target)
 			user.visible_message("<span class='notice'>[user] starts to fix some of the burn wires in [target == user ? "[p_their()]" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>",
 			"<span class='notice'>You start fixing some of the burnt wires in [target == user ? "your" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>")
-			if(!do_after(user, 1.5 SECONDS, target))
+			if(!do_after(user, 1.5 SECONDS, target, show_to_target = TRUE, add_item = coil))
 				return COMPONENT_NO_AFTERATTACK
 		if(coil.amount && item_heal_robotic(target, user, 0, 15, affecting))
 			coil.use(1)

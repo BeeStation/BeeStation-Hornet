@@ -15,7 +15,6 @@
 	var/dangerous_craft = FALSE /// Should admins be notified about this getting created by a non-antagonist?
 	var/bar_x_offset = 0
 	var/bar_y_offset = 0
-	var/bar_scale = 1
 
 /datum/crafting_recipe/New()
 	if(!(result in reqs))
@@ -224,6 +223,8 @@
 				/obj/item/bodypart/r_arm/robot = 1)
 	time = 40
 	category = CAT_ROBOT
+	bar_x_offset = -5
+	bar_y_offset = 5
 
 /datum/crafting_recipe/honkbot
 	name = "Honkbot"
@@ -822,6 +823,7 @@
 	reqs = list(/obj/item/grown/log = 5)
 	result = /obj/structure/bonfire
 	category = CAT_PRIMAL
+	bar_x_offset = 5
 
 /datum/crafting_recipe/skeleton_key
 	name = "Skeleton Key"

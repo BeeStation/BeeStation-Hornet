@@ -178,11 +178,16 @@
 	if(check_contents(a, R, contents))
 		if(check_tools(a, R, contents))
 			//If we're a mob we'll try a do_after; non mobs will instead instantly construct the item
-			var/atom/movable/temp_item = new R.result
-			if(ismob(a) && !do_after(a, R.time, target = a, add_item = temp_item, x_offset = R.bar_x_offset, y_offset = R.bar_y_offset, scale = R.bar_scale))
-				qdel(temp_item)
+			var/atom/fake_atom = new
+			var/atom/fake_result = R.result
+			fake_atom.icon = initial(fake_result.icon)
+			fake_atom.icon_state = initial(fake_result.icon_state_preview) || initial(fake_result.icon_state)
+			if(ismob(a) && !do_after(a, R.time, target = a, add_item = fake_atom, x_offset = R.bar_x_offset, y_offset = R.bar_y_offset))
+				qdel(fake_atom)
+				qdel(fake_result)
 				return "."
-			qdel(temp_item)
+			qdel(fake_atom)
+			qdel(fake_result)
 			contents = get_surroundings(a,R.blacklist)
 			if(!check_contents(a, R, contents))
 				return ", missing component."
@@ -190,6 +195,8 @@
 				return ", missing tool."
 			var/list/parts = del_reqs(R, a)
 			var/atom/movable/I = new R.result (get_turf(a.loc))
+			I.loc = get_turf(a.loc)
+
 			I.CheckParts(parts, R)
 			if(send_feedback)
 				SSblackbox.record_feedback("tally", "object_crafted", 1, I.type)
