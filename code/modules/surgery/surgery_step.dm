@@ -90,6 +90,11 @@
 	var/fail_prob = 0//100 - fail_prob = success_prob
 	var/advance = FALSE
 
+	if(target in user.do_afters)
+		to_chat(user, "<span class ='warning'>You're already performing a surgery on [target]!</span>")
+		surgery.step_in_progress = FALSE
+		return FALSE
+
 	if(preop(user, target, target_zone, tool, surgery) == -1)
 		surgery.step_in_progress = FALSE
 		return FALSE
@@ -111,7 +116,7 @@
 	if(iscyborg(user))//any immunities to surgery slowdown should go in this check.
 		modded_time = time
 
-	if(do_after(user, modded_time, target = target))
+	if(do_after(user, modded_time, target = target, show_to_target = TRUE, add_item = tool))
 
 		if(((prob(100 - fail_prob) || HAS_TRAIT(user, TRAIT_PERFECT_SURGEON) || iscyborg(user)) && chem_check(target)) && !try_to_fail)
 			if(success(user, target, target_zone, tool, surgery))

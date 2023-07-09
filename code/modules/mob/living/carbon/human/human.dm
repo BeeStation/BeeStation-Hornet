@@ -558,17 +558,22 @@
 		return
 	if(is_mouth_covered())
 		to_chat(src, "<span class='warning'>Remove your mask first!</span>")
-		return 0
+		return FALSE
 	if(C.is_mouth_covered())
 		to_chat(src, "<span class='warning'>Remove [p_their()] mask first!</span>")
-		return 0
+		return FALSE
 
-	if(C.cpr_time < world.time + 30)
+	var/looping = TRUE
+	var/speed_mult = 1
+	while(looping)
 		visible_message("<span class='notice'>[src] is trying to perform CPR on [C.name]!</span>", \
 						"<span class='notice'>You try to perform CPR on [C.name]... Hold still!</span>")
-		if(!do_after(src, target = C))
+		if(!do_after(src, delay = 3 SECONDS * speed_mult, target = C, show_to_target = TRUE))
 			to_chat(src, "<span class='warning'>You fail to perform CPR on [C]!</span>")
-			return 0
+			looping = FALSE
+			return FALSE
+		if(speed_mult >= 0.2)
+			speed_mult -= 0.05
 
 		var/they_breathe = !HAS_TRAIT(C, TRAIT_NOBREATH)
 		var/they_lung = C.getorganslot(ORGAN_SLOT_LUNGS)

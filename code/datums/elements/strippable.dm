@@ -165,7 +165,9 @@
 
 	if(HAS_TRAIT(item, TRAIT_NO_STRIP))
 		return FALSE
-
+	if(source in user.do_afters)
+		to_chat(user, "<span class='warning'>You're already stripping [source]!</span>")
+		return FALSE
 	source.visible_message(
 		"<span class='warning'>[user] tries to remove [source]'s [item.name].</span>",
 		"<span class='userdanger'>[user] tries to remove your [item.name].</span>",
@@ -245,7 +247,7 @@
 	if(!ismob(source))
 		return FALSE
 
-	if(!do_after(user, get_equip_delay(equipping), source))
+	if(!do_after(user, get_equip_delay(equipping), source, show_to_target = TRUE, add_item = equipping))
 		return FALSE
 
 	if(!equipping.mob_can_equip(
@@ -310,7 +312,7 @@
 
 /// A utility function for `/datum/strippable_item`s to start unequipping an item from a mob.
 /proc/start_unequip_mob(obj/item/item, mob/source, mob/user, strip_delay)
-	if(!do_after(user, strip_delay || item.strip_delay, source))
+	if(!do_after(user, strip_delay || item.strip_delay, source, show_to_target = TRUE, add_item = item))
 		return FALSE
 
 	return TRUE

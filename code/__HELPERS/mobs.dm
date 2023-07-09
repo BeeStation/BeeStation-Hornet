@@ -273,7 +273,7 @@ datum/callback/extra_checks, atom/add_item, x_offset = 0, y_offset = 0)
 	var/left_border = 1
 	var/right_border = 32
 	var/bottom_border = 1
-	var/top_border
+	var/top_border = 32
 	var/scale = 1
 	if(add_item)
 		var/list/temp_list = add_item.get_bounding_box()
@@ -292,6 +292,8 @@ datum/callback/extra_checks, atom/add_item, x_offset = 0, y_offset = 0)
 				scale = BOUNDING_BOX_HEIGHT / top_border
 			else
 				scale = BOUNDING_BOX_WIDTH / right_border
+	if(y_offset + bottom_border < 7)
+		y_offset = 7 - bottom_border
 	var/client/targeted_client
 	if(show_to_target)
 		if(target == user)
