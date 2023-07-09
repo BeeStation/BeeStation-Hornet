@@ -24784,19 +24784,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "cAX" = (
-/obj/item/grenade/barrier{
-	pixel_x = -3;
-	pixel_y = 1
-	},
-/obj/item/grenade/barrier,
-/obj/item/grenade/barrier{
-	pixel_x = 3;
-	pixel_y = -1
-	},
-/obj/item/grenade/barrier{
-	pixel_x = 6;
-	pixel_y = -2
-	},
+/obj/item/storage/box/sec_barricades,
 /obj/structure/table/reinforced,
 /obj/item/radio/intercom{
 	pixel_y = 26
@@ -26971,7 +26959,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
 /obj/item/reagent_containers/blood/random,
-/obj/item/roller,
+/obj/item/deployable/rollerbed,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
@@ -32321,7 +32309,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
 /obj/item/wrench,
-/obj/item/roller,
+/obj/item/deployable/rollerbed,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
@@ -67684,7 +67672,7 @@
 /area/tcommsat/server)
 "nLN" = (
 /obj/structure/rack,
-/obj/item/roller,
+/obj/item/deployable/rollerbed,
 /obj/item/reagent_containers/blood,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1

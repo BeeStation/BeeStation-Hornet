@@ -20681,8 +20681,8 @@
 /obj/structure/closet/crate{
 	name = "disposal supplies"
 	},
-/obj/item/bodybag,
-/obj/item/bodybag,
+/obj/item/deployable/bodybag,
+/obj/item/deployable/bodybag,
 /obj/item/shovel,
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
@@ -87301,13 +87301,7 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "wFK" = (
-/obj/item/grenade/barrier{
-	pixel_x = 4
-	},
-/obj/item/grenade/barrier,
-/obj/item/grenade/barrier{
-	pixel_x = -4
-	},
+/obj/item/storage/box/sec_barricades,
 /obj/structure/table,
 /obj/item/key/security,
 /obj/item/key/security,

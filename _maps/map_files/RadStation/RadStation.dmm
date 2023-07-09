@@ -15168,15 +15168,15 @@
 /area/maintenance/department/science)
 "eOo" = (
 /obj/structure/table/reinforced,
-/obj/item/grenade/barrier{
+/obj/item/deployable/barricade/security{
 	pixel_x = 8;
 	pixel_y = 12
 	},
-/obj/item/grenade/barrier{
+/obj/item/deployable/barricade/security{
 	pixel_x = 8;
 	pixel_y = 7
 	},
-/obj/item/grenade/barrier{
+/obj/item/deployable/barricade/security{
 	pixel_x = 8;
 	pixel_y = 2
 	},
@@ -15184,10 +15184,10 @@
 	pixel_x = -6;
 	pixel_y = 9
 	},
-/obj/item/grenade/barrier{
+/obj/item/deployable/barricade/security{
 	pixel_y = 10
 	},
-/obj/item/grenade/barrier{
+/obj/item/deployable/barricade/security{
 	pixel_y = 5
 	},
 /obj/item/storage/lockbox/loyalty,
@@ -28500,7 +28500,7 @@
 /turf/closed/wall/r_wall,
 /area/tcommsat/computer)
 "iTq" = (
-/obj/item/roller,
+/obj/item/deployable/rollerbed,
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
 "iTt" = (
