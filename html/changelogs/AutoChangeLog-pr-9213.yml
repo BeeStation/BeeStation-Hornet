@@ -1,5 +1,0 @@
-author: imsynthex
-delete-after: true
-changes:
-  - imageadd: The floor tiles have been resprited
-  - bugfix: Shutters and blast doors using new hazard lines show up in game now
