@@ -866,6 +866,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				dat += "<b>Hide Dead Chat:</b> <a href = '?_src_=prefs;preference=toggle_dead_chat'>[(chat_toggles & CHAT_DEAD)?"Shown":"Hidden"]</a><br>"
 				dat += "<b>Hide Radio Messages:</b> <a href = '?_src_=prefs;preference=toggle_radio_chatter'>[(chat_toggles & CHAT_RADIO)?"Shown":"Hidden"]</a><br>"
 				dat += "<b>Hide Prayers:</b> <a href = '?_src_=prefs;preference=toggle_prayers'>[(chat_toggles & CHAT_PRAYER)?"Shown":"Hidden"]</a><br>"
+				dat += "<b>Asay Engine:</b> <a href='?_src_=prefs;preference=tgui_asay'>[(toggles2 & PREFTOGGLE_2_TGUI_ASAY) ? "TGUI" : "Classic"]</a><br>"
 				if(CONFIG_GET(flag/allow_admin_asaycolor))
 					dat += "<br>"
 					dat += "<b>ASAY Color:</b> <span style='border: 1px solid #161616; background-color: [asaycolor ? asaycolor : "#FF4500"];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=asaycolor;task=input'>Change</a><br>"
@@ -1944,17 +1945,26 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(parent)
 						if(parent.tgui_say)
 							parent.tgui_say.close()
-						parent.set_macros()
+						parent.update_special_keybinds(src)
+
+				if("tgui_asay")
+					toggles2 ^= PREFTOGGLE_2_TGUI_ASAY
+					if(parent)
+						if(parent.tgui_asay)
+							parent.tgui_asay.close()
+						parent.update_special_keybinds(src)
 
 				if("tgui_say_light")
 					toggles2 ^= PREFTOGGLE_2_SAY_LIGHT_THEME
-					if(parent && parent.tgui_say) // change the theme
-						parent.tgui_say.load()
+					if(parent) // change the theme
+						parent.tgui_say?.load()
+						parent.tgui_asay?.load()
 
 				if("tgui_say_radio_prefix")
 					toggles2 ^= PREFTOGGLE_2_SAY_SHOW_PREFIX
-					if(parent && parent.tgui_say) // update the UI
-						parent.tgui_say.load()
+					if(parent) // update the UI
+						parent.tgui_say?.load()
+						parent.tgui_asay?.load()
 
 				if("parallaxup")
 					parallax = WRAP(parallax + 1, PARALLAX_INSANE, PARALLAX_DISABLE + 1)
@@ -2081,6 +2091,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					key_bindings[full_key] = sort_list(key_bindings[full_key])
 
 					save_preferences()
+					user.client.update_special_keybinds(src)
 					user << browse(null, "window=capturekeypress")
 					ShowKeybindings(user)
 					return

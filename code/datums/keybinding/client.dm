@@ -63,3 +63,38 @@
 
 /datum/keybinding/client/zoomin/up(client/user)
 	winset(user, "mapwindow.map", "zoom=[user.prefs.pixel_size]")
+
+/datum/keybinding/client/say
+	key = "T"
+	name = "say"
+	full_name = "Say"
+	description = "Open the speech input."
+	keybind_signal = COMSIG_KB_CLIENT_SAY_DOWN
+
+/datum/keybinding/client/radio
+	key = "Y"
+	name = "radio"
+	full_name = "Radio"
+	description = "Open the speech input in Radio mode."
+	keybind_signal = COMSIG_KB_CLIENT_RADIO_DOWN
+
+/datum/keybinding/client/me
+	key = "M"
+	name = "me"
+	full_name = "Me"
+	description = "Open the speech input in Me mode."
+	keybind_signal = COMSIG_KB_CLIENT_ME_DOWN
+
+/datum/keybinding/client/ooc
+	key = "O"
+	name = "ooc"
+	full_name = "OOC"
+	description = "Open the speech input in OOC mode."
+	keybind_signal = COMSIG_KB_CLIENT_OOC_DOWN
+
+/datum/keybinding/client/looc
+	key = "U"
+	name = "looc"
+	full_name = "LOOC"
+	description = "Open the speech input in LOOC mode."
+	keybind_signal = COMSIG_KB_CLIENT_LOOC_DOWN

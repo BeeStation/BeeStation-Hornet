@@ -1,4 +1,4 @@
-import { CHANNELS } from '../constants';
+import { CHANNELS, RESTRICTED_CHANNELS } from '../constants';
 import { Modal } from '../types';
 
 /**
@@ -9,6 +9,9 @@ import { Modal } from '../types';
 export const handleIncrementChannel = function (this: Modal) {
   const { channel } = this.state;
   const { radioPrefix } = this.fields;
+  if (RESTRICTED_CHANNELS.includes(CHANNELS[channel])) {
+    return;
+  }
   if (radioPrefix === ':b ') {
     this.timers.channelDebounce({ mode: true });
   }
@@ -39,6 +42,9 @@ export const handleIncrementChannel = function (this: Modal) {
 export const handleDecrementChannel = function (this: Modal) {
   const { channel } = this.state;
   const { radioPrefix } = this.fields;
+  if (RESTRICTED_CHANNELS.includes(CHANNELS[channel])) {
+    return;
+  }
   if (radioPrefix === ':b ') {
     this.timers.channelDebounce({ mode: true });
   }

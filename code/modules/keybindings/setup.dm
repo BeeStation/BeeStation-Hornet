@@ -37,12 +37,7 @@
 	erase_all_macros()
 
 	var/list/macro_sets = SSinput.macro_sets
-	var/use_tgui_say = !prefs || (prefs.toggles2 & PREFTOGGLE_2_TGUI_SAY)
-	var/say = use_tgui_say ? tgui_say_create_open_command(SAY_CHANNEL) : "\".winset \\\"command=\\\".start_typing say\\\";command=.init_say;saywindow.is-visible=true;saywindow.input.focus=true\\\"\""
-	var/me = use_tgui_say ? tgui_say_create_open_command(ME_CHANNEL) : "\".winset \\\"command=\\\".start_typing me\\\";command=.init_me;mewindow.is-visible=true;mewindow.input.focus=true\\\"\""
-	var/ooc = use_tgui_say ? tgui_say_create_open_command(OOC_CHANNEL) : "ooc"
-	var/radio = tgui_say_create_open_command(RADIO_CHANNEL)
-	var/looc = tgui_say_create_open_command(LOOC_CHANNEL)
+
 	for(var/i in 1 to macro_sets.len)
 		var/setname = macro_sets[i]
 		if(setname != "default")
@@ -52,16 +47,62 @@
 			var/key = macro_set[k]
 			var/command = macro_set[key]
 			winset(src, "[setname]-[REF(key)]", "parent=[setname];name=[key];command=[command]")
-		winset(src, "[setname]-say", "parent=[setname];name=T;command=[say]")
-		winset(src, "[setname]-me", "parent=[setname];name=M;command=[me]")
-		winset(src, "[setname]-ooc", "parent=[setname];name=O;command=[ooc]")
-		if(use_tgui_say)
-			winset(src, "[setname]-radio", "parent=[setname];name=Y;command=[radio]")
-			winset(src, "[setname]-looc", "parent=[setname];name=U;command=[looc]")
-			winset(src, "[setname]-close-tgui-say", "parent=[setname];name=Escape;command=[tgui_say_create_close_command()]")
-
-
+		winset(src, "[setname]-close-tgui-say", "parent=[setname];name=Escape;command=[tgui_say_create_close_command()]")
 	if(prefs.toggles2 & PREFTOGGLE_2_HOTKEYS)
 		winset(src, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED] mainwindow.macro=default")
 	else
 		winset(src, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED] mainwindow.macro=old_default")
+
+	update_special_keybinds()
+
+
+/**
+  * Updates the keybinds for special keys
+  *
+  * Handles adding macros for the keys that need it
+  * At the time of writing this, communication(OOC, Say, IC) require macros
+  * Arguments:
+  * * direct_prefs - the preference we're going to get keybinds from
+  */
+/client/proc/update_special_keybinds(datum/preferences/direct_prefs)
+	var/datum/preferences/D = prefs || direct_prefs
+	if(!D?.key_bindings)
+		return
+	var/use_tgui_say = !prefs || (prefs.toggles2 & PREFTOGGLE_2_TGUI_SAY)
+	var/use_tgui_asay = !prefs || (prefs.toggles2 & PREFTOGGLE_2_TGUI_ASAY)
+	var/say = use_tgui_say ? tgui_say_create_open_command(SAY_CHANNEL) : "\".winset \\\"command=\\\".start_typing say\\\";command=.init_say;saywindow.is-visible=true;saywindow.input.focus=true\\\"\""
+	var/me = use_tgui_say ? tgui_say_create_open_command(ME_CHANNEL) : "\".winset \\\"command=\\\".start_typing me\\\";command=.init_me;mewindow.is-visible=true;mewindow.input.focus=true\\\"\""
+	var/ooc = use_tgui_say ? tgui_say_create_open_command(OOC_CHANNEL) : "ooc"
+	var/asay = use_tgui_asay ? tgui_say_create_open_command(ASAY_CHANNEL, "tgui_asay") : null
+	var/dsay = use_tgui_asay ? tgui_say_create_open_command(DSAY_CHANNEL, "tgui_asay") : null
+	var/msay = use_tgui_asay ? tgui_say_create_open_command(MSAY_CHANNEL, "tgui_asay") : null
+	var/radio = tgui_say_create_open_command(RADIO_CHANNEL)
+	var/looc = tgui_say_create_open_command(LOOC_CHANNEL)
+
+	var/list/macro_sets = SSinput.macro_sets
+
+	for(var/key in D.key_bindings)
+		for(var/kb_name in D.key_bindings[key])
+			for(var/i in 1 to macro_sets.len)
+				var/setname = macro_sets[i]
+				switch(kb_name)
+					if("say")
+						winset(src, "[setname]-[REF(key)]", "parent=[setname];name=[key];command=[say]")
+					if("ooc")
+						winset(src, "[setname]-[REF(key)]", "parent=[setname];name=[key];command=[ooc]")
+					if("me")
+						winset(src, "[setname]-[REF(key)]", "parent=[setname];name=[key];command=[me]")
+				if(use_tgui_say)
+					switch(kb_name)
+						if("radio")
+							winset(src, "[setname]-[REF(key)]", "parent=[setname];name=[key];command=[radio]")
+						if("looc")
+							winset(src, "[setname]-[REF(key)]", "parent=[setname];name=[key];command=[looc]")
+				if(holder)
+					switch(kb_name)
+						if("admin_say")
+							winset(src, "[setname]-[REF(key)]", "parent=[setname];name=[key];command=[asay]")
+						if("dead_say")
+							winset(src, "[setname]-[REF(key)]", "parent=[setname];name=[key];command=[dsay]")
+				if(is_mentor() && kb_name == "mentor_say")
+					winset(src, "[setname]-msay", "parent=[setname];name=[key];command=[msay]")
