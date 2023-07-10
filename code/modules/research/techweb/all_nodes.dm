@@ -608,6 +608,7 @@
 		"antivirus3",
 		"bluespacebeaker",
 		"bluespacesyringe",
+    "bluespace_capsule",
 		"bs_rped",
 		"minerbag_holding",
 		"ore_silo",

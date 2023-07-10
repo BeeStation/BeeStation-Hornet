@@ -21135,8 +21135,8 @@
 /obj/structure/closet/crate{
 	name = "disposal supplies"
 	},
-/obj/item/bodybag,
-/obj/item/bodybag,
+/obj/item/deployable/bodybag,
+/obj/item/deployable/bodybag,
 /obj/item/shovel,
 /obj/item/stack/sheet/mineral/copper{
 	amount = 5
@@ -24137,7 +24137,7 @@
 /obj/structure/rack,
 /obj/item/crowbar,
 /obj/item/storage/pill_bottle,
-/obj/item/roller,
+/obj/item/deployable/rollerbed,
 /obj/item/clothing/glasses/eyepatch,
 /obj/item/wrench,
 /obj/machinery/airalarm{
@@ -68177,7 +68177,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/backpack/duffelbag/med,
 /obj/item/flashlight/pen,
-/obj/item/roller,
+/obj/item/deployable/rollerbed,
 /obj/item/crowbar,
 /obj/machinery/light/small{
 	dir = 4
@@ -88380,19 +88380,7 @@
 "wrD" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/bot,
-/obj/item/grenade/barrier{
-	pixel_x = 6;
-	pixel_y = -2
-	},
-/obj/item/grenade/barrier{
-	pixel_x = 3;
-	pixel_y = -1
-	},
-/obj/item/grenade/barrier,
-/obj/item/grenade/barrier{
-	pixel_x = -3;
-	pixel_y = 1
-	},
+/obj/item/storage/box/sec_barricades,
 /obj/item/gun/grenadelauncher{
 	pixel_y = 4
 	},
