@@ -113,6 +113,9 @@
 	icon_state = "cordon"
 
 //Will this look good? No. Will it work? Probably.
+/turf/closed/indestructible/cordon/Initialize(mapload)
+	. = ..()
+	Bless()
 
 /turf/closed/indestructible/cordon/Entered(atom/movable/AM)
 	. = ..()
