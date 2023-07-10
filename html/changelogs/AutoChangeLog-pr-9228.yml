@@ -1,6 +1,0 @@
-author: Absolucy
-delete-after: true
-changes:
-  - bugfix: Converted some erroneous use of shared state in tgui to local state. As
-      a result, ghosts can now look at the bounty board on newscasters, and flick
-      between tabs in several UIs, such as the operating computer.
