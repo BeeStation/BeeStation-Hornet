@@ -482,7 +482,7 @@
 /// A global list of what mind is linked with what stargazer.
 /// Does not include the host stargazer.
 /// [/datum/mind] = /datum/weakref -> /datum/species/oozeling/stargazer
-GLOBAL_LIST_EMPTY(slime_linked_with)
+GLOBAL_LIST_EMPTY(slime_links_by_mind)
 
 /datum/species/oozeling/stargazer
 	name = "Stargazer"
@@ -621,8 +621,8 @@ GLOBAL_LIST_EMPTY(slime_linked_with)
 	. = TRUE
 	if(QDELETED(mind?.current) || mind.current.stat == DEAD)
 		return FALSE
-	if(initial_connection && GLOB.slime_linked_with[mind])
-		var/datum/weakref/other_link_ref = GLOB.slime_linked_with[mind]
+	if(initial_connection && GLOB.slime_links_by_mind[mind])
+		var/datum/weakref/other_link_ref = GLOB.slime_links_by_mind[mind]
 		var/datum/species/oozeling/stargazer/other_link = other_link_ref?.resolve()
 		// If they're already slime linked, then we can't link to them.
 		if(other_link && istype(other_link))
@@ -646,8 +646,8 @@ GLOBAL_LIST_EMPTY(slime_linked_with)
 	SIGNAL_HANDLER
 	if(!source_mob.mind || !(source_mob.mind in linked_minds))
 		return
-	var/datum/weakref/mind_ref = GLOB.slime_linked_with[source_mob.mind]
-	var/datum/species/oozeling/stargazer/stargazer = mind_ref?.resolve()
+	var/datum/weakref/owner_ref = GLOB.slime_links_by_mind[source_mob.mind]
+	var/datum/species/oozeling/stargazer/stargazer = owner_ref?.resolve()
 	var/mob/living/carbon/human/link_owner = stargazer?.slimelink_owner?.resolve()
 	if(!link_owner || !istype(link_owner))
 		return
@@ -674,7 +674,7 @@ GLOBAL_LIST_EMPTY(slime_linked_with)
 	linked_actions.Add(action)
 	action.Grant(mind.current)
 	to_chat(mind.current, "<span class='notice'>You are now connected to [owner.real_name]'s Slime Link.</span>")
-	GLOB.slime_linked_with[mind] = WEAKREF(src)
+	GLOB.slime_links_by_mind[mind] = WEAKREF(src)
 	register_mob_signals(mind.current, death = TRUE, mind_transfer = TRUE)
 	to_chat(mind.current, "<span class='big notice'>You can use :[MODE_KEY_SLIMELINK] or .[MODE_KEY_SLIMELINK] to talk over the slime link!</span>")
 	return TRUE
@@ -697,10 +697,10 @@ GLOBAL_LIST_EMPTY(slime_linked_with)
 		to_chat(mind.current, "<span class='notice'>You are no longer connected to [owner.real_name]'s Slime Link.</span>")
 	linked_actions -= action
 	linked_minds -= mind
-	if(GLOB.slime_linked_with[mind])
-		var/datum/weakref/owner_ref = GLOB.slime_linked_with[mind]
+	if(GLOB.slime_links_by_mind[mind])
+		var/datum/weakref/owner_ref = GLOB.slime_links_by_mind[mind]
 		if(owner_ref?.resolve() == src)
-			GLOB.slime_linked_with -= mind
+			GLOB.slime_links_by_mind -= mind
 
 /**
  * Sends a chat message over the slime link.
