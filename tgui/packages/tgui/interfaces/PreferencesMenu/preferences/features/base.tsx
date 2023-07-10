@@ -176,8 +176,8 @@ export const FeatureButtonedDropdownInput = (
     disabled?: boolean;
   }
 ) => {
-  return <FeatureDropdownInput disabled={disabled} {buttons} {...props} />;
-}
+  return <FeatureDropdownInput disabled={props.disabled} buttons {...props} />;
+};
 
 export const FeatureDropdownInput = (
   props: FeatureValueProps<string, string, FeatureChoicedServerData> & {
