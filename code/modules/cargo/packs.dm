@@ -1112,14 +1112,18 @@
 
 /datum/supply_pack/engineering/shield_sat
 	name = "Shield Generator Satellite"
-	desc = "Protect the very existence of this station with these Anti-Meteor defenses. Contains three Shield Generator Satellites."
-	cost = 3000
-	max_supply = 5
+	desc = "Protect the very existence of this station with these Anti-Meteor defenses. Contains seven bluespace capsules which a single unit of Shield Generator Satellite is compressed within each."
+	cost = 7000
+	max_supply = 2
 	access_budget = ACCESS_HEADS
 	contains = list(
-					/obj/machinery/satellite/meteor_shield,
-					/obj/machinery/satellite/meteor_shield,
-					/obj/machinery/satellite/meteor_shield
+					/obj/item/deployable/meteor_shield,
+					/obj/item/deployable/meteor_shield,
+					/obj/item/deployable/meteor_shield,
+					/obj/item/deployable/meteor_shield,
+					/obj/item/deployable/meteor_shield,
+					/obj/item/deployable/meteor_shield,
+					/obj/item/deployable/meteor_shield,
 					)
 	crate_name= "shield sat crate"
 
