@@ -110,7 +110,7 @@
 	if(!payload?["channel"])
 		CRASH("No channel provided to an open TGUI-Say")
 	window_open = TRUE
-	if(payload["channel"] in GLOB.ooc_channels)
+	if(!(payload["channel"] in GLOB.ooc_channels))
 		start_thinking()
 	log_speech_indicators("[key_name(client)] started typing at [loc_name(client.mob)].")
 	return TRUE
