@@ -83,8 +83,8 @@
 			var/datum/species/oozeling/stargazer/stargazer = h_user.dna.species
 			stargazer.slime_chat(h_user, message)
 			return
-	var/datum/weakref/mind_ref = GLOB.slime_linked_with[user.mind]
-	var/datum/species/oozeling/stargazer/stargazer = mind_ref?.resolve()
+	var/datum/weakref/owner_ref = GLOB.slime_links_by_mind[user.mind]
+	var/datum/species/oozeling/stargazer/stargazer = owner_ref?.resolve()
 	if(!stargazer || !istype(stargazer))
 		return TRUE
 	stargazer.slime_chat(user, message)
