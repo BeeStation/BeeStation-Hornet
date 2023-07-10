@@ -51,13 +51,13 @@
 /obj/machinery/computer/operating/proc/find_op_table()
 	for(var/direction in GLOB.alldirs)
 		var/obj/structure/table/optable/table = locate(/obj/structure/table/optable) in get_step(src, direction)
-		if(table && !table.computer)
+		if(table && (!table.computer || table.computer == src))
 			return table
 
 /obj/machinery/computer/operating/proc/find_sbed()
 	for(var/direction in GLOB.alldirs)
 		var/obj/machinery/stasis/sbed = locate(/obj/machinery/stasis) in get_step(src, direction)
-		if(sbed && !sbed.op_computer)
+		if(sbed && (!sbed.op_computer || sbed.op_computer == src))
 			return sbed
 
 /obj/machinery/computer/operating/proc/link_with_table(obj/structure/table/optable/new_table, obj/machinery/stasis/new_sbed)
@@ -70,7 +70,7 @@
 		table = new_table
 	if(new_sbed)
 		new_sbed.op_computer = src
-		new_sbed = sbed
+		sbed = new_sbed
 
 /obj/machinery/computer/operating/ui_state(mob/user)
 	return GLOB.not_incapacitated_state
