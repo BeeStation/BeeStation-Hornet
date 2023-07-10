@@ -236,30 +236,61 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 	name = "Dead Body placer"
 	late = TRUE
 	icon_state = "deadbodyplacer"
-	/// number of bodies to spawn 
-	var/bodycount = 2
-	/// set it TRUE in mapping if you want to put it into a specific container (when you don't want a random morgue)
-	var/no_random = FALSE
+	/// number of bodies to spawn
+	var/bodycount = 1
+	/// -1: area search (VERY expensive - do not use this in maint/ruin type)
+	/// 0: spawns onto itself
+	/// +1: turfs from this dead body placer
+	var/search_view_range = 0
+	/// the list of container typepath which accepts dead bodies
+	var/list/accepted_list = list(
+		/obj/structure/bodycontainer/morgue,
+		/obj/structure/closet
+	)
+
+/// as long as this body placer is contained within medbay morgue, this is fine to be expensive.
+/// DO NOT USE this outside of medbay morgue
+/obj/effect/mapping_helpers/dead_body_placer/medbay_morgue
+	bodycount = 2
+	accepted_list = list(/obj/structure/bodycontainer/morgue)
+	search_view_range = -1
+
+/obj/effect/mapping_helpers/dead_body_placer/ruin_morgue
+	bodycount = 2
+	accepted_list = list(/obj/structure/bodycontainer/morgue)
+	search_view_range = 7
+
+/obj/effect/mapping_helpers/dead_body_placer/maint_fridge
+	bodycount = 2
+	accepted_list = list(/obj/structure/closet)
+	search_view_range = 0
 
 /obj/effect/mapping_helpers/dead_body_placer/LateInitialize()
-	var/area/a = get_area(src)
-	var/list/trays = list()
-	if(!no_random)
-		for (var/obj/structure/bodycontainer/morgue/morgue in a.contents)
-			trays += morgue
-	if(length(trays))
-		while(bodycount-- > 0)
-			spawn_dead_human_in_tray(pick(trays))
-	else
-		var/obj/container = locate(/obj/structure/closet) in get_turf(src)
-		if(!container)
-			container = locate(/obj/structure/bodycontainer/morgue) in get_turf(src)
-		if(container)
-			while(bodycount-- > 0)
-				spawn_dead_human_in_tray(container)
+	var/area/current_area = get_area(src)
+	var/list/found_container = list()
+
+	var/content_holder
+	if(search_view_range < 0) // -1: area search
+		content_holder = current_area
+	else if(search_view_range > 0) // +1: view range search
+		content_holder = view(search_view_range, get_turf(src))
+	else // 0: onto itself
+		content_holder = get_turf(src)
+
+	for(var/obj/each_container in content_holder)
+		if(get_area(each_container) != current_area)
+			continue // we don't want to put a deadbody to a wrong area
+		for(var/acceptable_path in accepted_list)
+			if(istype(each_container, acceptable_path))
+				found_container += each_container
+				break
 
 	while(bodycount-- > 0)
-		spawn_dead_human_in_tray(get_turf(src)) // spawn onto turf
+		if(length(found_container))
+			spawn_dead_human_in_tray(pick(found_container))
+		else // if we have found no container, just spawn onto a turf
+			spawn_dead_human_in_tray(get_turf(src))
+
 	qdel(src)
 
 /obj/effect/mapping_helpers/dead_body_placer/proc/spawn_dead_human_in_tray(atom/container)
