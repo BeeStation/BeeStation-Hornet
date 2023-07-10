@@ -37,5 +37,5 @@
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Dsay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/get_dead_say()
-	var/msg = capped_input(src, null, "dsay \"text\"")
+	var/msg = tgui_input_text(src, null, "dsay \"text\"", encode = FALSE) // we don't encode/sanitize here because dsay does it anyways.
 	dsay(msg)
