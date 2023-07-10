@@ -488,29 +488,17 @@ GLOBAL_LIST_EMPTY(slime_linked_with)
 	name = "Stargazer"
 	id = SPECIES_STARGAZER
 	examine_limb_id = SPECIES_OOZELING
-	/**
-	 * The stargazer's telepathy ability.
-	 */
+	/// The stargazer's telepathy ability.
 	var/datum/action/innate/project_thought/project_thought
-	/**
-	 * The stargazer's mind linking ability.
-	 */
+	/// The stargazer's mind linking ability.
 	var/datum/action/innate/link_minds/link_minds
-	/**
-	 * The stargazer's linked speech ability.
-	 */
+	/// The stargazer's linked speech ability.
 	var/datum/action/innate/linked_speech/linked_speech
-	/**
-	 * A full list of all minds linked to this stargazer's slime link.
-	 */
+	/// A full list of all minds linked to this stargazer's slime link.
 	var/list/datum/mind/linked_minds = list()
-	/**
-	 * A full list of all actions linked to this stargazer's slime link.
-	 */
+	/// A full list of all actions linked to this stargazer's slime link.
 	var/list/datum/action/innate/linked_speech/linked_actions = list()
-	/**
-	 * A weak reference to the body of the owner of the slime link.
-	 */
+	/// A weak reference to the body of the owner of the slime link.
 	var/datum/weakref/slimelink_owner
 
 
@@ -710,8 +698,8 @@ GLOBAL_LIST_EMPTY(slime_linked_with)
 	linked_actions -= action
 	linked_minds -= mind
 	if(GLOB.slime_linked_with[mind])
-		var/datum/weakref/mind_ref = GLOB.slime_linked_with[mind]
-		if(mind_ref?.resolve() == src)
+		var/datum/weakref/owner_ref = GLOB.slime_linked_with[mind]
+		if(owner_ref?.resolve() == src)
 			GLOB.slime_linked_with -= mind
 
 /**
