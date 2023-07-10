@@ -473,15 +473,15 @@
 		return FALSE
 
 	// Mechanism: It will always inject the amount as "injecting_amount" variable no matter the total size is
-	var/prick_efficiency = 0.1 // default (maximum: 10u)
+	var/prick_efficiency = 0.02 // default (maximum: 2u)
 	if(locate(/datum/plant_gene/trait/squash) in G.seed.genes)
-		prick_efficiency = 0.05 // how can a smooth plant be deadly? (maximum: 5u)
+		prick_efficiency = 0.01 // how can a smooth plant be deadly? (maximum: 1u)
 	else if(istype(G, /obj/item/seeds/nettle/death)) // as long as it has not Liquid Content
-		prick_efficiency = 0.2 // bonus to "death" nettle (maximum: 20u)
+		prick_efficiency = 0.06 // bonus to "death" nettle (maximum: 6u)
 	else if(G.force)
-		prick_efficiency = 0.15 // bonus to blunt plants (miaxmum: 15u)
+		prick_efficiency = 0.04 // bonus to blunt plants (miaxmum: 4u)
 	if(!COOLDOWN_LIST_FINISHED(src, recent_victims, L)) // until 10s cooldown time from a victim is finished, the effective becomes half
-		prick_efficiency = round(prick_efficiency/2, 0.01) // i.e) 15u to 7.5u
+		prick_efficiency = round(prick_efficiency/2, 0.01) // i.e) 4u to 2u
 
 	var/injecting_amount = round(max(1, G.seed.potency * prick_efficiency), 0.1) // mimumum 1u to maximum 5/10/15/20u
 	var/fraction = min(injecting_amount/G.reagents.total_volume, 1) // Let's say you have 90u + 10u. Injecting 5u will be "4.5u + 0.5u" by the fraction
