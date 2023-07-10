@@ -866,9 +866,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				dat += "<b>Hide Dead Chat:</b> <a href = '?_src_=prefs;preference=toggle_dead_chat'>[(chat_toggles & CHAT_DEAD)?"Shown":"Hidden"]</a><br>"
 				dat += "<b>Hide Radio Messages:</b> <a href = '?_src_=prefs;preference=toggle_radio_chatter'>[(chat_toggles & CHAT_RADIO)?"Shown":"Hidden"]</a><br>"
 				dat += "<b>Hide Prayers:</b> <a href = '?_src_=prefs;preference=toggle_prayers'>[(chat_toggles & CHAT_PRAYER)?"Shown":"Hidden"]</a><br>"
-				dat += "<b>Asay Engine:</b> <a href='?_src_=prefs;preference=tgui_asay'>[(toggles2 & PREFTOGGLE_2_TGUI_ASAY) ? "TGUI" : "Classic"]</a><br>"
+				dat += "<br>"
+				dat += "<b>ASAY Engine:</b> <a href='?_src_=prefs;preference=tgui_asay'>[(toggles2 & PREFTOGGLE_2_TGUI_ASAY) ? "TGUI" : "Classic"]</a><br>"
 				if(CONFIG_GET(flag/allow_admin_asaycolor))
-					dat += "<br>"
 					dat += "<b>ASAY Color:</b> <span style='border: 1px solid #161616; background-color: [asaycolor ? asaycolor : "#FF4500"];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=asaycolor;task=input'>Change</a><br>"
 
 				//deadmin
