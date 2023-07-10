@@ -1,4 +1,4 @@
-import { CHANNELS, RESTRICTED_CHANNELS } from '../constants';
+import { CHANNELS, CYCLEABLE_CHANNELS, RESTRICTED_CHANNELS } from '../constants';
 import { Modal } from '../types';
 
 /**
@@ -16,10 +16,10 @@ export const handleIncrementChannel = function (this: Modal) {
     this.timers.channelDebounce({ mode: true });
   }
   this.fields.radioPrefix = '';
-  if (channel === CHANNELS.length - 1) {
+  if (channel === CYCLEABLE_CHANNELS.length - 1) {
     this.timers.channelDebounce({ mode: true });
     this.setState({
-      buttonContent: CHANNELS[0],
+      buttonContent: CYCLEABLE_CHANNELS[0],
       channel: 0,
     });
   } else {
@@ -28,7 +28,7 @@ export const handleIncrementChannel = function (this: Modal) {
       this.timers.channelDebounce({ mode: false });
     }
     this.setState({
-      buttonContent: CHANNELS[channel + 1],
+      buttonContent: CYCLEABLE_CHANNELS[channel + 1],
       channel: channel + 1,
     });
   }
@@ -52,8 +52,8 @@ export const handleDecrementChannel = function (this: Modal) {
   if (channel === 0) {
     this.timers.channelDebounce({ mode: true });
     this.setState({
-      buttonContent: CHANNELS[CHANNELS.length - 1],
-      channel: CHANNELS.length - 1,
+      buttonContent: CYCLEABLE_CHANNELS[CYCLEABLE_CHANNELS.length - 1],
+      channel: CYCLEABLE_CHANNELS.length - 1,
     });
   } else {
     if (channel === 2) {
@@ -61,7 +61,7 @@ export const handleDecrementChannel = function (this: Modal) {
       this.timers.channelDebounce({ mode: false });
     }
     this.setState({
-      buttonContent: CHANNELS[channel - 1],
+      buttonContent: CYCLEABLE_CHANNELS[channel - 1],
       channel: channel - 1,
     });
   }
