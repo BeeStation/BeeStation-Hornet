@@ -50,9 +50,9 @@
 	else
 		layer = initial(layer)
 		STOP_PROCESSING(SSobj, src)
-		M.pixel_x = initial(M.pixel_x)
-		pixel_x = initial(pixel_x)
-		M.pixel_y = M.get_standard_pixel_y_offset(M.lying)
+		M.pixel_x = M.base_pixel_x
+		pixel_x = base_pixel_x
+		M.pixel_y = M.body_position_pixel_y_offset
 
 /obj/structure/chair/noose/user_unbuckle_mob(mob/living/M,mob/living/user)
 	if(has_buckled_mobs())
@@ -79,8 +79,8 @@
 		unbuckle_all_mobs(force=1)
 		M.pixel_z = initial(M.pixel_z)
 		pixel_z = initial(pixel_z)
-		M.pixel_x = initial(M.pixel_x)
-		pixel_x = initial(pixel_x)
+		M.pixel_x = M.base_pixel_x
+		pixel_x = base_pixel_x
 		add_fingerprint(user)
 
 /obj/structure/chair/noose/user_buckle_mob(mob/living/carbon/human/M, mob/user, check_loc = TRUE)
