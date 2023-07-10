@@ -9,7 +9,7 @@
 	dynamic_lighting = new_dynamic_lighting
 
 	if (IS_DYNAMIC_LIGHTING(src))
-		cut_overlay(/obj/effect/fullbright)
+		cut_overlay(GLOB.fullbright_overlay)
 		blend_mode = BLEND_DEFAULT
 		if(lighting_overlay)
 			cut_overlay(lighting_overlay)
@@ -25,7 +25,7 @@
 	else
 		if(lighting_overlay)
 			cut_overlay(lighting_overlay)
-		add_overlay(/obj/effect/fullbright)
+		add_overlay(GLOB.fullbright_overlay)
 		blend_mode = BLEND_DEFAULT
 		for (var/turf/T in src)
 			if (T.lighting_object)

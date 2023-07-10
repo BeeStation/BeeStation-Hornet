@@ -6,6 +6,7 @@
 	name = "Servant Of Ratvar"
 	roundend_category = "clock cultists"
 	antagpanel_category = "Clockcult"
+	// TODO: ui_name = "AntagInfoClockCult"
 	antag_moodlet = /datum/mood_event/cult
 	banning_key = BAN_ROLE_SERVANT_OF_RATVAR
 

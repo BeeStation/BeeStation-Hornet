@@ -367,12 +367,16 @@
 	for(var/client/C in show_to)
 		C.images -= I
 
+/// Shows an image to all clients, then removes that image after the duration.
+/// If you want an overlay applied to the object which will show to all clients, use
+/// flick_overlay_static
 /proc/flick_overlay(image/I, list/show_to, duration)
 	for(var/client/C in show_to)
 		C.images += I
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(remove_images_from_clients), I, show_to), duration, TIMER_CLIENT_TIME)
 
-/proc/flick_overlay_view(image/I, atom/target, duration) //wrapper for the above, flicks to everyone who can see the target atom
+/// Displays an image to clients that can see a target object.
+/proc/flick_overlay_view(image/I, atom/target, duration)
 	var/list/viewing = list()
 	for(var/mob/M as() in viewers(target))
 		if(M.client)

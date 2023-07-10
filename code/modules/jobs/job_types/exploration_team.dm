@@ -120,7 +120,7 @@
 		/obj/item/storage/firstaid/medical=1,
 		/obj/item/pinpointer/crew=1,
 		/obj/item/sensor_device=1,
-		/obj/item/roller=1,
+		/obj/item/deployable/rollerbed=1,
 		/obj/item/discovery_scanner=1
 	)
 
