@@ -1,4 +1,4 @@
-import { Feature, CheckboxInput, FeatureDropdownInput, FeatureNumberInput, FeatureNumeric, FeatureToggle } from '../base';
+import { Feature, CheckboxInput, FeatureButtonedDropdownInput, FeatureNumberInput, FeatureNumeric, FeatureToggle } from '../base';
 
 export const chat_on_map: FeatureToggle = {
   name: 'Enable Runechat',
@@ -37,5 +37,5 @@ export const show_balloon_alerts: Feature<string> = {
   category: 'CHAT',
   subcategory: 'Runechat',
   description: 'Show text above items when certain interactions are used.',
-  component: FeatureDropdownInput,
+  component: FeatureButtonedDropdownInput,
 };

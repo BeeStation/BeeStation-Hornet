@@ -1,4 +1,4 @@
-import { FeatureColorInput, Feature, FeatureChoiced, FeatureValueProps, FeatureDropdownInput, StandardizedPalette } from '../base';
+import { FeatureColorInput, Feature, FeatureChoiced, FeatureValueProps, FeatureButtonedDropdownInput, StandardizedPalette } from '../base';
 
 const eyePresets = {
   // these need to be short color (3 byte) compatible
@@ -173,7 +173,7 @@ export const gradient_color: Feature<string> = {
 
 export const feature_lizard_legs: FeatureChoiced = {
   name: 'Leg Type',
-  component: FeatureDropdownInput,
+  component: FeatureButtonedDropdownInput,
 };
 
 export const feature_mcolor: Feature<string> = {
@@ -188,7 +188,7 @@ export const underwear_color: Feature<string> = {
 
 export const helmet_style: FeatureChoiced = {
   name: 'Helmet Style',
-  component: FeatureDropdownInput,
+  component: FeatureButtonedDropdownInput,
 };
 
 export const feature_ipc_antenna_color: Feature<string> = {
@@ -203,15 +203,15 @@ export const feature_ipc_screen_color: Feature<string> = {
 
 export const feature_human_tail: FeatureChoiced = {
   name: 'Tail',
-  component: FeatureDropdownInput,
+  component: FeatureButtonedDropdownInput,
 };
 
 export const feature_human_ears: FeatureChoiced = {
   name: 'Ears',
-  component: FeatureDropdownInput,
+  component: FeatureButtonedDropdownInput,
 };
 
 export const feature_insect_type: FeatureChoiced = {
   name: 'Insect Type',
-  component: FeatureDropdownInput,
+  component: FeatureButtonedDropdownInput,
 };

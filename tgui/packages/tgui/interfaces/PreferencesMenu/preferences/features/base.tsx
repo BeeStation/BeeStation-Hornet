@@ -171,6 +171,14 @@ export const StandardizedDropdown = (props: {
   );
 };
 
+export const FeatureButtonedDropdownInput = (
+  props: FeatureValueProps<string, string, FeatureChoicedServerData> & {
+    disabled?: boolean;
+  }
+) => {
+  return <FeatureDropdownInput disabled={disabled} {buttons} {...props} />;
+}
+
 export const FeatureDropdownInput = (
   props: FeatureValueProps<string, string, FeatureChoicedServerData> & {
     disabled?: boolean;

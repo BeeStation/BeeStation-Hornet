@@ -1,10 +1,8 @@
-import { Feature, FeatureChoiced, FeatureChoicedServerData, FeatureColorInput, FeatureDropdownInput, FeatureValueProps } from '../base';
+import { Feature, FeatureChoiced, FeatureChoicedServerData, FeatureColorInput, FeatureButtonedDropdownInput, FeatureValueProps } from '../base';
 
 export const pda_theme: FeatureChoiced = {
   name: 'PDA Theme',
-  component: (props: FeatureValueProps<string, string, FeatureChoicedServerData>) => {
-    return <FeatureDropdownInput buttons {...props} />;
-  },
+  component: FeatureButtonedDropdownInput,
 };
 
 export const pda_classic_color: Feature<string> = {

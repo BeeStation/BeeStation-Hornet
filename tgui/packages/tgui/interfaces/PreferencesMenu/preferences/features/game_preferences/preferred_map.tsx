@@ -1,5 +1,5 @@
 import { multiline } from 'common/string';
-import { FeatureChoicedServerData, FeatureValueProps, FeatureChoiced, FeatureDropdownInput } from '../base';
+import { FeatureChoicedServerData, FeatureValueProps, FeatureChoiced, FeatureButtonedDropdownInput } from '../base';
 
 export const preferred_map: FeatureChoiced = {
   name: 'Preferred map',
@@ -9,7 +9,5 @@ export const preferred_map: FeatureChoiced = {
     This does not affect the map vote, only random rotation when a vote
     is not held.
   `,
-  component: (props: FeatureValueProps<string, string, FeatureChoicedServerData>) => {
-    return <FeatureDropdownInput buttons {...props} />;
-  },
+  component: FeatureButtonedDropdownInput,
 };

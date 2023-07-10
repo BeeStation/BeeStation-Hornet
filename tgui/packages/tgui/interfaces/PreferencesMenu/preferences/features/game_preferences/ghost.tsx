@@ -1,5 +1,5 @@
 import { multiline } from 'common/string';
-import { CheckboxInput, FeatureChoiced, FeatureChoicedServerData, FeatureDropdownInput, FeatureToggle, FeatureValueProps } from '../base';
+import { CheckboxInput, FeatureChoiced, FeatureChoicedServerData, FeatureDropdownInput, FeatureButtonedDropdownInput, FeatureToggle, FeatureValueProps } from '../base';
 import { Box, Dropdown, Flex } from '../../../../../components';
 import { classes } from 'common/react';
 import type { InfernoNode } from 'inferno';
@@ -12,7 +12,7 @@ export const ghost_accs: FeatureChoiced = {
   category: 'GHOST',
   subcategory: 'Appearance',
   description: 'Determines what adjustments your ghost will have.',
-  component: FeatureDropdownInput,
+  component: FeatureButtonedDropdownInput,
 };
 
 const insertGhostForm = binaryInsertWith<{
@@ -103,7 +103,7 @@ export const ghost_orbit: FeatureChoiced = {
   component: (props: FeatureValueProps<string, string, FeatureChoicedServerData>, context) => {
     const { data } = useBackend<PreferencesMenuData>(context);
 
-    return <FeatureDropdownInput {...props} disabled={!data.content_unlocked} />;
+    return <FeatureDropdownInput buttons {...props} disabled={!data.content_unlocked} />;
   },
 };
 
@@ -115,7 +115,7 @@ export const ghost_others: FeatureChoiced = {
     Do you want the ghosts of others to show up as their own setting, as
     their default sprites, or always as the default white ghost?
   `,
-  component: FeatureDropdownInput,
+  component: FeatureButtonedDropdownInput,
 };
 
 export const inquisitive_ghost: FeatureToggle = {
