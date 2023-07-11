@@ -262,5 +262,5 @@
 
 /datum/quirk/proskater/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
-	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/sunglasses(H), ITEM_SLOT_BACKPACK) //Totally radicool
+	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/sunglasses(H), ITEM_SLOT_BACKPACK) //Cosmetic sunglasses that don't give flash protection
 	H.equip_to_slot_or_del(new /obj/item/melee/skateboard/pro(H), ITEM_SLOT_BACKPACK)

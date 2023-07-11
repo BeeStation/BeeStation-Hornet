@@ -158,7 +158,7 @@
 		H.throw_at(throw_target, 2, 3)
 		var/multiplier = 1
 		if(HAS_TRAIT(H, TRAIT_PROSKATER))
-			multiplier = 0.3 //70% reduction
+			multiplier = 0.7 //30% reduction
 		H.Knockdown(100 * multiplier)
 		H.adjustStaminaLoss(40 * multiplier)
 		if(isliving(M))
