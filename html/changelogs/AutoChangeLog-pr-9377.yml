@@ -1,0 +1,5 @@
+author: HowToLoLu
+delete-after: true
+changes:
+  - bugfix: Removed an anomalous "Dispenser" present on CorgStation, replacing it
+      with a proper NT approved water tank.
