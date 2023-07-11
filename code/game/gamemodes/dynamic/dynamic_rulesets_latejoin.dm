@@ -27,7 +27,7 @@
 			candidates.Remove(P)
 			continue
 
-/datum/dynamic_ruleset/latejoin/ready(forced = 0)
+/datum/dynamic_ruleset/latejoin/ready(forced = FALSE)
 	if (forced)
 		return ..()
 
@@ -50,12 +50,12 @@
 
 	return ..()
 
-/datum/dynamic_ruleset/latejoin/execute()
+/datum/dynamic_ruleset/latejoin/execute(forced = FALSE)
 	var/mob/M = pick(candidates)
 	assigned += M.mind
 	M.mind.special_role = antag_flag
 	M.mind.add_antag_datum(antag_datum)
-	return TRUE
+	return DYNAMIC_EXECUTE_SUCCESS
 
 //////////////////////////////////////////////
 //                                          //
@@ -67,13 +67,14 @@
 	name = "Syndicate Infiltrator"
 	antag_datum = /datum/antagonist/traitor
 	antag_flag = ROLE_TRAITOR
-	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL)
+	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL)
 	restricted_roles = list(JOB_NAME_AI,JOB_NAME_CYBORG)
 	required_candidates = 1
 	weight = 7
 	cost = 8
 	requirements = list(5,5,5,5,5,5,5,5,5,5)
 	repeatable = TRUE
+	flags = INTACT_STATION_RULESET
 	blocking_rules = list(
 		/datum/dynamic_ruleset/roundstart/bloodcult,
 		/datum/dynamic_ruleset/roundstart/clockcult,
@@ -103,7 +104,7 @@
 	delay = 1 MINUTES // Prevents rule start while head is offstation.
 	cost = 13
 	requirements = list(101,101,70,40,30,20,20,20,20,20)
-	flags = HIGH_IMPACT_RULESET
+	flags = HIGH_IMPACT_RULESET|INTACT_STATION_RULESET
 	blocking_rules = list(/datum/dynamic_ruleset/roundstart/revs)
 	var/required_heads_of_staff = 3
 	var/finished = FALSE
@@ -122,7 +123,7 @@
 			head_check++
 	return (head_check >= required_heads_of_staff)
 
-/datum/dynamic_ruleset/latejoin/provocateur/execute()
+/datum/dynamic_ruleset/latejoin/provocateur/execute(forced = FALSE)
 	var/mob/M = pick(candidates)	// This should contain a single player, but in case.
 	if(check_eligible(M.mind))	// Didnt die/run off z-level/get implanted since leaving shuttle.
 		assigned += M.mind
@@ -136,11 +137,11 @@
 		revolution.update_objectives()
 		revolution.update_heads()
 		SSshuttle.registerHostileEnvironment(revolution)
-		return TRUE
+		return DYNAMIC_EXECUTE_SUCCESS
 	else
 		log_game("DYNAMIC: [ruletype] [name] discarded [M.name] from head revolutionary due to ineligibility.")
 		log_game("DYNAMIC: [ruletype] [name] failed to get any eligible headrevs. Refunding [cost] threat.")
-		return FALSE
+		return DYNAMIC_EXECUTE_NOT_ENOUGH_PLAYERS
 
 /datum/dynamic_ruleset/latejoin/provocateur/rule_process()
 	var/winner = revolution.process_victory(revs_win_threat_injection)
@@ -186,7 +187,7 @@
 		/datum/dynamic_ruleset/roundstart/hivemind
 	)
 
-/datum/dynamic_ruleset/latejoin/heretic_smuggler/execute()
+/datum/dynamic_ruleset/latejoin/heretic_smuggler/execute(forced = FALSE)
 	var/mob/picked_mob = pick(candidates)
 	assigned += picked_mob.mind
 	picked_mob.mind.special_role = antag_flag
@@ -201,4 +202,4 @@
 	// Limit it to four missed passive gain cycles (4 points).
 	new_heretic.knowledge_points = min(new_heretic.knowledge_points, 5)
 
-	return TRUE
+	return DYNAMIC_EXECUTE_SUCCESS

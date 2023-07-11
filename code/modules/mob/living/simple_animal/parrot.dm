@@ -45,6 +45,7 @@
 
 	speak = list("Hi!","Hello!","Cracker?","BAWWWWK george mellons griffing me!")
 	speak_emote = list("squawks","says","yells")
+	speak_language = /datum/language/common // parent has the same value, but just in case
 	emote_hear = list("squawks.","bawks!")
 	emote_see = list("flutters its wings.")
 
@@ -138,8 +139,8 @@
 	if(buckled)
 		buckled.unbuckle_mob(src,force=1)
 	buckled = null
-	pixel_x = initial(pixel_x)
-	pixel_y = initial(pixel_y)
+	pixel_x = base_pixel_x
+	pixel_y = base_pixel_y
 
 	..(gibbed)
 
@@ -377,8 +378,8 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 			buckled = null
 		icon_state = icon_living
 		parrot_state = PARROT_WANDER
-		pixel_x = initial(pixel_x)
-		pixel_y = initial(pixel_y)
+		pixel_x = base_pixel_x
+		pixel_y = base_pixel_y
 		return
 
 
@@ -818,8 +819,8 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	if(. && !stat && client && parrot_state == PARROT_PERCH)
 		parrot_state = PARROT_WANDER
 		icon_state = icon_living
-		pixel_x = initial(pixel_x)
-		pixel_y = initial(pixel_y)
+		pixel_x = base_pixel_x
+		pixel_y = base_pixel_y
 
 /mob/living/simple_animal/parrot/proc/perch_mob_player()
 	set name = "Sit on Human's Shoulder"
@@ -843,8 +844,8 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 			to_chat(src, "<span class='notice'>You are no longer sitting on [buckled]'s shoulder.</span>")
 			buckled.unbuckle_mob(src, TRUE)
 		buckled = null
-		pixel_x = initial(pixel_x)
-		pixel_y = initial(pixel_y)
+		pixel_x = base_pixel_x
+		pixel_y = base_pixel_y
 
 
 
@@ -1016,6 +1017,9 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	icon_living = "clock_hawk_fly"
 	icon_sit = "clock_hawk_sit"
 	speak = list("Penpxre!", "Ratvar vf n qhzo anzr naljnl!")
+	// speak_language variable can be set to Ratvarian, but this speak was made too long ago.
+	// If you have any idea what these exactly mean, change it to original speeches, and set 'speak_language = /datum/language/ratvar'
+	speak_language = /datum/language/metalanguage
 	speak_emote = list("squawks rustily", "says crassly", "yells brassly")
 	emote_hear = list("squawks rustily.", "bawks metallically!")
 	emote_see = list("flutters its metal wings.")

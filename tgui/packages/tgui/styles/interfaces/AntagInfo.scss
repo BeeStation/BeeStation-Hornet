@@ -1,0 +1,17 @@
+.AntagInfo__header_outer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 5rem;
+}
+
+.AntagInfo__header_img {
+  position: absolute;
+  left: 0;
+  top: 50%; /* position the top edge of the image to the middle of the container */
+  transform: translateY(-50%); /* shift the image up by half its height */
+}
+
+.AntagInfo__header_text {
+  text-align: center; /* Center the text */
+}

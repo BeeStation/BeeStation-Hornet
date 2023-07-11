@@ -20,7 +20,7 @@ const COLOR_DARK_TEXT = '#a4bad6';
  * There's no way round it. We're essentially changing the skin by hand.
  * It's painful but it works, and is the way Lummox suggested.
  */
-export const setClientTheme = name => {
+export const setClientTheme = (name) => {
   if (name === 'light') {
     return Byond.winset({
       // Main windows
@@ -66,8 +66,7 @@ export const setClientTheme = name => {
   let desired_background = COLOR_DARK_BG;
   let desired_text = COLOR_DARK_TEXT;
   let desired_background_darker = COLOR_DARK_BG_DARKER;
-  switch (name)
-  {
+  switch (name) {
     case 'dark':
       desired_background = COLOR_DARK_BG;
       desired_text = COLOR_DARK_TEXT;
