@@ -214,7 +214,7 @@
 		if(istype(syringestatus, /datum/status_effect/syringe))
 			var/obj/item/reagent_containers/syringe/syringe = syringestatus.syringe
 			to_chat(owner, "<span class='notice'>You begin carefully pulling the syringe out.</span>")
-			if(do_after(C, 20, target = owner, timed_action_flags = IGNORE_HELD_ITEM))
+			if(do_after(C, 20, target = owner, timed_action_flags = IGNORE_HELD_ITEM, add_item = syringe))
 				to_chat(C, "<span class='notice'>You succesfuly remove the syringe.</span>")
 				syringe.forceMove(C.loc)
 				C.put_in_hands(syringe)

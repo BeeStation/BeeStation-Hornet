@@ -93,7 +93,7 @@
 
 	var/success = FALSE
 
-	if(do_after(living_pawn, MONKEY_ITEM_SNATCH_DELAY, victim) && target && living_pawn.CanReach(victim))
+	if(do_after(living_pawn, MONKEY_ITEM_SNATCH_DELAY, victim, show_to_target = TRUE, add_item = target) && target && living_pawn.CanReach(victim))
 
 		for(var/obj/item/I in victim.held_items)
 			if(I == target)

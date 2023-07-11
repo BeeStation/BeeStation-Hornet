@@ -40,15 +40,21 @@
 				to_chat(user, "<span class='notice'>You change the ID to [id].</span>")
 
 		if(W.tool_behaviour == TOOL_CROWBAR &&deconstruction == BLASTDOOR_FINISHED)
+			if(src in user.do_afters)
+				to_chat(user, "<span class='notice'>You're already removing the airlock electronics from [src]!</span>")
+				return COMPONENT_NO_AFTERATTACK
 			to_chat(user, "<span class='notice'>You start to remove the airlock electronics.</span>")
-			if(do_after(user, 10 SECONDS, target = src))
+			if(do_after(user, 10 SECONDS, target = src, add_item = W))
 				new /obj/item/electronics/airlock(loc)
 				id = null
 				deconstruction = BLASTDOOR_NEEDS_ELECTRONICS
 
 		else if(W.tool_behaviour == TOOL_WIRECUTTER && deconstruction == BLASTDOOR_NEEDS_ELECTRONICS)
+			if(src in user.do_afters)
+				to_chat(user, "<span class='notice'>You're already attempting to remove the internal cables from [src]!</span>")
+				return COMPONENT_NO_AFTERATTACK
 			to_chat(user, "<span class='notice'>You start to remove the internal cables.</span>")
-			if(do_after(user, 10 SECONDS, target = src))
+			if(do_after(user, 10 SECONDS, target = src, add_item = W))
 				deconstruction = TRUE
 				var/datum/crafting_recipe/recipe = locate(recipe_type) in GLOB.crafting_recipes
 				var/amount = recipe.reqs[/obj/item/stack/cable_coil]
@@ -58,10 +64,12 @@
 		else if(W.tool_behaviour == TOOL_WELDER && deconstruction == BLASTDOOR_NEEDS_WIRES)
 			if(!W.tool_start_check(user, amount=0))
 				return
-
+			if(src in user.do_afters)
+				to_chat(user, "<span class='notice'>You're already tearing apart the [src]!</span>")
+				return COMPONENT_NO_AFTERATTACK
 			to_chat(user, "<span class='notice'>You start tearing apart the [src].</span>")
 			playsound(src.loc, 'sound/items/welder.ogg', 50, 1)
-			if(do_after(user, 15 SECONDS, target = src))
+			if(do_after(user, 15 SECONDS, target = src, add_item = W))
 				new /obj/item/stack/sheet/plasteel(loc, 15)
 				qdel(src)
 

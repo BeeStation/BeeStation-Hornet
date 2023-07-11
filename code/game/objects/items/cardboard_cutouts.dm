@@ -88,7 +88,10 @@
 	var/new_appearance = input(user, "Choose a new appearance for [src].", "26th Century Deception") as null|anything in sort_list(possible_appearances)
 	if(!new_appearance || !crayon || !user.canUseTopic(src, BE_CLOSE))
 		return
-	if(!do_after(user, 10, src, progress = TRUE))
+	if(src in user.do_afters)
+		to_chat(user, "<span class='notice'>You're already re-shaping \the [src]!</span>")
+		return
+	if(!do_after(user, 10, src, progress = TRUE, add_item = crayon))
 		return
 	user.visible_message("<span class='notice'>[user] gives [src] a new look.</span>", "<span class='notice'>Voila! You give [src] a new look.</span>")
 	crayon.use_charges(1)

@@ -319,12 +319,18 @@
 			to_chat(user, "<span class='warning'>The windoor's motors resist your efforts to force it!</span>")
 			return
 		else if(!hasPower())
+			if(src in user.do_afters)
+				to_chat(user, "<span class='notice'>You're already forcing open \the [src]!</span>")
+				return COMPONENT_NO_AFTERATTACK
 			to_chat(user, "<span class='warning'>You begin forcing open \the [src], the motors don't resist...</span>")
-			if(!do_after(user, 1 SECONDS, TRUE, src))
+			if(!do_after(user, 1 SECONDS, TRUE, src, add_item = I))
 				return
 		else
+			if(src in user.do_afters)
+				to_chat(user, "<span class='notice'>You're already forcing open \the [src]!</span>")
+				return COMPONENT_NO_AFTERATTACK
 			to_chat(user, "<span class='warning'>You begin forcing open \the [src]...</span>")
-			if(!do_after(user, 5 SECONDS, TRUE, src))
+			if(!do_after(user, 5 SECONDS, TRUE, src, add_item = I))
 				return
 		open(2)
 	else

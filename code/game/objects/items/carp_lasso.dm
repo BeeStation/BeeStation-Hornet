@@ -52,8 +52,11 @@
 		to_chat(user, "<span class='warning'>[target] is dead.</span>")
 		return
 	if(user.a_intent == INTENT_HELP && C == mob_target) //if trying to tie up previous target
+		if(target in user.do_afters)
+			to_chat(user, "<span class='notice'>You're already untying \the [target]!</span>")
+			return
 		to_chat(user, "<span class='notice'>You begin to untie [C]</span>")
-		if(proximity_flag && do_after(user, 2 SECONDS, target, timed_action_flags = IGNORE_HELD_ITEM))
+		if(proximity_flag && do_after(user, 2 SECONDS, target, timed_action_flags = IGNORE_HELD_ITEM, show_to_target = TRUE, add_item = src))
 			user.faction |= "carpboy_[user]"
 			C.faction = list("neutral")
 			C.faction |= "carpboy_[user]"

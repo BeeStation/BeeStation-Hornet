@@ -22,7 +22,8 @@
 	var/client/target_client
 	var/current_outline_color = COLOR_BLUE_GRAY
 
-/datum/progressbar/New(mob/User, goal_number, atom/target, show_to_target, mutable_appearance/additional_image, l_pix, r_pix, x_offset, y_offset, scale, targeted_client)
+/datum/progressbar/New(mob/User, goal_number, atom/target, show_to_target = FALSE, mutable_appearance/additional_image, \
+l_pix = 1, r_pix = 32, x_offset = 0, y_offset = 0, scale = 1, targeted_client)
 	. = ..()
 	if (!istype(target))
 		EXCEPTION("Invalid target given")

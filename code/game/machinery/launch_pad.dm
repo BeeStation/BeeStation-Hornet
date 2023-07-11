@@ -252,8 +252,12 @@
 			return
 		if(!usr.canUseTopic(src, BE_CLOSE, ismonkey(usr)))
 			return
+		var/mob/M = usr
+		if(src in M.do_afters)
+			to_chat(M, "<span class='notice'>You're already attempting to close [src]!</span>")
+			return
 		usr.visible_message("<span class='notice'>[usr] starts closing [src]...</span>", "<span class='notice'>You start closing [src]...</span>")
-		if(do_after(usr, 30, target = usr))
+		if(do_after(usr, 30, target = usr, add_item = src))
 			usr.put_in_hands(briefcase)
 			moveToNullspace() //hides it from suitcase contents
 			closed = TRUE
@@ -288,10 +292,14 @@
 
 /obj/item/storage/briefcase/launchpad/attack_self(mob/user)
 	if(!isturf(user.loc)) //no setting up in a locker
+		to_chat(user, "<span class = ></span>")
+		return
+	if(src in user.do_afters)
+		to_chat(user, "<span class='notice'>You're already attempting to set down [src]!</span>")
 		return
 	add_fingerprint(user)
 	user.visible_message("<span class='notice'>[user] starts setting down [src]...", "You start setting up [pad]...</span>")
-	if(do_after(user, 30, target = user))
+	if(do_after(user, 30, target = user, add_item = src))
 		pad.forceMove(get_turf(src))
 		pad.update_indicator()
 		pad.closed = FALSE

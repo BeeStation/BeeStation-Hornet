@@ -253,7 +253,6 @@ GLOBAL_LIST_EMPTY(species_list)
 datum/callback/extra_checks, atom/add_item, x_offset = 0, y_offset = 0)
 	if(!user)
 		return FALSE
-
 	if(target)
 		if(target in user.do_afters) // No stacking multiple do_afters on one target by a single person
 			return FALSE

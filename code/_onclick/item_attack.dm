@@ -41,9 +41,12 @@
 	if(user.a_intent == INTENT_HARM && stat == DEAD && (butcher_results || guaranteed_butcher_results)) //can we butcher it?
 		var/datum/component/butchering/butchering = I.GetComponent(/datum/component/butchering)
 		if(butchering?.butchering_enabled)
+			if(src in user.do_afters)
+				to_chat(user, "<span class='notice'>You're already butchering [src]!</span>")
+				return FALSE
 			to_chat(user, "<span class='notice'>You begin to butcher [src]...</span>")
 			playsound(loc, butchering.butcher_sound, 50, TRUE, -1)
-			if(do_after(user, butchering.speed, src) && Adjacent(I))
+			if(do_after(user, butchering.speed, src, show_to_target = TRUE, add_item = I) && Adjacent(I))
 				butchering.Butcher(user, src)
 			return 1
 		else if(I.is_sharp() && !butchering) //give sharp objects butchering functionality, for consistency

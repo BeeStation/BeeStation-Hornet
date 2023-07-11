@@ -57,17 +57,23 @@
 /obj/structure/chair/noose/user_unbuckle_mob(mob/living/M,mob/living/user)
 	if(has_buckled_mobs())
 		if(M != user)
+			if(src in user.do_afters)
+				to_chat(user, "<span class='notice'>You're untying the noose over [M]'s neck!</span>")
+				return
 			user.visible_message("<span class='notice'>[user] begins to untie the noose over [M]'s neck...</span>")
 			to_chat(user, "<span class='notice'>You begin to untie the noose over [M]'s neck...</span>")
-			if(!do_after(user, 10 SECONDS, M))
+			if(!do_after(user, 10 SECONDS, M, show_to_target = TRUE, add_item = src))
 				return
 			user.visible_message("<span class='notice'>[user] unties the noose over [M]'s neck!</span>")
 			to_chat(user,"<span class='notice'>You untie the noose over [M]'s neck!</span>")
 			M.Knockdown(60)
 		else
+			if(src in user.do_afters)
+				to_chat(user, "<span class='notice'>You're already struggling to untie the noose over your neck!</span>")
+				return
 			M.visible_message("<span class='warning'>[M] struggles to untie the noose over their neck!</span>")
 			to_chat(M,"<span class='notice'>You struggle to untie the noose over your neck... (Stay still for 15 seconds.)</span>")
-			if(!do_after(M, 150, target = src))
+			if(!do_after(M, 150, target = src, add_item = src))
 				if(M && M.buckled)
 					to_chat(M, "<span class='warning'>You fail to untie yourself!</span>")
 				return
@@ -93,13 +99,18 @@
 
 	if(M.loc != src.loc)
 		return FALSE //Can only noose someone if they're on the same tile as noose
-
+	if(M in user.do_afters)
+		if(user == M)
+			to_chat(user, "<span class='notice'>You're already tying the noose over your neck!</span>")
+		else
+			to_chat(user, "<span class='notice'>You're already tying a noose over [M]'s neck!</span>")
+		return
 	add_fingerprint(user)
 	log_combat(user, M, "Attempted to Hang", src)
 	M.visible_message("<span class='danger'>[user] attempts to tie \the [src] over [M]'s neck!</span>")
 	if(user != M)
 		to_chat(user, "<span class='notice'>It will take 20 seconds and you have to stand still.</span>")
-	if(do_after(user, user == M ? 0:20 SECONDS, M))
+	if(do_after(user, user == M ? 0:20 SECONDS, M, show_to_target = TRUE, add_item = src))
 		if(buckle_mob(M))
 			user.visible_message("<span class='warning'>[user] ties \the [src] over [M]'s neck!</span>")
 			if(user == M)

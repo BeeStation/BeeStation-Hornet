@@ -66,7 +66,9 @@
 	if(HAS_TRAIT(inserted_item, TRAIT_NODROP))
 		to_chat(user, "<span class='warning'>\the [inserted_item] is stuck to your hand, you can't put into \the [parent]!</span>")
 		return
-
+	if(parent in user.do_afters)
+		to_chat(user, "<span class='notice'>You're already inserting [inserted_item] into [parent]!</span>")
+		return
 	user.visible_message("<span class='notice'>[user.name] begins inserting [inserted_item.name] into \the [parent].</span>", \
 					"<span class='notice'>You start to insert the [inserted_item.name] into \the [parent].</span>")
 
@@ -94,6 +96,10 @@
 	if(!food.can_interact(user))
 		return
 
+	if(parent in user.do_afters)
+		to_chat(user, "<span class='notice'>You're already ripping into [parent]!</span>")
+		return
+
 	user.visible_message("<span class='notice'>[user.name] begins tearing at \the [parent].</span>", \
 					"<span class='notice'>You start to rip into \the [parent].</span>")
 
@@ -107,7 +113,7 @@
   *	user - the person inserting the item.
   */
 /datum/component/food_storage/proc/insert_item(obj/item/inserted_item, mob/user)
-	if(do_after(user, 1.5 SECONDS, target = parent))
+	if(do_after(user, 1.5 SECONDS, target = parent, add_item = inserted_item))
 		var/atom/food = parent
 		to_chat(user, "<span class='notice'>You slip [inserted_item.name] inside \the [parent].</span>")
 		inserted_item.forceMove(food)
@@ -167,7 +173,7 @@
 	if(prob(good_chance_of_discovery)) //finding the item, without biting it
 		discovered = TRUE
 		to_chat(target, "<span class='warning'>It feels like there's something in \the [parent]...!</span>")
-		
+
 	else if(prob(bad_chance_of_discovery)) //finding the item, BY biting it
 		user.log_message("[key_name(user)] just fed [key_name(target)] a/an [stored_item] which was hidden in [parent] at [AREACOORD(target)]", LOG_ATTACK)
 		discovered = stored_item.on_accidental_consumption(target, user, parent)

@@ -178,16 +178,15 @@
 	if(check_contents(a, R, contents))
 		if(check_tools(a, R, contents))
 			//If we're a mob we'll try a do_after; non mobs will instead instantly construct the item
-			var/atom/fake_atom = new(null)
+			var/atom/movable/fake_atom = new
 			var/atom/fake_result = R.result
 			fake_atom.icon = initial(fake_result.icon)
 			fake_atom.icon_state = initial(fake_result.icon_state_preview) || initial(fake_result.icon_state)
+			fake_atom.color = initial(fake_result.color)
 			if(ismob(a) && !do_after(a, R.time, target = a, add_item = fake_atom, x_offset = R.bar_x_offset, y_offset = R.bar_y_offset))
 				qdel(fake_atom)
-				qdel(fake_result)
 				return "."
 			qdel(fake_atom)
-			qdel(fake_result)
 			contents = get_surroundings(a,R.blacklist)
 			if(!check_contents(a, R, contents))
 				return ", missing component."

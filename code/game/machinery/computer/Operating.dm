@@ -32,11 +32,14 @@
 
 /obj/machinery/computer/operating/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/disk/surgery))
+		if(src in user.do_afters)
+			to_chat(user, "<span class='notice'>You're already inserting [O] into [src]!</span>")
+			return COMPONENT_NO_AFTERATTACK
 		user.visible_message("[user] begins to load \the [O] in \the [src]...",
 			"You begin to load a surgery protocol from \the [O]...",
 			"You hear the chatter of a floppy drive.")
 		var/obj/item/disk/surgery/D = O
-		if(do_after(user, 10, target = src))
+		if(do_after(user, 10, target = src, add_item = O))
 			advanced_surgeries |= D.surgeries
 		return TRUE
 	return ..()

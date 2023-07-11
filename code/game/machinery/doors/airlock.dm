@@ -348,8 +348,12 @@
 
 /obj/machinery/door/airlock/eminence_act(mob/living/simple_animal/eminence/eminence)
 	..()
+	var/mob/M = usr
+	if(src in M.do_afters)
+		to_chat(M, "<span class='notice'>You're already attempting to manipulate [src]!</span>")
+		return
 	to_chat(usr, "<span class='brass'>You begin manipulating [src]!</span>")
-	if(do_after(eminence, 20, target=get_turf(eminence)))
+	if(do_after(eminence, 20, target=get_turf(eminence), add_item = src))
 		if(welded)
 			to_chat(eminence, "The airlock has been welded shut!")
 		else if(locked)
@@ -913,8 +917,11 @@
 					if(S.get_amount() < 2)
 						to_chat(user, "<span class='warning'>You need at least 2 iron sheets to reinforce [src].</span>")
 						return
+					if(src in user.do_afters)
+						to_chat(user, "<span class='notice'>You're already attempting to reinforce [src]!</span>")
+						return
 					to_chat(user, "<span class='notice'>You start reinforcing [src].</span>")
-					if(do_after(user, 20, src))
+					if(do_after(user, 20, src, add_item = C))
 						if(!panel_open || !S.use(2))
 							return
 						user.visible_message("<span class='notice'>[user] reinforces \the [src] with iron.</span>",
@@ -927,8 +934,11 @@
 					if(S.get_amount() < 2)
 						to_chat(user, "<span class='warning'>You need at least 2 plasteel sheets to reinforce [src].</span>")
 						return
+					if(src in user.do_afters)
+						to_chat(user, "<span class='notice'>You're already attempting to reinforce [src]!</span>")
+						return
 					to_chat(user, "<span class='notice'>You start reinforcing [src].</span>")
-					if(do_after(user, 20, src))
+					if(do_after(user, 20, src, add_item = C))
 						if(!panel_open || !S.use(2))
 							return
 						user.visible_message("<span class='notice'>[user] reinforces \the [src] with plasteel.</span>",
@@ -1368,6 +1378,9 @@
 	if(locked || welded) //Extremely generic, as aliens only understand the basics of how airlocks work.
 		to_chat(user, "<span class='warning'>[src] refuses to budge!</span>")
 		return
+	if(src in user.do_afters)
+		to_chat(user, "<span class='notice'>You're already attempting to pry open [src]!</span>")
+		return COMPONENT_NO_AFTERATTACK
 	user.visible_message("<span class='warning'>[user] begins prying open [src].</span>",\
 						"<span class='noticealien'>You begin digging your claws into [src] with all your might!</span>",\
 						"<span class='warning'>You hear groaning metal...</span>")

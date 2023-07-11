@@ -236,20 +236,23 @@
 	. = ..()
 	if(beaker)
 		to_chat(user, "<span class='warning'>You need to remove the [beaker] first!</span>")
-		return
+		return COMPONENT_NO_AFTERATTACK
 	if(user.is_holding_item_of_type(/obj/item/clothing/mask/breath) && can_convert)
+		if(src in user.do_afters)
+			to_chat(user, "<span class='notice'>You're already attempting to attach a breath mask to [src]!</span>")
+			return COMPONENT_NO_AFTERATTACK
 		visible_message("<span class='warning'>[user] attempts to attach the breath mask to [src].</span>", "<span class='notice'>You attempt to attach the breath mask to [src].</span>")
-		if(!do_after(user, 100, src, timed_action_flags = IGNORE_HELD_ITEM))
+		if(!do_after(user, 100, src, timed_action_flags = IGNORE_HELD_ITEM, add_item = I))
 			to_chat(user, "<span class='warning'>You fail to attach the breath mask to [src]!</span>")
-			return
+			return COMPONENT_NO_AFTERATTACK
 		var/item = user.is_holding_item_of_type(/obj/item/clothing/mask/breath)
 		if(!item) // Check after the do_after as well
-			return
+			return COMPONENT_NO_AFTERATTACK
 		visible_message("<span class='warning'>[user] attaches the breath mask to [src].</span>", "<span class='notice'>You attach the breath mask to [src].</span>")
 		qdel(item)
 		new /obj/machinery/anesthetic_machine(loc)
 		qdel(src)
-
+	return COMPONENT_NO_AFTERATTACK
 
 /obj/machinery/iv_drip/saline
 	name = "saline drip"

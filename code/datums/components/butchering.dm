@@ -40,12 +40,18 @@
 			return COMPONENT_ITEM_NO_ATTACK
 
 /datum/component/butchering/proc/startButcher(obj/item/source, mob/living/M, mob/living/user)
+	if(M in user.do_afters)
+		to_chat(user, "<span class='notice'>You're already butchering [M]!</span>")
+		return
 	to_chat(user, "<span class='notice'>You begin to butcher [M]...</span>")
 	playsound(M.loc, butcher_sound, 50, TRUE, -1)
-	if(do_after(user, speed, M) && M.Adjacent(source))
+	if(do_after(user, speed, M, show_to_target = TRUE, add_item = source) && M.Adjacent(source))
 		Butcher(user, M)
 
 /datum/component/butchering/proc/startNeckSlice(obj/item/source, mob/living/carbon/human/H, mob/living/user)
+	if(H in user.do_afters)
+		to_chat(user, "<span class='notice'>You're already sliding the throat of [H]!</span>")
+		return
 	user.visible_message("<span class='danger'>[user] is slitting [H]'s throat!</span>", \
 					"<span class='danger'>You start slicing [H]'s throat!</span>", \
 					"<span class='hear'>You hear a cutting noise!</span>")
@@ -53,7 +59,7 @@
 					"<span class = 'userdanger'>Something is cutting into your neck!</span>", NONE)
 
 	playsound(H.loc, butcher_sound, 50, TRUE, -1)
-	if(do_after(user, CLAMP(500 / source.force, 30, 100), H) && H.Adjacent(source))
+	if(do_after(user, CLAMP(500 / source.force, 30, 100), H, show_to_target = TRUE, add_item = source) && H.Adjacent(source))
 		if(H.has_status_effect(/datum/status_effect/neck_slice))
 			user.show_message("<span class='danger'>[H]'s neck has already been already cut, you can't make the bleeding any worse!", 1, \
 							"<span class='danger'>Their neck has already been already cut, you can't make the bleeding any worse!")

@@ -132,7 +132,7 @@
 		"<span class='info'>[pawn] starts trying to give [held_item] to [living_target]!</span>",
 		"<span class='warning'>[pawn] tries to give you [held_item]!</span>"
 	)
-	if(!do_after(pawn, 1 SECONDS, living_target))
+	if(!do_after(pawn, 1 SECONDS, living_target, show_to_target = TRUE, add_item = held_item))
 		return
 	if(QDELETED(held_item) || QDELETED(living_target))
 		finish_action(controller, FALSE)

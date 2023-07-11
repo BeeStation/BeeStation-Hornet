@@ -77,6 +77,9 @@
 		set_density(TRUE)
 
 /obj/structure/proc/climb_structure(mob/living/user)
+	if(src in user.do_afters)
+		to_chat(user, "<span class='notice'>You're already trying to climb onto \the [src]!</span>")
+		return
 	add_fingerprint(user)
 	user.visible_message("<span class='warning'>[user] starts climbing onto [src].</span>", \
 								"<span class='notice'>You start climbing onto [src]...</span>")
@@ -88,7 +91,7 @@
 	if(HAS_TRAIT(user, TRAIT_FREERUNNING)) //do you have any idea how fast I am???
 		adjusted_climb_time *= 0.8
 	structureclimber = user
-	if(do_after(user, adjusted_climb_time))
+	if(do_after(user, adjusted_climb_time, target = src))
 		if(src.loc) //Checking if structure has been destroyed
 			if(do_climb(user))
 				user.visible_message("<span class='warning'>[user] climbs onto [src].</span>", \

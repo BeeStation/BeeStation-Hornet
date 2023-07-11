@@ -257,12 +257,18 @@
 	if(occupant || helmet || suit || storage)
 		to_chat(user, "<span class='warning'>It's too cluttered inside to fit in!</span>")
 		return
+	if(src in user.do_afters)
+		if(target == user)
+			to_chat(user, "<span class='notice'>You're already attempting to squeeze inside [src]!</span>")
+		else
+			to_chat(user, "<span class='notice'>You're already attempting to shove [target] into [src]!</span>")
+		return
 	if(target == user)
 		user.visible_message("<span class='warning'>[user] starts squeezing into [src]!</span>", "<span class='notice'>You start working your way into [src]...</span>")
 	else
 		target.visible_message("<span class='warning'>[user] starts shoving [target] into [src]!</span>", "<span class='userdanger'>[user] starts shoving you into [src]!</span>")
 
-	if(do_after(user, 30, target))
+	if(do_after(user, 30, target, show_to_target = TRUE))
 		if(occupant || helmet || suit || storage)
 			return
 		if(target == user)

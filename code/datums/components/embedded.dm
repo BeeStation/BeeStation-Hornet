@@ -199,7 +199,7 @@
 /datum/component/embedded/proc/complete_rip_out(mob/living/carbon/victim, obj/item/I, obj/item/bodypart/limb, time_taken)
 	victim.visible_message("<span class='warning'>[victim] attempts to remove [weapon] from [victim.p_their()] [limb.name].</span>","<span class='notice'>You attempt to remove [weapon] from your [limb.name]... (It will take [DisplayTimeText(time_taken)].)</span>")
 
-	if(!do_after(victim, time_taken, target = victim))
+	if(!do_after(victim, time_taken, target = victim, add_item = weapon))
 		return
 	if(!weapon || !limb || weapon.loc != victim || !(weapon in limb.embedded_objects))
 		qdel(src)
@@ -302,7 +302,7 @@
 
 	//Pluck time
 	var/pluck_time = 4 SECONDS * weapon.w_class * time_multiplier
-	if(!do_after(user, pluck_time, target = victim))
+	if(!do_after(user, pluck_time, target = victim, add_item = weapon))
 		if(self_pluck)
 			to_chat(user, "<span class='danger'>You fail to remove [weapon] from your [limb.name].</span>")
 		else

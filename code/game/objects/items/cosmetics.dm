@@ -65,9 +65,15 @@
 			H.lip_color = colour
 			H.update_body()
 		else
+			if(H in user.do_afters)
+				if(H == user)
+					to_chat(user, "<span class='notice'>You're already applying \the [src] to your lips!</span>")
+				else
+					to_chat(user, "<span class='notice'>You're already applying \the [src] to [H]'s lips!</span>")
+				return
 			user.visible_message("<span class='warning'>[user] begins to do [H]'s lips with \the [src].</span>", \
 								 "<span class='notice'>You begin to apply \the [src] on [H]'s lips...</span>")
-			if(do_after(user, 20, target = H))
+			if(do_after(user, 20, target = H, show_to_target = TRUE, add_item = src))
 				user.visible_message("[user] does [H]'s lips with \the [src].", \
 									 "<span class='notice'>You apply \the [src] on [H]'s lips.</span>")
 				H.lip_style = "lipstick"
@@ -81,8 +87,10 @@
 	if(user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
 		if(!ismob(M))
 			return
-
 		if(ishuman(M))
+			if(src in user.do_afters)
+				to_chat(user, "<span class='notice'>You're already wiping the lipstick off [user == M ? "yourself" : "[M]"]!</span>")
+				return
 			var/mob/living/carbon/human/H = M
 			if(H == user)
 				to_chat(user, "<span class='notice'>You wipe off the lipstick with [src].</span>")
@@ -151,7 +159,6 @@
 				if(H.facial_hair_style == "Shaved")
 					to_chat(user, "<span class='warning'>Already clean-shaven!</span>")
 					return
-
 				if(H == user) //shaving yourself
 					user.visible_message("[user] starts to shave [user.p_their()] facial hair with [src].", \
 										 "<span class='notice'>You take a moment to shave your facial hair with [src]...</span>")

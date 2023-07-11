@@ -93,6 +93,9 @@
 	if(user.client && ((target in user.client.screen) && !user.is_holding(target)))
 		to_chat(user, "<span class='warning'>You need to take that [target.name] off before cleaning it!</span>")
 	else if(istype(target, /obj/effect/decal/cleanable))
+		if(target in user.do_afters)
+			to_chat(user, "<span class='notice'>You're already scrubbing \the [target.name]!</span>")
+			return
 		user.visible_message("[user] begins to scrub \the [target.name] out with [src].", "<span class='warning'>You begin to scrub \the [target.name] out with [src]...</span>")
 		if(do_after(user, src.cleanspeed, target = target, show_to_target = TRUE, add_item = src))
 			to_chat(user, "<span class='notice'>You scrub \the [target.name] out.</span>")
@@ -107,6 +110,9 @@
 		decreaseUses(user)
 		return
 	else if(istype(target, /obj/structure/window))
+		if(target in user.do_afters)
+			to_chat(user, "<span class='notice'>You're already cleaning \the [target]!</span>")
+			return
 		user.visible_message("[user] begins to clean \the [target.name] with [src]...", "<span class='notice'>You begin to clean \the [target.name] with [src]...</span>")
 		if(do_after(user, src.cleanspeed, target = target, show_to_target = TRUE, add_item = src))
 			to_chat(user, "<span class='notice'>You clean \the [target.name].</span>")
@@ -114,6 +120,9 @@
 			target.set_opacity(initial(target.opacity))
 			decreaseUses(user)
 	else
+		if(target in user.do_afters)
+			to_chat(user, "<span class='notice'>You're already cleaning \the [target]!</span>")
+			return
 		user.visible_message("[user] begins to clean \the [target.name] with [src]...", "<span class='notice'>You begin to clean \the [target.name] with [src]...</span>")
 		if(do_after(user, src.cleanspeed, target = target, show_to_target = TRUE, add_item = src))
 			to_chat(user, "<span class='notice'>You clean \the [target.name].</span>")

@@ -310,7 +310,7 @@
 		scribe_mod *= 0.5
 
 	SEND_SOUND(cultist, sound('sound/weapons/slice.ogg', 0, 1, 10))
-	if(!do_after(cultist, scribe_mod, target = get_turf(cultist)))
+	if(!do_after(cultist, scribe_mod, target = get_turf(cultist), add_item = tool))
 		cleanup_shields()
 		return FALSE
 	if(!can_scribe_rune(tool, cultist))

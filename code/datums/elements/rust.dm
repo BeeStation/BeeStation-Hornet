@@ -49,14 +49,14 @@
 		if(TOOL_WELDER)
 			if(item.use(5))
 				user.balloon_alert(user, "You start burning off the rust...")
-				if(!do_after(user, 5 SECONDS * item.toolspeed, target = source))
+				if(!do_after(user, 5 SECONDS * item.toolspeed, target = source, show_to_target = TRUE, add_item = item))
 					return
 				user.balloon_alert(user, "Sucessfully burned off the rust!")
 				Detach(source)
 				return
 		if(TOOL_RUSTSCRAPER)
 			user.balloon_alert(user, "You start scraping off the rust...")
-			if(!do_after(user, 2 SECONDS * item.toolspeed, target = source))
+			if(!do_after(user, 2 SECONDS * item.toolspeed, target = source, show_to_target = TRUE, add_item = item))
 				return
 			user.balloon_alert(user, "Sucessfully scraped off the rust!")
 			Detach(source)

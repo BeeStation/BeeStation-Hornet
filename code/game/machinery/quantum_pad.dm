@@ -89,8 +89,11 @@
 			to_chat(user, "<span class='notice'>You insert [K] into [src]'s card slot, activating it.</span>")
 			interact(user, K.qpad)
 		else
+			if(src in user.do_afters)
+				to_chat(user, "<span class='notice'>You're already attempting to link [src]!</span>")
+				return
 			to_chat(user, "<span class='notice'>You insert [K] into [src]'s card slot, initiating the link procedure.</span>")
-			if(do_after(user, 40, target = src))
+			if(do_after(user, 40, target = src, add_item = K))
 				to_chat(user, "<span class='notice'>You complete the link between [K] and [src].</span>")
 				K.qpad = src
 

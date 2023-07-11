@@ -1245,6 +1245,9 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	if(obj_flags & EMAGGED)
 		if(!c_user.get_bodypart(BODY_ZONE_L_ARM) && !c_user.get_bodypart(BODY_ZONE_R_ARM))
 			return
+		if(src in user.do_afters)
+			to_chat(user, "<span class='notice'>You're already inserting your hand [src]!</span>")
+			return
 		to_chat(c_user, "<span class='warning'>You move your hand towards the machine, and begin to hesitate as an extra-bloodied guillotine emerges from inside of it...</span>")
 		if(do_after(c_user, 50, target = src))
 			to_chat(c_user, "<span class='userdanger'>Robotic arms shoot out of the machine, remove all your limbs, and suck them in!</span>")
@@ -1262,6 +1265,9 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 			to_chat(c_user, "<span class='notice'>You (wisely) decide against putting your hand in the machine.</span>")
 	else
 		if(!c_user.get_bodypart(BODY_ZONE_L_ARM) && !c_user.get_bodypart(BODY_ZONE_R_ARM))
+			return
+		if(src in user.do_afters)
+			to_chat(user, "<span class='notice'>You're already inserting your hand inside [src]!</span>")
 			return
 		to_chat(c_user, "<span class='warning'>You move your hand towards the machine, and begin to hesitate as a bloodied guillotine emerges from inside of it...</span>")
 		if(do_after(c_user, 50, target = src))

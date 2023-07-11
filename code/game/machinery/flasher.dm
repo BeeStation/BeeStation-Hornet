@@ -93,8 +93,12 @@
 
 /obj/machinery/flasher/eminence_act(mob/living/simple_animal/eminence/eminence)
 	. = ..()
+	var/mob/M = usr
+	if(src in M.do_afters)
+		to_chat(M, "<span class='notice'>You're already attempting to manipulate [src]!</span>")
+		return
 	to_chat(usr, "<span class='brass'>You begin manipulating [src]!</span>")
-	if(do_after(eminence, 20, target=get_turf(eminence)))
+	if(do_after(eminence, 20, target=get_turf(eminence), add_item = src))
 		if(anchored)
 			flash()
 

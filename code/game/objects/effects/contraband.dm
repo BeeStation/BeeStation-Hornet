@@ -141,6 +141,9 @@
 		if(stuff_on_wall == 3)
 			to_chat(user, "<span class='warning'>The wall is far too cluttered to place a poster!</span>")
 			return
+	if(src in user.do_afters)
+		to_chat(user, "<span class='notice'>You're already placing something on \the [src]!</span>")
+		return COMPONENT_NO_AFTERATTACK
 
 	to_chat(user, "<span class='notice'>You start placing the poster on the wall...</span>"	)
 

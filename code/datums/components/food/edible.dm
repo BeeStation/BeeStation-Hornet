@@ -293,7 +293,7 @@ Behavior that's still missing from this component that original food items had t
 	var/time_to_eat = (eater = feeder) ? eat_time : EAT_TIME_FORCE_FEED
 
 	if(eater == feeder)//If you're eating it yourself.
-		if(eat_time && !do_after(feeder, time_to_eat, eater, timed_action_flags = food_flags & FOOD_FINGER_FOOD ? IGNORE_USER_LOC_CHANGE | IGNORE_TARGET_LOC_CHANGE : NONE)) //Gotta pass the minimal eat time
+		if(eat_time && !do_after(feeder, time_to_eat, eater, timed_action_flags = food_flags & FOOD_FINGER_FOOD ? IGNORE_USER_LOC_CHANGE | IGNORE_TARGET_LOC_CHANGE : NONE, add_item = parent)) //Gotta pass the minimal eat time
 			return
 		if(IsFoodGone(owner, feeder))
 			return
@@ -319,6 +319,9 @@ Behavior that's still missing from this component that original food items had t
 
 
 	else //If you're feeding it to someone else.
+		if(eater in feeder.do_afters)
+			to_chat(feeder, "<span class='notice'>You're already feeding [eater]!</span>")
+			return
 		if(isbrain(eater))
 			to_chat(feeder, "<span class='warning'>[eater] doesn't seem to have a mouth!</span>")
 			return
@@ -337,7 +340,7 @@ Behavior that's still missing from this component that original food items had t
 			if(eater.is_blind())
 				to_chat(eater, "<span class='userdanger'>You're too full to eat what's being fed to you!</span>")
 			return
-		if(!do_after(feeder, delay = time_to_eat, target = eater)) //Wait 3 seconds before you can feed
+		if(!do_after(feeder, delay = time_to_eat, target = eater, show_to_target = TRUE, add_item = parent)) //Wait 3 seconds before you can feed
 			return
 		if(IsFoodGone(owner, feeder))
 			return

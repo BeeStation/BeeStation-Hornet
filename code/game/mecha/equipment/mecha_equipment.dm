@@ -49,7 +49,10 @@
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/try_attach_part(mob/user, obj/mecha/M)
-	if(!do_after(user, 15, M))
+	if(src in user.do_afters)
+		to_chat(user, "<span class='notice'>You're already attaching something to \the [M]!</span>")
+		return FALSE
+	if(!do_after(user, 15, M, add_item = src))
 		return FALSE
 	if(!can_attach(M))
 		to_chat(user, "<span class='warning'>You are unable to attach [src] to [M]!</span>")
@@ -110,7 +113,7 @@
 	var/C = chassis.loc
 	set_ready_state(0)
 	chassis.use_power(energy_drain)
-	. = do_after(chassis.occupant, equip_cooldown, target=target)
+	. = do_after(chassis.occupant, equip_cooldown, target=target, add_item = src)
 	set_ready_state(1)
 	if(!chassis || 	chassis.loc != C || src != chassis.selected || !(get_dir(chassis, target)&chassis.dir))
 		return 0
@@ -119,7 +122,7 @@
 	if(!chassis)
 		return
 	var/C = chassis.loc
-	. = do_after(chassis.occupant, delay, target=target)
+	. = do_after(chassis.occupant, delay, target=target, add_item = src)
 	if(!chassis || 	chassis.loc != C || src != chassis.selected || !(get_dir(chassis, target)&chassis.dir))
 		return 0
 

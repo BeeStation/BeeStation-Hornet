@@ -77,9 +77,11 @@
 	if((istype(plantspot,/turf/open/lava)) || (istype(plantspot,/turf/open/chasm)))
 		to_chat(user, "<span class='warning'>You can't plant the mine here!</span>")
 		return
-
+	if(src in user.do_afters)
+		to_chat(user, "<span class='notice'>You're already arming \the [src]!</span>")
+		return
 	to_chat(user, "<span class='notice'>You start arming the [src]...</span>")
-	if(do_after(user, arming_time, target = src))
+	if(do_after(user, arming_time, target = src, add_item = src))
 		new mine_type(plantspot)
 		to_chat(user, "<span class='notice'>You plant and arm the [src].</span>")
 		log_combat(user, src, "planted and armed")
@@ -108,8 +110,11 @@
 
 /obj/effect/mine/attackby(obj/I, mob/user, params)
 	if(istype(I, /obj/item/multitool))
+		if(src in user.do_afters)
+			to_chat(user, "<span class='notice'>You're already attempting to disarm \the [src]!</span>")
+			return
 		to_chat(user, "<span class='notice'>You begin to disarm the [src]...</span>")
-		if(do_after(user, disarm_time, target = src))
+		if(do_after(user, disarm_time, target = src, add_item = I))
 			to_chat(user, "<span class='notice'>You disarm the [src].</span>")
 			new disarm_product(src.loc)
 			qdel(src)
@@ -141,7 +146,7 @@
 		else
 			triggered = 1
 			triggermine(target)
-					
+
 
 /obj/effect/mine/proc/triggermine(mob/living/victim)
 	visible_message("<span class='danger'>[victim] sets off [icon2html(src, viewers(src))] [src]!</span>")

@@ -927,6 +927,9 @@
 		to_chat(user, "<span class='warning'>You can't enter the exosuit with other creatures attached to you!</span>")
 		log_message("Permission denied (Attached mobs).", LOG_MECHA)
 		return
+	if(src in user.do_afters)
+		to_chat(user, "<span class='notice'>You're already climbing into \the [name]!</span>")
+		return COMPONENT_NO_AFTERATTACK
 
 	visible_message("[user] starts to climb into [name].")
 
@@ -977,9 +980,12 @@
 		to_chat(user, "<span class='warning'>Access denied. [name] is secured with a DNA lock.</span>")
 		return FALSE
 
+	if(src in user.do_afters)
+		to_chat(user, "<span class='notice'>You're already inserting an MMI into \the [name]!</span>")
+		return COMPONENT_NO_AFTERATTACK
 	visible_message("<span class='notice'>[user] starts to insert an MMI into [name].</span>")
 
-	if(do_after(user, 40, target = src))
+	if(do_after(user, 40, target = src, add_item = mmi_as_oc))
 		if(!occupant)
 			return mmi_moved_inside(mmi_as_oc, user)
 		else

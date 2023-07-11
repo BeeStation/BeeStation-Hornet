@@ -223,7 +223,7 @@
 				/obj/item/bodypart/r_arm/robot = 1)
 	time = 40
 	category = CAT_ROBOT
-	bar_x_offset = -5
+	bar_x_offset = -3
 	bar_y_offset = 5
 
 /datum/crafting_recipe/honkbot
@@ -235,6 +235,8 @@
 				/obj/item/bikehorn/ = 1)
 	time = 40
 	category = CAT_ROBOT
+	bar_x_offset = -3
+	bar_y_offset = 5
 
 /datum/crafting_recipe/Firebot
 	name = "Firebot"

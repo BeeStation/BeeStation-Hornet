@@ -583,7 +583,7 @@
 /datum/religion_rites/summon_carp/invoke_effect(mob/living/user, atom/movable/religious_tool)
 	var/turf/altar_turf = get_turf(religious_tool)
 	new /obj/effect/temp_visual/bluespace_fissure/long(altar_turf)
-	user.visible_message("<span class'notice'>A tear in reality appears above the altar!</span>")
+	user.visible_message("<span class='notice'>A tear in reality appears above the altar!</span>")
 	var/list/jobbans = list(ROLE_BRAINWASHED, ROLE_DEATHSQUAD, ROLE_DRONE, ROLE_LAVALAND, ROLE_MIND_TRANSFER, ROLE_POSIBRAIN, ROLE_SENTIENCE)
 	var/list/candidates = pollGhostCandidates("Do you wish to be summoned as a Holy Carp?", jobbans, null, FALSE, 100, POLL_IGNORE_HOLYCARP)
 	if(!length(candidates))
@@ -637,7 +637,7 @@
 
 /datum/religion_rites/summon_carpsuit/invoke_effect(mob/living/user, atom/religious_tool)
 	if(!QDELETED(chosen_clothing) && get_turf(religious_tool) == chosen_clothing.loc) //check if the same clothing is still there
-		user.visible_message("<span class'notice'>The [chosen_clothing] transforms!</span>")
+		user.visible_message("<span class='notice'>The [chosen_clothing] transforms!</span>")
 		chosen_clothing.obj_destruction()
 		chosen_clothing = null
 		new /obj/item/clothing/suit/space/hardsuit/carp/old(get_turf(religious_tool))
@@ -681,7 +681,7 @@
 /datum/religion_rites/summon_animals/perform_rite(mob/living/user, atom/religious_tool)
 	var/turf/altar_turf = get_turf(religious_tool)
 	new /obj/effect/temp_visual/bluespace_fissure/long(altar_turf)
-	user.visible_message("<span class'notice'>A tear in reality appears above the altar!</span>")
+	user.visible_message("<span class='notice'>A tear in reality appears above the altar!</span>")
 	return ..()
 
 /datum/religion_rites/summon_animals/invoke_effect(mob/living/user, atom/religious_tool)
