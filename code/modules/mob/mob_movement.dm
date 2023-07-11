@@ -246,7 +246,7 @@
 		if(INCORPOREAL_MOVE_JAUNT) //Incorporeal move, but blocked by holy-watered tiles and salt piles.
 			var/turf/open/floor/stepTurf = get_step_multiz(mobloc, direct)
 			if(stepTurf)
-				var/obj/effect/decal/cleanable/food/salt/salt = locate() in stepTurf
+				DECLARE_LOCATE(salt, /obj/effect/decal/cleanable/food/salt, stepTurf)
 				if(salt)
 					to_chat(L, "<span class='warning'>[salt] bars your passage!</span>")
 					if(isrevenant(L))
@@ -269,7 +269,7 @@
 			var/turf/open/floor/stepTurf = get_step_multiz(mobloc, direct)
 			var/turf/loccheck = get_turf(stepTurf)
 			if(stepTurf)
-				var/obj/effect/decal/cleanable/food/salt/salt = locate() in stepTurf
+				DECLARE_LOCATE(salt, /obj/effect/decal/cleanable/food/salt, stepTurf)
 				if(salt)
 					to_chat(L, "<span class='warning'>[salt] bars your passage!</span>")
 					return
