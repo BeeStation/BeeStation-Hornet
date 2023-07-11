@@ -18,6 +18,22 @@ $department_map: (
 );
 
 .PreferencesMenu {
+  &__Main {
+    .Preferences__standard-palette {
+      .ColorSelectBox {
+        height: 1.35em !important;
+        width: 1.35em !important;
+      }
+      display: inline-block;
+      .Button {
+        height: 25px !important;
+        width: 25px !important;
+        line-height: 25px !important;
+      }
+    }
+    font-size: 1.35rem;
+  }
+
   &__Antags {
     &__antagSelection {
       $antagonist_bottom_padding: 10px;
@@ -159,7 +175,7 @@ $department_map: (
         &--Captain {
           &.head {
             .job-name {
-              font-size: 15px;
+              font-size: 1.5em;
             }
           }
 
@@ -170,28 +186,47 @@ $department_map: (
       }
 
       &__priority {
-        border: 1px solid rgba(0, 0, 0, 0.3);
-
-        &--off::after {
-          content: '';
-
-          background: rgba(0, 0, 0, 0.2);
-          display: block;
-          height: 80%;
-          left: 50%;
-          position: relative;
-          top: 50%;
-          transform: translateX(-50%) translateY(-50%) rotate(40deg);
-          width: 2px;
+        color: black;
+        border-left: 1px solid rgba(0, 0, 0, 0.3);
+        border-right: none;
+        border-top: none;
+        border-bottom: none;
+        border-radius: 0 !important;
+        &--off {
+          background-color: lighten(colors.$grey, 10%) !important;
+          border-color: lighten(colors.$grey, 20%);
+          border-left: none;
+        }
+        &--low {
+          background-color: red !important;
+          border-color: lighten(red, 20%);
+          color: black !important;
+        }
+        &--medium {
+          background-color: yellow !important;
+          border-color: lighten(yellow, 20%);
+          color: black !important;
+        }
+        &--high {
+          background-color: lime !important;
+          border-color: lighten(lime, 20%);
+          color: black !important                                             ;
+        }
+        &--disabled {
+          background-color: #444 !important;
+          border-color: #222;
+          color: white !important;
+          transition: linear 0.25s background-color;
+          &:hover {
+            background-color: #666 !important;
+          }
         }
       }
     }
 
-    &__PriorityHeader {
-      font-weight: bold;
-      transform: translateX(-4px) translateY(-8px) rotate(315deg);
-      white-space: nowrap;
-      width: 19px;
+    .job-name {
+      font-size: 1.25em;
+      padding: 3px;
     }
   }
 

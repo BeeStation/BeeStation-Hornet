@@ -594,7 +594,7 @@ export const MainPage = (
                 </Stack>
               </Stack.Item>
 
-              <Stack.Item grow basis={0}>
+              <Stack.Item grow basis={0} className="PreferencesMenu__Main">
                 <Stack vertical fill>
                   <PreferenceList
                     act={act}

@@ -310,6 +310,7 @@ export const StandardizedPalette = (props: {
   maxWidth?: string;
   backgroundColor?: string;
   includeHex?: boolean;
+  height?: number;
 }) => {
   const {
     choices,
@@ -321,6 +322,7 @@ export const StandardizedPalette = (props: {
     maxWidth = '100%',
     backgroundColor,
     includeHex = false,
+    height = 16,
   } = props;
   const choices_to_hex = hex_values ? Object.fromEntries(choices.map((v) => [v, v])) : props.choices_to_hex!;
   const safeHex = (v: string) => {
@@ -334,7 +336,7 @@ export const StandardizedPalette = (props: {
   };
   const safeValue = hex_values ? props.value && safeHex(props.value) : props.value;
   return (
-    <Flex style={{ 'align-items': 'baseline', 'max-width': maxWidth }}>
+    <Flex className="Preferences__standard-palette" style={{ 'align-items': 'baseline', 'max-width': maxWidth }}>
       <Flex.Item
         shrink
         style={{ 'border-radius': '0.16em', 'max-width': maxWidth, 'padding-bottom': '-5px' }}
@@ -352,8 +354,8 @@ export const StandardizedPalette = (props: {
                     disabled && 'ColorSelectBox--disabled',
                   ])}
                   onClick={disabled ? null : () => onSetValue(hex_values ? safeHex(choice) : choice)}
-                  width="16px"
-                  height="16px">
+                  width={height + 'px'}
+                  height={height + 'px'}>
                   <Box
                     className="ColorSelectBox--inner"
                     style={{
@@ -372,7 +374,10 @@ export const StandardizedPalette = (props: {
                 .includes(safeValue!) && (
                 <Flex.Item>
                   <Tooltip content={`Your Custom Selection (${safeValue})`} position="bottom">
-                    <Box className={classes(['ColorSelectBox', 'ColorSelectBox--selected'])} width="16px" height="16px">
+                    <Box
+                      className={classes(['ColorSelectBox', 'ColorSelectBox--selected'])}
+                      width={height + 'px'}
+                      height={height + 'px'}>
                       <Box
                         className="ColorSelectBox--inner"
                         style={{
@@ -388,8 +393,10 @@ export const StandardizedPalette = (props: {
                 <Button
                   tooltip="Choose Custom"
                   tooltipPosition="bottom"
-                  height="20px"
+                  height={height + 4 + 'px'}
+                  fontSize={height - 4 + 'px'}
                   style={{ 'border-radius': '0' }}
+                  textAlign="center"
                   icon="plus"
                   color="good"
                   onClick={() => {

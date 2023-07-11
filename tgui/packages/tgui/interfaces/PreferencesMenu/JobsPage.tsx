@@ -2,7 +2,7 @@ import { sortBy } from 'common/collections';
 import { classes } from 'common/react';
 import type { Inferno, InfernoNode } from 'inferno';
 import { useBackend } from '../../backend';
-import { Box, Button, Dropdown, Stack, Tooltip } from '../../components';
+import { Box, Button, Dropdown, Stack, Flex, Tooltip } from '../../components';
 import { createSetPreference, Job, JoblessRole, JobPriority, PreferencesMenuData } from './data';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 
@@ -12,24 +12,25 @@ const sortJobs = (entries: [string, Job][], head?: string) =>
     ([key, _]) => key
   )(entries);
 
-const PRIORITY_BUTTON_SIZE = '18px';
-
-const PriorityButton = (props: { name: string; color: string; modifier?: string; enabled: boolean; onClick: () => void }) => {
+const PriorityButton = (props: { name: string; modifier?: string; enabled: boolean; onClick: () => void }) => {
   const className = `PreferencesMenu__Jobs__departments__priority`;
 
   return (
-    <Stack.Item height={PRIORITY_BUTTON_SIZE}>
+    <Flex.Item grow height="100%">
       <Button
-        className={classes([className, props.modifier && `${className}--${props.modifier}`])}
-        color={props.enabled ? props.color : 'white'}
-        circular
+        height="100%"
+        verticalAlignContent="middle"
+        className={classes([
+          className,
+          !props.enabled && `${className}--disabled`,
+          props.modifier && `${className}--${props.modifier}`,
+        ])}
+        fluid
+        content={props.name}
         onClick={props.onClick}
-        tooltip={props.name}
-        tooltipPosition="bottom"
-        height={PRIORITY_BUTTON_SIZE}
-        width={PRIORITY_BUTTON_SIZE}
+        textAlign="center"
       />
-    </Stack.Item>
+    </Flex.Item>
   );
 };
 
@@ -68,68 +69,49 @@ const createCreateSetPriorityFromName = (context, jobName: string): CreateSetPri
   return createSetPriority;
 };
 
-const PriorityHeaders = () => {
-  const className = 'PreferencesMenu__Jobs__PriorityHeader';
-
-  return (
-    <Stack>
-      <Stack.Item grow />
-
-      <Stack.Item className={className}>Off</Stack.Item>
-
-      <Stack.Item className={className}>Low</Stack.Item>
-
-      <Stack.Item className={className}>Medium</Stack.Item>
-
-      <Stack.Item className={className}>High</Stack.Item>
-    </Stack>
-  );
-};
-
 const PriorityButtons = (props: { createSetPriority: CreateSetPriority; isOverflow: boolean; priority: JobPriority }) => {
   const { createSetPriority, isOverflow, priority } = props;
 
   return (
-    <Stack
+    <Flex
       style={{
         'align-items': 'center',
-        'height': '100%',
         'justify-content': 'flex-end',
-        'padding-left': '0.3em',
+        'height': '100%',
       }}>
       {isOverflow ? (
         <>
-          <PriorityButton name="Off" modifier="off" color="light-grey" enabled={!priority} onClick={createSetPriority(null)} />
+          <PriorityButton name="Off" modifier="off" enabled={!priority} onClick={createSetPriority(null)} />
 
-          <PriorityButton name="On" color="green" enabled={!!priority} onClick={createSetPriority(JobPriority.High)} />
+          <PriorityButton name="On" modifier="high" enabled={!!priority} onClick={createSetPriority(JobPriority.High)} />
         </>
       ) : (
         <>
-          <PriorityButton name="Off" modifier="off" color="light-grey" enabled={!priority} onClick={createSetPriority(null)} />
+          <PriorityButton name="Off" modifier="off" enabled={!priority} onClick={createSetPriority(null)} />
 
           <PriorityButton
             name="Low"
-            color="red"
+            modifier="low"
             enabled={priority === JobPriority.Low}
             onClick={createSetPriority(JobPriority.Low)}
           />
 
           <PriorityButton
-            name="Medium"
-            color="yellow"
+            name="Med"
+            modifier="medium"
             enabled={priority === JobPriority.Medium}
             onClick={createSetPriority(JobPriority.Medium)}
           />
 
           <PriorityButton
             name="High"
-            color="green"
+            modifier="high"
             enabled={priority === JobPriority.High}
             onClick={createSetPriority(JobPriority.High)}
           />
         </>
       )}
-    </Stack>
+    </Flex>
   );
 };
 
@@ -311,19 +293,15 @@ const ClearJobsButton = (_, context) => {
 export const JobsPage = () => {
   return (
     <>
-      <Box textAlign="center">
+      <Box textAlign="center" className="section-background" p={0.5} pb={1} mb={1}>
         <JoblessRoleDropdown />
         <ClearJobsButton />
       </Box>
 
-      <Stack vertical fill>
-        <Gap amount={22} />
-
+      <Stack vertical fill className="section-background" p={1}>
         <Stack.Item>
           <Stack fill className="PreferencesMenu__Jobs">
             <Stack.Item mr={1}>
-              <PriorityHeaders />
-
               <Department department="Assistant">
                 <Gap amount={6} />
               </Department>
@@ -336,8 +314,6 @@ export const JobsPage = () => {
             </Stack.Item>
 
             <Stack.Item mr={1}>
-              <PriorityHeaders />
-
               <Department department="Captain">
                 <Gap amount={6} />
               </Department>
@@ -354,8 +330,6 @@ export const JobsPage = () => {
             </Stack.Item>
 
             <Stack.Item>
-              <PriorityHeaders />
-
               <Department department="Science">
                 <Gap amount={6} />
               </Department>
