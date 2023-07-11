@@ -855,9 +855,6 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	var/owner = I.get_mob_owner()
-	if(owner && owner != src) // an item that's already possessed.
-		return FALSE
 	return .
 
 /mob/living/update_gravity(has_gravity,override = 0)

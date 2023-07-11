@@ -355,4 +355,4 @@
 		return
 	visible_message("<span class='notice'>[src] takes [I] from [offerer]</span>", \
 					"<span class='notice'>You take [I] from [offerer]</span>")
-	put_in_hands(I)
+	put_in_hands(I, offered=TRUE)

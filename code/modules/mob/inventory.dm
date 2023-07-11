@@ -209,7 +209,11 @@
 	return FALSE
 
 //Puts the item into our active hand if possible. returns TRUE on success.
-/mob/proc/put_in_active_hand(obj/item/I, forced = FALSE, ignore_animation = TRUE)
+/mob/proc/put_in_active_hand(obj/item/I, forced = FALSE, ignore_animation = TRUE, offered=FALSE)
+	if(!offered) // check if a clicked item is in possession of someone already unless it's offered.
+		var/owner = I.get_mob_owner()
+		if(ismob(owner) && owner != src)
+			return FALSE // sorry, you won't get the benefit of your bad latency.
 	return put_in_hand(I, active_hand_index, forced, ignore_animation)
 
 
@@ -221,7 +225,7 @@
 //Puts the item our active hand if possible. Failing that it tries other hands. Returns TRUE on success.
 //If both fail it drops it on the floor and returns FALSE.
 //This is probably the main one you need to know :)
-/mob/proc/put_in_hands(obj/item/I, del_on_fail = FALSE, merge_stacks = TRUE, forced = FALSE)
+/mob/proc/put_in_hands(obj/item/I, del_on_fail = FALSE, merge_stacks = TRUE, forced = FALSE, offered = FALSE)
 	if(QDELETED(I))
 		return FALSE
 
@@ -245,7 +249,7 @@
 						to_chat(usr, "<span class='notice'>Your [inactive_stack.name] stack now contains [inactive_stack.get_amount()] [inactive_stack.singular_name]\s.</span>")
 						return TRUE
 
-	if(put_in_active_hand(I, forced))
+	if(put_in_active_hand(I, forced, offered=offered))
 		return TRUE
 
 	var/hand = get_empty_held_index_for_side("l")
