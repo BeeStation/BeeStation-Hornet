@@ -31,6 +31,7 @@ Exotic mineral Sheets
 	icon_state = "sheet-adamantine"
 	item_state = "sheet-adamantine"
 	singular_name = "adamantine sheet"
+	materials = list(/datum/material/adamantine=MINERAL_MATERIAL_AMOUNT)
 	merge_type = /obj/item/stack/sheet/mineral/adamantine
 	grind_results = list(/datum/reagent/liquidadamantine = 10)
 

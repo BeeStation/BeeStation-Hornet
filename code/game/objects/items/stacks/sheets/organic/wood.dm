@@ -35,7 +35,6 @@ Woods Sheets
 	icon_state = "sheet-bamboo"
 	item_state = "sheet-bamboo"
 	icon = 'icons/obj/stacks/organic.dmi'
-	sheettype = "bamboo"
 	force = 10
 	throwforce = 10
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0, STAMINA = 0)
