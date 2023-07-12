@@ -146,7 +146,7 @@
 	throwforce = 15
 	throw_speed = 5
 	throw_range = 7
-	var/amount_per_transfer_from_this = 5
+	var/amount_per_transfer_from_this = 20
 	var/list/possible_transfer_amounts
 	desc = "An infamous knife of syndicate design, it has a tiny hole going through the blade to the handle which stores toxins."
 	materials = null
@@ -154,7 +154,7 @@
 /obj/item/kitchen/knife/poison/Initialize(mapload)
 	. = ..()
 	create_reagents(40,OPENCONTAINER)
-	possible_transfer_amounts = list(3,5)
+	possible_transfer_amounts = list(5,10,20)
 
 /obj/item/kitchen/knife/poison/attack_self(mob/user)
 	if(possible_transfer_amounts.len)
