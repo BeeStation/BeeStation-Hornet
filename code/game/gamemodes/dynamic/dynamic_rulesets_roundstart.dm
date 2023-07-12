@@ -1,6 +1,30 @@
 
 //////////////////////////////////////////////
 //                                          //
+//            NOTHING BAD YET               //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/roundstart/nothing
+	name = "Nothing Bad Yet"
+	required_candidates = 0
+	minimum_players = 0
+	weight = 100
+	cost = 0.1
+	requirements = list(0,0,0,0,0,0,0,0,0,0)
+	flags = NO_OTHER_ROUNDSTARTS_RULESET | ALLOW_NO_CANIDATES
+
+/datum/dynamic_ruleset/roundstart/nothing/execute(forced = FALSE)
+	return TRUE
+
+/datum/dynamic_ruleset/roundstart/nothing/ready(forced = FALSE)
+	return TRUE
+
+/datum/dynamic_ruleset/roundstart/nothing/check_candidates()
+	return TRUE
+
+//////////////////////////////////////////////
+//                                          //
 //           SYNDICATE TRAITORS             //
 //                                          //
 //////////////////////////////////////////////
