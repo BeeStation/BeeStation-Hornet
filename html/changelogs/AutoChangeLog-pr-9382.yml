@@ -1,6 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - tweak: made the color gradient selection menu not pop up if you selected "None"
-      as the gradient for wigs
-  - bugfix: fixed worn wigs not properly displaying the hair
