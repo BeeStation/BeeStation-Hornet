@@ -490,9 +490,10 @@
 
 /mob/living/blind_examine_check(atom/examined_thing)
 	//need to be next to something and awake
-	if(!in_range(examined_thing, src) || incapacitated())
+	if(!Adjacent(examined_thing) || incapacitated())
 		to_chat(src, "<span class='warning'>Something is there, but you can't see it!</span>")
 		return FALSE
+		
 	//also neeed an empty hand, and you can only initiate as many examines as you have hands
 	if(LAZYLEN(do_afters) >= usable_hands || get_active_held_item())
 		to_chat(src, "<span class='warning'>You don't have a free hand to examine this!</span>")
