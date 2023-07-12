@@ -9,7 +9,7 @@
 	name = "Nothing Bad Yet"
 	required_candidates = 0
 	minimum_players = 0
-	weight = 100
+	weight = 3
 	cost = 0.1
 	requirements = list(0,0,0,0,0,0,0,0,0,0)
 	flags = NO_OTHER_ROUNDSTARTS_RULESET | ALLOW_NO_CANIDATES
