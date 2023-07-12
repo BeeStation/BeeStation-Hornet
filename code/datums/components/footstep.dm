@@ -97,7 +97,7 @@
 			//Sound of wearing shoes always plays, special movement sound
 			// IE (server motors wont play bare footed.)
 			if(H.dna.species.special_step_sounds)
-				playsound(T, pick(H.dna.species.special_step_sounds), 30, TRUE)
+				playsound(T, pick(H.dna.species.special_step_sounds), 50, TRUE)
 
 			else if((!H.shoes && !feetCover)) //are we NOT wearing shoes
 				playsound(T, pick(GLOB.barefootstep[T.barefootstep][1]),
