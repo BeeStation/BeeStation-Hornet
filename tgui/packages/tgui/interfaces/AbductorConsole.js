@@ -1,10 +1,10 @@
-import { useBackend, useSharedState } from '../backend';
+import { useBackend, useLocalState } from '../backend';
 import { Button, LabeledList, NoticeBox, Section, Tabs } from '../components';
 import { Window } from '../layouts';
 import { GenericUplink } from './Uplink';
 
 export const AbductorConsole = (props, context) => {
-  const [tab, setTab] = useSharedState(context, 'tab', 1);
+  const [tab, setTab] = useLocalState(context, 'tab', 1);
   return (
     <Window theme="abductor" width={600} height={532}>
       <Window.Content scrollable>

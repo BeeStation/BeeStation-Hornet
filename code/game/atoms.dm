@@ -1503,6 +1503,9 @@
   * 5 is any additional text, which will be appended to the rest of the log line
   */
 /proc/log_combat(atom/user, atom/target, what_done, atom/object=null, addition=null)
+	if(isweakref(user))
+		var/datum/weakref/A_ref = user
+		user = A_ref.resolve()
 	var/ssource = key_name(user)
 	var/starget = key_name(target)
 
