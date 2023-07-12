@@ -5,6 +5,7 @@
 		verb_ask = pick(T.ask_mod)
 		verb_yell = pick(T.yell_mod)
 		verb_exclaim = pick(T.exclaim_mod)
+		verb_whisper = pick(T.whisper_mod)
 	if(slurring || !T)
 		return "slurs"
 	else

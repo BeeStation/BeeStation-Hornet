@@ -10,6 +10,7 @@
 	var/ask_mod = "asks"
 	var/yell_mod = "yells"
 	var/exclaim_mod = "exclaims"
+	var/whisper_mod = "whispers"
 	var/liked_food = JUNKFOOD | FRIED
 	var/disliked_food = GROSS | RAW | CLOTH | GORE
 	var/toxic_food = TOXIC
@@ -324,6 +325,10 @@
 	name = "cat tongue"
 	desc = "A rough tongue, full of small, boney spines all over it's surface."
 	say_mod = "meows"
+	ask_mod = "trills"
+	yell_mod = "chirrups"
+	exclaim_mod = "yowls"
+	whisper_mod = "purrs"
 	disliked_food = GROSS | VEGETABLES | SUGAR | CLOTH
 	liked_food = DAIRY | MEAT | GORE
 
