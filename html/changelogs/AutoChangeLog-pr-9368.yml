@@ -1,0 +1,6 @@
+author: HowToLoLu
+delete-after: true
+changes:
+  - bugfix: Radstation and Corgstation escape pods are now permitted to land on lavaland
+  - bugfix: Narsian interference no longer affects the launching of shuttles (The
+      shuttle subsystem was locking down too early, now it won't)
