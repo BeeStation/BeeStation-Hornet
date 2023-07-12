@@ -1,0 +1,4 @@
+author: Dejaku51
+delete-after: true
+changes:
+  - bugfix: You can once again drop pAI door jack cable when not being held
