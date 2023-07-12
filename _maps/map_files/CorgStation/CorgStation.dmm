@@ -37560,8 +37560,8 @@
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen)
 "mgs" = (
-/obj/structure/reagent_dispensers,
 /obj/effect/turf_decal/delivery,
+/obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plasteel,
 /area/storage/tools)
 "mgw" = (
