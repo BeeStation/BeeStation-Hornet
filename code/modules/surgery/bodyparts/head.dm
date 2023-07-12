@@ -93,7 +93,7 @@
 
 
 /obj/item/bodypart/head/can_dismember(obj/item/I)
-	if(owner && owner.stat <= HARD_CRIT)
+	if(owner.stat < HARD_CRIT)
 		return FALSE
 	return ..()
 
