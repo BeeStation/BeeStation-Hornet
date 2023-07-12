@@ -75,7 +75,6 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	return new_msg
 
 /mob/living/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language, ignore_spam = FALSE, forced)
-
 	var/ic_blocked = FALSE
 	if(client && !forced && CHAT_FILTER_CHECK(message))
 		//The filter doesn't act on the sanitized message, but the raw message.
@@ -118,23 +117,6 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 	if(is_muted(original_message, ignore_spam, forced) || check_emote(original_message, forced))
 		return
-
-	if(in_critical) //There are cheaper ways to do this, but they're less flexible, and this isn't ran all that often
-		var/end = TRUE
-		for(var/index in message_mods)
-			if(crit_allowed_modes[index])
-				end = FALSE
-				break
-		if(end)
-			return
-	else if(stat == UNCONSCIOUS)
-		var/end = TRUE
-		for(var/index in message_mods)
-			if(unconscious_allowed_modes[index])
-				end = FALSE
-				break
-		if(end)
-			return
 
 	if(!language) // get_message_mods() proc finds a language key, and add the language to LANGUAGE_EXTENSION
 		language = message_mods[LANGUAGE_EXTENSION]
