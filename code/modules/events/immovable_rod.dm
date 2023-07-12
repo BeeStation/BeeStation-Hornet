@@ -86,7 +86,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	if(href_list["orbit"])
 		var/mob/dead/observer/ghost = usr
 		if(istype(ghost))
-			ghost.ManualFollow(src)
+			ghost.check_orbitable(src)
 
 /obj/effect/immovablerod/Moved()
 	if(!loc)

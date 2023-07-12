@@ -291,7 +291,7 @@
 	if(poly_msg)
 		to_chat(new_mob, poly_msg)
 
-	M.transfer_observers_to(new_mob)
+	M.transfer_observers_to(new_mob, TRUE)
 
 	qdel(M)
 	return new_mob

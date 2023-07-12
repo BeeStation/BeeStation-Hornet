@@ -448,8 +448,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	orbit_menu.ui_interact(src)
 
+
 // This is the ghost's follow verb with an argument
-/mob/dead/observer/proc/ManualFollow(atom/movable/target)
+/mob/dead/observer/check_orbitable(atom/movable/target)
 	if (!istype(target))
 		return
 
@@ -694,7 +695,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(href_list["follow"])
 			var/atom/movable/target = locate(href_list["follow"])
 			if(istype(target) && (target != src))
-				ManualFollow(target)
+				check_orbitable(target)
 				return
 		if(href_list["x"] && href_list["y"] && href_list["z"])
 			var/tx = text2num(href_list["x"])

@@ -852,7 +852,7 @@
 	if(href_list["orbit"])
 		var/mob/dead/observer/ghost = usr
 		if(istype(ghost))
-			ghost.ManualFollow(src)
+			ghost.check_orbitable(src)
 
 /obj/item/melee/ghost_sword/process()
 	ghost_check()
@@ -866,7 +866,7 @@
 		var/atom/A = thing
 		A.transfer_observers_to(src)
 
-	for(var/i in orbiters?.orbiters)
+	for(var/i in orbiters?.current_orbiters)
 		if(!isobserver(i))
 			continue
 		var/mob/dead/observer/G = i

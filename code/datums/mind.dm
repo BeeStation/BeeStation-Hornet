@@ -126,7 +126,7 @@
 	var/datum/atom_hud/antag/hud_to_transfer = antag_hud//we need this because leave_hud() will clear this list
 	var/mob/living/old_current = current
 	if(current)
-		current.transfer_observers_to(new_character)	//transfer anyone observing the old character to the new one
+		current.transfer_observers_to(new_character, TRUE)	//transfer anyone observing the old character to the new one
 	set_current(new_character)								//associate ourself with our new body
 	new_character.mind = src							//and associate our new body with ourself
 

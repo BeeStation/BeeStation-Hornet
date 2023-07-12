@@ -147,7 +147,7 @@
 			loc.vars[A] = O
 
 	O.update_sight()
-	transfer_observers_to(O)
+	transfer_observers_to(O, TRUE)
 
 	. = O
 
@@ -290,7 +290,7 @@
 		if(loc.vars[A] == src)
 			loc.vars[A] = O
 
-	transfer_observers_to(O)
+	transfer_observers_to(O, TRUE)
 
 	. = O
 
@@ -456,7 +456,7 @@
 
 	SEND_SIGNAL(src, COMSIG_CARBON_TRANSFORMED, O)
 
-	transfer_observers_to(O)
+	transfer_observers_to(O, TRUE)
 
 	. = O
 
