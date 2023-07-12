@@ -546,7 +546,3 @@
 		return 0
 	return 1
 
-
-/mob/living/simple_animal/slime/proc/cached_multiplicative_slowdown()
-	if(transformeffects & SLIME_EFFECT_SEPIA)
-		. *= 0.7
