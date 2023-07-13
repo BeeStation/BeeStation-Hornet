@@ -627,7 +627,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 		// If they're already slime linked, then we can't link to them.
 		if(other_link && istype(other_link))
 			return FALSE
-	if(istype(mind.current.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+	if(istype(target_mind.current.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 		if(!silent)
 			var/mob/living/carbon/human/owner = slimelink_owner.resolve()
 			if(owner)
@@ -665,7 +665,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 	if(!validate_mind(target_mind, initial_connection = TRUE))
 		return FALSE
 	var/mob/living/carbon/human/owner = slimelink_owner.resolve()
-	if(mind_to_link in linked_minds)
+	if(target_mind in linked_minds)
 		return FALSE
 	if(!owner)
 		return FALSE
