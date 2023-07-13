@@ -33,7 +33,7 @@
 		antag_candidates -= sleeping_agent
 		initial_agents += sleeping_agent
 		sleeping_agent.restricted_roles = restricted_jobs
-		sleeping_agent.special_role = BAN_ROLE_OVERTHROW
+		sleeping_agent.special_role = ROLE_OVERTHROW
 
 	if(initial_agents.len < required_enemies)
 		setup_error = "Not enough initial sleeping agents candidates"

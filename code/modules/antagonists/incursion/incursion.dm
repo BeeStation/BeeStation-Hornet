@@ -1,7 +1,7 @@
 /datum/antagonist/incursion
 	name = "Syndicate Incursion Member"
 	antagpanel_category = "Incursion"
-	banning_key = BAN_ROLE_INCURSION
+	banning_key = ROLE_INCURSION
 	required_living_playtime = 4
 	ui_name = "AntagInfoIncursion"
 	var/datum/team/incursion/team
@@ -24,7 +24,7 @@
 	for(var/datum/objective/O in team.objectives)
 		objectives += O
 		log_objective(owner, O.explanation_text)
-	owner.special_role = BAN_ROLE_INCURSION
+	owner.special_role = ROLE_INCURSION
 	finalize_incursion()
 	return ..()
 

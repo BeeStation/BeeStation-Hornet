@@ -18,8 +18,8 @@
 	mob_name = "a swarmer"
 	death = FALSE
 	roundstart = FALSE
-	assignedrole = BAN_ROLE_SWARMER
-	banType = BAN_ROLE_SWARMER
+	assignedrole = ROLE_SWARMER
+	banType = ROLE_SWARMER
 	is_antagonist = TRUE
 
 /obj/effect/mob_spawn/swarmer/Initialize(mapload)
@@ -702,7 +702,7 @@
 
 /datum/antagonist/swarmer
 	name = "Swarmer"
-	banning_key = BAN_ROLE_SWARMER
+	banning_key = ROLE_SWARMER
 	roundend_category = "Swarmer"
 	antagpanel_category = "Swarmer"
 	show_to_ghosts = TRUE
@@ -788,8 +788,8 @@
 			if(istype(new_mob))
 				new_mob.a_intent = INTENT_HARM
 				M.mind.transfer_to(new_mob)
-				new_owner.assigned_role = BAN_ROLE_SWARMER
-				new_owner.special_role = BAN_ROLE_SWARMER
+				new_owner.assigned_role = ROLE_SWARMER
+				new_owner.special_role = ROLE_SWARMER
 			qdel(M)
 	return ..()
 

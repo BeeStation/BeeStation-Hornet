@@ -396,7 +396,7 @@
 
 /obj/effect/mob_spawn/human/bartender/alive/beach
 	assignedrole = "Beach Bartender"
-	banType = BAN_ROLE_BEACH_BUM
+	banType = ROLE_BEACH_BUM
 	outfit = /datum/outfit/spacebartender/beach
 
 /datum/outfit/spacebartender/beach/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -437,7 +437,7 @@
 	flavour_text = "Ch'yea. You came here, like, on spring break, hopin' to pick up some bangin' hot chicks, y'knaw?"
 	assignedrole = "Beach Bum"
 	use_cooldown = TRUE
-	banType = BAN_ROLE_BEACH_BUM
+	banType = ROLE_BEACH_BUM
 
 /obj/effect/mob_spawn/human/beach/alive/lifeguard
 	short_desc = "You're a spunky lifeguard!"
@@ -533,7 +533,7 @@
 	flavour_text = "Walk this mortal plane and terrorize all living adventurers who dare cross your path."
 	assignedrole = "Skeleton"
 	use_cooldown = TRUE
-	banType = BAN_ROLE_SKELETAL_REMAINS
+	banType = ROLE_SKELETAL_REMAINS
 
 /obj/effect/mob_spawn/human/skeleton/alive/equip(mob/living/carbon/human/H)
 	var/obj/item/implant/exile/implant = new/obj/item/implant/exile(H)

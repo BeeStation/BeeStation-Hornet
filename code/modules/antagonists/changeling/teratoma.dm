@@ -2,7 +2,7 @@
 	name = "Teratoma"
 	roundend_category = "other"
 	antagpanel_category = "Changeling"
-	banning_key = BAN_ROLE_TERATOMA
+	banning_key = ROLE_TERATOMA
 
 /datum/antagonist/teratoma/on_gain()
 	owner.special_role = "Teratoma"

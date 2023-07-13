@@ -120,7 +120,7 @@
 	var/mob/M = pick(candidates)	// This should contain a single player, but in case.
 	if(check_eligible(M.mind))	// Didnt die/run off z-level/get implanted since leaving shuttle.
 		assigned += M.mind
-		M.mind.special_role = BAN_ROLE_REV_HEAD
+		M.mind.special_role = ROLE_REV_HEAD
 		revolution = new()
 		var/datum/antagonist/rev/head/new_head = new()
 		new_head.give_flash = TRUE
@@ -183,7 +183,7 @@
 /datum/dynamic_ruleset/latejoin/heretic_smuggler/execute(forced = FALSE)
 	var/mob/picked_mob = pick(candidates)
 	assigned += picked_mob.mind
-	picked_mob.mind.special_role = BAN_ROLE_HERETIC
+	picked_mob.mind.special_role = ROLE_HERETIC
 	var/datum/antagonist/heretic/new_heretic = picked_mob.mind.add_antag_datum(antag_datum)
 
 	// Heretics passively gain influence over time.

@@ -68,7 +68,7 @@ GLOBAL_LIST_INIT(security_positions, list(
 GLOBAL_LIST_INIT(nonhuman_positions, list(
 	JOB_NAME_AI,
 	JOB_NAME_CYBORG,
-	BAN_ROLE_PAI))
+	ROLE_PAI))
 
 
 // they are for hud_icon-based crew manifest

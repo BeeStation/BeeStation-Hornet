@@ -45,7 +45,7 @@
 			break
 		antag_candidates -= incursion
 		team.add_member(incursion)
-		incursion.special_role = BAN_ROLE_INCURSION
+		incursion.special_role = ROLE_INCURSION
 		incursion.restricted_roles = restricted_jobs
 		log_game("[key_name(incursion)] has been selected as a member of the incursion")
 	pre_incursionist_team = team

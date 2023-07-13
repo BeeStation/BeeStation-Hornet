@@ -90,7 +90,7 @@
 			cultists_number--
 			continue
 		cultists_to_cult += cultist
-		cultist.special_role = BAN_ROLE_CULTIST
+		cultist.special_role = ROLE_CULTIST
 		cultist.restricted_roles = restricted_jobs
 		log_game("[key_name(cultist)] has been selected as a cultist")
 

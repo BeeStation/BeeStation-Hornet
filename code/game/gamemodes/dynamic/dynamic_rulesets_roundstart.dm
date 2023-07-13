@@ -29,7 +29,7 @@
 			break
 		var/mob/M = antag_pick_n_take(candidates)
 		assigned += M.mind
-		M.mind.special_role = BAN_ROLE_TRAITOR
+		M.mind.special_role = ROLE_TRAITOR
 		M.mind.restricted_roles = restricted_roles
 	return TRUE
 
@@ -67,7 +67,7 @@
 			var/mob/bro = antag_pick_n_take(candidates)
 			assigned += bro.mind
 			team.add_member(bro.mind)
-			bro.mind.special_role = BAN_ROLE_BROTHER
+			bro.mind.special_role = ROLE_BROTHER
 			bro.mind.restricted_roles = restricted_roles
 		pre_brother_teams += team
 	return TRUE
@@ -110,7 +110,7 @@
 		var/mob/M = antag_pick_n_take(candidates)
 		assigned += M.mind
 		M.mind.restricted_roles = restricted_roles
-		M.mind.special_role = BAN_ROLE_CHANGELING
+		M.mind.special_role = ROLE_CHANGELING
 	return TRUE
 
 //////////////////////////////////////////////
@@ -143,7 +143,7 @@
 		var/mob/picked_candidate = antag_pick_n_take(candidates)
 		assigned += picked_candidate.mind
 		picked_candidate.mind.restricted_roles = restricted_roles
-		picked_candidate.mind.special_role = BAN_ROLE_HERETIC
+		picked_candidate.mind.special_role = ROLE_HERETIC
 	return TRUE
 
 
@@ -180,8 +180,8 @@
 	var/mob/M = antag_pick_n_take(candidates)
 	if (M)
 		assigned += M.mind
-		M.mind.assigned_role = BAN_ROLE_WIZARD
-		M.mind.special_role = BAN_ROLE_WIZARD
+		M.mind.assigned_role = ROLE_WIZARD
+		M.mind.special_role = ROLE_WIZARD
 
 	return TRUE
 
@@ -223,7 +223,7 @@
 			break
 		var/mob/M = antag_pick_n_take(candidates)
 		assigned += M.mind
-		M.mind.special_role = BAN_ROLE_CULTIST
+		M.mind.special_role = ROLE_CULTIST
 		M.mind.restricted_roles = restricted_roles
 	return TRUE
 
@@ -279,8 +279,8 @@
 			break
 		var/mob/M = antag_pick_n_take(candidates)
 		assigned += M.mind
-		M.mind.assigned_role = BAN_ROLE_OPERATIVE
-		M.mind.special_role = BAN_ROLE_OPERATIVE
+		M.mind.assigned_role = ROLE_OPERATIVE
+		M.mind.special_role = ROLE_OPERATIVE
 	return TRUE
 
 /datum/dynamic_ruleset/roundstart/nuclear/execute(forced = FALSE)
@@ -365,7 +365,7 @@
 		var/mob/M = antag_pick_n_take(candidates)
 		assigned += M.mind
 		M.mind.restricted_roles = restricted_roles
-		M.mind.special_role = BAN_ROLE_REV_HEAD
+		M.mind.special_role = ROLE_REV_HEAD
 	return TRUE
 
 /datum/dynamic_ruleset/roundstart/revs/execute(forced = FALSE)
@@ -486,7 +486,7 @@
 			break
 		var/mob/devil = antag_pick_n_take(candidates)
 		assigned += devil.mind
-		devil.mind.special_role = BAN_ROLE_DEVIL
+		devil.mind.special_role = ROLE_DEVIL
 		devil.mind.restricted_roles = restricted_roles
 
 		log_game("[key_name(devil)] has been selected as a devil")
@@ -580,8 +580,8 @@
 	for (var/i in 1 to starter_servants)
 		var/mob/servant = antag_pick_n_take(candidates)
 		assigned += servant.mind
-		servant.mind.assigned_role = BAN_ROLE_SERVANT_OF_RATVAR
-		servant.mind.special_role = BAN_ROLE_SERVANT_OF_RATVAR
+		servant.mind.assigned_role = ROLE_SERVANT_OF_RATVAR
+		servant.mind.special_role = ROLE_SERVANT_OF_RATVAR
 	//Generate scriptures
 	generate_clockcult_scriptures()
 	return TRUE
@@ -641,7 +641,7 @@
 			break
 		var/mob/M = antag_pick_n_take(candidates)
 		assigned += M.mind
-		M.mind.special_role = BAN_ROLE_INCURSION
+		M.mind.special_role = ROLE_INCURSION
 		M.mind.restricted_roles = restricted_roles
 	return TRUE
 
@@ -687,5 +687,5 @@
 		var/mob/M = antag_pick_n_take(candidates)
 		assigned += M.mind
 		M.mind.restricted_roles = restricted_roles
-		M.mind.special_role = BAN_ROLE_HIVE
+		M.mind.special_role = ROLE_HIVE
 	return TRUE

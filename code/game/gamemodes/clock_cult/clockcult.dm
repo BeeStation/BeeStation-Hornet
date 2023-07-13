@@ -64,8 +64,8 @@ GLOBAL_VAR(clockcult_eminence)
 			continue
 		antag_candidates -= clockie
 		selected_servants += clockie
-		clockie.assigned_role = BAN_ROLE_SERVANT_OF_RATVAR
-		clockie.special_role = BAN_ROLE_SERVANT_OF_RATVAR
+		clockie.assigned_role = ROLE_SERVANT_OF_RATVAR
+		clockie.special_role = ROLE_SERVANT_OF_RATVAR
 	generate_clockcult_scriptures()
 	return TRUE
 

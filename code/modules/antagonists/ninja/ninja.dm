@@ -1,7 +1,7 @@
 /datum/antagonist/ninja
 	name = "Ninja"
 	antagpanel_category = "Ninja"
-	banning_key = BAN_ROLE_NINJA
+	banning_key = ROLE_NINJA
 	show_name_in_check_antagonists = TRUE
 	show_to_ghosts = TRUE
 	antag_moodlet = /datum/mood_event/focused
@@ -109,8 +109,8 @@
 	. = ..()
 
 /datum/antagonist/ninja/admin_add(datum/mind/new_owner,mob/admin)
-	new_owner.assigned_role = BAN_ROLE_NINJA
-	new_owner.special_role = BAN_ROLE_NINJA
+	new_owner.assigned_role = ROLE_NINJA
+	new_owner.special_role = ROLE_NINJA
 	new_owner.add_antag_datum(src)
 	message_admins("[key_name_admin(admin)] has ninja'd [key_name_admin(new_owner)].")
 	log_admin("[key_name(admin)] has ninja'd [key_name(new_owner)].")

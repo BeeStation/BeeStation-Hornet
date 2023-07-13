@@ -9,7 +9,7 @@
 	name = "Syndicate mutineer"
 	roundend_category = "syndicate mutineers"
 	antagpanel_category = "Syndicate Mutineers"
-	banning_key = BAN_ROLE_OVERTHROW
+	banning_key = ROLE_OVERTHROW
 	var/datum/team/overthrow/team
 	var/static/list/possible_useful_items
 
@@ -29,7 +29,7 @@
 	..()
 	owner.announce_objectives()
 	equip_overthrow()
-	owner.special_role = BAN_ROLE_OVERTHROW
+	owner.special_role = ROLE_OVERTHROW
 	for(var/datum/objective/O in team.objectives)
 		log_objective(owner, O.explanation_text)
 

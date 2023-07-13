@@ -46,7 +46,7 @@
 			break
 		var/datum/mind/cultie = antag_pick(antag_candidates, /datum/role_preference/antagonist/heretic)
 		antag_candidates -= cultie
-		cultie.special_role = BAN_ROLE_HERETIC
+		cultie.special_role = ROLE_HERETIC
 		cultie.restricted_roles = restricted_jobs
 		culties += cultie
 

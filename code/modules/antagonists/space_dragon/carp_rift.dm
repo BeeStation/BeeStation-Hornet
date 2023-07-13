@@ -143,7 +143,7 @@
 
 /obj/structure/carp_rift/attack_ghost(mob/user)
 	. = ..()
-	if(user?.client?.can_take_ghost_spawner(BAN_ROLE_SPACE_DRAGON, TRUE, is_ghost_role = FALSE))
+	if(user?.client?.can_take_ghost_spawner(ROLE_SPACE_DRAGON, TRUE, is_ghost_role = FALSE))
 		summon_carp(user)
 
 /**

@@ -113,7 +113,7 @@
 	. = ..()
 	set_nutrition(SLIME_DEFAULT_NUTRITION)
 	if(transformeffects & SLIME_EFFECT_LIGHT_PINK)
-		set_playable(BAN_ROLE_SENTIENCE)
+		set_playable(ROLE_SENTIENCE)
 
 /mob/living/simple_animal/slime/Destroy()
 	set_target(null)

@@ -1,7 +1,7 @@
 /datum/antagonist/brother
 	name = "Brother"
 	antagpanel_category = "Brother"
-	banning_key = BAN_ROLE_BROTHER
+	banning_key = ROLE_BROTHER
 	required_living_playtime = 4
 	ui_name = "AntagInfoBrother"
 	hijack_speed = 0.5
@@ -23,7 +23,7 @@
 	objectives += team.objectives
 	for(var/datum/objective/O in team.objectives)
 		log_objective(owner, O.explanation_text)
-	owner.special_role = BAN_ROLE_BROTHER
+	owner.special_role = ROLE_BROTHER
 	finalize_brother()
 	return ..()
 

@@ -24,8 +24,8 @@
 /datum/game_mode/wizard/pre_setup()
 	var/datum/mind/wizard = antag_pick(antag_candidates, /datum/role_preference/antagonist/wizard)
 	wizards += wizard
-	wizard.assigned_role = BAN_ROLE_WIZARD
-	wizard.special_role = BAN_ROLE_WIZARD
+	wizard.assigned_role = ROLE_WIZARD
+	wizard.special_role = ROLE_WIZARD
 	log_game("[key_name(wizard)] has been selected as a Wizard") //TODO: Move these to base antag datum
 	if(GLOB.wizardstart.len == 0)
 		setup_error = "No wizard starting location found"

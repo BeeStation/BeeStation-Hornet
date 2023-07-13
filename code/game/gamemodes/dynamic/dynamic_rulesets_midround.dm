@@ -340,8 +340,8 @@
 	return ..()
 
 /datum/dynamic_ruleset/midround/from_ghosts/nuclear/finish_setup(mob/new_character, index)
-	new_character.mind.special_role = BAN_ROLE_OPERATIVE
-	new_character.mind.assigned_role = BAN_ROLE_OPERATIVE
+	new_character.mind.special_role = ROLE_OPERATIVE
+	new_character.mind.assigned_role = ROLE_OPERATIVE
 	if (index == 1) // Our first guy is the leader
 		var/datum/antagonist/nukeop/leader/new_role = new
 		nuke_team = new_role.nuke_team
@@ -732,7 +732,7 @@
 		spider_team.directive ="Ensure the survival of your brood and overtake whatever structure you find yourself in."
 	var/datum/antagonist/spider/spider_antag = new_character.mind.has_antag_datum(/datum/antagonist/spider)
 	spider_antag.set_spider_team(spider_team)
-	new_character.mind.special_role = BAN_ROLE_SPIDER
+	new_character.mind.special_role = ROLE_SPIDER
 
 //////////////////////////////////////////////
 //                                          //

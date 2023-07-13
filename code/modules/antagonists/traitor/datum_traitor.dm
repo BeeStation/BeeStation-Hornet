@@ -5,12 +5,12 @@
 	name = "Traitor"
 	roundend_category = "traitors"
 	antagpanel_category = "Traitor"
-	banning_key = BAN_ROLE_TRAITOR
+	banning_key = ROLE_TRAITOR
 	required_living_playtime = 4
 	antag_moodlet = /datum/mood_event/focused
 	ui_name = "AntagInfoTraitor"
 	hijack_speed = 0.5				//10 seconds per hijack stage by default
-	var/special_role = BAN_ROLE_TRAITOR
+	var/special_role = ROLE_TRAITOR
 	var/employer = "The Syndicate"
 	var/should_give_codewords = TRUE
 	var/should_equip = TRUE
@@ -435,5 +435,5 @@
 
 /datum/antagonist/traitor/excommunicate
 	name = "Excommunicate Traitor"
-	banning_key = BAN_ROLE_EXCOMM
-	special_role = BAN_ROLE_EXCOMM
+	banning_key = ROLE_EXCOMM
+	special_role = ROLE_EXCOMM

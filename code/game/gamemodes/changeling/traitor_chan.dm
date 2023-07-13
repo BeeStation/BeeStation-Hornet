@@ -54,7 +54,7 @@
 			var/datum/mind/changeling = antag_pick(possible_changelings, /datum/role_preference/antagonist/changeling)
 			antag_candidates -= changeling
 			possible_changelings -= changeling
-			changeling.special_role = BAN_ROLE_CHANGELING
+			changeling.special_role = ROLE_CHANGELING
 			changelings += changeling
 			changeling.restricted_roles = restricted_jobs
 		return ..()

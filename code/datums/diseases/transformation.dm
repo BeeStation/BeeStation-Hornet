@@ -141,7 +141,7 @@
 	stage4	= list("<span class='danger'>Your skin feels very tight.</span>", "<span class='danger'>Your blood boils!</span>", "<span class='danger'>You can feel... something...inside you.</span>")
 	stage5	= list("<span class='danger'>Your skin feels as if it's about to burst off!</span>")
 	new_form = /mob/living/carbon/alien/humanoid/hunter
-	bantype = BAN_ROLE_ALIEN
+	bantype = ROLE_ALIEN
 
 /datum/disease/transformation/xeno/stage_act()
 	..()

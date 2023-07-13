@@ -59,7 +59,7 @@
 	var/mob/living/carbon/human/H = null
 
 	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
-		if(isReadytoRumble(applicant, BAN_ROLE_TRAITOR, /datum/role_preference/midround_living/traitor))
+		if(isReadytoRumble(applicant, ROLE_TRAITOR, /datum/role_preference/midround_living/traitor))
 			if(!(applicant.job in temp.restricted_jobs))
 				candidates += applicant
 
@@ -93,7 +93,7 @@
 	var/mob/living/carbon/human/H = null
 
 	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
-		if(isReadytoRumble(applicant, BAN_ROLE_CHANGELING, /datum/role_preference/antagonist/changeling))
+		if(isReadytoRumble(applicant, ROLE_CHANGELING, /datum/role_preference/antagonist/changeling))
 			if(!(applicant.job in temp.restricted_jobs))
 				candidates += applicant
 
@@ -122,7 +122,7 @@
 	var/mob/living/carbon/human/H = null
 
 	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
-		if(isReadytoRumble(applicant, BAN_ROLE_REV_HEAD, /datum/role_preference/antagonist/revolutionary))
+		if(isReadytoRumble(applicant, ROLE_REV_HEAD, /datum/role_preference/antagonist/revolutionary))
 			if(!(applicant.job in temp.restricted_jobs))
 				candidates += applicant
 
@@ -139,7 +139,7 @@
 
 /datum/admins/proc/makeWizard()
 
-	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for the position of a Wizard Federation 'diplomat'?", BAN_ROLE_WIZARD, /datum/role_preference/midround_ghost/wizard, ignore_category = POLL_IGNORE_WIZARD_HELPER)
+	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for the position of a Wizard Federation 'diplomat'?", ROLE_WIZARD, /datum/role_preference/midround_ghost/wizard, ignore_category = POLL_IGNORE_WIZARD_HELPER)
 
 	var/mob/dead/observer/selected = pick_n_take(candidates)
 
@@ -163,7 +163,7 @@
 	var/mob/living/carbon/human/H = null
 
 	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
-		if(isReadytoRumble(applicant, BAN_ROLE_CULTIST, /datum/role_preference/antagonist/blood_cultist))
+		if(isReadytoRumble(applicant, ROLE_CULTIST, /datum/role_preference/antagonist/blood_cultist))
 			if(!(applicant.job in temp.restricted_jobs))
 				candidates += applicant
 
@@ -182,7 +182,7 @@
 
 
 /datum/admins/proc/makeNukeTeam(maxCount = 5)
-	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for a nuke team being sent in?", BAN_ROLE_OPERATIVE, /datum/role_preference/midround_ghost/nuclear_operative)
+	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for a nuke team being sent in?", ROLE_OPERATIVE, /datum/role_preference/midround_ghost/nuclear_operative)
 	var/list/mob/dead/observer/chosen = list()
 	var/mob/dead/observer/theghost = null
 
@@ -346,7 +346,7 @@
 		ertemplate.enforce_human = prefs["enforce_human"]["value"] == "Yes" ? TRUE : FALSE
 		ertemplate.opendoors = prefs["open_armory"]["value"] == "Yes" ? TRUE : FALSE
 
-		var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for [ertemplate.polldesc] ?", BAN_ROLE_ERT, req_hours = 50)
+		var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for [ertemplate.polldesc] ?", ROLE_ERT, req_hours = 50)
 		var/teamSpawned = FALSE
 
 		if(candidates.len > 0)
