@@ -1,5 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - bugfix: Exploration medics will spawn with medkit in hand instead of in their
-      bag where it shouldn't fit
