@@ -476,6 +476,12 @@
 	assets = list(
 		"traitor.png" = 'html/img/traitor.png',
 		"bloodcult.png" = 'html/img/bloodcult.png',
+		"cult-archives.gif" = 'html/img/cult-archives.gif',
+		"cult-altar.gif" = 'html/img/cult-altar.gif',
+		"cult-forge.gif" = 'html/img/cult-forge.gif',
+		"cult-pylon.gif" = 'html/img/cult-pylon.gif',
+		"cult-carve.png" = 'html/img/cult-carve.png',
+		"cult-comms.png" = 'html/img/cult-comms.png',
 		"dagger.png" = 'html/img/dagger.png',
 		"sacrune.png" = 'html/img/sacrune.png',
 		"archives.png" = 'html/img/archives.png',
@@ -505,6 +511,9 @@
 		"nuke.png" = 'html/img/nuke.png',
 		"eshield.png" = 'html/img/eshield.png',
 		"mech.png" = 'html/img/mech.png',
+		"abaton.png" = 'html/img/abaton.png',
+		"atool.png" = 'html/img/atool.png',
+		"apistol.png" = 'html/img/apistol.png',
 		"scitool.png" = 'html/img/scitool.png',
 		"alienorgan.png"= 'html/img/alienorgan.png',
 		"abaton.png"= 'html/img/abaton.png',
@@ -513,7 +522,7 @@
 		"spidernurse.png"= 'html/img/spidernurse.png',
 		"spiderhunter.png"= 'html/img/spiderhunter.png',
 		"spiderviper.png"= 'html/img/spiderviper.png',
-		"spidertarantula.png"= 'html/img/spidertarantula.png'
+		"spidertarantula.png"= 'html/img/spidertarantula.png',
 	)
 
 /datum/asset/simple/orbit

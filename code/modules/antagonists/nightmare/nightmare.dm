@@ -4,6 +4,7 @@
 	show_to_ghosts = TRUE
 	job_rank = ROLE_NIGHTMARE
 	antagpanel_category = "Nightmare"
+	ui_name = "AntagInfoNightmare"
 	show_name_in_check_antagonists = TRUE
 
 /datum/antagonist/nightmare/on_gain()
