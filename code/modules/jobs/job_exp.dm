@@ -2,35 +2,34 @@ GLOBAL_LIST_EMPTY(exp_to_update)
 GLOBAL_PROTECT(exp_to_update)
 
 // Procs
-/datum/job/proc/check_playtime(client/C, returns_details=FALSE)
+/datum/job/proc/check_playtime(client/C)
+	if(CONFIG_GET(flag/use_exp_playtime_check_module) && C)
+		if(!playtime_check) // job has no module - we consider this is qualifying
+			return TRUE
+		return playtime_check.check_playtime(C, FALSE)
 	if(!C)
-		return returns_details ? list(EXP_CHECK_PASS=TRUE) : TRUE
+		return 0
 	if(!CONFIG_GET(flag/use_exp_tracking))
-		return returns_details ? list(EXP_CHECK_PASS=TRUE) : TRUE
+		return 0
 	if(!SSdbcore.Connect())
-		return returns_details ? list(EXP_CHECK_PASS=TRUE) : TRUE
-	if(!length(exp_requirement_list))
-		return returns_details ? list(EXP_CHECK_PASS=TRUE) : TRUE
+		return 0
+	if(!exp_requirements || !exp_type)
+		return 0
 	if(!job_is_xp_locked(src.title))
-		return returns_details ? list(EXP_CHECK_PASS=TRUE) : TRUE
+		return 0
 	if(CONFIG_GET(flag/use_exp_restrictions_admin_bypass) && check_rights_for(C,R_ADMIN))
-		return returns_details ? list(EXP_CHECK_PASS=TRUE) : TRUE
+		return 0
 	var/isexempt = C.prefs.db_flags & DB_FLAG_EXEMPT
 	if(isexempt)
-		return returns_details ? list(EXP_CHECK_PASS=TRUE) : TRUE
+		return 0
 	if(C.prefs.job_exempt)
-		return returns_details ? list(EXP_CHECK_PASS=TRUE) : TRUE
-
-	var/list/exp_result = INIT_EXP_LIST
-	for(var/datum/job_playtime_req/each_req in exp_requirement_list)
-		var/list/check_result = each_req.check_eligibility(C, returns_details)
-		if(!check_result[EXP_CHECK_PASS])
-			exp_result[EXP_CHECK_PASS] = FALSE
-			if(returns_details)
-				exp_result[EXP_CHECK_DESC] += check_result[EXP_CHECK_DESC] // don't use |= because some strings are the same in specific situations
-	if(!returns_details)
-		return exp_result[EXP_CHECK_PASS]
-	return exp_result
+		return 0
+	var/my_exp = C.calc_exp_type(get_exp_req_type())
+	var/job_requirement = get_exp_req_amount()
+	if(my_exp >= job_requirement)
+		return 0
+	else
+		return (job_requirement - my_exp)
 
 /datum/job/proc/get_exp_req_amount()
 	if(title in (GLOB.command_positions | list(JOB_NAME_AI)))

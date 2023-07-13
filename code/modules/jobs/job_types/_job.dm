@@ -48,12 +48,13 @@
 
 	var/outfit = null
 
+	// these exist for those who want legacy exp check
 	var/exp_requirements = 0
-
 	var/exp_type = ""
 	var/exp_type_department = ""
 
-	var/exp_requirement_list = list()
+	/// modern playtime check modular
+	var/datum/playtime_check/playtime_check
 
 	///The amount of good boy points playing this role will earn you towards a higher chance to roll antagonist next round can be overridden by antag_rep.txt config
 	var/antag_rep = 10
@@ -395,77 +396,3 @@
 		scandisease.spread_text = "None"
 		scandisease.visibility_flags |= HIDDEN_SCANNER
 		H.ForceContractDisease(scandisease)
-
-
-
-
-/datum/job_playtime_req
-	/// Number of jobs with minimum playtime required for eligibility. 2 means you need 2 jobs with minimum playtime.
-	var/stored_eligibility_count_requirement
-	/// List of jobs, or roles. If each key has a value, that value represents the minimum required playtime for that role, and contributes to 'eligibility count'
-	var/list/stored_job_playtime_requirement
-	/// [Optional] Required combined playtime from all jobs/roles listed in job_playtime_requirement
-	var/stored_playtime_requirement
-	/// [Optional] Displays this group name instead of long job name (combined_playtime_requirement is needed)
-	var/stored_group_display_name
-	/// automatically set to FALSE when stored_eligibility_count_requirement is different. This var is used to make HTML style better.
-	var/boxing_flag = TRUE
-
-/// use `ADD_EXP_REQ_FORMAT` macro for using this
-/datum/job_playtime_req/New(eligibility_count, job_playtime_requirement, combined_playtime_req=0, group_display_name="")
-	stored_eligibility_count_requirement = eligibility_count
-	stored_job_playtime_requirement = job_playtime_requirement
-	stored_playtime_requirement = combined_playtime_req
-	if(group_display_name)
-		stored_group_display_name = group_display_name
-
-	var/checakble_jobs = 0
-	for(var/each_job in stored_job_playtime_requirement)
-		if(stored_job_playtime_requirement[each_job])
-			checakble_jobs++
-	if(stored_eligibility_count_requirement > checakble_jobs)
-		stack_trace("Jobs that have timecheck are [checakble_jobs], but the required number is [stored_eligibility_count_requirement]")
-		stored_eligibility_count_requirement = checakble_jobs
-
-	if(!stored_eligibility_count_requirement && checakble_jobs > 0)
-		stack_trace("Eligibility count is 0, but playtime checkable jobs are [checakble_jobs] - setting to 1.")
-		stored_eligibility_count_requirement = 1
-
-	if(checakble_jobs == stored_eligibility_count_requirement)
-		boxing_flag = FALSE
-
-
-/datum/job_playtime_req/proc/check_eligibility(client/cli, returns_details=FALSE)
-	var/list/playrecord = cli.prefs.exp
-	var/list/result_description = INIT_EXP_LIST
-	var/calculated_playtime_requirement = stored_playtime_requirement
-	var/calculated_count = stored_eligibility_count_requirement
-
-	var/list/result_jobs = list()
-	for(var/each_job in stored_job_playtime_requirement)
-		calculated_playtime_requirement -= playrecord[each_job]
-		if(!stored_job_playtime_requirement[each_job])
-			continue
-		var/playtime_result = stored_job_playtime_requirement[each_job] - playrecord[each_job]
-		if(playtime_result <= 0) // Negative: You played this job enough
-			calculated_count--
-			if(returns_details && boxing_flag)
-				result_jobs += "-- <span style='text-decoration:line-through;'>Play [get_exp_format(playtime_result)] more as [each_job]</span>."
-			if(!calculated_count)
-				break
-		else if(returns_details) // Positive + detail flag: Builds what you need to play
-			result_jobs += "[boxing_flag ? "-- " : ""]Play [get_exp_format(playtime_result)] more as [each_job]."
-
-	if(calculated_count)
-		result_description[EXP_CHECK_PASS] = FALSE
-		if(returns_details)
-			if(boxing_flag)
-				result_description[EXP_CHECK_DESC] += "< Meet [calculated_count] more conditions below >"
-			result_description[EXP_CHECK_DESC] += result_jobs
-
-	if(calculated_playtime_requirement > 0)
-		result_description[EXP_CHECK_PASS] = FALSE
-		if(returns_details)
-			result_description[EXP_CHECK_DESC] += "Play [get_exp_format(calculated_playtime_requirement)] more [stored_group_display_name ? stored_group_display_name : "as any of [english_list(stored_job_playtime_requirement, and_text=", or ")]"]."
-
-	return result_description

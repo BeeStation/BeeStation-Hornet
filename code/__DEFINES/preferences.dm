@@ -101,14 +101,6 @@
 #define SEC_DEPT_SUPPLY "Supply"
 
 
-#define EXPJOB_TIMEREQ_LIVING_DEFAULT 5
-
-#define EXP_CHECK_PASS "pass"
-#define EXP_CHECK_DESC "desc"
-#define INIT_EXP_LIST list(EXP_CHECK_PASS=TRUE, EXP_CHECK_DESC=list())
-#define ADD_EXP_REQ_FORMAT(x...) exp_requirement_list += new /datum/job_playtime_req(x)
-
-
 // Playtime tracking system, see jobs_exp.dm
 #define EXP_TYPE_LIVING			"Living"
 #define EXP_TYPE_CREW			"Crew"
