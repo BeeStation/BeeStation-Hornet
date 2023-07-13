@@ -352,10 +352,12 @@
 		if (territory_claimed(get_area(target), user))
 			wait_time = 20 SECONDS
 	if(!instant || paint_mode == PAINT_LARGE_HORIZONTAL)
+		if(src in user.do_afters)
+			to_chat(user, "<span class='notice'>You're already swiping your card on [src]!</span>")
+			return
 		to_chat(user, "<span class='notice'>You start drawing a [temp] on the [target.name]...</span>") // hippie -- removed a weird tab that had no reason to be here
 		if(!do_after(user, wait_time, target = target))
 			return
-
 	if(length(text_buffer))
 		drawing = text_buffer[1]
 

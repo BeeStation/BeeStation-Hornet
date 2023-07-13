@@ -76,7 +76,10 @@
 		if(protected_accounts["[card.registered_account.account_id]"])
 			to_chat(user, "<span class='warning'>It appears that your funds are safe from draining!</span>")
 			return
-		if(do_after(user, 40, target = src))
+		if(src in user.do_afters)
+			to_chat(user, "<span class='notice'>You're already swiping your ID on [src]!</span>")
+			return
+		if(do_after(user, 40, target = src, add_item = W))
 			if(protected_accounts["[card.registered_account.account_id]"])
 				return
 			to_chat(user, "<span class='warning'>You quickly cash out your funds to a more secure banking location. Funds are safu.</span>") // This is a reference and not a typo
