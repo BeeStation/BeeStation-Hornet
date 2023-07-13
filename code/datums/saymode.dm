@@ -77,14 +77,16 @@
 		return TRUE
 	if(!length(message))
 		return TRUE
-	if(ishuman(user))
+	if(isstargazer(user))
+		// They're a stargazer, and therefore they'll talk on their own slime link.
 		var/mob/living/carbon/human/h_user = user
-		if(isstargazer(h_user))
-			var/datum/species/oozeling/stargazer/stargazer = h_user.dna.species
-			stargazer.slime_chat(h_user, message)
-			return
-	var/datum/weakref/owner_ref = GLOB.slime_links_by_mind[user.mind]
-	var/datum/species/oozeling/stargazer/stargazer = owner_ref?.resolve()
-	if(!stargazer || !istype(stargazer))
+		var/datum/species/oozeling/stargazer/stargazer = h_user.dna.species
+		stargazer.slime_chat(h_user, message)
+		return
+	// Alright, the user is not a stargazer, so instead we're gonna make sure they're a part of a slime link.
+	var/datum/weakref/link_owner_ref = GLOB.slime_links_by_mind[user.mind]
+	var/datum/species/oozeling/stargazer/owning_stargazer = link_owner_ref?.resolve()
+	if(!owning_stargazer || !istype(owning_stargazer))
+		// Nope, no slime link here. Continue normal say() behavior.
 		return TRUE
-	stargazer.slime_chat(user, message)
+	owning_stargazer.slime_chat(user, message)

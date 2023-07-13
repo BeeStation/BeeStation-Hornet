@@ -504,7 +504,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 
 //Species datums don't normally implement destroy, but JELLIES SUCK ASS OUT OF A STEEL STRAW
 /datum/species/oozeling/stargazer/Destroy()
-	for(var/datum/mind/link_to_clear as anything in linked_minds)
+	for(var/datum/mind/link_to_clear in linked_minds)
 		unlink_mind(link_to_clear)
 	linked_minds.Cut()
 	QDEL_NULL(project_thought)
@@ -528,7 +528,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 
 /datum/species/oozeling/stargazer/on_species_loss(mob/living/carbon/body)
 	..()
-	for(var/datum/mind/link_to_clear as anything in linked_minds)
+	for(var/datum/mind/link_to_clear in linked_minds)
 		unlink_mind(link_to_clear)
 	if(project_thought)
 		QDEL_NULL(project_thought)
@@ -539,7 +539,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 
 /datum/species/oozeling/stargazer/spec_death(gibbed, mob/living/carbon/human/body)
 	. = ..()
-	for(var/datum/mind/link_to_clear as anything in linked_minds)
+	for(var/datum/mind/link_to_clear in linked_minds)
 		unlink_mind(link_to_clear)
 
 /**
@@ -612,17 +612,17 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
  * Ensures a mind is a valid candidate for being slime linked.
  *
  * Arguments
- * * mind: The mind to validate for slime linking.
+ * * target_mind: The mind to validate for slime linking.
  * * initial_connection: Whether or not this is the first connection attempt (rather than validating to ensure a mind is still allowed to be in the slime link).
  * * silent: Whether to display messages when validating or not.
  * Returns TRUE if the mind is a valid candidate for being slime linked, FALSE otherwise.
  */
-/datum/species/oozeling/stargazer/proc/validate_mind(datum/mind/mind, initial_connection = FALSE, silent = FALSE)
+/datum/species/oozeling/stargazer/proc/validate_mind(datum/mind/target_mind, initial_connection = FALSE, silent = FALSE)
 	. = TRUE
-	if(QDELETED(mind?.current) || mind.current.stat == DEAD)
+	if(QDELETED(target_mind?.current) || target_mind.current.stat == DEAD)
 		return FALSE
-	if(initial_connection && GLOB.slime_links_by_mind[mind])
-		var/datum/weakref/other_link_ref = GLOB.slime_links_by_mind[mind]
+	if(initial_connection && GLOB.slime_links_by_mind[target_mind])
+		var/datum/weakref/other_link_ref = GLOB.slime_links_by_mind[target_mind]
 		var/datum/species/oozeling/stargazer/other_link = other_link_ref?.resolve()
 		// If they're already slime linked, then we can't link to them.
 		if(other_link && istype(other_link))
@@ -631,9 +631,9 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 		if(!silent)
 			var/mob/living/carbon/human/owner = slimelink_owner.resolve()
 			if(owner)
-				to_chat(mind.current, "<span class='danger'>[owner]'s no-good syndicate mind-slime is blocked by your protective headgear!</span>")
+				to_chat(target_mind.current, "<span class='danger'>[owner]'s no-good syndicate mind-slime is blocked by your protective headgear!</span>")
 		return FALSE
-	if(HAS_TRAIT_NOT_FROM(mind.current, TRAIT_MINDSHIELD, "nanites")) //mindshield implant, no dice
+	if(HAS_TRAIT_NOT_FROM(target_mind.current, TRAIT_MINDSHIELD, "nanites")) //mindshield implant, no dice
 		return FALSE
 
 /**
@@ -658,49 +658,49 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
  * Links the mind of another mob to this stargazer's slime link.
  *
  * Arguments
- * * mind: The mind to link to the slime link.
+ * * target_mind: The target mind to link to the slime link.
  * Returns TRUE if the mind was successfully linked, FALSE otherwise.
  */
-/datum/species/oozeling/stargazer/proc/link_mind(datum/mind/mind)
-	if(!validate_mind(mind, initial_connection = TRUE))
+/datum/species/oozeling/stargazer/proc/link_mind(datum/mind/target_mind)
+	if(!validate_mind(target_mind, initial_connection = TRUE))
 		return FALSE
 	var/mob/living/carbon/human/owner = slimelink_owner.resolve()
-	if(mind in linked_minds)
+	if(mind_to_link in linked_minds)
 		return FALSE
 	if(!owner)
 		return FALSE
-	linked_minds.Add(mind)
+	linked_minds.Add(target_mind)
 	var/datum/action/innate/linked_speech/action = new(src)
 	linked_actions.Add(action)
-	action.Grant(mind.current)
-	to_chat(mind.current, "<span class='notice'>You are now connected to [owner.real_name]'s Slime Link.</span>")
-	GLOB.slime_links_by_mind[mind] = WEAKREF(src)
-	register_mob_signals(mind.current, death = TRUE, mind_transfer = TRUE)
-	to_chat(mind.current, "<span class='big notice'>You can use :[MODE_KEY_SLIMELINK] or .[MODE_KEY_SLIMELINK] to talk over the slime link!</span>")
+	action.Grant(target_mind.current)
+	to_chat(target_mind.current, "<span class='notice'>You are now connected to [owner.real_name]'s Slime Link.</span>")
+	GLOB.slime_links_by_mind[target_mind] = WEAKREF(src)
+	register_mob_signals(target_mind.current, death = TRUE, mind_transfer = TRUE)
+	to_chat(target_mind.current, "<span class='big notice'>You can use :[MODE_KEY_SLIMELINK] or .[MODE_KEY_SLIMELINK] to talk over the slime link!</span>")
 	return TRUE
 
 /**
  * Unlinks a mind from this stargazer's slime link.
  *
  * Arguments
- * * mind: The mind to unlink from the slime link.
+ * * target_mind: The mind to unlink from the slime link.
  */
-/datum/species/oozeling/stargazer/proc/unlink_mind(datum/mind/mind)
-	var/link_id = linked_minds.Find(mind)
+/datum/species/oozeling/stargazer/proc/unlink_mind(datum/mind/target_mind)
+	var/link_id = linked_minds.Find(target_mind)
 	if(!link_id)
 		return
 	var/mob/living/carbon/human/owner = slimelink_owner.resolve()
 	var/datum/action/innate/linked_speech/action = linked_actions[link_id]
-	unregister_mob_signals(mind)
-	if(mind.current)
-		action.Remove(mind.current)
-		to_chat(mind.current, "<span class='notice'>You are no longer connected to [owner.real_name]'s Slime Link.</span>")
+	unregister_mob_signals(target_mind)
+	if(target_mind.current)
+		action.Remove(target_mind.current)
+		to_chat(target_mind.current, "<span class='notice'>You are no longer connected to [owner.real_name]'s Slime Link.</span>")
 	linked_actions -= action
-	linked_minds -= mind
-	if(GLOB.slime_links_by_mind[mind])
-		var/datum/weakref/owner_ref = GLOB.slime_links_by_mind[mind]
+	linked_minds -= target_mind
+	if(GLOB.slime_links_by_mind[target_mind])
+		var/datum/weakref/owner_ref = GLOB.slime_links_by_mind[target_mind]
 		if(owner_ref?.resolve() == src)
-			GLOB.slime_links_by_mind -= mind
+			GLOB.slime_links_by_mind -= target_mind
 
 /**
  * Sends a chat message over the slime link.
@@ -727,13 +727,13 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 	var/list/targets = linked_minds.Copy()
 	if(link_owner.mind)
 		targets += link_owner.mind
-	for(var/datum/mind/linked_mind as anything in targets)
+	for(var/datum/mind/linked_mind in targets)
 		if(linked_mind != link_owner.mind && !validate_mind(linked_mind, silent = TRUE))
 			unlink_mind(linked_mind)
 			continue
 		to_chat(linked_mind.current, msg)
 
-	for(var/mob/target as anything in GLOB.dead_mob_list)
+	for(var/mob/target in GLOB.dead_mob_list)
 		var/link = FOLLOW_LINK(target, user)
 		to_chat(target, "[link] [msg]")
 
@@ -784,7 +784,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 	log_directed_talk(human_owner, target, msg, LOG_SAY, "slime telepathy")
 	to_chat(target, "<span class='notice'>You hear an alien voice in your head... </span><font color=#008CA2>[msg]</font>")
 	to_chat(human_owner, "<span class='notice'>You telepathically said: \"[msg]\" to [target].</span>")
-	for(var/mob/dead as anything in GLOB.dead_mob_list)
+	for(var/mob/dead in GLOB.dead_mob_list)
 		var/follow_link_user = FOLLOW_LINK(dead, human_owner)
 		var/follow_link_target = FOLLOW_LINK(dead, target)
 		to_chat(dead, "[follow_link_user] <span class='name'>[human_owner]</span> <span class='alertalien'>Slime Telepathy --> </span> [follow_link_target] <span class='name'>[target]</span> <span class='noticealien'>[msg]</span>")
