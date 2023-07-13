@@ -17,14 +17,17 @@
 //checks client ban cache or DB ban table if ckey is banned from one or more roles
 //doesn't return any details, use only for if statements
 /proc/is_banned_from(player_ckey, list/roles)
-	if(!player_ckey)
+	if(!player_ckey || !length(roles))
 		return
+	player_ckey = ckey(player_ckey)
 	var/client/C = GLOB.directory[player_ckey]
 	if(C)
 		if(!C.ban_cache)
 			build_ban_cache(C)
 		if(islist(roles))
 			for(var/R in roles)
+				if(!R)
+					continue
 				if(check_role_ban(C.ban_cache, R))
 					return TRUE //they're banned from at least one role, no need to keep checking
 		else if(check_role_ban(C.ban_cache, roles))
