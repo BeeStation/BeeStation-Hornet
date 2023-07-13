@@ -1,14 +1,16 @@
 GLOBAL_LIST_EMPTY(exp_to_update)
 GLOBAL_PROTECT(exp_to_update)
 
-// Procs
+/// checks remaining playtime. if it returns any positive value, it means they should play those time. 0 means they're eligible.
 /datum/job/proc/required_playtime_remaining(client/C)
-	if(CONFIG_GET(flag/use_exp_playtime_check_module) && C)
-		if(!playtime_check) // job has no module - we consider this is qualifying
-			return 0 // I hate this proc. 0 is actually TRUE.
-		return !playtime_check.check_playtime(C, FALSE)
 	if(!C)
 		return 0
+	if(CONFIG_GET(flag/use_exp_playtime_check_module))
+		if(!playtime_check) // job has no module - we consider this is qualifying
+			return 0
+		return !playtime_check.check_playtime(C, FALSE)
+		// the proc only returns TRUE/FALSE, but returning FALSE works fine here
+		// This is because only 'preferences.dm' needs remaining playtime value, but other cases only need TRUE/FALSE
 	if(!CONFIG_GET(flag/use_exp_tracking))
 		return 0
 	if(!SSdbcore.Connect())
