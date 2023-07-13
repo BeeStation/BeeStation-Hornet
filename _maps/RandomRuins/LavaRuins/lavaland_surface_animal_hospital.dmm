@@ -63,7 +63,7 @@
 /obj/item/storage/bag/trash,
 /obj/item/trash/cheesie,
 /obj/item/reagent_containers/syringe/antiviral,
-/obj/item/bodybag,
+/obj/item/deployable/bodybag,
 /obj/item/reagent_containers/food/drinks/bottle/vodka,
 /turf/open/floor/grass{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
@@ -82,7 +82,7 @@
 "aC" = (
 /obj/structure/table/optable,
 /obj/item/paper{
-	info = "Doc - As a heads up, that matter bin we ordered forever ago for saving.. less alive pets' finally come in. Sad thing is I can't figure out how to work the smartfridge board back into organ storage, can you do it for me? The matter bin'll let it repair organs, we'll be way better going! -Ted";
+	default_raw_text = "Doc - As a heads up, that matter bin we ordered forever ago for saving.. less alive pets' finally come in. Sad thing is I can't figure out how to work the smartfridge board back into organ storage, can you do it for me? The matter bin'll let it repair organs, we'll be way better going! -Ted";
 	pixel_y = -3
 	},
 /turf/open/floor/plasteel/white,

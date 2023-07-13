@@ -320,11 +320,11 @@
 									background = "''" //"'background-color:#FFFFFF;'"
 									crimstat = "No Record."
 							dat += "<tr style=[background]>"
-							dat += text("<td><input type='hidden' value='[] [] [] []'></input><A href='?src=[REF(src)];choice=Browse Record;d_rec=[REF(R)]'>[]</a></td>", R.fields["name"], R.fields["id"], R.fields["rank"], R.fields["fingerprint"], R.fields["name"])
-							dat += text("<td>[]</td>", R.fields["id"])
-							dat += text("<td>[]</td>", R.fields["rank"])
-							dat += text("<td>[]</td>", R.fields["fingerprint"])
-							dat += text("<td>[]</td></tr>", crimstat)
+							dat += "<td><input type='hidden' value='[R.fields["name"]] [R.fields["id"]] [R.fields["rank"]] [R.fields["fingerprint"]]'></input><A href='?src=[REF(src)];choice=Browse Record;d_rec=[REF(R)]'>[R.fields["name"]]</a></td>"
+							dat += "<td>[R.fields["id"]]</td>"
+							dat += "<td>[R.fields["rank"]]</td>"
+							dat += "<td>[R.fields["fingerprint"]]</td>"
+							dat += "<td>[crimstat]</td></tr>"
 						dat += {"
 						</table></span>
 						<script type='text/javascript'>
@@ -423,10 +423,10 @@
 						dat += "<br>\nImportant Notes:<br>\n\t<A href='?src=[REF(src)];choice=Edit Field;field=notes'>&nbsp;[active2.fields["notes"]]&nbsp;</A>"
 						dat += "<br><br><font size='4'><b>Comments/Log</b></font><br>"
 						var/counter = 1
-						while(active2.fields[text("com_[]", counter)])
-							dat += (active2.fields[text("com_[]", counter)] + "<BR>")
-							if(active2.fields[text("com_[]", counter)] != "<B>Deleted</B>")
-								dat += text("<A href='?src=[REF(src)];choice=Delete Entry;del_c=[]'>Delete Entry</A><BR><BR>", counter)
+						while(active2.fields["com_[counter]"])
+							dat += (active2.fields["com_[counter]"] + "<BR>")
+							if(active2.fields["com_[counter]"] != "<B>Deleted</B>")
+								dat += "<A href='?src=[REF(src)];choice=Delete Entry;del_c=[counter]'>Delete Entry</A><BR><BR>"
 							counter++
 						dat += "<A href='?src=[REF(src)];choice=Add Entry'>Add Entry</A><br><br>"
 						dat += "<A href='?src=[REF(src)];choice=Delete Record (Security)'>Delete Record (Security Only)</A><br>"
@@ -553,19 +553,19 @@ What a mess.*/
 					GLOB.data_core.securityPrintCount++
 					playsound(loc, 'sound/items/poster_being_created.ogg', 100, 1)
 					sleep(30)
-					var/obj/item/paper/P = new /obj/item/paper( loc )
-					P.info = "<CENTER><B>Security Record - (SR-[GLOB.data_core.securityPrintCount])</B></CENTER><BR>"
+					var/obj/item/paper/printed_paper = new /obj/item/paper( loc )
+					var/final_paper_text = "<CENTER><B>Security Record - (SR-[GLOB.data_core.securityPrintCount])</B></CENTER><BR>"
 					if((istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1)))
-						P.info += text("Name: [] ID: []<BR>\nGender: []<BR>\nAge: []<BR>", active1.fields["name"], active1.fields["id"], active1.fields["gender"], active1.fields["age"])
-						P.info += "\nSpecies: [active1.fields["species"]]<BR>"
-						P.info += text("\nFingerprint: []<BR>\nPhysical Status: []<BR>\nMental Status: []<BR>", active1.fields["fingerprint"], active1.fields["p_stat"], active1.fields["m_stat"])
+						final_paper_text += "Name: [active1.fields["name"]] ID: [active1.fields["id"]]<BR>\nGender: [active1.fields["gender"]]<BR>\nAge: [active1.fields["age"]]<BR>"
+						final_paper_text += "\nSpecies: [active1.fields["species"]]<BR>"
+						final_paper_text += "\nFingerprint: [active1.fields["fingerprint"]]<BR>\nPhysical Status: [active1.fields["p_stat"]]<BR>\nMental Status: [active1.fields["m_stat"]]<BR>"
 					else
-						P.info += "<B>General Record Lost!</B><BR>"
+						final_paper_text += "<B>General Record Lost!</B><BR>"
 					if((istype(active2, /datum/data/record) && GLOB.data_core.security.Find(active2)))
-						P.info += text("<BR>\n<CENTER><B>Security Data</B></CENTER><BR>\nCriminal Status: []", active2.fields["criminal"])
+						final_paper_text += "<BR>\n<CENTER><B>Security Data</B></CENTER><BR>\nCriminal Status: [active2.fields["criminal"]]"
 
-						P.info += "<BR>\n<BR>\nCrimes:<BR>\n"
-						P.info +={"<table style="text-align:center;" border="1" cellspacing="0" width="100%">
+						final_paper_text += "<BR>\n<BR>\nCrimes:<BR>\n"
+						final_paper_text +={"<table style="text-align:center;" border="1" cellspacing="0" width="100%">
 <tr>
 <th>Crime</th>
 <th>Details</th>
@@ -573,23 +573,25 @@ What a mess.*/
 <th>Time Added</th>
 </tr>"}
 						for(var/datum/data/crime/c in active2.fields["crim"])
-							P.info += "<tr><td>[c.crimeName]</td>"
-							P.info += "<td>[c.crimeDetails]</td>"
-							P.info += "<td>[c.author]</td>"
-							P.info += "<td>[c.time]</td>"
-							P.info += "</tr>"
-						P.info += "</table>"
+							final_paper_text += "<tr><td>[c.crimeName]</td>"
+							final_paper_text += "<td>[c.crimeDetails]</td>"
+							final_paper_text += "<td>[c.author]</td>"
+							final_paper_text += "<td>[c.time]</td>"
+							final_paper_text += "</tr>"
+						final_paper_text += "</table>"
 
-						P.info += text("<BR>\nImportant Notes:<BR>\n\t[]<BR>\n<BR>\n<CENTER><B>Comments/Log</B></CENTER><BR>", active2.fields["notes"])
+						final_paper_text += "<BR>\nImportant Notes:<BR>\n\t[active2.fields["notes"]]<BR>\n<BR>\n<CENTER><B>Comments/Log</B></CENTER><BR>"
 						var/counter = 1
-						while(active2.fields[text("com_[]", counter)])
-							P.info += text("[]<BR>", active2.fields[text("com_[]", counter)])
+						while(active2.fields["com_[counter]"])
+							final_paper_text += "[active2.fields["com_[counter]"]]<BR>"
 							counter++
-						P.name = text("SR-[] '[]'", GLOB.data_core.securityPrintCount, active1.fields["name"])
+						printed_paper.name = "SR-[GLOB.data_core.securityPrintCount] '[active1.fields["name"]]'"
 					else
-						P.info += "<B>Security Record Lost!</B><BR>"
-						P.name = text("SR-[] '[]'", GLOB.data_core.securityPrintCount, "Record Lost")
-					P.info += "</TT>"
+						final_paper_text += "<B>Security Record Lost!</B><BR>"
+						printed_paper.name = "SR-[GLOB.data_core.securityPrintCount] 'Record Lost'"
+					final_paper_text += "</TT>"
+					printed_paper.add_raw_text(final_paper_text)
+					printed_paper.update_appearance()
 					printing = null
 			if("Print Poster")
 				if(!( printing ))
@@ -657,9 +659,9 @@ What a mess.*/
 				if(!canUseSecurityRecordsConsole(usr, t1, null, a2))
 					return
 				var/counter = 1
-				while(active2.fields[text("com_[]", counter)])
+				while(active2.fields["com_[counter]"])
 					counter++
-				active2.fields[text("com_[]", counter)] = text("Made by [] ([]) on [] [], []<BR>[]", src.authenticated, src.rank, station_time_timestamp(), time2text(world.realtime, "MMM DD"), GLOB.year_integer+YEAR_OFFSET, t1)
+				active2.fields["com_[counter]"] = "Made by [src.authenticated] ([src.rank]) on [station_time_timestamp()] [time2text(world.realtime, "MMM DD")], [GLOB.year_integer+YEAR_OFFSET]<BR>[t1]"
 
 			if("Delete Record (ALL)")
 				if(active1)
@@ -674,15 +676,15 @@ What a mess.*/
 					temp += "<a href='?src=[REF(src)];choice=Clear Screen'>No</a>"
 
 			if("Delete Entry")
-				if((istype(active2, /datum/data/record) && active2.fields[text("com_[]", href_list["del_c"])]))
-					active2.fields[text("com_[]", href_list["del_c"])] = "<B>Deleted</B>"
+				if((istype(active2, /datum/data/record) && active2.fields["com_[href_list["del_c"]]"]))
+					active2.fields["com_[href_list["del_c"]]"] = "<B>Deleted</B>"
 //RECORD CREATE
 			if("New Record (Security)")
 				if((istype(active1, /datum/data/record) && !( istype(active2, /datum/data/record) )))
 					var/datum/data/record/R = new /datum/data/record()
 					R.fields["name"] = active1.fields["name"]
 					R.fields["id"] = active1.fields["id"]
-					R.name = text("Security Record #[]", R.fields["id"])
+					R.name = "Security Record #[R.fields["id"]]"
 					R.fields["criminal"] = "None"
 					R.fields["crim"] = list()
 					R.fields["notes"] = "No notes."
@@ -713,7 +715,7 @@ What a mess.*/
 				var/datum/data/record/R = new /datum/data/record()
 				R.fields["name"] = active1.fields["name"]
 				R.fields["id"] = active1.fields["id"]
-				R.name = text("Security Record #[]", R.fields["id"])
+				R.name = "Security Record #[R.fields["id"]]"
 				R.fields["criminal"] = "None"
 				R.fields["crim"] = list()
 				R.fields["notes"] = "No notes."

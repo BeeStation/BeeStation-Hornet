@@ -73,7 +73,7 @@
 	var/problems = FALSE
 	if(iscarbon(host_mob))
 		var/mob/living/carbon/C = host_mob
-		if(length(C.get_traumas()))
+		if(length(C.get_traumas(special_method = TRUE)))
 			problems = TRUE
 	if(host_mob.getOrganLoss(ORGAN_SLOT_BRAIN) > 0)
 		problems = TRUE
@@ -83,7 +83,7 @@
 	host_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, -1)
 	if(iscarbon(host_mob) && prob(10))
 		var/mob/living/carbon/C = host_mob
-		C.cure_trauma_type(resilience = TRAUMA_RESILIENCE_BASIC)
+		C.cure_trauma_type(resilience = TRAUMA_RESILIENCE_BASIC, special_method = TRUE)
 
 /datum/nanite_program/blood_restoring
 	name = "Blood Regeneration"
@@ -150,9 +150,13 @@
 
 /datum/nanite_program/purging_advanced/check_conditions()
 	var/foreign_reagent = FALSE
+	if(!host_mob) 
+		return FALSE
+
 	for(var/datum/reagent/toxin/R in host_mob.reagents.reagent_list)
 		foreign_reagent = TRUE
 		break
+		
 	if(!host_mob.getToxLoss() && !foreign_reagent)
 		return FALSE
 	return ..()
@@ -195,7 +199,7 @@
 	var/problems = FALSE
 	if(iscarbon(host_mob))
 		var/mob/living/carbon/C = host_mob
-		if(length(C.get_traumas()))
+		if(length(C.get_traumas(special_method = TRUE)))
 			problems = TRUE
 	if(host_mob.getOrganLoss(ORGAN_SLOT_BRAIN) > 0)
 		problems = TRUE
@@ -205,7 +209,7 @@
 	host_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, -2)
 	if(iscarbon(host_mob) && prob(10))
 		var/mob/living/carbon/C = host_mob
-		C.cure_trauma_type(resilience = TRAUMA_RESILIENCE_LOBOTOMY)
+		C.cure_trauma_type(resilience = TRAUMA_RESILIENCE_LOBOTOMY, special_method = TRUE)
 
 /datum/nanite_program/defib
 	name = "Defibrillation"
@@ -253,4 +257,3 @@
 		log_game("[C] has been successfully defibrillated by nanites.")
 	else
 		playsound(C, 'sound/machines/defib_failed.ogg', 50, FALSE)
-

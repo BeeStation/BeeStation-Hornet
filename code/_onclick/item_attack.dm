@@ -2,18 +2,9 @@
 /obj/item/proc/melee_attack_chain(mob/user, atom/target, params)
 	if(!tool_attack_chain(user, target) && pre_attack(target, user, params))
 		// Return 1 in attackby() to prevent afterattack() effects (when safely moving items for example)
-		var/resolved
-		if(HAS_TRAIT(target, TRAIT_ONEWAYROAD))
-			resolved = user.attackby(src, user, params) // you just hit yourself
-		else
-			resolved = target.attackby(src, user, params)
+		var/resolved = target.attackby(src, user, params)
 		if(!resolved && target && !QDELETED(src))
-			 // 1: clicking something Adjacent
-			if(HAS_TRAIT(target, TRAIT_ONEWAYROAD))
-				afterattack(user, user, 1, params)
-			else
-				afterattack(target, user, 1, params)
-
+			afterattack(target, user, 1, params)
 
 //Checks if the item can work as a tool, calling the appropriate tool behavior on the target
 /obj/item/proc/tool_attack_chain(mob/user, atom/target)
@@ -69,10 +60,16 @@
 	SEND_SIGNAL(M, COMSIG_MOB_ITEM_ATTACKBY, user, src)
 
 	var/nonharmfulhit = FALSE
-	if(item_flags & NOBLUDGEON)
-		nonharmfulhit = TRUE
 
 	if(user.a_intent == INTENT_HELP && !(item_flags & ISWEAPON))
+		nonharmfulhit = TRUE
+	for(var/datum/surgery/S in M.surgeries)
+		if(S.failed_step)
+			nonharmfulhit = FALSE //No freebies, if you fail a surgery step you should hit your patient
+			S.failed_step = FALSE //In theory the hit should only happen once, upon failing the step
+			break
+
+	if(item_flags & NOBLUDGEON)
 		nonharmfulhit = TRUE
 
 	if(force && HAS_TRAIT(user, TRAIT_PACIFISM) && !nonharmfulhit)
@@ -147,7 +144,7 @@
 // Click parameters is the params string from byond Click() code, see that documentation.
 /obj/item/proc/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity_flag, click_parameters)
-	SEND_SIGNAL(user, COMSIG_MOB_ITEM_AFTERATTACK, target, user, proximity_flag, click_parameters)
+	SEND_SIGNAL(user, COMSIG_MOB_ITEM_AFTERATTACK, target, src, proximity_flag, click_parameters)
 
 
 /obj/item/proc/get_clamped_volume()

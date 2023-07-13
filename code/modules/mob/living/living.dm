@@ -19,7 +19,9 @@
 	GLOB.mob_living_list += src
 	initialize_footstep()
 	if (playable)
-		set_playable()	//announce to ghosts
+		addtimer(CALLBACK(src, PROC_REF(set_playable)), 2 SECONDS) //announce playable mobs to ghosts
+		// this should be delayed because some 'playable=TRUE' mobs are not actually playable because mob key is automatically given
+		// it prevents 'GLOB.poi_list' being glitched. without this, it will show xeno(or some mobs) twice in orbit panel.
 
 /mob/living/proc/initialize_footstep()
 	AddComponent(/datum/component/footstep)
@@ -49,40 +51,6 @@
 	GLOB.mob_living_list -= src
 	QDEL_LIST(diseases)
 	return ..()
-
-/mob/living/onZImpact(turf/T, levels)
-	if(!isgroundlessturf(T))
-		ZImpactDamage(T, levels)
-		if(pulling)
-			stop_pulling()
-		if(buckled)
-			buckled.unbuckle_mob(src)
-	return ..()
-
-// The goal here:
-// 1 level: Your legs are mildly injured. Probably a bit slow
-// 2 levels: Your legs are broken, but you are still conscious
-// 3+ levels: You ded/near ded
-/mob/living/proc/get_distributed_zimpact_damage(levels)
-	return (levels * 15) ** 1.4
-
-/mob/living/proc/ZImpactDamage(turf/T, levels)
-	apply_general_zimpact_damage(T, levels)
-
-/mob/living/proc/apply_general_zimpact_damage(turf/T, levels)
-	visible_message("<span class='danger'>[src] falls [levels] level\s into [T] with a sickening noise!</span>")
-	var/amount_total = get_distributed_zimpact_damage(levels)
-	var/total_damage_percent_left = 1
-	var/obj/item/bodypart/left_leg = get_bodypart(BODY_ZONE_L_LEG)
-	var/obj/item/bodypart/right_leg = get_bodypart(BODY_ZONE_R_LEG)
-	if(left_leg && !left_leg.disabled)
-		total_damage_percent_left -= 0.45
-		apply_damage(amount_total * 0.45, BRUTE, BODY_ZONE_L_LEG)
-	if(right_leg && !right_leg.disabled)
-		total_damage_percent_left -= 0.45
-		apply_damage(amount_total * 0.45, BRUTE, BODY_ZONE_R_LEG)
-	adjustBruteLoss(amount_total * total_damage_percent_left)
-	Knockdown(levels * 50)
 
 /mob/living/proc/can_bumpslam()
 	REMOVE_MOB_PROPERTY(src, PROP_CANTBUMPSLAM, src.type)
@@ -385,26 +353,26 @@
 	M.setDir(get_dir(M, src))
 	switch(M.dir)
 		if(NORTH)
-			animate(M, pixel_x = 0, pixel_y = offset, 3)
+			animate(M, pixel_x = M.base_pixel_x, pixel_y = M.base_pixel_y + offset, 3)
 		if(SOUTH)
-			animate(M, pixel_x = 0, pixel_y = -offset, 3)
+			animate(M, pixel_x = M.base_pixel_x, pixel_y = M.base_pixel_y - offset, 3)
 		if(EAST)
 			if(M.lying == 270) //update the dragged dude's direction if we've turned
 				M.lying = 90
 				M.update_transform() //force a transformation update, otherwise it'll take a few ticks for update_mobility() to do so
 				M.lying_prev = M.lying
-			animate(M, pixel_x = offset, pixel_y = 0, 3)
+			animate(M, pixel_x = M.base_pixel_x + offset, pixel_y = M.base_pixel_y, 3)
 		if(WEST)
 			if(M.lying == 90)
 				M.lying = 270
 				M.update_transform()
 				M.lying_prev = M.lying
-			animate(M, pixel_x = -offset, pixel_y = 0, 3)
+			animate(M, pixel_x = M.base_pixel_x - offset, pixel_y = M.base_pixel_y, 3)
 
 /mob/living/proc/reset_pull_offsets(mob/living/M, override)
 	if(!override && M.buckled)
 		return
-	animate(M, pixel_x = 0, pixel_y = 0, 1)
+	animate(M, pixel_x = M.base_pixel_x, pixel_y = M.base_pixel_y, 1)
 
 //mob verbs are a lot faster than object verbs
 //for more info on why this is not atom/pull, see examinate() in mob.dm
@@ -598,6 +566,50 @@
 			for(var/S in mind.spell_list)
 				var/obj/effect/proc_holder/spell/spell = S
 				spell.updateButtonIcon()
+
+/*
+ * Heals up the [target] to up to [heal_to] of the main damage types.
+ * EX: If heal_to is 50, and they have 150 brute damage, they will heal 100 brute (up to 50 brute damage)
+ *
+ * If the target is dead, also revives them and heals their organs / restores blood.
+ * If we have a [revive_message], play a visible message if the revive was successful.
+ *
+ * Arguments
+ * * heal_to - the health threshold to heal the mob up to for each of the main damage types.
+ * * revive_message - if provided, a visible message to show on a successful revive.
+ *
+ * Returns TRUE if the mob is alive afterwards, or FALSE if they're still dead (revive failed).
+ */
+/mob/living/proc/heal_and_revive(heal_to = 50, revive_message)
+
+	// Heal their brute and burn up to the threshold we're looking for
+	var/brute_to_heal = heal_to - getBruteLoss()
+	var/burn_to_heal = heal_to - getFireLoss()
+	var/oxy_to_heal = heal_to - getOxyLoss()
+	var/tox_to_heal = heal_to - getToxLoss()
+	if(brute_to_heal < 0)
+		adjustBruteLoss(brute_to_heal, FALSE)
+	if(burn_to_heal < 0)
+		adjustFireLoss(burn_to_heal, FALSE)
+	if(oxy_to_heal < 0)
+		adjustOxyLoss(oxy_to_heal, FALSE)
+	if(tox_to_heal < 0)
+		adjustToxLoss(tox_to_heal, FALSE, TRUE)
+
+	// Run updatehealth once to set health for the revival check
+	updatehealth()
+
+	// We've given them a decent heal.
+	// If they happen to be dead too, try to revive them - if possible.
+	if(stat == DEAD && can_be_revived())
+		// If the revive is successful, show our revival message (if present).
+		if(revive(FALSE, FALSE, 10) && revive_message)
+			visible_message(revive_message)
+
+	// Finally update health again after we're all done
+	updatehealth()
+
+	return stat != DEAD
 
 /mob/living/proc/remove_CC(should_update_mobility = TRUE)
 	SetStun(0, FALSE)
@@ -862,11 +874,11 @@
 	if(anchored || (buckled && buckled.anchored))
 		fixed = 1
 	if(on && !(movement_type & FLOATING) && !fixed)
-		animate(src, pixel_y = 2, time = 10, loop = -1, flags = ANIMATION_RELATIVE)
-		animate(pixel_y = -2, time = 10, loop = -1, flags = ANIMATION_RELATIVE)
+		animate(src, pixel_y = base_pixel_y + 2, time = 10, loop = -1, flags = ANIMATION_RELATIVE)
+		animate(pixel_y = base_pixel_y - 2, time = 10, loop = -1, flags = ANIMATION_RELATIVE)
 		setMovetype(movement_type | FLOATING)
 	else if(((!on || fixed) && (movement_type & FLOATING)))
-		animate(src, pixel_y = get_standard_pixel_y_offset(lying), time = 10)
+		animate(src, pixel_y = base_pixel_y + body_position_pixel_y_offset, time = 1 SECONDS)
 		setMovetype(movement_type & ~FLOATING)
 
 // The src mob is trying to strip an item from someone
@@ -932,8 +944,8 @@
 	var/amplitude = min(4, (jitteriness/100) + 1)
 	var/pixel_x_diff = rand(-amplitude, amplitude)
 	var/pixel_y_diff = rand(-amplitude/3, amplitude/3)
-	var/final_pixel_x = get_standard_pixel_x_offset(lying)
-	var/final_pixel_y = get_standard_pixel_y_offset(lying)
+	var/final_pixel_x = base_pixel_x + body_position_pixel_x_offset
+	var/final_pixel_y = base_pixel_y + body_position_pixel_y_offset
 	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff , time = 2, loop = 6)
 	animate(pixel_x = final_pixel_x , pixel_y = final_pixel_y , time = 2)
 	setMovetype(movement_type & ~FLOATING) // If we were without gravity, the bouncing animation got stopped, so we make sure to restart it in next life().
@@ -949,13 +961,6 @@
 		var/turf/heat_turf = get_turf(src)
 		loc_temp = heat_turf.return_temperature()
 	return loc_temp
-
-/mob/living/proc/get_standard_pixel_x_offset(lying = 0)
-	return initial(pixel_x)
-
-/mob/living/proc/get_standard_pixel_y_offset(lying = 0)
-	return initial(pixel_y)
-
 
 /mob/living/proc/can_track(mob/living/user)
 	//basic fast checks go first. When overriding this proc, I recommend calling ..() at the end.
@@ -1216,7 +1221,6 @@
 	if(!(mobility_flags & MOBILITY_UI))
 		unset_machine()
 	density = !lying
-	var/changed = lying == lying_prev
 	if(lying)
 		if(!lying_prev)
 			fall(!canstand_involuntary)
@@ -1226,9 +1230,6 @@
 		if(layer == LYING_MOB_LAYER)
 			layer = initial(layer)
 	update_transform()
-	if(changed)
-		if(client)
-			client.move_delay = world.time + movement_delay()
 	lying_prev = lying
 
 	// Movespeed mods based on arms/legs quantity
@@ -1416,136 +1417,3 @@
 		gender = ngender
 		return TRUE
 	return FALSE
-
-#define LOOKING_DIRECTION_UP 1
-#define LOOKING_DIRECTION_NONE 0
-#define LOOKING_DIRECTION_DOWN -1
-
-/// The current direction the player is ACTUALLY looking, regardless of intent.
-/mob/living/var/looking_direction = LOOKING_DIRECTION_NONE
-/// The current direction the player is trying to look.
-/mob/living/var/attempt_looking_direction = LOOKING_DIRECTION_NONE
-
-///Checks if the user is incapacitated and cannot look up/down
-/mob/living/proc/can_look_direction()
-	return !(incapacitated(ignore_restraints = TRUE))
-
-/// Tell the mob to attempt to look this direction until it's set back to NONE
-/mob/living/proc/set_attempted_looking_direction(direction)
-	if(attempt_looking_direction == direction && direction != LOOKING_DIRECTION_NONE) // we are already trying to look this way, reset
-		set_attempted_looking_direction(LOOKING_DIRECTION_NONE)
-		return
-	attempt_looking_direction = direction
-	set_look_direction(attempt_looking_direction)
-
-/// Actually sets the looking direction, but it won't try to stay that way if we move out of range
-/mob/living/proc/set_look_direction(direction, automatic = FALSE)
-	// Handle none/failure
-	if(direction == LOOKING_DIRECTION_NONE || !can_look_direction(direction))
-		looking_direction = LOOKING_DIRECTION_NONE
-		reset_perspective()
-		return
-	// Automatic attempts should not trigger the cooldown
-	if(!automatic)
-		changeNext_move(CLICK_CD_LOOK_DIRECTION)
-	looking_direction = direction
-	var/look_str = direction == LOOKING_DIRECTION_UP ? "up" : "down"
-	if(update_looking_move(automatic))
-		visible_message("<span class='notice'>[src] looks [look_str].</span>", "<span class='notice'>You look [look_str].</span>")
-
-/// Called by /mob/living/Move()
-/mob/living/proc/update_looking_move(automatic = FALSE)
-	// Try looking the attempted direction now that we've moved
-	if(attempt_looking_direction != LOOKING_DIRECTION_NONE && looking_direction == LOOKING_DIRECTION_NONE)
-		set_look_direction(attempt_looking_direction, automatic = TRUE) // this won't loop recursively because looking_direction cannot be NONE above
-	// We can't try looking nowhere!
-	if(looking_direction == LOOKING_DIRECTION_NONE)
-		return FALSE
-	// Something changed, stop looking
-	if(!can_look_direction(looking_direction))
-		set_look_direction(LOOKING_DIRECTION_NONE)
-	// Update perspective
-	var/turf/base = find_visible_hole_in_direction(looking_direction)
-	if(!isturf(base))
-		if(!automatic)
-			to_chat(src, "<span class='warning'>You can't see through the [looking_direction == LOOKING_DIRECTION_UP ? "ceiling above" : "floor below"] you.</span>")
-		set_look_direction(LOOKING_DIRECTION_NONE)
-		return FALSE
-	reset_perspective(base)
-	return TRUE
-
-/mob/living/verb/look_up_short()
-	set name = "Look Up"
-	set category = "IC"
-	// you pressed the verb while holding a keybind, unlock!
-	attempt_looking_direction = LOOKING_DIRECTION_NONE
-	if(looking_direction == LOOKING_DIRECTION_UP)
-		set_look_direction(LOOKING_DIRECTION_NONE)
-		return
-	look_up()
-
-/**
- * look_up Changes the perspective of the mob to any openspace turf above the mob
- * lock: If it should continue to try looking even if there is no seethrough turf
- */
-/mob/living/proc/look_up(lock = FALSE)
-	if(lock)
-		set_attempted_looking_direction(LOOKING_DIRECTION_UP)
-	else
-		set_look_direction(LOOKING_DIRECTION_UP)
-
-/mob/living/verb/look_down_short()
-	set name = "Look Down"
-	set category = "IC"
-	// you pressed the verb while holding a keybind, unlock!
-	attempt_looking_direction = LOOKING_DIRECTION_NONE
-	if(looking_direction == LOOKING_DIRECTION_DOWN)
-		set_look_direction(LOOKING_DIRECTION_NONE)
-		return
-	look_down()
-
-/**
- * look_down Changes the perspective of the mob to any openspace turf below the mob
- * lock: If it should continue to try looking even if there is no seethrough turf
- */
-/mob/living/proc/look_down(lock = FALSE)
-	if(lock)
-		set_attempted_looking_direction(LOOKING_DIRECTION_DOWN)
-	else
-		set_look_direction(LOOKING_DIRECTION_DOWN)
-
-/// Helper, resets from looking up or down, and unlocks the view.
-/mob/living/proc/look_reset()
-	set_attempted_looking_direction(LOOKING_DIRECTION_NONE)
-
-/mob/living/proc/find_visible_hole_in_direction(direction)
-	// Our current z-level turf
-	var/turf/turf_base = get_turf(src)
-	// The target z-level turf
-	var/turf/turf_other = get_step_multiz(turf_base, direction == LOOKING_DIRECTION_UP ? UP : DOWN)
-	if(!turf_other) // There is nothing above/below
-		return FALSE
-	// This turf is the one we are looking through
-	var/turf/seethrough_turf = direction == LOOKING_DIRECTION_UP ? turf_other : turf_base
-	// The turf we should end up looking at.
-	var/turf/end_turf = turf_other
-	if(istransparentturf(seethrough_turf)) //There is no turf we can look through directly above/below us, look for nearby turfs
-		return end_turf
-	// Turf in front of you to try to look through before anything else
-	var/turf/seethrough_turf_front = get_step(seethrough_turf, dir)
-	if(istransparentturf(seethrough_turf_front))
-		return direction == LOOKING_DIRECTION_UP ? seethrough_turf_front : get_step_multiz(seethrough_turf_front, DOWN)
-	var/target_z = direction == LOOKING_DIRECTION_UP ? turf_other.z : z
-	var/list/checkturfs = block(locate(x-1,y-1,target_z),locate(x+1,y+1,target_z))-turf_base-turf_other
-	for(var/turf/checkhole in checkturfs)
-		if(istransparentturf(checkhole))
-			seethrough_turf = checkhole
-			end_turf = direction == LOOKING_DIRECTION_UP ? checkhole : get_step_multiz(checkhole, DOWN)
-			break
-	if(!istransparentturf(seethrough_turf))
-		return FALSE
-	return end_turf
-
-#undef LOOKING_DIRECTION_UP
-#undef LOOKING_DIRECTION_NONE
-#undef LOOKING_DIRECTION_DOWN

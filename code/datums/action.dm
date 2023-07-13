@@ -284,13 +284,13 @@
 		H.toggle_welding_screen(owner)
 
 /datum/action/item_action/toggle_headphones
-	name = "Toggle Headphones"
+	name = "Open Music Menu"
 	desc = "UNTZ UNTZ UNTZ"
 
 /datum/action/item_action/toggle_headphones/Trigger()
 	var/obj/item/clothing/ears/headphones/H = target
 	if(istype(H))
-		H.toggle(owner)
+		H.interact(owner)
 
 /datum/action/item_action/toggle_unfriendly_fire
 	name = "Toggle Friendly Fire \[ON\]"
@@ -351,6 +351,9 @@
 	name = "Toggle Hardsuit Locator HUD"
 	icon_icon = 'icons/mob/actions.dmi'
 	button_icon_state = "toggle-hud"
+
+/datum/action/item_action/toggle_beacon_hud/explorer
+	button_icon_state = "toggle-hud-explo"
 
 /datum/action/item_action/toggle_beacon_frequency
 	name = "Toggle Hardsuit Locator Frequency"

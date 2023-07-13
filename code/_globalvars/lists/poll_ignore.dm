@@ -10,6 +10,8 @@
 #define POLL_IGNORE_EXPERIMENTAL_CLONE "experimental_clone"
 #define POLL_IGNORE_GOLEM "golem"
 #define POLL_IGNORE_HOLOPARASITE "holoparasite"
+#define POLL_IGNORE_HOLYCARP "holy_carp"
+#define POLL_IGNORE_HOLYUNDEAD "holy_undead"
 #define POLL_IGNORE_IMAGINARYFRIEND "imaginary_friend"
 #define POLL_IGNORE_PAI "pai"
 #define POLL_IGNORE_POSIBRAIN "posibrain"
@@ -33,6 +35,8 @@ GLOBAL_LIST_INIT(poll_ignore_desc, list(
 	POLL_IGNORE_EXPERIMENTAL_CLONE = "Experimental clone",
 	POLL_IGNORE_GOLEM = "Golems",
 	POLL_IGNORE_HOLOPARASITE = "Holoparasite",
+	POLL_IGNORE_HOLYCARP = "Holy Carp",
+	POLL_IGNORE_HOLYUNDEAD = "Holy Undead",
 	POLL_IGNORE_IMAGINARYFRIEND = "Imaginary Friend",
 	POLL_IGNORE_PAI = "Personal AI",
 	POLL_IGNORE_POSIBRAIN = "Positronic brain",

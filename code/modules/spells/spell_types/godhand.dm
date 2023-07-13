@@ -9,7 +9,7 @@
 	righthand_file = 'icons/mob/inhands/misc/touchspell_righthand.dmi'
 	icon_state = "syndballoon"
 	item_state = null
-	item_flags = NEEDS_PERMIT | ABSTRACT | DROPDEL
+	item_flags = NEEDS_PERMIT | ABSTRACT | DROPDEL | ISWEAPON
 	w_class = WEIGHT_CLASS_HUGE
 	force = 0
 	throwforce = 0
@@ -31,14 +31,25 @@
 
 /obj/item/melee/touch_attack/afterattack(atom/target, mob/user, proximity)
 	. = ..()
-	//Use the spell
-	attached_spell.spell_used = TRUE
-	//Do effects
-	user.say(catchphrase, forced = "spell")
-	playsound(get_turf(user), on_use_sound,50,1)
-	charges--
-	if(charges <= 0)
-		attached_spell.use_charge(user)
+	if(!proximity)
+		return
+	if(charges > 0)
+		use_charge(user)
+
+
+/obj/item/melee/touch_attack/proc/use_charge(mob/living/user, whisper = FALSE)
+	if(QDELETED(src))
+		return
+
+	if(catchphrase)
+		if(whisper)
+			user.say("#[catchphrase]", forced = "spell")
+		else
+			user.say(catchphrase, forced = "spell")
+	if(!isnull(on_use_sound))
+		playsound(get_turf(user), on_use_sound, 50, TRUE)
+	if(--charges <= 0)
+		attached_spell.use_charge()
 		qdel(src)
 
 /obj/item/melee/touch_attack/Destroy()

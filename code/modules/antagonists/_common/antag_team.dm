@@ -60,3 +60,16 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 
 
 	return "<div class='panel redborder'>[report.Join("<br>")]</div>"
+
+/// gets team name for orbit category. Reasoning is described in each subtype
+/datum/team/proc/get_team_name()
+	if(name == "team")
+		stack_trace("[type] has no team name")
+		return "Unnamed team"
+	return name
+
+/datum/team/proc/get_member_names()
+	. = list()
+	for(var/M in members)
+		var/datum/mind/member = M
+		. |= member.name

@@ -174,7 +174,7 @@
 	if(thrown_thing)
 		visible_message("<span class='danger'>[src] throws [thrown_thing].</span>", \
 						"<span class='danger'>You throw [thrown_thing].</span>")
-		log_message("has thrown [I]", LOG_ATTACK)
+		log_message("has thrown [thrown_thing]", LOG_ATTACK)
 		newtonian_move(get_dir(target, src))
 		thrown_thing.safe_throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
 		return TRUE
@@ -197,6 +197,13 @@
 			return
 		SEND_SIGNAL(src, COMSIG_CARBON_EMBED_RIP, I, L)
 		return
+
+	if(href_list["show_paper_note"])
+		var/obj/item/paper/paper_note = locate(href_list["show_paper_note"])
+		if(!paper_note)
+			return
+
+		paper_note.show_through_camera(usr)
 
 /mob/living/carbon/fall(forced)
     loc.handle_fall(src, forced)//it's loc so it doesn't call the mob's handle_fall which does nothing
@@ -349,12 +356,6 @@
 		else
 			dropItemToGround(I)
 			return
-
-/mob/living/carbon/get_standard_pixel_y_offset(lying = 0)
-	if(lying)
-		return -6
-	else
-		return initial(pixel_y)
 
 /mob/living/carbon/proc/accident(obj/item/I)
 	if(!I || (I.item_flags & ABSTRACT) || HAS_TRAIT(I, TRAIT_NODROP))
@@ -762,6 +763,21 @@
 	update_hud_handcuffed()
 	update_mobility()
 
+/mob/living/carbon/heal_and_revive(heal_to = 75, revive_message)
+	// We can't heal them if they're missing a heart
+	if(needs_heart() && !getorganslot(ORGAN_SLOT_HEART))
+		return FALSE
+
+	// We can't heal them if they're missing their lungs
+	if(!HAS_TRAIT(src, TRAIT_NOBREATH) && !getorganslot(ORGAN_SLOT_LUNGS))
+		return FALSE
+
+	// And we can't heal them if they're missing their liver
+	if(!getorganslot(ORGAN_SLOT_LIVER))
+		return FALSE
+
+	return ..()
+
 /mob/living/carbon/fully_heal(admin_revive = FALSE)
 	if(reagents)
 		reagents.clear_reagents()
@@ -861,6 +877,8 @@
 	VV_DROPDOWN_OPTION(VV_HK_MARTIAL_ART, "Give Martial Arts")
 	VV_DROPDOWN_OPTION(VV_HK_GIVE_TRAUMA, "Give Brain Trauma")
 	VV_DROPDOWN_OPTION(VV_HK_CURE_TRAUMA, "Cure Brain Traumas")
+	VV_DROPDOWN_OPTION(VV_HK_GIVE_MUTATION, "Give Mutation")
+	VV_DROPDOWN_OPTION(VV_HK_REMOVE_MUTATION, "Remove Mutation")
 
 /mob/living/carbon/vv_do_topic(list/href_list)
 	. = ..()
@@ -964,6 +982,52 @@
 			return
 		if(result)
 			new result(src, TRUE)
+
+	if(href_list[VV_HK_GIVE_MUTATION] && check_rights(R_FUN|R_DEBUG))
+		if(!dna)
+			to_chat(usr, "Mob doesn't have DNA")
+			return
+		if(HAS_TRAIT(src, TRAIT_RADIMMUNE) || HAS_TRAIT(src, TRAIT_BADDNA))
+			to_chat(usr, "Mob cannot mutate")
+			return
+		var/list/mutations = subtypesof(/datum/mutation)
+		var/result = input(usr, "Choose the mutation to give", "Mutate") as null|anything in mutations
+		if(!usr)
+			return
+		if(!result)
+			return
+		if(QDELETED(src))
+			to_chat(usr, "Mob doesn't exist anymore")
+			return
+		var/datum/mutation/MT = result
+		if(dna.mutation_in_sequence(MT))
+			dna.activate_mutation(MT)
+			log_admin("[key_name(usr)] has activated the mutation [initial(MT.name)] in [key_name(src)]")
+			message_admins("<span class='notice'>[key_name_admin(usr)] has activated the mutation [initial(MT.name)] in [key_name_admin(src)].</span>")
+		else
+			dna.add_mutation(MT, MUT_EXTRA)
+			log_admin("[key_name(usr)] has mutated [key_name(src)] with [initial(MT.name)]")
+			message_admins("<span class='notice'>[key_name_admin(usr)] has mutated [key_name_admin(src)] with [initial(MT.name)].</span>")
+
+	if(href_list[VV_HK_REMOVE_MUTATION] && check_rights(R_FUN|R_DEBUG))
+		if(length(dna.mutations) <= 0)
+			to_chat(usr, "Mob does not have any mutations!")
+			return
+		if(!dna)
+			to_chat(usr, "Mob doesn't have DNA")
+			return
+		var/result = input(usr, "Choose the mutation to remove", "Un-mutate") as null|anything in dna.mutations
+		if(!usr)
+			return
+		if(QDELETED(src))
+			to_chat(usr, "Mob doesn't exist anymore")
+			return
+		if(!result)
+			return
+		var/datum/mutation/MT = result
+		dna.remove_mutation(MT.type)
+		log_admin("[key_name(usr)] has removed [MT.name] from [key_name(src)]")
+		message_admins("<span class='notice'>[key_name_admin(usr)] has removed [MT.name] from [key_name_admin(src)].</span>")
 
 /mob/living/carbon/has_mouth()
 	var/obj/item/bodypart/head/head = get_bodypart(BODY_ZONE_HEAD)

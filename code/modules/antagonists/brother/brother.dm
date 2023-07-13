@@ -2,6 +2,7 @@
 	name = "Brother"
 	antagpanel_category = "Brother"
 	job_rank = ROLE_BROTHER
+	ui_name = "AntagInfoBrother"
 	var/special_role = ROLE_BROTHER
 	hijack_speed = 0.5
 	var/datum/team/brother_team/team
@@ -36,6 +37,13 @@
 /datum/antagonist/brother/antag_panel_data()
 	return "Conspirators : [get_brother_names()]"
 
+/datum/antagonist/brother/ui_static_data(mob/user)
+	var/list/data = list()
+	data["antag_name"] = name
+	data["objectives"] = get_objectives()
+	data["brothers"] = get_brother_names()
+	return data
+
 /datum/antagonist/brother/proc/get_brother_names()
 	var/list/brothers = team.members - owner
 	var/brother_text = ""
@@ -66,7 +74,11 @@
 /datum/antagonist/brother/proc/finalize_brother()
 	var/obj/item/implant/bloodbrother/I = new /obj/item/implant/bloodbrother()
 	I.implant(owner.current, null, TRUE, TRUE)
-	I.implant_colour = team.team_id <= 9 ? COLOR_LIST_BLOOD_BROTHERS[team.team_id] : "#ff0000"
+	if(team.team_id <= 9)
+		I.implant_colour = COLOR_LIST_BLOOD_BROTHERS[team.team_id]
+	else
+		I.implant_colour = "#ff0000"
+		stack_trace("Blood brother teams exist more than 9 teams, and colour preset is ran out")
 	for(var/datum/mind/M in team.members) // Link the implants of all team members
 		var/obj/item/implant/bloodbrother/T = locate() in M.current.implants
 		I.link_implant(T)

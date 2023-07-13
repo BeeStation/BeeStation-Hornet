@@ -137,7 +137,7 @@
 		if(HAS_TRAIT(L, TRAIT_SKITTISH))
 			. += "<span class='notice'>Ctrl-Shift-click [src] to jump inside.</span>"
 
-/obj/structure/closet/CanAllowThrough(atom/movable/mover, turf/target)
+/obj/structure/closet/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(wall_mounted)
 		return TRUE
@@ -212,6 +212,8 @@
 		if(L.anchored || L.buckled || L.incorporeal_move || L.has_buckled_mobs())
 			return FALSE
 		if(L.mob_size > MOB_SIZE_TINY) // Tiny mobs are treated as items.
+			if(!mob_storage_capacity)
+				return FALSE
 			if(horizontal && L.density)
 				return FALSE
 			if(L.mob_size > max_mob_size)
@@ -521,7 +523,7 @@
 				open()
 			else
 				req_access = list()
-				req_access += pick(get_all_accesses())
+				req_access |= pick(get_all_accesses())
 
 /obj/structure/closet/contents_explosion(severity, target)
 	for(var/thing in contents)

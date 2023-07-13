@@ -80,7 +80,7 @@
 
 	var/list/modifiers = params2list(params)
 	if(modifiers["shift"] && modifiers["middle"])
-		ShiftMiddleClickOn(A)
+		ShiftMiddleClickOn(A, params)
 		return
 	if(modifiers["shift"] && modifiers["ctrl"])
 		CtrlShiftClickOn(A)
@@ -191,10 +191,11 @@
 		for(var/atom/target in checking)  // will filter out nulls
 			if(closed[target] || isarea(target))  // avoid infinity situations
 				continue
-			closed[target] = TRUE
 			if(isturf(target) || isturf(target.loc) || (target in direct_access)) //Directly accessible atoms
 				if(Adjacent(target) || (tool && CheckToolReach(src, target, tool.reach))) //Adjacent or reaching attacks
 					return TRUE
+
+			closed[target] = TRUE
 
 			if (!target.loc)
 				continue
@@ -364,8 +365,8 @@
 	A.CtrlShiftClick(src)
 	return
 
-/mob/proc/ShiftMiddleClickOn(atom/A)
-	src.pointed(A)
+/mob/proc/ShiftMiddleClickOn(atom/A, params)
+	src.pointed(A, params)
 	return
 
 /atom/proc/CtrlShiftClick(mob/user)

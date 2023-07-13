@@ -142,7 +142,7 @@
 			if(JOB_NAME_CLOWN)
 				heirloom_type = /obj/item/bikehorn/golden
 			if(JOB_NAME_MIME)
-				heirloom_type = /obj/item/reagent_containers/food/snacks/baguette/mime
+				heirloom_type = /obj/item/food/baguette/mime
 			if(JOB_NAME_JANITOR)
 				heirloom_type = pick(/obj/item/mop, /obj/item/clothing/suit/caution, /obj/item/reagent_containers/glass/bucket)
 			if(JOB_NAME_COOK)
@@ -185,11 +185,11 @@
 				heirloom_type = pick(subtypesof(/obj/item/toy/prize)) //look at this nerd
 			//Medical
 			if(JOB_NAME_CHIEFMEDICALOFFICER)
-				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/bodybag)
+				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/deployable/bodybag)
 			if(JOB_NAME_MEDICALDOCTOR)
-				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/bodybag)
+				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/deployable/bodybag)
 			if(JOB_NAME_PARAMEDIC)
-				heirloom_type = pick(/obj/item/bodybag)
+				heirloom_type = pick(/obj/item/deployable/bodybag)
 			if(JOB_NAME_CHEMIST)
 				heirloom_type = /obj/item/reagent_containers/glass/chem_heirloom
 			if(JOB_NAME_VIROLOGIST)
@@ -495,7 +495,7 @@
 		dumb_thing = FALSE //only once per life
 		SEND_SIGNAL(quirk_target, COMSIG_ADD_MOOD_EVENT, "anxiety_dumb", /datum/mood_event/anxiety_dumb)
 		if(prob(1))
-			new/obj/item/reagent_containers/food/snacks/spaghetti/pastatomato(get_turf(H)) //now that's what I call spaghetti code
+			new/obj/item/food/spaghetti/pastatomato(get_turf(H)) //now that's what I call spaghetti code
 
 //If you want to make some kind of junkie variant, just extend this quirk.
 /datum/quirk/junkie
