@@ -67,11 +67,9 @@
 		JOB_NAME_ASSISTANT = 120,
 		JOB_NAME_JANITOR = 120,
 		ROLE_TRAITOR = 120), combined_playtime_req = 600)
-	playtime_check.insert_playtime_req(QUALIFY_TYPE_ACCEPT_FULL, 2, list( // example other jobs, or role
-		JOB_NAME_ASSISTANT = 120,
-		JOB_NAME_ASSISTANT = 120,
-		JOB_NAME_JANITOR = 120,
-		ROLE_TRAITOR = 120), combined_playtime_req = 600)
+
+
+
 
 /datum/outfit/job/chief_medical_officer
 	name = JOB_NAME_CHIEFMEDICALOFFICER

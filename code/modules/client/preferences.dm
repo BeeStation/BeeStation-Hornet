@@ -977,7 +977,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						HTML += "<font color=red>[rank]</font></td><td><font color=red> \[ [TOOLTIP_WRAPPER("DETAIL", 350, english_list(playtime_check_result[EXP_CHECK_DESC], and_text="<br>", comma_text="<br>"))] \] </font></td></tr>"
 						continue
 			else // legacy playtime check
-				var/required_playtime_remaining = job.check_playtime(user.client)
+				var/required_playtime_remaining = job.required_playtime_remaining(user.client)
 				if(required_playtime_remaining)
 					HTML += "<font color=red>[rank]</font></td><td><font color=red> \[ [get_exp_format(required_playtime_remaining)] as [job.get_exp_req_type()] \] </font></td></tr>"
 					continue

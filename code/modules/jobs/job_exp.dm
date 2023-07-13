@@ -2,11 +2,11 @@ GLOBAL_LIST_EMPTY(exp_to_update)
 GLOBAL_PROTECT(exp_to_update)
 
 // Procs
-/datum/job/proc/check_playtime(client/C)
+/datum/job/proc/required_playtime_remaining(client/C)
 	if(CONFIG_GET(flag/use_exp_playtime_check_module) && C)
 		if(!playtime_check) // job has no module - we consider this is qualifying
-			return TRUE
-		return playtime_check.check_playtime(C, FALSE)
+			return 0 // I hate this proc. 0 is actually TRUE.
+		return !playtime_check.check_playtime(C, FALSE)
 	if(!C)
 		return 0
 	if(!CONFIG_GET(flag/use_exp_tracking))

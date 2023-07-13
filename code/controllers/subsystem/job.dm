@@ -134,7 +134,7 @@ SUBSYSTEM_DEF(job)
 			return FALSE
 		if(!job.player_old_enough(player.client))
 			return FALSE
-		if(!job.check_playtime(player.client))
+		if(job.required_playtime_remaining(player.client))
 			return FALSE
 		var/position_limit = job.total_positions
 		if(!latejoin)
@@ -166,7 +166,7 @@ SUBSYSTEM_DEF(job)
 		if(!job.player_old_enough(player.client))
 			JobDebug("FOC player not old enough, Player: [player]")
 			continue
-		if(!job.check_playtime(player.client))
+		if(job.required_playtime_remaining(player.client))
 			JobDebug("FOC player not enough xp, Player: [player]")
 			continue
 		if(flag && (!(flag in player.client.prefs.be_special)))
@@ -205,7 +205,7 @@ SUBSYSTEM_DEF(job)
 			JobDebug("GRJ player not old enough, Player: [player]")
 			continue
 
-		if(!job.check_playtime(player.client))
+		if(job.required_playtime_remaining(player.client))
 			JobDebug("GRJ player not enough xp, Player: [player]")
 			continue
 
@@ -386,7 +386,7 @@ SUBSYSTEM_DEF(job)
 					JobDebug("DO player not old enough, Player: [player], Job:[job.title]")
 					continue
 
-				if(!job.check_playtime(player.client))
+				if(job.required_playtime_remaining(player.client))
 					JobDebug("DO player not enough xp, Player: [player], Job:[job.title]")
 					continue
 
@@ -611,7 +611,7 @@ SUBSYSTEM_DEF(job)
 			if(!job.player_old_enough(player.client))
 				young++
 				continue
-			if(!job.check_playtime(player.client))
+			if(job.required_playtime_remaining(player.client))
 				young++
 				continue
 			switch(player.client.prefs.active_character.job_preferences[job.title])
