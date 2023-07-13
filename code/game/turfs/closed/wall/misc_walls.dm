@@ -128,3 +128,6 @@
 		qdel(interloper)
 
 	qdel(AM)
+
+/turf/closed/indestructible/cordon/is_holy()
+	return TRUE // The blessed cordon

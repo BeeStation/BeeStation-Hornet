@@ -256,15 +256,15 @@ GLOBAL_VAR(clockcult_eminence)
 	if(span)
 		hierophant_message += "</span>"
 	for(var/datum/mind/mind in GLOB.all_servants_of_ratvar)
-		send_hierophant_message_to(mind, hierophant_message)
+		send_hierophant_message_to(sender, mind, hierophant_message)
 	for(var/mob/dead/observer/O in GLOB.dead_mob_list)
 		if(istype(sender))
-			to_chat(O, "[FOLLOW_LINK(O, sender)] [hierophant_message]")
+			to_chat(O, "[FOLLOW_LINK(O, sender)] [hierophant_message]", type = MESSAGE_TYPE_RADIO)
 		else
-			to_chat(O, hierophant_message)
+			to_chat(O, hierophant_message, type = MESSAGE_TYPE_RADIO)
 	sender.log_talk(msg, LOG_SAY, tag="clock cult")
 
-/proc/send_hierophant_message_to(datum/mind/mind, hierophant_message)
+/proc/send_hierophant_message_to(mob/living/sender, datum/mind/mind, hierophant_message)
 	var/mob/M = mind.current
 	if(!isliving(M) || QDELETED(M))
 		return
@@ -273,4 +273,4 @@ GLOBAL_VAR(clockcult_eminence)
 			if(pick(20))
 				to_chat(M, "<span class='nezbere'>You hear the cogs whispering to you, but cannot understand their words.</span>")
 			return
-	to_chat(M, hierophant_message)
+	to_chat(M, hierophant_message, type = MESSAGE_TYPE_RADIO, avoid_highlighting = M == sender)
