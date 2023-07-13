@@ -931,9 +931,23 @@ GENE SCANNER
 		return
 	buffer = C.dna.mutation_index
 	to_chat(user, "<span class='notice'>Subject [C.name]'s DNA sequence has been saved to buffer.</span>")
-	if(LAZYLEN(buffer))
-		for(var/A in buffer)
-			to_chat(user, "<span class='notice'>[get_display_name(A)]</span>")
+
+	var/list/full_list_mutations = list()
+	for(var/each in buffer) // get inherent mutations first
+		full_list_mutations[each] = FALSE
+	for(var/datum/mutation/each_mutation in C.dna.mutations)
+		if(each_mutation.type in buffer) // active inherent mutation
+			full_list_mutations[each_mutation.type] = "Activated"
+		else // active artificial mutation
+			full_list_mutations[each_mutation.type] = "Injected"
+	for(var/datum/mutation/each_mutation in C.dna.temporary_mutations)
+		full_list_mutations[each_mutation.type] = "Temporary"
+
+	for(var/A in full_list_mutations)
+		to_chat(user, "\t<span class='notice'>[get_display_name(A, full_list_mutations[A])]</span>")
+	to_chat(user, "\t<span class='info'>Genetic Stability: [C.dna.stability]%.</span>")
+	if(C.has_status_effect(STATUS_EFFECT_LING_TRANSFORMATION))
+		to_chat(user, "\t<span class='info'>Subject's DNA appears to be in an unstable state.</span>")
 
 
 /obj/item/sequence_scanner/proc/display_sequence(mob/living/user)
@@ -968,14 +982,17 @@ GENE SCANNER
 	icon_state = initial(icon_state)
 	ready = TRUE
 
-/obj/item/sequence_scanner/proc/get_display_name(mutation)
+/obj/item/sequence_scanner/proc/get_display_name(mutation, active_detail=FALSE)
 	var/datum/mutation/HM = GET_INITIALIZED_MUTATION(mutation)
 	if(!HM)
 		return "ERROR"
 	if(discovered[mutation])
-		return  "[HM.name] ([HM.alias])"
+		return wrap_active_colour("[HM.name] ([HM.alias])", active_detail)
 	else
-		return HM.alias
+		return wrap_active_colour(HM.alias, active_detail)
+
+/obj/item/sequence_scanner/proc/wrap_active_colour(text, active_detail=FALSE)
+	return active_detail ? "<span class='green'>[text] - [active_detail]</span>" : text
 
 /obj/item/extrapolator
 	name = "virus extrapolator"

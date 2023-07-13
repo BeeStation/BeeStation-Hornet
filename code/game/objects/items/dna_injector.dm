@@ -25,6 +25,7 @@
 		var/log_msg = "[key_name(user)] injected [key_name(M)] with the [name]"
 		for(var/HM in remove_mutations)
 			M.dna.remove_mutation(HM)
+			log_msg += "(mutation removal: [english_list(remove_mutations)])"
 		for(var/HM in add_mutations)
 			if(HM == RACEMUT)
 				message_admins("[ADMIN_LOOKUPFLW(user)] injected [key_name_admin(M)] with the [name] <span class='danger'>(MONKEY)</span>")
@@ -480,6 +481,7 @@
 	name = "\improper DNA injector (Anti-Medieval)"
 	remove_mutations = list(MEDIEVAL)
 
+// note: this is not functional. mutation is not added to temporary_mutation list - it becomes permanent.
 /obj/item/dnainjector/timed
 	var/duration = 600
 
