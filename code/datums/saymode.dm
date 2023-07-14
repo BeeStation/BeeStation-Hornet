@@ -73,9 +73,7 @@
 
 /datum/saymode/slime_link/handle_message(mob/living/user, message, datum/language/_language)
 	. = FALSE
-	if(!user || !user.mind)
-		return TRUE
-	if(!length(message))
+	if(!istype(user) || !user?.mind || !message || !length(message))
 		return TRUE
 	if(isstargazer(user))
 		// They're a stargazer, and therefore they'll talk on their own slime link.
