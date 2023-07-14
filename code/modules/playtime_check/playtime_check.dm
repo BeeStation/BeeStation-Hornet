@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY(playtime_check_list)
+
 /datum/playtime_check
 	var/playtime_check_id
 	var/list/denies_by_any_qualify
@@ -16,6 +18,9 @@
 /datum/playtime_check/New(check_owner)
 	. = ..()
 	playtime_check_id = check_owner
+	if(!playtime_check_id)
+		CRASH("playtime check module didn't take an id")
+	GLOB.playtime_check_list[playtime_check_id] = src
 
 /datum/playtime_check/proc/check_playtime(client/C, returns_details=FALSE)
 	// I know these look stupid, but you need to get the information why you can't play this job
