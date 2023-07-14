@@ -88,12 +88,28 @@ SUBSYSTEM_DEF(job)
 		if(!job.map_check())	//Even though we initialize before mapping, this is fine because the config is loaded at new
 			testing("Removed [job.type] due to map config")
 			continue
+
+		if(job.job_bitflags & JOB_BITFLAG_GIMMICK) // if a gimmick job has a slot, set it to selectable
+			if(job.total_positions || job.spawn_positions)
+				job.job_bitflags |= JOB_BITFLAG_SELECTABLE
+
 		occupations += job
+		// Key is job path. gimmick job path is prioritised if it exists.
 		name_occupations[job.title] = job
 		type_occupations[J] = job
 
 	return 1
 
+/datum/controller/subsystem/job/proc/AnnounceGimmickJobs(target=null)
+	var/list/available_gimmicks = list()
+	for(var/datum/job/J in occupations)
+		if((J.job_bitflags & JOB_BITFLAG_SELECTABLE) && (J.job_bitflags & JOB_BITFLAG_GIMMICK) && (J.current_positions < J.total_positions))
+			available_gimmicks += J.get_title()
+	if(length(available_gimmicks))
+		if(target) // send the message to a single person
+			to_chat(target, "<span class='boldnotice'>Available gimmick jobs: [english_list(available_gimmicks)]</span>")
+		else // if target is not specified, send the message to everyone
+			to_chat(world, "<span class='boldnotice'>Available gimmick jobs: [english_list(available_gimmicks)]</span>")
 
 /datum/controller/subsystem/job/proc/GetJob(rank)
 	if(!rank)
