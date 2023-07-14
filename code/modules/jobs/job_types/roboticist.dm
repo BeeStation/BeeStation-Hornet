@@ -1,8 +1,7 @@
 /datum/job/roboticist
 	title = JOB_NAME_ROBOTICIST
-	jtitle = JOB_TITLE_ROBOTICIST
 	job_bitflags = JOB_BITFLAG_SELECTABLE
-	department_head = list(JOB_TITLE_RESEARCHDIRECTOR)
+	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	total_positions = 2
 	spawn_positions = 2
 	selection_color = "#ffeeff"

@@ -1,8 +1,7 @@
 /datum/job/paramedic
 	title = JOB_NAME_PARAMEDIC
-	jtitle = JOB_TITLE_PARAMEDIC
 	job_bitflags = JOB_BITFLAG_SELECTABLE
-	department_head = list(JOB_TITLE_CHIEFMEDICALOFFICER)
+	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	faction = "station"
 	total_positions = 2
 	spawn_positions = 1

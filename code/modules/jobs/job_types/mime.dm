@@ -1,8 +1,7 @@
 /datum/job/mime
 	title = JOB_NAME_MIME
-	jtitle = JOB_TITLE_MIME
 	job_bitflags = JOB_BITFLAG_SELECTABLE
-	department_head = list(JOB_TITLE_HEADOFPERSONNEL)
+	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1

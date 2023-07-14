@@ -104,7 +104,7 @@ SUBSYSTEM_DEF(job)
 	var/list/available_gimmicks = list()
 	for(var/datum/job/J in occupations)
 		if((J.job_bitflags & JOB_BITFLAG_SELECTABLE) && (J.job_bitflags & JOB_BITFLAG_GIMMICK) && (J.current_positions < J.total_positions))
-			available_gimmicks += J.get_title()
+			available_gimmicks += J.title
 	if(length(available_gimmicks))
 		if(target) // send the message to a single person
 			to_chat(target, "<span class='boldnotice'>Available gimmick jobs: [english_list(available_gimmicks)]</span>")
@@ -409,11 +409,12 @@ SUBSYSTEM_DEF(job)
 					JobDebug("DO incompatible with antagonist role, Player: [player], Job:[job.title]")
 					continue
 
+
 				// If the player wants that job on this level, then try give it to him.
-				if(player.client.prefs.active_character.job_preferences[job.title] == level || (job.gimmick && player.client.prefs.active_character.job_preferences["Gimmick"] == level))
+				if(player.client.prefs.active_character.job_preferences[job.title] == level)
 					// If the job isn't filled
 					if((job.current_positions < job.spawn_positions) || job.spawn_positions == -1)
-						JobDebug("DO pass, Player: [player], Level:[level], Job:[job.title]")
+						JobDebug("DO pass, Player: [player], Level:[level], Job:[title]")
 						AssignRole(player, job.title)
 						unassigned -= player
 						break
@@ -540,7 +541,7 @@ SUBSYSTEM_DEF(job)
 				M.client.holder.auto_deadmin()
 			else
 				handle_auto_deadmin_roles(M.client, rank)
-		to_chat(M, "<b>As the [rank] you answer directly to [job.supervisors]. Special circumstances may change this.</b>")
+		to_chat(M, "<b>As the [displaying_job_title] you answer directly to [job.notify_your_supervisor()]. Special circumstances may change this.</b>")
 		job.radio_help_message(M)
 		if(job.req_admin_notify)
 			to_chat(M, "<b>You are playing a job that is important for Game Progression. If you have to disconnect, please notify the admins via adminhelp.</b>")

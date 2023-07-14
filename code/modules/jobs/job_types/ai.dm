@@ -1,9 +1,7 @@
 /datum/job/ai
 	title = JOB_NAME_AI
-	flag = AI_JF
 	job_bitflags = JOB_BITFLAG_SELECTABLE | JOB_BITFLAG_MANAGE_LOCKED
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SILICON
-	department_flag = ENGSEC
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#ccffcc"

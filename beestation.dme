@@ -2544,7 +2544,6 @@
 #include "code\modules\jobs\job_types\detective.dm"
 #include "code\modules\jobs\job_types\exploration_team.dm"
 #include "code\modules\jobs\job_types\geneticist.dm"
-#include "code\modules\jobs\job_types\gimmick.dm"
 #include "code\modules\jobs\job_types\head_of_personnel.dm"
 #include "code\modules\jobs\job_types\head_of_security.dm"
 #include "code\modules\jobs\job_types\janitor.dm"

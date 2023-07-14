@@ -1,9 +1,8 @@
 /datum/job/head_of_security
 	title = JOB_NAME_HEADOFSECURITY
-	jtitle = JOB_TITLE_HEADOFSECURITY
 	job_bitflags = JOB_BITFLAG_SELECTABLE | JOB_BITFLAG_MANAGE_LOCKED
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD|PREFTOGGLE_DEADMIN_POSITION_SECURITY
-	department_head = list(JOB_TITLE_CAPTAIN)
+	department_head = list(JOB_NAME_CAPTAIN)
 	head_announce = list(RADIO_CHANNEL_SECURITY)
 	faction = "Station"
 	total_positions = 1

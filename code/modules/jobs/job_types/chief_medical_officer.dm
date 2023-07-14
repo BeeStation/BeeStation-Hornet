@@ -1,8 +1,7 @@
 /datum/job/chief_medical_officer
 	title = JOB_NAME_CHIEFMEDICALOFFICER
-	jtitle = JOB_TITLE_CHIEFMEDICALOFFICER
 	job_bitflags = JOB_BITFLAG_SELECTABLE | JOB_BITFLAG_MANAGE_LOCKED
-	department_head = list(JOB_TITLE_CAPTAIN)
+	department_head = list(JOB_NAME_CAPTAIN)
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD
 	head_announce = list(RADIO_CHANNEL_MEDICAL)
 	faction = "Station"

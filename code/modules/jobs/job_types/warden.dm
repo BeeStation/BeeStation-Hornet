@@ -1,10 +1,8 @@
 /datum/job/warden
 	title = JOB_NAME_WARDEN
-	jtitle = JOB_TITLE_WARDEN
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SECURITY
-	department_head = list(JOB_TITLE_HEADOFSECURITY)
-	supervisors = "the head of security"
+	department_head = list(JOB_NAME_HEADOFSECURITY)
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#ffeeee"

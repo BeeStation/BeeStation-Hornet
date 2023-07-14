@@ -3,7 +3,6 @@ Assistant
 */
 /datum/job/assistant
 	title = JOB_NAME_ASSISTANT
-	jtitle = JOB_TITLE_ASSISTANT
 	job_bitflags = JOB_BITFLAG_SELECTABLE | JOB_BITFLAG_MANAGE_LOCKED
 	faction = "Station"
 	total_positions = 5

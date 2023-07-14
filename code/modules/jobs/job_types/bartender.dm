@@ -1,8 +1,7 @@
 /datum/job/bartender
 	title = JOB_NAME_BARTENDER
-	jtitle = JOB_TITLE_BARTENDER
 	job_bitflags = JOB_BITFLAG_SELECTABLE
-	department_head = list(JOB_TITLE_HEADOFPERSONNEL)
+	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1

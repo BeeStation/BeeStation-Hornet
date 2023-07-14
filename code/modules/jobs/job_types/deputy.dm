@@ -1,8 +1,7 @@
 /datum/job/deputy
 	title = JOB_NAME_DEPUTY
-	jtitle = JOB_TITLE_DEPUTY
 	job_bitflags = JOB_BITFLAG_MANAGE_LOCKED
-	department_head = list(JOB_TITLE_HEADOFSECURITY)
+	department_head = list(JOB_NAME_HEADOFSECURITY)
 	faction = "Station"
 	total_positions = 0
 	spawn_positions = 0

@@ -1,8 +1,7 @@
 /datum/job/virologist
 	title = JOB_NAME_VIROLOGIST
-	jtitle = JOB_TITLE_VIROLOGIST
 	job_bitflags = JOB_BITFLAG_SELECTABLE
-	department_head = list(JOB_TITLE_CHIEFMEDICALOFFICER)
+	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	faction = "Station"
 	total_positions = 2
 	spawn_positions = 2

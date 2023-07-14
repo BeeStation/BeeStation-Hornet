@@ -1,8 +1,7 @@
 /datum/job/exploration_crew
 	title = JOB_NAME_EXPLORATIONCREW
-	jtitle = JOB_TITLE_EXPLORATIONCREW
 	job_bitflags = JOB_BITFLAG_SELECTABLE
-	department_head = list(JOB_TITLE_RESEARCHDIRECTOR)
+	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	faction = "Station"
 	total_positions = 3
 	spawn_positions = 3

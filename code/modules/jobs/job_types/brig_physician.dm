@@ -1,8 +1,7 @@
 /datum/job/brig_physician
 	title = JOB_NAME_BRIGPHYSICIAN
-	jtitle = JOB_TITLE_BRIGPHYSICIAN
 	job_bitflags = JOB_BITFLAG_SELECTABLE | JOB_BITFLAG_MANAGE_LOCKED
-	department_head = list(JOB_TITLE_CHIEFMEDICALOFFICER)
+	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1

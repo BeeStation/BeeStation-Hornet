@@ -1,8 +1,8 @@
 /datum/job/clown/stage_magician
 	g_jkey = JOB_KEY_STAGEMAGICIAN
-	g_jtitle = JOB_TITLE_STAGEMAGICIAN
+	g_jtitle = JOB_NAME_STAGEMAGICIAN
 	job_bitflags = JOB_BITFLAG_GIMMICK
-	department_head = list(JOB_TITLE_HEADOFPERSONNEL)
+	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	total_positions = 0
 	spawn_positions = 0
 

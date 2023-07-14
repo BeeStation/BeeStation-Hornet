@@ -1,8 +1,7 @@
 /datum/job/janitor
 	title = JOB_NAME_JANITOR
-	jtitle = JOB_TITLE_JANITOR
 	job_bitflags = JOB_BITFLAG_SELECTABLE
-	department_head = list(JOB_TITLE_HEADOFPERSONNEL)
+	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	faction = "station"
 	total_positions = 2
 	spawn_positions = 1
