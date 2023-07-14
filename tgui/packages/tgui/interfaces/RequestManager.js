@@ -72,6 +72,7 @@ const displayTypeMap = {
   'request_centcom': 'CENTCOM',
   'request_syndicate': 'SYNDICATE',
   'request_nuke': 'NUKE CODE',
+  'request_fax': 'FAX',
 };
 
 const RequestType = (props) => {

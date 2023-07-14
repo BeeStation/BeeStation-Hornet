@@ -376,7 +376,7 @@
 		return
 
 	// Handle writing items.
-	var/writing_stats = attacking_item.get_writing_implement_details()
+	var/writing_stats = istype(attacking_item) ? attacking_item.get_writing_implement_details() : null
 
 	if(!writing_stats)
 		ui_interact(user)
@@ -479,7 +479,7 @@
 		if(clipboard.pen)
 			holding = clipboard.pen
 
-	data["held_item_details"] = holding?.get_writing_implement_details()
+	data["held_item_details"] = istype(holding) ? holding.get_writing_implement_details() : null
 
 	// If the paper is on an unwritable noticeboard, clear the held item details so it's read-only.
 	if(istype(loc, /obj/structure/noticeboard))
