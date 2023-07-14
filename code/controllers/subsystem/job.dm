@@ -19,12 +19,12 @@ SUBSYSTEM_DEF(job)
 	var/spare_id_safe_code = ""
 
 	var/list/chain_of_command = list(
-		"Captain" = 1,				//Not used yet but captain is first in chain_of_command
-		"Head of Personnel" = 2,
-		"Research Director" = 3,
-		"Chief Engineer" = 4,
-		"Chief Medical Officer" = 5,
-		"Head of Security" = 6)
+		JOB_NAME_CAPTAIN = 1,				//Not used yet but captain is first in chain_of_command
+		JOB_NAME_HEADOFPERSONNEL = 2,
+		JOB_NAME_RESEARCHDIRECTOR = 3,
+		JOB_NAME_CHIEFENGINEER = 4,
+		JOB_NAME_CHIEFMEDICALOFFICER = 5,
+		JOB_NAME_HEADOFSECURITY = 6)
 
 	//Crew Objective stuff
 	var/list/crew_obj_list = list()

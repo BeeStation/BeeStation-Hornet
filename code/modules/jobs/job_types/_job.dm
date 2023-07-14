@@ -1,6 +1,8 @@
 /datum/job
 	///The name of the job , used for preferences, bans and more. Make sure you know what you're doing before changing this.
 	var/title = "NOPE"
+	/// literally job bitflags. see DEFINE\jobs.dm for bitflags
+	var/job_bitflags = NONE
 
 	///Job access. The use of minimal_access or access is determined by a config setting: config.jobs_have_minimal_access
 	var/list/minimal_access = list()		//Useful for servers which prefer to only have access given to the places a job absolutely needs (Larger server population)
@@ -13,11 +15,7 @@
 	var/list/head_announce = null
 
 	///Bitflags for the job
-	var/flag = NONE //Deprecated //Except not really, still used throughout the codebase
 	var/auto_deadmin_role_flags = NONE
-
-	///Mostly deprecated, but only used in pref job savefiles
-	var/department_flag = NONE
 
 	///Players will be allowed to spawn in as jobs that are set to "Station"
 	var/faction = "None"
@@ -30,9 +28,6 @@
 
 	///How many players have this job
 	var/current_positions = 0
-
-	///Supervisors, who this person answers to directly
-	var/supervisors = ""
 
 	///Selection screen color
 	var/selection_color = "#ffffff"
@@ -72,8 +67,6 @@
 
 	// If this job's mail goodies compete with generic goodies.
 	var/exclusive_mail_goodies = FALSE
-
-	var/gimmick = FALSE //least hacky way i could think of for this
 
 	///Bitfield of departments this job belongs with
 	var/departments = NONE
@@ -182,6 +175,19 @@
 /datum/job/proc/special_check_latejoin(client/C)
 	return TRUE
 
+/datum/job/proc/refresh_job_bitflags()
+	spawn_positions = total_positions
+	if(total_positions)
+		if(!(job_bitflags & JOB_BITFLAG_SELECTABLE))
+			job_bitflags |= JOB_BITFLAG_SELECTABLE
+	else
+		if(job_bitflags & JOB_BITFLAG_GIMMICK)
+			job_bitflags &= ~JOB_BITFLAG_SELECTABLE
+
+/// returns TRUE if a job is gimmick. simple proc.
+/datum/job/proc/is_gimmick()
+	return job_bitflags & JOB_BITFLAG_GIMMICK
+
 /datum/job/proc/GetAntagRep()
 	if(CONFIG_GET(flag/equal_job_weight))
 		var/rep_value = CONFIG_GET(number/default_rep_value)
@@ -268,6 +274,10 @@
 
 /datum/job/proc/radio_help_message(mob/M)
 	to_chat(M, "<b>Prefix your message with :h to speak on your department's radio. To see other prefixes, look closely at your headset.</b>")
+
+/// returns the value of `department_head`. some jobs overrided the proc to output different texts (i.e. AI "your laws")
+/datum/job/proc/notify_your_supervisor()
+	return length(department_head) ? lowertext(english_list(department_head)) : "nobody"
 
 /datum/outfit/job
 	name = "Standard Gear"
@@ -367,7 +377,7 @@
 	var/datum/symptom/guaranteed
 	var/sickrisk = 1
 	var/unfunny = 4
-	if((flag == CLOWN) || (flag == MIME))
+	if((title == JOB_NAME_CLOWN) || (title == JOB_NAME_MIME))
 		unfunny = 0
 	if(islizard(H) || iscatperson(H))
 		sickrisk += 0.5 //these races like eating diseased mice, ew
