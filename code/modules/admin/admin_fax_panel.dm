@@ -2,7 +2,7 @@
  * If client have R_ADMIN flag, opens an admin fax panel.
  */
 /client/proc/fax_panel()
-	set name = "Fax Manager"
+	set name = "Send Fax Message"
 	set category = "Admin"
 
 	if(!check_rights(R_ADMIN))

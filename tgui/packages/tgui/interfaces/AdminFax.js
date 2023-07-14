@@ -4,7 +4,7 @@ import { Window } from '../layouts';
 
 export const AdminFax = (props, context) => {
   return (
-    <Window title="Admin Fax Manager" width={500} height={800} theme="admin">
+    <Window title="Send Fax Message" width={500} height={800} theme="admin">
       <Window.Content scrollable>
         <FaxMainPanel />
       </Window.Content>
@@ -28,9 +28,9 @@ export const FaxMainPanel = (props, context) => {
     data.stamps.unshift('None');
   }
   return (
-    <div class="faxmenu">
+    <>
       <Section
-        title="Fax Manager"
+        title="Fax Message"
         buttons={
           <Box>
             <Button
@@ -108,7 +108,7 @@ export const FaxMainPanel = (props, context) => {
           <Dropdown
             width="100%"
             options={data.stamps}
-            selected="Choose stamp(optional)"
+            selected="Choose Stamp (optional)"
             onSelected={(v) => {
               if (v === 'None') {
                 setStamp('');
@@ -195,6 +195,6 @@ export const FaxMainPanel = (props, context) => {
           </Button>
         </Box>
       </Section>
-    </div>
+    </>
   );
 };
