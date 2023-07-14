@@ -3,6 +3,7 @@
 	desc = "A cheap single use autoinjector that injects the user with DNA."
 	icon = 'icons/obj/syringe.dmi'
 	icon_state = "dnainjector"
+	base_icon_state = "dnainjector"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	throw_speed = 3
@@ -75,7 +76,7 @@
 		to_chat(user, "<span class='notice'>It appears that [target] does not have compatible DNA.</span>")
 
 	used = TRUE
-	icon_state = "dnainjector0"
+	icon_state = "[base_icon_state]0"
 	desc += " This one is spent, you better recycle it!"
 
 

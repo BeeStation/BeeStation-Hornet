@@ -638,6 +638,8 @@
 				I.remove_mutations += HM.type // this should accept a typepath, not an actual type reference
 				I.name = "DNA nullifier"
 				I.desc = "Removes a specific mutation on injection."
+				I.icon_state = "dnanullifier"
+				I.base_icon_state = "dnanullifier"
 				// printing nullifiers a lot wouldn't be good, so it has some cooldown
 				if(scanner_operational())
 					I.damage_coeff = connected_scanner.damage_coeff
