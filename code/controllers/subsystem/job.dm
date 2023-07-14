@@ -19,12 +19,12 @@ SUBSYSTEM_DEF(job)
 	var/spare_id_safe_code = ""
 
 	var/list/chain_of_command = list(
-		JOB_NAME_CAPTAIN = 1,				//Not used yet but captain is first in chain_of_command
-		JOB_NAME_HEADOFPERSONNEL = 2,
-		JOB_NAME_RESEARCHDIRECTOR = 3,
-		JOB_NAME_CHIEFENGINEER = 4,
-		JOB_NAME_CHIEFMEDICALOFFICER = 5,
-		JOB_NAME_HEADOFSECURITY = 6)
+		JOB_KEY_CAPTAIN = 1,				//Not used yet but captain is first in chain_of_command
+		JOB_KEY_HEADOFPERSONNEL = 2,
+		JOB_KEY_RESEARCHDIRECTOR = 3,
+		JOB_KEY_CHIEFENGINEER = 4,
+		JOB_KEY_CHIEFMEDICALOFFICER = 5,
+		JOB_KEY_HEADOFSECURITY = 6)
 
 	//Crew Objective stuff
 	var/list/crew_obj_list = list()
@@ -297,6 +297,12 @@ SUBSYSTEM_DEF(job)
 	if(ai_selected)
 		return 1
 	return 0
+
+// makes players unreadied so that they don't role antag
+/datum/controller/subsystem/job/proc/player_readycheck_jobs()
+	for(var/mob/dead/new_player/player in GLOB.player_list)
+		if(!player.check_preferences()) // they should roll a job at least
+			player.ready = PLAYER_NOT_READY
 
 
 /** Proc DivideOccupations
@@ -601,14 +607,12 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/LoadJobs()
 	var/jobstext = rustg_file_read("[global.config.directory]/jobs.txt")
 	for(var/datum/job/J in occupations)
-		if(J.flag == GIMMICK || J.gimmick) //gimmick job slots are dependant on random maint
-			continue
-		var/regex/jobs = new("[J.title]=(-1|\\d+),(-1|\\d+)")
+		var/regex/jobs = new("[J.get_jkey()]=(-1|\\d+),(-1|\\d+)")
 		if(jobs.Find(jobstext))
 			J.total_positions = text2num(jobs.group[1])
 			J.spawn_positions = text2num(jobs.group[2])
 		else
-			log_runtime("Error in /datum/controller/subsystem/job/proc/LoadJobs: Failed to locate job of title [J.title] in jobs.txt")
+			log_runtime("Error in /datum/controller/subsystem/job/proc/LoadJobs: Failed to locate job of job path [J.get_jkey()] in jobs.txt")
 
 /datum/controller/subsystem/job/proc/HandleFeedbackGathering()
 	for(var/datum/job/job in occupations)
@@ -619,7 +623,7 @@ SUBSYSTEM_DEF(job)
 		var/banned = 0 //banned
 		var/young = 0 //account too young
 		for(var/mob/dead/new_player/player in GLOB.player_list)
-			if(!(player.ready == PLAYER_READY_TO_PLAY && player.mind && !player.mind.assigned_role))
+			if(!(player.ready == PLAYER_READY_TO_PLAY && player.mind && !player.mind.get_job()))
 				continue //This player is not ready
 			if(is_banned_from(player.ckey, job.title) || QDELETED(player))
 				banned++
@@ -663,6 +667,7 @@ SUBSYSTEM_DEF(job)
 	JobDebug("Player rejected :[player]")
 	to_chat(player, "<b>You have failed to qualify for any job you desired.</b>")
 	unassigned -= player
+	SSticker.mode.antag_candidates -= player
 	player.ready = PLAYER_NOT_READY
 
 
