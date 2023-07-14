@@ -1,10 +1,10 @@
 /datum/job/detective
 	title = JOB_NAME_DETECTIVE
-	flag = DETECTIVE
+	jtitle = JOB_TITLE_DETECTIVE
+	job_bitflags = JOB_BITFLAG_SELECTABLE
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SECURITY
-	department_head = list(JOB_NAME_HEADOFSECURITY)
+	department_head = list(JOB_TITLE_HEADOFSECURITY)
 	supervisors = "the head of security"
-	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#ffeeee"
@@ -18,7 +18,6 @@
 	access = list(ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_MECH_SECURITY, ACCESS_COURT, ACCESS_BRIG, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_MECH_SECURITY, ACCESS_COURT, ACCESS_BRIG, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 
-	department_flag = ENGSEC
 	departments = DEPT_BITFLAG_SEC
 	bank_account_department = ACCOUNT_SEC_BITFLAG
 	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_MEDIUM)

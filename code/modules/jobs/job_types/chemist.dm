@@ -1,8 +1,8 @@
 /datum/job/chemist
 	title = JOB_NAME_CHEMIST
-	flag = CHEMIST
-	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
-	supervisors = "the chief medical officer"
+	jtitle = JOB_TITLE_CHEMIST
+	job_bitflags = JOB_BITFLAG_SELECTABLE
+	department_head = list(JOB_TITLE_CHIEFMEDICALOFFICER)
 	faction = "Station"
 	total_positions = 2
 	spawn_positions = 2
@@ -14,7 +14,6 @@
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_CHEMISTRY, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM)
 
-	department_flag = MEDSCI
 	departments = DEPT_BITFLAG_MED
 	bank_account_department = ACCOUNT_MED_BITFLAG
 	payment_per_department = list(ACCOUNT_MED_ID = PAYCHECK_MEDIUM)

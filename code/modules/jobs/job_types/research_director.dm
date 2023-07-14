@@ -1,9 +1,9 @@
 /datum/job/research_director
 	title = JOB_NAME_RESEARCHDIRECTOR
-	flag = RD_JF
+	jtitle = JOB_TITLE_RESEARCHDIRECTOR
+	job_bitflags = JOB_BITFLAG_SELECTABLE | JOB_BITFLAG_MANAGE_LOCKED
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD
-	department_head = list(JOB_NAME_CAPTAIN)
-	supervisors = "the captain"
+	department_head = list(JOB_TITLE_CAPTAIN)
 	head_announce = list("Science")
 	faction = "Station"
 	total_positions = 1
@@ -28,7 +28,6 @@
 			            ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_MINERAL_STOREROOM,
 			            ACCESS_TECH_STORAGE, ACCESS_MINISAT, ACCESS_MAINT_TUNNELS, ACCESS_NETWORK, ACCESS_AUX_BASE, ACCESS_RD_SERVER, ACCESS_WEAPONS)
 
-	department_flag = MEDSCI
 	departments = DEPT_BITFLAG_SCI | DEPT_BITFLAG_COM
 	bank_account_department = ACCOUNT_SCI_BITFLAG | ACCOUNT_COM_BITFLAG
 	payment_per_department = list(

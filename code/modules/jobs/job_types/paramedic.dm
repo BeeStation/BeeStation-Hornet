@@ -1,9 +1,9 @@
 /datum/job/paramedic
 	title = JOB_NAME_PARAMEDIC
-	flag = PARAMEDIC
-	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
-	supervisors = "the chief medical officer"
-	faction = "Station"
+	jtitle = JOB_TITLE_PARAMEDIC
+	job_bitflags = JOB_BITFLAG_SELECTABLE
+	department_head = list(JOB_TITLE_CHIEFMEDICALOFFICER)
+	faction = "station"
 	total_positions = 2
 	spawn_positions = 1
 	selection_color = "#d4ebf2"
@@ -15,7 +15,6 @@
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_MAINT_TUNNELS,
 					ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_AUX_BASE)
 
-	department_flag = MEDSCI
 	departments = DEPT_BITFLAG_MED
 	bank_account_department = ACCOUNT_MED_BITFLAG
 	payment_per_department = list(ACCOUNT_MED_ID = PAYCHECK_MEDIUM)

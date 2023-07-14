@@ -1,10 +1,10 @@
 /datum/job/warden
 	title = JOB_NAME_WARDEN
-	flag = WARDEN
+	jtitle = JOB_TITLE_WARDEN
+	job_bitflags = JOB_BITFLAG_SELECTABLE
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SECURITY
-	department_head = list(JOB_NAME_HEADOFSECURITY)
+	department_head = list(JOB_TITLE_HEADOFSECURITY)
 	supervisors = "the head of security"
-	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#ffeeee"
@@ -18,7 +18,6 @@
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS, ACCESS_BRIG, ACCESS_BRIGPHYS, ACCESS_ARMORY,ACCESS_COURT, ACCESS_MECH_SECURITY, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_FORENSICS_LOCKERS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS, ACCESS_BRIG, ACCESS_BRIGPHYS, ACCESS_ARMORY, ACCESS_MECH_SECURITY, ACCESS_COURT, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM) // See /datum/job/warden/get_access()
 
-	department_flag = ENGSEC
 	departments = DEPT_BITFLAG_SEC
 	bank_account_department = ACCOUNT_SEC_BITFLAG
 	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_HARD)

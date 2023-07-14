@@ -1,8 +1,8 @@
 /datum/job/clown
 	title = JOB_NAME_CLOWN
-	flag = CLOWN
-	department_head = list(JOB_NAME_HEADOFPERSONNEL)
-	supervisors = "the head of personnel"
+	jtitle = JOB_TITLE_CLOWN
+	job_bitflags = JOB_BITFLAG_SELECTABLE
+	department_head = list(JOB_TITLE_HEADOFPERSONNEL)
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
@@ -13,7 +13,6 @@
 	access = list(ACCESS_THEATRE)
 	minimal_access = list(ACCESS_THEATRE)
 
-	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_MINIMAL)
@@ -26,9 +25,13 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/honk
 	)
 
+	/// set this FALSE if subtype jobs don't use clown name (i.e. Stage Magician)
+	var/use_clown_name = TRUE
+
 /datum/job/clown/after_spawn(mob/living/carbon/human/H, mob/M)
 	. = ..()
-	H.apply_pref_name("clown", M.client)
+	if(use_clown_name)
+		H.apply_pref_name("clown", M.client)
 
 /datum/outfit/job/clown
 	name = JOB_NAME_CLOWN

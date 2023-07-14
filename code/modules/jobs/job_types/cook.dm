@@ -1,8 +1,8 @@
 /datum/job/cook
 	title = JOB_NAME_COOK
-	flag = COOK
-	department_head = list(JOB_NAME_HEADOFPERSONNEL)
-	supervisors = "the head of personnel"
+	jtitle = JOB_TITLE_COOK
+	job_bitflags = JOB_BITFLAG_SELECTABLE
+	department_head = list(JOB_TITLE_HEADOFPERSONNEL)
 	faction = "Station"
 	total_positions = 2
 	spawn_positions = 1
@@ -14,7 +14,6 @@
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)
 
-	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_EASY)

@@ -3,8 +3,8 @@ Assistant
 */
 /datum/job/assistant
 	title = JOB_NAME_ASSISTANT
-	flag = ASSISTANT
-	supervisors = "absolutely everyone"
+	jtitle = JOB_TITLE_ASSISTANT
+	job_bitflags = JOB_BITFLAG_SELECTABLE | JOB_BITFLAG_MANAGE_LOCKED
 	faction = "Station"
 	total_positions = 5
 	spawn_positions = 5
@@ -16,7 +16,6 @@ Assistant
 	access = list()			//See /datum/job/assistant/get_access()
 	minimal_access = list()	//See /datum/job/assistant/get_access()
 
-	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_CIV
 	bank_account_department = NONE // nothing is free for them
 	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_ASSISTANT) // Get a job. Job reassignment changes your paycheck now. Get over it.
@@ -27,6 +26,10 @@ Assistant
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman
 	)
+
+/datum/job/assistant/notify_your_supervisor()
+	return "absolutely everyone"
+
 /datum/job/assistant/get_access()
 	if(CONFIG_GET(flag/assistants_have_maint_access) || !CONFIG_GET(flag/jobs_have_minimal_access)) //Config has assistant maint access set
 		. = ..()
@@ -38,6 +41,7 @@ Assistant
 	name = JOB_NAME_ASSISTANT
 	jobtype = /datum/job/assistant
 	belt = /obj/item/modular_computer/tablet/pda/assistant
+	id = /obj/item/card/id/job/assistant
 
 /datum/outfit/job/assistant/pre_equip(mob/living/carbon/human/H)
 	..()
@@ -52,6 +56,3 @@ Assistant
 		else
 			uniform = /obj/item/clothing/under/color/jumpskirt/random
 
-/datum/outfit/job/assistant
-	name = "Assistant"
-	id = /obj/item/card/id/job/assistant

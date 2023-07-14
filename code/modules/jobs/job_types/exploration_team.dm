@@ -1,8 +1,8 @@
 /datum/job/exploration_crew
 	title = JOB_NAME_EXPLORATIONCREW
-	flag = EXPLORATION_CREW
-	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
-	supervisors = "the research director"
+	jtitle = JOB_TITLE_EXPLORATIONCREW
+	job_bitflags = JOB_BITFLAG_SELECTABLE
+	department_head = list(JOB_TITLE_RESEARCHDIRECTOR)
 	faction = "Station"
 	total_positions = 3
 	spawn_positions = 3
@@ -16,7 +16,6 @@
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_EXPLORATION, ACCESS_TOX,ACCESS_TOX_STORAGE, ACCESS_MECH_SCIENCE, ACCESS_XENOBIOLOGY)
 	minimal_access = list(ACCESS_RESEARCH, ACCESS_EXPLORATION, ACCESS_TOX, ACCESS_MECH_SCIENCE)
 
-	department_flag = MEDSCI
 	departments = DEPT_BITFLAG_SCI
 	bank_account_department = ACCOUNT_SCI_BITFLAG
 	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_HARD)

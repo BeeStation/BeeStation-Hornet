@@ -1,9 +1,9 @@
 /datum/job/janitor
 	title = JOB_NAME_JANITOR
-	flag = JANITOR
-	department_head = list(JOB_NAME_HEADOFPERSONNEL)
-	supervisors = "the head of personnel"
-	faction = "Station"
+	jtitle = JOB_TITLE_JANITOR
+	job_bitflags = JOB_BITFLAG_SELECTABLE
+	department_head = list(JOB_TITLE_HEADOFPERSONNEL)
+	faction = "station"
 	total_positions = 2
 	spawn_positions = 1
 	selection_color = "#bbe291"
@@ -13,7 +13,6 @@
 	access = list(ACCESS_JANITOR, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_JANITOR, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
 
-	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_EASY)

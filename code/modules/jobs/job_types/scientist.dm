@@ -1,8 +1,8 @@
 /datum/job/scientist
 	title = JOB_NAME_SCIENTIST
-	flag = SCIENTIST
-	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
-	supervisors = "the research director"
+	jtitle = JOB_TITLE_SCIENTIST
+	job_bitflags = JOB_BITFLAG_SELECTABLE
+	department_head = list(JOB_TITLE_RESEARCHDIRECTOR)
 	faction = "Station"
 	total_positions = 5
 	spawn_positions = 3
@@ -17,7 +17,6 @@
 	minimal_access = list(ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_MECH_SCIENCE,
 					ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE, ACCESS_EXPLORATION)
 
-	department_flag = MEDSCI
 	departments = DEPT_BITFLAG_SCI
 	bank_account_department = ACCOUNT_SCI_BITFLAG
 	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_MEDIUM)

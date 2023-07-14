@@ -1,11 +1,10 @@
 /datum/job/roboticist
 	title = JOB_NAME_ROBOTICIST
-	flag = ROBOTICIST
-	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
-	faction = "Station"
+	jtitle = JOB_TITLE_ROBOTICIST
+	job_bitflags = JOB_BITFLAG_SELECTABLE
+	department_head = list(JOB_TITLE_RESEARCHDIRECTOR)
 	total_positions = 2
 	spawn_positions = 2
-	supervisors = "the research director"
 	selection_color = "#ffeeff"
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
@@ -17,7 +16,6 @@
 	minimal_access = list(ACCESS_ROBOTICS, ACCESS_TECH_STORAGE, ACCESS_MORGUE, ACCESS_RESEARCH, ACCESS_MECH_SCIENCE,
 					ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE)
 
-	department_flag = MEDSCI
 	departments = DEPT_BITFLAG_SCI
 	bank_account_department = ACCOUNT_SCI_BITFLAG
 	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_MEDIUM)

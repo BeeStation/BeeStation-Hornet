@@ -1,8 +1,8 @@
 /datum/job/atmospheric_technician
 	title = JOB_NAME_ATMOSPHERICTECHNICIAN
-	flag = ATMOSTECH
-	department_head = list(JOB_NAME_CHIEFENGINEER)
-	supervisors = "the chief engineer"
+	jtitle = JOB_TITLE_ATMOSPHERICTECHNICIAN
+	job_bitflags = JOB_BITFLAG_SELECTABLE
+	department_head = list(JOB_TITLE_CHIEFENGINEER)
 	faction = "Station"
 	total_positions = 3
 	spawn_positions = 2
@@ -16,7 +16,6 @@
 									ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE)
 	minimal_access = list(ACCESS_ATMOSPHERICS, ACCESS_MAINT_TUNNELS, ACCESS_CONSTRUCTION, ACCESS_MECH_ENGINE, ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE)
 
-	department_flag = ENGSEC
 	departments = DEPT_BITFLAG_ENG
 	bank_account_department = ACCOUNT_ENG_BITFLAG
 	payment_per_department = list(ACCOUNT_ENG_ID = PAYCHECK_MEDIUM)

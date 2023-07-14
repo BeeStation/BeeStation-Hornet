@@ -1,10 +1,10 @@
 /datum/job/captain
 	title = JOB_NAME_CAPTAIN
-	flag = CAPTAIN
+	jtitle = JOB_TITLE_CAPTAIN
+	job_bitflags = JOB_BITFLAG_SELECTABLE | JOB_BITFLAG_MANAGE_LOCKED
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD|PREFTOGGLE_DEADMIN_POSITION_SECURITY
-	department_head = list("CentCom")
+	department_head = list("CentCom") // this does nothing, but flavour in the code
 	supervisors = "Nanotrasen officials and Space law"
-	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#ccccff"
@@ -19,7 +19,6 @@
 	access = list() 			//See get_access()
 	minimal_access = list() 	//See get_access()
 
-	department_flag = ENGSEC
 	departments = DEPT_BITFLAG_COM
 	bank_account_department = ACCOUNT_SEC_BITFLAG | ACCOUNT_COM_BITFLAG
 	payment_per_department = list(
@@ -33,6 +32,9 @@
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/command
 	)
+/datum/job/captain/notify_your_supervisor()
+	return "Nanotrasen officials and Space law"
+
 /datum/job/captain/get_access()
 	return get_all_accesses()
 

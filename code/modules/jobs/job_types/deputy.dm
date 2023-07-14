@@ -1,8 +1,8 @@
 /datum/job/deputy
 	title = JOB_NAME_DEPUTY
-	flag = DEPUTY
-	department_head = list(JOB_NAME_HEADOFSECURITY)
-	supervisors = "the head of security"
+	jtitle = JOB_TITLE_DEPUTY
+	job_bitflags = JOB_BITFLAG_MANAGE_LOCKED
+	department_head = list(JOB_TITLE_HEADOFSECURITY)
 	faction = "Station"
 	total_positions = 0
 	spawn_positions = 0
@@ -16,7 +16,6 @@
 	access = list(ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
 	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
 
-	department_flag = ENGSEC
 	departments = DEPT_BITFLAG_SEC
 	bank_account_department = ACCOUNT_SEC_BITFLAG
 	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_EASY)

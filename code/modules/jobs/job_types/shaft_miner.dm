@@ -1,8 +1,8 @@
 /datum/job/shaft_miner
 	title = JOB_NAME_SHAFTMINER
-	flag = MINER
-	department_head = list(JOB_NAME_HEADOFPERSONNEL)
-	supervisors = "the quartermaster and the head of personnel"
+	jtitle = JOB_TITLE_SHAFTMINER
+	job_bitflags = JOB_BITFLAG_SELECTABLE
+	department_head = list(JOB_TITLE_HEADOFPERSONNEL)
 	faction = "Station"
 	total_positions = 3
 	spawn_positions = 3
@@ -15,7 +15,6 @@
 	minimal_access = list(ACCESS_MINING, ACCESS_MECH_MINING, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM,
 					ACCESS_AUX_BASE)
 
-	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_CAR
 	bank_account_department = ACCOUNT_CAR_BITFLAG
 	payment_per_department = list(ACCOUNT_CAR_ID = PAYCHECK_HARD)
@@ -26,6 +25,9 @@
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/shaft_miner
 	)
+
+/datum/job/shaft_miner/notify_your_supervisor()
+	return "[SSjob.get_current_jobname(JOB_KEY_QUARTERMASTER)], and [SSjob.get_current_jobname(JOB_KEY_HEADOFPERSONNEL)]"
 
 /datum/outfit/job/miner
 	name = JOB_NAME_SHAFTMINER

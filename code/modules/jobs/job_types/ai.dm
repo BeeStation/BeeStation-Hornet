@@ -1,13 +1,12 @@
 /datum/job/ai
 	title = JOB_NAME_AI
 	flag = AI_JF
+	job_bitflags = JOB_BITFLAG_SELECTABLE | JOB_BITFLAG_MANAGE_LOCKED
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SILICON
 	department_flag = ENGSEC
-	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#ccffcc"
-	supervisors = "your laws"
 	req_admin_notify = TRUE
 	minimal_player_age = 30
 	exp_requirements = 600
@@ -18,6 +17,9 @@
 	random_spawns_possible = FALSE
 	allow_bureaucratic_error = FALSE
 	var/do_special_check = TRUE
+
+/datum/job/ai/notify_your_supervisor()
+	return "your laws"
 
 /datum/job/ai/equip(mob/living/carbon/human/H, visualsOnly, announce, latejoin, datum/outfit/outfit_override, client/preference_source = null)
 	if(visualsOnly)

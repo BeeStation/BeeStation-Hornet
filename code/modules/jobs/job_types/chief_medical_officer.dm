@@ -1,8 +1,8 @@
 /datum/job/chief_medical_officer
 	title = JOB_NAME_CHIEFMEDICALOFFICER
-	flag = CMO_JF
-	department_head = list(JOB_NAME_CAPTAIN)
-	supervisors = "the captain"
+	jtitle = JOB_TITLE_CHIEFMEDICALOFFICER
+	job_bitflags = JOB_BITFLAG_SELECTABLE | JOB_BITFLAG_MANAGE_LOCKED
+	department_head = list(JOB_TITLE_CAPTAIN)
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD
 	head_announce = list(RADIO_CHANNEL_MEDICAL)
 	faction = "Station"
@@ -24,7 +24,6 @@
 			ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_CMO, ACCESS_SURGERY, ACCESS_RC_ANNOUNCE, ACCESS_MECH_MEDICAL,
 			ACCESS_KEYCARD_AUTH, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_BRIGPHYS, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_WEAPONS)
 
-	department_flag = MEDSCI
 	departments = DEPT_BITFLAG_MED | DEPT_BITFLAG_COM
 	bank_account_department = ACCOUNT_MED_BITFLAG | ACCOUNT_COM_BITFLAG
 	payment_per_department = list(

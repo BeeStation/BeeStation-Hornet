@@ -1,9 +1,9 @@
 /datum/job/head_of_security
 	title = JOB_NAME_HEADOFSECURITY
-	flag = HOS
+	jtitle = JOB_TITLE_HEADOFSECURITY
+	job_bitflags = JOB_BITFLAG_SELECTABLE | JOB_BITFLAG_MANAGE_LOCKED
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD|PREFTOGGLE_DEADMIN_POSITION_SECURITY
-	department_head = list(JOB_NAME_CAPTAIN)
-	supervisors = "the captain"
+	department_head = list(JOB_TITLE_CAPTAIN)
 	head_announce = list(RADIO_CHANNEL_SECURITY)
 	faction = "Station"
 	total_positions = 1
@@ -25,7 +25,6 @@
 			            ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
 			            ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_MAINT_TUNNELS)
 
-	department_flag = ENGSEC
 	departments = DEPT_BITFLAG_SEC | DEPT_BITFLAG_COM
 	bank_account_department = ACCOUNT_SEC_BITFLAG | ACCOUNT_COM_BITFLAG
 	payment_per_department = list(

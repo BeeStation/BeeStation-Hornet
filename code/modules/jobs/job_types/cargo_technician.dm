@@ -1,8 +1,8 @@
 /datum/job/cargo_technician
 	title = JOB_NAME_CARGOTECHNICIAN
-	flag = CARGOTECH
-	department_head = list(JOB_NAME_HEADOFPERSONNEL)
-	supervisors = "the quartermaster and the head of personnel"
+	jtitle = JOB_TITLE_CARGOTECHNICIAN
+	job_bitflags = JOB_BITFLAG_SELECTABLE
+	department_head = list(JOB_TITLE_HEADOFPERSONNEL)
 	faction = "Station"
 	total_positions = 3
 	spawn_positions = 2
@@ -13,7 +13,6 @@
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_QM, ACCESS_MINING, ACCESS_MECH_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_CARGO, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
 
-	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_CAR
 	bank_account_department = ACCOUNT_CAR_BITFLAG
 	payment_per_department = list(ACCOUNT_CAR_ID = PAYCHECK_EASY)

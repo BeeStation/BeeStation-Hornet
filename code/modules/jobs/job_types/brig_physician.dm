@@ -1,8 +1,8 @@
 /datum/job/brig_physician
 	title = JOB_NAME_BRIGPHYSICIAN
-	flag = BRIG_PHYS
-	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
-	supervisors = "chief medical officer"
+	jtitle = JOB_TITLE_BRIGPHYSICIAN
+	job_bitflags = JOB_BITFLAG_SELECTABLE | JOB_BITFLAG_MANAGE_LOCKED
+	department_head = list(JOB_TITLE_CHIEFMEDICALOFFICER)
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
@@ -15,7 +15,6 @@
 	access = list(ACCESS_SEC_DOORS, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_MEDICAL, ACCESS_BRIGPHYS)
 	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_MEDICAL, ACCESS_BRIGPHYS)
 
-	department_flag = ENGSEC
 	departments = DEPT_BITFLAG_MED | DEPT_BITFLAG_SEC
 	bank_account_department = ACCOUNT_MED_BITFLAG
 	payment_per_department = list(ACCOUNT_MED_ID = PAYCHECK_MEDIUM)

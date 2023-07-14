@@ -1,9 +1,9 @@
 /datum/job/head_of_personnel
 	title = JOB_NAME_HEADOFPERSONNEL
-	flag = HOP
+	jtitle = JOB_TITLE_HEADOFPERSONNEL
+	job_bitflags = JOB_BITFLAG_SELECTABLE | JOB_BITFLAG_MANAGE_LOCKED
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD
-	department_head = list(JOB_NAME_CAPTAIN)
-	supervisors = "the captain"
+	department_head = list(JOB_TITLE_CAPTAIN)
 	head_announce = list(RADIO_CHANNEL_SUPPLY, RADIO_CHANNEL_SERVICE)
 	faction = "Station"
 	total_positions = 1
@@ -32,7 +32,6 @@
 			            ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_VAULT, ACCESS_MINING_STATION,
 			            ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE)
 
-	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_COM | DEPT_BITFLAG_SRV
 	bank_account_department = ACCOUNT_SRV_BITFLAG | ACCOUNT_COM_BITFLAG
 	payment_per_department = list(

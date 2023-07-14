@@ -1,9 +1,9 @@
 /datum/job/lawyer
 	title = JOB_NAME_LAWYER
-	flag = LAWYER
-	department_head = list(JOB_NAME_HEADOFPERSONNEL)
-	supervisors = "the head of personnel"
-	faction = "Station"
+	jtitle = JOB_TITLE_LAWYER
+	job_bitflags = JOB_BITFLAG_SELECTABLE
+	department_head = list(JOB_TITLE_HEADOFPERSONNEL)
+	faction = "station"
 	total_positions = 2
 	spawn_positions = 2
 	selection_color = "#dddddd"
@@ -14,7 +14,6 @@
 	access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS)
 	minimal_access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS)
 
-	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_CIV
 	bank_account_department = ACCOUNT_CIV_BITFLAG
 	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_EASY)
