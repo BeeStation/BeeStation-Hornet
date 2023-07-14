@@ -1,4 +1,0 @@
-author: HowToLoLu
-delete-after: true
-changes:
-  - bugfix: Having the random name preference no longer makes you nameless as a ghost.
