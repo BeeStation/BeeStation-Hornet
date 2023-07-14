@@ -1,16 +1,27 @@
 /datum/playtime_check
+	var/playtime_check_id
 	var/list/denies_by_any_qualify
 	var/list/accepts_by_single_qualify
 	var/list/accepts_by_full_qualify
 
+/proc/is_playtime_check_module_runnable()
+	if(!CONFIG_GET(flag/use_exp_playtime_check_module))
+		return FALSE
+	if(!CONFIG_GET(flag/use_exp_tracking)) // why the fuck did you flag playtime check but not this?
+		return FALSE
+	if(!SSdbcore.Connect())
+		return FALSE
+	return TRUE
+
+/datum/playtime_check/New(check_owner)
+	. = ..()
+	playtime_check_id = check_owner
 
 /datum/playtime_check/proc/check_playtime(client/C, returns_details=FALSE)
 	// I know these look stupid, but you need to get the information why you can't play this job
 	if(!C)
 		return returns_details ? list(EXP_CHECK_PASS=TRUE) : TRUE
-	if(!CONFIG_GET(flag/use_exp_tracking)) // why the fuck did you flag playtime check but not this?
-		return returns_details ? list(EXP_CHECK_PASS=TRUE) : TRUE
-	if(!SSdbcore.Connect())
+	if(!is_playtime_check_module_runnable())
 		return returns_details ? list(EXP_CHECK_PASS=TRUE) : TRUE
 	//if(CONFIG_GET(flag/use_exp_restrictions_admin_bypass) && check_rights_for(C,R_ADMIN))
 	//	return returns_details ? list(EXP_CHECK_PASS=TRUE) : TRUE
@@ -19,6 +30,14 @@
 		return returns_details ? list(EXP_CHECK_PASS=TRUE) : TRUE
 	if(C.prefs.job_exempt)
 		return returns_details ? list(EXP_CHECK_PASS=TRUE) : TRUE
+
+	// unfinished lines:
+	// based on var/playtime_check_id, you should check players ban list or privilige list
+	// if id is in thier ban list, forcefully deny
+	// if id is in their privilige list, allow them before requirement check
+
+	if(length(denies_by_any_qualify) + length(accepts_by_single_qualify) + length(accepts_by_full_qualify))
+		return returns_details ? list(EXP_CHECK_PASS=TRUE) : TRUE // we have nothing. early return.
 
 	var/list/exp_result = INIT_EXP_LIST
 	var/force_result
@@ -99,7 +118,7 @@
 	/// automatically set to FALSE when stored_eligibility_count_requirement is different. This var is used to make HTML style better.
 	var/boxing_flag = TRUE
 
-/// use `ADD_EXP_REQ_FORMAT` macro for using this
+/// use `insert_playtime_req()` proc. do not make a requirement table manually.
 /datum/job_playtime_req/New(eligibility_count, job_playtime_requirement, combined_playtime_req=0, reversed_check=null, group_display_name=null, ultimate=null)
 	stored_eligibility_count_requirement = eligibility_count
 	stored_job_playtime_requirement = job_playtime_requirement
@@ -125,8 +144,6 @@
 
 	if(ultimate)
 		ultimate_req = TRUE
-
-
 
 /datum/job_playtime_req/proc/check_eligibility(client/cli, returns_details=FALSE)
 	var/list/playrecord = cli.prefs.exp

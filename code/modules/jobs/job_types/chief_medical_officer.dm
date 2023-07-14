@@ -41,7 +41,9 @@
 	biohazard = 45
 
 /datum/job/chief_medical_officer/initialize_playtime_list()
-	playtime_check = new
+	if(!is_playtime_check_module_runnable())
+		return
+	playtime_check = new(title)
 
 	playtime_check.insert_playtime_req(QUALIFY_TYPE_ACCEPT_FULL, 0, list(
 		EXP_TYPE_LIVING), combined_playtime_req = 6000, group_display_name="from a round")
@@ -66,7 +68,7 @@
 		JOB_NAME_ASSISTANT = 120,
 		JOB_NAME_JANITOR = 120,
 		ROLE_TRAITOR = 120), combined_playtime_req = 600)
-
+		// traitor playtime works!
 
 	playtime_check.insert_playtime_req(QUALIFY_TYPE_ACCEPT_FULL, 2, list(
 		JOB_NAME_CHEMIST = 120,
