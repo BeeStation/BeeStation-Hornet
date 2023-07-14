@@ -1,62 +1,16 @@
+// used in job_bitflags
+#define JOB_BITFLAG_SELECTABLE (1<<0) // basically given to all 'standard' jobs (not gimmicks). if a gimmick job has with this flag, it will be shown in 'job pref' window and people can join a round with that job.
+#define JOB_BITFLAG_GIMMICK  (1<<1) // basically given to all gimmick jobs. this is alwo used to block HoP to touch the amount of a job
+#define JOB_BITFLAG_MANAGE_LOCKED (1<<2) // this flag blocks job manager control. given to heads and silicon job
 
-#define ENGSEC			(1<<0)
-
-#define CAPTAIN			(1<<0)
-#define HOS				(1<<1)
-#define WARDEN			(1<<2)
-#define DETECTIVE		(1<<3)
-#define OFFICER			(1<<4)
-#define CHIEF			(1<<5)
-#define ENGINEER		(1<<6)
-#define ATMOSTECH		(1<<7)
-#define ROBOTICIST		(1<<8)
-#define AI_JF			(1<<9)
-#define CYBORG			(1<<10)
-#define BRIG_PHYS		(1<<11)
-#define DEPUTY  		(1<<12)
-
-
-#define MEDSCI			(1<<1)
-
-#define RD_JF			(1<<0)
-#define SCIENTIST		(1<<1)
-#define EXPLORATION_CREW (1<<2)
-#define CHEMIST			(1<<3)
-#define CMO_JF			(1<<4)
-#define DOCTOR			(1<<5)
-#define GENETICIST		(1<<6)
-#define VIROLOGIST		(1<<7)
-#define PARAMEDIC		(1<<8)
-
-
-#define CIVILIAN		(1<<2)
-
-#define HOP				(1<<0)
-#define BARTENDER		(1<<1)
-#define BOTANIST		(1<<2)
-#define COOK			(1<<3)
-#define JANITOR			(1<<4)
-#define CURATOR			(1<<5)
-#define QUARTERMASTER	(1<<6)
-#define CARGOTECH		(1<<7)
-#define MINER			(1<<8)
-#define LAWYER			(1<<9)
-#define CHAPLAIN		(1<<10)
-#define CLOWN			(1<<11)
-#define MIME			(1<<12)
-#define ASSISTANT		(1<<13)
-#define GIMMICK 		(1<<14)
-#define BARBER		    (1<<15)
-#define MAGICIAN        (1<<16)
-#define PSYCHIATRIST    (1<<17)
-#define CELEBRITY       (1<<18)
-
+// return values for job selection results
 #define JOB_AVAILABLE 0
 #define JOB_UNAVAILABLE_GENERIC 1
 #define JOB_UNAVAILABLE_BANNED 2
 #define JOB_UNAVAILABLE_PLAYTIME 3
 #define JOB_UNAVAILABLE_ACCOUNTAGE 4
 #define JOB_UNAVAILABLE_SLOTFULL 5
+#define JOB_UNAVAILABLE_NOT_INTRODUCED 6
 
 #define DEFAULT_RELIGION "Christianity"
 #define DEFAULT_DEITY "Space Jesus"
@@ -100,6 +54,9 @@
 #define JOB_DISPLAY_ORDER_CYBORG 35
 
 
+// Bitflags for department crew manifest for each job
+// should check the ones in `\_DEFINES\economy.dm`
+// It's true that bitflags shouldn't be separated in two DEFINES if these are same, but just in case the system can be devided, it's remained separated.
 #define DEPT_BITFLAG_COM (1<<0)
 #define DEPT_BITFLAG_CIV (1<<1)
 #define DEPT_BITFLAG_SRV (1<<2)
@@ -109,69 +66,116 @@
 #define DEPT_BITFLAG_MED (1<<6)
 #define DEPT_BITFLAG_SEC (1<<7)
 #define DEPT_BITFLAG_VIP (1<<8)
-#define DEPT_BITFLAG_SILICON  (1<<9)
-// should check the ones in `\_DEFINES\economy.dm`
-// It's true that bitflags shouldn't be separated in two DEFINES if these are same, but just in case the system can be devided, it's remained separated.
+#define DEPT_BITFLAG_SILICON  (1<<9) // currently not used, but remained here just in case someone wants it
 
 //-------------------------------------------------------------------------------------------
 //------------------------------------- Job names -------------------------------------------
 //-------------------------------------------------------------------------------------------
+// ****** WARNING:
+// 	   DO NOT CHANGE KEY. You are fine to change TITLE defines, but DO NOT DO to KEY defines
+#define JOB_UNASSIGNED "Unassigned"
+#define JOB_DEMOTED "Demoted"
+
 // Command
-#define JOB_NAME_CAPTAIN "Captain"
+#define JOB_TITLE_CAPTAIN "Captain"
+#define JOB_KEY_CAPTAIN "Captain"
 
 // Service
-#define JOB_NAME_HEADOFPERSONNEL "Head of Personnel"
-#define JOB_NAME_ASSISTANT  "Assistant"
-#define JOB_NAME_BARTENDER  "Bartender"
-#define JOB_NAME_BOTANIST   "Botanist"
-#define JOB_NAME_COOK     "Cook"
-#define JOB_NAME_JANITOR  "Janitor"
-#define JOB_NAME_CURATOR  "Curator"
-#define JOB_NAME_LAWYER   "Lawyer"
-#define JOB_NAME_CHAPLAIN "Chaplain"
-#define JOB_NAME_MIME   "Mime"
-#define JOB_NAME_CLOWN  "Clown"
-#define JOB_NAME_STAGEMAGICIAN "Stage Magician" // gimmick
-#define JOB_NAME_BARBER "Barber" // gimmick
-#define JOB_NAME_VIP    "VIP" // gimmick
+#define JOB_TITLE_HEADOFPERSONNEL "Head of Personnel"
+#define JOB_KEY_HEADOFPERSONNEL "Head of Personnel"
+#define JOB_TITLE_ASSISTANT  "Assistant"
+#define JOB_KEY_ASSISTANT  "Assistant"
+#define JOB_TITLE_BARTENDER  "Bartender"
+#define JOB_KEY_BARTENDER  "Bartender"
+#define JOB_TITLE_BOTANIST   "Botanist"
+#define JOB_KEY_BOTANIST   "Botanist"
+#define JOB_TITLE_COOK     "Cook"
+#define JOB_KEY_COOK     "Cook"
+#define JOB_TITLE_JANITOR  "Janitor"
+#define JOB_KEY_JANITOR  "Janitor"
+#define JOB_TITLE_CURATOR  "Curator"
+#define JOB_KEY_CURATOR  "Curator"
+#define JOB_TITLE_LAWYER   "Lawyer"
+#define JOB_KEY_LAWYER   "Lawyer"
+#define JOB_TITLE_CHAPLAIN "Chaplain"
+#define JOB_KEY_CHAPLAIN "Chaplain"
+#define JOB_TITLE_MIME   "Mime"
+#define JOB_KEY_MIME   "Mime"
+#define JOB_TITLE_CLOWN  "Clown"
+#define JOB_KEY_CLOWN  "Clown"
+#define JOB_TITLE_STAGEMAGICIAN "Stage Magician" // gimmick
+#define JOB_KEY_STAGEMAGICIAN "Stage Magician" // gimmick
+#define JOB_TITLE_BARBER "Barber" // gimmick
+#define JOB_KEY_BARBER "Barber" // gimmick
+#define JOB_TITLE_VIP    "VIP" // gimmick
+#define JOB_KEY_VIP    "VIP" // gimmick
 
 // Cargo
-#define JOB_NAME_QUARTERMASTER   "Quartermaster"
-#define JOB_NAME_CARGOTECHNICIAN "Cargo Technician"
-#define JOB_NAME_SHAFTMINER      "Shaft Miner"
+#define JOB_TITLE_QUARTERMASTER   "Quartermaster"
+#define JOB_KEY_QUARTERMASTER   "Quartermaster"
+#define JOB_TITLE_CARGOTECHNICIAN "Cargo Technician"
+#define JOB_KEY_CARGOTECHNICIAN "Cargo Technician"
+#define JOB_TITLE_SHAFTMINER      "Shaft Miner"
+#define JOB_KEY_SHAFTMINER      "Shaft Miner"
 
 // R&D
-#define JOB_NAME_RESEARCHDIRECTOR "Research Director"
-#define JOB_NAME_SCIENTIST  "Scientist"
-#define JOB_NAME_ROBOTICIST "Roboticist"
-#define JOB_NAME_EXPLORATIONCREW "Exploration Crew"
+#define JOB_TITLE_RESEARCHDIRECTOR "Research Director"
+#define JOB_KEY_RESEARCHDIRECTOR "Research Director"
+#define JOB_TITLE_SCIENTIST  "Scientist"
+#define JOB_KEY_SCIENTIST  "Scientist"
+#define JOB_TITLE_ROBOTICIST "Roboticist"
+#define JOB_KEY_ROBOTICIST "Roboticist"
+#define JOB_TITLE_EXPLORATIONCREW "Exploration Crew"
+#define JOB_KEY_EXPLORATIONCREW "Exploration Crew"
 
 // Engineering
-#define JOB_NAME_CHIEFENGINEER   "Chief Engineer"
-#define JOB_NAME_STATIONENGINEER "Station Engineer"
-#define JOB_NAME_ATMOSPHERICTECHNICIAN "Atmospheric Technician"
+#define JOB_TITLE_CHIEFENGINEER   "Chief Engineer"
+#define JOB_KEY_CHIEFENGINEER   "Chief Engineer"
+#define JOB_TITLE_STATIONENGINEER "Station Engineer"
+#define JOB_KEY_STATIONENGINEER "Station Engineer"
+#define JOB_TITLE_ATMOSPHERICTECHNICIAN "Atmospheric Technician"
+#define JOB_KEY_ATMOSPHERICTECHNICIAN "Atmospheric Technician"
 
 // Medical
-#define JOB_NAME_CHIEFMEDICALOFFICER "Chief Medical Officer"
-#define JOB_NAME_MEDICALDOCTOR "Medical Doctor"
-#define JOB_NAME_PARAMEDIC  "Paramedic"
-#define JOB_NAME_CHEMIST    "Chemist"
-#define JOB_NAME_VIROLOGIST "Virologist"
-#define JOB_NAME_GENETICIST "Geneticist"
-#define JOB_NAME_BRIGPHYSICIAN "Brig Physician"
-#define JOB_NAME_PSYCHIATRIST  "Psychiatrist" // gimmick
+#define JOB_TITLE_CHIEFMEDICALOFFICER "Chief Medical Officer"
+#define JOB_KEY_CHIEFMEDICALOFFICER "Chief Medical Officer"
+#define JOB_TITLE_MEDICALDOCTOR "Medical Doctor"
+#define JOB_KEY_MEDICALDOCTOR "Medical Doctor"
+#define JOB_TITLE_PARAMEDIC  "Paramedic"
+#define JOB_KEY_PARAMEDIC  "Paramedic"
+#define JOB_TITLE_CHEMIST    "Chemist"
+#define JOB_KEY_CHEMIST    "Chemist"
+#define JOB_TITLE_VIROLOGIST "Virologist"
+#define JOB_KEY_VIROLOGIST "Virologist"
+#define JOB_TITLE_GENETICIST "Geneticist"
+#define JOB_KEY_GENETICIST "Geneticist"
+#define JOB_TITLE_BRIGPHYSICIAN "Brig Physician"
+#define JOB_KEY_BRIGPHYSICIAN "Brig Physician"
+#define JOB_TITLE_PSYCHIATRIST  "Psychiatrist" // gimmick
+#define JOB_KEY_PSYCHIATRIST  "Psychiatrist" // gimmick
 
 // Security
-#define JOB_NAME_HEADOFSECURITY "Head of Security"
-#define JOB_NAME_WARDEN "Warden"
-#define JOB_NAME_SECURITYOFFICER "Security Officer"
-#define JOB_NAME_DETECTIVE "Detective"
-#define JOB_NAME_DEPUTY  "Deputy"
+#define JOB_TITLE_HEADOFSECURITY "Head of Security"
+#define JOB_KEY_HEADOFSECURITY "Head of Security"
+#define JOB_TITLE_WARDEN "Warden"
+#define JOB_KEY_WARDEN "Warden"
+#define JOB_TITLE_SECURITYOFFICER "Security Officer"
+#define JOB_KEY_SECURITYOFFICER "Security Officer"
+#define JOB_TITLE_DETECTIVE "Detective"
+#define JOB_KEY_DETECTIVE "Detective"
+#define JOB_TITLE_DEPUTY  "Deputy"
+#define JOB_KEY_DEPUTY  "Deputy"
 
 // Silicon
-#define JOB_NAME_AI     "AI"
-#define JOB_NAME_CYBORG "Cyborg"
-#define JOB_NAME_PAI    "Personal AI"
+#define JOB_TITLE_AI     "AI"
+#define JOB_KEY_AI     "AI"
+#define JOB_TITLE_CYBORG "Cyborg"
+#define JOB_KEY_CYBORG "Cyborg"
+
+// Misc & Off-Station
+#define JOB_TITLE_KING    "King"
+#define JOB_TITLE_PRISONER "Prisoner"
+#define JOB_SPACE_POLICE "Space Police"
 
 // ERTs
 #define JOB_ERT_DEATHSQUAD      "Death Commando"
@@ -193,12 +197,6 @@
 #define JOB_CENTCOM_THUNDERDOME_OVERSEER "Thunderdome Overseer"
 #define JOB_CENTCOM_MEDICAL_DOCTOR   "Medical Officer"
 #define JOB_CENTCOM_RESEARCH_OFFICER "Research Officer"
-
-// Misc & Off-Station
-#define JOB_NAME_GIMMICK "Gimmick" // gimmick
-#define JOB_NAME_KING    "King"
-#define JOB_NAME_PRISONER "Prisoner"
-#define JOB_SPACE_POLICE "Space Police"
 
 
 
