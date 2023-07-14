@@ -74,13 +74,13 @@
 	switch(qualify_type)
 		if(QUALIFY_TYPE_DENY_ANY)
 			LAZYINITLIST(denies_by_any_qualify)
-			ADD_EXP_REQ_FORMAT(denies_by_any_qualify, eligibility_count, job_playtime_requirement, combined_playtime_req, reversed_timecheck, group_display_name)
+			denies_by_any_qualify += new /datum/job_playtime_req(eligibility_count, job_playtime_requirement, combined_playtime_req, reversed_timecheck, group_display_name)
 		if(QUALIFY_TYPE_ACCEPT_SINGLE)
 			LAZYINITLIST(accepts_by_single_qualify)
-			ADD_EXP_REQ_FORMAT(accepts_by_single_qualify, eligibility_count, job_playtime_requirement, combined_playtime_req, reversed_timecheck, group_display_name, ultimate=TRUE)
+			accepts_by_single_qualify += new /datum/job_playtime_req(eligibility_count, job_playtime_requirement, combined_playtime_req, reversed_timecheck, group_display_name, ultimate=TRUE)
 		if(QUALIFY_TYPE_ACCEPT_FULL)
 			LAZYINITLIST(accepts_by_full_qualify)
-			ADD_EXP_REQ_FORMAT(accepts_by_full_qualify, eligibility_count, job_playtime_requirement, combined_playtime_req, reversed_timecheck, group_display_name)
+			accepts_by_full_qualify += new /datum/job_playtime_req(eligibility_count, job_playtime_requirement, combined_playtime_req, reversed_timecheck, group_display_name)
 
 
 /datum/job_playtime_req
