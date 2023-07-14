@@ -4,7 +4,6 @@
 	var/list/accepts_by_full_qualify
 
 
-
 /datum/playtime_check/proc/check_playtime(client/C, returns_details=FALSE)
 	// I know these look stupid, but you need to get the information why you can't play this job
 	if(!C)
@@ -22,36 +21,53 @@
 		return returns_details ? list(EXP_CHECK_PASS=TRUE) : TRUE
 
 	var/list/exp_result = INIT_EXP_LIST
+	var/force_result
 
 	// basically, you're considered to be qualified, but if you failed to meet a requirement, qualifying will be removed.
+	// DENY CHECK: If you pass here, you can't play this job
 	for(var/datum/job_playtime_req/each_req in denies_by_any_qualify)
 		var/list/check_result = each_req.check_eligibility(C, returns_details)
-		if(check_result[EXP_CHECK_PASS])
+		if(check_result[EXP_CHECK_PASS]) // you passed it, but sadly being eligible isn't always good
 			exp_result[EXP_CHECK_PASS] = FALSE
+			force_result = FALSE
 			if(returns_details)
 				exp_result[EXP_CHECK_DESC] += check_result[EXP_CHECK_DESC] // don't use |= because some strings are the same in specific situations
 			else
 				return FALSE // early return FALSE - you can't play this
 
+	// ACCEPT SINGLE CHECK: If you pass here, you're forcefully available to play
+	// [Important] You don't have to pass any of this to be eligible. This is just a bonus.
 	for(var/datum/job_playtime_req/each_req in accepts_by_single_qualify)
 		var/list/check_result = each_req.check_eligibility(C, returns_details)
-		if(!check_result[EXP_CHECK_PASS])
-			exp_result[EXP_CHECK_PASS] = FALSE
+		if(!check_result[EXP_CHECK_PASS]) // [SINGLE CHECK] you didn't pass the check, but no worries, this doesn't matter.
+			// exp_result[EXP_CHECK_PASS] = FALSE // DO NOT UNCOMMENT THIS
+			// making it FALSE means you need to qualify this too... but this is fine not to be eligible
+			// I intentioanlly remained a comment here to let you know how this works.
 			if(returns_details)
 				exp_result[EXP_CHECK_DESC] += check_result[EXP_CHECK_DESC]
-			else
-				return TRUE // early return TRUE - you met an ultimate requirement for this!
 
+		// You passed the ultimate requirement!
+		else
+			if(!returns_details) // do not combine this with "else"
+				return TRUE
+			if(isnull(force_result)) // only "force_result=null" is valid to be TRUE
+				force_result = TRUE
+
+	// ACCEPT FULL CHECK: You need to pass all of these to play this
 	for(var/datum/job_playtime_req/each_req in accepts_by_full_qualify)
 		var/list/check_result = each_req.check_eligibility(C, returns_details)
 		if(!check_result[EXP_CHECK_PASS])
 			exp_result[EXP_CHECK_PASS] = FALSE
 			if(returns_details)
 				exp_result[EXP_CHECK_DESC] += check_result[EXP_CHECK_DESC]
-	if(!returns_details)
-		return exp_result[EXP_CHECK_PASS]
 
-	return exp_result
+	// If force_result is TRUE/FALSE (not null), it means the result should be overrided
+	if(!isnull(force_result))
+		exp_result[EXP_CHECK_PASS] = force_result
+
+	if(!returns_details)
+		return exp_result[EXP_CHECK_PASS] // returns non-list single variable
+	return exp_result // returns as a list [EXP_CHECK_PASS:result_value, EXP_CHECK_DESC:playtime_detail]
 
 
 /datum/playtime_check/proc/insert_playtime_req(qualify_type, eligibility_count, job_playtime_requirement, combined_playtime_req=0, reversed_timecheck=null, group_display_name=null)

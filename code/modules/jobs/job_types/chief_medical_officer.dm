@@ -15,7 +15,6 @@
 	exp_type = EXP_TYPE_MEDICAL
 	exp_type_department = EXP_TYPE_MEDICAL
 
-
 	outfit = /datum/outfit/job/chief_medical_officer
 
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_CLONING, ACCESS_HEADS, ACCESS_MINERAL_STOREROOM,
@@ -69,6 +68,13 @@
 		ROLE_TRAITOR = 120), combined_playtime_req = 600)
 
 
+	playtime_check.insert_playtime_req(QUALIFY_TYPE_ACCEPT_FULL, 2, list(
+		JOB_NAME_CHEMIST = 120,
+		JOB_NAME_GENETICIST = 120,
+		JOB_NAME_VIROLOGIST = 120,
+		JOB_NAME_MEDICALDOCTOR,
+		JOB_NAME_PARAMEDIC,
+		JOB_NAME_BRIGPHYSICIAN), combined_playtime_req = 600)
 
 
 /datum/outfit/job/chief_medical_officer
