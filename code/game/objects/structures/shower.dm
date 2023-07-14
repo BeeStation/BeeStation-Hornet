@@ -25,7 +25,7 @@
 /obj/structure/showerframe/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/stack/sheet/plastic))
 		balloon_alert(user, "You start constructing a shower...")
-		if(do_after(user, 4 SECONDS, target = src))
+		if(do_after(user, 4 SECONDS, target = src, add_item = I))
 			I.use(1)
 			balloon_alert(user, "You create a shower.")
 			var/obj/machinery/shower/new_shower = new /obj/machinery/shower(loc)

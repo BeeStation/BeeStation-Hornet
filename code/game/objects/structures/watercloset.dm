@@ -228,7 +228,7 @@
 /obj/structure/sinkframe/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/stack/sheet/plastic))
 		balloon_alert(user, "You start constructing a sink...")
-		if(do_after(user, 4 SECONDS, target = src))
+		if(do_after(user, 4 SECONDS, target = src, add_item = I))
 			I.use(1)
 			balloon_alert(user, "You create a sink.")
 			var/obj/structure/sink/new_sink = new /obj/structure/sink(loc)

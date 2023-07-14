@@ -219,8 +219,15 @@
 			if(!building_checks(R, multiplier))
 				return
 			if(R.time)
+				var/atom/movable/fake_atom = new
+				var/atom/fake_result = R.result_type
+				fake_atom.icon = initial(fake_result.icon)
+				fake_atom.icon_state = initial(fake_result.icon_state_preview) || initial(fake_result.icon_state)
+				if(initial(fake_result.color) != "#FFFFFF")
+					fake_atom.color= initial(fake_result.color)
+				fake_atom.color = initial(fake_result.color)
 				usr.visible_message("<span class='notice'>[usr] starts building \a [R.title].</span>", "<span class='notice'>You start building \a [R.title]...</span>")
-				if(!do_after(usr, R.time, target = usr))
+				if(!do_after(usr, R.time, target = usr, add_item = fake_atom))
 					return
 				if(!building_checks(R, multiplier))
 					return

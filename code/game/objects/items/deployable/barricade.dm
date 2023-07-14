@@ -104,7 +104,7 @@
 			return
 
 		usr.visible_message("<span class='notice'>[usr] begins breaking down [src]</span>", "<span class='notice'>You begin breaking down [src].</span>")
-		if(do_after(usr, pickup_delay, src))
+		if(do_after(usr, pickup_delay, src, add_item = src))
 
 			//If the barricade is made of parts, some of them are damaged when the barricade is damaged so we set how many are being returned here
 			if(initial(drop_amount) > 1)
@@ -139,7 +139,7 @@
 			return
 		else
 			to_chat(user, "<span class='notice'>You start adding [I] to [src]...</span>")
-			if(do_after(user, 50, target=src))
+			if(do_after(user, 50, target=src, add_item = I))
 				W.use(5)
 				var/turf/T = get_turf(src)
 				T.PlaceOnTop(/turf/closed/wall/mineral/wood/nonmetal)

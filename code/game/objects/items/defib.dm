@@ -533,11 +533,17 @@
 		return
 	if(!req_defib && !combat)
 		return
+	if(H in user.do_afters)
+		to_chat(user, "<span class='notice'>You're already trying to use [src] on [H]!</span>")
+		return
 	user.visible_message("<span class='warning'>[user] begins to place [src] on [H]'s chest.</span>",
 		"<span class='warning'>You overcharge the paddles and begin to place them onto [H]'s chest...</span>")
 	busy = TRUE
 	update_icon()
-	if(do_after(user, 15, target = H, show_to_target = TRUE, add_item = src))
+	var/atom/temp_paddles = src//make a temporary set of paddles that have both paddles showing instead of one
+	temp_paddles.appearance = appearance
+	temp_paddles.icon_state = initial(icon_state)
+	if(do_after(user, 15, target = H, show_to_target = TRUE, add_item = temp_paddles))
 		user.visible_message("<span class='notice'>[user] places [src] on [H]'s chest.</span>",
 			"<span class='warning'>You place [src] on [H]'s chest and begin to charge them.</span>")
 		var/turf/T = get_turf(defib)
@@ -546,7 +552,7 @@
 			T.audible_message("<span class='warning'>\The [defib] lets out an urgent beep and lets out a steadily rising hum...</span>")
 		else
 			user.audible_message("<span class='warning'>[src] let out an urgent beep.</span>")
-		if(do_after(user, 15, target = H, show_to_target = TRUE, add_item = src)) //Takes longer due to overcharging
+		if(do_after(user, 15, target = H, show_to_target = TRUE, add_item = temp_paddles)) //Takes longer due to overcharging
 			if(!H)
 				busy = FALSE
 				update_icon()
@@ -584,10 +590,16 @@
 	update_icon()
 
 /obj/item/shockpaddles/proc/do_help(mob/living/carbon/H, mob/living/user)
+	if(H in user.do_afters)
+		to_chat(user, "<span class='notice'>You're already trying to use [src] on [H]!</span>")
+		return
 	user.visible_message("<span class='warning'>[user] begins to place [src] on [H]'s chest.</span>", "<span class='warning'>You begin to place [src] on [H]'s chest...</span>")
 	busy = TRUE
 	update_icon()
-	if(do_after(user, 30, target = H, show_to_target = TRUE, add_item = src)) //beginning to place the paddles on patient's chest to allow some time for people to move away to stop the process
+	var/atom/temp_paddles = src
+	temp_paddles.appearance = appearance
+	temp_paddles.icon_state = initial(icon_state)
+	if(do_after(user, 30, target = H, show_to_target = TRUE, add_item = temp_paddles)) //beginning to place the paddles on patient's chest to allow some time for people to move away to stop the process
 		user.visible_message("<span class='notice'>[user] places [src] on [H]'s chest.</span>", "<span class='warning'>You place [src] on [H]'s chest.</span>")
 		playsound(src, 'sound/machines/defib_charge.ogg', 75, 0)
 		var/total_burn	= 0

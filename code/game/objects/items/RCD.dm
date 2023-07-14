@@ -414,7 +414,7 @@ RLD
 	var/delay = rcd_results["delay"] * delay_mod
 	var/obj/effect/constructing_effect/rcd_effect = new(get_turf(A), delay, src.mode)
 	if(checkResource(rcd_results["cost"], user))
-		if(do_after(user, delay, target = A))
+		if(do_after(user, delay, target = A, add_item = src))
 			if(checkResource(rcd_results["cost"], user))
 				if(A.rcd_act(user, src, rcd_results["mode"]))
 					rcd_effect.end_animation()
@@ -704,7 +704,7 @@ RLD
 					to_chat(user, "<span class='notice'>You start deconstructing [A]...</span>")
 					user.Beam(A,icon_state="nzcrentrs_power",time=15)
 					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-					if(do_after(user, decondelay, target = A))
+					if(do_after(user, decondelay, target = A, add_item = src))
 						if(!useResource(deconcost, user))
 							return 0
 						activate()
@@ -719,7 +719,7 @@ RLD
 					user.Beam(A,icon_state="nzcrentrs_power",time=15)
 					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 					playsound(src.loc, 'sound/effects/light_flicker.ogg', 50, 0)
-					if(do_after(user, floordelay, target = A))
+					if(do_after(user, floordelay, target = A, add_item = src))
 						if(!istype(W))
 							return FALSE
 						var/list/candidates = list()
@@ -765,7 +765,7 @@ RLD
 					user.Beam(A,icon_state="nzcrentrs_power",time=15)
 					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 					playsound(src.loc, 'sound/effects/light_flicker.ogg', 50, 1)
-					if(do_after(user, floordelay, target = A))
+					if(do_after(user, floordelay, target = A, add_item = src))
 						if(!istype(F))
 							return 0
 						if(!useResource(floorcost, user))
@@ -835,7 +835,7 @@ RLD
 		return FALSE
 
 	if(checkResource(machinery_data["cost"][blueprint], user) && blueprint)
-		if(do_after(user, machinery_data["delay"][blueprint], target = A))
+		if(do_after(user, machinery_data["delay"][blueprint], target = A, add_item = src))
 			if(checkResource(machinery_data["cost"][blueprint], user) && canPlace(A))
 				useResource(machinery_data["cost"][blueprint], user)
 				activate()
@@ -860,7 +860,7 @@ RLD
 		if(P.anchored)
 			to_chat(user, "<span class='warning'>The [P.name] needs to be unanchored!</span>")
 			return
-		if(do_after(user, 20, target = P))
+		if(do_after(user, 20, target = P, add_item = src))
 			P.deconstruct() //Let's not substract matter
 			playsound(get_turf(src), 'sound/machines/click.ogg', 50, TRUE) //this is just such a great sound effect
 	else

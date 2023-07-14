@@ -63,7 +63,7 @@
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(dud_flags & GRENADE_USED)
 			to_chat(user, "<span class='notice'>You started to reset the trigger.</span>")
-			if (do_after(user, 2 SECONDS, src))
+			if (do_after(user, 2 SECONDS, src, add_item = I))
 				to_chat(user, "<span class='notice'>You reset the trigger.</span>")
 				dud_flags &= ~GRENADE_USED
 			return

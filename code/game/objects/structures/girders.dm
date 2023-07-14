@@ -64,7 +64,7 @@
 					to_chat(user, "<span class='warning'>You need at least two rods to create a false wall!</span>")
 					return
 				balloon_alert(user, "You start building a reinforced false wall...")
-				if(do_after(user, 20, target = src))
+				if(do_after(user, 20, target = src, add_item = W))
 					if(S.get_amount() < 2)
 						return
 					S.use(2)
@@ -78,7 +78,7 @@
 					to_chat(user, "<span class='warning'>You need at least five rods to add plating!</span>")
 					return
 				balloon_alert(user, "You start adding plating...")
-				if(do_after(user, 40, target = src))
+				if(do_after(user, 40, target = src, add_item = W))
 					if(S.get_amount() < 5)
 						return
 					S.use(5)
@@ -99,7 +99,7 @@
 					to_chat(user, "<span class='warning'>You need two sheets of iron to create a false wall!</span>")
 					return
 				balloon_alert(user, "You start building false wall...")
-				if(do_after(user, 20, target = src))
+				if(do_after(user, 20, target = src, add_item = W))
 					if(S.get_amount() < 2)
 						return
 					S.use(2)
@@ -113,7 +113,7 @@
 					to_chat(user, "<span class='warning'>You need two sheets of iron to finish a wall!</span>")
 					return
 				balloon_alert(user, "You start adding plating...")
-				if (do_after(user, 40, target = src))
+				if (do_after(user, 40, target = src, add_item = W))
 					if(S.get_amount() < 2)
 						return
 					S.use(2)
@@ -130,7 +130,7 @@
 					to_chat(user, "<span class='warning'>You need at least two sheets to create a false wall!</span>")
 					return
 				balloon_alert(user, "You start building reinforced false wall...")
-				if(do_after(user, 20, target = src))
+				if(do_after(user, 20, target = src, add_item = W))
 					if(S.get_amount() < 2)
 						return
 					S.use(2)
@@ -144,7 +144,7 @@
 					if(S.get_amount() < 1)
 						return
 					balloon_alert(user, "You start finilizing reinforced wall...")
-					if(do_after(user, 50, target = src))
+					if(do_after(user, 50, target = src, add_item = W))
 						if(S.get_amount() < 1)
 							return
 						S.use(1)
@@ -158,7 +158,7 @@
 					if(S.get_amount() < 1)
 						return
 					balloon_alert(user, "You start reinforcing [src]...")
-					if(do_after(user, 60, target = src))
+					if(do_after(user, 60, target = src, add_item = W))
 						if(S.get_amount() < 1)
 							return
 						S.use(1)
@@ -174,7 +174,7 @@
 				if(S.get_amount() < 2)
 					to_chat(user, "<span class='warning'>You need at least two sheets to create a false wall!</span>")
 					return
-				if(do_after(user, 20, target = src))
+				if(do_after(user, 20, target = src, add_item = W))
 					if(S.get_amount() < 2)
 						return
 					S.use(2)
@@ -189,7 +189,7 @@
 					to_chat(user, "<span class='warning'>You need at least two sheets to add plating!</span>")
 					return
 				balloon_alert(user, "You start adding plating...")
-				if (do_after(user, 40, target = src))
+				if (do_after(user, 40, target = src, add_item = W))
 					if(S.get_amount() < 2)
 						return
 					S.use(2)
@@ -355,7 +355,7 @@
 			to_chat(user, "<span class='warning'>You need at least one sheet of runed metal to construct a runed wall!</span>")
 			return 0
 		user.visible_message("<span class='notice'>[user] begins laying runed metal on [src]...</span>", "<span class='notice'>You begin constructing a runed wall...</span>")
-		if(do_after(user, 50, target = src))
+		if(do_after(user, 50, target = src, add_item = W))
 			if(R.get_amount() < 1)
 				return
 			user.visible_message("<span class='notice'>[user] plates [src] with runed metal.</span>", "<span class='notice'>You construct a runed wall.</span>")
@@ -429,7 +429,7 @@
 			to_chat(user, "<span class='warning'>You need at least two bronze sheets to build a bronze wall!</span>")
 			return FALSE
 		user.visible_message("<span class='notice'>[user] begins plating [src] with bronze...</span>", "<span class='notice'>You begin constructing a bronze wall...</span>")
-		if(do_after(user, 50, target = src))
+		if(do_after(user, 50, target = src, add_item = W))
 			if(B.get_amount() < 2)
 				return
 			user.visible_message("<span class='notice'>[user] plates [src] with bronze!</span>", "<span class='notice'>You construct a bronze wall.</span>")

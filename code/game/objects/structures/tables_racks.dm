@@ -94,7 +94,7 @@
 			if(user.a_intent == INTENT_HELP)
 				pushed_mob.visible_message("<span class='notice'>[user] begins to place [pushed_mob] onto [src]...</span>", \
 									"<span class='userdanger'>[user] begins to place [pushed_mob] onto [src]...</span>")
-				if(do_after(user, 35, target = pushed_mob))
+				if(do_after(user, 35, target = pushed_mob, show_to_target = TRUE))
 					tableplace(user, pushed_mob)
 				else
 					return
@@ -211,7 +211,7 @@
 					skills_space = " quickly"
 				carried_mob.visible_message("<span class='notice'>[user] begins to[skills_space] place [carried_mob] onto [src]...</span>",
 					"<span class='userdanger'>[user] begins to[skills_space] place [carried_mob] onto [src]...</span>")
-				if(do_after(user, tableplace_delay, target = carried_mob))
+				if(do_after(user, tableplace_delay, target = carried_mob, show_to_target = TRUE))
 					user.unbuckle_mob(carried_mob)
 					tableplace(user, carried_mob)
 			else
@@ -711,7 +711,7 @@
 		return
 	building = TRUE
 	to_chat(user, "<span class='notice'>You start constructing a rack...</span>")
-	if(do_after(user, 50, target = user))
+	if(do_after(user, 50, target = user, add_item = src))
 		if(!user.temporarilyRemoveItemFromInventory(src))
 			return
 		var/obj/structure/rack/R = new /obj/structure/rack(user.loc)

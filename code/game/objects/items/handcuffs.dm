@@ -54,6 +54,9 @@
 
 	if(!C.handcuffed)
 		if(C.get_num_arms(FALSE) >= 2 || C.get_arm_ignore())
+			if(C in user.do_afters)
+				to_chat(user, "<span class='notice'>You're already trying to cuff [C]!</span>")
+				return COMPONENT_NO_AFTERATTACK
 			C.visible_message("<span class='danger'>[user] is trying to put [src.name] on [C]!</span>", \
 								"<span class='userdanger'>[user] is trying to put [src.name] on you!</span>")
 
@@ -165,6 +168,9 @@
 		if(M.get_amount() < 6)
 			to_chat(user, "<span class='warning'>You need at least six iron sheets to make good enough weights!</span>")
 			return
+		if(src in user.do_afters)
+			to_chat(user, "<span class='notice'>You're already applying [I] to [src]!</span>")
+			return COMPONENT_NO_AFTERATTACK
 		to_chat(user, "<span class='notice'>You begin to apply [I] to [src]...</span>")
 		var/obj/item/restraints/legcuffs/bola/S = new /obj/item/restraints/legcuffs/bola
 		if(do_after(user, 35, target = src, add_item = S))

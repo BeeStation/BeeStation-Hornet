@@ -120,7 +120,7 @@
 
 	to_chat(user, "<span class='notice'>You start planting [src]. The timer is set to [det_time]...</span>")
 
-	if(do_after(user, 30, target = AM))
+	if(do_after(user, 30, target = AM, add_item = src))
 		if(!user.temporarilyRemoveItemFromInventory(src))
 			return
 		target = AM

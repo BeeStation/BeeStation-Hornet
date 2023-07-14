@@ -221,8 +221,11 @@
 			kidnaptime += 10 SECONDS
 		if(target == user)
 			kidnaptime = 1 SECONDS
+		if(kidnapee in user.do_afters)
+			to_chat(user, "<span class='notice'>You're already trying to pull [src] over [kidnapee]'s head!</span>")
+			return COMPONENT_NO_AFTERATTACK
 		kidnapee.visible_message("<span class='warning'>[user] starts pulling [src] over [kidnapee]'s head!</span>", "<span class='userdanger'>[user] starts pulling [src] over your head!</span>")
-		if(do_after(user, kidnaptime * kidnappingcoefficient, kidnapee))
+		if(do_after(user, kidnaptime * kidnappingcoefficient, kidnapee, show_to_target = TRUE, add_item = src))
 			if(kidnapee == user)
 				kidnapee.drop_all_held_items()
 				if(HAS_TRAIT(src, TRAIT_NODROP))
@@ -278,7 +281,7 @@
 	user.last_special = world.time + CLICK_CD_BREAKOUT
 	to_chat(user, "<span class='notice'>You claw at the fabric of [src], trying to tear it open...</span>")
 	to_chat(loc, "<span class='warning'>Someone starts trying to break free of [src]!</span>")
-	if(!do_after(user, 100, target = src))
+	if(!do_after(user, 100, target = src, add_item = src))
 		to_chat(loc, "<span class='warning'>The pressure subsides. It seems that they've stopped resisting...</span>")
 		return
 	loc.visible_message("<span class='warning'>[user] suddenly appears in front of [loc]!</span>", "<span class='userdanger'>[user] breaks free of [src]!</span>")

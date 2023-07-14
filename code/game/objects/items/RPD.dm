@@ -474,7 +474,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 	if((mode & DESTROY_MODE) && is_type_in_typecache(A, rpd_targets))
 		to_chat(user, "<span class='notice'>You start destroying a pipe...</span>")
 		playsound(get_turf(src), 'sound/machines/click.ogg', 50, 1)
-		if(do_after(user, destroy_speed, target = attack_target))
+		if(do_after(user, destroy_speed, target = attack_target, add_item = src))
 			activate()
 			qdel(attack_target)
 		return
@@ -484,7 +484,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 		if(istype(M) && M.paintable)
 			to_chat(user, "<span class='notice'>You start painting \the [M] [paint_color]...</span>")
 			playsound(get_turf(src), 'sound/machines/click.ogg', 50, 1)
-			if(do_after(user, paint_speed, target = M))
+			if(do_after(user, paint_speed, target = M, add_item = src))
 				M.paint(GLOB.pipe_paint_colors[paint_color]) //paint the pipe
 				user.visible_message("<span class='notice'>[user] paints \the [M] [paint_color].</span>","<span class='notice'>You paint \the [M] [paint_color].</span>")
 			return
@@ -492,7 +492,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 		if(istype(P) && P.paintable)
 			to_chat(user, "<span class='notice'>You start painting \the [P] [paint_color]...</span>")
 			playsound(get_turf(src), 'sound/machines/click.ogg', 50, 1)
-			if(do_after(user, paint_speed, target = P))
+			if(do_after(user, paint_speed, target = P, add_item = src))
 				P.add_atom_colour(GLOB.pipe_paint_colors[paint_color], FIXED_COLOUR_PRIORITY) //paint the pipe
 				user.visible_message("<span class='notice'>[user] paints \the [P] [paint_color].</span>","<span class='notice'>You paint \the [P] [paint_color].</span>")
 			return
@@ -505,7 +505,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 				playsound(get_turf(src), 'sound/machines/click.ogg', 50, 1)
 				if (recipe.type == /datum/pipe_info/meter)
 					to_chat(user, "<span class='notice'>You start building a meter...</span>")
-					if(do_after(user, atmos_build_speed, target = attack_target))
+					if(do_after(user, atmos_build_speed, target = attack_target, add_item = src))
 						activate()
 						var/obj/item/pipe_meter/PM = new /obj/item/pipe_meter(get_turf(attack_target))
 						PM.setAttachLayer(piping_layer)
@@ -516,7 +516,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 						to_chat(user, "<span class='notice'>You can't build this object on the layer...</span>")
 						return
 					to_chat(user, "<span class='notice'>You start building a pipe...</span>")
-					if(do_after(user, atmos_build_speed, target = attack_target))
+					if(do_after(user, atmos_build_speed, target = attack_target, add_item = src))
 						if(recipe.all_layers == FALSE && (piping_layer == 1 || piping_layer == 5)) // double check to stop cheaters (and to not waste time waiting for something that can't be placed)
 							to_chat(user, "<span class='notice'>You can't build this object on the layer...</span>")
 							return
@@ -546,7 +546,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 					return
 				to_chat(user, "<span class='notice'>You start building a disposals pipe...</span>")
 				playsound(get_turf(src), 'sound/machines/click.ogg', 50, 1)
-				if(do_after(user, disposal_build_speed, target = attack_target))
+				if(do_after(user, disposal_build_speed, target = attack_target, add_item = src))
 					var/obj/structure/disposalconstruct/C = new (attack_target, queued_p_type, queued_p_dir, queued_p_flipped)
 
 					if(!C.can_place())
@@ -571,7 +571,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 					return
 				to_chat(user, "<span class='notice'>You start building a transit tube...</span>")
 				playsound(get_turf(src), 'sound/machines/click.ogg', 50, 1)
-				if(do_after(user, transit_build_speed, target = attack_target))
+				if(do_after(user, transit_build_speed, target = attack_target, add_item = src))
 					activate()
 					if(queued_p_type == /obj/structure/c_transit_tube_pod)
 						var/obj/structure/c_transit_tube_pod/pod = new /obj/structure/c_transit_tube_pod(attack_target)
@@ -601,7 +601,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 					return
 				to_chat(user, "<span class='notice'>You start building a fluid duct...</span>")
 				playsound(get_turf(src), 'sound/machines/click.ogg', 50, 1)
-				if(do_after(user, plumbing_build_speed, target = A))
+				if(do_after(user, plumbing_build_speed, target = A, add_item = src))
 					var/obj/machinery/duct/D
 					if(recipe.type == /datum/pipe_info/plumbing/multilayer)
 						var/temp_connects = NORTH + SOUTH

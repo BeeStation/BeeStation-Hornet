@@ -228,7 +228,7 @@
 		var/obj/item/cult_bastard/sword = A
 		to_chat(user, "<span class='notice'>You begin to exorcise [sword].</span>")
 		playsound(src,'sound/hallucinations/veryfar_noise.ogg',40,1)
-		if(do_after(user, 40, target = sword))
+		if(do_after(user, 40, target = sword, show_to_target = TRUE, add_item = src))
 			playsound(src,'sound/effects/pray_chaplain.ogg',60,1)
 			for(var/obj/item/soulstone/SS in sword.contents)
 				SS.usability = TRUE
@@ -248,7 +248,7 @@
 			return
 		to_chat(user, "<span class='notice'>You begin to exorcise [SS].</span>")
 		playsound(src,'sound/hallucinations/veryfar_noise.ogg',40,1)
-		if(do_after(user, 40, target = SS))
+		if(do_after(user, 40, target = SS, show_to_target = TRUE, add_item = src))
 			playsound(src,'sound/effects/pray_chaplain.ogg',60,1)
 			SS.usability = TRUE
 			SS.purified = TRUE

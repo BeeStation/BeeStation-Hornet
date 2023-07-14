@@ -24,7 +24,7 @@
 
 	user.visible_message("<span class='notice'>[user] begins wrapping [I] with [src].</span>", "<span class='notice'>You begin wrapping [I] with [src].</span>")
 
-	if(do_after(user, 30, target=I))
+	if(do_after(user, 30, target=I, add_item = src))
 		I.embedding = conferred_embed
 		I.updateEmbedding()
 		to_chat(user, "<span class='notice'>You finish wrapping [I] with [src].</span>")

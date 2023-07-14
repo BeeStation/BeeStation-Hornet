@@ -26,11 +26,14 @@
 		return
 	if(user && imp)
 		if(M != user)
+			if(M in user.do_afters)
+				to_chat(user, "<span class='notice'>You're already trying to implant [M]!</span>")
+				return COMPONENT_NO_AFTERATTACK
 			M.visible_message("<span class='warning'>[user] is attempting to implant [M].</span>", \
 				"<span class='userdanger'>[user] is trying to implant you with [src]!</span>")
 
 		var/turf/T = get_turf(M)
-		if(T && (M == user || do_after(user, 5 SECONDS, M)))
+		if(T && (M == user || do_after(user, 5 SECONDS, M, show_to_target = TRUE, add_item = src)))
 			if(src && imp)
 				if(imp.implant(M, user))
 					if (M == user)

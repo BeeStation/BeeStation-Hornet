@@ -254,8 +254,10 @@ datum/callback/extra_checks, atom/add_item, x_offset = 0, y_offset = 0)
 	if(!user)
 		return FALSE
 	if(target)
-		if(target in user.do_afters) // No stacking multiple do_afters on one target by a single person
-			return FALSE
+		if(target in user.do_afters) // No stacking multiple do_afters on one target by a single person if there's a shown item
+			if(add_item)
+				to_chat(user, "<span class='warning'>You're already trying to use [add_item] on [target]!</span>")
+				return FALSE
 		LAZYADD(user.do_afters, target)
 		LAZYADD(target.targeted_by, user)
 	var/atom/user_loc = user.loc

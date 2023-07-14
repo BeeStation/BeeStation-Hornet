@@ -53,7 +53,7 @@
 		return TRUE
 
 	user.visible_message("<span class='notice'>[user] begins to deploy [src]...</span>")
-	if(do_after(user, time_to_deploy, src))
+	if(do_after(user, time_to_deploy, src, add_item = src))
 		deploy(user, location)
 		return TRUE
 	else

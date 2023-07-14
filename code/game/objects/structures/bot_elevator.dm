@@ -56,7 +56,7 @@
 	if(!is_ghost && isbot(user))
 		user.say("Weeeeeee!")
 		if(needs_do_after)
-			if(!do_after(user, 1 SECONDS, target=src))
+			if(!do_after(user, 1 SECONDS, target=src, show_to_target = TRUE))
 				return FALSE
 	user.forceMove(T)
 

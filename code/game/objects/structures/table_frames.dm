@@ -38,7 +38,7 @@
 		if(!check_turf_contents(user))
 			return
 		to_chat(user, "<span class='notice'>You start adding [material] to [src]...</span>")
-		if(do_after(user, 20, target = src) && material.use(1))
+		if(do_after(user, 20, target = src, add_item = I) && material.use(1))
 			make_new_table(material.tableVariant, user)
 	else
 		return ..()
@@ -96,7 +96,7 @@
 			if(!check_turf_contents(user))
 				return
 			to_chat(user, "<span class='notice'>You start adding [material] to [src]...</span>")
-			if(do_after(user, 20, target = src) && material.use(1))
+			if(do_after(user, 20, target = src, add_item = I) && material.use(1))
 				make_new_table(toConstruct)
 	else
 		return ..()
@@ -118,7 +118,7 @@
 		if(!check_turf_contents(user))
 			return
 		to_chat(user, "<span class='notice'>You start adding [W] to [src]...</span>")
-		if(do_after(user, 20, target = src) && W.use(1))
+		if(do_after(user, 20, target = src, add_item = I) && W.use(1))
 			make_new_table(/obj/structure/table/brass)
 	else
 		return ..()

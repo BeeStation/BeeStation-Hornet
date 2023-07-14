@@ -59,7 +59,7 @@
 	shaking = TRUE
 
 	start_shaking(user)
-	if(do_after(user, shake_time, target=user))
+	if(do_after(user, shake_time, target=user, add_item = src))
 		var/answer = get_answer()
 		say(answer)
 
