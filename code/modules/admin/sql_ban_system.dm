@@ -325,7 +325,7 @@
 				"}
 				break_counter++
 			output += "</div></div>"
-		var/list/long_job_lists = list(("Civilian" = GLOB.civilian_positions | JOB_NAME_GIMMICK),
+		var/list/long_job_lists = list(("Civilian" = GLOB.civilian_positions),
 									"Ghost and Other Roles" = list(ROLE_BRAINWASHED, ROLE_HYPNOTIZED, ROLE_DEATHSQUAD, ROLE_DRONE, ROLE_LAVALAND, ROLE_MIND_TRANSFER, ROLE_POSIBRAIN, ROLE_SENTIENCE),
 									"Antagonist Positions" = list(ROLE_ABDUCTOR, ROLE_ALIEN, ROLE_BLOB, ROLE_SPACE_DRAGON,
 									ROLE_BROTHER, ROLE_CHANGELING, ROLE_CULTIST, ROLE_HERETIC,

@@ -1,5 +1,5 @@
 /datum/job/clown/stage_magician
-	g_jkey = JOB_KEY_STAGEMAGICIAN
+	g_jkey = JOB_NAME_STAGEMAGICIAN
 	g_jtitle = JOB_NAME_STAGEMAGICIAN
 	job_bitflags = JOB_BITFLAG_GIMMICK
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
@@ -24,7 +24,7 @@
 	use_clown_name = FALSE
 
 /datum/outfit/job/stage_magician
-	name = JOB_KEY_STAGEMAGICIAN
+	name = JOB_NAME_STAGEMAGICIAN
 	jobtype = /datum/job/clown/stage_magician
 	id = /obj/item/card/id/job/stage_magician
 	belt = /obj/item/modular_computer/tablet/pda/unlicensed

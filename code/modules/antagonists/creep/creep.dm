@@ -184,8 +184,8 @@
 		chosen_department = GLOB.science_positions
 	else if(obsession.assigned_role in GLOB.supply_positions)
 		chosen_department = GLOB.supply_positions
-	else if(obsession.assigned_role in (GLOB.civilian_positions | GLOB.gimmick_positions))
-		chosen_department = GLOB.civilian_positions | GLOB.gimmick_positions
+	else if(obsession.assigned_role in (GLOB.civilian_positions))
+		chosen_department = GLOB.civilian_positions
 	else
 		set_target(null)
 		update_explanation_text()

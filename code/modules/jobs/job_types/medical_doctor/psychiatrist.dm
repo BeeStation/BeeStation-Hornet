@@ -1,5 +1,5 @@
 /datum/job/medical_doctor/psychiatrist
-	g_jkey = JOB_KEY_PSYCHIATRIST
+	g_jkey = JOB_NAME_PSYCHIATRIST
 	g_jtitle = JOB_NAME_PSYCHIATRIST
 	job_bitflags = JOB_BITFLAG_GIMMICK
 	total_positions = 0
@@ -24,7 +24,7 @@
 	)
 
 /datum/outfit/job/psychiatrist //psychiatrist doesnt get much shit, but he has more access and a cushier paycheck
-	name = JOB_KEY_PSYCHIATRIST
+	name = JOB_NAME_PSYCHIATRIST
 	jobtype = /datum/job/medical_doctor/psychiatrist
 	id = /obj/item/card/id/job/psychiatrist
 	belt = /obj/item/modular_computer/tablet/pda/medical

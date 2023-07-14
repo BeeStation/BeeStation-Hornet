@@ -1,5 +1,5 @@
 /datum/job/assistant/barber
-	g_jkey = JOB_KEY_BARBER
+	g_jkey = JOB_NAME_BARBER
 	g_jtitle = JOB_NAME_BARBER
 	job_bitflags = JOB_BITFLAG_GIMMICK
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
@@ -15,7 +15,7 @@
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_ASSISTANT)
 
-	list_of_job_keys_to_mob_mind = list(JOB_KEY_ASSISTANT)
+	list_of_job_keys_to_mob_mind = list(JOB_NAME_ASSISTANT)
 	// their nature is assistant. They'll have two jobs(barber, assistant) in their mind role.
 
 	rpg_title = "Scissorhands"
@@ -24,7 +24,7 @@
 	)
 
 /datum/outfit/job/barber
-	name = JOB_KEY_BARBER
+	name = JOB_NAME_BARBER
 	jobtype = /datum/job/assistant/barber
 	id = /obj/item/card/id/job/barber
 	belt = /obj/item/modular_computer/tablet/pda/unlicensed

@@ -32,7 +32,7 @@
 	biohazard = 25 //clean your baton, man
 
 /datum/job/security_officer/notify_your_supervisor()
-	return "[JOB_KEY_HEADOFSECURITY], and head of your assigned department (if applicable)"
+	return "[JOB_NAME_HEADOFSECURITY], and head of your assigned department (if applicable)"
 
 /datum/job/security_officer/get_access()
 	var/list/L = list()

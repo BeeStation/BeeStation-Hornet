@@ -305,7 +305,7 @@
 			CARDCON_DEPARTMENT_SCIENCE = GLOB.science_positions,
 			CARDCON_DEPARTMENT_SECURITY = GLOB.security_positions,
 			CARDCON_DEPARTMENT_SUPPLY = GLOB.supply_positions,
-			CARDCON_DEPARTMENT_CIVILIAN = GLOB.civilian_positions | GLOB.gimmick_positions
+			CARDCON_DEPARTMENT_CIVILIAN = GLOB.civilian_positions
 		)
 	data["jobs"] = list()
 	for(var/department in departments)

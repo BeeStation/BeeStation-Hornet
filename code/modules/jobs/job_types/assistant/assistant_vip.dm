@@ -1,5 +1,5 @@
 /datum/job/assistant/vip
-	g_jkey = JOB_KEY_VIP
+	g_jkey = JOB_NAME_VIP
 	g_jtitle = JOB_NAME_VIP
 	job_bitflags = JOB_BITFLAG_GIMMICK | JOB_BITFLAG_MANAGE_LOCKED
 	department_head = list()
@@ -25,7 +25,7 @@
 	return "yourself"
 
 /datum/outfit/job/vip
-	name = JOB_KEY_VIP
+	name = JOB_NAME_VIP
 	jobtype = /datum/job/assistant/vip
 	id = /obj/item/card/id/gold/vip
 	belt = /obj/item/modular_computer/tablet/pda/vip

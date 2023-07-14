@@ -135,8 +135,8 @@
 
 
 // Misc & Off-Station
-#define JOB_TITLE_KING    "King"
-#define JOB_TITLE_PRISONER "Prisoner"
+#define JOB_NAME_KING    "King"
+#define JOB_NAME_PRISONER "Prisoner"
 #define JOB_SPACE_POLICE "Space Police"
 
 // ERTs

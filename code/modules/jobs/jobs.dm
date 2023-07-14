@@ -50,13 +50,6 @@ GLOBAL_LIST_INIT(civilian_positions, list(
 	JOB_NAME_CLOWN,
 	JOB_NAME_ASSISTANT))
 
-GLOBAL_LIST_INIT(gimmick_positions, list(
-	JOB_NAME_GIMMICK,
-	JOB_NAME_BARBER,
-	JOB_NAME_STAGEMAGICIAN,
-	JOB_NAME_PSYCHIATRIST,
-	JOB_NAME_VIP))
-
 GLOBAL_LIST_INIT(security_positions, list(
 	JOB_NAME_HEADOFSECURITY,
 	JOB_NAME_WARDEN,
@@ -72,7 +65,6 @@ GLOBAL_LIST_INIT(nonhuman_positions, list(
 
 
 // they are for hud_icon-based crew manifest
-// we don't use 'gimmick' here. use common sense here.
 GLOBAL_LIST_INIT(command_positions_hud, list(
 	JOB_HUD_CAPTAIN,
 	JOB_HUD_ACTINGCAPTAIN ,
@@ -133,9 +125,6 @@ GLOBAL_LIST_INIT(civilian_positions_hud, list(
 	JOB_HUD_ASSISTANT,
 	JOB_HUD_RAWSERVICE))
 
-//GLOBAL_LIST_INIT(gimmick_positions_hud, list()
-// NO. don't use this.
-
 GLOBAL_LIST_INIT(security_positions_hud, list(
 	JOB_HUD_HEADOFSECURITY,
 	JOB_HUD_WARDEN,
@@ -147,7 +136,7 @@ GLOBAL_LIST_INIT(security_positions_hud, list(
 
 
 GLOBAL_LIST_INIT(exp_jobsmap, list(
-	EXP_TYPE_CREW = list("titles" = command_positions | engineering_positions | medical_positions | science_positions | supply_positions | security_positions | civilian_positions | gimmick_positions | list(JOB_NAME_AI,JOB_NAME_CYBORG)), // crew positions
+	EXP_TYPE_CREW = list("titles" = command_positions | engineering_positions | medical_positions | science_positions | supply_positions | security_positions | civilian_positions | list(JOB_NAME_AI,JOB_NAME_CYBORG)), // crew positions
 	EXP_TYPE_COMMAND = list("titles" = command_positions),
 	EXP_TYPE_ENGINEERING = list("titles" = engineering_positions),
 	EXP_TYPE_MEDICAL = list("titles" = medical_positions),
@@ -155,8 +144,7 @@ GLOBAL_LIST_INIT(exp_jobsmap, list(
 	EXP_TYPE_SUPPLY = list("titles" = supply_positions),
 	EXP_TYPE_SECURITY = list("titles" = security_positions),
 	EXP_TYPE_SILICON = list("titles" = list(JOB_NAME_AI,JOB_NAME_CYBORG)),
-	EXP_TYPE_SERVICE = list("titles" = civilian_positions | gimmick_positions),
-	EXP_TYPE_GIMMICK = list("titles" = gimmick_positions)
+	EXP_TYPE_SERVICE = list("titles" = civilian_positions)
 ))
 
 GLOBAL_LIST_INIT(exp_specialmap, list(
