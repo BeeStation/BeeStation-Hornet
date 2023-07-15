@@ -366,7 +366,7 @@
 			return FALSE
 		fax.receive(loaded, fax_name, important = radio_channel == RADIO_CHANNEL_CENTCOM)
 		history_add("Send", fax.fax_name)
-		INVOKE_ASYNC(src, .proc/animate_object_travel, loaded, "fax_receive", find_overlay_state(loaded, "send"))
+		INVOKE_ASYNC(src, PROC_REF(animate_object_travel), loaded, "fax_receive", find_overlay_state(loaded, "send"))
 		return TRUE
 	return FALSE
 
