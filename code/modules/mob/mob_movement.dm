@@ -193,14 +193,14 @@
 	if(!isliving(mob))
 		return
 	var/mob/living/L = mob
+	L.setDir(direct)
 	switch(L.incorporeal_move)
 		if(INCORPOREAL_MOVE_BASIC)
 			var/T = get_step_multiz(mobloc, direct)
-			if(T)
+			if(T && !istype(T, /turf/closed/indestructible/cordon))
 				L.forceMove(T)
 			else
 				to_chat(L, "<span class='warning'>There's nowhere to go in that direction!</span>")
-			L.setDir(direct)
 		if(INCORPOREAL_MOVE_SHADOW)
 			if(prob(50))
 				var/locx
@@ -229,10 +229,13 @@
 					else
 						return
 				var/target = locate(locx,locy,mobloc.z)
-				if(target)
+				if(target && !istype(target, /turf/closed/indestructible/cordon))
+					var/lineofturf = getline(mobloc, target)
+					if(locate(/turf/closed/indestructible/cordon) in lineofturf)
+						return //No phasing over cordons
 					L.forceMove(target)
 					var/limit = 2//For only two trailing shadows.
-					for(var/turf/T in getline(mobloc, L.loc))
+					for(var/turf/T in lineofturf)
 						new /obj/effect/temp_visual/dir_setting/ninja/shadow(T, L.dir)
 						limit--
 						if(limit<=0)
@@ -240,9 +243,8 @@
 			else
 				new /obj/effect/temp_visual/dir_setting/ninja/shadow(mobloc, L.dir)
 				var/T = get_step(L,direct)
-				if(T)
+				if(T && !istype(T, /turf/closed/indestructible/cordon))
 					L.forceMove(T)
-			L.setDir(direct)
 		if(INCORPOREAL_MOVE_JAUNT) //Incorporeal move, but blocked by holy-watered tiles and salt piles.
 			var/turf/open/floor/stepTurf = get_step_multiz(mobloc, direct)
 			if(stepTurf)
@@ -263,8 +265,6 @@
 				L.forceMove(stepTurf)
 			else
 				to_chat(L, "<span class='warning'>There's nowhere to go in that direction!</span>")
-			L.setDir(direct)
-
 		if(INCORPOREAL_MOVE_EMINENCE) //Incorporeal move for emincence. Blocks move like Jaunt but lets it pass through clockwalls
 			var/turf/open/floor/stepTurf = get_step_multiz(mobloc, direct)
 			var/turf/loccheck = get_turf(stepTurf)
@@ -283,7 +283,6 @@
 				L.forceMove(stepTurf)
 			else
 				to_chat(L, "<span class='warning'>There's nowhere to go in that direction!</span>")
-			L.setDir(direct)
 	return TRUE
 
 /**

@@ -156,8 +156,11 @@
 		var/atom/throw_target = get_edge_target_turf(H, pick(GLOB.cardinals))
 		unbuckle_mob(H)
 		H.throw_at(throw_target, 2, 3)
-		H.Knockdown(100)
-		H.adjustStaminaLoss(40)
+		var/multiplier = 1
+		if(HAS_TRAIT(H, TRAIT_PROSKATER))
+			multiplier = 0.7 //30% reduction
+		H.Knockdown(100 * multiplier)
+		H.adjustStaminaLoss(40 * multiplier)
 		if(isliving(M))
 			var/mob/living/D = M
 			throw_target = get_edge_target_turf(D, pick(GLOB.cardinals))
