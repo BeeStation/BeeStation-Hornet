@@ -486,7 +486,7 @@
 	if (!cont)
 		restorePower()
 	else
-		addtimer(CALLBACK(src, PROC_REF(restorePower)), 1 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(handlePowerRestoreLoop)), 1 SECONDS)
 
 /obj/machinery/door/airlock/proc/restorePower()
 	spawnPowerRestoreRunning = FALSE

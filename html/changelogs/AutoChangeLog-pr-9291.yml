@@ -1,7 +1,0 @@
-author: RKz, Yenwodyah
-delete-after: true
-changes:
-  - rscadd: more things properly utilize basepixels, instead of the old `pixel_x =
-      initial(pixel_x)`
-  - bugfix: xeno offsets dont get messed up again
-  - code_imp: made pixel offsets a var, instead of a getter
