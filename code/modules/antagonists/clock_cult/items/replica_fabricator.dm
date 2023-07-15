@@ -47,8 +47,13 @@
 		if(C.max_integrity == C.obj_integrity)
 			to_chat(user, "<span class='nzcrentr'>\The [C] is already repaired!</span>")
 			return
+		if(target in user.do_afters)
+			to_chat(user, "<span class='nzcrentr'>You're already trying to repair [target]!</span>")
+			return
 		to_chat(user, "<span class='nzcrentr'>You begin repairing [C]...</span>")
-		if(do_after(user, 60, target=target))
+		var/looping = TRUE
+		var/speed_mult = 1
+		if(do_after(user, 60, target=target, add_item = src))
 			if(C.max_integrity == C.obj_integrity)
 				to_chat(user, "<span class='nzcrentr'>\The [C] is already repaired!</span>")
 				return

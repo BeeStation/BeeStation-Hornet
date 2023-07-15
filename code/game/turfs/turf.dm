@@ -362,7 +362,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		return
 	if(length(src_object.contents()))
 		balloon_alert(usr, "You dump out the contents.")
-		if(!do_after(usr,20,target=src_object.parent))
+		if(!do_after(usr,20,target=src_object.parent, add_item = src_object.parent))
 			return FALSE
 
 	var/list/things = src_object.contents()

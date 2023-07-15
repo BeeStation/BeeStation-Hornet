@@ -26,6 +26,10 @@
 	if(target in user.do_afters)
 		return COMPONENT_NO_AFTERATTACK
 
+		if(src in user.do_afters)
+			to_chat(user, "<span class='notice'>You're already taking apart [src]!</span>")
+			return COMPONENT_NO_AFTERATTACK
+
 	// Handles welder repairs on human limbs
 	if(I.tool_behaviour == TOOL_WELDER)
 		if(I.use_tool(source, user, 0, volume=50, amount=1))

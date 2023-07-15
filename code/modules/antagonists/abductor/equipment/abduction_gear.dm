@@ -240,8 +240,11 @@
 	if(get_dist(target,user)>1)
 		to_chat(user, "<span class='warning'>You need to be next to the specimen to prepare it for transport!</span>")
 		return
+	if(target in user.do_afters)
+		to_chat(user, "<span class='notice'>You're already trying to prepare [target] for transport!</span>")
+		return
 	to_chat(user, "<span class='notice'>You begin preparing [target] for transport...</span>")
-	if(do_after(user, 100, target = target))
+	if(do_after(user, 100, target = target, show_to_target = TRUE, add_item = src))
 		marked = target
 		to_chat(user, "<span class='notice'>You finish preparing [target] for transport.</span>")
 
@@ -552,10 +555,13 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	var/mob/living/carbon/C = L
 	if(!C.handcuffed)
 		if(C.get_num_arms(FALSE) >= 2 || C.get_arm_ignore())
+			if(C in user.do_afters)
+				to_chat(user, "<span class='notice'>You're already trying to restrain [C]!</span>")
+				return
 			playsound(src, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
 			C.visible_message("<span class='danger'>[user] begins restraining [C] with [src]!</span>", \
 									"<span class='userdanger'>[user] begins shaping an energy field around your hands!</span>")
-			if(do_after(user, 3 SECONDS, C) && (C.get_num_arms(FALSE) >= 2 || C.get_arm_ignore()))
+			if(do_after(user, 3 SECONDS, C, show_to_target = TRUE, add_item = src) && (C.get_num_arms(FALSE) >= 2 || C.get_arm_ignore()))
 				if(!C.handcuffed)
 					C.handcuffed = new /obj/item/restraints/handcuffs/energy/used(C)
 					C.update_handcuffed()
@@ -775,8 +781,11 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		if(P.get_amount() < 1)
 			to_chat(user, "<span class='warning'>You need one alien alloy sheet to do this!</span>")
 			return
+		if(src in user.do_afters)
+			to_chat(user, "<span class='notice'>You're already adding something to [src]!</span>")
+			return
 		to_chat(user, "<span class='notice'>You start adding [P] to [src]...</span>")
-		if(do_after(user, 50, target = src))
+		if(do_after(user, 50, target = src, add_item = I))
 			P.use(1)
 			new /obj/structure/table/abductor(src.loc)
 			qdel(src)
@@ -786,8 +795,11 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		if(P.get_amount() < 1)
 			to_chat(user, "<span class='warning'>You need one sheet of silver to do	this!</span>")
 			return
+		if(src in user.do_afters)
+			to_chat(user, "<span class='notice'>You're already adding something to [src]!</span>")
+			return
 		to_chat(user, "<span class='notice'>You start adding [P] to [src]...</span>")
-		if(do_after(user, 50, target = src))
+		if(do_after(user, 50, target = src, add_item = P))
 			P.use(1)
 			new /obj/structure/table/optable/abductor(src.loc)
 			qdel(src)

@@ -74,8 +74,11 @@
 			to_chat(user, "<span class='warning'>You need one sheet to make a reinforced floor!</span>")
 			return
 		else
+			if(src in user.do_afters)
+				to_chat(user, "<span class='notice'>You're already trying to reinforce [src]!</span>")
+				return
 			to_chat(user, "<span class='notice'>You begin reinforcing the floor...</span>")
-			if(do_after(user, 30, target = src))
+			if(do_after(user, 30, target = src, add_item = C))
 				if (R.get_amount() >= 1 && !istype(src, /turf/open/floor/engine))
 					PlaceOnTop(/turf/open/floor/engine, flags = CHANGETURF_INHERIT_AIR)
 					playsound(src, 'sound/items/deconstruct.ogg', 80, 1)

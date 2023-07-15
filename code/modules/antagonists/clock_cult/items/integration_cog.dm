@@ -16,16 +16,22 @@
 		return
 	if(!A.panel_open)
 		//Cut open the panel
+		if(A in user.do_afters)
+			to_chat(user, "<span class='notice'>You're already trying to cut open \the [A]!</span>")
+			return
 		to_chat(user, "<span class='notice'>You begin cutting open \the [A].</span>")
-		if(do_after(user, 50, target=A))
+		if(do_after(user, 50, target=A, add_item = src))
 			to_chat(user, "<span class='brass'>You cut open \the [A] with \the [src].</span>")
 			A.panel_open = TRUE
 			A.update_icon()
 			return
 		return
 	//Insert the cog
+	if(src in user.do_afters)
+			to_chat(user, "<span class='notice'>You're already trying to insert \the [src] into \the [A]!</span>")
+			return
 	to_chat(user, "<span class='notice'>You begin inserting \the [src] into \the [A].</span>")
-	if(do_after(user, 40, target=A))
+	if(do_after(user, 40, target=A, add_item = src))
 		A.integration_cog = src
 		forceMove(A)
 		A.panel_open = FALSE
