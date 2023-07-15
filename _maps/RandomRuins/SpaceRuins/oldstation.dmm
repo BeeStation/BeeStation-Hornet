@@ -1147,7 +1147,7 @@
 /area/ruin/space/has_grav/ancientstation/deltacorridor)
 "dD" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/roller,
+/obj/item/deployable/rollerbed,
 /turf/open/floor/plasteel/airless/white/side{
 	dir = 4
 	},

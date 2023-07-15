@@ -430,10 +430,58 @@
 
 		Insert(imgid, I)
 
+/datum/asset/spritesheet/crafting
+	name = "crafting"
+	cross_round_cachable = TRUE
+
+/datum/asset/spritesheet/crafting/create_spritesheets()
+	var/chached_list = list()
+	for(var/datum/crafting_recipe/R in GLOB.crafting_recipes)
+		if(!R.name)
+			continue
+		var/atom/A = R.result
+		if(!ispath(A, /atom))
+			stack_trace("The recipe '[R.type]' has '[A]' which is not atom. This is because our crafting system is not up-to-date to TG's.")
+			continue
+		if(chached_list[A]) // this prevents an icon to be inserted again
+			continue
+		chached_list[A] = TRUE
+
+		var/icon_file = initial(A.icon)
+		var/icon_state = initial(A.icon_state_preview) || initial(A.icon_state)
+		var/icon/I
+
+		var/icon_states_list = icon_states(icon_file)
+		if(icon_state in icon_states_list)
+			I = icon(icon_file, icon_state, SOUTH, 1)
+			var/c = initial(A.color)
+			if (!isnull(c) && c != "#FFFFFF") // there're colourful burgers...
+				I.Blend(c, ICON_MULTIPLY)
+		else // Failed to find an icon: build an error message
+			var/icon_states_string
+			for (var/an_icon_state in icon_states_list)
+				if (!icon_states_string)
+					icon_states_string = "[json_encode(an_icon_state)](\ref[an_icon_state])"
+				else
+					icon_states_string += ", [json_encode(an_icon_state)](\ref[an_icon_state])"
+			stack_trace("[A] does not have a valid icon state, icon=[icon_file], icon_state=[json_encode(icon_state)](\ref[icon_state]), icon_states=[icon_states_string]")
+			I = icon('icons/turf/floors.dmi', "", SOUTH)
+		var/imgid = replacetext(copytext("[A]", 2), "/", "-")
+
+		if(I)
+			I.Scale(42, 42) // 32px is too small. 42px might be fine...
+		Insert(imgid, I, icon_state)
+
 /datum/asset/simple/bee_antags
 	assets = list(
 		"traitor.png" = 'html/img/traitor.png',
 		"bloodcult.png" = 'html/img/bloodcult.png',
+		"cult-archives.gif" = 'html/img/cult-archives.gif',
+		"cult-altar.gif" = 'html/img/cult-altar.gif',
+		"cult-forge.gif" = 'html/img/cult-forge.gif',
+		"cult-pylon.gif" = 'html/img/cult-pylon.gif',
+		"cult-carve.png" = 'html/img/cult-carve.png',
+		"cult-comms.png" = 'html/img/cult-comms.png',
 		"dagger.png" = 'html/img/dagger.png',
 		"sacrune.png" = 'html/img/sacrune.png',
 		"archives.png" = 'html/img/archives.png',
@@ -463,6 +511,9 @@
 		"nuke.png" = 'html/img/nuke.png',
 		"eshield.png" = 'html/img/eshield.png',
 		"mech.png" = 'html/img/mech.png',
+		"abaton.png" = 'html/img/abaton.png',
+		"atool.png" = 'html/img/atool.png',
+		"apistol.png" = 'html/img/apistol.png',
 		"scitool.png" = 'html/img/scitool.png',
 		"alienorgan.png"= 'html/img/alienorgan.png',
 		"abaton.png"= 'html/img/abaton.png',
@@ -471,7 +522,7 @@
 		"spidernurse.png"= 'html/img/spidernurse.png',
 		"spiderhunter.png"= 'html/img/spiderhunter.png',
 		"spiderviper.png"= 'html/img/spiderviper.png',
-		"spidertarantula.png"= 'html/img/spidertarantula.png'
+		"spidertarantula.png"= 'html/img/spidertarantula.png',
 	)
 
 /datum/asset/simple/orbit
