@@ -3836,6 +3836,12 @@
 	},
 /turf/open/floor/circuit,
 /area/ai_monitored/nuke_storage)
+"aBZ" = (
+/obj/structure/closet/crate,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/maintenance/four,
+/turf/open/floor/plasteel,
+/area/quartermaster/warehouse)
 "aCf" = (
 /obj/machinery/camera/autoname,
 /turf/open/floor/plasteel/white/side{
@@ -7108,6 +7114,7 @@
 "bbS" = (
 /obj/structure/closet/crate,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/maintenance/three,
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
 "bbV" = (
@@ -7273,11 +7280,13 @@
 "bdS" = (
 /obj/structure/closet/crate/internals,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/maintenance/four,
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
 "bdU" = (
 /obj/structure/closet/crate/medical,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/maintenance/three,
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
 "bdW" = (
@@ -7332,6 +7341,7 @@
 	},
 /obj/structure/closet/crate,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/maintenance/three,
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
 "bez" = (
@@ -8752,13 +8762,7 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "bnG" = (
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
-/obj/item/clipboard,
-/obj/item/pen/red,
-/obj/structure/table,
+/obj/machinery/computer/bounty,
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "bnI" = (
@@ -20713,6 +20717,10 @@
 /obj/effect/turf_decal/tile/red/anticorner/contrasted{
 	dir = 1
 	},
+/obj/item/radio/off,
+/obj/item/screwdriver{
+	pixel_y = 10
+	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/supply)
 "djn" = (
@@ -21829,6 +21837,7 @@
 /obj/structure/closet/crate/freezer,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/effect/spawner/lootdrop/maintenance/six,
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
 "dOP" = (
@@ -26372,6 +26381,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
+/obj/effect/spawner/lootdrop/maintenance/five,
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
 "ghp" = (
@@ -34281,20 +34291,26 @@
 /turf/open/floor/plasteel,
 /area/security/processing)
 "kaV" = (
-/obj/item/stamp{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/stamp/denied{
-	pixel_x = 4;
-	pixel_y = -2
-	},
 /obj/structure/table,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 10
+	},
+/obj/item/clipboard,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/pen/red,
+/obj/item/stamp/denied{
+	pixel_x = 4;
+	pixel_y = -2
+	},
+/obj/item/stamp{
+	pixel_x = -3;
+	pixel_y = 3
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
@@ -45694,6 +45710,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
 	},
+/obj/machinery/light,
 /turf/open/floor/plasteel,
 /area/quartermaster/sorting)
 "pJV" = (
@@ -47319,6 +47336,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/computer/cargo{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "qxO" = (
@@ -54728,6 +54748,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"tQa" = (
+/obj/machinery/status_display/supply,
+/turf/closed/wall,
+/area/quartermaster/storage)
 "tRa" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 10
@@ -61388,6 +61412,10 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/engine/gravity_generator)
+"xup" = (
+/obj/machinery/status_display/supply,
+/turf/closed/wall,
+/area/quartermaster/sorting)
 "xuU" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -62410,10 +62438,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "xVe" = (
-/obj/item/screwdriver{
-	pixel_y = 10
-	},
-/obj/item/radio/off,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
@@ -81375,7 +81399,7 @@ aSg
 aSg
 bhT
 inn
-aZE
+tQa
 blY
 uYw
 ozF
@@ -84452,9 +84476,9 @@ ozx
 aXM
 lxt
 cBi
-bbS
+aBZ
 bcS
-bbS
+aBZ
 qNU
 bbS
 gjl
@@ -86259,7 +86283,7 @@ pnY
 nEl
 eqw
 pJT
-cNI
+xup
 bnI
 boR
 bqs
