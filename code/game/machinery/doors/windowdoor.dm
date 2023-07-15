@@ -313,18 +313,18 @@
 	if(..())
 		autoclose = FALSE
 
-/obj/machinery/door/window/try_to_crowbar(obj/item/I, mob/user)
+/obj/machinery/door/window/try_to_crowbar(obj/item/crowbar, mob/user)
 	if(density)
-		if(!HAS_TRAIT(I, TRAIT_DOOR_PRYER) && hasPower())
+		if(!HAS_TRAIT(crowbar, TRAIT_DOOR_PRYER) && hasPower())
 			to_chat(user, "<span class='warning'>The windoor's motors resist your efforts to force it!</span>")
 			return
 		else if(!hasPower())
 			to_chat(user, "<span class='warning'>You begin forcing open \the [src], the motors don't resist...</span>")
-			if(!do_after(user, 1 SECONDS, TRUE, src))
+			if(!crowbar.use_tool(src, user, 1 SECONDS))
 				return
 		else
 			to_chat(user, "<span class='warning'>You begin forcing open \the [src]...</span>")
-			if(!do_after(user, 5 SECONDS, TRUE, src))
+			if(!crowbar.use_tool(src, user, 5 SECONDS))
 				return
 		open(2)
 	else
