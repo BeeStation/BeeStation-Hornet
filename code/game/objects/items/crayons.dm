@@ -575,8 +575,6 @@
 
 //Spraycan stuff
 
-GLOBAL_LIST_INIT(spraycan_touch_normally, typecacheof(list(/obj/machinery/modular_fabricator/autolathe, /obj/structure/closet, /obj/machinery/disposal)))
-
 /obj/item/toy/crayon/spraycan
 	name = "spray can"
 	icon_state = "spraycan"
@@ -603,6 +601,13 @@ GLOBAL_LIST_INIT(spraycan_touch_normally, typecacheof(list(/obj/machinery/modula
 
 	pre_noise = TRUE
 	post_noise = FALSE
+
+	var/static/list/spraycan_touch_normally
+
+/obj/item/toy/crayon/spraycan/Initialize()
+	. = ..()
+	if(!spraycan_touch_normally)
+		spraycan_touch_normally = typecacheof(list(/obj/machinery/modular_fabricator/autolathe, /obj/structure/closet, /obj/machinery/disposal))
 
 /obj/item/toy/crayon/spraycan/isValidSurface(surface)
 	return (istype(surface, /turf/open/floor) || istype(surface, /turf/closed/wall))
@@ -656,7 +661,7 @@ GLOBAL_LIST_INIT(spraycan_touch_normally, typecacheof(list(/obj/machinery/modula
 		return ..()
 
 	if(is_capped)
-		if(is_type_in_typecache(target, GLOB.spraycan_touch_normally) || target.GetComponent(/datum/component/storage))
+		if(is_type_in_typecache(target, spraycan_touch_normally) || target.GetComponent(/datum/component/storage))
 			return ..()
 		to_chat(user, "<span class='warning'>Take the cap off first!</span>")
 		return
