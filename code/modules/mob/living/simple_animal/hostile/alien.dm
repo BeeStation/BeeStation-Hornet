@@ -173,6 +173,11 @@
 	autoclean_toggle = new()
 	autoclean_toggle.Grant(usr)
 
+/mob/living/simple_animal/hostile/alien/maid/Destroy()
+	. = ..()
+	autoclean_toggle.Remove(usr)
+	QDEL_NULL(autoclean_toggle)
+
 /mob/living/simple_animal/hostile/alien/maid/AttackingTarget()
 	if(ismovable(target))
 		if(istype(target, /obj/effect/decal/cleanable))

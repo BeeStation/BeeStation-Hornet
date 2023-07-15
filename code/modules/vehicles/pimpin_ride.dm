@@ -87,6 +87,12 @@
 		autoclean_toggle.Remove(buckled_mob)
 		QDEL_NULL(autoclean_toggle)
 
+/obj/vehicle/ridden/janicart/Destroy()
+	. = ..()
+	if(floorbuffer)
+		autoclean_toggle.toggle_target = null
+		QDEL_NULL(autoclean_toggle)
+
 /obj/vehicle/ridden/janicart/upgraded
 	floorbuffer = TRUE
 

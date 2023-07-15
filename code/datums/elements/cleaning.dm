@@ -48,6 +48,10 @@
 	var/toggled = TRUE
 	var/atom/movable/toggle_target = null
 
+/datum/action/cleaning_toggle/Remove(mob/M)
+	toggle_target = null
+	. = ..()
+
 /datum/action/cleaning_toggle/maid
 	name = "Floor Polish Toggle"
 	desc = "Toggles the automatic floor polishing"
