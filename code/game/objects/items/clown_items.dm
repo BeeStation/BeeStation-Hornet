@@ -92,11 +92,22 @@
 	//So this is a workaround. This also makes more sense from an IC standpoint. ~Carn
 	if(user.client && ((target in user.client.screen) && !user.is_holding(target)))
 		to_chat(user, "<span class='warning'>You need to take that [target.name] off before cleaning it!</span>")
-	else if(istype(target, /obj/effect/decal/cleanable))
+
+	else if(is_cleanable(target))
 		user.visible_message("[user] begins to scrub \the [target.name] out with [src].", "<span class='warning'>You begin to scrub \the [target.name] out with [src]...</span>")
 		if(do_after(user, src.cleanspeed, target = target))
 			to_chat(user, "<span class='notice'>You scrub \the [target.name] out.</span>")
 			qdel(target)
+			decreaseUses(user)
+
+	else if(type(target, /turf))
+		user.visible_message("[user] begins to scrub [target] with [src].", "<span class='warning'>You begin to scrub [target] with [src]...</span>")
+		if(do_after(user, src.cleanspeed, target = target))
+			var/turf/tile = target
+			for(var/obj/effect/O in tile)
+				if(is_cleanable(O))
+					qdel(O)
+			to_chat(user, "<span class='notice'>You cleaned [target].</span>")
 			decreaseUses(user)
 
 	else if(ishuman(target) && user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
@@ -105,7 +116,7 @@
 		H.lip_style = null //removes lipstick
 		H.update_body()
 		decreaseUses(user)
-		return
+
 	else if(istype(target, /obj/structure/window))
 		user.visible_message("[user] begins to clean \the [target.name] with [src]...", "<span class='notice'>You begin to clean \the [target.name] with [src]...</span>")
 		if(do_after(user, src.cleanspeed, target = target))
@@ -113,6 +124,7 @@
 			target.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 			target.set_opacity(initial(target.opacity))
 			decreaseUses(user)
+
 	else
 		user.visible_message("[user] begins to clean \the [target.name] with [src]...", "<span class='notice'>You begin to clean \the [target.name] with [src]...</span>")
 		if(do_after(user, src.cleanspeed, target = target))
@@ -124,13 +136,12 @@
 				C.tint -= 2
 				H.update_tint()
 				REMOVE_TRAIT(target, TRAIT_SPRAYPAINTED, CRAYON_TRAIT)
-			for(var/obj/effect/decal/cleanable/C in target)
-				qdel(C)
+			for(var/obj/effect/C in target)
+				if(is_cleanable(C))
+					qdel(C)
 			target.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 			SEND_SIGNAL(target, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_MEDIUM)
 			decreaseUses(user)
-	return
-
 
 /*
  * Bike Horns

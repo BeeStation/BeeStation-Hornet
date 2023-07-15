@@ -132,6 +132,9 @@
 	if(!target) //Search for decals then.
 		target = scan(/obj/effect/decal/cleanable)
 
+	if(!target) //Search for runes
+		target = scan(/obj/effect/rune)
+
 	if(!target) //Checks for remains
 		target = scan(/obj/effect/decal/remains)
 
@@ -210,7 +213,7 @@
 	target_types = typecacheof(target_types)
 
 /mob/living/simple_animal/bot/cleanbot/UnarmedAttack(atom/A)
-	if(istype(A, /obj/effect/decal/cleanable))
+	if(is_cleanable(A))
 		anchored = TRUE
 		icon_state = "cleanbot-c"
 		visible_message("<span class='notice'>[src] begins to clean up [A].</span>")
@@ -260,7 +263,7 @@
 		return
 	if(A && isturf(A.loc))
 		var/atom/movable/AM = A
-		if(istype(AM, /obj/effect/decal/cleanable))
+		if(is_cleanable(AM))
 			for(var/obj/effect/decal/cleanable/C in A.loc)
 				qdel(C)
 	anchored = FALSE
@@ -324,7 +327,7 @@
 	bot_core.updateUsrDialog()
 
 /mob/living/simple_animal/bot/cleanbot/larry/UnarmedAttack(atom/A)
-	if(istype(A, /obj/effect/decal/cleanable))
+	if(is_cleanable(A))
 		anchored = TRUE
 		icon_state = "larry-c"
 		visible_message("<span class='notice'>[src] begins to clean up [A].</span>")
@@ -374,7 +377,7 @@
 		return
 	if(A && isturf(A.loc))
 		var/atom/movable/AM = A
-		if(istype(AM, /obj/effect/decal/cleanable))
+		if(is_cleanable(AM))
 			for(var/obj/effect/decal/cleanable/C in A.loc)
 				qdel(C)
 	anchored = FALSE

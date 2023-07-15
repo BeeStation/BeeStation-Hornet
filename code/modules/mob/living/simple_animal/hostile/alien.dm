@@ -172,7 +172,7 @@
 
 /mob/living/simple_animal/hostile/alien/maid/AttackingTarget()
 	if(ismovable(target))
-		if(istype(target, /obj/effect/decal/cleanable))
+		if(is_cleanable(target))
 			visible_message("[src] cleans up \the [target].")
 			qdel(target)
 			return TRUE

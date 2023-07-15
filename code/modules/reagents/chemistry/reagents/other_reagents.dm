@@ -1113,7 +1113,7 @@
 	return TRUE
 
 /datum/reagent/space_cleaner/reaction_obj(obj/O, reac_volume)
-	if(istype(O, /obj/effect/decal/cleanable))
+	if(is_cleanable(O))
 		qdel(O)
 	else
 		if(O)
