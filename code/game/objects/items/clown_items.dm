@@ -100,7 +100,7 @@
 			qdel(target)
 			decreaseUses(user)
 
-	else if(type(target, /turf))
+	else if(istype(target, /turf))
 		user.visible_message("[user] begins to scrub [target] with [src].", "<span class='warning'>You begin to scrub [target] with [src]...</span>")
 		if(do_after(user, src.cleanspeed, target = target))
 			var/turf/tile = target
