@@ -302,6 +302,17 @@
 	category = list("Implants", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
+/datum/design/cyberimp_surgical_alien
+	name = "Alien Surgical Arm Implant"
+	desc = "A set of surgical tools hidden behind a concealed panel on the user's arm."
+	id = "ci-alien-surgery"
+	build_type = PROTOLATHE | MECHFAB
+	materials = list (/datum/material/iron = 5000, /datum/material/plasma = 4500, /datum/material/silver = 3000, /datum/material/titanium = 3000, /datum/material/diamond = 3000)
+	construction_time = 500
+	build_path = /obj/item/organ/cyberimp/arm/alien_surgery
+	category = list("Implants", "Medical Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
 /datum/design/cyberimp_toolset
 	name = "Toolset Arm Implant"
 	desc = "A stripped-down version of engineering cyborg toolset, designed to be installed on subject's arm."
@@ -310,6 +321,17 @@
 	materials = list (/datum/material/iron = 2500, /datum/material/glass = 1500, /datum/material/silver = 1500, /datum/material/copper = 200)
 	construction_time = 200
 	build_path = /obj/item/organ/cyberimp/arm/toolset
+	category = list("Implants", "Medical Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/cyberimp_surgical_alien
+	name = "Alien Toolset Arm Implant"
+	desc = "A stripped-down version of the engineering cyborg toolset, recreated using alien technology, designed to be installed on subject's arm."
+	id = "ci-alien-toolset"
+	build_type = PROTOLATHE | MECHFAB
+	materials = list (/datum/material/iron = 5000, /datum/material/plasma = 4500, /datum/material/silver = 3000, /datum/material/titanium = 3000, /datum/material/diamond = 3000)
+	construction_time = 500
+	build_path = /obj/item/organ/cyberimp/arm/alien_toolset
 	category = list("Implants", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 

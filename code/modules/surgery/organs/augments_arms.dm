@@ -312,6 +312,12 @@
 	to_chat(user, "<span class='notice'>You unlock [src]'s integrated blade!</span>")
 	items_list += WEAKREF(new /obj/item/melee/hydraulic_blade(src))
 
+/obj/item/organ/cyberimp/arm/alien_toolset
+	name = "integrated alien toolset implant"
+	desc = "A stripped-down version of the engineering cyborg toolset, recreated using alien technology, designed to be installed on subject's arm."
+	items_to_create = list(/obj/item/screwdriver/abductor, /obj/item/wrench/abductor, /obj/item/weldingtool/abductor,
+		/obj/item/crowbar/abductor, /obj/item/wirecutters/abductor, /obj/item/multitool/abductor)
+
 /obj/item/organ/cyberimp/arm/esword
 	name = "arm-mounted energy blade"
 	desc = "An illegal and highly dangerous cybernetic implant that can project a deadly blade of concentrated energy."
@@ -371,6 +377,11 @@
 	name = "surgical toolset implant"
 	desc = "A set of surgical tools hidden behind a concealed panel on the user's arm."
 	items_to_create = list(/obj/item/retractor/augment, /obj/item/hemostat/augment, /obj/item/cautery/augment, /obj/item/surgicaldrill/augment, /obj/item/scalpel/augment, /obj/item/circular_saw/augment, /obj/item/surgical_drapes)
+
+/obj/item/organ/cyberimp/arm/alien_surgery
+	name = "alien surgical toolset implant"
+	desc = "A set of alien surgical tools hidden behind a concealed panel on the user's arm."
+	items_to_create = list(/obj/item/retractor/alien, /obj/item/hemostat/alien, /obj/item/cautery/alien, /obj/item/surgicaldrill/alien, /obj/item/scalpel/alien, /obj/item/circular_saw/alien, /obj/item/surgical_drapes)
 
 /obj/item/organ/cyberimp/arm/power_cord
 	name = "power cord implant"

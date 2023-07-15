@@ -1414,6 +1414,36 @@
 	export_price = 10000
 	hidden = TRUE
 
+/datum/techweb_node/alien_surgery_cyberimp
+	id = "alien_surgery_cyberimp"
+	tech_tier = 5
+	display_name = "Alien Surgical Toolset Implant"
+	description = "A full array of alien surgical tools, now available from the convienence of your arm!"
+	prereq_ids = list(
+		"adv_cyber_implants",
+		"alien_bio"
+	)
+	design_ids = list(
+		"ci-alien-surgery"
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 15000)
+	export_price = 12500
+
+/datum/techweb_node/alien_toolset_cyberimp
+	id = "alien_toolset_cyberimp"
+	tech_tier = 5
+	display_name = "Integrated Alien Toolset Implant"
+	description = "A full array of alien toolsets, now available from the convienence of your arm!"
+	prereq_ids = list(
+		"adv_cyber_implants",
+		"alien_engi"
+	)
+	design_ids = list(
+		"ci-alien-toolset"
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 15000)
+	export_price = 12500
+
 ////////////////////////Tools////////////////////////
 /datum/techweb_node/basic_mining
 	id = "basic_mining"
