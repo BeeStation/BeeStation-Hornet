@@ -202,7 +202,7 @@
 			to_chat(user, "<span class='warning'>You fail to engage the sleepy pen mechanism!</span>")
 			return
 		reagents.trans_to(M, reagents.total_volume, transfered_by = user, method = INJECT)
-		user.visible_message("<span class='warning'>[user] stabs [M] with [src]!</span>", "<span class='notice'>You successfully inject [M] with the pen's contents!</span>", vision_distance = 4, ignored_mobs = list(M))
+		user.visible_message("<span class='warning'>[user] stabs [M] with [src]!</span>", "<span class='notice'>You successfully inject [M] with the pen's contents!</span>", vision_distance = COMBAT_MESSAGE_RANGE, ignored_mobs = list(M))
 		// Looks like a normal pen once it has been used
 		qdel(reagents)
 		reagents = null
