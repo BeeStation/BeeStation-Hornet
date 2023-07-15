@@ -87,7 +87,7 @@ GLOBAL_LIST_EMPTY(clockwork_marauders)
 		to_chat(src, "<span class='brass'>You require a welding tool to repair your damaged shield!</span>")
 
 /mob/living/simple_animal/hostile/clockwork_marauder/welder_act(mob/living/user, obj/item/I)
-	if(do_after(user, 25, target=src))
+	if(do_after(user, 25, target=src, add_item = I))
 		health = min(health + 10, maxHealth)
 		to_chat(user, "<span class='notice'>You repair some of [src]'s damage.</span>")
 		if(shield_health < MARAUDER_SHIELD_MAX)
