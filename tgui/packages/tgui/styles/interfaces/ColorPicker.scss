@@ -104,14 +104,16 @@
   width: 28px;
   height: 28px;
   transform: translate(-50%, -50%);
-  background-color: #fff;
-  border: 2px solid #fff;
+  background-color: #cfcfcf;
+  border: 2px solid #cfcfcf;
   border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
 }
 
 .react-colorful__interactive:focus .react-colorful__pointer {
   transform: translate(-50%, -50%) scale(1.1);
+  background-color: #fff;
+  border-color: #fff;
 }
 
 /* Chessboard-like pattern for alpha related elements */

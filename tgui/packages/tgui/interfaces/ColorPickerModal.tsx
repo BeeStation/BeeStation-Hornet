@@ -6,7 +6,7 @@
 
 import { Loader } from './common/Loader';
 import { useBackend, useLocalState } from '../backend';
-import { Autofocus, Box, Flex, Section, Stack, Pointer, NumberInput } from '../components';
+import { Autofocus, Box, Flex, Section, Stack, Pointer, NumberInput, Tooltip } from '../components';
 import { Window } from '../layouts';
 import { clamp } from 'common/math';
 import { hexToHsva, HsvaColor, hsvaToHex, hsvaToHslString, hsvaToRgba, rgbaToHsva, validHex } from 'common/color';
@@ -49,7 +49,7 @@ export const ColorPickerModal = (_, context) => {
           <Stack.Item grow>
             <Section fill>
               {!!autofocus && <Autofocus />}
-              <ColorSelector color={selectedColor} setColor={setSelectedColor} />
+              <ColorSelector color={selectedColor} setColor={setSelectedColor} defaultColor={default_color} />
             </Section>
           </Stack.Item>
           <Stack.Item>
@@ -61,20 +61,43 @@ export const ColorPickerModal = (_, context) => {
   );
 };
 
-export const ColorSelector = ({ color, setColor }: { color: HsvaColor; setColor }, context) => {
+export const ColorSelector = (
+  { color, setColor, defaultColor }: { color: HsvaColor; setColor; defaultColor: string },
+  context
+) => {
   const handleChange = (params: Partial<HsvaColor>) => {
     setColor((current: HsvaColor) => {
       return Object.assign({}, current, params);
     });
   };
   const rgb = hsvaToRgba(color);
+  const hexColor = hsvaToHex(color);
   return (
     <Flex direction="row">
       <Flex.Item mr={2}>
-        <div className="react-colorful">
-          <SaturationValue hsva={color} onChange={handleChange} />
-          <Hue hue={color.h} onChange={handleChange} className="react-colorful__last-control" />
-        </div>
+        <Stack vertical>
+          <Stack.Item>
+            <div className="react-colorful">
+              <SaturationValue hsva={color} onChange={handleChange} />
+              <Hue hue={color.h} onChange={handleChange} className="react-colorful__last-control" />
+            </div>
+          </Stack.Item>
+          <Stack.Item>
+            <Box inline width="100px" height="20px" textAlign="center">
+              Current
+            </Box>
+            <Box inline width="100px" height="20px" textAlign="center">
+              Previous
+            </Box>
+            <br />
+            <Tooltip content={hexColor} position="bottom">
+              <Box inline width="100px" height="30px" backgroundColor={hexColor} />
+            </Tooltip>
+            <Tooltip content={defaultColor} position="bottom">
+              <Box inline width="100px" height="30px" backgroundColor={defaultColor} />
+            </Tooltip>
+          </Stack.Item>
+        </Stack>
       </Flex.Item>
       <Flex.Item grow fontSize="15px" lineHeight="24px">
         <Stack vertical>
@@ -99,10 +122,10 @@ export const ColorSelector = ({ color, setColor }: { color: HsvaColor; setColor 
           <Stack.Divider />
           <Stack.Item>
             <Stack>
-              <Stack.Item grow>
+              <Stack.Item width="25px">
                 <Box textColor="label">H:</Box>
               </Stack.Item>
-              <Stack.Item width="250px">
+              <Stack.Item grow>
                 <Hue hue={color.h} onChange={handleChange} />
               </Stack.Item>
               <Stack.Item>
@@ -112,10 +135,10 @@ export const ColorSelector = ({ color, setColor }: { color: HsvaColor; setColor 
           </Stack.Item>
           <Stack.Item>
             <Stack>
-              <Stack.Item grow>
+              <Stack.Item width="25px">
                 <Box textColor="label">S:</Box>
               </Stack.Item>
-              <Stack.Item width="250px">
+              <Stack.Item grow>
                 <Saturation color={color} onChange={handleChange} />
               </Stack.Item>
               <Stack.Item>
@@ -125,10 +148,10 @@ export const ColorSelector = ({ color, setColor }: { color: HsvaColor; setColor 
           </Stack.Item>
           <Stack.Item>
             <Stack>
-              <Stack.Item grow>
+              <Stack.Item width="25px">
                 <Box textColor="label">V:</Box>
               </Stack.Item>
-              <Stack.Item width="250px">
+              <Stack.Item grow>
                 <Value color={color} onChange={handleChange} />
               </Stack.Item>
               <Stack.Item>
@@ -139,10 +162,10 @@ export const ColorSelector = ({ color, setColor }: { color: HsvaColor; setColor 
           <Stack.Divider />
           <Stack.Item>
             <Stack>
-              <Stack.Item grow>
+              <Stack.Item width="25px">
                 <Box textColor="label">R:</Box>
               </Stack.Item>
-              <Stack.Item width="250px">
+              <Stack.Item grow>
                 <RGBSlider color={color} onChange={handleChange} target="r" />
               </Stack.Item>
               <Stack.Item>
@@ -159,10 +182,10 @@ export const ColorSelector = ({ color, setColor }: { color: HsvaColor; setColor 
           </Stack.Item>
           <Stack.Item>
             <Stack>
-              <Stack.Item grow>
+              <Stack.Item width="25px">
                 <Box textColor="label">G:</Box>
               </Stack.Item>
-              <Stack.Item width="250px">
+              <Stack.Item grow>
                 <RGBSlider color={color} onChange={handleChange} target="g" />
               </Stack.Item>
               <Stack.Item>
@@ -179,10 +202,10 @@ export const ColorSelector = ({ color, setColor }: { color: HsvaColor; setColor 
           </Stack.Item>
           <Stack.Item>
             <Stack>
-              <Stack.Item grow>
+              <Stack.Item width="25px">
                 <Box textColor="label">B:</Box>
               </Stack.Item>
-              <Stack.Item width="250px">
+              <Stack.Item grow>
                 <RGBSlider color={color} onChange={handleChange} target="b" />
               </Stack.Item>
               <Stack.Item>
