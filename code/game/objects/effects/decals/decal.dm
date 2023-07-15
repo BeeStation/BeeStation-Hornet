@@ -37,7 +37,7 @@
 	layer = TURF_DECAL_LAYER
 
 /obj/effect/turf_decal/Initialize(mapload)
-	..()
+	ComponentInitialize()
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/turf_decal/ComponentInitialize()

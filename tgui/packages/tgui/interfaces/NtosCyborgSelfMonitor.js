@@ -1,4 +1,4 @@
-import { useBackend, useSharedState } from '../backend';
+import { useBackend, useLocalState } from '../backend';
 import { AnimatedNumber, Box, Button, Flex, Fragment, Section, Slider, ProgressBar, LabeledList, Tabs } from '../components';
 import { NtosWindow } from '../layouts';
 import { sanitizeText } from '../sanitize';
@@ -17,8 +17,8 @@ export const NtosCyborgSelfMonitor = (_, context) => {
 
 export const NtosCyborgSelfMonitorContent = (_, context) => {
   const { act, data } = useBackend(context);
-  const [tab_main, setTab_main] = useSharedState(context, 'tab_main', 1);
-  const [tab_sub, setTab_sub] = useSharedState(context, 'tab_sub', 1);
+  const [tab_main, setTab_main] = useLocalState(context, 'tab_main', 1);
+  const [tab_sub, setTab_sub] = useLocalState(context, 'tab_sub', 1);
   const {
     charge,
     maxcharge,

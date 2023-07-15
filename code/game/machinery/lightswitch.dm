@@ -109,6 +109,10 @@
 	if(do_after(eminence, 20, target=get_turf(eminence)))
 		interact(eminence)
 
+/obj/machinery/light_switch/tcomms
+	name = "Server Room light switch"
+	area = /area/tcommsat/server
+ 
 /obj/item/wallframe/light_switch
 	name = "light switch frame"
 	desc = "Used for building wall-mounted light switches."
