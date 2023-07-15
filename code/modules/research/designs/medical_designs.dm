@@ -324,7 +324,7 @@
 	category = list("Implants", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
-/datum/design/cyberimp_surgical_alien
+/datum/design/cyberimp_toolset_alien
 	name = "Alien Toolset Arm Implant"
 	desc = "A stripped-down version of the engineering cyborg toolset, recreated using alien technology, designed to be installed on subject's arm."
 	id = "ci-alien-toolset"
