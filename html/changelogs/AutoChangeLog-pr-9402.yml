@@ -1,5 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - bugfix: Fixed power-disrupted airlocks are permanently disabled. It will automatically
-      be restored.
