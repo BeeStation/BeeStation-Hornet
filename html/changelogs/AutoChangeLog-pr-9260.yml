@@ -1,0 +1,8 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - rscadd: Added a "tcomms server" light switch for mapping
+  - rscadd: Added a light switch to almost every room excluding maintenance
+  - rscadd: Added Freezer, Medbay Lobby and Surgery areas to Box alongside the required
+      APCs
+  - bugfix: fixed a couple of misplaced areas in Box and Kilo
