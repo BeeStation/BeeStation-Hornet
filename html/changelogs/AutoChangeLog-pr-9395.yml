@@ -1,6 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - balance: The sleepy pen now becomes a regular pen after a single use, requires
-      a 0.5 second progress bar to inject its reagents and shows a visible message
-      to everyone except the target.
