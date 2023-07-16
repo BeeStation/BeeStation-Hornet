@@ -1,0 +1,5 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - bugfix: Revenant greetings message no longer has TG wiki that is supposed to have
+      Beestation wiki
