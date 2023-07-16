@@ -73,10 +73,7 @@
 	if(has_cooldown && !COOLDOWN_FINISHED(src, play_cooldown))
 		to_chat(user, "<span class='warning'>You must wait [DisplayTimeText(COOLDOWN_TIMELEFT(src, play_cooldown))] before you can play another sound!</span>")
 		return
-	for(var/mob/target in hearers(user))
-		if(!target.client || !(target.client.prefs.toggles & PREFTOGGLE_SOUND_INSTRUMENTS))
-			continue
-		target.playsound_local(src, selected_sound, volume, shiftpitch)
+	playsound(user, selected_sound, volume, shiftpitch)
 	SSblackbox.record_feedback("tally", "synth_sound_played", 1, selected_sound_name)
 	if(has_cooldown)
 		COOLDOWN_START(src, play_cooldown, added_cooldown + get_sound_length(user))
@@ -96,8 +93,7 @@
 	if(has_cooldown && !COOLDOWN_FINISHED(src, play_cooldown))
 		to_chat(user, "<span class='warning'>You must wait [DisplayTimeText(COOLDOWN_TIMELEFT(src, play_cooldown))] before you can play another sound!</span>")
 		return
-	if(target.client && (target.client.prefs.toggles & PREFTOGGLE_SOUND_INSTRUMENTS))
-		target.playsound_local(get_turf(src), selected_sound, volume, shiftpitch)
+	target.playsound_local(get_turf(src), selected_sound, volume, shiftpitch)
 	SSblackbox.record_feedback("tally", "synth_sound_played", 1, selected_sound_name)
 	if(has_cooldown)
 		COOLDOWN_START(src, play_cooldown, added_cooldown + get_sound_length(target))
