@@ -206,12 +206,15 @@
 			return
 		var/mob/living/L = owner
 		var/turf/landing_turf = get_step(V.loc, V.dir)
-		L.adjustStaminaLoss(V.instability*2)
+		var/multiplier = 1
+		if(HAS_TRAIT(L, TRAIT_PROSKATER))
+			multiplier = 0.3 //70% reduction
+		L.adjustStaminaLoss(V.instability * multiplier * 2)
 		if (L.getStaminaLoss() >= 100)
 			playsound(src, 'sound/effects/bang.ogg', 20, TRUE)
 			V.unbuckle_mob(L)
 			L.throw_at(landing_turf, 2, 2)
-			L.Paralyze(40)
+			L.Paralyze(multiplier * 40)
 			V.visible_message("<span class='danger'>[L] misses the landing and falls on [L.p_their()] face!</span>")
 		else
 			L.spin(4, 1)
@@ -237,12 +240,14 @@
 /datum/action/vehicle/ridden/scooter/skateboard/kflip/Trigger()
 	var/obj/vehicle/ridden/scooter/skateboard/V = vehicle_target
 	var/mob/living/L = owner
-
-	L.adjustStaminaLoss(V.instability)
+	var/multiplier = 1
+	if(HAS_TRAIT(L, TRAIT_PROSKATER))
+		multiplier = 0.3 //70% reduction
+	L.adjustStaminaLoss(V.instability * multiplier)
 	if (L.getStaminaLoss() >= 100)
 		playsound(src, 'sound/effects/bang.ogg', 20, TRUE)
 		V.unbuckle_mob(L)
-		L.Paralyze(50)
+		L.Paralyze(50 * multiplier)
 		if(prob(15))
 			V.visible_message("<span class='userdanger'>You smack against the board, hard.</span>", "<span class='danger'>[L] misses the landing and falls on [L.p_their()] face!</span>")
 			L.emote("scream")
