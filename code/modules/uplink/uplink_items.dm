@@ -810,10 +810,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/stealthy_weapons/sleepy_pen
 	name = "Sleepy Pen"
-	desc = "A syringe disguised as a functional pen, filled with a potent mix of drugs, including a \
+	desc = "A spring loaded, single-use syringe disguised as a functional pen, filled with a potent mix of drugs, including a \
 			strong anesthetic and a chemical that prevents the target from speaking. \
-			The pen holds one dose of the mixture, and can be refilled with any chemicals. Note that before the target \
-			falls asleep, they will be able to move and act."
+			The mixture that the pen comes with can be replaced as long as the pen hasn't been used already. Note that the mechanism takes time to \
+			trigger, is obvious to anyone nearby (excluding the target) and the victim may still be able to move and act for a brief period of time before falling unconcious."
 	item = /obj/item/pen/sleepy
 	cost = 5
 	purchasable_from = ~UPLINK_NUKE_OPS
