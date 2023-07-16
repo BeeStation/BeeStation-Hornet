@@ -112,7 +112,7 @@
 	var/list/sound/sounds = hearer.client.SoundQuery()
 	for(var/sound/sound as() in sounds)
 		if(sound.file == selected_sound.file)
-			// Just in case something goes fucky wucky, don't cache a bad  reuslt.
+			// Just in case something goes fucky wucky, don't cache a bad result.
 			if(!isnum_safe(sound.len) || sound.len <= 0)
 				return
 			var/sound_len = CEILING(sound.len * 10, 1)
