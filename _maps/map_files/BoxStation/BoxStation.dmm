@@ -53456,6 +53456,7 @@
 /obj/item/flashlight/lamp/green{
 	pixel_x = -7
 	},
+/obj/item/melee/chainofcommand,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
 "tnN" = (
