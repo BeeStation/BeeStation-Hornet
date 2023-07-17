@@ -107,8 +107,11 @@
 			if(glass.get_amount() < 2)
 				to_chat(user, "<span class='warning'>You need two glass sheets to fix the case!</span>")
 				return
+			if(src in user.do_afters)
+				to_chat(user, "<span class='warning'>You're already trying to fix [src]!</span>")
+				return COMPONENT_NO_AFTERATTACK
 			to_chat(user, "<span class='notice'>You start fixing [src]...</span>")
-			if(do_after(user, 2 SECONDS, target = src))
+			if(do_after(user, 2 SECONDS, target = src, add_item = I))
 				glass.use(2)
 				broken = FALSE
 				obj_integrity = max_integrity
@@ -152,6 +155,9 @@
 		if(living_pulled.buckled || living_pulled.has_buckled_mobs())
 			to_chat(user, "<span class='warning'>[living_pulled] is attached to something!</span>")
 			return
+		if(living_pulled in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to put [living_pulled] into [src]!</span>")
+			return
 		user.visible_message("<span class='danger'>[user] starts to put [living_pulled] into [src]!</span>")
 		if(do_after(user, 10 SECONDS, target = src))
 			if(QDELETED(living_pulled) || user.pulling != living_pulled || living_pulled.buckled  || living_pulled.has_buckled_mobs())
@@ -165,6 +171,9 @@
 
 ///Apply mood bonus depending on aquarium status
 /obj/structure/aquarium/proc/admire(mob/user)
+	if(src in user.do_afters)
+		to_chat(user, "<span class='warning'>You're already admiring [src]!</span>")
+		return
 	to_chat(user,"<span class='notice'>You take a moment to watch [src].</span>")
 	if(do_after(user, 5 SECONDS, target = src))
 		//Check if there are live fish - good mood

@@ -47,13 +47,19 @@ Slimecrossing Potions
 		to_chat(user, "<span class='warning'>[src] does not work on beings of pure evil!</span>")
 		return ..()
 	if(M != user)
+		if(M in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to feed [M] \the [src]!</span>")
+			return
 		M.visible_message("<span class='danger'>[user] starts to feed [M] a pacification potion!</span>",
 			"<span class='userdanger'>[user] starts to feed you a pacification!</span>")
 	else
+		if(M in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already drinking \the [src]!</span>")
+			return
 		M.visible_message("<span class='danger'>[user] starts to drink [src]!</span>",
 			"<span class='danger'>You start to drink [src]!</span>")
 
-	if(!do_after(user, 100, target = M))
+	if(!do_after(user, 10 SECONDS, target = M, show_to_target = TRUE, add_item = src))
 		return
 	if(M != user)
 		to_chat(user, "<span class='notice'>You feed [M] [src]!</span>")
@@ -87,10 +93,14 @@ Slimecrossing Potions
 		to_chat(user, "<span class='warning'>[M] is already lovestruck!</span>")
 		return ..()
 
+	if(M in user.do_afters)
+		to_chat(user, "<span class='warning'>You're already trying to feed [M] \the [src]!</span>")
+		return
+
 	M.visible_message("<span class='danger'>[user] starts to feed [M] a love potion!</span>",
 		"<span class='userdanger'>[user] starts to feed you a love potion!</span>")
 
-	if(!do_after(user, 50, target = M))
+	if(!do_after(user, 5 SECONDS, target = M, show_to_target = TRUE, add_item = src))
 		return
 	to_chat(user, "<span class='notice'>You feed [M] the love potion!</span>")
 	to_chat(M, "<span class='notice'>You develop feelings for [user], and anyone [user.p_they()] like.</span>")

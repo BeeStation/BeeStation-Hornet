@@ -169,7 +169,7 @@
 
 		if(user.grab_state) //only the first upgrade is instantaneous
 			var/old_grab_state = user.grab_state
-			var/grab_upgrade_time = instant ? 0 : 30
+			var/grab_upgrade_time = instant ? 0 : 3 SECONDS
 			visible_message("<span class='danger'>[user] starts to tighten [user.p_their()] grip on [src]!</span>", \
 				"<span class='userdanger'>[user] starts to tighten [user.p_their()] grip on you!</span>")
 			switch(user.grab_state)
@@ -177,7 +177,7 @@
 					log_combat(user, src, "attempted to neck grab", addition="neck grab")
 				if(GRAB_NECK)
 					log_combat(user, src, "attempted to strangle", addition="kill grab")
-			if(!do_after(user, grab_upgrade_time, src))
+			if(!do_after(user, grab_upgrade_time, src, show_to_target = TRUE))
 				return 0
 			if(!user.pulling || user.pulling != src || user.grab_state != old_grab_state)
 				return 0

@@ -94,7 +94,7 @@
 		to_chat(user, "<span class='warning'>You need to take that [target.name] off before cleaning it!</span>")
 	else if(istype(target, /obj/effect/decal/cleanable))
 		if(target in user.do_afters)
-			to_chat(user, "<span class='notice'>You're already scrubbing \the [target.name]!</span>")
+			to_chat(user, "<span class='warning'>You're already scrubbing \the [target.name]!</span>")
 			return
 		user.visible_message("[user] begins to scrub \the [target.name] out with [src].", "<span class='warning'>You begin to scrub \the [target.name] out with [src]...</span>")
 		if(do_after(user, src.cleanspeed, target = target, show_to_target = TRUE, add_item = src))
@@ -111,7 +111,7 @@
 		return
 	else if(istype(target, /obj/structure/window))
 		if(target in user.do_afters)
-			to_chat(user, "<span class='notice'>You're already cleaning \the [target]!</span>")
+			to_chat(user, "<span class='warning'>You're already cleaning \the [target]!</span>")
 			return
 		user.visible_message("[user] begins to clean \the [target.name] with [src]...", "<span class='notice'>You begin to clean \the [target.name] with [src]...</span>")
 		if(do_after(user, src.cleanspeed, target = target, show_to_target = TRUE, add_item = src))
@@ -121,7 +121,7 @@
 			decreaseUses(user)
 	else
 		if(target in user.do_afters)
-			to_chat(user, "<span class='notice'>You're already cleaning \the [target]!</span>")
+			to_chat(user, "<span class='warning'>You're already cleaning \the [target]!</span>")
 			return
 		user.visible_message("[user] begins to clean \the [target.name] with [src]...", "<span class='notice'>You begin to clean \the [target.name] with [src]...</span>")
 		if(do_after(user, src.cleanspeed, target = target, show_to_target = TRUE, add_item = src))

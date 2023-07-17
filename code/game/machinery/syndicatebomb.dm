@@ -183,7 +183,7 @@
 			to_chat(user, "<span class='notice'>You need at least [PLASTEEL_REPAIR_AMOUNT] sheets of plasteel to repair [src].</span>")
 			return
 		if(src in user.do_afters)
-			to_chat(user, "<span class='notice'>You're already attempting to repair [src]!</span>")
+			to_chat(user, "<span class='warning'>You're already attempting to repair [src]!</span>")
 			return
 		if(do_after(user, delay = 2.5 SECONDS, target = src, add_item = I) && stack_sheets.use(PLASTEEL_REPAIR_AMOUNT))
 			obj_integrity = min(obj_integrity + 100, max_integrity)

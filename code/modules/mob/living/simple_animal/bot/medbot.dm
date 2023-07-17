@@ -459,6 +459,10 @@ GLOBAL_VAR(medibot_unique_id_gen)
 
 /mob/living/simple_animal/bot/medbot/attack_hand(mob/living/carbon/human/H)
 	if(H.a_intent == INTENT_DISARM && !tipped)
+		if(src in H.do_afters)
+			to_chat(H, "<span class='warning'>You're already trying to tip over [src]!</span>")
+			return
+
 		H.visible_message("<span class='danger'>[H] begins tipping over [src].</span>", "<span class='warning'>You begin tipping over [src]...</span>")
 
 		if(world.time > last_tipping_action_voice + 15 SECONDS)
@@ -468,12 +472,12 @@ GLOBAL_VAR(medibot_unique_id_gen)
 			speak(message)
 			playsound(src, messagevoice[message], 70, FALSE)
 
-		if(do_after(H, 3 SECONDS, target=src))
+		if(do_after(H, 3 SECONDS, target=src, show_to_target = TRUE))
 			tip_over(H)
 
 	else if(H.a_intent == INTENT_HELP && tipped)
 		H.visible_message("<span class='notice'>[H] begins righting [src].</span>", "<span class='notice'>You begin righting [src]...</span>")
-		if(do_after(H, 3 SECONDS, target=src))
+		if(do_after(H, 3 SECONDS, target=src, show_to_target = TRUE))
 			set_right(H)
 	else
 		..()
@@ -540,30 +544,38 @@ GLOBAL_VAR(medibot_unique_id_gen)
 			bot_reset()
 			tending = FALSE
 		else if(patient)
+			if(patient in do_afters)
+				to_chat(src, "<span class='warning'>You're already trying to tend to the wounds of [patient]!</span>")
+				return
+
 			C.visible_message("<span class='danger'>[src] is trying to tend the wounds of [patient]!</span>", \
 				"<span class='userdanger'>[src] is trying to tend your wounds!</span>")
 
-			if(do_after(src, 2 SECONDS, patient)) //Slightly faster than default tend wounds, but does less HPS
-				if((get_dist(src, patient) <= 1) && (on) && assess_patient(patient))
-					var/healies = heal_amount
-					var/obj/item/storage/firstaid/FA = firstaid
-					if(treatment_method == initial(FA.damagetype_healed)) //using the damage specific medkits give bonuses when healing this type of damage.
-						healies *= 1.5
-					if(treatment_method == TOX && HAS_TRAIT(patient, TRAIT_TOXINLOVER))
-						healies *= -1.5
-					if(emagged == 2)
-						patient.reagents.add_reagent(/datum/reagent/toxin/chloralhydrate, 5)
-						patient.apply_damage_type((healies*1),treatment_method)
-						log_combat(src, patient, "pretended to tend wounds on", "internal tools", "([uppertext(treatment_method)]) (EMAGGED)")
+			var/speed_mult = 1
+			while(tending)
+				if(do_after(src, 2 SECONDS * speed_mult, patient, show_to_target = TRUE)) //Slightly faster than default tend wounds, but does less HPS
+					if((get_dist(src, patient) <= 1) && (on) && assess_patient(patient))
+						var/healies = heal_amount
+						var/obj/item/storage/firstaid/FA = firstaid
+						if(treatment_method == initial(FA.damagetype_healed)) //using the damage specific medkits give bonuses when healing this type of damage.
+							healies *= 1.5
+						if(treatment_method == TOX && HAS_TRAIT(patient, TRAIT_TOXINLOVER))
+							healies *= -1.5
+						if(emagged == 2)
+							patient.reagents.add_reagent(/datum/reagent/toxin/chloralhydrate, 5)
+							patient.apply_damage_type((healies*1),treatment_method)
+							log_combat(src, patient, "pretended to tend wounds on", "internal tools", "([uppertext(treatment_method)]) (EMAGGED)")
+						else
+							patient.apply_damage_type((healies*-1),treatment_method) //don't need to check treatment_method since we know by this point that they were actually damaged.
+							log_combat(src, patient, "tended the wounds of", "internal tools", "([uppertext(treatment_method)])")
+						C.visible_message("<span class='danger'>[src] tends the wounds of [patient]!</span>", \
+							"<span class='userdanger'>[src] tends your wounds!</span>")
 					else
-						patient.apply_damage_type((healies*-1),treatment_method) //don't need to check treatment_method since we know by this point that they were actually damaged.
-						log_combat(src, patient, "tended the wounds of", "internal tools", "([uppertext(treatment_method)])")
-					C.visible_message("<span class='danger'>[src] tends the wounds of [patient]!</span>", \
-						"<span class='userdanger'>[src] tends your wounds!</span>")
+						tending = FALSE
+					if(speed_mult > 0.2)
+						speed_mult -= 0.1
 				else
 					tending = FALSE
-			else
-				tending = FALSE
 
 			update_icon()
 			if(!tending)

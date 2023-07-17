@@ -139,7 +139,7 @@
 
 		if(M.w_uniform)
 			var/obj/item/clothing/under/U = M.w_uniform
-			var/delay = 20
+			var/delay = 2 SECONDS
 			if(user == M)
 				delay = 0
 			else
@@ -148,7 +148,10 @@
 			var/input
 			if(!commended && user != M)
 				input = stripped_input(user,"Please input a reason for this commendation, it will be recorded by Nanotrasen.", ,"", 140)
-			if(do_after(user, delay, target = M))
+			if(M in user.do_afters)
+				to_chat(user, "<span class='warning'>You're already trying to attatch [src] to [M]'s clothing!</span>")
+				return
+			if(do_after(user, delay, target = M, show_to_target = TRUE, add_item = src))
 				if(U.attach_accessory(src, user, 0)) //Attach it, do not notify the user of the attachment
 					if(user == M)
 						to_chat(user, "<span class='notice'>You attach [src] to [U].</span>")

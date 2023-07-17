@@ -629,8 +629,11 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 			return
 
 	if(tilted && !user.buckled && !isAI(user))
+		if(src in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to right \the [src]!</span>")
+			return
 		to_chat(user, "<span class='notice'>You begin righting [src].</span>")
-		if(do_after(user, 50, target=src))
+		if(do_after(user, 5 SECONDS, target=src))
 			untilt(user)
 		return
 

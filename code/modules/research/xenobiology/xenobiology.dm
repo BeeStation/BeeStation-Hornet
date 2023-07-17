@@ -985,10 +985,14 @@
 		to_chat(user, "<span class='warning'>The potion can only be used on gendered things!</span>")
 		return
 
+	if(L in user.do_afters)
+		to_chat(user, "<span class='warning'>You're already trying to feed [L] \the [src]!</span>")
+		return
+
 	L.visible_message("<span class='danger'>[user] starts to feed [L] a gender change potion!</span>",
 		"<span class='userdanger'>[user] starts to feed you a gender change potion!</span>")
 
-	if(!do_after(user, 50, target = L))
+	if(!do_after(user, 5 SECONDS, target = L, show_to_target = TRUE, add_item = src))
 		return
 
 	to_chat(user, "<span class='notice'>You feed [L] the gender change potion!</span>")

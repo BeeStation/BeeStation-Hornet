@@ -128,8 +128,11 @@
 		user.visible_message("<span class='warning'>[user] starts climbing into [src].</span>", "<span class='notice'>You start climbing into [src]...</span>")
 		. = TRUE
 	else
+		if(target in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to shove [target] into \the [src]!</span>")
+			return
 		target.visible_message("<span class='danger'>[user] starts putting [target] into [src].</span>", "<span class='userdanger'>[user] starts putting you into [src]!</span>")
-	if(do_after(user, 2 SECONDS, target))
+	if(do_after(user, 2 SECONDS, target, show_to_target = TRUE))
 		if (!loc)
 			return
 		target.forceMove(src)

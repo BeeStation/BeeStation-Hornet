@@ -113,7 +113,7 @@
 
 	target_turf.balloon_alert(user, "You begin carving the [picked_choice]")
 	user.playsound_local(target_turf, 'sound/items/sheath.ogg', 50, TRUE)
-	if(!do_after(user, 5 SECONDS, target = target_turf))
+	if(!do_after(user, 5 SECONDS, target = target_turf, add_item = src))
 		target_turf.balloon_alert(user, "Interrupted")
 		return
 

@@ -193,13 +193,13 @@
 	if(user.a_intent != INTENT_HELP)
 		return ..() // For smacking
 	if(istype(item, /obj/item/minebot_upgrade))
-		if(!do_after(user, 20, src))
+		if(!do_after(user, 2 SECONDS, src, show_to_target = TRUE, add_item = item))
 			return TRUE
 		var/obj/item/minebot_upgrade/upgrade = item
 		upgrade.upgrade_bot(src, user)
 		return TRUE
 	if(istype(item, /obj/item/t_scanner/adv_mining_scanner))
-		if(!do_after(user, 20, src))
+		if(!do_after(user, 2 SECONDS, src, show_to_target = TRUE, add_item = item))
 			return TRUE
 		stored_scanner.forceMove(get_turf(src))
 		UnregisterSignal(stored_scanner, COMSIG_PARENT_QDELETING)
@@ -209,7 +209,7 @@
 		to_chat(user, "<span class='info'>You install [item].</span>")
 		return TRUE
 	if(istype(item, /obj/item/borg/upgrade/modkit))
-		if(!do_after(user, 20, src))
+		if(!do_after(user, 2 SECONDS, src, show_to_target = TRUE, add_item = item))
 			return TRUE
 		item.melee_attack_chain(user, stored_pka, params) // This handles any install messages
 		return TRUE
@@ -220,7 +220,7 @@
 	if(istype(item, /obj/item/gun/energy/plasmacutter))
 		if(health != maxHealth)
 			return // For repairs
-		if(!do_after(user, 20, src))
+		if(!do_after(user, 2 SECONDS, src, show_to_target = TRUE, add_item = item))
 			return TRUE
 		if(stored_cutter)
 			stored_cutter.forceMove(get_turf(src))
@@ -233,7 +233,7 @@
 		to_chat(user, "<span class='info'>You install [item].</span>")
 		return TRUE
 	if(istype(item, /obj/item/pickaxe/drill))
-		if(!do_after(user, 20, src))
+		if(!do_after(user, 2 SECONDS, src, show_to_target = TRUE, add_item = item))
 			return TRUE
 		if(stored_drill)
 			stored_drill.forceMove(get_turf(src))

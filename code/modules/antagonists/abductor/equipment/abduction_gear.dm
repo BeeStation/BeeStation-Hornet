@@ -241,7 +241,7 @@
 		to_chat(user, "<span class='warning'>You need to be next to the specimen to prepare it for transport!</span>")
 		return
 	if(target in user.do_afters)
-		to_chat(user, "<span class='notice'>You're already trying to prepare [target] for transport!</span>")
+		to_chat(user, "<span class='warning'>You're already trying to prepare [target] for transport!</span>")
 		return
 	to_chat(user, "<span class='notice'>You begin preparing [target] for transport...</span>")
 	if(do_after(user, 100, target = target, show_to_target = TRUE, add_item = src))
@@ -556,7 +556,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	if(!C.handcuffed)
 		if(C.get_num_arms(FALSE) >= 2 || C.get_arm_ignore())
 			if(C in user.do_afters)
-				to_chat(user, "<span class='notice'>You're already trying to restrain [C]!</span>")
+				to_chat(user, "<span class='warning'>You're already trying to restrain [C]!</span>")
 				return
 			playsound(src, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
 			C.visible_message("<span class='danger'>[user] begins restraining [C] with [src]!</span>", \
@@ -782,7 +782,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			to_chat(user, "<span class='warning'>You need one alien alloy sheet to do this!</span>")
 			return
 		if(src in user.do_afters)
-			to_chat(user, "<span class='notice'>You're already adding something to [src]!</span>")
+			to_chat(user, "<span class='warning'>You're already adding something to [src]!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start adding [P] to [src]...</span>")
 		if(do_after(user, 50, target = src, add_item = I))
@@ -796,7 +796,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			to_chat(user, "<span class='warning'>You need one sheet of silver to do	this!</span>")
 			return
 		if(src in user.do_afters)
-			to_chat(user, "<span class='notice'>You're already adding something to [src]!</span>")
+			to_chat(user, "<span class='warning'>You're already adding something to [src]!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start adding [P] to [src]...</span>")
 		if(do_after(user, 50, target = src, add_item = P))

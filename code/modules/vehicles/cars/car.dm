@@ -84,7 +84,7 @@
 	if(occupants[user])
 		return
 	to_chat(user, "<span class='notice'>You start opening [src]'s trunk.</span>")
-	if(do_after(user, 30))
+	if(do_after(user, 3 SECONDS))
 		if(return_amount_of_controllers_with_flag(VEHICLE_CONTROL_KIDNAPPED))
 			to_chat(user, "<span class='notice'>The people stuck in [src]'s trunk all come tumbling out.</span>")
 			DumpSpecificMobs(VEHICLE_CONTROL_KIDNAPPED)
@@ -97,7 +97,7 @@
 	if(occupant_amount() >= max_occupants)
 		return FALSE
 	var/atom/old_loc = loc
-	if(do_after(forcer, get_enter_delay(M), M, extra_checks=CALLBACK(src, TYPE_PROC_REF(/obj/vehicle/sealed/car, is_car_stationary), old_loc)))
+	if(do_after(forcer, get_enter_delay(M), M, extra_checks=CALLBACK(src, TYPE_PROC_REF(/obj/vehicle/sealed/car, is_car_stationary), old_loc), show_to_target = TRUE))
 		mob_forced_enter(M, silent)
 		return TRUE
 	return FALSE

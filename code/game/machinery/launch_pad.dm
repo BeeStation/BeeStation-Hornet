@@ -254,7 +254,7 @@
 			return
 		var/mob/M = usr
 		if(src in M.do_afters)
-			to_chat(M, "<span class='notice'>You're already attempting to close [src]!</span>")
+			to_chat(M, "<span class='warning'>You're already attempting to close [src]!</span>")
 			return
 		usr.visible_message("<span class='notice'>[usr] starts closing [src]...</span>", "<span class='notice'>You start closing [src]...</span>")
 		if(do_after(usr, 30, target = usr, add_item = src))
@@ -295,7 +295,7 @@
 		to_chat(user, "<span class = ></span>")
 		return
 	if(src in user.do_afters)
-		to_chat(user, "<span class='notice'>You're already attempting to set down [src]!</span>")
+		to_chat(user, "<span class='warning'>You're already attempting to set down [src]!</span>")
 		return
 	add_fingerprint(user)
 	user.visible_message("<span class='notice'>[user] starts setting down [src]...", "You start setting up [pad]...</span>")

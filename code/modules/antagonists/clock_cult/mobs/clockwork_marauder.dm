@@ -87,12 +87,24 @@ GLOBAL_LIST_EMPTY(clockwork_marauders)
 		to_chat(src, "<span class='brass'>You require a welding tool to repair your damaged shield!</span>")
 
 /mob/living/simple_animal/hostile/clockwork_marauder/welder_act(mob/living/user, obj/item/I)
-	if(do_after(user, 25, target=src, add_item = I))
+	if(src in user.do_afters)
+		to_chat(user, "<span class='warning'>You're already repairing [src]!</span>")
+		return
+	var/speed_mult = 1
+	var/looping = TRUE
+	while(looping)
+		if(!do_after(user, 2.5 SECONDS * speed_mult, target=src, add_item = I))
+			looping = FALSE
+			return TRUE
 		health = min(health + 10, maxHealth)
 		to_chat(user, "<span class='notice'>You repair some of [src]'s damage.</span>")
-		if(shield_health < MARAUDER_SHIELD_MAX)
+		if(shield_health >= MARAUDER_SHIELD_MAX)
+			looping = FALSE
+		else
 			shield_health ++
 			playsound(src, 'sound/magic/charge.ogg', 60, TRUE)
+		if(speed_mult >= 0.25)
+			speed_mult -= 0.15
 	return TRUE
 
 #undef MARAUDER_SHIELD_RECHARGE

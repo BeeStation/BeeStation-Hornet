@@ -1186,8 +1186,11 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 /datum/species/proc/equip_delay_self_check(obj/item/I, mob/living/carbon/human/H, bypass_equip_delay_self)
 	if(!I.equip_delay_self || bypass_equip_delay_self)
 		return TRUE
+	if(H in H.do_afters)
+		to_chat(H, "<span class='warning'>You're already trying to put on [I]!</span>")
+		return
 	H.visible_message("<span class='notice'>[H] start putting on [I].</span>", "<span class='notice'>You start putting on [I].</span>")
-	return do_after(H, I.equip_delay_self, target = H)
+	return do_after(H, I.equip_delay_self, target = H, add_item = I)
 
 /datum/species/proc/before_equip_job(datum/job/J, mob/living/carbon/human/H, client/preference_source = null)
 	return
@@ -1454,10 +1457,13 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			if(HAS_TRAIT(target.shoes, TRAIT_NODROP))
 				target.grabbedby(user)
 				return TRUE
+			if(target in user.do_afters)
+				to_chat(user, "<span class='warning'>You're already trying to steal [target]'s shoes!</span>")
+				return FALSE
 			user.visible_message("<span class='warning'>[user] starts stealing [target]'s shoes!</span>",
 								"<span class='warning'>You start stealing [target]'s shoes!</span>")
 			var/obj/item/I = target.shoes
-			if(do_after(user, I.strip_delay, target))
+			if(do_after(user, I.strip_delay, target, show_to_target = TRUE, add_item = I))
 				target.dropItemToGround(I, TRUE)
 				user.put_in_hands(I)
 				user.visible_message("<span class='warning'>[user] stole your [I]!</span>",

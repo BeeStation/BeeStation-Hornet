@@ -164,7 +164,10 @@
 		var/obj/machinery/power/apc/A = target
 		if(!istype(A))
 			return
-		while(do_after(H, 10, target = A))
+		if(A in H.do_afters)
+			to_chat(H, "<span class='warning'>You're already trying to recharge off [A]!</span>")
+			return
+		while(do_after(H, 1 SECONDS, target = A, add_item = src))
 			if(!battery)
 				to_chat(H, "<span class='warning'>You need a battery to recharge!</span>")
 				break
@@ -191,8 +194,11 @@
 		var/obj/item/organ/stomach/battery/A = target
 		if(!istype(A))
 			return
+		if(A.owner in H.do_afters)
+			to_chat(H, "<span class='notice'>You're trying to recharge off [A]!</span>")
+			return
 		var/charge_amt
-		while(do_after(H, 10, target = A.owner))
+		while(do_after(H, 1 SECONDS, target = A.owner, add_item = src))
 			if(!battery)
 				to_chat(H, "<span class='warning'>You need a battery to recharge!</span>")
 				break

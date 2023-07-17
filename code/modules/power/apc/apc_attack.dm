@@ -39,10 +39,15 @@
 		if(C.get_amount() < 10)
 			to_chat(user, "<span class='warning'>You need ten lengths of cable for APC!</span>")
 			return
+
+		if(src in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already adding cables to \the [src]!</span>")
+			return
+
 		user.visible_message("[user.name] adds cables to the APC frame.", \
 							"<span class='notice'>You start adding cables to the APC frame.</span>")
 		playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
-		if(do_after(user, 20, target = src))
+		if(do_after(user, 2 SECONDS, target = src, add_item = W))
 			if (C.get_amount() < 10 || !C)
 				return
 			if (C.get_amount() >= 10 && !terminal && opened && has_electronics)
@@ -63,10 +68,14 @@
 			to_chat(user, "<span class='warning'>You cannot put the board inside, the frame is damaged!</span>")
 			return
 
+		if(src in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already swiping your card on [src]!</span>")
+			return
+
 		user.visible_message("[user.name] inserts the power control board into [src].", \
 							"<span class='notice'>You start to insert the power control board into the frame.</span>")
 		playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
-		if(do_after(user, 10, target = src))
+		if(do_after(user, 1 SECONDS, target = src, add_item = W))
 			if(!has_electronics)
 				has_electronics = APC_ELECTRONICS_INSTALLED
 				locked = FALSE
@@ -107,10 +116,13 @@
 			to_chat(user, "<span class='warning'>You find no reason for repairing this APC.</span>")
 			return
 		if (!(machine_stat & BROKEN) && opened==APC_COVER_REMOVED)
+			if(src in user.do_afters)
+				to_chat(user, "<span class='warning'>You're already trying to replace the missing APC cover!</span>")
+				return
 		// Cover is the only thing broken, we do not need to remove elctronicks to replace cover
 			user.visible_message("[user.name] replaces missing APC's cover.",\
 							"<span class='notice'>You begin to replace the APC's cover.</span>")
-			if(do_after(user, 20, target = src)) // replacing cover is quicker than replacing whole frame
+			if(do_after(user, 2 SECONDS, target = src, add_item = W)) // replacing cover is quicker than replacing whole frame
 				to_chat(user, "<span class='notice'>You replace the missing APC cover.</span>")
 				qdel(W)
 				opened = APC_COVER_OPENED
@@ -119,9 +131,12 @@
 		if (has_electronics)
 			to_chat(user, "<span class='warning'>You cannot repair this APC until you remove the electronics still inside!</span>")
 			return
+		if(src in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to replace the damaged APC with a new one!</span>")
+			return
 		user.visible_message("[user.name] replaces the damaged APC frame with a new one.",\
 							"<span class='notice'>You begin to replace the damaged APC frame.</span>")
-		if(do_after(user, 50, target = src))
+		if(do_after(user, 5 SECONDS, target = src, add_item = W))
 			to_chat(user, "<span class='notice'>You replace the damaged APC frame with a new one.</span>")
 			qdel(W)
 			set_machine_stat(machine_stat & ~BROKEN)
@@ -162,9 +177,10 @@
 				to_chat(H, "<span class='warning'>The APC doesn't have much power, you probably shouldn't drain anymore.</span>")
 				return
 
-			E.drain_time = world.time + 80
+			E.drain_time = world.time + 8 SECONDS
 			to_chat(H, "<span class='notice'>You start channeling some power through the APC into your body.</span>")
-			while(do_after(user, 75, target = src))
+			var/speed_mult = 1
+			while(do_after(user, 7.5 SECONDS * speed_mult, target = src, add_item = cell))
 				if(!istype(stomach))
 					to_chat(H, "<span class='warning'>You can't receive charge!</span>")
 					return
@@ -172,7 +188,9 @@
 					to_chat(H, "<span class='warning'>The APC doesn't have much power, you probably shouldn't drain anymore.</span>")
 					E.drain_time = 0
 					return
-				E.drain_time = world.time + 80
+				E.drain_time = world.time + 8 SECONDS * speed_mult
+				if(speed_mult > 0.2)
+					speed_mult -= 0.1
 				if(cell.charge > cell.maxcharge/4 + 250)
 					stomach.adjust_charge(250)
 					cell.charge -= 250
@@ -194,13 +212,14 @@
 			if(!istype(stomach))
 				to_chat(H, "<span class='warning'>You can't transfer charge!</span>")
 				return
-			E.drain_time = world.time + 80
+			E.drain_time = world.time + 8 SECONDS
 			to_chat(H, "<span class='notice'>You start channeling power through your body into the APC.</span>")
-			while(do_after(user, 75, target = src))
+			var/speed_mult = 1
+			while(do_after(user, 7.5 SECONDS * speed_mult, target = src, add_item = cell))
 				if(!istype(stomach))
 					to_chat(H, "<span class='warning'>You can't transfer charge!</span>")
 					return
-				E.drain_time = world.time + 80
+				E.drain_time = world.time + 8 SECONDS * speed_mult
 				if(stomach.charge > 250)
 					to_chat(H, "<span class='notice'>You transfer some power to the APC.</span>")
 					stomach.adjust_charge(-250)
@@ -215,6 +234,8 @@
 					to_chat(H, "<span class='notice'>The APC is now fully recharged.</span>")
 					E.drain_time = 0
 					return
+				if(speed_mult > 0.2)
+					speed_mult -= 0.1
 			to_chat(H, "<span class='warning'>You fail to transfer power to the APC!</span>")
 			E.drain_time = 0
 			return

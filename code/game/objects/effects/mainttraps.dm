@@ -291,7 +291,7 @@
 /obj/effect/rune/cluwne/attackby(obj/I, mob/user, params)
 	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
 		if(I in user.do_afters)
-			to_chat(user, "<span class='notice'>You're already using trying to erase [src]!</span>")
+			to_chat(user, "<span class='warning'>You're already using trying to erase [src]!</span>")
 			return COMPONENT_NO_AFTERATTACK
 		SEND_SOUND(user,'sound/items/sheath.ogg')
 		if(do_after(user, 15, target = src, add_item = I))

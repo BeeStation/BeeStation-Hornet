@@ -479,10 +479,13 @@
 	if(!is_station_level(z) && !is_mining_level(z))
 		to_chat(src, "<span class='warning'>Our bluespace transceiver cannot locate a viable bluespace link, our teleportation abilities are useless in this area.</span>")
 		return
-
+	var/mob/user = src
+	if(target in user.do_afters)
+		to_chat(user, "<span class='warning'>Already attempting to remove [target] from our presence!</span>")
+		return
 	to_chat(src, "<span class='info'>Attempting to remove this being from our presence.</span>")
 
-	if(!do_after(src, 3 SECONDS, target))
+	if(!do_after(src, 3 SECONDS, target, show_to_target = TRUE))
 		return
 
 	var/turf/open/floor/F

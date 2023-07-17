@@ -40,8 +40,11 @@
 	if(HAS_TRAIT(M, TRAIT_MINDSHIELD))
 		to_chat(user, "<span class='danger'>This mind is too strong to convert, try to remove whatever is protecting it first!</span>")
 		return
+	if(M in user.do_afters)
+		to_chat(user, "<span class='warning'>You're already trying to implant [src]!</span>")
+		return
 	M.visible_message("<span class='warning'>[user] is attempting to implant [M].</span>")
-	if(do_after(user, 5 SECONDS, M))
+	if(do_after(user, 5 SECONDS, M, show_to_target = TRUE, add_item = src))
 		if(convert(M,user))
 			M.visible_message("[user] has implanted [M].", "<span class='notice'>[user] implants you.</span>")
 			uses--

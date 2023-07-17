@@ -711,7 +711,7 @@
 	capture(user)
 
 /obj/machinery/control_point/proc/capture(mob/user)
-	if(do_after(user, 30, target = src))
+	if(do_after(user, 3 SECONDS, target = src))
 		for(var/obj/machinery/capture_the_flag/CTF in GLOB.machines)
 			if(CTF.ctf_enabled && (user.ckey in CTF.team_members))
 				controlling = CTF

@@ -117,10 +117,13 @@
 	if(get_dist(A, user) <= 1 )
 		return FALSE
 	if(user in viewers(range, A))
+		if(A in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to manipulate [A]!</span>")
+			return
 		user.visible_message("<span class='danger'>[user] waves their hands at [A]</span>", "<span class='notice'>You begin manipulating [A].</span>")
 		new	/obj/effect/temp_visual/telegloves(A.loc)
 		user.changeNext_move(CLICK_CD_MELEE)
-		if(do_after(user, 0.8 SECONDS, A))
+		if(do_after(user, 0.8 SECONDS, A, add_item = src))
 			new /obj/effect/temp_visual/telekinesis(user.loc)
 			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
 			A.attack_hand(user)

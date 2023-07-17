@@ -77,7 +77,7 @@
 			to_chat(user, "<span class='warning'>It appears that your funds are safe from draining!</span>")
 			return
 		if(src in user.do_afters)
-			to_chat(user, "<span class='notice'>You're already swiping your ID on [src]!</span>")
+			to_chat(user, "<span class='warning'>You're already swiping your ID on [src]!</span>")
 			return
 		if(do_after(user, 40, target = src, add_item = W))
 			if(protected_accounts["[card.registered_account.account_id]"])

@@ -180,9 +180,12 @@
 
 /obj/item/xenoartifact_label/proc/attempt_attach(atom/target, mob/user, instant = FALSE)
 	if(istype(target, /mob/living))
+		if(target in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to stick \a [src] to [target]!</span>")
+			return
 		to_chat(target, "<span class='warning'>[user] attempts to stick a [src] to you!</span>")
 		to_chat(user, "<span class='warning'>You attempt to stick a [src] on [target]!</span>")
-		if(!do_after(user, 30, target = target))
+		if(!do_after(user, 3 SECONDS, target = target, show_to_target = TRUE, add_item = src))
 			if(instant)
 				qdel(src)
 			return

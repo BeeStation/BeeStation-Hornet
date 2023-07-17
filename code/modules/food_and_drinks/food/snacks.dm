@@ -127,6 +127,9 @@ All foods are distributed among various categories. Use common sense.
 				M.changeNext_move(CLICK_CD_MELEE * 0.5) //nom nom nom
 		else
 			if(!isbrain(M))		//If you're feeding it to someone else.
+				if(src in user.do_afters)
+					to_chat(user, "<span class='warning'>You're already trying to feed [M] \the [src]!</span>")
+					return FALSE
 				if(fullness <= (600 * (1 + M.overeatduration / 1000)))
 					M.visible_message("<span class='danger'>[user] attempts to feed [M] [src].</span>", \
 										"<span class='userdanger'>[user] attempts to feed you [src].</span>")
@@ -134,10 +137,13 @@ All foods are distributed among various categories. Use common sense.
 					M.visible_message("<span class='warning'>[user] cannot force any more of [src] down [M]'s throat!</span>", \
 										"<span class='warning'>[user] cannot force any more of [src] down your throat!</span>")
 					return FALSE
-
-				if(!do_after(user, target = M))
+				var/time_to_eat = 3 SECONDS
+				if(M.last_time_fed + 15 SECONDS >= world.time)
+					time_to_eat = 1 SECONDS
+				if(!do_after(user, delay = time_to_eat, target = M, show_to_target = TRUE, add_item = src))
 					return
 				log_combat(user, M, "fed", reagents.log_list())
+				M.last_time_fed = world.time
 				M.visible_message("<span class='danger'>[user] forces [M] to eat [src]!</span>", \
 									"<span class='userdanger'>[user] forces you to eat [src]!</span>")
 

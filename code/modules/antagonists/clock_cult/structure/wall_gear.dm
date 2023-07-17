@@ -50,8 +50,11 @@
 		if(locate(/obj/structure/falsewall) in T.contents)
 			to_chat(user, "<span class='warning'>There is already a false wall present!</span>")
 			return
+		if(src in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to add [W] to [src]!</span>")
+			return
 		to_chat(user, "<span class='notice'>You start adding [W] to [src]...</span>")
-		if(do_after(user, 20, target = src))
+		if(do_after(user, 20, target = src, add_item = W))
 			var/brass_floor = FALSE
 			if(istype(T, /turf/open/floor/clockwork)) //if the floor is already brass, costs less to make(conservation of masssssss)
 				brass_floor = TRUE

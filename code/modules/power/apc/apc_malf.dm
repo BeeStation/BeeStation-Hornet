@@ -111,7 +111,7 @@
 		return
 	to_chat(user, "<span class='notice'>AI accepted request. Transferring stored intelligence to [card].</span>")
 	to_chat(occupier, "<span class='notice'>Transfer starting. You will be moved to [card] shortly.</span>")
-	if(!do_after(user, 50, target = src))
+	if(!do_after(user, 5 SECONDS, target = src))
 		to_chat(occupier, "<span class='warning'>[user] was interrupted! Transfer canceled.</span>")
 		transfer_in_progress = FALSE
 		return

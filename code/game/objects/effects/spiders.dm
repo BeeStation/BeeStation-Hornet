@@ -333,7 +333,7 @@
 
 /obj/structure/spider/cocoon/container_resist(mob/living/user)
 	if(src in user.do_afters)
-		to_chat(user, "<span class='notice'>You're already attempting to break out of \the [src]!</span>")
+		to_chat(user, "<span class='warning'>You're already attempting to break out of \the [src]!</span>")
 		return
 	var/breakout_time = 600
 	user.changeNext_move(CLICK_CD_BREAKOUT)

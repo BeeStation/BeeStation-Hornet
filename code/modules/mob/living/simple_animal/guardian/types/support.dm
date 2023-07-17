@@ -123,13 +123,16 @@
 	if(beacon.get_virtual_z_level() != T.get_virtual_z_level())
 		to_chat(src, "<span class='danger'><B>The beacon is too far away to warp to!</span></B>")
 		return
+	if(A in do_afters)
+		to_chat(user, "<span class='warning'>You're already already trying to warp [A]!</span>")
+		return
 
 	to_chat(src, "<span class='danger'><B>You begin to warp [A].</span></B>")
 	A.visible_message("<span class='danger'>[A] starts to glow faintly!</span>", \
 	"<span class='userdanger'>You start to faintly glow, and you feel strangely weightless!</span>")
 	do_attack_animation(A)
 
-	if(!do_after(src, 6 SECONDS, A)) //now start the channel
+	if(!do_after(src, 6 SECONDS, A, show_to_target = TRUE)) //now start the channel
 		to_chat(src, "<span class='danger'><B>You need to hold still!</span></B>")
 		return
 

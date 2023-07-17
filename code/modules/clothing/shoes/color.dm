@@ -84,8 +84,11 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/hummie = user
 		if(hummie.shoes == src && chained)
+			if(src in user.do_afters)
+				to_chat(user, "<span class='warning'>You're already trying to take off your [src]!</span>")
+				return
 			to_chat(hummie, "<span class='warning'>You start taking off your [src]!</span>")
-			if(!do_after(hummie,15 SECONDS, src))
+			if(!do_after(hummie, 15 SECONDS, src, add_item = src))
 				return FALSE
 	return ..()
 
@@ -94,7 +97,10 @@
 	if(ishuman(m))
 		var/mob/living/carbon/human/hummie = m
 		if(hummie.shoes == src && chained)
+			if(src in hummie.do_afters)
+				to_chat(hummie, "<span class='warning'>You're already trying to take off your [src]!</span>")
+				return
 			to_chat(hummie, "<span class='warning'>You start taking off your [src]!</span>")
-			if(!do_after(hummie,15 SECONDS, src))
+			if(!do_after(hummie, 15 SECONDS, src, add_item = src))
 				return FALSE
 	return ..()

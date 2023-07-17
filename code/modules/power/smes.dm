@@ -130,10 +130,14 @@
 			to_chat(user, "<span class='warning'>You need more wires!</span>")
 			return
 
+		if(src in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to build a power terminal for \the [src]!</span>")
+			return
+
 		to_chat(user, "<span class='notice'>You start building the power terminal...</span>")
 		playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 
-		if(do_after(user, 20, target = src))
+		if(do_after(user, 2 SECONDS, target = src, add_item = I))
 			if(C.get_amount() < 10 || !C)
 				return
 			var/obj/structure/cable/N = T.get_cable_node() //get the connecting node cable, if there's one

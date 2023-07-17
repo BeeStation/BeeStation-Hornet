@@ -45,8 +45,11 @@
 	return TRUE
 
 /obj/machinery/plumbing/plunger_act(obj/item/plunger/P, mob/living/user, reinforced)
+	if(src in user.do_afters)
+		to_chat(user, "<span class='warning'>You're already plunging away at [src]!</span>")
+		return
 	to_chat(user, "<span class='notice'>You start furiously plunging [name].")
-	if(do_after(user, 30, target = src))
+	if(do_after(user, 3 SECONDS, target = src))
 		to_chat(user, "<span class='notice'>You finish plunging the [name].")
 		reagents.reaction(get_turf(src), TOUCH) //splash on the floor
 		reagents.clear_reagents()

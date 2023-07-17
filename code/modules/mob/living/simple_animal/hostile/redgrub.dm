@@ -225,9 +225,12 @@
 		var/mob/living/carbon/human/M = target
 		food += 10
 		if(growthstage >= 3)
+			if(M in do_afters)
+				to_chat(src, "<span class='warning'>You're already already trying to borrow into [M]!</span>")
+				return
 			M.visible_message("<span class='danger'>the [src] begins burrowing into [M]!</span>", \
 						"<span class='userdanger'>[src] is trying to burrow into your cytoplasm!</span>")
-			if(M.can_inject(src) && do_after(src, 15, M))
+			if(M.can_inject(src) && do_after(src, 1.5 SECONDS, M, show_to_target = TRUE))
 				for(var/datum/disease/D in grubdisease)
 					if(D.spread_flags & DISEASE_SPREAD_FALTERED)
 						continue

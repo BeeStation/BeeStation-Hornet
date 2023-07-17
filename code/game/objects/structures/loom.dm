@@ -30,8 +30,22 @@
 	if(W.amount < FABRIC_PER_SHEET)
 		user.show_message("<span class='notice'>You need at least [FABRIC_PER_SHEET] units of fabric before using this.</span>", MSG_VISUAL)
 		return FALSE
+	if(src in user.do_afters)
+		to_chat(user,"<span class='warning'>You already are weaving \the [W.name] through the loom!</span>")
+		return FALSE
 	user.show_message("<span class='notice'>You start weaving \the [W.name] through the loom..</span>", MSG_VISUAL)
-	if(W.use_tool(src, user, W.pull_effort))
+	var/looping = TRUE
+	var/speed_mult = 1
+	var/atom/movable/fake_atom = new
+	var/atom/fake_result = W.loom_result
+	fake_atom.icon = initial(fake_result.icon)
+	fake_atom.icon_state = initial(fake_result.icon_state)
+	while(looping)
+		if(!do_after(user, W.pull_effort * speed_mult, src, add_item = fake_atom))
+			looping = FALSE
+			return
+		if(speed_mult >= 0.2)
+			speed_mult -= 0.1
 		if(W.amount >= FABRIC_PER_SHEET)
 			new W.loom_result(drop_location())
 			W.use(FABRIC_PER_SHEET)

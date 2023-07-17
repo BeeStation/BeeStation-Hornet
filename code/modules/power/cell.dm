@@ -175,12 +175,13 @@
 			return
 
 		to_chat(H, "<span class='notice'>You clumsily channel power through the [src] and into your body, wasting some in the process.</span>")
-		E.drain_time = world.time + 25
-		while(do_after(user, 20, target = src))
+		E.drain_time = world.time + 2.5 SECONDS
+		var/speed_mult = 1
+		while(do_after(user, 2 SECONDS * speed_mult , target = src, add_item = src))
 			if(!istype(stomach))
 				to_chat(H, "<span class='warning'>You can't receive charge!</span>")
 				return
-			E.drain_time = world.time + 25
+			E.drain_time = world.time + 2.5 SECONDS * speed_mult
 			if(charge > 300)
 				stomach.adjust_charge(75)
 				charge -= 300 //you waste way more than you receive, so that ethereals cant just steal one cell and forget about hunger
@@ -196,6 +197,8 @@
 				to_chat(H, "<span class='notice'>You are now fully charged.</span>")
 				E.drain_time = 0
 				return
+			if(speed_mult > 0.2)
+				speed_mult -= 0.1
 		to_chat(H, "<span class='warning'>You fail to receive charge from the [src]!</span>")
 		E.drain_time = 0
 	return

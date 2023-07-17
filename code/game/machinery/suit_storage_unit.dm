@@ -259,9 +259,9 @@
 		return
 	if(src in user.do_afters)
 		if(target == user)
-			to_chat(user, "<span class='notice'>You're already attempting to squeeze inside [src]!</span>")
+			to_chat(user, "<span class='warning'>You're already attempting to squeeze inside [src]!</span>")
 		else
-			to_chat(user, "<span class='notice'>You're already attempting to shove [target] into [src]!</span>")
+			to_chat(user, "<span class='warning'>You're already attempting to shove [target] into [src]!</span>")
 		return
 	if(target == user)
 		user.visible_message("<span class='warning'>[user] starts squeezing into [src]!</span>", "<span class='notice'>You start working your way into [src]...</span>")

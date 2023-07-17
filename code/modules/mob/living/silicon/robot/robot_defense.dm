@@ -1,8 +1,11 @@
 /mob/living/silicon/robot/attackby(obj/item/I, mob/living/user)
 	if(I.slot_flags & ITEM_SLOT_HEAD && hat_offset != INFINITY && user.a_intent == INTENT_HELP && !is_type_in_typecache(I, blacklisted_hats))
+		if(src in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to place [I] on [src]'s head!</span>")
+			return
 		to_chat(user, "<span class='notice'>You begin to place [I] on [src]'s head...</span>")
 		to_chat(src, "<span class='notice'>[user] is placing [I] on your head...</span>")
-		if(do_after(user, 30, target = src))
+		if(do_after(user, 3 SECONDS, target = src, show_to_target = TRUE, add_item = I))
 			if (user.temporarilyRemoveItemFromInventory(I, TRUE))
 				place_on_head(I)
 		return

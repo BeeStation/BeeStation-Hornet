@@ -106,6 +106,9 @@ GLOBAL_LIST_INIT(marker_beacon_colors, sort_list(list(
 	. = ..()
 	if(.)
 		return
+	if(src in user.do_afters)
+		to_chat(user, "<span class='warning'>You're already trying to pick up \the [src]!</span>")
+		return
 	to_chat(user, "<span class='notice'>You start picking [src] up...</span>")
 	if(do_after(user, remove_speed, target = src))
 		var/obj/item/stack/marker_beacon/M = new(loc)
@@ -118,6 +121,9 @@ GLOBAL_LIST_INIT(marker_beacon_colors, sort_list(list(
 
 /obj/structure/marker_beacon/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/marker_beacon))
+		if(src in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to pick up [src]!</span>")
+			return
 		var/obj/item/stack/marker_beacon/M = I
 		to_chat(user, "<span class='notice'>You start picking [src] up...</span>")
 		if(do_after(user, remove_speed, target = src) && M.amount + 1 <= M.max_amount)

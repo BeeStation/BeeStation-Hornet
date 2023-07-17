@@ -222,7 +222,7 @@
 		if(target == user)
 			kidnaptime = 1 SECONDS
 		if(kidnapee in user.do_afters)
-			to_chat(user, "<span class='notice'>You're already trying to pull [src] over [kidnapee]'s head!</span>")
+			to_chat(user, "<span class='warning'>You're already trying to pull [src] over [kidnapee]'s head!</span>")
 			return COMPONENT_NO_AFTERATTACK
 		kidnapee.visible_message("<span class='warning'>[user] starts pulling [src] over [kidnapee]'s head!</span>", "<span class='userdanger'>[user] starts pulling [src] over your head!</span>")
 		if(do_after(user, kidnaptime * kidnappingcoefficient, kidnapee, show_to_target = TRUE, add_item = src))

@@ -39,6 +39,9 @@
 	set_cell(null)
 
 /obj/item/bluespace_anchor/attack_self(mob/user)
+	if(src in user.do_afters)
+		to_chat(user, "<span class='warning'>You're already attempting to deploy [src]!</span>")
+		return
 	user.visible_message("<span class='notice'>[user] begins deploying [src].</span>", "<span class='notice'>You begin deploying [src]...</span>")
 	if(!do_after(user, 4 SECONDS, target = src))
 		return

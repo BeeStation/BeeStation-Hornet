@@ -37,15 +37,23 @@
 			reagents.clear_reagents()
 		else
 			if(M != user)
+				if(src in user.do_afters)
+					to_chat(user, "<span class='warning'>You're already swiping trying to feed [M] something!</span>")
+					return
 				M.visible_message("<span class='danger'>[user] attempts to feed [M] something from [src].</span>", \
 						"<span class='userdanger'>[user] attempts to feed you something from [src].</span>")
-				if(!do_after(user, target = M))
+				var/feeding_time = 3 SECONDS
+				if(M.last_time_fed + 15 SECONDS >= world.time)
+					feeding_time = 1 SECONDS
+				if(!do_after(user, feeding_time, target = M, show_to_target = TRUE, add_item = src))
 					return
 				if(!reagents || !reagents.total_volume)
-					return // The drink might be empty after the delay, such as by spam-feeding
+					return // The drink might be empty after the delay
+				M.last_time_fed = world.time
 				M.visible_message("<span class='danger'>[user] feeds [M] something from [src].</span>", \
 						"<span class='userdanger'>[user] feeds you something from [src].</span>")
 				log_combat(user, M, "fed", reagents.log_list())
+				M.last_time_fed = world.time
 			else
 				to_chat(user, "<span class='notice'>You swallow a gulp of [src].</span>")
 			var/fraction = min(5/reagents.total_volume, 1)
@@ -435,8 +443,11 @@
 			if(user.getStaminaLoss() > 50)
 				to_chat(user, "<span class='danger'>You are too tired to work!</span>")
 				return
+			if(src in user.do_afters)
+				to_chat(user, "<span class='warning'>You're already grinding \the [grinded]!</span>")
+				return
 			to_chat(user, "You start grinding...")
-			if((do_after(user, 25, target = src)) && grinded)
+			if((do_after(user, 2.5 SECONDS, target = src)) && grinded)
 				user.adjustStaminaLoss(40)
 				if(grinded.reagents) //food and pills
 					grinded.reagents.trans_to(src, grinded.reagents.total_volume, transfered_by = user)

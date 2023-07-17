@@ -82,15 +82,22 @@
 		user.visible_message("<span class='notice'>[user] swallows some of the contents of \the [src].</span>", \
 			"<span class='notice'>You swallow some of the contents of \the [src].</span>")
 	else
+		if(M in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to feed [M] [src]'s contents!</span>")
+			return
 		M.visible_message("<span class='warning'>[user] attempts to feed [M] from [src].</span>", \
 			"<span class='warning'>[user] attempts to feed you from [src].</span>")
-		if(!do_after(user, target = M))
+		var/time_to_eat = 3 SECONDS
+		if(M.last_time_fed + 15 SECONDS >= world.time)
+			time_to_eat = 1 SECONDS
+		if(!do_after(user, delay = time_to_eat, target = M, show_to_target = TRUE, add_item = src))
 			return
 		if(!reagents || !reagents.total_volume)
 			return // The condiment might be empty after the delay.
 		M.visible_message("<span class='warning'>[user] fed [M] from [src].</span>", \
 			"<span class='warning'>[user] fed you from [src].</span>")
 		log_combat(user, M, "fed", reagents.log_list())
+		M.last_time_fed = world.time
 
 	var/fraction = min(10/reagents.total_volume, 1)
 	reagents.reaction(M, INGEST, fraction)

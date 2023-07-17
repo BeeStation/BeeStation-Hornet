@@ -52,7 +52,7 @@
 		return
 	if(!HAS_TRAIT(user, TRAIT_ABDUCTOR_TRAINING) && !HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_TRAINING))
 		if(src in user.do_afters)
-			to_chat(user, "<span class='notice'>You're already trying your best here!</span>")
+			to_chat(user, "<span class='warning'>You're already trying your best here!</span>")
 			return
 		to_chat(user, "<span class='warning'>You start mashing alien buttons at random!</span>")
 		if(do_after(user,100, target = src))

@@ -58,6 +58,9 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 		return
 
 	var/obj/item/stack/space_crystal = used_item
+	if(src in user.do_afters)
+		to_chat(user, "<span class='warning'>You're already trying to nullify the effects of the rune!</span>")
+		return
 	if(do_after(user, storing_time,target = src)) //the time it takes to nullify it depends on the rune too
 		to_chat(user, "<span class='notice'>You nullify the effects of the rune with the bluespace crystal!</span>")
 		space_crystal.use(1)
@@ -90,6 +93,9 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 		return
 
 	if(istype(target, runepath)) //checks if the target is a rune and then if you can store it
+		if(target in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to store \the [target]!</span>")
+			return
 		if(do_after(user, storing_time,target = target))
 			warping_crossbreed_absorb(target, user)
 		return
@@ -107,6 +113,10 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 		return
 
 	if(!check_cd(user))
+		return
+
+	if(target in user.do_afters)
+		to_chat(user, "<span class='warning'>You're already trying to draw a rune here!</span>")
 		return
 
 	if(do_after(user, drawing_time,target = target))

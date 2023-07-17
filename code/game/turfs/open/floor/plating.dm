@@ -75,7 +75,7 @@
 			return
 		else
 			if(src in user.do_afters)
-				to_chat(user, "<span class='notice'>You're already trying to reinforce [src]!</span>")
+				to_chat(user, "<span class='warning'>You're already trying to reinforce [src]!</span>")
 				return
 			to_chat(user, "<span class='notice'>You begin reinforcing the floor...</span>")
 			if(do_after(user, 30, target = src, add_item = C))

@@ -37,6 +37,9 @@ GLOBAL_LIST_EMPTY(active_bluespace_anchors)
 		icon_state = "anchor_active"
 
 /obj/machinery/bluespace_anchor/attack_hand(mob/living/user)
+	if(src in user.do_afters)
+		to_chat(user, "<span class='warning'>You're already trying to deactivate [src]!</span>")
+		return
 	user.visible_message("<span class='notice'>[user] starts deactivating [src].</span>", "<span class='notice'>You begin deactivating [src]...</span>")
 	//Failing to deactivate it
 	if(!do_after(user, 8 SECONDS, target = src))

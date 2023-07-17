@@ -50,7 +50,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/try_attach_part(mob/user, obj/mecha/M)
 	if(src in user.do_afters)
-		to_chat(user, "<span class='notice'>You're already attaching something to \the [M]!</span>")
+		to_chat(user, "<span class='warning'>You're already attaching something to \the [M]!</span>")
 		return FALSE
 	if(!do_after(user, 15, M, add_item = src))
 		return FALSE

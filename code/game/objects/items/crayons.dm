@@ -353,7 +353,7 @@
 			wait_time = 20 SECONDS
 	if(!instant || paint_mode == PAINT_LARGE_HORIZONTAL)
 		if(target in user.do_afters)
-			to_chat(user, "<span class='notice'>You're already drawing on [target]!</span>")
+			to_chat(user, "<span class='warning'>You're already drawing on [target]!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start drawing a [temp] on the [target.name]...</span>") // hippie -- removed a weird tab that had no reason to be here
 		if(!do_after(user, wait_time, target = target, show_to_target = TRUE, add_item = src))

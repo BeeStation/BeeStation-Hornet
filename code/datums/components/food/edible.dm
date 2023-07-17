@@ -320,7 +320,7 @@ Behavior that's still missing from this component that original food items had t
 
 	else //If you're feeding it to someone else.
 		if(eater in feeder.do_afters)
-			to_chat(feeder, "<span class='notice'>You're already feeding [eater]!</span>")
+			to_chat(feeder, "<span class='warning'>You're already feeding [eater]!</span>")
 			return
 		if(isbrain(eater))
 			to_chat(feeder, "<span class='warning'>[eater] doesn't seem to have a mouth!</span>")
@@ -340,11 +340,14 @@ Behavior that's still missing from this component that original food items had t
 			if(eater.is_blind())
 				to_chat(eater, "<span class='userdanger'>You're too full to eat what's being fed to you!</span>")
 			return
+		if(eater.last_time_fed + 15 SECONDS >= world.time)
+			time_to_eat = 1 SECONDS
 		if(!do_after(feeder, delay = time_to_eat, target = eater, show_to_target = TRUE, add_item = parent)) //Wait 3 seconds before you can feed
 			return
 		if(IsFoodGone(owner, feeder))
 			return
 		log_combat(feeder, eater, "fed", owner.reagents.log_list())
+		eater.last_time_fed = world.time
 		eater.visible_message(
 			"<span class='danger'>[feeder] forces [eater] to eat [parent]!</span>", \
 			"<span class='userdanger'>[feeder] forces you to eat [parent]!</span>"

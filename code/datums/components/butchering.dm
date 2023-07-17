@@ -41,7 +41,7 @@
 
 /datum/component/butchering/proc/startButcher(obj/item/source, mob/living/M, mob/living/user)
 	if(M in user.do_afters)
-		to_chat(user, "<span class='notice'>You're already butchering [M]!</span>")
+		to_chat(user, "<span class='warning'>You're already butchering [M]!</span>")
 		return
 	to_chat(user, "<span class='notice'>You begin to butcher [M]...</span>")
 	playsound(M.loc, butcher_sound, 50, TRUE, -1)
@@ -50,7 +50,7 @@
 
 /datum/component/butchering/proc/startNeckSlice(obj/item/source, mob/living/carbon/human/H, mob/living/user)
 	if(H in user.do_afters)
-		to_chat(user, "<span class='notice'>You're already sliding the throat of [H]!</span>")
+		to_chat(user, "<span class='warning'>You're already sliding the throat of [H]!</span>")
 		return
 	user.visible_message("<span class='danger'>[user] is slitting [H]'s throat!</span>", \
 					"<span class='danger'>You start slicing [H]'s throat!</span>", \

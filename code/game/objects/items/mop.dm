@@ -55,7 +55,7 @@
 
 	if(T)
 		if(T in user.do_afters)
-			to_chat(user, "<span class='notice'>You're already cleaning [T]!</span>")
+			to_chat(user, "<span class='warning'>You're already cleaning [T]!</span>")
 			return
 		user.visible_message("[user] begins to clean \the [T] with [src].", "<span class='notice'>You begin to clean \the [T] with [src]...</span>")
 

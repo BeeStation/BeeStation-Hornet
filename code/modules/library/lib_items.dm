@@ -308,8 +308,11 @@
 					to_chat(user, "[I]'s screen flashes: 'Book stored in buffer. Title added to general inventory.'")
 
 	else if((istype(I, /obj/item/kitchen/knife) || I.tool_behaviour == TOOL_WIRECUTTER) && !(flags_1 & HOLOGRAM_1))
+		if(src in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to carve out [title]!</span>")
+			return
 		to_chat(user, "<span class='notice'>You begin to carve out [title]...</span>")
-		if(do_after(user, 30, target = src))
+		if(do_after(user, 3 SECONDS, target = src, add_item = I))
 			to_chat(user, "<span class='notice'>You carve out the pages from [title]! You didn't want to read it anyway.</span>")
 			var/obj/item/storage/book/B = new
 			B.name = src.name

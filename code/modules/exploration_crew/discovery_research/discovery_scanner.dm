@@ -33,6 +33,9 @@
 	. = ..()
 
 /obj/item/discovery_scanner/proc/begin_scanning(mob/user, datum/component/discoverable/discoverable)
+	if(discoverable.parent in user.do_afters)
+		to_chat(user, "<span class='warning'>You're already trying to scan [discoverable.parent]!</span>")
+		return
 	to_chat(user, "<span class='notice'>You begin scanning [discoverable.parent]...</span>")
-	if(do_after(user, 50, target=get_turf(user)))
+	if(do_after(user, 5 SECONDS, target=get_turf(user), add_item = src))
 		discoverable.discovery_scan(linked_techweb, user)

@@ -339,8 +339,11 @@
 		if(open)
 			to_chat(user, "<span class='warning'>Close the access panel before manipulating the personality slot!</span>")
 		else
+			if(src in user.do_afters)
+				to_chat(user, "<span class='warning'>You're already trying to pull [paicard] free!</span>")
+				return
 			to_chat(user, "<span class='notice'>You attempt to pull [paicard] free...</span>")
-			if(do_after(user, 30, target = src))
+			if(do_after(user, 3 SECONDS, target = src, show_to_target = TRUE, add_item = W))
 				if (paicard)
 					user.visible_message("<span class='notice'>[user] uses [W] to pull [paicard] out of [bot_name]!</span>","<span class='notice'>You pull [paicard] out of [bot_name] with [W].</span>")
 					ejectpai(user)

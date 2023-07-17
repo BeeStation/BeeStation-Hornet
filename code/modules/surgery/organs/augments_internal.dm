@@ -193,6 +193,9 @@
 		if(!new_surgeries)
 			to_chat(owner, "<span class='notice'>No new surgical programs detected on \the [held_item] in your [hand_name].</span>")
 			continue
+		if(held_item in owner.do_afters)
+			to_chat(owner, "<span class='warning'>You're already trying to download surgical programs from \the [held_item]!</span>")
+			return
 		to_chat(owner, "<span class='notice'><b>[new_surgeries]</b> new surgical program\s detected on \the [held_item] in your [hand_name]! Please hold still while the surgical program is being downloaded...</span>")
 		if(!do_after(owner, 5 SECONDS, held_item))
 			to_chat(owner, "<span class='warning'>Surgical program transfer interrupted!</span>")

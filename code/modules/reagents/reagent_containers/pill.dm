@@ -35,16 +35,22 @@
 		if(/datum/surgery/dental_implant in C.surgeries)
 			return
 	if(M == user)
+		if(M in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to use \the [src] on yourself!!</span>")
+			return
 		M.visible_message("<span class='notice'>[user] attempts to [apply_method] [src].</span>")
 		if(self_delay)
-			if(!do_after(user, self_delay, M))
+			if(!do_after(user, self_delay, M, add_item = src))
 				return FALSE
 		to_chat(M, "<span class='notice'>You [apply_method] [src].</span>")
 
 	else
+		if(M in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to use \the [src] on [M]!</span>")
+			return
 		M.visible_message("<span class='danger'>[user] attempts to force [M] to [apply_method] [src].</span>", \
 							"<span class='userdanger'>[user] attempts to force you to [apply_method] [src].</span>")
-		if(!do_after(user, target = M))
+		if(!do_after(user, target = M, show_to_target = TRUE, add_item = src))
 			return FALSE
 		M.visible_message("<span class='danger'>[user] forces [M] to [apply_method] [src].</span>", \
 							"<span class='userdanger'>[user] forces you to [apply_method] [src].</span>")

@@ -180,7 +180,11 @@
 		visible_message("<span class='notice'>[src] begins to secrete a sticky substance around [cocoon_target].</span>","<span class='notice'>You begin wrapping [cocoon_target] into a cocoon.</span>")
 		stop_automated_movement = TRUE
 		SSmove_manager.stop_looping(src)
-		if(do_after(src, 50, target = cocoon_target))
+		var/atom/movable/fake_atom = new
+		var/atom/fake_structure = /obj/structure/spider/cocoon
+		fake_atom.icon = initial(fake_structure.icon)
+		fake_atom.icon_state = initial(fake_structure.icon_state)
+		if(do_after(src, 5 SECONDS, target = cocoon_target, show_to_target = TRUE, add_item = fake_atom))
 			if(busy == SPINNING_COCOON)
 				var/obj/structure/spider/cocoon/C = new(cocoon_target.loc)
 				if(isliving(cocoon_target))
@@ -290,7 +294,7 @@
 	else
 		visible_message("<span class='notice'>[src] begins wrapping the wounds of [hurt_spider].</span>","<span class='notice'>You begin wrapping the wounds of [hurt_spider].</span>")
 	is_busy = TRUE
-	if(do_after(src, 20, target = hurt_spider))
+	if(do_after(src, 20, target = hurt_spider, show_to_target = TRUE))
 		hurt_spider.heal_overall_damage(20)
 		new /obj/effect/temp_visual/heal(get_turf(hurt_spider), "#80F5FF")
 		visible_message("<span class='notice'>[src] wraps the wounds of [hurt_spider].</span>","<span class='notice'>You wrap the wounds of [hurt_spider].</span>")
@@ -486,7 +490,7 @@
 		spider.busy = SPINNING_WEB
 		spider.visible_message("<span class='notice'>[spider] begins to secrete a sticky substance.</span>","<span class='notice'>You begin to lay a web.</span>")
 		spider.stop_automated_movement = TRUE
-		if(do_after(spider, 40 * spider.web_speed, target = target_turf))
+		if(do_after(spider, 4 SECONDS * spider.web_speed, target = target_turf))
 			new /obj/structure/spider/stickyweb(target_turf)
 		spider.busy = SPIDER_IDLE
 		spider.stop_automated_movement = FALSE
@@ -587,7 +591,7 @@
 		spider.busy = SPINNING_WEB
 		spider.visible_message("<span class='notice'>[spider] begins to secrete a sticky substance.</span>","<span class='notice'>You begin to prepare a net from webbing.</span>")
 		spider.stop_automated_movement = TRUE
-		if(do_after(spider, 40 * spider.web_speed, spider))
+		if(do_after(spider, 4 SECONDS * spider.web_speed, spider))
 			message = "<span class='notice'>You ready the completed net with your forelimbs. <B>Left-click to throw it at a target!</B></span>"
 			add_ranged_ability(user, message, TRUE)
 		spider.busy = SPIDER_IDLE
@@ -653,7 +657,11 @@
 		spider.busy = LAYING_EGGS
 		spider.visible_message("<span class='notice'>[spider] begins to lay a cluster of eggs.</span>","<span class='notice'>You begin to lay a cluster of eggs.</span>")
 		spider.stop_automated_movement = TRUE
-		if(do_after(spider, 50, target = get_turf(spider)))
+		var/atom/movable/fake_atom = new
+		var/atom/fake_egg = /obj/structure/spider/eggcluster
+		fake_atom.icon = initial(fake_egg.icon)
+		fake_atom.icon_state = initial(fake_egg.icon_state)
+		if(do_after(spider, 5 SECONDS, target = get_turf(spider), add_item = fake_atom))
 			if(spider.busy == LAYING_EGGS)
 				cluster = locate() in get_turf(spider)
 				if(!cluster || !isturf(spider.loc))

@@ -758,9 +758,12 @@
 				if(cable.get_amount() < 5)
 					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the air alarm!</span>")
 					return
+				if(src in user.do_afters)
+					to_chat(user, "<span class='warning'>You're already wiring \the [src]!</span>")
+					return
 				user.visible_message("[user.name] wires the air alarm.", \
 									"<span class='notice'>You start wiring the air alarm.</span>")
-				if (do_after(user, 20, target = src))
+				if (do_after(user, 2 SECONDS, target = src, add_item = W))
 					if (cable.get_amount() >= 5 && buildstage == 1)
 						cable.use(5)
 						to_chat(user, "<span class='notice'>You wire the air alarm.</span>")

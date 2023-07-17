@@ -489,7 +489,7 @@
 	if(!resting)
 		set_resting(TRUE, FALSE)
 	else
-		if(do_after(src, 10, target = src))
+		if(do_after(src, 1 SECONDS, target = src))
 			set_resting(FALSE, FALSE)
 		else
 			to_chat(src, "<span class='notice'>You fail to get up.</span>")
@@ -887,10 +887,13 @@
 	if(!what.canStrip(who))
 		to_chat(src, "<span class='warning'>You can't remove [what.name], it appears to be stuck!</span>")
 		return
+	if(who in do_afters)
+		to_chat(src, "<span class='warning'>You're already stripping [who]!</span>")
+		return
 	who.visible_message("<span class='danger'>[src] tries to remove [who]'s [what.name].</span>", \
 					"<span class='userdanger'>[src] tries to remove your [what.name].</span>")
 	what.add_fingerprint(src)
-	if(do_after(src, what.strip_delay, who))
+	if(do_after(src, what.strip_delay, who, show_to_target = TRUE, add_item = what))
 		if(what && Adjacent(who))
 			if(islist(where))
 				var/list/L = where
@@ -922,9 +925,13 @@
 			to_chat(src, "<span class='warning'>\The [what.name] doesn't fit in that place!</span>")
 			return
 
+		if(who in do_afters)
+			to_chat(src, "<span class='warning'>You're already trying to put something on [who]!</span>")
+			return
+
 		who.visible_message("<span class='notice'>[src] tries to put [what] on [who].</span>", \
 					"<span class='notice'>[src] tries to put [what] on you.</span>")
-		if(do_after(src, what.equip_delay_other, who))
+		if(do_after(src, what.equip_delay_other, who, show_to_target = TRUE, add_item = what))
 			if(what && Adjacent(who) && what.mob_can_equip(who, src, final_where, TRUE, TRUE))
 				if(temporarilyRemoveItemFromInventory(what))
 					if(where_list)
@@ -1335,7 +1342,7 @@
 		to_chat(user, "<span class='warning'>[src] is buckled to something!</span>")
 		return FALSE
 	user.visible_message("<span class='notice'>[user] starts trying to scoop up [src]!</span>")
-	if(!do_after(user, 20, target = src))
+	if(!do_after(user, 2 SECONDS, target = src, show_to_target = TRUE))
 		return FALSE
 	mob_pickup(user)
 	return TRUE

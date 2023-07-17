@@ -116,9 +116,12 @@
 		if(smile)
 			to_chat(user, "<span class='notice'>Seems like someone already drew something on the helmet's visor.</span>")
 		else
+			if(src in user.do_afters)
+				to_chat(user, "<span class='warning'>You're already trying to draw on \the [src]!</span>")
+				return COMPONENT_NO_AFTERATTACK
 			var/obj/item/toy/crayon/CR = item
 			to_chat(user, "<span class='notice'>You start drawing a smiley face on the helmet's visor..</span>")
-			if(do_after(user, 25, target = src))
+			if(do_after(user, 2.5 SECONDS, target = src))
 				smile = TRUE
 				smile_color = CR.paint_color
 				to_chat(user, "You draw a smiley on the helmet visor.")

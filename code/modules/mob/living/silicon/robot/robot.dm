@@ -402,6 +402,9 @@
 		if(!(getFireLoss() || getToxLoss()))
 			to_chat(user, "The wires seem fine, there's no need to fix them.")
 			return
+		if(src in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to fix [src]'s burnt wires!</span>")
+			return
 		var/obj/item/stack/cable_coil/coil = W
 		var/speed_mult = 1
 		while((getFireLoss() || getToxLoss()) && do_after(user, 3 SECONDS * speed_mult, target = src, show_to_target = TRUE, add_item = coil))

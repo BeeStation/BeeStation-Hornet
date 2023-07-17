@@ -47,9 +47,13 @@
 			to_chat(M, "<span class='warning'>None of the items you hold are suitable for emplacement of your fragile soul.</span>")
 			return
 
+		if(marked_item in M.do_afters)
+			to_chat(M, "<span class='warning'>You're already trying to bind your soul to [marked_item]!</span>")
+			return
+
 		playsound(user, 'sound/effects/pope_entry.ogg', 100)
 
-		if(!do_after(M, 50, target=marked_item, timed_action_flags = IGNORE_HELD_ITEM))
+		if(!do_after(M, 5 SECONDS, target=marked_item, timed_action_flags = IGNORE_HELD_ITEM, add_item = marked_item))
 			to_chat(M, "<span class='warning'>Your soul snaps back to your body as you stop ensouling [marked_item]!</span>")
 			return
 

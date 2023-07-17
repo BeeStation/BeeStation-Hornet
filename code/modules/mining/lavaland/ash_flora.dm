@@ -14,7 +14,7 @@
 	var/harvest = /obj/item/reagent_containers/food/snacks/grown/ash_flora/shavings
 	var/harvest_amount_low = 1
 	var/harvest_amount_high = 3
-	var/harvest_time = 60
+	var/harvest_time = 6 SECONDS
 	var/harvest_message_low = "You pick a mushroom, but fail to collect many shavings from its cap."
 	var/harvest_message_med = "You pick a mushroom, carefully collecting the shavings from its cap."
 	var/harvest_message_high = "You harvest and collect shavings from several mushroom caps."
@@ -62,8 +62,11 @@
 
 /obj/structure/flora/ash/attackby(obj/item/W, mob/user, params)
 	if(!harvested && needs_sharp_harvest && W.is_sharp())
+		if(src in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to harvest [src]!</span>")
+			return COMPONENT_NO_AFTERATTACK
 		user.visible_message("<span class='notice'>[user] starts to harvest from [src] with [W].</span>","<span class='notice'>You begin to harvest from [src] with [W].</span>")
-		if(do_after(user, harvest_time, target = src))
+		if(do_after(user, harvest_time, target = src, add_item = W))
 			harvest(user)
 	else
 		return ..()
@@ -73,6 +76,9 @@
 	if(.)
 		return
 	if(!harvested && !needs_sharp_harvest)
+		if(src in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to harvest [src]!</span>")
+			return
 		user.visible_message("<span class='notice'>[user] starts to harvest from [src].</span>","<span class='notice'>You begin to harvest from [src].</span>")
 		if(do_after(user, harvest_time, target = src))
 			harvest(user)
@@ -89,7 +95,7 @@
 	harvest = /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf
 	needs_sharp_harvest = FALSE
 	harvest_amount_high = 4
-	harvest_time = 20
+	harvest_time = 2 SECONDS
 	harvest_message_low = "You pluck a single, suitable leaf."
 	harvest_message_med = "You pluck a number of leaves, leaving a few unsuitable ones."
 	harvest_message_high = "You pluck quite a lot of suitable leaves."
@@ -104,7 +110,7 @@
 	harvested_desc = "Several small mushrooms near the stumps of what likely were larger mushrooms."
 	harvest = /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_cap
 	harvest_amount_high = 4
-	harvest_time = 50
+	harvest_time = 5 SECONDS
 	harvest_message_low = "You slice the cap off a mushroom."
 	harvest_message_med = "You slice off a few conks from the larger mushrooms."
 	harvest_message_high = "You slice off a number of caps and conks from these mushrooms."
@@ -121,7 +127,7 @@
 	harvested_desc = "A few tiny mushrooms around larger stumps. You can already see them growing back."
 	harvest = /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_stem
 	harvest_amount_high = 4
-	harvest_time = 40
+	harvest_time = 4 SECONDS
 	harvest_message_low = "You pick and slice the cap off a mushroom, leaving the stem."
 	harvest_message_med = "You pick and decapitate several mushrooms for their stems."
 	harvest_message_high = "You acquire a number of stems from these mushrooms."
@@ -137,7 +143,7 @@
 	harvest = /obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit
 	needs_sharp_harvest = FALSE
 	harvest_amount_high = 2
-	harvest_time = 10
+	harvest_time = 1 SECONDS
 	harvest_message_low = "You pick a cactus fruit."
 	harvest_message_med = "You pick several cactus fruit." //shouldn't show up, because you can't get more than two
 	harvest_message_high = "You pick a pair of cactus fruit."
@@ -152,7 +158,7 @@
 	harvest = /obj/item/reagent_containers/food/snacks/grown/random
 	needs_sharp_harvest = FALSE
 	harvest_amount_high = 2
-	harvest_time = 10
+	harvest_time = 1 SECONDS
 	harvest_message_low = "You bravely pick a strange plant."
 	harvest_message_high = "You bravely pick a pair of strange plant."
 	light_range = 1.5

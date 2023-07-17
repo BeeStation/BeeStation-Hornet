@@ -487,7 +487,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(grav > STANDARD_GRAVITY)
 		var/grav_power = min(3,grav - STANDARD_GRAVITY)
 		if(src in user.do_afters)
-			to_chat(user, "<span class='notice'>You're already picking up \the [src]!</span>")
+			to_chat(user, "<span class='warning'>You're already picking up \the [src]!</span>")
 			return
 		to_chat(user,"<span class='notice'>You start picking up [src]...</span>")
 		if(!do_after(user, 30*grav_power, src, show_to_target = TRUE, add_item = src))
@@ -1104,7 +1104,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	if(delay)
 		if(target in user.do_afters)
-			to_chat(user, "<span class='notice'>You're already using [src] on \the [target]!</span>")
+			to_chat(user, "<span class='warning'>You're already using [src] on \the [target]!</span>")
 			return COMPONENT_NO_AFTERATTACK
 		// Create a callback with checks that would be called every tick by do_after.
 		var/datum/callback/tool_check = CALLBACK(src, PROC_REF(tool_check_callback), user, amount, extra_checks)

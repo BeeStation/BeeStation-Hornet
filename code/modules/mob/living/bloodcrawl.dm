@@ -160,7 +160,7 @@
 		to_chat(src, "<span class='warning'>Finish eating first!</span>")
 		return 0
 	B.visible_message("<span class='warning'>[B] starts to bubble...</span>")
-	if(!do_after(src, 20, target = B))
+	if(!do_after(src, 2 SECONDS, target = B))
 		return
 	if(!B)
 		return

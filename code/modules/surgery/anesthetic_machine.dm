@@ -72,14 +72,18 @@
 		return
 	if(Adjacent(target) && usr.Adjacent(target))
 		if(attached_tank && !mask_out)
-			usr.visible_message("<span class='warning'>[usr] attemps to attach the [src] to [target].</span>", "<span class='notice'>You attempt to attach the [src] to [target].</span>")
-			if(!do_after(usr, 70, target))
+			var/mob/user = usr
+			if(target in user.do_afters)
+				to_chat(user, "<span class='warning'>You're already trying attach \the [src] to [target]!</span>")
+				return
+			user.visible_message("<span class='warning'>[user] attemps to attach the [src] to [target].</span>", "<span class='notice'>You attempt to attach the [src] to [target].</span>")
+			if(!do_after(user, 7 SECONDS, target, show_to_target = TRUE, add_item = attached_mask))
 				return
 			if(!target.equip_to_appropriate_slot(attached_mask))
-				to_chat(usr, "<span class='warning'>You are unable to attach the [src] to [target]!</span>")
+				to_chat(user, "<span class='warning'>You are unable to attach the [src] to [target]!</span>")
 				return
 			else
-				usr.visible_message("<span class='warning'>[usr] attaches the [src] to [target].</span>", "<span class='notice'>You attach the [src] to [target].</span>")
+				user.visible_message("<span class='warning'>[user] attaches the [src] to [target].</span>", "<span class='notice'>You attach the [src] to [target].</span>")
 				target.external = attached_tank
 				mask_out = TRUE
 				START_PROCESSING(SSmachines, src)
@@ -119,8 +123,11 @@
 		to_chat(user, "<span class='warning'>You need to remove the anesthetic tank first!</span>")
 		return
 	if(!mask_out)
+		if(src in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already swiping to detach the breath mask!</span>")
+			return
 		visible_message("<span class='warning'>[user] attempts to detach the breath mask from [src].</span>", "<span class='notice'>You attempt to detach the breath mask from [src].</span>")
-		if(!do_after(user, 100, src, timed_action_flags = IGNORE_HELD_ITEM))
+		if(!do_after(user, 10 SECONDS, src, timed_action_flags = IGNORE_HELD_ITEM, add_item = I))
 			to_chat(user, "<span class='warning'>You fail to dettach the breath mask from [src]!</span>")
 			return
 		visible_message("<span class='warning'>[user] detaches the breath mask from [src].</span>", "<span class='notice'>You detach the breath mask from [src].</span>")

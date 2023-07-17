@@ -226,12 +226,15 @@
 		jammed = FALSE
 		return TRUE
 	if(istype(item, /obj/item/soap) || istype(item, /obj/item/reagent_containers/glass/rag))
-		var/cleanspeed = 50
+		if(src in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to clean \the [src]!</span>")
+			return
+		var/cleanspeed = 5 SECONDS
 		if(istype(item, /obj/item/soap))
 			var/obj/item/soap/used_soap = item
 			cleanspeed = used_soap.cleanspeed
 		user.visible_message("<span class='notice'>[user] starts to clean \the [src].</span>", "<span class='notice'>You start to clean \the [src]...</span>")
-		if(do_after(user, cleanspeed, target = src))
+		if(do_after(user, cleanspeed, target = src, add_item = item))
 			user.visible_message("<span class='notice'>[user] cleans \the [src].</span>", "<span class='notice'>You clean \the [src].</span>")
 			jammed = FALSE
 		return TRUE

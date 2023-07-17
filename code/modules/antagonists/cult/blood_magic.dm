@@ -517,10 +517,13 @@
 
 /obj/item/melee/blood_magic/shackles/proc/CuffAttack(mob/living/carbon/C, mob/living/user)
 	if(!C.handcuffed)
+		if(C in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to restrain [C]!</span>")
+			return
 		playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
 		C.visible_message("<span class='danger'>[user] begins restraining [C] with dark magic!</span>", \
 								"<span class='userdanger'>[user] begins shaping dark magic shackles around your wrists!</span>")
-		if(do_after(user, 3 SECONDS, C))
+		if(do_after(user, 3 SECONDS, C, show_to_target = TRUE))
 			if(!C.handcuffed)
 				C.handcuffed = new /obj/item/restraints/handcuffs/energy/cult/used(C)
 				C.update_handcuffed()
@@ -597,7 +600,7 @@
 				playsound(T, 'sound/machines/airlock_alien_prying.ogg', 80, 1)
 				var/prev_color = candidate.color
 				candidate.color = "black"
-				if(do_after(user, 90, target = candidate))
+				if(do_after(user, 9 SECONDS, target = candidate, show_to_target = TRUE, add_item = src))
 					candidate.emp_act(EMP_HEAVY)
 					var/construct_class = alert(user, "Please choose which type of construct you wish to create.",,"Juggernaut","Wraith","Artificer")
 					if(QDELETED(candidate))
@@ -630,7 +633,7 @@
 			channeling = TRUE
 			playsound(T, 'sound/machines/airlockforced.ogg', 50, 1)
 			do_sparks(5, TRUE, target)
-			if(do_after(user, 50, target = user))
+			if(do_after(user, 5 SECONDS, target = user, add_item = src))
 				if(QDELETED(target))
 					channeling = FALSE
 					return

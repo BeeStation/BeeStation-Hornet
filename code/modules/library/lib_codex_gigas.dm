@@ -39,16 +39,16 @@
 		user.visible_message("[user] closes [title] without looking anything up.")
 		return
 	inUse = TRUE
-	var/speed = 300
+	var/speed = 30 SECONDS
 	var/correctness = 85
 	if(ishuman(user))
 		var/mob/living/carbon/human/U = user
 		if(U.job in list(JOB_NAME_CURATOR)) // the curator is both faster, and more accurate than normal crew members at research
-			speed = 100
+			speed = 10 SECONDS
 			correctness = 100
 		correctness -= U.getOrganLoss(ORGAN_SLOT_BRAIN) * 0.5 //Brain damage makes researching hard.
 		speed += U.getOrganLoss(ORGAN_SLOT_BRAIN) * 3
-	if(do_after(user, speed, user, timed_action_flags = IGNORE_HELD_ITEM))
+	if(do_after(user, speed, user, timed_action_flags = IGNORE_HELD_ITEM, add_item = src))
 		var/usedName = devilName
 		if(!prob(correctness))
 			usedName += "x"

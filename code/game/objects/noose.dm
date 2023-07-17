@@ -69,7 +69,7 @@
 			M.Knockdown(60)
 		else
 			if(src in user.do_afters)
-				to_chat(user, "<span class='notice'>You're already struggling to untie the noose over your neck!</span>")
+				to_chat(user, "<span class='warning'>You're already struggling to untie the noose over your neck!</span>")
 				return
 			M.visible_message("<span class='warning'>[M] struggles to untie the noose over their neck!</span>")
 			to_chat(M,"<span class='notice'>You struggle to untie the noose over your neck... (Stay still for 15 seconds.)</span>")
@@ -101,9 +101,9 @@
 		return FALSE //Can only noose someone if they're on the same tile as noose
 	if(M in user.do_afters)
 		if(user == M)
-			to_chat(user, "<span class='notice'>You're already tying the noose over your neck!</span>")
+			to_chat(user, "<span class='warning'>You're already tying the noose over your neck!</span>")
 		else
-			to_chat(user, "<span class='notice'>You're already tying a noose over [M]'s neck!</span>")
+			to_chat(user, "<span class='warning'>You're already tying a noose over [M]'s neck!</span>")
 		return
 	add_fingerprint(user)
 	log_combat(user, M, "Attempted to Hang", src)

@@ -78,7 +78,7 @@
 
 /obj/structure/proc/climb_structure(mob/living/user)
 	if(src in user.do_afters)
-		to_chat(user, "<span class='notice'>You're already trying to climb onto \the [src]!</span>")
+		to_chat(user, "<span class='warning'>You're already trying to climb onto \the [src]!</span>")
 		return
 	add_fingerprint(user)
 	user.visible_message("<span class='warning'>[user] starts climbing onto [src].</span>", \

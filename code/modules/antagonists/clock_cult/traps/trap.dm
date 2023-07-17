@@ -50,8 +50,11 @@
 
 /obj/structure/destructible/clockwork/trap/wrench_act(mob/living/user, obj/item/I)
 	. = ..()
+	if(src in user.do_afters)
+		to_chat(user, "<span class='warning'>You're already unwrenching [src]!</span>")
+		return COMPONENT_NO_AFTERATTACK
 	to_chat(user, "<span class='warning'>You begin unwrenching [src]...</span>")
-	if(do_after(user, 50, target=src))
+	if(do_after(user, 50, target=src, add_item = I))
 		to_chat(user, "<span class='warning'>You detach [src], clearing all the connections associated with it.</span>")
 		new unwrench_path(get_turf(src))
 		qdel(src)

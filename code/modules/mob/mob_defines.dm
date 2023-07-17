@@ -232,3 +232,6 @@
 	var/thinking_indicator = FALSE
 	/// User is thinking in character. Used to revert to thinking state after stop_typing
 	var/thinking_IC = FALSE
+
+	///Used for speeding up the process of feeding someone if they were recently fed
+	var/last_time_fed = 0

@@ -319,8 +319,11 @@
 		if(L.incapacitated())
 			close_machine(target)
 	else
+		if(target in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to shove [target] inside [src]!</span>")
+			return
 		user.visible_message("<b>[user]</b> starts shoving [target] inside [src].", "<span class='notice'>You start shoving [target] inside [src].</span>")
-		if (do_after(user, 25, target=target))
+		if (do_after(user, 2.5 SECONDS, target=target, show_to_target = TRUE))
 			close_machine(target)
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/attackby(obj/item/I, mob/user, params)

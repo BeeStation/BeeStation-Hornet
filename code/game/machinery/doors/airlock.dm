@@ -350,7 +350,7 @@
 	..()
 	var/mob/M = usr
 	if(src in M.do_afters)
-		to_chat(M, "<span class='notice'>You're already attempting to manipulate [src]!</span>")
+		to_chat(M, "<span class='warning'>You're already attempting to manipulate [src]!</span>")
 		return
 	to_chat(usr, "<span class='brass'>You begin manipulating [src]!</span>")
 	if(do_after(eminence, 20, target=get_turf(eminence), add_item = src))
@@ -918,7 +918,7 @@
 						to_chat(user, "<span class='warning'>You need at least 2 iron sheets to reinforce [src].</span>")
 						return
 					if(src in user.do_afters)
-						to_chat(user, "<span class='notice'>You're already attempting to reinforce [src]!</span>")
+						to_chat(user, "<span class='warning'>You're already attempting to reinforce [src]!</span>")
 						return
 					to_chat(user, "<span class='notice'>You start reinforcing [src].</span>")
 					if(do_after(user, 20, src, add_item = C))
@@ -935,7 +935,7 @@
 						to_chat(user, "<span class='warning'>You need at least 2 plasteel sheets to reinforce [src].</span>")
 						return
 					if(src in user.do_afters)
-						to_chat(user, "<span class='notice'>You're already attempting to reinforce [src]!</span>")
+						to_chat(user, "<span class='warning'>You're already attempting to reinforce [src]!</span>")
 						return
 					to_chat(user, "<span class='notice'>You start reinforcing [src].</span>")
 					if(do_after(user, 20, src, add_item = C))
@@ -1379,7 +1379,7 @@
 		to_chat(user, "<span class='warning'>[src] refuses to budge!</span>")
 		return
 	if(src in user.do_afters)
-		to_chat(user, "<span class='notice'>You're already attempting to pry open [src]!</span>")
+		to_chat(user, "<span class='warning'>You're already attempting to pry open [src]!</span>")
 		return COMPONENT_NO_AFTERATTACK
 	user.visible_message("<span class='warning'>[user] begins prying open [src].</span>",\
 						"<span class='noticealien'>You begin digging your claws into [src] with all your might!</span>",\

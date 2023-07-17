@@ -16,8 +16,11 @@
 
 				if("Cannibalize")
 					if(D.health < D.maxHealth)
+						if(src in D.do_afters)
+							to_chat(D, "<span class='warning'>You're already trying to cannibalize on [src]!</span>")
+							return
 						D.visible_message("<span class='notice'>[D] begins to cannibalize parts from [src].</span>", "<span class='notice'>You begin to cannibalize parts from [src]...</span>")
-						if(do_after(D, 60, 0, target = src))
+						if(do_after(D, 6 SECONDS, 0, target = src, show_to_target = TRUE))
 							D.visible_message("<span class='notice'>[D] repairs itself using [src]'s remains!</span>", "<span class='notice'>You repair yourself using [src]'s remains.</span>")
 							D.adjustBruteLoss(-src.maxHealth)
 							new /obj/effect/decal/cleanable/oil/streak(get_turf(src))
@@ -38,9 +41,12 @@
 		if(user.get_active_held_item())
 			to_chat(user, "<span class='warning'>Your hands are full!</span>")
 			return
+		if(src in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to pick up [src]!</span>")
+			return
 		visible_message("<span class='warning'>[user] starts picking up [src].</span>", \
 						"<span class='userdanger'>[user] starts picking you up!</span>")
-		if(!do_after(user, 20, target = src))
+		if(!do_after(user, 2 SECONDS, target = src, show_to_target = TRUE))
 			return
 		visible_message("<span class='warning'>[user] picks up [src]!</span>", \
 						"<span class='userdanger'>[user] picks you up!</span>")
@@ -67,8 +73,11 @@
 
 		to_chat(user, "<span class='warning'>You can't seem to find the [pick(faux_gadgets)]! Without it, [src] [pick(faux_problems)].</span>")
 		return
+	if(src in user.do_afters)
+		to_chat(user, "<span class='warning'>You're already trying to reactivate [src]!</span>")
+		return
 	user.visible_message("<span class='notice'>[user] begins to reactivate [src].</span>", "<span class='notice'>You begin to reactivate [src]...</span>")
-	if(do_after(user, 30, target = src))
+	if(do_after(user, 3 SECONDS, target = src, show_to_target = TRUE))
 		revive(full_heal = 1)
 		user.visible_message("<span class='notice'>[user] reactivates [src]!</span>", "<span class='notice'>You reactivate [src].</span>")
 		alert_drones(DRONE_NET_CONNECT)

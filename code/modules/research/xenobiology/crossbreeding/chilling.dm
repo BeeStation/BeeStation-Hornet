@@ -164,7 +164,7 @@ Chilling extracts:
 	for(var/mob/living/M in allies)
 		var/datum/status_effect/slimerecall/S = M.apply_status_effect(/datum/status_effect/slimerecall)
 		S.target = user
-	if(do_after(user, 100, target=src))
+	if(do_after(user, 10 SECONDS, target=src))
 		to_chat(user, "<span class='notice'>[src] shatters as it tears a hole in reality, snatching the linked individuals from the void!</span>")
 		log_game("[user] has activated [src] at [AREACOORD(user)]")
 		message_admins("[ADMIN_LOOKUPFLW(user)] has activated [src] at [ADMIN_VERBOSEJMP(user)]")

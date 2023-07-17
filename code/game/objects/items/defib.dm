@@ -534,7 +534,7 @@
 	if(!req_defib && !combat)
 		return
 	if(H in user.do_afters)
-		to_chat(user, "<span class='notice'>You're already trying to use [src] on [H]!</span>")
+		to_chat(user, "<span class='warning'>You're already trying to use [src] on [H]!</span>")
 		return
 	user.visible_message("<span class='warning'>[user] begins to place [src] on [H]'s chest.</span>",
 		"<span class='warning'>You overcharge the paddles and begin to place them onto [H]'s chest...</span>")
@@ -591,7 +591,7 @@
 
 /obj/item/shockpaddles/proc/do_help(mob/living/carbon/H, mob/living/user)
 	if(H in user.do_afters)
-		to_chat(user, "<span class='notice'>You're already trying to use [src] on [H]!</span>")
+		to_chat(user, "<span class='warning'>You're already trying to use [src] on [H]!</span>")
 		return
 	user.visible_message("<span class='warning'>[user] begins to place [src] on [H]'s chest.</span>", "<span class='warning'>You begin to place [src] on [H]'s chest...</span>")
 	busy = TRUE

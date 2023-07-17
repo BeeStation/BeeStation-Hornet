@@ -89,7 +89,7 @@
 	if(!new_appearance || !crayon || !user.canUseTopic(src, BE_CLOSE))
 		return
 	if(src in user.do_afters)
-		to_chat(user, "<span class='notice'>You're already re-shaping \the [src]!</span>")
+		to_chat(user, "<span class='warning'>You're already re-shaping \the [src]!</span>")
 		return
 	if(!do_after(user, 10, src, progress = TRUE, add_item = crayon))
 		return

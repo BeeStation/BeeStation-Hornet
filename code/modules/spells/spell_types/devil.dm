@@ -106,6 +106,9 @@
 	if(istype(user))
 		if(istype(user.loc, /obj/effect/dummy/phased_mob/slaughter/))
 			if(valid_location(user))
+				if(user in user.do_afters)
+					to_chat(user, "<span class='warning'>You're already trying to phase in!</span>")
+					return ..()
 				to_chat(user, "<span class='warning'>You are now phasing in.</span>")
 				if(do_after(user, 15 SECONDS))
 					if(valid_location(user))
@@ -118,6 +121,9 @@
 				revert_cast()
 				return ..()
 		else
+			if(user in user.do_afters)
+				to_chat(user, "<span class='warning'>You're already trying to phase out!</span>")
+				return
 			user.notransform = TRUE
 			user.fakefire()
 			to_chat(src, "<span class='warning'>You begin to phase back into sinful flames.</span>")

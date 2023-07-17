@@ -86,6 +86,9 @@
 
 /// Actually starts a zMove, doing movement animations
 /mob/living/proc/start_travel_z(mob/user, upwards = TRUE, move_verb = "floating", delay = 3 SECONDS, allow_movement = TRUE)
+	if(get_turf(usr) in user.do_afters)
+		to_chat(user, "<span class='warning'>You're already trying change your height!</span>")
+		return
 	user.visible_message("<span class='notice'>[user] begins [move_verb] [upwards ? "upwards" : "downwards"]!</span>", "<span class='notice'>You begin [move_verb] [upwards ? "upwards" : "downwards"].")
 	animate(user, delay, pixel_y = upwards ? 32 : -32, transform = matrix() * 0.8)
 	var/list/bucklemobs_c = user.buckled_mobs?.Copy()

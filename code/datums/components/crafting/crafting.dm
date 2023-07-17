@@ -184,7 +184,6 @@
 			fake_atom.icon_state = initial(fake_result.icon_state_preview) || initial(fake_result.icon_state)
 			if(initial(fake_result.color) != "#FFFFFF")
 				fake_atom.color= initial(fake_result.color)
-			fake_atom.color = initial(fake_result.color)
 			if(ismob(a) && !do_after(a, R.time, target = a, add_item = fake_atom, x_offset = R.bar_x_offset, y_offset = R.bar_y_offset))
 				qdel(fake_atom)
 				return "."

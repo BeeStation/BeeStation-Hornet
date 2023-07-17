@@ -21,7 +21,7 @@
 		var/obj/item/stock_parts/cell/CELL = I
 		if(CELL.maxcharge > cell.maxcharge && n_gloves && n_gloves.candrain)
 			to_chat(U, "<span class='notice'>Higher maximum capacity detected.\nUpgrading...</span>")
-			if (n_gloves?.candrain && do_after(U,s_delay, target = src))
+			if (n_gloves?.candrain && do_after(U,s_delay, target = src, add_item = I))
 				U.transferItemToLoc(CELL, src)
 				CELL.charge = min(CELL.charge+cell.charge, CELL.maxcharge)
 				var/obj/item/stock_parts/cell/old_cell = cell
@@ -41,7 +41,7 @@
 		var/has_research = 0
 		if(has_research)//If it has something on it.
 			to_chat(U, "Research information detected, processing...")
-			if(do_after(U,s_delay, target = src))
+			if(do_after(U,s_delay, target = src, add_item = I))
 				TD.stored_research.copy_research_to(stored_research)
 				to_chat(U, "<span class='notice'>Data analyzed and updated. Disk erased.</span>")
 			else

@@ -119,7 +119,7 @@
 		to_chat(user, "<span class='warning'>[src]'s clamps are disengaged!</span>")
 		return TRUE
 	if(src in user.do_afters)
-		to_chat(user, "<span class='notice'>You're already manipulating [src]!</span>")
+		to_chat(user, "<span class='warning'>You're already manipulating [src]!</span>")
 		return
 	user.visible_message("<span class='notice'>[user] presses [multitool] into [src]'s ID slot...</span>", \
 	"<span class='notice'>You begin overriding the clamps on [src]...</span>")

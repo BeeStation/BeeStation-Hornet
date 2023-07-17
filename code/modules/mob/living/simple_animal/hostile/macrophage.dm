@@ -65,9 +65,12 @@
 				if(M.ForceContractDisease(D)) //we already check spread type in the macrophage creation proc
 					to_chat(src, "<span class ='notice'>You infect [M] with [D]!</span>")
 		else if(aggressive)
-			M.visible_message("<span class='danger'>the [src] begins penetrating [M]' protection!</span>", \
+			if(target in do_afters)
+				to_chat(src, "<span class='warning'>You're already trying to penetrate [M]'s protection!</span>")
+				return
+			M.visible_message("<span class='danger'>the [src] begins penetrating [M]'s protection!</span>", \
 	 				 "<span class='danger'>[src] begins penetrating your protection!</span>")
-			if(do_after(src, 1.5 SECONDS, M))
+			if(do_after(src, 1.5 SECONDS, M, show_to_target = TRUE))
 				for(var/datum/disease/D in infections)
 					if(M.ForceContractDisease(D))
 						to_chat(src, "<span class ='notice'>You infect [M] with [D]!</span>")

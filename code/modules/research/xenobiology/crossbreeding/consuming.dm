@@ -65,8 +65,11 @@ Consuming extracts:
 		M.visible_message("<span class='notice'>[user] eats [src]!</span>", "<span class='notice'>You eat [src].</span>")
 		fed = TRUE
 	else
+		if(M in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to feed [M] \the [src]!</span>")
+			return
 		M.visible_message("<span class='danger'>[user] tries to force [M] to eat [src]!</span>", "<span class='userdanger'>[user] tries to force you to eat [src]!</span>")
-		if(do_after(user, 20, target = M))
+		if(do_after(user, 2 SECONDS, target = M, show_to_target = TRUE, add_item = src))
 			fed = TRUE
 			M.visible_message("<span class='danger'>[user] forces [M] to eat [src]!</span>", "<span class='warning'>[user] forces you to eat [src].</span>")
 	if(fed)

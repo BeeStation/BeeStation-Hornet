@@ -126,10 +126,13 @@
 		if(!contents.len)
 			to_chat(user, "<span class='warning'>There is nothing left inside [src]!</span>")
 			return
+		if(src in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to cut open \the [src]!</span>")
+			return
 		playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
 		user.visible_message("<span class='warning'>[user] begins to cut open [src].</span>",\
 			"<span class='notice'>You begin to cut open [src]...</span>")
-		if(do_after(user, 54, target = src))
+		if(do_after(user, 5.4 SECONDS, target = src, add_item = W))
 			drop_organs(user, TRUE)
 	else
 		return ..()

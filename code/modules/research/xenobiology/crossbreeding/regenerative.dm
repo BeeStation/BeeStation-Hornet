@@ -25,7 +25,10 @@ Regenerative extracts:
 	if(H.stat == DEAD)
 		to_chat(user, "<span class='warning'>[src] will not work on the dead!</span>")
 		return
-	if(!do_after(user, 5 SECONDS, H))
+	if(H in user.do_afters)
+		to_chat(user, "<span class='warning'>You're already trying to apply \the [src] to [H]!</span>")
+		return
+	if(!do_after(user, 5 SECONDS, H, show_to_target = TRUE, add_item = src))
 		to_chat(user, "<span class='notice'>You need to hold still to apply [src]!")
 		return
 	if(H != user)

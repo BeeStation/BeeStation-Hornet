@@ -83,9 +83,12 @@
 				to_chat(user, "<span class='notice'>[src] is useless on the dead.</span>")
 				return
 			if(H != user)
+				if(H in user.do_afters)
+					to_chat(user, "<span class='warning'>You're already trying to smear \the [src] on [H]!</span>")
+					return
 				to_chat(user, "<span class='notice'>You begin to rub the regenerative core on [H]...</span>")
 				to_chat(H, "<span class='userdanger'>[user] begins to smear the regenerative core all over you...</span>")
-				if(do_after(user, 3 SECONDS, H))
+				if(do_after(user, 3 SECONDS, H, show_to_target = TRUE, add_item = src))
 					H.visible_message("[user] forces [H] to apply [src]... [H.p_they()] quickly regenerates all injuries!")
 					SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "other"))
 				else

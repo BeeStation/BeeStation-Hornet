@@ -19,7 +19,7 @@
 	var/can_fill_from_container = TRUE
 	var/apply_type = PATCH
 	var/apply_method = "spray"
-	var/self_delay = 30
+	var/self_delay = 3 SECONDS
 	var/squirt_mode = 0
 	var/squirt_amount = 5
 	custom_price = 40
@@ -51,17 +51,23 @@
 	if(M == user)
 		M.visible_message("<span class='notice'>[user] attempts to [apply_method] [src] on [user.p_them()]self.</span>")
 		if(self_delay)
-			if(!do_after(user, self_delay, M))
+			if(M in user.do_afters)
+				to_chat(user, "<span class='warning'>You're already using \the [src] on yourself!!</span>")
+				return
+			if(!do_after(user, self_delay, M, add_item = src))
 				return
 			if(!reagents || !reagents.total_volume)
 				return
 		to_chat(M, "<span class='notice'>You [apply_method] yourself with [src].</span>")
 
 	else
+		if(M in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to use \the [src] on [M]!</span>")
+			return
 		log_combat(user, M, "attempted to apply", src, reagents.log_list())
 		M.visible_message("<span class='danger'>[user] attempts to [apply_method] [src] on [M].</span>", \
 							"<span class='userdanger'>[user] attempts to [apply_method] [src] on [M].</span>")
-		if(!do_after(user, target = M))
+		if(!do_after(user, target = M, show_to_target = TRUE, add_item = src))
 			return
 		if(!reagents || !reagents.total_volume)
 			return

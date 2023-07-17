@@ -148,12 +148,15 @@
 		return TRUE
 
 	if(istype(O, /obj/item/soap) || istype(O, /obj/item/reagent_containers/glass/rag))
-		var/cleanspeed = 50
+		if(src in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to clean [src]!</span>")
+			return
+		var/cleanspeed = 5 SECONDS
 		if(istype(O, /obj/item/soap))
 			var/obj/item/soap/used_soap = O
 			cleanspeed = used_soap.cleanspeed
 		user.visible_message("[user] starts to clean \the [src].", "<span class='notice'>You start to clean \the [src]...</span>")
-		if(do_after(user, cleanspeed, target = src))
+		if(do_after(user, cleanspeed, target = src, add_item = O))
 			user.visible_message("[user] has cleaned \the [src].", "<span class='notice'>You clean \the [src].</span>")
 			dirty = 0
 			update_icon()

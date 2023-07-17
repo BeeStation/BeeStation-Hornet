@@ -492,11 +492,11 @@
 				if(user.nutrition >= NUTRITION_LEVEL_ALMOST_FULL)
 					to_chat(user, "<span class='warning'>You are already fully charged!</span>")
 					return
-
 				to_chat(user, "<span class='notice'>You start channeling some power through the [fitting] into your body.</span>")
-				E.drain_time = world.time + 35
-				while(do_after(user, 30, target = src))
-					E.drain_time = world.time + 35
+				E.drain_time = world.time + 3.5 SECONDS
+				var/speed_mult = 1
+				while(do_after(user, 3 SECONDS * speed_mult, target = src, add_item = cell))
+					E.drain_time = world.time + 3.5 SECONDS * speed_mult
 					if(!istype(stomach))
 						to_chat(user, "<span class='warning'>You can't receive charge!</span>")
 						return
@@ -507,6 +507,8 @@
 						to_chat(user, "<span class='notice'>You are now fully charged.</span>")
 						E.drain_time = 0
 						return
+					if(speed_mult > 0.2)
+						speed_mult -= 0.1
 				to_chat(user, "<span class='warning'>You fail to receive charge from the [fitting]!</span>")
 				E.drain_time = 0
 				return

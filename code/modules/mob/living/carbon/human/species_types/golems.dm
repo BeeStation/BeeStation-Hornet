@@ -973,8 +973,11 @@
 		if(C.amount < 10)
 			to_chat(H, "<span class='warning'>You do not have enough cardboard!</span>")
 			return FALSE
+		if(user in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already attempting to create a new cardboard brother!</span>")
+			return FALSE
 		to_chat(H, "<span class='notice'>You attempt to create a new cardboard brother.</span>")
-		if(do_after(user, 30, target = user))
+		if(do_after(user, 3 SECONDS, target = user))
 			if(last_creation + brother_creation_cooldown > world.time) //no cheesing dork
 				return
 			if(!C.use(10))

@@ -29,10 +29,13 @@
 	if(M.stat == DEAD)
 		to_chat("<span class='italics warning'>You can't stab [M], they're already dead!</span>")
 		return
+	if(M in user.do_afters)
+		to_chat(user, "<span class='warning'>You're already trying to stab [M] with \the [src]!</span>")
+		return
 	var/mob/living/carbon/H = M
 	var/mob/living/simple_animal/hostile/guardian/G = M
 	user.visible_message("<span class='warning'>[user] prepares to stab [H] with \the [src]!</span>", "<span class='notice'>You raise \the [src] into the air.</span>")
-	if(do_after(user, 5 SECONDS, H))
+	if(do_after(user, 5 SECONDS, H, show_to_target = TRUE, add_item = src))
 		if(LAZYLEN(H.hasparasites()) || (H.mind && H.mind.has_antag_datum(/datum/antagonist/changeling)) || (isguardian(M) && (users[G] || G.requiem || G.transforming)))
 			H.visible_message("<span class='holoparasite'>\The [src] rejects [H]!</span>")
 			return

@@ -137,9 +137,12 @@
 	if(!LAZYLEN(limbs_to_heal))
 		to_chat(H, "<span class='notice'>You feel intact enough as it is.</span>")
 		return
+	if(H in H.do_afters)
+		to_chat(H, "<span class='warning'>You're already focusing on healing your missing limbs!</span>")
+		return
 	to_chat(H, "<span class='notice'>You focus intently on your missing [limbs_to_heal.len >= 2 ? "limbs" : "limb"]...</span>")
 	if(H.blood_volume >= 80*limbs_to_heal.len+BLOOD_VOLUME_OKAY)
-		if(do_after(H, 60, target = H))
+		if(do_after(H, 6 SECONDS, target = H))
 			H.regenerate_limbs()
 			H.blood_volume -= 80*limbs_to_heal.len
 			H.nutrition -= 20*limbs_to_heal.len
@@ -147,7 +150,7 @@
 		return
 	if(H.blood_volume >= 80)//We can partially heal some limbs
 		while(H.blood_volume >= BLOOD_VOLUME_OKAY+80 && LAZYLEN(limbs_to_heal))
-			if(do_after(H, 30, target = H))
+			if(do_after(H, 3 SECONDS, target = H))
 				var/healed_limb = pick(limbs_to_heal)
 				H.regenerate_limb(healed_limb)
 				limbs_to_heal -= healed_limb
@@ -186,8 +189,11 @@
 /datum/species/oozeling/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	. = ..()
 	if(. && target != user && target.on_fire)
+		if(target in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to extinguish [target]!</span>")
+			return
 		target.visible_message("<span class='notice'>[user] begins to closely hug [target]...</span>", "<span class='boldnotice'>[user] holds you closely in a tight hug!</span>")
-		if(do_after(user, 1 SECONDS, target, IGNORE_HELD_ITEM))
+		if(do_after(user, 1 SECONDS, target, IGNORE_HELD_ITEM, show_to_target = TRUE))
 			target.visible_message("<span class='notice'>[user] extingushes [target] with a hug!</span>", "<span class='boldnotice'>[user] extingushes you with a hug!</span>", "<span class='italics'>You hear a fire sizzle out.</span>")
 			target.fire_stacks = max(target.fire_stacks - 5, 0)
 			if(target.fire_stacks <= 0)

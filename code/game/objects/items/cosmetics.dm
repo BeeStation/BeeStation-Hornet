@@ -67,9 +67,9 @@
 		else
 			if(H in user.do_afters)
 				if(H == user)
-					to_chat(user, "<span class='notice'>You're already applying \the [src] to your lips!</span>")
+					to_chat(user, "<span class='warning'>You're already applying \the [src] to your lips!</span>")
 				else
-					to_chat(user, "<span class='notice'>You're already applying \the [src] to [H]'s lips!</span>")
+					to_chat(user, "<span class='warning'>You're already applying \the [src] to [H]'s lips!</span>")
 				return
 			user.visible_message("<span class='warning'>[user] begins to do [H]'s lips with \the [src].</span>", \
 								 "<span class='notice'>You begin to apply \the [src] on [H]'s lips...</span>")
@@ -89,7 +89,7 @@
 			return
 		if(ishuman(M))
 			if(src in user.do_afters)
-				to_chat(user, "<span class='notice'>You're already wiping the lipstick off [user == M ? "yourself" : "[M]"]!</span>")
+				to_chat(user, "<span class='warning'>You're already wiping the lipstick off [user == M ? "yourself" : "[M]"]!</span>")
 				return
 			var/mob/living/carbon/human/H = M
 			if(H == user)
@@ -160,7 +160,7 @@
 					to_chat(user, "<span class='warning'>Already clean-shaven!</span>")
 					return
 				if(M in user.do_afters)
-					to_chat(user, "<span class='notice'>You're already shaving [user == M ? "yourself" : "[M]"]!</span>")
+					to_chat(user, "<span class='warning'>You're already shaving [user == M ? "yourself" : "[M]"]!</span>")
 					return
 				if(H == user) //shaving yourself
 					user.visible_message("[user] starts to shave [user.p_their()] facial hair with [src].", \
@@ -192,7 +192,7 @@
 					to_chat(user, "<span class='warning'>There is not enough hair left to shave!</span>")
 					return
 				if(M in user.do_afters)
-					to_chat(user, "<span class='notice'>You're already shaving [user == M ? "yourself" : "[M]"]!</span>")
+					to_chat(user, "<span class='warning'>You're already shaving [user == M ? "yourself" : "[M]"]!</span>")
 					return
 				if(H == user) //shaving yourself
 					user.visible_message("[user] starts to shave [user.p_their()] head with [src].", \
@@ -227,7 +227,7 @@
 		to_chat(user, "<span class='warning'>The headgear is in the way!</span>")
 		return
 	if(H in user.do_afters)
-		to_chat(user, "<span class='notice'>You're already changing [user == H ? "your" : "[H]'s"] hairstyle!</span>")
+		to_chat(user, "<span class='warning'>You're already changing [user == H ? "your" : "[H]'s"] hairstyle!</span>")
 		return
 	user.visible_message("<span class='notice'>[user] tries to change [H]'s hairstyle using [src].</span>", "<span class='notice'>You try to change [H]'s hairstyle using [src].</span>")
 	if(new_style && do_after(user, 60, target = H, show_to_target = TRUE, add_item = src))
@@ -247,7 +247,7 @@
 		to_chat(user, "<span class='warning'>The mask is in the way!</span>")
 		return
 	if(H in user.do_afters)
-		to_chat(user, "<span class='notice'>You're already changing [user == H ? "your" : "[H]'s"] facial hair style!</span>")
+		to_chat(user, "<span class='warning'>You're already changing [user == H ? "your" : "[H]'s"] facial hair style!</span>")
 		return
 	user.visible_message("<span class='notice'>[user] tries to change [H]'s facial hair style using [src].</span>", "<span class='notice'>You try to change [H]'s facial hair style using [src].</span>")
 	if(new_style && do_after(user, 60, target = H))

@@ -104,10 +104,13 @@
 			if(L) //living mob
 				var/drawn_amount = reagents.maximum_volume - reagents.total_volume
 				if(target != user)
+					if(target in user.do_afters)
+						to_chat(user, "<span class='warning'>You're already trying to take a blood sample from [target]!</span>")
+						return
 					target.visible_message("<span class='danger'>[user] is trying to take a blood sample from [target]!</span>", \
 									"<span class='userdanger'>[user] is trying to take a blood sample from you!</span>")
 					busy = TRUE
-					if(!do_after(user, target = target, extra_checks=CALLBACK(L, TYPE_PROC_REF(/mob/living, can_inject), user, TRUE)))
+					if(!do_after(user, target = target, extra_checks=CALLBACK(L, TYPE_PROC_REF(/mob/living, can_inject), user, TRUE), show_to_target = TRUE, add_item = src))
 						busy = FALSE
 						return
 					if(reagents.total_volume >= reagents.maximum_volume)
@@ -164,7 +167,7 @@
 				if(user.a_intent == INTENT_HARM && iscarbon(L) && iscarbon(user))
 					L.visible_message("<span class='danger'>[user] lines a syringe up to [L]!", \
 							"<span class='userdanger'>[user] rears their arm back, ready to stab you with [src]</span>")
-					if(do_after(user, 1 SECONDS, L))
+					if(do_after(user, 1 SECONDS, L, show_to_target = TRUE, add_item = src))
 						var/mob/living/carbon/C = L
 						embed(C, 0.5)
 						log_combat(user, C, "injected (embedding)", src, addition="which had [contained]")
@@ -173,9 +176,12 @@
 						return
 					return
 				if(L != user)
+					if(src in user.do_afters)
+						to_chat(user, "<span class='warning'>You're already trying to inject [target] with \the [src]!</span>")
+						return
 					L.visible_message("<span class='danger'>[user] is trying to inject [L]!</span>", \
 											"<span class='userdanger'>[user] is trying to inject you!</span>")
-					if(!do_after(user, target = L, extra_checks=CALLBACK(L, TYPE_PROC_REF(/mob/living, can_inject), user, TRUE)))
+					if(!do_after(user, target = L, extra_checks=CALLBACK(L, TYPE_PROC_REF(/mob/living, can_inject), user, TRUE), show_to_target = TRUE, add_item = src))
 						return
 					if(!reagents.total_volume)
 						return

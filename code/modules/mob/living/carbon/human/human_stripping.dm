@@ -225,6 +225,10 @@ GLOBAL_LIST_INIT(strippable_human_layout, list(
 	if(!carbon_source.can_breathe_internals())
 		return
 
+	if(source in user.do_afters)
+		to_chat(user, "<span class='warning'>You're already trying to manipulate the valve of [source]'s [item]!</span>")
+		return
+
 	carbon_source.visible_message(
 		"<span class='danger'>[user] tries to [(carbon_source.internal != item) ? "open": "close"] the valve on [source]'s [item.name].</span>",
 		"<span class='userdanger'>[user] tries to [(carbon_source.internal != item) ? "open": "close"] the valve on your [item.name].</span>",
@@ -233,7 +237,7 @@ GLOBAL_LIST_INIT(strippable_human_layout, list(
 
 	to_chat(user, "<span class='notice'>You try to [(carbon_source.internal != item) ? "open": "close"] the valve on [source]'s [item.name]...</span>")
 
-	if(!do_after(user, INTERNALS_TOGGLE_DELAY, carbon_source))
+	if(!do_after(user, INTERNALS_TOGGLE_DELAY, carbon_source, show_to_target = TRUE, add_item = item))
 		return
 
 	if (carbon_source.internal == item)

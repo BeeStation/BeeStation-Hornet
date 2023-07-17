@@ -149,13 +149,16 @@
 		ui_update()
 		return TRUE //no afterattack
 	else if (istype(O, /obj/item/disk/design_disk))
+		if(src in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to load [O] into \the [src]!</span>")
+			return
 		user.visible_message("[user] begins to load \the [O] in \the [src]...",
 			"You begin to load a design from \the [O]...",
 			"You hear the chatter of a floppy drive.")
 		processing = TRUE
 		ui_update()
 		var/obj/item/disk/design_disk/D = O
-		if(do_after(user, 10, target = src))
+		if(do_after(user, 1 SECONDS, target = src, add_item = D))
 			for(var/B in D.blueprints)
 				if(B)
 					stored_research.add_design(B)

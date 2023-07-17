@@ -139,7 +139,7 @@
 				return
 			to_chat(src, "<span class='warning'>You begin to swallow [L] whole...</span>")
 			is_swallowing = TRUE
-			if(do_after(src, 3 SECONDS, target = L))
+			if(do_after(src, 3 SECONDS, target = L, show_to_target = TRUE))
 				RegisterSignal(L, COMSIG_LIVING_REVIVE, PROC_REF(living_revive))
 				if(eat(L))
 					adjustHealth(-L.maxHealth * 0.5)

@@ -666,12 +666,16 @@
 		to_chat(H, "<span class='warning'>You need to aggressively grab someone to link minds!</span>")
 		return
 
+	if(H.pulling in H.do_afters)
+		to_chat(H, "<span class='warning'>You're already trying to link your mind with [H.pulling]!</span>")
+		return
+
 	var/mob/living/target = H.pulling
 	var/datum/species/oozeling/stargazer/species = H.dna.species
 
 	to_chat(H, "<span class='notice'>You begin linking [target]'s mind to yours...</span>")
 	to_chat(target, "<span class='warning'>You feel a foreign presence within your mind...</span>")
-	if(do_after(H, 60, target = target))
+	if(do_after(H, 6 SECONDS, target = target, show_to_target = TRUE))
 		if(H.pulling != target || H.grab_state < GRAB_AGGRESSIVE)
 			return
 		if(species.link_mob(target))

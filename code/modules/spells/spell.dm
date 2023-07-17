@@ -178,7 +178,15 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 		if(!(src in user.mob_spell_list))
 			return FALSE
 
-	if(!do_after(user,invocation_time, target = user, progress = 1)) //checks if there is a invocation time set for this spell and cancels the spell if the user is interrupted.
+	if(user in user.do_afters)
+		to_chat(user, "<span class='warning'>You're already to cast something!</span>")
+		return
+
+	var/atom/movable/fake_atom = new
+	fake_atom.icon = action_icon
+	fake_atom.icon_state = action_icon_state
+
+	if(!do_after(user,invocation_time, target = user, progress = 1, add_item = fake_atom)) //checks if there is a invocation time set for this spell and cancels the spell if the user is interrupted.
 		to_chat(user, "<span class='notice'>You get interrupted.</span>")
 		return FALSE
 

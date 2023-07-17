@@ -181,8 +181,15 @@
 		return
 	var/mob/living/carbon/M = target
 
+	if(target in user.do_afters)
+		to_chat(user, "<span class='warning'>You're already trying to stuff [M] into \the [src]!</span>")
+		return
+
 	user.visible_message("<span class='warning'>[user] is trying to stuff [M]\s body into \the [src]!</span>")
-	if(do_after(user, 25 SECONDS, M))
+	var/atom/movable/fake_atom = new
+	fake_atom.icon = icon
+	fake_atom.icon_state = icon_state
+	if(do_after(user, 25 SECONDS, M, show_to_target = TRUE, add_item = fake_atom))
 		var/name = M.real_name
 		var/obj/item/reagent_containers/food/snacks/pie/cream/body/pie = new(get_turf(M))
 		pie.name = "\improper [name] [pie.name]"

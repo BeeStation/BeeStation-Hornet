@@ -78,7 +78,7 @@
 		to_chat(user, "<span class='warning'>You can't plant the mine here!</span>")
 		return
 	if(src in user.do_afters)
-		to_chat(user, "<span class='notice'>You're already arming \the [src]!</span>")
+		to_chat(user, "<span class='warning'>You're already arming \the [src]!</span>")
 		return
 	to_chat(user, "<span class='notice'>You start arming the [src]...</span>")
 	if(do_after(user, arming_time, target = src, add_item = src))
@@ -111,7 +111,7 @@
 /obj/effect/mine/attackby(obj/I, mob/user, params)
 	if(istype(I, /obj/item/multitool))
 		if(src in user.do_afters)
-			to_chat(user, "<span class='notice'>You're already attempting to disarm \the [src]!</span>")
+			to_chat(user, "<span class='warning'>You're already attempting to disarm \the [src]!</span>")
 			return
 		to_chat(user, "<span class='notice'>You begin to disarm the [src]...</span>")
 		if(do_after(user, disarm_time, target = src, add_item = I))

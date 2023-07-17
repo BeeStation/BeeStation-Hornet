@@ -38,7 +38,7 @@
 			beingChugged = TRUE
 			user.visible_message("<span class='notice'>[user] starts chugging [src].</span>", \
 				"<span class='notice'>You start chugging [src].</span>")
-			if(!do_after(user, target = M))
+			if(!do_after(user, target = M, add_item = src))
 				return
 			if(!reagents || !reagents.total_volume)
 				return
@@ -53,12 +53,19 @@
 			M.changeNext_move(CLICK_CD_MELEE * 0.5) //chug! chug! chug!
 
 	else
+		if(M in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to feed [M] [src]'s contents!</span>")
+			return COMPONENT_NO_AFTERATTACK
 		M.visible_message("<span class='danger'>[user] attempts to feed [M] the contents of [src].</span>", \
 			"<span class='userdanger'>[user] attempts to feed you the contents of [src].</span>")
-		if(!do_after(user, target = M))
+		var/drinking_time = 3 SECONDS
+		if(M.last_time_fed + 15 SECONDS >= world.time)
+			drinking_time = 1 SECONDS
+		if(!do_after(user, delay = drinking_time, target = M, show_to_target = TRUE, add_item = src))
 			return
 		if(!reagents || !reagents.total_volume)
-			return // The drink might be empty after the delay, such as by spam-feeding
+			return // The drink might be empty after the delay
+		M.last_time_fed = world.time
 		M.visible_message("<span class='danger'>[user] fed [M] the contents of [src].</span>", \
 			"<span class='userdanger'>[user] fed you the contents of [src].</span>")
 		log_combat(user, M, "fed", reagents.log_list())

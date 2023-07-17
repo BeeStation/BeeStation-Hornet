@@ -71,7 +71,7 @@
 /datum/action/innate/fugu/expand/Activate()
 	var/mob/living/simple_animal/hostile/asteroid/fugu/F = owner
 	if(F.wumbo)
-		to_chat(F, "<span class='notice'>YOU'RE ALREADY WUMBO!</span>")
+		to_chat(F, "<span class='warning'>You're already WUMBO!</span>")
 		return
 	if(F.inflate_cooldown)
 		to_chat(F, "<span class='notice'>You need time to gather your strength.</span>")

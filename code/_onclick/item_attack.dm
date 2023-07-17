@@ -42,7 +42,7 @@
 		var/datum/component/butchering/butchering = I.GetComponent(/datum/component/butchering)
 		if(butchering?.butchering_enabled)
 			if(src in user.do_afters)
-				to_chat(user, "<span class='notice'>You're already butchering [src]!</span>")
+				to_chat(user, "<span class='warning'>You're already butchering [src]!</span>")
 				return FALSE
 			to_chat(user, "<span class='notice'>You begin to butcher [src]...</span>")
 			playsound(loc, butchering.butcher_sound, 50, TRUE, -1)

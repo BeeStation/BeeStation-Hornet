@@ -307,9 +307,12 @@ BLIND     // can't see anything
 		update_sensors(sensor_selection)
 	else if(istype(src.loc, /mob))
 		var/mob/living/carbon/human/wearer = src.loc
+		if(wearer in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to set [wearer]'s sensors!</span>")
+			return
 		wearer.visible_message("<span class='notice'>[user] tries to set [wearer]'s sensors.</span>", \
 						 "<span class='warning'>[user] is trying to set your sensors.</span>", null, COMBAT_MESSAGE_RANGE)
-		if(do_after(user, SENSOR_CHANGE_DELAY, wearer, add_item = src))
+		if(do_after(user, SENSOR_CHANGE_DELAY, wearer, show_to_target = TRUE, add_item = src))
 			switch(sensor_selection)
 				if(SENSORS_OFF)
 					wearer.visible_message("<span class='warning'>[user] disables [wearer]'s remote sensing equipment.</span>", \

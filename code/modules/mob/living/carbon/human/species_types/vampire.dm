@@ -86,7 +86,7 @@
 		if(H.pulling && iscarbon(H.pulling))
 			var/mob/living/carbon/victim = H.pulling
 			if(H.blood_volume >= BLOOD_VOLUME_MAXIMUM)
-				to_chat(H, "<span class='notice'>You're already full!</span>")
+				to_chat(H, "<span class='warning'>You're already full!</span>")
 				return
 			if(victim.stat == DEAD)
 				to_chat(H, "<span class='notice'>You need a living victim!</span>")
@@ -94,7 +94,7 @@
 			if(!victim.blood_volume || (victim.dna && ((NOBLOOD in victim.dna.species.species_traits) || victim.dna.species.exotic_blood)))
 				to_chat(H, "<span class='notice'>[victim] doesn't have blood!</span>")
 				return
-			V.drain_cooldown = world.time + 30
+			V.drain_cooldown = world.time + 3 SECONDS
 			if(victim.anti_magic_check(FALSE, TRUE, FALSE))
 				to_chat(victim, "<span class='warning'>[H] tries to bite you, but stops before touching you!</span>")
 				to_chat(H, "<span class='warning'>[victim] is blessed! You stop just in time to avoid catching fire.</span>")
@@ -103,7 +103,7 @@
 				to_chat(victim, "<span class='warning'>[H] tries to bite you, but recoils in disgust!</span>")
 				to_chat(H, "<span class='warning'>[victim] reeks of garlic! you can't bring yourself to drain such tainted blood.</span>")
 				return
-			if(!do_after(H, 30, target = victim))
+			if(!do_after(H, 3 SECONDS, target = victim, show_to_target = TRUE))
 				return
 			var/blood_volume_difference = BLOOD_VOLUME_MAXIMUM - H.blood_volume //How much capacity we have left to absorb blood
 			var/drained_blood = min(victim.blood_volume, VAMP_DRAIN_AMOUNT, blood_volume_difference)

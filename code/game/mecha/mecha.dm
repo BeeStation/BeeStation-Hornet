@@ -928,7 +928,7 @@
 		log_message("Permission denied (Attached mobs).", LOG_MECHA)
 		return
 	if(src in user.do_afters)
-		to_chat(user, "<span class='notice'>You're already climbing into \the [name]!</span>")
+		to_chat(user, "<span class='warning'>You're already climbing into \the [name]!</span>")
 		return COMPONENT_NO_AFTERATTACK
 
 	visible_message("[user] starts to climb into [name].")
@@ -981,7 +981,7 @@
 		return FALSE
 
 	if(src in user.do_afters)
-		to_chat(user, "<span class='notice'>You're already inserting an MMI into \the [name]!</span>")
+		to_chat(user, "<span class='warning'>You're already inserting an MMI into \the [name]!</span>")
 		return COMPONENT_NO_AFTERATTACK
 	visible_message("<span class='notice'>[user] starts to insert an MMI into [name].</span>")
 

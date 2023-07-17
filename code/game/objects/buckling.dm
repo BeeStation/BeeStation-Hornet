@@ -211,7 +211,7 @@
 	// we'll try it with a 2 second do_after delay.
 	if(M != user && (get_turf(M) != get_turf(src)))
 		if(M in user.do_afters)
-			to_chat(user, "<span class='notice'>You're already bucking [M] to \the [src]!</span>")
+			to_chat(user, "<span class='warning'>You're already bucking [M] to \the [src]!</span>")
 			return FALSE
 		M.visible_message("<span class='warning'>[user] starts buckling [M] to [src]!</span>",\
 			"<span class='userdanger'>[user] starts buckling you to [src]!</span>",\

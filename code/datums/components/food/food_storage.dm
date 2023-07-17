@@ -67,7 +67,7 @@
 		to_chat(user, "<span class='warning'>\the [inserted_item] is stuck to your hand, you can't put into \the [parent]!</span>")
 		return
 	if(parent in user.do_afters)
-		to_chat(user, "<span class='notice'>You're already inserting [inserted_item] into [parent]!</span>")
+		to_chat(user, "<span class='warning'>You're already inserting [inserted_item] into [parent]!</span>")
 		return
 	user.visible_message("<span class='notice'>[user.name] begins inserting [inserted_item.name] into \the [parent].</span>", \
 					"<span class='notice'>You start to insert the [inserted_item.name] into \the [parent].</span>")
@@ -97,7 +97,7 @@
 		return
 
 	if(parent in user.do_afters)
-		to_chat(user, "<span class='notice'>You're already ripping into [parent]!</span>")
+		to_chat(user, "<span class='warning'>You're already ripping into [parent]!</span>")
 		return
 
 	user.visible_message("<span class='notice'>[user.name] begins tearing at \the [parent].</span>", \

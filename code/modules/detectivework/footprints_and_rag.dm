@@ -43,8 +43,11 @@
 			log_combat(user, C, "touched", src, log_object)
 
 	else if(istype(A) && (src in user))
+		if(A in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to wipe down [A]!</span>")
+			return
 		user.visible_message("[user] starts to wipe down [A] with [src]!", "<span class='notice'>You start to wipe down [A] with [src]...</span>")
-		if(do_after(user,30, target = A))
+		if(do_after(user, 3 SECONDS, target = A, show_to_target = TRUE, add_item = src))
 			user.visible_message("[user] finishes wiping off [A]!", "<span class='notice'>You finish wiping off [A].</span>")
 			SEND_SIGNAL(A, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_MEDIUM)
 			A.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)

@@ -99,7 +99,7 @@
 
 /turf/closed/mineral/attack_alien(mob/living/carbon/alien/M)
 	if(src in M.do_afters)
-		to_chat(M, "<span class='notice'>You're already digging into [src]!</span>")
+		to_chat(M, "<span class='warning'>You're already digging into [src]!</span>")
 		return
 	to_chat(M, "<span class='notice'>You start digging into the rock...</span>")
 	playsound(src, 'sound/effects/break_stone.ogg', 50, 1)

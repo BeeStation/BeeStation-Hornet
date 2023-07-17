@@ -11,9 +11,12 @@
 	var/screw_delay = 3 SECONDS
 
 /obj/item/shell/screwdriver_act(mob/living/user, obj/item/tool)
+	if(src in user.do_afters)
+		to_chat(user, "<span class='warning'>You're already trying to finish [src]!</span>")
+		return
 	user.visible_message("<span class='notice'>[user] begins finishing [src].</span>", "<span class='notice'>You begin finishing [src].</span>")
 	tool.play_tool_sound(src)
-	if(!do_after(user, screw_delay, target = src))
+	if(!do_after(user, screw_delay, target = src, add_item = tool))
 		return
 	user.visible_message("<span class='notice'>[user] finishes [src].</span>", "<span class='notice'>You finish [src].</span>")
 

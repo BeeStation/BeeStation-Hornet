@@ -90,6 +90,10 @@
 					to_chat(user, "<span class='danger'>Subject may not have abiotic items on.</span>")
 					return
 
+		if(src in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already trying to put something into \the [src]!</span>")
+			return
+
 		user.visible_message("<span class='danger'>[user] starts to put [C] into the gibber!</span>")
 
 		add_fingerprint(user)

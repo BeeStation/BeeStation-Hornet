@@ -408,11 +408,16 @@
 
 
 //TODO: sawing off guns with TOOL_SAW
-/obj/item/gun/ballistic/proc/sawoff(mob/user)
+/obj/item/gun/ballistic/proc/sawoff(mob/user, atom/movable/A)
 	if(sawn_off)
 		to_chat(user, "<span class='warning'>\The [src] is already shortened!</span>")
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
+
+	if(src in user.do_afters)
+		to_chat(user, "<span class='warning'>You're already to shorten \the [src]!</span>")
+		return
+
 	user.visible_message("[user] begins to shorten \the [src].", "<span class='notice'>You begin to shorten \the [src]...</span>")
 
 	//if there's any live ammo inside the gun, makes it go off
@@ -420,7 +425,7 @@
 		user.visible_message("<span class='danger'>\The [src] goes off!</span>", "<span class='danger'>\The [src] goes off in your face!</span>")
 		return
 
-	if(do_after(user, 30, target = src))
+	if(do_after(user, 3 SECONDS, target = src, add_item = A))
 		if(sawn_off)
 			return
 		user.visible_message("[user] shortens \the [src]!", "<span class='notice'>You shorten \the [src].</span>")

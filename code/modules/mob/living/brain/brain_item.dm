@@ -113,9 +113,11 @@
 		if(!O.reagents.has_reagent(/datum/reagent/medicine/mannitol, 10))
 			to_chat(user, "<span class='warning'>There's not enough mannitol in [O] to restore [src]!</span>")
 			return
-
+		if(src in user.do_afters)
+			to_chat(user, "<span class='warning'>You're already pouring something on [O]!</span>")
+			return
 		user.visible_message("[user] starts to pour the contents of [O] onto [src].", "<span class='notice'>You start to slowly pour the contents of [O] onto [src].</span>")
-		if(!do_after(user, 60, src))
+		if(!do_after(user, 60, src, , show_to_target = TRUE, add_item = O))
 			to_chat(user, "<span class='warning'>You failed to pour [O] onto [src]!</span>")
 			return
 
