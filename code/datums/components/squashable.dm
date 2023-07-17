@@ -34,7 +34,7 @@
 
 
 ///Handles the squashing of the mob
-/datum/component/squashable/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+/datum/component/squashable/proc/on_entered(datum/source, atom/movable/crossing_movable, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	if(parent == crossing_movable)

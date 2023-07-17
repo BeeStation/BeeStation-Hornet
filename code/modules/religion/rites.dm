@@ -688,8 +688,8 @@
 	..()
 	var/turf/altar_turf = get_turf(religious_tool)
 	for(var/i in 1 to 8)
-		var/mob/living/simple_animal/S = create_random_mob(altar_turf, FRIENDLY_SPAWN)
-		S.faction |= "neutral"
+		var/mob/living/spawned_mob = create_random_mob(altar_turf, FRIENDLY_SPAWN)
+		spawned_mob.faction |= "neutral"
 	playsound(altar_turf, 'sound/ambience/servicebell.ogg', 25, TRUE)
 	if(prob(0.1))
 		playsound(altar_turf, 'sound/effects/bamf.ogg', 100, TRUE)

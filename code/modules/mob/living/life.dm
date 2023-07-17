@@ -58,6 +58,8 @@
 		return 1
 
 /mob/living/proc/handle_breathing(times_fired)
+	// SEND_SIGNAL(src, COMSIG_LIVING_HANDLE_BREATHING, delta_time, times_fired)
+	SEND_SIGNAL(src, COMSIG_LIVING_HANDLE_BREATHING, SSMOBS_DT, times_fired) //Bee edit: Holy shit I do not want to port delta time Life() refactor just for my mothroach behavior to be better
 	return
 
 /mob/living/proc/handle_mutations_and_radiation()

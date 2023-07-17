@@ -970,6 +970,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return ..()
 	return 0
 
+/obj/item/attack_basic_mob(mob/living/basic/user)
+	if (obj_flags & CAN_BE_HIT)
+		return ..()
+	return 0
+
 /obj/item/mech_melee_attack(obj/mecha/M)
 	return 0
 

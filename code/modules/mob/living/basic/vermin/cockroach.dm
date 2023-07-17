@@ -1,0 +1,66 @@
+/mob/living/basic/cockroach
+	name = "cockroach"
+	desc = "This station is just crawling with bugs."
+	icon_state = "cockroach"
+	icon_dead = "cockroach" //Make this work
+	density = FALSE
+	mob_biotypes = list(MOB_ORGANIC, MOB_BUG)
+	mob_size = MOB_SIZE_TINY
+	health = 1
+	maxHealth = 1
+	speed = 1.25
+	gold_core_spawnable = FRIENDLY_SPAWN
+	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	ventcrawler = VENTCRAWLER_ALWAYS
+
+	verb_say = "chitters"
+	verb_ask = "chitters inquisitively"
+	verb_exclaim = "chitters loudly"
+	verb_yell = "chitters loudly"
+	response_disarm_continuous = "shoos"
+	response_disarm_simple = "shoo"
+	response_harm_continuous = "splats"
+	response_harm_simple = "splat"
+	speak_emote = list("chitters")
+
+	basic_mob_flags = DEL_ON_DEATH
+	faction = list("hostile")
+
+	ai_controller = /datum/ai_controller/basic_controller/cockroach
+
+/mob/living/basic/cockroach/Initialize()
+	. = ..()
+	AddElement(/datum/element/death_drops, list(/obj/effect/decal/cleanable/insectguts))
+	// AddElement(/datum/element/swabable, CELL_LINE_TABLE_COCKROACH, CELL_VIRUS_TABLE_GENERIC_MOB, 1, 7) //Bee edit: No swabable elements
+	AddElement(/datum/element/basic_body_temp_sensetive, 270, INFINITY)
+	AddComponent(/datum/component/squashable, squash_chance = 50, squash_damage = 1)
+
+/mob/living/basic/cockroach/death(gibbed)
+	if(SSticker.mode.station_was_nuked) //If the nuke is going off, then cockroaches are invincible. Keeps the nuke from killing them, cause cockroaches are immune to nukes.
+		return
+	..()
+
+/mob/living/basic/cockroach/ex_act() //Explosions are a terrible way to handle a cockroach.
+	return FALSE
+
+
+/datum/ai_controller/basic_controller/cockroach
+	blackboard = list(
+		BB_TARGETTING_DATUM = new /datum/targetting_datum/basic()
+	)
+
+	ai_traits = STOP_MOVING_WHEN_PULLED
+	ai_movement = /datum/ai_movement/basic_avoidance
+	planning_subtrees = list(
+		/datum/ai_planning_subtree/random_speech/cockroach,
+		/datum/ai_planning_subtree/find_and_hunt_target
+	)
+
+
+/datum/ai_controller/basic_controller/cockroach/PerformIdleBehavior(delta_time)
+	. = ..()
+	var/mob/living/living_pawn = pawn
+
+	if(DT_PROB(25, delta_time) && (living_pawn.mobility_flags & MOBILITY_MOVE) && isturf(living_pawn.loc) && !living_pawn.pulledby)
+		var/move_dir = pick(GLOB.alldirs)
+		living_pawn.Move(get_step(living_pawn, move_dir), move_dir)
