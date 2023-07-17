@@ -74,3 +74,7 @@
 	to_chat(usr, "<span class='brass'>You begin manipulating [src]!</span>")
 	if(do_after(eminence, 20, target=get_turf(eminence), add_item = src))
 		interact(eminence)
+
+/obj/machinery/light_switch/tcomms
+	name = "Server Room light switch"
+	area = /area/tcommsat/server
