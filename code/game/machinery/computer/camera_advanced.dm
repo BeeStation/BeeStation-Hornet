@@ -38,6 +38,13 @@
 		if(lock_override & CAMERA_LOCK_CENTCOM)
 			z_lock |= SSmapping.levels_by_trait(ZTRAIT_CENTCOM)
 
+/obj/machinery/computer/camera_advanced/attack_ghost(mob/dead/observer/ghost)
+	. = ..()
+	if(.)
+		return
+	if(current_user && eyeobj)
+		ghost.check_orbitable(eyeobj) // ghost QoL
+
 /obj/machinery/computer/camera_advanced/syndie
 	icon_keyboard = "syndie_key"
 	circuit = /obj/item/circuitboard/computer/advanced_camera
