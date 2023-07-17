@@ -4,7 +4,6 @@
 	department_head = list(JOB_NAME_CAPTAIN)
 	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD
 	head_announce = list(RADIO_CHANNEL_MEDICAL)
-	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#c1e1ec"

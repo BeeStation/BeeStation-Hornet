@@ -1,7 +1,6 @@
 /datum/job/assistant/vip
-	g_jkey = JOB_NAME_VIP
-	g_jtitle = JOB_NAME_VIP
-	job_bitflags = JOB_BITFLAG_GIMMICK | JOB_BITFLAG_MANAGE_LOCKED
+	title = JOB_NAME_VIP
+	job_bitflags = JOB_BITFLAG_SELECTABLE | JOB_BITFLAG_GIMMICK | JOB_BITFLAG_MANAGE_LOCKED
 	department_head = list()
 	antag_rep = 3 // you're having fun with shitton of money already
 	total_positions = 0

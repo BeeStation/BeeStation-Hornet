@@ -29,19 +29,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	//if set to -1: No cooldown... probably a bad idea
 	//if set to 0: Not able to close "original" positions. You can only close positions that you have opened before
 	var/change_position_cooldown = 30
-	//Jobs you cannot open new positions for
-	var/list/blacklisted = list(
-		JOB_NAME_AI,
-		JOB_NAME_ASSISTANT,
-		JOB_NAME_CYBORG,
-		JOB_NAME_CAPTAIN,
-		JOB_NAME_HEADOFPERSONNEL,
-		JOB_NAME_HEADOFSECURITY,
-		JOB_NAME_CHIEFENGINEER,
-		JOB_NAME_RESEARCHDIRECTOR,
-		JOB_NAME_CHIEFMEDICALOFFICER,
-		JOB_NAME_BRIGPHYSICIAN,
-		JOB_NAME_DEPUTY)
 
 	//The scaling factor of max total positions in relation to the total amount of people on board the station in %
 	var/max_relative_positions = 30 //30%: Seems reasonable, limit of 6 @ 20 players
@@ -60,9 +47,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 /obj/machinery/computer/card/Initialize(mapload)
 	. = ..()
 	change_position_cooldown = CONFIG_GET(number/id_console_jobslot_delay)
-	for(var/G in typesof(/datum/job/gimmick))
-		var/datum/job/gimmick/J = new G
-		blacklisted += J.title
 
 	// This determines which department payment list the console will show to you.
 	if(!target_dept)
@@ -127,7 +111,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 //Check if you can't open a new position for a certain job
 /obj/machinery/computer/card/proc/job_blacklisted(jobtitle)
-	return (jobtitle in blacklisted)
+	var/datum/job/J = SSjob.GetJob(jobtitle)
+	return (J?.job_bitflags & JOB_BITFLAG_MANAGE_LOCKED)
 
 //Logic check for Topic() if you can open the job
 /obj/machinery/computer/card/proc/can_open_job(datum/job/job)
@@ -241,7 +226,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			ID = 0
 		for(var/datum/job/job in SSjob.occupations)
 			dat += "<tr>"
-			if(job.title in blacklisted)
+			if(job_blacklisted(job.title))
 				continue
 			dat += "<td>[job.title]</td>"
 			dat += "<td>[job.current_positions]/[job.total_positions]</td>"

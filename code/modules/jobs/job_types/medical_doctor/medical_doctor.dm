@@ -2,7 +2,6 @@
 	title = JOB_NAME_MEDICALDOCTOR
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
-	faction = "station"
 	total_positions = 5
 	spawn_positions = 3
 	selection_color = "#d4ebf2"

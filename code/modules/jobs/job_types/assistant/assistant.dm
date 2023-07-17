@@ -4,7 +4,6 @@ Assistant
 /datum/job/assistant
 	title = JOB_NAME_ASSISTANT
 	job_bitflags = JOB_BITFLAG_SELECTABLE | JOB_BITFLAG_MANAGE_LOCKED
-	faction = "Station"
 	total_positions = 5
 	spawn_positions = 5
 	selection_color = "#dddddd"

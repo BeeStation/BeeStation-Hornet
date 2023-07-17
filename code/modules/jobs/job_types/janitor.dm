@@ -2,7 +2,6 @@
 	title = JOB_NAME_JANITOR
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
-	faction = "station"
 	total_positions = 2
 	spawn_positions = 1
 	selection_color = "#bbe291"

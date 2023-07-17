@@ -1,7 +1,6 @@
 /datum/job/clown/stage_magician
-	g_jkey = JOB_NAME_STAGEMAGICIAN
-	g_jtitle = JOB_NAME_STAGEMAGICIAN
-	job_bitflags = JOB_BITFLAG_GIMMICK
+	title = JOB_NAME_STAGEMAGICIAN
+	job_bitflags = JOB_BITFLAG_SELECTABLE | JOB_BITFLAG_GIMMICK
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	total_positions = 0
 	spawn_positions = 0

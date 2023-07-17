@@ -289,7 +289,7 @@
 	)
 
 //MAGICIAN GIMMICK
-/datum/job/gimmick/stage_magician
+/datum/job/clown/stage_magician
 	mail_goodies = list(
 		//AND FOR MY NEXT TRICK... Bunny
 		/obj/item/clothing/head/mob_holder/rabbit = 40,
@@ -321,7 +321,7 @@
 	)
 
 //PSYCHOLOGIST / PSYCHIATRIST GIMMICK
-/datum/job/gimmick/psychiatrist
+/datum/job/medical_doctor/psychiatrist
 	mail_goodies =  list(
 		/obj/item/storage/pill_bottle/mannitol = 30,
 		/obj/item/storage/pill_bottle/happy = 5,
@@ -425,7 +425,7 @@
 	)
 
 //VIP / VIP GIMMICK
-/datum/job/gimmick/vip
+/datum/job/assistant/vip
 	mail_goodies = list(
 		//WOW THE NEW BEATS BY DR.MOFF?
 		/obj/item/clothing/ears/headphones = 10,

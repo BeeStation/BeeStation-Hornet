@@ -61,16 +61,18 @@ SUBSYSTEM_DEF(job)
 	new_overflow.allow_bureaucratic_error = FALSE
 	new_overflow.spawn_positions = cap
 	new_overflow.total_positions = cap
+	ENABLE_BITFIELD(new_overflow.job_bitflags, JOB_BITFLAG_MANAGE_LOCKED)
 
 	if(new_overflow_role != overflow_role)
 		var/datum/job/old_overflow = GetJob(overflow_role)
 		old_overflow.allow_bureaucratic_error = initial(old_overflow.allow_bureaucratic_error)
 		old_overflow.spawn_positions = initial(old_overflow.spawn_positions)
 		old_overflow.total_positions = initial(old_overflow.total_positions)
+		DISABLE_BITFIELD(old_overflow.job_bitflags, JOB_BITFLAG_MANAGE_LOCKED)
 		overflow_role = new_overflow_role
 		JobDebug("Overflow role set to : [new_overflow_role]")
 
-/datum/controller/subsystem/job/proc/SetupOccupations(faction = "station")
+/datum/controller/subsystem/job/proc/SetupOccupations()
 	occupations = list()
 	var/list/all_jobs = subtypesof(/datum/job)
 	if(!all_jobs.len)
@@ -81,7 +83,7 @@ SUBSYSTEM_DEF(job)
 		var/datum/job/job = new J()
 		if(!job)
 			continue
-		if(job.faction != faction)
+		if(!job.job_bitflags)
 			continue
 		if(!job.config_check())
 			continue
@@ -89,12 +91,7 @@ SUBSYSTEM_DEF(job)
 			testing("Removed [job.type] due to map config")
 			continue
 
-		if(job.job_bitflags & JOB_BITFLAG_GIMMICK) // if a gimmick job has a slot, set it to selectable
-			if(job.total_positions || job.spawn_positions)
-				job.job_bitflags |= JOB_BITFLAG_SELECTABLE
-
 		occupations += job
-		// Key is job path. gimmick job path is prioritised if it exists.
 		name_occupations["[job.title]"] = job
 		type_occupations[J] = job
 
@@ -336,7 +333,7 @@ SUBSYSTEM_DEF(job)
 	if(SSticker.triai)
 		for(var/datum/job/ai/A in occupations)
 			A.spawn_positions = 3
-		for(var/obj/effect/landmark/start/ai/secondary/S in GLOB.start_landmarks_list)
+		for(var/obj/effect/landmark/start/ai/secondary/S in GLOB.start_landmarks_list[JOB_NAME_AI])
 			S.latejoin_active = TRUE
 
 	//Get the players who are ready
@@ -531,15 +528,20 @@ SUBSYSTEM_DEF(job)
 		else if(length(GLOB.jobspawn_overrides[rank]))
 			S = pick(GLOB.jobspawn_overrides[rank])
 		else
-			for(var/obj/effect/landmark/start/sloc in GLOB.start_landmarks_list)
-				if(sloc.name != rank)
-					S = sloc //so we can revert to spawning them on top of eachother if something goes wrong
-					continue
-				if(locate(/mob/living) in sloc.loc)
-					continue
-				S = sloc
-				sloc.used = TRUE
-				break
+			var/datum/job/current_level = job.type
+			while(current_level != /datum/job)
+				for(var/obj/effect/landmark/start/sloc in GLOB.start_landmarks_list)
+					if(sloc.name != initial(current_level.title))
+						S = sloc //so we can revert to spawning them on top of eachother if something goes wrong
+						continue
+					if(locate(/mob/living) in sloc.loc)
+						continue
+					S = sloc
+					sloc.used = TRUE
+					break
+				if(S)
+					break
+				current_level = initial(current_level.parent_type)
 		if(S)
 			S.JoinPlayerHere(living_mob, FALSE)
 		if(!S && !spawning_handled) //if there isn't a spawnpoint send them to latejoin, if there's no latejoin go yell at your mapper

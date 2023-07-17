@@ -2,7 +2,6 @@
 	title = JOB_NAME_DEPUTY
 	job_bitflags = JOB_BITFLAG_MANAGE_LOCKED
 	department_head = list(JOB_NAME_HEADOFSECURITY)
-	faction = "Station"
 	total_positions = 0
 	spawn_positions = 0
 	selection_color = "#ffeeee"

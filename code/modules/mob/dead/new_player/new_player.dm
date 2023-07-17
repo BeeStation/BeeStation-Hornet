@@ -408,12 +408,15 @@
 			SSjob.prioritized_jobs -= prioritized_job
 	dat += "<table><tr><td valign='top'>"
 	var/column_counter = 0
+	var/items_on_col = 0 // we don't want to see a fat box
 	for(var/list/category in department_list)
+		items_on_col++
 		var/cat_color = department_order[department_order[column_counter+1]] // color from `department_order`
 		dat += "<fieldset style='width: 185px; border: 2px solid [cat_color]; display: inline'>"
 		dat += "<legend align='center' style='color: [cat_color]'>[department_order[column_counter+1]]</legend>"
 		var/list/dept_dat = list()
 		for(var/job in category)
+			items_on_col++
 			var/datum/job/job_datum = SSjob.name_occupations[job]
 			if(job_datum && IsJobUnavailable(job_datum.title, TRUE) == JOB_AVAILABLE)
 				var/command_bold = ""
@@ -428,7 +431,8 @@
 		dat += jointext(dept_dat, "")
 		dat += "</fieldset><br>"
 		column_counter++
-		if(column_counter > 0 && (column_counter % 3 == 0))
+		if(items_on_col > 14)
+			items_on_col = 0
 			dat += "</td><td valign='top'>"
 	dat += "</td></tr></table></center>"
 	dat += "</div></div>"

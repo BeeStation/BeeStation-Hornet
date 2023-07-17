@@ -2,7 +2,6 @@
 	title = JOB_NAME_VIROLOGIST
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
-	faction = "Station"
 	total_positions = 2
 	spawn_positions = 2
 	selection_color = "#d4ebf2"

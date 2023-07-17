@@ -2,7 +2,6 @@
 	title = JOB_NAME_CARGOTECHNICIAN
 	job_bitflags = JOB_BITFLAG_SELECTABLE
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
-	faction = "Station"
 	total_positions = 3
 	spawn_positions = 2
 	selection_color = "#dcba97"
