@@ -62,7 +62,8 @@
 				Squish(parent_as_living)
 			else
 				parent_as_living.visible_message("<span class='notice'>[parent_as_living] avoids getting crushed.</span>")
-	else if(isstructure(crossing_movable))
+
+	if(isstructure(crossing_movable) && !crossing_movable.anchored)
 		if(should_squash)
 			crossing_movable.visible_message("<span class='notice'>[parent_as_living] is crushed under [crossing_movable].</span>")
 			Squish(parent_as_living)
