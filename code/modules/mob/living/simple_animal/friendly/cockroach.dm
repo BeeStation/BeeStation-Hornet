@@ -30,35 +30,12 @@
 
 /mob/living/simple_animal/cockroach/Initialize(mapload)
 	. = ..()
-	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
-	)
-	AddElement(/datum/element/connect_loc, loc_connections)
+	AddComponent(/datum/component/squashable, squash_chance = 50, squash_damage = 1)
 
 /mob/living/simple_animal/cockroach/death(gibbed)
 	if(SSticker.mode && SSticker.mode.station_was_nuked) //If the nuke is going off, then cockroaches are invincible. Keeps the nuke from killing them, cause cockroaches are immune to nukes.
 		return
 	..()
-
-/mob/living/simple_animal/cockroach/proc/on_entered(datum/source ,var/atom/movable/AM)
-	SIGNAL_HANDLER
-
-	if(ismob(AM))
-		if(isliving(AM))
-			var/mob/living/A = AM
-			if(A.mob_size > MOB_SIZE_SMALL && !(A.movement_type & FLYING))
-				if(prob(squish_chance))
-					A.visible_message("<span class='notice'>[A] squashed [src].</span>", "<span class='notice'>You squashed [src].</span>")
-					adjustBruteLoss(1) //kills a normal cockroach
-				else
-					visible_message("<span class='notice'>[src] avoids getting crushed.</span>")
-	else
-		if(isstructure(AM))
-			if(prob(squish_chance))
-				AM.visible_message("<span class='notice'>[src] was crushed under [AM].</span>")
-				adjustBruteLoss(1)
-			else
-				visible_message("<span class='notice'>[src] avoids getting crushed.</span>")
 
 /mob/living/simple_animal/cockroach/ex_act() //Explosions are a terrible way to handle a cockroach.
 	return
