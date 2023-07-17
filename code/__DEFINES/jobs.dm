@@ -10,7 +10,6 @@
 #define JOB_UNAVAILABLE_PLAYTIME 3
 #define JOB_UNAVAILABLE_ACCOUNTAGE 4
 #define JOB_UNAVAILABLE_SLOTFULL 5
-#define JOB_UNAVAILABLE_NOT_INTRODUCED 6
 
 #define DEFAULT_RELIGION "Christianity"
 #define DEFAULT_DEITY "Space Jesus"
@@ -71,10 +70,7 @@
 //-------------------------------------------------------------------------------------------
 //------------------------------------- Job names -------------------------------------------
 //-------------------------------------------------------------------------------------------
-// ****** WARNING:
-// 	   DO NOT CHANGE KEY. You are fine to change TITLE defines, but DO NOT DO to KEY defines
 #define JOB_UNASSIGNED "Unassigned"
-#define JOB_DEMOTED "Demoted"
 
 // Command
 #define JOB_NAME_CAPTAIN "Captain"

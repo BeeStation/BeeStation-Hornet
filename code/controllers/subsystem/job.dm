@@ -90,9 +90,8 @@ SUBSYSTEM_DEF(job)
 		if(!job.map_check())	//Even though we initialize before mapping, this is fine because the config is loaded at new
 			testing("Removed [job.type] due to map config")
 			continue
-
 		occupations += job
-		name_occupations["[job.title]"] = job
+		name_occupations[job.title] = job
 		type_occupations[J] = job
 
 	return 1
@@ -108,16 +107,14 @@ SUBSYSTEM_DEF(job)
 		else // if target is not specified, send the message to everyone
 			to_chat(world, "<span class='boldnotice'>Available gimmick jobs: [english_list(available_gimmicks)]</span>")
 
-/datum/controller/subsystem/job/proc/GetJob(job_key)
-	if(!job_key)
+/datum/controller/subsystem/job/proc/GetJob(rank)
+	if(!rank)
 		CRASH("proc has taken no 'job_string'")
-	if(job_key == JOB_UNASSIGNED)
-		return FALSE
 	if(!occupations.len)
 		SetupOccupations()
-	if(!name_occupations[job_key])
-		CRASH("job name [job_key] is not valid")
-	return name_occupations[job_key]
+	if(!name_occupations[rank])
+		CRASH("job name [rank] is not valid")
+	return name_occupations[rank]
 
 /datum/controller/subsystem/job/proc/GetJobType(jobtype)
 	if(!jobtype)
@@ -128,39 +125,23 @@ SUBSYSTEM_DEF(job)
 		CRASH("job type [jobtype] is not valid")
 	return type_occupations[jobtype]
 
-/datum/controller/subsystem/job/proc/GetJobActiveDepartment(job_key)
-	if(!job_key)
+/datum/controller/subsystem/job/proc/GetJobActiveDepartment(rank)
+	if(!rank)
 		CRASH("proc has taken no 'job_string'")
-	if(job_key == JOB_UNASSIGNED)
-		return NONE
 	if(!occupations.len)
 		SetupOccupations()
-	if(!name_occupations[job_key])
-		CRASH("job key [job_key] is not valid")
-	var/datum/job/J = name_occupations[job_key]
+	if(!name_occupations[rank])
+		CRASH("job name [rank] is not valid")
+	var/datum/job/J = name_occupations[rank]
 	return J.departments
 
-/// returns a job's current title
-/datum/controller/subsystem/job/proc/get_current_jobname(job_key, ignore_error=FALSE)
-	if(!job_key)
-		CRASH("The proc has taken a null value")
-
-	var/datum/job/job = name_occupations[job_key]
-	if(!job)
-		if(!ignore_error)
-			stack_trace("[job_key] is not a valid job key")
-		return job_key
-
-	return job.title
-
-
-/datum/controller/subsystem/job/proc/AssignRole(mob/dead/new_player/player, job_key, latejoin = FALSE)
-	JobDebug("Running AR, Player: [player], Rank: [job_key], LJ: [latejoin]")
-	if(player?.mind && job_key)
-		var/datum/job/job = GetJob(job_key)
+/datum/controller/subsystem/job/proc/AssignRole(mob/dead/new_player/player, rank, latejoin = FALSE)
+	JobDebug("Running AR, Player: [player], Rank: [rank], LJ: [latejoin]")
+	if(player?.mind && rank)
+		var/datum/job/job = GetJob(rank)
 		if(!job)
 			return FALSE
-		if(QDELETED(player) || is_banned_from(player.ckey, job_key))
+		if(QDELETED(player) || is_banned_from(player.ckey, rank))
 			return FALSE
 		if(!job.player_old_enough(player.client))
 			return FALSE
@@ -169,20 +150,20 @@ SUBSYSTEM_DEF(job)
 		var/position_limit = job.total_positions
 		if(!latejoin)
 			position_limit = job.spawn_positions
-		JobDebug("Player: [player] is now Rank: [job_key], JCP:[job.current_positions], JPL:[position_limit]")
+		JobDebug("Player: [player] is now Rank: [rank], JCP:[job.current_positions], JPL:[position_limit]")
 
-		player.mind.assigned_role = job_key
+		player.mind.assigned_role = rank
 		unassigned -= player
 		job.current_positions++
 		return TRUE
-	JobDebug("AR has failed, Player: [player], Rank: [job_key]")
+	JobDebug("AR has failed, Player: [player], Rank: [rank]")
 	return FALSE
 
-/datum/controller/subsystem/job/proc/FreeRole(job_key)
-	if(!job_key)
+/datum/controller/subsystem/job/proc/FreeRole(rank)
+	if(!rank)
 		return
-	JobDebug("Freeing role: [job_key]")
-	var/datum/job/job = GetJob(job_key)
+	JobDebug("Freeing role: [rank]")
+	var/datum/job/job = GetJob(rank)
 	if(!job)
 		return FALSE
 	job.current_positions = max(0, job.current_positions - 1)
@@ -203,7 +184,7 @@ SUBSYSTEM_DEF(job)
 		if(flag && (!(flag in player.client.prefs.be_special)))
 			JobDebug("FOC flag failed, Player: [player], Flag: [flag], ")
 			continue
-		if(player.mind && ((job.title in player.mind.restricted_roles)))
+		if(player.mind && (job.title in player.mind.restricted_roles))
 			JobDebug("FOC incompatible with antagonist role, Player: [player]")
 			continue
 		if(player.client.prefs.active_character.job_preferences[job.title] == level)
@@ -229,7 +210,7 @@ SUBSYSTEM_DEF(job)
 			break
 
 		if(is_banned_from(player.ckey, job.title))
-			JobDebug("GRJ isbanned failed, Player: [player], Job:[job.title]")
+			JobDebug("GRJ isbanned failed, Player: [player], Job: [job.title]")
 			continue
 
 		if(!job.player_old_enough(player.client))
@@ -252,7 +233,7 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/ResetOccupations()
 	JobDebug("Occupations reset.")
 	for(var/mob/dead/new_player/player in GLOB.player_list)
-		if((player) && (player.mind))		if((player) && (player.mind))
+		if((player) && (player.mind))
 			player.mind.assigned_role = null
 			player.mind.special_role = null
 			SSpersistence.antag_rep_change[player.ckey] = 0
@@ -314,16 +295,9 @@ SUBSYSTEM_DEF(job)
 		return 1
 	return 0
 
-// makes players unreadied so that they don't role antag
-/datum/controller/subsystem/job/proc/player_readycheck_jobs()
-	for(var/mob/dead/new_player/player in GLOB.player_list)
-		if(!player.check_preferences()) // they should roll a job at least
-			player.ready = PLAYER_NOT_READY
-
-
 /** Proc DivideOccupations
- *  fills var "list/mind_roles" for all ready players.
- *  This proc must not have any side effect besides of modifying "list/mind_roles"
+ *  fills var "assigned_role" for all ready players.
+ *  This proc must not have any side effect besides of modifying "assigned_role".
  **/
 /datum/controller/subsystem/job/proc/DivideOccupations(list/required_jobs)
 	//Setup new player list and get the jobs list
@@ -461,12 +435,12 @@ SUBSYSTEM_DEF(job)
 		return TRUE
 	for(var/required_group in required_jobs)
 		var/group_ok = TRUE
-		for(var/job_key in required_group)
-			var/datum/job/J = GetJob(job_key)
+		for(var/rank in required_group)
+			var/datum/job/J = GetJob(rank)
 			if(!J)
-				SSticker.mode.setup_error = "Invalid job [job_key] in gamemode required jobs."
+				SSticker.mode.setup_error = "Invalid job [rank] in gamemode required jobs."
 				return FALSE
-			if(J.current_positions < required_group[job_key])
+			if(J.current_positions < required_group[rank])
 				group_ok = FALSE
 				break
 		if(group_ok)
@@ -509,6 +483,7 @@ SUBSYSTEM_DEF(job)
 		living_mob = M
 
 	var/datum/job/job = GetJob(rank)
+	living_mob.job = rank
 	if(living_mob.mind)
 		living_mob.mind.assigned_role = job.title
 
@@ -579,10 +554,10 @@ SUBSYSTEM_DEF(job)
 
 	return living_mob
 
-/datum/controller/subsystem/job/proc/handle_auto_deadmin_roles(client/C, job_key)
+/datum/controller/subsystem/job/proc/handle_auto_deadmin_roles(client/C, rank)
 	if(!C?.holder)
 		return TRUE
-	var/datum/job/job = GetJob(job_key)
+	var/datum/job/job = GetJob(rank)
 	if(!job)
 		return
 	if((job.auto_deadmin_role_flags & PREFTOGGLE_DEADMIN_POSITION_HEAD) && (CONFIG_GET(flag/auto_deadmin_heads) || (C.prefs?.toggles & PREFTOGGLE_DEADMIN_POSITION_HEAD)))
@@ -784,7 +759,7 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/get_living_heads()
 	. = list()
 	for(var/mob/living/carbon/human/player in GLOB.alive_mob_list)
-		if(player.stat != DEAD && (player.mind?.assigned_role in GLOB.command_positions))
+		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in GLOB.command_positions)) // do not chagne "player.mind" to "player.mind?.assigned_role", because "player.mind" blocks further if check when it fails.
 			. |= player.mind
 
 
@@ -795,7 +770,7 @@ SUBSYSTEM_DEF(job)
 	. = list()
 	for(var/i in GLOB.mob_list)
 		var/mob/player = i
-		if(player.mind?.assigned_role in GLOB.command_positions)
+		if(player.mind && (player.mind.assigned_role in GLOB.command_positions))
 			. |= player.mind
 
 //////////////////////////////////////////////
@@ -804,7 +779,7 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/get_living_sec()
 	. = list()
 	for(var/mob/living/carbon/human/player in GLOB.carbon_list)
-		if(player.stat != DEAD && (player?.mind.assigned_role in GLOB.security_positions))
+		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in GLOB.security_positions))
 			. |= player.mind
 
 ////////////////////////////////////////
@@ -813,7 +788,7 @@ SUBSYSTEM_DEF(job)
 /datum/controller/subsystem/job/proc/get_all_sec()
 	. = list()
 	for(var/mob/living/carbon/human/player in GLOB.carbon_list)
-		if(player.mind?.assigned_role in GLOB.security_positions)
+		if(player.mind && (player.mind.assigned_role in GLOB.security_positions))
 			. |= player.mind
 
 /datum/controller/subsystem/job/proc/JobDebug(message)

@@ -172,15 +172,6 @@
 /datum/job/proc/special_check_latejoin(client/C)
 	return TRUE
 
-/datum/job/proc/refresh_job_bitflags()
-	spawn_positions = total_positions
-	if(total_positions)
-		if(!(job_bitflags & JOB_BITFLAG_SELECTABLE))
-			job_bitflags |= JOB_BITFLAG_SELECTABLE
-	else
-		if(job_bitflags & JOB_BITFLAG_GIMMICK)
-			job_bitflags &= ~JOB_BITFLAG_SELECTABLE
-
 /// returns TRUE if a job is gimmick. simple proc.
 /datum/job/proc/is_gimmick()
 	return job_bitflags & JOB_BITFLAG_GIMMICK

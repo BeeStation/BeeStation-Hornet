@@ -24,9 +24,6 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/shaft_miner
 	)
 
-/datum/job/shaft_miner/notify_your_supervisor()
-	return "[SSjob.get_current_jobname(JOB_NAME_QUARTERMASTER)], and [SSjob.get_current_jobname(JOB_NAME_HEADOFPERSONNEL)]"
-
 /datum/outfit/job/miner
 	name = JOB_NAME_SHAFTMINER
 	jobtype = /datum/job/shaft_miner
