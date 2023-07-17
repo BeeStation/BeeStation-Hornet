@@ -81,6 +81,8 @@
 
 	. = ..()
 
+	SEND_SIGNAL(src, COMSIG_LIVING_DEATH, gibbed)
+
 	if (client)
 		reset_perspective(null)
 		reload_fullscreen()
