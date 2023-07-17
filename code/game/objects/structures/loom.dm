@@ -50,6 +50,9 @@
 			new W.loom_result(drop_location())
 			W.use(FABRIC_PER_SHEET)
 			user.show_message("<span class='notice'>You weave \the [W.name] into a workable fabric.</span>", MSG_VISUAL)
+		else
+			looping = FALSE
+			user.show_message("<span class='notice'>You need at least [FABRIC_PER_SHEET] units of fabric before using this.</span>", MSG_VISUAL)
 	return TRUE
 
 #undef FABRIC_PER_SHEET

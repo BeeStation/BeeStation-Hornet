@@ -198,7 +198,7 @@
 	if(reagents?.total_volume && M.reagents)
 		// Obvious message to other people, so that they can call out suspicious activity.
 		to_chat(user, "<span class='notice'>You prepare to engage the sleepy pen's internal mechanism!</span>")
-		if (!do_after(user, 0.5 SECONDS, M) || !..())
+		if (!do_after(user, 0.5 SECONDS, M, add_item = src) || !..())
 			to_chat(user, "<span class='warning'>You fail to engage the sleepy pen mechanism!</span>")
 			return
 		reagents.trans_to(M, reagents.total_volume, transfered_by = user, method = INJECT)
