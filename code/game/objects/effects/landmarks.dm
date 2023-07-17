@@ -43,17 +43,14 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 
 /obj/effect/landmark/start/Initialize(mapload)
 	. = ..()
-	if(!GLOB.start_landmarks_list[name])
-		GLOB.start_landmarks_list[name] = list()
-	GLOB.start_landmarks_list[name] += src
+	GLOB.start_landmarks_list += src
 	if(jobspawn_override)
 		LAZYADDASSOCLIST(GLOB.jobspawn_overrides, name, src)
 	if(name != "start")
 		tag = "start*[name]"
 
 /obj/effect/landmark/start/Destroy()
-	if(islist(GLOB.start_landmarks_list[name]))
-		GLOB.start_landmarks_list[name] -= src
+	GLOB.start_landmarks_list -= src
 	if(jobspawn_override)
 		LAZYREMOVEASSOC(GLOB.jobspawn_overrides, name, src)
 	return ..()
