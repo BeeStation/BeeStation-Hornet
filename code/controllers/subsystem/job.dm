@@ -333,7 +333,7 @@ SUBSYSTEM_DEF(job)
 	if(SSticker.triai)
 		for(var/datum/job/ai/A in occupations)
 			A.spawn_positions = 3
-		for(var/obj/effect/landmark/start/ai/secondary/S in GLOB.start_landmarks_list[JOB_NAME_AI])
+		for(var/obj/effect/landmark/start/ai/secondary/S in GLOB.start_landmarks_list)
 			S.latejoin_active = TRUE
 
 	//Get the players who are ready
@@ -528,20 +528,15 @@ SUBSYSTEM_DEF(job)
 		else if(length(GLOB.jobspawn_overrides[rank]))
 			S = pick(GLOB.jobspawn_overrides[rank])
 		else
-			var/datum/job/current_level = job.type
-			while(current_level != /datum/job)
-				for(var/obj/effect/landmark/start/sloc in GLOB.start_landmarks_list)
-					if(sloc.name != initial(current_level.title))
-						S = sloc //so we can revert to spawning them on top of eachother if something goes wrong
-						continue
-					if(locate(/mob/living) in sloc.loc)
-						continue
-					S = sloc
-					sloc.used = TRUE
-					break
-				if(S)
-					break
-				current_level = initial(current_level.parent_type)
+			for(var/obj/effect/landmark/start/sloc in GLOB.start_landmarks_list)
+				if(sloc.name != rank)
+					S = sloc //so we can revert to spawning them on top of eachother if something goes wrong
+					continue
+				if(locate(/mob/living) in sloc.loc)
+					continue
+				S = sloc
+				sloc.used = TRUE
+				break
 		if(S)
 			S.JoinPlayerHere(living_mob, FALSE)
 		if(!S && !spawning_handled) //if there isn't a spawnpoint send them to latejoin, if there's no latejoin go yell at your mapper
