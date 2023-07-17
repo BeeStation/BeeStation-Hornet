@@ -42,7 +42,7 @@
 	},
 /area/template_noop)
 "g" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/wood,
 /area/template_noop)
 "h" = (

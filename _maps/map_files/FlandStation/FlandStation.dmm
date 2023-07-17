@@ -1141,7 +1141,7 @@
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/entry)
 "apO" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate{
@@ -1621,7 +1621,7 @@
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/central)
 "avk" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "avq" = (
@@ -1709,7 +1709,7 @@
 /turf/open/floor/plasteel/techmaint,
 /area/maintenance/department/science)
 "awo" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /obj/structure/railing/corner{
 	dir = 4
 	},
@@ -3811,7 +3811,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "aST" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "aSV" = (
@@ -6550,7 +6550,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "bDu" = (
-/mob/living/simple_animal/cockroach{
+/mob/living/basic/cockroach{
 	desc = "carlos.";
 	maxHealth = 2;
 	name = "carlos";
@@ -8214,7 +8214,7 @@
 "cdI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
@@ -9730,7 +9730,7 @@
 /area/engine/engine_room)
 "cAF" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "cAH" = (
@@ -16053,7 +16053,7 @@
 /turf/open/floor/plasteel/techmaint,
 /area/crew_quarters/heads/hop)
 "enh" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
@@ -26885,7 +26885,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "gYE" = (
@@ -47907,7 +47907,7 @@
 /turf/open/floor/plasteel/techmaint,
 /area/vacant_room/office)
 "mAa" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /obj/machinery/firealarm/directional/south,
 /turf/open/floor/plating,
 /area/maintenance/department/science)
@@ -49302,7 +49302,7 @@
 /area/science/lobby)
 "mRK" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
@@ -49799,7 +49799,7 @@
 /area/crew_quarters/heads/chief)
 "mXT" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "mXU" = (
@@ -52375,7 +52375,7 @@
 	},
 /area/docking/arrival)
 "nET" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
@@ -68098,7 +68098,7 @@
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "rCv" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "rCG" = (
@@ -75481,7 +75481,7 @@
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison)
 "ttb" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
@@ -79057,7 +79057,7 @@
 	},
 /area/maintenance/department/engine)
 "unb" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -79474,7 +79474,7 @@
 /area/teleporter)
 "usw" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "usA" = (

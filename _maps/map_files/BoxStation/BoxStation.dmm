@@ -33676,7 +33676,7 @@
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/chief)
 "jLP" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/wood,
 /area/vacant_room/office)
 "jLS" = (
@@ -47063,7 +47063,7 @@
 /area/space/nearstation)
 "qva" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/carpet,
 /area/vacant_room/office)
 "qve" = (

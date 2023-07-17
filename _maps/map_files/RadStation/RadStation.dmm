@@ -5918,7 +5918,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/department/science)
 "bUc" = (
@@ -7079,7 +7079,7 @@
 /area/hallway/primary/central)
 "cmu" = (
 /obj/effect/spawner/lootdrop/glowstick/lit,
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
 "cnj" = (
@@ -11607,7 +11607,7 @@
 /area/science/xenobiology)
 "dLW" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/plasteel/cafeteria,
 /area/maintenance/department/science)
 "dMh" = (
@@ -14363,7 +14363,7 @@
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "eDl" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/carpet/royalblack,
 /area/maintenance/department/science)
 "eDw" = (
@@ -19079,7 +19079,7 @@
 /area/maintenance/central)
 "fVO" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/plasteel,
 /area/maintenance/department/science)
 "fVQ" = (
@@ -20889,7 +20889,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
 	},
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/central)
 "gvz" = (
@@ -22496,7 +22496,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1
 	},
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
@@ -23916,7 +23916,7 @@
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/cafeteria)
 "hsF" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
 "hsJ" = (
@@ -36643,7 +36643,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "lwv" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood,
 /area/vacant_room/office)
@@ -39759,7 +39759,7 @@
 /obj/item/ammo_casing/c46x30mm,
 /obj/item/ammo_casing/c46x30mm,
 /obj/item/ammo_casing/c46x30mm,
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/department/security)
 "myH" = (
@@ -43674,7 +43674,7 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/plasteel,
 /area/maintenance/department/science)
 "nEs" = (
@@ -43795,7 +43795,7 @@
 "nFB" = (
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/plasteel,
 /area/maintenance/department/engine)
 "nFI" = (
@@ -45799,7 +45799,7 @@
 	dir = 4
 	},
 /obj/structure/lattice/catwalk/over,
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/plating,
 /area/hallway/secondary/service)
 "onu" = (
@@ -48815,7 +48815,7 @@
 /turf/open/floor/plasteel/dark,
 /area/science/misc_lab/range)
 "pmr" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/wood,
 /area/vacant_room/office)
 "pmu" = (

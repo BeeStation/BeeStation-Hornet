@@ -1623,7 +1623,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "aiE" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "aiF" = (
@@ -2433,7 +2433,7 @@
 /turf/open/floor/wood,
 /area/vacant_room/office)
 "and" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/wood,
 /area/vacant_room/office)
 "ane" = (
@@ -2676,7 +2676,7 @@
 /turf/open/floor/plasteel/grimy,
 /area/vacant_room/office)
 "apa" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/plasteel/grimy,
 /area/vacant_room/office)
 "apb" = (
@@ -10403,7 +10403,7 @@
 /turf/open/floor/engine/o2,
 /area/engine/atmos)
 "bdo" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "bdq" = (
@@ -27469,7 +27469,7 @@
 /turf/open/floor/plasteel,
 /area/science/lab)
 "cMU" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/port)
 "cMW" = (
@@ -35512,7 +35512,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "dFs" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "dFu" = (
@@ -43603,7 +43603,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "ftC" = (
@@ -67308,7 +67308,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
@@ -85686,7 +85686,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -90226,7 +90226,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
@@ -97173,7 +97173,7 @@
 /area/security/prison)
 "ymi" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/plasteel{
 	heat_capacity = 1e+006
 	},
