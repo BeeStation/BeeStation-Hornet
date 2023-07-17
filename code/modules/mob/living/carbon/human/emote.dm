@@ -63,14 +63,14 @@
 
 /datum/emote/living/carbon/human/moth
 	// allow mothroach as well as human base mob - species check is done in can_run_emote
-	mob_type_allowed_typecache = list(/mob/living/carbon/human,/mob/living/simple_animal/mothroach)
+	mob_type_allowed_typecache = list(/mob/living/carbon/human,/mob/living/basic/mothroach)
 
 /datum/emote/living/carbon/human/moth/can_run_emote(mob/user, status_check = TRUE, intentional)
 	if(!..())
 		return FALSE
 	if(ishuman(user))
 		return ismoth(user)
-	return istype(user, /mob/living/simple_animal/mothroach)
+	return istype(user, /mob/living/basic/mothroach)
 
 /datum/emote/living/carbon/human/moth/squeak
 	key = "msqueak"

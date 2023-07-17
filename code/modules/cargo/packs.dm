@@ -2700,7 +2700,7 @@
 	name = "Mothroach Crate"
 	desc = "Put the mothroach on your head and find out what true cuteness looks like."
 	cost = 5000
-	contains = list(/mob/living/simple_animal/mothroach)
+	contains = list(/mob/living/basic/mothroach)
 	crate_name = "mothroach crate"
 
 /datum/supply_pack/critter/monkey

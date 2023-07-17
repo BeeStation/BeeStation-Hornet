@@ -6571,7 +6571,7 @@
 /turf/open/floor/plasteel/dark/side,
 /area/hallway/secondary/exit/departure_lounge)
 "cdB" = (
-/mob/living/simple_animal/mothroach,
+/mob/living/basic/mothroach,
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/flashlight/lantern/heirloom_moth{
 	on = 1
@@ -8079,7 +8079,7 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
 	},
-/mob/living/simple_animal/mothroach{
+/mob/living/basic/mothroach{
 	density = 0;
 	desc = "A festive mothroach";
 	name = "Erster"
@@ -14480,7 +14480,7 @@
 /turf/open/floor/plasteel/grimy,
 /area/chapel/office)
 "eEM" = (
-/mob/living/simple_animal/mothroach,
+/mob/living/basic/mothroach,
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/remains/human,
 /obj/item/flashlight/lantern/heirloom_moth{
@@ -19747,7 +19747,7 @@
 /area/engine/atmos)
 "gew" = (
 /obj/structure/flora/ausbushes/fullgrass,
-/mob/living/simple_animal/mothroach,
+/mob/living/basic/mothroach,
 /turf/open/floor/grass,
 /area/hallway/primary/central)
 "geH" = (
@@ -26647,7 +26647,7 @@
 /turf/open/floor/plating,
 /area/science/xenobiology)
 "imT" = (
-/mob/living/simple_animal/mothroach,
+/mob/living/basic/mothroach,
 /obj/structure/sign/poster/official/moth2{
 	pixel_y = 32
 	},
@@ -27587,7 +27587,7 @@
 /turf/closed/wall/r_wall,
 /area/science/xenobiology)
 "iEn" = (
-/mob/living/simple_animal/mothroach,
+/mob/living/basic/mothroach,
 /obj/effect/decal/cleanable/blood/old,
 /obj/structure/sign/poster/official/moth1{
 	pixel_y = 32
@@ -27958,7 +27958,7 @@
 /turf/open/floor/plating,
 /area/quartermaster/storage)
 "iKo" = (
-/mob/living/simple_animal/mothroach,
+/mob/living/basic/mothroach,
 /obj/effect/decal/cleanable/blood/old,
 /obj/machinery/conveyor{
 	dir = 9;
@@ -46669,7 +46669,7 @@
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/captain/private)
 "oAS" = (
-/mob/living/simple_animal/mothroach,
+/mob/living/basic/mothroach,
 /obj/effect/decal/remains/human,
 /obj/item/flashlight/lantern/heirloom_moth{
 	on = 1
@@ -61911,7 +61911,7 @@
 /turf/open/floor/plating,
 /area/quartermaster/qm)
 "txo" = (
-/mob/living/simple_animal/mothroach,
+/mob/living/basic/mothroach,
 /obj/structure/sign/poster/official/moth5{
 	pixel_x = 32
 	},
@@ -65742,7 +65742,7 @@
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "uGW" = (
-/mob/living/simple_animal/mothroach,
+/mob/living/basic/mothroach,
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/flashlight/lantern/heirloom_moth{
 	on = 1

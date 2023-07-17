@@ -140,7 +140,7 @@
 		. = message_monkey
 	else if(isipc(user) && message_ipc)
 		. = message_ipc
-	else if((ismoth(user) || isapid(user) || isflyperson(user) || istype(user, /mob/living/simple_animal/mothroach)) && message_insect)
+	else if((ismoth(user) || isapid(user) || isflyperson(user) || istype(user, /mob/living/basic/mothroach)) && message_insect)
 		. = message_insect
 	else if(isanimal(user) && message_simple)
 		. = message_simple
