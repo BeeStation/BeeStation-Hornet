@@ -944,7 +944,7 @@ GENE SCANNER
 		full_list_mutations[each_mutation.type] = "Temporary"
 
 	for(var/A in full_list_mutations)
-		to_chat(user, "\t<span class='notice'>[get_display_name(A, full_list_mutations[A])]</span>")
+		to_chat(user, "\t<span class='notice'>[get_display_name(A)]</span>") // if you want to make the scanner tell which mutation is active, put "full_list_mutations[A]" to the second parameter of get_display_name() proc.
 	to_chat(user, "\t<span class='info'>Genetic Stability: [C.dna.stability]%.</span>")
 	if(C.has_status_effect(STATUS_EFFECT_LING_TRANSFORMATION))
 		to_chat(user, "\t<span class='info'>Subject's DNA appears to be in an unstable state.</span>")
