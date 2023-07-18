@@ -140,6 +140,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	radio.recalculateChannels()
 	distort = new(src)
 	vis_contents += distort
+	add_emitter(/obj/emitter/sparkle, "supermatter_sparkle")
 	investigate_log("has been created.", INVESTIGATE_ENGINES)
 	if(is_main_engine)
 		GLOB.main_supermatter_engine = src
