@@ -38,7 +38,7 @@
 
 /mob/living/basic/mothroach/Initialize(mapload)
 	. = ..()
-	AddElement(/datum/element/pet_bonus, "squeaks happily!")
+	AddElement(/datum/element/pet_bonus, "squeaks happily!", emote_sound = 'sound/voice/moth/scream_moth.ogg')
 
 /mob/living/basic/mothroach/update_resting()
 	. = ..()
@@ -48,18 +48,6 @@
 		icon_state = "[icon_living]_rest"
 	else
 		icon_state = "[icon_living]"
-
-/mob/living/basic/mothroach/attack_hand(mob/living/carbon/human/user)
-	. = ..()
-	if(src.stat == DEAD)
-		return
-	playsound(loc, 'sound/voice/moth/scream_moth.ogg', 50, TRUE)
-
-/mob/living/basic/mothroach/attackby(obj/item/attacking_item, mob/living/user, params)
-	. = ..()
-	if(src.stat == DEAD)
-		return
-	playsound(loc, 'sound/voice/moth/scream_moth.ogg', 50, TRUE)
 
 /datum/ai_controller/basic_controller/mothroach
 	blackboard = list()
