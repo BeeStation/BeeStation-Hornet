@@ -1,0 +1,6 @@
+author: Absolucy
+delete-after: true
+changes:
+  - bugfix: Prying open unpowered firelocks and windoors with a crowbar FINALLY works
+      again.
+  - tweak: Prying open firelocks and windoors now respects tool speed.
