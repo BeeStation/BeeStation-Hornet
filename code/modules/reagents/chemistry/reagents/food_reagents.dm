@@ -297,7 +297,7 @@
 		//actually handle the pepperspray effects
 		if(!victim.is_eyes_covered() || !victim.is_mouth_covered())
 			victim.blur_eyes(5) // 10 seconds
-			victim.adjust_blindness(3) // 6 seconds
+			victim.blind_eyes(3) // 6 seconds
 			victim.Knockdown(3 SECONDS)
 			if(prob(5))
 				victim.emote("scream")
@@ -635,7 +635,7 @@
 		else
 			if(!M.eye_blurry)
 				to_chat(M, "<span class = 'warning'>Tears well up in your eyes!</span>")
-			M.adjust_blindness(2)
+			M.blind_eyes(2)
 			M.blur_eyes(5)
 	..()
 
@@ -645,7 +645,7 @@
 		M.blur_eyes(4)
 		if(prob(10))
 			to_chat(M, "<span class = 'warning'>Your eyes sting!</span>")
-			M.adjust_blindness(2)
+			M.blind_eyes(2)
 
 
 /datum/reagent/consumable/nutriment/stabilized

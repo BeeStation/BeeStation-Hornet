@@ -374,7 +374,7 @@
 	for(var/mob/living/carbon/human/H in invokers)
 		if(H.stat == DEAD)
 			continue
-		H.adjust_blindness(10)
+		H.blind_eyes(10)
 		if(prob(10))
 			var/mob/living/simple_animal/hostile/floor_cluwne/cluwne = new(src.loc)
 			cluwne.force_target(H)

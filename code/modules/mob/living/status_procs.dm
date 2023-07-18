@@ -397,14 +397,12 @@
 /mob/living/proc/cure_blind(source)
 	REMOVE_TRAIT(src, TRAIT_BLIND, source)
 	if(!is_blind())
-		update_blindness()
+		adjust_blindness(-1)
 
 /mob/living/proc/become_blind(source)
-	if(!HAS_TRAIT(src, TRAIT_BLIND)) // not blind already, add trait then overlay
-		ADD_TRAIT(src, TRAIT_BLIND, source)
-		update_blindness()
-	else
-		ADD_TRAIT(src, TRAIT_BLIND, source)
+	if(!is_blind())
+		blind_eyes(1)
+	ADD_TRAIT(src, TRAIT_BLIND, source)
 
 /mob/living/proc/cure_nearsighted(source)
 	REMOVE_TRAIT(src, TRAIT_NEARSIGHT, source)

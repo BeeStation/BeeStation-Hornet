@@ -76,6 +76,7 @@
 			return
 		else if(stat == UNCONSCIOUS)
 			set_stat(CONSCIOUS)
+			adjust_blindness(-1)
 	diag_hud_set_status()
 
 /mob/living/silicon/ai/update_sight()
@@ -168,7 +169,7 @@
 /mob/living/silicon/ai/proc/ai_lose_power()
 	disconnect_shell()
 	aiRestorePowerRoutine = POWER_RESTORATION_START
-	adjust_blindness(1)
+	blind_eyes(1)
 	update_sight()
 	to_chat(src, "You've lost power!")
 	addtimer(CALLBACK(src, PROC_REF(start_RestorePowerRoutine)), 20)
