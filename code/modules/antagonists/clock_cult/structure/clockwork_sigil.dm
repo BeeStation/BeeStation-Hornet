@@ -121,7 +121,7 @@
 	if(!..())
 		return FALSE
 	M.Paralyze(60)
-	M.adjust_blindness(120)
+	M.blind_eyes(120)
 	var/mob/living/carbon/C = M
 	if(istype(C))
 		C.silent += 15

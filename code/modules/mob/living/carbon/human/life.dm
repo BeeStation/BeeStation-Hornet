@@ -67,7 +67,17 @@
 		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "brain_damage", /datum/mood_event/brain_damage)
 	else
 		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "brain_damage")
-	return ..()
+
+	if(eye_blind)			//blindness, heals slowly over time
+		if(HAS_TRAIT_FROM(src, TRAIT_BLIND, EYES_COVERED)) //covering your eyes heals blurry eyes faster
+			adjust_blindness(-3 * delta_time)
+		else
+			adjust_blindness(-delta_time)
+		//If you have blindness from a trait, heal blurryness too, otherwise return and ignore that.
+		if(!(HAS_TRAIT(src, TRAIT_BLIND)))
+			return
+	if(eye_blurry)			//blurry eyes heal slowly
+		adjust_blurriness(-delta_time)
 
 /mob/living/carbon/human/handle_mutations_and_radiation()
 	if(!dna || !dna.species.handle_mutations_and_radiation(src))
@@ -274,13 +284,13 @@
 
 
 /mob/living/carbon/human/has_smoke_protection()
-	if(isclothing(wear_mask))
+	if(wear_mask)
 		if(wear_mask.clothing_flags & BLOCK_GAS_SMOKE_EFFECT)
 			return TRUE
-	if(isclothing(glasses))
+	if(glasses)
 		if(glasses.clothing_flags & BLOCK_GAS_SMOKE_EFFECT)
 			return TRUE
-	if(isclothing(head))
+	if(head && isclothing(head))
 		var/obj/item/clothing/CH = head
 		if(CH.clothing_flags & BLOCK_GAS_SMOKE_EFFECT)
 			return TRUE
