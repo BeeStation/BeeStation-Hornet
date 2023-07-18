@@ -8,9 +8,9 @@
 	/// If you want to have multiple hunting behaviors on a controller be sure that this is unique
 	var/target_key = BB_CURRENT_HUNTING_TARGET
 	/// What behavior to execute if we have no target
-	var/finding_behavior = /datum/ai_behavior/find_hunt_target
+	var/datum/ai_behavior/finding_behavior = /datum/ai_behavior/find_hunt_target
 	/// What behavior to execute if we do have a target
-	var/hunting_behavior = /datum/ai_behavior/hunt_target
+	var/datum/ai_behavior/hunting_behavior = /datum/ai_behavior/hunt_target
 	/// What targets we're hunting for
 	var/list/hunt_targets
 	/// In what radius will we hunt
@@ -84,6 +84,8 @@
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT
 	/// How long do we have to wait after a successful hunt?
 	var/hunt_cooldown = 5 SECONDS
+	/// What emote is said when the hunter eats something?
+	var/hunt_emote = "chomps"
 
 /datum/ai_behavior/hunt_target/setup(datum/ai_controller/controller, hunting_target_key, hunting_cooldown_key)
 	. = ..()
@@ -108,14 +110,14 @@
 /datum/ai_behavior/hunt_target/proc/target_caught(mob/living/hunter, atom/hunted)
 	if(isliving(hunted)) // Are we hunting a living mob?
 		var/mob/living/living_target = hunted
-		hunter.manual_emote("chomps [living_target]!")
+		hunter.manual_emote("[hunt_emote] [living_target]!")
 		living_target.death()
 
 	else if(IS_EDIBLE(hunted))
 		hunter.attack_animal(hunter)
 
 	else // We're hunting an object, and should delete it instead of killing it. Mostly useful for decal bugs like ants or spider webs.
-		hunter.manual_emote("chomps [hunted]!")
+		hunter.manual_emote("[hunt_emote] [hunted]!")
 		qdel(hunted)
 
 /datum/ai_behavior/hunt_target/finish_action(datum/ai_controller/controller, succeeded, hunting_target_key, hunting_cooldown_key)

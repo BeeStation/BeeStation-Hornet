@@ -140,9 +140,9 @@
 		. = message_monkey
 	else if(isipc(user) && message_ipc)
 		. = message_ipc
-	else if((ismoth(user) || isapid(user) || isflyperson(user) || istype(user, /mob/living/basic/mothroach)) && message_insect)
+	else if((ismoth(user) || isapid(user) || isflyperson(user)) && message_insect)
 		. = message_insect
-	else if(isanimal(user) && message_simple)
+	else if((isanimal(user) || isbasicmob(user)) && message_simple)
 		. = message_simple
 
 /datum/emote/proc/select_param(mob/user, params)

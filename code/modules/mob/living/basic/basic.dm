@@ -116,15 +116,32 @@
 	return ..()
 
 /mob/living/basic/death(gibbed)
-	. = ..()
+	if(!gibbed)
+		if(!(basic_mob_flags & DEL_ON_DEATH))
+			INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "deathgasp")
+
 	if(basic_mob_flags & DEL_ON_DEATH)
+		..()
 		qdel(src)
+		return
 	else
 		health = 0
 		icon_state = icon_dead
 		if(flip_on_death)
 			transform = transform.Turn(180)
 		set_density(FALSE)
+		..()
+
+// copied from simplemobs
+/mob/living/basic/revive(full_heal = 0, admin_revive = 0)
+	if(..()) //successfully ressuscitated from death
+		icon = initial(icon)
+		icon_state = icon_living
+		set_density(initial(density))
+		mobility_flags = MOBILITY_FLAGS_DEFAULT
+		update_mobility()
+		. = 1
+		setMovetype(initial(movement_type))
 
 /mob/living/basic/proc/melee_attack(atom/target)
 	src.face_atom(target)
