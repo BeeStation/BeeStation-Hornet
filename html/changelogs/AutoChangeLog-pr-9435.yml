@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - rscdel: Reverts the blindness refactor due to issues with permanently blurred
+      vision.
