@@ -6554,7 +6554,7 @@
 	desc = "carlos.";
 	maxHealth = 2;
 	name = "carlos";
-	squish_chance = 1
+	
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
