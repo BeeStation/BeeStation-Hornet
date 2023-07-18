@@ -1,0 +1,5 @@
+author: Absolucy
+delete-after: true
+changes:
+  - rscadd: Added a warning prompt for silicons if they are going to state a law that
+      explicitly contains "don't state" (or some variation of it).
