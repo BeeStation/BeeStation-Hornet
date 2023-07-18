@@ -572,7 +572,7 @@
 			to_chat(src, "<span class='warning'>You fail to perform CPR on [C]!</span>")
 			looping = FALSE
 			return FALSE
-		if(speed_mult >= 0.2)
+		if(speed_mult > 0.2)
 			speed_mult -= 0.1
 
 		var/they_breathe = !HAS_TRAIT(C, TRAIT_NOBREATH)

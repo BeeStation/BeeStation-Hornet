@@ -44,7 +44,7 @@
 		if(!do_after(user, W.pull_effort * speed_mult, src, add_item = fake_atom))
 			looping = FALSE
 			return
-		if(speed_mult >= 0.2)
+		if(speed_mult > 0.2)
 			speed_mult -= 0.1
 		if(W.amount >= FABRIC_PER_SHEET)
 			new W.loom_result(drop_location())

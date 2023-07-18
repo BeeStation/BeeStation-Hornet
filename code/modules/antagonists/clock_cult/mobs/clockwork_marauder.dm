@@ -103,7 +103,7 @@ GLOBAL_LIST_EMPTY(clockwork_marauders)
 		else
 			shield_health ++
 			playsound(src, 'sound/magic/charge.ogg', 60, TRUE)
-		if(speed_mult >= 0.25)
+		if(speed_mult > 0.25)
 			speed_mult -= 0.15
 	return TRUE
 
