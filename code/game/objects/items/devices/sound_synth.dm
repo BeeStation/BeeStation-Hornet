@@ -50,21 +50,36 @@
 		"Gasping" = "selected_sound=sound/effects/audience-gasp.ogg&shiftpitch=0&volume=80",
 		"Oohing" = "selected_sound=sound/effects/audience-ooh.ogg&shiftpitch=0&volume=80"
 	)
+	var/static/list/sounds = list()
+	var/static/list/sound_filenames = list()
 	var/static/list/sound_lengths = list()
 
 /obj/item/soundsynth/verb/pick_sound()
 	set category = "Object"
 	set name = "Select Sound Playback"
-	var/new_sound = tgui_input_list(usr, "Pick a sound!", "Sound Synthesizer", sound_list, default = selected_sound_name)
-	if(!new_sound || !sound_list[new_sound])
+	var/new_sound = tgui_input_list(usr, "Pick a sound!", "Sound Synthesizer", sounds, default = selected_sound_name)
+	if(!new_sound || !sounds[new_sound])
 		return
 	to_chat(usr, "<span class='notice'>Sound playback set to: <b>[new_sound]</b>!</span>")
 	selected_sound_name = new_sound
-	var/list/assblast = params2list(sound_list[new_sound])
-	selected_sound = sound(assblast["selected_sound"])
-	shiftpitch = text2num(assblast["shiftpitch"])
-	volume = text2num(assblast["volume"])
+	var/list/sound_info = sounds[new_sound]
+	selected_sound = sound_info["sound"]
+	shiftpitch = sound_info["shift_pitch"]
+	volume = sound_info["volume"]
 	SSblackbox.record_feedback("tally", "synth_sound_selected", 1, selected_sound_name)
+
+/obj/item/soundsynth/Initialize()
+	. = ..()
+	if(!length(sounds) || !length(sound_filenames))
+		for(var/sound_name in sound_list)
+			var/list/sound_info = params2list(sound_list[sound_name])
+			var/sound/sound = sound(sound_info["selected_sound"])
+			sound_filenames[sound.file] = sound_name
+			sounds[sound_name] = list(
+				"sound" = sound,
+				"shift_pitch" = text2num(sound_info["shiftpitch"]),
+				"volume" = text2num(sound_info["volume"])
+			)
 
 /obj/item/soundsynth/attack_self(mob/user)
 	if(!selected_sound || !selected_sound_name)
@@ -101,17 +116,19 @@
 // WHY BYOND WHYYYYY, WHY DO I HAVE THE QUERY THE CLIENT FOR THE SOUND, CAN'T YOU JUST FILL OUT LEN WHENEVER I MAKE A SOUND DATUM?!
 /obj/item/soundsynth/proc/get_sound_length(mob/living/hearer)
 	. = 0
-	if(!selected_sound?.file || !hearer?.client)
+	if(!istype(hearer) || !hearer?.client)
 		return
-	if(sound_lengths[selected_sound.file])
-		return sound_lengths[selected_sound.file]
+	if(sound_lengths[selected_sound_name])
+		return sound_lengths[selected_sound_name]
 	var/list/sound/sounds = hearer.client.SoundQuery()
 	for(var/sound/sound as() in sounds)
-		if(sound.file == selected_sound.file)
+		var/list/sound_name = sound_filenames[sound.file]
+		if(sound_name)
 			// Just in case something goes fucky wucky, don't cache a bad result.
 			if(!isnum_safe(sound.len) || sound.len <= 0)
-				return
+				continue
 			var/sound_len = CEILING(sound.len * 10, 1)
-			sound_lengths[selected_sound.file] = sound_len
-			return sound_len
+			sound_lengths[sound_name] = sound_len
+			if(sound_name == selected_sound_name)
+				. = sound_len
 
