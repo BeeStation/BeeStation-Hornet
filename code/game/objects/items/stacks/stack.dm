@@ -18,8 +18,6 @@
 /obj/item/stack
 	icon = 'icons/obj/stacks/minerals.dmi'
 	gender = PLURAL
-	///The list recipes you can make with the stack
-	var/list/datum/stack_recipe/recipes
 	///The name of the thing when it's singular
 	var/singular_name
 	///The amount of thing in the stack
@@ -52,6 +50,10 @@
 		to_chat(usr, "<span class='danger'>[src] is electronically synthesized in your chassis and can't be ground up!</span>")
 		return
 	return TRUE
+
+/obj/item/stack/proc/get_recipes()
+	SHOULD_CALL_PARENT(FALSE)
+	return
 
 /obj/item/stack/Initialize(mapload, new_amount, merge = TRUE, mob/user = null)
 	. = ..()
@@ -197,7 +199,7 @@
 
 /obj/item/stack/ui_static_data(mob/user)
 	var/list/data = list()
-	data["recipes"] = recursively_build_recipes(recipes)
+	data["recipes"] = recursively_build_recipes(get_recipes())
 	return data
 
 /obj/item/stack/ui_act(action, params)
@@ -211,7 +213,7 @@
 				qdel(src)
 				return
 			var/datum/stack_recipe/R = locate(params["ref"])
-			if(!is_valid_recipe(R, recipes)) //href exploit protection
+			if(!is_valid_recipe(R, get_recipes())) //href exploit protection
 				return
 			var/multiplier = text2num(params["multiplier"])
 			if(!isnum_safe(multiplier) || (multiplier <= 0)) //href exploit protection
