@@ -36,7 +36,7 @@
 		owner.balloon_alert(S, "needs stable ground!")
 		return
 	to_chat(S, "<span class='warning'>You begin to open a rift...</span>")
-	if(do_after(S, 100, target = S))
+	if(do_after(S, 10 SECONDS, target = S))
 		for(var/obj/structure/carp_rift/c in rift_spawn_turf.contents)
 			return
 		var/obj/structure/carp_rift/CR = new /obj/structure/carp_rift(rift_spawn_turf)

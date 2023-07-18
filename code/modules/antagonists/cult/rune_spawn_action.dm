@@ -6,7 +6,7 @@
 	var/obj/effect/rune/rune_type
 	var/cooldown = 0
 	var/base_cooldown = 1800
-	var/scribe_time = 60
+	var/scribe_time = 6 SECONDS
 	var/damage_interrupt = TRUE
 	var/action_interrupt = TRUE
 	var/obj/effect/temp_visual/cult/rune_spawn/rune_word_type

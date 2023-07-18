@@ -85,7 +85,7 @@
 /obj/item/grenade/attack_self(mob/user)
 	if(HAS_TRAIT(src, TRAIT_NODROP))
 		to_chat(user, "<span class='notice'>You try prying [src] off your hand...</span>")
-		if(do_after(user, 70, target=src))
+		if(do_after(user, 7 SECONDS, target=src))
 			to_chat(user, "<span class='notice'>You manage to remove [src] from your hand.</span>")
 			REMOVE_TRAIT(src, TRAIT_NODROP, STICKY_NODROP)
 

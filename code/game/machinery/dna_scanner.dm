@@ -14,7 +14,7 @@
 	var/scan_level
 	var/precision_coeff
 	var/message_cooldown
-	var/breakout_time = 1200
+	var/breakout_time = 120 SECONDS
 	var/ignore_id = FALSE
 
 /obj/machinery/dna_scannernew/Initialize()

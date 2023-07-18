@@ -490,7 +490,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			to_chat(user, "<span class='warning'>You're already picking up \the [src]!</span>")
 			return
 		to_chat(user,"<span class='notice'>You start picking up [src]...</span>")
-		if(!do_after(user, 30*grav_power, src, show_to_target = TRUE, add_item = src))
+		if(!do_after(user, 3 SECONDS * grav_power, src, show_to_target = TRUE, add_item = src))
 			return
 
 

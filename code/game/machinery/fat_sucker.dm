@@ -16,7 +16,7 @@
 	var/nutrients //amount of nutrients we got build up
 	var/nutrient_to_meat = 90 //one slab of meat gives about 52 nutrition
 	var/datum/looping_sound/microwave/soundloop //100% stolen from microwaves
-	var/breakout_time = 600
+	var/breakout_time = 60 SECONDS
 
 	var/next_fact = 10 //in ticks, so about 20 seconds
 	var/static/list/fat_facts = list(\

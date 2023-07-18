@@ -124,7 +124,7 @@
 	user.visible_message("<span class='notice'>[user] presses [multitool] into [src]'s ID slot...</span>", \
 	"<span class='notice'>You begin overriding the clamps on [src]...</span>")
 	playsound(src, 'sound/machines/click.ogg', 50, TRUE)
-	if(!do_after(user, 100, target = src, add_item = multitool) || !clamps_locked)
+	if(!do_after(user, 10 SECONDS, target = src, add_item = multitool) || !clamps_locked)
 		return
 	user.visible_message("<span class='notice'>[user] pulses [multitool], and [src]'s clamps slide up.</span>", \
 	"<span class='notice'>You override the locking clamps on [src]!</span>")

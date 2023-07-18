@@ -54,7 +54,7 @@
 		to_chat(user, "<span class='warning'>You're already unwrenching [src]!</span>")
 		return COMPONENT_NO_AFTERATTACK
 	to_chat(user, "<span class='warning'>You begin unwrenching [src]...</span>")
-	if(do_after(user, 50, target=src, add_item = I))
+	if(do_after(user, 5 SECONDS, target=src, add_item = I))
 		to_chat(user, "<span class='warning'>You detach [src], clearing all the connections associated with it.</span>")
 		new unwrench_path(get_turf(src))
 		qdel(src)

@@ -50,7 +50,7 @@
 	if(!buckled_mob.break_do_after_checks())
 		return
 	to_chat(buckled_mob, "<span class='warning'>You begin climbing out of [src].</span>")
-	if(do_after(buckled_mob, 50, target=src))
+	if(do_after(buckled_mob, 5 SECONDS, target=src))
 		. = ..()
 	else
 		to_chat(buckled_mob, "<span class='userdanger'>You fail to detach yourself from [src].</span>")

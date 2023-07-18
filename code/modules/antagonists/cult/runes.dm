@@ -547,7 +547,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			to_chat(user, "<span class='warning'>You're already trying to erase [src]!</span>")
 			return COMPONENT_NO_AFTERATTACK
 		user.visible_message("<span class='warning'>[user.name] begins erasing [src]...</span>", "<span class='notice'>You begin erasing [src]...</span>")
-		if(do_after(user, 50, target = src, add_item = I))	//Prevents accidental erasures.
+		if(do_after(user, 5 SECONDS, target = src, add_item = I))	//Prevents accidental erasures.
 			log_game("Summon Narsie rune erased by [key_name(user)] with [I.name]")
 			message_admins("[ADMIN_LOOKUPFLW(user)] erased a Narsie rune with [I.name]")
 			..()

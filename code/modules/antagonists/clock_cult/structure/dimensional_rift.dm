@@ -26,7 +26,7 @@
 			return
 		if(ismob(M))
 			to_chat(M, "<span class='notice'>You begin climbing into the rift.</span>")
-			if(do_after(M, 50, target=src))
+			if(do_after(M, 5 SECONDS, target=src))
 				var/obj/effect/landmark/city_of_cogs/target_spawn = pick(GLOB.city_of_cogs_spawns)
 				var/turf/T = get_turf(target_spawn)
 				do_teleport(M, T, no_effects = TRUE, channel = TELEPORT_CHANNEL_FREE, forced = TRUE)

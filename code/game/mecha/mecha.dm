@@ -985,7 +985,7 @@
 		return COMPONENT_NO_AFTERATTACK
 	visible_message("<span class='notice'>[user] starts to insert an MMI into [name].</span>")
 
-	if(do_after(user, 40, target = src, add_item = mmi_as_oc))
+	if(do_after(user, 4 SECONDS, target = src, add_item = mmi_as_oc))
 		if(!occupant)
 			return mmi_moved_inside(mmi_as_oc, user)
 		else

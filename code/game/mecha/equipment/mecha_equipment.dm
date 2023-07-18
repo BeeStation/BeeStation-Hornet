@@ -52,7 +52,7 @@
 	if(src in user.do_afters)
 		to_chat(user, "<span class='warning'>You're already attaching something to \the [M]!</span>")
 		return FALSE
-	if(!do_after(user, 15, M, add_item = src))
+	if(!do_after(user, 1.5 SECONDS, M, add_item = src))
 		return FALSE
 	if(!can_attach(M))
 		to_chat(user, "<span class='warning'>You are unable to attach [src] to [M]!</span>")

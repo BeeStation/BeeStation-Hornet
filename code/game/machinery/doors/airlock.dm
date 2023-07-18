@@ -353,7 +353,7 @@
 		to_chat(M, "<span class='warning'>You're already attempting to manipulate [src]!</span>")
 		return
 	to_chat(usr, "<span class='brass'>You begin manipulating [src]!</span>")
-	if(do_after(eminence, 20, target=get_turf(eminence), add_item = src))
+	if(do_after(eminence, 2 SECONDS, target=get_turf(eminence), add_item = src))
 		if(welded)
 			to_chat(eminence, "The airlock has been welded shut!")
 		else if(locked)
@@ -921,7 +921,7 @@
 						to_chat(user, "<span class='warning'>You're already attempting to reinforce [src]!</span>")
 						return
 					to_chat(user, "<span class='notice'>You start reinforcing [src].</span>")
-					if(do_after(user, 20, src, add_item = C))
+					if(do_after(user, 2 SECONDS, src, add_item = C))
 						if(!panel_open || !S.use(2))
 							return
 						user.visible_message("<span class='notice'>[user] reinforces \the [src] with iron.</span>",
@@ -938,7 +938,7 @@
 						to_chat(user, "<span class='warning'>You're already attempting to reinforce [src]!</span>")
 						return
 					to_chat(user, "<span class='notice'>You start reinforcing [src].</span>")
-					if(do_after(user, 20, src, add_item = C))
+					if(do_after(user, 2 SECONDS, src, add_item = C))
 						if(!panel_open || !S.use(2))
 							return
 						user.visible_message("<span class='notice'>[user] reinforces \the [src] with plasteel.</span>",
@@ -1095,13 +1095,16 @@
 			to_chat(user, "<span class='warning'>It's welded, it won't budge!</span>")
 			return
 
-		var/time_to_open = 5
+		var/time_to_open = 0.5 SECONDS
 		if(hasPower() && !prying_so_hard && density)
-			time_to_open = 50
+			if(src in user.do_afters)
+				to_chat(user, "<span class='warning'>You're already trying to try open \the [src]!</span>")
+				return
+			time_to_open = 5 SECONDS
 			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
 			prying_so_hard = TRUE
 			to_chat(user, "<span class='warning'>You begin prying open the airlock...</span>")
-			if(do_after(user, time_to_open, src))
+			if(do_after(user, time_to_open, src, add_item = C))
 				if(!open(2) && density)
 					to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
 			prying_so_hard = FALSE
@@ -1384,9 +1387,9 @@
 	user.visible_message("<span class='warning'>[user] begins prying open [src].</span>",\
 						"<span class='noticealien'>You begin digging your claws into [src] with all your might!</span>",\
 						"<span class='warning'>You hear groaning metal...</span>")
-	var/time_to_open = 5
+	var/time_to_open = 0.5 SECONDS
 	if(hasPower())
-		time_to_open = 50 //Powered airlocks take longer to open, and are loud.
+		time_to_open = 5 SECONDS //Powered airlocks take longer to open, and are loud.
 		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1)
 
 

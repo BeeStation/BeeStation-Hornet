@@ -1071,7 +1071,7 @@ GENE SCANNER
 		else
 			to_chat(user, "<span class='info'><font color='green'><b>[D.name]</b>, stage [D.stage]/[D.max_stages].</font></span>")
 
-/obj/item/extrapolator/proc/extrapolate(atom/AM, var/list/diseases = list(), mob/user, isolate = FALSE, timer = 100)
+/obj/item/extrapolator/proc/extrapolate(atom/AM, var/list/diseases = list(), mob/user, isolate = FALSE, timer = 10 SECONDS)
 	var/list/advancediseases = list()
 	var/list/symptoms = list()
 	if(using)
@@ -1103,7 +1103,7 @@ GENE SCANNER
 		symptomholder.Finalize()
 		symptomholder.Refresh()
 		to_chat(user, "<span class='warning'>You begin isolating [chosen].</span>")
-		if(do_after(user, (150 / (scanner.rating + 1)), target = AM, add_item = src))
+		if(do_after(user, (15 SECONDS / (scanner.rating + 1)), target = AM, add_item = src))
 			create_culture(symptomholder, user, AM)
 	else
 		using = TRUE

@@ -126,7 +126,7 @@
 			return TRUE
 		user.visible_message("[user] starts recharging [A] with [src].","<span class='notice'>You start recharging [A] with [src].</span>")
 		while((battery?.charge || C.charge) < maxcharge)
-			if(do_after(user, 10, target = user, add_item = src) && cell.charge)
+			if(do_after(user, 1 SECONDS, target = user, add_item = src) && cell.charge)
 				done_any = TRUE
 				if(battery)
 					battery.adjust_charge(min(cell.charge,250))

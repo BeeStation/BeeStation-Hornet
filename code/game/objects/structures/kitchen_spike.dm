@@ -103,7 +103,7 @@
 				"[user] tries to pull [M] free of [src]!",\
 				"<span class='notice'>[user] is trying to pull you off [src], opening up fresh wounds!</span>",\
 				"<span class='italics'>You hear a squishy wet noise.</span>")
-			if(!do_after(user, 300, target = src))
+			if(!do_after(user, 30 SECONDS, target = src))
 				if(M?.buckled)
 					M.visible_message(\
 					"[user] fails to free [M]!",\
@@ -116,7 +116,7 @@
 			"<span class='notice'>You struggle to break free from [src], exacerbating your wounds! (Stay still for two minutes.)</span>",\
 			"<span class='italics'>You hear a wet squishing noise..</span>")
 			M.adjustBruteLoss(30)
-			if(!do_after(M, 1200, target = src, timed_action_flags = IGNORE_RESTRAINED))
+			if(!do_after(M, 120 SECONDS, target = src, timed_action_flags = IGNORE_RESTRAINED))
 				if(M && M.buckled)
 					to_chat(M, "<span class='warning'>You fail to free yourself!</span>")
 				return

@@ -173,7 +173,7 @@
 			return COMPONENT_NO_AFTERATTACK
 		to_chat(user, "<span class='notice'>You begin to apply [I] to [src]...</span>")
 		var/obj/item/restraints/legcuffs/bola/S = new /obj/item/restraints/legcuffs/bola
-		if(do_after(user, 35, target = src, add_item = S))
+		if(do_after(user, 3.5  SECONDS, target = src, add_item = S))
 			if(M.get_amount() < 6 || !M)
 				return
 			M.use(6)

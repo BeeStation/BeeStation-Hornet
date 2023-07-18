@@ -1249,7 +1249,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 			to_chat(user, "<span class='warning'>You're already inserting your hand [src]!</span>")
 			return
 		to_chat(c_user, "<span class='warning'>You move your hand towards the machine, and begin to hesitate as an extra-bloodied guillotine emerges from inside of it...</span>")
-		if(do_after(c_user, 50, target = src))
+		if(do_after(c_user, 5 SECONDS, target = src))
 			to_chat(c_user, "<span class='userdanger'>Robotic arms shoot out of the machine, remove all your limbs, and suck them in!</span>")
 			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
 			for(var/X in c_user.bodyparts)
@@ -1270,7 +1270,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 			to_chat(user, "<span class='warning'>You're already inserting your hand inside [src]!</span>")
 			return
 		to_chat(c_user, "<span class='warning'>You move your hand towards the machine, and begin to hesitate as a bloodied guillotine emerges from inside of it...</span>")
-		if(do_after(c_user, 50, target = src))
+		if(do_after(c_user, 5 SECONDS, target = src))
 			to_chat(c_user, "<span class='userdanger'>The guillotine drops on your arm, and the machine sucks it in!</span>")
 			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
 			var/which_hand = BODY_ZONE_L_ARM

@@ -16,7 +16,7 @@
 	var/locked = FALSE
 	var/large = TRUE
 	var/wall_mounted = 0 //never solid (You can always pass over it)
-	var/breakout_time = 1200
+	var/breakout_time = 120 SECONDS
 	var/message_cooldown
 	var/can_weld_shut = TRUE
 	var/horizontal = FALSE

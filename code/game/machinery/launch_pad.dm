@@ -257,7 +257,7 @@
 			to_chat(M, "<span class='warning'>You're already attempting to close [src]!</span>")
 			return
 		usr.visible_message("<span class='notice'>[usr] starts closing [src]...</span>", "<span class='notice'>You start closing [src]...</span>")
-		if(do_after(usr, 30, target = usr, add_item = src))
+		if(do_after(usr, 3 SECONDS, target = usr, add_item = src))
 			usr.put_in_hands(briefcase)
 			moveToNullspace() //hides it from suitcase contents
 			closed = TRUE
@@ -299,7 +299,7 @@
 		return
 	add_fingerprint(user)
 	user.visible_message("<span class='notice'>[user] starts setting down [src]...", "You start setting up [pad]...</span>")
-	if(do_after(user, 30, target = user, add_item = src))
+	if(do_after(user, 3 SECONDS, target = user, add_item = src))
 		pad.forceMove(get_turf(src))
 		pad.update_indicator()
 		pad.closed = FALSE

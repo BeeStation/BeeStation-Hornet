@@ -294,7 +294,7 @@
 	else
 		visible_message("<span class='notice'>[src] begins wrapping the wounds of [hurt_spider].</span>","<span class='notice'>You begin wrapping the wounds of [hurt_spider].</span>")
 	is_busy = TRUE
-	if(do_after(src, 20, target = hurt_spider, show_to_target = TRUE))
+	if(do_after(src, 2 SECONDS, target = hurt_spider, show_to_target = TRUE))
 		hurt_spider.heal_overall_damage(20)
 		new /obj/effect/temp_visual/heal(get_turf(hurt_spider), "#80F5FF")
 		visible_message("<span class='notice'>[src] wraps the wounds of [hurt_spider].</span>","<span class='notice'>You wrap the wounds of [hurt_spider].</span>")

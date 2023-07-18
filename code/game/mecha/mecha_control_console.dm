@@ -128,7 +128,7 @@
 	if(src in user.do_afters)
 		to_chat(user, "<span class='warning'>You're already attaching \the [src] to \the [M]!</span>")
 		return COMPONENT_NO_AFTERATTACK
-	if(!do_after(user, 15, M, add_item = src))
+	if(!do_after(user, 1.5 SECONDS, M, add_item = src))
 		return
 	if(!..())
 		return

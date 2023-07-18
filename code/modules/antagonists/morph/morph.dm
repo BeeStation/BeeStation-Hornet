@@ -243,7 +243,7 @@
 		if(L.stat)
 			if(L.stat == DEAD)
 				eat(L)
-			else if(do_after(src, 30, target = L)) //Don't Return after this, it's important that the morph can attack softcrit targets to bring them into hardcrit
+			else if(do_after(src, 3 SECONDS, target = L)) //Don't Return after this, it's important that the morph can attack softcrit targets to bring them into hardcrit
 				eat(L)
 	else if(isitem(target)) //Eat items for later use
 		var/obj/item/I = target

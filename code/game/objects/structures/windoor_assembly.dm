@@ -159,7 +159,7 @@
 					return
 				to_chat(user, "<span class='notice'>You start to reinforce the windoor with plasteel...</span>")
 
-				if(do_after(user,40, target = src, add_item = W))
+				if(do_after(user, 4 SECONDS, target = src, add_item = W))
 					if(!src || secure || P.get_amount() < 2)
 						return
 
@@ -175,7 +175,7 @@
 			else if(istype(W, /obj/item/stack/cable_coil) && anchored)
 				user.visible_message("[user] wires the windoor assembly.", "<span class='notice'>You start to wire the windoor assembly...</span>")
 
-				if(do_after(user, 40, target = src, add_item = W))
+				if(do_after(user, 4 SECONDS, target = src, add_item = W))
 					if(!src || !anchored || src.state != "01")
 						return
 					var/obj/item/stack/cable_coil/CC = W
@@ -217,7 +217,7 @@
 				user.visible_message("[user] installs the electronics into the airlock assembly.",
 					"<span class='notice'>You start to install electronics into the airlock assembly...</span>")
 
-				if(do_after(user, 40, target = src, add_item = W))
+				if(do_after(user, 4 SECONDS, target = src, add_item = W))
 					if(!src || electronics)
 						W.forceMove(drop_location())
 						return
@@ -242,7 +242,7 @@
 					user.visible_message("[user] installs the electronics into the airlock assembly.",
 						"<span class='notice'>You start to install electronics into the airlock assembly...</span>")
 
-					if(do_after(user, 40, target = src, add_item = W))
+					if(do_after(user, 4 SECONDS, target = src, add_item = W))
 						if(!src || electronics)
 							qdel(AE)
 							return

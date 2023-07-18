@@ -294,7 +294,7 @@
 			to_chat(user, "<span class='warning'>You're already using trying to erase [src]!</span>")
 			return COMPONENT_NO_AFTERATTACK
 		SEND_SOUND(user,'sound/items/sheath.ogg')
-		if(do_after(user, 15, target = src, add_item = I))
+		if(do_after(user, 1.5 SECONDS, target = src, add_item = I))
 			to_chat(user, "<span class='clowntext'>It's not within your power to erase the [lowertext(cultist_name)].</span>")
 	else if(istype(I, /obj/item/nullrod))
 		user.say("BEGONE FOUL MAGIKS!!", forced = "nullrod")

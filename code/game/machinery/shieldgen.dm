@@ -164,7 +164,7 @@
 			to_chat(user, "<span class='warning'>You're already attempting to repair [src]!</span>")
 			return
 		to_chat(user, "<span class='notice'>You begin to replace the wires...</span>")
-		if(do_after(user, 30, target = src, add_item = W))
+		if(do_after(user, 3 SECONDS, target = src, add_item = W))
 			if(coil.get_amount() < 1)
 				return
 			coil.use(1)

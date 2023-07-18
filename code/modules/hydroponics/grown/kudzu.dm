@@ -46,7 +46,7 @@
 		to_chat(user, "<span class='warning'>You're already trying to plant kudzu here!</span>")
 		return
 	user.visible_message("<span class='danger'>[user] begins throwing seeds on the ground...</span>")
-	if(do_after(user, 50, target = user.drop_location(), progress = TRUE, add_item = src))
+	if(do_after(user, 5 SECONDS, target = user.drop_location(), progress = TRUE, add_item = src))
 		plant(user)
 		to_chat(user, "<span class='notice'>You plant the kudzu. You monster.</span>")
 

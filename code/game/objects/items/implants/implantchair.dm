@@ -19,7 +19,7 @@
 	var/special = FALSE
 	var/special_name = "special function"
 	var/message_cooldown
-	var/breakout_time = 600
+	var/breakout_time = 60 SECONDS
 
 /obj/machinery/implantchair/Initialize(mapload)
 	. = ..()

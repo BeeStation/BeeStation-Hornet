@@ -251,7 +251,7 @@
 	work_mode = mode
 
 	if(istype(cell))
-		while(do_after(user, 15, target = target, extra_checks = CALLBACK(src, PROC_REF(mode_check)), add_item = src))
+		while(do_after(user, 1.5 SECONDS, target = target, extra_checks = CALLBACK(src, PROC_REF(mode_check)), add_item = src))
 			if(!user?.cell)
 				active = FALSE
 				return
@@ -287,7 +287,7 @@
 		active = FALSE
 	else
 		var/obj/machinery/M = target
-		while(do_after(user, 15, target = M, extra_checks = CALLBACK(src, PROC_REF(mode_check)), add_item = src))
+		while(do_after(user, 1.5 SECONDS, target = M, extra_checks = CALLBACK(src, PROC_REF(mode_check)), add_item = src))
 			if(!user?.cell)
 				active = FALSE
 				return
@@ -315,7 +315,7 @@
 /obj/item/borg/charger/proc/charging_loop(mob/living/silicon/robot/user, atom/target, obj/item/stock_parts/cell/cell)
 	work_mode = mode
 
-	while(do_after(user, 15, target = target, extra_checks = CALLBACK(src, PROC_REF(mode_check)), add_item = src))
+	while(do_after(user, 1.5 SECONDS, target = target, extra_checks = CALLBACK(src, PROC_REF(mode_check)), add_item = src))
 		if(!user?.cell)
 			active = FALSE
 			return

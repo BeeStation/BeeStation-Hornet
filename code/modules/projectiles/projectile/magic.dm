@@ -423,7 +423,7 @@
 	. = ..()
 
 /obj/structure/closet/decay
-	breakout_time = 600
+	breakout_time = 60 SECONDS
 	icon_welded = null
 	material_drop_amount = 0
 	var/magic_icon = "cursed"

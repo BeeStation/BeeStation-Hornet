@@ -36,7 +36,7 @@
 
 	var/escape_in_progress = FALSE
 	var/message_cooldown
-	var/breakout_time = 300
+	var/breakout_time = 30 SECONDS
 	fair_market_price = 10
 	dept_req_for_free = ACCOUNT_MED_BITFLAG
 

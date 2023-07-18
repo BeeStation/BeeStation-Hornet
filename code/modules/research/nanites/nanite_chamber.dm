@@ -14,7 +14,7 @@
 	var/nanite_coeff = 1
 	var/speed_coeff = 1
 	var/locked = FALSE
-	var/breakout_time = 1200
+	var/breakout_time = 120 SECONDS
 	var/scan_level
 	var/busy = FALSE
 	var/busy_icon_state

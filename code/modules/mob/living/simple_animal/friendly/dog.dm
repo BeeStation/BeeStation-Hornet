@@ -280,7 +280,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 			to_chat(user, "<span class='warning'>You're already trying to shave [src]!</span>")
 			return
 		user.visible_message("[user] starts to shave [src] using \the [O].", "<span class='notice'>You start to shave [src] using \the [O]...</span>")
-		if(do_after(user, 50, target = src, show_to_target = TRUE, add_item = O))
+		if(do_after(user, 5 SECONDS, target = src, show_to_target = TRUE, add_item = O))
 			user.visible_message("[user] shaves [src]'s hair using \the [O].")
 			playsound(loc, 'sound/items/welder2.ogg', 20, 1)
 			shaved = TRUE

@@ -26,7 +26,7 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 	var/locked = FALSE
 	dir = SOUTH
 	var/message_cooldown
-	var/breakout_time = 600
+	var/breakout_time = 60 SECONDS
 
 /obj/structure/bodycontainer/Initialize(mapload)
 	. = ..()

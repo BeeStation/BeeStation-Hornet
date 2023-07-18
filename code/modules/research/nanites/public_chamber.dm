@@ -13,7 +13,7 @@
 
 	var/cloud_id = 1
 	var/locked = FALSE
-	var/breakout_time = 1200
+	var/breakout_time = 120 SECONDS
 	var/busy = FALSE
 	var/busy_icon_state
 	var/message_cooldown = 0

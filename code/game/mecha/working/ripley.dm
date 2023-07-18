@@ -230,7 +230,7 @@
 		to_chat(user, "<span class='warning'>You're already leaning on the back of \the [O]!</span>")
 		return COMPONENT_NO_AFTERATTACK
 	to_chat(user, "<span class='notice'>You lean on the back of [O] and start pushing so it falls out of [src].</span>")
-	if(do_after(user, 300, target = O))
+	if(do_after(user, 30 SECONDS, target = O))
 		if(!user || user.stat != CONSCIOUS || user.loc != src || O.loc != src )
 			return
 		to_chat(user, "<span class='notice'>You successfully pushed [O] out of [src]!</span>")

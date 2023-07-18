@@ -141,7 +141,7 @@
 					if(C.get_amount() >= 5)
 						playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 						to_chat(user, "<span class='notice'>You start to add cables to the frame...</span>")
-						if(do_after(user, 20, target = src, add_item = P) && state == SCREWED_CORE && C.use(5))
+						if(do_after(user, 2 SECONDS, target = src, add_item = P) && state == SCREWED_CORE && C.use(5))
 							to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
 							state = CABLED_CORE
 							update_icon()
@@ -165,7 +165,7 @@
 					if(G.get_amount() >= 2)
 						playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 						to_chat(user, "<span class='notice'>You start to put in the glass panel...</span>")
-						if(do_after(user, 20, target = src, add_item = P) && state == CABLED_CORE && G.use(2))
+						if(do_after(user, 2 SECONDS, target = src, add_item = P) && state == CABLED_CORE && G.use(2))
 							to_chat(user, "<span class='notice'>You put in the glass panel.</span>")
 							state = GLASS_CORE
 							update_icon()

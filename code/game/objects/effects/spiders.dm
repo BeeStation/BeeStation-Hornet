@@ -335,7 +335,7 @@
 	if(src in user.do_afters)
 		to_chat(user, "<span class='warning'>You're already attempting to break out of \the [src]!</span>")
 		return
-	var/breakout_time = 600
+	var/breakout_time = 60 SECONDS
 	user.changeNext_move(CLICK_CD_BREAKOUT)
 	user.last_special = world.time + CLICK_CD_BREAKOUT
 	to_chat(user, "<span class='notice'>You struggle against the tight bonds... (This will take about [DisplayTimeText(breakout_time)].)</span>")

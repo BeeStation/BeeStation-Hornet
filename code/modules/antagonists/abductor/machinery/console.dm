@@ -55,7 +55,7 @@
 			to_chat(user, "<span class='warning'>You're already trying your best here!</span>")
 			return
 		to_chat(user, "<span class='warning'>You start mashing alien buttons at random!</span>")
-		if(do_after(user,100, target = src))
+		if(do_after(user, 10 SECONDS, target = src))
 			TeleporterSend()
 
 /obj/machinery/abductor/console/ui_status(mob/user)

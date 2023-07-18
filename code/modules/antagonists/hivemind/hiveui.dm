@@ -55,7 +55,7 @@
 			to_chat(ourhive, "<span class='notice'>We don't have any tracking charges!</span>")
 			return
 		hivehost.searchcharge -= 1
-		if(!do_after(ourhive, 5, ourhive, timed_action_flags = IGNORE_HELD_ITEM))
+		if(!do_after(ourhive, 0.5 SECONDS, ourhive, timed_action_flags = IGNORE_HELD_ITEM))
 			to_chat(ourhive, "<span class='notice'>Our concentration has been broken!</span>")
 		else
 			for(var/datum/antagonist/hivemind/hivehosts in GLOB.hivehosts)

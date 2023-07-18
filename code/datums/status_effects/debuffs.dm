@@ -159,7 +159,7 @@
 	if(usr != owner)
 		return
 	to_chat(owner, "<span class='notice'>You attempt to remove the durathread strand from around your neck.</span>")
-	if(do_after(owner, 35, target = owner, timed_action_flags = IGNORE_HELD_ITEM))
+	if(do_after(owner, 3.5 SECONDS, target = owner, timed_action_flags = IGNORE_HELD_ITEM))
 		if(isliving(owner))
 			var/mob/living/L = owner
 			to_chat(owner, "<span class='notice'>You successfuly remove the durathread strand.</span>")
@@ -214,7 +214,7 @@
 		if(istype(syringestatus, /datum/status_effect/syringe))
 			var/obj/item/reagent_containers/syringe/syringe = syringestatus.syringe
 			to_chat(owner, "<span class='notice'>You begin carefully pulling the syringe out.</span>")
-			if(do_after(C, 20, target = owner, timed_action_flags = IGNORE_HELD_ITEM, add_item = syringe))
+			if(do_after(C, 2 SECONDS, target = owner, timed_action_flags = IGNORE_HELD_ITEM, add_item = syringe))
 				to_chat(C, "<span class='notice'>You succesfuly remove the syringe.</span>")
 				syringe.forceMove(C.loc)
 				C.put_in_hands(syringe)

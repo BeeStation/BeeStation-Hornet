@@ -13,7 +13,7 @@
 	var/flash = "Awaiting subject."
 	var/obj/machinery/abductor/console/console
 	var/message_cooldown = 0
-	var/breakout_time = 450
+	var/breakout_time = 45 SECONDS
 
 /obj/machinery/abductor/experiment/MouseDrop_T(mob/target, mob/user)
 	var/mob/living/L = user

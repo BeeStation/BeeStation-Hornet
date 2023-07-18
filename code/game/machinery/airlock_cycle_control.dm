@@ -487,7 +487,7 @@
 					return
 				user.visible_message("[user.name] wires the airlock controller.", \
 									"<span class='notice'>You start wiring the airlock controller...</span>")
-				if (do_after(user, 20, target = src, add_item = cable))
+				if (do_after(user, 2 SECONDS, target = src, add_item = cable))
 					if (cable.get_amount() >= 5 && buildstage == 1)
 						cable.use(5)
 						to_chat(user, "<span class='notice'>You wire the airlock controller.</span>")

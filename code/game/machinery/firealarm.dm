@@ -133,7 +133,7 @@
 		to_chat(M, "<span class='warning'>You're already attempting to manipulate [src]!</span>")
 		return
 	to_chat(usr, "<span class='brass'>You begin manipulating [src]!</span>")
-	if(do_after(eminence, 20, target=get_turf(eminence), add_item = src))
+	if(do_after(eminence, 2 SECONDS, target=get_turf(eminence), add_item = src))
 		attack_hand(eminence)
 
 /obj/machinery/firealarm/temperature_expose(datum/gas_mixture/air, temperature, volume)

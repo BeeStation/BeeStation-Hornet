@@ -54,7 +54,7 @@
 	/// Cooldown for occupant breakout messages via relaymove()
 	var/message_cooldown
 	/// How long it takes to break out of the SSU.
-	var/breakout_time = 300
+	var/breakout_time = 30 SECONDS
 	/// How fast it charges cells in a suit
 	var/charge_rate = 250
 
@@ -268,7 +268,7 @@
 	else
 		target.visible_message("<span class='warning'>[user] starts shoving [target] into [src]!</span>", "<span class='userdanger'>[user] starts shoving you into [src]!</span>")
 
-	if(do_after(user, 30, target, show_to_target = TRUE))
+	if(do_after(user, 3 SECONDS, target, show_to_target = TRUE))
 		if(occupant || helmet || suit || storage)
 			return
 		if(target == user)
@@ -400,7 +400,7 @@
 		if(!state_open)
 			visible_message("<span class='notice'>[user] starts prying open the doors of [src]!</span>", "<span class='notice'>You start prying open the doors of [src]!</span>")
 			I.play_tool_sound(src, 50)
-			if(do_after(user, 20, target=src))
+			if(do_after(user, 2 SECONDS, target=src))
 				playsound(src, 'sound/effects/bin_open.ogg', 50, TRUE)
 				open_machine(0)
 				return

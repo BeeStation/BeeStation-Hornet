@@ -91,7 +91,7 @@
 	if(src in user.do_afters)
 		to_chat(user, "<span class='warning'>You're already re-shaping \the [src]!</span>")
 		return
-	if(!do_after(user, 10, src, progress = TRUE, add_item = crayon))
+	if(!do_after(user, 1 SECONDS, src, progress = TRUE, add_item = crayon))
 		return
 	user.visible_message("<span class='notice'>[user] gives [src] a new look.</span>", "<span class='notice'>Voila! You give [src] a new look.</span>")
 	crayon.use_charges(1)

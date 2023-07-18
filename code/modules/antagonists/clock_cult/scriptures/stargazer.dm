@@ -108,7 +108,7 @@
 		to_chat(user, "<span class='brass'>[I] has already been enhanced!</span>")
 		return
 	to_chat(user, "<span class='brass'>You begin placing [I] onto [src].</span>")
-	if(do_after(user, 60, target=I))
+	if(do_after(user, 6 SECONDS, target=I))
 		if(cooldowntime > world.time)
 			to_chat(user, "<span class='brass'>[src] is still warming up, it will be ready in [DisplayTimeText(cooldowntime - world.time)].</span>")
 			return

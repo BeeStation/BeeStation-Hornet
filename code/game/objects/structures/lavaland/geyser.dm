@@ -42,7 +42,7 @@
 		to_chat(user, "<span class='warning'>You're already plunging [src]!</span>")
 		return
 	to_chat(user, "<span class='notice'>You start vigorously plunging [src]!")
-	if(do_after(user, 50*P.plunge_mod, target = src, add_item = src) && !activated)
+	if(do_after(user, 5 SECONDS * P.plunge_mod, target = src, add_item = src) && !activated)
 		start_chemming()
 
 /obj/structure/geyser/random

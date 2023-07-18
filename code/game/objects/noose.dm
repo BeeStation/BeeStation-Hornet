@@ -73,7 +73,7 @@
 				return
 			M.visible_message("<span class='warning'>[M] struggles to untie the noose over their neck!</span>")
 			to_chat(M,"<span class='notice'>You struggle to untie the noose over your neck... (Stay still for 15 seconds.)</span>")
-			if(!do_after(M, 150, target = src, add_item = src))
+			if(!do_after(M, 15 SECONDS, target = src, add_item = src))
 				if(M && M.buckled)
 					to_chat(M, "<span class='warning'>You fail to untie yourself!</span>")
 				return

@@ -73,7 +73,7 @@
 		user.visible_message("<span class='danger'>\The [user] starts cutting through \the [src] with \the [W].</span>",\
 		"<span class='danger'>You start cutting through \the [src] with \the [W].</span>")
 
-		if(do_after(user, CUT_TIME*W.toolspeed, target = src, add_item = W))
+		if(do_after(user, CUT_TIME * W.toolspeed, target = src, add_item = W))
 			if(current_stage == hole_size)
 				switch(++hole_size)
 					if(MEDIUM_HOLE)

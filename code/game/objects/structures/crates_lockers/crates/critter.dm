@@ -4,7 +4,7 @@
 	icon_state = "critter_crate"
 	horizontal = FALSE
 	allow_objects = FALSE
-	breakout_time = 600
+	breakout_time = 60 SECONDS
 	material_drop = /obj/item/stack/sheet/wood
 	material_drop_amount = 4
 	delivery_icon = "deliverybox"

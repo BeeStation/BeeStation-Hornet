@@ -39,7 +39,7 @@
 			"You begin to load a surgery protocol from \the [O]...",
 			"You hear the chatter of a floppy drive.")
 		var/obj/item/disk/surgery/D = O
-		if(do_after(user, 10, target = src, add_item = O))
+		if(do_after(user, 1 SECONDS, target = src, add_item = O))
 			advanced_surgeries |= D.surgeries
 		return TRUE
 	return ..()

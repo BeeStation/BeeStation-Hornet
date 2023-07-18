@@ -860,7 +860,7 @@ RLD
 		if(P.anchored)
 			to_chat(user, "<span class='warning'>The [P.name] needs to be unanchored!</span>")
 			return
-		if(do_after(user, 20, target = P, add_item = src))
+		if(do_after(user, 2 SECONDS, target = P, add_item = src))
 			P.deconstruct() //Let's not substract matter
 			playsound(get_turf(src), 'sound/machines/click.ogg', 50, TRUE) //this is just such a great sound effect
 	else

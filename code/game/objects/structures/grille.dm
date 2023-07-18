@@ -183,7 +183,7 @@
 				to_chat(user, "<span class='warning'>There is already a window there!</span>")
 				return
 			to_chat(user, "<span class='notice'>You start placing the window...</span>")
-			if(do_after(user,20, target = src, add_item = W))
+			if(do_after(user, 2 SECONDS, target = src, add_item = W))
 				if(!src.loc || !anchored) //Grille broken or unanchored while waiting
 					return
 				for(var/obj/structure/window/WINDOW in loc) //Another window already installed on grille

@@ -244,7 +244,7 @@
 		to_chat(user, "<span class='warning'>You're already trying to prepare [target] for transport!</span>")
 		return
 	to_chat(user, "<span class='notice'>You begin preparing [target] for transport...</span>")
-	if(do_after(user, 100, target = target, show_to_target = TRUE, add_item = src))
+	if(do_after(user, 10 SECONDS, target = target, show_to_target = TRUE, add_item = src))
 		marked = target
 		to_chat(user, "<span class='notice'>You finish preparing [target] for transport.</span>")
 
@@ -785,7 +785,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			to_chat(user, "<span class='warning'>You're already adding something to [src]!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start adding [P] to [src]...</span>")
-		if(do_after(user, 50, target = src, add_item = I))
+		if(do_after(user, 5 SECONDS, target = src, add_item = I))
 			P.use(1)
 			new /obj/structure/table/abductor(src.loc)
 			qdel(src)
@@ -799,7 +799,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			to_chat(user, "<span class='warning'>You're already adding something to [src]!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start adding [P] to [src]...</span>")
-		if(do_after(user, 50, target = src, add_item = P))
+		if(do_after(user, 5 SECONDS, target = src, add_item = P))
 			P.use(1)
 			new /obj/structure/table/optable/abductor(src.loc)
 			qdel(src)

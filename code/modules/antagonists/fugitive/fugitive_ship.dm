@@ -15,7 +15,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/locked = FALSE
 	var/message_cooldown
-	var/breakout_time = 600
+	var/breakout_time = 60 SECONDS
 
 /obj/machinery/fugitive_capture/power_change()
 	..()

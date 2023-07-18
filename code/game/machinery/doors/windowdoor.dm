@@ -319,10 +319,16 @@
 			to_chat(user, "<span class='warning'>The windoor's motors resist your efforts to force it!</span>")
 			return
 		else if(!hasPower())
+			if(src in user.do_afters)
+				to_chat(user, "<span class='warning'>You're already trying to force open [src]!</span>")
+				return
 			to_chat(user, "<span class='warning'>You begin forcing open \the [src], the motors don't resist...</span>")
 			if(!crowbar.use_tool(src, user, 1 SECONDS))
 				return
 		else
+			if(src in user.do_afters)
+				to_chat(user, "<span class='warning'>You're already trying to force open [src]!</span>")
+				return
 			to_chat(user, "<span class='warning'>You begin forcing open \the [src]...</span>")
 			if(!crowbar.use_tool(src, user, 5 SECONDS))
 				return

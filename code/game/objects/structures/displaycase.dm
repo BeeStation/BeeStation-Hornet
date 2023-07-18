@@ -186,7 +186,7 @@
 			to_chat(user, "<span class='warning'>You need two glass sheets to fix the case!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start fixing [src]...</span>")
-		if(do_after(user, 20, target = src, add_item = W))
+		if(do_after(user, 2 SECONDS, target = src, add_item = W))
 			G.use(2)
 			broken = FALSE
 			obj_integrity = max_integrity
@@ -246,14 +246,14 @@
 	else if(istype(I, /obj/item/electronics/airlock))
 		to_chat(user, "<span class='notice'>You start installing the electronics into [src]...</span>")
 		I.play_tool_sound(src)
-		if(do_after(user, 30, target = src, add_item = I) && user.transferItemToLoc(I,src))
+		if(do_after(user, 3 SECONDS, target = src, add_item = I) && user.transferItemToLoc(I,src))
 			electronics = I
 			to_chat(user, "<span class='notice'>You install the airlock electronics.</span>")
 
 	else if(istype(I, /obj/item/stock_parts/manipulator))
 		var/obj/item/stock_parts/manipulator/M = I
 		to_chat(user, "<span class='notice'>You start adding [M] to [src]...</span>")
-		if(do_after(user, 20, target = src, add_item = I))
+		if(do_after(user, 2 SECONDS, target = src, add_item = I))
 			var/obj/structure/displaycase/forsale/sale = new(src.loc)
 			if(electronics)
 				electronics.forceMove(sale)
@@ -271,7 +271,7 @@
 			to_chat(user, "<span class='warning'>You need ten glass sheets to do this!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start adding [G] to [src]...</span>")
-		if(do_after(user, 20, target = src, add_item = I))
+		if(do_after(user, 2 SECONDS, target = src, add_item = I))
 			G.use(10)
 			var/obj/structure/displaycase/display = new(src.loc)
 			if(electronics)
@@ -562,7 +562,7 @@
 	. = ..()
 	if(obj_integrity <= (integrity_failure *  max_integrity))
 		to_chat(user, "<span class='notice'>You start recalibrating [src]'s hover field...</span>")
-		if(do_after(user, 20, target = src, add_item = I))
+		if(do_after(user, 2 SECONDS, target = src, add_item = I))
 			broken = FALSE
 			obj_integrity = max_integrity
 			update_icon()

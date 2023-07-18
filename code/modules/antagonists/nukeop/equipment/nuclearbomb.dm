@@ -133,7 +133,7 @@
 			if(istype(I, /obj/item/nuke_core_container))
 				var/obj/item/nuke_core_container/core_box = I
 				to_chat(user, "<span class='notice'>You start loading the plutonium core into [core_box]...</span>")
-				if(do_after(user,50,target=src, add_item = I))
+				if(do_after(user, 5 SECONDS, target=src, add_item = I))
 					if(core_box.load(core, user))
 						to_chat(user, "<span class='notice'>You load the plutonium core into [core_box].</span>")
 						deconstruction_state = NUKESTATE_CORE_REMOVED

@@ -54,7 +54,7 @@
 			to_chat(user, "<span class='warning'>You're already trying to add [W] to [src]!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start adding [W] to [src]...</span>")
-		if(do_after(user, 20, target = src, add_item = W))
+		if(do_after(user, 2 SECONDS, target = src, add_item = W))
 			var/brass_floor = FALSE
 			if(istype(T, /turf/open/floor/clockwork)) //if the floor is already brass, costs less to make(conservation of masssssss)
 				brass_floor = TRUE
