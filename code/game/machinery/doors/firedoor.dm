@@ -196,7 +196,7 @@
 		update_icon()
 
 
-/obj/machinery/door/firedoor/try_to_crowbar(obj/item/I, mob/user)
+/obj/machinery/door/firedoor/try_to_crowbar(obj/item/crowbar, mob/user)
 	if(welded || operating)
 		return
 
@@ -207,12 +207,12 @@
 				access_log.Remove(access_log[1])
 			to_chat(user, "<span class='warning'>You begin forcing open \the [src], the motors whine...</span>")
 			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
-			if(!do_after(user, 10 SECONDS, src))
+			if(!crowbar.use_tool(src, user, 10 SECONDS))
 				return
 		else
 			to_chat(user, "<span class='notice'>You begin forcing open \the [src], the motors don't resist...</span>")
 			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
-			if(!do_after(user, 1 SECONDS, TRUE, src))
+			if(!crowbar.use_tool(src, user, 1 SECONDS))
 				return
 		if(!check_safety(user))
 			log_game("[key_name(user)] has opened a firelock with a pressure difference or a fire alarm at [AREACOORD(loc)], using a crowbar")
