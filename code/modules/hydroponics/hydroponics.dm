@@ -46,6 +46,12 @@
 	maxwater = tmp_capacity * 50 // Up to 300
 	maxnutri = tmp_capacity * 5 // Up to 30
 
+/obj/machinery/hydroponics/constructable/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
+	if(self_sustaining)
+		to_chat(user, "<span class='warning'>There's no reason to upgrade the parts in [src], it's already self-sustaining!</span>")
+		return FALSE
+	return ..()
+
 /obj/machinery/hydroponics/constructable/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
