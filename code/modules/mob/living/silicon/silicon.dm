@@ -225,7 +225,7 @@
 	return
 
 
-/mob/living/silicon/proc/statelaws(force = 0)
+/mob/living/silicon/proc/statelaws(force = FALSE)
 	var/mob/living/silicon/S = usr
 	var/total_laws_count = 0
 	//laws_sanity_check()
@@ -280,15 +280,16 @@
 					total_laws_count++
 					number++
 
-	var/static/regex/dont_state_regex = regex("Do(?:n'?t| not) state", "i")
-	var/list/bad_idea_laws = list()
-	for(var/law in laws_to_state)
-		if(findtext(law, dont_state_regex))
-			bad_idea_laws |= law
-	if(length(bad_idea_laws))
-		var/all_bad_idea_laws = english_list(bad_idea_laws)
-		if(tgui_alert(usr, "Are you sure you want to state these laws? Stating some of your selected laws may be a bad idea!:\n[all_bad_idea_laws]", buttons = list("Yes", "No")) != "Yes")
-			return
+	if(!force)
+		var/static/regex/dont_state_regex = regex("Do(?:n'?t| not) state", "i")
+		var/list/bad_idea_laws = list()
+		for(var/law in laws_to_state)
+			if(findtext(law, dont_state_regex))
+				bad_idea_laws |= law
+		if(length(bad_idea_laws))
+			var/all_bad_idea_laws = english_list(bad_idea_laws)
+			if(tgui_alert(usr, "Are you sure you want to state these laws? Stating some of your selected laws may be a bad idea!:\n[all_bad_idea_laws]", buttons = list("Yes", "No")) != "Yes")
+				return
 
 	if(currently_stating_laws)
 		return
