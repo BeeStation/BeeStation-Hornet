@@ -205,6 +205,11 @@
 	plane = RAD_TEXT_PLANE
 	render_relay_plane = RENDER_PLANE_NON_GAME
 
+/atom/movable/screen/plane_master/text_effect
+	name = "text effect plane"
+	plane = TEXT_EFFECT_PLANE
+	render_relay_plane = RENDER_PLANE_NON_GAME
+
 /atom/movable/screen/plane_master/balloon_chat
 	name = "balloon alert plane"
 	plane = BALLOON_CHAT_PLANE

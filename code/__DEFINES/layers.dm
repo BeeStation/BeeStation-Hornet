@@ -95,6 +95,7 @@
 #define BLACKNESS_PLANE 0 //To keep from conflicts with SEE_BLACKNESS internals
 
 #define AREA_PLANE 60
+#define TEXT_EFFECT_PLANE 65
 #define MASSIVE_OBJ_PLANE 70
 #define GHOST_PLANE 80
 #define POINT_PLANE 90
