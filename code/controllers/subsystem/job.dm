@@ -669,9 +669,10 @@ SUBSYSTEM_DEF(job)
 	M.forceMove(get_turf(src))
 
 /obj/structure/chair/JoinPlayerHere(mob/M, buckle)
-	// Placing a mob in a chair will attempt to buckle it
+	// Placing a mob in a chair will attempt to buckle it if buckle is set
 	..()
-	buckle_mob(M, FALSE, FALSE)
+	if (buckle)
+		buckle_mob(M, TRUE, FALSE)
 
 /datum/controller/subsystem/job/proc/SendToLateJoin(mob/M, buckle = TRUE)
 	var/atom/destination
