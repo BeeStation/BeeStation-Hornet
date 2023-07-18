@@ -24,7 +24,7 @@ GLOBAL_VAR_INIT(looc_allowed, TRUE)
 		to_chat(src, "<span class='danger'>You have OOC (and therefore LOOC) muted.</span>")
 		return
 
-	if(is_banned_from(mob.ckey, "OOC"))
+	if(is_banned_from(mob.ckey, BAN_OOC))
 		to_chat(src, "<span class='danger'>You have been banned from OOC and LOOC.</span>")
 		return
 
@@ -41,7 +41,7 @@ GLOBAL_VAR_INIT(looc_allowed, TRUE)
 		if(handle_spam_prevention(msg, MUTE_OOC))
 			return
 		if(findtext(msg, "byond://"))
-			to_chat(src, "<B>Advertising other servers is not allowed.</B>")
+			to_chat(src, "<span class='bold danger'>Advertising other servers is not allowed.</span>")
 			log_admin("[key_name(src)] has attempted to advertise in LOOC: [msg]")
 			return
 		if(mob.stat)
@@ -60,26 +60,21 @@ GLOBAL_VAR_INIT(looc_allowed, TRUE)
 
 	// Search everything in the view for anything that might be a mob, or contain a mob.
 	var/list/client/targets = list()
-	for(var/atom/movable/thingymajig in view(get_turf(mob)))
-		var/list/mob/mobs_here = list()
-		if(ismob(thingymajig))
-			LAZYADD(mobs_here, thingymajig)
-		for(var/mob/inner_mob_target in thingymajig.GetAllContents())
-			LAZYOR(mobs_here, inner_mob_target)
-		for(var/mob/target as() in mobs_here)
-			var/client/client = target.client
-			if(!client || !(client.prefs.toggles & CHAT_OOC))
-				continue
+	var/list/turf/in_view = list()
+	for(var/turf/viewed_turf in view(get_turf(mob)))
+		in_view[viewed_turf] = TRUE
+	for(var/client/client in GLOB.clients)
+		if(!client.mob || !(client.prefs.toggles & CHAT_OOC) || (client in GLOB.admins))
+			continue
+		if(in_view[get_turf(client.mob)])
 			targets |= client
-			// Admins get handled on their own later.
-			if(!(client in GLOB.admins))
-				to_chat(client, "<span class='looc'><span class='prefix'>LOOC:</span> <EM><span class='name'>[mob.name]</span>:</EM> <span class='message'>[msg]</span></span>")
+			to_chat(client, "<span class='looc'><span class='prefix'>LOOC:</span> <EM><span class='name'>[mob.name]</span>:</EM> <span class='message'>[msg]</span></span>", avoid_highlighting = (client == src))
 
 	for(var/client/client in GLOB.admins)
 		if(!(client.prefs.toggles & CHAT_OOC))
 			continue
 		var/prefix = "[(client in targets) ? "" : "(R)"]LOOC"
-		to_chat(client, "<span class='looc'><span class='prefix'>[prefix]:</span> <EM>[ADMIN_LOOKUPFLW(client)]:</EM> <span class='message'>[msg]</span></span>")
+		to_chat(client, "<span class='looc'><span class='prefix'>[prefix]:</span> <EM>[ADMIN_LOOKUPFLW(client)]:</EM> <span class='message'>[msg]</span></span>", avoid_highlighting = (client == src))
 
 /proc/log_looc(text)
 	if (CONFIG_GET(flag/log_ooc))
