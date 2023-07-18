@@ -54,6 +54,10 @@
 			playsound(src, 'sound/machines/synth_no.ogg', 50, TRUE, frequency = sound_freq)
 		last_stasis_sound = _running
 
+/obj/machinery/stasis/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
+	to_chat(user, "<span class='warning'>There's no reason to upgrade the parts in [src], it'd just be a waste!</span>")
+	return FALSE
+
 /obj/machinery/stasis/AltClick(mob/user)
 	if(world.time >= stasis_can_toggle && user.canUseTopic(src, !issilicon(user)))
 		stasis_enabled = !stasis_enabled
