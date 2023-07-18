@@ -1,7 +1,8 @@
 /datum/ai_behavior/find_potential_targets
 	action_cooldown = 2 SECONDS
+	/// How far can we see stuff?
 	var/vision_range = 9
-	///List of potentially dangerous objs
+	/// Static typecache list of potentially dangerous objs
 	var/static/list/hostile_machines = typecacheof(list(/obj/machinery/porta_turret, /obj/mecha))
 
 /datum/ai_behavior/find_potential_targets/perform(delta_time, datum/ai_controller/controller, target_key, targetting_datum_key, hiding_location_key)
