@@ -386,15 +386,12 @@
 			to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
 			return
 		//repeatedly repairs until the cyborg is fully repaired
-		var/speed_mult = 1
-		while(getBruteLoss() && W.tool_start_check(user, amount=0) && W.use_tool(src, user, 3 SECONDS * speed_mult))
+		while(getBruteLoss() && W.tool_start_check(user, amount=0) && W.use_tool(src, user, 3 SECONDS))
 			W.use(1) //use one fuel for each repair step
 			adjustBruteLoss(-10)
 			updatehealth()
 			add_fingerprint(user)
 			user.visible_message("[user] has fixed some of the dents on [src].", "<span class='notice'>You fix some of the dents on [src].</span>")
-			if(speed_mult >= 0.25)
-				speed_mult -= 0.15
 		return TRUE
 
 	else if(istype(W, /obj/item/stack/cable_coil) && wiresexposed)
@@ -406,16 +403,13 @@
 			to_chat(user, "<span class='warning'>You're already trying to fix [src]'s burnt wires!</span>")
 			return
 		var/obj/item/stack/cable_coil/coil = W
-		var/speed_mult = 1
-		while((getFireLoss() || getToxLoss()) && do_after(user, 3 SECONDS * speed_mult, target = src, show_to_target = TRUE, add_item = coil))
+		while((getFireLoss() || getToxLoss()) && do_after(user, 3 SECONDS, target = src, show_to_target = TRUE, add_item = coil))
 			if(coil.use(1))
 				adjustFireLoss(-20)
 				adjustToxLoss(-20)
 				updatehealth()
 				add_fingerprint(user)
 				user.visible_message("[user] has fixed some of the burnt wires on [src].", "<span class='notice'>You fix some of the burnt wires on [src].</span>")
-				if(speed_mult >= 0.25)
-					speed_mult -= 0.15
 			else
 				to_chat(user, "<span class='warning'>You need more cable to repair [src]!</span>")
 
