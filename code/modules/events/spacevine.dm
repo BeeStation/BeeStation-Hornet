@@ -426,6 +426,8 @@
 	if(production != null && production <= 10) //Prevents runtime in case production is set to 11.
 		spread_cap *= (11 - production) / 5 //Best production speed of 1 doubles spread_cap to 60 while worst speed of 10 lowers it to 6. Even distribution.
 		spread_multiplier /= (11 - production) / 5
+		if(spread_multiplier <= 0) // Division by 0 protection
+			spread_multiplier = 1
 
 /datum/spacevine_controller/vv_get_dropdown()
 	. = ..()

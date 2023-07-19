@@ -246,6 +246,8 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		return
 	//Once every 15 seconsd
 	// 1,920 seconds (about 32 minutes per game)
+	if(field_delay <= 0) //Division by 0 protection
+		field_delay = 1
 	if(process_num % (field_delay) == 0)
 		for(var/obj/effect/death_wall/wall as() in death_wall)
 			wall.decrease_size()
