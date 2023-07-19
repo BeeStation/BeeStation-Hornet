@@ -672,7 +672,7 @@ SUBSYSTEM_DEF(job)
 	// Placing a mob in a chair will attempt to buckle it if buckle is set
 	..()
 	if (buckle)
-		buckle_mob(M, TRUE, FALSE)
+		buckle_mob(M, FALSE, FALSE)
 
 /datum/controller/subsystem/job/proc/SendToLateJoin(mob/M, buckle = TRUE)
 	var/atom/destination
