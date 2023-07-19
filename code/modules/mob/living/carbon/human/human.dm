@@ -30,7 +30,6 @@
 	. = ..()
 
 	AddComponent(/datum/component/personal_crafting)
-	AddComponent(/datum/component/udder)
 	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(clean_blood))
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
