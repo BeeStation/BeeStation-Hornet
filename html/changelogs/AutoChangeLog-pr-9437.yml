@@ -1,0 +1,5 @@
+author: HowToLoLu
+delete-after: true
+changes:
+  - bugfix: You can no longer get stuck in the lobby upon latejoining if someone unbuckled
+      and stayed on top of a seat.
