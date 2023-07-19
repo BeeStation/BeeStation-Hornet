@@ -75,10 +75,7 @@
 		add_overlay("cell-o1")
 
 /obj/item/stock_parts/cell/proc/percent()		// return % charge of cell
-	var/current_maxcharge = maxcharge
-	if(current_maxcharge <= 1) //Division by 0 protection
-		current_maxcharge = 1
-	return 100 * charge / current_maxcharge
+	return current_maxcharge ? 100 * charge / current_maxcharge : 0 //Division by 0 protection
 
 // use power from a cell
 /obj/item/stock_parts/cell/use(amount)
