@@ -54,7 +54,7 @@
 
 	playsound(H.loc, butcher_sound, 50, TRUE, -1)
 	var/item_force = source.force
-	if(item_force <= 1) //Division by 0 protection
+	if(!item_force) //Division by 0 protection
 		item_force = 1
 	if(do_after(user, CLAMP(500 / item_force, 30, 100), H) && H.Adjacent(source))
 		if(H.has_status_effect(/datum/status_effect/neck_slice))
