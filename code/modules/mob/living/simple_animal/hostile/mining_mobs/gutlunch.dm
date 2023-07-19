@@ -44,7 +44,7 @@
 /mob/living/simple_animal/hostile/asteroid/gutlunch/Initialize(mapload)
 	. = ..()
 	if(wanted_objects.len)
-		AddComponent(/datum/component/udder, /obj/item/udder/gutlunch, /mob.proc/regenerate_icons, /mob.proc/regenerate_icons)
+		AddComponent(/datum/component/udder, /obj/item/udder/gutlunch, CALLBACK(src, PROC_REF(regenerate_icons)), CALLBACK(src, PROC_REF(regenerate_icons)))
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/CanAttack(atom/the_target) // Gutlunch-specific version of CanAttack to handle stupid stat_exclusive = true crap so we don't have to do it for literally every single simple_animal/hostile except the two that spawn in lavaland
 	if(isturf(the_target) || !the_target || the_target.type == /atom/movable/lighting_object) // bail out on invalids

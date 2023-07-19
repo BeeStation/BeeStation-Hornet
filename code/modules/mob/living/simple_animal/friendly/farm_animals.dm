@@ -126,10 +126,9 @@
 
 	do_footstep = TRUE
 
-/*
 /mob/living/simple_animal/cow/Initialize(mapload)
+	AddComponent(/datum/component/udder)
 	. = ..()
-*/
 
 /mob/living/simple_animal/cow/attack_hand(mob/living/carbon/M)
 	if(!stat && M.a_intent == INTENT_DISARM && icon_state != icon_dead)
