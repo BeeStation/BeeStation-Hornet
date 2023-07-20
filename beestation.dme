@@ -3714,6 +3714,7 @@
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\ruin_generator\ruin_events\_ruin_event.dm"
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\ruin_generator\ruin_events\asteriod_station.dm"
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\ruin_generator\ruin_events\meteor_storm.dm"
+#include "code\modules\shuttle\super_cruise\shuttle_components\gravity_magnet.dm"
 #include "code\modules\shuttle\super_cruise\shuttle_components\plasma_refiner.dm"
 #include "code\modules\shuttle\super_cruise\shuttle_components\shuttle_console.dm"
 #include "code\modules\shuttle\super_cruise\shuttle_components\shuttle_docking.dm"

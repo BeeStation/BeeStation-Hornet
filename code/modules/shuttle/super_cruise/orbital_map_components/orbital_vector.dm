@@ -37,6 +37,9 @@
 	y *= scalar_amount
 	return src
 
+/datum/orbital_vector/proc/Copy()
+	return new /datum/orbital_vector(x, y)
+
 //Returns magnitude of the vector
 /datum/orbital_vector/proc/Length()
 	return sqrt(x * x + y * y)
