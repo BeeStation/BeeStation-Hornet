@@ -64,7 +64,8 @@
 		current = magnification.current //In case we weren't called by COMSIG_MIND_TRANSFER_TO
 	magnification = null
 	to_chat(current, "<span class='userdanger'>You feel your flicker of sentience ripped away from you, as everything becomes dim...</span>")
-	current.ghostize(FALSE)
+	if (current)
+		current.ghostize(FALSE)
 
 	if(QDELING(src)) //The rest of this is stuff that would be pointless if we're being destroyed
 		return
