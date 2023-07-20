@@ -30,8 +30,8 @@
 			attack_verb = attack_verb_off
 		if(embedding)
 			updateEmbedding()
-	if(is_sharp())
-		AddComponent(/datum/component/butchering, 50, 100, 0, hitsound, !active)
+	if(sharpness)
+		AddComponent(/datum/component/butchering, 50, 100, 0, hitsound)
 
 /obj/item/melee/transforming/attack_self(mob/living/carbon/user)
 	if(transform_weapon(user))
@@ -74,13 +74,6 @@
 		w_class = initial(w_class)
 		if(embedding)
 			disableEmbedding()
-	if(is_sharp())
-		var/datum/component/butchering/BT = LoadComponent(/datum/component/butchering)
-		BT.butchering_enabled = TRUE
-	else
-		var/datum/component/butchering/BT = GetComponent(/datum/component/butchering)
-		if(BT)
-			BT.butchering_enabled = FALSE
 	transform_messages(user, supress_message_text)
 	add_fingerprint(user)
 	return TRUE

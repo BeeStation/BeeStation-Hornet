@@ -37,7 +37,7 @@
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.max_amount = mat_mod
 	amount_produced = min(50, amt_made) + 50
-	var/datum/component/butchering/butchering = GetComponent(/datum/component/butchering)
+	var/datum/component/butchering/butchering = GetComponent(/datum/component/butchering/recycler)
 	butchering.effectiveness = amount_produced
 	butchering.bonus_modifier = amount_produced/5
 
@@ -82,49 +82,68 @@
 		is_powered = FALSE
 	icon_state = icon_name + "[is_powered]" + "[(blood ? "bld" : "")]" // add the blood tag at the end
 
-/obj/machinery/recycler/Bumped(atom/movable/AM)
-
-	if(machine_stat & (BROKEN|NOPOWER))
-		return
+/obj/machinery/recycler/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
 	if(!anchored)
+		return
+	if(border_dir == eat_dir)
+		return TRUE
+
+/obj/machinery/recycler/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+	INVOKE_ASYNC(src, PROC_REF(eat), AM)
+
+/obj/machinery/recycler/proc/eat(atom/AM0, sound=TRUE)
+	if(machine_stat & (BROKEN|NOPOWER))
 		return
 	if(safety_mode)
 		return
+	if(iseffect(AM0))
+		return
+	if(!isturf(AM0.loc))
+		return //I don't know how you called Crossed() but stop it.
 
-	var/move_dir = get_dir(loc, AM.loc)
-	if(move_dir == eat_dir)
-		eat(AM)
+	var/list/to_eat = AM0.GetAllContents()
 
-/obj/machinery/recycler/proc/eat(atom/AM0, sound=TRUE)
-	var/list/to_eat
-	if(istype(AM0, /obj/item))
-		to_eat = AM0.GetAllContents()
-	else
-		to_eat = list(AM0)
-
-	var/items_recycled = 0
+	var/living_detected = FALSE //technically includes silicons as well but eh
+	var/list/nom = list()
+	var/list/crunchy_nom = list() //Mobs have to be handled differently so they get a different list instead of checking them multiple times.
 
 	for(var/i in to_eat)
 		var/atom/movable/AM = i
-		var/obj/item/bodypart/head/as_head = AM
-		var/obj/item/mmi/as_mmi = AM
-		var/brain_holder = istype(AM, /obj/item/organ/brain) || (istype(as_head) && as_head.brain) || (istype(as_mmi) && as_mmi.brain) || istype(AM, /mob/living/brain)
-		if(brain_holder)
-			emergency_stop(AM)
+		if(isitem(AM))
+			var/obj/item/bodypart/head/as_head = AM
+			var/obj/item/mmi/as_mmi = AM
+			if(istype(AM, /obj/item/organ/brain) || (istype(as_head) && as_head.brain) || (istype(as_mmi) && as_mmi.brain) || istype(AM, /obj/item/dullahan_relay))
+				living_detected = TRUE
+			nom += AM
 		else if(isliving(AM))
-			if(obj_flags & EMAGGED)
-				crush_living(AM)
-			else
-				emergency_stop(AM)
-		else if(istype(AM, /obj/item) && !istype(AM, /obj/item/stack))
-			recycle_item(AM)
-			items_recycled++
-		else
-			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, 0)
-			AM.forceMove(loc)
+			living_detected = TRUE
+			crunchy_nom += AM
 
-	if(items_recycled && sound)
-		playsound(src, item_recycle_sound, 50, 1)
+	var/not_eaten = to_eat.len - nom.len - crunchy_nom.len
+	if(living_detected) // First, check if we have any living beings detected.
+		if(obj_flags & EMAGGED)
+			for(var/CRUNCH in crunchy_nom) // Eat them and keep going because we don't care about safety.
+				if(isliving(CRUNCH)) // MMIs and brains will get eaten like normal items
+					crush_living(CRUNCH)
+					use_power(active_power_usage)
+		else // Stop processing right now without eating anything.
+			emergency_stop()
+			return
+	for(var/nommed in nom)
+		recycle_item(nommed)
+		use_power(active_power_usage)
+	if(nom.len && sound)
+		playsound(src, item_recycle_sound, (50 + nom.len*5), TRUE, nom.len, ignore_walls = (nom.len - 10)) // As a substitute for playing 50 sounds at once.
+	if(not_eaten)
+		playsound(src, 'sound/machines/buzz-sigh.ogg', (50 + not_eaten*5), FALSE, not_eaten, ignore_walls = (not_eaten - 10)) // Ditto.
+	if(!ismob(AM0))
+		qdel(AM0)
+	else // Lets not qdel a mob, yes?
+		for(var/iterable in AM0.contents)
+			var/atom/movable/content = iterable
+			qdel(content)
 
 /obj/machinery/recycler/proc/recycle_item(obj/item/I)
 	if(I.resistance_flags & INDESTRUCTIBLE) //indestructible item check
@@ -138,15 +157,13 @@
 		if(L.seed)
 			seed_modifier = round(L.seed.potency / 25)
 		new L.plank_type(src.loc, 1 + seed_modifier)
-		qdel(L)
-		return
+		qdel(I)
 	else
 		var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 		var/material_amount = materials.get_item_material_amount(I)
 		if(!material_amount)
-			qdel(I)
 			return
-		materials.insert_item(I, multiplier = (amount_produced / 100))
+		materials.insert_item(I, material_amount, multiplier = (amount_produced / 100))
 		qdel(I)
 		materials.retrieve_all()
 
@@ -155,7 +172,6 @@
 	playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 	safety_mode = TRUE
 	update_appearance()
-	L.forceMove(loc)
 	addtimer(CALLBACK(src, PROC_REF(reboot)), SAFETY_COOLDOWN)
 
 /obj/machinery/recycler/proc/reboot()
@@ -168,9 +184,9 @@
 	L.forceMove(loc)
 
 	if(issilicon(L))
-		playsound(src, 'sound/items/welder.ogg', 50, 1)
+		playsound(src, 'sound/items/welder.ogg', 50, TRUE)
 	else
-		playsound(src, 'sound/effects/splat.ogg', 50, 1)
+		playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
 
 	if(iscarbon(L))
 		if(L.stat == CONSCIOUS)
@@ -179,20 +195,14 @@
 
 	if(!blood && !issilicon(L))
 		blood = TRUE
-		update_icon()
-
-	// Remove and recycle the equipped items
-	if(eat_victim_items)
-		for(var/obj/item/I in L.get_equipped_items(TRUE))
-			if(L.dropItemToGround(I))
-				eat(I, sound=FALSE)
+		update_appearance()
 
 	// Instantly lie down, also go unconscious from the pain, before you die.
 	L.Unconscious(100)
 	L.adjustBruteLoss(crush_damage)
-	if(L.stat == DEAD && (L.butcher_results || L.guaranteed_butcher_results))
-		var/datum/component/butchering/butchering = GetComponent(/datum/component/butchering)
-		butchering.Butcher(src,L)
+
+/obj/machinery/recycler/on_deconstruction()
+	safety_mode = TRUE
 
 /obj/machinery/recycler/deathtrap
 	name = "dangerous old crusher"
