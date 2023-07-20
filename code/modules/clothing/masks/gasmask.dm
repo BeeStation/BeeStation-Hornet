@@ -216,7 +216,7 @@
 	voice_change = TRUE
 	chosen_tongue = /obj/item/organ/tongue/robot
 
-/obj/item/clothing/mask/gas/old/modulator/get_name(mob/user, var/default_name)
+/obj/item/clothing/mask/gas/old/modulator/get_name(mob/user, default_name)
 	return voice_change ? "Unknown" : default_name
 
 /obj/item/clothing/mask/gas/old/modulator/examine()
