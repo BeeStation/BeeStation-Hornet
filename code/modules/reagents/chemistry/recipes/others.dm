@@ -595,7 +595,7 @@
 	name = /datum/reagent/carpet/red
 	id = /datum/reagent/carpet/red
 	results = list(/datum/reagent/carpet/red = 2)
-	required_reagents = list(/datum/reagent/carpet/ = 1, /datum/reagent/liquidgibs = 0.1)
+	required_reagents = list(/datum/reagent/carpet = 1, /datum/reagent/liquidgibs = 0.1)
 
 /datum/chemical_reaction/carpet/royalblack
 	name = /datum/reagent/carpet/royal/black
