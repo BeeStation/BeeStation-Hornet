@@ -74,6 +74,13 @@
 		shuttle_port = null
 		return
 
+	var/static/list/passible_things = list(
+		/obj/machinery/door,
+		/obj/structure/falsewall,
+		/obj/structure/holosign/barrier/atmos,
+		/obj/structure/fans/tiny
+	)
+
 	var/turf/origin = locate(shuttle_port.x, shuttle_port.y, shuttle_port.z)
 	eyeobj = new /mob/camera/ai_eye/remote/shuttle_docker(origin, src)
 	var/mob/camera/ai_eye/remote/shuttle_docker/the_eye = eyeobj
@@ -83,13 +90,19 @@
 			for(var/turf/T in A)
 				if(T.get_virtual_z_level() != origin.get_virtual_z_level())
 					continue
+				// if it has doors or something passible, turn on a flag so it can return a better flag to show better result
+				var/passible = FALSE
+				for(var/each in passible_things)
+					if(locate(each) in T)
+						passible = TRUE
+						break
 				var/image/I = image('icons/effects/alphacolors.dmi', origin, "red")
 				var/x_off = T.x - origin.x
 				var/y_off = T.y - origin.y
 				I.loc = locate(origin.x + x_off, origin.y + y_off, origin.z) //we have to set this after creating the image because it might be null, and images created in nullspace are immutable.
 				I.plane = ABOVE_LIGHTING_PLANE
 				I.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-				the_eye.placement_images[I] = list(x_off, y_off)
+				the_eye.placement_images[I] = list(x_off, y_off, "passible"=passible)
 
 /obj/machinery/computer/shuttle_flight/proc/give_eye_control(mob/user)
 	if(!isliving(user))
@@ -267,13 +280,22 @@
 		I.loc = T
 		switch(checkLandingTurf(T, overlappers))
 			if(SHUTTLE_DOCKER_LANDING_CLEAR)
-				I.icon_state = "green"
+				if(coords["passible"])
+					I.icon_state = "blue_okay"
+				else
+					I.icon_state = "green"
 			if(SHUTTLE_DOCKER_BLOCKED_BY_HIDDEN_PORT)
-				I.icon_state = "green"
+				if(coords["passible"])
+					I.icon_state = "blue_okay"
+				else
+					I.icon_state = "green"
 				if(. == SHUTTLE_DOCKER_LANDING_CLEAR)
 					. = SHUTTLE_DOCKER_BLOCKED_BY_HIDDEN_PORT
 			else
-				I.icon_state = "red"
+				if(coords["passible"])
+					I.icon_state = "blue_blocked"
+				else
+					I.icon_state = "red"
 				. = SHUTTLE_DOCKER_BLOCKED
 
 /obj/machinery/computer/shuttle_flight/proc/checkLandingTurf(turf/T, list/overlappers)
