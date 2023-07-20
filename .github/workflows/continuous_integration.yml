@@ -80,7 +80,7 @@ jobs:
     runs-on: ubuntu-20.04
     services:
       mariadb:
-        image: mariadb:latest
+        image: mariadb:10.11.4
         env:
           MYSQL_ROOT_PASSWORD: root
         ports:
@@ -99,9 +99,6 @@ jobs:
         run: bash tools/ci/install_byond.sh
       - name: Setup database
         run: |
-          sudo systemctl start mysql
-          mysql -u root -proot -e "SET @@SQL_MODE = CONCAT(@@SQL_MODE, ',NO_ENGINE_SUBSTITUTION');"
-          mysql -u root -proot -e "SET @@GLOBAL.SQL_MODE = CONCAT(@@GLOBAL.SQL_MODE, ',NO_ENGINE_SUBSTITUTION');"
           mysql -u root -proot -e 'CREATE DATABASE bee_ci;'
           mysql -u root -proot bee_ci < SQL/beestation_schema.sql
       - name: Install rust-g
