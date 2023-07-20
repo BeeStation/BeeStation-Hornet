@@ -86,7 +86,7 @@
 	if(safety_mode)
 		safety_mode = FALSE
 		update_appearance()
-	playsound(src, "sparks", 75, 1, -1)
+	playsound(src, "sparks", 75, 1, SILENCED_SOUND_EXTRARANGE)
 	to_chat(user, "<span class='notice'>You use the cryptographic sequencer on [src].</span>")
 
 /obj/machinery/recycler/update_icon_state()
