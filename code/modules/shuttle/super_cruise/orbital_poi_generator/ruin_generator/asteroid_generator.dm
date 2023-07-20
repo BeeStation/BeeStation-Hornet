@@ -20,7 +20,7 @@
 
 	var/static/area/asteroid_area = new /area/asteroid/generated()
 
-	for(var/turf/open/space/T in block(locate(1, 1, center_z), locate(world.maxx, world.maxy, center_z)))
+	for(var/turf/open/space/T in block(locate(max(world.maxx / 2 - max_radius, 1), max(world.maxy / 2 - max_radius, 1), center_z), locate(min(world.maxx / 2 + max_radius, world.maxx), min(world.maxy / 2 + max_radius, world.maxy), center_z)))
 		if(!T)
 			continue
 		//Calculate distance to edge
@@ -32,9 +32,9 @@
 		//Check if we are closed or not (Cave generation)
 		var/closed = text2num(generated_string[world.maxx * (T.y - 1) + T.x])
 		var/noise_at_coord = text2num(rustg_noise_get_at_coordinates("[seed]", "[T.x / perlin_noise_scale]", "[T.y / perlin_noise_scale]"))
-		var/plant_value = (distance / max_radius) + weight_offset + 0.3
-		var/rock_value = (distance / max_radius) + weight_offset + 0.1
-		var/sand_value = (distance / max_radius) + weight_offset
+		var/plant_value = (distance / max_radius) + (weight_offset + 0.3) * (1 - (distance / max_radius))
+		var/rock_value = (distance / max_radius) + (weight_offset + 0.1) * (1 - (distance / max_radius))
+		var/sand_value = (distance / max_radius) + weight_offset * (1 - (distance / max_radius))
 		if(noise_at_coord >= rock_value && closed)
 			T.ChangeTurf(/turf/closed/mineral/random, list(/turf/open/floor/plating/asteroid/airless), CHANGETURF_IGNORE_AIR)
 		else if(noise_at_coord >= sand_value)

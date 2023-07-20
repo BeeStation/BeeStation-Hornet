@@ -37,12 +37,17 @@
 /datum/orbital_object/z_linked/beacon/ruinasteroid/New()
 	. = ..()
 	radius = rand(30, 70)
+	SSorbits.asteroids ++
+
+/datum/orbital_object/z_linked/beacon/ruinasteroid/Destroy(force, ...)
+	. = ..()
+	SSorbits.asteroids --
 
 /datum/orbital_object/z_linked/beacon/ruin/asteroid/assign_z_level()
 	var/datum/space_level/assigned_space_level = SSzclear.get_free_z_level()
 	linked_z_level = list(assigned_space_level)
 	SSorbits.assoc_z_levels["[assigned_space_level.z_value]"] = src
-	generate_asteroids(world.maxx / 2, world.maxy / 2, assigned_space_level.z_value, 120, rand(-0.5, 0), rand(40, 70))
+	generate_asteroids(world.maxx / 2, world.maxy / 2, assigned_space_level.z_value, 10, rand(-0.3, -0.5), rand(20, 40))
 
 /datum/orbital_object/z_linked/beacon/ruin/asteroid/post_map_setup()
 	//Orbit around the systems central gravitional body
