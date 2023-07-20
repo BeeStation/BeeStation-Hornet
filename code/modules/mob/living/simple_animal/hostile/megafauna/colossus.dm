@@ -242,7 +242,7 @@ Difficulty: Very Hard
 	if(!isnum_safe(set_angle) && (!marker || marker == loc))
 		return
 	var/turf/startloc = get_turf(src)
-	var/obj/item/projectile/P = new /obj/item/projectile/colossus(startloc)
+	var/obj/projectile/P = new /obj/projectile/colossus(startloc)
 	P.preparePixelProjectile(marker, startloc)
 	P.firer = src
 	if(target)
@@ -298,7 +298,7 @@ Difficulty: Very Hard
 	target = new_target
 	INVOKE_ASYNC(src, /atom/movable/proc/orbit, target, 0, FALSE, 0, 0, FALSE, TRUE)
 
-/mob/living/simple_animal/hostile/megafauna/colossus/bullet_act(obj/item/projectile/P)
+/mob/living/simple_animal/hostile/megafauna/colossus/bullet_act(obj/projectile/P)
 	if(!stat)
 		var/obj/effect/temp_visual/at_shield/AT = new /obj/effect/temp_visual/at_shield(loc, src)
 		var/random_x = rand(-32, 32)
@@ -308,7 +308,7 @@ Difficulty: Very Hard
 		AT.pixel_y += random_y
 	return ..()
 
-/obj/item/projectile/colossus
+/obj/projectile/colossus
 	name ="death bolt"
 	icon_state= "chronobolt"
 	damage = 25
@@ -318,7 +318,7 @@ Difficulty: Very Hard
 	damage_type = BRUTE
 	pass_flags = PASSTABLE
 
-/obj/item/projectile/colossus/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/colossus/on_hit(atom/target, blocked = FALSE)
 	. = ..()
 	if(isturf(target) || isobj(target))
 		if(isobj(target))
@@ -496,9 +496,9 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 		ActivationReaction(user, ACTIVATE_WEAPON)
 	..()
 
-/obj/machinery/anomalous_crystal/bullet_act(obj/item/projectile/P, def_zone)
+/obj/machinery/anomalous_crystal/bullet_act(obj/projectile/P, def_zone)
 	. = ..()
-	if(istype(P, /obj/item/projectile/magic))
+	if(istype(P, /obj/projectile/magic))
 		ActivationReaction(P.firer, ACTIVATE_MAGIC, P.damage_type)
 		return
 	ActivationReaction(P.firer, P.armor_flag, P.damage_type)
@@ -610,18 +610,18 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	observer_desc = "This crystal generates a projectile when activated."
 	activation_method = ACTIVATE_TOUCH
 	cooldown_add = 50
-	var/obj/item/projectile/generated_projectile = /obj/item/projectile/beam/emitter
+	var/obj/projectile/generated_projectile = /obj/projectile/beam/emitter
 
 /obj/machinery/anomalous_crystal/emitter/Initialize(mapload)
 	. = ..()
-	generated_projectile = pick(/obj/item/projectile/colossus)
+	generated_projectile = pick(/obj/projectile/colossus)
 
 	var/proj_name = initial(generated_projectile.name)
 	observer_desc = "This crystal generates \a [proj_name] when activated."
 
 /obj/machinery/anomalous_crystal/emitter/ActivationReaction(mob/user, method)
 	if(..())
-		var/obj/item/projectile/P = new generated_projectile(get_turf(src))
+		var/obj/projectile/P = new generated_projectile(get_turf(src))
 		P.setDir(dir)
 		switch(dir)
 			if(NORTH)
@@ -760,7 +760,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 		/obj/item/implant,
 		/obj/item/implanter,
 		/obj/item/disk/nuclear,
-		/obj/item/projectile,
+		/obj/projectile,
 		/obj/item/spellbook,
 		/obj/item/dice/d20/fate
 	))

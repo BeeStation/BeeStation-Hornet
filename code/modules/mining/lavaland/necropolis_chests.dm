@@ -410,11 +410,11 @@
 /obj/item/ammo_casing/magic/hook
 	name = "hook"
 	desc = "A hook."
-	projectile_type = /obj/item/projectile/hook
+	projectile_type = /obj/projectile/hook
 	caliber = "hook"
 	icon_state = "hook"
 
-/obj/item/projectile/hook
+/obj/projectile/hook
 	name = "hook"
 	icon_state = "hook"
 	icon = 'icons/obj/lavaland/artefacts.dmi'
@@ -426,13 +426,13 @@
 	knockdown = 30
 	var/chain
 
-/obj/item/projectile/hook/fire(setAngle)
+/obj/projectile/hook/fire(setAngle)
 	if(firer)
 		chain = firer.Beam(src, icon_state = "chain", time = INFINITY, maxdistance = INFINITY)
 	..()
 	//TODO: root the firer until the chain returns
 
-/obj/item/projectile/hook/on_hit(atom/target)
+/obj/projectile/hook/on_hit(atom/target)
 	. = ..()
 	if(ismovable(target))
 		var/atom/movable/A = target
@@ -443,7 +443,7 @@
 		//TODO: keep the chain beamed to A
 		//TODO: needs a callback to delete the chain
 
-/obj/item/projectile/hook/Destroy()
+/obj/projectile/hook/Destroy()
 	qdel(chain)
 	return ..()
 
@@ -456,9 +456,9 @@
 	to_chat(user, "<span class='warning'>The [src] isn't ready to fire yet!</span>")
 
 /obj/item/ammo_casing/magic/hook/bounty
-	projectile_type = /obj/item/projectile/hook/bounty
+	projectile_type = /obj/projectile/hook/bounty
 
-/obj/item/projectile/hook/bounty
+/obj/projectile/hook/bounty
 	damage = 0
 	paralyze = 20
 

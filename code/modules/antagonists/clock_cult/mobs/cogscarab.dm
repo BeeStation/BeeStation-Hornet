@@ -44,7 +44,7 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 		try_warp_servant(src, T, FALSE)
 	. = ..()
 
-/mob/living/simple_animal/drone/cogscarab/force_hit_projectile(obj/item/projectile/projectile)
+/mob/living/simple_animal/drone/cogscarab/force_hit_projectile(obj/projectile/projectile)
 	if(isliving(projectile.fired_from) && is_servant_of_ratvar(projectile.fired_from))
 		return FALSE
 	return TRUE

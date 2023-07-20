@@ -183,8 +183,8 @@
 	return ..()
 
 /datum/artifact_effect/projreflect/proc/HasProximity(atom/movable/AM)
-	if(istype(AM, /obj/item/projectile))
-		var/obj/item/projectile/P = AM
+	if(istype(AM, /obj/projectile))
+		var/obj/projectile/P = AM
 		P.setAngle(rand(0, 360))
 		P.ignore_source_check = TRUE //Allow the projectile to hit the shooter after it gets reflected
 
