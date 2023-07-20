@@ -320,10 +320,13 @@
 	open_sound = 'sound/machines/capsule_open.ogg'
 	close_sound = 'sound/machines/capsule_close.ogg'
 	icon_door = null
-	climbable = FALSE
 	mob_storage_capacity = 0
 	///Becomes TRUE when the crate is being closed to ensure the compression sequence completes as expected.
 	var/closing = FALSE
+
+/obj/structure/closet/crate/capsule/initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/climbable)
 
 /obj/structure/closet/crate/capsule/update_icon()
 	cut_overlays()
