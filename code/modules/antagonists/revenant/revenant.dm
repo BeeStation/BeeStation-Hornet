@@ -3,8 +3,6 @@
 //Don't hear deadchat and are NOT normal ghosts
 //Admin-spawn or random event
 
-#define INVISIBILITY_REVENANT 50
-
 /mob/living/simple_animal/revenant
 	name = "revenant"
 	desc = "A malevolent spirit."
@@ -17,8 +15,8 @@
 	var/stasis = FALSE
 	mob_biotypes = list(MOB_SPIRIT)
 	incorporeal_move = INCORPOREAL_MOVE_JAUNT
-	see_invisible = SEE_INVISIBLE_OBSERVER
-	invisibility = INVISIBILITY_REVENANT
+	see_invisible = SEE_INVISIBLE_SPIRIT
+	invisibility = INVISIBILITY_SPIRIT
 	health = INFINITY //Revenants don't use health, they use essence instead
 	maxHealth = INFINITY
 	plane = GHOST_PLANE
@@ -120,7 +118,7 @@
 	to_chat(src, "<b>You are invincible and invisible to everyone but other ghosts. Most abilities will reveal you, rendering you vulnerable.</b>")
 	to_chat(src, "<b>To function, you are to drain the life essence from humans. This essence is a resource, as well as your health, and will power all of your abilities.</b>")
 	to_chat(src, "<b><i>You do not remember anything of your past lives, nor will you remember anything about this one after your death.</i></b>")
-	to_chat(src, "<b>Be sure to read <a href=\"https://tgstation13.org/wiki/Revenant\">the wiki page</a> to learn more.</b>")
+	to_chat(src, "<b>Be sure to read <a href=\"[(CONFIG_GET(string/wikiurl)) ? (CONFIG_GET(string/wikiurl)) : "https://wiki.beestation13.com/view"]/Revenant\">the wiki page</a> to learn more.</b>")
 	if(!generated_objectives_and_spells)
 		generated_objectives_and_spells = TRUE
 		mind.assigned_role = ROLE_REVENANT
@@ -138,7 +136,7 @@
 		unreveal_time = 0
 		revealed = FALSE
 		incorporeal_move = INCORPOREAL_MOVE_JAUNT
-		invisibility = INVISIBILITY_REVENANT
+		invisibility = INVISIBILITY_SPIRIT
 		to_chat(src, "<span class='revenboldnotice'>You are once more concealed.</span>")
 	if(unstun_time && world.time >= unstun_time)
 		unstun_time = 0
@@ -279,7 +277,7 @@
 	else if(revealed) //Okay, the revenant wasn't forced to be revealed, are they currently vulnerable
 		revealed = FALSE
 		incorporeal_move = INCORPOREAL_MOVE_JAUNT
-		invisibility = INVISIBILITY_REVENANT
+		invisibility = INVISIBILITY_SPIRIT
 
 
 	else //Revenant isn't revealed, whether by force or their own will, so this means they are currently invisible
@@ -385,7 +383,7 @@
 	inhibited = FALSE
 	draining = FALSE
 	incorporeal_move = INCORPOREAL_MOVE_JAUNT
-	invisibility = INVISIBILITY_REVENANT
+	invisibility = INVISIBILITY_SPIRIT
 	alpha=255
 	stasis = FALSE
 

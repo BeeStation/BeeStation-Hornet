@@ -19,6 +19,7 @@
 	throw_speed = 3
 	throw_range = 7
 	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = ITEM_SLOT_BELT
 	var/skin_type = MEDBOT_SKIN_DEFAULT
 	var/empty = FALSE
 	var/damagetype_healed //defines damage type of the medkit. General ones stay null. Used for medibot healing bonuses
