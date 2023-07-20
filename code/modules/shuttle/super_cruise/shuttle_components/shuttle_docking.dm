@@ -282,19 +282,19 @@
 		switch(checkLandingTurf(T, overlappers))
 			if(SHUTTLE_DOCKER_LANDING_CLEAR)
 				if(coords[3])
-					I.icon_state = "blue_arrows"
+					I.icon_state = "blue"
 				else
 					I.icon_state = "green_arrows"
 			if(SHUTTLE_DOCKER_BLOCKED_BY_HIDDEN_PORT)
 				if(coords[3])
-					I.icon_state = "blue_arrows"
+					I.icon_state = "blue"
 				else
 					I.icon_state = "green_arrows"
 				if(. == SHUTTLE_DOCKER_LANDING_CLEAR)
 					. = SHUTTLE_DOCKER_BLOCKED_BY_HIDDEN_PORT
 			else
 				if(coords[3])
-					I.icon_state = "blue_blocked_arrows"
+					I.icon_state = "blue_blocked"
 				else
 					I.icon_state = "red_arrows"
 				. = SHUTTLE_DOCKER_BLOCKED
