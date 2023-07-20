@@ -80,12 +80,12 @@ jobs:
     runs-on: ubuntu-20.04
     services:
       mariadb:
-        image: mariadb:latest
+        image: mariadb:latest 
         env:
           MYSQL_ROOT_PASSWORD: root
         ports:
           - 3306
-        options: --health-cmd="mariadb-admin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        options: --health-cmd="mariadb-admin ping" --health-interval=10s --health-timeout=5s --health-retries=3 --sql_mode="NO_ENGINE_SUBSTITUTION"
     steps:
       - uses: actions/checkout@v3
       - name: Cache BYOND
