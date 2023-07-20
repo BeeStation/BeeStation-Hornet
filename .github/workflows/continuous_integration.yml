@@ -99,6 +99,7 @@ jobs:
         run: bash tools/ci/install_byond.sh
       - name: Setup database
         run: |
+          sudo systemctl start mysql
           mysql -u root -proot -e 'CREATE DATABASE bee_ci;'
           mysql -u root -proot bee_ci < SQL/beestation_schema.sql
       - name: Install rust-g
