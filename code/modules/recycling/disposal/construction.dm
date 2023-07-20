@@ -155,10 +155,11 @@
 		set_anchored(TRUE)
 		to_chat(user, "<span class='notice'>You attach the [pipename] to the underfloor.</span>")
 	I.play_tool_sound(src, 100)
-	update_icon()
+	update_appearance()
 	return TRUE
 
 /obj/structure/disposalconstruct/welder_act(mob/living/user, obj/item/I)
+	..()
 	if(anchored)
 		if(!I.tool_start_check(user, amount=0))
 			return TRUE
