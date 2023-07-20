@@ -1,0 +1,6 @@
+author: itsmeow
+delete-after: true
+changes:
+  - tweak: Local instances of the game ran with a debugger attached will now automatically
+      disable lobby music and ambiance if no database is connected. This does not
+      affect the main server at all, and only affects developers.
