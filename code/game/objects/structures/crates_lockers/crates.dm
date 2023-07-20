@@ -34,7 +34,7 @@
 		animation_math = new/list()
 	if(!door_anim_time == 0 && !animation_math["[door_anim_time]-[door_anim_angle]-[azimuth_angle_2]-[radius_2]-[door_hinge]"])
 		animation_list()
-	AddElement(/datum/element/climbable, climb_time = crate_climb_time * 0.5, climb_stun = 0)
+	AddElement(/datum/element/climbable)
 
 /obj/structure/closet/crate/Destroy()
 	QDEL_NULL(manifest)
@@ -123,6 +123,7 @@
 	if(manifest)
 		tear_manifest(user)
 
+/* just make it the same for now
 /obj/structure/closet/crate/after_open(mob/living/user, force)
 	. = ..()
 	RemoveElement(/datum/element/climbable, climb_time = crate_climb_time, climb_stun = 0)
@@ -132,13 +133,13 @@
 	. = ..()
 	RemoveElement(/datum/element/climbable, climb_time = crate_climb_time * 0.5, climb_stun = 0)
 	AddElement(/datum/element/climbable, climb_time = crate_climb_time, climb_stun = 0)
+*/
 
 /obj/structure/closet/crate/open(mob/living/user)
 	. = ..()
 	if(. && manifest)
 		to_chat(user, "<span class='notice'>The manifest is torn off [src].</span>")
-		playsound(src, 'sound/items/poster_ripped.ogg', 75, 1)
-
+		playsound(src, 'sound/items/poster_ripped.ogg', 75, TRUE)
 		manifest.forceMove(get_turf(src))
 		manifest = null
 		update_appearance()
