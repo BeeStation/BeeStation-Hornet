@@ -96,7 +96,7 @@
 					if(locate(each) in T)
 						passible = TRUE
 						break
-				var/image/I = image('icons/effects/alphacolors.dmi', origin, "red")
+				var/image/I = image('icons/effects/alphacolors_shuttle.dmi', origin, "red", dir=NORTH)
 				var/x_off = T.x - origin.x
 				var/y_off = T.y - origin.y
 				I.loc = locate(origin.x + x_off, origin.y + y_off, origin.z) //we have to set this after creating the image because it might be null, and images created in nullspace are immutable.
@@ -220,7 +220,7 @@
 
 	for(var/V in the_eye.placement_images)
 		var/image/I = V
-		var/image/newI = image('icons/effects/alphacolors.dmi', the_eye.loc, "blue")
+		var/image/newI = image('icons/effects/alphacolors_shuttle.dmi', the_eye.loc, "blue")
 		newI.loc = I.loc //It is highly unlikely that any landing spot including a null tile will get this far, but better safe than sorry.
 		newI.plane = ABOVE_LIGHTING_PLANE
 		newI.mouse_opacity = 0
@@ -259,6 +259,7 @@
 		coords[1] = coords[2]
 		coords[2] = -Tmp
 		pic.loc = locate(the_eye.x + coords[1], the_eye.y + coords[2], the_eye.z)
+		pic.setDir(turn(pic.dir, -90))
 	checkLandingSpot()
 
 /obj/machinery/computer/shuttle_flight/proc/checkLandingSpot()
@@ -281,21 +282,21 @@
 		switch(checkLandingTurf(T, overlappers))
 			if(SHUTTLE_DOCKER_LANDING_CLEAR)
 				if(coords[3])
-					I.icon_state = "blue_okay"
+					I.icon_state = "blue_arrows"
 				else
-					I.icon_state = "green"
+					I.icon_state = "green_arrows"
 			if(SHUTTLE_DOCKER_BLOCKED_BY_HIDDEN_PORT)
 				if(coords[3])
-					I.icon_state = "blue_okay"
+					I.icon_state = "blue_arrows"
 				else
-					I.icon_state = "green"
+					I.icon_state = "green_arrows"
 				if(. == SHUTTLE_DOCKER_LANDING_CLEAR)
 					. = SHUTTLE_DOCKER_BLOCKED_BY_HIDDEN_PORT
 			else
 				if(coords[3])
-					I.icon_state = "blue_blocked"
+					I.icon_state = "blue_blocked_arrows"
 				else
-					I.icon_state = "red"
+					I.icon_state = "red_arrows"
 				. = SHUTTLE_DOCKER_BLOCKED
 
 /obj/machinery/computer/shuttle_flight/proc/checkLandingTurf(turf/T, list/overlappers)
