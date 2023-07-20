@@ -324,7 +324,7 @@
 	///Becomes TRUE when the crate is being closed to ensure the compression sequence completes as expected.
 	var/closing = FALSE
 
-/obj/structure/closet/crate/capsule/initialize(mapload)
+/obj/structure/closet/crate/capsule/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/climbable)
 
