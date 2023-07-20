@@ -1,0 +1,5 @@
+author: Crossedfall
+delete-after: true
+changes:
+  - bugfix: The CI will correctly use MariaDB instead of MySQL, similar to the actual
+      server
