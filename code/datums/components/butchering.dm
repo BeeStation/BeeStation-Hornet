@@ -34,16 +34,17 @@
 	if(user.a_intent == INTENT_HARM && M.stat == DEAD && (M.butcher_results || M.guaranteed_butcher_results)) //can we butcher it?
 		if(butchering_enabled && (can_be_blunt || source.is_sharp()))
 			INVOKE_ASYNC(src, PROC_REF(startButcher), source, M, user)
-			return COMPONENT_ITEM_NO_ATTACK
-	if(user.a_intent == INTENT_GRAB && ishuman(M) && source.is_sharp())
+			return COMPONENT_CANCEL_ATTACK_CHAIN
+
+	if(ishuman(M) && source.force && source.is_sharp())
 		var/mob/living/carbon/human/H = M
-		if(H.has_status_effect(/datum/status_effect/neck_slice))
+		if((user.pulling == H && user.grab_state >= GRAB_AGGRESSIVE) && user.zone_selected == BODY_ZONE_HEAD) // Only aggressive grabbed can be sliced.
+			if(H.has_status_effect(/datum/status_effect/neck_slice))
 			user.show_message("<span class='danger'>[H]'s neck has already been already cut, you can't make the bleeding any worse!", 1, \
 							"<span class='danger'>Their neck has already been already cut, you can't make the bleeding any worse!")
-			return COMPONENT_ITEM_NO_ATTACK
-		if((H.health <= H.crit_threshold || (user.pulling == H && user.grab_state >= GRAB_NECK) || H.IsSleeping()) && user.zone_selected == BODY_ZONE_HEAD) // Only sleeping, neck grabbed, or crit, can be sliced.
-			INVOKE_ASYNC(src, PROC_REF(startNeckSlice), source, H, user)
-			return COMPONENT_ITEM_NO_ATTACK
+			return COMPONENT_CANCEL_ATTACK_CHAIN
+		INVOKE_ASYNC(src, PROC_REF(startNeckSlice), source, H, user)
+		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /datum/component/butchering/proc/startButcher(obj/item/source, mob/living/M, mob/living/user)
 	to_chat(user, "<span class='notice'>You begin to butcher [M]...</span>")
@@ -55,22 +56,31 @@
 	user.visible_message("<span class='danger'>[user] is slitting [H]'s throat!</span>", \
 					"<span class='danger'>You start slicing [H]'s throat!</span>", \
 					"<span class='hear'>You hear a cutting noise!</span>")
-	H.show_message("<span class='userdanger'>Your throat is being slit by [user]!</span>", 1, \
+	H.show_message("<span class='userdanger'>Your throat is being slit by [user]!</span>", MSG_VISUAL, \
 					"<span class = 'userdanger'>Something is cutting into your neck!</span>", NONE)
+	log_combat(user, H, "attempted throat slitting", source)
 
 	playsound(H.loc, butcher_sound, 50, TRUE, -1)
 	if(do_after(user, CLAMP(500 / source.force, 30, 100), H) && H.Adjacent(source))
 		if(H.has_status_effect(/datum/status_effect/neck_slice))
-			user.show_message("<span class='danger'>[H]'s neck has already been already cut, you can't make the bleeding any worse!", 1, \
+			user.show_message("<span class='danger'>[H]'s neck has already been already cut, you can't make the bleeding any worse!", MSG_VISUAL, \
 							"<span class='danger'>Their neck has already been already cut, you can't make the bleeding any worse!")
 			return
 
 		H.visible_message("<span class='danger'>[user] slits [H]'s throat!</span>", \
 					"<span class='userdanger'>[user] slits your throat...</span>")
+		log_combat(user, H, "wounded via throat slitting", source)
 		H.apply_damage(source.force, BRUTE, BODY_ZONE_HEAD)
 		H.bleed_rate = CLAMP(H.bleed_rate + 20, 0, 30)
 		H.apply_status_effect(/datum/status_effect/neck_slice)
 
+/**
+ * Handles a user butchering a target
+ *
+ * Arguments:
+ * - [butcher][/mob/living]: The mob doing the butchering
+ * - [meat][/mob/living]: The mob being butchered
+ */
 /datum/component/butchering/proc/Butcher(mob/living/butcher, mob/living/meat)
 	var/turf/T = meat.drop_location()
 	var/final_effectiveness = effectiveness - meat.butcher_difficulty
@@ -82,20 +92,25 @@
 			if(!prob(final_effectiveness))
 				if(butcher)
 					to_chat(butcher, "<span class='warning'>You fail to harvest some of the [initial(bones.name)] from [meat].</span>")
-			else if(prob(bonus_chance))
+				continue
+
+			if(prob(bonus_chance))
 				if(butcher)
 					to_chat(butcher, "<span class='info'>You harvest some extra [initial(bones.name)] from [meat]!</span>")
 				for(var/i in 1 to 2)
 					new bones (T)
 			else
 				new bones (T)
+
 		meat.butcher_results.Remove(bones) //in case you want to, say, have it drop its results on gib
+
 	for(var/V in meat.guaranteed_butcher_results)
 		var/obj/sinew = V
 		var/amount = meat.guaranteed_butcher_results[sinew]
 		for(var/i in 1 to amount)
 			new sinew (T)
 		meat.guaranteed_butcher_results.Remove(sinew)
+		
 	if(butcher)
 		butcher.visible_message("<span class='notice'>[butcher] butchers [meat].</span>", \
 								"<span class='notice'>You butcher [meat].</span>")
