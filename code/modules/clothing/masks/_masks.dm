@@ -28,6 +28,10 @@
 	..()
 	UnregisterSignal(M, COMSIG_MOB_SAY)
 
+/obj/item/clothing/mask/Destroy()
+	chosen_tongue = null
+	. = ..()
+
 /obj/item/clothing/mask/proc/handle_speech()
 	SIGNAL_HANDLER
 

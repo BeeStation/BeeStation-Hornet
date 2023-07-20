@@ -584,18 +584,21 @@
 	name = "Tongue Change"
 	icon_icon = 'icons/obj/surgery.dmi'
 	button_icon_state = "tonguebone"
-	var/list/tongue_list = list()
+	var/static/list/tongue_list
 
 /datum/action/item_action/chameleon/tongue_change/proc/generate_tongue_list()
 	var/obj/item/found_item
 	var/tongue_name
 	var/static/list/predefined_tongues = typesof(/obj/item/organ/tongue)
+	var/list/temporary_list = list()
+	tongue_list = list()
 	for(var/found_var in predefined_tongues)
 		found_item = found_var
 		if((initial(found_item.item_flags) & ABSTRACT) || !initial(found_item.icon_state))
 			continue
 		tongue_name = "[initial(found_item.name)] ([initial(found_item.icon_state)])"
-		tongue_list[tongue_name] = found_item
+		temporary_list[tongue_name] = found_item
+	tongue_list = sort_list(temporary_list)
 
 /datum/action/item_action/chameleon/tongue_change/Trigger()
 	if(!IsAvailable() || !isitem(target))
@@ -603,8 +606,8 @@
 	var/obj/item/clothing/mask/target_mask = target
 	var/obj/item/organ/tongue/picked_tongue
 	var/picked_name
-	var/list/sorted_list = sort_list(tongue_list)
-	picked_name = tgui_input_list(owner,"select tongue to change into", "Chameleon tongue selection", sorted_list)
+	//var/list/sorted_list = sort_list(tongue_list)
+	picked_name = tgui_input_list(owner,"select tongue to change into", "Chameleon tongue selection", tongue_list)
 	if(!picked_name)
 		return FALSE
 	picked_tongue = tongue_list[picked_name]
@@ -640,7 +643,8 @@
 	chameleon_action.chameleon_blacklist = typecacheof(/obj/item/clothing/mask/changeling, only_root_path = TRUE)
 	chameleon_action.initialize_disguises()
 	tongue_action = new(src)
-	tongue_action.generate_tongue_list()
+	if(!tongue_action.tongue_list)
+		tongue_action.generate_tongue_list()
 
 /obj/item/clothing/mask/chameleon/emp_act(severity)
 	. = ..()
