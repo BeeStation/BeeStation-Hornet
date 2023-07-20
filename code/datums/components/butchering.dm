@@ -39,12 +39,16 @@
 	if(ishuman(M) && source.force && source.is_sharp())
 		var/mob/living/carbon/human/H = M
 		if((user.pulling == H && user.grab_state >= GRAB_AGGRESSIVE) && user.zone_selected == BODY_ZONE_HEAD) // Only aggressive grabbed can be sliced.
+			if(HAS_TRAIT(user, TRAIT_PACIFISM))
+				to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
+				return COMPONENT_CANCEL_ATTACK_CHAIN
+
 			if(H.has_status_effect(/datum/status_effect/neck_slice))
-			user.show_message("<span class='danger'>[H]'s neck has already been already cut, you can't make the bleeding any worse!", 1, \
+				user.show_message("<span class='danger'>[H]'s neck has already been already cut, you can't make the bleeding any worse!", MSG_VISUAL, \
 							"<span class='danger'>Their neck has already been already cut, you can't make the bleeding any worse!")
+				return COMPONENT_CANCEL_ATTACK_CHAIN
+			INVOKE_ASYNC(src, PROC_REF(startNeckSlice), source, H, user)
 			return COMPONENT_CANCEL_ATTACK_CHAIN
-		INVOKE_ASYNC(src, PROC_REF(startNeckSlice), source, H, user)
-		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /datum/component/butchering/proc/startButcher(obj/item/source, mob/living/M, mob/living/user)
 	to_chat(user, "<span class='notice'>You begin to butcher [M]...</span>")
@@ -110,7 +114,7 @@
 		for(var/i in 1 to amount)
 			new sinew (T)
 		meat.guaranteed_butcher_results.Remove(sinew)
-		
+
 	if(butcher)
 		butcher.visible_message("<span class='notice'>[butcher] butchers [meat].</span>", \
 								"<span class='notice'>You butcher [meat].</span>")
