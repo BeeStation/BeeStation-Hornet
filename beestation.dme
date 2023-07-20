@@ -2751,6 +2751,8 @@
 #include "code\modules\mentor\mentorsay.dm"
 #include "code\modules\metacoin\metacoin.dm"
 #include "code\modules\mining\abandoned_crates.dm"
+#include "code\modules\mining\asteroid_magnet_border.dm"
+#include "code\modules\mining\asteroid_magnet_controller.dm"
 #include "code\modules\mining\aux_base.dm"
 #include "code\modules\mining\aux_base_camera.dm"
 #include "code\modules\mining\coins.dm"
