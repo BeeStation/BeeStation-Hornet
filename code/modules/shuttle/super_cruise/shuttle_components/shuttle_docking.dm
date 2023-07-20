@@ -102,7 +102,7 @@
 				I.loc = locate(origin.x + x_off, origin.y + y_off, origin.z) //we have to set this after creating the image because it might be null, and images created in nullspace are immutable.
 				I.plane = ABOVE_LIGHTING_PLANE
 				I.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-				the_eye.placement_images[I] = list(x_off, y_off, "passible"=passible)
+				the_eye.placement_images[I] = list(x_off, y_off, passible)
 
 /obj/machinery/computer/shuttle_flight/proc/give_eye_control(mob/user)
 	if(!isliving(user))
@@ -280,19 +280,19 @@
 		I.loc = T
 		switch(checkLandingTurf(T, overlappers))
 			if(SHUTTLE_DOCKER_LANDING_CLEAR)
-				if(coords["passible"])
+				if(coords[3])
 					I.icon_state = "blue_okay"
 				else
 					I.icon_state = "green"
 			if(SHUTTLE_DOCKER_BLOCKED_BY_HIDDEN_PORT)
-				if(coords["passible"])
+				if(coords[3])
 					I.icon_state = "blue_okay"
 				else
 					I.icon_state = "green"
 				if(. == SHUTTLE_DOCKER_LANDING_CLEAR)
 					. = SHUTTLE_DOCKER_BLOCKED_BY_HIDDEN_PORT
 			else
-				if(coords["passible"])
+				if(coords[3])
 					I.icon_state = "blue_blocked"
 				else
 					I.icon_state = "red"
