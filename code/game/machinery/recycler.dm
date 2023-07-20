@@ -21,21 +21,24 @@
 
 /obj/machinery/recycler/Initialize(mapload)
 	AddComponent(/datum/component/material_container, list(/datum/material/iron, /datum/material/glass, /datum/material/copper, /datum/material/silver, /datum/material/plasma, /datum/material/gold, /datum/material/diamond, /datum/material/plastic, /datum/material/uranium, /datum/material/bananium, /datum/material/titanium, /datum/material/bluespace), INFINITY, FALSE, null, null, null, TRUE)
-	AddComponent(/datum/component/butchering, 1, amount_produced,amount_produced/5)
+	AddComponent(/datum/component/butchering/recycler, 1, amount_produced,amount_produced/5)
 	. = ..()
-	update_icon()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/recycler/LateInitialize()
+	. = ..()
+	update_appearance(UPDATE_ICON)
 	req_one_access = get_all_accesses() + get_all_centcom_access()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/machinery/recycler/RefreshParts()
+	. = ..()
 	var/amt_made = 0
-	var/mat_mod = 0
-	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		mat_mod = 2 * B.rating
-	mat_mod *= 50000
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		amt_made = 12.5 * M.rating //% of materials salvaged
-	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
-	materials.max_amount = mat_mod
 	amount_produced = min(50, amt_made) + 50
 	var/datum/component/butchering/butchering = GetComponent(/datum/component/butchering/recycler)
 	butchering.effectiveness = amount_produced
@@ -93,17 +96,21 @@
 	SIGNAL_HANDLER
 	INVOKE_ASYNC(src, PROC_REF(eat), AM)
 
-/obj/machinery/recycler/proc/eat(atom/AM0, sound=TRUE)
+/obj/machinery/recycler/proc/eat(atom/movable/morsel, sound=TRUE)
 	if(machine_stat & (BROKEN|NOPOWER))
 		return
 	if(safety_mode)
 		return
-	if(iseffect(AM0))
+	if(iseffect(morsel))
 		return
-	if(!isturf(AM0.loc))
+	if(!isturf(morsel.loc))
 		return //I don't know how you called Crossed() but stop it.
+	/* uncomment when flags are moved from obj to atom
+	if(morsel.resistance_flags & INDESTRUCTIBLE)
+		return
+	*/
 
-	var/list/to_eat = AM0.GetAllContents()
+	var/list/to_eat = morsel.GetAllContents()
 
 	var/living_detected = FALSE //technically includes silicons as well but eh
 	var/list/nom = list()
@@ -138,10 +145,10 @@
 		playsound(src, item_recycle_sound, (50 + nom.len*5), TRUE, nom.len, ignore_walls = (nom.len - 10)) // As a substitute for playing 50 sounds at once.
 	if(not_eaten)
 		playsound(src, 'sound/machines/buzz-sigh.ogg', (50 + not_eaten*5), FALSE, not_eaten, ignore_walls = (not_eaten - 10)) // Ditto.
-	if(!ismob(AM0))
-		qdel(AM0)
+	if(!ismob(morsel))
+		qdel(morsel)
 	else // Lets not qdel a mob, yes?
-		for(var/iterable in AM0.contents)
+		for(var/iterable in morsel.contents)
 			var/atom/movable/content = iterable
 			qdel(content)
 
@@ -150,7 +157,6 @@
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, 0)
 		I.forceMove(loc)
 		return
-	I.forceMove(loc)
 	var/obj/item/grown/log/L = I
 	if(istype(L))
 		var/seed_modifier = 0
