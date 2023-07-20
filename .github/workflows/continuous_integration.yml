@@ -79,8 +79,8 @@ jobs:
   run_all_tests:
     runs-on: ubuntu-20.04
     services:
-      mysql:
-        image: mysql:latest
+      mariadb:
+        image: mariadb:latest
         env:
           MYSQL_ROOT_PASSWORD: root
         ports:
