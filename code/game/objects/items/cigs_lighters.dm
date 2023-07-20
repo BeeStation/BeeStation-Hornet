@@ -588,32 +588,36 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	icon_state = "zippo"
 	item_state = "zippo"
 	w_class = WEIGHT_CLASS_TINY
+	item_flags = ISWEAPON
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
+	heat = 1500
+	resistance_flags = FIRE_PROOF
+	grind_results = list(/datum/reagent/iron = 1, /datum/reagent/fuel = 5, /datum/reagent/fuel/oil = 5)
 	light_system = MOVABLE_LIGHT
 	light_range = 2
 	light_power = 0.6
+	light_color = LIGHT_COLOR_FIRE
 	light_on = FALSE
-	item_flags = ISWEAPON
+	/// Whether the lighter is lit.
 	var/lit = 0
+	/// Whether the lighter is fancy. Fancy lighters have fancier flavortext and won't burn thumbs.
 	var/fancy = TRUE
+	/// The engraving overlay used by this lighter.
 	var/overlay_state
+	/// A list of possible engraving overlays.
 	var/overlay_list = list(
 		"plain",
 		"dame",
 		"thirteen",
 		"snake"
 		)
-	heat = 1500
-	resistance_flags = FIRE_PROOF
-	light_color = LIGHT_COLOR_FIRE
-	grind_results = list(/datum/reagent/iron = 1, /datum/reagent/fuel = 5, /datum/reagent/oil = 5)
 
 /obj/item/lighter/Initialize(mapload)
 	. = ..()
 	if(!overlay_state)
 		overlay_state = pick(overlay_list)
-	update_icon()
+	update_appearance()
 
 /obj/item/lighter/cyborg_unequip(mob/user)
 	if(!lit)

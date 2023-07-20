@@ -1571,7 +1571,7 @@
 
 
 
-/datum/reagent/oil
+/datum/reagent/fuel/oil
 	name = "Oil"
 	description = "Burns in a small smoky fire, mostly used to get Ash."
 	reagent_state = LIQUID

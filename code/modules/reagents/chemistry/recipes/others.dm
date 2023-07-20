@@ -11,7 +11,7 @@
 	name = "Cooking Oil"
 	id = /datum/reagent/consumable/cooking_oil
 	results = list(/datum/reagent/consumable/cooking_oil = 4)
-	required_reagents = list(/datum/reagent/hydrogen = 1, /datum/reagent/oil = 1, /datum/reagent/consumable/sugar = 1, /datum/reagent/carbon = 1)
+	required_reagents = list(/datum/reagent/hydrogen = 1, /datum/reagent/fuel/oil = 1, /datum/reagent/consumable/sugar = 1, /datum/reagent/carbon = 1)
 
 /datum/chemical_reaction/lube
 	name = "Space Lube"
@@ -23,7 +23,7 @@
 	name = "Spray Tan"
 	id = /datum/reagent/spraytan
 	results = list(/datum/reagent/spraytan = 2)
-	required_reagents = list(/datum/reagent/consumable/orangejuice = 1, /datum/reagent/oil = 1)
+	required_reagents = list(/datum/reagent/consumable/orangejuice = 1, /datum/reagent/fuel/oil = 1)
 
 /datum/chemical_reaction/spraytan2
 	name = "Spray Tan"
@@ -544,7 +544,7 @@
 	name = /datum/reagent/acetone
 	id = /datum/reagent/acetone
 	results = list(/datum/reagent/acetone = 3)
-	required_reagents = list(/datum/reagent/oil = 1, /datum/reagent/fuel = 1, /datum/reagent/oxygen = 1)
+	required_reagents = list(/datum/reagent/fuel/oil = 1, /datum/reagent/fuel = 1, /datum/reagent/oxygen = 1)
 
 /datum/chemical_reaction/carpet
 	name = /datum/reagent/carpet
@@ -554,21 +554,21 @@
 
 /datum/chemical_reaction/oil
 	name = "Oil"
-	id = /datum/reagent/oil
-	results = list(/datum/reagent/oil = 3)
+	id = /datum/reagent/fuel/oil
+	results = list(/datum/reagent/fuel/oil = 3)
 	required_reagents = list(/datum/reagent/fuel = 1, /datum/reagent/carbon = 1, /datum/reagent/hydrogen = 1)
 
 /datum/chemical_reaction/phenol
 	name = /datum/reagent/phenol
 	id = /datum/reagent/phenol
 	results = list(/datum/reagent/phenol = 3)
-	required_reagents = list(/datum/reagent/water = 1, /datum/reagent/chlorine = 1, /datum/reagent/oil = 1)
+	required_reagents = list(/datum/reagent/water = 1, /datum/reagent/chlorine = 1, /datum/reagent/fuel/oil = 1)
 
 /datum/chemical_reaction/ash
 	name = "Ash"
 	id = /datum/reagent/ash
 	results = list(/datum/reagent/ash = 1)
-	required_reagents = list(/datum/reagent/oil = 1)
+	required_reagents = list(/datum/reagent/fuel/oil = 1)
 	required_temp = 480
 
 /datum/chemical_reaction/colorful_reagent
@@ -661,7 +661,7 @@
 /datum/chemical_reaction/plastic_polymers
 	name = "plastic polymers"
 	id = /datum/reagent/plastic_polymers
-	required_reagents = list(/datum/reagent/oil = 5, /datum/reagent/toxin/acid = 2, /datum/reagent/ash = 3)
+	required_reagents = list(/datum/reagent/fuel/oil = 5, /datum/reagent/toxin/acid = 2, /datum/reagent/ash = 3)
 	required_temp = 374 //lazily consistent with soap & other crafted objects generically created with heat.
 
 /datum/chemical_reaction/plastic_polymers/on_reaction(datum/reagents/holder, created_volume)
