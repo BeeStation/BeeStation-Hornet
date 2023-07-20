@@ -209,7 +209,7 @@ GLOBAL_VAR_INIT(hsboxspawn, TRUE)
 				var/obj/item/card/id/gold/ID = new(usr.loc)
 				ID.registered_name = usr.real_name
 				ID.assignment = "Sandbox"
-				grant_accesses_to_card(ID.card_access, get_all_accesses())
+				ID.access = get_all_accesses()
 				ID.update_label()
 
 			//

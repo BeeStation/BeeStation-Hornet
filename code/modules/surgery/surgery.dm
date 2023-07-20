@@ -19,6 +19,7 @@
 	var/self_operable = FALSE										//Can the surgery be performed on yourself.
 	var/requires_tech = FALSE										//handles techweb-oriented surgeries, previously restricted to the /advanced subtype (You still need to add designs)
 	var/replaced_by													//type; doesn't show up if this type exists. Set to /datum/surgery if you want to hide a "base" surgery (useful for typing parents IE healing.dm just make sure to null it out again)
+	var/failed_step = FALSE											//used for bypassing the 'poke on help intent' on failing a surgery step and forcing the doctor to damage the patient
 
 /datum/surgery/New(surgery_target, surgery_location, surgery_bodypart)
 	..()
@@ -97,6 +98,7 @@
 
 
 /datum/surgery/proc/next_step(mob/user, intent)
+	failed_step = FALSE
 	if(step_in_progress)
 		return TRUE
 
@@ -110,6 +112,7 @@
 			return TRUE
 		if(iscyborg(user) && user.a_intent != INTENT_HARM) //to save asimov borgs a LOT of heartache
 			return TRUE
+	failed_step = TRUE
 	return FALSE
 
 /datum/surgery/proc/get_surgery_step()

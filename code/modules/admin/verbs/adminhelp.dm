@@ -36,7 +36,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 
 // Used for methods where input via arg doesn't work
 /client/proc/get_adminhelp()
-	var/msg = capped_multiline_input(src, "Please describe your problem concisely and an admin will help as soon as they're able. Include the names of the people you are ahelping against if applicable.", "Adminhelp contents")
+	var/msg = tgui_input_text(src, "Please describe your problem concisely and an admin will help as soon as they're able. Include the names of the people you are ahelping against if applicable.", "Adminhelp contents", multiline = TRUE, encode = FALSE) // we don't encode/sanitize here bc it's done for us later
 	adminhelp(msg)
 
 /client/verb/adminhelp(msg as message)
@@ -61,7 +61,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Adminhelp") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	if(current_adminhelp_ticket)
-		if(alert(usr, "You already have a ticket open. Is this for the same issue?",,"Yes","No") != "No")
+		if(tgui_alert(usr, "You already have a ticket open. Is this for the same issue?", buttons = list("Yes", "No")) != "No")
 			if(current_adminhelp_ticket)
 				current_adminhelp_ticket.MessageNoRecipient(msg)
 				current_adminhelp_ticket.TimeoutVerb()
@@ -193,11 +193,12 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 /datum/help_ticket/admin/message_ticket_managers(msg)
 	message_admins(msg)
 
-/datum/help_ticket/admin/MessageNoRecipient(msg, add_to_ticket = TRUE)
+/datum/help_ticket/admin/MessageNoRecipient(msg, add_to_ticket = TRUE, sanitized = FALSE)
 	var/ref_src = "[REF(src)]"
+	var/sanitized_msg = sanitized ? msg : sanitize(msg)
 
 	//Message to be sent to all admins
-	var/admin_msg = "<span class='adminnotice'><span class='adminhelp'>Ticket [TicketHref("#[id]", ref_src)]</span><b>: [LinkedReplyName(ref_src)] [FullMonty(ref_src)]:</b> <span class='linkify'>[keywords_lookup(msg)]</span></span>"
+	var/admin_msg = "<span class='adminnotice'><span class='adminhelp'>Ticket [TicketHref("#[id]", ref_src)]</span><b>: [LinkedReplyName(ref_src)] [FullMonty(ref_src)]:</b> <span class='linkify'>[keywords_lookup(sanitized_msg)]</span></span>"
 
 	if(add_to_ticket)
 		AddInteraction("red", msg, initiator_key_name, claimee_key_name, "You", "Administrator")
@@ -216,7 +217,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 	if(add_to_ticket)
 		to_chat(initiator,
 			type = message_type,
-			html = "<span class='adminnotice'>PM to-<b>Admins</b>: <span class='linkify'>[msg]</span></span>")
+			html = "<span class='adminnotice'>PM to-<b>Admins</b>: <span class='linkify'>[sanitized_msg]</span></span>")
 
 
 /datum/help_ticket/admin/proc/FullMonty(ref_src)

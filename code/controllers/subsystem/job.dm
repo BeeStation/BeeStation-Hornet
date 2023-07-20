@@ -669,10 +669,10 @@ SUBSYSTEM_DEF(job)
 	M.forceMove(get_turf(src))
 
 /obj/structure/chair/JoinPlayerHere(mob/M, buckle)
-	// Placing a mob in a chair will attempt to buckle it, or else fall back to default.
-	if (buckle && isliving(M) && buckle_mob(M, FALSE, FALSE))
-		return
+	// Placing a mob in a chair will attempt to buckle it if buckle is set
 	..()
+	if (buckle)
+		buckle_mob(M, FALSE, FALSE)
 
 /datum/controller/subsystem/job/proc/SendToLateJoin(mob/M, buckle = TRUE)
 	var/atom/destination
@@ -817,5 +817,5 @@ SUBSYSTEM_DEF(job)
 	// Force-give their ID card bridge access.
 	if(H.wear_id?.GetID())
 		var/obj/item/card/id/id_card = H.wear_id
-		if(!check_access_textified(id_card.card_access, ACCESS_HEADS))
-			grant_accesses_to_card(id_card.card_access, ACCESS_HEADS)
+		if(!(ACCESS_HEADS in id_card.access))
+			LAZYADD(id_card.access, ACCESS_HEADS)

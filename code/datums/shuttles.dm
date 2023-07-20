@@ -75,12 +75,10 @@
 							locate(min(T.x+width-1, world.maxx), min(T.y+height-1, world.maxy), T.z))
 	for(var/turf/turf in turfs)
 		turfs[turf] = turf.loc
-	keep_cached_map = TRUE //We need to access some stuff here below for shuttle skipovers
 	. = ..(T, centered, init_atmos, finalize, register, turfs)
 
-/datum/map_template/shuttle/on_placement_completed(datum/map_generator/map_gen, turf/T, init_atmos, datum/parsed_map/parsed, finalize = TRUE, register = TRUE, list/turfs)
+/datum/map_template/shuttle/on_placement_completed(datum/map_generator/map_place/map_gen, turf/T, init_atmos, datum/parsed_map/parsed, finalize = TRUE, register = TRUE, list/turfs)
 	. = ..(map_gen, T, TRUE, parsed, FALSE)
-	keep_cached_map = initial(keep_cached_map)
 	if(!.)
 		log_runtime("Failed to load shuttle [map_gen.get_name()].")
 		return
@@ -140,7 +138,7 @@
 			line = gset.gridLines[length(gset.gridLines) - y_offset] //Y goes from top to bottom
 			if((gset.xcrd - 1 < x_offset) || (gset.xcrd + (length(line)/cached_map.key_len) - 2 > x_offset)) ///Our x coord isn't in the bounds
 				continue
-			cache = cached_map.modelCache[copytext(line, 1+((x_offset-gset.xcrd+1)*cached_map.key_len), 1+((x_offset-gset.xcrd+2)*cached_map.key_len))]
+			cache = map_gen.placing_template.modelCache[copytext(line, 1+((x_offset-gset.xcrd+1)*cached_map.key_len), 1+((x_offset-gset.xcrd+2)*cached_map.key_len))]
 			break
 		if(!cache) //Our turf isn't in the cached map, something went very wrong
 			continue
@@ -164,14 +162,13 @@
 
 	//If this is a superfunction call, we don't want to initialize atoms here, let the subfunction handle that
 	if(finalize)
+		maps_loading --
+
 		//initialize things that are normally initialized after map load
 		initTemplateBounds(., init_atmos)
 
 		log_game("[name] loaded at [T.x],[T.y],[T.z]")
 
-	maps_loading --
-	if (!maps_loading)
-		cached_map = keep_cached_map ? cached_map : null
 
 //Whatever special stuff you want
 /datum/map_template/shuttle/proc/post_load(obj/docking_port/mobile/M)
@@ -646,6 +643,14 @@
 	suffix = "large"
 	name = "mining shuttle (Large)"
 
+/datum/map_template/shuttle/mining/rad
+	suffix = "rad"
+	name = "mining shuttle (Rad)"
+
+/datum/map_template/shuttle/cargo/rad
+	suffix = "rad"
+	name = "cargo ferry (Rad)"
+
 /datum/map_template/shuttle/science
 	port_id = "science"
 	suffix = "outpost"
@@ -669,6 +674,10 @@
 /datum/map_template/shuttle/exploration/kilo
 	suffix = "kilo"
 	name = "kilo exploration shuttle"
+
+/datum/map_template/shuttle/exploration/rad
+	suffix = "rad"
+	name = "rad exploration shuttle"
 
 /datum/map_template/shuttle/labour/delta
 	suffix = "delta"

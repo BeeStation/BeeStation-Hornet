@@ -8,7 +8,7 @@
 	name = "\improper Firebot"
 	desc = "A little fire extinguishing bot. He looks rather anxious."
 	icon = 'icons/mob/aibots.dmi'
-	icon_state = "firebot"
+	icon_state = "firebot0"
 	density = FALSE
 	anchored = FALSE
 	health = 25
@@ -44,8 +44,8 @@
 	update_icon()
 
 	var/datum/job/J = SSjob.GetJob(JOB_NAME_STATIONENGINEER)
-	grant_accesses_to_card(access_card.card_access, J.get_access())
-	grant_accesses_to_card(prev_access, access_card.card_access)
+	access_card.access = J.get_access()
+	prev_access = access_card.access.Copy()
 
 	create_extinguisher()
 

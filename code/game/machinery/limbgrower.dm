@@ -84,7 +84,10 @@
 			screen = text2num(href_list["menu"])
 
 		if(href_list["category"])
-			selected_category = href_list["category"]
+			var/requested_category = href_list["category"]
+			if (!(requested_category in categories))
+				return
+			selected_category = requested_category
 
 		if(href_list["disposeI"])  //Get rid of a reagent incase you add the wrong one by mistake
 			reagents.del_reagent(text2path(href_list["disposeI"]))

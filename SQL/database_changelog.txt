@@ -10,6 +10,14 @@ In any query remember to add a prefix to the table names if you use one.
 
 -----------------------------------------------------
 
+Version 6.1-ADMINALERT - 9 May 2023 by CydiaLamiales - Minor update, enable admin alert pref for existing users
+
+UPDATE SS13_preferences SET preference_value = preference_value | (1<<20) WHERE preference_tag = 2;
+
+-----------------------------------------------------
+
+-----------------------------------------------------
+
 Version 6.1-TGUISAY - 16 March 2023 by itsmeow - Minor update, enable TGUI Say preferences for existing users
 
 UPDATE SS13_preferences SET preference_value = preference_value | (1<<14) | (1<<15) | (1<<16) | (1<<17) WHERE preference_tag = 2;

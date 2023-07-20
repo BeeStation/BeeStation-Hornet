@@ -16,15 +16,8 @@
 
 /obj/machinery/vendor/Initialize(mapload)
 	. = ..()
-	build_inventory()
-
 	if(bound_bank_account && !istype(bound_bank_account))
 		bound_bank_account = SSeconomy.get_budget_account(bound_bank_account, force=TRUE) // grabbing united budget will be bad for this. "force=TRUE" will always grab the correct budget.
-
-/obj/machinery/vendor/proc/build_inventory()
-	for(var/p in prize_list)
-		var/datum/data/vendor_equipment/M = p
-		GLOB.vending_products[M.equipment_path] = 1
 
 /obj/machinery/vendor/power_change()
 	..()
@@ -139,7 +132,9 @@
 				flick(icon_deny, src)
 				return
 			to_chat(usr, "<span class='notice'>[src] clanks to life briefly before vending [prize.equipment_name]!</span>")
-			new prize.equipment_path(loc)
+			var/obj/created = new prize.equipment_path(loc)
+			if (M.CanReach(src))
+				M.put_in_hands(created)
 			SSblackbox.record_feedback("nested tally", "mining_equipment_bought", 1, list("[type]", "[prize.equipment_path]"))
 			. = TRUE
 
@@ -336,7 +331,7 @@
 /obj/item/card/id/pass/mining_access_card
 	name = "mining access card"
 	desc = "A small card, that when used on any ID, will add mining access."
-	card_access = list(ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MECH_MINING, ACCESS_MINERAL_STOREROOM, ACCESS_CARGO)
+	access = list(ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MECH_MINING, ACCESS_MINERAL_STOREROOM, ACCESS_CARGO)
 
 /obj/item/storage/backpack/duffelbag/mining_conscript
 	name = "mining conscription kit"

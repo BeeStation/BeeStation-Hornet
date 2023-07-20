@@ -87,7 +87,7 @@
 		if("summon")
 			if(!selected_bot)
 				return
-			selected_bot.bot_control(action, current_user, id_card ? id_card.card_access : current_access)
+			selected_bot.bot_control(action, current_user, id_card ? id_card.access : current_access)
 		if("ejectcard")
 			if(!computer || !card_slot)
 				return
@@ -104,6 +104,6 @@
 	else if(id_card && !selected_bot.bot_core.check_access(id_card))
 		access_okay = FALSE
 	if (access_okay && (action in standard_actions))
-		selected_bot.bot_control(action, current_user, id_card ? id_card.card_access : current_access)
+		selected_bot.bot_control(action, current_user, id_card ? id_card.access : current_access)
 	if (access_okay && (action in MULE_actions))
-		selected_bot.bot_control(action, current_user, id_card ? id_card.card_access : current_access, TRUE)
+		selected_bot.bot_control(action, current_user, id_card ? id_card.access : current_access, TRUE)

@@ -50,6 +50,7 @@
  * return list Data to be sent to the UI.
  */
 /datum/proc/ui_data(mob/user)
+	SHOULD_NOT_SLEEP(TRUE) // Optional, but good code practice. Remove this if you have a valid use case.
 	return list() // Not implemented.
 
 /**
@@ -67,6 +68,7 @@
  * return list Statuic Data to be sent to the UI.
  */
 /datum/proc/ui_static_data(mob/user)
+	SHOULD_NOT_SLEEP(TRUE) // Optional, but good code practice. Remove this if you have a valid use case.
 	return list()
 
 /**
@@ -78,11 +80,11 @@
  * required user the mob currently interacting with the ui
  * optional ui ui to be updated
  */
-/datum/proc/update_static_data(mob/user, datum/tgui/ui)
+/datum/proc/update_static_data(mob/user, datum/tgui/ui, bypass_cooldown = TRUE)
 	if(!ui)
 		ui = SStgui.get_open_ui(user, src)
 	if(ui)
-		ui.send_full_update()
+		ui.send_full_update(bypass_cooldown = bypass_cooldown)
 
 /**
  * public

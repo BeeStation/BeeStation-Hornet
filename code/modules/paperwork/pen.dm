@@ -189,15 +189,25 @@
  * Sleepypens
  */
 
+/obj/item/pen/sleepy
+
 /obj/item/pen/sleepy/attack(mob/living/M, mob/user)
 	if(!istype(M))
 		return
 
-	if(..())
-		if(reagents.total_volume)
-			if(M.reagents)
-				reagents.trans_to(M, reagents.total_volume, transfered_by = user, method = INJECT)
-
+	if(reagents?.total_volume && M.reagents)
+		// Obvious message to other people, so that they can call out suspicious activity.
+		to_chat(user, "<span class='notice'>You prepare to engage the sleepy pen's internal mechanism!</span>")
+		if (!do_after(user, 0.5 SECONDS, M) || !..())
+			to_chat(user, "<span class='warning'>You fail to engage the sleepy pen mechanism!</span>")
+			return
+		reagents.trans_to(M, reagents.total_volume, transfered_by = user, method = INJECT)
+		user.visible_message("<span class='warning'>[user] stabs [M] with [src]!</span>", "<span class='notice'>You successfully inject [M] with the pen's contents!</span>", vision_distance = COMBAT_MESSAGE_RANGE, ignored_mobs = list(M))
+		// Looks like a normal pen once it has been used
+		qdel(reagents)
+		reagents = null
+	else
+		return ..()
 
 /obj/item/pen/sleepy/Initialize(mapload)
 	. = ..()

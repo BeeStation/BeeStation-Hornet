@@ -833,39 +833,39 @@
 
 /atom/movable/proc/do_item_attack_animation(atom/A, visual_effect_icon, obj/item/used_item)
 	var/image/I
+	var/obj/effect/icon/temp/attack_animation_object
 	if(visual_effect_icon)
 		I = image('icons/effects/effects.dmi', A, visual_effect_icon, A.layer + 0.1)
+		attack_animation_object = new(A.loc, I, 10)
 	else if(used_item)
 		I = image(icon = used_item, loc = A, layer = A.layer + 0.1)
 		I.plane = GAME_PLANE
+		I.appearance_flags = NO_CLIENT_COLOR | PIXEL_SCALE
+		attack_animation_object = new(A.loc, I, 10)
 
 		// Scale the icon.
-		I.transform *= pick(0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55)
-		// The icon should not rotate.
-		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+		attack_animation_object.transform *= pick(0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55)
 
 		// Set the direction of the icon animation.
 		var/direction = get_dir(src, A)
 		if(direction & NORTH)
-			I.pixel_y = rand(-15,-11)
+			attack_animation_object.pixel_y = rand(-15,-11)
 		else if(direction & SOUTH)
-			I.pixel_y = rand(11,15)
+			attack_animation_object.pixel_y = rand(11,15)
 
 		if(direction & EAST)
-			I.pixel_x = rand(-15,-11)
+			attack_animation_object.pixel_x = rand(-15,-11)
 		else if(direction & WEST)
-			I.pixel_x = rand(11,15)
+			attack_animation_object.pixel_x = rand(11,15)
 
 		if(!direction) // Attacked self?!
-			I.pixel_z = 16
+			attack_animation_object.pixel_z = 16
 
 	if(!I)
 		return
 
-	flick_overlay(I, GLOB.clients, 10) // 10 ticks/a whole second
-
 	// And animate the attack!
-	animate(I, alpha = 175, transform = matrix() * 0.75, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3)
+	animate(attack_animation_object, alpha = 175, transform = matrix() * 0.75, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3)
 	animate(time = 1)
 	animate(alpha = 0, time = 3, easing = CIRCULAR_EASING|EASE_OUT)
 
@@ -937,7 +937,7 @@
 		animate(pixel_y = -2, time = 10, loop = -1, flags = ANIMATION_RELATIVE)
 		setMovetype(movement_type | FLOATING)
 	else if (!on && (movement_type & FLOATING))
-		animate(src, pixel_y = initial(pixel_y), time = 10)
+		animate(src, pixel_y = base_pixel_y, time = 10)
 		setMovetype(movement_type & ~FLOATING)
 /* 	Language procs
 *	Unless you are doing something very specific, these are the ones you want to use.
@@ -1010,12 +1010,12 @@
 
 /// Copies all languages into the supplied atom/language holder. Source should be overridden when you
 /// do not want the language overwritten by later atom updates or want to avoid blocked languages.
-/atom/movable/proc/copy_languages(from_holder, source_override)
+/atom/movable/proc/copy_languages(from_holder, source_override=FALSE, spoken=TRUE, understood=TRUE, blocked=TRUE)
 	if(isatom(from_holder))
 		var/atom/movable/thing = from_holder
 		from_holder = thing.get_language_holder()
 	var/datum/language_holder/LH = get_language_holder()
-	return LH.copy_languages(from_holder, source_override)
+	return LH.copy_languages(from_holder, source_override, spoken, understood, blocked)
 
 /// Empties out the atom specific languages and updates them according to the current atoms language holder.
 /// As a side effect, it also creates missing language holders in the process.
@@ -1048,34 +1048,34 @@
 	set waitfor = FALSE
 	if(!istype(loc, /turf))
 		return
-	var/image/I = image(icon = src, loc = loc, layer = layer + 0.1)
-	I.plane = GAME_PLANE
-	I.transform *= 0.75
-	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-	var/turf/T = get_turf(src)
-	var/direction
-	var/to_x = 0
-	var/to_y = 0
+	var/image/pickup_animation = image(icon = src, loc = loc, layer = layer + 0.1)
+	pickup_animation.plane = GAME_PLANE
+	pickup_animation.appearance_flags = NO_CLIENT_COLOR | PIXEL_SCALE
+	var/turf/current_turf = get_turf(src)
+	var/direction = get_dir(current_turf, target)
+	var/to_x = target.base_pixel_x
+	var/to_y = target.base_pixel_y
 
-	if(!QDELETED(T) && !QDELETED(target))
-		direction = get_dir(T, target)
 	if(direction & NORTH)
-		to_y = 32
+		to_y += 32
 	else if(direction & SOUTH)
-		to_y = -32
+		to_y -= 32
 	if(direction & EAST)
-		to_x = 32
+		to_x += 32
 	else if(direction & WEST)
-		to_x = -32
+		to_x -= 32
 	if(!direction)
-		to_y = 10
-		I.pixel_x += 6 * (prob(50) ? 1 : -1) //6 to the right or left, helps break up the straight upward move
-	flick_overlay(I, GLOB.clients, 6)
-	var/matrix/M = new(I.transform)
-	M.Turn(pick(-30, 30))
-	animate(I, alpha = 175, pixel_x = to_x, pixel_y = to_y, time = 3, transform = M, easing = CUBIC_EASING)
-	sleep(1)
-	animate(I, alpha = 0, transform = matrix(), time = 1)
+		to_y += 10
+		pickup_animation.pixel_x += 6 * (prob(50) ? 1 : -1) //6 to the right or left, helps break up the straight upward move
+
+	var/obj/effect/icon/temp/pickup_animation_object = new(loc, pickup_animation, 4)
+	pickup_animation_object.transform *= 0.75
+	var/matrix/animation_matrix = new(pickup_animation_object.transform)
+	animation_matrix.Turn(pick(-30, 30))
+	animation_matrix.Scale(0.65)
+
+	animate(pickup_animation_object, alpha = 175, pixel_x = to_x, pixel_y = to_y, time = 3, transform = animation_matrix, easing = CUBIC_EASING)
+	animate(alpha = 0, transform = matrix().Scale(0.7), time = 1)
 
 /obj/item/proc/do_drop_animation(atom/moving_from)
 	set waitfor = FALSE
@@ -1088,8 +1088,8 @@
 
 	var/turf/current_turf = get_turf(src)
 	var/direction = get_dir(moving_from, current_turf)
-	var/from_x = 0
-	var/from_y = 0
+	var/from_x = moving_from.base_pixel_x
+	var/from_y = moving_from.base_pixel_y
 
 	if(direction & NORTH)
 		from_y -= 32
@@ -1108,14 +1108,14 @@
 	var/old_y = pixel_y
 	var/old_alpha = alpha
 	var/matrix/old_transform = transform
-	var/matrix/M = new
-	M.Turn(pick(-30, 30))
-	M.Scale(0.7) // Shrink to start, end up normal sized
+	var/matrix/animation_matrix = new(old_transform)
+	animation_matrix.Turn(pick(-30, 30))
+	animation_matrix.Scale(0.7) // Shrink to start, end up normal sized
 
 	pixel_x = from_x
 	pixel_y = from_y
 	alpha = 0
-	transform = M
+	transform = animation_matrix
 
 	// This is instant on byond's end, but to our clients this looks like a quick drop
 	animate(src, alpha = old_alpha, pixel_x = old_x, pixel_y = old_y, transform = old_transform, time = 3, easing = CUBIC_EASING)

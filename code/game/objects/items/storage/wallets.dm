@@ -42,13 +42,14 @@
 	refreshID()
 
 /obj/item/storage/wallet/proc/refreshID()
-	combined_access = list()
+	LAZYCLEARLIST(combined_access)
 	if(!(front_id in src))
 		front_id = null
 	for(var/obj/item/card/id/I in contents)
 		if(!front_id)
 			front_id = I
-		grant_accesses_to_card(combined_access, I.card_access)
+		LAZYINITLIST(combined_access)
+		combined_access |= I.access
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.wear_id == src)
@@ -88,7 +89,7 @@
 	return FALSE
 
 /obj/item/storage/wallet/GetAccess()
-	if(length(combined_access))
+	if(LAZYLEN(combined_access))
 		return combined_access
 	else
 		return ..()

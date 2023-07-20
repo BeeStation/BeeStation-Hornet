@@ -770,7 +770,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "</center>"
 
 			var/fcolor =  "#3366CC"
-			var/metabalance = user.client.get_metabalance()
+			var/metabalance = user.client.get_metabalance_db()
 			dat += "<table align='center' width='100%'>"
 			dat += "<tr><td colspan=4><center><b>Current balance: <font color='[fcolor]'>[metabalance]</font> [CONFIG_GET(string/metacurrency_name)]s.</b> \[<a href='?_src_=prefs;preference=gear;clear_loadout=1'>Clear Loadout</a>\]</center></td></tr>"
 			dat += "<tr><td colspan=4><center><b>"
@@ -857,6 +857,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				dat += "<h2>Admin Settings</h2>"
 
 				dat += "<b>Adminhelp Sounds:</b> <a href='?_src_=prefs;preference=hear_adminhelps'>[(toggles & PREFTOGGLE_SOUND_ADMINHELP)?"Enabled":"Disabled"]</a><br>"
+				dat += "<b>Admin Alert Sounds:</b> <a href='?_src_=prefs;preference=hear_adminalertsounds'>[(toggles & PREFTOGGLE_2_SOUND_ADMINALERT)?"Enabled":"Disabled"]</a><br>"
 				dat += "<b>Prayer Sounds:</b> <a href = '?_src_=prefs;preference=hear_prayers'>[(toggles & PREFTOGGLE_SOUND_PRAYERS)?"Enabled":"Disabled"]</a><br>"
 				dat += "<b>Announce Login:</b> <a href='?_src_=prefs;preference=announce_login'>[(toggles & PREFTOGGLE_ANNOUNCE_LOGIN)?"Enabled":"Disabled"]</a><br>"
 				dat += "<br>"
@@ -1331,7 +1332,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if(TG.sort_category == "Donator")
 				if(CONFIG_GET(flag/donator_items) && alert(parent, "This item is only accessible to our patrons. Would you like to subscribe?", "Patron Locked", "Yes", "No") == "Yes")
 					parent.donate()
-			else if(TG.cost < user.client.get_metabalance())
+			else if(TG.cost <= user.client.get_metabalance_db())
 				purchased_gear += TG.id
 				TG.purchase(user.client)
 				user.client.inc_metabalance((TG.cost * -1), TRUE, "Purchased [TG.display_name].")
@@ -1843,6 +1844,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				//here lies the badmins
 				if("hear_adminhelps")
 					user.client.toggleadminhelpsound()
+				if("hear_adminalertsounds")
+					user.client.toggleadminalertsound()
 				if("hear_prayers")
 					user.client.toggle_prayer_sound()
 				if("announce_login")
