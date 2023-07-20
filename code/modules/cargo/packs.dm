@@ -302,7 +302,7 @@
 	desc = "(*!&@#OPERATIVE THIS LITTLE ORDER WILL MAKE YOU STYLISH SYNDICATE STYLE. CONTAINS A COLLECTION OF THREE TACTICAL TURTLENECKS, THREE COMBAT BOOTS, THREE COMBAT GLOVES, THREE BALACLAVAS, THREE SYNDICATE BERETS AND THREE ARMOR VESTS!#@*$"
 	hidden = TRUE
 	cost = 3000
-	max_supply = 1
+	max_supply = 3
 	contains = list(/obj/item/clothing/under/syndicate,
 					/obj/item/clothing/under/syndicate,
 					/obj/item/clothing/under/syndicate,
@@ -407,15 +407,19 @@
 	crate_name = ".38 match crate"
 
 /datum/supply_pack/security/securitybarriers
-	name = "Security Barrier Grenades"
-	desc = "Stem the tide with four Security Barrier grenades. Requires Security access to open."
+	name = "Security Barricades"
+	desc = "Stem the tide with eight security barricades. Requires Security access to open."
 	cost = 1500
 	max_supply = 2
 	access_budget = ACCESS_BRIG
-	contains = list(/obj/item/grenade/barrier,
-					/obj/item/grenade/barrier,
-					/obj/item/grenade/barrier,
-					/obj/item/grenade/barrier)
+	contains = list(/obj/item/deployable/barricade/security,
+					/obj/item/deployable/barricade/security,
+					/obj/item/deployable/barricade/security,
+					/obj/item/deployable/barricade/security,
+					/obj/item/deployable/barricade/security,
+					/obj/item/deployable/barricade/security,
+					/obj/item/deployable/barricade/security,
+					/obj/item/deployable/barricade/security)
 	crate_name = "security barriers crate"
 
 /datum/supply_pack/security/securityclothes
@@ -1146,7 +1150,7 @@
 	cost = 5000
 	max_supply = 2
 	contains = list(
-		/obj/machinery/portable_atmospherics/canister/toxins,
+		/obj/machinery/portable_atmospherics/canister/plasma,
 		/obj/item/construction/rcd/loaded,
 		/obj/item/rcd_ammo/large,
 		/obj/item/rcd_ammo/large,
@@ -1756,7 +1760,7 @@
 	max_supply = 4
 	contains = list(/obj/item/storage/backpack/duffelbag/med/surgery,
 					/obj/item/reagent_containers/medspray/sterilizine,
-					/obj/item/roller)
+					/obj/item/deployable/rollerbed)
 	crate_name = "surgical supplies crate"
 
 /datum/supply_pack/medical/salglucanister

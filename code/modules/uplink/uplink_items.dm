@@ -425,7 +425,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			to get flying! All syndicate agents are advised to ignore the Nanotrasen labels on products. Space proof suits not included."
 	cost = 15	//There are multiple uses for the RCD and plasma canister, but both are easilly accessible for items that cost less than all of their TC.
 	contents = list(
-		/obj/machinery/portable_atmospherics/canister/toxins = 1,
+		/obj/machinery/portable_atmospherics/canister/plasma = 1,
 		/obj/item/construction/rcd/combat = 1,
 		/obj/item/rcd_ammo/large = 2,
 		/obj/item/shuttle_creator = 1,
@@ -810,10 +810,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/stealthy_weapons/sleepy_pen
 	name = "Sleepy Pen"
-	desc = "A syringe disguised as a functional pen, filled with a potent mix of drugs, including a \
+	desc = "A spring loaded, single-use syringe disguised as a functional pen, filled with a potent mix of drugs, including a \
 			strong anesthetic and a chemical that prevents the target from speaking. \
-			The pen holds one dose of the mixture, and can be refilled with any chemicals. Note that before the target \
-			falls asleep, they will be able to move and act."
+			The mixture that the pen comes with can be replaced as long as the pen hasn't been used already. Note that the mechanism takes time to \
+			trigger, is obvious to anyone nearby (excluding the target) and the victim may still be able to move and act for a brief period of time before falling unconcious."
 	item = /obj/item/pen/sleepy
 	cost = 5
 	purchasable_from = ~UPLINK_NUKE_OPS
@@ -2168,7 +2168,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A bottle of cursed blood, full of angry spirits which will burn all the heretics with the fires of hell.\
 			At least. thats what the label says"
 	item = /obj/item/reagent_containers/glass/bottle/fluspanish
-	cost = 14
+	cost = 12
 	restricted_roles = list(JOB_NAME_CHAPLAIN, JOB_NAME_VIROLOGIST)
 
 /datum/uplink_item/role_restricted/retrovirus
@@ -2176,16 +2176,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A bottle of contagious DNA bugs, which will manually rearrange the DNA of hosts.\
 			At least, that's what the label says."
 	item = /obj/item/reagent_containers/glass/bottle/retrovirus
-	cost = 14
+	cost = 12
 	restricted_roles = list(JOB_NAME_VIROLOGIST, JOB_NAME_GENETICIST)
-
-/datum/uplink_item/role_restricted/random_disease
-	name = "Experimental Disease"
-	desc = "A random disease. Maybe you'll get lucky with another level nine."
-	item = /obj/item/reagent_containers/glass/bottle/random_virus
-	cost = 5
-	restricted_roles = list(JOB_NAME_VIROLOGIST)
-	surplus = 20
 
 /datum/uplink_item/role_restricted/anxiety
 	name = "Anxiety Culture Bottle"

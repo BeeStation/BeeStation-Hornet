@@ -378,7 +378,7 @@
 			if (WEST)
 				animate(M, pixel_x = M.pixel_x - 3, time = 1, loop = 0)
 		sleep(1)
-	animate(M, pixel_x = M.get_standard_pixel_x_offset(), pixel_y = M.get_standard_pixel_y_offset(), time = 1, loop = 0)
+	animate(M, pixel_x = M.body_position_pixel_x_offset, pixel_y = M.body_position_pixel_y_offset, time = 1, loop = 0)
 
 /obj/machinery/jukebox/disco/proc/dance4(var/mob/living/M)
 	var/speed = rand(1,3)
@@ -412,7 +412,7 @@
 			if (WEST)
 				animate(M, pixel_x = M.pixel_x - 3, time = 1, loop = 0)
 		sleep(1)
-	animate(M, transform = matrix(M.transform).Scale(-1), pixel_x = M.get_standard_pixel_x_offset(), pixel_y = M.get_standard_pixel_y_offset(), time = 1, loop = 0) //dance end
+	animate(M, transform = matrix(M.transform).Scale(-1), pixel_x = M.body_position_pixel_x_offset, pixel_y = M.body_position_pixel_y_offset, time = 1, loop = 0) //dance end
 
 /obj/machinery/jukebox/proc/dance_over()
 	for(var/mob/living/L in rangers)

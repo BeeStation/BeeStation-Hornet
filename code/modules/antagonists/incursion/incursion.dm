@@ -2,8 +2,10 @@
 	name = "Syndicate Incursion Member"
 	antagpanel_category = "Incursion"
 	job_rank = ROLE_INCURSION
+	ui_name = "AntagInfoIncursion"
 	var/special_role = ROLE_INCURSION
 	var/datum/team/incursion/team
+	var/datum/weakref/uplink_ref
 	antag_moodlet = /datum/mood_event/focused
 	hijack_speed = 0.5
 
@@ -35,6 +37,17 @@
 
 /datum/antagonist/incursion/antag_panel_data()
 	return "Conspirators : [get_team_members()]]"
+
+/datum/antagonist/incursion/ui_static_data(mob/user)
+	var/datum/component/uplink/uplink = uplink_ref?.resolve()
+	var/list/data = list()
+	data["antag_name"] = name
+	data["code"] = uplink?.unlock_code
+	data["failsafe_code"] = uplink?.failsafe_code
+	data["uplink_unlock_info"] = uplink?.unlock_text
+	data["objectives"] = get_objectives()
+	data["members"] = team.get_member_names()
+	return data
 
 /datum/antagonist/incursion/proc/get_team_members()
 	var/list/members = team.members - owner
@@ -91,7 +104,10 @@
 	log_admin("[key_name(admin)] made [key_name(new_owner)] and [key_name(new_owner.current)] into incursion traitor team.")
 
 /datum/antagonist/incursion/proc/equip(var/silent = FALSE)
-	owner.equip_traitor("The Syndicate", FALSE, src, 15)
+	var/obj/item/uplink_loc = owner.equip_traitor("The Syndicate", FALSE, src, 15)
+	var/datum/component/uplink/uplink = uplink_loc?.GetComponent(/datum/component/uplink)
+	if(uplink)
+		uplink_ref = WEAKREF(uplink)
 	var/obj/item/implant/radio/syndicate/selfdestruct/syndio = new
 	syndio.implant(owner.current)
 

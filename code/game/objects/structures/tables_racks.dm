@@ -110,7 +110,7 @@
 /obj/structure/table/attack_tk()
 	return FALSE
 
-/obj/structure/table/CanAllowThrough(atom/movable/mover, turf/target)
+/obj/structure/table/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(.)
 		return
@@ -552,11 +552,18 @@
 	var/obj/machinery/computer/operating/computer = null
 
 /obj/structure/table/optable/Initialize(mapload)
+	..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/structure/table/optable/LateInitialize()
 	. = ..()
+	initial_link()
+
+/obj/structure/table/optable/proc/initial_link()
 	for(var/direction in GLOB.alldirs)
 		computer = locate(/obj/machinery/computer/operating) in get_step(src, direction)
-		if(computer)
-			computer.table = src
+		if(computer && !computer.table)
+			computer.link_with_table(new_table = src)
 			break
 
 /obj/structure/table/optable/Destroy()
@@ -616,7 +623,7 @@
 	. = ..()
 	. += "<span class='notice'>It's held together by a couple of <b>bolts</b>.</span>"
 
-/obj/structure/rack/CanAllowThrough(atom/movable/mover, turf/target)
+/obj/structure/rack/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(src.density == 0) //Because broken racks -Agouri |TODO: SPRITE!|
 		return TRUE

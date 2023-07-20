@@ -18,7 +18,7 @@
 	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/innate/cult/comm/Activate()
-	var/input = stripped_input(usr, "Please choose a message to tell to the other acolytes.", "Voice of Blood", "")
+	var/input = tgui_input_text(usr, "Please choose a message to tell to the other acolytes.", "Voice of Blood", "")
 	if(!input || !IsAvailable())
 		return
 	if(CHAT_FILTER_CHECK(input))
@@ -47,12 +47,12 @@
 	for(var/i in GLOB.player_list)
 		var/mob/M = i
 		if(iscultist(M))
-			to_chat(M, my_message)
+			to_chat(M, my_message, type = MESSAGE_TYPE_RADIO, avoid_highlighting = M == user)
 		else if(M in GLOB.dead_mob_list)
 			var/link = FOLLOW_LINK(M, user)
-			to_chat(M, "[link] [my_message]")
+			to_chat(M, "[link] [my_message]", type = MESSAGE_TYPE_RADIO)
 
-	user.log_talk(message, LOG_SAY, tag="cult")
+	user.log_talk(message, LOG_SAY, tag="blood cult")
 
 /datum/action/innate/cult/comm/spirit
 	name = "Spiritual Communion"
@@ -163,7 +163,7 @@
 		chant(i)
 		var/list/destinations = list()
 		for(var/turf/T as() in (RANGE_TURFS(1, owner) - get_turf(owner)))
-			if(!is_blocked_turf(T, TRUE))
+			if(!T.is_blocked_turf(TRUE))
 				destinations += T
 		if(!LAZYLEN(destinations))
 			to_chat(owner, "<span class='warning'>You need more space to summon your cult!</span>")

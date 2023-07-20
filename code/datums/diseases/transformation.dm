@@ -181,7 +181,7 @@
 			if(ishuman(affected_mob))
 				var/mob/living/carbon/human/human = affected_mob
 				if(human.dna.species.id != "slime" && affected_mob.dna.species.id != "stargazer" && affected_mob.dna.species.id != "lum")
-					human.set_species(/datum/species/jelly/slime)
+					human.set_species(/datum/species/oozeling/slime)
 
 /datum/disease/transformation/corgi
 	name = "The Barkening"

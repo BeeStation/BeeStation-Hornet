@@ -267,7 +267,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/hunter)
 "rC" = (
-/obj/machinery/computer/camera_advanced{
+/obj/machinery/computer/camera_advanced/bounty_hunter{
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -795,7 +795,7 @@
 "Ln" = (
 /obj/effect/turf_decal/box/corners,
 /obj/machinery/iv_drip,
-/obj/item/roller{
+/obj/item/deployable/rollerbed{
 	pixel_x = -10;
 	pixel_y = 14
 	},
@@ -881,7 +881,7 @@
 	req_access = list(181)
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/plastitanium{
 	icon_state = "plastitanium_dam2"
@@ -1067,7 +1067,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/portable_atmospherics/canister/plasma,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/bot/right,
 /obj/effect/turf_decal/bot/left,

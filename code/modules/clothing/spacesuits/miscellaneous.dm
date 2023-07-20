@@ -190,7 +190,7 @@ Contains:
 		//Add the monitor (Default to null - No tracking)
 		component_beacon.attached_monitor = AddComponent(/datum/component/team_monitor/worn, "cent", null, component_beacon)
 	else
-		AddComponent(/datum/component/team_monitor/worn, "cent", null)
+		AddComponent(/datum/component/team_monitor, "cent", -1)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/ui_action_click(mob/user, datum/action)
 	switch(action.type)
@@ -198,17 +198,6 @@ Contains:
 			toggle_helmlight()
 		if(/datum/action/item_action/toggle_beacon_hud)
 			toggle_hud(user)
-
-/obj/item/clothing/head/helmet/space/hardsuit/ert/proc/toggle_hud(mob/user)
-	var/datum/component/team_monitor/worn/monitor = GetComponent(/datum/component/team_monitor/worn)
-	if(!monitor)
-		to_chat(user, "<span class='notice'>The suit is not fitted with a tracking beacon.</span>")
-		return
-	monitor.toggle_hud(!monitor.hud_visible, user)
-	if(monitor.hud_visible)
-		to_chat(user, "<span class='notice'>You toggle the heads up display of your suit.</span>")
-	else
-		to_chat(user, "<span class='warning'>You disable the heads up display of your suit.</span>")
 
 /obj/item/clothing/suit/space/hardsuit/ert
 	name = "emergency response team commander hardsuit"
@@ -237,24 +226,6 @@ Contains:
 			toggle_beacon(user)
 		if(/datum/action/item_action/toggle_beacon_frequency)
 			set_beacon_freq(user)
-
-/obj/item/clothing/suit/space/hardsuit/ert/proc/toggle_beacon(mob/user)
-	var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)
-	if(!beacon)
-		to_chat(user, "<span class='notice'>The suit is not fitted with a tracking beacon.</span>")
-		return
-	beacon.toggle_visibility(!beacon.visible)
-	if(beacon.visible)
-		to_chat(user, "<span class='notice'>You enable the tracking beacon on [src]. Anybody on the same frequency will now be able to track your location.</span>")
-	else
-		to_chat(user, "<span class='warning'>You disable the tracking beacon on [src].</span>")
-
-/obj/item/clothing/suit/space/hardsuit/ert/proc/set_beacon_freq(mob/user)
-	var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)
-	if(!beacon)
-		to_chat(user, "<span class='notice'>The suit is not fitted with a tracking beacon.</span>")
-		return
-	beacon.change_frequency(user)
 
 	//ERT Security
 /obj/item/clothing/head/helmet/space/hardsuit/ert/sec
@@ -534,7 +505,7 @@ Contains:
 	flash_protect = 0
 	bang_protect = 0
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR
-	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT
+	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT | HEADINTERNALS
 	max_heat_protection_temperature = 100
 	actions_types = null
 

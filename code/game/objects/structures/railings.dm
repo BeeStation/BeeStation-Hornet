@@ -6,6 +6,8 @@
 	density = TRUE
 	anchored = TRUE
 	climbable = TRUE
+	max_integrity = 75
+
 	///Initial direction of the railing.
 	var/ini_dir
 
@@ -22,6 +24,7 @@
 	init_connect_loc_element()
 
 /obj/structure/railing/attackby(obj/item/I, mob/living/user, params)
+	..()
 	add_fingerprint(user)
 
 	if(I.tool_behaviour == TOOL_WELDER && user.a_intent == INTENT_HELP)
@@ -65,11 +68,10 @@
 		to_chat(user, "<span class='notice'>You [anchored ? "fasten the railing to":"unfasten the railing from"] the floor.</span>")
 	return TRUE
 
-/obj/structure/railing/CanPass(atom/movable/mover, turf/target)
+/obj/structure/railing/CanPass(atom/movable/mover, border_dir)
 	. = ..()
-	if(get_dir(loc, target) & dir)
-		var/checking = FLYING | FLOATING
-		return . || mover.movement_type & checking
+	if(border_dir & dir)
+		return . || mover.throwing || mover.movement_type & (FLYING | FLOATING)
 	return TRUE
 
 /obj/structure/railing/corner/CanPass()
@@ -86,6 +88,9 @@
 /obj/structure/railing/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
 
+	if(leaving == src)
+		return // Let's not block ourselves.
+
 	if(!(direction & dir))
 		return
 
@@ -95,7 +100,7 @@
 	if (leaving.throwing)
 		return
 
-	if (leaving.movement_type & (FLYING | FLOATING))
+	if (leaving.movement_type & (PHASING | FLYING | FLOATING))
 		return
 
 	if (leaving.move_force >= MOVE_FORCE_EXTREMELY_STRONG)
@@ -117,7 +122,7 @@
 
 	var/target_dir = turn(dir, rotation_type == ROTATION_CLOCKWISE ? -90 : 90)
 
-	if(!valid_window_location(loc, target_dir)) //Expanded to include rails, as well!
+	if(!valid_window_location(loc, target_dir, is_fulltile = FALSE)) //Expanded to include rails, as well!
 		to_chat(user, "<span class='warning'>[src] cannot be rotated in that direction!</span>")
 		return FALSE
 	return TRUE

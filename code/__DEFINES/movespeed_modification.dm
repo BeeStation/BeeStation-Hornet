@@ -76,6 +76,7 @@
 #define MOVESPEED_ID_COLD                               "COLD"
 
 #define MOVESPEED_ID_HUNGRY                             "HUNGRY"
+#define MOVESPEED_ID_NO_POWERCELL                       "NO POWERCELL"
 
 #define MOVESPEED_ID_DAMAGE_SLOWDOWN                    "DAMAGE"
 #define MOVESPEED_ID_DAMAGE_SLOWDOWN_FLYING				"FLYING"

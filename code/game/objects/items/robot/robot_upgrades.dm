@@ -1,3 +1,6 @@
+#define STANDARD "standard" //repair module is operating in standard repair mode
+#define CRITICAL "critical" //repair module is operating in critical repair mode
+
 // robot_upgrades.dm
 // Contains various borg upgrades.
 
@@ -327,11 +330,12 @@
 	desc = "This module will repair the cyborg over time."
 	icon_state = "cyborg_upgrade5"
 	require_module = 1
-	var/repair_amount = -1
+	var/repair_amount = -5
 	/// world.time of next repair
 	var/next_repair = 0
-	/// Minimum time between repairs in seconds
-	var/repair_cooldown = 4
+	/// Minimum time between repairs
+	var/mode = STANDARD
+	var/repair_cooldown = 10 SECONDS
 	var/msg_cooldown = 0
 	var/on = FALSE
 	var/powercost = 10
@@ -373,9 +377,11 @@
 /obj/item/borg/upgrade/selfrepair/ui_action_click()
 	on = !on
 	if(on)
+		playsound(cyborg.loc, 'sound/machines/terminal_processing.ogg', 30)
 		to_chat(cyborg, "<span class='notice'>You activate the self-repair module.</span>")
 		START_PROCESSING(SSobj, src)
 	else
+		playsound(cyborg.loc, 'sound/effects/turbolift/turbolift-close.ogg', 90)
 		to_chat(cyborg, "<span class='notice'>You deactivate the self-repair module.</span>")
 		STOP_PROCESSING(SSobj, src)
 	update_icon()
@@ -390,6 +396,7 @@
 		icon_state = "cyborg_upgrade5"
 
 /obj/item/borg/upgrade/selfrepair/proc/deactivate_sr()
+	playsound(cyborg.loc, 'sound/effects/turbolift/turbolift-close.ogg', 90)
 	STOP_PROCESSING(SSobj, src)
 	on = FALSE
 	update_icon()
@@ -400,38 +407,37 @@
 
 	if(cyborg && (cyborg.stat != DEAD) && on)
 		if(!cyborg.cell)
-			to_chat(cyborg, "<span class='warning'>Self-repair module deactivated. Please, insert the power cell.</span>")
+			to_chat(cyborg, "<span class='warning'>[src] deactivated. Please, insert the power cell.</span>")
 			deactivate_sr()
 			return
 
-		if(cyborg.cell.charge < powercost * 2)
-			to_chat(cyborg, "<span class='warning'>Self-repair module deactivated. Please recharge.</span>")
+		if(cyborg.cell.charge < powercost * 20)
+			to_chat(cyborg, "<span class='warning'>Low power levels detected. [src] deactivated.</span>")
 			deactivate_sr()
 			return
 
 		if(cyborg.health < cyborg.maxHealth)
-			if(cyborg.health < 0)
-				repair_amount = -2.5
-				powercost = 30
-			else
-				repair_amount = -1
-				powercost = 10
-			cyborg.adjustBruteLoss(repair_amount)
-			cyborg.adjustFireLoss(repair_amount)
-			cyborg.updatehealth()
+			if(cyborg.health < cyborg.maxHealth / 2 && mode == STANDARD)
+				mode = CRITICAL
+				to_chat(cyborg, "<span class='notice'>[src] now operating in <span class='boldnotice'>[mode]</span> mode.</span>")
+				repair_amount = initial(repair_amount) * 2
+				powercost = initial(repair_amount) * 3
+			else if (cyborg.health >= cyborg.maxHealth / 2 && mode == CRITICAL)
+				mode = STANDARD
+				to_chat(cyborg, "<span class='notice'>[src] now operating in <span class='boldnotice'>[mode]</span> mode.</span>")
+				repair_amount = initial(repair_amount)
+				powercost = initial(powercost)
+			if(cyborg.getBruteLoss())
+				cyborg.adjustBruteLoss(repair_amount)
+			else if(cyborg.getFireLoss())
+				cyborg.adjustFireLoss(repair_amount)
+			playsound(cyborg.loc, 'sound/items/welder2.ogg', 10) //Quiet so it isn't obnoxious, but still making itself known
 			cyborg.cell.use(powercost)
+			cyborg.updatehealth()
 		else
-			cyborg.cell.use(5)
-		next_repair = world.time + repair_cooldown * 10 // Multiply by 10 since world.time is in deciseconds
-
-		if(!TIMER_COOLDOWN_CHECK(src, COOLDOWN_BORG_SELF_REPAIR))
-			TIMER_COOLDOWN_START(src, COOLDOWN_BORG_SELF_REPAIR, 200 SECONDS)
-			var/msgmode = "standby"
-			if(cyborg.health < 0)
-				msgmode = "critical"
-			else if(cyborg.health < cyborg.maxHealth)
-				msgmode = "normal"
-			to_chat(cyborg, "<span class='notice'>Self-repair is active in <span class='boldnotice'>[msgmode]</span> mode.</span>")
+			to_chat(cyborg, "<span class='warning'>Unit fully repaired. [src] deactivated.</span>")
+			deactivate_sr()
+		next_repair = world.time + repair_cooldown
 	else
 		deactivate_sr()
 
@@ -862,3 +868,6 @@
 		/obj/item/crowbar/cyborg,
 		/obj/item/dance_trance,
 	)
+
+#undef STANDARD
+#undef CRITICAL

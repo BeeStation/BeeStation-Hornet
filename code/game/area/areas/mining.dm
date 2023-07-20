@@ -15,7 +15,6 @@
 	icon_state = "explored"
 	always_unpowered = TRUE
 	requires_power = TRUE
-	poweralm = FALSE
 	power_environ = FALSE
 	power_equip = FALSE
 	power_light = FALSE
@@ -32,7 +31,6 @@
 	icon_state = "unexplored"
 	always_unpowered = TRUE
 	requires_power = TRUE
-	poweralm = FALSE
 	power_environ = FALSE
 	power_equip = FALSE
 	power_light = FALSE
@@ -132,9 +130,7 @@
 	name = "Lavaland"
 	icon_state = "explored"
 	always_unpowered = TRUE
-	poweralm = FALSE
 	power_environ = FALSE
-	power_equip = FALSE
 	power_light = FALSE
 	requires_power = TRUE
 	ambience_index = AMBIENCE_MINING
@@ -146,7 +142,6 @@
 	icon_state = "unexplored"
 	always_unpowered = TRUE
 	requires_power = TRUE
-	poweralm = FALSE
 	power_environ = FALSE
 	power_equip = FALSE
 	power_light = FALSE

@@ -63,13 +63,13 @@
 		body += "<a href='?_src_=holder;[HrefToken()];modantagrep=subtract;mob=[REF(M)]'>-</a> "
 		body += "<a href='?_src_=holder;[HrefToken()];modantagrep=set;mob=[REF(M)]'>=</a> "
 		body += "<a href='?_src_=holder;[HrefToken()];modantagrep=zero;mob=[REF(M)]'>0</a>"
-		var/antag_tokens = M.client.get_antag_token_count()
+		var/antag_tokens = M.client.get_antag_token_count_db()
 		body += "<br><b>Antag Tokens</b>: [antag_tokens] "
 		body += "<a href='?_src_=holder;[HrefToken()];modantagtokens=add;mob=[REF(M)]'>+</a> "
 		body += "<a href='?_src_=holder;[HrefToken()];modantagtokens=subtract;mob=[REF(M)]'>-</a> "
 		body += "<a href='?_src_=holder;[HrefToken()];modantagtokens=set;mob=[REF(M)]'>=</a> "
 		body += "<a href='?_src_=holder;[HrefToken()];modantagtokens=zero;mob=[REF(M)]'>0</a>"
-		var/metabalance = M.client.get_metabalance()
+		var/metabalance = M.client.get_metabalance_db()
 		body += "<br><b>[CONFIG_GET(string/metacurrency_name)]s</b>: [metabalance] "
 		var/full_version = "Unknown"
 		if(M.client.byond_version)
@@ -92,8 +92,8 @@
 	body += "<a href='?_src_=holder;[HrefToken()];adminplayerobservefollow=[REF(M)]'>FLW</a> "
 	//Default to client logs if available
 	var/source = LOGSRC_MOB
-	if(M.client)
-		source = LOGSRC_CLIENT
+	if(M.ckey)
+		source = LOGSRC_CKEY
 	body += "<a href='?_src_=holder;[HrefToken()];individuallog=[REF(M)];log_src=[source]'>LOGS</a><br>"
 
 	body += "<br><b>Mob Type:</b> [M.type]<br><br>"
@@ -790,3 +790,11 @@
 				"Admin login: [key_name(src)]")
 		if(string)
 			message_admins("[string]")
+
+///Plays a sound to all admins who have that preference on, with the var being the sound filepath
+/proc/play_sound_to_all_admins(var/sound = null)
+	if(isnull(sound))
+		return
+	for(var/client/C as anything in GLOB.admins)
+		if(C.prefs.toggles & PREFTOGGLE_2_SOUND_ADMINALERT)
+			SEND_SOUND(C, sound)

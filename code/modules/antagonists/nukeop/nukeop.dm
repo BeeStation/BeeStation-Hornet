@@ -6,6 +6,7 @@
 	antag_moodlet = /datum/mood_event/focused
 	show_to_ghosts = TRUE
 	hijack_speed = 2 //If you can't take out the station, take the shuttle instead.
+	ui_name = "AntagInfoNukeOp"
 	var/datum/team/nuclear/nuke_team
 	var/always_new_team = FALSE //If not assigned a team by default ops will try to join existing ones, set this to TRUE to always create new team.
 	var/send_to_spawnpoint = TRUE //Should the user be moved to default spawnpoint.
@@ -68,6 +69,12 @@
 
 /datum/antagonist/nukeop/get_team()
 	return nuke_team
+
+/datum/antagonist/nukeop/ui_static_data(mob/user)
+	. = ..()
+	.["leader"] = FALSE
+	.["lone"] = FALSE
+	.["nuke_code"] = nuke_team.memorized_code || "???"
 
 /datum/antagonist/nukeop/proc/assign_nuke()
 	if(nuke_team && !nuke_team.tracked_nuke)
@@ -178,14 +185,14 @@
 /datum/antagonist/nukeop/leader/memorize_code()
 	..()
 	if(nuke_team?.memorized_code)
-		var/obj/item/paper/P = new
-		P.info = "The nuclear authorization code is: <b>[nuke_team.memorized_code]</b>"
-		P.name = "nuclear bomb code"
+		var/obj/item/paper/nuke_code_paper = new
+		nuke_code_paper.add_raw_text("The nuclear authorization code is: <b>[nuke_team.memorized_code]</b>")
+		nuke_code_paper.name = "nuclear bomb code"
 		var/mob/living/carbon/human/H = owner.current
 		if(!istype(H))
-			P.forceMove(get_turf(H))
+			nuke_code_paper.forceMove(get_turf(H))
 		else
-			H.put_in_hands(P, TRUE)
+			H.put_in_hands(nuke_code_paper, TRUE)
 			H.update_icons()
 
 /datum/antagonist/nukeop/leader/give_alias()
@@ -210,9 +217,13 @@
 		return
 	nuke_team.rename_team(ask_name())
 
+/datum/antagonist/nukeop/leader/ui_static_data(mob/user)
+	. = ..()
+	.["leader"] = TRUE
+
 /datum/team/nuclear/proc/rename_team(new_name)
 	syndicate_name = new_name
-	name = "[syndicate_name] Team"
+	name = "Family [syndicate_name]"
 	for(var/I in members)
 		var/datum/mind/synd_mind = I
 		var/mob/living/carbon/human/H = synd_mind.current
@@ -252,6 +263,11 @@
 		else
 			stack_trace("Station self-destruct not found during lone op team creation.")
 			nuke_team.memorized_code = null
+		nuke_team.name = "Lone Operative - [nuke_team.syndicate_name]"
+
+/datum/antagonist/nukeop/lone/ui_static_data(mob/user)
+	. = ..()
+	.["lone"] = TRUE
 
 /datum/antagonist/nukeop/reinforcement
 	send_to_spawnpoint = FALSE
@@ -268,6 +284,7 @@
 /datum/team/nuclear/New()
 	..()
 	syndicate_name = syndicate_name()
+	name = "Family [syndicate_name]"
 	team_frequency = get_free_team_frequency("synd")
 
 /datum/team/nuclear/proc/update_objectives()

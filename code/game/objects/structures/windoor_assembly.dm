@@ -13,13 +13,15 @@
 	icon = 'icons/obj/doors/windoor.dmi'
 
 	name = "windoor Assembly"
-	icon_state = "l_windoor_assembly01"
 	desc = "A small glass and wire assembly for windoors."
-	anchored = FALSE
+	icon_state = "l_windoor_assembly01"
 	density = FALSE
+	layer = ABOVE_OBJ_LAYER //Just above doors
+	anchored = FALSE
+	CanAtmosPass = ATMOS_PASS_PROC
 	dir = NORTH
+	set_dir_on_move = FALSE
 
-	var/ini_dir
 	var/obj/item/electronics/airlock/electronics = null
 	var/created_name = null
 
@@ -27,13 +29,12 @@
 	var/facing = "l"	//Does the windoor open to the left or right?
 	var/secure = FALSE		//Whether or not this creates a secure windoor
 	var/state = "01"	//How far the door assembly has progressed
-	CanAtmosPass = ATMOS_PASS_PROC
+
 
 /obj/structure/windoor_assembly/Initialize(mapload, loc, set_dir)
 	. = ..()
 	if(set_dir)
 		setDir(set_dir)
-	ini_dir = dir
 	air_update_turf(1)
 
 	var/static/list/loc_connections = list(
@@ -50,26 +51,25 @@
 /obj/structure/windoor_assembly/Move()
 	var/turf/T = loc
 	. = ..()
-	setDir(ini_dir)
 	move_update_air(T)
 
 /obj/structure/windoor_assembly/update_icon()
 	icon_state = "[facing]_[secure ? "secure_" : ""]windoor_assembly[state]"
 
-/obj/structure/windoor_assembly/CanAllowThrough(atom/movable/mover, turf/target)
+/obj/structure/windoor_assembly/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	if(get_dir(loc, target) == dir) //Make sure looking at appropriate border
-		return
-	if(istype(mover, /obj/structure/window))
-		var/obj/structure/window/W = mover
-		if(!valid_window_location(loc, W.ini_dir))
-			return FALSE
-	else if(istype(mover, /obj/structure/windoor_assembly))
-		var/obj/structure/windoor_assembly/W = mover
-		if(!valid_window_location(loc, W.ini_dir))
-			return FALSE
-	else if(istype(mover, /obj/machinery/door/window) && !valid_window_location(loc, mover.dir))
+
+	if(border_dir == dir)
 		return FALSE
+
+	if(istype(mover, /obj/structure/window))
+		var/obj/structure/window/moved_window = mover
+		return valid_window_location(loc, moved_window.dir, is_fulltile = moved_window.fulltile)
+
+	if(istype(mover, /obj/structure/windoor_assembly) || istype(mover, /obj/machinery/door/window))
+		return valid_window_location(loc, mover.dir, is_fulltile = FALSE)
+
+	return TRUE
 
 /obj/structure/windoor_assembly/CanAtmosPass(turf/T)
 	if(get_dir(loc, T) == dir)
@@ -79,6 +79,12 @@
 
 /obj/structure/windoor_assembly/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
+
+	if(leaving.movement_type & PHASING)
+		return
+
+	if(leaving == src)
+		return // Let's not block ourselves.
 
 	if(istype(leaving) && (leaving.pass_flags & PASSTRANSPARENT))
 		return
@@ -335,9 +341,7 @@
 				return ..()
 
 	//Update to reflect changes(if applicable)
-	update_icon()
-
-
+	update_appearance()
 
 /obj/structure/windoor_assembly/ComponentInitialize()
 	. = ..()
@@ -352,13 +356,12 @@
 		return FALSE
 	var/target_dir = turn(dir, rotation_type == ROTATION_CLOCKWISE ? -90 : 90)
 
-	if(!valid_window_location(loc, target_dir))
+	if(!valid_window_location(loc, target_dir, is_fulltile = FALSE))
 		to_chat(user, "<span class='warning'>[src] cannot be rotated in that direction!</span>")
 		return FALSE
 	return TRUE
 
 /obj/structure/windoor_assembly/proc/after_rotation(mob/user)
-	ini_dir = dir
 	update_icon()
 
 //Flips the windoor assembly, determines whather the door opens to the left or the right
@@ -381,5 +384,5 @@
 		facing = "l"
 		to_chat(usr, "<span class='notice'>The windoor will now slide to the left.</span>")
 
-	update_icon()
+	update_appearance()
 	return
