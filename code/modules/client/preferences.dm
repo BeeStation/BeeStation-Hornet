@@ -122,10 +122,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	active_character.randomise()		//let's create a random character then - rather than a fat, bald and naked man.
 	active_character.real_name = active_character.pref_species.random_name(active_character.gender, TRUE)
 	if(!loaded_preferences_successfully)
-		if(Debugger?.enabled)
-			toggles &= ~PREFTOGGLE_SOUND_AMBIENCE
-			toggles &= ~PREFTOGGLE_SOUND_SHIP_AMBIENCE
-			toggles &= ~PREFTOGGLE_SOUND_LOBBY
 		save_preferences()
 	active_character.save(C)		//let's save this new random character so it doesn't keep generating new ones.
 	return
