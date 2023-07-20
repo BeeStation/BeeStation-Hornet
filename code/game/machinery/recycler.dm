@@ -12,7 +12,7 @@
 	active_power_usage = 200
 	var/safety_mode = FALSE // Temporarily stops machine if it detects a mob
 	var/icon_name = "grinder-o"
-	var/blood = 0
+	var/bloody = FALSE
 	var/eat_dir = WEST
 	var/amount_produced = 50
 	var/crush_damage = 1000
@@ -20,7 +20,21 @@
 	var/item_recycle_sound = 'sound/items/welder.ogg'
 
 /obj/machinery/recycler/Initialize(mapload)
-	AddComponent(/datum/component/material_container, list(/datum/material/iron, /datum/material/glass, /datum/material/copper, /datum/material/silver, /datum/material/plasma, /datum/material/gold, /datum/material/diamond, /datum/material/plastic, /datum/material/uranium, /datum/material/bananium, /datum/material/titanium, /datum/material/bluespace), INFINITY, FALSE, null, null, null, TRUE)
+	var/list/allowed_materials = list(
+		/datum/material/iron,
+		/datum/material/glass,
+		/datum/material/copper,
+		/datum/material/silver,
+		/datum/material/plasma,
+		/datum/material/gold,
+		/datum/material/diamond,
+		/datum/material/plastic,
+		/datum/material/uranium,
+		/datum/material/bananium,
+		/datum/material/titanium,
+		/datum/material/bluespace
+	)
+	AddComponent(/datum/component/material_container, allowed_materials, INFINITY, FALSE, null, null, null, TRUE)
 	AddComponent(/datum/component/butchering/recycler, 1, amount_produced,amount_produced/5)
 	. = ..()
 	return INITIALIZE_HINT_LATELOAD
@@ -51,19 +65,16 @@
 	"The safety-mode light is [safety_mode ? "on" : "off"].\n"+\
 	"The safety-sensors status light is [obj_flags & EMAGGED ? "off" : "on"]."
 
-/obj/machinery/recycler/power_change()
-	..()
-	update_icon()
-
+/obj/machinery/recycler/wrench_act(mob/living/user, obj/item/tool)
+	. = ..()
+	default_unfasten_wrench(user, tool)
+	return TOOL_ACT_TOOLTYPE_SUCCESS
 
 /obj/machinery/recycler/attackby(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "grinder-oOpen", "grinder-o0", I))
 		return
 
 	if(default_pry_open(I))
-		return
-
-	if(default_unfasten_wrench(user, I))
 		return
 
 	if(default_deconstruction_crowbar(I))
@@ -78,12 +89,12 @@
 	playsound(src, "sparks", 75, 1, -1)
 	to_chat(user, "<span class='notice'>You use the cryptographic sequencer on [src].</span>")
 
-/obj/machinery/recycler/update_icon()
-	..()
+/obj/machinery/recycler/update_icon_state()
 	var/is_powered = !(machine_stat & (BROKEN|NOPOWER))
 	if(safety_mode)
 		is_powered = FALSE
-	icon_state = icon_name + "[is_powered]" + "[(blood ? "bld" : "")]" // add the blood tag at the end
+	icon_state = icon_name + "[is_powered]" + "[(bloody ? "bld" : "")]" // add the bloody tag at the end
+	return ..()
 
 /obj/machinery/recycler/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
@@ -199,8 +210,8 @@
 			L.say("ARRRRRRRRRRRGH!!!", forced="recycler grinding")
 		add_mob_blood(L)
 
-	if(!blood && !issilicon(L))
-		blood = TRUE
+	if(!bloody && !issilicon(L))
+		bloody = TRUE
 		update_appearance()
 
 	// Instantly lie down, also go unconscious from the pain, before you die.

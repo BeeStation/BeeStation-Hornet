@@ -1,9 +1,15 @@
 /datum/component/butchering
-	var/speed = 80 //time in deciseconds taken to butcher something
-	var/effectiveness = 100 //percentage effectiveness; numbers above 100 yield extra drops
-	var/bonus_modifier = 0 //percentage increase to bonus item chance
-	var/butcher_sound = 'sound/weapons/slice.ogg' //sound played when butchering
+	/// Time in deciseconds taken to butcher something
+	var/speed = 80
+	/// Percentage effectiveness; numbers above 100 yield extra drops
+	var/effectiveness = 100
+	/// Percentage increase to bonus item chance
+	var/bonus_modifier = 0
+	/// Sound played when butchering
+	var/butcher_sound = 'sound/weapons/slice.ogg'
+	/// Whether or not this component can be used to butcher currently. Used to temporarily disable butchering
 	var/butchering_enabled = TRUE
+	/// Whether or not this component is compatible with blunt tools.
 	var/can_be_blunt = FALSE
 
 /datum/component/butchering/Initialize(_speed, _effectiveness, _bonus_modifier, _butcher_sound, disabled, _can_be_blunt)
