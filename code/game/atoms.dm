@@ -431,10 +431,6 @@
 					M.forceMove(src)
 		parts_list.Cut()
 
-///Hook for multiz???
-/atom/proc/update_multiz(prune_on_fail = FALSE)
-	return FALSE
-
 ///Take air from the passed in gas mixture datum
 /atom/proc/assume_air(datum/gas_mixture/giver)
 	return null
@@ -581,6 +577,10 @@
 	if(desc)
 		. += desc
 
+	if(z && user.z != z) // Z-mimic
+		var/diff = abs(user.z - z)
+		. += "<span class='bold notice'>[p_theyre(TRUE)] [diff] level\s below you.</span>"
+
 	if(custom_materials)
 		for(var/i in custom_materials)
 			var/datum/material/M = i
@@ -648,6 +648,9 @@
 	if(updates & UPDATE_ICON)
 		. |= update_icon(updates)
 
+	if (ismovable(src))
+		UPDATE_OO_IF_PRESENT
+
 /// Updates the name of the atom
 /atom/proc/update_name(updates=ALL)
 	SHOULD_CALL_PARENT(TRUE)
@@ -660,6 +663,7 @@
 
 /// Updates the icon of the atom
 /atom/proc/update_icon(updates=ALL)
+	// SHOULD_CALL_PARENT(TRUE) this should eventually be set when all update_icons() are updated. As of current this makes zmimic sometimes not catch updates
 	SIGNAL_HANDLER
 
 	. = NONE
@@ -685,6 +689,8 @@
 		. |= UPDATE_OVERLAYS
 
 	. |= SEND_SIGNAL(src, COMSIG_ATOM_UPDATED_ICON, updates, .)
+	if (ismovable(src)) // need to update here as well since update_appearance() is not always called
+		UPDATE_OO_IF_PRESENT
 
 /// Updates the icon state of the atom
 /atom/proc/update_icon_state()
@@ -1039,6 +1045,7 @@
   */
 /atom/proc/setDir(newdir)
 	SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, dir, newdir)
+	. = dir != newdir
 	dir = newdir
 
 /// Attempts to turn to the given direction. May fail if anchored/unconscious/etc.
@@ -1486,13 +1493,16 @@
   * 2 argument is for the item being created
   * 3 argument is for if admins should be notified if a non-antag crafts this
  */
-/proc/log_crafting(mob/blacksmith, atom/object, dangerous = FALSE)
+/proc/log_crafting(mob/blacksmith, object, result, dangerous = FALSE)
 	var/message = "has crafted [object]"
 	blacksmith.log_message(message, LOG_GAME)
 	if(!dangerous)
 		return
 	if(isnull(locate(/datum/antagonist) in blacksmith.mind?.antag_datums))
-		message_admins("[ADMIN_LOOKUPFLW(blacksmith)] has crafted [object] as a non-antagonist.")
+		if(istext(result))
+			message_admins("[ADMIN_LOOKUPFLW(blacksmith)] has attempted to craft [object] as a non-antagonist, but failed: [result]")
+		else
+			message_admins("[ADMIN_LOOKUPFLW(blacksmith)] has crafted [object] as a non-antagonist.")
 /**
   * Log a combat message in the attack log
   *
@@ -1503,6 +1513,9 @@
   * 5 is any additional text, which will be appended to the rest of the log line
   */
 /proc/log_combat(atom/user, atom/target, what_done, atom/object=null, addition=null)
+	if(isweakref(user))
+		var/datum/weakref/A_ref = user
+		user = A_ref.resolve()
 	var/ssource = key_name(user)
 	var/starget = key_name(target)
 

@@ -25,6 +25,7 @@
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	bullet_bounce_sound = null
 
+	z_eventually_space = TRUE
 	vis_flags = VIS_INHERIT_ID	//when this be added to vis_contents of something it be associated with something on clicking, important for visualisation of turf in openspace and interraction with openspace that show you turf.
 
 /turf/open/space/basic/New()	//Do not convert to Initialize
@@ -60,6 +61,14 @@
 		overlays += GLOB.fullbright_overlay
 
 	return INITIALIZE_HINT_NORMAL
+
+/turf/open/space/Destroy()
+	// Cleanup cached z_eventually_space values above us.
+	if (above)
+		var/turf/T = src
+		while ((T = get_step_multiz(T, UP)))
+			T.z_eventually_space = FALSE
+	return ..()
 
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
 /turf/open/space/attack_ghost(mob/dead/observer/user)
