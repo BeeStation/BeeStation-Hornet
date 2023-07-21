@@ -1,7 +1,7 @@
 ///////////////////////////////////////////////////////////////
 //SS13 Optimized Map loader
 //////////////////////////////////////////////////////////////
-#define SPACE_KEY "space"
+
 // We support two different map formats
 // It is kinda possible to process them together, but if we split them up
 // I can make optimization decisions more easily
