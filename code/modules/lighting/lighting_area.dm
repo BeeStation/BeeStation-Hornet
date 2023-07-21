@@ -14,13 +14,12 @@
 		if(lighting_overlay)
 			cut_overlay(lighting_overlay)
 		if(lighting_overlay_opacity && lighting_overlay_colour)
-			lighting_overlay = new /obj/effect/fullbright
-			lighting_overlay.color = lighting_overlay_colour
-			lighting_overlay.alpha = lighting_overlay_opacity
+			update_lighting_overlay()
 			add_overlay(lighting_overlay)
 		for (var/turf/T in src)
 			if (IS_DYNAMIC_LIGHTING(T))
 				T.lighting_build_overlay()
+			T.update_above()
 
 	else
 		if(lighting_overlay)
@@ -30,6 +29,7 @@
 		for (var/turf/T in src)
 			if (T.lighting_object)
 				T.lighting_clear_overlay()
+			T.update_above()
 
 	return TRUE
 

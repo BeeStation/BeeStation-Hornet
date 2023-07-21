@@ -98,18 +98,11 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	if(color)
 		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
 
+	if (z_flags & Z_MIMIC_BELOW)
+		setup_zmimic(mapload)
+
 	if (light_power && light_range)
 		update_light()
-
-	// Propogate creation to turfs above and below
-	var/turf/T = SSmapping.get_turf_above(src)
-	if(T)
-		T.multiz_turf_new(src, DOWN)
-		SEND_SIGNAL(T, COMSIG_TURF_MULTIZ_NEW, src, DOWN)
-	T = SSmapping.get_turf_below(src)
-	if(T)
-		T.multiz_turf_new(src, UP)
-		SEND_SIGNAL(T, COMSIG_TURF_MULTIZ_NEW, src, UP)
 
 	if (opacity)
 		directional_opacity = ALL_CARDINALS
@@ -138,13 +131,8 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	if(!changing_turf)
 		stack_trace("Incorrect turf deletion")
 	changing_turf = FALSE
-	// Propogate deletion to turfs above and below
-	var/turf/T = SSmapping.get_turf_above(src)
-	if(T)
-		T.multiz_turf_del(src, DOWN)
-	T = SSmapping.get_turf_below(src)
-	if(T)
-		T.multiz_turf_del(src, UP)
+	if (z_flags & Z_MIMIC_BELOW)
+		cleanup_zmimic()
 	if(force)
 		..()
 		//this will completely wipe turf state
