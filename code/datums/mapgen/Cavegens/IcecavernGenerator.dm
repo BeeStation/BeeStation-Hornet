@@ -12,4 +12,4 @@
 	smoothing_iterations = 50
 	birth_limit = 4
 	death_limit = 3
-	mob_spawn_chance = 0.25
+	mob_spawn_chance = 0.2

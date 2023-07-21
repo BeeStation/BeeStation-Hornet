@@ -33,7 +33,7 @@
 
 
 	///Base chance of spawning a mob
-	var/mob_spawn_chance = 3
+	var/mob_spawn_chance = 2.4
 	///Base chance of spawning flora
 	var/flora_spawn_chance = 2
 	///Base chance of spawning features
