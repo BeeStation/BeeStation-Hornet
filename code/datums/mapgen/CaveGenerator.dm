@@ -33,7 +33,7 @@
 
 
 	///Base chance of spawning a mob
-	var/mob_spawn_chance = 1.5
+	var/mob_spawn_chance = 6
 	///Base chance of spawning flora
 	var/flora_spawn_chance = 2
 	///Base chance of spawning features
@@ -165,10 +165,18 @@
 
 			// Enforce a minimum spacing of 6 tiles for megafauna, spawners, and mobs
 			for(var/atom/thing as anything in mobs_spawned)
-				if(get_dist(new_turf, thing) > 6)
+				var/dist = get_dist(new_turf, thing)
+				if(dist > 14)
 					continue
-				can_spawn = FALSE
-				break
+				if((ispath(picked_mob, /mob/living/simple_animal/hostile/megafauna) || ismegafauna(thing)) && dist <= 7)
+					can_spawn = FALSE //if there's a megafauna within standard view don't spawn anything at all
+					break
+				if(ispath(picked_mob, /mob/living/simple_animal/hostile/asteroid) || istype(thing, /mob/living/simple_animal/hostile/asteroid))
+					can_spawn = FALSE //if the random is a standard mob, avoid spawning if there's another one within 12 tiles
+					break
+				if((ispath(picked_mob, /obj/structure/spawner/lavaland) || istype(thing, /obj/structure/spawner/lavaland)) && dist <= 2)
+					can_spawn = FALSE //prevents tendrils spawning in each other's collapse range
+					break
 
 			if(can_spawn)
 				if(ispath(picked_mob, /mob/living/simple_animal/hostile/megafauna/bubblegum)) //there can be only one bubblegum, so don't waste spawns on it
