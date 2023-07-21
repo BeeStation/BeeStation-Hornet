@@ -10,7 +10,7 @@
 	var/multiplier_n = 1
 
 	/// The strength that the magnet pulls the other one towards it
-	var/magnet_strength = 25
+	var/magnet_strength = 5
 
 	/// Are we an active magnet?
 	var/active_magnet = FALSE
@@ -18,8 +18,13 @@
 	/// The gravity magnet which we are currently linked to, 2 way link
 	var/obj/machinery/gravity_magnet/linked
 
+/obj/machinery/gravity_magnet/Initialize(mapload)
+	. = ..()
+	GLOB.zclear_blockers += src
+
 /obj/machinery/gravity_magnet/Destroy()
 	linked?.linked = null
+	GLOB.zclear_blockers -= src
 	return ..()
 
 /obj/machinery/gravity_magnet/process(delta_time)
@@ -33,24 +38,13 @@
 	// Get our orbital object
 	var/datum/orbital_object/source_location = get_magnet_location()
 	var/datum/orbital_object/pulled_object = linked.get_magnet_location()
-	// Determine what we want our target velocity to be
-	var/datum/orbital_vector/target_velocity = new /datum/orbital_vector(source_location.velocity.x, source_location.velocity.y)
-	// Get a vector towards the location that we want to move towards
-	var/datum/orbital_vector/normalised_velocity = source_location.velocity.Copy()
-	normalised_velocity.NormalizeSelf()
-	normalised_velocity.ScaleSelf(pull_distance)
-	// Get the target position
-	var/datum/orbital_vector/target_position = source_location.position.Add(normalised_velocity)
-	// Get the velocity vector towards this target position
-	var/datum/orbital_vector/towards_target_position = target_position.AddSelf(pulled_object.position.Scale(-1))
-	//towards_target_position.NormalizeSelf()
-	//towards_target_position.ScaleSelf(multiplier_n)	//Debug
-	target_velocity.AddSelf(towards_target_position)
-	// Try to get the object to the target velocity
-	var/datum/orbital_vector/delta_v = pulled_object.velocity.Add(target_velocity.ScaleSelf(-1))
-	delta_v.NormalizeSelf()
-	delta_v.ScaleSelf(magnet_strength)
-	pulled_object.velocity.AddSelf(delta_v)
+	// We want to get our velocity to be the same as the target velocity, with a slight push towards the position that we want to be in
+	var/datum/orbital_vector/desired_velocity = source_location.velocity.Copy()
+	// Calculate the delta
+	var/datum/orbital_vector/delta = pulled_object.velocity - desired_velocity
+	delta.NormalizeSelf()
+	delta *= min(magnet_strength * delta_time, delta.Length())
+	pulled_object.velocity += delta
 
 /// When the Z changes, check if we need to start pulling our target object.
 /// Just in case this is force moved to another Z-Level.

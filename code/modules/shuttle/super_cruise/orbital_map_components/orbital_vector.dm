@@ -79,3 +79,59 @@
 	var/lambda = (x * x + y * y - position.x * x - position.y * y) / (direction.x * x + direction.y * y)
 	var/datum/orbital_vector/closestPoint = new(position.x + direction.x * lambda, position.y + direction.y * lambda)
 	return closestPoint.DistanceTo(src)
+
+/datum/orbital_vector/proc/operator+(datum/orbital_vector/other)
+	return Add(other)
+
+/datum/orbital_vector/proc/operator-(datum/orbital_vector/other)
+	if (!other)
+		return new /datum/orbital_vector(
+			-x,
+			-y
+		)
+	return new /datum/orbital_vector(
+		x - other.x,
+		y - other.y
+	)
+
+/datum/orbital_vector/proc/operator*(datum/orbital_vector/other)
+	if (istype(other))
+		return new /datum/orbital_vector(x * other.x, y * other.y)
+	return Scale(other)
+
+/datum/orbital_vector/proc/operator/(datum/orbital_vector/other)
+	if (istype(other))
+		return new /datum/orbital_vector(x / other.x, y / other.y)
+	return  new /datum/orbital_vector(x / other, y / other)
+
+/datum/orbital_vector/proc/operator+=(datum/orbital_vector/other)
+	AddSelf(other)
+
+/datum/orbital_vector/proc/operator-=(datum/orbital_vector/other)
+	x -= other.x
+	y -= other.y
+
+/datum/orbital_vector/proc/operator*=(datum/orbital_vector/other)
+	if (istype(other))
+		x *= other.x
+		y *= other.y
+		return src
+	x *= other
+	y *= other
+	return src
+
+/datum/orbital_vector/proc/operator/=(datum/orbital_vector/other)
+	if (istype(other))
+		x /= other.x
+		y /= other.y
+		return src
+	x /= other
+	y /= other
+	return src
+
+#if DM_VERSION >= 515
+
+/datum/orbital_vector/proc/operator""()
+	return "([x], [y])"
+
+#endif
