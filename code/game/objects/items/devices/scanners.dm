@@ -1173,7 +1173,7 @@ GENE SCANNER
 				for(var/datum/symptom/symptom in advance_disease.symptoms)
 					message += "[symptom.name]"
 			else
-				message += "<span class='info'><b>[disease.name]</b>, stage [disease.stage]/[disease.max_stages].</font></span>"
+				message += "<span class='info'><b>[disease.name]</b>, stage [disease.stage]/[disease.max_stages].</span>"
 	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), avoid_highlighting = TRUE, trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
 
 /**
