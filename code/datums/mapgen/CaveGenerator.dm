@@ -163,20 +163,6 @@
 
 			var/can_spawn = TRUE
 
-			/*
-			for(var/thing in urange(12, new_turf)) //prevents mob clumps
-				if(!ishostile(thing) && !istype(thing, /obj/structure/spawner))
-					continue
-				if((ispath(picked_mob, /mob/living/simple_animal/hostile/megafauna) || ismegafauna(thing)) && get_dist(new_turf, thing) <= 7)
-					can_spawn = FALSE //if there's a megafauna within standard view don't spawn anything at all
-					break
-				if(ispath(picked_mob, /mob/living/simple_animal/hostile/asteroid) || istype(thing, /mob/living/simple_animal/hostile/asteroid))
-					can_spawn = FALSE //if the random is a standard mob, avoid spawning if there's another one within 12 tiles
-					break
-				if((ispath(picked_mob, /obj/structure/spawner/lavaland) || istype(thing, /obj/structure/spawner/lavaland)) && get_dist(new_turf, thing) <= 2)
-					can_spawn = FALSE //prevents tendrils spawning in each other's collapse range
-					break
-			*/
 			for(var/atom/thing as anything in urange(6, new_turf))
 				var/hostile = ishostile(thing)
 				var/spawner = istype(thing, /obj/structure/spawner)
