@@ -1,7 +1,0 @@
-author: itsmeow, Lohikar, Kapu1178, CrimsonShrike
-delete-after: true
-changes:
-  - refactor: Rewrote multiz rendering to use Z-Mimic. Should vastly reduce lag caused
-      by multiz rendering. Some things may not render properly.
-  - bugfix: Emissives will no longer leak onto the z-level above.
-  - rscadd: Added multiz lighting. Nonmovable lights will now bleed up and down.
