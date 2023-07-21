@@ -53,9 +53,9 @@
 /datum/map_generator/cave_generator/New()
 	. = ..()
 	if(!weighted_mob_spawn_list)
-		weighted_mob_spawn_list = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast/random = 100, /obj/structure/spawner/lavaland/goliath = 3, \
-		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/random = 80, /obj/structure/spawner/lavaland = 2, \
-		/mob/living/simple_animal/hostile/asteroid/hivelord/legion/random = 60, /obj/structure/spawner/lavaland/legion = 3, \
+		weighted_mob_spawn_list = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast/random = 100, /obj/structure/spawner/lavaland/goliath = 2, \
+		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/random = 80, /obj/structure/spawner/lavaland = 1, \
+		/mob/living/simple_animal/hostile/asteroid/hivelord/legion/random = 60, /obj/structure/spawner/lavaland/legion = 1, \
 		SPAWN_MEGAFAUNA = 2, /mob/living/simple_animal/hostile/asteroid/goldgrub = 20)
 	mob_spawn_list = expand_weights(weighted_mob_spawn_list)
 	mob_spawn_no_mega_list = expand_weights(weighted_mob_spawn_list - SPAWN_MEGAFAUNA)
