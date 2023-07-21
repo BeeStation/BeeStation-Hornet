@@ -60,7 +60,7 @@
 		if(found_sbed && (!found_sbed.op_computer || found_sbed.op_computer == src))
 			return sbed
 
-/obj/machinery/computer/operating/proc/link_with_tablec(obj/structure/table/optable/new_table, obj/machinery/stasis/new_sbed)
+/obj/machinery/computer/operating/proc/link_with_table(obj/structure/table/optable/new_table, obj/machinery/stasis/new_sbed)
 	if(!new_table && !table)
 		new_table = find_op_table()
 	if(!new_sbed && !sbed)
