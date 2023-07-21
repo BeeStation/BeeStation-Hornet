@@ -1,4 +1,4 @@
-import { useBackend, useSharedState } from '../backend';
+import { useBackend, useLocalState } from '../backend';
 import { AnimatedNumber, Button, LabeledList, NoticeBox, ProgressBar, Section, Tabs } from '../components';
 import { Window } from '../layouts';
 
@@ -22,7 +22,7 @@ const damageTypes = [
 ];
 
 export const OperatingComputer = (props, context) => {
-  const [tab, setTab] = useSharedState(context, 'tab', 1);
+  const [tab, setTab] = useLocalState(context, 'tab', 1);
   return (
     <Window width={350} height={470}>
       <Window.Content scrollable>
