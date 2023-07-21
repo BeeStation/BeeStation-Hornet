@@ -1,0 +1,7 @@
+author: RKz, DoctorSquishy, Ghilker, esainane, ShizCalev
+delete-after: true
+changes:
+  - code_imp: combined all apc defines into one .dm
+  - soundadd: New sounds for switches on APCs and power level on and off stages
+  - refactor: Refactored and Organized APC code
+  - code_imp: less hardels in ai code
