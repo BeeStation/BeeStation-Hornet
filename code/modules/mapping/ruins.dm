@@ -1,4 +1,11 @@
 /datum/map_template/ruin/proc/try_to_place(z, list/allowed_areas_typecache, turf/forced_turf, clear_below)
+	var/static/list/clear_below_typecache
+	if(!clear_below_typecache)
+		clear_below_typecache = typecacheof(list(
+			/obj/structure/spawner,
+			/mob/living/simple_animal,
+			/obj/structure/flora/ash
+		))
 	var/sanity = forced_turf ? 1 : PLACEMENT_TRIES
 	if(SSmapping.level_trait(z,ZTRAIT_ISOLATED_RUINS))
 		return place_on_isolated_level(z)
@@ -29,25 +36,20 @@
 			continue
 
 		testing("Ruin \"[name]\" placed at ([central_turf.x], [central_turf.y], [central_turf.z])")
-
-		if(clear_below) //Clear out nests and monsters
-			var/list/static/clear_below_typecache = typecacheof(list(
-				/obj/structure/spawner,
-				/mob/living/simple_animal,
-				/obj/structure/flora/ash
-			))
-			for(var/turf/T as anything in affected_turfs)
-				T.flags_1 |= NO_RUINS_1
+		for(var/turf/T as anything in affected_turfs)
+			T.flags_1 |= NO_RUINS_1
+			if(clear_below) //Clear out nests and monsters
 				for(var/atom/thing as anything in T)
 					if(clear_below_typecache[thing.type])
 						qdel(thing)
 
 		var/datum/map_generator/map_placer = load(central_turf,centered = TRUE)
-		map_placer.on_completion(CALLBACK(src, PROC_REF(after_ruin_generation), central_turf, affected_turfs))
+		map_placer.on_completion(CALLBACK(src, PROC_REF(after_ruin_generation), central_turf))
 		return map_placer
 
-/datum/map_template/ruin/proc/after_ruin_generation(turf/central_turf, list/affected_turfs)
+/datum/map_template/ruin/proc/after_ruin_generation(turf/central_turf)
 	loaded++
+
 	new /obj/effect/landmark/ruin(central_turf, src)
 
 /datum/map_template/ruin/proc/place_on_isolated_level(z)
