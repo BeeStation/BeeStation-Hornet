@@ -111,15 +111,16 @@
 		if(isnull(closed))
 			closed = string_gen[world.maxx * (gen_turf.y - 1) + gen_turf.x] != "0"
 		var/turf/new_turf = pick(closed ? closed_turf_types : open_turf_types)
+		var/no_ruins = gen_turf.flags_1 & NO_RUINS_1
 
 		// The assumption is this will be faster then changeturf, and changeturf isn't required since by this point
 		// The old tile hasn't got the chance to init yet
 		new_turf = new new_turf(gen_turf)
 
-		if(gen_turf.flags_1 & NO_RUINS_1)
+		if(no_ruins)
 			new_turf.flags_1 |= NO_RUINS_1
 
-		if(closed || (new_turf.flags_1 & NO_RUINS_1))//Open turfs have some special behavior related to spawning flora and mobs.)//Open turfs have some special behavior related to spawning flora and mobs.
+		if(closed || (new_turf.flags_1 & NO_RUINS_1)) // Open turfs have some special behavior related to spawning flora and mobs.
 			CHECK_TICK
 			continue
 
