@@ -162,7 +162,7 @@
 			var/can_spawn = TRUE
 
 			// Enforce a minimum spacing of 6 tiles for megafauna, spawners, and mobs
-			for(var/atom/thing as anything in urange(6, new_turf))
+			for(var/atom/thing as anything in range(6, new_turf))
 				if(!ishostile(thing) && !istype(thing, /obj/structure/spawner))
 					continue
 				can_spawn = FALSE
