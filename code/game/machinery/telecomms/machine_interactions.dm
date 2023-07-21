@@ -216,7 +216,7 @@
 		var/mob/living/silicon/ai/U = user
 		return U.aiMulti.GetComponent(/datum/component/buffer)
 	else if(iscyborg(user) && in_range(user, src))
-		if(user.held_item?.GetComponent(/datum/component/buffer))
+		if(held_item?.GetComponent(/datum/component/buffer))
 			return held_item?.GetComponent(/datum/component/buffer)
 	return null
 
