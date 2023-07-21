@@ -86,6 +86,8 @@
 	var/megas_allowed = (generate_in.area_flags & MEGAFAUNA_SPAWN_ALLOWED) && length(megafauna_spawn_list)
 	var/caves_allowed = generate_in.area_flags & CAVES_ALLOWED
 
+	var/list/mobs_spawned = list()
+
 	for(var/i in turfs) //Go through all the turfs and generate them
 		var/turf/gen_turf = i
 		if(blacklist && blacklist[gen_turf.type])
@@ -162,8 +164,8 @@
 			var/can_spawn = TRUE
 
 			// Enforce a minimum spacing of 6 tiles for megafauna, spawners, and mobs
-			for(var/atom/thing as anything in range(6, new_turf))
-				if(!ishostile(thing) && !istype(thing, /obj/structure/spawner))
+			for(var/atom/thing as anything in mobs_spawned)
+				if(get_dist(new_turf, thing) > 6)
 					continue
 				can_spawn = FALSE
 				break
@@ -173,7 +175,8 @@
 					weighted_megafauna_spawn_list.Remove(picked_mob)
 					megafauna_spawn_list = expand_weights(weighted_megafauna_spawn_list)
 					megas_allowed = megas_allowed && length(megafauna_spawn_list)
-				new picked_mob(new_turf)
+				var/new_mob = new picked_mob(new_turf)
+				mobs_spawned += new_mob
 				spawned_something = TRUE
 		CHECK_TICK
 
