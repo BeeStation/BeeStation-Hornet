@@ -103,6 +103,7 @@
 	if(!ui)
 		ui = new(user, src, "ColorPickerModal")
 		ui.open()
+		ui.set_autoupdate(timeout > 0)
 
 /datum/tgui_color_picker/ui_close(mob/user)
 	. = ..()
