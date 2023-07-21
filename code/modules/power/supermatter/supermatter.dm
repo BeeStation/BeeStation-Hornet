@@ -12,6 +12,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	layer = ABOVE_MOB_LAYER
 	density = TRUE
 	anchored = TRUE
+	appearance_flags = PIXEL_SCALE // no tile bound to allow distortion to render outside of direct view
 	var/uid = 1
 	var/static/gl_uid = 1
 	light_range = 4
@@ -120,8 +121,10 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/atom/movable/distortion_effect/distort
 
 /atom/movable/distortion_effect
+	name = ""
 	plane = GRAVITY_PULSE_PLANE
-	appearance_flags = PIXEL_SCALE // no tile bound so you can see it around corners and so
+	appearance_flags = PIXEL_SCALE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "SM_base"
 	pixel_x = -32
@@ -139,7 +142,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	radio.listening = 0
 	radio.recalculateChannels()
 	distort = new(src)
-	vis_contents += distort
+	add_overlay(distort)
 	add_emitter(/obj/emitter/sparkle, "supermatter_sparkle")
 	investigate_log("has been created.", INVESTIGATE_ENGINES)
 	if(is_main_engine)
@@ -170,6 +173,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	distort.icon_state = "SM_remnant"
 	distort.pixel_x = 0
 	distort.pixel_y = 0
+	distort.forceMove(get_turf(src))
 	return ..()
 
 /obj/machinery/power/supermatter_crystal/examine(mob/user)
@@ -471,30 +475,38 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	// Switch the distortion effect based on the crystal's state
 	switch(get_status())
 		if(SUPERMATTER_INACTIVE)
+			cut_overlay(distort)
 			distort.icon = 'icons/effects/96x96.dmi'
 			distort.icon_state = "SM_base"
 			distort.pixel_x = -32
 			distort.pixel_y = -32
+			add_overlay(distort)
 		if(SUPERMATTER_NORMAL, SUPERMATTER_NOTIFY, SUPERMATTER_WARNING)
+			cut_overlay(distort)
 			distort.icon = 'icons/effects/96x96.dmi'
 			distort.icon_state = "SM_base_active"
 			distort.pixel_x = -32
 			distort.pixel_y = -32
+			add_overlay(distort)
 		if(SUPERMATTER_DANGER)
+			cut_overlay(distort)
 			distort.icon = 'icons/effects/160x160.dmi'
 			distort.icon_state = "SM_delam_1"
 			distort.pixel_x = -64
 			distort.pixel_y = -64
+			add_overlay(distort)
 		if(SUPERMATTER_EMERGENCY)
 			distort.icon = 'icons/effects/224x224.dmi'
 			distort.icon_state = "SM_delam_2"
 			distort.pixel_x = -96
 			distort.pixel_y = -96
 		if(SUPERMATTER_DELAMINATING)
+			cut_overlay(distort)
 			distort.icon = 'icons/effects/288x288.dmi'
 			distort.icon_state = "SM_delam_3"
 			distort.pixel_x = -128
 			distort.pixel_y = -128
+			add_overlay(distort)
 
 	//Transitions between one function and another, one we use for the fast inital startup, the other is used to prevent errors with fusion temperatures.
 	//Use of the second function improves the power gain imparted by using co2

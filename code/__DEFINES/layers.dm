@@ -100,8 +100,6 @@
 #define GHOST_PLANE 80
 #define POINT_PLANE 90
 
-#define RAD_TEXT_PLANE 90
-
 #define DATA_HUD_PLANE 15
 
 //---------- LIGHTING -------------
