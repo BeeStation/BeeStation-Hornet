@@ -102,6 +102,10 @@
 	var/obj/effect/lighting_overlay
 	var/lighting_overlay_colour = "#FFFFFF"
 	var/lighting_overlay_opacity = 0
+	var/lighting_overlay_matrix_cr = 0
+	var/lighting_overlay_matrix_cg = 0
+	var/lighting_overlay_matrix_cb = 0
+	var/lighting_overlay_cached_darkening_matrix
 
 	///This datum, if set, allows terrain generation behavior to be ran on Initialize()
 	var/datum/map_generator/map_generator
@@ -227,14 +231,26 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		//Delete the old lighting overlay object
 		QDEL_NULL(lighting_overlay)
 	//Create the lighting overlay object for this area
-	lighting_overlay = new /obj/effect/fullbright
-	lighting_overlay.color = lighting_overlay_colour
-	lighting_overlay.alpha = lighting_overlay_opacity
+	update_lighting_overlay()
 	//Areas with a lighting overlay should be fully visible, and the tiles adjacent to them should also
 	//be luminous
 	luminosity = 1
 	//Add the lighting overlay
 	add_overlay(lighting_overlay)
+
+/area/proc/update_lighting_overlay()
+	lighting_overlay = new /obj/effect/fullbright
+	lighting_overlay.color = lighting_overlay_colour
+	lighting_overlay.alpha = lighting_overlay_opacity
+	if(length(lighting_overlay_colour) != 7)
+		return
+	var/r = hex2num(copytext(lighting_overlay_colour, 2, 4))/255
+	var/g = hex2num(copytext(lighting_overlay_colour, 4, 6))/255
+	var/b = hex2num(copytext(lighting_overlay_colour, 6, 8))/255
+	lighting_overlay_matrix_cr = r * (lighting_overlay_opacity/255)
+	lighting_overlay_matrix_cg = g * (lighting_overlay_opacity/255)
+	lighting_overlay_matrix_cb = b * (lighting_overlay_opacity/255)
+	lighting_overlay_cached_darkening_matrix = null // Clear cached list
 
 /area/proc/RunGeneration()
 	if(map_generator)

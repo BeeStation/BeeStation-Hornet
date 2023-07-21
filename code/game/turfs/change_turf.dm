@@ -86,6 +86,9 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	var/old_lighting_corner_NW = lighting_corner_NW
 	var/old_directional_opacity = directional_opacity
 
+	// Z-Mimic: copy above
+	var/old_above = above
+
 	var/old_exl = explosion_level
 	var/old_exi = explosion_id
 	var/old_bp = blueprint_data
@@ -118,6 +121,8 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 		new_turf.baseturfs = new_baseturfs
 	else
 		new_turf.baseturfs = old_baseturfs
+
+	new_turf.above = old_above
 
 	new_turf.explosion_id = old_exi
 	new_turf.explosion_level = old_exl
@@ -311,6 +316,9 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	QUEUE_SMOOTH_NEIGHBORS(src)
 
 	HandleTurfChange(src)
+
+	if(above)
+		above.update_mimic()
 
 /turf/open/AfterChange(flags)
 	..()
