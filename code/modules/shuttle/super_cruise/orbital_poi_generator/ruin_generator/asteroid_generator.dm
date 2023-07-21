@@ -5,7 +5,7 @@
 /proc/generate_asteroids(center_x, center_y, center_z, max_radius, weight_offset = 0, scale = 65)
 	var/datum/space_level/space_level = SSmapping.get_level(center_z)
 	space_level.generating = TRUE
-	_generate_asteroids(center_x, center_y, center_z, max_radius, weight_offset, scale)
+	. = _generate_asteroids(center_x, center_y, center_z, max_radius, weight_offset, scale)
 	space_level.generating = FALSE
 
 /proc/_generate_asteroids(center_x, center_y, center_z, max_radius, weight_offset = 0, scale = 65)
@@ -19,6 +19,8 @@
 	var/generated_string = rustg_cnoise_generate("45", "20", "4", "3", "[world.maxx]", "[world.maxy]") //Generate the raw CA data
 
 	var/static/area/asteroid_area = new /area/asteroid/generated()
+
+	var/list/output = list(world.maxx, world.maxy, 1, 1)
 
 	for(var/turf/open/space/T in block(locate(max(world.maxx / 2 - max_radius, 1), max(world.maxy / 2 - max_radius, 1), center_z), locate(min(world.maxx / 2 + max_radius, world.maxx), min(world.maxy / 2 + max_radius, world.maxy), center_z)))
 		if(!T)
@@ -37,8 +39,16 @@
 		var/sand_value = (distance / max_radius) + weight_offset * (1 - (distance / max_radius))
 		if(noise_at_coord >= rock_value && closed)
 			T.ChangeTurf(/turf/closed/mineral/random, list(/turf/open/floor/plating/asteroid/airless), CHANGETURF_IGNORE_AIR)
+			output[1] = min(output[1], T.x)
+			output[2] = min(output[2], T.y)
+			output[3] = max(output[3], T.x)
+			output[4] = max(output[4], T.y)
 		else if(noise_at_coord >= sand_value)
 			var/turf/newT = T.ChangeTurf(/turf/open/floor/plating/asteroid/airless, flags = CHANGETURF_IGNORE_AIR)
+			output[1] = min(output[1], T.x)
+			output[2] = min(output[2], T.y)
+			output[3] = max(output[3], T.x)
+			output[4] = max(output[4], T.y)
 			if(noise_at_coord >= plant_value)
 				high_value_turfs += newT
 				//Cave plants
@@ -63,6 +73,8 @@
 		new type_to_spawn(T)
 
 	SSair.unpause_z(center_z)
+
+	return output
 
 //Spawner types
 /obj/structure/spawner/lavaland/basilisk

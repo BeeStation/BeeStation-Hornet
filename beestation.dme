@@ -3676,6 +3676,7 @@
 #include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_map.dm"
 #include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_object.dm"
 #include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_vector.dm"
+#include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_zone.dm"
 #include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_objects\beacon.dm"
 #include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_objects\custom_shuttle.dm"
 #include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_objects\lavaland.dm"

@@ -12,6 +12,10 @@
 	name = "Shuttle baseturf skipover"
 	desc = "Acts as the bottom of the shuttle, if this isn't here the shuttle floor is broken through."
 
+/turf/baseturf_skipover/asteroid
+	name = "Asteroid baseturf skipover"
+	desc = "Inidcates the bottom of an asteroid, used to determine what should be ejected into space when the asteroid magnet ejects its dragged thing."
+
 /turf/baseturf_bottom
 	name = "Z-level baseturf placeholder"
 	desc = "Marker for z-level baseturf, usually resolves to space."

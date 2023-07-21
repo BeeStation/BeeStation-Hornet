@@ -38,6 +38,16 @@
 			if(body != source && body.relevant_gravity_range && source.position.DistanceTo(body.position) <= body.relevant_gravity_range)
 				. += body
 
+//Returns a list of all bodies within a range
+/datum/orbital_map/proc/get_bodies_in_range(datum/orbital_object/source, range)
+	. = list()
+	//Get all orbital bodies on the map.
+	for(var/collision_zone in collision_zone_bodies)
+		for(var/datum/orbital_object/body as() in collision_zone_bodies[collision_zone])
+			//Distance check last for optimisations
+			if(body != source && source.position.DistanceTo(body.position) <= range)
+				. += body
+
 //Post setup function that runs after SSorbit init.
 //Moves map objects to the correct positions and gives them velocities so that they can orbit dynamically.
 /datum/orbital_map/proc/post_setup()

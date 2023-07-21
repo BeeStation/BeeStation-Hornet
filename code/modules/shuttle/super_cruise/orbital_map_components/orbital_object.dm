@@ -58,6 +58,10 @@
 	//Add to this when you want THIS objects collision proc to be called.
 	var/collision_flags = NONE
 
+	/// A list of the zones which we can contain, structures or asteroids which we can
+	/// pull with the magnet.
+	var/list/contained_zones = list()
+
 /datum/orbital_object/New(datum/orbital_vector/position, datum/orbital_vector/velocity, orbital_map_index)
 	if(orbital_map_index)
 		src.orbital_map_index = orbital_map_index
