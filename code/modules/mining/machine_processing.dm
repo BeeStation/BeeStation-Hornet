@@ -172,7 +172,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/processing_unit_console)
 		machine = buffer
 		machine.console = src
 	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
-		to_chat(user, "<font color = #666633>-% Successfully stored [REF(src)] [buffer.name] in buffer %-</font color>")
+		to_chat(user, "<font color = #666633>-% Successfully stored [REF(src)] [name] in buffer %-</font color>")
 	return COMPONENT_BUFFER_RECIEVED
 
 /obj/machinery/mineral/processing_unit_console/attackby(obj/item/W, mob/user, params)
@@ -273,9 +273,9 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/processing_unit)
 		console = buffer
 		console.machine = src
 	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
-		to_chat(user, "<font color = #666633>-% Successfully stored [REF(src)] [buffer.name] in buffer %-</font color>")
+		to_chat(user, "<font color = #666633>-% Successfully stored [REF(src)] [name] in buffer %-</font color>")
 	return COMPONENT_BUFFER_RECIEVED
-
+c
 /obj/machinery/mineral/processing_unit/proc/process_ore(obj/item/stack/ore/O)
 	if(QDELETED(O))
 		return

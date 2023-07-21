@@ -40,7 +40,8 @@
 	if (!target)
 		return NONE
 	flush_buffer()
-	to_chat(user, "<span class='notice'>You flush the buffer of [source]!</span>")
+	if (user)
+		to_chat(user, "<span class='notice'>You flush the buffer of [source]!</span>")
 	return COMPONENT_NO_INTERACT
 
 /datum/component/buffer/proc/populate_buffer(datum/source, datum/buffer_entity)
@@ -50,10 +51,11 @@
 	target = buffer_entity
 	if (target)
 		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(flush_buffer))
+		return COMPONENT_BUFFER_STORE_SUCCESS
 
 /datum/component/buffer/proc/flush_buffer()
 	SIGNAL_HANDLER
 	if (!target)
 		return
-	target = null
 	UnregisterSignal(target, COMSIG_PARENT_QDELETING)
+	target = null

@@ -163,6 +163,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/stasis)
 	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<span class='notice'>You store the linking data of \the [src] in \the [buffer_parent]'s buffer. Use it on an operating computer to complete linking.</span>")
 		balloon_alert(user, "saved in buffer")
+		return COMPONENT_BUFFER_RECIEVED
 
 /obj/machinery/stasis/nap_violation(mob/violator)
 	unbuckle_mob(violator, TRUE)
