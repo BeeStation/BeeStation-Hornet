@@ -66,6 +66,7 @@
 	name = "delamination"
 	icon_state = "sm_shatter"
 	plane = ABOVE_LIGHTING_PLANE
+	appearance_flags = PIXEL_SCALE
 
 /obj/effect/explosion/delamination/Initialize(mapload)
 	. = ..()
