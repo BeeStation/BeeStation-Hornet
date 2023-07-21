@@ -1147,40 +1147,6 @@ GENE SCANNER
 			. += target_to_try
 
 /**
- * Gets the color to display in chat based on a severity level.
- */
-/obj/item/extrapolator/proc/get_danger_color(value)
-	if(istype(value, /datum/disease/advance))
-		var/datum/disease/advance/advance_disease = value
-		if(advance_disease.dormant)
-			return COLOR_SILVER
-		value = advance_disease.severity
-	else if(istype(value, /datum/symptom))
-		var/datum/symptom/symptom = value
-		value = symptom.severity
-	switch(value)
-		if(-INFINITY to -2)
-			return COLOR_LIME
-		if(-1)
-			return COLOR_BLUE_LIGHT
-		if(0)
-			return COLOR_BROWN
-		if(1)
-			return COLOR_PALE_ORANGE
-		if(2)
-			return COLOR_YELLOW
-		if(3)
-			return COLOR_ORANGE
-		if(4)
-			return COLOR_RED_LIGHT
-		if(5)
-			return COLOR_DARK_RED
-		if(6 to INFINITY)
-			return COLOR_MAROON
-		else
-			return COLOR_SILVER
-
-/**
  * Scans an atom, showing any (detectable) diseases they may have.
  */
 /obj/item/extrapolator/proc/scan(mob/living/user, atom/target)
@@ -1193,22 +1159,21 @@ GENE SCANNER
 	var/list/message = list()
 	if(length(diseases))
 		// costly_icon2html should be okay, as the extrapolator has a cooldown and is NOT spammable
-		message += "<span class='boldnotice'>[isliving(target) ? costly_icon2html(target, user) : icon2html(target, user)] [target] scan results</span>"
+		message += "<span class='boldnotice'>[costly_icon2html(target, user)] [target] scan results</span>"
 		message += "<span class='boldnotice'>[icon2html(src, user)] \The [src] detects the following diseases:</span>"
 		for(var/datum/disease/disease in diseases)
 			if(istype(disease, /datum/disease/advance))
 				var/datum/disease/advance/advance_disease = disease
 				if(advance_disease.stealth >= maximum_stealth) //the extrapolator can detect diseases of higher stealth than a normal scanner
 					continue
-				var/disease_color = get_danger_color(advance_disease)
-				message += "<span class='info'>[COLOR_SPAN(disease_color, "bold", advance_disease.name)], [advance_disease.dormant ? "dormant virus" : "stage [advance_disease.stage]/5"]</span>"
+				message += "<span class='info'><b>[advance_disease.name]</b>, [advance_disease.dormant ? "<i>dormant virus</i>" : "stage [advance_disease.stage]/5"]</span>"
 				if(extracted_ids[advance_disease.GetDiseaseID()])
-					message += COLOR_SPAN(COLOR_PALE_GREEN_GRAY, "info italics", "This virus has been extracted by \the [src] previously.")
-				message += "<span class='info bold'>[COLOR(disease_color, advance_disease.name)] has the following symptoms:</span>"
+					message += "<span class='info italics'>This virus has been extracted by \the [src] previously.</span>"
+				message += "<span class='info bold'>[advance_disease.name] has the following symptoms:</span>"
 				for(var/datum/symptom/symptom in advance_disease.symptoms)
-					message += COLOR_SPAN(advance_disease.dormant ? COLOR_SILVER : get_danger_color(symptom.severity), "info", symptom.name)
+					message += "[symptom.name]"
 			else
-				message += "<span class='info'>[COLOR_SPAN(COLOR_GREEN, "bold", disease.name)], stage [disease.stage]/[disease.max_stages].</font></span>"
+				message += "<span class='info'><b>[disease.name]</b>, stage [disease.stage]/[disease.max_stages].</font></span>"
 	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), avoid_highlighting = TRUE, trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
 
 /**
@@ -1256,7 +1221,7 @@ GENE SCANNER
 	if(!chosen)
 		return
 	user.visible_message("<span class='notice'>[user] slots [target] into [src], which begins to whir and beep!</span>", \
-		"<span class='notice'>[icon2html(src, user)] You begin isolating [COLOR_SPAN(get_danger_color(chosen), "bold", chosen.name)] from [target]...</span>", \
+		"<span class='notice'>[icon2html(src, user)] You begin isolating <b>[chosen.name]</b> from [target]...</span>", \
 		vision_distance = COMBAT_MESSAGE_RANGE)
 	var/datum/disease/advance/symptom_holder = new
 	symptom_holder.name = chosen.name
@@ -1273,7 +1238,7 @@ GENE SCANNER
 /obj/item/extrapolator/proc/isolate_disease(mob/living/user, atom/target, datum/disease/advance/target_disease, timer = 10 SECONDS)
 	. = FALSE
 	user.visible_message("<span class='notice'>[user] begins to thoroughly scan [target] with [src]...</span>", \
-		"<span class='notice'>[icon2html(src, user)] You begin isolating [COLOR_SPAN(get_danger_color(target_disease), "bold", target_disease.name)] from [target]...</span>")
+		"<span class='notice'>[icon2html(src, user)] You begin isolating <b>[target_disease.name]</b> from [target]...</span>")
 	if(do_after(user, isolate_time, target = target))
 		create_culture(user, target_disease, target)
 		return TRUE
