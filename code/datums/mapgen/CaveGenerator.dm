@@ -33,7 +33,7 @@
 
 
 	///Base chance of spawning a mob
-	var/mob_spawn_chance = 2.4
+	var/mob_spawn_chance = 1.5
 	///Base chance of spawning flora
 	var/flora_spawn_chance = 2
 	///Base chance of spawning features
@@ -53,10 +53,10 @@
 /datum/map_generator/cave_generator/New()
 	. = ..()
 	if(!weighted_mob_spawn_list)
-		weighted_mob_spawn_list = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast/random = 100, /obj/structure/spawner/lavaland/goliath = 2, \
-		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/random = 80, /obj/structure/spawner/lavaland = 1, \
-		/mob/living/simple_animal/hostile/asteroid/hivelord/legion/random = 60, /obj/structure/spawner/lavaland/legion = 1, \
-		SPAWN_MEGAFAUNA = 2, /mob/living/simple_animal/hostile/asteroid/goldgrub = 20)
+		weighted_mob_spawn_list = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast/random = 50, /obj/structure/spawner/lavaland/goliath = 3, \
+		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/random = 40, /obj/structure/spawner/lavaland = 2, \
+		/mob/living/simple_animal/hostile/asteroid/hivelord/legion/random = 30, /obj/structure/spawner/lavaland/legion = 3, \
+		SPAWN_MEGAFAUNA = 4, /mob/living/simple_animal/hostile/asteroid/goldgrub = 10)
 	mob_spawn_list = expand_weights(weighted_mob_spawn_list)
 	mob_spawn_no_mega_list = expand_weights(weighted_mob_spawn_list - SPAWN_MEGAFAUNA)
 	if(!weighted_megafauna_spawn_list)
