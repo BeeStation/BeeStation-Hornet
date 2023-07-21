@@ -175,8 +175,7 @@
 					weighted_megafauna_spawn_list.Remove(picked_mob)
 					megafauna_spawn_list = expand_weights(weighted_megafauna_spawn_list)
 					megas_allowed = megas_allowed && length(megafauna_spawn_list)
-				var/new_mob = new picked_mob(new_turf)
-				mobs_spawned += new_mob
+				mobs_spawned += new picked_mob(new_turf)
 				spawned_something = TRUE
 		CHECK_TICK
 
