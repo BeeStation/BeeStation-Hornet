@@ -160,20 +160,17 @@
 
 			var/can_spawn = TRUE
 
-			// prevents tendrils spawning in each other's collapse range
-			if(ispath(picked_mob, /obj/structure/spawner/lavaland))
-				for(var/obj/structure/spawner/lavaland/spawn_blocker in range(2, new_turf))
-					can_spawn = FALSE
+			for(var/thing in urange(12, new_turf)) //prevents mob clumps
+				if(!ishostile(thing) && !istype(thing, /obj/structure/spawner))
+					continue
+				if((ispath(picked_mob, /mob/living/simple_animal/hostile/megafauna) || ismegafauna(thing)) && get_dist(new_turf, thing) <= 7)
+					can_spawn = FALSE //if there's a megafauna within standard view don't spawn anything at all
 					break
-			//if the random is a standard mob, avoid spawning if there's another one within 12 tiles
-			else if(ispath(picked_mob, /mob/living/simple_animal/hostile/asteroid))
-				for(var/mob/living/simple_animal/hostile/asteroid/mob_blocker in range(12, new_turf))
-					can_spawn = FALSE
+				if(ispath(picked_mob, /mob/living/simple_animal/hostile/asteroid) || istype(thing, /mob/living/simple_animal/hostile/asteroid))
+					can_spawn = FALSE //if the random is a standard mob, avoid spawning if there's another one within 12 tiles
 					break
-			//if there's a megafauna within standard view don't spawn anything at all (This isn't really consistent, I don't know why we do this. you do you tho)
-			if(can_spawn)
-				for(var/mob/living/simple_animal/hostile/megafauna/found_fauna in range(7, new_turf))
-					can_spawn = FALSE
+				if((ispath(picked_mob, /obj/structure/spawner/lavaland) || istype(thing, /obj/structure/spawner/lavaland)) && get_dist(new_turf, thing) <= 2)
+					can_spawn = FALSE //prevents tendrils spawning in each other's collapse range
 					break
 
 			if(can_spawn)
