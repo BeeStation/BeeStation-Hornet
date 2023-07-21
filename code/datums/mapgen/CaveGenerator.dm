@@ -152,34 +152,21 @@
 		//MOB SPAWNING HERE
 		if(mobs_allowed && !spawned_something && prob(mob_spawn_chance))
 			var/atom/picked_mob = pick(mob_spawn_list)
-			var/is_megafauna = picked_mob == SPAWN_MEGAFAUNA
 
-			if(is_megafauna)
+			if(picked_mob == SPAWN_MEGAFAUNA)
 				if(megas_allowed) //this is danger. it's boss time.
 					picked_mob = pick(megafauna_spawn_list)
 				else //this is not danger, don't spawn a boss, spawn something else
-					is_megafauna = FALSE
 					picked_mob = pick(mob_spawn_no_mega_list) //What if we used 100% of the brain...and did something (slightly) less shit than a while loop?
 
 			var/can_spawn = TRUE
 
+			// Enforce a minimum spacing of 6 tiles for megafauna, spawners, and mobs
 			for(var/atom/thing as anything in urange(6, new_turf))
-				var/hostile = ishostile(thing)
-				var/spawner = istype(thing, /obj/structure/spawner)
-				if(!hostile && !spawner)
+				if(!ishostile(thing) && !istype(thing, /obj/structure/spawner))
 					continue
-				// Prevent non-megafauna within 6 tiles of spawners and mobs, including megafauna
-				if(ispath(picked_mob, /mob/living/simple_animal/hostile/asteroid) && (spawner || hostile))
-					can_spawn = FALSE
-					break
-				// Prevent spawners within 2 tiles of each other
-				if((ispath(picked_mob, /obj/structure/spawner/lavaland) || spawner) && get_dist(new_turf, thing) <= 2)
-					can_spawn = FALSE
-					break
-				// Prevent megafauna from spawning within 6 of anything
-				if(is_megafauna)
-					can_spawn = FALSE
-					break
+				can_spawn = FALSE
+				break
 
 			if(can_spawn)
 				if(ispath(picked_mob, /mob/living/simple_animal/hostile/megafauna/bubblegum)) //there can be only one bubblegum, so don't waste spawns on it
