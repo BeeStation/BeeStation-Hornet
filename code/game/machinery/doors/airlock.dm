@@ -1215,7 +1215,7 @@
 	update_freelook_sight()
 	sleep(open_speed - 1)
 	density = FALSE
-	obj_flags &= ~(BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP)
+	z_flags &= ~(Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP)
 	air_update_turf(1)
 	sleep(1)
 	layer = OPEN_DOOR_LAYER
@@ -1262,12 +1262,12 @@
 	layer = CLOSED_DOOR_LAYER
 	if(air_tight)
 		set_density(TRUE)
-		obj_flags |= (BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP)
+		z_flags |= (Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP)
 		air_update_turf(1)
 	sleep(1)
 	if(!air_tight)
 		set_density(TRUE)
-		obj_flags |= (BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP)
+		z_flags |= (Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP)
 		air_update_turf(1)
 	sleep(open_speed - 1)
 	if(!safe)

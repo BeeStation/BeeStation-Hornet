@@ -37,9 +37,8 @@ Various Cloths
 	pull_effort = 50
 	loom_result = /obj/item/stack/sheet/silk
 
-/obj/item/stack/sheet/cotton/cloth/Initialize(mapload, new_amount, merge = TRUE)
-	. = ..()
-	recipes = GLOB.cloth_recipes
+/obj/item/stack/sheet/cotton/cloth/get_recipes()
+	return GLOB.cloth_recipes
 
 /* Durathread cloth */
 
@@ -66,9 +65,8 @@ Various Cloths
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 
-/obj/item/stack/sheet/cotton/cloth/durathread/Initialize(mapload, new_amount, merge = TRUE)
-	. = ..()
-	recipes = GLOB.durathread_recipes
+/obj/item/stack/sheet/cotton/cloth/durathread/get_recipes()
+	return GLOB.durathread_recipes
 
 /* Silk */
 
@@ -84,6 +82,5 @@ Various Cloths
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 
-/obj/item/stack/sheet/silk/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.silk_recipes
-	return ..()
+/obj/item/stack/sheet/silk/get_recipes()
+	return GLOB.silk_recipes
