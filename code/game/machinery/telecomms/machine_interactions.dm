@@ -211,13 +211,13 @@
 	// Let's double check
 	var/obj/item/held_item = user.get_active_held_item()
 	if(!issilicon(user) && held_item?.GetComponent(/datum/component/buffer))
-		return user.held_item?.GetComponent(/datum/component/buffer)
+		return held_item?.GetComponent(/datum/component/buffer)
 	else if(isAI(user))
 		var/mob/living/silicon/ai/U = user
 		return U.aiMulti.GetComponent(/datum/component/buffer)
 	else if(iscyborg(user) && in_range(user, src))
 		if(user.held_item?.GetComponent(/datum/component/buffer))
-			return user.held_item?.GetComponent(/datum/component/buffer)
+			return held_item?.GetComponent(/datum/component/buffer)
 	return null
 
 /obj/machinery/telecomms/proc/canAccess(mob/user)
