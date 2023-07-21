@@ -1,0 +1,6 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - tweak: shuttle docking will now display blue tiles (areas of doors or some passible
+      things)
+  - imageadd: alpha images for shuttle dock
