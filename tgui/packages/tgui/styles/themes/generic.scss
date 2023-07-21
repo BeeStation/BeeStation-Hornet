@@ -28,6 +28,9 @@ $accent: #4f56a5;
 
   @include meta.load-css('../components/Input.scss', $with: ('border-color': #7b86ff));
 
+  // Other
+  @include meta.load-css('../interfaces/AlertModal.scss', $with: ('bar-color': $accent));
+
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
