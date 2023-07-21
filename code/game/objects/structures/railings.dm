@@ -24,7 +24,7 @@
 	if(climbable)
 		AddElement(/datum/element/climbable)
 
-	if(density && flags_1 & ON_BORDER_1) // blocks normal movement from and to the direction it's facing.
+	if(density && (flags_1 & ON_BORDER_1)) // blocks normal movement from and to the direction it's facing.
 		var/static/list/loc_connections = list(
 			COMSIG_ATOM_EXIT = PROC_REF(on_exit),
 		)
