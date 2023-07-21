@@ -101,7 +101,7 @@
 
 		if(BOOKCASE_FINISHED)
 			var/datum/component/storage/STR = I.GetComponent(/datum/component/storage)
-			if(isbook(I))
+			if(is_type_in_list(I, allowed_books))
 				if(!user.transferItemToLoc(I, src))
 					return
 				update_appearance()
@@ -160,7 +160,7 @@
 
 /obj/structure/bookcase/deconstruct(disassembled = TRUE)
 	var/atom/Tsec = drop_location()
-	new /obj/item/stack/sheet/wood/(Tsec, 4)
+	new /obj/item/stack/sheet/wood(Tsec, 4)
 	for(var/obj/item/I in contents)
 		if(!isbook(I))
 			continue

@@ -300,8 +300,6 @@ GLOBAL_LIST_INIT(book_types, typecacheof(list(
 	/obj/item/spellbook,
 	/obj/item/storage/book)))
 
-#define IS_EDIBLE(O) (O.GetComponent(/datum/component/edible))
-
 /// isnum() returns TRUE for NaN. Also, NaN != NaN. Checkmate, BYOND.
 #define isnan(x) ( (x) != (x) )
 
