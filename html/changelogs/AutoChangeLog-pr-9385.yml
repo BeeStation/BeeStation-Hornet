@@ -1,5 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - code_imp: recipes variable in materials is removed. It now uses get_recipes()
-      proc.

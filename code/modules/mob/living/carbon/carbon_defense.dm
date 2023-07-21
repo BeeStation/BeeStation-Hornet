@@ -355,7 +355,7 @@
 			eyes.applyOrganDamage(rand(12, 16))
 
 		if(eyes.damage > 10)
-			adjust_blindness(damage)
+			blind_eyes(damage)
 			blur_eyes(damage * rand(3, 6))
 
 			if(eyes.damage > 20)

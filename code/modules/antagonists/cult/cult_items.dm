@@ -465,7 +465,7 @@ Striking a noncultist, however, will tear their flesh."}
 		user.dropItemToGround(src, TRUE)
 		user.Dizzy(30)
 		user.Paralyze(100)
-		user.adjust_blindness(30)
+		user.blind_eyes(30)
 
 /obj/item/reagent_containers/glass/beaker/unholywater
 	name = "flask of unholy water"

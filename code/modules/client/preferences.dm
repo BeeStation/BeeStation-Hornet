@@ -1969,8 +1969,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("ambientocclusion")
 					toggles2 ^= PREFTOGGLE_2_AMBIENT_OCCLUSION
 					if(parent && parent.screen && parent.screen.len)
-						var/atom/movable/screen/plane_master/game_world/PM = locate(/atom/movable/screen/plane_master/game_world) in parent.screen
-						PM.backdrop(parent.mob)
+						var/atom/movable/screen/plane_master/game_world/game_pm = locate(/atom/movable/screen/plane_master/game_world) in parent.screen
+						game_pm.backdrop(parent.mob)
+						// Multiz shadow
+						var/atom/movable/screen/plane_master/floor/floor_pm = locate(/atom/movable/screen/plane_master/floor) in parent.screen
+						floor_pm.backdrop(parent.mob)
 
 				if("auto_fit_viewport")
 					toggles2 ^= PREFTOGGLE_2_AUTO_FIT_VIEWPORT

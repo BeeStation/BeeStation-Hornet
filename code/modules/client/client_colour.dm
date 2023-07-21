@@ -196,9 +196,6 @@
 	fade_in = 20
 	fade_out = 20
 
-/datum/client_colour/monochrome/blind
-	priority = 1
-
 /datum/client_colour/bloodlust
 	priority = PRIORITY_ABSOLUTE // Only anger.
 	colour = list(0,0,0,0,0,0,0,0,0,1,0,0) //pure red.
