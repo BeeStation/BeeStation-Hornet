@@ -566,11 +566,11 @@
 	for(var/direction in GLOB.alldirs)
 		var/obj/machinery/computer/operating/found_computer = locate(/obj/machinery/computer/operating) in get_step(src, direction)
 		if(found_computer)
-			if(!found_computer.sbed)
+			if(!found_computer.table)
 				found_computer.link_with_table(new_table = src)
 				break
-			else if(found_computer.sbed == src)
-				op_computer = found_computer
+			else if(found_computer.table == src)
+				computer = found_computer
 				break
 
 
