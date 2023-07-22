@@ -98,18 +98,11 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	if(color)
 		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
 
+	if (z_flags & Z_MIMIC_BELOW)
+		setup_zmimic(mapload)
+
 	if (light_power && light_range)
 		update_light()
-
-	// Propogate creation to turfs above and below
-	var/turf/T = SSmapping.get_turf_above(src)
-	if(T)
-		T.multiz_turf_new(src, DOWN)
-		SEND_SIGNAL(T, COMSIG_TURF_MULTIZ_NEW, src, DOWN)
-	T = SSmapping.get_turf_below(src)
-	if(T)
-		T.multiz_turf_new(src, UP)
-		SEND_SIGNAL(T, COMSIG_TURF_MULTIZ_NEW, src, UP)
 
 	if (opacity)
 		directional_opacity = ALL_CARDINALS
@@ -138,13 +131,8 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	if(!changing_turf)
 		stack_trace("Incorrect turf deletion")
 	changing_turf = FALSE
-	// Propogate deletion to turfs above and below
-	var/turf/T = SSmapping.get_turf_above(src)
-	if(T)
-		T.multiz_turf_del(src, DOWN)
-	T = SSmapping.get_turf_below(src)
-	if(T)
-		T.multiz_turf_del(src, UP)
+	if (z_flags & Z_MIMIC_BELOW)
+		cleanup_zmimic()
 	if(force)
 		..()
 		//this will completely wipe turf state
@@ -577,6 +565,28 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		if(turf_to_check.density || LinkBlockedWithAccess(turf_to_check, caller, ID))
 			continue
 		. += turf_to_check
+
+/turf/proc/generate_fake_pierced_realities(centered = TRUE, max_amount = 2)
+	var/to_spawn = pick(1, max_amount)
+	var/spawned = 0
+	var/location_sanity = 0
+	while(spawned < to_spawn && location_sanity < 100)
+		var/precision = pick(5, 15 * max_amount)
+		var/turf/chosen_location = pick(get_safe_random_station_turfs())
+		if(centered)
+			chosen_location = get_teleport_turf(src, precision) //Using the random teleportation logic here to find a destination turf
+		// We don't want them close to each other - at least 1 tile of seperation
+		var/list/nearby_things = range(1, chosen_location)
+		var/obj/effect/heretic_influence/what_if_i_have_one = locate() in nearby_things
+		var/obj/effect/visible_heretic_influence/what_if_i_had_one_but_its_used = locate() in nearby_things
+		if(what_if_i_have_one || what_if_i_had_one_but_its_used || isspaceturf(chosen_location))
+			location_sanity++
+			continue
+		addtimer(CALLBACK(src, PROC_REF(create_new_fake_reality), chosen_location), rand(0, 500))
+		spawned++
+
+/turf/proc/create_new_fake_reality(turf/F)
+	new /obj/effect/visible_heretic_influence(F)
 
 /// Checks if the turf was blessed with holy water OR the area its in is Chapel
 /turf/proc/is_holy()

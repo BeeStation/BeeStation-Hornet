@@ -408,7 +408,7 @@
 	var/icon/I = icon(icon, icon_state, dir)
 	holder.pixel_y = I.Height() - world.icon_size
 	if(cell)
-		var/chargelvl = cell.charge/cell.maxcharge
+		var/chargelvl = cell.maxcharge ? cell.charge/cell.maxcharge : 0 //Division by 0 protection
 		holder.icon_state = "hudbatt[RoundDiagBar(chargelvl)]"
 	else
 		holder.icon_state = "hudnobatt"

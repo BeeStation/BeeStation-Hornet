@@ -67,8 +67,11 @@
 	staff_who("Mentorwho")
 
 /client/proc/staff_who(via)
-	var/msg = "<b>Current Admins:</b>\n"
+	var/msg
+
+	// when you are admin
 	if(holder)
+		msg = "<b>Current Admins:</b>\n"
 		for(var/client/C in GLOB.admins)
 			var/rank = "\improper [C.holder.rank]"
 			msg += "\t[C] is \a [rank]"
@@ -100,13 +103,30 @@
 			if(C.is_afk())
 				msg += " (AFK)"
 			msg += "\n"
+
+	// for standard players
 	else
+		var/list/admin_list = list()
+		var/list/non_admin_list = list()
 		for(var/client/C in GLOB.admins)
 			if(C.is_afk())
 				continue //Don't show afk admins to adminwho
 			if(!C.holder.fakekey)
-				var/rank = "\improper [C.holder.rank]"
-				msg += "\t[C] is \a [rank]\n"
+				if(check_rights_for(C, R_ADMIN)) // ahelp needs R_ADMIN. If they have R_ADMIN, they'll be listed in admin list.
+					var/rank = "\improper [C.holder.rank]"
+					admin_list += "\t[C] is \a [rank]\n"
+				else // admins without R_ADMIN perm should be sorted in different area, so that people won't believe coders will handle ahelp
+					var/rank = "\improper [C.holder.rank]"
+					non_admin_list += "\t[C] is \a [rank]\n"
+
+		msg = "<b>Current Admins:</b>\n"
+		for(var/each in admin_list)
+			msg += each
+		if(length(non_admin_list)) // notifying the absence of non-admins has no point
+			msg += "<b>Current Maintainers:</b>\n"
+			msg += "\t<span class='info'>Non-admin staff are unable to handle adminhelp tickets.</span>\n"
+			for(var/each in non_admin_list)
+				msg += each
 		msg += "<b>Current Mentors:</b>\n"
 		for(var/client/C in GLOB.mentors)
 			if(C.is_afk())

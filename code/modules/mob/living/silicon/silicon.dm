@@ -225,65 +225,50 @@
 	return
 
 
-/mob/living/silicon/proc/statelaws(force = 0)
+/mob/living/silicon/proc/statelaws(force = FALSE)
 	var/mob/living/silicon/S = usr
 	var/total_laws_count = 0
-	currently_stating_laws = TRUE
-
-	//"radiomod" is inserted before a hardcoded message to change if and how it is handled by an internal radio.
-	say("[radiomod] Current Active Laws:")
-	S.client?.silicon_spam_grace()
 	//laws_sanity_check()
 	//laws.show_laws(world)
 	var/number = 1
-	sleep(10)
 
-	if (laws.devillaws?.len)
+	var/list/laws_to_state = list()
+
+	if (length(laws.devillaws))
 		for(var/index = 1, index <= laws.devillaws.len, index++)
 			if (force || devillawcheck[index] == "Yes")
-				say("[radiomod] 666. [laws.devillaws[index]]")
-				S.client?.silicon_spam_grace()
+				laws_to_state += "666. [laws.devillaws[index]]"
 				total_laws_count++
-				sleep(10)
-
 
 	if (laws.zeroth)
 		if (force || lawcheck[1] == "Yes")
-			say("[radiomod] 0. [laws.zeroth]")
-			S.client?.silicon_spam_grace()
+			laws_to_state += "0. [laws.zeroth]"
 			total_laws_count++
-			sleep(10)
 
 	for (var/index in 1 to laws.hacked.len)
 		var/law = laws.hacked[index]
 		var/num = ion_num()
 		if (length(law) > 0)
 			if (force || hackedcheck[index] == "Yes")
-				say("[radiomod] [num]. [law]")
-				S.client?.silicon_spam_grace()
+				laws_to_state += "[num]. [law]"
 				total_laws_count++
-				sleep(10)
 
 	for (var/index in 1 to laws.ion.len)
 		var/law = laws.ion[index]
 		var/num = ion_num()
 		if (length(law) > 0)
 			if (force || ioncheck[index] == "Yes")
-				say("[radiomod] [num]. [law]")
-				S.client?.silicon_spam_grace()
+				laws_to_state += "[num]. [law]"
 				total_laws_count++
-				sleep(10)
 
 	for (var/index in 1 to laws.inherent.len)
 		var/law = laws.inherent[index]
 
 		if (length(law) > 0)
 			if (force || lawcheck[index+1] == "Yes")
-				say("[radiomod] [number]. [law]")
-				S.client?.silicon_spam_grace()
+				laws_to_state += "[number]. [law]"
 				total_laws_count++
 				number++
-				sleep(10)
 
 	for (var/index in 1 to laws.supplied.len)
 		var/law = laws.supplied[index]
@@ -291,14 +276,44 @@
 		if (length(law) > 0)
 			if(lawcheck.len >= number+1)
 				if (force || lawcheck[number+1] == "Yes")
-					say("[radiomod] [number]. [law]")
-					S.client?.silicon_spam_grace()
+					laws_to_state += "[number]. [law]"
 					total_laws_count++
 					number++
-					sleep(10)
 
-	S.client?.silicon_spam_grace_done(total_laws_count)
+	if(!force)
+		var/static/regex/dont_state_regex = regex("Do(?:n'?t| not) state", "i")
+		var/list/bad_idea_laws = list()
+		for(var/law in laws_to_state)
+			if(findtext(law, dont_state_regex))
+				bad_idea_laws |= law
+		if(length(bad_idea_laws))
+			var/all_bad_idea_laws = english_list(bad_idea_laws)
+			if(tgui_alert(usr, "Are you sure you want to state these laws? Stating some of your selected laws may be a bad idea!:\n[all_bad_idea_laws]", buttons = list("Yes", "No")) != "Yes")
+				return
+
+	if(currently_stating_laws)
+		return
+
+	currently_stating_laws = TRUE
+
+	//"radiomod" is inserted before a hardcoded message to change if and how it is handled by an internal radio.
+	say("[radiomod] Current Active Laws:", ignore_spam = TRUE, forced = "state laws")
+	S.client?.silicon_spam_grace()
+
+	for(var/law_index = 1 to length(laws_to_state))
+		var/law = laws_to_state[law_index]
+		addtimer(CALLBACK(src, PROC_REF(state_singular_law), S, law), 1 SECONDS * law_index)
+
+	addtimer(CALLBACK(src, PROC_REF(finished_stating_laws), S, total_laws_count), 1 SECONDS * (length(laws_to_state) + 1))
+
+
+/mob/living/silicon/proc/finished_stating_laws(mob/living/silicon/silicon, total_laws_count)
+	silicon.client?.silicon_spam_grace_done(total_laws_count)
 	currently_stating_laws = FALSE
+
+/mob/living/silicon/proc/state_singular_law(mob/living/silicon/silicon, law)
+	say("[radiomod] [law]", ignore_spam = TRUE, forced = "state laws")
+	silicon.client?.silicon_spam_grace()
 
 /mob/living/silicon/proc/checklaws() //Gives you a link-driven interface for deciding what laws the statelaws() proc will share with the crew. --NeoFite
 
