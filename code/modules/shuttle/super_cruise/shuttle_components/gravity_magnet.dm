@@ -1,19 +1,10 @@
 /obj/machinery/gravity_magnet
-	name = "gravity magnet"
-	desc = "A machine which allows for the towing of orbital bodies."
+	name = "gravity anchor"
+	desc = "A machine which can be attached onto asteroids in order to tow them with a gravity magnet."
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "ore_redemption"
-
-	// Distance that the object follows behind us
-	var/pull_distance = 60.1
-
-	var/multiplier_n = 1
-
-	/// The strength that the magnet pulls the other one towards it
-	var/magnet_strength = 5
-
-	/// Are we an active magnet?
-	var/active_magnet = FALSE
+	density = TRUE
+	anchored = TRUE
 
 	/// The gravity magnet which we are currently linked to, 2 way link
 	var/obj/machinery/gravity_magnet/linked
@@ -31,7 +22,39 @@
 	GLOB.zclear_blockers -= src
 	return ..()
 
-/obj/machinery/gravity_magnet/process(delta_time)
+/obj/machinery/gravity_magnet/examine(mob/user)
+	. = ..()
+	. += "Use a multitool to link it to a gravity magnet."
+
+/obj/machinery/gravity_magnet/proc/handle_buffer_action(datum/source, mob/user, datum/buffer, obj/item/buffer_parent)
+	if (istype(buffer, /obj/machinery/gravity_magnet))
+		var/obj/machinery/gravity_magnet/other_magnet = buffer
+		linked = other_magnet
+		other_magnet.linked = src
+		to_chat(user, "<span class='notice'>You successfully link the 2 magnets together.</span>")
+		return COMPONENT_BUFFER_RECIEVED
+	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+		to_chat(user, "<span class='notice'>You successfully store [src] into [buffer_parent]'s buffer.</span>")
+		return COMPONENT_BUFFER_RECIEVED
+
+/obj/machinery/gravity_magnet/active
+	name = "gravity magnet"
+	desc = "A machine which allows for the towing of orbital bodies."
+	icon = 'icons/obj/machines/mining_machines.dmi'
+	icon_state = "ore_redemption"
+
+	// Distance that the object follows behind us
+	var/pull_distance = 60.1
+
+	var/multiplier_n = 1
+
+	/// The strength that the magnet pulls the other one towards it
+	var/magnet_strength = 5
+
+	/// Are we an active magnet?
+	var/active_magnet = FALSE
+
+/obj/machinery/gravity_magnet/active/process(delta_time)
 	// If the z-levels are the same, then stop processing
 	if (!should_process())
 		return PROCESS_KILL
@@ -60,27 +83,16 @@
 
 /// When the Z changes, check if we need to start pulling our target object.
 /// Just in case this is force moved to another Z-Level.
-/obj/machinery/gravity_magnet/onTransitZ(old_z, new_z)
+/obj/machinery/gravity_magnet/active/onTransitZ(old_z, new_z)
 	. = ..()
 	zchange_check()
 
 /// When moved by a shuttle, needs to be here instead of onTransitZ since onTransitZ doesn't respect shuttle ordering.
-/obj/machinery/gravity_magnet/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
+/obj/machinery/gravity_magnet/active/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
 	. = ..()
 	zchange_check()
 
-/obj/machinery/gravity_magnet/proc/handle_buffer_action(datum/source, mob/user, datum/buffer, obj/item/buffer_parent)
-	if (istype(buffer, /obj/machinery/gravity_magnet))
-		var/obj/machinery/gravity_magnet/other_magnet = buffer
-		linked = other_magnet
-		other_magnet.linked = src
-		to_chat(user, "<span class='notice'>You successfully link the 2 magnets together.</span>")
-		return COMPONENT_BUFFER_RECIEVED
-	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
-		to_chat(user, "<span class='notice'>You successfully store [src] into [buffer_parent]'s buffer.</span>")
-		return COMPONENT_BUFFER_RECIEVED
-
-/obj/machinery/gravity_magnet/proc/zchange_check()
+/obj/machinery/gravity_magnet/active/proc/zchange_check()
 	// Passive magnet (reciever) or disabled, don't do anything
 	if (!active_magnet)
 		return
@@ -93,7 +105,7 @@
 	START_PROCESSING(SSorbits, src)
 
 /// Check if we should start processing and pull the objects together
-/obj/machinery/gravity_magnet/proc/should_process()
+/obj/machinery/gravity_magnet/active/proc/should_process()
 	if (!linked)
 		return FALSE
 	var/datum/orbital_object/source_object = get_magnet_location()
@@ -109,7 +121,7 @@
 	//TODO
 	return TRUE
 
-/obj/machinery/gravity_magnet/proc/get_magnet_location()
+/obj/machinery/gravity_magnet/active/proc/get_magnet_location()
 	var/turf/location = get_turf(src)
 	if (!location)
 		return null

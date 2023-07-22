@@ -58,6 +58,9 @@
 			if (is_zone_blocked())
 				say("Zone blocked")
 				return FALSE
+			if (zone.right - zone.left > linked_zone.maxx - linked_zone.minx || zone.top - zone.bottom > linked_zone.maxy - linked_zone.miny)
+				say("The asteroid is too large to capture with this asteroid magnet.")
+				return FALSE
 			say("engaging asteroid magnet...")
 			pull_asteroid(zone.z, zone.left, zone.right, zone.bottom, zone.top)
 			return TRUE
@@ -133,7 +136,7 @@
 		T.copyTurf(new_location)
 		// TODO: Deal with onShuttleMove
 		// Transfer objects from the previous location
-		for (var/atom/movable/thing as() in contents)
+		for (var/atom/movable/thing as() in T.contents)
 			thing.onShuttleMove(new_location, T, list(), NORTH, null, null)
 		// Remove the turfs from the previous location
 		T.TransferComponents(new_location)
@@ -141,7 +144,6 @@
 		// Since we moved everything, just wipe the entire turf
 		T.empty()
 	// Deal with telling the areas that they were moved
-	// Clear the previous location's orbital location if there is nothing there
 
 /obj/machinery/computer/asteroid_magnet_controller/proc/eject_asteroid()
 	if (!linked_zone)
