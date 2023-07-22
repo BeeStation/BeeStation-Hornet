@@ -1,7 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - bugfix: Fixed lights playing the sound of turning on two times at roundstart
-  - bugfix: Fixed atmos alarms no making the lights turn blue
-  - tweak: Made air and fire alarms instantly swithc the color of the lights to blue/red
-      instantly and quietly
