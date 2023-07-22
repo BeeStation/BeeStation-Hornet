@@ -8,6 +8,10 @@
 	/// The range of the asteroid magnet in orbital units
 	var/range = 500
 
+/obj/machinery/computer/asteroid_magnet_controller/ComponentInitialize()
+	. = ..()
+	RegisterSignal(src, COMSIG_PARENT_RECIEVE_BUFFER, PROC_REF(handle_buffer_action))
+
 /obj/machinery/computer/asteroid_magnet_controller/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -62,6 +66,19 @@
 			return TRUE
 		if ("scan")
 			return TRUE
+
+/obj/machinery/computer/asteroid_magnet_controller/proc/handle_buffer_action(datum/source, mob/user, datum/buffer, obj/item/buffer_parent)
+	if (istype(buffer, /obj/machinery/asteroid_magnet_border_marker))
+		var/obj/machinery/asteroid_magnet_border_marker/border_marker = buffer
+		if (border_marker.linked_zone)
+			linked_zone = border_marker.linked_zone
+			to_chat(user, "<span class='notice'>You successfully link [src] to the asteroid magnet zone.</span>")
+		else
+			to_chat(user, "<span class='warning'>The stored border marker doesn't form a rectangular zone.</span>")
+		return COMPONENT_BUFFER_RECIEVED
+	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+		to_chat(user, "<span class='notice'>You successfully store [src] into [buffer_parent]'s buffer.</span>")
+		return COMPONENT_BUFFER_RECIEVED
 
 /obj/machinery/computer/asteroid_magnet_controller/proc/get_magnet_target(target_name)
 	// Find our current orbital object to get the map we are working on

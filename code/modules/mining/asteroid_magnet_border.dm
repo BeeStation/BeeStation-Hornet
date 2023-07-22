@@ -18,6 +18,10 @@ GLOBAL_LIST_EMPTY(asteroid_magnet_borders)
 	. = ..()
 	GLOB.asteroid_magnet_borders += src
 
+/obj/machinery/asteroid_magnet_border_marker/ComponentInitialize()
+	. = ..()
+	RegisterSignal(src, COMSIG_PARENT_RECIEVE_BUFFER, PROC_REF(handle_buffer_action))
+
 /obj/machinery/asteroid_magnet_border_marker/Destroy()
 	GLOB.asteroid_magnet_borders -= src
 	// Delete the linked zone
@@ -35,15 +39,22 @@ GLOBAL_LIST_EMPTY(asteroid_magnet_borders)
 	. = ..()
 	. += "Link with a <b>multitool</b> to link the zone to a controller."
 
-/obj/machinery/asteroid_magnet_border_marker/multitool_act(mob/living/user, obj/item/I)
+/obj/machinery/asteroid_magnet_border_marker/proc/handle_buffer_action(datum/source, mob/user, datum/buffer, obj/item/buffer_parent)
 	// Attempt to build our asteroid magnet border area
 	if (!linked_zone)
 		// Try to build the area
 		try_build_area()
 		if (!linked_zone)
 			to_chat(user, "<span class='warning'>\The [src] does not form a complete rectangular zone. Markers need to be placed in all 4 corners to form a zone.</span>")
-			return
-	// Store the linked zone inside the multitool buffer
+			return NONE
+	if (istype(buffer, /obj/machinery/computer/asteroid_magnet_controller))
+		var/obj/machinery/computer/asteroid_magnet_controller/border_controller = buffer
+		border_controller.linked_zone = linked_zone
+		to_chat(user, "<span class='notice'>You successfully link [border_controller] into to the asteroid magnet zone.</span>")
+		return COMPONENT_BUFFER_RECIEVED
+	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+		to_chat(user, "<span class='notice'>You successfully store [src] into [buffer_parent]'s buffer.</span>")
+		return COMPONENT_BUFFER_RECIEVED
 
 /obj/machinery/asteroid_magnet_border_marker/proc/show_area()
 	if (!linked_zone)

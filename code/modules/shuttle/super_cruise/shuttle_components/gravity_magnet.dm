@@ -22,6 +22,10 @@
 	. = ..()
 	GLOB.zclear_blockers += src
 
+/obj/machinery/gravity_magnet/ComponentInitialize()
+	. = ..()
+	RegisterSignal(src, COMSIG_PARENT_RECIEVE_BUFFER, PROC_REF(handle_buffer_action))
+
 /obj/machinery/gravity_magnet/Destroy()
 	linked?.linked = null
 	GLOB.zclear_blockers -= src
@@ -56,6 +60,17 @@
 /obj/machinery/gravity_magnet/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
 	. = ..()
 	zchange_check()
+
+/obj/machinery/gravity_magnet/proc/handle_buffer_action(datum/source, mob/user, datum/buffer, obj/item/buffer_parent)
+	if (istype(buffer, /obj/machinery/gravity_magnet))
+		var/obj/machinery/gravity_magnet/other_magnet = buffer
+		linked = other_magnet
+		other_magnet.linked = src
+		to_chat(user, "<span class='notice'>You successfully link the 2 magnets together.</span>")
+		return COMPONENT_BUFFER_RECIEVED
+	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
+		to_chat(user, "<span class='notice'>You successfully store [src] into [buffer_parent]'s buffer.</span>")
+		return COMPONENT_BUFFER_RECIEVED
 
 /obj/machinery/gravity_magnet/proc/zchange_check()
 	// Passive magnet (reciever) or disabled, don't do anything

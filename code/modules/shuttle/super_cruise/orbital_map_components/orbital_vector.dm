@@ -120,6 +120,8 @@
 	y *= other
 	return src
 
+#ifndef SPACEMAN_DMM
+
 /datum/orbital_vector/proc/operator/=(datum/orbital_vector/other)
 	if (istype(other))
 		x /= other.x
@@ -128,6 +130,8 @@
 	x /= other
 	y /= other
 	return src
+
+#endif
 
 #if DM_VERSION >= 515
 
