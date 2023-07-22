@@ -9,6 +9,7 @@
 	ambient_buzz = 'sound/ambience/magma.ogg'
 	ambient_buzz_vol = 10
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ADVANCED
+	lights_always_start_on = TRUE
 
 /area/mine/explored
 	name = "Mine"

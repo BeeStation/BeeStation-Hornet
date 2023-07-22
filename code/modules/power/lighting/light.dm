@@ -1,3 +1,5 @@
+#define LIGHT_ON_DELAY_UPPER 3 SECONDS
+#define LIGHT_ON_DELAY_LOWER 1 SECONDS
 // the standard tube light fixture
 /obj/machinery/light
 	name = "light fixture"
@@ -46,6 +48,12 @@
 	var/bulb_vacuum_colour = "#4F82FF"	// colour of the light when air alarm is set to severe
 	var/bulb_vacuum_brightness = 8
 	var/static/list/lighting_overlays	// dictionary for lighting overlays
+
+	///So we don't have a lot of stress on startup.
+	var/maploaded = FALSE
+
+	///More stress stuff.
+	var/turning_on = FALSE
 
 /obj/machinery/light/broken
 	status = LIGHT_BROKEN
@@ -103,9 +111,10 @@
 		cell = null
 
 // create a new lighting fixture
-/obj/machinery/light/Initialize(mapload)
+/obj/machinery/light/Initialize(mapload = TRUE)
 	. = ..()
 
+	maploaded = TRUE
 	//Setup area colours -pb
 	var/area/A = get_area(src)
 	if(bulb_colour == initial(bulb_colour))
@@ -169,7 +178,8 @@
 	. = ..()
 	if(!on || status != LIGHT_OK)
 		return
-
+	if(on && turning_on)
+		return
 	var/area/local_area = get_area(src)
 	if(emergency_mode || (local_area?.fire))
 		. += mutable_appearance(overlayicon, "[base_state]_emergency")
@@ -186,34 +196,12 @@
 			on = FALSE
 	emergency_mode = FALSE
 	if(on)
-		var/BR = brightness
-		var/PO = bulb_power
-		var/CO = bulb_colour
-		if(color)
-			CO = color
-		var/area/A = get_area(src)
-		if (A?.fire)
-			CO = bulb_emergency_colour
-		else if (A?.vacuum)
-			CO = bulb_vacuum_colour
-			BR = bulb_vacuum_brightness
-		else if (nightshift_enabled)
-			BR = nightshift_brightness
-			PO = nightshift_light_power
-			if(!color)
-				CO = nightshift_light_color
-		var/matching = light && BR == light.light_range && PO == light.light_power && CO == light.light_color
-		if(!matching)
-			switchcount++
-			if(rigged)
-				if(status == LIGHT_OK && trigger)
-					plasma_ignition(4)
-			else if( prob( min(60, (switchcount**2)*0.01) ) )
-				if(trigger)
-					burn_out()
-			else
-				use_power = ACTIVE_POWER_USE
-				set_light(BR, PO, CO)
+		if(maploaded)
+			turn_on(trigger, TRUE)
+			maploaded = FALSE
+		else if(!turning_on)
+			turning_on = TRUE
+			addtimer(CALLBACK(src, PROC_REF(turn_on), trigger), rand(LIGHT_ON_DELAY_LOWER, LIGHT_ON_DELAY_UPPER))
 	else if(use_emergency_power(LIGHT_EMERGENCY_POWER_USE) && !turned_off())
 		use_power = IDLE_POWER_USE
 		emergency_mode = TRUE
@@ -233,6 +221,42 @@
 			removeStaticPower(static_power_used, AREA_USAGE_STATIC_LIGHT)
 
 	broken_sparks(start_only=TRUE)
+
+/obj/machinery/light/proc/turn_on(trigger, quiet = FALSE)
+	if(QDELETED(src))
+		return FALSE
+	turning_on = FALSE
+	if(!on)
+		return FALSE
+	var/BR = brightness
+	var/PO = bulb_power
+	var/CO = bulb_colour
+	if(color)
+		CO = color
+	var/area/A = get_area(src)
+	if (A?.fire)
+		CO = bulb_emergency_colour
+	else if (nightshift_enabled)
+		BR = nightshift_brightness
+		PO = nightshift_light_power
+		if(!color)
+			CO = nightshift_light_color
+	var/matching = light && BR == light.light_range && PO == light.light_power && CO == light.light_color
+	if(!matching)
+		switchcount++
+		if(rigged)
+			if(status == LIGHT_OK && trigger)
+				plasma_ignition(4)
+		else if( prob( min(60, (switchcount^2)*0.01) ) )
+			if(trigger)
+				burn_out()
+		else
+			use_power = ACTIVE_POWER_USE
+			set_light(BR, PO, CO)
+			if(!quiet)
+				playsound(src.loc, 'sound/effects/light_on.ogg', 65)
+	update_icon()
+	return TRUE
 
 /obj/machinery/light/update_atom_colour()
 	..()
@@ -261,6 +285,8 @@
 		icon_state = "[base_state]-burned"
 		on = FALSE
 		set_light(0)
+		playsound(src.loc, 'sound/effects/burnout.ogg', 65)
+		update_icon()
 
 // attempt to set the light's on/off status
 // will not switch on if broken/burned/empty
@@ -624,3 +650,11 @@
 	layer = 2.5
 	light_type = /obj/item/light/bulb
 	fitting = "bulb"
+
+/proc/flicker_all_lights()
+	for(var/obj/machinery/light/L in GLOB.machines)
+		if(is_station_level(L.z))
+			addtimer(CALLBACK(L, TYPE_PROC_REF(/obj/machinery/light, flicker), rand(3, 6)), rand(0, 15))
+
+#undef LIGHT_ON_DELAY_UPPER
+#undef LIGHT_ON_DELAY_LOWER
