@@ -133,6 +133,7 @@
 	if(!ui)
 		ui = new(user, src, "ListInputModal")
 		ui.open()
+		ui.set_autoupdate(timeout > 0)
 
 /datum/tgui_list_input/ui_close(mob/user)
 	. = ..()
