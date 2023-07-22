@@ -325,10 +325,6 @@
 	///Becomes TRUE when the crate is being closed to ensure the compression sequence completes as expected.
 	var/closing = FALSE
 
-/obj/structure/closet/crate/capsule/Initialize(mapload)
-	. = ..()
-	AddElement(/datum/element/climbable)
-
 /obj/structure/closet/crate/capsule/update_icon()
 	cut_overlays()
 	icon_state = "capsule[opened ? "_open" : "_close"]"
