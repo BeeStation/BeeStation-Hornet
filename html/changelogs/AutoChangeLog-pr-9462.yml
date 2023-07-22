@@ -1,0 +1,4 @@
+author: RKz, haukeschuemann
+delete-after: true
+changes:
+  - bugfix: swarming component is deleted properly

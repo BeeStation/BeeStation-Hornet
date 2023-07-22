@@ -1,0 +1,5 @@
+author: Absolucy
+delete-after: true
+changes:
+  - tweak: Incursion now requires a hard minimum of 22 people to roll.
+  - bugfix: Fixed an excessive amount of incursion members being spawned by dynamic.

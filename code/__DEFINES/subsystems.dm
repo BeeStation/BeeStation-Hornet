@@ -149,6 +149,7 @@
 #define INIT_ORDER_STICKY_BAN		-10
 #define INIT_ORDER_LIGHTING			-20
 #define INIT_ORDER_SHUTTLE			-21
+#define INIT_ORDER_ZCOPY			-22 // this should go after lighting and most objects being placed
 #define INIT_ORDER_MINOR_MAPPING	-40
 #define INIT_ORDER_PATH				-50
 #define INIT_ORDER_EXPLOSIONS		-69
@@ -164,6 +165,7 @@
 #define FIRE_PRIORITY_SERVER_MAINT	10
 #define FIRE_PRIORITY_RESEARCH		10
 #define FIRE_PRIORITY_VIS			10
+#define FIRE_PRIORITY_ZCOPY			10
 #define FIRE_PRIORITY_GARBAGE		15
 #define FIRE_PRIORITY_PARALLAX		18
 #define FIRE_PRIORITY_WET_FLOORS	20

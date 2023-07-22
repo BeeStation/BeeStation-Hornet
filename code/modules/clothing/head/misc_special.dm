@@ -280,9 +280,12 @@
 		picked_gradient_style = input(usr, "", "Choose Gradient")  as null|anything in GLOB.hair_gradients_list
 		if(picked_gradient_style)
 			gradient_style = picked_gradient_style
-			var/picked_hair_gradient = input(user, "", "Choose Gradient Color", "#" + gradient_color) as color|null
-			if(picked_hair_gradient)
-				gradient_color = sanitize_hexcolor(picked_hair_gradient)
+			if(gradient_style != "None")
+				var/picked_hair_gradient = input(user, "", "Choose Gradient Color", "#" + gradient_color) as color|null
+				if(picked_hair_gradient)
+					gradient_color = sanitize_hexcolor(picked_hair_gradient)
+				else
+					gradient_color = "000"
 			else
 				gradient_color = "000"
 		else
