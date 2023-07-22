@@ -31,7 +31,6 @@
 	mob_size = MOB_SIZE_LARGE
 	var/battery = 200 //emergency power if the AI's APC is off
 	var/list/network = list("ss13")
-	var/obj/machinery/camera/current
 	var/list/connected_robots = list()
 
 	/// Station alert datum for showing alerts UI
@@ -101,6 +100,8 @@
 	var/cam_prev
 
 	var/atom/movable/screen/ai/modpc/interfaceButton
+	var/obj/effect/overlay/holo_pad_hologram/ai_hologram
+	var/obj/machinery/holopad/current_holopad
 
 /mob/living/silicon/ai/Initialize(mapload, datum/ai_laws/L, mob/target_ai)
 	default_access_list = get_all_accesses()
@@ -210,7 +211,7 @@
 	QDEL_NULL(aiMulti)
 	QDEL_NULL(alert_control)
 	malfhack = null
-	current = null
+	current_holopad = null
 	//bot_ref = null
 	//controlled_equipment = null
 	linked_core = null
@@ -887,9 +888,55 @@
 			if(I)
 				jobpart = "[I.assignment]"
 
-	var/rendered = "<i><span class='game say'>[start]<span class='name'>[hrefpart][namepart] ([jobpart])</a> </span><span class='message'>[treated_message]</span></span></i>"
+	// duplication part from `game/say.dm` to make a language icon
+	var/language_icon = ""
+	var/datum/language/D = GLOB.language_datum_instances[message_language]
+	if(istype(D) && D.display_icon(src))
+		language_icon = "[D.get_icon()] "
+
+	var/rendered = "<i><span class='game say'>[start][language_icon]<span class='name'>[hrefpart][namepart] ([jobpart])</a> </span><span class='message'>[treated_message]</span></span></i>"
 
 	show_message(rendered, 2)
+
+// modified version of `relay_speech()` proc, but for better chat through holopad
+/// makes a better chat format for AI when AI takes
+/mob/living/silicon/ai/proc/hear_holocall(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
+	var/treated_message = " <span class='message'>[say_emphasis(lang_treat(speaker, message_language, raw_message, spans, message_mods))]</span>"
+	var/namepart = "[speaker.GetVoice()][speaker.get_alt_name()]"
+	var/hrefpart = "<a href='?src=[REF(src)];track=[html_encode(namepart)]'>"
+	var/jobpart = "Unknown"
+
+	if (ishuman(speaker))
+		var/mob/living/carbon/human/S = speaker
+		if(S.wear_id)
+			var/obj/item/card/id/I = S.wear_id.GetID()
+			if(I)
+				jobpart = "[I.assignment]"
+
+	// duplication part from `game/say.dm` to make a language icon
+	var/language_icon = ""
+	var/datum/language/D = GLOB.language_datum_instances[message_language]
+	if(istype(D) && D.display_icon(src))
+		language_icon = "[D.get_icon()] "
+
+	var/rendered = "<span class='holocall'><b>\[Holocall\] [language_icon]<span class='name'>[hrefpart][namepart] ([jobpart])</a></span></b>[treated_message]</span>"
+	show_message(rendered, 2)
+
+	// renders message for ghosts
+	rendered = "<span class='holocall'><b>\[Holocall\] [language_icon]<span class='name'>[speaker.GetVoice()]</span></b>[treated_message]</span>"
+	var/rendered_scrambled_message
+	for(var/mob/dead/observer/each_ghost in GLOB.dead_mob_list)
+		if(!(each_ghost.client.prefs.toggles & CHAT_GHOSTRADIO))
+			continue
+		var/follow_link = FOLLOW_LINK(each_ghost, speaker)
+		if(each_ghost.has_language(message_language))
+			to_chat(each_ghost, "[follow_link] [rendered]")
+		else // ghost removed the language themselves
+			if(!rendered_scrambled_message)
+				rendered_scrambled_message = " <span class='message'>[each_ghost.say_emphasis(each_ghost.lang_treat(speaker, message_language, raw_message, spans, message_mods))]</span>"
+				rendered_scrambled_message = "<span class='holocall'><b>\[Holocall\] [language_icon]<span class='name'>[speaker.GetVoice()]</span></b>[rendered_scrambled_message]</span>"
+			to_chat(each_ghost, "[follow_link] [rendered_scrambled_message]")
+
 
 /mob/living/silicon/ai/fully_replace_character_name(oldname,newname)
 	..()
@@ -913,8 +960,6 @@
 /mob/living/silicon/ai/reset_perspective(atom/A)
 	if(camera_light_on)
 		light_cameras()
-	if(istype(A, /obj/machinery/camera))
-		current = A
 	if(client)
 		if(ismovable(A))
 			if(A != GLOB.ai_camera_room_landmark)

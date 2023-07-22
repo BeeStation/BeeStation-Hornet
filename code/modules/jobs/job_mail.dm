@@ -7,7 +7,7 @@
 		/obj/item/reagent_containers/food/snacks/donkpocket/random = 10,
 		/obj/item/clothing/mask/gas/old = 10,
 		/obj/item/clothing/gloves/color/fyellow = 7,
-		/obj/item/choice_beacon/music = 5,
+		/obj/item/choice_beacon/radial/music = 5,
 		/obj/item/toy/crayon/spraycan = 3,
 		/obj/item/crowbar/large = 2,
 	)

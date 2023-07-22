@@ -566,6 +566,28 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 			continue
 		. += turf_to_check
 
+/turf/proc/generate_fake_pierced_realities(centered = TRUE, max_amount = 2)
+	var/to_spawn = pick(1, max_amount)
+	var/spawned = 0
+	var/location_sanity = 0
+	while(spawned < to_spawn && location_sanity < 100)
+		var/precision = pick(5, 15 * max_amount)
+		var/turf/chosen_location = pick(get_safe_random_station_turfs())
+		if(centered)
+			chosen_location = get_teleport_turf(src, precision) //Using the random teleportation logic here to find a destination turf
+		// We don't want them close to each other - at least 1 tile of seperation
+		var/list/nearby_things = range(1, chosen_location)
+		var/obj/effect/heretic_influence/what_if_i_have_one = locate() in nearby_things
+		var/obj/effect/visible_heretic_influence/what_if_i_had_one_but_its_used = locate() in nearby_things
+		if(what_if_i_have_one || what_if_i_had_one_but_its_used || isspaceturf(chosen_location))
+			location_sanity++
+			continue
+		addtimer(CALLBACK(src, PROC_REF(create_new_fake_reality), chosen_location), rand(0, 500))
+		spawned++
+
+/turf/proc/create_new_fake_reality(turf/F)
+	new /obj/effect/visible_heretic_influence(F)
+
 /// Checks if the turf was blessed with holy water OR the area its in is Chapel
 /turf/proc/is_holy()
 	if(locate(/obj/effect/blessing) in src)
