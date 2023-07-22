@@ -1,0 +1,4 @@
+author: mystery3525
+delete-after: true
+changes:
+  - tweak: Dynamic midrounds can no longer roll if the shuttle is called or docked.
