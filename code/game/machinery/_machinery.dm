@@ -489,7 +489,7 @@ Class Procs:
 
 /obj/machinery/deconstruct(disassembled = TRUE)
 	if(flags_1 & NODECONSTRUCT_1)
-		return
+		return ..()
 
 	on_deconstruction()
 	if(!LAZYLEN(component_parts))
