@@ -243,7 +243,8 @@
 			explosion(src, heavy_impact_range = 1, light_impact_range = 4, flash_range = 6)
 		if(ANOMALY_FLUX_NO_EXPLOSION)
 			new /obj/effect/particle_effect/sparks(loc)
-
+	var/turf/T = get_turf(src)
+	T.generate_fake_pierced_realities()
 
 /////////////////////
 
@@ -315,6 +316,8 @@
 							sleep(20)
 							M.client.screen -= blueeffect
 							qdel(blueeffect)
+	var/turf/F = get_turf(src)
+	F.generate_fake_pierced_realities(FALSE, 4)
 
 /////////////////////
 
@@ -417,6 +420,10 @@
 			if(EXPLODE_LIGHT)
 				SSexplosions.lowturf += T
 
+/obj/effect/anomaly/bhole/detonate()
+	var/turf/T = get_turf(src)
+	T.generate_fake_pierced_realities()
+
 /////////////////////
 
 /obj/effect/anomaly/hallucination
@@ -442,6 +449,8 @@
 	var/turf/open/our_turf = get_turf(src)
 	if(istype(our_turf))
 		hallucination_pulse(our_turf, 10)
+	var/turf/T = get_turf(src)
+	T.generate_fake_pierced_realities()
 
 /proc/hallucination_pulse(turf/location, range, strength = 50)
 	for(var/mob/living/carbon/human/near in view(location, range))
