@@ -1,0 +1,7 @@
+author: RKz, carlarctg
+delete-after: true
+changes:
+  - rscadd: crafting recipes for all carpet types! Use a sprayer or pour carpet reagent
+      on the ground to make the station pretty!
+  - balance: buff to current and added carpet recipes. It may be actually possible
+      to beautify the station within the timespan of a round on Sage now.
