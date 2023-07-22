@@ -1,5 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - code_imp: reverts "Prevent dynamic midrounds from rolling if the shuttle is called
-      or docked" PR

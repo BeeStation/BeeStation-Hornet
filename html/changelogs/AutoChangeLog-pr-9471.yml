@@ -1,5 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - bugfix: TGUI Inputs with timeouts now properly update the timeout bar.
-  - tweak: The TGUI Input timeout bar now matches the generic color theme.
