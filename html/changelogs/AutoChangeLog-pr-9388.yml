@@ -1,0 +1,5 @@
+author: RKz, tralezab
+delete-after: true
+changes:
+  - code_imp: beam code no longer are possessed by cosmic horrors. Game should be
+      faster when using medibeams, RPEDs, or when the CO2 sm gets REALLY messed up
