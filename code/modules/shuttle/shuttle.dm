@@ -398,7 +398,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 			return TRUE
 
 	if(!bypass_skipover_insertion)
-		T.baseturfs = length(T.baseturfs) ? T.baseturfs : list(T.baseturfs) //We need this as a list for now
+		T.baseturfs = islist(T.baseturfs) ? T.baseturfs : list(T.baseturfs) //We need this as a list for now
 		var/base_length = length(T.baseturfs)
 		var/skipover_index = 2 //We should always leave atleast something else below our skipover
 
@@ -412,7 +412,9 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 			if(GLOB.shuttle_turf_blacklist[BT])
 				skipover_index = base_length - i + 1
 				break
-		T.baseturfs.Insert(skipover_index, /turf/baseturf_skipover/shuttle)
+		var/list/sanity = T.baseturfs.Copy()
+		sanity.Insert(skipover_index, /turf/baseturf_skipover/shuttle)
+		T.baseturfs = baseturfs_string_list(sanity, T)
 
 	var/area/shuttle/current_area = T.loc
 	//Account for building on shuttles
