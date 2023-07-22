@@ -267,6 +267,7 @@
 
 /datum/asset/spritesheet/pipes
 	name = "pipes"
+	cross_round_cachable = TRUE
 
 /datum/asset/spritesheet/pipes/create_spritesheets()
 	for (var/each in list('icons/obj/atmospherics/pipes/pipe_item.dmi', 'icons/obj/atmospherics/pipes/disposal.dmi', 'icons/obj/atmospherics/pipes/transit_tube.dmi', 'icons/obj/plumbing/fluid_ducts.dmi'))
@@ -281,6 +282,7 @@
 
 /datum/asset/spritesheet/supplypods
 	name = "supplypods"
+	cross_round_cachable = TRUE
 
 /datum/asset/spritesheet/supplypods/create_spritesheets()
 	for (var/style in 1 to length(GLOB.podstyles))
@@ -315,6 +317,7 @@
 // Representative icons for each research design
 /datum/asset/spritesheet/research_designs
 	name = "design"
+	cross_round_cachable = TRUE
 
 /datum/asset/spritesheet/research_designs/create_spritesheets()
 	for (var/path in subtypesof(/datum/design))
@@ -379,6 +382,7 @@
 
 /datum/asset/spritesheet/vending
 	name = "vending"
+	cross_round_cachable = TRUE
 
 /datum/asset/spritesheet/vending/create_spritesheets()
 	// initialising the list of items we need
