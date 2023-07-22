@@ -26,21 +26,26 @@ export const AsteroidMagnet = (props, context) => {
               title="Magnet Operations">
               {area_connected ? (
                 <Box>
-                <NoticeBox color="green">
-                  Max Asteroid Size: {area_width}x{area_height}
-                </NoticeBox>
-                {targetObject ? (
+                  <NoticeBox color="green">
+                    Max Asteroid Size: {area_width}x{area_height}
+                  </NoticeBox>
+                  {targetObject ? (
+                    <NoticeBox>
+                      <Box>Target: {targetObject}</Box>
+                      <Button color="green" mt="5px" width="100%" textAlign="center" onClick={() => act('activate', {
+                        target: targetObject,
+                      })}>
+                        Activate
+                      </Button>
+                    </NoticeBox>
+                  ) : (
+                    <NoticeBox color="red">No target selected</NoticeBox>
+                  )}
                   <NoticeBox>
-                    <Box>Target: {targetObject}</Box>
-                    <Button mt="5px" width="100%" textAlign="center" onClick={() => act('activate', {
-                      target: targetObject,
-                    })}>
-                      Activate
+                    <Button color="red" mt="5px" width="100%" textAlign="center" onClick={() => act('eject')}>
+                      Eject Bay Contents
                     </Button>
                   </NoticeBox>
-                ) : (
-                  <NoticeBox color="red">No target selected</NoticeBox>
-                )}
                 </Box>
               ) : <NoticeBox color="red">Not linked</NoticeBox>}
             </Section>

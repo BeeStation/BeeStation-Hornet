@@ -46,7 +46,7 @@
 /turf/open/floor/plating,
 /area/shuttle/mining)
 "i" = (
-/obj/structure/closet/crate,
+/obj/machinery/gravity_magnet,
 /turf/open/floor/pod/dark,
 /area/shuttle/mining)
 "j" = (
