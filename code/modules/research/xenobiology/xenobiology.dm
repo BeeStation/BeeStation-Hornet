@@ -1051,6 +1051,7 @@
 		to_chat(user, "<span class='warning'><span class='name'>[target]</span> moved away from you while you were choosing [target.p_their()] new name!</span>")
 		return FALSE
 	target.visible_message("<span class='notice'><span class='name'>[target]</span> has a new name, <span class='bold name'>[new_name]</span>.</span>")
+	message_admins("[ADMIN_LOOKUPFLW(user)] used [src] on [ADMIN_LOOKUPFLW(target)], renaming them to [new_name].")
 	log_game("[key_name(user)] used [src] on [target] ([target.type]), renaming them into [new_name].")
 	target.fully_replace_character_name(newname = new_name)
 
