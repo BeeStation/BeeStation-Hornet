@@ -3,6 +3,7 @@
 
 $generic: #484455;
 $accent: #4f56a5;
+$border-color: #7b86ff;
 
 @use '../colors.scss' with (
   $fg-map-keys: (),
@@ -26,7 +27,9 @@ $accent: #4f56a5;
   );
   @include meta.load-css('../components/Section.scss');
 
-  @include meta.load-css('../components/Input.scss', $with: ('border-color': #7b86ff));
+  @include meta.load-css('../components/Input.scss', $with: ('border-color': $border-color));
+  @include meta.load-css('../components/TextArea.scss', $with: ('border-color': $border-color));
+  @include meta.load-css('../components/NumberInput.scss', $with: ('border-color': $border-color));
 
   // Other
   @include meta.load-css('../interfaces/AlertModal.scss', $with: ('bar-color': $accent));
