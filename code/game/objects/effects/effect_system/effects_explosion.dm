@@ -47,7 +47,7 @@
 	src.location = get_turf(location)
 
 /datum/effect_system/explosion/start()
-	new/obj/effect/explosion( location )
+	new/obj/effect/explosion(location)
 	var/datum/effect_system/expl_particles/P = new/datum/effect_system/expl_particles()
 	P.set_up(10, 0, location)
 	P.start()
@@ -85,5 +85,5 @@
 /datum/effect_system/explosion/delamination
 
 /datum/effect_system/explosion/delamination/start()
-	new/obj/effect/explosion/delamination/inner( location )
-	new/obj/effect/explosion/delamination/outer( location )
+	new /obj/effect/explosion/delamination/inner(location)
+	new /obj/effect/explosion/delamination/outer(location)

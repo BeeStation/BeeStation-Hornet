@@ -90,7 +90,7 @@
 		flash_range = supermatter_explosion_power * max(supermatter_gasmix_power_ratio, 0.205) + 6,
 		adminlog = TRUE,
 		ignorecap = TRUE,
-		type = /datum/effect_system/explosion/delamination)
+		explosion_type = /datum/effect_system/explosion/delamination)
 
 /datum/supermatter_delamination/proc/setup_anomalies()
 	anomalies_to_spawn = max(round(0.005 * supermatter_power, 1) + rand(-2, 5), 1)

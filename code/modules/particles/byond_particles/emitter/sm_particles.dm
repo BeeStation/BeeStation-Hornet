@@ -1,2 +1,2 @@
 /obj/emitter/sparkle
-	particles = new/particles/sparkles
+	particles = new /particles/sparkles
