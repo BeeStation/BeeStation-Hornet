@@ -1,6 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - rscadd: Made several Anomalies and Wormholes create harvested pierced realities
-      upon expiring
-  - code_imp: Added a turf proc for generating harvested pierced realities

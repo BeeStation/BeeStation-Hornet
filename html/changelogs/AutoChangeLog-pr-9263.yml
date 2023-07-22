@@ -1,9 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - rscadd: Added a more detailed description to the Janicart
-  - rscadd: Added the ability to quickdraw a mop from the Janicart
-  - rscadd: Replaced the old windows menu for the janicart with a radial menu
-  - rscadd: Added the ability to toggle auto floor cleaning for pimping rides, janibots
-      and xeno maids
-  - bugfix: Fixed the advanced mop having the same inhand icon as the normal mop
