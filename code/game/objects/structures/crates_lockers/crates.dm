@@ -322,6 +322,7 @@
 	close_sound = 'sound/machines/capsule_close.ogg'
 	icon_door = null
 	mob_storage_capacity = 0
+	dense_when_open = FALSE
 	///Becomes TRUE when the crate is being closed to ensure the compression sequence completes as expected.
 	var/closing = FALSE
 
