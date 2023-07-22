@@ -203,6 +203,38 @@
 	boldnotice = "revenboldnotice"
 	holy_check = TRUE
 
+/obj/effect/proc_holder/spell/targeted/telepathy/revenant/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
+	for(var/mob/living/M in targets)
+		if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+			to_chat(user, "<span class='warning'>It appears the target's mind is ironclad! No getting a message in there!</span>")
+			return
+		if(M.anti_magic_check(magic_check, holy_check)) //hear no evil
+			to_chat(user, "<span class='[boldnotice]'>Something is blocking your power into their mind!</span>")
+
+
+		var/msg = stripped_input(usr, "What do you wish to tell [M]?", null, "")
+		if(!msg)
+			charge_counter = charge_max
+			return
+		if(CHAT_FILTER_CHECK(msg))
+			to_chat(user, "<span class='warning'>Your message contains forbidden words.</span>")
+			return
+		msg = user.treat_message_min(msg)
+		log_directed_talk(user, M, msg, LOG_SAY, "[name]")
+
+		to_chat(user, "<span class='[boldnotice]'>You transmit to [M]:</span> <span class='[notice]'>[msg]</span>")
+		to_chat(M, "<span class='[boldnotice]'>You hear something haunting...</span> <span class='[notice]'>[msg]</span>")
+		user.create_private_chat_message(message="...[msg]",
+									message_language = /datum/language/metalanguage,
+									hearers=list(user, M))
+		for(var/ded in GLOB.dead_mob_list)
+			if(!isobserver(ded))
+				continue
+			var/follow_rev = FOLLOW_LINK(ded, user)
+			var/follow_whispee = FOLLOW_LINK(ded, M)
+			to_chat(ded, "[follow_rev] <span class='[boldnotice]'>[user] [name]:</span> <span class='[notice]'>\"[msg]\" to</span> [follow_whispee] <span class='name'>[M]</span>")
+
+
 /obj/effect/proc_holder/spell/self/revenant_phase_shift
 	name = "Phase Shift"
 	desc = "Shift in and out of your corporeal form"

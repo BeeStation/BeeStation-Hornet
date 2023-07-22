@@ -35,17 +35,26 @@
 		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
 		return
 
-	var/obj/machinery/holopad/T = current
-	if(istype(T) && T.masters[src])//If there is a hologram and its master is the user.
-		var/turf/padturf = get_turf(T)
-		var/padloc
-		if(padturf)
-			padloc = AREACOORD(padturf)
-		else
-			padloc = "(UNKNOWN)"
-		src.log_talk(message, LOG_SAY, tag="HOLOPAD in [padloc]")
-		send_speech(message, 7, T, MODE_ROBOT, message_language = language)
-		to_chat(src, "<i><span class='game say'>Holopad transmitted, <span class='name'>[real_name]</span> <span class='message robot'>\"[message]\"</span></span></i>")
+	if(!QDELETED(ai_hologram))
+		ai_hologram.say(message, language = language, source=current_holopad)
+		src.log_talk(message, LOG_SAY, tag="Hologram in [AREACOORD(ai_hologram)]")
+		message = "<span class='robot'>[say_emphasis(lang_treat(src, language, message))]</span>"
+
+		// duplication part from `game/say.dm` to make a language icon
+		var/language_icon = ""
+		var/datum/language/D = GLOB.language_datum_instances[language]
+		if(istype(D) && D.display_icon(src))
+			language_icon = "[D.get_icon()] "
+
+		message = "<span class='holocall'><b>\[Holocall\] [language_icon]<span class='name'>[real_name]</span></b> [message]</span>"
+		to_chat(src, message)
+
+		for(var/mob/dead/observer/each_ghost in GLOB.dead_mob_list)
+			if(!(each_ghost.client.prefs.toggles & CHAT_GHOSTRADIO))
+				continue
+			var/follow_link = FOLLOW_LINK(each_ghost, ai_hologram)
+			message = "[follow_link] [message]"
+			to_chat(each_ghost, message)
 	else
 		to_chat(src, "No holopad connected.")
 
