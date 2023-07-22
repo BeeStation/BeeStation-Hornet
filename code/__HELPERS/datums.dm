@@ -6,7 +6,7 @@
 
 /proc/call_async(datum/source, proctype, list/arguments)
 	set waitfor = FALSE
-	if(IsAdminAdvancedProcCall())
+	if(IS_ADMIN_ADVANCED_PROC_CALL)
 		return
 	return call(source, proctype)(arglist(arguments))
 

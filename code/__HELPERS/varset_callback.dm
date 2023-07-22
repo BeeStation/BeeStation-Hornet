@@ -20,7 +20,7 @@
 		list_or_datum[var_name] = var_value
 		return
 	var/datum/D = list_or_datum
-	if(IsAdminAdvancedProcCall())
+	if(IS_ADMIN_ADVANCED_PROC_CALL)
 		D.vv_edit_var(var_name, var_value)	//same result generally, unless badmemes
 	else
 		D.vars[var_name] = var_value
