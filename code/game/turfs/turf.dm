@@ -595,7 +595,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 			location_sanity++
 			continue
 		addtimer(CALLBACK(src, PROC_REF(create_new_fake_reality), chosen_location), rand(0, 500))
-		spawned ++
+		spawned++
 
 /turf/proc/create_new_fake_reality(turf/F)
 	new /obj/effect/visible_heretic_influence(F)
