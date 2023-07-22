@@ -19,7 +19,8 @@
 
 	FASTDMM_PROP(\
 		pipe_type = PIPE_TYPE_SIMPLE,\
-		pipe_interference_group = "atmos-[piping_layer]"\
+		pipe_interference_group = "atmos-[piping_layer]",\
+		pipe_group = "atmos-[piping_layer]-[color]-[hide]-[fastdmm_pathfinding_tag]"\
 	)
 
 /obj/machinery/atmospherics/pipe/simple/SetInitDirections()

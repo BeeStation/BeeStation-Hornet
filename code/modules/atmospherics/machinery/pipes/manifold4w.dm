@@ -16,7 +16,8 @@
 
 	FASTDMM_PROP(\
 		pipe_type = PIPE_TYPE_MANIFOLD4W,\
-		pipe_interference_group = "atmos-[piping_layer]"\
+		pipe_interference_group = "atmos-[piping_layer]",\
+		pipe_group = "atmos-[piping_layer]-[color]-[hide]-[fastdmm_pathfinding_tag]"\
 	)
 
 	var/mutable_appearance/center

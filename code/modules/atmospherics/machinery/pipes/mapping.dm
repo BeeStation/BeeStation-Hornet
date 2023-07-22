@@ -4,30 +4,36 @@
 	##Fulltype {						\
 		pipe_color = Color;				\
 		color = Color;					\
+		fastdmm_pathfinding_tag = "bt"	\
 	}									\
 	##Fulltype/visible {				\
 		hide = FALSE; 					\
 		layer = GAS_PIPE_VISIBLE_LAYER;	\
-		FASTDMM_PROP(pipe_group = "atmos-[piping_layer]-"+Type+"-visible");\
+		fastdmm_pathfinding_tag = "v"	\
 	}									\
 	##Fulltype/visible/layer2 {			\
 		piping_layer = 2;				\
 		icon_state = Iconbase + "-2";	\
+		fastdmm_pathfinding_tag = "v"	\
 	}									\
 	##Fulltype/visible/layer4 {			\
 		piping_layer = 4;				\
 		icon_state = Iconbase + "-4";	\
+		fastdmm_pathfinding_tag = "v"	\
 	}									\
 	##Fulltype/hidden {					\
 		hide = TRUE;					\
+		fastdmm_pathfinding_tag = "h"	\
 	}									\
 	##Fulltype/hidden/layer2 {			\
 		piping_layer = 2;				\
 		icon_state = Iconbase + "-2";	\
+		fastdmm_pathfinding_tag = "h"	\
 	}									\
 	##Fulltype/hidden/layer4 {			\
 		piping_layer = 4;				\
 		icon_state = Iconbase + "-4";	\
+		fastdmm_pathfinding_tag = "h"	\
 	}
 
 #define HELPER_PARTIAL_NAMED(Fulltype, Type, Iconbase, Color, Name) \
