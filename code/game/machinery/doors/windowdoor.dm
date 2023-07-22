@@ -410,7 +410,7 @@
 
 /obj/machinery/door/window/clockwork/Initialize(mapload, set_dir)
 	. = ..()
-	debris["[/obj/item/clockwork/alloy_shards/medium/gear_bit/large]"] = 2
+	debris[/obj/item/clockwork/alloy_shards/medium/gear_bit/large] = 2
 
 /obj/machinery/door/window/clockwork/setDir(direct)
 	if(!made_glow)
