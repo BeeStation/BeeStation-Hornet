@@ -211,7 +211,7 @@
 	QDEL_NULL(aiMulti)
 	QDEL_NULL(alert_control)
 	malfhack = null
-	current = null
+	current_holopad = null
 	//bot_ref = null
 	//controlled_equipment = null
 	linked_core = null
