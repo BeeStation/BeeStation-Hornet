@@ -37,7 +37,8 @@
 		// TODO - Loading of sane defaults
 		if (!length(key_bindings))
 			key_bindings = deep_copy_list(GLOB.keybinding_list_by_key)
-
+		if(Debugger?.enabled)
+			toggles &= ~(PREFTOGGLE_SOUND_AMBIENCE | PREFTOGGLE_SOUND_SHIP_AMBIENCE | PREFTOGGLE_SOUND_LOBBY)
 		return
 
 	var/datum/DBQuery/read_player_data = SSdbcore.NewQuery(
