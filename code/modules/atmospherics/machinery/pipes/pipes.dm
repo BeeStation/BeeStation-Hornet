@@ -18,9 +18,7 @@
         ),\
     )
 
-#ifdef FASTDMM
 	var/fastdmm_pathfinding_tag = ""
-#endif
 
 /obj/machinery/atmospherics/pipe/New()
 	add_atom_colour(pipe_color, FIXED_COLOUR_PRIORITY)
