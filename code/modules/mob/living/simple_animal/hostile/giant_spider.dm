@@ -419,6 +419,16 @@
 	status_flags = NONE
 	mob_size = MOB_SIZE_LARGE
 	web_speed = 0.5
+	var/datum/action/innate/spider/block/block //Guards are huge and can block doorways
+
+/mob/living/simple_animal/hostile/poison/giant_spider/guard/Initialize(mapload)
+	. = ..()
+	block = new
+	block.Grant(src)
+
+/mob/living/simple_animal/hostile/poison/giant_spider/guard/Destroy()
+	QDEL_NULL(block)
+	return ..()
 
 // Ice spiders - for when you want a spider that really doesn't care about atmos
 /mob/living/simple_animal/hostile/poison/giant_spider/ice
@@ -482,6 +492,21 @@
 		spider.stop_automated_movement = FALSE
 	else
 		to_chat(spider, "<span class='warning'>You're already spinning a web!</span>")
+
+/datum/action/innate/spider/block
+	name = "Block Passage"
+	desc = "Use your massive size to prevent others from passing by you."
+	button_icon_state = "block"
+
+/datum/action/innate/spider/block/Activate()
+	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider))
+		return
+	if(owner.a_intent == INTENT_HELP)
+		owner.a_intent = INTENT_HARM
+		owner.visible_message("<span class='notice'>[owner] widens its stance and blocks passage around it.</span>","<span class='notice'>You are now blocking others from passing around you.</span>")
+	else
+		owner.a_intent = INTENT_HELP
+		owner.visible_message("<span class='notice'>[owner] loosens up and allows others to pass again.</span>","<span class='notice'>You are no longer blocking others from passing around you.</span>")
 
 /obj/effect/proc_holder/spider/Click()
 	if(!istype(usr, /mob/living/simple_animal/hostile/poison/giant_spider))

@@ -17,8 +17,8 @@
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 	drag_slowdown = 0
 	door_anim_time = 0 // no animation
-	var/foldedbag_path = /obj/item/bodybag
-	var/obj/item/bodybag/foldedbag_instance = null
+	var/foldedbag_path = /obj/item/deployable/bodybag
+	var/obj/item/deployable/bodybag/foldedbag_instance = null
 	var/tagged = 0 // so closet code knows to put the tag overlay back
 
 /obj/structure/closet/body_bag/Destroy()
@@ -78,7 +78,7 @@
 			to_chat(usr, "<span class='warning'>There are too many things inside of [src] to fold it up!</span>")
 			return
 		visible_message("<span class='notice'>[usr] folds up [src].</span>")
-		var/obj/item/bodybag/B = foldedbag_instance || new foldedbag_path
+		var/obj/item/deployable/bodybag/B = foldedbag_instance || new foldedbag_path
 		usr.put_in_hands(B)
 		qdel(src)
 
@@ -88,7 +88,7 @@
 	desc = "A bluespace body bag designed for the storage and transportation of cadavers."
 	icon = 'icons/obj/bodybag.dmi'
 	icon_state = "bluebodybag"
-	foldedbag_path = /obj/item/bodybag/bluespace
+	foldedbag_path = /obj/item/deployable/bodybag/bluespace
 	mob_storage_capacity = 15
 	max_mob_size = MOB_SIZE_LARGE
 
@@ -103,11 +103,11 @@
 		if(contents.len >= mob_storage_capacity / 2)
 			to_chat(usr, "<span class='warning'>There are too many things inside of [src] to fold it up!</span>")
 			return
-		for(var/obj/item/bodybag/bluespace/B in src)
+		for(var/obj/item/deployable/bodybag/bluespace/B in src)
 			to_chat(usr, "<span class='warning'>You can't recursively fold bluespace body bags!</span>" )
 			return
 		visible_message("<span class='notice'>[usr] folds up [src].</span>")
-		var/obj/item/bodybag/B = foldedbag_instance || new foldedbag_path
+		var/obj/item/deployable/bodybag/B = foldedbag_instance || new foldedbag_path
 		usr.put_in_hands(B)
 		for(var/atom/movable/A in contents)
 			A.forceMove(B)

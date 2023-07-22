@@ -770,7 +770,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "</center>"
 
 			var/fcolor =  "#3366CC"
-			var/metabalance = user.client.get_metabalance()
+			var/metabalance = user.client.get_metabalance_db()
 			dat += "<table align='center' width='100%'>"
 			dat += "<tr><td colspan=4><center><b>Current balance: <font color='[fcolor]'>[metabalance]</font> [CONFIG_GET(string/metacurrency_name)]s.</b> \[<a href='?_src_=prefs;preference=gear;clear_loadout=1'>Clear Loadout</a>\]</center></td></tr>"
 			dat += "<tr><td colspan=4><center><b>"
@@ -1332,7 +1332,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if(TG.sort_category == "Donator")
 				if(CONFIG_GET(flag/donator_items) && alert(parent, "This item is only accessible to our patrons. Would you like to subscribe?", "Patron Locked", "Yes", "No") == "Yes")
 					parent.donate()
-			else if(TG.cost < user.client.get_metabalance())
+			else if(TG.cost <= user.client.get_metabalance_db())
 				purchased_gear += TG.id
 				TG.purchase(user.client)
 				user.client.inc_metabalance((TG.cost * -1), TRUE, "Purchased [TG.display_name].")
@@ -1969,8 +1969,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("ambientocclusion")
 					toggles2 ^= PREFTOGGLE_2_AMBIENT_OCCLUSION
 					if(parent && parent.screen && parent.screen.len)
-						var/atom/movable/screen/plane_master/game_world/PM = locate(/atom/movable/screen/plane_master/game_world) in parent.screen
-						PM.backdrop(parent.mob)
+						var/atom/movable/screen/plane_master/game_world/game_pm = locate(/atom/movable/screen/plane_master/game_world) in parent.screen
+						game_pm.backdrop(parent.mob)
+						// Multiz shadow
+						var/atom/movable/screen/plane_master/floor/floor_pm = locate(/atom/movable/screen/plane_master/floor) in parent.screen
+						floor_pm.backdrop(parent.mob)
 
 				if("auto_fit_viewport")
 					toggles2 ^= PREFTOGGLE_2_AUTO_FIT_VIEWPORT

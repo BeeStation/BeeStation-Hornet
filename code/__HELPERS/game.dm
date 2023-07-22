@@ -46,6 +46,22 @@
 	for(var/I in adjacent_turfs)
 		. |= get_area(I)
 
+/proc/get_department_areas(atom/AM)
+	var/department_type
+	var/area/our_area = get_area(AM)
+	var/all_master_types = direct_subtypesof(/area)
+	for(var/checkable in all_master_types)
+		if(istype(our_area,checkable))
+			department_type = checkable
+			break
+	if(!department_type)
+		department_type = our_area.type
+	var/list/department_areas = list()
+	for(var/area/A in GLOB.sortedAreas)
+		if(istype(A,department_type))
+			department_areas += A
+	return department_areas
+
 /**
  * Get a bounding box of a list of atoms.
  *
@@ -235,7 +251,7 @@
  * vars:
  * * view_radius is distance we look for potential hearers
  * * source is obviously the source attom from where we start looking
- * * invis_flags is for if we want to include invisible mobs or even ghosts etc the default value 0 means only visible mobs are included SEE_INVISIBLE_OBSERVER would also include ghosts.
+ * * invis_flags is for if we want to include invisible mobs or even ghosts etc the default value 0 means only visible mobs are included SEE_INVISIBLE_SPIRIT would also include ghosts.
  */
 /proc/get_hearers_in_view(view_radius, atom/source, invis_flags = 0)
 	var/turf/center_turf = get_turf(source)
@@ -367,12 +383,16 @@
 	for(var/client/C in show_to)
 		C.images -= I
 
+/// Shows an image to all clients, then removes that image after the duration.
+/// If you want an overlay applied to the object which will show to all clients, use
+/// flick_overlay_static
 /proc/flick_overlay(image/I, list/show_to, duration)
 	for(var/client/C in show_to)
 		C.images += I
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(remove_images_from_clients), I, show_to), duration, TIMER_CLIENT_TIME)
 
-/proc/flick_overlay_view(image/I, atom/target, duration) //wrapper for the above, flicks to everyone who can see the target atom
+/// Displays an image to clients that can see a target object.
+/proc/flick_overlay_view(image/I, atom/target, duration)
 	var/list/viewing = list()
 	for(var/mob/M as() in viewers(target))
 		if(M.client)

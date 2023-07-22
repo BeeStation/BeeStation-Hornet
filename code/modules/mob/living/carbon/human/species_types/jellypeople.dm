@@ -138,7 +138,7 @@
 		//copying over nanite programs/cloud sync with 50% saturation in host and spare
 		owner_nanites.nanite_volume *= 0.5
 		spare.AddComponent(/datum/component/nanites, owner_nanites.nanite_volume)
-		SEND_SIGNAL(spare, COMSIG_NANITE_SYNC, owner_nanites, TRUE, TRUE) //The trues are to copy activation as well
+		SEND_SIGNAL(spare, COMSIG_NANITE_SYNC, owner_nanites, TRUE, TRUE, TRUE) //The trues are to copy activation as well
 
 	H.blood_volume *= 0.45
 	H.notransform = 0
@@ -465,7 +465,7 @@
 		return
 
 	if(species.current_extract)
-		species.extract_cooldown = world.time + 100
+		species.extract_cooldown = world.time + 10 SECONDS
 		var/cooldown = species.current_extract.activate(H, species, activation_type)
 		species.extract_cooldown = world.time + cooldown
 
@@ -577,7 +577,9 @@
 		Remove(H)
 		return
 
-	var/message = stripped_input(usr, "Message:", "Slime Telepathy")
+	var/message = tgui_input_text(usr, "Message:", "Slime Telepathy")
+	if(!message)
+		return
 	if(CHAT_FILTER_CHECK(message))
 		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
 		return
@@ -601,12 +603,12 @@
 			if(QDELETED(M) || M.stat == DEAD)
 				species.unlink_mob(M)
 				continue
-			to_chat(M, msg)
+			to_chat(M, msg, type = MESSAGE_TYPE_RADIO, avoid_highlighting = M == star_owner)
 
 		for(var/X in GLOB.dead_mob_list)
 			var/mob/M = X
 			var/link = FOLLOW_LINK(M, H)
-			to_chat(M, "[link] [msg]")
+			to_chat(M, "[link] [msg]", type = MESSAGE_TYPE_RADIO)
 
 /datum/action/innate/project_thought
 	name = "Send Thought"

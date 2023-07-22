@@ -1,0 +1,5 @@
+author: Absolucy
+delete-after: true
+changes:
+  - bugfix: You can now properly put spray cans into storage items and objects whenever
+      the cap is on.
