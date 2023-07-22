@@ -523,15 +523,15 @@
 			environ = autoset(environ, AUTOSET_FORCE_OFF)
 			alarm_manager.send_alarm(ALARM_POWER)
 
-		else if(cell.percent() < 15 && longtermpower < 0) // <15%, turn off lighting & equipment
+		else if(cell.percent() < 20 && longtermpower < 0) // <25%, turn off lighting & equipment
 			equipment = autoset(equipment, AUTOSET_OFF)
 			lighting = autoset(lighting, AUTOSET_OFF)
 			environ = autoset(environ, AUTOSET_ON)
 			alarm_manager.send_alarm(ALARM_POWER)
 
-		else if(cell.percent() < 30 && longtermpower < 0) // <30%, turn off equipment
-			equipment = autoset(equipment, AUTOSET_OFF)
-			lighting = autoset(lighting, AUTOSET_ON)
+		else if(cell.percent() < 50 && longtermpower < 0) // <50%, turn off lighting
+			equipment = autoset(equipment, AUTOSET_ON)
+			lighting = autoset(lighting, AUTOSET_OFF)
 			environ = autoset(environ, AUTOSET_ON)
 			alarm_manager.send_alarm(ALARM_POWER)
 

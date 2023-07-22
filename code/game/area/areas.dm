@@ -123,6 +123,9 @@
 	/// How hard it is to hack airlocks in this area
 	var/airlock_hack_difficulty = AIRLOCK_SECURITY_NONE
 
+	/// Whether the lights in this area aren't turned off when it's empty at roundstart
+	var/lights_always_start_on = FALSE
+
 /**
   * A list of teleport locations
   *
