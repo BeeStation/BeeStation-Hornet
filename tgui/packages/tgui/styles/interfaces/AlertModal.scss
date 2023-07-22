@@ -5,6 +5,8 @@
 
 @use '../colors.scss';
 
+$bar-color: colors.bg(colors.$primary) !default;
+
 .AlertModal__Message {
   text-align: center;
   justify-content: center;
@@ -23,6 +25,6 @@
 .AlertModal__LoaderProgress {
   position: absolute;
   transition: background-color 500ms ease-out, width 500ms ease-out;
-  background-color: colors.bg(colors.$primary);
+  background-color: $bar-color;
   height: 100%;
 }

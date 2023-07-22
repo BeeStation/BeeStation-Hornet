@@ -8,11 +8,11 @@
 		changed++
 		ntransform.TurnTo(lying_prev , lying)
 		if(!lying) //Lying to standing
-			final_pixel_y = get_standard_pixel_y_offset()
+			final_pixel_y = base_pixel_y
 		else //if(lying != 0)
 			if(lying_prev == 0) //Standing to lying
-				pixel_y = base_pixel_y + get_standard_pixel_y_offset()
-				final_pixel_y = base_pixel_y + get_standard_pixel_y_offset(lying)
+				pixel_y = base_pixel_y
+				final_pixel_y = base_pixel_y + PIXEL_Y_OFFSET_LYING
 				if(dir & (EAST|WEST)) //Facing east or west
 					final_dir = pick(NORTH, SOUTH) //So you fall on your side rather than your face or ass
 	if(resize != RESIZE_DEFAULT_SIZE)
@@ -23,6 +23,7 @@
 	if(changed)
 		animate(src, transform = ntransform, time = (lying_prev == 0 || !lying) ? 2 : 0, pixel_y = final_pixel_y, dir = final_dir, easing = (EASE_IN|EASE_OUT))
 		setMovetype(movement_type & ~FLOATING)  // If we were without gravity, the bouncing animation got stopped, so we make sure we restart it in next life().
+	UPDATE_OO_IF_PRESENT
 
 /mob/living/carbon
 	var/list/overlays_standing[TOTAL_LAYERS]

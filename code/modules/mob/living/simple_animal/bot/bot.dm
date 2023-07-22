@@ -44,6 +44,8 @@
 	var/emagged = FALSE
 	var/list/prev_access = list()
 	var/on = TRUE
+	var/booting
+	var/boot_delay = 4 SECONDS //how long the bot takes to turn on from the control panel
 	var/open = FALSE//Maint panel
 	var/locked = TRUE
 	var/hacked = FALSE //Used to differentiate between being hacked by silicons and emagged by humans.
@@ -100,6 +102,7 @@
 	var/reset_access_timer_id
 	var/ignorelistcleanuptimer = 1 // This ticks up every automated action, at 300 we clean the ignore list
 	var/robot_arm = /obj/item/bodypart/r_arm/robot
+	var/carryable = TRUE
 
 	hud_possible = list(DIAG_STAT_HUD, DIAG_BOT_HUD, DIAG_HUD, DIAG_PATH_HUD = HUD_LIST_LIST) //Diagnostic HUD views
 
@@ -132,11 +135,22 @@
 /mob/living/simple_animal/bot/proc/turn_on()
 	if(stat)
 		return FALSE
+	booting = FALSE
 	on = TRUE
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/atom/movable, say), "Boot sequence complete, [name] operational")
 	update_mobility()
 	set_light_on(on)
 	update_icon()
 	diag_hud_set_botstat()
+	return TRUE
+
+/mob/living/simple_animal/bot/proc/boot_up_sequence()
+	if(stat || booting || !isopenturf(loc))
+		return FALSE
+	booting = TRUE
+	set_light_on(TRUE) //override the actual state here because the bot is not actually powered on yet
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/atom/movable, say), "[name] powering on, please wait for boot sequence to complete.")
+	addtimer(CALLBACK(src, PROC_REF(turn_on)), boot_delay)
 	return TRUE
 
 /mob/living/simple_animal/bot/proc/turn_off()
@@ -909,7 +923,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		if(on)
 			turn_off()
 		else
-			turn_on()
+			boot_up_sequence()
 
 	switch(href_list["operation"])
 		if("patrol")
@@ -947,6 +961,28 @@ Pass a positive integer as an argument to override a bot's default speed.
 /mob/living/simple_animal/bot/update_icon_state()
 	. = ..()
 	icon_state = "[initial(icon_state)][on]"
+
+
+/mob/living/simple_animal/bot/MouseDrop(over_object, src_location, over_location)
+	. = ..()
+	if(over_object == usr && Adjacent(usr))
+		if(!ishuman(usr) || !usr.canUseTopic(src, BE_CLOSE))
+			return FALSE
+		if(!carryable)
+			to_chat(usr, "<span class='notice'>[src] too large to carry!</span>")
+			return FALSE
+		if(on || booting)
+			to_chat(usr, "<span class='notice'>You need to turn [src] off before carrying it around.</span>")
+			return FALSE
+		usr.visible_message("<span class='notice'>[usr] picks up the [src].</span>", "<span class='notice'>You pick up [src].</span>")
+		var/obj/item/deployable/bot/carried = new(loc)
+		carried.name = name
+		carried.desc = desc
+		carried.icon = icon
+		carried.icon_state = icon_state
+		carried.update_icon()
+		usr.put_in_hands(carried)
+		forceMove(carried)
 
 // Machinery to simplify topic and access calls
 /obj/machinery/bot_core

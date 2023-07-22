@@ -7,6 +7,8 @@
 	var/list/excludefromjob = list()				//If you don't want a job to get a certain objective (no captain stealing his own medal, etcetc)
 	var/list/altitems = list()				//Items which can serve as an alternative to the objective (darn you blueprints)
 	var/list/special_equipment = list()
+	/// Require that the target item is spawned at roundstart by closets.
+	var/require_item_spawns_at_roundstart = TRUE
 
 /datum/objective_item/proc/check_special_completion() //for objectives with special checks (is that slime extract unused? does that intellicard have an ai in it? etcetc)
 	return 1
@@ -246,6 +248,7 @@
 	name = "5 cardboard."
 	targetitem = /obj/item/stack/sheet/cardboard
 	difficulty = 9001
+	require_item_spawns_at_roundstart = FALSE
 
 /datum/objective_item/stack/check_special_completion(obj/item/stack/S)
 	var/target_amount = text2num(name)

@@ -214,61 +214,6 @@
 			to_chat(usr, "<span class='notice'>None of new surgical programs detected.</span>")
 	return ..()
 
-/obj/item/organ/cyberimp/brain/linkedsurgery/perfect
-	name = "hacked surgical serverlink brain implant"
-	desc = "A brain implant with a bluespace technology that lets you perform any advanced surgery through hacked Nanotrasen servers."
-	actions_types = list(/datum/action/item_action/toggle_perfect_surgeon)
-	syndicate_implant = TRUE
-	var/list/blocked_surgeries = list(
-		/datum/surgery/advanced,
-		/datum/surgery/advanced/bioware,
-		/datum/surgery/advanced/necrotic_revival,
-		/datum/surgery/organ_extraction
-	)
-
-/obj/item/organ/cyberimp/brain/linkedsurgery/perfect/Insert(mob/living/carbon/user, special, drop_if_replaced)
-	. = ..()
-	to_chat(user, "<span class='notice'>Detailed, forbidden medical knowledge begins to fill your brain... You feel as if you're a <span class='hypnophrase'>perfect</span> surgeon now!</span>")
-	ADD_TRAIT(user, TRAIT_PERFECT_SURGEON, ORGAN_TRAIT)
-	update_surgery()
-
-/obj/item/organ/cyberimp/brain/linkedsurgery/perfect/Remove(mob/living/carbon/user, special)
-	. = ..()
-	if(!QDELETED(user))
-		to_chat(user, "<span class='warning'>You feel your perfect surgical knowledge leaving your mind!</span>")
-		REMOVE_TRAIT(user, TRAIT_PERFECT_SURGEON, ORGAN_TRAIT)
-
-/obj/item/organ/cyberimp/brain/linkedsurgery/perfect/update_surgery()
-	advanced_surgeries = subtypesof(/datum/surgery) - blocked_surgeries
-
-/datum/action/item_action/toggle_perfect_surgeon
-	name = "Disable Perfect Surgery Skills"
-	desc = "Suppress your enhanced surgery skills, allowing you to perform surgery like an average person."
-
-/datum/action/item_action/toggle_perfect_surgeon/Trigger()
-	if(istype(target, /obj/item/organ/cyberimp/brain/linkedsurgery/perfect))
-		if(HAS_TRAIT_FROM(usr, TRAIT_PERFECT_SURGEON, ORGAN_TRAIT))
-			off(usr, target)
-		else
-			on(usr, target)
-	return ..()
-
-/datum/action/item_action/toggle_perfect_surgeon/proc/on(mob/living/user, obj/item/organ/cyberimp/brain/linkedsurgery/perfect/implant)
-	to_chat(usr, "<span class='notice'>You begin to focus, bringing your <span class='hypnophrase'>perfect</span> surgery skills back to the front of your mind!</span>")
-	ADD_TRAIT(user, TRAIT_PERFECT_SURGEON, ORGAN_TRAIT)
-	implant.update_surgery()
-	name = "Disable Perfect Surgery Skills"
-	desc = "Suppress your enhanced surgery skills, allowing you to perform surgery like an average person."
-	UpdateButtonIcon()
-
-/datum/action/item_action/toggle_perfect_surgeon/proc/off(mob/living/user, obj/item/organ/cyberimp/brain/linkedsurgery/perfect/implant)
-	REMOVE_TRAIT(usr, TRAIT_PERFECT_SURGEON, ORGAN_TRAIT)
-	implant.advanced_surgeries.Cut()
-	to_chat(user, "<span class='notice'>You slow down your mind, suppressing your <span class='hypnophrase'>perfect</span> surgery skills for the time being.</span>")
-	name = "Enable Perfect Surgery Skills"
-	desc = "Focus on your perfect surgery skills, bringing them to the front of your mind, allowing you to access your superhuman surgery skills once more."
-	UpdateButtonIcon()
-
 //[[[[MOUTH]]]]
 /obj/item/organ/cyberimp/mouth
 	zone = BODY_ZONE_PRECISE_MOUTH
