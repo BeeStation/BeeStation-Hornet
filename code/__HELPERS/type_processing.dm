@@ -58,3 +58,10 @@
 		if(findtext("[key]", filter) || findtext("[value]", filter))
 			matches[key] = value
 	return matches
+
+//Finds types that are subtypes of a type, but only 1 level down.
+/proc/direct_subtypesof(path)
+	var/list/out = subtypesof(path)
+	for(var/type in out)
+		out -= subtypesof(type) //remove any subtypes of our current entry from the list
+	return out

@@ -56,6 +56,55 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">21 July 2023</h2>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed some divisions by 0</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">shuttle docking will now display blue tiles (areas of doors or some passible things)</li>
+				<li class="imageadd">alpha images for shuttle dock</li>
+				<li class="code_imp">crafting now properly logs a failure.</li>
+			</ul>
+			<h3 class="author">RKz, DoctorSquishy, Ghilker, esainane, ShizCalev updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">combined all apc defines into one .dm</li>
+				<li class="soundadd">New sounds for switches on APCs and power level on and off stages</li>
+				<li class="refactor">Refactored and Organized APC code</li>
+				<li class="code_imp">less hardels in ai code</li>
+			</ul>
+			<h3 class="author">Tyranicranger4 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="admin">Added logging to cargo's express supply console.</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Local instances of the game ran with a debugger attached will now automatically disable lobby music and ambiance if no database is connected. This does not affect the main server at all, and only affects developers.</li>
+			</ul>
+			<h3 class="author">itsmeow, Lohikar, Kapu1178, CrimsonShrike updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">Rewrote multiz rendering to use Z-Mimic. Should vastly reduce lag caused by multiz rendering. Some things may not render properly.</li>
+				<li class="bugfix">Emissives will no longer leak onto the z-level above.</li>
+				<li class="rscadd">Added multiz lighting. Nonmovable lights will now bleed up and down.</li>
+			</ul>
+
+			<h2 class="date">20 July 2023</h2>
+			<h3 class="author">Crossedfall updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">The CI will correctly use MariaDB instead of MySQL, similar to the actual server</li>
+			</ul>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Made the Altar of the Gods indestructible</li>
+			</ul>
+
+			<h2 class="date">19 July 2023</h2>
+			<h3 class="author">HowToLoLu updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">You can no longer get stuck in the lobby upon latejoining if someone unbuckled and stayed on top of a seat.</li>
+			</ul>
+
 			<h2 class="date">18 July 2023</h2>
 			<h3 class="author">Absolucy updated:</h3>
 			<ul class="changes bgimages16">
@@ -906,145 +955,6 @@
 			<h3 class="author">ss13-beebot updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="server">TGS DMAPI bumped to 6.4.3</li>
-			</ul>
-
-			<h2 class="date">20 May 2023</h2>
-			<h3 class="author">Absolucy updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Advanced/experimental blood filtering now actually requires the appropriate tech.</li>
-				<li class="bugfix">Max-tier blood filtering surgery actually heals toxin now.</li>
-				<li class="rscadd">Added a description to all variations of blood filtering surgery.</li>
-			</ul>
-			<h3 class="author">RKz, Jacquerel updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">New foodtype, GORE. Split from GROSS, GORE foodtype will be replacing it where the food in particular resembles a corpse or organ. GROSS should only apply to inedible or rotting foods.</li>
-				<li class="balance">All butchered player species are considered to be gore, only preferred by Lizards, Felinids, and Flies. If you like the taste of your fellow crew, prepare accordingly.</li>
-				<li class="balance">Moved food preferences around to make more sense with the current system. Nothing drastic, but species liked foods should be much more immersive in general.</li>
-			</ul>
-			<h3 class="author">Rukofamicom updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Adds a new type of reagent, metabolites. Metabolites are produced as a byproduct of any reagent with a metabolite set and can be used to trace what kinds of reagents someone has been exposed to at least somewhat recently. For now metabolites are only implemented for Bicaridine, Kelotane, Antitoxin, Tricordrazine, Styptic Powder and Silver Sulfadiazine.</li>
-				<li class="balance">Bicaridine, Kelotane, Antitoxin and Tricordrazine are equally effective regardless of current HP again, instead having their effects wane as metabolites build up. They will always be useful, but will never be the only thing you need to treat more severe injuries.</li>
-				<li class="tweak">Bruise packs and ointment now utilize reagent code to heal instead of directly healing. Due to overdosing concerns, they heal for half as much per application, but come with twice as many applications per stack to compensate.</li>
-				<li class="balance">Because they now properly utilize medicine, ointments and bruise packs are now very painful! Players will find they are unable to subject themselves to this pain if they try to apply more than one in quick succession. Seek help from others if you need multiple applications!</li>
-				<li class="tweak">Gauze can now heal injured simplemobs just like bruise packs.</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Martial arts granting books (karate scroll, CQC manual, etc) no longer break permanently if you interrupt it last second.</li>
-			</ul>
-
-			<h2 class="date">18 May 2023</h2>
-			<h3 class="author">Absolucy updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">You can now remove individual recipe recordings from chem dispensers!</li>
-				<li class="tweak">Made the confirmation for clearing all chem recipes a part of the tgui itself.</li>
-				<li class="refactor">Refactored tail wagging code a bit.</li>
-				<li class="tweak">All species can now *wag their tail if they have one.</li>
-				<li class="refactor">Slightly refactored brain trauma.</li>
-				<li class="balance">Nanites and viruses can no longer cure an obsession or hypnosis.</li>
-				<li class="rscadd">Oozelings can now hug flaming people to extinguish them!</li>
-			</ul>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Replaced Tricordrazine in survival medipens with Regenerative Jelly</li>
-				<li class="soundadd">Added a sound for the Crew Transfer vote</li>
-			</ul>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">Retrovirus uplink item 14 TC -> 12 TC</li>
-				<li class="balance">Spanish flu uplink item 14 TC -> 12 TC</li>
-				<li class="rscdel">removed random virus sample from uplink item list because It's a newbie trap.</li>
-				<li class="code_imp">made mimic code less bad</li>
-				<li class="tweak">mimic mobs (especially, animating venders) will become back to how it was. For Brand Intelligence event, dead mimics will become a destroyed vending machine</li>
-				<li class="tweak">Brand Intelligence targeted vendors no longer explode when the event happens. These will become a stronger version instead. (i.e. more HP, more damage, etc) Otherwise, vending machine mobs have slightly less HP.</li>
-				<li class="tweak">mimic crate will eat items on where it is spawned - including important items like a nuke disk. Still, nuke disk is trackable, and dead mimic will let things out. (Admins can use this to contain stuff into a mimic crate by spawning that mob - but items should be placed on it.)</li>
-				<li class="code_imp">cleaned up some bad coding</li>
-				<li class="refactor">refactored access checking system. checking access is slightly faster</li>
-				<li class="admin">admin can bypass no-respawn with respawn verb</li>
-				<li class="code_imp">toxin naming that is used to plasma is now changed to plasma (i.e. canister/toxins to canister/plasma)</li>
-				<li class="code_imp">fixes card TGUI error</li>
-				<li class="tweak">Chameleon card in PDA works more smoothly. Chameleon Outfit selection will change the chameleon card inside of PDA as well.</li>
-				<li class="bugfix">Fixed a case that a silicon can't state laws permanently</li>
-				<li class="code_imp">reverted the access check refactor PR #9027 #9036</li>
-			</ul>
-			<h3 class="author">RKz, Rohesie. TiviPlus updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">more reliable CanPass and CanAllowThrough behavior</li>
-				<li class="bugfix">blockers block what they should, not what they shouldnt (like phasing mechs getting stuck on railings and windows???)</li>
-			</ul>
-			<h3 class="author">RKz, timberpoes, Ninjanomnom, CoffeeKat, DoctorSquishy updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed runtimes in the air subsystem, where deleted objects were still processed.</li>
-			</ul>
-
-			<h2 class="date">17 May 2023</h2>
-			<h3 class="author">Absolucy updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added upgraded blood filtering surgeries! These are obtained through the same research as its wound-tending counterparts, and work faster while also removing toxin damage.</li>
-				<li class="balance">Very slightly reduced the amount of reagents that blood filtering purges (by around 2%), to compensate for the increased speed offered by the upgraded surgeries.</li>
-			</ul>
-			<h3 class="author">Bobbanz1, Timberpoes, SteelSlayer, twilightwanderer, ShizCalev, timothymtorres, Imaginos16, dragomagol, Jacquerel, Mothblocks, ThePotato97, LemonInTheDark updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">Removed the ability to scan paper directly into the modular computer notes app as part of paper code rewrite.</li>
-				<li class="refactor">Paper code has been completely refactored.</li>
-				<li class="bugfix">Fixes signatures not working at all. Signatures now only work when %s or %sign is put into an [___] input field.</li>
-				<li class="bugfix">Input fields are now fixed and also work again.</li>
-				<li class="bugfix">Fixes broken command report formatting for station goals.</li>
-				<li class="bugfix">Fixes markdown paragraphing not working in paper code.</li>
-				<li class="refactor">Photocopiers now use TGUI</li>
-				<li class="tweak">You can insert any type of toner cartridge into photocopiers, and regardless of the currently inserted toner's charge level.</li>
-				<li class="tweak">Toner cartridges can be ejected from photocopiers at any time</li>
-				<li class="rscadd">Added a system of forms and the ability to print them</li>
-				<li class="bugfix">Hints in bureaucracy forms</li>
-				<li class="rscadd">Added new VOID stamp</li>
-				<li class="bugfix">Photocopier paperforms</li>
-				<li class="rscadd">Fax Machine</li>
-				<li class="bugfix">Fixes faxes playing the "fax_contain" animation and makes it actually use the "fax_receive" animation when receiving.</li>
-				<li class="imageadd">Resprites fax machines!</li>
-				<li class="admin">fax messages and book printings are now logged in paper.log</li>
-				<li class="admin">renaming fax machines is logged in game log</li>
-				<li class="rscadd">You can now send photos or trading cards through the fax machine.</li>
-				<li class="rscadd">You can now hack the wires of a fax machine to have it throw items harder or accept additional flat input items such as material sheets, ID cards, and pizza slices.</li>
-				<li class="rscadd">Ability to send and receive administrator fax messages.</li>
-				<li class="admin">Panel for easy viewing and sending messages to faxes.</li>
-				<li class="bugfix">Fixes a crash of TGUI fax panel when there is no fax in the network</li>
-				<li class="bugfix">Fixes a crash of the Fax Manager panel when there is no fax machines in the network.</li>
-				<li class="refactor">Rotating stamps on paper by holding shift and moving your mouse.</li>
-				<li class="bugfix">You can no longer remove the toner cartridge from a printer while it's busy printing.</li>
-			</ul>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Chemical fridges can now hold chemical bags</li>
-				<li class="rscadd">Added VV dropdown options to add and remove mutations from carbons</li>
-			</ul>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added one more alert step for putting bag of holding into another BoH.</li>
-				<li class="code_imp">slightly touched BB code</li>
-				<li class="code_imp">slightly touched abductor/changeling greek letter selection code</li>
-				<li class="code_imp">removed SUPERMATTER_IGNORE_1 atom flag. SM has a static list that checks if it should not consume an atom.</li>
-				<li class="bugfix">fixed where SM code causes runtime</li>
-			</ul>
-			<h3 class="author">RKz, Thalpy updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Add ease out transitions on TGUI elements. Progress bars will now smoothly update.</li>
-			</ul>
-			<h3 class="author">ShizCalev, ATHATH, OnlineGirlfriend, Iamgoofball, The0bserver, Stewydeadmike, TripleZeta and RKz updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">A special interaction for trying to put a mushroom on an Arnold pizza has been added.</li>
-				<li class="rscadd">Arnold pizza references its source material more accurately/often now.</li>
-				<li class="rscadd">Chefs can now cook moffins! Yaaay moffins! Check the pastries subsection of the crafting menu to make some! Cutting up clothes and bedsheets can get you started!</li>
-				<li class="rscadd">Adds 3 new plants, and 6 new recipes, as well as a juice reagent. Check out your local Megaseed Vendor today!</li>
-				<li class="bugfix">Fixed Arnold pizza not checking for TRAIT_NODISMEMBER, resulting in a message being sent to the user even if they were fine after eating it.</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">Modularized and documented code relating to multiz movement and falls.</li>
-			</ul>
-			<h3 class="author">mystery3525 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">Removed the unused password door</li>
 			</ul>
 		</div>
 

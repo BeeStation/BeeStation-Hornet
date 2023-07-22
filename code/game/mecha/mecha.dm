@@ -381,7 +381,7 @@
 
 	if(occupant)
 		if(cell)
-			var/cellcharge = cell.charge/cell.maxcharge
+			var/cellcharge = cell.maxcharge ? cell.charge / cell.maxcharge : 0 //Division by 0 protection
 			switch(cellcharge)
 				if(0.75 to INFINITY)
 					occupant.clear_alert("charge")

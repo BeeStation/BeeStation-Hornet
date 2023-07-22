@@ -1,0 +1,6 @@
+author: Tyranicranger4
+delete-after: true
+changes:
+  - admin: Admins will now only receive alerts about PDA messages being deleted at
+      a message monitoring console if the user isn't an Antagonist or Lavaland Syndicate
+      role.

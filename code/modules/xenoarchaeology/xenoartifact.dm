@@ -468,6 +468,7 @@
 /datum/beam/xenoa_beam/Draw()
 	var/Angle = round(get_angle(origin,target))
 	var/matrix/rot_matrix = matrix()
+	var/turf/origin_turf = get_turf(origin)
 	rot_matrix.Turn(Angle)
 
 	//Translation vector for origin and target
@@ -477,21 +478,21 @@
 	var/length = round(sqrt((DX)**2+(DY)**2)) //hypotenuse of the triangle formed by target and origin's displacement
 
 	for(n in 0 to length-1 step 32)//-1 as we want < not <=, but we want the speed of X in Y to Z and step X
-		if(QDELETED(src) || finished)
+		if(QDELETED(src))
 			break
-		var/obj/effect/ebeam/xenoa_ebeam/X = new(origin_oldloc) // Start Xenoartifact - This assigns colour to the beam
+		var/obj/effect/ebeam/xenoa_ebeam/X = new(origin_turf) // Start Xenoartifact - This assigns colour to the beam
 		X.color = color
 		X.owner = src
 		elements += X // End Xenoartifact
 
-		//Assign icon, for main segments it's base_icon, for the end, it's icon+icon_state
-		//cropped by a transparent box of length-N pixel size
+		//Assign our single visual ebeam to each ebeam's vis_contents
+		//ends are cropped by a transparent box icon of length-N pixel size laid over the visuals obj
 		if(n+32>length)
 			var/icon/II = new(icon, icon_state)
 			II.DrawBox(null,1,(length-n),32,32)
 			X.icon = II
 		else
-			X.icon = base_icon
+			X.vis_contents += visuals
 		X.transform = rot_matrix
 
 		//Calculate pixel offsets (If necessary)
@@ -520,4 +521,3 @@
 		X.pixel_x = Pixel_x
 		X.pixel_y = Pixel_y
 		CHECK_TICK
-	afterDraw()

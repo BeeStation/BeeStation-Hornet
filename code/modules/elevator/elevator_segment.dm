@@ -1,7 +1,7 @@
 /obj/structure/elevator_segment
 	icon = 'icons/obj/elevator.dmi'
 	icon_state = "elevator_maker"
-	obj_flags = CAN_BE_HIT | BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP
+	z_flags = Z_BLOCK_OUT_DOWN | Z_BLOCK_IN_UP
 	//Helps us group elevator components
 	var/id
 	///What turf we'll throw under us when we kill daddy. If not set, we just use dad

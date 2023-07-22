@@ -60884,15 +60884,6 @@
 /area/engine/atmos)
 "lEC" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/radio/intercom{
-	desc = "Talk through this. It looks like it has been modified to not broadcast.";
-	name = "Prison Intercom (General)";
-	pixel_y = -28;
-	prison_radio = 1
-	},
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
@@ -60901,6 +60892,10 @@
 	},
 /obj/effect/turf_decal/siding/wideplating/dark/corner{
 	dir = 1
+	},
+/obj/machinery/cryopod,
+/obj/machinery/computer/cryopod{
+	pixel_y = -28
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
@@ -73847,6 +73842,12 @@
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 8
 	},
+/obj/item/radio/intercom{
+	desc = "Talk through this. It looks like it has been modified to not broadcast.";
+	name = "Prison Intercom (General)";
+	pixel_x = 28;
+	prison_radio = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
 "rgb" = (
@@ -84165,6 +84166,9 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted,
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 4
+	},
+/obj/item/kirbyplants{
+	icon_state = "plant-21"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
