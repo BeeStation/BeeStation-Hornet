@@ -50,6 +50,12 @@
 	var/delta_y = other.y - y
 	return sqrt(delta_x * delta_x + delta_y * delta_y)
 
+/datum/orbital_vector/proc/Sqrt()
+	return new /datum/orbital_vector(
+		sqrt(x),
+		sqrt(y)
+	)
+
 //Make the vector length 1
 /datum/orbital_vector/proc/NormalizeSelf()
 	var/total = Length()

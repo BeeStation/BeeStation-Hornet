@@ -12,3 +12,8 @@
 	. = ..()
 	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
 	linked_map.center = src
+
+/datum/orbital_object/z_linked/lavaland/shattered
+	name = "Lavaland Remnants"
+	forced_docking = FALSE
+	random_docking = FALSE

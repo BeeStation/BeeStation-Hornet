@@ -44,10 +44,18 @@
 	var/datum/orbital_object/pulled_object = linked.get_magnet_location()
 	// We want to get our velocity to be the same as the target velocity, with a slight push towards the position that we want to be in
 	var/datum/orbital_vector/desired_velocity = source_location.velocity.Copy()
+
+	// Make our desired velocity push us towards object we are following
+	var/datum/orbital_vector/towards_target = source_location.position - pulled_object.position
+	towards_target /= max(sqrt(towards_target.Length()), 1)
+
+	desired_velocity += towards_target
+
 	// Calculate the delta
-	var/datum/orbital_vector/delta = pulled_object.velocity - desired_velocity
+	var/datum/orbital_vector/delta = desired_velocity - pulled_object.velocity
+	var/delta_length = delta.Length()
 	delta.NormalizeSelf()
-	delta *= min(magnet_strength * delta_time, delta.Length())
+	delta *= min(magnet_strength * delta_time, delta_length)
 	pulled_object.velocity += delta
 
 /// When the Z changes, check if we need to start pulling our target object.
