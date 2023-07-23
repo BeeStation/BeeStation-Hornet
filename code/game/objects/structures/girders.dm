@@ -388,11 +388,13 @@
 	switch(passed_mode)
 		if(RCD_FLOORWALL)
 			balloon_alert(user, "You finish the wall.")
+			log_attack("[key_name(user)] has constructed a wall at [loc_name(get_turf(src))] using [format_text(initial(the_rcd.name))]")
 			T.PlaceOnTop(/turf/closed/wall)
 			qdel(src)
 			return TRUE
 		if(RCD_DECONSTRUCT)
 			balloon_alert(user, "You deconstruct [src].")
+			log_attack("[key_name(user)] has deconstructed [src] at [loc_name(get_turf(src))] using [format_text(initial(the_rcd.name))]")
 			qdel(src)
 			return TRUE
 	return FALSE
