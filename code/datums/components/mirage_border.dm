@@ -1,19 +1,19 @@
-/datum/element/mirage_border
-	element_flags = ELEMENT_DETACH
+/datum/component/mirage_border
+	can_transfer = TRUE
+	var/obj/effect/abstract/mirage_holder/holder
 
-/datum/element/mirage_border/Attach(datum/target, turf/target_turf, direction, range=world.view)
-	. = ..()
-	if(!isturf(target))
+/datum/component/mirage_border/Initialize(turf/target, direction, range=world.view)
+	if(!isturf(parent))
 		return COMPONENT_INCOMPATIBLE
-	if(!target_turf || !istype(target_turf) || !direction)
+	if(!target || !istype(target) || !direction)
 		. = COMPONENT_INCOMPATIBLE
-		CRASH("[type] improperly attached with the following args: target=\[[target_turf]\], direction=\[[direction]\], range=\[[range]\]")
+		CRASH("[type] improperly instanced with the following args: target=\[[target]\], direction=\[[direction]\], range=\[[range]\]")
 
-	var/atom/movable/mirage_holder/holder = new(target)
+	holder = new(parent)
 
-	var/x = target_turf.x
-	var/y = target_turf.y
-	var/z = target_turf.z
+	var/x = target.x
+	var/y = target.y
+	var/z = target.z
 
 	if(istext(range))
 		range = max(getviewsize(range)[1], getviewsize(range)[2])
@@ -28,19 +28,23 @@
 	if(direction & WEST)
 		holder.pixel_x -= world.icon_size * range
 
-/datum/element/mirage_border/Detach(atom/movable/target)
-	. = ..()
-	var/atom/movable/mirage_holder/held = locate() in target.contents
-	if(held)
-		held.moveToNullspace()
-		qdel(held)
+/datum/component/mirage_border/Destroy()
+	QDEL_NULL(holder)
+	return ..()
 
-// Using /atom/movable because this is a heavily used path
-/atom/movable/mirage_holder
+/datum/component/mirage_border/PreTransfer()
+	holder.moveToNullspace()
+
+/datum/component/mirage_border/PostTransfer()
+	if(!isturf(parent))
+		return COMPONENT_INCOMPATIBLE
+	holder.forceMove(parent)
+
+/obj/effect/abstract/mirage_holder
 	name = "Mirage holder"
+	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	vis_flags = VIS_INHERIT_PLANE
 
-/atom/movable/mirage_holder/mirage_holder/Destroy(force)
+/obj/effect/abstract/mirage_holder/Destroy(force)
 	vis_contents.Cut()
 	. = ..()
