@@ -88,7 +88,7 @@
 	var/list/gridSets = list()
 	/// List of area types we've loaded AS A PART OF THIS MAP
 	/// We do this to allow non unique areas, so we'll only load one per map
-	var/list/area/loaded_areas = list()
+	var/list/loaded_areas = list()
 
 	var/list/modelCache
 
@@ -425,7 +425,7 @@
 			if(!cache)
 				SSatoms.map_loader_stop(REF(src))
 				CRASH("Undefined model key in DMM: [gset.gridLines[i]]")
-			build_coordinate(cache, locate(true_xcrd, ycrd, zcrd), no_afterchange, placeOnTop)
+			build_coordinate(loaded_areas, cache, locate(true_xcrd, ycrd, zcrd), no_afterchange, placeOnTop)
 
 			// only bother with bounds that actually exist
 			if(!first_found)
@@ -551,7 +551,7 @@
 				if(!cache)
 					SSatoms.map_loader_stop(REF(src))
 					CRASH("Undefined model key in DMM: [model_key]")
-				build_coordinate(cache, locate(xcrd, ycrd, zcrd), no_afterchange, placeOnTop)
+				build_coordinate(loaded_areas, cache, locate(xcrd, ycrd, zcrd), no_afterchange, placeOnTop)
 
 				// only bother with bounds that actually exist
 				if(!first_found)
@@ -785,7 +785,7 @@ GLOBAL_LIST_EMPTY(map_model_default)
 		.[model_key] = list(members, members_attributes)
 	return .
 
-/datum/parsed_map/proc/build_coordinate(list/model, turf/crds, no_changeturf as num, placeOnTop as num)
+/datum/parsed_map/proc/build_coordinate(list/area_cache, list/model, turf/crds, no_changeturf as num, placeOnTop as num)
 	SHOULD_NOT_SLEEP(TRUE)
 	// If we don't have a turf, nothing we will do next will actually acomplish anything, so just go back
 	// Note, this would actually drop area vvs in the tile, but like, why tho
@@ -814,7 +814,7 @@ GLOBAL_LIST_EMPTY(map_model_default)
 	if(members[index] != /area/template_noop)
 		if(members_attributes[index] != default_list)
 			world.preloader_setup(members_attributes[index], members[index])//preloader for assigning  set variables on atom creation
-		instance = loaded_areas[members[index]]
+		instance = area_cache[members[index]]
 		if(!instance)
 			var/area_type = members[index]
 			// If this parsed map doesn't have that area already, we check the global cache
@@ -824,7 +824,7 @@ GLOBAL_LIST_EMPTY(map_model_default)
 				instance = new area_type(null)
 				if(!instance)
 					CRASH("[area_type] failed to be new'd, what'd you do?")
-			loaded_areas[area_type] = instance
+			area_cache[area_type] = instance
 
 		instance.contents.Add(crds)
 

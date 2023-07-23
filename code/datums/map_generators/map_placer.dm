@@ -34,6 +34,7 @@
 	var/current_run = GENERATE_STAGE_BUILD_CACHE_START
 	var/run_stage = 0
 
+	var/list/area_cache = list()
 	var/list/model_cache
 	var/space_key = null
 	var/list/bounds
@@ -196,7 +197,7 @@
 					var/list/cache = model_cache[model_key]
 					if(!cache)
 						CRASH("Undefined model key in DMM: [model_key]")
-					placing_template.build_coordinate(cache, locate(xcrd, ycrd, zcrd), no_afterchange, place_on_top)
+					placing_template.build_coordinate(area_cache, cache, locate(xcrd, ycrd, zcrd), no_afterchange, place_on_top)
 
 					// only bother with bounds that actually exist
 					bounds[MAP_MINX] = min(bounds[MAP_MINX], xcrd)
