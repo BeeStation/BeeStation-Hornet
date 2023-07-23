@@ -29,6 +29,8 @@
 	return
 
 /obj/machinery/light_switch/LateInitialize()
+	if(!is_station_level(z))
+		return
 	var/area/source_area = get_area(get_turf(src))
 	if(source_area.lights_always_start_on)
 		return
@@ -112,7 +114,7 @@
 /obj/machinery/light_switch/tcomms
 	name = "Server Room light switch"
 	area = /area/tcommsat/server
- 
+
 /obj/item/wallframe/light_switch
 	name = "light switch frame"
 	desc = "Used for building wall-mounted light switches."
