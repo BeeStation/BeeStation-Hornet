@@ -3,7 +3,7 @@
 	show_name_in_check_antagonists = TRUE
 	var/objective_verb = "Kill"
 	var/datum/mind/summoner
-	job_rank = ROLE_ALIEN
+	banning_key = ROLE_SLAUGHTER_DEMON
 	show_in_antagpanel = FALSE
 	show_to_ghosts = TRUE
 

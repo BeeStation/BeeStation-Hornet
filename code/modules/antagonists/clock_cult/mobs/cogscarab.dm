@@ -65,11 +65,6 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 /obj/effect/mob_spawn/drone/cogscarab/attack_ghost(mob/user)
 	if(is_banned_from(user.ckey, ROLE_SERVANT_OF_RATVAR) || QDELETED(src) || QDELETED(user))
 		return
-	if(CONFIG_GET(flag/use_age_restriction_for_jobs))
-		if(!isnum(user.client.player_age)) //apparently what happens when there's no DB connected. just don't let anybody be a drone without admin intervention
-			if(user.client.player_age < 14)
-				to_chat(user, "<span class='danger'>You're too new to play as a drone! Please try again in [14 - user.client.player_age] days.</span>")
-				return
 	if(!SSticker.mode)
 		to_chat(user, "Can't become a cogscarab before the game has started.")
 		return
