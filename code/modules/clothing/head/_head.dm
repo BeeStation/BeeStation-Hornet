@@ -8,12 +8,80 @@
 	dynamic_hair_suffix = "+generic"
 	///Is the person wearing this trackable by the AI?
 	var/blockTracking = FALSE
+	var/obj/item/clothing/head/wig/attached_wig
 
 /obj/item/clothing/head/Initialize(mapload)
 	. = ..()
 	if(ishuman(loc) && dynamic_hair_suffix)
 		var/mob/living/carbon/human/H = loc
 		H.update_hair()
+
+/obj/item/clothing/head/equipped(mob/user, slot)
+	. = ..()
+	if(ishuman(user) && slot == ITEM_SLOT_HEAD)
+		var/mob/living/carbon/human/H = user
+		H.update_inv_head()
+	attached_wig?.equipped(user, slot)
+
+/obj/item/clothing/head/dropped(mob/user)
+	..()
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.head == src)
+			H.update_inv_head()
+	attached_wig?.dropped(user)
+
+/obj/item/clothing/head/attackby(obj/item/W, mob/user, params)
+	. = ..()
+	if(istype(W, /obj/item/clothing/head/wig))
+		if(flags_inv && HIDEHAIR)
+			to_chat(user, "<span class='notice'>You can't attach a wig to [src]!</span>")
+			return
+		if(attached_wig)
+			to_chat(user,"<span class='notice'>[src] already has a wig attached!</span>")
+			return
+		else
+			attached_wig = W
+			attached_wig.hat_attached_to = src
+			W.forceMove(src)
+			add_verb(/obj/item/clothing/head/verb/unattach_wig)
+			update_icon()
+			strip_delay = 10 //The fake hair makes it really easy to swipe the hat off the head
+			attached_wig.equipped(user, ITEM_SLOT_HEAD)
+
+
+/obj/item/clothing/head/verb/unattach_wig()
+	set name = "Remove Wig"
+	set category = "Object"
+	set src in usr
+
+	usr.put_in_hands(attached_wig)
+	if (usr.get_item_by_slot(ITEM_SLOT_HEAD) == src)
+		attached_wig.dropped(usr)
+	attached_wig.hat_attached_to = null
+	attached_wig = null
+	update_icon()
+	remove_verb(/obj/item/clothing/head/verb/unattach_wig)
+	strip_delay = initial(strip_delay)
+	if(ishuman(usr))
+		var/mob/living/carbon/human/H = usr
+		if(H.head == src)
+			H.update_inv_head()
+
+/obj/item/clothing/head/Destroy()
+	if (attached_wig)
+		if (attached_wig.resistance_flags & INDESTRUCTIBLE)
+			attached_wig.forceMove(get_turf(src))
+		else
+			QDEL_NULL(attached_wig)
+	..()
+
+/obj/item/clothing/head/examine(mob/user)
+	. = ..()
+	if(attached_wig)
+		. += "<span class='notice'>There's \a [attached_wig.name] attached, which can be removed through the context menu.</span>"
+	else if(!(flags_inv && HIDEHAIR))
+		. += "<span class='notice'>A wig can be attached to the [src].</span>"
 
 ///Special throw_impact for hats to frisbee hats at people to place them on their heads/attempt to de-hat them.
 /obj/item/clothing/head/throw_impact(atom/hit_atom, datum/thrownthing/thrownthing)

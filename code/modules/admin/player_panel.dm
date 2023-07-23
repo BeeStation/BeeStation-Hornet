@@ -114,8 +114,8 @@
 					for(var/entry in log)
 						log_type_data[entry] += html_decode(log[entry])
 					data_entry["log_client"][log_type] = log_type_data
-				data_entry["metacurrency_balance"] = player.client.get_metabalance()
-				data_entry["antag_tokens"] = player.client.get_antag_token_count()
+				data_entry["metacurrency_balance"] = player.client.get_metabalance_unreliable()
+				data_entry["antag_tokens"] = player.client.get_antag_token_count_unreliable()
 				data_entry["register_date"] = player.client.account_join_date
 				data_entry["first_seen"] = player.client.player_join_date
 				data_entry["ip"] = player.client.address

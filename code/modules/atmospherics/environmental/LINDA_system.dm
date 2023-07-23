@@ -123,12 +123,16 @@
 	return adjacent_turfs
 
 /atom/proc/air_update_turf(command = 0)
+	if(!SSair.initialized) // I'm sorry for polutting user code, I'll do 10 hail giacom's
+		return
 	if(!isturf(loc) && command)
 		return
 	var/turf/T = get_turf(loc)
 	T.air_update_turf(command)
 
 /turf/air_update_turf(command = 0)
+	if(!SSair.initialized) // I'm sorry for polutting user code, I'll do 10 hail giacom's
+		return
 	if(command)
 		ImmediateCalculateAdjacentTurfs()
 

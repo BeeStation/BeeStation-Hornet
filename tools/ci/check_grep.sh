@@ -218,7 +218,7 @@ while read f; do
         echo -e "${RED}ERROR: file $f is missing a trailing newline${NC}"
         st=1
     fi;
-done < <(find . -type f -not \( -path "./.git/*" -prune \) -exec grep -Iq . {} \; -print)
+done < <(find . -type f -not \( -path "./.git/*" -prune \) -not \( -path "./tgui/.yarn/*" -prune \) -exec grep -Iq . {} \; -print)
 
 if [ $st = 0 ]; then
     echo

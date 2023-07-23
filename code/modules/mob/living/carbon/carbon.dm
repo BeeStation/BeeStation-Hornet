@@ -205,8 +205,9 @@
 
 		paper_note.show_through_camera(usr)
 
-/mob/living/carbon/fall(forced)
-    loc.handle_fall(src, forced)//it's loc so it doesn't call the mob's handle_fall which does nothing
+/mob/living/carbon/on_fall()
+	. = ..()
+	loc.handle_fall(src)//it's loc so it doesn't call the mob's handle_fall which does nothing
 
 /mob/living/carbon/is_muzzled()
 	return(istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
@@ -356,12 +357,6 @@
 		else
 			dropItemToGround(I)
 			return
-
-/mob/living/carbon/get_standard_pixel_y_offset(lying = 0)
-	if(lying)
-		return -6
-	else
-		return initial(pixel_y)
 
 /mob/living/carbon/proc/accident(obj/item/I)
 	if(!I || (I.item_flags & ABSTRACT) || HAS_TRAIT(I, TRAIT_NODROP))
