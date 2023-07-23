@@ -27,6 +27,8 @@
 	var/obj/item/clockwork/clockwork_slab/internal_clock_slab = null
 	var/ratvar = FALSE
 
+	var/datum/action/cleaning_toggle/autoclean_toggle
+
 //Hud stuff
 
 	var/atom/movable/screen/inv1 = null
@@ -56,8 +58,8 @@
 	var/locked = TRUE
 	var/list/req_access = list(ACCESS_ROBOTICS)
 
-	///Alarm listener datum, handes caring about alarm events and such
-	var/datum/alarm_listener/listener
+	/// Station alert datum for showing alerts UI
+	var/datum/station_alert/alert_control
 
 	var/speed = 0 // VTEC speed boost.
 	var/magpulse = FALSE // Magboot-like effect.
@@ -177,11 +179,11 @@
 	toner = tonermax
 	diag_hud_set_borgcell()
 
-	listener = new(list(ALARM_ATMOS, ALARM_FIRE, ALARM_POWER, ALARM_CAMERA, ALARM_BURGLAR, ALARM_MOTION), list(z))
-	RegisterSignal(listener, COMSIG_ALARM_TRIGGERED, PROC_REF(alarm_triggered))
-	RegisterSignal(listener, COMSIG_ALARM_CLEARED, PROC_REF(alarm_cleared))
-	listener.RegisterSignal(src, COMSIG_LIVING_DEATH, /datum/alarm_listener/proc/prevent_alarm_changes)
-	listener.RegisterSignal(src, COMSIG_LIVING_REVIVE, /datum/alarm_listener/proc/allow_alarm_changes)
+	alert_control = new(src, list(ALARM_ATMOS, ALARM_FIRE, ALARM_POWER, ALARM_CAMERA, ALARM_BURGLAR, ALARM_MOTION), list(z))
+	RegisterSignal(alert_control.listener, COMSIG_ALARM_TRIGGERED, PROC_REF(alarm_triggered))
+	RegisterSignal(alert_control.listener, COMSIG_ALARM_CLEARED, PROC_REF(alarm_cleared))
+	alert_control.listener.RegisterSignal(src, COMSIG_LIVING_DEATH, /datum/alarm_listener/proc/prevent_alarm_changes)
+	alert_control.listener.RegisterSignal(src, COMSIG_LIVING_REVIVE, /datum/alarm_listener/proc/allow_alarm_changes)
 
 	RegisterSignal(src, COMSIG_ATOM_ON_EMAG, PROC_REF(on_emag))
 	RegisterSignal(src, COMSIG_ATOM_SHOULD_EMAG, PROC_REF(should_emag))
@@ -234,13 +236,16 @@
 		if(T && istype(radio) && istype(radio.keyslot))
 			radio.keyslot.forceMove(T)
 			radio.keyslot = null
+	if(autoclean_toggle)
+		autoclean_toggle.Remove(usr)
+	QDEL_NULL(autoclean_toggle)
 	QDEL_NULL(wires)
 	QDEL_NULL(eye_lights)
 	QDEL_NULL(inv1)
 	QDEL_NULL(inv2)
 	QDEL_NULL(inv3)
 	QDEL_NULL(spark_system)
-	QDEL_NULL(listener)
+	QDEL_NULL(alert_control)
 	cell = null
 	UnregisterSignal(src, COMSIG_ATOM_ON_EMAG)
 	UnregisterSignal(src, COMSIG_ATOM_SHOULD_EMAG)
@@ -298,27 +303,6 @@
 
 /mob/living/silicon/robot/proc/get_standard_name()
 	return "[(designation ? "[designation] " : "")][mmi.braintype]-[ident]"
-
-/mob/living/silicon/robot/proc/robot_alerts()
-	var/dat = ""
-	var/list/alarms = listener.alarms
-	for (var/alarm_type in alarms)
-		dat += "<B>[alarm_type]</B><BR>\n"
-		var/list/alerts = alarms[alarm_type]
-		if (length(alerts))
-			for (var/alarm in alerts)
-				var/list/alm = alerts[alarm]
-				var/area/A = alm[1]
-				dat += "<NOBR>"
-				dat += "-- [A.name]"
-				dat += "</NOBR><BR>\n"
-		else
-			dat += "-- All Systems Nominal<BR>\n"
-		dat += "<BR>\n"
-
-	var/datum/browser/alerts = new(usr, "robotalerts", "Current Station Alerts", 400, 410)
-	alerts.set_content(dat)
-	alerts.open()
 
 /mob/living/silicon/robot/proc/ionpulse(thrust = 0.01, use_fuel = TRUE)
 	if(!ionpulse_on)
@@ -866,7 +850,7 @@
 
 /mob/living/silicon/robot/modules/syndicate
 	icon_state = "synd_sec"
-	faction = list(ROLE_SYNDICATE)
+	faction = list(FACTION_SYNDICATE)
 	bubble_icon = "syndibot"
 	req_access = list(ACCESS_SYNDICATE)
 	lawupdate = FALSE
@@ -1105,8 +1089,14 @@
 
 	if(module.clean_on_move)
 		AddElement(/datum/element/cleaning)
+		autoclean_toggle = new()
+		autoclean_toggle.toggle_target = usr
+		autoclean_toggle.Grant(usr)
 	else
 		RemoveElement(/datum/element/cleaning)
+		if(autoclean_toggle)
+			autoclean_toggle.Remove(usr)
+			QDEL_NULL(autoclean_toggle)
 
 	hat_offset = module.hat_offset
 
@@ -1215,7 +1205,11 @@
 	mainframe.diag_hud_set_deployed()
 	if(mainframe.laws)
 		mainframe.laws.show_laws(mainframe) //Always remind the AI when switching
-	mainframe.eyeobj?.setLoc(get_turf(src))
+	if(!mainframe.eyeobj)
+		mainframe.create_eye()
+	mainframe.eyeobj.setLoc(get_turf(src))
+	transfer_observers_to(mainframe.eyeobj) // borg shell to eyemob
+	mainframe.transfer_observers_to(mainframe.eyeobj) // ai core to eyemob
 	mainframe = null
 
 /mob/living/silicon/robot/attack_ai(mob/user)

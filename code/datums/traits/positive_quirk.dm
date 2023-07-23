@@ -89,7 +89,7 @@
 
 /datum/quirk/musician/on_spawn()
 	var/mob/living/carbon/human/H = quirk_target
-	var/obj/item/choice_beacon/music/B = new(get_turf(H))
+	var/obj/item/choice_beacon/radial/music/B = new(get_turf(H))
 	var/list/slots = list (
 		"backpack" = ITEM_SLOT_BACKPACK,
 		"hands" = ITEM_SLOT_HANDS,
@@ -251,3 +251,15 @@
 	if(!D) //if their current mob doesn't have a bank account, likely due to them being a special role (ie nuke op)
 		return
 	D.payment_per_department[ACCOUNT_NEET_ID] += PAYCHECK_WELFARE
+
+/datum/quirk/proskater
+	name = "Skater Bro"
+	desc = "You’re a little too into old-earth skater culture! You're much more used to riding and falling off skateboards, needing less stamina to do kickflips and taking less damage upon bumping into something."
+	value = 2
+	mob_trait = TRAIT_PROSKATER
+	gain_text = "<span class='notice'>You feel like hitting a sick grind!</span>"
+	lose_text = "<span class='danger'>You no longer feel like you're in touch with the youth.</span>"
+
+/datum/quirk/proskater/on_spawn()
+	var/mob/living/carbon/human/H = quirk_target
+	H.equip_to_slot_or_del(new /obj/item/melee/skateboard/pro(H), ITEM_SLOT_BACKPACK)

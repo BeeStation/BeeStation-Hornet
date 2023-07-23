@@ -44,7 +44,7 @@
 /area/ruin/space/has_grav/hilbertresearchfacility)
 "i" = (
 /obj/structure/table/glass,
-/obj/item/bodybag/bluespace,
+/obj/item/deployable/bodybag/bluespace,
 /turf/open/floor/plasteel/grimy{
 	icon_state = "engine"
 	},

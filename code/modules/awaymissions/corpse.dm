@@ -28,9 +28,11 @@
 	var/mob_color //Change the mob's color
 	var/assignedrole
 	var/show_flavour = TRUE
-	var/banType = ROLE_LAVALAND
+	var/banType
 	var/ghost_usable = TRUE
 	var/use_cooldown = FALSE
+	/// If this should ignore admins disabling ghost roles (like lavaland roles), since it's actually an antagonist.
+	var/is_antagonist = FALSE
 
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
 /obj/effect/mob_spawn/attack_ghost(mob/user)
@@ -39,7 +41,9 @@
 	if(!uses)
 		to_chat(user, "<span class='warning'>This spawner is out of charges!</span>")
 		return
-	if(!user?.client.canGhostRole(banType, use_cooldown, flags_1))
+	if(!SSticker.HasRoundStarted())
+		return
+	if(!user?.client?.can_take_ghost_spawner(banType, use_cooldown, is_ghost_role = !is_antagonist, is_admin_spawned = flags_1 & ADMIN_SPAWNED_1))
 		return
 	if(QDELETED(src) || QDELETED(user))
 		return
@@ -54,12 +58,11 @@
 	if(instant || (roundstart && (mapload || (SSticker && SSticker.current_state > GAME_STATE_SETTING_UP))))
 		create()
 	else if(ghost_usable)
-		GLOB.poi_list |= src
+		AddElement(/datum/element/point_of_interest)
 		LAZYADD(GLOB.mob_spawners[name], src)
 		SSmobs.update_spawners()
 
 /obj/effect/mob_spawn/Destroy()
-	GLOB.poi_list -= src
 	var/list/spawners = GLOB.mob_spawners[name]
 	LAZYREMOVE(spawners, src)
 	if(!LAZYLEN(spawners))
@@ -372,7 +375,6 @@
 	mob_species = /datum/species/plasmaman
 	outfit = /datum/outfit/plasmaman
 
-
 /obj/effect/mob_spawn/human/bartender
 	name = "Space Bartender"
 	id_job = JOB_NAME_BARTENDER
@@ -391,6 +393,17 @@
 	assignedrole = "Space Bartender"
 	id_job = JOB_NAME_BARTENDER
 	use_cooldown = TRUE
+
+/obj/effect/mob_spawn/human/bartender/alive/beach
+	assignedrole = "Beach Bartender"
+	banType = ROLE_BEACH_BUM
+	outfit = /datum/outfit/spacebartender/beach
+
+/datum/outfit/spacebartender/beach/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+	H.dna.add_mutation(STONER)
 
 /datum/outfit/spacebartender
 	name = "Space Bartender"
@@ -424,6 +437,7 @@
 	flavour_text = "Ch'yea. You came here, like, on spring break, hopin' to pick up some bangin' hot chicks, y'knaw?"
 	assignedrole = "Beach Bum"
 	use_cooldown = TRUE
+	banType = ROLE_BEACH_BUM
 
 /obj/effect/mob_spawn/human/beach/alive/lifeguard
 	short_desc = "You're a spunky lifeguard!"
@@ -502,29 +516,6 @@
 	back = /obj/item/storage/backpack/security
 	id = /obj/item/card/id/job/security_officer
 
-
-/obj/effect/mob_spawn/human/commander/alive
-	death = FALSE
-	roundstart = FALSE
-	mob_name = "\improper Nanotrasen Commander"
-	name = "sleeper"
-	icon = 'icons/obj/machines/sleeper.dmi'
-	icon_state = "sleeper"
-	short_desc = "You are a Nanotrasen Commander!"
-	use_cooldown = TRUE
-
-/obj/effect/mob_spawn/human/nanotrasensoldier/alive
-	death = FALSE
-	roundstart = FALSE
-	mob_name = "Private Security Officer"
-	name = "sleeper"
-	icon = 'icons/obj/machines/sleeper.dmi'
-	icon_state = "sleeper"
-	faction = "nanotrasenprivate"
-	short_desc = "You are a Nanotrasen Private Security Officer!"
-	use_cooldown = TRUE
-
-
 /////////////////Spooky Undead//////////////////////
 
 /obj/effect/mob_spawn/human/skeleton
@@ -539,29 +530,15 @@
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "remains"
 	short_desc = "By unknown powers, your skeletal remains have been reanimated!"
-	flavour_text = "Walk this mortal plain and terrorize all living adventurers who dare cross your path."
+	flavour_text = "Walk this mortal plane and terrorize all living adventurers who dare cross your path."
 	assignedrole = "Skeleton"
 	use_cooldown = TRUE
+	banType = ROLE_SKELETAL_REMAINS
 
 /obj/effect/mob_spawn/human/skeleton/alive/equip(mob/living/carbon/human/H)
 	var/obj/item/implant/exile/implant = new/obj/item/implant/exile(H)
 	implant.implant(H)
 	H.set_species(/datum/species/skeleton)
-
-/obj/effect/mob_spawn/human/zombie
-	name = "rotting corpse"
-	mob_name = "zombie"
-	mob_species = /datum/species/zombie
-	assignedrole = "Zombie"
-
-/obj/effect/mob_spawn/human/zombie/alive
-	death = FALSE
-	roundstart = FALSE
-	icon = 'icons/effects/blood.dmi'
-	icon_state = "remains"
-	short_desc = "By unknown powers, your rotting remains have been resurrected!"
-	flavour_text = "Walk this mortal plain and terrorize all living adventurers who dare cross your path."
-	use_cooldown = TRUE
 
 /obj/effect/mob_spawn/human/abductor
 	name = "abductor"
@@ -573,25 +550,6 @@
 	name = "Abductor Corpse"
 	uniform = /obj/item/clothing/under/color/grey
 	shoes = /obj/item/clothing/shoes/combat
-
-
-//For ghost bar.
-/obj/effect/mob_spawn/human/alive/space_bar_patron
-	name = "Bar cryogenics"
-	mob_name = "Bar patron"
-	random = TRUE
-	permanent = TRUE
-	uses = -1
-	outfit = /datum/outfit/spacebartender
-	assignedrole = "Space Bar Patron"
-
-//ATTACK HAND IGNORING PARENT RETURN VALUE
-/obj/effect/mob_spawn/human/alive/space_bar_patron/attack_hand(mob/user)
-	var/despawn = alert("Return to cryosleep? (Warning, Your mob will be deleted!)",,"Yes","No")
-	if(despawn != "Yes" || !loc || !Adjacent(user))
-		return
-	user.visible_message("<span class='notice'>[user.name] climbs back into cryosleep...</span>")
-	qdel(user)
 
 /datum/outfit/cryobartender
 	name = "Cryogenic Bartender"

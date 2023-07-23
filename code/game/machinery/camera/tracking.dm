@@ -10,7 +10,7 @@
 	for (var/obj/machinery/camera/C in L)
 		var/list/tempnetwork = C.network&src.network
 		if (tempnetwork.len)
-			T[text("[][]", C.c_tag, (C.can_use() ? null : " (Deactivated)"))] = C
+			T["[C.c_tag][(C.can_use() ? null : " (Deactivated)")]"] = C
 
 	return T
 
@@ -44,7 +44,7 @@
 		var/name = L.name
 		while(name in track.names)
 			track.namecounts[name]++
-			name = text("[] ([])", name, track.namecounts[name])
+			name = "[name] ([track.namecounts[name]])"
 		track.names.Add(name)
 		track.namecounts[name] = 1
 
@@ -67,8 +67,63 @@
 	if(!track.initialized)
 		trackable_mobs()
 
-	var/datum/weakref/target = (isnull(track.humans[target_name]) ? track.others[target_name] : track.humans[target_name])
-	ai_start_tracking(target.resolve())
+	var/datum/weakref/target_ref = (isnull(track.humans[target_name]) ? track.others[target_name] : track.humans[target_name])
+	if (!target_ref)
+		return
+	var/atom/target = target_ref.resolve()
+
+	attempt_track(target)
+
+/mob/living/silicon/ai/proc/attempt_track(mob/living/target)
+	// Instantly tell if we can't track at all
+	if(!target || !target.can_track(src))
+		to_chat(src, "<span class='warning'>Target is not near any active cameras.</span>")
+		return
+
+	//If the target has sensors on, track instantly
+	//If the AI has malf upgrades, allow instant tracking
+	var/instant_track = !!malf_picker || issilicon(target) || isbot(target)
+	var/track_time = instant_track ? 0 : 4 SECONDS
+
+	// Check for light
+	var/turf/target_location = get_turf(target)
+	if (target_location.get_lumcount() > 0.4)
+		track_time -= 1 SECONDS
+	if (!instant_track && ishuman(target))
+		var/mob/living/carbon/human/human_target = target
+		// Check for ID
+		if (human_target.get_id_name() == human_target.real_name)
+			track_time -= 1 SECONDS
+		// If their face is visible, faster tracking
+		if (human_target.get_face_name() == human_target.real_name)
+			track_time -= 1 SECONDS
+		// Check for sensor beacon
+		var/nanite_sensors = HAS_TRAIT(human_target, TRAIT_SUIT_SENSORS)
+		if(!human_target.is_jammed(JAMMER_PROTECTION_SENSOR_NETWORK) && (nanite_sensors || HAS_TRAIT(human_target, TRAIT_NANITE_SENSORS)))
+			// Check for a uniform if not using nanites
+			// If the GPS is on, track instantly
+			var/obj/item/clothing/under/uniform = human_target.w_uniform
+			if (nanite_sensors || uniform.sensor_mode >= SENSOR_COORDS)
+				track_time = 0
+	if (!instant_track && !ishuman(target))
+		// Animals are easy to track
+		track_time -= 3 SECONDS
+
+	//Require the target to remain still for 3 seconds in order to acquire the track.
+	//Once track is acquired, it will hold and follow them while moving
+	if (track_time > 0)
+		to_chat(src, "<span class='notice'>Target has no suit sensor beacon, querying facial recognition network. Query ETA: [track_time/10] seconds...</span>")
+		var/turf/target_turf = get_turf(target)
+		addtimer(CALLBACK(src, PROC_REF(track_if_not_moved), target, target_turf), track_time)
+		return
+
+	ai_start_tracking(target)
+
+/mob/living/silicon/ai/proc/track_if_not_moved(mob/living/target, turf/T)
+	if(get_turf(target) != T)
+		to_chat(src, "<span class='warning'>Unable to locate target. Facial recognition services will not function on moving targets.</span>")
+		return
+	ai_start_tracking(target)
 
 /mob/living/silicon/ai/proc/ai_start_tracking(mob/living/target) //starts ai tracking
 	if(!target || !target.can_track(src))

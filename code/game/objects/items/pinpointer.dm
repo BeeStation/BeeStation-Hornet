@@ -13,7 +13,7 @@
 	throw_speed = 3
 	throw_range = 7
 	materials = list(/datum/material/iron = 500, /datum/material/glass = 250)
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/active = FALSE
 	var/atom/movable/target //The thing we're searching for
 	var/minimum_range = 0 //at what range the pinpointer declares you to be at your destination
@@ -245,7 +245,7 @@
 
 		while(crewmember_name in name_counts)
 			name_counts[crewmember_name]++
-			crewmember_name = text("[] ([])", crewmember_name, name_counts[crewmember_name])
+			crewmember_name = "[crewmember_name] ([name_counts[crewmember_name]])"
 		names[crewmember_name] = L
 		name_counts[crewmember_name] = 1
 

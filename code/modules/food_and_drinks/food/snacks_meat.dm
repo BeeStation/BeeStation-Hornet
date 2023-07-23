@@ -193,7 +193,7 @@
 	qdel(src)
 
 /obj/item/reagent_containers/food/snacks/monkeycube/syndicate
-	faction = list("neutral", ROLE_SYNDICATE)
+	faction = list("neutral", FACTION_SYNDICATE)
 
 /obj/item/reagent_containers/food/snacks/monkeycube/gorilla
 	name = "gorilla cube"
@@ -269,6 +269,7 @@
 	list_reagents = list(/datum/reagent/consumable/nutriment = 2)
 	tastes = list("\"chicken\"" = 1)
 	foodtype = MEAT
+	icon_state_preview = "nugget_lizard"
 	/*food_flags = FOOD_FINGER_FOOD*/
 	w_class = WEIGHT_CLASS_TINY
 

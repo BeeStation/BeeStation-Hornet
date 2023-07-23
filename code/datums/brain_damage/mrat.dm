@@ -12,7 +12,7 @@
 
 /datum/brain_trauma/special/imaginary_friend/mrat/get_ghost()
 	set waitfor = FALSE
-	var/list/mob/dead/observer/candidates = pollMentorCandidatesForMob("Do you want to play as [owner]'s mentor rat?", ROLE_PAI, null, null, 75, friend, POLL_IGNORE_IMAGINARYFRIEND)
+	var/list/mob/dead/observer/candidates = pollMentorCandidatesForMob("Do you want to play as [owner]'s mentor rat?", ROLE_IMAGINARY_FRIEND, null, 7.5 SECONDS, friend, POLL_IGNORE_MRAT)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		friend.key = C.key
@@ -121,7 +121,9 @@
 	leave = new
 	leave.Grant(src)
 
-	grant_all_languages()
+	grant_all_languages(spoken=FALSE) // they understand all language, but doesn't have to speak that
+	// mentor rats default language is set to metalanguage from imaginary friend init
+	// everything mrat says will be understandable to all people
 
 /mob/camera/imaginary_friend/mrat/proc/add_kick_action()
 	kick = new

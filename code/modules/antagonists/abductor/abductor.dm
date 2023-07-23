@@ -4,7 +4,7 @@
 	name = "Abductor"
 	roundend_category = "abductors"
 	antagpanel_category = "Abductor"
-	job_rank = ROLE_ABDUCTOR
+	banning_key = ROLE_ABDUCTOR
 	show_in_antagpanel = FALSE //should only show subtypes
 	show_to_ghosts = TRUE
 	var/datum/team/abductor_team/team
@@ -21,6 +21,7 @@
 	landmark_type = /obj/effect/landmark/abductor/agent
 	greet_text = "Use your stealth technology and equipment to incapacitate humans for your scientist to retrieve."
 	show_in_antagpanel = TRUE
+	ui_name = "AntagInfoAbductorAgent"
 
 /datum/antagonist/abductor/scientist
 	name = "Abductor Scientist"
@@ -29,6 +30,7 @@
 	landmark_type = /obj/effect/landmark/abductor/scientist
 	greet_text = "Use your experimental console and surgical equipment to monitor your agent and experiment upon abducted humans."
 	show_in_antagpanel = TRUE
+	ui_name = "AntagInfoAbductorScientist"
 
 /datum/antagonist/abductor/scientist/onemanteam
 	name = "Abductor Solo"
@@ -75,6 +77,10 @@
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Abductor",
 		"Capture and experiment on members of the crew, without being spotted.")
 
+/datum/antagonist/abductor/ui_static_data(mob/user)
+	. = ..()
+	.["mothership"] = team.name
+
 /datum/antagonist/abductor/proc/finalize_abductor()
 	//Equip
 	var/mob/living/carbon/human/H = owner.current
@@ -95,12 +101,12 @@
 
 /datum/antagonist/abductor/scientist/on_gain()
 	ADD_TRAIT(owner, TRAIT_ABDUCTOR_SCIENTIST_TRAINING, ABDUCTOR_ANTAGONIST)
-	ADD_TRAIT(owner, TRAIT_ALL_SURGERIES, ABDUCTOR_ANTAGONIST)
+	ADD_TRAIT(owner, TRAIT_SURGEON, ABDUCTOR_ANTAGONIST)
 	. = ..()
 
 /datum/antagonist/abductor/scientist/on_removal()
 	REMOVE_TRAIT(owner, TRAIT_ABDUCTOR_SCIENTIST_TRAINING, ABDUCTOR_ANTAGONIST)
-	REMOVE_TRAIT(owner, TRAIT_ALL_SURGERIES, ABDUCTOR_ANTAGONIST)
+	REMOVE_TRAIT(owner, TRAIT_SURGEON, ABDUCTOR_ANTAGONIST)
 	. = ..()
 
 /datum/antagonist/abductor/admin_add(datum/mind/new_owner,mob/admin)
@@ -183,6 +189,7 @@
 	name = "Abductee"
 	roundend_category = "abductees"
 	antagpanel_category = "Abductee"
+	banning_key = UNBANNABLE_ANTAGONIST
 
 /datum/antagonist/abductee/on_gain()
 	give_objective()
