@@ -135,7 +135,7 @@
 	STR.can_hold = typecacheof(list(/obj/item/stack/ore))
 	STR.max_w_class = WEIGHT_CLASS_HUGE
 	STR.max_items = 20
-	STR.max_combined_stack_amount = 250
+	STR.max_combined_stack_amount = 50
 
 /obj/item/storage/bag/ore/equipped(mob/user)
 	. = ..()
@@ -167,7 +167,8 @@
 		for(var/A in tile)
 			if (!is_type_in_typecache(A, STR.can_hold))
 				continue
-			if (box)
+			var/obj/item/stack/stack_item = A
+			if (box && box.get_amount() + (istype(stack_item) ? stack_item.amount : 1) <= box.capacity)
 				user.transferItemToLoc(A, box)
 				box.ui_update()
 				show_message = TRUE
@@ -192,9 +193,9 @@
 /obj/item/storage/bag/ore/cyborg
 	name = "cyborg mining satchel"
 
-/obj/item/storage/bag/ore/holding //miners, your messiah has arrived
+/obj/item/storage/bag/ore/holding
 	name = "mining satchel of holding"
-	desc = "A revolution in convenience, this satchel allows for huge amounts of ore storage. It's been outfitted with anti-malfunction safety measures."
+	desc = "A revolution in convenience, this satchel allows for greater amounts of ore storage. It's been outfitted with anti-malfunction safety measures."
 	icon_state = "satchel_bspace"
 
 /obj/item/storage/bag/ore/holding/ComponentInitialize()
@@ -202,7 +203,7 @@
 	var/datum/component/storage/concrete/stack/STR = GetComponent(/datum/component/storage/concrete/stack)
 	STR.max_items = INFINITY
 	STR.max_combined_w_class = INFINITY
-	STR.max_combined_stack_amount = INFINITY
+	STR.max_combined_stack_amount = 150
 
 // -----------------------------
 //          Plant bag

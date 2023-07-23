@@ -9,6 +9,7 @@
 	density = TRUE
 	pressure_resistance = 5*ONE_ATMOSPHERE
 	var/static/list/typecache_to_take
+	var/capacity = 100
 
 /obj/structure/ore_box/Initialize(mapload)
 	. = ..()
@@ -17,6 +18,10 @@
 
 /obj/structure/ore_box/attackby(obj/item/W, mob/user, params)
 	if (istype(W, /obj/item/stack/ore))
+		var/obj/item/stack/stack_item = W
+		if (get_amount() + stack_item.amount > capacity)
+			to_chat(user, "<span class='warning'>[src] is full!</span>")
+			return
 		user.transferItemToLoc(W, src)
 		ui_update()
 	else if(SEND_SIGNAL(W, COMSIG_CONTAINS_STORAGE))
@@ -105,3 +110,8 @@
 
 /obj/structure/ore_box/onTransitZ()
 	return
+
+/obj/structure/ore_box/proc/get_amount()
+	. = 0
+	for (var/obj/item/stack/thing in contents)
+		. += thing.amount
