@@ -427,7 +427,7 @@
 
 				if(iscyborg(sillycone))
 					var/mob/living/silicon/robot/sillyconerobot = A
-					if((ROLE_SYNDICATE in faction) && sillyconerobot.emagged == TRUE)
+					if((FACTION_SYNDICATE in faction) && sillyconerobot.emagged == TRUE)
 						continue
 
 			else if(iscarbon(A))
@@ -681,7 +681,7 @@
 	stun_projectile_sound = 'sound/weapons/gunshot.ogg'
 	icon_state = "syndie_off"
 	base_icon_state = "syndie"
-	faction = list(ROLE_SYNDICATE)
+	faction = list(FACTION_SYNDICATE)
 	desc = "A ballistic machine gun auto-turret."
 
 /obj/machinery/porta_turret/syndicate/ComponentInitialize()

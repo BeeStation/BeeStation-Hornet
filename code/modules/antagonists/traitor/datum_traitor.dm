@@ -5,7 +5,8 @@
 	name = "Traitor"
 	roundend_category = "traitors"
 	antagpanel_category = "Traitor"
-	job_rank = ROLE_TRAITOR
+	banning_key = ROLE_TRAITOR
+	required_living_playtime = 4
 	antag_moodlet = /datum/mood_event/focused
 	ui_name = "AntagInfoTraitor"
 	hijack_speed = 0.5				//10 seconds per hijack stage by default
@@ -431,3 +432,8 @@
 
 /datum/antagonist/traitor/is_gamemode_hero()
 	return SSticker.mode.name == "traitor"
+
+/datum/antagonist/traitor/excommunicate
+	name = "Excommunicate Traitor"
+	banning_key = ROLE_EXCOMM
+	special_role = ROLE_EXCOMM

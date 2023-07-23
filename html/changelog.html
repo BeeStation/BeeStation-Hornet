@@ -67,6 +67,25 @@
 			<ul class="changes bgimages16">
 				<li class="code_imp">Optimized atom initialization.</li>
 			</ul>
+			<h3 class="author">itsmeow, EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">All non-ghost role antagonist preferences are now per-character. Global toggle buttons toggle the preference on all characters at once.</li>
+				<li class="refactor">Rewrote antag preference internals to allow for better control of antag preferences and more distinct usages.</li>
+				<li class="refactor">Cleaned up antag bans, with more distinct settings and new general categories.</li>
+				<li class="tweak">All antag prefs will start on by default rather than off. The same applies to newly added ones.</li>
+				<li class="bugfix">Fixed various antag bans being bypassable.</li>
+				<li class="bugfix">Fixed various ghost polls using the wrong preference or ban types.</li>
+				<li class="rscdel">Removed BYOND account age checks from antag roles in favor of living hours.</li>
+				<li class="rscdel">Removed "Midround Antagonist" preference in favor of unique preferences per midround.</li>
+				<li class="rscadd">Added distinct role preferences for Antagonists (Roundstart/Latejoin) and Midrounds (Ghost/Living).</li>
+				<li class="rscadd">Almost all ghost antagonist polls have a "Never for this round" option now.</li>
+				<li class="rscdel">Removed the ghost notification preferences menu (poll ignore menu).</li>
+				<li class="tweak">The lavaland beach bartender can now speak Stoner.</li>
+				<li class="rscdel">Removed some unused mob spawners from the code.</li>
+				<li class="rscadd">Added 4hr playtime checks to roundstart/latejoin antag roles. Wizard and nukeops are 8hr.</li>
+				<li class="bugfix">Fixed a typo in the skeleton spawner description.</li>
+				<li class="bugfix">Fixed unnecessary DB queries due to is_banned_from not properly ckey-ifying the ckey parameter and causing cache misses.</li>
+			</ul>
 
 			<h2 class="date">22 July 2023</h2>
 			<h3 class="author">Absolucy updated:</h3>

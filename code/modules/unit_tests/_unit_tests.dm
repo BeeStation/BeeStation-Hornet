@@ -58,8 +58,10 @@
 #include "create_and_destroy.dm"
 #endif
 
+#include "antag_datums.dm"
 #include "dynamic_ruleset_sanity.dm"
 #include "enumerables.dm"
+#include "gamemode_sanity.dm"
 #include "keybinding_init.dm"
 #include "rcd.dm"
 #include "reagent_id_typos.dm"
