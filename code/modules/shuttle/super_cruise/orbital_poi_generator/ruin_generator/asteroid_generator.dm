@@ -2,13 +2,13 @@
 //weight_offset - Affects the probability of a rock spawning (between -1 and 1)
 //if this number is negative, asteroids will be smaller.
 //if this number is positive asteroids will be larger and more likely
-/proc/generate_asteroids(center_x, center_y, center_z, max_radius, weight_offset = 0, scale = 65)
+/proc/generate_asteroids(center_x, center_y, center_z, max_radius, weight_offset = 0, scale = 65, biome = list(/turf/closed/mineral/random = 0))
 	var/datum/space_level/space_level = SSmapping.get_level(center_z)
 	space_level.generating = TRUE
-	. = _generate_asteroids(center_x, center_y, center_z, max_radius, weight_offset, scale)
+	. = _generate_asteroids(center_x, center_y, center_z, max_radius, weight_offset, scale, biome)
 	space_level.generating = FALSE
 
-/proc/_generate_asteroids(center_x, center_y, center_z, max_radius, weight_offset = 0, scale = 65)
+/proc/_generate_asteroids(center_x, center_y, center_z, max_radius, weight_offset = 0, scale = 65, biome = list(/turf/closed/mineral/random = 0))
 
 	SSair.pause_z(center_z)
 
@@ -38,7 +38,16 @@
 		var/rock_value = (distance / max_radius) + (weight_offset + 0.1) * (1 - (distance / max_radius))
 		var/sand_value = (distance / max_radius) + weight_offset * (1 - (distance / max_radius))
 		if(noise_at_coord >= rock_value && closed)
-			T.ChangeTurf(/turf/closed/mineral/random, list(/turf/open/floor/plating/asteroid/airless), CHANGETURF_IGNORE_AIR)
+			// Get some noise for the ores
+			var/noise_ore = text2num(rustg_noise_get_at_coordinates("[seed + 1]", "[T.x / (perlin_noise_scale / 3)]", "[T.y / (perlin_noise_scale / 3)]"))
+			// Determine the turf to use
+			var/turf_ratio = noise_ore
+			for (var/i in length(biome) to 1 step -1)
+				var/turf = biome[i]
+				var/proportion = biome[turf]
+				if (turf_ratio > proportion)
+					T.ChangeTurf(turf, list(/turf/open/floor/plating/asteroid/airless), CHANGETURF_IGNORE_AIR)
+					break
 			output[1] = min(output[1], T.x)
 			output[2] = min(output[2], T.y)
 			output[3] = max(output[3], T.x)
