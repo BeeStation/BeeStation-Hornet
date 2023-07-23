@@ -32,7 +32,6 @@
 	. = ..()
 	var/atom/movable/mirage_holder/held = locate() in target.contents
 	if(held)
-		held.moveToNullspace()
 		qdel(held)
 
 // Using /atom/movable because this is a heavily used path
