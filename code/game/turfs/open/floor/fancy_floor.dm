@@ -417,6 +417,11 @@
 /turf/open/floor/fakespace/Initialize(mapload)
 	. = ..()
 	icon_state = SPACE_ICON_STATE
+	GLOB.aurora_targets.Add(src)
+
+/turf/open/floor/fakespace/Destroy()
+	GLOB.aurora_targets.Remove(src)
+	. = ..()
 
 /turf/open/floor/fakespace/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/space.dmi'
