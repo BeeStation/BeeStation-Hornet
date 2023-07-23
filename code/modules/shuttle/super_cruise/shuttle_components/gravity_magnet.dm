@@ -45,7 +45,7 @@
 	return SSorbits.assoc_z_levels["[virtual_z]"]
 
 /obj/machinery/gravity_magnet/active
-	name = "gravity magnet"
+	name = "gravity-tow generator"
 	desc = "A machine which allows for the towing of orbital bodies."
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "ore_redemption"
@@ -127,3 +127,17 @@
 	// Check if we are too far away and are forced to disconnect
 	//TODO
 	return TRUE
+
+/**
+ * Gravity magnet deployer.
+ *
+ * Allows for a gravity magnet to be quickly destroyed.
+ */
+
+/obj/item/deployable/gravity_magnet
+	name = "gravity anchor deployer"
+	desc = "A device which deploys a gravity anchor, capable of being connected to a gravity magnet."
+	icon = 'icons/obj/bodybag.dmi'
+	icon_state = "bodybag_folded"
+	w_class = WEIGHT_CLASS_SMALL
+	deployed_object = /obj/machinery/gravity_magnet
