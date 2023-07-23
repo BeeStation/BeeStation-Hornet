@@ -8,6 +8,10 @@
 	var/active = FALSE
 	var/activation_delay = 3 SECONDS
 
+/obj/item/deployable/capsule/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>To deploy, activate the capsule <b>in-hand</b>, and then either <b>place</b> or <b>throw</b> the capsule onto the ground.</span>"
+
 /obj/item/deployable/capsule/update_icon()
 	cut_overlays()
 	icon_state = "capsule[active ? "_activated" : ""]"

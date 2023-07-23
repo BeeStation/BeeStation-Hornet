@@ -16,6 +16,17 @@
 	var/dense_deployment = FALSE
 	/// even if 'dense_deployment' is FALSE, if this is TRUE, it can be deployed onto your position
 	var/ignores_mob_density = FALSE
+	/// if this is TRUE, we won't display our own examine message, and let the subtype handle it instead.
+	var/custom_examine_tip = FALSE
+
+/obj/item/deployable/examine(mob/user)
+	. = ..()
+	if(custom_examine_tip)
+		return
+	. += "<span class='notice'>It may be deployed by <b>using it on an open tile</b>.</span>"
+	if(!dense_deployment)
+		var/extra_msg = ignores_mob_density ? ", although it may be deployed underneath mobs" : ""
+		. += "<span class='notice'>It cannot be deployed on tiles with <b>dense objects</b> on them[extra_msg].</span>"
 
 /obj/item/deployable/attack_self(mob/user)
 	try_deploy(user, user.loc)
