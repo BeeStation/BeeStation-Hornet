@@ -127,6 +127,12 @@
 	to_chat(user, "<span class='notice'>// NTSAT-[id] // Mode : [active ? "PRIMARY" : "STANDBY"] //[(obj_flags & EMAGGED) ? "DEBUG_MODE //" : ""]</span>")
 	return TRUE
 
+/obj/item/deployable/meteor_shield
+	name = "\improper Meteor Shield Satellite Deploy Capsule"
+	desc = "A bluespace capsule which a single unit of meteor shield satellite is compressed within. If you activate this capsule, a meteor shield satellite will pop out. You still need to install these."
+	deployed_object = /obj/machinery/satellite/meteor_shield
+	time_to_deploy = 10 SECONDS
+
 /obj/machinery/satellite/meteor_shield
 	name = "\improper Meteor Shield Satellite"
 	desc = "A meteor point-defense satellite."

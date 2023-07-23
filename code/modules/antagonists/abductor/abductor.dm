@@ -4,7 +4,7 @@
 	name = "Abductor"
 	roundend_category = "abductors"
 	antagpanel_category = "Abductor"
-	job_rank = ROLE_ABDUCTOR
+	banning_key = ROLE_ABDUCTOR
 	show_in_antagpanel = FALSE //should only show subtypes
 	show_to_ghosts = TRUE
 	var/datum/team/abductor_team/team
@@ -189,6 +189,7 @@
 	name = "Abductee"
 	roundend_category = "abductees"
 	antagpanel_category = "Abductee"
+	banning_key = UNBANNABLE_ANTAGONIST
 
 /datum/antagonist/abductee/on_gain()
 	give_objective()

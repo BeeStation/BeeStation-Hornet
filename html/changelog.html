@@ -56,6 +56,117 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">23 July 2023</h2>
+			<h3 class="author">RKz, Spooky Donut, Rohesie updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">lying renamed to lying_angle and set as protected, lying_angle should never be called directly</li>
+				<li class="refactor">how lying is updated</li>
+				<li class="code_imp">purified a few calls</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Optimized atom initialization.</li>
+			</ul>
+			<h3 class="author">itsmeow, EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">All non-ghost role antagonist preferences are now per-character. Global toggle buttons toggle the preference on all characters at once.</li>
+				<li class="refactor">Rewrote antag preference internals to allow for better control of antag preferences and more distinct usages.</li>
+				<li class="refactor">Cleaned up antag bans, with more distinct settings and new general categories.</li>
+				<li class="tweak">All antag prefs will start on by default rather than off. The same applies to newly added ones.</li>
+				<li class="bugfix">Fixed various antag bans being bypassable.</li>
+				<li class="bugfix">Fixed various ghost polls using the wrong preference or ban types.</li>
+				<li class="rscdel">Removed BYOND account age checks from antag roles in favor of living hours.</li>
+				<li class="rscdel">Removed "Midround Antagonist" preference in favor of unique preferences per midround.</li>
+				<li class="rscadd">Added distinct role preferences for Antagonists (Roundstart/Latejoin) and Midrounds (Ghost/Living).</li>
+				<li class="rscadd">Almost all ghost antagonist polls have a "Never for this round" option now.</li>
+				<li class="rscdel">Removed the ghost notification preferences menu (poll ignore menu).</li>
+				<li class="tweak">The lavaland beach bartender can now speak Stoner.</li>
+				<li class="rscdel">Removed some unused mob spawners from the code.</li>
+				<li class="rscadd">Added 4hr playtime checks to roundstart/latejoin antag roles. Wizard and nukeops are 8hr.</li>
+				<li class="bugfix">Fixed a typo in the skeleton spawner description.</li>
+				<li class="bugfix">Fixed unnecessary DB queries due to is_banned_from not properly ckey-ifying the ckey parameter and causing cache misses.</li>
+			</ul>
+
+			<h2 class="date">22 July 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">You can now properly put spray cans into storage items and objects whenever the cap is on.</li>
+				<li class="tweak">Incursion now requires a hard minimum of 22 people to roll.</li>
+				<li class="bugfix">Fixed an excessive amount of incursion members being spawned by dynamic.</li>
+			</ul>
+			<h3 class="author">Apogee-dev,Azarak,CydiaLamiales,PestoVerde322,BriggsIDP updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added a random 1-3 second delay to lights turning on, plus a sound</li>
+				<li class="soundadd">added a sound for light fixtures being turned on</li>
+				<li class="rscadd">Added a station-wide light flicker after a powerful explosion</li>
+				<li class="rscadd">Added a craftable light switch frame</li>
+				<li class="imageadd">Added an icon for the light switch frame</li>
+				<li class="rscadd">Added deconstruction steps for the light switch - screwdriver, then crowbar</li>
+				<li class="tweak">Made APCs automatically turn off lighting at 50% battery charge and lighting + equipment at 25% charge</li>
+				<li class="tweak">Made unstaffed departments start off with their lights turned off</li>
+			</ul>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added a more detailed description to the Janicart</li>
+				<li class="rscadd">Added the ability to quickdraw a mop from the Janicart</li>
+				<li class="rscadd">Replaced the old windows menu for the janicart with a radial menu</li>
+				<li class="rscadd">Added the ability to toggle auto floor cleaning for pimping rides, janibots and xeno maids</li>
+				<li class="bugfix">Fixed the advanced mop having the same inhand icon as the normal mop</li>
+				<li class="rscadd">Made several Anomalies and Wormholes create harvested pierced realities upon expiring</li>
+				<li class="code_imp">Added a turf proc for generating harvested pierced realities</li>
+				<li class="bugfix">Fixed lights playing the sound of turning on two times at roundstart</li>
+				<li class="bugfix">Fixed atmos alarms no making the lights turn blue</li>
+				<li class="tweak">Made air and fire alarms instantly swithc the color of the lights to blue/red instantly and quietly</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">more assets are cross_round_cachable.</li>
+				<li class="admin">Admins without R_ADMIN perm are sorted in another section in staff_who, so that people will not believe coders can handle adminhelps.</li>
+				<li class="bugfix">bodybag, rollerbed, deployable bot can be placed onto a turf you're on</li>
+				<li class="tweak">if a deployable item can not be placed onto a turf you're on, it will notify you that you need to click an open area.</li>
+				<li class="tweak">meteor shield sat is now a deployable item. This will make preparing and installing meteor shield sat less tedious than before.</li>
+				<li class="tweak">meteor shield cargo order is now max 2 stocks, and each supply contains 7 capsules. Now costs 7,000 credits.</li>
+				<li class="code_imp">reverts "Prevent dynamic midrounds from rolling if the shuttle is called or docked" PR</li>
+				<li class="bugfix">fixed where holocall throws a runtime</li>
+			</ul>
+			<h3 class="author">PowerfulBacon, MothBlocks updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Speeds up the initialisation times of closets.</li>
+				<li class="tweak">Crew pinpointers are no longer indestructible.</li>
+			</ul>
+			<h3 class="author">RKz, LemonInTheDark updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">cleans up click code, converts to defines, converts to LAZY ACCESS</li>
+			</ul>
+			<h3 class="author">RKz, carlarctg updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">crafting recipes for all carpet types! Use a sprayer or pour carpet reagent on the ground to make the station pretty!</li>
+				<li class="balance">buff to current and added carpet recipes. It may be actually possible to beautify the station within the timespan of a round on Sage now.</li>
+			</ul>
+			<h3 class="author">RKz, haukeschuemann updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">swarming component is deleted properly</li>
+			</ul>
+			<h3 class="author">RKz, tralezab updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">beam code no longer are possessed by cosmic horrors. Game should be faster when using medibeams, RPEDs, or when the CO2 sm gets REALLY messed up</li>
+			</ul>
+			<h3 class="author">Tyranicranger4 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="admin">Admins will now only receive alerts about PDA messages being deleted at a message monitoring console if the user isn't an Antagonist or Lavaland Syndicate role.</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">TGUI Inputs with timeouts now properly update the timeout bar.</li>
+				<li class="tweak">The TGUI Input timeout bar now matches the generic color theme.</li>
+				<li class="rscadd">Added TGUI color picker and replaced all use of BYOND color pickers with it (TGUI input preference is still respected).</li>
+				<li class="tweak">The Generic UI theme will now affect the border color of number inputs and text areas the same as text inputs.</li>
+			</ul>
+			<h3 class="author">mystery3525 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Dynamic midrounds can no longer roll if the shuttle is called or docked.</li>
+			</ul>
+
 			<h2 class="date">21 July 2023</h2>
 			<h3 class="author">CydiaLamiales updated:</h3>
 			<ul class="changes bgimages16">
@@ -928,33 +1039,6 @@
 				<li class="tweak">rad viro zoning</li>
 				<li class="tweak">adds clip boards and folders to med</li>
 				<li class="tweak">adds the right tag to commis door</li>
-			</ul>
-
-			<h2 class="date">21 May 2023</h2>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Increased the time window for cancelling/changing random events and midround injections from 10 to 30 seconds</li>
-				<li class="soundadd">Added a new sound - adminalert.ogg</li>
-				<li class="admin">Added a new preference for hearing admin alert sounds</li>
-				<li class="admin">Added a sound for the 'x event happening in y seconds' chat message</li>
-				<li class="rscadd">Added a tooltip to the Altar of the Gods showing that you can un/wrench it with the Null Rod</li>
-				<li class="tweak">allowed for the Altar of the Gods to be used on any tile blessed by Holy Water</li>
-				<li class="code_imp">Added a turf proc is_holy(), which checks if said turf is in the chapel area or has the holy effect applied to it</li>
-				<li class="code_imp">Replaced checks for the holy effects with is_holy checks</li>
-				<li class="tweak">Made all holy roles be able to see blessed tiles rather than just the chaplain (This means Holy Undead will be able to see them too)</li>
-			</ul>
-			<h3 class="author">PestoVerde322 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">finally addressed the floating lattices not connecting to open turfs</li>
-			</ul>
-			<h3 class="author">Tsar-Salat updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">broken blackberry cake icon_states, leading to invisible cake. Invisible cake couldnt be eaten, very sad.</li>
-				<li class="tweak">added ERROR sprites and description to newfood parents, so it's very visible if the wrong path was used</li>
-			</ul>
-			<h3 class="author">ss13-beebot updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="server">TGS DMAPI bumped to 6.4.3</li>
 			</ul>
 		</div>
 

@@ -32,8 +32,8 @@ GLOBAL_VAR(clockcult_eminence)
 	required_players = 24
 	required_enemies = 4
 	recommended_enemies = 4
-	antag_flag = ROLE_SERVANT_OF_RATVAR
-	enemy_minimum_age = 14
+	role_preference = /datum/role_preference/antagonist/clock_cultist
+	antag_datum = /datum/antagonist/servant_of_ratvar
 
 	title_icon = "clockcult"
 	announce_span = "danger"
@@ -58,7 +58,7 @@ GLOBAL_VAR(clockcult_eminence)
 	for(var/i in 1 to clock_cultists)
 		if(!antag_candidates.len)
 			break
-		var/datum/mind/clockie = antag_pick(antag_candidates, ROLE_SERVANT_OF_RATVAR)
+		var/datum/mind/clockie = antag_pick(antag_candidates, /datum/role_preference/antagonist/clock_cultist)
 		//In case antag_pick breaks
 		if(!clockie)
 			continue

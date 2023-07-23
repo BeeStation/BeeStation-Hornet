@@ -50,7 +50,7 @@
 	var/static/list/lighting_overlays	// dictionary for lighting overlays
 
 	///So we don't have a lot of stress on startup.
-	var/maploaded = FALSE
+	var/mapload = FALSE
 
 	///More stress stuff.
 	var/turning_on = FALSE
@@ -86,7 +86,7 @@
 /obj/machinery/light/built/Initialize(mapload)
 	. = ..()
 	status = LIGHT_EMPTY
-	update(0)
+	update(FALSE, TRUE)
 
 /obj/machinery/light/small/built
 	icon_state = "bulb-empty"
@@ -95,7 +95,7 @@
 /obj/machinery/light/small/built/Initialize(mapload)
 	. = ..()
 	status = LIGHT_EMPTY
-	update(0)
+	update(FALSE, TRUE)
 
 /obj/machinery/light/proc/store_cell(new_cell)
 	if(cell)
@@ -114,7 +114,6 @@
 /obj/machinery/light/Initialize(mapload = TRUE)
 	. = ..()
 
-	maploaded = TRUE
 	//Setup area colours -pb
 	var/area/A = get_area(src)
 	if(bulb_colour == initial(bulb_colour))
@@ -132,7 +131,8 @@
 	if(!mapload) //sync up nightshift lighting for player made lights
 		var/obj/machinery/power/apc/temp_apc = A.apc
 		nightshift_enabled = temp_apc?.nightshift_lights
-
+	else
+		mapload = TRUE
 	if(start_with_cell && !no_emergency)
 		store_cell(new/obj/item/stock_parts/cell/emergency_light(src))
 	spawn(2)
@@ -146,7 +146,7 @@
 				if(prob(5))
 					break_light_tube(1)
 		spawn(1)
-			update(0)
+			update(FALSE, TRUE)
 
 /obj/machinery/light/Destroy()
 	var/area/A = get_area(src)
@@ -184,24 +184,29 @@
 	if(emergency_mode || (local_area?.fire))
 		. += mutable_appearance(overlayicon, "[base_state]_emergency")
 		return
+	if(local_area?.vacuum)
+		. += mutable_appearance(overlayicon, "[base_state]_nightshift")
+		return
 	if(nightshift_enabled)
 		. += mutable_appearance(overlayicon, "[base_state]_nightshift")
 		return
 	. += mutable_appearance(overlayicon, base_state)
 
 // update the icon_state and luminosity of the light depending on its state
-/obj/machinery/light/proc/update(trigger = TRUE)
+/obj/machinery/light/proc/update(trigger = TRUE, quiet = FALSE, instant = FALSE)
 	switch(status)
 		if(LIGHT_BROKEN,LIGHT_BURNED,LIGHT_EMPTY)
 			on = FALSE
 	emergency_mode = FALSE
 	if(on)
-		if(maploaded)
+		if(mapload)
 			turn_on(trigger, TRUE)
-			maploaded = FALSE
+			mapload = FALSE
+		else if(instant)
+			turn_on(trigger, quiet)
 		else if(!turning_on)
 			turning_on = TRUE
-			addtimer(CALLBACK(src, PROC_REF(turn_on), trigger), rand(LIGHT_ON_DELAY_LOWER, LIGHT_ON_DELAY_UPPER))
+			addtimer(CALLBACK(src, PROC_REF(turn_on), trigger, quiet), rand(LIGHT_ON_DELAY_LOWER, LIGHT_ON_DELAY_UPPER))
 	else if(use_emergency_power(LIGHT_EMERGENCY_POWER_USE) && !turned_off())
 		use_power = IDLE_POWER_USE
 		emergency_mode = TRUE
@@ -236,6 +241,9 @@
 	var/area/A = get_area(src)
 	if (A?.fire)
 		CO = bulb_emergency_colour
+	else if (A?.vacuum)
+		CO = bulb_vacuum_colour
+		BR = bulb_vacuum_brightness
 	else if (nightshift_enabled)
 		BR = nightshift_brightness
 		PO = nightshift_light_power
@@ -292,7 +300,7 @@
 // will not switch on if broken/burned/empty
 /obj/machinery/light/proc/seton(s)
 	on = (s && status == LIGHT_OK)
-	update()
+	update(FALSE, TRUE, TRUE)
 
 /obj/machinery/light/get_cell()
 	return cell
