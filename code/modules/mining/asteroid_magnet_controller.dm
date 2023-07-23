@@ -110,7 +110,6 @@
 
 /// Similar to shuttle move, but very basic as it doens't need to deal with a lot of the same complexities
 /obj/machinery/computer/asteroid_magnet_controller/proc/pull_asteroid(source_z, minx, maxx, miny, maxy)
-	var/list/moved_areas = list()
 	// Changeturfs on the asteroid magnet location to the asteroid turfs, adding baseturfs to mark where the asteroid is
 	for (var/turf/T as() in block(locate(minx, miny, source_z), locate(maxx, maxy, source_z)))
 		// Ignore space turfs
@@ -138,12 +137,16 @@
 		// Transfer objects from the previous location
 		for (var/atom/movable/thing as() in T.contents)
 			thing.onShuttleMove(new_location, T, list(), NORTH, null, null)
+		if (!istype(T.loc, /area/space))
+			var/area/A = T.loc
+			A.onShuttleMove(T, new_location, new_location.loc)
 		// Remove the turfs from the previous location
 		T.TransferComponents(new_location)
 		SSexplosions.wipe_turf(T)
 		// Since we moved everything, just wipe the entire turf
 		T.empty()
-	// Deal with telling the areas that they were moved
+		// Reset the area to space
+		T.change_area(T.loc, GLOB.areas_by_type[/area/space])
 
 /obj/machinery/computer/asteroid_magnet_controller/proc/eject_asteroid()
 	if (!linked_zone)
@@ -189,4 +192,4 @@
 		T.ScrapeAway(depth)
 
 /obj/machinery/computer/asteroid_magnet_controller/proc/eject_asteroid_to_space(list/turfs)
-	CRASH("Not implemented")
+	// Get a dynamic z-level, dump the people to that level and send them flying away

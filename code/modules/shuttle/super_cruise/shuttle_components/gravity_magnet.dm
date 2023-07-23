@@ -37,6 +37,13 @@
 		to_chat(user, "<span class='notice'>You successfully store [src] into [buffer_parent]'s buffer.</span>")
 		return COMPONENT_BUFFER_RECIEVED
 
+/obj/machinery/gravity_magnet/proc/get_magnet_location()
+	var/turf/location = get_turf(src)
+	if (!location)
+		return null
+	var/virtual_z = location.get_virtual_z_level()
+	return SSorbits.assoc_z_levels["[virtual_z]"]
+
 /obj/machinery/gravity_magnet/active
 	name = "gravity magnet"
 	desc = "A machine which allows for the towing of orbital bodies."
@@ -120,10 +127,3 @@
 	// Check if we are too far away and are forced to disconnect
 	//TODO
 	return TRUE
-
-/obj/machinery/gravity_magnet/active/proc/get_magnet_location()
-	var/turf/location = get_turf(src)
-	if (!location)
-		return null
-	var/virtual_z = location.get_virtual_z_level()
-	return SSorbits.assoc_z_levels["[virtual_z]"]
