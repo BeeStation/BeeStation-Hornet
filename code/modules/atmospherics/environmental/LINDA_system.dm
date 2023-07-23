@@ -64,12 +64,7 @@
 		T.__update_auxtools_turf_adjacency_info(isspaceturf(T.get_z_base_turf()), -1)
 	UNSETEMPTY(atmos_adjacent_turfs)
 	src.atmos_adjacent_turfs = atmos_adjacent_turfs
-	for(var/t in atmos_adjacent_turfs)
-		var/turf/open/T = t
-		for(var/obj/machinery/door/firedoor/FD in T)
-			FD.UpdateAdjacencyFlags()
-	for(var/obj/machinery/door/firedoor/FD in src)
-		FD.UpdateAdjacencyFlags()
+	set_sleeping(isclosedturf(src))
 	__update_auxtools_turf_adjacency_info(isspaceturf(get_z_base_turf()))
 
 /turf/proc/ImmediateDisableAdjacency(disable_adjacent = TRUE)
@@ -86,12 +81,6 @@
 			UNSETEMPTY(T.atmos_adjacent_turfs)
 			T.__update_auxtools_turf_adjacency_info(isspaceturf(T.get_z_base_turf()), -1)
 	LAZYCLEARLIST(atmos_adjacent_turfs)
-	for(var/t in atmos_adjacent_turfs)
-		var/turf/open/T = t
-		for(var/obj/machinery/door/firedoor/FD in T)
-			FD.UpdateAdjacencyFlags()
-	for(var/obj/machinery/door/firedoor/FD in src)
-		FD.UpdateAdjacencyFlags()
 	__update_auxtools_turf_adjacency_info(isspaceturf(get_z_base_turf()))
 
 /turf/proc/set_sleeping(should_sleep)
