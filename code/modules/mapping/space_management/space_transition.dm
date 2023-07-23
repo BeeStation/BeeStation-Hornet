@@ -139,5 +139,5 @@
 				if(!mirage_dir)
 					continue
 
-				var/turf/place = locate(S.destination_x, S.destination_y, zdestination)
+				var/turf/place = locate(S.destination_x, S.destination_y, S.destination_z)
 				S.AddComponent(/datum/component/mirage_border, place, mirage_dir)
