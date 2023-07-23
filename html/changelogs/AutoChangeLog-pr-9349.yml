@@ -1,7 +1,0 @@
-author: RKz, Spooky Donut, Rohesie
-delete-after: true
-changes:
-  - code_imp: lying renamed to lying_angle and set as protected, lying_angle should
-      never be called directly
-  - refactor: how lying is updated
-  - code_imp: purified a few calls
