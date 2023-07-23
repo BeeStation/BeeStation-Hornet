@@ -770,7 +770,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "</center>"
 
 			var/fcolor =  "#3366CC"
-			var/metabalance = user.client.get_metabalance()
+			var/metabalance = user.client.get_metabalance_db()
 			dat += "<table align='center' width='100%'>"
 			dat += "<tr><td colspan=4><center><b>Current balance: <font color='[fcolor]'>[metabalance]</font> [CONFIG_GET(string/metacurrency_name)]s.</b> \[<a href='?_src_=prefs;preference=gear;clear_loadout=1'>Clear Loadout</a>\]</center></td></tr>"
 			dat += "<tr><td colspan=4><center><b>"
@@ -1332,7 +1332,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if(TG.sort_category == "Donator")
 				if(CONFIG_GET(flag/donator_items) && alert(parent, "This item is only accessible to our patrons. Would you like to subscribe?", "Patron Locked", "Yes", "No") == "Yes")
 					parent.donate()
-			else if(TG.cost < user.client.get_metabalance())
+			else if(TG.cost <= user.client.get_metabalance_db())
 				purchased_gear += TG.id
 				TG.purchase(user.client)
 				user.client.inc_metabalance((TG.cost * -1), TRUE, "Purchased [TG.display_name].")
@@ -1458,7 +1458,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						active_character.age = max(min( round(text2num(new_age)), AGE_MAX),AGE_MIN)
 
 				if("hair_color")
-					var/new_hair = input(user, "Choose your character's hair colour:", "Character Preference","#" + active_character.hair_color) as color|null
+					var/new_hair = tgui_color_picker(user, "Choose your character's hair colour:", "Character Preference", "#" + active_character.hair_color)
 					if(new_hair)
 						active_character.hair_color = sanitize_hexcolor(new_hair)
 
@@ -1474,7 +1474,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						active_character.gradient_style = new_gradient_style
 
 				if("gradient_color")
-					var/new_hair_gradient = input(user, "Choose your character's hair gradient colour:", "Character Preference", "#" + active_character.gradient_color) as color|null
+					var/new_hair_gradient = tgui_color_picker(user, "Choose your character's hair gradient colour:", "Character Preference", "#" + active_character.gradient_color)
 					if(new_hair_gradient)
 						active_character.gradient_color = sanitize_hexcolor(new_hair_gradient)
 
@@ -1491,7 +1491,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					active_character.gradient_style = previous_list_item(active_character.gradient_style, GLOB.hair_gradients_list)
 
 				if("facial")
-					var/new_facial = input(user, "Choose your character's facial-hair colour:", "Character Preference","#" + active_character.facial_hair_color) as color|null
+					var/new_facial = tgui_color_picker(user, "Choose your character's facial-hair colour:", "Character Preference","#" + active_character.facial_hair_color)
 					if(new_facial)
 						active_character.facial_hair_color = sanitize_hexcolor(new_facial)
 
@@ -1512,7 +1512,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						active_character.underwear = new_underwear
 
 				if("underwear_color")
-					var/new_underwear_color = input(user, "Choose your character's underwear color:", "Character Preference","#"+active_character.underwear_color) as color|null
+					var/new_underwear_color = tgui_color_picker(user, "Choose your character's underwear color:", "Character Preference","#"+active_character.underwear_color)
 					if(new_underwear_color)
 						active_character.underwear_color = sanitize_hexcolor(new_underwear_color)
 
@@ -1528,7 +1528,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						active_character.socks = new_socks
 
 				if("eyes")
-					var/new_eyes = input(user, "Choose your character's eye colour:", "Character Preference","#"+active_character.eye_color) as color|null
+					var/new_eyes = tgui_color_picker(user, "Choose your character's eye colour:", "Character Preference","#"+active_character.eye_color)
 					if(new_eyes)
 						active_character.eye_color = sanitize_hexcolor(new_eyes)
 
@@ -1563,7 +1563,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 
 				if("mutant_color")
-					var/new_mutantcolor = input(user, "Choose your character's alien/mutant color:", "Character Preference","#"+active_character.features["mcolor"]) as color|null
+					var/new_mutantcolor = tgui_color_picker(user, "Choose your character's alien/mutant color:", "Character Preference","#"+active_character.features["mcolor"])
 					if(new_mutantcolor)
 						var/temp_hsv = RGBtoHSV(new_mutantcolor)
 						if(new_mutantcolor == "#000000")
@@ -1723,12 +1723,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						active_character.skin_tone = new_s_tone
 
 				if("ooccolor")
-					var/new_ooccolor = input(user, "Choose your OOC colour:", "Game Preference",ooccolor) as color|null
+					var/new_ooccolor = tgui_color_picker(user, "Choose your OOC colour:", "Game Preference",ooccolor)
 					if(new_ooccolor)
 						ooccolor = new_ooccolor
 
 				if("asaycolor")
-					var/new_asaycolor = input(user, "Choose your ASAY color:", "Game Preference",asaycolor) as color|null
+					var/new_asaycolor = tgui_color_picker(user, "Choose your ASAY color:", "Game Preference",asaycolor)
 					if(new_asaycolor)
 						asaycolor = sanitize_ooccolor(new_asaycolor)
 
@@ -1793,7 +1793,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(pickedPDAStyle)
 						pda_theme = GLOB.ntos_device_themes_default[pickedPDAStyle]
 				if("pda_color")
-					var/pickedPDAColor = input(user, "Choose your default Thinktronic Classic theme background color.", "Character Preference", pda_color) as color|null
+					var/pickedPDAColor = tgui_color_picker(user, "Choose your default Thinktronic Classic theme background color.", "Character Preference", pda_color)
 					if(pickedPDAColor)
 						pda_color = pickedPDAColor
 				if ("see_balloon_alerts")
@@ -1831,7 +1831,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("outline_enabled")
 					toggles ^= PREFTOGGLE_OUTLINE_ENABLED
 				if("outline_color")
-					var/pickedOutlineColor = input(user, "Choose your outline color.", "General Preference", outline_color) as color|null
+					var/pickedOutlineColor = tgui_color_picker(user, "Choose your outline color.", "General Preference", outline_color)
 					if(pickedOutlineColor)
 						outline_color = pickedOutlineColor
 				if("tgui_lock")
@@ -1969,8 +1969,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("ambientocclusion")
 					toggles2 ^= PREFTOGGLE_2_AMBIENT_OCCLUSION
 					if(parent && parent.screen && parent.screen.len)
-						var/atom/movable/screen/plane_master/game_world/PM = locate(/atom/movable/screen/plane_master/game_world) in parent.screen
-						PM.backdrop(parent.mob)
+						var/atom/movable/screen/plane_master/game_world/game_pm = locate(/atom/movable/screen/plane_master/game_world) in parent.screen
+						game_pm.backdrop(parent.mob)
+						// Multiz shadow
+						var/atom/movable/screen/plane_master/floor/floor_pm = locate(/atom/movable/screen/plane_master/floor) in parent.screen
+						floor_pm.backdrop(parent.mob)
 
 				if("auto_fit_viewport")
 					toggles2 ^= PREFTOGGLE_2_AUTO_FIT_VIEWPORT

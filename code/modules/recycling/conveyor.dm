@@ -328,6 +328,9 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		id = newid
 	update_icon()
 	LAZYADD(GLOB.conveyors_by_id[id], src)
+	AddComponent(/datum/component/usb_port, list(
+		/obj/item/circuit_component/conveyor_switch,
+	))
 
 /obj/machinery/conveyor_switch/Destroy()
 	LAZYREMOVE(GLOB.conveyors_by_id[id], src)
@@ -516,4 +519,46 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 /obj/item/paper/guides/conveyor
 	name = "paper- 'Nano-it-up U-build series, #9: Build your very own conveyor belt, in SPACE'"
 	default_raw_text = "<h1>Congratulations!</h1><p>You are now the proud owner of the best conveyor set available for space mail order! We at Nano-it-up know you love to prepare your own structures without wasting time, so we have devised a special streamlined assembly procedure that puts all other mail-order products to shame!</p><p>Firstly, you need to link the conveyor switch assembly to each of the conveyor belt assemblies. After doing so, you simply need to install the belt assemblies onto the floor, et voila, belt built. Our special Nano-it-up smart switch will detected any linked assemblies as far as the eye can see! This convenience, you can only have it when you Nano-it-up. Stay nano!</p>"
+
+/obj/item/circuit_component/conveyor_switch
+	display_name = "Conveyor Switch"
+	desc = "Allows to control connected conveyor belts."
+	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL
+
+	var/datum/port/output/direction
+	var/obj/machinery/conveyor_switch/attached_switch
+
+/obj/item/circuit_component/conveyor_switch/populate_ports()
+	direction = add_output_port("Conveyor Direction", PORT_TYPE_NUMBER)
+
+/obj/item/circuit_component/conveyor_switch/get_ui_notices()
+	. = ..()
+	. += create_ui_notice("Conveyor direction 0 means that it is stopped, 1 means that it is active and -1 means that it is working in reverse mode", "orange", "info")
+
+/obj/item/circuit_component/conveyor_switch/register_usb_parent(atom/movable/parent)
+	. = ..()
+	if(istype(parent, /obj/machinery/conveyor_switch))
+		attached_switch = parent
+
+/obj/item/circuit_component/conveyor_switch/unregister_usb_parent(atom/movable/parent)
+	attached_switch = null
+	return ..()
+
+/obj/item/circuit_component/conveyor_switch/input_received(datum/port/input/port)
+	if(!attached_switch)
+		return
+
+	INVOKE_ASYNC(src, PROC_REF(update_conveyors), port)
+
+/obj/item/circuit_component/conveyor_switch/proc/update_conveyors(datum/port/input/port)
+	if(!attached_switch)
+		return
+
+	attached_switch.update_position()
+	attached_switch.update_icon()
+	attached_switch.update_icon_state()
+	attached_switch.update_linked_conveyors()
+	attached_switch.update_linked_switches()
+	direction.set_output(attached_switch.position)
+
 #undef MAX_CONVEYOR_ITEMS_MOVE

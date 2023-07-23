@@ -13,40 +13,22 @@ const RecipeOptions = (_props, context) => {
     <>
       {!recording && (
         <Box inline mx={1}>
-          <Button
-            color="transparent"
-            content="Clear recipes"
-            onClick={() => setClearingRecipes(true)} />
+          <Button color="transparent" content="Clear recipes" onClick={() => setClearingRecipes(true)} />
         </Box>
       )}
       {!recording && (
         <Button
           icon="trash"
-          color={deletingRecipes ? "red" : "transparent"}
-          content={deletingRecipes ? "Deleting" : "Delete"}
-          onClick={() => setDeletingRecipes(!deletingRecipes)} />
+          color={deletingRecipes ? 'red' : 'transparent'}
+          content={deletingRecipes ? 'Deleting' : 'Delete'}
+          onClick={() => setDeletingRecipes(!deletingRecipes)}
+        />
       )}
       {!recording && (
-        <Button
-          icon="circle"
-          disabled={!data.isBeakerLoaded}
-          content="Record"
-          onClick={() => act('record_recipe')} />
+        <Button icon="circle" disabled={!data.isBeakerLoaded} content="Record" onClick={() => act('record_recipe')} />
       )}
-      {recording && (
-        <Button
-          icon="ban"
-          color="transparent"
-          content="Discard"
-          onClick={() => act('cancel_recording')} />
-      )}
-      {recording && (
-        <Button
-          icon="save"
-          color="green"
-          content="Save"
-          onClick={() => act('save_recording')} />
-      )}
+      {recording && <Button icon="ban" color="transparent" content="Discard" onClick={() => act('cancel_recording')} />}
+      {recording && <Button icon="save" color="green" content="Save" onClick={() => act('save_recording')} />}
     </>
   );
 };
@@ -60,11 +42,7 @@ const RecipeClearAllDimmer = (_props, context) => {
         <Stack.Item>
           <Stack ml={-2}>
             <Stack.Item>
-              <Icon
-                color="red"
-                name="trash"
-                size={10}
-              />
+              <Icon color="red" name="trash" size={10} />
             </Stack.Item>
           </Stack>
         </Stack.Item>
@@ -86,7 +64,8 @@ const RecipeClearAllDimmer = (_props, context) => {
                 content="Keep"
                 onClick={() => {
                   setClearingRecipes(null);
-                }} />
+                }}
+              />
             </Stack.Item>
             <Stack.Item>
               <Button
@@ -95,7 +74,8 @@ const RecipeClearAllDimmer = (_props, context) => {
                 onClick={() => {
                   act('clear_all_recipes');
                   setClearingRecipes(null);
-                }} />
+                }}
+              />
             </Stack.Item>
           </Stack>
         </Stack.Item>
@@ -110,11 +90,11 @@ const RecipeButton = (props, context) => {
   const [deletingRecipes] = useLocalState(context, 'deletingRecipes', false);
   return (
     <Button
-      icon={deletingRecipes ? "trash" : "tint"}
+      icon={deletingRecipes ? 'trash' : 'tint'}
       width="129.5px"
       lineHeight="21px"
       content={recipe.name}
-      color={!!deletingRecipes && "red"}
+      color={!!deletingRecipes && 'red'}
       onClick={() => {
         act(deletingRecipes ? 'delete_recipe' : 'dispense_recipe', {
           recipe: recipe.name,
@@ -130,51 +110,41 @@ export const ChemDispenser = (_props, context) => {
   const [clearingRecipes] = useLocalState(context, 'clearingRecipes', false);
   // TODO: Change how this piece of shit is built on server side
   // It has to be a list, not a fucking OBJECT!
-  const recipes = Object.keys(data.recipes)
-    .map(name => ({
-      name,
-      contents: data.recipes[name],
-    }));
+  const recipes = Object.keys(data.recipes).map((name) => ({
+    name,
+    contents: data.recipes[name],
+  }));
   const beakerTransferAmounts = data.beakerTransferAmounts || [];
-  const beakerContents = recording
-    && Object.keys(data.recordingRecipe)
-      .map(id => ({
+  const beakerContents =
+    (recording &&
+      Object.keys(data.recordingRecipe).map((id) => ({
         id,
         name: toTitleCase(id.replace(/_/, ' ')),
         volume: data.recordingRecipe[id],
-      }))
-    || data.beakerContents
-    || [];
+      }))) ||
+    data.beakerContents ||
+    [];
   return (
-    <Window
-      width={565}
-      height={620}>
-      {!!clearingRecipes && (
-        <RecipeClearAllDimmer />
-      )}
+    <Window width={565} height={620}>
+      {!!clearingRecipes && <RecipeClearAllDimmer />}
       <Window.Content scrollable>
         <Section
           title="Status"
-          buttons={recording && (
-            <Box inline mx={1} color="red">
-              <Icon name="circle" mr={1} />
-              Recording
-            </Box>
-          )}>
+          buttons={
+            recording && (
+              <Box inline mx={1} color="red">
+                <Icon name="circle" mr={1} />
+                Recording
+              </Box>
+            )
+          }>
           <LabeledList>
             <LabeledList.Item label="Energy">
-              <ProgressBar
-                value={data.energy / data.maxEnergy}>
-                {toFixed(data.energy) + ' units'}
-              </ProgressBar>
+              <ProgressBar value={data.energy / data.maxEnergy}>{toFixed(data.energy) + ' units'}</ProgressBar>
             </LabeledList.Item>
           </LabeledList>
         </Section>
-        <Section
-          title="Recipes"
-          buttons={(
-            <RecipeOptions />
-          )}>
+        <Section title="Recipes" buttons={<RecipeOptions />}>
           <Box mr={-1}>
             {recipes.map((recipe) => (
               <RecipeButton recipe={recipe} key={recipe.name} />
@@ -184,82 +154,64 @@ export const ChemDispenser = (_props, context) => {
         </Section>
         <Section
           title="Dispense"
-          buttons={(
-            beakerTransferAmounts.map(amount => (
-              <Button
-                key={amount}
-                icon="plus"
-                selected={amount === data.amount}
-                content={amount}
-                onClick={() => act('amount', {
+          buttons={beakerTransferAmounts.map((amount) => (
+            <Button
+              key={amount}
+              icon="plus"
+              selected={amount === data.amount}
+              content={amount}
+              onClick={() =>
+                act('amount', {
                   target: amount,
-                })} />
-            ))
-          )}>
+                })
+              }
+            />
+          ))}>
           <Box mr={-1}>
-            {data.chemicals.map(chemical => (
+            {data.chemicals.map((chemical) => (
               <Button
                 key={chemical.id}
                 icon="tint"
                 width="129.5px"
                 lineHeight="21px"
                 content={chemical.title}
-                onClick={() => act('dispense', {
-                  reagent: chemical.id,
-                })} />
+                onClick={() =>
+                  act('dispense', {
+                    reagent: chemical.id,
+                  })
+                }
+              />
             ))}
           </Box>
         </Section>
         <Section
           title="Beaker"
-          buttons={(
-            beakerTransferAmounts.map(amount => (
-              <Button
-                key={amount}
-                icon="minus"
-                disabled={recording}
-                content={amount}
-                onClick={() => act('remove', { amount })} />
-            ))
-          )}>
+          buttons={beakerTransferAmounts.map((amount) => (
+            <Button key={amount} icon="minus" disabled={recording} content={amount} onClick={() => act('remove', { amount })} />
+          ))}>
           <LabeledList>
             <LabeledList.Item
               label="Beaker"
-              buttons={!!data.isBeakerLoaded && (
-                <Button
-                  icon="eject"
-                  content="Eject"
-                  disabled={!data.isBeakerLoaded}
-                  onClick={() => act('eject')} />
-              )}>
-              {recording
-                && 'Virtual beaker'
-                || data.isBeakerLoaded
-                  && (
-                    <>
-                      <AnimatedNumber
-                        initial={0}
-                        value={data.beakerCurrentVolume} />
-                      /{data.beakerMaxVolume} units
-                    </>
-                  )
-                || 'No beaker'}
+              buttons={
+                !!data.isBeakerLoaded && (
+                  <Button icon="eject" content="Eject" disabled={!data.isBeakerLoaded} onClick={() => act('eject')} />
+                )
+              }>
+              {(recording && 'Virtual beaker') ||
+                (data.isBeakerLoaded && (
+                  <>
+                    <AnimatedNumber initial={0} value={data.beakerCurrentVolume} />/{data.beakerMaxVolume} units
+                  </>
+                )) ||
+                'No beaker'}
             </LabeledList.Item>
-            <LabeledList.Item
-              label="Contents">
+            <LabeledList.Item label="Contents">
               <Box color="label">
-                {(!data.isBeakerLoaded && !recording) && 'N/A'
-                  || beakerContents.length === 0 && 'Nothing'}
+                {(!data.isBeakerLoaded && !recording && 'N/A') || (beakerContents.length === 0 && 'Nothing')}
               </Box>
-              {beakerContents.map(chemical => (
-                <Box
-                  key={chemical.name}
-                  color="label">
-                  <AnimatedNumber
-                    initial={0}
-                    value={chemical.volume} />
-                  {' '}
-                  units of {chemical.name}
+              {beakerContents.map((chemical) => (
+                <Box key={chemical.name} color="label">
+                  <AnimatedNumber initial={0} value={chemical.volume} /> units of {chemical.name}
                 </Box>
               ))}
             </LabeledList.Item>

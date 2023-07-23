@@ -82,13 +82,6 @@
 		is_powered = FALSE
 	icon_state = icon_name + "[is_powered]" + "[(blood ? "bld" : "")]" // add the blood tag at the end
 
-/obj/machinery/recycler/CanAllowThrough(atom/movable/mover, border_dir)
-	. = ..()
-	if(!anchored)
-		return
-	if(border_dir == eat_dir)
-		return TRUE
-
 /obj/machinery/recycler/Bumped(atom/movable/AM)
 
 	if(machine_stat & (BROKEN|NOPOWER))

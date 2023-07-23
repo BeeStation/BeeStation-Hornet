@@ -21,6 +21,7 @@
 	var/datum/uplink_purchase_log/purchase_log
 	var/list/uplink_items
 	var/hidden_crystals = 0
+	var/unlock_text
 	var/unlock_note
 	var/unlock_code
 	var/failsafe_code

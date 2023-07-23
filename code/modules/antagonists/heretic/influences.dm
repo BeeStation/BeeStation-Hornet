@@ -204,7 +204,7 @@
 	anchored = TRUE
 	interaction_flags_atom = INTERACT_ATOM_NO_FINGERPRINT_ATTACK_HAND
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	invisibility = INVISIBILITY_OBSERVER
+	invisibility = INVISIBILITY_SPIRIT
 	/// Whether we're currently being drained or not.
 	var/being_drained = FALSE
 	/// The icon state applied to the image created for this influence.

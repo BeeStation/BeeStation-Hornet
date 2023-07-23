@@ -285,6 +285,7 @@
 	desc = "Produced by \"Tyranny of Honk, INC\", this exosuit is designed as heavy clown-support. This one has been painted black for maximum fun. HONK!"
 	name = "\improper Dark H.O.N.K"
 	icon_state = "darkhonker"
+	base_icon_state = "darkhonker"
 	max_integrity = 300
 	deflect_chance = 15
 	armor = list(MELEE = 40,  BULLET = 40, LASER = 50, ENERGY = 35, BOMB = 20, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, STAMINA = 0)

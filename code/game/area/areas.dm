@@ -46,6 +46,8 @@
 	/// This gets overridden to 1 for space in area/Initialize(mapload).
 	var/always_unpowered = FALSE
 
+	var/obj/machinery/power/apc/apc = null
+
 	var/power_equip = TRUE
 	var/power_light = TRUE
 	var/power_environ = TRUE
@@ -102,6 +104,10 @@
 	var/obj/effect/lighting_overlay
 	var/lighting_overlay_colour = "#FFFFFF"
 	var/lighting_overlay_opacity = 0
+	var/lighting_overlay_matrix_cr = 0
+	var/lighting_overlay_matrix_cg = 0
+	var/lighting_overlay_matrix_cb = 0
+	var/lighting_overlay_cached_darkening_matrix
 
 	///This datum, if set, allows terrain generation behavior to be ran on Initialize()
 	var/datum/map_generator/map_generator
@@ -116,6 +122,9 @@
 
 	/// How hard it is to hack airlocks in this area
 	var/airlock_hack_difficulty = AIRLOCK_SECURITY_NONE
+
+	/// Whether the lights in this area aren't turned off when it's empty at roundstart
+	var/lights_always_start_on = FALSE
 
 /**
   * A list of teleport locations
@@ -200,7 +209,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 
 	if(!IS_DYNAMIC_LIGHTING(src))
 		blend_mode = BLEND_MULTIPLY // Putting this in the constructor so that it stops the icons being screwed up in the map editor.
-		add_overlay(/obj/effect/fullbright)
+		add_overlay(GLOB.fullbright_overlay)
 	else if(lighting_overlay_opacity && lighting_overlay_colour)
 		generate_lighting_overlay()
 	reg_in_areas_in_z()
@@ -227,14 +236,26 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		//Delete the old lighting overlay object
 		QDEL_NULL(lighting_overlay)
 	//Create the lighting overlay object for this area
-	lighting_overlay = new /obj/effect/fullbright
-	lighting_overlay.color = lighting_overlay_colour
-	lighting_overlay.alpha = lighting_overlay_opacity
+	update_lighting_overlay()
 	//Areas with a lighting overlay should be fully visible, and the tiles adjacent to them should also
 	//be luminous
 	luminosity = 1
 	//Add the lighting overlay
 	add_overlay(lighting_overlay)
+
+/area/proc/update_lighting_overlay()
+	lighting_overlay = new /obj/effect/fullbright
+	lighting_overlay.color = lighting_overlay_colour
+	lighting_overlay.alpha = lighting_overlay_opacity
+	if(length(lighting_overlay_colour) != 7)
+		return
+	var/r = hex2num(copytext(lighting_overlay_colour, 2, 4))/255
+	var/g = hex2num(copytext(lighting_overlay_colour, 4, 6))/255
+	var/b = hex2num(copytext(lighting_overlay_colour, 6, 8))/255
+	lighting_overlay_matrix_cr = r * (lighting_overlay_opacity/255)
+	lighting_overlay_matrix_cg = g * (lighting_overlay_opacity/255)
+	lighting_overlay_matrix_cb = b * (lighting_overlay_opacity/255)
+	lighting_overlay_cached_darkening_matrix = null // Clear cached list
 
 /area/proc/RunGeneration()
 	if(map_generator)
@@ -410,7 +431,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		var/obj/machinery/firealarm/F = alarm
 		F.update_fire_light(fire)
 	for(var/obj/machinery/light/L in src)
-		L.update()
+		L.update(TRUE, TRUE, TRUE)
 
 /**
   * unset the fire alarm visual affects in an area
@@ -424,19 +445,19 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		var/obj/machinery/firealarm/F = alarm
 		F.update_fire_light(fire)
 	for(var/obj/machinery/light/L in src)
-		L.update()
+		L.update(TRUE, TRUE, TRUE)
 
 /area/proc/set_vacuum_alarm_effect() //Just like fire alarm but blue
 	vacuum = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	for(var/obj/machinery/light/L in src)
-		L.update()
+		L.update(TRUE, TRUE, TRUE)
 
 /area/proc/unset_vacuum_alarm_effect()
 	vacuum = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	for(var/obj/machinery/light/L in src)
-		L.update()
+		L.update(TRUE, TRUE, TRUE)
 
 /**
   * Update the icon state of the area
@@ -553,51 +574,6 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	SEND_SIGNAL(src, COMSIG_AREA_EXITED, gone, direction)
 	SEND_SIGNAL(gone, COMSIG_MOVABLE_EXITTED_AREA, src) //The atom that exits the area
 
-/**
-  * Returns true if this atom has gravity for the passed in turf or other gravity-mimicking behaviors
-  * In other words, it returns whether the atom can be *on* the turf (i.e. not forced to float)
-  *
-  * Sends signals COMSIG_ATOM_HAS_GRAVITY and COMSIG_TURF_HAS_GRAVITY, both can force gravity with
-  * the forced gravity var
-  *
-  * Gravity situations:
-  * * No gravity if you're not in a turf
-  * * No gravity if this atom is in is a space turf
-  * * Gravity if the area it's in always has gravity
-  * * Gravity if there's a gravity generator on the z level
-  * * Gravity if the Z level has an SSMappingTrait for ZTRAIT_GRAVITY
-  * * otherwise no gravity
-  */
-/atom/proc/has_gravity(turf/T)
-	if(!T || !isturf(T))
-		T = get_turf(src)
-
-	if(!T)
-		return FALSE
-
-	var/list/forced_gravity = list()
-	SEND_SIGNAL(src, COMSIG_ATOM_HAS_GRAVITY, T, forced_gravity)
-	if(!length(forced_gravity))
-		SEND_SIGNAL(T, COMSIG_TURF_HAS_GRAVITY, src, forced_gravity)
-	if(length(forced_gravity))
-		var/max_grav
-		for(var/i in forced_gravity)
-			max_grav = max(max_grav, i)
-		return max_grav
-
-	if(!T.check_gravity()) // Turf never has gravity
-		return FALSE
-	var/area/A = get_area(T)
-	if(A.has_gravity) // Areas which always has gravity
-		return TRUE
-	else if(SSmapping.level_trait(T.z, ZTRAIT_GRAVITY)) // If the z-level always has gravity
-		return TRUE
-	else if(GLOB.gravity_generators["[T.get_virtual_z_level()]"]) // If there's a gravity generator on our z level
-		var/max_grav = 0
-		for(var/obj/machinery/gravity_generator/main/G in GLOB.gravity_generators["[T.get_virtual_z_level()]"])
-			max_grav = max(G.setting,max_grav)
-		return max_grav
-	return FALSE
 /**
   * Setup an area (with the given name)
   *

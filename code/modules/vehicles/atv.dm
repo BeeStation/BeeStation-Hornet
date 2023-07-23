@@ -48,20 +48,20 @@
 		turret.forceMove(get_turf(src))
 		switch(dir)
 			if(NORTH)
-				turret.pixel_x = 0
-				turret.pixel_y = 4
+				turret.pixel_x = base_pixel_x
+				turret.pixel_y = base_pixel_y + 4
 				turret.layer = ABOVE_MOB_LAYER
 			if(EAST)
-				turret.pixel_x = -12
-				turret.pixel_y = 4
+				turret.pixel_x = base_pixel_x - 12
+				turret.pixel_y = base_pixel_y + 4
 				turret.layer = OBJ_LAYER
 			if(SOUTH)
-				turret.pixel_x = 0
-				turret.pixel_y = 4
+				turret.pixel_x = base_pixel_x
+				turret.pixel_y = base_pixel_y + 4
 				turret.layer = OBJ_LAYER
 			if(WEST)
-				turret.pixel_x = 12
-				turret.pixel_y = 4
+				turret.pixel_x = base_pixel_x + 12
+				turret.pixel_y = base_pixel_y + 4
 				turret.layer = OBJ_LAYER
 
 /obj/vehicle/ridden/atv/attackby(obj/item/W as obj, mob/user as mob, params)

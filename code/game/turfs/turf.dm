@@ -74,23 +74,20 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 	levelupdate()
 	if(length(smoothing_groups))
-		sortTim(smoothing_groups) //In case it's not properly ordered, let's avoid duplicate entries with the same values.
 		SET_BITFLAG_LIST(smoothing_groups)
 	if(length(canSmoothWith))
-		sortTim(canSmoothWith)
-		if(canSmoothWith[length(canSmoothWith)] > MAX_S_TURF) //If the last element is higher than the maximum turf-only value, then it must scan turf contents for smoothing targets.
+		if(max(canSmoothWith) > MAX_S_TURF) //If the last element is higher than the maximum turf-only value, then it must scan turf contents for smoothing targets.
 			smoothing_flags |= SMOOTH_OBJ
 		SET_BITFLAG_LIST(canSmoothWith)
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 		QUEUE_SMOOTH(src)
-	visibilityChanged()
 
 	for(var/atom/movable/content as anything in src)
 		Entered(content, null)
 
 	var/area/A = loc
 	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
-		add_overlay(/obj/effect/fullbright)
+		add_overlay(GLOB.fullbright_overlay)
 
 	if(requires_activation)
 		CALCULATE_ADJACENT_TURFS(src)
@@ -98,18 +95,11 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	if(color)
 		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
 
+	if (z_flags & Z_MIMIC_BELOW)
+		setup_zmimic(mapload)
+
 	if (light_power && light_range)
 		update_light()
-
-	// Propogate creation to turfs above and below
-	var/turf/T = SSmapping.get_turf_above(src)
-	if(T)
-		T.multiz_turf_new(src, DOWN)
-		SEND_SIGNAL(T, COMSIG_TURF_MULTIZ_NEW, src, DOWN)
-	T = SSmapping.get_turf_below(src)
-	if(T)
-		T.multiz_turf_new(src, UP)
-		SEND_SIGNAL(T, COMSIG_TURF_MULTIZ_NEW, src, UP)
 
 	if (opacity)
 		directional_opacity = ALL_CARDINALS
@@ -138,13 +128,8 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	if(!changing_turf)
 		stack_trace("Incorrect turf deletion")
 	changing_turf = FALSE
-	// Propogate deletion to turfs above and below
-	var/turf/T = SSmapping.get_turf_above(src)
-	if(T)
-		T.multiz_turf_del(src, DOWN)
-	T = SSmapping.get_turf_below(src)
-	if(T)
-		T.multiz_turf_del(src, UP)
+	if (z_flags & Z_MIMIC_BELOW)
+		cleanup_zmimic()
 	if(force)
 		..()
 		//this will completely wipe turf state
@@ -154,7 +139,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		for(var/I in B.vars)
 			B.vars[I] = null
 		return
-	visibilityChanged()
 	QDEL_LIST(blueprint_data)
 	flags_1 &= ~INITIALIZED_1
 	requires_activation = FALSE
@@ -500,9 +484,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	return TRUE
 
 /// When someone falls over onto this turf (Knockdown() or similar), not related to zfalls
-/turf/handle_fall(mob/faller, forced)
-	if(!forced)
-		return
+/turf/handle_fall(mob/faller)
 	if(has_gravity(src))
 		playsound(src, "bodyfall", 50, 1)
 
@@ -577,6 +559,28 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		if(turf_to_check.density || LinkBlockedWithAccess(turf_to_check, caller, ID))
 			continue
 		. += turf_to_check
+
+/turf/proc/generate_fake_pierced_realities(centered = TRUE, max_amount = 2)
+	var/to_spawn = pick(1, max_amount)
+	var/spawned = 0
+	var/location_sanity = 0
+	while(spawned < to_spawn && location_sanity < 100)
+		var/precision = pick(5, 15 * max_amount)
+		var/turf/chosen_location = pick(get_safe_random_station_turfs())
+		if(centered)
+			chosen_location = get_teleport_turf(src, precision) //Using the random teleportation logic here to find a destination turf
+		// We don't want them close to each other - at least 1 tile of seperation
+		var/list/nearby_things = range(1, chosen_location)
+		var/obj/effect/heretic_influence/what_if_i_have_one = locate() in nearby_things
+		var/obj/effect/visible_heretic_influence/what_if_i_had_one_but_its_used = locate() in nearby_things
+		if(what_if_i_have_one || what_if_i_had_one_but_its_used || isspaceturf(chosen_location))
+			location_sanity++
+			continue
+		addtimer(CALLBACK(src, PROC_REF(create_new_fake_reality), chosen_location), rand(0, 500))
+		spawned++
+
+/turf/proc/create_new_fake_reality(turf/F)
+	new /obj/effect/visible_heretic_influence(F)
 
 /// Checks if the turf was blessed with holy water OR the area its in is Chapel
 /turf/proc/is_holy()
