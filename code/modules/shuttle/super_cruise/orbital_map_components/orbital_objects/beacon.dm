@@ -83,6 +83,22 @@
 	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
 	set_orbitting_around_body(linked_map.center, 1200 + 20 * rand(-10, 10))
 
+/datum/orbital_object/z_linked/beacon/ruin/asteroid/get_scan_data()
+	var/data = list()
+	data["Mineral Scan"] = list()
+	var/index = 0
+	for (var/turf/closed/mineral/mineral_path as() in minerals)
+		index ++
+		if (mineral_path == /turf/closed/mineral)
+			continue
+		var/atom/mineral_type = initial(mineral_path.mineralType)
+		if (!mineral_type)
+			continue
+		var/spawn_point = minerals[mineral_path]
+		var/proportion = index == length(minerals) ? (1 - spawn_point) : (minerals[minerals[index + 1]] - spawn_point)
+		data["Mineral Scan"] += "[initial(mineral_type.name)] - [round(proportion * 100)]%"
+	return data
+
 //====================
 // Regular Ruin Z-levels
 //====================

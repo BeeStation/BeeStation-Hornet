@@ -240,5 +240,6 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 				"render_mode" = object.render_mode,
 				"priority" = object.priority,
 				"vel_mult" = object.velocity_multiplier,
+				"scan_data" = object.get_scan_data()
 			))
 	return data

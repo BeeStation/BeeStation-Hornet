@@ -324,3 +324,6 @@
 
 /datum/orbital_object/proc/post_map_setup()
 	return
+
+/datum/orbital_object/proc/get_scan_data()
+	return list()

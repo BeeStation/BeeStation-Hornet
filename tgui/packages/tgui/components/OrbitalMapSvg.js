@@ -1,5 +1,6 @@
 import { clamp } from 'common/math';
 import { Component } from 'inferno';
+import { Fragment } from 'tgui/components';
 
 const FPS = 20;
 // Scales the positions to make things on the map appear closer or further away.
@@ -55,7 +56,8 @@ export class OrbitalMapSvg extends Component {
         mapObject.velocity_y,
         mapObject.radius,
         mapObject.vel_mult,
-        mapObject.created_at
+        mapObject.created_at,
+        mapObject.scan_data
       );
     });
 
@@ -308,6 +310,7 @@ class RenderableObjectType {
     this.velocity_y;
     this.radius;
     this.created_at;
+    this.scan_data;
     this.outlineColour = '#BBBBBB';
     this.outlineWidth = 1;
     this.fill = 'rgba(0, 0, 0, 0)';
@@ -324,7 +327,7 @@ class RenderableObjectType {
 
   // Called every second
   // Updates the data
-  onTick(name, position_x, position_y, velocity_x, velocity_y, radius, vel_mult, created_at) {
+  onTick(name, position_x, position_y, velocity_x, velocity_y, radius, vel_mult, created_at, scan_data) {
     this.name = name;
     this.position_x = position_x;
     this.position_y = position_y;
@@ -333,6 +336,7 @@ class RenderableObjectType {
     this.radius = radius;
     this.created_at = created_at;
     this.vel_mult = vel_mult;
+    this.scan_data = scan_data;
   }
 
   // Called on render()
@@ -363,6 +367,8 @@ class RenderableObjectType {
     let textXPos = clamp(outputXPosition, -250, 200);
     let textYPos = clamp(outputYPosition, -240, 250);
 
+    let currentPosition = 0.6;
+
     return (
       <>
         <circle
@@ -385,6 +391,18 @@ class RenderableObjectType {
         <text x={textXPos} y={textYPos} fill={this.fontFill} fontSize={Math.min(this.textSize * lockedZoomScale, 14)}>
           {this.name}
         </text>
+        {this.inBounds && Object.keys(this.scan_data).map(element => (
+          <Fragment key={element}>
+            <text key={element} x={textXPos} y={textYPos + (currentPosition += 0.6) * Math.min(this.textSize * lockedZoomScale, 14)} fill="#bbbbbb" fontSize={Math.min(this.textSize * 0.6 * lockedZoomScale, 14 * 0.6)}>
+              {element}
+            </text>
+            {this.scan_data[element].map(entry => (
+              <text key={element} x={textXPos + 10} y={textYPos + (currentPosition += 0.6) * Math.min(this.textSize * lockedZoomScale, 14)} fill="#bbbbbb" fontSize={Math.min(this.textSize * 0.6 * lockedZoomScale, 14 * 0.6)}>
+                - {entry}
+              </text>
+            ))}
+          </Fragment>
+        ))}
       </>
     );
   }
@@ -526,7 +544,7 @@ class Shuttle extends RenderableObjectType {
 
   // Called every updateTick
   // Record the path and update variables.
-  onTick(name, position_x, position_y, velocity_x, velocity_y, radius, vel_mult, created_at) {
+  onTick(name, position_x, position_y, velocity_x, velocity_y, radius, vel_mult, created_at, scan_data) {
     // wtf is this
     RenderableObjectType.prototype.onTick.call(
       this,
@@ -537,7 +555,8 @@ class Shuttle extends RenderableObjectType {
       velocity_y,
       radius,
       vel_mult,
-      created_at
+      created_at,
+      scan_data
     );
     // Set the position
     this.recordedTrack[this.recordedTrackLastIndex] = {
