@@ -1,20 +1,36 @@
 #define MAX_ADMINBANS_PER_ADMIN 1
 #define MAX_ADMINBANS_PER_HEADMIN 3
 
+/// Process global ban types
+/proc/check_role_ban(ban_cache, role)
+	if(role in GLOB.antagonist_bannable_roles)
+		if((BAN_ROLE_ALL_ANTAGONISTS in ban_cache) || ("Syndicate" in ban_cache)) // Legacy "Syndicate" ban
+			return TRUE
+	if(role in GLOB.forced_bannable_roles)
+		if(BAN_ROLE_FORCED_ANTAGONISTS in ban_cache)
+			return TRUE
+	if(role in GLOB.ghost_role_bannable_roles)
+		if((BAN_ROLE_ALL_GHOST in ban_cache) || ("Lavaland" in ban_cache)) // Legacy "Lavaland" ban
+			return TRUE
+	return role in ban_cache
+
 //checks client ban cache or DB ban table if ckey is banned from one or more roles
 //doesn't return any details, use only for if statements
 /proc/is_banned_from(player_ckey, list/roles)
-	if(!player_ckey)
+	if(!player_ckey || isnull(roles) || (islist(roles) && !length(roles)))
 		return
+	player_ckey = ckey(player_ckey)
 	var/client/C = GLOB.directory[player_ckey]
 	if(C)
 		if(!C.ban_cache)
 			build_ban_cache(C)
 		if(islist(roles))
 			for(var/R in roles)
-				if(R in C.ban_cache)
+				if(!R)
+					continue
+				if(check_role_ban(C.ban_cache, R))
 					return TRUE //they're banned from at least one role, no need to keep checking
-		else if(roles in C.ban_cache)
+		else if(check_role_ban(C.ban_cache, roles))
 			return TRUE
 	else
 		var/values = list(
@@ -325,16 +341,14 @@
 				"}
 				break_counter++
 			output += "</div></div>"
-		var/list/long_job_lists = list(("Civilian" = GLOB.civilian_positions | JOB_NAME_GIMMICK),
-									"Ghost and Other Roles" = list(ROLE_BRAINWASHED, ROLE_HYPNOTIZED, ROLE_DEATHSQUAD, ROLE_DRONE, ROLE_LAVALAND, ROLE_MIND_TRANSFER, ROLE_POSIBRAIN, ROLE_SENTIENCE),
-									"Antagonist Positions" = list(ROLE_ABDUCTOR, ROLE_ALIEN, ROLE_BLOB, ROLE_SPACE_DRAGON,
-									ROLE_BROTHER, ROLE_CHANGELING, ROLE_CULTIST, ROLE_HERETIC,
-									ROLE_DEVIL, ROLE_INTERNAL_AFFAIRS, ROLE_MALF,
-									ROLE_NINJA, ROLE_OPERATIVE,
-									ROLE_SERVANT_OF_RATVAR,
-									ROLE_OVERTHROW, ROLE_REV, ROLE_REVENANT,
-									ROLE_REV_HEAD, ROLE_SYNDICATE,
-									ROLE_TRAITOR, ROLE_WIZARD, ROLE_HIVE, ROLE_GANG, ROLE_TERATOMA, ROLE_NIGHTMARE, ROLE_SPIDER, ROLE_MORPH, ROLE_SWARMER, ROLE_SPACE_PIRATE, ROLE_FUGITIVE, ROLE_FUGITIVE_HUNTER)) //ROLE_REV_HEAD is excluded from this because rev jobbans are handled by ROLE_REV
+		var/list/long_job_lists = list(
+			"Civilian" = GLOB.civilian_positions | JOB_NAME_GIMMICK,
+			"Antagonist Positions" = list(BAN_ROLE_ALL_ANTAGONISTS) + GLOB.antagonist_bannable_roles,
+			"Forced Antagonist Positions" = list(BAN_ROLE_FORCED_ANTAGONISTS) + GLOB.forced_bannable_roles,
+			"Ghost Roles" = list(BAN_ROLE_ALL_GHOST) + GLOB.ghost_role_bannable_roles,
+			"Other" = GLOB.other_bannable_roles,
+		)
+
 		for(var/department in long_job_lists)
 			output += "<div class='column'><label class='rolegroup long [ckey(department)]'><input type='checkbox' name='[department]' class='hidden' [(usr.client.prefs.toggles2 & PREFTOGGLE_2_FANCY_TGUI) ? " onClick='toggle_checkboxes(this, \"_com\")'" : ""]>[department]</label><div class='content'>"
 			break_counter = 0

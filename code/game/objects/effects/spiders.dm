@@ -120,7 +120,7 @@
 
 /obj/structure/spider/eggcluster/attack_ghost(mob/user)
 	. = ..()
-	if(!user?.client.canGhostRole(ROLE_SPIDER, TRUE, flags_1))
+	if(!user?.client?.can_take_ghost_spawner(ROLE_SPIDER, TRUE, is_ghost_role = FALSE))
 		return
 	if(ghost_ready)
 		make_spider(user)
@@ -198,7 +198,7 @@
 	random_spider = new random_spider(get_turf(src))
 	random_spider.faction = faction.Copy()
 	random_spider.spider_team = spider_team
-	random_spider.set_playable()
+	random_spider.set_playable(ROLE_SPIDER, POLL_IGNORE_SPIDER)
 	spawns_remaining--
 	if(!spawns_remaining)
 		qdel(src)

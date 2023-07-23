@@ -73,7 +73,7 @@
 	var/datum/lighting_corner/cb = myturf.lighting_corner_NW || dummy_lighting_corner
 	var/datum/lighting_corner/ca = myturf.lighting_corner_NE || dummy_lighting_corner
 
-	var/max = max(cr.cache_mx, cg.cache_mx, cb.cache_mx, ca.cache_mx)
+	var/max = max(cr.largest_color_luminosity, cg.largest_color_luminosity, cb.largest_color_luminosity, ca.largest_color_luminosity)
 
 	var/rr = cr.cache_r
 	var/rg = cr.cache_g
@@ -117,6 +117,12 @@
 		)
 
 	luminosity = set_luminosity
+
+	if (myturf.above)
+		if(myturf.above.shadower)
+			myturf.above.shadower.copy_lighting(src, myturf.loc)
+		else
+			myturf.above.update_mimic()
 
 // Variety of overrides so the overlays don't get affected by weird things.
 

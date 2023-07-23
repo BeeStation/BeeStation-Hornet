@@ -302,7 +302,7 @@
 	desc = "(*!&@#OPERATIVE THIS LITTLE ORDER WILL MAKE YOU STYLISH SYNDICATE STYLE. CONTAINS A COLLECTION OF THREE TACTICAL TURTLENECKS, THREE COMBAT BOOTS, THREE COMBAT GLOVES, THREE BALACLAVAS, THREE SYNDICATE BERETS AND THREE ARMOR VESTS!#@*$"
 	hidden = TRUE
 	cost = 3000
-	max_supply = 1
+	max_supply = 3
 	contains = list(/obj/item/clothing/under/syndicate,
 					/obj/item/clothing/under/syndicate,
 					/obj/item/clothing/under/syndicate,
@@ -1112,14 +1112,18 @@
 
 /datum/supply_pack/engineering/shield_sat
 	name = "Shield Generator Satellite"
-	desc = "Protect the very existence of this station with these Anti-Meteor defenses. Contains three Shield Generator Satellites."
-	cost = 3000
-	max_supply = 5
+	desc = "Protect the very existence of this station with these Anti-Meteor defenses. Contains seven bluespace capsules which a single unit of Shield Generator Satellite is compressed within each."
+	cost = 7000
+	max_supply = 2
 	access_budget = ACCESS_HEADS
 	contains = list(
-					/obj/machinery/satellite/meteor_shield,
-					/obj/machinery/satellite/meteor_shield,
-					/obj/machinery/satellite/meteor_shield
+					/obj/item/deployable/meteor_shield,
+					/obj/item/deployable/meteor_shield,
+					/obj/item/deployable/meteor_shield,
+					/obj/item/deployable/meteor_shield,
+					/obj/item/deployable/meteor_shield,
+					/obj/item/deployable/meteor_shield,
+					/obj/item/deployable/meteor_shield,
 					)
 	crate_name= "shield sat crate"
 

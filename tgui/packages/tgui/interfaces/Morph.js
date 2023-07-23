@@ -1,4 +1,4 @@
-import { useBackend, useSharedState } from '../backend';
+import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
 import { Box, Button, Section, Tabs, LabeledList } from '../components';
 
@@ -14,7 +14,7 @@ export const Morph = (props, context) => {
 
 const MorphContents = (props, context) => {
   const { data } = useBackend(context);
-  const [tab, setTab] = useSharedState(context, 'tab', 'living');
+  const [tab, setTab] = useLocalState(context, 'tab', 'living');
   const favorites = Object.values(data.contents.living)
     .concat(Object.values(data.contents.items))
     .filter((A) => A.favorite);
