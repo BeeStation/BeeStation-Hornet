@@ -360,7 +360,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 /obj/machinery/smartfridge/black_box/Initialize(mapload)
 	. = ..()
 	if(GLOB.blackbox != src)
-		return INITIALIZE_HINT_QDEL_FORCE
+		return INITIALIZE_HINT_QDEL
 	GLOB.blackbox = src
 	ReadMemory()
 

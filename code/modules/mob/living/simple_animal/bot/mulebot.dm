@@ -30,6 +30,7 @@
 	bot_type = MULE_BOT
 	model = "MULE"
 	bot_core_type = /obj/machinery/bot_core/mulebot
+	carryable = FALSE
 
 
 

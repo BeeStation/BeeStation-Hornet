@@ -10,7 +10,7 @@
 		if(!ishuman(M.current))
 			continue
 		var/mob/living/carbon/human/W = M.current
-		var/list/candidates = pollGhostCandidates("Would you like to be an imposter wizard?", ROLE_WIZARD)
+		var/list/candidates = pollGhostCandidates("Would you like to be an imposter wizard?", ROLE_WIZARD, /datum/role_preference/midround_ghost/wizard, ignore_category = POLL_IGNORE_WIZARD_HELPER)
 		if(!candidates)
 			return //Sad Trombone
 		var/mob/dead/observer/C = pick(candidates)

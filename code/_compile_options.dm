@@ -31,6 +31,11 @@
 //#define VISUALIZE_ACTIVE_TURFS	//Highlights atmos active turfs in green
 #endif //ifdef TESTING
 
+/////////////////////// ZMIMIC
+
+///Enables Multi-Z lighting
+#define ZMIMIC_LIGHT_BLEED
+
 /// If this is uncommented, will profile mapload atom initializations
 // #define PROFILE_MAPLOAD_INIT_ATOM
 
@@ -108,8 +113,8 @@
 #if defined(OPENDREAM)
 #error Compiling BeeStation in OpenDream is unsupported due to BeeStation's dependence on the auxtools DLL to function.
 #elif !defined(CBT) && !defined(SPACEMAN_DMM) && !defined(FASTDMM)
-#error Building with Dream Maker is no longer supported and will result in errors.
-#error Switch to VSCode and when prompted install the recommended extensions, you can then either use the UI or press Ctrl+Shift+B to build the codebase.
+#warn Building with Dream Maker is no longer supported and will result in missing interface files.
+#warn Switch to VSCode and when prompted install the recommended extensions, you can then either use the UI or press Ctrl+Shift+B to build the codebase.
 #endif
 
 #define AUXMOS (world.system_type == MS_WINDOWS ? "auxtools/auxmos.dll" : __detect_auxmos())

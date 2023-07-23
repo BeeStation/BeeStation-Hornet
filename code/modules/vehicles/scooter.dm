@@ -100,7 +100,10 @@
 	. = ..()
 	if(A.density && has_buckled_mobs())
 		var/mob/living/H = buckled_mobs[1]
-		H.adjustStaminaLoss(instability*6)
+		var/multiplier = 1
+		if(HAS_TRAIT(H, TRAIT_PROSKATER))
+			multiplier = 0.3 //70% reduction
+		H.adjustStaminaLoss(multiplier * instability * 6)
 		playsound(src, 'sound/effects/bang.ogg', 40, TRUE)
 		if(!iscarbon(H) || H.getStaminaLoss() >= 100 || grinding || world.time < next_crash)
 			var/atom/throw_target = get_edge_target_turf(H, pick(GLOB.cardinals))
@@ -108,10 +111,11 @@
 			H.throw_at(throw_target, 3, 2)
 			var/head_slot = H.get_item_by_slot(ITEM_SLOT_HEAD)
 			if(!head_slot || !(istype(head_slot,/obj/item/clothing/head/helmet) || istype(head_slot,/obj/item/clothing/head/hardhat)))
-				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5)
-				H.updatehealth()
+				if(prob(multiplier * 100)) //pro skaters get a 70% chance to not get the brain damage
+					H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5)
+					H.updatehealth()
 			visible_message("<span class='danger'>[src] crashes into [A], sending [H] flying!</span>")
-			H.Paralyze(80)
+			H.Paralyze(80 * multiplier)
 		else
 			var/backdir = turn(dir, 180)
 			vehicle_move(backdir)
@@ -123,14 +127,17 @@
 	vehicle_move(dir)
 	if(has_buckled_mobs() && locate(/obj/structure/table) in loc.contents)
 		var/mob/living/L = buckled_mobs[1]
-		L.adjustStaminaLoss(instability*0.5)
+		var/multiplier = 1
+		if(HAS_TRAIT(L, TRAIT_PROSKATER))
+			multiplier = 0.3 //70% reduction
+		L.adjustStaminaLoss(multiplier * instability * 0.5)
 		if (L.getStaminaLoss() >= 100)
 			playsound(src, 'sound/effects/bang.ogg', 20, TRUE)
 			unbuckle_mob(L)
 			var/atom/throw_target = get_edge_target_turf(src, pick(GLOB.cardinals))
 			L.throw_at(throw_target, 2, 2)
 			visible_message("<span class='danger'>[L] loses [L.p_their()] footing and slams on the ground!</span>")
-			L.Paralyze(40)
+			L.Paralyze(multiplier * 40)
 			grinding = FALSE
 			icon_state = board_icon
 			return
@@ -172,7 +179,7 @@
 	board_item_type = /obj/item/melee/skateboard/pro
 	instability = 6
 
-/obj/vehicle/ridden/scooter/skateboard/hoverboard/
+/obj/vehicle/ridden/scooter/skateboard/hoverboard
 	name = "hoverboard"
 	desc = "A blast from the past, so retro!"
 	board_item_type = /obj/item/melee/skateboard/hoverboard
@@ -290,11 +297,15 @@
 		var/atom/throw_target = get_edge_target_turf(H, pick(GLOB.cardinals))
 		unbuckle_mob(H)
 		H.throw_at(throw_target, 4, 3)
-		H.Paralyze(30)
-		H.adjustStaminaLoss(10)
+		var/multiplier = 1
+		if(HAS_TRAIT(H, TRAIT_PROSKATER))
+			multiplier = 0.3 //70% reduction
+		H.Paralyze(multiplier * 30)
+		H.adjustStaminaLoss(multiplier * 10)
 		var/head_slot = H.get_item_by_slot(ITEM_SLOT_HEAD)
 		if(!head_slot || !(istype(head_slot,/obj/item/clothing/head/helmet) || istype(head_slot,/obj/item/clothing/head/hardhat)))
-			H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1)
-			H.updatehealth()
+			if(prob(multiplier * 100)) //Pro skaters have a 70% chance to not get the brain damage
+				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1)
+				H.updatehealth()
 		visible_message("<span class='danger'>[src] crashes into [A], sending [H] flying!</span>")
 		playsound(src, 'sound/effects/bang.ogg', 50, 1)
