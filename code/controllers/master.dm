@@ -633,7 +633,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		text="(TickRate:[Master.processing]) (Iteration:[Master.iteration]) (TickLimit: [round(Master.current_ticklimit, 0.1)])",
 		action = "statClickDebug",
 		params=list(
-			"targetRef" = REF(src),
+			"targetRef" = FAST_REF(src),
 			"class"="controller",
 		),
 		type=STAT_BUTTON,
