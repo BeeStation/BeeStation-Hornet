@@ -20,6 +20,7 @@
 	name = "wall"
 	icon = 'icons/turf/walls.dmi'
 	explosion_block = 50
+	resistance_flags = INDESTRUCTIBLE
 
 /turf/closed/indestructible/TerraformTurf(path, new_baseturf, flags, defer_change = FALSE, ignore_air = FALSE)
 	return
@@ -35,6 +36,9 @@
 	return
 
 /turf/closed/indestructible/rust_heretic_act()
+	return
+
+/turf/closed/indestructible/turf_destruction(damage_flag)
 	return
 
 /turf/closed/indestructible/oldshuttle

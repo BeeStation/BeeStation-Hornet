@@ -4,6 +4,8 @@
 	name = "\proper space"
 	intact = 0
 
+	resistance_flags = INDESTRUCTIBLE
+
 	FASTDMM_PROP(\
 		pipe_astar_cost = 100\
 	)
@@ -199,9 +201,6 @@
 /turf/open/space/MakeSlippery(wet_setting, min_wet_time, wet_time_to_add, max_wet_time, permanent)
 	return
 
-/turf/open/space/singularity_act()
-	return
-
 /turf/open/space/can_have_cabling()
 	if(locate(/obj/structure/lattice/catwalk, src))
 		return 1
@@ -210,10 +209,6 @@
 /turf/open/space/is_transition_turf()
 	if(destination_x || destination_y || destination_z)
 		return 1
-
-
-/turf/open/space/acid_act(acidpwr, acid_volume)
-	return 0
 
 /turf/open/space/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/space.dmi'

@@ -7,6 +7,8 @@
 	smoothing_flags = SMOOTH_BITMASK
 	opacity = TRUE
 	density = TRUE
+	max_integrity = 900
+	damage_deflection = 15
 
 	var/d_state = INTACT
 	hardness = 10
@@ -18,6 +20,9 @@
 	FASTDMM_PROP(\
 		pipe_astar_cost = 50 \
 	)
+
+/turf/closed/wall/r_wall/get_armour_list()
+	return list(MELEE = 30,  BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 80, ACID = 70, STAMINA = 0)
 
 /turf/closed/wall/r_wall/deconstruction_hints(mob/user)
 	switch(d_state)

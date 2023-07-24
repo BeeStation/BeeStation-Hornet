@@ -1,5 +1,6 @@
 /turf/open
 	plane = FLOOR_PLANE
+	can_hit = FALSE
 	FASTDMM_PROP(\
 		pipe_astar_cost = 1.5\
 	)
@@ -54,13 +55,11 @@
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = TRUE
+	resistance_flags = INDESTRUCTIBLE
 
 /turf/open/indestructible/Melt()
 	to_be_destroyed = FALSE
 	return src
-
-/turf/open/indestructible/singularity_act()
-	return
 
 /turf/open/indestructible/TerraformTurf(path, new_baseturf, flags, defer_change = FALSE, ignore_air = FALSE)
 	return
@@ -173,7 +172,7 @@
 	for(var/obj/I in contents)
 		if(!HAS_TRAIT(I, TRAIT_FROZEN) && !(I.obj_flags & FREEZE_PROOF))
 			I.AddElement(/datum/element/frozen)
-			
+
 	for(var/mob/living/L in contents)
 		if(L.bodytemperature <= 50)
 			L.apply_status_effect(/datum/status_effect/freon)
