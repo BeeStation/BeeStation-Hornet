@@ -8,7 +8,6 @@
 /obj/item/circuit_component/vox
 	display_name = "VOX Announcement"
 	desc = "A component that plays a local VOX Announcement for the user. Requires a BCI shell."
-	category = "BCI"
 
 	required_shells = list(/obj/item/organ/cyberimp/bci)
 
