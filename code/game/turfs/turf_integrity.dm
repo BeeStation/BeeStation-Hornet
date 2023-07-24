@@ -30,8 +30,7 @@
 			if(25 to 50)
 				return  "It appears heavily damaged."
 			if(0 to 25)
-				if(!broken)
-					return  "<span class='warning'>It's falling apart!</span>"
+				return  "<span class='warning'>It's falling apart!</span>"
 
 /// Override this proc to return the armour list
 /turf/proc/get_armour_list()
