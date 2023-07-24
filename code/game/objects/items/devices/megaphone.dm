@@ -68,4 +68,95 @@
 	voicespan = list(SPAN_CLOWN)
 
 /obj/item/megaphone/nospam
-	cooldown = 30 SECONDS
+	cooldown = 2 MINUTES // So it can be varedited if needed
+	var/list/charges_list = list(0,0,0,0,0)
+	var/available_charges = 5
+
+/obj/item/megaphone/nospam/process(delta_time)
+	if(available_charges >= 5)
+		return
+	var/I = 1
+	var/charges = 0
+	while(I < 6)
+		if(charges_list[I] < world.time)
+			charges ++
+		I++
+	available_charges = charges
+	return
+
+/obj/item/megaphone/nospam/handle_speech(mob/living/carbon/user, list/speech_args)
+	if (user.get_active_held_item() != src)
+		return
+	if(available_charges > 0)
+		START_PROCESSING(SSobj, src)
+		var/I = 1
+		while(I < 6)
+			if(charges_list[I] < world.time)
+				charges_list[I] = world.time + cooldown
+				available_charges --
+				break
+			I++
+		playsound(loc, 'sound/items/megaphone.ogg', 100, 0, 1)
+		speech_args[SPEECH_SPANS] |= voicespan
+	else
+		to_chat(user, "<span class='warning'>You neeed to wait a bit before you can use [src] again!</span>")
+
+/obj/item/megaphone/nospam/examine(mob/user)
+	. = ..()
+	switch(available_charges)
+		if(2 to INFINITY)
+			. += "<span class='notice'>It has [available_charges] charges remaining.</span>"
+		if(1)
+			. += "<span class='notice'>It has [available_charges] charge remaining.</span>"
+		if(-INFINITY to 0)
+			. += "<span class='warning'>It needs to recharge!</span>"
+
+/obj/item/megaphone/nospam/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	. = ..()
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+	var/chat_message = ""
+	if (user.get_active_held_item() == src)
+		if(current_cooldown < world.time - cooldown) // A cooldown, to stop people being jerks
+			used_charges++
+			if(current_cooldown_special < world.time - cooldown * 5) //A better cooldown that burns jerks
+				used_charges = initial(used_charges)
+
+			switch(used_charges)
+				if(1)
+					chat_message = "<span class='warning'>\The [src] starts to feel slightly warmer in your hand!</span>"
+				if(2)
+					chat_message = "<span class='warning'>\The [src] feels moderately warmer in your hand!</span>"
+				if(3)
+					chat_message = "<span class='warning'>\The [src] feels scalding hot to the touch!</span>"
+				if(4)
+					chat_message = "<span class='userdanger'>\The [src] almost burns your palm with its heat!</span>"
+				if(5 to INFINITY)
+					chat_message = "<span class='userdanger'>\The [src] overloads and  starts emitting smoke, clearly not functioning anymore!</span>"
+					do_sparks(4, FALSE, src)
+			if(!broken)
+				to_chat(user, chat_message)
+				playsound(loc, 'sound/items/megaphone.ogg', 100, 0, 1)
+				current_cooldown = world.time
+				current_cooldown_special = world.time
+				speech_args[SPEECH_SPANS] |= voicespan
+				if(used_charges >= 5)
+					broken = TRUE
+			else
+				to_chat(user, "<span class='warning'>\The [src] emits some sparks in a useless fashion!</span>")
+				do_sparks(2, FALSE, src)
+*/
+
