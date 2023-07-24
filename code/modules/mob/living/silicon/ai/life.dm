@@ -12,6 +12,8 @@
 
 	handle_status_effects(delta_time)
 
+	handle_traits(delta_time)
+
 	if(malfhack?.aidisabled)
 		deltimer(malfhacking)
 		// This proc handles cleanup of screen notifications and
