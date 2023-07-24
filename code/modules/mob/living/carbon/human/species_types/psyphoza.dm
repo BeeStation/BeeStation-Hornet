@@ -1,10 +1,9 @@
 ///The limit when the psychic timer locks you out of creating more
 #define PSYCHIC_OVERLAY_UPPER 400
-///Burn mod for our species - we're weak to fire
+///Burn mod for our species, weak to fire
 #define PSYPHOZA_BURNMOD 1.25
-///Invisibility layer for shrooms
-#define SHROOM_DEPOSIT_INVISIBILITY 55
 
+///Big list of things we don't want to sense
 GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/machinery/door, /obj/machinery/light, /obj/machinery/firealarm,
 	/obj/machinery/camera, /obj/machinery/atmospherics, /obj/structure/cable, /obj/structure/sign, /obj/machinery/airalarm, 
 	/obj/structure/disposalpipe, /atom/movable/lighting_object, /obj/machinery/power/apc, /obj/machinery/atmospherics/pipe,
@@ -84,15 +83,6 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 		H.reagents.remove_reagent(chem.type, chem.volume)
 		return FALSE
 	return ..()
-
-/datum/species/psyphoza/spec_life(mob/living/carbon/human/H)
-	if(world.time % 3)
-		return
-	var/obj/effect/psyphoza_spores/P = locate(/obj/effect/psyphoza_spores) in H.loc
-	if(P && H.health < H.maxHealth)
-		//healing
-		var/amount = P.take_resources(3 * P.upgrades)
-		H.heal_overall_damage(amount,amount, 0, BODYTYPE_ORGANIC)
 
 /datum/species/psyphoza/get_scream_sound(mob/living/carbon/user)
 	return pick('sound/voice/psyphoza/psyphoza_scream_1.ogg', 'sound/voice/psyphoza/psyphoza_scream_2.ogg')
@@ -419,56 +409,5 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	if(psychic_action?.auto_sense)
 		return FALSE
 
-/obj/effect/psyphoza_spores
-	name = "psyphoza sprore deposit"
-	icon = 'icons/effects/effects.dmi'
-	icon_state = "shrooms"
-	invisibility = SHROOM_DEPOSIT_INVISIBILITY
-	plane = HUD_PLANE
-	///Internal resources for healing
-	var/resources = 0
-	///Internal resource limit
-	var/resource_limit = 20
-	///Amount of upgrades
-	var/upgrades = 1
-	///Limit to upgrades
-	var/upgrade_limit = 3
-	///The calling card for this particular deposit
-	var/message = ""
-	///Resource rate
-	var/resource_rate = 0.2
-
-/obj/effect/psyphoza_spores/Initialize(mapload, new_message, col)
-	. = ..()
-	adjust_cap_color(mcol = col)
-	message = new_message
-	START_PROCESSING(SSobj, src)
-
-/obj/effect/psyphoza_spores/proc/adjust_cap_color(mcol = "f0f")
-	var/mutable_appearance/mut = mutable_appearance('icons/effects/effects.dmi', "shrooms_cap", layer+1, plane, color = "#[mcol]")
-	add_overlay(mut)
-
-/obj/effect/psyphoza_spores/attack_hand(mob/living/user)
-	. = ..()
-	to_chat(user, "<span class='notice'>Available resources: [resources] \nThe deposit echos: '[message]'</span>")
-
-/obj/effect/psyphoza_spores/welder_act(mob/living/user, obj/item/weldingtool/I)
-	. = ..()
-	if(istype(I) && I.welding)
-		to_chat(user, "<span class='warning'>You destroy the spore deposit.</span>")
-		qdel(src)
-
-/obj/effect/psyphoza_spores/process(delta_time)
-	resources = min(resources + (upgrades * resource_rate * delta_time), resource_limit*upgrades)
-
-/obj/effect/psyphoza_spores/proc/take_resources(amount = 0)
-	var/exchange = min(amount, resources)
-	resources = max(0, resources-amount)
-	return exchange
-
-/obj/effect/psyphoza_spores/proc/upgrade()
-	upgrades = min(upgrade_limit, upgrades+1)
-
 #undef PSYCHIC_OVERLAY_UPPER
 #undef PSYPHOZA_BURNMOD
-#undef SHROOM_DEPOSIT_INVISIBILITY
