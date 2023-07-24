@@ -33,7 +33,6 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	mutant_brain = /obj/item/organ/brain/psyphoza
 	mutanteyes = /obj/item/organ/eyes/psyphoza
 	mutanttongue = /obj/item/organ/tongue/psyphoza
-	mutantstomach = /obj/item/organ/stomach/psyphoza
 
 	attack_verb = "slash"
 	attack_sound = 'sound/weapons/slice.ogg'
