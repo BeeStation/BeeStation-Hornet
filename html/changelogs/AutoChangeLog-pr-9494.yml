@@ -1,5 +1,0 @@
-author: HowToLoLu
-delete-after: true
-changes:
-  - bugfix: Attack effect objects (the infamous temp) are no longer attackable and
-      will not block clicks anymore.
