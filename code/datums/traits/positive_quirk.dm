@@ -273,7 +273,8 @@
 
 /datum/quirk/proskater
 	name = "Skater Bro"
-	desc = "You’re a little too into old-earth skater culture! You're much more used to riding and falling off skateboards, needing less stamina to do kickflips and taking less damage upon bumping into something."
+	desc = "You're a little too into old-earth skater culture! You're much more used to riding and falling off skateboards, needing less stamina to do kickflips and taking less damage upon bumping into something."
+	icon = "hand-middle-finger"
 	value = 2
 	mob_trait = TRAIT_PROSKATER
 	gain_text = "<span class='notice'>You feel like hitting a sick grind!</span>"

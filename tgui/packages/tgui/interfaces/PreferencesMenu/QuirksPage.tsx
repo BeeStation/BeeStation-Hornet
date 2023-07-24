@@ -3,6 +3,7 @@ import { Box, Icon, Stack, Tooltip } from '../../components';
 import { PreferencesMenuData, Quirk } from './data';
 import { useBackend, useLocalState } from '../../backend';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
+import { logger } from 'tgui/logging';
 
 const getValueClass = (value: number): string => {
   if (value > 0) {
@@ -28,6 +29,9 @@ const QuirkList = (props: {
     <Box className="PreferencesMenu__Quirks__QuirkList">
       {props.quirks.map(([quirkKey, quirk]) => {
         const className = 'PreferencesMenu__Quirks__QuirkList__quirk';
+        if (!quirk.icon) {
+          logger.info(quirk.name);
+        }
 
         const child = (
           <Box
@@ -46,7 +50,7 @@ const QuirkList = (props: {
                   'max-width': '15%',
                   'text-align': 'center',
                 }}>
-                <Icon color="#333" fontSize={3} name={quirk.icon} />
+                {quirk.icon && <Icon color="#333" fontSize={3} name={quirk.icon} />}
               </Stack.Item>
 
               <Stack.Item

@@ -74,7 +74,7 @@ export type Job = {
 
 export type Quirk = {
   description: string;
-  icon: string;
+  icon?: string;
   name: string;
   value: number;
 };
