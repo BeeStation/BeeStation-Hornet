@@ -27,7 +27,7 @@
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		restricted_jobs += GLOB.command_positions
 
-	var/list/datum/mind/possible_brothers = get_players_for_role(ROLE_BROTHER)
+	var/list/datum/mind/possible_brothers = get_players_for_role(/datum/antagonist/brother, /datum/role_preference/antagonist/blood_brother)
 
 	var/num_teams = team_amount
 	var/bsc = CONFIG_GET(number/brother_scaling_coeff)
@@ -40,7 +40,7 @@
 		var/datum/team/brother_team/team = new
 		var/team_size = prob(10) ? min(3, possible_brothers.len) : 2
 		for(var/k = 1 to team_size)
-			var/datum/mind/bro = antag_pick(possible_brothers, ROLE_BROTHER)
+			var/datum/mind/bro = antag_pick(possible_brothers, /datum/role_preference/antagonist/blood_brother)
 			possible_brothers -= bro
 			antag_candidates -= bro
 			team.add_member(bro)

@@ -22,7 +22,7 @@
 /datum/game_mode/traitor/changeling/can_start()
 	if(!..())
 		return 0
-	possible_changelings = get_players_for_role(ROLE_CHANGELING)
+	possible_changelings = get_players_for_role(/datum/antagonist/changeling, /datum/role_preference/antagonist/changeling)
 	if(possible_changelings.len < required_enemies)
 		return 0
 	return 1
@@ -37,7 +37,7 @@
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		restricted_jobs += GLOB.command_positions
 
-	var/list/datum/mind/possible_changelings = get_players_for_role(ROLE_CHANGELING)
+	var/list/datum/mind/possible_changelings = get_players_for_role(/datum/antagonist/changeling, /datum/role_preference/antagonist/changeling)
 
 	var/num_changelings = 1
 
@@ -51,7 +51,7 @@
 		for(var/j = 0, j < num_changelings, j++)
 			if(!possible_changelings.len)
 				break
-			var/datum/mind/changeling = antag_pick(possible_changelings, ROLE_CHANGELING)
+			var/datum/mind/changeling = antag_pick(possible_changelings, /datum/role_preference/antagonist/changeling)
 			antag_candidates -= changeling
 			possible_changelings -= changeling
 			changeling.special_role = ROLE_CHANGELING
@@ -72,13 +72,16 @@
 	if(changelings.len >= changelingcap) //Caps number of latejoin antagonists
 		..()
 		return
+	var/datum/antagonist/aux_antag_datum = /datum/antagonist/changeling
 	if(changelings.len <= (changelingcap - 2) || prob(100 / (csc * 4)))
-		if(ROLE_CHANGELING in character.client.prefs.be_special)
-			if(!is_banned_from(character.ckey, list(ROLE_CHANGELING, ROLE_SYNDICATE)) && !QDELETED(character))
-				if(age_check(character.client))
-					if(!(character.job in restricted_jobs))
-						character.mind.make_Changeling()
-						changelings += character.mind
+		if(!QDELETED(character) && character.client.should_include_for_role(
+			banning_key = initial(aux_antag_datum.banning_key),
+			role_preference_key = /datum/role_preference/antagonist/changeling,
+			req_hours = initial(aux_antag_datum.required_living_playtime)
+		))
+			if(!(character.job in restricted_jobs))
+				character.mind.make_Changeling()
+				changelings += character.mind
 	if(QDELETED(character))
 		return
 	..()

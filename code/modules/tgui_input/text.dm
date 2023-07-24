@@ -139,6 +139,7 @@
 	if(!ui)
 		ui = new(user, src, "TextInputModal")
 		ui.open()
+		ui.set_autoupdate(timeout > 0)
 
 /datum/tgui_input_text/ui_close(mob/user)
 	. = ..()
