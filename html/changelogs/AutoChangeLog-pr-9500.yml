@@ -1,0 +1,4 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - bugfix: Fixes lights not having a delay when turning on
