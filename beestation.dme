@@ -3856,7 +3856,6 @@
 #include "code\modules\wiremod\components\atom\species.dm"
 #include "code\modules\wiremod\components\list\append.dm"
 #include "code\modules\wiremod\components\bci\thought_listener.dm"
-#include "code\modules\wiremod\components\bci\vox.dm"
 #include "code\modules\wiremod\components\bci\hud\bar_overlay.dm"
 #include "code\modules\wiremod\components\bci\hud\counter_overlay.dm"
 #include "code\modules\wiremod\components\bci\hud\object_overlay.dm"

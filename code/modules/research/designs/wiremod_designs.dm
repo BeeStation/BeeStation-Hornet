@@ -399,11 +399,6 @@
 	id = "comp_counter_overlay"
 	build_path = /obj/item/circuit_component/counter_overlay
 
-/datum/design/component/bci/vox
-	name = "VOX Announcement Component"
-	id = "comp_vox"
-	build_path = /obj/item/circuit_component/vox
-
 /datum/design/component/bci/thought_listener
 	name = "Thought Listener Component"
 	id = "comp_thought_listener"
