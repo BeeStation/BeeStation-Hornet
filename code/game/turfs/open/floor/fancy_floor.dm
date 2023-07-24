@@ -420,7 +420,9 @@
 	GLOB.aurora_targets.Add(src)
 
 /turf/open/floor/fakespace/Destroy()
-	GLOB.aurora_targets.Remove(src)
+	if(starlit)
+		starlit = FALSE
+		QDEL_NULL(light)
 	. = ..()
 
 /turf/open/floor/fakespace/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)

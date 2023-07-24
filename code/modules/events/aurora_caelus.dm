@@ -23,13 +23,14 @@
 	sound = 'sound/misc/notice2.ogg',
 	sender_override = "Nanotrasen Meteorology Division")
 	INVOKE_ASYNC(src, PROC_REF(play_sound_to_all_station_players))
-	INVOKE_ASYNC(src, PROC_REF(create_starlights))
+	INVOKE_ASYNC(src, PROC_REF(create_starlights), 1.5, 0.1, aurora_colors[7])
 	create_starlights()
 
 /datum/round_event/aurora_caelus/start()
 	if(!length(affected_turfs))
 		return
 	INVOKE_ASYNC(src, PROC_REF(update_starlights), 2, 0.2, aurora_colors[8])
+	INVOKE_ASYNC(src, PROC_REF(create_starlights), 2, 0.2, aurora_colors[8])
 
 /datum/round_event/aurora_caelus/tick()
 	if(activeFor % 5 == 0)
@@ -44,11 +45,13 @@
 		else
 			light_modifier = 1 - aurora_progress / 10
 		INVOKE_ASYNC(src, PROC_REF(update_starlights), 2 + light_modifier * 4, 0.3, aurora_color)
+		INVOKE_ASYNC(src, PROC_REF(create_starlights), 2 + light_modifier * 4, 0.3, aurora_color)
 
 /datum/round_event/aurora_caelus/end()
 	if(length(affected_turfs))
-		for(var/atom/A in affected_turfs)
-			INVOKE_ASYNC(src, PROC_REF(fade_to_black), A)
+		for(var/turf/floor in affected_turfs)
+			if(floor.starlit)
+				INVOKE_ASYNC(src, PROC_REF(fade_to_black), floor)
 	priority_announce("The aurora caelus event is now ending. Starlight conditions will slowly return to normal. When this has concluded, please return to your workplace and continue work as normal. Have a pleasant shift, [station_name()], and thank you for watching with us.",
 	sound = 'sound/misc/notice2.ogg',
 	sender_override = "Nanotrasen Meteorology Division")
@@ -61,25 +64,31 @@
 			if(M.client.prefs.toggles & PREFTOGGLE_SOUND_MIDI)
 				M.playsound_local(M, 'sound/ambience/aurora_caelus.ogg', 20, FALSE, pressure_affected = FALSE)
 
-/datum/round_event/aurora_caelus/proc/create_starlights()
-	for(var/atom/floor in GLOB.aurora_targets)
-		if(istype(floor, /obj/structure/window))
-			for(var/turf/T as() in RANGE_TURFS(1, floor))
-				if(isspaceturf(T) && !(T.starlit))
-					T.set_light(1.5, 0.1, aurora_colors[7])
-					T.starlit = TRUE
-					affected_turfs += T
+/datum/round_event/aurora_caelus/proc/create_starlights(light_range, light_power, light_color)
+	if(!length(GLOB.aurora_targets))
+		return
+	for(var/turf/floor in GLOB.aurora_targets)
+		if(floor.starlit)
+			GLOB.aurora_targets.Remove(floor)
 			continue
-		if(istype(floor, /turf/open/floor/fakespace/))
-			var/turf/T = floor
-			if(!T.starlit)
-				T.set_light(1.5, 0.1, aurora_colors[7])
-				T.starlit = TRUE
-				affected_turfs += T
+		if(isspaceturf(floor))
+			for(var/atom/found_thing as() in RANGE_TURFS(1, floor))
+				if(!isspaceturf(found_thing) && !istype(found_thing, /mob))
+					floor.set_light(light_range, light_power, light_color)
+					floor.starlit = TRUE
+					affected_turfs += floor
+					GLOB.aurora_targets.Remove(floor)
+					continue
+		if(istype(floor, /turf/open/floor/fakespace))
+			floor.set_light(light_range, light_power, light_color)
+			floor.starlit = TRUE
+			affected_turfs += floor
+			GLOB.aurora_targets.Remove(floor)
 
 /datum/round_event/aurora_caelus/proc/update_starlights(light_range, light_power, light_color)
-	for(var/atom/A in affected_turfs)
-		A.set_light(light_range, light_power, light_color)
+	for(var/turf/floor in affected_turfs)
+		if(floor.starlit)
+			floor.set_light(light_range, light_power, light_color)
 
 /datum/round_event/aurora_caelus/proc/fade_to_black(turf/open/space/S)
 	set waitfor = FALSE

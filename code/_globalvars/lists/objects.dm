@@ -16,6 +16,7 @@ GLOBAL_LIST_EMPTY_TYPED(singularities, /datum/component/singularity)				    //li
 GLOBAL_LIST_EMPTY(uploads_list)						//list of all silicon uploads
 GLOBAL_LIST_EMPTY(fax_machines)						//list of all fax machines
 GLOBAL_LIST_EMPTY(aurora_targets)					//list of all things near or on which the Aurora event will create lights
+GLOBAL_LIST_EMPTY(aurora_removal_que)				//list of things that were removed during the Aurora event and shouldn't have a light anymore
 
 GLOBAL_LIST(chemical_reactions_list)				//list of all /datum/chemical_reaction datums. Used during chemical reactions
 GLOBAL_LIST(chemical_reagents_list)				//list of all /datum/reagent datums indexed by reagent id. Used by chemistry stuff

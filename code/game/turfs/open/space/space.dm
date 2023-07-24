@@ -52,6 +52,8 @@
 	air = space_gas
 	update_air_ref(0)
 
+	GLOB.aurora_targets.Add(src)
+
 	if(flags_1 & INITIALIZED_1)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
@@ -63,6 +65,9 @@
 	return INITIALIZE_HINT_NORMAL
 
 /turf/open/space/Destroy()
+	if(starlit)
+		QDEL_NULL(light)
+		starlit = FALSE
 	// Cleanup cached z_eventually_space values above us.
 	if (above)
 		var/turf/T = src
