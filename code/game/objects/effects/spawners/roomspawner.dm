@@ -30,7 +30,7 @@
             continue
         possibletemplates[candidate] = candidate.weight
     if(possibletemplates.len)
-        var/datum/map_template/random_room/template = pickweight(possibletemplates)
+        var/datum/map_template/random_room/template = pick_weight(possibletemplates)
         template.stock --
         template.weight = (template.weight / 2)
         if(template.stock <= 0)
@@ -81,7 +81,7 @@
 	room_height = 3
 
 /obj/effect/spawner/room/fland
-	name = "Special Room (5x11)"
+	name = "Special Room (5x10)"
 	icon_state = "random_room_alternative"
 	room_width = 5
-	room_height = 11
+	room_height = 10

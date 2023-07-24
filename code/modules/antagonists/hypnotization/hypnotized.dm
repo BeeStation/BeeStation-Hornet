@@ -26,7 +26,7 @@
 
 /datum/antagonist/hypnotized
 	name = "Hypnotized Victim"
-	job_rank = ROLE_HYPNOTIZED
+	banning_key = ROLE_HYPNOTIZED
 	roundend_category = "hypnotized victims"
 	show_in_antagpanel = TRUE
 	antagpanel_category = "Other"

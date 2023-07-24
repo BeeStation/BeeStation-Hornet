@@ -17,6 +17,7 @@
 	CanAtmosPass = ATMOS_PASS_PROC
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
 	network_id = NETWORK_DOOR_AIRLOCKS
+	z_flags = NONE // reset zblock
 	var/operationdelay = 5
 	var/obj/item/electronics/airlock/electronics = null
 	var/reinf = 0
@@ -101,30 +102,28 @@
 		do_animate("deny")
 	return
 
-/obj/machinery/door/window/CanAllowThrough(atom/movable/mover, turf/target)
+/obj/machinery/door/window/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(.)
 		return
-	if(get_dir(loc, target) == dir) //Make sure looking at appropriate border
-		return
-	if(istype(mover, /obj/structure/window))
-		var/obj/structure/window/W = mover
-		if(!valid_window_location(loc, W.ini_dir))
-			return FALSE
-	else if(istype(mover, /obj/structure/windoor_assembly))
-		var/obj/structure/windoor_assembly/W = mover
-		if(!valid_window_location(loc, W.ini_dir))
-			return FALSE
-	else if(istype(mover, /obj/machinery/door/window) && !valid_window_location(loc, mover.dir))
+
+	if(border_dir == dir)
 		return FALSE
-	else
-		return TRUE
+
+	if(istype(mover, /obj/structure/window))
+		var/obj/structure/window/moved_window = mover
+		return valid_window_location(loc, moved_window.dir, is_fulltile = moved_window.fulltile)
+
+	if(istype(mover, /obj/structure/windoor_assembly) || istype(mover, /obj/machinery/door/window))
+		return valid_window_location(loc, mover.dir, is_fulltile = FALSE)
+
+	return TRUE
 
 /obj/machinery/door/window/CanAtmosPass(turf/T)
 	if(get_dir(loc, T) == dir)
 		return !density
 	else
-		return 1
+		return TRUE
 
 //used in the AStar algorithm to determinate if the turf the door is on is passable
 /obj/machinery/door/window/CanAStarPass(obj/item/card/id/ID, to_dir)
@@ -133,7 +132,13 @@
 /obj/machinery/door/window/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
 
-	if(istype(leaving) && (leaving.pass_flags & PASSTRANSPARENT))
+	if(leaving.movement_type & PHASING)
+		return
+
+	if(leaving == src)
+		return // Let's not block ourselves.
+
+	if(leaving.pass_flags & PASSTRANSPARENT)
 		return
 
 	if(direction == dir && density)
@@ -143,25 +148,29 @@
 /obj/machinery/door/window/open(forced=FALSE)
 	if(operating) //doors can still open when emag-disabled
 		return 0
+
 	if(!forced)
 		if(!hasPower())
 			return 0
+
 	if(forced < 2)
 		if(obj_flags & EMAGGED)
 			return 0
+
 	if(!operating) //in case of emag
 		operating = TRUE
+
 	do_animate("opening")
-	playsound(src, 'sound/machines/windowdoor.ogg', 100, 1)
+	playsound(src, 'sound/machines/windowdoor.ogg', 100, TRUE)
 	icon_state ="[base_state]open"
 	sleep(operationdelay)
-
 	set_density(FALSE)
 	air_update_turf(1)
 	update_freelook_sight()
 
 	if(operating == 1) //emag again
 		operating = FALSE
+
 	return 1
 
 /obj/machinery/door/window/close(forced=FALSE)
@@ -270,7 +279,6 @@
 						WA.setAnchored(TRUE)
 						WA.state= "02"
 						WA.setDir(dir)
-						WA.ini_dir = dir
 						WA.update_icon()
 						WA.created_name = name
 
@@ -305,18 +313,18 @@
 	if(..())
 		autoclose = FALSE
 
-/obj/machinery/door/window/try_to_crowbar(obj/item/I, mob/user)
+/obj/machinery/door/window/try_to_crowbar(obj/item/crowbar, mob/user)
 	if(density)
-		if(!HAS_TRAIT(I, TRAIT_DOOR_PRYER) && hasPower())
+		if(!HAS_TRAIT(crowbar, TRAIT_DOOR_PRYER) && hasPower())
 			to_chat(user, "<span class='warning'>The windoor's motors resist your efforts to force it!</span>")
 			return
 		else if(!hasPower())
 			to_chat(user, "<span class='warning'>You begin forcing open \the [src], the motors don't resist...</span>")
-			if(!do_after(user, 1 SECONDS, TRUE, src))
+			if(!crowbar.use_tool(src, user, 1 SECONDS))
 				return
 		else
 			to_chat(user, "<span class='warning'>You begin forcing open \the [src]...</span>")
-			if(!do_after(user, 5 SECONDS, TRUE, src))
+			if(!crowbar.use_tool(src, user, 5 SECONDS))
 				return
 		open(2)
 	else

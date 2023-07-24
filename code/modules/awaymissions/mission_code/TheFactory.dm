@@ -273,7 +273,7 @@
 		playsound(get_turf(src), chosen_sound, 100, 0, 0)
 		var/list/possible_phrases = list("Anomaly spotted! Send backup!","Intruder over here!","Hostile spotted, get them!")
 		var/chosen_phrase = pick(possible_phrases)
-		say(chosen_phrase)
+		say(chosen_phrase, language = speak_language)
 	else
 		return
 
@@ -362,7 +362,7 @@
 	speak_chance = 2
 	var/cooldown = 0
 	speak = list("You're pretty good.","You can't dodge everything!","Fall down already!")
-	loot = list(/obj/item/gun/ballistic/automatic/sniper_rifle,
+	loot = list(/obj/item/gun/ballistic/sniper_rifle,
 					/obj/effect/mob_spawn/human/corpse/sniper,
 					/obj/item/ammo_box/magazine/sniper_rounds,
 					/obj/item/ammo_box/magazine/sniper_rounds/penetrator,

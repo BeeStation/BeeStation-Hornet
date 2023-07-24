@@ -21,14 +21,18 @@
 #define COLOR_DARKMODE_TEXT "#a4bad6"
 
 #define COLOR_WHITE            "#EEEEEE"
+#define COLOR_OFF_WHITE			 "#FFF5ED"
 #define COLOR_SILVER           "#C0C0C0"
 #define COLOR_GRAY             "#808080"
 #define COLOR_FLOORTILE_GRAY   "#8D8B8B"
+#define COLOR_WEBSAFE_DARK_GRAY  "#484848"
 #define COLOR_ALMOST_BLACK	   "#333333"
+#define COLOR_FULL_TONER_BLACK	 "#101010"
 #define COLOR_BLACK            "#000000"
 #define COLOR_HALF_TRANSPARENT_BLACK    "#0000007A"
 #define COLOR_RED              "#FF0000"
 #define COLOR_RED_LIGHT        "#FF3333"
+#define COLOR_DARK_RED		   "#A50824"
 #define COLOR_MAROON           "#800000"
 #define COLOR_YELLOW           "#FFFF00"
 #define COLOR_OLIVE            "#808000"
@@ -40,9 +44,11 @@
 #define COLOR_BLUE_LIGHT       "#33CCFF"
 #define COLOR_NAVY             "#000080"
 #define COLOR_PINK             "#FFC0CB"
+#define COLOR_FADED_PINK 	   "#ff80d5"
 #define COLOR_MAGENTA          "#FF00FF"
 #define COLOR_PURPLE           "#800080"
 #define COLOR_ORANGE           "#FF9900"
+#define COLOR_LIGHT_ORANGE 	   "#ffc44d"
 #define COLOR_BEIGE            "#CEB689"
 #define COLOR_BLUE_GRAY        "#75A2BB"
 #define COLOR_BROWN            "#BA9F6D"
@@ -56,6 +62,7 @@
 #define COLOR_PALE_RED_GRAY    "#D59998"
 #define COLOR_PALE_PURPLE_GRAY "#CBB1CA"
 #define COLOR_PURPLE_GRAY      "#AE8CA8"
+#define COLOR_DARK_PURPLE 	   "#551A8B"
 
 //Color defines used by the assembly detailer.
 #define COLOR_ASSEMBLY_BLACK   "#545454"
@@ -92,3 +99,26 @@
 #define AMBIENT_OCCLUSION filter(type="drop_shadow", x=0, y=-2, size=4, color="#04080FAA")
 /// Icon filter that creates gaussian blur
 #define GAUSSIAN_BLUR(filter_size) filter(type="blur", size=filter_size)
+
+// Some defines for accessing specific entries in color matrices.
+
+#define CL_MATRIX_RR 1
+#define CL_MATRIX_RG 2
+#define CL_MATRIX_RB 3
+#define CL_MATRIX_RA 4
+#define CL_MATRIX_GR 5
+#define CL_MATRIX_GG 6
+#define CL_MATRIX_GB 7
+#define CL_MATRIX_GA 8
+#define CL_MATRIX_BR 9
+#define CL_MATRIX_BG 10
+#define CL_MATRIX_BB 11
+#define CL_MATRIX_BA 12
+#define CL_MATRIX_AR 13
+#define CL_MATRIX_AG 14
+#define CL_MATRIX_AB 15
+#define CL_MATRIX_AA 16
+#define CL_MATRIX_CR 17
+#define CL_MATRIX_CG 18
+#define CL_MATRIX_CB 19
+#define CL_MATRIX_CA 20

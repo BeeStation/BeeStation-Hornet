@@ -8,8 +8,10 @@ import { EventEmitter } from 'common/events';
 import { classes } from 'common/react';
 import { createLogger } from 'tgui/logging';
 import { COMBINE_MAX_MESSAGES, COMBINE_MAX_TIME_WINDOW, IMAGE_RETRY_DELAY, IMAGE_RETRY_LIMIT, IMAGE_RETRY_MESSAGE_AGE, MAX_PERSISTED_MESSAGES, MAX_VISIBLE_MESSAGES, MESSAGE_PRUNE_INTERVAL, MESSAGE_TYPES, MESSAGE_TYPE_INTERNAL, MESSAGE_TYPE_UNKNOWN } from './constants';
+import { render } from 'inferno';
 import { canPageAcceptType, createMessage, isSameMessage } from './model';
-import { highlightNode, linkifyNode, replaceInTextNode } from './replaceInTextNode';
+import { highlightNode, linkifyNode } from './replaceInTextNode';
+import { Tooltip } from '../../tgui/components';
 
 const logger = createLogger('chatRenderer');
 
@@ -17,7 +19,19 @@ const logger = createLogger('chatRenderer');
 // that is still trackable.
 const SCROLL_TRACKING_TOLERANCE = 24;
 
-const findNearestScrollableParent = startingNode => {
+// List of injectable component names to the actual type
+export const TGUI_CHAT_COMPONENTS = {
+  Tooltip,
+};
+
+// List of injectable attibute names mapped to their proper prop
+// We need this because attibutes don't support lowercase names
+export const TGUI_CHAT_ATTRIBUTES_TO_PROPS = {
+  'position': 'position',
+  'content': 'content',
+};
+
+const findNearestScrollableParent = (startingNode) => {
   const body = document.body;
   let node = startingNode;
   while (node && node !== body) {
@@ -53,78 +67,78 @@ const createReconnectedNode = () => {
 };
 
 // Removes job formatting
-const formatHighContrast = inputHtml => {
+const formatHighContrast = (inputHtml) => {
   const replacementNodes = [
-    "unknown",
-    "assistant",
-    "atmospherictechnician",
-    "bartender",
-    "botanist",
-    "brigphysician",
-    "captain",
-    "cargotechnician",
-    "chaplain",
-    "chemist",
-    "chiefengineer",
-    "chiefmedicalofficer",
-    "clown",
-    "cook",
-    "curator",
-    "deputy",
-    "detective",
-    "paramedic",
-    "geneticist",
-    "headofpersonnel",
-    "headofsecurity",
-    "janitor",
-    "lawyer",
-    "medicaldoctor",
-    "mime",
-    "quartermaster",
-    "researchdirector",
-    "roboticist",
-    "scientist",
-    "securityofficer",
-    "shaftminer",
-    "explorationcrew",
-    "stationengineer",
-    "virologist",
-    "warden",
-    "centcom",
-    "prisoner",
-    "blob",
-    "corgi",
-    "fox",
-    "rainbow",
-    "hierosay",
-    "brassmobsay",
-    "syndmob",
-    "alienmobsay",
-    "cultmobsay",
-    "slimemobsay",
-    "gimmick",
-    "barber",
-    "stagemagician",
-    "psychiatrist",
-    "vip",
-    "king",
-    "rawcommand",
-    "rawservice",
-    "rawcargo",
-    "rawscience",
-    "rawmedical",
-    "rawengineering",
-    "rawsecurity",
-    "rawcentcom",
-    "syndicate",
-    "notcentcom",
-    "unassigned",
+    'unknown',
+    'assistant',
+    'atmospherictechnician',
+    'bartender',
+    'botanist',
+    'brigphysician',
+    'captain',
+    'cargotechnician',
+    'chaplain',
+    'chemist',
+    'chiefengineer',
+    'chiefmedicalofficer',
+    'clown',
+    'cook',
+    'curator',
+    'deputy',
+    'detective',
+    'paramedic',
+    'geneticist',
+    'headofpersonnel',
+    'headofsecurity',
+    'janitor',
+    'lawyer',
+    'medicaldoctor',
+    'mime',
+    'quartermaster',
+    'researchdirector',
+    'roboticist',
+    'scientist',
+    'securityofficer',
+    'shaftminer',
+    'explorationcrew',
+    'stationengineer',
+    'virologist',
+    'warden',
+    'centcom',
+    'prisoner',
+    'blob',
+    'corgi',
+    'fox',
+    'rainbow',
+    'hierosay',
+    'brassmobsay',
+    'syndmob',
+    'alienmobsay',
+    'cultmobsay',
+    'slimemobsay',
+    'gimmick',
+    'barber',
+    'stagemagician',
+    'psychiatrist',
+    'vip',
+    'king',
+    'rawcommand',
+    'rawservice',
+    'rawcargo',
+    'rawscience',
+    'rawmedical',
+    'rawengineering',
+    'rawsecurity',
+    'rawcentcom',
+    'syndicate',
+    'notcentcom',
+    'unassigned',
   ];
   const spanRegex = new RegExp('(<span[\\w| |\t|=]*[\'|"][\\w| ]*)(?:' + replacementNodes.join('|') + ')([\'|"]>)', 'gi');
   return inputHtml.replace(spanRegex, '$1$2');
 };
 
-const handleImageError = e => {
+const handleImageError = (e) => {
   setTimeout(() => {
     /** @type {HTMLImageElement} */
     const node = e.target;
@@ -143,7 +157,7 @@ const handleImageError = e => {
 /**
  * Assigns a "times-repeated" badge to the message.
  */
-const updateMessageBadge = message => {
+const updateMessageBadge = (message) => {
   const { node, times } = message;
   if (!node || !times) {
     // Nothing to update
@@ -152,10 +166,7 @@ const updateMessageBadge = message => {
   const foundBadge = node.querySelector('.Chat__badge');
   const badge = foundBadge || document.createElement('div');
   badge.textContent = times;
-  badge.className = classes([
-    'Chat__badge',
-    'Chat__badge--animate',
-  ]);
+  badge.className = classes(['Chat__badge', 'Chat__badge--animate']);
   requestAnimationFrame(() => {
     badge.className = 'Chat__badge';
   });
@@ -179,13 +190,11 @@ class ChatRenderer {
     /** @type {HTMLElement} */
     this.scrollNode = null;
     this.scrollTracking = true;
-    this.handleScroll = type => {
+    this.handleScroll = (type) => {
       const node = this.scrollNode;
       const height = node.scrollHeight;
       const bottom = node.scrollTop + node.offsetHeight;
-      const scrollTracking = (
-        Math.abs(height - bottom) < SCROLL_TRACKING_TOLERANCE
-      );
+      const scrollTracking = Math.abs(height - bottom) < SCROLL_TRACKING_TOLERANCE;
       if (scrollTracking !== this.scrollTracking) {
         this.scrollTracking = scrollTracking;
         this.events.emit('scrollTrackingChanged', scrollTracking);
@@ -242,33 +251,69 @@ class ChatRenderer {
     }
   }
 
-  setHighlight(text, color, matchWord, matchCase, highlightSelf) {
-    if (!text || !color) {
-      this.highlightRegex = null;
-      this.highlightColor = null;
+  setHighlight(highlightSettings, highlightSettingById) {
+    this.highlightParsers = null;
+    if (!highlightSettings) {
       return;
     }
-    const lines = String(text)
-      .split(',')
-      // replace() escapes every character found by the regex
-      // by placing a \ infront of each
-      // eslint-disable-next-line no-useless-escape
-      .map(str => str.trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'))
-      .filter(str => (
-        // Must be longer than one character
-        str && str.length > 1
-      ));
-    // Nothing to match, reset highlighting
-    if (lines.length === 0) {
-      this.highlightRegex = null;
-      this.highlightColor = null;
-      return;
-    }
-    const pattern = `${(matchWord ? '\\b' : '')}(${lines.join('|')})${(matchWord ? '\\b' : '')}`;
-    const flags = 'g' + (matchCase ? '' : 'i');
-    this.highlightRegex = new RegExp(pattern, flags);
-    this.highlightColor = color;
-    this.highlightSelf = highlightSelf;
+    highlightSettings.map((id) => {
+      const setting = highlightSettingById[id];
+      const text = setting.highlightText;
+      const highlightColor = setting.highlightColor;
+      const highlightWholeMessage = setting.highlightWholeMessage;
+      const matchWord = setting.matchWord;
+      const matchCase = setting.matchCase;
+      const lines = String(text)
+        .split(',')
+        .map((str) => str.trim())
+        .filter((str) => {
+          return str && str.length > 1;
+        });
+      let highlightWords;
+      let highlightRegex;
+      // Nothing to match, reset highlighting
+      if (lines.length === 0) {
+        return;
+      }
+      let regexExpressions = [];
+      // Organize each highlight entry into regex expressions and words
+      for (let line of lines) {
+        // Regex expression syntax is /[exp]/
+        if (line.charAt(0) === '/' && line.charAt(line.length - 1) === '/') {
+          const expr = line.substring(1, line.length - 1);
+          // Check if this is more than one character
+          if (/^(\[.*\]|\\.|.)$/.test(expr)) {
+            continue;
+          }
+          regexExpressions.push(expr);
+        } else {
+          // Lazy init
+          if (!highlightWords) {
+            highlightWords = [];
+          }
+          highlightWords.push(line);
+        }
+      }
+      const regexStr = regexExpressions.join('|');
+      const flags = 'g' + (matchCase ? '' : 'i');
+      // setting regex overrides matchword
+      if (regexStr) {
+        highlightRegex = new RegExp('(' + regexStr + ')', flags);
+      } else {
+        const pattern = `${matchWord ? '\\b' : ''}(${lines.join('|')})${matchWord ? '\\b' : ''}`;
+        highlightRegex = new RegExp(pattern, flags);
+      }
+      // Lazy init
+      if (!this.highlightParsers) {
+        this.highlightParsers = [];
+      }
+      this.highlightParsers.push({
+        highlightWords,
+        highlightRegex,
+        highlightColor,
+        highlightWholeMessage,
+      });
+    });
   }
 
   setHighContrast(newValue) {
@@ -318,6 +363,7 @@ class ChatRenderer {
     const to = Math.max(0, len - COMBINE_MAX_MESSAGES);
     for (let i = from; i >= to; i--) {
       const message = this.visibleMessages[i];
+      // prettier-ignore
       const matches = (
         // Is not an internal message
         !message.type.startsWith(MESSAGE_TYPE_INTERNAL)
@@ -334,17 +380,13 @@ class ChatRenderer {
   }
 
   processBatch(batch, options = {}) {
-    const {
-      prepend,
-      notifyListeners = true,
-    } = options;
+    const { prepend, notifyListeners = true } = options;
     const now = Date.now();
     // Queue up messages until chat is ready
     if (!this.isReady()) {
       if (prepend) {
         this.queue = [...batch, ...this.queue];
-      }
-      else {
+      } else {
         this.queue = [...this.queue, ...batch];
       }
       return;
@@ -379,31 +421,69 @@ class ChatRenderer {
         }
         // Payload is HTML
         else if (message.html) {
-          if (this.highContrast) {
-            node.innerHTML = formatHighContrast(message.html);
-          }
-          else {
-            node.innerHTML = message.html;
-          }
-        }
-        else {
+          node.innerHTML = this.highContrast ? formatHighContrast(message.html) : message.html;
+        } else {
           logger.error('Error: message is missing text payload', message);
         }
-        // Highlight text
-        if ((!message.avoidHighlighting || this.highlightSelf)
-        && this.highlightRegex) {
-          const highlighted = highlightNode(node,
-            this.highlightRegex,
-            text => (
-              createHighlightNode(text, this.highlightColor)
-            ));
-          if (highlighted) {
-            node.className += ' ChatMessage--highlighted';
+        // Get all nodes in this message that want to be rendered like jsx
+        const nodes = node.querySelectorAll('[data-component]');
+        for (let i = 0; i < nodes.length; i++) {
+          const childNode = nodes[i];
+          const targetName = childNode.getAttribute('data-component');
+          // Let's pull out the attibute info we need
+          let outputProps = {};
+          for (let j = 0; j < childNode.attributes.length; j++) {
+            const attribute = childNode.attributes[j];
+
+            let working_value = attribute.nodeValue;
+            // We can't do the "if it has no value it's truthy" trick
+            // Because getAttribute returns "", not null. Hate IE
+            if (working_value === '$true') {
+              working_value = true;
+            } else if (working_value === '$false') {
+              working_value = false;
+            } else if (!isNaN(working_value)) {
+              const parsed_float = parseFloat(working_value);
+              if (!isNaN(parsed_float)) {
+                working_value = parsed_float;
+              }
+            }
+
+            let canon_name = attribute.nodeName.replace('data-', '');
+            // html attributes don't support upper case chars, so we need to map
+            canon_name = TGUI_CHAT_ATTRIBUTES_TO_PROPS[canon_name];
+            outputProps[canon_name] = working_value;
           }
+          const oldHtml = { __html: childNode.innerHTML };
+          while (childNode.firstChild) {
+            childNode.removeChild(childNode.firstChild);
+          }
+          const Element = TGUI_CHAT_COMPONENTS[targetName];
+          /* eslint-disable react/no-danger */
+          render(
+            <Element {...outputProps}>
+              <span dangerouslySetInnerHTML={oldHtml} />
+            </Element>,
+            childNode
+          );
+          /* eslint-enable react/no-danger */
+        }
+
+        // Highlight text
+        if ((!message.avoidHighlighting || this.highlightSelf) && this.highlightParsers) {
+          this.highlightParsers.map((parser) => {
+            const highlighted = highlightNode(node, parser.highlightRegex, parser.highlightWords, (text) =>
+              createHighlightNode(text, parser.highlightColor)
+            );
+            if (highlighted && parser.highlightWholeMessage) {
+              node.className += ' ChatMessage--highlighted';
+            }
+          });
         }
         // Linkify text
-        if (message.allowLinkify) {
-          linkifyNode(node);
+        const linkifyNodes = node.querySelectorAll('.linkify');
+        for (let i = 0; i < linkifyNodes.length; ++i) {
+          linkifyNode(linkifyNodes[i]);
         }
         // Assign an image error handler
         if (now < message.createdAt + IMAGE_RETRY_MESSAGE_AGE) {
@@ -420,6 +500,7 @@ class ChatRenderer {
       if (!message.type) {
         // IE8: Does not support querySelector on elements that
         // are not yet in the document.
+        // prettier-ignore
         const typeDef = !Byond.IS_LTE_IE8 && MESSAGE_TYPES
           .find(typeDef => (
             typeDef.selector && node.querySelector(typeDef.selector)
@@ -442,8 +523,7 @@ class ChatRenderer {
       const firstChild = this.rootNode.childNodes[0];
       if (prepend && firstChild) {
         this.rootNode.insertBefore(fragment, firstChild);
-      }
-      else {
+      } else {
         this.rootNode.appendChild(fragment);
       }
       if (this.scrollTracking) {
@@ -469,8 +549,7 @@ class ChatRenderer {
     // Visible messages
     {
       const messages = this.visibleMessages;
-      const fromIndex = Math.max(0,
-        messages.length - MAX_VISIBLE_MESSAGES);
+      const fromIndex = Math.max(0, messages.length - MAX_VISIBLE_MESSAGES);
       if (fromIndex > 0) {
         this.visibleMessages = messages.slice(fromIndex);
         for (let i = 0; i < fromIndex; i++) {
@@ -480,6 +559,7 @@ class ChatRenderer {
           message.node = 'pruned';
         }
         // Remove pruned messages from the message array
+        // prettier-ignore
         this.messages = this.messages.filter(message => (
           message.node !== 'pruned'
         ));
@@ -488,8 +568,7 @@ class ChatRenderer {
     }
     // All messages
     {
-      const fromIndex = Math.max(0,
-        this.messages.length - MAX_PERSISTED_MESSAGES);
+      const fromIndex = Math.max(0, this.messages.length - MAX_PERSISTED_MESSAGES);
       if (fromIndex > 0) {
         this.messages = this.messages.slice(fromIndex);
         logger.log(`pruned ${fromIndex} stored messages`);
@@ -502,8 +581,7 @@ class ChatRenderer {
       return;
     }
     // Make a copy of messages
-    const fromIndex = Math.max(0,
-      this.messages.length - MAX_PERSISTED_MESSAGES);
+    const fromIndex = Math.max(0, this.messages.length - MAX_PERSISTED_MESSAGES);
     const messages = this.messages.slice(fromIndex);
     // Remove existing nodes
     for (let message of messages) {
@@ -531,18 +609,21 @@ class ChatRenderer {
       const cssRules = styleSheets[i].cssRules;
       for (let i = 0; i < cssRules.length; i++) {
         const rule = cssRules[i];
-        cssText += rule.cssText + '\n';
+        if (rule && typeof rule.cssText === 'string') {
+          cssText += rule.cssText + '\n';
+        }
       }
     }
     cssText += 'body, html { background-color: #141414 }\n';
     // Compile chat log as HTML text
     let messagesHtml = '';
-    for (let message of this.messages) {
+    for (let message of this.visibleMessages) {
       if (message.node) {
         messagesHtml += message.node.outerHTML + '\n';
       }
     }
     // Create a page
+    // prettier-ignore
     const pageHtml = '<!doctype html>\n'
       + '<html>\n'
       + '<head>\n'

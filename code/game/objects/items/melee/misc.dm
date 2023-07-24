@@ -1,5 +1,5 @@
 /obj/item/melee
-	item_flags = NEEDS_PERMIT
+	item_flags = NEEDS_PERMIT | ISWEAPON
 
 /obj/item/melee/proc/check_martial_counter(mob/living/carbon/human/target, mob/living/carbon/human/user)
 	if(target.check_block())
@@ -338,7 +338,7 @@
 	item_state = null
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
-	item_flags = NONE
+	item_flags = ISWEAPON
 	force = 0
 	on = FALSE
 	on_sound = 'sound/weapons/batonextend.ogg'
@@ -406,7 +406,7 @@
 	item_state = null
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
-	item_flags = NONE
+	item_flags = ISWEAPON
 	force = 5
 	on = FALSE
 	var/knockdown_time_carbon = (1.5 SECONDS) // Knockdown length for carbons.
@@ -750,7 +750,7 @@
 	item_state = "null"
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
-	item_flags = NONE
+	item_flags = ISWEAPON
 	force = 0
 	attack_verb = list("hit", "poked")
 	var/obj/item/reagent_containers/food/snacks/sausage/held_sausage
@@ -833,7 +833,7 @@
 		if(istype(target, /obj/anomaly) && get_dist(user, target) < 10)
 			to_chat(user, "You send [held_sausage] towards [target].")
 			playsound(src, 'sound/items/rped.ogg', 50, 1)
-			beam = user.Beam(target,icon_state="rped_upgrade",time=100)
+			beam = user.Beam(target,icon_state="rped_upgrade", time = 10 SECONDS)
 		else if (user.Adjacent(target))
 			to_chat(user, "You extend [src] towards [target].")
 			playsound(src.loc, 'sound/weapons/batonextend.ogg', 50, 1)

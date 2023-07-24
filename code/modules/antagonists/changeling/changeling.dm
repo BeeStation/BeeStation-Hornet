@@ -6,7 +6,9 @@
 	name = "Changeling"
 	roundend_category  = "changelings"
 	antagpanel_category = "Changeling"
-	job_rank = ROLE_CHANGELING
+	banning_key = ROLE_CHANGELING
+	required_living_playtime = 4
+	ui_name = "AntagInfoChangeling"
 	antag_moodlet = /datum/mood_event/focused
 	hijack_speed = 0.5
 	var/you_are_greet = TRUE
@@ -57,17 +59,18 @@
 	. = ..()
 
 /datum/antagonist/changeling/proc/generate_name()
+	var/static/list/left_changling_names = GLOB.greek_letters.Copy()
+
 	var/honorific
 	if(owner.current.gender == FEMALE)
 		honorific = "Ms."
 	else
 		honorific = "Mr."
-	if(GLOB.possible_changeling_IDs.len)
-		changelingID = pick(GLOB.possible_changeling_IDs)
-		GLOB.possible_changeling_IDs -= changelingID
+	if(length(left_changling_names))
+		changelingID = pick_n_take(left_changling_names)
 		changelingID = "[honorific] [changelingID]"
 	else
-		changelingID = "[honorific] [rand(1,999)]"
+		changelingID = "[honorific] [pick(GLOB.greek_letters)] No.[rand(1,9)]"
 
 /datum/antagonist/changeling/proc/create_actions()
 	cellular_emporium = new(src)
@@ -136,6 +139,13 @@
 		var/datum/action/changeling/S = power
 		if(istype(S) && S.needs_button)
 			S.Grant(owner.current)
+
+/datum/antagonist/changeling/ui_data(mob/user)
+	var/list/data = list()
+
+	data["true_name"] = changelingID
+	data["objectives"] = get_objectives()
+	return data
 
 ///Handles stinging without verbs.
 /datum/antagonist/changeling/proc/stingAtom(mob/living/carbon/ling, atom/A)
@@ -396,6 +406,7 @@
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ling_aler.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
 	owner.announce_objectives()
+
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Changeling",
 		"You have absorbed the form of [owner.current] and have infiltrated the station. Use your changeling powers to complete your objectives.")
 

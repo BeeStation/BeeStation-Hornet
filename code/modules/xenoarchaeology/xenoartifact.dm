@@ -3,6 +3,7 @@
 	icon = 'icons/obj/xenoarchaeology/xenoartifact.dmi'
 	icon_state = "map_editor"
 	w_class = WEIGHT_CLASS_NORMAL
+	item_flags = ISWEAPON
 	light_color = LIGHT_COLOR_FIRE
 	desc = "A strange alien device. What could it possibly do?"
 	throw_range = 3
@@ -65,7 +66,7 @@
 	blacklist_ref = GLOB.xenoa_bluespace_blacklist
 	material = difficulty //Difficulty is set, in most cases
 	if(!material)
-		material = pickweight(list(XENOA_BLUESPACE = 8, XENOA_PLASMA = 5, XENOA_URANIUM = 3, XENOA_BANANIUM = 1)) //Maint artifacts and similar situations
+		material = pick_weight(list(XENOA_BLUESPACE = 8, XENOA_PLASMA = 5, XENOA_URANIUM = 3, XENOA_BANANIUM = 1)) //Maint artifacts and similar situations
 
 	var/price
 	var/extra_masks = 0
@@ -303,7 +304,7 @@
 	if(selection.len < 1)
 		log_game("An impossible event has occured. [src] has failed to generate any traits!")
 		return
-	new_trait = pickweight(selection)
+	new_trait = pick_weight(selection)
 	blacklist += new_trait //Add chosen trait to blacklist
 	traits += new new_trait
 	new_trait = new new_trait //type converting doesn't work too well here but this should be fine.
@@ -452,6 +453,7 @@
 
 /obj/item/xenoartifact/objective/ComponentInitialize()
 	AddComponent(/datum/component/gps, "[scramble_message_replace_chars("#########", 100)]", TRUE)
+	AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#eb4d4d", TRUE, TRUE)
 	..()
 
 /obj/effect/ebeam/xenoa_ebeam //Beam code. This isn't mine. See beam.dm for better documentation.
@@ -466,6 +468,7 @@
 /datum/beam/xenoa_beam/Draw()
 	var/Angle = round(get_angle(origin,target))
 	var/matrix/rot_matrix = matrix()
+	var/turf/origin_turf = get_turf(origin)
 	rot_matrix.Turn(Angle)
 
 	//Translation vector for origin and target
@@ -475,21 +478,21 @@
 	var/length = round(sqrt((DX)**2+(DY)**2)) //hypotenuse of the triangle formed by target and origin's displacement
 
 	for(n in 0 to length-1 step 32)//-1 as we want < not <=, but we want the speed of X in Y to Z and step X
-		if(QDELETED(src) || finished)
+		if(QDELETED(src))
 			break
-		var/obj/effect/ebeam/xenoa_ebeam/X = new(origin_oldloc) // Start Xenoartifact - This assigns colour to the beam
+		var/obj/effect/ebeam/xenoa_ebeam/X = new(origin_turf) // Start Xenoartifact - This assigns colour to the beam
 		X.color = color
 		X.owner = src
 		elements += X // End Xenoartifact
 
-		//Assign icon, for main segments it's base_icon, for the end, it's icon+icon_state
-		//cropped by a transparent box of length-N pixel size
+		//Assign our single visual ebeam to each ebeam's vis_contents
+		//ends are cropped by a transparent box icon of length-N pixel size laid over the visuals obj
 		if(n+32>length)
 			var/icon/II = new(icon, icon_state)
 			II.DrawBox(null,1,(length-n),32,32)
 			X.icon = II
 		else
-			X.icon = base_icon
+			X.vis_contents += visuals
 		X.transform = rot_matrix
 
 		//Calculate pixel offsets (If necessary)
@@ -518,4 +521,3 @@
 		X.pixel_x = Pixel_x
 		X.pixel_y = Pixel_y
 		CHECK_TICK
-	afterDraw()

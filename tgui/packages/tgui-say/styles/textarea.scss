@@ -1,0 +1,23 @@
+@use './colors.scss';
+
+.textarea {
+  background-color: #0f0f0f;
+  border: 1px solid #252525;
+  border-radius: 2px;
+  color: white;
+  flex-grow: 1;
+  font-family: 'Lucida Console', monospace;
+  font-size: 1.1rem;
+  margin-left: 5px;
+  padding: 7px;
+  &:focus {
+    border-color: #303030;
+  }
+}
+
+.textarea-lightMode {
+  @extend .textarea;
+  background-color: #cecece;
+  color: black;
+  border-color: colors.$lightBorder;
+}

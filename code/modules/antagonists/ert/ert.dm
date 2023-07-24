@@ -22,6 +22,7 @@
 	show_to_ghosts = TRUE
 	antag_moodlet = /datum/mood_event/focused
 	count_against_dynamic_roll_chance = FALSE
+	banning_key = ROLE_ERT
 
 /datum/antagonist/ert/on_gain()
 	if(random_names)
@@ -185,8 +186,7 @@
 		return
 	if(isplasmaman(H))
 		H.equipOutfit(plasmaman_outfit)
-		H.internal = H.get_item_for_held_index(2)
-		H.update_internals_hud_icon(1)
+		H.open_internals(H.get_item_for_held_index(2))
 	H.equipOutfit(outfit)
 	//Set the suits frequency
 	var/obj/item/I = H.get_item_by_slot(ITEM_SLOT_OCLOTHING)

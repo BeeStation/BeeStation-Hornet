@@ -50,12 +50,12 @@
 	for(var/spath in subtypesof(/datum/species))
 		var/datum/species/S = new spath()
 		GLOB.species_list[S.id] = spath
-	sortList(GLOB.species_list)
+	sort_list(GLOB.species_list)
 
 	//Surgeries
 	for(var/path in subtypesof(/datum/surgery))
 		GLOB.surgeries_list += new path()
-	sortList(GLOB.surgeries_list)
+	sort_list(GLOB.surgeries_list)
 	GLOB.emote_list = init_emote_list()
 
 	// Hair Gradients - Initialise all /datum/sprite_accessory/hair_gradient into an list indexed by gradient-style name
@@ -75,10 +75,18 @@
 		GLOB.keybinding_list_by_key[initial(instance.key)] += instance.name
 	// Sort all the keybindings by their weight
 	for(var/key in GLOB.keybinding_list_by_key)
-		GLOB.keybinding_list_by_key[key] = sortList(GLOB.keybinding_list_by_key[key])
+		GLOB.keybinding_list_by_key[key] = sort_list(GLOB.keybinding_list_by_key[key])
 
 
-	init_subtypes(/datum/crafting_recipe, GLOB.crafting_recipes)
+	init_crafting_recipes(GLOB.crafting_recipes)
+
+/// Inits the crafting recipe list, sorting crafting recipe requirements in the process.
+/proc/init_crafting_recipes(list/crafting_recipes)
+	for(var/path in subtypesof(/datum/crafting_recipe))
+		var/datum/crafting_recipe/recipe = new path()
+		recipe.reqs = sort_list(recipe.reqs, /proc/cmp_crafting_req_priority)
+		crafting_recipes += recipe
+	return crafting_recipes
 
 /proc/make_datum_references_lists_late_setup()
 	// this should be done lately because it needs something pre-setup

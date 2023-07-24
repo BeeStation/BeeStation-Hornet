@@ -476,7 +476,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 		if(nlog_type & LOG_SAY)
 			var/list/reversed = log_source[log_type] //reverse the list so we get the last sentences instead of the first
 			if(islist(reversed))
-				say_log = reverseRange(reversed.Copy())
+				say_log = reverse_range(reversed.Copy())
 				break
 
 	if(length(say_log) > 10) //we're going to get up to the last 10 sentences spoken by the holo_host
@@ -714,7 +714,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 			return
 
 		to_chat(user, "<span class='warning'>The rune is trying to repair [host.name]'s soul!</span>")
-		var/list/candidates = pollCandidatesForMob("Do you want to replace the soul of [host.name]?", ROLE_SENTIENCE, null, ROLE_SENTIENCE, 50, host, POLL_IGNORE_SHADE)//todo: fix desc
+		var/list/candidates = pollCandidatesForMob("Do you want to replace the soul of [host.name]?", ROLE_SENTIENCE, null, 5 SECONDS, host, POLL_IGNORE_SHADE)
 
 		if(length(candidates) && !host.key) //check if anyone wanted to play as the dead person and check if no one's in control of the body one last time.
 			var/mob/dead/observer/ghost = pick(candidates)

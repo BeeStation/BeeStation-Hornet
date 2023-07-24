@@ -6,7 +6,7 @@
 	item_state = "cleaner"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
-	item_flags = NOBLUDGEON
+	item_flags = NOBLUDGEON | ISWEAPON
 	reagent_flags = OPENCONTAINER
 	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0
@@ -384,6 +384,6 @@
 
 /obj/item/reagent_containers/spray/cyborg/acid
 	name = "acid spray"
-	desc = "A spray filled with sulphuric acid for offensive use."
+	desc = "A spray filled with sulfuric acid for offensive use."
 	color = "#00FF32"
 	set_reagent = /datum/reagent/toxin/acid

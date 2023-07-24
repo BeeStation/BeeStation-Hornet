@@ -29,34 +29,62 @@
 	blocks_shove_knockdown = FALSE
 	move_sound = null
 
-/obj/item/choice_beacon/holy
+/obj/item/choice_beacon/radial/holy
 	name = "armaments beacon"
 	desc = "Contains a set of armaments for the chaplain that have been reinforced with a silver and beryllium-bronze alloy, providing immunity to magic and its influences."
 
-/obj/item/choice_beacon/holy/canUseBeacon(mob/living/user)
+/obj/item/choice_beacon/radial/holy/canUseBeacon(mob/living/user)
 	if(user.mind?.holy_role)
 		return ..()
 	else
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 40, 1)
 		return FALSE
 
-/obj/item/choice_beacon/holy/generate_display_names()
-	var/static/list/holy_item_list
-	if(!holy_item_list)
-		holy_item_list = list()
+/obj/item/choice_beacon/radial/holy/generate_options(mob/living/M)
+	var/list/item_list = generate_item_list()
+	if(!item_list.len)
+		return
+	var/choice = show_radial_menu(M, src, item_list, radius = 36, require_near = TRUE, tooltips = TRUE)
+	if(!QDELETED(src) && !(isnull(choice)) && !M.incapacitated() && in_range(M,src))
+		var/list/temp_list = typesof(/obj/item/storage/box/holy)
+		for(var/V in temp_list)
+			var/atom/A = V
+			if(initial(A.name) == choice)
+				spawn_option(A,M)
+				uses--
+				if(!uses)
+					qdel(src)
+				else
+					balloon_alert(M, "[uses] use[uses > 1 ? "s" : ""] remaining")
+					to_chat(M, "<span class='notice'>[uses] use[uses > 1 ? "s" : ""] remaining on the [src].</span>")
+				return
+
+/obj/item/choice_beacon/radial/holy/generate_item_list()
+	var/static/list/item_list
+	if(!item_list)
+		item_list = list()
 		var/list/templist = typesof(/obj/item/storage/box/holy)
 		for(var/V in templist)
-			var/atom/A = V
-			holy_item_list[initial(A.name)] = A
-	return holy_item_list
+			var/obj/item/storage/box/holy/boxy = V
+			var/image/outfit_icon = image(initial(boxy.item_icon_file), initial(boxy.item_icon_state))
+			var/datum/radial_menu_choice/choice = new
+			choice.image = outfit_icon
+			var/info_text = "That's [icon2html(outfit_icon, usr)] "
+			info_text += initial(boxy.info_text)
+			choice.info = info_text
+			item_list[initial(boxy.name)] = choice
+	return item_list
 
-/obj/item/choice_beacon/holy/spawn_option(obj/choice,mob/living/M)
+/obj/item/choice_beacon/radial/holy/spawn_option(obj/choice,mob/living/M)
 	..()
 	playsound(src, 'sound/effects/pray_chaplain.ogg', 40, 1)
 	SSblackbox.record_feedback("tally", "chaplain_armor", 1, "[choice]")
 
 /obj/item/storage/box/holy
 	name = "Templar Kit"
+	var/icon/item_icon_file = 'icons/misc/premade_loadouts.dmi'
+	var/item_icon_state = "templar"
+	var/info_text = "Templar Kit, for waging a holy war against the unfaithful. \n<span class='notice'>The armor can hold a variety of religious items.</span>"
 
 /obj/item/storage/box/holy/PopulateContents()
 	new /obj/item/clothing/head/helmet/chaplain(src)
@@ -64,6 +92,8 @@
 
 /obj/item/storage/box/holy/student
 	name = "Profane Scholar Kit"
+	item_icon_state = "mikolash"
+	info_text = "Profane Scholar Kit, for granting the common masses the sight to the beyond. \n<span class='notice'>The robe can hold a variety of religious items.</span>"
 
 /obj/item/storage/box/holy/student/PopulateContents()
 	new /obj/item/clothing/suit/armor/riot/chaplain/studentuni(src)
@@ -89,6 +119,8 @@
 
 /obj/item/storage/box/holy/sentinel
 	name = "Stone Sentinel Kit"
+	item_icon_state = "giantdad"
+	info_text = "Stone Sentinel Kit, for making a stalwart stance against herecy. \n<span class='notice'>The armor can hold a variety of religious items.</span>"
 
 /obj/item/storage/box/holy/sentinel/PopulateContents()
 	new /obj/item/clothing/suit/armor/riot/chaplain/ancient(src)
@@ -108,6 +140,8 @@
 
 /obj/item/storage/box/holy/witchhunter
 	name = "Witchhunter Kit"
+	item_icon_state = "witchhunter"
+	info_text = "Witchhunter Kit, for burning the wicked at the stake. \n<span class='notice'>The garb can hold a variety of religious items. \nComes with a crucifix that wards against hexes.</span>"
 
 /obj/item/storage/box/holy/witchhunter/PopulateContents()
 	new /obj/item/clothing/suit/armor/riot/chaplain/witchhunter(src)
@@ -130,6 +164,8 @@
 
 /obj/item/storage/box/holy/graverobber
 	name = "Grave Robber Kit"
+	item_icon_state = "graverobber"
+	info_text = "Grave Robber Kit, for finding the treasures of those who parted this world. \n<span class='notice'>The coat can hold a variety of religious items. \nPickaxe not included.</span>"
 
 /obj/item/storage/box/holy/graverobber/PopulateContents()
 	new /obj/item/clothing/suit/armor/riot/chaplain/graverobber_coat(src)
@@ -173,6 +209,8 @@
 
 /obj/item/storage/box/holy/adept
 	name = "Divine Adept Kit"
+	item_icon_state = "crusader"
+	info_text = "Divine Adept Kit, for standing stalward with unvavering faith. \n<span class='notice'>The robes can hold a variety of religious items.</span>"
 
 /obj/item/storage/box/holy/adept/PopulateContents()
 	new /obj/item/clothing/suit/armor/riot/chaplain/adept(src)
@@ -193,6 +231,8 @@
 
 /obj/item/storage/box/holy/follower
 	name = "Followers of the Chaplain Kit"
+	item_icon_state = "leader"
+	info_text = "Divine Adept Kit, for starting a non-heretical cult of your own. \n<span class='notice'>The hoodie can hold a variety of religious items. \nComes with four follower hoodies.</span>"
 
 /obj/item/storage/box/holy/follower/PopulateContents()
 	new /obj/item/clothing/suit/hooded/chaplain_hoodie/leader(src)
@@ -244,6 +284,7 @@
 	throw_speed = 3
 	throw_range = 4
 	throwforce = 10
+	item_flags = ISWEAPON
 	w_class = WEIGHT_CLASS_TINY
 	obj_flags = UNIQUE_RENAME
 	var/chaplain_spawnable = TRUE
@@ -255,7 +296,7 @@
 	success_feedback = "You disrupt the magic of %THEEFFECT with %THEWEAPON.", \
 	success_forcesay = "BEGONE FOUL MAGIKS!!", \
 	on_clear_callback = CALLBACK(src, PROC_REF(on_cult_rune_removed)), \
-	effects_we_clear = list(/obj/effect/rune, /obj/effect/eldritch))
+	effects_we_clear = list(/obj/effect/rune, /obj/effect/heretic_rune))
 
 /obj/item/nullrod/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is killing [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to get closer to god!</span>")
@@ -348,6 +389,7 @@
 		var/obj/item/nullrod/holy_weapon = new A
 		holy_weapon.current_skin = choice
 		M.put_in_active_hand(holy_weapon)
+
 
 /obj/item/nullrod/proc/on_cult_rune_removed(obj/effect/target, mob/living/user)
 	if(!istype(target, /obj/effect/rune))
@@ -578,7 +620,7 @@
 
 	possessed = TRUE
 
-	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the spirit of [user.real_name]'s blade?", ROLE_PAI, null, FALSE, 100, POLL_IGNORE_POSSESSED_BLADE)
+	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the spirit of [user.real_name]'s blade?", ROLE_SPECTRAL_BLADE, null, 10 SECONDS, ignore_category = POLL_IGNORE_SPECTRAL_BLADE)
 
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
@@ -637,7 +679,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/chainsaw_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/chainsaw_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
-	item_flags = ABSTRACT
+	item_flags = ABSTRACT | ISWEAPON
 	sharpness = IS_SHARP
 	attack_verb = list("sawed", "tore", "cut", "chopped", "diced")
 	hitsound = 'sound/weapons/chainsawhit.ogg'
@@ -717,7 +759,7 @@
 	item_state = "arm_blade"
 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
-	item_flags = ABSTRACT
+	item_flags = ABSTRACT | ISWEAPON
 	w_class = WEIGHT_CLASS_HUGE
 	sharpness = IS_SHARP
 

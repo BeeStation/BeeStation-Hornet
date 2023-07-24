@@ -8,6 +8,7 @@
 	max_integrity = 200
 	integrity_failure = 50
 	armor = list(MELEE = 20,  BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 70, ACID = 60, STAMINA = 0)
+	var/contents_initialised = FALSE
 	var/icon_door = null
 	var/icon_door_override = FALSE //override to have open overlay use icon different to its base's
 	var/secure = FALSE //secure locker or not, also used if overriding a non-secure locker with a secure door overlay to add fancy lights
@@ -42,12 +43,18 @@
 	var/door_anim_angle = 136
 	var/door_hinge = -6.5
 	var/door_anim_time = 2.0 // set to 0 to make the door not animate at all
+
 /obj/structure/closet/Initialize(mapload)
 	if(mapload && !opened)		// if closed, any item at the crate's loc is put in the contents
 		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
 	. = ..()
+	populate_contents_immediate()
 	update_icon()
-	PopulateContents()
+
+/// Used to immediately fill a closet on spawn.
+/// Use this if you are spawning any items which can be tracked inside the closet.
+/obj/structure/closet/proc/populate_contents_immediate()
+	return
 
 //USE THIS TO FILL IT, NOT INITIALIZE OR NEW
 /obj/structure/closet/proc/PopulateContents()
@@ -137,7 +144,7 @@
 		if(HAS_TRAIT(L, TRAIT_SKITTISH))
 			. += "<span class='notice'>Ctrl-Shift-click [src] to jump inside.</span>"
 
-/obj/structure/closet/CanAllowThrough(atom/movable/mover, turf/target)
+/obj/structure/closet/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(wall_mounted)
 		return TRUE
@@ -166,6 +173,10 @@
 	return TRUE
 
 /obj/structure/closet/proc/dump_contents()
+	// Generate the contents if we haven't already
+	if (!contents_initialised)
+		PopulateContents()
+		contents_initialised = TRUE
 	var/atom/L = drop_location()
 	for(var/atom/movable/AM in src)
 		AM.forceMove(L)
@@ -212,6 +223,8 @@
 		if(L.anchored || L.buckled || L.incorporeal_move || L.has_buckled_mobs())
 			return FALSE
 		if(L.mob_size > MOB_SIZE_TINY) // Tiny mobs are treated as items.
+			if(!mob_storage_capacity)
+				return FALSE
 			if(horizontal && L.density)
 				return FALSE
 			if(L.mob_size > max_mob_size)
@@ -521,9 +534,13 @@
 				open()
 			else
 				req_access = list()
-				req_access += pick(get_all_accesses())
+				req_access |= pick(get_all_accesses())
 
 /obj/structure/closet/contents_explosion(severity, target)
+	// Generate the contents if we haven't already
+	if (!contents_initialised)
+		PopulateContents()
+		contents_initialised = TRUE
 	for(var/thing in contents)
 		switch(severity)
 			if(EXPLODE_DEVASTATE)
@@ -566,6 +583,10 @@
 		T1.visible_message("<span class='warning'>[user] dives into [src]!</span>")
 
 /obj/structure/closet/on_object_saved(var/depth = 0)
+	// Generate the contents if we haven't already
+	if (!contents_initialised)
+		PopulateContents()
+		contents_initialised = TRUE
 	if(depth >= 10)
 		return ""
 	var/dat = ""

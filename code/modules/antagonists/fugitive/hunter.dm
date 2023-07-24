@@ -1,7 +1,7 @@
 /datum/antagonist/fugitive_hunter
 	name = "Fugitive Hunter"
 	roundend_category = "Fugitive"
-	job_rank = ROLE_FUGITIVE_HUNTER
+	banning_key = ROLE_FUGITIVE_HUNTER
 	show_in_antagpanel = TRUE
 	antagpanel_category = "Fugitive Hunters"
 	show_to_ghosts = TRUE
@@ -71,6 +71,9 @@
 	name = "Fugitive Hunters"
 	member_name = "hunter"
 	var/datum/fugitive_type/hunter/backstory
+
+/datum/team/fugitive_hunters/get_team_name() // simple to know fugitive hunter's story
+	return backstory.multiple_name
 
 /datum/team/fugitive_hunters/proc/forge_team_objectives()
 	for(var/datum/antagonist/fugitive/A in GLOB.antagonists)

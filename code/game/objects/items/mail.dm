@@ -193,7 +193,7 @@
 
 
 	for(var/i in 1 to goodie_count)
-		var/target_good = pickweight(goodies)
+		var/target_good = pick_weight(goodies)
 		var/atom/movable/target_atom = new target_good(src)
 		body.log_message("[key_name(body)] received [target_atom.name] in the mail ([target_good])", LOG_GAME)
 		if(target_atom.type in danger_goodies)
@@ -228,9 +228,11 @@
 	switch(rand(1,10))
 
 		if(1,2)
-			name = special_name ? junk_names[junk] : "[initial(name)] for [pick(GLOB.alive_mob_list)]" //LETTER FOR IAN / BUBBLEGUM / MONKEY(420)
+			if (length(GLOB.alive_mob_list))
+				name = special_name ? junk_names[junk] : "[initial(name)] for [pick(GLOB.alive_mob_list)]" //LETTER FOR IAN / BUBBLEGUM / MONKEY(420)
 		if(3,4)
-			name = special_name ? junk_names[junk] : "[initial(name)] for [pick(GLOB.player_list)]" //Letter for ANYONE, even that wizard rampaging through the station.
+			if (length(GLOB.player_list))
+				name = special_name ? junk_names[junk] : "[initial(name)] for [pick(GLOB.player_list)]" //Letter for ANYONE, even that wizard rampaging through the station.
 		if(5)
 			name = special_name ? junk_names[junk] : "DO NOT OPEN"
 		else
@@ -321,14 +323,13 @@
 /obj/item/paper/fluff/nice_argument/Initialize()
 	. = ..()
 	var/station_name = station_name()
-	info = "Nice argument, however there's a <i>small detail</i>...<br>IP: '[rand(0,10)].[rand(0,255)].[rand(0,255)].[rand(0,255)]'<br> Station name: '[station_name]'<br>"
+	add_raw_text("Nice argument, however there's a <i>small detail</i>...<br>IP: '[rand(0,10)].[rand(0,255)].[rand(0,255)].[rand(0,255)]'<br> Station name: '[station_name]'<br>")
 
 /obj/item/paper/fluff/junkmail_redpill/Initialize()
-	. = ..()
 	// 1 in 1000 chance of getting 2 random nuke code characters.
 	if(!prob(nuclear_option_odds))
-		info = "<i>You need to escape the simulation. Don't forget the numbers, they help you remember:</i> '[random_code(4)]...'"
-		return
+		add_raw_text("<i>You need to escape the simulation. Don't forget the numbers, they help you remember:</i> '[random_code(4)]...'")
+		return ..()
 	var/code = random_code(5)
 	for(var/obj/machinery/nuclearbomb/selfdestruct/nuke in GLOB.nuke_list)
 		if(nuke)
@@ -340,7 +341,8 @@
 		else
 			stack_trace("Station self-destruct not found during lone op team creation.")
 			code = null
-	info = "<i>You need to escape the simulation. Don't forget the numbers, they help you remember:</i> '[code[rand(1,5)]][code[rand(1,5)]][code[rand(1,5)]][code[rand(1,5)]]...'"
+	add_raw_text("<i>You need to escape the simulation. Don't forget the numbers, they help you remember:</i> '[code[rand(1,5)]][code[rand(1,5)]][code[rand(1,5)]][code[rand(1,5)]]...'")
+	return ..()
 
 //admin letter enabling players to brute force their way through the nuke code if they're so inclined.
 /obj/item/paper/fluff/junkmail_redpill/true
@@ -353,5 +355,5 @@
 	color = "#FFCCFF"
 
 /obj/item/paper/fluff/junkmail_generic/Initialize()
-	. = ..()
-	info = pick(GLOB.junkmail_messages)
+	default_raw_text = pick(GLOB.junkmail_messages)
+	return ..()

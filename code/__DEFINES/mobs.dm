@@ -97,15 +97,14 @@
 #define SPECIES_FLY "fly"
 #define SPECIES_HUMAN "human"
 #define SPECIES_IPC "ipc"
-#define SPECIES_JELLYPERSON "jelly"
- #define SPECIES_LUMINESCENT "lum"
- #define SPECIES_SLIMEPERSON "slime"
- #define SPECIES_STARGAZER "stargazer"
 #define SPECIES_LIZARD "lizard"
  #define SPECIES_ASHWALKER "ashlizard"
 #define SPECIES_MONKEY "monkey"
 #define SPECIES_MOTH "moth"
 #define SPECIES_OOZELING "oozeling"
+ #define SPECIES_LUMINESCENT "lum"
+ #define SPECIES_SLIMEPERSON "slime"
+ #define SPECIES_STARGAZER "stargazer"
 #define SPECIES_PLASMAMAN "plasmaman"
 #define SPECIES_PODPERSON "pod"
 #define SPECIES_PUMPKINPERSON "pumpkin_man"
@@ -225,6 +224,15 @@
 #define TRAUMA_RESILIENCE_MAGIC 4      //! Curable only with magic
 #define TRAUMA_RESILIENCE_ABSOLUTE 5   //! This is here to stay
 
+/// This trauma cannot be cured through "special" means, such as nanites or viruses.
+#define TRAUMA_SPECIAL_CURE_PROOF	(1<<0)
+/// This trauma transfers on cloning.
+#define TRAUMA_CLONEABLE			(1<<1)
+/// This trauma CANNOT be obtained randomly.
+#define TRAUMA_NOT_RANDOM			(1<<2)
+/// Default trauma flags.
+#define TRAUMA_DEFAULT_FLAGS		(TRAUMA_CLONEABLE)
+
 //Limit of traumas for each resilience tier
 #define TRAUMA_LIMIT_BASIC 3
 #define TRAUMA_LIMIT_SURGERY 2
@@ -245,6 +253,7 @@
 #define BIOWARE_NERVES "nerves"
 #define BIOWARE_CIRCULATION "circulation"
 #define BIOWARE_LIGAMENTS "ligaments"
+#define BIOWARE_CORTEX "cortex"
 
 //Health hud screws for carbon mobs
 #define SCREWYHUD_NONE 0
@@ -481,6 +490,9 @@
 
 ///Define for spawning megafauna instead of a mob for cave gen
 #define SPAWN_MEGAFAUNA "bluh bluh huge boss"
+
+///How much a mob's sprite should be moved when they're lying down
+#define PIXEL_Y_OFFSET_LYING -6
 
 //Body sizes
 #define BODY_SIZE_NORMAL 1

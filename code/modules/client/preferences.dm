@@ -24,10 +24,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/tip_delay = 500 //tip delay in milliseconds
 
 	//Antag preferences
-	var/list/be_special = list()		//Special role selection
-	var/tmp/old_be_special = 0			//Bitflag version of be_special, used to update old savefiles and nothing more
-										//If it's 0, that's good, if it's anything but 0, the owner of this prefs file's antag choices were,
-										//autocorrected this round, not that you'd need to check that.
+	var/list/role_preferences = list()		//Special role selection
 
 	var/UI_style = null
 	var/outline_color = COLOR_BLUE_GRAY
@@ -100,7 +97,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if(unlock_content)
 				set_max_character_slots(8)
 		else if(!length(key_bindings)) // Guests need default keybinds
-			key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
+			key_bindings = deep_copy_list(GLOB.keybinding_list_by_key)
 	var/loaded_preferences_successfully = load_from_database()
 	if(loaded_preferences_successfully)
 		if("6030fe461e610e2be3a2c3e75c06067e" in purchased_gear) //MD5 hash of, "extra character slot"
@@ -136,6 +133,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/list/dat = list(TOOLTIP_CSS_SETUP, "<center>")
 
 	dat += "<a href='?_src_=prefs;preference=tab;tab=0' [current_tab == 0 ? "class='linkOn'" : ""]>Character Settings</a>"
+	dat += "<a href='?_src_=prefs;preference=tab;tab=4' [current_tab == 4 ? "class='linkOn'" : ""]>Antagonist Preferences</a>"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=1' [current_tab == 1 ? "class='linkOn'" : ""]>Game Preferences</a>"
 	var/shop_name = "[CONFIG_GET(string/metacurrency_name)] Shop"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=2' [current_tab == 2 ? "class='linkOn'" : ""]>[shop_name]</a>"
@@ -605,13 +603,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 
 		if (1) // Game Preferences
-			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
+			dat += "<table><tr>"
+			// left box
+			dat += "<td width='340px' height='300px' valign='top'>"
 			dat += "<h2>General Settings</h2>"
 			dat += "<b>UI Style:</b> <a href='?_src_=prefs;task=input;preference=ui'>[UI_style]</a><br>"
 			dat += "<b>Outline:</b> <a href='?_src_=prefs;preference=outline_enabled'>[toggles & PREFTOGGLE_OUTLINE_ENABLED ? "Enabled" : "Disabled"]</a><br>"
 			dat += "<b>Outline Color:</b> <span style='border:1px solid #161616; background-color: [outline_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=outline_color'>Change</a><BR>"
-			dat += "<b>tgui Monitors:</b> <a href='?_src_=prefs;preference=tgui_lock'>[(toggles2 & PREFTOGGLE_2_LOCKED_TGUI) ? "Primary" : "All"]</a><br>"
-			dat += "<b>tgui Style:</b> <a href='?_src_=prefs;preference=tgui_fancy'>[(toggles2 & PREFTOGGLE_2_FANCY_TGUI) ? "Fancy" : "No Frills"]</a><br>"
 			dat += "<b>Show Runechat Chat Bubbles:</b> <a href='?_src_=prefs;preference=chat_on_map'>[toggles & PREFTOGGLE_RUNECHAT_GLOBAL ? "Enabled" : "Disabled"]</a><br>"
 			dat += "<b>See Runechat for non-mobs:</b> <a href='?_src_=prefs;preference=see_chat_non_mob'>[toggles & PREFTOGGLE_RUNECHAT_NONMOBS ? "Enabled" : "Disabled"]</a><br>"
 			dat += "<b>See Runechat emotes:</b> <a href='?_src_=prefs;preference=see_rc_emotes'>[toggles & PREFTOGGLE_RUNECHAT_EMOTES ? "Enabled" : "Disabled"]</a><br>"
@@ -660,8 +658,25 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<br>"
 
 			dat += "<b>Income Updates:</b> <a href='?_src_=prefs;preference=income_pings'>[(chat_toggles & CHAT_BANKCARD) ? "Allowed" : "Muted"]</a><br>"
-			dat += "<br>"
+			dat += "</td>" // left box closed
 
+			// right box
+			dat += "<td width='400px' height='300px' valign='top'>"
+			dat += "<h2>TGUI Settings</h2>"
+			dat += "<b>Monitor Lock:</b> <a href='?_src_=prefs;preference=tgui_lock'>[(toggles2 & PREFTOGGLE_2_LOCKED_TGUI) ? "Primary" : "All"]</a><br>"
+			dat += "<b>Window Style:</b> <a href='?_src_=prefs;preference=tgui_fancy'>[(toggles2 & PREFTOGGLE_2_FANCY_TGUI) ? "Fancy (Borderless)" : "System Window"]</a><br>"
+			dat += "<br>"
+			dat += "<h3>TGUI Input</h3>"
+			dat += "<b>Input Engine:</b> <a href='?_src_=prefs;preference=tgui_input'>[(toggles2 & PREFTOGGLE_2_TGUI_INPUT) ? "TGUI" : "Classic"]</a><br>"
+			dat += "<b>Button Size:</b> <a href='?_src_=prefs;preference=tgui_big_buttons'>[(toggles2 & PREFTOGGLE_2_BIG_BUTTONS) ? "Large" : "Small"]</a><br>"
+			dat += "<b>Button Location:</b> <a href='?_src_=prefs;preference=tgui_switched_buttons'>[(toggles2 & PREFTOGGLE_2_SWITCHED_BUTTONS) ? "OK - Cancel" : "Cancel - OK"]</a><br>"
+			dat += "<br>"
+			dat += "<h3>TGUI Say</h3>"
+			dat += "<b>Say Engine:</b> <a href='?_src_=prefs;preference=tgui_say'>[(toggles2 & PREFTOGGLE_2_TGUI_SAY) ? "TGUI" : "Classic"]</a><br>"
+			dat += "<b>Say Theme:</b> <a href='?_src_=prefs;preference=tgui_say_light'>[(toggles2 & PREFTOGGLE_2_SAY_LIGHT_THEME) ? "Light" : "Dark"]</a><br>"
+			dat += "<b>Radio Prefixes:</b> <a href='?_src_=prefs;preference=tgui_say_radio_prefix'>[(toggles2 & PREFTOGGLE_2_SAY_SHOW_PREFIX) ? "Show" : "Hidden"]</a><br>"
+
+			dat += "<h2>Graphics Settings</h2>"
 			dat += "<b>FPS:</b> <a href='?_src_=prefs;preference=clientfps;task=input'>[clientfps]</a><br>"
 
 			dat += "<b>Parallax (Fancy Space):</b> <a href='?_src_=prefs;preference=parallaxdown' oncontextmenu='window.location.href=\"?_src_=prefs;preference=parallaxup\";return false;'>"
@@ -711,35 +726,98 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if(CONFIG_GET(flag/preference_map_voting))
 					dat += "<b>Preferred Map:</b> <a href='?_src_=prefs;preference=preferred_map;task=input'>[p_map]</a><br>"
 
-			dat += "</td><td width='300px' height='300px' valign='top'>"
+			dat += "</td>"
+			// right box closed
 
-			dat += "<h2>Special Role Settings</h2>"
-
-			if(is_banned_from(user.ckey, ROLE_SYNDICATE))
-				dat += "<font color=red><b>You are banned from antagonist roles.</b></font><br>"
-				src.be_special = list()
-
-
-			for (var/i in GLOB.special_roles)
-				if(is_banned_from(user.ckey, i))
-					dat += "<b>Be [capitalize(i)]:</b> <a href='?_src_=prefs;bancheck=[i]'>BANNED</a><br>"
-				else
-					var/days_remaining = null
-					if(ispath(GLOB.special_roles[i]) && CONFIG_GET(flag/use_age_restriction_for_jobs)) //If it's a game mode antag, check if the player meets the minimum age
-						var/mode_path = GLOB.special_roles[i]
-						var/datum/game_mode/temp_mode = new mode_path
-						days_remaining = temp_mode.get_remaining_days(user.client)
-
-					if(days_remaining)
-						dat += "<b>Be [capitalize(i)]:</b> <font color=red> \[IN [days_remaining] DAYS]</font><br>"
-					else
-						dat += "<b>Be [capitalize(i)]:</b> <a href='?_src_=prefs;preference=be_special;be_special_type=[i]'>[(i in be_special) ? "Enabled" : "Disabled"]</a><br>"
-			dat += "<br>"
-			dat += "<b>Midround Antagonist:</b> <a href='?_src_=prefs;preference=allow_midround_antag'>[(toggles & PREFTOGGLE_MIDROUND_ANTAG) ? "Enabled" : "Disabled"]</a><br>"
-
-			dat += "</td></tr><tr><td> </td></tr>" // i hate myself for this
+			dat += "</tr> <tr><td> </td></tr>"
 			dat += "<tr><td colspan='2' width='100%'><center><a style='font-size: 18px;' href='?_src_=prefs;preference=keybindings_menu'>Customize Keybinds</a></center></td></tr>"
 			dat += "</table>"
+
+		if(4) // antagonist preferences window
+			dat += "<center>"
+			var/name
+			var/unspaced_slots = 0
+			for(var/datum/character_save/CS as anything in character_saves)
+				unspaced_slots++
+				if(unspaced_slots > 4)
+					dat += "<br>"
+					unspaced_slots = 0
+				name = CS.real_name
+				if(!name)
+					name = "Character [CS.slot_number]"
+				if(CS.slot_locked)
+					dat += "<a style='white-space:nowrap;' class='linkOff'>[name] (Locked)</a> "
+				else
+					dat += "<a style='white-space:nowrap;' href='?_src_=prefs;preference=changeslot;num=[CS.slot_number];' [CS.slot_number == default_slot ? "class='linkOn'" : ""]>[name]</a> "
+			dat += "</center>"
+			dat += "<table><tr>"
+			// <first left box>
+			dat += "<td width='450px' height='300px' valign='top'>"
+			// --------------------------------------------
+			// warning pannel
+			var/ban_antagonists = is_banned_from(parent.ckey, BAN_ROLE_ALL_ANTAGONISTS)
+			var/ban_forced_antagonists = is_banned_from(parent.ckey, BAN_ROLE_FORCED_ANTAGONISTS)
+			var/ban_ghost = is_banned_from(parent.ckey, BAN_ROLE_ALL_GHOST)
+			if(ban_antagonists || ban_forced_antagonists || ban_ghost)
+				dat += "<h2>Notification</h2>"
+				if(ban_antagonists)
+					dat += "<b>You are banned from all antagonist roles.</b><br> \
+					<a href='?_src_=prefs;bancheck=[BAN_ROLE_ALL_ANTAGONISTS]'><font color='red'>Show Info</font></a><br>"
+				if(ban_forced_antagonists)
+					dat += "<b>You are banned from all forced antagonist roles (such as brainwashing).</b><br> \
+					<a href='?_src_=prefs;bancheck=[BAN_ROLE_FORCED_ANTAGONISTS]'><font color='red'>Show Info</font></a><br>"
+				if(ban_ghost)
+					dat += "<b>You are banned from all non-antagonist ghost roles.</b><br> \
+					<a href='?_src_=prefs;bancheck=[BAN_ROLE_ALL_GHOST]'><font color='red'>Show Info</font></a><br>"
+			// --------------------------------------------
+			//  Antagonist roles
+			dat += "<h3>Antagonists</h3>"
+			for (var/typepath in GLOB.role_preference_entries)
+				var/datum/role_preference/pref = GLOB.role_preference_entries[typepath]
+				if(pref.category != ROLE_PREFERENCE_CATEGORY_ANAGONIST)
+					continue
+				var/ban_key = initial(pref.antag_datum.banning_key)
+				if(is_banned_from(parent.ckey, ban_key))
+					dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;bancheck=[ban_key]'><font color='red'>BANNED</font></a><br>"
+				else
+					dat += "<b>[pref.name]</b> \
+					<br> - Character: <a href='?_src_=prefs;preference=role_preferences;role_preference_type=[typepath]'>[parent.role_preference_enabled(typepath) ? "Enabled" : "Disabled"]</a>\
+					<br> - Global: <a href='?_src_=prefs;preference=role_preferences_enableall;role_preference_type=[typepath]'>Enable</a>\
+					<a href='?_src_=prefs;preference=role_preferences_disableall;role_preference_type=[typepath]'>Disable</a><br>"
+			dat += "</td>"
+			// left box closed
+
+			// <secont right box>
+			// --------------------------------------------
+			// Midround antagonists + ghostspawn roles
+			dat += "<td width='400px' valign='top'>"
+			dat += "<h3>Midrounds (Living)</h3>"
+			for (var/typepath in GLOB.role_preference_entries)
+				var/datum/role_preference/pref = GLOB.role_preference_entries[typepath]
+				if(pref.category != ROLE_PREFERENCE_CATEGORY_MIDROUND_LIVING)
+					continue
+				var/ban_key = initial(pref.antag_datum.banning_key)
+				if(is_banned_from(parent.ckey, ban_key))
+					dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;bancheck=[ban_key]'><font color='red'>BANNED</font></a><br>"
+				else
+					dat += "<b>[pref.name]</b> \
+					<br> - Character: <a href='?_src_=prefs;preference=role_preferences;role_preference_type=[typepath]'>[parent.role_preference_enabled(typepath) ? "Enabled" : "Disabled"]</a>\
+					<br> - Global: <a href='?_src_=prefs;preference=role_preferences_enableall;role_preference_type=[typepath]'>Enable</a>\
+					<a href='?_src_=prefs;preference=role_preferences_disableall;role_preference_type=[typepath]'>Disable</a><br>"
+			dat += "<h3>Midrounds (Ghost)</h3>"
+			for (var/typepath in GLOB.role_preference_entries)
+				var/datum/role_preference/pref = GLOB.role_preference_entries[typepath]
+				if(pref.category != ROLE_PREFERENCE_CATEGORY_MIDROUND_GHOST)
+					continue
+				var/ban_key = initial(pref.antag_datum.banning_key)
+				if(is_banned_from(parent.ckey, ban_key))
+					dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;bancheck=[ban_key]'><font color='red'>BANNED</font></a><br>"
+				else
+					dat += "<b>[pref.name]:</b> <a href='?_src_=prefs;preference=role_preferences;role_preference_type=[typepath]'>[parent.role_preference_enabled(typepath) ? "Enabled" : "Disabled"]</a><br>"
+			dat += "</td>"
+			// right box closed
+
+			dat += "</tr></table>"
 
 		if(2) //Loadout
 			var/list/type_blacklist = list()
@@ -771,7 +849,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "</center>"
 
 			var/fcolor =  "#3366CC"
-			var/metabalance = user.client.get_metabalance()
+			var/metabalance = user.client.get_metabalance_db()
 			dat += "<table align='center' width='100%'>"
 			dat += "<tr><td colspan=4><center><b>Current balance: <font color='[fcolor]'>[metabalance]</font> [CONFIG_GET(string/metacurrency_name)]s.</b> \[<a href='?_src_=prefs;preference=gear;clear_loadout=1'>Clear Loadout</a>\]</center></td></tr>"
 			dat += "<tr><td colspan=4><center><b>"
@@ -806,7 +884,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				var/datum/gear/G = LC.gear[gear_id]
 				var/ticked = (G.id in active_character.equipped_gear)
 
-				dat += "<tr style='vertical-align:top;'><td width=15%>[G.display_name]\n"
+				if(active_character.jumpsuit_style == PREF_SKIRT && !isnull(G.skirt_display_name))
+					dat += "<tr style='vertical-align:top;'><td width=15%>[G.skirt_display_name]\n"
+				else
+					dat += "<tr style='vertical-align:top;'><td width=15%>[G.display_name]\n"
 				var/donator = G.sort_category == "Donator" // purchase box and cost coloumns doesn't appear on donator items
 				if(G.id in purchased_gear)
 					if(G.sort_category == "OOC")
@@ -822,7 +903,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					for(var/role in G.allowed_roles)
 						dat += role + ",	 "
 					dat += "</font>"
-				dat += "</td><td><font size=2><i>[G.description]</i></font></td></tr>"
+				if(active_character.jumpsuit_style == PREF_SKIRT && !isnull(G.skirt_path))
+					dat += "</td><td><font size=2><i>[G.skirt_description]</i></font></td></tr>"
+				else
+					dat += "</td><td><font size=2><i>[G.description]</i></font></td></tr>"
 			dat += "</table>"
 
 		if(3) //OOC Preferences
@@ -852,6 +936,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				dat += "<h2>Admin Settings</h2>"
 
 				dat += "<b>Adminhelp Sounds:</b> <a href='?_src_=prefs;preference=hear_adminhelps'>[(toggles & PREFTOGGLE_SOUND_ADMINHELP)?"Enabled":"Disabled"]</a><br>"
+				dat += "<b>Admin Alert Sounds:</b> <a href='?_src_=prefs;preference=hear_adminalertsounds'>[(toggles & PREFTOGGLE_2_SOUND_ADMINALERT)?"Enabled":"Disabled"]</a><br>"
 				dat += "<b>Prayer Sounds:</b> <a href = '?_src_=prefs;preference=hear_prayers'>[(toggles & PREFTOGGLE_SOUND_PRAYERS)?"Enabled":"Disabled"]</a><br>"
 				dat += "<b>Announce Login:</b> <a href='?_src_=prefs;preference=announce_login'>[(toggles & PREFTOGGLE_ANNOUNCE_LOGIN)?"Enabled":"Disabled"]</a><br>"
 				dat += "<br>"
@@ -943,7 +1028,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 		var/datum/job/overflow = SSjob.GetJob(SSjob.overflow_role)
 
-		for(var/datum/job/job in sortList(SSjob.occupations, GLOBAL_PROC_REF(cmp_job_display_asc)))
+		for(var/datum/job/job in sort_list(SSjob.occupations, GLOBAL_PROC_REF(cmp_job_display_asc)))
 			if(job.gimmick) //Gimmick jobs run off of a single pref
 				continue
 			index += 1
@@ -1326,7 +1411,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if(TG.sort_category == "Donator")
 				if(CONFIG_GET(flag/donator_items) && alert(parent, "This item is only accessible to our patrons. Would you like to subscribe?", "Patron Locked", "Yes", "No") == "Yes")
 					parent.donate()
-			else if(TG.cost < user.client.get_metabalance())
+			else if(TG.cost <= user.client.get_metabalance_db())
 				purchased_gear += TG.id
 				TG.purchase(user.client)
 				user.client.inc_metabalance((TG.cost * -1), TRUE, "Purchased [TG.display_name].")
@@ -1452,7 +1537,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						active_character.age = max(min( round(text2num(new_age)), AGE_MAX),AGE_MIN)
 
 				if("hair_color")
-					var/new_hair = input(user, "Choose your character's hair colour:", "Character Preference","#" + active_character.hair_color) as color|null
+					var/new_hair = tgui_color_picker(user, "Choose your character's hair colour:", "Character Preference", "#" + active_character.hair_color)
 					if(new_hair)
 						active_character.hair_color = sanitize_hexcolor(new_hair)
 
@@ -1468,7 +1553,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						active_character.gradient_style = new_gradient_style
 
 				if("gradient_color")
-					var/new_hair_gradient = input(user, "Choose your character's hair gradient colour:", "Character Preference", "#" + active_character.gradient_color) as color|null
+					var/new_hair_gradient = tgui_color_picker(user, "Choose your character's hair gradient colour:", "Character Preference", "#" + active_character.gradient_color)
 					if(new_hair_gradient)
 						active_character.gradient_color = sanitize_hexcolor(new_hair_gradient)
 
@@ -1485,7 +1570,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					active_character.gradient_style = previous_list_item(active_character.gradient_style, GLOB.hair_gradients_list)
 
 				if("facial")
-					var/new_facial = input(user, "Choose your character's facial-hair colour:", "Character Preference","#" + active_character.facial_hair_color) as color|null
+					var/new_facial = tgui_color_picker(user, "Choose your character's facial-hair colour:", "Character Preference","#" + active_character.facial_hair_color)
 					if(new_facial)
 						active_character.facial_hair_color = sanitize_hexcolor(new_facial)
 
@@ -1506,7 +1591,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						active_character.underwear = new_underwear
 
 				if("underwear_color")
-					var/new_underwear_color = input(user, "Choose your character's underwear color:", "Character Preference","#"+active_character.underwear_color) as color|null
+					var/new_underwear_color = tgui_color_picker(user, "Choose your character's underwear color:", "Character Preference","#"+active_character.underwear_color)
 					if(new_underwear_color)
 						active_character.underwear_color = sanitize_hexcolor(new_underwear_color)
 
@@ -1522,7 +1607,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						active_character.socks = new_socks
 
 				if("eyes")
-					var/new_eyes = input(user, "Choose your character's eye colour:", "Character Preference","#"+active_character.eye_color) as color|null
+					var/new_eyes = tgui_color_picker(user, "Choose your character's eye colour:", "Character Preference","#"+active_character.eye_color)
 					if(new_eyes)
 						active_character.eye_color = sanitize_hexcolor(new_eyes)
 
@@ -1557,7 +1642,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 
 				if("mutant_color")
-					var/new_mutantcolor = input(user, "Choose your character's alien/mutant color:", "Character Preference","#"+active_character.features["mcolor"]) as color|null
+					var/new_mutantcolor = tgui_color_picker(user, "Choose your character's alien/mutant color:", "Character Preference","#"+active_character.features["mcolor"])
 					if(new_mutantcolor)
 						var/temp_hsv = RGBtoHSV(new_mutantcolor)
 						if(new_mutantcolor == "#000000")
@@ -1723,12 +1808,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						active_character.skin_tone = new_s_tone
 
 				if("ooccolor")
-					var/new_ooccolor = input(user, "Choose your OOC colour:", "Game Preference",ooccolor) as color|null
+					var/new_ooccolor = tgui_color_picker(user, "Choose your OOC colour:", "Game Preference",ooccolor)
 					if(new_ooccolor)
 						ooccolor = new_ooccolor
 
 				if("asaycolor")
-					var/new_asaycolor = input(user, "Choose your ASAY color:", "Game Preference",asaycolor) as color|null
+					var/new_asaycolor = tgui_color_picker(user, "Choose your ASAY color:", "Game Preference",asaycolor)
 					if(new_asaycolor)
 						asaycolor = sanitize_ooccolor(new_asaycolor)
 
@@ -1773,7 +1858,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							friendlyname += " (disabled)"
 						maplist[friendlyname] = VM.map_name
 					maplist[default] = null
-					var/pickedmap = input(user, "Choose your preferred map. This will be used to help weight random map selection.", "Character Preference")  as null|anything in sortList(maplist)
+					var/pickedmap = input(user, "Choose your preferred map. This will be used to help weight random map selection.", "Character Preference")  as null|anything in sort_list(maplist)
 					if (pickedmap)
 						preferred_map = maplist[pickedmap]
 
@@ -1793,7 +1878,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(pickedPDAStyle)
 						pda_theme = GLOB.ntos_device_themes_default[pickedPDAStyle]
 				if("pda_color")
-					var/pickedPDAColor = input(user, "Choose your default Thinktronic Classic theme background color.", "Character Preference", pda_color) as color|null
+					var/pickedPDAColor = tgui_color_picker(user, "Choose your default Thinktronic Classic theme background color.", "Character Preference", pda_color)
 					if(pickedPDAColor)
 						pda_color = pickedPDAColor
 				if ("see_balloon_alerts")
@@ -1831,7 +1916,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("outline_enabled")
 					toggles ^= PREFTOGGLE_OUTLINE_ENABLED
 				if("outline_color")
-					var/pickedOutlineColor = input(user, "Choose your outline color.", "General Preference", outline_color) as color|null
+					var/pickedOutlineColor = tgui_color_picker(user, "Choose your outline color.", "General Preference", outline_color)
 					if(pickedOutlineColor)
 						outline_color = pickedOutlineColor
 				if("tgui_lock")
@@ -1844,6 +1929,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				//here lies the badmins
 				if("hear_adminhelps")
 					user.client.toggleadminhelpsound()
+				if("hear_adminalertsounds")
+					user.client.toggleadminalertsound()
 				if("hear_prayers")
 					user.client.toggle_prayer_sound()
 				if("announce_login")
@@ -1868,12 +1955,33 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					toggles ^= PREFTOGGLE_DEADMIN_POSITION_SILICON
 
 
-				if("be_special")
-					var/be_special_type = href_list["be_special_type"]
-					if(be_special_type in be_special)
-						be_special -= be_special_type
-					else
-						be_special += be_special_type
+				if("role_preferences")
+					var/role_preference_type = href_list["role_preference_type"]
+					var/role_preference_path = text2path(role_preference_type)
+					var/datum/role_preference/role_pref = GLOB.role_preference_entries[role_preference_path]
+					if(istype(role_pref))
+						var/list/prefsource = role_pref.per_character ? active_character.role_preferences_character : role_preferences
+						var/current = prefsource["[role_preference_type]"]
+						if(isnum(current))
+							prefsource["[role_preference_type]"] = !current
+						else // not set, we assume it's on, so turn it off.
+							prefsource["[role_preference_type]"] = FALSE
+
+				if("role_preferences_enableall")
+					var/role_preference_type = href_list["role_preference_type"]
+					var/role_preference_path = text2path(role_preference_type)
+					var/datum/role_preference/role_pref = GLOB.role_preference_entries[role_preference_path]
+					if(istype(role_pref) && role_pref.per_character)
+						for(var/datum/character_save/CS in character_saves)
+							CS.role_preferences_character["[role_preference_type]"] = TRUE
+
+				if("role_preferences_disableall")
+					var/role_preference_type = href_list["role_preference_type"]
+					var/role_preference_path = text2path(role_preference_type)
+					var/datum/role_preference/role_pref = GLOB.role_preference_entries[role_preference_path]
+					if(istype(role_pref) && role_pref.per_character)
+						for(var/datum/character_save/CS in character_saves)
+							CS.role_preferences_character["[role_preference_type]"] = FALSE
 
 				if("name")
 					active_character.be_random_name = !active_character.be_random_name
@@ -1925,8 +2033,31 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("pull_requests")
 					chat_toggles ^= CHAT_PULLR
 
-				if("allow_midround_antag")
-					toggles ^= PREFTOGGLE_MIDROUND_ANTAG
+				if("tgui_input")
+					toggles2 ^= PREFTOGGLE_2_TGUI_INPUT
+
+				if("tgui_big_buttons")
+					toggles2 ^= PREFTOGGLE_2_BIG_BUTTONS
+
+				if("tgui_switched_buttons")
+					toggles2 ^= PREFTOGGLE_2_SWITCHED_BUTTONS
+
+				if("tgui_say")
+					toggles2 ^= PREFTOGGLE_2_TGUI_SAY
+					if(parent)
+						if(parent.tgui_say)
+							parent.tgui_say.close()
+						parent.set_macros()
+
+				if("tgui_say_light")
+					toggles2 ^= PREFTOGGLE_2_SAY_LIGHT_THEME
+					if(parent && parent.tgui_say) // change the theme
+						parent.tgui_say.load()
+
+				if("tgui_say_radio_prefix")
+					toggles2 ^= PREFTOGGLE_2_SAY_SHOW_PREFIX
+					if(parent && parent.tgui_say) // update the UI
+						parent.tgui_say.load()
 
 				if("parallaxup")
 					parallax = WRAP(parallax + 1, PARALLAX_INSANE, PARALLAX_DISABLE + 1)
@@ -1941,8 +2072,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("ambientocclusion")
 					toggles2 ^= PREFTOGGLE_2_AMBIENT_OCCLUSION
 					if(parent && parent.screen && parent.screen.len)
-						var/atom/movable/screen/plane_master/game_world/PM = locate(/atom/movable/screen/plane_master/game_world) in parent.screen
-						PM.backdrop(parent.mob)
+						var/atom/movable/screen/plane_master/game_world/game_pm = locate(/atom/movable/screen/plane_master/game_world) in parent.screen
+						game_pm.backdrop(parent.mob)
+						// Multiz shadow
+						var/atom/movable/screen/plane_master/floor/floor_pm = locate(/atom/movable/screen/plane_master/floor) in parent.screen
+						floor_pm.backdrop(parent.mob)
 
 				if("auto_fit_viewport")
 					toggles2 ^= PREFTOGGLE_2_AUTO_FIT_VIEWPORT
@@ -2050,7 +2184,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(old_key && (old_key in key_bindings))
 						key_bindings[old_key] -= kb_name
 					key_bindings[full_key] += list(kb_name)
-					key_bindings[full_key] = sortList(key_bindings[full_key])
+					key_bindings[full_key] = sort_list(key_bindings[full_key])
 
 					save_preferences()
 					user << browse(null, "window=capturekeypress")
@@ -2061,7 +2195,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					user << browse(null, "window=keybindings")
 
 				if("keybindings_reset")
-					key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
+					key_bindings = deep_copy_list(GLOB.keybinding_list_by_key)
 					save_preferences()
 					ShowKeybindings(user)
 					return

@@ -408,7 +408,7 @@
 	name = "Flowers Day"
 	begin_day = 19
 	begin_month = NOVEMBER
-	drone_hat = /obj/item/reagent_containers/food/snacks/grown/moonflower
+	drone_hat = /obj/item/reagent_containers/food/snacks/grown/flower/moonflower
 
 /datum/holiday/hello
 	name = "Saying-'Hello' Day"

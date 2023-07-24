@@ -232,7 +232,7 @@
 							S.merge(NS)
 					if(!QDELETED(part)) //If we're a stack and we merged we might not exist anymore
 						components += part
-					to_chat(user, "<span class='notice'>[part.name] applied.</span>")
+					to_chat(user, "<span class='notice'>You add [part] to [src].</span>")
 				if(added_components.len)
 					replacer.play_rped_sound()
 				return
