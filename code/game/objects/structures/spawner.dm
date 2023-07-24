@@ -31,7 +31,7 @@
 	icon_state = "syndbeacon"
 	spawn_text = "warps in from"
 	mob_types = list(/mob/living/simple_animal/hostile/syndicate/ranged)
-	faction = list(ROLE_SYNDICATE)
+	faction = list(FACTION_SYNDICATE)
 
 /obj/structure/spawner/skeleton
 	name = "bone pit"

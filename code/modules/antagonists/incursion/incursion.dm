@@ -1,9 +1,9 @@
 /datum/antagonist/incursion
 	name = "Syndicate Incursion Member"
 	antagpanel_category = "Incursion"
-	job_rank = ROLE_INCURSION
+	banning_key = ROLE_INCURSION
+	required_living_playtime = 4
 	ui_name = "AntagInfoIncursion"
-	var/special_role = ROLE_INCURSION
 	var/datum/team/incursion/team
 	var/datum/weakref/uplink_ref
 	antag_moodlet = /datum/mood_event/focused
@@ -24,7 +24,7 @@
 	for(var/datum/objective/O in team.objectives)
 		objectives += O
 		log_objective(owner, O.explanation_text)
-	owner.special_role = special_role
+	owner.special_role = ROLE_INCURSION
 	finalize_incursion()
 	return ..()
 
@@ -214,15 +214,15 @@
 
 /datum/team/incursion/proc/generate_traitor_kill_objective(list/restricted_jobs)
 	//Spawn someone as a traitor
-	var/list/datum/mind/people = SSticker.mode.get_alive_non_antagonsist_players_for_role(ROLE_EXCOMM, restricted_jobs)
+	var/list/datum/mind/people = SSticker.mode.get_alive_non_antagonsist_players_for_role(/datum/antagonist/traitor, /datum/role_preference/antagonist/excommunicate, restricted_jobs)
 	if(!LAZYLEN(people))
 		log_game("Not enough players for incursion role. [LAZYLEN(people)]")
 		return
-	var/datum/mind/target = SSticker.mode.antag_pick(people, ROLE_EXCOMM)
+	var/datum/mind/target = SSticker.mode.antag_pick(people, /datum/role_preference/antagonist/excommunicate)
 	if(!target)
 		log_game("No mind selected.")
 		return
-	target.make_Traitor()
+	target.add_antag_datum(/datum/antagonist/traitor/excommunicate)
 	to_chat(target, "<span class='userdanger'>You have been declared an ex-communicate of the syndicate and are being hunted down.</span>")
 	to_chat(target, "<span class='warning'>You have stolen syndicate objective documents, complete the objectives to throw off the syndicate and sabotage their efforts.</span>")
 	target.store_memory("You have been declared an ex-communicate of the syndicate and are being hunted down by a group of traitors. Be careful!")

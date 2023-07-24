@@ -50,7 +50,7 @@
 		to_chat(src, message)
 
 		for(var/mob/dead/observer/each_ghost in GLOB.dead_mob_list)
-			if(!(each_ghost.client.prefs.toggles & CHAT_GHOSTRADIO))
+			if(!each_ghost.client || !(each_ghost.client.prefs.toggles & CHAT_GHOSTRADIO))
 				continue
 			var/follow_link = FOLLOW_LINK(each_ghost, ai_hologram)
 			message = "[follow_link] [message]"

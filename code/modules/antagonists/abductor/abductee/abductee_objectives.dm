@@ -1,5 +1,5 @@
 /datum/objective/abductee
-	completed = 1
+	completed = TRUE
 
 /datum/objective/abductee/random
 
@@ -52,3 +52,6 @@
 /datum/objective/abductee/forbiddennumber/New()
 	var/number = rand(2,10)
 	explanation_text = "Ignore anything in a set of [number], they don't exist."
+
+/datum/objective/abductee/custom
+	explanation_text = "Custom abductee objective failed to initialize, this is a BUG!"
