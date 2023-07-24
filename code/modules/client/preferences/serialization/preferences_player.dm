@@ -8,7 +8,12 @@
 			var/datum/preference/preference = GLOB.preference_entries[preference_type]
 			if (preference.preference_type != pref_type)
 				continue
-			preference_data[preference.db_key] = preference.deserialize(preference.create_informed_default_value(prefs), prefs)
+			preference_data[preference.db_key] = preference.deserialize(preference.create_informed_default_value(prefs), prefs)\
+		// Give the developers +1 sanity points
+		if(Debugger?.enabled)
+			prefs.update_preference(/datum/preference/toggle/sound_ambience, FALSE)
+			prefs.update_preference(/datum/preference/toggle/sound_ship_ambience, FALSE)
+			prefs.update_preference(/datum/preference/toggle/sound_lobby, FALSE)
 		// TODO tgui-prefs initialize undatumized prefs here?
 		// no idiot put that in save_preferences() if this returns false.
 		return FALSE
