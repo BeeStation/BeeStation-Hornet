@@ -54,10 +54,12 @@
 	var/icon/I = icon('icons/mob/blind.dmi', masked_texture)
 
 	//mask icon
-	var/icon/mask = icon('icons/mob/blind.dmi', type || "sound", dir)
+	var/icon/mask
 	//If the mob has an icon we can use, use it
 	if(type == "mob" && target.icon && (target.icon_state || initial(target.icon_state)))
 		mask = icon(target.icon, (target.icon_state || initial(target.icon_state)), target.dir)
+	else
+		mask = icon('icons/mob/blind.dmi', type || "sound", dir)
 	I.AddAlphaMask(mask)
 
 	//Setup display image
