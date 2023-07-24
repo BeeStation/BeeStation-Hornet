@@ -67,12 +67,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
 
-	if (!armor)
-		armor = getArmor()
-	else if (islist(armor))
-		armor = getArmor(arglist(armor))
-	else if (!istype(armor, /datum/armor))
-		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
 
 	if(integrity == null)
 		integrity = max_integrity
