@@ -9,7 +9,7 @@
 	var/list/data = list()
 	var/list/enabled_antags = list()
 	for(var/pref_type in GLOB.role_preference_entries)
-		if(role_preference_enabled(preferences.parent, pref_type))
+		if(preferences.parent.role_preference_enabled(pref_type))
 			enabled_antags += "[pref_type]"
 	data["enabled_antags"] = enabled_antags
 	return data
@@ -23,6 +23,7 @@
 		data["antag_bans"] = antag_bans
 	return data
 
+// TODO per-character support
 /datum/preference_middleware/antags/get_constant_data()
 	var/list/antags = list()
 
@@ -62,7 +63,7 @@
 	for (var/sent_antag in sent_antags)
 		if(!(sent_antag in valid_antags))
 			continue
-		preferences.be_special["[sent_antag]"] = toggled
+		preferences.role_preferences_global["[sent_antag]"] = toggled
 		any_changed = TRUE
 	if(any_changed)
 		preferences.mark_undatumized_dirty_player()

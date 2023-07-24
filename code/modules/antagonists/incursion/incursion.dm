@@ -1,7 +1,8 @@
 /datum/antagonist/incursion
 	name = "Syndicate Incursion Member"
 	antagpanel_category = "Incursion"
-	banning_key = BAN_ROLE_INCURSION
+	banning_key = ROLE_INCURSION
+	required_living_playtime = 4
 	ui_name = "AntagInfoIncursion"
 	var/datum/team/incursion/team
 	var/datum/weakref/uplink_ref
@@ -23,7 +24,7 @@
 	for(var/datum/objective/O in team.objectives)
 		objectives += O
 		log_objective(owner, O.explanation_text)
-	owner.special_role = BAN_ROLE_INCURSION
+	owner.special_role = ROLE_INCURSION
 	finalize_incursion()
 	return ..()
 
@@ -213,11 +214,11 @@
 
 /datum/team/incursion/proc/generate_traitor_kill_objective(list/restricted_jobs)
 	//Spawn someone as a traitor
-	var/list/datum/mind/people = SSticker.mode.get_alive_non_antagonsist_players_for_role(BAN_ROLE_EXCOMM, /datum/role_preference/antagonist/excommunicate, restricted_jobs)
+	var/list/datum/mind/people = SSticker.mode.get_alive_non_antagonsist_players_for_role(/datum/antagonist/traitor, /datum/role_preference/antagonist/excommunicate, restricted_jobs)
 	if(!LAZYLEN(people))
 		log_game("Not enough players for incursion role. [LAZYLEN(people)]")
 		return
-	var/datum/mind/target = SSticker.mode.antag_pick(people)
+	var/datum/mind/target = SSticker.mode.antag_pick(people, /datum/role_preference/antagonist/excommunicate)
 	if(!target)
 		log_game("No mind selected.")
 		return

@@ -31,7 +31,6 @@
 	mob_size = MOB_SIZE_LARGE
 	var/battery = 200 //emergency power if the AI's APC is off
 	var/list/network = list("ss13")
-	var/obj/machinery/camera/current
 	var/list/connected_robots = list()
 
 	/// Station alert datum for showing alerts UI
@@ -56,12 +55,12 @@
 	var/can_dominate_mechs = FALSE
 	var/shunted = FALSE	//1 if the AI is currently shunted. Used to differentiate between shunted and ghosted/braindead
 
-	var/control_disabled = FALSE	// Set to 1 to stop AI from interacting via Click()
-	var/malfhacking = FALSE		// More or less a copy of the above var, so that malf AIs can hack and still get new cyborgs -- NeoFite
-	var/malf_cooldown = 0		//Cooldown var for malf modules, stores a worldtime + cooldown
+	var/control_disabled = FALSE // Set to TRUE to stop AI from interacting via Click()
+	var/malfhacking = FALSE // More or less a copy of the above var, so that malf AIs can hack and still get new cyborgs -- NeoFite
+	var/malf_cooldown = 0 //Cooldown var for malf modules, stores a worldtime + cooldown
 
 	var/obj/machinery/power/apc/malfhack
-	var/explosive = FALSE		//does the AI explode when it dies?
+	var/explosive = FALSE //does the AI explode when it dies?
 
 	var/mob/living/silicon/ai/parent
 	var/camera_light_on = FALSE
@@ -101,6 +100,8 @@
 	var/cam_prev
 
 	var/atom/movable/screen/ai/modpc/interfaceButton
+	var/obj/effect/overlay/holo_pad_hologram/ai_hologram
+	var/obj/machinery/holopad/current_holopad
 
 /mob/living/silicon/ai/Initialize(mapload, datum/ai_laws/L, mob/target_ai)
 	default_access_list = get_all_accesses()
@@ -123,20 +124,22 @@
 			to_chat(src, "<span class='userdanger'>You have been installed as an AI!</span>")
 			to_chat(src, "<span class='danger'>You must obey your silicon laws above all else. Your objectives will consider you to be dead.</span>")
 
-	to_chat(src, "<B>You are playing the station's AI. The AI cannot move, but can interact with many objects while viewing them (through cameras).</B>")
-	to_chat(src, "<B>To look at other parts of the station, click on yourself to get a camera menu.</B>")
-	to_chat(src, "<B>While observing through a camera, you can use most (networked) devices which you can see, such as computers, APCs, intercoms, doors, etc.</B>")
+	to_chat(src, "<span class='bold'>You are playing the station's AI. The AI cannot move, but can interact with many objects while viewing them (through cameras).</span>")
+	to_chat(src, "<span class='bold'>To look at other parts of the station, click on yourself to get a camera menu.</span>")
+	to_chat(src, "<span class='bold'>While observing through a camera, you can use most (networked) devices which you can see, such as computers, APCs, intercoms, doors, etc.</span>")
 	to_chat(src, "To use something, simply click on it.")
 	to_chat(src, "Use say :b to speak to your cyborgs through binary.")
 	to_chat(src, "For department channels, use the following say commands:")
-	to_chat(src, ":o - AI Private, :c - Command, :s - Security, :e - Engineering, :u - Supply, :v - Service, :m - Medical, :n - Science.")
+	to_chat(src, ":o - AI Private, :c - Command, :s - Security, :e - Engineering, :u - Supply, :v - Service, :m - Medical, :n - Science, :h - Holopad.") //typically, :h will always use a radios key and send speech to that departmental channel, for AI's it sends it to currently used holopad instead
 	show_laws()
-	to_chat(src, "<b>These laws may be changed by other players, or by you being the traitor.</b>")
+	to_chat(src, "<span class='bold'>These laws may be changed by other players, or by you being the traitor.</span>")
 
 	job = JOB_NAME_AI
 
-	create_modularInterface()
 	create_eye()
+
+	create_modularInterface()
+
 	if(client)
 		INVOKE_ASYNC(src, PROC_REF(apply_pref_name), /datum/preference/name/ai, client)
 
@@ -158,10 +161,14 @@
 	deploy_action.Grant(src)
 
 	if(isturf(loc))
-		add_verb(list(/mob/living/silicon/ai/proc/ai_network_change, \
-		/mob/living/silicon/ai/proc/ai_statuschange, /mob/living/silicon/ai/proc/ai_hologram_change, \
-		/mob/living/silicon/ai/proc/botcall, /mob/living/silicon/ai/proc/control_integrated_radio, \
-		/mob/living/silicon/ai/proc/set_automatic_say_channel))
+		add_verb(list(
+			/mob/living/silicon/ai/proc/ai_network_change,
+			/mob/living/silicon/ai/proc/ai_statuschange,
+			/mob/living/silicon/ai/proc/ai_hologram_change,
+			/mob/living/silicon/ai/proc/botcall,
+			/mob/living/silicon/ai/proc/control_integrated_radio,
+			/mob/living/silicon/ai/proc/set_automatic_say_channel
+		))
 
 	GLOB.ai_list += src
 	GLOB.shuttle_caller_list += src
@@ -204,6 +211,11 @@
 	QDEL_NULL(aiMulti)
 	QDEL_NULL(alert_control)
 	malfhack = null
+	current_holopad = null
+	//bot_ref = null
+	//controlled_equipment = null
+	linked_core = null
+	apc_override = null
 	ShutOffDoomsdayDevice()
 	. = ..()
 
@@ -876,9 +888,55 @@
 			if(I)
 				jobpart = "[I.assignment]"
 
-	var/rendered = "<i><span class='game say'>[start]<span class='name'>[hrefpart][namepart] ([jobpart])</a> </span><span class='message'>[treated_message]</span></span></i>"
+	// duplication part from `game/say.dm` to make a language icon
+	var/language_icon = ""
+	var/datum/language/D = GLOB.language_datum_instances[message_language]
+	if(istype(D) && D.display_icon(src))
+		language_icon = "[D.get_icon()] "
+
+	var/rendered = "<i><span class='game say'>[start][language_icon]<span class='name'>[hrefpart][namepart] ([jobpart])</a> </span><span class='message'>[treated_message]</span></span></i>"
 
 	show_message(rendered, 2)
+
+// modified version of `relay_speech()` proc, but for better chat through holopad
+/// makes a better chat format for AI when AI takes
+/mob/living/silicon/ai/proc/hear_holocall(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
+	var/treated_message = " <span class='message'>[say_emphasis(lang_treat(speaker, message_language, raw_message, spans, message_mods))]</span>"
+	var/namepart = "[speaker.GetVoice()][speaker.get_alt_name()]"
+	var/hrefpart = "<a href='?src=[REF(src)];track=[html_encode(namepart)]'>"
+	var/jobpart = "Unknown"
+
+	if (ishuman(speaker))
+		var/mob/living/carbon/human/S = speaker
+		if(S.wear_id)
+			var/obj/item/card/id/I = S.wear_id.GetID()
+			if(I)
+				jobpart = "[I.assignment]"
+
+	// duplication part from `game/say.dm` to make a language icon
+	var/language_icon = ""
+	var/datum/language/D = GLOB.language_datum_instances[message_language]
+	if(istype(D) && D.display_icon(src))
+		language_icon = "[D.get_icon()] "
+
+	var/rendered = "<span class='holocall'><b>\[Holocall\] [language_icon]<span class='name'>[hrefpart][namepart] ([jobpart])</a></span></b>[treated_message]</span>"
+	show_message(rendered, 2)
+
+	// renders message for ghosts
+	rendered = "<span class='holocall'><b>\[Holocall\] [language_icon]<span class='name'>[speaker.GetVoice()]</span></b>[treated_message]</span>"
+	var/rendered_scrambled_message
+	for(var/mob/dead/observer/each_ghost in GLOB.dead_mob_list)
+		if(!each_ghost.client || !each_ghost.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostradio))
+			continue
+		var/follow_link = FOLLOW_LINK(each_ghost, speaker)
+		if(each_ghost.has_language(message_language))
+			to_chat(each_ghost, "[follow_link] [rendered]")
+		else // ghost removed the language themselves
+			if(!rendered_scrambled_message)
+				rendered_scrambled_message = " <span class='message'>[each_ghost.say_emphasis(each_ghost.lang_treat(speaker, message_language, raw_message, spans, message_mods))]</span>"
+				rendered_scrambled_message = "<span class='holocall'><b>\[Holocall\] [language_icon]<span class='name'>[speaker.GetVoice()]</span></b>[rendered_scrambled_message]</span>"
+			to_chat(each_ghost, "[follow_link] [rendered_scrambled_message]")
+
 
 /mob/living/silicon/ai/fully_replace_character_name(oldname,newname)
 	..()
@@ -902,8 +960,6 @@
 /mob/living/silicon/ai/reset_perspective(atom/A)
 	if(camera_light_on)
 		light_cameras()
-	if(istype(A, /obj/machinery/camera))
-		current = A
 	if(client)
 		if(ismovable(A))
 			if(A != GLOB.ai_camera_room_landmark)

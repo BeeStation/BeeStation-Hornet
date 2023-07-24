@@ -52,9 +52,12 @@ global procs
 	verb_say/verb_ask/verb_exclaim/verb_yell
 		These determine what the verb is for their respective action. Used in say_quote().
 
-	say(message, bubble_type, var/list/spans, sanitize, datum/language/language, ignore_spam, forced)
+	say(message, bubble_type, var/list/spans, sanitize, datum/language/language, ignore_spam, forced, atom/source)
 		Say() is the "mother-proc". It calls all the other procs required for speaking, but does little itself.
 		At the atom/movable level, say() just calls send_speech.
+		source is used in case what you say can possibly not go to where you're at.
+			i.e. AI using holopad means their voice is from holopad, but we want to display runechat from its hologram
+			if source is given, runechat will be displayed on a hologram, but hearers will be detected around the source(holopad)
 
 	Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, spans)
 		This proc handles hearing. What it does varies. For mobs, it treats the message with hearer-specific things
@@ -79,6 +82,10 @@ global procs
 	get_spans(input, spans)
 		Returns the list of spans that are always applied to messages of this atom.
 		Always return ..() | + youroutput when overriding this proc!
+
+	create_private_chat_message(message, message_language, list/hearers)
+		Makes a runechat to hearers. src is not included to hearers, so that you need to give it to the param if you want.
+		This is used for specific methods like telepathy when you want to display a runechat from it.
 
 /mob
 	say_dead(message)

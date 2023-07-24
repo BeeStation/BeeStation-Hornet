@@ -166,7 +166,7 @@
 	update_icons()
 	visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
 	if(!key)
-		set_playable(BAN_ROLE_BLOB)
+		set_playable(ROLE_BLOB)
 
 /mob/living/simple_animal/hostile/blob/blobspore/death(gibbed)
 	// On death, create a small smoke of harmful gas (s-Acid)

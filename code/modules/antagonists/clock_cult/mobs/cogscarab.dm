@@ -63,7 +63,7 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 	to construct and maintain defenses at the City of Cogs."
 
 /obj/effect/mob_spawn/drone/cogscarab/attack_ghost(mob/user)
-	if(is_banned_from(user.ckey, BAN_ROLE_SERVANT_OF_RATVAR) || QDELETED(src) || QDELETED(user))
+	if(is_banned_from(user.ckey, ROLE_SERVANT_OF_RATVAR) || QDELETED(src) || QDELETED(user))
 		return
 	if(!SSticker.mode)
 		to_chat(user, "Can't become a cogscarab before the game has started.")

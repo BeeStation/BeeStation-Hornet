@@ -297,11 +297,12 @@
 			candidates.Remove(P)
 			continue
 
-		if(!should_include_for_role(
-			client,
+		if(!client.should_include_for_role(
 			banning_key = initial(antag_datum.banning_key),
-			role_preference_key = role_preference
+			role_preference_key = role_preference,
+			req_hours = initial(antag_datum.required_living_playtime)
 		))
+			candidates.Remove(P)
 			continue
 
 		if(P.mind.special_role) // We really don't want to give antag to an antag.

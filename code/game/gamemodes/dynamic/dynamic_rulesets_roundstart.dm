@@ -29,7 +29,7 @@
 			break
 		var/mob/M = antag_pick_n_take(candidates)
 		assigned += M.mind
-		M.mind.special_role = BAN_ROLE_TRAITOR
+		M.mind.special_role = ROLE_TRAITOR
 		M.mind.restricted_roles = restricted_roles
 		GLOB.pre_setup_antags += M.mind
 	return TRUE
@@ -68,7 +68,7 @@
 			var/mob/bro = antag_pick_n_take(candidates)
 			assigned += bro.mind
 			team.add_member(bro.mind)
-			bro.mind.special_role = BAN_ROLE_BROTHER
+			bro.mind.special_role = ROLE_BROTHER
 			bro.mind.restricted_roles = restricted_roles
 			GLOB.pre_setup_antags += bro.mind
 		pre_brother_teams += team
@@ -113,7 +113,7 @@
 		var/mob/M = antag_pick_n_take(candidates)
 		assigned += M.mind
 		M.mind.restricted_roles = restricted_roles
-		M.mind.special_role = BAN_ROLE_CHANGELING
+		M.mind.special_role = ROLE_CHANGELING
 		GLOB.pre_setup_antags += M.mind
 	return TRUE
 
@@ -147,7 +147,7 @@
 		var/mob/picked_candidate = antag_pick_n_take(candidates)
 		assigned += picked_candidate.mind
 		picked_candidate.mind.restricted_roles = restricted_roles
-		picked_candidate.mind.special_role = BAN_ROLE_HERETIC
+		picked_candidate.mind.special_role = ROLE_HERETIC
 		GLOB.pre_setup_antags += picked_candidate.mind
 	return TRUE
 
@@ -185,8 +185,9 @@
 	var/mob/M = antag_pick_n_take(candidates)
 	if (M)
 		assigned += M.mind
-		M.mind.assigned_role = BAN_ROLE_WIZARD
-		M.mind.special_role = BAN_ROLE_WIZARD
+		M.mind.assigned_role = ROLE_WIZARD
+		M.mind.special_role = ROLE_WIZARD
+		GLOB.pre_setup_antags += M.mind
 
 	return TRUE
 
@@ -228,7 +229,7 @@
 			break
 		var/mob/M = antag_pick_n_take(candidates)
 		assigned += M.mind
-		M.mind.special_role = BAN_ROLE_CULTIST
+		M.mind.special_role = ROLE_CULTIST
 		M.mind.restricted_roles = restricted_roles
 		GLOB.pre_setup_antags += M.mind
 	return TRUE
@@ -286,8 +287,9 @@
 			break
 		var/mob/M = antag_pick_n_take(candidates)
 		assigned += M.mind
-		M.mind.assigned_role = BAN_ROLE_OPERATIVE
-		M.mind.special_role = BAN_ROLE_OPERATIVE
+		M.mind.assigned_role = ROLE_OPERATIVE
+		M.mind.special_role = ROLE_OPERATIVE
+		GLOB.pre_setup_antags += M.mind
 	return TRUE
 
 /datum/dynamic_ruleset/roundstart/nuclear/execute(forced = FALSE)
@@ -300,6 +302,7 @@
 		else
 			var/datum/antagonist/nukeop/new_op = new antag_datum()
 			M.add_antag_datum(new_op)
+		GLOB.pre_setup_antags -= M
 	return DYNAMIC_EXECUTE_SUCCESS
 
 /datum/dynamic_ruleset/roundstart/nuclear/round_result()
@@ -372,7 +375,7 @@
 		var/mob/M = antag_pick_n_take(candidates)
 		assigned += M.mind
 		M.mind.restricted_roles = restricted_roles
-		M.mind.special_role = BAN_ROLE_REV_HEAD
+		M.mind.special_role = ROLE_REV_HEAD
 		GLOB.pre_setup_antags += M.mind
 	return TRUE
 
@@ -467,6 +470,7 @@
 		for(var/datum/mind/V in assigned)
 			V.assigned_role = "Clown Operative"
 			V.special_role = "Clown Operative"
+			GLOB.pre_setup_antags += V
 
 //////////////////////////////////////////////
 //                                          //
@@ -495,7 +499,7 @@
 			break
 		var/mob/devil = antag_pick_n_take(candidates)
 		assigned += devil.mind
-		devil.mind.special_role = BAN_ROLE_DEVIL
+		devil.mind.special_role = ROLE_DEVIL
 		devil.mind.restricted_roles = restricted_roles
 		GLOB.pre_setup_antags += devil.mind
 
@@ -591,8 +595,9 @@
 	for (var/i in 1 to starter_servants)
 		var/mob/servant = antag_pick_n_take(candidates)
 		assigned += servant.mind
-		servant.mind.assigned_role = BAN_ROLE_SERVANT_OF_RATVAR
-		servant.mind.special_role = BAN_ROLE_SERVANT_OF_RATVAR
+		servant.mind.assigned_role = ROLE_SERVANT_OF_RATVAR
+		servant.mind.special_role = ROLE_SERVANT_OF_RATVAR
+		GLOB.pre_setup_antags += servant.mind
 	//Generate scriptures
 	generate_clockcult_scriptures()
 	return TRUE
@@ -609,6 +614,7 @@
 		S.equip_carbon(servant_mind.current)
 		S.equip_servant()
 		S.prefix = CLOCKCULT_PREFIX_MASTER
+		GLOB.pre_setup_antags -= servant_mind
 	//Setup the conversion limits for auto opening the ark
 	calculate_clockcult_values()
 	return DYNAMIC_EXECUTE_SUCCESS
@@ -638,7 +644,8 @@
 	cost = 20
 	requirements = list(100,90,80,60,40,30,10,10,10,10)
 	flags = HIGH_IMPACT_RULESET | PERSISTENT_RULESET
-	antag_cap = list("denominator" = 10, "offset" = 1)
+	antag_cap = list("denominator" = 26, "offset" = 1)
+	minimum_players = 22
 	var/datum/team/incursion/incursion_team
 
 /datum/dynamic_ruleset/roundstart/incursion/ready(population, forced = FALSE)
@@ -652,7 +659,7 @@
 			break
 		var/mob/M = antag_pick_n_take(candidates)
 		assigned += M.mind
-		M.mind.special_role = BAN_ROLE_INCURSION
+		M.mind.special_role = ROLE_INCURSION
 		M.mind.restricted_roles = restricted_roles
 		GLOB.pre_setup_antags += M.mind
 	return TRUE
@@ -700,6 +707,6 @@
 		var/mob/M = antag_pick_n_take(candidates)
 		assigned += M.mind
 		M.mind.restricted_roles = restricted_roles
-		M.mind.special_role = BAN_ROLE_HIVE
+		M.mind.special_role = ROLE_HIVE
 		GLOB.pre_setup_antags += M.mind
 	return TRUE

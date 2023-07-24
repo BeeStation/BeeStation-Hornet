@@ -12,7 +12,7 @@
 	fakeable = FALSE
 
 /datum/round_event/ghost_role/nightmare/spawn_role()
-	var/list/candidates = get_candidates(BAN_ROLE_NIGHTMARE, /datum/role_preference/midround_ghost/nightmare)
+	var/list/candidates = get_candidates(ROLE_NIGHTMARE, /datum/role_preference/midround_ghost/nightmare)
 	if(!candidates.len)
 		return NOT_ENOUGH_PLAYERS
 
@@ -34,8 +34,8 @@
 
 	var/mob/living/carbon/human/S = new ((pick(spawn_locs)))
 	player_mind.transfer_to(S)
-	player_mind.assigned_role = BAN_ROLE_NIGHTMARE
-	player_mind.special_role = BAN_ROLE_NIGHTMARE
+	player_mind.assigned_role = ROLE_NIGHTMARE
+	player_mind.special_role = ROLE_NIGHTMARE
 	player_mind.add_antag_datum(/datum/antagonist/nightmare)
 	S.set_species(/datum/species/shadow/nightmare)
 	playsound(S, 'sound/magic/ethereal_exit.ogg', 50, 1, -1)

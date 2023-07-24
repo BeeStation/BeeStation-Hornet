@@ -5,8 +5,8 @@ GLOBAL_LIST_EMPTY(gangs)
 /datum/game_mode/gang
 	name = "gang war"
 	config_tag = "gang"
-	banning_key = BAN_ROLE_GANG
 	role_preference = /datum/role_preference/antagonist/gangster
+	antag_datum = /datum/antagonist/gang
 	restricted_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_AI, JOB_NAME_CYBORG,JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_HEADOFSECURITY)
 	required_players = 30
 	required_enemies = 2

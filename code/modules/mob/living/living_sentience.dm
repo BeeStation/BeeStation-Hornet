@@ -40,7 +40,7 @@
 		return TRUE
 	if(!SSticker.HasRoundStarted())
 		return
-	if(!can_take_ghost_spawner(user?.client, playable_bantype, TRUE, flags_1 & ADMIN_SPAWNED_1))
+	if(!user?.client?.can_take_ghost_spawner(playable_bantype, TRUE, flags_1 & ADMIN_SPAWNED_1))
 		return
 	key = user.key
 	log_game("[key_name(src)] took control of [name].")

@@ -43,7 +43,7 @@
 	l_pocket = /obj/item/laser_pointer
 	accessory = /obj/item/clothing/accessory/pocketprotector/full
 	backpack_contents = list(
-		/obj/item/choice_beacon/hero = 1,
+		/obj/item/choice_beacon/radial/hero = 1,
 		/obj/item/soapstone = 1,
 		/obj/item/barcodescanner = 1
 	)

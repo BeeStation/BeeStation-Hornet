@@ -27,8 +27,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	/// Cached changelog size, to detect new changelogs since last join
 	var/lastchangelog = ""
 
-	/// List of ROLE_X that the client wants to be eligible for
-	var/list/be_special = list() //Special role selection
+	/// List of ROLE_X that the client wants to be eligible for (PER CHARACTER)
+	/// Use /client/proc/role_preference_enabled() please
+	var/list/role_preferences = list()
+
+	/// List of ROLE_X that the client wants to be eligible for (GLOBALLY)
+	/// Use /client/proc/role_preference_enabled() please
+	var/list/role_preferences_global = list()
 
 	/// Custom keybindings. Map of keybind names to keyboard inputs.
 	/// For example, by default would have "swap_hands" -> "X"

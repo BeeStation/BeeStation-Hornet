@@ -9,8 +9,8 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 	name = "changeling"
 	config_tag = "changeling"
 	report_type = "changeling"
-	banning_key = BAN_ROLE_CHANGELING
 	role_preference = /datum/role_preference/antagonist/changeling
+	antag_datum = /datum/antagonist/changeling
 	false_report_weight = 10
 	restricted_jobs = list(JOB_NAME_AI, JOB_NAME_CYBORG)
 	protected_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
@@ -52,10 +52,10 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 		for(var/i = 0, i < num_changelings, i++)
 			if(!antag_candidates.len)
 				break
-			var/datum/mind/changeling = antag_pick(antag_candidates)
+			var/datum/mind/changeling = antag_pick(antag_candidates, /datum/role_preference/antagonist/changeling)
 			antag_candidates -= changeling
 			changelings += changeling
-			changeling.special_role = BAN_ROLE_CHANGELING
+			changeling.special_role = ROLE_CHANGELING
 			changeling.restricted_roles = restricted_jobs
 			GLOB.pre_setup_antags += changeling
 		return TRUE
@@ -77,10 +77,10 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 	if(changelings.len >= changelingcap) //Caps number of latejoin antagonists
 		return
 	if(changelings.len <= (changelingcap - 2) || prob(100 - (csc * 2)))
-		if(!QDELETED(character) && character.client && should_include_for_role(
-			character.client,
-			banning_key = banning_key,
-			role_preference_key = role_preference
+		if(!QDELETED(character) && character.client?.should_include_for_role(
+			banning_key = initial(antag_datum.banning_key),
+			role_preference_key = role_preference,
+			req_hours = initial(antag_datum.required_living_playtime)
 		))
 			if(!(character.job in restricted_jobs))
 				character.mind.make_Changeling()

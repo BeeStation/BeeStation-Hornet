@@ -2,7 +2,7 @@
 
 /datum/antagonist/hivevessel
 	name = "Awoken Vessel"
-	banning_key = BAN_ROLE_HIVE_VESSEL
+	banning_key = ROLE_HIVE_VESSEL
 	roundend_category = "awoken vessels"
 	antagpanel_category = "Other"
 	show_name_in_check_antagonists = TRUE
@@ -35,7 +35,7 @@
 	unbrainwash(user, objective)
 
 /datum/antagonist/hivevessel/on_gain()
-	owner.special_role = BAN_ROLE_HIVE_VESSEL
+	owner.special_role = ROLE_HIVE_VESSEL
 	owner.AddSpell(fist)
 	..()
 

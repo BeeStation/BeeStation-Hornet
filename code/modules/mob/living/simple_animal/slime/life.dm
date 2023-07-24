@@ -64,7 +64,7 @@
 	reset_processing()
 
 /mob/living/simple_animal/slime/proc/reset_processing()
-	var/sleeptime = movement_delay()
+	var/sleeptime = cached_multiplicative_slowdown
 	if(sleeptime <= 0)
 		sleeptime = 1
 	addtimer(VARSET_CALLBACK(src, special_process, TRUE), (sleeptime + 2), TIMER_UNIQUE)
@@ -545,8 +545,3 @@
 		return 0
 	return 1
 
-
-/mob/living/simple_animal/slime/movement_delay()
-	. = ..()
-	if(transformeffects & SLIME_EFFECT_SEPIA)
-		. *= 0.7

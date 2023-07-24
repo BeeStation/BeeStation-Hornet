@@ -10,10 +10,11 @@
 		if (!config_tag)
 			Fail("[mode] has no config_tag set!")
 		// These gamemodes don't spawn antags directly and are exempt.
-		if(name == "event" || name == "extended" || name == "meteor" || name == "sandbox" || name == "secret" || name == "secret extended" || name == "dynamic mode")
+		if(!initial(mode.required_enemies) && !initial(mode.recommended_enemies))
 			continue
-		if (!initial(mode.banning_key))
-			Fail("[mode] has no banning_key set!")
+		var/datum/antagonist/antag_datum = initial(mode.antag_datum)
+		if (!ispath(antag_datum, /datum/antagonist) || !initial(antag_datum.banning_key))
+			Fail("[mode] has no antag_datum with a banning key!")
 		var/role_pref = initial(mode.role_preference)
 		if (!role_pref || !ispath(role_pref, /datum/role_preference))
 			Fail("[mode] has no role_preference set!")

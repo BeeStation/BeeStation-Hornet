@@ -29,22 +29,48 @@
 	list_clear_nulls(.)
 
 /proc/get_open_turf_in_dir(atom/center, dir)
-	var/turf/open/T = get_ranged_target_turf(center, dir, 1)
+	var/turf/open/T = get_step(center, dir)
 	if(istype(T))
 		return T
 
 /proc/get_adjacent_open_turfs(atom/center)
-	. = list(get_open_turf_in_dir(center, NORTH),
-			get_open_turf_in_dir(center, SOUTH),
-			get_open_turf_in_dir(center, EAST),
-			get_open_turf_in_dir(center, WEST))
-	list_clear_nulls(.)
+	var/list/hand_back = list()
+	// Inlined get_open_turf_in_dir, just to be fast
+	var/turf/open/new_turf = get_step(center, NORTH)
+	if(istype(new_turf))
+		hand_back += new_turf
+	new_turf = get_step(center, SOUTH)
+	if(istype(new_turf))
+		hand_back += new_turf
+	new_turf = get_step(center, EAST)
+	if(istype(new_turf))
+		hand_back += new_turf
+	new_turf = get_step(center, WEST)
+	if(istype(new_turf))
+		hand_back += new_turf
+	return hand_back
 
 /proc/get_adjacent_open_areas(atom/center)
 	. = list()
 	var/list/adjacent_turfs = get_adjacent_open_turfs(center)
 	for(var/I in adjacent_turfs)
 		. |= get_area(I)
+
+/proc/get_department_areas(atom/AM)
+	var/department_type
+	var/area/our_area = get_area(AM)
+	var/all_master_types = direct_subtypesof(/area)
+	for(var/checkable in all_master_types)
+		if(istype(our_area,checkable))
+			department_type = checkable
+			break
+	if(!department_type)
+		department_type = our_area.type
+	var/list/department_areas = list()
+	for(var/area/A in GLOB.sortedAreas)
+		if(istype(A,department_type))
+			department_areas += A
+	return department_areas
 
 /**
  * Get a bounding box of a list of atoms.
@@ -456,8 +482,7 @@
 		var/mob/M = m
 		if(QDELETED(M) || !M.key || !M.client)
 			continue
-		if(!should_include_for_role(
-			M.client,
+		if(!M.client.should_include_for_role(
 			banning_key = banning_key,
 			role_preference_key = role_preference_key,
 			poll_ignore_key = poll_ignore_key,

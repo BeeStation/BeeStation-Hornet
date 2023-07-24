@@ -27,7 +27,7 @@
 	var/preference_type = null
 	/// If we should use antag rep. Do note that having a preference_type enables checking during gamemode execution.
 	var/use_antag_rep = TRUE
-	var/banning_key = BAN_ROLE_TRAITOR
+	var/banning_key = ROLE_TRAITOR
 
 /datum/special_role/proc/setup()
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))

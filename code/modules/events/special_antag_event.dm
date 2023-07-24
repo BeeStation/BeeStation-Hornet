@@ -43,9 +43,9 @@
 
 /datum/round_event/create_special_antag/start()
 	for(var/mob/living/carbon/human/H in shuffle(GLOB.player_list))
-		if(!H.client || !role_preference_enabled(H.client, preference_type))
+		if(!H.client)
 			continue
-		if(is_banned_from(H, initial(antag_datum.banning_key)))
+		if(!H.client.should_include_for_role(initial(antag_datum.banning_key), preference_type))
 			continue
 		if(H.stat == DEAD)
 			continue

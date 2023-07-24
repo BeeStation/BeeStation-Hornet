@@ -283,10 +283,10 @@
 
 /datum/round_event/ghost_role/morph
 	minimum_required = 1
-	role_name = BAN_ROLE_MORPH
+	role_name = ROLE_MORPH
 
 /datum/round_event/ghost_role/morph/spawn_role()
-	var/list/candidates = get_candidates(BAN_ROLE_MORPH, /datum/role_preference/midround_ghost/morph)
+	var/list/candidates = get_candidates(ROLE_MORPH, /datum/role_preference/midround_ghost/morph)
 	if(!candidates.len)
 		return NOT_ENOUGH_PLAYERS
 
@@ -298,8 +298,8 @@
 		return MAP_ERROR
 	var/mob/living/simple_animal/hostile/morph/S = new /mob/living/simple_animal/hostile/morph(pick(GLOB.xeno_spawn))
 	player_mind.transfer_to(S)
-	player_mind.assigned_role = BAN_ROLE_MORPH
-	player_mind.special_role = BAN_ROLE_MORPH
+	player_mind.assigned_role = ROLE_MORPH
+	player_mind.special_role = ROLE_MORPH
 	player_mind.add_antag_datum(/datum/antagonist/morph)
 	to_chat(S, S.playstyle_string)
 	SEND_SOUND(S, sound('sound/magic/mutate.ogg'))

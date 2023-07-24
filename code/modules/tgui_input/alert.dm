@@ -120,6 +120,7 @@
 	if(!ui)
 		ui = new(user, src, "AlertModal")
 		ui.open()
+		ui.set_autoupdate(timeout > 0)
 
 /datum/tgui_modal/ui_close(mob/user)
 	. = ..()

@@ -142,7 +142,7 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 #define PREFERENCE_TAG_IGNORING			"ignoring"
 #define PREFERENCE_TAG_KEYBINDS			"key_bindings"
 #define PREFERENCE_TAG_PURCHASED_GEAR	"purchased_gear"
-#define PREFERENCE_TAG_BE_SPECIAL		"be_special"
+#define PREFERENCE_TAG_ROLE_PREFERENCES_GLOBAL "be_special"
 #define PREFERENCE_TAG_PAI_NAME			"pai_name"
 #define PREFERENCE_TAG_PAI_DESCRIPTION	"pai_description"
 #define PREFERENCE_TAG_PAI_COMMENT		"pai_comment"
@@ -151,3 +151,4 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 #define CHARACTER_PREFERENCE_JOB_PREFERENCES "job_preferences"
 #define CHARACTER_PREFERENCE_ALL_QUIRKS "all_quirks"
 #define CHARACTER_PREFERENCE_EQUIPPED_GEAR "equipped_gear"
+#define CHARACTER_PREFERENCE_ROLE_PREFERENCES "role_preferences"

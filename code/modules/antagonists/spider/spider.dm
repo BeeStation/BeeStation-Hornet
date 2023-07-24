@@ -44,7 +44,7 @@
 
 /datum/antagonist/spider
 	name = "Spider"
-	banning_key = BAN_ROLE_SPIDER
+	banning_key = ROLE_SPIDER
 	show_in_antagpanel = FALSE
 	prevent_roundtype_conversion = FALSE
 	show_to_ghosts = TRUE

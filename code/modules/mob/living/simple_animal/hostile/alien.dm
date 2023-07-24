@@ -165,10 +165,18 @@
 	icon_state = "maid"
 	icon_living = "maid"
 	icon_dead = "maid_dead"
+	var/datum/action/cleaning_toggle/maid/autoclean_toggle
 
 /mob/living/simple_animal/hostile/alien/maid/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/cleaning)
+	autoclean_toggle = new()
+	autoclean_toggle.Grant(usr)
+
+/mob/living/simple_animal/hostile/alien/maid/Destroy()
+	. = ..()
+	autoclean_toggle.Remove(usr)
+	QDEL_NULL(autoclean_toggle)
 
 /mob/living/simple_animal/hostile/alien/maid/AttackingTarget()
 	if(ismovable(target))

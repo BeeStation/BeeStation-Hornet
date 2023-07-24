@@ -71,7 +71,15 @@
 		GLOB.keybindings_by_name[instance.name] = instance
 		LAZYADD(GLOB.keybindings_by_name_to_key[instance.name], LAZYCOPY(instance.keys))
 
-	init_subtypes(/datum/crafting_recipe, GLOB.crafting_recipes)
+	init_crafting_recipes(GLOB.crafting_recipes)
+
+/// Inits the crafting recipe list, sorting crafting recipe requirements in the process.
+/proc/init_crafting_recipes(list/crafting_recipes)
+	for(var/path in subtypesof(/datum/crafting_recipe))
+		var/datum/crafting_recipe/recipe = new path()
+		recipe.reqs = sort_list(recipe.reqs, /proc/cmp_crafting_req_priority)
+		crafting_recipes += recipe
+	return crafting_recipes
 
 /proc/make_datum_references_lists_late_setup()
 	// this should be done lately because it needs something pre-setup

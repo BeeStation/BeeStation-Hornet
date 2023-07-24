@@ -2,7 +2,7 @@
 	name = "Morph"
 	show_name_in_check_antagonists = TRUE
 	show_to_ghosts = TRUE
-	banning_key = BAN_ROLE_MORPH
+	banning_key = ROLE_MORPH
 	antagpanel_category = "Morph"
 	show_name_in_check_antagonists = TRUE
 	ui_name = "AntagInfoMorph"
@@ -52,8 +52,8 @@
 		if(istype(new_mob))
 			new_mob.a_intent = INTENT_HARM
 			M.mind.transfer_to(new_mob)
-			new_owner.assigned_role = BAN_ROLE_MORPH
-			new_owner.special_role = BAN_ROLE_MORPH
+			new_owner.assigned_role = ROLE_MORPH
+			new_owner.special_role = ROLE_MORPH
 			new_mob.name = "morph"
 			new_mob.real_name = "morph"
 		qdel(M)

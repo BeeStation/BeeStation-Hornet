@@ -135,6 +135,7 @@
 	if(!ui)
 		ui = new(user, src, "NumberInputModal")
 		ui.open()
+		ui.set_autoupdate(timeout > 0)
 
 /datum/tgui_input_number/ui_close(mob/user)
 	. = ..()

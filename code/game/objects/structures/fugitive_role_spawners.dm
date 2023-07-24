@@ -2,7 +2,7 @@
 	name = "Fugitive Hunter pod"
 	desc = "A small sleeper typically used to make long distance travel a bit more bearable."
 	mob_name = "a fugitive hunter"
-	assignedrole = BAN_ROLE_FUGITIVE_HUNTER
+	assignedrole = ROLE_FUGITIVE_HUNTER
 	roundstart = FALSE
 	death = FALSE
 	random = TRUE
@@ -10,7 +10,7 @@
 	density = TRUE
 	icon = 'icons/obj/machines/sleeper.dmi'
 	icon_state = "sleeper"
-	banType = BAN_ROLE_FUGITIVE_HUNTER
+	banType = ROLE_FUGITIVE_HUNTER
 	is_antagonist = TRUE
 	/// This is set by the shuttle template
 	var/datum/fugitive_type/hunter/backstory

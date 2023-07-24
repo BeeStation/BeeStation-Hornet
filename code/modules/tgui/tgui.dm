@@ -68,7 +68,7 @@
 		if(isatom(src_object))
 			var/atom/A = src_object
 			src.title = A.name
-	src.state = src_object.ui_state(user)	//Bee edit: For some reason user wasn't passed to a proc that takes user as a parameter.
+	src.state = src_object.ui_state(user)
 	// Deprecated
 	if(ui_x && ui_y)
 		src.window_size = list(ui_x, ui_y)

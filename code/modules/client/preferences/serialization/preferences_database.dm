@@ -73,7 +73,7 @@
 
 	READPREF_JSONDEC(ignoring, PREFERENCE_TAG_IGNORING)
 	READPREF_JSONDEC(purchased_gear, PREFERENCE_TAG_PURCHASED_GEAR)
-	READPREF_JSONDEC(be_special, PREFERENCE_TAG_BE_SPECIAL)
+	READPREF_JSONDEC(role_preferences_global, PREFERENCE_TAG_ROLE_PREFERENCES_GLOBAL)
 
 	// Custom hotkeys
 	READPREF_JSONDEC(key_bindings, PREFERENCE_TAG_KEYBINDS)
@@ -83,7 +83,7 @@
 	default_slot	= sanitize_integer(default_slot, 1, TRUE_MAX_SAVE_SLOTS, initial(default_slot))
 	ignoring		= SANITIZE_LIST(ignoring)
 	purchased_gear	= SANITIZE_LIST(purchased_gear)
-	be_special		= SANITIZE_LIST(be_special)
+	role_preferences_global = SANITIZE_LIST(role_preferences_global)
 
 	pai_name		= sanitize_text(pai_name, initial(pai_name))
 	pai_description	= sanitize_text(pai_description, initial(pai_description))
@@ -91,6 +91,15 @@
 
 	key_bindings 	= sanitize_islist(key_bindings, deep_copy_list(GLOB.keybindings_by_name_to_key))
 	key_bindings_by_key = get_key_bindings_by_key(key_bindings)
+
+	// Remove any invalid role preference entries
+	for(var/preference in role_preferences_global)
+		var/path = text2path(preference)
+		var/datum/role_preference/entry = GLOB.role_preference_entries[path]
+		if(istype(entry) && !entry.per_character)
+			continue
+		role_preferences_global -= preference
+
 	if (!length(key_bindings))
 		set_default_key_bindings(save = TRUE)
 	else
@@ -137,7 +146,7 @@
 	PREP_WRITEPREF_JSONENC(ignoring, PREFERENCE_TAG_IGNORING)
 	PREP_WRITEPREF_JSONENC(key_bindings, PREFERENCE_TAG_KEYBINDS)
 	PREP_WRITEPREF_JSONENC(purchased_gear, PREFERENCE_TAG_PURCHASED_GEAR)
-	PREP_WRITEPREF_JSONENC(be_special, PREFERENCE_TAG_BE_SPECIAL)
+	PREP_WRITEPREF_JSONENC(role_preferences_global, PREFERENCE_TAG_ROLE_PREFERENCES_GLOBAL)
 
 	// QuerySelect can execute many queries at once. That name is dumb but w/e
 	SSdbcore.QuerySelect(write_queries, TRUE, TRUE)
@@ -179,6 +188,7 @@
 		CHARACTER_PREFERENCE_JOB_PREFERENCES,
 		CHARACTER_PREFERENCE_ALL_QUIRKS,
 		CHARACTER_PREFERENCE_EQUIPPED_GEAR,
+		CHARACTER_PREFERENCE_ROLE_PREFERENCES,
 	)
 
 	var/datum/DBQuery/Q = SSdbcore.NewQuery(
@@ -208,18 +218,29 @@
 	JSONREAD_PREF(job_preferences, CHARACTER_PREFERENCE_JOB_PREFERENCES)
 	JSONREAD_PREF(all_quirks, CHARACTER_PREFERENCE_ALL_QUIRKS)
 	JSONREAD_PREF(equipped_gear, CHARACTER_PREFERENCE_EQUIPPED_GEAR)
+	JSONREAD_PREF(role_preferences, CHARACTER_PREFERENCE_ROLE_PREFERENCES)
 
 	//Sanitize
 	randomise = SANITIZE_LIST(randomise)
 	job_preferences = SANITIZE_LIST(job_preferences)
 	all_quirks = SANITIZE_LIST(all_quirks)
 	equipped_gear = SANITIZE_LIST(equipped_gear)
+	role_preferences = SANITIZE_LIST(role_preferences)
 
-	//Validate job prefs
+	// Validate job prefs
 	for(var/j in job_preferences)
 		if(job_preferences[j] != JP_LOW && job_preferences[j] != JP_MEDIUM && job_preferences[j] != JP_HIGH)
 			job_preferences -= j
 			mark_undatumized_dirty_character()
+
+	// Validate role prefs
+	for(var/preference in role_preferences)
+		var/path = text2path(preference)
+		var/datum/role_preference/entry = GLOB.role_preference_entries[path]
+		if(istype(entry) && entry.per_character)
+			continue
+		role_preferences -= preference
+
 	return TRUE
 
 #undef JSONREAD_PREF
@@ -247,6 +268,7 @@
 	WRITEPREF_JSONENC(job_preferences, CHARACTER_PREFERENCE_JOB_PREFERENCES)
 	WRITEPREF_JSONENC(all_quirks, CHARACTER_PREFERENCE_ALL_QUIRKS)
 	WRITEPREF_JSONENC(equipped_gear, CHARACTER_PREFERENCE_EQUIPPED_GEAR)
+	WRITEPREF_JSONENC(role_preferences, CHARACTER_PREFERENCE_ROLE_PREFERENCES)
 
 	new_data["ckey"] = parent.ckey
 	new_data["slot"] = character_data.slot_number

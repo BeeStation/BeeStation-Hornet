@@ -46,6 +46,7 @@
 #include "achievement_validation.dm"
 #include "anchored_mobs.dm"
 #include "check_adjustable_clothing.dm"
+#include "closets.dm"
 #include "component_tests.dm"
 #include "connect_loc.dm"
 #include "crafting_tests.dm"

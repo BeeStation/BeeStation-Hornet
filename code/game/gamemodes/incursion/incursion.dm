@@ -7,8 +7,8 @@
 	config_tag = "incursion"
 	restricted_jobs = list(JOB_NAME_AI, JOB_NAME_CYBORG)
 	protected_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE,JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_HEADOFSECURITY, JOB_NAME_CHIEFENGINEER, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CHIEFMEDICALOFFICER)
-	banning_key = BAN_ROLE_INCURSION
 	role_preference = /datum/role_preference/antagonist/incursionist
+	antag_datum = /datum/antagonist/incursion
 	false_report_weight = 10
 
 	announce_span = "danger"
@@ -39,13 +39,13 @@
 	team_size = CLAMP(team_size, CONFIG_GET(number/incursion_count_min), CONFIG_GET(number/incursion_count_max))
 
 	for(var/k = 1 to team_size)
-		var/datum/mind/incursion = antag_pick(antag_candidates)
+		var/datum/mind/incursion = antag_pick(antag_candidates, /datum/role_preference/antagonist/incursionist)
 		if(!incursion)
 			message_admins("Ran out of people to put in an incursion team, wanted [team_size] but only got [k-1]")
 			break
 		antag_candidates -= incursion
 		team.add_member(incursion)
-		incursion.special_role = BAN_ROLE_INCURSION
+		incursion.special_role = ROLE_INCURSION
 		incursion.restricted_roles = restricted_jobs
 		GLOB.pre_setup_antags += incursion
 		log_game("[key_name(incursion)] has been selected as a member of the incursion")

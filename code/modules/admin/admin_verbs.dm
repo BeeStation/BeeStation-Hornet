@@ -69,6 +69,7 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/datum/admins/proc/open_shuttlepanel, /* Opens shuttle manipulator UI */
 	/client/proc/respawn_character,
 	/datum/admins/proc/open_borgopanel,
+	/datum/admins/proc/view_all_circuits,
 	/client/proc/fix_say,
 	/client/proc/stabilize_atmos,
 	/client/proc/openTicketManager,
@@ -103,6 +104,7 @@ GLOBAL_LIST_INIT(admin_verbs_fun, list(
 	/client/proc/show_tip,
 	/client/proc/smite,
 	/client/proc/admin_away,
+	/client/proc/load_circuit,
 	/client/proc/healall,
 	/client/proc/spawn_floor_cluwne,
 	/client/proc/spawnhuman

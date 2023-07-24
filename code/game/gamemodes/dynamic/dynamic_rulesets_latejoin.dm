@@ -13,10 +13,10 @@
 			candidates.Remove(P)
 		else if(length(exclusive_roles) && !(P.mind.assigned_role in exclusive_roles)) // Is the rule exclusive to their job?
 			candidates.Remove(P)
-		else if(!should_include_for_role(
-			P.client,
+		else if(!P.client.should_include_for_role(
 			banning_key = initial(antag_datum.banning_key),
-			role_preference_key = role_preference
+			role_preference_key = role_preference,
+			req_hours = initial(antag_datum.required_living_playtime)
 		))
 			candidates.Remove(P)
 
@@ -119,7 +119,7 @@
 	var/mob/M = pick(candidates)	// This should contain a single player, but in case.
 	if(check_eligible(M.mind))	// Didnt die/run off z-level/get implanted since leaving shuttle.
 		assigned += M.mind
-		M.mind.special_role = BAN_ROLE_REV_HEAD
+		M.mind.special_role = ROLE_REV_HEAD
 		revolution = new()
 		var/datum/antagonist/rev/head/new_head = new()
 		new_head.give_flash = TRUE
@@ -182,7 +182,7 @@
 /datum/dynamic_ruleset/latejoin/heretic_smuggler/execute(forced = FALSE)
 	var/mob/picked_mob = pick(candidates)
 	assigned += picked_mob.mind
-	picked_mob.mind.special_role = BAN_ROLE_HERETIC
+	picked_mob.mind.special_role = ROLE_HERETIC
 	var/datum/antagonist/heretic/new_heretic = picked_mob.mind.add_antag_datum(antag_datum)
 
 	// Heretics passively gain influence over time.

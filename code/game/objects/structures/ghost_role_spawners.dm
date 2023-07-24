@@ -18,7 +18,7 @@
 	Estimated time of last contact: Deployment, 5000 millennia ago."
 	assignedrole = "Lifebringer"
 	use_cooldown = TRUE
-	banType = BAN_ROLE_LIFEBRINGER
+	banType = ROLE_LIFEBRINGER
 
 /obj/effect/mob_spawn/human/seed_vault/special(mob/living/new_spawn)
 	var/plant_name = pick("Tomato", "Potato", "Broccoli", "Carrot", "Ambrosia", "Pumpkin", "Ivy", "Kudzu", "Banana", "Moss", "Flower", "Bloom", "Root", "Bark", "Glowshroom", "Petal", "Leaf", \
@@ -55,7 +55,7 @@
 	assignedrole = "Ash Walker"
 	var/datum/team/ashwalkers/team
 	use_cooldown = TRUE
-	banType = BAN_ROLE_ASHWALKER
+	banType = ROLE_ASHWALKER
 
 /obj/effect/mob_spawn/human/ash_walker/special(mob/living/new_spawn)
 	to_chat(new_spawn, "<b>Drag the corpses of men and beasts to your nest. It will absorb them to create more of your kind. Don't leave your nest undefended, protect it with your life. Glory to the Necropolis!</b>")
@@ -100,7 +100,7 @@
 	flavour_text = "In his infinite and divine wisdom, he set your clan free to \
 	travel the stars with a single declaration: \"Yeah go do whatever.\" Though you are bound to the one who created you, it is customary in your society to repeat those same words to newborn \
 	golems, so that no golem may ever be forced to serve again."
-	banType = BAN_ROLE_FREE_GOLEM
+	banType = ROLE_FREE_GOLEM
 
 /obj/effect/mob_spawn/human/golem/Initialize(mapload, datum/species/golem/species = null, mob/creator = null)
 	if(species) //spawners list uses object name to register so this goes before ..()
@@ -179,7 +179,7 @@
 	can_transfer = FALSE
 	mob_species = /datum/species/golem/adamantine
 	use_cooldown = TRUE	//Only the roundstart free golems are
-	banType = BAN_ROLE_FREE_GOLEM
+	banType = ROLE_FREE_GOLEM
 	id = /obj/item/card/id/golem/spawner
 
 //Malfunctioning cryostasis sleepers: Spawns in makeshift shelters in lavaland. Ghosts become hermits with knowledge of how they got to where they are now.
@@ -199,7 +199,7 @@
 	the fresh air of Earth. These thoughts are dispelled by yet another recollection of how you got here... "
 	assignedrole = "Hermit"
 	use_cooldown = TRUE
-	banType = BAN_ROLE_HERMIT
+	banType = ROLE_HERMIT
 
 /obj/effect/mob_spawn/human/hermit/Initialize(mapload)
 	. = ..()
@@ -242,7 +242,7 @@
 	all you did was apply bruise packs. Why is this place full of advanced medical equipment? And what are those screams you hear? The world outside is desolate - tormented with fire and brimstone. But you took an oath. \
 	You have to save these people! You might not have a fancy cloning machine like a real hospital, but surely there must be some way to save these people with the tools you have. Right?"
 	assignedrole = "Translocated Vet"
-	banType = BAN_ROLE_TRANSLOCATED_VET
+	banType = ROLE_TRANSLOCATED_VET
 
 /obj/effect/mob_spawn/human/doctor/alive/lavaland/Destroy()
 	var/obj/structure/fluff/empty_sleeper/S = new(drop_location())
@@ -264,7 +264,7 @@
 	flavour_text = "Good. It seems as though your ship crashed. You remember that you were convicted of "
 	assignedrole = "Escaped Prisoner"
 	use_cooldown = TRUE
-	banType = BAN_ROLE_LAVALAND_ESCAPED_PRISONER
+	banType = ROLE_LAVALAND_ESCAPED_PRISONER
 
 /obj/effect/mob_spawn/human/prisoner_transport/special(mob/living/L)
 	L.fully_replace_character_name(null,"NTP #LL-0[rand(111,999)]") //Nanotrasen Prisoner #Lavaland-(numbers)
@@ -305,7 +305,7 @@
 	important_info = "DON'T leave the hotel"
 	assignedrole = "Hotel Staff"
 	use_cooldown = TRUE
-	banType = BAN_ROLE_HOTEL_STAFF
+	banType = ROLE_HOTEL_STAFF
 
 /datum/outfit/hotelstaff
 	name = "Hotel Staff"
@@ -353,7 +353,7 @@
 	var/obj/effect/proc_holder/spell/targeted/summon_friend/spell
 	var/datum/mind/owner
 	assignedrole = "SuperFriend"
-	banType = BAN_ROLE_DEMONIC_FRIEND
+	banType = ROLE_DEMONIC_FRIEND
 
 /obj/effect/mob_spawn/human/demonic_friend/Initialize(mapload, datum/mind/owner_mind, obj/effect/proc_holder/spell/targeted/summon_friend/summoning_spell)
 	. = ..()
@@ -418,7 +418,7 @@
 	l_pocket = /obj/item/assembly/flash/handheld
 	assignedrole = "Ancient Crew"
 	use_cooldown = TRUE
-	banType = BAN_ROLE_ANCIENT_CREW
+	banType = ROLE_ANCIENT_CREW
 
 /obj/effect/mob_spawn/human/oldsec/Destroy()
 	new/obj/structure/showcase/machinery/oldpod/used(drop_location())
@@ -446,7 +446,7 @@
 	l_pocket = /obj/item/tank/internals/emergency_oxygen
 	assignedrole = "Ancient Crew"
 	use_cooldown = TRUE
-	banType = BAN_ROLE_ANCIENT_CREW
+	banType = ROLE_ANCIENT_CREW
 
 /obj/effect/mob_spawn/human/oldeng/Destroy()
 	new/obj/structure/showcase/machinery/oldpod/used(drop_location())
@@ -473,7 +473,7 @@
 	l_pocket = /obj/item/stack/medical/bruise_pack
 	assignedrole = "Ancient Crew"
 	use_cooldown = TRUE
-	banType = BAN_ROLE_ANCIENT_CREW
+	banType = ROLE_ANCIENT_CREW
 
 /obj/effect/mob_spawn/human/oldsci/Destroy()
 	new/obj/structure/showcase/machinery/oldpod/used(drop_location())
@@ -495,8 +495,8 @@
 	show_flavour = FALSE //Flavour only exists for spawners menu
 	short_desc = "You are a space pirate."
 	flavour_text = "The station refused to pay for your protection, protect the ship, siphon the credits from the station and raid it for even more loot."
-	assignedrole = BAN_ROLE_SPACE_PIRATE
-	banType = BAN_ROLE_SPACE_PIRATE
+	assignedrole = ROLE_SPACE_PIRATE
+	banType = ROLE_SPACE_PIRATE
 	is_antagonist = TRUE
 	var/rank = "Mate"
 
