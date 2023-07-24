@@ -294,12 +294,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				default_value = expand_three_digit_color(default_value)
 
 			// Yielding
-			var/new_color = input(
+			var/new_color = tgui_color_picker(
 				usr,
 				"Select new color",
-				null,
+				"Preference Color",
 				default_value || COLOR_WHITE,
-			) as color | null
+			)
 
 			if (!new_color)
 				return FALSE
