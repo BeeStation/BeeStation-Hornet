@@ -46,11 +46,11 @@
 		return
 	. = damage_amount
 	var/old_integ = integrity
-	integrity = max(old_integ - damage_amount, 0)
+	integrity = old_integ - damage_amount
 
 	//DESTROYING SECOND
 	if(integrity <= 0)
-		turf_destruction(damage_flag)
+		turf_destruction(damage_flag, -integrity)
 
 //returns the damage value of the attack after processing the obj's various armor protections
 /turf/proc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration = 0)
@@ -79,10 +79,20 @@
 			else
 				playsound(src, 'sound/weapons/tap.ogg', 50, 1)
 		if(BURN)
-			playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
+			playsound(src, 'sound/items/welder.ogg', 100, 1)
 
-/turf/proc/turf_destruction(damage_flag)
+/// Destroy the turf and replace it with a new one
+/// Note that due to the behaviour of turfs, the reference of src changes during ScrapeAway, so calling
+/// the parent is not recommended.
+/turf/proc/turf_destruction(damage_flag, additional_damage)
+	var/previous_type = type
 	ScrapeAway()
+	// If we scrape away into a turf of the same type, don't go any deeper.
+	if (type == previous_type)
+		return
+	// Cascade turf damage downwards on destruction
+	if (additional_damage > 0)
+		take_damage(additional_damage, BRUTE, damage_flag, FALSE)
 
 //====================================
 // Generic Hits
@@ -109,9 +119,9 @@
 		if(1)
 			take_damage(INFINITY, BRUTE, BOMB, 0)
 		if(2)
-			take_damage(rand(400, 1000), BRUTE, BOMB, 0)
+			take_damage(rand(0.5, max(2000 / max_integrity, 1.2)) * max_integrity, BRUTE, BOMB, 0)
 		if(3)
-			take_damage(rand(10, 400), BRUTE, BOMB, 0)
+			take_damage(rand(0.3, max(800 / max_integrity, 0.5)) * max_integrity, BRUTE, BOMB, 0)
 
 /turf/contents_explosion(severity, target)
 	for(var/thing in contents)
@@ -234,10 +244,6 @@
 		return ..()
 	if (!..())
 		return
-	if(isturf(loc))
-		var/turf/T = loc
-		if(T.intact && HAS_TRAIT(src, TRAIT_T_RAY_VISIBLE))
-			return
 	take_damage(400, BRUTE, MELEE, 0, get_dir(src, B))
 
 /turf/proc/attack_generic(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, armor_penetration = 0) //used by attack_alien, attack_animal, and attack_slime
@@ -249,7 +255,7 @@
 	if (!can_hit)
 		return ..()
 	if(attack_generic(user, 60, BRUTE, MELEE, 0))
-		playsound(src.loc, 'sound/weapons/slash.ogg', 100, 1)
+		playsound(src, 'sound/weapons/slash.ogg', 100, 1)
 
 /turf/attack_animal(mob/living/simple_animal/M)
 	if (!can_hit)
@@ -273,9 +279,9 @@
 		return
 	if(!M.is_adult)
 		return
-	var/damage = rand(15)
+	var/damage = 4
 	if(M.transformeffects & SLIME_EFFECT_RED)
-		damage *= 1.1
+		damage = 10
 	attack_generic(M, damage, MELEE, 1)
 
 //====================================
@@ -342,7 +348,7 @@
 		new acid_type(src, acidpwr, acid_volume)
 
 /turf/proc/acid_melt()
-	turf_destruction(ACID)
+	turf_destruction(ACID, 0)
 
 //====================================
 // Fire
@@ -351,10 +357,6 @@
 /turf/fire_act(exposed_temperature, exposed_volume)
 	if (resistance_flags & INDESTRUCTIBLE)
 		return
-	if(isturf(loc))
-		var/turf/T = loc
-		if(T.intact && HAS_TRAIT(src, TRAIT_T_RAY_VISIBLE))
-			return
 	if(exposed_temperature && !(resistance_flags & FIRE_PROOF))
 		take_damage(CLAMP(0.02 * exposed_temperature, 0, 20), BURN, FIRE, 0)
 	if(!(resistance_flags & ON_FIRE) && (resistance_flags & FLAMMABLE) && !(resistance_flags & FIRE_PROOF))
@@ -367,7 +369,7 @@
 /turf/proc/burn()
 	if(resistance_flags & ON_FIRE)
 		SSfire_burning.processing -= src
-	turf_destruction(FIRE)
+	turf_destruction(FIRE, 0)
 
 /turf/proc/extinguish()
 	if(resistance_flags & ON_FIRE)

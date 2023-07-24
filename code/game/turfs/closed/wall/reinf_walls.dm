@@ -8,7 +8,7 @@
 	opacity = TRUE
 	density = TRUE
 	max_integrity = 900
-	damage_deflection = 15
+	damage_deflection = 21
 
 	var/d_state = INTACT
 	hardness = 10

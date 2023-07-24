@@ -112,7 +112,7 @@
 /turf/closed/mineral/acid_melt()
 	ScrapeAway()
 
-/turf/closed/mineral/turf_destruction(damage_flag)
+/turf/closed/mineral/turf_destruction(damage_flag, additional_damage)
 	gets_drilled(null, 1)
 
 /turf/closed/mineral/random

@@ -38,7 +38,7 @@
 /turf/closed/indestructible/rust_heretic_act()
 	return
 
-/turf/closed/indestructible/turf_destruction(damage_flag)
+/turf/closed/indestructible/turf_destruction(damage_flag, additional_damage)
 	return
 
 /turf/closed/indestructible/oldshuttle

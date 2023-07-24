@@ -15,7 +15,7 @@
 	icon_state = ""
 	var/list/icons
 	tiled_dirt = FALSE
-	max_integrity = 400
+	max_integrity = 200
 
 
 /turf/open/floor/mineral/Initialize(mapload)
@@ -39,7 +39,7 @@
 	icon_state = "plasma"
 	floor_tile = /obj/item/stack/tile/mineral/plasma
 	icons = list("plasma","plasma_dam")
-	max_integrity = 400
+	max_integrity = 200
 
 /turf/open/floor/mineral/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
@@ -69,7 +69,7 @@
 	icon_state = "gold"
 	floor_tile = /obj/item/stack/tile/mineral/gold
 	icons = list("gold","gold_dam")
-	max_integrity = 500
+	max_integrity = 250
 
 //SILVER
 
@@ -78,7 +78,7 @@
 	icon_state = "silver"
 	floor_tile = /obj/item/stack/tile/mineral/silver
 	icons = list("silver","silver_dam")
-	max_integrity = 600
+	max_integrity = 300
 
 //COPPER
 
@@ -87,7 +87,7 @@
 	icon_state = "copper"
 	floor_tile = /obj/item/stack/tile/mineral/copper
 	icons = list("copper","copper_dam")
-	max_integrity = 350
+	max_integrity = 175
 
 //TITANIUM (shuttle)
 
@@ -96,7 +96,7 @@
 	icon_state = "titanium"
 	floor_tile = /obj/item/stack/tile/mineral/titanium
 	broken_states = list("titanium_dam1","titanium_dam2","titanium_dam3","titanium_dam4","titanium_dam5")
-	max_integrity = 600
+	max_integrity = 300
 
 /turf/open/floor/mineral/titanium/airless
 	initial_gas_mix = AIRLESS_ATMOS
@@ -192,7 +192,7 @@
 	icon_state = "bananium"
 	floor_tile = /obj/item/stack/tile/mineral/bananium
 	icons = list("bananium","bananium_dam")
-	max_integrity = 200
+	max_integrity = 100
 	var/spam_flag = 0
 
 /turf/open/floor/mineral/bananium/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
@@ -237,7 +237,7 @@
 	icon_state = "diamond"
 	floor_tile = /obj/item/stack/tile/mineral/diamond
 	icons = list("diamond","diamond_dam")
-	max_integrity = 800
+	max_integrity = 400
 	damage_deflection = 10
 
 //URANIUM
@@ -248,7 +248,7 @@
 	icon_state = "uranium"
 	floor_tile = /obj/item/stack/tile/mineral/uranium
 	icons = list("uranium","uranium_dam")
-	max_integrity = 150
+	max_integrity = 75
 	damage_deflection = 0
 	var/last_event = 0
 	var/active = null
@@ -293,7 +293,7 @@
 	floor_tile = /obj/item/stack/tile/mineral/abductor
 	icons = list("alienpod1", "alienpod2", "alienpod3", "alienpod4", "alienpod5", "alienpod6", "alienpod7", "alienpod8", "alienpod9")
 	baseturfs = /turf/open/floor/plating/abductor2
-	max_integrity = 900
+	max_integrity = 450
 	damage_deflection = 15
 
 /turf/open/floor/mineral/abductor/Initialize(mapload)

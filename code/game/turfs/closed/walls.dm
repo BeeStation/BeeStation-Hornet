@@ -60,8 +60,15 @@
 /turf/closed/wall/attack_tk()
 	return
 
-/turf/closed/wall/turf_destruction(damage_flag)
-	dismantle_wall(FALSE, FALSE)
+/turf/closed/wall/turf_destruction(damage_flag, additional_damage)
+	var/previous_type = type
+	dismantle_wall(prob((additional_damage - 50) / 3), TRUE)
+	// If we scrape away into a turf of the same type, don't go any deeper.
+	if (type == previous_type)
+		return
+	// Cascade turf damage downwards on destruction
+	if (additional_damage > 0)
+		take_damage(additional_damage, BRUTE, damage_flag, FALSE)
 
 /turf/closed/wall/proc/dismantle_wall(devastated=0, explode=0)
 	if(devastated)
@@ -94,22 +101,8 @@
 	return ..()
 
 /turf/closed/wall/mech_melee_attack(obj/mecha/M)
-	M.do_attack_animation(src)
-	switch(M.damtype)
-		if(BRUTE)
-			playsound(src, 'sound/weapons/punch4.ogg', 50, 1)
-			M.visible_message("<span class='danger'>[M.name] hits [src]!</span>", \
-							"<span class='danger'>You hit [src]!</span>", null, COMBAT_MESSAGE_RANGE)
-			if(prob(hardness + M.force) && M.force > 20)
-				dismantle_wall(1)
-				playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
-			else
-				add_dent(WALL_DENT_HIT)
-		if(BURN)
-			playsound(src, 'sound/items/welder.ogg', 100, 1)
-		if(TOX)
-			playsound(src, 'sound/effects/spray2.ogg', 100, 1)
-			return FALSE
+	add_dent(WALL_DENT_HIT)
+	return ..()
 
 /turf/closed/wall/attack_paw(mob/living/user)
 	user.changeNext_move(CLICK_CD_MELEE)

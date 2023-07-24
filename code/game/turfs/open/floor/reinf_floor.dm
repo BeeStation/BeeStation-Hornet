@@ -15,7 +15,7 @@
 	FASTDMM_PROP(\
 		pipe_astar_cost = 15\
 	)
-	max_integrity = 800
+	max_integrity = 500
 
 /turf/open/floor/engine/examine(mob/user)
 	. = ..()

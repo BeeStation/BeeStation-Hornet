@@ -851,12 +851,12 @@
 	var/obj/effect/icon/temp/attack_animation_object
 	if(visual_effect_icon)
 		I = image('icons/effects/effects.dmi', A, visual_effect_icon, A.layer + 0.1)
-		attack_animation_object = new(A.loc, I, 10)
+		attack_animation_object = new(get_turf(A), I, 10)
 	else if(used_item)
 		I = image(icon = used_item, loc = A, layer = A.layer + 0.1)
 		I.plane = GAME_PLANE
 		I.appearance_flags = NO_CLIENT_COLOR | PIXEL_SCALE
-		attack_animation_object = new(A.loc, I, 10)
+		attack_animation_object = new(get_turf(A), I, 10)
 
 		// Scale the icon.
 		attack_animation_object.transform *= pick(0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55)
