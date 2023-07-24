@@ -26,11 +26,19 @@
 		var/healthpercent = (integrity/max_integrity) * 100
 		switch(healthpercent)
 			if(50 to 99)
-				return  "It looks slightly damaged."
+				. +=  "It looks slightly damaged."
 			if(25 to 50)
-				return  "It appears heavily damaged."
+				. +=  "It appears heavily damaged."
 			if(0 to 25)
-				return  "<span class='warning'>It's falling apart!</span>"
+				. +=  "<span class='warning'>It's falling apart!</span>"
+	if (!can_hit)
+		return
+	if (istype(user, /mob/living/simple_animal))
+		var/mob/living/simple_animal/attacker = user
+		if ((attacker.obj_damage || attacker.melee_damage) >= damage_deflection)
+			. += "<span class='notice'>You are capable of damaging this wall with your attacks!</span>"
+		else
+			. += "<span class='warning'>It doesn't look like you can damage this...</span>"
 
 /// Override this proc to return the armour list
 /turf/proc/get_armour_list()
