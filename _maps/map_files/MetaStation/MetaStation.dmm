@@ -70031,7 +70031,6 @@
 	name = "Test Range";
 	pixel_x = 25;
 	pixel_y = -6;
-	req_access = null;
 	req_access_txt = "49"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -71822,7 +71821,6 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/virology/glass{
-	id_tag = null;
 	name = "Virology Reception";
 	req_access_txt = "39"
 	},
@@ -74357,7 +74355,6 @@
 	name = "Test Range";
 	pixel_x = -7;
 	pixel_y = 26;
-	req_access = null;
 	req_access_txt = "49"
 	},
 /obj/effect/turf_decal/trimline/purple/filled/line{
@@ -100600,7 +100597,7 @@ acD
 abe
 ads
 adO
-abe
+aax
 sII
 ozo
 aax
@@ -101114,7 +101111,7 @@ acF
 abe
 adt
 adT
-abe
+aax
 rPO
 afV
 tgK
@@ -101371,7 +101368,7 @@ acG
 abe
 abe
 abe
-abe
+aax
 eBt
 jTU
 aax
@@ -101628,7 +101625,7 @@ acH
 abe
 adu
 eSo
-abe
+aax
 llA
 afV
 nDX
@@ -102142,7 +102139,7 @@ aaR
 abe
 gCh
 adT
-abe
+aax
 ghw
 uAR
 abe
@@ -102399,7 +102396,7 @@ jOQ
 abe
 abe
 abe
-abe
+aax
 wzV
 afN
 abe
@@ -102656,7 +102653,7 @@ acL
 abe
 adx
 adU
-abe
+aax
 hnI
 afO
 abe
@@ -103170,7 +103167,7 @@ acM
 abe
 ady
 adT
-abe
+aax
 mHA
 afV
 agJ
@@ -103423,11 +103420,11 @@ aax
 aax
 aax
 aax
-abe
-abe
-abe
-abe
-abe
+aax
+aax
+aax
+aax
+aax
 xHv
 tXr
 agK
