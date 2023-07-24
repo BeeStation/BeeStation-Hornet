@@ -18,12 +18,10 @@
 	var/list/mob/candidates = list()
 	/// List of players that were selected for this rule
 	var/list/datum/mind/assigned = list()
-	/// Preferences flag such as ROLE_WIZARD that need to be turned on for players to be antag
-	var/antag_flag = null
+	/// The /datum/role_preference typepath used for this ruleset.
+	var/role_preference = null
 	/// The antagonist datum that is assigned to the mobs mind on ruleset execution.
 	var/datum/antagonist/antag_datum = null
-	/// The required minimum account age for this ruleset.
-	var/minimum_required_age = 7
 	/// If set, and config flag protect_roles_from_antagonist is false, then the rule will not pick players from these roles.
 	var/list/protected_roles = list()
 	/// If set, rule will deny candidates from those roles always.
@@ -55,8 +53,6 @@
 	var/list/requirements = list(40,30,20,10,10,10,10,10,10,10)
 	/// Reference to the mode, use this instead of SSticker.mode.
 	var/datum/game_mode/dynamic/mode = null
-	/// If a role is to be considered another for the purpose of banning.
-	var/antag_flag_override = null
 	/// If a ruleset type which is in this list has been executed, then the ruleset will not be executed.
 	var/list/blocking_rules = list()
 	/// The minimum amount of players required for the rule to be considered.
@@ -163,7 +159,7 @@
 
 /// Called on post_setup on roundstart and when the rule executes on midround and latejoin.
 /// Give your candidates or assignees equipment and antag datum here.
-/datum/dynamic_ruleset/proc/execute()
+/datum/dynamic_ruleset/proc/execute(forced = FALSE)
 	for(var/datum/mind/M in assigned)
 		M.add_antag_datum(antag_datum)
 	return TRUE
@@ -171,7 +167,7 @@
 /// Here you can perform any additional checks you want. (such as checking the map etc)
 /// Remember that on roundstart no one knows what their job is at this point.
 /// IMPORTANT: If ready() returns TRUE, that means pre_execute() or execute() should never fail!
-/datum/dynamic_ruleset/proc/ready(forced = 0)
+/datum/dynamic_ruleset/proc/ready(forced = FALSE)
 	return check_candidates()
 
 /// Runs from gamemode process() if ruleset fails to start, like delayed rulesets not getting valid candidates.
@@ -212,11 +208,11 @@
 
 /// Checks if there are enough candidates to run, and logs otherwise
 /datum/dynamic_ruleset/proc/check_candidates()
-	if (required_candidates <= candidates.len)
-		return TRUE
-
-	log_game("DYNAMIC: FAIL: [src] does not have enough candidates ([required_candidates] needed, [candidates.len] found)")
-	return FALSE
+	var/candidates_amt = length(candidates)
+	if (required_candidates > candidates_amt)
+		log_game("DYNAMIC: FAIL: [src] does not have enough candidates ([required_candidates] needed, [candidates_amt] found)")
+		return FALSE
+	return TRUE
 
 /// Here you can remove candidates that do not meet your requirements.
 /// This means if their job is not correct or they have disconnected you can remove them from candidates here.
@@ -282,7 +278,7 @@
 
 /// Picks a candidate from a list, while potentially taking antag rep into consideration.
 /datum/dynamic_ruleset/proc/antag_pick_n_take(list/candidates)
-	. = (mode && consider_antag_rep) ? mode.antag_pick(candidates, antag_flag) : pick(candidates)
+	. = (mode && consider_antag_rep) ? mode.antag_pick(candidates, role_preference) : pick(candidates)
 	if(.)
 		candidates -= .
 
@@ -298,19 +294,19 @@
 		var/client/client = GET_CLIENT(P)
 		if (!client || !P.mind) // Are they connected?
 			candidates.Remove(P)
-		else if(!mode.check_age(client, minimum_required_age))
+			continue
+
+		if(!client.should_include_for_role(
+			banning_key = initial(antag_datum.banning_key),
+			role_preference_key = role_preference,
+			req_hours = initial(antag_datum.required_living_playtime)
+		))
 			candidates.Remove(P)
 			continue
+
 		if(P.mind.special_role) // We really don't want to give antag to an antag.
 			candidates.Remove(P)
-		else if(antag_flag_override)
-			if(!(antag_flag_override in client.prefs.be_special) || is_banned_from(P.ckey, list(antag_flag_override, ROLE_SYNDICATE)))
-				candidates.Remove(P)
-				continue
-		else
-			if(!(antag_flag in client.prefs.be_special) || is_banned_from(P.ckey, list(antag_flag, ROLE_SYNDICATE)))
-				candidates.Remove(P)
-				continue
+			continue
 
 /// Do your checks if the ruleset is ready to be executed here.
 /// Should ignore certain checks if forced is TRUE

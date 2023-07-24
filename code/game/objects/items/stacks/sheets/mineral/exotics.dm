@@ -19,9 +19,8 @@ Exotic mineral Sheets
 	point_value = 50
 	merge_type = /obj/item/stack/sheet/mineral/bananium
 
-/obj/item/stack/sheet/mineral/bananium/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.bananium_recipes
-	. = ..()
+/obj/item/stack/sheet/mineral/bananium/get_recipes()
+	return GLOB.bananium_recipes
 
 
 /* Adamantine */
@@ -34,9 +33,8 @@ Exotic mineral Sheets
 	merge_type = /obj/item/stack/sheet/mineral/adamantine
 	grind_results = list(/datum/reagent/liquidadamantine = 10)
 
-/obj/item/stack/sheet/mineral/adamantine/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.adamantine_recipes
-	. = ..()
+/obj/item/stack/sheet/mineral/adamantine/get_recipes()
+	return GLOB.adamantine_recipes
 
 /* Alien Alloy */
 
@@ -49,6 +47,5 @@ Exotic mineral Sheets
 	sheettype = "abductor"
 	merge_type = /obj/item/stack/sheet/mineral/abductor
 
-/obj/item/stack/sheet/mineral/abductor/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.abductor_recipes
-	. = ..()
+/obj/item/stack/sheet/mineral/abductor/get_recipes()
+	return GLOB.abductor_recipes

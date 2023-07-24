@@ -24,7 +24,7 @@
 	desc = "The Syndicate sends their regards."
 	emagged = 2
 	noloot = TRUE
-	faction = list(ROLE_SYNDICATE)
+	faction = list(FACTION_SYNDICATE)
 
 /mob/living/simple_animal/bot/secbot/grievous/nullcrate/ComponentInitialize()
 	. = ..()

@@ -23,17 +23,13 @@ $color-bg-grad-spread: 2% !default;
   @include meta.load-css(
     '../components/Button.scss',
     $with: (
-      'color-default':
-        color.scale($ntos-color-alt, $lightness: 5%, $saturation: 8%),
+      'color-default': color.scale($ntos-color-alt, $lightness: 5%, $saturation: 8%),
       'color-transparent-text': rgba(227, 240, 255, 0.75)
     )
   );
   @include meta.load-css(
     '../components/ProgressBar.scss',
-    $with: (
-      'color-default-fill': $ntos-color-alt,
-      'background-color': rgba(0, 0, 0, 0.5)
-    )
+    $with: ('color-default-fill': $ntos-color-alt, 'background-color': rgba(0, 0, 0, 0.5))
   );
   @include meta.load-css('../components/Section.scss');
 

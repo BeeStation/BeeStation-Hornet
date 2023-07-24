@@ -146,7 +146,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	guardianrename()
 
 /mob/living/simple_animal/hostile/guardian/proc/guardianrecolor()
-	guardiancolor = input(src,"What would you like your color to be?","Choose Your Color","#ffffff") as color|null
+	guardiancolor = tgui_color_picker(src,"What would you like your color to be?","Choose Your Color","#ffffff")
 	chat_color = guardiancolor
 	if(!guardiancolor) //redo proc until we get a color
 		to_chat(src, "<span class='warning'>Not a valid color, please try again.</span>")
@@ -459,7 +459,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		var/mob/living/simple_animal/hostile/guardian/G = input(src, "Pick the guardian you wish to reset", "Guardian Reset") as null|anything in sort_names(guardians)
 		if(G)
 			to_chat(src, "<span class='holoparasite'>You attempt to reset <font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font>'s personality...</span>")
-			var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as [src.real_name]'s [G.real_name]?", ROLE_PAI, null, FALSE, 100)
+			var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as [src.real_name]'s [G.real_name]?", ROLE_HOLOPARASITE, null, 10 SECONDS)
 			if(LAZYLEN(candidates))
 				var/mob/dead/observer/C = pick(candidates)
 				to_chat(G, "<span class='holoparasite'>Your user reset you, and your body was taken over by a ghost. Looks like they weren't happy with your performance.</span>")
@@ -537,7 +537,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		return
 	used = TRUE
 	to_chat(user, "[use_message]")
-	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the [mob_name] of [user.real_name]?", ROLE_PAI, null, FALSE, 100, POLL_IGNORE_HOLOPARASITE)
+	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the [mob_name] of [user.real_name]?", ROLE_HOLOPARASITE, null, 10 SECONDS)
 
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)

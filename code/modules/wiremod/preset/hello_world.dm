@@ -11,3 +11,4 @@
 	add_component(speech)
 
 	speech.message.set_input("Hello World")
+

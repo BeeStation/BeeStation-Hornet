@@ -253,7 +253,7 @@
 
 
 /obj/structure/blob/attack_animal(mob/living/simple_animal/M)
-	if(ROLE_BLOB in M.faction) //sorry, but you can't kill the blob as a blobbernaut
+	if(FACTION_BLOB in M.faction) //sorry, but you can't kill the blob as a blobbernaut
 		return
 	..()
 

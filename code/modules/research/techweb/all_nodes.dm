@@ -182,33 +182,45 @@
 		"comp_delay",
 		"comp_direction",
 		"comp_get_column",
+		"comp_get_name",
 		"comp_gps",
 		"comp_health",
 		"comp_hear",
 		"comp_index_table",
+		"comp_index",
+		"comp_length",
 		"comp_light",
+		"comp_list_literal",
 		"comp_logic",
 		"comp_mmi",
+		"comp_module",
 		"comp_multiplexer",
 		"comp_not",
+		"comp_ntnet_receive",
+		"comp_ntnet_send",
+		"comp_pathfind",
+		"comp_pressuresensor",
 		"comp_radio",
-		"comp_ram",
 		"comp_random",
 		"comp_round",
+		"comp_router",
 		"comp_select_query",
 		"comp_self",
 		"comp_soundemitter",
 		"comp_species",
 		"comp_speech",
 		"comp_speech",
+		"comp_split",
 		"comp_string_contains",
+		"comp_tempsensor",
 		"comp_textcase",
+		"comp_tonumber",
 		"comp_tostring",
-		"comp_trig",
 		"comp_typecast",
 		"compact_remote_shell",
 		"component_printer",
 		"integrated_circuit",
+		"module_duplicator",
 		"usb_cable",
 	)
 
@@ -547,6 +559,7 @@
 		"femto_mani",
 		"quantum_keycard",
 		"triphasic_scanning",
+		"usb_wireless",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	export_price = 5000
@@ -608,6 +621,7 @@
 		"antivirus3",
 		"bluespacebeaker",
 		"bluespacesyringe",
+    "bluespace_capsule",
 		"bs_rped",
 		"minerbag_holding",
 		"ore_silo",
@@ -676,7 +690,7 @@
 	description = "Research the technology required to create and use basic shuttles."
 	prereq_ids = list(
 		"adv_engi",
-		"bluespace_travel",
+		"basic_plasma",
 	)
 	design_ids = list(
 		"engine_heater",
@@ -685,7 +699,7 @@
 		"shuttle_creator",
 		"wingpack",
 	)
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
 /datum/techweb_node/nullspacebreaching
@@ -729,6 +743,7 @@
 		"comp_bitflag",
 		"comp_bitwise",
 		"comp_hyper_trig",
+		"comp_trig",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
 
@@ -763,10 +778,13 @@
 	)
 	design_ids = list(
 		"assembly_shell",
+		"bci_implanter",
+		"bci_shell",
 		"bot_shell",
 		"controller_shell",
 		"door_shell",
 		"money_bot_shell",
+		"scanner_gate_shell",
 		"scanner_shell",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
@@ -1411,7 +1429,6 @@
 	design_ids = list("ci-linkedsurgery")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	export_price = 10000
-	boost_item_paths = list(/obj/item/organ/cyberimp/brain/linkedsurgery, /obj/item/organ/cyberimp/brain/linkedsurgery/perfect)
 	hidden = TRUE
 
 ////////////////////////Tools////////////////////////
@@ -1427,8 +1444,6 @@
 		"damagemod",
 		"drill",
 		"exploration_equipment_vendor",
-		"furnace_console",
-		"furnace",
 		"hypermod",
 		"mining_equipment_vendor",
 		"ore_redemption",
@@ -1580,7 +1595,6 @@
 	prereq_ids = list("engineering")
 	design_ids = list(
 		"pin_testing",
-		"sleepy",
 		"tele_shield",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
