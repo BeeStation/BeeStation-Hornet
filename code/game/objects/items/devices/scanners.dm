@@ -987,12 +987,9 @@ GENE SCANNER
 	if(!HM)
 		return "ERROR"
 	if(discovered[mutation])
-		return wrap_active_colour("[HM.name] ([HM.alias])", active_detail)
+		return !active_detail ? "[HM.name] ([HM.alias])" : "<span class='green'>[HM.name] ([HM.alias]) - [active_detail]</span>"
 	else
-		return wrap_active_colour(HM.alias, active_detail)
-
-/obj/item/sequence_scanner/proc/wrap_active_colour(text, active_detail=FALSE)
-	return active_detail ? "<span class='green'>[text] - [active_detail]</span>" : text
+		return !active_detail ? HM.alias : "<span class='green'>[HM.alias] - [active_detail]</span>" : text
 
 /obj/item/extrapolator
 	name = "virus extrapolator"
