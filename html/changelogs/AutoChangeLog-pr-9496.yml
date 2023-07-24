@@ -1,0 +1,4 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - bugfix: fixed where holocall throws a runtime (second)
