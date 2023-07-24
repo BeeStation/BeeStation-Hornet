@@ -30,7 +30,6 @@
 
 /datum/component/blind_sense/RemoveComponent()
 	. = ..()
-	qdel(src)
 
 /datum/component/blind_sense/proc/handle_hear(datum/source, atom/speaker, message)
 	SIGNAL_HANDLER
