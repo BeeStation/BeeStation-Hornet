@@ -20,6 +20,19 @@
 	/// If damage is less than this value for melee attacks, it will deal 0 damage
 	var/damage_deflection = 5
 
+/turf/examine(mob/user)
+	. = ..()
+	if (!isnull(integrity) && integrity < max_integrity)
+		var/healthpercent = (integrity/max_integrity) * 100
+		switch(healthpercent)
+			if(50 to 99)
+				return  "It looks slightly damaged."
+			if(25 to 50)
+				return  "It appears heavily damaged."
+			if(0 to 25)
+				if(!broken)
+					return  "<span class='warning'>It's falling apart!</span>"
+
 /// Override this proc to return the armour list
 /turf/proc/get_armour_list()
 	return null
