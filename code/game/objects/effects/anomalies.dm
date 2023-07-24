@@ -33,6 +33,8 @@
 
 	/// Do we keep on living forever?
 	var/immortal = FALSE
+	///How many harvested pierced realities do we spawn on destruction
+	var/max_spawned_faked = 2
 
 /obj/effect/anomaly/Initialize(mapload, new_lifespan)
 	. = ..()
