@@ -46,6 +46,7 @@
 #include "achievement_validation.dm"
 #include "anchored_mobs.dm"
 #include "check_adjustable_clothing.dm"
+#include "closets.dm"
 #include "component_tests.dm"
 #include "connect_loc.dm"
 #include "crafting_tests.dm"
@@ -57,8 +58,10 @@
 #include "create_and_destroy.dm"
 #endif
 
+#include "antag_datums.dm"
 #include "dynamic_ruleset_sanity.dm"
 #include "enumerables.dm"
+#include "gamemode_sanity.dm"
 #include "keybinding_init.dm"
 #include "rcd.dm"
 #include "reagent_id_typos.dm"

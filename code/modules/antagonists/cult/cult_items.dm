@@ -891,8 +891,7 @@ Striking a noncultist, however, will tear their flesh."}
 						L.adjustBruteLoss(45)
 						playsound(L, 'sound/hallucinations/wail.ogg', 50, 1)
 						L.emote("scream")
-		var/datum/beam/current_beam = new(user,temp_target,time=7,beam_icon_state="blood_beam",btype=/obj/effect/ebeam/blood)
-		INVOKE_ASYNC(current_beam, TYPE_PROC_REF(/datum/beam, Start))
+		user.Beam(temp_target, icon_state="blood_beam", time = 7, beam_type = /obj/effect/ebeam/blood)
 
 
 /obj/effect/ebeam/blood
@@ -925,12 +924,12 @@ Striking a noncultist, however, will tear their flesh."}
 					var/mob/living/simple_animal/hostile/illusion/M = new(owner.loc)
 					M.faction = list("cult")
 					M.Copy_Parent(owner, 70, 10, 5)
-					M.move_to_delay = owner.movement_delay()
+					M.move_to_delay = owner.cached_multiplicative_slowdown
 				else
 					var/mob/living/simple_animal/hostile/illusion/escape/E = new(owner.loc)
 					E.Copy_Parent(owner, 70, 10)
 					E.GiveTarget(owner)
-					E.Goto(owner, owner.movement_delay(), E.minimum_distance)
+					E.Goto(owner, owner.cached_multiplicative_slowdown, E.minimum_distance)
 			return TRUE
 	else
 		if(prob(50))
@@ -938,7 +937,7 @@ Striking a noncultist, however, will tear their flesh."}
 			H.Copy_Parent(owner, 100, 20, 5)
 			H.faction = list("cult")
 			H.GiveTarget(owner)
-			H.move_to_delay = owner.movement_delay()
+			H.move_to_delay = owner.cached_multiplicative_slowdown
 			to_chat(owner, "<span class='danger'><b>[src] betrays you!</b></span>")
 		return FALSE
 

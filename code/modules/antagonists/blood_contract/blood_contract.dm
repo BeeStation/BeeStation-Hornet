@@ -4,6 +4,7 @@
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = TRUE
 	var/duration = 2 MINUTES
+	banning_key = UNBANNABLE_ANTAGONIST
 
 /datum/antagonist/blood_contract/on_gain()
 	. = ..()
@@ -37,6 +38,7 @@
 	for(var/mob/living/carbon/human/P in GLOB.player_list)
 		if(P == H)
 			continue
+		log_game("[key_name(P)] was selected to kill [key_name(H)] by blood contract") // holy shit why is there no antag datum. I'm doing a huge refactor so I don't have time for one but I had to add this log here
 		to_chat(P, "<span class='userdanger'>You have an overwhelming desire to kill [H]. [H.p_theyve(TRUE)] been marked red! Whoever [H.p_they()] [H.p_were()], friend or foe, go kill [H.p_them()]!</span>")
 
 		var/obj/item/I = new /obj/item/kitchen/knife/butcher(get_turf(P))

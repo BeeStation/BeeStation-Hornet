@@ -10,6 +10,7 @@
 	pass_flags_self = LETPASSTHROW
 	can_buckle = TRUE
 	buckle_lying = 90 //we turn to you!
+	resistance_flags = INDESTRUCTIBLE
 	///Avoids having to check global everytime by referencing it locally.
 	var/datum/religion_sect/sect_to_altar
 

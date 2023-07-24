@@ -360,6 +360,23 @@ SUBSYSTEM_DEF(ticker)
 	PostSetup()
 	SSstat.clear_global_alert()
 
+//Toggle lightswitches on in occupied departments
+	var/discrete_areas = list()
+	for(var/mob/living/carbon/human/H in GLOB.player_list)
+		var/area/A = get_area(H)
+		if(!(A in discrete_areas)) //We've already added their department
+			discrete_areas += get_department_areas(H)
+	for(var/area/area in discrete_areas)
+		if(area.lights_always_start_on)
+			continue
+		area.lightswitch = TRUE
+		area.update_appearance()
+
+		for(var/obj/machinery/light_switch/L in area)
+			L.update_appearance()
+
+		area.power_change()
+
 	return TRUE
 
 /datum/controller/subsystem/ticker/proc/PostSetup()
@@ -380,7 +397,6 @@ SUBSYSTEM_DEF(ticker)
 			S.after_round_start()
 		else
 			stack_trace("[S] [S.type] found in start landmarks list, which isn't a start landmark!")
-
 
 //These callbacks will fire after roundstart key transfer
 /datum/controller/subsystem/ticker/proc/OnRoundstart(datum/callback/cb)
