@@ -69,36 +69,26 @@
 
 /obj/item/megaphone/nospam
 	cooldown = 2 MINUTES // So it can be varedited if needed
-	var/list/charges_list = list(0,0,0,0,0)
-	var/available_charges = 5
+	var/list/charges_list = list()
+	var/maximum_charge = 5
 
 /obj/item/megaphone/nospam/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/megaphone/nospam/process(delta_time)
-	if(available_charges >= 5)
-		return
-	var/I = 1
-	var/charges = 0
-	while(I < 6)
-		if(charges_list[I] < world.time)
-			charges ++
-		I++
-	available_charges = charges
+	var/current_index = length(charges_list)
+	while(current_index > 0)
+		if(charges_list[current_index] < world.time)
+			charges_list.Remove(current_index)
+		current_index--
 	return
 
 /obj/item/megaphone/nospam/handle_speech(mob/living/carbon/user, list/speech_args)
 	if (user.get_active_held_item() != src)
 		return
-	if(available_charges > 0)
-		var/I = 1
-		while(I < 6)
-			if(charges_list[I] < world.time)
-				charges_list[I] = world.time + cooldown
-				available_charges --
-				break
-			I++
+	if(length(charges_list) < maximum_charge)
+		charges_list.Add(world.time + cooldown)
 		playsound(loc, 'sound/items/megaphone.ogg', 100, 0, 1)
 		speech_args[SPEECH_SPANS] |= voicespan
 	else
