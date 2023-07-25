@@ -96,8 +96,8 @@ All foods are distributed among various categories. Use common sense.
 		return ..()
 	if(!eatverb)
 		eatverb = pick("bite","chew","nibble","gnaw","gobble","chomp")
-	if(!reagents.total_volume)						//Shouldn't be needed but it checks to see if it has anything left in it.
-		to_chat(user, "<span class='notice'>None of [src] left, oh no!</span>")
+	if(!reagents.total_volume) //Shouldn't be needed but it checks to see if it has anything left in it.
+		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
 		qdel(src)
 		return FALSE
 	if(iscarbon(M))
@@ -108,9 +108,9 @@ All foods are distributed among various categories. Use common sense.
 		for(var/datum/reagent/consumable/C in M.reagents.reagent_list) //we add the nutrition value of what we're currently digesting
 			fullness += C.nutriment_factor * C.volume / C.metabolization_rate
 
-		if(M == user)								//If you're eating it yourself.
+		if(M == user) //If you're eating it yourself.
 			if(junkiness && M.satiety < -150 && M.nutrition > NUTRITION_LEVEL_STARVING + 50 && !HAS_TRAIT(user, TRAIT_VORACIOUS))
-				to_chat(M, "<span class='notice'>You don't feel like eating any more junk food at the moment.</span>")
+				to_chat(M, "<span class='warning'>You don't feel like eating any more junk food at the moment.</span>")
 				return FALSE
 			else if(fullness <= 50)
 				user.visible_message("<span class='notice'>[user] hungrily [eatverb]s \the [src], gobbling it down!</span>", "<span class='notice'>You hungrily [eatverb] \the [src], gobbling it down!</span>")

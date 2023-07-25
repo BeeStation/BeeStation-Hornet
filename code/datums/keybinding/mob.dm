@@ -166,7 +166,7 @@
 	if(!user.mob) return
 	var/mob/M = user.mob
 	if (!M.pulling)
-		to_chat(user, "<span class='notice'>You are not pulling anything.</span>")
+		to_chat(user, "<span class='warning'>You are not pulling anything!</span>")
 	else
 		M.stop_pulling()
 	return TRUE

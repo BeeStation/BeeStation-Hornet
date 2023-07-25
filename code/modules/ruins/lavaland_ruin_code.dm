@@ -92,9 +92,9 @@
 				new shell_type(get_turf(src), species, user)
 				qdel(src)
 			else
-				to_chat(user, "You need at least ten sheets to finish a golem.")
+				to_chat(user, "<span class='warning'>You need at least ten sheets to finish a golem!</span>")
 		else
-			to_chat(user, "You can't build a golem out of this kind of material.")
+			to_chat(user, "<span class='warning'>You can't build a golem out of this kind of material!</span>")
 
 //made with xenobiology, the golem obeys its creator
 /obj/item/golem_shell/servant

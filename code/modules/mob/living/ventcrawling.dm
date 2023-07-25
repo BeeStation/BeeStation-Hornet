@@ -10,19 +10,19 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 	if(!ventcrawler || !Adjacent(A))
 		return
 	if(stat)
-		to_chat(src, "You must be conscious to do this!")
+		to_chat(src, "<span class='warning'>You must be conscious to do this!</span>")
 		return
 	if(IsStun() || IsParalyzed())
-		to_chat(src, "You can't vent crawl while you're stunned!")
+		to_chat(src, "<span class='warning'>You can't vent crawl while you're stunned!</span>")
 		return
 	if(restrained())
-		to_chat(src, "You can't vent crawl while you're restrained!")
+		to_chat(src, "<span class='warning'>You can't vent crawl while you're restrained!</span>")
 		return
 	if(has_buckled_mobs())
-		to_chat(src, "You can't vent crawl with other creatures on you!")
+		to_chat(src, "<span class='warning'>You can't vent crawl with other creatures on you!</span>")
 		return
 	if(buckled)
-		to_chat(src, "You can't vent crawl while buckled!")
+		to_chat(src, "<span class='warning'>You can't vent crawl while buckled!</span>")
 		return
 
 	var/obj/machinery/atmospherics/components/vent_found

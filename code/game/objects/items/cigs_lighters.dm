@@ -83,7 +83,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	var/obj/item/clothing/mask/cigarette/cig = help_light_cig(M)
 	if(lit && cig && user.a_intent == INTENT_HELP)
 		if(cig.lit)
-			to_chat(user, "<span class='notice'>[cig] is already lit.</span>")
+			to_chat(user, "<span class='warning'>[cig] is already lit!</span>")
 		if(M == user)
 			cig.attackby(src, user)
 		else
@@ -185,9 +185,9 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			log_game("[key_name(user)] added reagents to [src], it now contains [english_list(src.reagents.reagent_list)]!")
 		else			//if not, either the beaker was empty, or the cigarette was full
 			if(!glass.reagents.total_volume)
-				to_chat(user, "<span class='notice'>[glass] is empty.</span>")
+				to_chat(user, "<span class='warning'>[glass] is empty!</span>")
 			else
-				to_chat(user, "<span class='notice'>[src] is full.</span>")
+				to_chat(user, "<span class='warning'>[src] is full!</span>")
 
 
 /obj/item/clothing/mask/cigarette/proc/light(flavor_text = null)
@@ -311,7 +311,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	var/obj/item/clothing/mask/cigarette/cig = help_light_cig(M)
 	if(lit && cig && user.a_intent == INTENT_HELP)
 		if(cig.lit)
-			to_chat(user, "<span class='notice'>The [cig.name] is already lit.</span>")
+			to_chat(user, "<span class='warning'>The [cig.name] is already lit!</span>")
 		if(M == user)
 			if(cig.reagents.get_reagent_amount(/datum/reagent/toxin/plasma))
 				message_admins("[cig] that contains plasma was lit by [ADMIN_LOOKUPFLW(user)]!")
@@ -705,7 +705,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	var/obj/item/clothing/mask/cigarette/cig = help_light_cig(M)
 	if(lit && cig && user.a_intent == INTENT_HELP)
 		if(cig.lit)
-			to_chat(user, "<span class='notice'>The [cig.name] is already lit.</span>")
+			to_chat(user, "<span class='warning'>The [cig.name] is already lit!</span>")
 		if(M == user)
 			cig.attackby(src, user)
 		else
@@ -887,7 +887,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 				add_overlay("vapeopen_low")
 
 		if(screw && (obj_flags & EMAGGED))
-			to_chat(user, "<span class='notice'>[src] can't be modified!</span>")
+			to_chat(user, "<span class='warning'>[src] can't be modified!</span>")
 		else
 			..()
 
@@ -961,7 +961,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 
 	if(!reagents.total_volume)
 		if(ismob(loc))
-			to_chat(M, "<span class='notice'>[src] is empty!</span>")
+			to_chat(M, "<span class='warning'>[src] is empty!</span>")
 			STOP_PROCESSING(SSobj, src)
 			//it's reusable so it won't unequip when empty
 		return

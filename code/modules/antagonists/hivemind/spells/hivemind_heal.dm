@@ -21,7 +21,7 @@
 	if(!carbon_members.len)
 		return
 	if(!user.getBruteLoss() && !user.getFireLoss() && !user.getCloneLoss() && !user.getOrganLoss(ORGAN_SLOT_BRAIN))
-		to_chat(user, "<span class='notice'>We cannot heal ourselves any more with this power!</span>")
+		to_chat(user, "<span class='warning'>We cannot heal ourselves any more with this power!</span>")
 		revert_cast()
 	to_chat(user, "<span class='notice'>We begin siphoning power from our many vessels!</span>")
 	while(iterations < 7)

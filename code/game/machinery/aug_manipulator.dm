@@ -112,7 +112,7 @@
 		eject_part(user)
 
 	else
-		to_chat(user, "<span class='notice'>\The [src] is empty.</span>")
+		to_chat(user, "<span class='warning'>\The [src] is empty!</span>")
 
 /obj/machinery/aug_manipulator/proc/eject_part(mob/living/user)
 	if(storedpart)
@@ -120,7 +120,7 @@
 		storedpart = null
 		update_icon()
 	else
-		to_chat(user, "<span class='notice'>[src] is empty.</span>")
+		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 
 /obj/machinery/aug_manipulator/AltClick(mob/living/user)
 	if(!user.canUseTopic(src, !issilicon(user)))

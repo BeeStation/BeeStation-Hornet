@@ -765,7 +765,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 
 	if(!held_item)
 		if(src == usr) //So that other mobs wont make this message appear when they're bludgeoning you.
-			to_chat(src, "<span class='danger'>You have nothing to drop!</span>")
+			to_chat(src, "<span class='warning'>You have nothing to drop!</span>")
 		return 0
 
 
@@ -784,11 +784,11 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 			var/obj/item/grenade/G = held_item
 			G.forceMove(drop_location())
 			G.prime()
-			to_chat(src, "You let go of [held_item]!")
+			to_chat(src, "<span class='danger'>You let go of [held_item]!</span>")
 			held_item = null
 			return 1
 
-	to_chat(src, "You drop [held_item].")
+	to_chat(src, "<span class='notice'>You drop [held_item].</span>")
 
 	held_item.forceMove(drop_location())
 	held_item = null

@@ -351,9 +351,9 @@
 	to_chat(usr, "<span class='brass'>You begin manipulating [src]!</span>")
 	if(do_after(eminence, 20, target=get_turf(eminence)))
 		if(welded)
-			to_chat(eminence, "The airlock has been welded shut!")
+			to_chat(eminence, "<span class='warning'>The airlock has been welded shut!</span>")
 		else if(locked)
-			to_chat(eminence, "The door bolts are down!")
+			to_chat(eminence, "<span class='warning'>The door bolts are down!</span>")
 		else if(!density)
 			close()
 		else

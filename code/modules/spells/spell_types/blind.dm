@@ -17,19 +17,19 @@
 
 /obj/effect/proc_holder/spell/targeted/blind/cast(list/targets, mob/user = usr)
 	if(!length(targets))
-		to_chat(user, "<span class='notice'>No target found in range.</span>")
+		to_chat(user, "<span class='notice'>No target found in range!</span>")
 		revert_cast()
 		return
 
 	var/mob/living/carbon/target = targets[1]
 
 	if(!compatible_mobs_typecache[target.type])
-		to_chat(user, "<span class='notice'>You are unable to curse [target] with blindness!</span>")
+		to_chat(user, "<span class='warning'>You are unable to curse [target] with blindness!</span>")
 		revert_cast()
 		return
 
 	if(!(target in oview(range)))
-		to_chat(user, "<span class='notice'>[target.p_theyre(TRUE)] too far away!</span>")
+		to_chat(user, "<span class='warning'>[target.p_theyre(TRUE)] too far away!</span>")
 		revert_cast()
 		return
 

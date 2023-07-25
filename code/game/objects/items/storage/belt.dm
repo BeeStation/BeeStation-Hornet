@@ -857,9 +857,9 @@
 		var/obj/item/I = contents[1]
 		user.visible_message("[user] takes [I] out of [src].", "<span class='notice'>You take [I] out of [src].</span>")
 		user.put_in_hands(I)
-		update_icon()
+		update_appearance()
 	else
-		to_chat(user, "[src] is empty.")
+		balloon_alert(user, "it's empty!")
 
 /obj/item/storage/belt/sabre/update_icon()
 	icon_state = initial(icon_state)
@@ -876,7 +876,7 @@
 
 /obj/item/storage/belt/sabre/PopulateContents()
 	new /obj/item/melee/sabre(src)
-	update_icon()
+	update_appearance()
 
 /obj/item/storage/belt/sabre/mime
 	name = "Baguette"

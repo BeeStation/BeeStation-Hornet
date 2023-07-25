@@ -37,7 +37,7 @@
 		to_chat(user, "You're too far away to get swole!")
 		return
 	if(obj_flags & IN_USE)
-		to_chat(user, "It's already in use - wait a bit.")
+		to_chat(user, "<span class='warning'>It's already in use - wait a bit!</span>")
 		return
 	else
 		obj_flags |= IN_USE

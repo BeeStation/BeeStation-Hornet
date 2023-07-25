@@ -177,23 +177,23 @@
 		return
 
 	if(absorbedcount < thepower.req_dna)
-		to_chat(owner.current, "We lack the energy to evolve this ability!")
+		to_chat(owner.current, "<span class='warning'>We lack the energy to evolve this ability!</span>")
 		return
 
 	if(has_sting(thepower))
-		to_chat(owner.current, "We have already evolved this ability!")
+		to_chat(owner.current, "<span class='warning'>We have already evolved this ability!</span>")
 		return
 
 	if(thepower.dna_cost < 0)
-		to_chat(owner.current, "We cannot evolve this ability.")
+		to_chat(owner.current, "<span class='warning'>We cannot evolve this ability!</span>")
 		return
 
 	if(geneticpoints < thepower.dna_cost)
-		to_chat(owner.current, "We have reached our capacity for abilities.")
+		to_chat(owner.current, "<span class='warning'>We have reached our capacity for abilities!</span>")
 		return
 
 	if(HAS_TRAIT(owner.current, TRAIT_DEATHCOMA))//To avoid potential exploits by buying new powers while in stasis, which clears your verblist.
-		to_chat(owner.current, "We lack the energy to evolve new abilities right now.")
+		to_chat(owner.current, "<span class='warning'>We lack the energy to evolve new abilities right now!</span>")
 		return
 
 	log_game("[sting_name] purchased by [owner.current.ckey]/[owner.current.name] the [owner.current.job] for [thepower.dna_cost] GP, [geneticpoints] GP remaining.")
@@ -203,7 +203,7 @@
 
 /datum/antagonist/changeling/proc/readapt()
 	if(!ishuman(owner.current))
-		to_chat(owner.current, "<span class='danger'>We can't remove our evolutions in this form!</span>")
+		to_chat(owner.current, "<span class='warning'>We can't remove our evolutions in this form!</span>")
 		return
 	if(isabsorbing)
 		to_chat(owner.current, "<span class='danger'>We cannot readapt right now!</span>")
@@ -216,7 +216,7 @@
 		log_game("Genetic powers refunded by [owner.current.ckey]/[owner.current.name] the [owner.current.job], [geneticpoints] GP remaining.")
 		return 1
 	else
-		to_chat(owner.current, "<span class='danger'>You lack the power to readapt your evolutions!</span>")
+		to_chat(owner.current, "<span class='warning'>You lack the power to readapt your evolutions!</span>")
 		return 0
 
 //Called in life()

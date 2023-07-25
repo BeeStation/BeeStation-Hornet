@@ -39,7 +39,7 @@
 	if(burn_paper_product_attackby_check(P, user))
 		return
 	if(istype(P, /obj/item/pen) || istype(P, /obj/item/toy/crayon))
-		to_chat(user, "<span class='notice'>You should unfold [src] before changing it.</span>")
+		to_chat(user, "<span class='warning'>You should unfold [src] before changing it!</span>")
 		return
 
 	else if(istype(P, /obj/item/stamp)) 	//we don't randomize stamps on a paperplane

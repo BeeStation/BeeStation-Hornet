@@ -52,7 +52,7 @@
 			else
 				denied_items++
 		if(denied_items)
-			to_chat(user, "<span class='notice'>[src] refuses some items.</span>")
+			to_chat(user, "<span class='warning'>[src] refuses some items!</span>")
 		if(loaded)
 			to_chat(user, "<span class='notice'>You insert [loaded] dishes into [src]'s chef compartment.</span>")
 		updateUsrDialog()

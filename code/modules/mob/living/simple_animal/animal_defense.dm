@@ -44,7 +44,7 @@
 /mob/living/simple_animal/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
 	if(user.a_intent == INTENT_HARM)
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
-			to_chat(user, "<span class='notice'>You don't want to hurt [src]!</span>")
+			to_chat(user, "<span class='warning'>You don't want to hurt [src]!</span>")
 			return FALSE
 		..(user, 1)
 		playsound(loc, "punch", 25, 1, -1)

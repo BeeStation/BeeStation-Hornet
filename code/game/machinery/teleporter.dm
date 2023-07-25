@@ -49,7 +49,7 @@
 
 /obj/machinery/teleport/hub/Bumped(atom/movable/AM)
 	if(is_centcom_level(z))
-		to_chat(AM, "You can't use this here.")
+		to_chat(AM, "<span class='warning'>You can't use this here!</span>")
 		return
 	if(is_ready())
 		teleport(AM)

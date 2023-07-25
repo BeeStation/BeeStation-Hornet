@@ -59,7 +59,7 @@
 
 				l_hacking = FALSE
 				return
-			to_chat(user, "<span class='notice'>You must <b>unscrew</b> the service panel before you can pulse the wiring.</span>")
+			to_chat(user, "<span class='warning'>You must <b>unscrew</b> the service panel before you can pulse the wiring!</span>")
 			return
 
 	// -> storage/attackby() what with handle insertion, etc

@@ -33,11 +33,11 @@
 	var/mob/living/carbon/alien/larva/L = user
 
 	if(L.handcuffed || L.legcuffed) // Cuffing larvas ? Eh ?
-		to_chat(user, "<span class='danger'>You cannot evolve when you are cuffed.</span>")
+		to_chat(user, "<span class='warning'>You cannot evolve when you are cuffed!</span>")
 		return
 
 	if(L.movement_type & VENTCRAWLING)
-		to_chat(user, "<span class='danger'>You cannot evolve while in a vent.</span>")
+		to_chat(user, "<span class='warning'>You cannot evolve while in a vent!</span>")
 		return
 
 	if(L.amount_grown >= L.max_grown)	//TODO ~Carn

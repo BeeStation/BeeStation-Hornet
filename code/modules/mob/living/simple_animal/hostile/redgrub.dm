@@ -198,7 +198,7 @@
 		return // can't attack while eating!
 
 	if(HAS_TRAIT(M, TRAIT_PACIFISM))
-		to_chat(M, "<span class='notice'>You don't want to hurt anyone!</span>")
+		to_chat(M, "<span class='warning'>You don't want to hurt anyone!</span>")
 		return FALSE
 	var/datum/status_effect/slimegrub/status = M.has_status_effect(STATUS_EFFECT_SLIMEGRUB)
 	if(status)

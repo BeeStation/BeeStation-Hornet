@@ -211,7 +211,7 @@
 				// There are the same code lines in `card.dm`
 				ejectid()
 		else
-			to_chat(user, "<span class='notice'>[src] is empty.</span>")
+			to_chat(user, "<span class='warning'>[src] is empty!</span>")
 
 /obj/machinery/pdapainter/AltClick(mob/user)
 	if(!user.canUseTopic(src, !issilicon(user)) || usr.stat || usr.restrained())

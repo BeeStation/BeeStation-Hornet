@@ -465,9 +465,9 @@
 	if(!client)
 		return
 	if(!dumped_ore)
-		to_chat(src, "<span class='notice'>You attempt to dump your stored ore, but you have none.</span>")
+		to_chat(src, "<span class='warning'>You attempt to dump your stored ore, but you have none.</span>")
 		return
-	to_chat(src, "<span class='notice'>You dump your stored ore.</span>")
+	to_chat(src, "<span class='warning'>You dump your stored ore.</span>")
 
 /// Toggles between collect/combat behavior.
 /mob/living/simple_animal/hostile/mining_drone/proc/toggle_mode()
