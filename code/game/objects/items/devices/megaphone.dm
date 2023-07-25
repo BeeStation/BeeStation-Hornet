@@ -70,7 +70,7 @@
 /obj/item/megaphone/nospam
 	cooldown = 2 MINUTES // So it can be varedited if needed
 	var/list/charges_list = list()
-	var/maximum_charge = 5
+	var/maximum_charge = 5 //So it can be varedited too
 
 /obj/item/megaphone/nospam/Initialize(mapload)
 	. = ..()
