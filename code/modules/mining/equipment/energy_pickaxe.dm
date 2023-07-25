@@ -37,10 +37,10 @@
 
 /obj/item/pickaxe/energy_pickaxe/proc/try_power_attack(turf/closed/mineral/target, mob/user)
 	SHOULD_NOT_SLEEP(TRUE)
-	if (charge > consumed_power && ready)
+	if (charge >= consumed_power && ready)
 		charge -= consumed_power
 		// Play sound
-		playsound(src, 'sound/weapons/emitter2.ogg', 70)
+		playsound(src, 'sound/weapons/emitter2.ogg', 100)
 		// Deal damage to the rock
 		target.drop_multiplier = efficiency
 		target.take_damage(mineral_damage)
@@ -65,9 +65,17 @@
 	ready = TRUE
 	// Reset the sprite
 	// Play a sound cue
-	playsound(src, 'sound/weapons/kenetic_reload.ogg', 60, 1)
+	playsound(src, 'sound/weapons/kenetic_reload.ogg', 100, 1)
 	animation_played = FALSE
 	update_icon(UPDATE_OVERLAYS)
+
+//===============================
+// Upgrade Station
+//===============================
+
+/obj/machinery/energy_pickaxe_modification
+	name = "energy pickaxe modification station"
+	desc = "A station for applying modifications to energy pickaxes in order to make them more effective tools."
 
 //===============================
 // Upgrades

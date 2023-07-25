@@ -17,7 +17,8 @@
 		/obj/item/melee/baton,
 		/obj/item/ammo_box/magazine/recharge,
 		/obj/item/toy/batong,
-		/obj/item/modular_computer))
+		/obj/item/modular_computer,
+		/obj/item/pickaxe/energy_pickaxe))
 
 /obj/machinery/recharger/RefreshParts()
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
@@ -142,6 +143,10 @@
 				using_power = TRUE
 			update_icon()
 			return
+
+		if (istype(charging, /obj/item/pickaxe/energy_pickaxe))
+			var/obj/item/pickaxe/energy_pickaxe/e_pick = charging
+			e_pick.charge = min(e_pick.charge + 200 * recharge_coeff * delta_time, e_pick.max_charge)
 	else
 		return PROCESS_KILL
 
