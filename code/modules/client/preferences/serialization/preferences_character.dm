@@ -7,9 +7,8 @@
 
 /// Block varedits to column_names
 /datum/preferences_holder/preferences_character/vv_edit_var(var_name, var_value)
-	if(var_name == NAMEOF_STATIC(src, column_names))
-		return FALSE
-	return ..()
+	var/static/list/banned_edits = list(NAMEOF_STATIC(src, column_names))
+	return !(var_name in banned_edits) && ..()
 
 /// Initialize the data cache with default values
 /datum/preferences_holder/preferences_character/New(datum/preferences/prefs, slot)
