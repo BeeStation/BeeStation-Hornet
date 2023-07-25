@@ -2273,3 +2273,16 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	name = "Grasp of the Mansus"
 	description = "The Hand of the Mansus is at your neck."
 	metabolization_rate = 1 * REM
+
+//Mostly the same as blood, but all usefulness removed
+/datum/reagent/expired_blood
+	name = "Expried blood"
+	color = "#C80000" // rgb: 200, 0, 0
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
+	metabolization_rate = 5 //fast rate so it disappears fast.
+	taste_description = "iron"
+	taste_mult = 1.3
+	glass_icon_state = "glass_red"
+	glass_name = "glass of tomato juice"
+	glass_desc = "Are you sure this is tomato juice?"
+	shot_glass_icon_state = "shotglassred"
