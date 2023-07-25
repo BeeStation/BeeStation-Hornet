@@ -96,11 +96,12 @@
 
 /obj/item/megaphone/nospam/examine(mob/user)
 	. = ..()
-	switch(available_charges)
+	var/charges = maximum_charge - length(charges_list)
+	switch(charges)
 		if(2 to INFINITY)
-			. += "<span class='notice'>It has [available_charges] charges remaining.</span>"
+			. += "<span class='notice'>It has [charges] charges remaining.</span>"
 		if(1)
-			. += "<span class='notice'>It has [available_charges] charge remaining.</span>"
+			. += "<span class='notice'>It has [charges] charge remaining.</span>"
 		if(-INFINITY to 0)
 			. += "<span class='warning'>It needs to recharge!</span>"
 
