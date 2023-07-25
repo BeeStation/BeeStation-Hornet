@@ -150,10 +150,9 @@
 	return FALSE
 
 /obj/structure/ladder/unbreakable/rcd_act(mob/user, var/obj/item/construction/rcd/the_rcd, passed_mode)
-	switch(passed_mode)
-		if(RCD_DECONSTRUCT)
-			to_chat(user, "<span class='warning'>[src] seems to resist all attempts to deconstruct it!</span>")
-			return FALSE
+	if(RCD_DECONSTRUCT == passed_mode)
+		to_chat(user, "<span class='warning'>[src] seems to resist all attempts to deconstruct it!</span>")
+		return FALSE
 
 /obj/structure/ladder/attackby(obj/item/I, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
