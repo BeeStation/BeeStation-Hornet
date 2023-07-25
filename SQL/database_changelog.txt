@@ -171,7 +171,8 @@ SET human_name = jt.human_name_old,
 
 /* Delete unused data (features and custom_names, which are now flattened) */
 
-ALTER TABLE `SS13_characters` DROP COLUMN `features` IF EXISTS, `custom_names` IF EXISTS;
+ALTER TABLE `SS13_characters` DROP COLUMN IF EXISTS `features`;
+ALTER TABLE `SS13_characters` DROP COLUMN IF EXISTS `custom_names`;
 
 /* PLAYER PREFERENCES */
 
