@@ -93,6 +93,7 @@
 /obj/structure/bed/roller/post_buckle_mob(mob/living/M)
 	set_density(TRUE)
 	icon_state = "up"
+	M.reset_pull_offsets(M, TRUE) //TEMPORARY, remove when update_mobilty is kill
 	//Push them up from the normal lying position
 	M.pixel_y = M.base_pixel_y
 
@@ -188,6 +189,7 @@
 	var/mob/living/goldilocks
 
 /obj/structure/bed/double/post_buckle_mob(mob/living/M)
+	M.reset_pull_offsets(M, TRUE) //TEMPORARY, remove when update_mobilty is kill
 	if(buckled_mobs.len > 1 && !goldilocks) //Push the second buckled mob a bit higher from the normal lying position, also, if someone can figure out the same thing for plushes, i'll be really glad to know how to
 		M.pixel_y = M.base_pixel_y + 6
 		goldilocks = M
