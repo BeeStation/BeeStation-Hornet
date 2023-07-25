@@ -589,6 +589,7 @@ SUBSYSTEM_DEF(ticker)
 				Master.SetRunLevel(RUNLEVEL_POSTGAME)
 
 /datum/controller/subsystem/ticker/proc/send_news_report()
+	log_world("\[reboot debug\] send_news_report()")
 	var/news_message
 	var/news_source = "Nanotrasen News Network"
 	switch(news_report)
@@ -633,8 +634,10 @@ SUBSYSTEM_DEF(ticker)
 		if(SHUTTLE_HIJACK)
 			news_message = "During routine evacuation procedures, the emergency shuttle of [station_name()] had its navigation protocols corrupted and went off course, but was recovered shortly after."
 
+	log_world("\[reboot debug\] news message: [news_message ? news_message : "nothing!"]")
 	if(news_message)
 		SStopic.crosscomms_send("news_report", news_message, news_source)
+	log_world("\[reboot debug\] send_news_report() finished")
 
 /datum/controller/subsystem/ticker/proc/GetTimeLeft()
 	if(isnull(SSticker.timeLeft))

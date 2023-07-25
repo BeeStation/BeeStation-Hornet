@@ -91,26 +91,37 @@ SUBSYSTEM_DEF(topic)
  * * nocheck: TRUE or FALSE whether to check if the recieving server is authorized to get the topic call *(default: FALSE)*
 */
 /datum/controller/subsystem/topic/proc/export(addr, query, list/params, anonymous = FALSE, nocheck = FALSE)
+	log_world("\[reboot debug\] export()")
 	var/list/request = list()
 	request["query"] = query
 
+	log_world("\[reboot debug\] export() checkpoint A")
 	if(anonymous)
+		log_world("\[reboot debug\] export() checkpoint B")
 		var/datum/world_topic/topic = GLOB.topic_commands[query]
 		if((!istype(topic) || !topic.anonymous) && !nocheck)
+			log_world("\[reboot debug\] export() checkpoint B RETURN")
 			return
 		request["auth"] = "anonymous"
+		log_world("\[reboot debug\] export() checkpoint C")
 	else
+		log_world("\[reboot debug\] export() checkpoint D")
 		var/list/servers = CONFIG_GET(keyed_list/cross_server)
 		if(!servers[addr] || (!LAZYACCESS(GLOB.topic_servers[addr], query) && !nocheck))
+			log_world("\[reboot debug\] export() checkpoint D RETURN")
 			return // Couldn't find an authorized key, or trying to send secure data to unsecure server
 		request["auth"] = servers[addr]
-
+		log_world("\[reboot debug\] export() checkpoint E")
+	log_world("\[reboot debug\] export() checkpoint F")
 	request.Add(params)
 	request["source"] = CONFIG_GET(string/cross_comms_name)
+	log_world("\[reboot debug\] export() checkpoint G")
 	var/result = world.Export("[addr]?[rustg_url_encode(json_encode(request))]")
 	if(CONFIG_GET(flag/log_world_topic))
+		log_world("\[reboot debug\] export() checkpoint H")
 		request["auth"] = "***[copytext(request["auth"], -4)]"
 		log_topic("outgoing: \"[json_encode(request)]\", response: \"[result]\", auth: [request["auth"]], to: [addr], anonymous: [anonymous]")
+	log_world("\[reboot debug\] export() finished")
 
 /**
  * Broadcast topic to all known authorized servers for things like comms consoles or ahelps.
@@ -123,6 +134,10 @@ SUBSYSTEM_DEF(topic)
  * * sender: name of the sending entity (station name, ckey etc)
 */
 /datum/controller/subsystem/topic/proc/crosscomms_send(query, msg, sender)
+	log_world("\[reboot debug\] crosscomms_send()")
 	var/list/servers = CONFIG_GET(keyed_list/cross_server)
+	log_world("\[reboot debug\] servers size: [length(servers)]")
 	for(var/I in servers)
+		log_world("\[reboot debug\] target destination server: [I]")
 		export(I, query, list("message" = msg, "message_sender" = sender))
+	log_world("\[reboot debug\] crosscomms_send() finished")
