@@ -2,13 +2,13 @@
 //weight_offset - Affects the probability of a rock spawning (between -1 and 1)
 //if this number is negative, asteroids will be smaller.
 //if this number is positive asteroids will be larger and more likely
-/proc/generate_asteroids(center_x, center_y, center_z, max_radius, weight_offset = 0, scale = 65, biome = list(/turf/closed/mineral/random = 0))
+/proc/generate_asteroids(center_x, center_y, center_z, max_radius, weight_offset = 0, scale = 65, biome = list(/turf/closed/mineral/random = 0), ores_list = null)
 	var/datum/space_level/space_level = SSmapping.get_level(center_z)
 	space_level.generating = TRUE
-	. = _generate_asteroids(center_x, center_y, center_z, max_radius, weight_offset, scale, biome)
+	. = _generate_asteroids(center_x, center_y, center_z, max_radius, weight_offset, scale, biome, ores_list)
 	space_level.generating = FALSE
 
-/proc/_generate_asteroids(center_x, center_y, center_z, max_radius, weight_offset = 0, scale = 65, biome = list(/turf/closed/mineral/random = 0))
+/proc/_generate_asteroids(center_x, center_y, center_z, max_radius, weight_offset = 0, scale = 65, biome = list(/turf/closed/mineral/random = 0), ores_list = null)
 
 	SSair.pause_z(center_z)
 
@@ -46,7 +46,22 @@
 				var/turf = biome[i]
 				var/proportion = biome[turf]
 				if (turf_ratio > proportion)
-					T.ChangeTurf(turf, list(/turf/open/floor/plating/asteroid/airless), CHANGETURF_IGNORE_AIR)
+					var/spawned_ore = null
+					// Try to change to the correct ore type
+					if (!isnull(ores_list))
+						for (var/j in length(ores_list) to 1 step -1)
+							var/ore_type = ores_list[j]
+							var/ore_proportion = ores_list[ore_type]
+							if (turf_ratio > ore_proportion)
+								spawned_ore = ore_type
+								break
+					if (ispath(spawned_ore, /turf))
+						T.ChangeTurf(spawned_ore, list(/turf/open/floor/plating/asteroid/airless), CHANGETURF_IGNORE_AIR)
+					else
+						T.ChangeTurf(turf, list(/turf/open/floor/plating/asteroid/airless), CHANGETURF_IGNORE_AIR)
+						var/turf/closed/mineral/mineral_rock = T
+						if (spawned_ore && istype(mineral_rock))
+							mineral_rock.Change_Ore(spawned_ore)
 					break
 			output[1] = min(output[1], T.x)
 			output[2] = min(output[2], T.y)

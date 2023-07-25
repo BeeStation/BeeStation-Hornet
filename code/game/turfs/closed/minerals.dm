@@ -15,6 +15,8 @@
 	density = TRUE
 	layer = EDGED_TURF_LAYER
 	initial_temperature = 293.15
+	max_integrity = 200
+	var/mining_cooldown
 	var/environment_type = "asteroid"
 	var/turf/open/floor/plating/turf_type = /turf/open/floor/plating/asteroid/airless
 	var/obj/item/stack/ore/mineralType = null
@@ -94,7 +96,7 @@
 		if(I.use_tool(src, user, 0, volume=50))
 			if(ismineralturf(src))
 				to_chat(user, "<span class='notice'>You hit the rock with the pickaxe.</span>")
-				user.do_attack_animation(I)
+				user.do_attack_animation(src, used_item = I)
 				user.changeNext_move(CLICK_CD_MELEE)
 				take_damage(100 / I.toolspeed, BRUTE, MELEE, FALSE)
 				SSblackbox.record_feedback("tally", "pick_used_mining", 1, I.type)
@@ -131,13 +133,15 @@
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
 		var/obj/item/I = H.is_holding_tool_quality(TOOL_MINING)
-		if(I)
+		if(I && mining_cooldown < world.time)
 			attackby(I, H)
+			mining_cooldown = world.time + CLICK_CD_MELEE
 		return
 	else if(iscyborg(AM))
 		var/mob/living/silicon/robot/R = AM
-		if(R.module_active && R.module_active.tool_behaviour == TOOL_MINING)
+		if(R.module_active && R.module_active.tool_behaviour == TOOL_MINING && mining_cooldown < world.time)
 			attackby(R.module_active, R)
+			mining_cooldown = world.time + CLICK_CD_MELEE
 			return
 	else
 		return
@@ -191,6 +195,12 @@
 		else
 			Change_Ore(path, 1)
 			Spread_Vein(path)
+
+/turf/closed/mineral/copyTurf(turf/T)
+	var/turf/closed/mineral/new_turf = ..()
+	new_turf.mineralAmt = mineralAmt
+	new_turf.scan_state = scan_state
+	new_turf.mineralType = mineralType
 
 /turf/closed/mineral/random/high_chance
 	icon_state = "rock_highchance"
@@ -553,3 +563,11 @@
 	baseturfs = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
 	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
 	defer_change = 1
+
+/turf/closed/mineral/dense
+	max_integrity = 1200
+	mineralAmt = 8
+
+/turf/closed/mineral/dense/Initialize(mapload)
+	. = ..()
+	add_atom_colour("#9c9c9c", FIXED_COLOUR_PRIORITY)

@@ -33,14 +33,20 @@
 /datum/orbital_object/z_linked/beacon/ruin/asteroid
 	name = "Asteroid"
 	render_mode = RENDER_MODE_DEFAULT
-	var/static/list/valid_minerals = list(
-		/turf/closed/mineral/uranium = 5, /turf/closed/mineral/diamond = 1, /turf/closed/mineral/gold = 10,
-		/turf/closed/mineral/silver = 12, /turf/closed/mineral/plasma = 20, /turf/closed/mineral/iron = 40, /turf/closed/mineral/titanium = 11,
-		/turf/closed/mineral/gibtonite = 4, /turf/closed/mineral/bscrystal = 1,
-		/turf/closed/mineral/copper = 15
+	var/static/list/rare_minerals = list(
+		/obj/item/stack/ore/uranium = 5, /obj/item/stack/ore/diamond = 1, /obj/item/stack/ore/gold = 10,
+		/obj/item/stack/ore/silver = 12, /obj/item/stack/ore/plasma = 20, /obj/item/stack/ore/titanium = 11,
+		/turf/closed/mineral/gibtonite = 6, /obj/item/stack/ore/bluespace_crystal = 1
+	)
+	var/static/list/common_minerals = list(
+		/obj/item/stack/ore/uranium = 2, /obj/item/stack/ore/gold = 3,
+		/obj/item/stack/ore/silver = 8, /obj/item/stack/ore/plasma = 15, /obj/item/stack/ore/iron = 40,
+		/turf/closed/mineral/gibtonite = 4,
+		/obj/item/stack/ore/copper = 15
 	)
 	/// Minerals that we contain, associating to their weight of spawning
 	var/list/minerals = list()
+	var/rare_material_point = 0
 
 /datum/orbital_object/z_linked/beacon/ruin/asteroid/New()
 	. = ..()
@@ -50,11 +56,15 @@
 	minerals[/turf/closed/mineral] = rand(100, 300)
 	// Generate some rich materials
 	for (var/i in 1 to rand(0, 3))
-		var/selected_type = pick_weight(valid_minerals)
+		var/selected_type = pick_weight(common_minerals)
 		minerals[selected_type] = max(rand(50, 150), minerals[selected_type])
 	// Generate other materials
-	for (var/i in 1 to rand(2, 7))
-		var/selected_type = pick_weight(valid_minerals)
+	for (var/i in 1 to rand(2, 4))
+		var/selected_type = pick_weight(common_minerals)
+		minerals[selected_type] = max(rand(5, 30), minerals[selected_type])
+	// Generate rare materials
+	for (var/i in 1 to rand(0, 2))
+		var/selected_type = pick_weight(rare_minerals)
 		minerals[selected_type] = max(rand(5, 30), minerals[selected_type])
 	// Convert into 0 to 1 ranges
 	var/maximum = 0
@@ -65,6 +75,7 @@
 		var/stored_current = minerals[material_type]
 		minerals[material_type] = current / maximum
 		current += stored_current
+	rare_material_point = rand(25, 50)/100
 
 /datum/orbital_object/z_linked/beacon/ruin/asteroid/Destroy(force, ...)
 	. = ..()
@@ -74,7 +85,7 @@
 	var/datum/space_level/assigned_space_level = SSzclear.get_free_z_level()
 	linked_z_level = list(assigned_space_level)
 	SSorbits.assoc_z_levels["[assigned_space_level.z_value]"] = src
-	var/list/sizes = generate_asteroids(world.maxx / 2, world.maxy / 2, assigned_space_level.z_value, 10, rand(-0.4, -0.6), rand(20, 40), minerals)
+	var/list/sizes = generate_asteroids(world.maxx / 2, world.maxy / 2, assigned_space_level.z_value, 10, rand(-0.4, -0.6), rand(20, 40), list(/turf/closed/mineral = 0, /turf/closed/mineral/dense = rare_material_point), minerals)
 	contained_zones += new /datum/orbital_zone(name, sizes[1], sizes[3], sizes[4], sizes[2], assigned_space_level.z_value)
 
 /datum/orbital_object/z_linked/beacon/ruin/asteroid/post_map_setup()
