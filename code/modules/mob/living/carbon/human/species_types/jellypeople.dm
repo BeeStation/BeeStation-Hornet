@@ -904,7 +904,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 	to_chat(human_owner, "<span class='slime'>You begin linking <span class='name'>[target]</span>'[target.p_s()] mind to yours...</span>", type = MESSAGE_TYPE_INFO)
 	target.visible_message("<span class='slime'><span class='name'>[owner]</span> gently places [owner.p_their()] hands on the sides of <span class='name'>[target]</span>'[target.p_s()] head, and begins to concentrate!</span>", \
 		"<span class='slime bold'><span class='name'>[owner]</span> gently places [owner.p_their()] hands on the sides of your head, and you feel a foreign, yet benign and non-invasive presence begin to enter your mind...</span>")
-	if(!do_after(human_owner, 6 SECONDS, target))
+	if(!do_after(human_owner, 6 SECONDS, target, show_to_target = TRUE))
 		to_chat(human_owner, "<span class='warning'>You were interrupted while linking <span class='name'>[target]</span>!</span>", type = MESSAGE_TYPE_WARNING)
 		to_chat(target, "<span class='slime'>The foreign presence entering your mind quickly fades away as <span class='name'>[human_owner]</span> is interrupted!</span>", type = MESSAGE_TYPE_INFO)
 		return

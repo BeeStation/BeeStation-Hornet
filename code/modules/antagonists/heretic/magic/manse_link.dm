@@ -23,7 +23,7 @@
 
 	to_chat(originator, "<span class='notice'>You begin linking [target]'s mind to yours...</span>")
 	to_chat(target, "<span class='warning'>You feel your mind being pulled... connected... intertwined with the very fabric of reality...</span>")
-	if(!do_after(originator, 6 SECONDS, target = target))
+	if(!do_after(originator, 6 SECONDS, target = target, show_to_target = TRUE))
 		return
 	if(!originator.link_mob(target))
 		to_chat(originator, "<span class='warning'>You can't seem to link [target]'s mind...</span>")
