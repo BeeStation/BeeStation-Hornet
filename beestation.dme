@@ -797,6 +797,7 @@
 #include "code\datums\mapgen\_MapGenerator.dm"
 #include "code\datums\mapgen\CaveGenerator.dm"
 #include "code\datums\mapgen\JungleGenerator.dm"
+#include "code\datums\mapgen\OceancavernsGenerator.dm"
 #include "code\datums\mapgen\TundraGenerator.dm"
 #include "code\datums\mapgen\biomes\_biome.dm"
 #include "code\datums\mapgen\Cavegens\IcecavernGenerator.dm"
