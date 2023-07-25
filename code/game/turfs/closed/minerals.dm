@@ -19,7 +19,6 @@
 	var/turf/open/floor/plating/turf_type = /turf/open/floor/plating/asteroid/airless
 	var/obj/item/stack/ore/mineralType = null
 	var/mineralAmt = 3
-	var/last_act = 0
 	var/scan_state = "" //Holder for the image we display when we're pinged by a mining scanner
 	var/defer_change = 0
 
@@ -56,6 +55,32 @@
 	return ..()
 
 
+/turf/closed/mineral/after_damage(damage_amount, damage_type, damage_flag)
+	. = ..()
+	update_icon(UPDATE_OVERLAYS)
+
+/turf/closed/mineral/update_overlays()
+	. = ..()
+	var/damage_proportion = integrity / max_integrity
+	if (damage_proportion == 1)
+		return
+	var/mutable_appearance/damage_app
+	switch (damage_proportion)
+		if (0.8 to 1)
+			damage_app = mutable_appearance('icons/turf/damage.dmi', "0")
+		if (0.6 to 0.8)
+			damage_app = mutable_appearance('icons/turf/damage.dmi', "1")
+		if (0.4 to 0.6)
+			damage_app = mutable_appearance('icons/turf/damage.dmi', "2")
+		if (0.2 to 0.4)
+			damage_app = mutable_appearance('icons/turf/damage.dmi', "3")
+		if (0 to 0.2)
+			damage_app = mutable_appearance('icons/turf/damage.dmi', "4")
+	damage_app.pixel_x = 4
+	damage_app.pixel_y = 4
+	if (damage_app)
+		. += damage_app
+
 /turf/closed/mineral/attackby(obj/item/I, mob/user, params)
 	if (!user.IsAdvancedToolUser())
 		to_chat(usr, "<span class='warning'>You don't have the dexterity to do this!</span>")
@@ -66,18 +91,15 @@
 		if (!isturf(T))
 			return
 
-		if(last_act + (40 * I.toolspeed) > world.time)//prevents message spam
-			return
-		last_act = world.time
-		to_chat(user, "<span class='notice'>You start picking...</span>")
-
-		if(I.use_tool(src, user, 40, volume=50))
+		if(I.use_tool(src, user, 0, volume=50))
 			if(ismineralturf(src))
-				to_chat(user, "<span class='notice'>You finish cutting into the rock.</span>")
-				gets_drilled(user)
+				to_chat(user, "<span class='notice'>You hit the rock with the pickaxe.</span>")
+				user.do_attack_animation(I)
+				user.changeNext_move(CLICK_CD_MELEE)
+				take_damage(100 / I.toolspeed, BRUTE, MELEE, FALSE)
 				SSblackbox.record_feedback("tally", "pick_used_mining", 1, I.type)
 	else
-		return attack_hand(user)
+		return ..()
 
 /turf/closed/mineral/proc/gets_drilled()
 	if (mineralType && (mineralAmt > 0))

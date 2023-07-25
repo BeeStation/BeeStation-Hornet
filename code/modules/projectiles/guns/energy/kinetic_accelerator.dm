@@ -169,6 +169,7 @@
 	armor_flag = BOMB
 	range = 3
 	log_override = TRUE
+	var/mineral_damage = 120
 
 	var/pressure_decrease_active = FALSE
 	var/pressure_decrease = 0.5
@@ -211,7 +212,7 @@
 			M.projectile_strike(src, target_turf, target, kinetic_gun)
 	if(ismineralturf(target_turf))
 		var/turf/closed/mineral/M = target_turf
-		M.gets_drilled(firer)
+		M.take_damage(mineral_damage)
 	var/obj/effect/temp_visual/kinetic_blast/K = new /obj/effect/temp_visual/kinetic_blast(target_turf)
 	K.color = color
 
@@ -383,7 +384,7 @@
 	new /obj/effect/temp_visual/explosion/fast(target_turf)
 	if(turf_aoe)
 		for(var/turf/closed/mineral/M in RANGE_TURFS(1, target_turf) - target_turf)
-			M.gets_drilled(K.firer)
+			M.take_damage(K.mineral_damage, BRUTE, BOMB)
 	if(modifier)
 		for(var/mob/living/L in range(1, target_turf) - K.firer - target)
 			var/armor = L.run_armor_check(K.def_zone, K.armor_flag, "", "", K.armour_penetration)
