@@ -1055,3 +1055,43 @@
 	strip_delay = 130
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	actions_types = list()
+
+//diving hardsuit
+/obj/item/clothing/head/helmet/space/hardsuit/diving
+	name = "diving hardsuit helmet"
+	desc = "A special helmet designed for work in a hazardous, low pressure environment."
+	icon_state = "hardsuit0-diving_suit_helmet"
+	item_state = "diving_suit_helmet"
+	hardsuit_type = "diving"
+	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	heat_protection = HEAD
+	armor = list("melee" = 30, "bullet" = 5, "laser" = 10, "energy" = 15, "bomb" = 50, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 75, "stamina" = 40)
+	light_range = 7
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
+	high_pressure_multiplier = 0.6
+
+/obj/item/clothing/suit/space/hardsuit/diving
+	icon_state = "diving_suit"
+	name = "diving hardsuit"
+	desc = "A special suit that protects against hazardous, low pressure environments."
+	item_state = "diving_suit"
+	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	armor = list("melee" = 30, "bullet" = 5, "laser" = 10, "energy" = 20, "bomb" = 50, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 75, "stamina" = 40)
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/diving
+	high_pressure_multiplier = 0.6
+
+//mining diving suit
+/obj/item/clothing/suit/space/hardsuit/mining/diving
+	name = "mining diving hardsuit"
+	icon_state = "mining_diving_suit"
+	item_state = "mining_diving_suit"
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/mining/diving
+
+/obj/item/clothing/head/helmet/space/hardsuit/mining/diving
+	name = "mining diving hardsuit helmet"
+	item_state = "mining_diving_suit_helmet"
+	icon_state = "hardsuit0-mining_diving_suit_helmet"
+	resistance_flags = FIRE_PROOF | ACID_PROOF

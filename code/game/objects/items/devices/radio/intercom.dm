@@ -9,6 +9,21 @@
 	unscrewed = FALSE
 	layer = ABOVE_WINDOW_LAYER
 
+//Directional assets
+/obj/item/radio/intercom/directional/north
+	pixel_y = 27
+
+/obj/item/radio/intercom/directional/south
+	pixel_y = -31
+
+/obj/item/radio/intercom/directional/east
+	pixel_x = 33
+	pixel_y = -2
+
+/obj/item/radio/intercom/directional/west
+	pixel_x = -32
+	pixel_y = -2
+
 /obj/item/radio/intercom/unscrewed
 	unscrewed = TRUE
 

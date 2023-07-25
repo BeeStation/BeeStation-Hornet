@@ -27,7 +27,6 @@ map boxstation
 endmap
 
 map metastation
-	default
 	votable
 endmap
 
@@ -48,6 +47,11 @@ endmap
 
 map radstation
 	minplayers 20
+	votable
+endmap
+
+map abyssstation
+	default
 	votable
 endmap
 

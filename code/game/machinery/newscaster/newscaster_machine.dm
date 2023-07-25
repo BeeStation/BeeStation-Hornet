@@ -56,6 +56,21 @@
 	///Text of the currently written bounty
 	var/bounty_text = ""
 
+//Directional
+/obj/machinery/newscaster/directionl/north
+	pixel_y = 32
+
+/obj/machinery/newscaster/directionl/south
+	pixel_y = -29
+
+/obj/machinery/newscaster/directionl/east
+	pixel_y = 2
+	pixel_x = 32
+
+/obj/machinery/newscaster/directionl/west
+	pixel_y = 2
+	pixel_x = -32
+
 /obj/machinery/newscaster/Initialize(mapload, ndir, building)
 	. = ..()
 	GLOB.allCasters += src

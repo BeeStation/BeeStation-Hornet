@@ -152,6 +152,14 @@
 	state_open = TRUE
 	density = FALSE
 
+/obj/machinery/suit_storage_unit/diving
+	suit_type = /obj/item/clothing/suit/space/hardsuit/diving
+	mask_type = /obj/item/clothing/mask/gas
+	storage_type = /obj/item/tank/internals/oxygen
+
+/obj/machinery/suit_storage_unit/diving/mining
+	suit_type = /obj/item/clothing/suit/space/hardsuit/mining/diving
+
 /obj/machinery/suit_storage_unit/Initialize(mapload)
 	. = ..()
 	wires = new /datum/wires/suit_storage_unit(src)

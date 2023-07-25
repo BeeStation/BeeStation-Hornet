@@ -531,3 +531,37 @@
 	baseturfs = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
 	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
 	defer_change = 1
+
+/turf/closed/mineral/ocean_wall
+	name = "deep rock"
+	icon = 'icons/turf/mining.dmi'
+	smooth_icon = 'icons/turf/walls/rock_wall.dmi'
+	icon_state = "rock2"
+	base_icon_state = "rock2"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
+	canSmoothWith = list(SMOOTH_GROUP_CLOSED_TURFS)
+	baseturfs = /turf/open/floor/plating/ocean/abyss
+	initial_gas_mix = OPENTURF_LOW_PRESSURE
+	defer_change = TRUE
+	environment_type = "waste"
+	turf_type = /turf/open/floor/plating/ocean/abyss
+
+/turf/closed/mineral/random/ocean_wall
+	name = "deep rock"
+	icon = 'icons/turf/mining.dmi'
+	smooth_icon = 'icons/turf/walls/rock_wall.dmi'
+	icon_state = "rock2"
+	base_icon_state = "rock2"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
+	canSmoothWith = list(SMOOTH_GROUP_CLOSED_TURFS)
+	baseturfs = /turf/open/floor/plating/ocean/abyss
+	initial_gas_mix = OPENTURF_LOW_PRESSURE
+	defer_change = TRUE
+	environment_type = "waste"
+	turf_type = /turf/open/floor/plating/ocean/abyss
+
+	mineralChance = 6
+	mineralSpawnChanceList = list(
+		/obj/item/stack/ore/uranium = 2, /obj/item/stack/ore/diamond = 1, /obj/item/stack/ore/gold = 4, /obj/item/stack/ore/titanium = 4,
+		/obj/item/stack/ore/silver = 6, /obj/item/stack/ore/copper = 6, /obj/item/stack/ore/plasma = 15, /obj/item/stack/ore/iron = 40,
+		/turf/closed/mineral/gibtonite = 2, /obj/item/stack/ore/bluespace_crystal = 1)
