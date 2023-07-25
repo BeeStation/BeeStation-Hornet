@@ -51,7 +51,7 @@
 		damage = 70
 	else if(istype(target, /turf/closed/mineral))
 		var/turf/closed/mineral/T = target
-		T.take_damage(250, BURN, LASER)
+		T.take_damage(250, BURN, LASER, FALSE)
 	. = ..()
 
 //Emagged ammo types
@@ -97,7 +97,7 @@
 		damage = 150
 	else if(istype(target, /turf/closed/mineral))
 		var/turf/closed/mineral/T = target
-		T.take_damage(600)
+		T.take_damage(600, BURN, LASER, FALSE)
 	else if(isturf(target))
 		SSexplosions.medturf += target
 	. = ..()

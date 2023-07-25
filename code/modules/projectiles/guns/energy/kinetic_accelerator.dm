@@ -212,7 +212,7 @@
 			M.projectile_strike(src, target_turf, target, kinetic_gun)
 	if(ismineralturf(target_turf))
 		var/turf/closed/mineral/M = target_turf
-		M.take_damage(mineral_damage)
+		M.take_damage(mineral_damage, BRUTE, BOMB, FALSE)
 	var/obj/effect/temp_visual/kinetic_blast/K = new /obj/effect/temp_visual/kinetic_blast(target_turf)
 	K.color = color
 
@@ -384,7 +384,7 @@
 	new /obj/effect/temp_visual/explosion/fast(target_turf)
 	if(turf_aoe)
 		for(var/turf/closed/mineral/M in RANGE_TURFS(1, target_turf) - target_turf)
-			M.take_damage(K.mineral_damage, BRUTE, BOMB)
+			M.take_damage(K.mineral_damage, BRUTE, BOMB, FALSE)
 	if(modifier)
 		for(var/mob/living/L in range(1, target_turf) - K.firer - target)
 			var/armor = L.run_armor_check(K.def_zone, K.armor_flag, "", "", K.armour_penetration)

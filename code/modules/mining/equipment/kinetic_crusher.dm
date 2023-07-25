@@ -182,7 +182,7 @@
 	if(ismineralturf(target_turf))
 		var/turf/closed/mineral/M = target_turf
 		new /obj/effect/temp_visual/kinetic_blast(M)
-		M.take_damage(220, BRUTE, BOMB)
+		M.take_damage(220, BRUTE, BOMB, FALSE)
 	..()
 
 //trophies
