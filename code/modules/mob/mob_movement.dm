@@ -1,14 +1,4 @@
 /**
-  * Get the current movespeed delay of the mob
-  *
-  * DO NOT OVERRIDE THIS UNLESS YOU ABSOLUTELY HAVE TO.
-  * THIS IS BEING PHASED OUT FOR THE MOVESPEED MODIFICATION SYSTEM.
-  * See mob_movespeed.dm
-  */
-/mob/proc/movement_delay()	//update /living/movement_delay() if you change this
-	return cached_multiplicative_slowdown
-
-/**
   * force move the control_object of your client mob
   *
   * Used in admin possession and called from the client Move proc
@@ -120,7 +110,7 @@
 		return FALSE
 
 	//We are now going to move
-	var/add_delay = mob.movement_delay()
+	var/add_delay = mob.cached_multiplicative_slowdown
 	if(old_move_delay + (add_delay*MOVEMENT_DELAY_BUFFER_DELTA) + MOVEMENT_DELAY_BUFFER > world.time)
 		move_delay = old_move_delay
 	else
@@ -193,14 +183,14 @@
 	if(!isliving(mob))
 		return
 	var/mob/living/L = mob
+	L.setDir(direct)
 	switch(L.incorporeal_move)
 		if(INCORPOREAL_MOVE_BASIC)
 			var/T = get_step_multiz(mobloc, direct)
-			if(T)
+			if(T && !istype(T, /turf/closed/indestructible/cordon))
 				L.forceMove(T)
 			else
 				to_chat(L, "<span class='warning'>There's nowhere to go in that direction!</span>")
-			L.setDir(direct)
 		if(INCORPOREAL_MOVE_SHADOW)
 			if(prob(50))
 				var/locx
@@ -229,10 +219,13 @@
 					else
 						return
 				var/target = locate(locx,locy,mobloc.z)
-				if(target)
+				if(target && !istype(target, /turf/closed/indestructible/cordon))
+					var/lineofturf = getline(mobloc, target)
+					if(locate(/turf/closed/indestructible/cordon) in lineofturf)
+						return //No phasing over cordons
 					L.forceMove(target)
 					var/limit = 2//For only two trailing shadows.
-					for(var/turf/T in getline(mobloc, L.loc))
+					for(var/turf/T in lineofturf)
 						new /obj/effect/temp_visual/dir_setting/ninja/shadow(T, L.dir)
 						limit--
 						if(limit<=0)
@@ -240,9 +233,8 @@
 			else
 				new /obj/effect/temp_visual/dir_setting/ninja/shadow(mobloc, L.dir)
 				var/T = get_step(L,direct)
-				if(T)
+				if(T && !istype(T, /turf/closed/indestructible/cordon))
 					L.forceMove(T)
-			L.setDir(direct)
 		if(INCORPOREAL_MOVE_JAUNT) //Incorporeal move, but blocked by holy-watered tiles and salt piles.
 			var/turf/open/floor/stepTurf = get_step_multiz(mobloc, direct)
 			if(stepTurf)
@@ -263,8 +255,6 @@
 				L.forceMove(stepTurf)
 			else
 				to_chat(L, "<span class='warning'>There's nowhere to go in that direction!</span>")
-			L.setDir(direct)
-
 		if(INCORPOREAL_MOVE_EMINENCE) //Incorporeal move for emincence. Blocks move like Jaunt but lets it pass through clockwalls
 			var/turf/open/floor/stepTurf = get_step_multiz(mobloc, direct)
 			var/turf/loccheck = get_turf(stepTurf)
@@ -283,7 +273,6 @@
 				L.forceMove(stepTurf)
 			else
 				to_chat(L, "<span class='warning'>There's nowhere to go in that direction!</span>")
-			L.setDir(direct)
 	return TRUE
 
 /**
@@ -357,8 +346,12 @@
 	return
 
 /// Update the gravity status of this mob
-/mob/proc/update_gravity()
-	return
+/mob/proc/update_gravity(has_gravity, override=FALSE)
+	var/speed_change = max(0, has_gravity - STANDARD_GRAVITY)
+	if(!speed_change)
+		remove_movespeed_modifier(MOVESPEED_ID_MOB_GRAVITY, update=TRUE)
+	else
+		add_movespeed_modifier(MOVESPEED_ID_MOB_GRAVITY, update=TRUE, priority=100, override=TRUE, multiplicative_slowdown=speed_change, blacklisted_movetypes=FLOATING)
 
 //bodypart selection verbs - Cyberboss
 //8:repeated presses toggles through head - eyes - mouth

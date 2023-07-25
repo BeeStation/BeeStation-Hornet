@@ -62,5 +62,4 @@
 	if(isAI(user))
 		var/mob/living/silicon/ai/AI = user
 		AI.holopad_talk(message, language)
-		return FALSE
 	return TRUE
