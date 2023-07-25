@@ -43,7 +43,7 @@ ALTER TABLE `SS13_characters`
     MODIFY COLUMN `body_is_always_random` TINYINT(1) NULL,
     MODIFY COLUMN `gender` VARCHAR(16) COLLATE 'utf8mb4_general_ci' NULL,
     ADD COLUMN IF NOT EXISTS `body_model` VARCHAR(16) COLLATE 'utf8mb4_general_ci' NULL AFTER `gender`,
-    ADD COLUMN IF NOT EXISTS `body_size` VARCHAR(16) COLLATE 'utf8mb4_general_ci' NULL AFTER `body_size`,
+    ADD COLUMN IF NOT EXISTS `body_size` VARCHAR(16) COLLATE 'utf8mb4_general_ci' NULL AFTER `body_model`,
     MODIFY COLUMN `age` TINYINT(3) UNSIGNED NULL,
     MODIFY COLUMN `hair_color` VARCHAR(8) COLLATE 'utf8mb4_general_ci' NULL,
     MODIFY COLUMN `gradient_color` VARCHAR(8) COLLATE 'utf8mb4_general_ci' NULL,
