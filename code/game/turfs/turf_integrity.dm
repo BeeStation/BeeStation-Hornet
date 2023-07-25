@@ -139,8 +139,10 @@
 		if(1)
 			take_damage(INFINITY, BRUTE, BOMB, 0)
 		if(2)
+			hotspot_expose(1000,CELL_VOLUME)
 			take_damage(rand(0.5, max(2000 / max_integrity, 1.2)) * max_integrity, BRUTE, BOMB, 0)
 		if(3)
+			hotspot_expose(1000,CELL_VOLUME)
 			take_damage(rand(0.3, max(800 / max_integrity, 0.5)) * max_integrity, BRUTE, BOMB, 0)
 
 /turf/contents_explosion(severity, target)
@@ -274,6 +276,10 @@
 /turf/attack_alien(mob/living/carbon/alien/humanoid/user)
 	if (!can_hit)
 		return ..()
+	if (damage_deflection > 20)
+		playsound(src, 'sound/effects/bang.ogg', 50, 1)
+		to_chat(user, "<span class='warning'>This wall is too strong for you to destroy!</span>")
+		return
 	if(attack_generic(user, 60, BRUTE, MELEE, 0))
 		playsound(src, 'sound/weapons/slash.ogg', 100, 1)
 
