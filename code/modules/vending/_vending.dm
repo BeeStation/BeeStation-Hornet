@@ -946,7 +946,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 		else
 			. += "<span class='notice'>It's owned by [private_a.account_holder]</span>"
 	else
-		. += "<span class='notice'>It's not owned by anyone!<span>"
+		. += "<span class='warning'>It's not owned by anyone!</span>"
 
 /obj/machinery/vending/custom/compartmentLoadAccessCheck(mob/user)
 	. = FALSE

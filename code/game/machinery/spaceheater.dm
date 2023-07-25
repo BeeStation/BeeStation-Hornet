@@ -180,7 +180,7 @@
 			return
 		cell = I
 		I.add_fingerprint(usr)
-		user.visible_message("<span class='notice'>\The [user] inserts a power cell into \the [src].</span>", "<span class ='notice'>You insert the power cell into \the [src].<span>")
+		user.visible_message("<span class='notice'>\The [user] inserts a power cell into \the [src].</span>", "<span class ='notice'>You insert the power cell into \the [src].</span>")
 		SStgui.update_uis(src)
 		return TRUE
 	return ..()
