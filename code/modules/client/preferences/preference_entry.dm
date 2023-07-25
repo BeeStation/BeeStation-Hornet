@@ -259,6 +259,10 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	else
 		character_preview_view?.update_body()
 
+	// A non-preference menu source changed a preference. We should send new preferences now.
+	if(!in_menu)
+		ui_update()
+
 	return TRUE
 
 /// Checks that a given value is valid.

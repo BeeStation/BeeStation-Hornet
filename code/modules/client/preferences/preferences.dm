@@ -159,15 +159,15 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	// If you leave and come back, re-register the character preview. This also runs the first time it's opened
 	if (!isnull(character_preview_view) && !(character_preview_view in user.client?.screen))
 		character_preview_view.register_to_client(user.client)
-		character_preview_view.update_body() // For first opens, this needs to update.
+
+	// Just force an update for funsies
+	character_preview_view.update_body()
 
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "PreferencesMenu")
 		ui.set_autoupdate(FALSE)
 		ui.open()
-		// Force an update shortly after opening so it renders the body.
-		addtimer(CALLBACK(character_preview_view, TYPE_PROC_REF(/atom/movable/screen/map_view/character_preview_view, update_body)), 1 SECONDS, NONE, SSearly_timer)
 
 /datum/preferences/ui_state(mob/user)
 	return GLOB.always_state
