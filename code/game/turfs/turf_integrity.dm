@@ -71,6 +71,8 @@
 	//DESTROYING SECOND
 	if(integrity <= 0)
 		turf_destruction(damage_flag, -integrity)
+	else
+		after_damage(damage_amount, damage_type, damage_flag)
 
 //returns the damage value of the attack after processing the obj's various armor protections
 /turf/proc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration = 0)
@@ -100,6 +102,9 @@
 				playsound(src, 'sound/weapons/tap.ogg', 50, 1)
 		if(BURN)
 			playsound(src, 'sound/items/welder.ogg', 100, 1)
+
+/turf/proc/after_damage(damage_amount, damage_type, damage_flag)
+	return
 
 /// Destroy the turf and replace it with a new one
 /// Note that due to the behaviour of turfs, the reference of src changes during ScrapeAway, so calling

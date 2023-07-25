@@ -61,6 +61,16 @@
 /turf/open/floor/attack_paw(mob/user)
 	return attack_hand(user)
 
+/turf/open/floor/after_damage(damage_amount, damage_type, damage_flag)
+	if (broken || burnt)
+		return
+	if (damage_flag == BURN)
+		if (integrity < max_integrity * 0.5)
+			burn_tile()
+	else
+		if (integrity < max_integrity * 0.5)
+			break_tile()
+
 /turf/open/floor/proc/break_tile_to_plating()
 	var/turf/open/floor/plating/T = make_plating()
 	if(!istype(T))
