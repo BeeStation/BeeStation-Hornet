@@ -1,0 +1,10 @@
+author: Absolucy
+delete-after: true
+changes:
+  - tweak: Stargazer slime links now link to one's mind rather than body, meaning
+      the link comes with you should you mind swap or something. Do note the link
+      still breaks if you die.
+  - rscadd: 'Added a saymode for slime links: ".j Hello, slime link!"'
+  - tweak: Stargazer slime links and telepathy now use tgui input rather than BYOND
+      input.
+  - rscadd: Stargazers can now manually unlink people from their slime link!
