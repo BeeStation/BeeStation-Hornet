@@ -978,16 +978,16 @@
 	//SHOULD_CALL_PARENT(FALSE)
 	if(camera_light_on)
 		light_cameras()
-	if(istype(A, /obj/machinery/camera))
-		current = A
+	if(istype(new_eye, /obj/machinery/camera))
+		current = new_eye
 	if(!client)
 		return
 
-	if(ismovable(A))
-		if(A != GLOB.ai_camera_room_landmark)
+	if(ismovable(new_eye))
+		if(new_eye != GLOB.ai_camera_room_landmark)
 			end_multicam()
 		client.perspective = EYE_PERSPECTIVE
-		client.eye = A
+		client.eye = new_eye
 	else
 		end_multicam()
 		if(isturf(loc))
@@ -1033,6 +1033,7 @@
 		apc.malfhack = TRUE
 		apc.locked = TRUE
 		apc.coverlocked = TRUE
+
 		var/turf/T = get_turf(apc)
 		log_message("hacked APC [apc] at [AREACOORD(T)] (NEW PROCESSING: [malf_picker.processing_time])", LOG_GAME)
 		playsound(get_turf(src), 'sound/machines/ding.ogg', 50, 1, ignore_walls = FALSE)
@@ -1060,8 +1061,10 @@
 		to_chat(src, "No usable AI shell beacons detected.")
 
 	if(!target || !(target in possible)) //If the AI is looking for a new shell, or its pre-selected shell is no longer valid
-		target = input(src, "Which body to control?") as null|anything in sort_names(possible)
+		target = tgui_input_list(src, "Which body to control?", "Direct Control", sort_names(possible))
 
+	if(isnull(target))
+		return
 	if (!target || target.stat || target.deployed || !(!target.connected_ai ||(target.connected_ai == src)) || (target.ratvar && !is_servant_of_ratvar(src)))
 		return
 
