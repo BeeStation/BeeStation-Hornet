@@ -1,5 +1,12 @@
 /datum/preferences/proc/create_character_preview_view()
+	if(istype(character_preview_view))
+		return
 	character_preview_view = new(null, src)
+	if(parent)
+		character_preview_view.register_to_client(parent)
+	// HACK: Without this the character starts out really tiny because of https://www.byond.com/forum/post/2873835
+	// You can fix it by updating the atom's appearance (in any way), so let's just do something unexpensive and change its name!
+	addtimer(CALLBACK(character_preview_view, TYPE_PROC_REF(/atom/movable/screen/map_view/character_preview_view, rename_byond_bug_moment)), 1 SECONDS, TIMER_LOOP, SSearly_timer)
 
 /datum/preferences/proc/render_new_preview_appearance(mob/living/carbon/human/dummy/mannequin)
 	var/datum/job/preview_job = get_highest_priority_job()
@@ -76,8 +83,6 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/map_view/character_preview_view)
 /// Also the mouse opacity blocks this from being visible ever
 /atom/movable/screen/map_view/character_preview_view/proc/rename_byond_bug_moment()
 	name = name == "character_preview" ? "character_preview_1" : "character_preview"
-	// Do it again, bitch!
-	addtimer(CALLBACK(src, PROC_REF(rename_byond_bug_moment)), 1 SECONDS)
 
 /// Updates the currently displayed body
 /atom/movable/screen/map_view/character_preview_view/proc/update_body()
@@ -86,6 +91,8 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/map_view/character_preview_view)
 	else
 		body.wipe_state()
 	body.appearance = preferences.render_new_preview_appearance(body)
+	// Force map view to update as well
+	name = name == "character_preview" ? "character_preview_1" : "character_preview"
 
 /atom/movable/screen/map_view/character_preview_view/proc/create_body()
 	vis_contents.Cut()

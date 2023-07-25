@@ -166,10 +166,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		ui = new(user, src, "PreferencesMenu")
 		ui.set_autoupdate(FALSE)
 		ui.open()
-
-		// HACK: Without this the character starts out really tiny because of https://www.byond.com/forum/post/2873835
-		// You can fix it by updating the atom's appearance (in any way), so let's just do something unexpensive and change its name!
-		addtimer(CALLBACK(character_preview_view, TYPE_PROC_REF(/atom/movable/screen/map_view/character_preview_view, rename_byond_bug_moment)), 1 SECONDS)
+		// Force an update shortly after opening so it renders the body.
+		addtimer(CALLBACK(character_preview_view, TYPE_PROC_REF(/atom/movable/screen/map_view/character_preview_view, update_body)), 1 SECONDS, NONE, SSearly_timer)
 
 /datum/preferences/ui_state(mob/user)
 	return GLOB.always_state
@@ -369,6 +367,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 /// Updates cached character list with new real_name
 /datum/preferences/proc/update_current_character_profile()
+	if(!islist(character_profiles_cached))
+		return
 	character_profiles_cached[default_slot] = read_character_preference(/datum/preference/name/real_name)
 
 /// Immediately refetch the character list
@@ -391,5 +391,5 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		character.icon_render_keys = list() // turns out if you don't set this to null update_body_parts does nothing, since it assumes the operation was cached
 		character.update_body()
 		character.update_hair()
-		character.update_body_parts()
+		character.update_body_parts(TRUE) // Must pass true here or limbs won't catch changes like body_model
 		character.dna.update_body_size()

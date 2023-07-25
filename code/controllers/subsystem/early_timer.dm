@@ -1,0 +1,4 @@
+TIMER_SUBSYSTEM_DEF(early_timer)
+	name = "Early Timer"
+	priority = FIRE_PRIORITY_EARLY_TIMER
+	runlevels = RUNLEVEL_INIT|RUNLEVEL_LOBBY|RUNLEVELS_DEFAULT
