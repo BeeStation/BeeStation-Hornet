@@ -289,18 +289,18 @@
 	reagent_state = LIQUID
 	color = "#1E8BFF"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
-	metabolization_rate = 0.5 * REAGENTS_METABOLISM
-	overdose_threshold = 25
+	metabolization_rate = 10 * REAGENTS_METABOLISM
+	overdose_threshold = 10
 
 /datum/reagent/medicine/oxandrolone/on_mob_life(mob/living/carbon/M)
-	M.adjustFireLoss(-3*REM, 0)
+	M.adjustFireLoss(-10*REM, 0)
 	if(M.getFireLoss() != 0)
 		M.adjustStaminaLoss(3*REM, FALSE)
 	..()
 	. = 1
 
 /datum/reagent/medicine/oxandrolone/overdose_process(mob/living/M)
-	M.adjustFireLoss(-3*REM, 0)
+	M.adjustFireLoss(-10*REM, 0)
 	M.adjustToxLoss(3*REM, 0)
 	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 2)
 	..()
@@ -593,19 +593,19 @@
 	reagent_state = LIQUID
 	color = "#D2D2D2"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_USEFUL_MEDICINE
-	metabolization_rate = 0.5 * REAGENTS_METABOLISM
-	overdose_threshold = 25
+	metabolization_rate = 10 * REAGENTS_METABOLISM
+	overdose_threshold = 10
 
 
 /datum/reagent/medicine/sal_acid/on_mob_life(mob/living/carbon/M)
-	M.adjustBruteLoss(-3*REM, 0)
+	M.adjustBruteLoss(-10*REM, 0)
 	if(M.getBruteLoss() != 0)
 		M.adjustStaminaLoss(3*REM, FALSE)
 	..()
 	. = 1
 
 /datum/reagent/medicine/sal_acid/overdose_process(mob/living/M)
-	M.adjustBruteLoss(-3*REM, 0)
+	M.adjustBruteLoss(-10*REM, 0)
 	M.adjustToxLoss(3*REM, 0)
 	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 2)
 	..()
