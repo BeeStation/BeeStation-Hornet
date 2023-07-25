@@ -5,43 +5,43 @@
 
 //! ## DB defines
 /**
-  * DB major schema version
-  *
-  * Update this whenever the db schema changes
-  *
-  * make sure you add an update to the schema_version stable in the db changelog
-  */
+	* DB major schema version
+	*
+	* Update this whenever the db schema changes
+	*
+	* make sure you add an update to the schema_version stable in the db changelog
+	*/
 #define DB_MAJOR_VERSION 6
 
 /**
-  * DB minor schema version
-  *
-  * Update this whenever the db schema changes
-  *
-  * make sure you add an update to the schema_version stable in the db changelog
-  */
+	* DB minor schema version
+	*
+	* Update this whenever the db schema changes
+	*
+	* make sure you add an update to the schema_version stable in the db changelog
+	*/
 #define DB_MINOR_VERSION 2
 
 
 //! ## Timing subsystem
 /**
-  * Don't run if there is an identical unique timer active
-  *
-  * if the arguments to addtimer are the same as an existing timer, it doesn't create a new timer,
-  * and returns the id of the existing timer
-  */
+	* Don't run if there is an identical unique timer active
+	*
+	* if the arguments to addtimer are the same as an existing timer, it doesn't create a new timer,
+	* and returns the id of the existing timer
+	*/
 #define TIMER_UNIQUE			(1<<0)
 
 ///For unique timers: Replace the old timer rather then not start this one
 #define TIMER_OVERRIDE			(1<<1)
 
 /**
-  * Timing should be based on how timing progresses on clients, not the server.
-  *
-  * Tracking this is more expensive,
-  * should only be used in conjuction with things that have to progress client side, such as
-  * animate() or sound()
-  */
+	* Timing should be based on how timing progresses on clients, not the server.
+	*
+	* Tracking this is more expensive,
+	* should only be used in conjuction with things that have to progress client side, such as
+	* animate() or sound()
+	*/
 #define TIMER_CLIENT_TIME		(1<<2)
 
 ///Timer can be stopped using deltimer()
@@ -77,12 +77,12 @@
 ///Nothing happens
 #define INITIALIZE_HINT_NORMAL 0
 /**
-  * call LateInitialize at the end of all atom Initalization
-  *
-  * The item will be added to the late_loaders list, this is iterated over after
-  * initalization of subsystems is complete and calls LateInitalize on the atom
-  * see [this file for the LateIntialize proc](atom.html#proc/LateInitialize)
-  */
+	* call LateInitialize at the end of all atom Initalization
+	*
+	* The item will be added to the late_loaders list, this is iterated over after
+	* initalization of subsystems is complete and calls LateInitalize on the atom
+	* see [this file for the LateIntialize proc](atom.html#proc/LateInitialize)
+	*/
 #define INITIALIZE_HINT_LATELOAD 1
 
 ///Call qdel on the atom after intialization
@@ -90,11 +90,11 @@
 
 ///type and all subtypes should always immediately call Initialize in New()
 #define INITIALIZE_IMMEDIATE(X) ##X/New(loc, ...){\
-    ..();\
-    if(!(flags_1 & INITIALIZED_1)) {\
-        args[1] = TRUE;\
-        SSatoms.InitAtom(src, FALSE, args);\
-    }\
+		..();\
+		if(!(flags_1 & INITIALIZED_1)) {\
+				args[1] = TRUE;\
+				SSatoms.InitAtom(src, FALSE, args);\
+		}\
 }
 
 // Subsystem init_order, from highest priority to lowest priority
@@ -125,6 +125,7 @@
 #define INIT_ORDER_AI_MOVEMENT 		56 //We need the movement setup
 #define INIT_ORDER_AI_CONTROLLERS 	55 //So the controller can get the ref
 #define INIT_ORDER_TICKER			55
+#define INIT_ORDER_OCEAN			51
 #define INIT_ORDER_MAPPING			50
 #define INIT_ORDER_TIMETRACK		47
 #define INIT_ORDER_NETWORKS			45

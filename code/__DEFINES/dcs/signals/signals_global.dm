@@ -33,3 +33,6 @@
 #define COMSIG_GLOB_NEW_RESEARCH "!remote_research_changed"
 /// Called after the round has fully setup and all jobs have been spawned
 #define COMSIG_GLOB_POST_START "!post_start"
+
+/// Called after the ocean has updated reagents
+#define COMSIG_GLOB_OCEAN_UPDATE "!ocean_update"

@@ -28,6 +28,19 @@
 
 /area/ruin/ocean/mining_site
 	area_flags = UNIQUE_AREA
+/area/ocean/deep
+	name = "Deep ocean"
+	icon_state = "dark"
+	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
+
+/area/ocean/deep/cavern
+	name = "Deep ocean cavern"
+	icon_state = "purple"
+	ambience_index = AMBIENCE_RUINS
+	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
+	area_flags = UNIQUE_AREA | FLORA_ALLOWED | CAVES_ALLOWED | MOB_SPAWN_ALLOWED
+	map_generator = /datum/map_generator/cave_generator/ocean
+	lighting_overlay_opacity = 0
 
 /turf/open/openspace/ocean
 	name = "ocean"
@@ -51,31 +64,26 @@
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	planetary_atmos = TRUE
+	///Visual overlay
 	var/obj/effect/abstract/ocean_overlay/static_overlay
-	var/list/ocean_reagents = list(/datum/reagent/water = 100)
-	var/ocean_temp = T20C - 150
+	///How many chem units we impart each time something travels through us
+	var/splash_amount = 10
 
 /turf/open/floor/plating/ocean/Initialize()
 	. = ..()
+	//Create ocean overlay
+	static_overlay = new(src)
+	//Register enter event
+	RegisterSignal(src, COMSIG_ATOM_ENTERED, PROC_REF(movable_entered))
 
 /turf/open/floor/plating/ocean/Destroy()
 	. = ..()
-/obj/effect/abstract/ocean_overlay
-	icon = 'icons/effects/liquid.dmi'
-	icon_state = "ocean"
-	base_icon_state = "ocean"
-	plane = BLACKNESS_PLANE //Same as weather, etc.
-	layer = ABOVE_MOB_LAYER
-	vis_flags = NONE
-	mouse_opacity = FALSE
-
-/obj/effect/abstract/ocean_overlay/Initialize(mapload, list/ocean_contents)
-	. = ..()
-	color = mix_color_from_reagents(ocean_contents)
+	qdel(static_overlay)
 
 /turf/open/floor/plating/ocean/proc/movable_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
 
+	//Play sound
 	var/turf/T = source
 	if(isobserver(AM))
 		return //ghosts, camera eyes, etc. don't make water splashy splashy
@@ -87,32 +95,28 @@
 			'sound/effects/water_wade4.ogg'
 			))
 		playsound(T, sound_to_play, 50, 0)
-
+	//Clean 'em
 	SEND_SIGNAL(AM, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_WEAK)
+	//Apply our ocean chems
+	var/datum/reagents/splash_holder = new/datum/reagents(splash_amount)
+	SSocean.ocean_reagents.trans_to(splash_holder, splash_amount)
+	var/reaction_type = TOUCH
+	if(isliving(AM))
+		reaction_type = INGEST
+		var/mob/living/carbon/M = AM
+		if(iscarbon(AM) && !M.wear_mask)
+			reaction_type = TOUCH
+	splash_holder.reaction(AM, reaction_type)
+	qdel(splash_holder)
 
-//Subtypes for abyss station
-/area/ocean/deep
-	name = "Deep ocean"
-	icon_state = "dark"
-	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
-
-/area/ocean/deep/cavern
-	name = "Deep ocean cavern"
-	icon_state = "purple"
-	ambience_index = AMBIENCE_RUINS
-	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
-	area_flags = UNIQUE_AREA | FLORA_ALLOWED | CAVES_ALLOWED | MOB_SPAWN_ALLOWED
-	map_generator = /datum/map_generator/cave_generator/ocean
-	lighting_overlay_opacity = 0
+/turf/open/floor/plating/ocean/proc/mass_update()
+	return
 
 /turf/open/floor/plating/ocean/abyss
 	gender = PLURAL
 	name = "ocean floor"
 	baseturfs = /turf/open/floor/plating/ocean/abyss
 	initial_temperature = T20C
-	ocean_reagents = list(/datum/reagent/expired_blood = 100)
-	///Warp effect holder for displacement filter
-	var/atom/movable/warp_effect/ocean/warp
 
 //Natural ocean lighting
 /obj/effect/water_projection
@@ -126,8 +130,28 @@
 /obj/effect/water_projection/Initialize(mapload)
 	. = ..()
 	//Ripple - use wave, not ripple
-	add_filter("water_ripple", 1, wave_filter(x = 1, y = 0, size = 1, offset = 1))
-	animate(get_filter("water_ripple"), offset = 50, time = 20 SECONDS, loop = -1)
-	animate(offset = 1, time = 20 SECONDS, loop = -1)
+	add_filter("water_ripple", 1, wave_filter(x = 1, y = 0, size = 1, offset = 1, flags = WAVE_SIDEWAYS))
+	animate(get_filter("water_ripple"), offset = 50, time = 30 SECONDS, loop = -1)
+	animate(offset = 1, time = 30 SECOND, loop = -1)
 	//Bloom
 	filters += filter(type = "bloom", threshold = rgb(1, 1, 1), size = 5)
+
+//Ocean color overlay
+/obj/effect/abstract/ocean_overlay
+	icon = 'icons/effects/liquid.dmi'
+	icon_state = "ocean"
+	base_icon_state = "ocean"
+	plane = BLACKNESS_PLANE //Same as weather, etc.
+	layer = ABOVE_MOB_LAYER
+	vis_flags = NONE
+	mouse_opacity = FALSE
+
+/obj/effect/abstract/ocean_overlay/Initialize(mapload)
+	. = ..()
+	RegisterSignal(SSocean, COMSIG_GLOB_OCEAN_UPDATE, PROC_REF(mass_update))
+	mass_update()
+	
+/obj/effect/abstract/ocean_overlay/proc/mass_update(datum/source, ocean_color)
+	SIGNAL_HANDLER
+
+	color = ocean_color || mix_color_from_reagents(SSocean.ocean_reagents.reagent_list)
