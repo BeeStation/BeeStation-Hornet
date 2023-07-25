@@ -16,6 +16,7 @@
 	layer = EDGED_TURF_LAYER
 	initial_temperature = 293.15
 	max_integrity = 200
+	var/drop_multiplier = 1
 	var/mining_cooldown
 	var/environment_type = "asteroid"
 	var/turf/open/floor/plating/turf_type = /turf/open/floor/plating/asteroid/airless
@@ -105,7 +106,7 @@
 
 /turf/closed/mineral/proc/gets_drilled()
 	if (mineralType && (mineralAmt > 0))
-		new mineralType(src, mineralAmt)
+		new mineralType(src, CEILING(mineralAmt * drop_multiplier, 1))
 		SSblackbox.record_feedback("tally", "ore_mined", mineralAmt, mineralType)
 	for(var/obj/effect/temp_visual/mining_overlay/M in src)
 		qdel(M)
@@ -134,14 +135,14 @@
 		var/mob/living/carbon/human/H = AM
 		var/obj/item/I = H.is_holding_tool_quality(TOOL_MINING)
 		if(I && mining_cooldown < world.time)
-			attackby(I, H)
 			mining_cooldown = world.time + CLICK_CD_MELEE
+			attackby(I, H)
 		return
 	else if(iscyborg(AM))
 		var/mob/living/silicon/robot/R = AM
 		if(R.module_active && R.module_active.tool_behaviour == TOOL_MINING && mining_cooldown < world.time)
-			attackby(R.module_active, R)
 			mining_cooldown = world.time + CLICK_CD_MELEE
+			attackby(R.module_active, R)
 			return
 	else
 		return
