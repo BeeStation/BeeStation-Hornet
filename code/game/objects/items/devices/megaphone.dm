@@ -80,7 +80,7 @@
 	var/current_index = length(charges_list)
 	while(current_index > 0)
 		if(charges_list[current_index] < world.time)
-			charges_list.Remove(current_index)
+			charges_list.Cut(current_index, current_index+1)
 		current_index--
 	return
 
