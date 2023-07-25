@@ -470,7 +470,7 @@
 /obj/structure/flora/ocean
 	resistance_flags = NONE
 	anchored = TRUE
-	icon = 'code/modules/liquids/icons/obj/flora/ocean_flora.dmi'
+	icon = 'icons/obj/flora/ocean_flora.dmi'
 	//Number of alts
 	var/alt_appearences = 3
 

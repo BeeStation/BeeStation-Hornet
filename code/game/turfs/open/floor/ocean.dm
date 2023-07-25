@@ -5,8 +5,9 @@
 	always_unpowered = TRUE
 	power_light = FALSE
 	power_equip = FALSE
+	has_gravity = STANDARD_GRAVITY
 	power_environ = FALSE
-	area_flags = NO_ALERTS
+	area_flags = VALID_TERRITORY | UNIQUE_AREA | FLORA_ALLOWED
 	outdoors = TRUE
 	ambience_index = AMBIENCE_SPACE
 	flags_1 = CAN_BE_DIRTY_1

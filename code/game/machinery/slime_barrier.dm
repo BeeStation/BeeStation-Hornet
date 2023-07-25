@@ -146,8 +146,6 @@
 			return TRUE
 	if(.)
 		return
-	if(dir == FULLTILE_WINDOW_DIR)
-		return 0	//full tile window, you can't move into it!
 	var/attempted_dir = get_dir(loc, target)
 	if(attempted_dir == dir)
 		return
@@ -157,7 +155,7 @@
 			return FALSE
 	else if(istype(mover, /obj/structure/windoor_assembly))
 		var/obj/structure/windoor_assembly/W = mover
-		if(!valid_window_location(loc, W.ini_dir))
+		if(!valid_window_location(loc, W.dir))
 			return FALSE
 	else if(istype(mover, /obj/machinery/door/window) && !valid_window_location(loc, mover.dir))
 		return FALSE
