@@ -19,6 +19,8 @@
 	var/toxTolerance = LIVER_DEFAULT_TOX_TOLERANCE//maximum amount of toxins the liver can just shrug off
 	var/toxLethality = LIVER_DEFAULT_TOX_LETHALITY//affects how much damage toxins do to the liver
 	var/filterToxins = TRUE //whether to filter toxins
+
+	/// this determines the maximum units of multiple chemicals a liver can handle.
 	var/liver_metabolization_maximum = 5
 
 #define HAS_SILENT_TOXIN 0 //don't provide a feedback message if this is the only toxin present
@@ -104,6 +106,7 @@
 	maxHealth = 2 * STANDARD_ORGAN_THRESHOLD
 	toxTolerance = 15 //can shrug off up to 15u of toxins
 	toxLethality = 0.008 //20% less damage than a normal liver
+	liver_metabolization_maximum = 10
 
 /obj/item/organ/liver/cybernetic/emp_act(severity)
 	. = ..()
