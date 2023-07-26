@@ -322,7 +322,7 @@
 				if(liverless && !R.self_consuming) //need to be metabolized
 					continue
 				// TODO: We need a check "can_metabolize()", but that'll be done in the future chem refactor...
-				if(liver_dependent_chem)
+				if(liver_dependent_chem && !istype(R, /datum/reagent/blood)) // blood is 5u. meh
 					metabolization_maximum -= R.metabolization_rate // we can't micro-manage 10u-15u thing, but negative metabolization_maximum will penaltise people
 				if(!R.metabolizing)
 					R.metabolizing = TRUE
