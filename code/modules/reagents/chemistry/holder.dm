@@ -296,7 +296,7 @@
 	R.handle_reactions()
 	return amount
 
-/datum/reagents/proc/metabolize(mob/living/carbon/C, can_overdose = FALSE, liverless = FALSE, metabolization_maximum=5)
+/datum/reagents/proc/metabolize(mob/living/carbon/C, can_overdose = FALSE, liverless = FALSE, metabolization_maximum = 5, hurts_liver = TRUE)
 	if(C?.dna?.species && (NOREAGENTS in C.dna.species.species_traits))
 		return 0
 	var/list/cached_reagents = reagent_list
@@ -368,7 +368,7 @@
 						else
 							SEND_SIGNAL(C, COMSIG_CLEAR_MOOD_EVENT, "[R.type]_overdose")
 		addiction_tick++
-	if(metabolization_maximum < 0) // your liver overprocessed.
+	if(hurts_liver && metabolization_maximum < 0) // your liver overprocessed.
 		var/liver_punishment = clamp(metabolization_maximum*-0.1, 0.1, 10)
 		C.adjustOrganLoss(ORGAN_SLOT_LIVER, liver_punishment)
 	if(C && need_mob_update) //some of the metabolized reagents had effects on the mob that requires some updates.
