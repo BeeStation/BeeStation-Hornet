@@ -249,7 +249,7 @@
 		if(ANOMALY_FLUX_NO_EXPLOSION)
 			new /obj/effect/particle_effect/sparks(loc)
 	var/turf/T = get_turf(src)
-	T.generate_fake_pierced_realities()
+	T.generate_fake_pierced_realities(max_spawned_faked)
 
 /////////////////////
 
@@ -428,7 +428,7 @@
 
 /obj/effect/anomaly/bhole/detonate()
 	var/turf/T = get_turf(src)
-	T.generate_fake_pierced_realities()
+	T.generate_fake_pierced_realities(max_spawned_faked)
 
 /////////////////////
 
@@ -456,7 +456,7 @@
 	if(istype(our_turf))
 		hallucination_pulse(our_turf, 10)
 	var/turf/T = get_turf(src)
-	T.generate_fake_pierced_realities()
+	T.generate_fake_pierced_realities(max_spawned_faked)
 
 /proc/hallucination_pulse(turf/location, range, strength = 50)
 	for(var/mob/living/carbon/human/near in view(location, range))
