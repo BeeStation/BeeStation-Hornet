@@ -561,7 +561,11 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		. += turf_to_check
 
 /turf/proc/generate_fake_pierced_realities(centered = TRUE, max_amount = 2)
-	var/to_spawn = pick(1, max_amount)
+	if(max_amount <= 0)
+		return
+	var/to_spawn = pick(0, max_amount)
+	if(to_spawn <= 0)
+		return
 	var/spawned = 0
 	var/location_sanity = 0
 	while(spawned < to_spawn && location_sanity < 100)

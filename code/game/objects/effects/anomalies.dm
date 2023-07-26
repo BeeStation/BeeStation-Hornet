@@ -36,7 +36,7 @@
 	///How many harvested pierced realities do we spawn on destruction
 	var/max_spawned_faked = 2
 
-/obj/effect/anomaly/Initialize(mapload, new_lifespan)
+/obj/effect/anomaly/Initialize(mapload, new_lifespan, spawned_fake_harvested)
 	. = ..()
 
 	AddElement(/datum/element/point_of_interest)
@@ -57,6 +57,9 @@
 	if(new_lifespan)
 		lifespan = new_lifespan
 	death_time = world.time + lifespan
+
+	if(spawned_fake_harvested)
+		max_spawned_faked = spawned_fake_harvested
 
 	if(immortal)
 		return // no countdown for forever anomalies
@@ -255,6 +258,7 @@
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "bluespace"
 	density = TRUE
+	max_spawned_faked = 4
 
 /obj/effect/anomaly/bluespace/anomalyEffect()
 	..()
@@ -319,7 +323,7 @@
 							M.client.screen -= blueeffect
 							qdel(blueeffect)
 	var/turf/F = get_turf(src)
-	F.generate_fake_pierced_realities(FALSE, 4)
+	F.generate_fake_pierced_realities(FALSE, max_spawned_faked)
 
 /////////////////////
 
