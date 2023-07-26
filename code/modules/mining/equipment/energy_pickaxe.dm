@@ -5,7 +5,7 @@
 	var/ready = TRUE
 	var/animation_played = FALSE
 	var/efficiency = 1
-	var/cooldown = 2 SECONDS
+	var/cooldown = 1.5 SECONDS
 	var/mining_radius = 1
 	var/mineral_damage = 400
 	var/max_charge = 1400
@@ -79,6 +79,39 @@
 /obj/machinery/energy_pickaxe_modification
 	name = "energy pickaxe modification station"
 	desc = "A station for applying modifications to energy pickaxes in order to make them more effective tools."
+	var/required_for_upgrade = 5
+	var/static/list/mineral_upgrades = list(
+		/obj/item/stack/sheet/iron = new /datum/energy_pick_upgrade/power,
+	)
+
+/obj/machinery/energy_pickaxe_modification/attackby(obj/item/C, mob/user)
+	if (user.a_intent == INTENT_HARM)
+		return ..()
+	if (istype(C, /obj/item/stack))
+		var/obj/item/stack/inserted_sheet = C
+		for (var/obj/item/stack/inserted_mineral in contents)
+			if (inserted_mineral.amount >= required_for_upgrade)
+				balloon_alert(user, "Already contains [inserted_mineral.name]!")
+				to_chat(user, "<span class='warning'>[src] already contains [inserted_mineral.name], use it or eject it first!<span>")
+				return
+			if (inserted_sheet.type != inserted_mineral.type)
+				balloon_alert(user, "Already contains [inserted_mineral.name]!")
+				to_chat(user, "<span class='warning'>[src] already contains [inserted_mineral.amount] [inserted_mineral.name], add more or eject it!<span>")
+				return
+			var/amount_used = min(inserted_sheet.amount, required_for_upgrade - inserted_mineral.amount)
+			inserted_sheet.use(amount_used)
+			inserted_mineral.add(amount_used)
+			to_chat(user, "<span class='notice'>You insert [amount_used] [inserted_sheet] into [src].<span>")
+			if (inserted_mineral.amount >= required_for_upgrade)
+				balloon_alert(user, "Ready!")
+			else
+				balloon_alert(user, "Requires an additional [required_for_upgrade - inserted_mineral.amount]")
+			return
+		// Allow for inserting of the sheet
+		if (!(inserted_sheet.type in mineral_upgrades))
+	if (istype(C, /obj/item/pickaxe/energy_pickaxe))
+		var/obj/item/pickaxe/energy_pickaxe/energy_pick = C
+	..()
 
 //===============================
 // Upgrades
