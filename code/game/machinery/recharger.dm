@@ -146,7 +146,12 @@
 
 		if (istype(charging, /obj/item/pickaxe/energy_pickaxe))
 			var/obj/item/pickaxe/energy_pickaxe/e_pick = charging
+			if (e_pick.charge < e_pick.max_charge)
+				use_power(200 * recharge_coeff * delta_time)
+				using_power = TRUE
 			e_pick.charge = min(e_pick.charge + 200 * recharge_coeff * delta_time, e_pick.max_charge)
+			update_icon()
+			return
 	else
 		return PROCESS_KILL
 

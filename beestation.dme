@@ -2780,6 +2780,7 @@
 #include "code\modules\mining\equipment\regenerative_core.dm"
 #include "code\modules\mining\equipment\resonator.dm"
 #include "code\modules\mining\equipment\survival_pod.dm"
+#include "code\modules\mining\equipment\tow_linker.dm"
 #include "code\modules\mining\equipment\vendor_items.dm"
 #include "code\modules\mining\equipment\wormhole_jaunter.dm"
 #include "code\modules\mining\laborcamp\laborshuttle.dm"
