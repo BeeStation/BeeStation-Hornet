@@ -1,5 +1,4 @@
 /datum/element/mirage_border
-	element_flags = ELEMENT_DETACH
 
 /datum/element/mirage_border/Attach(datum/target, turf/target_turf, direction, range=world.view)
 	. = ..()
