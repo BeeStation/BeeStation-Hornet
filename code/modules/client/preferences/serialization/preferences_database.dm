@@ -96,7 +96,7 @@
 	for(var/preference in role_preferences_global)
 		var/path = text2path(preference)
 		var/datum/role_preference/entry = GLOB.role_preference_entries[path]
-		if(istype(entry) && !entry.per_character)
+		if(istype(entry))
 			continue
 		role_preferences_global -= preference
 
