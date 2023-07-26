@@ -1,4 +1,5 @@
 /datum/outfit/spacepol
+	debug_window_category = OUTFIT_CATEGORY_ANTAGONIST
 	id = /obj/item/card/id/silver/spacepol
 	ears = /obj/item/radio/headset/headset_spacepol
 	back = /obj/item/storage/backpack/security
@@ -47,6 +48,7 @@
 		suit = /obj/item/clothing/suit/armor/bulletproof
 
 /datum/outfit/bounty
+	debug_window_category = OUTFIT_CATEGORY_ANTAGONIST
 	uniform = /obj/item/clothing/under/rank/prisoner
 	id = /obj/item/card/id/silver/bounty
 	back = /obj/item/storage/backpack
@@ -97,6 +99,7 @@
 	eyes.Insert(H, drop_if_replaced = FALSE)
 
 /datum/outfit/russian_hunter
+	debug_window_category = OUTFIT_CATEGORY_ANTAGONIST
 	uniform = /obj/item/clothing/under/costume/soviet
 	shoes = /obj/item/clothing/shoes/russian
 	head = /obj/item/clothing/head/bearpelt

@@ -586,6 +586,7 @@
 
 /datum/outfit/snowsyndie
 	name = "Syndicate Snow Operative"
+	debug_window_category = OUTFIT_CATEGORY_SYNDICATE
 	uniform = /obj/item/clothing/under/syndicate/coldres
 	shoes = /obj/item/clothing/shoes/combat/coldres
 	ears = /obj/item/radio/headset/syndicate/alt

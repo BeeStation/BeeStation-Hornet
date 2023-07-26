@@ -701,6 +701,7 @@
 	return completed || (num_we_have >= target_amount)
 
 /datum/outfit/heretic
+	debug_window_category = OUTFIT_CATEGORY_ANTAGONIST
 	name = "Heretic (Preview only)"
 
 	suit = /obj/item/clothing/suit/hooded/cultrobes/eldritch

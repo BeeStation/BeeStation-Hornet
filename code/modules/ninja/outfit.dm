@@ -1,5 +1,6 @@
 /datum/outfit/ninja
 	name = "Space Ninja"
+	debug_window_category = OUTFIT_CATEGORY_ANTAGONIST
 	uniform = /obj/item/clothing/under/color/black
 	suit = /obj/item/clothing/suit/space/space_ninja
 	glasses = /obj/item/clothing/glasses/night

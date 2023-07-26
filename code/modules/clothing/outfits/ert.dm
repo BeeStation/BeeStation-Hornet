@@ -1,5 +1,6 @@
 /datum/outfit/ert
 	name = "ERT Common"
+	debug_window_category = OUTFIT_CATEGORY_CENTCOM
 
 	uniform = /obj/item/clothing/under/rank/centcom/officer
 	mask = /obj/item/clothing/mask/gas/sechailer
@@ -325,6 +326,7 @@
 
 /datum/outfit/centcom_attorney
 	name = "CentCom Attorney"
+	debug_window_category = OUTFIT_CATEGORY_CENTCOM
 
 	uniform = /obj/item/clothing/under/rank/centcom/intern
 	suit = /obj/item/clothing/suit/toggle/lawyer
@@ -341,6 +343,7 @@
 
 /datum/outfit/centcom_intern
 	name = "CentCom Intern"
+	debug_window_category = OUTFIT_CATEGORY_CENTCOM
 
 	uniform = /obj/item/clothing/under/rank/centcom/intern
 	shoes = /obj/item/clothing/shoes/sneakers/black
@@ -377,6 +380,7 @@
 
 /datum/outfit/centcom_clown
 	name = "Code Banana ERT"
+	debug_window_category = OUTFIT_CATEGORY_CENTCOM
 	id = /obj/item/card/id/centcom
 	belt = /obj/item/modular_computer/tablet/pda/clown
 	ears = /obj/item/radio/headset/headset_cent
@@ -435,6 +439,7 @@
 
 /datum/outfit/death_commando
 	name = JOB_ERT_DEATHSQUAD
+	debug_window_category = OUTFIT_CATEGORY_CENTCOM
 
 	uniform = /obj/item/clothing/under/rank/centcom/commander
 	suit = /obj/item/clothing/suit/space/hardsuit/deathsquad

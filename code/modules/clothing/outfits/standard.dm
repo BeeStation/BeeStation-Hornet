@@ -114,6 +114,7 @@
 
 /datum/outfit/pirate
 	name = "Space Pirate"
+	debug_window_category = OUTFIT_CATEGORY_ANTAGONIST
 
 	uniform = /obj/item/clothing/under/costume/pirate
 	shoes = /obj/item/clothing/shoes/sneakers/brown
@@ -194,6 +195,7 @@
 
 /datum/outfit/assassin
 	name = "Assassin"
+	debug_window_category = OUTFIT_CATEGORY_SYNDICATE
 
 	uniform = /obj/item/clothing/under/suit/black
 	shoes = /obj/item/clothing/shoes/sneakers/black
@@ -232,6 +234,9 @@
 	W.assignment = "Reaper"
 	W.registered_name = H.real_name
 	W.update_label(H.real_name)
+
+/datum/outfit/centcom
+	debug_window_category = OUTFIT_CATEGORY_CENTCOM
 
 /datum/outfit/centcom/commander
 	name = JOB_CENTCOM_COMMANDER
@@ -274,6 +279,7 @@
 
 /datum/outfit/admiral
 	name = JOB_CENTCOM_ADMIRAL
+	debug_window_category = OUTFIT_CATEGORY_CENTCOM
 
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/space/officer
@@ -307,6 +313,7 @@
 
 /datum/outfit/ghost_cultist
 	name = "Cultist Ghost"
+	debug_window_category = OUTFIT_CATEGORY_ANTAGONIST
 
 	uniform = /obj/item/clothing/under/color/black/ghost
 	suit = /obj/item/clothing/suit/cultrobes/alt/ghost
@@ -316,6 +323,7 @@
 
 /datum/outfit/wizard
 	name = "Blue Wizard"
+	debug_window_category = OUTFIT_CATEGORY_WIZARD
 
 	uniform = /obj/item/clothing/under/color/lightpurple
 	suit = /obj/item/clothing/suit/wizrobe
@@ -408,6 +416,7 @@
 									HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/protective)
 
 	name = "Plasmaman"
+	debug_window_category = OUTFIT_CATEGORY_PLASMAMAN
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman
 	uniform = /obj/item/clothing/under/plasmaman

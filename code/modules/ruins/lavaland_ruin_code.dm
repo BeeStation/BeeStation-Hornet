@@ -123,6 +123,7 @@
 
 /datum/outfit/lavaland_syndicate
 	name = "Lavaland Syndicate Agent"
+	debug_window_category = OUTFIT_CATEGORY_SYNDICATE
 	r_hand = /obj/item/gun/ballistic/sniper_rifle
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/toggle/labcoat

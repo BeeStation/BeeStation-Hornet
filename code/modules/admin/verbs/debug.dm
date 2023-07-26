@@ -521,61 +521,49 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] changed the equipment of [ADMIN_LOOKUPFLW(H)] to [dresscode].</span>")
 
 /client/proc/robust_dress_shop()
-	var/list/outfits = list("Naked","Custom","As Job...","As Job(Plasmaman)...", "Debug")
-	var/list/paths = subtypesof(/datum/outfit) - typesof(/datum/outfit/job) - typesof(/datum/outfit/plasmaman) - typesof(/datum/outfit/debug)
-	for(var/path in paths)
-		var/datum/outfit/O = path //not much to initalize here but whatever
-		if(initial(O.can_be_admin_equipped))
-			outfits[initial(O.name)] = path
+	var/static/initialized = FALSE
+	var/static/list/outfits = list("Naked","Custom",OUTFIT_CATEGORY_JOB,OUTFIT_CATEGORY_PLASMAMAN,"Debug") // we want to see these at first top
+	if(!initialized)
+		var/list/temporary = list()
+		for(var/datum/outfit/path as() in subtypesof(/datum/outfit))
+			if(!initial(path.can_be_admin_equipped) || !initial(path.name))
+				continue
+			if(!initial(path.debug_window_category))
+				temporary[initial(path.name)] = path // we want to see category option at top
+			else
+				if(!outfits[initial(path.debug_window_category)])
+					outfits[initial(path.debug_window_category)] = list()
+				outfits[initial(path.debug_window_category)][initial(path.name)] = path
 
+		outfits["Naked"] = /datum/outfit
+		outfits["Custom"] = GLOB.custom_outfits
+		outfits["Debug"] = /datum/outfit/debug
+		outfits["------------------------"] = null
+		outfits += temporary
+		initialized = TRUE
+
+	// var/dresscode = tgui_input_list(usr, "Select outfit", "Robust quick dress shop", outfits)
+	// Note: tgui_input_list() is bad because hotkey (D to debug outfit) doesn't work
 	var/dresscode = input("Select outfit", "Robust quick dress shop") as null|anything in outfits
-	if(isnull(dresscode))
+	if(isnull(dresscode) || isnull(outfits[dresscode]))
 		return
 
-	if(outfits[dresscode])
+	if(islist(outfits[dresscode]))
+		if(dresscode == "Custom")
+			var/list/custom_names = list()
+			for(var/datum/outfit/D in outfits[dresscode])
+				custom_names[D.name] = D
+			dresscode = tgui_input_list(src, "Select custom equipment", "Robust quick dress shop", sort_list(custom_names)) // this is fine to be tgui_input_list
+			dresscode = custom_names[dresscode]
+		else
+			var/parent_code = dresscode
+			dresscode = tgui_input_list(src, "Select categorised equipment - [dresscode]", "Robust quick dress shop", sort_list(outfits[parent_code])) // this is fine to be tgui_input_list
+			dresscode = outfits[parent_code][dresscode]
+		if(isnull(dresscode))
+			return
+
+	else if(outfits[dresscode])
 		dresscode = outfits[dresscode]
-
-
-
-	if(dresscode == "As Job...")
-		var/list/job_paths = subtypesof(/datum/outfit/job)
-		var/list/job_outfits = list()
-		for(var/path in job_paths)
-			var/datum/outfit/O = path
-			if(initial(O.can_be_admin_equipped))
-				job_outfits[initial(O.name)] = path
-
-		dresscode = input("Select job equipment", "Robust quick dress shop") as null|anything in sort_list(job_outfits)
-		dresscode = job_outfits[dresscode]
-		if(isnull(dresscode))
-			return
-
-	if(dresscode == "As Job(Plasmaman)...")
-		var/list/job_paths = subtypesof(/datum/outfit/plasmaman)
-		var/list/job_outfits = list()
-		for(var/path in job_paths)
-			var/datum/outfit/O = path
-			if(initial(O.can_be_admin_equipped))
-				job_outfits[initial(O.name)] = path
-
-		dresscode = input("Select plasmaman equipment", "Robust quick dress shop") as null|anything in sort_list(job_outfits)
-		dresscode = job_outfits[dresscode]
-		if(isnull(dresscode))
-			return
-
-	if(dresscode == "Debug")
-		dresscode = /datum/outfit/debug
-		if(isnull(dresscode))
-			return
-
-	if(dresscode == "Custom")
-		var/list/custom_names = list()
-		for(var/datum/outfit/D in GLOB.custom_outfits)
-			custom_names[D.name] = D
-		var/selected_name = input("Select outfit", "Robust quick dress shop") as null|anything in sort_list(custom_names)
-		dresscode = custom_names[selected_name]
-		if(isnull(dresscode))
-			return
 
 	return dresscode
 

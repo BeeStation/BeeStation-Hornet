@@ -501,6 +501,7 @@
 
 /datum/outfit/ctf
 	name = "CTF"
+	debug_window_category = OUTFIT_CATEGORY_CENTCOM
 	ears = /obj/item/radio/headset
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/space/hardsuit/shielded/ctf

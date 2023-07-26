@@ -17,6 +17,9 @@
 	///Name of the outfit (shows up in the equip admin verb)
 	var/name = "Naked"
 
+	/// if it's specified, it will be displayed in a category (i.e. "As Job")
+	var/debug_window_category
+
 	/// Type path of item to go in uniform slot
 	var/uniform = null
 

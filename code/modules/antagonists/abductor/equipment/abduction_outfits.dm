@@ -1,5 +1,6 @@
 /datum/outfit/abductor
 	name = "Abductor Basic"
+	debug_window_category = OUTFIT_CATEGORY_ANTAGONIST
 	uniform = /obj/item/clothing/under/abductor
 	shoes = /obj/item/clothing/shoes/combat
 	back = /obj/item/storage/backpack

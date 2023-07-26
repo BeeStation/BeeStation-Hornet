@@ -350,3 +350,15 @@
 #define JOB_CHATCOLOR_NOTCENTCOM "#6D6AEC" // i.e. space police
 #define JOB_CHATCOLOR_PRISONER   "#D38A5C"
 #define JOB_CHATCOLOR_UNKNOWN    "#DDA583" // grey hud icon gets this
+
+
+
+/// outfit categories
+#define OUTFIT_CATEGORY_JOB "As Job..."
+#define OUTFIT_CATEGORY_PLASMAMAN "As Job(Plasmaman)..."
+#define OUTFIT_CATEGORY_WIZARD "Wizard"
+#define OUTFIT_CATEGORY_ANTAGONIST "Antagonists"
+#define OUTFIT_CATEGORY_CENTCOM "CentCom (ERT, official, ETC)"
+#define OUTFIT_CATEGORY_SYNDICATE "Syndicate"
+#define OUTFIT_CATEGORY_ETC "Misc"
+#define OUTFIT_CATEGORY_EXPLOTARGET "Exploration Targets"

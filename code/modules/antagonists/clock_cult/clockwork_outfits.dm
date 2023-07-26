@@ -1,5 +1,6 @@
 /datum/outfit/clockcult
 	name = "Servant of Ratvar"
+	debug_window_category = OUTFIT_CATEGORY_ANTAGONIST
 
 	uniform = /obj/item/clothing/under/chameleon/ratvar
 	shoes = /obj/item/clothing/shoes/chameleon

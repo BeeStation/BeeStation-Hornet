@@ -1,5 +1,6 @@
 /datum/outfit/prisoner
 	name = "Prison Escapee"
+	debug_window_category = OUTFIT_CATEGORY_ANTAGONIST
 	uniform = /obj/item/clothing/under/rank/prisoner
 	shoes = /obj/item/clothing/shoes/sneakers/orange
 	r_pocket = /obj/item/kitchen/knife/carrotshiv
@@ -11,6 +12,7 @@
 
 /datum/outfit/yalp_cultist
 	name = "Cultist of Yalp Elor"
+	debug_window_category = OUTFIT_CATEGORY_ANTAGONIST
 	uniform = /obj/item/clothing/under/rank/civilian/chaplain
 	suit = /obj/item/clothing/suit/chaplainsuit/holidaypriest
 	gloves = /obj/item/clothing/gloves/color/red
@@ -19,6 +21,7 @@
 
 /datum/outfit/waldo
 	name = "Waldo"
+	debug_window_category = OUTFIT_CATEGORY_ANTAGONIST
 	uniform = /obj/item/clothing/under/pants/jeans
 	suit = /obj/item/clothing/suit/striped_sweater
 	head = /obj/item/clothing/head/beanie/waldo
@@ -52,6 +55,7 @@
 
 /datum/outfit/synthetic
 	name = "Factory Error Synth"
+	debug_window_category = OUTFIT_CATEGORY_ANTAGONIST
 	uniform = /obj/item/clothing/under/color/white
 	ears = /obj/item/radio/headset
 
@@ -63,5 +67,6 @@
 
 /datum/outfit/synthetic/leader
 	name = "Factory Error Synth Leader"
+	debug_window_category = OUTFIT_CATEGORY_ANTAGONIST
 	r_hand = /obj/item/choice_beacon/augments
 	l_hand = /obj/item/autosurgeon

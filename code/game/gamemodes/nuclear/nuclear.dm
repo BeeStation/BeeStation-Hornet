@@ -116,6 +116,7 @@
 
 /datum/outfit/syndicate
 	name = "Syndicate Operative - Basic"
+	debug_window_category = OUTFIT_CATEGORY_SYNDICATE
 
 	uniform = /obj/item/clothing/under/syndicate
 	shoes = /obj/item/clothing/shoes/combat

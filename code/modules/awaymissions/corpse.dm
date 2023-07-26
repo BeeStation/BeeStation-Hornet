@@ -407,6 +407,7 @@
 
 /datum/outfit/spacebartender
 	name = "Space Bartender"
+	debug_window_category = OUTFIT_CATEGORY_CENTCOM
 	uniform = /obj/item/clothing/under/rank/civilian/bartender
 	back = /obj/item/storage/backpack
 	shoes = /obj/item/clothing/shoes/sneakers/black
@@ -471,6 +472,7 @@
 
 /datum/outfit/nanotrasenbridgeofficercorpse
 	name = "Bridge Officer Corpse"
+	debug_window_category = OUTFIT_CATEGORY_ETC
 	ears = /obj/item/radio/headset/heads/head_of_personnel
 	uniform = /obj/item/clothing/under/rank/centcom/officer
 	suit = /obj/item/clothing/suit/armor/bulletproof
@@ -487,6 +489,7 @@
 
 /datum/outfit/nanotrasencommandercorpse
 	name = "\improper Nanotrasen Private Security Commander"
+	debug_window_category = OUTFIT_CATEGORY_ETC
 	uniform = /obj/item/clothing/under/rank/centcom/commander
 	suit = /obj/item/clothing/suit/armor/bulletproof
 	ears = /obj/item/radio/headset/heads/captain
@@ -507,6 +510,7 @@
 
 /datum/outfit/nanotrasensoldiercorpse
 	name = "NT Private Security Officer Corpse"
+	debug_window_category = OUTFIT_CATEGORY_ETC
 	uniform = /obj/item/clothing/under/rank/security/officer
 	suit = /obj/item/clothing/suit/armor/vest
 	shoes = /obj/item/clothing/shoes/combat
@@ -548,6 +552,7 @@
 
 /datum/outfit/abductorcorpse
 	name = "Abductor Corpse"
+	debug_window_category = OUTFIT_CATEGORY_ETC
 	uniform = /obj/item/clothing/under/color/grey
 	shoes = /obj/item/clothing/shoes/combat
 

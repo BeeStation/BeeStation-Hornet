@@ -181,6 +181,7 @@
 
 /datum/outfit/contractor_partner
 	name = "Contractor Support Unit"
+	debug_window_category = OUTFIT_CATEGORY_SYNDICATE
 
 	uniform = /obj/item/clothing/under/chameleon
 	suit = /obj/item/clothing/suit/chameleon

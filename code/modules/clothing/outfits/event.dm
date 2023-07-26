@@ -1,5 +1,6 @@
 /datum/outfit/santa //ho ho ho!
 	name = "Santa Claus"
+	debug_window_category = OUTFIT_CATEGORY_ANTAGONIST // they're seasonal antag anyway
 
 	uniform = /obj/item/clothing/under/color/red
 	shoes = /obj/item/clothing/shoes/sneakers/red

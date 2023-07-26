@@ -271,6 +271,7 @@
 
 /datum/outfit/job
 	name = "Standard Gear"
+	debug_window_category = OUTFIT_CATEGORY_JOB
 
 	var/jobtype
 

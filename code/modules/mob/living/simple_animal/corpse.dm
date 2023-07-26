@@ -17,6 +17,7 @@
 
 /datum/outfit/syndicatesoldiercorpse
 	name = "Syndicate Operative Corpse"
+	debug_window_category = OUTFIT_CATEGORY_ETC
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/armor/vest
 	shoes = /obj/item/clothing/shoes/combat
@@ -36,6 +37,7 @@
 
 /datum/outfit/syndicatecommandocorpse
 	name = "Syndicate Commando Corpse"
+	debug_window_category = OUTFIT_CATEGORY_ETC
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/space/hardsuit/syndi
 	shoes = /obj/item/clothing/shoes/combat
@@ -56,6 +58,7 @@
 
 /datum/outfit/syndicatestormtroopercorpse
 	name = "Syndicate Stormtrooper Corpse"
+	debug_window_category = OUTFIT_CATEGORY_ETC
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/space/hardsuit/syndi/elite
 	shoes = /obj/item/clothing/shoes/combat
@@ -82,6 +85,7 @@
 
 /datum/outfit/piratecorpse
 	name = "Pirate Corpse"
+	debug_window_category = OUTFIT_CATEGORY_ETC
 	uniform = /obj/item/clothing/under/costume/pirate
 	shoes = /obj/item/clothing/shoes/jackboots
 	glasses = /obj/item/clothing/glasses/eyepatch
@@ -94,6 +98,7 @@
 
 /datum/outfit/piratecorpse/ranged
 	name = "Pirate Gunner Corpse"
+	debug_window_category = OUTFIT_CATEGORY_ETC
 	suit = /obj/item/clothing/suit/pirate
 	head = /obj/item/clothing/head/pirate
 
@@ -106,6 +111,7 @@
 
 /datum/outfit/russiancorpse
 	name = "Russian Corpse"
+	debug_window_category = OUTFIT_CATEGORY_ETC
 	uniform = /obj/item/clothing/under/costume/soviet
 	shoes = /obj/item/clothing/shoes/jackboots
 	head = /obj/item/clothing/head/bearpelt
@@ -119,6 +125,7 @@
 
 /datum/outfit/russiancorpse/ranged
 	name = "Ranged Russian Corpse"
+	debug_window_category = OUTFIT_CATEGORY_ETC
 	head = /obj/item/clothing/head/ushanka
 
 
@@ -127,6 +134,7 @@
 
 /datum/outfit/russiancorpse/ranged/trooper
 	name = "Ranged Russian Trooper Corpse"
+	debug_window_category = OUTFIT_CATEGORY_ETC
 	uniform = /obj/item/clothing/under/syndicate/camo
 	suit = /obj/item/clothing/suit/armor/bulletproof
 	shoes = /obj/item/clothing/shoes/combat
@@ -142,6 +150,7 @@
 
 /datum/outfit/russiancorpse/officer
 	name = "Russian Officer Corpse"
+	debug_window_category = OUTFIT_CATEGORY_ETC
 	uniform = /obj/item/clothing/under/costume/russian_officer
 	suit = /obj/item/clothing/suit/security/officer/russian
 	shoes = /obj/item/clothing/shoes/combat
@@ -158,6 +167,7 @@
 
 /datum/outfit/wizardcorpse
 	name = "Space Wizard Corpse"
+	debug_window_category = OUTFIT_CATEGORY_WIZARD
 	uniform = /obj/item/clothing/under/color/lightpurple
 	suit = /obj/item/clothing/suit/wizrobe
 	shoes = /obj/item/clothing/shoes/sandal/magic
@@ -174,6 +184,7 @@
 
 /datum/outfit/nanotrasensoldiercorpse2
 	name = "NT Private Security Officer Corpse"
+	debug_window_category = OUTFIT_CATEGORY_ETC
 	uniform = /obj/item/clothing/under/rank/security/officer
 	suit = /obj/item/clothing/suit/armor/vest
 	shoes = /obj/item/clothing/shoes/combat
