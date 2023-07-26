@@ -78,6 +78,7 @@ const PriorityButtons = (props: { createSetPriority: CreateSetPriority; isOverfl
         'align-items': 'center',
         'justify-content': 'flex-end',
         'height': '100%',
+        'border': '1px solid rgba(0, 0, 0, 0.4)',
       }}>
       {isOverflow ? (
         <>

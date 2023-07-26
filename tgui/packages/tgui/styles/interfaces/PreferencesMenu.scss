@@ -270,36 +270,37 @@ $department_map: (
 
       &__priority {
         color: black;
-        border-left: 1px solid rgba(0, 0, 0, 0.3);
+        border-left: 1px solid #222;
         border-right: none;
         border-top: none;
         border-bottom: none;
         border-radius: 0 !important;
+        text-shadow: 0 0 1px black;
         &--off {
           background-color: lighten(colors.$grey, 10%) !important;
           border-color: lighten(colors.$grey, 20%);
           border-left: none;
         }
         &--low {
-          background-color: red !important;
-          border-color: lighten(red, 20%);
+          background-color: colors.$red !important;
           color: black !important;
+          text-shadow: none;
         }
         &--medium {
-          background-color: yellow !important;
-          border-color: lighten(yellow, 20%);
+          background-color: colors.$yellow !important;
           color: black !important;
+          text-shadow: none;
         }
         &--high {
-          background-color: lime !important;
-          border-color: lighten(lime, 20%);
-          color: black !important                                             ;
+          background-color: lighten(colors.$green, 10%) !important;
+          color: black !important;
+          text-shadow: none;
         }
         &--disabled {
           background-color: #444 !important;
-          border-color: #222;
           color: white !important;
-          transition: linear 0.25s background-color;
+          transition: ease-out 0.25s background-color;
+          text-shadow: 0 0 1px black;
           &:hover {
             background-color: #666 !important;
           }
