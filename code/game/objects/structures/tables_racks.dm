@@ -560,11 +560,19 @@
 	initial_link()
 
 /obj/structure/table/optable/proc/initial_link()
+	if(!QDELETED(computer))
+		computer.table = src
+		return
 	for(var/direction in GLOB.alldirs)
-		computer = locate(/obj/machinery/computer/operating) in get_step(src, direction)
-		if(computer && !computer.table)
-			computer.link_with_table(new_table = src)
-			break
+		var/obj/machinery/computer/operating/found_computer = locate(/obj/machinery/computer/operating) in get_step(src, direction)
+		if(found_computer)
+			if(!found_computer.table)
+				found_computer.link_with_table(new_table = src)
+				break
+			else if(found_computer.table == src)
+				computer = found_computer
+				break
+
 
 /obj/structure/table/optable/Destroy()
 	. = ..()
