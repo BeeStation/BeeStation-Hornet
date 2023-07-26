@@ -44,7 +44,6 @@
 
 /turf/open/openspace/ocean
 	name = "ocean"
-	planetary_atmos = TRUE
 	baseturfs = /turf/open/openspace/ocean
 	var/replacement_turf = /turf/open/floor/plating/ocean
 
