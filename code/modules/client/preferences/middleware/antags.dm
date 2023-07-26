@@ -7,11 +7,23 @@
 	if (preferences.current_window != PREFERENCE_TAB_CHARACTER_PREFERENCES)
 		return list()
 	var/list/data = list()
-	var/list/enabled_antags = list()
-	for(var/pref_type in GLOB.role_preference_entries)
-		if(preferences.parent.role_preference_enabled(pref_type))
-			enabled_antags += "[pref_type]"
-	data["enabled_antags"] = enabled_antags
+	var/list/enabled_global = list()
+	var/list/enabled_character = list()
+	for(var/datum/role_preference/pref_type as anything in GLOB.role_preference_entries)
+		var/role_preference_value = preferences.role_preferences_global["[pref_type]"]
+		if(isnum(role_preference_value) && !role_preference_value) // explicitly disabled
+			continue
+		enabled_global += "[pref_type]"
+
+	for(var/datum/role_preference/pref_type as anything in GLOB.role_preference_entries)
+		if(!initial(pref_type.per_character))
+			continue
+		var/role_preference_value = preferences.role_preferences["[pref_type]"]
+		if(isnum(role_preference_value) && !role_preference_value) // explicitly disabled
+			continue
+		enabled_character += "[pref_type]"
+	data["enabled_global"] = enabled_global
+	data["enabled_character"] = enabled_character
 	return data
 
 /datum/preference_middleware/antags/get_ui_static_data(mob/user)
@@ -19,11 +31,13 @@
 		return list()
 	var/list/data = list()
 	var/list/antag_bans = get_antag_bans()
-	if (antag_bans.len)
+	if (length(antag_bans))
 		data["antag_bans"] = antag_bans
+	var/list/antag_living_playtime_hours_left = get_antag_living_playtime_hours_left()
+	if (length(antag_living_playtime_hours_left))
+		data["antag_living_playtime_hours_left"] = antag_living_playtime_hours_left
 	return data
 
-// TODO per-character support
 /datum/preference_middleware/antags/get_constant_data()
 	var/list/antags = list()
 
@@ -34,6 +48,7 @@
 			"name" = pref.name,
 			"description" = pref.description,
 			"category" = pref.category,
+			"per_character" = pref.per_character,
 			"ban_key" = ispath(antag_datum, /datum/antagonist) ? initial(antag_datum.banning_key) : null,
 			"path" = "[pref_type]",
 			"icon_path" = "[serialize_antag_name("[pref.use_icon || pref_type]")]"
@@ -54,19 +69,28 @@
 
 	var/sent_antags = params["antags"]
 	var/toggled = params["toggled"]
+	var/per_character = params["character"]
 
 	var/list/valid_antags = list()
-	for(var/type in GLOB.role_preference_entries)
+	for(var/datum/role_preference/type as anything in GLOB.role_preference_entries)
+		if(per_character && !initial(type.per_character))
+			continue
 		valid_antags += "[type]"
 
 	var/any_changed = FALSE
 	for (var/sent_antag in sent_antags)
 		if(!(sent_antag in valid_antags))
 			continue
-		preferences.role_preferences_global["[sent_antag]"] = toggled
+		if(per_character)
+			preferences.role_preferences["[sent_antag]"] = toggled
+		else
+			preferences.role_preferences_global["[sent_antag]"] = toggled
 		any_changed = TRUE
 	if(any_changed)
-		preferences.mark_undatumized_dirty_player()
+		if(per_character)
+			preferences.mark_undatumized_dirty_character()
+		else
+			preferences.mark_undatumized_dirty_player()
 	return any_changed
 
 /datum/preference_middleware/antags/proc/get_antag_bans()
@@ -74,10 +98,29 @@
 	for(var/type in GLOB.role_preference_entries)
 		var/datum/role_preference/pref = GLOB.role_preference_entries[type]
 		var/datum/antagonist/antag_datum = pref.antag_datum
+		if(!ispath(antag_datum, /datum/antagonist))
+			continue
 		var/role_ban_key = initial(antag_datum.banning_key)
 		if(role_ban_key && is_banned_from(preferences.parent.ckey, role_ban_key))
 			antag_bans += role_ban_key
 	return antag_bans
+
+/datum/preference_middleware/antags/proc/get_antag_living_playtime_hours_left()
+	var/list/antag_living_playtime_hours_left = list()
+
+	for(var/type in GLOB.role_preference_entries)
+		var/datum/role_preference/pref = GLOB.role_preference_entries[type]
+		var/datum/antagonist/antag_datum = pref.antag_datum
+		if(!ispath(antag_datum, /datum/antagonist))
+			continue
+		var/living_hours_needed = initial(antag_datum.required_living_playtime)
+		if (living_hours_needed <= 0)
+			continue
+		var/hours_left = max(0, living_hours_needed - (preferences.parent.get_exp_living(TRUE) / 60))
+		if(hours_left > 0)
+			antag_living_playtime_hours_left["[type]"] = hours_left
+
+	return antag_living_playtime_hours_left
 
 /// Sprites generated for the antagonists panel
 /datum/asset/spritesheet/antagonists

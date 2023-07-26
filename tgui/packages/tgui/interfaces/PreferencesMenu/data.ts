@@ -114,6 +114,7 @@ export type AntagonistData = {
   name: string;
   description: string;
   category: string;
+  per_character: BooleanLike;
   path: string;
   icon_path: string;
   ban_key?: string;
@@ -198,7 +199,9 @@ export type PreferencesMenuData = {
   is_donator: BooleanLike;
 
   antag_bans?: string[];
-  enabled_antags: string[];
+  antag_living_playtime_hours_left?: Record<string, number>;
+  enabled_global: string[];
+  enabled_character: string[];
 
   active_slot: number;
   max_slot: number;
