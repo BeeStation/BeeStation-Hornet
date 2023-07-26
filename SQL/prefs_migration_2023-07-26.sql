@@ -1,4 +1,7 @@
 /*
+
+Tested on MariaDB 10.11
+
 DO NOT RUN WITHOUT TAKING A FULL BACKUP.
 DO NOT RUN MORE THAN ONCE.
 DO NOT RUN COLUMN REMOVALS UNTIL DATA IS VERIFIED.
@@ -77,7 +80,9 @@ ALTER TABLE `SS13_characters`
     MODIFY COLUMN `joblessrole` TINYINT(4) UNSIGNED NULL,
     MODIFY COLUMN `job_preferences` MEDIUMTEXT COLLATE 'utf8mb4_general_ci' NULL,
     MODIFY COLUMN `all_quirks` MEDIUMTEXT COLLATE 'utf8mb4_general_ci' NULL,
-    MODIFY COLUMN `equipped_gear` MEDIUMTEXT COLLATE 'utf8mb4_general_ci' NULL;
+    MODIFY COLUMN `equipped_gear` MEDIUMTEXT COLLATE 'utf8mb4_general_ci' NULL,
+	MODIFY COLUMN `role_preferences` MEDIUMTEXT COLLATE 'utf8mb4_general_ci' NULL,
+	ADD COLUMN IF NOT EXISTS `randomise` MEDIUMTEXT COLLATE 'utf8mb4_general_ci' NULL AFTER `role_preferences`;
 
 /* Flatten features JSON into its own columns */
 
