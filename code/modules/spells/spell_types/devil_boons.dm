@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/targeted/summon_wealth
 	name = "Summon wealth"
 	desc = "The reward for selling your soul."
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	include_user = TRUE
 	range = -1
 	clothes_req = FALSE
@@ -29,7 +29,7 @@
 /obj/effect/proc_holder/spell/targeted/view_range
 	name = "Distant vision"
 	desc = "The reward for selling your soul."
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	include_user = TRUE
 	range = -1
 	clothes_req = FALSE
@@ -48,7 +48,7 @@
 /obj/effect/proc_holder/spell/targeted/summon_friend
 	name = "Summon Friend"
 	desc = "The reward for selling your soul."
-	invocation_type = "none"
+	invocation_type = INVOCATION_NONE
 	include_user = TRUE
 	range = -1
 	clothes_req = FALSE

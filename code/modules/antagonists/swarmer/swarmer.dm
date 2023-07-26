@@ -18,16 +18,9 @@
 	mob_name = "a swarmer"
 	death = FALSE
 	roundstart = FALSE
-	short_desc = "You are a swarmer, a weapon of a long dead civilization."
-	flavour_text = {"
-	<b>You are a swarmer, a weapon of a long dead civilization. Until further orders from your original masters are received, you must continue to consume and replicate.</b>
-	<b>Clicking on any object will try to consume it, either deconstructing it into its components, destroying it, or integrating any materials it has into you if successful.</b>
-	<b>Ctrl-Clicking on a mob will attempt to remove it from the area and place it in a safe environment for storage.</b>
-	<b>Objectives:</b>
-	1. Consume resources and replicate until there are no more resources left.
-	2. Ensure that this location is fit for invasion at a later date; do not perform actions that would render it dangerous or inhospitable.
-	3. Biological resources will be harvested at a later date; do not harm them.
-	"}
+	assignedrole = ROLE_SWARMER
+	banType = ROLE_SWARMER
+	is_antagonist = TRUE
 
 /obj/effect/mob_spawn/swarmer/Initialize(mapload)
 	. = ..()
@@ -146,11 +139,11 @@
 	else
 		death()
 
-/mob/living/simple_animal/hostile/swarmer/CanAllowThrough(atom/movable/O)
+/mob/living/simple_animal/hostile/swarmer/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	if(istype(O, /obj/item/projectile/beam/disabler))//Allows for swarmers to fight as a group without wasting their shots hitting each other
+	if(istype(mover, /obj/item/projectile/beam/disabler))//Allows for swarmers to fight as a group without wasting their shots hitting each other
 		return TRUE
-	if(isswarmer(O))
+	else if(isswarmer(mover))
 		return TRUE
 
 ////CTRL CLICK FOR SWARMERS AND SWARMER_ACT()'S////
@@ -469,7 +462,7 @@
 	return FALSE
 
 /mob/living/simple_animal/hostile/swarmer/proc/add_to_total_resources_eaten(var/gains)
-	var/datum/antagonist/swarmer/S = mind.has_antag_datum(/datum/antagonist/swarmer)
+	var/datum/antagonist/swarmer/S = mind?.has_antag_datum(/datum/antagonist/swarmer)
 	if(S)
 		S.swarm.total_resources_eaten += gains
 
@@ -490,7 +483,7 @@
 
 	to_chat(src, "<span class='info'>Attempting to remove this being from our presence.</span>")
 
-	if(!do_mob(src, target, 30))
+	if(!do_after(src, 3 SECONDS, target))
 		return
 
 	var/turf/open/floor/F
@@ -525,7 +518,7 @@
 	D.pixel_x = target.pixel_x
 	D.pixel_y = target.pixel_y
 	D.pixel_z = target.pixel_z
-	if(do_mob(src, target, 100))
+	if(do_after(src, 10 SECONDS, target))
 		to_chat(src, "<span class='info'>Dismantling complete.</span>")
 		var/atom/Tsec = target.drop_location()
 		new /obj/item/stack/sheet/iron(Tsec, 5)
@@ -603,7 +596,7 @@
 /obj/structure/swarmer/trap/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -639,7 +632,7 @@
 	if(resources < 5)
 		to_chat(src, "<span class='warning'>We do not have the resources for this!</span>")
 		return
-	if(do_mob(src, src, 10))
+	if(do_after(src, 1 SECONDS))
 		Fabricate(/obj/structure/swarmer/blockade, 5)
 
 
@@ -651,12 +644,10 @@
 	max_integrity = 50
 	density = TRUE
 
-/obj/structure/swarmer/blockade/CanAllowThrough(atom/movable/O)
+/obj/structure/swarmer/blockade/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	if(isswarmer(O))
-		return 1
-	if(istype(O, /obj/item/projectile/beam/disabler))
-		return 1
+	if(isswarmer(mover) || istype(mover, /obj/item/projectile/beam/disabler))
+		return TRUE
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateSwarmer()
 	set name = "Replicate"
@@ -669,7 +660,7 @@
 	if(!isturf(loc))
 		to_chat(src, "<span class='warning'>This is not a suitable location for replicating ourselves. We need more room.</span>")
 		return
-	if(do_mob(src, src, 100))
+	if(do_after(src, 10 SECONDS))
 		var/createtype = SwarmerTypeToCreate()
 		if(createtype && Fabricate(createtype, 50))
 			playsound(loc,'sound/items/poster_being_created.ogg',50, 1, -1)
@@ -686,7 +677,7 @@
 	if(!isturf(loc))
 		return
 	to_chat(src, "<span class='info'>Attempting to repair damage to our body, stand by...</span>")
-	if(do_mob(src, src, 100))
+	if(do_after(src, 10 SECONDS))
 		adjustHealth(-100)
 		to_chat(src, "<span class='info'>We successfully repaired ourselves.</span>")
 
@@ -711,7 +702,7 @@
 
 /datum/antagonist/swarmer
 	name = "Swarmer"
-	job_rank = ROLE_SWARMER
+	banning_key = ROLE_SWARMER
 	roundend_category = "Swarmer"
 	antagpanel_category = "Swarmer"
 	show_to_ghosts = TRUE
@@ -724,10 +715,12 @@
 
 /datum/antagonist/swarmer/greet()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Swarmer",
-		"You are a swarmer, a weapon of a long dead civilization. Until further orders from your original masters are received, you must continue to consume and replicate.")
+		"You are a swarmer, a weapon of a long dead civilization. Until further orders from your original masters are received, you must continue to consume and replicate. \
+		Clicking on any object will try to consume it, either deconstructing it into its components, destroying it, or integrating any materials it has into you if successful. \
+		Ctrl-Clicking on a mob will attempt to remove it from the area and place it in a safe environment for storage.")
 
 /datum/team/swarmer
-	name = "The Swarm"
+	name = "Swarmers"
 	var/total_resources_eaten = 0
 
 /datum/antagonist/swarmer/get_team()
@@ -771,7 +764,7 @@
 
 /datum/antagonist/swarmer/apply_innate_effects(mob/living/mob_override)
 	. = ..()
-	//Give swarmer appearence on hud (If they are not an antag already)
+	//Give swarmer appearance on hud (If they are not an antag already)
 	var/datum/atom_hud/antag/swarmerhud = GLOB.huds[ANTAG_HUD_SWARMER]
 	swarmerhud.join_hud(owner.current)
 	if(!owner.antag_hud_icon_state)
@@ -795,8 +788,8 @@
 			if(istype(new_mob))
 				new_mob.a_intent = INTENT_HARM
 				M.mind.transfer_to(new_mob)
-				new_owner.assigned_role = "Swarmer"
-				new_owner.special_role = "Swarmer"
+				new_owner.assigned_role = ROLE_SWARMER
+				new_owner.special_role = ROLE_SWARMER
 			qdel(M)
 	return ..()
 

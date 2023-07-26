@@ -188,11 +188,7 @@
 
 /obj/machinery/capture_the_flag/Initialize(mapload)
 	. = ..()
-	GLOB.poi_list |= src
-
-/obj/machinery/capture_the_flag/Destroy()
-	GLOB.poi_list.Remove(src)
-	..()
+	AddElement(/datum/element/point_of_interest)
 
 /obj/machinery/capture_the_flag/process(delta_time)
 	for(var/mob/living/M as() in spawned_mobs)
@@ -280,7 +276,7 @@
 		var/turf/T = get_turf(body)
 		new /obj/effect/ctf/ammo(T)
 		recently_dead_ckeys += body.ckey
-		addtimer(CALLBACK(src, .proc/clear_cooldown, body.ckey), respawn_cooldown, TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(clear_cooldown), body.ckey), respawn_cooldown, TIMER_UNIQUE)
 		body.dust()
 
 /obj/machinery/capture_the_flag/proc/clear_cooldown(var/ckey)
@@ -405,7 +401,7 @@
 
 /obj/item/gun/ballistic/automatic/pistol/deagle/ctf/dropped()
 	..()
-	addtimer(CALLBACK(src, .proc/floor_vanish), 1)
+	addtimer(CALLBACK(src, PROC_REF(floor_vanish)), 1)
 
 /obj/item/gun/ballistic/automatic/pistol/deagle/ctf/proc/floor_vanish()
 	if(isturf(loc))
@@ -434,7 +430,7 @@
 
 /obj/item/gun/ballistic/automatic/laser/ctf/dropped()
 	..()
-	addtimer(CALLBACK(src, .proc/floor_vanish), 1)
+	addtimer(CALLBACK(src, PROC_REF(floor_vanish)), 1)
 
 /obj/item/gun/ballistic/automatic/laser/ctf/proc/floor_vanish()
 	if(isturf(loc))
@@ -445,7 +441,7 @@
 
 /obj/item/ammo_box/magazine/recharge/ctf/dropped()
 	..()
-	addtimer(CALLBACK(src, .proc/floor_vanish), 1)
+	addtimer(CALLBACK(src, PROC_REF(floor_vanish)), 1)
 
 /obj/item/ammo_box/magazine/recharge/ctf/proc/floor_vanish()
 	if(isturf(loc))
@@ -608,8 +604,6 @@
 /obj/structure/barricade/security/ctf
 	name = "barrier"
 	desc = "A barrier. Provides cover in fire fights."
-	deploy_time = 0
-	deploy_message = 0
 
 /obj/structure/barricade/security/ctf/make_debris()
 	new /obj/effect/ctf/dead_barricade(get_turf(src))
@@ -635,14 +629,14 @@
 	..()
 	QDEL_IN(src, AMMO_DROP_LIFETIME)
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/effect/ctf/ammo/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
 
-	INVOKE_ASYNC(src, .proc/reload, AM)
+	INVOKE_ASYNC(src, PROC_REF(reload), AM)
 
 /obj/effect/ctf/ammo/Bump(atom/movable/AM)
 	reload(AM)

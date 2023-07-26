@@ -65,7 +65,7 @@ It's like a regular ol' straight pipe, but you can turn it on and off.
 		return
 	update_icon_nopipes(TRUE)
 	switching = TRUE
-	addtimer(CALLBACK(src, .proc/finish_interact), 10)
+	addtimer(CALLBACK(src, PROC_REF(finish_interact)), 10)
 
 /obj/machinery/atmospherics/components/binary/valve/proc/finish_interact()
 	set_open(!on)
@@ -88,7 +88,7 @@ It's like a regular ol' straight pipe, but you can turn it on and off.
 
 /obj/item/circuit_component/digital_valve
 	display_name = "Digital Valve"
-	display_desc = "The interface for communicating with a digital valve."
+	desc = "The interface for communicating with a digital valve."
 
 	var/obj/machinery/atmospherics/components/binary/valve/digital/attached_valve
 
@@ -104,8 +104,7 @@ It's like a regular ol' straight pipe, but you can turn it on and off.
 	/// Sent when the valve is closed
 	var/datum/port/output/closed
 
-/obj/item/circuit_component/digital_valve/Initialize(mapload)
-	. = ..()
+/obj/item/circuit_component/digital_valve/populate_ports()
 	open = add_input_port("Open", PORT_TYPE_SIGNAL)
 	close = add_input_port("Close", PORT_TYPE_SIGNAL)
 
@@ -117,7 +116,7 @@ It's like a regular ol' straight pipe, but you can turn it on and off.
 	. = ..()
 	if(istype(shell, /obj/machinery/atmospherics/components/binary/valve/digital))
 		attached_valve = shell
-		RegisterSignal(attached_valve, COMSIG_VALVE_SET_OPEN, .proc/handle_valve_toggled)
+		RegisterSignal(attached_valve, COMSIG_VALVE_SET_OPEN, PROC_REF(handle_valve_toggled))
 
 /obj/item/circuit_component/digital_valve/unregister_usb_parent(atom/movable/shell)
 	UnregisterSignal(attached_valve, COMSIG_VALVE_SET_OPEN)
@@ -132,9 +131,6 @@ It's like a regular ol' straight pipe, but you can turn it on and off.
 		closed.set_output(COMPONENT_SIGNAL)
 
 /obj/item/circuit_component/digital_valve/input_received(datum/port/input/port)
-	. = ..()
-	if(.)
-		return
 
 	if(!attached_valve)
 		return
@@ -143,7 +139,6 @@ It's like a regular ol' straight pipe, but you can turn it on and off.
 		attached_valve.set_open(TRUE)
 	if(COMPONENT_TRIGGERED_BY(close, port) && attached_valve.on)
 		attached_valve.set_open(FALSE)
-
 
 /obj/machinery/atmospherics/components/binary/valve/digital/update_icon_nopipes(animation)
 	if(!is_operational)

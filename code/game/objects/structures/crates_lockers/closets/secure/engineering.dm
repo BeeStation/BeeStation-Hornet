@@ -3,6 +3,11 @@
 	req_access = list(ACCESS_CE)
 	icon_state = "ce"
 
+/obj/structure/closet/secure_closet/engineering_chief/populate_contents_immediate()
+	..()
+	new /obj/item/card/id/departmental_budget/eng(src)
+	new /obj/item/areaeditor/blueprints(src)
+
 /obj/structure/closet/secure_closet/engineering_chief/PopulateContents()
 	..()
 	new /obj/item/storage/box/suitbox/ce(src)
@@ -25,8 +30,6 @@
 	new /obj/item/circuitboard/machine/techfab/department/engineering(src)
 
 	// prioritized items
-	new /obj/item/card/id/departmental_budget/eng(src)
-	new /obj/item/areaeditor/blueprints(src)
 	new /obj/item/storage/toolbox/mechanical(src)
 	new /obj/item/clothing/neck/cloak/ce(src)
 	new /obj/item/door_remote/chief_engineer(src)
@@ -54,6 +57,7 @@
 
 /obj/item/storage/box/suitbox/ce/PopulateContents()
 	new /obj/item/clothing/under/rank/engineering/chief_engineer(src)
+	new /obj/item/clothing/under/rank/engineering/chief_engineer/skirt(src)
 	new /obj/item/clothing/head/beret/ce(src)
 	new /obj/item/clothing/head/hardhat/white(src)
 	new /obj/item/clothing/head/hardhat/weldhat/white(src)

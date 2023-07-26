@@ -42,8 +42,9 @@ SUBSYSTEM_DEF(title)
 		var/new_player_x = splash_turf.x + FLOOR(width / 2, 1)
 		var/new_player_y = splash_turf.y + FLOOR(height / 2, 1)
 		newplayer_start_loc = locate(new_player_x, new_player_y, splash_turf.z)
-		for(var/atom/movable/new_player_start in GLOB.newplayer_start)
-			new_player_start.forceMove(newplayer_start_loc)
+		// Reset the newplayer start loc
+		GLOB.newplayer_start.Cut()
+		GLOB.newplayer_start += newplayer_start_loc
 
 		//Update fast joiners
 		for (var/mob/dead/new_player/fast_joiner in GLOB.new_player_list)
@@ -51,6 +52,10 @@ SUBSYSTEM_DEF(title)
 				fast_joiner.client?.change_view(getScreenSize(fast_joiner))
 			else
 				fast_joiner.client?.view_size.resetToDefault(getScreenSize(fast_joiner))
+			// Execute this immediately, change_view runs through SStimer which doesn't execute until after
+			// initialisation
+			if (fast_joiner.client?.prefs.toggles2 & PREFTOGGLE_2_AUTO_FIT_VIEWPORT)
+				fast_joiner.client?.fit_viewport()
 			fast_joiner.forceMove(newplayer_start_loc)
 
 	if(splash_turf)

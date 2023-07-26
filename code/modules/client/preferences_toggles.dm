@@ -1,8 +1,15 @@
-/client/verb/setup_character()
+/client/verb/game_preferences()
 	set name = "Game Preferences"
 	set category = "Preferences"
 	set desc = "Open Game Preferences Window"
 	prefs.current_tab = 1
+	prefs.ShowChoices(usr)
+
+/client/verb/character_preferences()
+	set name = "Character Preferences"
+	set category = "Preferences"
+	set desc = "Open Character Preferences Window"
+	prefs.current_tab = 0
 	prefs.ShowChoices(usr)
 
 /client/verb/toggle_ghost_ears()
@@ -87,15 +94,6 @@
 	prefs.save_preferences()
 	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Arrivalrattle", "[!(prefs.toggles & PREFTOGGLE_DISABLE_ARRIVALRATTLE) ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, maybe you should rethink where your life went so wrong.
 
-/client/verb/togglemidroundantag()
-	set name = "Toggle Midround Antagonist"
-	set category = "Preferences"
-	set desc = "Midround Antagonist"
-	prefs.toggles ^= PREFTOGGLE_MIDROUND_ANTAG
-	prefs.save_preferences()
-	to_chat(usr, "You will [(prefs.toggles & PREFTOGGLE_MIDROUND_ANTAG) ? "now" : "no longer"] be considered for midround antagonist positions.")
-	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Midround Antag", "[prefs.toggles & PREFTOGGLE_MIDROUND_ANTAG ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
 /client/verb/toggletitlemusic()
 	set name = "Hear/Silence Lobby Music"
 	set category = "Preferences"
@@ -169,6 +167,21 @@
 		usr.client.buzz_playing = FALSE
 	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Ship Ambience", "[usr.client.prefs.toggles & PREFTOGGLE_SOUND_SHIP_AMBIENCE ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, I bet you read this comment expecting to see the same thing :^)
 
+/client/verb/toggle_soundtrack()
+	set name = "Hear/Silence Soundtrack"
+	set category = "Preferences"
+	set desc = "Hear Soundtrack Songs"
+	prefs.toggles2 ^= PREFTOGGLE_2_SOUNDTRACK
+	prefs.save_preferences()
+	if(prefs.toggles2 & PREFTOGGLE_2_SOUNDTRACK)
+		to_chat(usr, "You will now hear soundtrack songs.")
+		usr.play_current_soundtrack()
+	else
+		to_chat(usr, "You will no longer hear soundtrack songs.")
+		usr.stop_sound_channel(CHANNEL_SOUNDTRACK)
+	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Soundtrack", "[usr.client.prefs.toggles2 & PREFTOGGLE_2_SOUNDTRACK ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, I bet you read this comment expecting to see the same thing :^)
+
+
 /client/verb/toggle_announcement_sound()
 	set name = "Hear/Silence Announcements"
 	set category = "Preferences"
@@ -204,7 +217,7 @@
 	to_chat(usr, "You will [(prefs.chat_toggles & CHAT_BANKCARD) ? "now" : "no longer"] be notified when you get paid.")
 	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Income Notifications", "[(prefs.chat_toggles & CHAT_BANKCARD) ? "Enabled" : "Disabled"]"))
 
-GLOBAL_LIST_INIT(ghost_forms, sortList(list("ghost","ghostking","ghostian2","skeleghost","ghost_red","ghost_black", \
+GLOBAL_LIST_INIT(ghost_forms, sort_list(list("ghost","ghostking","ghostian2","skeleghost","ghost_red","ghost_black", \
 							"ghost_blue","ghost_yellow","ghost_green","ghost_pink", \
 							"ghost_cyan","ghost_dblue","ghost_dred","ghost_dgreen", \
 							"ghost_dcyan","ghost_grey","ghost_dyellow","ghost_dpink", "ghost_purpleswirl","ghost_funkypurp","ghost_pinksherbert","ghost_blazeit",\
@@ -220,7 +233,7 @@ GLOBAL_LIST_INIT(ghost_forms, sortList(list("ghost","ghostking","ghostian2","ske
 		prefs.save_preferences()
 		if(isobserver(mob))
 			var/mob/dead/observer/O = mob
-			O.update_icon(new_form)
+			O.update_icon(new_form = new_form)
 
 GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOST_ORBIT_SQUARE,GHOST_ORBIT_HEXAGON,GHOST_ORBIT_PENTAGON))
 
@@ -340,6 +353,17 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 	to_chat(usr, "You will [(prefs.toggles & PREFTOGGLE_SOUND_ADMINHELP) ? "now" : "no longer"] hear a sound when adminhelps arrive.")
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Adminhelp Sound", "[prefs.toggles & PREFTOGGLE_SOUND_ADMINHELP ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/proc/toggleadminalertsound()
+	set name = "Hear/Silence Admin alerts"
+	set category = "Prefs - Admin"
+	set desc = "Toggle hearing a notification when various admin alerts happen"
+	if(!holder)
+		return
+	prefs.toggles ^= PREFTOGGLE_2_SOUND_ADMINALERT
+	prefs.save_preferences()
+	to_chat(usr, "You will [(prefs.toggles & PREFTOGGLE_2_SOUND_ADMINALERT) ? "now" : "no longer"] hear a sound when an admin alert shows up.")
+	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Admin alert Sound", "[prefs.toggles & PREFTOGGLE_2_SOUND_ADMINALERT ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 /client/proc/toggleannouncelogin()
 	set name = "Do/Don't Announce Login"
 	set category = "Prefs - Admin"
@@ -404,7 +428,7 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 	if(!CONFIG_GET(flag/allow_admin_asaycolor))
 		to_chat(src, "Custom Asay color is currently disabled by the server.")
 		return
-	var/new_asaycolor = input(src, "Please select your ASAY color.", "ASAY color", prefs.asaycolor) as color|null
+	var/new_asaycolor = tgui_color_picker(src, "Please select your ASAY color.", "ASAY color", prefs.asaycolor)
 	if(new_asaycolor)
 		prefs.asaycolor = sanitize_ooccolor(new_asaycolor)
 		prefs.save_preferences()

@@ -15,6 +15,7 @@
 
 	vision_flags = NONE
 	darkness_view = 2
+	lighting_alpha = null
 	invis_view = SEE_INVISIBLE_LIVING
 
 	var/list/modes = list(MODE_NONE = MODE_MESON, MODE_MESON = MODE_TRAY, MODE_TRAY = MODE_RAD, MODE_RAD = MODE_NONE)
@@ -66,7 +67,7 @@
 		return
 	switch(mode)
 		if(MODE_TRAY)
-			t_ray_scan(user, 8, range)
+			t_ray_scan(user, 16, range)
 		if(MODE_RAD)
 			show_rads()
 		if(MODE_SHUTTLE)

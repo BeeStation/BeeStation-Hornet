@@ -19,8 +19,8 @@
 	var/mob/living/simple_animal/hostile/space_dragon/S = owner
 	if(S.using_special)
 		return
-	if(S.can_summon_rifts)
-		to_chat(S, "<span class='warning'>Your failure has left you unable to summon rifts!</span>")
+	if(!S.can_summon_rifts)
+		to_chat(S, "<span class='warning'>You can't summon a rift right now!</span>")
 		return
 	var/area/A = get_area(S)
 	if(!(A in dragon.chosen_rift_areas))
@@ -41,12 +41,12 @@
 			return
 		var/obj/structure/carp_rift/CR = new /obj/structure/carp_rift(rift_spawn_turf)
 		playsound(S, 'sound/vehicles/rocketlaunch.ogg', 100, TRUE)
-		dragon.stop_rift_timer() // the rift needs to finish charging before we should worry about the dragon summoning another in time
+		S.can_summon_rifts = FALSE // the rift needs to finish charging before summoning another
 		CR.dragon = dragon
 		dragon.rift_list += CR
 		to_chat(S, "<span class='boldwarning'>The rift has been summoned. Prevent the crew from destroying it at all costs!</span>")
 		notify_ghosts("The Space Dragon has opened a rift!", source = CR, action = NOTIFY_ORBIT, flashwindow = FALSE, header = "Carp Rift Opened")
-		qdel(src)
+		qdel(src) // remove the action, a new one is granted if this rift charges or is destroyed
 
 /**
   * # Carp Rift
@@ -60,7 +60,7 @@
 /obj/structure/carp_rift
 	name = "carp rift"
 	desc = "A rift akin to the ones space carp use to travel long distances."
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, STAMINA = 0)
 	max_integrity = 300
 	icon = 'icons/obj/carp_rift.dmi'
 	icon_state = "carp_rift_carpspawn"
@@ -112,9 +112,10 @@
 /obj/structure/carp_rift/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	if(time_charged != max_charge + 1)
-		dragon?.destroy_rifts()
 		if(dragon)
-			to_chat(dragon, "<span class='boldwarning'>A rift has been destroyed! You have failed, and find yourself weakened.</span>")
+			restore_rift_ability()
+			if(dragon.owner.current)
+				to_chat(dragon.owner.current, "<span class='boldwarning'>A rift has been destroyed!</span>")
 			dragon = null
 	return ..()
 
@@ -142,7 +143,8 @@
 
 /obj/structure/carp_rift/attack_ghost(mob/user)
 	. = ..()
-	summon_carp(user)
+	if(user?.client?.can_take_ghost_spawner(ROLE_SPACE_DRAGON, TRUE, is_ghost_role = FALSE))
+		summon_carp(user)
 
 /**
  * Does a series of checks based on the portal's status.
@@ -179,9 +181,7 @@
 		resistance_flags = INDESTRUCTIBLE
 		dragon.rifts_charged += 1
 		if(dragon.rifts_charged != 3 && !dragon.objective_complete)
-			dragon.rift_ability = new
-			dragon.rift_ability.Grant(dragon.owner.current)
-			dragon.start_rift_timer() // dragon now needs to make a rift in the time limit
+			restore_rift_ability()
 			dragon.rift_empower()
 		// Early return, nothing to do after this point.
 		return
@@ -191,6 +191,15 @@
 		charge_state = CHARGE_FINALWARNING
 		var/area/A = get_area(src)
 		priority_announce("A rift is causing an unnaturally large energy flux in [initial(A.name)]. Stop it at all costs!", "Central Command Wildlife Observations", ANNOUNCER_SPANOMALIES)
+
+/obj/structure/carp_rift/proc/restore_rift_ability()
+	if(!dragon)
+		return
+	dragon.rift_ability = new
+	dragon.rift_ability.Grant(dragon.owner.current)
+	if(istype(dragon.owner.current, /mob/living/simple_animal/hostile/space_dragon))
+		var/mob/living/simple_animal/hostile/space_dragon/S = dragon.owner.current
+		S.can_summon_rifts = TRUE
 
 /**
   * Used to create carp controlled by ghosts when the option is available.

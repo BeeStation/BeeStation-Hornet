@@ -3,7 +3,7 @@
 	desc = "A face-covering mask that can be connected to an air supply. While good for concealing your identity, it isn't good for blocking gas flow." //More accurate
 	icon_state = "gas_alt"
 	clothing_flags = BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS
-	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE|HIDEFACIALHAIR
+	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "gas_alt"
 	gas_transfer_coefficient = 0.01
@@ -20,9 +20,9 @@
 	materials = list(/datum/material/iron=4000, /datum/material/glass=2000)
 	flash_protect = 2
 	tint = 2
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 55, "stamina" = 15)
+	armor = list(MELEE = 10,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 55, STAMINA = 15)
 	actions_types = list(/datum/action/item_action/toggle)
-	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
+	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE|HIDESNOUT
 	flags_cover = MASKCOVERSEYES
 	visor_flags_inv = HIDEEYES
 	visor_flags_cover = MASKCOVERSEYES
@@ -45,7 +45,7 @@
 	desc = "A modernised version of the classic design, this mask will not only filter out toxins but it can also be connected to an air supply."
 	icon_state = "plaguedoctor"
 	item_state = "gas_mask"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 2,"energy" = 2, "bomb" = 0, "bio" = 75, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 2, ENERGY = 2, BOMB = 0, BIO = 75, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
 
 /obj/item/clothing/mask/gas/syndicate
 	name = "syndicate mask"
@@ -64,11 +64,20 @@
 	resistance_flags = FLAMMABLE
 	actions_types = list(/datum/action/item_action/adjust)
 	dog_fashion = /datum/dog_fashion/head/clown
+	var/list/mask_designs = list()
+
+/obj/item/clothing/mask/gas/clown_hat/Initialize(mapload)
+	.=..()
+	mask_designs["True Form"] = image(icon = src.icon, icon_state = "clown")
+	mask_designs["The Feminist"] = image(icon = src.icon, icon_state = "sexyclown")
+	mask_designs["The Madman"] = image(icon = src.icon, icon_state = "joker")
+	mask_designs["The Rainbow Color"] = image(icon = src.icon, icon_state = "rainbow")
+	mask_designs["The Jester"] = image(icon = src.icon, icon_state = "chaos")
+	mask_designs["The Lunatic"] = image(icon = src.icon, icon_state = "trickymask")
 
 /obj/item/clothing/mask/gas/clown_hat/ui_action_click(mob/user)
 	if(!istype(user) || user.incapacitated())
 		return
-
 	var/list/options = list()
 	options["True Form"] = "clown"
 	options["The Feminist"] = "sexyclown"
@@ -77,7 +86,9 @@
 	options["The Jester"] ="chaos" //Nepeta33Leijon is holding me captive and forced me to help with this please send help
 	options["The Lunatic"] = "trickymask"
 
-	var/choice = input(user,"To what form do you wish to Morph this mask?","Morph Mask") in sortList(options)
+	var/choice = show_radial_menu(user, user, mask_designs, custom_check = FALSE, radius = 40)
+	if(!choice)
+		return FALSE
 
 	if(src && choice && !user.incapacitated() && in_range(user,src))
 		icon_state = options[choice]
@@ -106,7 +117,14 @@
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
 	actions_types = list(/datum/action/item_action/adjust)
+	var/list/mask_designs = list()
 
+/obj/item/clothing/mask/gas/mime/Initialize(mapload)
+	.=..()
+	mask_designs["Blanc"] = image(icon = src.icon, icon_state = "mime")
+	mask_designs["Triste"] = image(icon = src.icon, icon_state = "sadmime")
+	mask_designs["Effrayé"] = image(icon = src.icon, icon_state = "scaredmime")
+	mask_designs["Excité"] = image(icon = src.icon, icon_state = "sexymime")
 
 /obj/item/clothing/mask/gas/mime/ui_action_click(mob/user)
 	if(!istype(user) || user.incapacitated())
@@ -118,7 +136,9 @@
 	options["Effrayé"] = "scaredmime"
 	options["Excité"] ="sexymime"
 
-	var/choice = input(user,"To what form do you wish to Morph this mask?","Morph Mask") in sortList(options)
+	var/choice = show_radial_menu(user, user, mask_designs, custom_check = FALSE, radius = 40)
+	if(!choice)
+		return FALSE
 
 	if(src && choice && !user.incapacitated() && in_range(user,src))
 		icon_state = options[choice]
@@ -180,7 +200,14 @@
 	max_integrity = 100
 	actions_types = list(/datum/action/item_action/adjust)
 	dog_fashion = null
+	var/list/mask_designs = list()
 
+/obj/item/clothing/mask/gas/tiki_mask/Initialize(mapload)
+	.=..()
+	mask_designs["Original Tiki"] = image(icon = src.icon, icon_state = "tiki_eyebrow")
+	mask_designs["Happy Tikie"] = image(icon = src.icon, icon_state = "tiki_happy")
+	mask_designs["Confused Tiki"] = image(icon = src.icon, icon_state = "tiki_confused")
+	mask_designs["Angry Tiki"] = image(icon = src.icon, icon_state = "tiki_angry")
 
 /obj/item/clothing/mask/gas/tiki_mask/ui_action_click(mob/user)
 	var/mob/M = usr
@@ -190,7 +217,9 @@
 	options["Confused Tiki"] = "tiki_confused"
 	options["Angry Tiki"] ="tiki_angry"
 
-	var/choice = input(M,"To what form do you wish to change this mask?","Morph Mask") in sortList(options)
+	var/choice = show_radial_menu(user, user, mask_designs, custom_check = FALSE, radius = 40)
+	if(!choice)
+		return FALSE
 
 	if(src && choice && !M.stat && in_range(M,src))
 		icon_state = options[choice]
@@ -204,14 +233,6 @@
 /obj/item/clothing/mask/gas/tiki_mask/yalp_elor
 	icon_state = "tiki_yalp"
 	actions_types = list()
-
-/obj/item/clothing/mask/gas/hunter
-	name = "bounty hunting mask"
-	desc = "A custom tactical mask with decals added."
-	icon_state = "hunter"
-	item_state = "hunter"
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-	flags_inv = HIDEFACIALHAIR|HIDEFACE|HIDEEYES|HIDEEARS|HIDEHAIR
 
 /obj/item/clothing/mask/gas/old
 	desc = "A face-covering mask that can be connected to an air supply. This one appears to be one of the older models."

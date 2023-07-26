@@ -7,6 +7,16 @@
  *		Emergency Oxygen
  */
 
+/// Allows carbon to toggle internals via AltClick of the equipped tank.
+/obj/item/tank/internals/AltClick(mob/user)
+	..()
+	if((loc == user) && (user.canUseTopic(src, TRUE, FALSE, TRUE)))
+		toggle_internals(user)
+
+/obj/item/tank/internals/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Alt-click the tank to toggle the valve.</span>"
+
 /*
  * Oxygen
  */
@@ -137,7 +147,9 @@
 /obj/item/tank/internals/plasmaman/belt/empty/populate_gas()
 	return
 
-
+/obj/item/tank/internals/plasmaman/belt/full/debug
+	name = "bluespace plasma internals belt tank"
+	volume = 30
 
 /*
  * Emergency Oxygen

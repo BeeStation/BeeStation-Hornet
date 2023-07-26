@@ -16,6 +16,8 @@
 	heat_capacity = 10000
 	intact = 1
 	tiled_dirt = TRUE
+	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
+	canSmoothWith = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_OPEN_FLOOR)
 
 	var/icon_plating = "plating"
 	var/broken = 0
@@ -88,8 +90,7 @@
 
 /turf/open/floor/is_shielded()
 	for(var/obj/structure/A in contents)
-		if(A.level == 3)
-			return 1
+		return 1
 
 /turf/open/floor/blob_act(obj/structure/blob/B)
 	return
@@ -100,9 +101,6 @@
 
 /turf/open/floor/attack_paw(mob/user)
 	return attack_hand(user)
-
-/turf/open/floor/proc/gets_drilled()
-	return
 
 /turf/open/floor/proc/break_tile_to_plating()
 	var/turf/open/floor/plating/T = make_plating()
@@ -135,6 +133,9 @@
 		return ..()
 	var/old_dir = dir
 	var/turf/open/floor/W = ..()
+	if (flags & CHANGETURF_SKIP)
+		dir = old_dir
+		return W
 	W.setDir(old_dir)
 	W.update_icon()
 	return W

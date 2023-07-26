@@ -4,7 +4,7 @@
 	icon = 'icons/effects/spacevines.dmi'
 	icon_state = "flower_bud"
 	layer = SPACEVINE_MOB_LAYER
-	opacity = 0
+	opacity = FALSE
 	canSmoothWith = list()
 	var/growth_time = 1200
 	smoothing_flags = NONE
@@ -18,9 +18,8 @@
 	anchors += locate(x+2,y-2,z)
 
 	for(var/turf/T in anchors)
-		var/datum/beam/B = Beam(T, "vine", time=INFINITY, maxdistance=5, beam_type=/obj/effect/ebeam/vine)
-		B.sleep_time = 10 //these shouldn't move, so let's slow down updates to 1 second (any slower and the deletion of the vines would be too slow)
-	addtimer(CALLBACK(src, .proc/bear_fruit), growth_time)
+		Beam(T, "vine", maxdistance=5, beam_type=/obj/effect/ebeam/vine)
+	addtimer(CALLBACK(src, PROC_REF(bear_fruit)), growth_time)
 
 /obj/structure/alien/resin/flower_bud_enemy/proc/bear_fruit()
 	visible_message("<span class='danger'>the plant has borne fruit!</span>")
@@ -35,7 +34,7 @@
 /obj/effect/ebeam/vine/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -87,7 +86,7 @@
 			if(L.stat == DEAD)
 				var/datum/beam/B = grasping[L]
 				if(B)
-					B.End()
+					qdel(B)
 				grasping -= L
 
 			//Can attack+pull multiple times per cycle

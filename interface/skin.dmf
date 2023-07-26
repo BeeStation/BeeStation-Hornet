@@ -43,9 +43,28 @@ menu "menu"
 		category = "&Help"
 		saved-params = "is-checked"
 	elem
+		name = "&Mentor Help"
+		command = "mentorhelp"
+		category = "&Help"
+		saved-params = "is-checked"
+	elem
 		name = "&Hotkeys"
 		command = "hotkeys-help"
 		category = "&Help"
+		saved-params = "is-checked"
+	elem
+		name = "&Preferences"
+		command = ""
+		saved-params = "is-checked"
+	elem
+		name = "&Character Preferences"
+		command = "character-preferences"
+		category = "&Preferences"
+		saved-params = "is-checked"
+	elem
+		name = "&Game Preferences"
+		command = "game-preferences"
+		category = "&Preferences"
 		saved-params = "is-checked"
 
 
@@ -293,7 +312,7 @@ window "preferences_window"
 	elem "preferences_window"
 		type = MAIN
 		pos = 372,0
-		size = 1280x1000
+		size = 1280x1060
 		anchor1 = none
 		anchor2 = none
 		is-visible = false
@@ -302,14 +321,14 @@ window "preferences_window"
 	elem "preferences_browser"
 		type = BROWSER
 		pos = 0,0
-		size = 960x1000
+		size = 960x1060
 		anchor1 = 0,0
 		anchor2 = 75,100
 		saved-params = ""
 	elem "character_preview_map"
 		type = MAP
 		pos = 960,0
-		size = 320x1000
+		size = 320x1060
 		anchor1 = 75,0
 		anchor2 = 100,100
 		right-click = true
@@ -361,4 +380,23 @@ window "input_box"
 		saved-params = ""
 		text = "Cancel"
 		command = ""
+
+window "tgui_say"
+	elem "tgui_say"
+		type = MAIN
+		pos = 759,487
+		size = 231x30
+		anchor1 = 50,50
+		anchor2 = 50,50
+		is-visible = false
+		saved-params = ""
+		statusbar = false
+		can-minimize = false
+	elem "browser"
+		type = BROWSER
+		pos = 0,0
+		size = 231x30
+		anchor1 = 0,0
+		anchor2 = 0,0
+		saved-params = ""
 

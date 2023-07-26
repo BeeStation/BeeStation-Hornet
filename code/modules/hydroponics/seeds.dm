@@ -3,6 +3,7 @@
 // ********************************************************
 
 /obj/item/seeds
+	name = "seed"
 	icon = 'icons/obj/hydroponics/seeds.dmi'
 	icon_state = "seed"				// Unknown plant seed - these shouldn't exist in-game.
 	w_class = WEIGHT_CLASS_TINY
@@ -38,8 +39,8 @@
 
 /obj/item/seeds/Initialize(mapload, nogenes = 0)
 	. = ..()
-	pixel_x = rand(-8, 8)
-	pixel_y = rand(-8, 8)
+	pixel_x = base_pixel_y + rand(-8, 8)
+	pixel_y = base_pixel_x + rand(-8, 8)
 
 	if(!icon_grow)
 		icon_grow = "[species]-grow"
@@ -177,17 +178,30 @@
 		product_name = t_prod.seed.plantname
 	if(getYield() >= 1)
 		SSblackbox.record_feedback("tally", "food_harvested", getYield(), product_name)
+		var/investigated_plantname = get_product_true_name_for_investigate()
+		if(!investigated_plantname)
+			log_game("[key_name(user)] harvested [name]/Location: [AREACOORD(user)]")
+			investigate_log("[key_name(user)] harvested [name]/Location: [AREACOORD(user)]", INVESTIGATE_BOTANY)
+		else
+			var/investigate_data = get_gene_datas_for_investigate()
+			log_game("[key_name(user)] harvested [getYield()] of [investigated_plantname]/[investigate_data]/Location: [AREACOORD(user)]")
+			investigate_log("[key_name(user)] harvested [getYield()] of [investigated_plantname]/[investigate_data]/Location: [AREACOORD(user)]", INVESTIGATE_BOTANY)
 	parent.update_tray(user)
 
 	return result
 
 
-/obj/item/seeds/proc/prepare_result(var/obj/item/T)
+/obj/item/seeds/proc/prepare_result(obj/item/T)
 	if(!T.reagents)
 		CRASH("[T] has no reagents.")
 
+	var/output_multiply = 1
+	var/datum/plant_gene/trait/richer_juice/richer_juice = locate(/datum/plant_gene/trait/richer_juice) in genes
+	if(richer_juice)
+		output_multiply = richer_juice.rate
+
 	for(var/rid in reagents_add)
-		var/amount = 1 + round(potency * reagents_add[rid], 1)
+		var/amount = (1 + round(potency * reagents_add[rid], 1)) * output_multiply
 
 		var/list/data = null
 		if(rid == /datum/reagent/blood) // Hack to make blood in plants always O-
@@ -200,6 +214,41 @@
 
 		T.reagents.add_reagent(rid, amount, data)
 
+//--------- For investigation
+/obj/item/seeds/proc/get_gene_datas_for_investigate()
+	var/list/gene_result = list()
+	for(var/datum/plant_gene/trait/each_gene in genes)
+		if(istype(each_gene, /datum/plant_gene/trait/plant_type))
+			continue
+		gene_result += "[each_gene.name]"
+
+	var/list/chem_result = list()
+	for(var/datum/plant_gene/reagent/each_gene in genes)
+		chem_result += "[each_gene.name] [each_gene.rate*100]%"
+
+	var/return_text_format
+	var/datum/plant_gene/core/C = get_gene(/datum/plant_gene/core/potency)
+	return_text_format = "potency: [C.value]"
+	if(length(gene_result))
+		return_text_format = "/traits: [english_list(gene_result)]"
+	else
+		return_text_format = "/no traits"
+	if(length(chem_result))
+		return_text_format = "[return_text_format]/chems: [english_list(chem_result)]"
+	else
+		return_text_format = "[return_text_format]/no chems"
+
+	return return_text_format
+
+/obj/item/seeds/proc/get_product_true_name_for_investigate()
+	if(!product)
+		return FALSE
+	var/obj/plant = product
+	if(plantname == initial(plantname))
+		return initial(plant.name)
+	else
+		return "[initial(plant.name)] (renamed as [plantname])"
+//---------
 
 /// Setters procs ///
 /obj/item/seeds/proc/adjust_yield(adjustamt)
@@ -373,37 +422,6 @@
 			desc = input
 	..() // Fallthrough to item/attackby() so that bags can pick seeds up
 
-
-
-
-
-
-
-// Checks plants for broken tray icons. Use Advanced Proc Call to activate.
-// Maybe some day it would be used as unit test.
-/proc/check_plants_growth_stages_icons()
-	var/list/states = icon_states('icons/obj/hydroponics/growing.dmi')
-	states |= icon_states('icons/obj/hydroponics/growing_fruits.dmi')
-	states |= icon_states('icons/obj/hydroponics/growing_flowers.dmi')
-	states |= icon_states('icons/obj/hydroponics/growing_mushrooms.dmi')
-	states |= icon_states('icons/obj/hydroponics/growing_vegetables.dmi')
-	var/list/paths = typesof(/obj/item/seeds) - /obj/item/seeds - typesof(/obj/item/seeds/sample)
-
-	for(var/seedpath in paths)
-		var/obj/item/seeds/seed = new seedpath
-
-		for(var/i in 1 to seed.growthstages)
-			if("[seed.icon_grow][i]" in states)
-				continue
-			to_chat(world, "[seed.name] ([seed.type]) lacks the [seed.icon_grow][i] icon!")
-
-		if(!(seed.icon_dead in states))
-			to_chat(world, "[seed.name] ([seed.type]) lacks the [seed.icon_dead] icon!")
-
-		if(seed.icon_harvest) // mushrooms have no grown sprites, same for items with no product
-			if(!(seed.icon_harvest in states))
-				to_chat(world, "[seed.name] ([seed.type]) lacks the [seed.icon_harvest] icon!")
-
 /obj/item/seeds/proc/randomize_stats()
 	set_lifespan(rand(25, 60))
 	set_endurance(rand(15, 35))
@@ -434,6 +452,14 @@
 			genes += T
 		else
 			qdel(T)
+
+/obj/item/seeds/proc/add_random_glow()
+	var/static/glow_traits  = subtypesof(/datum/plant_gene/trait/glow) - /datum/plant_gene/trait/glow/shadow
+	var/random_trait = pick(glow_traits)
+	var/datum/plant_gene/trait/T = new random_trait
+	for(var/datum/plant_gene/trait/glow/R in genes) //Replaces the old color
+		genes -= R
+	genes += T
 
 /obj/item/seeds/proc/add_random_plant_type(normal_plant_chance = 75)
 	if(prob(normal_plant_chance))

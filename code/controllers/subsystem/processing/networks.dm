@@ -140,7 +140,8 @@ SUBSYSTEM_DEF(networks)
 		/// Check if we are a list.  If so process the list
 		if(islist(current.receiver_id)) // are we a broadcast list
 			var/list/receivers = current.receiver_id
-			var/receiver_id = receivers[receivers.len--] // pop it
+			var/receiver_id = receivers[receivers.len] // pop it
+			receivers.len--
 			_process_packet(receiver_id, current)
 			if(receivers.len == 0) // pop it if done
 				count_broadcasts_packets++
@@ -489,7 +490,7 @@ SUBSYSTEM_DEF(networks)
 		var/string = md5("[num2text(rand(HID_RESTRICTED_END, 999999999), 12)]")
 		if(!string)
 			log_runtime("Could not generagea m5 hash from address, problem with md5?")
-			return		//errored
+			return //errored
 		. = "[copytext_char(string, 1, 9)]"		//16 ^ 8 possibilities I think.
 	while(interfaces_by_hardware_id[.])
 

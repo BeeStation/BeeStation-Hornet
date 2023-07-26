@@ -18,7 +18,11 @@ GLOBAL_LIST_EMPTY(undershirt_f)	 //stores only undershirt name
 	//Socks
 GLOBAL_LIST_EMPTY(socks_list)		//stores /datum/sprite_accessory/socks indexed by name
 	//Body Sizes
-GLOBAL_LIST_INIT(body_sizes, list("Normal" = BODY_SIZE_NORMAL, "Short" = BODY_SIZE_SHORT, "Tall" = BODY_SIZE_TALL))
+GLOBAL_LIST_INIT(body_sizes, list(
+	"Normal" = BODY_SIZE_NORMAL,
+	"Short" = BODY_SIZE_SHORT,
+	"Tall" = BODY_SIZE_TALL
+))
 	//Lizard Bits (all datum lists indexed by name)
 GLOBAL_LIST_EMPTY(body_markings_list)
 GLOBAL_LIST_EMPTY(tails_list_lizard)
@@ -49,32 +53,61 @@ GLOBAL_LIST_EMPTY(ipc_screens_list)
 GLOBAL_LIST_EMPTY(ipc_antennas_list)
 GLOBAL_LIST_EMPTY(ipc_chassis_list)
 GLOBAL_LIST_EMPTY(insect_type_list)
+GLOBAL_LIST_EMPTY(apid_antenna_list)
+GLOBAL_LIST_EMPTY(apid_stripes_list)
+GLOBAL_LIST_EMPTY(apid_headstripes_list)
 
 GLOBAL_LIST_INIT(color_list_ethereal, list(
-	"Red" = "ff3131",
+	"Cyan" = "00ffff",
+	"Dark Green" = "0ab432",
+	"Dark Teal" = "5ea699",
+	"Denim Blue" = "3399ff",
+	"Gray" = "979497",
+	"Green" = "97ee63",
+	"Lavender" = "d1acff",
 	"Maroon" = "9c3030",
 	"Orange" = "f69c28",
-	"Sandy Yellow" = "ffefa5",
-	"Yellow" = "fbdf56",
-	"Green" = "97ee63",
-	"Dark Green" = "0ab432",
-	"Spring Green" = "00fa9a",
-	"Sea Green" = "37835b",
-	"Cyan" = "00ffff",
-	"Dark Teal" = "5ea699",
-	"Powder Blue" = "95e5ff",
-	"Denim Blue" = "3399ff",
-	"Royal Blue" = "5860f5",
-	"Lavender" = "d1acff",
-	"Purple" = "a42df7",
 	"Orchid Purple" = "ee82ee",
+	"Powder Blue" = "95e5ff",
+	"Purple" = "a42df7",
+	"Red" = "ff3131",
 	"Rose" = "ff92b6",
-	"Gray" = "979497"))
+	"Royal Blue" = "5860f5",
+	"Sandy Yellow" = "ffefa5",
+	"Sea Green" = "37835b",
+	"Spring Green" = "00fa9a",
+	"Yellow" = "fbdf56",
+))
 
 GLOBAL_LIST_INIT(ghost_forms_with_directions_list, list("ghost")) //stores the ghost forms that support directional sprites
-GLOBAL_LIST_INIT(ghost_forms_with_accessories_list, list("ghost")) //stores the ghost forms that support hair and other such things
+GLOBAL_LIST_INIT(ghost_forms_with_accessories_list, list(
+	"ghost",
+	"ghost_red",
+	"ghost_black",
+	"ghost_blue",
+	"ghost_yellow",
+	"ghost_green",
+	"ghost_pink",
+	"ghost_cyan",
+	"ghost_dblue",
+	"ghost_dred",
+	"ghost_dgreen",
+	"ghost_dcyan",
+	"ghost_grey",
+	"ghost_dyellow",
+	"ghost_dpink",
+	"skeleghost",
+	"ghost_purpleswirl",
+	"ghost_rainbow",
+	"ghost_fire",
+	"ghost_funkypurp",
+	"ghost_pinksherbert",
+	"ghost_blazeit",
+	"ghost_mellow",
+	"ghost_camo",))
+	//stores the ghost forms that support hair and other such things
 
-GLOBAL_LIST_INIT(ai_core_display_screens, sortList(list(
+GLOBAL_LIST_INIT(ai_core_display_screens, sort_list(list(
 	":thinking:",
 	"Alien",
 	"Angel",
@@ -103,17 +136,18 @@ GLOBAL_LIST_INIT(ai_core_display_screens, sortList(list(
 	"Not Malf",
 	"Portrait",
 	"President",
-	"Random",
 	"Rainbow",
-	"Red",
+	"Random",
 	"Red October",
+	"Red",
 	"Static",
 	"Syndicat Meow",
 	"Text",
 	"Too Deep",
-	"Triumvirate",
 	"Triumvirate-M",
-	"Weird")))
+	"Triumvirate",
+	"Weird"
+)))
 
 /proc/resolve_ai_icon(input)
 	if(!input || !(input in GLOB.ai_core_display_screens))
@@ -127,26 +161,69 @@ GLOBAL_LIST_INIT(ai_core_display_screens, sortList(list(
 			return "ai-portrait" //just take this until they decide
 		return "ai-[lowertext(input)]"
 
-GLOBAL_LIST_INIT(security_depts_prefs, sortList(list(SEC_DEPT_RANDOM, SEC_DEPT_NONE, SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, SEC_DEPT_SCIENCE, SEC_DEPT_SUPPLY)))
+GLOBAL_LIST_INIT(security_depts_prefs, sort_list(list(
+	SEC_DEPT_ENGINEERING,
+	SEC_DEPT_MEDICAL,
+	SEC_DEPT_NONE,
+	SEC_DEPT_RANDOM,
+	SEC_DEPT_SCIENCE,
+	SEC_DEPT_SUPPLY
+)))
 
 
-GLOBAL_LIST_INIT(backbaglist, list(DBACKPACK, DSATCHEL, DDUFFELBAG, GBACKPACK, GSATCHEL, GDUFFELBAG, LSATCHEL))
+GLOBAL_LIST_INIT(backbaglist, list(
+	DBACKPACK,
+	DDUFFELBAG,
+	DSATCHEL,
+	GBACKPACK,
+	GDUFFELBAG,
+	GSATCHEL,
+	LSATCHEL
+))
 
 
-GLOBAL_LIST_INIT(jumpsuitlist, list(PREF_SUIT, PREF_SKIRT))
+GLOBAL_LIST_INIT(jumpsuitlist, list(
+	PREF_SKIRT,
+	PREF_SUIT,
+))
 
 // What we show to the user
-GLOBAL_LIST_INIT(uplink_spawn_loc_list, list(UPLINK_PDA, UPLINK_RADIO, UPLINK_PEN, UPLINK_IMPLANT_WITH_PRICE))
+GLOBAL_LIST_INIT(uplink_spawn_loc_list, list(
+	UPLINK_IMPLANT_WITH_PRICE,
+	UPLINK_PDA,
+	UPLINK_PEN,
+	UPLINK_RADIO,
+))
 // What is actually saved; if the uplink implant price changes, it won't affect save files then
-GLOBAL_LIST_INIT(uplink_spawn_loc_list_save, list(UPLINK_PDA, UPLINK_RADIO, UPLINK_PEN, UPLINK_IMPLANT))
+GLOBAL_LIST_INIT(uplink_spawn_loc_list_save, list(
+	UPLINK_IMPLANT,
+	UPLINK_PDA,
+	UPLINK_PEN,
+	UPLINK_RADIO,
+))
 
 	//Female Uniforms
 GLOBAL_LIST_EMPTY(female_clothing_icons)
 
-	//radical shit
-GLOBAL_LIST_INIT(hit_appends, list("-OOF", "-ACK", "-UGH", "-HRNK", "-HURGH", "-GLORF"))
-
-GLOBAL_LIST_INIT(scarySounds, list('sound/weapons/thudswoosh.ogg','sound/weapons/taser.ogg','sound/weapons/armbomb.ogg','sound/voice/hiss1.ogg','sound/voice/hiss2.ogg','sound/voice/hiss3.ogg','sound/voice/hiss4.ogg','sound/voice/hiss5.ogg','sound/voice/hiss6.ogg','sound/effects/glassbr1.ogg','sound/effects/glassbr2.ogg','sound/effects/glassbr3.ogg','sound/items/welder.ogg','sound/items/welder2.ogg','sound/machines/airlock.ogg','sound/effects/clownstep1.ogg','sound/effects/clownstep2.ogg'))
+GLOBAL_LIST_INIT(scarySounds, list(
+	'sound/effects/clownstep1.ogg',
+	'sound/effects/clownstep2.ogg',
+	'sound/effects/glassbr1.ogg',
+	'sound/effects/glassbr2.ogg',
+	'sound/effects/glassbr3.ogg',
+	'sound/items/welder.ogg',
+	'sound/items/welder2.ogg',
+	'sound/machines/airlock.ogg',
+	'sound/voice/hiss1.ogg',
+	'sound/voice/hiss2.ogg',
+	'sound/voice/hiss3.ogg',
+	'sound/voice/hiss4.ogg',
+	'sound/voice/hiss5.ogg',
+	'sound/voice/hiss6.ogg',
+	'sound/weapons/armbomb.ogg',
+	'sound/weapons/taser.ogg',
+	'sound/weapons/thudswoosh.ogg',
+))
 
 
 // Reference list for disposal sort junctions. Set the sortType variable on disposal sort junctions to
@@ -193,14 +270,38 @@ GLOBAL_LIST_INIT(scarySounds, list('sound/weapons/thudswoosh.ogg','sound/weapons
 //If you don't want to fuck up disposals, add to this list, and don't change the order.
 //If you insist on changing the order, you'll have to change every sort junction to reflect the new order. --Pete
 
-GLOBAL_LIST_INIT(TAGGERLOCATIONS, list("Disposals",
-	"Cargo Bay", "QM Office", "Engineering", "CE Office",
-	"Atmospherics", "Security", "HoS Office", "Medbay",
-	"CMO Office", "Chemistry", "Research", "RD Office",
-	"Robotics", "HoP Office", "Library", "Chapel", "Theatre",
-	"Bar", "Kitchen", "Hydroponics", "Janitor Closet","Genetics",
-	"Testing Range", "Toxins", "Dormitories", "Virology",
-	"Xenobiology", "Law Office","Detective's Office"))
+GLOBAL_LIST_INIT(TAGGERLOCATIONS, list(
+	"Disposals",
+	"Cargo Bay",
+	"QM Office",
+	"Engineering",
+	"CE Office",
+	"Atmospherics",
+	"Security",
+	"HoS Office",
+	"Medbay",
+	"CMO Office",
+	"Chemistry",
+	"Research",
+	"RD Office",
+	"Robotics",
+	"HoP Office",
+	"Library",
+	"Chapel",
+	"Theatre",
+	"Bar",
+	"Kitchen",
+	"Hydroponics",
+	"Janitor Closet",
+	"Genetics",
+	"Testing Range",
+	"Toxins",
+	"Dormitories",
+	"Virology",
+	"Xenobiology",
+	"Law Office",
+	"Detective's Office",
+))
 
 GLOBAL_LIST_INIT(station_prefixes, world.file2list("strings/station_prefixes.txt") + "")
 
@@ -223,32 +324,44 @@ GLOBAL_LIST_INIT(numbers_as_words, world.file2list("strings/numbers_as_words.txt
 
 GLOBAL_LIST_INIT(station_numerals, greek_letters + phonetic_alphabet + numbers_as_words + generate_number_strings())
 
-GLOBAL_LIST_INIT(admiral_messages, list("Do you know how expensive these stations are?","Stop wasting my time.","I was sleeping, thanks a lot.","Stand and fight you cowards!","You knew the risks coming in.","Stop being paranoid.","Whatever's broken just build a new one.","No.", "<i>null</i>","<i>Error: No comment given.</i>", "It's a good day to die!"))
+GLOBAL_LIST_INIT(admiral_messages, list(
+	"<i>Error: No comment given.</i>",
+	"<i>null</i>",
+	"Do you know how expensive these stations are?",
+	"I was sleeping, thanks a lot.",
+	"It's a good day to die!",
+	"No.",
+	"Stand and fight you cowards!",
+	"Stop being paranoid.",
+	"Stop wasting my time.",
+	"Whatever's broken just build a new one.",
+	"You knew the risks coming in.",
+))
 
 GLOBAL_LIST_INIT(junkmail_messages, world.file2list("strings/junkmail.txt"))
 
 GLOBAL_LIST_INIT(pAI_faces_list, list(
-		"What" = "what",
-		"Sad" = "sad",
-		"Off" = "off",
-		"Laugh" = "laugh",
-		"Happy" = "happy",
-		"Face" = "face",
-		"Extremely Happy" = "extremely-happy",
-		"Cat" = "cat",
-		"Angry" = "angry",
-		"Sunglasses" = "sunglasses"
-	))
+	"Angry" = "angry",
+	"Cat" = "cat",
+	"Extremely Happy" = "extremely-happy",
+	"Face" = "face",
+	"Happy" = "happy",
+	"Laugh" = "laugh",
+	"Off" = "off",
+	"Sad" = "sad",
+	"Sunglasses" = "sunglasses",
+	"What" = "what",
+))
 
 GLOBAL_LIST_INIT(pAI_faces_icons, list(
-		"What" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-what"),
-		"Sad" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-sad"),
-		"Off" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-off"),
-		"Laugh" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-laugh"),
-		"Happy" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-happy"),
-		"Face" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-face"),
-		"Extremely Happy" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-happy"),
-		"Cat" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-cat"),
-		"Angry" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-angry"),
-		"Sunglasses" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-sunglasses")
-	))
+	"Angry" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-angry"),
+	"Cat" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-cat"),
+	"Extremely Happy" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-happy"),
+	"Face" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-face"),
+	"Happy" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-happy"),
+	"Laugh" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-laugh"),
+	"Off" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-off"),
+	"Sad" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-sad"),
+	"Sunglasses" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-sunglasses"),
+	"What" = image(icon = 'icons/obj/aicards.dmi', icon_state = "pai-what"),
+))

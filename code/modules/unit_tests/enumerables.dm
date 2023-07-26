@@ -27,7 +27,7 @@
 	TEST_ASSERT_EQUAL(length(basic_list), i, "List enumerator read the wrong number of elements after resetting")
 
 	//Create a selection enumerator
-	var/datum/enumerator/selected = basic_list_enumerator.select(CALLBACK(GLOBAL_PROC, /proc/debug_prepend))
+	var/datum/enumerator/selected = basic_list_enumerator.select(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(debug_prepend)))
 	var/list/test_list = list("_a", "_b", "_c", "_d", "_e")
 
 	//Test correct values read

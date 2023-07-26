@@ -1,4 +1,4 @@
-#define HEART_RESPAWN_THRESHHOLD 40
+#define HEART_RESPAWN_THRESHOLD 40
 #define HEART_SPECIAL_SHADOWIFY 2
 
 /datum/species/shadow
@@ -146,7 +146,7 @@
 		if(light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD)
 			respawn_progress++
 			playsound(owner,'sound/effects/singlebeat.ogg',40,1)
-	if(respawn_progress >= HEART_RESPAWN_THRESHHOLD)
+	if(respawn_progress >= HEART_RESPAWN_THRESHOLD)
 		owner.revive(full_heal = TRUE)
 		if(!(owner.dna.species.id == "shadow" || owner.dna.species.id == "nightmare"))
 			var/mob/living/carbon/old_owner = owner
@@ -171,7 +171,7 @@
 	armour_penetration = 35
 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
-	item_flags = ABSTRACT | DROPDEL
+	item_flags = ABSTRACT | DROPDEL | ISWEAPON
 	w_class = WEIGHT_CLASS_HUGE
 	sharpness = IS_SHARP
 
@@ -252,6 +252,13 @@
 	playsound(src, 'sound/items/welder.ogg', 50, 1)
 	..()
 
+/obj/item/clothing/head/helmet/space/plasmaman/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
+	if(!lamp_functional)
+		return
+	if(helmet_on)
+		smash_headlamp()
+	..()
+
 /turf/open/floor/light/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	. = ..()
 	if(!light_range || !light_power || !light_on)
@@ -270,4 +277,4 @@
 	..()
 
 #undef HEART_SPECIAL_SHADOWIFY
-#undef HEART_RESPAWN_THRESHHOLD
+#undef HEART_RESPAWN_THRESHOLD

@@ -17,14 +17,13 @@ Woods Sheets
 	item_state = "sheet-wood"
 	icon = 'icons/obj/stacks/organic.dmi'
 	sheettype = "wood"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0, STAMINA = 0)
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/wood
 	grind_results = list(/datum/reagent/carbon = 20)
 
-/obj/item/stack/sheet/wood/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.wood_recipes
-	return ..()
+/obj/item/stack/sheet/wood/get_recipes()
+	return GLOB.wood_recipes
 
 /* Bamboo */
 
@@ -38,19 +37,18 @@ Woods Sheets
 	sheettype = "bamboo"
 	force = 10
 	throwforce = 10
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0, "stamina" = 0)
+	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0, STAMINA = 0)
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/bamboo
 	grind_results = list("carbon" = 5)
 
-/obj/item/stack/sheet/bamboo/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.bamboo_recipes
-	return ..()
+/obj/item/stack/sheet/bamboo/get_recipes()
+	return GLOB.bamboo_recipes
 
 /obj/item/stack/sheet/bamboo/Topic(href, href_list)
 	. = ..()
 	if(href_list["make"])
-		var/list/recipes_list = recipes
+		var/list/recipes_list = get_recipes()
 		var/datum/stack_recipe/R = recipes_list[text2num(href_list["make"])]
 		if(R.result_type == /obj/structure/punji_sticks)
 			var/turf/T = get_turf(src)
@@ -69,6 +67,5 @@ Woods Sheets
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/paperframes
 
-/obj/item/stack/sheet/paperframes/Initialize(mapload)
-	recipes = GLOB.paperframe_recipes
-	. = ..()
+/obj/item/stack/sheet/paperframes/get_recipes()
+	return GLOB.paperframe_recipes

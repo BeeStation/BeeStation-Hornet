@@ -2,7 +2,7 @@
 	name = "Obsessed"
 	show_in_antagpanel = TRUE
 	antagpanel_category = "Other"
-	job_rank = ROLE_OBSESSED
+	banning_key = ROLE_OBSESSED
 	show_name_in_check_antagonists = TRUE
 	roundend_category = "obsessed"
 	count_against_dynamic_roll_chance = FALSE
@@ -55,11 +55,7 @@
 	kill.set_target(obsessionmind)
 	var/datum/quirk/family_heirloom/family_heirloom
 
-	for(var/datum/quirk/quirky in obsessionmind.current.roundstart_quirks)
-		if(istype(quirky, /datum/quirk/family_heirloom))
-			family_heirloom = quirky
-			break
-	if(family_heirloom)//oh, they have an heirloom? Well you know we have to steal that.
+	if(obsessionmind.has_quirk(family_heirloom))//oh, they have an heirloom? Well you know we have to steal that.
 		objectives_left += "heirloom"
 
 	if(obsessionmind.assigned_role && obsessionmind.assigned_role != JOB_NAME_CAPTAIN)

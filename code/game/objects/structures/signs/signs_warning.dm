@@ -47,6 +47,12 @@
 	icon_state = "fire"
 	resistance_flags = FIRE_PROOF
 
+/obj/structure/sign/warning/cold
+	name = "\improper DANGER: Extreme cold"
+	desc = "A warning sign which reads 'DANGER: Extreme cold'."
+	icon_state = "cold"
+	resistance_flags = FIRE_PROOF
+
 /obj/structure/sign/warning/nosmoking
 	name = "\improper NO SMOKING"
 	desc = "A warning sign which reads 'NO SMOKING'."
@@ -60,6 +66,11 @@
 	name = "\improper HAZARDOUS RADIATION"
 	desc = "A warning sign alerting the user of potential radiation hazards."
 	icon_state = "radiation"
+
+/obj/structure/sign/warning/radiation_shelter
+	name = "\improper RADIATION SHELTER ZONE"
+	desc = "A sign alerting the user that this area is sheltered from radiation."
+	icon_state = "radiation_shelter"
 
 /obj/structure/sign/warning/radiation/rad_area
 	name = "\improper RADIOACTIVE AREA"

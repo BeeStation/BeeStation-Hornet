@@ -55,7 +55,7 @@
 			to_chat(ourhive, "<span class='notice'>We don't have any tracking charges!</span>")
 			return
 		hivehost.searchcharge -= 1
-		if(!do_after(ourhive,5,0,ourhive))
+		if(!do_after(ourhive, 5, ourhive, timed_action_flags = IGNORE_HELD_ITEM))
 			to_chat(ourhive, "<span class='notice'>Our concentration has been broken!</span>")
 		else
 			for(var/datum/antagonist/hivemind/hivehosts in GLOB.hivehosts)
@@ -68,7 +68,7 @@
 						var/dir = get_dir(ourhive.loc,enemy.loc)
 						switch(dist)
 							if(0 to 7)
-								to_chat(ourhive,"<span class='assimilator'>Their presence is immediatly to the [dir2text(dir)]!</span>")
+								to_chat(ourhive,"<span class='assimilator'>Their presence is immediately to the [dir2text(dir)]!</span>")
 							if(8 to 15)
 								to_chat(ourhive,"<span class='notice'>We find their presence close, to the [dir2text(dir)]!</span>")
 							if(16 to 31)

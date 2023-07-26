@@ -41,6 +41,7 @@
 
 /obj/item/disk/nuclear/decommission/ComponentInitialize()
 	AddComponent(/datum/component/gps, "AUTH0", TRUE)
+	AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#f3d594", TRUE, TRUE)
 
 //==============
 //The bomb
@@ -57,6 +58,7 @@ GLOBAL_LIST_EMPTY(decomission_bombs)
 /obj/machinery/nuclearbomb/decomission/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/gps, "BOMB0", TRUE)
+	AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#df3737", TRUE, TRUE)
 
 /obj/machinery/nuclearbomb/decomission/Initialize(mapload)
 	. = ..()
@@ -122,6 +124,6 @@ GLOBAL_LIST_EMPTY(decomission_bombs)
 /obj/machinery/nuclearbomb/decomission/actually_explode()
 	SSticker.roundend_check_paused = FALSE
 	linked_objective.complete_objective()
-	INVOKE_ASYNC(GLOBAL_PROC,.proc/KillEveryoneOnZLevel, target_z)
+	INVOKE_ASYNC(GLOBAL_PROC,PROC_REF(KillEveryoneOnZLevel), target_z)
 	QDEL_NULL(linked_objective.linked_beacon)
 	qdel(src)

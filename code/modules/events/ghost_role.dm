@@ -28,7 +28,7 @@
 		var/waittime = 300 * (2**retry)
 		message_admins("The event will not spawn a [role_name] until certain \
 			conditions are met. Waiting [waittime/10]s and then retrying.")
-		addtimer(CALLBACK(src, .proc/try_spawning, 0, ++retry), waittime)
+		addtimer(CALLBACK(src, PROC_REF(try_spawning), 0, ++retry), waittime)
 		return
 
 	if(status == MAP_ERROR)
@@ -55,14 +55,14 @@
 	// players could be found, and just runtime if anything else happens
 	return TRUE
 
-/datum/round_event/ghost_role/proc/get_candidates(jobban, gametypecheck, be_special)
+/datum/round_event/ghost_role/proc/get_candidates(banning_key, role_preference, poll_ignore = null)
 	// Returns a list of candidates in priority order, with candidates from
 	// `priority_candidates` first, and ghost roles randomly shuffled and
 	// appended after
 	var/list/mob/dead/observer/regular_candidates
 	// don't get their hopes up
 	if(priority_candidates.len < minimum_required)
-		regular_candidates = pollGhostCandidates("Do you wish to be considered for the special role of '[role_name]'?", jobban, gametypecheck, be_special)
+		regular_candidates = pollGhostCandidates("Do you wish to be considered for the special role of '[role_name]'?", banning_key, role_preference, ignore_category = poll_ignore)
 	else
 		regular_candidates = list()
 

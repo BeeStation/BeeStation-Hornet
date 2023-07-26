@@ -99,7 +99,7 @@ GLOBAL_LIST_INIT(battle_royale_insane_loot, list(
 		/obj/item/his_grace,
 		/obj/mecha/combat/marauder/mauler/loaded,
 		/obj/item/guardiancreator/tech,
-		/obj/item/mjollnir,
+		/obj/item/mjolnir,
 		/obj/item/pneumatic_cannon/pie/selfcharge,
 		/obj/item/uplink/nuclear
 	))
@@ -246,6 +246,8 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		return
 	//Once every 15 seconsd
 	// 1,920 seconds (about 32 minutes per game)
+	if(!field_delay) //Division by 0 protection
+		field_delay = 1
 	if(process_num % (field_delay) == 0)
 		for(var/obj/effect/death_wall/wall as() in death_wall)
 			wall.decrease_size()
@@ -307,18 +309,18 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	to_chat(world, "<span class='boldannounce'>Battle Royale: Starting game.</span>")
 	titanfall()
 	death_wall = list()
-	var/z_level = SSmapping.station_start
-	var/turf/center = SSmapping.get_station_center()
-	var/list/edge_turfs = list()
-	edge_turfs += block(locate(12, 12, z_level), locate(244, 12, z_level))			//BOTTOM
-	edge_turfs += block(locate(12, 244, z_level), locate(244, 244, z_level))		//TOP
-	edge_turfs |= block(locate(12, 12, z_level), locate(12, 244, z_level))			//LEFT
-	edge_turfs |= block(locate(244, 12, z_level), locate(244, 244, z_level)) 	//RIGHT
-	for(var/turf/T in edge_turfs)
-		var/obj/effect/death_wall/DW = new(T)
-		DW.set_center(center)
-		death_wall += DW
-		CHECK_TICK
+	for(var/z_level in SSmapping.levels_by_trait(ZTRAIT_STATION))
+		var/turf/center = SSmapping.get_station_center(level = z_level)
+		var/list/edge_turfs = list()
+		edge_turfs += block(locate(12, 12, z_level), locate(244, 12, z_level))		//BOTTOM
+		edge_turfs += block(locate(12, 244, z_level), locate(244, 244, z_level))	//TOP
+		edge_turfs |= block(locate(12, 12, z_level), locate(12, 244, z_level))		//LEFT
+		edge_turfs |= block(locate(244, 12, z_level), locate(244, 244, z_level))	//RIGHT
+		for(var/turf/T in edge_turfs)
+			var/obj/effect/death_wall/DW = new(T)
+			DW.set_center(center)
+			death_wall += DW
+			CHECK_TICK
 	START_PROCESSING(SSprocessing, src)
 
 /datum/battle_royale_controller/proc/titanfall()
@@ -352,7 +354,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	to_chat(world, "<span class='boldannounce'>[players.len] people remain...</span>")
 
 	//Start processing our world events
-	addtimer(CALLBACK(src, .proc/end_grace), 300)
+	addtimer(CALLBACK(src, PROC_REF(end_grace)), 300)
 	generate_basic_loot(150)
 
 /datum/battle_royale_controller/proc/end_grace()
@@ -410,7 +412,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 /obj/effect/death_wall/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -419,7 +421,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	//lol u died
 	if(isliving(AM))
 		var/mob/living/M = AM
-		INVOKE_ASYNC(M, /mob/living/carbon.proc/gib)
+		INVOKE_ASYNC(M, TYPE_PROC_REF(/mob/living/carbon, gib))
 		to_chat(M, "<span class='warning'>You left the zone!</span>")
 
 /obj/effect/death_wall/Moved(atom/OldLoc, Dir)

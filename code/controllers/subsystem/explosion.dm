@@ -145,7 +145,7 @@ SUBSYSTEM_DEF(explosions)
 		else
 			continue
 
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/wipe_color_and_text, wipe_colours), 100)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(wipe_color_and_text), wipe_colours), 100)
 
 /proc/wipe_color_and_text(list/atom/wiping)
 	for(var/i in wiping)
@@ -203,6 +203,8 @@ SUBSYSTEM_DEF(explosions)
 	var/cap_multiplier = SSmapping.level_trait(epicenter.z, ZTRAIT_BOMBCAP_MULTIPLIER)
 	if(isnull(cap_multiplier))
 		cap_multiplier = 1
+	if(isnull(cap_modifier))
+		cap_modifier = 1
 	cap_multiplier *= cap_modifier
 
 	if(!ignorecap)
@@ -248,6 +250,7 @@ SUBSYSTEM_DEF(explosions)
 
 		if(prob(devastation_range*DEVASTATION_PROB+heavy_impact_range*HEAVY_IMPACT_PROB) && on_station) // Huge explosions are near guaranteed to make the station creak and whine, smaller ones might.
 			creaking_explosion = TRUE // prob over 100 always returns true
+			flicker_all_lights()
 
 		for(var/MN in GLOB.player_list)
 			var/mob/M = MN
@@ -285,9 +288,9 @@ SUBSYSTEM_DEF(explosions)
 						shake_camera(M, 10, clamp(baseshakeamount*0.25, 0, SHAKE_CLAMP))
 						echo_volume = 60
 					M.playsound_local(epicenter, null, echo_volume, 1, frequency, S = explosion_echo_sound, distance_multiplier = 0)
-
 				if(creaking_explosion) // 5 seconds after the bang, the station begins to creak
-					addtimer(CALLBACK(M, /mob/proc/playsound_local, epicenter, null, rand(FREQ_LOWER, FREQ_UPPER), 1, frequency, null, null, TRUE, hull_creaking_sound, 0), CREAK_DELAY)
+					addtimer(CALLBACK(M, TYPE_PROC_REF(/mob, playsound_local), epicenter, null, rand(FREQ_LOWER, FREQ_UPPER), 1, frequency, null, null, TRUE, hull_creaking_sound, 0), CREAK_DELAY)
+
 
 	if(heavy_impact_range > 1)
 		var/datum/effect_system/explosion/E
@@ -321,7 +324,7 @@ SUBSYSTEM_DEF(explosions)
 		var/dist = init_dist
 
 		//Phew, that was a close one.
-		if(holy && (locate(/obj/effect/blessing) in T))
+		if(holy && T.is_holy())
 			continue
 
 		if(reactionary)
@@ -407,7 +410,8 @@ SUBSYSTEM_DEF(explosions)
 	//Calculate above and below Zs
 	//Multi-z explosions only work on station levels.
 	if(explode_z)
-		var/max_z_range = max(devastation_range, heavy_impact_range, light_impact_range, flash_range, flame_range) / (MULTI_Z_DISTANCE + 1)
+		var/largest_range = max(devastation_range, heavy_impact_range, light_impact_range, flash_range, flame_range)
+		var/max_z_range = largest_range / (MULTI_Z_DISTANCE + 1)
 		var/list/z_list = get_zs_in_range(epicenter.z, max_z_range)
 		//Dont blow up our level again
 		z_list -= epicenter.z
@@ -416,7 +420,9 @@ SUBSYSTEM_DEF(explosions)
 			var/turf/T = locate(epicenter.x, epicenter.y, affecting_z)
 			if(!T)
 				continue
-			SSexplosions.explode(T,
+			if(largest_range - z_reduction <= 0) // explosion is size 0,0,0,0 - no need
+				continue
+			explode(T,
 				max(devastation_range - z_reduction, 0),
 				max(heavy_impact_range - z_reduction, 0),
 				max(light_impact_range - z_reduction, 0),

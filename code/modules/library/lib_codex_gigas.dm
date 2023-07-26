@@ -48,7 +48,7 @@
 			correctness = 100
 		correctness -= U.getOrganLoss(ORGAN_SLOT_BRAIN) * 0.5 //Brain damage makes researching hard.
 		speed += U.getOrganLoss(ORGAN_SLOT_BRAIN) * 3
-	if(do_after(user, speed, 0, user))
+	if(do_after(user, speed, user, timed_action_flags = IGNORE_HELD_ITEM))
 		var/usedName = devilName
 		if(!prob(correctness))
 			usedName += "x"
@@ -71,7 +71,7 @@
 		return FALSE
 	if(action == "search")
 		SStgui.close_uis(src)
-		addtimer(CALLBACK(src, .proc/perform_research, usr, currentName), 0)
+		addtimer(CALLBACK(src, PROC_REF(perform_research), usr, currentName), 0)
 		currentName = ""
 		currentSection = PRE_TITLE
 		ui_update()

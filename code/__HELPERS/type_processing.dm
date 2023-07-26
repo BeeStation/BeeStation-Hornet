@@ -47,7 +47,7 @@
 /proc/get_fancy_list_of_datum_types()
 	var/static/list/pre_generated_list
 	if (!pre_generated_list) //init
-		pre_generated_list = make_types_fancy(sortList(typesof(/datum) - typesof(/atom)))
+		pre_generated_list = make_types_fancy(sort_list(typesof(/datum) - typesof(/atom)))
 	return pre_generated_list
 
 
@@ -58,3 +58,10 @@
 		if(findtext("[key]", filter) || findtext("[value]", filter))
 			matches[key] = value
 	return matches
+
+//Finds types that are subtypes of a type, but only 1 level down.
+/proc/direct_subtypesof(path)
+	var/list/out = subtypesof(path)
+	for(var/type in out)
+		out -= subtypesof(type) //remove any subtypes of our current entry from the list
+	return out

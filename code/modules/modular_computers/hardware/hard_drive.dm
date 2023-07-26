@@ -38,6 +38,10 @@
 	. = ..()
 	. += "<span class='notice'>It has [max_capacity] GQ of storage capacity.</span>"
 
+/// Return true if nothing happens, return false to cancel attack action
+/obj/item/computer_hardware/hard_drive/proc/process_pre_attack(atom/target, mob/living/user, params)
+	return TRUE
+
 /obj/item/computer_hardware/hard_drive/diagnostics(var/mob/user)
 	..()
 	// 999 is a byond limit that is in place. It's unlikely someone will reach that many files anyway, since you would sooner run out of space.
@@ -177,6 +181,7 @@
 /obj/item/computer_hardware/hard_drive/small/pda/install_default_programs()
 	store_file(new /datum/computer_file/program/messenger(src))
 	store_file(new /datum/computer_file/program/notepad(src))
+	store_file(new/datum/computer_file/program/crew_manifest(src))
 	store_file(new/datum/computer_file/program/databank_uplink(src))	// Wiki Uplink, allows the user to access the Wiki from in-game!
 	..()
 

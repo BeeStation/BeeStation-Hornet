@@ -38,7 +38,10 @@ GLOBAL_LIST_INIT(huds, list(
 	ANTAG_HUD_NIGHTMARE = new/datum/atom_hud/antag/hidden(),
 	ANTAG_HUD_MORPH = new/datum/atom_hud/antag/hidden(),
 	ANTAG_HUD_SWARMER = new/datum/atom_hud/antag/hidden(),
-	ANTAG_HUD_PIRATE = new/datum/atom_hud/antag()
+	ANTAG_HUD_PIRATE = new/datum/atom_hud/antag(),
+	ANTAG_HUD_SPIDER = new/datum/atom_hud/antag/spider(),
+	ANTAG_HUD_VALENTINE = new/datum/atom_hud/antag/hidden(),
+	ANTAG_HUD_HEARTBREAKER = new/datum/atom_hud/antag/hidden(),
 	))
 
 /datum/atom_hud
@@ -109,10 +112,10 @@ GLOBAL_LIST_INIT(huds, list(
 		return
 	if(!hudusers[M])
 		hudusers[M] = 1
-		RegisterSignal(M, COMSIG_PARENT_QDELETING, .proc/unregister_mob)
+		RegisterSignal(M, COMSIG_PARENT_QDELETING, PROC_REF(unregister_mob))
 		if(next_time_allowed[M] > world.time)
 			if(!queued_to_see[M])
-				addtimer(CALLBACK(src, .proc/show_hud_images_after_cooldown, M), next_time_allowed[M] - world.time)
+				addtimer(CALLBACK(src, PROC_REF(show_hud_images_after_cooldown), M), next_time_allowed[M] - world.time)
 				queued_to_see[M] = TRUE
 		else
 			next_time_allowed[M] = world.time + ADD_HUD_TO_COOLDOWN

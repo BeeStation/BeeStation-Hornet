@@ -46,9 +46,9 @@
 		if(bomb_cooldown <= world.time && !stat)
 			to_chat(src, "<span class='danger'><B>Success! Bomb armed!</B></span>")
 			bomb_cooldown = world.time + 200
-			RegisterSignal(A, COMSIG_PARENT_EXAMINE, .proc/display_examine)
-			RegisterSignal(A, boom_signals, .proc/kaboom)
-			addtimer(CALLBACK(src, .proc/disable, A), 600, TIMER_UNIQUE|TIMER_OVERRIDE)
+			RegisterSignal(A, COMSIG_PARENT_EXAMINE, PROC_REF(display_examine))
+			RegisterSignal(A, boom_signals, PROC_REF(kaboom))
+			addtimer(CALLBACK(src, PROC_REF(disable), A), 600, TIMER_UNIQUE|TIMER_OVERRIDE)
 		else
 			to_chat(src, "<span class='danger'><B>Your powers are on cooldown! You must wait 20 seconds between bombs.</B></span>")
 

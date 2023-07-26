@@ -51,7 +51,7 @@
 			animate(door_obj, transform = M, time = world.tick_lag, flags = ANIMATION_END_NOW)
 		else
 			animate(transform = M, time = world.tick_lag)
-	addtimer(CALLBACK(src,.proc/end_door_animation),door_anim_time,TIMER_UNIQUE|TIMER_OVERRIDE)
+	addtimer(CALLBACK(src,PROC_REF(end_door_animation)),door_anim_time,TIMER_UNIQUE|TIMER_OVERRIDE)
 
 /obj/structure/closet/crate/critter/end_door_animation()
 	is_animating_door = FALSE

@@ -10,9 +10,10 @@ SUBSYSTEM_DEF(traumas)
 
 /datum/controller/subsystem/traumas/Initialize()
 	//phobia types is to pull from randomly for brain traumas, e.g. conspiracies is for special assignment only
-	phobia_types = sortList(list("spiders", "space", "security", "clowns", "greytide", "lizards",
-						"skeletons", "snakes", "robots", "doctors", "authority", "the supernatural",
-						"aliens", "strangers", "birds", "falling", "anime"))
+	//5 is the default weight, lower it for more punishing phobias
+	phobia_types = sort_list(list("spiders" = 5, "space" = 2, "security" = 5, "clowns" = 5, "greytide" = 5, "lizards" = 5,
+						"skeletons" = 5, "snakes" = 5, "robots" = 4, "doctors" = 4, "authority" = 5, "the supernatural" = 5,
+						"aliens" = 5, "strangers" = 5, "birds" = 5, "falling" = 5, "anime" = 5))
 
 	phobia_words = list("spiders"   = strings(PHOBIA_FILE, "spiders"),
 						"space"     = strings(PHOBIA_FILE, "space"),
@@ -154,7 +155,7 @@ SUBSYSTEM_DEF(traumas)
 						  "conspiracies" = typecacheof(list(/datum/species/abductor, /datum/species/lizard)),
 						  "robots" = typecacheof(list(/datum/species/android)),
 						  "the supernatural" = typecacheof(list(/datum/species/golem/clockwork, /datum/species/golem/runic)),
-						  "aliens" = typecacheof(list(/datum/species/abductor, /datum/species/jelly, /datum/species/pod,
+						  "aliens" = typecacheof(list(/datum/species/abductor, /datum/species/pod,
 						  /datum/species/shadow)),
 						  "anime" = typecacheof(list(/datum/species/human/felinid))
 						 )

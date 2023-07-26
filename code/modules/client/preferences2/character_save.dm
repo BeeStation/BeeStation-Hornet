@@ -57,7 +57,11 @@
 						"ipc_screen" = "Blue",
 						"ipc_antenna" = "None",
 						"ipc_chassis" = "Morpheus Cyberkinetics(Greyscale)",
-						"insect_type" = "Common Fly"
+						"insect_type" = "Common Fly",
+						"apid_antenna" = "Curled",
+						"apid_stripes" = "Thick",
+						"apid_headstripes" = "Thick",
+						"body_model" = MALE
 					)
 	var/list/custom_names = list()
 	var/preferred_ai_core_display = "Blue"
@@ -67,6 +71,7 @@
 	var/list/equipped_gear = list()
 	var/joblessrole = BERANDOMJOB  //defaults to 1 for fewer assistants
 	var/uplink_spawn_loc = UPLINK_PDA
+	var/list/role_preferences_character = list()
 
 
 /datum/character_save/New()
@@ -157,6 +162,11 @@
 	SAFE_READ_QUERY(31, loadout_tmp)
 	equipped_gear = json_decode(loadout_tmp)
 
+	// Role prefs
+	var/role_preferences_character_tmp
+	SAFE_READ_QUERY(32, role_preferences_character_tmp)
+	role_preferences_character = json_decode(role_preferences_character_tmp)
+
 	//Sanitize. Please dont put query reads below this point. Please.
 
 	real_name = reject_bad_name(real_name, pref_species.allow_numbers_in_name)
@@ -182,16 +192,11 @@
 	be_random_name	= sanitize_integer(be_random_name, 0, 1, initial(be_random_name))
 	be_random_body	= sanitize_integer(be_random_body, 0, 1, initial(be_random_body))
 
-	if(gender == MALE)
-		hair_style = sanitize_inlist(hair_style, GLOB.hair_styles_male_list)
-		facial_hair_style = sanitize_inlist(facial_hair_style, GLOB.facial_hair_styles_male_list)
-		underwear = sanitize_inlist(underwear, GLOB.underwear_m)
-		undershirt = sanitize_inlist(undershirt, GLOB.undershirt_m)
-	else
-		hair_style = sanitize_inlist(hair_style, GLOB.hair_styles_female_list)
-		facial_hair_style = sanitize_inlist(facial_hair_style, GLOB.facial_hair_styles_female_list)
-		underwear = sanitize_inlist(underwear, GLOB.underwear_f)
-		undershirt = sanitize_inlist(undershirt, GLOB.undershirt_f)
+	hair_style = sanitize_inlist(hair_style, GLOB.hair_styles_list)
+	facial_hair_style = sanitize_inlist(facial_hair_style, GLOB.facial_hair_styles_list)
+	underwear = sanitize_inlist(underwear, GLOB.underwear_list)
+	undershirt = sanitize_inlist(undershirt, GLOB.undershirt_list)
+	features["body_model"] = sanitize_gender(features["body_model"], FALSE, FALSE, gender == FEMALE ? FEMALE : MALE)
 	socks = sanitize_inlist(socks, GLOB.socks_list)
 	age = sanitize_integer(age, AGE_MIN, AGE_MAX, initial(age))
 	hair_color = sanitize_hexcolor(hair_color, 3, 0)
@@ -223,6 +228,10 @@
 	features["ipc_antenna"]	= sanitize_inlist(features["ipc_antenna"], GLOB.ipc_antennas_list)
 	features["ipc_chassis"]	= sanitize_inlist(features["ipc_chassis"], GLOB.ipc_chassis_list)
 	features["insect_type"]	= sanitize_inlist(features["insect_type"], GLOB.insect_type_list)
+	features["apid_antenna"] = sanitize_inlist(features["apid_antenna"], GLOB.apid_antenna_list)
+	features["apid_stripes"] = sanitize_inlist(features["apid_stripes"], GLOB.apid_stripes_list)
+	features["apid_headstripes"] = sanitize_inlist(features["apid_headstripes"], GLOB.apid_headstripes_list)
+
 
 	//Validate species forced mutant parts
 	for(var/forced_part in pref_species.forced_features)
@@ -238,6 +247,14 @@
 			job_preferences -= j
 
 	all_quirks = SANITIZE_LIST(all_quirks)
+	role_preferences_character = SANITIZE_LIST(role_preferences_character)
+	// Remove any invalid entries
+	for(var/preference in role_preferences_character)
+		var/path = text2path(preference)
+		var/datum/role_preference/entry = GLOB.role_preference_entries[path]
+		if(istype(entry) && entry.per_character)
+			continue
+		role_preferences_character -= preference
 
 	return TRUE
 
@@ -262,6 +279,8 @@
 		var/datum/species/spath = GLOB.species_list[pick(GLOB.roundstart_races)]
 		pref_species = new spath
 	features = random_features()
+	if(gender)
+		features["body_model"] = pick(MALE,FEMALE)
 	age = rand(AGE_MIN,AGE_MAX)
 
 /datum/character_save/proc/update_preview_icon(client/parent)
@@ -337,7 +356,8 @@
 			joblessrole,
 			job_preferences,
 			all_quirks,
-			equipped_gear
+			equipped_gear,
+			role_preferences
 		) VALUES (
 			:slot,
 			:ckey,
@@ -370,7 +390,8 @@
 			:joblessrole,
 			:job_preferences,
 			:all_quirks,
-			:equipped_gear
+			:equipped_gear,
+			:role_preferences
 		)
 	"}, list(
 		// Now for the above but in a fucking monsterous list
@@ -405,7 +426,8 @@
 		"joblessrole" = joblessrole,
 		"job_preferences" = json_encode(job_preferences),
 		"all_quirks" = json_encode(all_quirks),
-		"equipped_gear" = json_encode(equipped_gear)
+		"equipped_gear" = json_encode(equipped_gear),
+		"role_preferences" = json_encode(role_preferences_character)
 	))
 
 	if(!insert_query.warn_execute())
@@ -469,8 +491,9 @@
 		pref_species = new /datum/species/human
 		save(usr.client, async = FALSE) // This entire proc is called a lot at roundstart, and we dont want to lag that
 
-	character.set_species(chosen_species, icon_update = FALSE, pref_load = TRUE)
+
 	character.dna.features = features.Copy()
+	character.set_species(chosen_species, icon_update = FALSE, pref_load = TRUE)
 
 	//Because of how set_species replaces all bodyparts with new ones, hair needs to be set AFTER species.
 	character.dna.real_name = character.real_name
@@ -487,5 +510,3 @@
 		character.update_body()
 		character.update_hair()
 		character.update_body_parts(TRUE)
-
-	character.dna.update_body_size()

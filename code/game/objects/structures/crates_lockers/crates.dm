@@ -37,7 +37,7 @@
 	if(!door_anim_time == 0 && !animation_math["[door_anim_time]-[door_anim_angle]-[azimuth_angle_2]-[radius_2]-[door_hinge]"])
 		animation_list()
 
-/obj/structure/closet/crate/CanAllowThrough(atom/movable/mover, turf/target)
+/obj/structure/closet/crate/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(!istype(mover, /obj/structure/closet))
 		var/obj/structure/closet/crate/locatedcrate = locate(/obj/structure/closet/crate) in get_turf(mover)
@@ -86,7 +86,7 @@
 			animate(door_obj, transform = M, icon_state = door_state, layer = door_layer, time = world.tick_lag, flags = ANIMATION_END_NOW)
 		else
 			animate(transform = M, icon_state = door_state, layer = door_layer, time = world.tick_lag)
-	addtimer(CALLBACK(src,.proc/end_door_animation),door_anim_time,TIMER_UNIQUE|TIMER_OVERRIDE)
+	addtimer(CALLBACK(src,PROC_REF(end_door_animation)),door_anim_time,TIMER_UNIQUE|TIMER_OVERRIDE)
 
 /obj/structure/closet/crate/end_door_animation()
 	is_animating_door = FALSE
@@ -297,3 +297,49 @@
 	..()
 	for(var/i in 1 to 5)
 		new /obj/item/coin/silver(src)
+
+/obj/structure/closet/crate/capsule
+	name = "bluespace capsule"
+	desc = "A capsule that can shrink in size for easy transportation of most goods."
+	icon = 'icons/obj/crates.dmi'
+	icon_state = "capsule"
+	open_sound = 'sound/machines/capsule_open.ogg'
+	close_sound = 'sound/machines/capsule_close.ogg'
+	icon_door = null
+	climbable = FALSE
+	mob_storage_capacity = 0
+	///Becomes TRUE when the crate is being closed to ensure the compression sequence completes as expected.
+	var/closing = FALSE
+
+/obj/structure/closet/crate/capsule/update_icon()
+	cut_overlays()
+	icon_state = "capsule[opened ? "_open" : "_close"]"
+
+/obj/structure/closet/crate/capsule/animate_door(closing)
+	return FALSE
+
+/obj/structure/closet/crate/capsule/insertion_allowed(atom/movable/AM)
+	if(isitem(AM))
+		var/obj/item/I = AM
+		if(I.w_class >= WEIGHT_CLASS_BULKY) //capsule pod can't hold bulky or larger objects
+			return FALSE
+	if(ismob(AM)) //capsule pod can't hold mobs
+		return FALSE
+	return ..()
+
+/obj/structure/closet/crate/capsule/close(mob/living/user)
+	if(!closing)
+		closing = TRUE
+		addtimer(CALLBACK(src, PROC_REF(compress)), 2 SECONDS)
+		return ..()
+
+/obj/structure/closet/crate/capsule/open(mob/living/user)
+	if(!closing)
+		return ..()
+
+/obj/structure/closet/crate/capsule/proc/compress()
+	visible_message("<span class='notice'>[src] compresses back into a small capsule!.</span>")
+	var/obj/item/deployable/capsule/C = new(loc)
+	for(var/atom/movable/A in contents)
+		A.forceMove(C)
+	qdel(src)

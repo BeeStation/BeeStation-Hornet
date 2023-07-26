@@ -25,46 +25,50 @@
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	bullet_bounce_sound = null
 
+	z_eventually_space = TRUE
 	vis_flags = VIS_INHERIT_ID	//when this be added to vis_contents of something it be associated with something on clicking, important for visualisation of turf in openspace and interraction with openspace that show you turf.
 
 /turf/open/space/basic/New()	//Do not convert to Initialize
 	//This is used to optimize the map loader
 	return
 
+/**
+ * Space Initialize
+ *
+ * Doesn't call parent, see [/atom/proc/Initialize]
+ * Doesn't call parent, see [/atom/proc/Initialize].
+ * When adding new stuff to /atom/Initialize, /turf/Initialize, etc
+ * don't just add it here unless space actually needs it.
+ *
+ * There is a lot of work that is intentionally not done because it is not currently used.
+ * This includes stuff like smoothing, blocking camera visibility, etc.
+ * If you are facing some odd bug with specifically space, check if it's something that was
+ * intentionally ommitted from this implementation.
+ */
 /turf/open/space/Initialize(mapload)
 	icon_state = SPACE_ICON_STATE
 	if(!space_gas)
 		space_gas = new
 	air = space_gas
 	update_air_ref(0)
-	vis_contents.Cut() //removes inherited overlays
-	visibilityChanged()
 
 	if(flags_1 & INITIALIZED_1)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
-	if(length(smoothing_groups))
-		sortTim(smoothing_groups) //In case it's not properly ordered, let's avoid duplicate entries with the same values.
-		SET_BITFLAG_LIST(smoothing_groups)
-	if(length(canSmoothWith))
-		sortTim(canSmoothWith)
-		if(canSmoothWith[length(canSmoothWith)] > MAX_S_TURF) //If the last element is higher than the maximum turf-only value, then it must scan turf contents for smoothing targets.
-			smoothing_flags |= SMOOTH_OBJ
-		SET_BITFLAG_LIST(canSmoothWith)
 
 	var/area/A = loc
 	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
-		add_overlay(/obj/effect/fullbright)
-
-	if (light_system == STATIC_LIGHT && light_power && light_range)
-		update_light()
-
-	if (opacity)
-		has_opaque_atom = TRUE
-
-	ComponentInitialize()
+		overlays += GLOB.fullbright_overlay
 
 	return INITIALIZE_HINT_NORMAL
+
+/turf/open/space/Destroy()
+	// Cleanup cached z_eventually_space values above us.
+	if (above)
+		var/turf/T = src
+		while ((T = get_step_multiz(T, UP)))
+			T.z_eventually_space = FALSE
+	return ..()
 
 //ATTACK GHOST IGNORING PARENT RETURN VALUE
 /turf/open/space/attack_ghost(mob/dead/observer/user)
@@ -251,9 +255,9 @@
 	destination_y = dest_y
 	destination_z = dest_z
 
-//If someone is floating above space in 0 gravity, don't fall.
-/turf/open/space/zPassIn(atom/movable/A, direction, turf/source)
-	return A.has_gravity(src)
+//Don't fall if in zero gravity, but we should allow non-fall movement
+/turf/open/space/zPassIn(atom/movable/A, direction, turf/source, falling = FALSE)
+	return !falling || A.has_gravity(src)
 
 /turf/open/space/check_gravity()
 	return FALSE

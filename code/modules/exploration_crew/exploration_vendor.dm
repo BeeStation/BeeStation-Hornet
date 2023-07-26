@@ -1,5 +1,3 @@
-GLOBAL_VAR_INIT(exploration_points, 0)
-
 /obj/machinery/vendor/exploration
 	name = "exploration equipment vendor"
 	desc = "An equipment vendor for exploration teams. Points are acquired by completing missions and shared between team members."
@@ -7,6 +5,9 @@ GLOBAL_VAR_INIT(exploration_points, 0)
 	icon_state = "mining"
 	density = TRUE
 	circuit = /obj/item/circuitboard/machine/exploration_equipment_vendor
+
+	bound_bank_account = ACCOUNT_SCI_ID
+	currency_type = ACCOUNT_CURRENCY_EXPLO
 
 	icon_deny = "mining-deny"
 	prize_list = list(
@@ -32,10 +33,19 @@ GLOBAL_VAR_INIT(exploration_points, 0)
 		new /datum/data/vendor_equipment("Toy Alien",					/obj/item/clothing/mask/facehugger/toy,								3000),
 	)
 
-/obj/machinery/vendor/exploration/subtract_points(obj/item/card/id/I, amount)
-	GLOB.exploration_points -= amount
+/obj/machinery/vendor/exploration/vv_get_dropdown()
+	. = ..()
+	VV_DROPDOWN_OPTION("", "---------")
+	VV_DROPDOWN_OPTION(VV_ID_GIVE_EXPLO_POINT, "Give Explo Points")
 
-/obj/machinery/vendor/exploration/get_points(obj/item/card/id/I)
-	if(!(ACCESS_EXPLORATION in I.access))
-		return 0
-	return GLOB.exploration_points
+/obj/machinery/vendor/exploration/vv_do_topic(list/href_list)
+	. = ..()
+
+	if(href_list[VV_ID_GIVE_EXPLO_POINT])
+		if(bound_bank_account != SSeconomy.get_budget_account(ACCOUNT_SCI_ID, force=TRUE))
+			bound_bank_account = SSeconomy.get_budget_account(ACCOUNT_SCI_ID, force=TRUE) // failsafe - why are you playing var edits
+		var/target_value = input(usr, "How many exploration points would you like to add? (use negative to take)", "Give exploration points") as num
+		if(!bound_bank_account.adjust_currency(ACCOUNT_CURRENCY_EXPLO, target_value))
+			to_chat(usr, "Failed: Your input was [target_value], but [bound_bank_account.account_holder] has only [bound_bank_account.report_currency(ACCOUNT_CURRENCY_EXPLO)].")
+		else
+			to_chat(usr, "Success: [target_value] points have been added. [bound_bank_account.account_holder] now holds [bound_bank_account.report_currency(ACCOUNT_CURRENCY_EXPLO)].")

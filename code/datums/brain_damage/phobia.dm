@@ -30,7 +30,7 @@
 		phobia_type = new_phobia_type
 
 	if(!phobia_type)
-		phobia_type = pick(SStraumas.phobia_types)
+		phobia_type = pick_weight(SStraumas.phobia_types)
 
 	gain_text = "<span class='warning'>You start finding [phobia_type] very unnerving...</span>"
 	lose_text = "<span class='notice'>You no longer feel afraid of [phobia_type].</span>"
@@ -44,7 +44,7 @@
 
 
 /datum/brain_trauma/mild/phobia/on_clone()
-	if(clonable)
+	if(CHECK_BITFIELD(trauma_flags, TRAUMA_CLONEABLE))
 		return new type(phobia_type)
 
 /datum/brain_trauma/mild/phobia/on_gain()
@@ -111,7 +111,7 @@
 				to_chat(owner, "<span class ='notice'>you manage to calm down a little.</span>")
 			if(fear_state == PHOBIA_STATE_CALM)
 				fear_state = PHOBIA_STATE_EDGY
-				if(prob(stress * 10))
+				if(prob(stress * 5))
 					fearscore = 9
 		if(9 to 16)
 			if(fear_state >= PHOBIA_STATE_FIGHTORFLIGHT)
@@ -122,7 +122,7 @@
 				fear_state = PHOBIA_STATE_UNEASY
 				owner.add_movespeed_modifier(MOVESPEED_ID_PHOBIA, TRUE, 100, override=TRUE, multiplicative_slowdown = 1)
 				owner.Jitter(5)
-				if(prob(stress * 10))
+				if(prob(stress * 5))
 					fearscore = 17
 		if(17 to 28)
 			if(fear_state >= PHOBIA_STATE_TERROR) //we don't get an adrenaline rush when calming down
@@ -134,8 +134,8 @@
 				to_chat(owner, "<span class ='userdanger'>YOU HAVE TO GET OUT OF HERE! IT'S DANGEROUS!</span>")
 				owner.add_movespeed_modifier(MOVESPEED_ID_PHOBIA, TRUE, 100, override=TRUE, multiplicative_slowdown = -0.4)//while terrified, get a speed boost
 				owner.emote("scream")
-				if(prob(stress * 10))
-					fearscore = 27 //we don't get the adrenaline rush, and keel over like a baby immediately
+				if(prob(stress * 5))
+					fearscore = 29 //we don't get the adrenaline rush, and keel over like a baby immediately
 				owner.adjustStaminaLoss(-75)
 				owner.SetStun(0)
 				owner.SetKnockdown(0)
@@ -156,14 +156,15 @@
 				owner.Paralyze(80)
 				owner.Jitter(8)
 				stress++
-				if(prob(stress * 10))
+				if(prob(stress * 5))
 					fearscore = 36 //we immediately keel over and faint
 		if(36 to INFINITY)
 			if(fear_state <= PHOBIA_STATE_TERROR)
 				fear_state = PHOBIA_STATE_FAINT
 				owner.remove_movespeed_modifier(MOVESPEED_ID_PHOBIA, TRUE) //in the case that we get so scared by enough bullshit nearby we skip the last stage
+				fearscore = 9
+				owner.visible_message("<span class ='danger'>[owner] faints in fear!</span>", "<span class ='userdanger'>It's too much! You faint!</span>")
 				owner.Sleeping(300)
-				owner.visible_message("<span class ='danger'>[owner] faints in fear!</span>", "<span class ='userdanger'>It's too much! you faint!</span>")
 				if(prob(stress * 3))
 					owner.set_heartattack(TRUE)
 					to_chat(owner, "<span class='userdanger'>Your heart stops!</span>")
@@ -244,7 +245,11 @@
 			owner.Jitter(3)
 		if(PHOBIA_STATE_FAINT)
 			if(!owner.stat)
-				owner.Sleeping(300)
+				if(fearscore>=36)  //Checks for fearscore so you wont be instantly fainting right after waking up from a faint and seeing the reason again
+					owner.Sleeping(300)
+					fear_state = PHOBIA_STATE_FIGHTORFLIGHT
+					fearscore = 9
+
 
 /datum/brain_trauma/mild/phobia/on_lose()
 	owner.remove_movespeed_modifier(MOVESPEED_ID_PHOBIA, TRUE)
@@ -254,75 +259,75 @@
 
 /datum/brain_trauma/mild/phobia/spiders
 	phobia_type = "spiders"
-	random_gain = FALSE
+	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
 
 /datum/brain_trauma/mild/phobia/space
 	phobia_type = "space"
-	random_gain = FALSE
+	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
 
 /datum/brain_trauma/mild/phobia/security
 	phobia_type = "security"
-	random_gain = FALSE
+	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
 
 /datum/brain_trauma/mild/phobia/clowns
 	phobia_type = "clowns"
-	random_gain = FALSE
+	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
 
 /datum/brain_trauma/mild/phobia/greytide
 	phobia_type = "greytide"
-	random_gain = FALSE
+	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
 
 /datum/brain_trauma/mild/phobia/lizards
 	phobia_type = "lizards"
-	random_gain = FALSE
+	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
 
 /datum/brain_trauma/mild/phobia/skeletons
 	phobia_type = "skeletons"
-	random_gain = FALSE
+	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
 
 /datum/brain_trauma/mild/phobia/snakes
 	phobia_type = "snakes"
-	random_gain = FALSE
+	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
 
 /datum/brain_trauma/mild/phobia/robots
 	phobia_type = "robots"
-	random_gain = FALSE
+	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
 
 /datum/brain_trauma/mild/phobia/doctors
 	phobia_type = "doctors"
-	random_gain = FALSE
+	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
 
 /datum/brain_trauma/mild/phobia/authority
 	phobia_type = "authority"
-	random_gain = FALSE
+	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
 
 /datum/brain_trauma/mild/phobia/supernatural
 	phobia_type = "the supernatural"
-	random_gain = FALSE
+	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
 
 /datum/brain_trauma/mild/phobia/aliens
 	phobia_type = "aliens"
-	random_gain = FALSE
+	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
 
 /datum/brain_trauma/mild/phobia/strangers
 	phobia_type = "strangers"
-	random_gain = FALSE
+	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
 
 /datum/brain_trauma/mild/phobia/birds
 	phobia_type = "birds"
-	random_gain = FALSE
+	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
 
 /datum/brain_trauma/mild/phobia/falling
 	phobia_type = "falling"
-	random_gain = FALSE
+	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
 
 /datum/brain_trauma/mild/phobia/anime
 	phobia_type = "anime"
-	random_gain = FALSE
+	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
 
 /datum/brain_trauma/mild/phobia/conspiracies
 	phobia_type = "conspiracies"
-	random_gain = FALSE
+	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM
 
 #undef PHOBIA_STATE_CALM
 #undef PHOBIA_STATE_EDGY

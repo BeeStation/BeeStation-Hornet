@@ -2,7 +2,7 @@
 //Allows the ninja to kidnap people
 /obj/item/clothing/suit/space/space_ninja/proc/ninjanet()
 	var/mob/living/carbon/human/H = affecting
-	var/mob/living/carbon/C = input("Select who to capture:","Capture who?",null) as null|mob in sortNames(oview(H))
+	var/mob/living/carbon/C = input("Select who to capture:","Capture who?",null) as null|mob in sort_names(oview(H))
 
 	if(QDELETED(C)||!(C in oview(H)))
 		return 0
@@ -18,7 +18,7 @@
 			to_chat(H, "<span class='warning'>You may not use an energy net through solid obstacles!</span>")
 			return
 	if(!ninjacost(200,N_STEALTH_CANCEL))
-		H.Beam(C,"n_beam",time=15)
+		H.Beam(C,"n_beam", time = 15)
 		H.say("Get over here!", forced = "ninja net")
 		var/obj/structure/energy_net/E = new /obj/structure/energy_net(C.drop_location())
 		E.affecting = C

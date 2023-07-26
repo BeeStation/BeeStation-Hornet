@@ -8,14 +8,15 @@
 #define PLANE_SPACE -95
 #define PLANE_SPACE_PARALLAX -90
 
-
-#define GRAVITY_PULSE_PLANE -11
+#define GRAVITY_PULSE_PLANE -89
 #define GRAVITY_PULSE_RENDER_TARGET "*GRAVPULSE_RENDER_TARGET"
 
-#define OPENSPACE_LAYER 600 //Openspace layer over all
-#define OPENSPACE_PLANE -9 //Openspace plane below all turfs
-#define OPENSPACE_BACKDROP_PLANE -8 //Black square just over openspace plane to guaranteed cover all in openspace turf
-
+//#define ZMIMIC_MIN_PLANE -80
+// ZMIMIC: -----------  -80 to -70
+// Highest plane used by zmimic, occupies up to -ZMIMIC_MAX_DEPTH
+#define ZMIMIC_MAX_PLANE -70
+/// The maxiumum number of planes deep we'll go before we just dump everything on the same plane.
+#define ZMIMIC_MAX_DEPTH 10
 
 #define FLOOR_PLANE -7
 #define GAME_PLANE -4
@@ -54,7 +55,7 @@
 #define BLASTDOOR_LAYER 2.65
 #define OPEN_DOOR_LAYER 2.7
 #define DOOR_HELPER_LAYER 2.71 //keep this above OPEN_DOOR_LAYER
-#define PROJECTILE_HIT_THRESHHOLD_LAYER 2.75 //projectiles won't hit objects at or below this layer if possible
+#define PROJECTILE_HIT_THRESHOLD_LAYER 2.75 //projectiles won't hit objects at or below this layer if possible
 #define TABLE_LAYER 2.8
 #define BELOW_OBJ_LAYER 2.9
 #define LOW_ITEM_LAYER 2.95
@@ -87,7 +88,11 @@
 #define SPACEVINE_MOB_LAYER 4.9
 //#define FLY_LAYER 5 //For easy recordkeeping; this is a byond define
 #define GASFIRE_LAYER 5.05
+#define MIMICKED_LIGHTING_LAYER 5.06
 #define RIPPLE_LAYER 5.1
+
+#define TEXT_EFFECT_UI_LAYER 5.90 // text effects shouldn't be displayed behind.
+	// maybe it should be custom layer category like 'UI_LAYER 6'
 
 #define BLACKNESS_PLANE 0 //To keep from conflicts with SEE_BLACKNESS internals
 
@@ -162,7 +167,7 @@
 #define RADIAL_LAYER 1000
 
 #define RADIAL_BACKGROUND_LAYER 0
-#define RADIAL_CONTENT_LAYER 1
+#define RADIAL_CONTENT_LAYER 1000
 
 ///Plane of the "splash" icon used that shows on the lobby screen. Nothing should ever be above this.
 #define SPLASHSCREEN_PLANE 9999

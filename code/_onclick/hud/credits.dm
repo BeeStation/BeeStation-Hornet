@@ -70,7 +70,7 @@ GLOBAL_LIST(end_titles)
 	animate(src, transform = M, time = CREDIT_ROLL_SPEED)
 	target = M
 	animate(src, alpha = 255, time = CREDIT_EASE_DURATION, flags = ANIMATION_PARALLEL)
-	INVOKE_ASYNC(src, .proc/add_to_clients)
+	INVOKE_ASYNC(src, PROC_REF(add_to_clients))
 	QDEL_IN(src, CREDIT_ROLL_SPEED)
 
 /atom/movable/screen/credit/proc/add_to_clients()
