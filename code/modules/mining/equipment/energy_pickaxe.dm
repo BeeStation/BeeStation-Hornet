@@ -53,6 +53,9 @@
 		user.changeNext_move(CLICK_CD_MELEE)
 		SSblackbox.record_feedback("tally", "pick_used_mining", 1, type)
 		start_cooldown()
+		if (charge < consumed_power)
+			user.balloon_alert(user, "Power depleted.", "#e3a172")
+			playsound(src, 'sound/effects/stealthoff.ogg', 100)
 		return TRUE
 	return FALSE
 

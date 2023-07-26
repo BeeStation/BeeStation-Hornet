@@ -85,7 +85,7 @@
 	var/datum/space_level/assigned_space_level = SSzclear.get_free_z_level()
 	linked_z_level = list(assigned_space_level)
 	SSorbits.assoc_z_levels["[assigned_space_level.z_value]"] = src
-	var/list/sizes = generate_asteroids(world.maxx / 2, world.maxy / 2, assigned_space_level.z_value, 10, rand(-0.4, -0.6), rand(20, 40), list(/turf/closed/mineral = 0, /turf/closed/mineral/dense = rare_material_point), minerals)
+	var/list/sizes = generate_asteroids(world.maxx / 2, world.maxy / 2, assigned_space_level.z_value, 3, 7, rand(-0.4, -0.6), rand(20, 40), list(/turf/closed/mineral = 0, /turf/closed/mineral/dense = rare_material_point), minerals)
 	contained_zones += new /datum/orbital_zone(name, sizes[1], sizes[3], sizes[4], sizes[2], assigned_space_level.z_value)
 
 /datum/orbital_object/z_linked/beacon/ruin/asteroid/post_map_setup()
@@ -99,10 +99,12 @@
 	data["Mineral Scan"] = list()
 	var/index = 0
 	for (var/turf/closed/mineral/mineral_path as() in minerals)
+		var/atom/mineral_type = mineral_path
 		index ++
-		if (mineral_path == /turf/closed/mineral)
+		if (mineral_path == /turf/closed/mineral || !mineral_path)
 			continue
-		var/atom/mineral_type = initial(mineral_path.mineralType)
+		if (ispath(mineral_type, /turf/closed/mineral))
+			mineral_type = initial(mineral_path.mineralType)
 		if (!mineral_type)
 			continue
 		var/spawn_point = minerals[mineral_path]
@@ -172,7 +174,7 @@
 	var/datum/space_level/assigned_space_level = SSzclear.get_free_z_level()
 	linked_z_level = list(assigned_space_level)
 	SSorbits.assoc_z_levels["[assigned_space_level.z_value]"] = src
-	generate_asteroids(world.maxx / 2, world.maxy / 2, assigned_space_level.z_value, 120, -0.4, 40)
+	generate_asteroids(world.maxx / 2, world.maxy / 2, assigned_space_level.z_value, 40, 120, -0.4, 40)
 
 /datum/orbital_object/z_linked/beacon/ruin/stranded_shuttle/post_map_setup()
 	return

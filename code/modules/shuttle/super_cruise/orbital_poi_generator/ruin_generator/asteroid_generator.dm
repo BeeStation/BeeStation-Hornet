@@ -2,13 +2,13 @@
 //weight_offset - Affects the probability of a rock spawning (between -1 and 1)
 //if this number is negative, asteroids will be smaller.
 //if this number is positive asteroids will be larger and more likely
-/proc/generate_asteroids(center_x, center_y, center_z, max_radius, weight_offset = 0, scale = 65, biome = list(/turf/closed/mineral/random = 0), ores_list = null)
+/proc/generate_asteroids(center_x, center_y, center_z, min_radius, max_radius, weight_offset = 0, scale = 65, biome = list(/turf/closed/mineral/random = 0), ores_list = null)
 	var/datum/space_level/space_level = SSmapping.get_level(center_z)
 	space_level.generating = TRUE
-	. = _generate_asteroids(center_x, center_y, center_z, max_radius, weight_offset, scale, biome, ores_list)
+	. = _generate_asteroids(center_x, center_y, center_z, min_radius, max_radius, weight_offset, scale, biome, ores_list)
 	space_level.generating = FALSE
 
-/proc/_generate_asteroids(center_x, center_y, center_z, max_radius, weight_offset = 0, scale = 65, biome = list(/turf/closed/mineral/random = 0), ores_list = null)
+/proc/_generate_asteroids(center_x, center_y, center_z, min_radius, max_radius, weight_offset = 0, scale = 65, biome = list(/turf/closed/mineral/random = 0), ores_list = null)
 
 	SSair.pause_z(center_z)
 
@@ -29,14 +29,16 @@
 		var/distance = z_center.Distance(T)
 		if(distance > max_radius)
 			continue
+		// 0 at the center, 1 at the edge
+		var/distance_falloff = CLAMP01((distance - min_radius) / (max_radius - min_radius))
 		//Change area
 		T.change_area(T.loc, asteroid_area)
 		//Check if we are closed or not (Cave generation)
 		var/closed = text2num(generated_string[world.maxx * (T.y - 1) + T.x])
 		var/noise_at_coord = text2num(rustg_noise_get_at_coordinates("[seed]", "[T.x / perlin_noise_scale]", "[T.y / perlin_noise_scale]"))
-		var/plant_value = (distance / max_radius) + (weight_offset + 0.3) * (1 - (distance / max_radius))
-		var/rock_value = (distance / max_radius) + (weight_offset + 0.1) * (1 - (distance / max_radius))
-		var/sand_value = (distance / max_radius) + weight_offset * (1 - (distance / max_radius))
+		var/plant_value = distance_falloff + (weight_offset + 0.3) * (1 - distance_falloff)
+		var/rock_value = distance_falloff + (weight_offset + 0.1) * (1 - distance_falloff)
+		var/sand_value = distance_falloff + weight_offset * (1 - distance_falloff)
 		if(noise_at_coord >= rock_value && closed)
 			// Get some noise for the ores
 			var/noise_ore = text2num(rustg_noise_get_at_coordinates("[seed + 1]", "[T.x / (perlin_noise_scale / 3)]", "[T.y / (perlin_noise_scale / 3)]"))
