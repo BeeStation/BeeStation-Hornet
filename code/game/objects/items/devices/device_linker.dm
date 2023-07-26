@@ -1,6 +1,6 @@
-/obj/item/mining_linker
-	name = "mining device linker"
-	desc = "A device which can be used to link mining devices together."
+/obj/item/device_linker
+	name = "device linker"
+	desc = "A device which can be used to link devices together."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "multitool"
 	item_state = "multitool"
@@ -15,6 +15,6 @@
 	drop_sound = 'sound/items/handling/multitool_drop.ogg'
 	pickup_sound =  'sound/items/handling/multitool_pickup.ogg'
 
-/obj/item/mining_linker/ComponentInitialize()
+/obj/item/device_linker/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/buffer)
