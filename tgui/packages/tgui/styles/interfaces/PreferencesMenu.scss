@@ -86,8 +86,8 @@ $department_map: (
             width: 0;
             padding: 0;
             margin: 0;
-            left: 76px;
-            top: 82px;
+            left: 74px;
+            bottom: -64px;
 
             .antagonist-icon {
               border-style: solid;
@@ -142,6 +142,16 @@ $department_map: (
               }
             }
           }
+
+          &--banned {
+            .antagonist-icon-parent {
+              border-color: colors.$grey;
+              color: color.adjust(colors.$red, $lightness: 20%);
+              .antagonist-icon {
+                opacity: 0.5;
+              }
+            }
+          }
         }
 
         &--on {
@@ -150,11 +160,22 @@ $department_map: (
           .antagonist-icon-parent {
             border-color: colors.$green;
           }
+
+          &--banned {
+            .antagonist-icon-parent {
+              border-color: colors.$grey;
+              color: color.adjust(colors.$green, $lightness: 40%);
+              .antagonist-icon {
+                opacity: 0.5;
+              }
+            }
+          }
         }
 
-        &--banned {
+        &--grey {
           .antagonist-icon-parent {
             border-color: colors.$grey;
+            color: inherit;
             .antagonist-icon {
               opacity: 0.5;
             }
@@ -175,11 +196,13 @@ $department_map: (
           opacity: 0.8;
         }
 
-        .antagonist-time-left {
+        .antagonist-overlay-text {
           text-align: center;
-          text-shadow: 1px 1px 1px #222;
+          text-shadow: 1px 1px 3px 2px #222;
           font-size: 1.2rem;
-          .antagonist-time-left-hours {
+          z-index: 1;
+
+          .antagonist-overlay-text-hours {
             font-size: 1.5rem;
             font-weight: bold;
           }

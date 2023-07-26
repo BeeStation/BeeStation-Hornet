@@ -63,13 +63,36 @@ const AntagSelection = (
       title={props.name}
       buttons={
         <>
-          <Button color="good" onClick={() => enableAntagsGlobal(antagonistKeys)}>
-            Enable All
-          </Button>
+          <Button
+            tooltip="Global Enable Category"
+            tooltipPosition="bottom"
+            icon="globe"
+            color="good"
+            onClick={() => enableAntagsGlobal(antagonistKeys)}
+          />
+          <Button
+            tooltip="Global Disable Category"
+            tooltipPosition="bottom"
+            icon="ban"
+            color="bad"
+            onClick={() => disableAntagsGlobal(antagonistKeys)}
+            mr={1}
+          />
 
-          <Button color="bad" onClick={() => disableAntagsGlobal(antagonistKeys)}>
-            Disable All
-          </Button>
+          <Button
+            tooltip="Per-Character Enable Category"
+            tooltipPosition="bottom"
+            icon="user"
+            color="good"
+            onClick={() => enableAntagsCharacter(antagonistKeys)}
+          />
+          <Button
+            tooltip="Per-Character Disable Category"
+            tooltipPosition="bottom"
+            icon="user-slash"
+            color="bad"
+            onClick={() => disableAntagsCharacter(antagonistKeys)}
+          />
         </>
       }>
       <Flex className={className} align="flex-end" wrap>
@@ -98,50 +121,15 @@ const AntagSelection = (
             <Flex.Item
               className={classes([
                 `${className}__antagonist`,
-                `${className}__antagonist--${
-                  isBanned || hoursLeft > 0
-                    ? 'banned'
-                    : isSelectedGlobal(antagonist.path)
-                      ? antagonist.per_character && !isSelectedCharacter(antagonist.path)
-                        ? 'banned'
-                        : 'on'
-                      : 'off'
+                isSelectedGlobal(antagonist.path) &&
+                  antagonist.per_character &&
+                  !isSelectedCharacter(antagonist.path) &&
+                  `${className}__antagonist--grey`,
+                `${className}__antagonist--${isSelectedGlobal(antagonist.path) ? 'on' : 'off'}${
+                  isBanned || hoursLeft > 0 ? '--banned' : ''
                 }`,
               ])}
               key={antagonist.path}>
-              {antagonist.per_character && !(isBanned || hoursLeft > 0) ? (
-                <Box
-                  className={classes([
-                    `${className}__antagonist__per_character`,
-                    `${className}__antagonist__per_character--${isSelectedCharacter(antagonist.path) ? 'on' : 'off'}`,
-                  ])}>
-                  <Box
-                    className="antagonist-icon-parent-per-character"
-                    onClick={() => {
-                      if (isBanned) {
-                        return;
-                      }
-
-                      if (isSelectedCharacter(antagonist.path)) {
-                        disableAntagsCharacter([antagonist.path]);
-                      } else {
-                        enableAntagsCharacter([antagonist.path]);
-                      }
-                    }}>
-                    <Tooltip
-                      content={
-                        <div>
-                          Per-Character Toggle
-                          <Divider />
-                          This can only be disabled per-character. You cannot force a globally disabled antagonist
-                          &apos;on&apos; for a specific character.
-                        </div>
-                      }>
-                      <Box className="antagonist-icon">C</Box>
-                    </Tooltip>
-                  </Box>
-                </Box>
-              ) : null}
               <Stack align="center" vertical>
                 <Stack.Item
                   style={{
@@ -154,6 +142,35 @@ const AntagSelection = (
                 </Stack.Item>
 
                 <Stack.Item align="center">
+                  {antagonist.per_character ? (
+                    <Box
+                      className={classes([
+                        `${className}__antagonist__per_character`,
+                        `${className}__antagonist__per_character--${isSelectedCharacter(antagonist.path) ? 'on' : 'off'}`,
+                      ])}>
+                      <Box
+                        className="antagonist-icon-parent-per-character"
+                        onClick={() => {
+                          if (isSelectedCharacter(antagonist.path)) {
+                            disableAntagsCharacter([antagonist.path]);
+                          } else {
+                            enableAntagsCharacter([antagonist.path]);
+                          }
+                        }}>
+                        <Tooltip
+                          content={
+                            <div>
+                              Per-Character Toggle
+                              <Divider />
+                              This can only be disabled per-character. You cannot force a globally disabled antagonist
+                              &apos;on&apos; for a specific character.
+                            </div>
+                          }>
+                          <Box className="antagonist-icon">C</Box>
+                        </Tooltip>
+                      </Box>
+                    </Box>
+                  ) : null}
                   <Tooltip
                     content={(full_description || 'No description found.').split('\n').map((text, index, values) => (
                       <div key={antagonist.path + '_desc_' + index}>
@@ -165,10 +182,6 @@ const AntagSelection = (
                     <Box
                       className="antagonist-icon-parent"
                       onClick={() => {
-                        if (isBanned) {
-                          return;
-                        }
-
                         if (isSelectedGlobal(antagonist.path)) {
                           disableAntagsGlobal([antagonist.path]);
                         } else {
@@ -177,11 +190,18 @@ const AntagSelection = (
                       }}>
                       <Box className={classes(['antagonists96x96', antagonist.icon_path, 'antagonist-icon'])} />
 
-                      {isBanned && <Box className="antagonist-banned-slash" />}
+                      {isBanned && (
+                        <>
+                          <Box className="antagonist-overlay-text">
+                            <span className="antagonist-overlay-text-hours">Banned</span>
+                          </Box>
+                          <Box className="antagonist-banned-slash" />
+                        </>
+                      )}
 
                       {hoursLeft > 0 && (
-                        <Box className="antagonist-time-left">
-                          <span className="antagonist-time-left-hours">{hoursLeft}</span>
+                        <Box className="antagonist-overlay-text">
+                          <span className="antagonist-overlay-text-hours">{hoursLeft}</span>
                           <br />
                           hours left
                         </Box>
@@ -237,19 +257,19 @@ export const AntagsPage = (_, context) => {
 
 const SearchBar = ({ searchText, setSearchText, allAntags }, context) => {
   const { act } = useBackend<PreferencesMenuData>(context);
-  const enableAntagsGlobal = (antags: string[]) => {
+  const enableAntags = (character: boolean) => {
     act('set_antags', {
-      antags,
+      antags: allAntags,
       toggled: true,
-      character: false,
+      character,
     });
   };
 
-  const disableAntagsGlobal = (antags: string[]) => {
+  const disableAntags = (character: boolean) => {
     act('set_antags', {
-      antags,
+      antags: allAntags,
       toggled: false,
-      character: false,
+      character,
     });
   };
   return (
@@ -257,16 +277,43 @@ const SearchBar = ({ searchText, setSearchText, allAntags }, context) => {
       <Stack>
         <Stack.Item>
           <Icon mr={1} name="search" />
-          <Input width="350px" placeholder="Search roles" value={searchText} onInput={(_, value) => setSearchText(value)} />
+          <Input width="500px" placeholder="Search roles" value={searchText} onInput={(_, value) => setSearchText(value)} />
         </Stack.Item>
         <Stack.Item grow />
         <Stack.Item>
-          <Button color="good" onClick={() => enableAntagsGlobal(allAntags)}>
-            Enable Everything
+          <Button
+            tooltip="Global Enable Everything"
+            tooltipPosition="bottom"
+            icon="globe"
+            color="good"
+            onClick={() => enableAntags(false)}>
+            Enable
           </Button>
-
-          <Button color="bad" onClick={() => disableAntagsGlobal(allAntags)}>
-            Disable Everything
+          <Button
+            tooltip="Global Disable Everything"
+            tooltipPosition="bottom"
+            icon="ban"
+            color="bad"
+            onClick={() => disableAntags(false)}>
+            Disable
+          </Button>
+        </Stack.Item>
+        <Stack.Item>
+          <Button
+            tooltip="Per-Character Enable Everything"
+            tooltipPosition="bottom"
+            icon="user"
+            color="good"
+            onClick={() => enableAntags(true)}>
+            Enable
+          </Button>
+          <Button
+            tooltip="Per-Character Disable Everything"
+            tooltipPosition="bottom"
+            icon="user-slash"
+            color="bad"
+            onClick={() => disableAntags(true)}>
+            Disable
           </Button>
         </Stack.Item>
       </Stack>
