@@ -26,3 +26,6 @@ SUBSYSTEM_DEF(ocean)
 	//Add ocean reagents to the ocean
 	ocean_reagents.add_reagent_list(ocean_composition)
 	SEND_SIGNAL(src, COMSIG_GLOB_OCEAN_UPDATE)
+
+/datum/controller/subsystem/ocean/proc/update_ocean()
+	SEND_SIGNAL(src, COMSIG_GLOB_OCEAN_UPDATE)

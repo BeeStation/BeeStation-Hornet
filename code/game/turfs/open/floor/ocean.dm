@@ -96,6 +96,9 @@
 		playsound(T, sound_to_play, 50, 0)
 	//Clean 'em
 	SEND_SIGNAL(AM, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_WEAK)
+	//Check for ocean emptying - unlikely to happen
+	if(SSocean.ocean_reagents.total_volume <= 0)
+		SSocean.update_ocean()
 	//Apply our ocean chems
 	var/datum/reagents/splash_holder = new/datum/reagents(splash_amount)
 	SSocean.ocean_reagents.trans_to(splash_holder, splash_amount)
