@@ -90,7 +90,8 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			list("Mass Remove Purrbation", "massremovepurrbation"),
 			list("Fully Immerse Everyone", "massimmerse"),
 			list("Un-Fully Immerse Everyone", "unmassimmerse"),
-			list("Make All Animals Playable", "animalsentience")
+			list("Make All Animals Playable", "animalsentience"),
+			list("Change the ocean's reagent composition", "changeocean")
 			)
 
 	if(check_rights(R_DEBUG,0))
@@ -817,6 +818,12 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 					else if (prefs["playersonly"]["value"] != "Yes")
 						addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(doPortalSpawn), get_random_station_turf(), pathToSpawn, prefs["amount"]["value"], storm, null, outfit), i*prefs["delay"]["value"])
 
+		if("changeocean")			
+			SSocean?.ocean_composition = list(/datum/reagent/colorful_reagent = INFINITY)
+			SSocean?.change_ocean()
+
+			message_admins("[key_name_admin(usr)] has changed the ocean to colorful reagent.")
+			log_admin("[key_name(usr)] has changed the ocean to colorful reagent.")
 	if(E)
 		E.processing = FALSE
 		if(E.announceWhen>0)

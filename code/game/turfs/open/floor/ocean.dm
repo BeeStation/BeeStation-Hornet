@@ -100,13 +100,10 @@
 	//Apply our ocean chems
 	var/datum/reagents/splash_holder = new/datum/reagents(splash_amount)
 	SSocean.ocean_reagents.trans_to(splash_holder, splash_amount)
-	var/reaction_type = TOUCH
-	if(isliving(AM))
-		reaction_type = INGEST
-		var/mob/living/carbon/M = AM
-		if(iscarbon(AM) && !M.wear_mask)
-			reaction_type = TOUCH
-	splash_holder.reaction(AM, reaction_type)
+	var/mob/living/carbon/M = AM
+	if(isliving(AM) || iscarbon(AM) && !M.wear_mask)
+		splash_holder.trans_to(AM.reagents, splash_amount / 2)
+	splash_holder.reaction(AM, TOUCH)
 	qdel(splash_holder)
 
 /turf/open/floor/plating/ocean/proc/mass_update()
@@ -132,7 +129,7 @@
 	//Ripple - use wave, not ripple
 	add_filter("water_ripple", 1, wave_filter(x = 1, y = 0, size = 1, offset = 1, flags = WAVE_SIDEWAYS))
 	animate(get_filter("water_ripple"), offset = 50, time = 30 SECONDS, loop = -1)
-	animate(offset = 1, time = 30 SECOND, loop = -1)
+	animate(offset = 1, time = 30 SECONDS, loop = -1)
 	//Bloom
 	filters += filter(type = "bloom", threshold = rgb(1, 1, 1), size = 5)
 
@@ -151,7 +148,12 @@
 	RegisterSignal(SSocean, COMSIG_GLOB_OCEAN_UPDATE, PROC_REF(mass_update))
 	mass_update()
 	
+//handles colouring the ocean, and admin fuckery
 /obj/effect/abstract/ocean_overlay/proc/mass_update(datum/source, ocean_color)
 	SIGNAL_HANDLER
 
+	//yes, the ocean *may* dry up
+	if(SSocean.ocean_reagents.total_volume <= 0)
+		qdel(src)
+		return
 	color = ocean_color || mix_color_from_reagents(SSocean.ocean_reagents.reagent_list)
