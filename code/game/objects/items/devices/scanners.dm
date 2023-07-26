@@ -989,7 +989,7 @@ GENE SCANNER
 	if(discovered[mutation])
 		return !active_detail ? "[HM.name] ([HM.alias])" : "<span class='green'>[HM.name] ([HM.alias]) - [active_detail]</span>"
 	else
-		return !active_detail ? HM.alias : "<span class='green'>[HM.alias] - [active_detail]</span>" : text
+		return !active_detail ? HM.alias : "<span class='green'>[HM.alias] - [active_detail]</span>"
 
 /obj/item/extrapolator
 	name = "virus extrapolator"
