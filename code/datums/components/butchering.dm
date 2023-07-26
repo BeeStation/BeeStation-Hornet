@@ -65,7 +65,10 @@
 	log_combat(user, H, "attempted throat slitting", source)
 
 	playsound(H.loc, butcher_sound, 50, TRUE, -1)
-	if(do_after(user, CLAMP(500 / source.force, 30, 100), H) && H.Adjacent(source))
+	var/item_force = source.force
+	if(!item_force) //Division by 0 protection
+		item_force = 1
+	if(do_after(user, CLAMP(500 / item_force, 30, 100), H) && H.Adjacent(source))
 		if(H.has_status_effect(/datum/status_effect/neck_slice))
 			user.show_message("<span class='danger'>[H]'s neck has already been already cut, you can't make the bleeding any worse!", MSG_VISUAL, \
 							"<span class='danger'>Their neck has already been already cut, you can't make the bleeding any worse!")

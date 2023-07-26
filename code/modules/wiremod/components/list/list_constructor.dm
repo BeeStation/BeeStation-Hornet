@@ -6,7 +6,7 @@
 
 /obj/item/circuit_component/arbitrary_input_amount/list_constructor
 	display_name = "List Constructor"
-	display_desc = "A component that creates a list from given inputs"
+	desc = "A component that creates a list from given inputs"
 
 	power_usage_per_input = 5 //Large cost
 
@@ -21,4 +21,4 @@
 	. = list()
 	ports.Insert(1, first_port)
 	for(var/datum/port/input/input_port as anything in ports)
-		. += islist(input_port.input_value) ? null : input_port.input_value
+		. += islist(input_port.value) ? null : input_port.value
