@@ -240,7 +240,8 @@
 	var/reduced_hunger = FALSE
 	desc = "The virus causes the host's metabolism to accelerate rapidly, making them process chemicals twice as fast,\
 	 but also causing increased hunger."
-	threshold_desc = "<b>Stealth 3:</b> Reduces hunger rate.<br>\
+	threshold_desc = "<b>Resistance N*2:</b> Determines the maximum volume of chemicals within its host the symptom can metabolize. (Minimum 5u).<br>\
+					  <b>Stealth 3:</b> Reduces hunger rate.<br>\
 					  <b>Stage Speed 10:</b> Chemical metabolization is tripled instead of doubled."
 
 /datum/symptom/heal/metabolism/Start(datum/disease/advance/A)
@@ -254,9 +255,9 @@
 /datum/symptom/heal/metabolism/Heal(mob/living/carbon/C, datum/disease/advance/A, actual_power)
 	if(!istype(C))
 		return
-	C.reagents.metabolize(C, can_overdose=TRUE) //this works even without a liver; it's intentional since the virus is metabolizing by itself
+	C.reagents.metabolize(C, can_overdose=TRUE, metabolization_maximum=max(5, A.resistance*2)) //this works even without a liver; it's intentional since the virus is metabolizing by itself
 	if(triple_metabolism)
-		C.reagents.metabolize(C, can_overdose=TRUE)
+		C.reagents.metabolize(C, can_overdose=TRUE, metabolization_maximum=max(5, A.resistance*2))
 	C.overeatduration = max(C.overeatduration - 2, 0)
 	var/lost_nutrition = 9 - (reduced_hunger * 5)
 	C.adjust_nutrition(-lost_nutrition * HUNGER_FACTOR) //Hunger depletes at 10x the normal speed

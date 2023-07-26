@@ -296,7 +296,7 @@
 	R.handle_reactions()
 	return amount
 
-/datum/reagents/proc/metabolize(mob/living/carbon/C, can_overdose = FALSE, liverless = FALSE)
+/datum/reagents/proc/metabolize(mob/living/carbon/C, can_overdose = FALSE, liverless = FALSE, metabolization_maximum=5)
 	if(C?.dna?.species && (NOREAGENTS in C.dna.species.species_traits))
 		return 0
 	var/list/cached_reagents = reagent_list
@@ -304,10 +304,15 @@
 	if(C)
 		expose_temperature(C.bodytemperature, 0.25)
 	var/need_mob_update = 0
-	for(var/reagent in cached_reagents)
+	for(var/reagent in shuffle(cached_reagents))
 		var/datum/reagent/R = reagent
+		var/liver_dependent_chem = TRUE
 		if(QDELETED(R.holder))
 			continue
+		if(R.metabolization_rate == INFINITY || R.self_consuming) // lets assume instant-consume chems are not liver dependent
+			liver_dependent_chem = FALSE
+		if(liver_dependent_chem && !liverless && metabolization_maximum<0 && prob(80)) // at 20% chance, your liver will work more...
+			continue // your liver wants to rest!
 
 		if(!C)
 			C = R.holder.my_atom
@@ -316,6 +321,9 @@
 			if(C.reagent_check(R) != TRUE) //Most relevant to Humans, this handles species-specific chem interactions.
 				if(liverless && !R.self_consuming) //need to be metabolized
 					continue
+				// TODO: We need a check "can_metabolize()", but that'll be done in the future chem refactor...
+				if(liver_dependent_chem)
+					metabolization_maximum -= R.metabolization_rate // we can't micro-manage 10u-15u thing, but negative metabolization_maximum will penaltise people
 				if(!R.metabolizing)
 					R.metabolizing = TRUE
 					R.on_mob_metabolize(C)
@@ -360,6 +368,9 @@
 						else
 							SEND_SIGNAL(C, COMSIG_CLEAR_MOOD_EVENT, "[R.type]_overdose")
 		addiction_tick++
+	if(metabolization_maximum < 0) // your liver overprocessed.
+		var/liver_punishment = clamp(metabolization_maximum*-0.1, 0.1, 10)
+		C.adjustOrganLoss(ORGAN_SLOT_LIVER, liver_punishment)
 	if(C && need_mob_update) //some of the metabolized reagents had effects on the mob that requires some updates.
 		C.updatehealth()
 		C.update_mobility()
