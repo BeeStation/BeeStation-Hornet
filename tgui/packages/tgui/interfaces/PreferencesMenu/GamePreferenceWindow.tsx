@@ -1,4 +1,4 @@
-import { Stack } from '../../components';
+import { Stack, Button } from '../../components';
 import { Window } from '../../layouts';
 import { KeybindingsPage } from './KeybindingsPage';
 import { GamePreferencesPage } from './GamePreferencesPage';
@@ -36,7 +36,22 @@ export const GamePreferenceWindow = (
   }
 
   return (
-    <Window title="Game Preferences" width={1000} height={770} theme="generic-yellow" buttons={<SaveStatus />}>
+    <Window
+      title="Game Preferences"
+      width={1000}
+      height={770}
+      theme="generic-yellow"
+      buttons={
+        <>
+          <Button
+            icon="cog"
+            tooltip="Character Preferences"
+            style={{ 'border-radius': '20px' }}
+            onClick={() => act('open_character_preferences')}
+          />
+          <SaveStatus />
+        </>
+      }>
       <Window.Content>
         <Stack vertical fill>
           <Stack.Item>

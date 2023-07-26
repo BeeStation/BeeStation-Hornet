@@ -306,6 +306,16 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				return FALSE
 
 			return TRUE
+		if("open_game_preferences")
+			current_window = PREFERENCE_TAB_GAME_PREFERENCES
+			update_static_data(usr)
+			ui_interact(usr)
+			return TRUE
+		if("open_character_preferences")
+			current_window = PREFERENCE_TAB_CHARACTER_PREFERENCES
+			update_static_data(usr)
+			ui_interact(usr)
+			return TRUE
 
 	for (var/datum/preference_middleware/preference_middleware as anything in middleware)
 		var/delegation = preference_middleware.action_delegations[action]
@@ -319,17 +329,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	save_character()
 	save_preferences()
 	character_preview_view.unregister_from_client(user.client)
-
-/datum/preferences/Topic(href, list/href_list)
-	. = ..()
-	if (.)
-		return
-
-	if (href_list["open_keybindings"])
-		current_window = PREFERENCE_TAB_KEYBINDINGS
-		update_static_data(usr)
-		ui_interact(usr)
-		return TRUE
 
 /datum/preferences/proc/compile_character_preferences(mob/user)
 	var/list/preferences = list()
