@@ -23,19 +23,21 @@
 	INVOKE_ASYNC(src, PROC_REF(poll), user)
 
 /obj/item/clothing/head/monkey_sentience_helmet/proc/poll(mob/living/carbon/monkey/user) //At this point, we can assume we're given a monkey, since this'll put them in the body anyways
+	if (user.stat) //Checks if the monkey is dead.
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE) //If so, buzz and do not poll ghosts
+		return
 	user.visible_message("<span class='warning'>[src] powers up!</span>")
 	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
 	var/list/candidates = pollCandidatesForMob(
 		Question = "Do you want to play as a mind magnified monkey?",
 		jobbanType = ROLE_MONKEY_HELMET,
-		gametypeCheck = null,
-		be_special_flag = null,
+		role_preference_key = null,
 		poll_time = 100,
 		M = user,
 		ignore_category = POLL_IGNORE_MONKEY_HELMET)
 
-	//Some time has passed, and we could've been disintegrated for all we know (especially if we touch touch supermatter)
-	if(QDELETED(src) || !user || magnification)
+	//Some time has passed, and we could've been disintegrated for all we know (especially if we touch touch supermatter), or monkey has died
+	if(QDELETED(src) || !user || magnification || user.stat)
 		return
 	if(user.key || (src != user.head)) //Something important about the monkey changed, abort
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
