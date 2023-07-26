@@ -180,11 +180,13 @@ GLOBAL_LIST_INIT(other_bannable_roles, list(
 		CRASH("Invalid role_preference_key [role_preference_key] passed to role_preference_enabled!")
 	if(!src.prefs)
 		return FALSE
-	var/list/source = src.prefs.role_preferences_global
 	var/datum/role_preference/pref = role_preference_key
+	// If this is per character, check if it's disabled. Otherwise continue and check the global value
 	if(initial(pref.per_character))
-		source = src.prefs.role_preferences
-	var/role_preference_value = source["[role_preference_key]"]
+		var/role_preference_value = src.prefs.role_preferences["[role_preference_key]"]
+		if(isnum(role_preference_value) && !role_preference_value) // explicitly disabled and not null
+			return FALSE
+	var/role_preference_value = src.prefs.role_preferences_global["[role_preference_key]"]
 	if(isnum(role_preference_value) && !role_preference_value) // explicitly disabled and not null
 		return FALSE
 	return TRUE
