@@ -211,6 +211,7 @@
 #include "code\__DEFINES\dcs\signals\signals_obj\signals_item\signals_grenade.dm"
 #include "code\__DEFINES\dcs\signals\signals_obj\signals_item\signals_implant.dm"
 #include "code\__DEFINES\dcs\signals\signals_obj\signals_item\signals_item.dm"
+#include "code\__DEFINES\dcs\signals\signals_obj\signals_item\signals_organs.dm"
 #include "code\__DEFINES\dcs\signals\signals_obj\signals_machine\signals_airlock.dm"
 #include "code\__DEFINES\dcs\signals\signals_obj\signals_machine\signals_aquarium.dm"
 #include "code\__DEFINES\dcs\signals\signals_obj\signals_machine\signals_elevator.dm"
