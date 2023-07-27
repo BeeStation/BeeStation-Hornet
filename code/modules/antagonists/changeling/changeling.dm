@@ -6,8 +6,9 @@
 	name = "Changeling"
 	roundend_category  = "changelings"
 	antagpanel_category = "Changeling"
+	banning_key = ROLE_CHANGELING
+	required_living_playtime = 4
 	ui_name = "AntagInfoChangeling"
-	job_rank = ROLE_CHANGELING
 	antag_moodlet = /datum/mood_event/focused
 	hijack_speed = 0.5
 	var/you_are_greet = TRUE

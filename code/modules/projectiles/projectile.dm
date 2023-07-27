@@ -493,7 +493,7 @@
 			return FALSE
 		if(!L.density)
 			return FALSE
-		if(!L.lying)
+		if (!(L.mobility_flags & MOBILITY_STAND))
 			return TRUE
 		var/stunned = !CHECK_BITFIELD(L.mobility_flags, MOBILITY_USE | MOBILITY_STAND | MOBILITY_MOVE)
 		return !stunned || hit_stunned_targets
