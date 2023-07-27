@@ -30,7 +30,10 @@
 	var/mob/living/simple_animal/hostile/carp/fish
 	for(var/obj/effect/landmark/carpspawn/C in GLOB.landmarks_list)
 		if(prob(95))
-			fish = new (C.loc)
+			if(GLOB.map_uses_abyssal_carp)
+				fish = new /mob/living/simple_animal/hostile/carp/abyss(C.loc)
+			else
+				fish = new (C.loc)
 		else
 			fish = new /mob/living/simple_animal/hostile/carp/megacarp(C.loc)
 

@@ -248,4 +248,14 @@
 	if(mind)
 		. += "<span class='notice'>This one seems to be self-aware.</span>"
 
+/mob/living/simple_animal/hostile/carp/abyss
+	name = "abyssal space carp"
+	desc = "Good lord, what is that!"
+	unique_name = TRUE
+	random_color = FALSE
+	icon_state = "abyssal_carp"
+	icon_living = "abyssal_carp"
+	icon_dead = "abyssal_carp_dead"
+	icon_gib = "carp_gib"
+
 #undef REGENERATION_DELAY

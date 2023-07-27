@@ -32587,6 +32587,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/box,
+/obj/effect/mapping_helpers/set_carp_abyssal,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "jqE" = (

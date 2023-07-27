@@ -258,3 +258,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 				O.organ_flags |= ORGAN_FROZEN
 		j.update_icon()
 	qdel(src)
+
+//helper for carp migration
+/obj/effect/mapping_helpers/set_carp_abyssal
+	name = "abyssal carp rule"
+
+/obj/effect/baseturf_helper/Initialize(mapload)
+	. = ..()
+	GLOB.map_uses_abyssal_carp = TRUE

@@ -47,3 +47,6 @@ GLOBAL_LIST_INIT(markup_tags, list("_"  = list("<i>", "</i>"),
 //Should be in the form of "((\\W|^)@)(\[^@\]*)(@(\\W|$)), "g"", where @ is the appropriate tag from markup_tags
 GLOBAL_LIST_INIT(markup_regex, list("_"  = new /regex("((\\W|^)_)(\[^_\]*)(_(\\W|$))", "g"),
 									"**" = new /regex("((\\W|^)\\*\\*)(\[^\\*\\*\]*)(\\*\\*(\\W|$))", "g")))
+
+//Carp migration spawn type - used for abyss station
+GLOBAL_VAR_INIT(map_uses_abyssal_carp, FALSE)
