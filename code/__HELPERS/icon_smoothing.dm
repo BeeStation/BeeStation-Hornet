@@ -314,10 +314,8 @@ DEFINE_BITFIELD(smoothing_junction, list(
 			} while(FALSE) \
 		}
 
-	SET_ADJ_IN_DIR(NORTH, NORTH)
-	SET_ADJ_IN_DIR(SOUTH, SOUTH)
-	SET_ADJ_IN_DIR(EAST, EAST)
-	SET_ADJ_IN_DIR(WEST, WEST)
+	for(var/direction in GLOB.cardinals) //Cardinal case first.
+		SET_ADJ_IN_DIR(direction, direction)
 
 	if(!(new_junction & (NORTH|SOUTH)) || !(new_junction & (EAST|WEST)))
 		set_smoothed_icon_state(new_junction)
