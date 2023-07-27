@@ -1,0 +1,8 @@
+author: RKz, necromanceranne, MrMelbert, Ghommie
+delete-after: true
+changes:
+  - code_imp: makes climbing mechanic an element
+  - tweak: railings can be climbed from both sides
+  - tweak: set deployable capsule density to 0, rather than needing to be climbed
+      into
+  - spellcheck: climbing cases
