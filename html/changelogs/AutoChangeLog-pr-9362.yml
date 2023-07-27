@@ -1,5 +1,0 @@
-author: HowToLoLu
-delete-after: true
-changes:
-  - bugfix: You are no longer blocked from attacking a storage object that is full.
-      e.g. hitting the captain's spare safe with a supermatter sword.
