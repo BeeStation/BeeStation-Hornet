@@ -165,7 +165,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/auto_sense()
 	if(auto_sense)
-		Trigger(4)
+		Trigger(3)
 	addtimer(CALLBACK(src, PROC_REF(auto_sense)), auto_cooldown)
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/finish_cooldown()
