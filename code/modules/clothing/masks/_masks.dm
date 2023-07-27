@@ -8,6 +8,8 @@
 	var/modifies_speech = FALSE
 	var/mask_adjusted = 0
 	var/adjusted_flags = null
+	var/voice_change = FALSE //Used to mask/change the user's voice, only specific masks can set this to TRUE
+	var/obj/item/organ/tongue/chosen_tongue = null
 
 /obj/item/clothing/mask/attack_self(mob/user)
 	if(CHECK_BITFIELD(clothing_flags, VOICEBOX_TOGGLABLE))
@@ -26,8 +28,16 @@
 	..()
 	UnregisterSignal(M, COMSIG_MOB_SAY)
 
+/obj/item/clothing/mask/Destroy()
+	chosen_tongue = null
+	. = ..()
+
 /obj/item/clothing/mask/proc/handle_speech()
 	SIGNAL_HANDLER
+
+/obj/item/clothing/mask/proc/get_name(mob/user, default_name)
+	return default_name
+
 /obj/item/clothing/mask/worn_overlays(mutable_appearance/standing, isinhands = FALSE)
 	. = list()
 	if(!isinhands)

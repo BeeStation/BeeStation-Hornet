@@ -212,6 +212,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	for (var/datum/controller/subsystem/SS in subsystems)
 		if (SS.flags & SS_NO_INIT || SS.initialized) //Don't init SSs with the correspondig flag or if they already are initialzized
 			continue
+		log_world("Initializing [SS.name] subsystem.")
 		SS.Initialize(REALTIMEOFDAY)
 		CHECK_TICK
 	current_ticklimit = TICK_LIMIT_RUNNING

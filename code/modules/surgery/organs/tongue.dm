@@ -330,7 +330,7 @@
 /obj/item/organ/tongue/slime
 	name = "slimey tongue"
 	desc = "It's a piece of slime, shaped like a tongue."
-	say_mod = list("blorbles", "bubbles")
+	say_mod = "blorbles"
 	ask_mod = "inquisitively blorbles"
 	yell_mod = "shrilly blorbles"
 	exclaim_mod = "loudly blorbles"
