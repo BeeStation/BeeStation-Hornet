@@ -359,6 +359,9 @@
 			var/greyscale_colors = initial(item.greyscale_colors)
 			if (greyscale_config && greyscale_colors)
 				icon_file = SSgreyscale.GetColoredIconByType(greyscale_config, greyscale_colors)
+			else if(ispath(item, /obj/item/bodypart)) // mmm snowflake limbcode as usual
+				var/obj/item/bodypart/body_part = item
+				icon_file = initial(body_part.static_icon)
 			else
 				icon_file = initial(item.icon)
 
