@@ -620,7 +620,7 @@
 
 	var/text = "<b>[ply.key]</b> was <b>[ply.name]</b>[jobtext][jobtext_custom] and"
 	if(ply.cryoed)
-		text += " <span class='bluetext'>cryoed</span>"
+		text += " <span class='bluetext'>entered cryosleep</span>"
 	else if(ply.current)
 		if(ply.current.stat == DEAD)
 			text += " <span class='redtext'>died</span>"
