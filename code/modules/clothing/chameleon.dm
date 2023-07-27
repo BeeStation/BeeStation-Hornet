@@ -606,7 +606,6 @@
 	var/obj/item/clothing/mask/target_mask = target
 	var/obj/item/organ/tongue/picked_tongue
 	var/picked_name
-	//var/list/sorted_list = sort_list(tongue_list)
 	picked_name = tgui_input_list(owner,"select tongue to change into", "Chameleon tongue selection", tongue_list)
 	if(!picked_name)
 		return FALSE
