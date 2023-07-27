@@ -1,0 +1,7 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - rscadd: Added a craftable modulator gas mask which makes your voice show up as
+      Unknown
+  - rscadd: Added the ability to disguise your tongue with the chameleon gas mask
+  - rscdel: Removed the random say modifier from Slimepeople, it's now always "blorbles"
