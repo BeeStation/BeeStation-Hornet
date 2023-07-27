@@ -54,6 +54,9 @@
 /datum/element/climbable/proc/climb_structure(atom/climbed_thing, mob/living/user, params)
 	if(!can_climb(climbed_thing, user))
 		return
+	if(climbed_thing in user.do_afters)
+		to_chat(user, "<span class='warning'>You're already trying to climb onto \the [src]!</span>")
+		return
 	climbed_thing.add_fingerprint(user)
 	user.visible_message("<span class='warning'>[user] starts climbing onto [climbed_thing].</span>", \
 								"<span class='notice'>You start climbing onto [climbed_thing]...</span>")
