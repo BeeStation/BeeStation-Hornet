@@ -62,18 +62,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	PH = null
 
 /datum/species/psyphoza/random_name(gender, unique, lastname, attempts)
-	var/num = rand(1, 9)
-	var/end
-	switch(num)
-		if(1)
-			end = "st"
-		if(2)
-			end = "nd"
-		if(3)
-			end = "rd"
-		else
-			end = "th"
-	. = "[pick(GLOB.psyphoza_first_names)] the [rand(1, 10) * 100 + num][end]"
+	. = "[pick(GLOB.psyphoza_first_names)] [pick(GLOB.psyphoza_last_names)]"
 	if(unique && attempts < 10 && findname(.))
 		return .(gender, TRUE, null, ++attempts)
 
