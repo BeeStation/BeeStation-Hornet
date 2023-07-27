@@ -149,11 +149,11 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 		return FALSE
 	return ..()
 
-/datum/action/item_action/organ_action/psychic_highlight/Trigger()
+/datum/action/item_action/organ_action/psychic_highlight/Trigger(size)
 	. = ..()
 	if(has_cooldown_timer || !owner)
 		return
-	ping_turf(get_turf(owner))
+	ping_turf(get_turf(owner), size)
 	has_cooldown_timer = TRUE
 	UpdateButtonIcon()
 	addtimer(CALLBACK(src, PROC_REF(finish_cooldown)), cooldown + (sense_time * min(1, overlays.len / PSYCHIC_OVERLAY_UPPER)))
@@ -165,7 +165,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/auto_sense()
 	if(auto_sense)
-		Trigger()
+		Trigger(4)
 	addtimer(CALLBACK(src, PROC_REF(auto_sense)), auto_cooldown)
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/finish_cooldown()
