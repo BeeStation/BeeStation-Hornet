@@ -1,0 +1,6 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - imageadd: shield3 type sprites - shield3-push, shield3-pull, shield3-rewind
+  - tweak: gravitational anomaly now uses shield3-rewind sprite
+  - code_imp: dme order fixed
