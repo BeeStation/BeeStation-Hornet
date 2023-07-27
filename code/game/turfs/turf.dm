@@ -69,8 +69,8 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 	// by default, vis_contents is inherited from the turf that was here before.
 	// Checking length(vis_contents) in a proc this hot has huge wins for performance.
-	if (length(vis_contents))
-		vis_contents.Cut()
+	//if (length(vis_contents)) - this doesn't seem to help performance on Bee
+	vis_contents.Cut()
 
 	assemble_baseturfs()
 
