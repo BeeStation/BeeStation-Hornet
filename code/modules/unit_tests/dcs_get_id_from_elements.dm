@@ -33,7 +33,7 @@
 		if (other_result == result)
 			continue
 
-		TEST_FAIL("Case #[index] produces a different GetIdFromArguments result from the first. [other_result] != [result]")
+		Fail("Case #[index] produces a different GetIdFromArguments result from the first. [other_result] != [result]")
 
 /datum/unit_test/dcs_get_id_from_arguments/proc/get_id_from_arguments(list/arguments)
 	return SSdcs.GetIdFromArguments(list(/datum/element/dcs_get_id_from_arguments_mock_element) + arguments)
