@@ -10,4 +10,15 @@
 
 /// FAST_REF but with 512 tag support
 /// Retrieves the \ref string (aka [0xd3adb33f]) of a given datum, or its tag if DF_USE_TAG is set
-#define REF(datum) (isdatum(datum) ? ((datum:datum_flags & DF_USE_TAG) && datum:tag ? "[datum:tag]" : CACHED_REF(datum)) : "\ref[datum]")
+/// Broken REF define if you ever want it: #define REF(datum) (isdatum(datum) ? ((datum:datum_flags & DF_USE_TAG) && datum:tag ? "[datum:tag]" : CACHED_REF(datum)) : "\ref[datum]")
+/proc/REF(input)
+	if(istype(input, /datum))
+		var/datum/thing = input
+		if(thing.datum_flags & DF_USE_TAG)
+			if(!thing.tag)
+				stack_trace("A ref was requested of an object with DF_USE_TAG set but no tag: [thing]")
+				thing.datum_flags &= ~DF_USE_TAG
+				return CACHED_REF(thing)
+			else
+				return "\[[url_encode(thing.tag)]\]"
+	return "\ref[input]"
