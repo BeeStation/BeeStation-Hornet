@@ -9,27 +9,32 @@
 	silent = TRUE //not actually silent, because greet will be called by the trauma anyway.
 	var/datum/brain_trauma/special/obsessed/trauma
 
+/datum/antagonist/obsessed/New(datum/brain_trauma/special/obsessed/_trauma)
+	. = ..()
+	if(istype(_trauma))
+		trauma = _trauma
+
 /datum/antagonist/obsessed/admin_add(datum/mind/new_owner,mob/admin)
-	var/mob/living/carbon/C = new_owner.current
-	if(!istype(C))
+	var/mob/living/carbon/current = new_owner.current
+	if(!istype(current))
 		to_chat(admin, "[roundend_category] comes from a brain trauma, so they need to at least be a carbon!")
 		return
-	if(!C.getorgan(/obj/item/organ/brain)) // If only I had a brain
+	if(!current.getorgan(/obj/item/organ/brain)) // If only I had a brain
 		to_chat(admin, "[roundend_category] comes from a brain trauma, so they need to HAVE A BRAIN.")
 		return
 	message_admins("[key_name_admin(admin)] made [key_name_admin(new_owner)] into [name].")
 	log_admin("[key_name(admin)] made [key_name(new_owner)] into [name].")
 	//PRESTO FUCKIN MAJESTO
-	C.gain_trauma(/datum/brain_trauma/special/obsessed)//ZAP
+	current.gain_trauma(/datum/brain_trauma/special/obsessed)//ZAP
 
 /datum/antagonist/obsessed/greet()
 	if(!trauma?.obsession)
 		return
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/creepalert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/creepalert.ogg', vol = 100, vary = FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 	to_chat(owner, "<span class='userdanger'>You are the Obsessed!</span>")
-	to_chat(owner, "<B>The Voices have reached out to you, and are using you to complete their evil deeds.</B>")
-	to_chat(owner, "<B>You don't know their connection, but The Voices compel you to stalk [trauma.obsession], forcing them into a state of constant paranoia.</B>")
-	to_chat(owner, "<B>The Voices will retaliate if you fail to complete your tasks or spend too long away from your target.</B>")
+	to_chat(owner, "<span class='bold'>The Voices have reached out to you, and are using you to complete their evil deeds.</span>")
+	to_chat(owner, "<span class='bold'>You don't know their connection, but The Voices compel you to stalk [trauma.obsession], forcing them into a state of constant paranoia.</span>")
+	to_chat(owner, "<span class='bold'>The Voices will retaliate if you fail to complete your tasks or spend too long away from your target.</span>")
 	to_chat(owner, "<span class='boldannounce'>This role does NOT enable you to otherwise surpass what's deemed creepy behavior per the rules.</span>")//ironic if you know the history of the antag
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Obsession",
@@ -41,24 +46,24 @@
 	. = ..()
 
 /datum/antagonist/obsessed/apply_innate_effects(mob/living/mob_override)
-	var/mob/living/M = mob_override || owner.current
-	update_obsession_icons_added(M)
+	var/mob/living/current = mob_override || owner.current
+	update_obsession_icons_added(current)
 
 /datum/antagonist/obsessed/remove_innate_effects(mob/living/mob_override)
-	var/mob/living/M = mob_override || owner.current
-	update_obsession_icons_removed(M)
+	var/mob/living/current = mob_override || owner.current
+	update_obsession_icons_removed(current)
 
-/datum/antagonist/obsessed/proc/forge_objectives(var/datum/mind/obsessionmind)
+/datum/antagonist/obsessed/proc/forge_objectives(datum/mind/obsession_mind)
 	var/list/objectives_left = list("spendtime", "polaroid", "hug")
 	var/datum/objective/assassinate/obsessed/kill = new
 	kill.owner = owner
-	kill.set_target(obsessionmind)
+	kill.set_target(obsession_mind)
 	var/datum/quirk/family_heirloom/family_heirloom
 
-	if(obsessionmind.has_quirk(family_heirloom))//oh, they have an heirloom? Well you know we have to steal that.
+	if(obsession_mind.has_quirk(family_heirloom))//oh, they have an heirloom? Well you know we have to steal that.
 		objectives_left += "heirloom"
 
-	if(obsessionmind.assigned_role && obsessionmind.assigned_role != JOB_NAME_CAPTAIN)
+	if(obsession_mind.assigned_role && obsession_mind.assigned_role != JOB_NAME_CAPTAIN)
 		objectives_left += "jealous"//if they have no coworkers, jealousy will pick someone else on the station. this will never be a free objective, nice.
 
 	for(var/i in 1 to 3)
@@ -68,40 +73,40 @@
 			if("spendtime")
 				var/datum/objective/spendtime/spendtime = new
 				spendtime.owner = owner
-				spendtime.set_target(obsessionmind)
+				spendtime.set_target(obsession_mind)
 				objectives += spendtime
 				log_objective(owner, spendtime.explanation_text)
 			if("polaroid")
 				var/datum/objective/polaroid/polaroid = new
 				polaroid.owner = owner
-				polaroid.set_target(obsessionmind)
+				polaroid.set_target(obsession_mind)
 				objectives += polaroid
 				log_objective(owner, polaroid.explanation_text)
 			if("hug")
 				var/datum/objective/hug/hug = new
 				hug.owner = owner
-				hug.set_target(obsessionmind)
+				hug.set_target(obsession_mind)
 				objectives += hug
 				log_objective(owner, hug.explanation_text)
 			if("heirloom")
 				var/datum/objective/steal/heirloom_thief/heirloom_thief = new
 				heirloom_thief.owner = owner
-				heirloom_thief.set_target(obsessionmind)//while you usually wouldn't need this for stealing, we need the name of the obsession
+				heirloom_thief.set_target(obsession_mind)//while you usually wouldn't need this for stealing, we need the name of the obsession
 				heirloom_thief.steal_target = family_heirloom.heirloom
 				objectives += heirloom_thief
 				log_objective(owner, heirloom_thief.explanation_text)
 			if("jealous")
 				var/datum/objective/assassinate/jealous/jealous = new
 				jealous.owner = owner
-				jealous.obsession = obsessionmind
+				jealous.obsession = obsession_mind
 				jealous.find_target()//will reroll into a coworker on the objective itself
 				objectives += jealous
 				log_objective(owner, jealous.explanation_text)
 
 	objectives += kill//finally add the assassinate last, because you'd have to complete it last to greentext.
 	log_objective(owner, kill.explanation_text)
-	for(var/datum/objective/O in objectives)
-		O.update_explanation_text()
+	for(var/datum/objective/objective in objectives)
+		objective.update_explanation_text()
 
 /datum/antagonist/obsessed/roundend_report_header()
 	return 	"<span class='header'>Someone became obsessed!</span><br>"
@@ -115,7 +120,7 @@
 	report += "<b>[printplayer(owner)]</b>"
 
 	var/objectives_complete = TRUE
-	if(objectives.len)
+	if(length(objectives))
 		report += printobjectives(objectives)
 		for(var/datum/objective/objective in objectives)
 			if(!objective.check_completion())
@@ -129,7 +134,7 @@
 	else
 		report += "<span class='redtext'>The [name] had no trauma attached to their antagonist ways! Either it bugged out or an admin incorrectly gave this good samaritan antag and it broke! You might as well show yourself!!</span>"
 
-	if(objectives.len == 0 || objectives_complete)
+	if(!length(objectives) || objectives_complete)
 		report += "<span class='greentext big'>The [name] was successful!</span>"
 	else
 		report += "<span class='redtext big'>The [name] has failed!</span>"
@@ -144,7 +149,7 @@
 
 /datum/objective/assassinate/obsessed/update_explanation_text()
 	..()
-	if(target && target.current)
+	if(target?.current)
 		explanation_text = "Murder [target.name], the [!target_role_type ? target.assigned_role : target.special_role]."
 	else
 		message_admins("WARNING! [ADMIN_LOOKUPFLW(owner)] obsessed objectives forged without an obsession!")
@@ -197,9 +202,9 @@
 		if(possible_target.assigned_role in chosen_department)
 			viable_coworkers += possible_target
 
-	if(viable_coworkers.len)//find someone in the same department
+	if(length(viable_coworkers))//find someone in the same department
 		set_target(pick(viable_coworkers))
-	else if(all_coworkers.len)//find someone who works on the station
+	else if(length(all_coworkers))//find someone who works on the station
 		set_target(pick(all_coworkers))
 	else
 		set_target(null)
@@ -214,7 +219,7 @@
 	if(timer == initial(timer))//just so admins can mess with it
 		timer += pick(-600, 0)
 	var/datum/antagonist/obsessed/creeper = owner.has_antag_datum(/datum/antagonist/obsessed)
-	if(target && target.current && creeper)
+	if(target?.current && creeper)
 		creeper.trauma.attachedobsessedobj = src
 		explanation_text = "Spend [DisplayTimeText(timer)] around [target.name] while they're alive."
 	else
@@ -233,16 +238,16 @@
 /datum/objective/hug/update_explanation_text()
 	..()
 	if(!hugs_needed)//just so admins can mess with it
-		hugs_needed = rand(4,6)
+		hugs_needed = rand(4, 6)
 	var/datum/antagonist/obsessed/creeper = owner.has_antag_datum(/datum/antagonist/obsessed)
-	if(target && target.current && creeper)
+	if(target?.current && creeper)
 		explanation_text = "Hug [target.name] [hugs_needed] times while they're alive."
 	else
 		explanation_text = "Free Objective"
 
 /datum/objective/hug/check_completion()
 	var/datum/antagonist/obsessed/creeper = owner.has_antag_datum(/datum/antagonist/obsessed)
-	if(!creeper || !creeper.trauma || !hugs_needed)
+	if(!creeper?.trauma || !hugs_needed)
 		return TRUE//free objective
 	return (creeper.trauma.obsession_hug_count >= hugs_needed) || ..()
 
@@ -254,21 +259,28 @@
 
 /datum/objective/polaroid/update_explanation_text()
 	..()
-	if(target && target.current)
+	if(target?.current)
 		explanation_text = "Take a photo of [target.name] while they're alive."
 	else
 		explanation_text = "Free Objective"
 
 /datum/objective/polaroid/check_completion()
 	var/list/datum/mind/owners = get_owners()
-	for(var/datum/mind/M in owners)
-		if(!isliving(M.current))
+	for(var/datum/mind/mind in owners)
+		var/mob/living/current = mind.current
+		if(!istype(current))
 			continue
-		var/list/all_items = M.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
-		for(var/obj/I in all_items) //Check for wanted items
-			if(istype(I, /obj/item/photo))
-				var/obj/item/photo/P = I
-				if(P.picture && (target.current in P.picture.mobs_seen) && !(target.current in P.picture.dead_seen)) //Does the picture exist and is the target in it and is the target not dead
+		for(var/obj/item/photo/photo as() in current.GetAllContents(/obj/item/photo)) //Check for wanted items
+			var/datum/picture/picture = photo.picture
+			if(!picture)
+				continue
+			var/seen_mind_stat = picture.minds_seen[target]
+			if(!isnull(seen_mind_stat) && seen_mind_stat != DEAD)
+				return TRUE
+			for(var/mob/living/carbon/seen in picture.mobs_seen)
+				if(seen.last_mind != target)
+					continue
+				if(picture.mobs_seen[seen] != DEAD)
 					return TRUE
 	return ..()
 
