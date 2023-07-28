@@ -1319,6 +1319,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
 
+/area/janitor/custodian
+	name = "Custodial Closet"
+	icon_state = "janitor"
+
 /area/hydroponics
 	name = "Hydroponics"
 	icon_state = "hydro"
