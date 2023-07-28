@@ -63,7 +63,7 @@
 	switch(passed_mode)
 		if(RCD_DECONSTRUCT)
 			to_chat(user, "<span class='notice'>You deconstruct the grille.</span>")
-			log_attack("[key_name(user)] has deconstructed [src] at [loc_name(get_turf(src))] using [format_text(initial(the_rcd.name))]")
+			log_attack("[key_name(user)] has deconstructed [src] at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 			qdel(src)
 			return TRUE
 		if(RCD_WINDOWGRILLE)

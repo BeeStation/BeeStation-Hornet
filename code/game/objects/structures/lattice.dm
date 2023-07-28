@@ -59,7 +59,7 @@
 /obj/structure/lattice/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	if(passed_mode == RCD_FLOORWALL && isspaceturf(src.loc)) // Don't want it trying to place a tile over in-station catwalks.
 		to_chat(user, "<span class='notice'>You build a floor.</span>")
-		log_attack("[key_name(user)] has constructed a floor over space at [loc_name(get_turf(src))] using [format_text(initial(the_rcd.name))]")
+		log_attack("[key_name(user)] has constructed a floor over space at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 		var/turf/T = src.loc
 		T.PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 		return TRUE

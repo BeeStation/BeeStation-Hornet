@@ -291,7 +291,7 @@
 /turf/closed/wall/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	if(passed_mode == RCD_DECONSTRUCT)
 		to_chat(user, "<span class='notice'>You deconstruct the wall.</span>")
-		log_attack("[key_name(user)] has deconstructed [get_turf(src)] at [loc_name(get_turf(src))] using [format_text(initial(the_rcd.name))]")
+		log_attack("[key_name(user)] has deconstructed [get_turf(src)] at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 		ScrapeAway()
 		return TRUE
 	return FALSE
