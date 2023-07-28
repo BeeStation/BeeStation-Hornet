@@ -67,20 +67,28 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
 
-
 	if(integrity == null)
 		integrity = max_integrity
 
 	// by default, vis_contents is inherited from the turf that was here before
+	// by default, vis_contents is inherited from the turf that was here before.
+	// Checking length(vis_contents) in a proc this hot has huge wins for performance.
+	//if (length(vis_contents)) - this doesn't seem to help performance on Bee
 	vis_contents.Cut()
 
 	assemble_baseturfs()
 
 	levelupdate()
 	if(length(smoothing_groups))
+		#ifdef UNIT_TESTS
+		assert_sorted(smoothing_groups, "[type].smoothing_groups")
+		#endif
 		SET_BITFLAG_LIST(smoothing_groups)
 	if(length(canSmoothWith))
-		if(max(canSmoothWith) > MAX_S_TURF) //If the last element is higher than the maximum turf-only value, then it must scan turf contents for smoothing targets.
+		#ifdef UNIT_TESTS
+		assert_sorted(canSmoothWith, "[type].canSmoothWith")
+		#endif
+		if(canSmoothWith[length(canSmoothWith)] > MAX_S_TURF) //If the last element is higher than the maximum turf-only value, then it must scan turf contents for smoothing targets.
 			smoothing_flags |= SMOOTH_OBJ
 		SET_BITFLAG_LIST(canSmoothWith)
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
@@ -148,7 +156,8 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	requires_activation = FALSE
 	..()
 
-	vis_contents.Cut()
+	if (length(vis_contents))
+		vis_contents.Cut()
 
 /// WARNING WARNING
 /// Turfs DO NOT lose their signals when they get replaced, REMEMBER THIS
