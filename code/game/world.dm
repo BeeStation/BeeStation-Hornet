@@ -7,10 +7,6 @@ GLOBAL_VAR(restart_counter)
 /world/New()
 	//Keep the auxtools stuff at the top
 	AUXTOOLS_CHECK(AUXMOS)
-#ifdef USE_BYOND_TRACY
-	prof_init()
-#warn WARNING: BYOND TRACY enabled
-#endif
 
 	log_world("World loaded at [time_stamp()]!")
 	SSmetrics.world_init_time = REALTIMEOFDAY // Important
@@ -68,19 +64,6 @@ GLOBAL_VAR(restart_counter)
 	#ifdef UNIT_TESTS
 	HandleTestRun()
 	#endif
-
-#ifdef USE_BYOND_TRACY
-/world/proc/prof_init()
-	var/lib
-
-	switch(world.system_type)
-		if(MS_WINDOWS) lib = "prof.dll"
-		if(UNIX) lib = "libprof.so"
-		else CRASH("unsupported platform")
-
-	var/init = LIBCALL(lib, "init")()
-	if("0" != init) CRASH("[lib] init error: [init]")
-#endif
 
 /world/proc/InitTgs()
 	TgsNew(new /datum/tgs_event_handler/impl, TGS_SECURITY_TRUSTED)
