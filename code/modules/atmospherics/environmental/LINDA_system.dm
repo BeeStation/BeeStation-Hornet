@@ -87,7 +87,7 @@
 		// I am essentially inlineing two get_dir_multizs here, because they're way too slow on their own. I'm sorry brother
 		var/list/z_traits = SSmapping.multiz_levels[z]
 		for(var/direction in GLOB.cardinals_multiz)
-			// Yes this is a reimplementation of get_step_mutliz. It's faster tho. fuck you
+			// Yes this is a reimplementation of get_step_mutliz. It's faster tho.
 			var/turf/current_turf = (direction & (UP|DOWN)) ? \
 				(direction & UP) ? \
 					(z_traits[Z_LEVEL_UP]) ? \
