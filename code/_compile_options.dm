@@ -31,6 +31,11 @@
 //#define VISUALIZE_ACTIVE_TURFS	//Highlights atmos active turfs in green
 #endif //ifdef TESTING
 
+/// Enables BYOND TRACY, which allows profiling using Tracy.
+/// The prof.dll/libprof.so must be built and placed in the repo folder.
+/// https://github.com/mafemergency/byond-tracy
+//#define USE_BYOND_TRACY
+
 /////////////////////// ZMIMIC
 
 ///Enables Multi-Z lighting

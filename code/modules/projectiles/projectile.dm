@@ -493,7 +493,7 @@
 			return FALSE
 		if(!L.density)
 			return FALSE
-		if (!(L.mobility_flags & MOBILITY_STAND))
+		if (L.mobility_flags & MOBILITY_STAND)// if you stand, it returns true and you get hit. If you arent standing(i.e. resting), it returns false and you dont get hit. Such stupid code.
 			return TRUE
 		var/stunned = !CHECK_BITFIELD(L.mobility_flags, MOBILITY_USE | MOBILITY_STAND | MOBILITY_MOVE)
 		return !stunned || hit_stunned_targets
