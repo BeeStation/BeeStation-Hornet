@@ -4,7 +4,7 @@
 #define BEE_PROB_GOHOME 35 //Probability to go home when idle is below BEE_IDLE_GOHOME
 #define BEE_PROB_GOROAM 5 //Probability to go roaming when idle is above BEE_IDLE_ROAMING
 #define BEE_TRAY_RECENT_VISIT 200 //How long in deciseconds until a tray can be visited by a bee again
-#define BEE_DEFAULT_COLOUR "#e5e500" //the colour we make the stripes of the bee if our reagent has no colour (or we have no reagent)
+#define BEE_DEFAULT_COLOUR "#bc721a" //the colour we make the stripes of the bee if our reagent has no colour (or we have no reagent)
 
 #define BEE_POLLINATE_YIELD_CHANCE 33
 #define BEE_POLLINATE_PEST_CHANCE 33
@@ -109,11 +109,11 @@
 
 	var/static/mutable_appearance/greyscale_overlay
 	greyscale_overlay = greyscale_overlay || mutable_appearance('icons/mob/bees.dmi')
-	greyscale_overlay.icon_state = "[icon_base]_grey"
+	greyscale_overlay.icon_state = "bee_grey"
 	greyscale_overlay.color = col
 	add_overlay(greyscale_overlay)
 
-	add_overlay("[icon_base]_wings")
+	add_overlay("bee_wings")
 
 
 //We don't attack beekeepers/people dressed as bees//Todo: bee costume
