@@ -388,7 +388,7 @@
 	switch(passed_mode)
 		if(RCD_FLOORWALL)
 			balloon_alert(user, "You finish the wall.")
-			log_attack("[key_name(user)] has constructed a wall at [loc_name(get_turf(src))] using [format_text(initial(the_rcd.name))]")
+			log_attack("[key_name(user)] has constructed a wall at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 			var/overlapping_lattice = locate(/obj/structure/lattice) in get_turf(src)
 			if(overlapping_lattice)
 				qdel(overlapping_lattice) // Don't need lattice burried under the wall, or in the case of catwalk - on top of it.

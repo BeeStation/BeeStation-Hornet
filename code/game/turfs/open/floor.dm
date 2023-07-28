@@ -253,7 +253,7 @@
 			if(locate(/obj/machinery/door/airlock) in src)
 				return FALSE
 			to_chat(user, "<span class='notice'>You build an airlock.</span>")
-			log_attack("[key_name(user)] has constructed an airlock at [loc_name(get_turf(src))] using [format_text(initial(the_rcd.name))]")
+			log_attack("[key_name(user)] has constructed an airlock at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 			var/obj/machinery/door/airlock/A = new the_rcd.airlock_type(src)
 			A.electronics = new /obj/item/electronics/airlock(A)
 			if(the_rcd.airlock_electronics)
@@ -271,14 +271,14 @@
 			return TRUE
 		if(RCD_DECONSTRUCT)
 			to_chat(user, "<span class='notice'>You deconstruct [src].</span>")
-			log_attack("[key_name(user)] has deconstructed [src] at [loc_name(get_turf(src))] using [format_text(initial(the_rcd.name))]")
+			log_attack("[key_name(user)] has deconstructed [src] at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 			ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 			return TRUE
 		if(RCD_WINDOWGRILLE)
 			if(locate(/obj/structure/grille) in src)
 				return FALSE
 			to_chat(user, "<span class='notice'>You construct the grille.</span>")
-			log_attack("[key_name(user)] has constructed a grille at [loc_name(get_turf(src))] using [format_text(initial(the_rcd.name))]")
+			log_attack("[key_name(user)] has constructed a grille at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 			var/obj/structure/grille/G = new(src)
 			G.anchored = TRUE
 			return TRUE
