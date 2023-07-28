@@ -1,0 +1,8 @@
+author: BriggsIDP
+delete-after: true
+changes:
+  - tweak: tweaked DeltaStation2.dmm
+  - tweak: tweaked MetaStation2.dmm
+  - tweak: added a jani room to medbay that CMO can access
+  - rscadd: Custodian zoning
+  - rscadd: Extra Stasis direction
