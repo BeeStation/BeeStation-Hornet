@@ -1,0 +1,4 @@
+author: itsmeow
+delete-after: true
+changes:
+  - code_imp: Reduced init time ~0.5s by optimizing icon smoothing.
