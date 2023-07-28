@@ -46,7 +46,7 @@
 	if(owner == usr.ckey)
 		to_chat(usr, "<span class='warning'>You already own this painting!</span>")
 		return
-	if(price > usr.client?.get_metabalance())
+	if(price > usr.client?.get_metabalance_db())
 		to_chat(usr, "<span class='warning'>You don't have enough [CONFIG_GET(string/metacurrency_name)]s to buy this painting.</span>")
 		return
 	usr.client?.inc_metabalance(price * -1, TRUE, "Purchased [title].")

@@ -319,7 +319,7 @@ SUBSYSTEM_DEF(persistence)
 /datum/controller/subsystem/persistence/proc/LoadPaintings()
 	var/json_file = file("data/paintings.json")
 	if(fexists(json_file))
-		paintings = json_decode(file2text(json_file))
+		paintings = json_decode(rustg_file_read(json_file))
 
 	for(var/obj/structure/sign/painting/P in painting_frames)
 		P.load_persistent()
@@ -358,7 +358,7 @@ SUBSYSTEM_DEF(persistence)
 			pending_art_metacoin -= C.ckey
 	var/json_file = file("data/pending_art_metacoin.json")
 	fdel(json_file)
-	WRITE_FILE(json_file, json_encode(pending_art_metacoin))
+	rustg_file_write(json_file, json_encode(pending_art_metacoin))
 
 /datum/controller/subsystem/persistence/proc/SavePaintings()
 	for(var/obj/structure/sign/painting/P in painting_frames)
@@ -366,4 +366,4 @@ SUBSYSTEM_DEF(persistence)
 
 	var/json_file = file("data/paintings.json")
 	fdel(json_file)
-	WRITE_FILE(json_file, json_encode(paintings))
+	rustg_file_write(json_file, json_encode(paintings))

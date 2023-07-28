@@ -461,7 +461,7 @@
 	if(!display_names.len)
 		to_chat(M, "<span class='notice'>You don't own any paintings.</span>")
 		return
-	var/choice = input(M, "Which painting did you bring to work today?","Select a painting") as null|anything in sortList(display_names)
+	var/choice = input(M, "Which painting did you bring to work today?","Select a painting") as null|anything in sort_list(display_names)
 	if(!choice || !M.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
 	var/list/chosen_portrait = list()
