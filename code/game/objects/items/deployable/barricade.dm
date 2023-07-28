@@ -182,8 +182,10 @@
 	proj_pass_rate = 20
 	pass_flags_self = LETPASSTHROW
 	bar_material = SAND
-	climbable = TRUE
 
+/obj/structure/barricade/sandbags/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/climbable)
 
 /obj/structure/barricade/sandbags/pick_up_barricade()
 	var/obj/item/stack/sheet/sandbags/sandbag = new(loc)
