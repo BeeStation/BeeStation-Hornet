@@ -24988,13 +24988,7 @@
 /area/medical/virology)
 "hGg" = (
 /obj/machinery/suit_storage_unit/exploration,
-/obj/machinery/airalarm/directional/north{
-	dir = 8;
-	pixel_x = 24;
-	pixel_y = 0;
-	step_x = 0;
-	step_y = 0
-	},
+/obj/machinery/airalarm/directional/east,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/exploration_prep)
 "hGI" = (
