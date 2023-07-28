@@ -22445,12 +22445,6 @@
 /obj/machinery/light/small,
 /turf/open/floor/plasteel,
 /area/janitor)
-"chI" = (
-/obj/structure/closet/secure_closet/personal/patient,
-/obj/effect/turf_decal/bot,
-/obj/machinery/firealarm/directional/north,
-/turf/open/floor/plasteel,
-/area/medical/genetics/cloning)
 "chN" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/nitrogen_input{
 	dir = 1
@@ -68354,6 +68348,16 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
+"uhZ" = (
+/obj/structure/closet/secure_closet/personal/patient,
+/obj/effect/turf_decal/bot,
+/obj/machinery/firealarm/directional/north,
+/obj/machinery/light_switch{
+	pixel_x = -11;
+	pixel_y = 23
+	},
+/turf/open/floor/plasteel,
+/area/medical/genetics/cloning)
 "uiw" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -103634,7 +103638,7 @@ rdQ
 rdQ
 rdQ
 rdQ
-chI
+uhZ
 xnR
 uOH
 ort
