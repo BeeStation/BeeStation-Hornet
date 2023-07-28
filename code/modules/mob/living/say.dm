@@ -110,6 +110,9 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		say_dead(original_message)
 		return
 
+	if(saymode && saymode.early && !saymode.handle_message(src, message, language))
+		return
+
 	if(is_muted(original_message, ignore_spam, forced) || check_emote(original_message, forced))
 		return
 
@@ -191,7 +194,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		spans |= SPAN_SINGING
 
 	//This is before anything that sends say a radio message, and after all important message type modifications, so you can scumb in alien chat or something
-	if(saymode && !saymode.handle_message(src, message, language))
+	if(saymode && !saymode.early && !saymode.handle_message(src, message, language))
 		return
 	var/radio_message = message
 	if(message_mods[WHISPER_MODE])

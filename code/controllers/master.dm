@@ -217,6 +217,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		if (SS.flags & SS_NO_INIT || SS.initialized) //Don't init SSs with the correspondig flag or if they already are initialzized
 			continue
 		current_initializing_subsystem = SS
+		log_world("Initializing [SS.name] subsystem.")
 		SS.Initialize(REALTIMEOFDAY)
 		CHECK_TICK
 	current_initializing_subsystem = null
