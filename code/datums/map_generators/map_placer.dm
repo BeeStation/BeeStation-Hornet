@@ -92,7 +92,9 @@
 	if (current_run == GENERATE_STAGE_BUILD_COORDINATES_START)
 		build_coordinates_start()
 	if (current_run == GENERATE_STAGE_BUILD_COORDINATES)
+		SSatoms.map_loader_begin(REF(src))
 		build_coordinates()
+		SSatoms.map_loader_stop(REF(src))
 	. = current_run == GENERATE_STAGE_COMPLETED
 
 /datum/map_generator/map_place/proc/set_stage(stage)
