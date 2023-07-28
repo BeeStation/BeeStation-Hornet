@@ -1,4 +1,0 @@
-author: RKz
-delete-after: true
-changes:
-  - bugfix: incorrect projectile and lying detection bugs
