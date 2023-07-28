@@ -149,7 +149,7 @@
 	CanAtmosPass = ATMOS_PASS_NO
 	init_air = FALSE
 
-/turf/open/Initalize_Atmos(time)
+/turf/open/Initalize_Atmos(times_fired)
 	if(!istype(air, /datum/gas_mixture/turf))
 		air = new(2500,src)
 	air.copy_from_turf(src)

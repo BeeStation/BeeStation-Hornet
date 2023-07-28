@@ -125,7 +125,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf/proc/set_temperature()
 
 /// Initializes our adjacent turfs. If you want to avoid this, do not override it, instead set init_air to FALSE
-/turf/proc/Initalize_Atmos(time)
+/turf/proc/Initalize_Atmos(times_fired)
 	CALCULATE_ADJACENT_TURFS(src)
 
 /turf/Destroy(force)
