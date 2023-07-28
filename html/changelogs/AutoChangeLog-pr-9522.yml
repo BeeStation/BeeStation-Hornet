@@ -1,0 +1,4 @@
+author: itsmeow
+delete-after: true
+changes:
+  - code_imp: Saves between ~18ms init time by optimizing turf destroy and atom destroy.
