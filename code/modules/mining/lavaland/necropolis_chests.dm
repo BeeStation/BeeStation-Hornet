@@ -31,10 +31,11 @@
 
 /obj/effect/spawner/mail/maintloot
 	name = "\improper Random maintenance loot spawner"
+
 /obj/effect/spawner/mail/maintloot/Initialize()
 	var/static/list/mail_maintloot = pick(GLOB.maintenance_loot)
 	new mail_maintloot(loc)
-	return INITIALIZE_HINT_QDEL
+	return ..()
 
 /obj/structure/closet/crate/necropolis/tendril
 	desc = "It's watching you suspiciously."

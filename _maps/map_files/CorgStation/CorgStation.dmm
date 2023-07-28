@@ -578,7 +578,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
-/obj/effect/spawner/lootdrop/job_scale/medical/medkits,
+/obj/effect/loot_jobscale/medical/medkits,
 /turf/open/floor/plasteel,
 /area/medical/storage)
 "aeC" = (
@@ -4050,8 +4050,8 @@
 	dir = 4
 	},
 /obj/machinery/power/apc/auto_name/east,
-/obj/effect/spawner/lootdrop/job_scale/armoury/bulletproof_vest,
-/obj/effect/spawner/lootdrop/job_scale/armoury/bulletproof_helmet,
+/obj/effect/loot_jobscale/armoury/bulletproof_vest,
+/obj/effect/loot_jobscale/armoury/bulletproof_helmet,
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "aWA" = (
@@ -9205,7 +9205,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
-/obj/effect/spawner/lootdrop/job_scale/medical/first_aid_kit,
+/obj/effect/loot_jobscale/medical/first_aid_kit,
 /turf/open/floor/plasteel,
 /area/medical/storage)
 "cNX" = (
@@ -11155,7 +11155,7 @@
 /obj/item/gun/energy/temperature/security,
 /obj/effect/turf_decal/delivery,
 /obj/item/beacon/nettingportal,
-/obj/effect/spawner/lootdrop/job_scale/armoury/dragnet,
+/obj/effect/loot_jobscale/armoury/dragnet,
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "duF" = (
@@ -26988,7 +26988,7 @@
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/effect/spawner/lootdrop/job_scale/armoury/laser_gun,
+/obj/effect/loot_jobscale/armoury/laser_gun,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "iGp" = (
@@ -35074,7 +35074,7 @@
 	req_access_txt = "5"
 	},
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
-/obj/effect/spawner/lootdrop/job_scale/medical/medkits,
+/obj/effect/loot_jobscale/medical/medkits,
 /turf/open/floor/plasteel,
 /area/medical/storage)
 "lrJ" = (
@@ -36116,9 +36116,9 @@
 "lIw" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery,
-/obj/effect/spawner/lootdrop/job_scale/armoury/riot_suit,
-/obj/effect/spawner/lootdrop/job_scale/armoury/riot_helmet,
-/obj/effect/spawner/lootdrop/job_scale/armoury/riot_shield,
+/obj/effect/loot_jobscale/armoury/riot_suit,
+/obj/effect/loot_jobscale/armoury/riot_helmet,
+/obj/effect/loot_jobscale/armoury/riot_shield,
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "lIO" = (
@@ -42350,7 +42350,7 @@
 /obj/structure/rack,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/effect/spawner/lootdrop/job_scale/armoury/disabler,
+/obj/effect/loot_jobscale/armoury/disabler,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "nIO" = (
@@ -57454,7 +57454,7 @@
 "sFf" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/job_scale/armoury/wt550,
+/obj/effect/loot_jobscale/armoury/wt550,
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "sFB" = (
@@ -68933,7 +68933,7 @@
 	req_access_txt = "5"
 	},
 /obj/effect/turf_decal/tile/yellow/fourcorners/contrasted,
-/obj/effect/spawner/lootdrop/job_scale/medical/medkits,
+/obj/effect/loot_jobscale/medical/medkits,
 /turf/open/floor/plasteel,
 /area/medical/storage)
 "wwk" = (
@@ -70633,7 +70633,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
-/obj/effect/spawner/lootdrop/job_scale/armoury/energy_gun,
+/obj/effect/loot_jobscale/armoury/energy_gun,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "wYq" = (

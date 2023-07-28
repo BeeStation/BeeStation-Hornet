@@ -38614,7 +38614,7 @@
 	req_access_txt = "3"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/spawner/lootdrop/job_scale/armoury/riot_shield,
+/obj/effect/loot_jobscale/armoury/riot_shield,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "gnR" = (
@@ -49994,7 +49994,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue/half/contrasted,
-/obj/effect/spawner/lootdrop/job_scale/medical/medkits,
+/obj/effect/loot_jobscale/medical/medkits,
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
 "lCJ" = (
@@ -52179,7 +52179,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/spawner/lootdrop/job_scale/armoury/disabler,
+/obj/effect/loot_jobscale/armoury/disabler,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "mCf" = (
@@ -52450,7 +52450,7 @@
 "mGm" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/spawner/lootdrop/job_scale/armoury/laser_gun,
+/obj/effect/loot_jobscale/armoury/laser_gun,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "mGx" = (
@@ -58974,7 +58974,7 @@
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/job_scale/medical/medkits,
+/obj/effect/loot_jobscale/medical/medkits,
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
 "pKf" = (
@@ -59570,7 +59570,7 @@
 /obj/item/storage/fancy/donut_box,
 /obj/item/beacon/nettingportal,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/spawner/lootdrop/job_scale/armoury/dragnet,
+/obj/effect/loot_jobscale/armoury/dragnet,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "pVv" = (
@@ -60350,7 +60350,7 @@
 "qlF" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/spawner/lootdrop/job_scale/armoury/energy_gun,
+/obj/effect/loot_jobscale/armoury/energy_gun,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "qlX" = (
@@ -65382,7 +65382,7 @@
 /obj/effect/turf_decal/tile/blue/half/contrasted{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/job_scale/medical/first_aid_kit,
+/obj/effect/loot_jobscale/medical/first_aid_kit,
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
 "stB" = (
@@ -69686,7 +69686,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue/anticorner/contrasted,
-/obj/effect/spawner/lootdrop/job_scale/medical/medkits,
+/obj/effect/loot_jobscale/medical/medkits,
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
 "uqd" = (
@@ -74131,7 +74131,7 @@
 /obj/item/storage/box/breacherslug,
 /obj/item/storage/box/breacherslug,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/spawner/lootdrop/job_scale/armoury/riot_shotgun,
+/obj/effect/loot_jobscale/armoury/riot_shotgun,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "wsx" = (
@@ -74580,8 +74580,8 @@
 	pixel_x = 28
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/spawner/lootdrop/job_scale/armoury/bulletproof_vest,
-/obj/effect/spawner/lootdrop/job_scale/armoury/riot_helmet,
+/obj/effect/loot_jobscale/armoury/bulletproof_vest,
+/obj/effect/loot_jobscale/armoury/riot_helmet,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "wCC" = (
@@ -74702,8 +74702,8 @@
 "wFr" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
-/obj/effect/spawner/lootdrop/job_scale/armoury/bulletproof_vest,
-/obj/effect/spawner/lootdrop/job_scale/armoury/bulletproof_helmet,
+/obj/effect/loot_jobscale/armoury/bulletproof_vest,
+/obj/effect/loot_jobscale/armoury/bulletproof_helmet,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "wFH" = (
