@@ -40,11 +40,7 @@
 	)
 	biohazard = 45
 
-	minimal_lightup_areas = list(
-		/area/storage/eva,
-		/area/security/brig,
-		/area/crew_quarters/heads/cmo
-	)
+	minimal_lightup_areas = list(/area/storage/eva, /area/crew_quarters/heads/cmo)
 
 /datum/outfit/job/chief_medical_officer
 	name = JOB_NAME_CHIEFMEDICALOFFICER

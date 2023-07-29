@@ -10,7 +10,8 @@ GLOBAL_LIST_INIT(command_positions, list(
 GLOBAL_LIST_INIT(command_areas, typecacheof(list(
 	/area/bridge,
 	/area/gateway,
-	/area/teleporter
+	/area/teleporter,
+	/area/security/brig
 )))
 
 
