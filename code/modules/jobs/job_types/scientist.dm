@@ -34,6 +34,7 @@
 	minimal_lightup_areas = list(
 		/area/science/explab,
 		/area/science/misc_lab,
+		/area/science/mixing,
 		/area/science/nanite,
 		/area/science/storage,
 		/area/science/xenobiology

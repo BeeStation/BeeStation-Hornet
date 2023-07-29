@@ -41,13 +41,13 @@
 	biohazard = 45
 
 	minimal_lightup_areas = list(
+		/area/crew_quarters/heads/cmo,
 		/area/storage/eva,
 		/area/medical/morgue,
 		/area/medical/surgery,
 		/area/medical/chemistry,
 		/area/medical/apothecary,
-		/area/medical/genetics/cloning,
-		/area/crew_quarters/heads/cmo
+		/area/medical/genetics/cloning
 	)
 
 /datum/outfit/job/chief_medical_officer
