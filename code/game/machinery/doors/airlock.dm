@@ -1338,7 +1338,7 @@
 	if(!hasPower())
 		to_chat(user, "<span class='warning'>The cryptographic sequencer connects to \the [src]'s ID scanner, but nothing happens.</span>")
 		return FALSE
-	if(AIRLOCK_SECURITY_NONE)
+	if(!panel_open || security_level != AIRLOCK_SECURITY_NONE)
 		to_chat(user, "<span class='warning'>The wires must be exposed to hack!</span>")
 		return FALSE
 	// Don't allow emag if the door is currently open or moving
