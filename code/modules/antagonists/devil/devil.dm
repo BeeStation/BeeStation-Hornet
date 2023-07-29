@@ -88,7 +88,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	name = "Devil"
 	roundend_category = "devils"
 	antagpanel_category = "Devil"
-	job_rank = ROLE_DEVIL
+	banning_key = ROLE_DEVIL
 	show_to_ghosts = TRUE
 	var/obligation
 	var/ban

@@ -22,7 +22,7 @@
 /datum/round_event/ghost_role/blob/spawn_role()
 	if(!GLOB.blobstart.len)
 		return MAP_ERROR
-	var/list/candidates = get_candidates(ROLE_BLOB, null, ROLE_BLOB)
+	var/list/candidates = get_candidates(ROLE_BLOB, /datum/role_preference/midround_ghost/blob)
 	if(!candidates.len)
 		return NOT_ENOUGH_PLAYERS
 	var/mob/dead/observer/new_blob = pick(candidates)
