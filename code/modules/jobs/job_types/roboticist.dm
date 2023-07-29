@@ -29,6 +29,12 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/robotics
 	)
 
+	minimal_lightup_areas = list(
+		/area/storage/tech,
+		/area/medical/morgue,
+		/area/construction/mining/aux_base
+	)
+
 /datum/outfit/job/roboticist
 	name = JOB_NAME_ROBOTICIST
 	jobtype = /datum/job/roboticist

@@ -90,9 +90,23 @@
 	///RPG job names, for the memes
 	var/rpg_title
 
+	/**
+	 * A list of job-specific areas to enable lights for if this job is present at roundstart, whenever minimal access is not in effect.
+	 * This will be combined with minimal_lightup_areas, so no need to duplicate entries.
+	 * Areas within their department will have their lights turned on automatically, so you should really only use this for areas outside of their department.
+	 */
+	var/list/lightup_areas = list()
+	/**
+	 * A list of job-specific areas to enable lights for if this job is present at roundstart.
+	 * Areas within their department will have their lights turned on automatically, so you should really only use this for areas outside of their department.
+	 */
+	var/list/minimal_lightup_areas = list()
+
 
 /datum/job/New()
 	. = ..()
+	lightup_areas = typecacheof(lightup_areas)
+	minimal_lightup_areas = typecacheof(minimal_lightup_areas)
 
 //Only override this proc, unless altering loadout code. Loadouts act on H but get info from M
 //H is usually a human unless an /equip override transformed it

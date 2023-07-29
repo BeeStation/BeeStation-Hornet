@@ -29,6 +29,8 @@
 	)
 	biohazard = 50//deal with sick like MDS, but also muck around in maint and get into the thick of it
 
+	minimal_lightup_areas = list(/area/storage/eva)
+
 /datum/outfit/job/paramedic
 	name = JOB_NAME_PARAMEDIC
 	jobtype = /datum/job/paramedic

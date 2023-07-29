@@ -30,6 +30,11 @@
 	)
 	biohazard = 35
 
+	minimal_access = list(
+		/area/storage/tech,
+		/area/construction/mining/aux_base
+	)
+
 /datum/outfit/job/scientist
 	name = JOB_NAME_SCIENTIST
 	jobtype = /datum/job/scientist

@@ -43,6 +43,8 @@
 	)
 	biohazard = 40
 
+	minimal_lightup_areas = list(/area/crew_quarters/heads/hor)
+
 /datum/outfit/job/research_director
 	name = JOB_NAME_RESEARCHDIRECTOR
 	jobtype = /datum/job/research_director

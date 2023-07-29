@@ -360,21 +360,36 @@ SUBSYSTEM_DEF(ticker)
 	PostSetup()
 	SSstat.clear_global_alert()
 
-//Toggle lightswitches on in occupied departments
-	var/discrete_areas = list()
-	for(var/mob/living/carbon/human/H in GLOB.player_list)
-		var/area/A = get_area(H)
-		if(!(A in discrete_areas)) //We've already added their department
-			discrete_areas += get_department_areas(H)
-	for(var/area/area in discrete_areas)
+	// Toggle lightswitches on in occupied departments
+	var/list/lightup_area_typecache = list()
+	var/minimal_access = CONFIG_GET(flag/jobs_have_minimal_access)
+	for(var/mob/living/carbon/human/player in GLOB.player_list)
+		var/role = player.mind?.assigned_role
+		if(!role)
+			continue
+		var/datum/job/job = SSjob.GetJob(role)
+		if(!job)
+			continue
+		if(role in GLOB.command_positions)
+			lightup_area_typecache |= GLOB.command_areas
+		if(role in GLOB.engineering_positions)
+			lightup_area_typecache |= GLOB.engineering_areas
+		if(role in GLOB.medical_positions)
+			lightup_area_typecache |= GLOB.medical_areas
+		if(role in GLOB.science_positions)
+			lightup_area_typecache |= GLOB.science_positions
+		if(role in GLOB.supply_positions)
+			lightup_area_typecache |= GLOB.supply_areas
+		lightup_area_typecache |= job.minimal_lightup_areas
+		if(!minimal_access)
+			lightup_area_typecache |= job.lightup_areas
+	for(var/area/area as() in typecache_filter_list(GLOB.sortedAreas, lightup_area_typecache))
 		if(area.lights_always_start_on)
 			continue
 		area.lightswitch = TRUE
 		area.update_appearance()
-
-		for(var/obj/machinery/light_switch/L in area)
-			L.update_appearance()
-
+		for(var/obj/machinery/light_switch/lswitch in area)
+			lswitch.update_appearance()
 		area.power_change()
 
 	return TRUE
