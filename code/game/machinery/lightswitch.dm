@@ -6,6 +6,10 @@
 	desc = "Make dark."
 	power_channel = AREA_USAGE_LIGHT
 	layer = ABOVE_WINDOW_LAYER
+	// Small light so emissive is visible even in full blackness
+	light_range = 1
+	light_power = 0.05
+	light_on = TRUE
 	/// Set this to a string, path, or area instance to control that area
 	/// instead of the switch's location.
 	var/area/area = null
@@ -23,7 +27,7 @@
 	if(!name)
 		name = "light switch ([area.name])"
 
-	update_icon()
+	update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
 	if(mapload)
 		return INITIALIZE_HINT_LATELOAD
 	return
