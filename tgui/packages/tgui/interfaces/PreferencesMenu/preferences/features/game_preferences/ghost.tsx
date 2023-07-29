@@ -43,7 +43,7 @@ const GhostFormInput = (props: FeatureValueProps<string, string, FeatureChoicedS
     const displayText = (
       <Flex key={name} style={{ 'overflow-y': 'hidden' }}>
         <Flex.Item>
-          <Box className={classes([`preferences32x32`, serverData.icons![name]])} />
+          <Box className={classes([`${serverData.icon_sheet}32x32`, serverData.icons![name]])} />
         </Flex.Item>
 
         <Flex.Item grow={1}>{displayName}</Flex.Item>

@@ -92,7 +92,8 @@ export const CharacterPreferenceWindow = (props, context) => {
         <>
           <Button
             icon="cog"
-            tooltip="Game Preferences"
+            tooltip="Open Game Preferences"
+            tooltipPosition="bottom"
             style={{ 'border-radius': '20px' }}
             onClick={() => act('open_game_preferences')}
           />

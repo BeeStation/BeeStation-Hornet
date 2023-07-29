@@ -324,6 +324,9 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	/// this is the name of the feature that will be presented.
 	var/main_feature_name
 
+	/// Which spritesheet this preference should go on. This is used for particularly massive choice lists to reduce mount lag.
+	var/preference_spritesheet = PREFERENCE_SHEET_NORMAL
+
 	abstract_type = /datum/preference/choiced
 
 /// Returns a list of every possible value.
@@ -396,6 +399,7 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 			icons[choice] = get_spritesheet_key(choice)
 
 		data["icons"] = icons
+		data["icon_sheet"] = preference_spritesheet
 
 	if (!isnull(main_feature_name))
 		data["name"] = main_feature_name

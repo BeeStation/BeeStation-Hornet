@@ -1,12 +1,13 @@
 /// Assets generated from `/datum/preference` icons
 /datum/asset/spritesheet/preferences
-	name = "preferences"
+	name = PREFERENCE_SHEET_NORMAL
 	early = TRUE
 	cross_round_cachable = TRUE
 
 /datum/asset/spritesheet/preferences/create_spritesheets()
-	var/list/to_insert = list()
+	create_preferences_spritesheet(src, name)
 
+/proc/create_preferences_spritesheet(datum/asset/spritesheet/sheet, sheet_key)
 	for (var/preference_key in GLOB.preference_entries_by_key)
 		var/datum/preference/choiced/preference = GLOB.preference_entries_by_key[preference_key]
 		if (!istype(preference))
@@ -15,13 +16,14 @@
 		if (!preference.should_generate_icons)
 			continue
 
+		if(preference.preference_spritesheet != sheet_key)
+			continue
+
 		var/list/choices = preference.get_choices_serialized()
 		for (var/preference_value in choices)
 			var/create_icon_of = choices[preference_value]
-
 			var/icon/icon
 			var/icon_state
-
 			if (ispath(create_icon_of, /atom))
 				var/atom/atom_icon_source = create_icon_of
 				icon = initial(atom_icon_source.icon)
@@ -31,11 +33,28 @@
 			else
 				CRASH("[create_icon_of] is an invalid preference value (from [preference_key]:[preference_value]).")
 
-			to_insert[preference.get_spritesheet_key(preference_value)] = list(icon, icon_state)
+			sheet.Insert(preference.get_spritesheet_key(preference_value), icon, icon_state)
 
-	for (var/spritesheet_key in to_insert)
-		var/list/inserting = to_insert[spritesheet_key]
-		Insert(spritesheet_key, inserting[1], inserting[2])
+/// This "large" spritesheet helps reduce mount lag from large PNG files.
+/datum/asset/spritesheet/preferences_large
+	name = PREFERENCE_SHEET_LARGE
+	early = TRUE
+	cross_round_cachable = TRUE
+
+/datum/asset/spritesheet/preferences_large/create_spritesheets()
+	create_preferences_spritesheet(src, name)
+
+/// This "huge" spritesheet helps reduce mount lag from huge PNG files.
+/datum/asset/spritesheet/preferences_huge
+	name = PREFERENCE_SHEET_HUGE
+	early = TRUE
+	cross_round_cachable = TRUE
+
+
+/datum/asset/spritesheet/preferences_huge/create_spritesheets()
+	// if someone ever hits this limit, you need to delete the game
+	// just delete it, it's too big. It needs to end (the year is probably 2053 or something)
+	create_preferences_spritesheet(src, name)
 
 /// Returns the key that will be used in the spritesheet for a given value.
 /datum/preference/proc/get_spritesheet_key(value)

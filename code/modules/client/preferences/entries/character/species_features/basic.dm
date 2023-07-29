@@ -49,6 +49,7 @@
 	main_feature_name = "Facial Hair"
 	should_generate_icons = TRUE
 	relevant_species_trait = FACEHAIR
+	preference_spritesheet = PREFERENCE_SHEET_LARGE
 
 /datum/preference/choiced/facial_hairstyle/init_possible_values()
 	return generate_possible_values_for_sprite_accessories_on_head(GLOB.facial_hair_styles_list)
@@ -90,6 +91,7 @@
 	main_feature_name = "Hair Style"
 	should_generate_icons = TRUE
 	relevant_species_trait = HAIR
+	preference_spritesheet = PREFERENCE_SHEET_HUGE
 
 /datum/preference/choiced/hairstyle/init_possible_values()
 	return generate_possible_values_for_sprite_accessories_on_head(GLOB.hair_styles_list)

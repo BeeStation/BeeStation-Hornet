@@ -17,8 +17,10 @@ const CLOTHING_CELL_SIZE = 64;
 const CLOTHING_SIDEBAR_ROWS = 10;
 
 const CLOTHING_SELECTION_CELL_SIZE = 64;
-const CLOTHING_SELECTION_WIDTH = 6.3;
-const CLOTHING_SELECTION_MULTIPLIER = 5.2;
+const CLOTHING_SELECTION_CELL_SIZE_HORIZONTAL = 84;
+const CLOTHING_SELECTION_CELL_SIZE_VERTICAL = 135;
+const ENTRIES_PER_ROW = 5;
+const MAX_ROWS = 2.8;
 
 const CharacterControls = (props: {
   handleRotate: (direction: boolean) => void;
@@ -94,12 +96,18 @@ const ChoicedSelection = (
     (features[supplementalFeature].small_supplemental === true ||
       features[supplementalFeature].small_supplemental === undefined);
 
+  const entryCount = Object.keys(catalog.icons).length;
+
+  const calculatedWidth = CLOTHING_SELECTION_CELL_SIZE_HORIZONTAL * Math.min(entryCount, ENTRIES_PER_ROW);
+  const baseHeight = CLOTHING_SELECTION_CELL_SIZE_VERTICAL * Math.min(Math.ceil(entryCount / ENTRIES_PER_ROW), MAX_ROWS);
+  const calculatedHeight = baseHeight + (supplementalFeature && !use_small_supplemental ? 100 : 0);
+
   return (
     <Box
       className="theme-generic-yellow"
       style={{
-        height: `${CLOTHING_SELECTION_CELL_SIZE * CLOTHING_SELECTION_MULTIPLIER}px`,
-        width: `${CLOTHING_SELECTION_CELL_SIZE * CLOTHING_SELECTION_WIDTH}px`,
+        height: `${calculatedHeight}px`,
+        width: `${calculatedWidth}px`,
       }}>
       <Box className="PopupWindow" style={{ 'padding': '5px' }} width="100%" height="100%">
         <Stack vertical fill>
@@ -143,7 +151,7 @@ const ChoicedSelection = (
                 <Icon mr={1} name="search" />
                 <Input
                   autoFocus
-                  width={`${CLOTHING_SELECTION_CELL_SIZE * CLOTHING_SELECTION_WIDTH - 55}px`}
+                  width={`${calculatedWidth - 55}px`}
                   placeholder="Search options"
                   value={searchText}
                   onInput={(_, value) => setSearchText(value)}
@@ -174,7 +182,7 @@ const ChoicedSelection = (
                           width: `${CLOTHING_SELECTION_CELL_SIZE}px`,
                         }}>
                         <Box
-                          className={classes(['preferences32x32', image, 'centered-image'])}
+                          className={classes([`${catalog.icon_sheet}32x32`, image, 'centered-image'])}
                           style={{
                             transform: 'translateX(-50%) translateY(-50%) scale(1.4)',
                           }}
@@ -233,29 +241,33 @@ const GenderButton = (
   return (
     <Popper
       options={{
-        placement: 'right-end',
+        placement: 'right',
       }}
       popperContent={
         genderMenuOpen && (
-          <Stack backgroundColor="white" ml={0.5} p={0.3}>
-            {[Gender.Male, Gender.Female, Gender.Other].map((gender) => {
-              return (
-                <Stack.Item key={gender}>
-                  <Button
-                    selected={gender === props.gender}
-                    onClick={() => {
-                      props.handleSetGender(gender);
-                      setGenderMenuOpen(false);
-                    }}
-                    fontSize="22px"
-                    icon={GENDERS[gender].icon}
-                    tooltip={GENDERS[gender].text}
-                    tooltipPosition="top"
-                  />
-                </Stack.Item>
-              );
-            })}
-          </Stack>
+          <TrackOutsideClicks onOutsideClick={() => setGenderMenuOpen(false)} removeOnOutsideClick>
+            <Box className="theme-generic-yellow">
+              <Stack className="PopupWindow" ml={0.5} p={0.5}>
+                {[Gender.Male, Gender.Female, Gender.Other].map((gender) => {
+                  return (
+                    <Stack.Item key={gender}>
+                      <Button
+                        selected={gender === props.gender}
+                        onClick={() => {
+                          props.handleSetGender(gender);
+                          setGenderMenuOpen(false);
+                        }}
+                        fontSize="22px"
+                        icon={GENDERS[gender].icon}
+                        tooltip={GENDERS[gender].text}
+                        tooltipPosition="top"
+                      />
+                    </Stack.Item>
+                  );
+                })}
+              </Stack>
+            </Box>
+          </TrackOutsideClicks>
         )
       }>
       <Button
@@ -336,7 +348,7 @@ const MainFeature = (
         tooltip={catalog.name}
         tooltipPosition="right">
         <Box
-          className={classes(['preferences32x32', catalog.icons![currentValue], 'centered-image'])}
+          className={classes([`${catalog.icon_sheet}32x32`, catalog.icons![currentValue], 'centered-image'])}
           style={{
             transform: randomization
               ? 'translateX(-70%) translateY(-70%) scale(1.1)'

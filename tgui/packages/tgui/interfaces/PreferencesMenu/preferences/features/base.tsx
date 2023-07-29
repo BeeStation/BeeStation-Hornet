@@ -130,6 +130,7 @@ export type FeatureChoicedServerData = {
   choices: string[];
   display_names?: Record<string, string>;
   icons?: Record<string, string>;
+  icon_sheet?: string;
 };
 
 export type FeatureChoiced = Feature<string, string, FeatureChoicedServerData>;
@@ -238,7 +239,7 @@ export const FeatureIconnedDropdownInput = (
           <Stack>
             <Stack.Item>
               <Box
-                className={classes(['preferences32x32', icon])}
+                className={classes([`${serverData.icon_sheet}32x32`, icon])}
                 style={{
                   'transform': 'scale(0.8)',
                 }}

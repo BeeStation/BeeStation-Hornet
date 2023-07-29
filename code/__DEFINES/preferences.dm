@@ -149,3 +149,7 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 #define CHARACTER_PREFERENCE_ALL_QUIRKS "all_quirks"
 #define CHARACTER_PREFERENCE_EQUIPPED_GEAR "equipped_gear"
 #define CHARACTER_PREFERENCE_ROLE_PREFERENCES "role_preferences"
+
+#define PREFERENCE_SHEET_NORMAL "preferences"
+#define PREFERENCE_SHEET_LARGE "preferences_l"
+#define PREFERENCE_SHEET_HUGE "preferences_h"

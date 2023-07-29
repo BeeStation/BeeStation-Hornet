@@ -9,6 +9,7 @@
   background-image: linear-gradient(to bottom, base.$color-bg-start 0%, base.$color-bg-end 100%);
   @include Layout.fancy-scrollbar(base.$color-bg, Layout.$scrollbar-color-multiplier);
   border: 1px solid color.adjust(base.$color-bg, $lightness: 7%);
+  box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.5);
 }
 
 .PopupWindow * {
