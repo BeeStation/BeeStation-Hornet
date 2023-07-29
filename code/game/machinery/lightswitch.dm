@@ -2,7 +2,7 @@
 /obj/machinery/light_switch
 	name = "light switch"
 	icon = 'icons/obj/power.dmi'
-	icon_state = "light1"
+	icon_state = "light"
 	desc = "Make dark."
 	power_channel = AREA_USAGE_LIGHT
 	layer = ABOVE_WINDOW_LAYER
@@ -36,29 +36,30 @@
 		return
 	turn_off()
 
-/obj/machinery/light_switch/update_icon()
+/obj/machinery/light_switch/update_overlays()
+	. = ..()
 	if(machine_stat & NOPOWER || screwdrivered)
-		icon_state = "light-p"
-	else
-		if(area.lightswitch)
-			icon_state = "light1"
-		else
-			icon_state = "light0"
+		return
+	var/state = "light-[area.lightswitch ? "on" : "off"]"
+	. += mutable_appearance(icon, state)
+	. += emissive_appearance(icon, state, alpha = src.alpha)
 
 /obj/machinery/light_switch/proc/turn_off()
 	if(!area.lightswitch)
 		return
 	area.lightswitch = FALSE
-	area.update_icon()
 
 	for(var/obj/machinery/light_switch/L in area)
-		L.update_icon()
+		L.update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
 
 	area.power_change()
 
 /obj/machinery/light_switch/examine(mob/user)
 	. = ..()
 	. += "It is [area.lightswitch ? "on" : "off"]."
+	if(screwdrivered)
+		. += "Its panel appears to be unscrewed."
+		. += "It looks like it could be <b>pried</b> off the wall."
 
 /obj/machinery/light_switch/interact(mob/user)
 	. = ..()
@@ -67,10 +68,9 @@
 		return
 	area.lightswitch = !area.lightswitch
 	play_click_sound("button")
-	area.update_icon()
 
 	for(var/obj/machinery/light_switch/L in area)
-		L.update_icon()
+		L.update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
 
 	area.power_change()
 
@@ -80,7 +80,7 @@
 		user.visible_message("<span class='notice'>[user] [screwdrivered ? "un" : ""]secures [name].</span>", \
 		"<span class='notice'>You [screwdrivered ? "un" : ""]secure [name].</span>")
 		I.play_tool_sound(src)
-		update_icon()
+		update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
 		return
 	if(I.tool_behaviour == TOOL_CROWBAR && screwdrivered)
 		I.play_tool_sound(src)
@@ -96,7 +96,7 @@
 		else
 			set_machine_stat(machine_stat | NOPOWER)
 
-		update_icon()
+		update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
 
 /obj/machinery/light_switch/emp_act(severity)
 	. = ..()
