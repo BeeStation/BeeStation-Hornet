@@ -46,7 +46,7 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/head_of_personnel
 	)
 
-	minimal_lightup_areas = list(/area/crew_quarters/heads/hop)
+	minimal_lightup_areas = list(/area/security/brig, /area/crew_quarters/heads/hop)
 
 /datum/outfit/job/head_of_personnel
 	name = JOB_NAME_HEADOFPERSONNEL

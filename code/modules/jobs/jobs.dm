@@ -57,6 +57,7 @@ GLOBAL_LIST_INIT(science_areas, typecacheof(list(
 	/area/medical,
 	/area/science,
 	/area/security/checkpoint/science,
+	/area/construction/mining/aux_base,
 	/area/quartermaster/exploration_prep,
 	/area/quartermaster/exploration_dock
 )))

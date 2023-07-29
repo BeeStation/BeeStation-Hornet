@@ -30,10 +30,7 @@
 	)
 	biohazard = 35
 
-	minimal_access = list(
-		/area/storage/tech,
-		/area/construction/mining/aux_base
-	)
+	lightup_areas = list(/area/storage/tech)
 
 /datum/outfit/job/scientist
 	name = JOB_NAME_SCIENTIST

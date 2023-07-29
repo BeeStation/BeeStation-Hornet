@@ -28,7 +28,7 @@
 	)
 
 	minimal_lightup_areas = list(/area/crew_quarters/kitchen, /area/medical/morgue)
-	lightup_areas = list(/area/crew_quarters/bar, /area/hydroponics)
+	lightup_areas = list(/area/hydroponics)
 
 /datum/outfit/job/cook
 	name = JOB_NAME_COOK
