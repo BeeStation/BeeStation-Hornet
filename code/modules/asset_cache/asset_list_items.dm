@@ -409,15 +409,15 @@
 	// building icons for each item
 	for (var/k in target_items)
 		var/atom/item = k
-		if (!ispath(item, /atom))
+		var/icon/I = get_display_icon_for(item)
+		if(!I)
 			continue
 		var/imgid = replacetext(replacetext("[item]", "/obj/item/", ""), "/", "-")
-		var/icon/I = get_display_icon_for(item)
 		Insert(imgid, I)
 
 /proc/get_display_icon_for(atom/item)
 	if (!ispath(item, /atom))
-		return
+		return FALSE
 	var/icon_file
 	if (initial(item.greyscale_colors) && initial(item.greyscale_config))
 		icon_file = SSgreyscale.GetColoredIconByType(initial(item.greyscale_config), initial(item.greyscale_colors))
@@ -436,7 +436,7 @@
 				icon_states_string += ", [json_encode(an_icon_state)](\ref[an_icon_state])"
 
 		stack_trace("[item] does not have a valid icon state, icon=[icon_file], icon_state=[json_encode(icon_state)](\ref[icon_state]), icon_states=[icon_states_string]")
-		continue
+		return FALSE
 	#endif
 
 	var/icon/I = icon(icon_file, icon_state, SOUTH)

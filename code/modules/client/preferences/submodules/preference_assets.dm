@@ -67,13 +67,13 @@
 /datum/asset/spritesheet/preferences_loadout/create_spritesheets()
 	for(var/gear_id in GLOB.gear_datums)
 		var/datum/gear/G = GLOB.gear_datums[gear_id]
-		if(!ispath(G.path, /atom))
-			continue
 		var/icon/regular_icon = get_display_icon_for(G.path)
-		Insert("loadout_gear___[gear_id]", regular_icon)
-		if(!ispath(G.skirt_path, /atom))
+		if(!regular_icon)
 			continue
+		Insert("loadout_gear___[gear_id]", regular_icon)
 		var/icon/skirt_icon = get_display_icon_for(G.skirt_path)
+		if(!skirt_icon)
+			continue
 		Insert("loadout_gear___[gear_id]_skirt", skirt_icon)
 
 /// Sends information needed for shared details on individual preferences
