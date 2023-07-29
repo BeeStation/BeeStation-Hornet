@@ -31,7 +31,7 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/detective
 	)
 
-	minimal_lightup_areas = list(/area/medical/morgue)
+	minimal_lightup_areas = list(/area/medical/morgue, /area/security/detectives_office)
 
 /datum/outfit/job/detective
 	name = JOB_NAME_DETECTIVE

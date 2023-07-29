@@ -10,8 +10,8 @@ GLOBAL_LIST_INIT(command_positions, list(
 GLOBAL_LIST_INIT(command_lightup_areas, typecacheof(list(
 	/area/bridge,
 	/area/gateway,
-	/area/teleporter,
-	/area/security/brig
+	/area/security/brig,
+	/area/teleporter
 )))
 
 
@@ -21,14 +21,19 @@ GLOBAL_LIST_INIT(engineering_positions, list(
 	JOB_NAME_ATMOSPHERICTECHNICIAN
 ))
 
-GLOBAL_LIST_INIT(engineering_lightup_areas, typecacheof(list(
-	/area/solar,
-	/area/engine,
-	/area/tcommsat,
-	/area/vacant_room,
-	/area/construction,
-	/area/security/checkpoint/engineering
-)))
+GLOBAL_LIST_INIT(engineering_lightup_areas,		\
+	typecacheof(list(							\
+		/area/construction,						\
+		/area/engine,							\
+		/area/security/checkpoint/engineering,	\
+		/area/solar,							\
+		/area/tcommsat,							\
+		/area/vacant_room						\
+	)) - typecacheof(list(						\
+		/area/engine/atmos,						\
+		/area/engine/gravity_generator			\
+	))											\
+)
 
 
 GLOBAL_LIST_INIT(medical_positions, list(
@@ -41,10 +46,20 @@ GLOBAL_LIST_INIT(medical_positions, list(
 	JOB_NAME_BRIGPHYSICIAN
 ))
 
-GLOBAL_LIST_INIT(medical_lightup_areas, typecacheof(list(
-	/area/medical,
-	/area/security/checkpoint/medical
-)))
+GLOBAL_LIST_INIT(medical_lightup_areas, 	\
+	typecacheof(list(						\
+		/area/medical,						\
+		/area/security/checkpoint/medical	\
+	)) - typecacheof(list(					\
+		/area/medical/abandoned,			\
+		/area/medical/apothecary,			\
+		/area/medical/chemistry,			\
+		/area/medical/genetics,				\
+		/area/medical/morgue,				\
+		/area/medical/surgery,				\
+		/area/medical/virology				\
+	))										\
+)
 
 
 GLOBAL_LIST_INIT(science_positions, list(
@@ -54,13 +69,21 @@ GLOBAL_LIST_INIT(science_positions, list(
 	JOB_NAME_ROBOTICIST
 ))
 
-GLOBAL_LIST_INIT(science_lightup_areas, typecacheof(list(
-	/area/science,
-	/area/security/checkpoint/science,
-	/area/construction/mining/aux_base,
-	/area/quartermaster/exploration_prep,
-	/area/quartermaster/exploration_dock
-)))
+GLOBAL_LIST_INIT(science_lightup_areas, 		\
+	typecacheof(list(							\
+		/area/science,							\
+		/area/security/checkpoint/science		\
+	)) - typecacheof(list(						\
+		/area/science/explab,					\
+		/area/science/misc_lab,					\
+		/area/science/mixing,					\
+		/area/science/nanite,					\
+		/area/science/robotics,					\
+		/area/science/server,					\
+		/area/science/storage,					\
+		/area/science/xenobiology				\
+	))											\
+)
 
 
 GLOBAL_LIST_INIT(supply_positions, list(
@@ -70,16 +93,16 @@ GLOBAL_LIST_INIT(supply_positions, list(
 	JOB_NAME_SHAFTMINER
 ))
 
-GLOBAL_LIST_INIT(supply_lightup_areas,					\
+GLOBAL_LIST_INIT(supply_lightup_areas,			\
 	typecacheof(list(							\
 		/area/cargo,							\
 		/area/quartermaster,					\
 		/area/security/checkpoint/supply		\
 	)) - typecacheof(list(						\
-		/area/quartermaster/qm,					\
-		/area/quartermaster/qm_bedroom,			\
+		/area/quartermaster/exploration_dock,	\
 		/area/quartermaster/exploration_prep,	\
-		/area/quartermaster/exploration_dock	\
+		/area/quartermaster/qm,					\
+		/area/quartermaster/qm_bedroom			\
 	))											\
 )
 
@@ -114,9 +137,15 @@ GLOBAL_LIST_INIT(security_positions, list(
 	JOB_NAME_DEPUTY
 ))
 
-GLOBAL_LIST_INIT(security_lightup_areas, typecacheof(list(
-	/area/security
-)))
+GLOBAL_LIST_INIT(security_lightup_areas,	\
+	typecacheof(list(						\
+		/area/security						\
+	)) - typecacheof(list(					\
+		/area/security/detectives_office,	\
+		/area/security/nuke_storage,		\
+		/area/security/warden				\
+	))										\
+)
 
 
 GLOBAL_LIST_INIT(nonhuman_positions, list(

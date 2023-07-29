@@ -29,7 +29,11 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/robotics
 	)
 
-	minimal_lightup_areas = list(/area/storage/tech, /area/medical/morgue)
+	minimal_lightup_areas = list(
+		/area/medical/morgue,
+		/area/science/robotics,
+		/area/storage/tech
+	)
 
 /datum/outfit/job/roboticist
 	name = JOB_NAME_ROBOTICIST

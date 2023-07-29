@@ -35,9 +35,9 @@
 	)
 
 	minimal_lightup_areas = list(
-		/area/security,
+		/area/crew_quarters/heads/captain,
 		/area/crew_quarters/heads/hop,
-		/area/crew_quarters/heads/captain
+		/area/security
 	)
 
 /datum/job/captain/get_access()

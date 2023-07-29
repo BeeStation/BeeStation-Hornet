@@ -43,7 +43,17 @@
 	)
 	biohazard = 40
 
-	minimal_lightup_areas = list(/area/crew_quarters/heads/hor)
+	minimal_lightup_areas = list(
+		/area/crew_quarters/heads/hor,
+		/area/science/explab,
+		/area/science/misc_lab,
+		/area/science/mixing,
+		/area/science/nanite,
+		/area/science/robotics,
+		/area/science/server,
+		/area/science/storage,
+		/area/science/xenobiology
+	)
 
 /datum/outfit/job/research_director
 	name = JOB_NAME_RESEARCHDIRECTOR
