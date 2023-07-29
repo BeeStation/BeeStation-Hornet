@@ -55,7 +55,6 @@ GLOBAL_LIST_INIT(science_positions, list(
 ))
 
 GLOBAL_LIST_INIT(science_lightup_areas, typecacheof(list(
-	/area/medical,
 	/area/science,
 	/area/security/checkpoint/science,
 	/area/construction/mining/aux_base,
