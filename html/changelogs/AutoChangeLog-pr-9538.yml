@@ -1,4 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - code_imp: Optimized atmos init and MultiZ, saving ~5 sec.
