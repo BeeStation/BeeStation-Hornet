@@ -1180,6 +1180,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return TRUE
 
 /obj/item/proc/canStrip(mob/stripper, mob/owner)
+	SHOULD_BE_PURE(TRUE)
 	return !HAS_TRAIT(src, TRAIT_NODROP)
 
 /obj/item/proc/doStrip(mob/stripper, mob/owner)

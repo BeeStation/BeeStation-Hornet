@@ -267,6 +267,7 @@
 
 /datum/asset/spritesheet/pipes
 	name = "pipes"
+	cross_round_cachable = TRUE
 
 /datum/asset/spritesheet/pipes/create_spritesheets()
 	for (var/each in list('icons/obj/atmospherics/pipes/pipe_item.dmi', 'icons/obj/atmospherics/pipes/disposal.dmi', 'icons/obj/atmospherics/pipes/transit_tube.dmi', 'icons/obj/plumbing/fluid_ducts.dmi'))
@@ -281,6 +282,7 @@
 
 /datum/asset/spritesheet/supplypods
 	name = "supplypods"
+	cross_round_cachable = TRUE
 
 /datum/asset/spritesheet/supplypods/create_spritesheets()
 	for (var/style in 1 to length(GLOB.podstyles))
@@ -315,6 +317,7 @@
 // Representative icons for each research design
 /datum/asset/spritesheet/research_designs
 	name = "design"
+	cross_round_cachable = TRUE
 
 /datum/asset/spritesheet/research_designs/create_spritesheets()
 	for (var/path in subtypesof(/datum/design))
@@ -327,9 +330,11 @@
 		if(initial(D.research_icon) && initial(D.research_icon_state)) //If the design has an icon replacement skip the rest
 			icon_file = initial(D.research_icon)
 			icon_state = initial(D.research_icon_state)
+			#ifdef UNIT_TESTS
 			if(!(icon_state in icon_states(icon_file)))
-				warning("design [D] with icon '[icon_file]' missing state '[icon_state]'")
+				stack_trace("design [D] with icon '[icon_file]' missing state '[icon_state]'")
 				continue
+			#endif
 			I = icon(icon_file, icon_state, SOUTH)
 
 		else
@@ -354,14 +359,18 @@
 			var/greyscale_colors = initial(item.greyscale_colors)
 			if (greyscale_config && greyscale_colors)
 				icon_file = SSgreyscale.GetColoredIconByType(greyscale_config, greyscale_colors)
+			else if(ispath(item, /obj/item/bodypart)) // mmm snowflake limbcode as usual
+				var/obj/item/bodypart/body_part = item
+				icon_file = initial(body_part.static_icon)
 			else
 				icon_file = initial(item.icon)
 
 			icon_state = initial(item.icon_state)
-
+			#ifdef UNIT_TESTS
 			if(!(icon_state in icon_states(icon_file)))
-				warning("design [D] with icon '[icon_file]' missing state '[icon_state]'")
+				stack_trace("design [D] with icon '[icon_file]' missing state '[icon_state]'")
 				continue
+			#endif
 			I = icon(icon_file, icon_state, SOUTH)
 
 			// computers (and snowflakes) get their screen and keyboard sprites
@@ -379,6 +388,7 @@
 
 /datum/asset/spritesheet/vending
 	name = "vending"
+	cross_round_cachable = TRUE
 
 /datum/asset/spritesheet/vending/create_spritesheets()
 	// initialising the list of items we need
@@ -408,23 +418,25 @@
 		else
 			icon_file = initial(item.icon)
 		var/icon_state = initial(item.icon_state)
-		var/icon/I
 
+		#ifdef UNIT_TESTS
 		var/icon_states_list = icon_states(icon_file)
-		if(icon_state in icon_states_list)
-			I = icon(icon_file, icon_state, SOUTH)
-			var/c = initial(item.color)
-			if (!isnull(c) && c != "#FFFFFF")
-				I.Blend(c, ICON_MULTIPLY)
-		else
+		if (!(icon_state in icon_states_list))
 			var/icon_states_string
 			for (var/an_icon_state in icon_states_list)
 				if (!icon_states_string)
 					icon_states_string = "[json_encode(an_icon_state)](\ref[an_icon_state])"
 				else
 					icon_states_string += ", [json_encode(an_icon_state)](\ref[an_icon_state])"
+
 			stack_trace("[item] does not have a valid icon state, icon=[icon_file], icon_state=[json_encode(icon_state)](\ref[icon_state]), icon_states=[icon_states_string]")
-			I = icon('icons/turf/floors.dmi', "", SOUTH)
+			continue
+		#endif
+
+		var/icon/I = icon(icon_file, icon_state, SOUTH)
+		var/c = initial(item.color)
+		if (!isnull(c) && c != "#FFFFFF")
+			I.Blend(c, ICON_MULTIPLY)
 
 		var/imgid = replacetext(replacetext("[item]", "/obj/item/", ""), "/", "-")
 
@@ -449,15 +461,10 @@
 
 		var/icon_file = initial(A.icon)
 		var/icon_state = initial(A.icon_state_preview) || initial(A.icon_state)
-		var/icon/I
 
+		#ifdef UNIT_TESTS
 		var/icon_states_list = icon_states(icon_file)
-		if(icon_state in icon_states_list)
-			I = icon(icon_file, icon_state, SOUTH, 1)
-			var/c = initial(A.color)
-			if (!isnull(c) && c != "#FFFFFF") // there're colourful burgers...
-				I.Blend(c, ICON_MULTIPLY)
-		else // Failed to find an icon: build an error message
+		if (!(icon_state in icon_states_list))
 			var/icon_states_string
 			for (var/an_icon_state in icon_states_list)
 				if (!icon_states_string)
@@ -465,7 +472,13 @@
 				else
 					icon_states_string += ", [json_encode(an_icon_state)](\ref[an_icon_state])"
 			stack_trace("[A] does not have a valid icon state, icon=[icon_file], icon_state=[json_encode(icon_state)](\ref[icon_state]), icon_states=[icon_states_string]")
-			I = icon('icons/turf/floors.dmi', "", SOUTH)
+			continue
+		#endif
+
+		var/icon/I = icon(icon_file, icon_state, SOUTH)
+		var/c = initial(A.color)
+		if (!isnull(c) && c != "#FFFFFF")
+			I.Blend(c, ICON_MULTIPLY)
 		var/imgid = replacetext(copytext("[A]", 2), "/", "-")
 
 		if(I)
@@ -539,12 +552,10 @@
 	name = "sheetmaterials"
 
 /datum/asset/spritesheet/sheetmaterials/create_spritesheets()
-	InsertAll("", 'icons/obj/stacks/minerals.dmi')//figure to do a list here
-//	InsertAll("", 'icons/obj/stacks/miscellaneous.dmi')
-//	InsertAll("", 'icons/obj/stacks/organic.dmi')
+	InsertAll("", 'icons/obj/stacks/minerals.dmi')
 
-	// Special case to handle Bluespace Crystals
-	Insert("polycrystal", 'icons/obj/telescience.dmi', "polycrystal")
+	// Special bee edit to handle Bluespace Crystals
+	Insert("polycrystal", 'icons/obj/stacks/minerals.dmi', "refined_bluespace_crystal_3")
 
 /datum/asset/simple/pAI
 	assets = list(

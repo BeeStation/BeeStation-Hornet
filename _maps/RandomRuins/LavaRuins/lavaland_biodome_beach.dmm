@@ -29,7 +29,7 @@
 /turf/open/floor/plating,
 /area/ruin/powered/beach)
 "ah" = (
-/obj/effect/mob_spawn/human/bartender/alive,
+/obj/effect/mob_spawn/human/bartender/alive/beach,
 /turf/open/floor/plating,
 /area/ruin/powered/beach)
 "ai" = (

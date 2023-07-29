@@ -195,6 +195,7 @@
 							LZ = pick(empty_turfs)
 					if (SO.pack.get_cost() <= points_to_check && LZ)//we need to call the cost check again because of the CHECK_TICK call
 						new /obj/effect/pod_landingzone(LZ, podType, SO)
+						investigate_log("Order #[SO.id] [SO.pack.name], placed by [key_name(SO.orderer_ckey)], paid by [D.account_holder] has been launched to [loc_name(LZ)].", INVESTIGATE_CARGO)
 						COOLDOWN_START(src, order_cooldown, ORDER_COOLDOWN)
 						D.adjust_money(-SO.pack.get_cost())
 						SO.pack.current_supply --
@@ -218,6 +219,7 @@
 							var/LZ = pick(empty_turfs)
 							LAZYREMOVE(empty_turfs, LZ)
 							new /obj/effect/pod_landingzone(LZ, podType, SO)
+							investigate_log("Order #[SO.id] [SO.pack.name], has been randomly launched to [loc_name(LZ)] by [key_name(SO.orderer_ckey)] using an emagged express supply console.", INVESTIGATE_CARGO)
 							COOLDOWN_START(src, order_cooldown, ORDER_COOLDOWN/2)
 							. = TRUE
 							update_icon()

@@ -27,6 +27,8 @@
 	var/obj/item/clockwork/clockwork_slab/internal_clock_slab = null
 	var/ratvar = FALSE
 
+	var/datum/action/cleaning_toggle/autoclean_toggle
+
 //Hud stuff
 
 	var/atom/movable/screen/inv1 = null
@@ -234,6 +236,9 @@
 		if(T && istype(radio) && istype(radio.keyslot))
 			radio.keyslot.forceMove(T)
 			radio.keyslot = null
+	if(autoclean_toggle)
+		autoclean_toggle.Remove(usr)
+	QDEL_NULL(autoclean_toggle)
 	QDEL_NULL(wires)
 	QDEL_NULL(eye_lights)
 	QDEL_NULL(inv1)
@@ -845,7 +850,7 @@
 
 /mob/living/silicon/robot/modules/syndicate
 	icon_state = "synd_sec"
-	faction = list(ROLE_SYNDICATE)
+	faction = list(FACTION_SYNDICATE)
 	bubble_icon = "syndibot"
 	req_access = list(ACCESS_SYNDICATE)
 	lawupdate = FALSE
@@ -1007,12 +1012,12 @@
 		if(IsUnconscious() || IsStun() || IsKnockdown() || IsParalyzed() || getOxyLoss() > maxHealth*0.5)
 			if(stat == CONSCIOUS)
 				set_stat(UNCONSCIOUS)
-				blind_eyes(1)
+				become_blind(UNCONSCIOUS_BLIND)
 				update_mobility()
 		else
 			if(stat == UNCONSCIOUS)
 				set_stat(CONSCIOUS)
-				adjust_blindness(-1)
+				cure_blind(UNCONSCIOUS_BLIND)
 				update_mobility()
 	diag_hud_set_status()
 	diag_hud_set_health()
@@ -1084,8 +1089,14 @@
 
 	if(module.clean_on_move)
 		AddElement(/datum/element/cleaning)
+		autoclean_toggle = new()
+		autoclean_toggle.toggle_target = usr
+		autoclean_toggle.Grant(usr)
 	else
 		RemoveElement(/datum/element/cleaning)
+		if(autoclean_toggle)
+			autoclean_toggle.Remove(usr)
+			QDEL_NULL(autoclean_toggle)
 
 	hat_offset = module.hat_offset
 

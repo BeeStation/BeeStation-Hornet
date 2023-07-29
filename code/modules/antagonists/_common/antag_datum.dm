@@ -11,7 +11,10 @@ GLOBAL_LIST(admin_antag_list)
 	var/silent = FALSE							//Silent will prevent the gain/lose texts to show
 	var/can_coexist_with_others = TRUE			//Whether or not the person will be able to have more than one datum
 	var/list/typecache_datum_blacklist = list()	//List of datums this type can't coexist with
-	var/job_rank
+	/// The ROLE_X key used for this antagonist.
+	var/banning_key
+	/// Required living playtime to be included in the rolling for this antagonist
+	var/required_living_playtime = 0
 	var/give_objectives = TRUE //Should the default objectives be generated?
 	var/replace_banned = TRUE //Should replace jobbanned player with ghosts if granted.
 	var/list/objectives = list()
@@ -136,12 +139,12 @@ GLOBAL_LIST(admin_antag_list)
 /datum/antagonist/proc/is_banned(mob/M)
 	if(!M)
 		return FALSE
-	. = (is_banned_from(M.ckey, list(ROLE_SYNDICATE, job_rank)) || QDELETED(M))
+	. = (is_banned_from(M.ckey, banning_key) || QDELETED(M))
 
 /datum/antagonist/proc/replace_banned_player()
 	set waitfor = FALSE
 
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [name]?", job_rank, null, job_rank, 50, owner.current)
+	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [name]?", banning_key, null, 7.5 SECONDS, owner.current, ignore_category = FALSE)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		to_chat(owner, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
@@ -149,6 +152,7 @@ GLOBAL_LIST(admin_antag_list)
 		owner.current.ghostize(FALSE)
 		owner.current.key = C.key
 	else
+		owner.current.playable_bantype = banning_key
 		owner.current.ghostize(FALSE,SENTIENCE_FORCE)
 
 ///Called by the remove_antag_datum() and remove_all_antag_datums() mind procs for the antag datum to handle its own removal and deletion.
@@ -285,14 +289,6 @@ GLOBAL_LIST(admin_antag_list)
 //nuke disk code, genome count, etc
 /datum/antagonist/proc/antag_panel_data()
 	return ""
-
-/datum/antagonist/proc/enabled_in_preferences(datum/mind/M)
-	if(job_rank)
-		if(M.current && M.current.client && (job_rank in M.current.client.prefs.be_special))
-			return TRUE
-		else
-			return FALSE
-	return TRUE
 
 // List if ["Command"] = CALLBACK(), user will be appeneded to callback arguments on execution
 /datum/antagonist/proc/get_admin_commands()

@@ -87,7 +87,7 @@
 	READPREF_JSONDEC(ignoring, PREFERENCE_TAG_IGNORING)
 	READPREF_JSONDEC(key_bindings, PREFERENCE_TAG_KEYBINDS)
 	READPREF_JSONDEC(purchased_gear, PREFERENCE_TAG_PURCHASED_GEAR)
-	READPREF_JSONDEC(be_special, PREFERENCE_TAG_BE_SPECIAL)
+	READPREF_JSONDEC(role_preferences, PREFERENCE_TAG_ROLE_PREFERENCES)
 
 	//Sanitize
 	asaycolor		= sanitize_ooccolor(sanitize_hexcolor(asaycolor, 6, TRUE, initial(asaycolor)))
@@ -107,7 +107,14 @@
 	ghost_orbit 	= sanitize_inlist(ghost_orbit, GLOB.ghost_orbits, initial(ghost_orbit))
 	ghost_accs		= sanitize_inlist(ghost_accs, GLOB.ghost_accs_options, GHOST_ACCS_DEFAULT_OPTION)
 	ghost_others	= sanitize_inlist(ghost_others, GLOB.ghost_others_options, GHOST_OTHERS_DEFAULT_OPTION)
-	be_special		= SANITIZE_LIST(be_special)
+	role_preferences		= SANITIZE_LIST(role_preferences)
+	// Remove any invalid entries
+	for(var/preference in role_preferences)
+		var/path = text2path(preference)
+		var/datum/role_preference/entry = GLOB.role_preference_entries[path]
+		if(istype(entry) && !entry.per_character)
+			continue
+		role_preferences -= preference
 
 	pda_theme		= sanitize_inlist(pda_theme, GLOB.ntos_device_themes_default_content, initial(pda_theme))
 	pda_color		= sanitize_hexcolor(pda_color, 6, TRUE, initial(pda_color))
@@ -196,7 +203,7 @@
 	PREP_WRITEPREF_JSONENC(ignoring, PREFERENCE_TAG_IGNORING)
 	PREP_WRITEPREF_JSONENC(key_bindings, PREFERENCE_TAG_KEYBINDS)
 	PREP_WRITEPREF_JSONENC(purchased_gear, PREFERENCE_TAG_PURCHASED_GEAR)
-	PREP_WRITEPREF_JSONENC(be_special, PREFERENCE_TAG_BE_SPECIAL)
+	PREP_WRITEPREF_JSONENC(role_preferences, PREFERENCE_TAG_ROLE_PREFERENCES)
 
 	// QuerySelect can execute many queries at once. That name is dumb but w/e
 	SSdbcore.QuerySelect(write_queries, TRUE, TRUE)
@@ -241,7 +248,8 @@
 			joblessrole,
 			job_preferences,
 			all_quirks,
-			equipped_gear
+			equipped_gear,
+			role_preferences
 		FROM [format_table_name("characters")] WHERE
 			ckey=:ckey
 	"}, list("ckey" = parent.ckey))
