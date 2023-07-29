@@ -1,0 +1,5 @@
+author: LemonLimeSoda
+delete-after: true
+changes:
+  - bugfix: Photocopiers no longer print exclusively gray text with default toner
+      cartridges.
