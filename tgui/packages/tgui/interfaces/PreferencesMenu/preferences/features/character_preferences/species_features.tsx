@@ -20,7 +20,6 @@ const eyePresets = {
   '#884400': 'Amber',
   '#667788': 'Gray',
   '#445566': 'Deep Gray',
-  '#990099': 'Alexandria Purple',
   '#eeeeee': 'Albino White',
   '#ccaaaa': 'Albino Pink',
   '#bbddee': 'Albino Blue',
