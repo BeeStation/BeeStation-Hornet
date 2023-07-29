@@ -21,4 +21,5 @@
 				return CACHED_REF(thing)
 			else
 				return "\[[url_encode(thing.tag)]\]"
+		return CACHED_REF(thing)
 	return "\ref[input]"
