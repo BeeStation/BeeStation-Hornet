@@ -377,7 +377,7 @@ SUBSYSTEM_DEF(ticker)
 		if(role in GLOB.medical_positions)
 			lightup_area_typecache |= GLOB.medical_lightup_areas
 		if(role in GLOB.science_positions)
-			lightup_area_typecache |= GLOB.science_positions
+			lightup_area_typecache |= GLOB.science_lightup_areas
 		if(role in GLOB.supply_positions)
 			lightup_area_typecache |= GLOB.supply_lightup_areas
 		if(role in GLOB.security_positions)
