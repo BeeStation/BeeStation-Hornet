@@ -1,5 +1,5 @@
 ///The limit when the psychic timer locks you out of creating more
-#define PSYCHIC_OVERLAY_UPPER 400
+#define PSYCHIC_OVERLAY_UPPER 500
 ///Burn mod for our species, weak to fire
 #define PSYPHOZA_BURNMOD 1.25
 
@@ -195,12 +195,12 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	if(P)
 		//We change the color instead of alpha, otherwise we'd reveal our actual surroundings!
 		animate(P, color = "#000") //This is a fix for a bug with ``animate()`` breaking
-		animate(P, color = P.origin_color, time = sense_time, easing = QUAD_EASING, flags = EASE_IN)
+		animate(P, color = P.origin_color, time = sense_time, easing = SINE_EASING, flags = EASE_IN)
 	//Highlight layer
 	var/atom/movable/screen/plane_master/psychic/B = locate (/atom/movable/screen/plane_master/psychic) in owner.client?.screen
 	if(B)
 		animate(B, alpha = 255)
-		animate(B, alpha = 0, time = sense_time, easing = QUAD_EASING, flags = EASE_IN)
+		animate(B, alpha = 0, time = sense_time, easing = SINE_EASING, flags = EASE_IN)
 	//Setup timer to delete image
 	if(overlay_timer)
 		deltimer(overlay_timer)
