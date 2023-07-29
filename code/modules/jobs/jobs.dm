@@ -7,7 +7,7 @@ GLOBAL_LIST_INIT(command_positions, list(
 	JOB_NAME_CHIEFMEDICALOFFICER
 ))
 
-GLOBAL_LIST_INIT(command_areas, typecacheof(list(
+GLOBAL_LIST_INIT(command_lightup_areas, typecacheof(list(
 	/area/bridge,
 	/area/gateway,
 	/area/teleporter,
@@ -21,7 +21,7 @@ GLOBAL_LIST_INIT(engineering_positions, list(
 	JOB_NAME_ATMOSPHERICTECHNICIAN
 ))
 
-GLOBAL_LIST_INIT(engineering_areas, typecacheof(list(
+GLOBAL_LIST_INIT(engineering_lightup_areas, typecacheof(list(
 	/area/solar,
 	/area/engine,
 	/area/tcommsat,
@@ -41,7 +41,7 @@ GLOBAL_LIST_INIT(medical_positions, list(
 	JOB_NAME_BRIGPHYSICIAN
 ))
 
-GLOBAL_LIST_INIT(medical_areas, typecacheof(list(
+GLOBAL_LIST_INIT(medical_lightup_areas, typecacheof(list(
 	/area/medical,
 	/area/security/checkpoint/medical
 )))
@@ -54,7 +54,7 @@ GLOBAL_LIST_INIT(science_positions, list(
 	JOB_NAME_ROBOTICIST
 ))
 
-GLOBAL_LIST_INIT(science_areas, typecacheof(list(
+GLOBAL_LIST_INIT(science_lightup_areas, typecacheof(list(
 	/area/medical,
 	/area/science,
 	/area/security/checkpoint/science,
@@ -71,7 +71,7 @@ GLOBAL_LIST_INIT(supply_positions, list(
 	JOB_NAME_SHAFTMINER
 ))
 
-GLOBAL_LIST_INIT(supply_areas,					\
+GLOBAL_LIST_INIT(supply_lightup_areas,					\
 	typecacheof(list(							\
 		/area/cargo,							\
 		/area/quartermaster,					\
@@ -115,7 +115,7 @@ GLOBAL_LIST_INIT(security_positions, list(
 	JOB_NAME_DEPUTY
 ))
 
-GLOBAL_LIST_INIT(security_areas, typecacheof(list(
+GLOBAL_LIST_INIT(security_lightup_areas, typecacheof(list(
 	/area/security
 )))
 
