@@ -42,12 +42,12 @@
 
 	minimal_lightup_areas = list(
 		/area/crew_quarters/heads/cmo,
-		/area/storage/eva,
+		/area/medical/apothecary,
+		/area/medical/chemistry,
+		/area/medical/genetics,
 		/area/medical/morgue,
 		/area/medical/surgery,
-		/area/medical/chemistry,
-		/area/medical/apothecary,
-		/area/medical/genetics/cloning
+		/area/storage/eva
 	)
 
 /datum/outfit/job/chief_medical_officer
