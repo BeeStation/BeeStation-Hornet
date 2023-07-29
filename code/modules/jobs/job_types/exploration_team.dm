@@ -34,7 +34,7 @@
 		/area/science/storage,
 		/area/science/xenobiology
 	)
-	minimal_lightup_areas =  = list(/area/quartermaster/exploration_dock, /area/quartermaster/exploration_prep)
+	minimal_lightup_areas = list(/area/quartermaster/exploration_dock, /area/quartermaster/exploration_prep)
 
 /datum/job/exploration_crew/equip(mob/living/carbon/human/H, visualsOnly, announce, latejoin, datum/outfit/outfit_override, client/preference_source)
 	if(outfit_override)
