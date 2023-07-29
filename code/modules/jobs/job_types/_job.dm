@@ -261,6 +261,22 @@
 		return TRUE	//Available in 0 days = available right now = player is old enough to play.
 	return FALSE
 
+/datum/job/proc/areas_to_light_up(minimal_access = TRUE)
+	. = minimal_lightup_areas.Copy()
+	if(!minimal_access)
+		. |= lightup_areas
+	if(title in GLOB.command_positions)
+		. |= GLOB.command_lightup_areas
+	if(title in GLOB.engineering_positions)
+		. |= GLOB.engineering_lightup_areas
+	if(title in GLOB.medical_positions)
+		. |= GLOB.medical_lightup_areas
+	if(title in GLOB.science_positions)
+		. |= GLOB.science_lightup_areas
+	if(title in GLOB.supply_positions)
+		. |= GLOB.supply_lightup_areas
+	if(title in GLOB.security_positions)
+		. |= GLOB.security_lightup_areas
 
 /datum/job/proc/available_in_days(client/C)
 	if(!C)

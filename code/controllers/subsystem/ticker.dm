@@ -370,21 +370,7 @@ SUBSYSTEM_DEF(ticker)
 		var/datum/job/job = SSjob.GetJob(role)
 		if(!job)
 			continue
-		if(role in GLOB.command_positions)
-			lightup_area_typecache |= GLOB.command_lightup_areas
-		if(role in GLOB.engineering_positions)
-			lightup_area_typecache |= GLOB.engineering_lightup_areas
-		if(role in GLOB.medical_positions)
-			lightup_area_typecache |= GLOB.medical_lightup_areas
-		if(role in GLOB.science_positions)
-			lightup_area_typecache |= GLOB.science_lightup_areas
-		if(role in GLOB.supply_positions)
-			lightup_area_typecache |= GLOB.supply_lightup_areas
-		if(role in GLOB.security_positions)
-			lightup_area_typecache |= GLOB.security_lightup_areas
-		lightup_area_typecache |= job.minimal_lightup_areas
-		if(!minimal_access)
-			lightup_area_typecache |= job.lightup_areas
+		lightup_area_typecache |= job.areas_to_light_up(minimal_access)
 	for(var/area/area as() in typecache_filter_list(GLOB.sortedAreas, lightup_area_typecache))
 		if(area.lights_always_start_on)
 			continue
