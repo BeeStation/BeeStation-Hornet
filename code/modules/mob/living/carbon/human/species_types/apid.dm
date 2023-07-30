@@ -105,10 +105,22 @@
 			SPECIES_PERK_DESC = "Apids are naturally friends with bees, and can make honeycombs!",
 		),
 		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "level-down-alt",
+			SPECIES_PERK_NAME = "Low Air Requirements",
+			SPECIES_PERK_DESC = "Apids can breathe in lower air pressures just fine!",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "wind",
+			SPECIES_PERK_NAME = "Dashing!",
+			SPECIES_PERK_DESC = "Apids can use their wings to quickly dash forward in a flurry of buzzing!",
+		),
+		list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
 			SPECIES_PERK_ICON = "icicles",
 			SPECIES_PERK_NAME = "Cold-Sensitive Biology",
-			SPECIES_PERK_DESC = "The cold makes Apids sleepy...",
+			SPECIES_PERK_DESC = "The cold makes Apids sleepy, as does smoke...",
 		),
 		list(
 			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
