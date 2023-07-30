@@ -204,12 +204,6 @@
 	to_add += list(
 		list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
-			SPECIES_PERK_ICON = "bolt",
-			SPECIES_PERK_NAME = "Shockingly Tasty",
-			SPECIES_PERK_DESC = "Ethereals can feed on electricity from APCs, powercells, and lights; and do not otherwise need to eat.",
-		),
-		list(
-			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
 			SPECIES_PERK_ICON = "lightbulb",
 			SPECIES_PERK_NAME = "Disco Ball",
 			SPECIES_PERK_DESC = "Ethereals passively generate their own light.",
