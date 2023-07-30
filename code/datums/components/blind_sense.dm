@@ -63,7 +63,7 @@
 	I.AddAlphaMask(mask)
 
 	//Setup display image
-	var/image/M = image(I, target, layer = HUD_LAYER)
+	var/image/M = image(I, get_turf(target), layer = HUD_LAYER)
 	M.plane = HUD_PLANE
 	if(bloom)
 		M.filters += filter(type = "bloom", size = 2, threshold = rgb(85,85,85))
