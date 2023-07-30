@@ -39,7 +39,6 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/cmo
 	)
 	biohazard = 45
-  
 	minimal_lightup_areas = list(
 		/area/crew_quarters/heads/cmo,
 		/area/medical/apothecary,
