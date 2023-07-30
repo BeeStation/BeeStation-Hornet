@@ -110,7 +110,7 @@
 			each_gland.forceMove(src)
 
 /obj/machinery/smartfridge/abductor/ui_status(mob/user)
-	if(!allowed_to_everyone && !isabductor(user) && !isobserver(user)))
+	if(!allowed_to_everyone && !isabductor(user) && !isobserver(user))
 		return UI_CLOSE
 	return ..()
 
