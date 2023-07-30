@@ -1,12 +1,18 @@
 /obj/item/clothing/head/monkey_sentience_helmet
 	name = "Monkey mind-magnification helmet"
-	desc = "Reverse engineered from an artifact found on the head of a martian primate's skeleton, this hat rapidly stimulates the ape's mind to increase brain function. Simply put, hat make chimp more smarter."
+	desc = "This helmet rapidly stimulates a monkey's mind to increase brain function, and in turn enables critical thinking skills."
 
+	flags_inv = HIDEHAIR
 	icon_state = "monkeymind"
+	base_icon_state = "monkeymind"
 	strip_delay = 100
-	clothing_flags = EFFECT_HAT
+	clothing_flags = EFFECT_HAT | SNUG_FIT
 	COOLDOWN_DECLARE(message_cooldown) //It'll get annoying quick when someone tries to remove their own helmet 20 times a second
 	var/datum/mind/magnification = null ///A reference to the mind we govern
+
+/obj/item/clothing/head/monkey_sentience_helmet/update_icon_state()
+	. = ..()
+	icon_state = "[base_icon_state][magnification ? "_active" : ""]"
 
 /obj/item/clothing/head/monkey_sentience_helmet/equipped(mob/user, slot)
 	. = ..()
@@ -51,7 +57,12 @@
 	magnification = user.mind
 	RegisterSignal(magnification, COMSIG_MIND_TRANSFER_TO, PROC_REF(disconnect))
 	playsound(src, 'sound/machines/microwave/microwave-end.ogg', 100, FALSE)
+
+	update_icon()
+	compile_monkey_icon() //Have to do this in order to make it appear active
+	user.update_inv_head()
 	to_chat(user, "<span class='notice'>You're a mind magnified monkey! Protect your helmet with your life; if you lose it, your sentience goes with it! Your helmet also strongly compels you to assist Nanotrasen and you should always act with the best interests of the station in mind.</span>")
+
 
 /obj/item/clothing/head/monkey_sentience_helmet/Destroy()
 	. = ..()
@@ -79,6 +90,8 @@
 		qdel(src)
 		return
 	playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
+	update_icon()
+	compile_monkey_icon() //Have to do this in order to make it appear inactive
 	current.visible_message("<span class='warning'>[src] powers down!</span>")
 
 /obj/item/clothing/head/monkey_sentience_helmet/attack_paw(mob/user)
