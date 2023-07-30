@@ -353,7 +353,7 @@ export const OrbitalMapDisplay = (props, context) => {
               })}
               onSelected={(value) =>
                 act('gotoPort', {
-                  port: value.key,
+                  port: value,
                 })
               }
             />
