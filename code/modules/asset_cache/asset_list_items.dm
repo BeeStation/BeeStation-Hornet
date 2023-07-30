@@ -433,7 +433,7 @@
 			continue
 		#endif
 
-		var/icon/I = icon(icon_file, icon_state, SOUTH)
+		var/icon/I = icon(icon_file, icon_state, SOUTH, 1)
 		var/c = initial(item.color)
 		if (!isnull(c) && c != "#FFFFFF")
 			I.Blend(c, ICON_MULTIPLY)
@@ -475,7 +475,7 @@
 			continue
 		#endif
 
-		var/icon/I = icon(icon_file, icon_state, SOUTH)
+		var/icon/I = icon(icon_file, icon_state, SOUTH, 1)
 		var/c = initial(A.color)
 		if (!isnull(c) && c != "#FFFFFF")
 			I.Blend(c, ICON_MULTIPLY)
