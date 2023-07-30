@@ -210,3 +210,10 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	render_target = PSYCHIC_PLANE_RENDER_TARGET
 	render_relay_plane = RENDER_PLANE_NON_GAME
+	alpha = 0
+
+/atom/movable/screen/plane_master/psychic/wall
+	name = "psychic wall plane master"
+	plane = PSYCHIC_WALL_PLANE
+	render_target = PSYCHIC_WALL_PLANE_RENDER_TARGET
+

@@ -417,12 +417,13 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	blind_type = /atom/movable/screen/fullscreen/blind/psychic
-	see_invisible = 55 //Magic number for shroom deposits, sorry
+	sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 
 /obj/item/organ/eyes/psyphoza/Insert(mob/living/carbon/M, special, drop_if_replaced, initialising)
 	. = ..()
 	M.become_blind("uncurable", /atom/movable/screen/fullscreen/blind/psychic)
 	M.remove_client_colour(/datum/client_colour/monochrome/blind)
+	//M.add_client_colour(/datum/client_colour/monochrome/blind/psychic)
 
 /obj/item/organ/eyes/psyphoza/Remove(mob/living/carbon/M, special)
 	. = ..()

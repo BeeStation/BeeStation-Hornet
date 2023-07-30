@@ -8,6 +8,8 @@
 
 /turf/closed/Initialize(mapload)
 	. = ..()
+	//Overlay for psychic walls - we can't assign two layers at once
+	add_overlay(generate_psychic_overlay(src))
 
 /turf/closed/AfterChange()
 	. = ..()

@@ -24,6 +24,9 @@
 #define PSYCHIC_PLANE 550 //Plane for psyphoza highlights
 #define PSYCHIC_PLANE_RENDER_TARGET "PSYCHIC_PLANE"
 
+#define PSYCHIC_WALL_PLANE 551
+#define PSYCHIC_WALL_PLANE_RENDER_TARGET "PSYCHIC_WALL_PLANE"
+
 #define SPACE_LAYER 1.8
 //#define TURF_LAYER 2 //For easy recordkeeping; this is a byond define
 #define MID_TURF_LAYER 2.02
