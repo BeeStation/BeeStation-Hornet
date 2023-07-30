@@ -376,7 +376,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	. = ..()
 	if(!psychic_overlay)
 		psychic_overlay = locate(/atom/movable/screen/fullscreen/blind/psychic_highlight) in owner?.client?.screen
-	var/n_color = psychic_overlay?.cycle_visuals() || "#fff"
+	var/n_color = psychic_overlay?.cycle_visuals()
 	if(!psychic_wall_overlay)
 		psychic_wall_overlay = locate(/atom/movable/screen/fullscreen/blind/psychic_highlight/wall) in owner?.client?.screen
 	psychic_wall_overlay?.cycle_visuals(n_color)
