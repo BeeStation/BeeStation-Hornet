@@ -449,9 +449,18 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 	var/dynamic_hair_suffix = "" //if this is non-null, and hair+suffix matches an iconstate, then we render that hair instead
 	var/dynamic_fhair_suffix = ""
+	var/obj/item/clothing/head/wig/worn_wig
+
+	if(H.head)// Wig stuff
+		if(istype(H.head, /obj/item/clothing/head/wig))
+			worn_wig = H.head
+		if(istype(H.head, /obj/item/clothing/head))
+			var/obj/item/clothing/head/hat = H.head
+			if(hat.attached_wig)
+				worn_wig = hat.attached_wig
 
 	//for augmented heads
-	if(!IS_ORGANIC_LIMB(HD))
+	if(!IS_ORGANIC_LIMB(HD) && !worn_wig) //Wig overrides mechanical heads not having hair
 		return
 
 	//we check if our hat or helmet hides our facial hair.
@@ -464,9 +473,11 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			facialhair_hidden = TRUE
 
 	if(H.wear_mask)
-		var/obj/item/clothing/mask/M = H.wear_mask
-		dynamic_fhair_suffix = M.dynamic_fhair_suffix //mask > head in terms of facial hair
-		if(M.flags_inv & HIDEFACIALHAIR)
+		var/obj/item/I = H.wear_mask
+		if(isclothing(I))
+			var/obj/item/clothing/C = I
+			dynamic_fhair_suffix = C.dynamic_fhair_suffix //mask > head in terms of facial hair
+		if(I.flags_inv & HIDEFACIALHAIR)
 			facialhair_hidden = TRUE
 
 	if(H.facial_hair_style && (FACEHAIR in species_traits) && (!facialhair_hidden || dynamic_fhair_suffix))
@@ -510,20 +521,21 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 	if(H.head)
 		var/obj/item/I = H.head
-		if(isclothing(I))
+		if(isclothing(I) && !istype(I, /obj/item/clothing/head/wig))
 			var/obj/item/clothing/C = I
 			dynamic_hair_suffix = C.dynamic_hair_suffix
 		if(I.flags_inv & HIDEHAIR)
 			hair_hidden = TRUE
 
 	if(H.wear_mask)
-		var/obj/item/clothing/mask/M = H.wear_mask
-		if(!dynamic_hair_suffix) //head > mask in terms of head hair
-			dynamic_hair_suffix = M.dynamic_hair_suffix
-		if(M.flags_inv & HIDEHAIR)
+		var/obj/item/I = H.wear_mask
+		if(!dynamic_hair_suffix && isclothing(I)) //head > mask in terms of head hair
+			var/obj/item/clothing/C = I
+			dynamic_hair_suffix = C.dynamic_hair_suffix
+		if(I.flags_inv & HIDEHAIR)
 			hair_hidden = TRUE
 
-	if(!hair_hidden || dynamic_hair_suffix)
+	if(!hair_hidden || dynamic_hair_suffix || worn_wig)
 		var/mutable_appearance/hair_overlay = mutable_appearance(layer = -HAIR_LAYER)
 		var/mutable_appearance/gradient_overlay = mutable_appearance(layer = -HAIR_LAYER)
 		if(!hair_hidden && !H.getorgan(/obj/item/organ/brain)) //Applies the debrained overlay if there is no brain
@@ -531,8 +543,17 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				hair_overlay.icon = 'icons/mob/human_face.dmi'
 				hair_overlay.icon_state = "debrained"
 
-		else if(H.hair_style && (HAIR in species_traits))
-			S = GLOB.hair_styles_list[H.hair_style]
+		else if((H.hair_style && (HAIR in species_traits)) || worn_wig)
+			var/current_hair_style = H.hair_style
+			var/current_hair_color = H.hair_color
+			var/current_gradient_style = H.gradient_style
+			var/current_gradient_color = H.gradient_color
+			if(worn_wig)
+				current_hair_style = worn_wig.hair_style
+				current_hair_color = worn_wig.hair_color
+				current_gradient_style = worn_wig.gradient_style
+				current_gradient_color = worn_wig.gradient_color
+			S = GLOB.hair_styles_list[current_hair_style]
 			if(S)
 
 				//List of all valid dynamic_hair_suffixes
@@ -563,11 +584,12 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 						else
 							hair_overlay.color = "#" + hair_color
 					else
-						hair_overlay.color = "#" + H.hair_color
-
+						hair_overlay.color = "#" + current_hair_color
+					if(worn_wig)//Total override
+						hair_overlay.color = current_hair_color
 					//Gradients
-					var/gradient_style = H.gradient_style
-					var/gradient_color = H.gradient_color
+					var/gradient_style = current_gradient_style
+					var/gradient_color = current_gradient_color
 					if(gradient_style)
 						var/datum/sprite_accessory/gradient = GLOB.hair_gradients_list[gradient_style]
 						var/icon/temp = icon(gradient.icon, gradient.icon_state)
@@ -580,6 +602,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 					hair_overlay.color = forced_colour
 
 				hair_overlay.alpha = hair_alpha
+				if(worn_wig)
+					hair_overlay.alpha = 255
 				if(OFFSET_FACE in H.dna.species.offset_features)
 					hair_overlay.pixel_x += H.dna.species.offset_features[OFFSET_FACE][1]
 					hair_overlay.pixel_y += H.dna.species.offset_features[OFFSET_FACE][2]
@@ -1368,29 +1392,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 #define HEALTH_DEF_MOVESPEED_DIV 350
 #define HEALTH_DEF_MOVESPEED_FLIGHT_DIV 1050
 #define HEALTH_DEF_MOVESPEED_POW 1.6
-
-/datum/species/proc/movement_delay(mob/living/carbon/human/H)
-	. = 0	//We start at 0.
-	var/gravity = 0
-	gravity = H.has_gravity()
-
-	if(!HAS_TRAIT(H, TRAIT_IGNORESLOWDOWN) && gravity)
-		if(H.wear_suit)
-			. += H.wear_suit.slowdown
-		if(H.shoes)
-			. += H.shoes.slowdown
-		if(H.back)
-			. += H.back.slowdown
-		for(var/obj/item/I in H.held_items)
-			if(I.item_flags & SLOWS_WHILE_IN_HAND)
-				. += I.slowdown
-
-		if(gravity > STANDARD_GRAVITY)
-			var/grav_force = min(gravity - STANDARD_GRAVITY,3)
-			. += 1 + grav_force
-
-	return .
-
 
 #undef HEALTH_DEF_MOVESPEED_DAMAGE_MIN
 #undef HEALTH_DEF_MOVESPEED_DELAY_MAX
