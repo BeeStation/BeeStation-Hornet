@@ -199,9 +199,6 @@
 /datum/client_colour/monochrome/blind
 	priority = 1
 
-/datum/client_colour/monochrome/blind/psychic
-	colour = list(rgb(77,77,77), rgb(150,150,150), rgb(28,28,28), rgb(0,0,0))
-
 /datum/client_colour/bloodlust
 	priority = PRIORITY_ABSOLUTE // Only anger.
 	colour = list(0,0,0,0,0,0,0,0,0,1,0,0) //pure red.
