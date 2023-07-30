@@ -7,12 +7,17 @@
 	overfloor_placed = FALSE
 	underfloor_accessibility = UNDERFLOOR_INTERACTABLE
 	allow_z_travel = TRUE
-
 	//mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+	/* PORT WITH JPS IMPROVEMENT PR
+	pathing_pass_method = TURF_PATHING_PASS_PROC
+	*/
+
+	z_flags = Z_MIMIC_BELOW|Z_MIMIC_OVERWRITE
+
 	var/can_cover_up = TRUE
 	var/can_build_on = TRUE
 
-	z_flags = Z_MIMIC_BELOW|Z_MIMIC_OVERWRITE
 	FASTDMM_PROP(\
 		pipe_astar_cost = 100\
 	)

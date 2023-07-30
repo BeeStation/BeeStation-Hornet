@@ -344,8 +344,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 // override for space turfs, since they should never hide anything
 /turf/open/space/levelupdate()
-	for(var/obj/O in src)
-		return
+	return
 
 // Removes all signs of lattice on the pos of the turf -Donkieyo
 /turf/proc/RemoveLattice()
