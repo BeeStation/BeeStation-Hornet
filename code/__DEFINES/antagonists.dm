@@ -81,6 +81,11 @@
 /// Define for the heretic faction applied to heretics and heretic mobs.
 #define FACTION_HERETIC "heretics"
 
+#define FACTION_SYNDICATE "Syndicate"
+#define FACTION_BLOB "Blob"
+#define FACTION_ALIEN "Xenomorph"
+#define FACTION_WIZARD "Wizard"
+
 // Heretic path defines.
 #define HERETIC_PATH_START "Heretic Start Path"
 #define HERETIC_PATH_SIDE "Heretic Side Path"

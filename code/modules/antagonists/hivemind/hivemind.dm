@@ -2,9 +2,9 @@
 	name = "Hivemind Host"
 	roundend_category = "hiveminds"
 	antagpanel_category = "Hivemind Host"
-	job_rank = ROLE_HIVE
+	banning_key = ROLE_HIVE
+	required_living_playtime = 4
 	antag_moodlet = /datum/mood_event/hivehost
-	var/special_role = ROLE_HIVE
 	var/list/hivemembers = list()
 	var/list/avessels = list()
 	var/hive_size = 0
@@ -156,7 +156,7 @@
 
 
 /datum/antagonist/hivemind/on_gain()
-	owner.special_role = special_role
+	owner.special_role = ROLE_HIVE
 	GLOB.hivehosts += src
 	generate_flavour()
 	create_actions()

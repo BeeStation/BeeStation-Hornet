@@ -13,7 +13,7 @@
 
 /datum/antagonist/xeno
 	name = "Xenomorph"
-	job_rank = ROLE_ALIEN
+	banning_key = ROLE_ALIEN
 	show_in_antagpanel = FALSE
 	prevent_roundtype_conversion = FALSE
 	show_to_ghosts = TRUE

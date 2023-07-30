@@ -20,6 +20,7 @@
 	roundstart = FALSE
 	assignedrole = ROLE_SWARMER
 	banType = ROLE_SWARMER
+	is_antagonist = TRUE
 
 /obj/effect/mob_spawn/swarmer/Initialize(mapload)
 	. = ..()
@@ -701,7 +702,7 @@
 
 /datum/antagonist/swarmer
 	name = "Swarmer"
-	job_rank = ROLE_SWARMER
+	banning_key = ROLE_SWARMER
 	roundend_category = "Swarmer"
 	antagpanel_category = "Swarmer"
 	show_to_ghosts = TRUE

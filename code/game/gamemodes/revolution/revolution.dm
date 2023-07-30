@@ -11,14 +11,14 @@
 	name = "revolution"
 	config_tag = "revolution"
 	report_type = "revolution"
-	antag_flag = ROLE_REV
+	role_preference = /datum/role_preference/antagonist/revolutionary
+	antag_datum = /datum/antagonist/rev/head
 	false_report_weight = 10
 	restricted_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_AI, JOB_NAME_CYBORG,JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_HEADOFSECURITY, JOB_NAME_CHIEFENGINEER, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CHIEFMEDICALOFFICER)
 	required_jobs = list(list(JOB_NAME_CAPTAIN=1),list(JOB_NAME_HEADOFPERSONNEL=1),list(JOB_NAME_HEADOFSECURITY=1),list(JOB_NAME_CHIEFENGINEER=1),list(JOB_NAME_RESEARCHDIRECTOR=1),list(JOB_NAME_CHIEFMEDICALOFFICER=1)) //Any head present
 	required_players = 30
 	required_enemies = 2
 	recommended_enemies = 3
-	enemy_minimum_age = 14
 	title_icon = "revolution"
 
 	announce_span = "danger"
@@ -55,7 +55,7 @@
 	for (var/i=1 to max_headrevs)
 		if (antag_candidates.len==0)
 			break
-		var/datum/mind/lenin = antag_pick(antag_candidates, ROLE_REV_HEAD)
+		var/datum/mind/lenin = antag_pick(antag_candidates, /datum/role_preference/antagonist/revolutionary)
 		antag_candidates -= lenin
 		headrev_candidates += lenin
 		lenin.restricted_roles = restricted_jobs

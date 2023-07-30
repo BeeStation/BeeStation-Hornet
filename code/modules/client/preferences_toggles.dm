@@ -94,15 +94,6 @@
 	prefs.save_preferences()
 	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Arrivalrattle", "[!(prefs.toggles & PREFTOGGLE_DISABLE_ARRIVALRATTLE) ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, maybe you should rethink where your life went so wrong.
 
-/client/verb/togglemidroundantag()
-	set name = "Toggle Midround Antagonist"
-	set category = "Preferences"
-	set desc = "Midround Antagonist"
-	prefs.toggles ^= PREFTOGGLE_MIDROUND_ANTAG
-	prefs.save_preferences()
-	to_chat(usr, "You will [(prefs.toggles & PREFTOGGLE_MIDROUND_ANTAG) ? "now" : "no longer"] be considered for midround antagonist positions.")
-	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Midround Antag", "[prefs.toggles & PREFTOGGLE_MIDROUND_ANTAG ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
 /client/verb/toggletitlemusic()
 	set name = "Hear/Silence Lobby Music"
 	set category = "Preferences"
