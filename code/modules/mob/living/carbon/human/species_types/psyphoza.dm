@@ -134,6 +134,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	RegisterSignal(M, COMSIG_MOB_ITEM_AFTERATTACK, PROC_REF(handle_ranged), TRUE)
 	//Overlay used to highlight objects
 	M.overlay_fullscreen("psychic_highlight", /atom/movable/screen/fullscreen/blind/psychic_highlight)
+	M.overlay_fullscreen("psychic_wall_highlight", /atom/movable/screen/fullscreen/blind/psychic_highlight/wall)
 	//Add option to change visuals
 	if(!(locate(/datum/action/change_psychic_visual) in owner.actions))
 		overlay_change = new(src)
@@ -143,6 +144,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	auto_action.Grant(M)
 	///Start auto timer
 	addtimer(CALLBACK(src, PROC_REF(auto_sense)), auto_cooldown)
+	//
 
 /datum/action/item_action/organ_action/psychic_highlight/IsAvailable()
 	if(has_cooldown_timer)
@@ -157,6 +159,10 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	has_cooldown_timer = TRUE
 	UpdateButtonIcon()
 	addtimer(CALLBACK(src, PROC_REF(finish_cooldown)), cooldown + (sense_time * min(1, overlays.len / PSYCHIC_OVERLAY_UPPER)))
+	var/atom/movable/screen/plane_master/psychic/wall/PW = locate(/atom/movable/screen/plane_master/psychic/wall) in owner.client?.screen
+	if(PW && !length(PW.filters))
+		PW.alpha = 255
+		PW.filters += filter(type = "alpha", x = 0, y = 0, icon = icon('icons/mob/psychic.dmi', "e"))
 
 /datum/action/item_action/organ_action/psychic_highlight/UpdateButtonIcon(status_only = FALSE, force = FALSE)
 	. = ..()
@@ -165,7 +171,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/auto_sense()
 	if(auto_sense)
-		Trigger(3)
+		Trigger(5)
 	addtimer(CALLBACK(src, PROC_REF(auto_sense)), auto_cooldown)
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/finish_cooldown()
@@ -201,6 +207,11 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	if(B)
 		animate(B, alpha = 255)
 		animate(B, alpha = 0, time = sense_time, easing = SINE_EASING, flags = EASE_IN)
+	//Wall nearby highlighting
+	var/atom/movable/screen/plane_master/psychic/wall/PW = locate(/atom/movable/screen/plane_master/psychic/wall) in owner.client?.screen
+	if(PW)
+		animate(PW, alpha = 0)
+		animate(PW, alpha = 255, time = sense_time, easing = SINE_EASING, flags = EASE_IN)
 	//Setup timer to delete image
 	if(overlay_timer)
 		deltimer(overlay_timer)
@@ -283,14 +294,6 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 
 	eyes = null
 
-//Plane that holds the masks for psychic ping
-/atom/movable/screen/plane_master/psychic
-	name = "psychic plane master"
-	plane = PSYCHIC_PLANE
-	appearance_flags = PLANE_MASTER
-	blend_mode = BLEND_OVERLAY
-	alpha = 0
-
 //keep this type-
 /atom/movable/screen/fullscreen/blind/psychic
 	icon_state = "trip"
@@ -301,6 +304,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 /atom/movable/screen/fullscreen/blind/psychic/Initialize(mapload)
 	. = ..()
 	filters += filter(type = "radial_blur", size = 0.012)
+	filters += filter(type = "bloom", size = 5, threshold = rgb(85,85,85))
 	color = origin_color
 
 //And this type as a seperate type-path to avoid issues with animations & locate()
@@ -311,6 +315,9 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	blend_mode = BLEND_INSET_OVERLAY
 	///Index for visual setting - Useful if we add more presets
 	var/visual_index = 0
+
+/atom/movable/screen/fullscreen/blind/psychic_highlight/wall
+	plane = PSYCHIC_WALL_PLANE
 	
 /atom/movable/screen/fullscreen/blind/psychic_highlight/Initialize(mapload)
 	. = ..()
@@ -318,22 +325,26 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	filters += filter(type = "radial_blur", size = 0.012)
 	cycle_visuals()
 
-/atom/movable/screen/fullscreen/blind/psychic_highlight/proc/cycle_visuals()
+/atom/movable/screen/fullscreen/blind/psychic_highlight/proc/cycle_visuals(new_color)
 	++visual_index
 	//Reset animations
 	animate(src, color = "#fff")
-	//Set animation
-	switch(visual_index)
-		if(1) //Rainbow
-			color = "#f00" // start at red
-			animate(src, color = "#ff0", time = 0.3 SECONDS, loop = -1)
-			animate(color = "#0f0", time = 0.3 SECONDS)
-			animate(color = "#0ff", time = 0.3 SECONDS)
-			animate(color = "#00f", time = 0.3 SECONDS)
-			animate(color = "#f0f", time = 0.3 SECONDS)
-			animate(color = "#f00", time = 0.3 SECONDS)
-		if(2) //Custom
-			color = input(usr,"","Choose Color","#fff") as color|null
+	if(new_color)
+		color = new_color
+	else
+		//Set animation
+		switch(visual_index)
+			if(1) //Rainbow
+				color = "#f00" // start at red
+				animate(src, color = "#ff0", time = 0.3 SECONDS, loop = -1)
+				animate(color = "#0f0", time = 0.3 SECONDS)
+				animate(color = "#0ff", time = 0.3 SECONDS)
+				animate(color = "#00f", time = 0.3 SECONDS)
+				animate(color = "#f0f", time = 0.3 SECONDS)
+				animate(color = "#f00", time = 0.3 SECONDS)
+			if(2) //Custom
+				color = input(usr,"","Choose Color","#fff") as color|null
+				. = color
 	//Wrap index back around
 	visual_index = visual_index >= 2 ? 0 :  visual_index
 
@@ -345,10 +356,12 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	button_icon_state = "unknown"
 	///Ref to the overlay - hard del edition
 	var/atom/movable/screen/fullscreen/blind/psychic_highlight/psychic_overlay
+	var/atom/movable/screen/fullscreen/blind/psychic_highlight/wall/psychic_wall_overlay
 
 /datum/action/change_psychic_visual/New(Target)
 	. = ..()
 	RegisterSignal(psychic_overlay, COMSIG_PARENT_QDELETING, PROC_REF(parent_destroy))
+	RegisterSignal(psychic_wall_overlay, COMSIG_PARENT_QDELETING, PROC_REF(parent_destroy))
 
 /datum/action/change_psychic_visual/Destroy()
 	. = ..()
@@ -363,7 +376,10 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	. = ..()
 	if(!psychic_overlay)
 		psychic_overlay = locate(/atom/movable/screen/fullscreen/blind/psychic_highlight) in owner?.client?.screen
-	psychic_overlay?.cycle_visuals()
+	var/n_color = psychic_overlay?.cycle_visuals() || "#fff"
+	if(!psychic_wall_overlay)
+		psychic_wall_overlay = locate(/atom/movable/screen/fullscreen/blind/psychic_highlight/wall) in owner?.client?.screen
+	psychic_wall_overlay?.cycle_visuals(n_color)
 
 //Action for toggling auto sense
 /datum/action/change_psychic_auto
@@ -397,6 +413,19 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	. = ..()
 	if(psychic_action?.auto_sense)
 		return FALSE
+
+/proc/generate_psychic_overlay(atom/target)
+	var/mutable_appearance/M = new()
+	M.appearance = target.appearance
+	M.transform = target.transform
+	M.pixel_x = 0 //Reset pixel adjustments to avoid bug where overlays tower
+	M.pixel_y = 0
+	M.pixel_z = 0
+	M.pixel_w = 0
+	M.plane = PSYCHIC_WALL_PLANE //Draw overlay on this plane so we can use it as a mask
+	M.dir = target.dir
+	
+	return M
 
 #undef PSYCHIC_OVERLAY_UPPER
 #undef PSYPHOZA_BURNMOD
