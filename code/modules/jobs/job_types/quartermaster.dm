@@ -28,6 +28,13 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/cargo_technician
 	)
 
+	minimal_lightup_areas = list(
+		/area/quartermaster/qm,
+		/area/quartermaster/qm_bedroom,
+		/area/quartermaster/exploration_prep,
+		/area/quartermaster/exploration_dock
+	)
+
 /datum/outfit/job/quartermaster
 	name = JOB_NAME_QUARTERMASTER
 	jobtype = /datum/job/quartermaster

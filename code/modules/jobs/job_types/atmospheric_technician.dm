@@ -28,6 +28,8 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/atmospherics
 	)
 
+	minimal_lightup_areas = list(/area/engine/atmos)
+
 /datum/outfit/job/atmospheric_technician
 	name = JOB_NAME_ATMOSPHERICTECHNICIAN
 	jobtype = /datum/job/atmospheric_technician

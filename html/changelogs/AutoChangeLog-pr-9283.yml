@@ -1,5 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - code_imp: runtime.log file provides more information - it now reports which subsystem
-      is being initialized.

@@ -56,10 +56,92 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">30 July 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Staffed department lighting will now properly be completely switched on at roundstart.</li>
+				<li class="tweak">Lighting of ALL areas accessible by roundstart crewmembers (taking into account minimal or skeleton crew access) will be switched on at roundstart.</li>
+				<li class="tweak">The bar and cafeteria now have their lights always switched on at roundstart, due to the fact they often serve as public crew gathering places, even if there is no bartender/chef tending to them.</li>
+				<li class="spellcheck">Fixed a couple of typos in some area names.</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed crafting menu showing incorrect result item icons</li>
+				<li class="rscadd">stripped_input() proc now has an option to choose strip method</li>
+				<li class="tweak">designating a station name or uploading laws no longer contains `&#39;` which is just a single quote letter.</li>
+			</ul>
+			<h3 class="author">LemonLimeSoda updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Photocopiers no longer print exclusively gray text with default toner cartridges.</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">Syndicate teleporter has been reworked. It will no longer teleport through solid walls but will be more effective at knocking down targets in a combat scenario, as it will knock down any targets passed through during a teleport. It can be used to jump through windows without being shocked. The price has been reduced from 8 TC to 7.</li>
+				<li class="rscdel">Removes help intent disabling blocking.</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added glow-in-the-dark emissives to lightswitches, so they can be located in the dark.</li>
+			</ul>
+
+			<h2 class="date">29 July 2023</h2>
+			<h3 class="author">RKz, nightred, Couls, Arturlang, GoblinBackwards updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">no more temporary blindness when spawning in!</li>
+				<li class="refactor">refactored blindness code to be less redundant and poorly applied.</li>
+				<li class="bugfix">no more perma-blindness if blindness is improperly applied to you! Update_stat should actually do its job now.</li>
+				<li class="code_imp">removed duplicate method 'blind_eye', replaced in favor of 'adjust_blindness'</li>
+				<li class="rscadd">The Blind and Unconcious will now have monochromatic vision, because they don't know what colors are. This change is made in anticipation of adding blind-vision in the near-future.</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Optimized reg_in_areas_in_z, saving 150ms init</li>
+				<li class="code_imp">Optimized atmos init and MultiZ, saving ~5 sec.</li>
+			</ul>
+
+			<h2 class="date">28 July 2023</h2>
+			<h3 class="author">BriggsIDP updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">tweaked DeltaStation2.dmm</li>
+				<li class="tweak">tweaked MetaStation2.dmm</li>
+				<li class="tweak">added a jani room to medbay that CMO can access</li>
+				<li class="rscadd">Custodian zoning</li>
+				<li class="rscadd">Extra Stasis direction</li>
+			</ul>
+			<h3 class="author">RKz updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">incorrect projectile and lying detection bugs</li>
+			</ul>
+			<h3 class="author">Tyranicranger4 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes objectives not being displayed in the blood brother antag popup</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Saves between ~18ms init time by optimizing turf destroy and atom destroy.</li>
+				<li class="code_imp">Micro-optimized signal registration, saving 60ms init.</li>
+				<li class="code_imp">Reduced init time ~0.5s by optimizing icon smoothing.</li>
+				<li class="code_imp">Added byondtracy support to the repository.</li>
+			</ul>
+
 			<h2 class="date">27 July 2023</h2>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added a craftable modulator gas mask which makes your voice show up as Unknown</li>
+				<li class="rscadd">Added the ability to disguise your tongue with the chameleon gas mask</li>
+				<li class="rscdel">Removed the random say modifier from Slimepeople, it's now always "blorbles"</li>
+			</ul>
 			<h3 class="author">EvilDragonfiend updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="bugfix">AI holocall no longer tells duplicated ghost follow option</li>
+				<li class="imageadd">shield3 type sprites - shield3-push, shield3-pull, shield3-rewind</li>
+				<li class="tweak">gravitational anomaly now uses shield3-rewind sprite</li>
+				<li class="code_imp">dme order fixed</li>
+				<li class="code_imp">runtime.log file provides more information - it now reports which subsystem is being initialized.</li>
+			</ul>
+			<h3 class="author">HowToLoLu updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">You are no longer blocked from attacking a storage object that is full. e.g. hitting the captain's spare safe with a supermatter sword.</li>
 			</ul>
 			<h3 class="author">PowerfulBacon updated:</h3>
 			<ul class="changes bgimages16">
@@ -1005,71 +1087,6 @@
 			<h3 class="author">ss13-beebot updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="server">TGS DMAPI bumped to 6.4.4</li>
-			</ul>
-
-			<h2 class="date">28 May 2023</h2>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added species being logged to manifest.log</li>
-			</ul>
-			<h3 class="author">DatBoiTim updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">fixed a runtime associated with heretic focus and the void robes</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Potentially fix singularities eating themselves.</li>
-			</ul>
-
-			<h2 class="date">27 May 2023</h2>
-			<h3 class="author">BeeLover66 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Tagger now sends parcels to the correct destination</li>
-			</ul>
-			<h3 class="author">Crossedfall updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">fixed bad proc runtimes for SDQL queries using global procs (wrappers)</li>
-			</ul>
-			<h3 class="author">DatBoiTim updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Color of Lemonade is now yellow instead of #000000</li>
-			</ul>
-			<h3 class="author">PestoVerde322 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">removed the :^) from the tile_opposing_corners and as it's own tile decal</li>
-				<li class="rscadd">added the :^) and the opposing corners to the tile spriter and all the possible corner options</li>
-			</ul>
-			<h3 class="author">dwasint updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">You can no longer softlock vending machines using a handdrill</li>
-			</ul>
-			<h3 class="author">imsynthex updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Sentient beepsky can stun/cuff people again</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Having an invalid job will no longer cause a runtime in the orbit menu.</li>
-				<li class="bugfix">Orbit menu now spaces job icons properly and has consistent button height.</li>
-				<li class="rscadd">Orbit menu will now show antag icons for ghost-visible antagonists.</li>
-				<li class="tweak">Orbit menu will now use generic UI theme</li>
-				<li class="tweak">Generic UI theme now colors more elements (Section headers, input outlines, etc)</li>
-				<li class="tweak">Orbit menu sections are now collapsible.</li>
-				<li class="tweak">Orbit menu will now properly update instead of opening new orbit menus when clicked. It will also autoupdate with new data.</li>
-			</ul>
-			<h3 class="author">mystery3525 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">Removed the incursion radio implant</li>
-			</ul>
-
-			<h2 class="date">26 May 2023</h2>
-			<h3 class="author">Absolucy updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Setting DNA (including through cloning) now properly applies the correct gender and skin tone. As a result, cloning will no longer randomize gender and skin tone.</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">Deletes one way road trait and absolution holoparasite ability.</li>
 			</ul>
 		</div>
 
