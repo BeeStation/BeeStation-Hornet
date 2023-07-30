@@ -7,7 +7,7 @@
 // asoundout: soundfile to play after teleportation
 // no_effects: disable the default effectin/effectout of sparks
 // forced: whether or not to ignore no_teleport
-/proc/do_teleport(atom/movable/teleatom, atom/destination, precision=null, datum/effect_system/effectin=null, datum/effect_system/effectout=null, asoundin=null, asoundout=null, no_effects=FALSE, channel=TELEPORT_CHANNEL_BLUESPACE, forced = FALSE, teleport_mode = TELEPORT_MODE_DEFAULT)
+/proc/do_teleport(atom/movable/teleatom, atom/destination, precision=null, datum/effect_system/effectin=null, datum/effect_system/effectout=null, asoundin=null, asoundout=null, no_effects=FALSE, channel=TELEPORT_CHANNEL_BLUESPACE, forced = FALSE, teleport_mode = TELEPORT_MODE_DEFAULT, commit = TRUE)
 	// teleporting most effects just deletes them
 	var/static/list/delete_atoms = typecacheof(list(
 		/obj/effect,
@@ -26,7 +26,7 @@
 	if(channel != TELEPORT_CHANNEL_FREE && channel != TELEPORT_CHANNEL_WORMHOLE)
 		for (var/obj/machinery/bluespace_anchor/anchor as() in GLOB.active_bluespace_anchors)
 			//Not nearby
-			if (anchor.get_virtual_z_level() != teleatom.get_virtual_z_level() || get_dist(teleatom, anchor) > anchor.range)
+			if (anchor.get_virtual_z_level() != teleatom.get_virtual_z_level() || (get_dist(teleatom, anchor) > anchor.range && get_dist(destination, anchor) > anchor.range))
 				continue
 			//Check it
 			if(!anchor.try_activate())
@@ -85,6 +85,9 @@
 
 	if(isobserver(teleatom))
 		teleatom.abstract_move(destturf)
+		return TRUE
+
+	if (!commit)
 		return TRUE
 
 	tele_play_specials(teleatom, curturf, effectin, asoundin)
