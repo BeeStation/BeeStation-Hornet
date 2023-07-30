@@ -57,10 +57,12 @@
 	magnification = user.mind
 	RegisterSignal(magnification, COMSIG_MIND_TRANSFER_TO, PROC_REF(disconnect))
 	playsound(src, 'sound/machines/microwave/microwave-end.ogg', 100, FALSE)
+
 	update_icon()
 	compile_monkey_icon() //Have to do this in order to make it appear active
 	user.update_inv_head()
-	to_chat(user, "<span class='notice'>You're a mind magnified monkey! Protect your helmet with your life- if you lose it, your sentience goes with it!</span>")
+	to_chat(user, "<span class='notice'>You're a mind magnified monkey! Protect your helmet with your life; if you lose it, your sentience goes with it! Your helmet also strongly compels you to assist Nanotrasen and you should always act with the best interests of the station in mind.</span>")
+
 
 /obj/item/clothing/head/monkey_sentience_helmet/Destroy()
 	. = ..()
