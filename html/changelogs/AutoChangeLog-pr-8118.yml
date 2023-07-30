@@ -1,0 +1,6 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - rscadd: stripped_input() proc now has an option to choose strip method
+  - tweak: designating a station name or uploading laws no longer contains `&#39;`
+      which is just a single quote letter.

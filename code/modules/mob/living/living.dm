@@ -551,7 +551,6 @@
 		add_to_alive_mob_list()
 		set_suicide(FALSE)
 		set_stat(UNCONSCIOUS) //the mob starts unconscious,
-		blind_eyes(1)
 		updatehealth() //then we check if the mob should wake up.
 		update_mobility()
 		update_sight()
@@ -638,7 +637,6 @@
 	set_blindness(0)
 	set_blurriness(0)
 	set_dizziness(0)
-
 	cure_nearsighted()
 	cure_blind()
 	cure_husk()
@@ -1430,7 +1428,7 @@
 	if(lying_angle != 0) //We are not standing up.
 		if(layer == initial(layer)) //to avoid things like hiding larvas.
 			layer = LYING_MOB_LAYER //so mob lying always appear behind standing mobs
-		if(. != 0) //We became prone and were not before. We lose density and stop bumping passable dense things.
+		if(. == 0) //We became prone and were not before. We lose density and stop bumping passable dense things.
 			density = FALSE
 	else //We are prone.
 		if(layer == LYING_MOB_LAYER)

@@ -158,6 +158,7 @@
 /datum/outfit/lavaland_syndicate/comms
 	name = "Lavaland Syndicate Comms Agent"
 	r_hand = /obj/item/melee/transforming/energy/sword/saber
+	l_hand = /obj/item/megaphone/nospam
 	mask = /obj/item/clothing/mask/chameleon/gps
 	suit = /obj/item/clothing/suit/armor/vest
 

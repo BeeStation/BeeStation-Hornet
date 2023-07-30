@@ -190,7 +190,7 @@
 	for(var/turf/placeholder in block(locate(target_turf.x - size_x, target_turf.y - size_y, target_turf.z), locate(target_turf.x + size_x, target_turf.y + size_y, target_turf.z)))
 		var/turf/T = placeholder
 		while(istype(T, /turf/open/openspace)) //Multi-z photography
-			T = SSmapping.get_turf_below(T)
+			T = GET_TURF_BELOW(T)
 			if(!T)
 				break
 
