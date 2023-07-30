@@ -68,10 +68,10 @@
 
 /client/proc/staff_who(via)
 	var/msg
-	var/list/full_admin_list = GLOB.admin_datums+GLOB.deadmins
 
 	// when you are admin
 	if(holder || GLOB.deadmins[ckey])
+		var/list/full_admin_list = GLOB.admin_datums+GLOB.deadmins
 		msg = "<b>Current Admins:</b>\n"
 		for(var/datum/admins/a_datum as() in full_admin_list)
 			a_datum = full_admin_list[a_datum]
@@ -85,6 +85,8 @@
 
 			if(a_datum.fakekey)
 				msg += " <i>(as [a_datum.fakekey])</i>"
+			if(a_datum.deadmined)
+				msg += " <b>(as Deadmin)</b>"
 
 			if(isobserver(C.mob))
 				msg += " - Observing"
