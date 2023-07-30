@@ -73,7 +73,7 @@ Slimecrossing Armor
 	if(!IsAvailable())
 		return
 	var/obj/item/clothing/glasses/prism_glasses/glasses = target
-	var/new_color = input(owner, "Choose the lens color:", "Color change",glasses.glasses_color) as color|null
+	var/new_color = tgui_color_picker(owner, "Choose the lens color:", "Color change",glasses.glasses_color)
 	if(!new_color)
 		return
 	glasses.glasses_color = new_color

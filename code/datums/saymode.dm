@@ -1,6 +1,7 @@
 /datum/saymode
 	var/key
 	var/mode
+	var/early = FALSE
 
 //Return FALSE if you have handled the message. Otherwise, return TRUE and saycode will continue doing saycode things.
 //user = whoever said the message
@@ -62,5 +63,27 @@
 	if(isAI(user))
 		var/mob/living/silicon/ai/AI = user
 		AI.holopad_talk(message, language)
-		return FALSE
 	return TRUE
+
+/datum/saymode/slime_link
+	key = MODE_KEY_SLIMELINK
+	mode = MODE_SLIMELINK
+	early = TRUE
+
+/datum/saymode/slime_link/handle_message(mob/living/user, message, datum/language/_language)
+	. = FALSE
+	if(!istype(user) || !user?.mind || !message || !length(message))
+		return TRUE
+	if(isstargazer(user))
+		// They're a stargazer, and therefore they'll talk on their own slime link.
+		var/mob/living/carbon/human/h_user = user
+		var/datum/species/oozeling/stargazer/stargazer = h_user.dna.species
+		stargazer.slime_chat(h_user, message)
+		return
+	// Alright, the user is not a stargazer, so instead we're gonna make sure they're a part of a slime link.
+	var/datum/weakref/link_owner_ref = GLOB.slime_links_by_mind[user.mind]
+	var/datum/species/oozeling/stargazer/owning_stargazer = link_owner_ref?.resolve()
+	if(!owning_stargazer || !istype(owning_stargazer))
+		// Nope, no slime link here. Continue normal say() behavior.
+		return TRUE
+	owning_stargazer.slime_chat(user, message)

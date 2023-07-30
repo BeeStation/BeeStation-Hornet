@@ -17,7 +17,7 @@
 	var/mob/dead/observer/selected
 
 /datum/clockcult/scripture/marauder/invoke()
-	candidates = pollGhostCandidates("Would you like to play as a clockwork marauder?", ROLE_SERVANT_OF_RATVAR, null, null, 100, POLL_IGNORE_CLOCKWORK)
+	candidates = pollGhostCandidates("Would you like to play as a clockwork marauder?", ROLE_SERVANT_OF_RATVAR, /datum/role_preference/antagonist/clock_cultist, 10 SECONDS, POLL_IGNORE_CLOCKWORK_HELPER)
 	if(LAZYLEN(candidates))
 		selected = pick(candidates)
 	if(!selected)

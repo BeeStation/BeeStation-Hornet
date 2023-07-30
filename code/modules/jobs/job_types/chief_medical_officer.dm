@@ -39,6 +39,16 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/cmo
 	)
 	biohazard = 45
+  
+	minimal_lightup_areas = list(
+		/area/crew_quarters/heads/cmo,
+		/area/medical/apothecary,
+		/area/medical/chemistry,
+		/area/medical/genetics,
+		/area/medical/morgue,
+		/area/medical/surgery,
+		/area/storage/eva
+	)
 
 /datum/job/chief_medical_officer/initialize_playtime_list()
 	if(!is_playtime_check_module_runnable())

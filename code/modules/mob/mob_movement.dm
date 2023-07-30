@@ -1,14 +1,4 @@
 /**
-  * Get the current movespeed delay of the mob
-  *
-  * DO NOT OVERRIDE THIS UNLESS YOU ABSOLUTELY HAVE TO.
-  * THIS IS BEING PHASED OUT FOR THE MOVESPEED MODIFICATION SYSTEM.
-  * See mob_movespeed.dm
-  */
-/mob/proc/movement_delay()	//update /living/movement_delay() if you change this
-	return cached_multiplicative_slowdown
-
-/**
   * force move the control_object of your client mob
   *
   * Used in admin possession and called from the client Move proc
@@ -120,7 +110,7 @@
 		return FALSE
 
 	//We are now going to move
-	var/add_delay = mob.movement_delay()
+	var/add_delay = mob.cached_multiplicative_slowdown
 	if(old_move_delay + (add_delay*MOVEMENT_DELAY_BUFFER_DELTA) + MOVEMENT_DELAY_BUFFER > world.time)
 		move_delay = old_move_delay
 	else
@@ -356,8 +346,12 @@
 	return
 
 /// Update the gravity status of this mob
-/mob/proc/update_gravity()
-	return
+/mob/proc/update_gravity(has_gravity, override=FALSE)
+	var/speed_change = max(0, has_gravity - STANDARD_GRAVITY)
+	if(!speed_change)
+		remove_movespeed_modifier(MOVESPEED_ID_MOB_GRAVITY, update=TRUE)
+	else
+		add_movespeed_modifier(MOVESPEED_ID_MOB_GRAVITY, update=TRUE, priority=100, override=TRUE, multiplicative_slowdown=speed_change, blacklisted_movetypes=FLOATING)
 
 //bodypart selection verbs - Cyberboss
 //8:repeated presses toggles through head - eyes - mouth

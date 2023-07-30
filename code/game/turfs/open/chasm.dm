@@ -14,7 +14,7 @@
 
 /turf/open/chasm/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/chasm, SSmapping.get_turf_below(src))
+	AddComponent(/datum/component/chasm, GET_TURF_BELOW(src))
 
 /turf/open/chasm/proc/set_target(turf/target)
 	var/datum/component/chasm/chasm_component = GetComponent(/datum/component/chasm)

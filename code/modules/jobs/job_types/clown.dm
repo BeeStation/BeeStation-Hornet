@@ -26,6 +26,8 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/honk
 	)
 
+	minimal_lightup_areas = list(/area/crew_quarters/theatre)
+
 /datum/job/clown/after_spawn(mob/living/carbon/human/H, mob/M)
 	. = ..()
 	H.apply_pref_name("clown", M.client)

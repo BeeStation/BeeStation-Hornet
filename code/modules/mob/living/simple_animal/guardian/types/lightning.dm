@@ -31,7 +31,7 @@
 			var/datum/beam/C = pick(enemychains)
 			qdel(C)
 			enemychains -= C
-		enemychains += Beam(target, "lightning[rand(1,12)]", time=70, maxdistance=7, beam_type=/obj/effect/ebeam/chain)
+		enemychains += Beam(target, "lightning[rand(1,12)]", maxdistance=7, beam_type=/obj/effect/ebeam/chain)
 
 /mob/living/simple_animal/hostile/guardian/beam/Destroy()
 	removechains()
@@ -41,7 +41,7 @@
 	. = ..()
 	if(.)
 		if(summoner)
-			summonerchain = Beam(summoner, "lightning[rand(1,12)]", time=INFINITY, maxdistance=INFINITY, beam_type=/obj/effect/ebeam/chain)
+			summonerchain = Beam(summoner, "lightning[rand(1,12)]", beam_type=/obj/effect/ebeam/chain)
 		while(loc != summoner)
 			if(successfulshocks > 5)
 				successfulshocks = 0
@@ -68,7 +68,7 @@
 	cleardeletedchains()
 	if(summoner)
 		if(!summonerchain)
-			summonerchain = Beam(summoner, "lightning[rand(1,12)]", time=INFINITY, maxdistance=INFINITY, beam_type=/obj/effect/ebeam/chain)
+			summonerchain = Beam(summoner, "lightning[rand(1,12)]", beam_type=/obj/effect/ebeam/chain)
 		. += chainshock(summonerchain)
 	if(enemychains.len)
 		for(var/chain in enemychains)
