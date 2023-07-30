@@ -345,9 +345,12 @@ export const OrbitalMapDisplay = (props, context) => {
               mt={1}
               selected="Select Docking Location"
               width="100%"
-              options={validDockingPorts.map((map_object) => (
-                <option key={map_object.id}>{map_object.name}</option>
-              ))}
+              options={validDockingPorts.map((map_object) => {
+                return {
+                  displayText: map_object.name,
+                  value: map_object.id,
+                };
+              })}
               onSelected={(value) =>
                 act('gotoPort', {
                   port: value.key,
