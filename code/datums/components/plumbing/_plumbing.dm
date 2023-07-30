@@ -29,7 +29,7 @@
 
 	RegisterSignal(parent, list(COMSIG_MOVABLE_MOVED,COMSIG_PARENT_PREQDELETED), PROC_REF(disable))
 	RegisterSignal(parent, list(COMSIG_OBJ_DEFAULT_UNFASTEN_WRENCH), PROC_REF(toggle_active))
-	/*RegisterSignal(parent, list(COMSIG_OBJ_HIDE), PROC_REF(hide))*/
+	RegisterSignal(parent, list(COMSIG_OBJ_HIDE), PROC_REF(hide))
 	RegisterSignal(parent, list(COMSIG_ATOM_UPDATE_OVERLAYS), PROC_REF(create_overlays)) //create overlays also gets called after init (no idea by what it just happens)
 
 	if(start)
@@ -234,13 +234,12 @@
 		net.add_plumber(src, dir)
 		net.add_plumber(P, opposite_dir)
 
-/*
 /datum/component/plumbing/proc/hide(atom/movable/AM, should_hide)
+	SIGNAL_HANDLER
 
 	tile_covered = should_hide
 	AM.update_appearance()
 
-*/
 
 ///has one pipe input that only takes, example is manual output pipe
 /datum/component/plumbing/simple_demand
