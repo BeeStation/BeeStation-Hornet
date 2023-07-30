@@ -25,7 +25,7 @@
 		amounts[i] = rand(1,5)
 
 /obj/machinery/abductor/gland_dispenser/ui_status(mob/user)
-	if(!isabductor(user) && !user.mind.has_antag_datum(/datum/antagonist) && !isobserver(user))
+	if(!isabductor(user) && !isobserver(user))
 		return UI_CLOSE
 	return ..()
 
