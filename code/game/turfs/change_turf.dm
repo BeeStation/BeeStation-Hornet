@@ -176,6 +176,8 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 			. = ..()
 		else
 			. = ..()
+			if(flags & CHANGETURF_SKIP) // don't init air before the air subsystem runs
+				return
 			if(!istype(air,/datum/gas_mixture))
 				Initalize_Atmos(0)
 
