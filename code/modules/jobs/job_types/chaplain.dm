@@ -28,6 +28,12 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/chaplain
 	)
 
+	minimal_lightup_areas = list(
+		/area/chapel,
+		/area/medical/morgue,
+		/area/crew_quarters/theatre
+	)
+
 /datum/job/chaplain/after_spawn(mob/living/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
 	. = ..()
 	if(!M.client || on_dummy)

@@ -102,9 +102,23 @@
 	///RPG job names, for the memes
 	var/rpg_title
 
+	/**
+	 * A list of job-specific areas to enable lights for if this job is present at roundstart, whenever minimal access is not in effect.
+	 * This will be combined with minimal_lightup_areas, so no need to duplicate entries.
+	 * Areas within their department will have their lights turned on automatically, so you should really only use this for areas outside of their department.
+	 */
+	var/list/lightup_areas = list()
+	/**
+	 * A list of job-specific areas to enable lights for if this job is present at roundstart.
+	 * Areas within their department will have their lights turned on automatically, so you should really only use this for areas outside of their department.
+	 */
+	var/list/minimal_lightup_areas = list()
+
 
 /datum/job/New()
 	. = ..()
+	lightup_areas = typecacheof(lightup_areas)
+	minimal_lightup_areas = typecacheof(minimal_lightup_areas)
 
 /// Only override this proc, unless altering loadout code. Loadouts act on H but get info from M
 /// H is usually a human unless an /equip override transformed it
@@ -281,6 +295,22 @@
 		return TRUE	//Available in 0 days = available right now = player is old enough to play.
 	return FALSE
 
+/datum/job/proc/areas_to_light_up(minimal_access = TRUE)
+	. = minimal_lightup_areas.Copy()
+	if(!minimal_access)
+		. |= lightup_areas
+	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_COM))
+		. |= GLOB.command_lightup_areas
+	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_ENG))
+		. |= GLOB.engineering_lightup_areas
+	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_MED))
+		. |= GLOB.medical_lightup_areas
+	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_SCI))
+		. |= GLOB.science_lightup_areas
+	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_CAR))
+		. |= GLOB.supply_lightup_areas
+	if(CHECK_BITFIELD(departments, DEPT_BITFLAG_SEC))
+		. |= GLOB.security_lightup_areas
 
 /datum/job/proc/available_in_days(client/C)
 	if(!C)

@@ -33,6 +33,9 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/warden
 	)
 
+	lightup_areas = list(/area/security/detectives_office)
+	minimal_lightup_areas = list(/area/security/warden)
+
 /datum/job/warden/get_access()
 	var/list/L = list()
 	L = ..() | check_config_for_sec_maint()

@@ -43,6 +43,8 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/chief_engineer
 	)
 
+	minimal_lightup_areas = list(/area/crew_quarters/heads/chief, /area/engine/atmos)
+
 /datum/outfit/job/chief_engineer
 	name = JOB_NAME_CHIEFENGINEER
 	jobtype = /datum/job/chief_engineer

@@ -28,6 +28,8 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/honk
 	)
 
+	minimal_lightup_areas = list(/area/crew_quarters/theatre)
+
 /datum/job/clown/after_spawn(mob/living/carbon/human/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
 	. = ..()
 	if(!ishuman(H))

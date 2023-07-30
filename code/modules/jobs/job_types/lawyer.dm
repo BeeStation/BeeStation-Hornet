@@ -29,6 +29,8 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/lawyer
 	)
 
+	minimal_lightup_areas = list(/area/lawoffice)
+
 /datum/outfit/job/lawyer
 	name = JOB_NAME_LAWYER
 	jobtype = /datum/job/lawyer

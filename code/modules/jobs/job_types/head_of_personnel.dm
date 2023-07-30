@@ -49,6 +49,12 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/head_of_personnel
 	)
 
+	minimal_lightup_areas = list(/area/crew_quarters/heads/hop, /area/security/nuke_storage)
+
+// Special handling to avoid lighting up the entirety of supply whenever there's a HoP.
+/datum/job/head_of_personnel/areas_to_light_up(minimal_access = TRUE)
+	return minimal_lightup_areas | GLOB.command_lightup_areas
+
 /datum/outfit/job/head_of_personnel
 	name = JOB_NAME_HEADOFPERSONNEL
 	jobtype = /datum/job/head_of_personnel

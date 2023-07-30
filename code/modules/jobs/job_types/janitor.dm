@@ -28,6 +28,8 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/janitor
 	)
 
+	minimal_lightup_areas = list(/area/janitor)
+
 /datum/outfit/job/janitor
 	name = JOB_NAME_JANITOR
 	jobtype = /datum/job/janitor

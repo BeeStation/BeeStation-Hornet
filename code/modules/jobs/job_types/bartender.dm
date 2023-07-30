@@ -27,6 +27,13 @@
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/bartender
 	)
+
+	lightup_areas = list(
+		/area/hydroponics,
+		/area/medical/morgue,
+		/area/crew_quarters/kitchen
+	)
+
 /datum/outfit/job/bartender
 	name = JOB_NAME_BARTENDER
 	jobtype = /datum/job/bartender

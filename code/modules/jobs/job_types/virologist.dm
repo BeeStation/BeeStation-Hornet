@@ -31,6 +31,15 @@
 	)
 	biohazard = 75 //duh
 
+	lightup_areas = list(
+		/area/medical/morgue,
+		/area/medical/surgery,
+		/area/medical/genetics,
+		/area/medical/chemistry,
+		/area/medical/apothecary
+	)
+	minimal_lightup_areas = list(/area/medical/virology)
+
 /datum/outfit/job/virologist
 	name = JOB_NAME_VIROLOGIST
 	jobtype = /datum/job/virologist

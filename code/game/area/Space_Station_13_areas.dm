@@ -646,7 +646,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "fitness"
 
 /area/crew_quarters/park
-	name = "Recrational Park"
+	name = "Recreational Park"
 	icon_state = "fitness"
 	lighting_colour_bulb = "#80aae9"
 	lighting_colour_tube = "#80aae9"
@@ -655,7 +655,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/crew_quarters/cafeteria
 	name = "Cafeteria"
 	icon_state = "cafeteria"
-	lights_always_start_on = FALSE
 
 /area/crew_quarters/kitchen
 	name = "Kitchen"
@@ -678,7 +677,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_bulb = "#ffebc1"
 	sound_environment = SOUND_AREA_WOODFLOOR
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
-	lights_always_start_on = FALSE
 
 /area/crew_quarters/bar/mood_check(mob/living/carbon/subject)
 	if(istype(subject) && HAS_TRAIT(subject, TRAIT_LIGHT_DRINKER))
@@ -686,13 +684,16 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	return ..()
 
 /area/crew_quarters/bar/lounge
-	name = "Bar lounge"
+	name = "Bar Lounge"
 	icon_state = "lounge"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
 /area/crew_quarters/bar/Initialize(mapload)
 	. = ..()
 	GLOB.bar_areas += src
+
+/area/service/bar
+	lights_always_start_on = TRUE
 
 /area/service/bar/Initialize(mapload)
 	. = ..()
@@ -718,16 +719,17 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Theatre"
 	icon_state = "theatre"
 	sound_environment = SOUND_AREA_WOODFLOOR
-	lights_always_start_on = FALSE
 
 /area/crew_quarters/theatre/backstage
 	name = "Backstage"
 	icon_state = "theatre_back"
 	sound_environment = SOUND_AREA_WOODFLOOR
+	lights_always_start_on = FALSE
 
 /area/crew_quarters/theatre/abandoned
 	name = "Abandoned Theatre"
 	icon_state = "theatre"
+	lights_always_start_on = FALSE
 
 /area/library
 	name = "Library"

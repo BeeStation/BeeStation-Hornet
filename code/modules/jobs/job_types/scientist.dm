@@ -32,6 +32,16 @@
 	)
 	biohazard = 35
 
+	lightup_areas = list(/area/storage/tech, /area/science/robotics)
+	minimal_lightup_areas = list(
+		/area/science/explab,
+		/area/science/misc_lab,
+		/area/science/mixing,
+		/area/science/nanite,
+		/area/science/storage,
+		/area/science/xenobiology
+	)
+
 /datum/outfit/job/scientist
 	name = JOB_NAME_SCIENTIST
 	jobtype = /datum/job/scientist
