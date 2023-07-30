@@ -216,7 +216,7 @@
 	dying_key = DYE_REGISTRY_UNDER
 
 /obj/item/clothing/under/compile_monkey_icon()
-	var/identity = [type]_[icon_state]
+	var/identity = "[type]_[icon_state]" //Allows using multiple icon states for piece of clothing
 	//If the icon, for this type of clothing, is already made by something else, don't make it again
 	if(GLOB.monkey_icon_cache[identity])
 		monkey_icon = GLOB.monkey_icon_cache[identity]
