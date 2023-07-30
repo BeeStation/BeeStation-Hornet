@@ -84,6 +84,9 @@ ALTER TABLE `SS13_characters`
     MODIFY COLUMN `role_preferences` MEDIUMTEXT COLLATE 'utf8mb4_general_ci' NULL,
     ADD COLUMN IF NOT EXISTS `randomise` MEDIUMTEXT COLLATE 'utf8mb4_general_ci' NULL AFTER `role_preferences`;
 
+/* Copy eye colors onto IPC screen color, now that it's separate */
+UPDATE `SS13_characters` SET `feature_ipc_screen` = `eye_color`;
+
 /* Flatten features JSON into its own columns */
 
 UPDATE SS13_characters t1, JSON_TABLE(
