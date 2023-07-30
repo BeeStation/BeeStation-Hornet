@@ -131,7 +131,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/map_view/character_preview_view)
 
 /// Unregisters the relevant map objects to a client
 /atom/movable/screen/map_view/character_preview_view/proc/unregister_from_client(client/client)
-	if(!(client in viewing_clients))
+	if(!istype(client) || !(client in viewing_clients))
 		return
 	client.clear_map(assigned_map)
 	viewing_clients -= client

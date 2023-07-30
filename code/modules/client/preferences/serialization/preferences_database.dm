@@ -126,6 +126,8 @@
 /datum/preferences/proc/save_preferences()
 	if(!SSdbcore.IsConnected())
 		return FALSE
+	if(!istype(parent))
+		return FALSE
 	if(IS_GUEST_KEY(parent.key)) // NO saving guests to the DB!
 		return FALSE
 	if(!player_data?.write_to_database(src))
@@ -265,6 +267,8 @@
 
 /datum/preferences/proc/save_character()
 	if(!SSdbcore.IsConnected())
+		return FALSE
+	if(!istype(parent))
 		return FALSE
 	if(IS_GUEST_KEY(parent.key)) // NO saving guests to the DB!
 		return FALSE
