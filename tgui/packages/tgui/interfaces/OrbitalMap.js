@@ -351,6 +351,7 @@ export const OrbitalMapDisplay = (props, context) => {
                   value: map_object.id,
                 };
               })}
+              displayText="Select Docking Location"
               onSelected={(value) =>
                 act('gotoPort', {
                   port: value,
