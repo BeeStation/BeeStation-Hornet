@@ -2,6 +2,7 @@
 	layer = CLOSED_TURF_LAYER
 	opacity = TRUE
 	density = TRUE
+	init_air = FALSE
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	rad_insulation = RAD_MEDIUM_INSULATION
 	pass_flags_self = PASSCLOSEDTURF

@@ -335,7 +335,7 @@
 				stack_trace("design [D] with icon '[icon_file]' missing state '[icon_state]'")
 				continue
 			#endif
-			I = icon(icon_file, icon_state, SOUTH)
+			I = icon(icon_file, icon_state, SOUTH, 1)
 
 		else
 			// construct the icon and slap it into the resource cache
@@ -371,7 +371,7 @@
 				stack_trace("design [D] with icon '[icon_file]' missing state '[icon_state]'")
 				continue
 			#endif
-			I = icon(icon_file, icon_state, SOUTH)
+			I = icon(icon_file, icon_state, SOUTH, 1)
 
 			// computers (and snowflakes) get their screen and keyboard sprites
 			if (ispath(item, /obj/machinery/computer) || ispath(item, /obj/machinery/power/solar_control))
@@ -380,9 +380,9 @@
 				var/keyboard = initial(C.icon_keyboard)
 				var/all_states = icon_states(icon_file)
 				if (screen && (screen in all_states))
-					I.Blend(icon(icon_file, screen, SOUTH), ICON_OVERLAY)
+					I.Blend(icon(icon_file, screen, SOUTH, 1), ICON_OVERLAY)
 				if (keyboard && (keyboard in all_states))
-					I.Blend(icon(icon_file, keyboard, SOUTH), ICON_OVERLAY)
+					I.Blend(icon(icon_file, keyboard, SOUTH, 1), ICON_OVERLAY)
 
 		Insert(initial(D.id), I)
 
@@ -439,7 +439,7 @@
 		return FALSE
 	#endif
 
-	var/icon/I = icon(icon_file, icon_state, SOUTH)
+	var/icon/I = icon(icon_file, icon_state, SOUTH, 1)
 	var/c = initial(item.color)
 	if (!isnull(c) && c != "#FFFFFF")
 		I.Blend(c, ICON_MULTIPLY)
@@ -478,7 +478,7 @@
 			continue
 		#endif
 
-		var/icon/I = icon(icon_file, icon_state, SOUTH)
+		var/icon/I = icon(icon_file, icon_state, SOUTH, 1)
 		var/c = initial(A.color)
 		if (!isnull(c) && c != "#FFFFFF")
 			I.Blend(c, ICON_MULTIPLY)

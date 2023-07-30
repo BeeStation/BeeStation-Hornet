@@ -61,8 +61,8 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	var/list/listeners = SSmobs.clients_by_zlevel[source_z].Copy()
 	/// Everyone that actually heard the sound
 	var/list/hearers = list()
-	var/turf/above_turf = SSmapping.get_turf_above(turf_source)
-	var/turf/below_turf = SSmapping.get_turf_below(turf_source)
+	var/turf/above_turf = GET_TURF_ABOVE(turf_source)
+	var/turf/below_turf = GET_TURF_BELOW(turf_source)
 	if(ignore_walls)
 		if(above_turf && istransparentturf(above_turf))
 			listeners += SSmobs.clients_by_zlevel[above_turf.z]
