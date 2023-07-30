@@ -572,6 +572,35 @@
 	materials = list(/datum/material/iron=500)
 	turf_type = /turf/open/floor/plasteel/techmaint
 
+// Glass floors
+/obj/item/stack/tile/glass
+	name = "glass floor"
+	singular_name = "glass floor tile"
+	desc = "Glass window floors, to let you see... Whatever that is down there."
+	icon_state = "tile_glass"
+	turf_type = /turf/open/floor/glass
+	item_state = "tile-glass"
+	merge_type = /obj/item/stack/tile/glass
+	materials = list(/datum/material/glass=MINERAL_MATERIAL_AMOUNT * 0.25) // 4 tiles per sheet
+	//replace_plating = TRUE
+
+/obj/item/stack/tile/glass/sixty
+	amount = 60
+
+/obj/item/stack/tile/rglass
+	name = "reinforced glass floor"
+	singular_name = "reinforced glass floor tile"
+	desc = "Reinforced glass window floors. These bad boys are 50% stronger than their predecessors!"
+	icon_state = "tile_rglass"
+	item_state = "tile-rglass"
+	turf_type = /turf/open/floor/glass/reinforced
+	merge_type = /obj/item/stack/tile/rglass
+	materials = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT * 0.125, /datum/material/glass=MINERAL_MATERIAL_AMOUNT * 0.25) // 4 tiles per sheet
+	//replace_plating = TRUE
+
+/obj/item/stack/tile/rglass/sixty
+	amount = 60
+
 /obj/item/stack/tile/dock
 	name = "dock tile"
 	singular_name = "dock tile"

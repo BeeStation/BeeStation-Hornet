@@ -303,6 +303,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 ///Trait applied to turfs when an atmos holosign is placed on them. It will stop firedoors from closing.
 #define TRAIT_FIREDOOR_STOP "firedoor_stop"
 
+///Turf trait for when a turf is transparent
+#define TURF_Z_TRANSPARENT_TRAIT "turf_z_transparent"
+
 /// this object has been frozen
 #define TRAIT_FROZEN "frozen"
 
@@ -335,6 +338,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define CURSE_TRAIT "eldritch"
 #define STATION_TRAIT "station-trait"
 #define TRAIT_RUSTY "rust_trait"
+#define TURF_TRAIT "turf"
 
 // unique trait sources, still defines
 #define CLONING_POD_TRAIT "cloning-pod"

@@ -6,22 +6,29 @@
 	CanAtmosPassVertical = ATMOS_PASS_YES
 	allow_z_travel = TRUE
 
-	FASTDMM_PROP(\
-		pipe_astar_cost = 100\
-	)
+	intact = FALSE //this means wires go on top
 
 	//mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+
+	z_flags = Z_MIMIC_BELOW|Z_MIMIC_OVERWRITE
+
 	var/can_cover_up = TRUE
 	var/can_build_on = TRUE
 
-	intact = 0
-	z_flags = Z_MIMIC_BELOW|Z_MIMIC_OVERWRITE
+	FASTDMM_PROP(\
+		pipe_astar_cost = 100\
+	)
 
 /turf/open/openspace/cold
 	initial_gas_mix = FROZEN_ATMOS
 
 /turf/open/openspace/airless
 	initial_gas_mix = AIRLESS_ATMOS
+
+/turf/open/openspace/LateInitialize()
+	. = ..()
+	AddElement(/datum/element/turf_z_transparency, is_openspace = TRUE)
 
 /turf/open/openspace/can_have_cabling()
 	if(locate(/obj/structure/lattice/catwalk, src))

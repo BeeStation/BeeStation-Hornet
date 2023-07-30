@@ -30,6 +30,12 @@
 	if(!isnull(render_relay_plane))
 		relay_render_to_plane(mymob, render_relay_plane)
 
+///For any transparent multi-z tiles we want to render
+/atom/movable/screen/plane_master/transparent
+	name = "transparent plane master"
+	plane = TRANSPARENT_FLOOR_PLANE
+	appearance_flags = PLANE_MASTER
+	
 ///Contains just the floor
 /atom/movable/screen/plane_master/floor
 	name = "floor plane master"
