@@ -240,6 +240,21 @@
 		if(istype(entry) && entry.per_character)
 			continue
 		role_preferences -= preference
+		mark_undatumized_dirty_character()
+
+	// Validate equipped gear
+	for(var/gear_id in equipped_gear)
+		var/datum/gear/gear = GLOB.gear_datums[gear_id]
+		if(!length(GLOB.gear_datums)) // error safety, don't wanna clear everyone out
+			continue
+		if(!istype(gear))
+			equipped_gear -= gear_id
+			mark_undatumized_dirty_character()
+			continue
+		// Somehow have a gear equipped that you don't own...
+		if(islist(purchased_gear) && !(gear_id in purchased_gear))
+			equipped_gear -= gear_id
+			mark_undatumized_dirty_character()
 
 	return TRUE
 
