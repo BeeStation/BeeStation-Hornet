@@ -4,8 +4,8 @@
 	icon = 'icons/turf/floors/glass.dmi'
 	icon_state = "glass-0"
 	base_icon_state = "glass"
-	baseturfs = /turf/baseturf_bottom
-	intact = FALSE
+	baseturfs = /turf/open/openspace
+	intact = TRUE
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_TURF_OPEN, SMOOTH_GROUP_FLOOR_TRANSPARENT_GLASS)
 	canSmoothWith = list(SMOOTH_GROUP_FLOOR_TRANSPARENT_GLASS)
@@ -30,8 +30,10 @@
 	. = ..()
 	AddElement(/datum/element/turf_z_transparency)
 
+/*
 /turf/open/floor/glass/make_plating()
 	return
+*/
 
 /turf/open/floor/glass/reinforced
 	name = "reinforced glass floor"
