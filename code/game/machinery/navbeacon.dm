@@ -73,7 +73,7 @@
 /obj/machinery/navbeacon/attackby(obj/item/I, mob/user, params)
 	var/turf/T = loc
 	if(T.underfloor_accessibility < UNDERFLOOR_INTERACTABLE)
-		return		// prevent intraction when T-scanner revealed
+		return // prevent interaction when T-scanner revealed
 
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		open = !open

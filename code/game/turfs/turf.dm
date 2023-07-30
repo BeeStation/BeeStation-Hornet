@@ -394,7 +394,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf/singularity_act()
 	if(underfloor_accessibility < UNDERFLOOR_INTERACTABLE)
 		for(var/obj/O in contents) //this is for deleting things like wires contained in the turf
-			if(O.invisibility == INVISIBILITY_MAXIMUM)
+			if(HAS_TRAIT(O, TRAIT_T_RAY_VISIBLE))
 				O.singularity_act()
 	ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 	return(2)
@@ -485,6 +485,9 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 			A.acid_level = min(acid_volume * acidpwr, 12000)//capping acid level to limit power of the acid
 			has_acid_effect = 1
 			continue
+		if(underfloor_accessibility < UNDERFLOOR_INTERACTABLE && HAS_TRAIT(O, TRAIT_T_RAY_VISIBLE))
+			continue
+
 		O.acid_act(acidpwr, acid_volume)
 	if(!has_acid_effect)
 		new acid_type(src, acidpwr, acid_volume)
