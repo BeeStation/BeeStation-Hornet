@@ -343,7 +343,7 @@
 			amount = clamp(amount, 1, 10)
 			if(!amount)
 				return
-			if(!COOLDOWN_FINISHED(production_cooldown))
+			if(!COOLDOWN_FINISHED(src, production_cooldown))
 				say("Warning: Biogenerator is cooling down.")
 				return
 			COOLDOWN_START(src, production_cooldown, 5 SECONDS)
