@@ -68,21 +68,30 @@
 
 /client/proc/staff_who(via)
 	var/msg
+	var/list/full_admin_list = GLOB.admin_datums+GLOB.deadmins
 
 	// when you are admin
-	if(holder)
+	if(holder || GLOB.deadmins[ckey])
 		msg = "<b>Current Admins:</b>\n"
-		for(var/client/C in GLOB.admins)
-			var/rank = "\improper [C.holder.rank]"
+		for(var/datum/admins/a_datum as() in full_admin_list)
+			a_datum = full_admin_list[a_datum]
+			if(!a_datum)
+				continue
+			var/client/C = a_datum.owner || GLOB.directory[a_datum.target]
+			if(!C)
+				continue
+			var/rank = "\improper [a_datum.rank]"
 			msg += "\t[C] is \a [rank]"
 
-			if(C.holder.fakekey)
-				msg += " <i>(as [C.holder.fakekey])</i>"
+			if(a_datum.fakekey)
+				msg += " <i>(as [a_datum.fakekey])</i>"
 
 			if(isobserver(C.mob))
 				msg += " - Observing"
 			else if(isnewplayer(C.mob))
 				msg += " - Lobby"
+			else if(C.mob.stat == DEAD)
+				msg += " - Observing (in a corpse)"
 			else
 				msg += " - Playing"
 
