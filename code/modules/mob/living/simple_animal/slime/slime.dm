@@ -113,7 +113,7 @@
 	. = ..()
 	set_nutrition(SLIME_DEFAULT_NUTRITION)
 	if(transformeffects & SLIME_EFFECT_LIGHT_PINK)
-		set_playable()
+		set_playable(ROLE_SENTIENCE)
 
 /mob/living/simple_animal/slime/Destroy()
 	set_target(null)
@@ -530,6 +530,9 @@
 	if(damage && damagetype == BRUTE && !forced && (transformeffects & SLIME_EFFECT_ADAMANTINE))
 		blocked += 50
 	. = ..(damage, damagetype, def_zone, blocked, forced)
+
+/mob/living/simple_animal/slime/get_discovery_id()
+	return "[colour] slime"
 
 /mob/living/simple_animal/slime/give_mind(mob/user)
 	. = ..()

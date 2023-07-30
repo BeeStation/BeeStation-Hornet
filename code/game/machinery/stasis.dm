@@ -6,7 +6,6 @@
 	icon_state = "stasis"
 	density = FALSE
 	can_buckle = TRUE
-	buckle_lying = 90
 	circuit = /obj/item/circuitboard/machine/stasis
 	idle_power_usage = 50
 	active_power_usage = 500
@@ -19,23 +18,46 @@
 	var/obj/effect/overlay/vis/mattress_on
 	var/obj/machinery/computer/operating/op_computer
 
+// dir check for buckle_lying state
+/obj/machinery/stasis/Initialize()
+	switch(dir)
+		if(WEST, NORTH)
+			buckle_lying = 270
+		if(EAST, SOUTH)
+			buckle_lying = 90
+	return ..()
+
 /obj/machinery/stasis/Initialize(mapload)
+	..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/stasis/LateInitialize()
 	. = ..()
-	for(var/direction in GLOB.alldirs)
-		op_computer = locate(/obj/machinery/computer/operating) in get_step(src, direction)
-		if(op_computer)
-			op_computer.sbed = src
-			break
+	initial_link()
 
 /obj/machinery/stasis/Destroy()
 	. = ..()
-	if(op_computer && op_computer.sbed == src)
+	if(op_computer?.sbed == src)
 		op_computer.sbed = null
 
 /obj/machinery/stasis/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Alt-click to [stasis_enabled ? "turn off" : "turn on"] the machine.</span>"
 	. += "<span class='notice'>[src] is [op_computer ? "linked" : "<b>NOT</b> linked"] to an operating computer.</span>"
+
+/obj/machinery/stasis/proc/initial_link()
+	if(!QDELETED(op_computer))
+		op_computer.sbed = src
+		return
+	for(var/direction in GLOB.alldirs)
+		var/obj/machinery/computer/operating/found_computer = locate(/obj/machinery/computer/operating) in get_step(src, direction)
+		if(found_computer)
+			if(!found_computer.sbed)
+				found_computer.link_with_table(new_sbed = src)
+				break
+			else if(found_computer.sbed == src)
+				op_computer = found_computer
+				break
 
 /obj/machinery/stasis/proc/play_power_sound()
 	var/_running = stasis_running()
@@ -146,6 +168,18 @@
 
 /obj/machinery/stasis/crowbar_act(mob/living/user, obj/item/I)
 	return default_deconstruction_crowbar(I)
+
+/obj/machinery/stasis/multitool_act(mob/living/user, obj/item/I)
+	var/obj/item/multitool/multitool = I
+	if(!I || !istype(I))
+		return ..()
+	. = TOOL_ACT_TOOLTYPE_SUCCESS
+	if(!panel_open)
+		to_chat(user, "<span class='warning'>\The [src]'s panel must be open in order to add it to \the [multitool]'s buffer.</span>")
+		return
+	multitool.buffer = src
+	to_chat(user, "<span class='notice'>You store the linking data of \the [src] in \the [multitool]'s buffer. Use it on an operating computer to complete linking.</span>")
+	balloon_alert(user, "saved in buffer")
 
 /obj/machinery/stasis/nap_violation(mob/violator)
 	unbuckle_mob(violator, TRUE)

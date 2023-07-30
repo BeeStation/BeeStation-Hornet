@@ -51,7 +51,7 @@
 			if(H.glasses == src)
 				to_chat(H, "<span class='danger'>[src] overloads and blinds you!</span>")
 				H.flash_act(visual = 1)
-				H.blind_eyes(3)
+				H.adjust_blindness(3)
 				H.blur_eyes(5)
 				eyes.applyOrganDamage(5)
 
@@ -253,7 +253,12 @@
 
 /obj/item/clothing/glasses/sunglasses/advanced/reagent/dropped(mob/user)
 	..()
-	REMOVE_TRAIT(user, TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.glasses != src)
+			return
+		else
+			REMOVE_TRAIT(user, TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
 
 /obj/item/clothing/glasses/sunglasses/advanced/garb
 	name = "black gar glasses"
@@ -327,7 +332,7 @@
 /obj/item/clothing/glasses/welding/ghostbuster/ComponentInitialize()
 	. = ..()
 	//Have the HUD enabled by default, since the glasses start in the down position.
-	var/datum/component/team_monitor/ghost_vision = AddComponent(/datum/component/team_monitor, "ghost", 1)
+	var/datum/component/team_monitor/worn/ghost_vision = AddComponent(/datum/component/team_monitor/worn, "ghost", 1)
 	ghost_vision.toggle_hud(TRUE, null)
 
 /obj/item/clothing/glasses/welding/ghostbuster/weldingvisortoggle()
@@ -347,7 +352,7 @@
 			C = null
 	//Toggle the hud of the component
 	//Pass in the wearer, or null if they are not wearing the goggles
-	var/datum/component/team_monitor/ghost_vision = GetComponent(/datum/component/team_monitor)
+	var/datum/component/team_monitor/worn/ghost_vision = GetComponent(/datum/component/team_monitor/worn)
 	ghost_vision.toggle_hud(!ghost_vision.hud_visible, C)
 	//Update the hud colour
 	if(ghost_vision.hud_visible)

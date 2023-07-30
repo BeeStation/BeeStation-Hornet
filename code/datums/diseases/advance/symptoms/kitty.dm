@@ -1,5 +1,5 @@
 /datum/symptom/toxoplasmosis //my take on the adminbus disease added a year ago. I wanted to make it an actual symptom instead of a simple idea, and i dont want it to call set_species()
-	name = "Toxoplasmosis Sapiens" 
+	name = "Toxoplasmosis Sapiens"
 	desc = "A parasitic symptom that causes a humanoid host to feel slightly happier around cats and cat people."
 	stealth = 1
 	resistance = -2
@@ -11,7 +11,7 @@
 	symptom_delay_max = 60
 	prefixes = list("Feline ", "Anime ")
 	suffixes = list(" Madness", " Mania") //However, I want this virus to be a bit grimmer than the funny uwu cat disease
-	var/mania = FALSE 
+	var/mania = FALSE
 	var/uwu = FALSE
 	var/dnacounter = 0
 	threshold_desc = "<b>Transmission 4:</b>The symptom mutates the language center of the host's brain, causing them to speak in an infuriating dialect. Known to drive hosts to suicide.<br>\
@@ -72,7 +72,7 @@
 						playsound(M, 'sound/magic/demon_consume.ogg', 50, 1)
 						M.add_splatter_floor(get_turf(M))
 					dnacounter -= 5
-				else if(M.stat)
+				else if(!M.stat)
 					var/mob/living/cat = findcat(M, !ears, !tail)
 					if(cat)
 						M.visible_message("<span class='warning'>[M] sits back, staring at [cat] with a manic gleam in their eyes.</span>", "<span class='hypnophrase'>You prepare to glomp on [cat]!</span>")

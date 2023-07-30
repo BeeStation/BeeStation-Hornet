@@ -22,10 +22,14 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	desc = "You aren't entirely sure what this does, but it's very beepy and boopy."
 	background_icon_state = "bg_tech_blue"
 	icon_icon = 'icons/mob/actions/actions_AI.dmi'
-	var/mob/living/silicon/ai/owner_AI //The owner AI, so we don't have to typecast every time
-	var/uses //If we have multiple uses of the same power
-	var/auto_use_uses = TRUE //If we automatically use up uses on each activation
-	var/cooldown_period //If applicable, the time in deciseconds we have to wait before using any more modules
+	/// The owner AI, so we don't have to typecast every time
+	var/mob/living/silicon/ai/owner_AI
+	/// If we have multiple uses of the same power
+	var/uses
+	/// If we automatically use up uses on each activation
+	var/auto_use_uses = TRUE
+	/// If applicable, the time in deciseconds we have to wait before using any more modules
+	var/cooldown_period
 
 /datum/action/innate/ai/Grant(mob/living/L)
 	. = ..()
@@ -626,7 +630,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 		var/turf/T = get_turf(M)
 		message_admins("[ADMIN_LOOKUPFLW(owner)] overrided (animated) [M.name] at [ADMIN_VERBOSEJMP(T)].")
 		log_game("[key_name(owner)] overrided (animated) [M.name] at [AREACOORD(T)].")
-		new/mob/living/simple_animal/hostile/mimic/copy/machine(get_turf(M), M, owner, 1)
+		new/mob/living/simple_animal/hostile/mimic/copy/machine(get_turf(M), M, owner)
 
 /obj/effect/proc_holder/ranged_ai/override_machine
 	active = FALSE

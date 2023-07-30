@@ -23,7 +23,7 @@
 /turf/open/zPassIn(atom/movable/A, direction, turf/source, falling = FALSE)
 	if(direction == DOWN)
 		for(var/obj/O in contents)
-			if(O.obj_flags & BLOCK_Z_IN_DOWN)
+			if(O.z_flags & Z_BLOCK_IN_DOWN)
 				return FALSE
 		return TRUE
 	return FALSE
@@ -32,7 +32,7 @@
 /turf/open/zPassOut(atom/movable/A, direction, turf/destination, falling = FALSE)
 	if(direction == UP)
 		for(var/obj/O in contents)
-			if(O.obj_flags & BLOCK_Z_OUT_UP)
+			if(O.z_flags & Z_BLOCK_OUT_UP)
 				return FALSE
 		return TRUE
 	return FALSE
@@ -147,6 +147,7 @@
 	icon_state = "bluespace"
 	baseturfs = /turf/open/indestructible/airblock
 	CanAtmosPass = ATMOS_PASS_NO
+	init_air = FALSE
 
 /turf/open/Initalize_Atmos(times_fired)
 	if(!istype(air, /datum/gas_mixture/turf))
@@ -169,17 +170,16 @@
 	air.set_temperature(air.return_temperature() + temp)
 	air_update_turf()
 
-/turf/open/proc/freon_gas_act()
+/turf/open/proc/freeze_turf()
 	for(var/obj/I in contents)
-		if(I.resistance_flags & FREEZE_PROOF)
-			return
-		if(!(I.obj_flags & FROZEN))
-			I.make_frozen_visual()
+		if(!HAS_TRAIT(I, TRAIT_FROZEN) && !(I.obj_flags & FREEZE_PROOF))
+			I.AddElement(/datum/element/frozen)
+
 	for(var/mob/living/L in contents)
 		if(L.bodytemperature <= 50)
 			L.apply_status_effect(/datum/status_effect/freon)
 	MakeSlippery(TURF_WET_PERMAFROST, 50)
-	return 1
+	return TRUE
 
 /turf/open/proc/water_vapor_gas_act()
 	MakeSlippery(TURF_WET_WATER, min_wet_time = 100, wet_time_to_add = 50)

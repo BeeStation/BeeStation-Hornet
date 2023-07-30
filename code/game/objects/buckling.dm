@@ -72,8 +72,11 @@
 			var/mob/living/L = M.pulledby
 			L.reset_pull_offsets(M, TRUE)
 
-	if(!check_loc && M.loc != loc)
-		M.forceMove(loc)
+	if (CanPass(M, get_dir(loc, M)))
+		M.Move(loc)
+	else
+		if (!check_loc && M.loc != loc)
+			M.forceMove(loc)
 
 	M.buckling = null
 	M.buckled = src
@@ -81,6 +84,14 @@
 	buckled_mobs |= M
 	M.update_mobility()
 	M.throw_alert("buckled", /atom/movable/screen/alert/restrained/buckled)
+	/*
+	M.set_glide_size(glide_size)
+	*/
+
+	//Something has unbuckled us
+	if(!M.buckled)
+		return FALSE
+
 	post_buckle_mob(M)
 
 	SEND_SIGNAL(src, COMSIG_MOVABLE_BUCKLE, M, force)
@@ -114,6 +125,7 @@
 //Handle any extras after buckling
 //Called on buckle_mob()
 /atom/movable/proc/post_buckle_mob(mob/living/M)
+	M.reset_pull_offsets(M, TRUE) // This line is TEMPORARY, will be removed when update_mobility is refactored!
 
 //same but for unbuckle
 /atom/movable/proc/post_unbuckle_mob(mob/living/M)

@@ -464,7 +464,7 @@
 /obj/item/storage/box/bodybags/PopulateContents()
 	..()
 	for(var/i in 1 to 7)
-		new /obj/item/bodybag(src)
+		new /obj/item/deployable/bodybag(src)
 
 /obj/item/storage/box/rxglasses
 	name = "box of prescription glasses"
@@ -1146,7 +1146,7 @@
 	new /obj/item/reagent_containers/food/snacks/grown/wheat(src)
 	new /obj/item/reagent_containers/food/snacks/grown/cocoapod(src)
 	new /obj/item/reagent_containers/honeycomb(src)
-	new /obj/item/seeds/poppy(src)
+	new /obj/item/seeds/flower/poppy(src)
 
 /obj/item/storage/box/ingredients/carnivore
 	theme_name = "carnivore"

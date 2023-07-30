@@ -38,6 +38,8 @@ GLOBAL_LIST_EMPTY(all_wormholes) // So we can pick wormholes to teleport to
 /datum/round_event/wormholes/end()
 	QDEL_LIST(wormholes)
 	wormholes = null
+	var/turf/T = get_random_station_turf()
+	T.generate_fake_pierced_realities(FALSE, 6)
 
 /obj/effect/portal/wormhole
 	name = "wormhole"

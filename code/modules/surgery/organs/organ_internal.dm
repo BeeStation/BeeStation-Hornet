@@ -33,7 +33,7 @@
 /obj/item/organ/Initialize()
 	. = ..()
 	if(organ_flags & ORGAN_EDIBLE)
-		AddComponent(/datum/component/edible, initial_reagents = food_reagents, foodtypes = RAW | MEAT | GROSS, \
+		AddComponent(/datum/component/edible, initial_reagents = food_reagents, foodtypes = RAW | MEAT | GORE, \
 			pre_eat = CALLBACK(src, PROC_REF(pre_eat)), on_compost = CALLBACK(src, PROC_REF(pre_compost)) , after_eat = CALLBACK(src, PROC_REF(on_eat_from)))
 
 /obj/item/organ/proc/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE)
@@ -48,6 +48,7 @@
 		else
 			qdel(replaced)
 
+	SEND_SIGNAL(src, COMSIG_ORGAN_IMPLANTED, M)
 	SEND_SIGNAL(M, COMSIG_CARBON_GAIN_ORGAN, src)
 
 	owner = M
@@ -72,6 +73,7 @@
 		var/datum/action/A = X
 		A.Remove(M)
 
+	SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, M)
 	SEND_SIGNAL(M, COMSIG_CARBON_LOSE_ORGAN, src)
 
 	START_PROCESSING(SSobj, src)
@@ -124,6 +126,12 @@
 
 // Put any "can we eat this" checks for edible organs here
 /obj/item/organ/proc/pre_eat(eater, feeder)
+	if(iscarbon(eater))
+		var/mob/living/carbon/target = eater
+		for(var/S in target.surgeries)
+			var/datum/surgery/surgery = S
+			if(surgery.location == zone)
+				return FALSE
 	return TRUE
 
 /obj/item/organ/proc/pre_compost(user)

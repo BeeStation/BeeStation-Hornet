@@ -51,6 +51,7 @@
 	declare_war(user, war_declaration)
 
 /obj/item/nuclear_challenge/proc/declare_war(mob/user, war_declaration)
+	set_dynamic_high_impact_event("nuclear operatives have declared war")
 	priority_announce(war_declaration, "Declaration of War", 'sound/machines/alarm.ogg',  has_important_message = TRUE)
 
 	play_soundtrack_music(/datum/soundtrack_song/bee/future_perception)

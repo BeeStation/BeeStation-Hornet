@@ -22,11 +22,11 @@
 /area/template_noop)
 "e" = (
 /obj/structure/table,
-/obj/item/seeds/poppy/lily{
+/obj/item/seeds/flower/lily{
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/seeds/poppy/geranium,
+/obj/item/seeds/flower/geranium,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/reagent_containers/food/snacks/grown/wheat,
 /obj/item/reagent_containers/food/snacks/grown/corn,
@@ -62,7 +62,7 @@
 /area/template_noop)
 "i" = (
 /obj/machinery/hydroponics/soil,
-/obj/item/seeds/poppy,
+/obj/item/seeds/flower/poppy,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
@@ -105,7 +105,7 @@
 /area/template_noop)
 "o" = (
 /obj/machinery/hydroponics/soil,
-/obj/item/seeds/harebell,
+/obj/item/seeds/flower/harebell,
 /obj/machinery/light/small,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,

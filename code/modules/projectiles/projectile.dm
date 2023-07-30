@@ -493,7 +493,7 @@
 			return FALSE
 		if(!L.density)
 			return FALSE
-		if(!L.lying)
+		if (L.mobility_flags & MOBILITY_STAND)// if you stand, it returns true and you get hit. If you arent standing(i.e. resting), it returns false and you dont get hit. Such stupid code.
 			return TRUE
 		var/stunned = !CHECK_BITFIELD(L.mobility_flags, MOBILITY_USE | MOBILITY_STAND | MOBILITY_MOVE)
 		return !stunned || hit_stunned_targets
@@ -537,7 +537,7 @@
  * Projectile can pass through
  * Used to not even attempt to Bump() or fail to Cross() anything we already hit.
  */
-/obj/item/projectile/CanPassThrough(atom/blocker, turf/target, blocker_opinion)
+/obj/item/projectile/CanPassThrough(atom/blocker, movement_dir, blocker_opinion)
 	return impacted[blocker]? TRUE : ..()
 
 /**
@@ -830,17 +830,17 @@
 		qdel(src)
 
 /proc/calculate_projectile_angle_and_pixel_offsets(mob/user, params)
-	var/list/mouse_control = params2list(params)
+	var/list/modifiers = params2list(params)
 	var/p_x = 0
 	var/p_y = 0
 	var/angle = 0
-	if(mouse_control["icon-x"])
-		p_x = text2num(mouse_control["icon-x"])
-	if(mouse_control["icon-y"])
-		p_y = text2num(mouse_control["icon-y"])
-	if(mouse_control["screen-loc"])
+	if(LAZYACCESS(modifiers, ICON_X))
+		p_x = text2num(LAZYACCESS(modifiers, ICON_X))
+	if(LAZYACCESS(modifiers, ICON_Y))
+		p_y = text2num(LAZYACCESS(modifiers, ICON_Y))
+	if(LAZYACCESS(modifiers, SCREEN_LOC))
 		//Split screen-loc up into X+Pixel_X and Y+Pixel_Y
-		var/list/screen_loc_params = splittext(mouse_control["screen-loc"], ",")
+		var/list/screen_loc_params = splittext(LAZYACCESS(modifiers, SCREEN_LOC), ",")
 
 		//Split X+Pixel_X up into list(X, Pixel_X)
 		var/list/screen_loc_X = splittext(screen_loc_params[1],":")

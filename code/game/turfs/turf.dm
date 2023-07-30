@@ -2,6 +2,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf
 	icon = 'icons/turf/floors.dmi'
+	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE // Important for interaction with and visualization of openspace.
 
 	/// If there's a tile over a basic floor that can be ripped out
 	var/overfloor_placed = FALSE
@@ -24,6 +25,10 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	/// Used for fire, if a melting temperature was reached, it will be destroyed
 	var/to_be_destroyed = 0
 	var/max_fire_temperature_sustained = 0 //The max temperature of the fire which it was subjected to
+
+	/// If this turf should initialize atmos adjacent turfs or not
+	/// Optimization, not for setting outside of initialize
+	var/init_air = TRUE
 
 	//If true, turf will allow users to float up and down in 0 grav.
 	var/allow_z_travel = FALSE
@@ -51,11 +56,10 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	/// Should we used the smooth tiled dirt decal or not
 	var/tiled_dirt = FALSE
 
-	vis_flags = VIS_INHERIT_ID|VIS_INHERIT_PLANE // Important for interaction with and visualization of openspace.
-
 	///the holodeck can load onto this turf if TRUE
 	var/holodeck_compatible = FALSE
 
+	///Icon-smoothing variable to map a diagonal wall corner with a fixed underlay.
 	var/list/fixed_underlay = null
 
 /turf/vv_edit_var(var_name, new_value)
@@ -69,30 +73,35 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
 
-	// by default, vis_contents is inherited from the turf that was here before
+	// by default, vis_contents is inherited from the turf that was here before.
+	// Checking length(vis_contents) in a proc this hot has huge wins for performance.
+	//if (length(vis_contents)) - this doesn't seem to help performance on Bee
 	vis_contents.Cut()
 
 	assemble_baseturfs()
 
 	levelupdate()
 	if(length(smoothing_groups))
-		sortTim(smoothing_groups) //In case it's not properly ordered, let's avoid duplicate entries with the same values.
+		#ifdef UNIT_TESTS
+		assert_sorted(smoothing_groups, "[type].smoothing_groups")
+		#endif
 		SET_BITFLAG_LIST(smoothing_groups)
 	if(length(canSmoothWith))
-		sortTim(canSmoothWith)
+		#ifdef UNIT_TESTS
+		assert_sorted(canSmoothWith, "[type].canSmoothWith")
+		#endif
 		if(canSmoothWith[length(canSmoothWith)] > MAX_S_TURF) //If the last element is higher than the maximum turf-only value, then it must scan turf contents for smoothing targets.
 			smoothing_flags |= SMOOTH_OBJ
 		SET_BITFLAG_LIST(canSmoothWith)
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 		QUEUE_SMOOTH(src)
-	visibilityChanged()
 
 	for(var/atom/movable/content as anything in src)
 		Entered(content, null)
 
 	var/area/A = loc
 	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
-		add_overlay(/obj/effect/fullbright)
+		add_overlay(GLOB.fullbright_overlay)
 
 	if(requires_activation)
 		CALCULATE_ADJACENT_TURFS(src)
@@ -100,20 +109,14 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	if(color)
 		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
 
+	if (z_flags & Z_MIMIC_BELOW)
+		setup_zmimic(mapload)
+
 	if (light_power && light_range)
 		update_light()
 
-	var/turf/T = SSmapping.get_turf_above(src)
-	if(T)
-		T.multiz_turf_new(src, DOWN)
-		SEND_SIGNAL(T, COMSIG_TURF_MULTIZ_NEW, src, DOWN)
-	T = SSmapping.get_turf_below(src)
-	if(T)
-		T.multiz_turf_new(src, UP)
-		SEND_SIGNAL(T, COMSIG_TURF_MULTIZ_NEW, src, UP)
-
 	if (opacity)
-		has_opaque_atom = TRUE
+		directional_opacity = ALL_CARDINALS
 
 	ComponentInitialize()
 	if(isopenturf(src))
@@ -131,6 +134,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 /turf/proc/set_temperature()
 
+/// Initializes our adjacent turfs. If you want to avoid this, do not override it, instead set init_air to FALSE
 /turf/proc/Initalize_Atmos(times_fired)
 	CALCULATE_ADJACENT_TURFS(src)
 
@@ -139,12 +143,8 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	if(!changing_turf)
 		stack_trace("Incorrect turf deletion")
 	changing_turf = FALSE
-	var/turf/T = SSmapping.get_turf_above(src)
-	if(T)
-		T.multiz_turf_del(src, DOWN)
-	T = SSmapping.get_turf_below(src)
-	if(T)
-		T.multiz_turf_del(src, UP)
+	if (z_flags & Z_MIMIC_BELOW)
+		cleanup_zmimic()
 	if(force)
 		..()
 		//this will completely wipe turf state
@@ -154,13 +154,13 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		for(var/I in B.vars)
 			B.vars[I] = null
 		return
-	visibilityChanged()
 	QDEL_LIST(blueprint_data)
 	flags_1 &= ~INITIALIZED_1
 	requires_activation = FALSE
 	..()
 
-	vis_contents.Cut()
+	if (length(vis_contents))
+		vis_contents.Cut()
 
 /// WARNING WARNING
 /// Turfs DO NOT lose their signals when they get replaced, REMEMBER THIS
@@ -170,10 +170,10 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	return
 
 /turf/attack_hand(mob/user)
-	//Must have no gravity.
+	// Show a zmove radial when clicked
 	if(get_turf(user) == src)
 		if(!user.has_gravity(src) || (user.movement_type & FLYING))
-			check_z_travel(user)
+			show_zmove_radial(user)
 			return
 		else if(allow_z_travel)
 			to_chat(user, "<span class='warning'>You can't float up and down when there is gravity!</span>")
@@ -186,77 +186,38 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 /turf/eminence_act(mob/living/simple_animal/eminence/eminence)
 	if(get_turf(eminence) == src)
-		check_z_travel(eminence)
+		show_zmove_radial(eminence)
 		return
 	return ..()
 
-/turf/proc/check_z_travel(mob/user)
-	if(get_turf(user) != src)
-		return
-	var/list/tool_list = list()
-	var/turf/above = above()
-	if(above)
-		tool_list["Up"] = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = NORTH)
-	var/turf/below = below()
-	if(below)
-		tool_list["Down"] = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = SOUTH)
+/**
+ * Check whether the specified turf is blocked by something dense inside it with respect to a specific atom.
+ *
+ * Returns truthy value TURF_BLOCKED_TURF_DENSE if the turf is blocked because the turf itself is dense.
+ * Returns truthy value TURF_BLOCKED_CONTENT_DENSE if one of the turf's contents is dense and would block
+ * a source atom's movement.
+ * Returns falsey value TURF_NOT_BLOCKED if the turf is not blocked.
+ *
+ * Arguments:
+ * * exclude_mobs - If TRUE, ignores dense mobs on the turf.
+ * * source_atom - If this is not null, will check whether any contents on the turf can block this atom specifically. Also ignores itself on the turf.
+ * * ignore_atoms - Check will ignore any atoms in this list. Useful to prevent an atom from blocking itself on the turf.
+ */
+/turf/proc/is_blocked_turf(exclude_mobs = FALSE, source_atom = null, list/ignore_atoms)
+	if(density)
+		return TRUE
 
-	if(!length(tool_list))
-		return
-
-	var/result = show_radial_menu(user, user, tool_list, require_near = TRUE, tooltips = TRUE)
-	if(get_turf(user) != src)
-		return
-	switch(result)
-		if("Cancel")
-			return
-		if("Up")
-			if(user.zMove(UP, TRUE))
-				to_chat(user, "<span class='notice'>You move upwards.</span>")
-		if("Down")
-			if(user.zMove(DOWN, TRUE))
-				to_chat(user, "<span class='notice'>You move down.</span>")
-
-/turf/proc/travel_z(mob/user, turf/target, dir)
-	var/mob/living/L = user
-	if(istype(L) && L.incorporeal_move) // Allow most jaunting
-		user.client?.Process_Incorpmove(dir)
-		return
-	var/atom/movable/AM
-	if(user.pulling)
-		AM = user.pulling
-		AM.forceMove(target)
-	if(user.pulledby) // We moved our way out of the pull
-		user.pulledby.stop_pulling()
-	if(user.has_buckled_mobs())
-		for(var/M in user.buckled_mobs)
-			var/mob/living/buckled_mob = M
-			var/old_dir = buckled_mob.dir
-			if(!buckled_mob.Move(target, dir))
-				user.doMove(buckled_mob.loc) //forceMove breaks buckles, use doMove
-				user.last_move = buckled_mob.last_move
-				// Otherwise they will always face north
-				buckled_mob.setDir(old_dir)
-				user.setDir(old_dir)
-				return FALSE
-	else
-		user.forceMove(target)
-	if(istype(AM) && user.Adjacent(AM))
-		user.start_pulling(AM)
-
-/turf/proc/multiz_turf_del(turf/T, dir)
-
-/turf/proc/multiz_turf_new(turf/T, dir)
-
-/// Returns TRUE if the turf cannot be moved onto
-/proc/is_blocked_turf(turf/T, exclude_mobs)
-	if(T.density)
-		return 1
-	for(var/i in T)
-		var/atom/A = i
-		if(A.density && (!exclude_mobs || !ismob(A)))
-			return 1
-	return 0
+	for(var/atom/movable/movable_content as anything in contents)
+		// We don't want to block ourselves or consider any ignored atoms.
+		if((movable_content == source_atom) || (movable_content in ignore_atoms))
+			continue
+		// If the thing is dense AND we're including mobs or the thing isn't a mob AND if there's a source atom and
+		// it cannot pass through the thing on the turf,  we consider the turf blocked.
+		if(movable_content.density && (!exclude_mobs || !ismob(movable_content)))
+			if(source_atom && movable_content.CanPass(source_atom, get_dir(src, source_atom)))
+				continue
+			return TRUE
+	return FALSE
 
 /proc/is_anchored_dense_turf(turf/T) //like the older version of the above, fails only if also anchored
 	if(T.density)
@@ -266,99 +227,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		if(A.density && A.anchored)
 			return 1
 	return 0
-
-
-//zPassIn doesn't necessarily pass an atom!
-//direction is direction of travel of air
-/turf/proc/zPassIn(atom/movable/A, direction, turf/source, falling = FALSE)
-	return FALSE
-
-//direction is direction of travel of air
-/turf/proc/zPassOut(atom/movable/A, direction, turf/destination, falling = FALSE)
-	return FALSE
-
-//direction is direction of travel of air
-/turf/proc/zAirIn(direction, turf/source)
-	return FALSE
-
-//direction is direction of travel of air
-/turf/proc/zAirOut(direction, turf/source)
-	return FALSE
-
-/turf/proc/attempt_z_impact(atom/movable/A, levels = 1, turf/prev_turf)
-	var/flags = NONE
-	for(var/i in contents)
-		var/atom/thing = i
-		flags |= thing.intercept_zImpact(A, levels)
-		if(flags & FALL_STOP_INTERCEPTING)
-			break
-	if(prev_turf && !(flags & FALL_NO_MESSAGE))
-		prev_turf.visible_message("<span class='danger'>[A] falls through [prev_turf]!</span>")
-	if(flags & FALL_INTERCEPTED)
-		return FALSE
-	if(zFall(A, levels + 1, from_zfall = TRUE))
-		return FALSE
-	do_z_impact(A, levels)
-	return TRUE
-
-/turf/proc/do_z_impact(atom/movable/A, levels)
-	// You can "crash into" openspace above zero gravity, but it looks weird to say that
-	if(!isopenspace(src))
-		A.visible_message("<span class='danger'>[A] crashes into [src]!</span>")
-	A.onZImpact(src, levels)
-
-/// If an atom is allowed to zfall through this turf
-/turf/proc/can_zFall(atom/movable/A, turf/target)
-	return zPassOut(A, DOWN, target, falling = TRUE) && target.zPassIn(A, DOWN, src, falling = TRUE)
-
-/// Determines if an atom should start zfalling or continue zfalling
-/turf/proc/can_start_zFall(atom/movable/A, turf/target, force = FALSE, from_zfall = FALSE)
-	if(!from_zfall && A.zfalling) // We don't want to trigger another zfall
-		return FALSE
-	if(!target || (!isobj(A) && !ismob(A)))
-		return FALSE
-	if(!force && (!can_zFall(A, target) || !A.can_zFall(src, target, DOWN)))
-		return FALSE
-	return TRUE
-
-/// A non-waiting proc that calls zFall()
-/turf/proc/try_start_zFall(atom/movable/A, levels = 1, force = FALSE, old_loc = null)
-	set waitfor = FALSE
-	zFall(A, levels, force, old_loc, FALSE)
-
-/// Checks if we can start a zfall and then performs the zfall
-/turf/proc/zFall(atom/movable/A, levels = 1, force = FALSE, old_loc = null, from_zfall = FALSE)
-	var/turf/target = get_step_multiz(src, DOWN)
-	if(!can_start_zFall(A, target, force, from_zfall))
-		return FALSE
-	if(from_zfall) // if this is a >1 level fall
-		sleep(2) // add some time
-		var/turf/new_turf = get_turf(A) // make sure we didn't move onto a solid turf, if we did this will perform a zimpact via the caller
-		target = get_step_multiz(new_turf, DOWN)
-		if(!new_turf.can_start_zFall(A, target, force, from_zfall))
-			new_turf.do_z_impact(A, levels - 1)
-			return TRUE // skip parent zimpact - do a zimpact on new turf, the turf below us is solid
-		else if(new_turf != src) // our fall continues... no need to check can_start_zFall again, because we just checked it
-			new_turf.zFall_Move(A, levels, old_loc, target)
-			return TRUE // don't do an impact from the parent caller. essentially terminating the old fall with no actions
-	return zFall_Move(A, levels, old_loc, target)
-
-/// Actually performs the zfall movement, regardless of if you can fall or not
-/turf/proc/zFall_Move(atom/movable/A, levels = 1, old_loc = null, turf/target)
-	A.zfalling = TRUE
-	if(A.pulling && old_loc) // Moves whatever we're pulling to where we were before so we're still adjacent
-		A.pulling.moving_from_pull = A
-		A.pulling.Move(old_loc)
-		A.pulling.moving_from_pull = null
-	if(A.pulledby) // Prevents dragging stuff while on another z-level
-		A.pulledby.stop_pulling()
-	if(!A.Move(target))
-		A.doMove(target)
-	// Returns false if we continue falling - which calls zfall again
-	// which calls attempt_z_impact (which returns true) if it impacts
-	// basically, check if we should hit the ground, otherwise call zFall again.
-	. = target.attempt_z_impact(A, levels, src)
-	A.zfalling = FALSE
 
 /turf/proc/handleRCL(obj/item/rcl/C, mob/user)
 	if(C.loaded)
@@ -395,7 +263,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	// By default byond will call Bump() on the first dense object in contents
 	// Here's hoping it doesn't stay like this for years before we finish conversion to step_
 	var/atom/firstbump
-	var/canPassSelf = CanPass(mover, src)
+	var/canPassSelf = CanPass(mover, get_dir(src, mover))
 	if(canPassSelf || (mover.movement_type & PHASING))
 		for(var/i in contents)
 			if(QDELETED(mover))
@@ -420,34 +288,6 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		mover.Bump(firstbump)
 		return (mover.movement_type & PHASING)
 	return TRUE
-
-/turf/Entered(atom/movable/arrived, direction)
-	..()
-	// If an opaque movable atom moves around we need to potentially update visibility.
-	if (arrived.opacity)
-		has_opaque_atom = TRUE // Make sure to do this before reconsider_lights(), incase we're on instant updates. Guaranteed to be on in this case.
-		reconsider_lights()
-
-/turf/open/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
-	..()
-	//melting
-	if(isobj(arrived) && air && air.return_temperature() > T0C)
-		var/obj/O = arrived
-		if(O.obj_flags & FROZEN)
-			O.make_unfrozen()
-	if(!arrived.zfalling)
-		zFall(arrived, old_loc = old_loc)
-
-
-/turf/open/openspace/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
-	..()
-	// Did not move in parent call
-	if(get_turf(arrived) == src)
-		SSzfall.add_openspace_inhabitant(arrived)
-
-/turf/open/openspace/Exited(atom/movable/exiting, atom/newloc)
-	..()
-	SSzfall.remove_openspace_inhabitant(exiting)
 
 // A proc in case it needs to be recreated or badmins want to change the baseturfs
 /turf/proc/assemble_baseturfs(turf/fake_baseturf_type)
@@ -657,10 +497,10 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		return
 
 	AddElement(/datum/element/rust)
+	return TRUE
 
-/turf/handle_fall(mob/faller, forced)
-	if(!forced)
-		return
+/// When someone falls over onto this turf (Knockdown() or similar), not related to zfalls
+/turf/handle_fall(mob/faller)
 	if(has_gravity(src))
 		playsound(src, "bodyfall", 50, 1)
 
@@ -735,3 +575,33 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		if(turf_to_check.density || LinkBlockedWithAccess(turf_to_check, caller, ID))
 			continue
 		. += turf_to_check
+
+/turf/proc/generate_fake_pierced_realities(centered = TRUE, max_amount = 2)
+	var/to_spawn = pick(1, max_amount)
+	var/spawned = 0
+	var/location_sanity = 0
+	while(spawned < to_spawn && location_sanity < 100)
+		var/precision = pick(5, 15 * max_amount)
+		var/turf/chosen_location = pick(get_safe_random_station_turfs())
+		if(centered)
+			chosen_location = get_teleport_turf(src, precision) //Using the random teleportation logic here to find a destination turf
+		// We don't want them close to each other - at least 1 tile of seperation
+		var/list/nearby_things = range(1, chosen_location)
+		var/obj/effect/heretic_influence/what_if_i_have_one = locate() in nearby_things
+		var/obj/effect/visible_heretic_influence/what_if_i_had_one_but_its_used = locate() in nearby_things
+		if(what_if_i_have_one || what_if_i_had_one_but_its_used || isspaceturf(chosen_location))
+			location_sanity++
+			continue
+		addtimer(CALLBACK(src, PROC_REF(create_new_fake_reality), chosen_location), rand(0, 500))
+		spawned++
+
+/turf/proc/create_new_fake_reality(turf/F)
+	new /obj/effect/visible_heretic_influence(F)
+
+/// Checks if the turf was blessed with holy water OR the area its in is Chapel
+/turf/proc/is_holy()
+	if(locate(/obj/effect/blessing) in src)
+		return TRUE
+	if(istype(loc, /area/chapel))
+		return TRUE
+	return FALSE

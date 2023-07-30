@@ -94,6 +94,8 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		return
 
 	var/list/message_mods = list()
+	if(language) // if a language is specified already, the language is added into the list
+		message_mods[LANGUAGE_EXTENSION] = istype(language) ? language.type : language
 	var/original_message = message
 	message = get_message_mods(message, message_mods)
 	var/datum/saymode/saymode = SSradio.saymodes[message_mods[RADIO_KEY]]
@@ -106,6 +108,9 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 	if(stat == DEAD)
 		say_dead(original_message)
+		return
+
+	if(saymode && saymode.early && !saymode.handle_message(src, message, language))
 		return
 
 	if(is_muted(original_message, ignore_spam, forced) || check_emote(original_message, forced))
@@ -128,10 +133,15 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		if(end)
 			return
 
-	language = message_mods[LANGUAGE_EXTENSION]
+	if(!language) // get_message_mods() proc finds a language key, and add the language to LANGUAGE_EXTENSION
+		language = message_mods[LANGUAGE_EXTENSION]
 
-	if(!language)
+	if(!language) // there's no language argument and LANGUAGE_EXTENSION has no language. failsafe.
 		language = get_selected_language()
+
+	// if you add a new language that works like everyone doesn't understand (i.e. anti-metalanguage), add an additional condition after this
+	// i.e.) if(!language) language = /datum/language/nobody_understands
+	// This works as an additional failsafe for get_selected_language() has no language to return
 
 	if(!can_speak_vocal(message))
 		to_chat(src, "<span class='warning'>You find yourself unable to speak!</span>")
@@ -184,7 +194,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		spans |= SPAN_SINGING
 
 	//This is before anything that sends say a radio message, and after all important message type modifications, so you can scumb in alien chat or something
-	if(saymode && !saymode.handle_message(src, message, language))
+	if(saymode && !saymode.early && !saymode.handle_message(src, message, language))
 		return
 	var/radio_message = message
 	if(message_mods[WHISPER_MODE])

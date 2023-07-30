@@ -6,6 +6,7 @@
 	icon_dead = "mouse_gray_dead"
 	speak = list("Squeak!","SQUEAK!","Squeak?")
 	speak_emote = list("squeaks")
+	speak_language = /datum/language/metalanguage
 	emote_hear = list("squeaks.")
 	emote_see = list("runs in a circle.", "shakes.")
 	speak_chance = 1
@@ -137,7 +138,7 @@
 	bitesize = 3
 	eatverb = "devour"
 	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 2)
-	foodtype = GROSS | MEAT | RAW
+	foodtype = GORE | MEAT | RAW
 	grind_results = list(/datum/reagent/blood = 20, /datum/reagent/liquidgibs = 5)
 
 

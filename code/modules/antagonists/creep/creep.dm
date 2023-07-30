@@ -2,7 +2,7 @@
 	name = "Obsessed"
 	show_in_antagpanel = TRUE
 	antagpanel_category = "Other"
-	job_rank = ROLE_OBSESSED
+	banning_key = ROLE_OBSESSED
 	show_name_in_check_antagonists = TRUE
 	roundend_category = "obsessed"
 	count_against_dynamic_roll_chance = FALSE

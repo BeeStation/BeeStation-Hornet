@@ -3,6 +3,7 @@
 /mob/living/simple_animal/hostile/carp
 	name = "space carp"
 	desc = "A ferocious, fang-bearing creature that resembles a fish."
+	unique_name = TRUE
 	icon = 'icons/mob/carp.dmi'
 	icon_state = "base"
 	icon_living = "base"
@@ -105,6 +106,7 @@
 	icon = 'icons/mob/broadMobs.dmi'
 	name = "Mega Space Carp"
 	desc = "A ferocious, fang bearing creature that resembles a shark. This one seems especially ticked off."
+	unique_name = FALSE
 	icon_state = "megacarp"
 	icon_living = "megacarp"
 	icon_dead = "megacarp_dead"
@@ -112,6 +114,7 @@
 	maxHealth = 20
 	health = 20
 	pixel_x = -16
+	base_pixel_x = -16
 	mob_size = MOB_SIZE_LARGE
 	random_color = FALSE
 
@@ -141,9 +144,10 @@
 	name = "Cayenne"
 	desc = "A failed Syndicate experiment in weaponized space carp technology, it now serves as a lovable mascot."
 	gender = FEMALE
+	unique_name = FALSE
 	speak_emote = list("squeaks")
 	gold_core_spawnable = NO_SPAWN
-	faction = list("carp", ROLE_SYNDICATE)
+	faction = list("carp", FACTION_SYNDICATE)
 	AIStatus = AI_OFF
 	/// Keeping track of the nuke disk for the functionality of storing it.
 	var/obj/item/disk/nuclear/disky
@@ -218,6 +222,7 @@
 	real_name = "Lia"
 	desc = "A failed experiment of Nanotrasen to create weaponised carp technology. This less than intimidating carp now serves as the Head of Security's pet."
 	gender = FEMALE
+	unique_name = FALSE
 	speak_emote = list("squeaks")
 	gold_core_spawnable = NO_SPAWN
 	faction = list("neutral")
@@ -232,10 +237,15 @@
 
 /mob/living/simple_animal/hostile/carp/advanced
 	name = "advanced space carp"
-	desc = "A ferocious, fang-bearing creature that resembles a fish. This one seems to be self-aware."
+	desc = "A ferocious, fang-bearing creature that resembles a fish."
 	maxHealth = 40
 	health = 40
 	gold_core_spawnable = NO_SPAWN
 	obj_damage = 15
+
+/mob/living/simple_animal/hostile/carp/advanced/examine(mob/user)
+	. = ..()
+	if(mind)
+		. += "<span class='notice'>This one seems to be self-aware.</span>"
 
 #undef REGENERATION_DELAY

@@ -13,7 +13,7 @@
 	canSmoothWith = list(SMOOTH_GROUP_WALLS)
 	layer = LOW_OBJ_LAYER
 	density = TRUE
-	opacity = 1
+	opacity = TRUE
 	max_integrity = 100
 	can_be_unanchored = FALSE
 	CanAtmosPass = ATMOS_PASS_DENSITY
@@ -54,6 +54,7 @@
 	if(!QDELETED(src))
 		set_density(!density)
 		set_opacity(density)
+		z_flags &= density ? (Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP) : ~(Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP)
 		opening = FALSE
 		update_icon()
 		air_update_turf(TRUE)

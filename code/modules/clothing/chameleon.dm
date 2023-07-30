@@ -103,8 +103,13 @@
 	var/datum/outfit/O = new outfit_type()
 	var/list/outfit_types = O.get_chameleon_disguise_info()
 
-	for(var/V in user.chameleon_item_actions)
-		var/datum/action/item_action/chameleon/change/A = V
+	var/obj/item/card/id/syndicate/chamel_card // this is awful but this hardcoding is better than adding `obj/proc/get_chameleon_variable()` for every chalemon item
+	for(var/datum/action/item_action/chameleon/change/A in user.chameleon_item_actions)
+		if(istype(A.target, /obj/item/modular_computer))
+			var/obj/item/modular_computer/comp = A.target
+			if(istype(comp.GetID(), /obj/item/card/id/syndicate))
+				chamel_card = comp.GetID()
+
 		var/done = FALSE
 		for(var/T in outfit_types)
 			for(var/name in A.chameleon_list)
@@ -115,6 +120,20 @@
 					break
 			if(done)
 				break
+
+	if(chamel_card) // changes chameleon card inside of PDA
+		var/datum/action/item_action/chameleon/change/A = chamel_card.chameleon_action
+		var/done = FALSE
+		for(var/T in outfit_types)
+			for(var/name in A.chameleon_list)
+				if(A.chameleon_list[name] == T)
+					A.update_look(user, T)
+					outfit_types -= T
+					done = TRUE
+					break
+			if(done)
+				break
+
 	//hardsuit helmets/suit hoods
 	if(O.toggle_helmet && (ispath(O.suit, /obj/item/clothing/suit/space/hardsuit) || ispath(O.suit, /obj/item/clothing/suit/hooded)) && ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -201,31 +220,19 @@
 
 	else
 		update_item(picked_item, emp=TRUE)
-		if(ispath(picked_item, /obj/item/card/id))
-			var/mob/living/carbon/human/H = user
-			H?.sec_hud_set_ID()
 
 /datum/action/item_action/chameleon/change/proc/update_look(mob/user, obj/item/picked_item, emp=FALSE)
 	if(isliving(user))
 		var/mob/living/C = user
 		if(C.stat != CONSCIOUS)
 			return
-
-		update_item(picked_item, emp)
-		if(ispath(picked_item, /obj/item/card/id))
-			var/mob/living/carbon/human/H = user
-			H?.sec_hud_set_ID()
-		if(istype(target, /obj/item/modular_computer/tablet/pda))
-			var/mob/living/carbon/human/H = user
-			H?.sec_hud_set_ID()
-			var/obj/item/modular_computer/tablet/pda/PDA = target
-			PDA.update_id_display()
+		update_item(picked_item, emp=emp, item_holder=user)
 
 		var/obj/item/thing = target
 		thing.update_slot_icon()
 	UpdateButtonIcon()
 
-/datum/action/item_action/chameleon/change/proc/update_item(obj/item/picked_item, emp=FALSE)
+/datum/action/item_action/chameleon/change/proc/update_item(obj/item/picked_item, emp=FALSE, mob/item_holder=null)
 	var/keepname = FALSE
 	if(isitem(target))
 		var/obj/item/clothing/I = target
@@ -265,12 +272,50 @@
 							ID.update_label()
 			else
 				keepname = TRUE
-				ID.assignment = initial(ID_from.assignment) ? initial(ID_from.assignment) : "Unknown"
+				ID.assignment = initial(ID_from.assignment) || "Unknown"
 				ID.update_label()
+
+			// we're going to find a PDA that this ID card is inserted into, then force-update PDA
+			var/atom/current_holder = target.loc
+			if(istype(current_holder, /obj/item/computer_hardware/card_slot))
+				current_holder = current_holder.loc
+				if(istype(current_holder, /obj/item/modular_computer))
+					var/obj/item/modular_computer/comp = current_holder
+					if(comp)
+						comp.saved_identification = ID.registered_name
+						comp.saved_job = ID.assignment
+						comp.update_id_display()
+
+			update_mob_hud(item_holder)
+		if(istype(target, /obj/item/modular_computer))
+			var/obj/item/modular_computer/comp = target
+			var/obj/item/card/id/id = comp.GetID()
+			if(id)
+				comp.saved_identification = id.registered_name
+				comp.saved_job = id.assignment
+				comp.update_id_display()
+			keepname = TRUE // do not change PDA name unnecesarily
+			update_mob_hud(item_holder)
 	if(!keepname)
 		target.name = initial(picked_item.name)
 	target.desc = initial(picked_item.desc)
 	target.icon_state = initial(picked_item.icon_state)
+
+/datum/action/item_action/chameleon/change/proc/update_mob_hud(atom/card_holder)
+	// we're going to find a human, and store human ref to 'card_holder' by checking loc multiple time.
+	if(!ishuman(card_holder))
+		if(!card_holder)
+			card_holder = target.loc
+		if(istype(card_holder, /obj/item/storage/wallet))
+			card_holder = card_holder.loc // this should be human
+		if(istype(card_holder, /obj/item/computer_hardware/card_slot))
+			card_holder = card_holder.loc
+			if(istype(card_holder, /obj/item/modular_computer/tablet))
+				card_holder = card_holder.loc // tihs should be human
+	if(!ishuman(card_holder))
+		return
+	var/mob/living/carbon/human/card_holding_human = card_holder
+	card_holding_human.sec_hud_set_ID()
 
 /datum/action/item_action/chameleon/change/Trigger()
 	if(!IsAvailable())
@@ -503,7 +548,7 @@
 	item_state = "plasmaman-helm"
 	resistance_flags = FIRE_PROOF
 	strip_delay = 80
-	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT
+	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | HEADINTERNALS
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
@@ -535,6 +580,42 @@
 	var/datum/action/item_action/chameleon/drone/randomise/randomise_action = new(src)
 	randomise_action.UpdateButtonIcon()
 
+/datum/action/item_action/chameleon/tongue_change
+	name = "Tongue Change"
+	icon_icon = 'icons/obj/surgery.dmi'
+	button_icon_state = "tonguebone"
+	var/static/list/tongue_list
+
+/datum/action/item_action/chameleon/tongue_change/proc/generate_tongue_list()
+	var/obj/item/found_item
+	var/tongue_name
+	var/static/list/predefined_tongues = typesof(/obj/item/organ/tongue)
+	var/list/temporary_list = list()
+	tongue_list = list()
+	for(var/found_var in predefined_tongues)
+		found_item = found_var
+		if((initial(found_item.item_flags) & ABSTRACT) || !initial(found_item.icon_state))
+			continue
+		tongue_name = "[initial(found_item.name)] ([initial(found_item.icon_state)])"
+		temporary_list[tongue_name] = found_item
+	tongue_list = sort_list(temporary_list)
+
+/datum/action/item_action/chameleon/tongue_change/Trigger()
+	if(!IsAvailable() || !isitem(target))
+		return FALSE
+	var/obj/item/clothing/mask/target_mask = target
+	var/obj/item/organ/tongue/picked_tongue
+	var/picked_name
+	picked_name = tgui_input_list(owner,"select tongue to change into", "Chameleon tongue selection", tongue_list)
+	if(!picked_name)
+		return FALSE
+	picked_tongue = tongue_list[picked_name]
+	if(!picked_tongue)
+		target_mask.chosen_tongue = null
+		return FALSE
+	target_mask.chosen_tongue = picked_tongue
+	return TRUE
+
 /obj/item/clothing/mask/chameleon
 	name = "gas mask"
 	desc = "A face-covering mask that can be connected to an air supply. While good for concealing your identity, it isn't good for blocking gas flow." //More accurate
@@ -548,9 +629,10 @@
 	permeability_coefficient = 0.01
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
 
-	var/vchange = 1
+	voice_change = TRUE
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
+	var/datum/action/item_action/chameleon/tongue_change/tongue_action
 
 /obj/item/clothing/mask/chameleon/Initialize(mapload)
 	. = ..()
@@ -559,6 +641,9 @@
 	chameleon_action.chameleon_name = "Mask"
 	chameleon_action.chameleon_blacklist = typecacheof(/obj/item/clothing/mask/changeling, only_root_path = TRUE)
 	chameleon_action.initialize_disguises()
+	tongue_action = new(src)
+	if(!tongue_action.tongue_list)
+		tongue_action.generate_tongue_list()
 
 /obj/item/clothing/mask/chameleon/emp_act(severity)
 	. = ..()
@@ -571,15 +656,22 @@
 	chameleon_action.emp_randomise(INFINITY)
 
 /obj/item/clothing/mask/chameleon/attack_self(mob/user)
-	vchange = !vchange
-	to_chat(user, "<span class='notice'>The voice changer is now [vchange ? "on" : "off"]!</span>")
+	voice_change = !voice_change
+	to_chat(user, "<span class='notice'>The voice changer is now [voice_change ? "on" : "off"]!</span>")
 
+/obj/item/clothing/mask/chameleon/get_name(mob/user, default_name)
+	var/mob/living/carbon/human/H = user
+	if(voice_change && H.wear_id)
+		var/obj/item/card/id/idcard = H.wear_id.GetID()
+		if(istype(idcard) && idcard.electric)
+			return idcard.registered_name
+	return default_name
 
 /obj/item/clothing/mask/chameleon/drone
 	//Same as the drone chameleon hat, undroppable and no protection
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 0)
 	// Can drones use the voice changer part? Let's not find out.
-	vchange = 0
+	voice_change = FALSE
 
 /obj/item/clothing/mask/chameleon/drone/Initialize(mapload)
 	. = ..()

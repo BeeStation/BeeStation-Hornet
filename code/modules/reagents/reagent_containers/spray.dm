@@ -384,6 +384,6 @@
 
 /obj/item/reagent_containers/spray/cyborg/acid
 	name = "acid spray"
-	desc = "A spray filled with sulphuric acid for offensive use."
+	desc = "A spray filled with sulfuric acid for offensive use."
 	color = "#00FF32"
 	set_reagent = /datum/reagent/toxin/acid

@@ -4,11 +4,13 @@
 	name = "Cultist"
 	roundend_category = "cultists"
 	antagpanel_category = "Cult"
+	ui_name = "AntagInfoBloodCult"
 	antag_moodlet = /datum/mood_event/cult
 	var/datum/action/innate/cult/comm/communion = new
 	var/datum/action/innate/cult/mastervote/vote = new
 	var/datum/action/innate/cult/blood_magic/magic = new
-	job_rank = ROLE_CULTIST
+	banning_key = ROLE_CULTIST
+	required_living_playtime = 4
 	var/ignore_implant = FALSE
 	var/give_equipment = FALSE
 	var/datum/team/cult/cult_team
@@ -244,7 +246,7 @@
 		H.update_body()
 
 /datum/team/cult
-	name = "Cult"
+	name = "Bloodcult"
 
 	var/blood_target
 	var/image/blood_target_image
@@ -274,6 +276,7 @@
 			if(B.current)
 				SEND_SOUND(B.current, 'sound/hallucinations/i_see_you2.ogg')
 				to_chat(B.current, "<span class='cultlarge'>The veil weakens as your cult grows, your eyes begin to glow...")
+				log_game("The blood cult was given red eyes at cult population of [cultplayers].")
 				addtimer(CALLBACK(src, PROC_REF(rise), B.current), 200)
 		cult_risen = TRUE
 
@@ -282,8 +285,10 @@
 			if(B.current)
 				SEND_SOUND(B.current, 'sound/hallucinations/im_here1.ogg')
 				to_chat(B.current, "<span class='cultlarge'>Your cult is ascendent and the red harvest approaches - you cannot hide your true nature for much longer!!")
+				log_game("The blood cult was given halos at cult population of [cultplayers].")
 				addtimer(CALLBACK(src, PROC_REF(ascend), B.current), 200)
 		cult_ascendent = TRUE
+		set_dynamic_high_impact_event("cult has gained halos")
 
 
 /datum/team/cult/proc/rise(cultist)
@@ -314,7 +319,7 @@
 		for(var/datum/data/record/R as() in GLOB.data_core.locked)
 			var/datum/mind/M = R.fields["mindref"]
 			if(target == M)
-				reshape = R.fields["image"]
+				reshape = R.fields["character_appearance"]
 				break
 	if(!reshape)
 		reshape = icon('icons/mob/mob.dmi', "ghost", SOUTH)

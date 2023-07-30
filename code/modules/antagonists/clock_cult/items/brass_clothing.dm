@@ -90,7 +90,7 @@
 	name = "wraith spectacles"
 	desc = "Mystical glasses that glow with a bright energy. Some say they can see things that shouldn't be seen."
 	icon_state = "wraith_specs"
-	invis_view = SEE_INVISIBLE_OBSERVER
+	invis_view = SEE_INVISIBLE_SPIRIT
 	invis_override = null
 	flash_protect = -1
 	vision_flags = SEE_MOBS

@@ -6,6 +6,7 @@
 	density = TRUE
 	anchored = TRUE
 	opacity = TRUE
+	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 
 	icon = 'icons/obj/doors/mineral_doors.dmi'
 	icon_state = "metal"
@@ -55,7 +56,7 @@
 		return
 	return TryToSwitchState(user)
 
-/obj/structure/mineral_door/CanAllowThrough(atom/movable/mover, turf/target)
+/obj/structure/mineral_door/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
@@ -90,6 +91,7 @@
 	flick("[initial(icon_state)]opening",src)
 	sleep(1 SECONDS)
 	set_density(FALSE)
+	z_flags &= ~(Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP)
 	door_opened = TRUE
 	air_update_turf(1)
 	update_appearance()
@@ -109,6 +111,7 @@
 	flick("[initial(icon_state)]closing",src)
 	sleep(1 SECONDS)
 	set_density(TRUE)
+	z_flags |= (Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP)
 	set_opacity(TRUE)
 	door_opened = FALSE
 	air_update_turf(1)

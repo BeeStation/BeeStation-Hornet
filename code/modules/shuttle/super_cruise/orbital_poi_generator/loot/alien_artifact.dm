@@ -22,6 +22,7 @@
 /obj/item/alienartifact/objective/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/gps, "[scramble_message_replace_chars("#########", 100)]", TRUE)
+	AddComponent(/datum/component/tracking_beacon, EXPLORATION_TRACKING, null, null, TRUE, "#eb4d4d", TRUE, TRUE)
 
 /obj/item/alienartifact/Initialize(mapload)
 	. = ..()
@@ -268,7 +269,7 @@
 	var/list/accesses_to_add = get_all_accesses()
 	for(var/obj/item/card/id/id_card as() in idcards)
 		if(length(id_card.access))
-			id_card.access.Remove(pick(id_card.access))
+			id_card.access -= pick(id_card.access)
 			id_card.access |= pick(accesses_to_add)
 
 //===================
@@ -494,7 +495,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	var/yrange = 50
 	var/cx = T.x
 	var/cy = T.y
-	pulser.blind_eyes(300)
+	pulser.adjust_blindness(300)
 	pulser.Stun(100)
 	pulser.emote("scream")
 	pulser.hallucination = 500
@@ -515,7 +516,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 			var/mob/living/M = locate() in T1
 			if(M)
 				to_chat(M, "<span class='warning'>A wave of dread washes over you...</span>")
-				M.blind_eyes(30)
+				M.adjust_blindness(30)
 				M.Knockdown(10)
 				M.emote("scream")
 				M.Jitter(50)
