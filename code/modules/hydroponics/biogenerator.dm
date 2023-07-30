@@ -19,6 +19,8 @@
 	var/list/show_categories = list("Food", "Botany Chemicals", "Organic Materials")
 	/// Currently selected category in the UI
 	var/selected_cat
+	/// Cooldown for creating materials
+	COOLDOWN_DECLARE(production_cooldown)
 
 /obj/machinery/biogenerator/Initialize(mapload)
 	. = ..()
@@ -336,9 +338,15 @@
 			return TRUE
 		if("create")
 			var/amount = text2num(params["amount"])
+			if(amount > 100)
+				message_admins("[ADMIN_FLW(usr)] has attempted to create [amount] of [params["id"]] setting it to 10.")
 			amount = clamp(amount, 1, 10)
 			if(!amount)
 				return
+			if(!COOLDOWN_FINISHED(production_cooldown))
+				say("Warning: Biogenerator is cooling down.")
+				return
+			COOLDOWN_START(src, production_cooldown, 5 SECONDS)
 			var/id = params["id"]
 			if(!stored_research.researched_designs.Find(id))
 				stack_trace("ID did not map to a researched datum [id]")
