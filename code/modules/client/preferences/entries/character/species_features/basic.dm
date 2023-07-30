@@ -27,6 +27,7 @@
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
 	relevant_species_trait = EYECOLOR
+	priority = PREFERENCE_PRIORITY_EYE_COLOR
 
 /datum/preference/color_legacy/eye_color/apply_to_human(mob/living/carbon/human/target, value)
 	if(isipc(target))
