@@ -81,8 +81,8 @@ ALTER TABLE `SS13_characters`
     MODIFY COLUMN `job_preferences` MEDIUMTEXT COLLATE 'utf8mb4_general_ci' NULL,
     MODIFY COLUMN `all_quirks` MEDIUMTEXT COLLATE 'utf8mb4_general_ci' NULL,
     MODIFY COLUMN `equipped_gear` MEDIUMTEXT COLLATE 'utf8mb4_general_ci' NULL,
-	MODIFY COLUMN `role_preferences` MEDIUMTEXT COLLATE 'utf8mb4_general_ci' NULL,
-	ADD COLUMN IF NOT EXISTS `randomise` MEDIUMTEXT COLLATE 'utf8mb4_general_ci' NULL AFTER `role_preferences`;
+    MODIFY COLUMN `role_preferences` MEDIUMTEXT COLLATE 'utf8mb4_general_ci' NULL,
+    ADD COLUMN IF NOT EXISTS `randomise` MEDIUMTEXT COLLATE 'utf8mb4_general_ci' NULL AFTER `role_preferences`;
 
 /* Flatten features JSON into its own columns */
 
@@ -229,103 +229,136 @@ UPDATE `SS13_preferences` SET `preference_value` = CASE
 
 /* Convert key_bindings to new format (flipping JSON structure) */
 
-UPDATE
-  `ss13_preferences`
-SET
-  `preference_value` = (
-    SELECT
-      JSON_OBJECTAGG(`binding`, `keys`)
-    FROM
-      (
+DROP PROCEDURE IF EXISTS convert_keybinds;
+DELIMITER //
+CREATE PROCEDURE convert_keybinds(ckey_in VARCHAR(64))
+BEGIN
+    UPDATE
+      `ss13_preferences`
+    SET
+      `preference_value` = (
         SELECT
-          `binding`,
-          JSON_ARRAYAGG(`key`) AS `keys`
+          JSON_OBJECTAGG(`binding`, `keys`)
         FROM
           (
             SELECT
-              DISTINCT `binding_list`.`binding`,
-              `keys`.`key` AS `key`
+              `binding`,
+              JSON_ARRAYAGG(`key`) AS `keys`
             FROM
-              JSON_TABLE(
-                (
-                  SELECT
-                    JSON_EXTRACT(`preference_value`, '$.*[*]') AS t1
-                  FROM
-                    `ss13_preferences`
-                  WHERE
-                    `ckey` = `ckey`
-                    AND `preference_tag` = 'key_bindings'
-                ),
-                "$[*]" COLUMNS(
-                  `binding` VARCHAR(32) PATH "$"
-                )
-              ) `binding_list`
-              INNER JOIN (
+              (
                 SELECT
-                  DISTINCT `key`
+                  DISTINCT `binding_list`.`binding`,
+                  `keys`.`key` AS `key`
                 FROM
                   JSON_TABLE(
                     (
                       SELECT
-                        JSON_KEYS(`preference_value`, '$') AS t1
+                        JSON_EXTRACT(`preference_value`, '$.*[*]') AS t1
                       FROM
                         `ss13_preferences`
                       WHERE
-                        `ckey` = `ckey`
+                        `ckey` = `ckey_in`
                         AND `preference_tag` = 'key_bindings'
                     ),
                     "$[*]" COLUMNS(
-                      `key` VARCHAR(32) PATH "$"
+                      `binding` VARCHAR(32) PATH "$"
                     )
-                  ) `keys_inner`
-              ) `keys`
-            WHERE
-              (
-                `key` IN (
-                  SELECT
-                    SUBSTRING(
-                      SUBSTRING_INDEX(`bindings`.`bind_key`, '[', 1),
-                      3
-                    )
-                  FROM
-                    JSON_TABLE(
-                      (
-                        SELECT
-                          IF(
-                            JSON_EXISTS(
-                              JSON_SEARCH(
-                                `preference_value`, 'all', `binding`
-                              ),
-                              "$[1]"
-                            ),
-                            JSON_SEARCH(
-                              `preference_value`, 'all', `binding`
-                            ),
-                            JSON_ARRAY(
-                              JSON_SEARCH(
-                                `preference_value`, 'all', `binding`
+                  ) `binding_list`
+                  INNER JOIN (
+                    SELECT
+                      DISTINCT `key`
+                    FROM
+                      JSON_TABLE(
+                        (
+                          SELECT
+                            JSON_KEYS(`preference_value`, '$') AS t1
+                          FROM
+                            `ss13_preferences`
+                          WHERE
+                            `ckey` = `ckey_in`
+                            AND `preference_tag` = 'key_bindings'
+                        ),
+                        "$[*]" COLUMNS(
+                          `key` VARCHAR(32) PATH "$"
+                        )
+                      ) `keys_inner`
+                  ) `keys`
+                WHERE
+                  (
+                    `key` IN (
+                      SELECT
+                        SUBSTRING(
+                          SUBSTRING_INDEX(`bindings`.`bind_key`, '[', 1),
+                          3
+                        )
+                      FROM
+                        JSON_TABLE(
+                          (
+                            SELECT
+                              IF(
+                                JSON_EXISTS(
+                                  JSON_SEARCH(
+                                    `preference_value`, 'all', `binding`
+                                  ),
+                                  "$[1]"
+                                ),
+                                JSON_SEARCH(
+                                  `preference_value`, 'all', `binding`
+                                ),
+                                JSON_ARRAY(
+                                  JSON_SEARCH(
+                                    `preference_value`, 'all', `binding`
+                                  )
+                                )
                               )
-                            )
+                            FROM
+                              `ss13_preferences`
+                            WHERE
+                              `ckey` = `ckey_in`
+                              AND `preference_tag` = 'key_bindings'
+                          ),
+                          "$[*]" COLUMNS(
+                            `bind_key` VARCHAR(32) PATH "$"
                           )
-                        FROM
-                          `ss13_preferences`
-                        WHERE
-                          `ckey` = `ckey`
-                          AND `preference_tag` = 'key_bindings'
-                      ),
-                      "$[*]" COLUMNS(
-                        `bind_key` VARCHAR(32) PATH "$"
-                      )
-                    ) `bindings`
-                )
-              )
-          ) `full_binds`
-        GROUP BY
-          `binding`
-      ) `outer_full_binds`
-  )
-WHERE
-  `preference_tag` = 'key_bindings';
+                        ) `bindings`
+                    )
+                  )
+              ) `full_binds`
+            GROUP BY
+              `binding`
+          ) `outer_full_binds`
+      )
+    WHERE
+      `preference_tag` = 'key_bindings';
+END;
+//
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS convert_all_keybinds;
+DELIMITER //
+CREATE PROCEDURE convert_all_keybinds()
+BEGIN
+    DECLARE done TINYINT DEFAULT 0;
+    DECLARE ckey_in VARCHAR(64);
+    DECLARE cur1 CURSOR FOR SELECT `ckey` FROM `ss13_preferences` WHERE `preference_tag` = 'key_bindings' GROUP BY `ckey`;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+    OPEN cur1;
+    loop1: LOOP
+    FETCH cur1 INTO ckey_in;
+        IF done = 1 THEN
+            LEAVE loop1;
+        END IF;
+        CALL convert_keybinds(ckey_in);
+    END LOOP;
+    CLOSE cur1;
+END;
+//
+DELIMITER ;
+
+CALL convert_all_keybinds();
+
+DROP PROCEDURE IF EXISTS convert_all_keybinds;
+DROP PROCEDURE IF EXISTS convert_keybinds;
 
 /* Finish value conversions */
 
