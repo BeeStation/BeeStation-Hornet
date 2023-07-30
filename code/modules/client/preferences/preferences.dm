@@ -157,7 +157,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		return
 
 	// If you leave and come back, re-register the character preview. This also runs the first time it's opened
-	if (!isnull(character_preview_view) && !(character_preview_view in user.client?.screen))
+	if (!isnull(character_preview_view) && istype(user.client) && !(character_preview_view in user.client.screen))
 		character_preview_view.register_to_client(user.client)
 
 	// Just force an update for funsies
