@@ -39,6 +39,8 @@
 	group = "_real_name"
 	db_key = "real_name"
 	informed = TRUE
+	// This is overwritten anyway
+	allow_numbers = TRUE
 
 /datum/preference/name/real_name/apply_to_human(mob/living/carbon/human/target, value)
 	target.real_name = value
@@ -53,18 +55,28 @@
 	return species.random_name(gender, unique = TRUE)
 
 /datum/preference/name/real_name/deserialize(input, datum/preferences/preferences)
-	input = ..(input)
+	var/datum/species/selected_species = preferences.read_character_preference(/datum/preference/choiced/species)
+	input = reject_bad_name(input, initial(selected_species.allow_numbers_in_name))
 	if (!input)
 		return input
 
-	if (CONFIG_GET(flag/humans_need_surnames) && preferences.read_character_preference(/datum/preference/choiced/species) == /datum/species/human)
+	if (CONFIG_GET(flag/humans_need_surnames) && selected_species == /datum/species/human)
 		var/first_space = findtext(input, " ")
 		if(!first_space) //we need a surname
 			input += " [pick(GLOB.last_names)]"
 		else if(first_space == length(input))
 			input += "[pick(GLOB.last_names)]"
+	return input
 
-	return reject_bad_name(input, allow_numbers)
+/datum/preference/name/real_name/serialize(input)
+	var/datum/species/selected_species = preferences.read_character_preference(/datum/preference/choiced/species)
+	// `is_valid` should always be run before `serialize`, so it should not
+	// be possible for this to return `null`.
+	return reject_bad_name(input, initial(selected_species.allow_numbers_in_name))
+
+/datum/preference/name/real_name/is_valid(value)
+	var/datum/species/selected_species = preferences.read_character_preference(/datum/preference/choiced/species)
+	return istext(value) && !isnull(reject_bad_name(value, initial(selected_species.allow_numbers_in_name)))
 
 /// The name for a backup human, when nonhumans are made into head of staff
 /datum/preference/name/backup_human
