@@ -1,5 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - rscadd: Added glow-in-the-dark emissives to lightswitches, so they can be located
-      in the dark.
