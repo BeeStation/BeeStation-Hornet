@@ -1,0 +1,5 @@
+author: Absolucy
+delete-after: true
+changes:
+  - tweak: Sound synthesizers now have a proper cooldown, preventing them from playing
+      overlapping sounds.
