@@ -5,12 +5,12 @@ Tested on MariaDB 10.11
 DO NOT RUN WITHOUT TAKING A FULL BACKUP.
 DO NOT RUN MORE THAN ONCE.
 DO NOT RUN COLUMN REMOVALS UNTIL DATA IS VERIFIED.
-- Allows nulls for `ss13_characters` columns (required for partial INSERT INTO ON DUPLICATE KEY UPDATE)
+- Allows nulls for `SS13_characters` columns (required for partial INSERT INTO ON DUPLICATE KEY UPDATE)
 - Alters some datatypes to fit new data.
-- Turns `ss13_characters`.`features` and `ss13_characters`.`custom_names` JSON objects into individual columns, removes the original columns.
-- Updates `ss13_preferences`.`preference_tag` to text.
-- Updates various `ss13_preferences` values to new ones.
-- Flips `ss13_preferences`.`key_bindings` JSON structure.
+- Turns `SS13_characters`.`features` and `SS13_characters`.`custom_names` JSON objects into individual columns, removes the original columns.
+- Updates `SS13_preferences`.`preference_tag` to text.
+- Updates various `SS13_preferences` values to new ones.
+- Flips `SS13_preferences`.`key_bindings` JSON structure.
 */
 
 /* CHARACTER PREFERENCES */
@@ -86,7 +86,7 @@ ALTER TABLE `SS13_characters`
 
 /* Flatten features JSON into its own columns */
 
-UPDATE ss13_characters t1, JSON_TABLE(
+UPDATE SS13_characters t1, JSON_TABLE(
     t1.features, '$' COLUMNS(
         body_size_old TEXT PATH '$.body_size',
         mcolor_old TEXT PATH '$.mcolor',
@@ -139,16 +139,15 @@ SET body_size = jt.body_size_old,
 
 /* Flatten custom_names JSON into its own columns */
 
-UPDATE ss13_characters t1, JSON_TABLE(
+UPDATE SS13_characters t1, JSON_TABLE(
     t1.custom_names, '$' COLUMNS(
-        human_name_old TEXT PATH '$.human_name',
-        mime_name_old TEXT PATH '$.mime_name',
-        clown_name_old TEXT PATH '$.clown_name',
-        cyborg_name_old TEXT PATH '$.cyborg_name',
-        ai_name_old TEXT PATH '$.ai_name',
-        religion_name_old TEXT PATH '$.religion_name',
-        deity_name_old TEXT PATH '$.deity_name',
-        bible_name_old TEXT PATH '$.bible_name'
+        human_name_old TEXT PATH '$.human',
+        mime_name_old TEXT PATH '$.mime',
+        clown_name_old TEXT PATH '$.clown',
+        cyborg_name_old TEXT PATH '$.cyborg',
+        ai_name_old TEXT PATH '$.ai',
+        religion_name_old TEXT PATH '$.religion',
+        deity_name_old TEXT PATH '$.deity'
     )
 ) AS jt
 SET human_name = jt.human_name_old,
@@ -157,8 +156,7 @@ SET human_name = jt.human_name_old,
     cyborg_name = jt.cyborg_name_old,
     ai_name = jt.ai_name_old,
     religion_name = jt.religion_name_old,
-    deity_name = jt.deity_name_old,
-    bible_name = jt.bible_name_old;
+    deity_name = jt.deity_name_old;
 
 /* Delete unused data (features and custom_names, which are now flattened) */
 
@@ -227,139 +225,6 @@ UPDATE `SS13_preferences` SET `preference_value` = CASE
     ELSE `preference_value`
     END WHERE `preference_tag` = 'parallax';
 
-/* Convert key_bindings to new format (flipping JSON structure) */
-
-DROP PROCEDURE IF EXISTS convert_keybinds;
-DELIMITER //
-CREATE PROCEDURE convert_keybinds(ckey_in VARCHAR(64))
-BEGIN
-    UPDATE
-      `ss13_preferences`
-    SET
-      `preference_value` = (
-        SELECT
-          JSON_OBJECTAGG(`binding`, `keys`)
-        FROM
-          (
-            SELECT
-              `binding`,
-              JSON_ARRAYAGG(`key`) AS `keys`
-            FROM
-              (
-                SELECT
-                  DISTINCT `binding_list`.`binding`,
-                  `keys`.`key` AS `key`
-                FROM
-                  JSON_TABLE(
-                    (
-                      SELECT
-                        JSON_EXTRACT(`preference_value`, '$.*[*]') AS t1
-                      FROM
-                        `ss13_preferences`
-                      WHERE
-                        `ckey` = `ckey_in`
-                        AND `preference_tag` = 'key_bindings'
-                    ),
-                    "$[*]" COLUMNS(
-                      `binding` VARCHAR(32) PATH "$"
-                    )
-                  ) `binding_list`
-                  INNER JOIN (
-                    SELECT
-                      DISTINCT `key`
-                    FROM
-                      JSON_TABLE(
-                        (
-                          SELECT
-                            JSON_KEYS(`preference_value`, '$') AS t1
-                          FROM
-                            `ss13_preferences`
-                          WHERE
-                            `ckey` = `ckey_in`
-                            AND `preference_tag` = 'key_bindings'
-                        ),
-                        "$[*]" COLUMNS(
-                          `key` VARCHAR(32) PATH "$"
-                        )
-                      ) `keys_inner`
-                  ) `keys`
-                WHERE
-                  (
-                    `key` IN (
-                      SELECT
-                        SUBSTRING(
-                          SUBSTRING_INDEX(`bindings`.`bind_key`, '[', 1),
-                          3
-                        )
-                      FROM
-                        JSON_TABLE(
-                          (
-                            SELECT
-                              IF(
-                                JSON_EXISTS(
-                                  JSON_SEARCH(
-                                    `preference_value`, 'all', `binding`
-                                  ),
-                                  "$[1]"
-                                ),
-                                JSON_SEARCH(
-                                  `preference_value`, 'all', `binding`
-                                ),
-                                JSON_ARRAY(
-                                  JSON_SEARCH(
-                                    `preference_value`, 'all', `binding`
-                                  )
-                                )
-                              )
-                            FROM
-                              `ss13_preferences`
-                            WHERE
-                              `ckey` = `ckey_in`
-                              AND `preference_tag` = 'key_bindings'
-                          ),
-                          "$[*]" COLUMNS(
-                            `bind_key` VARCHAR(32) PATH "$"
-                          )
-                        ) `bindings`
-                    )
-                  )
-              ) `full_binds`
-            GROUP BY
-              `binding`
-          ) `outer_full_binds`
-      )
-    WHERE
-      `preference_tag` = 'key_bindings';
-END;
-//
-DELIMITER ;
-
-DROP PROCEDURE IF EXISTS convert_all_keybinds;
-DELIMITER //
-CREATE PROCEDURE convert_all_keybinds()
-BEGIN
-    DECLARE done TINYINT DEFAULT 0;
-    DECLARE ckey_in VARCHAR(64);
-    DECLARE cur1 CURSOR FOR SELECT `ckey` FROM `ss13_preferences` WHERE `preference_tag` = 'key_bindings' GROUP BY `ckey`;
-    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
-    OPEN cur1;
-    loop1: LOOP
-    FETCH cur1 INTO ckey_in;
-        IF done = 1 THEN
-            LEAVE loop1;
-        END IF;
-        CALL convert_keybinds(ckey_in);
-    END LOOP;
-    CLOSE cur1;
-END;
-//
-DELIMITER ;
-
-CALL convert_all_keybinds();
-
-DROP PROCEDURE IF EXISTS convert_all_keybinds;
-DROP PROCEDURE IF EXISTS convert_keybinds;
-
 /* Finish value conversions */
 
 COMMIT;
@@ -370,182 +235,182 @@ START TRANSACTION;
 
 /* toggles 1 */
 
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'sound_adminhelp',IF(`preference_value` & (1<<0) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '1'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'sound_adminhelp',IF(`preference_value` & (1<<0) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'sound_midi',IF(`preference_value` & (1<<1) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '1'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'sound_midi',IF(`preference_value` & (1<<1) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'sound_ambience',IF(`preference_value` & (1<<2) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '1'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'sound_ambience',IF(`preference_value` & (1<<2) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'sound_lobby',IF(`preference_value` & (1<<3) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '1'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'sound_lobby',IF(`preference_value` & (1<<3) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'member_public',IF(`preference_value` & (1<<4) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '1'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'member_public',IF(`preference_value` & (1<<4) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'intent_style',IF(`preference_value` & (1<<5) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '1'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'intent_style',IF(`preference_value` & (1<<5) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'sound_instruments',IF(`preference_value` & (1<<7) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '1'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'sound_instruments',IF(`preference_value` & (1<<7) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'sound_ship_ambience',IF(`preference_value` & (1<<8) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '1'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'sound_ship_ambience',IF(`preference_value` & (1<<8) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'sound_prayers',IF(`preference_value` & (1<<9) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '1'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'sound_prayers',IF(`preference_value` & (1<<9) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'announce_login',IF(`preference_value` & (1<<10) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '1'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'announce_login',IF(`preference_value` & (1<<10) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'sound_announcements',IF(`preference_value` & (1<<11) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '1'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'sound_announcements',IF(`preference_value` & (1<<11) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'death_rattle',IF(`preference_value` & (1<<12) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '1'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'death_rattle',IF(`preference_value` & (1<<12) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'arrivals_rattle',IF(`preference_value` & (1<<13) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '1'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'arrivals_rattle',IF(`preference_value` & (1<<13) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'combohud_lighting',IF(`preference_value` & (1<<14) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '1'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'combohud_lighting',IF(`preference_value` & (1<<14) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'deadmin_always',IF(`preference_value` & (1<<15) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '1'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'deadmin_always',IF(`preference_value` & (1<<15) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'deadmin_antagonist',IF(`preference_value` & (1<<16) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '1'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'deadmin_antagonist',IF(`preference_value` & (1<<16) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'deadmin_position_head',IF(`preference_value` & (1<<17) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '1'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'deadmin_position_head',IF(`preference_value` & (1<<17) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'deadmin_position_security',IF(`preference_value` & (1<<18) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '1'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'deadmin_position_security',IF(`preference_value` & (1<<18) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'deadmin_position_silicon',IF(`preference_value` & (1<<19) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '1'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'deadmin_position_silicon',IF(`preference_value` & (1<<19) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'itemoutline_pref',IF(`preference_value` & (1<<20) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '1'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'itemoutline_pref',IF(`preference_value` & (1<<20) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'chat_on_map',IF(`preference_value` & (1<<21) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '1'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'chat_on_map',IF(`preference_value` & (1<<21) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'see_chat_non_mob',IF(`preference_value` & (1<<22) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '1'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'see_chat_non_mob',IF(`preference_value` & (1<<22) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'see_rc_emotes',IF(`preference_value` & (1<<23) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '1'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'see_rc_emotes',IF(`preference_value` & (1<<23) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
 );
 
 /* toggles 2 */
 
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'tgui_fancy',IF(`preference_value` & (1<<0) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '2'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'tgui_fancy',IF(`preference_value` & (1<<0) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '2'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'tgui_lock',IF(`preference_value` & (1<<1) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '2'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'tgui_lock',IF(`preference_value` & (1<<1) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '2'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'buttons_locked',IF(`preference_value` & (1<<2) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '2'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'buttons_locked',IF(`preference_value` & (1<<2) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '2'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'windowflashing',IF(`preference_value` & (1<<3) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '2'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'windowflashing',IF(`preference_value` & (1<<3) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '2'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'crew_objectives',IF(`preference_value` & (1<<4) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '2'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'crew_objectives',IF(`preference_value` & (1<<4) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '2'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'ghost_hud',IF(`preference_value` & (1<<5) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '2'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'ghost_hud',IF(`preference_value` & (1<<5) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '2'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'inquisitive_ghost',IF(`preference_value` & (1<<6) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '2'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'inquisitive_ghost',IF(`preference_value` & (1<<6) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '2'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'glasses_color',IF(`preference_value` & (1<<7) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '2'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'glasses_color',IF(`preference_value` & (1<<7) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '2'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'ambientocclusion',IF(`preference_value` & (1<<8) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '2'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'ambientocclusion',IF(`preference_value` & (1<<8) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '2'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'auto_fit_viewport',IF(`preference_value` & (1<<9) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '2'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'auto_fit_viewport',IF(`preference_value` & (1<<9) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '2'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'enable_tips',IF(`preference_value` & (1<<10) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '2'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'enable_tips',IF(`preference_value` & (1<<10) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '2'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'show_credits',IF(`preference_value` & (1<<11) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '2'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'show_credits',IF(`preference_value` & (1<<11) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '2'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'hotkeys',IF(`preference_value` & (1<<12) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '2'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'hotkeys',IF(`preference_value` & (1<<12) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '2'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'sound_soundtrack',IF(`preference_value` & (1<<13) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '2'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'sound_soundtrack',IF(`preference_value` & (1<<13) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '2'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'tgui_input',IF(`preference_value` & (1<<14) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '2'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'tgui_input',IF(`preference_value` & (1<<14) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '2'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'tgui_input_large',IF(`preference_value` & (1<<15) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '2'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'tgui_input_large',IF(`preference_value` & (1<<15) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '2'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'tgui_input_swapped',IF(`preference_value` & (1<<16) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '2'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'tgui_input_swapped',IF(`preference_value` & (1<<16) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '2'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'tgui_say',IF(`preference_value` & (1<<17) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '2'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'tgui_say',IF(`preference_value` & (1<<17) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '2'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'tgui_say_light_mode',IF(`preference_value` & (1<<18) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '2'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'tgui_say_light_mode',IF(`preference_value` & (1<<18) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '2'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'tgui_say_show_prefix',IF(`preference_value` & (1<<19) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '2'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'tgui_say_show_prefix',IF(`preference_value` & (1<<19) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '2'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'sound_adminalert',IF(`preference_value` & (1<<20) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '2'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'sound_adminalert',IF(`preference_value` & (1<<20) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '2'
 );
 
 /* chat toggles */
 
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'chat_ooc',IF(`preference_value` & (1<<0) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '10'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'chat_ooc',IF(`preference_value` & (1<<0) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '10'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'chat_dead',IF(`preference_value` & (1<<1) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '10'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'chat_dead',IF(`preference_value` & (1<<1) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '10'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'chat_ghostears',IF(`preference_value` & (1<<2) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '10'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'chat_ghostears',IF(`preference_value` & (1<<2) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '10'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'chat_ghostsight',IF(`preference_value` & (1<<3) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '10'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'chat_ghostsight',IF(`preference_value` & (1<<3) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '10'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'chat_prayer',IF(`preference_value` & (1<<4) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '10'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'chat_prayer',IF(`preference_value` & (1<<4) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '10'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'chat_radio',IF(`preference_value` & (1<<5) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '10'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'chat_radio',IF(`preference_value` & (1<<5) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '10'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'chat_pullr',IF(`preference_value` & (1<<6) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '10'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'chat_pullr',IF(`preference_value` & (1<<6) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '10'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'chat_ghostwhisper',IF(`preference_value` & (1<<7) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '10'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'chat_ghostwhisper',IF(`preference_value` & (1<<7) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '10'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'chat_ghostpda',IF(`preference_value` & (1<<8) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '10'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'chat_ghostpda',IF(`preference_value` & (1<<8) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '10'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'chat_ghostradio',IF(`preference_value` & (1<<9) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '10'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'chat_ghostradio',IF(`preference_value` & (1<<9) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '10'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'chat_bankcard',IF(`preference_value` & (1<<10) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '10'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'chat_bankcard',IF(`preference_value` & (1<<10) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '10'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'chat_ghostlaws',IF(`preference_value` & (1<<11) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '10'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'chat_ghostlaws',IF(`preference_value` & (1<<11) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '10'
 );
-INSERT IGNORE INTO `ss13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'chat_ghostfollowmindless',IF(`preference_value` & (1<<12) > 0, 1, 0) AS `preference_value` FROM `ss13_preferences` WHERE `preference_tag` = '10'
+INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
+    SELECT `ckey`,'chat_ghostfollowmindless',IF(`preference_value` & (1<<12) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '10'
 );
 
 /* Finish toggle conversions */
