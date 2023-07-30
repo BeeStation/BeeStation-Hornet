@@ -1466,7 +1466,7 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 /atom/proc/get_bounding_box()
 	var/list/return_list = list()
 	for(var/found_type in GLOB.cached_image_borders)
-		if(found_type == type)
+		if(found_type == "[type]_[icon_state]")
 			return_list["left"] = GLOB.cached_image_borders[found_type]["left"]
 			return_list["right"] = GLOB.cached_image_borders[found_type]["right"]
 			return_list["top"] = GLOB.cached_image_borders[found_type]["top"]
@@ -1539,5 +1539,5 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 		x_coord++
 	return_list["top"] = top_border
 	return_list["bottom"] = bottom_border
-	GLOB.cached_image_borders[type] = return_list
+	GLOB.cached_image_borders["[type]_[icon_state]"] = return_list
 	return return_list
