@@ -1,0 +1,7 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - tweak: Package Wrap (and by extension gift wrap) no longer works on gigantic objects
+  - bugfix: fixed an exploit that enabled bluespace capsules to carry things it was
+      not intended to carry. They are intended to carry items that can be placed within
+      a normal backpack.
