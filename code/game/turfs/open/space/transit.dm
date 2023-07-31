@@ -119,6 +119,9 @@
 /turf/open/space/transit/CanBuildHere()
 	return SSshuttle.is_in_shuttle_bounds(src)
 
+/turf/open/space/transit/north
+	dir = NORTH
+
 /turf/open/space/transit/south
 	dir = SOUTH
 
