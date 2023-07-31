@@ -1,7 +1,0 @@
-author: Absolucy
-delete-after: true
-changes:
-  - bugfix: LOOC is much less janky now. You can properly both hear LOOC as a ghost,
-      and both hear and talk on LOOC while inside another object (including cases
-      such as split personalities, recalled holoparasites, desynchronized mobs, jaunting
-      mobs)!

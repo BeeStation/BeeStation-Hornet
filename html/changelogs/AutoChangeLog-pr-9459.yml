@@ -1,5 +1,0 @@
-author: RKz
-delete-after: true
-changes:
-  - code_imp: Kills obj/item/projectile in favour of obj/projectile. No ingame effect,
-      just free overhead.
