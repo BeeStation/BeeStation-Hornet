@@ -1,0 +1,4 @@
+author: wixoa, ike709
+delete-after: true
+changes:
+  - code_imp: Fixed stinky code involving aimed gun speed/damage modifiers
