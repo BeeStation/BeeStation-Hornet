@@ -283,7 +283,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	if (current_status != last_status)
 		cut_overlay(distort)
 		last_status = current_status
-		switch(get_status())
+		switch(current_status)
 			if(SUPERMATTER_INACTIVE)
 				distort.icon = 'icons/effects/96x96.dmi'
 				distort.icon_state = "SM_base"
