@@ -1,0 +1,7 @@
+author: JixS4v
+delete-after: true
+changes:
+  - bugfix: BCI components are now able to be printed
+  - tweak: Separates BCI-related circuits into a new techweb node
+  - rscadd: Adds the thought listener component for BCIs
+  - rscadd: Adds a rotation component to the object overlay on BCIs
