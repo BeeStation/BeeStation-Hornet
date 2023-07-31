@@ -49,7 +49,7 @@
 		CRASH("Attempt to enable Z-mimic on already-enabled turf!")
 	shadower = new(src)
 	SSzcopy.openspace_turfs += 1
-	var/turf/under = SSmapping.get_turf_below(src)
+	var/turf/under = GET_TURF_BELOW(src)
 	if (under)
 		below = under
 		below.above = src

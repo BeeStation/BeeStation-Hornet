@@ -1575,7 +1575,9 @@
 	pixel_x = 2;
 	pixel_y = 2
 	},
-/turf/open/floor/circuit/telecomms/mainframe,
+/turf/open/floor/circuit/telecomms/mainframe{
+	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
+	},
 /area/tcommsat/computer)
 "aBQ" = (
 /obj/machinery/door/airlock/maintenance_hatch{
@@ -2748,6 +2750,10 @@
 /turf/open/floor/plasteel,
 /area/security/brig)
 "aTV" = (
+/obj/machinery/camera/autoname{
+	dir = 1;
+	network = list("prison")
+	},
 /mob/living/simple_animal/kalo{
 	desc = "The Perma brig's cute grass snake.";
 	icon = 'icons/mob/animal.dmi';
@@ -2755,10 +2761,6 @@
 	icon_living = "snake";
 	icon_state = "snake";
 	name = "Hugel"
-	},
-/obj/machinery/camera/autoname{
-	dir = 1;
-	network = list("prison")
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/security/prison)
@@ -2983,11 +2985,6 @@
 	dir = 10
 	},
 /obj/structure/bed/dogbed/ian,
-/mob/living/simple_animal/pet/dog/corgi/Ian{
-	density = 0;
-	dir = 1;
-	pixel_y = 4
-	},
 /obj/machinery/airalarm{
 	dir = 8;
 	pixel_x = 22
@@ -2998,6 +2995,11 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 40;
 	pixel_y = -1
+	},
+/mob/living/simple_animal/pet/dog/corgi/Ian{
+	density = 0;
+	dir = 1;
+	pixel_y = 4
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
@@ -3780,10 +3782,10 @@
 /turf/open/floor/plating,
 /area/maintenance/department/security)
 "blb" = (
+/obj/effect/decal/cleanable/dirt/dust,
 /mob/living/simple_animal/slime{
 	name = "cholula"
 	},
-/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "blq" = (
@@ -6422,12 +6424,12 @@
 /area/chapel/main)
 "cbq" = (
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
-/mob/living/simple_animal/bot/cleanbot/larry{
-	on = 0
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
+	},
+/mob/living/simple_animal/bot/cleanbot/larry{
+	on = 0
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
@@ -6579,7 +6581,6 @@
 /turf/open/floor/plasteel/dark/side,
 /area/hallway/secondary/exit/departure_lounge)
 "cdB" = (
-/mob/living/simple_animal/mothroach,
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/flashlight/lantern/heirloom_moth{
 	on = 1
@@ -6591,6 +6592,7 @@
 	dir = 1;
 	id = "HB"
 	},
+/mob/living/simple_animal/mothroach,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "cep" = (
@@ -8106,12 +8108,12 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
 	},
+/obj/effect/turf_decal/box,
 /mob/living/simple_animal/mothroach{
 	density = 0;
 	desc = "A festive mothroach";
 	name = "Erster"
 	},
-/obj/effect/turf_decal/box,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics)
 "cEr" = (
@@ -10062,7 +10064,9 @@
 	},
 /obj/machinery/telecomms/hub/preset,
 /obj/machinery/airalarm/directional/south,
-/turf/open/floor/circuit/telecomms/mainframe,
+/turf/open/floor/circuit/telecomms/mainframe{
+	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
+	},
 /area/tcommsat/computer)
 "dlf" = (
 /obj/structure/chair{
@@ -11197,8 +11201,8 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/hop)
 "dFq" = (
-/mob/living/carbon/monkey,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/mob/living/carbon/monkey,
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/virology)
 "dFr" = (
@@ -12331,9 +12335,6 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 8
 	},
-/mob/living/simple_animal/sloth/citrus{
-	density = 0
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -12341,6 +12342,9 @@
 	dir = 5
 	},
 /obj/effect/turf_decal/box,
+/mob/living/simple_animal/sloth/citrus{
+	density = 0
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "dXw" = (
@@ -13899,7 +13903,10 @@
 /turf/open/floor/grass,
 /area/hallway/secondary/exit/departure_lounge)
 "ewa" = (
-/obj/machinery/atmospherics/components/trinary/mixer/airmix/flipped,
+/obj/machinery/atmospherics/components/trinary/mixer/airmix/flipped{
+	node1_concentration = 0.21;
+	node2_concentration = 0.79
+	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
@@ -14539,7 +14546,6 @@
 /turf/open/floor/plasteel/grimy,
 /area/chapel/office)
 "eEM" = (
-/mob/living/simple_animal/mothroach,
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/remains/human,
 /obj/item/flashlight/lantern/heirloom_moth{
@@ -14548,6 +14554,7 @@
 /obj/machinery/conveyor{
 	id = "HB"
 	},
+/mob/living/simple_animal/mothroach,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "eEY" = (
@@ -20123,6 +20130,7 @@
 	},
 /area/medical/sleeper)
 "ghY" = (
+/obj/effect/turf_decal/tile/dark_green/fourcorners/contrasted,
 /mob/living/simple_animal/hostile/retaliate/frog{
 	attacked_sound = 'sound/effects/huuu.ogg';
 	density = 0;
@@ -20137,7 +20145,6 @@
 	pixel_y = 12;
 	stepped_sound = null
 	},
-/obj/effect/turf_decal/tile/dark_green/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "gig" = (
@@ -21586,7 +21593,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/plasteel/dark/telecomms{
+	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
+	},
 /area/tcommsat/computer)
 "gGU" = (
 /obj/structure/railing{
@@ -24977,6 +24986,11 @@
 /obj/item/hand_labeler,
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/virology)
+"hGg" = (
+/obj/machinery/suit_storage_unit/exploration,
+/obj/machinery/airalarm/directional/east,
+/turf/open/floor/plasteel/dark,
+/area/quartermaster/exploration_prep)
 "hGI" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
@@ -26521,11 +26535,11 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/lobby)
 "ijs" = (
-/mob/living/simple_animal/bot/floorbot,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 32;
 	pixel_y = -1
 	},
+/mob/living/simple_animal/bot/floorbot,
 /turf/open/floor/plating,
 /area/ai_monitored/storage/satellite)
 "ijw" = (
@@ -26754,7 +26768,6 @@
 /turf/open/floor/plating,
 /area/science/xenobiology)
 "imT" = (
-/mob/living/simple_animal/mothroach,
 /obj/structure/sign/poster/official/moth2{
 	pixel_y = 32
 	},
@@ -26765,6 +26778,7 @@
 	dir = 6;
 	id = "HB"
 	},
+/mob/living/simple_animal/mothroach,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "inc" = (
@@ -27688,7 +27702,6 @@
 /turf/closed/wall/r_wall,
 /area/science/xenobiology)
 "iEn" = (
-/mob/living/simple_animal/mothroach,
 /obj/effect/decal/cleanable/blood/old,
 /obj/structure/sign/poster/official/moth1{
 	pixel_y = 32
@@ -27700,6 +27713,7 @@
 	dir = 5;
 	id = "HB"
 	},
+/mob/living/simple_animal/mothroach,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "iEv" = (
@@ -28059,12 +28073,12 @@
 /turf/open/floor/plating,
 /area/quartermaster/storage)
 "iKo" = (
-/mob/living/simple_animal/mothroach,
 /obj/effect/decal/cleanable/blood/old,
 /obj/machinery/conveyor{
 	dir = 9;
 	id = "HB"
 	},
+/mob/living/simple_animal/mothroach,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "iKK" = (
@@ -31001,7 +31015,9 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/plasteel/dark/telecomms{
+	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
+	},
 /area/tcommsat/computer)
 "jCx" = (
 /obj/effect/turf_decal/stripes/line,
@@ -31038,11 +31054,11 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/mob/living/simple_animal/butterfly{
-	name = "Lisa, PsyD"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 8
+	},
+/mob/living/simple_animal/butterfly{
+	name = "Lisa, PsyD"
 	},
 /turf/open/floor/grass,
 /area/medical/sleeper)
@@ -31555,15 +31571,15 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
-/mob/living/simple_animal/bot/mulebot{
-	home_destination = "QM #2";
-	suffix = "#2"
-	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=8";
 	dir = 8;
 	freq = 1400;
 	location = "QM #2"
+	},
+/mob/living/simple_animal/bot/mulebot{
+	home_destination = "QM #2";
+	suffix = "#2"
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/storage)
@@ -32906,18 +32922,18 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/supply/hidden/layer2,
-/mob/living/simple_animal/bot/secbot/beepsky{
-	desc = "It's Officer Beepsky! Powered by a potato and a shot of whiskey, and with a sturdier reinforced chassis, too.";
-	health = 45;
-	maxHealth = 45;
-	name = "Officer Beepsky"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=3-Tools";
 	location = "2-Sec"
+	},
+/mob/living/simple_animal/bot/secbot/beepsky{
+	desc = "It's Officer Beepsky! Powered by a potato and a shot of whiskey, and with a sturdier reinforced chassis, too.";
+	health = 45;
+	maxHealth = 45;
+	name = "Officer Beepsky"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
@@ -33446,12 +33462,12 @@
 	},
 /obj/effect/turf_decal/tile/neutral/anticorner/contrasted,
 /obj/structure/bed/dogbed/walter,
-/mob/living/simple_animal/pet/dog/bullterrier/walter{
-	density = 0
-	},
 /obj/item/stack/sheet/bone{
 	pixel_x = 6;
 	pixel_y = -6
+	},
+/mob/living/simple_animal/pet/dog/bullterrier/walter{
+	density = 0
 	},
 /turf/open/floor/plasteel,
 /area/security/warden)
@@ -36754,8 +36770,8 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "lwv" = (
-/mob/living/simple_animal/cockroach,
 /obj/effect/decal/cleanable/dirt/dust,
+/mob/living/simple_animal/cockroach,
 /turf/open/floor/wood,
 /area/vacant_room/office)
 "lwG" = (
@@ -37136,8 +37152,8 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
 "lBM" = (
-/mob/living/carbon/monkey,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/mob/living/carbon/monkey,
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/virology)
 "lBQ" = (
@@ -39506,8 +39522,8 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "mtg" = (
-/mob/living/simple_animal/chick,
 /obj/structure/flora/rock/jungle,
+/mob/living/simple_animal/chick,
 /turf/open/floor/grass,
 /area/hallway/primary/central)
 "mtq" = (
@@ -46831,7 +46847,6 @@
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/captain/private)
 "oAS" = (
-/mob/living/simple_animal/mothroach,
 /obj/effect/decal/remains/human,
 /obj/item/flashlight/lantern/heirloom_moth{
 	on = 1
@@ -46840,6 +46855,7 @@
 	dir = 1;
 	id = "HB"
 	},
+/mob/living/simple_animal/mothroach,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "oBd" = (
@@ -47991,7 +48007,9 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -33
 	},
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/plasteel/dark/telecomms{
+	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
+	},
 /area/tcommsat/computer)
 "oUC" = (
 /obj/structure/sign/poster/random,
@@ -48130,7 +48148,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/turf/open/floor/circuit/telecomms/mainframe,
+/turf/open/floor/circuit/telecomms/mainframe{
+	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
+	},
 /area/tcommsat/computer)
 "oYr" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
@@ -48371,18 +48391,18 @@
 /obj/structure/window/reinforced,
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/ppflowers,
-/mob/living/simple_animal/mouse/brown{
-	desc = "This one doesn't squeal";
-	name = "Tony";
-	pixel_x = 7;
-	pixel_y = 12
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/machinery/holopad{
 	pixel_x = 16;
 	pixel_y = 17
+	},
+/mob/living/simple_animal/mouse/brown{
+	desc = "This one doesn't squeal";
+	name = "Tony";
+	pixel_x = 7;
+	pixel_y = 12
 	},
 /turf/open/floor/grass,
 /area/hallway/secondary/exit/departure_lounge)
@@ -52767,7 +52787,9 @@
 	charge = 2e+007
 	},
 /obj/structure/cable,
-/turf/open/floor/circuit/telecomms/mainframe,
+/turf/open/floor/circuit/telecomms/mainframe{
+	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
+	},
 /area/tcommsat/computer)
 "qvr" = (
 /obj/machinery/light{
@@ -54022,7 +54044,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/circuit/telecomms/mainframe,
+/turf/open/floor/circuit/telecomms/mainframe{
+	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
+	},
 /area/tcommsat/computer)
 "qOU" = (
 /obj/structure/table/wood,
@@ -56176,16 +56200,16 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
-/mob/living/simple_animal/bot/mulebot{
-	beacon_freq = 1400;
-	home_destination = "QM #1";
-	suffix = "#1"
-	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=8";
 	dir = 8;
 	freq = 1400;
 	location = "QM #1"
+	},
+/mob/living/simple_animal/bot/mulebot{
+	beacon_freq = 1400;
+	home_destination = "QM #1";
+	suffix = "#1"
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/storage)
@@ -57029,7 +57053,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/plasteel/dark/telecomms{
+	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
+	},
 /area/tcommsat/computer)
 "rSF" = (
 /obj/structure/cable/yellow{
@@ -60772,7 +60798,9 @@
 /turf/open/floor/plasteel/white,
 /area/science/research)
 "tbK" = (
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/plasteel/dark/telecomms{
+	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
+	},
 /area/tcommsat/computer)
 "tbM" = (
 /obj/machinery/firealarm/directional/north,
@@ -62071,16 +62099,16 @@
 /obj/structure/bed/dogbed/renault{
 	pixel_y = 3
 	},
-/mob/living/simple_animal/pet/fox/Renault{
-	density = 0;
-	dir = 8;
-	pixel_y = 10
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
+	},
+/mob/living/simple_animal/pet/fox/Renault{
+	density = 0;
+	dir = 8;
+	pixel_y = 10
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/captain)
@@ -62178,7 +62206,6 @@
 /turf/open/floor/plating,
 /area/quartermaster/qm)
 "txo" = (
-/mob/living/simple_animal/mothroach,
 /obj/structure/sign/poster/official/moth5{
 	pixel_x = 32
 	},
@@ -62186,6 +62213,7 @@
 	dir = 10;
 	id = "HB"
 	},
+/mob/living/simple_animal/mothroach,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "txq" = (
@@ -63295,7 +63323,9 @@
 	pixel_x = 12;
 	pixel_y = -21
 	},
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/plasteel/dark/telecomms{
+	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
+	},
 /area/tcommsat/computer)
 "tPl" = (
 /obj/effect/turf_decal/stripes/line{
@@ -65935,12 +65965,12 @@
 /turf/open/floor/plasteel,
 /area/medical/apothecary)
 "uGa" = (
-/mob/living/simple_animal/turtle{
-	name = "Turtle"
-	},
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/disposalpipe/segment{
 	dir = 2
+	},
+/mob/living/simple_animal/turtle{
+	name = "Turtle"
 	},
 /turf/open/floor/grass,
 /area/hallway/primary/central)
@@ -66056,7 +66086,6 @@
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "uGW" = (
-/mob/living/simple_animal/mothroach,
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/flashlight/lantern/heirloom_moth{
 	on = 1
@@ -66064,6 +66093,7 @@
 /obj/machinery/conveyor{
 	id = "HB"
 	},
+/mob/living/simple_animal/mothroach,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "uHl" = (
@@ -72270,7 +72300,6 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "wDY" = (
-/mob/living/carbon/monkey,
 /obj/structure/window/reinforced{
 	dir = 4;
 	layer = 3
@@ -72279,6 +72308,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/mob/living/carbon/monkey,
 /turf/open/floor/vault,
 /area/medical/genetics)
 "wEe" = (
@@ -72749,7 +72779,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/airalarm/directional/north,
 /obj/machinery/telecomms/broadcaster/preset_exploration,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/quartermaster/exploration_prep)
@@ -73990,10 +74019,10 @@
 	dir = 1
 	},
 /obj/structure/filingcabinet/chestdrawer,
-/mob/living/simple_animal/parrot/Poly,
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 32
 	},
+/mob/living/simple_animal/parrot/Poly,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/chief)
 "xhT" = (
@@ -74824,10 +74853,10 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
+/obj/effect/turf_decal/guideline/guideline_edge/blue,
 /mob/living/simple_animal/bot/medbot{
 	name = "Flint, RN"
 	},
-/obj/effect/turf_decal/guideline/guideline_edge/blue,
 /turf/open/floor/plasteel,
 /area/medical/medbay/lobby)
 "xvx" = (
@@ -100412,7 +100441,7 @@ wHX
 mvk
 fkS
 ozt
-frZ
+hGg
 cMW
 nyK
 ruG
