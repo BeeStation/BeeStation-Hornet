@@ -120,6 +120,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	///Effect holder for the displacement filter to distort the SM based on its activity level
 	var/atom/movable/distortion_effect/distort
 
+	var/last_status
+
 /atom/movable/distortion_effect
 	name = ""
 	plane = GRAVITY_PULSE_PLANE
@@ -275,6 +277,39 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	. = ..()
 	if(final_countdown)
 		. += "casuality_field"
+
+	// Switch the distortion effect based on the crystal's state
+	var/current_status = get_status()
+	if (current_status != last_status)
+		cut_overlay(distort)
+		last_status = current_status
+		switch(get_status())
+			if(SUPERMATTER_INACTIVE)
+				distort.icon = 'icons/effects/96x96.dmi'
+				distort.icon_state = "SM_base"
+				distort.pixel_x = -32
+				distort.pixel_y = -32
+			if(SUPERMATTER_NORMAL, SUPERMATTER_NOTIFY, SUPERMATTER_WARNING)
+				distort.icon = 'icons/effects/96x96.dmi'
+				distort.icon_state = "SM_base_active"
+				distort.pixel_x = -32
+				distort.pixel_y = -32
+			if(SUPERMATTER_DANGER)
+				distort.icon = 'icons/effects/160x160.dmi'
+				distort.icon_state = "SM_delam_1"
+				distort.pixel_x = -64
+				distort.pixel_y = -64
+			if(SUPERMATTER_EMERGENCY)
+				distort.icon = 'icons/effects/224x224.dmi'
+				distort.icon_state = "SM_delam_2"
+				distort.pixel_x = -96
+				distort.pixel_y = -96
+			if(SUPERMATTER_DELAMINATING)
+				distort.icon = 'icons/effects/288x288.dmi'
+				distort.icon_state = "SM_delam_3"
+				distort.pixel_x = -128
+				distort.pixel_y = -128
+		add_overlay(distort)
 
 /obj/machinery/power/supermatter_crystal/proc/countdown()
 	set waitfor = FALSE
@@ -473,36 +508,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		l.hallucination += power * config_hallucination_power * D
 		l.hallucination = CLAMP(0, 200, l.hallucination)
 
-	// Switch the distortion effect based on the crystal's state
-	if(damage != damage_archived)
-		cut_overlay(distort)
-		switch(get_status())
-			if(SUPERMATTER_INACTIVE)
-				distort.icon = 'icons/effects/96x96.dmi'
-				distort.icon_state = "SM_base"
-				distort.pixel_x = -32
-				distort.pixel_y = -32
-			if(SUPERMATTER_NORMAL, SUPERMATTER_NOTIFY, SUPERMATTER_WARNING)
-				distort.icon = 'icons/effects/96x96.dmi'
-				distort.icon_state = "SM_base_active"
-				distort.pixel_x = -32
-				distort.pixel_y = -32
-			if(SUPERMATTER_DANGER)
-				distort.icon = 'icons/effects/160x160.dmi'
-				distort.icon_state = "SM_delam_1"
-				distort.pixel_x = -64
-				distort.pixel_y = -64
-			if(SUPERMATTER_EMERGENCY)
-				distort.icon = 'icons/effects/224x224.dmi'
-				distort.icon_state = "SM_delam_2"
-				distort.pixel_x = -96
-				distort.pixel_y = -96
-			if(SUPERMATTER_DELAMINATING)
-				distort.icon = 'icons/effects/288x288.dmi'
-				distort.icon_state = "SM_delam_3"
-				distort.pixel_x = -128
-				distort.pixel_y = -128
-		add_overlay(distort)
+	// Updates the displacement effect
+
+	update_icon(UPDATE_OVERLAYS)
 
 	//Transitions between one function and another, one we use for the fast inital startup, the other is used to prevent errors with fusion temperatures.
 	//Use of the second function improves the power gain imparted by using co2
