@@ -43,7 +43,10 @@
 /obj/machinery/stasis/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Alt-click to [stasis_enabled ? "turn off" : "turn on"] the machine.</span>"
-	. += "<span class='notice'>[src] is [op_computer ? "linked" : "<b>NOT</b> linked"] to an operating computer.</span>"
+	if(op_computer)
+		. += "<span class='notice'>[src] is <b>linked</b> to an operating computer to the [dir2text(get_dir(src, op_computer))].</span>"
+	else
+		. += "<span class='notice'>[src] is <b>NOT linked</b> to an operating computer.</span>"
 
 /obj/machinery/stasis/proc/initial_link()
 	if(!QDELETED(op_computer))
