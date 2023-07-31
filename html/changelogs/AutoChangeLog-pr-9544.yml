@@ -1,0 +1,5 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - rscadd: Added the ability to change the name and description of Pill Bottles with
+      a pen.
