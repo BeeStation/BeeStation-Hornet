@@ -121,7 +121,6 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/atom/movable/distortion_effect/distort
 
 	var/last_status
-	var/current_status
 
 /atom/movable/distortion_effect
 	name = ""
@@ -281,7 +280,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 	// Switch the distortion effect based on the crystal's state
 	cut_overlay(distort)
-	switch(current_status)
+	switch(last_status)
 		if(SUPERMATTER_INACTIVE)
 			distort.icon = 'icons/effects/96x96.dmi'
 			distort.icon_state = "SM_base"
@@ -507,7 +506,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		l.hallucination = CLAMP(0, 200, l.hallucination)
 
 	// Updates the displacement effect
-	current_status = get_status()
+	var/current_status = get_status()
 	if(current_status != last_status)
 		last_status = current_status
 		update_icon(UPDATE_OVERLAYS)
