@@ -86,7 +86,7 @@
 			if(a_datum.fakekey)
 				msg += " <i>(as [a_datum.fakekey])</i>"
 			if(a_datum.deadmined)
-				msg += " <b>(as Deadmin)</b>"
+				msg += " <b>(Deadmined)</b>"
 
 			if(isobserver(C.mob))
 				msg += " - Observing"
