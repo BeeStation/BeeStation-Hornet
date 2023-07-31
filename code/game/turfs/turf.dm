@@ -175,6 +175,9 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		. = TRUE
 	if(.)
 		return
+	for(var/atom/A in contents)
+		if(A.density)//Can't drag mobs into turfs with dense objects on them (i.e tables or grilles)
+			return
 	user.Move_Pulled(src)
 
 /turf/eminence_act(mob/living/simple_animal/eminence/eminence)
