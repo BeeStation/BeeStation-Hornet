@@ -110,7 +110,7 @@
 
 /obj/effect/anomaly/grav
 	name = "gravitational anomaly"
-	icon_state = "shield2"
+	icon_state = "shield3-rewind"
 	density = FALSE
 	var/boing = 0
 	///Warp effect holder for displacement filter to "pulse" the anomaly
@@ -355,7 +355,7 @@
 	S.amount_grown = SLIME_EVOLUTION_THRESHOLD
 	S.Evolve()
 	S.flavor_text = FLAVOR_TEXT_EVIL
-	S.set_playable()
+	S.set_playable(ROLE_PYRO_SLIME)
 
 /////////////////////
 

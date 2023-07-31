@@ -28,6 +28,18 @@
 	)
 	biohazard = 40
 
+	lightup_areas = list(
+		/area/medical/genetics,
+		/area/medical/virology,
+		/area/medical/chemistry,
+		/area/medical/apothecary
+	)
+	minimal_lightup_areas = list(
+		/area/medical/morgue,
+		/area/medical/surgery,
+		/area/medical/genetics/cloning
+	)
+
 /datum/outfit/job/medical_doctor
 	name = JOB_NAME_MEDICALDOCTOR
 	jobtype = /datum/job/medical_doctor

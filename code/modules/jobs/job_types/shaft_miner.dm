@@ -27,6 +27,8 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/shaft_miner
 	)
 
+	minimal_lightup_areas = list(/area/construction/mining/aux_base)
+
 /datum/outfit/job/miner
 	name = JOB_NAME_SHAFTMINER
 	jobtype = /datum/job/shaft_miner

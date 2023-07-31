@@ -25,6 +25,8 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/botany
 	)
 
+	minimal_lightup_areas = list(/area/hydroponics, /area/medical/morgue)
+
 /datum/outfit/job/botanist
 	name = JOB_NAME_BOTANIST
 	jobtype = /datum/job/botanist

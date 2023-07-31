@@ -144,7 +144,6 @@ Rulesets have the following variables notable to developers and those interested
 		- Traitor: `antag_cap = list("denominator" = 24)`. This means that for every 24 players, 1 traitor will be added (assuming no scaling).
 		- Nuclear Emergency: `antag_cap = list("denominator" = 18, "offset" = 1)`. For every 18 players, 1 nuke op will be added. Starts at 1, meaning at 30 players, 3 nuke ops will be created, rather than 2.
 		- Revolution: `antag_cap = 3`. There will always be 3 rev-heads, no matter what.
-- `minimum_required_age` - The minimum age in order to apply for the ruleset.
 - `weight` - How likely this ruleset is to be picked. A higher weight results in a higher chance of drafting.
 - `cost` - The initial cost of the ruleset. This cost is taken from either the roundstart or midround budget, depending on the ruleset.
 - `scaling_cost` - Cost for every *additional* application of this ruleset.

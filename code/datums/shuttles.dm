@@ -158,7 +158,10 @@
 
 		if(!islist(shuttle_turf.baseturfs))
 			shuttle_turf.baseturfs = list(shuttle_turf.baseturfs)
-		shuttle_turf.baseturfs.Insert(shuttle_turf.baseturfs.len + 1 - baseturf_length, /turf/baseturf_skipover/shuttle)
+
+		var/list/sanity = shuttle_turf.baseturfs.Copy()
+		sanity.Insert(shuttle_turf.baseturfs.len + 1 - baseturf_length, /turf/baseturf_skipover/shuttle)
+		shuttle_turf.baseturfs = baseturfs_string_list(sanity, shuttle_turf)
 
 	//If this is a superfunction call, we don't want to initialize atoms here, let the subfunction handle that
 	if(finalize)

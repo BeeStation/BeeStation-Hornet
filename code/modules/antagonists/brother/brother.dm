@@ -1,9 +1,9 @@
 /datum/antagonist/brother
 	name = "Brother"
 	antagpanel_category = "Brother"
-	job_rank = ROLE_BROTHER
+	banning_key = ROLE_BROTHER
+	required_living_playtime = 4
 	ui_name = "AntagInfoBrother"
-	var/special_role = ROLE_BROTHER
 	hijack_speed = 0.5
 	var/datum/team/brother_team/team
 	antag_moodlet = /datum/mood_event/focused
@@ -23,14 +23,14 @@
 	objectives += team.objectives
 	for(var/datum/objective/O in team.objectives)
 		log_objective(owner, O.explanation_text)
-	owner.special_role = special_role
+	owner.special_role = ROLE_BROTHER
 	finalize_brother()
 	return ..()
 
 /datum/antagonist/brother/on_removal()
 	SSticker.mode.brothers -= owner
 	if(owner.current)
-		to_chat(owner.current,"<span class='userdanger'>You are no longer the [special_role]!</span>")
+		to_chat(owner.current,"<span class='userdanger'>You are no longer the Blood Brother!</span>")
 	owner.special_role = null
 	return ..()
 
@@ -64,7 +64,7 @@
 
 /datum/antagonist/brother/greet()
 	var/brother_text = get_brother_names()
-	to_chat(owner.current, "<span class='alertsyndie'>You are the [owner.special_role] of [brother_text].</span>")
+	to_chat(owner.current, "<span class='alertsyndie'>You are the Blood Brother of [brother_text].</span>")
 	to_chat(owner.current, "The Syndicate only accepts those that have proven themselves. Prove yourself and prove your [team.member_name]s by completing your objectives together! You and your team are outfitted with communication implants allowing for direct, encrypted communication.")
 	owner.announce_objectives()
 	give_meeting_area()

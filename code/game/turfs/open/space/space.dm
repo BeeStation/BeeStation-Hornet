@@ -19,6 +19,8 @@
 	var/destination_y
 
 	var/static/datum/gas_mixture/immutable/space/space_gas
+	// We do NOT want atmos adjacent turfs
+	init_air = FALSE
 	plane = PLANE_SPACE
 	layer = SPACE_LAYER
 	light_power = 0.25
@@ -75,9 +77,6 @@
 	if(destination_z)
 		var/turf/T = locate(destination_x, destination_y, destination_z)
 		user.forceMove(T)
-
-/turf/open/space/Initalize_Atmos(times_fired)
-	return
 
 /turf/open/space/TakeTemperature(temp)
 
