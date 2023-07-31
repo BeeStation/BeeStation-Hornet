@@ -24,9 +24,6 @@
 
 /datum/tgs_api/v5/New()
 	. = ..()
-#if DM_VERSION < 511
-	TGS_WARNING_LOG("TGS V5 interop does not support the non-basic watchdog on versions prior to 511! Make sure you've configured the basic watchdog in TGS setting or update BYOND!")
-#endif
 	TGS_DEBUG_LOG("V5 API created")
 
 /datum/tgs_api/v5/ApiVersion()

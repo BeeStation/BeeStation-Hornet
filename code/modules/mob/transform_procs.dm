@@ -558,11 +558,13 @@
 	to_chat(src, "<span class='userdanger'>You are job banned from cyborg! Appeal your job ban if you want to avoid this in the future!</span>")
 	ghostize(FALSE)
 
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [src]?", "[src]", null, JOB_NAME_CYBORG, 50, src)
+	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [src]?", JOB_NAME_CYBORG, null, 7.5 SECONDS, src, ignore_category = FALSE)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/chosen_candidate = pick(candidates)
 		message_admins("[key_name_admin(chosen_candidate)] has taken control of ([key_name_admin(src)]) to replace a jobbanned player.")
 		key = chosen_candidate.key
+	else
+		set_playable(JOB_NAME_CYBORG)
 
 //human -> alien
 /mob/living/carbon/human/proc/Alienize()

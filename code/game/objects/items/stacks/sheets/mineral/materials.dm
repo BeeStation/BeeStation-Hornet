@@ -34,9 +34,8 @@ Mineral Sheets
 	sheettype = "sandstone"
 	merge_type = /obj/item/stack/sheet/mineral/sandstone
 
-/obj/item/stack/sheet/mineral/sandstone/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.sandstone_recipes
-	. = ..()
+/obj/item/stack/sheet/mineral/sandstone/get_recipes()
+	return GLOB.sandstone_recipes
 
 /* Diamond */
 
@@ -51,9 +50,8 @@ Mineral Sheets
 	point_value = 25
 	merge_type = /obj/item/stack/sheet/mineral/diamond
 
-/obj/item/stack/sheet/mineral/diamond/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.diamond_recipes
-	. = ..()
+/obj/item/stack/sheet/mineral/diamond/get_recipes()
+	return GLOB.diamond_recipes
 
 /* Uranium */
 
@@ -68,9 +66,8 @@ Mineral Sheets
 	point_value = 20
 	merge_type = /obj/item/stack/sheet/mineral/uranium
 
-/obj/item/stack/sheet/mineral/uranium/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.uranium_recipes
-	. = ..()
+/obj/item/stack/sheet/mineral/uranium/get_recipes()
+	return GLOB.uranium_recipes
 
 /* Plasma */
 
@@ -91,9 +88,8 @@ Mineral Sheets
 	user.visible_message("<span class='suicide'>[user] begins licking \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return TOXLOSS//dont you kids know that stuff is toxic?
 
-/obj/item/stack/sheet/mineral/plasma/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.plasma_recipes
-	. = ..()
+/obj/item/stack/sheet/mineral/plasma/get_recipes()
+	return GLOB.plasma_recipes
 
 /obj/item/stack/sheet/mineral/plasma/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(W.is_hot() > 300)//If the temperature of the object is over 300, then ignite
@@ -123,9 +119,8 @@ Mineral Sheets
 	point_value = 20
 	merge_type = /obj/item/stack/sheet/mineral/gold
 
-/obj/item/stack/sheet/mineral/gold/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.gold_recipes
-	. = ..()
+/obj/item/stack/sheet/mineral/gold/get_recipes()
+	return GLOB.gold_recipes
 
 /* Silver */
 
@@ -141,9 +136,8 @@ Mineral Sheets
 	merge_type = /obj/item/stack/sheet/mineral/silver
 	tableVariant = /obj/structure/table/optable
 
-/obj/item/stack/sheet/mineral/silver/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.silver_recipes
-	. = ..()
+/obj/item/stack/sheet/mineral/silver/get_recipes()
+	return GLOB.silver_recipes
 
 /* Copper */
 
@@ -159,9 +153,8 @@ Mineral Sheets
 	merge_type = /obj/item/stack/sheet/mineral/copper
 
 
-/obj/item/stack/sheet/mineral/copper/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.copper_recipes
-	. = ..()
+/obj/item/stack/sheet/mineral/copper/get_recipes()
+	return GLOB.copper_recipes
 
 /* Titanium */
 
@@ -181,9 +174,8 @@ Mineral Sheets
 	merge_type = /obj/item/stack/sheet/mineral/titanium
 
 
-/obj/item/stack/sheet/mineral/titanium/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.titanium_recipes
-	. = ..()
+/obj/item/stack/sheet/mineral/titanium/get_recipes()
+	return GLOB.titanium_recipes
 
 /* Plastitanium */
 
@@ -202,9 +194,8 @@ Mineral Sheets
 	point_value = 45
 	merge_type = /obj/item/stack/sheet/mineral/plastitanium
 
-/obj/item/stack/sheet/mineral/plastitanium/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.plastitanium_recipes
-	. = ..()
+/obj/item/stack/sheet/mineral/plastitanium/get_recipes()
+	return GLOB.plastitanium_recipes
 
 /* Coal */
 

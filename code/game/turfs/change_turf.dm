@@ -85,6 +85,10 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	var/old_lighting_corner_SW = lighting_corner_SW
 	var/old_lighting_corner_NW = lighting_corner_NW
 	var/old_directional_opacity = directional_opacity
+	var/old_opacity = opacity
+
+	// Z-Mimic: copy above
+	var/old_above = above
 
 	var/old_exl = explosion_level
 	var/old_exi = explosion_id
@@ -119,6 +123,8 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	else
 		new_turf.baseturfs = old_baseturfs
 
+	new_turf.above = old_above
+
 	new_turf.explosion_id = old_exi
 	new_turf.explosion_level = old_exl
 
@@ -146,6 +152,9 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 		for(var/turf/open/space/S in RANGE_TURFS(1, src)) //RANGE_TURFS is in code\__HELPERS\game.dm
 			S.update_starlight()
 
+	if(old_opacity != opacity && SSticker)
+		GLOB.cameranet.bareMajorChunkChange(src)
+
 	return new_turf
 
 /turf/open/ChangeTurf(path, list/new_baseturfs, flags)
@@ -167,6 +176,8 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 			. = ..()
 		else
 			. = ..()
+			if(flags & CHANGETURF_SKIP) // don't init air before the air subsystem runs
+				return
 			if(!istype(air,/datum/gas_mixture))
 				Initalize_Atmos(0)
 
@@ -311,6 +322,9 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	QUEUE_SMOOTH_NEIGHBORS(src)
 
 	HandleTurfChange(src)
+
+	if(above)
+		above.update_mimic()
 
 /turf/open/AfterChange(flags)
 	..()
