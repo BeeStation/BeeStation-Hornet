@@ -7,6 +7,16 @@
 
 INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 
+/mob/living/carbon/human/dummy/Initialize(mapload)
+	. = ..()
+	remove_from_all_data_huds()
+
+/mob/living/carbon/human/dummy/prepare_huds()
+	return
+
+/mob/living/carbon/human/dummy/prepare_data_huds()
+	return
+
 /mob/living/carbon/human/dummy/Destroy()
 	in_use = FALSE
 	return ..()
