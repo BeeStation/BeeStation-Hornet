@@ -997,7 +997,7 @@
 		return
 
 	target.visible_message("<span class='danger'><span class='name'>[user]</span> starts to feed <span class='name'>[target]</span> [src]!</span>",
-		"<span class='userdanger'><span class='name'>[user] starts to feed you [src]!</span>")
+		"<span class='userdanger'><span class='name'>[user]</span> starts to feed you [src]!</span>")
 
 	if(!do_after(user, 5 SECONDS, target = target))
 		return
