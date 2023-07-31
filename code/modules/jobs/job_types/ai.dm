@@ -44,6 +44,8 @@
 	if(M.client)
 		AI.apply_pref_name(/datum/preference/name/ai, preference_source)			//If this runtimes oh well jobcode is fucked.
 	AI.set_core_display_icon(null, preference_source)
+	if(!M.client || on_dummy)
+		return
 
 	//we may have been created after our borg
 	if(SSticker.current_state == GAME_STATE_SETTING_UP)

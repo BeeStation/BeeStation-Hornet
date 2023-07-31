@@ -126,11 +126,12 @@
 /// preference_source allows preferences to be retrieved if the original mob (M) is null - for use on preference dummies.
 /// Don't do non-visual changes if M.client is null, since that means it's just a dummy and doesn't need them.
 /datum/job/proc/after_spawn(mob/living/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
-	//do actions on H but send messages to M as the key may not have been transferred_yet
-	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_JOB_AFTER_SPAWN, src, H, M, latejoin)
-	if(mind_traits && H?.mind)
-		for(var/t in mind_traits)
-			ADD_TRAIT(H.mind, t, JOB_TRAIT)
+	if(!on_dummy) // Bad dummy
+		//do actions on H but send messages to M as the key may not have been transferred_yet
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_JOB_AFTER_SPAWN, src, H, M, latejoin)
+		if(mind_traits && H?.mind)
+			for(var/t in mind_traits)
+				ADD_TRAIT(H.mind, t, JOB_TRAIT)
 
 	if(!ishuman(H))
 		return
