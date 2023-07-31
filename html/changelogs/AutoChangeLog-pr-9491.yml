@@ -1,0 +1,4 @@
+author: RKz, Rohesie, Cobby
+delete-after: true
+changes:
+  - refactor: makes incapacitation into a trait
