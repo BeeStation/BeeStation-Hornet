@@ -1,5 +1,5 @@
 import { Component, createRef } from 'inferno';
-import { useBackend, useSharedState } from '../backend';
+import { useBackend, useLocalState } from '../backend';
 import { Tabs, Section, Icon, Button, Box, Flex, Dimmer, Table, BlockQuote } from '../components';
 import { ButtonConfirm } from '../components/Button';
 import { Window } from '../layouts';
@@ -36,7 +36,7 @@ export const MessageMonitorContent = (_, context) => {
     request_messages = [],
     emoji_names = [],
   } = data;
-  const [selectedTab, setSelectedTab] = useSharedState(context, 'selected_tab', 'pda');
+  const [selectedTab, setSelectedTab] = useLocalState(context, 'selected_tab', 'pda');
   if (hacking) {
     return (
       <Flex direction="column" height="100%">

@@ -147,13 +147,19 @@ export const ModFabMain = (props, context) => {
   });
   let selected_category_items;
   if (search) {
+    let repeats = new Set();
     selected_category_items = items
       .flatMap((category) => category.category_items || [])
       .filter(testSearch)
-      .filter((item, i) => i < MAX_SEARCH_RESULTS);
+      .filter((item, i) => i < MAX_SEARCH_RESULTS)
+      .filter((item) => {
+        // check whether we have design_id repeats in our search
+        return repeats.has(item.design_id) ? false : repeats.add(item.design_id);
+      });
   } else {
     for (let i = 0; i < items.length; i++) {
       if (items[i].category_name === category) {
+        // don't need to check for repeats as this (shouldn't) have repeats
         selected_category_items = items[i].category_items;
       }
     }

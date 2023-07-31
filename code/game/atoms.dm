@@ -153,7 +153,7 @@
   */
 /atom/New(loc, ...)
 	//atom creation method that preloads variables at creation
-	if(GLOB.use_preloader && (src.type == GLOB._preloader.target_path))//in case the instanciated atom is creating other atoms in New()
+	if(GLOB.use_preloader && src.type == GLOB._preloader_path)//in case the instanciated atom is creating other atoms in New()
 		world.preloader_load(src)
 
 	if(datum_flags & DF_USE_TAG)
@@ -231,10 +231,14 @@
 	InitializeAIController()
 
 	if(length(smoothing_groups))
-		sortTim(smoothing_groups) //In case it's not properly ordered, let's avoid duplicate entries with the same values.
+		#ifdef UNIT_TESTS
+		assert_sorted(smoothing_groups, "[type].smoothing_groups")
+		#endif
 		SET_BITFLAG_LIST(smoothing_groups)
 	if(length(canSmoothWith))
-		sortTim(canSmoothWith)
+		#ifdef UNIT_TESTS
+		assert_sorted(canSmoothWith, "[type].canSmoothWith")
+		#endif
 		if(canSmoothWith[length(canSmoothWith)] > MAX_S_TURF) //If the last element is higher than the maximum turf-only value, then it must scan turf contents for smoothing targets.
 			smoothing_flags |= SMOOTH_OBJ
 		SET_BITFLAG_LIST(canSmoothWith)
@@ -281,7 +285,9 @@
 
 	orbiters = null // The component is attached to us normaly and will be deleted elsewhere
 
-	LAZYCLEARLIST(overlays)
+	// Checking length(overlays) before cutting has significant speed benefits
+	if (length(overlays))
+		overlays.Cut()
 	LAZYNULL(managed_overlays)
 
 	QDEL_NULL(light)
@@ -431,10 +437,6 @@
 					M.forceMove(src)
 		parts_list.Cut()
 
-///Hook for multiz???
-/atom/proc/update_multiz(prune_on_fail = FALSE)
-	return FALSE
-
 ///Take air from the passed in gas mixture datum
 /atom/proc/assume_air(datum/gas_mixture/giver)
 	return null
@@ -581,6 +583,10 @@
 	if(desc)
 		. += desc
 
+	if(z && user.z != z) // Z-mimic
+		var/diff = abs(user.z - z)
+		. += "<span class='bold notice'>[p_theyre(TRUE)] [diff] level\s below you.</span>"
+
 	if(custom_materials)
 		for(var/i in custom_materials)
 			var/datum/material/M = i
@@ -648,6 +654,9 @@
 	if(updates & UPDATE_ICON)
 		. |= update_icon(updates)
 
+	if (ismovable(src))
+		UPDATE_OO_IF_PRESENT
+
 /// Updates the name of the atom
 /atom/proc/update_name(updates=ALL)
 	SHOULD_CALL_PARENT(TRUE)
@@ -660,6 +669,7 @@
 
 /// Updates the icon of the atom
 /atom/proc/update_icon(updates=ALL)
+	// SHOULD_CALL_PARENT(TRUE) this should eventually be set when all update_icons() are updated. As of current this makes zmimic sometimes not catch updates
 	SIGNAL_HANDLER
 
 	. = NONE
@@ -685,6 +695,8 @@
 		. |= UPDATE_OVERLAYS
 
 	. |= SEND_SIGNAL(src, COMSIG_ATOM_UPDATED_ICON, updates, .)
+	if (ismovable(src)) // need to update here as well since update_appearance() is not always called
+		UPDATE_OO_IF_PRESENT
 
 /// Updates the icon state of the atom
 /atom/proc/update_icon_state()
@@ -840,8 +852,8 @@
 	else
 		return FALSE
 
-///Called when gravity returns after floating I think
-/atom/proc/handle_fall()
+///Used for making a sound when a mob involuntarily falls into the ground.
+/atom/proc/handle_fall(mob/faller)
 	return
 
 ///Respond to the singularity eating this atom
@@ -1039,6 +1051,7 @@
   */
 /atom/proc/setDir(newdir)
 	SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, dir, newdir)
+	. = dir != newdir
 	dir = newdir
 
 /// Attempts to turn to the given direction. May fail if anchored/unconscious/etc.
@@ -1486,13 +1499,16 @@
   * 2 argument is for the item being created
   * 3 argument is for if admins should be notified if a non-antag crafts this
  */
-/proc/log_crafting(mob/blacksmith, atom/object, dangerous = FALSE)
+/proc/log_crafting(mob/blacksmith, object, result, dangerous = FALSE)
 	var/message = "has crafted [object]"
 	blacksmith.log_message(message, LOG_GAME)
 	if(!dangerous)
 		return
 	if(isnull(locate(/datum/antagonist) in blacksmith.mind?.antag_datums))
-		message_admins("[ADMIN_LOOKUPFLW(blacksmith)] has crafted [object] as a non-antagonist.")
+		if(istext(result))
+			message_admins("[ADMIN_LOOKUPFLW(blacksmith)] has attempted to craft [object] as a non-antagonist, but failed: [result]")
+		else
+			message_admins("[ADMIN_LOOKUPFLW(blacksmith)] has crafted [object] as a non-antagonist.")
 /**
   * Log a combat message in the attack log
   *
@@ -1503,6 +1519,9 @@
   * 5 is any additional text, which will be appended to the rest of the log line
   */
 /proc/log_combat(atom/user, atom/target, what_done, atom/object=null, addition=null)
+	if(isweakref(user))
+		var/datum/weakref/A_ref = user
+		user = A_ref.resolve()
 	var/ssource = key_name(user)
 	var/starget = key_name(target)
 
@@ -1681,6 +1700,51 @@
 	base_pixel_y = new_value
 
 	pixel_y = pixel_y + base_pixel_y - .
+
+/**
+ * Returns true if this atom has gravity for the passed in turf
+ *
+ * Sends signals [COMSIG_ATOM_HAS_GRAVITY] and [COMSIG_TURF_HAS_GRAVITY], both can force gravity with
+ * the forced gravity var.
+ *
+ * Gravity situations:
+ * * No gravity if you're not in a turf
+ * * No gravity if this atom is in is a space turf
+ * * Gravity if the area it's in always has gravity
+ * * Gravity if there's a gravity generator on the z level
+ * * Gravity if the Z level has an SSMappingTrait for ZTRAIT_GRAVITY
+ * * otherwise no gravity
+ */
+/atom/proc/has_gravity(turf/gravity_turf)
+	if(!isturf(gravity_turf))
+		gravity_turf = get_turf(src)
+
+		if(!gravity_turf)
+			return FALSE
+
+	var/list/forced_gravity = list()
+	SEND_SIGNAL(src, COMSIG_ATOM_HAS_GRAVITY, gravity_turf, forced_gravity)
+	if(!length(forced_gravity))
+		SEND_SIGNAL(gravity_turf, COMSIG_TURF_HAS_GRAVITY, src, forced_gravity)
+	if(length(forced_gravity))
+		var/max_grav
+		for(var/i in forced_gravity)
+			max_grav = max(max_grav, i)
+		return max_grav
+
+	if(!gravity_turf.check_gravity()) // Turf never has gravity
+		return FALSE
+	var/area/A = get_area(gravity_turf)
+	if(A.has_gravity) // Areas which always has gravity
+		return TRUE
+	else if(SSmapping.level_trait(gravity_turf.z, ZTRAIT_GRAVITY)) // If the z-level always has gravity
+		return TRUE
+	else if(GLOB.gravity_generators["[gravity_turf.get_virtual_z_level()]"]) // If there's a gravity generator on our z level
+		var/max_grav = 0
+		for(var/obj/machinery/gravity_generator/main/G in GLOB.gravity_generators["[gravity_turf.get_virtual_z_level()]"])
+			max_grav = max(G.setting,max_grav)
+		return max_grav
+	return FALSE
 
 /*
 * Called when something made out of plasma is exposed to high temperatures.

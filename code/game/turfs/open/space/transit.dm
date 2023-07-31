@@ -122,8 +122,11 @@
 /turf/open/space/transit/south
 	dir = SOUTH
 
-/turf/open/space/transit/north
-	dir = NORTH
+/turf/open/space/transit/Initialize(mapload)
+	. = ..()
+	transform = turn(matrix(), get_transit_angle(src))
+	for(var/atom/movable/AM in src)
+		throw_atom(AM, src)
 
 /turf/open/space/transit/horizontal
 	dir = WEST

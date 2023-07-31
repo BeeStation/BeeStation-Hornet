@@ -296,7 +296,7 @@
 
 /obj/machinery/clonepod/proc/offer_to_ghost(mob/living/carbon/H)
 	set waitfor = FALSE
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [H.real_name]'s experimental clone?", ROLE_EXPERIMENTAL_CLONE, null, null, 300, H, POLL_IGNORE_EXPERIMENTAL_CLONE)
+	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [H.real_name]'s experimental clone?", ROLE_EXPERIMENTAL_CLONE, null, 30 SECONDS, H)
 	if(length(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		H.key = C.key

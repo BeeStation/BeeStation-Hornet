@@ -22,6 +22,7 @@
 	show_to_ghosts = TRUE
 	antag_moodlet = /datum/mood_event/focused
 	count_against_dynamic_roll_chance = FALSE
+	banning_key = ROLE_ERT
 
 /datum/antagonist/ert/on_gain()
 	if(random_names)

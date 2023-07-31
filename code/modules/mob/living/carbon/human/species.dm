@@ -473,9 +473,11 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			facialhair_hidden = TRUE
 
 	if(H.wear_mask)
-		var/obj/item/clothing/mask/M = H.wear_mask
-		dynamic_fhair_suffix = M.dynamic_fhair_suffix //mask > head in terms of facial hair
-		if(M.flags_inv & HIDEFACIALHAIR)
+		var/obj/item/I = H.wear_mask
+		if(isclothing(I))
+			var/obj/item/clothing/C = I
+			dynamic_fhair_suffix = C.dynamic_fhair_suffix //mask > head in terms of facial hair
+		if(I.flags_inv & HIDEFACIALHAIR)
 			facialhair_hidden = TRUE
 
 	if(H.facial_hair_style && (FACEHAIR in species_traits) && (!facialhair_hidden || dynamic_fhair_suffix))
@@ -519,20 +521,21 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 	if(H.head)
 		var/obj/item/I = H.head
-		if(isclothing(I))
+		if(isclothing(I) && !istype(I, /obj/item/clothing/head/wig))
 			var/obj/item/clothing/C = I
 			dynamic_hair_suffix = C.dynamic_hair_suffix
 		if(I.flags_inv & HIDEHAIR)
 			hair_hidden = TRUE
 
 	if(H.wear_mask)
-		var/obj/item/clothing/mask/M = H.wear_mask
-		if(!dynamic_hair_suffix) //head > mask in terms of head hair
-			dynamic_hair_suffix = M.dynamic_hair_suffix
-		if(M.flags_inv & HIDEHAIR)
+		var/obj/item/I = H.wear_mask
+		if(!dynamic_hair_suffix && isclothing(I)) //head > mask in terms of head hair
+			var/obj/item/clothing/C = I
+			dynamic_hair_suffix = C.dynamic_hair_suffix
+		if(I.flags_inv & HIDEHAIR)
 			hair_hidden = TRUE
 
-	if(!hair_hidden || dynamic_hair_suffix)
+	if(!hair_hidden || dynamic_hair_suffix || worn_wig)
 		var/mutable_appearance/hair_overlay = mutable_appearance(layer = -HAIR_LAYER)
 		var/mutable_appearance/gradient_overlay = mutable_appearance(layer = -HAIR_LAYER)
 		if(!hair_hidden && !H.getorgan(/obj/item/organ/brain)) //Applies the debrained overlay if there is no brain
@@ -1389,29 +1392,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 #define HEALTH_DEF_MOVESPEED_DIV 350
 #define HEALTH_DEF_MOVESPEED_FLIGHT_DIV 1050
 #define HEALTH_DEF_MOVESPEED_POW 1.6
-
-/datum/species/proc/movement_delay(mob/living/carbon/human/H)
-	. = 0	//We start at 0.
-	var/gravity = 0
-	gravity = H.has_gravity()
-
-	if(!HAS_TRAIT(H, TRAIT_IGNORESLOWDOWN) && gravity)
-		if(H.wear_suit)
-			. += H.wear_suit.slowdown
-		if(H.shoes)
-			. += H.shoes.slowdown
-		if(H.back)
-			. += H.back.slowdown
-		for(var/obj/item/I in H.held_items)
-			if(I.item_flags & SLOWS_WHILE_IN_HAND)
-				. += I.slowdown
-
-		if(gravity > STANDARD_GRAVITY)
-			var/grav_force = min(gravity - STANDARD_GRAVITY,3)
-			. += 1 + grav_force
-
-	return .
-
 
 #undef HEALTH_DEF_MOVESPEED_DAMAGE_MIN
 #undef HEALTH_DEF_MOVESPEED_DELAY_MAX
