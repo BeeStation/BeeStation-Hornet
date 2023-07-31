@@ -1,4 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - code_imp: Lazy-initialized circuit USB components, saving 120ms init.

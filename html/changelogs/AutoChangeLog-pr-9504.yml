@@ -1,4 +1,0 @@
-author: RKz, Haukeschuemann
-delete-after: true
-changes:
-  - tweak: cleaned up how borg radios and batteries initialize
