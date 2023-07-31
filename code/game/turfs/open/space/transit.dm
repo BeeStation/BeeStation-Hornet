@@ -106,7 +106,7 @@
 
 /turf/open/space/transit/Initialize(mapload)
 	. = ..()
-	update_icon()
+	transform = turn(matrix(), get_transit_angle(src))
 	for(var/atom/movable/AM in src)
 		throw_atom(AM, src)
 
