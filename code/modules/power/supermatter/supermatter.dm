@@ -805,21 +805,21 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/turf/local_turf = pick(RANGE_TURFS(anomalyrange, anomalycenter) - anomalycenter)
 	if(!local_turf)
 		return
-
+	var/faked_reality_spawn = pick(0, 1)
 	switch(type)
 		if(ANOMALY_BIOSCRAMBLER)
-			new /obj/effect/anomaly/bioscrambler(local_turf, null)
+			new /obj/effect/anomaly/bioscrambler(local_turf, null, faked_reality_spawn)
 		if(ANOMALY_FLUX)
 			var/explosive = has_weak_lifespan ? ANOMALY_FLUX_NO_EXPLOSION : ANOMALY_FLUX_LOW_EXPLOSIVE
-			new /obj/effect/anomaly/flux(local_turf, has_weak_lifespan ? rand(250, 300) : null, TRUE, explosive)
+			new /obj/effect/anomaly/flux(local_turf, has_weak_lifespan ? rand(250, 300) : null, TRUE, explosive, faked_reality_spawn)
 		if(ANOMALY_GRAVITATIONAL)
-			new /obj/effect/anomaly/grav(local_turf, has_weak_lifespan ? rand(200, 300) : null)
+			new /obj/effect/anomaly/grav(local_turf, has_weak_lifespan ? rand(200, 300) : null, faked_reality_spawn)
 		if(ANOMALY_HALLUCINATION)
-			new /obj/effect/anomaly/hallucination(local_turf, has_weak_lifespan ? rand(150, 250) : null)
+			new /obj/effect/anomaly/hallucination(local_turf, has_weak_lifespan ? rand(150, 250) : null, faked_reality_spawn)
 		if(ANOMALY_PYRO)
-			new /obj/effect/anomaly/pyro(local_turf, has_weak_lifespan ? rand(150, 250) : null)
+			new /obj/effect/anomaly/pyro(local_turf, has_weak_lifespan ? rand(150, 250) : null, faked_reality_spawn)
 		if(ANOMALY_VORTEX)
-			new /obj/effect/anomaly/bhole(local_turf, 20)
+			new /obj/effect/anomaly/bhole(local_turf, 20, faked_reality_spawn)
 
 /obj/machinery/power/supermatter_crystal/proc/supermatter_zap(atom/zapstart, range = 3, power)
 	. = zapstart.dir
