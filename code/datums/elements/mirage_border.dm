@@ -16,7 +16,6 @@
 
 	var/x = target_turf.x
 	var/y = target_turf.y
-	var/z = target_turf.z
 
 	if(istext(range))
 		range = max(getviewsize(range)[1], getviewsize(range)[2])
