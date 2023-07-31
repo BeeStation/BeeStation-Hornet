@@ -38,6 +38,8 @@
 #define UNIT_TEST_SKIPPED 2
 
 #define TEST_DEFAULT 1
+/// After most test steps, used for tests that run long so shorter issues can be noticed faster
+#define TEST_LONGER 10
 #define TEST_DEL_WORLD INFINITY
 
 /// A trait source when adding traits through unit tests
@@ -45,6 +47,7 @@
 
 #include "achievement_validation.dm"
 #include "anchored_mobs.dm"
+#include "area_contents.dm"
 #include "check_adjustable_clothing.dm"
 #include "closets.dm"
 #include "component_tests.dm"

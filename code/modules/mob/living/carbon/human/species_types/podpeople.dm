@@ -50,9 +50,9 @@
 		return TRUE
 	return ..()
 
-/datum/species/pod/on_hit(obj/item/projectile/P, mob/living/carbon/human/H)
+/datum/species/pod/on_hit(obj/projectile/P, mob/living/carbon/human/H)
 	switch(P.type)
-		if(/obj/item/projectile/energy/floramut)
+		if(/obj/projectile/energy/floramut)
 			if(prob(15))
 				H.rad_act(rand(30,80))
 				H.Paralyze(100)
@@ -66,5 +66,5 @@
 			else
 				H.adjustFireLoss(rand(5,15))
 				H.show_message("<span class='userdanger'>The radiation beam singes you!</span>")
-		if(/obj/item/projectile/energy/florayield)
+		if(/obj/projectile/energy/florayield)
 			H.set_nutrition(min(H.nutrition+30, NUTRITION_LEVEL_FULL))

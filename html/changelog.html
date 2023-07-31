@@ -56,6 +56,65 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">31 July 2023</h2>
+			<h3 class="author"> updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed Radstation's air mixer settings</li>
+				<li class="bugfix">Air alarm placed in correct spot in exploration preparation room</li>
+				<li class="bugfix">Fixed air in telecommunications control room.</li>
+			</ul>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">LOOC is much less janky now. You can properly both hear LOOC as a ghost, and both hear and talk on LOOC while inside another object (including cases such as split personalities, recalled holoparasites, desynchronized mobs, jaunting mobs)!</li>
+			</ul>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added the ability to change the name and description of Pill Bottles with a pen.</li>
+			</ul>
+			<h3 class="author">HowToLoLu updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">The SlimeLink Action Buttons no longer linger or pile up when changing between species</li>
+			</ul>
+			<h3 class="author">JixS4v updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">H.O.N.K. mechs can now detach weapons</li>
+				<li class="bugfix">BCI components are now able to be printed</li>
+				<li class="tweak">Separates BCI-related circuits into a new techweb node</li>
+				<li class="rscadd">Adds the thought listener component for BCIs</li>
+				<li class="rscadd">Adds a rotation component to the object overlay on BCIs</li>
+			</ul>
+			<h3 class="author">LemonInTheDark, itsmeow, Ghommie, Dennok updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Optimized maploading, ruin generation, and cave generation, saving ~8sec init time.</li>
+				<li class="code_imp">Optimized ChangeTurf.</li>
+				<li class="code_imp">Optimized getting area contents in some cases, although there are still many inefficient `in area` loops to clean up.</li>
+				<li class="bugfix">Fixed atom init sometimes failing when generating in round or during unit tests.</li>
+			</ul>
+			<h3 class="author">RKz updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Kills obj/item/projectile in favour of obj/projectile. No ingame effect, just free overhead.</li>
+			</ul>
+			<h3 class="author">RKz, Rohesie, Cobby updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">makes incapacitation into a trait</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Removed unnecessary atmos init during terrain generation, saving 250ms init.</li>
+				<li class="code_imp">Removed unnecessary icon update during transit turf creation, saving 25ms init.</li>
+			</ul>
+			<h3 class="author">mystery3525 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">radstation scimaint and medmaint has been split into more separate maintenance areas, these places were massive and non-contiguous.</li>
+				<li class="balance">radstation armory no longer has its own backup SMES</li>
+				<li class="balance">radstation no longer has random shock grilles for lower-security areas such as maintenance, tool storage, chemistry, and medbay (really?)</li>
+				<li class="bugfix">radstation cables now prefer to pass through doors versus windows and machines.</li>
+			</ul>
+			<h3 class="author">wixoa, ike709 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Fixed stinky code involving aimed gun speed/damage modifiers</li>
+			</ul>
+
 			<h2 class="date">30 July 2023</h2>
 			<h3 class="author">Absolucy updated:</h3>
 			<ul class="changes bgimages16">
@@ -63,6 +122,7 @@
 				<li class="tweak">Lighting of ALL areas accessible by roundstart crewmembers (taking into account minimal or skeleton crew access) will be switched on at roundstart.</li>
 				<li class="tweak">The bar and cafeteria now have their lights always switched on at roundstart, due to the fact they often serve as public crew gathering places, even if there is no bartender/chef tending to them.</li>
 				<li class="spellcheck">Fixed a couple of typos in some area names.</li>
+				<li class="tweak">Sound synthesizers now have a proper cooldown, preventing them from playing overlapping sounds.</li>
 			</ul>
 			<h3 class="author">EvilDragonfiend updated:</h3>
 			<ul class="changes bgimages16">
@@ -78,6 +138,11 @@
 			<ul class="changes bgimages16">
 				<li class="balance">Syndicate teleporter has been reworked. It will no longer teleport through solid walls but will be more effective at knocking down targets in a combat scenario, as it will knock down any targets passed through during a teleport. It can be used to jump through windows without being shocked. The price has been reduced from 8 TC to 7.</li>
 				<li class="rscdel">Removes help intent disabling blocking.</li>
+			</ul>
+			<h3 class="author">Rukofamicom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Package Wrap (and by extension gift wrap) no longer works on gigantic objects</li>
+				<li class="bugfix">fixed an exploit that enabled bluespace capsules to carry things it was not intended to carry. They are intended to carry items that can be placed within a normal backpack.</li>
 			</ul>
 			<h3 class="author">itsmeow updated:</h3>
 			<ul class="changes bgimages16">
@@ -1056,37 +1121,6 @@
 			<h3 class="author">EvilDragonfiend updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="bugfix">Fixed orbit panel shows a mob twice</li>
-			</ul>
-
-			<h2 class="date">29 May 2023</h2>
-			<h3 class="author">Absolucy updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Re-added tooltips to the R&D console, so you can now actually see what you're researching!</li>
-			</ul>
-			<h3 class="author">BeeLover66 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Trash recycler now works</li>
-			</ul>
-			<h3 class="author">Isy232 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">Donator purchasable gangster jumpsuit no longer has armour values.</li>
-			</ul>
-			<h3 class="author">PestoVerde322 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">Removed Pubby station off the rotation</li>
-				<li class="rscdel">Removed Glow station off the rotation</li>
-			</ul>
-			<h3 class="author">RKz, Timberpoes updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">reagent food runtime when microwaving</li>
-			</ul>
-			<h3 class="author">St0rmC4st3r updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">You can now pull out a lighter from a cigarette pack by using Ctrl+Click.</li>
-			</ul>
-			<h3 class="author">ss13-beebot updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="server">TGS DMAPI bumped to 6.4.4</li>
 			</ul>
 		</div>
 
