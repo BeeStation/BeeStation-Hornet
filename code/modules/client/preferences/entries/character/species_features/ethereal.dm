@@ -29,6 +29,13 @@
 
 	return values
 
+/datum/preference/choiced/ethereal_color/deserialize(input, datum/preferences/preferences)
+	if(findtext(input, GLOB.is_color_nocrunch)) // Migrate old data
+		var/valid = assoc_key_for_value(GLOB.color_list_ethereal, lowertext(input))
+		if(!isnull(valid))
+			return valid
+	return ..()
+
 /datum/preference/choiced/ethereal_color/apply_to_human(mob/living/carbon/human/target, value)
 	target.dna.features["ethcolor"] = GLOB.color_list_ethereal[value]
 

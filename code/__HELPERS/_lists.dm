@@ -686,6 +686,20 @@
 		keys += key
 	return keys
 
+/// Checks if a value is contained in an associative list's values
+/proc/assoc_contains_value(list/input, check_for)
+	for(var/key in input)
+		if(input[key] == check_for)
+			return TRUE
+	return FALSE
+
+/// Gets the first key that contains the given value in an associative list, otherwise, returns null.
+/proc/assoc_key_for_value(list/input, check_for)
+	for(var/key in input)
+		if(input[key] == check_for)
+			return key
+	return null
+
 /proc/compare_list(list/l,list/d)
 	if(!islist(l) || !islist(d))
 		return FALSE
