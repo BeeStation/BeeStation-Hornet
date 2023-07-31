@@ -101,7 +101,7 @@
 	return
 
 
-/obj/machinery/am_shielding/bullet_act(obj/item/projectile/Proj)
+/obj/machinery/am_shielding/bullet_act(obj/projectile/Proj)
 	. = ..()
 	if(Proj.armor_flag != BULLET)
 		stability -= Proj.force/2
