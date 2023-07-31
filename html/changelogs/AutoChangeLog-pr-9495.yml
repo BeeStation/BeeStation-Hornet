@@ -1,0 +1,4 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - bugfix: Fixed the Scientist crew objective targeting roundstart researched designs
