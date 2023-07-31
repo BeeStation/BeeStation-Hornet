@@ -1,6 +1,0 @@
-author: ''
-delete-after: true
-changes:
-  - bugfix: Fixed Radstation's air mixer settings
-  - bugfix: Air alarm placed in correct spot in exploration preparation room
-  - bugfix: Fixed air in telecommunications control room.
