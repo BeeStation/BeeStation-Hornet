@@ -40,6 +40,7 @@
 #include "code\__DEFINES\atmospherics.dm"
 #include "code\__DEFINES\atom_hud.dm"
 #include "code\__DEFINES\balloon_alert.dm"
+#include "code\__DEFINES\bans.dm"
 #include "code\__DEFINES\bitfields.dm"
 #include "code\__DEFINES\blood.dm"
 #include "code\__DEFINES\bodyparts.dm"
