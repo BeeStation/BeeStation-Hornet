@@ -1,0 +1,5 @@
+author: HowToLoLu
+delete-after: true
+changes:
+  - bugfix: The SlimeLink Action Buttons no longer linger or pile up when changing
+      between species
