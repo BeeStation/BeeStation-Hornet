@@ -1,0 +1,7 @@
+author: itsmeow
+delete-after: true
+changes:
+  - code_imp: Removed unnecessary atmos init during terrain generation, saving 250ms
+      init.
+  - code_imp: Removed unnecessary icon update during transit turf creation, saving
+      25ms init.
