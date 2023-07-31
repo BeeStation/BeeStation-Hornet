@@ -244,7 +244,9 @@
 // returns 1 if shocked, 0 otherwise
 
 /obj/structure/grille/proc/shock(mob/user, prb)
-	if(!anchored || broken)		// anchored/broken grilles are never connected
+	if(!COOLDOWN_FINISHED(user, grilleshock_immunity))
+		return FALSE
+	if(!anchored || broken) // anchored/broken grilles are never connected
 		return FALSE
 	if(!prob(prb))
 		return FALSE
@@ -254,6 +256,7 @@
 	var/obj/structure/cable/C = T.get_cable_node()
 	if(C)
 		if(electrocute_mob(user, C, src, 1, TRUE))
+			COOLDOWN_START(user, grilleshock_immunity, 1 SECONDS)
 			var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 			s.set_up(3, 1, src)
 			s.start()
