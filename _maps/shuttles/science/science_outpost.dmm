@@ -39,7 +39,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/toy/plush/moth/random,
 /turf/open/floor/mineral/titanium/purple,
 /area/shuttle/science)
 "o" = (
@@ -92,17 +91,8 @@
 "y" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/science)
-"z" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/science)
 "A" = (
 /obj/machinery/modular_computer/console/preset/research,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/science)
-"F" = (
-/obj/effect/turf_decal/box,
-/obj/machinery/portable_atmospherics/canister/air,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
 "H" = (
@@ -124,7 +114,7 @@
 /turf/open/floor/mineral/titanium/purple,
 /area/shuttle/science)
 "N" = (
-/obj/structure/tank_dispenser,
+/obj/structure/tank_dispenser/oxygen,
 /turf/open/floor/mineral/titanium/purple,
 /area/shuttle/science)
 "Q" = (
@@ -137,7 +127,7 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
 "T" = (
-/obj/machinery/door/airlock/titanium,
+/obj/machinery/door/airlock/titanium/glass,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
 
@@ -157,7 +147,7 @@ d
 c
 S
 K
-y
+t
 N
 h
 o
@@ -179,10 +169,10 @@ d
 A
 Q
 S
-z
+T
 S
 J
-F
+J
 y
 "}
 (5,1,1) = {"
@@ -190,7 +180,7 @@ d
 n
 x
 s
-z
+t
 K
 J
 u
