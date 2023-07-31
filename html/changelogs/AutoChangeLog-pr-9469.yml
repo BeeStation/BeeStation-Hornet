@@ -1,0 +1,10 @@
+author: LemonInTheDark, itsmeow, Ghommie, Dennok
+delete-after: true
+changes:
+  - code_imp: Optimized maploading, ruin generation, and cave generation, saving ~8sec
+      init time.
+  - code_imp: Optimized ChangeTurf.
+  - code_imp: Optimized getting area contents in some cases, although there are still
+      many inefficient `in area` loops to clean up.
+  - bugfix: Fixed atom init sometimes failing when generating in round or during unit
+      tests.
