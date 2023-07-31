@@ -4,9 +4,13 @@
 	. = ..()
 	if(!isturf(target))
 		return ELEMENT_INCOMPATIBLE
+	#ifdef TESTING
+	// This is a highly used proc, and these error states never occur, so limit it to testing.
+	// If something goes wrong it will runtime anyway.
 	if(!target_turf || !istype(target_turf) || !direction)
-		. = ELEMENT_INCOMPATIBLE
-		CRASH("[type] improperly attached with the following args: target=\[[target_turf]\], direction=\[[direction]\], range=\[[range]\]")
+		stack_trace("[type] improperly attached with the following args: target=\[[target_turf]\], direction=\[[direction]\], range=\[[range]\]")
+		return ELEMENT_INCOMPATIBLE
+	#endif
 
 	var/atom/movable/mirage_holder/holder = new(target)
 
@@ -17,11 +21,10 @@
 	if(istext(range))
 		range = max(getviewsize(range)[1], getviewsize(range)[2])
 
-	var/turf/southwest = locate(CLAMP(x - (direction & WEST ? range : 0), 1, world.maxx), CLAMP(y - (direction & SOUTH ? range : 0), 1, world.maxy), CLAMP(z, 1, world.maxz))
-	var/turf/northeast = locate(CLAMP(x + (direction & EAST ? range : 0), 1, world.maxx), CLAMP(y + (direction & NORTH ? range : 0), 1, world.maxy), CLAMP(z, 1, world.maxz))
-	//holder.vis_contents += block(southwest, northeast) // This doesnt work because of beta bug memes
-	for(var/i in block(southwest, northeast))
-		holder.vis_contents += i
+	var/z = clamp(target_turf.z, 1, world.maxz)
+	var/turf/southwest = locate(clamp(x - (direction & WEST ? range : 0), 1, world.maxx), clamp(y - (direction & SOUTH ? range : 0), 1, world.maxy), z)
+	var/turf/northeast = locate(clamp(x + (direction & EAST ? range : 0), 1, world.maxx), clamp(y + (direction & NORTH ? range : 0), 1, world.maxy), z)
+	holder.vis_contents += block(southwest, northeast)
 	if(direction & SOUTH)
 		holder.pixel_y -= world.icon_size * range
 	if(direction & WEST)
