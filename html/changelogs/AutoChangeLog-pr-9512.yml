@@ -1,0 +1,5 @@
+author: BriggsIDP
+delete-after: true
+changes:
+  - tweak: Foliage HP decreased
+  - tweak: Tree sprite shadows removed
