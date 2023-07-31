@@ -135,7 +135,6 @@
 	if(!dirty_undatumized_preferences_player) // Nothing to write. Call it a success.
 		return TRUE
 	dirty_undatumized_preferences_player = FALSE // we edit this immediately, since the DB query sleeps, the var could be modified during the sleep.
-	to_chat(parent, "<span class='notice'>Writing player undatumized</span>") // debug tgui-prefs
 	var/list/datum/DBQuery/write_queries = list() // do not rename this you muppet
 
 	PREP_WRITEPREF_STR(default_slot, PREFERENCE_TAG_DEFAULT_SLOT)
@@ -277,7 +276,6 @@
 	if(!dirty_undatumized_preferences_character) // Nothing to write. Call it a success.
 		return TRUE
 	dirty_undatumized_preferences_character = FALSE // we edit this immediately, since the DB query sleeps, the var could be modified during the sleep.
-	to_chat(parent, "<span class='notice'>Writing character undatumized</span>") // debug tgui-prefs
 
 	// DO NOT RENAME THESE LISTS! THANKS!! <3
 	var/list/column_names = list()

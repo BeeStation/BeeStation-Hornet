@@ -29,10 +29,8 @@ SUBSYSTEM_DEF(preferences)
 			continue
 		if(prefs.ready_to_save_character())
 			prefs.save_character()
-			to_chat(prefs.parent, "<span class='notice'>Character preferences saved!</span>") // debug tgui-prefs
 		if(prefs.ready_to_save_player())
 			prefs.save_preferences()
-			to_chat(prefs.parent, "<span class='notice'>Player preferences saved!</span>") // debug tgui-prefs
 		datums -= ckey
 		prefs.ui_update() // for queue preview
 		if (MC_TICK_CHECK)
