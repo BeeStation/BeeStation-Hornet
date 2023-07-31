@@ -46,6 +46,7 @@
 	if(QDELETED(src) || !user || magnification || user.stat)
 		return
 	if(user.key || (src != user.head)) //Something important about the monkey changed, abort
+		user.visible_message("<span class='notice'>[src] powers down!</span>")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 		return
 	if(!candidates.len)
@@ -73,12 +74,12 @@
 	if(!magnification)
 		return
 	UnregisterSignal(magnification, COMSIG_MIND_TRANSFER_TO)
-	if(!current)
-		current = magnification.current //In case we weren't called by COMSIG_MIND_TRANSFER_TO
+	current = current || magnification.current //In case we weren't called by COMSIG_MIND_TRANSFER_TO
+	if (!current) //Something has gone *really* wrong if this happens
+		CRASH("A mind registered to a monkey sentience helmet doesn't have a current mob while disconnecting!")
 	magnification = null
 	to_chat(current, "<span class='userdanger'>You feel your flicker of sentience ripped away from you, as everything becomes dim...</span>")
-	if (current)
-		current.ghostize(FALSE)
+	current.ghostize(FALSE)
 
 	if(QDELING(src)) //The rest of this is stuff that would be pointless if we're being destroyed
 		return
