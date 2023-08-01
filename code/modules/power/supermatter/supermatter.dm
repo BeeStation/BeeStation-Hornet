@@ -506,7 +506,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		l.hallucination += power * config_hallucination_power * D
 		l.hallucination = CLAMP(0, 200, l.hallucination)
 
-	// Updates the displacement effect
+	// Checks if the status has changed, in order to update the displacement effect
 	var/current_status = get_status()
 	if(current_status != last_status)
 		last_status = current_status
