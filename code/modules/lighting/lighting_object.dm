@@ -36,7 +36,7 @@
 			stack_trace("A lighting object was qdeleted with a different loc then it is suppose to have ([COORD(oldturf)] -> [COORD(newturf)])")
 		if (isturf(myturf))
 			myturf.lighting_object = null
-			myturf.luminosity = 1
+			myturf.luminosity = initial(myturf.luminosity)
 		myturf = null
 
 		return ..()
