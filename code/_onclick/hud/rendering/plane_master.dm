@@ -108,7 +108,6 @@
 	. = ..()
 	mymob.overlay_fullscreen("lighting_backdrop_lit", /atom/movable/screen/fullscreen/lighting_backdrop/lit)
 	mymob.overlay_fullscreen("lighting_backdrop_unlit", /atom/movable/screen/fullscreen/lighting_backdrop/unlit)
-	mymob.overlay_fullscreen("starlight_overlay", /atom/movable/screen/fullscreen/starlight_overlay)
 
 /atom/movable/screen/plane_master/lighting/Initialize(mapload)
 	. = ..()
@@ -123,8 +122,8 @@
 	name = "starlight plane master"
 	plane = STARLIGHT_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	render_target = STARLIGHT_RENDER_TARGET
-	render_relay_plane = null
+	render_relay_plane = LIGHTING_PLANE
+	blend_mode_override = BLEND_OVERLAY
 	color = "#bcdaf7"
 
 /atom/movable/screen/plane_master/starlight/Initialize(mapload)

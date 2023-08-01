@@ -110,7 +110,6 @@
 
 /// The plane for managing the global starlight effect
 #define STARLIGHT_PLANE 105
-#define STARLIGHT_RENDER_TARGET "*STARLIGHT_PLANE"
 
 ///Lighting objects that are "free floating"
 #define O_LIGHTING_VISUAL_PLANE 110
