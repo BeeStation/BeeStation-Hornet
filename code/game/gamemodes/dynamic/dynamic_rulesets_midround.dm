@@ -925,4 +925,4 @@
 /datum/dynamic_ruleset/midround/from_ghosts/ninja/finish_setup(mob/new_character, index)
 	. = ..()
 	// Set their job in addition to their antag role to be a space ninja for logging purposes
-	new_character.assigned_role = antag_flag
+	new_character.mind.assigned_role = antag_flag
