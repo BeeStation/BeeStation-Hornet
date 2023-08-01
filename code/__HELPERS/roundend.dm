@@ -307,19 +307,24 @@
 	CHECK_TICK
 	log_world("\[reboot debug\] CHECK_TICK F+")
 	SSdbcore.SetRoundEnd()
+	log_world("\[reboot debug\] CHECK_TICK F+ 1")
 	//Collects persistence features
 	if(mode.allow_persistence_save)
 		SSpersistence.CollectData()
+	log_world("\[reboot debug\] CHECK_TICK F+ 2")
 
 	//stop collecting feedback during grifftime
 	SSblackbox.Seal()
+	log_world("\[reboot debug\] CHECK_TICK F+ 3")
 
 	if(CONFIG_GET(flag/automapvote))
 		if((world.time - SSticker.round_start_time) >= (CONFIG_GET(number/automapvote_threshold) MINUTES))
 			SSvote.initiate_vote("map", "BeeBot", forced=TRUE, popup=TRUE) //automatic map voting
+	log_world("\[reboot debug\] CHECK_TICK F+ 4")
 
 	sleep(50)
 	ready_for_reboot = TRUE
+	log_world("\[reboot debug\] CHECK_TICK F+ 5")
 	standard_reboot()
 
 /datum/controller/subsystem/ticker/proc/standard_reboot()
