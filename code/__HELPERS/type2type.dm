@@ -485,6 +485,36 @@ Takes a string and a datum. The string is well, obviously the string being check
 	var/B = hex2num(copytext(A, 6, 8))
 	return R+G+B
 
+/proc/color_red(colour)
+	if (copytext(colour, 1, 2) == "#")
+		colour = copytext(colour, 2)
+	if (length(colour) == 3)
+		return hex2num(copytext(colour, 1, 2)) * 16
+	else if(length(colour) == 6)
+		return hex2num(copytext(colour, 1, 3))
+	else
+		return 0
+
+/proc/color_green(colour)
+	if (copytext(colour, 1, 2) == "#")
+		colour = copytext(colour, 2)
+	if (length(colour) == 3)
+		return hex2num(copytext(colour, 2, 3)) * 16
+	else if(length(colour) == 6)
+		return hex2num(copytext(colour, 3, 5))
+	else
+		return 0
+
+/proc/color_blue(colour)
+	if (copytext(colour, 1, 2) == "#")
+		colour = copytext(colour, 2)
+	if (length(colour) == 3)
+		return hex2num(copytext(colour, 3, 4)) * 16
+	else if(length(colour) == 6)
+		return hex2num(copytext(colour, 5, 7))
+	else
+		return 0
+
 //word of warning: using a matrix like this as a color value will simplify it back to a string after being set
 /proc/color_hex2color_matrix(string)
 	var/length = length(string)

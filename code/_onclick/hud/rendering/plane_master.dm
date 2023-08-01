@@ -108,11 +108,52 @@
 	. = ..()
 	mymob.overlay_fullscreen("lighting_backdrop_lit", /atom/movable/screen/fullscreen/lighting_backdrop/lit)
 	mymob.overlay_fullscreen("lighting_backdrop_unlit", /atom/movable/screen/fullscreen/lighting_backdrop/unlit)
+	mymob.overlay_fullscreen("starlight_overlay", /atom/movable/screen/fullscreen/starlight_overlay)
 
 /atom/movable/screen/plane_master/lighting/Initialize(mapload)
 	. = ..()
 	add_filter("emissives", 1, alpha_mask_filter(render_source = EMISSIVE_RENDER_TARGET, flags = MASK_INVERSE))
 	add_filter("lighting", 3, alpha_mask_filter(render_source = O_LIGHTING_VISUAL_RENDER_TARGET, flags = MASK_INVERSE))
+
+/**
+ * Renders extremely blurred white stuff over space to give the effect of starlight lighting.
+ */
+
+/atom/movable/screen/plane_master/starlight
+	name = "starlight plane master"
+	plane = STARLIGHT_PLANE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	render_target = STARLIGHT_RENDER_TARGET
+	render_relay_plane = null
+	color = "#bcdaf7"
+
+/atom/movable/screen/plane_master/starlight/Initialize(mapload)
+	. = ..()
+	add_filter("guassian_blur", 1, gauss_blur_filter(6))
+	// Default the colour to whatever the parallax is currently
+	transition_colour(src, SSparallax.random_parallax_color, 0, FALSE)
+	// Transition the colour to whatever the global tells us to go to
+	RegisterSignal(SSdcs, COMSIG_GLOB_PARALLAX_COLOUR_CHANGE, PROC_REF(transition_colour))
+
+/atom/movable/screen/plane_master/starlight/backdrop(mob/mymob)
+	. = ..()
+	mymob.overlay_fullscreen("starlight_backdrop", /atom/movable/screen/fullscreen/lighting_backdrop/starlight)
+
+/atom/movable/screen/plane_master/starlight/proc/transition_colour(datum/source, new_colour, transition_time = 5 SECONDS, force_colour = FALSE)
+	SIGNAL_HANDLER
+	if (force_colour)
+		animate(src, time = transition_time, color = new_colour)
+		return
+	var/red = color_red(new_colour)
+	var/green = color_green(new_colour)
+	var/blue = color_blue(new_colour)
+	var/list/hsl = rgb2hsl(red, green, blue)
+	hsl[2] = max(hsl[2], 0.71)
+	hsl[3] = max(hsl[3], 0.9)
+	var/lighting_colour = hsl2rgb(hsl[1], hsl[2], hsl[3])
+	// Ensure high lightness and low saturation
+	animate(src, time = transition_time, color = lighting_colour)
+
 /**
   * Things placed on this mask the lighting plane. Doesn't render directly.
   *

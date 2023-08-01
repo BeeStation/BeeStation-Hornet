@@ -178,6 +178,27 @@
 	layer = BACKGROUND_LAYER+20
 	show_when_dead = TRUE
 
+/// Provides a black background to the starlight layer
+/atom/movable/screen/fullscreen/lighting_backdrop/starlight
+	layer = BACKGROUND_LAYER+21
+	plane = STARLIGHT_PLANE
+	show_when_dead = TRUE
+	color = "#000"
+
+/atom/movable/screen/fullscreen/starlight_overlay
+	render_source = STARLIGHT_RENDER_TARGET
+	plane = LIGHTING_PLANE
+	// Overlay seems to work better due to being able to transition lighting
+	// without over-exposure in the transition period
+	blend_mode = BLEND_OVERLAY
+	appearance_flags = NO_CLIENT_COLOR
+	show_when_dead = TRUE
+	screen_loc = "CENTER,CENTER"
+
+/atom/movable/screen/fullscreen/starlight_overlay/update_for_view(client_view)
+	// We automatically scale to the view due to being rendered from a plane.
+	return
+
 /atom/movable/screen/fullscreen/see_through_darkness
 	icon_state = "nightvision"
 	plane = LIGHTING_PLANE
