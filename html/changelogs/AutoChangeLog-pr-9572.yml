@@ -1,0 +1,5 @@
+author: Absolucy
+delete-after: true
+changes:
+  - bugfix: Fixed admins seeing LOOC message senders as themselves rather the actual
+      sender
