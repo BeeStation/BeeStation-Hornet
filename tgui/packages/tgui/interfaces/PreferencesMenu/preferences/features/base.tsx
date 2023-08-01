@@ -4,11 +4,11 @@ import { createComponentVNode } from 'inferno';
 import type { InfernoNode, ComponentType } from 'inferno';
 import { VNodeFlags } from 'inferno-vnode-flags';
 import { sendAct, useBackend, useLocalState } from '../../../../backend';
-import { Box, Button, Dropdown, Icon, Input, NumberInput, Stack, Flex, Tooltip } from '../../../../components';
+import { Box, Button, Dropdown, Input, NumberInput, Stack, Flex, Tooltip } from '../../../../components';
 import { createSetPreference, PreferencesMenuData } from '../../data';
 import { ServerPreferencesFetcher } from '../../ServerPreferencesFetcher';
 import features from '.';
-import { DropdownOptionalProps, DropdownProps } from 'tgui/components/Dropdown';
+import { DropdownOptionalProps } from 'tgui/components/Dropdown';
 
 export const sortChoices = sortBy<[string, InfernoNode]>(([name]) => name);
 

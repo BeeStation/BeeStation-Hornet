@@ -1,6 +1,6 @@
 import { binaryInsertWith, sortBy } from 'common/collections';
 import { useLocalState } from '../../backend';
-import { Box, Button, FitText, Icon, Input, LabeledList, Modal, Section, Stack, TrackOutsideClicks } from '../../components';
+import { Button, FitText, Icon, Input, LabeledList, Modal, Section, Stack, TrackOutsideClicks } from '../../components';
 import { Name } from './data';
 import { ServerPreferencesFetcher } from './ServerPreferencesFetcher';
 

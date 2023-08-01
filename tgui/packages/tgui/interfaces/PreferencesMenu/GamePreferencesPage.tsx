@@ -1,6 +1,6 @@
 import { binaryInsertWith, sortBy } from 'common/collections';
 import { useLocalState } from '../../backend';
-import type { Inferno, InfernoNode } from 'inferno';
+import type { InfernoNode } from 'inferno';
 import { useBackend } from '../../backend';
 import { Box, Flex, Tooltip, Input, Icon } from '../../components';
 import { PreferencesMenuData } from './data';

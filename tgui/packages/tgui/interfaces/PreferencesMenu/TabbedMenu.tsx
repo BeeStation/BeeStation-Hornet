@@ -1,6 +1,6 @@
 import { Component, createRef, RefObject } from 'inferno';
 import type { InfernoNode } from 'inferno';
-import { Button, Section, Stack, Flex } from '../../components';
+import { Button, Stack, Flex } from '../../components';
 import { FlexProps } from '../../components/Flex';
 import { CollapsibleSection } from 'tgui/components/CollapsibleSection';
 
