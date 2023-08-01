@@ -1,0 +1,6 @@
+author: AgentCitrus, kit-katz
+delete-after: true
+changes:
+  - rscadd: 'A visual upgrade for the supermatter: a displacement effect that worsens
+      with damage, particles, a new delamination animation, and a subtle distortion
+      effect left behind after a delamination'
