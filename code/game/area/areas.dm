@@ -134,6 +134,9 @@
 	/// Whether the lights in this area aren't turned off when it's empty at roundstart
 	var/lights_always_start_on = FALSE
 
+	///The areas specific color correction
+	var/list/color_correction = list(rgb(255, 0, 0), rgb(0, 255, 0), rgb(0, 0, 255))
+
 /**
   * A list of teleport locations
   *

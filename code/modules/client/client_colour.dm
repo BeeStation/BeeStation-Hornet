@@ -208,6 +208,30 @@
 	..()
 	addtimer(CALLBACK(src, PROC_REF(update_colour), list(1,0,0,0.8,0.2,0, 0.8,0,0.2,0.1,0,0), 10, SINE_EASING|EASE_OUT), 1)
 
+/datum/client_colour/test
+	colour = list(rgb(55, 100, 100), rgb(100,55,100), rgb(100,100,55), rgb(0,0,0))
+	override = TRUE
+	fade_in = 1
+	fade_out = 1
+
+/proc/mob_color_correction(mob/target, list/a_matrix)
+	var/atom/movable/screen/plane_master/game_world/GM = locate(/atom/movable/screen/plane_master/game_world) in target.client?.screen
+	var/atom/movable/screen/plane_master/floor/GF = locate(/atom/movable/screen/plane_master/floor) in target.client?.screen
+	if(!GM || !GF)
+		return
+	
+	var/list/c_matrix = a_matrix
+	if(!a_matrix)
+		c_matrix = list()
+		for(var/i in 1 to 3)
+			c_matrix += input(target,"","Choose Color for red component","#fff") as color|null
+
+		GM.remove_filter("color_m")
+		GM.add_filter("color_m", 1.3, color_matrix_filter(c_matrix, FILTER_COLOR_RGB))
+
+		GF.remove_filter("color_m")
+		GF.add_filter("color_m", 1.3, color_matrix_filter(c_matrix, FILTER_COLOR_RGB))
+
 #undef PRIORITY_ABSOLUTE
 #undef PRIORITY_HIGH
 #undef PRIORITY_NORMAL

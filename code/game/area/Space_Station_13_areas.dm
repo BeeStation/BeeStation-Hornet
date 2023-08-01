@@ -976,6 +976,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_tube = "#e7f8ff"
 	lighting_colour_bulb = "#d5f2ff"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
+	//Medbay appears colder
+	color_correction = list(rgb(245, 0, 10), rgb(0, 250, 5), rgb(0, 0, 255))
 
 /area/medical/medbay/zone2
 	name = "Medbay"
