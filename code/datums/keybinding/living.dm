@@ -93,9 +93,7 @@
 
 /datum/keybinding/living/primary_species_action/down(client/user)
 	. = ..()
-	if(.)
-		return
-	if(!iscarbon(user.mob)) 
+	if(. || !iscarbon(user.mob)) 
 		return
 	var/mob/living/carbon/L = user.mob
 	L.dna.species.primary_species_action()

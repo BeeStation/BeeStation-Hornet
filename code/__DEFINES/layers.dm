@@ -21,12 +21,6 @@
 #define FLOOR_PLANE -7
 #define GAME_PLANE -4
 
-#define PSYCHIC_PLANE 550 //Plane for psyphoza highlights
-#define PSYCHIC_PLANE_RENDER_TARGET "PSYCHIC_PLANE"
-
-#define PSYCHIC_WALL_PLANE 551
-#define PSYCHIC_WALL_PLANE_RENDER_TARGET "PSYCHIC_WALL_PLANE"
-
 #define SPACE_LAYER 1.8
 //#define TURF_LAYER 2 //For easy recordkeeping; this is a byond define
 #define MID_TURF_LAYER 2.02
@@ -157,6 +151,15 @@
 #define BLIND_LAYER 4
 #define CRIT_LAYER 5
 #define CURSE_LAYER 6
+
+//Snowflake layers for psyphoza features
+
+//Plane for highlighting objects
+#define PSYCHIC_PLANE 550
+#define PSYCHIC_PLANE_RENDER_TARGET "PSYCHIC_PLANE"
+//Plane for highlighting walls
+#define PSYCHIC_WALL_PLANE 551
+#define PSYCHIC_WALL_PLANE_RENDER_TARGET "PSYCHIC_WALL_PLANE"
 
 
 //-------------------- Rendering ---------------------

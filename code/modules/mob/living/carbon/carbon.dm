@@ -594,6 +594,8 @@
 	var/obj/item/organ/eyes/E = getorganslot(ORGAN_SLOT_EYES)
 	if(E)
 		. += E.tint
+	else
+		. += INFINITY
 
 //this handles hud updates
 /mob/living/carbon/update_damage_hud()

@@ -12,32 +12,27 @@
 
 #define TK_MAXRANGE 15
 
-/atom/proc/attack_tk(mob/user, is_weak = FALSE)
-	if(user.stat || !tkMaxRangeCheck(user, src) || is_weak)
+/atom/proc/attack_tk(mob/user)
+	if(user.stat || !tkMaxRangeCheck(user, src))
 		return
 	new /obj/effect/temp_visual/telekinesis(get_turf(src))
 	user.UnarmedAttack(src,0) // attack_hand, attack_paw, etc
 	add_hiddenprint(user)
 	return
 
-/obj/attack_tk(mob/user, is_weak = FALSE)
+/obj/attack_tk(mob/user)
 	if(user.stat)
 		return
 	if(anchored)
 		return ..()
-	attack_tk_grab(user, is_weak)
+	attack_tk_grab(user)
 
-/obj/item/attack_tk(mob/user, is_weak = FALSE)
+/obj/item/attack_tk(mob/user)
 	if(user.stat)
 		return
-	attack_tk_grab(user, is_weak)
+	attack_tk_grab(use)
 
-/obj/proc/attack_tk_grab(mob/user, is_weak = FALSE)
-	if(is_weak)
-		step(src, user.dir)
-		log_game("[user] weak-tk shoved [src] at [world.time]. Located at [AREACOORD(src)].")
-		new /obj/effect/temp_visual/telekinesis(get_turf(src))
-		return
+/obj/proc/attack_tk_grab(mob/user)
 	var/obj/item/tk_grab/O = new(src)
 	O.tk_user = user
 	if(O.focus_object(src))
