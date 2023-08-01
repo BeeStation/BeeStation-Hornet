@@ -248,7 +248,7 @@
 
 
 //basically stolen from human_defense.dm
-/obj/structure/mirror/bullet_act(obj/item/projectile/P)
+/obj/structure/mirror/bullet_act(obj/projectile/P)
 	if(P.reflectable & REFLECT_NORMAL)
 		if(P.starting)
 			var/new_x = P.starting.x + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)

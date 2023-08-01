@@ -423,7 +423,7 @@
 /obj/proc/dump_contents()
 	CRASH("Unimplemented.")
 
-/obj/handle_ricochet(obj/item/projectile/P)
+/obj/handle_ricochet(obj/projectile/P)
 	. = ..()
 	if(. && ricochet_damage_mod)
 		take_damage(P.damage * ricochet_damage_mod, P.damage_type, P.armor_flag, 0, turn(P.dir, 180), P.armour_penetration) // pass along ricochet_damage_mod damage to the structure for the ricochet

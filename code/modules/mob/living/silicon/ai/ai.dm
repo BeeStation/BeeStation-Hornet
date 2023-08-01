@@ -29,6 +29,7 @@
 	sec_hud = DATA_HUD_SECURITY_BASIC
 	d_hud = DATA_HUD_DIAGNOSTIC_ADVANCED
 	mob_size = MOB_SIZE_LARGE
+	radio = /obj/item/radio/headset/silicon/ai
 	var/battery = 200 //emergency power if the AI's APC is off
 	var/list/network = list("ss13")
 	var/list/connected_robots = list()
@@ -155,7 +156,6 @@
 	add_verb(/mob/living/silicon/ai/proc/show_laws_verb)
 
 	aiMulti = new(src)
-	radio = new /obj/item/radio/headset/silicon/ai(src)
 	aicamera = new/obj/item/camera/siliconcam/ai_camera(src)
 
 	deploy_action.Grant(src)
@@ -850,7 +850,7 @@
 /mob/living/silicon/ai/can_buckle()
 	return 0
 
-/mob/living/silicon/ai/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, check_immobilized = FALSE, ignore_stasis = FALSE)
+/mob/living/silicon/ai/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_stasis = FALSE)
 	if(aiRestorePowerRoutine)
 		return TRUE
 	return ..()

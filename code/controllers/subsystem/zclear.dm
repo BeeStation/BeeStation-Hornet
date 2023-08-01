@@ -332,10 +332,10 @@ SUBSYSTEM_DEF(zclear)
 			newT = T
 		else
 			newT = T.ChangeTurf(/turf/open/space, flags = CHANGETURF_IGNORE_AIR | CHANGETURF_DEFER_CHANGE)
+		var/area/old_area = newT.loc
 		if(!istype(newT.loc, /area/space))
 			var/area/newA = GLOB.areas_by_type[/area/space]
-			newA.contents += newT
-			newT.change_area(newT.loc, newA)
+			newT.change_area(old_area, newA)
 		newT.flags_1 &= ~NO_RUINS_1
 		new_turfs += newT
 	return new_turfs

@@ -1,0 +1,5 @@
+author: XeonMations, Dakae
+delete-after: true
+changes:
+  - rscadd: Sentient monkey helmets, orderable from cargo
+  - refactor: TRAIT_MONKEYLIKE is now TRAIT_DISCOORDINATED

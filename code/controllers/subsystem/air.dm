@@ -558,10 +558,9 @@ SUBSYSTEM_DEF(air)
 	LAZYREMOVE(paused_z_levels, z_level)
 
 /datum/controller/subsystem/air/proc/setup_allturfs()
-	var/list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz))
 	var/times_fired = ++src.times_fired
 
-	for(var/turf/T as anything in turfs_to_init)
+	for(var/turf/T as anything in ALL_TURFS())
 		if (!T.init_air)
 			continue
 		T.Initalize_Atmos(times_fired)
