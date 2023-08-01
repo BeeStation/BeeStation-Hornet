@@ -338,8 +338,8 @@
 			return TRUE
 		if("create")
 			var/amount = text2num(params["amount"])
-			if(amount > 100)
-				message_admins("[ADMIN_FLW(usr)] has attempted to create [amount] of [params["id"]] setting it to 10.")
+			if(amount > 10)
+				log_href_exploit(usr, " attempted to create [amount] of [params["id"]] in the biogenerator. Setting it to 10.")
 			amount = clamp(amount, 1, 10)
 			if(!amount)
 				return
