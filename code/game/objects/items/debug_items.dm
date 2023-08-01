@@ -287,8 +287,7 @@
 		TRAIT_MEDICAL_HUD,
 		TRAIT_SECURITY_HUD,
 		TRAIT_BARMASTER,
-		TRAIT_ALL_SURGERIES,
-		TRAIT_PERFECT_SURGEON,
+		TRAIT_SURGEON,
 		TRAIT_METALANGUAGE_KEY_ALLOWED
 	)
 
@@ -305,7 +304,7 @@
 	hud.add_hud_to(user)
 	hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
 	hud.add_hud_to(user)
-	
+
 	if(!isliving(user))
 		user.update_sight()
 		return

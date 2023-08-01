@@ -287,7 +287,7 @@
 /obj/machinery/photocopier/proc/make_paper_copy()
 	if(!paper_copy || !toner_cartridge)
 		return
-	var/copy_colour = toner_cartridge.charges > 10 ? COLOR_FULL_TONER_BLACK : COLOR_GRAY;
+	var/copy_colour = toner_cartridge.charges > 1 ? COLOR_FULL_TONER_BLACK : COLOR_GRAY;
 
 	var/obj/item/paper/copied_paper = paper_copy.copy(/obj/item/paper, loc, FALSE, copy_colour)
 

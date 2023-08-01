@@ -194,7 +194,7 @@ GLOBAL_LIST_INIT(master_particle_info, list())
 			target.modify_particle_value(params["new_data"]["name"], translate_value(params["new_data"]))
 			. = TRUE
 		if("modify_color_value")
-			var/new_color = input(usr, "Pick new particle color", "Particool Colors!") as color|null
+			var/new_color = tgui_color_picker(usr, "Pick new particle color", "Particool Colors!")
 			if(new_color)
 				target.modify_particle_value("color",new_color)
 				. = TRUE

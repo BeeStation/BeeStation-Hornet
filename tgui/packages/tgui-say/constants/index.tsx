@@ -95,4 +95,8 @@ export const RADIO_PREFIXES = {
     id: 'centcom',
     label: 'CCom',
   },
+  ':j ': {
+    id: 'slime',
+    label: 'Slime',
+  },
 } as const;
