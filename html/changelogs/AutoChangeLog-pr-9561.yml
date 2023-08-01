@@ -1,0 +1,5 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - bugfix: Revenants can no longer phase shift inside of dense objects! There was
+      a missing check which made this possible.
