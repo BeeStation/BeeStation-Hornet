@@ -165,7 +165,7 @@
 		sec_record.fields["criminal"] = status_to_set
 
 	if(successful_set > 0)
-		investigate_log("[parent.get_creator()] has set security records for '[names_of_entries.Join(", ")]' to [status_to_set] VIA CIRCUITS.", INVESTIGATE_RECORDS)
+		investigate_log("[parent.get_creator()] has set security records for '[names_of_entries.Join(", ")]' to [status_to_set] via circuits.", INVESTIGATE_RECORDS)
 		if(successful_set > COMP_SECURITY_ARREST_AMOUNT_TO_FLAG)
 			message_admins("[successful_set] security entries have been set to [status_to_set] by [parent.get_creator_admin()]. [ADMIN_COORDJMP(src)]")
 		for(var/mob/living/carbon/human/human as anything in GLOB.carbon_list)
