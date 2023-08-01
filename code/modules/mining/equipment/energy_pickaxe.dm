@@ -2,6 +2,7 @@
 	name = "energy pickaxe"
 	desc = "An charged pickaxe which uses energy to create a plasma surface, allowing it to cut through dense rock with ease."
 	icon_state = "energy_pick_base"
+	var/datum/energy_pick_upgrade/applied_upgrade
 	var/ready = TRUE
 	var/animation_played = FALSE
 	var/efficiency = 1
@@ -82,6 +83,16 @@
 	var/required_for_upgrade = 5
 	var/static/list/mineral_upgrades = list(
 		/obj/item/stack/sheet/iron = new /datum/energy_pick_upgrade/power,
+		/obj/item/stack/sheet/mineral/diamond = new /datum/energy_pick_upgrade/instant,
+		/obj/item/stack/sheet/mineral/uranium,
+		/obj/item/stack/sheet/mineral/plasma = new /datum/energy_pick_upgrade/charge,
+		/obj/item/stack/sheet/mineral/gold = new /datum/energy_pick_upgrade/efficiency,
+		/obj/item/stack/sheet/mineral/silver,
+		/obj/item/stack/sheet/mineral/copper = new /datum/energy_pick_upgrade/speed,
+		/obj/item/stack/sheet/mineral/titanium,
+		/obj/item/stack/ore/bluespace_crystal = new /datum/energy_pick_upgrade/radius,
+		/obj/item/stack/sheet/mineral/bananium,
+		/obj/item/stack/sheet/telecrystal
 	)
 
 /obj/machinery/energy_pickaxe_modification/attackby(obj/item/C, mob/user)
@@ -109,9 +120,28 @@
 			return
 		// Allow for inserting of the sheet
 		if (!(inserted_sheet.type in mineral_upgrades))
+			to_chat(user, "<span class='notice'>You cannot use [inserted_sheet] for upgrades.<span>")
+			return
+		if (inserted_sheet.amount <= 5)
+			user.temporarilyRemoveItemFromInventory(inserted_sheet)
+			inserted_sheet.forceMove(src)
+		else
+			inserted_sheet.use(5)
+			new inserted_sheet.type(src, 5)
+		return
 	if (istype(C, /obj/item/pickaxe/energy_pickaxe))
 		var/obj/item/pickaxe/energy_pickaxe/energy_pick = C
+		// Check for other pickaxes
+		if (locate(/obj/item/pickaxe/energy_pickaxe) in contents)
+			balloon_alert(user, "Upgrade station full")
+			return
+		user.temporarilyRemoveItemFromInventory(energy_pick)
+		energy_pick.forceMove(src)
+		return
 	..()
+
+/obj/machinery/energy_pickaxe_modification/attack_hand(mob/living/user)
+	// Activate the upgrader
 
 //===============================
 // Upgrades
@@ -140,6 +170,12 @@
 
 /datum/energy_pick_upgrade/power/remove(obj/item/pickaxe/energy_pickaxe/target)
 	target.mineral_damage -= 400
+
+/datum/energy_pick_upgrade/instant/apply(obj/item/pickaxe/energy_pickaxe/target)
+	target.mineral_damage += 1000
+
+/datum/energy_pick_upgrade/instant/remove(obj/item/pickaxe/energy_pickaxe/target)
+	target.mineral_damage -= 1000
 
 /datum/energy_pick_upgrade/radius/apply(obj/item/pickaxe/energy_pickaxe/target)
 	target.mining_radius ++
