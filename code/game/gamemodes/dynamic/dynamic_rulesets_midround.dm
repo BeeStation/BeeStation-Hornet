@@ -875,7 +875,7 @@
 /datum/dynamic_ruleset/midround/from_ghosts/ninja
 	name = "Space Ninja"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
-	antag_flag = ROLE_NINJA
+	role_preference = /datum/role_preference/midround_ghost/ninja
 	required_type = /mob/dead/observer
 	antag_datum = /datum/antagonist/ninja
 	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
@@ -922,4 +922,4 @@
 /datum/dynamic_ruleset/midround/from_ghosts/ninja/finish_setup(mob/new_character, index)
 	. = ..()
 	// Set their job in addition to their antag role to be a space ninja for logging purposes
-	new_character.mind.assigned_role = antag_flag
+	new_character.mind.assigned_role = ROLE_NINJA
