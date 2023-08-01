@@ -301,7 +301,7 @@
 //Psyphoza species mutation
 /datum/mutation/spores
 	name = "Agaricale Pores" //Pores, not spores
-	desc = "An ancient mutation that gives psyphoza the ability to produce spores"
+	desc = "An ancient mutation that gives psyphoza the ability to produce spores."
 	quality = POSITIVE
 	difficulty = 12
 	locked = TRUE
@@ -324,7 +324,7 @@
 
 /obj/effect/proc_holder/spell/self/spores/cast(mob/user = usr)
 	. = ..()
-	//Setup reagnets
+	//Setup reagents
 	var/datum/reagents/holder = new()
 	//If our user is a carbon, use their blood
 	var/mob/living/carbon/C = user
