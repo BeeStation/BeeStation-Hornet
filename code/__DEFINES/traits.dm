@@ -304,9 +304,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 ///Trait applied to turfs when an atmos holosign is placed on them. It will stop firedoors from closing.
 #define TRAIT_FIREDOOR_STOP "firedoor_stop"
 
-///Turf trait for when a turf is transparent
-#define TURF_Z_TRANSPARENT_TRAIT "turf_z_transparent"
-
 /// this object has been frozen
 #define TRAIT_FROZEN "frozen"
 

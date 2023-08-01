@@ -26,10 +26,6 @@
 /turf/open/openspace/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
-/turf/open/openspace/LateInitialize()
-	. = ..()
-	AddElement(/datum/element/turf_z_transparency, is_openspace = TRUE)
-
 /turf/open/openspace/can_have_cabling()
 	if(locate(/obj/structure/lattice/catwalk, src))
 		return TRUE
