@@ -53,7 +53,8 @@ GLOBAL_LIST_INIT(z_defines, list(
 #define ZMM_LOOKBESIDE      (1 << 3)	//! Look one turf to the left and right when considering z-turfs that might be seeing this atom. Respects dir. Cheap, but not free.
 #define ZMM_AUTOMANGLE      (1 << 4)	//! Behaves the same as ZMM_MANGLE_PLANES, but is automatically applied by SSoverlays. Do not manually use.
 
-// convenience flags
+// This is intended for use on dev-defined openspace turfs, don't put _OVERWRITE in here unless you feel like having people ask why their zturfs are empty
+#define Z_MIMIC_DEFAULTS (Z_MIMIC_BELOW)	//! Common defaults for zturfs.
 #define ZMM_WIDE_LOAD (ZMM_LOOKAHEAD | ZMM_LOOKBESIDE)	//! Atom is big and needs to scan one extra turf in both X and Y. This only extends the range by one turf. Cheap, but not free.
 
 /*
