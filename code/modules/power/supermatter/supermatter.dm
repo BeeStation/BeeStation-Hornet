@@ -278,7 +278,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	if(final_countdown)
 		. += "casuality_field"
 
-	// Switch the distortion effect based on the crystal's state
+// Switches the overlay based on the supermatter's current state; only called when the status has changed
+/obj/machinery/power/supermatter_crystal/proc/update_displacement()
 	cut_overlay(distort)
 	switch(last_status)
 		if(SUPERMATTER_INACTIVE)
@@ -509,7 +510,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/current_status = get_status()
 	if(current_status != last_status)
 		last_status = current_status
-		update_icon(UPDATE_OVERLAYS)
+		update_displacement()
 
 	//Transitions between one function and another, one we use for the fast inital startup, the other is used to prevent errors with fusion temperatures.
 	//Use of the second function improves the power gain imparted by using co2
