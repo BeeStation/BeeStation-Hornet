@@ -891,34 +891,38 @@
 	repeatable = TRUE
 	var/spawn_loc
 
-/datum/dynamic_ruleset/midround/from_ghosts/ninja/execute()
-	//selecting a spawn_loc
-	if(!spawn_loc)
-		var/list/spawn_locs = list()
-		for(var/obj/effect/landmark/carpspawn/L in GLOB.landmarks_list)
-			if(isturf(L.loc))
-				spawn_locs += L.loc
-		if(!spawn_locs.len)
-			return FALSE
-		spawn_loc = pick(spawn_locs)
-	if(!spawn_loc)
+/datum/dynamic_ruleset/midround/from_ghosts/ninja/ready(forced)
+	if (!..())
 		return FALSE
-	return ..()
+	//selecting a spawn_loc
+	var/list/spawn_locs = list()
+	for(var/obj/effect/landmark/carpspawn/L in GLOB.landmarks_list)
+		if(isturf(L.loc))
+			spawn_locs += L.loc
+	if(!length(spawn_locs))
+		log_game("DYNAMIC: [ruletype] ruleset [name] ready() failed due to no valid spawn locations (#1).")
+		return FALSE
+	spawn_loc = pick(spawn_locs)
+	if(!spawn_loc)
+		log_game("DYNAMIC: [ruletype] ruleset [name] ready() failed due to no valid spawn locations (#2).")
+		return FALSE
 
 /datum/dynamic_ruleset/midround/from_ghosts/ninja/generate_ruleset_body(mob/applicant)
 	//spawn the ninja and assign the candidate
 	var/mob/living/carbon/human/Ninja = create_space_ninja(spawn_loc)
 
 	//Prepare ninja player mind
+	// Dynamic's finish_setup proc will handle application of antagonist datums
 	var/datum/mind/Mind = new /datum/mind(applicant.key)
-	Mind.assigned_role = ROLE_NINJA
-	Mind.special_role = ROLE_NINJA
 	Mind.active = TRUE
 	Mind.transfer_to(Ninja)
-	var/datum/antagonist/ninja/ninjadatum = new
-	Mind.add_antag_datum(ninjadatum)
 
 	message_admins("[ADMIN_LOOKUPFLW(Ninja)] has been made into a ninja by the midround ruleset")
 	log_game("[key_name(Ninja)] was spawned as a ninja by the midround ruleset.")
 
 	return Ninja
+
+/datum/dynamic_ruleset/midround/from_ghosts/ninja/finish_setup(mob/new_character, index)
+	. = ..()
+	// Set their job in addition to their antag role to be a space ninja for logging purposes
+	new_character.assigned_role = antag_flag
