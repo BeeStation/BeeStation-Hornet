@@ -324,7 +324,7 @@
 
 /obj/effect/proc_holder/spell/self/spores/cast(mob/user = usr)
 	. = ..()
-	//Setup reagnets
+	//Setup reagents
 	var/datum/reagents/holder = new()
 	//If our user is a carbon, use their blood
 	var/mob/living/carbon/C = user
