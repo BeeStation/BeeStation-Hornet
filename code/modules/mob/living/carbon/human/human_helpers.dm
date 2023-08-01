@@ -180,7 +180,7 @@
 			found_item = found_card_slot?.stored_card // swap found_item to the actual ID card we want to add
 			if(!found_item) //Empty ID slot, skip it
 				continue
-				
+
 		// we store detected cards and holochips into the returning list
 		if(istype(found_item, /obj/item/card/id))
 			var/obj/item/card/id/found_id = found_item
@@ -200,7 +200,7 @@
 		return null
 
 /mob/living/carbon/human/IsAdvancedToolUser()
-	if(HAS_TRAIT(src, TRAIT_MONKEYLIKE))
+	if(HAS_TRAIT(src, TRAIT_DISCOORDINATED))
 		return FALSE
 	return TRUE//Humans can use guns and such
 

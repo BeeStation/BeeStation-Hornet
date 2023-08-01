@@ -58,7 +58,7 @@
 		/area/security/courtroom,
 	))
 
-	var/list/possible_areas = GLOB.sortedAreas.Copy()
+	var/list/possible_areas = GLOB.areas.Copy()
 	for(var/area/possible_area as anything in possible_areas)
 		if(!is_type_in_typecache(possible_area, allowed_areas) || is_type_in_typecache(possible_area, blocked_areas) || initial(possible_area.outdoors))
 			possible_areas -= possible_area

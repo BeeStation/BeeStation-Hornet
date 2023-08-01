@@ -33,8 +33,10 @@
 
 	/// Do we keep on living forever?
 	var/immortal = FALSE
+	///How many harvested pierced realities do we spawn on destruction
+	var/max_spawned_faked = 2
 
-/obj/effect/anomaly/Initialize(mapload, new_lifespan)
+/obj/effect/anomaly/Initialize(mapload, new_lifespan, spawned_fake_harvested)
 	. = ..()
 
 	AddElement(/datum/element/point_of_interest)
@@ -55,6 +57,9 @@
 	if(new_lifespan)
 		lifespan = new_lifespan
 	death_time = world.time + lifespan
+
+	if(spawned_fake_harvested)
+		max_spawned_faked = spawned_fake_harvested
 
 	if(immortal)
 		return // no countdown for forever anomalies
@@ -244,7 +249,7 @@
 		if(ANOMALY_FLUX_NO_EXPLOSION)
 			new /obj/effect/particle_effect/sparks(loc)
 	var/turf/T = get_turf(src)
-	T.generate_fake_pierced_realities()
+	T.generate_fake_pierced_realities(max_spawned_faked)
 
 /////////////////////
 
@@ -253,6 +258,7 @@
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "bluespace"
 	density = TRUE
+	max_spawned_faked = 4
 
 /obj/effect/anomaly/bluespace/anomalyEffect()
 	..()
@@ -317,7 +323,7 @@
 							M.client.screen -= blueeffect
 							qdel(blueeffect)
 	var/turf/F = get_turf(src)
-	F.generate_fake_pierced_realities(FALSE, 4)
+	F.generate_fake_pierced_realities(FALSE, max_spawned_faked)
 
 /////////////////////
 
@@ -422,7 +428,7 @@
 
 /obj/effect/anomaly/bhole/detonate()
 	var/turf/T = get_turf(src)
-	T.generate_fake_pierced_realities()
+	T.generate_fake_pierced_realities(max_spawned_faked)
 
 /////////////////////
 
@@ -450,7 +456,7 @@
 	if(istype(our_turf))
 		hallucination_pulse(our_turf, 10)
 	var/turf/T = get_turf(src)
-	T.generate_fake_pierced_realities()
+	T.generate_fake_pierced_realities(max_spawned_faked)
 
 /proc/hallucination_pulse(turf/location, range, strength = 50)
 	for(var/mob/living/carbon/human/near in view(location, range))
