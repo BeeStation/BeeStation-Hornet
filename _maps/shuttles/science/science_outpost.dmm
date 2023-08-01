@@ -39,6 +39,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/item/toy/plush/moth/random,
 /turf/open/floor/mineral/titanium/purple,
 /area/shuttle/science)
 "o" = (
