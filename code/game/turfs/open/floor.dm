@@ -270,9 +270,11 @@
 			A.update_icon()
 			return TRUE
 		if(RCD_DECONSTRUCT)
-			to_chat(user, "<span class='notice'>You deconstruct [src].</span>")
-			log_attack("[key_name(user)] has deconstructed [src] at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
-			ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
+			var/previous_turf = initial(name)
+			if(!ScrapeAway(flags = CHANGETURF_INHERIT_AIR))
+				return FALSE
+			to_chat(user, "<span class='notice'>You deconstruct [previous_turf].</span>")
+			log_attack("[key_name(user)] has deconstructed [previous_turf] at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 			return TRUE
 		if(RCD_WINDOWGRILLE)
 			if(locate(/obj/structure/grille) in src)
