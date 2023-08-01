@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY_TYPED(chem_grenades, /obj/item/grenade/chem_grenade)
+
 /obj/item/grenade/chem_grenade
 	name = "chemical grenade"
 	desc = "A custom made grenade."
@@ -15,6 +17,7 @@
 	var/no_splash = FALSE //If the grenade deletes even if it has no reagents to splash with. Used for slime core reactions.
 	var/casedesc = "This basic model accepts both beakers and bottles. It heats contents by 10 K upon ignition." // Appears when examining empty casings.
 	var/obj/item/assembly/prox_sensor/landminemode = null
+	var/datum/callback/sabotage
 
 /obj/item/grenade/chem_grenade/ComponentInitialize()
 	. = ..()
@@ -25,10 +28,12 @@
 	create_reagents(1000)
 	stage_change() // If no argument is set, it will change the stage to the current stage, useful for stock grenades that start READY.
 	wires = new /datum/wires/explosive/chem_grenade(src)
+	GLOB.chem_grenades += src
 
 /obj/item/grenade/chem_grenade/Destroy()
 	QDEL_LIST(beakers)
 	QDEL_NULL(wires)
+	GLOB.chem_grenades -= src
 	return ..()
 
 /obj/item/grenade/chem_grenade/examine(mob/user)
@@ -171,6 +176,8 @@
 	var/turf/T = get_turf(src)
 	log_grenade(user, T) //Inbuilt admin procs already handle null users
 	if(user)
+		if(!sabotage)
+			sabotage = get_grenade_sabotage(user, src)
 		add_fingerprint(user)
 		if(msg)
 			if(landminemode)
@@ -191,6 +198,11 @@
 
 	. = ..()
 	if(!.)
+		return
+
+	// If we have a sabotage, invoke it!
+	if(sabotage && !sabotage.Invoke(src))
+		qdel(src)
 		return
 
 	var/list/datum/reagents/reactants = list()

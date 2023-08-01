@@ -1630,6 +1630,7 @@
 #include "code\modules\admin\smites\pacifism.dm"
 #include "code\modules\admin\smites\puzzle.dm"
 #include "code\modules\admin\smites\rod.dm"
+#include "code\modules\admin\smites\sabotage_grenade.dm"
 #include "code\modules\admin\smites\sleep.dm"
 #include "code\modules\admin\smites\stalker.dm"
 #include "code\modules\admin\smites\stub_toe.dm"

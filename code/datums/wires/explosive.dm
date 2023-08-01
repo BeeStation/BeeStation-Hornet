@@ -44,6 +44,8 @@
 		message_admins("\An [assembly] has pulsed [grenade] ([grenade.type]), which was installed by [fingerprint].")
 	log_game("\An [assembly] has pulsed [grenade] ([grenade.type]), which was installed by [fingerprint].")
 	var/mob/M = get_mob_by_ckey(fingerprint)
+	if(!grenade.sabotage)
+		grenade.sabotage = get_grenade_sabotage(M, grenade)
 	var/turf/T = get_turf(M)
 	grenade.log_grenade(M, T)
 	grenade.prime()
