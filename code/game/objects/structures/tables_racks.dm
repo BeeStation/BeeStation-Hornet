@@ -26,7 +26,6 @@
 	anchored = TRUE
 	pass_flags_self = PASSTABLE | LETPASSTHROW
 	layer = TABLE_LAYER
-	climbable = TRUE
 	var/frame = /obj/structure/table_frame
 	var/framestack = /obj/item/stack/rods
 	var/buildstack = /obj/item/stack/sheet/iron
@@ -37,6 +36,12 @@
 	var/last_bump = 0
 	max_integrity = 100
 	integrity_failure = 30
+
+/obj/structure/table/Initialize(mapload, _buildstack)
+	. = ..()
+	if(_buildstack)
+		buildstack = _buildstack
+	AddElement(/datum/element/climbable)
 
 /obj/structure/table/Bumped(mob/living/carbon/human/H)
 	. = ..()

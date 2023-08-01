@@ -197,7 +197,7 @@
 /obj/item/book/granter/spell/blind/recoil(mob/user)
 	..()
 	to_chat(user,"<span class='warning'>You go blind!</span>")
-	user.blind_eyes(10)
+	user.adjust_blindness(10)
 
 /obj/item/book/granter/spell/mindswap
 	spell = /obj/effect/proc_holder/spell/targeted/mind_transfer

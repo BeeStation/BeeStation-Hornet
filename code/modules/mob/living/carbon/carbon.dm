@@ -514,6 +514,7 @@
 			enter_stamcrit()
 	else if(stam_paralyzed)
 		stam_paralyzed = FALSE
+		REMOVE_TRAIT(src,TRAIT_INCAPACITATED, STAMINA)
 	else
 		return
 	update_health_hud()
@@ -584,10 +585,9 @@
 
 /mob/living/carbon/proc/get_total_tint()
 	. = 0
-	if(istype(head, /obj/item/clothing/head))
-		var/obj/item/clothing/head/HT = head
-		. += HT.tint
-	if(wear_mask)
+	if(isclothing(head))
+		. += head.tint
+	if(isclothing(wear_mask))
 		. += wear_mask.tint
 
 	var/obj/item/organ/eyes/E = getorganslot(ORGAN_SLOT_EYES)
@@ -741,6 +741,7 @@
 	if(stat != DEAD)
 		if(health <= HEALTH_THRESHOLD_DEAD && !HAS_TRAIT(src, TRAIT_NODEATH))
 			death()
+			cure_blind(UNCONSCIOUS_BLIND)
 			return
 		if(health <= hardcrit_threshold && !HAS_TRAIT(src, TRAIT_NOHARDCRIT))
 			set_stat(HARD_CRIT)

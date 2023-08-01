@@ -1,5 +1,5 @@
 
-/obj/item/projectile/energy/bolt //ebow bolts
+/obj/projectile/energy/bolt //ebow bolts
 	name = "bolt"
 	icon_state = "cbbolt"
 	damage = 15
@@ -10,7 +10,7 @@
 	knockdown = 10
 	slur = 5
 
-/obj/item/projectile/energy/bolt/radbolt
+/obj/projectile/energy/bolt/radbolt
 	name = "bolt"
 	icon_state = "cbbolt"
 	damage = 15
@@ -22,7 +22,7 @@
 	knockdown = 0
 	irradiate = 400
 
-/obj/item/projectile/energy/bolt/radbolt/Initialize(mapload)
+/obj/projectile/energy/bolt/radbolt/Initialize(mapload)
 	. = ..()
 	create_reagents(30, NO_REACT)
 	reagents.add_reagent(/datum/reagent/toxin/polonium, 10)
@@ -30,7 +30,7 @@
 	reagents.add_reagent(/datum/reagent/toxin, 5)
 	reagents.add_reagent(/datum/reagent/uranium/radium, 10)
 
-/obj/item/projectile/energy/bolt/radbolt/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/energy/bolt/radbolt/on_hit(atom/target, blocked = FALSE)
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
 		if(blocked != 100) // not completely blocked
@@ -51,9 +51,9 @@
 	reagents.handle_reactions()
 	return BULLET_ACT_HIT
 
-/obj/item/projectile/energy/bolt/halloween
+/obj/projectile/energy/bolt/halloween
 	name = "candy corn"
 	icon_state = "candy_corn"
 
-/obj/item/projectile/energy/bolt/large
+/obj/projectile/energy/bolt/large
 	damage = 20

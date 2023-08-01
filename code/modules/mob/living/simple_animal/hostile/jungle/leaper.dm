@@ -14,7 +14,7 @@
 	maxHealth = 300
 	health = 300
 	ranged = TRUE
-	projectiletype = /obj/item/projectile/leaper
+	projectiletype = /obj/projectile/leaper
 	projectilesound = 'sound/weapons/pierce.ogg'
 	ranged_cooldown_time = 30
 	pixel_x = -16
@@ -29,7 +29,7 @@
 
 	do_footstep = TRUE
 
-/obj/item/projectile/leaper
+/obj/projectile/leaper
 	name = "leaper bubble"
 	icon_state = "leaper"
 	paralyze = 50
@@ -39,7 +39,7 @@
 	nondirectional_sprite = TRUE
 	impact_effect_type = /obj/effect/temp_visual/leaper_projectile_impact
 
-/obj/item/projectile/leaper/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/leaper/on_hit(atom/target, blocked = FALSE)
 	..()
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
@@ -49,7 +49,7 @@
 		var/mob/living/simple_animal/L = target
 		L.adjustHealth(25)
 
-/obj/item/projectile/leaper/on_range()
+/obj/projectile/leaper/on_range()
 	var/turf/T = get_turf(src)
 	..()
 	new /obj/structure/leaper_bubble(T)

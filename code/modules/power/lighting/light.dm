@@ -50,7 +50,7 @@
 	var/static/list/lighting_overlays	// dictionary for lighting overlays
 
 	///So we don't have a lot of stress on startup.
-	var/mapload = FALSE
+	var/maploaded = FALSE
 
 	///More stress stuff.
 	var/turning_on = FALSE
@@ -111,7 +111,7 @@
 		cell = null
 
 // create a new lighting fixture
-/obj/machinery/light/Initialize(mapload = TRUE)
+/obj/machinery/light/Initialize(mapload)
 	. = ..()
 
 	//Setup area colours -pb
@@ -132,7 +132,7 @@
 		var/obj/machinery/power/apc/temp_apc = A.apc
 		nightshift_enabled = temp_apc?.nightshift_lights
 	else
-		mapload = TRUE
+		maploaded = TRUE
 	if(start_with_cell && !no_emergency)
 		store_cell(new/obj/item/stock_parts/cell/emergency_light(src))
 	spawn(2)
@@ -146,7 +146,7 @@
 				if(prob(5))
 					break_light_tube(1)
 		spawn(1)
-			update(FALSE, TRUE)
+			update(FALSE, TRUE, maploaded)
 
 /obj/machinery/light/Destroy()
 	var/area/A = get_area(src)
@@ -199,11 +199,11 @@
 			on = FALSE
 	emergency_mode = FALSE
 	if(on)
-		if(mapload)
-			turn_on(trigger, TRUE)
-			mapload = FALSE
-		else if(instant)
+		if(instant)
 			turn_on(trigger, quiet)
+		else if(maploaded)
+			turn_on(trigger, TRUE)
+			maploaded = FALSE
 		else if(!turning_on)
 			turning_on = TRUE
 			addtimer(CALLBACK(src, PROC_REF(turn_on), trigger, quiet), rand(LIGHT_ON_DELAY_LOWER, LIGHT_ON_DELAY_UPPER))
@@ -262,7 +262,7 @@
 			use_power = ACTIVE_POWER_USE
 			set_light(BR, PO, CO)
 			if(!quiet)
-				playsound(src.loc, 'sound/effects/light_on.ogg', 65)
+				playsound(src.loc, 'sound/effects/light_on.ogg', 50)
 	update_icon()
 	return TRUE
 
@@ -300,7 +300,7 @@
 // will not switch on if broken/burned/empty
 /obj/machinery/light/proc/seton(s)
 	on = (s && status == LIGHT_OK)
-	update(FALSE, TRUE, TRUE)
+	update(FALSE)
 
 /obj/machinery/light/get_cell()
 	return cell

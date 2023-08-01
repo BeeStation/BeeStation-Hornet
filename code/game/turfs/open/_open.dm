@@ -147,6 +147,7 @@
 	icon_state = "bluespace"
 	baseturfs = /turf/open/indestructible/airblock
 	CanAtmosPass = ATMOS_PASS_NO
+	init_air = FALSE
 
 /turf/open/Initalize_Atmos(times_fired)
 	if(!istype(air, /datum/gas_mixture/turf))
@@ -173,7 +174,7 @@
 	for(var/obj/I in contents)
 		if(!HAS_TRAIT(I, TRAIT_FROZEN) && !(I.obj_flags & FREEZE_PROOF))
 			I.AddElement(/datum/element/frozen)
-			
+
 	for(var/mob/living/L in contents)
 		if(L.bodytemperature <= 50)
 			L.apply_status_effect(/datum/status_effect/freon)

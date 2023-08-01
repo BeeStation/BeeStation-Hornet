@@ -6,7 +6,6 @@
 	icon_state = "stasis"
 	density = FALSE
 	can_buckle = TRUE
-	buckle_lying = 90
 	circuit = /obj/item/circuitboard/machine/stasis
 	idle_power_usage = 50
 	active_power_usage = 500
@@ -18,6 +17,15 @@
 	var/mattress_state = "stasis_on"
 	var/obj/effect/overlay/vis/mattress_on
 	var/obj/machinery/computer/operating/op_computer
+
+// dir check for buckle_lying state
+/obj/machinery/stasis/Initialize()
+	switch(dir)
+		if(WEST, NORTH)
+			buckle_lying = 270
+		if(EAST, SOUTH)
+			buckle_lying = 90
+	return ..()
 
 /obj/machinery/stasis/Initialize(mapload)
 	..()

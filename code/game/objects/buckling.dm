@@ -132,6 +132,7 @@
 //Handle any extras after buckling
 //Called on buckle_mob()
 /atom/movable/proc/post_buckle_mob(mob/living/M)
+	M.reset_pull_offsets(M, TRUE) // This line is TEMPORARY, will be removed when update_mobility is refactored!
 
 //same but for unbuckle
 /atom/movable/proc/post_unbuckle_mob(mob/living/M)
