@@ -12,20 +12,25 @@
 
 #define TK_MAXRANGE 15
 
-/atom/proc/attack_tk(mob/user, is_weak = FALSE)
-	if(user.stat || !tkMaxRangeCheck(user, src) || is_weak)
+/atom/proc/attack_tk(mob/user)
+	if(user.stat || !tkMaxRangeCheck(user, src))
 		return
 	new /obj/effect/temp_visual/telekinesis(get_turf(src))
 	user.UnarmedAttack(src,0) // attack_hand, attack_paw, etc
 	add_hiddenprint(user)
 	return
 
-/obj/attack_tk(mob/user, is_weak = FALSE)
+/obj/attack_tk(mob/user)
 	if(user.stat)
 		return
 	if(anchored)
 		return ..()
-	attack_tk_grab(user, is_weak)
+	attack_tk_grab(user)
+
+/obj/item/attack_tk(mob/user)
+	if(user.stat)
+		return
+	attack_tk_grab(use)
 
 /obj/proc/attack_tk_grab(mob/user)
 	var/obj/item/tk_grab/O = new(src)
@@ -79,14 +84,13 @@
 	START_PROCESSING(SSfastprocess, src)
 
 /obj/item/tk_grab/Destroy()
-	STOP_PROCESSING(SSfastprocess, src)
 	focus = null
-	tk_user = null
+	STOP_PROCESSING(SSfastprocess, src)
 	return ..()
 
 /obj/item/tk_grab/process()
 	if(check_if_focusable(focus)) //if somebody grabs your thing, no waiting for them to put it down and hitting them again.
-		update_appearance()
+		update_icon()
 
 /obj/item/tk_grab/dropped(mob/user)
 	..()
@@ -96,10 +100,10 @@
 
 //stops TK grabs being equipped anywhere but into hands
 /obj/item/tk_grab/equipped(mob/user, slot)
-	. = ..()
 	if(slot == ITEM_SLOT_HANDS)
 		return
 	qdel(src)
+	return
 
 /obj/item/tk_grab/examine(user)
 	if (focus)
