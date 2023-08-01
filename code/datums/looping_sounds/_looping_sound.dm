@@ -18,8 +18,12 @@
 	var/atom/parent
 	var/mid_sounds
 	var/mid_length
+	///Override for volume of start sound
+	var/start_volume
 	var/start_sound
 	var/start_length
+	///Override for volume of end sound
+	var/end_volume
 	var/end_sound
 	var/chance
 	var/volume = 100
@@ -27,7 +31,6 @@
 	var/direct
 	var/vary
 	var/extra_range
-
 	var/timerid
 	var/skip_starting_sounds = FALSE
 	var/loop_started = FALSE
@@ -77,11 +80,11 @@
 	if(!chance || prob(chance))
 		play(get_sound(starttime))
 
-/datum/looping_sound/proc/play(soundfile)
+/datum/looping_sound/proc/play(soundfile, volume_override)
 	var/sound/S = sound(soundfile)
 	if(direct)
 		S.channel = SSsounds.random_available_channel()
-		S.volume = volume
+		S.volume = volume_override || volume //Use volume as fallback if theres no override
 		SEND_SOUND(parent, S)
 	else
 		playsound(parent, S, volume, vary, extra_range)
@@ -94,13 +97,13 @@
 /datum/looping_sound/proc/on_start()
 	var/start_wait = 0
 	if(start_sound && !skip_starting_sounds)
-		play(start_sound)
+		play(start_sound, start_volume)
 		start_wait = start_length
 	timerid = addtimer(CALLBACK(src, PROC_REF(start_sound_loop)), start_wait, TIMER_CLIENT_TIME | TIMER_DELETE_ME | TIMER_STOPPABLE, SSsound_loops)
 
 /datum/looping_sound/proc/on_stop()
 	if(end_sound && loop_started)
-		play(end_sound)
+		play(end_sound, end_volume)
 
 /datum/looping_sound/proc/set_parent(new_parent)
 	if(parent)
