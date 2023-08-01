@@ -135,10 +135,6 @@
 	// Transition the colour to whatever the global tells us to go to
 	RegisterSignal(SSdcs, COMSIG_GLOB_PARALLAX_COLOUR_CHANGE, PROC_REF(transition_colour))
 
-/atom/movable/screen/plane_master/starlight/backdrop(mob/mymob)
-	. = ..()
-	mymob.overlay_fullscreen("starlight_backdrop", /atom/movable/screen/fullscreen/lighting_backdrop/starlight)
-
 /atom/movable/screen/plane_master/starlight/proc/transition_colour(datum/source, new_colour, transition_time = 5 SECONDS, force_colour = FALSE)
 	SIGNAL_HANDLER
 	if (force_colour)
