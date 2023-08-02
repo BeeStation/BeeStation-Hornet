@@ -27,32 +27,35 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
-"bz" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/structure/chair/stool/bar{
-	dir = 4
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "bM" = (
 /obj/machinery/vendor/exploration,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"cp" = (
+/obj/machinery/door/poddoor/shutters{
+	id = "exploration"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/button/door{
+	desc = "A remote control switch.";
+	id = "exploration";
+	name = "Exploration Shuttle Shutters";
+	pixel_y = 24
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/structure/fans/tiny,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "dt" = (
 /turf/template_noop,
 /area/template_noop)
-"dI" = (
-/obj/structure/table,
-/obj/machinery/microwave,
-/obj/item/storage/box/donkpockets,
-/obj/item/storage/box/donkpockets,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "eL" = (
 /obj/machinery/button/door{
 	desc = "A remote control switch.";
@@ -86,8 +89,26 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
+"fB" = (
+/obj/machinery/atmospherics/components/unary/outlet_injector/on,
+/obj/structure/lattice/catwalk,
+/turf/template_noop,
+/area/shuttle/exploration)
 "fN" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/exploration)
+"fY" = (
+/obj/structure/table,
+/obj/machinery/microwave,
+/obj/item/storage/box/donkpockets,
+/obj/item/storage/box/donkpockets,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 6
+	},
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "gp" = (
 /turf/closed/wall/mineral/plastitanium,
@@ -113,6 +134,16 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"la" = (
+/obj/machinery/holopad{
+	pixel_x = -16;
+	pixel_y = 16
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 10
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "lo" = (
 /obj/machinery/shuttle/engine/plasma{
 	dir = 1
@@ -130,21 +161,6 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"oi" = (
-/obj/machinery/button/door{
-	desc = "A remote control switch.";
-	id = "ExploIFuckedUp";
-	name = "Vent Engine Room";
-	pixel_y = -27
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/tank_dispenser/oxygen,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"qF" = (
-/obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "rN" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/titanium,
@@ -157,27 +173,21 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
+"sk" = (
+/obj/machinery/door/poddoor{
+	id = "ExploIFuckedUp";
+	name = "Engine Room Vent"
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/exploration)
 "tu" = (
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"ut" = (
-/obj/machinery/door/poddoor/shutters{
-	id = "exploration"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/button/door{
-	desc = "A remote control switch.";
-	id = "exploration";
-	name = "Exploration Shuttle Shutters";
-	pixel_y = 24
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
+"tG" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 5
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -191,6 +201,18 @@
 "uG" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"wW" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/structure/chair/stool/bar{
+	dir = 4
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
+	dir = 4
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -224,31 +246,9 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"zS" = (
-/obj/machinery/door/poddoor/shutters{
-	id = "exploration"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "Ai" = (
 /obj/structure/chair/stool/bar{
 	dir = 4
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"An" = (
-/obj/machinery/holopad{
-	pixel_x = -16;
-	pixel_y = 16
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -258,13 +258,6 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/plasma,
-/turf/open/floor/plasteel/techmaint,
-/area/shuttle/exploration)
-"AW" = (
-/obj/machinery/door/poddoor{
-	id = "ExploIFuckedUp";
-	name = "Engine Room Vent"
-	},
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "AX" = (
@@ -282,18 +275,6 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"CQ" = (
-/obj/structure/table,
-/obj/item/storage/firstaid/regular{
-	pixel_x = -3;
-	pixel_y = 9
-	},
-/obj/item/toy/cards/deck/unum{
-	pixel_x = 9;
-	pixel_y = 1
-	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "DI" = (
@@ -324,6 +305,33 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"FX" = (
+/obj/machinery/button/door{
+	desc = "A remote control switch.";
+	id = "ExploIFuckedUp";
+	name = "Vent Engine Room";
+	pixel_y = -27
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/tank_dispenser/oxygen,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"GU" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"Hc" = (
+/obj/machinery/firealarm/directional/south,
+/obj/machinery/light,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/atmospherics/components/unary/tank/air{
+	dir = 1;
+	initialize_directions = 1
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "Iv" = (
 /obj/machinery/computer/objective,
 /obj/machinery/button/door{
@@ -333,6 +341,12 @@
 	pixel_x = -32
 	},
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"IS" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Jl" = (
 /obj/machinery/shower{
@@ -368,21 +382,6 @@
 /obj/machinery/computer/shuttle_flight/custom_shuttle/exploration,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"KT" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/structure/table,
-/obj/machinery/recharger,
-/obj/machinery/camera/autoname{
-	dir = 8;
-	network = list("ss13","sci")
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "MY" = (
 /obj/machinery/atmospherics/components/unary/plasma_refiner{
 	dir = 8
@@ -407,11 +406,22 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"Pz" = (
-/obj/machinery/firealarm/directional/south,
-/obj/machinery/light,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/item/kirbyplants/random,
+"PL" = (
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/structure/table,
+/obj/machinery/recharger,
+/obj/machinery/camera/autoname{
+	dir = 8;
+	network = list("ss13","sci")
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 9
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Qe" = (
@@ -456,12 +466,53 @@
 /obj/structure/sign/nanotrasen,
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/exploration)
+"Uf" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/turf/open/floor/plating,
+/area/shuttle/exploration)
 "UF" = (
 /obj/machinery/power/port_gen/pacman,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
 /turf/open/floor/plasteel/techmaint,
+/area/shuttle/exploration)
+"WU" = (
+/obj/machinery/door/poddoor/shutters{
+	id = "exploration"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"YV" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 9
+	},
+/turf/open/floor/plating,
+/area/shuttle/exploration)
+"ZB" = (
+/obj/structure/table,
+/obj/item/storage/firstaid/regular{
+	pixel_x = -3;
+	pixel_y = 9
+	},
+/obj/item/toy/cards/deck/unum{
+	pixel_x = 9;
+	pixel_y = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 
 (1,1,1) = {"
@@ -470,12 +521,12 @@ Qe
 Qe
 Qe
 Qe
-ut
-zS
+cp
+WU
 Tw
 Qe
-AW
-AW
+sk
+sk
 gp
 dt
 "}
@@ -500,8 +551,8 @@ an
 Pc
 lu
 rN
-tu
-qF
+GU
+tG
 tu
 rT
 am
@@ -516,8 +567,8 @@ Qe
 Qe
 FA
 tu
-tu
-oi
+IS
+FX
 Qe
 eL
 eN
@@ -531,8 +582,8 @@ zr
 AX
 rN
 rN
-An
-Pz
+la
+Hc
 Qe
 JI
 aW
@@ -545,7 +596,7 @@ Ko
 gQ
 js
 Ai
-bz
+wW
 SH
 CH
 QO
@@ -558,9 +609,9 @@ lo
 lq
 lq
 ao
-dI
-CQ
-KT
+fY
+ZB
+PL
 uG
 Fh
 lq
@@ -570,10 +621,10 @@ fN
 gp
 "}
 (8,1,1) = {"
-dt
-lq
-lq
-lq
+fB
+Uf
+Uf
+YV
 Qe
 Qe
 zf

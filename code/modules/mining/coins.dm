@@ -45,8 +45,8 @@
 
 /obj/item/coin/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(0,16)-8
-	pixel_y = rand(0,8)-8
+	pixel_x = base_pixel_x +  rand(0,16) - 8
+	pixel_y = base_pixel_y + rand(0,8) - 8
 
 /obj/item/coin/examine(mob/user)
 	. = ..()
@@ -98,7 +98,7 @@
 		plasma_ignition(0)
 
 
-/obj/item/coin/plasma/bullet_act(obj/item/projectile/Proj)
+/obj/item/coin/plasma/bullet_act(obj/projectile/Proj)
 	if(!(Proj.nodamage) && Proj.damage_type == BURN)
 		plasma_ignition(0, Proj?.firer)
 	. = ..()

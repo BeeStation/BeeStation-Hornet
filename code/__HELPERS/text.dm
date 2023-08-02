@@ -145,21 +145,50 @@
 		return trim(name, max_length)
 
 /// Used to get a properly sanitized (html encoded) input, of max_length. no_trim is self explanatory but it prevents the input from being trimed if you intend to parse newlines or whitespace.
-/proc/stripped_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE)
+/proc/stripped_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE, strip_method=BYOND_ENCODE)
 	var/name = input(user, message, title, default) as text|null
 
+	switch(strip_method)
+		if(BYOND_ENCODE)
+			name = html_encode(name)
+		if(STRIP_HTML)
+			name = strip_html(name)
+		if(STRIP_HTML_SIMPLE)
+			name = strip_html_simple(name)
+		if(SANITIZE)
+			name = sanitize(name)
+		if(SANITIZE_SIMPLE)
+			name = sanitize_simple(name)
+		if(ADMIN_SCRUB)
+			name = adminscrub(name)
+
 	if(no_trim)
-		return copytext(html_encode(name), 1, max_length)
+		return copytext(name, 1, max_length)
 	else
-		return trim(html_encode(name), max_length) //trim is "outside" because html_encode can expand single symbols into multiple symbols (such as turning < into &lt;)
+		return trim(name, max_length) //trim is "outside" because html_encode can expand single symbols into multiple symbols (such as turning < into &lt;)
 
 /// Used to get a properly sanitized (html encoded) multiline input, of max_length
-/proc/stripped_multiline_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE)
+/proc/stripped_multiline_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE, strip_method=BYOND_ENCODE)
 	var/name = input(user, message, title, default) as message|null
+
+	switch(strip_method)
+		if(BYOND_ENCODE)
+			name = html_encode(name)
+		if(STRIP_HTML)
+			name = strip_html(name)
+		if(STRIP_HTML_SIMPLE)
+			name = strip_html_simple(name)
+		if(SANITIZE)
+			name = sanitize(name)
+		if(SANITIZE_SIMPLE)
+			name = sanitize_simple(name)
+		if(ADMIN_SCRUB)
+			name = adminscrub(name)
+
 	if(no_trim)
-		return copytext(html_encode(name), 1, max_length)
+		return copytext(name, 1, max_length)
 	else
-		return trim(html_encode(name), max_length)
+		return trim(name, max_length)
 
 /// returns a text after replacing wiki square brackets blacket in a given text into clickable wiki hyperlink
 /proc/encode_wiki_link(text_value)
@@ -325,11 +354,45 @@
 			return copytext(text, 1, i + 1)
 	return ""
 
+/// Returns a string with reserved characters and spaces after the first and last letters removed
+/// Like trim(), but very slightly faster. worth it for niche usecases
+/proc/trim_reduced(text)
+	var/starting_coord = 1
+	var/text_len = length(text)
+	for (var/i in 1 to text_len)
+		if (text2ascii(text, i) > 32)
+			starting_coord = i
+			break
+
+	for (var/i = text_len, i >= starting_coord, i--)
+		if (text2ascii(text, i) > 32)
+			return copytext(text, starting_coord, i + 1)
+
+	if(starting_coord > 1)
+		return copytext(text, starting_coord)
+	return ""
+
+/**
+ * Truncate a string to the given length
+ *
+ * Will only truncate if the string is larger than the length and *ignores unicode concerns*
+ *
+ * This exists soley because trim does other stuff too.
+ *
+ * Arguments:
+ * * text - String
+ * * max_length - integer length to truncate at
+ */
+/proc/truncate(text, max_length)
+	if(length(text) > max_length)
+		return copytext(text, 1, max_length)
+	return text
+
 /// Returns a string with reserved characters and spaces before the first word and after the last word removed.
 /proc/trim(text, max_length)
 	if(max_length)
 		text = copytext_char(text, 1, max_length)
-	return trim_left(trim_right(text))
+	return trim_reduced(text)
 
 /// Returns a string with proper punctuation if there is none.
 /proc/punctuate(message)
@@ -771,34 +834,37 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 	switch(macro)
 		//prefixes/agnostic
 		if("the")
-			rest = text("\the []", rest)
+			rest = "\the [rest]"
 		if("a")
-			rest = text("\a []", rest)
+			rest = "\a [rest]"
 		if("an")
-			rest = text("\an []", rest)
+			rest = "\an [rest]"
 		if("proper")
-			rest = text("\proper []", rest)
+			rest = "\proper [rest]"
 		if("improper")
-			rest = text("\improper []", rest)
+			rest = "\improper [rest]"
 		if("roman")
-			rest = text("\roman []", rest)
+			rest = "\roman [rest]"
 		//postfixes
 		if("th")
-			base = text("[]\th", rest)
+			base = "[rest]\th"
 		if("s")
-			base = text("[]\s", rest)
+			base = "[rest]\s"
 		if("he")
-			base = text("[]\he", rest)
+			base = "[rest]\he"
 		if("she")
-			base = text("[]\she", rest)
+			base = "[rest]\she"
 		if("his")
-			base = text("[]\his", rest)
+			base = "[rest]\his"
 		if("himself")
-			base = text("[]\himself", rest)
+			base = "[rest]\himself"
 		if("herself")
-			base = text("[]\herself", rest)
+			base = "[rest]\herself"
 		if("hers")
-			base = text("[]\hers", rest)
+			base = "[rest]\hers"
+		else // Someone fucked up, if you're not a macro just go home yeah?
+			// This does technically break parsing, but at least it's better then what it used to do
+			return base
 
 	. = base
 	if(rest)

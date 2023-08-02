@@ -1,5 +1,5 @@
 /client/proc/get_admin_say()
-	var/msg = input(src, null, "asay \"text\"") as text|null
+	var/msg = tgui_input_text(src, null, "asay \"text\"", encode = FALSE) // we don't encode/sanitize here because cmd_admin_say does it anyways.
 	cmd_admin_say(msg)
 
 /client/proc/cmd_admin_say(msg as text)

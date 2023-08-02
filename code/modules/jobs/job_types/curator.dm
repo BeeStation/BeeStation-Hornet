@@ -27,6 +27,11 @@
 	//they doesnt get out that much
 	biohazard = 10
 
+	minimal_lightup_areas = list(
+		/area/library,
+		/area/construction/mining/aux_base
+	)
+
 /datum/outfit/job/curator
 	name = JOB_NAME_CURATOR
 	jobtype = /datum/job/curator
@@ -41,7 +46,7 @@
 	l_pocket = /obj/item/laser_pointer
 	accessory = /obj/item/clothing/accessory/pocketprotector/full
 	backpack_contents = list(
-		/obj/item/choice_beacon/hero = 1,
+		/obj/item/choice_beacon/radial/hero = 1,
 		/obj/item/soapstone = 1,
 		/obj/item/barcodescanner = 1
 	)

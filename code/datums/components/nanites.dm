@@ -126,7 +126,7 @@
 	qdel(src)
 
 //Syncs the nanite component to another, making it so programs are the same with the same programming (except activation status)
-/datum/component/nanites/proc/sync(datum/signal_source, datum/component/nanites/source, full_overwrite = TRUE, copy_activation = FALSE)
+/datum/component/nanites/proc/sync(datum/signal_source, datum/component/nanites/source, full_overwrite = TRUE, copy_settings = TRUE, copy_activation = FALSE)
 	SIGNAL_HANDLER
 
 	var/list/programs_to_remove = programs.Copy()
@@ -143,6 +143,10 @@
 	if(full_overwrite)
 		for(var/X in programs_to_remove)
 			qdel(X)
+	if(copy_settings)
+		cloud_active = source.cloud_active
+		cloud_id = source.cloud_id
+		safety_threshold = source.safety_threshold
 	for(var/X in programs_to_add)
 		var/datum/nanite_program/SNP = X
 		add_program(null, SNP.copy())
@@ -153,7 +157,7 @@
 		if(backup)
 			var/datum/component/nanites/cloud_copy = backup.nanites
 			if(cloud_copy)
-				sync(null, cloud_copy)
+				sync(source = cloud_copy)
 				return
 	//Without cloud syncing nanites can accumulate errors and/or defects
 	if(prob(8) && programs.len)
@@ -345,27 +349,33 @@
 /datum/component/nanites/proc/nanite_scan(datum/source, mob/user, full_scan)
 	SIGNAL_HANDLER
 
+	var/list/message = list()
+
 	if(!full_scan)
+		. = TRUE
 		if(!stealth)
-			to_chat(user, "<span class='notice'><b>Nanites Detected</b></span>")
-			to_chat(user, "<span class='notice'>Saturation: [nanite_volume]/[max_nanites]</span>")
-			return TRUE
+			message += "<span class='info bold'>Nanites Detected</span>"
+			message += "<span class='info'>Saturation: [nanite_volume]/[max_nanites]</span>"
 	else
-		to_chat(user, "<span class='info'>NANITES DETECTED</span>")
-		to_chat(user, "<span class='info'>================</span>")
-		to_chat(user, "<span class='info'>Saturation: [nanite_volume]/[max_nanites]</span>")
-		to_chat(user, "<span class='info'>Safety Threshold: [safety_threshold]</span>")
-		to_chat(user, "<span class='info'>Cloud ID: [cloud_id ? cloud_id : "None"]</span>")
-		to_chat(user, "<span class='info'>Cloud Sync: [cloud_active ? "Active" : "Disabled"]</span>")
-		to_chat(user, "<span class='info'>================</span>")
-		to_chat(user, "<span class='info'>Program List:</span>")
+		message += "<span class='info bold'>Nanites Detected</span>"
+		message += "<span class='info'>================</span>"
+		message += "<span class='info'>Saturation: [nanite_volume]/[max_nanites]</span>"
+		message += "<span class='info'>Safety Threshold: [safety_threshold]</span>"
+		message += "<span class='info'>Cloud ID: [cloud_id ? cloud_id : "None"]</span>"
+		message += "<span class='info'>Cloud Sync: [cloud_active ? "Active" : "Disabled"]</span>"
+		message += "<span class='info'>================</span>"
+		message += "<span class='info'>Program List:</span>"
 		if(!diagnostics)
-			to_chat(user, "<span class='alert'>Diagnostics Disabled</span>")
+			message += "<span class='alert'>Diagnostics Disabled</span>"
 		else
 			for(var/X in programs)
-				var/datum/nanite_program/NP = X
-				to_chat(user, "<span class='info'><b>[NP.name]</b> | [NP.activated ? "Active" : "Inactive"]</span>")
-		return TRUE
+				var/datum/nanite_program/program = X
+				message += "<span class='info'><b>[program.name]</b> | [program.activated ? "<span class='green'>Active</span>" : "<span class='red'>Inactive</span>"]</span>"
+				for(var/datum/nanite_rule/rule in program.rules)
+					message += "<span class='[rule.check_rule() ? "green" : "red"]'>[GLOB.TAB][rule.display()]</span>"
+		. = TRUE
+	if(length(message))
+		to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
 
 /datum/component/nanites/proc/nanite_ui_data(datum/source, list/data, scan_level)
 	SIGNAL_HANDLER
