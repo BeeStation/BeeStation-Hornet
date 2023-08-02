@@ -9,7 +9,8 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 	name = "changeling"
 	config_tag = "changeling"
 	report_type = "changeling"
-	antag_flag = ROLE_CHANGELING
+	role_preference = /datum/role_preference/antagonist/changeling
+	antag_datum = /datum/antagonist/changeling
 	false_report_weight = 10
 	restricted_jobs = list(JOB_NAME_AI, JOB_NAME_CYBORG)
 	protected_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
@@ -51,7 +52,7 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 		for(var/i = 0, i < num_changelings, i++)
 			if(!antag_candidates.len)
 				break
-			var/datum/mind/changeling = antag_pick(antag_candidates, ROLE_CHANGELING)
+			var/datum/mind/changeling = antag_pick(antag_candidates, /datum/role_preference/antagonist/changeling)
 			antag_candidates -= changeling
 			changelings += changeling
 			changeling.special_role = ROLE_CHANGELING
@@ -74,12 +75,14 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 	if(changelings.len >= changelingcap) //Caps number of latejoin antagonists
 		return
 	if(changelings.len <= (changelingcap - 2) || prob(100 - (csc * 2)))
-		if(ROLE_CHANGELING in character.client.prefs.be_special)
-			if(!is_banned_from(character.ckey, list(ROLE_CHANGELING, ROLE_SYNDICATE)) && !QDELETED(character))
-				if(age_check(character.client))
-					if(!(character.job in restricted_jobs))
-						character.mind.make_Changeling()
-						changelings += character.mind
+		if(!QDELETED(character) && character.client?.should_include_for_role(
+			banning_key = initial(antag_datum.banning_key),
+			role_preference_key = role_preference,
+			req_hours = initial(antag_datum.required_living_playtime)
+		))
+			if(!(character.job in restricted_jobs))
+				character.mind.make_Changeling()
+				changelings += character.mind
 
 /datum/game_mode/changeling/generate_report()
 	return "The Gorlex Marauders have announced the successful raid and destruction of Central Command containment ship #S-[rand(1111, 9999)]. This ship housed only a single prisoner - \

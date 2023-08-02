@@ -105,7 +105,7 @@
 		return
 	switch(action)
 		if("name")
-			guardian_name = params["name"]
+			guardian_name = reject_bad_name(params["name"], TRUE)
 			. = TRUE
 		if("set")
 			switch(params["name"])
@@ -135,7 +135,7 @@
 						saved_stats.range = lvl
 						. = TRUE
 		if("color")
-			var/color = input(usr, "What would you like your guardian's color to be?", "Choose Your Color", "#ffffff") as color|null
+			var/color = tgui_color_picker(usr, "What would you like your guardian's color to be?", "Choose Your Color", "#ffffff")
 			if(color)
 				guardian_color = color
 				. = TRUE
@@ -225,7 +225,7 @@
 		used = FALSE
 		return FALSE
 	// IMPORTANT - if we're debugging, the user gets thrown into the stand
-	var/list/mob/dead/observer/candidates = debug_mode ? list(user) : pollGhostCandidates("Do you want to play as the [mob_name] of [user.real_name]?", ROLE_HOLOPARASITE, null, FALSE, 100, POLL_IGNORE_HOLOPARASITE)
+	var/list/mob/dead/observer/candidates = debug_mode ? list(user) : pollGhostCandidates("Do you want to play as the [mob_name] of [user.real_name]?", ROLE_HOLOPARASITE, null, 10 SECONDS)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		var/mob/living/simple_animal/hostile/guardian/G = new(user, theme, guardian_color)

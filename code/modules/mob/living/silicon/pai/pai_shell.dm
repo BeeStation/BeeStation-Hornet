@@ -25,6 +25,9 @@
 		if(!L.temporarilyRemoveItemFromInventory(card))
 			to_chat(src, "<span class='warning'>Error: Unable to expand to mobile form. Chassis is restrained by some device or person.</span>")
 			return FALSE
+	if(istype(card.loc, /obj/structure) || istype(card.loc, /obj/machinery))
+		to_chat(src, "<span class='warning'>Error: Unable to expand to mobile form. Chassis is restrained by some device or person.</span>")
+		return FALSE
 	forceMove(get_turf(card))
 	card.forceMove(src)
 	if(client)

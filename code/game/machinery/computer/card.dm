@@ -918,7 +918,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						return
 			if (!(printing))
 				printing = 1
-				var/target_name = input("Write the bank owner's name", "Account owner's name?")
+				var/target_name = reject_bad_text(stripped_input("Write the bank owner's name", "Account owner's name?"), MAX_NAME_LEN)
 				if(!target_name)
 					printing = null
 					return

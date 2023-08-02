@@ -37,3 +37,11 @@ ASSET_CDN_WEBROOT data/asset-store/
 # if you want to test this locally, you simpily run the `localhost-asset-webroot-server.py` python3 script to host assets stored in `data/asset-store/` via http://localhost:7123/
 ASSET_CDN_URL http://localhost:7123/
 
+########################
+# Asset Caching Config #
+########################
+## Assets can opt-in to caching their results into `tmp`.
+## This is important, as preferences assets take upwards of 30 seconds (without sleeps) to collect.
+## The cache is assumed to be cleared by TGS recompiling, which deletes `tmp`.
+## This should be uncommented on production
+#CACHE_ASSETS

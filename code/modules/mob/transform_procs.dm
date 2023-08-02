@@ -140,6 +140,7 @@
 
 	if (tr_flags & TR_DEFAULTMSG)
 		to_chat(O, "<B>You are now a monkey.</B>")
+	SEND_SIGNAL(src, COMSIG_CARBON_TRANSFORMED, O)
 
 	for(var/A in loc.vars)
 		if(loc.vars[A] == src)
@@ -282,6 +283,8 @@
 
 	if (tr_flags & TR_DEFAULTMSG)
 		to_chat(O, "<B>You are now a living teratoma.</B>")
+
+	SEND_SIGNAL(src, COMSIG_CARBON_TRANSFORMED, O)
 
 	for(var/A in loc.vars)
 		if(loc.vars[A] == src)
@@ -451,6 +454,8 @@
 	if (tr_flags & TR_DEFAULTMSG)
 		to_chat(O, "<B>You are now \a [O.dna.species]].</B>")
 
+	SEND_SIGNAL(src, COMSIG_CARBON_TRANSFORMED, O)
+
 	transfer_observers_to(O)
 
 	. = O
@@ -553,11 +558,13 @@
 	to_chat(src, "<span class='userdanger'>You are job banned from cyborg! Appeal your job ban if you want to avoid this in the future!</span>")
 	ghostize(FALSE)
 
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [src]?", "[src]", null, JOB_NAME_CYBORG, 50, src)
+	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [src]?", JOB_NAME_CYBORG, null, 7.5 SECONDS, src, ignore_category = FALSE)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/chosen_candidate = pick(candidates)
 		message_admins("[key_name_admin(chosen_candidate)] has taken control of ([key_name_admin(src)]) to replace a jobbanned player.")
 		key = chosen_candidate.key
+	else
+		set_playable(JOB_NAME_CYBORG)
 
 //human -> alien
 /mob/living/carbon/human/proc/Alienize()
@@ -654,8 +661,9 @@
 /mob/living/carbon/human/Animalize()
 
 	var/list/mobtypes = typesof(/mob/living/simple_animal)
-	var/mobpath = input("Which type of mob should [src] turn into?", "Choose a type") in sort_list(mobtypes, GLOBAL_PROC_REF(cmp_typepaths_asc))
-
+	var/mobpath = tgui_input_list(usr, "Which type of mob should [src] turn into?", "Choose a type", sort_list(mobtypes, GLOBAL_PROC_REF(cmp_typepaths_asc)))
+	if(isnull(mobpath))
+		return
 	if(!mobpath)
 		to_chat(usr, "<span class='danger'>Sorry but this mob type is currently unavailable.</span>")
 		return
@@ -668,15 +676,16 @@
 	new_mob.key = key
 	new_mob.a_intent = INTENT_HARM
 
-
 	to_chat(new_mob, "You suddenly feel more... animalistic.")
 	. = new_mob
 	qdel(src)
 
 /mob/proc/Animalize()
-	var/list/mobtypes = typesof(/mob/living/simple_animal)
-	var/mobpath = input("Which type of mob should [src] turn into?", "Choose a type") in sort_list(mobtypes, GLOBAL_PROC_REF(cmp_typepaths_asc))
 
+	var/list/mobtypes = typesof(/mob/living/simple_animal)
+	var/mobpath = tgui_input_list(usr, "Which type of mob should [src] turn into?", "Choose a type", sort_list(mobtypes, GLOBAL_PROC_REF(cmp_typepaths_asc)))
+	if(isnull(mobpath))
+		return
 	if(!mobpath)
 		to_chat(usr, "<span class='danger'>Sorry but this mob type is currently unavailable.</span>")
 		return
@@ -685,7 +694,7 @@
 
 	new_mob.key = key
 	new_mob.a_intent = INTENT_HARM
-	to_chat(new_mob, "You feel more... animalistic")
+	to_chat(new_mob, "<span class='boldnotice'>You feel more... animalistic!</span>")
 
 	. = new_mob
 	qdel(src)

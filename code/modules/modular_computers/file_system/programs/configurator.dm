@@ -72,7 +72,7 @@
 		if("PC_set_classic_color")
 			if(computer.device_theme != THEME_THINKTRONIC)
 				return
-			var/new_color = input(usr, "Choose a new color for the device's system theme.", "System Color",computer.classic_color) as color|null
+			var/new_color = tgui_color_picker(usr, "Choose a new color for the device's system theme.", "System Color",computer.classic_color)
 			if(!new_color)
 				return
 			computer.classic_color = new_color
