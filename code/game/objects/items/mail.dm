@@ -228,9 +228,11 @@
 	switch(rand(1,10))
 
 		if(1,2)
-			name = special_name ? junk_names[junk] : "[initial(name)] for [pick(GLOB.alive_mob_list)]" //LETTER FOR IAN / BUBBLEGUM / MONKEY(420)
+			if (length(GLOB.alive_mob_list))
+				name = special_name ? junk_names[junk] : "[initial(name)] for [pick(GLOB.alive_mob_list)]" //LETTER FOR IAN / BUBBLEGUM / MONKEY(420)
 		if(3,4)
-			name = special_name ? junk_names[junk] : "[initial(name)] for [pick(GLOB.player_list)]" //Letter for ANYONE, even that wizard rampaging through the station.
+			if (length(GLOB.player_list))
+				name = special_name ? junk_names[junk] : "[initial(name)] for [pick(GLOB.player_list)]" //Letter for ANYONE, even that wizard rampaging through the station.
 		if(5)
 			name = special_name ? junk_names[junk] : "DO NOT OPEN"
 		else

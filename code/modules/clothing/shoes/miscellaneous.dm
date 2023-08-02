@@ -136,6 +136,8 @@
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 
 /obj/item/clothing/shoes/jackboots/fast
+	name = "modified jackboots"
+	desc = "Security combat boots for combat scenarios or combat situations. This pair seems to be modified with lighter materials."
 	slowdown = -1
 
 /obj/item/clothing/shoes/winterboots

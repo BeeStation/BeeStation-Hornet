@@ -1033,6 +1033,14 @@
 	build_path = /obj/item/vending_refill/custom
 	category = list("initial", "Misc")
 
+/datum/design/custom_vendor_board
+	name = "Custom Vendor Machine Board"
+	id = "custom_vendor_board"
+	build_type = AUTOLATHE
+	build_path = /obj/item/circuitboard/machine/vendor
+	materials = list(/datum/material/iron = 100, /datum/material/glass = 100)
+	category = list("initial", "Misc")
+
 /datum/design/toygun
 	name = "Cap Gun"
 	id = "toygun"

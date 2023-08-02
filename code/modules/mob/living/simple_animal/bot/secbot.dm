@@ -20,6 +20,7 @@
 	allow_pai = 0
 	data_hud_type = DATA_HUD_SECURITY_ADVANCED
 	path_image_color = "#FF0000"
+	boot_delay = 8 SECONDS
 
 	var/noloot = FALSE
 	var/baton_type = /obj/item/melee/baton
@@ -107,30 +108,19 @@
 	var/dat
 	dat += hack(user)
 	dat += showpai(user)
-	dat += text({"
-<TT><B>Securitron v1.6 controls</B></TT><BR><BR>
-Status: []<BR>
-Behaviour controls are [locked ? "locked" : "unlocked"]<BR>
-Maintenance panel panel is [open ? "opened" : "closed"]"},
-
-"<A href='?src=[REF(src)];power=1'>[on ? "On" : "Off"]</A>" )
+	dat += "<TT><B>Securitron v1.6 controls</B></TT><BR>"
+	dat += "<BR>Status: <A href='?src=[REF(src)];power=1'>[on ? "On" : "Off"]</A>"
+	dat += "<BR>Behaviour controls are [locked ? "locked" : "unlocked"]"
+	dat += "<BR>Maintenance panel panel is [open ? "opened" : "closed"]"
 
 	if(!locked || issilicon(user) || IsAdminGhost(user))
-		dat += text({"<BR>
-Arrest Unidentifiable Persons: []<BR>
-Arrest for Unauthorized Weapons: []<BR>
-Arrest for Warrant: []<BR>
-Operating Mode: []<BR>
-Report Arrests[]<BR>
-Auto Patrol: []"},
-
-"<A href='?src=[REF(src)];operation=idcheck'>[idcheck ? "Yes" : "No"]</A>",
-"<A href='?src=[REF(src)];operation=weaponscheck'>[weaponscheck ? "Yes" : "No"]</A>",
-"<A href='?src=[REF(src)];operation=ignorerec'>[check_records ? "Yes" : "No"]</A>",
-"<A href='?src=[REF(src)];operation=switchmode'>[arrest_type ? "Detain" : "Arrest"]</A>",
-"<A href='?src=[REF(src)];operation=declarearrests'>[declare_arrests ? "Yes" : "No"]</A>",
-"<A href='?src=[REF(src)];operation=patrol'>[auto_patrol ? "On" : "Off"]</A>" )
-
+		dat += "<BR>"
+		dat += "<BR>Arrest Unidentifiable Persons: <A href='?src=[REF(src)];operation=idcheck'>[idcheck ? "Yes" : "No"]</A>"
+		dat += "<BR>Arrest for Unauthorized Weapons: <A href='?src=[REF(src)];operation=weaponscheck'>[weaponscheck ? "Yes" : "No"]</A>"
+		dat += "<BR>Arrest for Warrant: <A href='?src=[REF(src)];operation=ignorerec'>[check_records ? "Yes" : "No"]</A>"
+		dat += "<BR>Operating Mode: <A href='?src=[REF(src)];operation=switchmode'>[arrest_type ? "Detain" : "Arrest"]</A>"
+		dat += "<BR>Report Arrests <A href='?src=[REF(src)];operation=declarearrests'>[declare_arrests ? "Yes" : "No"]</A>"
+		dat += "<BR>Auto Patrol: <A href='?src=[REF(src)];operation=patrol'>[auto_patrol ? "On" : "Off"]</A>"
 	return	dat
 
 /mob/living/simple_animal/bot/secbot/Topic(href, href_list)
@@ -205,8 +195,8 @@ Auto Patrol: []"},
 		declare_arrests = FALSE
 		update_icon()
 
-/mob/living/simple_animal/bot/secbot/bullet_act(obj/item/projectile/Proj)
-	if(istype(Proj , /obj/item/projectile/beam)||istype(Proj, /obj/item/projectile/bullet))
+/mob/living/simple_animal/bot/secbot/bullet_act(obj/projectile/Proj)
+	if(istype(Proj , /obj/projectile/beam)||istype(Proj, /obj/projectile/bullet))
 		if((Proj.damage_type == BURN) || (Proj.damage_type == BRUTE))
 			if(!Proj.nodamage && Proj.damage < src.health && ishuman(Proj.firer))
 				retaliate(Proj.firer)
@@ -262,14 +252,16 @@ Auto Patrol: []"},
 	if(declare_arrests)
 		var/area/location = get_area(src)
 		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
-	C.visible_message("<span class='danger'>[src] has stunned [C]!</span>",\
-							"<span class='userdanger'>[src] has stunned you!</span>")
 
-	var/armor_block = target.run_armor_check(BODY_ZONE_CHEST, "stamina")
-	target.apply_damage(85, STAMINA, BODY_ZONE_CHEST, armor_block)
-	target.apply_effect(EFFECT_STUTTER, 50)
+	var/armor_block = C.run_armor_check(BODY_ZONE_CHEST, "stamina")
+	C.apply_damage(85, STAMINA, BODY_ZONE_CHEST, armor_block)
+	C.apply_effect(EFFECT_STUTTER, 50)
+	C.visible_message(
+		"<span class='danger'>[src] has stunned [C]!</span>",\
+		"<span class='userdanger'>[src] has stunned you!</span>"
+	)
 
-	log_combat(src,C,"stunned")
+	log_combat(src, C, "stunned")
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 	icon_state = "[initial(icon_state)]-c"
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 2)

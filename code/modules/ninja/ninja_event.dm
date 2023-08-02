@@ -45,7 +45,7 @@ Contents:
 		return MAP_ERROR
 
 	//selecting a candidate player
-	var/list/candidates = get_candidates(ROLE_NINJA, null, ROLE_NINJA)
+	var/list/candidates = get_candidates(ROLE_NINJA, /datum/role_preference/midround_ghost/ninja)
 	if(!candidates.len)
 		return NOT_ENOUGH_PLAYERS
 

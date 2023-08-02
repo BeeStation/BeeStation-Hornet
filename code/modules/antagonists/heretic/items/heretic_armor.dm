@@ -49,6 +49,10 @@
 	item_flags = EXAMINE_SKIP
 	armor = list(MELEE = 30, BULLET = 30, LASER = 30,ENERGY = 30, BOMB = 15, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, STAMINA = 30)
 
+/obj/item/clothing/head/hooded/cult_hoodie/void/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_STRIP, REF(src))
+
 /obj/item/clothing/suit/hooded/cultrobes/void
 	name = "void cloak"
 	desc = "Black like tar and doesn't reflect any light. Runic symbols line the outside, with each flash you lose comprehension of what you are seeing."
@@ -70,7 +74,7 @@
 /obj/item/clothing/suit/hooded/cultrobes/void/RemoveHood()
 	// This is before the hood actually goes down
 	// We only make it visible if the hood is being moved from up to down
-	if(qdel_hood)
+	if(qdel_hood && hood)
 		make_visible()
 	return ..()
 

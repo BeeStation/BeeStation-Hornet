@@ -93,6 +93,7 @@
 		/obj/item/reagent_containers/glass/beaker,//those will usually be used for fertilizer
 		/obj/item/reagent_containers/glass/bottle,//fertilizer bottles
 		/obj/item/reagent_containers/syringe,//blood samples for pod cloning
+		/obj/item/reagent_containers/dropper,//on request by forums users
 		/obj/item/plant_analyzer,
 		/obj/item/cultivator,
 		/obj/item/hatchet,

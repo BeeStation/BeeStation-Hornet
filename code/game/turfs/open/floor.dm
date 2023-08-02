@@ -133,6 +133,9 @@
 		return ..()
 	var/old_dir = dir
 	var/turf/open/floor/W = ..()
+	if (flags & CHANGETURF_SKIP)
+		dir = old_dir
+		return W
 	W.setDir(old_dir)
 	W.update_icon()
 	return W

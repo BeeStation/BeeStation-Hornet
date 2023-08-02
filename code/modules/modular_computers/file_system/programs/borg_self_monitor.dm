@@ -149,4 +149,4 @@
 	if(tablet)
 		var/datum/tgui/active_ui = SStgui.get_open_ui(tablet.borgo, src)
 		if(active_ui)
-			active_ui.send_full_update()
+			active_ui.send_full_update(bypass_cooldown = TRUE)

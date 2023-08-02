@@ -1,3 +1,5 @@
+#define TRAIT_STATUS_EFFECT(effect_id) "[effect_id]-trait"
+
 //Largely negative status effects go here, even if they have small benificial effects
 //STUN EFFECTS
 /datum/status_effect/incapacitating
@@ -20,10 +22,21 @@
 	owner.update_mobility()
 	if(needs_update_stat || issilicon(owner)) //silicons need stat updates in addition to normal canmove updates
 		owner.update_stat()
+	return ..()
 
 //STUN
 /datum/status_effect/incapacitating/stun
 	id = "stun"
+
+/datum/status_effect/incapacitating/stun/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
+
+/datum/status_effect/incapacitating/stun/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
+	return ..()
 
 //KNOCKDOWN
 /datum/status_effect/incapacitating/knockdown
@@ -36,10 +49,30 @@
 /datum/status_effect/incapacitating/paralyzed
 	id = "paralyzed"
 
+/datum/status_effect/incapacitating/paralyzed/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
+
+/datum/status_effect/incapacitating/paralyzed/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
+	return ..()
+
 //UNCONSCIOUS
 /datum/status_effect/incapacitating/unconscious
 	id = "unconscious"
 	needs_update_stat = TRUE
+
+/datum/status_effect/incapacitating/unconscious/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
+
+/datum/status_effect/incapacitating/unconscious/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_INCAPACITATED, TRAIT_STATUS_EFFECT(id))
+	return ..()
 
 /datum/status_effect/incapacitating/unconscious/tick()
 	if(owner.getStaminaLoss())
@@ -289,7 +322,7 @@
 	alert_type = null
 
 /datum/status_effect/cultghost/on_apply()
-	owner.see_invisible = SEE_INVISIBLE_OBSERVER
+	owner.see_invisible = SEE_INVISIBLE_SPIRIT
 	owner.see_in_dark = 2
 	return ..()
 
@@ -493,7 +526,7 @@
 	new/obj/effect/temp_visual/dir_setting/curse/grasp_portal(spawn_turf, owner.dir)
 	playsound(spawn_turf, 'sound/effects/curse2.ogg', 80, 1, -1)
 	var/turf/ownerloc = get_turf(owner)
-	var/obj/item/projectile/curse_hand/C = new (spawn_turf)
+	var/obj/projectile/curse_hand/C = new (spawn_turf)
 	C.preparePixelProjectile(ownerloc, spawn_turf)
 	C.fire()
 
@@ -1147,8 +1180,10 @@
 	/// How much "charge" the transformation has left. It's randomly set upon creation,
 	/// and ticks down every second if there's mutadone in the target's system.
 	var/charge_left
+	/// Whether the transformation has already been applied or not (i.e is this a new transformation, or an old one being transferred?)
+	var/already_applied = FALSE
 
-/datum/status_effect/ling_transformation/on_creation(mob/living/new_owner, datum/dna/target_dna, datum/dna/original_dna)
+/datum/status_effect/ling_transformation/on_creation(mob/living/new_owner, datum/dna/target_dna, datum/dna/original_dna, already_applied = FALSE)
 	if(!iscarbon(new_owner) || QDELETED(target_dna))
 		qdel(src)
 		return
@@ -1158,6 +1193,7 @@
 	if(original_dna)
 		src.original_dna = new original_dna.type
 		original_dna.copy_dna(src.original_dna)
+	src.already_applied = already_applied
 	return ..()
 
 /datum/status_effect/ling_transformation/on_apply()
@@ -1172,8 +1208,10 @@
 	else if(!original_dna)
 		original_dna = new carbon_owner.dna.type
 		carbon_owner.dna.copy_dna(original_dna)
-	apply_dna(target_dna)
-	to_chat(owner, "<span class='warning'>You don't feel like yourself anymore...</span>")
+	RegisterSignal(owner, COMSIG_CARBON_TRANSFORMED, PROC_REF(on_transformation))
+	if(!already_applied)
+		apply_dna(target_dna)
+		to_chat(owner, "<span class='warning'>You don't feel like yourself anymore...</span>")
 
 /datum/status_effect/ling_transformation/on_remove()
 	. = ..()
@@ -1181,6 +1219,7 @@
 		return
 	apply_dna(original_dna)
 	to_chat(owner, "<span class='notice'>You feel like yourself again!</span>")
+	UnregisterSignal(owner, COMSIG_CARBON_TRANSFORMED)
 
 /datum/status_effect/ling_transformation/tick()
 	. = ..()
@@ -1199,3 +1238,11 @@
 	carbon_owner.real_name = carbon_owner.dna.real_name
 	carbon_owner.updateappearance(mutcolor_update = TRUE)
 	carbon_owner.domutcheck()
+
+/datum/status_effect/ling_transformation/proc/on_transformation(mob/living/carbon/source, mob/living/carbon/new_body)
+	SIGNAL_HANDLER
+	if(!istype(source) || !istype(new_body))
+		return
+	var/datum/status_effect/ling_transformation/new_effect = new_body.apply_status_effect(/datum/status_effect/ling_transformation, target_dna, original_dna, TRUE)
+	if(new_effect)
+		new_effect.charge_left = charge_left

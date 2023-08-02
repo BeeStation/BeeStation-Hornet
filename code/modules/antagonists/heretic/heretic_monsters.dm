@@ -4,7 +4,7 @@
 	roundend_category = "Heretics"
 	antagpanel_category = "Heretic Beast"
 	antag_moodlet = /datum/mood_event/heretics
-	job_rank = ROLE_HERETIC
+	banning_key = ROLE_HERETIC
 	show_in_antagpanel = FALSE
 	var/antag_hud_type = ANTAG_HUD_HERETIC
 	var/antag_hud_name = "heretic_beast"

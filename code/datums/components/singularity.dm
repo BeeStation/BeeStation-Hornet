@@ -161,7 +161,7 @@
 	consume(source, user)
 
 // Will there be an impact? Who knows.  Will we see it? No.
-/datum/component/singularity/proc/consume_bullets(obj/item/projectile/projectile)
+/datum/component/singularity/proc/consume_bullets(obj/projectile/projectile)
 	SIGNAL_HANDLER
 	qdel(projectile)
 
@@ -225,6 +225,8 @@
 				break
 			// eat the stuff if we're going to move into it so it doesn't mess up our movement
 			for(var/atom/thing_on_turf in current_turf.contents)
+				if(thing_on_turf == parent)
+					continue
 				consume(src, thing_on_turf)
 			consume(src, current_turf)
 
