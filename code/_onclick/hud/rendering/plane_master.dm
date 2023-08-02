@@ -140,7 +140,7 @@
 		animate(src, time = transition_time, color = new_colour)
 		return
 	// Ensure that the lightness of the colour is quite high to give us good looking lighting colours
-	var/lighting_colour = color_min_lightness(new_colour, 0.85)
+	var/lighting_colour = color_min_lightness(new_colour, 0.9)
 	animate(src, time = transition_time, color = lighting_colour)
 
 /**
