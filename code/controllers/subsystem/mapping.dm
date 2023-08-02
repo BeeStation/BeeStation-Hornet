@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(mapping)
 	name = "Mapping"
 	init_order = INIT_ORDER_MAPPING
-	flags = SS_NO_FIRE
+	runlevels = ALL
 
 	var/list/nuke_tiles = list()
 	var/list/nuke_threats = list()
@@ -33,6 +33,8 @@ SUBSYSTEM_DEF(mapping)
 	var/list/turf/unused_turfs = list()				//Not actually unused turfs they're unused but reserved for use for whatever requests them. "[zlevel_of_turf]" = list(turfs)
 	var/list/datum/turf_reservations		//list of turf reservations
 	var/list/used_turfs = list()				//list of turf = datum/turf_reservation
+	/// List of lists of turfs to reserve
+	var/list/lists_to_reserve = list()
 
 	///All possible biomes in assoc list as type || instance
 	var/list/biomes = list()
@@ -45,6 +47,9 @@ SUBSYSTEM_DEF(mapping)
 	var/station_start  // should only be used for maploading-related tasks
 	var/space_levels_so_far = 0
 	var/list/z_list
+	///list of all z level indices that form multiz connections and whether theyre linked up or down.
+	///list of lists, inner lists are of the form: list("up or down link direction" = TRUE)
+	var/list/multiz_levels = list()
 	var/datum/space_level/transit
 	var/datum/space_level/empty_space
 	var/num_of_res_levels = 1
@@ -70,7 +75,7 @@ SUBSYSTEM_DEF(mapping)
 			config = old_config
 	initialize_biomes()
 	loadWorld()
-	repopulate_sorted_areas()
+	require_area_resort()
 	process_teleport_locs()			//Sets up the wizard teleport locations
 	preloadTemplates()
 
@@ -97,20 +102,49 @@ SUBSYSTEM_DEF(mapping)
 	loading_ruins = TRUE
 	var/list/lava_ruins = levels_by_trait(ZTRAIT_LAVA_RUINS)
 	if (lava_ruins.len)
-		seedRuins(lava_ruins, CONFIG_GET(number/lavaland_budget), /area/lavaland/surface/outdoors/unexplored, lava_ruins_templates)
+		seedRuins(lava_ruins, CONFIG_GET(number/lavaland_budget), /area/lavaland/surface/outdoors/unexplored, lava_ruins_templates, clear_below = TRUE)
 		for (var/lava_z in lava_ruins)
 			spawn_rivers(lava_z)
 	loading_ruins = FALSE
 #endif
 	// Run map generation after ruin generation to prevent issues
 	run_map_generation()
-	repopulate_sorted_areas()
+	require_area_resort()
 	// Set up Z-level transitions.
 	setup_map_transitions()
 	generate_station_area_list()
 	transit = add_new_zlevel("Transit/Reserved", list(ZTRAIT_RESERVED = TRUE))
 	initialize_reserved_level(transit.z_value)
 	return ..()
+
+/datum/controller/subsystem/mapping/fire(resumed)
+	// Cache for sonic speed
+	var/list/unused_turfs = src.unused_turfs
+	var/list/world_contents = GLOB.areas_by_type[world.area].contents
+	var/list/world_turf_contents = GLOB.areas_by_type[world.area].contained_turfs
+	var/list/lists_to_reserve = src.lists_to_reserve
+	var/index = 0
+	while(index < length(lists_to_reserve))
+		var/list/packet = lists_to_reserve[index + 1]
+		var/packetlen = length(packet)
+		while(packetlen)
+			if(MC_TICK_CHECK)
+				lists_to_reserve.Cut(1, index)
+				return
+			var/turf/T = packet[packetlen]
+			T.empty(RESERVED_TURF_TYPE, RESERVED_TURF_TYPE, null, TRUE)
+			LAZYINITLIST(unused_turfs["[T.z]"])
+			unused_turfs["[T.z]"] |= T
+			var/area/old_area = T.loc
+			old_area.turfs_to_uncontain += T
+			T.flags_1 |= UNUSED_RESERVATION_TURF_1
+			world_contents += T
+			world_turf_contents += T
+			packet.len--
+			packetlen = length(packet)
+
+		index++
+	lists_to_reserve.Cut(1, index)
 
 /datum/controller/subsystem/mapping/get_metrics()
 	. = ..()
@@ -227,7 +261,7 @@ SUBSYSTEM_DEF(mapping)
 	var/i = 0
 	var/list/datum/space_level/space_levels = list()
 	for (var/level in traits)
-		space_levels += add_new_zlevel("[name][i ? " [i + 1]" : ""]", level)
+		space_levels += add_new_zlevel("[name][i ? " [i + 1]" : ""]", level, contain_turfs = FALSE)
 		++i
 	//Shared orbital body
 	var/datum/orbital_object/z_linked/orbital_body = new orbital_body_type()
@@ -236,8 +270,8 @@ SUBSYSTEM_DEF(mapping)
 		orbital_body.link_to_z(level)
 
 	// load the maps
-	for(var/datum/parsed_map/pm as() in parsed_maps)
-		if(!pm.load(1, 1, start_z + parsed_maps[pm], no_changeturf = TRUE))
+	for(var/datum/parsed_map/pm as anything in parsed_maps)
+		if(!pm.load(1, 1, start_z + parsed_maps[pm], no_changeturf = TRUE, new_z = TRUE))
 			errorList |= pm.original_path
 
 	if(!silent)
@@ -315,21 +349,21 @@ SUBSYSTEM_DEF(mapping)
 GLOBAL_LIST_EMPTY(the_station_areas)
 
 /datum/controller/subsystem/mapping/proc/generate_station_area_list()
-	var/list/station_areas_blacklist = typecacheof(list(/area/space, /area/mine, /area/ruin, /area/asteroid/nearstation))
-	for(var/area/A in GLOB.sortedAreas)
-		if (is_type_in_typecache(A, station_areas_blacklist))
+	var/static/list/station_areas_blacklist = typecacheof(list(/area/space, /area/mine, /area/ruin, /area/asteroid/nearstation))
+	// if we ever add /area/station (and remove this typecache) scope this loop's type to /area/station please!!
+	for(var/area/station_area in GLOB.areas)
+		if (is_type_in_typecache(station_area, station_areas_blacklist))
 			continue
-		if (!A.contents.len || !(A.area_flags & UNIQUE_AREA))
+		if (!(station_area.area_flags & UNIQUE_AREA))
 			continue
-		var/turf/picked = A.contents[1]
-		if (is_station_level(picked.z))
-			GLOB.the_station_areas += A.type
+		if (is_station_level(station_area.z))
+			GLOB.the_station_areas += station_area.type
 
 	if(!GLOB.the_station_areas.len)
 		log_world("ERROR: Station areas list failed to generate!")
 
 /datum/controller/subsystem/mapping/proc/run_map_generation()
-	for(var/area/A in world)
+	for(var/area/A as anything in GLOB.areas)
 		A.RunGeneration()
 
 /datum/controller/subsystem/mapping/proc/maprotate()
@@ -579,15 +613,12 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	reservation_ready["[z]"] = TRUE
 	clearing_reserved_turfs = FALSE
 
-/datum/controller/subsystem/mapping/proc/reserve_turfs(list/turfs)
-	for(var/i in turfs)
-		var/turf/T = i
-		T.empty(RESERVED_TURF_TYPE, RESERVED_TURF_TYPE, null, TRUE)
-		LAZYINITLIST(unused_turfs["[T.z]"])
-		unused_turfs["[T.z]"] |= T
-		T.flags_1 |= UNUSED_RESERVATION_TURF_1
-		GLOB.areas_by_type[world.area].contents += T
-		CHECK_TICK
+/// Schedules a group of turfs to be handed back to the reservation system's control
+/// If await is true, will sleep until the turfs are finished work
+/datum/controller/subsystem/mapping/proc/reserve_turfs(list/turfs, await = FALSE)
+	lists_to_reserve += list(turfs)
+	if(await)
+		UNTIL(!length(turfs))
 
 //DO NOT CALL THIS PROC DIRECTLY, CALL wipe_reservations().
 /datum/controller/subsystem/mapping/proc/do_wipe_turf_reservations()
@@ -604,7 +635,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	clearing |= used_turfs		//used turfs is an associative list, BUT, reserve_turfs() can still handle it. If the code above works properly, this won't even be needed as the turfs would be freed already.
 	unused_turfs.Cut()
 	used_turfs.Cut()
-	reserve_turfs(clearing)
+	reserve_turfs(clearing, await = TRUE)
 
 /datum/controller/subsystem/mapping/proc/initialize_biomes()
 	for(var/biome_path in subtypesof(/datum/biome))
@@ -621,3 +652,41 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		isolated_ruins_z = add_new_zlevel("Isolated Ruins/Reserved", list(ZTRAIT_RESERVED = TRUE, ZTRAIT_ISOLATED_RUINS = TRUE))
 		initialize_reserved_level(isolated_ruins_z.z_value)
 	return isolated_ruins_z.z_value
+
+/// Takes a z level datum, and tells the mapping subsystem to manage it
+/// - Adds to z_list, and builds its area turfs
+/datum/controller/subsystem/mapping/proc/manage_z_level(datum/space_level/new_z, filled_with_space, contain_turfs = TRUE)
+	z_list += new_z
+	if(contain_turfs)
+		build_area_turfs(new_z.z_value, filled_with_space)
+
+/datum/controller/subsystem/mapping/proc/build_area_turfs(z_level, space_guaranteed)
+	// If we know this is filled with default tiles, we can use the default area
+	// Faster
+	if(space_guaranteed)
+		var/area/global_area = GLOB.areas_by_type[world.area]
+		global_area.contained_turfs += Z_TURFS(z_level)
+		return
+
+	for(var/turf/to_contain as anything in Z_TURFS(z_level))
+		var/area/our_area = to_contain.loc
+		our_area.contained_turfs += to_contain
+
+/datum/controller/subsystem/mapping/proc/generate_z_level_linkages()
+	for(var/z_level in 1 to length(z_list))
+		generate_linkages_for_z_level(z_level)
+
+/datum/controller/subsystem/mapping/proc/generate_linkages_for_z_level(z_level)
+	if(!isnum(z_level) || z_level <= 0)
+		return FALSE
+
+	if(multiz_levels.len < z_level)
+		multiz_levels.len = z_level
+
+	var/z_above = level_trait(z_level, ZTRAIT_UP)
+	var/z_below = level_trait(z_level, ZTRAIT_DOWN)
+	if(!(z_above == TRUE || z_above == FALSE || z_above == null) || !(z_below == TRUE || z_below == FALSE || z_below == null))
+		stack_trace("Warning, numeric mapping offsets are deprecated. Instead, mark z level connections by setting UP/DOWN to true if the connection is allowed")
+	multiz_levels[z_level] = new /list(LARGEST_Z_LEVEL_INDEX)
+	multiz_levels[z_level][Z_LEVEL_UP] = !!z_above
+	multiz_levels[z_level][Z_LEVEL_DOWN] = !!z_below

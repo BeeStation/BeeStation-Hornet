@@ -1,7 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - rscadd: Added a new 2 point trait - Bro Skater. Spawns you in with cosmetic sunglasses
-      and a pro skateboard, reduces stamina damage from riding/doing tricks/crashing
-      with the skateboard and similar vehicles. Also makes you automatically flip
-      any cap you put on.

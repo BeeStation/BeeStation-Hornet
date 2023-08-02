@@ -113,7 +113,10 @@
 
 #define STATUS_EFFECT_COCOONED /datum/status_effect/cocooned /// If a moth is in a cocoon
 
+#define STATUS_EFFECT_SMOKE /datum/status_effect/smoke
+
 #define STATUS_EFFECT_LING_TRANSFORMATION /datum/status_effect/ling_transformation // transform stung by a changeling
+
 
 //---------//
 // NEUTRAL //
