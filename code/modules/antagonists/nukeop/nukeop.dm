@@ -2,10 +2,12 @@
 	name = "Nuclear Operative"
 	roundend_category = "syndicate operatives" //just in case
 	antagpanel_category = "NukeOp"
-	job_rank = ROLE_OPERATIVE
+	banning_key = ROLE_OPERATIVE
+	required_living_playtime = 8
 	antag_moodlet = /datum/mood_event/focused
 	show_to_ghosts = TRUE
 	hijack_speed = 2 //If you can't take out the station, take the shuttle instead.
+	ui_name = "AntagInfoNukeOp"
 	var/datum/team/nuclear/nuke_team
 	var/always_new_team = FALSE //If not assigned a team by default ops will try to join existing ones, set this to TRUE to always create new team.
 	var/send_to_spawnpoint = TRUE //Should the user be moved to default spawnpoint.
@@ -68,6 +70,12 @@
 
 /datum/antagonist/nukeop/get_team()
 	return nuke_team
+
+/datum/antagonist/nukeop/ui_static_data(mob/user)
+	. = ..()
+	.["leader"] = FALSE
+	.["lone"] = FALSE
+	.["nuke_code"] = nuke_team.memorized_code || "???"
 
 /datum/antagonist/nukeop/proc/assign_nuke()
 	if(nuke_team && !nuke_team.tracked_nuke)
@@ -144,7 +152,7 @@
 	nuke_team = new_team
 
 /datum/antagonist/nukeop/admin_add(datum/mind/new_owner,mob/admin)
-	new_owner.assigned_role = ROLE_SYNDICATE
+	new_owner.assigned_role = ROLE_OPERATIVE
 	new_owner.add_antag_datum(src)
 	message_admins("[key_name_admin(admin)] has nuke op'ed [key_name_admin(new_owner)].")
 	log_admin("[key_name(admin)] has nuke op'ed [key_name(new_owner)].")
@@ -210,6 +218,10 @@
 		return
 	nuke_team.rename_team(ask_name())
 
+/datum/antagonist/nukeop/leader/ui_static_data(mob/user)
+	. = ..()
+	.["leader"] = TRUE
+
 /datum/team/nuclear/proc/rename_team(new_name)
 	syndicate_name = new_name
 	name = "Family [syndicate_name]"
@@ -253,6 +265,10 @@
 			stack_trace("Station self-destruct not found during lone op team creation.")
 			nuke_team.memorized_code = null
 		nuke_team.name = "Lone Operative - [nuke_team.syndicate_name]"
+
+/datum/antagonist/nukeop/lone/ui_static_data(mob/user)
+	. = ..()
+	.["lone"] = TRUE
 
 /datum/antagonist/nukeop/reinforcement
 	send_to_spawnpoint = FALSE

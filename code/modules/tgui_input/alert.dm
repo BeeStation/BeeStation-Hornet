@@ -21,10 +21,15 @@
 			return
 	// Client does NOT have tgui_input on: Returns regular input
 	if(!(user.client?.prefs?.toggles2 & PREFTOGGLE_2_TGUI_INPUT))
-		if(length(buttons) == 2)
-			return alert(user, message, title, buttons[1], buttons[2])
-		if(length(buttons) == 3)
-			return alert(user, message, title, buttons[1], buttons[2], buttons[3])
+		switch(length(buttons))
+			if(1)
+				return alert(user, message, title, buttons[1])
+			if(2)
+				return alert(user, message, title, buttons[1], buttons[2])
+			if(3)
+				return alert(user, message, title, buttons[1], buttons[2], buttons[3])
+			else
+				return alert(user, message, title)
 	var/datum/tgui_modal/alert = new(user, message, title, buttons, timeout, autofocus)
 	alert.ui_interact(user)
 	alert.wait()
@@ -115,6 +120,7 @@
 	if(!ui)
 		ui = new(user, src, "AlertModal")
 		ui.open()
+		ui.set_autoupdate(timeout > 0)
 
 /datum/tgui_modal/ui_close(mob/user)
 	. = ..()
@@ -123,19 +129,17 @@
 /datum/tgui_modal/ui_state(mob/user)
 	return GLOB.always_state
 
-/datum/tgui_modal/ui_data(mob/user)
+/datum/tgui_modal/ui_static_data(mob/user)
 	. = list()
 	.["autofocus"] = autofocus
 	.["buttons"] = buttons
 	.["message"] = message
-	.["preferences"] = list()
-	if(!user.client || !user.client.prefs)
-		.["preferences"]["large_buttons"] = TRUE
-		.["preferences"]["swapped_buttons"] = TRUE
-	else
-		.["preferences"]["large_buttons"] = (user.client?.prefs?.toggles2 & PREFTOGGLE_2_BIG_BUTTONS)
-		.["preferences"]["swapped_buttons"] = (user.client?.prefs?.toggles2 & PREFTOGGLE_2_SWITCHED_BUTTONS)
+	.["large_buttons"] = !user.client?.prefs || (user.client.prefs.toggles2 & PREFTOGGLE_2_BIG_BUTTONS)
+	.["swapped_buttons"] = !user.client?.prefs || (user.client.prefs.toggles2 & PREFTOGGLE_2_SWITCHED_BUTTONS)
 	.["title"] = title
+
+/datum/tgui_modal/ui_data(mob/user)
+	. = list()
 	if(timeout)
 		.["timeout"] = CLAMP01((timeout - (world.time - start_time) - 1 SECONDS) / (timeout - 1 SECONDS))
 

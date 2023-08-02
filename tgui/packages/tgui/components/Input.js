@@ -9,11 +9,7 @@ import { Component, createRef } from 'inferno';
 import { Box } from './Box';
 import { KEY_ESCAPE, KEY_ENTER } from 'common/keycodes';
 
-export const toInputValue = value => (
-  typeof value !== 'number' && typeof value !== 'string'
-    ? ''
-    : String(value)
-);
+export const toInputValue = (value) => (typeof value !== 'number' && typeof value !== 'string' ? '' : String(value));
 
 export class Input extends Component {
   constructor() {
@@ -22,7 +18,7 @@ export class Input extends Component {
     this.state = {
       editing: false,
     };
-    this.handleInput = e => {
+    this.handleInput = (e) => {
       const { editing } = this.state;
       const { onInput } = this.props;
       if (!editing) {
@@ -32,13 +28,13 @@ export class Input extends Component {
         onInput(e, e.target.value);
       }
     };
-    this.handleFocus = e => {
+    this.handleFocus = (e) => {
       const { editing } = this.state;
       if (!editing) {
         this.setEditing(true);
       }
     };
-    this.handleBlur = e => {
+    this.handleBlur = (e) => {
       const { editing } = this.state;
       const { onChange } = this.props;
       if (editing) {
@@ -48,7 +44,7 @@ export class Input extends Component {
         }
       }
     };
-    this.handleKeyDown = e => {
+    this.handleKeyDown = (e) => {
       const { onInput, onChange, onEnter } = this.props;
       if (e.keyCode === KEY_ENTER) {
         this.setEditing(false);
@@ -105,36 +101,12 @@ export class Input extends Component {
   render() {
     const { props } = this;
     // Input only props
-    const {
-      selfClear,
-      onInput,
-      onChange,
-      onEnter,
-      value,
-      maxLength,
-      placeholder,
-      autoFocus,
-      ...boxProps
-    } = props;
+    const { selfClear, onInput, onChange, onEnter, value, maxLength, placeholder, autoFocus, ...boxProps } = props;
     // Box props
-    const {
-      className,
-      fluid,
-      monospace,
-      ...rest
-    } = boxProps;
+    const { className, fluid, monospace, ...rest } = boxProps;
     return (
-      <Box
-        className={classes([
-          'Input',
-          fluid && 'Input--fluid',
-          monospace && 'Input--monospace',
-          className,
-        ])}
-        {...rest}>
-        <div className="Input__baseline">
-          .
-        </div>
+      <Box className={classes(['Input', fluid && 'Input--fluid', monospace && 'Input--monospace', className])} {...rest}>
+        <div className="Input__baseline">.</div>
         <input
           ref={this.inputRef}
           className="Input__input"
@@ -144,7 +116,8 @@ export class Input extends Component {
           onBlur={this.handleBlur}
           onKeyDown={this.handleKeyDown}
           maxLength={maxLength}
-          autoFocus={autoFocus} />
+          autoFocus={autoFocus}
+        />
       </Box>
     );
   }

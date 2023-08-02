@@ -33,10 +33,14 @@
 
 	/// Do we keep on living forever?
 	var/immortal = FALSE
+	///How many harvested pierced realities do we spawn on destruction
+	var/max_spawned_faked = 2
 
-/obj/effect/anomaly/Initialize(mapload, new_lifespan)
+/obj/effect/anomaly/Initialize(mapload, new_lifespan, spawned_fake_harvested)
 	. = ..()
-	GLOB.poi_list |= src
+
+	AddElement(/datum/element/point_of_interest)
+
 	START_PROCESSING(SSobj, src)
 	impact_area = get_area(src)
 
@@ -54,6 +58,9 @@
 		lifespan = new_lifespan
 	death_time = world.time + lifespan
 
+	if(spawned_fake_harvested)
+		max_spawned_faked = spawned_fake_harvested
+
 	if(immortal)
 		return // no countdown for forever anomalies
 	countdown = new(src)
@@ -69,7 +76,6 @@
 		qdel(src)
 
 /obj/effect/anomaly/Destroy()
-	GLOB.poi_list.Remove(src)
 	STOP_PROCESSING(SSobj, src)
 	QDEL_NULL(countdown)
 	return ..()
@@ -109,7 +115,7 @@
 
 /obj/effect/anomaly/grav
 	name = "gravitational anomaly"
-	icon_state = "shield2"
+	icon_state = "shield3-rewind"
 	density = FALSE
 	var/boing = 0
 	///Warp effect holder for displacement filter to "pulse" the anomaly
@@ -242,7 +248,8 @@
 			explosion(src, heavy_impact_range = 1, light_impact_range = 4, flash_range = 6)
 		if(ANOMALY_FLUX_NO_EXPLOSION)
 			new /obj/effect/particle_effect/sparks(loc)
-
+	var/turf/T = get_turf(src)
+	T.generate_fake_pierced_realities(max_spawned_faked)
 
 /////////////////////
 
@@ -251,6 +258,7 @@
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "bluespace"
 	density = TRUE
+	max_spawned_faked = 4
 
 /obj/effect/anomaly/bluespace/anomalyEffect()
 	..()
@@ -314,6 +322,8 @@
 							sleep(20)
 							M.client.screen -= blueeffect
 							qdel(blueeffect)
+	var/turf/F = get_turf(src)
+	F.generate_fake_pierced_realities(FALSE, max_spawned_faked)
 
 /////////////////////
 
@@ -351,7 +361,7 @@
 	S.amount_grown = SLIME_EVOLUTION_THRESHOLD
 	S.Evolve()
 	S.flavor_text = FLAVOR_TEXT_EVIL
-	S.set_playable()
+	S.set_playable(ROLE_PYRO_SLIME)
 
 /////////////////////
 
@@ -416,6 +426,10 @@
 			if(EXPLODE_LIGHT)
 				SSexplosions.lowturf += T
 
+/obj/effect/anomaly/bhole/detonate()
+	var/turf/T = get_turf(src)
+	T.generate_fake_pierced_realities(max_spawned_faked)
+
 /////////////////////
 
 /obj/effect/anomaly/hallucination
@@ -441,6 +455,8 @@
 	var/turf/open/our_turf = get_turf(src)
 	if(istype(our_turf))
 		hallucination_pulse(our_turf, 10)
+	var/turf/T = get_turf(src)
+	T.generate_fake_pierced_realities(max_spawned_faked)
 
 /proc/hallucination_pulse(turf/location, range, strength = 50)
 	for(var/mob/living/carbon/human/near in view(location, range))

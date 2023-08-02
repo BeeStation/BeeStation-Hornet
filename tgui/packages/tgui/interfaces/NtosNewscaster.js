@@ -4,14 +4,11 @@ import { Newscaster } from './Newscaster';
 
 export const NtosNewscaster = (_, context) => {
   const { data } = useBackend(context);
-  const {
-    PC_device_theme,
-    PC_classic_color,
-  } = data;
+  const { PC_device_theme, PC_classic_color } = data;
   return (
     <NtosWindow>
       <NtosWindow.Content scrollable>
-        <Newscaster override_bg={PC_classic_color && PC_device_theme === "thinktronic-classic" ? PC_classic_color : null} />
+        <Newscaster override_bg={PC_classic_color && PC_device_theme === 'thinktronic-classic' ? PC_classic_color : null} />
       </NtosWindow.Content>
     </NtosWindow>
   );

@@ -705,9 +705,6 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"fs" = (
-/turf/closed/wall/r_wall,
-/area/lavaland/surface/outdoors/explored)
 "fw" = (
 /obj/structure/closet/crate,
 /obj/item/dice/d6/space,
@@ -1628,6 +1625,9 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
+/obj/machinery/light_switch{
+	pixel_x = 25
+	},
 /turf/open/floor/plasteel,
 /area/mine/eva)
 "kL" = (
@@ -1795,6 +1795,10 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/machinery/light_switch{
+	pixel_x = -24;
+	pixel_y = -24
 	},
 /turf/open/floor/plasteel,
 /area/mine/storage)
@@ -2068,6 +2072,13 @@
 /obj/structure/lattice/catwalk/over,
 /obj/item/stack/rods,
 /turf/open/floor/plating,
+/area/mine/science)
+"nV" = (
+/obj/machinery/light_switch{
+	pixel_x = 1;
+	pixel_y = -24
+	},
+/turf/open/floor/plasteel,
 /area/mine/science)
 "nZ" = (
 /obj/machinery/light/small{
@@ -3402,9 +3413,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/production)
-"yI" = (
-/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
-/area/mine/laborcamp)
 "yJ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -3642,6 +3650,13 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/dark,
 /area/mine/eva)
+"AI" = (
+/obj/machinery/light_switch{
+	pixel_x = 1;
+	pixel_y = 26
+	},
+/turf/open/floor/plasteel,
+/area/mine/living_quarters)
 "AJ" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	external_pressure_bound = 140;
@@ -3927,6 +3942,17 @@
 /obj/item/restraints/handcuffs,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
+	},
+/obj/machinery/light_switch{
+	area = /area/mine/laborcamp;
+	name = "Gulag light switch";
+	pixel_x = -23;
+	pixel_y = 6
+	},
+/obj/machinery/light_switch{
+	name = "Security light switch";
+	pixel_x = -23;
+	pixel_y = -6
 	},
 /turf/open/floor/plasteel,
 /area/mine/laborcamp/security)
@@ -4609,6 +4635,19 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel/techmaint,
 /area/mine/production)
+"HC" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/machinery/light_switch{
+	pixel_x = 1;
+	pixel_y = 27
+	},
+/turf/open/floor/plasteel,
+/area/mine/production)
 "HD" = (
 /obj/machinery/status_display/evac{
 	pixel_y = 32
@@ -5087,10 +5126,15 @@
 /obj/item/radio/intercom{
 	dir = 8;
 	name = "Station Intercom (General)";
-	pixel_x = -28
+	pixel_x = -28;
+	pixel_y = -6
 	},
 /obj/structure/chair/stool,
 /obj/effect/turf_decal/tile/bar/opposingcorners,
+/obj/machinery/light_switch{
+	pixel_x = -21;
+	pixel_y = 8
+	},
 /turf/open/floor/plasteel/checker,
 /area/mine/living_quarters)
 "KL" = (
@@ -5410,12 +5454,6 @@
 	},
 /obj/machinery/light/small,
 /turf/open/floor/carpet/blue,
-/area/mine/living_quarters)
-"Nq" = (
-/obj/machinery/shower{
-	pixel_y = 12
-	},
-/turf/open/floor/noslip/white,
 /area/mine/living_quarters)
 "Nz" = (
 /obj/machinery/rnd/experimentor,
@@ -30105,7 +30143,7 @@ xT
 xT
 xT
 Vd
-yI
+xT
 qg
 ID
 ID
@@ -30362,7 +30400,7 @@ xT
 xT
 yv
 BZ
-fs
+BZ
 CL
 BZ
 BZ
@@ -34989,7 +35027,7 @@ Ln
 Ln
 Ln
 BZ
-Nq
+RH
 nJ
 Qt
 rA
@@ -38847,7 +38885,7 @@ gz
 gb
 wS
 wS
-kO
+HC
 uF
 OM
 jw
@@ -43726,7 +43764,7 @@ KM
 FM
 YN
 ZH
-MZ
+AI
 bg
 MZ
 lt
@@ -49640,7 +49678,7 @@ IU
 ZL
 Ng
 YU
-im
+nV
 jh
 ap
 gS

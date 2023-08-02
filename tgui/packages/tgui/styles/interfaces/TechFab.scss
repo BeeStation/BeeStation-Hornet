@@ -8,11 +8,11 @@ $border-radius: base.$border-radius !default;
 $bg-map: colors.$bg-map !default;
 
 //Like candystripe, but in pairs
-.TechFab__Reagent:nth-child(4n+1) {
+.TechFab__Reagent:nth-child(4n + 1) {
   background-color: rgba(0, 0, 0, 0.25);
 }
 
-.TechFab__Reagent:nth-child(4n+2) {
+.TechFab__Reagent:nth-child(4n + 2) {
   background-color: rgba(0, 0, 0, 0.25);
 }
 
@@ -36,11 +36,14 @@ $bg-map: colors.$bg-map !default;
 
 //Add a thin gradient border between entries
 .TechFab__Recipe {
-  border-image: linear-gradient(to right, 
-    colors.$grey 10%,
-    adjust-color(colors.$grey, $alpha: -1) 40%,
-    adjust-color(colors.$grey, $alpha: -1) 60%,
-    colors.$grey 90%) 30;
+  border-image: linear-gradient(
+      to right,
+      colors.$grey 10%,
+      adjust-color(colors.$grey, $alpha: -1) 40%,
+      adjust-color(colors.$grey, $alpha: -1) 60%,
+      colors.$grey 90%
+    )
+    30;
   border-image-width: 1px 0 0 0;
 }
 

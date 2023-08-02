@@ -139,8 +139,8 @@
 	if(buckled)
 		buckled.unbuckle_mob(src,force=1)
 	buckled = null
-	pixel_x = initial(pixel_x)
-	pixel_y = initial(pixel_y)
+	pixel_x = base_pixel_x
+	pixel_y = base_pixel_y
 
 	..(gibbed)
 
@@ -353,7 +353,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	return
 
 //Bullets
-/mob/living/simple_animal/parrot/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/parrot/bullet_act(obj/projectile/Proj)
 	. = ..()
 	if(!stat && !client)
 		if(parrot_state == PARROT_PERCH)
@@ -378,8 +378,8 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 			buckled = null
 		icon_state = icon_living
 		parrot_state = PARROT_WANDER
-		pixel_x = initial(pixel_x)
-		pixel_y = initial(pixel_y)
+		pixel_x = base_pixel_x
+		pixel_y = base_pixel_y
 		return
 
 
@@ -402,7 +402,6 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 
 	if(client && stat == CONSCIOUS && parrot_state != icon_living)
 		icon_state = icon_living
-		//Because the most appropriate place to set icon_state is movement_delay(), clearly
 
 //-----SLEEPING
 	if(parrot_state == PARROT_PERCH)
@@ -819,8 +818,8 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	if(. && !stat && client && parrot_state == PARROT_PERCH)
 		parrot_state = PARROT_WANDER
 		icon_state = icon_living
-		pixel_x = initial(pixel_x)
-		pixel_y = initial(pixel_y)
+		pixel_x = base_pixel_x
+		pixel_y = base_pixel_y
 
 /mob/living/simple_animal/parrot/proc/perch_mob_player()
 	set name = "Sit on Human's Shoulder"
@@ -844,8 +843,8 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 			to_chat(src, "<span class='notice'>You are no longer sitting on [buckled]'s shoulder.</span>")
 			buckled.unbuckle_mob(src, TRUE)
 		buckled = null
-		pixel_x = initial(pixel_x)
-		pixel_y = initial(pixel_y)
+		pixel_x = base_pixel_x
+		pixel_y = base_pixel_y
 
 
 

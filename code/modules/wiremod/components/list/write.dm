@@ -5,7 +5,7 @@
 **/
 /obj/item/circuit_component/indexer/write
 	display_name = "Write Component"
-	display_desc = "A component that writes a given value to a given index in a given list. It then gives that new list back."
+	desc = "A component that writes a given value to a given index in a given list. It then gives that new list back."
 
 	/// The input ports
 	var/datum/port/input/value_port
@@ -14,8 +14,7 @@
 	output_name = "New List"
 	output_port_type = PORT_TYPE_LIST
 
-/obj/item/circuit_component/indexer/write/Initialize(mapload)
-	. = ..()
+/obj/item/circuit_component/indexer/write/populate_ports()
 	value_port = add_input_port("Value", PORT_TYPE_ANY)
 
 /obj/item/circuit_component/indexer/write/Destroy()
@@ -24,6 +23,6 @@
 
 /obj/item/circuit_component/indexer/write/calculate_output(var/index, var/list/list_input)
 
-	list_input[index] = islist(value_port.input_value) ? null : value_port.input_value
+	list_input[index] = islist(value_port.value) ? null : value_port.value
 	output.set_output(list_input)
 

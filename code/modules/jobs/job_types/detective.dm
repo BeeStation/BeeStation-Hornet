@@ -31,6 +31,8 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/detective
 	)
 
+	minimal_lightup_areas = list(/area/medical/morgue, /area/security/detectives_office)
+
 /datum/outfit/job/detective
 	name = JOB_NAME_DETECTIVE
 	jobtype = /datum/job/detective
@@ -50,6 +52,8 @@
 		/obj/item/detective_scanner=1,\
 		/obj/item/melee/classic_baton/police=1)
 	mask = /obj/item/clothing/mask/cigarette
+
+	implants = list(/obj/item/implant/mindshield)
 
 	chameleon_extras = list(/obj/item/gun/ballistic/revolver/detective, /obj/item/clothing/glasses/sunglasses/advanced)
 

@@ -13,7 +13,7 @@
 	icon_state = "door_open"
 	opacity = FALSE
 	density = FALSE
-	obj_flags = CAN_BE_HIT // reset zblock
+	z_flags = NONE // reset zblock
 	max_integrity = 300
 	resistance_flags = FIRE_PROOF
 	heat_proof = TRUE
@@ -63,7 +63,7 @@
 	icon_state = "door_closed"
 	opacity = TRUE
 	density = TRUE
-	obj_flags = CAN_BE_HIT | BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
+	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	processing_flags = START_PROCESSING_ON_INIT
 
 //see also turf/AfterChange for adjacency shennanigans
@@ -196,7 +196,7 @@
 		update_icon()
 
 
-/obj/machinery/door/firedoor/try_to_crowbar(obj/item/I, mob/user)
+/obj/machinery/door/firedoor/try_to_crowbar(obj/item/crowbar, mob/user)
 	if(welded || operating)
 		return
 
@@ -207,12 +207,12 @@
 				access_log.Remove(access_log[1])
 			to_chat(user, "<span class='warning'>You begin forcing open \the [src], the motors whine...</span>")
 			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
-			if(!do_after(user, 10 SECONDS, src))
+			if(!crowbar.use_tool(src, user, 10 SECONDS))
 				return
 		else
 			to_chat(user, "<span class='notice'>You begin forcing open \the [src], the motors don't resist...</span>")
 			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
-			if(!do_after(user, 1 SECONDS, TRUE, src))
+			if(!crowbar.use_tool(src, user, 1 SECONDS))
 				return
 		if(!check_safety(user))
 			log_game("[key_name(user)] has opened a firelock with a pressure difference or a fire alarm at [AREACOORD(loc)], using a crowbar")
@@ -523,7 +523,7 @@
 	icon_state = "frame1"
 	anchored = FALSE
 	density = TRUE
-	obj_flags = CAN_BE_HIT | BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
+	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	var/constructionStep = CONSTRUCTION_NOCIRCUIT
 	var/reinforced = 0
 	var/firelock_type = /obj/machinery/door/firedoor

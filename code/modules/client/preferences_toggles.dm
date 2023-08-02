@@ -1,8 +1,15 @@
-/client/verb/setup_character()
+/client/verb/game_preferences()
 	set name = "Game Preferences"
 	set category = "Preferences"
 	set desc = "Open Game Preferences Window"
 	prefs.current_tab = 1
+	prefs.ShowChoices(usr)
+
+/client/verb/character_preferences()
+	set name = "Character Preferences"
+	set category = "Preferences"
+	set desc = "Open Character Preferences Window"
+	prefs.current_tab = 0
 	prefs.ShowChoices(usr)
 
 /client/verb/toggle_ghost_ears()
@@ -86,15 +93,6 @@
 	to_chat(usr, "You will [(prefs.toggles & PREFTOGGLE_DISABLE_ARRIVALRATTLE) ? "no longer" : "now"] get messages when someone joins the station.")
 	prefs.save_preferences()
 	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Arrivalrattle", "[!(prefs.toggles & PREFTOGGLE_DISABLE_ARRIVALRATTLE) ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, maybe you should rethink where your life went so wrong.
-
-/client/verb/togglemidroundantag()
-	set name = "Toggle Midround Antagonist"
-	set category = "Preferences"
-	set desc = "Midround Antagonist"
-	prefs.toggles ^= PREFTOGGLE_MIDROUND_ANTAG
-	prefs.save_preferences()
-	to_chat(usr, "You will [(prefs.toggles & PREFTOGGLE_MIDROUND_ANTAG) ? "now" : "no longer"] be considered for midround antagonist positions.")
-	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Midround Antag", "[prefs.toggles & PREFTOGGLE_MIDROUND_ANTAG ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/toggletitlemusic()
 	set name = "Hear/Silence Lobby Music"
@@ -430,7 +428,7 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 	if(!CONFIG_GET(flag/allow_admin_asaycolor))
 		to_chat(src, "Custom Asay color is currently disabled by the server.")
 		return
-	var/new_asaycolor = input(src, "Please select your ASAY color.", "ASAY color", prefs.asaycolor) as color|null
+	var/new_asaycolor = tgui_color_picker(src, "Please select your ASAY color.", "ASAY color", prefs.asaycolor)
 	if(new_asaycolor)
 		prefs.asaycolor = sanitize_ooccolor(new_asaycolor)
 		prefs.save_preferences()
