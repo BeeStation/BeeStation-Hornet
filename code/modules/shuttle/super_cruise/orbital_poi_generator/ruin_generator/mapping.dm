@@ -143,7 +143,7 @@
 		/obj/item/reagent_containers/glass/bottle/chloralhydrate = 1,
 		/obj/item/grenade/flashbang = 2,
 		/obj/item/grenade/chem_grenade/teargas = 1,
-		/obj/item/reagent_containers/spray/pepper = 1,
+		/obj/item/reagent_containers/peppercloud_deployer = 1,
 		/obj/item/clothing/mask/gas/sechailer = 1,
 		/obj/item/grenade/exploration = 1,
 	)
