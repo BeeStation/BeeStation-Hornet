@@ -633,7 +633,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 /datum/game_mode/dynamic/proc/picking_specific_rule(ruletype, forced = FALSE, ignore_cost = FALSE)
 	var/datum/dynamic_ruleset/midround/new_rule
 	if(ispath(ruletype))
-		new_rule = new ruletype() // You should only use it to call midround rules though.
+		new_rule = new ruletype(src) // You should only use it to call midround rules though.
 		configure_ruleset(new_rule)
 	else if(istype(ruletype, /datum/dynamic_ruleset))
 		new_rule = ruletype
