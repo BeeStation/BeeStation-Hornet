@@ -3772,6 +3772,24 @@
 	},
 /turf/open/floor/plating,
 /area/medical/surgery)
+"avx" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Chemistry Maintenance";
+	req_access_txt = "33"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "quarantineshutters";
+	name = "isolation shutters"
+	},
+/turf/open/floor/plasteel,
+/area/medical/chemistry)
 "avF" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -10352,13 +10370,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/quartermaster/miningoffice)
-"bem" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
-/turf/open/floor/plating,
-/area/maintenance/department/medical/central)
 "bep" = (
 /obj/machinery/telecomms/server/presets/science,
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted{
@@ -16501,6 +16512,13 @@
 "bNj" = (
 /turf/closed/wall,
 /area/security/brig)
+"bNn" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_one_access_txt = "12;5"
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/medical/central)
 "bNq" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -29277,16 +29295,6 @@
 	},
 /turf/open/floor/plating,
 /area/security/checkpoint/science/research)
-"cZh" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 2
-	},
-/turf/open/floor/plating,
-/area/maintenance/aft)
 "cZi" = (
 /obj/structure/sign/departments/minsky/research/research,
 /turf/closed/wall/r_wall,
@@ -32834,27 +32842,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/lab)
-"dBA" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Virology Maintenance";
-	req_access_txt = "5"
-	},
-/obj/effect/turf_decal/tile/neutral/half/contrasted{
-	dir = 4
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "quarantineshutters";
-	name = "isolation shutters"
-	},
-/turf/open/floor/plasteel/white,
-/area/maintenance/aft)
 "dBD" = (
 /obj/structure/weightmachine/stacklifter,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -34967,22 +34954,6 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
-"dPV" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plasteel,
-/area/hallway/primary/aft)
 "dPZ" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -36187,24 +36158,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/solars/port/aft)
-"ebL" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Chemistry Maintenance";
-	req_access_txt = "5; 33"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "quarantineshutters";
-	name = "isolation shutters"
-	},
-/turf/open/floor/plasteel,
-/area/medical/chemistry)
 "ebU" = (
 /obj/machinery/light{
 	dir = 8
@@ -39166,6 +39119,30 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel,
 /area/security/checkpoint/medical)
+"eRl" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/airlock/abandoned,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_one_access_txt = "12;5"
+	},
+/turf/open/floor/plasteel,
+/area/maintenance/starboard/aft)
 "eRo" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
@@ -41808,6 +41785,17 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
+"fOm" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_access_txt = "5"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "quarantineshutters";
+	name = "isolation shutters"
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/medical/central)
 "fOo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bodycontainer/morgue{
@@ -54647,6 +54635,22 @@
 	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/hop)
+"knK" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_one_access_txt = "12;5;6"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/aft)
 "knL" = (
 /obj/machinery/telecomms/server/presets/engineering,
 /obj/effect/turf_decal/tile/brown/anticorner/contrasted{
@@ -57592,6 +57596,13 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel,
 /area/quartermaster/sorting)
+"lnX" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_one_access_txt = "12;5"
+	},
+/turf/open/floor/plating,
+/area/maintenance/aft)
 "lnY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
@@ -58670,6 +58681,27 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"lIp" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/half/contrasted{
+	dir = 4
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "quarantineshutters";
+	name = "isolation shutters"
+	},
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Medbay Maintenance";
+	req_access_txt = "5"
+	},
+/turf/open/floor/plasteel/white,
+/area/maintenance/aft)
 "lIr" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -61139,30 +61171,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/prison)
-"mAI" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/maintenance/department/medical/central)
 "mAX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -61393,6 +61401,26 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
+"mEk" = (
+/obj/effect/turf_decal/tile/neutral/half/contrasted,
+/obj/machinery/door/airlock/maintenance{
+	name = "Medbay Maintenance";
+	req_access_txt = "5";
+	req_one_access_txt = null
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "quarantineshutters";
+	name = "isolation shutters"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/medical/morgue)
 "mEt" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -67010,30 +67038,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
-"ouV" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
-/obj/effect/mapping_helpers/airlock/abandoned,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plasteel,
-/area/maintenance/starboard/aft)
 "ouW" = (
 /obj/machinery/computer/cargo/request,
 /obj/effect/turf_decal/tile/purple/half/contrasted{
@@ -70290,17 +70294,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
-"pDK" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "quarantineshutters";
-	name = "isolation shutters"
-	},
-/turf/open/floor/plating,
-/area/maintenance/department/medical/central)
 "pDS" = (
 /turf/closed/wall/r_wall,
 /area/medical/chemistry)
@@ -73158,6 +73151,16 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
+"qze" = (
+/obj/structure/disposalpipe/segment{
+	dir = 2
+	},
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_one_access_txt = "12;5"
+	},
+/turf/open/floor/plating,
+/area/maintenance/aft)
 "qzt" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -77698,13 +77701,6 @@
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
-"sag" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
-/turf/open/floor/plating,
-/area/maintenance/aft)
 "saq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
@@ -81474,32 +81470,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel,
 /area/maintenance/port/fore)
-"tvD" = (
-/obj/effect/turf_decal/tile/neutral/half/contrasted,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/maintenance{
-	name = "Medbay Maintenance";
-	req_access_txt = "5";
-	req_one_access_txt = null
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "quarantineshutters";
-	name = "isolation shutters"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/plating,
-/area/maintenance/department/medical/morgue)
 "tvJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -89899,6 +89869,30 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/aft)
+"wrK" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_one_access_txt = "12;5"
+	},
+/turf/open/floor/plasteel,
+/area/maintenance/department/medical/central)
 "wrO" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -135332,7 +135326,7 @@ sHT
 fCL
 dNO
 dNO
-bem
+bNn
 dvc
 dvc
 dvc
@@ -135605,7 +135599,7 @@ vGU
 lgw
 lAV
 dCy
-dPV
+knK
 dNO
 dNO
 dNO
@@ -138942,7 +138936,7 @@ fIk
 uvs
 kDM
 lUI
-tvD
+mEk
 nGw
 cKV
 mYq
@@ -139719,7 +139713,7 @@ vOH
 rDi
 rsC
 cAC
-cZh
+qze
 wBO
 mAX
 mpF
@@ -139939,7 +139933,7 @@ cAm
 cAm
 inw
 inw
-mAI
+wrK
 inw
 inw
 nVV
@@ -140461,7 +140455,7 @@ nVV
 pDS
 pDS
 pDS
-ebL
+avx
 pDS
 dcM
 mik
@@ -140971,7 +140965,7 @@ oFU
 hOh
 dsp
 ayi
-bem
+bNn
 fmt
 gEX
 gEX
@@ -141998,7 +141992,7 @@ cAm
 sHv
 inw
 inw
-bem
+bNn
 inw
 inw
 gEX
@@ -142537,7 +142531,7 @@ qyC
 dma
 dma
 cPy
-dBA
+lIp
 cPy
 dPq
 dPq
@@ -142772,7 +142766,7 @@ fmt
 mpo
 xrf
 fmt
-pDK
+fOm
 aZr
 pxw
 eud
@@ -143540,7 +143534,7 @@ cJa
 wrs
 inw
 inw
-bem
+bNn
 inw
 cPy
 cPy
@@ -143827,7 +143821,7 @@ dma
 dma
 dad
 dNS
-sag
+lnX
 dNS
 dNS
 dad
@@ -144343,7 +144337,7 @@ mLH
 dNS
 eaM
 rDi
-sag
+lnX
 paG
 sfI
 vQJ
@@ -145082,7 +145076,7 @@ xXN
 bdC
 gNm
 cAw
-ouV
+eRl
 cHU
 cPy
 cPy
@@ -145365,7 +145359,7 @@ mIs
 cIW
 vgQ
 sRQ
-sag
+lnX
 rDi
 rDi
 lFi
