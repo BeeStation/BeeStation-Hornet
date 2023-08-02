@@ -144,6 +144,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_bulb = "#ffdbb4"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
 	lights_always_start_on = TRUE
+	color_correction = /datum/client_colour/area_color/cold_ish
 
 //Maintenance - Departmental
 
@@ -666,12 +667,13 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_tube = "#e3ffff"
 	lighting_colour_bulb = "#d5ffff"
 	lights_always_start_on = FALSE
-	color_correction = /datum/client_colour/area_color/cold
+	color_correction = /datum/client_colour/area_color/cold_ish
 
 /area/crew_quarters/kitchen/coldroom
 	name = "Kitchen Cold Room"
 	icon_state = "kitchen_cold"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
+	color_correction = /datum/client_colour/area_color/cold
 
 /area/crew_quarters/bar
 	name = "Bar"
@@ -682,6 +684,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_bulb = "#ffebc1"
 	sound_environment = SOUND_AREA_WOODFLOOR
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
+	color_correction = /datum/client_colour/area_color/warm
 
 /area/crew_quarters/bar/mood_check(mob/living/carbon/subject)
 	if(istype(subject) && HAS_TRAIT(subject, TRAIT_LIGHT_DRINKER))
@@ -982,8 +985,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_tube = "#e7f8ff"
 	lighting_colour_bulb = "#d5f2ff"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
-	//Medbay appears colder
-	color_correction = /datum/client_colour/area_color/cold
+	color_correction = /datum/client_colour/area_color/cold_ish
 
 /area/medical/medbay/zone2
 	name = "Medbay"
@@ -1266,6 +1268,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_bulb = "#ffdbb8"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_PROTECTED
+	color_correction = /datum/client_colour/area_color/warm_ish
 
 /area/quartermaster/sorting
 	name = "Delivery Office"
@@ -1290,6 +1293,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Cargo Lobby"
 	icon_state = "cargo_lobby"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_PROTECTED
+	color_correction = /datum/client_colour/area_color/warm_ish
 
 /area/quartermaster/qm
 	name = "Quartermaster's Office"
@@ -1549,6 +1553,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 	lights_always_start_on = TRUE
+	color_correction = /datum/client_colour/area_color/cold
 
 /area/ai_monitored/security/armory
 	name = "Armory"

@@ -18,16 +18,19 @@
 
 //Warm-ish
 /datum/client_colour/area_color/warm_ish
-	colour = list(rgb(255, 0, 0), rgb(3, 253, 0), rgb(5, 0, 250))
+	colour = list(rgb(255, 0, 0), rgb(3, 252, 0), rgb(5, 0, 250))
 //Warm
 /datum/client_colour/area_color/warm
 	colour = list(rgb(255, 0, 0), rgb(5, 250, 0), rgb(7, 0, 248))
+//Cold-ish
+/datum/client_colour/area_color/cold_ish
+	colour = list(rgb(250, 0, 5), rgb(0, 252, 3), rgb(0, 0, 255))
 //Cold
 /datum/client_colour/area_color/cold
 	colour = list(rgb(245, 0, 10), rgb(0, 250, 5), rgb(0, 0, 255))
 //Clown
 /datum/client_colour/area_color/clown
-	colour = list(rgb(255, 0, 255), rgb(255, 255, 0), rgb(0, 255, 255))
+	colour = list(rgb(0, 0, 255), rgb(255, 0, 0), rgb(0, 255, 0))
 
 #undef PRIORITY_ABSOLUTE
 #undef PRIORITY_HIGH
