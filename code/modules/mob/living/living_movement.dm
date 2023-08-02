@@ -2,6 +2,9 @@
 	. = ..()
 	update_turf_movespeed(loc)
 	update_looking_move()
+	//color correction
+	var/area/A = get_area(loc)
+	apply_color_correction(A?.color_correction)
 
 /mob/living/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()

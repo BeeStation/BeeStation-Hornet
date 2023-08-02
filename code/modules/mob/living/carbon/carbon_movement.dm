@@ -20,9 +20,6 @@
 
 /mob/living/carbon/Move(NewLoc, direct)
 	. = ..()
-	//
-	var/area/A = get_area(get_turf(src))
-	mob_color_correction(src, A?.color_correction)
 
 	if(. && !(movement_type & FLOATING)) //floating is easy
 		if(HAS_TRAIT(src, TRAIT_NOHUNGER))

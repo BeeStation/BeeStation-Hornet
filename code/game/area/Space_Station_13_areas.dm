@@ -159,6 +159,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Bar Maintenance"
 	icon_state = "maint_bar"
 	sound_environment = SOUND_AREA_WOODFLOOR
+	color_correction = /datum/client_colour/area_color/warm
 
 /area/maintenance/department/crew_quarters/dorms
 	name = "Dormitory Maintenance"
@@ -372,6 +373,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_tube = "#ffce99"
 	lighting_colour_bulb = "#ffdbb4"
 	lighting_brightness_tube = 8
+	color_correction = /datum/client_colour/area_color/warm_ish
 
 /area/hallway/primary
 	name = "Primary Hallway"
@@ -569,6 +571,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_brightness_tube = 8
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	lights_always_start_on = TRUE
+	color_correction = /datum/client_colour/area_color/warm_ish
 
 /area/crew_quarters/dorms
 	name = "Dormitories"
@@ -655,6 +658,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/crew_quarters/cafeteria
 	name = "Cafeteria"
 	icon_state = "cafeteria"
+	color_correction = /datum/client_colour/area_color/warm
 
 /area/crew_quarters/kitchen
 	name = "Kitchen"
@@ -662,6 +666,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_tube = "#e3ffff"
 	lighting_colour_bulb = "#d5ffff"
 	lights_always_start_on = FALSE
+	color_correction = /datum/client_colour/area_color/cold
 
 /area/crew_quarters/kitchen/coldroom
 	name = "Kitchen Cold Room"
@@ -719,6 +724,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Theatre"
 	icon_state = "theatre"
 	sound_environment = SOUND_AREA_WOODFLOOR
+	color_correction = /datum/client_colour/area_color/clown
 
 /area/crew_quarters/theatre/backstage
 	name = "Backstage"
@@ -977,7 +983,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_bulb = "#d5f2ff"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
 	//Medbay appears colder
-	color_correction = list(rgb(245, 0, 10), rgb(0, 250, 5), rgb(0, 0, 255))
+	color_correction = /datum/client_colour/area_color/cold
 
 /area/medical/medbay/zone2
 	name = "Medbay"
@@ -1106,6 +1112,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_tube = "#ffeee2"
 	lighting_colour_bulb = "#ffdfca"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
+	color_correction = /datum/client_colour/area_color/warm
 
 /area/security/main
 	name = "Security Office"

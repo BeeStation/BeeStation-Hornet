@@ -1435,3 +1435,11 @@
 			layer = initial(layer)
 		if(.) //We weren't pone before, so we become dense and things can bump into us again.
 			density = initial(density)
+
+//Used for applying color correction
+/mob/living/proc/apply_color_correction(typepath = /datum/client_colour/area_color)
+	if(typepath == current_correction)
+		return
+	remove_client_colour(current_correction)
+	add_client_colour(typepath)
+	current_correction = typepath

@@ -135,7 +135,7 @@
 	var/lights_always_start_on = FALSE
 
 	///The areas specific color correction
-	var/list/color_correction = list(rgb(255, 0, 0), rgb(0, 255, 0), rgb(0, 0, 255))
+	var/list/color_correction = /datum/client_colour/area_color
 
 /**
   * A list of teleport locations
