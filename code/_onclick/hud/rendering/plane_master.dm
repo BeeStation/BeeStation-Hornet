@@ -132,16 +132,11 @@
 	// Default the colour to whatever the parallax is currently
 	transition_colour(src, SSparallax.random_parallax_color, 0, FALSE)
 	// Transition the colour to whatever the global tells us to go to
-	RegisterSignal(SSdcs, COMSIG_GLOB_PARALLAX_COLOUR_CHANGE, PROC_REF(transition_colour))
+	RegisterSignal(SSdcs, COMSIG_GLOB_STARLIGHT_COLOUR_CHANGE, PROC_REF(transition_colour))
 
-/atom/movable/screen/plane_master/starlight/proc/transition_colour(datum/source, new_colour, transition_time = 5 SECONDS, force_colour = FALSE)
+/atom/movable/screen/plane_master/starlight/proc/transition_colour(datum/source, new_colour, transition_time = 5 SECONDS)
 	SIGNAL_HANDLER
-	if (force_colour)
-		animate(src, time = transition_time, color = new_colour)
-		return
-	// Ensure that the lightness of the colour is quite high to give us good looking lighting colours
-	var/lighting_colour = color_min_lightness(new_colour, 0.9)
-	animate(src, time = transition_time, color = lighting_colour)
+	animate(src, time = transition_time, color = new_colour)
 
 /**
   * Things placed on this mask the lighting plane. Doesn't render directly.

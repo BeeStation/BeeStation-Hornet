@@ -27,16 +27,16 @@
 			M.playsound_local(M, 'sound/ambience/aurora_caelus.ogg', 20, FALSE, pressure_affected = FALSE)
 
 /datum/round_event/aurora_caelus/start()
-	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_PARALLAX_COLOUR_CHANGE, aurora_colors[1], 5 SECONDS, TRUE)
+	set_starlight_colour(aurora_colors[1], 5 SECONDS)
 
 /datum/round_event/aurora_caelus/tick()
 	if(activeFor % 5 == 0)
 		aurora_progress++
 		var/aurora_color = aurora_colors[aurora_progress]
-		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_PARALLAX_COLOUR_CHANGE, aurora_color, 5 SECONDS, TRUE)
+		set_starlight_colour(aurora_color, 5 SECONDS)
 
 /datum/round_event/aurora_caelus/end()
-	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_PARALLAX_COLOUR_CHANGE, SSparallax.random_parallax_color, 30 SECONDS, FALSE)
+	set_starlight_colour(color_lightness_max(SSparallax.random_parallax_color, 0.9), 30 SECONDS)
 	priority_announce("The aurora caelus event is now ending. Starlight conditions will slowly return to normal. When this has concluded, please return to your workplace and continue work as normal. Have a pleasant shift, [station_name()], and thank you for watching with us.",
 	sound = 'sound/misc/notice2.ogg',
 	sender_override = "Nanotrasen Meteorology Division")

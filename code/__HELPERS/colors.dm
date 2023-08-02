@@ -46,7 +46,7 @@
 
 /// Ensures that the lightness value of a colour must be greater than the provided
 /// minimum.
-/proc/color_min_lightness(colour, min_lightness)
+/proc/color_lightness_max(colour, min_lightness)
 	var/list/rgb = rgb2num(colour)
 	var/list/hsl = rgb2hsl(rgb[1], rgb[2], rgb[3])
 	// Ensure high lightness (Minimum of 90%)
@@ -55,7 +55,7 @@
 
 /// Ensures that the lightness value of a colour must be less than the provided
 /// maximum.
-/proc/color_max_lightness(colour, max_lightness)
+/proc/color_lightness_min(colour, max_lightness)
 	var/list/rgb = rgb2num(colour)
 	var/list/hsl = rgb2hsl(rgb[1], rgb[2], rgb[3])
 	// Ensure high lightness (Minimum of 90%)
