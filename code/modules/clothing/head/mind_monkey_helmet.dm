@@ -10,6 +10,13 @@
 	COOLDOWN_DECLARE(message_cooldown) //It'll get annoying quick when someone tries to remove their own helmet 20 times a second
 	var/datum/mind/magnification = null ///A reference to the mind we govern
 
+/obj/item/clothing/head/monkey_sentience_helmet/update_icon()
+	. = ..()
+	compile_monkey_icon()
+	if(ismob(loc))
+		var/mob/mob = loc
+		mob.update_inv_head()
+
 /obj/item/clothing/head/monkey_sentience_helmet/update_icon_state()
 	. = ..()
 	icon_state = "[base_icon_state][magnification ? "_active" : ""]"
@@ -60,8 +67,6 @@
 	playsound(src, 'sound/machines/microwave/microwave-end.ogg', 100, FALSE)
 
 	update_icon()
-	compile_monkey_icon() //Have to do this in order to make it appear active
-	user.update_inv_head()
 	to_chat(user, "<span class='notice'>You're a mind magnified monkey! Protect your helmet with your life; if you lose it, your sentience goes with it! Your helmet also strongly compels you to assist Nanotrasen and you should always act with the best interests of the station in mind.</span>")
 
 
@@ -90,10 +95,10 @@
 		new /obj/effect/decal/cleanable/ash/crematorium(drop_location()) //just in case they're in a locker or other containers it needs to use crematorium ash, see the path itself for an explanation
 		qdel(src)
 		return
-	playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
-	update_icon()
-	compile_monkey_icon() //Have to do this in order to make it appear inactive
-	current.visible_message("<span class='warning'>[src] powers down!</span>")
+	else
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
+		update_icon()
+		current.visible_message("<span class='warning'>[src] powers down!</span>")
 
 /obj/item/clothing/head/monkey_sentience_helmet/attack_paw(mob/user)
 	//Typecasting to monkey just to see if we're on the user's head
