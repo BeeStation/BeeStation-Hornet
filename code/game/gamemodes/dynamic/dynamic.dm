@@ -506,7 +506,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		if (initial(ruleset_type.weight) == 0)
 			continue
 
-		var/ruleset = new ruleset_type
+		var/ruleset = new ruleset_type(src)
 		configure_ruleset(ruleset)
 		rulesets += ruleset
 
@@ -832,21 +832,21 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		if (-INFINITY to -20)
 			return rand(0, 10)
 		if (-20 to -10)
-			return RULE_OF_THREE(-40, -20, x) + 50
+			return RULE_OF_THREE(1, 1, x) + 30
 		if (-10 to -5)
-			return RULE_OF_THREE(-30, -10, x) + 50
+			return RULE_OF_THREE(2, 1, x) + 40
 		if (-5 to -2.5)
-			return RULE_OF_THREE(-20, -5, x) + 50
+			return RULE_OF_THREE(3, 1, x) + 45
 		if (-2.5 to -0)
-			return RULE_OF_THREE(-10, -2.5, x) + 50
+			return RULE_OF_THREE(5, 1, x) + 50
 		if (0 to 2.5)
-			return RULE_OF_THREE(10, 2.5, x) + 50
+			return RULE_OF_THREE(5, 1, x) + 50
 		if (2.5 to 5)
-			return RULE_OF_THREE(20, 5, x) + 50
+			return RULE_OF_THREE(3, 1, x) + 45
 		if (5 to 10)
-			return RULE_OF_THREE(30, 10, x) + 50
+			return RULE_OF_THREE(2, 1, x) + 40
 		if (10 to 20)
-			return RULE_OF_THREE(40, 20, x) + 50
+			return RULE_OF_THREE(1, 1, x) + 30
 		if (20 to INFINITY)
 			return rand(90, 100)
 
