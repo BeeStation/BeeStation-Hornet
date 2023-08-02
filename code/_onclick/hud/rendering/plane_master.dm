@@ -139,14 +139,8 @@
 	if (force_colour)
 		animate(src, time = transition_time, color = new_colour)
 		return
-	var/red = color_red(new_colour)
-	var/green = color_green(new_colour)
-	var/blue = color_blue(new_colour)
-	var/list/hsl = rgb2hsl(red, green, blue)
-	hsl[2] = max(hsl[2], 0.71)
-	hsl[3] = max(hsl[3], 0.9)
-	var/lighting_colour = hsl2rgb(hsl[1], hsl[2], hsl[3])
-	// Ensure high lightness and low saturation
+	// Ensure that the lightness of the colour is quite high to give us good looking lighting colours
+	var/lighting_colour = color_min_lightness(new_colour, 0.85)
 	animate(src, time = transition_time, color = lighting_colour)
 
 /**
