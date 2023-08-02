@@ -1,8 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - balance: Reworks peppersprays and replaces them with the peppercloud deployer.
-      This deploys a 3x3 cloud in front of the user which slows down anybody entering
-      it, and will provide the normal pepperspray effect if they do not have cloud
-      protection.
-  - balance: You now move slowly inside of clouds.
