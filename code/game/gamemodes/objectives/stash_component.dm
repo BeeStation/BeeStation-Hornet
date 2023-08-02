@@ -41,7 +41,7 @@
 	overlay.appearance_flags = RESET_ALPHA
 	overlay.alpha = 160
 	overlay.plane = HUD_PLANE
-	owner.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/onePerson, "stash_overlay", overlay, stash_owner.current)
+	owner.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/one_person, "stash_overlay", overlay, stash_owner.current)
 
 /datum/component/stash/proc/transfer_mind(datum/source, mob/old_mob, mob/new_mob)
 	SIGNAL_HANDLER
