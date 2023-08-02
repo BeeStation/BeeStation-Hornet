@@ -1,0 +1,5 @@
+author: mystery3525
+delete-after: true
+changes:
+  - rscadd: Logs for medical records, better format for security records logging
+  - rscadd: Cooldown for biogenerator
