@@ -1140,6 +1140,35 @@
 	. = ..()
 	QDEL_NULL(mob_overlay)
 
+/datum/status_effect/smoke
+	id = "smoke"
+	duration = -1
+	tick_interval = 10
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = /atom/movable/screen/alert/status_effect/smoke
+
+/datum/status_effect/smoke/on_apply()
+	owner.add_movespeed_modifier(MOVESPEED_ID_SMOKE, multiplicative_slowdown=1.5)
+	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(check_deletion))
+	return TRUE
+
+/datum/status_effect/smoke/on_remove()
+	owner.remove_movespeed_modifier(MOVESPEED_ID_SMOKE)
+
+/datum/status_effect/smoke/tick()
+	check_deletion()
+
+/datum/status_effect/smoke/proc/check_deletion()
+	SIGNAL_HANDLER
+	var/turf/location = get_turf(owner)
+	if (!(locate(/obj/effect/particle_effect/smoke) in location))
+		qdel(src)
+
+/atom/movable/screen/alert/status_effect/smoke
+	name = "Smoke"
+	desc = "There is a thick cloud of smoke here, breathing it could have consequences!"
+	icon_state = "smoke"
+
 /datum/status_effect/ling_transformation
 	id = "ling_transformation"
 	status_type = STATUS_EFFECT_REPLACE
