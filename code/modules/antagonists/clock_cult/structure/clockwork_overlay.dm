@@ -30,7 +30,7 @@
 	icon_state = "clockwork_wall-0"
 	base_icon_state = "clockwork_wall"
 	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_BRASS_WALLS)
+	smoothing_groups = list(SMOOTH_GROUP_BRASS_WALLS, SMOOTH_GROUP_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_BRASS_WALLS)
 	icon_state = "clockwork_wall-0"
 	layer = CLOSED_TURF_LAYER
