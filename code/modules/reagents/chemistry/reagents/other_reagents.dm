@@ -2252,7 +2252,7 @@ Basically, we fill the time between now and 2s from now with hands based off the
 		return
 	new/obj/effect/temp_visual/dir_setting/curse/grasp_portal(spawn_turf, owner.dir)
 	playsound(spawn_turf, 'sound/effects/curse2.ogg', 80, TRUE, -1)
-	var/obj/item/projectile/curse_hand/hel/hand = new (spawn_turf)
+	var/obj/projectile/curse_hand/hel/hand = new (spawn_turf)
 	hand.preparePixelProjectile(owner, spawn_turf)
 	if(QDELETED(hand)) //safety check if above fails - above has a stack trace if it does fail
 		return
