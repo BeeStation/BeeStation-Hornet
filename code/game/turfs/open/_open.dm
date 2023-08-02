@@ -146,6 +146,7 @@
 	icon_state = "bluespace"
 	baseturfs = /turf/open/indestructible/airblock
 	CanAtmosPass = ATMOS_PASS_NO
+	init_air = FALSE
 
 /turf/open/Initalize_Atmos(times_fired)
 	if(!istype(air, /datum/gas_mixture/turf))
