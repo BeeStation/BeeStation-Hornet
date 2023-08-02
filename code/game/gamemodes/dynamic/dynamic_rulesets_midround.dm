@@ -46,17 +46,14 @@
 		if (!M.client) // Are they connected?
 			trimmed_list.Remove(M)
 			continue
-		if(!mode.check_age(M.client, minimum_required_age))
+		if(!M.client.should_include_for_role(
+			banning_key = initial(antag_datum.banning_key),
+			role_preference_key = role_preference,
+			poll_ignore_key = role_preference,
+			req_hours = initial(antag_datum.required_living_playtime)
+		))
 			trimmed_list.Remove(M)
 			continue
-		if(antag_flag_override)
-			if(!(antag_flag_override in M.client.prefs.be_special) || is_banned_from(M.ckey, list(antag_flag_override, ROLE_SYNDICATE)))
-				trimmed_list.Remove(M)
-				continue
-		else
-			if(!(antag_flag in M.client.prefs.be_special) || is_banned_from(M.ckey, list(antag_flag, ROLE_SYNDICATE)))
-				trimmed_list.Remove(M)
-				continue
 		if (M.mind)
 			if (restrict_ghost_roles && (M.mind.assigned_role in GLOB.exp_specialmap[EXP_TYPE_SPECIAL])) // Are they playing a ghost role?
 				trimmed_list.Remove(M)
@@ -119,7 +116,7 @@
 	message_admins("Polling [possible_volunteers.len] players to apply for the [name] ruleset.")
 	log_game("DYNAMIC: Polling [possible_volunteers.len] players to apply for the [name] ruleset.")
 
-	candidates = pollGhostCandidates("The mode is looking for volunteers to become [antag_flag] for [name]", antag_flag, SSticker.mode, antag_flag_override ? antag_flag_override : antag_flag, poll_time = 300)
+	candidates = pollGhostCandidates("The mode is looking for volunteers to become [initial(antag_datum.name)] for [name]", initial(antag_datum.banning_key), role_preference, poll_time = 300)
 
 	if(!length(candidates))
 		message_admins("The ruleset [name] received no applications.")
@@ -175,7 +172,7 @@
 	var/datum/antagonist/new_role = new antag_datum()
 	setup_role(new_role)
 	new_character.mind.add_antag_datum(new_role)
-	new_character.mind.special_role = antag_flag
+	new_character.mind.special_role = new_role.banning_key
 
 /datum/dynamic_ruleset/midround/from_ghosts/proc/setup_role(datum/antagonist/new_role)
 	return
@@ -190,7 +187,7 @@
 	name = "Syndicate Sleeper Agent"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_LIGHT
 	antag_datum = /datum/antagonist/traitor
-	antag_flag = ROLE_TRAITOR
+	role_preference = /datum/role_preference/midround_living/traitor
 	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	restricted_roles = list(JOB_NAME_CYBORG, JOB_NAME_AI, "Positronic Brain")
 	required_candidates = 1
@@ -238,7 +235,7 @@
 	name = "Malfunctioning AI"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	antag_datum = /datum/antagonist/traitor
-	antag_flag = ROLE_MALF
+	role_preference = /datum/role_preference/midround_living/malfunctioning_ai
 	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_SCIENTIST, JOB_NAME_CHEMIST, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CHIEFENGINEER)
 	exclusive_roles = list(JOB_NAME_AI)
 	required_enemies = list(3,3,2,2,2,1,1,1,1,0)
@@ -274,7 +271,7 @@
 	var/mob/living/silicon/ai/M = antag_pick_n_take(candidates)
 	assigned += M.mind
 	var/datum/antagonist/traitor/AI = new
-	M.mind.special_role = antag_flag
+	M.mind.special_role = "Malf AI"
 	M.mind.add_antag_datum(AI)
 	if(prob(ion_announce))
 		priority_announce("Ion storm detected near the station. Please check all AI-controlled equipment for errors.", "Anomaly Alert", ANNOUNCER_IONSTORM)
@@ -294,7 +291,7 @@
 	name = "Wizard"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	antag_datum = /datum/antagonist/wizard
-	antag_flag = ROLE_WIZARD
+	role_preference = /datum/role_preference/midround_ghost/wizard
 	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_RESEARCHDIRECTOR) //RD doesn't believe in magic
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
@@ -322,7 +319,7 @@
 /datum/dynamic_ruleset/midround/from_ghosts/nuclear
 	name = "Nuclear Assault"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
-	antag_flag = ROLE_OPERATIVE
+	role_preference = /datum/role_preference/midround_ghost/nuclear_operative
 	antag_datum = /datum/antagonist/nukeop
 	enemy_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	required_enemies = list(3,3,2,2,2,2,1,1,0,0)
@@ -343,8 +340,8 @@
 	return ..()
 
 /datum/dynamic_ruleset/midround/from_ghosts/nuclear/finish_setup(mob/new_character, index)
-	new_character.mind.special_role = "Nuclear Operative"
-	new_character.mind.assigned_role = "Nuclear Operative"
+	new_character.mind.special_role = ROLE_OPERATIVE
+	new_character.mind.assigned_role = ROLE_OPERATIVE
 	if (index == 1) // Our first guy is the leader
 		var/datum/antagonist/nukeop/leader/new_role = new
 		nuke_team = new_role.nuke_team
@@ -362,7 +359,7 @@
 	name = "Blob"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	antag_datum = /datum/antagonist/blob
-	antag_flag = ROLE_BLOB
+	role_preference = /datum/role_preference/midround_ghost/blob
 	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
@@ -386,7 +383,7 @@
 	name = "Alien Infestation"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	antag_datum = /datum/antagonist/xeno
-	antag_flag = ROLE_ALIEN
+	role_preference = /datum/role_preference/midround_ghost/xenomorph
 	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	required_enemies = list(2,2,2,1,1,1,1,0,0,0)
 	required_candidates = 1
@@ -440,7 +437,7 @@
 	name = "Nightmare"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_LIGHT
 	antag_datum = /datum/antagonist/nightmare
-	antag_flag = ROLE_NIGHTMARE
+	role_preference = /datum/role_preference/midround_ghost/nightmare
 	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	required_enemies = list(1,1,1,1,0,0,0,0,0,0)
 	required_candidates = 1
@@ -487,7 +484,7 @@
 	name = "Space Dragon"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	antag_datum = /datum/antagonist/space_dragon
-	antag_flag = ROLE_SPACE_DRAGON
+	role_preference = /datum/role_preference/midround_ghost/space_dragon
 	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	required_enemies = list(1,1,1,1,0,0,0,0,0,0)
 	required_candidates = 1
@@ -532,7 +529,7 @@
 /datum/dynamic_ruleset/midround/from_ghosts/abductors
 	name = "Abductors"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_LIGHT
-	antag_flag = ROLE_ABDUCTOR
+	role_preference = /datum/role_preference/midround_ghost/abductor
 	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	required_enemies = list(2,2,1,1,1,1,0,0,0,0)
 	required_candidates = 2
@@ -565,7 +562,7 @@
 	name = "Revenant"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_LIGHT
 	antag_datum = /datum/antagonist/revenant
-	antag_flag = ROLE_REVENANT
+	role_preference = /datum/role_preference/midround_ghost/revenant
 	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	required_enemies = list(1,1,1,1,0,0,0,0,0,0)
 	required_candidates = 1
@@ -619,7 +616,7 @@
 /datum/dynamic_ruleset/midround/pirates
 	name = "Space Pirates"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
-	antag_flag = ROLE_SPACE_PIRATE
+	role_preference = /datum/role_preference/midround_ghost/space_pirate
 	required_type = /mob/dead/observer
 	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	required_enemies = list(2,2,2,1,1,1,1,0,0,0)
@@ -646,7 +643,7 @@
 	name = "Obsessed"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_LIGHT
 	antag_datum = /datum/antagonist/obsessed
-	antag_flag = ROLE_OBSESSED
+	role_preference = /datum/role_preference/midround_living/obsessed
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, "Positronic Brain")
 	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	required_enemies = list(1,1,1,1,0,0,0,0,0,0)
@@ -664,7 +661,6 @@
 			!candidate.getorgan(/obj/item/organ/brain) \
 			|| candidate.mind.has_antag_datum(/datum/antagonist/obsessed) \
 			|| candidate.stat == DEAD \
-			|| !(ROLE_OBSESSED in candidate.client?.prefs?.be_special) \
 			|| !SSjob.GetJob(candidate.mind.assigned_role) \
 			|| (candidate.mind.assigned_role in GLOB.nonhuman_positions) \
 		)
@@ -685,7 +681,7 @@
 
 /datum/dynamic_ruleset/midround/from_ghosts/spiders
 	name = "Spider Infestation"
-	antag_flag = ROLE_SPIDER
+	role_preference = /datum/role_preference/midround_ghost/spider
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	required_type = /mob/dead/observer
 	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
@@ -736,7 +732,7 @@
 		spider_team.directive ="Ensure the survival of your brood and overtake whatever structure you find yourself in."
 	var/datum/antagonist/spider/spider_antag = new_character.mind.has_antag_datum(/datum/antagonist/spider)
 	spider_antag.set_spider_team(spider_team)
-	new_character.mind.special_role = antag_flag
+	new_character.mind.special_role = ROLE_SPIDER
 
 //////////////////////////////////////////////
 //                                          //
@@ -748,7 +744,7 @@
 	name = "Swarmer"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	antag_datum = /datum/antagonist/swarmer
-	antag_flag = ROLE_SWARMER
+	role_preference = /datum/role_preference/midround_ghost/swarmer
 	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	required_enemies = list(1,1,1,1,0,0,0,0,0,0)
 	required_candidates = 1
@@ -790,7 +786,7 @@
 	name = "Morph"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	antag_datum = /datum/antagonist/morph
-	antag_flag = ROLE_MORPH
+	role_preference = /datum/role_preference/midround_ghost/morph
 	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	required_enemies = list(2,2,1,1,1,1,1,1,0,0)
 	required_candidates = 1
@@ -828,7 +824,7 @@
 /datum/dynamic_ruleset/midround/from_ghosts/fugitives
 	name = "Fugitives"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_LIGHT
-	antag_flag = ROLE_FUGITIVE
+	role_preference = /datum/role_preference/midround_ghost/fugitive
 	required_type = /mob/dead/observer
 	required_candidates = 1
 	weight = 3

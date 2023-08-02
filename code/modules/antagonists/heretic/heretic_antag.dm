@@ -17,7 +17,8 @@
 	roundend_category = "Heretics"
 	antagpanel_category = "Heretic"
 	antag_moodlet = /datum/mood_event/heretics
-	job_rank = ROLE_HERETIC
+	banning_key = ROLE_HERETIC
+	required_living_playtime = 4
 	/// Whether we've ascended! (Completed one of the final rituals)
 	var/ascended = FALSE
 	/// The path our heretic has chosen. Mostly used for flavor.

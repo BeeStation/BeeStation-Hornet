@@ -18,7 +18,7 @@
 	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/innate/cult/comm/Activate()
-	var/input = stripped_input(usr, "Please choose a message to tell to the other acolytes.", "Voice of Blood", "")
+	var/input = tgui_input_text(usr, "Please choose a message to tell to the other acolytes.", "Voice of Blood", "")
 	if(!input || !IsAvailable())
 		return
 	if(CHAT_FILTER_CHECK(input))
@@ -47,10 +47,10 @@
 	for(var/i in GLOB.player_list)
 		var/mob/M = i
 		if(iscultist(M))
-			to_chat(M, my_message)
+			to_chat(M, my_message, type = MESSAGE_TYPE_RADIO, avoid_highlighting = M == user)
 		else if(M in GLOB.dead_mob_list)
 			var/link = FOLLOW_LINK(M, user)
-			to_chat(M, "[link] [my_message]")
+			to_chat(M, "[link] [my_message]", type = MESSAGE_TYPE_RADIO)
 
 	user.log_talk(message, LOG_SAY, tag="blood cult")
 
@@ -108,7 +108,7 @@
 		if(B.current && B.current != Nominee && !B.current.incapacitated())
 			SEND_SOUND(B.current, 'sound/magic/exit_blood.ogg')
 			asked_cultists += B.current
-	var/list/yes_voters = pollCandidates("[Nominee] seeks to lead your cult, do you support [Nominee.p_them()]?", poll_time = 300, group = asked_cultists)
+	var/list/yes_voters = pollCandidates("[Nominee] seeks to lead your cult, do you support [Nominee.p_them()]?", poll_time = 30 SECONDS, group = asked_cultists)
 	if(QDELETED(Nominee) || Nominee.incapacitated())
 		team.cult_vote_called = FALSE
 		for(var/datum/mind/B in team.members)
@@ -457,7 +457,7 @@
 			if(distance >= 16)
 				return
 			playsound(target,'sound/magic/exit_blood.ogg')
-			attached_action.throwee.Beam(target,icon_state="sendbeam",time=4)
+			attached_action.throwee.Beam(target,icon_state="sendbeam", time = 4)
 			attached_action.throwee.forceMove(get_turf(target))
 			new /obj/effect/temp_visual/cult/sparks(get_turf(target), ranged_ability_user.dir)
 			attached_action.throwing = FALSE

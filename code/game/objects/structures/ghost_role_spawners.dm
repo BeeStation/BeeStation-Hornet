@@ -18,6 +18,7 @@
 	Estimated time of last contact: Deployment, 5000 millennia ago."
 	assignedrole = "Lifebringer"
 	use_cooldown = TRUE
+	banType = ROLE_LIFEBRINGER
 
 /obj/effect/mob_spawn/human/seed_vault/special(mob/living/new_spawn)
 	var/plant_name = pick("Tomato", "Potato", "Broccoli", "Carrot", "Ambrosia", "Pumpkin", "Ivy", "Kudzu", "Banana", "Moss", "Flower", "Bloom", "Root", "Bark", "Glowshroom", "Petal", "Leaf", \
@@ -54,6 +55,7 @@
 	assignedrole = "Ash Walker"
 	var/datum/team/ashwalkers/team
 	use_cooldown = TRUE
+	banType = ROLE_ASHWALKER
 
 /obj/effect/mob_spawn/human/ash_walker/special(mob/living/new_spawn)
 	to_chat(new_spawn, "<b>Drag the corpses of men and beasts to your nest. It will absorb them to create more of your kind. Don't leave your nest undefended, protect it with your life. Glory to the Necropolis!</b>")
@@ -78,40 +80,6 @@
 	head = /obj/item/clothing/head/helmet/gladiator
 	uniform = /obj/item/clothing/under/costume/gladiator/ash_walker
 
-
-//Timeless prisons: Spawns in Wish Granter prisons in lavaland. Ghosts become age-old users of the Wish Granter and are advised to seek repentance for their past.
-/obj/effect/mob_spawn/human/exile
-	name = "timeless prison"
-	desc = "Although this stasis pod looks medicinal, it seems as though it's meant to preserve something for a very long time."
-	mob_name = "a penitent exile"
-	icon = 'icons/obj/machines/sleeper.dmi'
-	icon_state = "sleeper"
-	roundstart = FALSE
-	death = FALSE
-	mob_species = /datum/species/shadow
-	short_desc = "You are cursed."
-	flavour_text = "Years ago, you sacrificed the lives of your trusted friends and the humanity of yourself to reach the Wish Granter. Though you \
-	did so, it has come at a cost: your very body rejects the light, dooming you to wander endlessly in this horrible wasteland."
-	assignedrole = "Exile"
-	use_cooldown = TRUE
-
-/obj/effect/mob_spawn/human/exile/Destroy()
-	new/obj/structure/fluff/empty_sleeper(get_turf(src))
-	return ..()
-
-/obj/effect/mob_spawn/human/exile/special(mob/living/new_spawn)
-	new_spawn.fully_replace_character_name(null,"Wish Granter's Victim ([rand(1,999)])")
-	var/wish = rand(1,4)
-	switch(wish)
-		if(1)
-			to_chat(new_spawn, "<b>You wished to kill, and kill you did. You've lost track of how many, but the spark of excitement that murder once held has winked out. You feel only regret.</b>")
-		if(2)
-			to_chat(new_spawn, "<b>You wished for unending wealth, but no amount of money was worth this existence. Maybe charity might redeem your soul?</b>")
-		if(3)
-			to_chat(new_spawn, "<b>You wished for power. Little good it did you, cast out of the light. You are the [gender == MALE ? "king" : "queen"] of a hell that holds no subjects. You feel only remorse.</b>")
-		if(4)
-			to_chat(new_spawn, "<b>You wished for immortality, even as your friends lay dying behind you. No matter how many times you cast yourself into the lava, you awaken in this room again within a few days. There is no escape.</b>")
-
 //Golem shells: Spawns in Free Golem ships in lavaland. Ghosts become mineral golems and are advised to spread personal freedom.
 /obj/effect/mob_spawn/human/golem
 	name = "inert free golem shell"
@@ -132,6 +100,7 @@
 	flavour_text = "In his infinite and divine wisdom, he set your clan free to \
 	travel the stars with a single declaration: \"Yeah go do whatever.\" Though you are bound to the one who created you, it is customary in your society to repeat those same words to newborn \
 	golems, so that no golem may ever be forced to serve again."
+	banType = ROLE_FREE_GOLEM
 
 /obj/effect/mob_spawn/human/golem/Initialize(mapload, datum/species/golem/species = null, mob/creator = null)
 	if(species) //spawners list uses object name to register so this goes before ..()
@@ -210,6 +179,7 @@
 	can_transfer = FALSE
 	mob_species = /datum/species/golem/adamantine
 	use_cooldown = TRUE	//Only the roundstart free golems are
+	banType = ROLE_FREE_GOLEM
 	id = /obj/item/card/id/golem/spawner
 
 //Malfunctioning cryostasis sleepers: Spawns in makeshift shelters in lavaland. Ghosts become hermits with knowledge of how they got to where they are now.
@@ -229,6 +199,7 @@
 	the fresh air of Earth. These thoughts are dispelled by yet another recollection of how you got here... "
 	assignedrole = "Hermit"
 	use_cooldown = TRUE
+	banType = ROLE_HERMIT
 
 /obj/effect/mob_spawn/human/hermit/Initialize(mapload)
 	. = ..()
@@ -271,6 +242,7 @@
 	all you did was apply bruise packs. Why is this place full of advanced medical equipment? And what are those screams you hear? The world outside is desolate - tormented with fire and brimstone. But you took an oath. \
 	You have to save these people! You might not have a fancy cloning machine like a real hospital, but surely there must be some way to save these people with the tools you have. Right?"
 	assignedrole = "Translocated Vet"
+	banType = ROLE_TRANSLOCATED_VET
 
 /obj/effect/mob_spawn/human/doctor/alive/lavaland/Destroy()
 	var/obj/structure/fluff/empty_sleeper/S = new(drop_location())
@@ -292,6 +264,7 @@
 	flavour_text = "Good. It seems as though your ship crashed. You remember that you were convicted of "
 	assignedrole = "Escaped Prisoner"
 	use_cooldown = TRUE
+	banType = ROLE_LAVALAND_ESCAPED_PRISONER
 
 /obj/effect/mob_spawn/human/prisoner_transport/special(mob/living/L)
 	L.fully_replace_character_name(null,"NTP #LL-0[rand(111,999)]") //Nanotrasen Prisoner #Lavaland-(numbers)
@@ -332,6 +305,7 @@
 	important_info = "DON'T leave the hotel"
 	assignedrole = "Hotel Staff"
 	use_cooldown = TRUE
+	banType = ROLE_HOTEL_STAFF
 
 /datum/outfit/hotelstaff
 	name = "Hotel Staff"
@@ -379,6 +353,7 @@
 	var/obj/effect/proc_holder/spell/targeted/summon_friend/spell
 	var/datum/mind/owner
 	assignedrole = "SuperFriend"
+	banType = ROLE_DEMONIC_FRIEND
 
 /obj/effect/mob_spawn/human/demonic_friend/Initialize(mapload, datum/mind/owner_mind, obj/effect/proc_holder/spell/targeted/summon_friend/summoning_spell)
 	. = ..()
@@ -419,77 +394,6 @@
 	implants = list(/obj/item/implant/mindshield) //No revolutionaries, he's MY friend.
 	id = /obj/item/card/id
 
-/obj/effect/mob_spawn/human/syndicate
-	name = "Syndicate Operative"
-	roundstart = FALSE
-	death = FALSE
-	icon = 'icons/obj/machines/sleeper.dmi'
-	icon_state = "sleeper_s"
-	outfit = /datum/outfit/syndicate_empty
-	assignedrole = "Space Syndicate"	//I know this is really dumb, but Syndicate operative is nuke ops
-
-/datum/outfit/syndicate_empty
-	name = "Syndicate Operative Empty"
-	uniform = /obj/item/clothing/under/syndicate
-	shoes = /obj/item/clothing/shoes/combat
-	gloves = /obj/item/clothing/gloves/combat
-	ears = /obj/item/radio/headset/syndicate/alt
-	back = /obj/item/storage/backpack
-	implants = list(/obj/item/implant/weapons_auth)
-	id = /obj/item/card/id/syndicate
-
-/datum/outfit/syndicate_empty/post_equip(mob/living/carbon/human/H)
-	H.faction |= ROLE_SYNDICATE
-
-/obj/effect/mob_spawn/human/syndicate/battlecruiser
-	name = "Syndicate Battlecruiser Ship Operative"
-	short_desc = "You are a crewmember aboard the syndicate flagship: the SBC Starfury."
-	flavour_text = "Your job is to follow your captain's orders, maintain the ship, and keep the engine running. If you are not familiar with how the supermatter engine functions: do not attempt to start it."
-	important_info = "The armory is not a candy store, and your role is not to assault the station directly, leave that work to the assault operatives."
-	outfit = /datum/outfit/syndicate_empty/SBC
-
-/datum/outfit/syndicate_empty/SBC
-	name = "Syndicate Battlecruiser Ship Operative"
-	l_pocket = /obj/item/gun/ballistic/automatic/pistol
-	r_pocket = /obj/item/kitchen/knife/combat/survival
-	belt = /obj/item/storage/belt/military/assault
-
-/obj/effect/mob_spawn/human/syndicate/battlecruiser/assault
-	name = "Syndicate Battlecruiser Assault Operative"
-	short_desc = "You are an assault operative aboard the syndicate flagship: the SBC Starfury."
-	flavour_text = "Your job is to follow your captain's orders, keep intruders out of the ship, and assault Space Station 13. There is an armory, multiple assault ships, and beam cannons to attack the station with."
-	important_info = "Work as a team with your fellow operatives and work out a plan of attack. If you are overwhelmed, escape back to your ship!"
-	outfit = /datum/outfit/syndicate_empty/SBC/assault
-
-/datum/outfit/syndicate_empty/SBC/assault
-	name = "Syndicate Battlecruiser Assault Operative"
-	uniform = /obj/item/clothing/under/syndicate/combat
-	l_pocket = /obj/item/ammo_box/magazine/m10mm
-	r_pocket = /obj/item/kitchen/knife/combat/survival
-	belt = /obj/item/storage/belt/military
-	suit = /obj/item/clothing/suit/armor/vest
-	suit_store = /obj/item/gun/ballistic/automatic/pistol
-	back = /obj/item/storage/backpack/security
-	mask = /obj/item/clothing/mask/gas/syndicate
-
-/obj/effect/mob_spawn/human/syndicate/battlecruiser/captain
-	name = "Syndicate Battlecruiser Captain"
-	short_desc = "You are the captain aboard the syndicate flagship: the SBC Starfury."
-	flavour_text = "Your job is to oversee your crew, defend the ship, and destroy Space Station 13. The ship has an armory, multiple ships, beam cannons, and multiple crewmembers to accomplish this goal."
-	important_info = "As the captain, this whole operation falls on your shoulders. You do not need to nuke the station, causing sufficient damage and preventing your ship from being destroyed will be enough."
-	outfit = /datum/outfit/syndicate_empty/SBC/assault/captain
-	id_access_list = list(150,151)
-
-/datum/outfit/syndicate_empty/SBC/assault/captain
-	name = "Syndicate Battlecruiser Captain"
-	l_pocket = /obj/item/melee/transforming/energy/sword/saber/red
-	r_pocket = /obj/item/melee/classic_baton/police/telescopic
-	suit = /obj/item/clothing/suit/armor/vest/capcarapace/syndicate
-	suit_store = /obj/item/gun/ballistic/revolver/mateba
-	back = /obj/item/storage/backpack/satchel/leather
-	head = /obj/item/clothing/head/HoS/syndicate
-	mask = /obj/item/clothing/mask/cigarette/cigar/havana
-	glasses = /obj/item/clothing/glasses/thermal/eyepatch
 
 //Ancient cryogenic sleepers. Players become NT crewmen from a hundred year old space station, now on the verge of collapse.
 /obj/effect/mob_spawn/human/oldsec
@@ -514,6 +418,7 @@
 	l_pocket = /obj/item/assembly/flash/handheld
 	assignedrole = "Ancient Crew"
 	use_cooldown = TRUE
+	banType = ROLE_ANCIENT_CREW
 
 /obj/effect/mob_spawn/human/oldsec/Destroy()
 	new/obj/structure/showcase/machinery/oldpod/used(drop_location())
@@ -541,6 +446,7 @@
 	l_pocket = /obj/item/tank/internals/emergency_oxygen
 	assignedrole = "Ancient Crew"
 	use_cooldown = TRUE
+	banType = ROLE_ANCIENT_CREW
 
 /obj/effect/mob_spawn/human/oldeng/Destroy()
 	new/obj/structure/showcase/machinery/oldpod/used(drop_location())
@@ -567,6 +473,7 @@
 	l_pocket = /obj/item/stack/medical/bruise_pack
 	assignedrole = "Ancient Crew"
 	use_cooldown = TRUE
+	banType = ROLE_ANCIENT_CREW
 
 /obj/effect/mob_spawn/human/oldsci/Destroy()
 	new/obj/structure/showcase/machinery/oldpod/used(drop_location())
@@ -590,6 +497,7 @@
 	flavour_text = "The station refused to pay for your protection, protect the ship, siphon the credits from the station and raid it for even more loot."
 	assignedrole = ROLE_SPACE_PIRATE
 	banType = ROLE_SPACE_PIRATE
+	is_antagonist = TRUE
 	var/rank = "Mate"
 
 /obj/effect/mob_spawn/human/pirate/special(mob/living/new_spawn)
