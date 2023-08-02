@@ -24020,21 +24020,6 @@
 	},
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
-"cuQ" = (
-/obj/machinery/door/airlock/maintenance{
-	req_one_access_txt = "12;27;37;5"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plating,
-/area/maintenance/aft)
 "cuW" = (
 /turf/closed/wall,
 /area/science/server)
@@ -34620,6 +34605,26 @@
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/medbay/central)
+"fEI" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/medical/glass{
+	name = "Chemistry Lab";
+	req_one_access_txt = "33;69"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/chemistry)
 "fEL" = (
 /obj/machinery/telecomms/relay/preset/exploration,
 /turf/open/floor/circuit/telecomms/mainframe,
@@ -34627,6 +34632,21 @@
 "fEQ" = (
 /turf/closed/wall,
 /area/science/nanite)
+"fET" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/maintenance{
+	req_one_access_txt = "12;27;37;29;5;6"
+	},
+/turf/open/floor/plating,
+/area/maintenance/aft)
 "fFa" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -47486,21 +47506,6 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/science/xenobiology)
-"kXs" = (
-/obj/machinery/door/airlock/maintenance{
-	req_one_access_txt = "12;5;6;29"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plating,
-/area/maintenance/aft)
 "kXR" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -54996,6 +55001,23 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"ojc" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Chemistry Lab Maintenance";
+	req_access_txt = "33"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 2
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "quarantineshutters";
+	name = "isolation shutters"
+	},
+/turf/open/floor/plating,
+/area/medical/chemistry)
 "ojf" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -61921,26 +61943,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
-"rdm" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/medical/glass{
-	name = "Chemistry Lab";
-	req_one_access_txt = "33;69"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/chemistry)
 "rdt" = (
 /obj/machinery/door/airlock/maintenance{
 	req_one_access_txt = "12;47"
@@ -67107,6 +67109,21 @@
 /obj/effect/landmark/start/medical_doctor,
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/medbay/central)
+"tpL" = (
+/obj/machinery/door/airlock/maintenance{
+	req_one_access_txt = "12;5;6;29"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating,
+/area/maintenance/aft)
 "tpV" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 8
@@ -69049,23 +69066,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"ukS" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Chemistry Lab Maintenance";
-	req_access_txt = "33"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 2
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "quarantineshutters";
-	name = "isolation shutters"
-	},
-/turf/open/floor/plating,
-/area/medical/chemistry)
 "ulc" = (
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 1
@@ -73945,21 +73945,6 @@
 /obj/machinery/ecto_sniffer,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
-"wqF" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/door/airlock/maintenance{
-	req_one_access_txt = "12;27;37;29;5;6"
-	},
-/turf/open/floor/plating,
-/area/maintenance/aft)
 "wqM" = (
 /obj/machinery/door/airlock/external{
 	req_access_txt = "13"
@@ -77384,6 +77369,21 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/shuttledock)
+"xGC" = (
+/obj/machinery/door/airlock/maintenance{
+	req_one_access_txt = "12;27;37;5"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating,
+/area/maintenance/aft)
 "xGJ" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -96817,7 +96817,7 @@ avr
 avr
 avr
 bTs
-cuQ
+xGC
 pNs
 bTs
 bTs
@@ -101698,7 +101698,7 @@ cCe
 cCe
 cCe
 bTs
-wqF
+fET
 cLa
 cLa
 cMI
@@ -104245,7 +104245,7 @@ tyH
 tyH
 cga
 kBz
-rdm
+fEI
 cfY
 tyH
 cga
@@ -105019,7 +105019,7 @@ fCw
 wIB
 qap
 vUr
-ukS
+ojc
 fue
 rdQ
 quO
@@ -106064,7 +106064,7 @@ erP
 ctB
 ctD
 ctB
-kXs
+tpL
 cPb
 cPb
 qrx
