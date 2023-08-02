@@ -899,9 +899,6 @@
 		log_game("DYNAMIC: [ruletype] ruleset [name] ready() failed due to no valid spawn locations (#1).")
 		return FALSE
 	spawn_loc = pick(spawn_locs)
-	if(!spawn_loc)
-		log_game("DYNAMIC: [ruletype] ruleset [name] ready() failed due to no valid spawn locations (#2).")
-		return FALSE
 	return TRUE
 
 /datum/dynamic_ruleset/midround/from_ghosts/ninja/generate_ruleset_body(mob/applicant)
