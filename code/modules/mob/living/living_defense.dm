@@ -450,6 +450,16 @@
 	var/current_speed = cached_multiplicative_slowdown || total_multiplicative_slowdown()
 	// Lower speed is better, so this is reversed
 	var/speed_delta = default_speed - current_speed
+	// Are we holding onto something?
+	var/is_holding = has_gravity(get_turf(src))
+	if (!is_holding)
+		if(locate(/obj/structure/lattice) in range(1, get_turf(src))) //Not realistic but makes pushing things in space easier
+			is_holding = TRUE
+		else
+			for (var/turf/T as() in RANGE_TURFS(1, get_turf(src)))
+				if (T.density)
+					is_holding = TRUE
+					break
 	// Every 1 faster than default, you get a penalty of 10 accuracy, or 20 if there is no gravity.
 	// If you are moving slower than the default speed, you get a bonus.
 	// This means with the captain's jetpack, the spread cone is 20 degrees.
@@ -458,7 +468,7 @@
 		// We haven't moved in 1 second, give us no penalty to aiming
 		if (last_move_time + 1 SECONDS < world.time)
 			return
-		. += (speed_delta * 10) * (has_gravity(get_turf(src)) ? 1 : 2)
+		. += (speed_delta * 10) * (is_holding ? 1 : 2)
 	else
 		// Can only improve up to the maximum improvement, otherwise shotguns gain accuracy when walking
 		// This means walking will improve your accuracy by a total of 12.
