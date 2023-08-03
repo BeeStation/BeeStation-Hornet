@@ -1,0 +1,7 @@
+author: RKz, JJRCop, vuonojenmustaturska
+delete-after: true
+changes:
+  - code_imp: kills arbitrary stasis wrapper proc and turns it into a define. Scrubs
+      stasis from update_mobility. Eeks out a tiny bit of responsiveness compared
+      to before.
+  - tweak: stasis now supports multiple sources
