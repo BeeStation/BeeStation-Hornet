@@ -371,7 +371,7 @@ SUBSYSTEM_DEF(ticker)
 		if(!job)
 			continue
 		lightup_area_typecache |= job.areas_to_light_up(minimal_access)
-	for(var/area/area as() in typecache_filter_list(GLOB.sortedAreas, lightup_area_typecache))
+	for(var/area/area as() in typecache_filter_list(GLOB.areas, lightup_area_typecache))
 		if(area.lights_always_start_on)
 			continue
 		area.lightswitch = TRUE
