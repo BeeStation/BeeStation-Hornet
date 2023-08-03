@@ -489,6 +489,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 
+	color_correction = /datum/client_colour/area_color/cold_ish
+
 /area/bridge/meeting_room
 	name = "Heads of Staff Meeting Room"
 	icon_state = "meeting"
@@ -1268,7 +1270,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_bulb = "#ffdbb8"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_PROTECTED
-	color_correction = /datum/client_colour/area_color/warm_ish
+	color_correction = /datum/client_colour/area_color/warm_yellow
 
 /area/quartermaster/sorting
 	name = "Delivery Office"
@@ -1293,7 +1295,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Cargo Lobby"
 	icon_state = "cargo_lobby"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_PROTECTED
-	color_correction = /datum/client_colour/area_color/warm_ish
+	color_correction = /datum/client_colour/area_color/warm_yellow
 
 /area/quartermaster/qm
 	name = "Quartermaster's Office"
