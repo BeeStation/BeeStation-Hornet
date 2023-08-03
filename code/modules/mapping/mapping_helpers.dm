@@ -260,7 +260,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 		j.update_icon()
 	qdel(src)
 
-//Color correction helper
+//Color correction helper - only use of these per area, it will convert the entire area
 /obj/effect/mapping_helpers/color_correction
 	name = "color correction helper"
 	icon_state = "color_correction"
