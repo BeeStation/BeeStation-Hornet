@@ -259,3 +259,15 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 				O.organ_flags |= ORGAN_FROZEN
 		j.update_icon()
 	qdel(src)
+
+//Color correction helper
+/obj/effect/mapping_helpers/color_correction
+	name = "color correction helper"
+	icon_state = "color_correction"
+	///The areas specific color correction
+	var/color_correction = /datum/client_colour/area_color/cold
+
+/obj/effect/mapping_helpers/color_correction/Initialize(mapload)
+	. = ..()
+	var/area/A = get_area(get_turf(src))
+	A.color_correction = color_correction

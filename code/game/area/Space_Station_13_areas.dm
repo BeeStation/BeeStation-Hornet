@@ -1369,6 +1369,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_bulb = "#e4f7ff"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ADVANCED
+	color_correction = /datum/client_colour/area_color/cold_purple
 
 /area/science/lobby
 	name = "\improper Science Lobby"
