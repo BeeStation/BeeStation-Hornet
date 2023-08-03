@@ -20,9 +20,9 @@
 
 	// Then, check computer-last
 
-	var/obj/machinery/stasis/stasis = new(left)
-	var/obj/structure/table/optable/table = new(right)
-	var/obj/machinery/computer/operating/computer = new(middle)
+	stasis = new(left)
+	table = new(right)
+	computer = new(middle)
 
 	TEST_ASSERT_EQUAL(computer.sbed, stasis, "Operating computer failed to link to stasis bed (computer.sbed doesn't match)")
 	TEST_ASSERT_EQUAL(stasis.op_computer, computer, "Operating computer failed to link to stasis bed (stasis.op_computer doesn't match)")
