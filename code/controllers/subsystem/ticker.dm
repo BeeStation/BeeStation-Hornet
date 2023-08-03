@@ -367,7 +367,7 @@ SUBSYSTEM_DEF(ticker)
 		var/role = player.mind?.assigned_role
 		if(!role)
 			continue
-		var/datum/job/job = SSjob.GetJob(role)
+		var/datum/job/job = SSjob.name_occupations[role]
 		if(!job)
 			continue
 		lightup_area_typecache |= job.areas_to_light_up(minimal_access)
