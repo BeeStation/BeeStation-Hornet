@@ -8832,23 +8832,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
-"cMo" = (
-/obj/machinery/door/airlock/mining{
-	name = "Auxiliary Base";
-	req_one_access_txt = "32;48"
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/construction/mining/aux_base)
 "cME" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/stripes{
@@ -9987,6 +9970,13 @@
 /obj/structure/table/reinforced,
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
+"dfC" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_one_access_txt = "48;32;29"
+	},
+/turf/open/floor/plating,
+/area/construction/mining/aux_base)
 "dfI" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -24390,19 +24380,6 @@
 /area/security/main{
 	name = "Security Locker Room"
 	})
-"hrO" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/door/airlock/maintenance/external{
-	name = "construction zone";
-	req_one_access_txt = "32;47;48;37"
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/construction/mining/aux_base)
 "hrP" = (
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 4
@@ -29779,6 +29756,23 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/science)
+"jij" = (
+/obj/machinery/door/airlock/mining{
+	name = "Auxiliary Base";
+	req_one_access_txt = "32;48;29"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/construction/mining/aux_base)
 "jix" = (
 /obj/structure/lattice/catwalk/over,
 /obj/machinery/door/airlock/maintenance_hatch{
@@ -35456,13 +35450,6 @@
 	},
 /turf/open/floor/plating,
 /area/ai_monitored/storage/satellite)
-"kXu" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_one_access_txt = "48;32"
-	},
-/turf/open/floor/plating,
-/area/construction/mining/aux_base)
 "kXS" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -66377,6 +66364,19 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/mixing)
+"uJW" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/door/airlock/maintenance/external{
+	name = "construction zone";
+	req_one_access_txt = "32;47;48;37;29"
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/construction/mining/aux_base)
 "uKa" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -99696,7 +99696,7 @@ vJE
 vJE
 vYg
 snk
-hrO
+uJW
 snk
 vJE
 vJE
@@ -100213,7 +100213,7 @@ mXi
 oVx
 sDa
 psX
-kXu
+dfC
 afH
 dLj
 pbx
@@ -100725,7 +100725,7 @@ vJE
 vJE
 vJE
 vJE
-cMo
+jij
 aYr
 vJE
 vEN
