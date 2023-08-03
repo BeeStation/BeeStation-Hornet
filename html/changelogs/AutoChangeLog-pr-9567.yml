@@ -1,0 +1,4 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Fixed a runtime when using the spawn reagent containers verb.
