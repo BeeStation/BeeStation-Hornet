@@ -5736,6 +5736,22 @@
 /obj/structure/sign/departments/minsky/research/dorms,
 /turf/closed/wall,
 /area/hydroponics)
+"bPy" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/lobby)
 "bPM" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -40798,6 +40814,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/lobby)
 "mIT" = (
@@ -42087,6 +42106,9 @@
 /obj/machinery/light_switch{
 	pixel_x = 21;
 	pixel_y = -21
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/lobby)
@@ -57031,6 +57053,11 @@
 /obj/machinery/camera/autoname,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
+"rQG" = (
+/obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/structure/reagent_dispensers/water_cooler,
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/lobby)
 "rQM" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -67982,12 +68009,13 @@
 /turf/closed/wall,
 /area/maintenance/department/medical)
 "vnI" = (
-/obj/structure/reagent_dispensers/water_cooler,
 /obj/effect/turf_decal/bot,
 /obj/machinery/power/apc/auto_name/east{
 	pixel_x = 24
 	},
 /obj/effect/turf_decal/tile/blue/fourcorners/contrasted,
+/obj/structure/cable/yellow,
+/obj/item/kirbyplants/random,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/lobby)
 "vnX" = (
@@ -74415,6 +74443,18 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/execution/education)
+"xvs" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/guideline/guideline_edge/blue{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/lobby)
 "xvx" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -110644,7 +110684,7 @@ bPR
 gme
 tYn
 plT
-uaR
+rQG
 ulM
 tIG
 pED
@@ -112182,8 +112222,8 @@ xKJ
 mjM
 uaR
 ijk
-bPR
-rUT
+xvs
+bPy
 mIQ
 neH
 vnI
