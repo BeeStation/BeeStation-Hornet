@@ -67,7 +67,7 @@
 	fire_delay = 2
 	burst_size = 2
 	pin = /obj/item/firing_pin/implant/pindicate
-	spread_unwielded = 15
+	spread_unwielded = 8
 	can_bayonet = TRUE
 	knife_x_offset = 26
 	knife_y_offset = 12
@@ -127,7 +127,7 @@
 	burst_size = 3
 	fire_delay = 2
 	pin = /obj/item/firing_pin/implant/pindicate
-	spread_unwielded = 15
+	spread_unwielded = 8
 	mag_display = TRUE
 	empty_indicator = TRUE
 

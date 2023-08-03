@@ -437,3 +437,30 @@
 
 /mob/living/proc/force_hit_projectile(obj/projectile/projectile)
 	return FALSE
+
+/mob/living/proc/get_weapon_inaccuracy_modifier(atom/target, obj/item/gun/weapon)
+	. = 0
+	if(HAS_TRAIT(src, TRAIT_POOR_AIM)) //nice shootin' tex
+		. += 25
+	// Unwielded weapons
+	if(!weapon.is_wielded && weapon.requires_wielding)
+		. += weapon.spread_unwielded
+	// Nothing to hold onto, slight penalty for flying around in space
+	var/default_speed = get_config_multiplicative_speed() + CONFIG_GET(number/movedelay/run_delay)
+	var/current_speed = cached_multiplicative_slowdown || total_multiplicative_slowdown()
+	// Lower speed is better, so this is reversed
+	var/speed_delta = default_speed - current_speed
+	// Every 1 faster than default, you get a penalty of 10 accuracy, or 20 if there is no gravity.
+	// If you are moving slower than the default speed, you get a bonus.
+	// This means with the captain's jetpack, the spread cone is 20 degrees.
+	// However, if you aren't moving, this will be 0
+	if (speed_delta > 0)
+		// We haven't moved in 1 second, give us no penalty to aiming
+		if (last_move_time + 1 SECONDS < world.time)
+			return
+		. += (speed_delta * 10) * (has_gravity(get_turf(src)) ? 1 : 2)
+	else
+		// Can only improve up to the maximum improvement, otherwise shotguns gain accuracy when walking
+		// This means walking will improve your accuracy by a total of 12.
+		// This is only really useful if you are using a gun with a shield.
+		. = max(0, . + speed_delta * 8)

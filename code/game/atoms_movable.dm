@@ -393,7 +393,7 @@
 			return
 
 	if(!loc || (loc == oldloc && oldloc != newloc))
-		last_move = 0
+		last_move = null
 		return
 
 	if(. && pulling && pulling == pullee && pulling != moving_from_pull) //we were pulling a thing and didn't lose it during our move.
@@ -409,6 +409,7 @@
 			check_pulling()
 
 	last_move = direct
+	last_move_time = world.time
 
 	if(set_dir_on_move && flat_direct)
 		setDir(flat_direct)
@@ -754,6 +755,7 @@
 		if(!buckled_mob.Move(newloc, direct))
 			doMove(buckled_mob.loc) //forceMove breaks buckles on stairs, use doMove
 			last_move = buckled_mob.last_move
+			last_move_time = world.time
 			return FALSE
 	return TRUE
 
