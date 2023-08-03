@@ -732,7 +732,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		forced_injection = FALSE
 
 		var/list/drafted_rules = list()
-		for (var/datum/dynamic_ruleset/latejoin/rule in latejoin_rules)
+		for (var/datum/dynamic_ruleset/latejoin/rule in shuffle(latejoin_rules))
 			if (!rule.weight)
 				continue
 			if (CHECK_BITFIELD(rule.flags, INTACT_STATION_RULESET) && !is_station_intact())

@@ -39,7 +39,7 @@
 	var/list/drafted_heavies = list()
 	var/list/drafted_lights = list()
 
-	for (var/datum/dynamic_ruleset/midround/ruleset in midround_rules)
+	for (var/datum/dynamic_ruleset/midround/ruleset in shuffle(midround_rules))
 		if (ruleset.weight == 0)
 			log_game("DYNAMIC: FAIL: [ruleset] has a weight of 0")
 			continue
