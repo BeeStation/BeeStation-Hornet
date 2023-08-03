@@ -114,9 +114,9 @@
 	/// The last known IP of the client who was in this mob
 	var/lastKnownIP = null
 
-	/// movable atoms buckled to this mob
+	/// The atom that this mob is currently buckled to
 	var/atom/movable/buckled = null//Living
-	/// movable atom we are buckled to
+	/// The movable atom that we are currently in the process of buckling to, but haven't buckled with yet.
 	var/atom/movable/buckling
 
 	//Hands

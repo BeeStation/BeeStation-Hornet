@@ -448,6 +448,22 @@
 	// Nothing to hold onto, slight penalty for flying around in space
 	var/default_speed = get_config_multiplicative_speed() + CONFIG_GET(number/movedelay/run_delay)
 	var/current_speed = cached_multiplicative_slowdown || total_multiplicative_slowdown()
+	var/move_time = last_move_time
+	// Check for being buckled to mobs and vehicles
+	if (buckled)
+		// If we are on a riding, check that
+		var/datum/component/riding/riding_component = buckled.GetComponent(/datum/component/riding)
+		if (riding_component)
+			current_speed = riding_component.vehicle_move_delay
+			move_time = max(move_time, riding_component.last_vehicle_move)
+		// If we are buckled to a mob, use the speed of the mob we are buckled to instead
+		else if (istype(buckled, /mob))
+			var/mob/buckle_target = buckled
+			current_speed = buckle_target.get_config_multiplicative_speed() + CONFIG_GET(number/movedelay/run_delay)
+			move_time = max(move_time, buckle_target.last_move_time)
+		else
+			// Take the higher value of move time if we don't know what we are buckled to
+			move_time = max(move_time, buckled.last_move_time)
 	// Lower speed is better, so this is reversed
 	var/speed_delta = default_speed - current_speed
 	// Are we holding onto something?
@@ -466,7 +482,7 @@
 	// However, if you aren't moving, this will be 0
 	if (speed_delta > 0)
 		// We haven't moved in 1 second, give us no penalty to aiming
-		if (last_move_time + 1 SECONDS < world.time)
+		if (move_time + 1 SECONDS < world.time)
 			return
 		. += (speed_delta * 10) * (is_holding ? 1 : 2)
 	else
