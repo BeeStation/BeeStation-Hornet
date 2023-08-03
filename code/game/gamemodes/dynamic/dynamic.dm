@@ -538,7 +538,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		log_game("DYNAMIC: Starting a round of forced extended.")
 		return TRUE
 	var/list/drafted_rules = list()
-	for (var/datum/dynamic_ruleset/roundstart/rule in roundstart_rules)
+	for (var/datum/dynamic_ruleset/roundstart/rule in shuffle(roundstart_rules))
 		if (!rule.weight)
 			continue
 		if (rule.acceptable(roundstart_pop_ready, threat_level) && round_start_budget >= rule.cost)	// If we got the population and threat required
