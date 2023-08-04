@@ -2463,7 +2463,7 @@
 /turf/open/floor/plasteel/white,
 /area/awaymission/research/interior)
 "pY" = (
-/obj/item/reagent_containers/spray/pepper,
+/obj/item/reagent_containers/peppercloud_deployer,
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/turf_decal/tile/purple/anticorner/contrasted{
 	dir = 1
@@ -4393,7 +4393,7 @@
 /area/awaymission/research/interior/engineering)
 "Ui" = (
 /obj/structure/table,
-/obj/item/reagent_containers/spray/pepper,
+/obj/item/reagent_containers/peppercloud_deployer,
 /obj/machinery/button/door{
 	id = "cryopodg1";
 	name = "panic lockdown button"
@@ -4759,7 +4759,7 @@
 /area/awaymission/research/interior)
 "ZQ" = (
 /obj/structure/table,
-/obj/item/reagent_containers/spray/pepper,
+/obj/item/reagent_containers/peppercloud_deployer,
 /obj/machinery/button/door{
 	id = "cryopodg2";
 	name = "panic lockdown button"

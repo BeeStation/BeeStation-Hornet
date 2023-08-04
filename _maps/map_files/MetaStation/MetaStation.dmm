@@ -33817,7 +33817,7 @@
 	},
 /obj/item/storage/fancy/cigarettes,
 /obj/item/assembly/flash/handheld,
-/obj/item/reagent_containers/spray/pepper,
+/obj/item/reagent_containers/peppercloud_deployer,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 4
 	},

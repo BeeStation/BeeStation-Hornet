@@ -77,6 +77,8 @@
 	/// your bank account id in your mind
 	var/account_id
 
+	var/cryoed = FALSE
+
 /datum/mind/New(var/key)
 	src.key = key
 	soulOwner = src

@@ -27,6 +27,11 @@
 	//they doesnt get out that much
 	biohazard = 10
 
+	minimal_lightup_areas = list(
+		/area/library,
+		/area/construction/mining/aux_base
+	)
+
 /datum/outfit/job/curator
 	name = JOB_NAME_CURATOR
 	jobtype = /datum/job/curator
