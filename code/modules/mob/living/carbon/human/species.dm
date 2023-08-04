@@ -2749,3 +2749,6 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	qdel(temp_holder)
 
 	return to_add
+
+/datum/species/proc/primary_species_action()
+	return

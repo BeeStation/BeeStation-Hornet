@@ -17,6 +17,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 
 /datum/species/psyphoza
 	name = "\improper Psyphoza"
+	plural_form = "Psyphoza"
 	id = SPECIES_PSYPHOZA
 	bodyflag = FLAG_PSYPHOZA
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/psyphoza
@@ -79,6 +80,26 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 /datum/species/psyphoza/primary_species_action()
 	. = ..()
 	PH?.Trigger()
+
+/datum/species/psyphoza/get_species_description()
+	return "..."
+
+/datum/species/psyphoza/get_species_lore()
+	return null
+
+/datum/species/abductor/create_pref_unique_perks()
+	var/list/to_add = list()
+
+	to_add += list(
+		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "volume-mute",
+			SPECIES_PERK_NAME = "Psychic",
+			SPECIES_PERK_DESC = "Psyphoza are psychic and can sense things others can't.",
+		),
+	)
+
+	return to_add
 
 //This originally held the psychic action until I moved it to the eyes, keep it please.
 /obj/item/organ/brain/psyphoza

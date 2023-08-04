@@ -85,7 +85,7 @@
 
 //Keybind for sense
 /datum/keybinding/living/primary_species_action
-	key = "Shift-Space"
+	keys = list("Shift-Space")
 	name = "species_primary"
 	full_name = "Primary Species Action"
 	description = "Activates a species primary action."
