@@ -374,7 +374,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_tube = "#ffce99"
 	lighting_colour_bulb = "#ffdbb4"
 	lighting_brightness_tube = 8
-	color_correction = /datum/client_colour/area_color/warm_ish
 
 /area/hallway/primary
 	name = "Primary Hallway"
@@ -751,6 +750,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_bulb = "#ffdbb4"
 	lighting_brightness_tube = 8
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
+	color_correction = /datum/client_colour/area_color/warm_ish
 
 /area/library/lounge
 	name = "Library Lounge"
