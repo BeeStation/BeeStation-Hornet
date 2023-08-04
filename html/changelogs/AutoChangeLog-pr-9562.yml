@@ -1,0 +1,4 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - tweak: Simplemobs can no longer walk through grilles like they don't exist.
