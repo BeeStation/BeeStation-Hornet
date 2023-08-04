@@ -423,6 +423,6 @@
 	M.become_blind("uncurable", /atom/movable/screen/fullscreen/blind/psychic)
 	M.remove_client_colour(/datum/client_colour/monochrome/blind)
 
-/obj/item/organ/eyes/psyphoza/Remove(mob/living/carbon/M, special)
+/obj/item/organ/eyes/psyphoza/Remove(mob/living/carbon/M, special = FALSE, pref_load = FALSE)
 	. = ..()
 	M.cure_blind("uncurable")
