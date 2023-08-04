@@ -188,9 +188,9 @@
 	name = "energy bolt"
 	desc = "An arrow made from a strange energy."
 	icon_state = "arrow_redlight"
-	projectile_type = /obj/item/projectile/energy/clockbolt
+	projectile_type = /obj/projectile/energy/clockbolt
 
-/obj/item/projectile/energy/clockbolt
+/obj/projectile/energy/clockbolt
 	name = "energy bolt"
 	icon_state = "arrow_energy"
 	damage = 24

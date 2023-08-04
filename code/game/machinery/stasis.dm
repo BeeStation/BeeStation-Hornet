@@ -80,7 +80,7 @@
 /obj/machinery/stasis/Exited(atom/movable/gone, direction)
 	if(gone == occupant)
 		var/mob/living/L = gone
-		if(L.IsInStasis())
+		if(IS_IN_STASIS(L))
 			thaw_them(L)
 	return ..()
 
@@ -128,12 +128,12 @@
 		return
 	var/freq = rand(24750, 26550)
 	playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 2, frequency = freq)
-	target.SetStasis(TRUE)
+	target.apply_status_effect(STATUS_EFFECT_STASIS, STASIS_MACHINE_EFFECT)
 	target.ExtinguishMob()
 	use_power = ACTIVE_POWER_USE
 
 /obj/machinery/stasis/proc/thaw_them(mob/living/target)
-	target.SetStasis(FALSE)
+	target.remove_status_effect(STATUS_EFFECT_STASIS, STASIS_MACHINE_EFFECT)
 	if(target == occupant)
 		use_power = IDLE_POWER_USE
 
@@ -157,9 +157,9 @@
 		return
 	var/mob/living/L_occupant = occupant
 	if(stasis_running())
-		if(!L_occupant.IsInStasis())
+		if(!IS_IN_STASIS(L_occupant))
 			chill_out(L_occupant)
-	else if(L_occupant.IsInStasis())
+	else if(IS_IN_STASIS(L_occupant))
 		thaw_them(L_occupant)
 
 /obj/machinery/stasis/screwdriver_act(mob/living/user, obj/item/I)
