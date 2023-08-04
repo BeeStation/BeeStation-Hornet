@@ -844,7 +844,8 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if (length(players))
 			var/mob/chosen = players[1]
 			if (chosen.client)
-				chosen.client.prefs.active_character.copy_to(spawnedMob)
+				if(ishuman(spawnedMob))
+					chosen.client.prefs.apply_prefs_to(spawnedMob)
 				spawnedMob.key = chosen.key
 			players -= chosen
 		if (ishuman(spawnedMob) && ispath(humanoutfit, /datum/outfit))

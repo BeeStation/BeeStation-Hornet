@@ -334,11 +334,10 @@
 	return FALSE
 
 /obj/structure/closet/crate/capsule/insertion_allowed(atom/movable/AM)
-	if(isitem(AM))
-		var/obj/item/I = AM
-		if(I.w_class >= WEIGHT_CLASS_BULKY) //capsule pod can't hold bulky or larger objects
-			return FALSE
-	if(ismob(AM)) //capsule pod can't hold mobs
+	if(!isitem(AM))
+		return FALSE //Capsule pod can only hold items, not mobs, structures or otherwise
+	var/obj/item/I = AM
+	if(I.w_class >= WEIGHT_CLASS_BULKY) //capsule pod can't hold bulky or larger objects
 		return FALSE
 	return ..()
 

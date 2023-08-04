@@ -161,7 +161,7 @@
 	consume(source, user)
 
 // Will there be an impact? Who knows.  Will we see it? No.
-/datum/component/singularity/proc/consume_bullets(obj/item/projectile/projectile)
+/datum/component/singularity/proc/consume_bullets(obj/projectile/projectile)
 	SIGNAL_HANDLER
 	qdel(projectile)
 

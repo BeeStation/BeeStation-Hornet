@@ -77,6 +77,8 @@
 	/// your bank account id in your mind
 	var/account_id
 
+	var/cryoed = FALSE
+
 /datum/mind/New(var/key)
 	src.key = key
 	soulOwner = src
@@ -307,32 +309,34 @@
 	var/obj/item/uplink_loc
 	var/implant = FALSE
 
-	if(traitor_mob.client?.prefs)
-		switch(traitor_mob.client.prefs.active_character.uplink_spawn_loc)
-			if(UPLINK_PDA)
+	var/uplink_spawn_location = traitor_mob.client?.prefs?.read_character_preference(/datum/preference/choiced/uplink_location)
+	switch(uplink_spawn_location)
+		if(UPLINK_PDA)
+			uplink_loc = PDA
+			if(!uplink_loc)
+				uplink_loc = R
+			if(!uplink_loc)
+				uplink_loc = P
+		if(UPLINK_RADIO)
+			if(HAS_TRAIT(traitor_mob, TRAIT_MUTE))  // cant speak code into headset
+				to_chat(traitor_mob, "Using a radio uplink would be impossible with your muteness! Equipping PDA Uplink..")
 				uplink_loc = PDA
 				if(!uplink_loc)
 					uplink_loc = R
 				if(!uplink_loc)
 					uplink_loc = P
-			if(UPLINK_RADIO)
-				if(HAS_TRAIT(traitor_mob, TRAIT_MUTE))  // cant speak code into headset
-					to_chat(traitor_mob, "Using a radio uplink would be impossible with your muteness! Equipping PDA Uplink..")
+			else
+				uplink_loc = R
+				if(!uplink_loc)
 					uplink_loc = PDA
-					if(!uplink_loc)
-						uplink_loc = R
-					if(!uplink_loc)
-						uplink_loc = P
-				else
-					uplink_loc = R
-					if(!uplink_loc)
-						uplink_loc = PDA
-					if(!uplink_loc)
-						uplink_loc = P
-			if(UPLINK_PEN)
-				uplink_loc = P
-			if(UPLINK_IMPLANT)
-				implant = TRUE
+				if(!uplink_loc)
+					uplink_loc = P
+		if(UPLINK_PEN)
+			uplink_loc = P
+		if(UPLINK_PEN)
+			uplink_loc = P
+		if(UPLINK_IMPLANT)
+			implant = TRUE
 
 	if(!uplink_loc) // We've looked everywhere, let's just implant you
 		implant = TRUE
@@ -689,6 +693,14 @@
 	special_role = ROLE_REV_HEAD
 
 /datum/mind/proc/AddSpell(obj/effect/proc_holder/spell/S)
+	// HACK: Preferences menu creates one of every selectable species.
+	// Some species, like vampires, create spells when they're made.
+	// The "action" is created when those spells Initialize.
+	// Preferences menu can create these assets at *any* time, primarily before
+	// the atoms SS initializes.
+	// That means "action" won't exist.
+	if (isnull(S.action))
+		return
 	spell_list += S
 	S.action.Grant(current)
 

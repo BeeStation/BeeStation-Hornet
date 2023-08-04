@@ -387,5 +387,6 @@
 		security_records_out += list(crew_record)
 	return security_records_out
 
+// TODO tgui-prefs test this
 /datum/datacore/proc/get_id_photo(mob/living/carbon/human/human, show_directions = list(SOUTH))
 	return get_flat_existing_human_icon(human, show_directions)

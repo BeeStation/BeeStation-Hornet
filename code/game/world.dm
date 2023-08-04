@@ -30,13 +30,12 @@ GLOBAL_VAR(restart_counter)
  * I'M NOT EVEN GOING TO TELL YOU WHERE IT'S CALLED FROM BECAUSE I'M DECLARING THAT FORBIDDEN KNOWLEDGE
  * SO HELP ME GOD IF I FIND ABSTRACTION LAYERS OVER THIS!
  */
-/world/proc/Genesis(tracy_initialized = FALSE)
+/world/proc/Genesis()
+	// auxtools has to go BEFORE tracy, otherwise tracy will clobber its hook addresses
+	AUXTOOLS_CHECK(AUXMOS)
 	#ifdef USE_BYOND_TRACY
 	#warn USE_BYOND_TRACY is enabled
-	if(!tracy_initialized)
-		init_byond_tracy()
-		Genesis(tracy_initialized = TRUE)
-		return
+	init_byond_tracy()
 	#endif
 	// Anything else that needs to happen before /world/New() goes here.
 	// On TG this includes debugger init and intializing Master, but for now we'll leave that as a BYOND global.
@@ -44,9 +43,6 @@ GLOBAL_VAR(restart_counter)
 //This happens after the Master subsystem new(s) (it's a global datum)
 //So subsystems globals exist, but are not initialised
 /world/New()
-	//Keep the auxtools stuff at the top
-	AUXTOOLS_CHECK(AUXMOS)
-
 	log_world("World loaded at [time_stamp()]!")
 	SSmetrics.world_init_time = REALTIMEOFDAY // Important
 

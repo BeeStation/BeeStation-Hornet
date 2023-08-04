@@ -24,6 +24,10 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	var/to_be_destroyed = 0
 	var/max_fire_temperature_sustained = 0 //The max temperature of the fire which it was subjected to
 
+	/// If this turf should initialize atmos adjacent turfs or not
+	/// Optimization, not for setting outside of initialize
+	var/init_air = TRUE
+
 	//If true, turf will allow users to float up and down in 0 grav.
 	var/allow_z_travel = FALSE
 
@@ -128,6 +132,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 
 /turf/proc/set_temperature()
 
+/// Initializes our adjacent turfs. If you want to avoid this, do not override it, instead set init_air to FALSE
 /turf/proc/Initalize_Atmos(times_fired)
 	CALCULATE_ADJACENT_TURFS(src)
 
@@ -287,7 +292,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	var/turf/current_target
 	if(fake_baseturf_type)
 		if(length(fake_baseturf_type)) // We were given a list, just apply it and move on
-			baseturfs = fake_baseturf_type
+			baseturfs = baseturfs_string_list(fake_baseturf_type, src)
 			return
 		current_target = fake_baseturf_type
 	else
@@ -303,9 +308,9 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	if(GLOB.created_baseturf_lists[current_target])
 		var/list/premade_baseturfs = GLOB.created_baseturf_lists[current_target]
 		if(length(premade_baseturfs))
-			baseturfs = premade_baseturfs.Copy()
+			baseturfs = baseturfs_string_list(premade_baseturfs.Copy(), src)
 		else
-			baseturfs = premade_baseturfs
+			baseturfs = baseturfs_string_list(premade_baseturfs, src)
 		return baseturfs
 
 	var/turf/next_target = initial(current_target.baseturfs)
@@ -326,7 +331,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		current_target = next_target
 		next_target = initial(current_target.baseturfs)
 
-	baseturfs = new_baseturfs
+	baseturfs = baseturfs_string_list(new_baseturfs, src)
 	GLOB.created_baseturf_lists[new_baseturfs[new_baseturfs.len]] = new_baseturfs.Copy()
 	return new_baseturfs
 
