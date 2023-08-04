@@ -86,7 +86,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	return "..."
 
 /datum/species/psyphoza/get_species_lore()
-	return list("")
+	return list("...")
 
 /datum/species/psyphoza/create_pref_unique_perks()
 	var/list/to_add = list()
