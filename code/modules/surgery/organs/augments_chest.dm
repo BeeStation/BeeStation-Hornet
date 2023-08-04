@@ -66,7 +66,7 @@
 
 	if(cooldown > world.time)
 		return
-	if(owner.stat != UNCONSCIOUS)
+	if(owner.stat != UNCONSCIOUS && owner.stat != HARD_CRIT && owner.stat != SOFT_CRIT)
 		return
 	if(owner.suiciding)
 		return
