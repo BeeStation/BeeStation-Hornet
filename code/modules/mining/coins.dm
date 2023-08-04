@@ -147,7 +147,8 @@
 /obj/item/coin/adamantine
 	custom_materials = list(/datum/material/adamantine = 400)
 
-//obj/item/coin/mythril
+/obj/item/coin/mythril
+	custom_materials = list(/datum/material/plastic = 400)
 //	custom_materials = list(/datum/material/mythril = 400)
 
 /obj/item/coin/plastic
