@@ -238,9 +238,13 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 					/area/holodeck,
 					/area/lawoffice,
 				)
+				// If our airlock isn't accessible to these accesses, then we won't allow the item to spawn here
+				var/list/safe_access_list = list(ACCESS_CARGO, ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_JANITOR, ACCESS_CHAPEL_OFFICE, ACCESS_THEATRE, ACCESS_LAWYER, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
 				//Pick a valid airlock
 				for(var/obj/machinery/door/airlock/A in shuffle(GLOB.machines))
 					if (!is_station_level(A.z))
+						continue
+					if (!A.check_access_list(safe_access_list))
 						continue
 					//Make sure its publicly accessible
 					var/area/area = get_area(A)
