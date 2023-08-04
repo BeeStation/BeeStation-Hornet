@@ -3764,7 +3764,8 @@
 /obj/structure/curtain/directional{
 	color = "#ACD1E9";
 	icon_state = "bathroom-open";
-	icon_type = "bathroom"
+	icon_type = "bathroom";
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/medical/surgery)
@@ -15341,7 +15342,6 @@
 	id = "viroshutters";
 	name = "Viro Lockdown";
 	pixel_x = -5;
-	pixel_y = null;
 	req_access_txt = "39"
 	},
 /obj/structure/table/reinforced,
@@ -15356,7 +15356,6 @@
 	id = "cmoshutter";
 	name = "CMO Office Shutters";
 	pixel_x = 5;
-	pixel_y = null;
 	req_access_txt = "40"
 	},
 /turf/open/floor/carpet/blue,
@@ -38441,14 +38440,6 @@
 "eGu" = (
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /obj/machinery/door/firedoor,
-/obj/machinery/button/door{
-	id = "quarantineshutters1";
-	layer = 4;
-	name = "Quarantine Lockdown";
-	pixel_x = -1;
-	pixel_y = 33;
-	req_access_txt = "39"
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
@@ -38462,6 +38453,12 @@
 	id_tag = null;
 	name = "Virology Ward";
 	req_access_txt = "39"
+	},
+/obj/machinery/button/door{
+	id = "viroshutters";
+	name = "Viro Lockdown";
+	req_access_txt = "39";
+	pixel_y = 32
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
@@ -48410,10 +48407,6 @@
 "icz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "quarantineshutters";
-	name = "isolation shutters"
-	},
 /obj/machinery/door/window/northleft{
 	dir = 2;
 	name = "MuleBot Access";
@@ -76433,7 +76426,6 @@
 /obj/machinery/button/door{
 	id = "quarantineshutters";
 	name = "Quarantine Shutters";
-	pixel_x = null;
 	pixel_y = 30;
 	req_access_txt = "40"
 	},

@@ -33875,14 +33875,6 @@
 "fsr" = (
 /obj/effect/turf_decal/tile/green/fourcorners/contrasted,
 /obj/machinery/door/firedoor,
-/obj/machinery/button/door{
-	id = "quarantineshutters";
-	layer = 4;
-	name = "Quarantine Lockdown";
-	pixel_x = -1;
-	pixel_y = 33;
-	req_access_txt = "39"
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
@@ -33896,6 +33888,12 @@
 	id_tag = null;
 	name = "Virology Ward";
 	req_access_txt = "39"
+	},
+/obj/machinery/button/door{
+	id = "viroshutters";
+	name = "Viro Lockdown";
+	req_access_txt = "39";
+	pixel_y = 32
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
@@ -37028,7 +37026,6 @@
 /obj/machinery/button/door{
 	id = "quarantineshutters";
 	name = "Quarantine Shutters";
-	pixel_x = null;
 	pixel_y = 30;
 	req_access_txt = "40"
 	},
@@ -41404,10 +41401,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "quarantineshutters";
-	name = "isolation shutters"
-	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "iAS" = (
@@ -42957,6 +42950,10 @@
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Genetics Maintenance";
 	req_access_txt = "9"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "quarantineshutters";
+	name = "isolation shutters"
 	},
 /turf/open/floor/plasteel,
 /area/medical/genetics)
@@ -45019,7 +45016,6 @@
 	id = "cmoshutter";
 	name = "CMO Office Shutters";
 	pixel_x = 5;
-	pixel_y = null;
 	req_access_txt = "40"
 	},
 /obj/effect/turf_decal/siding/wideplating/dark{
@@ -45029,7 +45025,6 @@
 	id = "viroshutters";
 	name = "Viro Lockdown";
 	pixel_x = -5;
-	pixel_y = null;
 	req_access_txt = "39"
 	},
 /turf/open/floor/carpet/blue,
@@ -62801,10 +62796,6 @@
 	name = "MuleBot Access";
 	req_one_access_txt = "50;5"
 	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "quarantineshutters";
-	name = "isolation shutters"
-	},
 /obj/machinery/light/small,
 /turf/open/floor/plasteel,
 /area/medical/medbay/central)
@@ -64845,7 +64836,8 @@
 /obj/structure/curtain/directional{
 	color = "#ACD1E9";
 	icon_state = "bathroom-open";
-	icon_type = "bathroom"
+	icon_type = "bathroom";
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/medical/surgery)
