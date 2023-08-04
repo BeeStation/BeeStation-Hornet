@@ -39,7 +39,8 @@
 		//At security level 1, there are duds and the open, bolt and shock wires are not revealed.
 		labelled_wires[WIRE_SAFETY] = TRUE
 		labelled_wires[WIRE_TIMING] = TRUE
-
+	if (security_level == AIRLOCK_WIRE_SECURITY_PROTECTED)
+		labelled_wires[WIRE_ZAP1] = TRUE
 	..()
 
 /datum/wires/airlock/interactable(mob/user)
