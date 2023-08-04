@@ -84,7 +84,7 @@
 	melee_damage = 5
 	maxHealth = 12
 	health = 12
-	pass_flags = PASSTABLE
+	pass_flags = PASSTABLE | PASSGRILLE
 	density = TRUE
 	aggressive = TRUE
 
