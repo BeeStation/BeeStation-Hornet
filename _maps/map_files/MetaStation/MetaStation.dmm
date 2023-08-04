@@ -58149,7 +58149,7 @@
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "pKG" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "pKQ" = (
@@ -67666,7 +67666,7 @@
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 4
 	},
-/mob/living/simple_animal/cockroach{
+/mob/living/basic/cockroach{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
