@@ -420,7 +420,7 @@ GLOBAL_VAR(restart_counter)
 	fps = new_value
 	on_tickrate_change()
 
-
+/* UNUSED. uncomment if using
 /world/proc/change_tick_lag(new_value = 0.5)
 	if(new_value <= 0)
 		CRASH("change_tick_lag() called with [new_value] new_value.")
@@ -429,7 +429,7 @@ GLOBAL_VAR(restart_counter)
 
 	tick_lag = new_value
 	on_tickrate_change()
-
+*/
 
 /world/proc/on_tickrate_change()
 	SStimer?.reset_buckets()
