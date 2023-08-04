@@ -40,6 +40,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 
 	mutant_bodyparts = list("psyphoza_cap")
 	default_features = list("psyphoza_cap" = "Portobello", "body_size" = "Normal")
+	hair_color = "fixedmutcolor"
 
 	species_chest = /obj/item/bodypart/chest/psyphoza
 	species_head = /obj/item/bodypart/head/psyphoza
@@ -85,7 +86,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	return "..."
 
 /datum/species/psyphoza/get_species_lore()
-	return "..."
+	return list("")
 
 /datum/species/psyphoza/create_pref_unique_perks()
 	var/list/to_add = list()
@@ -93,7 +94,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	to_add += list(
 		list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
-			SPECIES_PERK_ICON = "horse-head",
+			SPECIES_PERK_ICON = "lightbulb",
 			SPECIES_PERK_NAME = "Psychic",
 			SPECIES_PERK_DESC = "Psyphoza are psychic and can sense things others can't.",
 		),

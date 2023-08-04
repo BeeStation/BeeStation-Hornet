@@ -22,3 +22,6 @@
 		values[cap.name] = icon_with_cap
 
 	return values
+
+/datum/preference/choiced/psyphoza_cap/apply_to_human(mob/living/carbon/human/target, value)
+	target.dna.features["psyphoza_cap"] = value
