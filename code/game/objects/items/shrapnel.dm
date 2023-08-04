@@ -26,7 +26,7 @@
 	name = "\improper .38 DumDum bullet"
 	embedding = list(embed_chance=70, fall_chance=7, jostle_chance=7, ignore_throwspeed_threshold=TRUE, pain_stam_pct=0.4, pain_mult=5, jostle_pain_mult=6, rip_time=10)
 
-/obj/item/projectile/bullet/shrapnel
+/obj/projectile/bullet/shrapnel
 	name = "flying shrapnel shard"
 	damage = 9
 	range = 10
@@ -38,7 +38,7 @@
 	ricochet_incidence_leeway = 60
 	hit_stunned_targets = TRUE
 
-/obj/item/projectile/bullet/shrapnel/mega
+/obj/projectile/bullet/shrapnel/mega
 	name = "flying shrapnel hunk"
 	range = 25
 	dismemberment = 10
@@ -46,7 +46,7 @@
 	ricochet_chance = 90
 	ricochet_decay_chance = 0.9
 
-/obj/item/projectile/bullet/pellet/stingball
+/obj/projectile/bullet/pellet/stingball
 	name = "stingball pellet"
 	damage = 3
 	stamina = 8
@@ -59,10 +59,10 @@
 	ricochet_incidence_leeway = 0
 	shrapnel_type = /obj/item/shrapnel/stingball
 
-/obj/item/projectile/bullet/pellet/stingball/mega
+/obj/projectile/bullet/pellet/stingball/mega
 	name = "megastingball pellet"
 	ricochets_max = 6
 	ricochet_chance = 110
 
-/obj/item/projectile/bullet/pellet/stingball/on_ricochet(atom/A)
+/obj/projectile/bullet/pellet/stingball/on_ricochet(atom/A)
 	hit_stunned_targets = TRUE // ducking will save you from the first wave, but not the rebounds

@@ -23,7 +23,7 @@
 
 		allowed_areas = make_associative(GLOB.the_station_areas) - safe_area_types + unsafe_area_subtypes
 
-	return safepick(typecache_filter_list(GLOB.sortedAreas,allowed_areas))
+	return safepick(typecache_filter_list(GLOB.areas,allowed_areas))
 
 /datum/round_event/anomaly/setup()
 	impact_area = findEventArea()

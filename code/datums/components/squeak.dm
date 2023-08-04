@@ -75,8 +75,8 @@
 		var/obj/item/I = arrived
 		if(I.item_flags & ABSTRACT)
 			return
-		else if(istype(arrived, /obj/item/projectile))
-			var/obj/item/projectile/P = arrived
+		else if(istype(arrived, /obj/projectile))
+			var/obj/projectile/P = arrived
 			if(P.original != parent)
 				return
 	if(istype(arrived, /obj/effect/dummy/phased_mob)) //don't squeek if they're in a phased/jaunting container.

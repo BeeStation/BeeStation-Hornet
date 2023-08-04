@@ -107,7 +107,7 @@
 /datum/proximity_monitor/advanced/peaceborg_dampener/clockwork/setup_edge_turf(turf/T)
 	edge_turfs[T] = new /obj/effect/abstract/proximity_checker/advanced/field_edge(T, src)
 
-/datum/proximity_monitor/advanced/peaceborg_dampener/clockwork/capture_projectile(obj/item/projectile/P, track_projectile = TRUE)
+/datum/proximity_monitor/advanced/peaceborg_dampener/clockwork/capture_projectile(obj/projectile/P, track_projectile = TRUE)
 	if(P in tracked)
 		return
 	if(isliving(P.firer))

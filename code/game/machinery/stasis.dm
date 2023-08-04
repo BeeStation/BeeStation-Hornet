@@ -6,7 +6,6 @@
 	icon_state = "stasis"
 	density = FALSE
 	can_buckle = TRUE
-	buckle_lying = 90
 	circuit = /obj/item/circuitboard/machine/stasis
 	idle_power_usage = 50
 	active_power_usage = 500
@@ -18,6 +17,15 @@
 	var/mattress_state = "stasis_on"
 	var/obj/effect/overlay/vis/mattress_on
 	var/obj/machinery/computer/operating/op_computer
+
+// dir check for buckle_lying state
+/obj/machinery/stasis/Initialize()
+	switch(dir)
+		if(WEST, NORTH)
+			buckle_lying = 270
+		if(EAST, SOUTH)
+			buckle_lying = 90
+	return ..()
 
 /obj/machinery/stasis/Initialize(mapload)
 	..()
@@ -38,11 +46,18 @@
 	. += "<span class='notice'>[src] is [op_computer ? "linked" : "<b>NOT</b> linked"] to an operating computer.</span>"
 
 /obj/machinery/stasis/proc/initial_link()
+	if(!QDELETED(op_computer))
+		op_computer.sbed = src
+		return
 	for(var/direction in GLOB.alldirs)
-		var/obj/machinery/computer/operating/op_computer = locate(/obj/machinery/computer/operating) in get_step(src, direction)
-		if(op_computer && !op_computer.sbed)
-			op_computer.link_with_table(new_sbed = src)
-			break
+		var/obj/machinery/computer/operating/found_computer = locate(/obj/machinery/computer/operating) in get_step(src, direction)
+		if(found_computer)
+			if(!found_computer.sbed)
+				found_computer.link_with_table(new_sbed = src)
+				break
+			else if(found_computer.sbed == src)
+				op_computer = found_computer
+				break
 
 /obj/machinery/stasis/proc/play_power_sound()
 	var/_running = stasis_running()
@@ -65,7 +80,7 @@
 /obj/machinery/stasis/Exited(atom/movable/gone, direction)
 	if(gone == occupant)
 		var/mob/living/L = gone
-		if(L.IsInStasis())
+		if(IS_IN_STASIS(L))
 			thaw_them(L)
 	return ..()
 
@@ -113,12 +128,12 @@
 		return
 	var/freq = rand(24750, 26550)
 	playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 2, frequency = freq)
-	target.SetStasis(TRUE)
+	target.apply_status_effect(STATUS_EFFECT_STASIS, STASIS_MACHINE_EFFECT)
 	target.ExtinguishMob()
 	use_power = ACTIVE_POWER_USE
 
 /obj/machinery/stasis/proc/thaw_them(mob/living/target)
-	target.SetStasis(FALSE)
+	target.remove_status_effect(STATUS_EFFECT_STASIS, STASIS_MACHINE_EFFECT)
 	if(target == occupant)
 		use_power = IDLE_POWER_USE
 
@@ -142,9 +157,9 @@
 		return
 	var/mob/living/L_occupant = occupant
 	if(stasis_running())
-		if(!L_occupant.IsInStasis())
+		if(!IS_IN_STASIS(L_occupant))
 			chill_out(L_occupant)
-	else if(L_occupant.IsInStasis())
+	else if(IS_IN_STASIS(L_occupant))
 		thaw_them(L_occupant)
 
 /obj/machinery/stasis/screwdriver_act(mob/living/user, obj/item/I)

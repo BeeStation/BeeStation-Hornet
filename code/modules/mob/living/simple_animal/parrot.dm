@@ -353,7 +353,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	return
 
 //Bullets
-/mob/living/simple_animal/parrot/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/parrot/bullet_act(obj/projectile/Proj)
 	. = ..()
 	if(!stat && !client)
 		if(parrot_state == PARROT_PERCH)
@@ -402,7 +402,6 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 
 	if(client && stat == CONSCIOUS && parrot_state != icon_living)
 		icon_state = icon_living
-		//Because the most appropriate place to set icon_state is movement_delay(), clearly
 
 //-----SLEEPING
 	if(parrot_state == PARROT_PERCH)

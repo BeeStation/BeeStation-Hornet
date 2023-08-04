@@ -61,7 +61,7 @@ export const MESSAGE_TYPES = [
     name: 'Radio',
     description: 'All departments of radio messages',
     selector:
-      '.alert, .syndradio, .centcomradio, .aiprivradio, .comradio, .secradio, .engradio, .medradio, .sciradio, .suppradio, .servradio, .explradio, .entradio, .radio, .deptradio, .newscaster, .redteamradio, .blueteamradio, .sinister, .cult, .shadowling, .changeling',
+      '.alert, .syndradio, .centcomradio, .aiprivradio, .comradio, .secradio, .engradio, .medradio, .sciradio, .suppradio, .servradio, .explradio, .entradio, .radio, .deptradio, .holocall, .newscaster, .redteamradio, .blueteamradio, .sinister, .cult, .shadowling, .changeling',
   },
   {
     type: MESSAGE_TYPE_INFO,
@@ -85,7 +85,7 @@ export const MESSAGE_TYPES = [
     type: MESSAGE_TYPE_OOC,
     name: 'OOC',
     description: 'OOC and LOOC messages',
-    selector: '.ooc, .looc, .adminooc',
+    selector: '.ooc, .looc, .adminooc, .adminobserverooc',
   },
   {
     type: MESSAGE_TYPE_ADMINPM,

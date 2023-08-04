@@ -33,6 +33,13 @@
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/command
 	)
+
+	minimal_lightup_areas = list(
+		/area/crew_quarters/heads/captain,
+		/area/crew_quarters/heads/hop,
+		/area/security
+	)
+
 /datum/job/captain/get_access()
 	return get_all_accesses()
 

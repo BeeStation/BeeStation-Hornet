@@ -50,14 +50,14 @@
 
 /obj/machinery/computer/operating/proc/find_op_table()
 	for(var/direction in GLOB.alldirs)
-		var/obj/structure/table/optable/table = locate(/obj/structure/table/optable) in get_step(src, direction)
-		if(table && (!table.computer || table.computer == src))
+		var/obj/structure/table/optable/found_table = locate(/obj/structure/table/optable) in get_step(src, direction)
+		if(found_table && (!found_table.computer || found_table.computer == src))
 			return table
 
 /obj/machinery/computer/operating/proc/find_sbed()
 	for(var/direction in GLOB.alldirs)
-		var/obj/machinery/stasis/sbed = locate(/obj/machinery/stasis) in get_step(src, direction)
-		if(sbed && (!sbed.op_computer || sbed.op_computer == src))
+		var/obj/machinery/stasis/found_sbed = locate(/obj/machinery/stasis) in get_step(src, direction)
+		if(found_sbed && (!found_sbed.op_computer || found_sbed.op_computer == src))
 			return sbed
 
 /obj/machinery/computer/operating/proc/link_with_table(obj/structure/table/optable/new_table, obj/machinery/stasis/new_sbed)

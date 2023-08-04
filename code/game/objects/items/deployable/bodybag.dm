@@ -5,6 +5,7 @@
 	icon_state = "bodybag_folded"
 	w_class = WEIGHT_CLASS_SMALL
 	deployed_object = /obj/structure/closet/body_bag
+	ignores_mob_density = TRUE
 
 /obj/item/deployable/bodybag/suicide_act(mob/user)
 	if(isopenturf(user.loc))

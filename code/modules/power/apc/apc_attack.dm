@@ -260,7 +260,7 @@
 			)                                                            \
 		)
 			if(!loud)
-				to_chat(user, "<span class='danger'>\The [src] has eee disabled!</span>")
+				to_chat(user, "<span class='danger'>\The [src] has been disabled!</span>")
 			return FALSE
 	return TRUE
 

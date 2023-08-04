@@ -10,7 +10,7 @@
 	maxHealth = 1
 	speed = 1.25
 	gold_core_spawnable = FRIENDLY_SPAWN
-	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	pass_flags = PASSTABLE | PASSMOB
 	ventcrawler = VENTCRAWLER_ALWAYS
 
 	verb_say = "chitters"
