@@ -98,12 +98,12 @@ SUBSYSTEM_DEF(topic)
 	if(anonymous)
 		var/datum/world_topic/topic = GLOB.topic_commands[query]
 		if((!istype(topic) || !topic.anonymous) && !nocheck)
-			ASYNC_FINISH(TRUE)
+			ASYNC_RETURN(TRUE)
 		request["auth"] = "anonymous"
 	else
 		var/list/servers = CONFIG_GET(keyed_list/cross_server)
 		if(!servers[addr] || (!LAZYACCESS(GLOB.topic_servers[addr], query) && !nocheck))
-			ASYNC_FINISH(TRUE) // Couldn't find an authorized key, or trying to send secure data to unsecure server
+			ASYNC_RETURN(TRUE) // Couldn't find an authorized key, or trying to send secure data to unsecure server
 		request["auth"] = servers[addr]
 
 	request.Add(params)
@@ -112,7 +112,7 @@ SUBSYSTEM_DEF(topic)
 	if(CONFIG_GET(flag/log_world_topic))
 		request["auth"] = "***[copytext(request["auth"], -4)]"
 		log_topic("outgoing: \"[json_encode(request)]\", response: \"[result]\", auth: [request["auth"]], to: [addr], anonymous: [anonymous]")
-	ASYNC_FINISH(TRUE)
+	ASYNC_RETURN(TRUE)
 
 /**
  * Broadcast topic to all known authorized servers for things like comms consoles or ahelps.

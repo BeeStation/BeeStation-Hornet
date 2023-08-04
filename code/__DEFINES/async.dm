@@ -4,9 +4,11 @@
 	var/datum/task/created_task = new(); \
 	. = created_task;
 
-#define ASYNC_FINISH created_task.mark_completed()
+#define ASYNC_FINISH created_task.mark_completed(); \
+	return;
 
-#define ASYNC_RETURN(value) created_task.mark_completed(value)
+#define ASYNC_RETURN(value) created_task.mark_completed(value);\
+	return;
 
 #define AWAIT(TASK, TIMEOUT) get_result(TASK, TIMEOUT)
 
