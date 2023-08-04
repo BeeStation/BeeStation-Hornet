@@ -148,7 +148,7 @@
 	custom_materials = list(/datum/material/adamantine = 400)
 
 /obj/item/coin/mythril
-	custom_materials = list(/datum/material/plastic = 400)
+	custom_materials = list(/datum/material/plastic = 400)// cause we dont have mythril as a material, yet for some reason mappers like using this coin
 //	custom_materials = list(/datum/material/mythril = 400)
 
 /obj/item/coin/plastic
@@ -164,6 +164,7 @@
 /obj/item/coin/antagtoken
 	name = "antag token"
 	desc = "A novelty coin that helps the heart know what hard evidence cannot prove."
+	icon_state = "coin_valid"
 	custom_materials = list(/datum/material/plastic = 400)
 	sideslist = list("valid", "salad")
 	material_flags = MATERIAL_NO_COLOR
