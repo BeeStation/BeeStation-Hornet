@@ -264,7 +264,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 /obj/effect/mapping_helpers/color_correction
 	name = "color correction helper"
 	icon_state = "color_correction"
-	///The areas specific color correction
 	var/color_correction = /datum/client_colour/area_color/cold
 
 /obj/effect/mapping_helpers/color_correction/Initialize(mapload)
