@@ -74,6 +74,7 @@ ALTER TABLE `SS13_characters`
     ADD COLUMN IF NOT EXISTS `feature_mcolor` VARCHAR(64) COLLATE 'utf8mb4_general_ci' NULL AFTER `feature_lizard_tail`,
     ADD COLUMN IF NOT EXISTS `feature_human_tail` VARCHAR(64) COLLATE 'utf8mb4_general_ci' NULL AFTER `feature_mcolor`,
     ADD COLUMN IF NOT EXISTS `feature_human_ears` VARCHAR(64) COLLATE 'utf8mb4_general_ci' NULL AFTER `feature_human_tail`,
+    ADD COLUMN IF NOT EXISTS `feature_psyphoza_cap` VARCHAR(64) COLLATE 'utf8mb4_general_ci' NULL AFTER `feature_human_ears`,
     MODIFY COLUMN `helmet_style` VARCHAR(64) COLLATE 'utf8mb4_general_ci' NULL,
     MODIFY COLUMN `preferred_ai_core_display` VARCHAR(64) COLLATE 'utf8mb4_general_ci' NULL,
     MODIFY COLUMN `preferred_security_department` VARCHAR(32) COLLATE 'utf8mb4_general_ci' NULL,
