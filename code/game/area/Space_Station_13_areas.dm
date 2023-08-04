@@ -1466,6 +1466,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_PROTECTED
 	lights_always_start_on = TRUE
+	color_correction = /datum/client_colour/area_color/warm_yellow
 
 /area/storage/tools
 	name = "Auxiliary Tool Storage"

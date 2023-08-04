@@ -10,8 +10,8 @@
 /datum/client_colour/area_color
 	colour = ""
 	priority = PRIORITY_LOW
-	fade_in = 10
-	fade_out = 10
+	fade_in = 15
+	fade_out = 15
 
 //Warm-ish
 /datum/client_colour/area_color/warm_ish
@@ -27,7 +27,7 @@
 	colour = list(rgb(245, 0, 10), rgb(0, 250, 5), rgb(0, 0, 255))
 //Cold-purple
 /datum/client_colour/area_color/cold_purple
-	colour = list(rgb(250, 0, 5), rgb(3, 252, 3), rgb(3, 0, 255)) //actually coldish
+	colour = list(rgb(250, 0, 5), rgb(3, 252, 5), rgb(3, 0, 255)) //actually coldish
 //Warm-yellow
 /datum/client_colour/area_color/warm_yellow
 	colour = list(rgb(255, 5, 0), rgb(10, 245, 0), rgb(5, 5, 245))
