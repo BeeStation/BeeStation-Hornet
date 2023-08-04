@@ -97,14 +97,14 @@
 		to_chat(user, "<span class='notice'>Your helmet's torch can't pass through your welding visor!</span>")
 		helmet_on = FALSE
 	playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1) //Visors don't just come from nothing
-	update_icon()
+	update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
 	update_button_icons(user)
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_icon()
-	update_overlays()
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		H.update_inv_head()
+	return ..()
 
 /obj/item/clothing/head/helmet/space/plasmaman/attackby(obj/item/item, mob/living/user)
 	. = ..()
@@ -122,7 +122,7 @@
 				smile = TRUE
 				smile_color = CR.paint_color
 				to_chat(user, "You draw a smiley on the helmet visor.")
-				update_icon()
+				update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
 				update_button_icons(user)
 		return
 	if(istype(item, /obj/item/clothing/head) \
@@ -138,7 +138,7 @@
 		hat.forceMove(src)
 		if (user.get_item_by_slot(ITEM_SLOT_HEAD) == src)
 			hat.equipped(user, ITEM_SLOT_HEAD)
-		update_icon()
+		update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
 		update_button_icons(user)
 		add_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)
 
@@ -182,7 +182,7 @@
 	if (usr.get_item_by_slot(ITEM_SLOT_HEAD) == src)
 		attached_hat.dropped(usr)
 	attached_hat = null
-	update_icon()
+	update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
 	remove_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)
 
 /obj/item/clothing/head/helmet/space/plasmaman/ComponentInitialize()
@@ -196,7 +196,7 @@
 	if(smile)
 		smile = FALSE
 		cut_overlays()
-		update_icon()
+		update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
 
 /obj/item/clothing/head/helmet/space/plasmaman/attack_self(mob/user)
 	helmet_on = !helmet_on
@@ -215,7 +215,7 @@
 	else
 		set_light_on(FALSE)
 
-	update_icon()
+	update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
 	user.update_inv_head() //So the mob overlay updates
 	update_button_icons(user)
 
@@ -229,7 +229,7 @@
 	playsound(src, 'sound/effects/glass_step.ogg', 100)
 	to_chat(usr, "<span class='danger'>The [src]'s headlamp is smashed to pieces!</span>")
 	lamp_functional = FALSE
-	update_icon()
+	update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
 	usr.update_inv_head() //So the mob overlay updates
 	update_button_icons(usr)
 
@@ -341,7 +341,7 @@
 	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/that
 	attached_hat = hat
 	hat.forceMove(src)
-	update_icon()
+	update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
 	add_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)
 
 /obj/item/clothing/head/helmet/space/plasmaman/gold
@@ -648,7 +648,7 @@
 	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/that
 	attached_hat = hat
 	hat.forceMove(src)
-	update_icon()
+	update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
 	add_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)
 
 // The Protective helmet variants
@@ -824,5 +824,5 @@
 	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/that
 	attached_hat = hat
 	hat.forceMove(src)
-	update_icon()
+	update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
 	add_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)

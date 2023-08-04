@@ -266,6 +266,7 @@
 		M.appearance_flags |= RESET_COLOR
 		M.color = hair_color
 		add_overlay(M)
+	return ..()
 
 /obj/item/clothing/head/wig/attack_self(mob/user)
 	var/new_style = input(user, "Select a hair style", "Wig Styling")  as null|anything in (GLOB.hair_styles_list - "Bald")

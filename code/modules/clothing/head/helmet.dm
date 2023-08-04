@@ -70,6 +70,7 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
+	return ..()
 
 /obj/item/clothing/head/helmet/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/flashlight/seclite))

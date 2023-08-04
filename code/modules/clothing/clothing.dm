@@ -50,6 +50,9 @@
 	var/high_pressure_multiplier = 1
 	var/static/list/high_pressure_multiplier_types = list(MELEE, BULLET, LASER, ENERGY, BOMB)
 
+	var/obj/item/video_bug/tracking_bug = null // Used for detective's tracking bugs
+	var/buggable = TRUE// if a bug can be attached to this
+
 /obj/item/clothing/Initialize(mapload)
 	if(CHECK_BITFIELD(clothing_flags, VOICEBOX_TOGGLABLE))
 		actions_types += /datum/action/item_action/toggle_voice_box
@@ -87,6 +90,10 @@
 		return ..()
 
 /obj/item/clothing/attackby(obj/item/W, mob/user, params)
+	//if(istype(W, /obj/item/video_bug))
+		//var/obj/item/video_bug/bug = W
+		//bug.attach_to_clothing_item(src)
+		//return COMPONENT_NO_ATTACK
 	if(damaged_clothes && istype(W, /obj/item/stack/sheet/cotton/cloth))
 		var/obj/item/stack/sheet/cotton/cloth/C = W
 		C.use(1)
@@ -98,12 +105,17 @@
 
 /obj/item/clothing/Destroy()
 	user_vars_remembered = null //Oh god somebody put REFERENCES in here? not to worry, we'll clean it up
+	if(tracking_bug)
+		tracking_bug.attached_to = null
+		QDEL_NULL(tracking_bug)
 	return ..()
 
 /obj/item/clothing/dropped(mob/user)
 	..()
 	if(!istype(user))
 		return
+	if(tracking_bug)
+		tracking_bug.update_view()
 	if(LAZYLEN(user_vars_remembered))
 		for(var/variable in user_vars_remembered)
 			if(variable in user.vars)
@@ -115,6 +127,8 @@
 	. = ..()
 	if (!istype(user))
 		return
+	if(tracking_bug)
+		tracking_bug.update_view()
 	if(slot_flags & slot) //Was equipped to a valid slot for this item?
 		if (LAZYLEN(user_vars_to_edit))
 			for(var/variable in user_vars_to_edit)
@@ -239,6 +253,18 @@
 
 /obj/item/clothing/update_overlays()
 	. = ..()
+
+	if(!isnull(tracking_bug))
+		if(!tracking_bug.disabled)
+			var/mutable_appearance/bug_ma = mutable_appearance(tracking_bug.icon, tracking_bug.icon_state_clothing)
+			bug_ma.pixel_x = tracking_bug.x_coord
+			bug_ma.pixel_y = tracking_bug.y_coord
+			. += bug_ma
+			var/mutable_appearance/bug_ea = emissive_appearance(tracking_bug.icon, tracking_bug.icon_state_clothing_emissive, alpha = src.alpha)
+			bug_ea.pixel_x = tracking_bug.x_coord
+			bug_ea.pixel_y = tracking_bug.y_coord
+			. += bug_ea
+
 	if(!damaged_clothes)
 		return
 
@@ -252,7 +278,6 @@
 		damaged_clothes_icon = fcopy_rsc(damaged_clothes_icon)
 		damaged_clothes_icons[index] = damaged_clothes_icon
 	. += damaged_clothes_icon
-
 
 /*
 SEE_SELF  // can see self, no matter what
@@ -452,6 +477,40 @@ BLIND     // can't see anything
 		return
 	if(!lavaland_equipment_pressure_check(T))
 		. *= high_pressure_multiplier
+
+/obj/item/clothing/emp_act(severity)
+	if(tracking_bug)
+		tracking_bug.emp_act(severity)
+	. = ..()
+
+/obj/item/clothing/Click(location, control, params = "" as text)
+	if(!iscarbon(usr))
+		return ..()
+	if(!tracking_bug)
+		return ..()
+	var/mob/living/carbon/user = usr
+	if(!in_range(src, user))
+		return ..()
+	if(!user.has_active_hand())
+		return ..()
+	var/atom/held_item = user.get_active_held_item()
+	if(held_item)
+		if(src != held_item || istype(held_item, /obj/item/video_bug))
+			return ..()
+	var/list/click_params = params2list(params)
+	if(length(click_params) && click_params["screen-loc"])
+		var/found_x = abs(15 + tracking_bug.x_coord - text2num(click_params["icon-x"]))
+		var/found_y = abs(15 + tracking_bug.y_coord - text2num(click_params["icon-y"]))
+		if(found_x >= 0 && found_x <= 2 && found_y >= 0 && found_y <= 2)
+			to_chat(user, "<span class='notice'>Your fingers find something stuck to \the [src], and you try to rip it away!</span>")
+			if(!(src in user.do_afters))
+				if(do_after(user, 4 SECONDS, src))
+					to_chat(user, "<span class='notice'>You dislodge \the [tracking_bug] that was planted on \the [src]!</span>")
+					tracking_bug.forceMove(drop_location())
+					user.put_in_hands(tracking_bug)
+					tracking_bug.detach_from_clothing(user, src)
+			return COMPONENT_NO_ATTACK
+	return ..()
 
 #undef SENSORS_OFF
 #undef SENSORS_BINARY

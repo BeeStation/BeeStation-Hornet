@@ -175,7 +175,9 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		/obj/item/nullrod,
 		/obj/item/tank/jetpack,
 		/obj/item/documents,
-		/obj/item/nuke_core_container
+		/obj/item/nuke_core_container,
+		/obj/item/clothing/glasses/sunglasses/spy,
+		/obj/item/video_bug
 	)
 
 /obj/machinery/cryopod/Initialize(mapload)
@@ -308,6 +310,17 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 					mob_occupant.transferItemToLoc(W, control_computer, TRUE)
 				else
 					mob_occupant.transferItemToLoc(W, loc, TRUE)
+		if(istype(W, /obj/item/clothing))
+			var/obj/item/clothing/cloth = W
+			if(cloth.tracking_bug)
+				cloth.tracking_bug.forceMove(drop_location())
+				if(control_computer && control_computer.allow_items)
+					control_computer.frozen_items += W
+					mob_occupant.transferItemToLoc(cloth.tracking_bug, control_computer, TRUE)
+				else
+					mob_occupant.transferItemToLoc(cloth.tracking_bug, loc, TRUE)
+				cloth.tracking_bug.detach_from_clothing(mob_occupant, cloth)
+
 
 	for(var/obj/item/W in mob_occupant.GetAllContents())
 		qdel(W)//because we moved all items to preserve away

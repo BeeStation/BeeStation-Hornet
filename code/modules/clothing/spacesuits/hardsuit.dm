@@ -410,6 +410,7 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/update_icon()
 	icon_state = "hardsuit[on]-[hardsuit_type]"
+	return ..()
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/Initialize(mapload)
 	. = ..()
