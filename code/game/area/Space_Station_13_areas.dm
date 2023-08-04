@@ -536,6 +536,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "hop_office"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
 	lights_always_start_on = FALSE
+	color_correction = /datum/client_colour/area_color/cold_ish
 
 /area/crew_quarters/heads/hos
 	name = "Head of Security's Office"
@@ -808,6 +809,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_tube = "#ffce93"
 	lighting_colour_bulb = "#ffbc6f"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ADVANCED
+	color_correction = /datum/client_colour/area_color/warm_yellow
 
 /area/engine/engine_smes
 	name = "Engineering SMES"
@@ -1345,6 +1347,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "hydro"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
+	color_correction = /datum/client_colour/area_color/warm_green
 
 /area/hydroponics/garden
 	name = "Garden"
@@ -1489,6 +1492,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "EVA Storage"
 	icon_state = "eva"
 	clockwork_warp_allowed = FALSE
+	color_correction = /datum/client_colour/area_color/cold_ish
 
 /area/storage/emergency/starboard
 	name = "Starboard Emergency Storage"
@@ -1571,6 +1575,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "EVA Storage"
 	icon_state = "eva"
 	ambience_index = AMBIENCE_DANGER
+	color_correction = /datum/client_colour/area_color/cold_ish
 
 /area/ai_monitored/storage/satellite
 	name = "AI Satellite Maint"
