@@ -85,17 +85,23 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	return "..."
 
 /datum/species/psyphoza/get_species_lore()
-	return null
+	return "..."
 
-/datum/species/abductor/create_pref_unique_perks()
+/datum/species/psyphoza/create_pref_unique_perks()
 	var/list/to_add = list()
 
 	to_add += list(
 		list(
 			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
-			SPECIES_PERK_ICON = "volume-mute",
+			SPECIES_PERK_ICON = "horse-head",
 			SPECIES_PERK_NAME = "Psychic",
 			SPECIES_PERK_DESC = "Psyphoza are psychic and can sense things others can't.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+			SPECIES_PERK_ICON = "eye",
+			SPECIES_PERK_NAME = "Blind",
+			SPECIES_PERK_DESC = "Psyphoza are blind and can't see outside their immediate location and psychic sense.",
 		),
 	)
 

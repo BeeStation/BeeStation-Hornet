@@ -43,7 +43,7 @@
 /// proc that adds and removes blindness overlays when necessary
 /mob/proc/update_blindness(overlay = /atom/movable/screen/fullscreen/blind)
 	if(stat == UNCONSCIOUS || HAS_TRAIT(src, TRAIT_BLIND) || eye_blind) // UNCONSCIOUS or has blind trait, or has temporary blindness
-		if(stat == CONSCIOUS || stat == SOFT_CRIT)
+		if((stat == CONSCIOUS || stat == SOFT_CRIT) && istype(overlay, /atom/movable/screen/alert))
 			throw_alert("blind", overlay)
 		overlay_fullscreen("blind", overlay)
 		// You are blind why should you be able to make out details like color, only shapes near you
