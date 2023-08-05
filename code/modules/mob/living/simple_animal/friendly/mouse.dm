@@ -29,9 +29,7 @@
 	chat_color = "#82AF84"
 	can_be_held = TRUE
 	worn_slot_flags = ITEM_SLOT_HEAD
-	/**
-	 * A list of diseases carried by this rat.
-	 */
+	/// A list of diseases carried by this rat.
 	var/list/datum/disease/rat_diseases = list()
 
 /mob/living/simple_animal/mouse/Initialize(mapload)

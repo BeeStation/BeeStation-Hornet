@@ -985,46 +985,25 @@ GENE SCANNER
 	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_NORMAL
-	/**
-	 * Whether the extrapolator is currently in use.
-	 */
+	/// Whether the extrapolator is currently in use.
 	var/using = FALSE
-	/**
-	 * Whether the extrapolator is currently in SCAN or EXTRACT mode.
-	 */
+	/// Whether the extrapolator is currently in SCAN or EXTRACT mode.
 	var/scan = TRUE
-	/**
-	 * The scanning module installed in the extrapolator.
-	 * Used to determine extraction speed, and the stealthiest virus that's possible to extract.
-	 */
+	/// The scanning module installed in the extrapolator. Used to determine extraction speed, and the stealthiest virus that's possible to extract.
 	var/obj/item/stock_parts/scanning_module/scanner
-	/**
-	 * A list of advance disease IDs that this extrapolator has already extracted.
-	 */
+	/// A list of advance disease IDs that this extrapolator has already extracted.
 	var/list/extracted_ids = list()
-	/**
-	 * How long it takes, in deciseconds, for the extrapolator to extract a virus.
-	 */
+	/// How long it takes, in deciseconds, for the extrapolator to extract a virus.
 	var/extract_time = 10 SECONDS
-	/**
-	 * How long it takes, in deciseconds, for the extrapolator to isolate a symptom.
-	 */
+	/// How long it takes, in deciseconds, for the extrapolator to isolate a symptom.
 	var/isolate_time = 15 SECONDS
-	/**
-	 * The extrapolator can extract any virus with a stealth below this value.
-	 */
+	/// The extrapolator can extract any virus with a stealth below this value.
 	var/maximum_stealth = 3
-	/**
-	 * The extrapolator can extract any symptom with a stealth below this value.
-	 */
+	/// The extrapolator can extract any symptom with a stealth below this value.
 	var/maximum_level = 7
-	/**
-	 * The typepath of the default scanning module that will generate in the extrapolator, if it starts with none.
-	 */
+	/// The typepath of the default scanning module that will generate in the extrapolator, if it starts with none.
 	var/default_scanning_module = /obj/item/stock_parts/scanning_module
-	/**
-	 * Cooldown for when the extrapolator can be used next.
-	 */
+	/// Cooldown for when the extrapolator can be used next.
 	COOLDOWN_DECLARE(usage_cooldown)
 
 /obj/item/extrapolator/Initialize(mapload, obj/item/stock_parts/scanning_module/starting_scanner)

@@ -234,7 +234,7 @@
 
 	if(!visualsOnly && announce)
 		announce(H)
-	H.give_random_dormant_disease(biohazard, min_level = CHECK_BITFIELD(flag, CLOWN | MIME) ? 0 : 4)
+	H.give_random_dormant_disease(biohazard, (title == JOB_NAME_CLOWN || title == JOB_NAME_MIME) ? 0 : 4)
 
 /datum/job/proc/get_access()
 	if(!config)	//Needed for robots.
