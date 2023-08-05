@@ -206,6 +206,8 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 					set_to = TRUE
 				if("Off")
 					set_to = FALSE
+				else
+					return
 			if(!isnull(set_to))
 				for(var/area/found_area in GLOB.areas)
 					found_area.lightswitch = set_to
