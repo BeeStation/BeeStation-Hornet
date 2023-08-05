@@ -184,7 +184,7 @@
 			var/mob/living/L = ex_pulled
 			L.update_mobility()// mob gets up if it was lyng down in a chokehold
 
-/atom/movable/proc/Move_Pulled(atom/A, longercooldown = FALSE)
+/atom/movable/proc/Move_Pulled(atom/A)
 	if(!pulling)
 		return
 	if(pulling.anchored || pulling.move_resist > move_force || !pulling.Adjacent(src, src, pulling))
@@ -199,15 +199,10 @@
 		return
 	if(!Process_Spacemove(get_dir(pulling.loc, A)))
 		return
-	step(pulling, get_dir(pulling.loc, A))
-	return TRUE
+	return step(pulling, get_dir(pulling.loc, A))
 
-/mob/living/Move_Pulled(atom/A, longercooldown = FALSE)
+/mob/living/Move_Pulled(atom/A)
 	. = ..()
-	if(longercooldown)
-		changeNext_move(CLICK_CD_MELEE)
-	else
-		changeNext_move(CLICK_CD_RAPID)
 	if(!. || !isliving(A))
 		return
 	var/mob/living/L = A
