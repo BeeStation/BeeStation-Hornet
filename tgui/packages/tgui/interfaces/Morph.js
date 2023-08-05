@@ -1,7 +1,7 @@
 import { createSearch } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
-import { Input, Button, Section, Tabs, LabeledList } from '../components';
+import { Input, Button, Section, Tabs, LabeledList, Box, Icon } from '../components';
 
 export const Morph = (_props, _context) => {
   return (
@@ -26,7 +26,16 @@ const MorphContents = (_props, context) => {
   return (
     <Section
       title="Morph Stomach"
-      buttons={<Input value={searchText} onInput={(_, value) => setSearchText(value)} placeholder={'Search...'} mr={1} />}>
+      buttons={
+        <>
+          <Box inline>
+            <Icon name="search" mr={1} />
+          </Box>
+          <Box inline>
+            <Input placeholder="Search..." width="200px" value={searchText} onInput={(_, value) => setSearchText(value)} />
+          </Box>
+        </>
+      }>
       <Tabs>
         <Tabs.Tab selected={tab === 'living'} onClick={() => setTab('living')}>
           Mobs ({Object.keys(data.contents.living).length})
