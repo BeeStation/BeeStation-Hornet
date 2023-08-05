@@ -15,6 +15,9 @@
 		"the AI's facilities" = list(/area/aisat, /area/ai_monitored)
 	)
 	var/damaged_machines = 0
+	var/list/blacklisted_machine_types = list(
+		/obj/machinery/atmospherics/pipe
+	)
 
 /datum/objective/open/damage_equipment/proc/register_machine_damage(obj/machinery/source)
 	SIGNAL_HANDLER
@@ -60,6 +63,13 @@
 		var/list/target_area_types = valid_areas[selected_area]
 		for (var/area_zone in target_area_types)
 			if (istype(machine_area, area_zone))
+				var/allowed = TRUE
+				for (var/blacklist_type in blacklisted_machine_types)
+					if (istype(machine, blacklist_type))
+						allowed = FALSE
+						break
+				if (!allowed)
+					continue
 				RegisterSignal(machine, COMSIG_MACHINERY_BROKEN, PROC_REF(register_machine_damage))
 				RegisterSignal(machine, COMSIG_PARENT_QDELETING, PROC_REF(register_machine_damage))
 				break
