@@ -1,0 +1,8 @@
+author: itsmeow
+delete-after: true
+changes:
+  - tweak: The SM now has a max positive gas composition accumulation of 5% per tick.
+      This should reduce SM instability, but from testing it does not appear to fix
+      the notorious "SM delam bug".
+  - bugfix: The SM's power will not update when it is not supposed to.
+  - bugfix: Fixed double parsing of gas strings.
