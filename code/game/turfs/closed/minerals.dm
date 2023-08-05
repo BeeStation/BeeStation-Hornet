@@ -565,6 +565,21 @@
 	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
 	defer_change = 1
 
+/turf/closed/mineral/tough
+	max_integrity = 460
+
+/turf/closed/mineral/tough/Initialize(mapload)
+	. = ..()
+	add_atom_colour("#c9c9c9", FIXED_COLOUR_PRIORITY)
+
+/turf/closed/mineral/hard
+	max_integrity = 700
+	mineralAmt = 6
+
+/turf/closed/mineral/hard/Initialize(mapload)
+	. = ..()
+	add_atom_colour("#b7b7b7", FIXED_COLOUR_PRIORITY)
+
 /turf/closed/mineral/dense
 	max_integrity = 1200
 	mineralAmt = 8
