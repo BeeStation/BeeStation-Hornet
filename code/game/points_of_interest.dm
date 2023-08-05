@@ -30,9 +30,8 @@
 
 /// Orders mobs by type then by name
 /proc/sortmobs()
-	var/static/list/forbidden_mobs = typecacheof(list(/mob/living/carbon/human/dummy))
 	var/list/moblist = list()
-	var/list/sortmob = sort_names(typecache_filter_list_reverse(GLOB.mob_list, forbidden_mobs))
+	var/list/sortmob = sort_names(GLOB.mob_list)
 	for(var/mob/living/silicon/ai/M in sortmob)
 		moblist.Add(M)
 	for(var/mob/camera/M in sortmob)
