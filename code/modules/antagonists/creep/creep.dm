@@ -270,7 +270,7 @@
 		var/mob/living/current = mind.current
 		if(!istype(current))
 			continue
-		for(var/obj/item/photo/photo as() in current.GetAllContents(/obj/item/photo)) //Check for wanted items
+		for(var/obj/item/photo/photo as anything in current.GetAllContents(/obj/item/photo)) //Check for wanted items
 			var/datum/picture/picture = photo.picture
 			if(!picture)
 				continue
