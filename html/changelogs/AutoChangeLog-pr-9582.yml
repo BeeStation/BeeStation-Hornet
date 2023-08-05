@@ -1,7 +1,0 @@
-author: HowToLoLu
-delete-after: true
-changes:
-  - tweak: Stasis Beds can now be rotated by using a wrench while no-one is buckled
-      to it and the maintenance panel is open.
-  - bugfix: Beds now properly rotate the mob buckled to them. No more waking up on
-      the wrong side of the bed.
