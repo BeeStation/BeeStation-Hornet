@@ -299,7 +299,6 @@
 					return 0 //Heart's dead, not giving out any bodyheat
 			else
 				return 0 //Sucks to suck, no heart in an organic humanoid means no bodyheat
-	message_admins("Handling bodytemp, heart coeff is [body_modifier].")
 
 	switch(bodytemperature)
 		if(-INFINITY to BODYTEMP_COLD_DAMAGE_LIMIT) //Cold damage limit is 50 below the default, the temperature where you start to feel effects.
