@@ -379,6 +379,8 @@ SUBSYSTEM_DEF(ticker)
 		for(var/obj/machinery/light_switch/lswitch in area)
 			lswitch.update_appearance()
 		area.power_change()
+	for(var/obj/machinery/light/found_light in GLOB.machines)
+		found_light.maploaded = FALSE
 
 	return TRUE
 
