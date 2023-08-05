@@ -7,6 +7,7 @@
 	species_traits = list(MUTCOLORS,EYECOLOR,LIPS)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_REPTILE)
 	mutant_bodyparts = list("tail_lizard", "snout", "spines", "horns", "frills", "body_markings", "legs")
+	mutant_heart = /obj/item/organ/heart/lizard
 	mutanttongue = /obj/item/organ/tongue/lizard
 	mutanttail = /obj/item/organ/tail/lizard
 	coldmod = 1.5
@@ -51,6 +52,11 @@
 	if(H)
 		stop_wagging_tail(H)
 	. = ..()
+
+/datum/species/lizard/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+	. = ..()
+	if(pref_load)
+		C.bodytemperature = T20C //If we're spawning in as a lizard, we should be same temp as the normal air temp
 
 /datum/species/lizard/get_scream_sound(mob/living/carbon/user)
 	return pick('sound/voice/lizard/lizard_scream_1.ogg', 'sound/voice/lizard/lizard_scream_2.ogg', 'sound/voice/lizard/lizard_scream_3.ogg', 'sound/voice/lizard/lizard_scream_4.ogg')

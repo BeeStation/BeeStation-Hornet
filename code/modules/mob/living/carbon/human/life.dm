@@ -286,6 +286,31 @@
 			return TRUE
 	return ..()
 
+/mob/living/carbon/human/natural_bodytemperature_stabilization()
+	var/body_temperature_difference = BODYTEMP_NORMAL - bodytemperature
+	var/body_modifier = 1
+	if(dna?.species)
+		var/datum/species/S = dna.species
+		if((MOB_ORGANIC in S.inherent_biotypes))
+			var/obj/item/organ/heart/heart = getorganslot(ORGAN_SLOT_HEART)
+			if(heart)
+				body_modifier = heart.get_bodyheat_efficiency()
+				if(body_modifier == 0)
+					return 0 //Heart's dead, not giving out any bodyheat
+			else
+				return 0 //Sucks to suck, no heart in an organic humanoid means no bodyheat
+	message_admins("Handling bodytemp, heart coeff is [body_modifier].")
+
+	switch(bodytemperature)
+		if(-INFINITY to BODYTEMP_COLD_DAMAGE_LIMIT) //Cold damage limit is 50 below the default, the temperature where you start to feel effects.
+			return body_modifier * max((body_temperature_difference * metabolism_efficiency / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_AUTORECOVERY_MINIMUM)
+		if(BODYTEMP_COLD_DAMAGE_LIMIT to BODYTEMP_NORMAL)
+			return body_modifier * max(body_temperature_difference * metabolism_efficiency / BODYTEMP_AUTORECOVERY_DIVISOR, min(body_temperature_difference, BODYTEMP_AUTORECOVERY_MINIMUM/4))
+		if(BODYTEMP_NORMAL to BODYTEMP_HEAT_DAMAGE_LIMIT) // Heat damage limit is 50 above the default, the temperature where you start to feel effects.
+			return body_modifier * min(body_temperature_difference * metabolism_efficiency / BODYTEMP_AUTORECOVERY_DIVISOR, max(body_temperature_difference, -BODYTEMP_AUTORECOVERY_MINIMUM/4))
+		if(BODYTEMP_HEAT_DAMAGE_LIMIT to INFINITY)
+			return body_modifier * min((body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR), -BODYTEMP_AUTORECOVERY_MINIMUM)	//We're dealing with negative numbers
+
 #undef THERMAL_PROTECTION_HEAD
 #undef THERMAL_PROTECTION_CHEST
 #undef THERMAL_PROTECTION_GROIN

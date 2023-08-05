@@ -20,6 +20,11 @@
 	var/beat = BEAT_NONE//is this mob having a heatbeat sound played? if so, which?
 	var/failed = FALSE		//to prevent constantly running failing code
 	var/operated = FALSE	//whether the heart's been operated on to fix some of its damages
+	var/heat_production_coefficiency = 1 //How effective is the heart at maintaining body heat, used in human life.dm in natural_bodytemperature_stabilization()
+
+/obj/item/organ/heart/examine(mob/user)
+	. = ..()
+	. += "It would be trying to maintain someone's body heat, if it were in a body."
 
 /obj/item/organ/heart/update_icon()
 	if(beating)
@@ -89,6 +94,22 @@
 			owner.visible_message("<span class='userdanger'>[owner] clutches at [owner.p_their()] chest as if [owner.p_their()] heart is stopping!</span>")
 		owner.set_heartattack(TRUE)
 		failed = TRUE
+
+/obj/item/organ/heart/proc/get_bodyheat_efficiency()
+	if(!beating || organ_flags & ORGAN_FAILING || heat_production_coefficiency == 0)
+		return 0 // A still heart means no bodyheat
+	var/damaged_heart_modifier = 0.2 * (damage / 100) //nears 0.8 efficiency the closer it is to dying
+	var/to_return = heat_production_coefficiency * (0.8 + damaged_heart_modifier)
+	return to_return
+
+/obj/item/organ/heart/lizard
+	name = "reptilian heart"
+	desc = "I feel bad for the heartlessssss bassstard who lossst thisss."
+	heat_production_coefficiency = 0 // Cold-blooded, produce no bodyheat
+
+/obj/item/organ/heart/lizard/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>This one is marginally better at maintaining body heat than its organic counterpart.</span>"
 
 /obj/item/organ/heart/cursed
 	name = "cursed heart"
@@ -172,7 +193,8 @@
 
 /obj/item/organ/heart/cybernetic
 	name = "cybernetic heart"
-	desc = "An electronic device designed to mimic the functions of an organic human heart. Also holds an emergency dose of epinephrine, used automatically after facing severe trauma."
+	desc = "An electronic device designed to mimic the functions of an organic human heart. \
+	Also holds an emergency dose of epinephrine, used automatically after facing severe trauma."
 	icon_state = "heart-c"
 	organ_flags = ORGAN_SYNTHETIC
 	status = ORGAN_ROBOTIC
@@ -197,12 +219,19 @@
 
 /obj/item/organ/heart/cybernetic/upgraded
 	name = "upgraded cybernetic heart"
-	desc = "An electronic device designed to mimic the functions of an organic human heart. Also holds an emergency dose of epinephrine, used automatically after facing severe trauma. This upgraded model can regenerate its dose after use."
+	desc = "An electronic device designed to mimic the functions of an organic human heart. \
+	Also holds an emergency dose of epinephrine, used automatically after facing severe trauma. \
+	This upgraded model can regenerate its dose after use."
 	icon_state = "heart-c-u"
+	heat_production_coefficiency = 1.5
 
 /obj/item/organ/heart/cybernetic/upgraded/used_dose()
 	. = ..()
 	addtimer(VARSET_CALLBACK(src, dose_available, TRUE), 5 MINUTES)
+
+/obj/item/organ/heart/cybernetic/upgraded/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>This one is marginally better at maintaining body heat than its organic counterpart.</span>"
 
 /obj/item/organ/heart/cybernetic/ipc
 	desc = "An electronic device that appears to mimic the functions of an organic heart."
