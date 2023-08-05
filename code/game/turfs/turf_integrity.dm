@@ -170,7 +170,7 @@
 // Bullets
 //====================================
 
-/turf/bullet_act(obj/item/projectile/P)
+/turf/bullet_act(obj/projectile/P)
 	if (!can_hit)
 		return ..()
 	. = ..()
