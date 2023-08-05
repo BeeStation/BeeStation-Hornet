@@ -1,0 +1,6 @@
+author: HowToLoLu
+delete-after: true
+changes:
+  - bugfix: 'Monkey Sentience Helmets now properly ghost players when subjected to:
+      mind transfers, death, and disconnection/ghosting. Note that if you do lose
+      connection you immediately lose control of the monkey.'
