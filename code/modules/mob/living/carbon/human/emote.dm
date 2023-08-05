@@ -123,6 +123,35 @@
 	key_third_person = "shrugs"
 	message = "shrugs"
 
+/datum/emote/living/carbon/human/lizard/can_run_emote(mob/user, status_check, intentional)
+	if(!..())
+		return FALSE
+	if(ishuman(user))
+		return islizard(user)
+
+/datum/emote/living/carbon/human/lizard/thump
+	key = "thump"
+	key_third_person = "thumps their tail"
+	message = "thumps their tail!"
+	emote_type = EMOTE_AUDIBLE
+	vary = TRUE
+	sound = 'sound/emotes/lizard_tailthump.ogg'
+
+/datum/emote/living/carbon/human/lizard/thump/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	var/mob/living/carbon/human/H = user
+	var/obj/item/organ/tail/tail = H?.getorganslot(ORGAN_SLOT_TAIL)
+	if(!tail)
+		return
+
+/datum/emote/living/carbon/human/lizard/squeal
+	key = "squeal"
+	key_third_person = "squeals"
+	message = "squeals!"
+	emote_type = EMOTE_AUDIBLE
+	vary = TRUE
+	sound = 'sound/emotes/lizard_squeal.ogg'
+
 /datum/emote/living/carbon/human/wag
 	key = "wag"
 	key_third_person = "wags"
