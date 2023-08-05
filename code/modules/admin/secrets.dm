@@ -197,9 +197,11 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("all_light_toggle")
 			if(!check_rights(R_ADMIN))
 				return
-			var/val = alert(usr, "Do you want to turn all lights on or off?", "Light Manipulation", "On", "Off")
+			var/val = alert(usr, "Do you want to turn all lights on or off?", "Light Manipulation", "On", "Off", "Cancel")
 			var/set_to = null
 			switch(val)
+				if("Cancel")
+					return
 				if("On")
 					set_to = TRUE
 				if("Off")
