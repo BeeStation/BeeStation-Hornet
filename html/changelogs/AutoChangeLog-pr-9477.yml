@@ -1,0 +1,5 @@
+author: RKz, LemonInTheDark
+delete-after: true
+changes:
+  - server: adds load testing macros, letting you simulate load, without the perils
+      of live sage.
