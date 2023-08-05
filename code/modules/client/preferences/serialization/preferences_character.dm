@@ -25,10 +25,14 @@
 				continue
 			preference_data[preference.db_key] = preference.deserialize(preference.create_informed_default_value(prefs), prefs)
 		return FALSE
+	if(!istype(prefs.parent)) // Client was nulled during query execution
+		return FALSE
 	return TRUE
 
 /datum/preferences_holder/preferences_character/proc/query_data(datum/preferences/prefs)
 	if(!SSdbcore.IsConnected())
+		return FALSE
+	if(!istype(prefs.parent))
 		return FALSE
 	var/list/values
 	var/datum/DBQuery/Q = SSdbcore.NewQuery(
@@ -63,7 +67,7 @@
 	dirty_prefs.Cut() // clear all dirty preferences
 
 /datum/preferences_holder/preferences_character/proc/write_data(datum/preferences/prefs)
-	if(!SSdbcore.IsConnected() || IS_GUEST_KEY(prefs.parent.key))
+	if(!SSdbcore.IsConnected() || !istype(prefs.parent) || IS_GUEST_KEY(prefs.parent.key))
 		return FALSE
 	var/list/column_names_short = list()
 	var/list/new_data = list()

@@ -14,13 +14,15 @@
 			prefs.update_preference(/datum/preference/toggle/sound_ambience, FALSE)
 			prefs.update_preference(/datum/preference/toggle/sound_ship_ambience, FALSE)
 			prefs.update_preference(/datum/preference/toggle/sound_lobby, FALSE)
-		// TODO tgui-prefs initialize undatumized prefs here?
-		// no idiot put that in save_preferences() if this returns false.
+		return FALSE
+	if(!istype(prefs.parent)) // Client was nulled during query execution
 		return FALSE
 	return TRUE
 
 /datum/preferences_holder/preferences_player/proc/query_data(datum/preferences/prefs)
 	if(!SSdbcore.IsConnected())
+		return FALSE
+	if(!istype(prefs.parent))
 		return FALSE
 	var/datum/DBQuery/Q = SSdbcore.NewQuery(
 		"SELECT CAST(preference_tag AS CHAR) AS ptag, preference_value FROM [format_table_name("preferences")] WHERE ckey=:ckey",
@@ -35,7 +37,8 @@
 		var/value = Q.item[2]
 		var/datum/preference/preference = GLOB.preference_entries_by_key[db_key]
 		if(!preference)
-			// TODO tgui-prefs clean out database and re-enable this
+			// If you ever want to error for unknown tags, this would be helpful.
+			// As of now we don't really care since it doesn't help anything to throw runtimes everywhere.
 			//CRASH("Unknown preference tag in database: [db_key] for ckey [prefs.parent.ckey]")
 			continue
 		preference_data[db_key] = isnull(value) ? null : preference.deserialize(value, prefs)
@@ -48,7 +51,7 @@
 	dirty_prefs.Cut() // clear all dirty preferences
 
 /datum/preferences_holder/preferences_player/proc/write_data(datum/preferences/prefs)
-	if(!SSdbcore.IsConnected() || IS_GUEST_KEY(prefs.parent.key))
+	if(!SSdbcore.IsConnected() || !istype(prefs.parent) || IS_GUEST_KEY(prefs.parent.key))
 		return FALSE
 	var/list/sql_inserts = list()
 	for(var/db_key in dirty_prefs)

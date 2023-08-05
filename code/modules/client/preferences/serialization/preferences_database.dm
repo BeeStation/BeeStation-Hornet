@@ -42,6 +42,8 @@
 	} // we dont need error handling where were going
 
 /datum/preferences/proc/load_preferences()
+	if(!istype(parent))
+		return FALSE
 	// Get the datumized stuff first
 	player_data = new(src)
 	if(!player_data.load_from_database(src)) // checks db connection
@@ -346,7 +348,7 @@
 	if (!preference.is_valid(new_value))
 		return FALSE
 	preference_data[preference.db_key] = new_value
-	if(IS_GUEST_KEY(preferences.parent.key)) // NO saving guests to the DB!
+	if(!istype(preferences.parent) || IS_GUEST_KEY(preferences.parent.key)) // NO saving guests to the DB!
 		return TRUE
 	dirty_prefs |= preference.db_key
 	SSpreferences.queue_write(preferences)
