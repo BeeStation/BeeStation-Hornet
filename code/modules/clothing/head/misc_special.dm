@@ -275,13 +275,13 @@
 		hair_style = new_style
 		user.visible_message("<span class='notice'>[user] changes \the [src]'s hairstyle to [new_style].</span>", "<span class='notice'>You change \the [src]'s hairstyle to [new_style].</span>")
 	if(adjustablecolor)
-		hair_color = input(usr,"","Choose Color",hair_color) as color|null
+		hair_color = tgui_color_picker(usr,"","Choose Color",hair_color)
 		var/picked_gradient_style
 		picked_gradient_style = input(usr, "", "Choose Gradient")  as null|anything in GLOB.hair_gradients_list
 		if(picked_gradient_style)
 			gradient_style = picked_gradient_style
 			if(gradient_style != "None")
-				var/picked_hair_gradient = input(user, "", "Choose Gradient Color", "#" + gradient_color) as color|null
+				var/picked_hair_gradient = tgui_color_picker(user, "", "Choose Gradient Color", "#" + gradient_color)
 				if(picked_hair_gradient)
 					gradient_color = sanitize_hexcolor(picked_hair_gradient)
 				else

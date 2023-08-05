@@ -34,7 +34,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 					return
 				if("Always yes for this round")
 					holder.ooc_confirmation_enabled = FALSE
-	if(is_banned_from(ckey, "OOC"))
+	if(is_banned_from(ckey, BAN_OOC))
 		to_chat(src, "<span class='danger'>You have been banned from OOC.</span>")
 		return
 	if(QDELETED(src))
@@ -157,7 +157,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 		if(!is_content_unlocked())
 			return
 
-	var/new_ooccolor = input(src, "Please select your OOC color.", "OOC color", prefs.ooccolor) as color|null
+	var/new_ooccolor = tgui_color_picker(src, "Please select your OOC color.", "OOC color", prefs.ooccolor)
 	if(new_ooccolor)
 		prefs.ooccolor = sanitize_ooccolor(new_ooccolor)
 		prefs.save_preferences()

@@ -3,7 +3,7 @@
 	icon = 'icons/mob/alien.dmi'
 	gender = FEMALE //All xenos are girls!!
 	dna = null
-	faction = list(ROLE_ALIEN)
+	faction = list(FACTION_ALIEN)
 	ventcrawler = VENTCRAWLER_ALWAYS
 	sight = SEE_MOBS
 	see_in_dark = 4

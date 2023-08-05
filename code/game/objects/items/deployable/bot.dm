@@ -3,6 +3,7 @@
 	desc = "if you're seeing this contact coders ASAP"
 	dense_deployment = TRUE
 	w_class = WEIGHT_CLASS_BULKY
+	ignores_mob_density = TRUE
 	//All other variables are set within living/simple_animal/bot/MouseDrop()
 
 /obj/item/deployable/bot/Initialize(mapload)
