@@ -89,7 +89,7 @@
 	var/chosen_victim
 	var/list/possible_targets = list()
 	var/list/viable_minds = list()
-	for(var/mob/living/carbon/human/potential_target in GLOB.carbon_list)
+	for(var/mob/living/carbon/human/potential_target in GLOB.player_list)
 		var/turf/target_turf = get_turf(potential_target)
 		if(potential_target != owner && potential_target.mind && potential_target.stat != DEAD && potential_target.client && !potential_target.client.is_afk() && SSjob.name_occupations[potential_target.mind.assigned_role] && target_turf && is_station_level(target_turf.z))
 			viable_minds += potential_target.mind
