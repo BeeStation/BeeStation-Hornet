@@ -20,11 +20,7 @@
 
 // dir check for buckle_lying state
 /obj/machinery/stasis/Initialize()
-	switch(dir)
-		if(WEST, NORTH)
-			buckle_lying = 270
-		if(EAST, SOUTH)
-			buckle_lying = 90
+	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(dir_changed)) //This gets called later during initialization
 	return ..()
 
 /obj/machinery/stasis/Initialize(mapload)
@@ -36,6 +32,7 @@
 	initial_link()
 
 /obj/machinery/stasis/Destroy()
+	UnregisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(dir_changed))
 	. = ..()
 	if(op_computer?.sbed == src)
 		op_computer.sbed = null
@@ -183,6 +180,20 @@
 	multitool.buffer = src
 	to_chat(user, "<span class='notice'>You store the linking data of \the [src] in \the [multitool]'s buffer. Use it on an operating computer to complete linking.</span>")
 	balloon_alert(user, "saved in buffer")
+
+/obj/machinery/stasis/wrench_act(mob/living/user, obj/item/I) //We want to rotate, but we need to do it in 180 degree rotations.
+	if(panel_open && has_buckled_mobs())
+		to_chat(user, "<span class='notice'>\The [src] is too heavy to rotate while someone is buckled to it!</span>")
+		return TRUE
+	. = default_change_direction_wrench(user, I, 2)
+
+/obj/machinery/stasis/proc/dir_changed(datum/source, old_dir, new_dir)
+	SIGNAL_HANDLER
+	switch(new_dir)
+		if(WEST, NORTH)
+			buckle_lying = 270
+		if(EAST, SOUTH)
+			buckle_lying = 90
 
 /obj/machinery/stasis/nap_violation(mob/violator)
 	unbuckle_mob(violator, TRUE)

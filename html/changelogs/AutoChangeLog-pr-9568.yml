@@ -1,9 +1,0 @@
-author: Absolucy
-delete-after: true
-changes:
-  - bugfix: Fix operating computer automatic linking only working if you built the
-      computer first, and the table/bed last.
-  - rscadd: Operating tables now display when examined if they're linked to a computer
-      or not (and if they are, which computer).
-  - tweak: Stasis beds now display WHICH operating computer they're linked to when
-      examined

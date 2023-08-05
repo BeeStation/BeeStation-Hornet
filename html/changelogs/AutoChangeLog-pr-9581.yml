@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Fixes some internal dynamic calculations, fixes dynamic simulations, fixes
-      default dynamic server config.
