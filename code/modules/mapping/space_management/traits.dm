@@ -49,24 +49,6 @@
 				. += S.z_value
 				break
 
-// Attempt to get the turf below the provided one according to Z traits
-/datum/controller/subsystem/mapping/proc/get_turf_below(turf/T)
-	if (!T)
-		return
-	var/offset = level_trait(T.z, ZTRAIT_DOWN)
-	if (!offset)
-		return
-	return locate(T.x, T.y, T.z + offset)
-
-// Attempt to get the turf above the provided one according to Z traits
-/datum/controller/subsystem/mapping/proc/get_turf_above(turf/T)
-	if (!T)
-		return
-	var/offset = level_trait(T.z, ZTRAIT_UP)
-	if (!offset)
-		return
-	return locate(T.x, T.y, T.z + offset)
-
 // Prefer not to use this one too often
 /datum/controller/subsystem/mapping/proc/get_station_center(level = levels_by_trait(ZTRAIT_STATION)[1])
 	return locate(round(world.maxx * 0.5, 1), round(world.maxy * 0.5, 1), level)

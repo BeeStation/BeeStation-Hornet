@@ -506,7 +506,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		if (initial(ruleset_type.weight) == 0)
 			continue
 
-		var/ruleset = new ruleset_type
+		var/ruleset = new ruleset_type(src)
 		configure_ruleset(ruleset)
 		rulesets += ruleset
 
@@ -568,7 +568,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 			drafted_rules[ruleset] = null
 			continue
 
-		if (check_blocking(ruleset.blocking_rules, rulesets_picked, ignore_dead_rulesets=FALSE))
+		if (check_blocking(ruleset, rulesets_picked, ignore_dead_rulesets=FALSE))
 			drafted_rules[ruleset] = null
 			continue
 
@@ -617,21 +617,23 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 /// Mainly here to facilitate delayed rulesets. All roundstart rulesets are executed with a timered callback to this proc.
 /datum/game_mode/dynamic/proc/execute_roundstart_rule(sent_rule)
 	var/datum/dynamic_ruleset/rule = sent_rule
-	if(rule.execute())
+	var/execute_result = rule.execute()
+	if(execute_result == DYNAMIC_EXECUTE_SUCCESS)
 		if(rule.persistent)
 			current_rules += rule
 		new_snapshot(rule)
 		return TRUE
 	rule.clean_up()	// Refund threat, delete teams and so on.
 	executed_rules -= rule
-	stack_trace("The starting rule \"[rule.name]\" failed to execute.")
+	if(!execute_result || execute_result == DYNAMIC_EXECUTE_FAILURE) // not enough players is an expected failure. Any other should be reported
+		CRASH("The starting rule \"[rule.name]\" failed to execute.")
 	return FALSE
 
 /// An experimental proc to allow admins to call rules on the fly or have rules call other rules.
 /datum/game_mode/dynamic/proc/picking_specific_rule(ruletype, forced = FALSE, ignore_cost = FALSE)
 	var/datum/dynamic_ruleset/midround/new_rule
 	if(ispath(ruletype))
-		new_rule = new ruletype() // You should only use it to call midround rules though.
+		new_rule = new ruletype(src) // You should only use it to call midround rules though.
 		configure_ruleset(new_rule)
 	else if(istype(ruletype, /datum/dynamic_ruleset))
 		new_rule = ruletype
@@ -645,7 +647,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		if(only_ruleset_executed)
 			return FALSE
 		// Check if a blocking ruleset has been executed.
-		else if(check_blocking(new_rule.blocking_rules, executed_rules))
+		else if(check_blocking(new_rule, executed_rules))
 			return FALSE
 		// Check if the ruleset is high impact and if a high impact ruleset has been executed
 		else if(CHECK_BITFIELD(new_rule.flags, HIGH_IMPACT_RULESET))
@@ -659,7 +661,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 			if (!ignore_cost)
 				spend_midround_budget(new_rule.cost, threat_log, "[worldtime2text()]: Forced rule [new_rule.name]")
 			new_rule.pre_execute(population)
-			if (new_rule.execute()) // This should never fail since ready() returned 1
+			if (new_rule.execute(forced)) // This should never fail since ready() returned 1
 				if(CHECK_BITFIELD(new_rule.flags, ONLY_RULESET))
 					only_ruleset_executed = TRUE
 				log_game("DYNAMIC: Making a call to a specific ruleset...[new_rule.name]!")
@@ -686,7 +688,8 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	return type_list
 
 /// Checks if a type in blocking_list is in rule_list.
-/datum/game_mode/dynamic/proc/check_blocking(list/blocking_list, list/rule_list, ignore_dead_rulesets = TRUE)
+/datum/game_mode/dynamic/proc/check_blocking(datum/dynamic_ruleset/rule, list/rule_list, ignore_dead_rulesets = TRUE)
+	var/list/blocking_list = rule.blocking_rules
 	if(blocking_list.len > 0)
 		for(var/blocking in blocking_list)
 			for(var/_executed in rule_list)
@@ -695,7 +698,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 					continue
 				if((ignore_dead_rulesets && !high_impact_major_event_occured) && executed.is_dead())
 					continue
-				log_game("DYNAMIC: FAIL: check_blocking - [blocking] conflicts with [executed.type]")
+				log_game("DYNAMIC: FAIL: check_blocking [rule] blocked by [blocking]")
 				return TRUE
 	return FALSE
 
@@ -707,15 +710,6 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		log_game("DYNAMIC: FAIL: [src] has too many living antags for the population ([living_antags_count] antags of [living_players_count] players - [antag_percent]%)")
 		return TRUE
 	log_game("DYNAMIC: [src] passed lowpop_lowimpact requirement: ([living_antags_count] antags of [living_players_count] players - [antag_percent]%)")
-	return FALSE
-
-/// Checks if client age is age or older.
-/datum/game_mode/dynamic/proc/check_age(client/C, age)
-	enemy_minimum_age = age
-	if(get_remaining_days(C) == 0)
-		enemy_minimum_age = initial(enemy_minimum_age)
-		return TRUE // Available in 0 days = available right now = player is old enough to play.
-	enemy_minimum_age = initial(enemy_minimum_age)
 	return FALSE
 
 /datum/game_mode/dynamic/make_antag_chance(mob/living/carbon/human/newPlayer)
@@ -838,21 +832,21 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		if (-INFINITY to -20)
 			return rand(0, 10)
 		if (-20 to -10)
-			return RULE_OF_THREE(-40, -20, x) + 50
+			return RULE_OF_THREE(1, 1, x) + 30
 		if (-10 to -5)
-			return RULE_OF_THREE(-30, -10, x) + 50
+			return RULE_OF_THREE(2, 1, x) + 40
 		if (-5 to -2.5)
-			return RULE_OF_THREE(-20, -5, x) + 50
+			return RULE_OF_THREE(3, 1, x) + 45
 		if (-2.5 to -0)
-			return RULE_OF_THREE(-10, -2.5, x) + 50
+			return RULE_OF_THREE(5, 1, x) + 50
 		if (0 to 2.5)
-			return RULE_OF_THREE(10, 2.5, x) + 50
+			return RULE_OF_THREE(5, 1, x) + 50
 		if (2.5 to 5)
-			return RULE_OF_THREE(20, 5, x) + 50
+			return RULE_OF_THREE(3, 1, x) + 45
 		if (5 to 10)
-			return RULE_OF_THREE(30, 10, x) + 50
+			return RULE_OF_THREE(2, 1, x) + 40
 		if (10 to 20)
-			return RULE_OF_THREE(40, 20, x) + 50
+			return RULE_OF_THREE(1, 1, x) + 30
 		if (20 to INFINITY)
 			return rand(90, 100)
 

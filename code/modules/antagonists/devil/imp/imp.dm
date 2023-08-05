@@ -64,6 +64,7 @@
 	name = "Imp"
 	antagpanel_category = "Devil"
 	show_in_roundend = FALSE
+	banning_key = ROLE_DEVIL
 
 /datum/antagonist/imp/on_gain()
 	. = ..()
