@@ -53,7 +53,7 @@
 	radius = rand(30, 70)
 	SSorbits.asteroids ++
 	// Generate spawned minerals
-	minerals[/turf/closed/mineral] = rand(100, 300)
+	minerals[/datum] = rand(100, 300)
 	// Generate some rich materials
 	for (var/i in 1 to rand(0, 3))
 		var/selected_type = pick_weight(common_minerals)
