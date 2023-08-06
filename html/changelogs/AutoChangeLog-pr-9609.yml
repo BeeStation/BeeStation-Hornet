@@ -1,5 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - admin: Added a new verb for toggling all lights on or off, found in the Secrets
-      panel
