@@ -62,6 +62,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/list/inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
 	///List of factions the mob gain upon gaining this species.
 	var/list/inherent_factions
+	/// Which body temperature should be spawn with, currently only used by lizards to spawn at the same temp as air
+	var/starting_temperature = BODYTEMP_NORMAL
 
 	var/attack_verb = "punch"	// punch-specific attack verb
 	var/sound/attack_sound = 'sound/weapons/punch1.ogg'
@@ -400,6 +402,9 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			C.faction += i //Using +=/-= for this in case you also gain the faction from a different source.
 
 	C.add_movespeed_modifier(MOVESPEED_ID_SPECIES, TRUE, 100, override=TRUE, multiplicative_slowdown=speedmod, movetypes=(~FLYING))
+
+	if(pref_load)
+		C.bodytemperature = starting_temperature //If we're spawning in, set the bodytemp
 
 	SEND_SIGNAL(C, COMSIG_SPECIES_GAIN, src, old_species)
 

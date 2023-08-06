@@ -24,6 +24,7 @@
 	deathsound = 'sound/voice/lizard/deathsound.ogg'
 	species_language_holder = /datum/language_holder/lizard
 	digitigrade_customization = DIGITIGRADE_OPTIONAL
+	starting_temperature = T20C //Coldblooded, so start at the stame temperature as the air around
 
 	species_chest = /obj/item/bodypart/chest/lizard
 	species_head = /obj/item/bodypart/head/lizard
@@ -52,11 +53,6 @@
 	if(H)
 		stop_wagging_tail(H)
 	. = ..()
-
-/datum/species/lizard/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
-	. = ..()
-	if(pref_load)
-		C.bodytemperature = T20C //If we're spawning in as a lizard, we should be same temp as the normal air temp
 
 /datum/species/lizard/get_scream_sound(mob/living/carbon/user)
 	return pick('sound/voice/lizard/lizard_scream_1.ogg', 'sound/voice/lizard/lizard_scream_2.ogg', 'sound/voice/lizard/lizard_scream_3.ogg', 'sound/voice/lizard/lizard_scream_4.ogg')
