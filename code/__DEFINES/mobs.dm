@@ -77,7 +77,6 @@
 #define TERATOMA_BODYPART "teratoma"
 #define ALIEN_BODYPART "alien"
 #define LARVA_BODYPART "larva"
-#define DEVIL_BODYPART "devil"
 
 //Bodypart change blocking flags
 #define BP_BLOCK_CHANGE_SPECIES	(1<<0)

@@ -32,7 +32,6 @@
 #define ROLE_NINJA				"Space Ninja"
 #define ROLE_ABDUCTOR			"Abductor"
 #define ROLE_REVENANT			"Revenant"
-#define ROLE_DEVIL				"Devil"
 #define ROLE_BROTHER			"Blood Brother"
 #define ROLE_OVERTHROW			"Syndicate Mutineer"
 #define ROLE_HIVE				"Hivemind Host"
@@ -73,7 +72,6 @@ GLOBAL_LIST_INIT(antagonist_bannable_roles, list(
 	ROLE_NINJA,
 	ROLE_ABDUCTOR,
 	ROLE_REVENANT,
-	ROLE_DEVIL,
 	ROLE_BROTHER,
 	ROLE_OVERTHROW,
 	ROLE_HIVE,
@@ -94,11 +92,11 @@ GLOBAL_LIST_INIT(antagonist_bannable_roles, list(
 	ROLE_CONTRACTOR_SUPPORT_UNIT,
 ))
 
-#define BAN_ROLE_FORCED_ANTAGONISTS			"Forced Antagonists"
+#define BAN_ROLE_FORCED_ANTAGONISTS "Forced Antagonists"
 
-#define ROLE_BRAINWASHED		"Brainwashed Victim"
-#define ROLE_HYPNOTIZED			"Hypnotized Victim"
-#define ROLE_HIVE_VESSEL		"Awakened Vessel"
+#define ROLE_BRAINWASHED "Brainwashed Victim"
+#define ROLE_HYPNOTIZED "Hypnotized Victim"
+#define ROLE_HIVE_VESSEL "Awakened Vessel"
 
 /// Forced antagonist roles
 GLOBAL_LIST_INIT(forced_bannable_roles, list(

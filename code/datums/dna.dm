@@ -687,8 +687,6 @@
 				set_species(/datum/species/skeleton)
 				if(prob(90) && !QDELETED(src))
 					addtimer(CALLBACK(src, PROC_REF(death)), 30)
-					if(mind)
-						mind.hasSoul = FALSE
 			if(5)
 				to_chat(src, "<span class='phobia'>LOOK UP!</span>")
 				addtimer(CALLBACK(src, PROC_REF(something_horrible_mindmelt)), 30)

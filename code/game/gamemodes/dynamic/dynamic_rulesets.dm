@@ -244,7 +244,7 @@
 		// Alright, they have a body with a ckey, but are they actually dead?
 		if(body.stat == DEAD)
 			// Has their soul departed or been ripped out? If so, yep, they dead alright.
-			if(body.soul_departed() || mind.hellbound)
+			if(body.soul_departed())
 				continue
 			// Are they in medbay or an operating table/stasis bed, and have been dead for less than 20 minutes? If so, they're probably being revived.
 			if(world.time <= (mind.last_death + 15 MINUTES) && (istype(get_area(body), /area/medical) || (locate(/obj/machinery/stasis) in body.loc) || (locate(/obj/structure/table/optable) in body.loc)))

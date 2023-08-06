@@ -32,7 +32,6 @@
 	var/lawcheck[1]
 	var/ioncheck[1]
 	var/hackedcheck[1]
-	var/devillawcheck[5]
 
 	/// Are our siliconHUDs on? TRUE for yes, FALSE for no.
 	var/sensors_on = TRUE
@@ -208,16 +207,6 @@
 				hackedcheck[L] = "Yes"
 		checklaws()
 
-	if (href_list["lawdevil"]) // Toggling whether or not a law gets stated by the State Laws verb --NeoFite
-		var/L = text2num(href_list["lawdevil"])
-		switch(devillawcheck[L])
-			if ("Yes")
-				devillawcheck[L] = "No"
-			if ("No")
-				devillawcheck[L] = "Yes"
-		checklaws()
-
-
 	if (href_list["laws"] && !currently_stating_laws) // With how my law selection code works, I changed statelaws from a verb to a proc, and call it through my law selection panel. --NeoFite
 		statelaws()
 
@@ -235,12 +224,6 @@
 	var/number = 1
 
 	var/list/laws_to_state = list()
-
-	if (length(laws.devillaws))
-		for(var/index = 1, index <= laws.devillaws.len, index++)
-			if (force || devillawcheck[index] == "Yes")
-				laws_to_state += "666. [laws.devillaws[index]]"
-				total_laws_count++
 
 	if (laws.zeroth)
 		if (force || lawcheck[1] == "Yes")
@@ -320,12 +303,6 @@
 /mob/living/silicon/proc/checklaws() //Gives you a link-driven interface for deciding what laws the statelaws() proc will share with the crew. --NeoFite
 
 	var/list = "<b>Which laws do you want to include when stating them for the crew?</b><br><br>"
-
-	if (laws.devillaws && laws.devillaws.len)
-		for(var/index = 1, index <= laws.devillaws.len, index++)
-			if (!devillawcheck[index])
-				devillawcheck[index] = "No"
-			list += {"<A href='byond://?src=[REF(src)];lawdevil=[index]'>[devillawcheck[index]] 666:</A> <font color='#cc5500'>[laws.devillaws[index]]</font><BR>"}
 
 	if (laws.zeroth)
 		if (!lawcheck[1])

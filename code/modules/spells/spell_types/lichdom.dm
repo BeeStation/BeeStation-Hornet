@@ -28,9 +28,6 @@
 		if(!hand_items.len)
 			to_chat(M, "<span class='caution'>You must hold an item you wish to make your phylactery...</span>")
 			return
-		if(!M.mind.hasSoul)
-			to_chat(user, "<span class='caution'>You do not possess a soul.</span>")
-			return
 
 		var/obj/item/marked_item
 
@@ -60,7 +57,6 @@
 		new /obj/item/phylactery(marked_item, M.mind)
 
 		to_chat(M, "<span class='userdanger'>With a hideous feeling of emptiness you watch in horrified fascination as skin sloughs off bone! Blood boils, nerves disintegrate, eyes boil in their sockets! As your organs crumble to dust in your fleshless chest you come to terms with your choice. You're a lich!</span>")
-		M.mind.hasSoul = FALSE
 		M.set_species(/datum/species/skeleton)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
@@ -73,6 +69,7 @@
 
 		// you only get one phylactery.
 		M.mind.RemoveSpell(src)
+		ADD_TRAIT(M, TRAIT_NO_SOUL, LICH_TRAIT)
 
 
 /obj/item/phylactery
@@ -95,6 +92,13 @@
 	. = ..()
 	mind = newmind
 	name = "phylactery of [mind.name]"
+
+	if(iscarbon(mind.current))
+		var/mob/living/carbon/immortal_mob = mind.current
+		var/obj/item/organ/brain/B = immortal_mob.getorganslot(ORGAN_SLOT_BRAIN)
+		if(B) // this prevents MMIs being used
+			B.organ_flags &= ~ORGAN_VITAL
+			B.decoy_override = TRUE
 
 	active_phylacteries++
 	AddElement(/datum/element/point_of_interest)
@@ -128,6 +132,11 @@
 	var/mob/old_body = mind.current
 	var/mob/living/carbon/human/lich = new(item_turf)
 
+	var/obj/item/organ/brain/B = lich.getorganslot(ORGAN_SLOT_BRAIN)
+	if(B) // this prevents MMIs being used
+		B.organ_flags &= ~ORGAN_VITAL
+		B.decoy_override = TRUE
+
 	lich.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal/magic(lich), ITEM_SLOT_FEET)
 	lich.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(lich), ITEM_SLOT_ICLOTHING)
 	lich.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/black(lich), ITEM_SLOT_OCLOTHING)
@@ -155,6 +164,4 @@
 			old_body.visible_message("<span class='warning'>Suddenly [old_body.name]'s corpse falls to pieces! You see a strange energy rise from the remains, and speed off towards the [wheres_wizdo]!</span>")
 			body_turf.Beam(item_turf,icon_state="lichbeam", time = 10 + 10 * resurrections)
 		old_body.dust()
-
-
 	return "Respawn of [mind] successful."

@@ -66,8 +66,8 @@
 
 /datum/species/apid/check_species_weakness(obj/item/weapon, mob/living/attacker)
 	if(istype(weapon, /obj/item/melee/flyswatter))
-		return 29 //Bees get x30 damage from flyswatters
-	return 0
+		return 30 //Flyswatters deal 30x damage to flypeople.
+	return 1
 
 /datum/species/apid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == /datum/reagent/toxin/pestkiller)

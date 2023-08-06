@@ -548,7 +548,7 @@
 		playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
 		return FALSE
 	if(!experimental)
-		if(!body_only && (mob_occupant.suiciding || mob_occupant.ishellbound()))
+		if(!body_only && (mob_occupant.suiciding))
 			scantemp = "Subject's brain is not responding to scanning stimuli."
 			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 			return FALSE

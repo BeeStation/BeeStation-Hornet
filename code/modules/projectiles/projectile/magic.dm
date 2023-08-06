@@ -33,8 +33,6 @@
 /obj/projectile/magic/resurrection/on_hit(mob/living/carbon/target)
 	. = ..()
 	if(isliving(target))
-		if(target.ishellbound())
-			return BULLET_ACT_BLOCK
 		if(target.anti_magic_check())
 			target.visible_message("<span class='warning'>[src] vanishes on contact with [target]!</span>")
 			return BULLET_ACT_BLOCK
@@ -543,7 +541,7 @@
 	. = ..()
 	if(isliving(target))
 		var/mob/living/L = target
-		if(L.anti_magic_check() || !L.mind || !L.mind.hasSoul)
+		if(L.anti_magic_check() || !L.mind)
 			L.visible_message("<span class='warning'>[src] vanishes on contact with [target]!</span>")
 			return BULLET_ACT_BLOCK
 		to_chat(L, "<span class='danger'>Your body feels drained and there is a burning pain in your chest.</span>")
@@ -551,7 +549,7 @@
 		L.health = min(L.health, L.maxHealth)
 		if(L.maxHealth <= 0)
 			to_chat(L, "<span class='userdanger'>Your weakened soul is completely consumed by the [src]!</span>")
-			L.mind.hasSoul = FALSE
+			return
 		for(var/obj/effect/proc_holder/spell/spell in L.mind.spell_list)
 			spell.charge_counter = spell.charge_max
 			spell.recharging = FALSE
@@ -694,25 +692,6 @@
 		M.take_overall_damage(0,10) //between this 10 burn, the 10 brute, the explosion brute, and the onfire burn, your at about 65 damage if you stop drop and roll immediately
 	var/turf/T = get_turf(target)
 	explosion(T, -1, exp_heavy, exp_light, exp_flash, 0, flame_range = exp_fire, magic = magic, holy = holy)
-
-/obj/projectile/magic/fireball/infernal
-	name = "infernal fireball"
-	exp_heavy = -1
-	exp_light = -1
-	exp_flash = 4
-	exp_fire= 5
-	magic = FALSE
-	holy = TRUE
-
-/obj/projectile/magic/fireball/infernal/on_hit(target)
-	. = ..()
-	if(ismob(target))
-		var/mob/living/M = target
-		if(M.anti_magic_check())
-			return BULLET_ACT_BLOCK
-	var/turf/T = get_turf(target)
-	for(var/i=0, i<50, i+=10)
-		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(explosion), T, -1, exp_heavy, exp_light, exp_flash, FALSE, FALSE, FALSE, TRUE), i)
 
 //still magic related, but a different path
 

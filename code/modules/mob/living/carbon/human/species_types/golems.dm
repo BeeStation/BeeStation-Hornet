@@ -826,7 +826,7 @@
 /obj/structure/cloth_pile/proc/revive()
 	if(QDELETED(src) || QDELETED(cloth_golem)) //QDELETED also checks for null, so if no cloth golem is set this won't runtime
 		return
-	if(cloth_golem.suiciding || cloth_golem.ishellbound())
+	if(cloth_golem.suiciding)
 		QDEL_NULL(cloth_golem)
 		return
 

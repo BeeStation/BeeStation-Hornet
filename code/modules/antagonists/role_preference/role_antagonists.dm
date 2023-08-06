@@ -10,10 +10,6 @@
 	name = "Clock Cultist"
 	antag_datum = /datum/antagonist/servant_of_ratvar
 
-/datum/role_preference/antagonist/devil
-	name = "Devil"
-	antag_datum = /datum/antagonist/devil
-
 /datum/role_preference/antagonist/revolutionary
 	name = "Head Revolutionary"
 	antag_datum = /datum/antagonist/rev/head

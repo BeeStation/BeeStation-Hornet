@@ -28,9 +28,6 @@
 		if(!length(hand_items))
 			to_chat(M, "<span class='caution'>You must hold an item you wish to make your phylactery...</span>")
 			return
-		if(!M.mind.hasSoul)
-			to_chat(user, "<span class='caution'>You do not possess a soul.</span>")
-			return
 
 		var/obj/item/marked_item
 
@@ -60,17 +57,12 @@
 		new /obj/item/lesserphylactery(marked_item, M.mind)
 
 		to_chat(M, "<span class='userdanger'>With a hideous feeling of emptiness you watch in horrified fascination as skin sloughs off bone! Blood boils, nerves disintegrate, eyes boil in their sockets! As your organs crumble to dust in your fleshless chest you come to terms with your choice. You're a lesser lich!</span>")
-		M.mind.hasSoul = FALSE
 		// No revival other than lichdom revival
-		if(isliving(M))
-			var/mob/living/L = M
-			L.sethellbound()
-		else
-			M.mind.hellbound = TRUE
 		M.set_species(/datum/species/skeleton)
 		// no robes spawn for a lesser spell
 		// you only get one phylactery.
 		M.mind.RemoveSpell(src)
+		ADD_TRAIT(M, TRAIT_NO_SOUL, LICH_TRAIT)
 
 
 /obj/item/lesserphylactery
@@ -120,6 +112,12 @@
 
 	var/mob/old_body = mind.current
 	var/mob/living/carbon/human/lich = new(item_turf)
+
+	var/obj/item/organ/brain/B = lich.getorganslot(ORGAN_SLOT_BRAIN)
+	if(B) // this prevents MMIs being used
+		B.organ_flags &= ~ORGAN_VITAL
+		B.decoy_override = TRUE
+		
 	// no robes spawn for lesser spell
 
 	lich.real_name = mind.name

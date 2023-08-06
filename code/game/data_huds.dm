@@ -194,7 +194,7 @@
 		if(HAS_TRAIT(src, TRAIT_XENO_HOST))
 			holder.icon_state = "hudxeno"
 		else if(stat == DEAD)
-			if(!getorgan(/obj/item/organ/brain) || soul_departed() || ishellbound())
+			if(!getorgan(/obj/item/organ/brain) || soul_departed())
 				holder.icon_state = "huddead-permanent"
 				return
 			if(tod)

@@ -345,7 +345,7 @@
 	if(length(movable_reltool.buckled_mobs))
 		for(var/creature in movable_reltool.buckled_mobs)
 			lich_to_be = creature
-		if(!lich_to_be.mind.hasSoul)
+		if(!HAS_TRAIT(lich_to_be, TRAIT_NO_SOUL))
 			to_chat(user,"<span class='warning'>[lich_to_be] has no soul, as such this rite would not help them. To empower another, they must be buckled to [movable_reltool].</span>")
 			lich_to_be = null
 			return FALSE
@@ -361,7 +361,7 @@
 			to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
 			return FALSE
 		lich_to_be = user
-		if(!lich_to_be.mind.hasSoul)
+		if(!HAS_TRAIT(lich_to_be, TRAIT_NO_SOUL))
 			to_chat(user,"<span class='warning'>You have no soul, as such this rite would not help you. To empower another, they must be buckled to [movable_reltool].</span>")
 			lich_to_be = null
 			return FALSE

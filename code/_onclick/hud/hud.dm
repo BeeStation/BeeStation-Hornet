@@ -34,8 +34,6 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	var/atom/movable/screen/alien_plasma_display
 	var/atom/movable/screen/alien_queen_finder
 
-	var/atom/movable/screen/devil/soul_counter/devilsouldisplay
-
 	var/atom/movable/screen/action_intent
 	var/atom/movable/screen/zone_select
 	var/atom/movable/screen/pull_icon
@@ -112,7 +110,6 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	healthdoll = null
 	internals = null
 	lingchemdisplay = null
-	devilsouldisplay = null
 	lingstingdisplay = null
 	blobpwrdisplay = null
 	alien_plasma_display = null

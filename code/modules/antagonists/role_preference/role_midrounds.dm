@@ -50,10 +50,6 @@
 	name = "Slaughter Demon"
 	antag_datum = /datum/antagonist/slaughter
 
-/datum/role_preference/midround_ghost/devil
-	name = "Devil (Midround)"
-	antag_datum = /datum/antagonist/devil
-
 /datum/role_preference/midround_ghost/ninja
 	name = "Ninja"
 	antag_datum = /datum/antagonist/ninja

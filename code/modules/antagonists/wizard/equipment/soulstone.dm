@@ -91,15 +91,15 @@
 		return
 	if(!ishuman(M))//If target is not a human.
 		return ..()
-	if(M.mind && !M.mind.hasSoul)
-		to_chat(user, "<span class='warning'>That person has no soul!</span>")
-		return
 	if(iscultist(M))
 		if(iscultist(user))
 			to_chat(user, "<span class='cultlarge'>\"Come now, do not capture your bretheren's soul.\"</span>")
 			return
 	if(purified && iscultist(user))
 		hot_potato(user)
+		return
+	if(HAS_TRAIT(M, TRAIT_NO_SOUL))
+		to_chat(user, "<span class='warning'>This body does not possess a soul to capture!</span>")
 		return
 	log_combat(user, M, "captured [M.name]'s soul", src)
 	transfer_soul("VICTIM", M, user)

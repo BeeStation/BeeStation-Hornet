@@ -150,13 +150,13 @@
 
 /datum/nanite_program/purging_advanced/check_conditions()
 	var/foreign_reagent = FALSE
-	if(!host_mob) 
+	if(!host_mob)
 		return FALSE
 
 	for(var/datum/reagent/toxin/R in host_mob.reagents.reagent_list)
 		foreign_reagent = TRUE
 		break
-		
+
 	if(!host_mob.getToxLoss() && !foreign_reagent)
 		return FALSE
 	return ..()
@@ -227,7 +227,7 @@
 	if(!iscarbon(host_mob)) //nonstandard biology
 		return FALSE
 	var/mob/living/carbon/C = host_mob
-	if(C.suiciding || C.ishellbound() || HAS_TRAIT(C, TRAIT_HUSK)) //can't revive
+	if(C.suiciding || HAS_TRAIT(C, TRAIT_HUSK)) //can't revive
 		return FALSE
 	if((world.time - C.timeofdeath) > 1800) //too late
 		return FALSE

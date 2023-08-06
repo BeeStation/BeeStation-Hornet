@@ -49,13 +49,10 @@
 	var/datum/martial_art/martial_art
 	var/static/default_martial_art = new/datum/martial_art
 	var/miming = 0 // Mime's vow of silence
-	var/hellbound = FALSE
 	var/list/antag_datums
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
 	var/damnation_type = 0
-	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
-	var/hasSoul = TRUE // If false, renders the character unable to sell their soul.
 	var/holy_role = NONE //is this person a chaplain or admin role allowed to use bibles, Any rank besides 'NONE' allows for this.
 	var/isAntagTarget = FALSE
 	var/no_cloning_at_all = FALSE
@@ -79,16 +76,14 @@
 
 	var/cryoed = FALSE
 
-/datum/mind/New(var/key)
-	src.key = key
-	soulOwner = src
+/datum/mind/New(_key)
+	key = _key
 	martial_art = default_martial_art
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
 	QDEL_LIST(antag_datums)
 	QDEL_NULL(language_holder)
-	soulOwner = null
 	set_current(null)
 	return ..()
 
@@ -693,9 +688,6 @@
 /datum/mind/proc/AddSpell(obj/effect/proc_holder/spell/S)
 	spell_list += S
 	S.action.Grant(current)
-
-/datum/mind/proc/owns_soul()
-	return soulOwner == src
 
 //To remove a specific spell from a mind
 /datum/mind/proc/RemoveSpell(obj/effect/proc_holder/spell/spell)

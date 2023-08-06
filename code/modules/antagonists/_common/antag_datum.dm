@@ -352,7 +352,6 @@ GLOBAL_LIST(admin_antag_list)
 		/datum/antagonist/traitor,
 		/datum/antagonist/blob,
 		/datum/antagonist/changeling,
-		/datum/antagonist/devil,
 		/datum/antagonist/ninja,
 		/datum/antagonist/nukeop,
 		/datum/antagonist/wizard,
