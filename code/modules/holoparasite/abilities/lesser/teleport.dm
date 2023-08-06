@@ -329,6 +329,9 @@
 	add_overlay(list(accent_overlay, emissive_overlay))
 	set_light_color(ability.owner.accent_color)
 	RegisterSignal(ability.owner, COMSIG_HOLOPARA_SET_ACCENT_COLOR, PROC_REF(on_set_accent_color))
+	var/image/silicon_image = image(icon = 'icons/mob/holoparasite.dmi', icon_state = null, loc = src)
+	silicon_image.override = TRUE
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "holopara_warp_pad", silicon_image)
 
 /obj/structure/receiving_pad/Destroy()
 	cut_overlays()
