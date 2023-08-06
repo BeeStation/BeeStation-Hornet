@@ -217,3 +217,7 @@
 	plane = PSYCHIC_WALL_PLANE
 	render_target = PSYCHIC_WALL_PLANE_RENDER_TARGET
 
+/atom/movable/screen/plane_master/psychic/wall/Initialize(mapload)
+	. = ..()
+	filters += filter(type = "alpha", x = 0, y = 0, icon = icon('icons/mob/psychic.dmi', "e"))
+
