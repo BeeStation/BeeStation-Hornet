@@ -36,7 +36,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	var/datum/round_event_control/immovable_rod/our_controller = control
 	var/startside = pick(GLOB.cardinals)
 	var/turf/end_turf = get_edge_target_turf(get_random_station_turf(), turn(startside, 180))
-	var/turf/start_turf = spaceDebrisStartLoc(startside, endT.z)
+	var/turf/start_turf = spaceDebrisStartLoc(startside, end_turf.z)
 	var/atom/rod = new /obj/effect/immovablerod(start_turf, end_turf, our_controller.special_target, our_controller.force_looping)
 	our_controller.special_target = null //Cleanup for future event rolls.
 	announce_to_ghosts(rod)
@@ -212,7 +212,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		var/datum/effect_system/smoke_spread/smoke = new
 		smoke.set_up(2, get_turf(src))
 		smoke.start()
-		var/obj/singularity/bad_luck = new(get_turf(src))
+		var/obj/anomaly/singularity/bad_luck = new(get_turf(src))
 		bad_luck.energy = 800
 		qdel(clong)
 		qdel(src)
@@ -260,7 +260,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		var/mob/living/carbon/smeared_carbon = smeared_mob
 		smeared_carbon.adjustBruteLoss(100)
 		var/obj/item/bodypart/penetrated_chest = smeared_carbon.get_bodypart(BODY_ZONE_CHEST)
-		penetrated_chest?.receive_damage(60, wound_bonus = 20, sharpness=SHARP_POINTY)
+		penetrated_chest?.receive_damage(60,/* wound_bonus = 20,*/ sharpness=SHARP_POINTY)
 
 	if(smeared_mob.density || prob(10))
 		smeared_mob.ex_act(EXPLODE_HEAVY)
@@ -271,9 +271,9 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		if(U.job in list(JOB_NAME_RESEARCHDIRECTOR))
 			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
 			for(var/mob/living/nearby_mob in urange(8, src))
-		if(nearby_mob.stat != CONSCIOUS)
-			continue
-		shake_camera(nearby_mob, 2, 3)
+				if(nearby_mob.stat != CONSCIOUS)
+					continue
+				shake_camera(nearby_mob, 2, 3)
 
 	return suplex_rod(user)
 
