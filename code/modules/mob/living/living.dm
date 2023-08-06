@@ -301,6 +301,10 @@
 		var/mob/M = AM
 
 		log_combat(src, M, "grabbed", addition="passive grab")
+		if(isliving(src) && ishuman(M)) //some objects have grabs that go through here, we don't want to break those.
+			var/mob/living/carbon/human/H = M
+			if(H.check_shields(M, 0, M.name, attack_type = UNARMED_ATTACK))
+				return FALSE
 		if(!supress_message && !(iscarbon(AM) && HAS_TRAIT(src, TRAIT_STRONG_GRABBER))) //Everything in this if statement handles chat messages for grabbing
 			var/mob/living/L = M
 			if (L.getorgan(/obj/item/organ/tail) && zone_selected == BODY_ZONE_PRECISE_GROIN) //Does the target have a tail?
