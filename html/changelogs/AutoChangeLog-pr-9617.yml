@@ -1,5 +1,0 @@
-author: ike709
-delete-after: true
-changes:
-  - code_imp: Pill code no longer needlessly picks redpill lines unless the pill is
-      actually redpilled.
