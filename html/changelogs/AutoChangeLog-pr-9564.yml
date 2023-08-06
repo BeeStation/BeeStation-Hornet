@@ -1,0 +1,5 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - balance: Added a cooldown for dragging mobs into turfs with dense objects through
+      the alt-click menu
