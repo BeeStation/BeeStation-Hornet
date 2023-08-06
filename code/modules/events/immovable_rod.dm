@@ -43,6 +43,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	var/turf/start_turf = spaceDebrisStartLoc(startside, end_turf.z)
 	var/atom/rod = new /obj/effect/immovablerod(start_turf, end_turf, our_controller.special_target, our_controller.force_looping)
 	our_controller.special_target = null //Cleanup for future event rolls.
+	our_controller.force_looping = FALSE
 	announce_to_ghosts(rod)
 
 /obj/effect/immovablerod
@@ -78,7 +79,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	/// Whether the rod can loop across other z-levels. The rod will still loop when the z-level is self-looping even if this is FALSE.
 	var/loopy_rod = FALSE
 
-/obj/effect/immovablerod/Initialize(mapload, atom/target_atom, atom/specific_target, force_looping)
+/obj/effect/immovablerod/Initialize(mapload, atom/target_atom, atom/specific_target, force_looping = FALSE)
 	. = ..()
 	SSaugury.register_doom(src, 2000)
 
@@ -332,5 +333,5 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
  * * direction - The direction to walk the rod towards: NORTH, SOUTH, EAST, WEST.
  */
 /obj/effect/immovablerod/proc/walk_in_direction(direction)
-	destination = get_edge_target_turf(src, direction)
-	walk_towards(src, destination, 1)
+	destination_turf = get_edge_target_turf(src, direction)
+	walk_towards(src, destination_turf)
