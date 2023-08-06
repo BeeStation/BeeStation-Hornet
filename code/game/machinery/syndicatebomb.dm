@@ -37,7 +37,9 @@
 	wires = new /datum/wires/syndicatebomb(src)
 	if(payload)
 		payload = new payload(src)
-		payload.installed = TRUE
+		if (istype(payload, /obj/item/bombcore))
+			var/obj/item/bombcore/installed_bomb = payload
+			installed_bomb.installed = TRUE
 	update_icon()
 	countdown = new(src)
 	end_processing()
@@ -151,7 +153,9 @@
 			if(payload)
 				to_chat(user, "<span class='notice'>You carefully pry out [payload].</span>")
 				payload.forceMove(drop_location())
-				payload.installed = FALSE
+				var/obj/item/bombcore/bomb_payload = payload
+				if (istype(bomb_payload))
+					bomb_payload.installed = FALSE
 				payload = null
 			else
 				to_chat(user, "<span class='warning'>There isn't anything in here to remove!</span>")
@@ -164,7 +168,9 @@
 			if(!user.transferItemToLoc(I, src))
 				return
 			payload = I
-			payload.installed = TRUE
+			var/obj/item/bombcore/bomb_payload = payload
+			if (istype(bomb_payload))
+				bomb_payload.installed = TRUE
 			to_chat(user, "<span class='notice'>You place [payload] into [src].</span>")
 		else
 			to_chat(user, "<span class='warning'>[payload] is already loaded into [src]! You'll have to remove it first.</span>")
