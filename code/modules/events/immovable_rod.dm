@@ -96,11 +96,11 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		SSmove_manager.move_towards(src, real_destination)
 
 /obj/effect/immovablerod/Destroy()
-	//UnregisterSignal(src, COMSIG_ATOM_ENTERING)
+	UnregisterSignal(src, COMSIG_ATOM_ENTERING)
 	SSaugury.unregister_doom(src)
 	destination_turf = null
 	special_target = null
-	. = ..()
+	return ..()
 
 /obj/effect/immovablerod/examine(mob/user)
 	. = ..()
@@ -122,21 +122,23 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		if(istype(ghost))
 			ghost.ManualFollow(src)
 
+/obj/effect/immovablerod/proc/on_crossed_over_movable(datum/source, atom/movable/atom_crossed_over)
+	SIGNAL_HANDLER
+	if((atom_crossed_over.density || isliving(atom_crossed_over)) && !QDELETED(atom_crossed_over))
+		Bump(atom_crossed_over)
+
+/obj/effect/immovablerod/proc/on_entering_atom(datum/source, atom/destination, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+	if(destination.density && isturf(destination))
+		Bump(destination)
+
 /obj/effect/immovablerod/Moved()
 	if(!loc)
 		return ..()
-	// If our loc is dense, noogie it.
-	if(loc.density)
-		Bump(loc)
 
-	// So, we're phasing and will harmlessly glide through things. Let's noogie everything in our loc's contents.
-	for(var/clong in loc.contents)
-		if(clong == src)
-			continue
-
-		var/atom/clong_atom = clong
-		if(clong_atom.density || isliving(clong_atom) && !QDELETED(clong_atom))
-			Bump(clong_atom)
+	for(var/atom/movable/to_bump in loc)
+		if((to_bump != src) && !QDELETED(to_bump) && (to_bump.density || isliving(to_bump)))
+			Bump(to_bump)
 
 	// If we have a special target, we should definitely make an effort to go find them.
 	if(special_target)
