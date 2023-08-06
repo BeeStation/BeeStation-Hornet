@@ -1,7 +1,7 @@
 /turf
 	var/dynamic_lighting = TRUE
 	luminosity = 1
-	
+
 	var/tmp/lighting_corners_initialised = FALSE
 
 	///Our lighting object.
@@ -49,16 +49,16 @@
 	var/datum/lighting_corner/L
 	L = lighting_corner_NE
 	if (L)
-		totallums += L.lum_r + L.lum_b + L.lum_g
+		totallums += L.sum_r + L.sum_b + L.sum_g
 	L = lighting_corner_SE
 	if (L)
-		totallums += L.lum_r + L.lum_b + L.lum_g
+		totallums += L.sum_r + L.sum_b + L.sum_g
 	L = lighting_corner_SW
 	if (L)
-		totallums += L.lum_r + L.lum_b + L.lum_g
+		totallums += L.sum_r + L.sum_b + L.sum_g
 	L = lighting_corner_NW
 	if (L)
-		totallums += L.lum_r + L.lum_b + L.lum_g
+		totallums += L.sum_r + L.sum_b + L.sum_g
 
 
 	totallums /= 12 // 4 corners, each with 3 channels, get the average.
@@ -115,6 +115,9 @@
 		reconsider_lights() //The lighting system only cares whether the tile is fully concealed from all directions or not.
 
 /turf/proc/change_area(var/area/old_area, var/area/new_area)
+	old_area.turfs_to_uncontain += src
+	new_area.contents += src
+	new_area.contained_turfs += src
 	if(SSlighting.initialized)
 		if (new_area.dynamic_lighting != old_area.dynamic_lighting)
 			if (new_area.dynamic_lighting)

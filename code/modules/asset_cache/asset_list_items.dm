@@ -183,31 +183,13 @@
 		"tgfont.css" = file("tgui/packages/tgfont/dist/tgfont.css"),
 	)
 
-/datum/asset/spritesheet/chat
-	name = "chat"
-
-/datum/asset/spritesheet/chat/register()
-	InsertAll("emoji", 'icons/emoji.dmi')
-	InsertAll("badge", 'icons/badges.dmi')
-	// pre-loading all lanugage icons also helps to avoid meta
-	InsertAll("language", 'icons/misc/language.dmi')
-	// catch languages which are pulling icons from another file
-	for(var/path in typesof(/datum/language))
-		var/datum/language/L = path
-		var/icon = initial(L.icon)
-		if (icon != 'icons/misc/language.dmi')
-			var/icon_state = initial(L.icon_state)
-			Insert("language-[icon_state]", icon, icon_state=icon_state)
-	..()
-
 /datum/asset/spritesheet/emoji
 	name = "emoji"
 
-/datum/asset/spritesheet/emoji/register()
+/datum/asset/spritesheet/emoji/create_spritesheets()
 	var/icon/I = icon('icons/emoji.dmi')
 	I.Scale(48, 48)
 	InsertAll("", I)
-	..()
 
 /datum/asset/simple/lobby
 	assets = list(
@@ -256,8 +238,9 @@
 
 /datum/asset/spritesheet/simple/medicine_containers
 	name ="medicine_containers"
+	cross_round_cachable = TRUE
 
-/datum/asset/spritesheet/simple/medicine_containers/register()
+/datum/asset/spritesheet/simple/medicine_containers/create_spritesheets()
 	var/dmi_file = 'icons/obj/medicine_containers.dmi'
 	for(var/each_pill_shape in PILL_SHAPE_LIST_WITH_DUMMY)
 		var/icon/target_icon = icon(dmi_file, each_pill_shape, SOUTH, 1)
@@ -284,11 +267,11 @@
 
 /datum/asset/spritesheet/pipes
 	name = "pipes"
+	cross_round_cachable = TRUE
 
-/datum/asset/spritesheet/pipes/register()
+/datum/asset/spritesheet/pipes/create_spritesheets()
 	for (var/each in list('icons/obj/atmospherics/pipes/pipe_item.dmi', 'icons/obj/atmospherics/pipes/disposal.dmi', 'icons/obj/atmospherics/pipes/transit_tube.dmi', 'icons/obj/plumbing/fluid_ducts.dmi'))
 		InsertAll("", each, GLOB.alldirs)
-	..()
 
 /datum/asset/simple/genetics
 	assets = list(
@@ -299,8 +282,9 @@
 
 /datum/asset/spritesheet/supplypods
 	name = "supplypods"
+	cross_round_cachable = TRUE
 
-/datum/asset/spritesheet/supplypods/register()
+/datum/asset/spritesheet/supplypods/create_spritesheets()
 	for (var/style in 1 to length(GLOB.podstyles))
 		var/icon_file = 'icons/obj/supplypods.dmi'
 		var/states = icon_states(icon_file)
@@ -329,13 +313,13 @@
 				if(glow in states)
 					podIcon.Blend(icon(icon_file, glow, SOUTH), ICON_OVERLAY)
 		Insert("pod_asset[style]", podIcon)
-	return ..()
 
 // Representative icons for each research design
 /datum/asset/spritesheet/research_designs
 	name = "design"
+	cross_round_cachable = TRUE
 
-/datum/asset/spritesheet/research_designs/register()
+/datum/asset/spritesheet/research_designs/create_spritesheets()
 	for (var/path in subtypesof(/datum/design))
 		var/datum/design/D = path
 
@@ -346,9 +330,11 @@
 		if(initial(D.research_icon) && initial(D.research_icon_state)) //If the design has an icon replacement skip the rest
 			icon_file = initial(D.research_icon)
 			icon_state = initial(D.research_icon_state)
+			#ifdef UNIT_TESTS
 			if(!(icon_state in icon_states(icon_file)))
-				warning("design [D] with icon '[icon_file]' missing state '[icon_state]'")
+				stack_trace("design [D] with icon '[icon_file]' missing state '[icon_state]'")
 				continue
+			#endif
 			I = icon(icon_file, icon_state, SOUTH)
 
 		else
@@ -373,14 +359,18 @@
 			var/greyscale_colors = initial(item.greyscale_colors)
 			if (greyscale_config && greyscale_colors)
 				icon_file = SSgreyscale.GetColoredIconByType(greyscale_config, greyscale_colors)
+			else if(ispath(item, /obj/item/bodypart)) // mmm snowflake limbcode as usual
+				var/obj/item/bodypart/body_part = item
+				icon_file = initial(body_part.static_icon)
 			else
 				icon_file = initial(item.icon)
 
 			icon_state = initial(item.icon_state)
-
+			#ifdef UNIT_TESTS
 			if(!(icon_state in icon_states(icon_file)))
-				warning("design [D] with icon '[icon_file]' missing state '[icon_state]'")
+				stack_trace("design [D] with icon '[icon_file]' missing state '[icon_state]'")
 				continue
+			#endif
 			I = icon(icon_file, icon_state, SOUTH)
 
 			// computers (and snowflakes) get their screen and keyboard sprites
@@ -395,13 +385,29 @@
 					I.Blend(icon(icon_file, keyboard, SOUTH), ICON_OVERLAY)
 
 		Insert(initial(D.id), I)
-	return ..()
 
 /datum/asset/spritesheet/vending
 	name = "vending"
+	cross_round_cachable = TRUE
 
-/datum/asset/spritesheet/vending/register()
-	for (var/k in GLOB.vending_products)
+/datum/asset/spritesheet/vending/create_spritesheets()
+	// initialising the list of items we need
+	var/target_items = list()
+	var/prize_dummy = list()
+	for(var/obj/machinery/vendor/V as() in typesof(/obj/machinery/vendor))
+		V = new V()
+		prize_dummy |= V.prize_list // prize_list is added by Init()
+		qdel(V)
+	for(var/datum/data/vendor_equipment/V as() in prize_dummy)
+		target_items |= V.equipment_path
+	for(var/obj/machinery/vending/V as() in typesof(/obj/machinery/vending))
+		V = new V() // It seems `initial(list var)` has nothing. need to make a type.
+		for(var/O in list(V.products, V.premium, V.contraband))
+			target_items |= O
+		qdel(V)
+
+	// building icons for each item
+	for (var/k in target_items)
 		var/atom/item = k
 		if (!ispath(item, /atom))
 			continue
@@ -412,33 +418,83 @@
 		else
 			icon_file = initial(item.icon)
 		var/icon_state = initial(item.icon_state)
-		var/icon/I
 
+		#ifdef UNIT_TESTS
 		var/icon_states_list = icon_states(icon_file)
-		if(icon_state in icon_states_list)
-			I = icon(icon_file, icon_state, SOUTH)
-			var/c = initial(item.color)
-			if (!isnull(c) && c != "#FFFFFF")
-				I.Blend(c, ICON_MULTIPLY)
-		else
+		if (!(icon_state in icon_states_list))
 			var/icon_states_string
 			for (var/an_icon_state in icon_states_list)
 				if (!icon_states_string)
 					icon_states_string = "[json_encode(an_icon_state)](\ref[an_icon_state])"
 				else
 					icon_states_string += ", [json_encode(an_icon_state)](\ref[an_icon_state])"
+
 			stack_trace("[item] does not have a valid icon state, icon=[icon_file], icon_state=[json_encode(icon_state)](\ref[icon_state]), icon_states=[icon_states_string]")
-			I = icon('icons/turf/floors.dmi', "", SOUTH)
+			continue
+		#endif
+
+		var/icon/I = icon(icon_file, icon_state, SOUTH, 1)
+		var/c = initial(item.color)
+		if (!isnull(c) && c != "#FFFFFF")
+			I.Blend(c, ICON_MULTIPLY)
 
 		var/imgid = replacetext(replacetext("[item]", "/obj/item/", ""), "/", "-")
 
 		Insert(imgid, I)
-	return ..()
+
+/datum/asset/spritesheet/crafting
+	name = "crafting"
+	cross_round_cachable = TRUE
+
+/datum/asset/spritesheet/crafting/create_spritesheets()
+	var/chached_list = list()
+	for(var/datum/crafting_recipe/R in GLOB.crafting_recipes)
+		if(!R.name)
+			continue
+		var/atom/A = R.result
+		if(!ispath(A, /atom))
+			stack_trace("The recipe '[R.type]' has '[A]' which is not atom. This is because our crafting system is not up-to-date to TG's.")
+			continue
+		if(chached_list[A]) // this prevents an icon to be inserted again
+			continue
+		chached_list[A] = TRUE
+
+		var/icon_file = initial(A.icon)
+		var/icon_state = initial(A.icon_state_preview) || initial(A.icon_state)
+
+		#ifdef UNIT_TESTS
+		var/icon_states_list = icon_states(icon_file)
+		if (!(icon_state in icon_states_list))
+			var/icon_states_string
+			for (var/an_icon_state in icon_states_list)
+				if (!icon_states_string)
+					icon_states_string = "[json_encode(an_icon_state)](\ref[an_icon_state])"
+				else
+					icon_states_string += ", [json_encode(an_icon_state)](\ref[an_icon_state])"
+			stack_trace("[A] does not have a valid icon state, icon=[icon_file], icon_state=[json_encode(icon_state)](\ref[icon_state]), icon_states=[icon_states_string]")
+			continue
+		#endif
+
+		var/icon/I = icon(icon_file, icon_state, SOUTH, 1)
+		var/c = initial(A.color)
+		if (!isnull(c) && c != "#FFFFFF")
+			I.Blend(c, ICON_MULTIPLY)
+		var/imgid = replacetext(copytext("[A]", 2), "/", "-")
+
+		if(I)
+			I.Scale(42, 42) // 32px is too small. 42px might be fine...
+		Insert(imgid, I, icon_state)
 
 /datum/asset/simple/bee_antags
 	assets = list(
 		"traitor.png" = 'html/img/traitor.png',
 		"bloodcult.png" = 'html/img/bloodcult.png',
+		"cult-archives.gif" = 'html/img/cult-archives.gif',
+		"cult-altar.gif" = 'html/img/cult-altar.gif',
+		"cult-forge.gif" = 'html/img/cult-forge.gif',
+		"cult-pylon.gif" = 'html/img/cult-pylon.gif',
+		"cult-carve.png" = 'html/img/cult-carve.png',
+		"cult-comms.png" = 'html/img/cult-comms.png',
 		"dagger.png" = 'html/img/dagger.png',
 		"sacrune.png" = 'html/img/sacrune.png',
 		"archives.png" = 'html/img/archives.png',
@@ -468,14 +524,18 @@
 		"nuke.png" = 'html/img/nuke.png',
 		"eshield.png" = 'html/img/eshield.png',
 		"mech.png" = 'html/img/mech.png',
+		"abaton.png" = 'html/img/abaton.png',
+		"atool.png" = 'html/img/atool.png',
+		"apistol.png" = 'html/img/apistol.png',
 		"scitool.png" = 'html/img/scitool.png',
 		"alienorgan.png"= 'html/img/alienorgan.png',
+		"abaton.png"= 'html/img/abaton.png',
 		"spiderguard.png"= 'html/img/spiderguard.png',
 		"spiderbroodmother.png"= 'html/img/spiderbroodmother.png',
 		"spidernurse.png"= 'html/img/spidernurse.png',
 		"spiderhunter.png"= 'html/img/spiderhunter.png',
 		"spiderviper.png"= 'html/img/spiderviper.png',
-		"spidertarantula.png"= 'html/img/spidertarantula.png'
+		"spidertarantula.png"= 'html/img/spidertarantula.png',
 	)
 
 /datum/asset/simple/orbit
@@ -491,14 +551,11 @@
 /datum/asset/spritesheet/sheetmaterials
 	name = "sheetmaterials"
 
-/datum/asset/spritesheet/sheetmaterials/register()
-	InsertAll("", 'icons/obj/stacks/minerals.dmi')//figure to do a list here
-//	InsertAll("", 'icons/obj/stacks/miscellaneous.dmi')
-//	InsertAll("", 'icons/obj/stacks/organic.dmi')
+/datum/asset/spritesheet/sheetmaterials/create_spritesheets()
+	InsertAll("", 'icons/obj/stacks/minerals.dmi')
 
-	// Special case to handle Bluespace Crystals
-	Insert("polycrystal", 'icons/obj/telescience.dmi', "polycrystal")
-	..()
+	// Special bee edit to handle Bluespace Crystals
+	Insert("polycrystal", 'icons/obj/stacks/minerals.dmi', "refined_bluespace_crystal_3")
 
 /datum/asset/simple/pAI
 	assets = list(
@@ -532,7 +589,7 @@
 /datum/asset/spritesheet/fish
 	name = "fish"
 
-/datum/asset/spritesheet/fish/register()
+/datum/asset/spritesheet/fish/create_spritesheets()
 	for (var/path in subtypesof(/datum/aquarium_behaviour/fish))
 		var/datum/aquarium_behaviour/fish/fish_type = path
 		var/fish_icon = initial(fish_type.icon)
@@ -541,9 +598,25 @@
 		if(sprites[id]) //no dupes
 			continue
 		Insert(id, fish_icon, fish_icon_state)
-	..()
 
 /// Removes all non-alphanumerics from the text, keep in mind this can lead to id conflicts
 /proc/sanitize_css_class_name(name)
 	var/static/regex/regex = new(@"[^a-zA-Z0-9]","g")
 	return replacetext(name, regex, "")
+
+// NOTE: this must be below because bottom ones are loaded first in assets, and chat should be loaded or it causes just annoying runtime.
+/datum/asset/spritesheet/chat
+	name = "chat"
+
+/datum/asset/spritesheet/chat/create_spritesheets()
+	InsertAll("emoji", 'icons/emoji.dmi')
+	InsertAll("badge", 'icons/badges.dmi')
+	// pre-loading all lanugage icons also helps to avoid meta
+	InsertAll("language", 'icons/misc/language.dmi')
+	// catch languages which are pulling icons from another file
+	for(var/path in typesof(/datum/language))
+		var/datum/language/L = path
+		var/icon = initial(L.icon)
+		if (icon != 'icons/misc/language.dmi')
+			var/icon_state = initial(L.icon_state)
+			Insert("language-[icon_state]", icon, icon_state=icon_state)

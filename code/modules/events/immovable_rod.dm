@@ -80,7 +80,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	destination_turf = real_destination
 	special_target = specific_target
 	loopy_rod = force_looping
-	GLOB.poi_list += src
+	AddElement(/datum/element/point_of_interest)
 
 	if(special_target)
 		SSmove_manager.home_onto(src, special_target)
@@ -89,7 +89,6 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 /obj/effect/immovablerod/Destroy()
 	//UnregisterSignal(src, COMSIG_ATOM_ENTERING)
-	GLOB.poi_list -= src
 	SSaugury.unregister_doom(src)
 	destination_turf = null
 	special_target = null

@@ -2,10 +2,10 @@
 	name = "curse arm"
 	layer = LARGE_MOB_LAYER
 
-/obj/item/projectile/curse_hand
+/obj/projectile/curse_hand
 	name = "curse hand"
 	icon_state = "cursehand0"
-	item_state = "cursehand"
+	base_icon_state = "cursehand"
 	hitsound = 'sound/effects/curse4.ogg'
 	layer = LARGE_MOB_LAYER
 	damage_type = BURN
@@ -16,31 +16,31 @@
 	var/datum/beam/arm
 	var/handedness = 0
 
-/obj/item/projectile/curse_hand/Initialize(mapload)
+/obj/projectile/curse_hand/Initialize(mapload)
 	. = ..()
 	handedness = prob(50)
-	icon_state = "[item_state][handedness]"
+	icon_state = "[base_icon_state][handedness]"
 
-/obj/item/projectile/curse_hand/Destroy()
+/obj/projectile/curse_hand/Destroy()
 	QDEL_NULL(arm)
 	return ..()
 
-/obj/item/projectile/curse_hand/update_icon_state()
-	icon_state = "[item_state]0[handedness]"
+/obj/projectile/curse_hand/update_icon_state()
+	icon_state = "[base_icon_state]0[handedness]"
 	return ..()
 
-/obj/item/projectile/curse_hand/fire(setAngle)
+/obj/projectile/curse_hand/fire(setAngle)
 	if(QDELETED(src)) //I'm going to try returning nothing because if it's being deleted, surely we don't want anything to happen?
 		return
 	if(starting)
 		arm = starting.Beam(src, icon_state = "curse[handedness]", beam_type=/obj/effect/ebeam/curse_arm)
 	..()
 
-/obj/item/projectile/curse_hand/prehit_pierce(atom/target)
+/obj/projectile/curse_hand/prehit_pierce(atom/target)
 	return (target == original)? PROJECTILE_PIERCE_NONE : PROJECTILE_PIERCE_PHASE
 
 /// The visual effect for the hand disappearing
-/obj/item/projectile/curse_hand/proc/finale()
+/obj/projectile/curse_hand/proc/finale()
 	if(arm)
 		QDEL_NULL(arm)
 	if((movement_type & PHASING))
@@ -54,20 +54,18 @@
 		return
 	new /obj/effect/temp_visual/dir_setting/curse/grasp_portal/fading(starting, dir)
 	var/datum/beam/D = starting.Beam(T, icon_state = "curse[handedness]", time = 32, beam_type=/obj/effect/ebeam/curse_arm)
-	for(var/b in D.elements)
-		var/obj/effect/ebeam/B = b
-		animate(B, alpha = 0, time = 32)
+	animate(D.visuals, alpha = 0, time = 32)
 
-/obj/item/projectile/curse_hand/on_range()
+/obj/projectile/curse_hand/on_range()
 	finale()
 	return ..()
 
-/obj/item/projectile/curse_hand/on_hit(atom/target, blocked, pierce_hit)
+/obj/projectile/curse_hand/on_hit(atom/target, blocked, pierce_hit)
 	. = ..()
 	if (. == BULLET_ACT_HIT)
 		finale()
 
-/obj/item/projectile/curse_hand/hel //Used in helbital's impure reagent
+/obj/projectile/curse_hand/hel //Used in helbital's impure reagent
 	name = "Hel's grasp"
 	damage = 5
 	paralyze = 0 //Lets not stun people!

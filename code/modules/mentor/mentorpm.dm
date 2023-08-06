@@ -1,7 +1,7 @@
 /// Sends a mentor PM to the relevant ticket log and client
 /// - whom: a CKEY, a Stealth Key, or a client
 /// - msg: the message to send
-/client/proc/cmd_mentor_pm(whom, msg)
+/client/proc/cmd_mentor_pm(whom, msg, html_encoded = FALSE)
 	if(prefs.muted & MUTE_MHELP)
 		to_chat(src, "<span class='danger'>Error: Mentor-PM: You are unable to use mentor PM-s (muted).</span>", type = MESSAGE_TYPE_MENTORPM)
 		return
@@ -29,12 +29,9 @@
 			current_mentorhelp_ticket.MessageNoRecipient(msg)
 			return
 
-	var/html_encoded = FALSE
-
 	//get message text, limit it's length.and clean/escape html
 	if(!msg)
-		msg = stripped_multiline_input(src,"Message:", "Private message to [(!recipient || recipient.holder?.fakekey) ? "a Mentor" : key_name_mentor(recipient, FALSE)].")
-		msg = trim(msg)
+		msg = trim(tgui_input_text(src, "Message:", "Private message to [(!recipient || recipient.holder?.fakekey) ? "a Mentor" : key_name_mentor(recipient, FALSE)].", multiline = TRUE))
 		if(!msg)
 			return
 		// we need to not HTML encode again or you get &#39;s instead of 's
@@ -48,7 +45,7 @@
 			if(holder)
 				to_chat(src, "<span class='danger'>Error: Mentor-PM: Client not found.</span>", type = MESSAGE_TYPE_MENTORPM)
 			else
-				current_mentorhelp_ticket.MessageNoRecipient(msg)
+				current_mentorhelp_ticket.MessageNoRecipient(msg, sanitized = TRUE)
 			return
 
 	if (src.handle_spam_prevention(msg,MUTE_MHELP))
@@ -161,12 +158,12 @@
 	var/datum/help_ticket/AH = C.current_mentorhelp_ticket
 
 	if(AH)
-		message_mentors("[key_name_mentor(src, TRUE)] has started replying to [key_name_mentor(C, FALSE)]'s mentor help.")
-	var/msg = stripped_multiline_input(src,"Message:", "Private message to [C.holder?.fakekey ? "a Mentor" : key_name_mentor(C, FALSE)].")
+		message_mentors("[key_name_mentor(src, TRUE)] has started replying to [key_name_mentor(C, FALSE)]'s mentor help.", target = src)
+	var/msg = tgui_input_text(src,"Message:", "Private message to [C.holder?.fakekey ? "a Mentor" : key_name_mentor(C, FALSE)].", multiline = TRUE)
 	if (!msg)
-		message_mentors("[key_name_mentor(src, TRUE)] has cancelled their reply to [key_name_mentor(C, FALSE)]'s mentor help.")
+		message_mentors("[key_name_mentor(src, TRUE)] has cancelled their reply to [key_name_mentor(C, FALSE)]'s mentor help.", target = src)
 		return
-	cmd_mentor_pm(whom, msg)
+	cmd_mentor_pm(whom, msg, html_encoded = TRUE)
 	AH.Claim()
 
 /// Use when PMing from a ticket
@@ -191,6 +188,7 @@
 	cmd_mentor_pm(whom, msg)
 
 /// Send a message to all mentors (MENTOR LOG:)
-/proc/message_mentors(msg)
+/proc/message_mentors(msg, client/target)
 	msg = "<span class='mentor'><span class='prefix'>MENTOR LOG:</span> <span class='message linkify'>[msg]</span></span>"
-	to_chat(GLOB.mentors | GLOB.admins, msg, type = MESSAGE_TYPE_MENTORLOG)
+	for(var/client/client in GLOB.mentors | GLOB.admins)
+		to_chat(client, msg, type = MESSAGE_TYPE_MENTORLOG, avoid_highlighting = client == target)

@@ -291,7 +291,7 @@
 						return
 					if(!HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
 						return
-					investigate_log("[key_name(src)] has been set from [target_record.fields["criminal"]] to [setcriminal] by [key_name(human_user)].", INVESTIGATE_RECORDS)
+					investigate_log("[key_name(src)] has been set from <strong>[target_record.fields["criminal"]]</strong> to <strong>[setcriminal]</strong> by [key_name(human_user)]'s security records (via SecHUDs).", INVESTIGATE_RECORDS)
 					target_record.fields["criminal"] = setcriminal
 					sec_hud_set_security_status()
 				return
@@ -342,7 +342,7 @@
 						signal.send_to_receivers()
 						human_user.log_message("(PDA: Citation Server) sent \"[message]\" to [signal.format_target()]", LOG_PDA)
 				GLOB.data_core.addCitation(target_record.fields["id"], crime)
-				investigate_log("New Citation: <strong>[t1]</strong> Fine: [fine] | Added to [target_record.fields["name"]] by [key_name(human_user)]", INVESTIGATE_RECORDS)
+				investigate_log("[key_name(human_user)] has added a citation '<strong>[t1]</strong>' ([fine] credits) to [target_record.fields["name"]]'s security records (via SecHUDs).", INVESTIGATE_RECORDS)
 				return
 
 			if(href_list["add_crime"])
@@ -355,7 +355,7 @@
 					return
 				var/crime = GLOB.data_core.createCrimeEntry(t1, null, allowed_access, station_time_timestamp())
 				GLOB.data_core.addCrime(target_record.fields["id"], crime)
-				investigate_log("New Crime: <strong>[t1]</strong> | Added to [target_record.fields["name"]] by [key_name(human_user)]", INVESTIGATE_RECORDS)
+				investigate_log("[key_name(human_user)] has added a crime '<strong>[t1]</strong>' to [target_record.fields["name"]]'s security records (via SecHUDs).", INVESTIGATE_RECORDS)
 				to_chat(human_user, "<span class='notice'>Successfully added a crime.</span>")
 				return
 
@@ -369,7 +369,7 @@
 					return
 				if(href_list["cdataid"])
 					GLOB.data_core.addCrimeDetails(target_record.fields["id"], href_list["cdataid"], t1)
-					investigate_log("New Crime details: [t1] | Added to [target_record.fields["name"]] by [key_name(human_user)]", INVESTIGATE_RECORDS)
+					investigate_log("[key_name(human_user)] has set crime details '[t1]' to [target_record.fields["name"]]'s security records (via SecHUDs).", INVESTIGATE_RECORDS)
 					to_chat(human_user, "<span class='notice'>Successfully added details.</span>")
 				return
 
@@ -380,8 +380,8 @@
 					return
 				to_chat(human_user, "<b>Comments/Log:</b>")
 				var/counter = 1
-				while(target_record.fields[text("com_[]", counter)])
-					to_chat(human_user, target_record.fields[text("com_[]", counter)])
+				while(target_record.fields["com_[counter]"])
+					to_chat(human_user, target_record.fields["com_[counter]"])
 					to_chat(human_user, "----------")
 					counter++
 				return
@@ -395,9 +395,9 @@
 				if(!HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
 					return
 				var/counter = 1
-				while(target_record.fields[text("com_[]", counter)])
+				while(target_record.fields["com_[counter]"])
 					counter++
-				target_record.fields[text("com_[]", counter)] = text("Made by [] on [] [], []<BR>[]", allowed_access, station_time_timestamp(), time2text(world.realtime, "MMM DD"), GLOB.year_integer+YEAR_OFFSET, t1)
+				target_record.fields["com_[counter]"] = "Made by [allowed_access] on [station_time_timestamp()] [time2text(world.realtime, "MMM DD")], [GLOB.year_integer+YEAR_OFFSET]<BR>[t1]"
 				to_chat(human_user, "<span class='notice'>Successfully added comment.</span>")
 				return
 	..() //end of this massive fucking chain. TODO: make the hud chain not spooky.
@@ -890,7 +890,7 @@
 
 			if(src.zone_selected == BODY_ZONE_HEAD) //curbstomp specific code
 
-				var/increment = (T.lying/90)-2
+				var/increment = (T.lying_angle/90)-2
 				setDir(increment > 0 ? WEST : EAST)
 				for(var/i in 1 to 5)
 					src.pixel_y += 8-i
@@ -914,7 +914,7 @@
 
 			else if(src.zone_selected == BODY_ZONE_PRECISE_GROIN) //groinkick specific code
 
-				var/increment = (T.lying/90)-2
+				var/increment = (T.lying_angle/90)-2
 				setDir(increment > 0 ? WEST : EAST)
 				for(var/i in 1 to 5)
 					src.pixel_y += 2-i
@@ -939,7 +939,7 @@
 
 				log_combat(src, T, "groinkicked")
 
-			var/increment = (T.lying/90)-2
+			var/increment = (T.lying_angle/90)-2
 			for(var/i in 1 to 10)
 				src.pixel_x = src.pixel_x + increment
 				sleep(0.1)

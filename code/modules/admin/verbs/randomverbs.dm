@@ -297,7 +297,7 @@
 		for(var/mob/M in GLOB.player_list)
 			if(M.stat != DEAD)
 				continue	//we are not dead!
-			if(!(ROLE_ALIEN in M.client.prefs.be_special))
+			if(!M.client?.should_include_for_role(ROLE_ALIEN, /datum/role_preference/midround_ghost/xenomorph))
 				continue	//we don't want to be an alium
 			if(M.client.is_afk())
 				continue	//we are afk
@@ -471,7 +471,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			new_character.forceMove(pick(GLOB.wizardstart))
 			var/datum/antagonist/wizard/A = new_character.mind.has_antag_datum(/datum/antagonist/wizard,TRUE)
 			A.equip_wizard()
-		if(ROLE_SYNDICATE)
+		if(ROLE_OPERATIVE)
 			new_character.forceMove(pick(GLOB.nukeop_start))
 			var/datum/antagonist/nukeop/N = new_character.mind.has_antag_datum(/datum/antagonist/nukeop,TRUE)
 			N.equip_op()
@@ -621,19 +621,19 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/devastation = input("Range of total devastation. -1 to none", text("Input"))  as num|null
+	var/devastation = input("Range of total devastation. -1 to none", "Input")  as num|null
 	if(devastation == null)
 		return
-	var/heavy = input("Range of heavy impact. -1 to none", text("Input"))  as num|null
+	var/heavy = input("Range of heavy impact. -1 to none", "Input")  as num|null
 	if(heavy == null)
 		return
-	var/light = input("Range of light impact. -1 to none", text("Input"))  as num|null
+	var/light = input("Range of light impact. -1 to none", "Input")  as num|null
 	if(light == null)
 		return
-	var/flash = input("Range of flash. -1 to none", text("Input"))  as num|null
+	var/flash = input("Range of flash. -1 to none", "Input")  as num|null
 	if(flash == null)
 		return
-	var/flames = input("Range of flames. -1 to none", text("Input"))  as num|null
+	var/flames = input("Range of flames. -1 to none", "Input")  as num|null
 	if(flames == null)
 		return
 
@@ -657,10 +657,10 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/heavy = input("Range of heavy pulse.", text("Input"))  as num|null
+	var/heavy = input("Range of heavy pulse.", "Input")  as num|null
 	if(heavy == null)
 		return
-	var/light = input("Range of light pulse.", text("Input"))  as num|null
+	var/light = input("Range of light pulse.", "Input")  as num|null
 	if(light == null)
 		return
 
@@ -1079,234 +1079,23 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN) || !check_rights(R_FUN))
 		return
 
-	var/list/punishment_list = list(
-		ADMIN_PUNISHMENT_AHEAL,
-		ADMIN_PUNISHMENT_ANIMALIZE,
-		ADMIN_PUNISHMENT_BRAINDAMAGE,
-		ADMIN_PUNISHMENT_BSA,
-		ADMIN_PUNISHMENT_CLUWNE,
-		ADMIN_PUNISHMENT_CRYO,
-		ADMIN_PUNISHMENT_DAMAGE,
-		ADMIN_PUNISHMENT_DCHAT_ANARCHY,
-		ADMIN_PUNISHMENT_DCHAT_DEMOCRACY,
-		ADMIN_PUNISHMENT_FIREBALL,
-		ADMIN_PUNISHMENT_FORCESAY,
-		ADMIN_PUNISHMENT_GHOST,
-		ADMIN_PUNISHMENT_GIB,
-		ADMIN_PUNISHMENT_IMMERSE,
-		ADMIN_PUNISHMENT_LIGHTNING,
-		ADMIN_PUNISHMENT_PACIFISM,
-		ADMIN_PUNISHMENT_PUZZLE,
-		ADMIN_PUNISHMENT_ROD,
-		ADMIN_PUNISHMENT_SLEEP,
-		ADMIN_PUNISHMENT_SUPPLYPOD,
-		ADMIN_PUNISHMENT_SUPPLYPOD_QUICK,
-		ADMIN_PUNISHMENT_VOICE_OF_GOD
-	)
-	if(iscarbon(target))
-		punishment_list += ADMIN_PUNISHMENT_COOKIE
-		punishment_list += ADMIN_PUNISHMENT_NUGGET
-	if(ishuman(target))
-		punishment_list += ADMIN_PUNISHMENT_FLOORCLUWNE
-		punishment_list += ADMIN_PUNISHMENT_FLOORCLUWNE_STALKER
-		punishment_list += ADMIN_PUNISHMENT_STALKER
-		punishment_list += ADMIN_PUNISHMENT_TOE
-		punishment_list += ADMIN_PUNISHMENT_TOEPLUS
-
-	var/punishment = input("Choose a punishment", "DIVINE SMITING") as null|anything in sort_list(punishment_list)
+	var/punishment = tgui_input_list(usr, "Choose a punishment", "DIVINE SMITING", GLOB.smite_list)
 
 	if(QDELETED(target) || !punishment)
 		return
 
-	switch(punishment)
-		if(ADMIN_PUNISHMENT_AHEAL)
-			target.revive(full_heal = 1, admin_revive = 1)
+	var/smite_path = GLOB.smite_list[punishment]
+	var/datum/smite/smite = new smite_path
+	var/configuration_success = smite.configure(usr)
+	if (configuration_success == FALSE)
+		return
+	smite.effect(src, target)
 
-		if(ADMIN_PUNISHMENT_ANIMALIZE)
-			target.Animalize()
-
-		if(ADMIN_PUNISHMENT_BRAINDAMAGE)
-			target.adjustOrganLoss(ORGAN_SLOT_BRAIN, 199, 199)
-
-		if(ADMIN_PUNISHMENT_BSA)
-			bluespace_artillery(target)
-
-		if(ADMIN_PUNISHMENT_CLUWNE)
-			target.cluwne()
-
-		if(ADMIN_PUNISHMENT_COOKIE)
-			var/mob/living/carbon/H = target
-			H.give_cookie(usr)
-			admin_ticket_log(target, "[key_name_admin(usr)] gave [key_name_admin(target)] a cookie.")
-			return //We return here because punish_log() is handled by /mob/living/carbon/human/proc/give_cookie()
-
-		if(ADMIN_PUNISHMENT_CRYO)
-			forcecryo(target)
-
-		if(ADMIN_PUNISHMENT_DAMAGE)
-			var/list/damage_list = list(BRUTE, BURN, CLONE, OXY, STAMINA, TOX)
-			var/damage_punishment = input("Choose a damage type") as null|anything in sort_list(damage_list)
-			var/damage_amount = input("Choose an amount") as null|num
-			if(isnull(damage_punishment) || isnull(damage_amount)) //The user pressed "Cancel"
-				return
-
-			target.apply_damage_type(damage_amount, damage_punishment)
-
-			punishment += ": ([damage_amount] [damage_punishment])"
-
-		if(ADMIN_PUNISHMENT_DCHAT_ANARCHY)
-			target._AddComponent(list(/datum/component/deadchat_control, ANARCHY_MODE, list(
-			 "up" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), target, NORTH),
-			 "down" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), target, SOUTH),
-			 "left" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), target, WEST),
-			 "right" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), target, EAST)), 10))
-
-		if(ADMIN_PUNISHMENT_DCHAT_DEMOCRACY)
-			target._AddComponent(list(/datum/component/deadchat_control, DEMOCRACY_MODE, list(
-			 "up" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), target, NORTH),
-			 "down" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), target, SOUTH),
-			 "left" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), target, WEST),
-			 "right" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), target, EAST)), 40))
-
-		if(ADMIN_PUNISHMENT_FIREBALL)
-			new /obj/effect/temp_visual/target(get_turf(target))
-
-		if(ADMIN_PUNISHMENT_FLOORCLUWNE)
-			if(!ishuman(target))
-				to_chat(usr,"<span class='warning'>You may only floorcluwne humans!</span>")
-				return
-
-			var/turf/T = get_turf(target)
-			var/mob/living/simple_animal/hostile/floor_cluwne/FC = new(T)
-			FC.invalid_area_typecache = list()  // works anywhere
-			FC.delete_after_target_killed = TRUE
-			FC.force_target(target)
-			FC.stage = 4
-
-		if(ADMIN_PUNISHMENT_FLOORCLUWNE_STALKER)
-			var/mob/living/carbon/human/H = target
-			var/mob/living/simple_animal/hostile/floor_cluwne/FC = new /mob/living/simple_animal/hostile/floor_cluwne(get_turf(target))
-			FC.force_target(H)
-			FC.delete_after_target_killed = TRUE
-
-		if(ADMIN_PUNISHMENT_FORCESAY)
-			var/forced_speech = input(usr, "What will they say?") as null|text
-			if(isnull(forced_speech)) //The user pressed "Cancel"
-				return
-
-			target.say(forced_speech, forced = "admin speech")
-
-			punishment += ": \"[forced_speech]\""
-
-		if(ADMIN_PUNISHMENT_GHOST)
-			if(target.key)
-				target.ghostize(FALSE,SENTIENCE_FORCE)
-			else
-				target.set_playable()
-
-		if(ADMIN_PUNISHMENT_GIB)
-			target.gib(FALSE)
-
-		if(ADMIN_PUNISHMENT_IMMERSE)
-			immerse_player(target)
-
-		if(ADMIN_PUNISHMENT_LIGHTNING)
-			var/turf/T = get_step(get_step(target, NORTH), NORTH)
-			T.Beam(target, icon_state="lightning[rand(1,12)]", time = 5)
-			target.adjustFireLoss(75)
-			if(ishuman(target))
-				var/mob/living/carbon/human/H = target
-				H.electrocution_animation(40)
-			to_chat(target, "<span class='userdanger'>The gods have punished you for your sins!</span>")
-
-		if(ADMIN_PUNISHMENT_NUGGET)
-			var/mob/living/carbon/human/H = target
-			for(var/X in H.bodyparts)
-				var/obj/item/bodypart/BP = X
-				if(BP.body_part != HEAD && BP.body_part != CHEST)
-					if(BP.dismemberable)
-						BP.dismember()
-
-		if(ADMIN_PUNISHMENT_PACIFISM)
-			ADD_TRAIT(target, TRAIT_PACIFISM, "adminabuse")
-			to_chat(target, "<span class='danger'>You feel repulsed by the thought of violence!</span>")
-
-		if(ADMIN_PUNISHMENT_PUZZLE)
-			if(!puzzle_imprison(target))
-				to_chat(usr,"<span class='warning'>Imprisonment failed!</span>")
-				return
-
-		if(ADMIN_PUNISHMENT_ROD)
-			var/turf/T = get_turf(target)
-			var/startside = pick(GLOB.cardinals)
-			var/turf/startT = spaceDebrisStartLoc(startside, T.z)
-			var/turf/endT = spaceDebrisFinishLoc(startside, T.z)
-			new /obj/effect/immovablerod(startT, endT,target)
-
-		if(ADMIN_PUNISHMENT_SLEEP)
-			target.visible_message("<span class='danger'>[target] faints in fear!</span>", "<span class='userdanger'>You inexplicably faint!</span>")
-			target.Sleeping(300, TRUE, TRUE)
-
-		if(ADMIN_PUNISHMENT_STALKER)
-			var/mob/living/carbon/human/H = target
-			H.gain_trauma(/datum/brain_trauma/magic/stalker, TRAUMA_LIMIT_LOBOTOMY)
-
-		if(ADMIN_PUNISHMENT_SUPPLYPOD)
-			var/datum/centcom_podlauncher/plaunch  = new(usr)
-			if(!holder)
-				return
-			plaunch.specificTarget = target
-			plaunch.launchChoice = 0
-			plaunch.damageChoice = 1
-			plaunch.explosionChoice = 1
-			plaunch.temp_pod.damage = 40//bring the mother fuckin ruckus
-			plaunch.temp_pod.explosionSize = list(0,0,0,2)
-			plaunch.temp_pod.effectStun = TRUE
-			return //We return here because punish_log() is handled by the centcom_podlauncher datum
-
-		if(ADMIN_PUNISHMENT_SUPPLYPOD_QUICK)
-			var/target_path = input(usr,"Enter typepath of an atom you'd like to send with the pod (type \"empty\" to send an empty pod):" ,"Typepath","/obj/item/reagent_containers/food/snacks/grown/flower/harebell") as null|text
-			var/obj/structure/closet/supplypod/centcompod/pod = new()
-			pod.damage = 40
-			pod.explosionSize = list(0,0,0,2)
-			pod.effectStun = TRUE
-			if(isnull(target_path)) //The user pressed "Cancel"
-				return
-			if(target_path != "empty")//if you didn't type empty, we want to load the pod with a delivery
-				var/delivery = text2path(target_path)
-				if(!ispath(delivery))
-					delivery = pick_closest_path(target_path)
-					if(!delivery)
-						alert("ERROR: Incorrect / improper path given.")
-						return
-				new delivery(pod)
-			new /obj/effect/pod_landingzone(get_turf(target), pod)
-
-		if(ADMIN_PUNISHMENT_TOE)
-			var/mob/living/carbon/human/H = target
-			to_chat(H, "<span class='warning'>You stub your toe on an invisible table!</span>")
-			H.stub_toe(5)
-
-		if(ADMIN_PUNISHMENT_TOEPLUS)
-			ADD_TRAIT(target, TRAIT_ALWAYS_STUBS, "adminabuse")
-
-		if(ADMIN_PUNISHMENT_VOICE_OF_GOD)
-			var/target_sound = input(usr, "Enter the filepath of the sound they will hear.", "God Soundfile", 'sound/magic/clockwork/invoke_general.ogg') as null|text
-			var/target_speech = input(usr, "What will they hear from God?", "Divine Command", "Cease your heresy.") as null|text
-			if(isnull(target_sound) || isnull(target_speech)) //The user pressed "Cancel"
-				return
-
-			target.visible_message("<span class='warning'>[target] faints!</span>", "<span class='narsie'>[target_speech]</span>")
-			target.playsound_local(get_turf(target), target_sound, 200, 1)
-			target.Paralyze(300, ignore_canstun = TRUE)
-			target.Jitter(100)
-			target.confused += 50
-
-			punishment += ": \"[target_speech]\""
-
-	admin_ticket_log(target, "[key_name_admin(usr)] punished [key_name_admin(target)] with [punishment]")
-	message_admins("[ADMIN_LOOKUPFLW(usr)] has punished [key_name_admin(target)] with [punishment].")
-	log_admin("[key_name(usr)] punished [key_name(target)] with [punishment].")
+/client/proc/punish_log(whom, punishment)
+	var/msg = "[key_name_admin(src)] punished [key_name_admin(whom)] with [punishment]."
+	message_admins(msg)
+	admin_ticket_log(whom, msg)
+	log_admin("[key_name(src)] punished [key_name(whom)] with [punishment].")
 
 /mob/living/carbon/proc/give_cookie(var/client/admin_client)
 	var/obj/item/reagent_containers/food/snacks/cookie/cookie = new(src)

@@ -203,6 +203,14 @@
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/camera_advanced/syndie
 
+/obj/item/circuitboard/computer/advanced_camera/cyan
+	name = "advanced camera console: cyan (Computer Board)"
+	build_path = /obj/machinery/computer/camera_advanced/bounty_hunter
+
+/obj/item/circuitboard/computer/advanced_camera/darkblue
+	name = "advanced camera console: darkblue (Computer Board)"
+	build_path = /obj/machinery/computer/camera_advanced/wizard
+
 /obj/item/circuitboard/computer/arcade/amputation
 	name = "Mediborg's Amputation Adventure (Computer Board)"
 	icon_state = "generic"

@@ -12,7 +12,7 @@
 	outfit = /datum/outfit/job/bartender
 
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM, ACCESS_THEATRE)
-	minimal_access = list(ACCESS_BAR, ACCESS_MINERAL_STOREROOM, ACCESS_THEATRE)
+	minimal_access = list(ACCESS_BAR, ACCESS_MINERAL_STOREROOM, ACCESS_THEATRE, ACCESS_WEAPONS)
 
 	department_flag = CIVILIAN
 	departments = DEPT_BITFLAG_SRV
@@ -25,6 +25,13 @@
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/bartender
 	)
+
+	lightup_areas = list(
+		/area/hydroponics,
+		/area/medical/morgue,
+		/area/crew_quarters/kitchen
+	)
+
 /datum/outfit/job/bartender
 	name = JOB_NAME_BARTENDER
 	jobtype = /datum/job/bartender

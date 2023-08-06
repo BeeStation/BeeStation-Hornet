@@ -81,7 +81,7 @@
 /mob/living/simple_animal/hostile/morph/ClickOn(atom/A)
 	if(throwatom)
 		RemoveContents(throwatom, TRUE)
-		throwatom.safe_throw_at(A, throwatom.throw_range, throwatom.throw_speed, src, null, null, null, move_force)
+		throwatom.safe_throw_at(A, throwatom.throw_range, throwatom.throw_speed, src, null, null, null, ismob(throwatom) ? MOVE_FORCE_VERY_WEAK : move_force)
 		visible_message("<span class='warning'>[src] spits [throwatom] at [A]!</span>")
 		throwatom = null
 		playsound(src, 'sound/effects/splat.ogg', 50, 1)
@@ -146,8 +146,8 @@
 		add_overlay(target.vis_contents)
 	alpha = max(alpha, 150)	//fucking chameleons
 	transform = initial(transform)
-	pixel_y = initial(pixel_y)
-	pixel_x = initial(pixel_x)
+	pixel_y = base_pixel_y
+	pixel_x = base_pixel_x
 	density = target.density
 
 	if(isliving(target))
@@ -286,7 +286,7 @@
 	role_name = ROLE_MORPH
 
 /datum/round_event/ghost_role/morph/spawn_role()
-	var/list/candidates = get_candidates(ROLE_MORPH, null, ROLE_MORPH)
+	var/list/candidates = get_candidates(ROLE_MORPH, /datum/role_preference/midround_ghost/morph)
 	if(!candidates.len)
 		return NOT_ENOUGH_PLAYERS
 

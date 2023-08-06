@@ -31,7 +31,7 @@
 	var/locked = FALSE
 	var/allow_switch_interact = TRUE
 
-	var/projectile_type = /obj/item/projectile/beam/emitter
+	var/projectile_type = /obj/projectile/beam/emitter
 	var/projectile_sound = 'sound/weapons/emitter.ogg'
 	var/datum/effect_system/spark_spread/sparks
 
@@ -206,7 +206,7 @@
 		fire_beam()
 
 /obj/machinery/power/emitter/proc/fire_beam(mob/user)
-	var/obj/item/projectile/P = new projectile_type(get_turf(src))
+	var/obj/projectile/P = new projectile_type(get_turf(src))
 	playsound(get_turf(src), projectile_sound, 50, TRUE)
 	if(prob(35))
 		sparks.start()
@@ -377,8 +377,8 @@
 		if(istype(I, /obj/item/turret_control))
 			qdel(I)
 	if(istype(buckled_mob))
-		buckled_mob.pixel_x = 0
-		buckled_mob.pixel_y = 0
+		buckled_mob.pixel_x = buckled_mob.base_pixel_x
+		buckled_mob.pixel_y = buckled_mob.base_pixel_y
 		if(buckled_mob.client)
 			buckled_mob.client.view_size.resetToDefault()
 	auto.Remove(buckled_mob)
