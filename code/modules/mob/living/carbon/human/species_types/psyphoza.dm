@@ -172,7 +172,6 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	auto_action.Grant(M)
 	///Start auto timer
 	addtimer(CALLBACK(src, PROC_REF(auto_sense)), auto_cooldown)
-	//
 
 /datum/action/item_action/organ_action/psychic_highlight/IsAvailable()
 	if(has_cooldown_timer)
@@ -187,10 +186,6 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	has_cooldown_timer = TRUE
 	UpdateButtonIcon()
 	addtimer(CALLBACK(src, PROC_REF(finish_cooldown)), cooldown + (sense_time * min(1, overlays.len / PSYCHIC_OVERLAY_UPPER)))
-	var/atom/movable/screen/plane_master/psychic/wall/PW = locate(/atom/movable/screen/plane_master/psychic/wall) in owner.client?.screen
-	if(PW && !length(PW.filters))
-		PW.alpha = 255
-		PW.filters += filter(type = "alpha", x = 0, y = 0, icon = icon('icons/mob/psychic.dmi', "e"))
 
 /datum/action/item_action/organ_action/psychic_highlight/UpdateButtonIcon(status_only = FALSE, force = FALSE)
 	. = ..()
