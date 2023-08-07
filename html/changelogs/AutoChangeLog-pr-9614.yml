@@ -1,0 +1,5 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - tweak: Made the air alarm set the lights to vacuum emergency blue mode whenever
+      they send out an alarm, rather than when only manually triggered
