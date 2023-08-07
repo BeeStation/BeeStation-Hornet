@@ -1,4 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - bugfix: Fixed radial menus becoming transparent together with the user

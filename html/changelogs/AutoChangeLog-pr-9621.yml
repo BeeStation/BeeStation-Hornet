@@ -1,5 +1,0 @@
-author: Penwin0
-delete-after: true
-changes:
-  - bugfix: Control click grabs are now affected by blocking, as their normal counterparts
-      are.
