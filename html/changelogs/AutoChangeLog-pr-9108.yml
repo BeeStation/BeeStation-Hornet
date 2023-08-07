@@ -1,0 +1,9 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: The hand teleporter can now lock onto slipspace wakes left behind by
+      bluespace, cult and magic teleportations.
+  - balance: Portals closed by the hand teleporter take 3 seconds to be dispeled.
+      Portals will have an animation upon expiring rather than instantly disappearing.
+  - bugfix: The hand teleporter will no longer open entry portals inside windows and
+      airlocks
