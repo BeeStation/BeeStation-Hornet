@@ -9,13 +9,12 @@
 
 /// Randomizes the character according to preferences.
 /datum/preferences/proc/apply_character_randomization_prefs(antag_override = FALSE)
-	switch (read_character_preference(/datum/preference/choiced/random_body))
-		if (RANDOM_ANTAG_ONLY)
-			if (!antag_override)
-				return
-
-		if (RANDOM_DISABLED)
+	var/body_choice = read_character_preference(/datum/preference/choiced/random_body)
+	if (body_choice == RANDOM_ANTAG_ONLY)
+		if (!antag_override)
 			return
+	else if (body_choice != RANDOM_ENABLED)
+		return
 
 	for (var/datum/preference/preference as anything in get_preferences_in_priority_order())
 		if (should_randomize(preference, antag_override))
