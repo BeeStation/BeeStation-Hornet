@@ -1,0 +1,13 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - rscadd: Open objectives, objectives which are not tracked by win/lose but have
+      a numeric outcome.
+  - rscadd: Sabotage machinery objectives
+  - rscadd: Obtain and detonate explosive objective
+  - rscdel: Gimmick objective
+  - refactor: Refactors traitor objective item spawning to start in "stashes" rather
+      than in the backpack.
+  - balance: You can no longer get steal objectives for certain items when there is
+      no head to own them.
+  - code_imp: Improves objective code file organisation.
