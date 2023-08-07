@@ -92,8 +92,10 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 	if(special_target)
 		SSmove_manager.home_onto(src, special_target)
+		previous_distance = get_dist(src, special_target)
 	else
 		SSmove_manager.move_towards(src, real_destination)
+		previous_distance = get_dist(src, real_destination)
 
 /obj/effect/immovablerod/Destroy()
 	UnregisterSignal(src, COMSIG_ATOM_ENTERING)
@@ -139,6 +141,15 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	for(var/atom/movable/to_bump in loc)
 		if((to_bump != src) && !QDELETED(to_bump) && (to_bump.density || isliving(to_bump)))
 			Bump(to_bump)
+
+	//START: bacon's 1 loop rod
+	//Moved more than 10 tiles in 1 move.
+	var/cur_dist = get_dist(src, destination_turf)
+	if(loopy_rod == FALSE)
+		if(FLOOR(cur_dist - previous_distance, 1) > 10)
+			qdel(src)
+		previous_distance = cur_dist
+	//END:
 
 	// If we have a special target, we should definitely make an effort to go find them.
 	if(special_target)
