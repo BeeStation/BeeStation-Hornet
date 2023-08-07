@@ -93,6 +93,7 @@
 	"#D6B20C",\
 	"#FF902A",\
 )
+#define COLOR_BLOOD_BROTHERS_DEFAULT "#FF5050" // because your color isn't red, noticing there are another BB team is bad (metaknowledge)
 
 // Color Filters
 /// Icon filter that creates ambient occlusion

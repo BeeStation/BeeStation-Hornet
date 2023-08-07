@@ -22,7 +22,7 @@
 			return
 		input = imp_in.treat_message_min(input)
 
-		var/my_message = "<font color=\"[implant_colour]\"><b><i>[imp_in.mind.name]:</i></b></font> [input]" //add sender, color source with syndie color
+		var/my_message = "<font color=\"[COLOR_BLOOD_BROTHERS_DEFAULT]\"><b><i>[imp_in.mind.name]:</i></b></font> [input]" //add sender, color source with syndie color
 		var/ghost_message = "<font color=\"[implant_colour]\"><b><i>[imp_in.mind.name] -> Blood Brothers:</i></b></font> [input]"
 
 		to_chat(imp_in, my_message) // Sends message to the user
