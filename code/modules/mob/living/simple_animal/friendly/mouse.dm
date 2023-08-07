@@ -20,7 +20,7 @@
 	response_harm   = "splats"
 	density = FALSE
 	ventcrawler = VENTCRAWLER_ALWAYS
-	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	var/body_color //brown, gray and white, leave blank for random

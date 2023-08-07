@@ -206,8 +206,7 @@
 	var/move_dir = get_dir(pulling.loc, moving_atom)
 	if(!Process_Spacemove(move_dir))
 		return
-	pulling.Move(get_step(pulling.loc, move_dir), move_dir)
-	return TRUE
+	return pulling.Move(get_step(pulling.loc, move_dir), move_dir)
 
 /mob/living/Move_Pulled(atom/moving_atom)
 	. = ..()
