@@ -187,7 +187,7 @@
 	// also DO NOT rename this
 	var/list/column_names = list(
 		"slot", // this is a literal column name
-		CHARACTER_PREFERENCE_RANDOMISE,
+		CHARACTER_PREFERENCE_RANDOMIZE,
 		CHARACTER_PREFERENCE_JOB_PREFERENCES,
 		CHARACTER_PREFERENCE_ALL_QUIRKS,
 		CHARACTER_PREFERENCE_EQUIPPED_GEAR,
@@ -217,14 +217,14 @@
 		CRASH("Error querying character data: the returned value length is not equal to the number of columns requested.")
 
 	// Decode
-	JSONREAD_PREF(randomise, CHARACTER_PREFERENCE_RANDOMISE)
+	JSONREAD_PREF(randomize, CHARACTER_PREFERENCE_RANDOMIZE)
 	JSONREAD_PREF(job_preferences, CHARACTER_PREFERENCE_JOB_PREFERENCES)
 	JSONREAD_PREF(all_quirks, CHARACTER_PREFERENCE_ALL_QUIRKS)
 	JSONREAD_PREF(equipped_gear, CHARACTER_PREFERENCE_EQUIPPED_GEAR)
 	JSONREAD_PREF(role_preferences, CHARACTER_PREFERENCE_ROLE_PREFERENCES)
 
 	//Sanitize
-	randomise = SANITIZE_LIST(randomise)
+	randomize = SANITIZE_LIST(randomize)
 	job_preferences = SANITIZE_LIST(job_preferences)
 	all_quirks = SANITIZE_LIST(all_quirks)
 	equipped_gear = SANITIZE_LIST(equipped_gear)
@@ -283,7 +283,7 @@
 	var/list/column_names = list()
 	var/list/new_data = list()
 
-	WRITEPREF_JSONENC(randomise, CHARACTER_PREFERENCE_RANDOMISE)
+	WRITEPREF_JSONENC(randomize, CHARACTER_PREFERENCE_RANDOMIZE)
 	WRITEPREF_JSONENC(job_preferences, CHARACTER_PREFERENCE_JOB_PREFERENCES)
 	WRITEPREF_JSONENC(all_quirks, CHARACTER_PREFERENCE_ALL_QUIRKS)
 	WRITEPREF_JSONENC(equipped_gear, CHARACTER_PREFERENCE_EQUIPPED_GEAR)

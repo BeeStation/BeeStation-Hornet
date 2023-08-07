@@ -48,7 +48,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	//character preferences
 	var/slot_randomized //keeps track of round-to-round randomization of the character slot, prevents overwriting
 
-	var/list/randomise = list()
+	var/list/randomize = list()
 
 	//Quirk list
 	var/list/all_quirks = list()
@@ -113,7 +113,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	// give them default keybinds and update their movement keys
 	set_default_key_bindings(save = FALSE) // no point in saving these since everyone gets them. They'll be saved if needed.
-	randomise = get_default_randomization()
+	randomize = get_default_randomization()
 
 	var/loaded_preferences_successfully = load_preferences()
 	if(loaded_preferences_successfully)

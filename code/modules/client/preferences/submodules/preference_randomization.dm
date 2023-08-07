@@ -20,7 +20,7 @@
 		if (should_randomize(preference, antag_override))
 			write_preference(preference, preference.create_random_value(src))
 
-/// Returns the default `randomise` variable ouptut
+/// Returns the default `randomize` variable ouptut
 /datum/preferences/proc/get_default_randomization()
 	var/list/default_randomization = list()
 
