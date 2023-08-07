@@ -118,12 +118,9 @@ GLOBAL_PROTECT(LastAdminCalledProc)
 	else
 		log_admin("[key_name(usr)] attempted to call world/proc/[procname] with arguments: [english_list(arguments)]")
 
+/// Legacy proc version of IS_ADMIN_ADVANCED_PROC_CALL with more overhead.
 /proc/IsAdminAdvancedProcCall()
-#ifdef TESTING
-	return FALSE
-#else
-	return usr && usr.client && GLOB.AdminProcCaller == usr.client.ckey
-#endif
+	return IS_ADMIN_ADVANCED_PROC_CALL
 
 /client/proc/callproc_datum(datum/A as null|area|mob|obj|turf)
 	set category = "Debug"

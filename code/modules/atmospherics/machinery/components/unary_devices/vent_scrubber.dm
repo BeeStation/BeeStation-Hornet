@@ -127,9 +127,11 @@
 	radio_filter_out = frequency==initial(frequency)?(RADIO_TO_AIRALARM):null
 	if(frequency)
 		set_frequency(frequency)
-	broadcast_status()
 	check_turfs()
 	..()
+
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on_construction(obj_color, set_layer)
+	broadcast_status()
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/process_atmos()
 	..()

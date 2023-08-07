@@ -24,6 +24,7 @@
 	var/shards = 2
 	var/rods = 2
 	var/cable = 1
+	/// Associative list of debris typepaths to counts
 	var/list/debris = list()
 
 /obj/machinery/door/window/Initialize(mapload, set_dir)
@@ -33,12 +34,12 @@
 	if(req_access?.len)
 		icon_state = "[icon_state]"
 		base_state = icon_state
-	for(var/i in 1 to shards)
-		debris += new /obj/item/shard(src)
+	if(shards)
+		debris[/obj/item/shard] = shards
 	if(rods)
-		debris += new /obj/item/stack/rods(src, rods)
+		debris[/obj/item/stack/rods] = rods
 	if(cable)
-		debris += new /obj/item/stack/cable_coil(src, cable)
+		debris[/obj/item/stack/cable_coil] = cable
 
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
@@ -50,7 +51,6 @@
 /obj/machinery/door/window/Destroy()
 	set_density(FALSE)
 	air_update_turf(1)
-	QDEL_LIST(debris)
 	if(obj_integrity == 0)
 		playsound(src, "shatter", 70, 1)
 	electronics = null
@@ -205,10 +205,16 @@
 
 /obj/machinery/door/window/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1) && !disassembled)
-		for(var/obj/fragment in debris)
-			fragment.forceMove(get_turf(src))
-			transfer_fingerprints_to(fragment)
-			debris -= fragment
+		var/turf/T = get_turf(src)
+		for(var/path in debris)
+			var/amt = debris[path]
+			if(amt <= 0 || amt > 10) // please no more than 10
+				continue
+			if(!ispath(path, /obj))
+				continue
+			for(var/i in 1 to amt)
+				var/obj/fragment = new path(T)
+				transfer_fingerprints_to(fragment)
 	qdel(src)
 
 /obj/machinery/door/window/narsie_act()
@@ -404,8 +410,7 @@
 
 /obj/machinery/door/window/clockwork/Initialize(mapload, set_dir)
 	. = ..()
-	for(var/i in 1 to 2)
-		debris += new/obj/item/clockwork/alloy_shards/medium/gear_bit/large(src)
+	debris[/obj/item/clockwork/alloy_shards/medium/gear_bit/large] = 2
 
 /obj/machinery/door/window/clockwork/setDir(direct)
 	if(!made_glow)

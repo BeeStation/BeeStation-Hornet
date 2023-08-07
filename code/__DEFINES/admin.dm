@@ -85,3 +85,5 @@ GLOBAL_VAR_INIT(ghost_role_flags, (~0))
 #define GHOSTROLE_SILICONS			(1<<3)
 //ie mafia, ctf
 #define GHOSTROLE_MINIGAME			(1<<4)
+
+#define IS_ADMIN_ADVANCED_PROC_CALL (usr && usr.client && GLOB.AdminProcCaller == usr.client.ckey)
