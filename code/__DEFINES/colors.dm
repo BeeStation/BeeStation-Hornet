@@ -81,8 +81,7 @@
 #define COLOR_ASSEMBLY_BLUE    "#38559E"
 #define COLOR_ASSEMBLY_PURPLE  "#6F6192"
 
-//Colours used by blood brothers
-#define COLOR_LIST_BLOOD_BROTHERS list(\
+GLOBAL_LIST_INIT(color_list_blood_brothers, shuffle(list(
 	"#FF5050",\
 	"#D977FD",\
 	"#422ED8",\
@@ -91,9 +90,7 @@
 	"#0EF5CE",\
 	"#0DF447",\
 	"#D6B20C",\
-	"#FF902A",\
-)
-#define COLOR_BLOOD_BROTHERS_DEFAULT "#FF5050" // because your color isn't red, noticing there are another BB team is bad (metaknowledge)
+	"#FF902A")))
 
 // Color Filters
 /// Icon filter that creates ambient occlusion
