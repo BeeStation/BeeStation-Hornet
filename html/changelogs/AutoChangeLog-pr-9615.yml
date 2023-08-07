@@ -1,4 +1,0 @@
-author: Absolucy & Tamumus
-delete-after: true
-changes:
-  - bugfix: Fix 'false' Observe targets that would blank your screen or crash you
