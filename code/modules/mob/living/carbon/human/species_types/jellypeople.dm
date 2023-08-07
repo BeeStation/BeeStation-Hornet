@@ -540,6 +540,10 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 		QDEL_NULL(project_thought)
 	if(link_minds)
 		QDEL_NULL(link_minds)
+	if(unlink_minds)
+		QDEL_NULL(unlink_minds)
+	if(linked_speech)
+		QDEL_NULL(linked_speech)
 	slimelink_owner = null
 	UnregisterSignal(body, COMSIG_MOB_LOGIN)
 

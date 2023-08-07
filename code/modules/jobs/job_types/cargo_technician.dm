@@ -27,6 +27,8 @@
 	)
 	biohazard = 25
 
+	lightup_areas = list(/area/quartermaster/qm, /area/quartermaster/qm_bedroom)
+
 /datum/outfit/job/cargo_technician
 	name = JOB_NAME_CARGOTECHNICIAN
 	jobtype = /datum/job/cargo_technician

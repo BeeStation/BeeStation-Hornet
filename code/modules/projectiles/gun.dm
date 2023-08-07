@@ -686,8 +686,8 @@
 //Happens before the actual projectile creation
 /obj/item/gun/proc/before_firing(atom/target, mob/user, aimed)
 	if(aimed && chambered?.BB)
-		chambered.BB.speed = initial(chambered.BB.speed) *= 0.75 // Faster bullets to account for the fact you've given the target a big warning they're about to be shot
-		chambered.BB.damage = initial(chambered.BB.damage) *= 1.25
+		chambered.BB.speed = initial(chambered.BB.speed) * 0.75 // Faster bullets to account for the fact you've given the target a big warning they're about to be shot
+		chambered.BB.damage = initial(chambered.BB.damage) * 1.25
 
 /////////////
 // ZOOMING //
