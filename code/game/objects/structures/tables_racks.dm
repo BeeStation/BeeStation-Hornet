@@ -265,17 +265,20 @@
 	max_integrity = 70
 	resistance_flags = ACID_PROOF
 	armor = list(MELEE = 0,  BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100, STAMINA = 0)
-	/// Associative list of debris typepaths to counts
 	var/list/debris = list()
 
 /obj/structure/table/glass/Initialize(mapload)
 	. = ..()
-	debris[frame] = 1
-	debris[/obj/item/shard] = 1
+	debris += new frame
+	debris += new /obj/item/shard
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/structure/table/glass/Destroy()
+	QDEL_LIST(debris)
+	. = ..()
 
 /obj/structure/table/glass/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
@@ -303,21 +306,14 @@
 		"<span class='danger'>You hear breaking glass.</span>")
 	var/turf/T = get_turf(src)
 	playsound(T, "shatter", 50, 1)
-	release_debris(T, throw_shards_at = L)
+	for(var/I in debris)
+		var/atom/movable/AM = I
+		AM.forceMove(T)
+		debris -= AM
+		if(istype(AM, /obj/item/shard))
+			AM.throw_impact(L)
 	L.Paralyze(100)
 	qdel(src)
-
-/obj/structure/table/glass/proc/release_debris(turf/T, atom/throw_shards_at)
-	for(var/path in debris)
-		var/amt = debris[path]
-		if(amt <= 0 || amt > 10) // please no more than 10
-			continue
-		if(!ispath(path, /obj))
-			continue
-		for(var/i in 1 to amt)
-			var/obj/fragment = new path(T)
-			if(istype(fragment, /obj/item/shard) && istype(throw_shards_at))
-				fragment.throw_impact(throw_shards_at)
 
 /obj/structure/table/glass/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
 	if(!(flags_1 & NODECONSTRUCT_1))
@@ -327,11 +323,16 @@
 		else
 			var/turf/T = get_turf(src)
 			playsound(T, "shatter", 50, 1)
-			release_debris(T)
+			for(var/X in debris)
+				var/atom/movable/AM = X
+				AM.forceMove(T)
+				debris -= AM
 	qdel(src)
 
 /obj/structure/table/glass/narsie_act()
 	color = NARSIE_WINDOW_COLOUR
+	for(var/obj/item/shard/S in debris)
+		S.color = NARSIE_WINDOW_COLOUR
 
 /*
  * Plasmaglass tables
@@ -348,7 +349,7 @@
 
 /obj/structure/table/glass/plasma/Initialize(mapload)
 	. = ..()
-	debris[/obj/item/shard/plasma] = 1
+	debris += new /obj/item/shard/plasma
 
 /obj/structure/table/glass/plasma/check_break(mob/living/M)
 	return

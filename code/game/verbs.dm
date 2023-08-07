@@ -10,50 +10,43 @@
  */
 
 /datum
+	var/list/stat_tabs
 	var/list/sorted_verbs
-	var/list/verbs_to_sort
 
 /datum/proc/add_verb(new_verbs)
 	//Nooooo!!!!!
-	if(IS_ADMIN_ADVANCED_PROC_CALL)
+	if(IsAdminAdvancedProcCall())
 		message_admins("[key_name(usr)] attempted to edit their verbs.")
 		log_game("[key_name(usr)] attempted to edit their verbs.")
 		return
 	if(!islist(new_verbs))
 		new_verbs = list(new_verbs)
-	if(!islist(verbs_to_sort))
-		verbs_to_sort = list()
-	verbs_to_sort += new_verbs
-
-/datum/proc/sort_verbs()
+	//To use less memory
 	if(!islist(sorted_verbs))
 		sorted_verbs = list()
-	if(!islist(verbs_to_sort))
-		verbs_to_sort = list()
-	for(var/verb_in_list in verbs_to_sort)
+	if(!islist(stat_tabs))
+		stat_tabs = list()
+	for(var/verb_in_list in new_verbs)
 		var/procpath/V = verb_in_list
-		if(!V.category)
-			continue
-		if(islist(sorted_verbs["[V.category]"]))
-			if(V in sorted_verbs[V.category])
-				continue
-			//Binary insert at the correct position
-			var/list/verbs = sorted_verbs["[V.category]"]
-			BINARY_INSERT_TEXT(V, verbs, procpath, name)
-			sorted_verbs["[V.category]"] = verbs
-		else
-			//Add category with verb
-			sorted_verbs["[V.category]"] = list(V)
-	sort_list(sorted_verbs)
-	verbs_to_sort.Cut()
+		if(V.category)
+			if(V.category in sorted_verbs)
+				if(V in sorted_verbs[V.category])
+					continue
+				//Binary insert at the correct position
+				var/list/verbs = sorted_verbs["[V.category]"]
+				BINARY_INSERT_TEXT(V, verbs, procpath, name)
+				sorted_verbs["[V.category]"] = verbs
+			else
+				//Add category with verb
+				stat_tabs += V.category
+				sorted_verbs["[V.category]"] = list(V)
+				sort_list(sorted_verbs)
 
 /datum/proc/remove_verb(old_verbs)
-	if(IS_ADMIN_ADVANCED_PROC_CALL)
+	if(IsAdminAdvancedProcCall())
 		message_admins("[key_name(usr)] attempted to edit their verbs.")
 		log_game("[key_name(usr)] attempted to edit their verbs.")
 		return
-	if(length(verbs_to_sort))
-		sort_verbs()
 	if(!sorted_verbs)
 		return
 	if(!islist(old_verbs))
@@ -67,9 +60,10 @@
 			//Remove the category if necessary
 			if(!LAZYLEN(sorted_verbs["[V.category]"]))
 				sorted_verbs.Remove("[V.category]")
+				stat_tabs -= V.category
 
 /atom/add_verb(new_verbs, tgui_only = FALSE)
-	if(IS_ADMIN_ADVANCED_PROC_CALL)
+	if(IsAdminAdvancedProcCall())
 		message_admins("[key_name(usr)] attempted to edit their verbs.")
 		log_game("[key_name(usr)] attempted to edit their verbs.")
 		return
@@ -78,7 +72,7 @@
 	return ..(new_verbs)
 
 /atom/remove_verb(old_verbs, tgui_only = FALSE)
-	if(IS_ADMIN_ADVANCED_PROC_CALL)
+	if(IsAdminAdvancedProcCall())
 		message_admins("[key_name(usr)] attempted to edit their verbs.")
 		log_game("[key_name(usr)] attempted to edit their verbs.")
 		return
@@ -87,7 +81,7 @@
 	return ..(old_verbs)
 
 /obj/item/remove_verb(new_verbs, tgui_only = FALSE)
-	if(IS_ADMIN_ADVANCED_PROC_CALL)
+	if(IsAdminAdvancedProcCall())
 		message_admins("[key_name(usr)] attempted to edit their verbs.")
 		log_game("[key_name(usr)] attempted to edit their verbs.")
 		return
@@ -99,7 +93,7 @@
 	return ..(new_verbs)
 
 /obj/item/add_verb(new_verbs, tgui_only = FALSE)
-	if(IS_ADMIN_ADVANCED_PROC_CALL)
+	if(IsAdminAdvancedProcCall())
 		message_admins("[key_name(usr)] attempted to edit their verbs.")
 		log_game("[key_name(usr)] attempted to edit their verbs.")
 		return
@@ -111,7 +105,7 @@
 	return ..(new_verbs)
 
 /client/add_verb(new_verbs, tgui_only = FALSE)
-	if(IS_ADMIN_ADVANCED_PROC_CALL)
+	if(IsAdminAdvancedProcCall())
 		message_admins("[key_name(usr)] attempted to edit their verbs.")
 		log_game("[key_name(usr)] attempted to edit their verbs.")
 		return
@@ -121,7 +115,7 @@
 	return ..(new_verbs)
 
 /client/remove_verb(old_verbs, tgui_only = FALSE)
-	if(IS_ADMIN_ADVANCED_PROC_CALL)
+	if(IsAdminAdvancedProcCall())
 		message_admins("[key_name(usr)] attempted to edit their verbs.")
 		log_game("[key_name(usr)] attempted to edit their verbs.")
 		return
@@ -131,7 +125,7 @@
 	return ..(old_verbs)
 
 /mob/remove_verb(old_verbs, tgui_only = FALSE)
-	if(IS_ADMIN_ADVANCED_PROC_CALL)
+	if(IsAdminAdvancedProcCall())
 		message_admins("[key_name(usr)] attempted to edit their verbs.")
 		log_game("[key_name(usr)] attempted to edit their verbs.")
 		return
@@ -140,7 +134,7 @@
 	return ..()
 
 /mob/add_verb(new_verbs, tgui_only)
-	if(IS_ADMIN_ADVANCED_PROC_CALL)
+	if(IsAdminAdvancedProcCall())
 		message_admins("[key_name(usr)] attempted to edit their verbs.")
 		log_game("[key_name(usr)] attempted to edit their verbs.")
 		return
