@@ -1,4 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - code_imp: Optimized autoname camera init, saving 88ms init on MetaStation.
