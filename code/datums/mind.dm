@@ -77,7 +77,12 @@
 	/// your bank account id in your mind
 	var/account_id
 
+	/// The atom of our antag stash
+	var/atom/antag_stash = null
+
+	/// Boolean value indicating if the mob attached to this mind entered cryosleep.
 	var/cryoed = FALSE
+
 
 /datum/mind/New(var/key)
 	src.key = key

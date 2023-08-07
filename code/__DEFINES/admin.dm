@@ -90,5 +90,3 @@ GLOBAL_VAR_INIT(ghost_role_flags, (~0))
 #define DEADMIN_POSITION_HEAD		(1<<0)
 #define DEADMIN_POSITION_SECURITY	(1<<1)
 #define DEADMIN_POSITION_SILICON	(1<<2)
-
-#define IS_ADMIN_ADVANCED_PROC_CALL (usr && usr.client && GLOB.AdminProcCaller == usr.client.ckey)
