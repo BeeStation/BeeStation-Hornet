@@ -1,4 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - code_imp: Reverted some verb optimizations, fixing verbs not getting added properly
