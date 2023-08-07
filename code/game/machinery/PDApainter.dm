@@ -53,6 +53,7 @@
 		"Misc: Prisoner" = "pda-prisoner"
 	)
 	max_integrity = 200
+	var/list/colorlist = list()
 
 /obj/machinery/pdapainter/on_emag(mob/user)
 	..()
@@ -81,6 +82,23 @@
 		icon_state = "coloriser-off"
 
 	return
+
+/obj/machinery/pdapainter/Initialize(mapload)
+	. = ..()
+	var/list/blocked = list(
+		/obj/item/modular_computer/tablet/pda/heads,
+		/obj/item/modular_computer/tablet/pda/clear,
+		/obj/item/modular_computer/tablet/pda/syndicate,
+		/obj/item/modular_computer/tablet/pda/chameleon,
+		/obj/item/modular_computer/tablet/pda/chameleon/broken)
+
+	for(var/P in typesof(/obj/item/modular_computer/tablet/pda) - blocked)
+		var/obj/item/modular_computer/tablet/pda/D = new P
+
+		//D.name = "PDA Style [colorlist.len+1]" //Gotta set the name, otherwise it all comes up as "PDA"
+		D.name = D.icon_state //PDAs don't have unique names, but using the sprite names works.
+
+		src.colorlist += D
 
 /obj/machinery/pdapainter/Destroy()
 	QDEL_NULL(storedpda)
