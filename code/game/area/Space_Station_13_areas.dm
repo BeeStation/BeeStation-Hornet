@@ -160,7 +160,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Bar Maintenance"
 	icon_state = "maint_bar"
 	sound_environment = SOUND_AREA_WOODFLOOR
-	color_correction = /datum/client_colour/area_color/warm
+	color_correction = /datum/client_colour/area_color/warm_ish
 
 /area/maintenance/department/crew_quarters/dorms
 	name = "Dormitory Maintenance"
@@ -661,7 +661,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/crew_quarters/cafeteria
 	name = "Cafeteria"
 	icon_state = "cafeteria"
-	color_correction = /datum/client_colour/area_color/warm
+	color_correction = /datum/client_colour/area_color/warm_ish
 
 /area/crew_quarters/kitchen
 	name = "Kitchen"
@@ -686,7 +686,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_bulb = "#ffebc1"
 	sound_environment = SOUND_AREA_WOODFLOOR
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
-	color_correction = /datum/client_colour/area_color/warm
+	color_correction = /datum/client_colour/area_color/warm_ish
 
 /area/crew_quarters/bar/mood_check(mob/living/carbon/subject)
 	if(istype(subject) && HAS_TRAIT(subject, TRAIT_LIGHT_DRINKER))
@@ -1118,7 +1118,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_tube = "#ffeee2"
 	lighting_colour_bulb = "#ffdfca"
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ELITE
-	color_correction = /datum/client_colour/area_color/warm
+	color_correction = /datum/client_colour/area_color/warm_ish
 
 /area/security/main
 	name = "Security Office"
