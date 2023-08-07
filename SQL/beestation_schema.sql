@@ -148,7 +148,7 @@ CREATE TABLE IF NOT EXISTS `SS13_characters` (
 	`all_quirks` MEDIUMTEXT COLLATE 'utf8mb4_general_ci',
 	`equipped_gear` MEDIUMTEXT COLLATE 'utf8mb4_general_ci',
 	`role_preferences` MEDIUMTEXT COLLATE 'utf8mb4_general_ci',
-	`randomise` MEDIUMTEXT COLLATE 'utf8mb4_general_ci',
+	`randomize` MEDIUMTEXT COLLATE 'utf8mb4_general_ci',
 	PRIMARY KEY (`slot`, `ckey`) USING BTREE
 ) COLLATE='utf8mb4_general_ci' ENGINE=InnoDB;
 
