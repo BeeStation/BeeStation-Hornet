@@ -43,7 +43,7 @@
 /obj/item/organ/zombie_infection/process(delta_time)
 	if(!owner)
 		return
-	if(owner.IsInStasis())
+	if(IS_IN_STASIS(owner))
 		return
 	if(!(src in owner.internal_organs))
 		Remove(owner, TRUE)

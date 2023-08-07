@@ -1,0 +1,4 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - bugfix: Pizza bombs and the syndicate lavaland base will now properly explode.

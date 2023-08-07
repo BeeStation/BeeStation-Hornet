@@ -12,7 +12,7 @@
  */
  //33.774 CPU time
 /mob/proc/get_stat(selected_tab)
-	if(IsAdminAdvancedProcCall())
+	if(IS_ADMIN_ADVANCED_PROC_CALL)
 		message_admins("[key_name(usr)] attempted to do something weird with the stat tab (Most likely attempting to exploit it to gain privillages).")
 		log_game("[key_name(usr)] attempted to do something weird with the stat tab (Most likely attempting to exploit it to gain privillages).")
 		return list()
@@ -109,7 +109,7 @@
 	return tab_data
 
 /mob/proc/get_all_verbs()
-	var/list/all_verbs = new
+	var/list/all_verbs = list()
 
 	if(!client)
 		return all_verbs
@@ -117,6 +117,8 @@
 	if(client.interviewee)
 		return list("Interview" = list(/mob/dead/new_player/proc/open_interview))
 
+	if(length(verbs_to_sort))
+		sort_verbs()
 	if(sorted_verbs)
 		all_verbs = deep_copy_list(sorted_verbs)
 	//An annoying thing to mention:
@@ -248,7 +250,7 @@
  * Called when a stat button is pressed.
  */
 /mob/proc/stat_pressed(button_pressed, params)
-	if(IsAdminAdvancedProcCall())
+	if(IS_ADMIN_ADVANCED_PROC_CALL)
 		message_admins("[key_name(usr)] called stat_pressed to potentially exploit the stat_pressed system.")
 		log_game("[key_name(usr)] called stat_pressed to potentially exploit the stat_pressed system.")
 		return

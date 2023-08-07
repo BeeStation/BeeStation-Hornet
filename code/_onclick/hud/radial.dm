@@ -5,7 +5,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 
 /atom/movable/screen/radial
 	icon = 'icons/mob/radial.dmi'
-
+	appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 	plane = ABOVE_HUD_PLANE
 	var/datum/radial_menu/parent
 

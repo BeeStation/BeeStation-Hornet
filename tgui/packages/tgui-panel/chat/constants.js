@@ -85,7 +85,7 @@ export const MESSAGE_TYPES = [
     type: MESSAGE_TYPE_OOC,
     name: 'OOC',
     description: 'OOC and LOOC messages',
-    selector: '.ooc, .looc, .adminooc',
+    selector: '.ooc, .looc, .adminooc, .adminobserverooc',
   },
   {
     type: MESSAGE_TYPE_ADMINPM,

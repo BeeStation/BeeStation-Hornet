@@ -179,8 +179,10 @@
 	radio_filter_out = frequency==FREQ_ATMOS_CONTROL?(RADIO_TO_AIRALARM):null
 	if(frequency)
 		set_frequency(frequency)
-	broadcast_status()
 	..()
+
+/obj/machinery/atmospherics/components/unary/vent_pump/on_construction(obj_color, set_layer)
+	broadcast_status()
 
 /obj/machinery/atmospherics/components/unary/vent_pump/receive_signal(datum/signal/signal)
 	if(!is_operational)

@@ -56,7 +56,7 @@
 
 /obj/item/organ/cyberimp/chest/reviver/on_life()
 	if(reviving)
-		if(owner.stat == UNCONSCIOUS)
+		if(owner.stat)
 			addtimer(CALLBACK(src, PROC_REF(heal)), 30)
 		else
 			cooldown = revive_cost + world.time
@@ -66,7 +66,7 @@
 
 	if(cooldown > world.time)
 		return
-	if(owner.stat != UNCONSCIOUS)
+	if(!owner.stat)
 		return
 	if(owner.suiciding)
 		return
