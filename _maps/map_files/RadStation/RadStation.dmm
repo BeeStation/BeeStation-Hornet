@@ -30303,6 +30303,8 @@
 /obj/machinery/camera/autoname{
 	c_tag = "Teleporter Room"
 	},
+/obj/structure/table/wood,
+/obj/machinery/computer/libraryconsole/bookmanagement,
 /turf/open/floor/carpet/royalblack,
 /area/library)
 "jsg" = (
@@ -33839,8 +33841,8 @@
 	pixel_y = 32
 	},
 /obj/machinery/camera/motion{
-	network = list("minisat","aiupload");
-	c_tag = "MiniSat Upload East"
+	c_tag = "MiniSat Upload East";
+	network = list("minisat","aiupload")
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat/foyer)
@@ -51959,8 +51961,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/camera/motion{
-	network = list("minisat","aiupload");
-	c_tag = "MiniSat Upload West"
+	c_tag = "MiniSat Upload West";
+	network = list("minisat","aiupload")
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat/foyer)
@@ -52352,9 +52354,9 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/camera/motion{
-	network = list("minisat");
 	c_tag = "MiniSat Core Hallway 1";
-	dir = 9
+	dir = 9;
+	network = list("minisat")
 	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/aisat_interior)
@@ -61753,9 +61755,9 @@
 	},
 /obj/machinery/light,
 /obj/machinery/camera/motion{
-	network = list("aiupload");
 	c_tag = "MiniSat Upload Chamber";
-	dir = 10
+	dir = 10;
+	network = list("aiupload")
 	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
@@ -75119,9 +75121,9 @@
 	pixel_x = -30
 	},
 /obj/machinery/camera/autoname{
-	network = list("aicore");
 	c_tag = "AI Core";
-	dir = 4
+	dir = 4;
+	network = list("aicore")
 	},
 /turf/open/floor/engine/o2,
 /area/ai_monitored/turret_protected/ai)
