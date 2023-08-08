@@ -3,7 +3,7 @@ import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
 import { Input, Button, Section, Tabs, LabeledList, Box, Icon } from '../components';
 
-export const Morph = (_props, _context) => {
+export const Morph = () => {
   return (
     <Window theme="generic" width={650} height={650}>
       <Window.Content scrollable>
@@ -64,7 +64,7 @@ const MorphContents = (_props, context) => {
   );
 };
 
-const MorphItem = ({ name, id, img, living, favorite, digestable, throw_ref }, context) => {
+const MorphItem = ({ name, id, img, living, favorite, digestable, throw_ref }) => {
   return (
     <LabeledList.Item
       label={
