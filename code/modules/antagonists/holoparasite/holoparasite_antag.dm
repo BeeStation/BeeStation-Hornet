@@ -82,8 +82,7 @@
 		var/objective_info = list(
 			"count" = objective_count,
 			"name" = objective.name,
-			"explanation" = objective.explanation_text,
-			"optional" = objective.optional
+			"explanation" = objective.explanation_text
 		)
 		LAZYADD(objectives, list(objective_info))
 		objective_count++
