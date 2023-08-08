@@ -60,6 +60,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/launchpad)
 	if (stationary && panel_open && TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<span class='notice'>You save the data in the [buffer_parent.name]'s buffer.</span>")
 		return COMPONENT_BUFFER_RECIEVED
+	return NONE
 
 /obj/machinery/launchpad/attackby(obj/item/I, mob/user, params)
 	if(stationary)

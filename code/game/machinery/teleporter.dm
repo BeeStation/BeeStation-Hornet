@@ -202,6 +202,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/teleport/station)
 			else
 				to_chat(user, "<span class='alert'>This station can't hold more information, try to use better parts.</span>")
 			return COMPONENT_BUFFER_RECIEVED
+	return NONE
 
 /obj/machinery/teleport/station/interact(mob/user)
 	toggle(user)

@@ -415,6 +415,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/conveyor_switch)
 	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<span class='notice'>You store [src] in [buffer_parent]'s buffer.</span>")
 		return COMPONENT_BUFFER_RECIEVED
+	return NONE
 
 /obj/machinery/conveyor_switch/screwdriver_act(mob/living/user, obj/item/I)
 	var/newdirtext = ""

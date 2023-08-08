@@ -48,6 +48,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/bsa/back)
 	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<span class='notice'>You store linkage information in [buffer_parent]'s buffer.</span>")
 		return COMPONENT_BUFFER_RECIEVED
+	return NONE
 
 /obj/machinery/bsa/front
 	name = "Bluespace Artillery Bore"

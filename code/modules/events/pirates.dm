@@ -250,6 +250,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/piratepad)
 	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<span class='notice'>You register [src] in [buffer_parent]'s buffer.</span>")
 		return COMPONENT_BUFFER_RECIEVED
+	return NONE
 
 /obj/machinery/computer/piratepad_control
 	name = "cargo hold control terminal"
@@ -276,6 +277,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/piratepad_control)
 		set_pad(buffer)
 		ui_update()
 		return COMPONENT_BUFFER_RECIEVED
+	return NONE
 
 /obj/machinery/computer/piratepad_control/LateInitialize()
 	. = ..()

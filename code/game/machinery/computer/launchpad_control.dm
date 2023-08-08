@@ -126,6 +126,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/launchpad)
 		else
 			to_chat(user, "<span class='warning'>[src] cannot handle any more connections!</span>")
 		return COMPONENT_BUFFER_RECIEVED
+	return NONE
 
 /obj/machinery/computer/launchpad/proc/launchpad_deleted(datum/source)
 	SIGNAL_HANDLER

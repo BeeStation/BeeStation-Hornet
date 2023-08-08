@@ -186,6 +186,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/camera_advanced/xenobio)
 		connected_recycler = buffer
 		connected_recycler.connected += src
 		return COMPONENT_BUFFER_RECIEVED
+	return NONE
 
 /datum/action/innate/slime_place
 	name = "Place Slimes"

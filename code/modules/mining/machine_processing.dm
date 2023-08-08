@@ -167,7 +167,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/processing_unit_console)
 	if(istype(buffer, /obj/machinery/mineral/processing_unit))
 		if(get_area(buffer) != get_area(src))
 			to_chat(user, "<font color = #666633>-% Cannot link machines across power zones. %-</font color>")
-			return FALSE
+			return NONE
 		to_chat(user, "<font color = #666633>-% Successfully linked [buffer] with [src] %-</font color>")
 		machine = buffer
 		machine.console = src
@@ -268,7 +268,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/mineral/processing_unit)
 	if(istype(buffer, /obj/machinery/mineral/processing_unit_console))
 		if(get_area(buffer) != get_area(src))
 			to_chat(user, "<font color = #666633>-% Cannot link machines across power zones. %-</font color>")
-			return
+			return NONE
 		to_chat(user, "<font color = #666633>-% Successfully linked [buffer] with [src] %-</font color>")
 		console = buffer
 		console.machine = src

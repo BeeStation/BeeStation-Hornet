@@ -317,6 +317,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/porta_turret)
 	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<span class='notice'>You add [src] to multitool buffer.</span>")
 		return COMPONENT_BUFFER_RECIEVED
+	return NONE
 
 /obj/machinery/porta_turret/on_emag(mob/user)
 	..()
@@ -911,6 +912,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/turretid)
 		turrets |= buffer
 		to_chat(user, "You link \the [buffer] with \the [src]")
 		return COMPONENT_BUFFER_RECIEVED
+	return NONE
 
 /obj/machinery/turretid/on_emag(mob/user)
 	..()

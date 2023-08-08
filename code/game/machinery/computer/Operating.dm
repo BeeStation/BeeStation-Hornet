@@ -175,11 +175,11 @@ REGISTER_BUFFER_HANDLER(/obj/machinery/computer/operating)
 DEFINE_BUFFER_HANDLER(/obj/machinery/computer/operating)
 	if(!istype(buffer, /obj/machinery/stasis))
 		to_chat(user, "<span class='warning'>You cannot link \the [buffer] to \the [src].</span>")
-		return FALSE
+		return NONE
 	var/obj/machinery/stasis/new_stasis_bed = buffer
 	if(get_dist(src, new_stasis_bed) > 3)
 		to_chat(user, "<span class='warning'>\The [src] is too far away from \the [new_stasis_bed] to link!</span>")
-		return FALSE
+		return NONE
 	balloon_alert(user, "linked to \the [new_stasis_bed]")
 	if(sbed)
 		sbed.op_computer = null

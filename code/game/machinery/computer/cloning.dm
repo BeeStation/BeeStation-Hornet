@@ -174,7 +174,7 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/computer/cloning)
 		if(get_area(buffer) != get_area(src))
 			to_chat(user, "<font color = #666633>-% Cannot link machines across power zones. Buffer cleared %-</font color>")
 			FLUSH_BUFFER(buffer_parent)
-			return
+			return NONE
 		to_chat(user, "<font color = #666633>-% Successfully linked [buffer] with [src] %-</font color>")
 		var/obj/machinery/clonepod/pod = buffer
 		if(pod.connected)

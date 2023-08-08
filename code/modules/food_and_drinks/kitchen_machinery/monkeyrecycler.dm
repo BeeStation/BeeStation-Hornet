@@ -100,3 +100,4 @@ DEFINE_BUFFER_HANDLER(/obj/machinery/monkey_recycler)
 	if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<span class='notice'>You log [src] in the [buffer_parent]'s buffer.</span>")
 		return COMPONENT_BUFFER_RECIEVED
+	return NONE
