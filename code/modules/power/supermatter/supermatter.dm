@@ -276,9 +276,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 /obj/machinery/power/supermatter_crystal/update_overlays()
 	. = ..()
-	if(final_countdown)
-		. += "casuality_field"
 	. += get_displacement_icon()
+	if(final_countdown)
+		. += "causality_field"
 
 // Switches the overlay based on the supermatter's current state; only called when the status has changed
 /obj/machinery/power/supermatter_crystal/proc/get_displacement_icon()
