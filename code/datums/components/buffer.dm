@@ -52,6 +52,7 @@
 	if (target)
 		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(flush_buffer))
 		return COMPONENT_BUFFER_STORE_SUCCESS
+	return NONE
 
 /datum/component/buffer/proc/flush_buffer()
 	SIGNAL_HANDLER
