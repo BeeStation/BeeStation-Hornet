@@ -376,46 +376,6 @@ SUBSYSTEM_DEF(ticker)
 	PostSetup()
 	SSstat.clear_global_alert()
 
-
-	/*
-	if(!length(target_area_list))
-		return TRUE //Early return if there's no areas where lights need to be on
-	for(var/obj/machinery/found_machine in GLOB.machines)
-		var/area/found_area = get_area(found_machine)
-		var/obj/machinery/light/found_lightfixture = null
-		if(istype(found_machine, /obj/machinery/light))
-			found_lightfixture = found_machine
-			found_lightfixture.maploaded = FALSE
-		if(isnull(found_area))
-			continue
-		if(!(found_area in target_area_list))
-			continue
-		if(found_area.lights_always_start_on)
-			continue
-		if(!found_area?.lightswitch)
-			found_area?.lightswitch = TRUE
-		if(found_lightfixture)
-			found_lightfixture.update(FALSE, TRUE, TRUE)
-			continue
-		if(istype(found_machine, /obj/machinery/light_switch))
-			var/obj/machinery/light_switch/found_switch = found_machine
-			found_switch.update_appearance()
-	*/
-
-	/*
-	for(var/area/area in typecache_filter_list(GLOB.areas, lightup_area_typecache))
-		if(area.lights_always_start_on)
-			continue
-		area.lightswitch = TRUE
-		area.update_appearance()
-		for(var/obj/machinery/light_switch/lswitch in area)
-			lswitch.update_appearance()
-		area.power_change()
-
-	for(var/obj/machinery/light/found_light in GLOB.machines)
-		found_light.maploaded = FALSE
-	*/
-
 	return TRUE
 
 /datum/controller/subsystem/ticker/proc/PostSetup()
