@@ -39,4 +39,4 @@
 
 /datum/objective/capture/get_completion_message()
 	var/span = check_completion() ? "grentext" : "redtext"
-	return "[explanation_text] <span class='[span]'>[captured_amount] lifeform\s captured!</span>"
+	return "[explanation_text] <span class='[span]'>[amount_captured] lifeform\s captured!</span>"
