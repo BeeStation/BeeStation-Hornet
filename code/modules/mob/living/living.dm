@@ -263,6 +263,10 @@
 		return FALSE
 	if(throwing || !(mobility_flags & MOBILITY_PULL))
 		return FALSE
+	if(isliving(src) && ishuman(AM)) //some objects have grabs that go through here, we don't want to break those.
+		var/mob/living/carbon/human/H = AM
+		if(H.check_shields(src, 0, src.name, attack_type = UNARMED_ATTACK))
+			return FALSE
 
 	AM.add_fingerprint(src)
 

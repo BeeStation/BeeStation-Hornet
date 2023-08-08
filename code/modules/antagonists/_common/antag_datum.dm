@@ -259,7 +259,6 @@ GLOBAL_LIST(admin_antag_list)
 			"name" = objective.name,
 			"explanation" = objective.explanation_text,
 			"complete" = objective.completed,
-			"optional" = objective.optional,
 		))
 		objective_count++
 	return objective_data

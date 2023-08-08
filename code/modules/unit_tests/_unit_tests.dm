@@ -48,6 +48,7 @@
 #include "achievement_validation.dm"
 #include "anchored_mobs.dm"
 #include "area_contents.dm"
+#include "armour_checks.dm"
 #include "check_adjustable_clothing.dm"
 #include "closets.dm"
 #include "component_tests.dm"

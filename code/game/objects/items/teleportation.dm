@@ -126,9 +126,9 @@
 		return FALSE
 	return ..()
 
-/obj/item/hand_tele/proc/try_dispel_portal(atom/target, mob/user)
+/obj/item/hand_tele/proc/try_dispel_portal(obj/effect/portal/target, mob/user)
 	if(is_parent_of_portal(target))
-		qdel(target)
+		target.dispel()
 		to_chat(user, "<span class='notice'>You dispel [target] with \the [src]!</span>")
 		return TRUE
 	return FALSE
@@ -143,6 +143,7 @@
 	if(!current_location || current_area.teleport_restriction || is_away_level(current_location.z) || is_centcom_level(current_location.z) || !isturf(user.loc))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
 		return
+	// Add on teleport targets
 	var/list/L = list()
 	for(var/obj/machinery/computer/teleporter/com in GLOB.machines)
 		var/atom/target = com.target_ref?.resolve()
@@ -156,6 +157,15 @@
 			L["[get_area(target)] (Active)"] = target
 		else
 			L["[get_area(target)] (Inactive)"] = target
+	// Add on slipspace wakes
+	var/i = 0
+	for (var/obj/effect/temp_visual/teleportation_wake/wake in range(7, user))
+		if (!wake.destination)
+			continue
+		var/distance = get_dist(wake, user)
+		var/range = distance <= 3 ? "Strong" : "Weak"
+		L["Slipspace Wake [++i] ([range])"] = get_teleport_turf(wake.destination, 2 + distance)
+	// Add on a random turf nearby
 	var/list/turfs = list()
 	for(var/turf/T as() in (RANGE_TURFS(10, user) - get_turf(user)))
 		if(T.x>world.maxx-8 || T.x<8)
@@ -192,7 +202,7 @@
 	var/obj/effect/portal/c2 = created[2]
 
 	var/turf/check_turf = get_turf(get_step(user, user.dir))
-	if(check_turf.CanPass(user, get_dir(check_turf, user)))
+	if(!check_turf.is_blocked_turf(TRUE, src))
 		c1.forceMove(check_turf)
 	active_portal_pairs[created[1]] = created[2]
 
@@ -200,6 +210,20 @@
 	add_fingerprint(user)
 
 /obj/item/hand_tele/proc/on_portal_destroy(obj/effect/portal/P)
+	// Identify the source and destination portal
+	var/source = P
+	// Lookup the portal that we are dispelling in the active portal pairs
+	var/destination = active_portal_pairs[P]
+	// If we cannot find it, lookup by the destination portals as we could be dispelling the other end.
+	if (!destination)
+		for (var/start in active_portal_pairs)
+			if (active_portal_pairs[start] == P)
+				destination = start
+				break
+	if (source && destination)
+		// Create a wake to the target
+		new /obj/effect/temp_visual/teleportation_wake(get_turf(source), get_turf(destination))
+		new /obj/effect/temp_visual/teleportation_wake(get_turf(destination), get_turf(source))
 	active_portal_pairs -= P	//If this portal pair is made by us it'll be erased along with the other portal by the portal.
 
 /obj/item/hand_tele/proc/is_parent_of_portal(obj/effect/portal/P)
