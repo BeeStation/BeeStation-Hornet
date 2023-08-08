@@ -270,18 +270,13 @@
 		var/mob/living/current = mind.current
 		if(!istype(current))
 			continue
-		for(var/obj/item/photo/photo as anything in current.GetAllContents(/obj/item/photo)) //Check for wanted items
+		for(var/obj/item/photo/photo in current.GetAllContents(/obj/item/photo)) //Check for wanted items
 			var/datum/picture/picture = photo.picture
 			if(!picture)
 				continue
 			var/seen_mind_stat = picture.minds_seen[target]
 			if(!isnull(seen_mind_stat) && seen_mind_stat != DEAD)
 				return TRUE
-			for(var/mob/living/carbon/seen in picture.mobs_seen)
-				if(seen.last_mind != target)
-					continue
-				if(picture.mobs_seen[seen] != DEAD)
-					return TRUE
 	return ..()
 
 /datum/objective/polaroid/on_target_cryo()

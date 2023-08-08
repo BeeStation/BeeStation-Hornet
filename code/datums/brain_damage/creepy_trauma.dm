@@ -93,7 +93,7 @@
 		var/turf/target_turf = get_turf(potential_target)
 		if(potential_target != owner && potential_target.mind && potential_target.stat != DEAD && potential_target.client && !potential_target.client.is_afk() && SSjob.name_occupations[potential_target.mind.assigned_role] && target_turf && is_station_level(target_turf.z))
 			viable_minds += potential_target.mind
-	for(var/datum/mind/possible_target as() in viable_minds)
+	for(var/datum/mind/possible_target in viable_minds)
 		var/weight = 10
 		// MUCH less likely to get a target who's probably going to be off-station for most of the round
 		if(possible_target.assigned_role in list(JOB_NAME_EXPLORATIONCREW, JOB_NAME_SHAFTMINER))
