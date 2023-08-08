@@ -23,7 +23,7 @@
 	if(!ismovable(target))
 		return ELEMENT_INCOMPATIBLE
 
-	var/atom/movable/target_as_atom
+	var/atom/movable/target_as_atom = target
 
 	if(target_as_atom.density)
 		return ELEMENT_INCOMPATIBLE
