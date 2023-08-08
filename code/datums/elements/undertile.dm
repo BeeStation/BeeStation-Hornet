@@ -23,6 +23,11 @@
 	if(!ismovable(target))
 		return ELEMENT_INCOMPATIBLE
 
+	var/atom/movable/target_as_atom
+
+	if(target_as_atom.density)
+		return ELEMENT_INCOMPATIBLE
+
 	RegisterSignal(target, COMSIG_OBJ_HIDE, PROC_REF(hide))
 
 	src.invisibility_trait = invisibility_trait
