@@ -29,11 +29,11 @@ const CharacterProfiles = (props: {
   profiles: (string | null)[];
   content_unlocked: BooleanLike;
 }) => {
-  const { profiles } = props;
+  const { profiles = [] } = props;
 
   return (
     <Flex justify="center" wrap>
-      {profiles.map((profile, slot) => (
+      {profiles?.map((profile, slot) => (
         <Flex.Item key={slot} mr={1} mt={1}>
           <Button
             selected={slot === props.activeSlot}

@@ -27,10 +27,14 @@ SUBSYSTEM_DEF(preferences)
 		if(!prefs)
 			datums -= ckey
 			continue
+		if(prefs.save_locked) // don't save right now, but stay queued
+			continue
+		prefs.save_locked = TRUE
 		if(prefs.ready_to_save_character())
 			prefs.save_character()
 		if(prefs.ready_to_save_player())
 			prefs.save_preferences()
+		prefs.save_locked = FALSE
 		datums -= ckey
 		prefs.ui_update() // for queue preview
 		if (MC_TICK_CHECK)

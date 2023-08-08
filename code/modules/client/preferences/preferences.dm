@@ -3,6 +3,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 /datum/preferences
 	var/client/parent
 
+	/// Keeps a lock on the database, so that conflicting data is not overwritten.
+	/// This is true during saves and loads, other save sources should NOT trigger if this is true.
+	var/save_locked = TRUE
+
 	/// The current active slot, and the one that will be saved as active
 	var/default_slot = 1
 	/// The maximum number of slots we're allowed to contain
@@ -115,6 +119,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	set_default_key_bindings(save = FALSE) // no point in saving these since everyone gets them. They'll be saved if needed.
 	randomize = get_default_randomization()
 
+	save_locked = TRUE
+
 	var/loaded_preferences_successfully = load_preferences()
 	if(loaded_preferences_successfully)
 		if("6030fe461e610e2be3a2c3e75c06067e" in purchased_gear) //MD5 hash of, "extra character slot"
@@ -123,6 +129,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			// Get the profile data
 			fetch_character_profiles()
 			create_character_preview_view()
+			save_locked = FALSE
 			return
 	// Begin no database / new player logic. This ONLY fires if there is an SQL error or no database / the player and character is new.
 
@@ -140,6 +147,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	// The character name is fresh, update the character list.
 	update_current_character_profile()
 	create_character_preview_view()
+
+	save_locked = FALSE
 
 	// If this was a NEW CKEY ENTRY, and not a guest key (handled in save_preferences()), save it.
 	// Guest keys are ignored by mark_undatumized_dirty
@@ -234,6 +243,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			var/new_slot = params["slot"]
 			if(new_slot == default_slot) // No need to change to the current character.
 				return
+			/// No switching slots during a save
+			if(save_locked)
+				return
+			save_locked = TRUE
 			// Save previous character (immediately, delaying this could mean data is lost)
 			save_character()
 
@@ -249,6 +262,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				preference_middleware.on_new_character(usr)
 
 			character_preview_view.update_body()
+
+			save_locked = FALSE
 
 			return TRUE
 		if ("rotate")
@@ -328,9 +343,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 /datum/preferences/ui_close(mob/user)
 	// Save immediately. This should also handle if the player disconnects before their mob/ckey/client is null.
+	// This ignores the save lock.
+	save_locked = TRUE
 	save_character()
 	save_preferences()
 	character_preview_view.unregister_from_client(user.client)
+	save_locked = FALSE
 
 /datum/preferences/proc/compile_character_preferences(mob/user)
 	var/list/preferences = list()
