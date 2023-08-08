@@ -55622,6 +55622,13 @@
 	},
 /turf/open/floor/plating,
 /area/science/research)
+"rpI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/stool{
+	dir = 1
+	},
+/turf/open/floor/carpet/royalblack,
+/area/library)
 "rqd" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -120642,7 +120649,7 @@ uPJ
 xUI
 eqb
 jsd
-bxs
+rpI
 lZw
 nXU
 jbn
