@@ -1,4 +1,5 @@
 #define ROUND_START_MUSIC_LIST "strings/round_start_sounds.txt"
+GLOBAL_LIST_EMPTY(roundstart_areas_lights_on)
 
 SUBSYSTEM_DEF(ticker)
 	name = "Ticker"
@@ -357,10 +358,7 @@ SUBSYSTEM_DEF(ticker)
 	//Setup orbits.
 	SSorbits.post_load_init()
 
-	PostSetup()
-	SSstat.clear_global_alert()
-
-	// Toggle lightswitches on in occupied departments
+	// Store areas where lights need to stay on
 	var/list/lightup_area_typecache = list()
 	var/minimal_access = CONFIG_GET(flag/jobs_have_minimal_access)
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
@@ -371,6 +369,40 @@ SUBSYSTEM_DEF(ticker)
 		if(!job)
 			continue
 		lightup_area_typecache |= job.areas_to_light_up(minimal_access)
+	var/list/target_area_list = typecache_filter_list(GLOB.areas, lightup_area_typecache)
+	if(length(target_area_list))
+		GLOB.roundstart_areas_lights_on.Add(target_area_list)
+
+	PostSetup()
+	SSstat.clear_global_alert()
+
+
+	/*
+	if(!length(target_area_list))
+		return TRUE //Early return if there's no areas where lights need to be on
+	for(var/obj/machinery/found_machine in GLOB.machines)
+		var/area/found_area = get_area(found_machine)
+		var/obj/machinery/light/found_lightfixture = null
+		if(istype(found_machine, /obj/machinery/light))
+			found_lightfixture = found_machine
+			found_lightfixture.maploaded = FALSE
+		if(isnull(found_area))
+			continue
+		if(!(found_area in target_area_list))
+			continue
+		if(found_area.lights_always_start_on)
+			continue
+		if(!found_area?.lightswitch)
+			found_area?.lightswitch = TRUE
+		if(found_lightfixture)
+			found_lightfixture.update(FALSE, TRUE, TRUE)
+			continue
+		if(istype(found_machine, /obj/machinery/light_switch))
+			var/obj/machinery/light_switch/found_switch = found_machine
+			found_switch.update_appearance()
+	*/
+
+	/*
 	for(var/area/area in typecache_filter_list(GLOB.areas, lightup_area_typecache))
 		if(area.lights_always_start_on)
 			continue
@@ -379,8 +411,10 @@ SUBSYSTEM_DEF(ticker)
 		for(var/obj/machinery/light_switch/lswitch in area)
 			lswitch.update_appearance()
 		area.power_change()
+
 	for(var/obj/machinery/light/found_light in GLOB.machines)
 		found_light.maploaded = FALSE
+	*/
 
 	return TRUE
 
