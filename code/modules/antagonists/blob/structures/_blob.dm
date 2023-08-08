@@ -187,7 +187,7 @@
 		blob_attack_animation(T, controller) //if we can't, animate that we attacked
 	return null
 
-/obj/structure/blob/bullet_act(obj/item/projectile/energy/accelerated_particle/P, def_zone, piercing_hit = FALSE)
+/obj/structure/blob/bullet_act(obj/projectile/energy/accelerated_particle/P, def_zone, piercing_hit = FALSE)
 	if(istype(P))
 		playsound(src, 'sound/weapons/pierce.ogg', 50, 1) //we don't have a hitsound so lets just overwrite it here
 		visible_message("<span class='danger'>[src] is hit by \a [P]!</span>", null, null, COMBAT_MESSAGE_RANGE)
@@ -253,7 +253,7 @@
 
 
 /obj/structure/blob/attack_animal(mob/living/simple_animal/M)
-	if(ROLE_BLOB in M.faction) //sorry, but you can't kill the blob as a blobbernaut
+	if(FACTION_BLOB in M.faction) //sorry, but you can't kill the blob as a blobbernaut
 		return
 	..()
 

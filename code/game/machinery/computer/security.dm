@@ -28,7 +28,7 @@
 
 /obj/item/circuit_component/arrest_console_data
 	display_name = "Security Records Data"
-	display_desc = "Outputs the security records data, where it can then be filtered with a Select Query component"
+	desc = "Outputs the security records data, where it can then be filtered with a Select Query component"
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
 	/// The records retrieved
@@ -39,16 +39,9 @@
 
 	var/obj/machinery/computer/secure_data/attached_console
 
-/obj/item/circuit_component/arrest_console_data/Initialize(mapload)
-	. = ..()
+/obj/item/circuit_component/arrest_console_data/populate_ports()
 	records = add_output_port("Security Records", PORT_TYPE_TABLE)
 	on_fail = add_output_port("Failed", PORT_TYPE_SIGNAL)
-
-/obj/item/circuit_component/arrest_console_data/Destroy()
-	records = null
-	on_fail = null
-	return ..()
-
 
 /obj/item/circuit_component/arrest_console_data/register_usb_parent(atom/movable/parent)
 	. = ..()
@@ -74,9 +67,6 @@
 
 
 /obj/item/circuit_component/arrest_console_data/input_received(datum/port/input/port)
-	. = ..()
-	if(.)
-		return
 
 	if(!attached_console || !attached_console.authenticated)
 		on_fail.set_output(COMPONENT_SIGNAL)
@@ -107,14 +97,14 @@
 
 /obj/item/circuit_component/arrest_console_arrest
 	display_name = "Security Records Set Status"
-	display_desc = "Receives a table to use to set people's arrest status. Table should be from the security records data component. If New Status port isn't set, the status will be decided by the options."
+	desc = "Receives a table to use to set people's arrest status. Table should be from the security records data component. If New Status port isn't set, the status will be decided by the options."
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
 	/// The targets to set the status of.
 	var/datum/port/input/targets
 
-	/// Sets the new status of the targets. If set to null, the status is taken from the options.
-	var/datum/port/input/new_status
+	/// Sets the new status of the targets.
+	var/datum/port/input/option/new_status
 
 	/// Returns the new status set once the setting is complete. Good for locating errors.
 	var/datum/port/output/new_status_set
@@ -141,37 +131,23 @@
 		COMP_STATE_DISCHARGED,
 		COMP_STATE_NONE,
 	)
-	options = component_options
+	new_status = add_option_port("Arrest Options", component_options)
 
-/obj/item/circuit_component/arrest_console_arrest/Initialize(mapload)
-	. = ..()
+/obj/item/circuit_component/arrest_console_arrest/populate_ports()
 	targets = add_input_port("Targets", PORT_TYPE_TABLE)
-	new_status = add_input_port("New Status", PORT_TYPE_STRING)
 	new_status_set = add_output_port("Set Status", PORT_TYPE_STRING)
 	on_fail = add_output_port("Failed", PORT_TYPE_SIGNAL)
 
-/obj/item/circuit_component/arrest_console_arrest/Destroy()
-	targets = null
-	new_status = null
-	new_status_set = null
-	on_fail = null
-	return ..()
-
 /obj/item/circuit_component/arrest_console_arrest/input_received(datum/port/input/port)
-	. = ..()
-	if(.)
-		return
 
 	if(!attached_console || !attached_console.authenticated)
 		on_fail.set_output(COMPONENT_SIGNAL)
 		return
 
-	var/status_to_set = new_status.input_value
-	if(!status_to_set || !(status_to_set in options))
-		status_to_set = current_option
+	var/status_to_set = new_status.value
 
 	new_status_set.set_output(status_to_set)
-	var/list/target_table = targets.input_value
+	var/list/target_table = targets.value
 	if(!target_table)
 		on_fail.set_output(COMPONENT_SIGNAL)
 		return
@@ -183,12 +159,13 @@
 		if(!sec_record)
 			continue
 
-		successful_set++
+		if(sec_record.fields["criminal"] != status_to_set)
+			successful_set++
+			names_of_entries += target["name"]
 		sec_record.fields["criminal"] = status_to_set
-		names_of_entries += target["name"]
 
 	if(successful_set > 0)
-		investigate_log("[names_of_entries.Join(", ")] have been set to [status_to_set] by [parent.get_creator()].", INVESTIGATE_RECORDS)
+		investigate_log("[parent.get_creator()] has set security records for '[names_of_entries.Join(", ")]' to [status_to_set] via circuits.", INVESTIGATE_RECORDS)
 		if(successful_set > COMP_SECURITY_ARREST_AMOUNT_TO_FLAG)
 			message_admins("[successful_set] security entries have been set to [status_to_set] by [parent.get_creator_admin()]. [ADMIN_COORDJMP(src)]")
 		for(var/mob/living/carbon/human/human as anything in GLOB.carbon_list)
@@ -540,7 +517,7 @@ What a mess.*/
 								GLOB.data_core.payCitation(active2.fields["id"], text2num(href_list["cdataid"]), pay)
 								to_chat(usr, "<span class='notice'>You have paid [pay] credit\s towards your fine.</span>")
 								if (pay == diff || pay > diff || pay >= diff)
-									investigate_log("Citation Paid off: <strong>[p.crimeName]</strong> Fine: [p.fine] | Paid off by [key_name(usr)]", INVESTIGATE_RECORDS)
+									investigate_log("[key_name(usr)] paid off their citation for <strong>[p.crimeName]</strong> ([p.fine]).", INVESTIGATE_RECORDS)
 									to_chat(usr, "<span class='notice'>The fine has been paid in full.</span>")
 								qdel(C)
 								playsound(src, "terminal_type", 25, FALSE)
@@ -833,7 +810,7 @@ What a mess.*/
 								return
 							var/crime = GLOB.data_core.createCrimeEntry(t1, t2, authenticated, station_time_timestamp())
 							GLOB.data_core.addCrime(active1.fields["id"], crime)
-							investigate_log("New Crime: <strong>[t1]</strong>: [t2] | Added to [active1.fields["name"]] by [key_name(usr)]", INVESTIGATE_RECORDS)
+							investigate_log("[key_name(usr)] has added a crime '<strong>[t1]</strong>': '[t2]' to [active1.fields["name"]] via security records.", INVESTIGATE_RECORDS)
 					if("crim_delete")
 						if(istype(active1, /datum/data/record))
 							if(href_list["cdataid"])
@@ -847,7 +824,7 @@ What a mess.*/
 								if(!canUseSecurityRecordsConsole(usr, t1, null, a2))
 									return
 								GLOB.data_core.addCrimeDetails(active1.fields["id"], href_list["cdataid"], t1)
-								investigate_log("New Crime details: [t1] | Added to [active1.fields["name"]] by [key_name(usr)]", INVESTIGATE_RECORDS)
+								investigate_log("[key_name(usr)] has set crime details ([t1]) to [active1.fields["name"]] via security records.", INVESTIGATE_RECORDS)
 					if("citation_add")
 						if(istype(active1, /datum/data/record))
 							var/maxFine = CONFIG_GET(number/maxfine)
@@ -879,12 +856,13 @@ What a mess.*/
 									signal.send_to_receivers()
 									usr.log_message("(PDA: Citation Server) sent \"[message]\" to [signal.format_target()]", LOG_PDA)
 							GLOB.data_core.addCitation(active1.fields["id"], crime)
-							investigate_log("New Citation: <strong>[t1]</strong> Fine: [fine] | Added to [active1.fields["name"]] by [key_name(usr)]", INVESTIGATE_RECORDS)
+							investigate_log("[key_name(usr)] has added a citation '<strong>[t1]</strong>' ([fine] credits) to [active1.fields["name"]] via security records.", INVESTIGATE_RECORDS)
 					if("citation_delete")
 						if(istype(active1, /datum/data/record))
 							if(href_list["cdataid"])
 								if(!canUseSecurityRecordsConsole(usr, "delete", null, a2))
 									return
+								investigate_log("[key_name(usr)] has deleted [active1.fields["name"]]'s citation '[active1.fields["id"]]'.", INVESTIGATE_RECORDS)
 								GLOB.data_core.removeCitation(active1.fields["id"], href_list["cdataid"])
 					if("notes")
 						if(istype(active2, /datum/data/record))
@@ -892,6 +870,7 @@ What a mess.*/
 							if(!canUseSecurityRecordsConsole(usr, t1, null, a2))
 								return
 							active2.fields["notes"] = t1
+							investigate_log("[key_name(usr)] has set [active1.fields["name"]]'s security records important notes to '[t1]'.", INVESTIGATE_RECORDS)
 					if("criminal")
 						if(istype(active2, /datum/data/record))
 							temp = "<h5>Criminal Status:</h5>"
@@ -943,11 +922,11 @@ What a mess.*/
 									active2.fields["criminal"] = "Paroled"
 								if("released")
 									active2.fields["criminal"] = "Discharged"
-							investigate_log("[active1.fields["name"]] has been set from [old_field] to [active2.fields["criminal"]] by [key_name(usr)].", INVESTIGATE_RECORDS)
+							investigate_log("[key_name(usr)] has changed [active1.fields["name"]]'s security records status from <strong>[old_field]</strong> to <strong>[active2.fields["criminal"]]</strong>.", INVESTIGATE_RECORDS)
 							for(var/mob/living/carbon/human/H in GLOB.carbon_list)
 								H.sec_hud_set_security_status()
 					if("Delete Record (Security) Execute")
-						investigate_log("[key_name(usr)] has deleted the security records for [active1.fields["name"]].", INVESTIGATE_RECORDS)
+						investigate_log("[key_name(usr)] has <strong>deleted</strong> the security records for [active1.fields["name"]].", INVESTIGATE_RECORDS)
 						if(active2)
 							qdel(active2)
 							active2 = null

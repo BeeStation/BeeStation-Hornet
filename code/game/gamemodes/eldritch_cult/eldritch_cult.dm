@@ -2,7 +2,8 @@
 	name = "heresy"
 	config_tag = "heresy"
 	report_type = "heresy"
-	antag_flag = ROLE_HERETIC
+	role_preference = /datum/role_preference/antagonist/heretic
+	antag_datum = /datum/antagonist/heretic
 	false_report_weight = 5
 	protected_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	restricted_jobs = list(JOB_NAME_AI, JOB_NAME_CYBORG)
@@ -10,7 +11,6 @@
 	required_enemies = 1
 	recommended_enemies = 4
 	reroll_friendly = 1
-	enemy_minimum_age = 0
 
 	allowed_special = list(/datum/special_role/traitor/higher_chance)
 
@@ -44,7 +44,7 @@
 	for(var/i in 1 to num_ecult)
 		if(!antag_candidates.len)
 			break
-		var/datum/mind/cultie = antag_pick(antag_candidates, ROLE_HERETIC)
+		var/datum/mind/cultie = antag_pick(antag_candidates, /datum/role_preference/antagonist/heretic)
 		antag_candidates -= cultie
 		cultie.special_role = ROLE_HERETIC
 		cultie.restricted_roles = restricted_jobs

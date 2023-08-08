@@ -29,6 +29,8 @@
 	)
 	biohazard = 25 //still deals with the sick and injured, just less than a medical doctor
 
+	minimal_lightup_areas = list(/area/medical/morgue)
+
 /datum/outfit/job/brig_physician
 	name = JOB_NAME_BRIGPHYSICIAN
 	jobtype = /datum/job/brig_physician

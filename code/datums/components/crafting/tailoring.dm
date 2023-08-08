@@ -64,6 +64,16 @@
 	time = 20
 	category = CAT_CLOTHING
 
+/datum/crafting_recipe/voice_modulator
+	name = "Voice Modulator Mask"
+	result = /obj/item/clothing/mask/gas/old/modulator
+	time = 45
+	tools = list(TOOL_SCREWDRIVER, TOOL_MULTITOOL)
+	reqs = list(/obj/item/clothing/mask/gas/old = 1,
+				  /obj/item/assembly/voice = 1,
+				  /obj/item/stack/cable_coil = 5)
+	category = CAT_CLOTHING
+
 /datum/crafting_recipe/hudsunsec
 	name = "Security HUDsunglasses"
 	result = /obj/item/clothing/glasses/hud/security/sunglasses

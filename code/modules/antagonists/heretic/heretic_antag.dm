@@ -17,7 +17,8 @@
 	roundend_category = "Heretics"
 	antagpanel_category = "Heretic"
 	antag_moodlet = /datum/mood_event/heretics
-	job_rank = ROLE_HERETIC
+	banning_key = ROLE_HERETIC
+	required_living_playtime = 4
 	/// Whether we've ascended! (Completed one of the final rituals)
 	var/ascended = FALSE
 	/// The path our heretic has chosen. Mostly used for flavor.
@@ -383,10 +384,8 @@
 	if(length(objectives))
 		var/count = 1
 		for(var/datum/objective/objective as anything in objectives)
-			if(objective.check_completion())
-				parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='greentext'>Success!</span>"
-			else
-				parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
+			parts += "<b>Objective #[count]</b>:  [objective.get_completion_message()]"
+			if(!objective.check_completion())
 				succeeded = FALSE
 			count++
 

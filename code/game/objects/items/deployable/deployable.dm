@@ -14,6 +14,8 @@
 	var/time_to_deploy
 	///Set to true to allow deployment on top of dense objects
 	var/dense_deployment = FALSE
+	/// even if 'dense_deployment' is FALSE, if this is TRUE, it can be deployed onto your position
+	var/ignores_mob_density = FALSE
 
 /obj/item/deployable/attack_self(mob/user)
 	try_deploy(user, user.loc)
@@ -36,13 +38,17 @@
 		else
 			var/dense_location
 			for(var/atom/movable/AM in location)
-				if(AM.density)
-					dense_location = TRUE
-					break
+				if(!AM.density || (ignores_mob_density && ismob(AM)))
+					continue
+				dense_location = TRUE
+				break
 			if(!dense_location)
 				return deploy_after(user, location)
 	if(user)
-		to_chat(user, "<span class='warning'>[src] can only be deployed in an open area!</span>")
+		if(ignores_mob_density)
+			to_chat(user, "<span class='warning'>[src] can only be deployed in an open area!</span>")
+		else
+			to_chat(user, "<span class='warning'>[src] can only be deployed in an open area! Click an open area where has no dense object.</span>")
 	visible_message("<span class='warning'>[src] fails to deploy!</span>")
 	return FALSE
 

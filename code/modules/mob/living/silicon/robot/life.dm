@@ -99,7 +99,7 @@
 		cut_overlay(fire_overlay)
 
 /mob/living/silicon/robot/update_mobility()
-	if(stat || buckled || lockcharge || incapacitated(check_immobilized = TRUE))
+	if(stat || buckled || lockcharge || incapacitated())
 		mobility_flags &= ~MOBILITY_MOVE
 	else
 		mobility_flags = MOBILITY_FLAGS_DEFAULT
