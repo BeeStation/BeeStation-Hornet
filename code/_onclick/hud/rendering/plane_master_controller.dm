@@ -95,5 +95,3 @@ INITIALIZE_IMMEDIATE(/atom/movable/plane_master_controller)
 		POINT_PLANE,
 		LIGHTING_PLANE,
 	)
-
-/datum/unit_test
