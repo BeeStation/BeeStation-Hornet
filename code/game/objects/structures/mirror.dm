@@ -171,7 +171,7 @@
 					H.dna.update_ui_block(DNA_SKIN_TONE_BLOCK)
 
 			if(MUTCOLORS in H.dna.species.species_traits)
-				var/new_mutantcolor = input(user, "Choose your skin color:", "Race change","#"+H.dna.features["mcolor"]) as color|null
+				var/new_mutantcolor = tgui_color_picker(user, "Choose your skin color:", "Race change","#"+H.dna.features["mcolor"])
 				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 					return
 				if(new_mutantcolor)
@@ -219,21 +219,21 @@
 			if(hairchoice == "Style") //So you just want to use a mirror then?
 				..()
 			else
-				var/new_hair_color = input(H, "Choose your hair color", "Hair Color","#"+H.hair_color) as color|null
+				var/new_hair_color = tgui_color_picker(H, "Choose your hair color", "Hair Color","#"+H.hair_color)
 				if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 					return
 				if(new_hair_color)
 					H.hair_color = sanitize_hexcolor(new_hair_color)
 					H.dna.update_ui_block(DNA_HAIR_COLOR_BLOCK)
 				if(H.gender == "male")
-					var/new_face_color = input(H, "Choose your facial hair color", "Hair Color","#"+H.facial_hair_color) as color|null
+					var/new_face_color = tgui_color_picker(H, "Choose your facial hair color", "Hair Color","#"+H.facial_hair_color)
 					if(new_face_color)
 						H.facial_hair_color = sanitize_hexcolor(new_face_color)
 						H.dna.update_ui_block(DNA_FACIAL_HAIR_COLOR_BLOCK)
 				H.update_hair()
 
 		if(BODY_ZONE_PRECISE_EYES)
-			var/new_eye_color = input(H, "Choose your eye color", "Eye Color","#"+H.eye_color) as color|null
+			var/new_eye_color = tgui_color_picker(H, "Choose your eye color", "Eye Color","#"+H.eye_color)
 			if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 				return
 			if(new_eye_color)
@@ -248,7 +248,7 @@
 
 
 //basically stolen from human_defense.dm
-/obj/structure/mirror/bullet_act(obj/item/projectile/P)
+/obj/structure/mirror/bullet_act(obj/projectile/P)
 	if(P.reflectable & REFLECT_NORMAL)
 		if(P.starting)
 			var/new_x = P.starting.x + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)

@@ -13,6 +13,7 @@
 	maxHealth = 500
 	layer = BELOW_MOB_LAYER
 	can_be_held = TRUE
+	radio = /obj/item/radio/headset/silicon/pai
 	move_force = 0
 	pull_force = 0
 	move_resist = 0
@@ -163,8 +164,6 @@
 	signaler = new /obj/item/assembly/signaler/internal(src)
 	hostscan = new /obj/item/healthanalyzer(src)
 	atmos_analyzer = new /obj/item/analyzer(src)
-	if(!radio)
-		radio = new /obj/item/radio/headset/silicon/pai(src)
 	newscaster = new /obj/machinery/newscaster/pai(src)
 	if(!aicamera)
 		aicamera = new /obj/item/camera/siliconcam/ai_camera(src)

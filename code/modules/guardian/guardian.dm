@@ -352,7 +352,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	if( QDELETED(targeted_atom) || targeted_atom == target_from.loc || targeted_atom == target_from )
 		return
 	var/turf/startloc = get_turf(target_from)
-	var/obj/item/projectile/P = new /obj/item/projectile/guardian(startloc)
+	var/obj/projectile/P = new /obj/projectile/guardian(startloc)
 	playsound(src, projectilesound, 100, 1)
 	P.color = guardiancolor
 	P.damage = stats.damage * 1.5
@@ -584,7 +584,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 
 /mob/living/simple_animal/hostile/guardian/proc/ResetMe()
 	set waitfor = FALSE
-	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as [summoner?.current?.name]'s [real_name]?", ROLE_HOLOPARASITE, null, FALSE, 10 SECONDS)
+	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as [summoner?.current?.name]'s [real_name]?", ROLE_HOLOPARASITE, null, 10 SECONDS)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		key = C.key
@@ -677,7 +677,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 					return
 				G.next_reset = world.time + GUARDIAN_RESET_COOLDOWN
 			to_chat(src, "<span class='holoparasite'>You attempt to reset <font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font>'s personality...</span>")
-			var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as [src.real_name]'s [G.real_name]?", ROLE_HOLOPARASITE, null, FALSE, 100)
+			var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as [src.real_name]'s [G.real_name]?", ROLE_HOLOPARASITE, null, 10 SECONDS)
 			if(LAZYLEN(candidates))
 				var/mob/dead/observer/C = pick(candidates)
 				to_chat(G, "<span class='holoparasite'>Your user reset you, and your body was taken over by a ghost. Looks like they weren't happy with your performance.</span>")
@@ -728,7 +728,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 			return "A"
 	return "F"
 
-/obj/item/projectile/guardian
+/obj/projectile/guardian
 	name = "crystal spray"
 	icon_state = "guardian"
 	damage = 5

@@ -4,7 +4,7 @@
 	desc = "A large structural assembly made out of iron; It requires a layer of iron before it can be considered a wall."
 	anchored = TRUE
 	density = TRUE
-	obj_flags = CAN_BE_HIT | BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
+	z_flags = Z_BLOCK_IN_DOWN | Z_BLOCK_IN_UP
 	layer = BELOW_OBJ_LAYER
 	var/state = GIRDER_NORMAL
 	var/girderpasschance = 20 // percentage chance that a projectile passes through the girder.
@@ -285,7 +285,7 @@
 
 /obj/structure/girder/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	if((mover.pass_flags & PASSGRILLE) || istype(mover, /obj/item/projectile))
+	if((mover.pass_flags & PASSGRILLE) || istype(mover, /obj/projectile))
 		return prob(girderpasschance)
 
 /obj/structure/girder/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller)

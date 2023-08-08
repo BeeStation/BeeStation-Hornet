@@ -381,13 +381,18 @@ Possible to do for anyone motivated enough:
 		AI = null
 
 	if(is_operational && (!AI || AI.eyeobj.loc == loc))//If the projector has power and client eye is on it
-		if (AI && istype(AI.current, /obj/machinery/holopad))
+		if (AI && istype(AI.current_holopad, /obj/machinery/holopad))
 			to_chat(user, "<span class='danger'>ERROR:</span> \black Image feed in progress.")
 			return
 
 		var/obj/effect/overlay/holo_pad_hologram/Hologram = new(loc)//Spawn a blank effect at the location.
 		if(AI)
 			Hologram.icon = AI.holo_icon
+			Hologram.verb_say = AI.verb_say
+			Hologram.verb_ask = AI.verb_ask
+			Hologram.verb_exclaim = AI.verb_exclaim
+			Hologram.verb_yell = AI.verb_yell
+			Hologram.speech_span = AI.speech_span
 		else	//make it like real life
 			Hologram.icon = user.icon
 			Hologram.icon_state = user.icon_state
@@ -417,8 +422,9 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	. = ..()
 	if(speaker && LAZYLEN(masters) && !radio_freq)//Master is mostly a safety in case lag hits or something. Radio_freq so AIs dont hear holopad stuff through radios.
 		for(var/mob/living/silicon/ai/master in masters)
-			if(masters[master] && speaker != master)
-				master.relay_speech(message, speaker, message_language, raw_message, radio_freq, spans, message_mods)
+			if(master == speaker || master.ai_hologram == speaker) // AI will not hear talks that are spoken from themselves
+				continue
+			master.hear_holocall(message, speaker, message_language, raw_message, radio_freq, spans, message_mods)
 
 	for(var/I in holo_calls)
 		var/datum/holocall/HC = I
@@ -457,7 +463,8 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	LAZYSET(holorays, user, new /obj/effect/overlay/holoray(loc))
 	var/mob/living/silicon/ai/AI = user
 	if(istype(AI))
-		AI.current = src
+		AI.current_holopad = src
+		AI.ai_hologram = h
 	SetLightsAndPower()
 	update_holoray(user, get_turf(loc))
 	return TRUE
@@ -469,8 +476,9 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 /obj/machinery/holopad/proc/unset_holo(mob/living/user)
 	var/mob/living/silicon/ai/AI = user
-	if(istype(AI) && AI.current == src)
-		AI.current = null
+	if(istype(AI) && AI.current_holopad == src)
+		AI.current_holopad = null
+		AI.ai_hologram = null
 	LAZYREMOVE(masters, user) // Discard AI from the list of those who use holopad
 	qdel(holorays[user])
 	LAZYREMOVE(holorays, user)

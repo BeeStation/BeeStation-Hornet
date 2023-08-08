@@ -82,6 +82,9 @@
 		stop_pulling()
 	if(light_system == MOVABLE_LIGHT)
 		AddComponent(/datum/component/overlay_lighting)
+	if(isturf(loc))
+		var/turf/T = loc
+		T.update_above() // Z-Mimic
 
 
 /atom/movable/proc/update_emissive_block()
@@ -199,8 +202,7 @@
 		return
 	if(!Process_Spacemove(get_dir(pulling.loc, A)))
 		return
-	step(pulling, get_dir(pulling.loc, A))
-	return TRUE
+	return step(pulling, get_dir(pulling.loc, A))
 
 /mob/living/Move_Pulled(atom/A)
 	. = ..()
@@ -435,12 +437,24 @@
 
 	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, OldLoc, Dir, Forced)
 
+	// Z-Mimic hook
+	if (bound_overlay)
+		// The overlay will handle cleaning itself up on non-openspace turfs.
+		if (isturf(loc))
+			bound_overlay.forceMove(get_step(src, UP))
+			if (bound_overlay && dir != bound_overlay.dir)
+				bound_overlay.setDir(dir)
+		else	// Not a turf, so we need to destroy immediately instead of waiting for the destruction timer to proc.
+			qdel(bound_overlay)
+
 	return TRUE
 
 /atom/movable/Destroy(force)
 	QDEL_NULL(proximity_monitor)
 	QDEL_NULL(language_holder)
 	QDEL_NULL(em_block)
+	if(bound_overlay)
+		QDEL_NULL(bound_overlay)
 
 	unbuckle_all_mobs(force = TRUE)
 
@@ -675,7 +689,7 @@
 
 	//They are moving! Wouldn't it be cool if we calculated their momentum and added it to the throw?
 	if (thrower && thrower.last_move && thrower.client && thrower.client.move_delay >= world.time + world.tick_lag*2)
-		var/user_momentum = thrower.movement_delay()
+		var/user_momentum = thrower.cached_multiplicative_slowdown
 		if (!user_momentum) //no movement_delay, this means they move once per byond tick, lets calculate from that instead.
 			user_momentum = world.tick_lag
 

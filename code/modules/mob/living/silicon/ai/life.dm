@@ -6,49 +6,50 @@
 /mob/living/silicon/ai/Life(delta_time)
 	if (stat == DEAD)
 		return
-	else //I'm not removing that shitton of tabs, unneeded as they are. -- Urist
 		//Being dead doesn't mean your temperature never changes
 
-		update_gravity(has_gravity())
+	update_gravity(has_gravity())
 
-		handle_status_effects(delta_time)
+	handle_status_effects(delta_time)
 
-		if(malfhack && malfhack.aidisabled)
-			deltimer(malfhacking)
-			// This proc handles cleanup of screen notifications and
-			// messenging the client
-			malfhacked(malfhack)
+	handle_traits(delta_time)
 
-		if(isturf(loc) && (QDELETED(eyeobj) || !eyeobj.loc))
-			view_core()
+	if(malfhack?.aidisabled)
+		deltimer(malfhacking)
+		// This proc handles cleanup of screen notifications and
+		// messenging the client
+		malfhacked(malfhack)
 
-		if(machine)
-			machine.check_eye(src)
+	if(isturf(loc) && (QDELETED(eyeobj) || !eyeobj.loc))
+		view_core()
 
-		// Handle power damage (oxy)
-		if(aiRestorePowerRoutine)
-			// Lost power
-			if (!battery)
-				to_chat(src, "<span class='warning'>Your backup battery's output drops below usable levels. It takes only a moment longer for your systems to fail, corrupted and unusable.</span>")
-				adjustOxyLoss(200)
-			else
-				battery --
+	if(machine)
+		machine.check_eye(src)
+
+	// Handle power damage (oxy)
+	if(aiRestorePowerRoutine)
+		// Lost power
+		if (!battery)
+			to_chat(src, "<span class='warning'>Your backup battery's output drops below usable levels. It takes only a moment longer for your systems to fail, corrupted and unusable.</span>")
+			adjustOxyLoss(200)
 		else
-			// Gain Power
-			if (battery < 200)
-				battery ++
+			battery --
+	else
+		// Gain Power
+		if (battery < 200)
+			battery ++
 
-		if(!lacks_power())
-			var/area/home = get_area(src)
-			if(home.powered(AREA_USAGE_EQUIP))
-				home.use_power(1000, AREA_USAGE_EQUIP)
+	if(!lacks_power())
+		var/area/home = get_area(src)
+		if(home.powered(AREA_USAGE_EQUIP))
+			home.use_power(1000, AREA_USAGE_EQUIP)
 
-			if(aiRestorePowerRoutine >= POWER_RESTORATION_SEARCH_APC)
-				ai_restore_power()
-				return
+		if(aiRestorePowerRoutine >= POWER_RESTORATION_SEARCH_APC)
+			ai_restore_power()
+			return
 
-		else if(!aiRestorePowerRoutine)
-			ai_lose_power()
+	else if(!aiRestorePowerRoutine)
+		ai_lose_power()
 
 /mob/living/silicon/ai/proc/lacks_power()
 	var/turf/T = get_turf(src)
@@ -76,7 +77,6 @@
 			return
 		else if(stat == UNCONSCIOUS)
 			set_stat(CONSCIOUS)
-			adjust_blindness(-1)
 	diag_hud_set_status()
 
 /mob/living/silicon/ai/update_sight()
@@ -97,7 +97,7 @@
 /mob/living/silicon/ai/proc/start_RestorePowerRoutine()
 	to_chat(src, "Backup battery online. Scanners, camera, and radio interface offline. Beginning fault-detection.")
 	end_multicam()
-	sleep(50)
+	sleep(5 SECONDS)
 	var/turf/T = get_turf(src)
 	var/area/AIarea = get_area(src)
 	if(AIarea?.power_equip)
@@ -105,16 +105,16 @@
 			ai_restore_power()
 			return
 	to_chat(src, "Fault confirmed: missing external power. Shutting down main control system to save power.")
-	sleep(20)
+	sleep(2 SECONDS)
 	to_chat(src, "Emergency control system online. Verifying connection to power network.")
-	sleep(50)
+	sleep(5 SECONDS)
 	T = get_turf(src)
 	if(isspaceturf(T))
 		to_chat(src, "Unable to verify! No power connection detected!")
 		aiRestorePowerRoutine = POWER_RESTORATION_SEARCH_APC
 		return
 	to_chat(src, "Connection verified. Searching for APC in power network.")
-	sleep(50)
+	sleep(5 SECONDS)
 	var/obj/machinery/power/apc/theAPC = null
 
 	var/PRP //like ERP with the code, at least this stuff is no more 4x sametext
@@ -122,10 +122,7 @@
 		T = get_turf(src)
 		AIarea = get_area(src)
 		if(AIarea)
-			for (var/obj/machinery/power/apc/APC in AIarea)
-				if (!(APC.machine_stat & BROKEN))
-					theAPC = APC
-					break
+			theAPC = AIarea.apc
 		if (!theAPC)
 			switch(PRP)
 				if(1)
@@ -153,15 +150,17 @@
 				apc_override = theAPC
 				theAPC.ui_interact(src)
 				aiRestorePowerRoutine = POWER_RESTORATION_APC_FOUND
-		sleep(50)
+		sleep(5 SECONDS)
 		theAPC = null
 
 /mob/living/silicon/ai/proc/ai_restore_power()
 	if(aiRestorePowerRoutine)
 		if(aiRestorePowerRoutine == POWER_RESTORATION_APC_FOUND)
-			to_chat(src, "Alert cancelled. Power has been restored.")
+			to_chat(src, "<span class='notice'>Alert cancelled. Power has been restored.</span>")
+			if(apc_override)
+				to_chat(src, "<span class='notice'>APC Backdoor has been closed.</span>") //No change in behavior, just tells the AI why they have to rehack their APC and turn the power back on
 		else
-			to_chat(src, "Alert cancelled. Power has been restored without our assistance.")
+			to_chat(src, "<span class='notice'>Alert cancelled. Power has been restored without our assistance.</span>")
 		aiRestorePowerRoutine = POWER_RESTORATION_OFF
 		set_blindness(0)
 		update_sight()
@@ -169,9 +168,9 @@
 /mob/living/silicon/ai/proc/ai_lose_power()
 	disconnect_shell()
 	aiRestorePowerRoutine = POWER_RESTORATION_START
-	blind_eyes(1)
+	adjust_blindness(1)
 	update_sight()
-	to_chat(src, "You've lost power!")
+	to_chat(src, "<span class='alert'>You've lost power!</span>")
 	addtimer(CALLBACK(src, PROC_REF(start_RestorePowerRoutine)), 20)
 
 #undef POWER_RESTORATION_OFF
