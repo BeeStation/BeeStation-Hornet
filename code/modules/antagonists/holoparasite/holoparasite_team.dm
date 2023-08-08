@@ -46,7 +46,7 @@
 		parts += "<b>Weapon:</b> [stats.weapon.name]"
 		if(stats.ability)
 			parts += "<b>Special Ability:</b> [stats.ability.name]"
-		for(var/datum/holoparasite_ability/lesser/ability as anything in stats.lesser_abilities)
+		for(var/datum/holoparasite_ability/lesser/ability in stats.lesser_abilities)
 			parts += "<b>Minor Ability:</b> [ability.name]"
 	return parts.Join("<br>")
 
@@ -75,7 +75,7 @@
 	)
 	var/list/datum/objective/owner_objectives = holder.owner.get_all_antag_objectives()
 	if(length(owner_objectives))
-		for(var/datum/objective/objective as anything in owner_objectives)
+		for(var/datum/objective/objective in owner_objectives)
 			info["objectives"]["total"]++
 			if(objective.check_completion())
 				info["objectives"]["complete"]++

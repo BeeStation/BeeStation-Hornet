@@ -131,7 +131,7 @@
 	if(stats.ability)
 		.["abilities"]["major"] = stats.ability.ability_ui_data()
 	var/list/lesser_abilities
-	for(var/datum/holoparasite_ability/lesser/lesser_ability as() in stats.lesser_abilities)
+	for(var/datum/holoparasite_ability/lesser/lesser_ability in stats.lesser_abilities)
 		LAZYADD(lesser_abilities, list(lesser_ability.ability_ui_data()))
 	if(LAZYLEN(lesser_abilities))
 		.["abilities"]["lesser"] = lesser_abilities
