@@ -206,7 +206,7 @@
 			continue
 		mobs_spotted[mob] = mob.stat
 		if(mob.mind)
-			minds_spotted[mob.mind] = mob.stat
+			minds_spotted[mob.mind] = considered_alive(mob.mind) ? mob.stat : DEAD // if you're a silicon, you're dead
 		// |=, let's not spam "You can also see a ... thing? 8 times"
 		desc |= mob.get_photo_description(src)
 
