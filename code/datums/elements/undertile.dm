@@ -39,6 +39,9 @@
 ///called when a tile has been covered or uncovered
 /datum/element/undertile/proc/hide(atom/movable/source, covered)
 
+	if(source.density)
+		stack_trace("([src]): Atom [source] was given an undertile element, but has become dense! This can lead to invisible walls!")
+		return //Returning to actually prevent this from happening
 
 	source.invisibility = covered ? invisibility_level : 0
 
