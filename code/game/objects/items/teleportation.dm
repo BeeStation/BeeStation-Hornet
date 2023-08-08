@@ -187,13 +187,13 @@
 	var/teleport_target = L[t1]
 	// Non-turfs (Wakes) are handled differently
 	if (istype(teleport_target, /obj/effect/temp_visual/teleportation_wake))
+		var/distance = get_dist(teleport_target, user)
 		var/obj/effect/temp_visual/teleportation_wake/wake = teleport_target
+		var/turf/target_turf = get_teleport_turf(wake.destination, 2 + distance)
 		to_chat(user, "<span class='notice'>You begin teleporting to the target.</span>")
-		var/obj/effect/temp_visual/portal_opening/target_effect = new(get_turf(wake.destination))
+		var/obj/effect/temp_visual/portal_opening/target_effect = new(target_turf)
 		var/obj/effect/temp_visual/portal_opening/source_effect = new(get_turf(user))
 		if (do_after(user, 10 SECONDS, user))
-			var/distance = get_dist(wake.destination, user)
-			var/turf/target_turf = get_teleport_turf(wake.destination, 2 + distance)
 			do_teleport(user, target_turf)
 		else
 			animate(user, flags = ANIMATION_END_NOW)
