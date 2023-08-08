@@ -26,8 +26,6 @@
 	var/debug_mode = FALSE
 	/// The 'host' item linked to this builder.
 	var/obj/item/host
-	/// The last user of this holoparasite creator - used to ensure we don't leak notes to other people.
-	var/datum/mind/last_user
 
 /datum/holoparasite_builder/New(obj/item/_host, datum/holoparasite_theme/_theme, _max_points, _max_level, _uses, _debug_mode)
 	..()
