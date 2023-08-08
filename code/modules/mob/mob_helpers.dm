@@ -226,7 +226,6 @@
 	message = replacetext(message, " am ", " ")
 	message = replacetext(message, " is ", " ")
 	message = replacetext(message, " are ", " ")
-	message = replacetext(message, "you", "u")
 	message = replacetext(message, "help", "halp")
 	message = replacetext(message, "grief", "grife")
 	message = replacetext(message, "space", "spess")

@@ -143,6 +143,17 @@
 		if(!mapload)
 			spawn(1)
 				update(FALSE, FALSE, FALSE)
+	if(mapload)
+		return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/light/LateInitialize()
+	. = ..()
+	var/area/A = get_area(src)
+	if(A.apc)
+		var/obj/machinery/power/apc/temp_apc = A.apc
+		nightshift_enabled = temp_apc?.nightshift_lights
+		if(nightshift_enabled)
+			update(FALSE, TRUE, TRUE)
 
 /obj/machinery/light/Destroy()
 	var/area/A = get_area(src)
