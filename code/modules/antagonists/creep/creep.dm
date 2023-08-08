@@ -60,7 +60,7 @@
 	kill.set_target(obsession_mind)
 	var/datum/quirk/family_heirloom/family_heirloom
 
-	if(obsession_mind.has_quirk(family_heirloom))//oh, they have an heirloom? Well you know we have to steal that.
+	if(obsession_mind.has_quirk(/datum/quirk/family_heirloom))//oh, they have an heirloom? Well you know we have to steal that.
 		objectives_left += "heirloom"
 
 	if(obsession_mind.assigned_role && obsession_mind.assigned_role != JOB_NAME_CAPTAIN)
