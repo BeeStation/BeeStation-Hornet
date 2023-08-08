@@ -411,12 +411,12 @@
 	ammo_type = /obj/item/ammo_casing/a50/ctf
 
 /obj/item/ammo_casing/a50/ctf
-	projectile_type = /obj/item/projectile/bullet/ctf
+	projectile_type = /obj/projectile/bullet/ctf
 
-/obj/item/projectile/bullet/ctf
+/obj/projectile/bullet/ctf
 	damage = 0
 
-/obj/item/projectile/bullet/ctf/prehit_pierce(atom/target)
+/obj/projectile/bullet/ctf/prehit_pierce(atom/target)
 	if(is_ctf_target(target))
 		damage = 60
 		return PROJECTILE_PIERCE_NONE	/// hey uhh don't hit anyone behind them
@@ -448,13 +448,13 @@
 		qdel(src)
 
 /obj/item/ammo_casing/caseless/laser/ctf
-	projectile_type = /obj/item/projectile/beam/ctf
+	projectile_type = /obj/projectile/beam/ctf
 
-/obj/item/projectile/beam/ctf
+/obj/projectile/beam/ctf
 	damage = 0
 	icon_state = "omnilaser"
 
-/obj/item/projectile/beam/ctf/prehit_pierce(atom/target)
+/obj/projectile/beam/ctf/prehit_pierce(atom/target)
 	if(is_ctf_target(target))
 		damage = 150
 		return PROJECTILE_PIERCE_NONE		/// hey uhhh don't hit anyone behind them
@@ -478,9 +478,9 @@
 	ammo_type = /obj/item/ammo_casing/caseless/laser/ctf/red
 
 /obj/item/ammo_casing/caseless/laser/ctf/red
-	projectile_type = /obj/item/projectile/beam/ctf/red
+	projectile_type = /obj/projectile/beam/ctf/red
 
-/obj/item/projectile/beam/ctf/red
+/obj/projectile/beam/ctf/red
 	icon_state = "laser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 
@@ -493,9 +493,9 @@
 	ammo_type = /obj/item/ammo_casing/caseless/laser/ctf/blue
 
 /obj/item/ammo_casing/caseless/laser/ctf/blue
-	projectile_type = /obj/item/projectile/beam/ctf/blue
+	projectile_type = /obj/projectile/beam/ctf/blue
 
-/obj/item/projectile/beam/ctf/blue
+/obj/projectile/beam/ctf/blue
 	icon_state = "bluelaser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 

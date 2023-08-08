@@ -1,4 +1,4 @@
-/obj/item/projectile/energy/floramut
+/obj/projectile/energy/floramut
 	name = "alpha somatoray"
 	icon_state = "energy"
 	damage = 0
@@ -7,7 +7,7 @@
 	armor_flag = ENERGY
 	martial_arts_no_deflect = TRUE
 
-/obj/item/projectile/energy/florayield
+/obj/projectile/energy/florayield
 	name = "beta somatoray"
 	icon_state = "energy2"
 	damage = 0

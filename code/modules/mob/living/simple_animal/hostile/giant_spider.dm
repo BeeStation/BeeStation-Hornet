@@ -608,7 +608,7 @@
 		return FALSE
 
 	ranged_ability_user.visible_message("<span class='danger'>[ranged_ability_user] throws a web!", "<span class='notice'>You throw the web!</span>")
-	var/obj/item/projectile/bullet/spidernet/A = new /obj/item/projectile/bullet/spidernet(ranged_ability_user.loc)
+	var/obj/projectile/bullet/spidernet/A = new /obj/projectile/bullet/spidernet(ranged_ability_user.loc)
 	A.preparePixelProjectile(target, ranged_ability_user, params)
 	A.firer = ranged_ability_user
 	A.fire()

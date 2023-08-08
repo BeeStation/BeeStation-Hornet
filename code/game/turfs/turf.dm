@@ -182,7 +182,10 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		. = TRUE
 	if(.)
 		return
-	user.Move_Pulled(src)
+	if(user.Move_Pulled(src))
+		user.changeNext_move(CLICK_CD_RAPID)
+	else
+		user.changeNext_move(CLICK_CD_MELEE)
 
 /turf/eminence_act(mob/living/simple_animal/eminence/eminence)
 	if(get_turf(eminence) == src)
@@ -294,7 +297,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	var/turf/current_target
 	if(fake_baseturf_type)
 		if(length(fake_baseturf_type)) // We were given a list, just apply it and move on
-			baseturfs = fake_baseturf_type
+			baseturfs = baseturfs_string_list(fake_baseturf_type, src)
 			return
 		current_target = fake_baseturf_type
 	else
@@ -310,9 +313,9 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	if(GLOB.created_baseturf_lists[current_target])
 		var/list/premade_baseturfs = GLOB.created_baseturf_lists[current_target]
 		if(length(premade_baseturfs))
-			baseturfs = premade_baseturfs.Copy()
+			baseturfs = baseturfs_string_list(premade_baseturfs.Copy(), src)
 		else
-			baseturfs = premade_baseturfs
+			baseturfs = baseturfs_string_list(premade_baseturfs, src)
 		return baseturfs
 
 	var/turf/next_target = initial(current_target.baseturfs)
@@ -333,7 +336,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		current_target = next_target
 		next_target = initial(current_target.baseturfs)
 
-	baseturfs = new_baseturfs
+	baseturfs = baseturfs_string_list(new_baseturfs, src)
 	GLOB.created_baseturf_lists[new_baseturfs[new_baseturfs.len]] = new_baseturfs.Copy()
 	return new_baseturfs
 
@@ -579,6 +582,8 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		. += turf_to_check
 
 /turf/proc/generate_fake_pierced_realities(centered = TRUE, max_amount = 2)
+	if(max_amount <= 0)
+		return
 	var/to_spawn = pick(1, max_amount)
 	var/spawned = 0
 	var/location_sanity = 0

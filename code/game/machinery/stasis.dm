@@ -20,11 +20,7 @@
 
 // dir check for buckle_lying state
 /obj/machinery/stasis/Initialize()
-	switch(dir)
-		if(WEST, NORTH)
-			buckle_lying = 270
-		if(EAST, SOUTH)
-			buckle_lying = 90
+	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(dir_changed)) //This gets called later during initialization
 	return ..()
 
 /obj/machinery/stasis/Initialize(mapload)
@@ -36,6 +32,7 @@
 	initial_link()
 
 /obj/machinery/stasis/Destroy()
+	UnregisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(dir_changed))
 	. = ..()
 	if(op_computer?.sbed == src)
 		op_computer.sbed = null
@@ -43,7 +40,10 @@
 /obj/machinery/stasis/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Alt-click to [stasis_enabled ? "turn off" : "turn on"] the machine.</span>"
-	. += "<span class='notice'>[src] is [op_computer ? "linked" : "<b>NOT</b> linked"] to an operating computer.</span>"
+	if(op_computer)
+		. += "<span class='notice'>[src] is <b>linked</b> to an operating computer to the [dir2text(get_dir(src, op_computer))].</span>"
+	else
+		. += "<span class='notice'>[src] is <b>NOT linked</b> to an operating computer.</span>"
 
 /obj/machinery/stasis/proc/initial_link()
 	if(!QDELETED(op_computer))
@@ -80,7 +80,7 @@
 /obj/machinery/stasis/Exited(atom/movable/gone, direction)
 	if(gone == occupant)
 		var/mob/living/L = gone
-		if(L.IsInStasis())
+		if(IS_IN_STASIS(L))
 			thaw_them(L)
 	return ..()
 
@@ -128,12 +128,12 @@
 		return
 	var/freq = rand(24750, 26550)
 	playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 2, frequency = freq)
-	target.SetStasis(TRUE)
+	target.apply_status_effect(STATUS_EFFECT_STASIS, STASIS_MACHINE_EFFECT)
 	target.ExtinguishMob()
 	use_power = ACTIVE_POWER_USE
 
 /obj/machinery/stasis/proc/thaw_them(mob/living/target)
-	target.SetStasis(FALSE)
+	target.remove_status_effect(STATUS_EFFECT_STASIS, STASIS_MACHINE_EFFECT)
 	if(target == occupant)
 		use_power = IDLE_POWER_USE
 
@@ -157,9 +157,9 @@
 		return
 	var/mob/living/L_occupant = occupant
 	if(stasis_running())
-		if(!L_occupant.IsInStasis())
+		if(!IS_IN_STASIS(L_occupant))
 			chill_out(L_occupant)
-	else if(L_occupant.IsInStasis())
+	else if(IS_IN_STASIS(L_occupant))
 		thaw_them(L_occupant)
 
 /obj/machinery/stasis/screwdriver_act(mob/living/user, obj/item/I)
@@ -180,6 +180,20 @@
 	multitool.buffer = src
 	to_chat(user, "<span class='notice'>You store the linking data of \the [src] in \the [multitool]'s buffer. Use it on an operating computer to complete linking.</span>")
 	balloon_alert(user, "saved in buffer")
+
+/obj/machinery/stasis/wrench_act(mob/living/user, obj/item/I) //We want to rotate, but we need to do it in 180 degree rotations.
+	if(panel_open && has_buckled_mobs())
+		to_chat(user, "<span class='notice'>\The [src] is too heavy to rotate while someone is buckled to it!</span>")
+		return TRUE
+	. = default_change_direction_wrench(user, I, 2)
+
+/obj/machinery/stasis/proc/dir_changed(datum/source, old_dir, new_dir)
+	SIGNAL_HANDLER
+	switch(new_dir)
+		if(WEST, NORTH)
+			buckle_lying = 270
+		if(EAST, SOUTH)
+			buckle_lying = 90
 
 /obj/machinery/stasis/nap_violation(mob/violator)
 	unbuckle_mob(violator, TRUE)
