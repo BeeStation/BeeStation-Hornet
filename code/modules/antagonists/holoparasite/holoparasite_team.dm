@@ -76,8 +76,6 @@
 	var/list/datum/objective/owner_objectives = holder.owner.get_all_antag_objectives()
 	if(length(owner_objectives))
 		for(var/datum/objective/objective as anything in owner_objectives)
-			if(objective.optional)
-				continue
 			info["objectives"]["total"]++
 			if(objective.check_completion())
 				info["objectives"]["complete"]++
