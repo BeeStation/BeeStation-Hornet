@@ -4,9 +4,6 @@
 	character_preview_view = new(null, src)
 	if(parent)
 		character_preview_view.register_to_client(parent)
-	// HACK: Without this the character starts out really tiny because of https://www.byond.com/forum/post/2873835
-	// You can fix it by updating the atom's appearance (in any way), so let's just do something unexpensive and change its name!
-	character_preview_view.rename_byond_bug_moment()
 
 /datum/preferences/proc/render_new_preview_appearance(mob/living/carbon/human/dummy/mannequin)
 	var/datum/job/preview_job = get_highest_priority_job()
@@ -57,7 +54,9 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/map_view/character_preview_view)
 /atom/movable/screen/map_view/character_preview_view/Initialize(mapload, datum/preferences/preferences)
 	. = ..()
 
-	assigned_map = "character_preview_[REF(src)]"
+	// Remove brackets, as clients do not support map views with [] at the start or end well, or numbers for that matter.
+	var/safe_ref = replacetext(replacetext(REF(src), "\[", ""), "\]", "")
+	assigned_map = "character_preview_[safe_ref]_map"
 	set_position(1, 1)
 
 	src.preferences = preferences
@@ -85,10 +84,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/map_view/character_preview_view)
 	#if MIN_COMPILER_VERSION > 514
 		#warn Remove 514 BYOND bug workaround in preferences character preview
 	#endif
-	spawn(0) // Using spawn() to avoid addtimer() since it doesn't fire during init
-		while(TRUE)
-			name = name == "character_preview" ? "character_preview_1" : "character_preview"
-			stoplag(1 SECONDS)
+	name = name == "character_preview" ? "character_preview_1" : "character_preview"
 
 /// Updates the currently displayed body
 /atom/movable/screen/map_view/character_preview_view/proc/update_body()
