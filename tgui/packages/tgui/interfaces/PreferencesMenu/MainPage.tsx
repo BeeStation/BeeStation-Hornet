@@ -410,15 +410,7 @@ const PreferenceList = (props: {
   randomizations: Record<string, RandomSetting>;
 }) => {
   return (
-    <Stack.Item
-      basis="50%"
-      grow
-      className="section-background"
-      style={{
-        padding: '4px',
-      }}
-      overflowX="hidden"
-      overflowY="scroll">
+    <Stack.Item basis="50%" grow className="section-background" px={1} py="5px" overflowX="hidden" overflowY="scroll">
       <LabeledList>
         {sortPreferences(Object.entries(props.preferences)).map(([featureId, value]) => {
           const feature = features[featureId];
@@ -433,7 +425,7 @@ const PreferenceList = (props: {
           }
 
           return (
-            <LabeledList.Item key={featureId} label={feature.name} verticalAlign="middle">
+            <LabeledList.Item className="candystripe" key={featureId} label={feature.name} verticalAlign="middle">
               <Stack fill>
                 {randomSetting && (
                   <Stack.Item>
