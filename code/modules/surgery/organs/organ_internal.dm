@@ -110,6 +110,7 @@
 		return
 	if(damage > high_threshold)
 		. += "<span class='warning'>[src] is starting to look discolored.</span>"
+	. += "<span class='info'>[src] fits in the <b>[zone2text(zone)]</b>.</span>"
 
 /obj/item/organ/Initialize(mapload)
 	. = ..()
