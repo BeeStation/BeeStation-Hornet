@@ -62535,10 +62535,6 @@
 	},
 /turf/open/floor/plating,
 /area/library)
-"tzY" = (
-/obj/structure/lattice,
-/turf/closed/wall,
-/area/hallway/secondary/entry)
 "tAg" = (
 /obj/effect/turf_decal/tile/yellow/half/contrasted{
 	alpha = 180;
@@ -121288,9 +121284,9 @@ yeA
 yeA
 yeA
 ewB
-tzY
-tzY
-tzY
+lkT
+lkT
+lkT
 lkT
 lkT
 lkT
