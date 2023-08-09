@@ -1,0 +1,9 @@
+author: Absolucy
+delete-after: true
+changes:
+  - rscadd: Added a search bar to the morph stomach UI.
+  - rscadd: Morphs can now digest nutritious food to recover small amounts of health,
+      however this healing is capped - a morph can only recover up to 20% of its health
+      over the course of 2.5 minutes by digesting food.
+  - tweak: Being husked by morph digestion is now considered a burn husk, meaning
+      that synthflesh or rezadone can fix morph digestion victims.
