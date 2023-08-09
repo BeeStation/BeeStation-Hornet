@@ -36,18 +36,20 @@
 
 	require_area_resort()
 
-	for(var/L in block(locate(bounds[MAP_MINX], bounds[MAP_MINY], SSmapping.station_start),
+	for(var/turf/updated_turf as anything in block(locate(bounds[MAP_MINX], bounds[MAP_MINY], SSmapping.station_start),
 						locate(bounds[MAP_MAXX], bounds[MAP_MAXY], z_offset - 1)))
 		set waitfor = FALSE
-		var/turf/B = L
-		atoms += B
-		for(var/A in B)
-			atoms += A
-			if(istype(A,/obj/structure/cable))
-				cables += A
+		atoms += updated_turf
+		for(var/atom/contained_atom as anything in updated_turf)
+			atoms += contained_atom
+			// Re-implement levelupdate()
+			if(!istype(updated_turf, /turf/open/space) && isobj(contained_atom))
+				SEND_SIGNAL(contained_atom, COMSIG_OBJ_HIDE, updated_turf.intact)
+			if(istype(contained_atom, /obj/structure/cable))
+				cables += contained_atom
 				continue
-			if(istype(A,/obj/machinery/atmospherics))
-				atmos_machines += A
+			if(istype(contained_atom, /obj/machinery/atmospherics))
+				atmos_machines += contained_atom
 
 	SSatoms.InitializeAtoms(atoms)
 	SSmachines.setup_template_powernets(cables)
