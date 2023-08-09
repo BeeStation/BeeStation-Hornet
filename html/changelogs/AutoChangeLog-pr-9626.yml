@@ -1,0 +1,5 @@
+author: HowToLoLu
+delete-after: true
+changes:
+  - bugfix: Dense objects can no longer be hidden under the floor, and will now produce
+      a runtime when attempted.
