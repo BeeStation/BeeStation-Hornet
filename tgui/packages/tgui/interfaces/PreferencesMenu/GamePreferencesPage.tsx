@@ -174,20 +174,25 @@ export const GamePreferencesPage = (props, context) => {
             )
             .filter(([_, preferences]) => preferences.some(search))
             .map(([subcategory, preferences], index) => (
-              <Box key={'search_result_' + subcategory + '_' + index}>
+              <Box key={'search_result_' + subcategory + '_' + index} px={2} py={1}>
                 {subcategory?.length ? (
-                  <Flex pb={2} style={{ 'flex-wrap': 'wrap', 'flex-direction': 'row' }}>
-                    <Flex.Item grow={1} basis={0}>
-                      <Flex.Item grow={1} pr={2} basis={0} ml={2}>
-                        <Box inline fontSize={1.2} textColor="label" style={{ 'font-weight': 'bold' }}>
-                          {subcategory}
-                        </Box>
-                      </Flex.Item>
-                    </Flex.Item>
-                    <Flex.Item grow={1} basis={0} />
-                  </Flex>
-                ) : null}
-                {preferences.filter(search).map((preference) => preference.children)}
+                  <Section
+                    fill
+                    fitted
+                    pb={1}
+                    mb={2}
+                    backgroundColor="rgba(40, 40, 45, 0.25)"
+                    style={{ 'box-shadow': '1px 1px 5px rgba(0, 0, 0, 0.4)' }}
+                    title={<Box fontSize={1.1}>{subcategory}</Box>}>
+                    <Box backgroundColor="rgba(40, 40, 45, 0.75)">
+                      {preferences.filter(search).map((preference) => preference.children)}
+                    </Box>
+                  </Section>
+                ) : (
+                  <Box key={'search_result_' + subcategory + '_' + index} backgroundColor="rgba(40, 40, 45, 0.75)" width="100%">
+                    {preferences.filter(search).map((preference) => preference.children)}
+                  </Box>
+                )}
               </Box>
             )),
         ],
