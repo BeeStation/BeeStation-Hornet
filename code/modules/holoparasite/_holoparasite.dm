@@ -111,7 +111,7 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 		stack_trace("Holoparasite initialized without a valid theme!")
 		return INITIALIZE_HINT_QDEL
 	GLOB.holoparasites += src
-	set_accent_color(_accent_color || pick(COLOR_LIST_BLOOD_BROTHERS), silent = TRUE)
+	set_accent_color(_accent_color || pick(GLOB.color_list_blood_brothers), silent = TRUE)
 	set_theme(_theme)
 	if(length(_name))
 		set_name(_name, internal = TRUE)

@@ -72,7 +72,7 @@
 	if(!new_color)
 		return FALSE
 	var/old_accent_color = accent_color
-	new_color = sanitize_hexcolor(new_color, desired_format = 6, include_crunch = TRUE, default = (length(old_accent_color) == 7 && old_accent_color != initial(accent_color)) ? old_accent_color : pick(COLOR_LIST_BLOOD_BROTHERS))
+	new_color = sanitize_hexcolor(new_color, desired_format = 6, include_crunch = TRUE, default = (length(old_accent_color) == 7 && old_accent_color != initial(accent_color)) ? old_accent_color : pick(GLOB.color_list_blood_brothers))
 	accent_color = new_color
 	chat_color = new_color
 	if(tracking_beacon)

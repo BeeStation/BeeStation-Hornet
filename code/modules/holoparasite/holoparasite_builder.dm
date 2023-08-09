@@ -43,7 +43,7 @@
 	if(isnum_safe(_uses))
 		uses = max(round(_uses), 1)
 	debug_mode = _debug_mode
-	accent_color = pick(COLOR_LIST_BLOOD_BROTHERS)
+	accent_color = pick(GLOB.color_list_blood_brothers)
 
 /datum/holoparasite_builder/Destroy()
 	QDEL_NULL(saved_stats)
@@ -194,7 +194,7 @@
 			var/color = params["color"]
 			if(!istext(color) || length(color) != 7)
 				return
-			accent_color = sanitize_hexcolor(color, desired_format = 6, include_crunch = TRUE, default = (length(accent_color) == 7 && accent_color != initial(accent_color)) ? accent_color : pick(COLOR_LIST_BLOOD_BROTHERS))
+			accent_color = sanitize_hexcolor(color, desired_format = 6, include_crunch = TRUE, default = (length(accent_color) == 7 && accent_color != initial(accent_color)) ? accent_color : pick(GLOB.color_list_blood_brothers))
 			. = TRUE
 		if("set:notes")
 			var/value = params["notes"]
