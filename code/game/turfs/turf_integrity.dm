@@ -145,10 +145,10 @@
 			take_damage(INFINITY, BRUTE, BOMB, 0)
 		if(2)
 			hotspot_expose(1000,CELL_VOLUME)
-			take_damage(rand(0.5, max(2000 / max_integrity, 1.2)) * max_integrity, BRUTE, BOMB, 0)
+			take_damage(rand(0.5, max(1600 / max_integrity, 1.2)) * max_integrity, BRUTE, BOMB, 0)
 		if(3)
 			hotspot_expose(1000,CELL_VOLUME)
-			take_damage(rand(0.3, max(800 / max_integrity, 0.5)) * max_integrity, BRUTE, BOMB, 0)
+			take_damage(rand(0.3, max(700 / max_integrity, 0.5)) * max_integrity, BRUTE, BOMB, 0)
 
 /turf/contents_explosion(severity, target)
 	for(var/thing in contents)
