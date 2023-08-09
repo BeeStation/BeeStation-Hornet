@@ -5,3 +5,4 @@
 
 /datum/preference/toggle/hotkeys/apply_to_client(client/client, value)
 	client.hotkeys = value
+	client.set_macros()
