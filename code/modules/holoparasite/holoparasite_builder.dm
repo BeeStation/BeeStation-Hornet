@@ -360,7 +360,7 @@
 		candidates = pollGhostCandidates(
 			"Do you want to play as [holopara_name], [user.mind.name]'s [theme.name]?",
 			jobbanType = ROLE_HOLOPARASITE,
-			poll_time = 5 SECONDS // TODO: change back to 30 seconds
+			poll_time = 30 SECONDS
 		)
 	waiting = FALSE
 	if(!length(candidates))
