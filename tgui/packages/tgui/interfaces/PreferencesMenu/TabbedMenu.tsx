@@ -1,11 +1,12 @@
 import { Component, createRef, RefObject } from 'inferno';
 import type { InfernoNode } from 'inferno';
-import { Button, Stack, Flex } from '../../components';
+import { Button, Stack, Flex, Box } from '../../components';
 import { FlexProps } from '../../components/Flex';
 import { CollapsibleSection } from 'tgui/components/CollapsibleSection';
 
 type TabbedMenuProps = {
   categoryEntries: [string, InfernoNode][];
+  categoryScales: Record<string, string>;
   contentProps?: FlexProps;
 };
 
@@ -70,11 +71,26 @@ export class TabbedMenu extends Component<TabbedMenuProps> {
             // Otherwise, TypeScript complains about invalid prop
             className: undefined,
           }}>
-          <Flex direction="column" px={2}>
+          <Flex direction="row" px={2} wrap="wrap">
             {this.props.categoryEntries.map(([category, children]) => {
               return (
-                <Flex.Item mb={2} key={category} innerRef={this.getCategoryRef(category)}>
-                  <CollapsibleSection fill title={category} sectionKey={category}>
+                <Flex.Item
+                  grow
+                  basis={this.props.categoryScales[category] || '45%'}
+                  minWidth={'500px'}
+                  px={1}
+                  py={2}
+                  key={category}
+                  innerRef={this.getCategoryRef(category)}>
+                  <CollapsibleSection
+                    minWidth="200px"
+                    fill
+                    title={
+                      <Box inline fontSize={1.3}>
+                        {category}
+                      </Box>
+                    }
+                    sectionKey={category}>
                     {children}
                   </CollapsibleSection>
                 </Flex.Item>

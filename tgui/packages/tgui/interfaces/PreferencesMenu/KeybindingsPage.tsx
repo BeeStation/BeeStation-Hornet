@@ -8,6 +8,12 @@ import { KeyEvent } from '../../events';
 import { TabbedMenu } from './TabbedMenu';
 import { fetchRetry } from '../../http';
 
+const CATEGORY_SCALES = {
+  'AI': '100%',
+  'CLIENT': '100%',
+  'ROBOT': '100%',
+};
+
 type Keybinding = {
   name: string;
   description?: string;
@@ -417,6 +423,7 @@ export class KeybindingsPage extends Component<{}, KeybindingsPageState> {
         <Stack vertical fill>
           <Stack.Item grow>
             <TabbedMenu
+              categoryScales={CATEGORY_SCALES}
               categoryEntries={keybindingEntries.map(([category, keybindings]) => {
                 return [
                   category,

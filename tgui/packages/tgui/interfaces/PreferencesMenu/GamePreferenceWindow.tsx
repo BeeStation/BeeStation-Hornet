@@ -38,7 +38,7 @@ export const GamePreferenceWindow = (
   return (
     <Window
       title="Game Preferences"
-      width={1000}
+      width={1200}
       height={770}
       theme="generic-yellow"
       buttons={

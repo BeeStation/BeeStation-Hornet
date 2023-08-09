@@ -1,6 +1,6 @@
 import { multiline } from 'common/string';
 import { CheckboxInput, FeatureChoiced, FeatureChoicedServerData, FeatureDropdownInput, FeatureButtonedDropdownInput, FeatureToggle, FeatureValueProps } from '../base';
-import { Box, Dropdown, Flex } from '../../../../../components';
+import { Box, Dropdown, Stack } from '../../../../../components';
 import { classes } from 'common/react';
 import type { InfernoNode } from 'inferno';
 import { binaryInsertWith } from 'common/collections';
@@ -41,13 +41,15 @@ const GhostFormInput = (props: FeatureValueProps<string, string, FeatureChoicedS
 
   for (const [name, displayName] of Object.entries(displayNames)) {
     const displayText = (
-      <Flex key={name} style={{ 'overflow-y': 'hidden' }}>
-        <Flex.Item>
+      <Stack>
+        <Stack.Item>
           <Box className={classes([`${serverData.icon_sheet}32x32`, serverData.icons![name]])} />
-        </Flex.Item>
+        </Stack.Item>
 
-        <Flex.Item grow={1}>{displayName}</Flex.Item>
-      </Flex>
+        <Stack.Item grow style={{ 'line-height': '32px' }}>
+          {displayName}
+        </Stack.Item>
+      </Stack>
     );
 
     displayTexts[name] = displayText;
@@ -70,8 +72,10 @@ const GhostFormInput = (props: FeatureValueProps<string, string, FeatureChoicedS
       disabled={!data.content_unlocked}
       selected={props.value}
       displayText={props.value ? displayTexts[props.value] : null}
+      clipSelectedText={false}
       onSelected={props.handleSetValue}
       width="100%"
+      displayHeight="32px"
       options={options}
       buttons
     />
