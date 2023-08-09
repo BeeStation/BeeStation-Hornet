@@ -230,11 +230,6 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	if(B)
 		animate(B, alpha = 255)
 		animate(B, alpha = 0, time = sense_time, easing = SINE_EASING, flags = EASE_IN)
-	//Wall nearby highlighting
-	var/atom/movable/screen/plane_master/psychic/wall/PW = locate(/atom/movable/screen/plane_master/psychic/wall) in owner.client?.screen
-	if(PW)
-		animate(PW, alpha = 0)
-		animate(PW, alpha = 255, time = sense_time, easing = SINE_EASING, flags = EASE_IN)
 	//Setup timer to delete image
 	if(overlay_timer)
 		deltimer(overlay_timer)
@@ -340,7 +335,14 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	var/visual_index = 0
 
 /atom/movable/screen/fullscreen/blind/psychic_highlight/wall
-	plane = PSYCHIC_WALL_PLANE
+	plane = FULLSCREEN_PLANE
+	blend_mode = BLEND_DEFAULT
+	layer = 4.1
+
+/atom/movable/screen/fullscreen/blind/psychic_highlight/wall/Initialize(mapload)
+	. = ..()
+	filters += filter(type = "alpha", render_source = "*WALL_PLANE_RENDER_TARGET")
+	filters += filter(type = "alpha", icon = icon('icons/mob/psychic.dmi', "e"))
 	
 /atom/movable/screen/fullscreen/blind/psychic_highlight/Initialize(mapload)
 	. = ..()
@@ -436,19 +438,6 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	. = ..()
 	if(psychic_action?.auto_sense)
 		return FALSE
-
-/proc/generate_psychic_overlay(atom/target)
-	var/mutable_appearance/M = new()
-	M.appearance = target.appearance
-	M.transform = target.transform
-	M.pixel_x = 0 //Reset pixel adjustments to avoid bug where overlays tower
-	M.pixel_y = 0
-	M.pixel_z = 0
-	M.pixel_w = 0
-	M.plane = PSYCHIC_WALL_PLANE //Draw overlay on this plane so we can use it as a mask
-	M.dir = target.dir
-	
-	return M
 
 #undef PSYCHIC_OVERLAY_UPPER
 #undef PSYPHOZA_BURNMOD

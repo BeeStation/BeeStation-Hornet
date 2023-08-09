@@ -43,6 +43,23 @@
 	if(istype(mymob) && mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/ambient_occlusion))
 		add_filter("openspace_shadow", 1, drop_shadow_filter(color = "#04080FAA", size = 10))
 
+/atom/movable/screen/plane_master/wall
+	name = "wall plane master"
+	plane = WALL_PLANE
+	appearance_flags = PLANE_MASTER
+	render_target = WALL_PLANE_RENDER_TARGET
+	blend_mode = BLEND_OVERLAY
+
+/atom/movable/screen/plane_master/wall/backdrop(mob/mymob)
+	. = ..()
+	remove_filter("AO")
+	if(istype(mymob) && mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/ambient_occlusion))
+		add_filter("AO", 1, drop_shadow_filter(x = 0, y = -2, size = 4, color = "#04080FAA"))
+	remove_filter("eye_blur")
+	if(istype(mymob) && mymob.eye_blurry)
+		add_filter("eye_blur", 1, gauss_blur_filter(clamp(mymob.eye_blurry * 0.1, 0.6, 3)))
+
+
 ///Contains most things in the game world
 /atom/movable/screen/plane_master/game_world
 	name = "game world plane master"
@@ -211,13 +228,3 @@
 	render_target = PSYCHIC_PLANE_RENDER_TARGET
 	render_relay_plane = RENDER_PLANE_NON_GAME
 	alpha = 0
-
-/atom/movable/screen/plane_master/psychic/wall
-	name = "psychic wall plane master"
-	plane = PSYCHIC_WALL_PLANE
-	render_target = PSYCHIC_WALL_PLANE_RENDER_TARGET
-
-/atom/movable/screen/plane_master/psychic/wall/Initialize(mapload)
-	. = ..()
-	filters += filter(type = "alpha", x = 0, y = 0, icon = icon('icons/mob/psychic.dmi', "e"))
-

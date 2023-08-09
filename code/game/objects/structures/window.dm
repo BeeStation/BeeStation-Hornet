@@ -62,7 +62,6 @@
 
 	if(fulltile)
 		//Overlay for psychic walls - we can't assign two layers at once
-		add_overlay(generate_psychic_overlay(src))
 		setDir()
 
 	//windows only block while reinforced and fulltile, so we'll use the proc
