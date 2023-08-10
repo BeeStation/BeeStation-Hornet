@@ -61,10 +61,24 @@
 #define REFERENCE_TRACKING_DEBUG
 #endif
 
-#ifndef PRELOAD_RSC				//set to:
-#define PRELOAD_RSC	0			//	0 to allow using external resources or on-demand behaviour;
-#endif							//	1 to use the default behaviour;
-								//	2 for preloading absolutely everything;
+/// If this is uncommented, force our verb processing into just the 2% of a tick
+/// We normally reserve for it
+/// NEVER run this on live, it's for simulating highpop only
+// #define VERB_STRESS_TEST
+
+#ifdef VERB_STRESS_TEST
+/// Uncomment this to force all verbs to run into overtime all of the time
+/// Essentially negating the reserve 2%
+
+// #define FORCE_VERB_OVERTIME
+#warn Hey brother, you're running in LAG MODE.
+#warn IF YOU PUT THIS ON LIVE I WILL FIND YOU AND MAKE YOU WISH YOU WERE NEVE-
+#endif
+
+#ifndef PRELOAD_RSC	//set to:
+#define PRELOAD_RSC	0 // 0 to allow using external resources or on-demand behaviour;
+#endif				// 1 to use the default behaviour;
+					// 2 for preloading absolutely everything;
 
 #ifdef LOWMEMORYMODE
 #define FORCE_MAP "runtimestation"

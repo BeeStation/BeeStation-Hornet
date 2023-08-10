@@ -180,7 +180,10 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 		. = TRUE
 	if(.)
 		return
-	user.Move_Pulled(src)
+	if(user.Move_Pulled(src))
+		user.changeNext_move(CLICK_CD_RAPID)
+	else
+		user.changeNext_move(CLICK_CD_MELEE)
 
 /turf/eminence_act(mob/living/simple_animal/eminence/eminence)
 	if(get_turf(eminence) == src)

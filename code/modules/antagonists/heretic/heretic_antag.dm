@@ -384,10 +384,8 @@
 	if(length(objectives))
 		var/count = 1
 		for(var/datum/objective/objective as anything in objectives)
-			if(objective.check_completion())
-				parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='greentext'>Success!</span>"
-			else
-				parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
+			parts += "<b>Objective #[count]</b>:  [objective.get_completion_message()]"
+			if(!objective.check_completion())
 				succeeded = FALSE
 			count++
 
