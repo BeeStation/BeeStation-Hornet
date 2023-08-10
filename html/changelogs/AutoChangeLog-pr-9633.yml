@@ -1,4 +1,0 @@
-author: Absolucy
-delete-after: true
-changes:
-  - bugfix: Hypnoflashes now properly work on sleeping targets again.
