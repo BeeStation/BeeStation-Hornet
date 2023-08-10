@@ -756,7 +756,7 @@
 /obj/item/storage/belt/fannypack/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 3
+	STR.max_items = 5
 	STR.max_w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/storage/belt/fannypack/black
