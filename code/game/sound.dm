@@ -208,7 +208,7 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 		if (!M.client)
 			continue
 
-		if (!ignore_prefs && !(M.client.prefs?.read_player_preference(/datum/preference/toggle/sound_soundtrack)))
+		if (!ignore_prefs && !M.client.prefs?.read_player_preference(/datum/preference/toggle/sound_soundtrack))
 			continue
 
 		if (!play_to_lobby && isnewplayer(M))

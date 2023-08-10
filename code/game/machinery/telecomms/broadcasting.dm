@@ -173,7 +173,7 @@
 
 	// Cut out mobs with clients who are admins and have radio chatter disabled.
 	for(var/mob/R in receive)
-		if (R.client && R.client.holder && !(R.client.prefs?.read_player_preference(/datum/preference/toggle/chat_radio)))
+		if (R.client && R.client.holder && !R.client.prefs?.read_player_preference(/datum/preference/toggle/chat_radio))
 			receive -= R
 
 	// Add observers who have ghost radio enabled.
