@@ -47,3 +47,15 @@ GLOBAL_LIST_EMPTY(dummy_mob_list)
 	if(istype(D))
 		D.wipe_state()
 		D.in_use = FALSE
+
+/mob/living/carbon/human/dummy/add_to_mob_list()
+	return
+
+/mob/living/carbon/human/dummy/remove_from_mob_list()
+	return
+
+/mob/living/carbon/human/dummy/add_to_alive_mob_list()
+	return
+
+/mob/living/carbon/human/dummy/remove_from_alive_mob_list()
+	return
