@@ -23,8 +23,7 @@
 		// this should be delayed because some 'playable=TRUE' mobs are not actually playable because mob key is automatically given
 		// it prevents 'GLOB.poi_list' being glitched. without this, it will show xeno(or some mobs) twice in orbit panel.
 	//color correction
-	var/area/A = get_area(loc)
-	apply_color_correction(A?.color_correction)
+	RegisterSignal(src, COMSIG_MOVABLE_ENTERED_AREA, PROC_REF(apply_color_correction))
 
 /mob/living/proc/initialize_footstep()
 	AddComponent(/datum/component/footstep)
@@ -1440,9 +1439,7 @@
 			density = initial(density)
 
 //Used for applying color correction
-/mob/living/proc/apply_color_correction(typepath = /datum/client_colour/area_color)
-	if(typepath == current_correction)
-		return
+/mob/living/proc/apply_color_correction(datum/source, area/entered)
 	remove_client_colour(current_correction)
-	add_client_colour(typepath)
-	current_correction = typepath
+	add_client_colour(entered.color_correction)
+	current_correction = entered.color_correction
