@@ -307,7 +307,7 @@
 	desc = "A case of premium cigars. Very expensive."
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "cigarcase"
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_SMALL
 	icon_type = "premium cigar"
 	spawn_type = /obj/item/clothing/mask/cigarette/cigar
 
