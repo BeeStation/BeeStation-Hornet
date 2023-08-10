@@ -1,0 +1,4 @@
+author: Dejaku51
+delete-after: true
+changes:
+  - bugfix: fixed wiremod USBs not working
