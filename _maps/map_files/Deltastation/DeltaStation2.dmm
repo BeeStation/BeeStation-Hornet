@@ -54885,6 +54885,9 @@
 	},
 /obj/effect/turf_decal/stripes/box,
 /obj/machinery/vending/medical,
+/obj/machinery/light_switch{
+	pixel_y = 22
+	},
 /turf/open/floor/plasteel,
 /area/medical/storage)
 "ksC" = (

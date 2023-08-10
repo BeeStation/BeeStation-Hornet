@@ -56093,6 +56093,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/machinery/light_switch{
+	pixel_x = 21
+	},
 /turf/open/floor/plasteel/grid/steel,
 /area/medical/storage)
 "oDS" = (
