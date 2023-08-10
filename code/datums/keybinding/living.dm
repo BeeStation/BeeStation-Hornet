@@ -7,7 +7,7 @@
 
 
 /datum/keybinding/living/resist
-	key = "B"
+	keys = list("B")
 	name = "resist"
 	full_name = "Resist"
 	description = "Break free of your current state. Handcuffs, on fire, being trapped in an alien nest? Resist!"
@@ -15,7 +15,7 @@
 
 /datum/keybinding/living/resist/down(client/user)
 	. = ..()
-	if(. || !isliving(user.mob))
+	if(.)
 		return
 	var/mob/living/L = user.mob
 	L.resist()
@@ -23,7 +23,7 @@
 
 
 /datum/keybinding/living/rest
-	key = "V"
+	keys = list("V")
 	name = "rest"
 	full_name = "Rest"
 	description = "Lay down, or get up."
@@ -31,14 +31,14 @@
 
 /datum/keybinding/living/rest/down(client/user)
 	. = ..()
-	if(. || !isliving(user.mob))
+	if(.)
 		return
 	var/mob/living/L = user.mob
 	L.lay_down()
 	return TRUE
 
 /datum/keybinding/living/look_up
-	key = "L"
+	keys = list("L")
 	name = "look up"
 	full_name = "Look Up"
 	description = "Look up at the next z-level. Only works if below any nearby open space within a 3x3 square."
@@ -46,7 +46,7 @@
 
 /datum/keybinding/living/look_up/down(client/user)
 	. = ..()
-	if(. || !isliving(user.mob))
+	if(.)
 		return
 	var/mob/living/L = user.mob
 	L.look_up(lock = TRUE)
@@ -54,14 +54,14 @@
 
 /datum/keybinding/living/look_up/up(client/user)
 	. = ..()
-	if(. || !isliving(user.mob))
+	if(.)
 		return
 	var/mob/living/L = user.mob
 	L.look_reset()
 	return TRUE
 
 /datum/keybinding/living/look_down
-	key = ";"
+	keys = list(";")
 	name = "look down"
 	full_name = "Look Down"
 	description = "Look down at the previous z-level. Only works if above any nearby open space within a 3x3 square."
@@ -77,7 +77,7 @@
 
 /datum/keybinding/living/look_down/up(client/user)
 	. = ..()
-	if(. || !isliving(user.mob))
+	if(.)
 		return
 	var/mob/living/L = user.mob
 	L.look_reset()
@@ -85,7 +85,7 @@
 
 //Keybind for sense
 /datum/keybinding/living/primary_species_action
-	key = "Shift-Space"
+	keys = list("Shift-Space")
 	name = "species_primary"
 	full_name = "Primary Species Action"
 	description = "Activates a species primary action."

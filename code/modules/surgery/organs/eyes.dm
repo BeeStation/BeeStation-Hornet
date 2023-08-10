@@ -33,14 +33,13 @@
 	///the type of overlay we use for this eye's blind effect
 	var/atom/movable/screen/fullscreen/blind/blind_type
 
-/obj/item/organ/eyes/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = FALSE, initialising)
+/obj/item/organ/eyes/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = FALSE, initialising, pref_load = FALSE)
 	. = ..()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/HMN = owner
 		old_eye_color = HMN.eye_color
 		if(eye_color)
 			HMN.eye_color = eye_color
-			HMN.regenerate_icons()
 		else
 			eye_color = HMN.eye_color
 		if(HAS_TRAIT(HMN, TRAIT_NIGHT_VISION) && !lighting_alpha)
@@ -50,12 +49,12 @@
 	if(M.has_dna() && ishuman(M))
 		M.dna.species.handle_body(M) //updates eye icon
 
-/obj/item/organ/eyes/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/eyes/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
 	if(ishuman(M) && eye_color)
 		var/mob/living/carbon/human/HMN = M
 		HMN.eye_color = old_eye_color
-		HMN.regenerate_icons()
+		HMN.update_body()
 	M.update_tint()
 	M.update_sight()
 
@@ -176,7 +175,7 @@
 /obj/item/organ/eyes/robotic/flashlight/emp_act(severity)
 	return
 
-/obj/item/organ/eyes/robotic/flashlight/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = FALSE)
+/obj/item/organ/eyes/robotic/flashlight/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = FALSE, pref_load = FALSE)
 	..()
 	if(!eye)
 		eye = new /obj/item/flashlight/eyelight()
@@ -186,7 +185,7 @@
 	M.become_blind("flashlight_eyes")
 
 
-/obj/item/organ/eyes/robotic/flashlight/Remove(var/mob/living/carbon/M, var/special = 0)
+/obj/item/organ/eyes/robotic/flashlight/Remove(var/mob/living/carbon/M, var/special = 0, pref_load = FALSE)
 	eye.on = FALSE
 	eye.update_brightness(M)
 	eye.forceMove(src)
@@ -228,7 +227,7 @@
 	terminate_effects()
 	. = ..()
 
-/obj/item/organ/eyes/robotic/glow/Remove(mob/living/carbon/M, special = FALSE)
+/obj/item/organ/eyes/robotic/glow/Remove(mob/living/carbon/M, special = FALSE, pref_load = FALSE)
 	terminate_effects()
 	. = ..()
 
@@ -424,6 +423,6 @@
 	M.become_blind("uncurable", /atom/movable/screen/fullscreen/blind/psychic)
 	M.remove_client_colour(/datum/client_colour/monochrome/blind)
 
-/obj/item/organ/eyes/psyphoza/Remove(mob/living/carbon/M, special)
+/obj/item/organ/eyes/psyphoza/Remove(mob/living/carbon/M, special = FALSE, pref_load = FALSE)
 	. = ..()
 	M.cure_blind("uncurable")

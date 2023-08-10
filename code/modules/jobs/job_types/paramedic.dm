@@ -1,6 +1,8 @@
 /datum/job/paramedic
 	title = JOB_NAME_PARAMEDIC
 	flag = PARAMEDIC
+	description = "Retrieve the gravely injured and dead people from around the station, deliver medicine for minor wounds, and keep a close eye on the Crew Monitor in your free time."
+	department_for_prefs = DEPT_BITFLAG_MED
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	supervisors = "the chief medical officer"
 	faction = "Station"

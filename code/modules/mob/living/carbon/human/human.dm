@@ -2,7 +2,6 @@
 	name = "Unknown"
 	real_name = "Unknown"
 	icon = 'icons/mob/human.dmi'
-	icon_state = "human_basic"
 	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE
 	COOLDOWN_DECLARE(special_emote_cooldown)
 
@@ -1100,24 +1099,6 @@
 		src.emote("scream")
 	src.apply_damage(power, BRUTE, def_zone = pick(BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
 	src.Paralyze(10 * power)
-
-/mob/living/carbon/human/proc/copy_features(var/datum/character_save/CS)
-	dna.features = CS.features
-	gender = CS.gender
-	age = CS.age
-	underwear = CS.underwear
-	underwear_color = CS.underwear_color
-	undershirt = CS.undershirt
-	socks = CS.socks
-	hair_style = CS.hair_style
-	hair_color = CS.hair_color
-	gradient_color = CS.gradient_color
-	gradient_style = CS.gradient_style
-	facial_hair_style = CS.facial_hair_style
-	facial_hair_color = CS.facial_hair_color
-	skin_tone = CS.skin_tone
-	eye_color = CS.eye_color
-	updateappearance(TRUE, TRUE, TRUE)
 
 /mob/living/carbon/human/monkeybrain
 	ai_controller = /datum/ai_controller/monkey

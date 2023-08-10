@@ -17,7 +17,7 @@ GLOBAL_LIST_EMPTY(undershirt_m)	 //stores only undershirt name
 GLOBAL_LIST_EMPTY(undershirt_f)	 //stores only undershirt name
 	//Socks
 GLOBAL_LIST_EMPTY(socks_list)		//stores /datum/sprite_accessory/socks indexed by name
-	//Body Sizes
+/// Body sizes. The names (keys) are what is actually stored in the database. Don't get crazy with changing them.
 GLOBAL_LIST_INIT(body_sizes, list(
 	"Normal" = BODY_SIZE_NORMAL,
 	"Short" = BODY_SIZE_SHORT,
@@ -37,10 +37,10 @@ GLOBAL_LIST_EMPTY(animated_spines_list)
 	//Mutant Human bits
 GLOBAL_LIST_EMPTY(tails_list_human)
 GLOBAL_LIST_EMPTY(animated_tails_list_human)
+GLOBAL_LIST_EMPTY(tails_roundstart_list_human)
 GLOBAL_LIST_EMPTY(ears_list)
 GLOBAL_LIST_EMPTY(wings_list)
 GLOBAL_LIST_EMPTY(wings_open_list)
-GLOBAL_LIST_EMPTY(r_wings_list)
 GLOBAL_LIST_EMPTY(moth_wings_list)
 GLOBAL_LIST_EMPTY(moth_wings_roundstart_list)//this lacks the blacklisted wings such as burned, clockwork and angel
 GLOBAL_LIST_EMPTY(moth_antennae_list)
@@ -150,17 +150,25 @@ GLOBAL_LIST_INIT(ai_core_display_screens, sort_list(list(
 	"Weird"
 )))
 
-/proc/resolve_ai_icon(input)
+/// A form of resolve_ai_icon that is guaranteed to never sleep.
+/// Not always accurate, but always synchronous.
+/proc/resolve_ai_icon_sync(input)
+	SHOULD_NOT_SLEEP(TRUE)
+
 	if(!input || !(input in GLOB.ai_core_display_screens))
 		return "ai"
 	else
 		if(input == "Random")
 			input = pick(GLOB.ai_core_display_screens - "Random")
-		if(input == "Portrait")
-			var/datum/portrait_picker/tgui  = new(usr)//create the datum
-			tgui.ui_interact(usr)//datum has a tgui component, here we open the window
-			return "ai-portrait" //just take this until they decide
 		return "ai-[lowertext(input)]"
+
+/proc/resolve_ai_icon(input)
+	if (input == "Portrait")
+		var/datum/portrait_picker/tgui = new(usr)//create the datum
+		tgui.ui_interact(usr)//datum has a tgui component, here we open the window
+		return "ai-portrait" //just take this until they decide
+
+	return resolve_ai_icon_sync(input)
 
 GLOBAL_LIST_INIT(security_depts_prefs, sort_list(list(
 	SEC_DEPT_ENGINEERING,

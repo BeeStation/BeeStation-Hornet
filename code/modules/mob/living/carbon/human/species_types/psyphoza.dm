@@ -17,6 +17,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 
 /datum/species/psyphoza
 	name = "\improper Psyphoza"
+	plural_form = "Psyphoza"
 	id = SPECIES_PSYPHOZA
 	bodyflag = FLAG_PSYPHOZA
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/psyphoza
@@ -39,6 +40,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 
 	mutant_bodyparts = list("psyphoza_cap")
 	default_features = list("psyphoza_cap" = "Portobello", "body_size" = "Normal")
+	hair_color = "fixedmutcolor"
 
 	species_chest = /obj/item/bodypart/chest/psyphoza
 	species_head = /obj/item/bodypart/head/psyphoza
@@ -79,6 +81,32 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 /datum/species/psyphoza/primary_species_action()
 	. = ..()
 	PH?.Trigger()
+
+/datum/species/psyphoza/get_species_description()
+	return "..."
+
+/datum/species/psyphoza/get_species_lore()
+	return list("...")
+
+/datum/species/psyphoza/create_pref_unique_perks()
+	var/list/to_add = list()
+
+	to_add += list(
+		list(
+			SPECIES_PERK_TYPE = SPECIES_POSITIVE_PERK,
+			SPECIES_PERK_ICON = "lightbulb",
+			SPECIES_PERK_NAME = "Psychic",
+			SPECIES_PERK_DESC = "Psyphoza are psychic and can sense things others can't.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+			SPECIES_PERK_ICON = "eye",
+			SPECIES_PERK_NAME = "Blind",
+			SPECIES_PERK_DESC = "Psyphoza are blind and can't see outside their immediate location and psychic sense.",
+		),
+	)
+
+	return to_add
 
 //This originally held the psychic action until I moved it to the eyes, keep it please.
 /obj/item/organ/brain/psyphoza
@@ -144,7 +172,6 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	auto_action.Grant(M)
 	///Start auto timer
 	addtimer(CALLBACK(src, PROC_REF(auto_sense)), auto_cooldown)
-	//
 
 /datum/action/item_action/organ_action/psychic_highlight/IsAvailable()
 	if(has_cooldown_timer)
@@ -159,10 +186,6 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	has_cooldown_timer = TRUE
 	UpdateButtonIcon()
 	addtimer(CALLBACK(src, PROC_REF(finish_cooldown)), cooldown + (sense_time * min(1, overlays.len / PSYCHIC_OVERLAY_UPPER)))
-	var/atom/movable/screen/plane_master/psychic/wall/PW = locate(/atom/movable/screen/plane_master/psychic/wall) in owner.client?.screen
-	if(PW && !length(PW.filters))
-		PW.alpha = 255
-		PW.filters += filter(type = "alpha", x = 0, y = 0, icon = icon('icons/mob/psychic.dmi', "e"))
 
 /datum/action/item_action/organ_action/psychic_highlight/UpdateButtonIcon(status_only = FALSE, force = FALSE)
 	. = ..()
@@ -207,11 +230,6 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	if(B)
 		animate(B, alpha = 255)
 		animate(B, alpha = 0, time = sense_time, easing = SINE_EASING, flags = EASE_IN)
-	//Wall nearby highlighting
-	var/atom/movable/screen/plane_master/psychic/wall/PW = locate(/atom/movable/screen/plane_master/psychic/wall) in owner.client?.screen
-	if(PW)
-		animate(PW, alpha = 0)
-		animate(PW, alpha = 255, time = sense_time, easing = SINE_EASING, flags = EASE_IN)
 	//Setup timer to delete image
 	if(overlay_timer)
 		deltimer(overlay_timer)
@@ -317,7 +335,14 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	var/visual_index = 0
 
 /atom/movable/screen/fullscreen/blind/psychic_highlight/wall
-	plane = PSYCHIC_WALL_PLANE
+	plane = FULLSCREEN_PLANE
+	blend_mode = BLEND_DEFAULT
+	layer = 4.1
+
+/atom/movable/screen/fullscreen/blind/psychic_highlight/wall/Initialize(mapload)
+	. = ..()
+	filters += filter(type = "alpha", render_source = "*WALL_PLANE_RENDER_TARGET")
+	filters += filter(type = "alpha", icon = icon('icons/mob/psychic.dmi', "e"))
 	
 /atom/movable/screen/fullscreen/blind/psychic_highlight/Initialize(mapload)
 	. = ..()
@@ -413,19 +438,6 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	. = ..()
 	if(psychic_action?.auto_sense)
 		return FALSE
-
-/proc/generate_psychic_overlay(atom/target)
-	var/mutable_appearance/M = new()
-	M.appearance = target.appearance
-	M.transform = target.transform
-	M.pixel_x = 0 //Reset pixel adjustments to avoid bug where overlays tower
-	M.pixel_y = 0
-	M.pixel_z = 0
-	M.pixel_w = 0
-	M.plane = PSYCHIC_WALL_PLANE //Draw overlay on this plane so we can use it as a mask
-	M.dir = target.dir
-	
-	return M
 
 #undef PSYCHIC_OVERLAY_UPPER
 #undef PSYPHOZA_BURNMOD

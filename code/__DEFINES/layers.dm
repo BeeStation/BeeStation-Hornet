@@ -19,6 +19,8 @@
 #define ZMIMIC_MAX_DEPTH 10
 
 #define FLOOR_PLANE -7
+#define WALL_PLANE -5
+#define WALL_PLANE_RENDER_TARGET "*WALL_PLANE_RENDER_TARGET"
 #define GAME_PLANE -4
 
 #define SPACE_LAYER 1.8
@@ -156,10 +158,6 @@
 //Plane for highlighting objects
 #define PSYCHIC_PLANE 550
 #define PSYCHIC_PLANE_RENDER_TARGET "PSYCHIC_PLANE"
-//Plane for highlighting walls
-#define PSYCHIC_WALL_PLANE 551
-#define PSYCHIC_WALL_PLANE_RENDER_TARGET "PSYCHIC_WALL_PLANE"
-
 
 //-------------------- Rendering ---------------------
 #define RENDER_PLANE_GAME 990

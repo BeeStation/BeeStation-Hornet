@@ -6,11 +6,7 @@
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	rad_insulation = RAD_MEDIUM_INSULATION
 	pass_flags_self = PASSCLOSEDTURF
-
-/turf/closed/Initialize(mapload)
-	. = ..()
-	//Overlay for psychic walls - we can't assign two layers at once
-	add_overlay(generate_psychic_overlay(src))
+	plane = WALL_PLANE
 
 /turf/closed/AfterChange()
 	. = ..()
