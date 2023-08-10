@@ -24,9 +24,9 @@
 /obj/item/storage/backpack/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_combined_w_class = 28
+	STR.max_combined_w_class = 21
 	STR.max_w_class = WEIGHT_CLASS_NORMAL
-	STR.max_items = 28
+	STR.max_items = 21
 
 /*
  * Backpack Types
@@ -58,7 +58,7 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.allow_big_nesting = TRUE
 	STR.max_w_class = WEIGHT_CLASS_GIGANTIC
-	STR.max_combined_w_class = 70
+	STR.max_combined_w_class = 50
 
 /obj/item/storage/backpack/holding/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is jumping into [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
@@ -391,7 +391,7 @@
 /obj/item/storage/backpack/duffelbag/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_combined_w_class = 35
+	STR.max_combined_w_class = 30
 
 /obj/item/storage/backpack/duffelbag/captain
 	name = "captain's duffel bag"
