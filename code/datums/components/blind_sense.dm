@@ -29,7 +29,9 @@
 		RegisterSignal(ears, COMSIG_PARENT_QDELETING, PROC_REF(handle_ears))
 
 /datum/component/blind_sense/RemoveComponent()
-	. = ..()
+	UnregisterSignal(SSdcs, COMSIG_GLOB_LIVING_SAY_SPECIAL)
+	UnregisterSignal(SSdcs, COMSIG_GLOB_SOUND_PLAYED)
+	return ..()
 
 /datum/component/blind_sense/proc/handle_hear(datum/source, atom/speaker, message)
 	SIGNAL_HANDLER
