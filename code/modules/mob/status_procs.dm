@@ -52,6 +52,8 @@
 		clear_alert("blind")
 		clear_fullscreen("blind")
 		remove_client_colour(/datum/client_colour/monochrome/blind)
+		var/datum/component/blind_sense/B = GetComponent(/datum/component/blind_sense)	
+		B?.RemoveComponent()
 
 /**
   * Make the mobs vision blurry
