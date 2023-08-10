@@ -95,6 +95,7 @@
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES
 	relevant_mutant_bodypart = "ipc_antenna"
+	priority = PREFERENCE_PRIORITY_HAIR_COLOR
 
 /datum/preference/color_legacy/ipc_antenna_color/apply_to_human(mob/living/carbon/human/target, value)
 	if(!isipc(target))

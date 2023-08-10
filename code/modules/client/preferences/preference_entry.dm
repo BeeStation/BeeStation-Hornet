@@ -15,8 +15,11 @@
 /// The priority at which eye color is applied, needed so IPCs get the right screen color.
 #define PREFERENCE_PRIORITY_EYE_COLOR 5
 
+/// The priority at which hair color is applied, needed so IPCs get the right antenna color.
+#define PREFERENCE_PRIORITY_HAIR_COLOR 6
+
 /// The priority at which names are decided, needed for proper randomization.
-#define PREFERENCE_PRIORITY_NAMES 6
+#define PREFERENCE_PRIORITY_NAMES 7
 
 /// The maximum preference priority, keep this updated, but don't use it for `priority`.
 #define MAX_PREFERENCE_PRIORITY PREFERENCE_PRIORITY_NAMES
