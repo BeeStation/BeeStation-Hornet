@@ -28,6 +28,8 @@ SUBSYSTEM_DEF(ambience)
 
 /datum/controller/subsystem/ambience/proc/process_ambience_client(client/to_process)
 	var/mob/current_mob = to_process.mob
+	if(!current_mob) // clients can be in this list before they have a mob. let's wait until they have a mob.
+		return
 	var/area/current_area = get_area(current_mob)
 	if(!current_area) //Something's gone horribly wrong
 		stack_trace("[key_name(to_process)] has somehow ended up in nullspace. WTF did you do -xoxo ambience subsystem")
