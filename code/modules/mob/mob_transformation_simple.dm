@@ -47,7 +47,6 @@
 		D.updateappearance(mutcolor_update=1, mutations_overlay_update=1)
 	else if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		H.randomize_human_appearance(~RANDOMIZE_SPECIES)
 		client.prefs.apply_prefs_to(H, icon_updates = TRUE)
 		H.dna.update_dna_identity()
 
