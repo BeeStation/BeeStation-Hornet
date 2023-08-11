@@ -145,7 +145,7 @@
 ///CREEPY objectives (few chosen per obsession)///
 //////////////////////////////////////////////////
 
-/datum/objective/protect/obsessed //just a creepy version of assassinate
+/datum/objective/protect/obsessed //just a creepy version of protect
 
 /datum/objective/protect/obsessed/update_explanation_text()
 	..()
