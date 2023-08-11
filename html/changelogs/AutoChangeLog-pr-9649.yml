@@ -1,0 +1,4 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - code_imp: Removed leftover testing code for light switches
