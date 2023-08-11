@@ -3,18 +3,6 @@
 ///Burn mod for our species, weak to fire
 #define PSYPHOZA_BURNMOD 1.25
 
-///Big list of things we don't want to sense
-GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/machinery/door, /obj/machinery/light, /obj/machinery/firealarm,
-	/obj/machinery/camera, /obj/machinery/atmospherics, /obj/structure/cable, /obj/structure/sign, /obj/machinery/airalarm, 
-	/obj/structure/disposalpipe, /atom/movable/lighting_object, /obj/machinery/power/apc, /obj/machinery/atmospherics/pipe,
-	/obj/item/radio/intercom, /obj/machinery/navbeacon, /obj/structure/extinguisher_cabinet, /obj/machinery/power/terminal,
-	/obj/machinery/holopad, /obj/machinery/status_display, /obj/machinery/ai_slipper, /obj/structure/lattice, /obj/effect/decal,
-	/obj/structure/table, /obj/machinery/gateway, /obj/structure/rack, /obj/machinery/newscaster, /obj/structure/sink, /obj/machinery/shower,
-	/obj/machinery/advanced_airlock_controller, /obj/machinery/computer/security/telescreen, /obj/structure/grille, /obj/machinery/light_switch,
-	/obj/structure/noticeboard, /area, /obj/item/storage/secure/safe, /obj/machinery/requests_console, /obj/item/storage/backpack/satchel/flat,
-	/obj/effect/countdown, /obj/machinery/button, /obj/effect/clockwork/overlay/floor, /obj/structure/reagent_dispensers/peppertank,
-	/mob/dead, /mob/camera, /obj/structure/chisel_message, /obj/effect/particle_effect, /obj/structure/alien/weeds)))
-
 /datum/species/psyphoza
 	name = "\improper Psyphoza"
 	plural_form = "Psyphoza"
@@ -144,8 +132,6 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 
 /datum/action/item_action/organ_action/psychic_highlight/New(Target)
 	. = ..()
-	//Setup massive blacklist typecache of non-renderables. Smaller than whitelist
-	sense_blacklist = GLOB.psychic_sense_blacklist
 
 /datum/action/item_action/organ_action/psychic_highlight/Destroy()
 	. = ..()
@@ -158,7 +144,6 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	RegisterSignal(M, COMSIG_MOB_ITEM_AFTERATTACK, PROC_REF(handle_ranged), TRUE)
 	//Overlay used to highlight objects
 	M.overlay_fullscreen("psychic_highlight", /atom/movable/screen/fullscreen/blind/psychic_highlight)
-	M.overlay_fullscreen("psychic_wall_highlight", /atom/movable/screen/fullscreen/blind/psychic_highlight/wall)
 	//Add option to change visuals
 	if(!(locate(/datum/action/change_psychic_visual) in owner.actions))
 		overlay_change = new(src)
@@ -174,11 +159,10 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 		return FALSE
 	return ..()
 
-/datum/action/item_action/organ_action/psychic_highlight/Trigger(size)
+/datum/action/item_action/organ_action/psychic_highlight/Trigger()
 	. = ..()
-	if(has_cooldown_timer || !owner)
+	if(has_cooldown_timer || !owner || !check_head())
 		return
-	ping_turf(get_turf(owner), size)
 	has_cooldown_timer = TRUE
 	UpdateButtonIcon()
 	addtimer(CALLBACK(src, PROC_REF(finish_cooldown)), cooldown + (sense_time * min(1, overlays.len / PSYCHIC_OVERLAY_UPPER)))
@@ -190,7 +174,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/auto_sense()
 	if(auto_sense)
-		Trigger(5)
+		Trigger()
 	addtimer(CALLBACK(src, PROC_REF(auto_sense)), auto_cooldown)
 
 /datum/action/item_action/organ_action/psychic_highlight/proc/finish_cooldown()
@@ -213,63 +197,6 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	eyes?.sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 	owner.update_sight()
 
-//Dims blind overlay - Lightens highlight layer
-/datum/action/item_action/organ_action/psychic_highlight/proc/dim_overlay()
-	//Blind layer
-	var/atom/movable/screen/fullscreen/blind/psychic/P = locate (/atom/movable/screen/fullscreen/blind/psychic) in owner.client?.screen
-	if(P)
-		//We change the color instead of alpha, otherwise we'd reveal our actual surroundings!
-		animate(P, color = "#000") //This is a fix for a bug with ``animate()`` breaking
-		animate(P, color = P.origin_color, time = sense_time, easing = SINE_EASING, flags = EASE_IN)
-	//Highlight layer
-	var/atom/movable/screen/plane_master/psychic/B = locate (/atom/movable/screen/plane_master/psychic) in owner.client?.screen
-	if(B)
-		animate(B, alpha = 255)
-		animate(B, alpha = 0, time = sense_time, easing = SINE_EASING, flags = EASE_IN)
-	//Setup timer to delete image
-	if(overlay_timer)
-		deltimer(overlay_timer)
-	overlay_timer = addtimer(CALLBACK(src, PROC_REF(toggle_eyes_backwards)), sense_time, TIMER_STOPPABLE)
-
-//Get a list of nearby things & run 'em through a typecache
-/datum/action/item_action/organ_action/psychic_highlight/proc/ping_turf(turf/T, size = sense_range)
-	if(istype(owner?.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/helmet))
-		to_chat(owner, "<span class='warning'>You can't use your senses while wearing helmets!</span>")
-		return
-	toggle_eyes_fowards()
-	dim_overlay()
-	//Get nearby 'things' to see with sense
-	var/list/nearby = range(size, T)
-	nearby -= owner
-	//Go through the list and render whitelisted types
-	for(var/atom/C as() in nearby)
-		if(is_type_in_typecache(C, sense_blacklist))
-			continue
-		highlight_object(C)
-
-//Add overlay for psychic plane
-/datum/action/item_action/organ_action/psychic_highlight/proc/highlight_object(atom/target)
-	//Build image
-	var/image/M = new()
-	M.appearance = target.appearance
-	M.transform = target.transform
-	M.pixel_x = 0 //Reset pixel adjustments to avoid bug where overlays tower
-	M.pixel_y = 0
-	M.pixel_z = 0
-	M.pixel_w = 0
-	M.plane = PSYCHIC_PLANE //Draw overlay on this plane so we can use it as a mask
-	M.dir = target.dir
-	//Add overlay for highlighting
-	target.add_overlay(M)
-	overlays += list(target, M)
-	RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(handle_target), TRUE)
-
-//handle highlight object being deleted early
-/datum/action/item_action/organ_action/psychic_highlight/proc/handle_target(datum/source)
-	SIGNAL_HANDLER
-
-	overlays -= source
-
 //Handle images deleting, stops hardel - also does eyes stuff
 /datum/action/item_action/organ_action/psychic_highlight/proc/toggle_eyes_backwards()
 	//Timer steps
@@ -289,6 +216,38 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	eyes?.sight_flags = sight_flags
 	owner.update_sight()
 
+
+//Dims blind overlay - Lightens highlight layer
+/datum/action/item_action/organ_action/psychic_highlight/proc/dim_overlay()
+	//Blind layer
+	var/atom/movable/screen/fullscreen/blind/psychic/P = locate (/atom/movable/screen/fullscreen/blind/psychic) in owner.client?.screen
+	if(P)
+		//We change the color instead of alpha, otherwise we'd reveal our actual surroundings!
+		animate(P, color = "#000") //This is a fix for a bug with ``animate()`` breaking
+		animate(P, color = P.origin_color, time = sense_time, easing = SINE_EASING, flags = EASE_IN)
+	//Highlight layer
+	var/atom/movable/screen/fullscreen/blind/psychic_highlight/B = locate(/atom/movable/screen/fullscreen/blind/psychic_highlight) in owner.screens
+	if(B)
+		animate(B, alpha = 255)
+		animate(B, alpha = 0, time = sense_time, easing = SINE_EASING, flags = EASE_IN)
+	//Setup timer to delete image
+	if(overlay_timer)
+		deltimer(overlay_timer)
+	overlay_timer = addtimer(CALLBACK(src, PROC_REF(toggle_eyes_backwards)), sense_time, TIMER_STOPPABLE)
+
+//Get a list of nearby things & run 'em through a typecache
+/datum/action/item_action/organ_action/psychic_highlight/proc/check_head()
+	if(istype(owner?.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/helmet))
+		to_chat(owner, "<span class='warning'>You can't use your senses while wearing helmets!</span>")
+		return FALSE
+	return TRUE
+
+//handle highlight object being deleted early
+/datum/action/item_action/organ_action/psychic_highlight/proc/handle_target(datum/source)
+	SIGNAL_HANDLER
+
+	overlays -= source
+
 //Handle clicking for ranged trigger.
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_ranged(datum/source, atom/target)
 	SIGNAL_HANDLER
@@ -297,7 +256,6 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 		return
 	var/turf/T = get_turf(target)
 	if(get_dist(get_turf(owner), T) > 1)
-		ping_turf(T, 2)
 		has_cooldown_timer = TRUE
 		UpdateButtonIcon()
 		addtimer(CALLBACK(src, PROC_REF(finish_cooldown)), (cooldown/1.5) + (sense_time * min(1, overlays.len / PSYCHIC_OVERLAY_UPPER)))
@@ -319,31 +277,24 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	. = ..()
 	filters += filter(type = "radial_blur", size = 0.012)
 	filters += filter(type = "bloom", size = 5, threshold = rgb(85,85,85))
+	filters += filter(type = "alpha", icon = icon('icons/mob/psychic.dmi', "e"))
 	color = origin_color
 
 //And this type as a seperate type-path to avoid issues with animations & locate()
 /atom/movable/screen/fullscreen/blind/psychic_highlight
 	icon_state = "trip"
 	icon = 'icons/mob/psychic.dmi'
-	plane = PSYCHIC_PLANE
-	blend_mode = BLEND_INSET_OVERLAY
+	plane = FULLSCREEN_PLANE
+	layer = 4.1
 	///Index for visual setting - Useful if we add more presets
 	var/visual_index = 0
 
-/atom/movable/screen/fullscreen/blind/psychic_highlight/wall
-	plane = FULLSCREEN_PLANE
-	blend_mode = BLEND_DEFAULT
-	layer = 4.1
-
-/atom/movable/screen/fullscreen/blind/psychic_highlight/wall/Initialize(mapload)
-	. = ..()
-	filters += filter(type = "alpha", render_source = "*WALL_PLANE_RENDER_TARGET")
-	filters += filter(type = "alpha", icon = icon('icons/mob/psychic.dmi', "e"))
-	
 /atom/movable/screen/fullscreen/blind/psychic_highlight/Initialize(mapload)
 	. = ..()
 	filters += filter(type = "bloom", size = 2, threshold = rgb(85,85,85))
 	filters += filter(type = "radial_blur", size = 0.012)
+	filters += filter(type = "alpha", render_source = "eeee")
+	filters += filter(type = "alpha", icon = icon('icons/mob/psychic.dmi', "e"))
 	cycle_visuals()
 
 /atom/movable/screen/fullscreen/blind/psychic_highlight/proc/cycle_visuals(new_color)
@@ -377,12 +328,10 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	button_icon_state = "unknown"
 	///Ref to the overlay - hard del edition
 	var/atom/movable/screen/fullscreen/blind/psychic_highlight/psychic_overlay
-	var/atom/movable/screen/fullscreen/blind/psychic_highlight/wall/psychic_wall_overlay
 
 /datum/action/change_psychic_visual/New(Target)
 	. = ..()
 	RegisterSignal(psychic_overlay, COMSIG_PARENT_QDELETING, PROC_REF(parent_destroy))
-	RegisterSignal(psychic_wall_overlay, COMSIG_PARENT_QDELETING, PROC_REF(parent_destroy))
 
 /datum/action/change_psychic_visual/Destroy()
 	. = ..()
@@ -397,10 +346,7 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	. = ..()
 	if(!psychic_overlay)
 		psychic_overlay = locate(/atom/movable/screen/fullscreen/blind/psychic_highlight) in owner?.client?.screen
-	var/n_color = psychic_overlay?.cycle_visuals()
-	if(!psychic_wall_overlay)
-		psychic_wall_overlay = locate(/atom/movable/screen/fullscreen/blind/psychic_highlight/wall) in owner?.client?.screen
-	psychic_wall_overlay?.cycle_visuals(n_color)
+	psychic_overlay?.cycle_visuals()
 
 //Action for toggling auto sense
 /datum/action/change_psychic_auto

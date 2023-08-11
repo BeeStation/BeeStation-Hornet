@@ -43,14 +43,15 @@
 	if(istype(mymob) && mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/ambient_occlusion))
 		add_filter("openspace_shadow", 1, drop_shadow_filter(color = "#04080FAA", size = 10))
 
-/atom/movable/screen/plane_master/wall
-	name = "wall plane master"
-	plane = WALL_PLANE
-	appearance_flags = PLANE_MASTER
-	render_target = WALL_PLANE_RENDER_TARGET
+///Contains most things in the game world
+/atom/movable/screen/plane_master/game_world
+	name = "game world plane master"
+	plane = GAME_PLANE
+	render_target = "eeee"
+	appearance_flags = PLANE_MASTER //should use client color
 	blend_mode = BLEND_OVERLAY
 
-/atom/movable/screen/plane_master/wall/backdrop(mob/mymob)
+/atom/movable/screen/plane_master/game_world/backdrop(mob/mymob)
 	. = ..()
 	remove_filter("AO")
 	if(istype(mymob) && mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/ambient_occlusion))
@@ -59,15 +60,15 @@
 	if(istype(mymob) && mymob.eye_blurry)
 		add_filter("eye_blur", 1, gauss_blur_filter(clamp(mymob.eye_blurry * 0.1, 0.6, 3)))
 
-
-///Contains most things in the game world
-/atom/movable/screen/plane_master/game_world
-	name = "game world plane master"
-	plane = GAME_PLANE
-	appearance_flags = PLANE_MASTER //should use client color
+///Contains most things in the game world that arent super important
+/atom/movable/screen/plane_master/non_integral
+	name = "game world non integral plane master"
+	plane = GAME_PLANE_NON_INTEGRAL
+	render_target = GAME_PLANE_NON_INTEGRAL_RENDER_TARGET
+	appearance_flags = PLANE_MASTER
 	blend_mode = BLEND_OVERLAY
 
-/atom/movable/screen/plane_master/game_world/backdrop(mob/mymob)
+/atom/movable/screen/plane_master/non_integral/backdrop(mob/mymob)
 	. = ..()
 	remove_filter("AO")
 	if(istype(mymob) && mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/ambient_occlusion))
@@ -219,12 +220,3 @@
 	name = "fullscreen alert plane"
 	plane = FULLSCREEN_PLANE
 	render_relay_plane = RENDER_PLANE_NON_GAME
-
-/atom/movable/screen/plane_master/psychic
-	name = "psychic plane master"
-	plane = PSYCHIC_PLANE
-	appearance_flags = PLANE_MASTER
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	render_target = PSYCHIC_PLANE_RENDER_TARGET
-	render_relay_plane = RENDER_PLANE_NON_GAME
-	alpha = 0
