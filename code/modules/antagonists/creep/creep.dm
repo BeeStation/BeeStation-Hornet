@@ -32,13 +32,13 @@
 		return
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/creepalert.ogg', vol = 100, vary = FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 	to_chat(owner, "<span class='userdanger'>You are the Obsessed!</span>")
-	to_chat(owner, "<span class='bold'>The Voices have reached out to you, and are using you to complete their evil deeds.</span>")
-	to_chat(owner, "<span class='bold'>You don't know their connection, but The Voices compel you to stalk [trauma.obsession], forcing them into a state of constant paranoia.</span>")
-	to_chat(owner, "<span class='bold'>The Voices will retaliate if you fail to complete your tasks or spend too long away from your target.</span>")
+	to_chat(owner, "<span class='bold'>Realization floods over you and everything that's happened this shift makes sense.</span>")
+	to_chat(owner, "<span class='bold'>[trauma.obsession] has no idea how much danger they're in and you're the only person that can be there for them.</span>")
+	to_chat(owner, "<span class='bold'>Nobody else can be trusted, they are all liars and will use deceit to stab you and [trauma.obsession] in the back as soon as they can.</span>")
 	to_chat(owner, "<span class='boldannounce'>This role does NOT enable you to otherwise surpass what's deemed creepy behavior per the rules.</span>")//ironic if you know the history of the antag
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Obsession",
-		"Stalk [trauma.obsession] and force them into a constant state of paranoia.")
+		"Stalk [trauma.obsession] and force them into a constant state of paranoia. Nobody but YOU can be trusted with them!")
 
 /datum/antagonist/obsessed/Destroy()
 	if(trauma)
@@ -55,9 +55,9 @@
 
 /datum/antagonist/obsessed/proc/forge_objectives(datum/mind/obsession_mind)
 	var/list/objectives_left = list("spendtime", "polaroid", "hug")
-	var/datum/objective/assassinate/obsessed/kill = new
-	kill.owner = owner
-	kill.set_target(obsession_mind)
+	var/datum/objective/protect/obsessed/yandere = new
+	yandere.owner = owner
+	yandere.set_target(obsession_mind)
 	var/datum/quirk/family_heirloom/family_heirloom
 
 	if(obsession_mind.has_quirk(/datum/quirk/family_heirloom))//oh, they have an heirloom? Well you know we have to steal that.
@@ -103,8 +103,8 @@
 				objectives += jealous
 				log_objective(owner, jealous.explanation_text)
 
-	objectives += kill//finally add the assassinate last, because you'd have to complete it last to greentext.
-	log_objective(owner, kill.explanation_text)
+	objectives += yandere//finally add the protect last, because you'd have to complete it last to greentext.
+	log_objective(owner, yandere.explanation_text)
 	for(var/datum/objective/objective in objectives)
 		objective.update_explanation_text()
 
@@ -145,17 +145,17 @@
 ///CREEPY objectives (few chosen per obsession)///
 //////////////////////////////////////////////////
 
-/datum/objective/assassinate/obsessed //just a creepy version of assassinate
+/datum/objective/protect/obsessed //just a creepy version of assassinate
 
-/datum/objective/assassinate/obsessed/update_explanation_text()
+/datum/objective/protect/obsessed/update_explanation_text()
 	..()
 	if(target?.current)
-		explanation_text = "Murder [target.name], the [!target_role_type ? target.assigned_role : target.special_role]."
+		explanation_text = "Protect [target.name], the [!target_role_type ? target.assigned_role : target.special_role]."
 	else
 		message_admins("WARNING! [ADMIN_LOOKUPFLW(owner)] obsessed objectives forged without an obsession!")
 		explanation_text = "Free Objective"
 
-/datum/objective/assassinate/obsessed/on_target_cryo()
+/datum/objective/protect/obsessed/on_target_cryo()
 	qdel(src) //trauma will give replacement objectives
 
 /datum/objective/assassinate/jealous //assassinate, but it changes the target to someone else in the obsession's department. cool, right?
