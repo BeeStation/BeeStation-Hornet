@@ -1,6 +1,8 @@
 /datum/job/deputy
 	title = JOB_NAME_DEPUTY
 	flag = DEPUTY
+	description = "Follow orders and do your best to maintain order on the station while following Space Law."
+	department_for_prefs = DEPT_BITFLAG_SEC
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security"
 	faction = "Station"

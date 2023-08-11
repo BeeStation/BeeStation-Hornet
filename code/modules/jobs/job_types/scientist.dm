@@ -1,6 +1,8 @@
 /datum/job/scientist
 	title = JOB_NAME_SCIENTIST
 	flag = SCIENTIST
+	description = "Engage in Xenobiology, Xenoarchaeology, Nanites, and Toxins; research new technology; and upgrade the machine parts around the station."
+	department_for_prefs = DEPT_BITFLAG_SCI
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	supervisors = "the research director"
 	faction = "Station"
@@ -29,6 +31,16 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/science
 	)
 	biohazard = 35
+
+	lightup_areas = list(/area/storage/tech, /area/science/robotics)
+	minimal_lightup_areas = list(
+		/area/science/explab,
+		/area/science/misc_lab,
+		/area/science/mixing,
+		/area/science/nanite,
+		/area/science/storage,
+		/area/science/xenobiology
+	)
 
 /datum/outfit/job/scientist
 	name = JOB_NAME_SCIENTIST

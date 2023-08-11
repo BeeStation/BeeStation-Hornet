@@ -35958,7 +35958,7 @@
 	pixel_x = -3
 	},
 /obj/item/assembly/flash/handheld,
-/obj/item/reagent_containers/spray/pepper,
+/obj/item/reagent_containers/peppercloud_deployer,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},

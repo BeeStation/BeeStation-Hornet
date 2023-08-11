@@ -26,7 +26,6 @@
 	anchored = TRUE
 	pass_flags_self = PASSTABLE | LETPASSTHROW
 	layer = TABLE_LAYER
-	climbable = TRUE
 	var/frame = /obj/structure/table_frame
 	var/framestack = /obj/item/stack/rods
 	var/buildstack = /obj/item/stack/sheet/iron
@@ -37,6 +36,12 @@
 	var/last_bump = 0
 	max_integrity = 100
 	integrity_failure = 30
+
+/obj/structure/table/Initialize(mapload, _buildstack)
+	. = ..()
+	if(_buildstack)
+		buildstack = _buildstack
+	AddElement(/datum/element/climbable)
 
 /obj/structure/table/Bumped(mob/living/carbon/human/H)
 	. = ..()
@@ -559,12 +564,27 @@
 	. = ..()
 	initial_link()
 
+/obj/structure/table/optable/examine(mob/user)
+	. = ..()
+	if(computer)
+		. += "<span class='notice'>[src] is <b>linked</b> to an operating computer to the [dir2text(get_dir(src, computer))].</span>"
+	else
+		. += "<span class='notice'>[src] is <b>NOT linked</b> to an operating computer.</span>"
+
 /obj/structure/table/optable/proc/initial_link()
+	if(!QDELETED(computer))
+		computer.table = src
+		return
 	for(var/direction in GLOB.alldirs)
-		computer = locate(/obj/machinery/computer/operating) in get_step(src, direction)
-		if(computer && !computer.table)
-			computer.link_with_table(new_table = src)
-			break
+		var/obj/machinery/computer/operating/found_computer = locate(/obj/machinery/computer/operating) in get_step(src, direction)
+		if(found_computer)
+			if(!found_computer.table)
+				found_computer.link_with_table(new_table = src)
+				break
+			else if(found_computer.table == src)
+				computer = found_computer
+				break
+
 
 /obj/structure/table/optable/Destroy()
 	. = ..()

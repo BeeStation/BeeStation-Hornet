@@ -180,7 +180,7 @@
 			found_item = found_card_slot?.stored_card // swap found_item to the actual ID card we want to add
 			if(!found_item) //Empty ID slot, skip it
 				continue
-				
+
 		// we store detected cards and holochips into the returning list
 		if(istype(found_item, /obj/item/card/id))
 			var/obj/item/card/id/found_id = found_item
@@ -200,7 +200,7 @@
 		return null
 
 /mob/living/carbon/human/IsAdvancedToolUser()
-	if(HAS_TRAIT(src, TRAIT_MONKEYLIKE))
+	if(HAS_TRAIT(src, TRAIT_DISCOORDINATED))
 		return FALSE
 	return TRUE//Humans can use guns and such
 
@@ -288,3 +288,23 @@
 		return TRUE
 	if(isclothing(wear_mask) && (wear_mask.clothing_flags & SCAN_BOOZEPOWER))
 		return TRUE
+
+///copies over clothing preferences like underwear to another human
+/mob/living/carbon/human/proc/copy_clothing_prefs(mob/living/carbon/human/destination)
+	destination.underwear = underwear
+	destination.underwear_color = underwear_color
+	destination.undershirt = undershirt
+	destination.socks = socks
+	destination.jumpsuit_style = jumpsuit_style
+
+
+/// Fully randomizes everything according to the given flags.
+/mob/living/carbon/human/proc/randomize_human_appearance(randomize_flags = ALL)
+	var/datum/preferences/preferences = new
+
+	for (var/datum/preference/preference as anything in get_preferences_in_priority_order())
+		if (!preference.included_in_randomization_flags(randomize_flags))
+			continue
+
+		if (preference.is_randomizable())
+			preferences.write_preference(preference, preference.create_random_value(preferences))

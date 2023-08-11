@@ -51,7 +51,7 @@
 			if(H.glasses == src)
 				to_chat(H, "<span class='danger'>[src] overloads and blinds you!</span>")
 				H.flash_act(visual = 1)
-				H.blind_eyes(3)
+				H.adjust_blindness(3)
 				H.blur_eyes(5)
 				eyes.applyOrganDamage(5)
 
@@ -526,12 +526,13 @@
 		if(H.client)
 			if(H.client.prefs)
 				if(src == H.glasses)
-					H.client.prefs.toggles2 ^= PREFTOGGLE_2_USES_GLASSES_COLOUR
-					if(H.client.prefs.toggles2 & PREFTOGGLE_2_USES_GLASSES_COLOUR)
+					var/current_color = H.client.prefs.read_player_preference(/datum/preference/toggle/glasses_color)
+					H.client.prefs.update_preference(/datum/preference/toggle/glasses_color, !current_color)
+					if(!current_color)
 						to_chat(H, "You will now see glasses colors.")
 					else
 						to_chat(H, "You will no longer see glasses colors.")
-					H.update_glasses_color(src, 1)
+					H.update_glasses_color(src, TRUE)
 
 /obj/item/clothing/glasses/proc/change_glass_color(mob/living/carbon/human/H, datum/client_colour/glass_colour/new_color_type)
 	var/old_colour_type = glass_colour_type
@@ -545,7 +546,9 @@
 
 
 /mob/living/carbon/human/proc/update_glasses_color(obj/item/clothing/glasses/G, glasses_equipped)
-	if(((client && client.prefs.toggles2 & PREFTOGGLE_2_USES_GLASSES_COLOUR) || G.force_glass_colour) && glasses_equipped)
+	if(!client)
+		return
+	if((client.prefs?.read_player_preference(/datum/preference/toggle/glasses_color) || G.force_glass_colour) && glasses_equipped)
 		add_client_colour(G.glass_colour_type)
 	else
 		remove_client_colour(G.glass_colour_type)

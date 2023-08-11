@@ -24,7 +24,7 @@
 	else
 		return ..()
 
-/obj/machinery/the_singularitygen/bullet_act(obj/item/projectile/energy/accelerated_particle/P, def_zone, piercing_hit = FALSE)
+/obj/machinery/the_singularitygen/bullet_act(obj/projectile/energy/accelerated_particle/P, def_zone, piercing_hit = FALSE)
 	if(istype(P))
 		if(energy <= 0) // we want to first add the energy then start processing so we do not immidiatly stop processing again
 			energy += P.energy

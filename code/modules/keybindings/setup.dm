@@ -34,9 +34,11 @@
 /client/proc/set_macros()
 	set waitfor = FALSE
 
-	erase_all_macros()
-
 	var/list/macro_sets = SSinput.macro_sets
+	if(!length(macro_sets))
+		return
+
+	erase_all_macros()
 
 	for(var/i in 1 to macro_sets.len)
 		var/setname = macro_sets[i]
@@ -48,7 +50,7 @@
 			var/command = macro_set[key]
 			winset(src, "[setname]-[REF(key)]", "parent=[setname];name=[key];command=[command]")
 		winset(src, "[setname]-close-tgui-say", "parent=[setname];name=Escape;command=[tgui_say_create_close_command()]")
-	if(prefs.toggles2 & PREFTOGGLE_2_HOTKEYS)
+	if(hotkeys)
 		winset(src, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED] mainwindow.macro=default")
 	else
 		winset(src, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED] mainwindow.macro=old_default")
@@ -68,8 +70,13 @@
 	var/datum/preferences/D = prefs || direct_prefs
 	if(!D?.key_bindings)
 		return
-	var/use_tgui_say = !prefs || (prefs.toggles2 & PREFTOGGLE_2_TGUI_SAY)
-	var/use_tgui_asay = !prefs || (prefs.toggles2 & PREFTOGGLE_2_TGUI_ASAY)
+
+	var/list/macro_sets = SSinput.macro_sets
+	if(!length(macro_sets))
+		return
+
+	var/use_tgui_say = !prefs || prefs.read_player_preference(/datum/preference/toggle/tgui_say)
+	var/use_tgui_asay = !prefs || prefs.read_player_preference(/datum/preference/toggle/tgui_asay)
 	var/say = use_tgui_say ? tgui_say_create_open_command(SAY_CHANNEL) : "\".winset \\\"command=\\\".start_typing say\\\";command=.init_say;saywindow.is-visible=true;saywindow.input.focus=true\\\"\""
 	var/me = use_tgui_say ? tgui_say_create_open_command(ME_CHANNEL) : "\".winset \\\"command=\\\".start_typing me\\\";command=.init_me;mewindow.is-visible=true;mewindow.input.focus=true\\\"\""
 	var/ooc = use_tgui_say ? tgui_say_create_open_command(OOC_CHANNEL) : "ooc"
@@ -79,10 +86,10 @@
 	var/radio = tgui_say_create_open_command(RADIO_CHANNEL)
 	var/looc = tgui_say_create_open_command(LOOC_CHANNEL)
 
-	var/list/macro_sets = SSinput.macro_sets
+	var/is_mentor = is_mentor()
 
-	for(var/key in D.key_bindings)
-		for(var/kb_name in D.key_bindings[key])
+	for(var/kb_name in D.key_bindings)
+		for(var/key in D.key_bindings[kb_name])
 			for(var/i in 1 to macro_sets.len)
 				var/setname = macro_sets[i]
 				switch(kb_name)
@@ -117,7 +124,7 @@
 						if("dead_say")
 							winset(src, "[setname]-dsay", "parent=null")
 				if(kb_name == "mentor_say")
-					if(is_mentor())
+					if(is_mentor)
 						winset(src, "[setname]-msay", "parent=[setname];name=[key];command=[msay]")
 					else
 						winset(src, "[setname]-msay", "parent=null")

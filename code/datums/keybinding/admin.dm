@@ -6,7 +6,7 @@
 	return user.holder ? TRUE : FALSE
 
 /datum/keybinding/admin/admin_say
-	key = "F3"
+	keys = list("F3")
 	name = "admin_say"
 	full_name = "Admin Say"
 	description = "Talk with other admins."
@@ -16,12 +16,12 @@
 	. = ..()
 	if(.)
 		return
-	if(user.prefs && !(user.prefs.toggles2 & PREFTOGGLE_2_TGUI_ASAY))
+	if(user.prefs && !user.prefs.read_player_preference(/datum/preference/toggle/tgui_asay))
 		user.get_admin_say()
 	return TRUE
 
 /datum/keybinding/admin/mentor_say
-	key = "F4"
+	keys = list("F4")
 	name = "mentor_say"
 	full_name = "Mentor Say"
 	description = "Speak with other mentors."
@@ -31,7 +31,7 @@
 	. = ..()
 	if(.)
 		return
-	if(user.prefs && !(user.prefs.toggles2 & PREFTOGGLE_2_TGUI_ASAY))
+	if(user.prefs && !user.prefs.read_player_preference(/datum/preference/toggle/tgui_asay))
 		user.get_mentor_say()
 	return TRUE
 
@@ -41,7 +41,7 @@
 
 
 /datum/keybinding/admin/admin_ghost
-	key = "F5"
+	keys = list("F5")
 	name = "admin_ghost"
 	full_name = "Admin Ghost"
 	description = "Toggle your admin ghost status."
@@ -56,7 +56,7 @@
 
 
 /datum/keybinding/admin/player_panel
-	key = "F6"
+	keys = list("F6")
 	name = "player_panel"
 	full_name = "Player Panel"
 	description = "View the player panel list."
@@ -71,7 +71,7 @@
 
 
 /datum/keybinding/admin/build_mode
-	key = "F7"
+	keys = list("F7")
 	name = "toggle_build_mode"
 	full_name = "Toggle Build Mode"
 	description = "Toggle admin build mode on or off."
@@ -86,7 +86,7 @@
 
 
 /datum/keybinding/admin/invismin
-	key = "F8"
+	keys = list("F8")
 	name = "invismin"
 	full_name = "Toggle Invismin"
 	description = "Toggle your admin invisibility."
@@ -101,7 +101,7 @@
 
 
 /datum/keybinding/admin/dead_say
-	key = "F10"
+	keys = list("F10")
 	name = "dead_say"
 	full_name = "Dead Say"
 	description = "Speak in deadchat as an admin."
@@ -111,6 +111,6 @@
 	. = ..()
 	if(.)
 		return
-	if(user.prefs && !(user.prefs.toggles2 & PREFTOGGLE_2_TGUI_ASAY))
+	if(user.prefs && !user.prefs.read_player_preference(/datum/preference/toggle/tgui_asay))
 		user.get_dead_say()
 	return TRUE
