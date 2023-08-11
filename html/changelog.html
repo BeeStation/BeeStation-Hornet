@@ -56,10 +56,83 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">11 August 2023</h2>
+			<h3 class="author">Bokkiewokkie updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">changed how suit boxes apply slowdown</li>
+			</ul>
+			<h3 class="author">CydiaLamiales updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes light switches that start turned off due to an empty department, turning their lights on instantly and silently for the first time</li>
+				<li class="code_imp">Refactored the process for making un-staffed departments be dark at roundstart</li>
+				<li class="code_imp">Slightly reduced the processing cost of flicking light switches</li>
+				<li class="code_imp">Removed leftover testing code for light switches</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Say-related keys can now be rebound (T, M, O, Y, U, etc).</li>
+				<li class="rscadd">Added TGUI Asay, Msay, and Dsay for admins and mentors. There is also a preference for this.</li>
+				<li class="bugfix">Fixed TGUI Say not updating the typing indicator in the Me channel if you are browsing your history, like in Say and Radio.</li>
+			</ul>
+			<h3 class="author">itsmeow, Mothblocks, Absolucy, Rukofamicom, Ghommie, JohnFulpWillard, Watermelon914, PeterMorrison1, Y0SH1M4S73R, AnturK, GoldenAlpharex, Seris02, tralezab, AndrewL97, MrMelbert, Tastyfish, LemonInTheDark, vinylspiders, kriskog, Couls, MrStonedOne, jlsnow301, actioninja, Synclt21, KoJIT2009 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">Rewrote the entire preferences UI.</li>
+				<li class="refactor">Rewrote the entire preferences backend and serialization system to reduce database usage, datumized the addition of preferences.</li>
+				<li class="server">Flattened some preference database schema stuff, migration is required.</li>
+				<li class="tweak">Loadouts now preview the items you equip on your mob, and will replace existing items in the preview window to ensure they preview correctly.</li>
+				<li class="bugfix">Deadminned admins now retain their access to Donator loadout items.</li>
+				<li class="rscadd">You can now purchase multiple antag tokens from loadouts.</li>
+				<li class="rscadd">You can now bind up to 3 keybinds to one overall action.</li>
+				<li class="rscadd">You can now select specific preferences to be randomized on join rather than globally randomizing your body. You can also make specific preferences only randomize if you are an antagonist.</li>
+				<li class="tweak">PDA Theme can now be customized per-character.</li>
+				<li class="tweak">Failed job selection now defaults to "Return to lobby" instead of "Be random job"</li>
+				<li class="tweak">TGUI Dropdowns now have improved UX experience, and exist outside of the object they are within, instead existing above other UI elements. This means they cannot cause windows to scroll by overflowing, for example.</li>
+				<li class="tweak">You can now select preferences to be randomized only when you are an antagonist</li>
+				<li class="tweak">Per-character antagonist preferences can now be toggled globally, with per-character prefs only affecting if it's set to off.</li>
+			</ul>
+
+			<h2 class="date">10 August 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Hypnoflashes now properly work on sleeping targets again.</li>
+			</ul>
+			<h3 class="author">BriggsIDP updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">replaces meta & delta chem locker with gear locker</li>
+			</ul>
+			<h3 class="author">Dejaku51 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed wiremod USBs not working</li>
+			</ul>
+			<h3 class="author">JikkaJoestar updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">added library computer, table, and stool</li>
+			</ul>
+			<h3 class="author">boombaklops updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">edaggers are now sharp</li>
+			</ul>
+
+			<h2 class="date">09 August 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added a search bar to the morph stomach UI.</li>
+				<li class="rscadd">Morphs can now digest nutritious food to recover small amounts of health, however this healing is capped - a morph can only recover up to 20% of its health over the course of 2.5 minutes by digesting food.</li>
+				<li class="tweak">Being husked by morph digestion is now considered a burn husk, meaning that synthflesh or rezadone can fix morph digestion victims.</li>
+			</ul>
+			<h3 class="author">HowToLoLu updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Dense objects can no longer be hidden under the floor, and will now produce a runtime when attempted.</li>
+			</ul>
+
 			<h2 class="date">08 August 2023</h2>
 			<h3 class="author">EvilDragonfiend updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="tweak">BB implant chat colour will be randomly chosen</li>
+			</ul>
+			<h3 class="author">Haliris updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Changed and improved some strings used by traumas for forced speech to make them more in line with RP standards.</li>
 			</ul>
 			<h3 class="author">PowerfulBacon updated:</h3>
 			<ul class="changes bgimages16">
@@ -1067,93 +1140,6 @@
 			<h3 class="author">Archanial updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="bugfix">fixed nanite healing program without a host.</li>
-			</ul>
-
-			<h2 class="date">09 June 2023</h2>
-			<h3 class="author">Absolucy updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Nanite scanners now have a more visually pleasing output.</li>
-				<li class="tweak">Nanite scanners now display program rules, including which ones are active or not.</li>
-				<li class="tweak">Forceful nanite syncs (slime/person splitting, nanite sting, infective exo-locomotion) now copy settings such as cloud ID.</li>
-				<li class="admin">Selecting a typepath as admin (i.e through the Spawn verb) will now use tgui input, which includes an actual search thingy.</li>
-			</ul>
-			<h3 class="author">Tyranicranger4, Fikou updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="admin">Individual player logs can now be viewed even after someone has disconnected.</li>
-			</ul>
-
-			<h2 class="date">08 June 2023</h2>
-			<h3 class="author">Absolucy updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed roundstart persistent dynamic rulesets ignoring repeated mode weight adjustment (roundstart rulesets will no longer recur as often directly after each other)</li>
-			</ul>
-			<h3 class="author">Archanial updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">fixed runtime in AAC</li>
-				<li class="bugfix">fixed runtime in express cargo console.</li>
-			</ul>
-			<h3 class="author">Crossedfall updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">New quick options to 'pretty' format TGUI</li>
-			</ul>
-			<h3 class="author">Haliris updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">tweaked the string/names files to prevent some bad names from being randomly generated.</li>
-			</ul>
-			<h3 class="author">JixS4v updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">botany belts are now able to hold droppers</li>
-				<li class="tweak">droppers can now only transfer 1u 2u, or 5u</li>
-			</ul>
-			<h3 class="author">JixS4v, Timberpoes updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Printing a long recording from a tape recorder no longer freezes clients</li>
-				<li class="tweak">Tape recorders can now print multi-page transcripts</li>
-			</ul>
-			<h3 class="author">RKz updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">tweaked "Basic Shuttle Research" tech to be easier to research</li>
-				<li class="bugfix">you can edit crew records with medhuds again, with the timeout properly applying</li>
-			</ul>
-			<h3 class="author">RKz, Mothblocks updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">points of interest use an element</li>
-				<li class="bugfix">fix incorrect pathing for a swarmer spawn</li>
-			</ul>
-			<h3 class="author">Rukofamicom updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Removes the ability for players to selectively refuse revivals by quickly leaving their body after being forced back into it. DNR will still prevent resuscitations, this only applies to players who have not enabled this.</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">Updated some TGUI dependencies.</li>
-				<li class="tweak">TGUI now supports DPI scaling, provided you use a BYOND version modified to use a modern browser.</li>
-				<li class="tweak">TGUI LabeledLists should now wrap text by default instead of overflowing.</li>
-				<li class="bugfix">TGUI Number inputs modals now accept negative numbers.</li>
-				<li class="bugfix">TGUI Number inputs modals can now accept decimals and not round them.</li>
-				<li class="tweak">Tabs can now have customized colors. They should also function better inside Section boxes, and have better padding and margins.</li>
-				<li class="tweak">Arrow keys are grabbed by TGUI for keyboard navigation, won't move your character unless you have hotkeys off.</li>
-				<li class="tweak">Improved TGUI's handling of static data on refresh, now a Loading prompt will be shown while static data is on cooldown instead of just straight up not sending it.</li>
-				<li class="tweak">Multiline TGUI inputs now support line breaks, accessible via shift-enter! A maximum of two consecutive line breaks is allowed, any more than that will be automatically stripped. This only applies to input boxes that start with the multiline view enabled, and will thus not work on input boxes that aren't meant to support it.</li>
-			</ul>
-			<h3 class="author">itsmeow, jlsnow301 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">Standardized TGUI code formatting using PrettierX. Developers: Install the Prettier extension for VSCode.</li>
-			</ul>
-			<h3 class="author">mystery3525 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">Adds a unit test for techweb/build design id assignments</li>
-				<li class="refactor">Moved techweb initialization checks to a unit test</li>
-			</ul>
-
-			<h2 class="date">07 June 2023</h2>
-			<h3 class="author">Absolucy updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Sacrificing a DNR corpse will no longer force the unwilling ghost back into their body, and will instead poll ghosts for who wants to be the shade.</li>
-			</ul>
-			<h3 class="author">Dejaku51 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed xenobio infinite pylons exploit that could potentially crash the server</li>
 			</ul>
 		</div>
 

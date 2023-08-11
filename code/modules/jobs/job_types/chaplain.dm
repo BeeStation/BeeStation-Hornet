@@ -1,6 +1,8 @@
 /datum/job/chaplain
 	title = JOB_NAME_CHAPLAIN
 	flag = CHAPLAIN
+	description = "Tend to the spiritual well-being of the crew, conduct rites and rituals in your Chapel, exorcise evil spirits and other supernatural beings."
+	department_for_prefs = DEPT_BITFLAG_CIV
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	faction = "Station"
@@ -32,8 +34,10 @@
 		/area/crew_quarters/theatre
 	)
 
-/datum/job/chaplain/after_spawn(mob/living/H, mob/M)
+/datum/job/chaplain/after_spawn(mob/living/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
 	. = ..()
+	if(!M.client || on_dummy)
+		return
 
 	var/obj/item/storage/book/bible/booze/B = new
 
@@ -49,16 +53,10 @@
 		return
 	H.mind?.holy_role = HOLY_ROLE_HIGHPRIEST
 
-	var/new_religion = DEFAULT_RELIGION
-	if(M.client && M.client.prefs.active_character.custom_names["religion"])
-		new_religion = M.client.prefs.active_character.custom_names["religion"]
-
-	var/new_deity = DEFAULT_DEITY
-	if(M.client && M.client.prefs.active_character.custom_names["deity"])
-		new_deity = M.client.prefs.active_character.custom_names["deity"]
+	var/new_religion = preference_source?.prefs?.read_character_preference(/datum/preference/name/religion) || DEFAULT_RELIGION
+	var/new_deity = preference_source?.prefs?.read_character_preference(/datum/preference/name/deity) || DEFAULT_DEITY
 
 	B.deity_name = new_deity
-
 
 	switch(lowertext(new_religion))
 		if("christianity") // DEFAULT_RELIGION

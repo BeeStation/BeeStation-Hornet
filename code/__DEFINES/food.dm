@@ -19,11 +19,31 @@
 #define BUGS (1<<18)*/
 #define GORE (1<<19)
 
-#define DRINK_BAD 1
-#define DRINK_NICE 2
-#define DRINK_GOOD 3
-#define DRINK_VERYGOOD 4
-#define DRINK_FANTASTIC 5
+/// A list of food type names, in order of their flags
+#define FOOD_FLAGS list( \
+	"MEAT", \
+	"VEGETABLES", \
+	"RAW", \
+	"JUNKFOOD", \
+	"GRAIN", \
+	"FRUIT", \
+	"DAIRY", \
+	"FRIED", \
+	"ALCOHOL", \
+	"SUGAR", \
+	"GROSS", \
+	"TOXIC", \
+	"PINEAPPLE", \
+	"BREAKFAST", \
+	"CLOTH", \
+	"GORE", \
+)
+
+#define DRINK_BAD   1
+#define DRINK_NICE	2
+#define DRINK_GOOD	3
+#define DRINK_VERYGOOD	4
+#define DRINK_FANTASTIC	5
 
 /// Food is "in a container", not in a code sense, but in a literal sense (canned foods)
 #define FOOD_IN_CONTAINER (1<<0)
