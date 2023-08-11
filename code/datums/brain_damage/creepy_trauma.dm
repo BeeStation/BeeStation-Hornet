@@ -6,7 +6,7 @@
 	lose_text = "<span class='warning'>The voices in your head fall silent.</span>"
 	can_gain = TRUE
 	trauma_flags = TRAUMA_DEFAULT_FLAGS | TRAUMA_NOT_RANDOM | TRAUMA_SPECIAL_CURE_PROOF
-	resilience = TRAUMA_RESILIENCE_SURGERY
+	resilience = TRAUMA_RESILIENCE_LOBOTOMY
 	var/datum/mind/obsession
 	var/datum/objective/spendtime/attachedobsessedobj
 	var/datum/antagonist/obsessed/antagonist
