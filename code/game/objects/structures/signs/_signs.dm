@@ -1,5 +1,6 @@
 /obj/structure/sign
 	icon = 'icons/obj/decals.dmi'
+	plane = GAME_PLANE_NON_INTEGRAL
 	anchored = TRUE
 	opacity = FALSE
 	density = FALSE

@@ -5,6 +5,7 @@
 
 	icon             = LIGHTING_ICON
 	icon_state       = "transparent"
+	plane 			 = GAME_PLANE_NON_INTEGRAL
 	color            = LIGHTING_BASE_MATRIX
 	plane            = LIGHTING_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT

@@ -9,6 +9,7 @@
 
 /obj/structure/alien
 	icon = 'icons/mob/alien.dmi'
+	plane = GAME_PLANE_NON_INTEGRAL
 	max_integrity = 100
 
 /obj/structure/alien/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)

@@ -424,11 +424,9 @@
 	var/mob/living/carbon/C = owner
 	if(!HAS_TRAIT(C, TRAIT_BLIND))
 		C.clear_fullscreen("psychic_highlight")
-		C.clear_fullscreen("psychic_wall_highlight")
 	//And then cruely makes them blind again
-	else if(!C.screens["psychic_highlight"] && !C.screens["psychic_wall_highlight"])
+	else if(!C.screens["psychic_highlight"])
 		C.overlay_fullscreen("psychic_highlight", /atom/movable/screen/fullscreen/blind/psychic_highlight)
-		C.overlay_fullscreen("psychic_wall_highlight", /atom/movable/screen/fullscreen/blind/psychic_highlight/wall)
 
 /obj/item/organ/eyes/psyphoza/Insert(mob/living/carbon/M, special, drop_if_replaced, initialising)
 	. = ..()

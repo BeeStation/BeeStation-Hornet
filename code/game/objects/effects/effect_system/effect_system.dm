@@ -8,6 +8,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 
 /obj/effect/particle_effect
 	name = "particle effect"
+	plane = GAME_PLANE_NON_INTEGRAL
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	pass_flags = PASSTABLE | PASSGRILLE
 	anchored = TRUE
