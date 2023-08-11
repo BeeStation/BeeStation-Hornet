@@ -170,8 +170,35 @@
 	for(var/i in 1 to 7)
 		new /obj/item/disk/nanite_program(src)
 
-// Ordinary survival box
+//Parent box to accomodate station trait and apply unique restrictions
+/obj/item/storage/box/survival
+	name = "survival box"
+	desc = "A compact box that is designed to hold specific emergency supplies"
+	w_class = WEIGHT_CLASS_SMALL //So the roundstart box takes up less space.
+
+/obj/item/storage/box/survival/Initialize(mapload)
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 5
+	STR.max_combined_w_class = 21
+	var/static/list/can_hold = typecacheof(list(
+		/obj/item/flashlight/flare,
+		/obj/item/radio,
+		/obj/item/clothing/mask/breath,
+		/obj/item/clothing/mask/gas,
+		/obj/item/reagent_containers/hypospray/medipen,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tank/internals/plasmaman/belt
+		))
+	STR.can_hold = can_hold
+
 /obj/item/storage/box/survival/PopulateContents()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
+		new /obj/item/flashlight/flare(src)
+		new /obj/item/radio/off(src)
+
+// Ordinary survival box
+/obj/item/storage/box/survival/normal/PopulateContents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/reagent_containers/hypospray/medipen(src)
 
@@ -180,18 +207,9 @@
 	else
 		new /obj/item/tank/internals/plasmaman/belt(src)
 
-	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
-		new /obj/item/flashlight/flare(src)
-		new /obj/item/radio/off(src)
-
-/obj/item/storage/box/survival/radio/PopulateContents()
-	..() // we want the survival stuff too.
-	new /obj/item/radio/off(src)
-
 // Mining survival box
-/obj/item/storage/box/survival_mining/PopulateContents()
+/obj/item/storage/box/survival/mining/PopulateContents()
 	new /obj/item/clothing/mask/gas/explorer(src)
-	new /obj/item/crowbar/red(src)
 	new /obj/item/reagent_containers/hypospray/medipen(src)
 
 	if(!isplasmaman(loc))
@@ -200,7 +218,7 @@
 		new /obj/item/tank/internals/plasmaman/belt(src)
 
 // Engineer survival box
-/obj/item/storage/box/engineer/PopulateContents()
+/obj/item/storage/box/survival/engineer/PopulateContents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/reagent_containers/hypospray/medipen(src)
 
@@ -208,10 +226,6 @@
 		new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	else
 		new /obj/item/tank/internals/plasmaman/belt(src)
-
-/obj/item/storage/box/engineer/radio/PopulateContents()
-	..() // we want the regular items too.
-	new /obj/item/radio/off(src)
 
 // Syndie survival box
 /obj/item/storage/box/syndie/PopulateContents()
