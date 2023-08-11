@@ -208,15 +208,6 @@
 
 	return finish_preview_icon(final_icon)
 
-/datum/role_preference/midround_ghost/slaughter_demon
-	name = "Slaughter Demon"
-	description = "Use your blood jaunt to terrorize the crew, and drag them all to hell."
-	antag_datum = /datum/antagonist/slaughter
-	category = ROLE_PREFERENCE_CATEGORY_LEGACY
-
-/datum/role_preference/midround_ghost/slaughter_demon/get_preview_icon()
-	return finish_preview_icon(icon('icons/mob/mob.dmi', "daemon"))
-
 /datum/role_preference/midround_ghost/devil
 	name = "Devil (Midround)"
 	description = "Sign deals with crewmembers, turn them to the side of the Devil."
@@ -243,6 +234,15 @@
 	back = /obj/item/tank/jetpack/carbondioxide
 	// No katana because it has trouble GCing
 	//belt = /obj/item/energy_katana
+
+/datum/role_preference/midround_ghost/slaughter_demon
+	name = "Slaughter Demon"
+	description = "Use your blood jaunt to terrorize the crew, and drag them all to hell."
+	antag_datum = /datum/antagonist/slaughter
+	category = ROLE_PREFERENCE_CATEGORY_MIDROUND_GHOST
+
+/datum/role_preference/midround_ghost/slaughter_demon/get_preview_icon()
+	return finish_preview_icon(icon('icons/mob/mob.dmi', "daemon"))
 
 /datum/role_preference/midround_living/malfunctioning_ai
 	name = "Malfunctioning AI"
