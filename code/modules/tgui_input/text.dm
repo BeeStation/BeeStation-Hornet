@@ -25,7 +25,7 @@
 		else
 			return
 	// Client does NOT have tgui_input on: Returns regular input
-	if(!(user.client?.prefs?.toggles2 & PREFTOGGLE_2_TGUI_INPUT))
+	if(!user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
 		if(encode)
 			if(multiline)
 				return stripped_multiline_input(user, message, title, default, max_length)
@@ -67,7 +67,7 @@
 		else
 			return
 	// Client does NOT have tgui_input on: Returns regular input
-	if(!(user.client?.prefs?.toggles2 & PREFTOGGLE_2_TGUI_INPUT))
+	if(!user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input))
 		if(encode)
 			if(multiline)
 				return stripped_multiline_input(user, message, title, default, max_length)
@@ -154,8 +154,8 @@
 	.["message"] = message
 	.["multiline"] = multiline
 	.["placeholder"] = default // Default is a reserved keyword
-	.["large_buttons"] = !user.client?.prefs || (user.client.prefs.toggles2 & PREFTOGGLE_2_BIG_BUTTONS)
-	.["swapped_buttons"] = !user.client?.prefs || (user.client.prefs.toggles2 & PREFTOGGLE_2_SWITCHED_BUTTONS)
+	.["large_buttons"] = !user.client?.prefs || user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input_large)
+	.["swapped_buttons"] = !user.client?.prefs || user.client.prefs.read_player_preference(/datum/preference/toggle/tgui_input_swapped)
 	.["title"] = title
 
 /datum/tgui_input_text/ui_data(mob/user)

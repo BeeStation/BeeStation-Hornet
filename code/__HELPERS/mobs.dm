@@ -58,6 +58,8 @@
 /proc/random_features()
 	if(!GLOB.tails_list_human.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/human, GLOB.tails_list_human)
+	if(!GLOB.tails_roundstart_list_human.len)
+		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/human, GLOB.tails_roundstart_list_human)
 	if(!GLOB.tails_list_lizard.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/lizard, GLOB.tails_list_lizard)
 	if(!GLOB.snouts_list.len)
@@ -185,6 +187,22 @@ GLOBAL_LIST_INIT(skin_tones, sort_list(list(
 	"african2"
 	)))
 
+GLOBAL_LIST_INIT(skin_tone_names, list(
+	"african1" = "Medium brown",
+	"african2" = "Dark brown",
+	"albino" = "Albino",
+	"arab" = "Light brown",
+	"asian1" = "Ivory",
+	"asian2" = "Beige",
+	"caucasian1" = "Porcelain",
+	"caucasian2" = "Light peach",
+	"caucasian3" = "Peach",
+	"indian" = "Brown",
+	"latino" = "Light beige",
+	"mediterranean" = "Olive",
+))
+
+/// An assoc list of species IDs to type paths
 GLOBAL_LIST_EMPTY(species_list)
 
 /proc/age2agedescription(age)
@@ -371,18 +389,21 @@ GLOBAL_LIST_EMPTY(species_list)
 /proc/deadchat_broadcast(message, mob/follow_target=null, turf/turf_target=null, speaker_key=null, message_type=DEADCHAT_REGULAR)
 	message = "<span class='linkify'>[message]</span>"
 	for(var/mob/M in GLOB.player_list)
-		var/chat_toggles = TOGGLES_DEFAULT_CHAT
-		var/toggles = TOGGLES_DEFAULT
+		var/death_rattle = TRUE
+		var/arrivals_rattle = TRUE
+		var/dchat = FALSE
+		var/ghostlaws = TRUE
 		var/list/ignoring
 		if(M?.client.prefs)
 			var/datum/preferences/prefs = M.client.prefs
-			chat_toggles = prefs.chat_toggles
-			toggles = prefs.toggles
 			ignoring = prefs.ignoring
-
+			death_rattle = prefs.read_player_preference(/datum/preference/toggle/death_rattle)
+			arrivals_rattle = prefs.read_player_preference(/datum/preference/toggle/arrivals_rattle)
+			dchat = prefs.read_player_preference(/datum/preference/toggle/chat_dead)
+			ghostlaws = prefs.read_player_preference(/datum/preference/toggle/chat_ghostlaws)
 
 		var/override = FALSE
-		if(M?.client.holder && (chat_toggles & CHAT_DEAD))
+		if(M?.client.holder && dchat)
 			override = TRUE
 		if(HAS_TRAIT(M, TRAIT_SIXTHSENSE))
 			override = TRUE
@@ -397,13 +418,13 @@ GLOBAL_LIST_EMPTY(species_list)
 
 		switch(message_type)
 			if(DEADCHAT_DEATHRATTLE)
-				if(toggles & PREFTOGGLE_DISABLE_DEATHRATTLE)
+				if(!death_rattle)
 					continue
 			if(DEADCHAT_ARRIVALRATTLE)
-				if(toggles & PREFTOGGLE_DISABLE_ARRIVALRATTLE)
+				if(!arrivals_rattle)
 					continue
 			if(DEADCHAT_LAWCHANGE)
-				if(!(chat_toggles & CHAT_GHOSTLAWS))
+				if(!ghostlaws)
 					continue
 
 		if(isobserver(M))
@@ -682,7 +703,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	return .
 
 //// Generalised helper proc for letting mobs rename themselves. Used to be clname() and ainame()
-/mob/proc/apply_pref_name(role, client/C)
+/mob/proc/apply_pref_name(preference_type, client/C)
 	if(!C)
 		C = client
 	var/oldname = real_name
@@ -693,20 +714,11 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	var/banned = C ? is_banned_from(C.ckey, "Appearance") : null
 
 	while(loop && safety < 5)
-		if(C?.prefs.active_character.custom_names[role] && !safety && !banned)
-			newname = C.prefs.active_character.custom_names[role]
+		if(!safety && !banned)
+			newname = C?.prefs?.read_character_preference(preference_type)
 		else
-			switch(role)
-				if("human")
-					newname = random_unique_name(gender)
-				if("clown")
-					newname = pick(GLOB.clown_names)
-				if("mime")
-					newname = pick(GLOB.mime_names)
-				if("ai")
-					newname = pick(GLOB.ai_names)
-				else
-					return FALSE
+			var/datum/preference/preference = GLOB.preference_entries[preference_type]
+			newname = preference.create_informed_default_value(C.prefs)
 
 		for(var/mob/living/M in GLOB.player_list)
 			if(M == src)

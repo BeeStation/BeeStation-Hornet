@@ -28,7 +28,7 @@
 	if (QDELETED(src))
 		return 0
 
-	if(!IsInStasis())
+	if(!IS_IN_STASIS(src))
 		if(stat != DEAD && undergoing_cardiac_arrest())
 			//heart attack stuff
 			var/we_breath = !HAS_TRAIT_FROM(src, TRAIT_NOBREATH, SPECIES_TRAIT)
