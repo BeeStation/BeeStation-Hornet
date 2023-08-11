@@ -23,7 +23,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 		if(mob.stat == DEAD && !GLOB.dooc_allowed)
 			to_chat(usr, "<span class='danger'>OOC for dead mobs has been turned off.</span>")
 			return
-		if(prefs.muted & MUTE_OOC)
+		if(prefs && (prefs.muted & MUTE_OOC))
 			to_chat(src, "<span class='danger'>You cannot use OOC (muted).</span>")
 			return
 	else
@@ -66,7 +66,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 			message_admins("[key_name_admin(src)] has attempted to post a clickable link in OOC: [msg]")
 			return
 
-	if(!(prefs.read_player_preference(/datum/preference/toggle/chat_ooc)))
+	if(prefs && !prefs.read_player_preference(/datum/preference/toggle/chat_ooc))
 		to_chat(src, "<span class='danger'>You have OOC muted.</span>")
 		return
 	if(OOC_FILTER_CHECK(raw_msg))
@@ -76,14 +76,14 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	mob.log_talk(raw_msg, LOG_OOC)
 
 	var/keyname = key
-	var/ooccolor = prefs.read_player_preference(/datum/preference/color/ooc_color)
+	var/ooccolor = prefs?.read_player_preference(/datum/preference/color/ooc_color) || DEFAULT_BONUS_OOC_COLOR
 	if(prefs.unlock_content && prefs.read_player_preference(/datum/preference/toggle/member_public))
 		keyname = "<font color='[ooccolor ? ooccolor : GLOB.normal_ooc_colour]'>[icon2html('icons/member_content.dmi', world, "blag")][keyname]</font>"
 	//Get client badges
 	var/badge_data = badge_parse(get_badges())
 	//The linkify span classes and linkify=TRUE below make ooc text get clickable chat href links if you pass in something resembling a url
 	for(var/client/C in GLOB.clients)
-		if(C.prefs.read_player_preference(/datum/preference/toggle/chat_ooc))
+		if(!C.prefs || C.prefs.read_player_preference(/datum/preference/toggle/chat_ooc))
 			if(holder)
 				if(!holder.fakekey || C.holder)
 					if(check_rights_for(src, R_ADMIN))
@@ -96,7 +96,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 					else
 						to_chat(C, "[badge_data]<span class='ooc'><span class='prefix'>OOC:</span> <EM>[holder.fakekey ? holder.fakekey : key]:</EM> <span class='message linkify'>[msg]</span></span>")
 
-			else if(!(key in C.prefs.ignoring))
+			else if(!C.prefs || !(key in C.prefs.ignoring))
 				if(GLOB.OOC_COLOR)
 					to_chat(C, "[badge_data]<font color='[GLOB.OOC_COLOR]'><b><span class='prefix'>OOC:</span> <EM>[keyname]:</EM> <span class='message linkify'>[msg]</span></b></font>")
 				else

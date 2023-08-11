@@ -7,7 +7,7 @@
 
 /datum/preference_middleware/random/get_character_preferences(mob/user)
 	return list(
-		"randomization" = preferences.randomise,
+		"randomization" = preferences.randomize,
 	)
 
 /datum/preference_middleware/random/get_constant_data()
@@ -45,11 +45,11 @@
 		return FALSE
 
 	if (value == RANDOM_ANTAG_ONLY)
-		preferences.randomise[requested_preference_key] = RANDOM_ANTAG_ONLY
+		preferences.randomize[requested_preference_key] = RANDOM_ANTAG_ONLY
 	else if (value == RANDOM_ENABLED)
-		preferences.randomise[requested_preference_key] = RANDOM_ENABLED
+		preferences.randomize[requested_preference_key] = RANDOM_ENABLED
 	else if (value == RANDOM_DISABLED)
-		preferences.randomise -= requested_preference_key
+		preferences.randomize -= requested_preference_key
 	else
 		return FALSE
 	preferences.mark_undatumized_dirty_character()
@@ -60,7 +60,7 @@
 	if (!preference.is_randomizable())
 		return FALSE
 
-	var/requested_randomization = randomise[preference.db_key]
+	var/requested_randomization = randomize[preference.db_key]
 
 	if (istype(preference, /datum/preference/name))
 		requested_randomization = read_character_preference(/datum/preference/choiced/random_name)

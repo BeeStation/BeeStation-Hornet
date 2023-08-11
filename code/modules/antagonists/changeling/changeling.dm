@@ -362,7 +362,7 @@
 				E.fields["species"] = "\improper Human"
 				var/client/Clt = C.client
 				var/static/list/show_directions = list(SOUTH, WEST)
-				var/image = GLOB.data_core.get_id_photo(C, Clt, show_directions)// TODO tgui-prefs test
+				var/image = GLOB.data_core.get_id_photo(C, Clt, show_directions)
 				var/datum/picture/pf = new
 				var/datum/picture/ps = new
 				pf.picture_name = "[C]"

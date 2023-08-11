@@ -28,7 +28,9 @@ const UIStyleInput = (props: FeatureValueProps<string, string, FeatureChoicedSer
             />
           </Stack.Item>
 
-          <Stack.Item grow>{name}</Stack.Item>
+          <Stack.Item grow style={{ 'line-height': '32px' }}>
+            {name}
+          </Stack.Item>
         </Stack>,
       ];
     })
@@ -42,6 +44,7 @@ const UIStyleInput = (props: FeatureValueProps<string, string, FeatureChoicedSer
       displayText={value ? choices[value] : null}
       onSelected={props.handleSetValue}
       width="100%"
+      displayHeight="32px"
       options={sortChoices(Object.entries(choices)).map(([dataValue, label]) => {
         return {
           displayText: label,

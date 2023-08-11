@@ -5,7 +5,7 @@
 /// Queues a preference write.
 /// Use this for player preferences only.
 /datum/preferences/proc/mark_undatumized_dirty_player()
-	if(IS_GUEST_KEY(parent.key)) // NO saving guests to the DB!
+	if(parent && IS_GUEST_KEY(parent.key)) // NO saving guests to the DB!
 		return FALSE
 	dirty_undatumized_preferences_player = TRUE
 	SSpreferences.queue_write(src)
@@ -14,7 +14,7 @@
 /// Queues a preference write.
 /// Use this for character preferences only.
 /datum/preferences/proc/mark_undatumized_dirty_character()
-	if(IS_GUEST_KEY(parent.key)) // NO saving guests to the DB!
+	if(parent && IS_GUEST_KEY(parent.key)) // NO saving guests to the DB!
 		return FALSE
 	dirty_undatumized_preferences_character = TRUE
 	SSpreferences.queue_write(src)
@@ -42,6 +42,10 @@
 	} // we dont need error handling where were going
 
 /datum/preferences/proc/load_preferences()
+	if(!istype(parent))
+		return FALSE
+	// Cache their ckey because they can disconnect while datumized prefs read.
+	var/parent_ckey = parent.ckey
 	// Get the datumized stuff first
 	player_data = new(src)
 	if(!player_data.load_from_database(src)) // checks db connection
@@ -49,7 +53,7 @@
 
 	var/datum/DBQuery/read_player_data = SSdbcore.NewQuery(
 		"SELECT CAST(preference_tag AS CHAR) AS ptag, preference_value FROM [format_table_name("preferences")] WHERE ckey=:ckey",
-		list("ckey" = parent.ckey)
+		list("ckey" = parent_ckey)
 	)
 
 	// K:pref tag | V:pref value
@@ -113,14 +117,15 @@
 			any_changed = TRUE
 		if(any_changed)
 			mark_undatumized_dirty_player() // Write the new keybinds to the database.
-	apply_all_client_preferences()
+	if(parent)
+		apply_all_client_preferences()
 	return TRUE
 
 #undef READPREF_STR
 #undef READPREF_INT
 #undef READPREF_JSONDEC
 
-#define PREP_WRITEPREF_STR(value, tag) write_queries += SSdbcore.NewQuery("INSERT INTO [format_table_name("preferences")] (ckey, preference_tag, preference_value) VALUES (:ckey, :ptag, :pvalue) ON DUPLICATE KEY UPDATE preference_value=:pvalue2", list("ckey" = parent.ckey, "ptag" = tag, "pvalue" = value, "pvalue2" = value))
+#define PREP_WRITEPREF_STR(value, tag) write_queries += SSdbcore.NewQuery("INSERT INTO [format_table_name("preferences")] (ckey, preference_tag, preference_value) VALUES (:ckey, :ptag, :pvalue) ON DUPLICATE KEY UPDATE preference_value=:pvalue2", list("ckey" = parent_ckey, "ptag" = tag, "pvalue" = value, "pvalue2" = value))
 #define PREP_WRITEPREF_JSONENC(value, tag) PREP_WRITEPREF_STR(json_encode(value), tag)
 
 /datum/preferences/proc/save_preferences()
@@ -130,6 +135,9 @@
 		return FALSE
 	if(IS_GUEST_KEY(parent.key)) // NO saving guests to the DB!
 		return FALSE
+	// Cache their ckey because they can disconnect while datumized prefs write.
+	// DO NOT RENAME THIS SHIT. it will break the defines
+	var/parent_ckey = parent.ckey
 	if(!player_data?.write_to_database(src))
 		return FALSE
 	if(!dirty_undatumized_preferences_player) // Nothing to write. Call it a success.
@@ -170,12 +178,17 @@
 	} // we dont need error handling where were going
 
 /datum/preferences/proc/load_character(slot)
+	if(!istype(parent))
+		return FALSE
 	if(!slot)
 		slot = default_slot
 	slot = sanitize_integer(slot, 1, max_save_slots, initial(default_slot))
 	if(slot != default_slot)
 		default_slot = slot
 		mark_undatumized_dirty_player()
+
+	// Cache their ckey because they can disconnect while datumized prefs read.
+	var/parent_ckey = parent.ckey
 
 	character_data = new(src, slot)
 	if(!character_data.load_from_database(src)) // checks db connection
@@ -185,7 +198,7 @@
 	// also DO NOT rename this
 	var/list/column_names = list(
 		"slot", // this is a literal column name
-		CHARACTER_PREFERENCE_RANDOMISE,
+		CHARACTER_PREFERENCE_RANDOMIZE,
 		CHARACTER_PREFERENCE_JOB_PREFERENCES,
 		CHARACTER_PREFERENCE_ALL_QUIRKS,
 		CHARACTER_PREFERENCE_EQUIPPED_GEAR,
@@ -194,7 +207,7 @@
 
 	var/datum/DBQuery/Q = SSdbcore.NewQuery(
 		"SELECT [db_column_list(column_names)] FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot",
-		list("ckey" = parent.ckey, "slot" = slot)
+		list("ckey" = parent_ckey, "slot" = slot)
 	)
 
 	// DON'T RENAME THIS.
@@ -215,14 +228,14 @@
 		CRASH("Error querying character data: the returned value length is not equal to the number of columns requested.")
 
 	// Decode
-	JSONREAD_PREF(randomise, CHARACTER_PREFERENCE_RANDOMISE)
+	JSONREAD_PREF(randomize, CHARACTER_PREFERENCE_RANDOMIZE)
 	JSONREAD_PREF(job_preferences, CHARACTER_PREFERENCE_JOB_PREFERENCES)
 	JSONREAD_PREF(all_quirks, CHARACTER_PREFERENCE_ALL_QUIRKS)
 	JSONREAD_PREF(equipped_gear, CHARACTER_PREFERENCE_EQUIPPED_GEAR)
 	JSONREAD_PREF(role_preferences, CHARACTER_PREFERENCE_ROLE_PREFERENCES)
 
 	//Sanitize
-	randomise = SANITIZE_LIST(randomise)
+	randomize = SANITIZE_LIST(randomize)
 	job_preferences = SANITIZE_LIST(job_preferences)
 	all_quirks = SANITIZE_LIST(all_quirks)
 	equipped_gear = SANITIZE_LIST(equipped_gear)
@@ -271,6 +284,8 @@
 		return FALSE
 	if(IS_GUEST_KEY(parent.key)) // NO saving guests to the DB!
 		return FALSE
+	// Cache their ckey because they can disconnect while datumized prefs write.
+	var/parent_ckey = parent.ckey
 	if(!character_data?.write_to_database(src))
 		return FALSE
 	if(!dirty_undatumized_preferences_character) // Nothing to write. Call it a success.
@@ -281,19 +296,19 @@
 	var/list/column_names = list()
 	var/list/new_data = list()
 
-	WRITEPREF_JSONENC(randomise, CHARACTER_PREFERENCE_RANDOMISE)
+	WRITEPREF_JSONENC(randomize, CHARACTER_PREFERENCE_RANDOMIZE)
 	WRITEPREF_JSONENC(job_preferences, CHARACTER_PREFERENCE_JOB_PREFERENCES)
 	WRITEPREF_JSONENC(all_quirks, CHARACTER_PREFERENCE_ALL_QUIRKS)
 	WRITEPREF_JSONENC(equipped_gear, CHARACTER_PREFERENCE_EQUIPPED_GEAR)
 	WRITEPREF_JSONENC(role_preferences, CHARACTER_PREFERENCE_ROLE_PREFERENCES)
 
-	new_data["ckey"] = parent.ckey
+	new_data["ckey"] = parent_ckey
 	new_data["slot"] = character_data.slot_number
 	var/datum/DBQuery/Q = SSdbcore.NewQuery(
 		"INSERT INTO [format_table_name("characters")] (ckey, slot, [db_column_list(column_names)]) VALUES (:ckey, :slot, [db_column_list(column_names, TRUE)]) ON DUPLICATE KEY UPDATE [db_column_values(column_names)]", new_data
 	)
 	var/success = Q.warn_execute()
-	if(!success)
+	if(!success && istype(parent))
 		to_chat(parent, "<span class='boldannounce'>Failed to save your character. Please inform the server operator or a maintainer of this error.</span>")
 	qdel(Q)
 	fail_state = success
@@ -346,7 +361,7 @@
 	if (!preference.is_valid(new_value))
 		return FALSE
 	preference_data[preference.db_key] = new_value
-	if(IS_GUEST_KEY(preferences.parent.key)) // NO saving guests to the DB!
+	if(!istype(preferences.parent) || IS_GUEST_KEY(preferences.parent.key)) // NO saving guests to the DB!
 		return TRUE
 	dirty_prefs |= preference.db_key
 	SSpreferences.queue_write(preferences)

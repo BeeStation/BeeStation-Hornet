@@ -122,7 +122,7 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 /// such as hair color being affixed to hair.
 #define PREFERENCE_CATEGORY_SUPPLEMENTAL_FEATURES "supplemental_features"
 
-//randomised elements
+//randomized elements
 #define RANDOM_ANTAG_ONLY 1
 #define RANDOM_DISABLED 2
 #define RANDOM_ENABLED 3
@@ -144,7 +144,7 @@ GLOBAL_LIST_INIT(helmet_styles, list(
 #define PREFERENCE_TAG_PAI_DESCRIPTION	"pai_description"
 #define PREFERENCE_TAG_PAI_COMMENT		"pai_comment"
 
-#define CHARACTER_PREFERENCE_RANDOMISE "randomise"
+#define CHARACTER_PREFERENCE_RANDOMIZE "randomize"
 #define CHARACTER_PREFERENCE_JOB_PREFERENCES "job_preferences"
 #define CHARACTER_PREFERENCE_ALL_QUIRKS "all_quirks"
 #define CHARACTER_PREFERENCE_EQUIPPED_GEAR "equipped_gear"

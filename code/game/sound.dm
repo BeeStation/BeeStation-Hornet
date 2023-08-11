@@ -42,8 +42,6 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 */
 
 /proc/playsound(atom/source, soundin, vol as num, vary, extrarange as num, falloff_exponent = SOUND_FALLOFF_EXPONENT, frequency = null, channel = 0, pressure_affected = TRUE, ignore_walls = TRUE, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, use_reverb = TRUE)
-	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_SOUND_PLAYED, source, soundin)
-
 	if(isarea(source))
 		CRASH("playsound(): source is an area")
 
@@ -210,7 +208,7 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 		if (!M.client)
 			continue
 
-		if (!ignore_prefs && !(M.client.prefs?.read_player_preference(/datum/preference/toggle/sound_soundtrack)))
+		if (!ignore_prefs && !M.client.prefs?.read_player_preference(/datum/preference/toggle/sound_soundtrack))
 			continue
 
 		if (!play_to_lobby && isnewplayer(M))

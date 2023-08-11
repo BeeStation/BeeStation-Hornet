@@ -54,8 +54,13 @@
 	preference_type = PREFERENCE_PLAYER
 	default_value = TRUE
 
-/datum/preference/toggle/tgui_say/apply_to_client(client/client)
-	client.tgui_say?.load()
+/datum/preference/toggle/tgui_say/apply_to_client(client/client, value)
+	if(value)
+		client.tgui_say?.load()
+	else
+		client.tgui_say?.close()
+	// Update what the macro will open
+	client.set_macros()
 
 /// Light mode for tgui say
 /datum/preference/toggle/tgui_say_light_mode

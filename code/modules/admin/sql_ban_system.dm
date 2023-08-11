@@ -24,6 +24,8 @@
 	if(C)
 		if(!C.ban_cache)
 			build_ban_cache(C)
+		if(!C || !C.ban_cache) // disconnected during SQL query
+			return
 		if(islist(roles))
 			for(var/R in roles)
 				if(!R)
