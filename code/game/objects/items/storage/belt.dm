@@ -310,8 +310,8 @@
 /obj/item/storage/belt/security/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 5
-	STR.max_combined_w_class = 18
+	STR.max_items = 7
+	STR.max_combined_w_class = 35
 	STR.max_w_class = WEIGHT_CLASS_NORMAL
 	var/static/list/can_hold = typecacheof(list(
 		/obj/item/melee/baton,
