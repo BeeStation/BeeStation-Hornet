@@ -5,6 +5,7 @@
 
 /datum/species/oozeling/slime
 	name = "Slimeperson"
+	plural_form = "Slimepeople"
 	id = SPECIES_SLIMEPERSON
 	default_color = "00FFFF"
 	species_traits = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,NOBLOOD)
@@ -305,6 +306,7 @@
 
 /datum/species/oozeling/luminescent
 	name = "Luminescent"
+	plural_form = null
 	id = SPECIES_LUMINESCENT
 	var/glow_intensity = LUMINESCENT_DEFAULT_GLOW
 	var/obj/effect/dummy/luminescent_glow/glow
@@ -486,6 +488,7 @@ GLOBAL_LIST_EMPTY(slime_links_by_mind)
 
 /datum/species/oozeling/stargazer
 	name = "Stargazer"
+	plural_form = null
 	id = SPECIES_STARGAZER
 	examine_limb_id = SPECIES_OOZELING
 	/// The stargazer's telepathy ability.

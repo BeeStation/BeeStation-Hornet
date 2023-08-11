@@ -34,10 +34,13 @@
 /client/proc/set_macros()
 	set waitfor = FALSE
 
+	var/list/macro_sets = SSinput.macro_sets
+	if(!length(macro_sets))
+		return
+
 	erase_all_macros()
 
-	var/list/macro_sets = SSinput.macro_sets
-	var/use_tgui_say = !prefs || (prefs.toggles2 & PREFTOGGLE_2_TGUI_SAY)
+	var/use_tgui_say = !prefs || (prefs.read_player_preference(/datum/preference/toggle/tgui_say))
 	var/say = use_tgui_say ? tgui_say_create_open_command(SAY_CHANNEL) : "\".winset \\\"command=\\\".start_typing say\\\";command=.init_say;saywindow.is-visible=true;saywindow.input.focus=true\\\"\""
 	var/me = use_tgui_say ? tgui_say_create_open_command(ME_CHANNEL) : "\".winset \\\"command=\\\".start_typing me\\\";command=.init_me;mewindow.is-visible=true;mewindow.input.focus=true\\\"\""
 	var/ooc = use_tgui_say ? tgui_say_create_open_command(OOC_CHANNEL) : "ooc"
@@ -61,7 +64,7 @@
 			winset(src, "[setname]-close-tgui-say", "parent=[setname];name=Escape;command=[tgui_say_create_close_command()]")
 
 
-	if(prefs.toggles2 & PREFTOGGLE_2_HOTKEYS)
+	if(hotkeys)
 		winset(src, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED] mainwindow.macro=default")
 	else
 		winset(src, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED] mainwindow.macro=old_default")
