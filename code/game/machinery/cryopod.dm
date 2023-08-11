@@ -338,6 +338,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		else
 			mob_occupant.ghostize(TRUE,SENTIENCE_ERASE)
 	if(mob_occupant.mind)
+		mob_occupant.mind.cryoed = TRUE
 		SEND_SIGNAL(mob_occupant.mind, COMSIG_MIND_CRYOED)
 	QDEL_NULL(occupant)
 	open_machine()

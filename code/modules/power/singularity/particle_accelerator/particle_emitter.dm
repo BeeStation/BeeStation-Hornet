@@ -27,16 +27,16 @@
 /obj/structure/particle_accelerator/particle_emitter/proc/emit_particle(strength = 0)
 	if((last_shot + fire_delay) <= world.time)
 		last_shot = world.time
-		var/obj/item/projectile/energy/accelerated_particle/P
+		var/obj/projectile/energy/accelerated_particle/P
 		switch(strength)
 			if(0)
-				P = /obj/item/projectile/energy/accelerated_particle/weak
+				P = /obj/projectile/energy/accelerated_particle/weak
 			if(1)
-				P = /obj/item/projectile/energy/accelerated_particle
+				P = /obj/projectile/energy/accelerated_particle
 			if(2)
-				P = /obj/item/projectile/energy/accelerated_particle/strong
+				P = /obj/projectile/energy/accelerated_particle/strong
 			if(3)
-				P = /obj/item/projectile/energy/accelerated_particle/powerful
+				P = /obj/projectile/energy/accelerated_particle/powerful
 		P = new P(src)
 		P.fire(dir2angle(dir))
 		return TRUE

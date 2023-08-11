@@ -11,9 +11,8 @@ again.
 
 /obj/effect/spawner/structure/Initialize(mapload)
 	. = ..()
-	if(spawn_list?.len)
-		for(var/I in spawn_list)
-			new I(get_turf(src))
+	for(var/spawn_type in spawn_list)
+		new spawn_type(loc)
 	return INITIALIZE_HINT_QDEL
 
 

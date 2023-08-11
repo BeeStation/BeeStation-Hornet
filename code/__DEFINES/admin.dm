@@ -87,3 +87,8 @@ GLOBAL_VAR_INIT(ghost_role_flags, (~0))
 #define GHOSTROLE_SILICONS			(1<<3)
 //ie mafia, ctf
 #define GHOSTROLE_MINIGAME			(1<<4)
+
+// Job deadmin flags
+#define DEADMIN_POSITION_HEAD		(1<<0)
+#define DEADMIN_POSITION_SECURITY	(1<<1)
+#define DEADMIN_POSITION_SILICON	(1<<2)

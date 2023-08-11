@@ -2474,9 +2474,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	desc = "You can feel heat rising from your stomach"
 	range = 20
 	charge_max = 300
-	projectile_type = /obj/item/projectile/magic/fireball/firebreath/weak
+	projectile_type = /obj/projectile/magic/fireball/firebreath/weak
 
-/obj/item/projectile/magic/fireball/firebreath/weak
+/obj/projectile/magic/fireball/firebreath/weak
 	exp_fire = 1
 
 /datum/reagent/consumable/ethanol/beesknees

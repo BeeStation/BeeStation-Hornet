@@ -165,11 +165,19 @@ GLOBAL_VAR(antag_prototypes)
 					continue
 				pref_source = prototype
 				break
-		if(pref_source.job_rank)
-			if(!is_banned_from(src.key, pref_source.job_rank))
-				antag_header_parts += pref_source.enabled_in_preferences(src) ? "Enabled in Prefs" : "Disabled in Prefs"
-			else
+		if(pref_source.banning_key)
+			if(is_banned_from(src.key, pref_source.banning_key))
 				antag_header_parts += "<span class='bad'><b>\[BANNED\]</b></span>"
+			else if(current.client)
+				var/list/related_preferences = list()
+				for(var/datum/role_preference/role_pref_type as anything in GLOB.role_preference_entries)
+					if(initial(role_pref_type.antag_datum) == pref_source.type)
+						related_preferences += role_pref_type
+				if(length(related_preferences) == 1)
+					antag_header_parts += current.client.role_preference_enabled(related_preferences[1]) ? "Enabled in Prefs" : "Disabled in Prefs"
+				else if(length(related_preferences) >= 1)
+					for(var/datum/role_preference/preftype as anything in related_preferences)
+						antag_header_parts += "<b>[initial(preftype.name)]:</b> [current.client.role_preference_enabled(preftype) ? "Enabled Pref" : "Disabled Pref"]"
 
 		//Traitor : None | Traitor | IAA
 		//	Command1 | Command2 | Command3

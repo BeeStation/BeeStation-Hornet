@@ -2,6 +2,7 @@
 	name = "Survivalist"
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = TRUE
+	banning_key = ROLE_SURVIVALIST
 	var/greet_message = ""
 
 /datum/antagonist/survivalist/proc/forge_objectives()

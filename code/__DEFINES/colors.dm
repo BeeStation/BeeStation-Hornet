@@ -37,6 +37,7 @@
 #define COLOR_YELLOW           "#FFFF00"
 #define COLOR_OLIVE            "#808000"
 #define COLOR_LIME             "#32CD32"
+#define COLOR_VIBRANT_LIME     "#00FF00"
 #define COLOR_GREEN            "#008000"
 #define COLOR_CYAN             "#00FFFF"
 #define COLOR_TEAL             "#008080"
@@ -47,6 +48,8 @@
 #define COLOR_FADED_PINK 	   "#ff80d5"
 #define COLOR_MAGENTA          "#FF00FF"
 #define COLOR_PURPLE           "#800080"
+#define COLOR_VIOLET           "#B900F7"
+#define COLOR_STRONG_VIOLET    "#6927C5"
 #define COLOR_ORANGE           "#FF9900"
 #define COLOR_LIGHT_ORANGE 	   "#ffc44d"
 #define COLOR_BEIGE            "#CEB689"
@@ -58,7 +61,7 @@
 #define COLOR_RED_GRAY         "#B4696A"
 #define COLOR_PALE_BLUE_GRAY   "#98C5DF"
 #define COLOR_PALE_GREEN_GRAY  "#B7D993"
-#define COLOR_PALE_ORANGE		"#FFBE9D"
+#define COLOR_PALE_ORANGE      "#FFBE9D"
 #define COLOR_PALE_RED_GRAY    "#D59998"
 #define COLOR_PALE_PURPLE_GRAY "#CBB1CA"
 #define COLOR_PURPLE_GRAY      "#AE8CA8"
@@ -81,8 +84,7 @@
 #define COLOR_ASSEMBLY_BLUE    "#38559E"
 #define COLOR_ASSEMBLY_PURPLE  "#6F6192"
 
-//Colours used by blood brothers
-#define COLOR_LIST_BLOOD_BROTHERS list(\
+GLOBAL_LIST_INIT(color_list_blood_brothers, shuffle(list(
 	"#FF5050",\
 	"#D977FD",\
 	"#422ED8",\
@@ -91,11 +93,38 @@
 	"#0EF5CE",\
 	"#0DF447",\
 	"#D6B20C",\
-	"#FF902A",\
-)
+	"#FF902A")))
 
 // Color Filters
 /// Icon filter that creates ambient occlusion
 #define AMBIENT_OCCLUSION filter(type="drop_shadow", x=0, y=-2, size=4, color="#04080FAA")
 /// Icon filter that creates gaussian blur
 #define GAUSSIAN_BLUR(filter_size) filter(type="blur", size=filter_size)
+
+/// The default color for admin say, used as a fallback when the preference is not enabled
+#define DEFAULT_ASAY_COLOR "#FF4500"
+/// The default color for Byond Member / ADMIN OOC, used as a fallback when the preference is not enabled
+#define DEFAULT_BONUS_OOC_COLOR "#c43b23"
+
+// Some defines for accessing specific entries in color matrices.
+
+#define CL_MATRIX_RR 1
+#define CL_MATRIX_RG 2
+#define CL_MATRIX_RB 3
+#define CL_MATRIX_RA 4
+#define CL_MATRIX_GR 5
+#define CL_MATRIX_GG 6
+#define CL_MATRIX_GB 7
+#define CL_MATRIX_GA 8
+#define CL_MATRIX_BR 9
+#define CL_MATRIX_BG 10
+#define CL_MATRIX_BB 11
+#define CL_MATRIX_BA 12
+#define CL_MATRIX_AR 13
+#define CL_MATRIX_AG 14
+#define CL_MATRIX_AB 15
+#define CL_MATRIX_AA 16
+#define CL_MATRIX_CR 17
+#define CL_MATRIX_CG 18
+#define CL_MATRIX_CB 19
+#define CL_MATRIX_CA 20

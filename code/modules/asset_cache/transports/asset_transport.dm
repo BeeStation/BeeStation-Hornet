@@ -91,7 +91,7 @@
 			else //no stacktrace because this will mainly happen because the client went away
 				return
 		else
-			CRASH("Invalid argument: client: `[client]`")
+			CRASH("Invalid client passed to send_assets: [client] ([REF(client)])")
 	if (!islist(asset_list))
 		asset_list = list(asset_list)
 	var/list/unreceived = list()
@@ -144,7 +144,7 @@
 
 
 /// Precache files without clogging up the browse() queue, used for passively sending files on connection start.
-/datum/asset_transport/proc/send_assets_slow(client/client, list/files, filerate = 3)
+/datum/asset_transport/proc/send_assets_slow(client/client, list/files, filerate = 6)
 	var/startingfilerate = filerate
 	for (var/file in files)
 		if (!client)

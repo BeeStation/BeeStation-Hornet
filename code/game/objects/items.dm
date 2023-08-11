@@ -581,12 +581,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	else if(HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30)
 		to_chat(owner, "<span_class='danger'>You're too exausted to block the attack!</span>")
 		return 0
-	if(owner.a_intent == INTENT_HELP) //you can choose not to block an attack
-		return 0
 	if(block_flags & BLOCKING_ACTIVE && owner.get_active_held_item() != src) //you can still parry with the offhand
 		return 0
 	if(isprojectile(hitby)) //fucking bitflags broke this when coded in other ways
-		var/obj/item/projectile/P = hitby
+		var/obj/projectile/P = hitby
 		if(block_flags & BLOCKING_PROJECTILE)
 			if(P.movement_type & PHASING) //you can't block piercing rounds!
 				return 0
@@ -633,7 +631,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		else
 			blockhand = BODY_ZONE_L_ARM
 	if(isprojectile(hitby))
-		var/obj/item/projectile/P = hitby
+		var/obj/projectile/P = hitby
 		if(P.damage_type != STAMINA)// disablers dont do shit to shields
 			attackforce = (P.damage)
 	else if(isitem(hitby))
@@ -1049,8 +1047,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		openToolTip(user,src,params,title = name,content = "[desc]<br><b>Force:</b> [force_string]",theme = "")
 
 /obj/item/MouseEntered(location, control, params)
-	if((item_flags & PICKED_UP || item_flags & IN_STORAGE) && (usr.client.prefs.toggles2 & PREFTOGGLE_2_ENABLE_TIPS) && !QDELETED(src))
-		var/timedelay = usr.client.prefs.tip_delay/100
+	if((item_flags & PICKED_UP || item_flags & IN_STORAGE) && usr.client.prefs.read_player_preference(/datum/preference/toggle/enable_tooltips) && !QDELETED(src))
+		var/timedelay = usr.client.prefs.read_player_preference(/datum/preference/numeric/tooltip_delay)/100
 		var/user = usr
 		tip_timer = addtimer(CALLBACK(src, PROC_REF(openTip), location, control, params, user), timedelay, TIMER_STOPPABLE)//timer takes delay in deciseconds, but the pref is in milliseconds. dividing by 100 converts it.
 	var/mob/living/L = usr
@@ -1071,14 +1069,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/apply_outline(colour = null)
 	if(!(item_flags & PICKED_UP || item_flags & IN_STORAGE) || QDELETED(src) || isobserver(usr))
 		return
-	if(usr.client)
-		if(!(usr.client.prefs.toggles & PREFTOGGLE_OUTLINE_ENABLED))
-			return
+	if(!usr.client?.prefs?.read_player_preference(/datum/preference/toggle/item_outlines))
+		return
 	if(!colour)
-		if(usr.client)
-			colour = usr.client.prefs.outline_color
-			if(!colour)
-				colour = COLOR_BLUE_GRAY
+		if(usr?.client?.prefs)
+			colour = usr.client.prefs.read_player_preference(/datum/preference/color/outline_color)
 		else
 			colour = COLOR_BLUE_GRAY
 	add_filter(HOVER_OUTLINE_FILTER, 1, list(type="outline", size=1, color=colour))
@@ -1180,6 +1175,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return TRUE
 
 /obj/item/proc/canStrip(mob/stripper, mob/owner)
+	SHOULD_BE_PURE(TRUE)
 	return !HAS_TRAIT(src, TRAIT_NODROP)
 
 /obj/item/proc/doStrip(mob/stripper, mob/owner)
