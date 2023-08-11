@@ -14,6 +14,7 @@
 	var/list/operation_order = list() //Order of wich we harvest limbs.
 	var/allow_clothing = FALSE
 	var/allow_living = FALSE
+	var/is_emagged = FALSE
 
 /obj/machinery/harvester/Initialize(mapload)
 	. = ..()
@@ -60,15 +61,16 @@
 	if(!powered() || state_open || !occupant || !iscarbon(occupant))
 		return
 	var/mob/living/carbon/C = occupant
-	if(!allow_clothing)
-		for(var/A in C.held_items + C.get_equipped_items())
-			if(!isitem(A))
-				continue
-			var/obj/item/I = A
-			if(!(HAS_TRAIT(I, TRAIT_NODROP)))
-				say("Subject may not have abiotic items on.")
-				playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
-				return
+	if(!is_emagged)
+		if(!allow_clothing)
+			for(var/A in C.held_items + C.get_equipped_items())
+				if(!isitem(A))
+					continue
+				var/obj/item/I = A
+				if(!(HAS_TRAIT(I, TRAIT_NODROP)))
+					say("Subject may not have abiotic items on.")
+					playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
+					return
 	if(!(MOB_ORGANIC in C.mob_biotypes))
 		say("Subject is not organic.")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
@@ -150,6 +152,10 @@
 	if(default_deconstruction_crowbar(I))
 		return TRUE
 
+/obj/machinery/harvester/wrench_act(mob/living/user, obj/item/I)
+	if(default_change_direction_wrench(user, I))
+		return TRUE
+
 /obj/machinery/harvester/default_pry_open(obj/item/I) //wew
 	. = !(state_open || panel_open || (flags_1 & NODECONSTRUCT_1)) && I.tool_behaviour == TOOL_CROWBAR //We removed is_operational here
 	if(.)
@@ -159,6 +165,7 @@
 
 /obj/machinery/harvester/on_emag(mob/user)
 	..()
+	is_emagged = TRUE
 	allow_living = TRUE
 	to_chat(user, "<span class='warning'>You overload [src]'s lifesign scanners.</span>")
 
