@@ -13,7 +13,6 @@
 	var/landmark_type
 	var/greet_text
 
-
 /datum/antagonist/abductor/agent
 	name = "Abductor Agent"
 	sub_role = "Agent"

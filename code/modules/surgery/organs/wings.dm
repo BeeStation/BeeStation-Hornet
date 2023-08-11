@@ -37,7 +37,7 @@
 		if(H.movement_type & FLYING)
 			H.dna.species.toggle_flight(H)
 
-/obj/item/organ/wings/Remove(mob/living/carbon/human/H,  special = 0)
+/obj/item/organ/wings/Remove(mob/living/carbon/human/H,  special = 0, pref_load = FALSE)
 	..()
 	if(istype(H))
 		H.dna.species.mutant_bodyparts -= basewings
@@ -123,7 +123,7 @@
 	wing_type = "Plain"
 	canopen = TRUE
 
-/obj/item/organ/wings/moth/Remove(mob/living/carbon/human/H, special)
+/obj/item/organ/wings/moth/Remove(mob/living/carbon/human/H, special, pref_load = FALSE)
 	flight_level = initial(flight_level)
 	return ..()
 
@@ -172,7 +172,7 @@
 	wing_type = "Bee"
 	var/jumpdist = 3
 
-/obj/item/organ/wings/bee/Remove(mob/living/carbon/human/H, special)
+/obj/item/organ/wings/bee/Remove(mob/living/carbon/human/H, special, pref_load = FALSE)
 	jumpdist = initial(jumpdist)
 	return ..()
 

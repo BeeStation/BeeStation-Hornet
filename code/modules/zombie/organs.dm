@@ -23,11 +23,11 @@
 	GLOB.zombie_infection_list -= src
 	. = ..()
 
-/obj/item/organ/zombie_infection/Insert(var/mob/living/carbon/M, special = 0)
+/obj/item/organ/zombie_infection/Insert(var/mob/living/carbon/M, special = 0, pref_load = FALSE)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
-/obj/item/organ/zombie_infection/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/zombie_infection/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	. = ..()
 	STOP_PROCESSING(SSobj, src)
 	if(iszombie(M) && old_species && !QDELETED(M) && !special)

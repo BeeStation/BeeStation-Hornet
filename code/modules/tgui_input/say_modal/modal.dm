@@ -84,13 +84,15 @@
  * as soon as the window sends the "ready" message.
  */
 /datum/tgui_say/proc/load()
+	if(!client.mob) // client has not fully loaded yet.
+		return
 	window_open = FALSE
 	// Width and height are from skin.dmf, no way to not hardcode these unfortunately.
-	client.center_window("tgui_say", 231, 30)
+	INVOKE_ASYNC(client, TYPE_PROC_REF(/client, center_window), "tgui_say", 231, 30) // async due to prefs menu
 	winshow(client, "tgui_say", FALSE)
 	window.send_message("props", list(
-		lightMode = (client?.prefs?.toggles2 & PREFTOGGLE_2_SAY_LIGHT_THEME),
-		showRadioPrefix = (client?.prefs?.toggles2 & PREFTOGGLE_2_SAY_SHOW_PREFIX),
+		lightMode = client?.prefs?.read_player_preference(/datum/preference/toggle/tgui_say_light_mode),
+		showRadioPrefix = client?.prefs?.read_player_preference(/datum/preference/toggle/tgui_say_show_prefix),
 		maxLength = max_length,
 	))
 	stop_thinking()

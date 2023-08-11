@@ -1,6 +1,9 @@
 /datum/job/cargo_technician
 	title = JOB_NAME_CARGOTECHNICIAN
 	flag = CARGOTECH
+	description = "Push crates around, deliver bounty papers and mail around the station, make use of the Disposals network to make your life easier."
+	department_for_prefs = DEPT_BITFLAG_CAR
+	department_head_for_prefs = JOB_NAME_QUARTERMASTER
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the quartermaster and the head of personnel"
 	faction = "Station"
