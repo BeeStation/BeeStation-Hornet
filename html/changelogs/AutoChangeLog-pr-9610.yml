@@ -1,0 +1,8 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - bugfix: Fixes light switches that start turned off due to an empty department,
+      turning their lights on instantly and silently for the first time
+  - code_imp: Refactored the process for making un-staffed departments be dark at
+      roundstart
+  - code_imp: Slightly reduced the processing cost of flicking light switches
