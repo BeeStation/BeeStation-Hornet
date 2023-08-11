@@ -11,6 +11,7 @@ import { fetchRetry } from '../../http';
 const CATEGORY_SCALES = {
   'AI': '100%',
   'CLIENT': '100%',
+  'COMMUNICATION': '100%',
   'ROBOT': '100%',
 };
 
