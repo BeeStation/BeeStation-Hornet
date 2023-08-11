@@ -50,6 +50,8 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	if (!turf_source || !soundin || !vol)
 		return
 
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_SOUND_PLAYED, source, soundin)
+
 	var/maxdistance = (SOUND_RANGE + extrarange)
 	var/source_z = turf_source.z
 

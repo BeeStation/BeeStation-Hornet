@@ -48,6 +48,9 @@
 		overlay_fullscreen("blind", overlay)
 		// You are blind why should you be able to make out details like color, only shapes near you
 		add_client_colour(/datum/client_colour/monochrome/blind)
+		var/datum/component/blind_sense/B = GetComponent(/datum/component/blind_sense)	
+		if(!B && !QDELING(src) && !QDELETED(src))
+			AddComponent(/datum/component/blind_sense)
 	else // CONSCIOUS no blind trait, no blindness
 		clear_alert("blind")
 		clear_fullscreen("blind")

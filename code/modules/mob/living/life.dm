@@ -102,8 +102,6 @@
 			adjust_blindness(-1.5 * delta_time)
 		else if(!stat && !(HAS_TRAIT(src, TRAIT_BLIND)))
 			adjust_blindness(-0.5 * delta_time)
-			var/datum/component/blind_sense/B = GetComponent(/datum/component/blind_sense)	
-			B?.RemoveComponent()
 	else if(eye_blurry) //blurry eyes heal slowly
 		adjust_blurriness(-0.5 * delta_time)
 
