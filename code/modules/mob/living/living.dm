@@ -1440,6 +1440,8 @@
 
 //Used for applying color correction
 /mob/living/proc/apply_color_correction(datum/source, area/entered)
+	SIGNAL_HANDLER
+
 	remove_client_colour(current_correction)
 	add_client_colour(entered.color_correction)
 	current_correction = entered.color_correction
