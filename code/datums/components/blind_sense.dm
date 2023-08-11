@@ -65,23 +65,25 @@
 	I.AddAlphaMask(mask)
 
 	//Setup display image
-	var/image/M = image(I, get_turf(target), layer = HUD_LAYER)
+	var/obj/effect/blind_sense/BS = new(get_turf(target))
+	var/image/M = image(I, BS, layer = HUD_LAYER)
 	M.plane = HUD_PLANE
 	if(bloom)
 		M.filters += filter(type = "bloom", size = 2, threshold = rgb(85,85,85))
 	M.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	//Animate fade & delete
 	animate(M, alpha = 0, time = sense_time + 1 SECONDS, easing = QUAD_EASING, flags = EASE_IN)
-	addtimer(CALLBACK(src, PROC_REF(handle_image), M), sense_time)
+	addtimer(CALLBACK(src, PROC_REF(handle_image), M, BS), sense_time)
 
 	//Add image to client
 	owner.client?.images += M
 
 //handle deleting the image from client
-/datum/component/blind_sense/proc/handle_image(image/image_ref)
+/datum/component/blind_sense/proc/handle_image(image/image_ref, atom/BS)
 	SIGNAL_HANDLER
 
 	owner.client?.images -= image_ref
+	qdel(BS)
 	qdel(image_ref)
 
 //Handle eyes deleting
@@ -89,3 +91,8 @@
 	SIGNAL_HANDLER
 
 	ears = null
+
+/obj/effect/blind_sense
+	layer = HUD_LAYER
+	plane = HUD_PLANE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
