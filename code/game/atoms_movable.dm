@@ -452,6 +452,8 @@
 	QDEL_NULL(em_block)
 	if(bound_overlay)
 		QDEL_NULL(bound_overlay)
+	if(dynamic_vis_contents)
+		cut_dynavis()
 
 	unbuckle_all_mobs(force = TRUE)
 

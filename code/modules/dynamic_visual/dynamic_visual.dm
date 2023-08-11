@@ -7,21 +7,21 @@
 	vis_flags = VIS_INHERIT_PLANE | VIS_INHERIT_ID | VIS_INHERIT_DIR | VIS_UNDERLAY
 
 /atom/movable/proc/add_self_dynavis(key, invisibility_level=INVISIBILITY_OBSERVER)
-	var/atom/movable/dynamic_visual/dyvis = new()
+	var/atom/movable/dynamic_visual/dynavis = new()
 	var/current_alpha = alpha
 	var/alpha_check = appearance_flags & RESET_ALPHA
 	if(!alpha_check)
 		appearance_flags |= RESET_ALPHA
 	alpha = 120
-	dyvis.add_overlay(src)
+	dynavis.add_overlay(src)
 	alpha = current_alpha
 	if(!alpha_check)
 		appearance_flags &= ~RESET_ALPHA
-	dyvis.invisibility = invisibility_level
-	vis_contents += dyvis
+	dynavis.invisibility = invisibility_level
+	vis_contents += dynavis
 
 	LAZYINITLIST(dynamic_vis_contents)
-	dynamic_vis_contents[key] = dyvis
+	dynamic_vis_contents[key] = dynavis
 
 /atom/movable/proc/remove_dynavis(key)
 	var/dynavis = dynamic_vis_contents[key]
