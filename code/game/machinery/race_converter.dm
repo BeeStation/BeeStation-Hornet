@@ -129,7 +129,7 @@
 	if(brainwash && changed)
 		to_chat(user, "<span class='warning'>The species controller is locked!</span>")
 		return
-	var/list/allowed = GLOB.roundstart_races
+	var/list/allowed = get_selectable_species()
 	if(!dangerous)
 		allowed -= "plasmaman"
 	var/choice = input("Select desired race") as null|anything in allowed

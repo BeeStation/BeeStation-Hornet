@@ -43,6 +43,9 @@
 
 	update_appearance()
 
+	if(!initial(pipe_type.density)) //This prevents dense disposals machinery from being hidable under floor tiles
+		AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE)
+
 /obj/structure/disposalconstruct/Move()
 	var/old_dir = dir
 	..()
