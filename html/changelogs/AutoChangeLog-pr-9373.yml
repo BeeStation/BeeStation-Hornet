@@ -1,0 +1,8 @@
+author: itsmeow
+delete-after: true
+changes:
+  - rscadd: Say-related keys can now be rebound (T, M, O, Y, U, etc).
+  - rscadd: Added TGUI Asay, Msay, and Dsay for admins and mentors. There is also
+      a preference for this.
+  - bugfix: Fixed TGUI Say not updating the typing indicator in the Me channel if
+      you are browsing your history, like in Say and Radio.
