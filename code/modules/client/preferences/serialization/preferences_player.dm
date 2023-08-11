@@ -60,6 +60,8 @@
 		var/datum/preference/preference = GLOB.preference_entries_by_key[db_key]
 		if(!istype(preference))
 			CRASH("Could not find preference with db_key [db_key] when writing to database.")
+		if(preference.disable_serialization)
+			continue
 		sql_inserts += list(list(
 			"ckey" = prefs.parent.ckey,
 			"preference_tag" = db_key,
