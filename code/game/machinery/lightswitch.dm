@@ -54,7 +54,6 @@
 	for(var/obj/machinery/light_switch/L in GLOB.machines)
 		if(L.area == area)
 			L.update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
-	message_admins("Turning off lights in [area]")
 	area.power_change()
 
 /obj/machinery/light_switch/examine(mob/user)
