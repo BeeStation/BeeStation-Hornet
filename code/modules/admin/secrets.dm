@@ -47,7 +47,8 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			list("Reset Thunderdome to default state", "tdomereset"),
 			list("Rename Station Name", "set_name"),
 			list("Reset Station Name", "reset_name"),
-			list("Set Night Shift Mode", "night_shift_set")
+			list("Set Night Shift Mode", "night_shift_set"),
+			list("Toggle All Lights", "all_light_toggle")
 			)
 
 		data["Categories"]["Shuttles"] += list(
@@ -193,7 +194,27 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				if("Off")
 					SSnightshift.can_fire = FALSE
 					SSnightshift.update_nightshift(FALSE, TRUE)
-
+		if("all_light_toggle")
+			if(!check_rights(R_ADMIN))
+				return
+			var/val = alert(usr, "Do you want to turn all lights on or off?", "Light Manipulation", "On", "Off", "Cancel")
+			var/set_to = null
+			switch(val)
+				if("Cancel")
+					return
+				if("On")
+					set_to = TRUE
+				if("Off")
+					set_to = FALSE
+				else
+					return
+			if(!isnull(set_to))
+				for(var/area/found_area in GLOB.areas)
+					found_area.lightswitch = set_to
+					found_area.update_appearance()
+					for(var/obj/machinery/light_switch/lswitch in found_area)
+						lswitch.update_appearance()
+					found_area.power_change()
 		if("reset_name")
 			if(!check_rights(R_ADMIN))
 				return
@@ -690,7 +711,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 					continue
 				if((L in GLOB.player_list) || L.mind || (L.flags_1 & HOLOGRAM_1))
 					continue
-				L.set_playable()
+				L.set_playable(ROLE_SENTIENT_ANIMAL)
 
 		if("flipmovement")
 			if(!check_rights(R_FUN))
@@ -789,7 +810,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				var/list/candidates = list()
 
 				if (prefs["offerghosts"]["value"] == "Yes")
-					candidates = pollGhostCandidates(replacetext(prefs["ghostpoll"]["value"], "%TYPE%", initial(pathToSpawn.name)), ROLE_TRAITOR)
+					candidates = pollGhostCandidates(replacetext(prefs["ghostpoll"]["value"], "%TYPE%", initial(pathToSpawn.name)), BAN_ROLE_ALL_ANTAGONISTS, ignore_category = FALSE)
 
 				if (prefs["playersonly"]["value"] == "Yes" && length(candidates) < prefs["minplayers"]["value"])
 					message_admins("Not enough players signed up to create a portal storm, the minimum was [prefs["minplayers"]["value"]] and the number of signups [length(candidates)]")
@@ -844,7 +865,8 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if (length(players))
 			var/mob/chosen = players[1]
 			if (chosen.client)
-				chosen.client.prefs.active_character.copy_to(spawnedMob)
+				if(ishuman(spawnedMob))
+					chosen.client.prefs.apply_prefs_to(spawnedMob)
 				spawnedMob.key = chosen.key
 			players -= chosen
 		if (ishuman(spawnedMob) && ispath(humanoutfit, /datum/outfit))

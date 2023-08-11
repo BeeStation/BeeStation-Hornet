@@ -33,7 +33,7 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 
 /// Used for methods where input via arg doesn't work
 /client/proc/get_mentorhelp()
-	var/msg = capped_multiline_input(src, "Please describe your problem concisely and a mentor will help as soon as they're able. Remember: Mentors cannot see you or what you're doing. Describe the problem in full detail.", "Mentorhelp contents")
+	var/msg = tgui_input_text(src, "Please describe your problem concisely and a mentor will help as soon as they're able. Remember: Mentors cannot see you or what you're doing. Describe the problem in full detail.", "Mentorhelp contents", multiline = TRUE, encode = FALSE) // we don't encode/sanitize here bc it's done for us later
 	mentorhelp(msg)
 
 /client/verb/mentorhelp(msg as message)
@@ -58,7 +58,7 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 
 	SSblackbox.record_feedback("tally", "mentor_verb", 1, "Mentorhelp") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	if(current_mentorhelp_ticket)
-		if(alert(usr, "You already have a ticket open. Is this for the same issue?",,"Yes","No") != "No")
+		if(tgui_alert(usr, "You already have a ticket open. Is this for the same issue?", buttons = list("Yes", "No")) != "No")
 			if(current_mentorhelp_ticket)
 				current_mentorhelp_ticket.MessageNoRecipient(msg)
 				current_mentorhelp_ticket.TimeoutVerb()
@@ -148,7 +148,7 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 	return key_name_mentor(user)
 
 /datum/help_ticket/mentor/message_ticket_managers(msg)
-	message_mentors(msg)
+	message_mentors(msg, target = claimee)
 
 /datum/help_ticket/mentor/MessageNoRecipient(msg, add_to_ticket = TRUE, sanitized = FALSE)
 	var/ref_src = "[REF(src)]"
@@ -163,7 +163,7 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 
 	//send this msg to all admins
 	for(var/client/X in GLOB.mentors | GLOB.admins)
-		if(X.prefs.toggles & PREFTOGGLE_SOUND_ADMINHELP)
+		if(X.prefs.read_player_preference(/datum/preference/toggle/sound_adminhelp))
 			SEND_SOUND(X, sound(reply_sound))
 		window_flash(X, ignorepref = TRUE)
 		to_chat(X, admin_msg, type = message_type)

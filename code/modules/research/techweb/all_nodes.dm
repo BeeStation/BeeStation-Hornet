@@ -182,33 +182,45 @@
 		"comp_delay",
 		"comp_direction",
 		"comp_get_column",
+		"comp_get_name",
 		"comp_gps",
 		"comp_health",
 		"comp_hear",
 		"comp_index_table",
+		"comp_index",
+		"comp_length",
 		"comp_light",
+		"comp_list_literal",
 		"comp_logic",
 		"comp_mmi",
+		"comp_module",
 		"comp_multiplexer",
 		"comp_not",
+		"comp_ntnet_receive",
+		"comp_ntnet_send",
+		"comp_pathfind",
+		"comp_pressuresensor",
 		"comp_radio",
-		"comp_ram",
 		"comp_random",
 		"comp_round",
+		"comp_router",
 		"comp_select_query",
 		"comp_self",
 		"comp_soundemitter",
 		"comp_species",
 		"comp_speech",
 		"comp_speech",
+		"comp_split",
 		"comp_string_contains",
+		"comp_tempsensor",
 		"comp_textcase",
+		"comp_tonumber",
 		"comp_tostring",
-		"comp_trig",
 		"comp_typecast",
 		"compact_remote_shell",
 		"component_printer",
 		"integrated_circuit",
+		"module_duplicator",
 		"usb_cable",
 	)
 
@@ -547,6 +559,7 @@
 		"femto_mani",
 		"quantum_keycard",
 		"triphasic_scanning",
+		"usb_wireless",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	export_price = 5000
@@ -608,6 +621,7 @@
 		"antivirus3",
 		"bluespacebeaker",
 		"bluespacesyringe",
+    "bluespace_capsule",
 		"bs_rped",
 		"minerbag_holding",
 		"ore_silo",
@@ -729,6 +743,7 @@
 		"comp_bitflag",
 		"comp_bitwise",
 		"comp_hyper_trig",
+		"comp_trig",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
 
@@ -767,9 +782,29 @@
 		"controller_shell",
 		"door_shell",
 		"money_bot_shell",
+		"scanner_gate_shell",
 		"scanner_shell",
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+
+/datum/techweb_node/bci_shells
+	id = "bci_shells"
+	tech_tier = 2
+	display_name = "Brain-Computer Interfaces"
+	description = "Grants access to biocompatable shell designs and components."
+	prereq_ids = list("adv_shells")
+	design_ids = list(
+		"bci_implanter",
+		"bci_shell",
+		"comp_bci_action",
+		"comp_bar_overlay",
+		"comp_counter_overlay",
+		"comp_object_overlay",
+		"comp_target_intercept",
+		"comp_thought_listener",
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 500)
+
 
 /datum/techweb_node/movable_shells_tech
 	id = "movable_shells"

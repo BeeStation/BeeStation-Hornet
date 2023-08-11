@@ -52,7 +52,6 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	new/datum/stack_recipe("sinew restraints", /obj/item/restraints/handcuffs/cable/sinew, 1), \
 ))
 
-/obj/item/stack/sheet/sinew/Initialize(mapload, new_amount, merge = TRUE)
-	recipes = GLOB.sinew_recipes
-	return ..()
+/obj/item/stack/sheet/sinew/get_recipes()
+	return GLOB.sinew_recipes
 

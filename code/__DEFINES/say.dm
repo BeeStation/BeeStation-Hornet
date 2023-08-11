@@ -38,6 +38,9 @@
 #define MODE_ALIEN "alientalk"
 #define MODE_HOLOPAD "holopad"
 
+#define MODE_SLIMELINK "slimelink"
+#define MODE_KEY_SLIMELINK "j"
+
 #define MODE_VOCALCORDS "cords"
 #define MODE_KEY_VOCALCORDS "x"
 

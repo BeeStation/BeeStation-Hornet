@@ -17,7 +17,8 @@
 	roundend_category = "Heretics"
 	antagpanel_category = "Heretic"
 	antag_moodlet = /datum/mood_event/heretics
-	job_rank = ROLE_HERETIC
+	banning_key = ROLE_HERETIC
+	required_living_playtime = 4
 	/// Whether we've ascended! (Completed one of the final rituals)
 	var/ascended = FALSE
 	/// The path our heretic has chosen. Mostly used for flavor.
@@ -146,11 +147,11 @@
 	if(isipc(owner.current))//Due to IPCs having a mechanical heart it messes with the living heart, so no IPC heretics for now
 		var/mob/living/carbon/C = owner.current	//only carbons have dna now, so we have to typecast
 		C.set_species(/datum/species/human)
-		var/replacementName = random_unique_name(C.gender)
-		if(C.client.prefs.active_character.custom_names["human"])
-			C.fully_replace_character_name(C.real_name, C.client.prefs.active_character.custom_names["human"])
+		var/prefs_name = C.client?.prefs?.read_character_preference(/datum/preference/name/backup_human)
+		if(prefs_name)
+			C.fully_replace_character_name(C.real_name, prefs_name)
 		else
-			C.fully_replace_character_name(C.real_name, replacementName)
+			C.fully_replace_character_name(C.real_name, random_unique_name(C.gender))
 	if(give_objectives)
 		forge_objectives()
 
@@ -383,10 +384,8 @@
 	if(length(objectives))
 		var/count = 1
 		for(var/datum/objective/objective as anything in objectives)
-			if(objective.check_completion())
-				parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='greentext'>Success!</span>"
-			else
-				parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
+			parts += "<b>Objective #[count]</b>:  [objective.get_completion_message()]"
+			if(!objective.check_completion())
 				succeeded = FALSE
 			count++
 
@@ -698,17 +697,6 @@
 		num_we_have++
 
 	return completed || (num_we_have >= target_amount)
-
-/datum/outfit/heretic
-	name = "Heretic (Preview only)"
-
-	suit = /obj/item/clothing/suit/hooded/cultrobes/eldritch
-	r_hand = /obj/item/melee/touch_attack/mansus_fist
-
-/datum/outfit/heretic/post_equip(mob/living/carbon/human/equipper, visualsOnly)
-	var/obj/item/clothing/suit/hooded/hooded = locate() in equipper
-	hooded.MakeHood() // This is usually created on Initialize, but we run before atoms
-	hooded.ToggleHood()
 
 /datum/action/innate/hereticmenu
 	name = "Forbidden Knowledge"

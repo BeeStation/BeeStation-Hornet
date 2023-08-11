@@ -67,7 +67,7 @@ require only minor tweaks.
 /// number - default gravity if there's no gravity generators or area overrides present
 #define ZTRAIT_GRAVITY "Gravity"
 
-// numeric offsets - e.g. {"Down": -1} means that chasms will fall to z - 1 rather than oblivion
+// Whether this z level is linked up/down. Bool.
 #define ZTRAIT_UP "Up"
 #define ZTRAIT_DOWN "Down"
 
