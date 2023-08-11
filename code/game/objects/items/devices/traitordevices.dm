@@ -219,7 +219,7 @@ effective or pretty fucking useless.
 	if(!user)
 		return
 	to_chat(user, "<span class='notice'>You activate [src].</span>")
-	user.add_dynavis("inviscloak")
+	user.add_self_dynavis("inviscloak")
 	src.user = user
 	START_PROCESSING(SSobj, src)
 	old_alpha = user.alpha

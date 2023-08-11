@@ -6,7 +6,7 @@
 	appearance_flags = RESET_ALPHA | KEEP_APART | TILE_BOUND | PIXEL_SCALE
 	vis_flags = VIS_INHERIT_PLANE | VIS_INHERIT_ID | VIS_INHERIT_DIR | VIS_UNDERLAY
 
-/atom/movable/proc/add_dynavis(key, invisibility_level=INVISIBILITY_OBSERVER)
+/atom/movable/proc/add_self_dynavis(key, invisibility_level=INVISIBILITY_OBSERVER)
 	var/atom/movable/dynamic_visual/dyvis = new()
 	var/current_alpha = alpha
 	var/alpha_check = appearance_flags & RESET_ALPHA

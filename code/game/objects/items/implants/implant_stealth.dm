@@ -22,7 +22,7 @@
 /obj/structure/closet/cardboard/agent/Initialize(mapload)
 	. = ..()
 	go_invisible()
-	add_dynavis("agent_box")
+	add_self_dynavis("agent_box")
 
 
 /obj/structure/closet/cardboard/agent/open()
