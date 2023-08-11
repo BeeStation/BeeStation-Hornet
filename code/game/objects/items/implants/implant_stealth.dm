@@ -22,10 +22,12 @@
 /obj/structure/closet/cardboard/agent/Initialize(mapload)
 	. = ..()
 	go_invisible()
+	add_dynavis("agent_box")
 
 
 /obj/structure/closet/cardboard/agent/open()
 	. = ..()
+	remove_dynavis("agent_box")
 	qdel(src)
 
 /obj/structure/closet/cardboard/agent/process()

@@ -219,6 +219,7 @@ effective or pretty fucking useless.
 	if(!user)
 		return
 	to_chat(user, "<span class='notice'>You activate [src].</span>")
+	user.add_dynavis("inviscloak")
 	src.user = user
 	START_PROCESSING(SSobj, src)
 	old_alpha = user.alpha
@@ -229,6 +230,7 @@ effective or pretty fucking useless.
 	STOP_PROCESSING(SSobj, src)
 	if(user)
 		user.alpha = old_alpha
+	user.remove_dynavis("inviscloak")
 	on = FALSE
 	user = null
 

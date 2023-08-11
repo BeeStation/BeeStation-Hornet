@@ -44,6 +44,7 @@
 			Snake = L
 			break
 		if(Snake)
+			transfer_observers_to(Snake)
 			alerted = viewers(7,src)
 	..()
 	if(LAZYLEN(alerted))
