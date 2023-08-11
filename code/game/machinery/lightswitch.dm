@@ -28,17 +28,8 @@
 		name = "light switch ([area.name])"
 
 	update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
-	if(mapload)
-		return INITIALIZE_HINT_LATELOAD
+	RegisterSignal(SSdcs, COMSIG_GLOB_POST_START, PROC_REF(turn_off))
 	return
-
-/obj/machinery/light_switch/LateInitialize()
-	if(!is_station_level(z))
-		return
-	var/area/source_area = get_area(get_turf(src))
-	if(source_area.lights_always_start_on)
-		return
-	turn_off()
 
 /obj/machinery/light_switch/update_overlays()
 	. = ..()
@@ -49,13 +40,21 @@
 	. += emissive_appearance(icon, state, alpha = src.alpha)
 
 /obj/machinery/light_switch/proc/turn_off()
-	if(!area.lightswitch)
+	if(!is_station_level(z))//Only affects on-station lights
 		return
-	area.lightswitch = FALSE
+	if(!area.lightswitch)//Lights already off
+		return
+	if(area.lights_always_start_on)//Public hallway or some other place where lights should start on
+		return
+	if(length(GLOB.roundstart_areas_lights_on))
+		if(area in GLOB.roundstart_areas_lights_on)//Department is staffed, lights should shart on
+			return
+	area.lightswitch = FALSE //All checks failed, department is not staffed, lights get turned off
 
-	for(var/obj/machinery/light_switch/L in area)
-		L.update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
-
+	for(var/obj/machinery/light_switch/L in GLOB.machines)
+		if(L.area == area)
+			L.update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
+	message_admins("Turning off lights in [area]")
 	area.power_change()
 
 /obj/machinery/light_switch/examine(mob/user)
@@ -73,8 +72,9 @@
 	area.lightswitch = !area.lightswitch
 	play_click_sound("button")
 
-	for(var/obj/machinery/light_switch/L in area)
-		L.update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
+	for(var/obj/machinery/light_switch/L in GLOB.machines)
+		if(L.area == area)
+			L.update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
 
 	area.power_change()
 
