@@ -34,10 +34,6 @@ GLOBAL_LIST_INIT(psychic_sense_blacklist, typecacheof(list(/turf/open, /obj/mach
 	mutanteyes = /obj/item/organ/eyes/psyphoza
 	mutanttongue = /obj/item/organ/tongue/psyphoza
 
-	attack_verb = "slash"
-	attack_sound = 'sound/weapons/slice.ogg'
-	miss_sound = 'sound/weapons/slashmiss.ogg'
-
 	mutant_bodyparts = list("psyphoza_cap")
 	default_features = list("psyphoza_cap" = "Portobello", "body_size" = "Normal", "mcolor" = "fff")
 	hair_color = "fixedmutcolor"
