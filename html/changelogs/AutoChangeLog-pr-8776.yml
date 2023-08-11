@@ -1,0 +1,27 @@
+author: itsmeow, Mothblocks, Absolucy, Rukofamicom, Ghommie, JohnFulpWillard, Watermelon914,
+  PeterMorrison1, Y0SH1M4S73R, AnturK, GoldenAlpharex, Seris02, tralezab, AndrewL97,
+  MrMelbert, Tastyfish, LemonInTheDark, vinylspiders, kriskog, Couls, MrStonedOne,
+  jlsnow301, actioninja, Synclt21, KoJIT2009
+delete-after: true
+changes:
+  - refactor: Rewrote the entire preferences UI.
+  - refactor: Rewrote the entire preferences backend and serialization system to reduce
+      database usage, datumized the addition of preferences.
+  - server: Flattened some preference database schema stuff, migration is required.
+  - tweak: Loadouts now preview the items you equip on your mob, and will replace
+      existing items in the preview window to ensure they preview correctly.
+  - bugfix: Deadminned admins now retain their access to Donator loadout items.
+  - rscadd: You can now purchase multiple antag tokens from loadouts.
+  - rscadd: You can now bind up to 3 keybinds to one overall action.
+  - rscadd: You can now select specific preferences to be randomized on join rather
+      than globally randomizing your body. You can also make specific preferences
+      only randomize if you are an antagonist.
+  - tweak: PDA Theme can now be customized per-character.
+  - tweak: Failed job selection now defaults to "Return to lobby" instead of "Be random
+      job"
+  - tweak: TGUI Dropdowns now have improved UX experience, and exist outside of the
+      object they are within, instead existing above other UI elements. This means
+      they cannot cause windows to scroll by overflowing, for example.
+  - tweak: You can now select preferences to be randomized only when you are an antagonist
+  - tweak: Per-character antagonist preferences can now be toggled globally, with
+      per-character prefs only affecting if it's set to off.
