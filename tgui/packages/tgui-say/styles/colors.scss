@@ -15,6 +15,9 @@ $radio: #1ecc43;
 $me: #74a1e4;
 $ooc: #e64100;
 $looc: #fafa3b;
+$asay: #ff0000;
+$msay: #ff00ff;
+$dsay: #8800ff;
 
 ////////////////////////////////////////////////
 // Subchannel chat colors
@@ -36,6 +39,13 @@ $holo: #d61b5a;
 $intercom: #56bd03;
 $left: #4c0675;
 $right: #4c0675;
+$slime: #008ca2;
+
+$_restricted_channel_map: (
+  'asay': $asay,
+  'msay': $msay,
+  'dsay': $dsay,
+);
 
 $_channel_map: (
   'say': $say,
@@ -43,6 +53,9 @@ $_channel_map: (
   'me': $me,
   'ooc': $ooc,
   'looc': $looc,
+  'asay': $asay,
+  'msay': $msay,
+  'dsay': $dsay,
   'ai': $ai,
   'binary': $binary,
   'centcom': $centcom,
@@ -61,6 +74,7 @@ $_channel_map: (
   'right': $right,
   'holo': $holo,
   'intercom': $intercom,
+  'slime': $slime,
 );
 
 $channel_keys: map.keys($_channel_map) !default;
@@ -72,6 +86,19 @@ $channel-map: ();
     $channel-map,
     (
       $channel: map.get($_channel_map, $channel),
+    )
+  );
+}
+
+$restricted_channel_keys: map.keys($_restricted_channel_map) !default;
+
+$restricted-channel-map: ();
+
+@each $channel in $restricted_channel_keys {
+  $restricted-channel-map: map-merge(
+    $restricted-channel-map,
+    (
+      $channel: map.get($_restricted_channel_map, $channel),
     )
   );
 }

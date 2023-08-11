@@ -24,3 +24,11 @@
 #define CHAT_LAYER_Z_STEP 0.0001
 /// The number of z-layer 'slices' usable by the chat message layering
 #define CHAT_LAYER_MAX_Z (CHAT_LAYER_MAX - CHAT_LAYER) / CHAT_LAYER_Z_STEP
+
+// which strip method 'stripped_input()' proc will use?
+#define BYOND_ENCODE "byond_encode"
+#define STRIP_HTML "strip_html"
+#define STRIP_HTML_SIMPLE "strip_html_simple"
+#define SANITIZE "sanitize"
+#define SANITIZE_SIMPLE "sanitize_simple"
+#define ADMIN_SCRUB "admin_scrub"

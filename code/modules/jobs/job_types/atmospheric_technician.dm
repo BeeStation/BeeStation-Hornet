@@ -1,6 +1,8 @@
 /datum/job/atmospheric_technician
 	title = JOB_NAME_ATMOSPHERICTECHNICIAN
 	flag = ATMOSTECH
+	description = "Maintain the air distribution loop to ensure adequate atmospheric conditions in the station, re-pressurize areas after hull breaches, and be a firefighter if necessary."
+	department_for_prefs = DEPT_BITFLAG_ENG
 	department_head = list(JOB_NAME_CHIEFENGINEER)
 	supervisors = "the chief engineer"
 	faction = "Station"
@@ -27,6 +29,8 @@
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/atmospherics
 	)
+
+	minimal_lightup_areas = list(/area/engine/atmos)
 
 /datum/outfit/job/atmospheric_technician
 	name = JOB_NAME_ATMOSPHERICTECHNICIAN

@@ -29,6 +29,7 @@
 	sec_hud = DATA_HUD_SECURITY_BASIC
 	d_hud = DATA_HUD_DIAGNOSTIC_ADVANCED
 	mob_size = MOB_SIZE_LARGE
+	radio = /obj/item/radio/headset/silicon/ai
 	var/battery = 200 //emergency power if the AI's APC is off
 	var/list/network = list("ss13")
 	var/list/connected_robots = list()
@@ -142,7 +143,7 @@
 	create_modularInterface()
 
 	if(client)
-		apply_pref_name("ai",client)
+		INVOKE_ASYNC(src, PROC_REF(apply_pref_name), /datum/preference/name/ai, client)
 
 	INVOKE_ASYNC(src, PROC_REF(set_core_display_icon))
 
@@ -156,7 +157,6 @@
 	add_verb(/mob/living/silicon/ai/proc/show_laws_verb)
 
 	aiMulti = new(src)
-	radio = new /obj/item/radio/headset/silicon/ai(src)
 	aicamera = new/obj/item/camera/siliconcam/ai_camera(src)
 
 	deploy_action.Grant(src)
@@ -191,7 +191,7 @@
 			return
 		if("1", "2", "3", "4", "5", "6", "7", "8", "9")
 			_key = text2num(_key)
-			if(client.keys_held["Ctrl"]) //do we assign a new hotkey?
+			if(user.keys_held["Ctrl"]) //do we assign a new hotkey?
 				cam_hotkeys[_key] = eyeobj.loc
 				to_chat(src, "Location saved to Camera Group [_key].")
 				return
@@ -236,10 +236,10 @@
 /mob/living/silicon/ai/proc/set_core_display_icon(input, client/C)
 	if(client && !C)
 		C = client
-	if(!input && !C?.prefs?.active_character.preferred_ai_core_display)
+	if(!input && !C?.prefs?.read_character_preference(/datum/preference/choiced/ai_core_display))
 		icon_state = initial(icon_state)
 	else
-		var/preferred_icon = input ? input : C.prefs.active_character.preferred_ai_core_display
+		var/preferred_icon = input ? input : C.prefs.read_character_preference(/datum/preference/choiced/ai_core_display)
 		icon_state = resolve_ai_icon(preferred_icon)
 
 /mob/living/silicon/ai/verb/pick_icon()
@@ -850,7 +850,7 @@
 /mob/living/silicon/ai/can_buckle()
 	return 0
 
-/mob/living/silicon/ai/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, check_immobilized = FALSE, ignore_stasis = FALSE)
+/mob/living/silicon/ai/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_stasis = FALSE)
 	if(aiRestorePowerRoutine)
 		return TRUE
 	return ..()
@@ -926,7 +926,7 @@
 	rendered = "<span class='holocall'><b>\[Holocall\] [language_icon]<span class='name'>[speaker.GetVoice()]</span></b>[treated_message]</span>"
 	var/rendered_scrambled_message
 	for(var/mob/dead/observer/each_ghost in GLOB.dead_mob_list)
-		if(!each_ghost.client || !(each_ghost.client.prefs.toggles & CHAT_GHOSTRADIO))
+		if(!each_ghost.client || !each_ghost.client.prefs.read_player_preference(/datum/preference/toggle/chat_ghostradio))
 			continue
 		var/follow_link = FOLLOW_LINK(each_ghost, speaker)
 		if(each_ghost.has_language(message_language))

@@ -119,7 +119,7 @@
 	if(!active)
 		return FALSE
 	if(isprojectile(hitby))
-		var/obj/item/projectile/P = hitby
+		var/obj/projectile/P = hitby
 		if(P.martial_arts_no_deflect)
 			return FALSE
 	return TRUE
