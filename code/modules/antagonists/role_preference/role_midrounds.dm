@@ -163,6 +163,7 @@
 	across for the following invasion force. \n\
 	Consume machines, structures, walls, anything to get materials. Replicate \
 	as many swarmers as you can to repeat the process."
+	antag_datum = /datum/antagonist/swarmer
 
 /datum/role_preference/midround_ghost/swarmer/get_preview_icon()
 	var/icon/swarmer_icon = icon('icons/mob/swarmer.dmi', "swarmer")
