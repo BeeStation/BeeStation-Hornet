@@ -102,6 +102,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	return ..()
 
 /datum/preferences/New(client/parent)
+	if(!istype(parent))
+		QDEL_IN(src, 0)
+		return
 	src.parent = parent
 
 	for (var/middleware_type in subtypesof(/datum/preference_middleware))
