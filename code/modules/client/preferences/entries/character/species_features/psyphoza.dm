@@ -2,7 +2,7 @@
 	db_key = "feature_psyphoza_cap"
 	preference_type = PREFERENCE_CHARACTER
 	category = PREFERENCE_CATEGORY_FEATURES
-	main_feature_name = "cap"
+	main_feature_name = "Mushroom Cap"
 	should_generate_icons = TRUE
 	relevant_mutant_bodypart = "psyphoza_cap"
 	disable_serialization = TRUE
