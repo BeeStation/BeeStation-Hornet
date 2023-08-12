@@ -116,13 +116,13 @@
 	///The eyes original sight flags - used between toggles
 	var/sight_flags
 	///Time between uses
-	var/cooldown = 5 SECONDS
+	var/cooldown = 2 SECONDS
 	///Reference to 'kill these overlays' timer
 	var/psychic_timer
 	///Ref to change action
 	var/datum/action/change_psychic_visual/overlay_change
 	///The amount of time between auto uses
-	var/auto_cooldown = 7.5 SECONDS
+	var/auto_cooldown = 3 SECONDS
 	///Do we have auto sense toggled?
 	var/auto_sense = FALSE
 	///Ref to sense auto toggle action
@@ -135,9 +135,6 @@
 
 /datum/action/item_action/organ_action/psychic_highlight/Grant(mob/M)
 	. = ..()
-	//Register signal for TK highlights
-	RegisterSignal(M, COMSIG_MOB_ATTACK_RANGED, PROC_REF(handle_ranged), TRUE)
-	RegisterSignal(M, COMSIG_MOB_ITEM_AFTERATTACK, PROC_REF(handle_ranged), TRUE)
 	//Overlay used to highlight objects
 	M.overlay_fullscreen("psychic_highlight", /atom/movable/screen/fullscreen/blind/psychic_highlight)
 	M.overlay_fullscreen("psychic_hsighlight_mask", /atom/movable/screen/fullscreen/blind/psychic/mask)
@@ -146,8 +143,9 @@
 		overlay_change = new(src)
 		overlay_change.Grant(owner)
 	///Give owner auto action
-	auto_action = new(src)
-	auto_action.Grant(M)
+	if(!(locate(/datum/action/change_psychic_auto) in owner.actions))
+		auto_action = new(src)
+		auto_action.Grant(M)
 	///Start auto timer
 	addtimer(CALLBACK(src, PROC_REF(auto_sense)), auto_cooldown)
 
@@ -205,7 +203,6 @@
 	eyes?.sight_flags = sight_flags
 	owner.update_sight()
 
-
 //Dims blind overlay - Lightens highlight layer
 /datum/action/item_action/organ_action/psychic_highlight/proc/dim_overlay()
 	//Blind layer
@@ -233,18 +230,6 @@
 		to_chat(owner, "<span class='warning'>You can't use your senses while wearing helmets!</span>")
 		return FALSE
 	return TRUE
-
-//Handle clicking for ranged trigger.
-/datum/action/item_action/organ_action/psychic_highlight/proc/handle_ranged(datum/source, atom/target)
-	SIGNAL_HANDLER
-
-	if(has_cooldown_timer || !owner)
-		return
-	var/turf/T = get_turf(target)
-	if(get_dist(get_turf(owner), T) > 1)
-		has_cooldown_timer = TRUE
-		UpdateButtonIcon()
-		addtimer(CALLBACK(src, PROC_REF(finish_cooldown)), cooldown + sense_time)
 
 //Handles eyes being deleted
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_eyes()
@@ -278,7 +263,7 @@
 	. = ..()
 	filters += filter(type = "bloom", size = 2, threshold = rgb(85,85,85))
 	filters += filter(type = "radial_blur", size = 0.012)
-	filters += filter(type = "alpha", render_source = "eeee")
+	filters += filter(type = "alpha", render_source = GAME_PLANE_RENDER_TARGET)
 	filters += filter(type = "alpha", render_source = "psychic_mask")
 	cycle_visuals()
 
@@ -306,7 +291,7 @@
 	visual_index = visual_index >= 2 ? 0 :  visual_index
 
 /atom/movable/screen/fullscreen/blind/psychic/mask
-	icon_state = "e"
+	icon_state = "mask_small"
 	render_target = "psychic_mask"
 
 //Action for changing screen color

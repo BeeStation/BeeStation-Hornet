@@ -23,6 +23,7 @@
 #define GAME_PLANE_NON_INTEGRAL_RENDER_TARGET "*GAME_PLANE_NON_INTEGRAL"
 #define GAME_PLANE_NON_INTEGRAL -5
 #define GAME_PLANE -4
+#define GAME_PLANE_RENDER_TARGET "*GAME_PLANE"
 
 #define SPACE_LAYER 1.8
 //#define TURF_LAYER 2 //For easy recordkeeping; this is a byond define
