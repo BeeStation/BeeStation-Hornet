@@ -19,6 +19,7 @@
 		            /obj/item/clothing/ears/earmuffs = 1)
 	contraband = list(/obj/item/clothing/gloves/color/fyellow = 2)
 	premium = list(/obj/item/storage/belt/utility = 2,
+				   /obj/item/clothing/accessory/harness/engineer = 2,
 		           /obj/item/weldingtool/hugetank = 2,
 		           /obj/item/clothing/head/welding = 2,
 		           /obj/item/clothing/gloves/color/yellow = 1)

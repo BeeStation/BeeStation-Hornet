@@ -92,6 +92,7 @@
 					/obj/item/storage/backpack/duffelbag/engineering = 3,
 					/obj/item/storage/backpack/industrial = 3,
 					/obj/item/storage/backpack/satchel/eng = 3,
+					/obj/item/clothing/accessory/harness/engineer = 2,
 					/obj/item/clothing/under/plasmaman/engineering = 3,
 					/obj/item/clothing/head/helmet/space/plasmaman/engineering = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/engineering = 3,
@@ -120,6 +121,7 @@
 					/obj/item/storage/backpack/duffelbag/engineering = 2,
 					/obj/item/storage/backpack/satchel/eng = 2,
 					/obj/item/storage/backpack/industrial = 2,
+					/obj/item/clothing/accessory/harness/engineer = 2,
 					/obj/item/clothing/under/plasmaman/engineering/atmospherics = 3,
 					/obj/item/clothing/head/helmet/space/plasmaman/engineering/atmospherics = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos = 3,
@@ -159,7 +161,8 @@
 					/obj/item/clothing/under/plasmaman/mailman = 2,
 					/obj/item/clothing/head/helmet/space/plasmaman/mailman = 2
 	)
-	contraband = list(/obj/item/radio/headset/headset_quartermaster = 1)
+	contraband = list(/obj/item/radio/headset/headset_quartermaster = 1,
+					  /obj/item/clothing/accessory/harness = 2)
 	refill_canister = /obj/item/vending_refill/wardrobe/cargo_wardrobe
 	dept_req_for_free = ACCOUNT_CAR_BITFLAG
 /obj/item/vending_refill/wardrobe/cargo_wardrobe
@@ -349,6 +352,7 @@
 					/obj/item/computer_hardware/hard_drive/role/janitor = 2,
 					/obj/item/clothing/gloves/color/black = 2,
 					/obj/item/clothing/head/soft/purple = 2,
+					/obj/item/clothing/accessory/harness/janitor = 2,
 					/obj/item/pushbroom = 2,
 					/obj/item/paint/paint_remover = 2,
 					/obj/item/melee/flyswatter = 2,

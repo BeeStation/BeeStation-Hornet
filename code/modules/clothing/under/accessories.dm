@@ -391,19 +391,20 @@
 /obj/item/clothing/accessory/harness
 	name = "gear harness"
 	desc = "A harness lined with pockets. Turns your jumpsuit into honorary cargo shorts."
-	icon_state = "holster"
-	item_state = "holster"
+	icon_state = "harness"
 	w_class = WEIGHT_CLASS_NORMAL
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/harness
 
 /obj/item/clothing/accessory/harness/engineer
 	name = "engineer's harness"
 	desc = "An extension to the engineer's belt, carry around those few extra tools!"
+	icon_state = "harness_engi"
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/harness/engineer
 
 /obj/item/clothing/accessory/harness/janitor
 	name = "janitor's harness"
 	desc = "More pockets for the janitor to lose their keys in, holds cleaning supplies too."
+	icon_state = "harness_jani"
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/harness/janitor
 
 //Poppy Pin
