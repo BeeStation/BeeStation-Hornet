@@ -6,7 +6,6 @@
 
 /datum/dynamic_simulation/proc/initialize_gamemode(forced_threat, roundstart_players)
 	gamemode = new
-	gamemode.roundstart_pop_ready = roundstart_players
 
 	if (forced_threat)
 		gamemode.create_threat(forced_threat)

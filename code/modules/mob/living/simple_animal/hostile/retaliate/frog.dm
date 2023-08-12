@@ -22,7 +22,7 @@
 	faction = list("hostile")
 	attack_sound = 'sound/effects/reee.ogg'
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/nugget = 1)
-	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
 	gold_core_spawnable = HOSTILE_SPAWN
 	var/stepped_sound = 'sound/effects/huuu.ogg'

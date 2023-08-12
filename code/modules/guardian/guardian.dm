@@ -352,7 +352,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	if( QDELETED(targeted_atom) || targeted_atom == target_from.loc || targeted_atom == target_from )
 		return
 	var/turf/startloc = get_turf(target_from)
-	var/obj/item/projectile/P = new /obj/item/projectile/guardian(startloc)
+	var/obj/projectile/P = new /obj/projectile/guardian(startloc)
 	playsound(src, projectilesound, 100, 1)
 	P.color = guardiancolor
 	P.damage = stats.damage * 1.5
@@ -728,7 +728,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 			return "A"
 	return "F"
 
-/obj/item/projectile/guardian
+/obj/projectile/guardian
 	name = "crystal spray"
 	icon_state = "guardian"
 	damage = 5
