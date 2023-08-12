@@ -77,6 +77,8 @@
 		var/datum/preference/preference = GLOB.preference_entries_by_key[db_key]
 		if(!istype(preference))
 			CRASH("Could not find preference with db_key [db_key] when writing to database.")
+		if(preference.disable_serialization)
+			continue
 		new_data[db_key] = preference.serialize(preference_data[db_key])
 		var/column_name = clean_column_name(preference)
 		if(length(column_name))
@@ -100,6 +102,8 @@
 	for (var/preference_type in GLOB.preference_entries)
 		var/datum/preference/preference = GLOB.preference_entries[preference_type]
 		if (preference.preference_type != PREFERENCE_CHARACTER)
+			continue
+		if(preference.disable_serialization)
 			continue
 		// IMPORTANT: use of initial evades varedits. Filter to only alphanumeric and underscores
 		var/column_name = clean_column_name(preference)

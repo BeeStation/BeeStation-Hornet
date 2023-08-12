@@ -5,6 +5,7 @@
 	main_feature_name = "cap"
 	should_generate_icons = TRUE
 	relevant_mutant_bodypart = "psyphoza_cap"
+	disable_serialization = TRUE
 
 /datum/preference/choiced/psyphoza_cap/init_possible_values()
 	var/list/values = list()
