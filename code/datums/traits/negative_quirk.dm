@@ -131,7 +131,7 @@
 	name = "Family Heirloom"
 	desc = "You are the current owner of an heirloom, passed down for generations. You have to keep it safe!"
 	icon = "toolbox"
-	value = -2
+	value = -1
 	mood_quirk = TRUE
 	process = TRUE
 	var/obj/item/heirloom
