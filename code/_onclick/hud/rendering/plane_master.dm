@@ -77,6 +77,23 @@
 	if(istype(mymob) && mymob.eye_blurry)
 		add_filter("eye_blur", 1, gauss_blur_filter(clamp(mymob.eye_blurry * 0.1, 0.6, 3)))
 
+///Contains walls
+/atom/movable/screen/plane_master/walls
+	name = "wall plane master"
+	plane = WALL_PLANE
+	render_target = WALL_PLANE_RENDER_TARGET
+	appearance_flags = PLANE_MASTER 
+	blend_mode = BLEND_OVERLAY
+
+/atom/movable/screen/plane_master/walls/backdrop(mob/mymob)
+	. = ..()
+	remove_filter("AO")
+	if(istype(mymob) && mymob.client?.prefs?.read_player_preference(/datum/preference/toggle/ambient_occlusion))
+		add_filter("AO", 1, drop_shadow_filter(x = 0, y = -2, size = 4, color = "#04080FAA"))
+	remove_filter("eye_blur")
+	if(istype(mymob) && mymob.eye_blurry)
+		add_filter("eye_blur", 1, gauss_blur_filter(clamp(mymob.eye_blurry * 0.1, 0.6, 3)))
+
 /atom/movable/screen/plane_master/data_hud
 	name = "data_hud plane master"
 	plane = DATA_HUD_PLANE
