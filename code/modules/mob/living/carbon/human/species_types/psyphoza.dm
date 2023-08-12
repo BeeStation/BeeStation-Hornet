@@ -104,7 +104,7 @@
 	desc = "Sense your surroundings psychically."
 	transparent_when_unavailable = TRUE
 	///The distant our psychic sense works
-	var/psychic_scale = 5
+	var/psychic_scale = 2
 	///The range we can hear-ping things from
 	var/hear_range = 8
 	///List of things we can't sense
@@ -144,7 +144,7 @@
 	RegisterSignal(M, COMSIG_MOB_ITEM_AFTERATTACK, PROC_REF(handle_ranged), TRUE)
 	//Overlay used to highlight objects
 	M.overlay_fullscreen("psychic_highlight", /atom/movable/screen/fullscreen/blind/psychic_highlight)
-	M.overlay_fullscreen("psychic_highlight_mask", /atom/movable/screen/fullscreen/blind/psychic/mask)
+	M.overlay_fullscreen("psychic_hsighlight_mask", /atom/movable/screen/fullscreen/blind/psychic/mask)
 	//Add option to change visuals
 	if(!(locate(/datum/action/change_psychic_visual) in owner.actions))
 		overlay_change = new(src)
@@ -226,7 +226,7 @@
 	if(P)
 		//We change the color instead of alpha, otherwise we'd reveal our actual surroundings!
 		animate(P, color = "#000") //This is a fix for a bug with ``animate()`` breaking
-		animate(P, color = P.origin_color, time = sense_time, easing = SINE_EASING, flags = EASE_IN)
+		animate(P, color = P.origin_color, time = sense_time, easing = CIRCULAR_EASING, flags = EASE_IN)
 	//Highlight layer
 	var/atom/movable/screen/fullscreen/blind/psychic/mask/B = locate(/atom/movable/screen/fullscreen/blind/psychic/mask) in owner.client?.screen
 	if(B)
@@ -234,7 +234,7 @@
 		ntransform.Scale(psychic_scale)
 		var/matrix/otransform = matrix(B.transform) //old scale
 		animate(B, transform = ntransform)
-		animate(B, transform = otransform, time = sense_time, easing = SINE_EASING, flags = EASE_IN)
+		animate(B, transform = otransform, time = sense_time, easing = CIRCULAR_EASING, flags = EASE_IN)
 	//Setup timer to delete image
 	if(overlay_timer)
 		deltimer(overlay_timer)
@@ -328,12 +328,12 @@
 	icon_state = "e"
 	render_target = "psychic_mask"
 	///Original sense size
-	var/original_size = 0.6
+	var/new_scale = 0.1
 
 /atom/movable/screen/fullscreen/blind/psychic/mask/Initialize(mapload)
 	. = ..()
 	var/matrix/ntransform = matrix(transform) //new scale
-	ntransform.Scale(original_size)
+	ntransform.Scale(new_scale)
 	transform = ntransform
 
 //Action for changing screen color

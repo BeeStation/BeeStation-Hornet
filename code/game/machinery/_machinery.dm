@@ -83,7 +83,6 @@ Class Procs:
 /obj/machinery
 	name = "machinery"
 	icon = 'icons/obj/stationobjs.dmi'
-	plane = GAME_PLANE_NON_INTEGRAL
 	desc = "Some kind of machine."
 	verb_say = "beeps"
 	verb_yell = "blares"
