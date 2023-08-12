@@ -2,7 +2,6 @@
 	name = "computer"
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "computer"
-	plane = GAME_PLANE_NON_INTEGRAL
 	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 300

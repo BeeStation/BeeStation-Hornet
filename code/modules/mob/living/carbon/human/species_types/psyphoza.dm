@@ -116,11 +116,9 @@
 	///The eyes original sight flags - used between toggles
 	var/sight_flags
 	///Time between uses
-	var/cooldown = 1 SECONDS
-	///List of overlays we made
-	var/list/overlays = list()
+	var/cooldown = 5 SECONDS
 	///Reference to 'kill these overlays' timer
-	var/overlay_timer
+	var/psychic_timer
 	///Ref to change action
 	var/datum/action/change_psychic_visual/overlay_change
 	///The amount of time between auto uses
@@ -130,12 +128,10 @@
 	///Ref to sense auto toggle action
 	var/datum/action/change_psychic_auto/auto_action
 
-/datum/action/item_action/organ_action/psychic_highlight/New(Target)
-	. = ..()
-
 /datum/action/item_action/organ_action/psychic_highlight/Destroy()
-	. = ..()
+	QDEL_NULL(auto_action)
 	QDEL_NULL(overlay_change)
+	return ..()
 
 /datum/action/item_action/organ_action/psychic_highlight/Grant(mob/M)
 	. = ..()
@@ -167,7 +163,7 @@
 	dim_overlay()
 	has_cooldown_timer = TRUE
 	UpdateButtonIcon()
-	addtimer(CALLBACK(src, PROC_REF(finish_cooldown)), cooldown + (sense_time * min(1, overlays.len / PSYCHIC_OVERLAY_UPPER)))
+	addtimer(CALLBACK(src, PROC_REF(finish_cooldown)), cooldown + sense_time)
 
 /datum/action/item_action/organ_action/psychic_highlight/UpdateButtonIcon(status_only = FALSE, force = FALSE)
 	. = ..()
@@ -202,18 +198,9 @@
 //Handle images deleting, stops hardel - also does eyes stuff
 /datum/action/item_action/organ_action/psychic_highlight/proc/toggle_eyes_backwards()
 	//Timer steps
-	if(overlay_timer)
-		deltimer(overlay_timer)
-		overlay_timer = null
-	//Remove all the overlays
-	if(!overlays.len)
-		return
-	for(var/i in 1 to overlays.len)
-		if(istype(overlays[i], /image) || isnull(overlays[i]))
-			continue
-		var/atom/M = overlays[i]
-		M.cut_overlay(overlays[i+1])
-	overlays.Cut(1, 0)
+	if(psychic_timer)
+		deltimer(psychic_timer)
+		psychic_timer = null
 	//Set eyes back to normal
 	eyes?.sight_flags = sight_flags
 	owner.update_sight()
@@ -236,9 +223,9 @@
 		animate(B, transform = ntransform)
 		animate(B, transform = otransform, time = sense_time, easing = CIRCULAR_EASING, flags = EASE_IN)
 	//Setup timer to delete image
-	if(overlay_timer)
-		deltimer(overlay_timer)
-	overlay_timer = addtimer(CALLBACK(src, PROC_REF(toggle_eyes_backwards)), sense_time, TIMER_STOPPABLE)
+	if(psychic_timer)
+		deltimer(psychic_timer)
+	psychic_timer = addtimer(CALLBACK(src, PROC_REF(toggle_eyes_backwards)), sense_time, TIMER_STOPPABLE)
 
 //Get a list of nearby things & run 'em through a typecache
 /datum/action/item_action/organ_action/psychic_highlight/proc/check_head()
@@ -246,12 +233,6 @@
 		to_chat(owner, "<span class='warning'>You can't use your senses while wearing helmets!</span>")
 		return FALSE
 	return TRUE
-
-//handle highlight object being deleted early
-/datum/action/item_action/organ_action/psychic_highlight/proc/handle_target(datum/source)
-	SIGNAL_HANDLER
-
-	overlays -= source
 
 //Handle clicking for ranged trigger.
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_ranged(datum/source, atom/target)
@@ -263,7 +244,7 @@
 	if(get_dist(get_turf(owner), T) > 1)
 		has_cooldown_timer = TRUE
 		UpdateButtonIcon()
-		addtimer(CALLBACK(src, PROC_REF(finish_cooldown)), (cooldown/1.5) + (sense_time * min(1, overlays.len / PSYCHIC_OVERLAY_UPPER)))
+		addtimer(CALLBACK(src, PROC_REF(finish_cooldown)), cooldown + sense_time)
 
 //Handles eyes being deleted
 /datum/action/item_action/organ_action/psychic_highlight/proc/handle_eyes()
@@ -327,14 +308,6 @@
 /atom/movable/screen/fullscreen/blind/psychic/mask
 	icon_state = "e"
 	render_target = "psychic_mask"
-	///Original sense size
-	var/new_scale = 0.1
-
-/atom/movable/screen/fullscreen/blind/psychic/mask/Initialize(mapload)
-	. = ..()
-	var/matrix/ntransform = matrix(transform) //new scale
-	ntransform.Scale(new_scale)
-	transform = ntransform
 
 //Action for changing screen color
 /datum/action/change_psychic_visual
@@ -350,8 +323,8 @@
 	RegisterSignal(psychic_overlay, COMSIG_PARENT_QDELETING, PROC_REF(parent_destroy))
 
 /datum/action/change_psychic_visual/Destroy()
-	. = ..()
 	QDEL_NULL(psychic_overlay)
+	return ..()
 
 /datum/action/change_psychic_visual/proc/parent_destroy()
 	SIGNAL_HANDLER
@@ -379,8 +352,8 @@
 	RegisterSignal(psychic_action, COMSIG_PARENT_QDELETING, PROC_REF(parent_destroy))
 
 /datum/action/change_psychic_auto/Destroy()
-	. = ..()
 	QDEL_NULL(psychic_action)
+	return ..()
 
 /datum/action/change_psychic_auto/proc/parent_destroy()
 	SIGNAL_HANDLER
