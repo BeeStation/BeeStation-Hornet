@@ -199,7 +199,6 @@
 	take_damage(I.force, I.damtype, MELEE, 1)
 
 /turf/attackby(obj/item/W, mob/user, params)
-	user.changeNext_move(CLICK_CD_MELEE)
 	if (!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
