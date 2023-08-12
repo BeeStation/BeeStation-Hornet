@@ -104,7 +104,7 @@
 	desc = "Sense your surroundings psychically."
 	transparent_when_unavailable = TRUE
 	///The distant our psychic sense works
-	var/psychic_scale = 2
+	var/psychic_scale = 2.5
 	///The range we can hear-ping things from
 	var/hear_range = 8
 	///List of things we can't sense
@@ -241,14 +241,18 @@
 /atom/movable/screen/fullscreen/blind/psychic
 	icon_state = "trip"
 	icon = 'icons/mob/psychic.dmi'
+	render_target = "blind_psychic"
 	//The color we return to after going black & back.
 	var/origin_color = "#111"
 
 /atom/movable/screen/fullscreen/blind/psychic/Initialize(mapload)
 	. = ..()
+	unique_filters()
+	color = origin_color
+
+/atom/movable/screen/fullscreen/blind/psychic/proc/unique_filters()
 	filters += filter(type = "radial_blur", size = 0.012)
 	filters += filter(type = "bloom", size = 5, threshold = rgb(85,85,85))
-	color = origin_color
 
 //And this type as a seperate type-path to avoid issues with animations & locate()
 /atom/movable/screen/fullscreen/blind/psychic_highlight
@@ -293,6 +297,9 @@
 /atom/movable/screen/fullscreen/blind/psychic/mask
 	icon_state = "mask_small"
 	render_target = "psychic_mask"
+
+/atom/movable/screen/fullscreen/blind/psychic/mask/unique_filters()
+	filters += filter(type = "alpha", render_source = "blind_psychic")
 
 //Action for changing screen color
 /datum/action/change_psychic_visual
