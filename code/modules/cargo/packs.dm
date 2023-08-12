@@ -1963,6 +1963,15 @@
 	contains = list(/obj/item/vending_refill/modularpc)
 	crate_name = "computer supply crate"
 
+/datum/supply_pack/science/monkey_helmets
+	name = "Monkey Mind Magnification Helmet Crate"
+	desc = "Some research is best done with monkeys, yet sometimes they're just too dumb to complete more complicated tasks. These helmets should help."
+	cost = 1500
+	max_supply = 1
+	contains = list(/obj/item/clothing/head/monkey_sentience_helmet,
+					/obj/item/clothing/head/monkey_sentience_helmet)
+	crate_name = "monkey mind magnification crate"
+
 /datum/supply_pack/science/transfer_valves
 	name = "Tank Transfer Valves Crate"
 	desc = "The key ingredient for making a lot of people very angry very fast. Contains two tank transfer valves. Requires RD access to open."
