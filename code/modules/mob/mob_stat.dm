@@ -254,18 +254,33 @@
 		return
 	switch(button_pressed)
 		if("browsetickets")
+			if (!client.holder)
+				return
 			GLOB.ahelp_tickets.BrowseTickets(src)
 		if("browseinterviews")
+			if (!check_rights(R_ADMIN))
+				return
 			GLOB.interviews.BrowseInterviews(src)
 		if("open_interview")
+			if (!check_rights(R_ADMIN))
+				return
 			var/datum/interview/I = GLOB.interviews.interview_by_id(text2num(params["id"]))
 			if (I && client.holder)
 				I.ui_interact(src)
 		if("open_ticket")
+			if (!client.holder)
+				return
 			var/ticket_id = text2num(params["id"])
 			var/datum/help_ticket/AH = GLOB.ahelp_tickets.TicketByID(ticket_id)
 			if(AH && client.holder)
 				AH.ui_interact(src)
+		if ("claim_ticket")
+			if (!check_rights(R_ADMIN))
+				return
+			var/ticket_id = text2num(params["id"])
+			var/datum/help_ticket/AH = GLOB.ahelp_tickets.TicketByID(ticket_id)
+			if(AH && client.holder)
+				AH.Claim()
 		if("atomClick")
 			var/atomRef = params["ref"]
 			var/atom/atom_actual = locate(atomRef)
@@ -305,13 +320,19 @@
 			var/verb_name = params["verb"]
 			winset(client, null, "command=[replacetext(verb_name, " ", "-")]")
 		if("sdql2debug")
+			if (!check_rights(R_DEBUG))
+				return
 			client.debug_variables(GLOB.sdql2_queries)
 		if("sdql2delete")
+			if (!check_rights(R_DEBUG))
+				return
 			var/query_id = params["qid"]
 			var/datum/SDQL2_query/query = sdqlQueryByID(text2num(query_id))
 			if(query)
 				query.delete_click()
 		if("sdql2toggle")
+			if (!check_rights(R_DEBUG))
+				return
 			var/query_id = params["qid"]
 			var/datum/SDQL2_query/query = sdqlQueryByID(text2num(query_id))
 			if(query)

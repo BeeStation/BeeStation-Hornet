@@ -29,6 +29,8 @@ export const StatText = (props, context) => {
                     text={statPanelData[key].text}
                     action_id={statPanelData[key].action}
                     params={statPanelData[key].params}
+                    multirow={statPanelData[key].multirow}
+                    buttons={statPanelData[key].buttons}
                   />
                 )) ||
                 (statPanelData[key].type === STAT_ATOM && (
@@ -61,19 +63,61 @@ export const StatTextText = (props, context) => {
 };
 
 export const StatTextButton = (props, context) => {
-  const { title, text, action_id, params = [] } = props;
+  const {
+    title,
+    text,
+    action_id,
+    params = [],
+    multirow = false,
+    buttons = [],
+  } = props;
   return (
     <Flex.Item mt={1}>
       <Button
+        width="100%"
+        overflowX="hidden"
         onClick={() =>
           Byond.sendMessage('stat/pressed', {
             action_id: action_id,
             params: params,
           })
         }
-        color="transparent">
-        <b>{title}: </b>
-        {text}
+        color="transparent" >
+        {!multirow ? (
+          <>
+            <Box bold inline mr="5px" verticalAlign="top">{title}</Box>
+            <Box width="100%" pr="80px" inline style={{
+              'white-space': 'normal',
+            }}>
+              {text}
+            </Box>
+          </>
+        ) : (
+          <>
+            <Flex bold direction="row">
+              <Flex.Item grow={1}>{title}</Flex.Item>
+              {buttons.map(buttonInfo => (
+                <Flex.Item shrink={1} key={buttonInfo}>
+                  <Button color={buttonInfo["color"]} onClick={(e) => {
+                    e.stopPropagation();
+                    Byond.sendMessage('stat/pressed', {
+                      action_id: buttonInfo["action_id"],
+                      params: buttonInfo["params"],
+                    });
+                  }}>
+                    {buttonInfo["title"]}
+                  </Button>
+                </Flex.Item>
+              ))}
+            </Flex>
+            <Box style={{
+              'white-space': 'normal',
+            }}>
+              {text}
+            </Box>
+          </>
+        )}
+
       </Button>
     </Flex.Item>
   );
