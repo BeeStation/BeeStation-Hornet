@@ -104,13 +104,13 @@
 	desc = "Sense your surroundings psychically."
 	transparent_when_unavailable = TRUE
 	///The distant our psychic sense works
-	var/psychic_scale = 2.5
+	var/psychic_scale = 2.28
 	///The range we can hear-ping things from
 	var/hear_range = 8
 	///List of things we can't sense
 	var/list/sense_blacklist
 	///The amount of time you can sense things for
-	var/sense_time = 7 SECONDS
+	var/sense_time = 10 SECONDS
 	///Reference to the users eyes - we use this to toggle xray vision for scans
 	var/obj/item/organ/eyes/eyes
 	///The eyes original sight flags - used between toggles
@@ -122,7 +122,7 @@
 	///Ref to change action
 	var/datum/action/change_psychic_visual/overlay_change
 	///The amount of time between auto uses
-	var/auto_cooldown = 3 SECONDS
+	var/auto_cooldown = 2 SECONDS
 	///Do we have auto sense toggled?
 	var/auto_sense = FALSE
 	///Ref to sense auto toggle action
@@ -206,11 +206,11 @@
 //Dims blind overlay - Lightens highlight layer
 /datum/action/item_action/organ_action/psychic_highlight/proc/dim_overlay()
 	//Blind layer
-	var/atom/movable/screen/fullscreen/blind/psychic/P = locate (/atom/movable/screen/fullscreen/blind/psychic) in owner.client?.screen
+	var/atom/movable/screen/fullscreen/blind/psychic/P = locate(/atom/movable/screen/fullscreen/blind/psychic) in owner.client?.screen
 	if(P)
 		//We change the color instead of alpha, otherwise we'd reveal our actual surroundings!
 		animate(P, color = "#000") //This is a fix for a bug with ``animate()`` breaking
-		animate(P, color = P.origin_color, time = sense_time, easing = CIRCULAR_EASING, flags = EASE_IN)
+		animate(P, color = P.origin_color, time = sense_time, easing = SINE_EASING, flags = EASE_IN)
 	//Highlight layer
 	var/atom/movable/screen/fullscreen/blind/psychic/mask/B = locate(/atom/movable/screen/fullscreen/blind/psychic/mask) in owner.client?.screen
 	if(B)
@@ -218,7 +218,7 @@
 		ntransform.Scale(psychic_scale)
 		var/matrix/otransform = matrix(B.transform) //old scale
 		animate(B, transform = ntransform)
-		animate(B, transform = otransform, time = sense_time, easing = CIRCULAR_EASING, flags = EASE_IN)
+		animate(B, transform = otransform, time = sense_time, easing = SINE_EASING, flags = EASE_IN)
 	//Setup timer to delete image
 	if(psychic_timer)
 		deltimer(psychic_timer)
@@ -272,10 +272,11 @@
 
 /atom/movable/screen/fullscreen/blind/psychic_highlight/Initialize(mapload)
 	. = ..()
-	filters += filter(type = "bloom", size = 2, threshold = rgb(85,85,85))
+	//filters += filter(type = "bloom", size = 1, threshold = rgb(85,85,85))
 	filters += filter(type = "radial_blur", size = 0.012)
 	filters += filter(type = "alpha", render_source = GAME_PLANE_RENDER_TARGET)
 	filters += filter(type = "alpha", render_source = "psychic_mask")
+	filters += filter(type = "outline", size = 1, color = "#fff")
 	cycle_visuals()
 
 /atom/movable/screen/fullscreen/blind/psychic_highlight/proc/cycle_visuals(new_color)
