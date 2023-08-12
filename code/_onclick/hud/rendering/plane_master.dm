@@ -64,7 +64,6 @@
 /atom/movable/screen/plane_master/non_integral
 	name = "game world non integral plane master"
 	plane = GAME_PLANE_NON_INTEGRAL
-	render_target = GAME_PLANE_NON_INTEGRAL_RENDER_TARGET
 	appearance_flags = PLANE_MASTER
 	blend_mode = BLEND_OVERLAY
 

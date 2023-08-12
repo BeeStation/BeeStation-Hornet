@@ -5,6 +5,7 @@
 
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "navbeacon0-f"
+	plane = GAME_PLANE_NON_INTEGRAL
 	name = "navigation beacon"
 	desc = "A radio beacon used for bot navigation."
 	layer = UNDER_CATWALK

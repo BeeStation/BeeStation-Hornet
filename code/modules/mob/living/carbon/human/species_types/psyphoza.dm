@@ -254,6 +254,13 @@
 	filters += filter(type = "radial_blur", size = 0.012)
 	filters += filter(type = "bloom", size = 5, threshold = rgb(85,85,85))
 
+/atom/movable/screen/fullscreen/blind/psychic/mask
+	icon_state = "mask_small"
+	render_target = "psychic_mask"
+
+/atom/movable/screen/fullscreen/blind/psychic/mask/unique_filters()
+	filters += filter(type = "alpha", render_source = "blind_psychic")
+
 //And this type as a seperate type-path to avoid issues with animations & locate()
 /atom/movable/screen/fullscreen/blind/psychic_highlight
 	icon_state = "trip"
@@ -293,13 +300,6 @@
 				. = color
 	//Wrap index back around
 	visual_index = visual_index >= 2 ? 0 :  visual_index
-
-/atom/movable/screen/fullscreen/blind/psychic/mask
-	icon_state = "mask_small"
-	render_target = "psychic_mask"
-
-/atom/movable/screen/fullscreen/blind/psychic/mask/unique_filters()
-	filters += filter(type = "alpha", render_source = "blind_psychic")
 
 //Action for changing screen color
 /datum/action/change_psychic_visual
