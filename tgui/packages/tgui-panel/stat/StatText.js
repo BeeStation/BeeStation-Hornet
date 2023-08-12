@@ -63,14 +63,7 @@ export const StatTextText = (props, context) => {
 };
 
 export const StatTextButton = (props, context) => {
-  const {
-    title,
-    text,
-    action_id,
-    params = [],
-    multirow = false,
-    buttons = [],
-  } = props;
+  const { title, text, action_id, params = [], multirow = false, buttons = [] } = props;
   return (
     <Flex.Item mt={1}>
       <Button
@@ -82,13 +75,19 @@ export const StatTextButton = (props, context) => {
             params: params,
           })
         }
-        color="transparent" >
+        color="transparent">
         {!multirow ? (
           <>
-            <Box bold inline mr="5px" verticalAlign="top">{title}</Box>
-            <Box width="100%" pr="80px" inline style={{
-              'white-space': 'normal',
-            }}>
+            <Box bold inline mr="5px" verticalAlign="top">
+              {title}
+            </Box>
+            <Box
+              width="100%"
+              pr="80px"
+              inline
+              style={{
+                'white-space': 'normal',
+              }}>
               {text}
             </Box>
           </>
@@ -96,28 +95,30 @@ export const StatTextButton = (props, context) => {
           <>
             <Flex bold direction="row">
               <Flex.Item grow={1}>{title}</Flex.Item>
-              {buttons.map(buttonInfo => (
+              {buttons.map((buttonInfo) => (
                 <Flex.Item shrink={1} key={buttonInfo}>
-                  <Button color={buttonInfo["color"]} onClick={(e) => {
-                    e.stopPropagation();
-                    Byond.sendMessage('stat/pressed', {
-                      action_id: buttonInfo["action_id"],
-                      params: buttonInfo["params"],
-                    });
-                  }}>
-                    {buttonInfo["title"]}
+                  <Button
+                    color={buttonInfo['color']}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      Byond.sendMessage('stat/pressed', {
+                        action_id: buttonInfo['action_id'],
+                        params: buttonInfo['params'],
+                      });
+                    }}>
+                    {buttonInfo['title']}
                   </Button>
                 </Flex.Item>
               ))}
             </Flex>
-            <Box style={{
-              'white-space': 'normal',
-            }}>
+            <Box
+              style={{
+                'white-space': 'normal',
+              }}>
               {text}
             </Box>
           </>
         )}
-
       </Button>
     </Flex.Item>
   );
