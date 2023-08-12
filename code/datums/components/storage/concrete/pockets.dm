@@ -98,6 +98,77 @@
 		/obj/item/gun/ballistic/revolver/detective,
 		/obj/item/ammo_box/c38))
 
+/datum/component/storage/concrete/pockets/harness
+	max_items = 2
+	max_w_class = WEIGHT_CLASS_SMALL
+	rustle_sound = TRUE
+	var/atom/original_parent
+
+/datum/component/storage/concrete/pockets/harness/real_location()
+	// if the component is reparented to a jumpsuit, the items still go in the harness
+	return original_parent
+
+/datum/component/storage/concrete/pockets/harness/Initialize()
+	original_parent = parent
+	. = ..()
+
+/datum/component/storage/concrete/pockets/harness/engineer
+	max_items = 3
+	max_w_class = WEIGHT_CLASS_NORMAL
+
+/datum/component/storage/concrete/pockets/harness/janitor
+	max_items = 3
+	max_w_class = WEIGHT_CLASS_NORMAL
+
+/datum/component/storage/concrete/pockets/harness/engineer/Initialize()
+	original_parent = parent
+	. = ..()
+	can_hold = typecacheof(list(
+		/obj/item/crowbar,
+		/obj/item/powertool,
+		/obj/item/screwdriver,
+		/obj/item/weldingtool,
+		/obj/item/wirecutters,
+		/obj/item/wrench,
+		/obj/item/multitool,
+		/obj/item/flashlight,
+		/obj/item/stack/cable_coil,
+		/obj/item/t_scanner,
+		/obj/item/analyzer,
+		/obj/item/geiger_counter,
+		/obj/item/extinguisher/mini,
+		/obj/item/radio,
+		/obj/item/clothing/gloves,
+		/obj/item/holosign_creator/atmos,
+		/obj/item/holosign_creator/engineering,
+		/obj/item/forcefield_projector,
+		/obj/item/assembly/signaler,
+		/obj/item/lightreplacer,
+		/obj/item/construction/rcd,
+		/obj/item/pipe_dispenser,
+		/obj/item/inducer,
+		/obj/item/plunger,
+		/obj/item/airlock_painter,
+		/obj/item/shuttle_creator))
+
+/datum/component/storage/concrete/pockets/harness/janitor/Initialize()
+	original_parent = parent
+	. = ..()
+	can_hold = typecacheof(list(
+		/obj/item/grenade/chem_grenade,
+		/obj/item/lightreplacer,
+		/obj/item/reagent_containers/spray,
+		/obj/item/soap,
+		/obj/item/holosign_creator/janibarrier,
+		/obj/item/forcefield_projector,
+		/obj/item/key/janitor,
+		/obj/item/clothing/gloves,
+		/obj/item/melee/flyswatter,
+		/obj/item/assembly/mousetrap,
+		/obj/item/paint/paint_remover,
+		/obj/item/wirebrush
+		))
+
 /datum/component/storage/concrete/pockets/helmet
 	quickdraw = TRUE
 	max_combined_w_class = 6

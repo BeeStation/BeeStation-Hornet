@@ -388,6 +388,24 @@
 	new /obj/item/ammo_box/c38/match/bouncy(src)
 	new /obj/item/ammo_box/c38/match/bouncy(src)
 
+/obj/item/clothing/accessory/harness
+	name = "gear harness"
+	desc = "A harness lined with pockets. Turns your jumpsuit into honorary cargo shorts."
+	icon_state = "holster"
+	item_state = "holster"
+	w_class = WEIGHT_CLASS_NORMAL
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/harness
+
+/obj/item/clothing/accessory/harness/engineer
+	name = "engineer's harness"
+	desc = "An extension to the engineer's belt, carry around those few extra tools!"
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/harness/engineer
+
+/obj/item/clothing/accessory/harness/janitor
+	name = "janitor's harness"
+	desc = "More pockets for the janitor to lose their keys in, holds cleaning supplies too."
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/harness/janitor
+
 //Poppy Pin
 /obj/item/clothing/accessory/poppy_pin
 	name = "poppy pin"

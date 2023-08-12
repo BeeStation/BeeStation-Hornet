@@ -682,7 +682,7 @@
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 6
-	STR.max_w_class = WEIGHT_CLASS_BULKY // Set to this so the  light replacer can fit.
+	STR.max_w_class = WEIGHT_CLASS_BULKY // Set to this so the light replacer can fit.
 	var/static/list/can_hold = typecacheof(list(
 		/obj/item/grenade/chem_grenade,
 		/obj/item/lightreplacer,
@@ -696,7 +696,8 @@
 		/obj/item/melee/flyswatter,
 		/obj/item/assembly/mousetrap,
 		/obj/item/paint/paint_remover,
-		/obj/item/pushbroom
+		/obj/item/pushbroom,
+		/obj/item/wirebrush
 		))
 	STR.can_hold = can_hold
 
