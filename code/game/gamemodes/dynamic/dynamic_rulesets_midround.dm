@@ -885,6 +885,7 @@
 	cost = 9
 	minimum_players = 20
 	repeatable = TRUE
+	blocking_rules = list(/datum/dynamic_ruleset/roundstart/nuclear, /datum/dynamic_ruleset/roundstart/clockcult)
 	var/spawn_loc
 
 /datum/dynamic_ruleset/midround/from_ghosts/ninja/ready(forced)
