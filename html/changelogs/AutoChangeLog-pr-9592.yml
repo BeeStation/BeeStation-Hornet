@@ -1,0 +1,6 @@
+author: Absolucy
+delete-after: true
+changes:
+  - bugfix: Fixed an improperly wired APC in the Medbay lobby on RadStation.
+  - tweak: Swapped the position of a plant and water cooler in the Medbay lobby on
+      RadStation, to allow for easier access to the APC.
