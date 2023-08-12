@@ -1,7 +1,7 @@
 #define REM REAGENTS_EFFECT_MULTIPLIER
 #define METABOLITE_RATE     0.5 // How much of a reagent is converted metabolites if one is defined
 #define MAX_METABOLITES		15  // The maximum amount of a given metabolite someone can have at a time
-#define METABOLITE_PENALTY(path) clamp(M.reagents.get_reagent_amount(path)/2.5, 1, 5) //Ranges from 1 to 5 depending on level of metabolites. 
+#define METABOLITE_PENALTY(path) clamp(M.reagents.get_reagent_amount(path)/2.5, 1, 5) //Ranges from 1 to 5 depending on level of metabolites.
 
 GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 
@@ -65,6 +65,17 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	return
 
 /datum/reagent/proc/reaction_turf(turf/T, volume)
+	if(!isspaceturf(T))
+		var/obj/effect/decal/cleanable/puddle/S = locate() in T.contents
+		if(!S)
+			S = new/obj/effect/decal/cleanable/puddle(T)
+		S.icon_state = pick("splatter_0", "splatter_1", "splatter_2", "splatter_3", "splatter_4", "splatter_5", "splatter_7", "splatter_8", "splatter_9", "splatter_10", "splatter_11", "splatter_12", "splatter_13", "splatter_14")
+		S.pixel_x = rand(-8, 8)
+		S.pixel_y = rand(-8, 8)
+		S.transform = new/matrix()
+		S.transform = S.transform.Scale(min((rand(50, 60) + volume) / 100, 1)) //pretty arbitrary, random size between 51 and 100%, based on volume with random variance
+		S.transform = S.transform.Turn(rand(0, 360))
+		S.add_atom_colour(color, WASHABLE_COLOUR_PRIORITY)
 	return
 
 /datum/reagent/proc/on_mob_life(mob/living/carbon/M)
