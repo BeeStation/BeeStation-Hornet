@@ -34,7 +34,7 @@
 /datum/component/construction/proc/action(datum/source, obj/item/I, mob/living/user)
 	SIGNAL_HANDLER
 
-	return check_step(I, user)
+	return check_step(I, user) ? COMPONENT_NO_AFTERATTACK : NONE
 
 /datum/component/construction/proc/update_index(diff)
 	index += diff
