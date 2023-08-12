@@ -92,7 +92,6 @@
 	return original_parent
 
 /datum/component/storage/concrete/pockets/holster/detective/Initialize()
-	original_parent = parent
 	. = ..()
 	can_hold = typecacheof(list(
 		/obj/item/gun/ballistic/revolver/detective,
@@ -121,7 +120,6 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 
 /datum/component/storage/concrete/pockets/harness/engineer/Initialize()
-	original_parent = parent
 	. = ..()
 	can_hold = typecacheof(list(
 		/obj/item/crowbar,
@@ -152,7 +150,6 @@
 		/obj/item/shuttle_creator))
 
 /datum/component/storage/concrete/pockets/harness/janitor/Initialize()
-	original_parent = parent
 	. = ..()
 	can_hold = typecacheof(list(
 		/obj/item/grenade/chem_grenade,
