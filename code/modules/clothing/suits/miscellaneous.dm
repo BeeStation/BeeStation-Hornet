@@ -726,6 +726,31 @@
 /obj/item/clothing/head/hooded/winterhood/miner
 	icon_state = "winterhood_miner"
 
+/obj/item/clothing/suit/hooded/wintercoat/janitor
+	name = "janitorial winter coat"
+	icon_state = "coatjanitor"
+	item_state = "coatjanitor"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/janitor
+	allowed = list(
+		/obj/item/grenade/chem_grenade,
+		/obj/item/lightreplacer,
+		/obj/item/flashlight,
+		/obj/item/reagent_containers/spray,
+		/obj/item/soap,
+		/obj/item/holosign_creator/janibarrier,
+		/obj/item/forcefield_projector,
+		/obj/item/key/janitor,
+		/obj/item/clothing/gloves,
+		/obj/item/melee/flyswatter,
+		/obj/item/assembly/mousetrap,
+		/obj/item/paint/paint_remover,
+		/obj/item/pushbroom,
+		/obj/item/wirebrush,
+		/obj/item/storage/bag/trash
+	)
+/obj/item/clothing/head/hooded/winterhood/janitor
+	icon_state = "winterhood_janitor"
+
 //Old winter coats
 
 /obj/item/clothing/suit/hooded/wintercoat/old

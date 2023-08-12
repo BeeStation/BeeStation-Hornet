@@ -202,7 +202,10 @@
 /obj/structure/janitorialcart/update_icon()
 	cut_overlays()
 	if(mybag)
-		add_overlay("cart_garbage")
+		if(istype(mybag, /obj/item/storage/bag/trash/bluespace))
+			add_overlay("cart_garbage_bluespace")
+		else
+			add_overlay("cart_garbage")
 	if(mymop)
 		add_overlay("cart_mop")
 	if(mybroom)

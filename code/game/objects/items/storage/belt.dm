@@ -696,7 +696,8 @@
 		/obj/item/melee/flyswatter,
 		/obj/item/assembly/mousetrap,
 		/obj/item/paint/paint_remover,
-		/obj/item/pushbroom
+		/obj/item/pushbroom,
+		/obj/item/wirebrush
 		))
 	STR.can_hold = can_hold
 

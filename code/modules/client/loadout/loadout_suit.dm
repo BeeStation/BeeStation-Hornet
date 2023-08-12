@@ -79,6 +79,11 @@
 	path = /obj/item/clothing/suit/hooded/wintercoat/miner
 	allowed_roles = list(JOB_NAME_SHAFTMINER)
 
+/datum/gear/suit/wintercoat/janitor
+	display_name = "janitorial winter coat"
+	path = /obj/item/clothing/suit/hooded/wintercoat/janitor
+	allowed_roles = list(JOB_NAME_JANITOR)
+
 //NOSTALGIC WINTER COATS
 
 /datum/gear/suit/oldwintercoat
