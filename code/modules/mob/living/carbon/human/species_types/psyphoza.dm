@@ -277,7 +277,6 @@
 	. = ..()
 	filters += filter(type = "radial_blur", size = 0.012)
 	filters += filter(type = "bloom", size = 5, threshold = rgb(85,85,85))
-	filters += filter(type = "alpha", icon = icon('icons/mob/psychic.dmi', "e"))
 	color = origin_color
 
 //And this type as a seperate type-path to avoid issues with animations & locate()
