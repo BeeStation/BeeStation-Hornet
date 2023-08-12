@@ -76,7 +76,7 @@
 		target_step = steps[target_index]
 
 	if(I.tool_behaviour)
-		INVOKE_ASYNC(CALLBACK(I, TYPE_PROC_REF(/obj/item, use_tool), parent, user, 0, 0, 50))
+		INVOKE_ASYNC(I, TYPE_PROC_REF(/obj/item, use_tool), parent, user, 0, 0, 50)
 		return TRUE
 
 	else if(diff == FORWARD)
@@ -92,7 +92,7 @@
 
 			// Using stacks
 			else if(istype(I, /obj/item/stack))
-				INVOKE_ASYNC(CALLBACK(I, TYPE_PROC_REF(/obj/item, use_tool), parent, user, 0, current_step["amount"], 50))
+				INVOKE_ASYNC(I, TYPE_PROC_REF(/obj/item, use_tool), parent, user, 0, current_step["amount"], 50)
 				return TRUE
 
 	// Going backwards? Undo the last action. Drop/respawn the items used in last action, if any.
