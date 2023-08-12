@@ -174,6 +174,8 @@ ALTER TABLE `SS13_preferences` MODIFY COLUMN `preference_tag` VARCHAR(255) NOT N
 
 UPDATE `SS13_preferences`
     SET `preference_tag` = CASE
+    WHEN `preference_tag` = '3' THEN 'asaycolor'
+    WHEN `preference_tag` = '4' THEN 'ooccolor'
     WHEN `preference_tag` = '5' THEN 'last_changelog'
     WHEN `preference_tag` = '6' THEN 'ui_style'
     WHEN `preference_tag` = '7' THEN 'outline_color'
