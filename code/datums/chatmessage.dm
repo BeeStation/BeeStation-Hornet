@@ -95,7 +95,6 @@
 			UnregisterSignal(C, COMSIG_PARENT_QDELETING)
 	if(!QDELETED(message_loc))
 		LAZYREMOVE(message_loc.chat_messages, src)
-		UnregisterSignal(message_loc, COMSIG_PARENT_QDELETING)
 	hearers = null
 	message_loc = null
 	message = null
@@ -131,11 +130,8 @@
 
 	var/client/first_hearer = hearers[1]
 
-	// Translate any existing messages upwards, apply exponential decay factors to timers
-	message_loc = get_atom_on_turf(target)
-
 	// Delete when the atom its above gets deleted.
-	RegisterSignal(message_loc, COMSIG_PARENT_QDELETING, PROC_REF(on_parent_qdel))
+	RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(on_parent_qdel))
 
 	for(var/client/C as() in hearers)
 		if(C)
@@ -213,6 +209,8 @@
 	var/mheight = WXH_TO_HEIGHT(first_hearer.MeasureText(complete_text, null, CHAT_MESSAGE_WIDTH))
 	approx_lines = max(1, mheight / CHAT_MESSAGE_APPROX_LHEIGHT)
 
+	// Translate any existing messages upwards, apply exponential decay factors to timers
+	message_loc = get_atom_on_turf(target)
 	if (LAZYLEN(message_loc.chat_messages))
 		var/idx = 1
 		var/combined_height = approx_lines
