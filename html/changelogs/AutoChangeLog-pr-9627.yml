@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: Following wakes with the hand teleporter takes 10 seconds, is visible
+      on the other side and only teleports the holder of the hand teleporter.
