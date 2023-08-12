@@ -91,10 +91,11 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 
 /datum/atom_hud/alternate_appearance/basic/remove_from_hud(atom/A)
 	. = ..()
-	if(.)
-		A.hud_list -= appearance_key
-		if(!QDELETED(src))
-			qdel(src)
+	if(!.)
+		return
+	A.hud_list -= appearance_key
+	if(!QDELETED(src))
+		qdel(src)
 
 /datum/atom_hud/alternate_appearance/basic/copy_overlays(atom/other, cut_old)
 	theImage.copy_overlays(other, cut_old)
