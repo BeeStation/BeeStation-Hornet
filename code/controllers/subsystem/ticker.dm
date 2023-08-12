@@ -1,4 +1,5 @@
 #define ROUND_START_MUSIC_LIST "strings/round_start_sounds.txt"
+GLOBAL_LIST_EMPTY(roundstart_areas_lights_on)
 
 SUBSYSTEM_DEF(ticker)
 	name = "Ticker"
@@ -357,10 +358,7 @@ SUBSYSTEM_DEF(ticker)
 	//Setup orbits.
 	SSorbits.post_load_init()
 
-	PostSetup()
-	SSstat.clear_global_alert()
-
-	// Toggle lightswitches on in occupied departments
+	// Store areas where lights need to stay on
 	var/list/lightup_area_typecache = list()
 	var/minimal_access = CONFIG_GET(flag/jobs_have_minimal_access)
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
@@ -371,14 +369,12 @@ SUBSYSTEM_DEF(ticker)
 		if(!job)
 			continue
 		lightup_area_typecache |= job.areas_to_light_up(minimal_access)
-	for(var/area/area as() in typecache_filter_list(GLOB.sortedAreas, lightup_area_typecache))
-		if(area.lights_always_start_on)
-			continue
-		area.lightswitch = TRUE
-		area.update_appearance()
-		for(var/obj/machinery/light_switch/lswitch in area)
-			lswitch.update_appearance()
-		area.power_change()
+	var/list/target_area_list = typecache_filter_list(GLOB.areas, lightup_area_typecache)
+	if(length(target_area_list))
+		GLOB.roundstart_areas_lights_on.Add(target_area_list)
+
+	PostSetup()
+	SSstat.clear_global_alert()
 
 	return TRUE
 

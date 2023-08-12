@@ -1,6 +1,8 @@
 /datum/job/quartermaster
 	title = JOB_NAME_QUARTERMASTER
 	flag = QUARTERMASTER
+	description = "Oversee and direct cargo technicians to fulfill requests for supplies and keep the station well stocked, request funds from department budgets to cover costs, deny frivolous orders when money is tight, and sell anything the station doesn't need."
+	department_for_prefs = DEPT_BITFLAG_CAR
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	faction = "Station"
