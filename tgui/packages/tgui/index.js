@@ -37,6 +37,7 @@ import './styles/themes-ntos/clown-pink.scss';
 import './styles/themes-ntos/clown-yellow.scss';
 import './styles/themes-ntos/hackerman.scss';
 import './styles/themes/generic.scss';
+import './styles/themes/generic-yellow.scss';
 import './styles/themes/paper.scss';
 import './styles/themes/retro.scss';
 import './styles/themes/syndicate.scss';

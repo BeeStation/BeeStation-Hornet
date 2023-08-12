@@ -146,7 +146,7 @@
 	throwforce = 15
 	throw_speed = 5
 	throw_range = 7
-	var/amount_per_transfer_from_this = 5
+	var/amount_per_transfer_from_this = 10
 	var/list/possible_transfer_amounts
 	desc = "An infamous knife of syndicate design, it has a tiny hole going through the blade to the handle which stores toxins."
 	materials = null
@@ -154,7 +154,7 @@
 /obj/item/kitchen/knife/poison/Initialize(mapload)
 	. = ..()
 	create_reagents(40,OPENCONTAINER)
-	possible_transfer_amounts = list(3,5)
+	possible_transfer_amounts = list(5, 10)
 
 /obj/item/kitchen/knife/poison/attack_self(mob/user)
 	if(possible_transfer_amounts.len)
@@ -166,6 +166,7 @@
 					amount_per_transfer_from_this = possible_transfer_amounts[i+1]
 				else
 					amount_per_transfer_from_this = possible_transfer_amounts[1]
+				balloon_alert(user, "Transferring [amount_per_transfer_from_this]u.")
 				to_chat(user, "<span class='notice'>[src]'s transfer amount is now [amount_per_transfer_from_this] units.</span>")
 				return
 

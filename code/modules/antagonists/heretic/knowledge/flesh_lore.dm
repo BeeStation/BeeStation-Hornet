@@ -172,7 +172,7 @@
 
 	if(!soon_to_be_ghoul.mind || !soon_to_be_ghoul.client)
 		message_admins("[ADMIN_LOOKUPFLW(user)] is creating a voiceless dead of a body with no player.")
-		var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [soon_to_be_ghoul.real_name], a voiceless dead?", ROLE_HERETIC, null, ROLE_HERETIC, 5 SECONDS, soon_to_be_ghoul)
+		var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [soon_to_be_ghoul.real_name], a voiceless dead?", ROLE_HERETIC, null, 7.5 SECONDS, soon_to_be_ghoul)
 		if(!LAZYLEN(candidates))
 			loc.balloon_alert(user, "Ritual failed, no ghosts")
 			return FALSE

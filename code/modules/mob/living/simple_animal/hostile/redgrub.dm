@@ -20,7 +20,7 @@
 	ventcrawler = VENTCRAWLER_ALWAYS
 	faction = list("hostile")
 	attack_sound = 'sound/effects/blobattack.ogg'
-	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
 	stat_attack = SOFT_CRIT
 	gold_core_spawnable = NO_SPAWN //making these spawn from gold cores is kinda bad for xenobio. these grubs can be further implemented for it at a later date if someone wants to

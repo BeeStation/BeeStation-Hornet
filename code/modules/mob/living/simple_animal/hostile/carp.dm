@@ -147,7 +147,7 @@
 	unique_name = FALSE
 	speak_emote = list("squeaks")
 	gold_core_spawnable = NO_SPAWN
-	faction = list("carp", ROLE_SYNDICATE)
+	faction = list("carp", FACTION_SYNDICATE)
 	AIStatus = AI_OFF
 	/// Keeping track of the nuke disk for the functionality of storing it.
 	var/obj/item/disk/nuclear/disky

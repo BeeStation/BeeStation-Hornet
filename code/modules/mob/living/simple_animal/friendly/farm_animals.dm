@@ -217,7 +217,7 @@
 	maxHealth = 3
 	ventcrawler = VENTCRAWLER_ALWAYS
 	var/amount_grown = 0
-	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
 	gold_core_spawnable = FRIENDLY_SPAWN
 	chat_color = "#FFDC9B"

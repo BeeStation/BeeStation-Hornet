@@ -15,13 +15,12 @@
 	if(!Adjacent(usr) || !over.Adjacent(usr))
 		return // should stop you from dragging through windows
 
-	over.MouseDrop_T(src,usr)
+	over.MouseDrop_T(src,usr, params)
 	return
 
 // receive a mousedrop
-/atom/proc/MouseDrop_T(atom/dropping, mob/user)
-	SEND_SIGNAL(src, COMSIG_MOUSEDROPPED_ONTO, dropping, user)
-	return
+/atom/proc/MouseDrop_T(atom/dropping, mob/user, params)
+	SEND_SIGNAL(src, COMSIG_MOUSEDROPPED_ONTO, dropping, user, params)
 
 /client
 	var/obj/item/active_mousedown_item = null
@@ -90,8 +89,8 @@
 	. = 1
 
 /client/MouseDrag(src_object,atom/over_object,src_location,over_location,src_control,over_control,params)
-	var/list/L = params2list(params)
-	if (L["middle"])
+	var/list/modifiers = params2list(params)
+	if (LAZYACCESS(modifiers, MIDDLE_CLICK))
 		if (src_object && src_location != over_location)
 			middragtime = world.time
 			middragatom = src_object

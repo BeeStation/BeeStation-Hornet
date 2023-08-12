@@ -32,8 +32,8 @@ GLOBAL_VAR(clockcult_eminence)
 	required_players = 24
 	required_enemies = 4
 	recommended_enemies = 4
-	antag_flag = ROLE_SERVANT_OF_RATVAR
-	enemy_minimum_age = 14
+	role_preference = /datum/role_preference/antagonist/clock_cultist
+	antag_datum = /datum/antagonist/servant_of_ratvar
 
 	title_icon = "clockcult"
 	announce_span = "danger"
@@ -58,7 +58,7 @@ GLOBAL_VAR(clockcult_eminence)
 	for(var/i in 1 to clock_cultists)
 		if(!antag_candidates.len)
 			break
-		var/datum/mind/clockie = antag_pick(antag_candidates, ROLE_SERVANT_OF_RATVAR)
+		var/datum/mind/clockie = antag_pick(antag_candidates, /datum/role_preference/antagonist/clock_cultist)
 		//In case antag_pick breaks
 		if(!clockie)
 			continue
@@ -66,6 +66,7 @@ GLOBAL_VAR(clockcult_eminence)
 		selected_servants += clockie
 		clockie.assigned_role = ROLE_SERVANT_OF_RATVAR
 		clockie.special_role = ROLE_SERVANT_OF_RATVAR
+		GLOB.pre_setup_antags += clockie
 	generate_clockcult_scriptures()
 	return TRUE
 
@@ -87,6 +88,7 @@ GLOBAL_VAR(clockcult_eminence)
 		S.equip_carbon(servant_mind.current)
 		S.equip_servant()
 		S.prefix = CLOCKCULT_PREFIX_MASTER
+		GLOB.pre_setup_antags -= S
 	//Setup the conversion limits for auto opening the ark
 	calculate_clockcult_values()
 	return ..()

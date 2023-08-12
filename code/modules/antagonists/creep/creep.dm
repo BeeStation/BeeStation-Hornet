@@ -2,7 +2,7 @@
 	name = "Obsessed"
 	show_in_antagpanel = TRUE
 	antagpanel_category = "Other"
-	job_rank = ROLE_OBSESSED
+	banning_key = ROLE_OBSESSED
 	show_name_in_check_antagonists = TRUE
 	roundend_category = "obsessed"
 	count_against_dynamic_roll_chance = FALSE
@@ -48,7 +48,7 @@
 	var/mob/living/M = mob_override || owner.current
 	update_obsession_icons_removed(M)
 
-/datum/antagonist/obsessed/proc/forge_objectives(var/datum/mind/obsessionmind)
+/datum/antagonist/obsessed/proc/forge_objectives(datum/mind/obsessionmind)
 	var/list/objectives_left = list("spendtime", "polaroid", "hug")
 	var/datum/objective/assassinate/obsessed/kill = new
 	kill.owner = owner

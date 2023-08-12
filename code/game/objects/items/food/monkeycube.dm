@@ -29,7 +29,7 @@
 	qdel(src)
 
 /obj/item/food/monkeycube/syndicate
-	faction = list("neutral", ROLE_SYNDICATE)
+	faction = list("neutral", FACTION_SYNDICATE)
 
 /obj/item/food/monkeycube/gorilla
 	name = "gorilla cube"

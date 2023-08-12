@@ -1,6 +1,7 @@
 /datum/species/skeleton
 	// 2spooky
 	name = "\improper Spooky Scary Skeleton"
+	plural_form = "Skeletons"
 	id = SPECIES_SKELETON
 	sexes = 0
 	meat = /obj/item/food/meat/slab/human/mutant/skeleton
@@ -61,3 +62,15 @@
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
 	return ..()
+
+/datum/species/skeleton/get_species_description()
+	return "A rattling skeleton! They descend upon Space Station 13 \
+		Every year to spook the crew! \"I've got a BONE to pick with you!\""
+
+/datum/species/skeleton/get_species_lore()
+	return list(
+		"Skeletons want to be feared again! Their presence in media has been destroyed, \
+		or at least that's what they firmly believe. They're always the first thing fought in an RPG, \
+		they're Flanderized into pun rolling JOKES, and it's really starting to get to them. \
+		You could say they're deeply RATTLED. Hah."
+	)

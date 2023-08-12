@@ -5,13 +5,19 @@
 	var/targetitem = /obj/item/bikehorn		//typepath of the objective item
 	var/difficulty = 9001							//vaguely how hard it is to do this objective
 	var/list/excludefromjob = list()				//If you don't want a job to get a certain objective (no captain stealing his own medal, etcetc)
+	var/list/requiredjob = list()			// If this list is not null, then at least 1 of these jobs must be spawned in order for this objective to be valid. Used for objectives that are hidden/non obvious when stolen.
 	var/list/altitems = list()				//Items which can serve as an alternative to the objective (darn you blueprints)
 	var/list/special_equipment = list()
+	/// Require that the target item is spawned at roundstart by closets.
+	var/require_item_spawns_at_roundstart = TRUE
 
 /datum/objective_item/proc/check_special_completion() //for objectives with special checks (is that slime extract unused? does that intellicard have an ai in it? etcetc)
 	return 1
 
 /datum/objective_item/proc/TargetExists()
+	return TRUE
+
+/datum/objective_item/proc/is_valid()
 	return TRUE
 
 /datum/objective_item/steal/New()
@@ -25,6 +31,14 @@
 	GLOB.possible_items -= src
 	return ..()
 
+/datum/objective_item/steal/is_valid()
+	if (!length(requiredjob))
+		return TRUE
+	for (var/mob/living/L in GLOB.mob_living_list)
+		if (L.mind?.assigned_role in requiredjob)
+			return TRUE
+	return FALSE
+
 /datum/objective_item/steal/caplaser
 	name = "the captain's antique laser gun."
 	targetitem = /obj/item/gun/energy/laser/captain
@@ -35,7 +49,8 @@
 	name = "the head of security's personal laser gun."
 	targetitem = /obj/item/gun/energy/e_gun/hos
 	difficulty = 10
-	excludefromjob = list("Head Of Security")
+	excludefromjob = list(JOB_NAME_HEADOFSECURITY)
+	requiredjob = list(JOB_NAME_HEADOFSECURITY, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN)
 
 /datum/objective_item/steal/handtele
 	name = "a hand teleporter."
@@ -54,6 +69,7 @@
 	targetitem =  /obj/item/clothing/shoes/magboots/advance
 	difficulty = 5
 	excludefromjob = list(JOB_NAME_CHIEFENGINEER)
+	requiredjob = list(JOB_NAME_CHIEFENGINEER)
 
 /datum/objective_item/steal/capmedal
 	name = "the medal of captaincy."
@@ -66,6 +82,7 @@
 	targetitem = /obj/item/reagent_containers/hypospray/CMO
 	difficulty = 5
 	excludefromjob = list(JOB_NAME_CHIEFMEDICALOFFICER)
+	requiredjob = list(JOB_NAME_CHIEFMEDICALOFFICER)
 
 /datum/objective_item/steal/nukedisc
 	name = "the nuclear authentication disk."
@@ -81,12 +98,14 @@
 	targetitem = /obj/item/clothing/suit/armor/laserproof
 	difficulty = 3
 	excludefromjob = list(JOB_NAME_HEADOFSECURITY, JOB_NAME_WARDEN)
+	requiredjob = list(JOB_NAME_HEADOFSECURITY, JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN)
 
 /datum/objective_item/steal/reactive
 	name = "the reactive teleport armor."
 	targetitem = /obj/item/clothing/suit/armor/reactive/teleport
 	difficulty = 5
 	excludefromjob = list(JOB_NAME_RESEARCHDIRECTOR)
+	requiredjob = list(JOB_NAME_RESEARCHDIRECTOR)
 
 /datum/objective_item/steal/documents
 	name = "any set of secret documents of any organization."
@@ -127,11 +146,11 @@
 	found_amount += T.air_contents.get_moles(GAS_PLASMA)
 	return found_amount>=target_amount
 
-
 /datum/objective_item/steal/functionalai
 	name = "a functional AI."
 	targetitem = /obj/item/aicard
 	difficulty = 20 //beyond the impossible
+	requiredjob = list(JOB_NAME_AI)
 
 /datum/objective_item/steal/functionalai/check_special_completion(obj/item/aicard/C)
 	for(var/mob/living/silicon/ai/A in C)
@@ -145,6 +164,7 @@
 	difficulty = 10
 	excludefromjob = list(JOB_NAME_CHIEFENGINEER)
 	altitems = list(/obj/item/photo)
+	requiredjob = list(JOB_NAME_CHIEFENGINEER)
 
 /datum/objective_item/steal/blueprints/check_special_completion(obj/item/I)
 	if(istype(I, /obj/item/areaeditor/blueprints))
@@ -160,6 +180,7 @@
 	targetitem = /obj/item/slime_extract
 	difficulty = 3
 	excludefromjob = list(JOB_NAME_RESEARCHDIRECTOR,JOB_NAME_SCIENTIST)
+	requiredjob = list(JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_SCIENTIST)
 
 /datum/objective_item/steal/slime/check_special_completion(obj/item/slime_extract/E)
 	if(E.Uses > 0)
@@ -171,6 +192,7 @@
 	targetitem = /obj/item/blackbox
 	difficulty = 10
 	excludefromjob = list(JOB_NAME_CHIEFENGINEER,JOB_NAME_STATIONENGINEER,JOB_NAME_ATMOSPHERICTECHNICIAN)
+	requiredjob = list(JOB_NAME_CHIEFENGINEER, JOB_NAME_RESEARCHDIRECTOR)
 
 //Unique Objectives
 /datum/objective_item/unique/docs_red
@@ -246,6 +268,7 @@
 	name = "5 cardboard."
 	targetitem = /obj/item/stack/sheet/cardboard
 	difficulty = 9001
+	require_item_spawns_at_roundstart = FALSE
 
 /datum/objective_item/stack/check_special_completion(obj/item/stack/S)
 	var/target_amount = text2num(name)

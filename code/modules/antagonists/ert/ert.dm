@@ -22,6 +22,7 @@
 	show_to_ghosts = TRUE
 	antag_moodlet = /datum/mood_event/focused
 	count_against_dynamic_roll_chance = FALSE
+	banning_key = ROLE_ERT
 
 /datum/antagonist/ert/on_gain()
 	if(random_names)
@@ -37,8 +38,8 @@
 /datum/antagonist/ert/proc/update_name()
 	var/name = pick(name_source)
 	if (!name)
-		name = owner.current.client?.prefs.active_character.custom_names["human"] || pick(GLOB.last_names)
-	owner.current.fully_replace_character_name(owner.current.real_name,"[role] [name]")
+		name = owner.current.client?.prefs.read_character_preference(/datum/preference/name/backup_human) || pick(GLOB.last_names)
+	owner.current.fully_replace_character_name(owner.current.real_name, "[role] [name]")
 
 /datum/antagonist/ert/deathsquad/New()
 	. = ..()

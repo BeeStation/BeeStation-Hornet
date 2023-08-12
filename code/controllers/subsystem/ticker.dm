@@ -1,4 +1,5 @@
 #define ROUND_START_MUSIC_LIST "strings/round_start_sounds.txt"
+GLOBAL_LIST_EMPTY(roundstart_areas_lights_on)
 
 SUBSYSTEM_DEF(ticker)
 	name = "Ticker"
@@ -357,6 +358,21 @@ SUBSYSTEM_DEF(ticker)
 	//Setup orbits.
 	SSorbits.post_load_init()
 
+	// Store areas where lights need to stay on
+	var/list/lightup_area_typecache = list()
+	var/minimal_access = CONFIG_GET(flag/jobs_have_minimal_access)
+	for(var/mob/living/carbon/human/player in GLOB.player_list)
+		var/role = player.mind?.assigned_role
+		if(!role)
+			continue
+		var/datum/job/job = SSjob.GetJob(role)
+		if(!job)
+			continue
+		lightup_area_typecache |= job.areas_to_light_up(minimal_access)
+	var/list/target_area_list = typecache_filter_list(GLOB.areas, lightup_area_typecache)
+	if(length(target_area_list))
+		GLOB.roundstart_areas_lights_on.Add(target_area_list)
+
 	PostSetup()
 	SSstat.clear_global_alert()
 
@@ -380,7 +396,6 @@ SUBSYSTEM_DEF(ticker)
 			S.after_round_start()
 		else
 			stack_trace("[S] [S.type] found in start landmarks list, which isn't a start landmark!")
-
 
 //These callbacks will fire after roundstart key transfer
 /datum/controller/subsystem/ticker/proc/OnRoundstart(datum/callback/cb)

@@ -1,55 +1,63 @@
 /**
  * # Scanner
  *
- * A handheld device which scans things.
+ * A handheld device that lets you flash it over people.
  */
-/obj/item/scanner
+/obj/item/wiremod_scanner
 	name = "scanner"
-	icon = 'icons/obj/assemblies/electronic_setups.dmi'
-	icon_state = "setup_small_hook"
+	icon = 'icons/obj/wiremod.dmi'
+	icon_state = "setup_small"
 	item_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
-	light_range = FALSE
 
-/obj/item/scanner/Initialize(mapload)
+	light_system = MOVABLE_LIGHT
+	light_range = 6
+	light_power = 1
+	light_on = FALSE
+
+/obj/item/wiremod_scanner/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/shell, list(
-		new /obj/item/circuit_component/scanner()
+		new /obj/item/circuit_component/wiremod_scanner()
 	), SHELL_CAPACITY_SMALL)
 
-/obj/item/circuit_component/scanner
+/obj/item/circuit_component/wiremod_scanner
 	display_name = "Scanner"
-	display_desc = "Used to receive inputs from the scanner shell. Use the shell on something to scan it."
+	desc = "Used to receive scanned entities from the scanner."
 
-	/// Atom that was scanned.
-	var/datum/port/output/scanned
-	/// Called when scanner is used.
+	/// Called when afterattack is called on the shell.
 	var/datum/port/output/signal
 
-/obj/item/circuit_component/scanner/Initialize(mapload)
-	. = ..()
-	scanned = add_output_port("Scanned", PORT_TYPE_ATOM)
-	signal = add_output_port("Signal", PORT_TYPE_SIGNAL)
+	/// The attacker
+	var/datum/port/output/attacker
 
-/obj/item/circuit_component/scanner/Destroy()
-	scanned = null
-	signal = null
-	return ..()
+	/// The entity being attacked
+	var/datum/port/output/attacking
 
-/obj/item/circuit_component/scanner/register_shell(atom/movable/shell)
-	RegisterSignal(shell, COMSIG_ITEM_PRE_ATTACK, PROC_REF(send_trigger))
 
-/obj/item/circuit_component/scanner/unregister_shell(atom/movable/shell)
-	UnregisterSignal(shell, COMSIG_ITEM_PRE_ATTACK)
+
+/obj/item/circuit_component/wiremod_scanner/populate_ports()
+	attacker = add_output_port("Scanner", PORT_TYPE_ATOM)
+	attacking = add_output_port("Scanned Entity", PORT_TYPE_ATOM)
+	signal = add_output_port("Scanned", PORT_TYPE_SIGNAL)
+
+/obj/item/circuit_component/wiremod_scanner/register_shell(atom/movable/shell)
+	RegisterSignal(shell, COMSIG_ITEM_AFTERATTACK, PROC_REF(handle_afterattack))
+
+/obj/item/circuit_component/wiremod_scanner/unregister_shell(atom/movable/shell)
+	UnregisterSignal(shell, COMSIG_ITEM_AFTERATTACK)
 
 /**
- * Called when the shell item is used on something.
+ * Called when the shell item attacks something
  */
-/obj/item/circuit_component/scanner/proc/send_trigger(atom/source, atom/target, mob/user)
+/obj/item/circuit_component/wiremod_scanner/proc/handle_afterattack(atom/source, atom/target, mob/user, proximity_flag)
 	SIGNAL_HANDLER
-	target.balloon_alert(user, "Scanned [target].")
-	playsound(user, get_sfx("terminal_type"), 25, FALSE)
-	. = COMPONENT_NO_ATTACK
-	scanned.set_output(target)
+	if(!proximity_flag)
+		return
+	source.balloon_alert(user, "scanned object")
+	playsound(source, get_sfx("terminal_type"), 25, FALSE)
+	attacker.set_output(user)
+	attacking.set_output(target)
 	signal.set_output(COMPONENT_SIGNAL)
+
