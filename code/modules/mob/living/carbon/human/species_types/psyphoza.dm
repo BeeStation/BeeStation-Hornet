@@ -104,7 +104,7 @@
 	desc = "Sense your surroundings psychically."
 	transparent_when_unavailable = TRUE
 	///The distant our psychic sense works
-	var/sense_range = 5
+	var/psychic_scale = 5
 	///The range we can hear-ping things from
 	var/hear_range = 8
 	///List of things we can't sense
@@ -144,6 +144,7 @@
 	RegisterSignal(M, COMSIG_MOB_ITEM_AFTERATTACK, PROC_REF(handle_ranged), TRUE)
 	//Overlay used to highlight objects
 	M.overlay_fullscreen("psychic_highlight", /atom/movable/screen/fullscreen/blind/psychic_highlight)
+	M.overlay_fullscreen("psychic_highlight_mask", /atom/movable/screen/fullscreen/blind/psychic/mask)
 	//Add option to change visuals
 	if(!(locate(/datum/action/change_psychic_visual) in owner.actions))
 		overlay_change = new(src)
@@ -163,6 +164,7 @@
 	. = ..()
 	if(has_cooldown_timer || !owner || !check_head())
 		return
+	dim_overlay()
 	has_cooldown_timer = TRUE
 	UpdateButtonIcon()
 	addtimer(CALLBACK(src, PROC_REF(finish_cooldown)), cooldown + (sense_time * min(1, overlays.len / PSYCHIC_OVERLAY_UPPER)))
@@ -226,10 +228,13 @@
 		animate(P, color = "#000") //This is a fix for a bug with ``animate()`` breaking
 		animate(P, color = P.origin_color, time = sense_time, easing = SINE_EASING, flags = EASE_IN)
 	//Highlight layer
-	var/atom/movable/screen/fullscreen/blind/psychic_highlight/B = locate(/atom/movable/screen/fullscreen/blind/psychic_highlight) in owner.screens
+	var/atom/movable/screen/fullscreen/blind/psychic/mask/B = locate(/atom/movable/screen/fullscreen/blind/psychic/mask) in owner.client?.screen
 	if(B)
-		animate(B, alpha = 255)
-		animate(B, alpha = 0, time = sense_time, easing = SINE_EASING, flags = EASE_IN)
+		var/matrix/ntransform = matrix(B.transform) //new scale
+		ntransform.Scale(psychic_scale)
+		var/matrix/otransform = matrix(B.transform) //old scale
+		animate(B, transform = ntransform)
+		animate(B, transform = otransform, time = sense_time, easing = SINE_EASING, flags = EASE_IN)
 	//Setup timer to delete image
 	if(overlay_timer)
 		deltimer(overlay_timer)
@@ -293,7 +298,7 @@
 	filters += filter(type = "bloom", size = 2, threshold = rgb(85,85,85))
 	filters += filter(type = "radial_blur", size = 0.012)
 	filters += filter(type = "alpha", render_source = "eeee")
-	filters += filter(type = "alpha", icon = icon('icons/mob/psychic.dmi', "e"))
+	filters += filter(type = "alpha", render_source = "psychic_mask")
 	cycle_visuals()
 
 /atom/movable/screen/fullscreen/blind/psychic_highlight/proc/cycle_visuals(new_color)
@@ -318,6 +323,18 @@
 				. = color
 	//Wrap index back around
 	visual_index = visual_index >= 2 ? 0 :  visual_index
+
+/atom/movable/screen/fullscreen/blind/psychic/mask
+	icon_state = "e"
+	render_target = "psychic_mask"
+	///Original sense size
+	var/original_size = 0.6
+
+/atom/movable/screen/fullscreen/blind/psychic/mask/Initialize(mapload)
+	. = ..()
+	var/matrix/ntransform = matrix(transform) //new scale
+	ntransform.Scale(original_size)
+	transform = ntransform
 
 //Action for changing screen color
 /datum/action/change_psychic_visual
@@ -368,7 +385,7 @@
 /datum/action/change_psychic_auto/proc/parent_destroy()
 	SIGNAL_HANDLER
 
-	Destroy()
+	qdel(src)
 
 /datum/action/change_psychic_auto/Trigger()
 	. = ..()
