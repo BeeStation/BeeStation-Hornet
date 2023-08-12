@@ -271,12 +271,14 @@ INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_val
 INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
     SELECT `ckey`,'sound_announcements',IF(`preference_value` & (1<<11) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
 );
+/* These two are inverted, as they were switched from 'disable' to 'enable' */
 INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'death_rattle',IF(`preference_value` & (1<<12) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
+    SELECT `ckey`,'death_rattle',IF(`preference_value` & (1<<12) > 0, 0, 1) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
 );
 INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'arrivals_rattle',IF(`preference_value` & (1<<13) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
+    SELECT `ckey`,'arrivals_rattle',IF(`preference_value` & (1<<13) > 0, 0, 1) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
 );
+/* Back to normal now */
 INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
     SELECT `ckey`,'combohud_lighting',IF(`preference_value` & (1<<14) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
 );
