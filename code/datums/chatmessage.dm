@@ -95,7 +95,7 @@
 			UnregisterSignal(C, COMSIG_PARENT_QDELETING)
 	if(!QDELETED(message_loc))
 		LAZYREMOVE(message_loc.chat_messages, src)
-		UnregisterSignal(message_loc, list(COMSIG_PARENT_QDELETING))
+		UnregisterSignal(message_loc, COMSIG_PARENT_QDELETING)
 	hearers = null
 	message_loc = null
 	message = null
