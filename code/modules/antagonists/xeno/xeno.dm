@@ -52,7 +52,6 @@
 	if(owner.antag_hud_icon_state == "xenomorph")
 		set_antag_hud(owner.current, null)
 
-
 //XENO
 /mob/living/carbon/alien/mind_initialize()
 	..()

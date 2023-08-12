@@ -237,6 +237,7 @@
 		hitsound = initial(hitsound)
 		embedding = list(embed_chance = EMBED_CHANCE, armour_block = 30)
 		throwforce = initial(throwforce)
+		sharpness = initial(sharpness)
 		playsound(user, 'sound/weapons/saberoff.ogg', 5, 1)
 		to_chat(user, "<span class='warning'>[src] can now be concealed.</span>")
 	else
@@ -248,6 +249,7 @@
 		hitsound = 'sound/weapons/blade1.ogg'
 		embedding = list(embed_chance = 200, max_damage_mult = 15, armour_block = 40) //rule of cool
 		throwforce = 35
+		sharpness = IS_SHARP
 		playsound(user, 'sound/weapons/saberon.ogg', 5, 1)
 		to_chat(user, "<span class='warning'>[src] is now active.</span>")
 	updateEmbedding()
