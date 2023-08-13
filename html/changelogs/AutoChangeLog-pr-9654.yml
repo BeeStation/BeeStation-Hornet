@@ -1,5 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - rscadd: Added a new preference for darkened flashes, which flash to black rather
-      than white.
