@@ -1,0 +1,4 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - tweak: mimic mob only takes self-damage when they do not mind instead of not-ckey
