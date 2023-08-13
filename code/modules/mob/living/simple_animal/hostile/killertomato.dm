@@ -28,12 +28,17 @@
 	maxbodytemp = 500
 	gold_core_spawnable = HOSTILE_SPAWN
 	var/frenzythreshold = 5 //how many tomatoes can this tomato see on screen before going berserk
+	var/is_frenzy = FALSE
+	var/last_frenzy_check = 0
 
 /mob/living/simple_animal/hostile/killertomato/CanAttack(atom/the_target)
-	var/tomatosseen = 0
-	for(var/mob/living/simple_animal/hostile/killertomato/T in orange(5, src))
-		tomatosseen += 1
-	if(tomatosseen >= frenzythreshold && istype(the_target, /mob/living/simple_animal/hostile/killertomato))
+	if (last_frenzy_check + 5 SECONDS < world.time)
+		var/tomatosseen = 0
+		for(var/mob/living/simple_animal/hostile/killertomato/T in orange(5, src))
+			tomatosseen += 1
+		is_frenzy = (tomatosseen >= frenzythreshold)
+		last_frenzy_check = world.time
+	if(is_frenzy && istype(the_target, /mob/living/simple_animal/hostile/killertomato))
 		attack_same = TRUE
 	. = ..()
 	// Reset the attack same flag
