@@ -1,0 +1,5 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Fixed fugitives being unable to spawn if more than 4 people signed up
+      for it.
