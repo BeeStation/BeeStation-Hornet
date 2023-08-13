@@ -143,14 +143,14 @@
 	if(!(locate(/datum/action/change_psychic_visual) in owner.actions))
 		overlay_change = new(src)
 		overlay_change.Grant(owner)
-	///Give owner auto action
-	if(!(locate(/datum/action/change_psychic_auto) in owner.actions))
-		auto_action = new(src)
-		auto_action.Grant(M)
 	///Give owner texture action
 	if(!(locate(/datum/action/change_psychic_texture) in owner.actions))
 		texture_change = new(src)
 		texture_change.Grant(M)
+	///Give owner auto action
+	if(!(locate(/datum/action/change_psychic_auto) in owner.actions))
+		auto_action = new(src)
+		auto_action.Grant(M)
 	///Start auto timer
 	addtimer(CALLBACK(src, PROC_REF(auto_sense)), auto_cooldown)
 
@@ -272,9 +272,9 @@
 	plane = FULLSCREEN_PLANE
 	layer = 4.1
 	///Index for visual setting - Useful if we add more presets
-	var/visual_index = 0
+	var/visual_index = 1
 	///Index for texture setting - Useful if we add more presets
-	var/texture_index = 0
+	var/texture_index = 1
 
 /atom/movable/screen/fullscreen/blind/psychic_highlight/Initialize(mapload)
 	. = ..()
@@ -282,7 +282,6 @@
 	filters += filter(type = "alpha", render_source = "psychic_mask")
 	filters += filter(type = "bloom", size = 2, threshold = rgb(85,85,85))
 	filters += filter(type = "radial_blur", size = 0.0125)
-	cycle_visuals()
 
 /atom/movable/screen/fullscreen/blind/psychic_highlight/proc/cycle_visuals(new_color)
 	++visual_index
@@ -311,6 +310,7 @@
 	++texture_index
 	if(new_texture)
 		appearance = new_texture
+		return
 	else
 		//Set animation
 		switch(texture_index)
