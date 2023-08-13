@@ -176,10 +176,14 @@ A shrill beep coming from your SpySpeks means that they can't connect to the inc
 
 /obj/item/video_bug/proc/attach_to_clothing_item(mob/user, var/obj/item/clothing/target)
 	if(!target.buggable || target.item_flags & ABSTRACT)
-		to_chat(usr, "<span class='warning'>You can't attach \the [src] to \the [target]!</span>")
+		to_chat(user, "<span class='warning'>You can't attach \the [src] to \the [target]!</span>")
 		return FALSE
 	if(target.tracking_bug)
-		to_chat(usr, "<span class='warning'>\The [target] already has something attached!</span>")
+		to_chat(user, "<span class='warning'>\The [target] already has something attached!</span>")
+		return FALSE
+	to_chat(user, "<span class='notice'>You start to carefully plant [src] to \the [target].</span>")
+	if(!do_after(user, 1 SECONDS, get_turf(target)))
+		to_chat(user, "<span class='warning'>Your hand slips and you decide not to plant \the [src]!</span>")
 		return FALSE
 	var/left_border = 1
 	var/right_border = 32
