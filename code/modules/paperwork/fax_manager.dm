@@ -138,7 +138,7 @@ GLOBAL_DATUM_INIT(fax_manager, /datum/fax_manager, new)
 			break
 
 	for(var/client/admin in GLOB.admins)
-		if((admin.prefs.chat_toggles & CHAT_PRAYER) && (admin.prefs.toggles & PREFTOGGLE_SOUND_PRAYERS))
+		if(admin.prefs.read_player_preference(/datum/preference/toggle/chat_prayer) && admin.prefs.read_player_preference(/datum/preference/toggle/sound_prayers))
 			SEND_SOUND(admin, sound('sound/items/poster_being_created.ogg'))
 
 // A special piece of paper for the administrator that will open the interface no matter what.

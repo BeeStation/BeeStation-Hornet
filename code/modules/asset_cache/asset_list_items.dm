@@ -335,7 +335,7 @@
 				stack_trace("design [D] with icon '[icon_file]' missing state '[icon_state]'")
 				continue
 			#endif
-			I = icon(icon_file, icon_state, SOUTH)
+			I = icon(icon_file, icon_state, SOUTH, 1)
 
 		else
 			// construct the icon and slap it into the resource cache
@@ -371,7 +371,7 @@
 				stack_trace("design [D] with icon '[icon_file]' missing state '[icon_state]'")
 				continue
 			#endif
-			I = icon(icon_file, icon_state, SOUTH)
+			I = icon(icon_file, icon_state, SOUTH, 1)
 
 			// computers (and snowflakes) get their screen and keyboard sprites
 			if (ispath(item, /obj/machinery/computer) || ispath(item, /obj/machinery/power/solar_control))
@@ -380,9 +380,9 @@
 				var/keyboard = initial(C.icon_keyboard)
 				var/all_states = icon_states(icon_file)
 				if (screen && (screen in all_states))
-					I.Blend(icon(icon_file, screen, SOUTH), ICON_OVERLAY)
+					I.Blend(icon(icon_file, screen, SOUTH, 1), ICON_OVERLAY)
 				if (keyboard && (keyboard in all_states))
-					I.Blend(icon(icon_file, keyboard, SOUTH), ICON_OVERLAY)
+					I.Blend(icon(icon_file, keyboard, SOUTH, 1), ICON_OVERLAY)
 
 		Insert(initial(D.id), I)
 
@@ -409,38 +409,41 @@
 	// building icons for each item
 	for (var/k in target_items)
 		var/atom/item = k
-		if (!ispath(item, /atom))
+		var/icon/I = get_display_icon_for(item)
+		if(!I)
 			continue
-
-		var/icon_file
-		if (initial(item.greyscale_colors) && initial(item.greyscale_config))
-			icon_file = SSgreyscale.GetColoredIconByType(initial(item.greyscale_config), initial(item.greyscale_colors))
-		else
-			icon_file = initial(item.icon)
-		var/icon_state = initial(item.icon_state)
-
-		#ifdef UNIT_TESTS
-		var/icon_states_list = icon_states(icon_file)
-		if (!(icon_state in icon_states_list))
-			var/icon_states_string
-			for (var/an_icon_state in icon_states_list)
-				if (!icon_states_string)
-					icon_states_string = "[json_encode(an_icon_state)](\ref[an_icon_state])"
-				else
-					icon_states_string += ", [json_encode(an_icon_state)](\ref[an_icon_state])"
-
-			stack_trace("[item] does not have a valid icon state, icon=[icon_file], icon_state=[json_encode(icon_state)](\ref[icon_state]), icon_states=[icon_states_string]")
-			continue
-		#endif
-
-		var/icon/I = icon(icon_file, icon_state, SOUTH, 1)
-		var/c = initial(item.color)
-		if (!isnull(c) && c != "#FFFFFF")
-			I.Blend(c, ICON_MULTIPLY)
-
 		var/imgid = replacetext(replacetext("[item]", "/obj/item/", ""), "/", "-")
-
 		Insert(imgid, I)
+
+/proc/get_display_icon_for(atom/item)
+	if (!ispath(item, /atom))
+		return FALSE
+	var/icon_file
+	if (initial(item.greyscale_colors) && initial(item.greyscale_config))
+		icon_file = SSgreyscale.GetColoredIconByType(initial(item.greyscale_config), initial(item.greyscale_colors))
+	else
+		icon_file = initial(item.icon)
+	var/icon_state = initial(item.icon_state)
+
+	#ifdef UNIT_TESTS
+	var/icon_states_list = icon_states(icon_file)
+	if (!(icon_state in icon_states_list))
+		var/icon_states_string
+		for (var/an_icon_state in icon_states_list)
+			if (!icon_states_string)
+				icon_states_string = "[json_encode(an_icon_state)](\ref[an_icon_state])"
+			else
+				icon_states_string += ", [json_encode(an_icon_state)](\ref[an_icon_state])"
+
+		stack_trace("[item] does not have a valid icon state, icon=[icon_file], icon_state=[json_encode(icon_state)](\ref[icon_state]), icon_states=[icon_states_string]")
+		return FALSE
+	#endif
+
+	var/icon/I = icon(icon_file, icon_state, SOUTH, 1)
+	var/c = initial(item.color)
+	if (!isnull(c) && c != "#FFFFFF")
+		I.Blend(c, ICON_MULTIPLY)
+	return I
 
 /datum/asset/spritesheet/crafting
 	name = "crafting"
@@ -567,10 +570,9 @@
 	assets = list()
 
 /datum/asset/simple/portraits/New()
-	if(!SSpersistence.paintings || !SSpersistence.paintings[tab] || !length(SSpersistence.paintings[tab]))
+	if(!length(SSpersistence.paintings[tab]))
 		return
-	for(var/p in SSpersistence.paintings[tab])
-		var/list/portrait = p
+	for(var/list/portrait as anything in SSpersistence.paintings[tab])
 		var/png = "data/paintings/[tab]/[portrait["md5"]].png"
 		if(fexists(png))
 			var/asset_name = "[tab]_[portrait["md5"]]"

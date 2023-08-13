@@ -38,7 +38,9 @@
 	mask = /obj/item/clothing/mask/gas/sechailer/spacepol
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 
-/datum/outfit/spacepol/officer/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/spacepol/officer/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	if(visualsOnly)
+		return
 	if(prob(40))
 		head = /obj/item/clothing/head/helmet/alt
 	else if(prob(20))
@@ -107,7 +109,9 @@
 	back = /obj/item/storage/backpack/satchel/leather
 	box = /obj/item/storage/box/survival
 
-/datum/outfit/russian_hunter/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/russian_hunter/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	if(visualsOnly)
+		return
 	if(prob(50))
 		head = /obj/item/clothing/head/ushanka
 	else if(prob(20))
@@ -128,7 +132,9 @@
 	suit = /obj/item/clothing/suit/security/officer/russian
 	head = /obj/item/clothing/head/helmet/rus_ushanka
 
-/datum/outfit/russian_hunter/leader/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/russian_hunter/leader/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	if(visualsOnly)
+		return
 	if(prob(50))
 		gloves = /obj/item/clothing/gloves/combat
 	else if(prob(30))

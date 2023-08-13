@@ -97,12 +97,12 @@
 	user.temporarilyRemoveItemFromInventory(src, TRUE)
 	src.Insert(user) //Consuming the heart literally replaces your heart with a demon heart. H A R D C O R E
 
-/obj/item/organ/heart/demon/Insert(mob/living/carbon/M, special = 0)
+/obj/item/organ/heart/demon/Insert(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
 	if(M.mind)
 		M.mind.AddSpell(new /obj/effect/proc_holder/spell/bloodcrawl(null))
 
-/obj/item/organ/heart/demon/Remove(mob/living/carbon/M, special = 0)
+/obj/item/organ/heart/demon/Remove(mob/living/carbon/M, special = 0, pref_load = FALSE)
 	..()
 	if(M.mind)
 		M.mind.RemoveSpell(/obj/effect/proc_holder/spell/bloodcrawl)

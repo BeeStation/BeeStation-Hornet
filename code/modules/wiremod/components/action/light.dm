@@ -19,7 +19,7 @@
 	var/datum/port/input/on
 
 	var/max_power = 5
-	var/min_lightness = 0.4
+	var/min_lightness = 40
 	var/shell_light_color
 
 /obj/item/circuit_component/light/get_ui_notices()
@@ -49,9 +49,8 @@
 	green.set_value(clamp(green.value, 0, 255))
 	on.set_value(clamp(on.value, 0, 1))
 
-	var/list/hsl = rgb2hsl(red.value || 0, green.value || 0, blue.value || 0)
-	var/list/light_col = hsl2rgb(hsl[1], hsl[2], max(min_lightness, hsl[3]))
-	shell_light_color = rgb(light_col[1], light_col[2], light_col[3])
+	var/list/hsl = rgb2num(rgb(red.value || 0, green.value || 0, blue.value || 0), COLORSPACE_HSL)
+	shell_light_color = rgb(hsl[1], hsl[2], max(min_lightness, hsl[3]), space=COLORSPACE_HSL)
 
 /obj/item/circuit_component/light/input_received(datum/port/input/port)
 	if(parent.shell)

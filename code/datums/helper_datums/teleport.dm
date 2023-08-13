@@ -275,3 +275,16 @@
 		for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 			diag_hud.remove_from_hud(src)
 	return ..()
+
+/obj/effect/temp_visual/portal_opening
+	name = "Portal Opening"
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "portal"
+	alpha = 0
+	duration = 11 SECONDS
+
+/obj/effect/temp_visual/portal_opening/Initialize(mapload)
+	. = ..()
+	transform = matrix() * 0
+	animate(src, time = 10 SECONDS, transform = matrix(), alpha = 255)
+	animate(time = 0.5 SECONDS, transform = matrix() * 0, alpha = 0)

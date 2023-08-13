@@ -19,7 +19,6 @@
 			req_hours = initial(antag_datum.required_living_playtime)
 		))
 			candidates.Remove(P)
-			continue
 
 /datum/dynamic_ruleset/latejoin/ready(forced = FALSE)
 	if (forced)
