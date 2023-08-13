@@ -1,6 +1,7 @@
 // Camera mob, used by AI camera and blob.
 
 /mob/camera
+	plane = GAME_PLANE_NON_INTEGRAL
 	name = "camera mob"
 	density = FALSE
 	move_force = INFINITY
