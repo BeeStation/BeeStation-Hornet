@@ -272,9 +272,9 @@
 	plane = FULLSCREEN_PLANE
 	layer = 4.1
 	///Index for visual setting - Useful if we add more presets
-	var/visual_index = 1
+	var/visual_index = 0
 	///Index for texture setting - Useful if we add more presets
-	var/texture_index = 1
+	var/texture_index = 0
 
 /atom/movable/screen/fullscreen/blind/psychic_highlight/Initialize(mapload)
 	. = ..()
@@ -282,6 +282,8 @@
 	filters += filter(type = "alpha", render_source = "psychic_mask")
 	filters += filter(type = "bloom", size = 2, threshold = rgb(85,85,85))
 	filters += filter(type = "radial_blur", size = 0.0125)
+	cycle_visuals()
+	cycle_textures()
 
 /atom/movable/screen/fullscreen/blind/psychic_highlight/proc/cycle_visuals(new_color)
 	++visual_index
@@ -301,7 +303,7 @@
 				animate(color = "#f0f", time = 1 SECONDS)
 				animate(color = "#f00", time = 1 SECONDS)
 			if(2) //Custom
-				color = input(usr,"","Choose Color","#fff") as color|null
+				color = tgui_color_picker(usr, "Pick new color", "[src]", COLOR_WHITE)
 				. = color
 	//Wrap index back around
 	visual_index = visual_index >= 2 ? 0 :  visual_index
@@ -328,7 +330,7 @@
 	name = "Change Psychic Sense"
 	desc = "Change the visual style of your psychic sense."
 	icon_icon = 'icons/mob/actions.dmi'
-	button_icon_state = "unknown"
+	button_icon_state = "change_color"
 	///Ref to the overlay - hard del edition
 	var/atom/movable/screen/fullscreen/blind/psychic_highlight/psychic_overlay
 
@@ -356,7 +358,7 @@
 	name = "Auto Psychic Sense"
 	desc = "Change your psychic sense to auto."
 	icon_icon = 'icons/mob/actions.dmi'
-	button_icon_state = "unknown"
+	button_icon_state = "change_generic"
 	///Ref to the action
 	var/datum/action/item_action/organ_action/psychic_highlight/psychic_action
 
@@ -389,7 +391,7 @@
 	name = "Change Psychic Texture"
 	desc = "Change your psychic texture."
 	icon_icon = 'icons/mob/actions.dmi'
-	button_icon_state = "unknown"
+	button_icon_state = "change_texture"
 	///Ref to the overlay - hard del edition
 	var/atom/movable/screen/fullscreen/blind/psychic_highlight/psychic_overlay
 
