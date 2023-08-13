@@ -37,8 +37,6 @@
 
 	V.update_icon()
 
-	return INITIALIZE_HINT_QDEL
-
 /obj/effect/spawner/newbomb/timer/syndicate/Initialize(mapload)
 	temp_p = (OPTIMAL_TEMP_K_PLA_BURN_SCALE(pressure_p, pressure_o, temp_o)/2 + OPTIMAL_TEMP_K_PLA_BURN_RATIO(pressure_p, pressure_o, temp_o)/2) - T0C
 	. = ..()
