@@ -1,5 +1,3 @@
-///The limit when the psychic timer locks you out of creating more
-#define PSYCHIC_OVERLAY_UPPER 500
 ///Burn mod for our species, weak to fire
 #define PSYPHOZA_BURNMOD 1.25
 
@@ -121,6 +119,8 @@
 	var/psychic_timer
 	///Ref to change action
 	var/datum/action/change_psychic_visual/overlay_change
+	///Ref to other change action
+	var/datum/action/change_psychic_texture/texture_change
 	///The amount of time between auto uses
 	var/auto_cooldown = 1 SECONDS
 	///Do we have auto sense toggled?
@@ -130,6 +130,7 @@
 
 /datum/action/item_action/organ_action/psychic_highlight/Destroy()
 	QDEL_NULL(auto_action)
+	QDEL_NULL(texture_change)
 	QDEL_NULL(overlay_change)
 	return ..()
 
@@ -146,6 +147,10 @@
 	if(!(locate(/datum/action/change_psychic_auto) in owner.actions))
 		auto_action = new(src)
 		auto_action.Grant(M)
+	///Give owner texture action
+	if(!(locate(/datum/action/change_psychic_texture) in owner.actions))
+		texture_change = new(src)
+		texture_change.Grant(M)
 	///Start auto timer
 	addtimer(CALLBACK(src, PROC_REF(auto_sense)), auto_cooldown)
 
@@ -251,7 +256,7 @@
 	color = origin_color
 
 /atom/movable/screen/fullscreen/blind/psychic/proc/unique_filters()
-	filters += filter(type = "radial_blur", size = 0.009)
+	filters += filter(type = "radial_blur", size = 0.0125)
 
 /atom/movable/screen/fullscreen/blind/psychic/mask
 	icon_state = "mask_small"
@@ -268,14 +273,15 @@
 	layer = 4.1
 	///Index for visual setting - Useful if we add more presets
 	var/visual_index = 0
+	///Index for texture setting - Useful if we add more presets
+	var/texture_index = 0
 
 /atom/movable/screen/fullscreen/blind/psychic_highlight/Initialize(mapload)
 	. = ..()
-	filters += filter(type = "bloom", size = 2, threshold = rgb(85,85,85))
-	filters += filter(type = "radial_blur", size = 0.009)
-	filters += filter(type = "blur", size = 1)
 	filters += filter(type = "alpha", render_source = GAME_PLANE_RENDER_TARGET)
 	filters += filter(type = "alpha", render_source = "psychic_mask")
+	filters += filter(type = "bloom", size = 2, threshold = rgb(85,85,85))
+	filters += filter(type = "radial_blur", size = 0.0125)
 	cycle_visuals()
 
 /atom/movable/screen/fullscreen/blind/psychic_highlight/proc/cycle_visuals(new_color)
@@ -300,6 +306,24 @@
 				. = color
 	//Wrap index back around
 	visual_index = visual_index >= 2 ? 0 :  visual_index
+
+/atom/movable/screen/fullscreen/blind/psychic_highlight/proc/cycle_textures(new_texture)
+	++texture_index
+	if(new_texture)
+		appearance = new_texture
+	else
+		//Set animation
+		switch(texture_index)
+			if(1)
+				icon_state = "trip"
+			if(2)
+				icon_state = "trip_static"
+			if(3)
+				icon_state = "trip_static_white"
+			if(4)
+				icon_state = "trip_static_kenough"
+	//Wrap index back around
+	texture_index = texture_index >= 4 ? 0 :  texture_index
 
 //Action for changing screen color
 /datum/action/change_psychic_visual
@@ -362,5 +386,33 @@
 	if(psychic_action?.auto_sense)
 		return FALSE
 
-#undef PSYCHIC_OVERLAY_UPPER
+//Action for toggling auto sense
+/datum/action/change_psychic_texture
+	name = "Change Psychic Texture"
+	desc = "Change your psychic texture."
+	icon_icon = 'icons/mob/actions.dmi'
+	button_icon_state = "unknown"
+	///Ref to the overlay - hard del edition
+	var/atom/movable/screen/fullscreen/blind/psychic_highlight/psychic_overlay
+
+/datum/action/change_psychic_texture/New(Target)
+	. = ..()
+	RegisterSignal(psychic_overlay, COMSIG_PARENT_QDELETING, PROC_REF(parent_destroy))
+
+/datum/action/change_psychic_texture/Destroy()
+	QDEL_NULL(psychic_overlay)
+	return ..()
+
+/datum/action/change_psychic_texture/proc/parent_destroy()
+	SIGNAL_HANDLER
+
+	qdel(src)
+
+/datum/action/change_psychic_texture/Trigger()
+	. = ..()
+	if(!psychic_overlay)
+		psychic_overlay = locate(/atom/movable/screen/fullscreen/blind/psychic_highlight) in owner?.client?.screen
+	psychic_overlay?.cycle_textures()
+
+
 #undef PSYPHOZA_BURNMOD
