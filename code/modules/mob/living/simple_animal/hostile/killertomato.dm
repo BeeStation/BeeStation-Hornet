@@ -31,7 +31,7 @@
 
 /mob/living/simple_animal/hostile/killertomato/CanAttack(atom/the_target)
 	var/tomatosseen = 0
-	for(var/mob/living/simple_animal/hostile/killertomato/T in oview(7, src))
+	for(var/mob/living/simple_animal/hostile/killertomato/T in orange(5, src))
 		tomatosseen += 1
 	if(tomatosseen >= frenzythreshold && istype(the_target, /mob/living/simple_animal/hostile/killertomato))
 		attack_same = TRUE
