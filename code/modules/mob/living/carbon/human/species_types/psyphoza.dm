@@ -320,10 +320,8 @@
 				icon_state = "trip_static"
 			if(3)
 				icon_state = "trip_static_white"
-			if(4)
-				icon_state = "trip_static_kenough"
 	//Wrap index back around
-	texture_index = texture_index >= 4 ? 0 :  texture_index
+	texture_index = texture_index >= 3 ? 0 :  texture_index
 
 //Action for changing screen color
 /datum/action/change_psychic_visual
