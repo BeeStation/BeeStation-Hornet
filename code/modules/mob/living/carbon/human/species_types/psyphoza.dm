@@ -116,13 +116,13 @@
 	///The eyes original sight flags - used between toggles
 	var/sight_flags
 	///Time between uses
-	var/cooldown = 2 SECONDS
+	var/cooldown = 1 SECONDS
 	///Reference to 'kill these overlays' timer
 	var/psychic_timer
 	///Ref to change action
 	var/datum/action/change_psychic_visual/overlay_change
 	///The amount of time between auto uses
-	var/auto_cooldown = 2 SECONDS
+	var/auto_cooldown = 1 SECONDS
 	///Do we have auto sense toggled?
 	var/auto_sense = FALSE
 	///Ref to sense auto toggle action
@@ -251,8 +251,7 @@
 	color = origin_color
 
 /atom/movable/screen/fullscreen/blind/psychic/proc/unique_filters()
-	filters += filter(type = "radial_blur", size = 0.012)
-	filters += filter(type = "bloom", size = 5, threshold = rgb(85,85,85))
+	filters += filter(type = "radial_blur", size = 0.009)
 
 /atom/movable/screen/fullscreen/blind/psychic/mask
 	icon_state = "mask_small"
@@ -272,11 +271,11 @@
 
 /atom/movable/screen/fullscreen/blind/psychic_highlight/Initialize(mapload)
 	. = ..()
-	//filters += filter(type = "bloom", size = 1, threshold = rgb(85,85,85))
-	filters += filter(type = "radial_blur", size = 0.012)
+	filters += filter(type = "bloom", size = 2, threshold = rgb(85,85,85))
+	filters += filter(type = "radial_blur", size = 0.009)
+	filters += filter(type = "blur", size = 1)
 	filters += filter(type = "alpha", render_source = GAME_PLANE_RENDER_TARGET)
 	filters += filter(type = "alpha", render_source = "psychic_mask")
-	filters += filter(type = "outline", size = 1, color = "#fff")
 	cycle_visuals()
 
 /atom/movable/screen/fullscreen/blind/psychic_highlight/proc/cycle_visuals(new_color)
@@ -290,12 +289,12 @@
 		switch(visual_index)
 			if(1) //Rainbow
 				color = "#f00" // start at red
-				animate(src, color = "#ff0", time = 0.3 SECONDS, loop = -1)
-				animate(color = "#0f0", time = 0.3 SECONDS)
-				animate(color = "#0ff", time = 0.3 SECONDS)
-				animate(color = "#00f", time = 0.3 SECONDS)
-				animate(color = "#f0f", time = 0.3 SECONDS)
-				animate(color = "#f00", time = 0.3 SECONDS)
+				animate(src, color = "#ff0", time = 1 SECONDS, loop = -1)
+				animate(color = "#0f0", time = 1 SECONDS)
+				animate(color = "#0ff", time = 1 SECONDS)
+				animate(color = "#00f", time = 1 SECONDS)
+				animate(color = "#f0f", time = 1 SECONDS)
+				animate(color = "#f00", time = 1 SECONDS)
 			if(2) //Custom
 				color = input(usr,"","Choose Color","#fff") as color|null
 				. = color
