@@ -1,4 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - code_imp: Optimized spawner and decals init, saving ~0.25sec init
