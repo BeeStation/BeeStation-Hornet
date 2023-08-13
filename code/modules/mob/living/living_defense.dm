@@ -1,14 +1,21 @@
+/// Runs an armour check against a mob and returns the armour value to use.
+/// 0 represents 0% protection, while 100 represents 100% protection.
+/// The return value for this proc can be negative, indicating that the damage values should be increased.
+/// A message will be thrown to the user if their armour protects them, unless the silent flag is set.
 /mob/living/proc/run_armor_check(def_zone = null, attack_flag = MELEE, absorb_text = null, soften_text = null, armour_penetration, penetrated_text, silent=FALSE)
-	var/armor = getarmor(def_zone, attack_flag)
+	var/armor = getarmor(def_zone, attack_flag, penetration = armour_penetration)
 
 	if(armor <= 0)
 		return armor
+
+	// This equation will reach a max value of 75
+	armor = STANDARDISE_ARMOUR(armor)
+
 	if(silent)
-		return max(0, armor - armour_penetration)
+		return armor
 
 	//the if "armor" check is because this is used for everything on /living, including humans
 	if(armour_penetration)
-		armor = max(0, armor - armour_penetration)
 		if(penetrated_text)
 			to_chat(src, "<span class='userdanger'>[penetrated_text]</span>")
 		else
@@ -25,7 +32,14 @@
 			to_chat(src, "<span class='warning'>Your armor softens the blow!</span>")
 	return armor
 
-/mob/living/proc/getarmor(def_zone, type)
+/// Get the armour value for a specific damage type, targetting a particular zone.
+/// def_zone: The body zone to get the armour for. Null indicates no body zone and will calculate an average armour value instead.
+/// type: The damage type to test for. Must not be null.
+/// penetration: The amount of penetration to add. A value of 20 will reduce the effectiveness of each individual armour piece by 80%.
+/// Returns: An integer value with 0 representing 0% protection and 100 representing 100% protection.
+/// - The return value can be negative which indicates additional armour, but will never exceed 100.
+/// - Armour penetration should not be applied on the return value of this proc, due to its upper bound of 100.
+/mob/living/proc/getarmor(def_zone, type, penetration = 0)
 	return 0
 
 //this returns the mob's protection against eye damage (number between -1 and 2) from bright lights
