@@ -1,0 +1,15 @@
+author: Absolucy
+delete-after: true
+changes:
+  - bugfix: You can now properly place slime speed potions on tables, in lockers,
+      etc.
+  - tweak: Using a slime speed potion on something that has no slowdown in the first
+      place will no longer waste it.
+  - rscadd: Slime renaming potions will now offer better feedback as to why a rename
+      didn't occur.
+  - rscadd: Slime renaming potions now let you rename playerless, mindless mobs.
+  - tweak: Slime renaming potion prompts now use tgui input.
+  - tweak: Slime renaming potion prompts now time out after 2 minutes, so you can't
+      just deadlock the potion forever.
+  - tweak: Offering a slime speed potion to a player mob whose client is either disconnected
+      or AFK will just tell you to try again later.
