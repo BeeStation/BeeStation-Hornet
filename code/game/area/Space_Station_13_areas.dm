@@ -1347,7 +1347,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "hydro"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_SIMPLE
-	color_correction = /datum/client_colour/area_color/warm_green
+	color_correction = /datum/client_colour/area_color/cold_ish
 
 /area/hydroponics/garden
 	name = "Garden"
@@ -1374,7 +1374,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_bulb = "#e4f7ff"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	airlock_hack_difficulty = AIRLOCK_WIRE_SECURITY_ADVANCED
-	color_correction = /datum/client_colour/area_color/cold_purple
+	color_correction = /datum/client_colour/area_color/cold_ish
 
 /area/science/lobby
 	name = "\improper Science Lobby"

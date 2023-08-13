@@ -10,8 +10,8 @@
 /datum/client_colour/area_color
 	colour = ""
 	priority = PRIORITY_LOW
-	fade_in = 15
-	fade_out = 15
+	fade_in = 30
+	fade_out = 30
 
 //Warm-ish
 /datum/client_colour/area_color/warm_ish
