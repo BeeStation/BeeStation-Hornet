@@ -33,7 +33,8 @@
 	var/tomatosseen = 0
 	for(var/mob/living/simple_animal/hostile/killertomato/T in oview(7, src))
 		tomatosseen += 1
-	if(tomatosseen >= frenzythreshold)
+	if(tomatosseen >= frenzythreshold && istype(the_target, /mob/living/simple_animal/hostile/killertomato))
 		attack_same = TRUE
 	. = ..()
-
+	// Reset the attack same flag
+	attack_same = initial(attack_same)
