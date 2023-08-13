@@ -152,7 +152,7 @@
 		return TRUE
 
 	if(HAS_TRAIT(user, TRAIT_ABDUCTOR_SURGEON) || user.mind && HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SURGEON))
-		if(!locate(src) in abductor_surgery_blacklist && !replaced_by)
+		if(!locate(src) in abductor_surgery_blacklist)
 			return(TRUE)
 	//Grants the user innate access to all surgeries except for certain blacklisted ones. Used by Abductors
 
