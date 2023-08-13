@@ -149,6 +149,7 @@
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
 	become_hearing_sensitive(trait_source = ROUNDSTART_TRAIT)
+	update_step_speed()
 
 /obj/mecha/update_icon()
 	if (silicon_pilot && silicon_icon_state)
@@ -524,6 +525,14 @@
 //////////////////////////////////
 ////////  Movement procs  ////////
 //////////////////////////////////
+
+/obj/mecha/proc/update_step_speed()
+	var/original_speed = initial(step_in)
+	// Calculate the speed delta
+	// Calculate the move multiplier speed, to be proportional to mob speed
+	// 1.5 was the previous value, so calculate hte multiplier in proportion to that
+	var/vehicle_move_multiplier = CONFIG_GET(number/movedelay/run_delay) / 1.5
+	step_in = original_speed * vehicle_move_multiplier
 
 /obj/mecha/Move(atom/newloc, direct)
 	. = ..()
