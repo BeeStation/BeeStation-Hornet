@@ -854,12 +854,6 @@
 /mob/living/proc/get_visible_name()
 	return name
 
-/mob/living/can_put_in_hand(atom/I, hand_index)
-	. = ..()
-	if(!.)
-		return FALSE
-	return .
-
 /mob/living/update_gravity(has_gravity, override)
 	. = ..()
 	if(!SSticker.HasRoundStarted())

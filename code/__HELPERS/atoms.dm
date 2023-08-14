@@ -352,15 +352,15 @@ B --><-- A
 */
 
 /// returns a mob that possesses this atom(usually item)
-/atom/proc/get_mob_owner(returns_final=FALSE)
+/atom/proc/get_loc_mob(as_first_mob=TRUE)
 	var/atom/upper = src
 	var/final_mob
 	while(upper)
 		upper = upper.loc
 		if(ismob(upper))
 			final_mob = upper
-			// if this is FALSE, it will immediately return a mob that holds the atom
-			// if this is TRUE, it will find a final mob when it's chain-contained (i.e. mob in mob in mob...)
-			if(!returns_final)
+			// if this is TRUE, it will immediately return a mob that holds the atom
+			// if this is FALSE, it will find a final mob when it's chain-contained (i.e. mob in mob in mob...)
+			if(as_first_mob)
 				return final_mob
 	return final_mob || FALSE
