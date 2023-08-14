@@ -409,7 +409,7 @@
 			var/input = stripped_input(user,"What do you want to name the plant?", default=plantname, max_length=MAX_NAME_LEN)
 			if(QDELETED(src) || !user.canUseTopic(src, BE_CLOSE))
 				return
-			if(OOC_FILTER_CHECK(input))
+			if(CHAT_FILTER_CHECK(input))
 				to_chat(src, "<span class='warning'>That message contained a word prohibited in OOC chat! Consider reviewing the server rules.\n<span replaceRegex='show_filtered_ooc_chat'>\"[input]\"</span></span>")
 				return
 			log_rename(user, src, "plant name", input)
@@ -421,7 +421,7 @@
 			var/input = stripped_input(user,"What do you want to change the description of the plant to?", default=plantdesc, max_length=MAX_MESSAGE_LEN)
 			if(QDELETED(src) || !user.canUseTopic(src, BE_CLOSE))
 				return
-			if(OOC_FILTER_CHECK(input))
+			if(CHAT_FILTER_CHECK(input))
 				to_chat(src, "<span class='warning'>That message contained a word prohibited in OOC chat! Consider reviewing the server rules.\n<span replaceRegex='show_filtered_ooc_chat'>\"[input]\"</span></span>")
 				return
 			log_rename(user, src, "plant desc", input)
@@ -431,7 +431,7 @@
 			var/input = stripped_input(user,"What do you want to change the description of the seeds to?", default=desc, max_length=MAX_MESSAGE_LEN)
 			if(QDELETED(src) || !user.canUseTopic(src, BE_CLOSE))
 				return
-			if(OOC_FILTER_CHECK(input))
+			if(CHAT_FILTER_CHECK(input))
 				to_chat(src, "<span class='warning'>That message contained a word prohibited in OOC chat! Consider reviewing the server rules.\n<span replaceRegex='show_filtered_ooc_chat'>\"[input]\"</span></span>")
 				return
 			log_rename(user, src, "seed desc", input)
