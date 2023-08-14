@@ -1476,13 +1476,12 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	tempicon = getFlatIcon(src)
 	var/x_coord = 1
 	var/y_coord = 1
-	var/height = tempicon.Height()
+	var/height = 1
 	var/width = tempicon.Width()
 	var/left_border = width
 	var/right_border = 1
 
 	tempicon.Scale(width, 1) //Flatten the icon into a 1 pixel high line
-	height = tempicon.Height()
 	while(y_coord <= height)
 		x_coord = 1
 		while(x_coord <= width)
@@ -1508,13 +1507,12 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 
 	tempicon = icon(icon, icon_state, dir, 1)
 	height = tempicon.Height()
-	width = tempicon.Width()
+	width = 1
 	var/bottom_border = height
 	var/top_border = 1
 	x_coord = 1
 	y_coord = 1
 	tempicon.Scale(1, height) //Squash the icon into a 1 pixel wide pillar
-	width = tempicon.Width()
 
 	while(x_coord <= width)
 		y_coord = 1
