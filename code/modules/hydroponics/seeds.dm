@@ -250,7 +250,7 @@
 		return "[initial(plant.name)] (renamed as [plantname])"
 
 /obj/item/seeds/proc/log_rename(mob/user, obj/item, type, input)
-	src.investigate_log("[key_name(user)] has changed [type](of [src]) into '[input]'", INVESTIGATE_BOTANY)
+	src.investigate_log("[key_name(user)] has changed [src] ([type]) into '[input]'", INVESTIGATE_BOTANY)
 	// log_game() might fit, but I wanted botany logs contained in a specific log file.
 //---------
 
