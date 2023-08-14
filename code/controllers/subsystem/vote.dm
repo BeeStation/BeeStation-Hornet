@@ -68,8 +68,8 @@ SUBSYSTEM_DEF(vote)
 			else if(mode == "map")
 				for (var/non_voter_ckey in non_voters)
 					var/client/C = non_voters[non_voter_ckey]
-					if(C.prefs.preferred_map)
-						var/preferred_map = C.prefs.preferred_map
+					var/preferred_map = C.prefs.read_player_preference(/datum/preference/choiced/preferred_map)
+					if(preferred_map && preferred_map != "Default")
 						choices[preferred_map] += 1
 						greatest_votes = max(greatest_votes, choices[preferred_map])
 					else if(global.config.defaultmap)

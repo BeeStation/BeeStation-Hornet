@@ -40,11 +40,11 @@
 	childtype = list(/mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch = 100)
 
 	wanted_objects = list(/obj/effect/decal/cleanable/xenoblood/xgibs, /obj/effect/decal/cleanable/blood/gibs/, /obj/item/organ)
-	var/obj/item/udder/gutlunch/udder = null
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/Initialize(mapload)
-	udder = new()
 	. = ..()
+	if(wanted_objects.len)
+		AddComponent(/datum/component/udder, /obj/item/udder/gutlunch, CALLBACK(src, PROC_REF(regenerate_icons)), CALLBACK(src, PROC_REF(regenerate_icons)))
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/CanAttack(atom/the_target) // Gutlunch-specific version of CanAttack to handle stupid stat_exclusive = true crap so we don't have to do it for literally every single simple_animal/hostile except the two that spawn in lavaland
 	if(isturf(the_target) || !the_target || the_target.type == /atom/movable/lighting_object) // bail out on invalids
@@ -68,31 +68,14 @@
 
 	return FALSE
 
-/mob/living/simple_animal/hostile/asteroid/gutlunch/Destroy()
-	reagents = null
-	QDEL_NULL(udder)
-	return ..()
-
-/mob/living/simple_animal/hostile/asteroid/gutlunch/regenerate_icons()
+/mob/living/simple_animal/hostile/asteroid/gutlunch/regenerate_icons(new_udder_volume, max_udder_volume)
 	cut_overlays()
-	if(udder.reagents.total_volume == udder.reagents.maximum_volume)
-		add_overlay("gl_full")
+	var/static/gutlunch_full_overlay
+	if(isnull(gutlunch_full_overlay))
+		gutlunch_full_overlay = iconstate2appearance(icon, "gl_full")
+	if(new_udder_volume == max_udder_volume)
+		add_overlay(gutlunch_full_overlay)
 	..()
-
-/mob/living/simple_animal/hostile/asteroid/gutlunch/attackby(obj/item/O, mob/user, params)
-	if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))
-		udder.milkAnimal(O, user)
-		regenerate_icons()
-	else
-		..()
-
-/mob/living/simple_animal/hostile/asteroid/gutlunch/AttackingTarget()
-	if(is_type_in_typecache(target,wanted_objects)) //we eats
-		udder.generateMilk()
-		regenerate_icons()
-		visible_message("<span class='notice'>[src] slurps up [target].</span>")
-		qdel(target)
-	return ..()
 
 //Male gutlunch. They're smaller and more colorful!
 /mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck
@@ -110,17 +93,6 @@
 	name = "guthen"
 	gender = FEMALE
 
-/mob/living/simple_animal/hostile/asteroid/gutlunch/guthen/Life()
-	..()
-	if(udder.reagents.total_volume == udder.reagents.maximum_volume && next_scan_time <= world.time) //Only breed when we're full.
-		make_babies()
-
-/mob/living/simple_animal/hostile/asteroid/gutlunch/guthen/make_babies()
-	. = ..()
-	if(.)
-		udder.reagents.clear_reagents()
-		regenerate_icons()
-
 /mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch
 	name = "grublunch"
 	wanted_objects = list() //They don't eat.
@@ -137,7 +109,7 @@
 /mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch/Life()
 	..()
 	growth++
-	if(growth > 50) //originally used a timer for this but was more problem that it's worth.
+	if(growth > 50) //originally used a timer for this, but it became more of a problem than it was worth.
 		growUp()
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch/proc/growUp()
@@ -152,18 +124,3 @@
 	L.Stun(20, ignore_canstun = TRUE)
 	visible_message("<span class='notice'>[src] grows up into [L].</span>")
 	Destroy()
-
-//Gutlunch udder
-/obj/item/udder/gutlunch
-	name = "nutrient sac"
-
-/obj/item/udder/gutlunch/Initialize(mapload)
-	. = ..()
-	reagents = new(50)
-	reagents.my_atom = src
-
-/obj/item/udder/gutlunch/generateMilk()
-	if(prob(60))
-		reagents.add_reagent(/datum/reagent/consumable/cream, rand(2, 5))
-	if(prob(45))
-		reagents.add_reagent(/datum/reagent/medicine/salglu_solution, rand(2,5))

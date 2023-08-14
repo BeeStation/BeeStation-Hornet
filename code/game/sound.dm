@@ -208,7 +208,7 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 		if (!M.client)
 			continue
 
-		if (!ignore_prefs && !(M.client.prefs?.toggles2 & PREFTOGGLE_2_SOUNDTRACK))
+		if (!ignore_prefs && !M.client.prefs?.read_player_preference(/datum/preference/toggle/sound_soundtrack))
 			continue
 
 		if (!play_to_lobby && isnewplayer(M))
@@ -254,7 +254,7 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 	set waitfor = FALSE
 	UNTIL(SSticker.login_music) //wait for SSticker init to set the login music
 
-	if(prefs && (prefs.toggles & PREFTOGGLE_SOUND_LOBBY))
+	if(prefs?.read_player_preference(/datum/preference/toggle/sound_lobby))
 		SEND_SOUND(src, sound(SSticker.login_music, repeat = 0, wait = 0, volume = vol, channel = CHANNEL_LOBBYMUSIC)) // MAD JAMS
 
 /proc/get_rand_frequency()
