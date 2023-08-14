@@ -20,19 +20,19 @@
 /datum/component/orbiter/RegisterWithParent()
 	var/atom/target = parent
 
-	target.orbiters = src
+	target.orbit_datum = src
 	if(ismovable(target))
 		tracker = new(target, CALLBACK(src, PROC_REF(move_react)))
 
 /datum/component/orbiter/UnregisterFromParent()
 	var/atom/target = parent
-	target.orbiters = null
+	target.orbit_datum = null
 	QDEL_NULL(tracker)
 
 /datum/component/orbiter/Destroy()
 	var/atom/master = parent
-	if(master?.orbiters == src)
-		master.orbiters = null
+	if(master?.orbit_datum == src)
+		master.orbit_datum = null
 	for(var/i in current_orbiters)
 		end_orbit(i)
 	current_orbiters = null
@@ -114,18 +114,18 @@
 /datum/component/orbiter/proc/transfer_orbiter_to(atom/movable/incoming_orbiter, atom/new_target)
 	if(!new_target || !incoming_orbiter)
 		return
-	if(!new_target.orbiters || length(current_orbiters)==1) // if target has no orbiters or original orbit has only one orbiter
+	if(!new_target.orbit_datum || length(current_orbiters)==1) // if target has no orbiters or original orbit has only one orbiter
 		end_orbit(incoming_orbiter)
 		incoming_orbiter.check_orbitable(new_target)
 		return
 
 	SEND_SIGNAL(parent, COMSIG_ATOM_ORBIT_STOP, incoming_orbiter)
 	UnregisterSignal(incoming_orbiter, COMSIG_MOVABLE_MOVED)
-	new_target.orbiters.RegisterSignal(incoming_orbiter, COMSIG_MOVABLE_MOVED, PROC_REF(orbiter_move_react))
+	new_target.orbit_datum.RegisterSignal(incoming_orbiter, COMSIG_MOVABLE_MOVED, PROC_REF(orbiter_move_react))
 	SEND_SIGNAL(new_target, COMSIG_ATOM_ORBIT_BEGIN, incoming_orbiter)
 
-	incoming_orbiter.orbiting = new_target.orbiters
-	new_target.orbiters.current_orbiters[incoming_orbiter] = current_orbiters[incoming_orbiter]
+	incoming_orbiter.orbiting = new_target.orbit_datum
+	new_target.orbit_datum.current_orbiters[incoming_orbiter] = current_orbiters[incoming_orbiter]
 	current_orbiters -= incoming_orbiter
 
 // This proc can receive signals by either the thing being directly orbited or anything holding it
@@ -161,7 +161,7 @@
 /atom/movable/proc/check_orbitable(atom/A)
 	if(!isatom(A))
 		return
-	if(A.orbiters?.parent == A) // orbiting what you're orbiting causes runtime
+	if(A.orbit_datum?.parent == A) // orbiting what you're orbiting causes runtime
 		return
 	var/icon/I = icon(A.icon, A.icon_state, A.dir)
 	var/orbitsize = (I.Width()+I.Height())*0.5
@@ -180,12 +180,12 @@
 /// includes_everyone=FALSE: when an orbitted mob is a camera eye or something. That shouldn't transfer revenants.
 /// includes_everyone=TRUE: when an orbitted mob is a mob who is being transformed(monkeyize). They should keep orbiters.
 /atom/proc/transfer_observers_to(atom/target, includes_everyone=FALSE)
-	if(!orbiters || !istype(target) || !get_turf(target) || target == src)
+	if(!orbit_datum || !istype(target) || !get_turf(target) || target == src)
 		return
 	if(includes_everyone)
-		target.TakeComponent(orbiters)
+		target.TakeComponent(orbit_datum)
 		return
-	for(var/each in orbiters.current_orbiters)
+	for(var/each in orbit_datum.current_orbiters)
 		if(!isobserver(each))
 			continue
-		orbiters.transfer_orbiter_to(each, target)
+		orbit_datum.transfer_orbiter_to(each, target)

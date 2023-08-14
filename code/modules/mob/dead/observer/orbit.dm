@@ -57,7 +57,7 @@
 			else if (M.mind == null)
 				npcs += list(serialized)
 			else
-				var/number_of_orbiters = M.orbiters?.current_orbiters?.len
+				var/number_of_orbiters = M.orbit_datum?.current_orbiters?.len
 				if (number_of_orbiters)
 					serialized["orbiters"] = number_of_orbiters
 

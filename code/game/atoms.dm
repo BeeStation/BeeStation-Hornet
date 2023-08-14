@@ -66,7 +66,7 @@
 	var/custom_premium_price
 
 	//List of datums orbiting this atom
-	var/datum/component/orbiter/orbiters
+	var/datum/component/orbiter/orbit_datum
 
 	/// Will move to flags_1 when i can be arsed to (2019, has not done so)
 	var/rad_flags = NONE
@@ -279,7 +279,7 @@
 	if(reagents)
 		QDEL_NULL(reagents)
 
-	orbiters = null // The component is attached to us normaly and will be deleted elsewhere
+	orbit_datum = null // The component is attached to us normaly and will be deleted elsewhere
 
 	LAZYCLEARLIST(overlays)
 	LAZYNULL(managed_overlays)
