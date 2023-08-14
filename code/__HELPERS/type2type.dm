@@ -473,15 +473,6 @@ Takes a string and a datum. The string is well, obviously the string being check
 					if(var_source.vars.Find(A))
 						. += A
 
-/// Converts a hex code to a number
-/proc/color_hex2num(A)
-	if(!A || length(A) != length_char(A))
-		return 0
-	var/R = hex2num(copytext(A, 2, 4))
-	var/G = hex2num(copytext(A, 4, 6))
-	var/B = hex2num(copytext(A, 6, 8))
-	return R+G+B
-
 //word of warning: using a matrix like this as a color value will simplify it back to a string after being set
 /proc/color_hex2color_matrix(string)
 	var/length = length(string)

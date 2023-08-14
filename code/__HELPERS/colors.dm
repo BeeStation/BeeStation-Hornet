@@ -64,3 +64,26 @@
 		final_color += copytext(color, digit, digit + 1)
 
 	return final_color
+
+
+/// returns HSV brightness 0 to 100 by color hex
+/proc/get_color_brightness_from_hex(A)
+	if(!A || length(A) != length_char(A))
+		return 0
+	var/R = hex2num(copytext(A, 2, 4))
+	var/G = hex2num(copytext(A, 4, 6))
+	var/B = hex2num(copytext(A, 6, 8))
+	return round(max(R, G, B)/2.55, 1)
+
+/// returns HSV brightness 0 to 100 by color hex
+/proc/get_color_saturation_from_hex(A)
+    if(!A || length(A) != length_char(A))
+        return 0
+    var/R = hex2num(copytext(A, 2, 4))
+    var/G = hex2num(copytext(A, 4, 6))
+    var/B = hex2num(copytext(A, 6, 8))
+    var/brightness = max(R, G, B)
+    if(brightness == 0)
+        return 0
+
+    return round((brightness - min(R, G, B))/brightness*100, 1)

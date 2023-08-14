@@ -697,7 +697,7 @@
 
 	if(isobj(target) && !(target.flags_1 & UNPAINTABLE_1))
 		if(actually_paints)
-			if(color_hex2num(paint_color) < 350 && !istype(target, /obj/structure/window)) //Colors too dark are rejected
+			if(get_color_brightness_from_hex(paint_color) < 33 && !istype(target, /obj/structure/window)) //Colors too dark are rejected
 				if(isclothing(target))
 					var/obj/item/clothing/C = target
 					if(((C.flags_cover & HEADCOVERSEYES) || (C.flags_cover & MASKCOVERSEYES) || (C.flags_cover & GLASSESCOVERSEYES)) && !HAS_TRAIT(C, TRAIT_SPRAYPAINTED))
@@ -717,7 +717,7 @@
 
 			target.add_atom_colour(paint_color, WASHABLE_COLOUR_PRIORITY)
 			if(istype(target, /obj/structure/window))
-				if(color_hex2num(paint_color) < 255)
+				if(get_color_brightness_from_hex(paint_color) < 50)
 					target.set_opacity(255)
 				else
 					target.set_opacity(initial(target.opacity))
