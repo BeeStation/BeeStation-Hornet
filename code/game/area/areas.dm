@@ -461,13 +461,13 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	for(var/obj/machinery/light/L in src)
 		L.update(TRUE, TRUE, TRUE)
 
-/area/proc/set_vacuum_alarm_effect() //Just like fire alarm but blue
+/area/proc/set_pressure_alarm_effect() //Just like fire alarm but blue
 	vacuum = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	for(var/obj/machinery/light/L in src)
 		L.update(TRUE, TRUE, TRUE)
 
-/area/proc/unset_vacuum_alarm_effect()
+/area/proc/unset_pressure_alarm_effect()
 	vacuum = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	for(var/obj/machinery/light/L in src)

@@ -1,6 +1,7 @@
 /datum/species/lizard
 	// Reptilian humanoids with scaled skin and tails.
 	name = "\improper Lizardperson"
+	plural_form = "Lizardpeople"
 	id = SPECIES_LIZARD
 	bodyflag = FLAG_LIZARD
 	default_color = "00FF00"
@@ -69,6 +70,13 @@
 
 /datum/species/lizard/get_sniff_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_SNIFF_SOUND(user)
+
+/datum/species/lizard/get_species_description()
+	return "Lizardpeople, unlike many 'Animalid' species, are not derived from humans, and are simply bipedal reptile-like people. \
+	Lizards often find great pride in their species."
+
+/datum/species/lizard/get_species_lore()
+	return null
 
 /*
  Lizard subspecies: ASHWALKERS

@@ -47,7 +47,10 @@
 
 #include "achievement_validation.dm"
 #include "anchored_mobs.dm"
+#include "antag_datums.dm"
 #include "area_contents.dm"
+#include "armour_checks.dm"
+#include "async.dm"
 #include "check_adjustable_clothing.dm"
 #include "closets.dm"
 #include "component_tests.dm"
@@ -61,7 +64,6 @@
 #include "create_and_destroy.dm"
 #endif
 
-#include "antag_datums.dm"
 #include "dynamic_ruleset_sanity.dm"
 #include "enumerables.dm"
 #include "gamemode_sanity.dm"
@@ -78,9 +80,11 @@
 #include "heretic_rituals.dm"
 #include "metabolizing.dm"
 #include "ntnetwork_tests.dm"
+#include "preference_species.dm"
 #include "projectiles.dm"
 #include "subsystem_init.dm"
 #include "subsystem_metric_sanity.dm"
+#include "surgery_linking.dm"
 #include "techweb_sanity.dm"
 #include "tgui_create_message.dm"
 #include "timer_sanity.dm"

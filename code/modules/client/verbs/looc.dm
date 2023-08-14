@@ -20,7 +20,7 @@ GLOBAL_VAR_INIT(looc_allowed, TRUE)
 
 	var/raw_msg = msg
 
-	if(!(prefs.toggles & CHAT_OOC))
+	if(!prefs.read_player_preference(/datum/preference/toggle/chat_ooc))
 		to_chat(src, "<span class='danger'>You have OOC (and therefore LOOC) muted.</span>")
 		return
 
@@ -64,17 +64,17 @@ GLOBAL_VAR_INIT(looc_allowed, TRUE)
 	for(var/turf/viewed_turf in view(get_turf(mob)))
 		in_view[viewed_turf] = TRUE
 	for(var/client/client in GLOB.clients)
-		if(!client.mob || !(client.prefs.toggles & CHAT_OOC) || (client in GLOB.admins))
+		if(!client.mob || !client.prefs.read_player_preference(/datum/preference/toggle/chat_ooc) || (client in GLOB.admins))
 			continue
 		if(in_view[get_turf(client.mob)])
 			targets |= client
 			to_chat(client, "<span class='looc'><span class='prefix'>LOOC:</span> <EM><span class='name'>[mob.name]</span>:</EM> <span class='message'>[msg]</span></span>", avoid_highlighting = (client == src))
 
 	for(var/client/client in GLOB.admins)
-		if(!(client.prefs.toggles & CHAT_OOC))
+		if(!client.prefs.read_player_preference(/datum/preference/toggle/chat_ooc))
 			continue
 		var/prefix = "[(client in targets) ? "" : "(R)"]LOOC"
-		to_chat(client, "<span class='looc'><span class='prefix'>[prefix]:</span> <EM>[ADMIN_LOOKUPFLW(client)]:</EM> <span class='message'>[msg]</span></span>", avoid_highlighting = (client == src))
+		to_chat(client, "<span class='looc'><span class='prefix'>[prefix]:</span> <EM>[ADMIN_LOOKUPFLW(mob)]:</EM> <span class='message'>[msg]</span></span>", avoid_highlighting = (client == src))
 
 /proc/log_looc(text)
 	if (CONFIG_GET(flag/log_ooc))
