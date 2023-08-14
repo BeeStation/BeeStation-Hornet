@@ -1,4 +1,0 @@
-author: mystery3525
-delete-after: true
-changes:
-  - bugfix: Radstation AI Satellite no longer depowers 30 minutes into a shift.
