@@ -1,5 +1,0 @@
-author: Bokkiewokkie
-delete-after: true
-changes:
-  - bugfix: Fixed VV menu not showing new turfs after deleting a turf
-  - bugfix: Fixed admins adding components not logging the object it was added to
