@@ -1,5 +1,6 @@
 /datum/species/ipc
 	name = "\improper Integrated Positronic Chassis"
+	plural_form = "IPCs"
 	id = SPECIES_IPC
 	bodyflag = FLAG_IPC
 	sexes = FALSE
@@ -15,7 +16,7 @@
 	mutant_heart = /obj/item/organ/heart/cybernetic/ipc
 	mutant_organs = list(/obj/item/organ/cyberimp/arm/power_cord)
 	mutant_bodyparts = list("ipc_screen", "ipc_antenna", "ipc_chassis")
-	default_features = list("mcolor" = "#7D7D7D", "ipc_screen" = "Static", "ipc_antenna" = "None", "ipc_chassis" = "Morpheus Cyberkinetics(Greyscale)")
+	default_features = list("mcolor" = "#7D7D7D", "ipc_screen" = "Static", "ipc_antenna" = "None", "ipc_chassis" = "Morpheus Cyberkinetics (Custom)")
 	meat = /obj/item/stack/sheet/plasteel{amount = 5}
 	skinned_type = /obj/item/stack/sheet/iron{amount = 10}
 	exotic_blood = /datum/reagent/oil
@@ -259,3 +260,31 @@
 		BP.limb_id = chassis_of_choice.limbs_id
 		BP.name = "\improper[chassis_of_choice.name] [parse_zone(BP.body_zone)]"
 		BP.update_limb()
+
+/datum/species/ipc/get_species_description()
+	return "The newest in artificial life, IPCs are entirely robotic, synthetic life, made of motors, circuits, and wires \
+	- based on newly developed Postronic brain technology."
+
+/datum/species/ipc/get_species_lore()
+	return null
+
+/datum/species/ipc/create_pref_unique_perks()
+	var/list/to_add = list()
+
+	to_add += list(
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEUTRAL_PERK,
+			SPECIES_PERK_ICON = "robot",
+			SPECIES_PERK_NAME = "Robotic",
+			SPECIES_PERK_DESC = "IPCs have an entirely robotic body, meaning medical care is typically done through Robotics or Engineering. \
+			Whether this is helpful or not is heavily dependent on your coworkers. It does, however, mean you are usually able to perform self-repairs easily.",
+		),
+		list(
+			SPECIES_PERK_TYPE = SPECIES_NEGATIVE_PERK,
+			SPECIES_PERK_ICON = "magnet",
+			SPECIES_PERK_NAME = "EMP Vulnerable",
+			SPECIES_PERK_DESC = "IPC organs are cybernetic, and thus susceptible to electromagnetic interference. Getting hit by an EMP may stop your heart.",
+		),
+	)
+
+	return to_add

@@ -63,6 +63,7 @@
 	switch(passed_mode)
 		if(RCD_DECONSTRUCT)
 			to_chat(user, "<span class='notice'>You deconstruct the grille.</span>")
+			log_attack("[key_name(user)] has deconstructed [src] at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 			qdel(src)
 			return TRUE
 		if(RCD_WINDOWGRILLE)
@@ -77,6 +78,7 @@
 				to_chat(user, "<span class='notice'>Already a window in this direction!.</span>")
 				return FALSE
 			to_chat(user, "<span class='notice'>You construct the window.</span>")
+			log_attack("[key_name(user)] has constructed a window at [loc_name(src)] using [format_text(initial(the_rcd.name))]")
 			var/obj/structure/window/WD = new the_rcd.window_type(T, user.dir)
 			WD.setAnchored(TRUE)
 			return TRUE
@@ -136,7 +138,7 @@
 
 /obj/structure/grille/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	if(!. && istype(mover, /obj/item/projectile))
+	if(!. && istype(mover, /obj/projectile))
 		return prob(30)
 
 /obj/structure/grille/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller)

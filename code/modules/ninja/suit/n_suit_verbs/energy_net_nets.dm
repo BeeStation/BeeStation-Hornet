@@ -71,10 +71,24 @@ It is possible to destroy the net by the occupant or someone else.
 
 	if(!QDELETED(master))//As long as they still exist.
 		to_chat(master, "<span class='notice'><b>SUCCESS</b>: transport procedure of [affecting] complete.</span>")
+		// Give them a point towards their objective
+		for (var/datum/antagonist/antag in master.mind?.antag_datums)
+			for (var/datum/objective/capture/capture in antag.objectives)
+				capture.register_capture(affecting)
 	do_sparks(5, FALSE, affecting)
 	playsound(affecting, 'sound/effects/phasein.ogg', 25, 1)
 	playsound(affecting, 'sound/effects/sparks2.ogg', 50, 1)
 	new /obj/effect/temp_visual/dir_setting/ninja/phase(affecting.drop_location(), affecting.dir)
+	// Return the mob to the station after 5 minutes in prison
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(force_teleport_to_safe_location), affecting), 5 MINUTES)
+
+/proc/force_teleport_to_safe_location(mob/living/target)
+	// If you get gibbed or deleted, your soul will be trapped forever
+	if (QDELETED(target))
+		return
+	var/turf/safe_location = get_safe_random_station_turfs()
+	do_teleport(target, safe_location, channel = TELEPORT_CHANNEL_FREE, forced = TRUE)
+	target.Unconscious(3 SECONDS)
 
 /obj/structure/energy_net/attack_paw(mob/user)
 	return attack_hand()

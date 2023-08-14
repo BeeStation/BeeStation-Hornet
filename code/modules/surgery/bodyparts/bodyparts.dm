@@ -341,7 +341,7 @@
 	if(mutation_color) //I hate mutations
 		draw_color = mutation_color
 	else if(should_draw_greyscale)
-		draw_color = (species_color) || (skin_tone && skintone2hex(skin_tone))
+		draw_color = (species_color) || (skin_tone && skintone2hex(skin_tone, include_tag = FALSE))
 	else
 		draw_color = null
 
@@ -372,7 +372,7 @@
 
 		draw_color = mutation_color
 		if(should_draw_greyscale) //Should the limb be colored?
-			draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone))
+			draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone, include_tag = FALSE))
 
 		dmg_overlay_type = S.damage_overlay_type
 
@@ -456,7 +456,7 @@
 
 	draw_color = mutation_color
 	if(should_draw_greyscale) //Should the limb be colored?
-		draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone))
+		draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone, include_tag = FALSE))
 
 	if(draw_color)
 		limb.color = "#[draw_color]"

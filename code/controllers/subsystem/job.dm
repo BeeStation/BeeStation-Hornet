@@ -36,7 +36,6 @@ SUBSYSTEM_DEF(job)
 		SetupOccupations()
 	if(CONFIG_GET(flag/load_jobs_from_txt))
 		LoadJobs()
-
 	set_overflow_role(CONFIG_GET(string/overflow_job))
 
 	spare_id_safe_code = "[rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)]"
@@ -96,6 +95,7 @@ SUBSYSTEM_DEF(job)
 
 
 /datum/controller/subsystem/job/proc/GetJob(rank)
+	RETURN_TYPE(/datum/job)
 	if(!rank)
 		CRASH("proc has taken no job name")
 	if(!occupations.len)
@@ -105,6 +105,7 @@ SUBSYSTEM_DEF(job)
 	return name_occupations[rank]
 
 /datum/controller/subsystem/job/proc/GetJobType(jobtype)
+	RETURN_TYPE(/datum/job)
 	if(!jobtype)
 		CRASH("proc has taken no job type")
 	if(!occupations.len)
@@ -171,7 +172,7 @@ SUBSYSTEM_DEF(job)
 		if(player.mind && (job.title in player.mind.restricted_roles))
 			JobDebug("FOC incompatible with antagonist role, Player: [player]")
 			continue
-		if(player.client.prefs.active_character.job_preferences[job.title] == level)
+		if(player.client.prefs.job_preferences[job.title] == level)
 			JobDebug("FOC pass, Player: [player], Level:[level]")
 			candidates += player
 	return candidates
@@ -391,7 +392,7 @@ SUBSYSTEM_DEF(job)
 					continue
 
 				// If the player wants that job on this level, then try give it to him.
-				if(player.client.prefs.active_character.job_preferences[job.title] == level || (job.gimmick && player.client.prefs.active_character.job_preferences["Gimmick"] == level))
+				if(player.client.prefs.job_preferences[job.title] == level || (job.gimmick && player.client.prefs.job_preferences["Gimmick"] == level))
 					// If the job isn't filled
 					if((job.current_positions < job.spawn_positions) || job.spawn_positions == -1)
 						JobDebug("DO pass, Player: [player], Level:[level], Job:[job.title]")
@@ -435,26 +436,38 @@ SUBSYSTEM_DEF(job)
 
 //We couldn't find a job from prefs for this guy.
 /datum/controller/subsystem/job/proc/HandleUnassigned(mob/dead/new_player/player)
+	var/jobless_role = player.client.prefs.read_player_preference(/datum/preference/choiced/jobless_role)
+
 	if(PopcapReached() && !IS_PATRON(player.ckey))
 		RejectPlayer(player)
-	else if(player.client.prefs.active_character.joblessrole == BEOVERFLOW)
-		var/allowed_to_be_a_loser = !is_banned_from(player.ckey, SSjob.overflow_role)
-		if(QDELETED(player) || !allowed_to_be_a_loser)
-			RejectPlayer(player)
-		else
-			if(!AssignRole(player, SSjob.overflow_role))
+		return
+
+	switch (jobless_role)
+		if (BEOVERFLOW)
+			var/datum/job/overflow_role_datum = GetJob(overflow_role)
+			if(!istype(overflow_role_datum))
+				stack_trace("Invalid overflow_role set ([overflow_role]), please make sure it matches a valid job datum.")
 				RejectPlayer(player)
-	else if(player.client.prefs.active_character.joblessrole == BERANDOMJOB)
-		if(!GiveRandomJob(player))
+			else
+				var/allowed_to_be_a_loser = !is_banned_from(player.ckey, overflow_role_datum.title)
+				if(QDELETED(player) || !allowed_to_be_a_loser)
+					RejectPlayer(player)
+				else
+					if(!AssignRole(player, overflow_role_datum.title))
+						RejectPlayer(player)
+		if (BERANDOMJOB)
+			if(!GiveRandomJob(player))
+				RejectPlayer(player)
+		if (RETURNTOLOBBY)
 			RejectPlayer(player)
-	else if(player.client.prefs.active_character.joblessrole == RETURNTOLOBBY)
-		RejectPlayer(player)
-	else //Something gone wrong if we got here.
-		var/message = "DO: [player] fell through handling unassigned"
-		JobDebug(message)
-		log_game(message)
-		message_admins(message)
-		RejectPlayer(player)
+		else //Something gone wrong if we got here.
+			var/message = "DO: [player] fell through handling unassigned"
+			JobDebug(message)
+			log_game(message)
+			message_admins(message)
+			RejectPlayer(player)
+
+
 //Gives the player the stuff he should have with his rank
 /datum/controller/subsystem/job/proc/EquipRank(mob/M, rank, joined_late = FALSE)
 	var/mob/dead/new_player/newplayer
@@ -517,7 +530,7 @@ SUBSYSTEM_DEF(job)
 		SSpersistence.antag_rep_change[M.client.ckey] += job.GetAntagRep()
 
 		if(M.client.holder)
-			if(CONFIG_GET(flag/auto_deadmin_players) || (M.client.prefs?.toggles & PREFTOGGLE_DEADMIN_ALWAYS))
+			if(CONFIG_GET(flag/auto_deadmin_players) || M.client?.prefs.read_player_preference(/datum/preference/toggle/deadmin_always))
 				M.client.holder.auto_deadmin()
 			else
 				handle_auto_deadmin_roles(M.client, rank)
@@ -532,7 +545,7 @@ SUBSYSTEM_DEF(job)
 		if(wageslave.mind?.account_id)
 			living_mob.add_memory("Your account ID is [wageslave.mind.account_id].")
 	if(job && living_mob)
-		job.after_spawn(living_mob, M, joined_late) // note: this happens before the mob has a key! M will always have a client, living_mob might not.
+		job.after_spawn(living_mob, M, joined_late, M.client) // note: this happens before the mob has a key! M will always have a client, living_mob might not.
 
 	if(living_mob.mind && !living_mob.mind.crew_objectives.len)
 		give_crew_objective(living_mob.mind, M)
@@ -545,11 +558,11 @@ SUBSYSTEM_DEF(job)
 	var/datum/job/job = GetJob(rank)
 	if(!job)
 		return
-	if((job.auto_deadmin_role_flags & PREFTOGGLE_DEADMIN_POSITION_HEAD) && (CONFIG_GET(flag/auto_deadmin_heads) || (C.prefs?.toggles & PREFTOGGLE_DEADMIN_POSITION_HEAD)))
+	if((job.auto_deadmin_role_flags & DEADMIN_POSITION_HEAD) && (CONFIG_GET(flag/auto_deadmin_heads) || C.prefs?.read_player_preference(/datum/preference/toggle/deadmin_position_head)))
 		return C.holder.auto_deadmin()
-	else if((job.auto_deadmin_role_flags & PREFTOGGLE_DEADMIN_POSITION_SECURITY) && (CONFIG_GET(flag/auto_deadmin_security) || (C.prefs?.toggles & PREFTOGGLE_DEADMIN_POSITION_SECURITY)))
+	else if((job.auto_deadmin_role_flags & DEADMIN_POSITION_SECURITY) && (CONFIG_GET(flag/auto_deadmin_security) || C.prefs?.read_player_preference(/datum/preference/toggle/deadmin_position_security)))
 		return C.holder.auto_deadmin()
-	else if((job.auto_deadmin_role_flags & PREFTOGGLE_DEADMIN_POSITION_SILICON) && (CONFIG_GET(flag/auto_deadmin_silicons) || (C.prefs?.toggles & PREFTOGGLE_DEADMIN_POSITION_SILICON))) //in the event there's ever psuedo-silicon roles added, ie synths.
+	else if((job.auto_deadmin_role_flags & DEADMIN_POSITION_SILICON) && (CONFIG_GET(flag/auto_deadmin_silicons) || C.prefs?.read_player_preference(/datum/preference/toggle/deadmin_position_silicon))) //in the event there's ever psuedo-silicon roles added, ie synths.
 		return C.holder.auto_deadmin()
 
 /datum/controller/subsystem/job/proc/setup_officer_positions()
@@ -610,7 +623,7 @@ SUBSYSTEM_DEF(job)
 			if(job.required_playtime_remaining(player.client))
 				young++
 				continue
-			switch(player.client.prefs.active_character.job_preferences[job.title])
+			switch(player.client.prefs.job_preferences[job.title])
 				if(JP_HIGH)
 					high++
 				if(JP_MEDIUM)

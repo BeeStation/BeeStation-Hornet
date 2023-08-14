@@ -250,23 +250,23 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	corgi_source.update_corgi_fluff()
 	corgi_source.regenerate_icons()
 
-/mob/living/simple_animal/pet/dog/corgi/getarmor(def_zone, type)
-	var/armorval = 0
+/mob/living/simple_animal/pet/dog/corgi/getarmor(def_zone, type, penetration)
+	var/armorval = 1
 
 	if(def_zone)
 		if(def_zone == BODY_ZONE_HEAD)
 			if(inventory_head)
-				armorval = inventory_head.get_armor_rating(type, src)
+				return ((1 - (inventory_head.get_armor_rating(type, src) / 100)) * (1 - penetration / 100)) * 100
 		else
 			if(inventory_back)
-				armorval = inventory_back.get_armor_rating(type, src)
-		return armorval
+				return ((1 - (inventory_back.get_armor_rating(type, src) / 100)) * (1 - penetration / 100)) * 100
+		return 0
 	else
 		if(inventory_head)
-			armorval += inventory_head.get_armor_rating(type, src)
+			armorval *= 1 - min((inventory_head.get_armor_rating(type, src) / 100) * (1 - penetration / 100), 1)
 		if(inventory_back)
-			armorval += inventory_back.get_armor_rating(type, src)
-	return armorval*0.5
+			armorval *= 1 - min((inventory_back.get_armor_rating(type, src) / 100) * (1 - penetration / 100), 1)
+	return (1 - armorval) * 100
 
 /mob/living/simple_animal/pet/dog/corgi/attackby(obj/item/O, mob/user, params)
 	if (istype(O, /obj/item/razor))

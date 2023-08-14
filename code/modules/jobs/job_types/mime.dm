@@ -1,6 +1,8 @@
 /datum/job/mime
 	title = JOB_NAME_MIME
 	flag = MIME
+	description = "Be the Clown's mute counterpart and arch nemesis. Conduct pantomimes and performances, create interesting situations with your mime powers. Remember your job is to keep things funny for others, not just yourself."
+	department_for_prefs = DEPT_BITFLAG_CIV
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	faction = "Station"
@@ -27,9 +29,14 @@
 
 	minimal_lightup_areas = list(/area/crew_quarters/theatre)
 
-/datum/job/mime/after_spawn(mob/living/carbon/human/H, mob/M)
+/datum/job/mime/after_spawn(mob/living/carbon/human/H, mob/M, latejoin = FALSE, client/preference_source, on_dummy = FALSE)
 	. = ..()
-	H.apply_pref_name("mime", M.client)
+	if(!ishuman(H))
+		return
+	if(!M.client || on_dummy)
+		return
+	H.apply_pref_name(/datum/preference/name/mime, preference_source)
+
 
 /datum/outfit/job/mime
 	name = JOB_NAME_MIME

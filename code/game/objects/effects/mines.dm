@@ -225,7 +225,7 @@
 
 /obj/effect/mine/shrapnel
 	name = "shrapnel mine"
-	var/shrapnel_type = /obj/item/projectile/bullet/shrapnel
+	var/shrapnel_type = /obj/projectile/bullet/shrapnel
 	var/shrapnel_magnitude = 3
 
 /obj/effect/mine/shrapnel/mineEffect(mob/victim)
@@ -233,7 +233,7 @@
 
 /obj/effect/mine/shrapnel/sting
 	name = "stinger mine"
-	shrapnel_type = /obj/item/projectile/bullet/pellet/stingball
+	shrapnel_type = /obj/projectile/bullet/pellet/stingball
 
 /obj/effect/mine/kickmine
 	name = "kick mine"

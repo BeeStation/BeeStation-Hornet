@@ -143,9 +143,10 @@
 		M.update_inv_head()
 
 /obj/item/clothing/head/compile_monkey_icon()
+	var/identity = "[type]_[icon_state]" //Allows using multiple icon states for piece of clothing
 	//If the icon, for this type of item, is already made by something else, don't make it again
-	if(GLOB.monkey_icon_cache[type])
-		monkey_icon = GLOB.monkey_icon_cache[type]
+	if(GLOB.monkey_icon_cache[identity])
+		monkey_icon = GLOB.monkey_icon_cache[identity]
 		return
 
 	//Start with two sides for the front
@@ -172,4 +173,4 @@
 
 	//Finished
 	monkey_icon = main
-	GLOB.monkey_icon_cache[type] = icon(monkey_icon)
+	GLOB.monkey_icon_cache[identity] = icon(monkey_icon)

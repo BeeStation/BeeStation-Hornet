@@ -142,7 +142,7 @@
 		if(plasma_ignition(6))
 			new /obj/structure/girder/displaced(loc)
 
-/turf/closed/wall/mineral/plasma/bullet_act(obj/item/projectile/Proj)
+/turf/closed/wall/mineral/plasma/bullet_act(obj/projectile/Proj)
 	if(!(Proj.nodamage) && Proj.damage_type == BURN)
 		if(plasma_ignition(6))
 			new /obj/structure/girder/displaced(loc)
@@ -335,6 +335,7 @@
 
 /turf/closed/wall/mineral/plastitanium/explosive/ex_act(severity)
 	var/obj/item/bombcore/large/bombcore = new(get_turf(src))
+	bombcore.installed = TRUE
 	bombcore.detonate()
 	..()
 
