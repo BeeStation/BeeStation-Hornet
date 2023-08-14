@@ -24,7 +24,7 @@
 	///Should the [icon_state]_broken overlay be shown as an emissive or regular overlay?
 	var/broken_overlay_emissive = FALSE
 
-/obj/machinery/computer/Initialize(mapload, obj/item/circuitboard/C)
+/obj/machinery/computer/Initialize(mapload)
 	. = ..()
 
 	power_change()
