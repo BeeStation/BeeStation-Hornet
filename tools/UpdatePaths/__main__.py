@@ -108,8 +108,8 @@ def update_path(dmm_data, replacement_string, verbose=False):
                     print("Deleting match : {0}".format(match.group(0)))
                 return [None]
             elif new_path.endswith("/@SUBTYPES"):
-                path_start = new_path[:-len("/@SUBTYPES")]
-                out = path_start + match.group('subtype')
+                path_start = new_path[ :-len("/@SUBTYPES")]
+                out = path_start + match.group("subtype")
             else:
                 out = new_path
 
