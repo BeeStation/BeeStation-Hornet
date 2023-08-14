@@ -20827,7 +20827,7 @@
 /area/quartermaster/miningdock)
 "gnr" = (
 /obj/effect/turf_decal/bot,
-/obj/effect/mapping_helpers/dead_body_placer,
+/obj/effect/mapping_helpers/dead_body_placer/medbay_morgue,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -55831,7 +55831,7 @@
 /area/vacant_room/office)
 "rso" = (
 /obj/effect/turf_decal/bot,
-/obj/effect/mapping_helpers/dead_body_placer,
+/obj/effect/mapping_helpers/dead_body_placer/medbay_morgue,
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
 "rsT" = (
@@ -57730,7 +57730,7 @@
 /area/hallway/primary/aft)
 "sbX" = (
 /obj/effect/turf_decal/bot,
-/obj/effect/mapping_helpers/dead_body_placer,
+/obj/effect/mapping_helpers/dead_body_placer/medbay_morgue,
 /obj/machinery/power/apc/auto_name/north{
 	pixel_y = 24
 	},
