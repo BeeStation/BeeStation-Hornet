@@ -267,13 +267,7 @@ Simply tap it together with a ProfitProtektor Mk Ⅱ™ of your choosing and the
 			succeeded = TRUE
 	if(!succeeded)
 		return ..()
-/*
-/obj/item/video_bug/attack(mob/living/M, mob/living/user)
-	return COMPONENT_NO_AFTERATTACK
 
-/obj/item/video_bug/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	return
-*/
 /obj/item/video_bug/emp_act(severity)
 	if(severity > 4)
 		Destroy(src)
