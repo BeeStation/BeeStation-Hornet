@@ -921,6 +921,11 @@
 
 	var/rendered = "<span class='holocall'><b>\[Holocall\] [language_icon]<span class='name'>[hrefpart][namepart] ([jobpart])</a></span></b>[treated_message]</span>"
 	show_message(rendered, 2)
+	speaker.create_private_chat_message(
+		message = message,
+		message_language = message_language,
+		hearers = list(src),
+		includes_ghosts = FALSE) // ghosts already see this except for you...
 
 	// renders message for ghosts
 	rendered = "<span class='holocall'><b>\[Holocall\] [language_icon]<span class='name'>[speaker.GetVoice()]</span></b>[treated_message]</span>"
