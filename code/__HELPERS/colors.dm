@@ -75,7 +75,7 @@
 	var/B = hex2num(copytext(A, 6, 8))
 	return round(max(R, G, B)/2.55, 1)
 
-/// returns HSV brightness 0 to 100 by color hex
+/// returns HSV saturation 0 to 100 by color hex
 /proc/get_color_saturation_from_hex(A)
     if(!A || length(A) != length_char(A))
         return 0
