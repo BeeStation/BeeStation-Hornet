@@ -146,7 +146,7 @@ def update_path(dmm_data, replacement_string, verbose=False):
     keys = list(dmm_data.dictionary.keys())
     for definition_key in keys:
         def_value = dmm_data.dictionary[definition_key]
-        new_value = tuple(y for x in def_value for y in get_result(x) if y != None)
+        new_value = tuple(y for x in def_value for y in get_result(x) if y is not None)
         if new_value != def_value:
             dmm_data.overwrite_key(definition_key, new_value, bad_keys)
             modified_keys.append(definition_key)
