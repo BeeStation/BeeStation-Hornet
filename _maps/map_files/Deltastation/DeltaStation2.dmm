@@ -44045,7 +44045,7 @@
 /area/hallway/primary/central)
 "gBU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/dead_body_placer,
+/obj/effect/mapping_helpers/dead_body_placer/medbay_morgue,
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 1
@@ -53396,7 +53396,7 @@
 	dir = 1
 	},
 /obj/item/reagent_containers/food/drinks/bottle/whiskey,
-/obj/effect/mapping_helpers/dead_body_placer,
+/obj/effect/mapping_helpers/dead_body_placer/medbay_morgue,
 /turf/open/floor/plasteel,
 /area/medical/morgue)
 "jVv" = (
