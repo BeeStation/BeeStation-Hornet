@@ -1,6 +1,6 @@
 /datum/preference/choiced/jobless_role
 	db_key = "joblessrole"
-	preference_type = PREFERENCE_PLAYER
+	preference_type = PREFERENCE_CHARACTER
 
 /datum/preference/choiced/jobless_role/create_default_value()
 	return BEOVERFLOW
