@@ -9,10 +9,18 @@
 	var/intensity = 1
 
 /datum/component/radio_jamming/Initialize(_range = 12, _intensity = RADIO_JAMMER_TRAITOR_LEVEL)
+
+	if (!isatom(parent))
+		return COMPONENT_INCOMPATIBLE
+
 	//Set the range
 	range = _range
 	intensity = _intensity
 	RegisterSignal(parent, COMSIG_TOGGLE_JAMMER, PROC_REF(toggle))
+
+	// We need to know when our parent atoms move
+	parent.AddComponent(/datum/component/moved_relay)
+	RegisterSignal(parent, COMSIG_PARENT_MOVED_RELAY, PROC_REF(check_move_jams))
 
 /datum/component/radio_jamming/Destroy(force, silent)
 	disable()
@@ -39,3 +47,21 @@
 		enable()
 	if (!silent && user)
 		to_chat(user, "<span class='notice'>You [!active ? "deactivate" : "activate"] [parent].</span>")
+
+/datum/component/radio_jamming/proc/check_move_jams(...)
+	SIGNAL_HANDLER
+	if (!GLOB.jam_receivers_by_z)
+		return
+	var/turf/jammer_turf = get_turf(parent)
+	if (length(GLOB.jam_receivers_by_z) < jammer_turf.z || jammer_turf.z == 0)
+		return
+	for (var/datum/component/jam_receiver/receiver in GLOB.jam_receivers_by_z[jammer_turf.z])
+		//Check to see if the jammer is strong enough to block this signal
+		if (receiver.intensity_resist > intensity)
+			continue
+		var/turf/position = get_turf(receiver.parent)
+		if(position?.get_virtual_z_level() == jammer_turf.get_virtual_z_level() && (get_dist(position, jammer_turf) <= range))
+			receiver.set_jammed(TRUE)
+		// If the receiver was jammed but is no longer jammed, check all in range
+		else if (receiver.jammed)
+			receiver.check_jammed()

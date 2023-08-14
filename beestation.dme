@@ -603,6 +603,7 @@
 #include "code\datums\components\heirloom.dm"
 #include "code\datums\components\honkspam.dm"
 #include "code\datums\components\infective.dm"
+#include "code\datums\components\jam_receiver.dm"
 #include "code\datums\components\jousting.dm"
 #include "code\datums\components\knockoff.dm"
 #include "code\datums\components\larryknife.dm"

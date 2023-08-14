@@ -171,3 +171,10 @@
 #define COMSIG_ATOM_SHOULD_EMAG "atom_should_emag"
 /// Do the emag action (if CHECK is FALSE)
 #define COMSIG_ATOM_ON_EMAG "atom_on_emag"
+
+/////////////////
+/// Radio jamming signals
+/////////////////
+
+#define COMSIG_ATOM_JAMMED "become_jammed"						//! Relayed to atoms when they become jammed if they have the jam_receiver components.
+#define COMSIG_ATOM_UNJAMMED "become_unjammed"					//! Relayed to atoms when they become unjammed if they have the jam_receiver components.
