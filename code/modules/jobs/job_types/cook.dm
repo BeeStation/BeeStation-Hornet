@@ -1,6 +1,8 @@
 /datum/job/cook
 	title = JOB_NAME_COOK
 	flag = COOK
+	description = "Whip up meals for the crew, get creative and cook different meals, request ingredients from Botany and Cargo. Make sure everyone stays well fed and happy."
+	department_for_prefs = DEPT_BITFLAG_SRV
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	supervisors = "the head of personnel"
 	faction = "Station"

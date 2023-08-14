@@ -105,15 +105,8 @@
 			assign_exchange_role(SSticker.mode.exchange_blue)
 		objective_count += 1					//Exchange counts towards number of objectives
 	var/toa = CONFIG_GET(number/traitor_objectives_amount)
-	for(var/i = objective_count, i < toa - 1, i++)
+	for(var/i = objective_count, i < toa, i++)
 		forge_single_objective()
-
-	//Add a gimmick objective
-	var/datum/objective/gimmick/gimmick_objective = new
-	gimmick_objective.owner = owner
-	gimmick_objective.find_target()
-	gimmick_objective.update_explanation_text()
-	add_objective(gimmick_objective) //Does not count towards the number of objectives, to allow hijacking as well
 
 	if(is_hijacker && objective_count <= toa) //Don't assign hijack if it would exceed the number of objectives set in config.traitor_objectives_amount
 		if (!(locate(/datum/objective/hijack) in objectives))
@@ -168,6 +161,29 @@
 
 /datum/antagonist/traitor/proc/forge_single_human_objective() //Returns how many objectives are added
 	.=1
+	// Lower chance of spawning due to the few open objectives there are
+	if(prob(20))
+		var/static/list/selectable_objectives
+		if (!selectable_objectives)
+			selectable_objectives = list()
+			for (var/datum/objective/open/objective as() in subtypesof(/datum/objective/open))
+				selectable_objectives[objective] = initial(objective.weight)
+		var/created_type = pick_weight(selectable_objectives)
+		var/valid = TRUE
+		// Check if the objective conflicts with any other ones
+		// We don't want to have the same open objectives multiple times
+		// If we don't want this objective, fall back to normal ones
+		for (var/datum/objective/obj in objectives)
+			if (obj.type == created_type)
+				valid = FALSE
+				break
+		if (valid)
+			var/datum/objective/obj = new created_type
+			obj.owner = owner
+			obj.find_target()
+			add_objective(obj)
+			return
+
 	if(prob(50))
 		var/list/active_ais = active_ais()
 		if(active_ais.len && prob(100/GLOB.joined_player_list.len))
@@ -350,12 +366,8 @@
 	if(objectives.len)//If the traitor had no objectives, don't need to process this.
 		var/count = 1
 		for(var/datum/objective/objective in objectives)
-			if(objective.check_completion() && !objective.optional)
-				objectives_text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <span class='greentext'>Success!</span>"
-			else if (objective.optional)
-				objectives_text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <span class='greentext'>Optional.</span>"
-			else
-				objectives_text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
+			objectives_text += "<br><B>Objective #[count]</B>: [objective.get_completion_message()]"
+			if(!objective.check_completion())
 				traitorwin = FALSE
 			count++
 

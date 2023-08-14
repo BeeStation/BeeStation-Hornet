@@ -138,23 +138,21 @@
 	return use(user)
 
 /obj/structure/ladder/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
-	switch(the_rcd.mode)
-		if(RCD_DECONSTRUCT)
-			return list("mode" = RCD_DECONSTRUCT, "delay" = 30, "cost" = 15)
+	if(the_rcd.mode == RCD_DECONSTRUCT)
+		return list("mode" = RCD_DECONSTRUCT, "delay" = 30, "cost" = 15)
 	return FALSE
 
 /obj/structure/ladder/rcd_act(mob/user, var/obj/item/construction/rcd/the_rcd, passed_mode)
-	switch(passed_mode)
-		if(RCD_DECONSTRUCT)
-			to_chat(user, "<span class='notice'>You deconstruct the ladder.</span>")
-			qdel(src)
-			return TRUE
+	if(passed_mode == RCD_DECONSTRUCT)
+		to_chat(user, "<span class='notice'>You deconstruct the ladder.</span>")
+		qdel(src)
+		return TRUE
+	return FALSE
 
 /obj/structure/ladder/unbreakable/rcd_act(mob/user, var/obj/item/construction/rcd/the_rcd, passed_mode)
-	switch(passed_mode)
-		if(RCD_DECONSTRUCT)
-			to_chat(user, "<span class='warning'>[src] seems to resist all attempts to deconstruct it!</span>")
-			return FALSE
+	if(RCD_DECONSTRUCT == passed_mode)
+		to_chat(user, "<span class='warning'>[src] seems to resist all attempts to deconstruct it!</span>")
+		return FALSE
 
 /obj/structure/ladder/attackby(obj/item/I, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
