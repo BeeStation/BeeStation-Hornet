@@ -505,7 +505,7 @@
 /mob/dead/new_player/proc/check_preferences()
 	if(!client)
 		return FALSE //Not sure how this would get run without the mob having a client, but let's just be safe.
-	if(client.prefs.read_player_preference(/datum/preference/choiced/jobless_role) != RETURNTOLOBBY)
+	if(client.prefs.read_character_preference(/datum/preference/choiced/jobless_role) != RETURNTOLOBBY)
 		return TRUE
 	// If they have antags enabled, they're potentially doing this on purpose instead of by accident. Notify admins if so.
 	var/has_antags = (length(client.prefs.role_preferences_global) + length(client.prefs.role_preferences)) > 0
