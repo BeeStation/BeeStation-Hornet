@@ -90,8 +90,8 @@ l_pix = 1, r_pix = 32, x_offset = 0, y_offset = 0, scale = 1, targeted_client)
 			target_client?.images += shown_image
 		animate(shown_image, pixel_y = 32 + y_image_offset + (PROGRESSBAR_HEIGHT * (listindex - 1)), alpha = 255, time = PROGRESSBAR_ANIMATION_TIME, easing = SINE_EASING)
 		shown_image_darkened.filters += filter(type = "color", color = list(0.07,0.07,0.07,0,0.07,0.07,0.07,0,0.07,0.07,0.07,0,0,0,0,1))
-		if(user?.client)
-			current_outline_color = user.client.prefs.outline_color
+		if(user?.client?.prefs)
+			current_outline_color = user.client.prefs.read_player_preference(/datum/preference/color/outline_color)
 		shown_image_darkened.filters += filter(type = "outline", size = 1, color = current_outline_color)
 		user?.client.images += shown_image_darkened
 		if(show_to_target)

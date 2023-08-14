@@ -996,8 +996,8 @@
 		to_chat(user, "<span class='warning'>[src] can only be used on gendered things!</span>")
 		return
 
-	if(L in user.do_afters)
-		to_chat(user, "<span class='warning'>You're already trying to feed [L] \the [src]!</span>")
+	if(target in user.do_afters)
+		to_chat(user, "<span class='warning'>You're already trying to feed [target] \the [src]!</span>")
 		return
 
 	target.visible_message("<span class='danger'><span class='name'>[user]</span> starts to feed <span class='name'>[target]</span> [src]!</span>",
