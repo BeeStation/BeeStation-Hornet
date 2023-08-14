@@ -30,6 +30,7 @@ GLOBAL_LIST_EMPTY(video_bug_list)
 			viewed_bug = found_bug
 	user.client.setup_popup("spypopup", 3, 3, 2)
 	user.client.register_map_obj(viewed_bug.cam_screen)
+	user.client.register_map_obj(viewed_bug.cam_background)
 	for(var/plane in viewed_bug.cam_plane_masters)
 		user.client.register_map_obj(plane)
 	viewed_bug.being_viewed = TRUE
@@ -59,7 +60,7 @@ GLOBAL_LIST_EMPTY(video_bug_list)
 		return
 	var/list/bug_list = list()
 	for(var/obj/item/video_bug/found_bug in GLOB.video_bug_list)
-		if(found_bug.bug_network_id == bug_network_id && !found_bug.disabled)
+		if(found_bug.bug_network_id == bug_network_id)
 			bug_list.Add(found_bug.bug_id)
 	if(!length(bug_list))
 		user.audible_message("<span class='warning'>\The [src] lets off a shrill beep!</span>")
@@ -110,7 +111,7 @@ Simply tap it together with a ProfitProtektor Mk Ⅱ™ of your choosing and the
 	new /obj/item/paper/fluff/nerddocs(src)
 
 /obj/item/video_bug
-	name = "ProfitProtektor Mk Ⅱ"
+	name = "video bug"
 	icon = 'icons/obj/clothing/accessories.dmi'
 	icon_state = "camerabug"
 	force = 0
@@ -135,12 +136,14 @@ Simply tap it together with a ProfitProtektor Mk Ⅱ™ of your choosing and the
 	// Ranges higher than one can be used to see through walls.
 	var/cam_range = 1
 	var/datum/movement_detector/tracker
+	var/atom/movable/screen/background/cam_background
 
 	var/disabled = FALSE
 
 /obj/item/video_bug/Initialize(mapload)
 	update_overlays()
-	AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE, INVISIBILITY_OBSERVER, use_anchor = TRUE)
+	var/tile_overlay = image(icon = icon, icon_state = icon_state_clothing, pixel_x = rand(-12, 12), pixel_y = rand(-12, 12))
+	AddElement(/datum/element/undertile, TRAIT_T_RAY_VISIBLE, INVISIBILITY_OBSERVER, tile_overlay, use_anchor = TRUE)
 	bug_id = "[pick(GLOB.posibrain_names)]-[rand(1,999)]"
 	GLOB.video_bug_list.Add(src)
 	create_view()
@@ -150,6 +153,7 @@ Simply tap it together with a ProfitProtektor Mk Ⅱ™ of your choosing and the
 	QDEL_NULL(cam_screen)
 	QDEL_LIST(cam_plane_masters)
 	QDEL_NULL(tracker)
+	QDEL_NULL(cam_background)
 	GLOB.video_bug_list.Remove(src)
 	if(attached_to)
 		attached_to.tracking_bug = null
@@ -273,17 +277,15 @@ Simply tap it together with a ProfitProtektor Mk Ⅱ™ of your choosing and the
 		Destroy(src)
 		return ..()
 	disabled = TRUE
-	QDEL_NULL(cam_screen)
-	QDEL_LIST(cam_plane_masters)
-	QDEL_NULL(tracker)
+	update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
 	if(attached_to)
 		attached_to.update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
+	update_view()
 	addtimer(CALLBACK(src, PROC_REF(recover_from_emp)), 60 SECONDS * severity)
 	return ..()
 
 /obj/item/video_bug/proc/recover_from_emp()
 	disabled = FALSE
-	create_view()
 	update_view()
 	if(attached_to)
 		attached_to.update_appearance(updates = UPDATE_ICON|UPDATE_OVERLAYS)
@@ -295,6 +297,9 @@ Simply tap it together with a ProfitProtektor Mk Ⅱ™ of your choosing and the
 	cam_screen.assigned_map = "spypopup_map"
 	cam_screen.del_on_map_removal = FALSE
 	cam_screen.set_position(1, 1)
+	cam_background = new
+	cam_background.assigned_map = "spypopup_map"
+	cam_background.del_on_map_removal = FALSE
 
 	// We need to add planesmasters to the popup, otherwise
 	// blending fucks up massively. Any planesmaster on the main screen does
@@ -313,9 +318,28 @@ Simply tap it together with a ProfitProtektor Mk Ⅱ™ of your choosing and the
 /obj/item/video_bug/proc/update_view()//this doesn't do anything too crazy, just updates the vis_contents of its screen obj
 	if(!cam_screen)
 		return
-	if(!being_viewed || disabled)
+	if(!being_viewed)
 		return
 	cam_screen.vis_contents.Cut()
+	var/show_static = FALSE
+	if(disabled)
+		show_static = TRUE //It's EMP'd and not working, no sense checking for if it's jammed
+	else
+		if(attached_to)
+			show_static = attached_to.is_jammed(JAMMER_PROTECTION_CAMERAS)
+		else
+			show_static = is_jammed(JAMMER_PROTECTION_CAMERAS)
+	if(!show_static)
+		if(viewing_glasses)
+			show_static = viewing_glasses.is_jammed(JAMMER_PROTECTION_CAMERAS)
+	var/camera_diameter = 1 + cam_range * 2
+	if(show_static)
+		cam_background.icon_state = "scanline2"
+		cam_background.fill_rect(1, 1, camera_diameter, camera_diameter)
+		return
+	else
+		cam_background.icon_state = "clear"
+		cam_background.fill_rect(1, 1, camera_diameter, camera_diameter)
 	if(attached_to)
 		for(var/turf/visible_turf in view(1,get_turf(attached_to)))//fuck you usr
 			cam_screen.vis_contents += visible_turf

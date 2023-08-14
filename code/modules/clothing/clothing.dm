@@ -90,10 +90,6 @@
 		return ..()
 
 /obj/item/clothing/attackby(obj/item/W, mob/user, params)
-	//if(istype(W, /obj/item/video_bug))
-		//var/obj/item/video_bug/bug = W
-		//bug.attach_to_clothing_item(src)
-		//return COMPONENT_NO_ATTACK
 	if(damaged_clothes && istype(W, /obj/item/stack/sheet/cotton/cloth))
 		var/obj/item/stack/sheet/cotton/cloth/C = W
 		C.use(1)
