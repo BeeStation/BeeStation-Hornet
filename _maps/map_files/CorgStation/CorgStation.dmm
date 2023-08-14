@@ -7389,7 +7389,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/dead_body_placer/medbay_morgue{
+/obj/effect/mapping_helpers/dead_body_placer{
 	bodycount = 1
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
@@ -16861,7 +16861,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/dead_body_placer/medbay_morgue{
+/obj/effect/mapping_helpers/dead_body_placer{
 	bodycount = 1
 	},
 /turf/open/floor/plasteel,
@@ -36759,7 +36759,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/dead_body_placer/medbay_morgue{
+/obj/effect/mapping_helpers/dead_body_placer{
 	bodycount = 1
 	},
 /turf/open/floor/plasteel,
