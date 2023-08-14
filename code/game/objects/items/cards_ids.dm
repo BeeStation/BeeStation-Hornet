@@ -69,7 +69,25 @@
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	item_flags = NO_MAT_REDEMPTION | NOBLUDGEON | ISWEAPON
 	var/prox_check = TRUE //If the emag requires you to be in range
+	var/charge_cooldown = 30 SECONDS // So it can be varedited if needed
+	var/list/charges_list = list()
+	var/maximum_charges = 4 //So it can be varedited too
 
+/obj/item/card/emag/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+
+/obj/item/card/emag/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	. = ..()
+
+/obj/item/card/emag/process(delta_time)
+	var/current_index = length(charges_list)
+	while(current_index > 0)
+		if(charges_list[current_index] < world.time)
+			charges_list.Cut(current_index, current_index+1)
+		current_index--
+	return
 /obj/item/card/emag/bluespace
 	name = "bluespace cryptographic sequencer"
 	desc = "It's a blue card with a magnetic strip attached to some circuitry. It appears to have some sort of transmitter attached to it."
@@ -84,8 +102,24 @@
 	var/atom/A = target
 	if(!proximity && prox_check)
 		return
-	log_combat(user, A, "attempted to emag")
-	A.use_emag(user)
+	if(length(charges_list) < maximum_charges)
+		charges_list.Add(world.time + charge_cooldown)
+		log_combat(user, A, "attempted to emag")
+		A.use_emag(user)
+	else
+		to_chat(user, "<span class='warning'>[src] is out of charges and needs some time to restore them!</span>")
+		return
+
+/obj/item/card/emag/examine(mob/user)
+	. = ..()
+	var/charges = maximum_charges - length(charges_list)
+	switch(charges)
+		if(2 to INFINITY)
+			. += "<span class='notice'>It has [charges] charges remaining.</span>"
+		if(1)
+			. += "<span class='notice'>It has [charges] charge remaining.</span>"
+		if(-INFINITY to 0)
+			. += "<span class='warning'>It needs to recharge!</span>"
 
 /obj/item/card/emagfake
 	desc = "It is an ID card, the magnetic strip is exposed and attached to some circuitry. Closer inspection shows that this card is a poorly made replica, with a \"DonkCo\" logo stamped on the back."
