@@ -89,7 +89,7 @@ class DMM:
             if key in unused_keys:
                 unused_keys.remove(key)
         for key in unused_keys:
-            del self.dictionary[key]
+            self.dictionary.pop(key, None)
 
     def _presave_checks(self):
         # last-second handling of bogus keys to help prevent and fix broken maps
