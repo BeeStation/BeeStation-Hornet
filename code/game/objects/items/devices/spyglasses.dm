@@ -89,11 +89,15 @@ GLOBAL_LIST_EMPTY(video_bug_list)
 	color = "#FFFF00"
 	desc = "An eye gougingly yellow pamphlet with a badly designed image of a detective on it. the subtext says \" The Latest Way To Violate Privacy Guidelines!\" "
 	default_raw_text = @{"
-Thank you for your purchase of the Nerd Co SpySpeks <small>tm</small>, this paper will be your quick-start guide to violating the privacy of your crewmates in three easy steps!<br><br>Step One: Nerd Co SpySpeks <small>tm</small> upon your face. <br>
-Step Two: Place the included "ProfitProtektor <small>tm</small>" camera assembly in a place of your choosing - make sure to make heavy use of it's inconspicous design!
-Step Three: Press the "Activate Remote View" Button on the side of your SpySpeks <small>tm</small> to open a movable camera display in the corner of your vision, it's just that easy!<br><br><br><center><b>TROUBLESHOOTING</b><br></center>
-My SpySpeks <small>tm</small> Make a shrill beep while attempting to use!
-A shrill beep coming from your SpySpeks means that they can't connect to the included ProfitProtektor <small>tm</small>, please make sure your ProfitProtektor is still active, and functional!
+Thank you for your purchase of the Nerd Co SpySpeks™, this paper will be your quick-start guide to violating the privacy of your crewmates in three easy steps!<br><br>Step One: Nerd Co SpySpeks™ upon your face. <br>
+Step Two: Place the included "ProfitProtektor Mk Ⅱ™" camera assembly in a place or a piece of clothing of your choosing - make sure to make heavy use of it's inconspicous design and the ability to blend it, but be wary of it's lens flare!
+Step Three: Press the "Activate Remote View" Button on the side of your SpySpeks™ to open a movable camera display in the corner of your vision, it's just that easy!<br><br><center><b>TROUBLESHOOTING</b><br></center>
+My SpySpeks™ Make a shrill beep while attempting to use!
+A shrill beep coming from your SpySpeks means that they can't connect to any of the ProfitProtektor Mk Ⅱ™, please make sure any of your ProfitProtektor Mk Ⅱ™ is still active, and functional!
+My SpySpeks™ output an error stating they're not connected to a network!
+Simply tap it together with a ProfitProtektor Mk Ⅱ™ of your choosing and their networks will sync up!
+<br>
+<sub><sup>ProfitProtektors Mk Ⅱ™ display vulnerabilities to EMPs and may even be destroyed by them. Nerd Co does not issue refunds for ProfitProtektors Mk Ⅱ™ destroyed in use.</sup></sub>
 	"}
 
 /obj/item/storage/box/rxglasses/spyglasskit/PopulateContents()
@@ -106,7 +110,7 @@ A shrill beep coming from your SpySpeks means that they can't connect to the inc
 	new /obj/item/paper/fluff/nerddocs(src)
 
 /obj/item/video_bug
-	name = "camera bug"
+	name = "ProfitProtektor Mk Ⅱ"
 	icon = 'icons/obj/clothing/accessories.dmi'
 	icon_state = "camerabug"
 	force = 0
@@ -174,17 +178,18 @@ A shrill beep coming from your SpySpeks means that they can't connect to the inc
 		. += mutable_appearance(icon, "camerabug_overlay")
 		. += emissive_appearance(icon, "camerabug_overlay_emissive", alpha = alpha)
 
-/obj/item/video_bug/proc/attach_to_clothing_item(mob/user, var/obj/item/clothing/target)
+/obj/item/video_bug/proc/attach_to_clothing_item(mob/user, var/obj/item/clothing/target, instant = FALSE)
 	if(!target.buggable || target.item_flags & ABSTRACT)
 		to_chat(user, "<span class='warning'>You can't attach \the [src] to \the [target]!</span>")
 		return FALSE
 	if(target.tracking_bug)
 		to_chat(user, "<span class='warning'>\The [target] already has something attached!</span>")
 		return FALSE
-	to_chat(user, "<span class='notice'>You start to carefully plant [src] to \the [target].</span>")
-	if(!do_after(user, 1 SECONDS, get_turf(target)))
-		to_chat(user, "<span class='warning'>Your hand slips and you decide not to plant \the [src]!</span>")
-		return FALSE
+	if(!instant)
+		to_chat(user, "<span class='notice'>You start to carefully plant [src] to \the [target].</span>")
+		if(!do_after(user, 1 SECONDS, get_turf(target)))
+			to_chat(user, "<span class='warning'>Your hand slips and you decide not to plant \the [src]!</span>")
+			return FALSE
 	var/left_border = 1
 	var/right_border = 32
 	var/bottom_border = 1
@@ -250,18 +255,25 @@ A shrill beep coming from your SpySpeks means that they can't connect to the inc
 		to_chat(user, "<span class='notice'>You set \the [src]'s ID to [picked_id].</span>")
 
 /obj/item/video_bug/pre_attack(atom/A, mob/living/user, params)
+	var/succeeded = FALSE
 	if(istype(A, /obj/item/clothing))
-		if(attach_to_clothing_item(user, A))
+		if(attach_to_clothing_item(user, A, TRUE))
 			to_chat(user, "<span class='notice'>You stealthily plant \the [src] on \the [A]!</span>")
-	if(iscarbon(A))
-		attach_to_carbon(user, A)
-
+			succeeded = TRUE
+		else
+			return ..()
+	if(iscarbon(A) && !succeeded)
+		if(attach_to_carbon(user, A))
+			succeeded = TRUE
+	if(!succeeded)
+		return ..()
+/*
 /obj/item/video_bug/attack(mob/living/M, mob/living/user)
 	return COMPONENT_NO_AFTERATTACK
 
 /obj/item/video_bug/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	return
-
+*/
 /obj/item/video_bug/emp_act(severity)
 	if(severity > 4)
 		Destroy(src)
@@ -404,6 +416,8 @@ A shrill beep coming from your SpySpeks means that they can't connect to the inc
 				if(attach_to_clothing_item(user, hands_item))
 					to_chat(user, "<span class='notice'>You stealthily plant \the [src] on [target]'s [hands_item.name]!</span>")
 					return TRUE
+				else
+					return FALSE
 			if(!isnull(arms_item))
 				if(attach_to_clothing_item(user, arms_item))
 					to_chat(user, "<span class='notice'>You stealthily plant \the [src] on [target]'s [arms_item.name]!</span>")
@@ -414,6 +428,8 @@ A shrill beep coming from your SpySpeks means that they can't connect to the inc
 				if(attach_to_clothing_item(user, feet_item))
 					to_chat(user, "<span class='notice'>You stealthily plant \the [src] on [target]'s [feet_item.name]!</span>")
 					return TRUE
+				else
+					return FALSE
 			if(!isnull(legs_item))
 				if(attach_to_clothing_item(user, legs_item))
 					to_chat(user, "<span class='notice'>You stealthily plant \the [src] on [target]'s [legs_item.name]!</span>")
