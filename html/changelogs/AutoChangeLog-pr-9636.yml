@@ -1,0 +1,5 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Fixed build mode's map regenerator not working.
+  - bugfix: Fixed build mode's map regenerator not properly hiding undertile elements.
