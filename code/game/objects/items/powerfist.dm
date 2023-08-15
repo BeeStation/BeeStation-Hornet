@@ -29,6 +29,7 @@
 		return
 	if(tank)
 		. += "<span class='notice'>[icon2html(tank, user)] It has \a [tank] mounted onto it.</span>"
+		. += "<span class='notice'>Its pressure gauge reads [round(tank.air_contents.total_moles(), 0.01)] mol at [round(tank.air_contents.return_pressure(),0.01)] kPa.</span>"
 
 
 /obj/item/melee/powerfist/attackby(obj/item/W, mob/user, params)
