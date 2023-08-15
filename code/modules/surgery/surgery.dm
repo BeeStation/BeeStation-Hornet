@@ -20,9 +20,9 @@
 	var/requires_tech = FALSE										//handles techweb-oriented surgeries, previously restricted to the /advanced subtype (You still need to add designs)
 	var/replaced_by													//type; doesn't show up if this type exists. Set to /datum/surgery if you want to hide a "base" surgery (useful for typing parents IE healing.dm just make sure to null it out again)
 	var/failed_step = FALSE											//used for bypassing the 'poke on help intent' on failing a surgery step and forcing the doctor to damage the patient
-	var/abductor_surgery_blacklist = list(/datum/surgery/advanced/necrotic_revival)
-	//Surgeries in this list aren't automatically available to those with the ABDUCTOR_SURGEON trait
-	//However, they can still be used by them if they meet the normal requirements to access the surgery
+	var/abductor_surgery_blacklist = FALSE
+	//Blacklisted surgeries aren't innately known by Abductor Scientists, but can still be used if connected to an operating table with the surgery researched
+
 
 /datum/surgery/New(surgery_target, surgery_location, surgery_bodypart)
 	..()
@@ -57,7 +57,7 @@
 	if(HAS_TRAIT(user, TRAIT_ABDUCTOR_SURGEON) || user.mind && HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SURGEON))
 		if(replaced_by)
 			return FALSE
-		else if(!locate(src) in abductor_surgery_blacklist)
+		else if(!abductor_surgery_blacklist)
 			return TRUE
 	//Grants the user innate access to all surgeries except for certain blacklisted ones. Used by Abductors
 
@@ -152,7 +152,7 @@
 		return TRUE
 
 	if(HAS_TRAIT(user, TRAIT_ABDUCTOR_SURGEON) || user.mind && HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SURGEON))
-		if(!locate(src) in abductor_surgery_blacklist)
+		if(!abductor_surgery_blacklist)
 			return(TRUE)
 	//Grants the user innate access to all surgeries except for certain blacklisted ones. Used by Abductors
 
