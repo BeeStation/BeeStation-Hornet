@@ -93,7 +93,6 @@
 			if(H.check_shields(src, force))
 				return
 		return ..()
-	message_admins("Total gas moles is [gasused.total_moles()]")
 	if(gasused.total_moles() < gasperfist * fisto_setting)
 		T.assume_air(gasused)
 		T.air_update_turf()
