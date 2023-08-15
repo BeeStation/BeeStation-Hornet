@@ -28206,6 +28206,9 @@
 /obj/effect/turf_decal/tile/green/half/contrasted{
 	dir = 1
 	},
+/obj/machinery/camera/autoname{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/janitor)
 "jbA" = (
@@ -35403,9 +35406,6 @@
 /area/quartermaster/miningdock)
 "lxi" = (
 /obj/effect/landmark/start/janitor,
-/obj/machinery/camera/autoname{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/green/opposingcorners{
 	dir = 1
 	},
