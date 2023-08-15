@@ -950,9 +950,11 @@
 /turf/open/floor/plasteel,
 /area/mine/production)
 "gM" = (
-/obj/structure/ore_box,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 9
+	dir = 8
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/mine/eva)
@@ -1285,8 +1287,6 @@
 /turf/open/floor/plasteel,
 /area/mine/laborcamp/security)
 "iU" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel/dark,
 /area/mine/science)
 "iV" = (
@@ -1321,8 +1321,8 @@
 /obj/machinery/door/airlock/mining/glass{
 	name = "Mining Station"
 	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/effect/turf_decal/stripes/closeup,
+/obj/structure/fans/tiny,
 /turf/open/floor/plasteel/techmaint,
 /area/mine/eva)
 "jd" = (
@@ -1336,12 +1336,14 @@
 /turf/open/floor/plasteel,
 /area/mine/science)
 "je" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/mine/eva)
 "jh" = (
@@ -1614,12 +1616,14 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
 /obj/machinery/light_switch{
 	pixel_x = 25
 	},
+/obj/structure/table,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/hand_labeler,
 /turf/open/floor/plasteel,
 /area/mine/eva)
 "kL" = (
@@ -1892,15 +1896,13 @@
 /turf/open/floor/plasteel,
 /area/mine/science)
 "mH" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
+/obj/structure/fans/tiny,
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/mining/glass{
+	name = "Mining Station"
 	},
-/obj/machinery/light{
-	dir = 8;
-	light_color = "#e8eaff"
-	},
-/turf/open/floor/plasteel,
-/area/mine/laborcamp)
+/turf/open/floor/plasteel/techmaint,
+/area/mine/eva)
 "mK" = (
 /obj/structure/stone_tile/block{
 	dir = 8
@@ -1946,11 +1948,11 @@
 /turf/open/floor/plasteel,
 /area/mine/laborcamp/security)
 "mW" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
 	},
-/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors/explored)
+/turf/open/floor/plasteel,
+/area/mine/science)
 "nf" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
@@ -2330,15 +2332,13 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "qi" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 26
-	},
 /mob/living/simple_animal/bot/atmosbot{
 	name = "Officer Fastmosky"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/structure/closet/emcloset,
 /turf/open/floor/plasteel/techmaint,
 /area/mine/eva)
 "qj" = (
@@ -2587,11 +2587,11 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "sj" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 10
 	},
 /turf/open/floor/plasteel,
 /area/mine/science)
@@ -2667,15 +2667,8 @@
 /turf/open/floor/plasteel/techmaint,
 /area/mine/laborcamp)
 "sM" = (
-/obj/machinery/camera{
-	c_tag = "Labor Camp External";
-	dir = 9;
-	network = list("labor")
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating/lavaland,
 /area/mine/laborcamp)
 "sR" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -2728,12 +2721,12 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/mine/laborcamp)
 "ty" = (
-/obj/machinery/door/airlock/external{
-	name = "Science Outpost Airlock";
-	req_access_txt = "47"
-	},
 /obj/effect/turf_decal/stripes/closeup,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/glass{
+	req_access_txt = "47";
+	name = "Science Outpost Airlock"
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/mine/science)
 "tz" = (
@@ -2919,6 +2912,13 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/techmaint,
 /area/mine/laborcamp)
+"uJ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/light/small,
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/mine/laborcamp)
 "uK" = (
 /obj/structure/stone_tile/cracked{
 	dir = 8
@@ -2935,6 +2935,12 @@
 /obj/structure/closet/crate/critter,
 /turf/open/floor/plasteel,
 /area/mine/science)
+"uQ" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/mine/laborcamp)
 "uR" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
@@ -3051,11 +3057,7 @@
 /turf/open/floor/wood,
 /area/mine/living_quarters)
 "vL" = (
-/obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 10
-	},
+/obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/plasteel/techmaint,
 /area/mine/eva)
 "vM" = (
@@ -3117,11 +3119,10 @@
 /turf/open/floor/plasteel,
 /area/mine/laborcamp)
 "wa" = (
-/obj/structure/closet/emcloset,
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -26
 	},
-/obj/machinery/light/small{
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/open/floor/plasteel/techmaint,
@@ -3176,10 +3177,11 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "wv" = (
-/obj/machinery/light/small{
-	dir = 4
+/obj/machinery/light{
+	dir = 8;
+	light_color = "#e8eaff"
 	},
-/turf/open/floor/plating,
+/turf/open/floor/plasteel,
 /area/mine/laborcamp)
 "wz" = (
 /obj/effect/spawner/structure/window,
@@ -3190,9 +3192,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
-	dir = 8
-	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel,
 /area/mine/eva)
 "wB" = (
@@ -3886,14 +3886,13 @@
 /turf/open/floor/plasteel/dark,
 /area/mine/storage)
 "CD" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/mine/eva)
 "CF" = (
@@ -4389,16 +4388,17 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/science)
+"Gg" = (
+/obj/machinery/door/airlock{
+	name = "Labor Camp External Access"
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/mine/laborcamp)
 "Gh" = (
+/obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/external{
 	name = "Science Outpost Airlock";
 	req_access_txt = "47"
-	},
-/obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/mine/science)
@@ -4801,10 +4801,10 @@
 /turf/open/floor/plasteel,
 /area/mine/laborcamp/security)
 "IZ" = (
-/obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plasteel/techmaint,
-/area/mine/science)
+/obj/effect/turf_decal/bot,
+/obj/structure/ore_box,
+/turf/open/floor/plating/lavaland,
+/area/lavaland/surface/outdoors/explored)
 "Je" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/coffee,
@@ -5260,11 +5260,9 @@
 /turf/open/floor/plasteel,
 /area/mine/science)
 "LP" = (
-/obj/machinery/atmospherics/pipe/layer_manifold,
 /obj/effect/turf_decal/stripes/corner{
-	dir = 9
+	dir = 4
 	},
-/obj/effect/turf_decal/caution/stand_clear,
 /turf/open/floor/plasteel/techmaint,
 /area/mine/eva)
 "LW" = (
@@ -5560,7 +5558,6 @@
 	created_name = "Fastmosky Senior";
 	name = "old atmosbot assembly"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/plasteel/techmaint,
 /area/mine/science)
 "OH" = (
@@ -5688,11 +5685,12 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/mine/laborcamp)
 "PJ" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
-	dir = 4
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/mining/glass{
+	name = "Mining Station EVA";
+	req_access_txt = "54"
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/techmaint,
 /area/mine/eva)
 "PK" = (
 /obj/machinery/door/airlock/engineering/glass{
@@ -5737,10 +5735,6 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
-	},
-/obj/machinery/advanced_airlock_controller/lavaland{
-	dir = 8;
-	pixel_x = 26
 	},
 /turf/open/floor/noslip/dark,
 /area/mine/eva)
@@ -5940,11 +5934,6 @@
 /turf/open/floor/plasteel,
 /area/mine/laborcamp)
 "Rr" = (
-/obj/structure/table,
-/obj/item/stack/package_wrap,
-/obj/item/stack/package_wrap,
-/obj/item/stack/package_wrap,
-/obj/item/hand_labeler,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
 	},
@@ -6183,11 +6172,9 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "Te" = (
-/obj/machinery/advanced_airlock_controller/lavaland{
-	pixel_y = 26
-	},
-/turf/open/floor/plasteel/techmaint,
-/area/mine/science)
+/obj/structure/ore_box,
+/turf/open/floor/plasteel,
+/area/mine/eva)
 "Th" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
@@ -6534,11 +6521,6 @@
 	name = "Mining Station EVA";
 	req_access_txt = "54"
 	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/plasteel/techmaint,
 /area/mine/eva)
@@ -6997,8 +6979,14 @@
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
 "YB" = (
-/turf/open/floor/plating,
-/area/lavaland/surface/outdoors/explored)
+/obj/machinery/camera{
+	c_tag = "Labor Camp External";
+	dir = 10;
+	network = list("labor")
+	},
+/obj/structure/closet/emcloset,
+/turf/open/floor/plasteel/techmaint,
+/area/mine/laborcamp)
 "YC" = (
 /obj/structure/rack,
 /obj/item/storage/bag/ore,
@@ -7093,10 +7081,10 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/neutral/fourcorners/contrasted,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 6
+	},
 /turf/open/floor/plasteel,
 /area/mine/eva)
 "Zd" = (
@@ -7115,6 +7103,12 @@
 /obj/structure/spider/stickyweb,
 /turf/open/floor/carpet/royalblue,
 /area/mine/science)
+"Zi" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/mine/eva)
 "Zl" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
@@ -29571,14 +29565,14 @@ xT
 xT
 xT
 Vd
-xT
 bz
 Vb
 Vb
-Vb
-Vb
-Vb
-mW
+uJ
+rw
+sM
+sM
+rw
 xT
 xT
 xT
@@ -29828,14 +29822,14 @@ xT
 xT
 xT
 Vd
-xT
 qg
 fM
 fM
 fM
+Gg
+tL
 YB
-YB
-sM
+rw
 xT
 xT
 xT
@@ -30085,13 +30079,13 @@ xT
 xT
 xT
 Vd
-xT
 qg
+IZ
 ID
 ID
-ID
-wv
-YB
+sM
+tL
+uQ
 BZ
 BZ
 CL
@@ -30347,8 +30341,8 @@ CL
 BZ
 BZ
 BZ
-BZ
 eD
+BZ
 BZ
 jK
 ZK
@@ -30604,8 +30598,8 @@ mB
 NQ
 By
 np
-mH
-np
+DB
+wv
 ZC
 np
 DB
@@ -39074,16 +39068,16 @@ Zd
 Zd
 Zd
 Zd
-Fd
+mH
 gM
 wa
-Fd
+PJ
+Sf
 iu
 Sf
 Sf
-Sf
 Rr
-Zt
+PJ
 CF
 gf
 Yq
@@ -39335,7 +39329,7 @@ jb
 LP
 vL
 VK
-PJ
+Sf
 CD
 YX
 je
@@ -39592,10 +39586,10 @@ Fd
 qi
 PR
 Fd
-Sf
+Te
 SE
 Mi
-Sf
+Zi
 kK
 Zt
 CF
@@ -50889,7 +50883,7 @@ Zd
 Zd
 Zd
 Zd
-jh
+mp
 rL
 pI
 jh
@@ -51148,10 +51142,10 @@ Zd
 Zd
 ty
 OE
-IZ
+rL
 Gh
 iU
-kk
+mW
 KR
 mp
 Jt
@@ -51403,8 +51397,8 @@ Zd
 Zd
 Zd
 Zd
-jh
-Te
+mp
+rL
 BC
 jh
 NB
