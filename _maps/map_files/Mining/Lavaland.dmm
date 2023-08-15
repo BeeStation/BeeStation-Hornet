@@ -596,14 +596,11 @@
 /turf/open/floor/plasteel,
 /area/mine/science)
 "eD" = (
-/obj/machinery/door/airlock{
-	name = "Labor Camp External Access"
+/obj/machinery/light{
+	dir = 8;
+	light_color = "#e8eaff"
 	},
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/obj/structure/fans/tiny,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/plasteel,
 /area/mine/laborcamp)
 "eK" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -800,6 +797,14 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"fV" = (
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/mining/glass{
+	name = "Mining Station EVA";
+	req_access_txt = "54"
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/mine/eva)
 "fX" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
@@ -1896,13 +1901,12 @@
 /turf/open/floor/plasteel,
 /area/mine/science)
 "mH" = (
-/obj/structure/fans/tiny,
-/obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/door/airlock/mining/glass{
-	name = "Mining Station"
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
-/turf/open/floor/plasteel/techmaint,
-/area/mine/eva)
+/obj/machinery/light/small,
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/mine/laborcamp)
 "mK" = (
 /obj/structure/stone_tile/block{
 	dir = 8
@@ -1948,11 +1952,14 @@
 /turf/open/floor/plasteel,
 /area/mine/laborcamp/security)
 "mW" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
 	},
-/turf/open/floor/plasteel,
-/area/mine/science)
+/obj/machinery/door/airlock/glass{
+	name = "Labor Camp External Access"
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/mine/laborcamp)
 "nf" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
@@ -2667,9 +2674,10 @@
 /turf/open/floor/plasteel/techmaint,
 /area/mine/laborcamp)
 "sM" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/turf_decal/bot,
+/obj/structure/ore_box,
 /turf/open/floor/plating/lavaland,
-/area/mine/laborcamp)
+/area/lavaland/surface/outdoors/explored)
 "sR" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/light/small{
@@ -2912,13 +2920,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/techmaint,
 /area/mine/laborcamp)
-"uJ" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/light/small,
-/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
-/area/mine/laborcamp)
 "uK" = (
 /obj/structure/stone_tile/cracked{
 	dir = 8
@@ -2935,12 +2936,6 @@
 /obj/structure/closet/crate/critter,
 /turf/open/floor/plasteel,
 /area/mine/science)
-"uQ" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/open/floor/plasteel/techmaint,
-/area/mine/laborcamp)
 "uR" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
@@ -3177,11 +3172,8 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "wv" = (
-/obj/machinery/light{
-	dir = 8;
-	light_color = "#e8eaff"
-	},
-/turf/open/floor/plasteel,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating/lavaland,
 /area/mine/laborcamp)
 "wz" = (
 /obj/effect/spawner/structure/window,
@@ -3737,6 +3729,12 @@
 /obj/structure/fence,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"Br" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/mine/laborcamp)
 "Bx" = (
 /obj/structure/stone_tile/block/cracked,
 /obj/structure/stone_tile{
@@ -4042,6 +4040,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
+"DE" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/mine/science)
 "DF" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -4388,12 +4392,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/science)
-"Gg" = (
-/obj/machinery/door/airlock{
-	name = "Labor Camp External Access"
-	},
-/turf/open/floor/plasteel/techmaint,
-/area/mine/laborcamp)
 "Gh" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/external{
@@ -4801,10 +4799,9 @@
 /turf/open/floor/plasteel,
 /area/mine/laborcamp/security)
 "IZ" = (
-/obj/effect/turf_decal/bot,
 /obj/structure/ore_box,
-/turf/open/floor/plating/lavaland,
-/area/lavaland/surface/outdoors/explored)
+/turf/open/floor/plasteel,
+/area/mine/eva)
 "Je" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/coffee,
@@ -4971,6 +4968,14 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/laborcamp/security)
+"JZ" = (
+/obj/structure/fans/tiny,
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/mining/glass{
+	name = "Mining Station"
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/mine/eva)
 "Kb" = (
 /obj/structure/fence/corner{
 	dir = 1
@@ -5685,13 +5690,13 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/mine/laborcamp)
 "PJ" = (
+/obj/structure/fans/tiny,
 /obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/door/airlock/mining/glass{
-	name = "Mining Station EVA";
-	req_access_txt = "54"
+/obj/machinery/door/airlock/glass{
+	name = "Labor Camp External Access"
 	},
 /turf/open/floor/plasteel/techmaint,
-/area/mine/eva)
+/area/mine/laborcamp)
 "PK" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "mining relay room";
@@ -6172,7 +6177,9 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "Te" = (
-/obj/structure/ore_box,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/mine/eva)
 "Th" = (
@@ -6985,6 +6992,9 @@
 	network = list("labor")
 	},
 /obj/structure/closet/emcloset,
+/mob/living/simple_animal/bot/atmosbot{
+	name = "Officer Fastmosky"
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/mine/laborcamp)
 "YC" = (
@@ -7103,12 +7113,6 @@
 /obj/structure/spider/stickyweb,
 /turf/open/floor/carpet/royalblue,
 /area/mine/science)
-"Zi" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/mine/eva)
 "Zl" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
@@ -29568,10 +29572,10 @@ Vd
 bz
 Vb
 Vb
-uJ
+mH
 rw
-sM
-sM
+wv
+wv
 rw
 xT
 xT
@@ -29826,7 +29830,7 @@ qg
 fM
 fM
 fM
-Gg
+PJ
 tL
 YB
 rw
@@ -30080,12 +30084,12 @@ xT
 xT
 Vd
 qg
-IZ
-ID
-ID
 sM
+ID
+ID
+wv
 tL
-uQ
+Br
 BZ
 BZ
 CL
@@ -30341,7 +30345,7 @@ CL
 BZ
 BZ
 BZ
-eD
+mW
 BZ
 BZ
 jK
@@ -30599,7 +30603,7 @@ NQ
 By
 np
 DB
-wv
+eD
 ZC
 np
 DB
@@ -39068,16 +39072,16 @@ Zd
 Zd
 Zd
 Zd
-mH
+JZ
 gM
 wa
-PJ
+fV
 Sf
 iu
 Sf
 Sf
 Rr
-PJ
+fV
 CF
 gf
 Yq
@@ -39586,10 +39590,10 @@ Fd
 qi
 PR
 Fd
-Te
+IZ
 SE
 Mi
-Zi
+Te
 kK
 Zt
 CF
@@ -51145,7 +51149,7 @@ OE
 rL
 Gh
 iU
-mW
+DE
 KR
 mp
 Jt
