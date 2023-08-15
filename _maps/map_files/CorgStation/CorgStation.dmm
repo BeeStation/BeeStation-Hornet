@@ -17010,13 +17010,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/quartermaster/office)
-"fub" = (
-/obj/structure/sign/warning/securearea{
-	pixel_x = 32
-	},
-/obj/effect/landmark/carpspawn,
-/turf/open/space/basic,
-/area/space)
 "fuh" = (
 /turf/closed/wall,
 /area/hallway/secondary/service)
@@ -111063,7 +111056,7 @@ anT
 aMT
 anT
 aMT
-qiD
+aMT
 aVq
 aMT
 ktc
@@ -113634,7 +113627,7 @@ aMT
 anT
 aMT
 aMT
-fub
+ams
 aMT
 tTo
 gIX
