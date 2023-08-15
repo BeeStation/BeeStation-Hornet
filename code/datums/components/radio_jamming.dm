@@ -7,6 +7,8 @@
 	var/range
 	/// The intensity level of this jammer
 	var/intensity = 1
+	/// Moved relay
+	var/datum/component/moved_relay/associated_relay
 
 /datum/component/radio_jamming/Initialize(_range = 12, _intensity = RADIO_JAMMER_TRAITOR_LEVEL)
 
@@ -19,12 +21,16 @@
 	RegisterSignal(parent, COMSIG_TOGGLE_JAMMER, PROC_REF(toggle))
 
 	// We need to know when our parent atoms move
-	parent.AddComponent(/datum/component/moved_relay)
-	RegisterSignal(parent, COMSIG_PARENT_MOVED_RELAY, PROC_REF(check_move_jams))
-	check_move_jams()
+	associated_relay = parent.AddComponent(/datum/component/moved_relay)
 
 /datum/component/radio_jamming/Destroy(force, silent)
 	disable()
+	// Cleanup the moved relay if we need to
+	var/datum/component/moved_relay/move_relay = associated_relay
+	move_relay.depth --
+	if (move_relay.depth == 0)
+		move_relay.RemoveComponent()
+		associated_relay = null
 	return ..()
 
 /datum/component/radio_jamming/proc/enable()
@@ -32,12 +38,18 @@
 		return
 	active = TRUE
 	GLOB.active_jammers += src
+	RegisterSignal(parent, COMSIG_PARENT_MOVED_RELAY, PROC_REF(check_move_jams))
+	check_move_jams()
 
 /datum/component/radio_jamming/proc/disable()
 	if (!active)
 		return
 	active = FALSE
 	GLOB.active_jammers -= src
+	UnregisterSignal(parent, COMSIG_PARENT_MOVED_RELAY)
+	var/turf/jammer_turf = get_turf(parent)
+	for (var/datum/component/jam_receiver/receiver in GLOB.jam_receivers_by_z[jammer_turf.z])
+		receiver.check_jammed()
 
 /datum/component/radio_jamming/proc/toggle(datum/source, mob/user, silent = FALSE)
 	SIGNAL_HANDLER
