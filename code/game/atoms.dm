@@ -890,9 +890,9 @@
   * For COMSIG_ATOM_SHOULD_EMAG, /obj uses should_emag.
   * - Parent calls do not need to be maintained.
   */
-/atom/proc/use_emag(mob/user)
+/atom/proc/use_emag(mob/user, obj/item/card/emag/hacker)
 	if(!SEND_SIGNAL(src, COMSIG_ATOM_SHOULD_EMAG, user))
-		SEND_SIGNAL(src, COMSIG_ATOM_ON_EMAG, user)
+		SEND_SIGNAL(src, COMSIG_ATOM_ON_EMAG, user, hacker)
 
 /**
   * Respond to a radioactive wave hitting this atom
