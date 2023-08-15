@@ -56,7 +56,59 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">15 August 2023</h2>
+			<h3 class="author">Penwin0 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Corg Janitor Closet camera is no longer floating</li>
+			</ul>
+			<h3 class="author">bluezorua updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscdel">Carp spawners in Corg Armoury, to prevent unintended antagonists from spawning in there</li>
+			</ul>
+
+			<h2 class="date">14 August 2023</h2>
+			<h3 class="author">Antops12 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">designed science cargo shuttle</li>
+			</ul>
+			<h3 class="author">Bokkiewokkie updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed VV menu not showing new turfs after deleting a turf</li>
+				<li class="bugfix">Fixed admins adding components not logging the object it was added to</li>
+			</ul>
+			<h3 class="author">boombaklops updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">the edagger's attacks are now quieter</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed build mode's map regenerator not working.</li>
+				<li class="bugfix">Fixed build mode's map regenerator not properly hiding undertile elements.</li>
+			</ul>
+			<h3 class="author">mystery3525 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Radstation AI Satellite no longer depowers 30 minutes into a shift.</li>
+			</ul>
+
 			<h2 class="date">13 August 2023</h2>
+			<h3 class="author">Absolucy updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">You can now properly place slime speed potions on tables, in lockers, etc.</li>
+				<li class="tweak">Using a slime speed potion on something that has no slowdown in the first place will no longer waste it.</li>
+				<li class="rscadd">Slime renaming potions will now offer better feedback as to why a rename didn't occur.</li>
+				<li class="rscadd">Slime renaming potions now let you rename playerless, mindless mobs.</li>
+				<li class="tweak">Slime renaming potion prompts now use tgui input.</li>
+				<li class="tweak">Slime renaming potion prompts now time out after 2 minutes, so you can't just deadlock the potion forever.</li>
+				<li class="tweak">Offering a slime speed potion to a player mob whose client is either disconnected or AFK will just tell you to try again later.</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">mimic mob only takes self-damage when they do not mind instead of not-ckey</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes a runtime in mech building.</li>
+			</ul>
 			<h3 class="author">RKz, tralezab updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="code_imp">you can milk anything! Componentizes milking.</li>
@@ -65,6 +117,8 @@
 			<h3 class="author">itsmeow updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="code_imp">Optimized spawner and decals init, saving ~0.25sec init</li>
+				<li class="rscadd">Added a new preference for darkened flashes, which flash to black rather than white.</li>
+				<li class="bugfix">Fixed fugitives being unable to spawn if more than 4 people signed up for it.</li>
 			</ul>
 
 			<h2 class="date">12 August 2023</h2>
@@ -1092,41 +1146,6 @@
 			<ul class="changes bgimages16">
 				<li class="tweak">Being able to see ghosts no longer lets you see OOC information such as countdown objects.</li>
 				<li class="bugfix">Countdown timers are now properly visible over most objects</li>
-			</ul>
-
-			<h2 class="date">13 June 2023</h2>
-			<h3 class="author">Absolucy updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed roundstart operating computers only partially linking to their given stasis bed/operating table.</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed admin player panel bluescreening/runtiming when closed.</li>
-				<li class="tweak">Metabalance is now cached on the player's client datum to reduce database use.</li>
-				<li class="bugfix">You can now purchase items that cost exactly your metabalance.</li>
-				<li class="tweak">Antag token count is now cached on the player's client datum to reduce database use.</li>
-			</ul>
-
-			<h2 class="date">12 June 2023</h2>
-			<h3 class="author">Absolucy updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed victims of Toxoplasmosis Sapiens pouncing on cats whenever unconscious/crit, instead of when NOT unconscious/crit.</li>
-				<li class="bugfix">Transformation sting is no longer unfixable if you're monkeyized after being stung.</li>
-			</ul>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">piano no longer throws runtime because of null-user</li>
-				<li class="bugfix">Fixed abductor baton image is missing from asset</li>
-			</ul>
-			<h3 class="author">HowToLoLu updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">PAI can no longer phase out of solid structures and machines such as closets (even when they were welded) and disposal pipes</li>
-			</ul>
-			<h3 class="author">LemonInTheDark, MrStonedOne, Mothblocks, EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added cross-round serverside spritesheet caching, and various fixes and improvements for it.</li>
-				<li class="config">Added CACHE_ASSETS, which enables asset caching when enabled. It is disabled in development, but should be enabled n production.</li>
-				<li class="bugfix">Fixed vending machine showing icons as glass when they failed to load.</li>
 			</ul>
 		</div>
 
