@@ -22,8 +22,7 @@
 		var/obj/item/clothing/head/hooded/W = new hoodtype(src)
 		W.suit = src
 		hood = W
-		W.moveToNullspace() //Moves hood to nullspace upon init; jackets on map at round start do not start with hood in inventory.
-
+		W.moveToNullspace() //Moves hood to nullspace upon init; jackets on map at round otherwise start with hood in inventory.
 
 /obj/item/clothing/suit/hooded/ui_action_click()
 	ToggleHood()
