@@ -21,6 +21,7 @@
 	// We need to know when our parent atoms move
 	parent.AddComponent(/datum/component/moved_relay)
 	RegisterSignal(parent, COMSIG_PARENT_MOVED_RELAY, PROC_REF(check_move_jams))
+	check_move_jams()
 
 /datum/component/radio_jamming/Destroy(force, silent)
 	disable()
