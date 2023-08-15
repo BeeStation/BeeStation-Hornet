@@ -6,6 +6,7 @@
 	icon_state = "stasis"
 	density = FALSE
 	can_buckle = TRUE
+	buckle_lying = 90
 	circuit = /obj/item/circuitboard/machine/stasis
 	idle_power_usage = 50
 	active_power_usage = 500
