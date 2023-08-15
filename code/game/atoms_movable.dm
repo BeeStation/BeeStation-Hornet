@@ -199,8 +199,7 @@
 		return
 	if(!Process_Spacemove(get_dir(pulling.loc, A)))
 		return
-	step(pulling, get_dir(pulling.loc, A))
-	return TRUE
+	return step(pulling, get_dir(pulling.loc, A))
 
 /mob/living/Move_Pulled(atom/A)
 	. = ..()

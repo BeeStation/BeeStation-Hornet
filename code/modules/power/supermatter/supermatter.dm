@@ -128,7 +128,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 /atom/movable/distortion_effect
 	name = ""
 	plane = GRAVITY_PULSE_PLANE
-	appearance_flags = PIXEL_SCALE
+	// Changing the colour of this based on the parent will cause issues with the displacement effect
+	// so we need to ensure that it always has the default colour (clear).
+	appearance_flags = PIXEL_SCALE | RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM | NO_CLIENT_COLOR
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "SM_base"
@@ -147,7 +149,6 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	radio.listening = 0
 	radio.recalculateChannels()
 	distort = new(src)
-	add_overlay(distort)
 	add_emitter(/obj/emitter/sparkle, "supermatter_sparkle")
 	investigate_log("has been created.", INVESTIGATE_ENGINES)
 	if(is_main_engine)
@@ -278,12 +279,12 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 /obj/machinery/power/supermatter_crystal/update_overlays()
 	. = ..()
+	. += get_displacement_icon()
 	if(final_countdown)
-		. += "casuality_field"
+		. += "causality_field"
 
 // Switches the overlay based on the supermatter's current state; only called when the status has changed
-/obj/machinery/power/supermatter_crystal/proc/update_displacement()
-	cut_overlay(distort)
+/obj/machinery/power/supermatter_crystal/proc/get_displacement_icon()
 	switch(last_status)
 		if(SUPERMATTER_INACTIVE)
 			distort.icon = 'icons/effects/96x96.dmi'
@@ -310,7 +311,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			distort.icon_state = "SM_delam_3"
 			distort.pixel_x = -128
 			distort.pixel_y = -128
-	add_overlay(distort)
+	return distort
 
 /obj/machinery/power/supermatter_crystal/proc/countdown()
 	set waitfor = FALSE
@@ -519,7 +520,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/current_status = get_status()
 	if(current_status != last_status)
 		last_status = current_status
-		update_displacement()
+		update_icon(UPDATE_OVERLAYS)
 
 	//Transitions between one function and another, one we use for the fast inital startup, the other is used to prevent errors with fusion temperatures.
 	//Use of the second function improves the power gain imparted by using co2

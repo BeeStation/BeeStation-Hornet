@@ -1,0 +1,5 @@
+author: bluezorua
+delete-after: true
+changes:
+  - rscdel: Carp spawners in Corg Armoury, to prevent unintended antagonists from
+      spawning in there

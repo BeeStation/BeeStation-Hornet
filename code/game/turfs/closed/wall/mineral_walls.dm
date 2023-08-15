@@ -354,6 +354,7 @@
 
 /turf/closed/wall/mineral/plastitanium/explosive/ex_act(severity)
 	var/obj/item/bombcore/large/bombcore = new(get_turf(src))
+	bombcore.installed = TRUE
 	bombcore.detonate()
 	..()
 
