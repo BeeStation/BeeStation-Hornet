@@ -99,6 +99,7 @@
 // PSYCHIC ECHOLOCATION
 /datum/action/item_action/organ_action/psychic_highlight
 	name = "Psychic Sense"
+	desc = "Sense your surroundings psychically."
 	icon_icon = 'icons/mob/actions.dmi'
 	button_icon_state = "activate_psychic"
 	transparent_when_unavailable = TRUE
