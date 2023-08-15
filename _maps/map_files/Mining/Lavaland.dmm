@@ -6952,7 +6952,7 @@
 	},
 /obj/structure/closet/emcloset,
 /mob/living/simple_animal/bot/atmosbot{
-	name = "Seargent Airhead";
+	name = "Sergeant Airhead";
 	on = 0
 	},
 /turf/open/floor/plasteel/techmaint,
