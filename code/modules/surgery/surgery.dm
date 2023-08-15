@@ -21,7 +21,8 @@
 	var/replaced_by													//type; doesn't show up if this type exists. Set to /datum/surgery if you want to hide a "base" surgery (useful for typing parents IE healing.dm just make sure to null it out again)
 	var/failed_step = FALSE											//used for bypassing the 'poke on help intent' on failing a surgery step and forcing the doctor to damage the patient
 	var/abductor_surgery_blacklist = FALSE
-	//Blacklisted surgeries aren't innately known by Abductor Scientists, but can still be used if connected to an operating table with the surgery researched
+	//Blacklisted surgeries aren't innately known by Abductor Scientists
+	//However, they can still be used by them if they meet the normal requirements to access the surgery
 
 
 /datum/surgery/New(surgery_target, surgery_location, surgery_bodypart)
