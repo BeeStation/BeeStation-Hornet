@@ -52,6 +52,7 @@
 #include "armour_checks.dm"
 #include "async.dm"
 #include "check_adjustable_clothing.dm"
+#include "click_cd_tests.dm"
 #include "closets.dm"
 #include "component_tests.dm"
 #include "connect_loc.dm"
