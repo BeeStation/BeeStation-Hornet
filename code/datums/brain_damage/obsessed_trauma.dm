@@ -16,6 +16,11 @@
 	var/time_spent_away = 0
 	var/obsession_hug_count = 0
 
+/datum/brain_trauma/special/obsessed/New(datum/mind/_obsession)
+	. = ..()
+	if(istype(_obsession))
+		obsession = _obsession
+
 /datum/brain_trauma/special/obsessed/on_gain()
 	//setup, linking, etc//
 	if(!obsession)//admins didn't set one

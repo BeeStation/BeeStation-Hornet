@@ -22,10 +22,23 @@
 	if(!current.getorgan(/obj/item/organ/brain)) // If only I had a brain
 		to_chat(admin, "[roundend_category] comes from a brain trauma, so they need to HAVE A BRAIN.")
 		return
-	message_admins("[key_name_admin(admin)] made [key_name_admin(new_owner)] into [name].")
-	log_admin("[key_name(admin)] made [key_name(new_owner)] into [name].")
+	var/datum/mind/forced_target
+	if(tgui_alert(admin, "Would you like to force a specific obsession target?", "MY BELOVED", list("Yes", "No")) == "Yes")
+		var/list/targets = list()
+		var/list/names = list()
+		for(var/datum/mind/mind in SSticker.minds)
+			if(!mind.key || QDELETED(mind.current))
+				continue
+			var/name = key_name(mind)
+			targets[name] = mind
+			names |= name
+		var/forced_target_name = tgui_input_list(admin, "Select a target for the obsession", "MY BELOVED", sort_names(names))
+		if(forced_target_name)
+			forced_target = targets[forced_target_name]
+	message_admins("[key_name_admin(admin)] made [key_name_admin(new_owner)] into [name][forced_target ? "with [key_name_admin(forced_target)] as their obsession" : ""].")
+	log_admin("[key_name(admin)] made [key_name(new_owner)] into [name][forced_target ? "with [key_name(forced_target)] as their obsession" : ""].")
 	//PRESTO FUCKIN MAJESTO
-	current.gain_trauma(/datum/brain_trauma/special/obsessed)//ZAP
+	current.gain_trauma(/datum/brain_trauma/special/obsessed, null, forced_target)//ZAP
 
 /datum/antagonist/obsessed/greet()
 	if(!trauma?.obsession)
@@ -38,7 +51,7 @@
 	to_chat(owner, "<span class='boldannounce'>This role does NOT enable you to otherwise surpass what's deemed creepy behavior per the rules.</span>")//ironic if you know the history of the antag
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Obsession",
-		"Stalk [trauma.obsession] and force them into a constant state of paranoia. Nobody but YOU can be trusted with them!")
+		"Viciously crush anyone or anything that might stand between you and your obsession. Only YOU can be trusted with them, nobody else can be trusted!")
 
 /datum/antagonist/obsessed/Destroy()
 	if(trauma)
@@ -140,157 +153,6 @@
 		report += "<span class='redtext big'>The [name] has failed!</span>"
 
 	return report.Join("<br>")
-
-//////////////////////////////////////////////////
-///CREEPY objectives (few chosen per obsession)///
-//////////////////////////////////////////////////
-
-/datum/objective/protect/obsessed //just a creepy version of protect
-
-/datum/objective/protect/obsessed/update_explanation_text()
-	..()
-	if(target?.current)
-		explanation_text = "Protect [target.name], the [!target_role_type ? target.assigned_role : target.special_role]."
-	else
-		message_admins("WARNING! [ADMIN_LOOKUPFLW(owner)] obsessed objectives forged without an obsession!")
-		explanation_text = "Free Objective"
-
-/datum/objective/protect/obsessed/on_target_cryo()
-	qdel(src) //trauma will give replacement objectives
-
-/datum/objective/assassinate/jealous //assassinate, but it changes the target to someone else in the obsession's department. cool, right?
-	var/datum/mind/obsession //the target the coworker is picked from.
-
-/datum/objective/assassinate/jealous/update_explanation_text()
-	..()
-	if(obsession && target?.current)
-		explanation_text = "Murder [target.name], [obsession]'s coworker."
-	else if(target?.current)
-		explanation_text = "Murder [target.name]."
-	else
-		explanation_text = "Free Objective"
-
-/datum/objective/assassinate/jealous/find_target(list/dupe_search_range, list/blacklist)//returning null = free objective
-	if(!obsession?.assigned_role)
-		set_target(null)
-		update_explanation_text()
-		return
-	var/list/viable_coworkers = list()
-	var/list/all_coworkers = list()
-	var/list/chosen_department
-	//note that command and sillycone are gone because borgs can't be obsessions and the heads have their respective department. Sorry cap, your place is more with centcom or something
-	if(obsession.assigned_role in GLOB.security_positions)
-		chosen_department = GLOB.security_positions
-	else if(obsession.assigned_role in GLOB.engineering_positions)
-		chosen_department = GLOB.engineering_positions
-	else if(obsession.assigned_role in GLOB.medical_positions)
-		chosen_department = GLOB.medical_positions
-	else if(obsession.assigned_role in GLOB.science_positions)
-		chosen_department = GLOB.science_positions
-	else if(obsession.assigned_role in GLOB.supply_positions)
-		chosen_department = GLOB.supply_positions
-	else if(obsession.assigned_role in (GLOB.civilian_positions | GLOB.gimmick_positions))
-		chosen_department = GLOB.civilian_positions | GLOB.gimmick_positions
-	else
-		set_target(null)
-		update_explanation_text()
-		return
-	for(var/datum/mind/possible_target as() in get_crewmember_minds())
-		if(!SSjob.GetJob(possible_target.assigned_role) || possible_target == obsession || possible_target.has_antag_datum(/datum/antagonist/obsessed) || (possible_target in blacklist))
-			continue //the jealousy target has to have a job, and not be the obsession or obsessed.
-		all_coworkers += possible_target
-		if(possible_target.assigned_role in chosen_department)
-			viable_coworkers += possible_target
-
-	if(length(viable_coworkers))//find someone in the same department
-		set_target(pick(viable_coworkers))
-	else if(length(all_coworkers))//find someone who works on the station
-		set_target(pick(all_coworkers))
-	else
-		set_target(null)
-	update_explanation_text()
-	return target
-
-/datum/objective/spendtime //spend some time around someone, handled by the obsessed trauma since that ticks
-	name = "spendtime"
-	var/timer = 1800 //5 minutes
-
-/datum/objective/spendtime/update_explanation_text()
-	if(timer == initial(timer))//just so admins can mess with it
-		timer += pick(-600, 0)
-	var/datum/antagonist/obsessed/creeper = owner.has_antag_datum(/datum/antagonist/obsessed)
-	if(target?.current && creeper)
-		creeper.trauma.attachedobsessedobj = src
-		explanation_text = "Spend [DisplayTimeText(timer)] around [target.name] while they're alive."
-	else
-		explanation_text = "Free Objective"
-
-/datum/objective/spendtime/check_completion()
-	return timer <= 0 || explanation_text == "Free Objective" || ..()
-
-/datum/objective/spendtime/on_target_cryo()
-	qdel(src)
-
-/datum/objective/hug//this objective isn't perfect. hugging the correct amount of times, then switching bodies, might fail the objective anyway. maybe i'll come back and fix this sometime.
-	name = "hugs"
-	var/hugs_needed
-
-/datum/objective/hug/update_explanation_text()
-	..()
-	if(!hugs_needed)//just so admins can mess with it
-		hugs_needed = rand(4, 6)
-	var/datum/antagonist/obsessed/creeper = owner.has_antag_datum(/datum/antagonist/obsessed)
-	if(target?.current && creeper)
-		explanation_text = "Hug [target.name] [hugs_needed] times while they're alive."
-	else
-		explanation_text = "Free Objective"
-
-/datum/objective/hug/check_completion()
-	var/datum/antagonist/obsessed/creeper = owner.has_antag_datum(/datum/antagonist/obsessed)
-	if(!creeper?.trauma || !hugs_needed)
-		return TRUE//free objective
-	return (creeper.trauma.obsession_hug_count >= hugs_needed) || ..()
-
-/datum/objective/hug/on_target_cryo()
-	qdel(src)
-
-/datum/objective/polaroid //take a picture of the target with you in it.
-	name = "polaroid"
-
-/datum/objective/polaroid/update_explanation_text()
-	..()
-	if(target?.current)
-		explanation_text = "Take a photo of [target.name] while they're alive."
-	else
-		explanation_text = "Free Objective"
-
-/datum/objective/polaroid/check_completion()
-	var/list/datum/mind/owners = get_owners()
-	for(var/datum/mind/mind in owners)
-		var/mob/living/current = mind.current
-		if(!istype(current))
-			continue
-		for(var/obj/item/photo/photo in current.GetAllContents(/obj/item/photo)) //Check for wanted items
-			var/datum/picture/picture = photo.picture
-			if(!picture)
-				continue
-			var/seen_mind_stat = picture.minds_seen[target]
-			if(!isnull(seen_mind_stat) && seen_mind_stat != DEAD)
-				return TRUE
-	return ..()
-
-/datum/objective/polaroid/on_target_cryo()
-	qdel(src)
-
-/datum/objective/steal/heirloom_thief //exactly what it sounds like, steal someone's heirloom.
-	name = "heirloomthief"
-
-/datum/objective/steal/heirloom_thief/update_explanation_text()
-	..()
-	if(steal_target)
-		explanation_text = "Steal [target.name]'s family heirloom, [steal_target] they cherish."
-	else
-		explanation_text = "Free Objective"
 
 /datum/antagonist/obsessed/proc/update_obsession_icons_added(var/mob/living/carbon/human/obsessed)
 	var/datum/atom_hud/antag/creephud = GLOB.huds[ANTAG_HUD_OBSESSED]
