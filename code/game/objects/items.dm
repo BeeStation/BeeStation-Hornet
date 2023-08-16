@@ -665,7 +665,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if((owner.getStaminaLoss() >= 35 && HAS_TRAIT(src, TRAIT_NODROP)) || (HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30))//if you don't drop the item, you can't block for a few seconds
 		owner.blockbreak()
 	if(attackforce)
-		owner.changeNext_move(CLICK_CD_MELEE)
+		owner.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 	return TRUE
 
 /obj/item/proc/talk_into(mob/M, input, channel, spans, datum/language/language, list/message_mods)

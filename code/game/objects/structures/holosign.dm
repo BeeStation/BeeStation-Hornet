@@ -35,7 +35,7 @@
 	if(.)
 		return
 	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-	user.changeNext_move(CLICK_CD_MELEE)
+	user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 	take_damage(5 , BRUTE, MELEE, 1)
 
 /obj/structure/holosign/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)

@@ -102,7 +102,7 @@
 	to_chat(brainmob, "<span class='notice'>You feel slightly disoriented. That's normal when you're just a brain.</span>")
 
 /obj/item/organ/brain/attackby(obj/item/O, mob/user, params)
-	user.changeNext_move(CLICK_CD_MELEE)
+	user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 
 	if(istype(O, /obj/item/organ_storage))
 		return //Borg organ bags shouldn't be killing brains

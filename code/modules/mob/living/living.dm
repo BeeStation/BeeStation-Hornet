@@ -277,7 +277,7 @@
 			return
 		stop_pulling()
 
-	changeNext_move(CLICK_CD_GRABBING)
+	add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_GRABBING)
 
 	if(AM.pulledby)
 		if(!supress_message)
@@ -784,7 +784,7 @@
 	. = ..(pressure_difference, direction, pressure_resistance_prob_delta)
 
 /mob/living/can_resist()
-	return !((next_move > world.time) || incapacitated(ignore_restraints = TRUE, ignore_stasis = TRUE))
+	return !((next_action_max > world.time) || incapacitated(ignore_restraints = TRUE, ignore_stasis = TRUE))
 
 /mob/living/verb/resist()
 	set name = "Resist"
@@ -792,7 +792,7 @@
 
 	if(!can_resist())
 		return
-	changeNext_move(CLICK_CD_RESIST)
+	add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_RESIST)
 
 	SEND_SIGNAL(src, COMSIG_LIVING_RESIST, src)
 	//resisting grabs (as if it helps anyone...)

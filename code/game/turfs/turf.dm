@@ -181,9 +181,9 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	if(.)
 		return
 	if(user.Move_Pulled(src))
-		user.changeNext_move(CLICK_CD_RAPID)
+		user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_RAPID)
 	else
-		user.changeNext_move(CLICK_CD_MELEE)
+		user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 
 /turf/eminence_act(mob/living/simple_animal/eminence/eminence)
 	if(get_turf(eminence) == src)

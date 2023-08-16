@@ -105,7 +105,7 @@
 				did_something = TRUE
 
 	if(did_something)
-		user.changeNext_move(CLICK_CD_MELEE)
+		user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 		update_state()
 		update_icon()
 		return

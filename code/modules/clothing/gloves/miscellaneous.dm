@@ -73,14 +73,14 @@
 	var/mob/living/M = loc
 	if(get_dist(A, M) <= 1)
 		if(isliving(A) && M.a_intent == INTENT_HARM)
-			M.changeNext_move(CLICK_CD_RAPID)
+			M.override_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_RAPID)
 			if(warcry)
 				M.say("[warcry]", ignore_spam = TRUE, forced = "north star warcry")
 
 	else if(M.a_intent == INTENT_HARM)
 		for(var/mob/living/L in oview(1, M))
 			L.attack_hand(M)
-			M.changeNext_move(CLICK_CD_RAPID)
+			M.override_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_RAPID)
 			if(warcry)
 				M.say("[warcry]", ignore_spam = TRUE, forced = "north star warcry")
 			break
@@ -119,7 +119,7 @@
 	if(user in viewers(range, A))
 		user.visible_message("<span class='danger'>[user] waves their hands at [A]</span>", "<span class='notice'>You begin manipulating [A].</span>")
 		new	/obj/effect/temp_visual/telegloves(A.loc)
-		user.changeNext_move(CLICK_CD_MELEE)
+		user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 		if(do_after(user, 0.8 SECONDS, A))
 			new /obj/effect/temp_visual/telekinesis(user.loc)
 			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)

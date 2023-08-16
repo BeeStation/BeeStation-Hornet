@@ -173,7 +173,7 @@
 //proc to upgrade a simple pull into a more aggressive grab.
 /mob/living/proc/grippedby(mob/living/carbon/user, instant = FALSE)
 	if(user.grab_state < GRAB_KILL)
-		user.changeNext_move(CLICK_CD_GRABBING)
+		user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_GRABBING)
 		var/sound_to_play = 'sound/weapons/thudswoosh.ogg'
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user

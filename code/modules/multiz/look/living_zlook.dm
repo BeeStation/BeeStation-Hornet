@@ -28,7 +28,7 @@
 		return
 	// Automatic attempts should not trigger the cooldown
 	if(!automatic)
-		changeNext_move(CLICK_CD_LOOK_DIRECTION)
+		add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_LOOK_DIRECTION)
 	looking_direction = direction
 	var/look_str = direction == LOOKING_DIRECTION_UP ? "up" : "down"
 	if(update_looking_move(automatic))

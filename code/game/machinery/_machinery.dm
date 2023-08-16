@@ -405,7 +405,7 @@ Class Procs:
 	if(user.a_intent != INTENT_HARM)
 		return attack_hand(user)
 	else
-		user.changeNext_move(CLICK_CD_MELEE)
+		user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 		user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 		user.visible_message("<span class='danger'>[user.name] smashes against \the [src.name] with its paws.</span>", null, null, COMBAT_MESSAGE_RANGE)
 		take_damage(4, BRUTE, MELEE, 1)

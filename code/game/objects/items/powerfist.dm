@@ -124,6 +124,6 @@
 
 	log_combat(user, target, "power fisted", src)
 
-	user.changeNext_move(CLICK_CD_MELEE * click_delay)
+	user.add_action_cooldown(CD_GROUP_EXTERNAL, CLICK_CD_MELEE * click_delay)
 
 	return ..()

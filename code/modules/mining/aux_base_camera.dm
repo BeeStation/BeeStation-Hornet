@@ -181,7 +181,7 @@
 		if(LAZYLEN(S.rcd_vals(owner,B.RCD)))
 			rcd_target = S //If we don't break out of this loop we'll get the last placed thing
 
-	owner.changeNext_move(CLICK_CD_RANGE)
+	owner.add_action_cooldown(CD_GROUP_EXTERNAL, CLICK_CD_RANGE)
 	B.RCD.afterattack(rcd_target, owner, TRUE) //Activate the RCD and force it to work remotely!
 	playsound(target_turf, 'sound/items/deconstruct.ogg', 60, 1)
 

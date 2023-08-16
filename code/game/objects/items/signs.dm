@@ -6,7 +6,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb = list("bashed","smacked")
 	resistance_flags = FLAMMABLE
-	
+
 
 	var/label = ""
 	var/last_wave = 0
@@ -41,7 +41,7 @@
 			user.visible_message("<span class='warning'>[user] waves around \the \"[label]\" sign.</span>")
 		else
 			user.visible_message("<span class='warning'>[user] waves around blank sign.</span>")
-		user.changeNext_move(CLICK_CD_MELEE)
+		user.add_action_cooldown(CD_GROUP_EXTERNAL, CLICK_CD_MELEE)
 
 /datum/crafting_recipe/picket_sign
 	name = "Picket Sign"

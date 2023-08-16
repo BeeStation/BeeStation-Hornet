@@ -47,7 +47,7 @@
 		add_overlay("mmi_dead")
 
 /obj/item/mmi/attackby(obj/item/O, mob/user, params)
-	user.changeNext_move(CLICK_CD_MELEE)
+	user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 	if(istype(O, /obj/item/organ/brain)) //Time to stick a brain in it --NEO
 		var/obj/item/organ/brain/newbrain = O
 		if(brain)

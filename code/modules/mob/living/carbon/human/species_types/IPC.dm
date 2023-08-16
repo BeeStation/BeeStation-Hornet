@@ -129,7 +129,7 @@
 /obj/item/apc_powercord/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if((!istype(target, /obj/machinery/power/apc) && !isethereal(target)) || !ishuman(user) || !proximity_flag)
 		return ..()
-	user.changeNext_move(CLICK_CD_MELEE)
+	user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 	var/mob/living/carbon/human/H = user
 	var/obj/item/organ/stomach/battery/battery = H.getorganslot(ORGAN_SLOT_STOMACH)
 	if(!battery)

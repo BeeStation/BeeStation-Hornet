@@ -152,7 +152,7 @@
 	if(!chosen_sting || A == ling || !istype(ling) || ling.stat)
 		return
 	chosen_sting.try_to_sting(ling, A)
-	ling.changeNext_move(CLICK_CD_MELEE)
+	ling.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 	return COMSIG_MOB_CANCEL_CLICKON
 
 /datum/antagonist/changeling/proc/has_sting(datum/action/changeling/power)

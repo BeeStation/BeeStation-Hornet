@@ -141,7 +141,7 @@
 	GiveTarget(A)
 	if(!isturf(loc))
 		return
-	if(next_move > world.time)
+	if(next_action_max > world.time)
 		return
 	if(hopping)
 		return

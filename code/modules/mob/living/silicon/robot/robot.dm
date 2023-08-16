@@ -379,11 +379,11 @@
 /mob/living/silicon/robot/attackby(obj/item/W, mob/user, params)
 	if(length(user.progressbars))
 		if(W.tool_behaviour == TOOL_WELDER || istype(W, /obj/item/stack/cable_coil))
-			user.changeNext_move(CLICK_CD_MELEE)
+			user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 			to_chat(user, "<span class='notice'>You are already busy!</span>")
 			return
 	if(W.tool_behaviour == TOOL_WELDER && (user.a_intent != INTENT_HARM))
-		user.changeNext_move(CLICK_CD_MELEE)
+		user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 		if(user == src)
 			to_chat(user, "<span class='warning'>You are unable to maneuver [W] properly to repair yourself, seek assistance!</span>")
 			return
@@ -400,7 +400,7 @@
 		return TRUE
 
 	else if(istype(W, /obj/item/stack/cable_coil) && wiresexposed)
-		user.changeNext_move(CLICK_CD_MELEE)
+		user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 		if(!(getFireLoss() || getToxLoss()))
 			to_chat(user, "The wires seem fine, there's no need to fix them.")
 			return

@@ -41,7 +41,7 @@
 	new /obj/item/stack/sheet/iron(src, 2)
 
 /turf/closed/wall/r_wall/attack_animal(mob/living/simple_animal/M)
-	M.changeNext_move(CLICK_CD_MELEE)
+	M.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 	M.do_attack_animation(src)
 	if(!M.environment_smash)
 		return

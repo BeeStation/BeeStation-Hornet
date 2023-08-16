@@ -102,7 +102,7 @@
 	if(operating || !density)
 		return
 
-	user.changeNext_move(CLICK_CD_MELEE)
+	user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 
 	user.visible_message("[user] bangs on \the [src].",
 						 "You bang on \the [src].")

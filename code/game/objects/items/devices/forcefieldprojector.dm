@@ -43,7 +43,7 @@
 	user.visible_message("<span class='warning'>[user] projects a forcefield!</span>","<span class='notice'>You project a forcefield.</span>")
 	var/obj/structure/projected_forcefield/F = new(T, src)
 	current_fields += F
-	user.changeNext_move(CLICK_CD_MELEE)
+	user.add_action_cooldown(CD_GROUP_EXTERNAL, CLICK_CD_MELEE)
 
 /obj/item/forcefield_projector/attack_self(mob/user)
 	if(LAZYLEN(current_fields))

@@ -280,7 +280,7 @@
 				return
 	else
 		to_chat(user, "<span class='notice'>It feels slimy.</span>")
-		user.changeNext_move(CLICK_CD_MELEE)
+		user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 
 
 /obj/structure/alien/egg/proc/Grow()

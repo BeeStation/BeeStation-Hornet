@@ -279,7 +279,7 @@
 		itemname = sanitize(itemname)
 		to_chat(user, "<span class='notice'>You hold \the [itemname] up to the camera...</span>")
 		user.log_talk(itemname, LOG_GAME, log_globally=TRUE, tag="Pressed to camera")
-		user.changeNext_move(CLICK_CD_MELEE)
+		user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 
 		for(var/mob/O in GLOB.player_list)
 			if(isAI(O))
@@ -313,7 +313,7 @@
 		// Start the process of holding it up to the camera.
 		to_chat(user, "<span class='notice'>You hold \the [item_name] up to the camera...</span>")
 		user.log_talk(item_name, LOG_GAME, log_globally=TRUE, tag="Pressed to camera")
-		user.changeNext_move(CLICK_CD_MELEE)
+		user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 
 		// And make a weakref we can throw around to all potential viewers.
 		last_shown_paper.camera_holder = WEAKREF(src)

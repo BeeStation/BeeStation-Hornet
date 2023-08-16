@@ -220,7 +220,7 @@
 
 /mob/living/carbon/resist_buckle()
 	if(restrained())
-		changeNext_move(CLICK_CD_BREAKOUT)
+		add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_BREAKOUT)
 		last_special = world.time + CLICK_CD_BREAKOUT
 		var/buckle_cd = 600
 		if(handcuffed)
@@ -262,10 +262,10 @@
 		type = 2
 	if(I)
 		if(type == 1)
-			changeNext_move(CLICK_CD_BREAKOUT)
+			add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_BREAKOUT)
 			last_special = world.time + CLICK_CD_BREAKOUT
 		if(type == 2)
-			changeNext_move(CLICK_CD_RANGE)
+			add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_RANGE)
 			last_special = world.time + CLICK_CD_RANGE
 		cuff_resist(I)
 
@@ -312,7 +312,7 @@
 			if (W)
 				W.layer = initial(W.layer)
 				W.plane = initial(W.plane)
-		changeNext_move(0)
+		clear_action_cooldown(CD_GROUP_USER_ACTION)
 	if (legcuffed)
 		var/obj/item/W = legcuffed
 		legcuffed = null
@@ -325,7 +325,7 @@
 			if (W)
 				W.layer = initial(W.layer)
 				W.plane = initial(W.plane)
-		changeNext_move(0)
+		clear_action_cooldown(CD_GROUP_USER_ACTION)
 	update_equipment_speed_mods() // In case cuffs ever change speed
 
 /mob/living/carbon/proc/clear_cuffs(obj/item/I, cuff_break)

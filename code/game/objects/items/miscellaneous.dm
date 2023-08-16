@@ -354,7 +354,7 @@
 	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't get out while you're restrained like this!</span>")
 		return
-	user.changeNext_move(CLICK_CD_BREAKOUT)
+	user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_BREAKOUT)
 	user.last_special = world.time + CLICK_CD_BREAKOUT
 	to_chat(user, "<span class='notice'>You claw at the fabric of [src], trying to tear it open...</span>")
 	to_chat(loc, "<span class='warning'>Someone starts trying to break free of [src]!</span>")

@@ -73,7 +73,7 @@
 		CtrlClickOn(A)
 		return
 
-	if(world.time <= next_move)
+	if(world.time <= next_action_max)
 		return
 
 	if(aicamera.in_camera_mode)

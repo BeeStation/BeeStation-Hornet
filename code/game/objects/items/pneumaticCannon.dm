@@ -169,7 +169,7 @@
 	var/turf/T = get_target(target, get_turf(src))
 	playsound(src, fire_sound, 50, 1)
 	fire_items(T, user)
-	user.changeNext_move(CLICK_CD_MELEE)
+	user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_RANGE)
 	if(pressureSetting >= 3 && iscarbon(user))
 		var/mob/living/carbon/C = user
 		C.visible_message("<span class='warning'>[C] is thrown down by the force of the cannon!</span>", "<span class='userdanger'>[src] slams into your shoulder, knocking you down!")

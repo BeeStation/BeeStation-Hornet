@@ -285,5 +285,5 @@
 			H.add_movespeed_modifier(MOVESPEED_ID_DNA_VAULT, update=TRUE, priority=100, multiplicative_slowdown=-0.5, blacklisted_movetypes=(FLYING|FLOATING))
 		if(VAULT_QUICK)
 			to_chat(H, "<span class='notice'>Your arms move as fast as lightning.</span>")
-			H.next_move_modifier = 0.5
+			H.set_action_modifier(CD_GROUP_USER_ACTION, 0.5)
 	power_lottery[H] = list()

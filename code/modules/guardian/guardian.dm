@@ -396,7 +396,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		if(isliving(target))
 			say("[battlecry]!!", ignore_spam = TRUE)
 			playsound(loc, src.attack_sound, 50, 1, 1)
-		changeNext_move(atk_cooldown)
+		add_action_cooldown(CD_GROUP_GUARDIAN, atk_cooldown)
 		if(stats.ability)
 			stats.ability.AfterAttack(target)
 

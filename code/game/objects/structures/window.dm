@@ -146,7 +146,7 @@
 		return COMPONENT_ATOM_BLOCK_EXIT
 
 /obj/structure/window/attack_tk(mob/user)
-	user.changeNext_move(CLICK_CD_MELEE)
+	user.add_action_cooldown(CD_GROUP_TELEKENISIS, CLICK_CD_MELEE)
 	user.visible_message("<span class='notice'>Something knocks on [src].</span>")
 	add_fingerprint(user)
 	playsound(src, 'sound/effects/Glassknock.ogg', 50, 1)
@@ -162,7 +162,7 @@
 		return
 	if(!can_be_reached(user))
 		return
-	user.changeNext_move(CLICK_CD_MELEE)
+	user.add_action_cooldown(CD_GROUP_TELEKENISIS, CLICK_CD_MELEE)
 	user.visible_message("<span class='notice'>[user] knocks on [src].</span>", \
 		"<span class='notice'>You knock on [src].</span>")
 	add_fingerprint(user)
@@ -707,7 +707,7 @@
 		return
 	add_fingerprint(user)
 	if(user.a_intent != INTENT_HARM)
-		user.changeNext_move(CLICK_CD_MELEE)
+		user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 		user.visible_message("[user] knocks on [src].")
 		playsound(src, "pageturn", 50, 1)
 	else

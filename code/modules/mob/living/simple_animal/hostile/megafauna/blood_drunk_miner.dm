@@ -120,8 +120,8 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
 	var/adjustment_amount = amount * 0.1
-	if(world.time + adjustment_amount > next_move)
-		changeNext_move(adjustment_amount) //attacking it interrupts it attacking, but only briefly
+	if(world.time + adjustment_amount > next_action_max)
+		add_action_cooldown(CD_GROUP_USER_ACTION, adjustment_amount) //attacking it interrupts it attacking, but only briefly
 	. = ..()
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/death()
@@ -161,7 +161,7 @@ Difficulty: Medium
 					adjustHealth(-(L.maxHealth * 0.5))
 			L.gib()
 			return TRUE
-	changeNext_move(CLICK_CD_MELEE)
+	add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 	miner_saw.melee_attack_chain(src, target)
 	if(guidance)
 		adjustHealth(-2)
@@ -189,7 +189,7 @@ Difficulty: Medium
 		face_atom(target)
 		new /obj/effect/temp_visual/dir_setting/firing_effect(loc, dir)
 		Shoot(target)
-		changeNext_move(CLICK_CD_RANGE)
+		add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_RANGE)
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/proc/dash(atom/dash_target)
 	if(world.time < dash_cooldown)

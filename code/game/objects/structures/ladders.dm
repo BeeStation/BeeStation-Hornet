@@ -155,7 +155,7 @@
 		return FALSE
 
 /obj/structure/ladder/attackby(obj/item/I, mob/user, params)
-	user.changeNext_move(CLICK_CD_MELEE)
+	user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 	add_fingerprint(user)
 	if(!(resistance_flags & INDESTRUCTIBLE))
 		if(I.tool_behaviour == TOOL_WELDER)

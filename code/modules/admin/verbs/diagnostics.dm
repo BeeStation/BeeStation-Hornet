@@ -15,20 +15,7 @@
 	var/mob/largest_move_mob = null
 	var/mob/largest_click_mob = null
 	for(var/mob/M in GLOB.player_list)
-		if(M.next_move >= largest_move_time)
-			largest_move_mob = M
-			if(M.next_move > world.time)
-				largest_move_time = M.next_move - world.time
-			else
-				largest_move_time = 1
-		if(M.next_click >= largest_click_time)
-			largest_click_mob = M
-			if(M.next_click > world.time)
-				largest_click_time = M.next_click - world.time
-			else
-				largest_click_time = 0
-		log_admin("DEBUG: [key_name(M)]  next_move = [M.next_move]  lastDblClick = [M.next_click]  world.time = [world.time]")
-		M.next_move = 1
+		M.clear_all_action_cooldowns()
 		M.next_click = 0
 
 	message_admins("[ADMIN_LOOKUPFLW(largest_move_mob)] had the largest move delay with [largest_move_time] frames / [DisplayTimeText(largest_move_time)]!")

@@ -8,7 +8,7 @@
   * * logs the login
   * * tells the world to update it's status (for player count)
   * * create mob huds for the mob if needed
-  * * reset next_move to 1
+  * * clears all action cooldowns
   * * parent call
   * * if the client exists set the perspective to the mob loc
   * * call on_log on the loc (sigh)
@@ -37,7 +37,7 @@
 		hud_used.show_hud(hud_used.hud_version)
 		hud_used.update_ui_style(ui_style2icon(client.prefs?.read_player_preference(/datum/preference/choiced/ui_style)))
 
-	next_move = 1
+	clear_all_action_cooldowns()
 
 	..()
 

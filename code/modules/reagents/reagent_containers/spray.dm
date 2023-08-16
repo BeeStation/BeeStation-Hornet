@@ -48,7 +48,7 @@
 	spray(A, user)
 
 	playsound(src.loc, 'sound/effects/spray2.ogg', 50, 1, -6)
-	user.changeNext_move(CLICK_CD_RANGE*2)
+	user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 	user.newtonian_move(get_dir(A, user))
 
 	var/turf/T = get_turf(src)

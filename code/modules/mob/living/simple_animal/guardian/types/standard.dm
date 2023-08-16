@@ -2,7 +2,6 @@
 /mob/living/simple_animal/hostile/guardian/punch
 	melee_damage = 20
 	obj_damage = 80
-	next_move_modifier = 0.8 //attacks 20% faster
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	playstyle_string = "<span class='holoparasite'>As a <b>standard</b> type you have no special abilities, but have a high damage resistance and a powerful attack capable of smashing through walls.</span>"
 	magic_fluff_string = "<span class='holoparasite'>..And draw the Assistant, faceless and generic, but never to be underestimated.</span>"
@@ -10,6 +9,12 @@
 	carp_fluff_string = "<span class='holoparasite'>CARP CARP CARP! You caught one! It's really boring and standard. Better punch some walls to ease the tension.</span>"
 	hive_fluff_string = "<span class='holoparasite'>The mass seems to have immense strength and increased agility.</span>"
 	var/battlecry = "AT"
+
+/mob/living/simple_animal/hostile/guardian/punch/Initialize(mapload, theme, guardiancolor)
+	. = ..()
+	// Attack cooldown is only 80% of the usual length
+	H.set_action_modifier(CD_GROUP_USER_ACTION, 0.8)
+	H.set_action_modifier(CD_GROUP_GUARDIAN, 0.8)
 
 /mob/living/simple_animal/hostile/guardian/punch/verb/Battlecry()
 	set name = "Set Battlecry"

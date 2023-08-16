@@ -34,7 +34,7 @@
 				if(!do_after(user, 1.5 SECONDS, target))
 					return COMPONENT_NO_AFTERATTACK
 			item_heal_robotic(target, user, 15, 0, affecting)
-		user.changeNext_move(CLICK_CD_MELEE * 0.5) //antispam
+		user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_REPAIR) //antispam
 		return COMPONENT_NO_AFTERATTACK
 
 	// Handles cable repairs
@@ -47,5 +47,5 @@
 				return COMPONENT_NO_AFTERATTACK
 		if(coil.amount && item_heal_robotic(target, user, 0, 15, affecting))
 			coil.use(1)
-		user.changeNext_move(CLICK_CD_MELEE * 0.5) //antispam
+		user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_REPAIR) //antispam
 		return COMPONENT_NO_AFTERATTACK

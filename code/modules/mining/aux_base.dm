@@ -96,7 +96,7 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 			say("Shuttle interface failed.")
 
 	if(href_list["random"] && !possible_destinations)
-		usr.changeNext_move(CLICK_CD_RAPID) //Anti-spam
+		usr.add_action_cooldown(CD_GROUP_EXTERNAL, CLICK_CD_RAPID) //Anti-spam
 		var/list/all_mining_turfs = list()
 		for (var/z_level in SSmapping.levels_by_trait(ZTRAIT_MINING))
 			all_mining_turfs += Z_TURFS(z_level)

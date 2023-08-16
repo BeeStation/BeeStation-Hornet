@@ -22,13 +22,13 @@
 	if(.)
 		return
 	if(swirlie)
-		user.changeNext_move(CLICK_CD_MELEE)
+		user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 		playsound(src.loc, "swing_hit", 25, 1)
 		swirlie.visible_message("<span class='danger'>[user] slams the toilet seat onto [swirlie]'s head!</span>", "<span class='userdanger'>[user] slams the toilet seat onto your head!</span>", "<span class='italics'>You hear reverberating porcelain.</span>")
 		swirlie.adjustBruteLoss(5)
 
 	else if(user.pulling && user.a_intent == INTENT_GRAB && isliving(user.pulling))
-		user.changeNext_move(CLICK_CD_MELEE)
+		user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 		var/mob/living/GM = user.pulling
 		if(user.grab_state >= GRAB_AGGRESSIVE)
 			if(GM.loc != get_turf(src))
@@ -138,7 +138,7 @@
 			if(GM.loc != get_turf(src))
 				to_chat(user, "<span class='notice'>[GM.name] needs to be on [src].</span>")
 				return
-			user.changeNext_move(CLICK_CD_MELEE)
+			user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 			user.visible_message("<span class='danger'>[user] slams [GM] into [src]!</span>", "<span class='danger'>You slam [GM] into [src]!</span>")
 			GM.adjustBruteLoss(8)
 		else

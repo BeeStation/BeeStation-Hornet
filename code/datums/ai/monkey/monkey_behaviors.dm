@@ -173,10 +173,10 @@
 /datum/ai_behavior/monkey_attack_mob/proc/monkey_attack(datum/ai_controller/controller, mob/living/target, delta_time, disarm)
 	var/mob/living/living_pawn = controller.pawn
 
-	if(living_pawn.next_move > world.time)
+	if(living_pawn.next_action_max > world.time)
 		return
 
-	living_pawn.changeNext_move(CLICK_CD_MELEE) //We play fair
+	living_pawn.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE) //We play fair
 
 	var/obj/item/weapon = locate(/obj/item) in living_pawn.held_items
 

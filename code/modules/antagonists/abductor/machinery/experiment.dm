@@ -42,7 +42,7 @@
 		to_chat(user, "<span class='warning'>[src]'s door won't budge!</span>")
 
 /obj/machinery/abductor/experiment/container_resist(mob/living/user)
-	user.changeNext_move(CLICK_CD_BREAKOUT)
+	user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_BREAKOUT)
 	user.last_special = world.time + CLICK_CD_BREAKOUT
 	user.visible_message("<span class='notice'>You see [user] kicking against the door of [src]!</span>", \
 		"<span class='notice'>You lean on the back of [src] and start pushing the door open... (this will take about [DisplayTimeText(breakout_time)].)</span>", \

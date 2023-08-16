@@ -57,7 +57,9 @@
 	var/obj/machinery/machine = null
 
 	/// Tick time the mob can next move
-	var/next_move = null
+	var/next_action_max = null
+	var/list/action_cooldowns
+	var/list/action_modifiers
 
 	///prevents area creation spam
 	var/create_area_cooldown

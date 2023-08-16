@@ -243,7 +243,7 @@ Striking a noncultist, however, will tear their flesh."}
 
 /datum/action/innate/cult/spin2win/Activate()
 	cooldown = world.time + sword.spin_cooldown
-	holder.changeNext_move(50)
+	holder.add_action_cooldown(CD_GROUP_EXTERNAL, 5 SECONDS)
 	holder.apply_status_effect(/datum/status_effect/sword_spin)
 	sword.spinning = TRUE
 	sword.block_level = 4

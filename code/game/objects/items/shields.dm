@@ -41,7 +41,7 @@
 				L.attackby(src, owner)
 				owner.visible_message("<span class='danger'>[L] injures themselves on [owner]'s [src]!</span>")
 		if(attackforce)
-			owner.changeNext_move(CLICK_CD_MELEE)
+			owner.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 		if (obj_integrity <= attackforce)
 			var/turf/T = get_turf(owner)
 			T.visible_message("<span class='warning'>[hitby] destroys [src]!</span>")

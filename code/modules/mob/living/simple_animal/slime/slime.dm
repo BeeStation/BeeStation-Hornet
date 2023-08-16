@@ -374,7 +374,7 @@
 		attacked += 10
 		if(prob(25))
 			user.do_attack_animation(src)
-			user.changeNext_move(CLICK_CD_MELEE)
+			user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 			to_chat(user, "<span class='danger'>[W] passes right through [src]!</span>")
 			return
 		if(Discipline && prob(50)) // wow, buddy, why am I getting attacked??

@@ -274,7 +274,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	var/mob/living/L = usr
 	if(!istype(L) || !L.can_resist() || L != owner)
 		return
-	L.changeNext_move(CLICK_CD_RESIST)
+	L.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_RESIST)
 	if(L.mobility_flags & MOBILITY_MOVE)
 		return L.resist_fire() //I just want to start a flame in your hearrrrrrtttttt.
 
@@ -650,7 +650,7 @@ so as to remain in compliance with the most up-to-date laws."
 	var/mob/living/L = usr
 	if(!istype(L) || !L.can_resist() || L != owner)
 		return
-	L.changeNext_move(CLICK_CD_RESIST)
+	L.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 	if((L.mobility_flags & MOBILITY_MOVE) && (L.last_special <= world.time))
 		return L.resist_restraints()
 
@@ -658,7 +658,7 @@ so as to remain in compliance with the most up-to-date laws."
 	var/mob/living/L = usr
 	if(!istype(L) || !L.can_resist() || L != owner)
 		return
-	L.changeNext_move(CLICK_CD_RESIST)
+	L.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 	if(L.last_special <= world.time)
 		return L.resist_buckle()
 

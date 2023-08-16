@@ -124,7 +124,7 @@ All foods are distributed among various categories. Use common sense.
 				user.visible_message("<span class='warning'>[user] cannot force any more of \the [src] to go down [user.p_their()] throat!</span>", "<span class='warning'>You cannot force any more of \the [src] to go down your throat!</span>")
 				return FALSE
 			if(HAS_TRAIT(M, TRAIT_VORACIOUS))
-				M.changeNext_move(CLICK_CD_MELEE * 0.5) //nom nom nom
+				M.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE * 0.5) //nom nom nom
 		else
 			if(!isbrain(M))		//If you're feeding it to someone else.
 				if(fullness <= (600 * (1 + M.overeatduration / 1000)))

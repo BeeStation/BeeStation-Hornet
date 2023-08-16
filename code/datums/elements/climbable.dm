@@ -45,7 +45,7 @@
 		var/mob/living/structure_climber = i
 		if(structure_climber == user)
 			return
-		user.changeNext_move(CLICK_CD_MELEE)
+		user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 		user.do_attack_animation(climbed_thing)
 		structure_climber.Paralyze(40)
 		structure_climber.visible_message("<span class='warning'>[structure_climber] is knocked off [climbed_thing].</span>", "<span class='warning'>You're knocked off [climbed_thing]!</span>", "<span class='hear'>You hear a cry from [structure_climber], followed by a slam.</span>")

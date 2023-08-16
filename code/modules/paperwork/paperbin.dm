@@ -64,7 +64,7 @@
 		var/mob/living/L = user
 		if(!(L.mobility_flags & MOBILITY_PICKUP))
 			return
-	user.changeNext_move(CLICK_CD_MELEE)
+	user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 	if(bin_pen)
 		var/obj/item/pen/P = bin_pen
 		P.add_fingerprint(user)

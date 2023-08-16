@@ -157,7 +157,7 @@
 	face_atom(A)
 	if(!isturf(loc))
 		return
-	if(next_move > world.time)
+	if(next_action_max > world.time)
 		return
 	if(!A.Adjacent(src))
 		return
@@ -445,7 +445,7 @@
 		resources += resource_gain
 		add_to_total_resources_eaten(resource_gain)
 		do_attack_animation(target)
-		changeNext_move(CLICK_CD_MELEE)
+		add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 		var/obj/effect/temp_visual/swarmer/integrate/I = new /obj/effect/temp_visual/swarmer/integrate(get_turf(target))
 		I.pixel_x = target.pixel_x
 		I.pixel_y = target.pixel_y
@@ -470,7 +470,7 @@
 /mob/living/simple_animal/hostile/swarmer/proc/DisIntegrate(atom/movable/target)
 	new /obj/effect/temp_visual/swarmer/disintegration(get_turf(target))
 	do_attack_animation(target)
-	changeNext_move(CLICK_CD_MELEE)
+	add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 	SSexplosions.low_mov_atom += target
 
 /mob/living/simple_animal/hostile/swarmer/proc/DisperseTarget(mob/living/target)

@@ -230,7 +230,7 @@ GLOBAL_LIST_EMPTY(species_list)
 
 //some additional checks as a callback for for do_afters that want to break on losing health or on the mob taking action
 /mob/proc/break_do_after_checks(list/checked_health, check_clicks)
-	if(check_clicks && next_move > world.time)
+	if(check_clicks && next_action_max > world.time)
 		return FALSE
 	return TRUE
 

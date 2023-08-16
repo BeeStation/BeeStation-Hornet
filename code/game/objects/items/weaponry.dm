@@ -718,7 +718,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		return
 	else if(!target.anchored)
 		target.throw_at(throw_target, rand(1,2), 7, user, force = MOVE_FORCE_WEAK)
-	user.changeNext_move(CLICK_CD_MELEE * click_delay)
+	user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE * click_delay)
 	return
 
 

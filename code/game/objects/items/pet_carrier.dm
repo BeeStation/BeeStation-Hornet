@@ -118,7 +118,7 @@
 		container_resist(user)
 
 /obj/item/pet_carrier/container_resist(mob/living/user)
-	user.changeNext_move(CLICK_CD_BREAKOUT)
+	user.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_BREAKOUT)
 	user.last_special = world.time + CLICK_CD_BREAKOUT
 	if(user.mob_size <= MOB_SIZE_SMALL)
 		to_chat(user, "<span class='notice'>You poke a limb through [src]'s bars and start fumbling for the lock switch... (This will take some time.)</span>")

@@ -7,27 +7,67 @@
 //This is mainly modified by click code, to modify click delays elsewhere, use next_move and changeNext_move()
 /mob/var/next_click	= 0
 
-// THESE DO NOT EFFECT THE BASE 1 DECISECOND DELAY OF NEXT_CLICK
-/mob/var/next_move_adjust = 0 //Amount to adjust action/click delays by, + or -
-/mob/var/next_move_modifier = 1 //Value to multiply action/click delays by
+/// Adds an action cooldown for a specific action.
+/mob/proc/add_action_cooldown(action_group, time)
+	// Create action cooldowns if needed
+	if (!action_cooldowns)
+		action_cooldowns = new(CD_GROUP_MAX)
+		action_modifiers = new(CD_GROUP_MAX)
+	// Determine action modifier
+	var/mod = action_modifiers[action_group] || 1
+	// Calculate the new action timer
+	var/new_value = world.time + time * mod
+	// Apply the new action timer
+	action_cooldowns[action_group] = max(action_cooldowns[action_group], new_value)
+	next_action_max = max(next_action_max, new_value)
 
-
-//Delays the mob's next click/action by num deciseconds
-// eg: 10-3 = 7 deciseconds of delay
-// eg: 10*0.5 = 5 deciseconds of delay
-// DOES NOT EFFECT THE BASE 1 DECISECOND DELAY OF NEXT_CLICK
-
-/mob/proc/changeNext_move(num)
-	next_move = world.time + ((num+next_move_adjust)*next_move_modifier)
-
-/mob/living/changeNext_move(num)
-	var/mod = next_move_modifier
-	var/adj = next_move_adjust
+/// Adds an action cooldown for a specific action.
+/mob/living/add_action_cooldown(action_group, time)
+	// Create action cooldowns if needed
+	if (!action_cooldowns)
+		action_cooldowns = new(CD_GROUP_MAX)
+		action_modifiers = new(CD_GROUP_MAX)
+	// Determine action modifier
+	var/mod = action_modifiers[action_group] || 1
+	// Determine status effects effect on cooldowns
 	for(var/i in status_effects)
 		var/datum/status_effect/S = i
 		mod *= S.nextmove_modifier()
-		adj += S.nextmove_adjust()
-	next_move = world.time + ((num + adj)*mod)
+	// Calculate the new action timer
+	var/new_value = world.time + time * mod
+	// Apply the new action timer
+	action_cooldowns[action_group] = max(action_cooldowns[action_group], new_value)
+	next_action_max = max(next_action_max, new_value)
+
+/mob/proc/override_action_cooldown(action_group, time)
+	clear_action_cooldown(action_group)
+	add_action_cooldown(action_group, time)
+
+/// Clears all action cooldowns for a specific action group
+/mob/proc/clear_action_cooldown(action_group)
+	if (!action_cooldowns)
+		action_cooldowns = new(CD_GROUP_MAX)
+		action_modifiers = new(CD_GROUP_MAX)
+	action_cooldowns[action_group] = 0
+	next_action_max = 0
+	for (var/index in 1 to CD_GROUP_MAX)
+		next_action_max = max(next_action_max, action_cooldowns[index])
+
+/// Clear all the action cooldowns currently applied to a mob
+/mob/proc/clear_all_action_cooldowns()
+	if (!action_cooldowns)
+		action_cooldowns = new(CD_GROUP_MAX)
+		action_modifiers = new(CD_GROUP_MAX)
+	next_action_max = 0
+	for (var/index in 1 to CD_GROUP_MAX)
+		action_cooldowns[index] = 0
+
+/// Sets the actionspeed modifier for a specific actiongroup
+/mob/proc/set_action_modifier(action_group, modifier)
+	if (!action_cooldowns)
+		action_cooldowns = new(CD_GROUP_MAX)
+		action_modifiers = new(CD_GROUP_MAX)
+	action_modifiers[action_group] = modifier
 
 /*
 	Before anything else, defer these calls to a per-mobtype handler.  This allows us to
@@ -103,7 +143,7 @@
 
 	face_atom(A)
 
-	if(next_move > world.time) // in the year 2000...
+	if(next_action_max > world.time) // in the year 2000...
 		return
 
 	if(!LAZYACCESS(modifiers, "catcher") && A.IsObscured())
@@ -114,12 +154,12 @@
 		return M.click_action(A,src,params)
 
 	if(restrained())
-		changeNext_move(CLICK_CD_HANDCUFFED)   //Doing shit in cuffs shall be vey slow
+		add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_HANDCUFFED)	//Doing shit in cuffs shall be vey slow
 		RestrainedClickOn(A)
 		return
 
 	if(throw_mode && throw_item(A))
-		changeNext_move(CLICK_CD_THROW)
+		add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_THROW)
 		return
 
 	var/obj/item/W = get_active_held_item()
@@ -136,7 +176,7 @@
 			W.melee_attack_chain(src, A, params)
 		else
 			if(ismob(A))
-				changeNext_move(CLICK_CD_MELEE)
+				add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 			UnarmedAttack(A)
 		return
 
@@ -150,7 +190,7 @@
 			W.melee_attack_chain(src, A, params)
 		else
 			if(ismob(A))
-				changeNext_move(CLICK_CD_MELEE)
+				add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 			UnarmedAttack(A,1)
 	else
 		if(W)
@@ -261,7 +301,7 @@
 */
 /mob/proc/UnarmedAttack(atom/A, proximity_flag)
 	if(ismob(A))
-		changeNext_move(CLICK_CD_MELEE)
+		add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 	return
 
 /*
@@ -324,11 +364,11 @@
 
 /mob/living/carbon/human/CtrlClick(mob/user)
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated())
-		if(world.time < user.next_move)
+		if(world.time < user.next_action_max)
 			return FALSE
 		var/mob/living/carbon/human/H = user
 		H.dna.species.grab(H, src, H.mind.martial_art)
-		H.changeNext_move(CLICK_CD_MELEE)
+		H.add_action_cooldown(CD_GROUP_USER_ACTION, CLICK_CD_MELEE)
 	else
 		..()
 /*
@@ -384,7 +424,7 @@
 	return
 
 /mob/living/LaserEyes(atom/A, params)
-	changeNext_move(CLICK_CD_RANGE)
+	add_action_cooldown(CD_GROUP_EXTERNAL, CLICK_CD_RANGE)
 
 	var/obj/projectile/beam/LE = new /obj/projectile/beam( loc )
 	LE.icon = 'icons/effects/genetics.dmi'
