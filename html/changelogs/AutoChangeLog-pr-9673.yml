@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: Mech movement speed is now proportional to player movement speed, increasing
+      their movement delay by 33%.
