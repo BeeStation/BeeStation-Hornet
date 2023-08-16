@@ -63,3 +63,11 @@ export const tgui_say_light_mode: FeatureToggle = {
   description: 'Sets TGUI Say to use light mode.',
   component: CheckboxInput,
 };
+
+export const tgui_asay: FeatureToggle = {
+  name: 'Enable TGUI ASay/MSay/DSay',
+  category: 'UI',
+  subcategory: 'TGUI Say',
+  description: 'Renders the ASay/MSay/DSay input in TGUI. If disabled, a legacy input box will be used.',
+  component: CheckboxInput,
+};

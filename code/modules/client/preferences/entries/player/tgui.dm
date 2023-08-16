@@ -60,7 +60,7 @@
 	else
 		client.tgui_say?.close()
 	// Update what the macro will open
-	client.set_macros()
+	client.update_special_keybinds()
 
 /// Light mode for tgui say
 /datum/preference/toggle/tgui_say_light_mode
@@ -80,3 +80,20 @@
 
 /datum/preference/toggle/tgui_say_show_prefix/apply_to_client(client/client)
 	client.tgui_say?.load()
+
+/datum/preference/toggle/tgui_asay
+	category = PREFERENCE_CATEGORY_GAME_PREFERENCES
+	db_key = "tgui_asay"
+	preference_type = PREFERENCE_PLAYER
+	default_value = TRUE
+
+/datum/preference/toggle/tgui_asay/apply_to_client(client/client, value)
+	if(value)
+		client.tgui_asay?.load()
+	else
+		client.tgui_asay?.close()
+	// Update what the macro will open
+	client.update_special_keybinds()
+
+/datum/preference/toggle/tgui_asay/is_accessible(datum/preferences/preferences, ignore_page)
+	return ..() && (is_admin(preferences.parent) || preferences.parent.mentor_datum)

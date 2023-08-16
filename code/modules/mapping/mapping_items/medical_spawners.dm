@@ -1,11 +1,11 @@
-/obj/effect/spawner/lootdrop/job_scale/medical
+/obj/effect/loot_jobscale/medical
 	jobs = list(
 		JOB_NAME_CHIEFMEDICALOFFICER,
 		JOB_NAME_MEDICALDOCTOR,
 		JOB_NAME_PARAMEDIC,
 	)
 
-/obj/effect/spawner/lootdrop/job_scale/medical/medkits
+/obj/effect/loot_jobscale/medical/medkits
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "firstaid-mystery"
 	loot = list(/obj/item/storage/firstaid/brute, /obj/item/storage/firstaid/fire, /obj/item/storage/firstaid/toxin, /obj/item/storage/firstaid/o2)
@@ -14,7 +14,7 @@
 	minimum = 1
 	maximum = 3
 
-/obj/effect/spawner/lootdrop/job_scale/medical/brute_kit
+/obj/effect/loot_jobscale/medical/brute_kit
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "firstaid-brute"
 	loot = list(/obj/item/storage/firstaid/brute)
@@ -23,7 +23,7 @@
 	maximum = 3
 	linear_scaling_rate = 0.5
 
-/obj/effect/spawner/lootdrop/job_scale/medical/burn_kit
+/obj/effect/loot_jobscale/medical/burn_kit
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "firstaid-burn"
 	loot = list(/obj/item/storage/firstaid/fire)
@@ -32,7 +32,7 @@
 	maximum = 3
 	linear_scaling_rate = 0.5
 
-/obj/effect/spawner/lootdrop/job_scale/medical/tox_kit
+/obj/effect/loot_jobscale/medical/tox_kit
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "firstaid-toxin"
 	loot = list(/obj/item/storage/firstaid/toxin)
@@ -41,7 +41,7 @@
 	maximum = 3
 	linear_scaling_rate = 0.5
 
-/obj/effect/spawner/lootdrop/job_scale/medical/oxy_kit
+/obj/effect/loot_jobscale/medical/oxy_kit
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "firstaid-o2"
 	loot = list(/obj/item/storage/firstaid/o2)
@@ -50,7 +50,7 @@
 	maximum = 3
 	linear_scaling_rate = 0.5
 
-/obj/effect/spawner/lootdrop/job_scale/medical/first_aid_kit
+/obj/effect/loot_jobscale/medical/first_aid_kit
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "firstaid"
 	loot = list(/obj/item/storage/firstaid/regular)

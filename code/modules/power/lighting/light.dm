@@ -49,9 +49,6 @@
 	var/bulb_vacuum_brightness = 8
 	var/static/list/lighting_overlays	// dictionary for lighting overlays
 
-	///So we don't have a lot of stress on startup.
-	var/maploaded = FALSE
-
 	///More stress stuff.
 	var/turning_on = FALSE
 
@@ -131,8 +128,6 @@
 	if(!mapload) //sync up nightshift lighting for player made lights
 		var/obj/machinery/power/apc/temp_apc = A.apc
 		nightshift_enabled = temp_apc?.nightshift_lights
-	else
-		maploaded = TRUE
 	if(start_with_cell && !no_emergency)
 		store_cell(new/obj/item/stock_parts/cell/emergency_light(src))
 	spawn(2)
@@ -145,8 +140,9 @@
 				brightness = A.lighting_brightness_bulb
 				if(prob(5))
 					break_light_tube(1)
-		spawn(1)
-			update(FALSE, TRUE, maploaded)
+		if(!mapload)
+			spawn(1)
+				update(FALSE, FALSE, FALSE)
 	if(mapload)
 		return INITIALIZE_HINT_LATELOAD
 
@@ -212,9 +208,6 @@
 	if(on)
 		if(instant)
 			turn_on(trigger, quiet)
-		else if(maploaded)
-			turn_on(trigger, TRUE)
-			maploaded = FALSE
 		else if(!turning_on)
 			turning_on = TRUE
 			addtimer(CALLBACK(src, PROC_REF(turn_on), trigger, quiet), rand(LIGHT_ON_DELAY_LOWER, LIGHT_ON_DELAY_UPPER))
