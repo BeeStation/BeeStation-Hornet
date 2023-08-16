@@ -18,8 +18,13 @@ GLOBAL_LIST_INIT(fugitive_types, list(
 	var/has_leader = FALSE
 	/// The outfit given to the leader
 	var/leader_outfit
-	/// The maximum amount of this type that can spawn
-	var/max_amount = 4
+	/// Minimum amount of fugitives to spawn with this type
+	var/min_spawn_amount = 1
+	/// Max amount of fugitives to spawn with this type
+	var/max_spawn_amount = MAXIMUM_TOTAL_FUGITIVES
+	/// At what candidate count this fugitive type stops being allowed to spawn. Used by waldo.
+	/// Do not raise this higher than MAXIMUM_TOTAL_FUGITIVES, go change the define if you need a bigger amount.
+	var/max_amount_allowed = MAXIMUM_TOTAL_FUGITIVES
 
 /datum/fugitive_type/prisoner
 	name = "Prisoner"
@@ -43,7 +48,8 @@ GLOBAL_LIST_INIT(fugitive_types, list(
 		<span class='bold'>My name is Waldo. I'm just setting off on a galaxywide hike. You can come too. All you have to do is find me.</span>\n\
 		<span class='bold'>By the way, I'm not traveling on my own. wherever I go, there are lots of other characters for you to spot. First find the people trying to capture me! They're somewhere around the station!</span>"
 	outfit = /datum/outfit/waldo
-	max_amount = 1
+	max_spawn_amount = 1
+	max_amount_allowed = 1
 
 /datum/fugitive_type/synth
 	name = "Synthetic"
