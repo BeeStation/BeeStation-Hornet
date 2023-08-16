@@ -545,6 +545,7 @@ update_label("John Doe", "Clowny")
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
 			log_game("[key_name(user)] has locked the disguise of the agent ID ([name]) with [W]")
+			return
 	. = ..()
 
 // broken chameleon agent card

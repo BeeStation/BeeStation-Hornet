@@ -422,6 +422,7 @@
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
 			log_game("[key_name(user)] has locked the disguise of the chameleon jumpsuit ([name]) with [W]")
+			return
 	. = ..()
 
 /obj/item/clothing/suit/chameleon
@@ -466,6 +467,7 @@
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
 			log_game("[key_name(user)] has locked the disguise of the chameleon suit ([name]) with [W]")
+			return
 	. = ..()
 
 /obj/item/clothing/glasses/chameleon
@@ -509,6 +511,7 @@
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
 			log_game("[key_name(user)] has locked the disguise of the chameleon glasses ([name]) with [W]")
+			return
 	. = ..()
 
 /obj/item/clothing/glasses/chameleon/flashproof
@@ -561,6 +564,7 @@
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
 			log_game("[key_name(user)] has locked the disguise of the chameleon gloves ([name]) with [W]")
+			return
 	. = ..()
 
 /obj/item/clothing/gloves/chameleon/combat
@@ -620,6 +624,7 @@
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
 			log_game("[key_name(user)] has locked the disguise of the chameleon hat ([name]) with [W]")
+			return
 	. = ..()
 
 /obj/item/clothing/head/chameleon/envirohelm
@@ -874,6 +879,7 @@
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
 			log_game("[key_name(user)] has locked the disguise of the chameleon backpack ([name]) with [W]")
+			return
 	. = ..()
 
 /obj/item/storage/belt/chameleon
@@ -917,6 +923,7 @@
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
 			log_game("[key_name(user)] has locked the disguise of the chameleon belt ([name]) with [W]")
+			return
 	. = ..()
 
 /obj/item/radio/headset/chameleon
@@ -953,6 +960,7 @@
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
 			log_game("[key_name(user)] has locked the disguise of the chameleon headset ([name]) with [W]")
+			return
 	. = ..()
 
 /obj/item/radio/headset/chameleon/bowman
@@ -996,6 +1004,7 @@
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
 			log_game("[key_name(user)] has locked the disguise of the chameleon PDA ([name]) with [W]")
+			return
 	. = ..()
 
 /obj/item/stamp/chameleon
@@ -1025,6 +1034,7 @@
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
 			log_game("[key_name(user)] has locked the disguise of the chameleon stamp ([name]) with [W]")
+			return
 	. = ..()
 
 /obj/item/clothing/neck/chameleon
@@ -1063,4 +1073,5 @@
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
 			log_game("[key_name(user)] has locked the disguise of the chameleon necktie ([name]) with [W]")
+			return
 	. = ..()
