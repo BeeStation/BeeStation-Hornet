@@ -56,7 +56,7 @@
 	// This is a manual verb so performance is not a priority.
 	for(var/turf/updated_turf as anything in block(locate(bounds[MAP_MINX], bounds[MAP_MINY], SSmapping.station_start), locate(bounds[MAP_MAXX], bounds[MAP_MAXY], z_offset - 1)))
 		for(var/atom/contained_atom as anything in updated_turf)
-			if(isobj(contained_atom) && !istype(updated_turf, /turf/open/space) && updated_turf.intact)
+			if(isobj(contained_atom) && !istype(updated_turf, /turf/open/space) && updated_turf.underfloor_accessibility < UNDERFLOOR_INTERACTABLE)
 				SEND_SIGNAL(contained_atom, COMSIG_OBJ_HIDE, TRUE)
 	GLOB.reloading_map = FALSE
 
