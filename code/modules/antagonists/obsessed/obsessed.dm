@@ -35,8 +35,8 @@
 		var/forced_target_name = tgui_input_list(admin, "Select a target for the obsession", "MY BELOVED", sort_names(names))
 		if(forced_target_name)
 			forced_target = targets[forced_target_name]
-	message_admins("[key_name_admin(admin)] made [key_name_admin(new_owner)] into [name][forced_target ? "with [key_name_admin(forced_target)] as their obsession" : ""].")
-	log_admin("[key_name(admin)] made [key_name(new_owner)] into [name][forced_target ? "with [key_name(forced_target)] as their obsession" : ""].")
+	message_admins("[key_name_admin(admin)] made [key_name_admin(new_owner)] into [name][forced_target ? ", with [key_name_admin(forced_target)] as their obsession" : ""].")
+	log_admin("[key_name(admin)] made [key_name(new_owner)] into [name][forced_target ? ", with [key_name(forced_target)] as their obsession" : ""].")
 	//PRESTO FUCKIN MAJESTO
 	current.gain_trauma(/datum/brain_trauma/special/obsessed, null, forced_target)//ZAP
 
