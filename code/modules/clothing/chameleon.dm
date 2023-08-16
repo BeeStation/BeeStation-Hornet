@@ -415,12 +415,13 @@
 			chameleon_action.hidden = FALSE
 			actions += chameleon_action
 			chameleon_action.Grant(user)
+			log_game("[key_name(user)] has removed the disguise lock on the chameleon jumpsuit ([name]) with [W]")
 			return
 		else
 			chameleon_action.hidden = TRUE
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
-			return
+			log_game("[key_name(user)] has locked the disguise of the chameleon jumpsuit ([name]) with [W]")
 	. = ..()
 
 /obj/item/clothing/suit/chameleon
@@ -458,12 +459,13 @@
 			chameleon_action.hidden = FALSE
 			actions += chameleon_action
 			chameleon_action.Grant(user)
+			log_game("[key_name(user)] has removed the disguise lock on the chameleon suit ([name]) with [W]")
 			return
 		else
 			chameleon_action.hidden = TRUE
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
-			return
+			log_game("[key_name(user)] has locked the disguise of the chameleon suit ([name]) with [W]")
 	. = ..()
 
 /obj/item/clothing/glasses/chameleon
@@ -500,12 +502,13 @@
 			chameleon_action.hidden = FALSE
 			actions += chameleon_action
 			chameleon_action.Grant(user)
+			log_game("[key_name(user)] has removed the disguise lock on the chameleon glasses ([name]) with [W]")
 			return
 		else
 			chameleon_action.hidden = TRUE
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
-			return
+			log_game("[key_name(user)] has locked the disguise of the chameleon glasses ([name]) with [W]")
 	. = ..()
 
 /obj/item/clothing/glasses/chameleon/flashproof
@@ -551,12 +554,13 @@
 			chameleon_action.hidden = FALSE
 			actions += chameleon_action
 			chameleon_action.Grant(user)
+			log_game("[key_name(user)] has removed the disguise lock on the chameleon gloves ([name]) with [W]")
 			return
 		else
 			chameleon_action.hidden = TRUE
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
-			return
+			log_game("[key_name(user)] has locked the disguise of the chameleon gloves ([name]) with [W]")
 	. = ..()
 
 /obj/item/clothing/gloves/chameleon/combat
@@ -609,12 +613,13 @@
 			chameleon_action.hidden = FALSE
 			actions += chameleon_action
 			chameleon_action.Grant(user)
+			log_game("[key_name(user)] has removed the disguise lock on the chameleon hat ([name]) with [W]")
 			return
 		else
 			chameleon_action.hidden = TRUE
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
-			return
+			log_game("[key_name(user)] has locked the disguise of the chameleon hat ([name]) with [W]")
 	. = ..()
 
 /obj/item/clothing/head/chameleon/envirohelm
@@ -754,12 +759,13 @@
 			chameleon_action.Grant(user)
 			actions += tongue_action
 			tongue_action.Grant(user)
+			log_game("[key_name(user)] has removed the disguise lock on the chameleon mask ([name]) with [W]")
 			return
 		else
 			chameleon_action.hidden = TRUE
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
-			actions -= tongue_action
+			log_game("[key_name(user)] has locked the disguise of the chameleon mask ([name]) with [W]")
 			tongue_action.Remove(user)
 			return
 	. = ..()
@@ -816,11 +822,13 @@
 			chameleon_action.hidden = FALSE
 			actions += chameleon_action
 			chameleon_action.Grant(user)
+			log_game("[key_name(user)] has removed the disguise lock on the chameleon shoes ([name]) with [W]")
 			return
 		else
 			chameleon_action.hidden = TRUE
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
+			log_game("[key_name(user)] has locked the disguise of the chameleon shoes ([name]) with [W]")
 			return
 	. = ..()
 
@@ -859,12 +867,13 @@
 			chameleon_action.hidden = FALSE
 			actions += chameleon_action
 			chameleon_action.Grant(user)
+			log_game("[key_name(user)] has removed the disguise lock on the chameleon backpack ([name]) with [W]")
 			return
 		else
 			chameleon_action.hidden = TRUE
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
-			return
+			log_game("[key_name(user)] has locked the disguise of the chameleon backpack ([name]) with [W]")
 	. = ..()
 
 /obj/item/storage/belt/chameleon
@@ -901,12 +910,13 @@
 			chameleon_action.hidden = FALSE
 			actions += chameleon_action
 			chameleon_action.Grant(user)
+			log_game("[key_name(user)] has removed the disguise lock on the chameleon belt ([name]) with [W]")
 			return
 		else
 			chameleon_action.hidden = TRUE
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
-			return
+			log_game("[key_name(user)] has locked the disguise of the chameleon belt ([name]) with [W]")
 	. = ..()
 
 /obj/item/radio/headset/chameleon
@@ -936,12 +946,13 @@
 			chameleon_action.hidden = FALSE
 			actions += chameleon_action
 			chameleon_action.Grant(user)
+			log_game("[key_name(user)] has removed the disguise lock on the chameleon headset ([name]) with [W]")
 			return
 		else
 			chameleon_action.hidden = TRUE
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
-			return
+			log_game("[key_name(user)] has locked the disguise of the chameleon headset ([name]) with [W]")
 	. = ..()
 
 /obj/item/radio/headset/chameleon/bowman
@@ -978,12 +989,13 @@
 			chameleon_action.hidden = FALSE
 			actions += chameleon_action
 			chameleon_action.Grant(user)
+			log_game("[key_name(user)] has removed the disguise lock on the chameleon PDA ([name]) with [W]")
 			return
 		else
 			chameleon_action.hidden = TRUE
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
-			return
+			log_game("[key_name(user)] has locked the disguise of the chameleon PDA ([name]) with [W]")
 	. = ..()
 
 /obj/item/stamp/chameleon
@@ -1006,12 +1018,13 @@
 			chameleon_action.hidden = FALSE
 			actions += chameleon_action
 			chameleon_action.Grant(user)
+			log_game("[key_name(user)] has removed the disguise lock on the chameleon stamp ([name]) with [W]")
 			return
 		else
 			chameleon_action.hidden = TRUE
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
-			return
+			log_game("[key_name(user)] has locked the disguise of the chameleon stamp ([name]) with [W]")
 	. = ..()
 
 /obj/item/clothing/neck/chameleon
@@ -1043,10 +1056,11 @@
 			chameleon_action.hidden = FALSE
 			actions += chameleon_action
 			chameleon_action.Grant(user)
+			log_game("[key_name(user)] has removed the disguise lock on the chameleon necktie ([name]) with [W]")
 			return
 		else
 			chameleon_action.hidden = TRUE
 			actions -= chameleon_action
 			chameleon_action.Remove(user)
-			return
+			log_game("[key_name(user)] has locked the disguise of the chameleon necktie ([name]) with [W]")
 	. = ..()
