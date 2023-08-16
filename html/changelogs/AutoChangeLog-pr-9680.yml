@@ -1,0 +1,4 @@
+author: Tyranicranger4
+delete-after: true
+changes:
+  - bugfix: Fixed a runtime in supermatter.dm
