@@ -97,7 +97,7 @@
 
 /obj/machinery/door/Bumped(atom/movable/AM)
 	. = ..()
-	if(operating || (obj_flags & EMAGGED))
+	if(operating)
 		return
 	if(ismob(AM))
 		var/mob/B = AM
@@ -152,7 +152,7 @@
 /// Helper method for bumpopen() and try_to_activate_door(). Don't override.
 /obj/machinery/door/proc/activate_door_base(mob/user, can_close_door)
 	add_fingerprint(user)
-	if(operating || (obj_flags & EMAGGED))
+	if(operating)
 		return
 	// Cutting WIRE_IDSCAN disables normal entry
 	if(!id_scan_hacked() && allowed(user))
