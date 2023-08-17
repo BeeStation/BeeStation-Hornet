@@ -128,23 +128,23 @@
 		switch(pick(stats))
 			if("damage")
 				damage++
-				if(damage >= 5)
+				if(damage >= max_level)
 					stats -= "damage"
 			if("defense")
 				defense++
-				if(defense >= 5)
+				if(defense >= max_level)
 					stats -= "defense"
 			if("speed")
 				speed++
-				if(speed >= 5)
+				if(speed >= max_level)
 					stats -= "speed"
 			if("potential")
 				potential++
-				if(potential >= 5)
+				if(potential >= max_level)
 					stats -= "potential"
 			if("range")
 				range++
-				if(range >= 5)
+				if(range >= max_level)
 					stats -= "range"
 
 /**
