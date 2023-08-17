@@ -193,7 +193,6 @@
 		return
 	var/message = hear_args[HEARING_RAW_MESSAGE]
 	var/atom/movable/speaker = hear_args[HEARING_SPEAKER]
-	var/radio_freq =
 	var/spans = hear_args[HEARING_SPANS]
 	var/list/message_mods = hear_args[HEARING_MESSAGE_MODE]
 	var/mob/living/summoner = owner.summoner.current
