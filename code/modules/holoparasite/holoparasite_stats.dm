@@ -39,6 +39,8 @@
 		lability.master_stats = src
 		lability.owner = holopara
 		lability.apply()
+	if(defense >= 5)
+		ADD_TRAIT(holopara, TRAIT_SHOCKIMMUNE, HOLOPARASITE_STAT_TRAIT)
 	weapon.master_stats = src
 	weapon.owner = holopara
 	weapon.apply()
@@ -62,6 +64,7 @@
 	for(var/datum/holoparasite_ability/lesser/lability as() in lesser_abilities)
 		lability.remove()
 	weapon.remove()
+	REMOVE_TRAITS_IN(holopara, HOLOPARASITE_STAT_TRAIT)
 	holopara.recreate_hud()
 	SEND_SIGNAL(src, COMSIG_HOLOPARA_STATS_REMOVE, holopara)
 	last_holopara = null

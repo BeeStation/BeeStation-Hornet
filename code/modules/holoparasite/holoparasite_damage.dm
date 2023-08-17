@@ -129,14 +129,6 @@
 	return ..()
 
 /**
- * Holoparasites with maxed out defense are immune to electrocution.
- */
-/mob/living/simple_animal/hostile/holoparasite/electrocute_act(shock_damage, source, siemens_coeff, safety, tesla_shock, illusion, stun)
-	if(stats.defense >= 5)
-		return FALSE
-	return ..()
-
-/**
  * Nar'Sie is the summoner's problem to deal with. Not the holoparasite's.
  */
 /mob/living/simple_animal/hostile/holoparasite/narsie_act()
