@@ -661,6 +661,20 @@
 		M.adjust_nutrition(-3*nutriment_factor)
 	..()
 
+/datum/reagent/consumable/maltodextrin
+	name = "Maltodextrin"
+	description = "A common filler found in processed foods. Leaves you feeling full without providing substantial nutritional value."
+	color = "#ffffff"
+	chem_flags = CHEMICAL_RNG_GENERAL
+	taste_mult = 0.1 // Taste the salt and sugar not the cheap carbs
+	taste_description = "processed goodness"
+	nutriment_factor = 0 // Actual nutriment provided by other reagents
+	metabolization_rate = 0.075 * REAGENTS_METABOLISM
+
+/datum/reagent/consumable/maltodextrin/on_mob_end_metabolize(mob/living/M)
+	M.adjust_nutrition(current_cycle*-0.7)
+	..()
+
 ////Lavaland Flora Reagents////
 
 
