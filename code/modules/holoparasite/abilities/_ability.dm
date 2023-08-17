@@ -23,7 +23,7 @@ GLOBAL_LIST_INIT_TYPED(holoparasite_abilities, /datum/holoparasite_ability, init
 	/// The holoparasite that owns this ability.
 	var/mob/living/simple_animal/hostile/holoparasite/owner
 
-/datum/holoparasite_ability/New(datum/holoparasite_stats/master_stats)
+/datum/holoparasite_ability/New(datum/holoparasite_stats/_master_stats)
 	// Convert single-stat format to the multi-stat format.
 	// I'm too lazy to just change all the threshold defines to use the new format, and doing so would make the code less readable, so this is the best solution.
 	for(var/list/threshold as() in thresholds)
@@ -37,8 +37,8 @@ GLOBAL_LIST_INIT_TYPED(holoparasite_abilities, /datum/holoparasite_ability, init
 				converted_stat["minimum"] = old_minimum
 			threshold["stats"] = list(converted_stat)
 		threshold -= list("stat", "minimum")
-	if(master_stats && istype(master_stats))
-		src.master_stats = master_stats
+	if(istype(_master_stats))
+		master_stats = _master_stats
 
 /datum/holoparasite_ability/Destroy()
 	if(owner)

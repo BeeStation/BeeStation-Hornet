@@ -64,9 +64,9 @@
 /datum/atom_hud/alternate_appearance/basic/decoy
 	var/list/immune
 
-/datum/atom_hud/alternate_appearance/basic/decoy/New(key, image/img, options, list/immune)
+/datum/atom_hud/alternate_appearance/basic/decoy/New(key, image/img, options, list/_immune)
 	..()
-	src.immune = immune
+	immune = _immune
 	for(var/mob/mob in GLOB.mob_list)
 		if(mobShouldSee(mob))
 			add_hud_to(mob)
