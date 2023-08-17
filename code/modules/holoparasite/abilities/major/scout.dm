@@ -20,7 +20,7 @@
 			"desc" = "Allows the $theme to 'cloak' itself, where it becomes invisible to everyone except itself and its summoner when scouting, and can automatically stalk targets while in this state."
 		)
 	)
-	traits = list(TRAIT_DISK_VERIFIER, TRAIT_EMPATH) // Scout holoparas have a good eye.
+	traits = list(TRAIT_EMPATH) // Scout holoparas have a good eye.
 	/// If the holoparasite is currently scouting or not.
 	var/scouting = FALSE
 	/// If the holoparasite is currently cloaking or not.
