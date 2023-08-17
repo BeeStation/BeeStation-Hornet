@@ -814,7 +814,7 @@ const WaitingDialog = (_props, context) => {
       <Dimmer fontSize="32px">
         <Stack align="center" fill justify="center" vertical>
           <Stack.Item>
-            <Icon name="cog" spin={1} />
+            <Icon name="cog" spin />
           </Stack.Item>
           <Stack.Item>{`Attempting to manifest your ${data.themed_name}. Please wait...`}</Stack.Item>
         </Stack>
