@@ -19,6 +19,8 @@
 	var/current_antag_hud_icon_state
 	/// If the owner is in the process of dying (or is dead).
 	var/dying = FALSE
+	/// If the summoner has 'locked' their holoparasites, preventing them from manifesting.
+	var/locked = FALSE
 	/// An abstract object contained within the summoner, to host the team monitor component used for scout holoparasites.
 	var/obj/effect/abstract/scout_monitor_holder/monitor_holder
 	/// A weak reference to the team monitor component contained within the monitor holder, used for the host to track certain holoparasites on their HUD.

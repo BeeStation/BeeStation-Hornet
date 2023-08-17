@@ -6,6 +6,10 @@
  * Manifests the holoparasite from its summoner.
  */
 /mob/living/simple_animal/hostile/holoparasite/proc/manifest(forced = FALSE)
+	if(parent_holder.locked)
+		balloon_alert(src, "locked", show_in_chat = FALSE)
+		to_chat(src, "<span class='warning holoparasite'>Your summoner has <b>locked</b> you, preventing you from manifesting!</span>")
+		return FALSE
 	if(is_summoner_dead() || !can_be_manifested() || (!forced && !COOLDOWN_FINISHED(src, manifest_cooldown)))
 		return FALSE
 	if(SEND_SIGNAL(src, COMSIG_HOLOPARA_MANIFEST, forced) & COMPONENT_OVERRIDE_HOLOPARA_MANIFEST)

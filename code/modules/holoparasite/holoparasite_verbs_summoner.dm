@@ -4,13 +4,15 @@
 		/mob/living/proc/holoparasite_reset,
 		/mob/living/proc/holoparasite_communicate,
 		/mob/living/proc/holoparasite_set_notes,
+		/mob/living/proc/holoparasite_lock
 	))
 	if(has_holoparasites())
 		add_verb(list(
 			/mob/living/proc/holoparasite_recall,
 			/mob/living/proc/holoparasite_reset,
 			/mob/living/proc/holoparasite_communicate,
-			/mob/living/proc/holoparasite_set_notes
+			/mob/living/proc/holoparasite_set_notes,
+			/mob/living/proc/holoparasite_lock
 		))
 
 /mob/living/simple_animal/hostile/holoparasite/update_holoparasite_verbs()
@@ -88,3 +90,27 @@
 	for(var/mob/living/simple_animal/hostile/holoparasite/holopara as() in holoparas_to_set)
 		to_chat(holopara, EXAMINE_BLOCK("<span class='holoparasite'><span class='big bold'>Your summoner has changed your notes:</span><br>[sanitize(new_notes)]</span>"))
 		holopara.notes = new_notes
+
+/mob/living/proc/holoparasite_lock()
+	set name = "Toggle Holoparasite Lock"
+	set category = "Holoparasite"
+	set desc = "Toggle whether your holoparasites are allowed to manifest or not."
+
+	var/datum/holoparasite_holder/holder = mind?.holoparasite_holder()
+	if(!holder)
+		return
+	holder.locked = !holder.locked
+	var/t_s = length(holder.holoparasites) > 1 ? "s" : ""
+	if(holder.locked)
+		to_chat(src, "<span class='notice holoparasite'>You <b>lock</b> your holoparasite[t_s], preventing them from manifesting.</span>")
+		balloon_alert(src, "locked holoparasite[t_s]", show_in_chat = FALSE)
+		for(var/mob/living/simple_animal/hostile/holoparasite/holopara as() in holder.holoparasites)
+			to_chat(holopara, "<span class='warning holoparasite'>Your summoner has <b>locked</b> you, preventing you from manifesting!</span>")
+			holopara.recall(forced = TRUE)
+			holopara.balloon_alert(holopara, "locked", show_in_chat = FALSE)
+	else
+		to_chat(src, "<span class='notice holoparasite'>You <b>unlock</b> your holoparasite[t_s], allowing them to freely manifest once more.</span>")
+		balloon_alert(src, "unlocked holoparasite[t_s]", show_in_chat = FALSE)
+		for(var/mob/living/simple_animal/hostile/holoparasite/holopara as() in holder.holoparasites)
+			to_chat(holopara, "<span class='notice holoparasite'>Your summoner has <b>unlocked</b> you, allowing you to manifest freely again.</span>")
+			holopara.balloon_alert(holopara, "unlocked", show_in_chat = FALSE)
