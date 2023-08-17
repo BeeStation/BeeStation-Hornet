@@ -76,7 +76,7 @@
 		message = GLOB.syndicate_code_phrase_regex.Replace(message, "<span class='blue'>$1</span>")
 		message = GLOB.syndicate_code_response_regex.Replace(message, "<span class='red'>$1</span>")
 	// Assemble the message prefix
-	var/message_prefix = "<span class='holoparasite italics robot'>\[[snare.name]\] [speaker.GetVoice()]"
+	var/message_prefix = "<span class='holoparasite italics robot'>\[[COLOR_TEXT(owner.accent_color, snare.name)]\] [speaker.GetVoice()]"
 	// Get the say message quote thingy
 	var/message_part
 	if(message_mods[MODE_CUSTOM_SAY_ERASE_INPUT])
