@@ -55,7 +55,7 @@
 
 /datum/holoparasite_ability/major/scout/remove()
 	stop_cloaking(forced = TRUE)
-	exit_scout()
+	exit_scout(forced = TRUE)
 	..()
 
 /datum/holoparasite_ability/major/scout/register_signals()
