@@ -13,7 +13,6 @@
 
 #define COLOR_TEXT(color, text) "<font color=\"[color]\">[text]</font>"
 
-
 /// type of a chat to send discord servers
 #define CHAT_TYPE_OOC "chat_ooc"
 #define CHAT_TYPE_DEADCHAT "chat_dead"
