@@ -17950,6 +17950,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
+/obj/item/storage/fancy/donut_box,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -35879,6 +35880,7 @@
 /area/security/checkpoint)
 "jvr" = (
 /obj/structure/table/wood,
+/obj/item/storage/fancy/donut_box,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
 "jvx" = (
@@ -48114,6 +48116,7 @@
 	pixel_x = -32
 	},
 /obj/structure/table/wood,
+/obj/item/storage/fancy/donut_box,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "mCk" = (
@@ -73820,6 +73823,10 @@
 "sVS" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/donkpockets,
+/obj/effect/spawner/lootdrop/donkpockets{
+	pixel_x = -4;
+	pixel_y = 4
+	},
 /turf/open/floor/plasteel/sepia,
 /area/engine/break_room)
 "sVY" = (
@@ -80259,6 +80266,7 @@
 /obj/effect/turf_decal/bot,
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
+/obj/item/reagent_containers/food/snacks/donut/jelly/choco,
 /obj/item/lighter{
 	pixel_x = 4;
 	pixel_y = 4
@@ -83000,6 +83008,10 @@
 /obj/effect/turf_decal/trimline/red/filled/line{
 	dir = 8
 	},
+/obj/effect/spawner/lootdrop/donkpockets{
+	pixel_x = 2;
+	pixel_y = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "vfj" = (
@@ -83541,6 +83553,7 @@
 /area/security/prison)
 "vlF" = (
 /obj/structure/table/reinforced,
+/obj/item/storage/fancy/donut_box,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/poddoor/shutters{
 	id = "barcounter";
@@ -87688,6 +87701,7 @@
 /area/engine/engine_room)
 "weS" = (
 /obj/structure/table/wood,
+/obj/item/storage/fancy/donut_box,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -97024,6 +97038,7 @@
 	pixel_x = 5;
 	pixel_y = 6
 	},
+/obj/effect/spawner/lootdrop/three_course_meal,
 /obj/machinery/power/apc/auto_name/south{
 	pixel_y = -24
 	},

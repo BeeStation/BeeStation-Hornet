@@ -1,7 +1,7 @@
 /obj/machinery/vending/security
 	name = "\improper SecTech"
 	desc = "A security equipment vendor."
-	product_ads = "Crack capitalist skulls!;Beat some heads in!;Don't forget - harm is good!;Your weapons are right here.;Handcuffs!;Freeze, scumbag!;Don't tase me bro!;Tase them, bro."
+	product_ads = "Crack capitalist skulls!;Beat some heads in!;Don't forget - harm is good!;Your weapons are right here.;Handcuffs!;Freeze, scumbag!;Don't tase me bro!;Tase them, bro.;Why not have a donut?"
 	icon_state = "sec"
 	icon_deny = "sec-deny"
 	light_color = LIGHT_COLOR_BLUE
@@ -11,12 +11,14 @@
 					/obj/item/grenade/flashbang = 4,
 					/obj/item/assembly/flash/handheld = 5,
 					/obj/item/book/manual/wiki/security_space_law = 3,
+					/obj/item/reagent_containers/food/snacks/donut = 12,
 					/obj/item/storage/box/evidence = 6,
 					/obj/item/flashlight/seclite = 4,
 					/obj/item/holosign_creator/security = 3,
 					/obj/item/restraints/legcuffs/bola/energy = 7,
 					/obj/item/club = 5)
-	contraband = list(/obj/item/clothing/glasses/sunglasses/advanced = 2)
+	contraband = list(/obj/item/clothing/glasses/sunglasses/advanced = 2,
+					  /obj/item/storage/fancy/donut_box = 2)
 	premium = list(/obj/item/storage/belt/security/webbing = 5,
 					/obj/item/storage/backpack/duffelbag/sec/deputy = 4,
 				   /obj/item/coin/antagtoken = 1,

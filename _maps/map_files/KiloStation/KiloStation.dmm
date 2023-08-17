@@ -6253,6 +6253,7 @@
 "ato" = (
 /obj/structure/table,
 /obj/item/storage/bag/tray,
+/obj/item/reagent_containers/food/snacks/fishfingers,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar/atrium)
 "atq" = (
@@ -8319,6 +8320,7 @@
 /turf/open/floor/engine,
 /area/engine/engineering)
 "azC" = (
+/obj/item/storage/fancy/donut_box,
 /obj/structure/table/wood,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
@@ -16909,6 +16911,7 @@
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
+/obj/item/storage/fancy/donut_box,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "kitchen_2";
 	name = "Hallway Hatch"
@@ -37575,6 +37578,7 @@
 	name = "Security Desk";
 	req_one_access_txt = "63"
 	},
+/obj/item/storage/fancy/donut_box,
 /turf/open/floor/plating,
 /area/hallway/secondary/exit/departure_lounge)
 "cIW" = (
@@ -53343,6 +53347,9 @@
 	pixel_x = 6;
 	pixel_y = 6
 	},
+/obj/item/food/spaghetti/copypasta{
+	pixel_y = 5
+	},
 /obj/item/kitchen/fork,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -54966,6 +54973,7 @@
 /area/medical/storage)
 "jdg" = (
 /obj/structure/table/wood,
+/obj/item/storage/fancy/donut_box,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -58484,6 +58492,7 @@
 "kyV" = (
 /obj/structure/table,
 /obj/item/storage/bag/tray,
+/obj/item/reagent_containers/food/snacks/sausage,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 8
 	},
@@ -66116,6 +66125,9 @@
 /area/engine/atmos)
 "nYx" = (
 /obj/structure/table,
+/obj/item/storage/box/donkpockets{
+	pixel_y = 5
+	},
 /obj/machinery/firealarm{
 	pixel_y = 26
 	},
@@ -80732,6 +80744,7 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "tVJ" = (
+/obj/item/storage/fancy/donut_box,
 /obj/structure/table,
 /obj/machinery/camera{
 	c_tag = "Courtroom Jury";
@@ -81756,6 +81769,7 @@
 /area/quartermaster/warehouse)
 "uxt" = (
 /obj/structure/table,
+/obj/item/storage/fancy/donut_box,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
 	dir = 1
 	},
