@@ -143,7 +143,6 @@
 	name = "Arm Snare"
 	desc = "Arm a surveillance snare below you, which will alert you whenever someone walks over it."
 	icon_state = "snare:arm"
-	accent_overlay_states = list("snare-hud-accent")
 
 /atom/movable/screen/holoparasite/snare/arm/Click(location, control, params)
 	ability.arm_snare()
