@@ -270,6 +270,11 @@
 	ability.destroy_snare(src)
 	return ..()
 
+/obj/effect/snare/examine(mob/user)
+	if(!ability.owner.has_matching_summoner(user))
+		return list()
+	return ..()
+
 /**
  * Alerts the holoparasite and its summoner whenever something crosses the surveillance snare.
  */
