@@ -248,9 +248,7 @@
 	icon = 'icons/mob/holoparasite.dmi'
 	icon_state = "snare"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	/**
-	 * A reference to the holoparasite ability that created this snare.
-	 */
+	/// A reference to the holoparasite ability that created this snare.
 	var/datum/holoparasite_ability/lesser/snare/ability
 
 /obj/effect/snare/Initialize(mapload, datum/holoparasite_ability/lesser/snare/_ability)
