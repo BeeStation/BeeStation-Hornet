@@ -133,7 +133,7 @@
  */
 /mob/living/simple_animal/hostile/holoparasite/electrocute_act(shock_damage, source, siemens_coeff, safety, tesla_shock, illusion, stun)
 	if(stats.defense >= 5)
-		return
+		return FALSE
 	return ..()
 
 /**
