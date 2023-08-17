@@ -446,7 +446,7 @@
 	var/static/cloak_icon = "scout:cloak"
 	var/static/exit_name = "Exit Scout"
 	var/static/exit_desc = "Exit scout mode, making you corporeal once more, but allowing you to attack and use abilities again."
-	var/static/exit_icon = "scout:off"
+	var/static/exit_icon = "cancel"
 	var/datum/holoparasite_ability/major/scout/ability
 
 /atom/movable/screen/holoparasite/toggle_scout/Initialize(_mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/major/scout/_ability)
