@@ -14,6 +14,19 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
+"c" = (
+/obj/machinery/button/door{
+	desc = "A remote control switch.";
+	id = "exploration";
+	name = "Exploration Shuttle Shutters";
+	pixel_y = 24
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor/shutters/window{
+	id = "exploration"
+	},
+/turf/open/floor/plating,
+/area/shuttle/exploration)
 "d" = (
 /obj/machinery/light/floor,
 /turf/open/floor/mineral/plastitanium,
@@ -21,6 +34,8 @@
 "e" = (
 /obj/structure/table,
 /obj/machinery/microwave,
+/obj/item/storage/box/donkpockets,
+/obj/item/storage/box/donkpockets,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "g" = (
@@ -33,11 +48,14 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
 "k" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 1
+/obj/machinery/camera/preset{
+	dir = 10
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -126,18 +144,12 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"x" = (
-/obj/machinery/camera/preset{
-	dir = 6
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "y" = (
-/obj/effect/turf_decal/delivery,
 /obj/machinery/telecomms/relay/preset/exploration,
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "z" = (
@@ -168,9 +180,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "F" = (
-/obj/structure/table,
-/obj/item/storage/box/donkpockets,
-/obj/item/storage/box/donkpockets,
+/obj/structure/tank_dispenser/oxygen,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "G" = (
@@ -240,11 +250,6 @@
 /obj/machinery/holopad,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"T" = (
-/obj/structure/tank_dispenser/oxygen,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "U" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
@@ -265,6 +270,9 @@
 /area/shuttle/exploration)
 "X" = (
 /obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium/blue,
@@ -315,7 +323,7 @@ M
 P
 b
 R
-x
+g
 k
 z
 u
@@ -364,7 +372,7 @@ X
 i
 z
 r
-T
+g
 o
 W
 I
@@ -379,7 +387,7 @@ R
 Q
 z
 z
-z
+c
 Q
 I
 l
