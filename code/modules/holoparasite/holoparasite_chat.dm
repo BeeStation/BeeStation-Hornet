@@ -43,8 +43,9 @@
 	var/my_message = "<span class='bold italics'>[color_name]:</span> [preliminary_message]" // Add source, and color said source with the holoparasite's color.
 	var/ghost_message = "<span class='bold italics'>[color_name] -> <span class='name'>[summoner.name]</span>:</span> [preliminary_message]"
 
+	var/list/recipients = list_summoner_and_or_holoparasites()
 	to_chat(src, my_message, type = MESSAGE_TYPE_RADIO, avoid_highlighting = TRUE)
-	to_chat(list_summoner_and_or_holoparasites() - src, my_message, type = MESSAGE_TYPE_RADIO)
+	to_chat(recipients - src, my_message, type = MESSAGE_TYPE_RADIO)
 
 	create_chat_message(src, /datum/language/metalanguage, recipients, raw_message = msg, spans = list("holoparasite"))
 	for(var/ghost in GLOB.dead_mob_list)
