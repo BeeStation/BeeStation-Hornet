@@ -250,11 +250,12 @@
 	owner.alpha = 45
 	owner.range = -1
 	owner.can_use_abilities = FALSE
+	owner.add_filter("holoparasite_scout_blur", 1, gauss_blur_filter(size = 1))
 	scouting = TRUE
-	owner.balloon_alert(owner, "entered scout mode", show_in_chat = FALSE)
 	owner.med_hud_set_health()
 	owner.med_hud_set_status()
 	ADD_TRAIT(owner, TRAIT_SHOCKIMMUNE, HOLOPARASITE_SCOUT_TRAIT)
+	owner.balloon_alert(owner, "entered scout mode", show_in_chat = FALSE)
 	to_chat(owner, "<span class='notice bold'>You enter scout mode, you may no longer attack or use most abilities, however you can freely move around the station through obstacles at great speeds.</span>")
 
 /**
@@ -272,6 +273,7 @@
 	owner.range = initial(owner.range)
 	owner.stats.apply(owner)
 	owner.can_use_abilities = initial(owner.can_use_abilities)
+	owner.remove_filter("holoparasite_scout_blur")
 	scouting = FALSE
 	owner.med_hud_set_health()
 	owner.med_hud_set_status()
