@@ -171,27 +171,22 @@
 			. = TRUE
 	. = TRUE
 
-/obj/machinery/computer/operating/multitool_act(mob/living/user, obj/item/I)
-	var/obj/item/multitool/multitool = I
-	if(!I || !istype(I))
-		return ..()
-	. = TOOL_ACT_TOOLTYPE_SUCCESS
-	if(QDELETED(multitool.buffer))
-		to_chat(user, "<span class='warning'>\The [multitool]'s buffer is empty.</span>")
-		return
-	if(!istype(multitool.buffer, /obj/machinery/stasis))
-		to_chat(user, "<span class='warning'>You cannot link \the [multitool.buffer] to \the [src].</span>")
-		return
-	var/obj/machinery/stasis/new_stasis_bed = multitool.buffer
+REGISTER_BUFFER_HANDLER(/obj/machinery/computer/operating)
+DEFINE_BUFFER_HANDLER(/obj/machinery/computer/operating)
+	if(!istype(buffer, /obj/machinery/stasis))
+		to_chat(user, "<span class='warning'>You cannot link \the [buffer] to \the [src].</span>")
+		return NONE
+	var/obj/machinery/stasis/new_stasis_bed = buffer
 	if(get_dist(src, new_stasis_bed) > 3)
 		to_chat(user, "<span class='warning'>\The [src] is too far away from \the [new_stasis_bed] to link!</span>")
-		return
+		return NONE
 	balloon_alert(user, "linked to \the [new_stasis_bed]")
 	if(sbed)
 		sbed.op_computer = null
 	new_stasis_bed.op_computer = src
 	sbed = new_stasis_bed
 	to_chat(user, "<span class='notice'>You link \the [src] with \the [new_stasis_bed] to its [dir2text(get_dir(src, new_stasis_bed))].</span>")
+	return COMPONENT_BUFFER_RECIEVED
 
 #undef MENU_OPERATION
 #undef MENU_SURGERIES
