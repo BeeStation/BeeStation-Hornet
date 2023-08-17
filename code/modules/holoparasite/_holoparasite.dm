@@ -274,6 +274,11 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 		to_chat(src, "<span class='notice'>You [prefix]activate your light.</span>")
 		balloon_alert(src, "light [prefix]activated", show_in_chat = FALSE)
 
+/mob/living/simple_animal/hostile/holoparasite/shared_ui_interaction(src_object)
+	. = ..()
+	if(incorporeal_move)
+		. = min(., UI_UPDATE)
+
 /**
  * Recreates the holoparasite's HUD.
  */

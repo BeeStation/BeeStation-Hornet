@@ -93,7 +93,13 @@
  */
 /datum/holoparasite_ability/major/scout/proc/on_click(datum/_source, atom/target)
 	SIGNAL_HANDLER
-	if(!cloaking || !owner.is_manifested() || !isliving(target))
+	if(!owner.is_manifested())
+		return
+	if(scouting && isobj(target) && owner.Adjacent(target))
+		if(target.ui_interact(owner) != FALSE) // unimplemented ui_interact returns FALSE, while implemented typically just returns... nothing.
+			to_chat(owner, "<span class='notice'>You take a closer look at [costly_icon2html(target, owner)] [target]...</span>")
+			return COMSIG_MOB_CANCEL_CLICKON
+	if(!cloaking || !isliving(target))
 		return
 	if(owner.has_matching_summoner(target))
 		to_chat(owner, "<span class='warning'>There's no need to stalk <span class='name'>[target]</span>...</span>")
