@@ -3,8 +3,17 @@
 	desc = "The $theme can lay a surveillance snare, which alerts the holoparasite and the user to anyone who crosses it."
 	ui_icon = "camera"
 	cost = 1
+	thresholds = list(
+		list(
+			"stat" = "Potential",
+			"minimum" = 3,
+			"desc" = "Deployed surveillance snares will function as audio bugs, relaying anything they hear to the holoparasite."
+		)
+	)
 	/// Whether the holoparasite is currently attempting to deploy a snare.
 	var/arming = FALSE
+	/// Whether snares function as audio relays or not.
+	var/audio_relay = TRUE
 	/// A list containing all active snares.
 	var/list/obj/effect/snare/snares = list()
 	/// A list containing all the names of active snares, used with avoid_assoc_duplicate_keys when generating a snare name.
@@ -39,6 +48,46 @@
 	if(QDELETED(disarm_hud))
 		disarm_hud = new(null, owner, src)
 	huds_to_add += list(arm_hud, disarm_hud)
+
+/datum/holoparasite_ability/lesser/snare/proc/snare_on_hear(obj/effect/snare/snare, list/hear_args)
+	SIGNAL_HANDLER
+	if(!length(hear_args) || !istype(snare))
+		return
+	// We don't care about radio chatter.
+	var/message = hear_args[HEARING_RAW_MESSAGE]
+	var/atom/movable/speaker = hear_args[HEARING_SPEAKER]
+	var/radio_freq = hear_args[HEARING_RADIO_FREQ]
+	var/spans = hear_args[HEARING_SPANS]
+	var/list/message_mods = hear_args[HEARING_MESSAGE_MODE]
+	if(radio_freq)
+		return
+	var/mob/living/summoner = owner.summoner.current
+	if(!summoner)
+		return
+	// Don't relay the summoner's own speech!
+	if(speaker == summoner)
+		return
+	// Don't relay anything the summoner or the holopara can just hear for themselves.
+	if((summoner.can_hear() && (speaker in get_hearers_in_view(7, summoner))) || (speaker in get_hearers_in_view(7, owner)))
+		return
+	// Bit of a nasty hardcoded hack, but eh, it works!
+	var/datum/antagonist/traitor/summoner_traitor = owner.summoner.has_antag_datum(/datum/antagonist/traitor)
+	if(summoner_traitor?.should_give_codewords)
+		message = GLOB.syndicate_code_phrase_regex.Replace(message, "<span class='blue'>$1</span>")
+		message = GLOB.syndicate_code_response_regex.Replace(message, "<span class='red'>$1</span>")
+	// Assemble the message prefix
+	var/message_prefix = "<span class='holoparasite italics robot'>\[[snare.name]\] [speaker.GetVoice()]"
+	// Get the say message quote thingy
+	var/message_part
+	if(message_mods[MODE_CUSTOM_SAY_ERASE_INPUT])
+		message_part = message_mods[MODE_CUSTOM_SAY_EMOTE]
+	else
+		var/atom/movable/source = speaker.GetSource() || speaker
+		message_part = source.say_quote(message, spans, message_mods)
+	message_part = "<span class='message'>[summoner.say_emphasis(message_part)]</span></span>"
+	// And now, we put the final message together and show it to the summoner.
+	var/final_message = "[message_prefix] [message_part]"
+	to_chat(owner.list_summoner_and_or_holoparasites(), final_message)
 
 /**
  * Updates the appearance of both the arm and disarm hud buttons, as they can change appearance based on the amount of active snares.
@@ -92,6 +141,8 @@
 	var/obj/effect/snare/snare = new(snare_turf, src)
 	snare.name = snare_name
 	snares |= snare
+	if(audio_relay)
+		RegisterSignal(snare, COMSIG_MOVABLE_HEAR, PROC_REF(snare_on_hear))
 	to_chat(owner, "<span class='danger bold'>Surveillance snare deployed!</span>")
 	snare.balloon_alert(owner, "snare armed", show_in_chat = FALSE)
 	update_both_huds()
