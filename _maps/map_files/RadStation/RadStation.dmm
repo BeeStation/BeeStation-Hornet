@@ -2929,9 +2929,9 @@
 /area/science/shuttledock)
 "aUl" = (
 /obj/machinery/atmospherics/components/trinary/mixer/airmix/flipped{
+	dir = 4;
 	node1_concentration = 0.21;
-	node2_concentration = 0.79;
-	dir = 4
+	node2_concentration = 0.79
 	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/neutral/half/contrasted{
@@ -27584,7 +27584,7 @@
 /obj/item/reagent_containers/glass/waterbottle/empty{
 	pixel_x = -10
 	},
-/obj/item/storage/belt,
+/obj/item/storage/belt/utility,
 /turf/open/floor/plasteel/sepia,
 /area/maintenance/port/central)
 "iwl" = (
@@ -31818,7 +31818,7 @@
 "jQo" = (
 /obj/structure/table/wood/fancy/black,
 /obj/effect/spawner/lootdrop/maintenance/three,
-/obj/item/storage/belt,
+/obj/item/storage/belt/utility,
 /turf/open/floor/carpet/royalblack,
 /area/maintenance/port/aft)
 "jQp" = (
@@ -48281,7 +48281,7 @@
 	pixel_x = 3
 	},
 /obj/effect/decal/cleanable/glass,
-/obj/item/storage/belt,
+/obj/item/storage/belt/utility,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "oXv" = (
@@ -53519,7 +53519,7 @@
 	},
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/item/storage/belt,
+/obj/item/storage/belt/utility,
 /turf/open/floor/plasteel,
 /area/maintenance/department/security)
 "qDZ" = (
@@ -76708,7 +76708,7 @@
 "xZa" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/two,
-/obj/item/storage/belt,
+/obj/item/storage/belt/utility,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "xZj" = (
