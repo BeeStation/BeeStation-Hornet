@@ -3,6 +3,8 @@
 	desc = "The $theme can lay a surveillance snare, which alerts the holoparasite and the user to anyone who crosses it."
 	ui_icon = "camera"
 	cost = 1
+	/// Whether the holoparasite is currently attempting to deploy a snare.
+	var/arming = FALSE
 	/// A list containing all active snares.
 	var/list/obj/effect/snare/snares = list()
 	/// A list containing all the names of active snares, used with avoid_assoc_duplicate_keys when generating a snare name.
@@ -55,6 +57,13 @@
 	snare_names -= snare.name
 	update_both_huds()
 	to_chat(owner.list_summoner_and_or_holoparasites(), "<span class='holoparasite [intentional ? "info" : "danger"] bold'>[COLOR_TEXT(owner.accent_color, snare.name)] [intentional ? "was disarmed." : "was destroyed!"]</span>")
+
+/datum/holoparasite_ability/lesser/snare/proc/try_arm_snare()
+	arming = TRUE
+	arm_hud.update_appearance()
+	arm_snare()
+	arming = FALSE
+	arm_hud.update_appearance()
 
 /datum/holoparasite_ability/lesser/snare/proc/arm_snare(custom_name)
 	ASSERT_ABILITY_USABILITY
@@ -145,7 +154,9 @@
 	icon_state = "snare:arm"
 
 /atom/movable/screen/holoparasite/snare/arm/Click(location, control, params)
-	ability.arm_snare()
+	if(ability.arming)
+		return
+	ability.try_arm_snare()
 
 /atom/movable/screen/holoparasite/snare/arm/should_be_transparent()
 	return length(ability.snares) >= HOLOPARA_MAX_SNARES
