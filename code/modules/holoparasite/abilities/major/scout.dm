@@ -146,6 +146,8 @@
 		owner.set_density(FALSE)
 		owner.alpha = 45
 		owner.attack_sound = 'sound/items/bikehorn.ogg'
+		ADD_TRAIT(owner, TRAIT_THERMAL_VISION, HOLOPARASITE_SCOUT_TRAIT)
+		owner.update_sight()
 	if(cloaking)
 		manifested_with_cloak = TRUE
 
@@ -159,6 +161,8 @@
 	owner.move_resist = initial(owner.move_resist)
 	owner.set_density(initial(owner.density))
 	owner.attack_sound = owner.theme.mob_info[HOLOPARA_THEME_ATTACK_SOUND] || initial(owner.attack_sound)
+	REMOVE_TRAIT(owner, TRAIT_THERMAL_VISION, HOLOPARASITE_SCOUT_TRAIT)
+	owner.update_sight()
 	stop_stalking()
 	stop_cloaking()
 
@@ -251,8 +255,6 @@
 	owner.med_hud_set_health()
 	owner.med_hud_set_status()
 	ADD_TRAIT(owner, TRAIT_SHOCKIMMUNE, HOLOPARASITE_SCOUT_TRAIT)
-	ADD_TRAIT(owner, TRAIT_THERMAL_VISION, HOLOPARASITE_SCOUT_TRAIT)
-	owner.update_sight()
 	to_chat(owner, "<span class='notice bold'>You enter scout mode, you may no longer attack or use most abilities, however you can freely move around the station through obstacles at great speeds.</span>")
 
 /**
