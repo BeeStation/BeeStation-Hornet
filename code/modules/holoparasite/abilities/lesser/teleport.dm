@@ -185,6 +185,7 @@
 	place_beacon()
 	placing = FALSE
 	deploy_hud.update_appearance()
+	warp_hud.update_appearance()
 
 /**
  * Places a bluespace beacon at the holoparasite's current location.
@@ -277,6 +278,9 @@
 
 /atom/movable/screen/holoparasite/teleport/warp/activated()
 	return ability.warp_mode
+
+/atom/movable/screen/holoparasite/teleport/warp/should_be_transparent()
+	return ..() || QDELETED(ability.beacon)
 
 /atom/movable/screen/holoparasite/teleport/deploy
 	name = "Deploy Beacon"

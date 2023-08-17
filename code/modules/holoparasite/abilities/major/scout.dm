@@ -467,6 +467,9 @@
 		ability.enter_scout()
 	update_appearance()
 
+/atom/movable/screen/holoparasite/toggle_scout/should_be_transparent()
+	return ..() || owner.is_manifested()
+
 /atom/movable/screen/holoparasite/toggle_scout/tooltip_content()
 	. = ..()
 	if(owner.is_manifested())

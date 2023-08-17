@@ -250,3 +250,6 @@
 	if(!length(message))
 		return
 	ability.telepathy(target, message, sanitize = FALSE) // sanitize is FALSE as tgui_input_text already handles that
+
+/atom/movable/screen/holoparasite/telepathy/should_be_transparent()
+	return ..() || !length(ability.potential_targets)
