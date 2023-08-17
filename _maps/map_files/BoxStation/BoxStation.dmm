@@ -19706,7 +19706,6 @@
 "cMw" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/tile/dark_blue/fourcorners/contrasted,
-/obj/item/storage/fancy/donut_box,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/captain)
 "cMD" = (
@@ -31555,7 +31554,6 @@
 /area/vacant_room/commissary)
 "iKk" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -32314,7 +32312,6 @@
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 10
 	},
-/obj/item/storage/fancy/donut_box,
 /turf/open/floor/plasteel/dark,
 /area/bridge/meeting_room)
 "jdt" = (
@@ -49103,10 +49100,6 @@
 "rog" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets,
-/obj/item/storage/box/donkpockets{
-	pixel_x = 3;
-	pixel_y = 3
-	},
 /obj/item/storage/pill_bottle/dice,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
@@ -53746,9 +53739,6 @@
 /area/crew_quarters/fitness)
 "tvf" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box{
-	pixel_y = 2
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -57152,16 +57142,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai_upload)
-"vkT" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "kitchen";
-	name = "kitchen shutters"
-	},
-/obj/machinery/door/firedoor,
-/turf/open/floor/plasteel/cafeteria,
-/area/crew_quarters/kitchen)
 "vlj" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -101180,7 +101160,7 @@ aTM
 aVB
 aVz
 aVz
-vkT
+kVI
 bbz
 aYV
 aYV
