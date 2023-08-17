@@ -17,7 +17,7 @@
 				)
 			),
 			"desc" = "The $theme is capable of x-ray vision, allowing it to see everything through walls and solid objects."
-		),
+		)
 	)
 
 /datum/holoparasite_ability/lesser/vision/apply()
