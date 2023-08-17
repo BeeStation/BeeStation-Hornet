@@ -424,15 +424,15 @@
 	desc = "<span class='danger'>You <b>REALLY</b> shouldn't be seeing this! Go tell <b>@absolucy</b> how you even managed to accomplish that!</span>"
 
 /atom/movable/screen/holoparasite/toggle_scout
-	icon_state = "scout_enter"
 	name = "Enter Scout"
 	desc = "Enter scout mode, allowing you to scout across the whole station while near-invisible."
+	icon_state = "scout:on"
 	var/static/cloak_name = "Begin Cloaking"
 	var/static/cloak_desc = "Begin cloaking, which allows you to completely hide yourself while scouting, and gives you the ability to automatically stalk people, although you cannot talk nor emote while cloaked."
-	var/static/cloak_icon = "cloak_enter"
+	var/static/cloak_icon = "scout:cloak"
 	var/static/exit_name = "Exit Scout"
 	var/static/exit_desc = "Exit scout mode, making you corporeal once more, but allowing you to attack and use abilities again."
-	var/static/exit_icon = "scout_exit"
+	var/static/exit_icon = "scout:off"
 	var/datum/holoparasite_ability/major/scout/ability
 
 /atom/movable/screen/holoparasite/toggle_scout/Initialize(_mapload, mob/living/simple_animal/hostile/holoparasite/_owner, datum/holoparasite_ability/major/scout/_ability)

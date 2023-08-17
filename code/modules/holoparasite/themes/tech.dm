@@ -8,17 +8,17 @@
 		HOLOPARA_MESSAGE_LING_FAILED = "The crystals violently reverberate at you. They want <b>nothing</b> to do with a creature like you."
 	)
 	mob_info = list(
-		HOLOPARA_THEME_ICON_STATE = "tech_base",
+		HOLOPARA_THEME_ICON_STATE = "tech:base",
 		HOLOPARA_THEME_BUBBLE_ICON = "holo",
 		HOLOPARA_THEME_EMISSIVE = TRUE
 	)
 
 /datum/holoparasite_theme/tech/create_overlays(mob/living/simple_animal/hostile/holoparasite/holoparasite)
 	. = list()
-	var/mutable_appearance/accent_overlay = mutable_appearance(initial(holoparasite.icon), "tech_accent")
+	var/mutable_appearance/accent_overlay = mutable_appearance(initial(holoparasite.icon), "tech:accent")
 	accent_overlay.color = holoparasite.accent_color
 	accent_overlay.layer = holoparasite.layer + 0.1
 	accent_overlay.plane = ABOVE_LIGHTING_PLANE
 	. += accent_overlay
 
-	. += emissive_appearance(initial(holoparasite.icon), "tech_accent_e")
+	. += emissive_appearance(initial(holoparasite.icon), "tech:accent:emissive")
