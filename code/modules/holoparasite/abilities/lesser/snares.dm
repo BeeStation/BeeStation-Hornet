@@ -144,7 +144,7 @@
 /atom/movable/screen/holoparasite/snare/arm
 	name = "Arm Snare"
 	desc = "Transmit a telepathic message to any sapient being you have recently encountered."
-	icon_state = "snare-hud"
+	icon_state = "snare-arm"
 	accent_overlay_states = list("snare-hud-accent")
 
 /atom/movable/screen/holoparasite/snare/arm/Click(location, control, params)
@@ -179,7 +179,8 @@
 /obj/effect/snare
 	name = "snare"
 	desc = "You shouldn't be seeing this!"
-	invisibility = INVISIBILITY_ABSTRACT
+	icon = 'icons/mob/holoparasite.dmi'
+	icon_state = "snare"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	/**
 	 * A reference to the holoparasite ability that created this snare.
@@ -192,6 +193,9 @@
 		stack_trace("Attempted to initialize holoparasite snare without associated ability reference!")
 		return INITIALIZE_HINT_QDEL
 	ability = _ability
+	var/image/blank_image = image(icon_state = "blank", loc = src)
+	blank_image.override = TRUE
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/except_holoparasite, "holopara_snare", blank_image, NONE, ability.owner)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered)
 	)

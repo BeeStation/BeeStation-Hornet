@@ -139,14 +139,11 @@
 	target.visible_message("<span class='danger'>[target] starts to [COLOR_TEXT(owner.accent_color, "glow faintly")]!</span>", \
 		"<span class='userdanger'>You start to [COLOR_TEXT(owner.accent_color, "faintly glow")], and you feel strangely weightless!</span>")
 
-	beacon.toggle_animation(TRUE)
 	owner.do_attack_animation(target)
 	owner.balloon_alert(owner, "attempting to warp", show_in_chat = FALSE)
 	if(!do_after(owner, 6 SECONDS, target, extra_checks = CALLBACK(src, PROC_REF(extra_do_after_checks), beacon)))
 		to_chat(owner, "<span class='danger bold'>The warping process was interrupted, both you and your target must stay still!</span>")
-		beacon.toggle_animation(FALSE)
 		return
-	addtimer(CALLBACK(beacon, TYPE_PROC_REF(/obj/structure/receiving_pad, toggle_animation), FALSE), 5 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 	owner.balloon_alert(owner, "warped successfully", show_in_chat = FALSE)
 	SSblackbox.record_feedback("tally", "holoparasite_warped", 1, "[target.type]")
 	new /obj/effect/temp_visual/holoparasite/phase/out(target_turf)
@@ -245,9 +242,8 @@
 /atom/movable/screen/holoparasite/teleport/warp
 	name = "Enable Warping"
 	desc = "Attempt to warp the next thing you click on to your bluespace beacon."
-	icon_state = "tele"
+	icon_state = "warp"
 	can_toggle = TRUE
-	accent_overlay_states = list("tele-accent")
 	var/static/disable_name = "Disable Warping"
 	var/static/disable_desc = "Stop trying to warp whatever you click on, returning to normal interactions."
 	var/static/disable_icon = "cancel"
@@ -263,10 +259,6 @@
 /atom/movable/screen/holoparasite/teleport/warp/update_icon_state()
 	icon_state = (ability.warp_mode && !ability.warping) ? disable_icon : initial(icon_state)
 	return ..()
-
-/atom/movable/screen/holoparasite/teleport/warp/accent_overlays()
-	if(!ability.warp_mode)
-		return ..()
 
 /atom/movable/screen/holoparasite/teleport/warp/Click(location, control, params)
 	if(!COOLDOWN_FINISHED(ability, warp_cooldown))
@@ -289,8 +281,7 @@
 /atom/movable/screen/holoparasite/teleport/deploy
 	name = "Deploy Beacon"
 	desc = "Deploys a bluespace beacon, allowing you to warp things to it later."
-	icon_state = "place-beacon"
-	accent_overlay_states = list("place-beacon-accent")
+	icon_state = "telepad-place"
 
 /atom/movable/screen/holoparasite/teleport/deploy/Click(location, control, params)
 	if(ability.placing)
@@ -310,10 +301,6 @@
 	density = FALSE
 	anchored = TRUE
 	layer = ABOVE_OPEN_TURF_LAYER
-	/// The accent color overlay.
-	var/mutable_appearance/accent_overlay
-	/// The emissive accent overlay.
-	var/mutable_appearance/emissive_overlay
 	/// The holoparasite ability that created this beacon.
 	var/datum/holoparasite_ability/lesser/teleport/ability
 
@@ -323,45 +310,16 @@
 		stack_trace("Attempted to initialize holoparasite beacon without associated ability reference!")
 		return INITIALIZE_HINT_QDEL
 	ability = _ability
-	accent_overlay = mutable_appearance(icon, "telepad-accent")
-	accent_overlay.color = ability.owner.accent_color
-	emissive_overlay = emissive_appearance(icon, "telepad-accent-e")
-	add_overlay(list(accent_overlay, emissive_overlay))
-	set_light_color(ability.owner.accent_color)
-	RegisterSignal(ability.owner, COMSIG_HOLOPARA_SET_ACCENT_COLOR, PROC_REF(on_set_accent_color))
 	var/image/silicon_image = image(icon = 'icons/mob/holoparasite.dmi', icon_state = null, loc = src)
 	silicon_image.override = TRUE
 	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "holopara_warp_pad", silicon_image)
 
 /obj/structure/receiving_pad/Destroy()
 	cut_overlays()
-	QDEL_NULL(accent_overlay)
-	QDEL_NULL(emissive_overlay)
-	UnregisterSignal(ability.owner, COMSIG_HOLOPARA_SET_ACCENT_COLOR)
 	// Unset the ability's beacon ref (provided that ref still points to us)
 	if(ability.beacon == src)
 		ability.beacon = null
 	return ..()
-
-/obj/structure/receiving_pad/update_overlays()
-	cut_overlays()
-	return ..() + accent_overlay + emissive_overlay
-
-/obj/structure/receiving_pad/proc/on_set_accent_color(datum/_source, _old_accent_color, new_accent_color)
-	SIGNAL_HANDLER
-	accent_overlay.color = new_accent_color
-	update_icon()
-
-/obj/structure/receiving_pad/proc/toggle_animation(toggle)
-	if(toggle)
-		icon_state = "telepad-beam"
-		accent_overlay.icon_state = "telepad-beam-accent"
-		emissive_overlay.icon_state = "telepad-beam-e"
-	else
-		icon_state = "telepad"
-		accent_overlay.icon_state = "telepad-accent"
-		emissive_overlay.icon_state = "telepad-accent-e"
-	update_appearance()
 
 /obj/structure/receiving_pad/proc/disappear()
 	visible_message("<span class='warning'>[src] vanishes!</span>")
