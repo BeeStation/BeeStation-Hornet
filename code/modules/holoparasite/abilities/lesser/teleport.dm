@@ -298,8 +298,8 @@
 // the pad
 /obj/structure/receiving_pad
 	name = "bluespace receiving pad"
-	icon = 'icons/mob/holoparasite.dmi'
 	desc = "A receiving zone for bluespace teleportations."
+	icon = 'icons/mob/holoparasite.dmi'
 	icon_state = "telepad"
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 	density = FALSE
