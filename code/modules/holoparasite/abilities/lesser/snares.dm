@@ -115,7 +115,6 @@
 	arm_hud.update_appearance()
 
 /datum/holoparasite_ability/lesser/snare/proc/arm_snare(custom_name)
-	ASSERT_ABILITY_USABILITY
 	if(length(snares) >= HOLOPARA_MAX_SNARES)
 		to_chat(owner, "<span class='danger'>You have too many snares deployed! You may only have up to <b>[HOLOPARA_MAX_SNARES]</b> active snares at once!</span>")
 		owner.balloon_alert(owner, "too many snares", show_in_chat = FALSE)
