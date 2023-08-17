@@ -243,7 +243,7 @@
 /atom/movable/screen/holoparasite/teleport/warp
 	name = "Enable Warping"
 	desc = "Attempt to warp the next thing you click on to your bluespace beacon."
-	icon_state = "warp"
+	icon_state = "warp:toggle"
 	can_toggle = TRUE
 	var/static/disable_name = "Disable Warping"
 	var/static/disable_desc = "Stop trying to warp whatever you click on, returning to normal interactions."
@@ -285,7 +285,7 @@
 /atom/movable/screen/holoparasite/teleport/deploy
 	name = "Deploy Beacon"
 	desc = "Deploys a bluespace beacon, allowing you to warp things to it later."
-	icon_state = "telepad-place"
+	icon_state = "warp:place"
 
 /atom/movable/screen/holoparasite/teleport/deploy/Click(location, control, params)
 	if(ability.placing)

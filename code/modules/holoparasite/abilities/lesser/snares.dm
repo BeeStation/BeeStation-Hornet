@@ -141,8 +141,8 @@
 
 /atom/movable/screen/holoparasite/snare/arm
 	name = "Arm Snare"
-	desc = "Transmit a telepathic message to any sapient being you have recently encountered."
-	icon_state = "snare-arm"
+	desc = "Arm a surveillance snare below you, which will alert you whenever someone walks over it."
+	icon_state = "snare:arm"
 	accent_overlay_states = list("snare-hud-accent")
 
 /atom/movable/screen/holoparasite/snare/arm/Click(location, control, params)
@@ -165,8 +165,8 @@
 
 /atom/movable/screen/holoparasite/snare/disarm
 	name = "Disarm Snare"
-	desc = "Transmit a telepathic message to any sapient being you have recently encountered."
-	icon_state = "snare-disarm"
+	desc = "Disarm a surveillance snare that you have setup."
+	icon_state = "snare:disarm"
 
 /atom/movable/screen/holoparasite/snare/disarm/should_be_transparent()
 	return !length(ability.snares)
