@@ -54,9 +54,7 @@
 	snares -= snare
 	snare_names -= snare.name
 	update_both_huds()
-	var/alert = "<span class='holoparasite [intentional ? "info" : "danger"] bold'>[COLOR_TEXT(owner.accent_color, snare.name)] [intentional ? "was disarmed." : "was destroyed!"]</span>"
-	for(var/target in owner.list_summoner_and_or_holoparasites())
-		to_chat(target, alert)
+	to_chat(owner.list_summoner_and_or_holoparasites(), "<span class='holoparasite [intentional ? "info" : "danger"] bold'>[COLOR_TEXT(owner.accent_color, snare.name)] [intentional ? "was disarmed." : "was destroyed!"]</span>")
 
 /datum/holoparasite_ability/lesser/snare/proc/arm_snare(custom_name)
 	ASSERT_ABILITY_USABILITY
@@ -217,9 +215,7 @@
 	var/mob/living/simple_animal/hostile/holoparasite/owner = ability.owner
 	if(owner.has_matching_summoner(crosser))
 		return
-	var/alert = "<span class='warning bold'>[crosser] has crossed surveillance snare, [COLOR_TEXT(owner.accent_color, name)].</span>"
-	for(var/para in owner.list_summoner_and_or_holoparasites())
-		to_chat(para, alert)
+	to_chat(owner.list_summoner_and_or_holoparasites(), "<span class='warning bold'>[crosser] has crossed surveillance snare, [COLOR_TEXT(owner.accent_color, name)].</span>")
 	SSblackbox.record_feedback("amount", "holoparasite_snares_triggered", 1)
 
 /**

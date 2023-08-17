@@ -231,8 +231,7 @@
 	message_part = "<span class='message'>[summoner.say_emphasis(message_part)]</span></span>"
 	// And now, we put the final message together and show it to the summoner.
 	var/final_message = "[message_prefix] [message_part]"
-	for(var/target in owner.list_summoner_and_or_holoparasites(include_self = FALSE))
-		to_chat(target, final_message)
+	to_chat(owner.list_summoner_and_or_holoparasites(include_self = FALSE), final_message)
 
 /**
  * Enters scout mode, which disables all forms of damage and abilities,

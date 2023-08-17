@@ -18,8 +18,7 @@
 	var/my_message = "<span class='holoparasite bold'><span class='name italics'>[src]</span>: [preliminary_message]</span>" // Add source, and color said source with the default grey.
 
 	to_chat(src, my_message, type = MESSAGE_TYPE_RADIO, avoid_highlighting = TRUE)
-	for(var/holopara in holoparas)
-		to_chat(holopara, "<span class='bold italics'><span class='name'>[src]</span>:</span> [preliminary_message]", type = MESSAGE_TYPE_RADIO)
+	to_chat(holoparas, "<span class='bold italics'><span class='name'>[src]</span>:</span> [preliminary_message]", type = MESSAGE_TYPE_RADIO)
 	create_chat_message(src, /datum/language/metalanguage, holoparas + src, raw_message = msg, spans = list("holoparasite"))
 	for(var/ghost in GLOB.dead_mob_list)
 		var/link = FOLLOW_LINK(ghost, src)
@@ -44,9 +43,9 @@
 	var/my_message = "<span class='bold italics'>[color_name]:</span> [preliminary_message]" // Add source, and color said source with the holoparasite's color.
 	var/ghost_message = "<span class='bold italics'>[color_name] -> <span class='name'>[summoner.name]</span>:</span> [preliminary_message]"
 
-	var/list/recipients = list_summoner_and_or_holoparasites()
-	for(var/recipient in recipients)
-		to_chat(recipient, my_message, type = MESSAGE_TYPE_RADIO, avoid_highlighting = recipient == src)
+	to_chat(src, my_message, type = MESSAGE_TYPE_RADIO, avoid_highlighting = TRUE)
+	to_chat(list_summoner_and_or_holoparasites() - src, my_message, type = MESSAGE_TYPE_RADIO)
+
 	create_chat_message(src, /datum/language/metalanguage, recipients, raw_message = msg, spans = list("holoparasite"))
 	for(var/ghost in GLOB.dead_mob_list)
 		var/link = FOLLOW_LINK(ghost, src)
