@@ -244,10 +244,9 @@
 
 /obj/effect/snare
 	name = "snare"
-	desc = "You shouldn't be seeing this!"
+	desc = "..."
 	icon = 'icons/mob/holoparasite.dmi'
 	icon_state = "snare"
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	/// A reference to the holoparasite ability that created this snare.
 	var/datum/holoparasite_ability/lesser/snare/ability
 
