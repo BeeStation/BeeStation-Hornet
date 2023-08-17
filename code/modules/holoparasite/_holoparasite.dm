@@ -196,6 +196,10 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 /mob/living/simple_animal/hostile/holoparasite/canSuicide()
 	return FALSE
 
+/mob/living/simple_animal/hostile/holoparasite/suicide()
+	set hidden = TRUE
+	to_chat(src, "<span class='warning'>You cannot commit suicide! Reset yourself (or contact an admin) if you wish to stop being a holoparasite!</span>")
+
 /mob/living/simple_animal/hostile/holoparasite/set_resting(rest, silent = TRUE)
 	return FALSE
 
