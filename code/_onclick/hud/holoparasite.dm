@@ -152,7 +152,7 @@
 /atom/movable/screen/holoparasite/MouseEntered(location, control, params)
 	if(!QDELETED(src))
 		last_params = params
-		openToolTip(usr, src, params, title = name, content = tooltip_content())
+		openToolTip(usr, src, params, title = name, content = tooltip_content(), theme = "parasite")
 
 /atom/movable/screen/holoparasite/MouseExited()
 	closeToolTip(usr)
@@ -244,7 +244,7 @@
 /atom/movable/screen/holoparasite/proc/reopen_tooltip()
 	if(!last_params)
 		return
-	openToolTip(owner, src, last_params, title = name, content = tooltip_content())
+	openToolTip(owner, src, last_params, title = name, content = tooltip_content(), theme = "parasite")
 
 // Wrapper proc so we don't pass invalid arguments to the actual update_appearance
 /atom/movable/screen/holoparasite/proc/_update_appearance()
