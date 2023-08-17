@@ -1,4 +1,6 @@
 /mob/living/simple_animal/hostile/holoparasite
+	/// The alert showing that a holoparasite is anchored to its summoner.
+	var/atom/movable/screen/alert/holoparasite/anchored/anchored_alert
 	/// A simple cooldown preventing balloon alert spam for range-related alerts.
 	COOLDOWN_DECLARE(range_balloon_cooldown)
 
@@ -36,6 +38,8 @@
 	pixel_x = initial(pixel_x)
 	pixel_y = initial(pixel_y)
 	layer = initial(layer)
+	if(!anchored_alert)
+		anchored_alert = throw_alert("holoparasite-anchored", /atom/movable/screen/alert/holoparasite/anchored)
 	switch(dir)
 		if(NORTH)
 			pixel_y = -16
@@ -64,6 +68,9 @@
 	pixel_x = initial(pixel_x)
 	pixel_y = initial(pixel_y)
 	layer = initial(layer)
+	if(anchored_alert)
+		clear_alert("holoparasite-anchored")
+		anchored_alert = null
 	return TRUE
 
 /**
