@@ -768,8 +768,3 @@
 			stack_trace("[name] is not sorted. value at [index] ([value]) is in the wrong place compared to the previous value of [last_value] (when compared to by [cmp])")
 
 		last_value = value
-
-/proc/assoc_list_strip_value(list/input)
-	. = list()
-	for(var/thingy in input)
-		. += thingy

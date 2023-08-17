@@ -242,7 +242,7 @@
 	if(!length(ability.potential_targets))
 		to_chat(owner, "<span class='warning'>You haven't recently encountered any beings you can send telepathic messages to!</span>")
 		return
-	var/list/targets = assoc_list_strip_value(ability.potential_targets)
+	var/list/targets = assoc_to_keys(ability.potential_targets)
 	var/mob/living/target = tgui_input_list(owner, "Select a being to telepathically communicate with", "Holoparasite Telepathy", targets)
 	if(!istype(target))
 		return
