@@ -54,18 +54,17 @@
 	if(!length(hear_args) || !istype(snare))
 		return
 	// We don't care about radio chatter.
+	if(hear_args[HEARING_RADIO_FREQ])
+		return
 	var/message = hear_args[HEARING_RAW_MESSAGE]
 	var/atom/movable/speaker = hear_args[HEARING_SPEAKER]
-	var/radio_freq = hear_args[HEARING_RADIO_FREQ]
 	var/spans = hear_args[HEARING_SPANS]
 	var/list/message_mods = hear_args[HEARING_MESSAGE_MODE]
-	if(radio_freq)
-		return
 	var/mob/living/summoner = owner.summoner.current
-	if(!summoner)
+	if(QDELETED(summoner))
 		return
-	// Don't relay the summoner's own speech!
-	if(speaker == summoner)
+	// Don't relay the our own speech!
+	if(owner.has_matching_summoner(speaker))
 		return
 	// Don't relay anything the summoner or the holopara can just hear for themselves.
 	if((summoner.can_hear() && (speaker in get_hearers_in_view(7, summoner))) || (speaker in get_hearers_in_view(7, owner)))
