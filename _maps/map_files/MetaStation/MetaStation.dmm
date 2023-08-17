@@ -3444,7 +3444,7 @@
 /obj/structure/table,
 /obj/item/folder/red,
 /obj/item/pen,
-/obj/effect/spawner/lootdrop/donkpockets,
+/obj/item/storage/fancy/donut_box,
 /turf/open/floor/plasteel,
 /area/security/main)
 "aqa" = (
@@ -9757,7 +9757,6 @@
 	icon_state = "0-4"
 	},
 /obj/structure/table,
-/obj/item/storage/fancy/donut_box,
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
 "aUH" = (
@@ -17920,7 +17919,6 @@
 	id = "kitchen";
 	name = "Serving Hatch"
 	},
-/obj/item/storage/fancy/donut_box,
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5
@@ -19838,7 +19836,6 @@
 /area/bridge/showroom/corporate)
 "bRH" = (
 /obj/structure/table,
-/obj/item/storage/fancy/donut_box,
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = -24
@@ -52207,7 +52204,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/item/storage/fancy/donut_box,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},

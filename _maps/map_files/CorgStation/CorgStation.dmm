@@ -1895,7 +1895,6 @@
 "awT" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/donkpockets,
-/obj/effect/spawner/lootdrop/donkpockets,
 /obj/machinery/light/small,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -8246,7 +8245,6 @@
 /obj/structure/table/reinforced,
 /obj/item/book/manual/wiki/security_space_law,
 /obj/item/radio,
-/obj/item/storage/fancy/donut_box,
 /obj/effect/turf_decal/tile/red/half/contrasted{
 	dir = 1
 	},
@@ -8641,7 +8639,6 @@
 /obj/structure/table/reinforced,
 /obj/item/book/manual/wiki/security_space_law,
 /obj/machinery/airalarm/directional/south,
-/obj/item/storage/fancy/donut_box,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/checkpoint/science)
@@ -11122,7 +11119,6 @@
 /area/space/nearstation)
 "dtW" = (
 /obj/structure/table/wood,
-/obj/item/storage/fancy/donut_box,
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
@@ -36978,7 +36974,6 @@
 /obj/structure/table/reinforced,
 /obj/item/book/manual/wiki/security_space_law,
 /obj/machinery/airalarm/directional/east,
-/obj/item/storage/fancy/donut_box,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /obj/effect/turf_decal/tile/neutral/opposingcorners,
 /turf/open/floor/plasteel/dark,
@@ -47703,7 +47698,6 @@
 	pixel_y = 28;
 	req_access_txt = "28"
 	},
-/obj/item/storage/fancy/donut_box,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen)
 "pzb" = (
@@ -71934,7 +71928,6 @@
 /obj/structure/table/reinforced,
 /obj/item/book/manual/wiki/security_space_law,
 /obj/machinery/airalarm/directional/south,
-/obj/item/storage/fancy/donut_box,
 /obj/effect/turf_decal/tile/red/fourcorners/contrasted,
 /turf/open/floor/plasteel/dark,
 /area/security/checkpoint/supply)

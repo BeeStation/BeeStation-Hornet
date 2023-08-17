@@ -490,7 +490,7 @@
 /obj/item/storage/box/donkpockets
 
 /obj/item/storage/box/donkpockets/PopulateContents()
-    for(var/i in 1 to 6)
+    for(var/i in 1 to 4)
         new donktype(src)
 
 /obj/item/storage/box/donkpockets
