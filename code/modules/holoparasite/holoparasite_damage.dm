@@ -129,6 +129,18 @@
 	return ..()
 
 /**
+ * Nar'Sie is the summoner's problem to deal with. Not the holoparasite's.
+ */
+/mob/living/simple_animal/hostile/holoparasite/narsie_act()
+	return
+
+/**
+ * Ratvar is the summoner's problem to deal with. Not the holoparasite's.
+ */
+/mob/living/simple_animal/hostile/holoparasite/ratvar_act()
+	return
+
+/**
  * Holoparasites are NOT physically soft like flesh.
  */
 /mob/living/simple_animal/hostile/holoparasite/can_inject()
