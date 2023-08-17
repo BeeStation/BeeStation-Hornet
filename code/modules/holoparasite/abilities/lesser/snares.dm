@@ -28,6 +28,10 @@
 	QDEL_NULL(arm_hud)
 	QDEL_NULL(disarm_hud)
 
+/datum/holoparasite_ability/lesser/snare/apply()
+	. = ..()
+	audio_relay = (master_stats.potential >= 3)
+
 /datum/holoparasite_ability/lesser/snare/register_signals()
 	. = ..()
 	RegisterSignal(owner, COMSIG_HOLOPARA_SETUP_HUD, PROC_REF(on_hud_setup))
@@ -141,6 +145,7 @@
 	snare.name = snare_name
 	snares |= snare
 	if(audio_relay)
+		snare.become_hearing_sensitive()
 		RegisterSignal(snare, COMSIG_MOVABLE_HEAR, PROC_REF(snare_on_hear))
 	to_chat(owner, "<span class='danger bold'>Surveillance snare deployed!</span>")
 	snare.balloon_alert(owner, "snare armed", show_in_chat = FALSE)
