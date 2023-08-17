@@ -209,10 +209,3 @@
 			text += "<span class='notice'>[t_they] [t_is] holding something in [t_their] internal storage, but you are <b>too far away</b> to see what.</span>"
 			return
 		text += "<span class='notice'>[t_they] [t_is] holding <b>[internal_storage.get_examine_string(user)]</b> in [t_their] internal storage.</span>"
-
-// TODO: make sure this is removed before (test)merge!!!
-/mob/living/simple_animal/hostile/holoparasite/verb/hud_test()
-	set name = "HUD TEST"
-	set category = "Holoparasite"
-
-	recreate_hud()
