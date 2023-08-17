@@ -401,11 +401,13 @@ const MajorAbilitySection = (_props, context) => {
   const { data } = useBackend<Info>(context);
   const { abilities } = data;
   if (!abilities.major) {
-    <Section fill title="Ability">
-      <Box>
-        <span class="label italics">You do not have a major ability!</span>
-      </Box>
-    </Section>;
+    return (
+      <Section fill title="Ability">
+        <Box>
+          <span class="label italics">You do not have a major ability!</span>
+        </Box>
+      </Section>
+    );
   }
   const ability = abilities.major!;
   return <AbilityDisplay title={`Ability: ${ability.name}`} ability={ability} />;
@@ -421,11 +423,13 @@ const WeaponSection = (_props, context) => {
 const LesserAbilitiesSection = (_props, context) => {
   const { data } = useBackend<Info>(context);
   if (!data.abilities.lesser?.length) {
-    <Section fill title="Lesser Abilities">
-      <Box>
-        <span class="label italics">You do not have any lesser abilities!</span>
-      </Box>
-    </Section>;
+    return (
+      <Section fill title="Lesser Abilities">
+        <Box>
+          <span class="label italics">You do not have any lesser abilities!</span>
+        </Box>
+      </Section>
+    );
   }
   const abilities = sort_abilities(data.abilities.lesser!);
   return (
