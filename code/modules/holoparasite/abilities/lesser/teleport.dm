@@ -217,6 +217,7 @@
 	if(!QDELETED(beacon))
 		QDEL_NULL(beacon)
 	beacon = new(target_turf, src)
+	owner.give_accent_border(beacon)
 	owner.balloon_alert(owner, "beacon placed", show_in_chat = FALSE)
 	COOLDOWN_START(src, deploy_cooldown, HOLOPARA_TELEPORT_DEPLOY_COOLDOWN)
 	deploy_hud.begin_timer(HOLOPARA_TELEPORT_DEPLOY_COOLDOWN)

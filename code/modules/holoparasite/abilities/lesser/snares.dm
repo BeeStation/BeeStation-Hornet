@@ -137,6 +137,7 @@
 		owner.balloon_alert(owner, "snare deployment interrupted", show_in_chat = FALSE)
 		return
 	var/obj/effect/snare/snare = new(snare_turf, src)
+	owner.give_accent_border(snare)
 	snare.name = snare_name
 	snares |= snare
 	if(audio_relay)

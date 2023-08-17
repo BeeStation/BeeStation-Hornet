@@ -103,3 +103,12 @@
  */
 /mob/living/simple_animal/hostile/holoparasite/proc/is_light_on()
 	return emissive ? (max(light_range, light_power) > 0.1) : light_on
+
+/**
+ * Creates an outline filter around an object, colored with the holoparasite's accent color.
+ */
+/mob/living/simple_animal/hostile/holoparasite/proc/give_accent_border(atom/target, size = 1)
+	if(QDELETED(target))
+		return
+	target.remove_filter("holoparasite_accent_color")
+	target.add_filter("holoparasite_accent_color", 1, drop_shadow_filter(x = 0, y = -2, size = size, color = "[accent_color]AA"))
