@@ -24,6 +24,7 @@
 			"desc" = "Heals cellular damage with each hit, albeit at a lesser rate than normal damage."
 		)
 	)
+	traits = list(TRAIT_MEDICAL_HUD)
 	/// Heal clone damage when healing mobs.
 	var/heal_clone = TRUE
 	/// Heal temporary debuffs when healing mobs.
@@ -38,7 +39,7 @@
 	var/purge_amt = 0
 
 /datum/holoparasite_ability/major/healing/apply()
-	..()
+	. = ..()
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medsensor.add_hud_to(owner)
 	heal_clone = (master_stats.potential >= 5)
@@ -48,10 +49,9 @@
 	effect_heal_amt = CEILING(max(master_stats.potential * 0.85, 1), 1)
 	purge_amt = CEILING((master_stats.potential + master_stats.defense) * 0.55 * REAGENTS_EFFECT_MULTIPLIER, 0.5)
 	owner.possible_a_intents = list(INTENT_HELP, INTENT_HARM)
-	ADD_TYPED_TRAIT(owner, TRAIT_MEDICAL_HUD)
 
 /datum/holoparasite_ability/major/healing/remove()
-	..()
+	. = ..()
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medsensor.remove_hud_from(owner)
 	owner.possible_a_intents = initial(owner.possible_a_intents)

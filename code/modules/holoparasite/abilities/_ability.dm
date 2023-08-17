@@ -14,6 +14,8 @@ GLOBAL_LIST_INIT_TYPED(holoparasite_abilities, /datum/holoparasite_ability, init
 	var/hidden = FALSE
 	/// The font-awesome UI icon that appears in the holoparasite builder tgui interface.
 	var/ui_icon
+	/// A list of traits to add when applying this ability.
+	var/list/traits
 	/// A list of which stats this ability is affected by in some way.
 	var/list/thresholds = list()
 	/// The 'master' stats used by this ability - either the stats of a holoparasite builder, or of the owning holoparasite.
@@ -50,6 +52,8 @@ GLOBAL_LIST_INIT_TYPED(holoparasite_abilities, /datum/holoparasite_ability, init
 /datum/holoparasite_ability/proc/apply()
 	SHOULD_CALL_PARENT(TRUE)
 	register_signals()
+	for(var/trait in traits)
+		ADD_TYPED_TRAIT(owner, trait)
 
 /**
  * Removes the effect of the ability from the owner holoparasite.

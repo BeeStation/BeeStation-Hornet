@@ -20,6 +20,7 @@
 			"desc" = "Allows the $theme to 'cloak' itself, where it becomes invisible to everyone except itself and its summoner when scouting, and can automatically stalk targets while in this state."
 		)
 	)
+	traits = list(TRAIT_DISK_VERIFIER, TRAIT_EMPATH) // Scout holoparas have a good eye.
 	/// If the holoparasite is currently scouting or not.
 	var/scouting = FALSE
 	/// If the holoparasite is currently cloaking or not.
@@ -46,17 +47,14 @@
 	QDEL_NULL(toggle_hud)
 
 /datum/holoparasite_ability/major/scout/apply()
-	..()
+	. = ..()
 	can_cloak = master_stats.potential >= 3
 	falloff_range = clamp(round((master_stats.range + master_stats.potential) * 0.5, 1), 2, 6)
-	// it has a good eye
-	ADD_TYPED_TRAIT(owner, TRAIT_DISK_VERIFIER)
-	ADD_TYPED_TRAIT(owner, TRAIT_EMPATH)
 
 /datum/holoparasite_ability/major/scout/remove()
+	. = ..()
 	stop_cloaking(forced = TRUE)
 	exit_scout(forced = TRUE)
-	..()
 
 /datum/holoparasite_ability/major/scout/register_signals()
 	..()

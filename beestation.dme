@@ -2582,6 +2582,7 @@
 #include "code\modules\holoparasite\abilities\lesser\snares.dm"
 #include "code\modules\holoparasite\abilities\lesser\telepathy.dm"
 #include "code\modules\holoparasite\abilities\lesser\teleport.dm"
+#include "code\modules\holoparasite\abilities\lesser\vision.dm"
 #include "code\modules\holoparasite\abilities\major\_major.dm"
 #include "code\modules\holoparasite\abilities\major\assassin.dm"
 #include "code\modules\holoparasite\abilities\major\dextrous.dm"
