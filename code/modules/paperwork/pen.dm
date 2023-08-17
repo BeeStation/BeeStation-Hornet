@@ -179,7 +179,7 @@
 			to_chat(user, "You have successfully changed \the [O.name]'s description.")
 			anythingchanged = TRUE
 		if(anythingchanged)
-			O.update_appearance()
+			O.update_icon()
 
 /obj/item/pen/get_writing_implement_details()
 	return list(
