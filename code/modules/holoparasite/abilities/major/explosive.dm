@@ -61,6 +61,7 @@
 			/obj/eldritch,
 			/obj/item/cigbutt,
 			/obj/item/disk/nuclear,
+			/obj/item/grenade,
 			/obj/item/paper,
 			/obj/item/paper_bin,
 			/obj/item/pen,
