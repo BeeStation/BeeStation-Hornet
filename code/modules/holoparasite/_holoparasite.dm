@@ -255,6 +255,22 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 		if(id_card)
 			return id_card
 
+/mob/living/simple_animal/hostile/holoparasite/CtrlClickOn(atom/target)
+	. = ..()
+	if(a_intent != INTENT_HELP && is_manifested() && isobj(target) && Adjacent(target))
+		if(target.ui_interact(src) != FALSE) // unimplemented ui_interact returns FALSE, while implemented typically just returns... nothing.
+			to_chat(src, "<span class='notice'>You take a closer look at [costly_icon2html(target, src)] [target]...</span>")
+			return
+
+/mob/living/simple_animal/hostile/holoparasite/shared_ui_interaction(host)
+	if(isobj(host))
+		var/obj/obj_host = host
+		if(obj_host.loc != src && !is_manifested())
+			return UI_CLOSE
+	. = ..()
+	if(incorporeal_move)
+		. = min(., UI_UPDATE)
+
 /mob/living/simple_animal/hostile/holoparasite/proc/toggle_light()
 	if(emissive)
 		set_light_on(is_manifested() || !light_on)
@@ -273,11 +289,6 @@ GLOBAL_LIST_EMPTY_TYPED(holoparasites, /mob/living/simple_animal/hostile/holopar
 		var/prefix = light_on ? "" : "de"
 		to_chat(src, "<span class='notice'>You [prefix]activate your light.</span>")
 		balloon_alert(src, "light [prefix]activated", show_in_chat = FALSE)
-
-/mob/living/simple_animal/hostile/holoparasite/shared_ui_interaction(src_object)
-	. = ..()
-	if(incorporeal_move)
-		. = min(., UI_UPDATE)
 
 /**
  * Recreates the holoparasite's HUD.
