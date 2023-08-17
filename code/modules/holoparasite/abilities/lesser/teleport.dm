@@ -66,9 +66,9 @@
 
 /datum/holoparasite_ability/lesser/teleport/proc/on_hud_setup(datum/_source, datum/hud/holoparasite/hud, list/huds_to_add)
 	SIGNAL_HANDLER
-	if(!deploy_hud)
+	if(QDELETED(deploy_hud))
 		deploy_hud = new(null, owner, src)
-	if(!warp_hud)
+	if(QDELETED(warp_hud))
 		warp_hud = new(null, owner, src)
 	huds_to_add += list(deploy_hud, warp_hud)
 

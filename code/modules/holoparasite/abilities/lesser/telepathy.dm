@@ -62,7 +62,7 @@
 
 /datum/holoparasite_ability/lesser/telepathy/proc/on_hud_setup(datum/_source, datum/hud/holoparasite/hud, list/huds_to_add)
 	SIGNAL_HANDLER
-	if(!telepathy_hud)
+	if(QDELETED(telepathy_hud))
 		telepathy_hud = new(null, owner, src)
 	huds_to_add += telepathy_hud
 

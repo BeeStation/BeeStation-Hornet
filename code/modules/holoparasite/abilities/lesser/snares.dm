@@ -32,9 +32,9 @@
 
 /datum/holoparasite_ability/lesser/snare/proc/on_hud_setup(datum/_source, datum/hud/holoparasite/hud, list/huds_to_add)
 	SIGNAL_HANDLER
-	if(!arm_hud)
+	if(QDELETED(arm_hud))
 		arm_hud = new(null, owner, src)
-	if(!disarm_hud)
+	if(QDELETED(disarm_hud))
 		disarm_hud = new(null, owner, src)
 	huds_to_add += list(arm_hud, disarm_hud)
 

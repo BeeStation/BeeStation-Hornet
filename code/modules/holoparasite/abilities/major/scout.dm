@@ -122,7 +122,7 @@
 
 /datum/holoparasite_ability/major/scout/proc/on_hud_setup(datum/_source, datum/hud/holoparasite/_hud, list/huds_to_add)
 	SIGNAL_HANDLER
-	if(!toggle_hud)
+	if(QDELETED(toggle_hud))
 		toggle_hud = new(null, owner, src)
 	huds_to_add += toggle_hud
 
@@ -305,8 +305,8 @@
 	cloaking = TRUE
 	owner.med_hud_set_health()
 	owner.med_hud_set_status()
-	ADD_TRAIT(owner, TRAIT_MUTE, HOLOPARASITE_SCOUT_TRAIT)
-	ADD_TRAIT(owner, TRAIT_EMOTEMUTE, HOLOPARASITE_SCOUT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_MUTE, HOLOPARASITE_CLOAK_TRAIT)
+	ADD_TRAIT(owner, TRAIT_EMOTEMUTE, HOLOPARASITE_CLOAK_TRAIT)
 	to_chat(owner, "<span class='notice bold'>You begin to cloak, you are now completely invisible to almost everyone, however you can no longer speak nor emote.</span>")
 	owner.balloon_alert(owner, "started cloaking", show_in_chat = FALSE)
 

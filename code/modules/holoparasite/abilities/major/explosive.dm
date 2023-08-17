@@ -104,9 +104,9 @@
 
 /datum/holoparasite_ability/major/explosive/proc/on_hud_setup(datum/_source, datum/hud/holoparasite/hud, list/huds_to_add)
 	SIGNAL_HANDLER
-	if(!arm_hud)
+	if(QDELETED(arm_hud))
 		arm_hud = new(null, owner, src)
-	if(!detonate_hud)
+	if(QDELETED(detonate_hud))
 		detonate_hud = new(null, owner, src)
 	huds_to_add += list(arm_hud, detonate_hud)
 

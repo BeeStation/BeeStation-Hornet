@@ -54,7 +54,7 @@
  */
 /datum/holoparasite_ability/major/assassin/proc/on_hud_setup(datum/_source, datum/hud/holoparasite/hud, list/huds_to_add)
 	SIGNAL_HANDLER
-	if(!toggle_hud)
+	if(QDELETED(toggle_hud))
 		toggle_hud = new(null, owner, src)
 	huds_to_add += toggle_hud
 

@@ -511,7 +511,7 @@ export const AntagInfoHoloparasite = (_props, context) => {
   const { data } = useBackend<Info>(context);
   return (
     <Window width={1000} height={800} theme="neutral">
-      <Window.Content>
+      <Window.Content scrollable>
         <Stack fill vertical>
           <Stack.Item height="200px">
             <Stack fill grow>
