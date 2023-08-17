@@ -161,6 +161,9 @@
 /atom/movable/screen/holoparasite/snare/arm/should_be_transparent()
 	return length(ability.snares) >= HOLOPARA_MAX_SNARES
 
+/atom/movable/screen/holoparasite/snare/arm/in_use()
+	return ability.arming
+
 /atom/movable/screen/holoparasite/snare/arm/update_overlays()
 	. = ..()
 	if(!text_overlay)
