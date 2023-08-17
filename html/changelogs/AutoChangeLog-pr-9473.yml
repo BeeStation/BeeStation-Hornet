@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - code_imp: Refactors multitool buffers to use a component, removing some hard-delete
-      potential.
