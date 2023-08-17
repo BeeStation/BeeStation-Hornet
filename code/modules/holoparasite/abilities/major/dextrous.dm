@@ -108,7 +108,7 @@
 	owner.unequip_everything()
 	owner.dextrous = FALSE
 	owner.a_intent = initial(owner.a_intent)
-	owner.possible_a_intents = initial(owner.possible_a_intents)
+	owner.possible_a_intents = null
 	var/datum/component/personal_crafting/crafting = owner.GetComponent(/datum/component/personal_crafting)
 	crafting?.RemoveComponent()
 	..()

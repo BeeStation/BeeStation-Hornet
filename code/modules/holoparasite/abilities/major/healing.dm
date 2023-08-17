@@ -54,7 +54,7 @@
 	. = ..()
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medsensor.remove_hud_from(owner)
-	owner.possible_a_intents = initial(owner.possible_a_intents)
+	owner.possible_a_intents = null
 
 /datum/holoparasite_ability/major/healing/register_signals()
 	..()
