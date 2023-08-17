@@ -156,6 +156,7 @@
 	volume = 120
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,20,25,30,60,120)
+	label_icon = "label_beakerlarge"
 
 /obj/item/reagent_containers/glass/beaker/meta
 	name = "metamaterial beaker"
@@ -166,6 +167,7 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,20,25,30,60,120,180)
 	fill_icon_thresholds = list(1, 10, 25, 35, 50, 60, 80, 100)
+	label_icon = "label_beakerlarge"
 
 /obj/item/reagent_containers/glass/beaker/noreact
 	name = "cryostasis beaker"
@@ -192,6 +194,7 @@
 	possible_transfer_amounts = list(5,10,15,20,25,30,50,100,300)
 	fill_icon_state = null
 	fill_icon_thresholds = null
+	label_icon = "label_beakerlarge"
 
 /obj/item/reagent_containers/glass/beaker/cryoxadone
 	list_reagents = list(/datum/reagent/medicine/cryoxadone = 30)
