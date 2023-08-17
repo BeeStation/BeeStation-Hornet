@@ -16,7 +16,7 @@
 					"minimum" = 5
 				)
 			),
-			"desc" = "The $theme is capable of x-ray vision, allowing it to see everything through walls and solid objects."
+			"desc" = "The $theme becomes capable of x-ray vision, allowing it to see everything through walls and solid objects."
 		)
 	)
 
