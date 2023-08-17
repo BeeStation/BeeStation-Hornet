@@ -247,6 +247,8 @@
 	desc = "..."
 	icon = 'icons/mob/holoparasite.dmi'
 	icon_state = "snare"
+	layer = BELOW_MOB_LAYER
+	alpha = 100
 	/// A reference to the holoparasite ability that created this snare.
 	var/datum/holoparasite_ability/lesser/snare/ability
 
