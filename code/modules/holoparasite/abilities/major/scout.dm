@@ -49,6 +49,9 @@
 	..()
 	can_cloak = master_stats.potential >= 3
 	falloff_range = clamp(round((master_stats.range + master_stats.potential) * 0.5, 1), 2, 6)
+	// it has a good eye
+	ADD_TYPED_TRAIT(owner, TRAIT_DISK_VERIFIER)
+	ADD_TYPED_TRAIT(owner, TRAIT_EMPATH)
 
 /datum/holoparasite_ability/major/scout/remove()
 	stop_cloaking(forced = TRUE)
@@ -249,6 +252,9 @@
 	owner.balloon_alert(owner, "entered scout mode", show_in_chat = FALSE)
 	owner.med_hud_set_health()
 	owner.med_hud_set_status()
+	ADD_TRAIT(owner, TRAIT_SHOCKIMMUNE, HOLOPARASITE_SCOUT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_THERMAL_VISION, HOLOPARASITE_SCOUT_TRAIT)
+	owner.update_sight()
 	to_chat(owner, "<span class='notice bold'>You enter scout mode, you may no longer attack or use most abilities, however you can freely move around the station through obstacles at great speeds.</span>")
 
 /**
@@ -269,6 +275,8 @@
 	scouting = FALSE
 	owner.med_hud_set_health()
 	owner.med_hud_set_status()
+	REMOVE_TRAITS_IN(owner, HOLOPARASITE_SCOUT_TRAIT)
+	owner.update_sight()
 	if(!forced)
 		owner.balloon_alert(owner, "exited scout mode", show_in_chat = FALSE)
 		to_chat(owner, "<span class='notice bold'>You exit scout mode, you may attack and use abilities normally again.</span>")
@@ -299,8 +307,8 @@
 	cloaking = TRUE
 	owner.med_hud_set_health()
 	owner.med_hud_set_status()
-	ADD_TRAIT(owner, TRAIT_MUTE, HOLOPARASITE_TRAIT)
-	ADD_TRAIT(owner, TRAIT_EMOTEMUTE, HOLOPARASITE_TRAIT)
+	ADD_TRAIT(owner, TRAIT_MUTE, HOLOPARASITE_SCOUT_TRAIT)
+	ADD_TRAIT(owner, TRAIT_EMOTEMUTE, HOLOPARASITE_SCOUT_TRAIT)
 	to_chat(owner, "<span class='notice bold'>You begin to cloak, you are now completely invisible to almost everyone, however you can no longer speak nor emote.</span>")
 	owner.balloon_alert(owner, "started cloaking", show_in_chat = FALSE)
 
@@ -319,11 +327,10 @@
 	owner.mouse_opacity = initial(owner.mouse_opacity)
 	owner.remove_alt_appearance("scout_cloaking")
 	cloaking = FALSE
+	REMOVE_TRAITS_IN(owner, HOLOPARASITE_CLOAK_TRAIT)
 	stop_stalking(forced)
 	owner.med_hud_set_health()
 	owner.med_hud_set_status()
-	REMOVE_TRAIT(owner, TRAIT_MUTE, HOLOPARASITE_TRAIT)
-	REMOVE_TRAIT(owner, TRAIT_EMOTEMUTE, HOLOPARASITE_TRAIT)
 	to_chat(owner, "<span class='notice bold'>You stop cloaking, you are mostly visible once again, and can freely speak or emote once more.</span>")
 	if(!forced)
 		if(manifested_with_cloak)
