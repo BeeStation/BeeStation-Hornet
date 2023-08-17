@@ -95,7 +95,7 @@
 	can_wield = master_stats.damage >= 4
 	can_use_most_guns = master_stats.damage >= 5 && master_stats.range >= 5
 	if(!can_use_most_guns)
-		ADD_TRAIT(owner, TRAIT_POOR_AIM, HOLOPARASITE_TRAIT)
+		ADD_TYPED_TRAIT(owner, TRAIT_POOR_AIM)
 	owner.dextrous = TRUE
 	owner.a_intent = INTENT_HELP
 	owner.possible_a_intents = list(INTENT_HELP, INTENT_GRAB, INTENT_HARM)
@@ -105,7 +105,6 @@
 	..()
 
 /datum/holoparasite_ability/major/dextrous/remove()
-	REMOVE_TRAIT(owner, TRAIT_POOR_AIM, HOLOPARASITE_TRAIT)
 	owner.unequip_everything()
 	owner.dextrous = FALSE
 	owner.a_intent = initial(owner.a_intent)

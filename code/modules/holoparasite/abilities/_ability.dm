@@ -57,6 +57,7 @@ GLOBAL_LIST_INIT_TYPED(holoparasite_abilities, /datum/holoparasite_ability, init
 /datum/holoparasite_ability/proc/remove()
 	SHOULD_CALL_PARENT(TRUE)
 	unregister_signals()
+	REMOVE_TYPED_TRAITS(owner)
 
 /**
  * Registers the signals associated with this ability.
