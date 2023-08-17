@@ -1,16 +1,32 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/machinery/door/airlock/shuttle,
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+/obj/effect/turf_decal/delivery,
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 4
 	},
-/obj/machinery/door/firedoor/border_only,
-/turf/open/floor/mineral/titanium,
+/obj/machinery/portable_atmospherics/canister/plasma,
+/obj/machinery/light/small,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "b" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 8
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -32;
+	pixel_y = -1
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"c" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
@@ -19,27 +35,55 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "e" = (
-/obj/structure/table,
-/obj/machinery/microwave,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"f" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/closet/emcloset/anchored,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "g" = (
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"i" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 8
-	},
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/open/floor/mineral/titanium/blue,
+"h" = (
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"k" = (
-/obj/structure/chair/fancy/shuttle{
+"i" = (
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
 	dir = 1
 	},
-/turf/open/floor/mineral/titanium,
+/obj/machinery/power/port_gen/pacman,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/effect/turf_decal/bot,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"j" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/airlock/shuttle,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"k" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "l" = (
 /turf/template_noop,
@@ -49,19 +93,10 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "n" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
-	dir = 1
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"o" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/atmospherics/components/unary/plasma_refiner{
-	dir = 8
-	},
-/obj/machinery/light/small,
-/turf/open/floor/mineral/titanium,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "p" = (
 /obj/machinery/shuttle/engine/plasma{
@@ -70,96 +105,61 @@
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "q" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 4
-	},
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/tank_dispenser/oxygen,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "r" = (
-/obj/structure/closet/emcloset/anchored,
-/obj/effect/turf_decal/bot,
-/obj/machinery/camera/preset{
+/obj/machinery/atmospherics/components/unary/plasma_refiner{
 	dir = 8
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+/obj/machinery/light/small,
+/obj/structure/sign/warning/nosmoking/circle{
+	pixel_x = 32
 	},
-/turf/open/floor/mineral/titanium,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "s" = (
-/obj/machinery/door/airlock/shuttle,
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+/obj/machinery/camera/preset{
+	dir = 5
 	},
-/obj/machinery/door/firedoor/border_only,
-/turf/open/floor/plating,
+/obj/machinery/vendor/exploration,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "t" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external/glass,
-/obj/docking_port/mobile{
-	dir = 4;
-	dwidth = 5;
-	height = 7;
-	id = "exploration";
-	name = "Exploration Shuttle";
-	port_direction = 8;
-	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
-	width = 13
-	},
-/turf/open/floor/plating,
+/obj/structure/sign/nanotrasen,
+/turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/exploration)
 "u" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/crate/science,
-/obj/item/circuitboard/computer/shuttle/exploration_shuttle,
-/obj/item/stack/sheet/mineral/plasma/five,
-/obj/item/gps/mining,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/multitool,
+/obj/machinery/holopad,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"v" = (
+/obj/machinery/camera/preset{
+	dir = 8
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/mineral/titanium,
+/obj/machinery/telecomms/relay/preset/exploration,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "x" = (
-/obj/machinery/camera/preset{
-	dir = 6
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"y" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/telecomms/relay/preset/exploration,
-/obj/machinery/light/small{
+/obj/effect/turf_decal/loading_area{
 	dir = 8
 	},
-/turf/open/floor/mineral/titanium,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "z" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/exploration)
-"B" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/power/apc/auto_name/north{
-	pixel_y = 24
-	},
+"A" = (
 /obj/structure/cable/yellow{
-	icon_state = "0-4"
+	icon_state = "1-2"
 	},
-/obj/structure/closet/crate,
-/obj/item/mining_scanner,
-/obj/item/pickaxe,
-/obj/item/wrench,
-/obj/item/radio/headset/headset_exploration,
-/obj/item/radio/headset/headset_exploration,
-/obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "D" = (
@@ -167,14 +167,36 @@
 /obj/machinery/recharger,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
+"E" = (
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/exploration)
 "F" = (
-/obj/structure/table,
-/obj/item/storage/box/donkpockets,
-/obj/item/storage/box/donkpockets,
-/turf/open/floor/mineral/plastitanium,
+/obj/machinery/camera/preset{
+	dir = 8
+	},
+/obj/machinery/newscaster{
+	pixel_x = 32;
+	pixel_y = 1
+	},
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "G" = (
 /mob/living/simple_animal/pet/cat/space,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"H" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "I" = (
@@ -210,12 +232,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/power/port_gen/pacman,
-/turf/open/floor/plating,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "O" = (
 /obj/machinery/computer/rdconsole{
@@ -237,28 +254,58 @@
 /turf/open/floor/plating,
 /area/shuttle/exploration)
 "S" = (
-/obj/machinery/holopad,
-/turf/open/floor/mineral/plastitanium,
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/glass,
+/obj/docking_port/mobile{
+	dir = 4;
+	dwidth = 5;
+	height = 7;
+	id = "exploration";
+	name = "Exploration Shuttle";
+	port_direction = 8;
+	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
+	width = 13
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating,
 /area/shuttle/exploration)
 "T" = (
-/obj/structure/tank_dispenser/oxygen,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"U" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/atmospherics/components/unary/portables_connector/visible{
-	dir = 4
-	},
-/obj/machinery/portable_atmospherics/canister/plasma,
-/obj/machinery/light/small,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"V" = (
-/obj/effect/turf_decal/stripes/line{
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
 	dir = 1
 	},
-/turf/open/floor/mineral/titanium,
+/obj/structure/closet/crate/science,
+/obj/item/multitool,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/gps/mining,
+/obj/item/stack/sheet/mineral/plasma/five,
+/obj/item/circuitboard/computer/shuttle/exploration_shuttle,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"U" = (
+/obj/structure/table,
+/obj/machinery/microwave,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/item/storage/box/donkpockets,
+/obj/item/storage/box/donkpockets,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"V" = (
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+	dir = 1
+	},
+/obj/structure/closet/crate,
+/obj/item/wrench,
+/obj/item/pickaxe,
+/obj/item/mining_scanner,
+/obj/item/radio/headset/headset_exploration,
+/obj/item/radio/headset/headset_exploration,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "W" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
@@ -267,45 +314,64 @@
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
 "Y" = (
-/obj/machinery/computer/crew{
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
-/obj/machinery/camera/preset{
+/obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/exploration)
+"Z" = (
+/obj/machinery/door/poddoor/shutters/window{
+	id = "exploration2"
+	},
+/obj/machinery/button/door{
+	desc = "A remote control switch.";
+	id = "exploration2";
+	name = "Exploration Shuttle Shutters";
+	pixel_y = 24
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
 /area/shuttle/exploration)
 
 (1,1,1) = {"
 l
-R
-R
 Q
-z
+R
 t
-Q
+z
+S
+z
 z
 z
 K
-Q
+z
 I
 l
 "}
 (2,1,1) = {"
 R
 R
-D
+s
+z
+q
+e
 Y
 z
-g
-y
-z
-B
-g
-U
+f
+x
+a
 W
 I
 "}
@@ -313,29 +379,29 @@ I
 R
 M
 P
-b
 R
-x
+U
+H
+A
+b
 k
-z
-u
-g
 n
+i
 L
 p
 "}
 (4,1,1) = {"
 R
-e
+D
 d
-S
-s
+j
 g
-g
-R
-N
 G
-n
+u
+g
+N
+h
+T
 L
 p
 "}
@@ -343,44 +409,44 @@ p
 R
 m
 P
-q
 R
 g
 g
-a
-V
 g
-n
+F
+N
+h
+V
 L
 p
 "}
 (6,1,1) = {"
 R
 R
-F
 O
 z
 X
-i
+X
+E
 z
+v
+c
 r
-T
-o
 W
 I
 "}
 (7,1,1) = {"
 l
-R
-R
-Q
 Q
 R
-Q
+t
+z
+R
 z
 z
 z
-Q
+Z
+z
 I
 l
 "}
