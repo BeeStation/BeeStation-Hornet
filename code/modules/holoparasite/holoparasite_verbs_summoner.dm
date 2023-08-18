@@ -24,6 +24,8 @@
 	set desc = "Forcibly recall your holoparasite."
 
 	for(var/mob/living/simple_animal/hostile/holoparasite/holopara as() in holoparasites())
+		to_chat(holopara, "<span class='danger holoparasite'>Your summoner has forcefully recalled you!</span>")
+		holopara.balloon_alert(holopara, "force recalled", show_in_chat = FALSE)
 		holopara.recall(forced = TRUE)
 
 /**
