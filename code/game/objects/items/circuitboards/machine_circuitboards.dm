@@ -1186,6 +1186,10 @@
 
 //Supply
 
+/obj/item/circuitboard/machine/gravity_magnet
+	name = "gravity magnet (Machine Board)"
+	icon_state = "supply"
+	build_path = /obj/machinery/gravity_magnet/active
 
 /obj/item/circuitboard/machine/techfab/department/cargo
 	name = "departmental techfab - cargo (Machine Board)"
@@ -1207,7 +1211,6 @@
 	req_components = list(
 		/obj/item/stack/sheet/glass = 1,
 		/obj/item/stock_parts/matter_bin = 3)
-
 
 /obj/item/circuitboard/machine/mining_equipment_vendor/golem
 	name = "golem ship equipment vendor (Machine Board)"

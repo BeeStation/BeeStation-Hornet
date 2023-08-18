@@ -36,6 +36,11 @@
 	else if (TRY_STORE_IN_BUFFER(buffer_parent, src))
 		to_chat(user, "<span class='notice'>You successfully store [src] into [buffer_parent]'s buffer.</span>")
 		return COMPONENT_BUFFER_RECIEVED
+	else if (linked)
+		linked.linked = null
+		linked = null
+		to_chat(user, "<span class='notice'>You disconnect the magnets.</span>")
+		return COMPONENT_BUFFER_RECIEVED
 
 /obj/machinery/gravity_magnet/proc/get_magnet_location()
 	var/turf/location = get_turf(src)
@@ -50,6 +55,8 @@
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "ore_redemption"
 
+	circuit = /obj/item/circuitboard/machine/gravity_magnet
+
 	// Distance that the object follows behind us
 	var/pull_distance = 60.1
 
@@ -59,7 +66,7 @@
 	var/magnet_strength = 5
 
 	/// Are we an active magnet?
-	var/active_magnet = FALSE
+	var/active_magnet = TRUE
 
 /obj/machinery/gravity_magnet/active/process(delta_time)
 	// If the z-levels are the same, then stop processing
