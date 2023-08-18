@@ -26,11 +26,7 @@
 // dir check for buckle_lying state
 /obj/structure/bed/Initialize()
 	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(dir_changed))
-	switch(dir)
-		if(WEST, SOUTH)
-			buckle_lying = 90
-		if(EAST, NORTH)
-			buckle_lying = 270
+	dir_changed()
 	. = ..()
 
 /obj/structure/bed/Destroy()

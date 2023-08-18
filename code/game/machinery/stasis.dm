@@ -22,11 +22,7 @@
 // dir check for buckle_lying state
 /obj/machinery/stasis/Initialize()
 	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(dir_changed))
-	switch(dir)
-		if(WEST, NORTH)
-			buckle_lying = 270
-		if(EAST, SOUTH)
-			buckle_lying = 90
+	dir_changed()
 	return ..()
 
 /obj/machinery/stasis/Initialize(mapload)
