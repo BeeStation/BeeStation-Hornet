@@ -297,3 +297,4 @@ You can free someone from an abductor-induced brainwashing by replacing the fles
 Changeling transformation stings can be reversed using clonexadone — it does not require a specific unit amount, and instead will be reversed after clonexadone has been in the victim's body for about a minute or so.
 When performing wound tending or blood filtering surgery, you can hold a health analyzer in your other hand in order to see how much damage is remaining on your patient.
 Oozelings can hug flaming people in order to help extinguish them.
+Trying to talk things out can often result in a better outcome than resorting to violence.
