@@ -340,8 +340,8 @@ Behavior that's still missing from this component that original food items had t
 			if(eater.is_blind())
 				to_chat(eater, "<span class='userdanger'>You're too full to eat what's being fed to you!</span>")
 			return
-		if(eater.last_time_fed + 15 SECONDS >= world.time)
-			time_to_eat = 1 SECONDS
+		if(eater.last_time_fed + 5 SECONDS >= world.time)
+			time_to_eat = time_to_eat / 3
 		if(!do_after(feeder, delay = time_to_eat, target = eater, show_to_target = TRUE, add_item = parent)) //Wait 3 seconds before you can feed
 			return
 		if(IsFoodGone(owner, feeder))

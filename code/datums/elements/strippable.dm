@@ -157,7 +157,7 @@
 
 /// Start the unequipping process. This is the proc you should yield in.
 /// Returns TRUE/FALSE depending on if it is allowed.
-/datum/strippable_item/proc/start_unequip(atom/source, mob/user)
+/datum/strippable_item/proc/start_unequip(atom/source, mob/user, obscured = FALSE)
 
 	var/obj/item/item = get_item(source)
 	if(isnull(item))
@@ -280,12 +280,12 @@
 
 	return FALSE
 
-/datum/strippable_item/mob_item_slot/start_unequip(atom/source, mob/user)
+/datum/strippable_item/mob_item_slot/start_unequip(atom/source, mob/user, obscured = FALSE)
 	. = ..()
 	if(!.)
 		return
 
-	return start_unequip_mob(get_item(source), source, user)
+	return start_unequip_mob(get_item(source), source, user, obscured)
 
 /datum/strippable_item/mob_item_slot/finish_unequip(atom/source, mob/user)
 	var/obj/item/item = get_item(source)
@@ -311,10 +311,16 @@
 		return TRUE
 
 /// A utility function for `/datum/strippable_item`s to start unequipping an item from a mob.
-/proc/start_unequip_mob(obj/item/item, mob/source, mob/user, strip_delay)
-	if(!do_after(user, strip_delay || item.strip_delay, source, show_to_target = TRUE, add_item = item))
+/proc/start_unequip_mob(obj/item/item, mob/source, mob/user, strip_delay, obscured = FALSE)
+	var/strip_time = strip_delay || item.strip_delay
+	if(source.last_time_stripped + 5 SECONDS >= world.time)
+		strip_time = strip_time / 3
+	if(obscured)
+		if(!do_after(user, strip_time, source, show_to_target = TRUE))
+			return FALSE
+	else if(!do_after(user, strip_time, source, show_to_target = TRUE, add_item = item))
 		return FALSE
-
+	source.last_time_stripped = world.time
 	return TRUE
 
 /// A utility function for `/datum/strippable_item`s to finish unequipping an item from a mob.
@@ -486,7 +492,11 @@
 				LAZYORASSOCLIST(interactions, user, key)
 
 				SStgui.update_uis(src)
-				var/should_unequip = strippable_item.start_unequip(owner, user)
+				var/obscuring = strippable_item.get_obscuring(owner)
+				var/obscured = FALSE
+				if(obscuring != STRIPPABLE_OBSCURING_NONE)
+					obscured = TRUE
+				var/should_unequip = strippable_item.start_unequip(owner, user, obscured)
 
 				LAZYREMOVEASSOC(interactions, user, key)
 				. = TRUE

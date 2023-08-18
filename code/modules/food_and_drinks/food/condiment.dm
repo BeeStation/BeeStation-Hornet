@@ -88,8 +88,8 @@
 		M.visible_message("<span class='warning'>[user] attempts to feed [M] from [src].</span>", \
 			"<span class='warning'>[user] attempts to feed you from [src].</span>")
 		var/time_to_eat = 3 SECONDS
-		if(M.last_time_fed + 15 SECONDS >= world.time)
-			time_to_eat = 1 SECONDS
+		if(M.last_time_fed + 5 SECONDS >= world.time)
+			time_to_eat = time_to_eat / 3
 		if(!do_after(user, delay = time_to_eat, target = M, show_to_target = TRUE, add_item = src))
 			return
 		if(!reagents || !reagents.total_volume)

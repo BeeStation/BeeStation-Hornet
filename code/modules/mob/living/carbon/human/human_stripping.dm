@@ -170,7 +170,7 @@ GLOBAL_LIST_INIT(strippable_human_layout, list(
 	if(!.)
 		warn_owner(source)
 
-/datum/strippable_item/mob_item_slot/needs_jumpsuit/pocket/start_unequip(atom/source, mob/user)
+/datum/strippable_item/mob_item_slot/needs_jumpsuit/pocket/start_unequip(atom/source, mob/user, obscured = FALSE)
 	var/obj/item/item = get_item(source)
 	if(isnull(item))
 		return FALSE
@@ -182,7 +182,7 @@ GLOBAL_LIST_INIT(strippable_human_layout, list(
 	user.log_message(log_message, LOG_ATTACK, color="red", log_globally=FALSE)
 	item.add_fingerprint(src)
 
-	var/result = start_unequip_mob(item, source, user, POCKET_STRIP_DELAY)
+	var/result = start_unequip_mob(item, source, user, POCKET_STRIP_DELAY, obscured)
 
 	if(!result)
 		warn_owner(source)

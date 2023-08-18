@@ -235,3 +235,5 @@
 
 	///Used for speeding up the process of feeding someone if they were recently fed
 	var/last_time_fed = 0
+	///used for speeding up the process of stripping someone if they were recently stripped
+	var/last_time_stripped = 0

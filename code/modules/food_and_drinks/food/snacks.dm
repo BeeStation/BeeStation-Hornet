@@ -138,8 +138,8 @@ All foods are distributed among various categories. Use common sense.
 										"<span class='warning'>[user] cannot force any more of [src] down your throat!</span>")
 					return FALSE
 				var/time_to_eat = 3 SECONDS
-				if(M.last_time_fed + 15 SECONDS >= world.time)
-					time_to_eat = 1 SECONDS
+				if(M.last_time_fed + 5 SECONDS >= world.time)
+					time_to_eat = time_to_eat / 3
 				if(!do_after(user, delay = time_to_eat, target = M, show_to_target = TRUE, add_item = src))
 					return
 				log_combat(user, M, "fed", reagents.log_list())
