@@ -130,7 +130,7 @@
 	. = ..()
 	add_filter("guassian_blur", 1, gauss_blur_filter(6))
 	// Default the colour to whatever the parallax is currently
-	transition_colour(src, SSparallax.random_parallax_color, 0, FALSE)
+	transition_colour(src, GLOB.starlight_colour, 0, FALSE)
 	// Transition the colour to whatever the global tells us to go to
 	RegisterSignal(SSdcs, COMSIG_GLOB_STARLIGHT_COLOUR_CHANGE, PROC_REF(transition_colour))
 

@@ -51,7 +51,8 @@
 	var/list/hsl = rgb2hsl(rgb[1], rgb[2], rgb[3])
 	// Ensure high lightness (Minimum of 90%)
 	hsl[3] = max(hsl[3], min_lightness)
-	return hsv(hsl[1], hsl[2], hsl[3])
+	var/list/transformed_rgb = hsl2rgb(hsl[1], hsl[2], hsl[3])
+	return rgb(transformed_rgb[1], transformed_rgb[2], transformed_rgb[3])
 
 /// Ensures that the lightness value of a colour must be less than the provided
 /// maximum.
@@ -60,6 +61,7 @@
 	var/list/hsl = rgb2hsl(rgb[1], rgb[2], rgb[3])
 	// Ensure high lightness (Minimum of 90%)
 	hsl[3] = min(hsl[3], max_lightness)
-	return hsv(hsl[1], hsl[2], hsl[3])
+	var/list/transformed_rgb = hsl2rgb(hsl[1], hsl[2], hsl[3])
+	return rgb(transformed_rgb[1], transformed_rgb[2], transformed_rgb[3])
 
 #define RANDOM_COLOUR (rgb(rand(0,255),rand(0,255),rand(0,255)))
