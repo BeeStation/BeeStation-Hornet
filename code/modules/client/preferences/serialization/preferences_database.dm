@@ -116,6 +116,8 @@
 			set_keybind(key_name, keybind.keys.Copy())
 			any_changed = TRUE
 		if(any_changed)
+			if(parent)
+				parent.update_special_keybinds(src)
 			mark_undatumized_dirty_player() // Write the new keybinds to the database.
 	if(parent)
 		apply_all_client_preferences()

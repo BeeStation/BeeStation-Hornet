@@ -175,6 +175,8 @@ ALTER TABLE `SS13_preferences` MODIFY COLUMN `preference_tag` VARCHAR(255) NOT N
 
 UPDATE `SS13_preferences`
     SET `preference_tag` = CASE
+    WHEN `preference_tag` = '3' THEN 'asaycolor'
+    WHEN `preference_tag` = '4' THEN 'ooccolor'
     WHEN `preference_tag` = '5' THEN 'last_changelog'
     WHEN `preference_tag` = '6' THEN 'ui_style'
     WHEN `preference_tag` = '7' THEN 'outline_color'
@@ -272,12 +274,14 @@ INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_val
 INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
     SELECT `ckey`,'sound_announcements',IF(`preference_value` & (1<<11) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
 );
+/* These two are inverted, as they were switched from 'disable' to 'enable' */
 INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'death_rattle',IF(`preference_value` & (1<<12) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
+    SELECT `ckey`,'death_rattle',IF(`preference_value` & (1<<12) > 0, 0, 1) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
 );
 INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
-    SELECT `ckey`,'arrivals_rattle',IF(`preference_value` & (1<<13) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
+    SELECT `ckey`,'arrivals_rattle',IF(`preference_value` & (1<<13) > 0, 0, 1) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
 );
+/* Back to normal now */
 INSERT IGNORE INTO `SS13_preferences` (`ckey`, `preference_tag`, `preference_value`) (
     SELECT `ckey`,'combohud_lighting',IF(`preference_value` & (1<<14) > 0, 1, 0) AS `preference_value` FROM `SS13_preferences` WHERE `preference_tag` = '1'
 );

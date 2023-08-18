@@ -225,7 +225,7 @@
 
 /obj/item/pen/edagger/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/butchering, 60, 100, 0, 'sound/weapons/blade1.ogg', TRUE)
+	AddComponent(/datum/component/butchering, 60, 100, 0, 'sound/weapons/edagger.ogg', TRUE)
 
 /obj/item/pen/edagger/attack_self(mob/living/user)
 	if(on)
@@ -246,7 +246,7 @@
 		throw_speed = 4
 		w_class = WEIGHT_CLASS_NORMAL
 		name = "energy dagger"
-		hitsound = 'sound/weapons/blade1.ogg'
+		hitsound = 'sound/weapons/edagger.ogg'
 		embedding = list(embed_chance = 200, max_damage_mult = 15, armour_block = 40) //rule of cool
 		throwforce = 35
 		sharpness = IS_SHARP
